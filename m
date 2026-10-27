@@ -1,125 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114916;
-	b=Vb75Q62HHuOM+wiT6+rRXjRqZRV6aqbKND9t/342bP13a+QbumxH1cd/DbI96dnWIheD
-	 R8HjHstime2fXkH3/4ydMaSOvS8CpNsQU8JwhgZJmlmtTWQdyVrS/mqAN0HrsanicIweO
-	 6/09SPV50mjsZpqAf62gH66hNV0Tw1CaXu/FlnAFZpZG9cT9L+355j4W898lzOm742tNl
-	 wI6yXDxZPfsP4DxIeUJop7/0CMzMDUaGjPvK7CPPauuQR9vCla15QUDY8iKMXpBG5FuxX
-	 0Ia83fDMPB41v0Fai7wWs3JXqgRSWpJErcIMRxQvG1N0BVh/2zgYnxUiG08zswL98qw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114916;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=rWJwiQL2/XFLm3h5+bxetGJ+ZPFcBnTK0gADMZ2ejbs=;
-	b=GOLOsX706Dvx4cFERllykvzV152yYFd+4icj6hmGLBn/khZ/18HNBFdILTtVAjbA+dVl
-	 7oxmBkVp1x2B1ksjSWWpU4GT/clnGUPKDTslRU2mlqSY0E30KnBcinUmmiinNo+KtdkPG
-	 rA2A64sdRAKUuhx7mpHxromTGt8F0b6uw2L//9isdmFB2Ordam1x8Iv4vGHXpZSJXJ08l
-	 lYSk7WE7qasIveGhwRSe+4KWh+sZ9Bjd4ZLQllrUaP+Nl9n/T5Bm7qzLJQeZx20/A5AAO
-	 r4sKhVpBFXn4rBHa6bQQ+/0fZOQ98/Lz7IQl8zVrW2NQdcY0mKLOoqcV+y37TORzTSg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qge6OcY8;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W5BJbzX7;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793114934;
+	b=N2iN0o3AJ5kQ5EfvaaB12/1bJqILtp34AGHHrqEc21L0OgEm3J3u1KeBTiaGI/5xepj7
+	 Lg5JJ4UPqqWn9+IjRLQKvJQjowyPeeFxcJTovgfr+sX8BJH/0lP5D6DGOlupPfI2pwNh5
+	 C90qGIT6ld1QVYGyKwpU99bzOx5NpHJlfGO0E1ZpaeWFdIctpiUfyrhePE9ERyqrSdOTQ
+	 XKPW3igKz1MH54lEyQDR7DuQJxs9TS4wgUxngb1REzauTLOmoqckoH5gfa1dsGFYKWX/z
+	 KzB7WsvNexLv2ennSs9o972BSnVroilXpKAYJuF/ubL/vL0MfaI48UJo3iJoMTi9ZPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114934;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=RkY0jR2tNaxmakYz+PwhmAi61g5vTA+2lieqrxAvwZU=;
+	b=j3MD222JMPEmLIm8dKBkHUKPQtLhaxvOzoOLzAWC6gCa5AgIjG2+F6TO0HpDtIVJ482/
+	 NuzVmG0N3K3Bi0T4uBbKzvAZjt4cjHY0TvkF3vNP6qTk69PHtY10cNy69aL1aroJ+5B7/
+	 O1IxKxD0q8OA3W2ue2QH9llTANE0vG/GSR66a8+ET3mNJMk4oHc/F/SYK16Aq3M7hpixI
+	 52uoxwdgVdyesjEWgYCniOdXeny4xNON+ciTxizC83hGL7zX5UdfWjiD/AGvvYchzjcGm
+	 ufcKzwyUXWMQcjMeXRqmftl0NEXoavl6pf80Ke1/M94Gb7DuHCztCcjLFjt7BO19BnQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Dc/tEx0k";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4A760A2633
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:28:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D4A760A2633
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5419606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:28:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5419606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qge6OcY8;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W5BJbzX7
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RFL9p63153567
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:28:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=rWJwiQL2/XF
-	Lm3h5+bxetGJ+ZPFcBnTK0gADMZ2ejbs=; b=Qge6OcY8n9kSqehNikiFwmdi56Z
-	BWEWL4C6y+D9bNAmQiufjrIZs+IxdGHISmUjApkeOKONT6UEJusp8TaiidQ711aG
-	A5Gpqf7YerUThimUk8VVtNHrPpBKWw6z7x7SBgaCLG9zL0FoZVsBj+SoX4Bsi1rX
-	n+lmxLznfKlrXYDXW2sxBO2yssxwjO6KqR2zSQz0ovJ/2VrVEVRK4+m2O9CzTLqM
-	U4ym0v8iUi/mjOtqgDoN1MVV01Sd+aGRLlDwYwQvaQmb33iHUl5XA2qVs2jdDrRk
-	rlaLe8/I6rzkI7vEnXzUEFaV7ZMEL3O/gSFWe5+HRBgrButVrtWi+4t4KnA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqw21uea-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:28:34 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d5dbso13798a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:28:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dc/tEx0k
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eaf169fe3dso8356e0c.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:28:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793114933; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IuhGxKmXy4DSfdAnduOf8iyTHFFyj2u0LahCpJWLHyBT8N4EFJhkCsNDk73X2hvwYD
+         Eg5YJBtckNiFBRtSFacb9ZsppA3qw21u6dvGTKyoYgdMMt3xpXh5lA4/UazCUX+f4c8R
+         Cfpgs11VaGYQcqmSAYmFcyqZTRiECh+uJRK1HUc0gv+F3lN41dEZQc2HuJ0psaiF3kFw
+         FH+G2cRGzU80GVi1eZBKQCl3U1Z8VKL1cJ6c3YxhYzPjabPl7EnTPsxEaFT341FUdDU0
+         rIOfTo4vlsynJAuXP5F72H9RiU0vDnnGpKmqkoGlC31cIiP6uqyiMmEyMlTrXoYkmKCb
+         pocw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RkY0jR2tNaxmakYz+PwhmAi61g5vTA+2lieqrxAvwZU=;
+        fh=9rG9tjiNuB6a6Wel7eGn64NhmOGIc85RkUvAGCAJU3Q=;
+        b=JKB8A8lfcT0lGaQmuCg9jgAdgpLCKyNgum4eStIa7c+IJVWn32lmwfrhlzPhkGcDXa
+         ZCXTMea4q1XWAOl+25VDJ9qvSX79zyoXrWzlJp4US8BVaXjphUgwojyQvMgBMqbBvNDf
+         PlMNDMfbe1PvThhnvnZwaPbhqajSdiBHRyNfEedR42H58jnDz0en3GLZMt98Tnl72lgE
+         Xqd5hVJENzW1UIQb9+ajCwatL64JUBCnklVLZRyomfpne2bsFLHxMSHZwMz1zvKK+R/U
+         Xfhj+N1I2RbOSNfBI3KlbFz1Qb7XHouucU/mH9N827ToWPeBUKCKX7fyR9Oj63NBp6OE
+         +GbQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793114913; x=1793719713; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rWJwiQL2/XFLm3h5+bxetGJ+ZPFcBnTK0gADMZ2ejbs=;
-        b=W5BJbzX7fwX/2tR3tkBC6p5whWO1RlLNQ/884xSOB2Dp9IJnkPnRHSA4xd6/mLknv3
-         RiK28baSp6HRI/SpncvNO4G9PvuQEyselLL/hL4tnrzuqGR6m1sUhH2CPGTUgAaFHVFo
-         EmbRdGziNpR0vZ6SvJhPzCiucNPDYowxVScedKiAV6dObVMzOGK7aUKd4gUImkLQllI1
-         x445ZIFTVGmKcyn7EDIualWSe3XWgTU5/5JR0hqVIGTPBg8cGA5/rFQXDJktVr0XyAHu
-         quNOiBGShLuUH2Ef4qDzEdDErh3tcNvRAWkO31Px+rhIi3YsgaEMtuwf1eNEnxrCVA4m
-         xu7g==
+        d=gmail.com; s=20260707; t=1793114933; x=1793719733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RkY0jR2tNaxmakYz+PwhmAi61g5vTA+2lieqrxAvwZU=;
+        b=Dc/tEx0kaHfZgKsDs5kDOxqSIFa1NJtbxxrFsU7TKkhjR4z8QKJLLcXRiOIFRPsqlI
+         2n3v5TbH8HfVzroHa/HHD/HCu2YUPr0ZH4nSjMoYgDA7GKJmSRfQ5DuGT8RRj7mqIAEX
+         qK1cRoWqGwGJpo84kTheR0/7ubPXIfFMk+Nhpy8KRiqgMYzY3sfs4TsDLw3O35VO3iVY
+         khtxIzeYv+UZ5ewpns1Z/4f21UKcYhdqA7nAXAAiGetGLpWQGxiwxfgXdum8p3DBMFI8
+         t8xI8qbutCspC/1H6SPxgiSx6Dr3uoV9unVYFMEz++TJSs9/QywA/in5D9EeCT6YE3TV
+         ggoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793114913; x=1793719713;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rWJwiQL2/XFLm3h5+bxetGJ+ZPFcBnTK0gADMZ2ejbs=;
-        b=dvTl/AHbuXpm9GDMG4DYhwafr8Bf08xzLNZLLd/TriBIrqYKVVAnVKBdl+s2OFmU96
-         tm2UzSKKY1yXCdku8Km34J207PYuRcizjD29EQhalDpFMeqjOzjaYWmTXtX5SaIHSmos
-         gmxJQbZFXjjpxBbMhAeeJUWgC5XTUBP99jQNQowVgGgNpjKNG5+duRfgI4IHoduGPNB5
-         rrK7wiAnkKAnfDzexWReMkSAnoFh9aaS989lI4L8sEls7OSLDLIGqofArvg2gyN1sWZ0
-         RX1pyNs02eU2kN2jFPaMBXDJU1ry3K6cZ3zaWG8OSVW6UYnatBHwAniAakapZbR/YCC+
-         xPPg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHd/KUK9K/yNCftAIfM0u7BSMqengETeSxfwwbbc9KKGtgZsO/rcyNvcRGxfIV9NHdQfi52nPLcfVgZQE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6Hg+Kc3o0uWok/+OIWeJRgayW27Snj37jtPlzijspwHFmGNlL
-	jLn4c/CQM4tYuTy1LKpItKHkBzZOUylQbu1QPDXRpLP6yWiSbRebzIxmkYQ3/YHt6jJ6FK9oA93
-	+jJi8r9bg6SlmW244RKjPCU6LtGbPh/xPkraZARkLR+UFSDAxWhihn2+ktEu602FUPf891lFNvv
-	g=
-X-Gm-Gg: AYBFou0ZBrmXShda5/6c2pRNpROwrAEYUPe/BO7Z6mgk+VdrTzbOy4yjTeB7M64845Y
-	ZReldng1nLIokNx57pwoNEKnddWGt6oBtxNjAitOMcFtoH0Iq85juMt9O4PrcRyY9Pt4IvKvi3Z
-	ZQDRHjwyKv/a/VX0IDwlDTIRkQyAHcWkWynLt4Ec+w7tRhEWW3Rxz9Oi88S4lEAIJAz/AnF6WvS
-	uqPSLHYS0U5ghHy6HZ2ulkvN0TFHWxObQP9ewjNgAdNWtIyygzMI5JBa74RzYELM54iUqtKhw2J
-	/mPVp+WIsukixJb3sFZWxSbfSP3IFrrCjINojmodGBoOAa3P35iCniHfVSPCpMTZqgkDV8zbsxs
-	H+QQucSheFmo/NR11TOzpSjBBmxznKqnRZR2ogoyUXysAQj51buKcCmaZNhvGJ+33rvDAOP42t6
-	rK1WXbAqUkAnFLg0pcmQDaCVw=
-X-Received: by 2002:a17:90b:224d:b0:3ac:a1c7:20fd with SMTP id 98e67ed59e1d1-3ade9b30a3emr8433508a91.4.1793114913246;
-        Tue, 27 Oct 2026 08:28:33 -0700 (PDT)
-X-Received: by 2002:a17:90b:224d:b0:3ac:a1c7:20fd with SMTP id 98e67ed59e1d1-3ade9b30a3emr8433490a91.4.1793114912711;
-        Tue, 27 Oct 2026 08:28:32 -0700 (PDT)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4064f4bdsm4256128a91.11.2026.10.27.08.28.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:28:32 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Jianfeng Liu <liujianfeng1994@gmail.com>,
-        =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2 5/5] drm/msm: Convert map helper to use dma-address
-Date: Tue, 27 Oct 2026 08:28:19 -0700
-Message-ID: <20261027152821.51144-6-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027152821.51144-1-robin.clark@oss.qualcomm.com>
-References: <20261027152821.51144-1-robin.clark@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1793114933; x=1793719733;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RkY0jR2tNaxmakYz+PwhmAi61g5vTA+2lieqrxAvwZU=;
+        b=ZuHwYAAfAiRKUVxoO2kK80NRdfqX7As7UXPzmViZPHmEY0yzFk/Xx5j8drfAta+bNp
+         WSLp9GOBhMc2dwMzB+ToV1d0ffyut+CPr2auDWTeY0o4X7mqY4W7yKJXyEyy3kDFd7R1
+         drXV+h9EGnkgVwH5AV5DjXKnzno3PJQV7PODGcmFS4IfpN1be7Eo/jLCNmFx/ATBsNhz
+         fP2mjtj0+Ro/4agAPnKNq6xLnUh+IWo7noGkWE6V/NMgEv9hAXXglVTTpL76b3NFUYWP
+         uSXWDn8uLIoM0b3dBwbnG0NxDTanYnqWXTvXdrBKmidBfZDRmIPBff3O5cLYJcjPD1Bb
+         r3RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwO8KWoeX0Y6KUUDfeW6V3pZ4NM3kILzrlga6KP2CafI/cJaKmr4eq04+laVl/ogORC3k0rVsiTeBymTc4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKT7iYWPbMhLqtXbpJ+OlLkec1h164tl7pXBrEcwkecNpxTcFTY
+	EmOdhr5O2d8imt23eUBM/K5UiJGiYamY/QkCYYSG3VhFVvxvMEv6zJYd8PAwDuTt6aBsyQbebFS
+	PlelL3blLM2apWlqisL/xUp09L+yUtUM=
+X-Gm-Gg: AYBFou1K+Lk3wyniLP2LAazQHXqMKR2D3wbp91uM86Ci2baPflYKsHSFNLcKXVt2HNY
+	8TKm6tnEmbRws411AaDigwOWxzHq+mCbRJQVzKhjr3pQbVdVrtgCNuVDC7rgOlRZN6j3CFStRA0
+	2XZRAWzDYMotlBZJAI5dJzSnCPwk40nqPDX2IENxGPdy4/T2J5yzejHv2CAOK6E51LEY7ZQbVXk
+	Jaa+AM0+AKXXaPOOXBY5AwonqUpH4xHMye2Jwicb4G8SjKtdqPLB9JFtqyA0rQyw2Jzw9cjqzK9
+	22gr4LcDK2cuG6VAVcBbjLpjZbfb/acO1l9JPXU5iH3OTHMqUiOkWadLmfAO3BUKrobzXJmSwV5
+	hYzCxF1q0VaAU0mV/86+W1hbPrQdOyay5SXwxeSaK+rrJPvpYBpY+qGbshQCZul9hZQY0RUel8Z
+	8HAc9v2ypZ9+L7zTNCKwZoxvKjUF4GH0Y7lZkxa9yzWyZcp6LrFh/t61Pn5nv2U0IzaQEqYzfC2
+	R9TaYzgluqjvjmMQdi+9LE+EEf4/jw=
+X-Received: by 2002:a05:6122:1d89:b0:5ea:e197:43ee with SMTP id
+ 71dfb90a1353d-5ec232b6235mr4271556e0c.19.1793114932623; Tue, 27 Oct 2026
+ 08:28:52 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,61 +106,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfXzdX86JH8JhCz
- IlqCPfIwQXeXYEa0FpUflaaBLCJ0wGDUrPBeTd/be5EnATcrBvnFc/4+9+JCWBM8+62s7BUnAci
- JOJ7N7ZlO77x1EsojkSHw+/7bgOahHc2M63Ydnfm/ek1yBnCRde5TpvVXA+VoVmLGSyCpDRuHeV
- 7/8azCsQO8Pj0cymgt/LvLk6RX+PgQG9cX4uMMayfZxwy0CXI4krb9qd1Mr46VSlhPuBLNiB2gE
- bNJID97yn2huuFMt/3dGW5UWmLvqIr3eN4DPIrMe7aF80BZ1vg+gOgZYTPlly7LmLaeM33pQU1M
- eQxHLq65t+rr0zDjG1/GvnKbIh8Tnok7jAMT8HujRlPfgPjCSBpJkfGmMts6/cvfeLIcZPGZgUT
- jct+xuFrEq0SxHbKmJxwdVEF91kBCfJ9LWT0fgydpbBVVlSPGFhTGPZRMXPWDLil2X0zuvKSAFO
- 6LHbpHNWUjWc33xVd7Q==
-X-Proofpoint-GUID: MMPy5hBls3lZouvzq86glTRFKwWAnG6N
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfXxTnxToAMyAjP
- 2XqPVUCtmKqYKe0PApNwK/T+PBqcKY+apOT01NbSkRfUsgd/Yhs0kFGZPN1b2njXU/e4DfHVuHJ
- RY1FXU7F/wGM5pPbQsjM7Mn8LZEhWAs=
-X-Authority-Analysis: v=2.4 cv=PsYG/AM3 c=1 sm=1 tr=0 ts=6ae0c322 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=I_bc3XnsTyL_mMZFCHAA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: MMPy5hBls3lZouvzq86glTRFKwWAnG6N
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270061
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+ <20261027-tty-llm-v1-5-99b0202ae546@linuxfoundation.org> <46833c7c-9c49-403e-bdb6-e9cf5fc2d3aa@kernel.org>
+In-Reply-To: <46833c7c-9c49-403e-bdb6-e9cf5fc2d3aa@kernel.org>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 27 Oct 2026 09:28:40 -0600
+X-Gm-Features: AclHuK_uG6aE632FFwpS4ZtH3m-wmT4lHFFQsOd2wWzTozHVQz9-cTtEPbc7vg4
+Message-ID: <CADvTj4rcjgtrPB+-0OtX_ubBkWxn6A+Tjt5Hv-O-0FhW4hEmeA@mail.gmail.com>
+Subject: Re: [PATCH 05/24] serial: 8250: clear subdriver state on port unregister
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Joshua Rogers <linux@joshua.hu>, 
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, Florian Fainelli <f.fainelli@gmail.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Peter Hurley <peter@hurleysoftware.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+	Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Robert Baldyga <r.baldyga@samsung.com>, Thomas Abraham <thomas.abraham@linaro.org>, 
+	Kukjin Kim <kgene.kim@samsung.com>, Patrice Chotard <patrice.chotard@foss.st.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, 
+	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, Al Cooper <alcooperx@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+	stable <stable@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+	Fushuai Wang <wangfushuai@baidu.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Now that we have everything unified in one path, switch over to using
-dma addresses for setting up the mapping.  This avoids issues with
-CONFIG_DMABUF_DEBUG stripping the pages from the sgt.
+On Tue, Oct 27, 2026 at 5:16=E2=80=AFAM Jiri Slaby <jirislaby@kernel.org> w=
+rote:
+>
+> On 27. 10. 26, 12:06, Greg Kroah-Hartman wrote:
+> > From: Joshua Rogers <linux@joshua.hu>
+> >
+> > When serial8250_unregister_port() re-adds a port as a fallback ISA port=
+,
+> > it only partially resets the port state via serial8250_init_port(). All
+> > subdriver-owned function pointers and per-driver state copied during
+> > registration (such as startup, shutdown, handle_break, get_mctrl,
+> > set_mctrl, set_termios, private_data, dma, gpios, and rs485 callbacks)
+> > are left intact. After the original driver module is unloaded, these
+> > become dangling pointers that can trigger use-after-free on subsequent
+> > port operations.
+> >
+> > Clear all subdriver-copied fields and call serial8250_set_defaults() to
+> > restore default I/O accessors before re-adding the fallback port.
+> >
+> > Cc: stable <stable@kernel.org>
+> > Cc: Jiri Slaby <jirislaby@kernel.org>
+> > Cc: John Ogness <john.ogness@linutronix.de>
+> > Cc: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+> > Cc: "Uwe Kleine-K=C3=B6nig (The Capable Hub)" <u.kleine-koenig@baylibre=
+.com>
+> > Cc: Fushuai Wang <wangfushuai@baidu.com>
+> > Signed-off-by: Joshua Rogers <linux@joshua.hu>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> >   drivers/tty/serial/8250/8250_core.c | 28 ++++++++++++++++++++++++++++
+> >   1 file changed, 28 insertions(+)
+> >
+> > diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8=
+250/8250_core.c
+> > index 0951d3e42e1f..673fde55828a 100644
+> > --- a/drivers/tty/serial/8250/8250_core.c
+> > +++ b/drivers/tty/serial/8250/8250_core.c
+> > @@ -956,7 +956,35 @@ void serial8250_unregister_port(struct uart_8250_p=
+ort *uart)
+> >               uart->port.dev =3D &serial8250_isa_devs->dev;
+> >               uart->port.port_id =3D uart->port.line;
+> >               uart->capabilities =3D 0;
+> > +
+> > +             /*
+> > +              * Clear subdriver-owned state copied by
+> > +              * serial8250_register_8250_port() to prevent dangling
+> > +              * pointers after the original driver module is unloaded.
+> > +              */
+> > +             uart->port.private_data =3D NULL;
+> > +             uart->port.set_termios =3D NULL;
+> > +             uart->port.set_ldisc =3D NULL;
+> > +             uart->port.get_mctrl =3D NULL;
+> > +             uart->port.set_mctrl =3D NULL;
+> > +             uart->port.get_divisor =3D NULL;
+> > +             uart->port.set_divisor =3D NULL;
+> > +             uart->port.startup =3D NULL;
+> > +             uart->port.shutdown =3D NULL;
+> > +             uart->port.throttle =3D NULL;
+> > +             uart->port.unthrottle =3D NULL;
+> > +             uart->port.handle_break =3D NULL;
+> > +             uart->port.rs485_config =3D NULL;
+> > +             memset(&uart->port.rs485, 0, sizeof(uart->port.rs485));
+> > +             memset(&uart->port.rs485_supported, 0,
+> > +                    sizeof(uart->port.rs485_supported));
+> > +             uart->gpios =3D NULL;
+> > +             uart->dma =3D NULL;
+> > +             uart->rs485_start_tx =3D NULL;
+> > +             uart->rs485_stop_tx =3D NULL;
+> > +
+>
+> Ha! The above gives an answer to my today's:
+> https://lore.kernel.org/all/53624662-e94e-4fcb-9902-7fa4143c7689@kernel.o=
+rg/
 
-Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com> # x1e78100 (Acer SFA14-11), v7.3-rc5 + this series, CONFIG_DMABUF_DEBUG=y
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_iommu.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Yes, this addresses the broader cleanup issue. My RX-trigger fix [0]
+complements it by clearing get_rxtrig and set_rxtrig after
+uart_remove_one_port(), before registering the fallback port.
 
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index 435736c8d715..6258c942e66a 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -148,9 +148,9 @@ __do_map(unsigned long pgsize_bitmap, u64 iova, struct sg_table *sgt, size_t off
- 	u64 addr = iova;
- 	unsigned int i;
- 
--	for_each_sgtable_sg (sgt, sg, i) {
--		size_t size = sg->length;
--		phys_addr_t phys = sg_phys(sg);
-+	for_each_sgtable_dma_sg (sgt, sg, i) {
-+		size_t size = sg_dma_len(sg);
-+		phys_addr_t phys = sg_dma_address(sg);
- 
- 		if (!len)
- 			break;
--- 
-2.56.0
+It also copies those callbacks unconditionally during registration,
+including NULL, so a replacement without custom handlers cannot inherit
+the previous owner's callbacks.
 
+[0] https://lore.kernel.org/r/20261024-submit-serial-8250-rxtrig-lifetime-v=
+1-v1-1-731b78d5003d@gmail.com/
+
+>
+> (And obviously this conflicts with that patch.)
+>
+>
+> And with the current state of LLMs, I should perhaps revive my "move ops
+> to a separate struct" as the above is a PITA. I have been unable to
+> finish the series on my own to date.
+>
+> >               serial8250_init_port(uart);
+> > +             serial8250_set_defaults(uart);
+> >               serial8250_apply_quirks(uart);
+> >               uart_add_one_port(&serial8250_reg, &uart->port);
+> >       } else {
+> >
+>
+> thanks,
+> --
+> js
+> suse labs
+>
