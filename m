@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793113074;
-	b=lVEZYFI0YOjyL/+x9nrWSMYnN8Oa1bslI2QytgOqbqGT8I72oEisVwq8ClhJPNAlc5Qe
-	 PfqgIQqPf+pHpylGXXaJUbCLotXodugmT+1g9Auyf0KszK3DJhXtPX72AsKcUsbxFNo9m
-	 o+n6AITV/VIthGIYgjKiU1glecGv0au5up7eq2KV+BTCCs//6vcwyPPhTAPjtoiC+3EN7
-	 aK+BFacX7HY7cmb3D10YLjhDmcHG6rzgCmOqvjrKVrkj5wOMjeuQQjxEIbg7MJTrETCrL
-	 Piibc6/qx/JYjBzrtqs314SSZVO7HU0tRlSH6D2J1QMPUo037K5LY5YB0t7W4j/33hQ==
+	t=1793113085;
+	b=yk+BGfi360nP6fmtRW8bIf0An5KR+Kdug+6Aq2sakhrOVG4ymgr7T7t/bqOmqulvxuc8
+	 7tIznHL5Poceled6tKhoEEU4oTJRNKB1DgjztJw8tE8NLgnUmE3YSnMgKN+0VBvetX+so
+	 I0LtrqQIGrbyYiCJ5EuH2H6sLkXpquXbL/lCTIflDN3nVtTATpQTelkChz5bRRbs6OsJy
+	 vOOEi5xqnfDW/gNcRbt6adN56tyz6RSIP2a2136GdZnq3JvUofhWK9bn2nfYdf2/pj63j
+	 1JkIvwcYwZk4vdDfIHXrAtvdWioezQm1rMU9b9CuZx6xIq1ZKmFxJXqKn8nTM9+wXxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113074;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FCmJKxkap40C2mKYbXWmosN9QMxBGw6oqmoSkUGuOLM=;
-	b=AZVJNcCG+v2hC2OUXeWjl+RzkfzjIlj3F8aBi0DAVDdgCh/o4leBIlpMljUaWnwJT6JQ
-	 5IlTeuxdFj62Wq7ZpimQ673ErmZPSyIGiaqtn/3PElJ9lkbjNBArB9D8whE0hMLqwLN6C
-	 Y6Uw/ndz9Rll/9mQtHdbaa/bfhnsI7MquabX+8eBOlkkqN6NpE9f01YtsnHeVy1L+ANHG
-	 2qOuW40CWm2ey3d/wKAKcpvuuPz/Fio+t95/VyL/W88DRn4gt36EGuIgz4qEHf9QLzXHB
-	 O3XJXyWsCUbQf9gpz7TsBcHWQzI2nuIN9zKE7dpHArd5cM0LyQDxWA18/RQASb7Yp1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113085;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PtFUYXEB7QTGZU96gwi3mLor+5wrFPvL6wQQqrlRDZU=;
+	b=5MiKk8Ye9tZJc++dRb9zO2bNWng1W0Rma+Fue3WvRJJStI8XkmZydyEMJodIhsxeqcko
+	 uQWZnArMvOuYQ2pPzx38yrRB+hsa1NqwVhYY4jHEDekWrGERIUrvZ2Ljo5S9e6Jtrm35E
+	 z5YMNfeiQBN/L4hvqUK9zdUuYcWDNICpsYvU3Kg8oo3WOB2FYbTiRZG6Yjp+o43AqWy4a
+	 OrtQz3aGcLbmQNV7P0YuOZWueQjvAccnGtD+GOR4aoUfDHO1Ps7M4I7RxMwAO0H52Z8Qy
+	 pCd6JQe8QYex8kAM6VXCLwymLqBK7a9b13JnexveSv2dAMiKHERCDU31D42ueaPEzcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ogD5JbBM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ix2mpMtc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C6F606A323;
-	Tue, 27 Oct 2026 14:57:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF5A60A262A;
+	Tue, 27 Oct 2026 14:58:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ogD5JbBM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB82C1F01828;
-	Tue, 27 Oct 2026 14:57:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ix2mpMtc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3352A1F031E4;
+	Tue, 27 Oct 2026 14:58:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793113073;
-	bh=FCmJKxkap40C2mKYbXWmosN9QMxBGw6oqmoSkUGuOLM=;
-	h=From:Subject:Date:To:Cc;
-	b=ogD5JbBMDM56vRyktdGuCJkhGnDuN9af/fKra2gh8B6Mr67qW8FD98HNN14kn6m4j
-	 jURUMxTNpZp16Ke1DZDf1oZG7hYHiCRsVTWfLjaTHpUY9zSb9rS+MEFGaxMj4VS2xR
-	 qEEIXhjcHGCp+Ho3i4x6p32uq4pVkdU2jDQbm3W0=
+	s=korg; t=1793113084;
+	bh=PtFUYXEB7QTGZU96gwi3mLor+5wrFPvL6wQQqrlRDZU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Ix2mpMtcURfA/mA5Ii9EpH77K4c5N+SAay0oSI3RWffi1uiP55ILGqowCbbdafAxj
+	 lNXNwf3nDHS9jI+bHkj2EQNj90BS3bO9JCjydUw3LP+LHHTyHnRwLSO86jRBdxdijc
+	 TkLEqpk1yv3OAwG+crqSmRMHsLgEOji9rUNAWoqw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 00/19] USB: a bunch of llm-found fixes
-Date: Tue, 27 Oct 2026 15:57:40 +0100
-Message-Id: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+Date: Tue, 27 Oct 2026 15:57:44 +0100
+Subject: [PATCH 04/19] usb: host: oxu210hp-hcd: fix oxu_qh_alloc() deadlock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,100 +51,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wpAQBSF4VfRvjY1hxCvIheYjS2nZiOleXeDy
- 6/+tW5gdIQMRXSDw5OY1iVAxRG0Q730KMgGg5Y6VVJnYppmcXAjUKY6N7WyJjEQ6s1hR9f3VFa
- /+WhGbPd3Dt4/BWtOSWsAAAA=
-X-Change-ID: 20261027-llm-usb-e06293a1d353
+Message-Id: <20261027-llm-usb-v1-4-b9751ddb9c7c@linuxfoundation.org>
+References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+In-Reply-To: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
 To: linux-usb@vger.kernel.org
 Cc: Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Josef Bacik <josef@toxicpanda.com>, stable <stable@kernel.org>, 
- Griffin Kroah-Hartman <griffin@kroah.com>, Oliver Neukum <oneukum@suse.com>, 
- Johan Hovold <johan@kernel.org>, 
- Valentina Manea <valentina.manea.m@gmail.com>, 
- Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>, 
- Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>, 
- Roger Quadros <rogerq@kernel.org>, Neill Kapron <nkapron@google.com>, 
- Ijae Kim <ae878000@gmail.com>, Herve Codina <herve.codina@bootlin.com>, 
- Justin Chen <justin.chen@broadcom.com>, Al Cooper <alcooperx@gmail.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Xu Yang <xu.yang_2@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
- Elad Nachman <enachman@marvell.com>, 
- Badhri Jagan Sridharan <badhri@google.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Benson Leung <bleung@chromium.org>, 
- Romain Gantois <romain.gantois@bootlin.com>, 
- Rui Miguel Silva <rui.silva@linaro.org>, 
- Minas Harutyunyan <hminas@synopsys.com>
+ Josef Bacik <josef@toxicpanda.com>, stable <stable@kernel.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3048;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1687;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=ctghQuubkc5B/d1wqbfef3XC4CSUBeUqoPCekyVlQ4s=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPdr85vch3FWONecchHr7LF2w+Fk9bmNuo8zV5VnSsH
- nfMuf/TOmJZGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAi188wzJV05vtU53GRK0hR
- 1IPnTW1g3lLTOwzz6+Sd7Xd4L36177+dobl80+ujhw4bAAA=
+ bh=d8ff20UACSP/aLhxMhU7JGcsUGK1tjNtxndcfzmHHA0=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPdr+7Nmu3xdncLA21S4auOgIPr70+3rQudKnh8mns5
+ V3CK8VvdMSyMAgyMciKKbJ82cZzdH/FIUUvQ9vTMHNYmUCGMHBxCsBE/EoYFkz9s2laxMbqyVM0
+ e6Uzcu9X370rDhQ9fFV9T13svSVrvu4T+56vrvfuDHcaAA==
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-Here's a series of some small llm-found fixes that have been sent to me
-recently.  Most of them are just minor bugfixes and locking cleanups,
-but they are good to have from what I can tell.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Submitting them here to get a solid Sashiko run and some second eyes on
-them before merging if all goes well.
+oxu_qh_alloc() calls ehci_qtd_alloc() with mem_lock held, and that
+function takes the same spinlock.
 
+Allocate the dummy qtd before taking the lock, and give it back, without
+the lock, if there is no free queue head.
+
+Fixes: b92a78e582b1 ("usb host: Oxford OXU210HP HCD driver.")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-Josef Bacik (19):
-      usb: core: sysfs: take the port lock to read the BOS
-      USB: core: signal the end of an sg request last
-      usbip: vudc: free the unlink item if the send fails
-      usb: host: oxu210hp-hcd: fix oxu_qh_alloc() deadlock
-      usb: cdns3: switch the role unlocked on resume
-      usb: gadget: snps_udc_plat: lock out the interrupt
-      usb: gadget: bdc: the resume callback is optional
-      usb: gadget: uvc: fix oops on a premature STREAMON
-      usb: gadget: f_fs: let the request keep its fence
-      usb: host: ehci-orion: fix the probe without DT
-      usb: typec: tcpm: don't wait for the VDM discovery work
-      usb: typec: tcpci: don't act on unread alerts
-      usb: typec: anx7411: zero on-stack alt mode descriptors
-      usb: typec: mux: it5205: fix oops on accessory modes
-      usb: typec: mux: tusb1046: fix oops on accessory modes
-      usb: renesas_usbhs: link URBs with interrupts disabled
-      usb: renesas_usbhs: unlink the URB if it is not queued
-      usb: isp1760: wait for the TT clear in endpoint_disable
-      usb: dwc2: wait for the TT clear in endpoint_disable
+ drivers/usb/host/oxu210hp-hcd.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
- drivers/usb/cdns3/cdns3-plat.c          |  8 +++--
- drivers/usb/cdns3/core.c                | 55 +++++++++++++++++-----------
- drivers/usb/cdns3/core.h                |  3 ++
- drivers/usb/core/hub.c                  | 32 +++++++++++++++++
- drivers/usb/core/message.c              | 36 +++++++++++++------
- drivers/usb/core/sysfs.c                |  4 +++
- drivers/usb/core/usb.h                  |  3 ++
- drivers/usb/dwc2/hcd.c                  | 15 ++++++++
- drivers/usb/gadget/function/f_fs.c      | 10 ++++--
- drivers/usb/gadget/function/uvc_video.c |  4 +++
- drivers/usb/gadget/udc/bdc/bdc_udc.c    |  3 +-
- drivers/usb/gadget/udc/snps_udc_plat.c  |  8 ++---
- drivers/usb/host/ehci-orion.c           |  6 ++--
- drivers/usb/host/oxu210hp-hcd.c         | 23 ++++++------
- drivers/usb/isp1760/isp1760-hcd.c       | 11 ++++++
- drivers/usb/renesas_usbhs/mod_host.c    | 19 ++++++++--
- drivers/usb/typec/anx7411.c             |  2 +-
- drivers/usb/typec/class.c               |  2 +-
- drivers/usb/typec/mux/it5205.c          | 14 +++++---
- drivers/usb/typec/mux/tusb1046.c        | 14 +++++---
- drivers/usb/typec/tcpm/tcpci.c          | 64 ++++++++++++++++++++++++---------
- drivers/usb/typec/tcpm/tcpm.c           | 14 ++++++--
- drivers/usb/usbip/vudc_tx.c             |  2 +-
- 23 files changed, 266 insertions(+), 86 deletions(-)
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261027-llm-usb-e06293a1d353
+diff --git a/drivers/usb/host/oxu210hp-hcd.c b/drivers/usb/host/oxu210hp-hcd.c
+index ca96067e6d6d..3fff2d2a4f3f 100644
+--- a/drivers/usb/host/oxu210hp-hcd.c
++++ b/drivers/usb/host/oxu210hp-hcd.c
+@@ -1034,6 +1034,14 @@ static struct ehci_qh *oxu_qh_alloc(struct oxu_hcd *oxu)
+ {
+ 	int i;
+ 	struct ehci_qh *qh = NULL;
++	struct ehci_qtd *dummy;
++
++	/* dummy td enables safe urb queuing; this takes mem_lock */
++	dummy = ehci_qtd_alloc(oxu);
++	if (!dummy) {
++		oxu_dbg(oxu, "no dummy td\n");
++		return NULL;
++	}
+ 
+ 	spin_lock(&oxu->mem_lock);
+ 
+@@ -1049,21 +1057,16 @@ static struct ehci_qh *oxu_qh_alloc(struct oxu_hcd *oxu)
+ 		qh->oxu = oxu;
+ 		qh->qh_dma = virt_to_phys(qh);
+ 		INIT_LIST_HEAD(&qh->qtd_list);
+-
+-		/* dummy td enables safe urb queuing */
+-		qh->dummy = ehci_qtd_alloc(oxu);
+-		if (qh->dummy == NULL) {
+-			oxu_dbg(oxu, "no dummy td\n");
+-			oxu->qh_used[i] = 0;
+-			qh = NULL;
+-			goto unlock;
+-		}
++		qh->dummy = dummy;
+ 
+ 		oxu->qh_used[i] = 1;
+ 	}
+-unlock:
++
+ 	spin_unlock(&oxu->mem_lock);
+ 
++	if (!qh)
++		oxu_qtd_free(oxu, dummy);
++
+ 	return qh;
+ }
+ 
 
-Best regards,
---  
-Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+-- 
+2.56.0
 
