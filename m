@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069808;
-	b=vO0FJDgaOcLGNaOEwOFYytG5ljuCpydwdDO5LCR6TRVmY/JoYPswGgJTBmsPaubzW0wj
-	 OHoDiQp5qWGxCKA+8wbBwqhFv95N3tvM/kNYaLyIuN0Ah7KgDIX0sjad+T1jNXGvMjdGx
-	 zuFIsr7LBatCR9+xSlMvLjM7XrBGibrLYMT12tDqkkKUnxbJm1ss4zOE7VYUQfLxbYiAi
-	 fXA2l8LvxWq+1YNOtuFAlLq6gJvIUtirDFjUmYEVde/dMFfk6Vcw77P/LhnTOVvoB8j2W
-	 i/wR7HQDUZeNjcYLXMRJmzcPrK+yWVkj0baeeU68faR3cbqcBASEgD1TXj/hRcHWO0Q==
+	t=1793069809;
+	b=xIPR6vAhiQfCP70C1BbvS7o/Y/XYan/NmjMXZDjeRicABQeFH5CLXeNkd/k19gg369fR
+	 nuVmLIfGdIgVAfAsMd5pJyOiiCKRfXAoyDfND+GAGZx0YfqG5lTkYbPYFHRnvtsWGyDdW
+	 jyUR+CtI3mW1FMI9dPlYEPR87dI7UUkpdGOf8GsmEk4hUJPdU0BByIkrw6VZXsODiDVrl
+	 3tASKtasED5YPT7ZEbr7XeAqyKrcs2YeQayaNlR3FnCP3LsIs0N/0QNXT5/wN5MDPEMA2
+	 BP4exck9bGWTozm7rricg7RQRc39vWrU8zz5IG7TV4dB02LKW/d6odpjd1noZ8YoDPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069808;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069809;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=U1tHH5Mqf99jycLltqjXTRn5xKYAyrIr2aHOwRziEw8=;
-	b=eMa8bnTDQDB3IKQZ2KAKlqYNjoaei72a4CtqXjC/DJefjxDhOHfxYGBUs2hNV2w68i8C
-	 2r8Qgv9p9M/uY3VguVrWvqWZ62Q4l1Qsj4YfFqFdJhJSwB8GKYqk45mP9widLEUHcyJac
-	 T3OE5IhS1KXmdZoyVo6ecAmKHHqu5Xe1aw49TYed17zYztqyYc86B6LvuUdzxYj733S+7
-	 HArY2cprVAexUshGeXKWlNFsCyyt5Ox6EUZSWXyGzU2W4zqX42DeYBiFWd70ibdb1GsL5
-	 +p0Y9/hAdrafH9m8R2eClXFctJ56JYVrywqrvOnApGF2H/IZLJDbYuiSBPc/Okkw4zg==
+	bh=i2TVROB2tkypKL2JwuC8PelARTqsfICvFAyjnT/ZhdE=;
+	b=FosjkpwFjkeprnnkOX8TBRr41mPXYEnIb7w1ScoUqJbx6tiBCGMzrP+fDoWCz1czcVjg
+	 koqLwb1/uIw6ovd1RAragIOSRmwcVldk9Q+GvMvEwxe1V1Qk4qDOV83KhFAn1y+1Squcv
+	 DyLw9s/Ubk0nwZyWZNUwLNyj0wud26XHGYWlgQENDgMHeMkdJl6ZizlY837DDuM4tifTq
+	 7glCbefgvui8o557bOa1PpEzn3W9Uc66OapDJw6Cil5P1+kWEN5p167cmI/V9nDebYSkZ
+	 lifXbxtCxn0kMx/ddimYBy4EgSTIr9I+pnbeOdq2Qx7mCZ6Bbg6G1JnCZ18VLwLWgjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=eRnTUYtx;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OshOJle1;
 	arc=none smtp.remote-ip=209.85.161.71
 Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19182606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19182606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4E1606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E4E1606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=eRnTUYtx
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-702f912301aso3671304eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OshOJle1
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6f8edf0c859so663254eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793069807; x=1793674607; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1793069809; x=1793674609; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U1tHH5Mqf99jycLltqjXTRn5xKYAyrIr2aHOwRziEw8=;
-        b=eRnTUYtxl2WJIZYJwL4u+CpIv3e0gmonfQevqXojOEcHwoYASWEfe19L3x4iMJ3rqh
-         I8oGhMkA++aQemckBDM/JQIrbEpSAN3QnwouM0VC6TnWfW8CjzIJGJvAv+V4tJATSqia
-         +gHiIqXRbmQBZPjiqqlQVwmNZVyKryXUAy9jBK/JnOM+X+DDeIfIfnUP8zYzGcDQVK52
-         EEqrOqwQe8bLr3aYoyYL4SI/+IbyW6F9nWEON11RuuwOlzmSVoMY9MFD1y+qHy6nJDo9
-         jnVSPMi8H/ZvWrlP49Rbn138vbNg2y01j7TsRNDlq0INZit+Cd0qu1QvEFrX5+p94jzy
-         FGgQ==
+        bh=i2TVROB2tkypKL2JwuC8PelARTqsfICvFAyjnT/ZhdE=;
+        b=OshOJle1ccK86kFRhnnl9I9wToaSwSXU+d+gmBvsmvocUT6341f0jhLncIp73TVjuv
+         JU8RataLvH4x6mJrLZqrqQgqVWxVFubvIwOXlNccoumrpB4cW/ZCXZfPPk8/b9aZFTsD
+         xEiixrF4jSV/+oHgWiil+xDcqhdSLQtWoa4mG07qc3xgZZvAtdwUf+VKxST/PzGxr+xN
+         V/X4HwZAFEEzSLo7pM+SHHMTP75CBsnvrK/cis+x2Zz4DJ5oMpAbyFrT9s+kCaZyUaXx
+         /erSsmXPnPy4XQzhmG2fTMp2o0It3qf5EWmJy0nfbt1kGnRjFqlYDpbU6jFV87r1MvNz
+         tEIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069807; x=1793674607;
+        d=1e100.net; s=20260707; t=1793069809; x=1793674609;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U1tHH5Mqf99jycLltqjXTRn5xKYAyrIr2aHOwRziEw8=;
-        b=AtGIYsLvSpwQqxuhgYuhM3MYeqz9/uH4t/l4iygPtJpXqkUlQgD/BLfFqkr2N/KVNw
-         tESHtPcSD0QxEqN3f4EKvk0OlF14s4s59LV+/x4fxACRz79o8PXhw27hDDJnIVTZfBQZ
-         bUuDpswIdXG+kONjHMFvxSTNIh2Av0DaUB9JXDKKcVVkslU07XnY116fNgEAVriKlDQ2
-         v0q3zHtonmX0F0R/uArZ7Xwrgu6nQpLeZnMaLHYVgykzIT8tvC10XdT8Cgs9gsb1g2AL
-         92RX8o+Zc5YdJd2qxbhq44e69pqUztOD44uZwiui/VKprzk6hE8hkCEo+G2POHJrOhm2
-         RCKA==
-X-Forwarded-Encrypted: i=1; AKwUvByoWmGfvCIrSC1l+IK2uLYQ//F9HNIVUBIfrDN4qUszWLiRHvJdWMkkc5xTa6qZdcPECVhotAmdibjmWrg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTptSGk8q5CCZOn9kgAQxRDHRi0YanFU/+PmPWOpj19R8QJ+oQ
-	0peJRouxcq2FShPwPmfFVJWmhzT4LvWGbrKZYJIUrtGb6fol3vh+gQ975IMBDhWsJn5EYc27kcd
-	GJnk8fS21nNvZfZP2equQvuZ/CPTtjUPlPg==
-X-Received: from ilbeu28-n2.prod.google.com ([2002:a05:6e02:2f1c:20b0:516:ba98:55b6])
+        bh=i2TVROB2tkypKL2JwuC8PelARTqsfICvFAyjnT/ZhdE=;
+        b=rz+LQ9owft0mQos3/QqCBNUQLzDQC7hVfI/vJ4mHOsKxGSmWbJqiCOYiI+plPBSoAX
+         m1JxOhigbom4XJnhrqYJhfnpLWNzCJ6elLBXnRloh26PG4TKCXOXcg6DgXXobY43UysY
+         VVCu5QOLp4k2vetc8vHcBoQgLW32bYLPrv5/oD3WeDmNI/H2nV025Z03v+A80aaL+xOK
+         /zA+tFqg6AA0vQDc1UHy+k1rVCnGt4xxt4KyOpAnCPWNi8IxUf9fdN8ZCyPaNWTWFhJr
+         hfyVAqyQmxjsaQxYVSMWIQW9aFPIUsPlYGnsJ3fUKwNPUHUy/jwU301HsEGtPa2N/mZx
+         4XaA==
+X-Forwarded-Encrypted: i=1; AKwUvBzW2YhSht0uJHuVpFFToiSJyLfDXcEsNm1zMZu690GhhJRG4k5MKLi1EuOkxvX5/O0b6DPedEwSVtH83fI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKM5ly+2avPiEcalLVmAlY6ss2tQDQnqRiIX1SO+3Mtc2yfNEZ5
+	uV1z8C3I8ss6hsmuZQ3wqNDzadLwOpN2guzXdRHPoCa9fNUtESLijsKhM1zvuHlLPa32xaPZKBr
+	BhSP6EraulK/7K58J81mqPBi1JQYQoMeT4Q==
+X-Received: from ioyd21.prod.google.com ([2002:a05:6602:2bf5:b0:9c4:de2b:c40f])
  (user=kevinloughlin job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6870:3929:b0:494:396:1205 with SMTP id 586e51a60fabf-4a83f49fec6mr6444601fac.14.1793069806655;
- Mon, 26 Oct 2026 19:56:46 -0700 (PDT)
-Date: Tue, 27 Oct 2026 02:56:07 +0000
+ 2002:a05:6820:1ca4:b0:702:c1a4:7563 with SMTP id 006d021491bc7-7126910deb4mr1003099eaf.8.1793069808399;
+ Mon, 26 Oct 2026 19:56:48 -0700 (PDT)
+Date: Tue, 27 Oct 2026 02:56:08 +0000
 In-Reply-To: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027025616.1632690-5-kevinloughlin@google.com>
-Subject: [PATCH 04/13] x86/coco/sev: fix zeropad #VC on unaccepted memory
+Message-ID: <20261027025616.1632690-6-kevinloughlin@google.com>
+Subject: [PATCH 05/13] efi/libstub: start unaccepted bitmap at address 0
 From: Kevin Loughlin <kevinloughlin@google.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@kernel.org>, Jason Wang <jasowangio@gmail.com>, 
 	"=?UTF-8?q?Eugenio=20P=C3=A9rez?=" <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
@@ -104,101 +104,111 @@ Cc: virtualization@lists.linux.dev, linux-coco@lists.linux.dev,
 	David Skidmore <davidskidmore@google.com>, Kevin Loughlin <kevinloughlin@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When dynamic memory unacceptance is active on AMD SEV-SNP, an accepted
-4KB page may sit immediately adjacent to a 2MB block that has been
-unaccepted via PVALIDATE(validate=false). Speculative unaligned loads
-across the page boundary via load_unaligned_zeropad() (such as in
-dentry path walk) trigger a hardware #VC exception with error code
-SVM_EXIT_PAGE_NOT_VALIDATED (0x404) or SVM_EXIT_NPF (0x400) on the
-unvalidated neighbor page.
+When EFI_UNACCEPTED_MEMORY is present in the EFI memory map or the
+platform supports dynamic memory unacceptance (such as AMD SEV-SNP),
+start the EFI unaccepted memory bitmap at physical address 0
+(phys_base = 0) instead of the lowest initial unaccepted address.
 
-Define SVM_EXIT_PAGE_NOT_VALIDATED (0x404) and invoke fixup_exception()
-in vc_raw_handle_exception() when an SVM_EXIT_PAGE_NOT_VALIDATED or
-SVM_EXIT_NPF #VC exception occurs in kernel mode at an EX_TYPE_ZEROPAD
-instruction before dispatching to vc_handle_exitcode(), matching the
-existing EX_TYPE_ZEROPAD handling in the Intel TDX #VE handler
-(ve_raise_fault()).
+This ensures that pre-accepted low memory below the initial unaccepted
+region is addressable in the bitmap so it can be dynamically marked
+unaccepted and re-accepted later via virtio-balloon or free page
+reporting. Non-confidential guests without EFI_UNACCEPTED_MEMORY
+continue to skip allocating the table.
 
 Signed-off-by: Kevin Loughlin <kevinloughlin@google.com>
 ---
- arch/x86/coco/sev/vc-handle.c   | 29 +++++++++++++++++++++++++++++
- arch/x86/include/uapi/asm/svm.h |  2 ++
- 2 files changed, 31 insertions(+)
+ .../firmware/efi/libstub/unaccepted_memory.c  | 45 ++++++++++++++-----
+ 1 file changed, 33 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/coco/sev/vc-handle.c b/arch/x86/coco/sev/vc-handle.c
-index f25d302efceb..1ed00771d87d 100644
---- a/arch/x86/coco/sev/vc-handle.c
-+++ b/arch/x86/coco/sev/vc-handle.c
-@@ -18,6 +18,7 @@
- #include <linux/io.h>
- #include <linux/psp-sev.h>
+diff --git a/drivers/firmware/efi/libstub/unaccepted_memory.c b/drivers/firmware/efi/libstub/unaccepted_memory.c
+index 757dbe734a47..fcb622ac0564 100644
+--- a/drivers/firmware/efi/libstub/unaccepted_memory.c
++++ b/drivers/firmware/efi/libstub/unaccepted_memory.c
+@@ -2,15 +2,28 @@
+ 
  #include <linux/efi.h>
-+#include <linux/extable.h>
- #include <uapi/linux/sev-guest.h>
+ #include <asm/efi.h>
++#if defined(CONFIG_X86) && defined(CONFIG_AMD_MEM_ENCRYPT)
++#include <asm/sev.h>
++#endif
+ #include "efistub.h"
  
- #include <asm/init.h>
-@@ -872,6 +873,29 @@ static __always_inline bool vc_from_invalid_context(struct pt_regs *regs)
- 	return is_vc2_stack(sp) && !is_vc2_stack(prev_sp);
- }
+ struct efi_unaccepted_memory *unaccepted_table;
  
-+static bool vc_try_fixup_zeropad(struct es_em_ctxt *ctxt, struct pt_regs *regs,
-+				 unsigned long error_code)
++static bool efi_stub_has_dynamic_unaccepted_memory(void)
 +{
-+	unsigned long addr, fault_addr;
-+
-+	if ((error_code != SVM_EXIT_PAGE_NOT_VALIDATED &&
-+	     error_code != SVM_EXIT_NPF) ||
-+	    user_mode(regs) ||
-+	    ex_get_fixup_type(regs->ip) != EX_TYPE_ZEROPAD)
-+		return false;
-+
-+	addr = (unsigned long)insn_get_addr_ref(&ctxt->insn, regs);
-+	if (addr == ~0ul)
-+		return false;
-+
-+	/*
-+	 * load_unaligned_zeropad() faults when an unaligned word load crosses
-+	 * into an unaccepted page; round up to the crossed page boundary.
-+	 */
-+	fault_addr = (addr + sizeof(long) - 1) & PAGE_MASK;
-+	return fixup_exception(regs, X86_TRAP_VC, error_code, fault_addr);
++#if defined(CONFIG_X86) && defined(CONFIG_AMD_MEM_ENCRYPT)
++	return sev_get_status() & MSR_AMD64_SEV_SNP_ENABLED;
++#else
++	return false;
++#endif
 +}
 +
- static bool vc_raw_handle_exception(struct pt_regs *regs, unsigned long error_code)
+ efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
+ 					struct efi_boot_memmap *map)
  {
- 	struct ghcb_state state;
-@@ -885,6 +909,11 @@ static bool vc_raw_handle_exception(struct pt_regs *regs, unsigned long error_co
- 	vc_ghcb_invalidate(ghcb);
- 	result = vc_init_em_ctxt(&ctxt, regs, error_code);
+ 	efi_guid_t unaccepted_table_guid = LINUX_EFI_UNACCEPTED_MEM_TABLE_GUID;
+-	u64 unaccepted_start = ULLONG_MAX, unaccepted_end = 0, bitmap_size;
++	bool has_unaccepted = efi_stub_has_dynamic_unaccepted_memory();
++	u64 unaccepted_end = 0, bitmap_size;
+ 	efi_status_t status;
+ 	int i;
  
-+	if (result == ES_OK && vc_try_fixup_zeropad(&ctxt, regs, error_code)) {
-+		__sev_put_ghcb(&state);
-+		return true;
-+	}
-+
- 	if (result == ES_OK)
- 		result = vc_handle_exitcode(&ctxt, ghcb, error_code);
+@@ -30,19 +43,27 @@ efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
+ 		unsigned long m = (unsigned long)map->map;
  
-diff --git a/arch/x86/include/uapi/asm/svm.h b/arch/x86/include/uapi/asm/svm.h
-index e80676185092..38b8e0c2f5e2 100644
---- a/arch/x86/include/uapi/asm/svm.h
-+++ b/arch/x86/include/uapi/asm/svm.h
-@@ -101,6 +101,7 @@
- #define SVM_EXIT_AVIC_INCOMPLETE_IPI		0x401
- #define SVM_EXIT_AVIC_UNACCELERATED_ACCESS	0x402
- #define SVM_EXIT_VMGEXIT       0x403
-+#define SVM_EXIT_PAGE_NOT_VALIDATED	0x404
- #define SVM_EXIT_PML_FULL	0x407
+ 		d = efi_memdesc_ptr(m, map->desc_size, i);
+-		if (d->type != EFI_UNACCEPTED_MEMORY)
+-			continue;
+-
+-		unaccepted_start = min(unaccepted_start, d->phys_addr);
+-		unaccepted_end = max(unaccepted_end,
+-				     d->phys_addr + d->num_pages * PAGE_SIZE);
++		switch (d->type) {
++		case EFI_UNACCEPTED_MEMORY:
++			has_unaccepted = true;
++			fallthrough;
++		case EFI_LOADER_CODE:
++		case EFI_LOADER_DATA:
++		case EFI_BOOT_SERVICES_CODE:
++		case EFI_BOOT_SERVICES_DATA:
++		case EFI_CONVENTIONAL_MEMORY:
++			unaccepted_end = max(unaccepted_end,
++					     d->phys_addr +
++					     d->num_pages * EFI_PAGE_SIZE);
++			break;
++		default:
++			break;
++		}
+ 	}
  
- /* SEV-ES software-defined VMGEXIT events */
-@@ -237,6 +238,7 @@
- 	{ SVM_EXIT_AVIC_INCOMPLETE_IPI,		"avic_incomplete_ipi" }, \
- 	{ SVM_EXIT_AVIC_UNACCELERATED_ACCESS,   "avic_unaccelerated_access" }, \
- 	{ SVM_EXIT_VMGEXIT,		"vmgexit" }, \
-+	{ SVM_EXIT_PAGE_NOT_VALIDATED,	"page_not_validated" }, \
- 	{ SVM_EXIT_PML_FULL,		"pml_full" }, \
- 	{ SVM_VMGEXIT_MMIO_READ,	"vmgexit_mmio_read" }, \
- 	{ SVM_VMGEXIT_MMIO_WRITE,	"vmgexit_mmio_write" }, \
+-	if (unaccepted_start == ULLONG_MAX)
++	if (!has_unaccepted || unaccepted_end == 0)
+ 		return EFI_SUCCESS;
+ 
+-	unaccepted_start = round_down(unaccepted_start,
+-				      EFI_UNACCEPTED_UNIT_SIZE);
+ 	unaccepted_end = round_up(unaccepted_end, EFI_UNACCEPTED_UNIT_SIZE);
+ 
+ 	/*
+@@ -59,7 +80,7 @@ efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
+ 	 * The bitmap will be populated in setup_e820() according to the memory
+ 	 * map after efi_exit_boot_services().
+ 	 */
+-	bitmap_size = DIV_ROUND_UP(unaccepted_end - unaccepted_start,
++	bitmap_size = DIV_ROUND_UP(unaccepted_end,
+ 				   EFI_UNACCEPTED_UNIT_SIZE * BITS_PER_BYTE);
+ 
+ 	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
+@@ -72,7 +93,7 @@ efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
+ 
+ 	unaccepted_table->version = 1;
+ 	unaccepted_table->unit_size = EFI_UNACCEPTED_UNIT_SIZE;
+-	unaccepted_table->phys_base = unaccepted_start;
++	unaccepted_table->phys_base = 0;
+ 	unaccepted_table->size = bitmap_size;
+ 	memset(unaccepted_table->bitmap, 0, bitmap_size);
+ 
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
