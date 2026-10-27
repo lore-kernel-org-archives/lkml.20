@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793131742;
-	b=raU0w3DnwjrJ5QDxeMXnM5eMR5GGEa9k5aeRcQge8jyMmkU8rW9qHB1t14kIzTtcpVo4
-	 84TMTlqC4zcuzHXKF14u9rvlt7tT7VQdwVk5zfQP4H5NkE6siMtOJj6RZdSAioZ1VBtqZ
-	 BQCFdpmI+jcda2uWoaLa6ZjFdns1op7HgytQnF1gRKsdbOUbgb9m7+/UR23jPGz604f9O
-	 DEoWpdjuuTgN1oGz9QWN+28R0r5Ikuy7qKJlKekPxlEjIW6TJSGdnfkMKNDD6Aova8kw3
-	 uKRyhfZWdiVKTCTLcAxAEua2RJPF5xh7jCiECrMVGwLfjtcW9n6JbSoPbGEgdrRTL7A==
+	t=1793131752;
+	b=C4bTmSpurnNGGH3V2FOSXre+FunW0QsOcsam1LCLk0h+CHu8xF6IDH0oUOL43+RB89JH
+	 er8CNmMqky6EVD0EYK8/co7Wrpk3UMvrd8onyCsFP/aK8fOimD3FlT2PdaJ249PfGI4PV
+	 BqYBh3gwtgD06ofhClHftQoMnTKgY+vcXGFDhEUhuzSWPserdChuoD/H6ejdd8S6V5nKq
+	 BC/Ej4gXzRZtOv8+pNWlsoqol6ZNmy1cARJc3Vp5MWoQ0jxhEoV1wPSd99rILJSMXXf4I
+	 0M06D5bPBPo26I09mWcpXdw2cZVB5F8h/g3rTSaXlpGAxCL8StVvgMO8onJZWdkCijg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793131742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793131752;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VeEh0rShVYt/Qe12CelPAOWD3oT/iB75neohsnBaq7s=;
-	b=DCt8AoeG6nIMuf5cgldqLDWx1mWoJKq5/QoA3huk2wUdTWQmAaLH5O5uXYejXta+/sgq
-	 eVdvEsVrn7EAM3Nlpr9jv3umDs+cNaQ24VbaQerTItQw6BRoB8CdFRFUiGndmTZQ6PLkM
-	 pxQSE+aygUk42wFHvEsswe/saH8oceiMi/glHjfYRwGVR/UGn2syxeAkB6A5rWnm7k8p7
-	 FsdmyiL44xhtNtUz70PwBMU2oZoXhmcUO3FUhClfQVa/69ZelMhipAX7HuEfvv7GyK9Pa
-	 oKcQSg3q/JXTqBiFPZcNEm4o5XYIKR9OPNP/oIuOC1cFh+D/AzvtiUNTDHiUrvgCTDw==
+	bh=NNg91saYaDH/iUX+L1xCWXJmWAh9RpX8ijH1Nl8Vd1A=;
+	b=WGerbJY0hgY9J/EfNdN7PcwFCofRNM3ih8Rrdvaci2smn/5wzqh1reMxEae9/bCJISnG
+	 c+47BYbOuqc3h+JV9o9Tl4pt8cJDnYWC0uUFLh7+igF0JmxfMT2eKJ17QHcVotyNKvExz
+	 W1F48hLxGDYVNmYUQntJDUfk2/vEYvjlJop80O/HJDsKcWQOZnXwZTLb5veuxhe5wRMhe
+	 Pr3Qw/GXLoS5ANnT0d/VYEn7og2z6ytR+mCpIoVv3kjFrEV8mYb0TEA4k6QaRw2nIAzH6
+	 kDCBU9VJ+EzFra6h2IWpQzmfFQRNgOvkFz/6mN94ig50YRo9nVtdXTV20nU/ljbc8XQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzCpyyCq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jz+thVR9;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970BE606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:09:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868AE606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:09:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzCpyyCq
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jz+thVR9
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793131742;
-	b=IC5yHianAWAZ9MGWEEhNM9xP1tRw7BStTU9jsR3w2hH3xkWw+gblW0DXLgH5XeRuEHH2
-	 LTTQt+s6HX4lVOz3+JNJLFtJXfJdnHpZ9cT9Z85piqobSqqAOSYDX0GEmvP9dfkLGlsNc
-	 PGsjO/ecJOCQke1192SE011XY0r9idRwGa5VcD1PtDFw9z4U4AfAKI1h82aAmz19RiT+y
-	 /jszid0Xl4ySw67NPS7ahypEHS2U5/jTJGI/aVBgLv4Sviw6AzV7/P3KUoCRo3dkBkAPH
-	 gS1sthkYeSB1g+qfmHgYBv1StsxsB/b2MEI25NsHmzkSDuzltXVYjaYqDLVms+dWAnw==
+	t=1793131752;
+	b=S/KrpBJ3qE9fpaVcPW+jIv4dlh776XrKXn1WxE5c3JGZObvmRPAjHemMXIeRULqXuO76
+	 Hx9CWBk28WkrNiWZohecD8CpjEQnqjiDrEP8O7veAnDYRn2HjE6/XbPuuL4XIDaL3PaSi
+	 ZSWfQNEsCRLcD4aV035ZvgMUNNItWW5JxVcpoqV8833wl77TtdzJM26+EJn/212Vd0ffg
+	 5LLQkrjSVccg1l+bJr4pad6vUhqvXAzeFMCiBsFLdPPh7rYe14ncrPjovND9UuZW4a+dO
+	 914T9HmnQE37xAh8IsXCEQRfXkQKAyjf/4jBKF0g5xLBQhIgeNPllGMVZnGGvSnvdlA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793131742;
+	c=relaxed/relaxed; t=1793131752;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VeEh0rShVYt/Qe12CelPAOWD3oT/iB75neohsnBaq7s=;
-	b=Y0+e768HBov75oGpO7EEdWwp7eL4t0a4/kPM67gNNWeFvFP+Ji5VQSUvAhNzl0ZkJnJY
-	 GrbRvhR/m4BFVJ3FWlicelYncy9yYzcvQdoyxAW8Vv1LCo1TJxxQYEBXnSQFSCJTOdK42
-	 fJRqf8cYma6SzpiEXxIrJLExScRbeXszbbZKpnfKnwimynjLEP1YeH9C1tScTYyFmT18q
-	 8rNpn2RBPwu40l19z1l25XBGB6p0BpIx9gfNTcUtpzzVCj3UFIE800rNrKqRyfrw+ZEhO
-	 1jivXrfECaOUSCYZPicPeMIYtmrFGiI5HVnrMpwi6IQWgQuAglGqpi+rljgoayHu5Wg==
+	bh=NNg91saYaDH/iUX+L1xCWXJmWAh9RpX8ijH1Nl8Vd1A=;
+	b=Gs6Gzt2guEhIWisU5Vylne/Ugq+u6o3OyZandJvlbokLKTVvJsr5Rl3Ij/H6YKC8RGrg
+	 h9fUx2lhif2QGfTabRmJlZvYEd9VpIJNNlrhkKf0TbIWj9MwaqY0reIm9Nrh/+qulIMFg
+	 jFp6wTw26jm7o0mfgc/fzyqwQ5Lhy85OOTEWy/F0bJpy62MOk6S6BjBFD5A5cJdonEewl
+	 64Nk87r1vo6xtt69UkjaSd4IQO/VbyneqVI88Ofwmfj57WDiRZvV0YHSAFBYchYaDQ2Ct
+	 LtL6zWyVj3NaVVHmbtNZv6xQpjOnIUn41gj4UAQ/9BXPvGwj5vHWDf8lKaAnp3dm0vw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 095DE1F01825;
-	Tue, 27 Oct 2026 20:09:02 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id D8A141F01825;
+	Tue, 27 Oct 2026 20:09:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793131742;
-	bh=VeEh0rShVYt/Qe12CelPAOWD3oT/iB75neohsnBaq7s=;
+	s=k20260515; t=1793131752;
+	bh=NNg91saYaDH/iUX+L1xCWXJmWAh9RpX8ijH1Nl8Vd1A=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OzCpyyCq+cGaRUmp3UUPoXn333kGLmmkp/w8rhfiLT8F2+s+FMDMzIUauf/5MK8in
-	 ctWPWjxIRlTOBwsm8yKx31KdSs2RMrJH703ESHd5A3CnurdYUiWJUZfnUS/aiXRkdM
-	 YD68/6La9O1GZ4iqg9JE44wzoIe+Tu2MrAW9+sCMVE1maJ3GCEXzNP+VjEEmd6s8Hr
-	 tgV9/z+gIeZN1wiHJiR7J6GZX1n6XoPt7CffvktAeBxpxqpip6/8UR4Va7xt8ln9Pv
-	 YZhp9Dcj8Fd8mBZ52a/cbSj+55BRNP/nOE/RrwUmhW0oxWJOFfZ9h13uqlbBYsaTqN
-	 QDYEdW33YJVhg==
+	b=Jz+thVR9p4XTWlRkfuAEjouxXki2QCBDtoZNarCkZE5BBqwgicZNpY43gOX7/WHC2
+	 1KAA4TEt2MCdoCGtFDVEK7r7cY+bwodHKbINxIfqfZQUPA0EH0oJlHkEfhCKjP7bEx
+	 gKFpgrz0gY15sdJPBPRDZJDmiIEP5pbfqEF9OLELTaWYJUL8C6aDKGJLIZ73Kh6rUo
+	 gLi8cGHBQIM/8j0lrCx8qyF1Jf8+dJypGvdN1uhQLUo9FusHo5lU2ojve5ousqxpCX
+	 rr2D8QvU/fXOOClvbpwu0uKhDhaxjckWSkRV3v8fpJ/6ry94PLkzQtL94k1p+38EaK
+	 Bph4i7qcQ+0nQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8AFEC451B4;
-	Tue, 27 Oct 2026 20:09:01 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 690A0451B4;
+	Tue, 27 Oct 2026 20:09:11 +0000 (UTC)
 From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 27 Oct 2026 16:09:01 -0400
-Subject: [PATCH] mm: annotate lockless accesses to vm_committed_as_batch
+Date: Tue, 27 Oct 2026 16:09:11 -0400
+Subject: [PATCH] smp: use READ_ONCE() for csd flags in the async path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,21 +83,21 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-kcsan-mm-v1-1-66757485b917@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyNz3ezk4sQ83dxc3WQDQ3NLE1NTS1NLSyWg8oKi1LTMCrBR0bEQfnF
- pUlZqcglIv1JtLQCK5KvgbAAAAA==
-X-Change-ID: 20261027-kcsan-mm-c01794559599
-To: Mike Rapoport <rppt@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, tz2294@columbia.edu, 
- Mani Tofigh <mt4022@columbia.edu>
+Message-Id: <20261027-kcsan-smp-v1-1-57a4949106b2@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDWhUn9XEYuqwRAlHUQi7q5Yf
+ snLu4DRETKUwQUOD2JarEccBmAGbXsU1HqDjGQaRzITk2FtBc+raIs0zxKFUuUafL867Oj8XlX
+ 9m/dmRLO9A7jvB8vwzeltAAAA
+X-Change-ID: 20261027-kcsan-smp-d968735e258a
+To: Thomas Gleixner <tglx@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, Mani Tofigh <mt4022@columbia.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793131741; l=2109;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793131751; l=1644;
  i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=j7Mc9C4QlmCwhmnKNi4h7TqTqfjBLIBQjYqiZTNCEhg=;
- b=0Hqd2fa5iviDcBvKgRDs91aLAznIPOLYpILVxsb/Gu5CvLIwOieETU/yf+NKTPQfPHczGDeQK
- J9UjE21rqSfBHoTSVWFwm69tJ00PEmDUjslAk2LRNLpDoBJ9Upa1Mc5
+ bh=UoFjy57HrPBIOxXCXeP3uYlJT7z/vKDqaE0Wh7LGDd0=;
+ b=x7adRW74xgRXMnSNCFytKDR3tGpRQYNd5Xq5Rwgy6uluIYTB0ImYyGIO+yuAAx5uoHCclt+Hi
+ /FK6aZPiX2uCqfqOXSXN0V+WJDYE7Y2YLfr1M8M1AqXDRNfUH8j78Vk
 X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
  pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
 X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
@@ -108,64 +108,50 @@ Content-Transfer-Encoding: 7bit
 
 From: Mani Tofigh <mt4022@columbia.edu>
 
-vm_committed_as_batch is read without a lock, and it's only a hint for
-how often the per-CPU counts get folded, so racing with an update is
-harmless.  Annotate the accesses.
+smp_call_function_single_async() checks CSD_FLAG_LOCK without a lock
+while the target CPU may be clearing it.  The race is harmless, since a
+stale read only sees the flag still set and returns -EBUSY.  Use
+READ_ONCE() like the other lockless readers of u_flags in this file.
 
-  [    0.953509] BUG: KCSAN: data-race in __vm_enough_memory / mm_compute_batch
+  [   18.136106] BUG: KCSAN: data-race in __flush_smp_call_function_queue / smp_call_function_single_async
 
-  [    0.953645] write to 0xffffffff825165d8 of 4 bytes by task 1 on cpu 0:
-  [    0.953692]  mm_compute_batch+0xc2/0x120
-  [    0.953781]  mm_compute_batch_init+0x1c/0x20
+  [   18.136218] write (marked) to 0xff1100002b62b608 of 4 bytes by interrupt on cpu 0:
+  [   18.136269]  __flush_smp_call_function_queue+0x36b/0xda0
+  [   18.136338]  generic_smp_call_function_single_interrupt+0xf/0x10
   ...
 
-  [    0.954325] read to 0xffffffff825165d8 of 4 bytes by task 41 on cpu 1:
-  [    0.954373]  __vm_enough_memory+0x24/0x2b0
-  [    0.954444]  shmem_inode_acct_blocks+0x1b3/0x230
+  [   18.139279] read to 0xff1100002b62b608 of 4 bytes by task 235 on cpu 1:
+  [   18.139327]  smp_call_function_single_async+0x22/0xb0
+  [   18.139396]  enqueue_task+0x25/0xf0
   ...
 
-  [    0.955288] value changed: 0x00000020 -> 0x00005003
+  [   18.157072] value changed: 0x00000001 -> 0x00000000
 
 Found with KCSAN while fuzzing under a deterministic hypervisor that's
 currently under development.
 
 Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
- include/linux/mman.h | 3 ++-
- mm/mm_init.c         | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ kernel/smp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/mman.h b/include/linux/mman.h
-index 389521594c69..66e6c9c335b5 100644
---- a/include/linux/mman.h
-+++ b/include/linux/mman.h
-@@ -75,7 +75,8 @@ unsigned long vm_memory_committed(void);
+diff --git a/kernel/smp.c b/kernel/smp.c
+index 89a30d831ef5..8064652747ea 100644
+--- a/kernel/smp.c
++++ b/kernel/smp.c
+@@ -822,7 +822,7 @@ int smp_call_function_single_async(int cpu, call_single_data_t *csd)
  
- static inline void vm_acct_memory(long pages)
- {
--	percpu_counter_add_batch(&vm_committed_as, pages, vm_committed_as_batch);
-+	percpu_counter_add_batch(&vm_committed_as, pages,
-+				 data_race(vm_committed_as_batch));
- }
+ 	preempt_disable();
  
- static inline void vm_unacct_memory(long pages)
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 41a27860d2f6..81f360db0787 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -211,7 +211,7 @@ void mm_compute_batch(int overcommit_policy)
- 	else
- 		memsized_batch = min_t(u64, ram_pages/nr/4, INT_MAX);
- 
--	vm_committed_as_batch = max_t(s32, memsized_batch, batch);
-+	WRITE_ONCE(vm_committed_as_batch, max_t(s32, memsized_batch, batch));
- }
- 
- static int __meminit mm_compute_batch_notifier(struct notifier_block *self,
+-	if (csd->node.u_flags & CSD_FLAG_LOCK) {
++	if (READ_ONCE(csd->node.u_flags) & CSD_FLAG_LOCK) {
+ 		err = -EBUSY;
+ 		goto out;
+ 	}
 
 ---
 base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261027-kcsan-mm-c01794559599
+change-id: 20261027-kcsan-smp-d968735e258a
 
 Best regards,
 --  
