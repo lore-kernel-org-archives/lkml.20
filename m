@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065759;
-	b=hELl/RrLOkx4rlkE1oKop3nK9+fPDciCZZRgm1L4hsbEqHZdsgMMDCkh8w9aigGPUZMl
-	 lnXKIXZyC/KQGOrH90mvYuL9Pl0Ey9NIZU7nvngY5K15r84EWnNFhoizLePKmK6eXQQxU
-	 Ug8nZ8BdWJnhcc7OqroPMW3A1wjjjkmXRB4IFfoE5BcsaMumHibsehCK7ZTPmfjVQ3R06
-	 QdV887EESvez++1L6uv6ZjJ+bo4q8aBIt36InAoBURYvqbVnDm7cgBs+PF8F2B0EHq0bA
-	 QCJPp4rciCHwUeQVnfQ/Qpy4zhF8N1LO31bYPdQO8EDqVUqGv9yHMFUcSWtzbH+r5uA==
+	t=1793065882;
+	b=mEFgp5uTlvS7E5ySznOOEgw/R96vHPiWbw0XC0k5V2w5XxVCB0jbXK+oP2dGQupuiO2w
+	 RjBt+scMbQmxMXbgtMQ77V+xDy3krkIGA2ac9s9gVoC9YbVK3RXkViWM1mpzH2FmjF4pd
+	 rO7bsP342gAxqab/EYMP5JWkEEmDd43z+WnCPxGNc9Nnh2XtM8oTkcnKXOs/WZoUjdtCB
+	 6vZTzIWknR/4ZPrU3zFhnc0eVvKU32wby+O/ZAFvmSDEYEAIcNZvznNRk98SVr+ROJCx6
+	 RkV3Z6Sll85EiGUffu3BjYKfUYUtBX9g2sU99MkvRmfsk/JOBaTHLKKW4vL4Mcuisdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065759;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gR5q3OLftxCFHkyBKlQqeU6c6KN++ASiwpqlGffKbrQ=;
-	b=1kIac03OxhPCBkPjvDMPZZipN517Q6F6DQlqIoZbzTIfk43iEedfpOdxv5abpg+WJadv
-	 y45Ypd+kcmC3Y9/zDkXGGw/1Nv//TEvojbnNp260AMYc8Krx/JSKzgyDKuGoSg7uRS4SS
-	 hlJrkFTNAEUV4mEuECqPB25uMSF/ainpkLfDp+11qqMVFrfJuuois3++PwBAhx8EcE1sh
-	 M5rGpLdKccsKjTeRONS9BRxAO/QkyQwCD6k8MhjGULTh5xRWSSWthEm3H7EWs0z6RV/Vb
-	 6o227KpKyxlVrHBFsy8nJphbuRoWIYY/TJfwPM5oEM27ZuTfBZvORwRWl+NfkYBmddw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065882;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=d1iZzHy6VJpZLaEHda8KQ8NIwWwHu2a7fEsuQ1iAa94=;
+	b=NTl0W+4OAaqsWZDf1NIYXaioTsec8l+RCkjTLTmrSErMRMJKCiSNx8BTdhttayZ9TLN5
+	 +t1KIIWcANReDvlOZQbr12QYFd3akLMREcmnzy3WCEw7tu0kYnoTSBDtvAnfye4JUNKhv
+	 dSuzkZwIDOgR/b4fHEvSqBTm5eLWfIaOUu7RVuxv3Lo8KJ5wyNZs6vIA35j8dbqDGHp96
+	 j8i/vcq+hAYnXXgZ16yK0z4jXfFlyTPjuntEumiIZOdai32NApEkhrWcQL2MBsMkEkR6B
+	 u7StUsjhzOApB0mzekWU/u8xaTJIIFIo2CJg1OoDia7YAGVmD5VqtQ3ohQghJKtLQhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="RUBbrT/U";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC5B606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:49:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC5B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RUBbrT/U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793065756;
-	bh=Wbi3NY9WnYJfeKXoxOhR70QLmxw4mM2jPoXXqAXFUT4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=RUBbrT/UfeZQyQKecbvscc15wRIqp19C98IasaXLYH8nwqeGEVK2ly52sqBdShAbG
-	 RM0EUZRbamZfZAFyxfRo/GCdoaE9O1Ekzt3c3tTkwBNnwaBl89uypfNFRoughodKqi
-	 b4cbG+OXQXPJOjb1EWwGNkO1k9vjiBpDH9nVUUdtC+4y+OI0O/WPGxfK9tpgCmg/xY
-	 3mLRlzRDuiHf9Yw3oJU7DKAR1aag5Z8fcc09wG7Rsfg+DjaQIPD7kUNSGDEM+OxYhv
-	 IMrH6ueghpO9jyuI/GhvUg4hyfT+IETKiI2R3HpDpdKdxgHVuqiTXu60a0CbCpInPW
-	 eErCLtqHNyskw==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=t+GSFcmf;
+	arc=none smtp.remote-ip=209.85.219.53
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D429B17E0254;
-	Tue, 27 Oct 2026 02:49:15 +0100 (CET)
-Message-ID: <a6314959-1287-4381-88a0-2fbc3edbe3b2@collabora.com>
-Date: Tue, 27 Oct 2026 03:49:15 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2603E606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2603E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=t+GSFcmf
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917a64f28d0so5673666d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:51:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793065880; x=1793670680; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=d1iZzHy6VJpZLaEHda8KQ8NIwWwHu2a7fEsuQ1iAa94=;
+        b=t+GSFcmf8m5KIiKpf7s/e322B2VWIkxON8FI8tQaSaddrw1RC/paWoqtw/MVmCEL+l
+         KWWY6Uh37aKVIUkFQ0y+JqjAOK34W9fUkfoG+KFFvOuk/znwikF6MPcenQASFo4D9g/F
+         Q5irMfw/CZHaaRDD8Pg3KFNU4SuYuvRd/IlLSW+GD6sNF3vEbK7Sl6RC4ZOUfAP/saY6
+         I0QpW9Q6rP/eRqoJHtgzEIiVjvhKUTutMoRPwFtRB6iMlZVIwsf4oktgz0MADcWMlHMl
+         L0HQgyO++b5dq3QhzJ9SSF3O1Zi5gK+nENAlbKaH0/YU0mkufLmwtvSxEulIRRMuJa3d
+         d+Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793065880; x=1793670680;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d1iZzHy6VJpZLaEHda8KQ8NIwWwHu2a7fEsuQ1iAa94=;
+        b=Crv7Ec6I+t8s8S4nHLn3DqDfUTLrYtr/J8EztBCsprI1pQyqfmJwFSPdz8epG4pMAE
+         ebBaXYcz7p4Hg8q1T8lImqG2R8mv9s8dPxPhw9Ul+ecMVGpJ6VS0I/cZ4Ce87k1tJWIH
+         VR+3VwVq9IL7Zjc1L4fA4wy7TICfjn/kkrX0vqbUHnVAXJtYOlscHvz1SxIVt+bi57IP
+         yqJW0GfzhT7gDnDtw8cpE8wPSy4SZQB2hIOLHBdnNkA3WeqzNkyohGvsgC6rDi75Z/1e
+         dFiCx87NWLqZvVUFlssw5ksfOxxrZ8+neDH41hkoWkluVUec9E9K9sHc0qB5ZZSU0POY
+         h4gA==
+X-Forwarded-Encrypted: i=1; AKwUvBynJN6QzAtM+5Ng/jUnmiv+MQxxdLTnzQEnHajZbaAQxea3rkNQWHSvRJwRqGwGBghpaPAlt+d8xUWysCk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhhDJDjQZj18fE4kPW5MfTDR+kkKPkmPMFruAwkDi69O6UJyeQ
+	foThnau+fcdNNwa+Dn7xaBRtR/d4RKdf7UGTUugKHexU0prTeN0LHw+b9jmd3SLGdJac94LrOvU
+	2wJm1
+X-Gm-Gg: AYBFou2BKbdnpZ44twY/p9zCIJ8D4zLm56CMOdp7hzNMqAG5RcuaBahSl2Kz23EE3ho
+	BvgUuySQIFamMJRhMKP/mv7wU71U74ReN+YafF2Or7I0RgDzHL8JjEBSQCr8zFUSerJD+dcXstj
+	7GPXnpTPVWP3imfqmrC/syv6mZBwGrD3HStHaCEDJNCAmb+I23b7DeY+UgIa+yoJCdLrlqDXCZ7
+	t5bohLWZhKbJmCEYyxSCM1rtCI9uc4up/ma2og06awTbWn3LdRuuleKoY2RK3ig9EZa9E5y7VVm
+	aWJJZIjN0MnGK+IexGQ+ijl62LFRSrjVpghtd1NYNiVwWCzWD0hifXn/0JKwkk3ZaT3ow3hlMEP
+	yu14Mz8daKdFyV8/fuX61NKskz1ART/qgJDaF3MD2rZyUao3ox0Fv93EhNGc9qgjBsMhXV8oyEq
+	Q3m1mOoM96vDsj1ytgIbsY5ZFAjZrqwxMkhdM/k7FyUxADA76LRBD3VtuDKYBXQ2oZNexKo24tT
+	OTJi8kV1byY1SHvj6gjZpIrbIR/R6gaBP4EoAOiTlxTHX6LYevozTGJr117zRsxfLb558l0O67p
+	Q+Vgz5K1xSch+ZKsz7w6n4/qQ0U=
+X-Received: by 2002:a05:620a:450f:b0:93e:4c1b:a084 with SMTP id af79cd13be357-943f49f071bmr271661785a.7.1793065879789;
+        Mon, 26 Oct 2026 18:51:19 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a771c9sm845477185a.34.2026.10.26.18.51.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 18:51:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,53 +89,532 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] drm/vc4: hdmi: Convert to common HDMI 2.0
- scrambling infrastructure
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 0/4] mm: avoid losing atomic VMA flags
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Davidlohr Bueso <dave@stgolabs.net>, 
+ SJ Park <sj@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Colin Cross <ccross@google.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+References: <20261023-fix-vma-atomic-v1-0-8ff4fae1fc85@kernel.org>
+Date: Mon, 26 Oct 2026 21:51:16 -0400
+Message-Id: <179306587687.1925990.13855179558376532702.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Hi Dave, Maira,
-
-On 10/14/26 4:03 AM, Cristian Ciocaltea wrote:
-> This series includes patches 42-48 from "[PATCH v11 00/74] Add HDMI 2.0
-> support to DW HDMI QP TX" [1], which convert the VC4 HDMI driver to the
-> common HDMI 2.0 scrambling infrastructure as a proof of concept for
-> reusing the shared code.  It adopts the shared TMDS character rate
-> constants, switches to drm_hdmi_mode_needs_scrambling() and force_ctx(),
-> fixes -EDEADLK handling, and replaces the driver-local scrambling
-> implementation with the common SCDC scrambling helpers.
+On 2026-10-23 14:47 +0100, Lorenzo Stoakes (ARM) wrote:
+> Since commit 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove
+> under VMA lock"), VMA_MAYBE_GUARD_BIT can be set atomically under the VMA
+> read lock.
 > 
-> The infrastructure patches have been merged and there are no remaining
-> dependencies, so the vc4 patches are now sent as a separate series,
-> rebased on top of the latest drm-misc-next.
+> However, a number of places wrongly assume the flags are stable under the
+> read lock, which can cause stale atomic VMA flags to overwrite existing
+> valid ones.
 > 
-> Tested on a Raspberry Pi 5 Model B Rev 1.1 (BCM2712 D0).
+> Additionally, one case in which VMA_SOFTDIRTY_BIT was overwritten is also
+> addressed.
 > 
-> [1] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com/
+> This series addresses each of these, while keeping the logic inline with
+> existing conventions.
+> 
+> Each patch in this series is a hotfix.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-This series is the only remaining blocker to finalize the infrastructure
-cleanup. 
+You too get to be the unwilling participant in my schlopptesting
+experiment - but the good news is there's no issues and you win
+tags and free self/unit tests.
 
-Therefore, may I kindly ask if we could get this merged, so that I can prepare
-and (re)submit the last part of the original (large) series?
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-The only patches that haven't been reviewed/acked yet are 7 and 8. Those are not
-critical, and I'd rather send them separately (together with patch 9) if that
-would let us move forward sooner.
+Might be worth taking the VMA unit test below.
+Selftests... maybe the non-race uffd one.
 
-Thanks,
-Cristian
+Summary
+
+- **Reproduced and validated.**
+  Every bug the series describes reproduces on the base.
+  After applying the patches, the reproducers fail to repro.
+
+-- >8 --
+From: Gregory Price (Meta) <gourry@gourry.net>
+Subject: [PATCH] selftests/mm: guard-regions: test VM_MAYBE_GUARD is not lost under races
+
+MADV_GUARD_INSTALL sets VM_MAYBE_GUARD atomically while holding only the
+VMA read lock. mprotect(), madvise(), mlock(), VMA split and VMA merge
+used to snapshot VMA flags under the mmap write lock before write-locking
+the VMA and write them back afterwards, dropping a concurrently set
+VM_MAYBE_GUARD. For a file-backed mapping that means fork() no longer
+copies the page tables, so the child silently loses its guard markers.
+
+Add a flag_race test which, for each of those operations, repeatedly
+maps a fresh region and races a guard installation against the operation
+from two threads, then asserts via smaps that the VMA covering the
+guarded page still has the "gu" flag whenever the installation
+succeeded.
+
+Without "mm: avoid losing atomic VMA flags" this fails within a few
+rounds for mprotect() (all three backings); with only patch 1 applied it
+fails on the split case; with patches 1-3 it fails on the merge case;
+with the whole series it passes 2000 rounds of each operation.
+
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ tools/testing/selftests/mm/guard-regions.c | 158 +++++++++++++++++++++
+ 1 file changed, 158 insertions(+)
+
+diff --git a/tools/testing/selftests/mm/guard-regions.c b/tools/testing/selftests/mm/guard-regions.c
+index f7d53ea3c252..fe03354a1dca 100644
+--- a/tools/testing/selftests/mm/guard-regions.c
++++ b/tools/testing/selftests/mm/guard-regions.c
+@@ -9,8 +9,10 @@
+ #include <linux/limits.h>
+ #include <linux/userfaultfd.h>
+ #include <linux/fs.h>
++#include <pthread.h>
+ #include <setjmp.h>
+ #include <signal.h>
++#include <stdatomic.h>
+ #include <stdbool.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -2330,4 +2332,160 @@ TEST_F(guard_regions, smaps)
+ 	ASSERT_TRUE(check_vmflag_guard(ptr));
+ }
+ 
++/*
++ * Operations which snapshot VMA flags under the mmap write lock but before
++ * write-locking the VMA, racing against MADV_GUARD_INSTALL which sets
++ * VM_MAYBE_GUARD atomically under the VMA read lock.
++ */
++enum guard_flag_race_op {
++	RACE_MPROTECT,	/* mprotect() whole VMA. */
++	RACE_MADVISE,	/* madvise(MADV_RANDOM) whole VMA. */
++	RACE_MLOCK,	/* mlock() whole VMA. */
++	RACE_SPLIT,	/* mprotect() 2nd page, guard 1st (split duplicates). */
++	RACE_MERGE,	/* mprotect() 2nd page so it merges with the 1st. */
++	NR_RACE_OPS,
++};
++
++struct guard_flag_race {
++	unsigned long page_size;
++	enum guard_flag_race_op op;
++	char *ptr;
++	char *guard_ptr;
++	int guard_ret;
++	unsigned int jitter_guard, jitter_op;
++	atomic_int round, guard_done, op_done, stop;
++};
++
++static void race_spin(unsigned int n)
++{
++	for (volatile unsigned int i = 0; i < n; i++)
++		;
++}
++
++static int race_wait(struct guard_flag_race *race, int seen)
++{
++	int curr;
++
++	while ((curr = atomic_load(&race->round)) == seen)
++		if (atomic_load(&race->stop))
++			return -1;
++	return curr;
++}
++
++static void *race_guard_thread(void *arg)
++{
++	struct guard_flag_race *race = arg;
++	int seen = 0;
++
++	while ((seen = race_wait(race, seen)) >= 0) {
++		race_spin(race->jitter_guard);
++		race->guard_ret = madvise(race->guard_ptr, race->page_size,
++					  MADV_GUARD_INSTALL);
++		atomic_store(&race->guard_done, seen);
++	}
++	return NULL;
++}
++
++static void *race_op_thread(void *arg)
++{
++	struct guard_flag_race *race = arg;
++	const unsigned long page_size = race->page_size;
++	int seen = 0;
++
++	while ((seen = race_wait(race, seen)) >= 0) {
++		race_spin(race->jitter_op);
++		switch (race->op) {
++		case RACE_MPROTECT:
++			mprotect(race->ptr, 2 * page_size, PROT_READ);
++			break;
++		case RACE_MADVISE:
++			madvise(race->ptr, 2 * page_size, MADV_RANDOM);
++			break;
++		case RACE_MLOCK:
++			mlock(race->ptr, 2 * page_size);
++			break;
++		case RACE_SPLIT:
++		case RACE_MERGE:
++			mprotect(&race->ptr[page_size], page_size, PROT_READ);
++			break;
++		default:
++			break;
++		}
++		atomic_store(&race->op_done, seen);
++	}
++	return NULL;
++}
++
++/*
++ * Assert that VM_MAYBE_GUARD is never lost when guard regions are installed
++ * concurrently with operations that update VMA flags, split or merge VMAs.
++ *
++ * Losing it means fork() may not copy the page tables of a file-backed
++ * mapping, silently dropping the guard markers in the child.
++ */
++TEST_F(guard_regions, flag_race)
++{
++	const unsigned long page_size = self->page_size;
++	struct guard_flag_race race = { .page_size = page_size };
++	pthread_t guard_thread, op_thread;
++	struct procmap_fd procmap;
++	int round = 0;
++
++	srand(getpid());
++	ASSERT_EQ(open_self_procmap(&procmap), 0);
++	ASSERT_EQ(pthread_create(&guard_thread, NULL, race_guard_thread, &race), 0);
++	ASSERT_EQ(pthread_create(&op_thread, NULL, race_op_thread, &race), 0);
++
++	for (race.op = 0; race.op < NR_RACE_OPS; race.op++) {
++		int i;
++
++		for (i = 0; i < 2000; i++) {
++			char *ptr;
++
++			ptr = mmap_(self, variant, NULL, 2 * page_size,
++				    PROT_READ | PROT_WRITE, 0, 0);
++			ASSERT_NE(ptr, MAP_FAILED);
++			/*
++			 * Populate so anonymous mappings have an anon_vma and
++			 * can be guarded under the VMA lock.
++			 */
++			ptr[0] = 'x';
++			ptr[page_size] = 'x';
++
++			race.ptr = ptr;
++			race.guard_ptr = &ptr[page_size];
++			if (race.op == RACE_SPLIT) {
++				race.guard_ptr = ptr;
++			} else if (race.op == RACE_MERGE) {
++				/* Make 1st page RO so 2nd merges into it. */
++				ASSERT_EQ(mprotect(ptr, page_size, PROT_READ), 0);
++			}
++			race.jitter_guard = rand() % 2000;
++			race.jitter_op = rand() % 2000;
++
++			atomic_store(&race.round, ++round);
++			while (atomic_load(&race.guard_done) != round ||
++			       atomic_load(&race.op_done) != round)
++				;
++
++			/* smaps is keyed by VMA start, so look it up. */
++			ASSERT_TRUE(find_vma_procmap(&procmap, race.guard_ptr));
++			if (race.guard_ret == 0 &&
++			    !check_vmflag_guard((void *)procmap.query.vma_start)) {
++				TH_LOG("VM_MAYBE_GUARD lost, op %d round %d",
++				       race.op, i);
++				atomic_store(&race.stop, 1);
++				ASSERT_TRUE(false);
++			}
++
++			ASSERT_EQ(munmap(ptr, 2 * page_size), 0);
++		}
++	}
++
++	atomic_store(&race.stop, 1);
++	pthread_join(guard_thread, NULL);
++	pthread_join(op_thread, NULL);
++	ASSERT_EQ(close_procmap(&procmap), 0);
++}
++
+ TEST_HARNESS_MAIN
+
+-- >8 --
+From: Gregory Price (Meta) <gourry@gourry.net>
+Subject: [PATCH] selftests/mm: soft-dirty: check VM_SOFTDIRTY survives an anon name merge
+
+test_merge() checks that VM_SOFTDIRTY is propagated when a soft-dirty
+clean VMA is merged into a soft-dirty one via mremap() and mprotect(),
+but not via a change of anonymous VMA name.
+
+That path was broken: madvise_update_vma() overwrote the merged VMA's
+flags with the stale flags of the renamed VMA, dropping VM_SOFTDIRTY from
+the VMA it merged with. This is fixed by "mm/madvise: preserve
+VMA_SOFTDIRTY_BIT when changing anonymous names".
+
+Add a case which names VMA 1, clears soft-dirty, places a differently
+named (and therefore soft-dirty, unmerged) VMA 2 adjacent to it, then
+renames VMA 1 so that it merges into VMA 2, and asserts both pages are
+still reported soft-dirty. Skip it if PR_SET_VMA_ANON_NAME is not
+supported.
+
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ tools/testing/selftests/mm/soft-dirty.c | 76 ++++++++++++++++++++++++-
+ 1 file changed, 75 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
+index 7f649b673355..9f4660b19e1a 100644
+--- a/tools/testing/selftests/mm/soft-dirty.c
++++ b/tools/testing/selftests/mm/soft-dirty.c
+@@ -6,6 +6,7 @@
+ #include <stdint.h>
+ #include <malloc.h>
+ #include <sys/mman.h>
++#include <sys/prctl.h>
+ 
+ #include "kselftest.h"
+ #include "vm_util.h"
+@@ -13,6 +14,17 @@
+ #define PAGEMAP_FILE_PATH "/proc/self/pagemap"
+ #define TEST_ITERATIONS 10000
+ 
++#ifndef PR_SET_VMA
++#define PR_SET_VMA		0x53564d41
++#define PR_SET_VMA_ANON_NAME	0
++#endif
++
++static int set_anon_name(char *addr, size_t len, const char *name)
++{
++	return prctl(PR_SET_VMA, PR_SET_VMA_ANON_NAME, (unsigned long)addr,
++		     len, (unsigned long)name);
++}
++
+ static void test_simple(int pagemap_fd, int pagesize)
+ {
+ 	int i;
+@@ -308,6 +320,68 @@ static void test_merge(int pagemap_fd, int pagesize)
+ 			 __func__);
+ 
+ 	munmap(map, 2 * pagesize);
++
++	/*
++	 * Finally, establish a named VMA and clear VM_SOFTDIRTY:
++	 *
++	 *      "a"
++	 *       -
++	 * |---|---|---|---|---|
++	 * |   | 1 |   |   |   |
++	 * |---|---|---|---|---|
++	 */
++	map = mmap(&reserved[pagesize], pagesize, PROT_READ | PROT_WRITE,
++		   MAP_ANON | MAP_PRIVATE | MAP_FIXED, -1, 0);
++	if (map == MAP_FAILED)
++		ksft_exit_fail_msg("mmap failed\n");
++	if (set_anon_name(map, pagesize, "a")) {
++		ksft_test_result_skip("Test %s-anon soft-dirty after anon name merge 1st pg\n",
++				      __func__);
++		ksft_test_result_skip("Test %s-anon soft-dirty after anon name merge 2nd pg\n",
++				      __func__);
++		munmap(map, pagesize);
++		return;
++	}
++	clear_softdirty();
++
++	/*
++	 * ...and place a differently named VMA immediately adjacent:
++	 *
++	 *      "a" "b"
++	 *       -  S/D
++	 * |---|---|---|---|---|
++	 * |   | 1 | 2 |   |   |
++	 * |---|---|---|---|---|
++	 */
++	map2 = mmap(&reserved[2 * pagesize], pagesize, PROT_READ | PROT_WRITE,
++		    MAP_ANON | MAP_PRIVATE | MAP_FIXED, -1, 0);
++	if (map2 == MAP_FAILED)
++		ksft_exit_fail_msg("mmap failed\n");
++	if (set_anon_name(map2, pagesize, "b"))
++		ksft_exit_fail_msg("prctl(PR_SET_VMA_ANON_NAME) failed\n");
++
++	/*
++	 * Now rename VMA 1 so it's compatible with 2 and therefore merges. The
++	 * anon name path must not overwrite the merged VMA's flags with VMA 1's
++	 * stale ones, which lack VM_SOFTDIRTY:
++	 *
++	 *       merge
++	 *        S/D
++	 * |---|-------|---|---|
++	 * |   |   1   |   |   |
++	 * |---|-------|---|---|
++	 */
++	if (set_anon_name(map, pagesize, "b"))
++		ksft_exit_fail_msg("prctl(PR_SET_VMA_ANON_NAME) failed\n");
++
++	ksft_test_result(pagemap_is_softdirty(pagemap_fd, map) == 1,
++			 "Test %s-anon soft-dirty after anon name merge 1st pg\n",
++			 __func__);
++	ksft_test_result(pagemap_is_softdirty(pagemap_fd, map2) == 1,
++			 "Test %s-anon soft-dirty after anon name merge 2nd pg\n",
++			 __func__);
++
++	munmap(map, 2 * pagesize);
+ }
+ 
+ static void test_mprotect_anon(int pagemap_fd, int pagesize)
+@@ -330,7 +404,7 @@ int main(int argc, char **argv)
+ 	if (!softdirty_supported())
+ 		ksft_exit_skip("soft-dirty is not support\n");
+ 
+-	ksft_set_plan(19);
++	ksft_set_plan(21);
+ 	pagemap_fd = open(PAGEMAP_FILE_PATH, O_RDONLY);
+ 	if (pagemap_fd < 0)
+ 		ksft_exit_fail_msg("Failed to open %s\n", PAGEMAP_FILE_PATH);
+
+-- >8 --
+From: Gregory Price (Meta) <gourry@gourry.net>
+Subject: [PATCH] tools/testing/vma: test merge retains sticky flags set after vmg snapshot
+
+Callers of vma_merge_existing_range() populate vmg->vma_flags from the
+middle VMA before it is write-locked. VMA_MAYBE_GUARD_BIT can be set
+atomically on middle after that point (MADV_GUARD_INSTALL under the VMA
+read lock), so a merge which takes middle's sticky flags from
+vmg->vma_flags rather than from middle itself loses it. That is the case
+fixed by "mm/vma: avoid losing atomic VMA flags when setting sticky VMA
+flags".
+
+The existing merge_existing test always uses the same flags for middle
+and for vmg, so it cannot observe this. Add a test which sets
+VMA_MAYBE_GUARD_BIT on middle only, leaving it clear in vmg->vma_flags,
+prev and next, and asserts that the merged VMA retains it for each merge
+shape: merge right (partial and full span), merge left (partial and full
+span) and merge both.
+
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ tools/testing/vma/tests/merge.c | 92 +++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
+
+diff --git a/tools/testing/vma/tests/merge.c b/tools/testing/vma/tests/merge.c
+index b26f1a66a170..3ebd4ca50904 100644
+--- a/tools/testing/vma/tests/merge.c
++++ b/tools/testing/vma/tests/merge.c
+@@ -1096,6 +1096,97 @@ static bool test_merge_existing(void)
+ 	return true;
+ }
+ 
++struct stale_sticky_shape {
++	const char *name;
++	bool has_prev, has_next;
++	unsigned long start, end;
++	bool expect_prev;
++};
++
++/*
++ * Callers of vma_merge_existing_range() (e.g. mprotect, madvise, mlock) take a
++ * snapshot of middle's flags into vmg->vma_flags before middle is write-locked.
++ * Atomic VMA flags (currently VMA_MAYBE_GUARD_BIT) can still be set on middle
++ * after that snapshot, under the VMA read lock (MADV_GUARD_INSTALL), so the
++ * merge must take middle's sticky flags from middle once it is write-locked,
++ * not from the stale vmg->vma_flags, or the merged VMA loses them.
++ *
++ * Simulate that race by setting VMA_MAYBE_GUARD_BIT on middle only, so that
++ * neither vmg->vma_flags nor prev/next have it, and assert that the merged
++ * VMA retains it for each merge shape.
++ */
++static bool test_merge_existing_stale_sticky(void)
++{
++	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
++			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT);
++	static const struct stale_sticky_shape shapes[] = {
++		/*
++		 * 0123456789
++		 *    VVVVNNN
++		 */
++		{ "merge right partial", false, true, 0x4000, 0x7000, false },
++		{ "merge right full",    false, true, 0x3000, 0x7000, false },
++		/*
++		 * 0123456789
++		 * PPPVVVV
++		 */
++		{ "merge left partial",  true, false, 0x3000, 0x6000, true },
++		{ "merge left full",     true, false, 0x3000, 0x7000, true },
++		/*
++		 * 0123456789
++		 * PPPVVVVNNN
++		 */
++		{ "merge both",          true, true,  0x3000, 0x7000, true },
++	};
++	struct mm_struct mm = {};
++	VMA_ITERATOR(vmi, &mm, 0);
++	struct vma_merge_struct vmg = {
++		.mm = &mm,
++		.vmi = &vmi,
++	};
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(shapes); i++) {
++		struct vm_area_struct *vma_prev = NULL, *vma_next = NULL;
++		struct vm_area_struct *vma, *merged, *expected;
++		vma_flags_t middle_flags = vma_flags;
++
++		if (shapes[i].has_prev)
++			vma_prev = alloc_and_link_vma(&mm, 0, 0x3000, 0,
++						      vma_flags);
++		/* Set after the caller's snapshot, as if by MADV_GUARD_INSTALL. */
++		vma_flags_set(&middle_flags, VMA_MAYBE_GUARD_BIT);
++		vma = alloc_and_link_vma(&mm, 0x3000, 0x7000, 3, middle_flags);
++		if (shapes[i].has_next)
++			vma_next = alloc_and_link_vma(&mm, 0x7000, 0xa000, 7,
++						      vma_flags);
++
++		/* The stale snapshot: no VMA_MAYBE_GUARD_BIT. */
++		vmg_set_range(&vmg, shapes[i].start, shapes[i].end,
++			      shapes[i].start >> PAGE_SHIFT, vma_flags);
++		vmg.middle = vma;
++		/* Offset into middle means prev is middle. */
++		vmg.prev = shapes[i].start > vma->vm_start ? vma : vma_prev;
++
++		expected = shapes[i].expect_prev ? vma_prev : vma_next;
++		merged = merge_existing(&vmg);
++		if (merged != expected || vmg.state != VMA_MERGE_SUCCESS) {
++			fprintf(stderr, "%s: merge did not occur as expected\n",
++				shapes[i].name);
++			return false;
++		}
++		if (!vma_test(merged, VMA_MAYBE_GUARD_BIT)) {
++			fprintf(stderr, "%s: VMA_MAYBE_GUARD_BIT lost on merge\n",
++				shapes[i].name);
++			return false;
++		}
++
++		cleanup_mm(&mm, &vmi);
++	}
++
++	return true;
++}
++
+ static bool test_anon_vma_non_mergeable(void)
+ {
+ 	vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
+@@ -1501,6 +1592,7 @@ static void run_merge_tests(int *num_tests, int *num_fail)
+ 	TEST(vma_merge_with_close);
+ 	TEST(vma_merge_new_with_close);
+ 	TEST(merge_existing);
++	TEST(merge_existing_stale_sticky);
+ 	TEST(anon_vma_non_mergeable);
+ 	TEST(dup_anon_vma);
+ 	TEST(vmi_prealloc_fail);
+
+-- 
+~Gregory
+
