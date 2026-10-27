@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117098;
-	b=2X63HqqWe7VVgD5VF/p2JlxwfcxaR2RMYy5V0/EvHeL+IKw2LyXD5rQcNPCACJ/u4Xy+
-	 KmXNlJpg+9b3Ki18mSpVkPjJzVAzPDbBrx0wrklOcv/4VqyBvkP11ZycEeet3sIvlhEy6
-	 VZKf/Khjtvlfnx/3cz1B78e2uIiCbCSQzyqe7OGo2CKpiMZS0TgxSr0bhJ+Ef+xfLWo7b
-	 rT1C09R1geVWxCdiBeXVN38PRlm6VB6XSTsZXUgfiW0URrNuqeDGOPDSWQZWM3c6afsfY
-	 3ZVXarTC1eiWO+pUt3ai6b51l5gmJIZQXZqLjKNM3Cs9W6i3X5rARYtBGPOn5N2AgMw==
+	t=1793117101;
+	b=YcOsnl4bIxrIlVHrg+fIyP5W4KQIJZJcydH9UDbGDCkNI+C1Blv5X72wiDmSJztd8Z2f
+	 TfFfRnh6zpMQGmw7OnQ+hk84AMQABOmq1RBvd2NJNLkKCa0XYs0apsEqnbS9/nRmClvdo
+	 6ULcablh+ZKEO21kkRiCO2qUObo/Pr1+bGNnPWAIIZwXu7huXym4+lJWrYKgrc4SgxDRr
+	 V19RzWcEP7tJaXK5sL/gox+bfzY4UirFW2aMmNdyBkJGsdyfwPQVjYMN7KB1vPPpiEGdx
+	 AUDcrSZRQ1exuZc7u6PHGoXf9MSUAirSAN5MIKsgEWm6BNnsjsOjJzZG5FkfhnHVqvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117101;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/F2rwD49QkwQAj+Z9fNARvxK5O30lNNhgZjymWzOyVs=;
-	b=ztHXrLJbdysedrpL1GEzKN9tZJbqfhuYfxqzHAY0zlsNkjhlwVrllVRAKo5YxIj/30LG
-	 K+jSZJVOS8QNEekTSoXGK2yBVsG18g6brNpJTBhepPIHHvqC4RW0dRDRVxgh78NmIHEEE
-	 jiJH5I7pwHDrvTvsEajSLZgHYSmj0rXcKpktxF0/wWo+3YiHZvILjd9QS/2JqkRalNzzD
-	 HtSpV8osq6gTQnt8IciHFFXk1sJS4ZOCDIzUPK6l10XuUhZd9XX98Y3oemNClZhn+7q/S
-	 5vKiaw6nRfuyr5BUNl5sjIbZ4dtASo7+OuL4NKEhmm6WA/RJ7NyDj+I8GX09vU1VwrQ==
+	bh=aSUBd0EYmrq7zlFbtM3BP+ameb93hPBg8VZloLoSB9s=;
+	b=wLrcJ9s7qxG1c+tZoSGNNXTookFK5mmBjvQN4/aimGAWB/Vkg7eHGnqU2SgrhLzYyPtl
+	 fhyXKqnTU66gW5DSd1LJ6rTT0ArOsGShOHltkYpd/0Pz4HnAb/MAR5UAv1FOAOg8ag8z+
+	 k/FhRwTXOEkMSVaythsnwzwGNxD8Sxep8lR05DBr76e7l1n5axf7UA48jztlrlc/bCEAe
+	 qv546EE5FTnVbaACZgPFgjPurJZMVjIdoapwIZHmOiO7MWpVbZO+3mVLtTM/E7LxbhUVF
+	 Y0SOi3J9n5w/koG3fUBYySFdWL8OuT7w3Uiimzes8J1uADG3hcySVihasvmvDK1RFEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VXOrbtwq;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jj5bMBC1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF902606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:04:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46AD60A3808
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:05:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VXOrbtwq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1180C1F031F1;
-	Tue, 27 Oct 2026 16:04:56 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jj5bMBC1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93121F01306;
+	Tue, 27 Oct 2026 16:04:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793117097;
-	bh=/F2rwD49QkwQAj+Z9fNARvxK5O30lNNhgZjymWzOyVs=;
+	s=korg; t=1793117100;
+	bh=aSUBd0EYmrq7zlFbtM3BP+ameb93hPBg8VZloLoSB9s=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VXOrbtwqs4BSUtYx0rRkBbsX/yo0ELN6PembB5DCNn+xym0CfK2pP7djgfBnISDVa
-	 K0RFPQujnwoqI8PK1YNlHv129oZyRi/1kIJfzGaJDY246NXyKOk7SLHHxr5VG5YwhN
-	 AU3uO0H7b17F1jR91HVxUxURWxnYWN7KgYDhtn+o=
+	b=jj5bMBC1rzzCVfgpKrnaqdN7NdcV0BgXZClp+z8ha3PoIlSNqvPlRMBnhRyAIAe2I
+	 vyZ9EMnGIe3M62awxI6JLN/AEpnbt5RKzC8FsLspvrsqJW26uP3P2vx8M8m/UiaPir
+	 HZdoBU+X5b1MuoKbswsABg2m96jI+2xp3ADKcV8Q=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 17:04:38 +0100
-Subject: [PATCH 5/9] w1: ds2805: use the bus mutex to talk on the bus
+Date: Tue, 27 Oct 2026 17:04:39 +0100
+Subject: [PATCH 6/9] w1: netlink: drop the slave after the bus is unlocked
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,85 +51,76 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-llm-char-misc-w1-v1-5-d2e6bfafb6a4@linuxfoundation.org>
+Message-Id: <20261027-llm-char-misc-w1-v1-6-d2e6bfafb6a4@linuxfoundation.org>
 References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
 In-Reply-To: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2210;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1941;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=9M9xKTdni9HST2Eh8vxcSLFI0NV+b91HvNnx8K4xgiA=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPTs/85aHk8Oqv2T+9Nyl+J963zyo99b1Tbe5pJu4lz
- mr9P/ozOmJZGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAikdYMC5qfxEsv4nvmoCNs
- /HV7tEjkw00vpzEsOPyTeYpF1raD31Yutzr86PcKDuZoKwA=
+ bh=tjxch7vEyL+Ins4BUyI6jV3N3ZPuPyjc5EfJaH//hPA=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPTs/MbX3JnBd6wbqXNSsuaFMx09HJGrKc4rq9Oezdw
+ eu5j8d1xLIwCDIxyIopsnzZxnN0f8UhRS9D29Mwc1iZQIYwcHEKwESY5jPM4akrXmjp9f1umNyq
+ zX8ttzUt3bmjmmGu4OkNmpu42fd+vTb/u9kSE0/+a5bKAA==
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-Since commit b02f8bede217 ("W1: split master mutex to avoid deadlocks.")
-the slave drivers serialise their accesses to the bus with bus_mutex.
-This driver takes the mutex of the master in the callbacks of its eeprom
-file instead.
+w1_process_cb() executes the commands of a netlink message with bus_mutex
+held, and drops the reference to the slave which the message was
+addressed to before it unlocks the mutex.  If the slave has been detached
+in the meantime, this is the last reference, and w1_unref_slave() tears
+the slave down on the spot.  That waits
 
-That mutex is held while a slave which has disappeared from the bus is
-removed, which waits for the sysfs callbacks of the slave to return.  A
-callback which is waiting for the mutex at that moment never does: both
-tasks are stuck, and with them the thread of the bus master.
+- in device_unregister(), for the sysfs callbacks of the slave which are
+  running, and
 
-Besides, it does not keep the other slave drivers off the bus, so that two
-transactions can get mixed up on the wire.
+- in w1_therm_remove_slave(), for the readers which have taken a
+  reference to the family data,
 
-Fixes: f6887531c0c6 ("drivers: w1: Add 1w slave driver for DS28E05 EEPROM")
+and both kinds take bus_mutex to talk to the slave.  Whoever is waiting
+for the mutex at that moment is never going to finish, and neither is the
+thread of the bus master.
+
+Unlock the bus first.  The reference keeps the slave, and with it the
+master, alive until then.
+
+Fixes: d3a8a9dbb903 ("w1: hold bus_mutex in netlink and search")
 Cc: stable <stable@kernel.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/w1/slaves/w1_ds2805.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/w1/w1_netlink.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/w1/slaves/w1_ds2805.c b/drivers/w1/slaves/w1_ds2805.c
-index 9c86b7985d0b..bfcc02ecbdb9 100644
---- a/drivers/w1/slaves/w1_ds2805.c
-+++ b/drivers/w1/slaves/w1_ds2805.c
-@@ -102,7 +102,7 @@ static ssize_t w1_f0d_read_bin(struct file *filp, struct kobject *kobj,
- 	if (count == 0)
- 		return 0;
+diff --git a/drivers/w1/w1_netlink.c b/drivers/w1/w1_netlink.c
+index e6b59d921076..40fbb96a793e 100644
+--- a/drivers/w1/w1_netlink.c
++++ b/drivers/w1/w1_netlink.c
+@@ -478,15 +478,17 @@ static void w1_process_cb(struct w1_master *dev, struct w1_async_cmd *async_cmd)
+ 	if (!cmd || err)
+ 		w1_netlink_queue_status(node->block, node->msg, cmd, err);
  
--	mutex_lock(&sl->master->mutex);
-+	mutex_lock(&sl->master->bus_mutex);
++	dev->priv = NULL;
++	mutex_unlock(&dev->bus_mutex);
++
+ 	/* ref taken in w1_search_slave or w1_search_master_id when building
+-	 * the block
++	 * the block.  If it is the last one, the slave is removed, which waits
++	 * for users of the bus.
+ 	 */
+ 	if (sl)
+ 		w1_unref_slave(sl);
+ 	else
+ 		atomic_dec(&dev->refcnt);
+-	dev->priv = NULL;
+-	mutex_unlock(&dev->bus_mutex);
  
- 	/* read directly from the EEPROM in chunks of W1_F0D_READ_MAXLEN */
- 	while (todo > 0) {
-@@ -123,7 +123,7 @@ static ssize_t w1_f0d_read_bin(struct file *filp, struct kobject *kobj,
- 		off += W1_F0D_READ_MAXLEN;
- 	}
- 
--	mutex_unlock(&sl->master->mutex);
-+	mutex_unlock(&sl->master->bus_mutex);
- 
- 	return count;
- }
-@@ -211,7 +211,7 @@ static ssize_t w1_f0d_write_bin(struct file *filp, struct kobject *kobj,
- 	if (count == 0)
- 		return 0;
- 
--	mutex_lock(&sl->master->mutex);
-+	mutex_lock(&sl->master->bus_mutex);
- 
- 	/* Can only write data in blocks of the size of the scratchpad */
- 	addr = off;
-@@ -256,7 +256,7 @@ static ssize_t w1_f0d_write_bin(struct file *filp, struct kobject *kobj,
- 	}
- 
- out_up:
--	mutex_unlock(&sl->master->mutex);
-+	mutex_unlock(&sl->master->bus_mutex);
- 
- 	return count;
- }
+ 	mutex_lock(&dev->list_mutex);
+ 	list_del(&async_cmd->async_entry);
 
 -- 
 2.56.0
