@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097401;
-	b=Q6EVlcUL2cqv0Bwe2mdsiB0QVqpRjAqrn07Wc1MzCAEQVFqhWrYVdy0zbMPTLl2yNh79
-	 1mLnrOrIE3VVmWKl5GWmcx92gLfuiy82DLofgXtRg4PvoDA54+h62SNZLUsbr/lUhm2Ke
-	 iai6LR7znTFi4BTvxCu7S6JPrHBqaOeMFU0k2x9Dyi+jF4jr/DKooKGiBLfC81nLb46Rd
-	 kXEWIercrLAXXOIGeQa00kvkkJsz0FCtPVcLziJpuKvebVXwV3THZUz9vQXx/BXZnd4KC
-	 UcWqQ4MOweaW3nhEpLpucX0foUyCTYZU82t/MxSIRq54i3rtmLoSUIm+AWVWK8r+eXw==
+	t=1793097396;
+	b=LsuGmMBDXCB9lnPbD/0l10d+zfAPMpTOCI/dKXJ/hBdllHfXlMKvY26NHHixSwLrOYtv
+	 3pMCvXpy8yQs93ND0T7yhNZVkH08rxxwcZTDXklj9KG4MQqQLxPFd6JjIW+HmM5NWOGNf
+	 WL1OpCd1Ra+MqucWRZM/XPhPGrZ5j4+34GHRwsgjIWBP1lOcWRthy4Cyeh9tVs/eWMpdu
+	 tANnELXiB1W8zUTO+DQs0Io0d6ckrObICRtj0e259k1b458pg6Moj6929a7U47MPS2lZ4
+	 pje2q2kaKZ+X4Jw5JE8wDopyy/fDCPtKeaoMQXLWL5vD3ccooxIScDgRKsGRfvNgw1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097396;
 	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2ui3EKnv9a1jjzXC0mHa+737oalhDe7nkxscAeMHHtU=;
-	b=P6jhjToYimP5lXiX1hPmNezL6Y1DEN1IC9rz4w3mdV5FrBijQb2L4dM76ROpV3YK7QkF
-	 QDwVpd3IJnjtxPhTDzC529f0EXn0p+0k5+nHW6lrFOWIaMslDw7BgIkzv5tQuxZPezXva
-	 B9MnEBe1KdH0U+uc4aABPad2fPe0GgeohlknMnwIaKhu7tAEZQnXgjoUwXgqlTPmSeIdt
-	 AUnW8PftQ6mdohF1bA6pCzPV+ydGmC2R/lFxs86JAmVQDxex3r48uM/lNRmNgb3iL+ZLf
-	 vmYgKH+C+xTBKgaThUJkq+uTdEgFcjirczNMQyLwTf8mbbC7e/YcwVoYSD0f2o8YWLg==
+	bh=PhZYi99haeVwLl/xerdQBoJ2WYUBPvmlYKxW8sH+X34=;
+	b=4mshUlUrvbMV9jgnzLbWxqvzYkDTAuQ0njcexnTjwnq+hCnkzS8hB5WE32HfPVk+hpBz
+	 NSb3nYVqm0kfjTxdpLeWQB8xEB+pby37dIxS6C/WrLOD5Rcd/ii8M51SU9GPw56Z8OClX
+	 WlzcSX8U8FRKs782+lX8IySuYqNYmeatRfkNy/6Acc/uiXUFBvecRaQjEd16hWO2HY5iF
+	 VASLftLmqhrpk8CA9QI6SkCOdWHopAxbRxTK7mQVvSPkIWAuisTNzyQ+iaef7PBXd2/Kk
+	 sihVoZCK5PKarU5M/xsrKTV9PoSeHDBbsSU0ujro2k4GMNNw52Dc0hj1wh2vobfidJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nt6J0XE8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NyN1r9G5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58AB4606A31B;
-	Tue, 27 Oct 2026 10:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F13606A32A;
+	Tue, 27 Oct 2026 10:36:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nt6J0XE8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455A91F01828;
-	Tue, 27 Oct 2026 10:36:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NyN1r9G5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8701F031E3;
+	Tue, 27 Oct 2026 10:36:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097401;
-	bh=2ui3EKnv9a1jjzXC0mHa+737oalhDe7nkxscAeMHHtU=;
+	s=k20260515; t=1793097396;
+	bh=PhZYi99haeVwLl/xerdQBoJ2WYUBPvmlYKxW8sH+X34=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=Nt6J0XE84L5OF0Wve8X2If+68JaBdZHCj99dRJ6KGR+NHqG0RVGOyDUYAe82e33Ko
-	 5xTcqfw3u/XkADXLOtCgfJujdmwxBZf98a8ZHZbHlNWwWOAI6u3584JjNgbvYcAsxa
-	 n1VDQIYvQy39gFEdpBVL9rzCAOiWQNQAodZxuIFmkGsYLmGrcPF56xvQaF+lnYH4g9
-	 VirXX6lfvfgEuALsKoftS86HADKpG4tapwqC6ay2eXDws+bks6Eyf4xZAmR2m5Ze46
-	 pL1nuQjJ2xxLXJnzVwba+G+o0jIDguEEBL8J/Jj3/s94pceF3xAJU74RCpBcesC1UB
-	 65F9f0rOV60MA==
+	b=NyN1r9G592TA+Kxpe7XMkGZq031N7inRgzyv8n4M3NLiJi7Yw38cOj13afIGK+++G
+	 Hi0XtNkJsRzuR0sRZe00JcFRf6E+nJSREnWqT0Kwxn1PijQc/1pV62yA2xMahNUVdC
+	 x6FArKYdC1BT+pCAlBsF0sZKHF9K8YXUR4mhSNRN3X5v2pdp8aBFnb/vSmPqwpAfIN
+	 n2TF31TbRpRKwsW1FCJH8Rn2FFCUCCkXw0/GYslOJdX3yQdyjf3B9gwKsD9q8L6tNs
+	 50uthOA+2Njri91n/MwxWZZ2+armXh7zMhv/qAFdJqWdFomXJOZtr+Y9rIGJp6IqPG
+	 ynSa314IH/3xQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	cover.1712920132.git.mazziesaccount@gmail.com,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Chong Qiao <qiaochong@loongson.cn>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Corey Minyard <corey@minyard.net>,
+	Huacai Chen <chenhuacai@kernel.org>,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 05/27] mfd: bd96801: Allocate watchdog IRQ resource on the heap
-Date: Tue, 27 Oct 2026 09:30:34 +0000
-Message-ID: <20261027093306.2812695-6-lee@kernel.org>
+Subject: [PATCH v2 04/27] mfd: ls2kbmc: Allocate simplefb platform_data on the heap
+Date: Tue, 27 Oct 2026 09:30:33 +0000
+Message-ID: <20261027093306.2812695-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
 References: <20261027093306.2812695-1-lee@kernel.org>
@@ -62,60 +65,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bd96801_i2c_probe() declares struct resource wdg_irq on the stack and
-assigns its address to ddata->cells[WDG_CELL].resources.  Although
-mfd_add_device() deep-copies the resource table via
-platform_device_add_resources() before bd96801_i2c_probe() returns, the
-shared cell template and the shallow MFD cell copy attached to the child
-platform device retain a stale pointer to the expired stack frame.
+ls2k_bmc_probe() declares struct simplefb_platform_data on the stack and
+assigns its address to the display MFD cell.  Although mfd_add_device()
+deep-copies platform_data via platform_device_add_data() before
+ls2k_bmc_probe() returns, the shallow mfd_cell copy attached to the
+child platform device retains a stale pointer to the expired stack
+frame.
 
-Allocate wdg_irq on the heap via devm_kzalloc() alongside regulator_res
-so the stored pointer remains valid for the lifetime of the device.
+Allocate the simplefb_platform_data structure on the heap via
+devm_kzalloc() prior to devm_mfd_add_devices() so the pointer remains
+valid for the lifetime of the child platform device.
 
-Fixes: 894d915d23b9 ("mfd: bd96801: Add ERRB IRQ")
-Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
+Fixes: 0d64f6d1ffe9 ("mfd: ls2kbmc: Introduce Loongson-2K BMC core driver")
+Closes: https://sashiko.dev/#/bug/linux-4e2dd9cb-310b-4bba-b305-ffacc738285c
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Binbin Zhou <zhoubinbin@loongson.cn>
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/rohm-bd96801.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/mfd/ls2k-bmc-core.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mfd/rohm-bd96801.c b/drivers/mfd/rohm-bd96801.c
-index 66fa017ad568..eb7a7376ea89 100644
---- a/drivers/mfd/rohm-bd96801.c
-+++ b/drivers/mfd/rohm-bd96801.c
-@@ -642,8 +642,7 @@ static int bd96801_i2c_probe(struct i2c_client *i2c)
- 	struct irq_domain *intb_domain, *errb_domain;
- 	const struct bd968xx *ddata;
- 	const struct fwnode_handle *fwnode;
--	struct resource *regulator_res;
--	struct resource wdg_irq;
-+	struct resource *regulator_res, *wdg_irq;
- 	struct regmap *regmap;
- 	int intb_irq, errb_irq, num_errb = 0;
- 	int num_regu_irqs, wdg_irq_no;
-@@ -692,6 +691,10 @@ static int bd96801_i2c_probe(struct i2c_client *i2c)
- 	if (!regulator_res)
- 		return -ENOMEM;
+diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
+index e245bdee8226..3e3bc835262e 100644
+--- a/drivers/mfd/ls2k-bmc-core.c
++++ b/drivers/mfd/ls2k-bmc-core.c
+@@ -470,7 +470,7 @@ static int ls2k_bmc_parse_mode(struct pci_dev *pdev, struct simplefb_platform_da
  
-+	wdg_irq = devm_kzalloc(&i2c->dev, sizeof(*wdg_irq), GFP_KERNEL);
-+	if (!wdg_irq)
+ static int ls2k_bmc_probe(struct pci_dev *dev, const struct pci_device_id *id)
+ {
+-	struct simplefb_platform_data pd;
++	struct simplefb_platform_data *pd;
+ 	struct ls2k_bmc_ddata *ddata;
+ 	resource_size_t base;
+ 	int ret;
+@@ -489,12 +489,16 @@ static int ls2k_bmc_probe(struct pci_dev *dev, const struct pci_device_id *id)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = ls2k_bmc_parse_mode(dev, &pd);
++	pd = devm_kzalloc(&dev->dev, sizeof(*pd), GFP_KERNEL);
++	if (!pd)
 +		return -ENOMEM;
 +
- 	regmap = devm_regmap_init_i2c(i2c, ddata->regmap_config);
- 	if (IS_ERR(regmap))
- 		return dev_err_probe(&i2c->dev, PTR_ERR(regmap),
-@@ -723,9 +726,9 @@ static int bd96801_i2c_probe(struct i2c_client *i2c)
- 	}
++	ret = ls2k_bmc_parse_mode(dev, pd);
+ 	if (ret)
+ 		return ret;
  
- 	wdg_irq_no = irq_create_mapping(intb_domain, BD96801_WDT_ERR_STAT);
--	wdg_irq = DEFINE_RES_IRQ_NAMED(wdg_irq_no, "bd96801-wdg");
-+	*wdg_irq = DEFINE_RES_IRQ_NAMED(wdg_irq_no, "bd96801-wdg");
+-	ls2k_bmc_cells[LS2K_BMC_DISPLAY].platform_data = &pd;
+-	ls2k_bmc_cells[LS2K_BMC_DISPLAY].pdata_size = sizeof(pd);
++	ls2k_bmc_cells[LS2K_BMC_DISPLAY].platform_data = pd;
++	ls2k_bmc_cells[LS2K_BMC_DISPLAY].pdata_size = sizeof(*pd);
+ 	base = pci_resource_start(dev, 0) + LS2K_DISPLAY_RES_START;
  
--	ddata->cells[WDG_CELL].resources = &wdg_irq;
-+	ddata->cells[WDG_CELL].resources = wdg_irq;
- 	ddata->cells[WDG_CELL].num_resources = 1;
- 
- 	if (!num_errb)
+ 	/* Remove conflicting efifb device */
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
