@@ -1,86 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100820;
-	b=NJH/+uV8kCRSkH3bcVSzhMszizicik0Zm1Fpn7q8wCik0Q7MGcMRsTjpMPVYJCA3F91I
-	 d13UZ8XtzdhQU0IijGjWVhd8SQkrUKHBmbM++SeGzMKoOQ2Vag3fWvjd2iOUPm7uxVdfK
-	 PgIlvtdW3x1iOPrDD6U4/dfYlwZvJ/X2DJ5iSn+9I8f9RzAeRHCIap4CBYaPZSU3+Gozj
-	 R3HvyqYBAp0mCpBjBVsScUpie5hv3P/lDxM3ipDgGtAv3ZQEc77QBcp8mT5FF98S9u/7A
-	 UBpSYzRhWyS23bB4kH0KIeHm2CNRlj229y4++j+UMF+zi9z+8J4iqetI0tL0YAJ3loQ==
+	t=1793100841;
+	b=doyuqWy3AV7Pjty9vLdrGP6Gk3VJFaDEc9wtdN78DHWpIEkYsPO4fWs5Mgkyg2X03gVz
+	 kPbASwCtdrSnvoh5CkPEYgdbhGos8KWsvF/KgyyhpS6GorRTXwGLRiyqW7VKFJGHE14GB
+	 QsRcNGDicfaX0EdKGIEL83rMXFB6LCBeCq6Cl1Ff2+9W5s73v6lanFI3qVeZvtFRecTpv
+	 hbG3XxPr7SUSpQK0+fhCUBAqBOg96/3kyKkLIsommrkK30nBqro+yTp6sDhVVUyuJ3OEe
+	 yuOTh+P/fKJDc3NO3KnuHaHA9g/cNJSl1ZaUlqV1TCVIetaxZ0kiegLvWscP5iPz6jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100820;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=kJDjNU0dZaCl7vq80j34Y7JKA/POP5UfhMbpxoRWU9o=;
-	b=m9k/XshS5hNSWxQosY5ENetDYBS/Vy5TZWO4EgLDY6B7yh4NQ2m6nyptNLhc+X+CZLJJ
-	 UjziLlJ1yvvlVoQ8j/37hqhFFJKgmeLGSTVSX71u+wZ9kYRi4ZZt8amjqtjvMEZAPOfqX
-	 Pwhvh+y45i/YoGICYjrBCjmVxbEYdawUX0P/S+kOrif3Q3LsVoqI5IB+6Sh7j7KT2FaLN
-	 dznAHDCK4tbEx64nu2vuKPY2WeRNL0V7on4vaJ0y4XOoMK+RTCil5f4AePQQU24PR21nA
-	 YLuCZD6Vu/ZD8OdUKRFeUuNTevFW567XvaWzHRtzN9kPgvPNR7my3MYces6kgIfo1HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100841;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:
+	 X-Flowmailer-Platform:Feedback-ID;
+	bh=/8UNYZRLfX17A/rGH89AnZhCK05En4ZqGpei7ncmU5o=;
+	b=UM2K+17yN3EnFnvCylg9WXhVtFNgzPqTspSAUdfQP4N+JGC15itU8ML8otNIVQTI4Q8R
+	 JuluH+Ii0PWn42apJ2rulVRWV1zm0zrPMLWChUR92XtDEFVdR+UMOmlkV4x0IFljuA5uf
+	 ETIus3D0WtHPdWCo5hGdanZcTT0BF9zVce8L8+yIaJbLsOR1VW2+bQ13sh2xWDFX+1v5j
+	 DaiepcHfs1fflH96Y57WaeWtvwnHkw9Jzj7ARAPNU58h1mbmekCkSYTWpRD/Zx7PPoh38
+	 xRjzbUjMyKtF2clq87dQ6qlT3fPNFn6mmD34XTyBfk9fBR1ijdKk1cupSIa7E49UBDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F9rgkgTi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=siemens.com;
+	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
+	dkim=pass header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=nDpC+cSL;
+	arc=none smtp.remote-ip=185.136.64.226
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86569606A32A;
-	Tue, 27 Oct 2026 11:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00C1606B5A3
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E00C1606B5A3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F9rgkgTi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E3491F01825;
-	Tue, 27 Oct 2026 11:33:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793100820;
-	bh=kJDjNU0dZaCl7vq80j34Y7JKA/POP5UfhMbpxoRWU9o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F9rgkgTiVx0zOkrHSZhpnP0pLRG8rtAsTZD4q+/00nQeoaqmBTyYipHT/g1WFie2L
-	 bkFNPPJeey7427ZCdj0LBmQN3sXrNOO1amg2XH3cDZWtChk7P/5AdpTrAOXMSO1HQg
-	 xz2UnZbQyxd2+8mk7aCs4ibnnfk1KEpcfOE2CB4g=
-Date: Tue, 27 Oct 2026 12:33:39 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-Cc: Joshua Rogers <linux@joshua.hu>, Chris Mason <mason@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Peter Hurley <peter@hurleysoftware.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Olof Johansson <olof@lixom.net>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Robert Baldyga <r.baldyga@samsung.com>,
-	Thomas Abraham <thomas.abraham@linaro.org>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
-	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	Marnix Rijnart <marnix.rijnart@iwell.eu>,
-	stable <stable@kernel.org>
-Subject: Re: [PATCH 11/24] serial: 8250: cap OxSemi Tornado UART count
- against BAR size
-Message-ID: <2026102755-chewing-snippet-af92@gregkh>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
- <20261027-tty-llm-v1-11-99b0202ae546@linuxfoundation.org>
- <10465f24-0d87-48f8-9684-302434b456fc@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=nDpC+cSL
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 20261027113352ef8483a7be000207e7
+        for <linux-kernel@vger.kernel.org>;
+        Tue, 27 Oct 2026 12:33:52 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=/8UNYZRLfX17A/rGH89AnZhCK05En4ZqGpei7ncmU5o=;
+ b=nDpC+cSLKZgkYoanKQ+Het0/rRNcy2utiuakyCW6FdFnPpiebdZ0vnxjHO9wzeOJjHd9te
+ ktBbQpMfjCKJS3dvyNURByM7cD+2u0cdDFhZpzgXjxPBg5reVVBeB8T1rA/NgFVIn3wcy2Dp
+ 27uQ4WPmhmVWV6o1nY3KKPLwCqKr50f78/ZpHb6UOLs10ZeCRw1HNeyU4j9IwcdlksfnJ1iO
+ Zt0swMGlYSiZw6r8g9uLAAIELxMUIxAn/FHF+U5mOnW4jaZqRgoutZ4zusIGg1Kl3Nnadwe6
+ q0uc8mjOslXKBe4XTTVHrop0Ic6C+r7UB0xhFwTcDQyWQ7HoGukCr9vw==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: linux-leds@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	"Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/5] leds: trigger: netdev: fix sysfs_update_group() races
+Date: Tue, 27 Oct 2026 12:33:40 +0100
+Message-ID: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,60 +68,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <10465f24-0d87-48f8-9684-302434b456fc@kernel.org>
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-On Tue, Oct 27, 2026 at 12:23:14PM +0100, Jiri Slaby wrote:
-> On 27. 10. 26, 12:06, Greg Kroah-Hartman wrote:
-> > From: Joshua Rogers <linux@joshua.hu>
-> > 
-> > pci_oxsemi_tornado_init() reads the UART count from device-controlled
-> > BAR0 memory without validation, allowing a malicious device to report up
-> > to 255 ports. Cap the device-reported count against what actually fits
-> > in the BAR using the Tornado register layout.
-> > 
-> > Cc: Jiri Slaby <jirislaby@kernel.org>
-> > Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
-> > Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Cc: Bjorn Helgaas <bhelgaas@google.com>
-> > Cc: Lukas Wunner <lukas@wunner.de>
-> > Cc: Marnix Rijnart <marnix.rijnart@iwell.eu>
-> > Cc: Crescent Hsieh <crescentcy.hsieh@moxa.com>
-> > Cc: stable <stable@kernel.org>
-> > Signed-off-by: Joshua Rogers <linux@joshua.hu>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> >   drivers/tty/serial/8250/8250_pci.c | 10 ++++++++++
-> >   1 file changed, 10 insertions(+)
-> > 
-> > diff --git a/drivers/tty/serial/8250/8250_pci.c b/drivers/tty/serial/8250/8250_pci.c
-> > index 1dda63be6b89..9919504334bb 100644
-> > --- a/drivers/tty/serial/8250/8250_pci.c
-> > +++ b/drivers/tty/serial/8250/8250_pci.c
-> > @@ -1083,6 +1083,7 @@ static int pci_oxsemi_tornado_init(struct pci_dev *dev)
-> >   	u8 __iomem *p;
-> >   	unsigned long deviceID;
-> >   	unsigned int  number_uarts = 0;
-> > +	resource_size_t bar_len;
-> >   	if (!pci_oxsemi_tornado_p(dev))
-> >   		return 0;
-> > @@ -1095,6 +1096,15 @@ static int pci_oxsemi_tornado_init(struct pci_dev *dev)
-> >   	/* Tornado device */
-> >   	if (deviceID == 0x07000200) {
-> >   		number_uarts = ioread8(p + 4);
-> > +
-> > +		/* Cap against BAR0 size (Tornado layout: 0x1000 + n * 0x200) */
-> > +		bar_len = pci_resource_len(dev, 0);
-> > +		if (bar_len >= 0x1000)
-> > +			number_uarts = min_t(unsigned int, number_uarts,
-> > +					     (bar_len - 0x1000) / 0x200);
-> 
-> Is the _t variant necessary? Both are unsigned (int and u64).
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-Ah, yes, the true tell of a LLM that was based on an "old" kernel
-history.  I'll go fix this up for the next round of these patches, for
-those that still need work, thanks!
+The netdev LED trigger refreshes the link_speed attribute group with
+sysfs_update_group() from several contexts (the NETDEV_CHANGE notifier,
+device_name writes and, indirectly, trigger (de)activation) that share no
+common lock. On a board that emits PHY link events while the trigger is
+being (re)armed during boot this is observed as a hard sysfs failure:
 
-greg k-h
+  sysfs: cannot create duplicate filename '...green:lan/link_10'
+  ...
+  led_trigger_set
+  led_trigger_write
+
+The window between activate() and device_add_groups() in led_trigger_set()
+is narrow, so to reproduce it reliably I artificially widened it with the
+debug patch below:
+
+--- a/drivers/leds/led-triggers.c
++++ b/drivers/leds/led-triggers.c
+@@ -12,6 +12,7 @@
+ #include <linux/list.h>
+ #include <linux/spinlock.h>
+ #include <linux/device.h>
++#include <linux/delay.h>
+ #include <linux/timer.h>
+ #include <linux/rwsem.h>
+ #include <linux/leds.h>
+@@ -223,6 +224,8 @@ int led_trigger_set(struct led_classdev *led_cdev, struct led_trigger *trig)
+ 		if (ret)
+ 			goto err_activate;
+
++		msleep(5000);
++
+ 		ret = device_add_groups(led_cdev->dev, trig->groups);
+ 		if (ret) {
+ 			dev_err(led_cdev->dev, "Failed to add trigger attributes\n");
+
+With that msleep() in place, writing the trigger while a NETDEV_CHANGE is
+delivered from the linkwatch workqueue reproduces the duplicate-filename
+splat every time.
+
+The whole series is LOCKDEP-verified.
+
+Changelog:
+v6:
+- report invalid interval to user space
+- fixed unlocked hw_control check in interval_store()
+- added missing carrier_link_up check in netdev_trig_sw_blink()
+v5:
+- removed unset_device_name()
+- https://lore.kernel.org/all/20261020124651.1987272-1-alexander.sverdlin@siemens.com/
+v4:
+- introduced netdev_trig_sw_blink() and used it in netdev_trig_work()
+- https://lore.kernel.org/all/20261001131206.2513248-1-alexander.sverdlin@siemens.com/
+v3:
+- introduced unset_device_name() as a counterpart of set_device_name()
+- guard() has been converted to either explicit mutex_lock()/mutex_unlock()
+  or scoped_guard()
+- rebased onto next-20260925
+- https://lore.kernel.org/all/20260929120902.2793138-1-alexander.sverdlin@siemens.com/
+v2:
+- addressed pre-existing issues found by Sashiko (patches 1&2)
+- reduced verbosity both in comments and in commit messages
+- patch 3 is a combined rework of patches 1&2 from v1
+- dropped sync from cancel_delayed_work() (worker now takes the lock)
+- https://lore.kernel.org/all/20260921093249.3481413-1-alexander.sverdlin@siemens.com/
+v1:
+- https://lore.kernel.org/all/20260914132356.807004-1-alexander.sverdlin@siemens.com/
+
+
+Alexander Sverdlin (5):
+  leds: trigger: netdev: Put netdev on activate error path
+  leds: trigger: netdev: Access net_dev under trigger_data->lock in the
+    worker
+  leds: trigger: netdev: Fix sysfs_update_group() races
+  leds: trigger: netdev: Report invalid interval to user space
+  leds: trigger: netdev: Serialize mode/interval stores with trigger
+    lock
+
+ drivers/leds/trigger/ledtrig-netdev.c | 140 ++++++++++++++++++--------
+ 1 file changed, 96 insertions(+), 44 deletions(-)
+
+-- 
+2.56.0
+
