@@ -1,58 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088289;
-	b=MkSs1e62xTlew5lrNHS4Atzn6zuexgKKqujHczhxXG2j9EGeCzrE6eNUjMklIW6ZGVdV
-	 fZoTbYMVq3WX1HUmkuNYirEfJkzpsr/LE+s0taI6RI9t1Qc/C0aBIx49oY4h2iO3l7UKf
-	 Rw+joEa9LXwVhmKM9nn/ENOkcPQbIZemlkPWDt8tohS1fEdN0iWThjd4EnyPAXXRMOFL7
-	 N59wG2QfyC9w5XVwXaHvkko+UUUFvkw9Emj5Xrb9td6PW7XYj7IuPOdXl4+z+4JOftIz8
-	 2XLQD1t7GofywxYFOKSiSfyFRtEznpZ9xFgstzFLqkXqniNZeABIGIGg0JldAh7jvBw==
+	t=1793088350;
+	b=R+TDp80aukaH5/1VpSPfzzCqIXQKCPaZtz1ew3WsW2lA2V/HEuDKKLGR8iQIIwajNhW9
+	 NcLi/DcqfcJEje4jhS3Q1cK58BIJxlc+A9/Lp0Kof4IIWqPEqXdMbSrwv/oqHvGFKKmXu
+	 WjTiScPV5V41q7x87OAjzs9dKP1kKT+tDUYsKuzcf1+jPvtuQj14WggCSIPA9Q2rTO7Cs
+	 JyZxezm4bpOpvQ7bQnh2P8DifnJu9caMpVDIUu1cav9cTWRv7dcfU0cSwA2U1+2icodbG
+	 uB+z/kY/nfALPQTLwDuGKCRxG3XoFeEhIv9dwDmj+WnU5JBHeSI5ipnwSqtY24yhaAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088350;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZL1gpW7p4ard24lSO9/+2V0/hqF98a+IvwOAZv1vj7A=;
-	b=QrjDuEwLXEYlyuSGQGD+Z/C0CDFGeZO7oHF1qofXiPe1ZzbhJbHygjBkVv842XSmbpVu
-	 wc6dE4rTXURKhX+6GR1KqcE4oS1pEuBuUM3TzNcdGgcT9P0aj6zbWxLER2Bb6oGNPoPhH
-	 FSPFw8XJb+Rda9nXAiDrAX06PjTKkCw9mKUBeoVxmJpsqoMbSnd3HBJwmec+iwiqTBiNU
-	 01bgWr38CO2aMdZKj4GxvKOMKHaypwOeqptXvXG54kdsvkiJnYLfSTbpP7jRTMVM27IjO
-	 2x3DV3Yyj02QI7R8T2nH5c6fFqJz3za72/CORAA6B2whPMGkC1JuNKn3XQKljmAT87Q==
+	bh=BPrJ7zSdgkFlPfR666dcGKV7qJo/SNuXml2HNin/vAo=;
+	b=X+7ui+paETDSIiv2knxsefGwAyqZpA8PQEXU+xMgCDqcuFknDY1xH0KDwPXBRHHEjrcu
+	 fdzmbLu6C0aSFw3Go/C+gm75msBZDn+QPtYv17b+OkjyT3bJXFdHqfl5Fw0Mcp3dBuy5z
+	 4bsO2fdPdCZHUSeKGCnmvnbYtRJaucNw7vIaiIZ7U7U5+A7ulUBjkwqsQpqOA0EdJxutR
+	 kur14Tsr8snHdEZsJa2NubKydJW2hKFGQg2EAufVaG+ntGjhVzIlSNl25RMn9h6S9Uk41
+	 jF9mL5urqOO5beV48WQpJAsvHWC2MCJUuN4Ri6261fC+erC0eRRcahoEJfXt91PY5Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOFIK9R3;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E9Rt7+fy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944AA606A31D;
-	Tue, 27 Oct 2026 08:04:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAB2606A31B;
+	Tue, 27 Oct 2026 08:05:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kOFIK9R3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25E761F031E2;
-	Tue, 27 Oct 2026 08:04:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793088289;
-	bh=ZL1gpW7p4ard24lSO9/+2V0/hqF98a+IvwOAZv1vj7A=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E9Rt7+fy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BAF71F01825;
+	Tue, 27 Oct 2026 08:05:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793088348;
+	bh=BPrJ7zSdgkFlPfR666dcGKV7qJo/SNuXml2HNin/vAo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kOFIK9R30fCpE+kzywtFEXksr4BIrnOkyAqNjGnji/boXE+SHiUCokPAb0BYrOfaE
-	 3Ij2CbhXsxbCf7Xduo0Kimt9MtZRokiJYe6R1D4ib9sadBZk4Ja2FHFKBqlEEWxrB+
-	 SATNGY2WB8GUKMR2SBxC0areS6/Zdha/vir4HXyjZ+TtByRtUbJCLd7BGk+8DA+J+o
-	 otee2mf26zka3gFjg0OMVd7itagJs0B0Lc+vgX+NWjc7RRW4S2gKInisCiInE1kbN4
-	 iHxROV2v+Qa8Fl8K95pih6+jxxvX6n8tbKuHlUkBmYabIxRzFtJDlbyZeh90w/S70/
-	 PNpA6Rgz4cbLg==
-Date: Tue, 27 Oct 2026 09:04:45 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stephan Costa Barros <stephanbrrs8@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mike Looijmans <mike.looijmans@topic.nl>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 5/6] dt-bindings: iio: adc: ti,ads1298: add ADS1299
-Message-ID: <20261027-slick-rhino-of-vastness-5cfe0c@quoll>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
- <20261024231335.280955-6-stephanbrrs8@gmail.com>
+	b=E9Rt7+fybzwSR2JXSEMbcSS2YSEXxhtSq/QjU3jgLpkUV+fklU2NxK+HrJcEoXOUu
+	 dllpoob+VAQlCfum2hsbbvZhGAN5hsXW3v33jsFtpHlGyzisj8rZcalg6TGHAXmfRo
+	 UQE7gkIncVP0CkPNUOXzbTknZZOlhrvtULldMSDI=
+Date: Tue, 27 Oct 2026 09:05:47 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Alex Williamson <alex@shazbot.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+	Richard Weinberger <richard@nod.at>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <2026102711-spectator-courier-13d5@gregkh>
+References: <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
+ <arOfHEsGGglNse7T@monoceros>
+ <2026092348-victory-erased-0e5a@gregkh>
+ <20261023181326.0dc2f7ed@shazbot.org>
+ <2026102437-vista-unsoiled-b089@gregkh>
+ <20261024103512.4601ee4f@shazbot.org>
+ <2026102637-buggy-mothball-2a08@gregkh>
+ <20261027070300.4c45616a.michal.pecio@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,38 +85,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261024231335.280955-6-stephanbrrs8@gmail.com>
+In-Reply-To: <20261027070300.4c45616a.michal.pecio@gmail.com>
 
-On Sat, Oct 24, 2026 at 08:13:34PM -0300, Stephan Costa Barros wrote:
-> The ADS1299 is an 8-channel, 24-bit biopotential ADC for EEG with the
-> register map of the ADS129x. It differs in its gains, data rates and
-> ID layout, and has a fixed 4.5 V internal reference. The ADS1299-4 and
-> ADS1299-6 are the same part with four and six channels.
+On Tue, Oct 27, 2026 at 07:03:00AM +0100, Michal Pecio wrote:
+> > And as said before, that's a horrid hack and one that is breaking
+> > things today in all sorts of ways, which is why the taint was added.
 > 
-> TI sells the 8-channel part as plain ADS1299, so ti,ads1299 names it,
-> and it is the fallback for ti,ads1299-4 and ti,ads1299-6: the channel
-> count can be read from the ID register. The ADS1299 is not compatible
-> with the ADS1298, so ti,ads1298 is not a fallback for it.
-> 
-> In the same way, give each ADS129x part a compatible, with ti,ads1298 as
-> the fallback: the ID register tells the parts apart, by family and
-> channel count. ti,ads1298 alone remains valid, so existing device trees
-> are not affected.
-> 
-> Both families have a digital supply, DVDD, and an active-low power-down
-> pin, PWDN, which the binding did not describe. Add them, both optional.
-> 
-> Add myself as a maintainer of the binding, next to Mike.
-> 
-> Signed-off-by: Stephan Costa Barros <stephanbrrs8@gmail.com>
-> ---
->  .../bindings/iio/adc/ti,ads1298.yaml          | 41 +++++++++++++++----
->  1 file changed, 34 insertions(+), 7 deletions(-)
+> Are you aware of bind/unbind breaking things for PCI specifically?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Yes, we had reports of this happening for many PCI drivers where unbind
+would be triggered and a random pci device would then be "bound" to the
+driver and the kernel would crash.  See the zillion syzbot reports of a
+few months ago, which caused all of this to happen.
 
-Best regards,
-Krzysztof
+> Without also involving 'driver_override' or 'new_id'? Everyone agrees
+> that these APIs used for anything other than pci-stub or vfio are foot
+> guns. But your patch targets something different.
 
+Yes, driver_override and/or new_id was being used for most of these, BUT
+unbind for other busses was also causing problems (specifically many
+platform drivers.)
+
+> We can even bind PCI drivers to wrong devices *without* using bind and
+> hence, I presume but don't care to test, without tripping this taint.
+> 
+> > If you wish to override the kernel, then great, a taint flag is added
+> > and all is fine.  All this means is that now developers know what you
+> > did and can decide to ignore your bug report or not.  No functionality
+> > changed at all.
+> 
+> I believe people pointed out that it's a functional change for users of
+> panic_on_taint who also use bind without being idiots.
+> 
+> Does this taint even solve a "real" problem? Those bug reports weren't
+> coming from users, they were coming from "abusers" like syzbot looking
+> for trouble. They were quite obvious even without a taint message.
+
+They were not obvious at all, see the patches that many maintainers
+"accidentally" took to fix a bug that really wasn't a bug at all.  This
+was forcing additional code into all drivers for no good reason, hence
+the taint flag.
+
+Let me reconsider this and think about just doing it for the additional
+id and allowing busses to trip it when their unbind is hit for busses
+that should not be normally handling unbind (i.e. platform devices.)
+
+thanks,
+
+greg k-h
