@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793108234;
-	b=prBn2j5DUHkdnHDTgpeK7viL8f1E/0hLKliq0XRywqfIh6uaORKwljo/Yf0lBMoOMWz/
-	 FB/PFsPMSTN2BVyz9UkhowYnAJ9Uvvz4EfsGCE9clbYe/ApBDaFDalz/ItVO+tcV2X85j
-	 rCoUxtkyMDXV4gFu0/yULXSR6GLu2AfTb5MdOXlAUdAeYNlof1gNotzz1tCcB98QblpNH
-	 fT/VSyzk8Z8aaeNacvdZoGmUj+G0rySAbiGqExjeC9LI9pb3HV9zP8nLYPzabejgcGsrV
-	 mQMT1yG5DfV0IVSyNalreZf/HiRWhOuqRjCQaT0oUp8++jwt9HEi5JFbOYOMceD555A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108234;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FufhvRCtL/dPRhc2t8mrLa65DAQwulVvCxNep8YNhyQ=;
-	b=2v13DylcR6o0tlgpDiTMmKyuSa8E9JiSZo+egiuvnzvnl3Q8D5nhyuJkojEZX9mOxjy6
-	 /LibqTWhzGCKBA5MKYryg8PbuLoeUYW7nA4l37MmW6vNOHn0jkYd02qnoeOiKnl/WH0EH
-	 Jyam2abz+O2dXWDXKUSisLu4/3VN5Fg+bLB+9hJpdHa6SsDrb3a1d1NnS+tTXusV7l16H
-	 RTFwSvN2WxwxnnvZ4Kkx0Mq5V+K0ZuMs+2/387MicdmotAAyu6d04JAnidZqIv+c2CrQV
-	 Uym9VVsthtk7zxr4PoYZcXvcwvuuYB6vL5qB0PUzo8xFb0gdGG9Uwphp/Y9CQhEKCJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g1kUemTG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793108231;
+	b=qYUBHX7xP2i0uKdcOb439K2jzbIY/+MAAoN12DL2wvCCdyBZq1Ocr3dviMSbyWLb3toR
+	 TxJV3QcDGrw4+KLvn8XXfIwwySQEK/saGLTiYzSerA0iMZwvkIFiaTsI3qbSX37cIPAUv
+	 0AEFIzanaWnhg+mqRdlt1F8pOeUp5i6weC04Bh9HkEmqgtgk4rwYdXYQobigKNuKdJCLX
+	 zpj/9G/S+Bw278XE1qGIZrZAn+Jdvh1HZRvqO80lpYAt50S2YBgMYurjT0ZFiM0SL6wiz
+	 siMvfOOjgFTl1cs3HwB+b2NgBLDOMA2Aa6q7PexKm5z2aDGCzVW80NAgdHIZJnrrGGg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108231;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xeh0h8/al9334KMAYnmna8mlBpnyruhKQ6eKh9bOxag=;
+	b=C8KLQamTsP1SnZ7t+doXu9X1vTjNrrWhMSNnDn6Ama+GNtInQ2ozUvnbBPXzZvF14SNY
+	 TSJBIYbweUutzgt6//txnrwtcG764VclRnxyTRuAEakiMw+nSIdzHBqMYnnjL5p4pYgoc
+	 21azI5+uvvQNe4ylwoIRjPpplmH/GL4+seZxzJsibFjbUVDpS2YlJac9mCSXxeDDR9XwN
+	 c4AOfZGLmodcV2QLrhtoLJ9ndHPwEKSza2glSzbYh5RxVUwZkT9ipzu/tziEjdMng7MAb
+	 FOJtAd2DWfau93Uy6juPGCtR36PoRFpIREZRNr4k+YbUsB/lmC5ZjEcR0sqZTJu052A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BNoPTNH2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116BA606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:37:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 116BA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8ECA606A31B;
+	Tue, 27 Oct 2026 13:37:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g1kUemTG
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3646e6de3e8so317277eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:37:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793108233; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T7EUDKHAO3gUl8K27Q7Db752S4ZATenTzMFSfZEPZsJM7mlYz2bjB+WI98sXmm2B7C
-         CskXgzhL9UzWVbPF0VX+3/rXiw3tGOsih2QIC0hIhbj1i1Wb4quUTJo9YnAd2IWmVcD0
-         7bKNIaiUMzQfsL19rLnBI0nqpmkbehOROVodnBCtORi9ZUog8mG6WAGnp+fckA8wLvw+
-         2AKjLjRhssSp7o3FEqTMCJmJAJJdUZ419ZzRyLHWQ0soqkruXWw1fDpgpyS4yQ5BIy00
-         184v42UTW9Z6GzPzu7o9O2cvJZQ0hcEFlmBgKfmv5Aq/NktodIknCYuvxiLBUiiQph31
-         ++AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FufhvRCtL/dPRhc2t8mrLa65DAQwulVvCxNep8YNhyQ=;
-        fh=Tgr2s8Wo9RVETyIHRd1WdYDTGpA8DdpQB/Ff1T61Tco=;
-        b=gT1iUbbMSr+nubMnooUa0LAaWOYC3kpVvoli+W/CLwuodMOC4L7RWQQF6liBk64vzL
-         r0UO6BX6vlAMFnn85Q1ms3pdr3EQcd8qJd4lbi3ZWKmcO9IYWvknQc4sMki4e2RIwoBL
-         IFlhZqtZqAm+ZDeIrbpQHdrsdv0QxMOxoUiPLG6B0bsKJ85ioRynmbG7HX4fz5iRpr+N
-         B6tVSGibiu/T5YOljFYdketzFrxv+67U9sdLkakf6+l3kfT7LMR9dUxGV5l3o0V/FaxM
-         8/nnQl8wwy6kbYxniN9ZEhqxX4WGg2mD1UgfYf4p2OXijxCs+ntS+D1vBZVFLB3gFIUF
-         w7vg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793108233; x=1793713033; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FufhvRCtL/dPRhc2t8mrLa65DAQwulVvCxNep8YNhyQ=;
-        b=g1kUemTGBljEWGG+/pPQrdT0SUxytqvZ5CqhD9Zq9K6ZdM+QF1XAHxYMKrDx9xqvOH
-         SeRWZ/k9RymsKtwzIMguvaNbnLMF5yo2kIaqtfUldTBXFWPIf+lZLnB20vy8pzo3PNKz
-         amRv0265/a5NBrHoAycETtDoAA2ZF9i8XHomsFze0IWpOpWNW2tcgAFy6OyhWdwyfgAT
-         ROHzOszNL3WTZendNZWyibKKWrm0U+VjnUpkUeXYIneFMOR3lbvFILAG2A9l12MhmoGL
-         Wu2tZs7rSHEw16Dok7toUJ8gCnjaVCQLieuS0n0mZrdVhHvtk4f1bYZfsvCy0xdUdhdX
-         tvlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793108233; x=1793713033;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FufhvRCtL/dPRhc2t8mrLa65DAQwulVvCxNep8YNhyQ=;
-        b=HsD0+O8BR0tSVI8b5PJWH5Wk7d2wR/34pBaq43jdTH68Vvj0a5PGjPHZF6UUT0a7mm
-         YkakxIeXv7AClNSOiVy3fYaUzsq6J5OLeX2rHvEt+nvRvBU3SPPAjk4ZJ99ud0qwo1Ph
-         H846Knif5WMjI2ti/fMayQzMBmTLW0I8kS9wX44GDoyeSrE1FR8OiO4h+fcnilHBhu8V
-         q2HPeZM2HgQJOVCSGJ7gh7bhwRTlvSCMpZuKamOyMgnsJ1ux18akOXNGJlaRfvV2LCAl
-         +qtOe2oN5IIswL1sgVJREgvzptkzUZA9Q2xDwTvJiEPxZ2F3D0CIf7/lzXRGBH80+zT3
-         hciQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy4MGjkpNrAjvwdwj+AFnuOyIAY4VKRoKwNFSqBMCBDcpWvliNaK0r8J8D8nc03jczoTnlBCMMBUh2qGxo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGiC9RtaD1HHKxiM9FjIDGCF6QgR54Y0sGn0lOghejXQNxgBo/
-	QC/jLOYMEhHuS/YYxiF7ehZ8bj/O4g5Ryp4o9G01EkaYcN/bhoYAnjJiulUqUkftbprZDmKp9ct
-	Zg4SwWpJopY7WKyPodsnMpDtnQF7OmgU=
-X-Gm-Gg: AYBFou1pspBsPsLQ+3zBuOfD/flodrbyaDGBrmML1slXi+leCHs/CF/Lob11lldk+3q
-	meaDDkvrHzmEcDNLQRMjSczPRZd8IBCqkh2CGfrwUkZR6Rm1gyVDxmk3WUFwWd/8jaj59X2B/uV
-	8Po1Kf0nilkbD4+o6Kz4gt1Czrlq4A3xvt/SMympfmXYLGKE8myyLzizxG3DugswiITtxk/jttM
-	+yjDjxLwT9TR8sLsR9f2aNCVKoGE5Xe8fF1UQeF/EiCJRVBOTIbsHRO+VOnytS8OOQcsU+MRskb
-	S5cyL2t9tMtoOzz9drwctGvAnPjG3SFJBvMx7h/2dvpzflKUdSFhUMMlGm9Fk9b2s+YkMy4Oug4
-	ZyjSHYaiojDQYHyfwpVHOjZs/FKWbyfs7prwbpvQF/wYkKt1tt1o1nBGyvshZ2cnrudL3rVP3sS
-	mYF/ojrgJ+QYwZxscRlFpp3c8=
-X-Received: by 2002:a05:701b:430a:b0:16b:4f52:a08 with SMTP id
- a92af1059eb24-1991b142105mr20151825c88.0.1793108232858; Tue, 27 Oct 2026
- 06:37:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BNoPTNH2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBAB21F01825;
+	Tue, 27 Oct 2026 13:37:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793108230;
+	bh=xeh0h8/al9334KMAYnmna8mlBpnyruhKQ6eKh9bOxag=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BNoPTNH2mY6hAGlBSJMX1nCiPi/BoGcEcnnfFq6+h+wDjw1G0y3hs+ebQAtAiOELD
+	 yJgwrrd+Ds0GpFEn8jauqMs8Ehpf+VQDtoj4/b6jGVizI7Ad9DgH0pv2uuAGGif266
+	 OEHVIx4AvTC1axwF8GssWq1nVxDxxYHCzUnB9V7JIgH/pNrP9bqVUhtnJW/Ac4lRbX
+	 fIDxYERC1b21qEqhiEx+KpoEDgSx9BuagIKuqrxTN4GJvtB90vSRNFLEQgrldSHxxm
+	 LsT5zfRiRhFmJ0HPZLYF4fdDqnqwgIEqAH7zIVU2uyHIUGvEyYpQ3IINiIuWcUgelT
+	 o6ASz9eiq/Z3w==
+Message-ID: <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
+Date: Tue, 27 Oct 2026 14:37:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,112 +51,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
- <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com> <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
- <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
-In-Reply-To: <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Oct 2026 09:37:00 -0400
-X-Gm-Features: AclHuK-wHTgKpLhkTxBfx8DFmsearMvG8jH9zbeIpPdOt_OZOMlG9BJnbkLKU4I
-Message-ID: <CADnq5_OTLQuD3B6-VUgZv6wGjhFNY_U77wqdv5Y+e25+O0B2ZA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K iMac
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Richard Lane <richardlanedev@gmail.com>, amd-gfx@lists.freedesktop.org, 
-	Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, 
-	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
+ alloc_contig_range
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org,
+ kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org,
+ surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
+ hannes@cmpxchg.org, ziy@nvidia.com, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, ljs@kernel.org, liam@infradead.org,
+ rppt@kernel.org, osalvador@suse.de, muchun.song@linux.dev,
+ iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <20261027042204.3741307-5-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261027042204.3741307-5-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 9:16=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
->
->
-> On 10/27/26 07:57, Alex Deucher wrote:
-> > On Tue, Oct 27, 2026 at 8:21=E2=80=AFAM Christian K=C3=B6nig
-> > <christian.koenig@amd.com> wrote:
-> >>
-> >> On 10/26/26 23:46, Richard Lane wrote:
-> >>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
-> >>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EF=
-I
-> >>> framebuffer.
-> >>>
-> >>> Override the stolen VGA memory allocation size to 64 MiB when matchin=
-g
-> >>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
-> >>> framebuffer corruption during boot handover.
-> >>
-> >> Hacks like those are usually a big no-go.
-> >>
-> >> Why is that framebuffer handling not working with DC out of the box?
-> >
-> > The GMC IP code reserves the memory used by the display hardware from
-> > the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
-> > what display viewport was set by the pre-OS environment.  If the Macs
-> > need a workaround, that's where it should go.  Since these displays
-> > require multiple display pipes, my guess is you need to double the
-> > allocation in that case since the current code just checks the first
-> > pipe.
->
->
-> Could this also be a logic error in that callback?  Would it be worth
-> double checking all the register values in that callback for this system?
->
-> I know for example there are a few different IP specific implementations
-> in gmc_v9_0_get_vbios_fb_size().
+On 10/27/26 05:22, Gregory Price (Meta) wrote:
+> An alloc_contig_range() that overlaps a block going offline can leave
+> the offline spinning until it gets a signal, holding the device hotplug
+> lock.  When isolation fails, alloc_contig_frozen_range() undoes it over
+> the whole range, clearing the offline's MIGRATE_ISOLATE too:
+> 
+>   CPU 1 (offline_pages)               CPU 2 (alloc_contig_range)
+>   start_isolate_page_range()
+>     blocks are MIGRATE_ISOLATE
+>                                       start_isolate_page_range()
+>                                         -EBUSY on CPU 1's blocks
+>                                       undo_isolate_page_range()
+>                                         blocks are MIGRATE_MOVABLE
+>   test_pages_isolated()
+>     never succeeds again
+> 
+> start_isolate_page_range() fails only on a block someone else isolated,
+> after undoing its own, so this undo only ever clears another caller's.
+> Return directly, as before alloc_contig_range() went pageblock granular.
+> 
+> With offline_pages() parked after isolating a DIMM block and a 1G
+> hugetlb allocation made over it, the offline on base still loops 30s
+> later in 4 of 4 runs:
+> 
+>   offline_pages+0x5b2/0x1570
+>   memory_subsys_offline+0x17e/0x470
+>   device_offline+0x250/0x340
+>   state_store+0x88/0x110
+> 
+> With this patch the allocation still fails, and the offline completes in
+> 3 of 3 runs.
+> 
+> Fixes: b2c9e2fbba32 ("mm: make alloc_contig_range work at pageblock granularity")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
 
-Not likely.  I suspect the issue is that these systems use two display
-pipes so we only reserve enough memory to cover half of the display.
-On PCs the vbios never sets up MST.
+We have an existing AI fix for that as well already handled by Vlasta.
 
-Alex
+I think we'll have to establish some model of "ask David first before posting"
+because otherwise we just create duplicate work for everyone.
 
->
-> >
-> > Alex
-> >
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>>
-> >>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> >>> ---
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
-> >>>   1 file changed, 9 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_gmc.c
-> >>> index 4204c3c750a8..8b196fbfa724 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> >>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct a=
-mdgpu_device *adev)
-> >>>          } else {
-> >>>                  size =3D amdgpu_gmc_get_vbios_fb_size(adev);
-> >>>
-> >>> -               if (adev->mman.keep_stolen_vga_memory)
-> >>> +               /*
-> >>> +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPO=
-RT_SIZE
-> >>> +                * while scanning out up to 64M across the relocated =
-EFI
-> >>> +                * framebuffer.
-> >>> +                */
-> >>> +               if (adev->pdev->subsystem_vendor =3D=3D PCI_VENDOR_ID=
-_APPLE &&
-> >>> +                   size =3D=3D (2560 * 2880 * 4))
-> >>> +                       size =3D 64U * 1024 * 1024;
-> >>> +               else if (adev->mman.keep_stolen_vga_memory)
-> >>>                          size =3D max(size, (unsigned)AMDGPU_VBIOS_VG=
-A_ALLOCATION);
-> >>>          }
-> >>>
-> >>> --
-> >>> 2.55.0
-> >>
->
+-- 
+Cheers,
+
+David
