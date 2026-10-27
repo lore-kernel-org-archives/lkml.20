@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104406;
-	b=u3D1ISN1sEeA12dkzPFF4DMXWLDVT5WPPoI3zKP3lXNQPRJcTKi/05fAE7glgFQQbV1Z
-	 9s1U679cImwjONke2QD4bWKl+BGAcPhr5zEMtCE4n6ojDtaH+DZFMxXJJiNFCgkaWKGtD
-	 GC2HU0tOkW9Gs4pvoM2uWGGCSBU2LA2mSH+8WRZeDLwq0LqTxD0h5FwuvK1tXucayMz3O
-	 uMx/EDKlv+QeduJ2SNGbC8zjhEjjtA00ccmfus4MQwAWx2a4LmeMTBJ5ebXuE3Xj5vj0G
-	 eHwegjCNuym1HBuNUrk/bwdh1r+lrepVRZmumo+T8MsFsIfJV3qaZ6Un/1o1mhh2bsQ==
+	t=1793104438;
+	b=PP0MrCZxgrxCyz0Zw6nijf98rZZH5fwXLT0929rGaLedpPIQJ1VphqoRJYFvZnDmvlUF
+	 P0Z/vYXfUUA1nnSwX5iXqciYzNOVwYxQuREW0qS/CX9LRzJZCfSA47PE4Ovr8SfW1Q4he
+	 lrh2cF0fkZpSXCYhhJknl/BHal+9HTQdk+rEX2ETMFiZAZF8Jq9ZDn1COWsoSzctxR6Dt
+	 mbMB5dV7ZQmWMBvGFcEjNT34aG7XCgi3ckQwNOiZbkyZrFzMqZaJMbmBbjA8pxymXtoOI
+	 baHjQYwB/rvVpv/co15/2bN6worQeyat8TM1yR1YTp30s4WHYWGwMEdHY8DmF/zV6Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104406;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version;
-	bh=cpvnpqyqWElW+pe7rciAPazzagEVJT2rta85kTwUfmM=;
-	b=nT/hc6HuRJX4wCTS4ekVDGOXacN0uO55dG2neUN923AhaAb8t162POLouFjZiVKg8eYq
-	 2WgyyqPcPc7CR1HdacYaKIz1+eJMfPeTgNV5DCArbI5iuH6Lmohi4B5Bvk+0PUOouHtdz
-	 8d/uF5RtkWVOmnOIGFDvUVgxd7QI1VBpMP+lkSFAoENO20pceHLaHyn2BC1X9GpLzLbJU
-	 Y4hG6JkhOmmx3H1bgmCeWJPUZNjIQlIXIYeKAiO+hib1DHfFuUg7ZHMu8x/GCU+1+zVcV
-	 RieuQujNF4x5nw9wIoPiN5AV5wLBJyzSjqx5s5gP630MCMobAmRkgy8n7kinSJqhfGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104438;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=/LIwi1HI6or2lffhXmb5nx7x8QsMdBgyQvDtC3Qx7hI=;
+	b=xwrKDvVpBLRF/tz2WPRQrvBMHopMJATSDsqmC21G94TQCsRgVFYhALh/EFpQAWqVBlaW
+	 ME89C06EWQQAFjIcW+oV25Wpb/zqtmXJ4sJa6l2wyKCB2h9oCv3cbD5Zjuet4AHlVV3aB
+	 vfKsk6fpM9MyDGoDqLkhxfLaC4sIER+kdIADLk8jpEw6yuP8gC3Q6WZJGM4fvJRP2NTPh
+	 UOD7Ny5Af4dRLpGnqb6dNDdgcDY4s/S3v7gEDKfE1S4CBQsFpoVCgiKxz6rakvbM2vWWC
+	 Fg3lXUXQV5wES8YhhvtCm+vVALtRw0Ko0RZVtqtg3ByqMxnshYU5RHhpPUIDh0YNAMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ghY3ujiJ;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC192606A321;
-	Tue, 27 Oct 2026 12:33:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC192606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ghY3ujiJ
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R97FVm2395709;
-	Tue, 27 Oct 2026 05:32:53 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=cpvnpqyqWElW+pe7rciAPazzagEVJT2rta85k
-	TwUfmM=; b=ghY3ujiJrCaCpoDlLItJuX81X94pueDAUzUAr1wjWxHzzhB3bz6jf
-	okyyabXRHMZ/SfC9pmefOoRTi9pUiEBm1eh2rnST/FvfAJrKpal84iic0L57/Y4Z
-	lJWMAR3gHLdqGOV5sO4HiAgr/CD00cCIsSN48CKQayYxKvAeWgXvQN4/jzsVoJWP
-	VGzOLqa88XQe5uxQ50zEnTLEINhDfB1lkGQ1wxnyAV0R3CH0gNvLcI8WlQn4Bsmc
-	m6ia5W5+hoMZuwWfxHrCox0zWf8im1PiUS6aBJUmf2NRRWO8fOa8hh7e3AgEqtqe
-	lhMRnP73gMqDUvlcXKILVFdkHnlRim9EQ==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hjs1fgyta-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Tue, 27 Oct 2026 05:32:53 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1c::11) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 27 Oct
- 2026 12:32:53 +0000
-From: Ruben Hakobyan <hruben@meta.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>
-CC: Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-        <virtualization@lists.linux.dev>,
-        Alexander Duyck
-	<alexander.h.duyck@linux.intel.com>,
-        David Hildenbrand <david@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Gary Guo
-	<gary@garyguo.net>,
-        =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=
-	<bjorn3_gh@protonmail.com>,
-        Benno Lossin <lossin@kernel.org>,
-        Andreas
- Hindborg <a.hindborg@kernel.org>,
-        Alice Ryhl <aliceryhl@google.com>, Trevor
- Gross <tmgross@umich.edu>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Andrew Morton
-	<akpm@linux-foundation.org>,
-        <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] virtio_balloon: submit reported pages as individual buffers
-Date: Tue, 27 Oct 2026 05:32:04 -0700
-Message-ID: <20261027123204.2671561-1-hruben@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027063247-mutt-send-email-mst@kernel.org>
-References: <20261027063247-mutt-send-email-mst@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11783606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:33:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11783606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cc89e86e9eso5840639b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:33:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793104437; x=1793709237;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/LIwi1HI6or2lffhXmb5nx7x8QsMdBgyQvDtC3Qx7hI=;
+        b=sqlVqLzwSSnytfXT9oPIeFfx4dsIiHYXIQ435r9Tk3Tl7jDjHuMNYQ6RvZJjMOfN80
+         IvVYke/qvvVYh+Ure3QJK+svOk3GGFBjQejePkGrRKgeV8lMnryP7ATI52LUI1J6hCvb
+         4JZ37h3NpfqIZ7px5FpfNZErCb57tvkZngnLCEYKkJTgkpFE+FK6LvkWKA+yFRNWa7Db
+         B/Hk4bEE60x/YhsZykMc3r8eSooRGZWdf7HygKH2OOFHMr+6EiX2sYByYR1lVPce8t1G
+         ng/6uE5kMoZ/9C7DXezWymATXuQe6w9WTb80KFfthOQ657/jffgu6GrZg8Cp7QJ61tN0
+         Amxw==
+X-Forwarded-Encrypted: i=1; AKwUvBySTz5/7w7NK7lVhg8stbVH2N+iEQusqxAD6YOZ6OHQle5adxyMiNPDoWdfD2S6lHoZgR3n0SOKG553bb8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrbB2qhl4Y1z9IDLZEWhYsaX62dJFCKw+bRnU1cEmjAYpIOpuL
+	0Sf0VtjHROuxpLJvyySsA31fsHuZxAJORQBI0EArvBtoeDFjoVrXt24eHZg4JjHlbUQuBxq/I36
+	4LgptNtLYdCBGmzKuKJDoHvBGhiW75zItBsG6hJkuNOTNpJWcaD7Y+BctB/c=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,116 +58,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0OSBTYWx0ZWRfX6tGjoFZHoaPi
- Hs6GtVGcptmpDYZQueo1ZXM/XKtWzoBf4Dl72QrgavsdjME2Som8fBIrtgcmuGkMiWBqyl+Q7el
- aanA2fb+gh5IxtjLV6Qc6o8vQCzN9hpQeDTmwFFv6vopNyFYfxDtPT9SNwGghfHzMLCmysYMPVq
- xgaYBmNYDDydCJlg1HRQI9ysziwmj4WDMWBr9Tzt5WWmY8kPgonrbQ6XFEzlDJkQT3NRxORxnaX
- 0W0+7thNmYGo6gnKyXLcikKuD3Ykl/ehCy9RFuZURGod+j9g1Ri2SGXrNCLvkDSJIwcgpV8a2No
- FbSU+QF8b4FKM5KIf+rBJ4nVL4Rc/s2P554B62hZ5Q0fviMIYzSZSCl+JgQAc2x6N5bqo66A37O
- ArOOGYDxsGPIgPcz4auBqpZ8vKDB/2Jq+o53wo2M01IaiRPNHJPC5Okpa74vo3xmigfL+6E8Ncr
- fxPNSm9wp//rX1+Wd5A==
-X-Proofpoint-GUID: DFY0SqyqjgnoUS4yXiTYVjlXGdWqz5Ie
-X-Proofpoint-ORIG-GUID: DFY0SqyqjgnoUS4yXiTYVjlXGdWqz5Ie
-X-Authority-Analysis: v=2.4 cv=LJzz05W9 c=1 sm=1 tr=0 ts=6ae099f5 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=tpM8CJlwf7uhpglF1g9U:22 a=20KFwNOVAAAA:8 a=VabnemYjAAAA:8 a=QyXUC8HyAAAA:8
- a=URxAJj9iRMZYw-DfRNEA:9 a=zY0JdQc1-4EAyPf5TuXT:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0OSBTYWx0ZWRfX3DsCFrgzN+gx
- kFMiXG0WBN7iw4wooJlhpiyuHl7M+wOyMFhYYDXccwkI5hrVlJxqhMk5bo+jjm+CapWMs2XuEC+
- LZjnkQ5g2htqoNna8u1d5cjnGhIxXUI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Received: by 2002:a05:6808:180d:b0:539:4d53:170b with SMTP id
+ 5614622812f47-55c002412dcmr7087748b6e.17.1793104437009; Tue, 27 Oct 2026
+ 05:33:57 -0700 (PDT)
+Date: Tue, 27 Oct 2026 05:33:56 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae09a34.f0fe5aea.79aa1.0092.GAE@google.com>
+Subject: [syzbot] Monthly nfc report (Oct 2026)
+From: syzbot <syzbot+liste730699f000a7bb75adf@syzkaller.appspotmail.com>
+To: david@ixit.cz, linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 10:35 AM Michael S. Tsirkin <mst@redhat.com> wrote:
-> On Tue, Oct 27, 2026 at 02:26:33AM -0700, Ruben Hakobyan wrote:
-> > On Mon, Oct 26, 2026 at 11:53 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> > > The virtio_balloon driver reports a scatter-gather list of free pages
-> > > to the VMM so it may discard unused pages.
-> > >
-> > > For an arm64 kernel with 64 KiB pages, the default reporting and
-> > > allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
-> > > report contains a sufficient number of large entries, we will end up
-> > > with a descriptor chain that represents over 4 GiB of memory. This
-> > > violates virtio spec, which says:
-> > >         Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
-> > >
-> > > Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
-> > >
-> > > Submit each reported page as a separate virtqueue buffer instead of one
-> > > buffer with an sg list of all pages.  This also avoids indirect
-> > > descriptor allocation (kmalloc in the reporting path).
-> > >
-> > > To avoid multiple buffers causing interrupt storms, keep callbacks
-> > > disabled while we wait for an event.
-> > >
-> > > TODO: as an alternative, keep using virtqueue_enable_cb_delayed
-> > > but add buffers after there's space in the ring.
-> > >
-> > > Note: if the virtqueue is broken, wait_event on
-> > > virtqueue_get_buf hangs.  This is a pre-existing issue:
-> > > the old single-buffer code had the same hang.
-> > >
-> > > Reported-by: Ruben Hakobyan <hruben@meta.com>
-> > > Cc: Ruben Hakobyan <hruben@meta.com>
-> > > Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
-> > > Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> > > ---
-> > >
-> > > Notes (changelog):
-> > >     changes since v1:
-> > >         keep callbacks disabled while draining: get_buf re-arms the used
-> > >         event for the next buffer, reintroducing an interrupt per page.
-> > >         Disable the reporting vq callbacks at probe, and only arm the
-> > >         delayed callback to wait.
-> > >
-> >
-> > Thanks for the patches! I think sashiko-bot found some issues on broken
-> > queues in the first patch that are worth looking into for correctness.
->
-> Surprise removal of the balloon? Nope, it's a pre-existing issue that
-> it's broken.  Besides it's not really practical, no one removes
-> the balloon - no need.
+Hello nfc maintainers/developers,
 
-Fair point about that. But I meant the broken queue check.
-In virtqueue_enable_cb_delayed() there is:
-```
-/*
- * When the device is broken there is no point in polling used->idx,
- * the backend will never update it. Return true to let callers
- * exit their cleanup loops instead of spinning forever.
- */
-if (unlikely(vq->broken))
-    return true;
-```
+This is a 31-day syzbot report for the nfc subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/nfc
 
-But virtqueue_enable_cb_delayed_max() doesn't have this. So I was just
-thinking the same reasoning should apply here?
+During the period, 2 new issues were detected and 0 were fixed.
+In total, 13 issues are still open and 34 have already been fixed.
+There is also 1 low-priority issue.
 
->
-> > Other than that, I tested the "normal path" on QEMU and Cloud Hypervisor,
-> > both on 4 KiB and 64 KiB guests, and this works correctly.
->
-> Thanks a lot! Can you pls confirm whether the performance is about the
-> same/better/worse?
+Some of the still happening issues:
 
-From my tests on QEMU, CPU time was about the same as my original patch
-and unmodified Linux.
+Ref Crashes Repro Title
+<1> 347     Yes   WARNING in port100_send_cmd_async/usb_submit_urb (3)
+                  https://syzkaller.appspot.com/bug?extid=89f5f8143d8e62af2b61
+<2> 9       Yes   INFO: task hung in port100_get_command_type_mask (4)
+                  https://syzkaller.appspot.com/bug?extid=3decf7252f8521fa80ff
+<3> 6       Yes   INFO: task hung in pn533_usb_probe
+                  https://syzkaller.appspot.com/bug?extid=8996fbe184c5b84f89d4
 
-To bring a concrete example, with these patches it took ~437 ms of CPU to
-reclaim a whole 8 GiB with 4 KiB pages (vs ~434 ms on unmodified Linux).
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-With 64 KiB pages, it averaged 121 ms CPU (vs ~112 ms with my original
-patch).
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
-(I tested this on Nvidia Grace)
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
 
->
-> --
-> MST
->
-
+You may send multiple commands in a single email message.
