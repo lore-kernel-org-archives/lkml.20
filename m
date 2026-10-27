@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793082017;
-	b=sYeC7BbHi7ZtCh5MqEfTSU7PdfJoM6L3msSqZzbKVRgIBU1ONbhThCZTJ1WEHtyjr8aa
-	 9vPFR64Ha1diM+/wVm5VKQI0TtQVhSezyPz6RMHmv6qu5Jhou4+BdW4dRP22MfeBObVKj
-	 /E6BSBXpwPTia4VcUxSt3OH6b9DC0GoZi4S+DDncZn+x2XkA79nxgqQ9PrugpQd6eeFZT
-	 u8HdlcZQ+7Ay5QmtxVrP+5pfY2N3ZiRaVSv1OALNOdQ1ToZZ9GhQwR29BXwrXmdtM3JxB
-	 NWHXZyVa+QOGXzlcMY3/yB7cbj6pWfZ3ZrcGC06QdX5R3dh5AOsFqGq5VhEmxUQQWQg==
+	t=1793082080;
+	b=Cnqdju+YnRyV2uvCF6325NYdwjkghPTznWhOS4yWc4XZtMHViMuJS5MCOq6iB2cnyuNj
+	 uxqsK0w3O6UoZNwZD5hQl+L/bjbwW1ZEkXTThXA3GcNWt9s6cCXKhguPiDNcJ3GvzgVa8
+	 rWHDtIg/hAG/vCa07xgWUm9uuGIh0zFEFopTJPBxg6t+TAQWLIjkS2acu5A8miOFjUdi4
+	 NKouxeT9BiR42k2yo7P3zLuFDRQ9MoOvAKB3CGGzeA46LzI5KdNctvRPIa6pBHsPA059R
+	 LSp1XDG6ngK0fmMUov17BWo+qTNyVP3GPDzhbR/KJcOQHowo0DToycagbSIdjFZiLmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793082017;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=D0qXlGYkhUaQu3BXG9i/Wn1oOUp7K31Eb/rzZABKwDo=;
-	b=jcJ+dJFaui1rbhfDmuyfKgrZEHuizrs0gA5IRciqpg480pBfIWyTLCk9BKVBM0USR/tn
-	 KgUxoBHIJeYE9wi4IbOagNMr4okSHyhHTTby7II8nQt6Q7JZq6w9W3umhdfO/6EUmS1LL
-	 ToVMtNnBsFTY9TJSs83AZMzJdeAf1SJwYL89ekOVCfIlvADLRmepyPJyVYwie/u9reRC5
-	 U3wlrAzEIxNrjkwaOHc2EPaYVgwS5utXWI0H1eGOoMfZWbwDmdoyQanGgPINdabjNKnFg
-	 dxD5XC4QOGn9EGAgQa6lgj3fnTgDrsbvEh359QJYRu3l3BnDKVTKg4yWAl86Dxtlvlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793082080;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=C1HGCzEts5FhWN/0c/kmpCyKUCtnx8elLYeqHe7xyuQ=;
+	b=Zr9P/V4UcaHxjcQYrCkAaOcwn+c8aqNKrL3FAzNB+s5NJrr0D3tBm4DA0t5M4fMKq5KZ
+	 lCbEmnurSwOvXACEVCxdTRPAfrCizsK1Bsfw6Rt6CgOvT1dzAahTmjiNS4A54ZnJGrQGA
+	 bfHaVs8VYPjz8K0lZm9gyFK7TpccnWxFL3k7OkmodBm53rKiQdZLzHU95hx0ZgfMBDCiU
+	 l5SE3tFfv/CFWIOQgGQiTZWydZ0/8KbRSzzE9+C7EV49oz+KuX2H/T95GsGK8XBhNRWWk
+	 DdEOvXJoCk+p+RCaZBmwJpKSgxMBWwOrd0w42inZaQ9PQz42+sqddODdqwXbTR4xCqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jPtPxjwi;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eoqLHCWJ;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E97D606A31A;
-	Tue, 27 Oct 2026 06:20:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E97D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542C1606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:21:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 542C1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jPtPxjwi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=D0
-	qXlGYkhUaQu3BXG9i/Wn1oOUp7K31Eb/rzZABKwDo=; b=jPtPxjwit2x6XTQZmt
-	H8aym7fgDWaGtCJgvhC30wG1UnHokG3JB2oZKyUpwfhzkypFXzrGIjbvvPV2GivA
-	csiQWOCodYfH0No5IYc7p7obxUPbf91YK7x3tDT9f8+RL0ux70uny7omAIv+L6SR
-	hufP28m5bhSe2b22u3dCd9xgk=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3bweXQuBqPxjOCw--.9144S2;
-	Tue, 27 Oct 2026 14:20:08 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] regulator: core: flush deferred disables before suspend
-Date: Tue, 27 Oct 2026 14:20:07 +0800
-Message-Id: <20261027062007.2226548-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eoqLHCWJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793082079; x=1824618079;
+  h=date:from:to:cc:subject:message-id;
+  bh=FnmrINqASpiP3ae+XIm+SSotaoSMoIsF52+jCcCg1TA=;
+  b=eoqLHCWJAlajpuiMvRIlMrXqaRvKtg1eShcVTLpAiXv6PnOywWolg5q0
+   mngIp0W4zEzxzLGrHen0olE2rcG/gSbYgUvzl22P8IfxY95uPdML9EsM4
+   /WNEiSufKjzZgrPdv1kkC5V6veAt80FWw6o5LpFkpFiMqZ5tH+DeOlrWE
+   lAjTEL1xnliUMANrOn7eP9PXII0511l/5ASrUaD6CRci0ytc4qQflRfbz
+   pQE/cM9+Pur8z0Z5y5mfQDXVMLZHFczTYh4dJda0e8LIxEr2l/sDMNr4r
+   L+numIqgbZyiVDSzqiZgWZUJzn+LMXAjEpsT+zYrs6Ca0mzKA9YLD0nz+
+   A==;
+X-CSE-ConnectionGUID: Z4LCj/dlRSmORPs5w8h7pg==
+X-CSE-MsgGUID: KmQah4G6RhSZa66eS4r3Eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1784942"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1784942"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 23:21:18 -0700
+X-CSE-ConnectionGUID: MqQArQghQqqTe5x9dKXoFA==
+X-CSE-MsgGUID: vhJKEH8hSd+H/+K5zbCOvQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4444293"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by orviesa002.jf.intel.com with ESMTP; 26 Oct 2026 23:21:17 -0700
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xLaYc-000000004PL-20TZ;
+	Tue, 27 Oct 2026 06:21:14 +0000
+Date: Tue, 27 Oct 2026 07:20:57 +0100
+From: kernel test robot <lkp@intel.com>
+To: Udaya Kiran Challa <challauday369@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Lee Jones <lee@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
+Subject: arch/arm/boot/dts/marvell/kirkwood-d2net.dtb: netxbig-leds
+ (lacie,netxbig-leds): 'blue-power', 'blue-sata0', 'blue-sata1', 'red-power',
+ 'red-sata0', 'red-sata1' do not match any of the regexes: '^led-[a-z0-9]+$',
+ '^pinctrl-[0-9]+$'
+Message-ID: <202610270710.aWUm0pbv-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,108 +82,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3bweXQuBqPxjOCw--.9144S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1DJF45Zr48Jw4UJr4ktFb_yoW5uFykpr
-	W5XFZayr48uFyIva1Ykr47t3WYqrs7t397Zr97K3y3C3W3JF1xJF4kAry5ZF1kArykJrnF
-	yryDAw4kC3WUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UMpBhUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRiJw2rgQphRUAAA3O
 
-regulator_disable_deferred() can leave hardware access pending while the
-system enters suspend. Allowing that work to run during device suspend can
-access a regulator after its backing bus has been suspended.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   d135ab453a7400a34930bdda1ef4bdc8acfac80e
+commit: 59cf91cf87abb67a49b1bb7b9d3b06486abde8cf dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
+date:   12 days ago
+config: arm-allnoconfig (https://download.01.org/0day-ci/archive/20261027/202610270710.aWUm0pbv-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+dtschema: 2026.10.dev5+gd1fbcafd6
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261027/202610270710.aWUm0pbv-lkp@intel.com/reproduce)
 
-Moving deferred disables to a freezable workqueue is not sufficient.
-DAPM uses deferred disables while suspending audio devices, and work queued
-after the workqueue is frozen would leave the supply enabled until resume.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 59cf91cf87ab ("dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610270710.aWUm0pbv-lkp@intel.com/
 
-Mark the regulator core as suspending in the PM prepare phase. Flush each
-regulator's pending disable work before device suspend starts. Process new
-deferred-disable requests synchronously until PM completes. Synchronize
-the transition with the regulator lock so a request racing with prepare
-is either flushed or handled synchronously.
+dtcheck warnings: (new ones prefixed by >>)
+   arch/arm/boot/dts/marvell/kirkwood-d2net.dtb: regulators (simple-bus): #size-cells: 0 is not one of [1, 2]
+   	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+   arch/arm/boot/dts/marvell/kirkwood-d2net.dtb: regulators (simple-bus): $nodename:0: 'regulators' does not match '^([a-z][a-z0-9\\-]+-bus|bus|localbus|soc|axi|ahb|apb)(@.+)?$'
+   	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+   arch/arm/boot/dts/marvell/kirkwood-d2net.dtb: regulators (simple-bus): 'ranges' is a required property
+   	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+   arch/arm/boot/dts/marvell/kirkwood-d2net.dtb: regulators (simple-bus): 'pinctrl-0' is a dependency of 'pinctrl-names'
+   	from schema $id: http://devicetree.org/schemas/pinctrl/pinctrl-consumer.yaml
+   arch/arm/boot/dts/marvell/kirkwood-d2net.dtb: regulator@1 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+>> arch/arm/boot/dts/marvell/kirkwood-d2net.dtb: netxbig-leds (lacie,netxbig-leds): 'blue-power', 'blue-sata0', 'blue-sata1', 'red-power', 'red-sata0', 'red-sata1' do not match any of the regexes: '^led-[a-z0-9]+$', '^pinctrl-[0-9]+$'
+   	from schema $id: http://devicetree.org/schemas/leds/lacie,netxbig-leds.yaml
+--
+   arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: regulators (simple-bus): $nodename:0: 'regulators' does not match '^([a-z][a-z0-9\\-]+-bus|bus|localbus|soc|axi|ahb|apb)(@.+)?$'
+   	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+   arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: regulators (simple-bus): 'ranges' is a required property
+   	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+   arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: regulators (simple-bus): 'pinctrl-0' is a dependency of 'pinctrl-names'
+   	from schema $id: http://devicetree.org/schemas/pinctrl/pinctrl-consumer.yaml
+   arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: regulator@1 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+   arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: regulator@2 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+>> arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: netxbig-leds (lacie,netxbig-leds): 'blue-power', 'blue-sata0', 'blue-sata1', 'red-power', 'red-sata0', 'red-sata1' do not match any of the regexes: '^led-[a-z0-9]+$', '^pinctrl-[0-9]+$'
+   	from schema $id: http://devicetree.org/schemas/leds/lacie,netxbig-leds.yaml
+   arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: fan (gpio-fan): 'gpios' is a required property
+   	from schema $id: http://devicetree.org/schemas/hwmon/gpio-fan.yaml
+   arch/arm/boot/dts/marvell/kirkwood-nas2big.dtb: fan (gpio-fan): 'gpio-fan,speed-map' is a required property
+   	from schema $id: http://devicetree.org/schemas/hwmon/gpio-fan.yaml
+--
+   arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: regulators (simple-bus): $nodename:0: 'regulators' does not match '^([a-z][a-z0-9\\-]+-bus|bus|localbus|soc|axi|ahb|apb)(@.+)?$'
+   	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: regulators (simple-bus): 'ranges' is a required property
+   	from schema $id: http://devicetree.org/schemas/simple-bus.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: regulators (simple-bus): 'pinctrl-0' is a dependency of 'pinctrl-names'
+   	from schema $id: http://devicetree.org/schemas/pinctrl/pinctrl-consumer.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: regulator@1 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: regulator@2 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+>> arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: netxbig-leds (lacie,netxbig-leds): 'blue-power', 'blue-sata0', 'blue-sata1', 'red-power', 'red-sata0', 'red-sata1' do not match any of the regexes: '^led-[a-z0-9]+$', '^pinctrl-[0-9]+$'
+   	from schema $id: http://devicetree.org/schemas/leds/lacie,netxbig-leds.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: fan (gpio-fan): 'gpios' is a required property
+   	from schema $id: http://devicetree.org/schemas/hwmon/gpio-fan.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net2big.dtb: fan (gpio-fan): 'gpio-fan,speed-map' is a required property
+   	from schema $id: http://devicetree.org/schemas/hwmon/gpio-fan.yaml
+--
+   arch/arm/boot/dts/marvell/kirkwood-net5big.dtb: regulator@1 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net5big.dtb: regulator@2 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net5big.dtb: regulator@3 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net5big.dtb: regulator@4 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+   arch/arm/boot/dts/marvell/kirkwood-net5big.dtb: regulator@5 (regulator-fixed): Unevaluated properties are not allowed ('reg' was unexpected)
+   	from schema $id: http://devicetree.org/schemas/regulator/fixed-regulator.yaml
+>> arch/arm/boot/dts/marvell/kirkwood-net5big.dtb: netxbig-leds (lacie,netxbig-leds): 'blue-power', 'blue-sata0', 'blue-sata1', 'red-power', 'red-sata0', 'red-sata1' do not match any of the regexes: '^led-[a-z0-9]+$', '^pinctrl-[0-9]+$'
+   	from schema $id: http://devicetree.org/schemas/leds/lacie,netxbig-leds.yaml
 
-Fixes: da07ecd93b19 ("regulator: Implement deferred disable support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/regulator/core.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 14422cfe80e2..160c588fbdd3 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -44,6 +44,7 @@ static LIST_HEAD(regulator_ena_gpio_list);
- static LIST_HEAD(regulator_supply_alias_list);
- static LIST_HEAD(regulator_coupler_list);
- static bool has_full_constraints;
-+static bool regulator_suspending;
- 
- static const struct bus_type regulator_bus;
- 
-@@ -3463,10 +3464,15 @@ int regulator_disable_deferred(struct regulator *regulator, int ms)
- {
- 	struct regulator_dev *rdev = regulator->rdev;
- 
--	if (!ms)
-+	if (!ms || READ_ONCE(regulator_suspending))
- 		return regulator_disable(regulator);
- 
- 	regulator_lock(rdev);
-+	if (unlikely(READ_ONCE(regulator_suspending))) {
-+		regulator_unlock(rdev);
-+		return regulator_disable(regulator);
-+	}
-+
- 	regulator->deferred_disables++;
- 	mod_delayed_work(system_power_efficient_wq, &rdev->disable_work,
- 			 msecs_to_jiffies(ms));
-@@ -6327,6 +6333,24 @@ void regulator_unregister(struct regulator_dev *rdev)
- EXPORT_SYMBOL_GPL(regulator_unregister);
- 
- #ifdef CONFIG_SUSPEND
-+static int regulator_prepare(struct device *dev)
-+{
-+	struct regulator_dev *rdev = dev_to_rdev(dev);
-+
-+	regulator_lock(rdev);
-+	WRITE_ONCE(regulator_suspending, true);
-+	regulator_unlock(rdev);
-+
-+	flush_delayed_work(&rdev->disable_work);
-+
-+	return 0;
-+}
-+
-+static void regulator_complete(struct device *dev)
-+{
-+	WRITE_ONCE(regulator_suspending, false);
-+}
-+
- /**
-  * regulator_suspend - prepare regulators for system wide suspend
-  * @dev: ``&struct device`` pointer that is passed to _regulator_suspend()
-@@ -6380,6 +6404,8 @@ static int regulator_resume(struct device *dev)
- }
- #else /* !CONFIG_SUSPEND */
- 
-+#define regulator_prepare	NULL
-+#define regulator_complete	NULL
- #define regulator_suspend	NULL
- #define regulator_resume	NULL
- 
-@@ -6387,6 +6413,8 @@ static int regulator_resume(struct device *dev)
- 
- #ifdef CONFIG_PM
- static const struct dev_pm_ops __maybe_unused regulator_pm_ops = {
-+	.prepare	= regulator_prepare,
-+	.complete	= regulator_complete,
- 	.suspend	= regulator_suspend,
- 	.resume		= regulator_resume,
- };
--- 
-2.34.1
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
