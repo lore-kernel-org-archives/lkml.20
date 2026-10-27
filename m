@@ -1,105 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793129799;
-	b=em/vwbeHxCohYam8ad6KLWLVQlbg3BS4K9W+knlfHprCPnynJ6IG6QvJQkvGspUwtWXG
-	 2DV00Dp5ERIGKHVx0xaFsLXW/Y9WN3g2uv1Pr/3LpUOZP8H6EV+2z3kdoUIuseL2L1dDP
-	 GL2DzofGkBC/gUskOymT2UkUEPw6Inm/caJBY4KPBOpKa7yMwIqmQzvIjGtxj1iSDQJgI
-	 lC5+ee2gCxfX0CRILrrNk2IN01fUA5z70pJPODO9ONoNKV26UhJa3g5jl9kPenrIEkYiY
-	 WXt2KmPVxnVSdR4GojutMJzgufRmkLPsF4wBf6gn4LBs1G9Hn6CchSS6Wo0bkV7hxug==
+	t=1793129892;
+	b=lmpvYe9c6Yz3/BLb+8a5qZC1ot84VFVokRUUKSE8E1fDH8WZNghz88G9Yb2kTeBZPpJf
+	 I0uAMeVgsLaviDbFYaOMNNyoIo1wMfhfkeRMIs23xv0jCORhVgq8DfwMZt0TEJHW2CZQR
+	 mxdx3cHQXqtzCJyqfVoUVlMcJxxK017lO7BRkzJErklFubSAk81Hf0s7WrxPKfAXgQcqI
+	 SGlnkwFe2Pm0C4fk87CxjMKRx+haUPPjsvOPy3XyiZn/8TAHA/6Limw8CdkW9qhDAgDnO
+	 WKAQhBdL/EUvVTKoX2lcDwfORgRmQ75SZw4FZt0aMMgi8kD4xPJ9D9u6qGYw3+aMWqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793129799;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793129892;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Wsbrsmt/p01OP4rmJRzk8Y2oM9M62JnRW05OxgVh8zg=;
-	b=NdK0jf+RObfRBXa4E19NroVI2/c4fzKPTLGUJFLXhT2QtpqFnIKmw9eq2duIPE/ITu8w
-	 t12UZocLj33sHr1IdLNkNsPcJpimO5dKTwTqP5xXMk/J72M5Yb5ziRCjzUf+emvrVN8M/
-	 +q1lSUaQdg3KfczTf7rzfI9PYjUrLbo7v1KNB0dSckOP4m26ivd1qsA1DynphiSbnYqlS
-	 cIEeIaOKFdUaid//d+EFkw+D+2ONEqQ3RJvVJfeRbR0Z4SsHKhgjYybx9SGq9rj8B3RiP
-	 4FjOJABbfBEYXAtqMuNaxyRwKLrfOIeDfXQactCjx7GGaVpo7zIoG+rjOA3E9puQ6ew==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=AoGn9VEZ3I8Ld7dNYqrh8Oigb3Q3zSaylzK9qrRu+PM=;
+	b=4WiWBljyhebIXmbfwIfGrAEuIbUF0R93iuKtwkeY5pfZe/meUkf/0EYL14PbiztHmqyk
+	 2jFGWzcPsItUP/sJ6JJKvHpfvKOB2Zrh2L4GkJebctSaQB00AgOKaXwQImB2eCrV1fm2c
+	 rQWYZoD4PxGG1iJKdNfLGDEBmw8gA4k26Ip8PPGJTgXSUzZUCnyfL80E7Lft6QGjeIVKK
+	 FhQiUvHysTDNS8KqpkL1agouIp67ZprDoGdphkqzFLxY8pKOI252xb1UgnIqk1s7sAr+y
+	 63Z9y9/zo7EKK/c3TrDwsteDy1WqvFXmPRiC4HliQ5L183x4EkgQCd/xgw+MzGFJ6KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	arc=none smtp.remote-ip=209.85.222.169
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Q62RCPUn;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C02606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:36:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C02606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93cbc3ab2fdso6810185a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:36:33 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25190606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:38:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25190606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Q62RCPUn
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c414e5d282eso26691066b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:38:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793129792; x=1793734592; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wsbrsmt/p01OP4rmJRzk8Y2oM9M62JnRW05OxgVh8zg=;
-        b=CctuFb+At8yRLMvEteDohm5fTYOu7XI/YnvyI26BqasYsewnJ197vg8vC4/LzMRA10
-         9tQrYkCIDE9cjrYI0q62nqxDMxKBkvk/twsBqcuNoGc5bKSQGKmxJdmcFnaKGFm2YN93
-         FrN2vyKNG6Zy0TCORLsgo5633764j0kwO1fWlfuzB5tsHIZs8LhTjgaaNlD7at+C/bGr
-         dFet+4kqC0y3XR5FxtW9a0cVt2rohm7O+syQHeC3gg+zTKxJ9ZYyiwmTghgPCjrDpdoC
-         NGVk5MC8dyeiIfgmlX6AJbfdwKBn/fmqxTi5NNYT28LG8UgWT+mwTKOB50hEWYmi3vcG
-         NhWA==
+        d=gourry.net; s=google; t=1793129885; x=1793734685; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AoGn9VEZ3I8Ld7dNYqrh8Oigb3Q3zSaylzK9qrRu+PM=;
+        b=Q62RCPUnV4BTCTB/VEZDPth0/eDOGV+2DbB+rwnAq00Er9d0WiTUOmo52xTRwqLfBV
+         8ybCdnY8085WTtUwWrWpufTibmSqT0JFTgolMCl912J1Zzj/GMVjMR960Pvlrj690xsz
+         qB+dHNF0Abad0Ff+va4Zgh4Si4ZsBgnUfAwZz1fjhVj2YrL6Wq6YxdEMNUdhXhS6scKG
+         GQiAhO21/G68Ca+/LjLdqqxa5Birf80FTPrjig/1R35308OJG8B25tVWURAo/130aM8z
+         xl+tpCDpUmn9ss2ocgdoAgewATF9MyNbb834ULQLlUFbDoMciHANtGG9WpwrLj7kuc9G
+         z7aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793129792; x=1793734592;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793129885; x=1793734685;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wsbrsmt/p01OP4rmJRzk8Y2oM9M62JnRW05OxgVh8zg=;
-        b=RJ/n3a734/lDQNOWbP/HcTwXj9BH2Vd+arQv6jDeFq6x/0m5ah9pbUFfocpyqulOGk
-         ixKwY3PxXRW+VemIX2Xv031ipWtDV62pK8fAFQ7TFkF4nrAoZcFSyK4q9h22JgJmjMlq
-         C6ZD2IfGZzauwXmN7yB/7ubm47Gv893DtPBtN5U+26jmob5vNvBGwwaMbrGUqx7ujOwz
-         jcvMzsuDTtHIuCaPY7RHCSr3ei9Vk8zkDyCOx9BH3d6O+s/1Drhh+Arc4vhTosKUvmGd
-         ZjEbP2KXGIzQOuKbgBM2ah9bvR3nsMDs6gxUtesx/agY/K2HRadHR8tDVA9RRTU5NTkB
-         UUZw==
-X-Forwarded-Encrypted: i=1; AKwUvByl7bu7/qw+xx3DhApLP0W3jkE3sTlC+hShvaL0UHSwRkfJIjRrzNeOgpXcE0HZ0eoXqZ5hN1X14e2UQWs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGBoIGso/HT5NeazanZZQUHcSVNUJjzqnSBlJiBcu0JdxEG6gB
-	sTyrvY+YUWiOAGr7BArUu7c27S3Ow2M8Dy3aqGyko0LMsLERx+gZIKWJt4uoNKFptco=
-X-Gm-Gg: AYBFou21xCvDCP5lqN/8FLEr524LFfyJcTk/jTfGSsTq6hDMWf4iQLmTC8Kr+jSJUjH
-	z1UitJ98YazmN88Jo+rOAoHaE/lkzSv2cR0/rM3NMk4NdsS3rIo+ISPLH9a4JfbiE0EJZhp9RWR
-	+QnhABTljv7C/0w8MPFJPcpA68vS/sh0KEnXvpm3ZrkuslmQfI+5hxNVAxisG9BUhldoVicbCvW
-	E7KHodaJCZDpriE9UiXlMON1ZPOIZcPcRLJJu12ssJIZ/R5Xp+hbBGt+6t5I3t5LuSmR8UC40cY
-	W6EwpccwT0nVMZU883acIbBzHiSO0+xzXa71e4gcJIdQRIC1kWW6b3ns9GdJ7qG8N+ByHdmrVnI
-	/iPPTHHTX9sYeRTbSXXxk7m/Sl+wTvJY3Ml1l2lJbuB12ivONCll3tfHTDanqaZTAwnKc4n0Gyu
-	SxgV924MBSR/ZTw6xZpQ/+7TXwuFTEQVzSP4bJ6w3nWk/bO/RBQ72HvgQw3ZzJPpJeZEpPeJf+6
-	t68PUGnpJbYL48ywFjuk4gmB/f2gQLLvB7nMekRAg2CGi3zIugY1AzA5T5tviUelSbtTTooKeu0
-	1gxZEx0KLz+GNIt2Bu8MnBrtRIje0VMipNmr3w==
-X-Received: by 2002:a05:620a:4728:b0:93f:2236:a61 with SMTP id af79cd13be357-940ef996db1mr1690589085a.61.1793129792026;
-        Tue, 27 Oct 2026 12:36:32 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f067e97csm1064928585a.21.2026.10.27.12.36.30
+        bh=AoGn9VEZ3I8Ld7dNYqrh8Oigb3Q3zSaylzK9qrRu+PM=;
+        b=AjvQ+vOgQUJrtTlvbWOMPspcONcGb14/izBVzk4rVZpzt/kNKqXHw5WTPISh8Fyem/
+         M0UBI8gk956TKhXpfXPS9h2J+81CqTcowcBJK2rqcFumtHzUd6fxouu/mCMWRd9TLEYa
+         Y8WNRyLUKrRjZLOKeCrXOtcWHfLMtLniPgP+w6G9KXYU2xYndwKxVXgt2q5n3sQYkuHo
+         ipPuEG0nN1PDANDg+TYvTJp9FeXxSY/0yiTevap6C4fpnaLZ86aJ81tXvdMxIbiL36nU
+         PG9BW0XSB3YWuQoh7JZGeXMfvmsGCK///tNjL/XHwFk8oqsakOOBIWfKtBHhSxAVG0H1
+         6XqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzXUnhN3MqPzQ21DUVh3bUhoDlXf/Y5NOTmyNpolcSpZsvFhrE0mdh6ICuGnyN1U7KfxuqbHcrmoIJk05k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLne6BUHJZlNHVXJAmOR6iKHAfXkLXPUEl/jlWGiP5k5cIFFsHO
+	kGPlFrGZIdZ0YoUmeW5quWd9CXNsvzdJVUb3FrRHyOlxU94JESX8dHsXT4VAH6n3Oxw=
+X-Gm-Gg: AYBFou1fA875AcL2XFYIvv2tai2M73Tp74LsHcUwZ6tDokfcuAeMoDXO7gGt4zfHcRJ
+	BTgc2Zv9QeIXv0/Qn9LdN/uxBesNHIwh2djEmDMxJwo0TDjIzLQZiMXNwn1VoSZBLfaxqZr7c3u
+	6oFQ3jS9zzfgcnSn9g6YH/LjRtq7fxHR4a7BV3L9VAqFLgSoUWmhukWTx71Hih/7EcIPY9Vw7ze
+	MItSSWNkdPRVosDCBkFippzavmKW/oAXdGNFvfCfGXqni9kv5ap1yRBGxTWE995HMm4JaeM7coM
+	kVHOEKA/NqnfjveyziKZxnynxywgI2qEIsinOlbZTT0+eLnNNlNsNbPoR6V4b1q5eKxBvMLODaC
+	tQGCAqLUQ64+yGPkgzF2SpUCWnoG0zbCWtfMwQySuH7Qzx1BuWeYLGSHKoKAD12lkj8W1JEviF4
+	Pk20EaEJcXc4Hio4qmvuY/uGKvxQywZ7AU/ki94b259GuGwWURYVm0QKI8xZc+h8t90TNo0V3nv
+	rBqsDMlcJ477IoL/7cMOEtfUS4pd03mFQFDvGOM2wjlNA==
+X-Received: by 2002:a17:907:7f9e:b0:c46:645f:cedc with SMTP id a640c23a62f3a-c49be054a4cmr17194666b.46.1793129885192;
+        Tue, 27 Oct 2026 12:38:05 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:7::])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4964601f2sm455107a12.37.2026.10.27.12.38.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 12:36:30 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xLmyD-0000000AobX-1vC7;
-	Tue, 27 Oct 2026 16:36:29 -0300
-Date: Tue, 27 Oct 2026 16:36:29 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
-	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
-	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
-	dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <20261027193629.GK1685504@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <592d643f-e97d-4de8-9a87-e47d57dc8457@intel.com>
+        Tue, 27 Oct 2026 12:38:03 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,146 +87,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <592d643f-e97d-4de8-9a87-e47d57dc8457@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
+ alloc_contig_range
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, "Gregory Price (Meta)" <gourry@gourry.net>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org, 
+ surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
+ hannes@cmpxchg.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com, 
+ ljs@kernel.org, liam@infradead.org, rppt@kernel.org, osalvador@suse.de, 
+ muchun.song@linux.dev, iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com, 
+ stable@vger.kernel.org
+In-Reply-To: <8a841fb1-8e71-40c6-91d4-3252a0a1a368@kernel.org>
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <20261027042204.3741307-5-gourry@gourry.net>
+ <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
+ <179310997463.2232644.3260379218896917308.b4-reply@b4>
+ <6f5aaf2b-894c-4306-a0b2-e56f815d0a89@kernel.org>
+ <A4D82AB8-F33A-465C-AE69-933B746E4885@nvidia.com>
+ <8a841fb1-8e71-40c6-91d4-3252a0a1a368@kernel.org>
+Date: Tue, 27 Oct 2026 12:38:02 -0700
+Message-Id: <179312988283.676746.1330276872732304961.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Tue, Oct 27, 2026 at 11:43:04AM -0700, Dave Jiang wrote:
-
-> I built a proof of concept on your wip_attestation_all_1 branch with help of LLM
-> for TDX Connect device attestation to see how it holds up, and wanted to share
-> what I found.
-
-Nice!
-
-> What I built:
+On 2026-10-27 19:58 +0100, David Hildenbrand (Arm) wrote:
+> On 10/27/26 19:53, Zi Yan wrote:
+> > On 27 Oct 2026, at 10:13, David Hildenbrand (Arm) wrote:
+> > 
+> >> Maybe. But if it's just us core people we can just talk on IRC etc (like Zi did
+> >> two days ago when he was about to post something that I already had on my queue).
+> > 
+> > One idea is that maybe Sashiko is able to identify patches fixing
+> > the same issue and does some grouping or tagging on the website.
+> > Or send an email about it with a lore link.
 > 
-> - A ctlv-attestation-spdm family. As you proposed, the sysfs lock creates the
->   assigned-TDI attestation instance; in my version unlock removes it.
->   EVIDENCE_GET, EVIDENCE_ACCEPT, DEVSEC_STATE_GET and DEVSEC_RUN all go through
->   your ops.
-
-> - A provider (a 'struct attestation_provider') that sits on top of PCI/TSM, so
->   any backend can use it. It serves the evidence PCI/TSM already publishes, and
->   asks the backend for a refresh when EVIDENCE_GET carries a challenge.
+> I think that's too late. For us core devs we just need to sync on "has someone
+> already a fix for that or is it worth cleaning the AI shite up and sending it out".
 > 
-> I ran it in QEMU with the devsec sample TSM, and in a TDX Connect guest on real
-> hardware with a real device. Both worked: lock, EVIDENCE_GET, DEVSEC_RUN
-> refusing a device without a verdict, RUN, and unlock. My tree has out of tree
-> code for TDX Connect to get things working.
-> 
-> The model works well for device attestation. A few things came up that I think
-> worth a look.
-> 
-> 1. EVIDENCE_ACCEPT and DEVSEC_RUN take any evidence generation since the last
->    device change (attestation_evidence_validate()). Ranges would narrow that,
->    but they need measurement registers (attestation_ranges_required()), and a
->    device has none. So a verdict survives a refresh. In QEMU with the devsec
->    sample:
-> 
->      EVIDENCE_GET, empty challenge   -> evidence generation 1
->      EVIDENCE_GET, challenge c1      -> generation 2, measurements changed
->      EVIDENCE_ACCEPT generation 1    -> ok
->      EVIDENCE_GET, challenge c2      -> generation 3, measurements changed
->      DEVSEC_RUN generation 1         -> ok, device in RUN
-> 
->    Any process that can issue EVIDENCE_GET can do this between the appraisal and
->    DEVSEC_RUN, and the device runs on evidence nobody looked at.
 
-We don't care about freshness of measurements. What we care about is
-that the device has remained continuously locked while we are doing
-this.
+It might be worth just having a maintainer Fixes:-only review branch
+that automates pulling these things in and responding to conflicts.
 
-Generation should not have anything to do with the # of evidence
-collected, it should be tied to the lock event. We do a lock and we
-get a generation number. That number remains fixed and could be passed
-into run as a minor sanity check.
+I've been working on some b4 workbench automation to make triaging the
+list a little more sustainable. It's getting there, but it needs time.
 
-However the real security work is in the kernel driver which is
-required to actively detect/prevent any host tampering with LOCKED.
+~Gregory
 
-RMM does this with a trio of sequences counters maintained by the
-kernel driver: lock_seq, meas_seq, report_seq
-
-If the host tampers with things then the sequences computed by the
-driver will not match those computed by the RMM and it will fail.
-
-So, I don't care if we lock the device and then collect three
-evidences for some reason. It is not the APIs problem to make sure
-they are all the same, or that the one used for attestation is
-"freshest". 
-
-While locked the device is not supposed to change its measurements,
-allowing that turns locked into complete security nonsense. How do you
-know when the measurements stop changing to actually measure it?
-
-The only point here is to collect some evidence that represents the
-start time of a continuous period of exclusive guest control.
-
-Have I got this wrong somehow?
-
-> 2. TDX Connect (maybe others) does not raise an event when a device drops out of
->    RUN. The provider only finds out when it asks, and on TDX even that answer
->    can lag. The guest reads the state the TDX Module last saw in a TDISP
->    response. A function level reset, for example, moves a locked TDI to ERROR,
->    but the guest keeps reading CONFIG_LOCKED until the TDX Module sees another
->    TDISP response, such as when the host asks the device for its state.
-
-Yeah, I bet this is common.
-
->    Could the core add a version of attestation_state_changed() that a provider
->    can call while the op already holds the lock? Or let the provider flag the
->    change, and have the core send the notification once the op drops the lock?
-
-Sounds right to me
- 
-> 3. Jason asked on 14/20 whether anyone needs a variable-length challenge. I
->    don't think devices need a range. A plain read sends an empty challenge, and
->    an SPDM GET_MEASUREMENTS nonce is "NL = 32 or 0". Your TDX provider always
->    takes 64 (attestation_tdx_evidence_caps).
-
->    A device needs exactly two lengths: 0 for a plain read and 32 for a refresh.
->    struct attestation_evidence_caps only holds a single min/max range. It's
->    checked on every request in attestation_evidence_request_decode(), and any
->    range that allows both 0 and 32 also allows everything in between.
-> 
->    To work around that, my provider declares 0-64 and PCI/TSM rejects any length
->    other than the backend's nonce size, 32 for both backends I ran. Could the
->    caps give one exact challenge length instead of a range, plus a flag that
->    also allows an empty challenge? A device provider would set 32 with the flag,
->    and your TDX provider 64 without it.
-
-I'd expect to be able to learn the exact nonce sice that the challenge
-can support. It should probably be a list not a range, then you could
-include 0 for SPDM..
-
-And maybe other lens if we do crypto agility here or something.
-
-The challenge is formed into the returned token so it is a kind of
-ABI and we don't want things like transparent 0 pad or something, so
-userspace does have to know..
-
-> 4. EVIDENCE_GET rejects any buffer smaller than max_length
->    (attestation_evidence_decode_objects()), so userspace has to allocate for the
->    worst case. Aneesh's provider declares 16M per certificate chain, so every
->    read needs a 16M buffer. Could EVIDENCE_GET take a smaller buffer and return
->    the length it needs, or offer a way to ask for the size?
-
-Makes sense, this is also where someday having the memfd as an option
-might be nice since it could be dynamicaly sized by the kernel
- 
-> 5. evidence.challenge is a required attr of evidence-request, so a plain read
->    has to send an empty one ("hex:" in Aneesh's example). Could it be optional?
-
-I'm a bit puzzled by this optional challenge concept, I haven't tried
-to read SPDM spec yet, but it really has a way to omit the challenge
-from the reply? It doesn't just replace it with 0 or something?
- 
-> 6. tdx_attestation_test's discovery_and_construction_fields expects an
->    inheritance chain of 4, but the TDX family inherits ctlv-attestation
->    directly, which gives 3. In a real TDX guest it fails with
->    "Expected 4 (4) == ctlv_chain_len(self->dev) (3)".
-
-I would have naively guessed this should inherent from some SPDM family?
-
-Jaon
+-- 
+Gregory Price <gourry@gourry.net>
