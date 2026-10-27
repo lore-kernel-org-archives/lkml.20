@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104710;
-	b=o5TWNo3NlgU2pr/z8e8gh48zuDQM18zifKRjGfmSBi9S2NOpXo1YoicbHgEIrsqoUBji
-	 4kqgeiySztu+rU7F8p+NZUV09uuqNzIehleRsSY9/JrvyqFlnVIPFx4n+j8nT9sb9w4GS
-	 YpDZRBlf9+S88SBZiIECCfBBHCYGXFVB76Mr+yonWiUiYekNDTUhqnu+Q/xDzcOHfue6j
-	 RaLRxmls+W3aOauACTyqczb3sk0FKRuejA/PyERsU/hc9Ur8+/Eex69CJpMplC/Sr+7yq
-	 CJdR8ZAZW/AeF9WM9L199e1m3Z74r7Dvi+iNkKNCwUvHoZSugAJa9a4X78fJdN4U0oQ==
+	t=1793104717;
+	b=nx3TZVBhaXygp8d+t5JfBJKbXiyG1usqR+OaR7ddQvJu/w5zo5Qk85uD7S5tqvOpJIlp
+	 b9iRPZrqMwQNGXTZfbuDsknvTjE7U1T18pjg0cO4zADVbrRHs5EvNA1RFGTGQhNhzHDA1
+	 DqckFavfrUJyRsOPv51ahyZ3uwRp+5ovD9FbEK3Wu5Rubsq7lj6uh+GZCtjgJwP/74AbS
+	 XbT1wF8z5WC792xyWDgV8EsFcgJrHlCvwGKdSGTQ30KOTh/Rvpkv06/aoRm0xW7jvyTXM
+	 giynoL+YpfVnv0dMrdhckmmeHTVDPq4X7+wRJC98LIkQZ+tP75vLYWFSwnsMuV5X4ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104710;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104717;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=qN+oFteBBnu0qCEf7Z79N2pFESAzJvFrXcLvl6PgY1Y=;
-	b=054RjRV77eJQgJr9WLI2WGdBU4HnuvMauySTBJh9nAGCjDZWh5ar1EKeEmBT2Qs7V0G7
-	 gogQ8QyXaYUGmnpMMY9gQECE6cfhaEd9FkdG+ZbayB69Jz02TrU9dE0u6WlxHMw64eedZ
-	 56SLeo0IprfkjPVJMPtl9ERg+xnXjYkbY6+SwxmXf7eTO/kSBMuVANcBf+hZCxK4VERHt
-	 /YpyLmLHjQvxgZCONgX55CpaESs2qhZJRZv7RXO7mhjXlykNqvQR/1WhPnxJIUOLNnId5
-	 t/CabxtWLytC+m6jXnIYTdnBYcRVcTVuNT69grgoeMWCLgNAHgXRcU7g2G/43y3y1Lw==
+	bh=jPVJ1cDNGbYm4OpEQ76gnpLJPBDVc6YZIrK9UtAnw90=;
+	b=t1LzYTwiXh1lSM9q6XlD5BP3hQ6mrlukeSORsOaN/zAMLXs6DwBIddS/4MHrnkIKzBR4
+	 McngRlVVNhlnJEnpC5cDdS5rml3xMZjRyrhDdhSc/FalauA66CbB5N+tHVxNOX2hCQBg2
+	 ZSg9CadLRhs+0OZ8+oD8vLG+YpmcK1RbYRctT03Z4++mCNt9Z/AMliFhL9fHOENpeGDtn
+	 Q5uosAN9Jnzz40oVQupYk0/JWPfVCyG5zALjzNP0fiCgNDwDl7OKWdehk11wzRVOJotRA
+	 EejS/GniJiae8AcnbuABwn541DAJk6qcla6YsJ1KON6X3OELa8PojZiEXLKGv2AKZsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K9Nmp3Ym;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E481606A31D;
-	Tue, 27 Oct 2026 12:38:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E481606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IJf1AIMI;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD2F606A332;
+	Tue, 27 Oct 2026 12:38:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BD2F606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K9Nmp3Ym
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D5C115A1;
-	Tue, 27 Oct 2026 05:38:25 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24FD13F871;
-	Tue, 27 Oct 2026 05:38:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793104708; bh=AsQV8EPRWv/nZtGsAUNcNbWRUUJk7ZparFQR6Yrsrl8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=K9Nmp3Ymll4ZjvGr4zTYwZFV+35ZQwesqboMyB7EIqAfv5qOu9RyO9XG9N+fpdzCo
-	 ULo58NND3GpJE273n6AvoGflscj1dRlINrrfQ6JxS0i+U388wwr+SauPBi98yZpGEr
-	 RxFv1WHb6q4sjcTeU2HZmV9Br7fuJRF2zXZbhbN8=
-Date: Tue, 27 Oct 2026 12:38:21 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
-	lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
-	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
-	James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 10/20] ctlv: Prepare event queue support
-Message-ID: <auCbPdoaMq9oWoQ_@e129823.arm.com>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-11-jiri@resnulli.us>
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=IJf1AIMI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793104717; x=1824640717;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=c6UIOgzPxsSvzq2lcgh7cv5Yo6+3mJZ8wHbFKnDYEB4=;
+  b=IJf1AIMICrXU/S5RMG729SJtXyaLQm+O5WIjXx+FLgfYB8WVo/zbJbrg
+   GmShHVfmFDJhtI5EyrJ6jiI3AUuD0BOW4Roe3QlmyTbcRtYCYJfvK4h5v
+   NtGi9FDjEXlD+fLG5Fzzwdukpoqod5sskhMx8GFkmg/bJY0j8E6rLBAYZ
+   IqBUw6m1LbmASq7FRxmAaGQc/a6In3ZGwK8pBspVMTYxuNPT7byWumRmV
+   1rz3VnE7CGbo8VvXpwtjnabUzi3qKZYm0NlDbbLYQHZpXISlKzpE3ghM+
+   YyRx5T9haWqVECFXuYQ+8T35F8JL7OIT+WwmvaCMXS034OYmDvDQxojpu
+   g==;
+X-CSE-ConnectionGUID: JLktRhCjScW6uyrDdvst3Q==
+X-CSE-MsgGUID: bQcQRXadTsKA2hvBS0UuYw==
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="64649368"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:38:30 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Tue, 27 Oct 2026 05:38:30 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 27 Oct 2026 05:38:28 -0700
+Date: Tue, 27 Oct 2026 13:38:27 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Sicong Huang <congei42@163.com>
+CC: <netdev@vger.kernel.org>, Jakub Kicinski <kuba@kernel.org>, Simon Horman
+	<horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Louis Peens <louis.peens@corigine.com>, Hui Zhou
+	<hui.zhou@corigine.com>, <oss-drivers@corigine.com>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] nfp: flower: fix use-after-free in neighbour update
+ work
+Message-ID: <20261027123827.ouy6z635674mme4s@DEN-DL-M70577.microsemi.net>
+References: <20261024044903.1130380-1-congei42@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,81 +83,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261015145053.3664509-11-jiri@resnulli.us>
+In-Reply-To: <20261024044903.1130380-1-congei42@163.com>
 
-Hi Jiri,
+> The netevent notifier handles neighbour updates and redirects by
+> queuing nfp_tun_neigh_update() on system_highpri_wq. Each work item
+> holds a reference to the neighbour, but only stores a pointer to the
+> flower app.
+> 
+> During device removal, nfp_tunnel_config_stop() unregisters the
+> notifier. This waits for notifier callbacks to return, but does not
+> wait for the work they queued. The teardown then frees app->priv and
+> app without waiting for these work items. Flushing cmsg_work in
+> nfp_flower_clean() does not cover the neighbour update work.
+> 
+> A pending work item can therefore run after the app has been freed.
+> Its call to nfp_flower_get_port_id_from_netdev() can then access freed
+> memory while checking whether the neighbour's device can be offloaded.
+> Even notifications for unrelated devices can reach this check. The
+> same problem affects shutdown and probe error paths that tear down the
+> app after the netevent notifier has been registered.
+> 
+> One possible interleaving is shown below. The neighbour belongs to
+> another network device that remains registered.
+> 
+>   CPU0 (remove)                   CPU1 (notifier / kworker)
+>                                   nfp_tun_neigh_event_handler()
+>                                     queue_work(system_highpri_wq, ...)
+>                                     return
+>                                   /* Work has not run yet. */
+>   nfp_tunnel_config_stop()
+>     unregister_netevent_notifier()
+>     /* Notifier callbacks have finished, but work may be pending. */
+>   nfp_flower_clean()
+>     vfree(app->priv)
+>     app->priv = NULL
+>   nfp_app_free()
+>     kfree(app)
+>                                   nfp_tun_neigh_update()
+>                                     app = update_work->app
+>                                     nfp_flower_get_port_id_from_netdev()
+>                                       app->priv  /* use-after-free */
+> 
+> The work items are allocated per event and free themselves, so they
+> cannot be cancelled individually, and flushing system_highpri_wq is
+> not allowed. Use a dedicated workqueue for neighbour updates instead.
+> In nfp_tunnel_config_stop(), unregister the notifier and destroy the
+> workqueue before cleaning up the tunnel state. This prevents new work
+> from being queued and waits for pending and running work to finish
+> while the app and its resources are still valid.
+> 
+> Found by code inspection.
+> 
+> Fixes: 0ad722bd9ee3 ("nfp: flower: fix for take a mutex lock in soft irq context and rcu lock")
+> Signed-off-by: Sicong Huang <congei42@163.com>
 
+Looks right to me.
 
-[...]
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
 
-> +int ctlv_event_emit(struct ctlv_op_ctx *ctx)
-> +{
-> +	struct ctlv_device *ctlvdev = ctx->ctlvdev;
-> +	struct ctlv_event_record *rec, *next;
-> +	struct ctlv_file *cfile;
-> +	u32 len, wanted = 0;
-> +	LIST_HEAD(spare);
-> +	int ret;
-> +
-> +	if (WARN_ON_ONCE(ctx->file))
-> +		return -EINVAL;
-> +	ret = ctlv_event_finish(ctx);
-> +	if (ret)
-> +		goto out_free;
-> +
-> +	len = sizeof(struct ctlv_event_hdr) + CTLV_ALIGN(ctx->output.root->len);
-> +	scoped_guard(spinlock, &ctlvdev->events_lock) {
-> +		if (ctlvdev->dead_announced)
-> +			goto out_free;
-> +		list_for_each_entry(cfile, &ctlvdev->files, node)
-> +			if (test_bit(ctx->op->event_index, cfile->subscribed))
-> +				wanted++;
-> +	}
-
-Suppose at the time of here, the number of subscriber is 1.
-However, before calling the ctlv_event_deliver(), another task hold the
-event_lock() to register new subscriber. for example:
-
-
-Task 1 (emit)					Task 2 (new subscriber B)
-
-wanted = 1
-unlock events_lock.
-						Register subscription.
-allocate one record
-ctlv_event_delver()
-
-  grab events_lock.
-    Deliver former subscribe event to old one.
-    new subscriber B will call ctlv_event_queue_event() with NULL.
-
-When this happens, new subscriber B would receive overflow event
-via ctlv_event_queue_dropped() though it was registered right before.
-
-Is this intended? It doesn't make sense that subscribe B receives
-the overflow event in this situation...
-
-
-> +	if (wanted) {
-> +		ctlv_event_copies(ctx, len, &spare, wanted);
-> +		ctlv_event_deliver(ctx, &spare);
-> +		list_for_each_entry_safe(rec, next, &spare, node)
-> +			kfree(rec);
-> +	}
-> +
-> +out_free:
-> +	ctlv_event_free(ctx);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(ctlv_event_emit, "CTLV");
-> +
-
-[...]
-
-Thanks!
-
--- 
-Sincerely,
-Yeoreum Yun
