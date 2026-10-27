@@ -1,119 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100203;
-	b=re0l96o5eRKu4TeDYkht/djlYiQx6QRTDdRH5MunwpoW6hNnCtsv6pegI/5lfby5qYFQ
-	 kXvAm20HcS+9uNJNKYOZ4Zn0/oti5SIBEzvPQZ7wt+M4QUs+rDftdKyQehwdxVPEajv/U
-	 /8BqrNd29piSIk7IPy8R36PShby20ZUIZe6O3xaU0uXZE2Ysl7NNR2+nhqKPNIoCRuDns
-	 wckWPeK5r7TEmAUPPKUqLMMA2W4+0bsv75B6IvqzVXPfLcj4Qgmvqsfz6PPZ6Xj8swI+J
-	 4cHqNsaqfWSUkUSqRvhLqi+PitbQNIdL85lz0VUhIJofIEZsfCQG2Wfo7D8uwBviLtw==
+	t=1793100205;
+	b=XPMk3PvYoKLQHs8FQoqRiiM5V/2zIFWSpdKe066ZRmnS31iUuMxAJEon9muQyXyi7xRz
+	 Hb289cU6oTNFHuqlJzmNzO1wre4aa0pN1Ucs3p9j4HSseEs5RmlrNklDvA4VDbglg9VMr
+	 yujWOV+xF9PnlDNZlG9gSwXN33c8u6L91CxLmeK9Tz7/F0iyeaT+ZC5YFoEi8/qMHZbgJ
+	 cju8lhXLqjq8WiQ6+JjUVVPgsxdjGIZEaEzcmbByB4Xvw8D24nmV8lT9t5Vu5YbL/mdHK
+	 /YnMkWrMJmkGS+D/DRlSak3lE3wTGfjmC5t86UOmQDpCuH0YhXY+82NmVjL8gYrPRUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100203;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=LCLGT3dGFbYN1moOX5comzCHld4bgy4ncy8r17Egy90=;
-	b=TXXUR5GeKnav5BpuBIvZ/Raxu7bNv11gSSgkaP8Ao9um5b7m2jQWZyVl/XsxhZgDHRBd
-	 VGWlR5fS70Z5+7R6SYGcdJ5s8pYmb50SS/r4dsMBl+bmj1q3DkaZInNApLV0CX6Fs2sGo
-	 52TSpHz9W9yjeTAlNNRdejLJ1fQDXvmm1f2Yz0ENl/TTvxSuwGVfEi0KLWNW2aaKLieUs
-	 pSLAcS1tAO8mOqv8vBLPUVNeYICDsfBQHhuLM36KLj4meIIRwe2rzZeySgkMbToFZADbw
-	 sXmvBkzhWotsaFDsfl97CUTwYj00A3jBcbxzAyUmXI409cl7B5DPdSCRYQa+5RbS+4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100205;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZL//RQzqhSPDr1a37l52tGV4TWlxdO+0hTSVKLkxguQ=;
+	b=Ck7S8u+8qfs3jfRJTtjmLBqGTlqYhl1fH6bpU4YCtKCSYGy7l0vsnrANn6nsGX5Abf9z
+	 FSN2zW3S+HlJBIEc5TOKhFk8+HPFKSv0bi8dgxs/hoO/msIWR4HbZjR+iA7cms3/OEKTC
+	 /cMDNF9taR89zOlhJPeWYmd3G4S19Ppf+g6Lq6xIGoRx6qoXFS9ppNNtcyKNtSzpgRB82
+	 jQM3ZQyOK96KYWIA5LCDPuMP0eOG3IFZB9blpSFIeJXyNTiPRSAVC0D3ayr4vrijRukOv
+	 f91cVBt/2NnnYg+bEi5W/u2jLx2VQ3E+U0icD3K7cnaCm1cA8q+3U6nlY0gqFKImq4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D0SkzBCp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JKM+lQbB;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPsqgnxg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A033D606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:23:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A033D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F69606A31F;
+	Tue, 27 Oct 2026 11:23:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D0SkzBCp;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JKM+lQbB
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeApW2524940
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:23:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=LCLGT3dGFbYN1moOX5comzCH
-	ld4bgy4ncy8r17Egy90=; b=D0SkzBCpnj/p7gIAvgZJWNa4gx96i7m/IaIl34+6
-	nDvIVb8O3g28rqcitQCqrjNmvK59YLW3XT+Ivs5gdufNBdyPjIY5MabwR0Aq6PD6
-	holb2bkwxif4Dd9qfkphphkYORji9BV0SqQtgsHLXMWe4Phrva4ojg/8F3ID5ix/
-	cBm/7O3asPnPiSK8qlzi8ieX40a8E3hbbePq2dmSqKipyetD626oUAQVZlkDSSqh
-	JHTwN/1R5LsSS+KViD//rA4rNxhY2QkuUlVlPiysTD23Ht8X5nGRuXJMXvV684aR
-	LsM0yBjh5rQvV8LJCMTky6aUAwMuFiLr07/1CARLgyfXww==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqw20tfg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:23:21 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f13c143c8so741558185a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:23:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793100201; x=1793705001; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LCLGT3dGFbYN1moOX5comzCHld4bgy4ncy8r17Egy90=;
-        b=JKM+lQbBCMimTyITmAUUODC+CuPTHnQv4ze7SP1UbEt0dzJHp6UquHwCaxDeAuI8TE
-         VMiIxphUvpTsbfQBXrh4I+xFpKwxgOl4ZniJ4hYQt6AaTqijDIsp142mjbVtwZSYTnEP
-         AZyDtDg5Z4YWuhpbnGpxB5okhnoVqvUs/DlQhL8iD1qmJZ+ka5VoJzOUQ1eNEA4b5SMK
-         t3sfownP24/dID9mOn73avgDWSsKhMS3aJATmb1vycdO5QCC4/ZMwK29b/BlgOmCbKas
-         lmnOdbR1O4rUJsbOSedQSRlnn+0upLOHMzl1tqV8A6tL1+lcfqH/4/6xLGqN5KSuPHX3
-         SSZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793100201; x=1793705001;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LCLGT3dGFbYN1moOX5comzCHld4bgy4ncy8r17Egy90=;
-        b=hMtd1GOU6xghBi9xS7ylzghrdd8RPQpiBMCZcD2LrHzb0Fgyf5ZY8zH1ZPBbYUD1XG
-         /rF0fxUXampwM+Uq6VOPrprwJRFoWgjITxQUVOGHZN9+D5jmiDIAiJ1uyUPl+q3BUqE1
-         sBYGwajB5M9FWZJvuKqm1YUMKAH6upuscKiEDrT7OLnFVOg/muwz92/ALrxCl0Hxd8Tp
-         LdzCNLU75vH/+D7w1GWXFTIwvs0G463kIjW7h3PZZzxRXPP2ev3bl/PkCAfbCPcyTSXS
-         r+tx+VR3mIOuXQq09EGOH8+Abve0LX42vcEpEXAyh4IT0tT9XhTFjUnxA4+DCz2Oq83e
-         Cz8g==
-X-Forwarded-Encrypted: i=1; AKwUvByS5aQR0YBr2nDdVD4mA9rsmv5ZbsJnIlIkOfy+JfZA4EVoAWR7zThhG3ml7USdhbsh2/gFRRhd8PeuSiQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJt81vYkuR0YvjYxyVkIFPJqmU/cpFlqgLdGhNpbohl0gs4OwU3
-	wg07R0efwKau6aPRYOfjnLabDqDl0EljvJ96zFrdQ0HZncna/U7CxkwxxT9UvDA5xbSz9//TVze
-	tMmh6XQ6/K2Z5O7a3KL8YYZCVSMTI7L/Sg0UBmD2Rm2JxGKww/AgQKcn4BtMsf+1CR0E=
-X-Gm-Gg: AYBFou0/F1XmL/BEZOraM1t/2WVx/KtUZ4B+DXZoPQaboeMWM+lVe+xQoowsVsOWn5D
-	fRDjG3hiqWMrdet3SYrHYwS9m8xS3KH0itka79XaNWS3p6ADEQ/8e/+DOrF8f42XVKv2RPBIpD1
-	NKCHPbdxeadI45sqKrDWM5k7VhuBdGkdyiAM1JeJWunWK0Jm21qyfZuweXYVorSNJS9f7k7jgxP
-	A4k8m+K5VxZKDsVgxUGpk/NFwUtrfWV41XsGxnYlreMNktQ3d8jb6qomX0kO7kBgAXW5a4wc8KM
-	lD4M/tM6baqY0n848XT8EgVQmiaJQ1q8xeP1X7V3bCcUIP5oyJMnL2lUJrUr5Vt/DKU6uucaunE
-	MDc1wDzdFd7xUul12SnkHQalp+wpIlN+1KddeiIPuLXpE+Y39HektabpWBRjg8ku5wA==
-X-Received: by 2002:a05:620a:198b:b0:914:afc1:c66d with SMTP id af79cd13be357-940ef7b5363mr1437220585a.11.1793100200675;
-        Tue, 27 Oct 2026 04:23:20 -0700 (PDT)
-X-Received: by 2002:a05:620a:198b:b0:914:afc1:c66d with SMTP id af79cd13be357-940ef7b5363mr1437216385a.11.1793100200094;
-        Tue, 27 Oct 2026 04:23:20 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359f59750sm175048735e9.0.2026.10.27.04.23.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 04:23:18 -0700 (PDT)
-Date: Tue, 27 Oct 2026 13:23:16 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Robert Marko <robimarko@gmail.com>
-Cc: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org,
-        bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, konradybcio@kernel.org,
-        taniya.das@oss.qualcomm.com, ansuelsmth@gmail.com, john@phrozen.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: ipq8074: Add CMN PLL
-Message-ID: <xzlcs4jdxvndta2lmbnofb4dvekkbea3gaodqxjomn6o7ibjif@lakwxrxx2is7>
-References: <20261026120920.1667982-1-robimarko@gmail.com>
- <20261026120920.1667982-4-robimarko@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPsqgnxg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F3CA1F01825;
+	Tue, 27 Oct 2026 11:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793100204;
+	bh=ZL//RQzqhSPDr1a37l52tGV4TWlxdO+0hTSVKLkxguQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HPsqgnxg7k0E5/PQf/2frljxN8LMVdhJcWD7/aT8dpueEmC9wJ8cfpWJ04epQlo8x
+	 q6g9tUOl5XG1ZWHF1gq24YTcU/ZwD3GHhqpdZAfZRikWKqBUbacDKDlfXc9Lkb05To
+	 mLDUZZzIp297CZiE0ZchLPFH1lH356iEu2pvRyoTgUa2DG44QJuvKqsiZjr0TxYwTO
+	 iRTm2cpcJDXiNPu+Mdx212zU5VmVWKj0I2Dzwr/zVHXvp8qQ6Jq6VfvjpdSFO/9WY0
+	 xeuaR0c2v5A1QBrUMbZaQ0eA5bpmHqIOEy7mcY27hRCfzx81k833y934TXTwiRoU/K
+	 fQPzLevN3roqQ==
+Message-ID: <10465f24-0d87-48f8-9684-302434b456fc@kernel.org>
+Date: Tue, 27 Oct 2026 12:23:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,43 +51,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026120920.1667982-4-robimarko@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX9AqC/GFnOlZT
- gdLA53wxXsG9HJGQ8Er5V07/mKdQRctNJHwxLMmqvvk0lmIo1OJQAbV/mylDRjoAo25Mfhd73q7
- OJwwYKn/F5+aO0Gq3EXAGBAsuOJehec3R9iHpN+pM3TdF96wl+4sgA8375PJIggr7sc2IX4ZrG4
- xz2HBxSuejQcux7YDh2HmN1y6LKMfwz+V0k4Pr2tZmgwq8x8TBv/VdUKh/rDsSEjech/zhYyikF
- 204ldOV+ROAE6ZFcgKHHteHG33Y4C0BhqLJ6Ryu9rhsb+H5Dw2Vob3PxY9QrTQfm9D3FLLXJSye
- o4S7Qb91TBhToc6QgwzE+13bJtL4DXym/NMfU7x2vMq8L+pElIR4X0blGv0YUHabwDHjMVAIJ6k
- ZBvNpk/m7E/gkW1yLF6DbuGsnRIdgNgUQpFqZ7XQow6macPu1UiHAkcXWYHV3YvxHTk7dEPohQK
- nZBttgtQ6LzmNfzpsoQ==
-X-Proofpoint-GUID: FHij58k8CEGgsmlrSWyOgoNldTKKGVho
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX3pwzucfTuj5M
- pW+8UF+4urv5Ll8QUyPn5CJo5C219ynTrmr0dGUaj8B+bbbkGVw86T2i0CC3afkVdSTLr6D1a3Y
- WypNAcJixD9/boX4HlzjTa7KXZ2PH2Q=
-X-Authority-Analysis: v=2.4 cv=PsYG/AM3 c=1 sm=1 tr=0 ts=6ae089a9 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=w-uRcYzalQcvdjeGYpgA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: FHij58k8CEGgsmlrSWyOgoNldTKKGVho
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270045
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/24] serial: 8250: cap OxSemi Tornado UART count against
+ BAR size
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Joshua Rogers <linux@joshua.hu>, Chris Mason <mason@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>
+Cc: Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Peter Hurley <peter@hurleysoftware.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>,
+ Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>,
+ Olof Johansson <olof@lixom.net>, =?UTF-8?Q?Andreas_F=C3=A4rber?=
+ <afaerber@suse.de>, Arnd Bergmann <arnd@arndb.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Robert Baldyga
+ <r.baldyga@samsung.com>, Thomas Abraham <thomas.abraham@linaro.org>,
+ Kukjin Kim <kgene.kim@samsung.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Andy Shevchenko <andy.shevchenko@gmail.com>,
+ Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
+ Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Lukas Wunner <lukas@wunner.de>, Marnix Rijnart <marnix.rijnart@iwell.eu>,
+ stable <stable@kernel.org>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+ <20261027-tty-llm-v1-11-99b0202ae546@linuxfoundation.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027-tty-llm-v1-11-99b0202ae546@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 26-10-26 13:08:15, Robert Marko wrote:
-> Add the CMN PLL node, it will be used to feed the required fixed clocks
-> to networking subsystem.
+On 27. 10. 26, 12:06, Greg Kroah-Hartman wrote:
+> From: Joshua Rogers <linux@joshua.hu>
 > 
-> CMN PLL provides bias_pll_cc and bias_pll_nss_noc to GCC.
+> pci_oxsemi_tornado_init() reads the UART count from device-controlled
+> BAR0 memory without validation, allowing a malicious device to report up
+> to 255 ports. Cap the device-reported count against what actually fits
+> in the BAR using the Tornado register layout.
 > 
-> Signed-off-by: Robert Marko <robimarko@gmail.com>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Lukas Wunner <lukas@wunner.de>
+> Cc: Marnix Rijnart <marnix.rijnart@iwell.eu>
+> Cc: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Joshua Rogers <linux@joshua.hu>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>   drivers/tty/serial/8250/8250_pci.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_pci.c b/drivers/tty/serial/8250/8250_pci.c
+> index 1dda63be6b89..9919504334bb 100644
+> --- a/drivers/tty/serial/8250/8250_pci.c
+> +++ b/drivers/tty/serial/8250/8250_pci.c
+> @@ -1083,6 +1083,7 @@ static int pci_oxsemi_tornado_init(struct pci_dev *dev)
+>   	u8 __iomem *p;
+>   	unsigned long deviceID;
+>   	unsigned int  number_uarts = 0;
+> +	resource_size_t bar_len;
+>   
+>   	if (!pci_oxsemi_tornado_p(dev))
+>   		return 0;
+> @@ -1095,6 +1096,15 @@ static int pci_oxsemi_tornado_init(struct pci_dev *dev)
+>   	/* Tornado device */
+>   	if (deviceID == 0x07000200) {
+>   		number_uarts = ioread8(p + 4);
+> +
+> +		/* Cap against BAR0 size (Tornado layout: 0x1000 + n * 0x200) */
+> +		bar_len = pci_resource_len(dev, 0);
+> +		if (bar_len >= 0x1000)
+> +			number_uarts = min_t(unsigned int, number_uarts,
+> +					     (bar_len - 0x1000) / 0x200);
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Is the _t variant necessary? Both are unsigned (int and u64).
+
+> +		else
+> +			number_uarts = 0;
+> +
+>   		pci_dbg(dev, "%d ports detected on %s PCI Express device\n",
+>   			number_uarts,
+>   			dev->vendor == PCI_VENDOR_ID_ENDRUN ?
+> 
+
+
+-- 
+js
+suse labs
