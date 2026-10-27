@@ -1,105 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090757;
-	b=CPk2xOHDgpFXOa/HZBLcXQVP2YPW3VZ4HUM+6LnyQLQ7bMF8hZqyF531Hsk4NZo3ygpa
-	 ACx5i/ylwrZ2nzGF4FNX/dXvZR2y+xFElMoy1iB9Mry4Xmkwce7wq+/lHY1JP2XLVnY+X
-	 eo9mjBrb7snxmC3kWlbk3oiQfR6PWBdaInTRqFr12F/QWDEoztATKRJBSaPCV0tED/CAU
-	 xeZeCdYpzce1zJSlWNbaEAgneO5x/6qe/NTS+ONQHVDfMDh3EfldTVSrtGTSzAHBe+03D
-	 oBsFcbiLj86tDLFow27NIe/XEChbr5ip1fOb8bSuRuZe93Dj5bfU4i+QjllFKUlXShg==
+	t=1793090773;
+	b=yfKj2jLv9ljt3/6pyUvRuwsZ59/uze6XVPoUAlo9z/knrBwCdN52GNmU3WZICDv78I4Z
+	 kn40ZsiFpkkoQFpvibNxDw1LDpMpi2DOSJj7hTaaKu1OGxTgpZRp5q9a92Qqn7PLgzNfB
+	 ExALJCbHsL37H7/VBMu89dIkf+0xlk0K72O4tTu23emKaIpqj10Fu6/ZBO3KS6kFHDzoX
+	 WrfERfo6madGTN5bdXCvBjgHbydeLJmSel/Bq0qGgYZWb1DjWDIMGskFczOymOoTMdc1D
+	 aQBwsb87D42tNK8HXfs20TrH+dMZ73NN+4h5xUlQ8n+e5kEbtaNH0pm+DyBc4vjXxPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090757;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HzO4m0Q8yZV5RgPhRhakwzaTu65IYUbFA7iVxGbsJX0=;
-	b=kp2Wg9+LZcFBmJJ/cNlz52RyUUBJpICAAL+J6ixF6iFRkcHVP2S+Q9foRjM2MONiZHP/
-	 IoRJDSyXAYj0DredU8Ic/uLLyNpdDF7CXNsYXlm45Jmdhv83SRSDOVMZJ+c9W/IARTuYR
-	 TwpWXTj3yU8N/xddewesj4GuJalt69jg/9v6ox1X6LtquFp/DGvAn4/9gmN8Uju1oQWXe
-	 x99YKAwMWSlq/q+c007LMOaLFNenuB7CCSyrFfS+kh+9ASpW9h51HdALoGgc4iq06DBtW
-	 /fzAEb6QyLCa7Ff62UHXD4lY3vlsSovg0/OmZU9jg4siLTZz9ZU2kH4BA4lHVc2Z+tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090773;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=CSDnY2+EpC0A6qfUh4OJfRDawLSOsU0FBryWMPhro+0=;
+	b=AzqptW0V/mSsFar24Rg/pOf80n2worwEPkOtBSqrsDllGqYzODhfbyY+8S56k3YL6v3p
+	 jmDpGQKZAg8MyVa1c4HczJB6VmHqDdfh4ykZdSv8iVSW2M8GIkORzhMWsknWzAL5MWx8o
+	 TJSReewpr7D6NsN5vfSiSyEoXeqwkGwKNWtK15fxskFX2UtXMLgaf4ZIfUG4XVaqICff5
+	 ij58GeLqOR89MAiibXD+Ei/urFjIDvheE3xiteWNF3wjfytRg+sXDv2qgLmEzxyOTuujR
+	 Eyizi2ajOOHf6xluHpbRfXLaq96bbkMpPR72b+kXVZDQowSsyWKcm0hgIWvek0rbOEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mjQcrcv0;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="DYY7/zi9";
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C71606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:45:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C71606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8EA606A31B;
+	Tue, 27 Oct 2026 08:46:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A8EA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mjQcrcv0
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a05e3f0d23so1721644b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793090756; x=1793695556; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HzO4m0Q8yZV5RgPhRhakwzaTu65IYUbFA7iVxGbsJX0=;
-        b=mjQcrcv0zqwIVdk3DgRkBpMbLX3iyPKlyLrfzbTjC0Itrdc9QqJXlIF5+Y2PG35ZOA
-         FOY+JY1Tp+/hLwHzaa5yPq39tEpxCPxAgEGMP3pedI6n7nJImKcG/IPzx80z0dFlikRB
-         vVDsFMotHgUtDe4Q1/uqPQe5Pr6An6ckfZy7mFMnyRQH9Url5Nn6yEFixX7D0HbgRoEP
-         cYnXycIorMr26/GHofqKVN/rpFKXZctXn/rajXF+nmFNgJOa3uKk/TPBvv7UXzNr5ZBN
-         B1e0g/EeprlYMY9C+4AEnUPcaz6+4ZHPmrzOvRf0b8CDh1O57DvBobxbaJdrx3h/DgwT
-         WExw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793090756; x=1793695556;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HzO4m0Q8yZV5RgPhRhakwzaTu65IYUbFA7iVxGbsJX0=;
-        b=FcT/3asZHDkEQ652bk6z8AXqr/zF9hD43JHhLKGYBsrTqaJbN9OV0re4ByF8PmZ68n
-         gYepBrFy0BjKdkFPwBo4WA5pg0+Ue6cMfjO7NdoPkggX4Irx8+jDS1ocFwkewy8sxRWG
-         zS52kR4oAIQG8L/n9y27ere4tz1njC/24VdnB9M1vbpdcMrAiCjknI9378zjdgkAzCOY
-         xi8q9Y2lqcoH2CAGr7E3gCIZQTuEFzXZ1384754rM1/mEG4oRv4L3/Lowdir5VbMekje
-         OInx0evfcmoFQDuL0eBnLKClHWR97Tbq63hWHxxthVAgQrxV2qzg0d0fXVI+qVI5+dSU
-         smsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzREmdbiNxdX6ohp8vnPos8N85aUHF3DWXJtw8xSTtC/G1Fp2Lv+9uunkpSh9lIj/Xc0xThNzp8lfPOnpE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+Y9FoVhV/cAr3CX6hf3Y0jqOts4MkS4aNgVB501tGpcwLM/oJ
-	r6uWd/GbIdOPjW3SN+52x/8lVU98c5F6to2aB3IMmXicBa8fqtn65gQn
-X-Gm-Gg: AYBFou3+76ooBrezGzsMDkmYbx3DZ5btj+wpaZ41vS6D7SHYCh8CWKaI7gqVUK0qsWc
-	v5ZSvc6p/aaH4AlP0/l+ARdEKZn1h0Vg/sIufY5sNXarV/VL22ste+Fhf2dV7YN12IpJwibjazG
-	FhdSQZrgkTq/lBe5U/BaIlZ7HL2YD5rNj8yhvrlRL1/tocRljA72oc7ahJigUoSKmzIESFw8Q4z
-	pRTf9sESmhjUvVK/xUPlRGXxXXQ4QgUv3VHyQ4YxLO5tgvHE/sh62R9t94kcA0kJDZENi0DZCx2
-	3xib568aKY96hRVVPQNqbmOBtG+GfIW0ab844kiHw1yqajIsbWexgYATVKZs9QtS5bzXQL43/zR
-	Dsn9Li+h6aN12YB3Ylqi+wrJgM+HNPl2W3uANmLoqmYkmHEFjlQcfEBgM9DrUSeX5lAEzn0weFF
-	tXhX23Yspy8cYaFd7/O+ZXVvumrOPVUmU5SFp7ym3ZJ692mi3nHblqn9G/N5zSAe9pZp7dmD3Nd
-	+Fg2jCHJtxHwbXkdJ6+lQytfyRqNfngHW+xgCyYDnTSUfOVZldpO/t8MtHGrQGggsgDTpsuAfyx
-	Gdgn2xXdkPaK5+aCuRPhVkPrhcdnSyaUNs3+sBX8XMg=
-X-Received: by 2002:a05:6a21:4591:b0:3e2:8c70:6d13 with SMTP id adf61e73a8af0-3e7cd51a7a5mr7982940637.71.1793090755759;
-        Tue, 27 Oct 2026 01:45:55 -0700 (PDT)
-Received: from Aaron-M6 ([188.253.120.162])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdad8f2c611sm267581a12.10.2026.10.27.01.45.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 01:45:55 -0700 (PDT)
-From: Yaozhong Li <yaozhonguwl@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Chris Zhong <zyw@rock-chips.com>,
-	Zhang Qing <zhangqing@rock-chips.com>,
-	Joseph Chen <chenjh@rock-chips.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yaozhong Li <yaozhonguwl@gmail.com>
-Subject: [PATCH v5 3/3] arm64: dts: rockchip: fix power-off on Firefly-RK3399
-Date: Tue, 27 Oct 2026 16:45:09 +0800
-Message-ID: <20261027084511.1992-4-yaozhonguwl@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
-In-Reply-To: <20261027084511.1992-1-yaozhonguwl@gmail.com>
-References: <20261027084511.1992-1-yaozhonguwl@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DYY7/zi9
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 84341C79AAE;
+	Tue, 27 Oct 2026 08:47:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 08AEA603BD;
+	Tue, 27 Oct 2026 08:46:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8809E10329093;
+	Tue, 27 Oct 2026 09:45:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793090761; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=CSDnY2+EpC0A6qfUh4OJfRDawLSOsU0FBryWMPhro+0=;
+	b=DYY7/zi9FjTqvNbno8coXmmIEmIhesBXCpG8qUPru3z5pRo5hRi1dUaJLen1HcpjdpMA1M
+	w8RKg8cdIdliJ/mhfVVwnmFj1wOqlnv2ImO+kQu1d/xi2nTnK9D51yIAEC0EDekKIOJsj8
+	FfSRtaMME+9eD+7Q0HpILdBuaPVOAQtPYd6Y5pTefrZHUzowe31/GDgVYck8FT18Olwu88
+	3hsR2BqT4AAwlzDfQRdlmggqn0beyfB3QeeUlH6jXprZEKGrxre79Qy6vqPgugAWIrbV20
+	G4hbikkfPlJYcDGCiJEuLs+F5W5iMwZmzRdIIslJI/wzm17/a04N0NV/h96cNw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Brian Masney <bmasney@redhat.com>,  Stephen Boyd <sboyd@kernel.org>,
+  Abel Vesa <abelvesa@kernel.org>,  Peng Fan <peng.fan@nxp.com>,  Frank Li
+ <Frank.Li@nxp.com>,  Sascha Hauer <s.hauer@pengutronix.de>,  Pengutronix
+ Kernel Team <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>,
+  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Ian Ray <ian.ray@gehealthcare.com>,
+  =?utf-8?Q?Herv=C3=A9?= Codina <herve.codina@bootlin.com>,  Luca Ceresoli
+ <luca.ceresoli@bootlin.com>,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  imx@lists.linux.dev,
+  linux-arm-kernel@lists.infradead.org,  devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/5] clk: Use v2 rate calculation on i.MX8MP
+In-Reply-To: <1j8q3kkd8t.fsf@starbuckisacylon.baylibre.com> (Jerome Brunet's
+	message of "Mon, 26 Oct 2026 10:44:18 +0100")
+References: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
+	<atjIIHkoNwBVDO5b@redhat.com>
+	<1jtsmch5id.fsf@starbuckisacylon.baylibre.com>
+	<87h5icnzs9.fsf@bootlin.com>
+	<1j8q3kkd8t.fsf@starbuckisacylon.baylibre.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 27 Oct 2026 09:45:55 +0100
+Message-ID: <87cxsvh6po.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,48 +84,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-poweroff on this board drops the rails and immediately brings them back
-up, so it reboots instead of staying off and U-Boot reports a power-on
-reset.
+Hi Jerome,
 
-Firefly's BSP drives GPIO1_D0 high while the system runs and low during
-shutdown, before writing the RK808's shutdown bit. Mainline does not
-describe GPIO1_D0 at all, so nothing drives it and the shutdown does not
-stick. Describe it in the PMIC node, with the settle time the vendor
-uses.
+>>> For rate negotiation, my suggestion would be to reuse what the
+>>> framework already has: clock ranges, and re-running .determine_rate()
+>>> on the children being dragged along, with the common ancestor's rate
+>>> pinned. When that rate does not suit a sibling's range, other ancestor
+>>> rates can be tried within the constraints, rather than giving up.
+>>>
+>>> clk_set_rate() is a best effort function. It tries to get as close to
+>>> the request as possible, honoring the ranges of every clock along the
+>>> path, and it is up to the consumer to decide whether the result is
+>>> good enough. That decision is lost if the framework recomputes the
+>>> rates of a sibling branch on its own. Ranges could help it decide:
+>>> either "I'm fine with the new rate", or -EBUSY.
+>>
+>> I see an upside with this approach: we could keep one single rate
+>> negotiation logic. But it still requires modifications to be done on a
+>> per user basis to be enabled (but that is needed from your perspective).
+>>
+>> While I fully understand all the concerns expressed above, there has
+>> been one minor point that arose while working on your series: it's
+>> very hard to determine the tolerance beyond which the clock rate shall
+>> be refused. Expect bikeshedding on a per driver basis.
+>
+> This is my point exactly. Each consumer is going to need to do its own
+> thing and it is why I would prefer if the decision was not a core or
+> a provider thing.
+>
+> A decision must be made somewhere. I don't really see where else it
+> could be made than with the consumer. It is the only one which has
+> any idea what it is trying acheive.
 
-The BSP releases GPIO1_B5 in the same sequence, and in testing the board
-came back up when that pin was still high as the shutdown bit was
-written. Mainline describes GPIO1_B5 as the backlight enable GPIO.
-pwm-backlight drives its enable GPIO low whenever it turns the backlight
-off, including from its shutdown callback in device_shutdown(), which
-runs before the PMIC's power-off prepare handler. When pwm-backlight is
-not bound, nothing claims the pin; on this board it is then an input
-reading low, which also lets the shutdown stick, although that is not
-guaranteed on every board. The pin is therefore left to the backlight.
+I agree, the consumer must make that choice. But I just wanted to warn
+against the risk of endless discussions about what this tolerance should
+be in each and every user. Myself, I didn't know what tolerance would be
+fine for my own case. 1% seems ok, it leaves enough room for the CCF to
+find a working set of dividers without risking a breaking choice, but
+maybe some day someone will come with a panel that cannot be supported
+with this limit, and maybe 1.5 or 2% would have been okay for
+them. Since that's a very empirical limit, expect some back and forth on
+those. "Back and forth" also means "more load on clk maintainers".
 
-Fixes: 171582e00db1 ("arm64: dts: rockchip: add support for firefly-rk3399 board")
-Assisted-by: LLM
-Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 2 ++
- 1 file changed, 2 insertions(+)
+> If the range is about HW capability (from the clock side I mean),
+> a range can be set from the provider. Some already do that and I
+> think it is fine for that purpose. In the experiment I've provided,
+> I did not enable the propagation logic in that case, on purpose.
+> It could constrain the clock tree for clock that are actually
+> unused. It still participate in the decision logic if a consumer
+> enable it however.
+>
+>>
+>>> What I'm suggesting is to treat any clock with a range as one that
+>>> needs updating. Its consumer cared enough to tell us what it can and
+>>> cannot cope with. That removes the need for a specific flag, and puts
+>>> the rate policy in the consumer, which is where I'd prefer use case
+>>> choices to live, rather than in the provider or the core. It would
+>>> also fix clocks being dragged out of their range during an update.
+>>> Presumably, a clock without a range does not care enough to give us a
+>>> decider, so the framework has no basis to act on its behalf and keeps
+>>> today's behavior. I think this behavior will keep on being good enough
+>>> for the vast majority clocks out there and it is a lot lighter
+>>> on the math side (which is already quite severe as it is)
+>>
+>> Well, yeah, I see we share conclusions :-)
+>>
+>>> I've been checking whether the idea is remotely feasible. It involves
+>>> multiple planning stages and multiple tops. It is still very rough,
+>>> but there is the beginning of something:
+>>>
+>>> https://github.com/jbrun3t/linux/commits/clk/clk-rate-range-update/
+>>>
+>>> Miquel, if you fancy trying it, please let me know whether it works
+>>> for you. All you should need is to set a range on the clocks you care
+>>> about.
+>>
+>> I managed to pull most of the clock patches in your branch and apply
+>> them to my 7.2 branch (with a couple of tweaks). I then made the changes
+>> to request a tolerance as you hinted (available below) in the two
+>> relevant drivers: it worked as expected!
+>>
+>> While doing so, I realized the whole operation (set rate, set rate
+>> range, get rate and verify) needs to be repeated almost identically in
+>> every user of the "tolerance composition" logic, which probably
+>> indicates that a core helper would be relevant instead. I had in mind
+>> something like ~clk_set_rate_and_tolerance() which would do the
+>> equivalent of my fsl_ldb_link_rate_set() and lcdif_pixel_rate_set()
+>> helpers.
+>
+> Indeed, I suppose an helper could be introduced for that if we don't
+> already have one. It does not even depend on the experiment presented
+> here. As long as there is a user for it, it would be fine IMO.
+>
+> Maybe something that takes a rate and a ratio, like the duty cycle API
+> ?
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-index 0568dfa..210e4cb 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-@@ -327,6 +327,8 @@ rk808: pmic@1b {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pmic_int_l>;
- 		system-power-controller;
-+		power-hold-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
-+		power-hold-delay-ms = <200>;
- 		wakeup-source;
- 
- 		vcc1-supply = <&vcc_sys>;
--- 
-2.55.0.windows.3
+Definitely.
 
+>>> Sorry for this rather long explanation.
+>>>
+>>> Brian, your series is what got this discussion going, I know a lot of
+>>> efforts have gone into it already. I'd be glad to work on this together.
+>>
+>> In case that is relevant, here is below the code snippet which I used to
+>> get my panels working after removing the assigned rates from the DTS on
+>> i.MX8MP.
+
+I'll let you two discuss about the direction you prefer taking. From my
+point of view there are good and bad sides on both, but they also both
+work in my case.
+
+Let me know once settled and I will post an adapted patch series on top
+of it to adopt the selected solution in the LDB and LCDIF cases (+ the
+core helper discussed above, if relevant).
+
+Thanks,
+Miqu=C3=A8l
