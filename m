@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108578;
-	b=NjliNRCCYA5EFtj/GdHai4lCf/47TNspaaBLZkasqEVfe4n6iwuOaCT8w3LzZg4CMYeI
-	 1+kVEIobpmVPnhAZSBhe4QhdLmY6z+QYyvEOdETPPA4VPz5J61pfqg8d3l4v90DkvMi2/
-	 iazt4sQTf9Cb0Epf8M/JfjIu510dwGdGvbPWdMgyFVAZ67VVPiaB3/xqr1TzozgxOj8Da
-	 bxQ94KFofVqD5VUsvuRW1d1Fm6idYke/HBA6cizryWqeu2vw8Wz32GuGr7Tt/SR1pwFBg
-	 c5ssYMD8fqYiDurEW5xyxb+o0YdMI1eQqgAT7hWX3sIZqXmx0RdohaOhe+9tOxqJHig==
+	t=1793108689;
+	b=g+iQ71D0Xmv7mBcQZS6dq8u1AA39cAd0T1d6gisCobTqXO5bCQyeDa+fH+q9VKIRAFlR
+	 GSnjX57o7a0ysFZjpY5wC63auyHCxzUO1If+0cZB3fiWkG9q2t//ZHsgaHY1ohpES+D7a
+	 Iy7ZOieTpaZriXbxYqEduGRgijd1qOPc7nwbOmT8stJiAOYi5EDFN/qmc5p58ifUru4Yp
+	 obGoxr+GSgVF39XysXIFd/ikgLc7ioj4wAWXO6IAWt1y4nJ54wAt+qIH+88V6FHCLhYAu
+	 67xdprDP4/AzcfVAhM5JfcqHVfrDzSYttYrdVP4G9f9P+KMeR7ivsef350iQrIlqicA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108578;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0+f6IJooHiQbF9wAyC4ax/+y1Gmk+/E4quNL5EJAkoQ=;
-	b=UmsMlh+nwZ61GDhMYH5tDmC77xyLkgoNSmn73Jz9c6+D6xoSk5K8KVm5M3ffnzrXfUkH
-	 qRYa5jhX2qV7gGqOk7kXI4GPkUKzpMg3jLZ1P4eLE3KmUx4yIK3R8NY5sN7JLF52tdfmW
-	 oVULAciIcbbi8e/n4QZzHyh/yqPbh9uLIJ6tQJs9nXdsSBCxRmdBZL0nMbS0/v3Gqdqdk
-	 PzixwuRYqzOFsG23GIHRLtRsqITw5HLCMBO/eTMH93QbO7QEzgyPtXZT3/oeJ2D83TfmN
-	 i3bSX9dWEo/Ds35452efVH1tYvAnr+A4O6c/8qXoq9OacafDiM72u3RYBd4BVXH6wZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108689;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=sNCSGbUiOxlLV57ia7fTmNtmohJYtJVaMetRZT5myzs=;
+	b=0XLl5JEUEHa4YlEeWFdy4Pn157+H7pG1+MJRmQOd4qMDyArUakBH3ua1sYOu2VeeBd5F
+	 xIO1d1eopk074VqGzDgiSRxqU/2DnBcRopyJPH0bacsM9EZJA7CFeE2k5bTLB8YCnp2FW
+	 6s79bzslt5qZR/01xkUxLInpokCG+5LPStEnRRDH0wi/Bilaq3LnxmGqWnY8cl4lPBh7s
+	 3T8r8QS9son4rkz1TGBTwpNG/Z+TVqtvC44V4fY9v1KmJYo+KxiPWGi899vFy1S2Nbyfp
+	 ICcLCb3JyklLVg3MvMIYRu4svB3s3k0TnFeGQkUiW6VUT/0INE9imXJKiddqC0TX5wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/cT7rN4";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b="oT/Iot7b";
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=0uSMlui5;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8429E606A31B;
-	Tue, 27 Oct 2026 13:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D098606A31A;
+	Tue, 27 Oct 2026 13:44:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D098606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/cT7rN4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234691F01825;
-	Tue, 27 Oct 2026 13:42:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793108578;
-	bh=0+f6IJooHiQbF9wAyC4ax/+y1Gmk+/E4quNL5EJAkoQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=O/cT7rN4J4QJA9+qKjooI/EO5er0turCIeVkTDeBg9nmgtchbI+fpxO9S6+r+oBWY
-	 LwmatZaw1QbMHP8ScOJ6R+l2fGSrhmt7f6UUvC43uiHkIJGDGGCW0OQjZcEIUQEPa2
-	 w142oOqbY6kYvnslUnzMN4PB88SswCTWpes66yGol6fQLmBbkQaxbQK69GdBHy5hRV
-	 glBMz2eRymovbjCzKL0DCgcuiVWEYF4wIngi0eCG9PplngO81D5jwjFqaadaqIhz3C
-	 3l+I0Do+I4H43SEQfhyQdeFO3NHr7grqnLgvsjGY/hUxovAgKOJx9ptbOi6w43lJzE
-	 qaE/Jiu8PIH2w==
-Message-ID: <38491041-d167-4ea1-8813-e75bd11cd10f@kernel.org>
-Date: Tue, 27 Oct 2026 14:42:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=oT/Iot7b;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=0uSMlui5
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDgPNF3119804;
+	Tue, 27 Oct 2026 09:44:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	DKIM; bh=sNCSGbUiOxlLV57ia7fTmNtmohJYtJVaMetRZT5myzs=; b=oT/Iot7
+	bruRzyzA37vCDo9ERkJ2X/VOh6Jv6MFzg6lTzwydv3o4WBlOxl35ydthD3pKwk9Z
+	wPbRZ72jZmSlWms3Vsd35RDjzVl/+eqQvfjhaINRxlspvDiD2k2C1zeMeb7r9Iw3
+	3TR7SJb3WfCG8xO+RhQktAAni/HMTTzuwW4Kk6a4vESX1N4K66sPsGcbwu+Tm7JV
+	GEjvPvMzpWi0e9WBCtR3LfW9bxCAoJLc30ou1gNNkHnGzkd8c6NkiC8RtBiyRzWD
+	9zSk61iUktjSyv9+cZY+PgZqCYf8FZaw1bbZ7/8bLYtmyPzOOM8J4FOHBO4Bg0VE
+	v9wTjaZzuaVsodQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=sNCSG
+	bUiOxlLV57ia7fTmNtmohJYtJVaMetRZT5myzs=; b=0uSMlui5fhVvcp0TZdFRt
+	TcvL1TRz05G0LNgXsBArT0VG7HT+CCPPy570P2YV5FlFpmaWVl2oo/+L+2fuAV4S
+	fsFBXe9K81AzG7Y1qXqEL9fKdW8nIjO65SjW2Tavl0jQ9fxJUbf/MO1Na9NL2d+P
+	Qv+xuQR28sL/VeY5LwbczJMgO9wYNJX7y1tWgmg7V5L5ck2eDUEb8ogfLQ13NsCQ
+	ZMpLzzH1PjcT1UfggeUx4+50KrgKiGjhIhCVl8AaWL8l8Mt/iYw/jWLaNyJl7Xvi
+	EoQOjuh/QMoB2Biu5wfhPx6HCcKs+S5FP5BAbpaUJ10Wyiz2e6n7wrzTYYi4s9p4
+	w==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hjjct3m1p-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 09:44:44 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69RDihBx039583
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 27 Oct 2026 09:44:43 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 27 Oct
+ 2026 09:44:43 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 27 Oct 2026 09:44:43 -0400
+Received: from HYB-aFjnqsVU6Ag.ad.analog.com ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69RDiPUQ014649;
+	Tue, 27 Oct 2026 09:44:35 -0400
+From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>,
+        Sergiu
+ Cuciurean <sergiu.cuciurean@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>,
+        =?UTF-8?q?Nuno=20S=C3=A1?=
+	<nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?=
+	<ukleinek@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
+Subject: [PATCH 2/2] iio: adc: add ltc2387 driver
+Date: Tue, 27 Oct 2026 15:44:09 +0200
+Message-ID: <20261027134409.76824-3-Nicolae-daniel.Deaconescu@analog.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
+References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,145 +112,594 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/46] mm/memfd: check for real shmem inodes before
- accessing shmem state
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
- <auBdPOKXJpE-lX8d@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auBdPOKXJpE-lX8d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: WgWcejW6j2z-iJFAkjjDOW4RwLv0sdg5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1NCBTYWx0ZWRfX/M32RsMj6lC4
+ F6q81wYjgWfdJw0NkKpnlXnDG8VYtRInimeap7VqEaiLX1RWt/+Y9BREQiIH6gF9GXPg639Bn7A
+ Gpy60KGXBajhdPcceDHpHeG/yB5wINJ5wl40yEMFnflnypyMvV7hJiMAjzLheNLsNJKvM+VdVMa
+ aBVQQ2k82grnVvrRY3nqq//SNm3qCRLb23PpRm5E36jss3+jmaqCcY1w+c48++dsGH3S9cKxZbi
+ KeMHRPIQKvXndsKw+tQxlagsY790ucVa9KDJeEsxjbhW6RUQQiwbbP+i3DtbTtzFV/l26wID157
+ zvOIjh36KUbQfwNVup8oLkfI4V3SbJixJPCwPjbW25dE6JSZbfb2h4X4KVUEA3jCRi09wUXNala
+ UdzuYBi7ccfkUfbUwknv4Q/Ded9cg9sK4LwmWmDbstUcupSKDRXdOqsi1K5g/HIAfjpHOfm2T7Y
+ 4NQhpA28QI0e2t4apKg==
+X-Proofpoint-GUID: WgWcejW6j2z-iJFAkjjDOW4RwLv0sdg5
+X-Authority-Analysis: v=2.4 cv=HtPjiETS c=1 sm=1 tr=0 ts=6ae0aacc cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
+ a=VwQbUJbxAAAA:8 a=9pL5GlJ4ATL8W5xn2UUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1NCBTYWx0ZWRfX20wpy/psIYCD
+ A57X2jJ+y+qUcXge9QZgQOKuaKUKS8dbHO8nZZnsfCf5KP3z0T5O/ij98yoWP0VcUShLpOhLPrA
+ GPr4ktM5p4/WiSmHmHtFYCiD0vIL/tBhff6sd/KM157ziAMUf1we
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 malwarescore=0 spamscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270054
 
-On 10/27/26 09:13, Mike Rapoport wrote:
-> On Tue, Oct 27, 2026 at 12:17:23AM +0100, David Hildenbrand (Arm) wrote:
->> shmem_file() only checks a file's backing mapping. That mapping can belong
->> to another file, as with a Coda file backed by a tmpfs container after
->> mmap(). It does not establish that file_inode(file) is a shmem inode.
->>
->> Seal handling and memfd preservation use this check before accessing
->> shmem inode state, so they can access an inode of the wrong type.
->>
->> Add file_inode_is_shmem() to check the inode's file operations in both
->> paths. This identifies regular shmem inodes, including those used by
->> memfds and ordinary tmpfs files, independently of wrapper file operations.
->>
->> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
->> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
->> Cc: stable@vger.kernel.org
->> Reported-by: Chris Mason <mason@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> 
-> With a small nit below
-> 
->> ---
->>  include/linux/shmem_fs.h | 6 ++++++
->>  mm/memfd.c               | 8 +++++---
->>  mm/memfd_luo.c           | 2 +-
->>  mm/shmem.c               | 5 +++++
->>  4 files changed, 17 insertions(+), 4 deletions(-)
->>
->> diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
->> index a7c7a96a7cbf9..2ceca7993e4f5 100644
->> --- a/include/linux/shmem_fs.h
->> +++ b/include/linux/shmem_fs.h
->> @@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
->>  		unsigned long len, unsigned long pgoff, unsigned long flags);
->>  extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
->>  #ifdef CONFIG_SHMEM
->> +bool file_inode_is_shmem(const struct inode *inode);
-> 
-> Do we really need the file_ prefix in this name?
+From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
 
-Good point, I intuitively added it. Can drop.
+Add a driver for the LTC2387-16/18 and the ADAQ23875/23876/23878.
 
-Thanks!
+The driver generates CNV and the gated data clock with two PWM
+channels, timed against the reference clock to meet t_FIRSTCLK, and
+gets sample data through the IIO backend framework from the AXI ADC
+core. It supports one-lane and two-lane output and reports the
+sampling frequency the PWMs produce after rounding to whole reference
+clock cycles. in_voltage_scale is referred to the analog input, so on
+the ADAQ parts it is divided by the front-end gain.
 
+Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+Co-developed-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Assisted-by: Claude:claude-opus-5-5
+---
+ MAINTAINERS               |   1 +
+ drivers/iio/adc/Kconfig   |  11 +
+ drivers/iio/adc/Makefile  |   1 +
+ drivers/iio/adc/ltc2387.c | 482 ++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 495 insertions(+)
+ create mode 100644 drivers/iio/adc/ltc2387.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b871d7f25d76..6e242a955e09 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15536,6 +15536,7 @@ L:	linux-iio@vger.kernel.org
+ S:	Supported
+ W:	https://ez.analog.com/linux-software-drivers
+ F:	Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
++F:	drivers/iio/adc/ltc2387.c
+ 
+ LTC2664 IIO DAC DRIVER
+ M:	Michael Hennerich <michael.hennerich@analog.com>
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index 02de4809ae31..c543f066dbee 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -994,6 +994,17 @@ config LTC2378
+ 	  This driver can also be built as a module. If so, the module will
+ 	  be called ltc2378.
+ 
++config LTC2387
++	tristate "Linear Technology LTC2387 ADC driver"
++	depends on PWM
++	select IIO_BACKEND
++	help
++	  Say yes here to build support for Linear Technology LTC2387 18/16
++	  bit 15Msps SAR ADC.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called ltc2387.
++
+ config LTC2471
+ 	tristate "Linear Technology LTC2471 and LTC2473 ADC driver"
+ 	depends on I2C
+diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+index 9e82c21dbd37..4032276f55f1 100644
+--- a/drivers/iio/adc/Makefile
++++ b/drivers/iio/adc/Makefile
+@@ -84,6 +84,7 @@ obj-$(CONFIG_LPC18XX_ADC) += lpc18xx_adc.o
+ obj-$(CONFIG_LPC32XX_ADC) += lpc32xx_adc.o
+ obj-$(CONFIG_LTC2309) += ltc2309.o
+ obj-$(CONFIG_LTC2378) += ltc2378.o
++obj-$(CONFIG_LTC2387) += ltc2387.o
+ obj-$(CONFIG_LTC2471) += ltc2471.o
+ obj-$(CONFIG_LTC2485) += ltc2485.o
+ obj-$(CONFIG_LTC2496) += ltc2496.o ltc2497-core.o
+diff --git a/drivers/iio/adc/ltc2387.c b/drivers/iio/adc/ltc2387.c
+new file mode 100644
+index 000000000000..c236b99baa4a
+--- /dev/null
++++ b/drivers/iio/adc/ltc2387.c
+@@ -0,0 +1,482 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
++/*
++ * Linear Technology LTC2387 ADC driver
++ *
++ * Copyright 2022 - 2026 Analog Devices Inc.
++ */
++
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/iio/backend.h>
++#include <linux/iio/iio.h>
++#include <linux/iio/sysfs.h>
++#include <linux/kernel.h>
++#include <linux/math64.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/pwm.h>
++#include <linux/regulator/consumer.h>
++#include <linux/mod_devicetable.h>
++
++#define LTC2387_VREF		4096
++#define LTC2387_T_CNVH		8
++
++/*
++ * Minimal value for t_{FIRSTCLK} according to
++ * https://www.analog.com/media/en/technical-documentation/data-sheets/238718fa.pdf
++ * is 65 ns. Add some slack because there is some rounding involved in the PWM
++ * driver. With the PWM driver rounding to the nearest possible value, targeting
++ * 70 ns works for input clk rates >= 100 MHz.
++ */
++#define LTC2387_T_FIRSTCLK_NS	70
++
++#define KHz 1000
++#define MHz (1000 * KHz)
++
++#define LTC2378_MULTIPLE_CHAN(_idx, _storagebits, _realbits, _shift)	\
++	{								\
++		.type = IIO_VOLTAGE,					\
++		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),\
++		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),\
++		.indexed = 1,						\
++		.channel = _idx,					\
++		.scan_index = _idx,					\
++		.scan_type = {						\
++			.sign = 's',					\
++			.storagebits = _storagebits,			\
++			.realbits = _realbits,				\
++			.shift = _shift,				\
++		},							\
++	}
++
++#define LTC2378_CHAN(_realbits, _storagebits)				\
++	{								\
++		.type = IIO_VOLTAGE,					\
++		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),\
++		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),\
++		.scan_type = {						\
++			.sign = 's',					\
++			.storagebits = _storagebits,			\
++			.realbits = _realbits,				\
++		},							\
++	}
++
++enum ltc2387_lane_modes {
++	ONE_LANE = 0,
++	TWO_LANES = 1
++};
++
++enum ltc2387_id {
++	ID_LTC2387_16,
++	ID_LTC2387_16_X4,
++	ID_LTC2387_18,
++	ID_LTC2387_18_X4,
++	ID_ADAQ23875,
++	ID_ADAQ23876,
++	ID_ADAQ23878,
++};
++
++struct ltc2387_info {
++	const char *name;
++	struct iio_chan_spec channels[4];
++	unsigned int test_pattern[2];
++	int num_channels;
++	int resolution;
++	/* Gain * 1000 when adi,gain-milli is absent; unity for the bare parts. */
++	u32 default_gain_milli;
++};
++
++#define LTC2387_TEST_PATTERN_16 {					\
++	[ONE_LANE]  = 0b1010000001111111,				\
++	[TWO_LANES] = 0b1100110000111111,				\
++}
++
++#define LTC2387_TEST_PATTERN_18 {					\
++	[ONE_LANE]  = 0b101000000111111100,				\
++	[TWO_LANES] = 0b110011000011111100,				\
++}
++
++static const struct ltc2387_info ltc2387_infos[] = {
++	[ID_LTC2387_16] = {
++		.name = "ltc2387-16",
++		.default_gain_milli = 1000,
++		.resolution = 16,
++		.test_pattern = LTC2387_TEST_PATTERN_16,
++		.channels = { LTC2378_CHAN(16, 16) },
++		.num_channels = 1,
++	},
++	[ID_LTC2387_16_X4] = {
++		.name = "ltc2387-16-x4",
++		.default_gain_milli = 1000,
++		.resolution = 16,
++		.test_pattern = LTC2387_TEST_PATTERN_16,
++		.channels = {
++			LTC2378_MULTIPLE_CHAN(0, 64, 16, 0),
++			LTC2378_MULTIPLE_CHAN(1, 64, 16, 16),
++			LTC2378_MULTIPLE_CHAN(2, 64, 16, 32),
++			LTC2378_MULTIPLE_CHAN(3, 64, 16, 48),
++		},
++		.num_channels = 4,
++	},
++	[ID_LTC2387_18] = {
++		.name = "ltc2387-18",
++		.default_gain_milli = 1000,
++		.resolution = 18,
++		.test_pattern = LTC2387_TEST_PATTERN_18,
++		.channels = { LTC2378_CHAN(18, 32) },
++		.num_channels = 1,
++	},
++	[ID_LTC2387_18_X4] = {
++		.name = "ltc2387-18-x4",
++		.default_gain_milli = 1000,
++		.resolution = 18,
++		.test_pattern = LTC2387_TEST_PATTERN_18,
++		.channels = {
++			LTC2378_MULTIPLE_CHAN(0, 128, 18, 0),
++			LTC2378_MULTIPLE_CHAN(1, 128, 18, 32),
++			LTC2378_MULTIPLE_CHAN(2, 128, 18, 64),
++			LTC2378_MULTIPLE_CHAN(3, 128, 18, 96),
++		},
++		.num_channels = 4,
++	},
++	[ID_ADAQ23875] = {
++		.name = "adaq23875",
++		.default_gain_milli = 2000,
++		.resolution = 16,
++		.test_pattern = LTC2387_TEST_PATTERN_16,
++		.channels = { LTC2378_CHAN(16, 16) },
++		.num_channels = 1,
++	},
++	[ID_ADAQ23876] = {
++		.name = "adaq23876",
++		.default_gain_milli = 0,
++		.resolution = 16,
++		.test_pattern = LTC2387_TEST_PATTERN_16,
++		.channels = { LTC2378_CHAN(16, 16) },
++		.num_channels = 1,
++	},
++	[ID_ADAQ23878] = {
++		.name = "adaq23878",
++		.default_gain_milli = 0,
++		.resolution = 18,
++		.test_pattern = LTC2387_TEST_PATTERN_18,
++		.channels = { LTC2378_CHAN(18, 32) },
++		.num_channels = 1,
++	},
++};
++
++struct ltc2387_dev {
++	const struct ltc2387_info *device_info;
++	enum ltc2387_lane_modes lane_mode;
++	unsigned long ref_clk_rate;
++	struct iio_backend *back;
++	struct pwm_device *clk_gate;
++	struct regulator *vref;
++	struct pwm_device *cnv;
++	struct clk *ref_clk;
++
++	unsigned int vref_mv;
++	u32 sampling_freq;
++	u32 gain_milli;
++};
++
++static int ltc2387_set_sampling_freq(struct ltc2387_dev *ltc, int freq)
++{
++	unsigned long long ref_clk_period_ns;
++	struct pwm_waveform clk_gate_wf = { }, cnv_wf = { };
++	unsigned long long period_cycles;
++	int ret, clk_en_time;
++	u32 rem;
++
++	if (freq <= 0 || freq > ltc->ref_clk_rate)
++		return -EINVAL;
++
++	ref_clk_period_ns = DIV_ROUND_UP(NSEC_PER_SEC, ltc->ref_clk_rate);
++
++	cnv_wf.duty_length_ns = ref_clk_period_ns;
++
++	/*
++	 * The goal here is that the PWM is configured with a minimal period not
++	 * less than 1 / freq (with freq measured in Hz).
++	 *
++	 * When a period P (measured in ns) is passed to pwm_apply_state(), the
++	 * actually implemented period is:
++	 *
++	 *      round_down(P * R / NSEC_PER_SEC) / R
++	 *
++	 * (measured in s) with R = ltc->ref_clk_rate. So we have:
++	 *
++	 *        round_down(P * R / NSEC_PER_SEC) / R ≥ 1 / freq
++	 *      ⟺ round_down(P * R / NSEC_PER_SEC) ≥ R / freq
++	 *
++	 * With the LHS being integer this is equivalent to:
++	 *
++	 *        round_down(P * R / NSEC_PER_SEC) ≥ round_up(R / freq)
++	 *      ⟺ P * R / NSEC_PER_SEC ≥ round_up(R / freq)
++	 *      ⟺ P ≥ round_up(R / freq) * NSEC_PER_SEC / R
++	 */
++
++	cnv_wf.period_length_ns =
++		div_u64_rem((u64)DIV_ROUND_UP(ltc->ref_clk_rate, freq) * NSEC_PER_SEC,
++			    ltc->ref_clk_rate, &rem);
++	if (rem)
++		cnv_wf.period_length_ns += 1;
++
++	/* Gate the active period of the clock (see page 10-13 for both LTC's) */
++	if (ltc->lane_mode == TWO_LANES)
++		clk_en_time = DIV_ROUND_UP_ULL(ltc->device_info->resolution, 4);
++	else
++		clk_en_time = DIV_ROUND_UP_ULL(ltc->device_info->resolution, 2);
++
++	clk_gate_wf.duty_length_ns = ref_clk_period_ns * clk_en_time;
++	clk_gate_wf.duty_offset_ns = LTC2387_T_FIRSTCLK_NS;
++
++	if (cnv_wf.period_length_ns < clk_gate_wf.duty_length_ns)
++		cnv_wf.period_length_ns = clk_gate_wf.duty_length_ns + ref_clk_period_ns;
++
++	clk_gate_wf.period_length_ns = cnv_wf.period_length_ns;
++
++	if (clk_gate_wf.duty_offset_ns >= clk_gate_wf.period_length_ns)
++		div64_u64_rem(clk_gate_wf.duty_offset_ns,
++			      clk_gate_wf.period_length_ns,
++			      &clk_gate_wf.duty_offset_ns);
++
++	ret = pwm_set_waveform_might_sleep(ltc->cnv, &cnv_wf, false);
++	if (ret < 0)
++		return ret;
++
++	ret = pwm_set_waveform_might_sleep(ltc->clk_gate, &clk_gate_wf, false);
++	if (ret < 0)
++		return ret;
++
++	period_cycles = mul_u64_u32_div(cnv_wf.period_length_ns,
++					ltc->ref_clk_rate, NSEC_PER_SEC);
++	if (!period_cycles)
++		return -EINVAL;
++
++	ltc->sampling_freq = DIV_ROUND_CLOSEST_ULL(ltc->ref_clk_rate,
++						   period_cycles);
++
++	return 0;
++}
++
++static int ltc2387_setup(struct iio_dev *indio_dev)
++{
++	struct ltc2387_dev *ltc = iio_priv(indio_dev);
++	struct device *dev = indio_dev->dev.parent;
++
++	if (device_property_present(dev, "adi,use-two-lanes"))
++		ltc->lane_mode = TWO_LANES;
++
++	return ltc2387_set_sampling_freq(ltc, 15 * MHz);
++}
++
++static int ltc2387_read_raw(struct iio_dev *indio_dev,
++			    const struct iio_chan_spec *chan,
++			    int *val, int *val2, long info)
++{
++	struct ltc2387_dev *ltc = iio_priv(indio_dev);
++
++	switch (info) {
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		*val = ltc->sampling_freq;
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE:
++		/* Referred to the SMA input, so divided by the front-end gain. */
++		*val = ltc->vref_mv * 2 * 1000;
++		*val2 = ltc->gain_milli << chan->scan_type.realbits;
++		return IIO_VAL_FRACTIONAL;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int ltc2387_write_raw(struct iio_dev *indio_dev,
++			     struct iio_chan_spec const *chan,
++			     int val, int val2, long info)
++{
++	struct ltc2387_dev *ltc = iio_priv(indio_dev);
++
++	switch (info) {
++	case IIO_CHAN_INFO_SAMP_FREQ:
++		return ltc2387_set_sampling_freq(ltc, val);
++
++	default:
++		return -EINVAL;
++	}
++}
++
++static void ltc2387_pwm_disable(void *data)
++{
++	pwm_disable(data);
++}
++
++static void ltc2387_regulator_disable(void *data)
++{
++	regulator_disable(data);
++}
++
++static void ltc2387_clk_disable(void *data)
++{
++	clk_disable_unprepare(data);
++}
++
++static const struct iio_info ltc2387_info = {
++	.read_raw = ltc2387_read_raw,
++	.write_raw = ltc2387_write_raw,
++};
++
++static const struct of_device_id ltc2387_of_match[] = {
++	{
++		.compatible = "lltc,ltc2387-16",
++		.data = &ltc2387_infos[ID_LTC2387_16]
++	}, {
++		.compatible = "lltc,ltc2387-16-x4",
++		.data = &ltc2387_infos[ID_LTC2387_16_X4]
++	}, {
++		.compatible = "lltc,ltc2387-18",
++		.data = &ltc2387_infos[ID_LTC2387_18]
++	}, {
++		.compatible = "lltc,ltc2387-18-x4",
++		.data = &ltc2387_infos[ID_LTC2387_18_X4]
++	}, {
++		.compatible = "adi,adaq23875",
++		.data = &ltc2387_infos[ID_ADAQ23875]
++	}, {
++		.compatible = "adi,adaq23876",
++		.data = &ltc2387_infos[ID_ADAQ23876]
++	}, {
++		.compatible = "adi,adaq23878",
++		.data = &ltc2387_infos[ID_ADAQ23878]
++	},
++	{}
++};
++MODULE_DEVICE_TABLE(of, ltc2387_of_match);
++
++static int ltc2387_probe(struct platform_device *pdev)
++{
++	struct iio_dev			*indio_dev;
++	struct ltc2387_dev		*ltc;
++	int				ret;
++
++	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*ltc));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	ltc = iio_priv(indio_dev);
++
++	ltc->vref = devm_regulator_get_optional(&pdev->dev, "vref");
++	if (!IS_ERR(ltc->vref)) {
++		ret = regulator_enable(ltc->vref);
++		if (ret) {
++			dev_err(&pdev->dev, "Can't enable vref regulator\n");
++			return ret;
++		}
++		ret = regulator_get_voltage(ltc->vref);
++		if (ret < 0)
++			return ret;
++
++		ltc->vref_mv = ret / 1000;
++		ret = devm_add_action_or_reset(&pdev->dev,
++					       ltc2387_regulator_disable,
++					       ltc->vref);
++		if (ret)
++			return ret;
++	} else {
++		if (PTR_ERR(ltc->vref) != -ENODEV)
++			return PTR_ERR(ltc->vref);
++
++		ltc->vref_mv = LTC2387_VREF; /* Internal vref is used */
++	}
++
++	ltc->ref_clk = devm_clk_get(&pdev->dev, NULL);
++	if (IS_ERR(ltc->ref_clk))
++		return PTR_ERR(ltc->ref_clk);
++
++	ret = clk_prepare_enable(ltc->ref_clk);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(&pdev->dev, ltc2387_clk_disable,
++				       ltc->ref_clk);
++	if (ret)
++		return ret;
++	ltc->ref_clk_rate = clk_get_rate(ltc->ref_clk);
++
++	ltc->clk_gate = devm_pwm_get(&pdev->dev, "clk_gate");
++	if (IS_ERR(ltc->clk_gate))
++		return PTR_ERR(ltc->clk_gate);
++
++	ret = devm_add_action_or_reset(&pdev->dev, ltc2387_pwm_disable,
++				       ltc->clk_gate);
++	if (ret)
++		return ret;
++
++	ltc->cnv = devm_pwm_get(&pdev->dev, "cnv");
++	if (IS_ERR(ltc->cnv))
++		return PTR_ERR(ltc->cnv);
++
++	ret = devm_add_action_or_reset(&pdev->dev, ltc2387_pwm_disable,
++				       ltc->cnv);
++
++	if (ret)
++		return ret;
++
++	ltc->device_info = device_get_match_data(&pdev->dev);
++	if (!ltc->device_info)
++		return -EINVAL;
++
++	ltc->gain_milli = ltc->device_info->default_gain_milli;
++	device_property_read_u32(&pdev->dev, "adi,gain-milli", &ltc->gain_milli);
++	if (!ltc->gain_milli)
++		return dev_err_probe(&pdev->dev, -EINVAL,
++				     "adi,gain-milli must be nonzero\n");
++
++	indio_dev->channels = ltc->device_info->channels;
++	indio_dev->num_channels = ltc->device_info->num_channels;
++	indio_dev->dev.parent = &pdev->dev;
++	indio_dev->name = ltc->device_info->name;
++	indio_dev->info = &ltc2387_info;
++
++	ltc->back = devm_iio_backend_get(&pdev->dev, NULL);
++	if (IS_ERR(ltc->back))
++		return dev_err_probe(&pdev->dev, PTR_ERR(ltc->back),
++				     "failed to get IIO backend\n");
++
++	ret = devm_iio_backend_request_buffer(&pdev->dev, ltc->back, indio_dev);
++	if (ret)
++		return ret;
++
++	ret = devm_iio_backend_enable(&pdev->dev, ltc->back);
++	if (ret)
++		return ret;
++
++	/* axi_ltc2387 has a single capture channel carrying every scan element. */
++	ret = iio_backend_chan_enable(ltc->back, 0);
++	if (ret)
++		return ret;
++
++	ret = ltc2387_setup(indio_dev);
++	if (ret < 0) {
++		dev_err(&pdev->dev, "\nltc2387 setup failed\n");
++		return ret;
++	}
++
++	return devm_iio_device_register(&pdev->dev, indio_dev);
++}
++
++static struct platform_driver ltc2387_driver = {
++	.probe          = ltc2387_probe,
++	.driver         = {
++		.name   = "ltc2387",
++		.of_match_table = ltc2387_of_match,
++	},
++};
++module_platform_driver(ltc2387_driver);
++
++MODULE_AUTHOR("Sergiu Cuciurean <sergiu.cuciurean@analog.com>");
++MODULE_DESCRIPTION("Linear Technology LTC2387 ADC");
++MODULE_LICENSE("Dual BSD/GPL");
++MODULE_IMPORT_NS("IIO_BACKEND");
 -- 
-Cheers,
+2.34.1
 
-David
