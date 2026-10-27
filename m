@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793060149;
-	b=Z2ahkx/QLhiJ0QW/IyhWMuOBJqEbNewQwxpNjk5yNSj+Fm4pZHm/lWOf8zeEvxlKdE47
-	 3z6cB4owwsE1FJPLsYoOwmtAMFPCIBG5EBHr10oRIsSNK7QwV4DRmuRT8sliPCkb2Vl38
-	 ei7ZLStSrUwm7VxXNMFqy3ePWCuNdMvYw7oyOh0RGQ7L6dr2xRSKkTNs0pahRKbtNTZaQ
-	 PknD4/9YX57nlO3TWmifFQ2jBelyM1NddMA+hnGjKCmYkz7TRiimZTFwIbSItLnxrBdLR
-	 pPK+3953saJ3BFZ3TOzRElimPP5PwrIiT//N8PWeZ6/snKLu1lqyokXQyFN2anxpBYA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793060149;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qKeQmKdHS147YBCUhe6/TQHxqYO/kgxJinnL8fZRSJA=;
-	b=KJEDDoBwG78XKwE13N6bUWFFlQU3rduJNBe9Cm8zawTNodVNgeRlurDftwCQRQOG0MWl
-	 rFLCKq02STYed6nF787/EnwLB2WxN7nY+P4XjCy8TMDHdgjwhGOunFXIuN3n4pueWkqiZ
-	 mC3vSgNDn5JeXCmfI6YKhkSRdMcU9cefbBPRFfizwZmL8dECUcyDmoav/PfbDD5H59r2C
-	 3NrZA/7xpx/jf2ZtgrmzQQA0+Y4tfyuXoe8fckenm6V2ylFXeFEZ4lnJc8uLI55TAUJql
-	 a6VQhwsXn5yabKJNDubGOktF4A9v2YKdc2XosXeTTmFgcDW3tGaggPLXqAiK4C0lx0w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s0Wfg3DQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=125.209.209.22
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793060174;
+	b=vq7ybPk1UMgQJpPZIrhiFkamZsk1ZvFFJLOo41BR/vYkLiTq39+krIohmSpz+uTVExOx
+	 Fvih8VC4ED14D2522lW5dNvI9QTy3ELG7ZGPf97k/gQykPVV+uevZkmTHDm6Ykn3ug5Vd
+	 JHO8K6tlud4XnbGZ1yt6VtjIFqzbw/JHEZhLR7LnJ8sdivzQ7E7teodl+aFS6d8ojRAeR
+	 IkvqYGGsTQiYMTMzHArrx3yFGeXGlr+FnxFp62IpacFCIRcYc/SQr+dK5tBMXZ7GdIZMT
+	 0NjNKHQmnztDeWQEQMsBnkCmTLMfXIgOtJ69QbVvIfbi46dWsv+Ri8tuCTB+WvL6axA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793060174;
+	h=DMARC-Filter:DKIM-Signature:X-Originating-IP:Received:DKIM-Signature:
+	 X-Session-ID:X-Originating-IP:X-Works-Send-Opt:X-Works-Smtp-Source:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0jnDN7Ecq7KbcW1kOD9Nf7VJh4fMZ7UiSNqsVL+0uSo=;
+	b=XY457hlJInr81Pyk+ee/fwBu/cAsaxAJP3rjoFjjXHp2xrWu63bAORLKpAxliaec2DMZ
+	 LEZWrLVHpoinp5QRYjwSJthe9crAQoK6NO9od0d0jSGtWXpTgjH1UIHQ4/ACLYjR2Y6/Q
+	 yDNmb/NT/+paHvwp7y8T7BuEFlOS947k3HZKGGD+m79Nvsv3C3GrXv/zmA97r34jQi1Dh
+	 I8M+HNhvw+Vn81VMThLG91mUwDqXwIdEhYc5SNfryiC9eYeske2rQnePnypNq1ZML7uOA
+	 mB53fCvtVSAGAAjSSe76qv/brr8zSzngsaEgfwj4XrzN0rzBMEbfaWYHZDl9RQ7+X9A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=korea.ac.kr;
+	spf=pass smtp.mailfrom=korea.ac.kr;
+	dkim=pass header.d=worksmobile.com header.i=@worksmobile.com header.a=rsa-sha256 header.s=s20171120 header.b=D43qZJHa;
+	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=naverworks header.b=TdnWIrhf;
+	arc=none smtp.remote-ip=125.209.209.22
+Received: from cvsmtppost104.wmail.worksmobile.com (cvsmtppost104.wmail.worksmobile.com [125.209.209.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B2B606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B2B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CB0606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:16:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0CB0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s0Wfg3DQ
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-6798eb0d13fso3790895d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:15:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793060148; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D5gbjRryD4YIcKYIkOdcpu/fMwEb9I31W/EQxVt13t8jg1FvhWeqgc64GIGWuImZGt
-         rIh/Wo1z69GZ0uoOQebAcD4JpS1itYCwALCnYb5aSbXpScYyEhXYahX4BLzCDpmwWusl
-         XvHGoNz1SyXehY6GNHLOK3ktzk5V9Pn73Jjsci4nDlVOfzgLgUwQrbJcwirenvTTUbaS
-         IXTVI4HqOvCPBlHTF8SG9qtaagx/GUdDL+BHvKGQFtnZ51XCJzmfzCHSf+eFR2ufSRzX
-         oqQ2Me6wmPWWt2a/P3AhyYyRoqUv+h5LD/mXEBBEGwek1RxJfAypWpfSkvsVDdUPXqcy
-         JozQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qKeQmKdHS147YBCUhe6/TQHxqYO/kgxJinnL8fZRSJA=;
-        fh=n96oZHSVsZpUnzMX4T6//v05scqzCa7Sb17w48ifZw8=;
-        b=QuBjOCCfzsA07XcPZgB3qZQPPgEfbL7VQKVRcp6Fs90fKM/XJDfk9i5AnYWpfZAD//
-         8UN4Qg2NmfizJV9MSIphi+DYCtc9uHNggqIXZH5yTP4Cb12FuczMtg1YP3aO/T8VibV8
-         yredl/4Doul7tS4kNbkTxl/p7EhWsCQFVF4qUzyuFzJ7H1+EZ99LEsh1jNIXl6C+2xYC
-         1VxNuI2X/dLaEIqXfnljH0hnYMK570wnRpIGsX6QXjGiPqpXZGed/EhYfXKKuc40eBut
-         MJnbV03yxswnm/l2w1GzoTZ+IX5FzLbNytbKS4l4NZs2RjJajyeB9iCrVP71gZNOiZa0
-         1AMg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793060148; x=1793664948; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qKeQmKdHS147YBCUhe6/TQHxqYO/kgxJinnL8fZRSJA=;
-        b=s0Wfg3DQSfdPBtgTrPJ7hEq4HUweU0fxNhhrERYXULKUVGjvojByBZj8KKVt7nRxU+
-         qfuMSheIJo5HVMHmH35pJ0m4FosgwDQvoFqO6hWdyPRkiWPWjpgGD4+44lYarYwcj4p9
-         lwGrCp9TiIJ7Y9Q7o3VLX5IDHtJph2ZfYWK9hb7nwFZcN/EGzSOwKwJdiqW4e4tKM19a
-         TwcHswoqbtz3QUq2JqUArNS2ontBIM0U5Az1Xxt/qvNOY6jlotL5RVH54V4eQYaO9/UJ
-         cfXBJNeZLYP/7FfHZRk1FnPXiW2XAqkAAz+W61A369XeoogwEs/6FcBTuT08s5U96hTP
-         UsKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793060148; x=1793664948;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qKeQmKdHS147YBCUhe6/TQHxqYO/kgxJinnL8fZRSJA=;
-        b=ALzpjp2pSkKxdvcgBKGf9R1w+Qlpf6FxtsbwyWvuGmz1qpn9wbiLEfbTRMKHUuZAFL
-         tzPxvjVE89Kwdcbxiqhhl9Q8BadHhqWnBFFvan6hdRyKK9Ny20vHhXjRzGwzQIEJ1h4f
-         nMcdJL1gk2NER2vUnTcEuu2PhcTQG4UU11PjxDFsrA7cobEP4aHkSR42lu0hSAer6Fgw
-         3WsHk6fx7s+/+bu/Yk6u3oxzFWyvIjVJpy3a//fzXDXkMjQsv/Y6qQEHI8nmAJoidT3d
-         pihpRET0OEev0SMZiOle4VsCFG7k4lazx6q6B/FhEiFyxAK47mWeEYUAf0zVBt9+HFYs
-         VD4g==
-X-Forwarded-Encrypted: i=1; AKwUvByaf/geNCB6bZ1nbDTJl1btCOjvbmj3yVmhtLrqSOM0sNwDe0H83W4BKSUh+Ql513xRNdeDk++drAprstU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIO1uBNlOY+MmtmGVE4cdMAUif0Fy2swmentq6UHtmyYu3/1Rzs
-	yLFARG993gu6Eb5kSJeyb0s+9/ck7MTv8skvVY2WBKSr32e1wuKFI8Pa+FG9m8q9yh3zhQOG+RP
-	L40Xxqu/TRJvQNEzTbWsuow+PAVgcfZ4=
-X-Gm-Gg: AYBFou1PdXQmmxOBtFzFShFAWiQ3NAyGIohD4jTOlET245nrP4ThRBd6IlivTvwnk+g
-	BclpV+4k1hrbrl++GbwCToT5YqkquZYJrNgitsGszlBV5Ub22oct/Pv/DeWYzKdBEgJgRnUREuT
-	piMUe4wNVlNpSYAX3Sxj70GdzfUEkBbZBhpepKMziWzPifLaCI35Wr2PWrkjGKZ8HKH4peZjBvt
-	eHrdQG6gcr0uGYPTSDSi0bSgXAAqV5O25ObRbpUrcMTJZsw0niohU5VuxGLhvcOVTD8kzT4vz6e
-	GeODq6XbtVuATyHhCaCdyLcMkuCAplBInqCp54O22XjC2rIs1uDB0E5yioBA0n3uPvXNqhZ0xE5
-	ZLl0y+xwhqmokSeed+vBv2fyfGW9TUASzveEZhc8KG1uWE9WFfoI5v9EButl8m3WuOgqqo3hy53
-	av90kKtQKibJyEH30=
-X-Received: by 2002:a05:690e:150f:b0:679:c803:98d1 with SMTP id
- 956f58d0204a3-67a45496c6cmr4080476d50.152.1793060148265; Mon, 26 Oct 2026
- 17:15:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=worksmobile.com header.i=@worksmobile.com header.a=rsa-sha256 header.s=s20171120 header.b=D43qZJHa;
+	dkim=pass (1024-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=naverworks header.b=TdnWIrhf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=worksmobile.com;
+	s=s20171120; t=1793060162;
+	bh=nJnsI7RyJoLEvi1SS5BUbs9bPEH104dBV+WzFE5FgQE=;
+	h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=D43qZJHa7SHpJehmK7ZkVP/IDYbzsyX8/zKj9qZx4uSTxb0Y1Z0VTctKn048Ws04n
+	 Arx0GOaBgTnOla0IznQh7uUgOB+cSRELdKgqesql5T0vcyvbpxAUhnmXPUbCEYjPDS
+	 DHaDkmNpMw2lZufIIjAxOTCSbtyFwSQERH/KGxURYohMDHbNF6Jfj2K/I1JK81OKtV
+	 C0c1RFgbFto5q5QIkYx+5rtBZkGnI0ZexBkQ3D9IZVT9jwn6sSiu/neJ67+HFRvOWm
+	 O2MV0/oyQFor/RVJxavZPYRYblDYi9o4ZT6I6oRXlvJUEFtGvg5dIy59sWAp7T7o+P
+	 PkLUyb+7FdYIw==
+Received: from cvsendbo006.wmail ([10.112.11.111])
+  by cvsmtppost104.wmail.worksmobile.com with ESMTP id fQHxfKbBRQKo4CgCnJKeRg
+  for <linux-kernel@vger.kernel.org>;
+  Tue, 27 Oct 2026 00:16:02 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=korea.ac.kr;
+	s=naverworks; t=1793060162;
+	bh=nJnsI7RyJoLEvi1SS5BUbs9bPEH104dBV+WzFE5FgQE=;
+	h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=TdnWIrhfpAoacoeCyLl/KXPdljxGY5y73jNtUxbAqASPtEXHW1P07JxLY3eaV+xq5
+	 ZIqw+KqgvEriIEOcG+ossJ3CyW54v+slrMUW3e3XAbO6V7zuXycAsZxBH0NsmBjz3g
+	 w8/pwfZAk28FeXhm/GBIFcSMfab+b7KVN03GS4Ro=
+X-Session-ID: IsJDftZQSCiHDQ8OUj+jFA
+X-Works-Send-Opt: 5XK/KqgmKAKmKAFYFqMXKAK/FqMXjAumKAgmKxEmFxudKoMqKNmwjAumjAuXFxMXaAErKqpYjHmm
+X-Works-Smtp-Source: rdbZKAKlFqJZ+HmwFobX+6E=
+Received: from s2lab05.. ([163.152.163.130])
+  by cvnsmtp103.wmail.worksmobile.com with ESMTP id IsJDftZQSCiHDQ8OUj+jFA
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Tue, 27 Oct 2026 00:16:01 -0000
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ingyu Jang <ingyujang25@korea.ac.kr>
+Subject: [PATCH] KVM: x86: Move PIT existence checks into the PIT ioctl helpers
+Date: Tue, 27 Oct 2026 09:16:00 +0900
+Message-Id: <20261027001600.2742995-1-ingyujang25@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,172 +92,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012-dd-cmap-part2-clean-v12-0-3c8cc5725def@gmail.com>
- <20261012-dd-cmap-part2-clean-v12-33-3c8cc5725def@gmail.com> <as4W9hToBqAvbzJ-@pathway.suse.cz>
-In-Reply-To: <as4W9hToBqAvbzJ-@pathway.suse.cz>
-From: jim.cromie@gmail.com
-Date: Mon, 26 Oct 2026 18:15:21 -0600
-X-Gm-Features: AclHuK9LH_u23sCYiYKMz0I-9md-phfbwb6JA9KZbhXjHlVRGYmTapsg8H2JBYc
-Message-ID: <CAJfuBxw-cq3AYXKZ07Y3732tDM-NYxt+rs8Fz6S=P7+1TF5WNA@mail.gmail.com>
-Subject: Re: [PATCH v12 33/40] dyndbg: Ignore additional arguments from pr_fmt
-To: Petr Mladek <pmladek@suse.com>
-Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@net.net>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nicolas Schier <nsc@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Steven Rostedt <rostedt@goodmis.org>, John Ogness <john.ogness@linutronix.de>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
-	linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Philipp Hahn <phahn-oss@avm.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 13, 2026 at 5:33=E2=80=AFAM Petr Mladek <pmladek@suse.com> wrot=
-e:
->
-> On Mon 2026-10-12 20:37:04, Jim Cromie via B4 Relay wrote:
-> > From: Philipp Hahn <phahn-oss@avm.de>
-> >
-> > pr_fmt can be used to add a common prefix to any output from a module:
-> >       #define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
-> >
-> > But adding additional arguments breaks dynamic debug:
-> > > error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, =
-but takes just 3
-> > > |         pr_debug_ratelimited("%s", "Hello world!");
-> > > |                                                  ^
-> > > note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
-> > > | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
-> > > |
-> > > error: =E2=80=98DEFINE_DYNAMIC_DEBUG_METADATA_CLS=E2=80=99 undeclared=
- (first use in this function)
-> > > |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT=
-, fmt)
-> > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> I wonder what this error about undeclared macro means.
->
-> > > note: in expansion of macro =E2=80=98DEFINE_DYNAMIC_DEBUG_METADATA=E2=
-=80=99
-> > > |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));    =
-     \
-> > > |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > > note: in expansion of macro =E2=80=98pr_debug_ratelimited=E2=80=99
-> > > |         pr_debug_ratelimited("%s", "Hello world!");
-> > > |         ^~~~~~~~~~~~~~~~~~~~
-> >
-> > Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
-> > any additional argument, which `pr_fmt` might add.
-> >
-> > --- a/include/linux/dynamic_debug.h
-> > +++ b/include/linux/dynamic_debug.h
-> > @@ -351,7 +351,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor=
-,
-> >               dump_stack();                                   \
-> >  }
-> >
-> > -#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)    \
-> > +#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)       \
-> >       static struct _ddebug  __aligned(8)                     \
-> >       __section("__dyndbg_descs") name =3D {                    \
-> >               .modname =3D KBUILD_MODNAME,                      \
-> > diff --git a/include/linux/printk.h b/include/linux/printk.h
-> > index f594c1266bfd..5d701952e739 100644
-> > --- a/include/linux/printk.h
-> > +++ b/include/linux/printk.h
-> > @@ -742,7 +742,7 @@ do {                                               =
-                       \
-> >       static DEFINE_RATELIMIT_STATE(_rs,                              \
-> >                                     DEFAULT_RATELIMIT_INTERVAL,       \
-> >                                     DEFAULT_RATELIMIT_BURST);         \
-> > -     DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
-> > +     DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, fmt);         \
->
-> IMHO, this changes the existing behavior. The prefix added by
-> pr_fmt() will no longer be stored in DEFINE_DYNAMIC_DEBUG_METADATA().
-> Is this intentional, please?
->
+kvm_vm_ioctl_get_pit() and kvm_vm_ioctl_get_pit2() always return 0,
+so the error checks on their return values in kvm_arch_vm_ioctl()
+never trigger.
 
-yes, its intentional.
+Move the !kvm->arch.vpit checks from the callers into the PIT ioctl
+helpers, so that these error checks handle the missing PIT case.
 
-515a9adce0f0 ("include/linux/printk.h: include pr_fmt in pr_debug_ratelimit=
-ed")
-added pr-fmt to both the METADATA macro call, and to the printk() just belo=
-w it.
-The commit-msg was clearly about adding it to the __dynamic_pr_debug() itse=
-lf,
-the METADATA addition was overzealous.
+Suggested-by: Sean Christopherson <seanjc@google.com>
+Link: https://lore.kernel.org/all/aYFE-tGOPtKlSWhn@google.com
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+---
+ arch/x86/kvm/i8254.c | 18 +++++++++++++++++-
+ arch/x86/kvm/x86.c   | 17 -----------------
+ 2 files changed, 17 insertions(+), 18 deletions(-)
 
-Removing it brings pr_debug_ratelimited() into conformance with the other
-*_pr_debug_* calls:
-    dynamic_pr_debug, dev_dbg_ratelimited, net_dbg_ratelimited.
+diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
+index 1982b0077ddda..311d0e8cde99b 100644
+--- a/arch/x86/kvm/i8254.c
++++ b/arch/x86/kvm/i8254.c
+@@ -651,8 +651,12 @@ static void pit_mask_notifier(struct kvm_irq_mask_notifier *kimn, bool mask)
+ 
+ int kvm_vm_ioctl_get_pit(struct kvm *kvm, struct kvm_pit_state *ps)
+ {
+-	struct kvm_kpit_state *kps = &kvm->arch.vpit->pit_state;
++	struct kvm_kpit_state *kps;
+ 
++	if (!kvm->arch.vpit)
++		return -ENXIO;
++
++	kps = &kvm->arch.vpit->pit_state;
+ 	BUILD_BUG_ON(sizeof(*ps) != sizeof(kps->channels));
+ 
+ 	mutex_lock(&kps->lock);
+@@ -666,6 +670,9 @@ int kvm_vm_ioctl_set_pit(struct kvm *kvm, struct kvm_pit_state *ps)
+ 	int i;
+ 	struct kvm_pit *pit = kvm->arch.vpit;
+ 
++	if (!pit)
++		return -ENXIO;
++
+ 	mutex_lock(&pit->pit_state.lock);
+ 	memcpy(&pit->pit_state.channels, ps, sizeof(*ps));
+ 	for (i = 0; i < 3; i++)
+@@ -676,6 +683,9 @@ int kvm_vm_ioctl_set_pit(struct kvm *kvm, struct kvm_pit_state *ps)
+ 
+ int kvm_vm_ioctl_get_pit2(struct kvm *kvm, struct kvm_pit_state2 *ps)
+ {
++	if (!kvm->arch.vpit)
++		return -ENXIO;
++
+ 	mutex_lock(&kvm->arch.vpit->pit_state.lock);
+ 	memcpy(ps->channels, &kvm->arch.vpit->pit_state.channels,
+ 		sizeof(ps->channels));
+@@ -692,6 +702,9 @@ int kvm_vm_ioctl_set_pit2(struct kvm *kvm, struct kvm_pit_state2 *ps)
+ 	u32 prev_legacy, cur_legacy;
+ 	struct kvm_pit *pit = kvm->arch.vpit;
+ 
++	if (!pit)
++		return -ENXIO;
++
+ 	mutex_lock(&pit->pit_state.lock);
+ 	prev_legacy = pit->pit_state.flags & KVM_PIT_FLAGS_HPET_LEGACY;
+ 	cur_legacy = ps->flags & KVM_PIT_FLAGS_HPET_LEGACY;
+@@ -711,6 +724,9 @@ int kvm_vm_ioctl_reinject(struct kvm *kvm, struct kvm_reinject_control *control)
+ {
+ 	struct kvm_pit *pit = kvm->arch.vpit;
+ 
++	if (!pit)
++		return -ENXIO;
++
+ 	/* pit->pit_state.lock was overloaded to prevent userspace from getting
+ 	 * an inconsistent state after running multiple KVM_REINJECT_CONTROL
+ 	 * ioctls in parallel.  Use a separate lock if that ioctl isn't rare.
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 32563a91fba99..ac5900ba83aaf 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -4568,9 +4568,6 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+ 		r = -EFAULT;
+ 		if (copy_from_user(&u.ps, argp, sizeof(struct kvm_pit_state)))
+ 			goto out;
+-		r = -ENXIO;
+-		if (!kvm->arch.vpit)
+-			goto out;
+ 		r = kvm_vm_ioctl_get_pit(kvm, &u.ps);
+ 		if (r)
+ 			goto out;
+@@ -4585,18 +4582,11 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+ 		if (copy_from_user(&u.ps, argp, sizeof(u.ps)))
+ 			goto out;
+ 		mutex_lock(&kvm->lock);
+-		r = -ENXIO;
+-		if (!kvm->arch.vpit)
+-			goto set_pit_out;
+ 		r = kvm_vm_ioctl_set_pit(kvm, &u.ps);
+-set_pit_out:
+ 		mutex_unlock(&kvm->lock);
+ 		break;
+ 	}
+ 	case KVM_GET_PIT2: {
+-		r = -ENXIO;
+-		if (!kvm->arch.vpit)
+-			goto out;
+ 		r = kvm_vm_ioctl_get_pit2(kvm, &u.ps2);
+ 		if (r)
+ 			goto out;
+@@ -4611,11 +4601,7 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+ 		if (copy_from_user(&u.ps2, argp, sizeof(u.ps2)))
+ 			goto out;
+ 		mutex_lock(&kvm->lock);
+-		r = -ENXIO;
+-		if (!kvm->arch.vpit)
+-			goto set_pit2_out;
+ 		r = kvm_vm_ioctl_set_pit2(kvm, &u.ps2);
+-set_pit2_out:
+ 		mutex_unlock(&kvm->lock);
+ 		break;
+ 	}
+@@ -4624,9 +4610,6 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+ 		r =  -EFAULT;
+ 		if (copy_from_user(&control, argp, sizeof(control)))
+ 			goto out;
+-		r = -ENXIO;
+-		if (!kvm->arch.vpit)
+-			goto out;
+ 		r = kvm_vm_ioctl_reinject(kvm, &control);
+ 		break;
+ 	}
+-- 
+2.34.1
 
-and as you noted, this makes the ... variadic unnecessary.
-
-Ive added the Fixes: tag accordingly.
-
-thanks for the review & pushback.
-and apologies for the delay, I picked up a FLU shortly after sending v12.
-
-
-
-
-> Anyway, if we do not longer pass pr_fmt(fmt) then we should not
-> need to add "..." into DEFINE_DYNAMIC_DEBUG_METADATA_CLS().
->
-> By other words, we newly pass just the format "fmt" without the parametes=
-.
-> The 4th parameter was added by pr_fmt().
->
->
-> IMHO, the right solution is to keep pr_fmt(fmt) here and extend both
-> BEFINE_DYNAMIC_DEBUG_METADATA() and
-> DEFINE_DYNAMIC_DEBUG_METADATA_CLS()
-> to accept var args. I would expect something like:
->
-> #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)  \
-> ...
->
-> #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)           \
->         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt,=
- ##__VA_ARGS__)
->
->
-> or maybe, we could "eat" the extra parameters in
-> DEFINE_DYNAMIC_DEBUG_METADATA. It would mean to keep
-> DEFINE_DYNAMIC_DEBUG_METADATA_CLS() as is and just add the "..." into
-> DEFINE_DYNAMIC_DEBUG_METADATA(), aka
->
-> #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt, ...)           \
->         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
->
->
-> Or do I miss something, please?
->
-> It is possible that the macros work another way. Or this depends
-> on another change. I checked only this patch...
->
-> Best Regards,
-> Petr
->
-> PS: I was curious what Sashiko says about this change and it seems
->     that it does not review this patchset from some reasons.
-
-I checked shortly after sending, it was "embargoed" for 24 hrs,
-perhaps cuz it was so soon after rc7
-
->
-> >       if (DYNAMIC_DEBUG_BRANCH(descriptor) &&                         \
-> >           __ratelimit(&_rs))                                          \
-> >               __dynamic_pr_debug(&descriptor, pr_fmt(fmt), ##__VA_ARGS_=
-_);    \
