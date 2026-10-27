@@ -1,69 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793142045;
-	b=D6Mx2hvKsuMWydNgHA0wl9ckkl8P6pZLCO0Ydkbfj/Kvw77CdydNq0KHrGc+QrgkB7/X
-	 PFTowSvrMNWLWV8NmAVvCpbD2NuaJJGBIY+UcOWdZbsKJ7FZfpoN4wsT3e00Ym78s63KA
-	 HSCFM3yE24lSpwUGqbXAVkrHuxeLQo5c2IV/61w40LeGJlDuy6vVIAn1On82XjITcwxFv
-	 a/rEFNlMnBPKP44oPhBXCt2w3ItredJgxS2q2lCX6ciijwGJDQQu3n3825wIUXxjTlTP2
-	 gbc35MxlqX58ibH0XWLD/JWMxTMJfluq6Zjcx6XV94a3nFsk5qmbe6Qgp7BztRI2C4w==
+	t=1793142293;
+	b=22ztCWSPx+w+YImAZapLbqx0thi3GIvsvZTSpRsOwdKvz1lsJtvhgV4zJKA5tqcDWq4l
+	 he9bAtTtrXeID8XHQt5bqREQc2FhzZBYwEnRebZi9oty/m2FTaLpnteVpDRpZeExdIzLZ
+	 5hpRNgilUfIAu20ajUsmWeXARo+JfIoVuPylwKP86f6zdSEfc+cVx5UUVC+a9oKxrISLw
+	 e0OqfyWMcGzu5xKdalU8G3O9q3KHZcRnRRUv9dkbCSaA8TUifWL81+oUORe5Yb3D6+ORm
+	 1leIOpxqPBEjoIIcVEeJnp4IAywrgNH22QBuuyGOwCN21mFOdfxnPFL1nWzU2MVDn+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142045;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793142293;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xdcwz2J0ViafkvJlhahLT/XzWeMevy88xwVh6TrPYbc=;
-	b=4b4sjJz7uILk/uIinro0q6e+zBockjI7X0cmcvdfMjIyqD0hEzZntxmvlSTc7cD+/MtL
-	 pMwNBGH+XrK5qT1l8nG1traAqFFqFUw7uO497KLb6tBRprJejYBf2gzeOYONCaem+KHfZ
-	 cLi2ITtiQhbLEANy2QMQK6OZjBlu56a34KfEOcFwmURTf18Bv/Jp5AKR7iUkISNsFLrhw
-	 bgXBUUqisinCmtfl4kiCUX7SMVJC6J/LJSDXLAxVnCvSQVRDgcu58buUGAWDXnGOLCJ/B
-	 nYs4FCY01f4YpyxwWR+YWhauKgt9UUEN/kw58Ew0ZYg8kJ913jbUe2i3mBp5vxKTNlA==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YOE9zxrNKax2JkchOH7/1IG0IQ1S7GmH8Auc8qD48TU=;
+	b=5op5V4AXafw7A1S4ZRJlo/VWO5KThjqx4LRS1wiKqE8aK4Dv9TLxPwWP5cICG3qF8DZg
+	 vN3URh34IVQNoxttwjbZRuwK8s/SeNRTyhWvPIrzQ10CqTbWTNaocbfBhf494xLTdzUvQ
+	 hBVmM2nkZbk5bK90SsUAbwpuJNbhQc4poGPiHq0k+/CfQl4KWJxjQCe6Cps9MPaA2BGYa
+	 toQH/QjiOxmWxdzjqJ49BkBmLu7bCXzhW1/rHUJD4B4KsKYzXUvEk/5nbVsDCGvuxEPI0
+	 2Fl+ngTS+o0CF2WOlIUN9+PkT0Nn67/q97J8ebU5R0bep8WQae99dSJlxKuYKmjuxHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmZebDL8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A1Ga0sQ7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3771606A31E;
-	Tue, 27 Oct 2026 23:00:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C38606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lmZebDL8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 133671F01825;
-	Tue, 27 Oct 2026 23:00:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A1Ga0sQ7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5163D1F01825;
+	Tue, 27 Oct 2026 23:04:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793142044;
-	bh=xdcwz2J0ViafkvJlhahLT/XzWeMevy88xwVh6TrPYbc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=lmZebDL8yRqLM+Wh/deQQ76tvi8l8JU1S5SVzREGnKnCGkYrs8CFKQPbV7gBuyyRZ
-	 74IkyIL+66EnqWwbU1AzUGlaIvq8+IWUw5SkeVPl3PcsJRtpv4pDee4cO/eq2xiS4V
-	 y/RR/5ihw4wzrT0BHjxLQONiMLWKrfUpnqwXA/XAYM2ReGp3nFzrFdwZXOwVFPcVfo
-	 bavBhn9rhhvOeWv7/Ptgu8NvBgAEUVFYEDgBr3vAfzBE9gS+E5hXtV0NFop/nXyzsn
-	 ZnqrMiAx6J9uT9VDTh8fD/UPivifim82POVYIJ9mKgCed3urVNWgzCkpG6F9Hquocu
-	 6UsNpJAhLlb8A==
-Date: Tue, 27 Oct 2026 18:00:42 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Andre Eikmeyer <dev@deq.rocks>,
-	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
-	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>,
-	"open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>,
-	"open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
-	"open list:X86 PLATFORM DRIVERS" <platform-driver-x86@vger.kernel.org>
-Subject: Re: [PATCH 02/13] PCI: Disable pcie port and access on D3 on
- specific amd devices
-Message-ID: <20261027230042.GA516670@bhelgaas>
+	s=k20260515; t=1793142292;
+	bh=YOE9zxrNKax2JkchOH7/1IG0IQ1S7GmH8Auc8qD48TU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A1Ga0sQ7QwTXszn2AN0v6Qftalj1+97wvk1BdOHhjbfMFDthk41RJheMKDL0QGJHZ
+	 64OGoICGqGDPAbnprTDVAHZJDD0IDKhKOANSurqq2DVFBjHwzXzDSRuIK2vMxqZo8c
+	 cU7IuOw3PuZTHbQ5kWgxGE4pkZw+3YHtWMrevnBPzowUSCBBqZ1yTcYbIseAN1tIHh
+	 YWg8CAvqoW8vNg3PILRJSJsKw2ULAV9JVRtjPTGDjAoZ7vJD6dh0ezg/trrPgVFKnb
+	 wyqSSohontetoadD0wpu5M9M6/XphKfzlcaUj8iWBQf3JAfw8TXio1OwzeKWvT4QyR
+	 eRwo7WmCb3fNg==
+Date: Tue, 27 Oct 2026 17:04:50 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+Cc: linux-nvme@lists.infradead.org, axboe@kernel.dk, hch@lst.de,
+	sagi@grimberg.me, hare@kernel.org, sgogte@purestorage.com,
+	wagi@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] nvme-tcp: fix request PDU size when header digest is
+ enabled
+Message-ID: <auEuEoILz3cndXOV@kbusch-mbp>
+References: <20261027194710.334495-1-christian.aurichzm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,127 +60,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261025040046.1602-3-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261027194710.334495-1-christian.aurichzm@gmail.com>
 
-On Sat, Oct 24, 2026 at 11:59:38PM -0400, Atharva Tiwari wrote:
-> As mentioned in the previous commit, PWRD turns off the entire
-> bridge, and if we read/write anything to the config space
-> or the PCIE space when the bridge is dead, the CPU CATERR's,
-
-Reading or writing to PCI devices in D3cold is a problem on every
-system and we should avoid it in generic ways.  I don't know what's
-special about these MacBooks.
-
-> so to avoid interaction when the bridge is dead,
-> we remove pcieport support for the bridges, and we restrict
-> access to those bridges when the bridge is dead.
+On Tue, Oct 27, 2026 at 04:47:10PM -0300, Christian Aurich Zanettini Martins wrote:
+> Since commit 61b0ed3be81b ("nvme-tcp: parallelize I/O queue allocation
+> and startup") the I/O tag set is allocated before the I/O queues.
+> nvme_tcp_init_request() sizes the PDU with nvme_tcp_hdgst_len(queue),
+> but queue->hdr_digest is only set later by nvme_tcp_alloc_queue(), so
+> every I/O PDU is allocated without room for the header digest.
 > 
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-> ---
->  arch/x86/pci/fixup.c       | 30 ++++++++++++++++++++++++++++++
->  drivers/pci/access.c       | 18 ++++++++++++++++++
->  drivers/pci/pcie/portdrv.c |  2 +-
->  include/linux/pci.h        |  7 +++++++
->  4 files changed, 56 insertions(+), 1 deletion(-)
+> With hdr_digest enabled, the digest is then written 4 bytes past the
+> PDU, over the header of the next PDU in the page_frag cache, and the
+> target drops the connection on the first I/O:
 > 
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index 795d81c7a..66829941e 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -1094,6 +1094,35 @@ static void asus_disable_nvme_d3cold(struct pci_dev *pdev)
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x9a09, asus_disable_nvme_d3cold);
->  
-> +static const struct dmi_system_id quirk_disable_pcie_port_dmi_table[] = {
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-> +		},
-> +	},
-> +	{
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-> +			DMI_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-> +		},
-> +	},
-> +	{}
-> +};
-> +
-> +static void quirk_disable_pcie_port(struct pci_dev *pdev)
-> +{
-> +	struct pci_dev *upstream = pdev;
-> +
-> +	if (dmi_check_system(quirk_disable_pcie_port_dmi_table)) {
-> +		while ((upstream = pci_upstream_bridge(upstream))) {
-> +			upstream->no_pcie_port = 1;
-> +			upstream->ignore_access_d3 = 1;
-> +		}
-> +	}
-> +}
-> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_ATI, 0x7340, quirk_disable_pcie_port);
-> +
->  #ifdef CONFIG_SUSPEND
->  /*
->   * Root Ports on some AMD SoCs advertise PME_Support for D3hot and D3cold, but
-> @@ -1179,4 +1208,5 @@ static void quirk_tuxeo_rp_d3(struct pci_dev *pdev)
+>   nvmet_tcp: unexpected pdu type 159
+>   nvmet: ctrl 1 fatal error occurred!
+> 
+> Queues that a later reconnect adds for the first time have the same
+> problem.
+> 
+> Set queue->hdr_digest when allocating the controller, together with
+> pf_cache_lock, so it is valid before any request is initialized.
+
+Thanks, applied to nvme-7.4.
+
+> @@ -1948,7 +1948,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+>  		}
 >  	}
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1502, quirk_tuxeo_rp_d3);
-> +
->  #endif /* CONFIG_SUSPEND */
-> diff --git a/drivers/pci/access.c b/drivers/pci/access.c
-> index b123da16b..5e9513067 100644
-> --- a/drivers/pci/access.c
-> +++ b/drivers/pci/access.c
-> @@ -559,6 +559,9 @@ EXPORT_SYMBOL(pcie_capability_clear_and_set_dword);
 >  
->  int pci_read_config_byte(const struct pci_dev *dev, int where, u8 *val)
->  {
-> +	if (pci_dev_ignore_access(dev))
-> +		return PCIBIOS_SUCCESSFUL;
-
-This doesn't seem like something we should do for a few special
-systems.
-
-> +++ b/drivers/pci/pcie/portdrv.c
-> @@ -688,7 +688,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
->  	int type = pci_pcie_type(dev);
->  	int status;
+> -	queue->hdr_digest = nctrl->opts->hdr_digest;
+>  	queue->data_digest = nctrl->opts->data_digest;
 >  
-> -	if (!pci_is_pcie(dev) ||
-> +	if (!pci_is_pcie(dev) || dev->no_pcie_port ||
->  	    ((type != PCI_EXP_TYPE_ROOT_PORT) &&
->  	     (type != PCI_EXP_TYPE_UPSTREAM) &&
->  	     (type != PCI_EXP_TYPE_DOWNSTREAM) &&
+>  	rcv_pdu_size = sizeof(struct nvme_tcp_rsp_pdu) +
+> @@ -3098,10 +3097,13 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+>  	/*
+>  	 * The I/O tag set is allocated before the I/O queues, and initializing
+>  	 * its requests already allocates the PDUs from the page frag caches of
+> -	 * the queues, so initialize their locks here.
+> +	 * the queues, sized by their header digest setting, so set up the
+> +	 * locks and hdr_digest here.
+>  	 */
+> -	for (i = 0; i < ctrl->ctrl.queue_count; i++)
+> +	for (i = 0; i < ctrl->ctrl.queue_count; i++) {
+>  		mutex_init(&ctrl->queues[i].pf_cache_lock);
+> +		ctrl->queues[i].hdr_digest = opts->hdr_digest;
+> +	}
 
-Nor does this.  I don't know what the purpose of this is.
-
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index d31a8d107..8835b1c82 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -420,6 +420,8 @@ struct pci_dev {
->  	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
->  	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
->  	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
-> +	unsigned int	no_pcie_port:1; /* PCIE Port driver is forbidden */
-> +	unsigned int	ignore_access_d3:1;	/* Ignore access when device is in D3Cold */
->  	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
->  	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
->  						   decoding during BAR sizing */
-> @@ -2747,6 +2749,11 @@ static inline bool pci_dev_is_disconnected(const struct pci_dev *dev)
->  	return READ_ONCE(dev->error_state) == pci_channel_io_perm_failure;
->  }
->  
-> +static inline bool pci_dev_ignore_access(const struct pci_dev *dev)
-> +{
-> +	return dev->ignore_access_d3 && dev->current_state == PCI_D3cold;
-> +}
-> +
->  void pci_request_acs(void);
->  bool pci_acs_enabled(struct pci_dev *pdev, u16 acs_flags);
->  bool pci_acs_path_enabled(struct pci_dev *start,
-> -- 
-> 2.55.0
-> 
+A follow on bonus patch can clean this up a bit by introducing a helper
+function, maybe nvme_tcp_init_queue(), and initialize all the basic
+fields there.
