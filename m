@@ -1,73 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793123715;
-	b=AZauIbAkGQnYxiMJqe+XasHLVpcbld5SdGAXFNVmLPiEAD5rmy5+zQr20c197LHKbuKO
-	 lD1XJj7v/glSlLIWhQqlaDSvXwyjBU8t5cGaS3pFGqSp/gzgnyXVUQXnESD5jkip3qs11
-	 BhEJS8ecnDW1YilpuCKKsJcUK1QIbars6UwrfOAxdQvzLNBrvX4u9YFMR1RMVA/B+aEy+
-	 91J6Mec/sBnz7R8zZ3sbwmh0G79o41XYX5IALF8lpg6rUNJObOoOZXfBn76FFzW2XjLvB
-	 MtCBk6P5/FtbIhDGL3WYPfC9oPnmP9PnRtWEW5zTyjtre8gyWKnaJbZNvBx5qiItd/A==
+	t=1793123759;
+	b=iQ4lU61VicBpa92SB3PBNf9fcR4GiNwOxh0CX5IbE/vuvlHBfm/dk48ooZCq7hSDP9Ya
+	 WPp8qqR6iX55cHj4OXjJeCw7mxRl2Icr5m08umAX/6OVHpJHVgh14iz0RaooikEq8n/Tm
+	 6mpLX5VBcbfWfWcXpbyhlIWGUPVv93CpfaD+lvyLC7nW6caKCv9ZSxBekhj0dZRnY327k
+	 kyb2N7qCgvQC+NmSAIb//hqn2lraYYMhUY/mmnTkJN6bgPc/cbxz5uc3auLixrBNnw1r5
+	 tK2cIyYekPx6r3JWL6f/OTR0KIe1BtU9q/mSa3nj7D5Ipu280sLoA5qNPgYaIVBaa2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793123715;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=0mrx6dW9Zr+Dr9/qeyAc5RF2aw4BQ2JE9fRD0hY1390=;
-	b=xBT3AaXO8nWHpzYFOl8V1nvxt7LW+dRa5EPKhpDtJx2flqI/EanU0pFLrmA9vBNTim/o
-	 sdLwCGeTHIOiizrUrj6mEM4UnrkwSKxPBCZ8Zc3+se5Oow0v29ISikj69bjc5ZwNExLkm
-	 XBnscKGTet9Kx3qR3u+ufa/iRj9tVA1t94ap6sJe1oFlSo2gOvCJL0zax/yffCccUDLOo
-	 BmyKCl9TeAc7afrVgT1Ah1T4Ww28yeM3Ys72naHWENzkoZN36ImzQSQE0HLTIFwBBPWA/
-	 oQ2/iXW9KQtqrDOeP5MlL2oN5b89v+EolxZ+zEiyLuSroFeiCgmim6znWKvIHRb9/PA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793123759;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=v/Bv2s5RaJFiWDM0uX0J0oT4O4XbTScBaMgsYE1R3KM=;
+	b=bl3d6Kb3j2dc1CXgh0j5s5uvQXxjfplIRjfUt3nbHpvoIW3gxKs8/GAwy5M9+FKuR3Cb
+	 V3MnoE2xEFD3q15o3oWNT/g8ap+OLBkZzWcEMpqTSz/5e+5iPiY9p6bhA5DSDHGKJzkt9
+	 WaIW8f/4NXNCCtzfFaMi4E/dS/ZN9zt//dK3ZJBPpSZPHMyeErkH3LDURCOrT32iuY4S+
+	 LVSuJr+sjdeaJ0BZlGEfeW2cp1qutmOHbO8EWtuypoFG/OQOFPNF8t3zl0ACx+HHMv1Kf
+	 5WJLtsd1KoD3hoCd7pszRl6FU8xn/B+73dNuiOhGQSLVaflv1lsNT3n4KlubNsx7gEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mK/52XWT";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UolYGaDN;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC28606A31F;
-	Tue, 27 Oct 2026 17:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0770606A31D;
+	Tue, 27 Oct 2026 17:55:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0770606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mK/52XWT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89311F01829;
-	Tue, 27 Oct 2026 17:55:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793123715;
-	bh=0mrx6dW9Zr+Dr9/qeyAc5RF2aw4BQ2JE9fRD0hY1390=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=mK/52XWT+LwA3pvGFxW6JdZ9O3EDLQtcz4nNydxwh6TNBvXIqLdcwI/Lm63QtjkW/
-	 iwuDWHk1gcBfZE/2aMB76c2i8vCGsVmiJgS/fVek06Z7srY8ej6i/oFmIopagVJgbJ
-	 6Ug3mj3B9yjduPG0wp9bHJwNvTHIwOsSePdSGu0oHrRj+ppl1cJjdfE+fxbk6/hbWw
-	 jtt0eWsht0zH/CibsuZvwCcRppXkN3Os3DdrN0ujvUXRVMAVvC51+Kz6I6bIAS4fCO
-	 huegC5Tp3Rvv2bgfxNOV55du+3aKEJDc/9ginRfIIGxcgDHJ56VAcklHJRzIP1XIK8
-	 WHtLsLxsJE1rw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 175A7F40066;
-	Tue, 27 Oct 2026 13:55:14 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Tue, 27 Oct 2026 13:55:14 -0400
-X-ME-Sender: <xms:guXgaman8m8hgd29DBbfO0xquouuaF63VCxwrcbXwoKZtzKlluYRmA>
-    <xme:guXgakO-TU7GF3RWMi2SuxdHIW2BSakqv4RSsr_F7E7Cw3tAlHicfGp5uQll4piAt
-    m9fgfezxOGiF1dWOuJ-j1Q_dHM9Z1pemOtRk9zDXPmcSIWNg2G1Zgxp>
-X-ME-Proxy-Cause: dmFkZTGI9CojnDj3sv0b6BqjhYlTeOZC/1LMQMQRhBfJPKZasjYu2smuB14iFup+QyVhIn
-    +wRYv8QwDL/+DY62uEp8Q+HOnFHvD7rwE1l9eksvmCCsI6MmOKcQqna/q870xLkqA1Ivox
-    VEz18a9f9mkn8pHpGVSzyCS3Fu+sct+aT+w/wTdTGQxM480eEce2U8LQSHx1zcWrPjsoyx
-    U6j9qVJq5Z3KEqlMens3621XVw20guShzqM0pcSF8xC3AV2sy/5cfqeelO/euLCbHq3/Ey
-    F/Cntis2al8fW0jTz22BY/upZy6F84TNqFPM0d5dbJouq7VKKh0wWGBi4fSypE2lZ+y5lA
-    lEk6bUC8MvxfAPmQ9VDxp9Z0Xdwc20kz9yCsVQvwFBRz9GUHifCNXbOK3sXfiuTDqA6aBi
-    5JXPeJlIzb5XvqTV199IbLjIoC9fDmhYMZkYT8rTFkxjQlb7bD7kdjsIVXAiTVHNTjdW6d
-    tr4l/mAymjHZyldJmxlo24jP8UmPJTHsAra30DlAoG4olIsxMuw/fkUfsnyal9oGQNmBIV
-    LQuiA9RlHfgmqeyUsYCB/KdfIbwCW0gdQQeDBja5OOSfUPYLA1o70g/bQGs+NJ5j7PzgCd
-    hh+Znj1lKL9IelEXy+OeXTGoaMZh9nCFYLJx+1rfUea9VknCUYgBjyBM5KZQ
-X-ME-Proxy: <xmx:guXgamK10hOP4AolDM0NxWIA6Y7v2MbUJktv-xtBRjWTXAxBGQoTDA>
-    <xmx:guXgarWdPQh7eU8J71laT2bYi66VP1FkBwuUanqaM_PoliqAxlsLgw>
-    <xmx:guXgarM8gC6qlZlKhJLl5s8-TYAgt4hwimjrlDGlCLTIvRsIRAKL9w>
-    <xmx:guXganmx70fuW7hK34LZVofJFSq3Vjtp7qj7qud2PR95CHw6EMMscw>
-    <xmx:guXgauUrz-o9CzS11td64alLhWrobzJFLayyZ_O0qTkIY0TH8ZpD3so4>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id E806E782738; Tue, 27 Oct 2026 13:55:13 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UolYGaDN
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 07C7E108D54;
+	Tue, 27 Oct 2026 18:55:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793123752;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=v/Bv2s5RaJFiWDM0uX0J0oT4O4XbTScBaMgsYE1R3KM=;
+	b=UolYGaDNIWC9E50Y9cmM7BtASm3btxoQlN95xDsjkUA8jzFpyRGYQocPH0NjYZjqohfc/f
+	f5ASPYfijTh3/Xo9XyWWJ/7X4Gq8aDmWTcMH1DAnf3MVXPxoHkdwwX1DvvBPqexIxCqbuq
+	58jA7dLNIRBPrf7Zj4qqVoQAW5gJFUGq1nOjXvETEzi3+Nsi0nEocSDrxI6TkFxPFU4S3I
+	fsY7SqeOgG6zde3ld88EvTdb1sQGBtju2xUYK2JalODVTlztvnu/ENXpThxjlihaI8hdwA
+	7Dyk+/siPSnz6qaRd0BhWqT7ArF+AurveILMgaakINGTmG2dp9F4RPS7Etw9rw==
+Date: Tue, 27 Oct 2026 18:55:47 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.2 000/231] 7.2.13-rc3 review
+Message-ID: <auDlo1LuocyDBmS6@duo.ucw.cz>
+References: <20261025125805.309934791@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,73 +67,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AGB9D7c4hmNR
-Date: Tue, 27 Oct 2026 13:54:53 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Jeff Layton" <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>, "Olga Kornievskaia" <okorniev@redhat.com>,
- "Dai Ngo" <Dai.Ngo@oracle.com>, "Tom Talpey" <tom@talpey.com>,
- "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>, "Mike Snitzer" <snitzer@kernel.org>,
- "Donald Hunter" <donald.hunter@gmail.com>,
- "Jakub Kicinski" <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
- "Simon Horman" <horms@kernel.org>, "Steve Dickson" <steved@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-doc@vger.kernel.org
-Message-Id: <ad5ac019-34ac-4c7f-8b90-cde8a0dc0546@slotpi15m67>
-In-Reply-To: <20261027-export-iomode-v1-2-262ed932a036@kernel.org>
-References: <20261027-export-iomode-v1-0-262ed932a036@kernel.org>
- <20261027-export-iomode-v1-2-262ed932a036@kernel.org>
-Subject: Re: [PATCH 2/6] NFSD: Apply per-export I/O modes to READ and WRITE
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
-
-On 10/27/26 12:45 PM, Jeff Layton wrote:
-> Resolve each export's effective I/O mode (explicit setting, else the
-> global io_cache_read/write knob) in nfsd_iter_read and nfsd_vfs_write,
-> and skip splice for reads on exports whose effective read mode is not
-> buffered. Update the debugfs knob comments to match.
-
-[ ... ]
-
-> -	if (file->f_op->splice_read && nfsd_read_splice_ok(rqstp))
-> +	if (file->f_op->splice_read && nfsd_read_splice_ok(rqstp) &&
-> +	    nfsd_read_iomode(fhp->fh_export) == NFSD_IO_BUFFERED)
->  		err = nfsd_splice_read(rqstp, fhp, file, offset, count, eof);
-
-nfsd_io_cache_read_set() still sets nfsd_disable_splice_read whenever
-the global knob is switched to dontcache or direct, so
-nfsd_read_splice_ok() returns false before this per-export test is
-reached. An export pinned to riomode=buffered on such a server never
-gets splice; it falls through to nfsd_iter_read() and does vector
-buffered reads. The same applies to the splice_ok decisions in
-nfsd4_encode_read() and nfsd4_encode_read_plus_data().
-
-Patch 3/6 says an explicit per-export setting pins that export's
-IO mode "regardless of the global knob", and that isn't quite true
-now for the buffered case.
-
-I need to think carefully about the interaction between the "disable
-splice" setting, which is global, and the per-export I/O setting.
-
-Separately, on the names of the export options: "riomode" and
-"wiomode" are hard to read, and "mode" might suggest "permission bits"
-to an administrator. How about read_io= and write_io= instead? They
-follow the underscore style of the other multi-word export options
-(no_subtree_check, root_squash, security_label) and read naturally:
-
-  /srv/data  client(rw,read_io=direct,write_io=dontcache)
-
-The values buffered, dontcache, and direct then carry the meaning
-without "cache" or "mode" in the name.
-
-The name appears in the exports syntax, the nfsd.export/content
-output, the netlink YAML spec, and the forthcoming nfs-utils series,
-so it's worth settling before v2 and before the nfs-utils side gets
-merged.
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="LOree2NpcLncJNom"
+Content-Disposition: inline
+In-Reply-To: <20261025125805.309934791@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
 
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+--LOree2NpcLncJNom
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi!
+
+> This is the start of the stable review cycle for the 7.2.13 release.
+> There are 231 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.2.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--LOree2NpcLncJNom
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauDlowAKCRAw5/Bqldv6
+8rc/AJ0ezYraoY7J5uD8d4MCo34euM+wvQCePmKxEqBtJsVwHTVQSyj3y8+08NE=
+=9jR6
+-----END PGP SIGNATURE-----
+
+--LOree2NpcLncJNom--
