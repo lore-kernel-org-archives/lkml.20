@@ -1,115 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118075;
-	b=4BR9sLh0LpyVXwcBP25ZT4NR7CaCRF66fIJ/HUbN+fYPXfSZ7AIJGaTOFGbv9ljTFdZs
-	 ljAjEK/o5SNiHK47pF7zjHRt6VD86Tnyz5Gqv7meMUig2KDeW1zO43QorfZoBoWqZSRu3
-	 kOC9SSguFDSAjeAnYGoahLYutwX7wh/NHO640TsbQF8aHaqm+eUt1m2oZq+6twcKyNgYp
-	 E8bywQqcLcd4icDifAbGk3SFY6T/9VFXtimDmlOZwSqA3WOgSLJaKkRCkMKiNWuXnPKZB
-	 r/xwfCDJsVw00e9JElJLPisTQjEQMCXyk9QGYvbu72h+dpcaRsA664njfR/vbhXbfxQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118075;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793118117;
+	b=JDFAeOELVVou3fNpCinEB/WlAv8pAIbbMJs5moMDcoU1i23dDC8oXSHcysDiV+mRUV+A
+	 ED102c1tlcejDFPlZfpa7Q25sxhQbQEKNf0Dx0Dbi7klV9qVbVCIym8SjoJvf2un0lIRa
+	 X2Zk+Lne8reuD/yVkxq3OuMx1S5xCWpGGuzDN4EC61x6rQXg7/G/+N4QZgZDrMYshPfDI
+	 xA2lJ5WBiMApwezfGD6Q3MBt4eXcINa2YjSBUo5OG4K/Pcum7gGhNw8zn2hPSQ08Oy55O
+	 Hkwg6sF2RNEhHxEMqx0n4yC/T2/f/iERARSvjvZtjAKCMMWZIckFDOav24sD5amCSGA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118117;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=PxRb990Xj/uwND6b4fXh9A/3T5i+xI2zB08D/68nqZA=;
-	b=eZeB2Vaw+VigzNWEGuaOiBL/Y8cWtGzkQ/sbmD1taSmL1+hql+RVsS2nCP6y2uEUzyQU
-	 Gqd5Xvk9udO40qZDDqcVo/ff8sp2/0ZXYmc2fqU1hRJ4MQCr717s7SIrHGQpDNHGXSnSi
-	 xDsvD6i5b2S0J1imR9xhjtM+2428By19mcvMWU9IBKm179y1eEsX0//JjcTV3q8m58jr4
-	 jRkcszfq/WRnzk3bZFNHZU+Nf86/SYVGgQSSNKrdwu2HVL4WowVeEmKxw63+V4fQ9xOSe
-	 sqioruWM9sXGWCKwfGz1p5TOTh/J8zBjSJfDwbx+9V+QPuyHZdfeC8bLcxJ2BOJlapA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=I7Y8uOx7;
-	arc=none smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=WGMFH53fvXz3fTXe4+RA6dwEuGNwjFllOJfSunpTT8w=;
+	b=oeYJ+X4X+6hNUqJeHulSMie4gBB3YFdiWMLb7d9KrgrHV6PhSuWu6I3lh/7NJakVZSSW
+	 i6JKcOjgTyf2ZpqPzM1MihH8xWchrkbZBHuCGlTCpKJRyOzWhx/aSdSeRMvZWgcWlFmQ/
+	 9ZaWDryT2MzA/gTNbSc0ERmFQu0dV9yjvw7V7u7ofpO/Cu/2jCf4nv045XBquZu+vb0Bv
+	 LYX0i/FUYmubJD9G7UHm5D9NoKdXGcoCuiNStvXKz1m19UsOEETOIPT0Z64crbiDBC7wR
+	 QN3HNKCicmZr/YCQeE+QXHZrsU5HejqTZLbuM1u9udxwo79aSHRZr1vDV+QkJ0OeCjg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=caXsg8eD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA64606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:21:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA64606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFBC606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:21:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADFBC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=I7Y8uOx7
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eac7220e9cso41227e0c.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:21:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=caXsg8eD
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8ad98c3fb15so37342867b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:21:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118116; cv=none;
+        d=google.com; s=arc-20260327;
+        b=M6CRI7ctGY/jyf5RI1/Jazbfnse2J5QvLJw5n3WX4DsWwnEvPy5z6HIUx3kxT+wBPR
+         w+hYzkjV/XhWnRX9LAAWrc3UKgf0cXdCDG8i6OmUxDlTi4qs4JGs5nmeNye58A83CZsE
+         bnAIoB/Vi/50Ona8J+HpuVeI562InhwoHeKxfPb+tCZddSQN8fZPi7cSB01S+LxU4m4j
+         USEop/jrBYA/ybCr3Lp2r8AvTKu+m7qnJoQ/NfVKZldDDYR4GSkR3TQ4HkhTgF9kM9g4
+         W4I14CSLnXZ5ugB890bT52Ls2jwTL6DwmCJJiQDpIKzzsq3o0SpRRXHgE5vKrIzYhaSX
+         2u+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=WGMFH53fvXz3fTXe4+RA6dwEuGNwjFllOJfSunpTT8w=;
+        fh=PlUDZ8Qy77ec98BvGtlDHbOWGBFUPqZ6LtWCK5dVBx4=;
+        b=B+yzWEpekyUHKLBauUhCU3fJXI6Z40thNZ/l7r1ds7/ZYgPZ6uC5lbpT89iH2ZT4lF
+         UsZs601LsHtTnq47KrhCyT/H/4pnxNMYN3ZF+Ct9PeA3IOHQVcMvpJ/EAFlhbv6CnWOG
+         BAoqcWhG5ZTR5k5nfFDtsQwagRekhqPZM1RAOmeKFF4Ww7VBkOUHwYU5EIixYuPLSVQk
+         duCTM64ukGNkH0tmhvGlxyw/kS21wae0xEfuKEA/Uz+L775euleF6CqyXp4x03JCkBHM
+         OOxXnJtsPNSU+XsLj61xF8y9VKRatY8OZ3462m3gpkTKOuJG+oun2Kcrd0tYGtJLN65M
+         DO8A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793118073; x=1793722873; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PxRb990Xj/uwND6b4fXh9A/3T5i+xI2zB08D/68nqZA=;
-        b=I7Y8uOx7weI4v4W6AXn/znpVoq60HTz4BzA4kZYqzylWKLMgWPEI/kHDMpFAJKaxEW
-         dMWp56tqyuqHCMl0aXjxrglevtltP8ipvkBRGG46atadiYS/JtDW4cIxH6WwLsAUvip7
-         fZ8N0S6JoWn+bDQAJdo2DtJ/gxo9c3hp/BnaS1RFijYBIda3/v4GLitqnj1Ws/B7a2Pn
-         fz1qPsy0Qm6tmUdB5d3qOcYc4P2QrsfWBQLhxtBJ5rdHgq5XNcgZNUNJT5T7j4P/2JjO
-         Ecm98gklWri2xQ8NhdNb1FWUN/6eG4JjOrFzPdIZ/BC1uGg6ea6CeIaDGLqn09oiPzXZ
-         wVdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793118073; x=1793722873;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793118116; x=1793722916; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PxRb990Xj/uwND6b4fXh9A/3T5i+xI2zB08D/68nqZA=;
-        b=hYBmEIas30mh60gb/C4Jtq74Loa0ekHDAWAsNip3Rvmlu4w64w7dySWO/U/DrUrBFK
-         ygI7HtFNbJt2/VB8DaBcOpN0f5Moj6bZLoyQbS8SUm1s3IkKKFLIFpwMMDFnSJ9Pu6+k
-         v4ufybfHgq1tRcFq4kOKSKMBSOVq1LnNuloxLLybAw0TLNv6KwvTEUBuZxHQrmqjWzgE
-         GMQMmBA8dd7PUaUu0XBGeZSew0PSzSKD0UOSgsN5mjEx92dAP+d210mLz2Bf60qtybv0
-         yQVm+jkfH0DEyWZUrIUiFeDKYLjM+99NieUsRh6Si6MW+o26u5U1FHcI7MoTxP20sZDH
-         LW9g==
-X-Forwarded-Encrypted: i=1; AKwUvBx6ukh4sja0B5fe429g/Z7PpS6r7nLTqWta2Srx9y6YY8ZE8x7FAxwJlGtufwWnYhQZYs/s+hDW186yuL4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQdwDQvgy4ZeiOEGIn+RF76ROz0+mEdmknEsILUJrbV/5Qg+Tu
-	vLMABjyq2RAVJ3PwPOI5ld3mxd31CRzX7MCGIAebPZYHdmluJu4+Bd9NjXM197EN7QU=
-X-Gm-Gg: AYBFou3Fp3/KxzH09gCF5E5GrTKHXbIbCYgbJmBlfxQ6u8PtSIaeMNarrBFj+CTOCEl
-	QHfq/sXx0j13sKIByDysOxcE94grzuZ/WgX8SwNHWfke85kHw/k3U4aegP2VmSaXNNUkwdhRlga
-	klenpSjKJhGpPnPxaj9/hTtxMgLdgcxAMdNNsNaQUL7nMZ5Vtkobu9/WQ8mtX5hvTE/g4jZbdWh
-	tY68aYSr6sBuSo2dzfmYcUptI+lIPVskDGsGL7RH13Vv3ae5Zorazyq+tm0HiZXpIU+VYanXRy3
-	fSCdCrfSkBTD7ZgeqQKPztQZvx8tB3MUjWakq+wot7qpck3isLvqfk3uN8TJZ/QzbJDzCgHOSRf
-	P9V8bHB8U4UBusKKxmnLttArVk5DMCp+AY43ZEbMn3e+JJFVWrdqC5BS77G1dH/whYfj6YG/QTe
-	VeEUcwZlGl8q7f5PgKXsew+Y1615lSYYWvXRo0UMW5LcBY3+wtuUsNQZhrAI/28PgyrCDltUMRi
-	+OJz9Fe2NWtmJKHPeNXb+kQFLBBtomV/vyAJxXZ01/pi6TYrAvR4APcLWaTmL30oyinisVsTwrW
-	pF72taWmTfIZZxmw5E/IymLuyTHupm/lRkMCtidXiY0Dyq9DDLXjCth9ecgaBkvlV8c0zQw4wfB
-	DQB9Z5iJRybmqkcPhVP0gWmR1KgLVqQ==
-X-Received: by 2002:a05:6122:1352:b0:5c9:c60e:3a40 with SMTP id 71dfb90a1353d-5ec232e48ecmr4515149e0c.18.1793118073126;
-        Tue, 27 Oct 2026 09:21:13 -0700 (PDT)
-Received: from google.com (16.49.199.35.bc.googleusercontent.com. [35.199.49.16])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4a5f26c7sm304662e0c.9.2026.10.27.09.21.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:21:12 -0700 (PDT)
-Date: Tue, 27 Oct 2026 12:21:11 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: David Matlack <dmatlack@google.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, tarunsahu@google.com,
-	Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
-	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com,
-	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org,
-	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com,
-	will@kernel.org, Alexander Graf <graf@amazon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
-	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
- a 2-bit pair feature header
-Message-ID: <auDPd6tjzACQVszf@google.com>
-References: <CA+CK2bABt4OZO31TenVF2+uBUWVwViWbvfE00=0xbAw=f7K9SA@mail.gmail.com>
- <atl7peoVHdP5hz7z@google.com>
- <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
- <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
- <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
- <atpNFEFIlqAoYIwH@google.com>
- <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
- <attmFVIFU_mS0Y7p@google.com>
- <CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
- <at-8vkVpN2SF3XgB@google.com>
+        bh=WGMFH53fvXz3fTXe4+RA6dwEuGNwjFllOJfSunpTT8w=;
+        b=caXsg8eDJZuM0Xqfamw/nWCD1s6Ne3MM+74gMbQZ2kjyh//9kfSetHNy8QI3T9JI/S
+         mk2/YyHh7riPlaMdJmR3GELfrC26Hce/RM6Ixoxc3oEbwaOt6eLK1sEl5Pbn0VKqv+QG
+         qjVs5SyBJRBt0MDYMKDtL30EInYvru05tyCNysbo5oJUsatNAGLclJJtRHmjllAFpDU2
+         ZaN2BZrRMo0aszN5FW9hEy19f37novWoHiNwwRB9izJQ/hv8UANi2HXTlxHddQsCIsqn
+         SB1wB3Ipp92XpXAaMumhy61xkWfSor/tWoCe3T8UJaUMiJ+9YQRSlrGMHgK3/m+7JQVY
+         wdww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793118116; x=1793722916;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WGMFH53fvXz3fTXe4+RA6dwEuGNwjFllOJfSunpTT8w=;
+        b=gM3fumhcOOqWe1vgnZjf4G4370A1AnRzoF6d3mavVnpnUDtNenysqqFYEbcw61iIHh
+         uSUe/dsoSDarVJtDj9tpNr200wSo5W3gz+Dn6pxGlpMA5B/wIUL2Rt4+j2X8f90ORYO7
+         lE/JPTVjQRUwSa2K50pW9qYjeUCx29IHKbn2BfqYH/D2Wxe4tzD5twLpZele9wnid8OG
+         t6kgSMLmp9mEfKuxmnterCItstO7xkbtFY4zUSghhUGylVvoeWZGl4MP9+CY0hP1pI05
+         ICBTsw/XDxHWYUwrZw5RGGiTRml6u0JaDnL+DkMkfmZeb+OjxwYj/q+ufBVe7msYfnv1
+         lx1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxYHi8rumTrtgx34J8xr3jcsx6mwSwN6tgvoz95jW61XVLEVRRutImj+FwYKUFNejkZpeKoZBg3dm9iYBA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyBnCFyZF326CZkPrK07DwEeIFxFvWPFExhGzRvNOer4FSjGgr
+	blPgHYT6f/NekvOwqcezbrr6ylMx29EOhEvdajWeO/NnGRtWcQbCIfBSyuIC/UEx1A9atiHQ68b
+	hqLlVyMpwTeTDS5Gboftdie55FmyRMVg=
+X-Gm-Gg: AYBFou3ZBM5IpRtGeWAPVaJY/TxEndQRmlSBB3VDfg16uibya4BMa0OApEiDVx/8fd2
+	SnDOVjmkJMtKrKFnja4nAO/w48gnCa5hUwBOg+890kb4hKy3si7S+Bga1XXqHkNEqNbOapntO0Z
+	u/CZkv8NsFKcQB5gkgdG8M0VIKnjVnh/V45iC7RUZ9ZM4Z+gBl5muGoRTyNlahLLfBb/+G1iIPi
+	oqg4ZIAKs9CSzO9jP8h72NpSzHX7i17UP43kcDG1MA9HI8tvGuyTerQvyUfZrRblfG6C/qnNlI3
+	+9377HHICYYmu29q4uViS4MMQhvKQGV+q019e/3ye5R2+ZQQMpoMHgs5Ruy/zMmQ4owW53f61pO
+	67Dvl757cx7hmGSbEoxGK7ZBQyUMUoM5PEx0mAQ==
+X-Received: by 2002:a05:690c:c117:b0:8b1:2b32:de70 with SMTP id
+ 00721157ae682-8b166c533d8mr81246197b3.35.1793118114590; Tue, 27 Oct 2026
+ 09:21:54 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,74 +103,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at-8vkVpN2SF3XgB@google.com>
+References: <20261027030803.118131-1-lgs201920130244@gmail.com> <9ef05c62-1067-459f-8dab-2b0fbe70178d@kernel.org>
+In-Reply-To: <9ef05c62-1067-459f-8dab-2b0fbe70178d@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 28 Oct 2026 00:21:43 +0800
+X-Gm-Features: AclHuK-kZHn8BsJVCqzCiIghWeJdjN-Oh5rQ_CDaqaySgmTmND5PB2X4wIrP1mU
+Message-ID: <CANUHTR82mj-Pj0QzKbrn+nkFWRGQVxBxoinmN6fZETRAPOHPqQ@mail.gmail.com>
+Subject: Re: [PATCH] mfd: da9150: fix IRQ action memory leak on removal
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Support Opensource <support.opensource@diasemi.com>, Lee Jones <lee@kernel.org>, 
+	Adam Thomson <Adam.Thomson.Opensource@diasemi.com>, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10-26 20:49, David Matlack wrote:
-> I still think it's not advisable to define name##_wrap since anyone
-> could accidentally start using it on the incoming path and we wouldn't
-> notice at first (especially since same kernel Live Update tests would
-> keep working totally fine). I also don't think asserting the combined
-> size buys us anything. The header size is just a function of the
-> number of features, and what we are trying to protect against is
-> structs embedded in the payload changing size.
+Hi Krzysztof,
 
-Fair point.
+On Tue, 27 Oct 2026 at 23:26, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 27/10/2026 04:08, Guangshuo Li wrote:
+> > da9150_remove() currently removes the regmap IRQ chip before removing
+> > the MFD child devices. regmap_del_irq_chip() disposes the child IRQ
+> > mappings and removes their IRQ descriptors.
+> >
+> > The GPADC child registers an interrupt handler using
+> > devm_request_threaded_irq(). When the child device is subsequently
+> > removed, its device-managed cleanup calls free_irq(), which can no
+> > longer find the corresponding IRQ descriptor. As a result, the
+> > allocated struct irqaction is not freed, causing a memory leak.
+> > The associated IRQ thread also cannot be stopped normally.
+> >
+> > Remove the MFD child devices first so their interrupt handlers are
+> > released while the IRQ mappings are still valid. Then remove the
+> > regmap IRQ chip and its IRQ domain.
+> >
+> > This issue was found by our static analysis tool under development.
+>
+> So you just keep ignoring and ignoring our feedback. It's just bot, so
+> little point to discuss with bot.
+>
+> Best regards,
+> Krzysztof
 
-> 
-> So I would just do:
-> 
->   /* Marks struct name as a KHO serialized payload with a kho_ser_hdr. */
->   #define DECLARE_KHO_SER(name, payload_size) \
->           static_assert(sizeof(struct name) == (payload_size))
-> 
->   DECLARE_KHO_SER(luo_memfd_ser, 16);
+Thank you for your feedback, and I apologize if our recent submissions
+gave the impression that we were ignoring your previous comments.
 
-My main requirement is that DECLARE_KHO_SER() in include/linux/kho/abi/ 
-must be enforced by the compiler rather than being just a bare 
-static_assert() that someone could forget to add. Since kho/abi/ headers 
-contain both versioned structs and unversioned sub-structs, it must be 
-mandatory to declare versioned structs in kho/abi/ with their 
-static_assert size check before the kho_ser_*() helpers can be used on 
-them.
+We did take your earlier suggestions into account and subsequently
+submitted a patch series accordingly.
 
-So, how about adding enum names like this, that are going to be required 
-in accessor functions later:
+For the more recent patches, however, since they address issues in
+different drivers, we thought it would be more appropriate to submit
+them separately rather than group them into a single series.
 
-#define DECLARE_KHO_SER(name, payload_size, nr_feats)             \
-    static_assert(sizeof(struct name) == (payload_size),          \
-                  "struct " #name " size mismatch");              \
-    enum {                                                        \
-        __KHO_SER_SIZE_##name = (payload_size),                   \
-        __KHO_SER_NR_FEATS_##name = (nr_feats),                   \
-    }
+We certainly did not intend to disregard your feedback. We appreciate
+your time and guidance, and we will be more careful with our future
+submissions.
 
-> Plus helpers that allocate and initialize the header and return the
-> payload as a typed pointer. Both the outgoing and incoming paths find
-> the payload the same way, by computing its offset from the header,
-> rather than through a struct with a fixed payload offset:
-> 
->   /* outgoing */
->   hdr = kho_ser_alloc(luo_memfd_ser, LUO_MEMFD_NR_FEATS);
->   ser = kho_ser_payload(hdr, luo_memfd_ser);
-> 
->   /* incoming */
->   hdr = phys_to_virt(args->serialized_data);
->   ser = kho_ser_payload(hdr, luo_memfd_ser);
+Thank you for your understanding.
 
-These would become, where without enum, the init would fail:
-
-#define kho_ser_init(buf, name)                                     \
-      __kho_ser_init(buf, __KHO_SER_SIZE_##name,                    \
-                          __KHO_SER_NR_FEATS_##name)
-
-And payload can also check the existance of DECLARE_KHO_SER, using 
-(expr1, expr2):
-
-#define kho_ser_payload(hdr, name)                                  \
-      ((void)__KHO_SER_SIZE_##name,                                 \
-       (struct name *)__kho_ser_payload(hdr))
-
-We can also add an optional kho_ser_alloc(name) to allocate, init, and 
-preserve.
+Best regards,
+Guangshuo Li
