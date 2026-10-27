@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097391;
-	b=ViF8wJfMZF4GrqoxoyWk/NJBQN2GNerGUMsQDCmoU3yMylKV4TF9Z6TwISBxwyRLP9iw
-	 vkUVyrgpz3Rn2xjfgzRWNFeqp/h3V9omD6smSTrHnY1M9UHcu3oqSA8IezSzi/VNkXdA0
-	 +mxkc00bc3cDoXL2UX9x9ytBQKZrLG4GVp76XYZ7B0UBrkbfrmI04DR6l2FqUnglSsgy2
-	 fhk7Wl97vjZhFmPkwZj3GLxKIz45EgMEcweMbmZoKXfBcGwsy5NsTxDDo7NKgxaBFjovu
-	 YH+8yxXPLszCUb6KlVVdDAKEXQHqn608P5D5VmmhsdnvfrK2PRbGRJVQX6oW8f78x0Q==
+	t=1793097385;
+	b=CiOUEfnYLrx/n3It3Mgcvqtz95yBc4mHVZC1RYTaWEi1MVymlb4+Cbiw5FJcS4f8g3+g
+	 Ez4xVo7dA8x4apAHoXD2DoA0bZkiQML6bRnUN6ATL2p5ezqV2bGICbreBmMgfsSPoIwAQ
+	 r4bhVlP/LjuqNeAC01nk353Bg4r2l1Tzd2AjwI8Ux5vOTdlo8cirRCcP96+CpQDdp+9Ej
+	 DDRZeg3HoYbAEsUgoDOeOh+SZ8UY3w4LvMr/LZ3CygCrzvwAOhW+l5lYxsWMGwLriVIEy
+	 /HaQd6DKdkhZ+g+Z/q8kNJ9d2XVxCQ3IeG484EHilNqVVQdyviTYTCx2CZXv4DMYbQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097391;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=dQIOB/6FJwPNuD/XyyHrXfdbiDTQhvuKSHijNSogEKI=;
-	b=3C3kiYCobw5NutjBPAJtaadyubNNTvhD8MiVgf00HKYFVVDxHwp9IwiVvxD7L9YJIeqh
-	 kgQodcXHWgL8fo9nOz7WxOnd3Zw0po6579Ke78UesJohHITTVaK7d5d4YAIe2t3x3ew52
-	 QQj/y3BMtWqBfq2ZKb8LnzmMjKHu9bUvNUoHo7Mwf3lHAht2HeqZ1emC6qIGzW8HjkEse
-	 t2WczVglT8+Re72vhlrWHvDwIg+jtMi1z0+VjBaMv7bIY5zVsI1RfvO77VS/Mm6klIOFI
-	 8/olrPpxC8QsSwuIZN+x9wWX+FbhPri9yao4vBFkygpQX2DVHS426+mqGWE6q6obsKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097385;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=LUwRNLrt040RUYKYwsW+ZmdCUXc8wphGYCOt5MpVjzw=;
+	b=qOTL3CH1sfq10jSTSydgqw8cogejLUJzD2Fko44EtI0ISvGoV/g2kyUt2ytmRA8+ZQJJ
+	 aSEN5I18v4HcfSESNFu8rtyA18MTr3xOEWpLe1zL8cHtZcDUzUHRcJTH+H2sF091sBPZ7
+	 5V7DgdxBy2v3pYwMnAYmfc7xZB0CPMvIML0VYNDeZvNjNJ5hPDu6Mm6yH49JGKo9BPZcO
+	 TZ4HTcSE1xukG+8k3CvTRg0TI3+yHxUv9gXVR4xI16HgC4AG0vjS0lNXwYIjSsncVu+qB
+	 HLKcR+uJQyLrE4plQ55UkMexodFl9Q5oOtNeZTm+9cJQjyjGRgL2GDnuB0d4zINDofQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QwUI0Wlx;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uj5BsmYC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53F3606A321;
-	Tue, 27 Oct 2026 10:36:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E53F3606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE5F606A326;
+	Tue, 27 Oct 2026 10:36:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QwUI0Wlx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793097391; x=1824633391;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=qJgTn/uD+9ZSmPrW26D3NbXmIc4vmCrFq+bSxNfnUgM=;
-  b=QwUI0Wlx0zEyxrEL2XXo6/jI55gItE8WhC+bht4FeajUIvB7/dQ52Uxo
-   YT4VwlCUJcK9b56BzKW2h6aQvLSfd6x7RPVKCUBpyrRatpAnpAVuuIPb4
-   DOk60fxeVEuJaytjccCxkKxXkOYcjWuT8xb5KP+feXhh4tpg7xnmNm/qN
-   7t3TUbtu37PEunqV+ZETfdExjaBmbpyebG0jk/hKrUaI7B84VGPlDcDWN
-   0GarqQYoztoufIeTO4m+HKZJl0LErqVzmQlIGP3+ngf7xDhJviWmonz6A
-   0XD0eMhx2oUJtRBicoZeqcCjpUKR3qFHygGHdLCbSb9n1cWCOy02nzmtL
-   g==;
-X-CSE-ConnectionGUID: rWp7mZ4VTJq1OfkEf+2rCQ==
-X-CSE-MsgGUID: TbK5bEXGSZuGY7wSbWJljg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1823683"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1823683"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:36:30 -0700
-X-CSE-ConnectionGUID: JCiDRsriSEKJUBrJAZ9kpw==
-X-CSE-MsgGUID: EpfM37a7TuWZDcTj6uTCug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4906086"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.245.227]) ([10.245.245.227])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:36:29 -0700
-Message-ID: <842f8c77-ad37-4eea-9983-61a4086eaf5e@linux.intel.com>
-Date: Tue, 27 Oct 2026 12:36:26 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uj5BsmYC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55F7B1F031E4;
+	Tue, 27 Oct 2026 10:36:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793097384;
+	bh=LUwRNLrt040RUYKYwsW+ZmdCUXc8wphGYCOt5MpVjzw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Uj5BsmYCwof8oqvb2V15wrlWVJP8M4BsjVmKs26WoPyUTD+kNW2dFLPR6WtBz0O55
+	 U4sEyOPqWhml2BzDfYKpiVbnBbjW6ybZQgk8q3tqr6B+iXXmgPI60+03TAimzOOsnk
+	 E5erRhXpGScD3te+D6SHaWvHarHd4WxYRH1meHmJJCHlY5sPdOOMemWWteGc4TmdRI
+	 KkBnTBHst21C5UaGutbiCJOo7/D6yT/0KlYBqAnb9fK84w/xw2VLDplTrw7A+GHexK
+	 o+e0p1LwI7GGJoWvkBh23zBUdcHOH29w/xjY6Wk85WKsrbJtgayj19GhBcO5aY7dt7
+	 wZmm/Su9x85Mg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Chong Qiao <qiaochong@loongson.cn>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Corey Minyard <corey@minyard.net>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 02/27] mfd: ls2kbmc: Unregister GPIO GSI via devm_add_action_or_reset()
+Date: Tue, 27 Oct 2026 09:30:31 +0000
+Message-ID: <20261027093306.2812695-3-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
+References: <20261027093306.2812695-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,81 +64,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xhci: keep ep0 blocked after disconnect until Address
- Device reloads it
-To: Yiyu Zhou <yiyu@yiyuzhou.io>, mathias.nyman@intel.com,
- gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- michal.pecio@gmail.com, regressions@lists.linux.dev,
- Dennis Wissel <dennis@dsine.de>
-References: <qLQr_bD2TzCrwVMFdRe7Wg@dsine.de>
- <20261027084845.1588204-1-yiyu@yiyuzhou.io>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20261027084845.1588204-1-yiyu@yiyuzhou.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/27/26 10:48, Yiyu Zhou wrote:
-> After a root port disconnect or link error, xhci_handle_halted_endpoint()
-> sets EP_DROP_PENDING instead of resetting the endpoint, and gives back
-> its TDs.  Their TRBs stay on the ring, and the endpoint's dequeue
-> pointer still points at the halted TD.
-> 
-> If the device comes back before hub_wq handles the disconnect, a driver
-> may reset it on the same slot.  usbhid does this after 1 s of
-> interrupt-in errors.  xhci_discover_or_reset_device() then clears
-> EP_DROP_PENDING on every endpoint.  The other endpoints are disabled by
-> Reset Device and get new rings, but ep0 keeps its ring and dequeue
-> pointer.  For USB 2 devices, usbcore by default sends a 64 byte
-> GET_DESCRIPTOR before SET_ADDRESS, and so before Address Device reloads
-> the ep0 context.  That request is queued behind the stale TRBs.  With a
-> Keychron M5 the reset stalled for 11 s, and the xHC then ran the old
-> TDs ("Event dma ... for ep 0 ... not part of TD"), writing into buffers
-> of URBs that had already been given back.
-> 
-> Keep EP_DROP_PENDING set on ep0 through Reset Device, and clear it when
-> an Address Device command succeeds.  That command loads the ep0 context
-> from the input context, whose dequeue pointer is our enqueue pointer, so
-> the xHC skips the stale TRBs.  Until then, ep0 requests fail with
-> -ENODEV.  If Address Device comes first, as for SuperSpeed devices, the
-> device recovers in place.  Otherwise the reset fails quickly, and
-> usbcore re-enumerates the device on a new slot, as after a real
-> disconnect.  The same applies when Reset Device fails because the slot
-> was never addressed: the next enumeration attempt uses a new slot
-> instead of the stale ring.
+ls2k_bmc_init() unconditionally calls acpi_unregister_gsi() immediately
+after requesting the GPIO interrupt via devm_request_irq().  This
+prematurely disposes of the active IRQ mapping while the interrupt
+handler remains registered, breaking the GPIO watchdog interrupt and
+causing a use-after-free when devres later frees the disposed IRQ
+descriptor on probe failure or device unbind.
 
-Thanks for the detailed description, this looks like a very targeted fix
-for this specific hid case.
+Register a devm_add_action_or_reset() callback before devm_request_irq()
+so that acpi_unregister_gsi() is invoked only after devres has freed the
+interrupt.
 
-It still leaves the stale TRBs on ep0 ring, and relies on a successful
-address device command to clear the EP_DROP_PENDING flag, blocking ep0
-in all other scenarios. It also leaves xHC internal ep0 in the
-'halted' state. Not sure if xHC internal halted ep0 state is cleared during
-'reset device' or 'address device' command.
+Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
+Closes: https://sashiko.dev/#/bug/linux-cab8bfb6-4077-46f3-a173-ac2e2042cf66
+Cc: stable@vger.kernel.org
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Binbin Zhou <zhoubinbin@loongson.cn>
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/mfd/ls2k-bmc-core.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-There are cases where EP_DROP_PENDING won't be cleared at all in this patch.
-For example if slot is already in the default state when hci_setup_device()
-is called. (slot is in default state after reset device command)
+diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
+index 408056bfb2fe..23c774a09842 100644
+--- a/drivers/mfd/ls2k-bmc-core.c
++++ b/drivers/mfd/ls2k-bmc-core.c
+@@ -363,6 +363,11 @@ static void ls2k_bmc_save_pci_data(struct pci_dev *pdev, struct ls2k_bmc_ddata *
+ 	pci_read_config_dword(pdev, PCI_INTERRUPT_LINE, &ddata->bmc_pci_data.interrupt_line);
+ }
+ 
++static void ls2k_bmc_unregister_gsi(void *data)
++{
++	acpi_unregister_gsi(LS2K_BMC_RESET_GPIO_GSI);
++}
++
+ static int ls2k_bmc_init(struct ls2k_bmc_ddata *ddata)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(ddata->dev);
+@@ -412,12 +417,15 @@ static int ls2k_bmc_init(struct ls2k_bmc_ddata *ddata)
+ 	if (gpio_irq < 0)
+ 		return gpio_irq;
+ 
++	ret = devm_add_action_or_reset(ddata->dev, ls2k_bmc_unregister_gsi, NULL);
++	if (ret)
++		return ret;
++
+ 	ret = devm_request_irq(ddata->dev, gpio_irq, ls2k_bmc_interrupt,
+ 			       IRQF_SHARED | IRQF_TRIGGER_FALLING, "ls2kbmc gpio", ddata);
+ 	if (ret)
+ 		dev_err(ddata->dev, "Failed to request LS2KBMC GPIO IRQ %d.\n", gpio_irq);
+ 
+-	acpi_unregister_gsi(LS2K_BMC_RESET_GPIO_GSI);
+ 	return ret;
+ }
+ 
+-- 
+2.56.0.307.g5fe7bd680c-goog
 
-I'm thinking we should take a step backwards first when fixing this regression,
-and then look if we can tune fine tune ep0 after that.
-
-1. Make sure All TDs are turned to no-op before returning the URBs in the disconnect
-    case.
-
-    Add all TDs in ring to cancelled list, turn them no-op, and then give them back.
-
-2. Treat ep0 differently, cancel all TDs on ring as above, but still reset it when halted.
-    Allow a Set TR deq pointer command as well, and only give back ep0 URBs after this.
-    This partially reverts the two patches that caused this issue, and clears the ep0
-    halted state
-
-3. Possibly keep EP_DROP_PENDING flag for ep0 until xhci_setup_device() as this patch
-    does, but always clear it in xhci_setup_device() before it returns
-
-Let me know if you find any flaws with this approach.
-
-Thanks
-Mathias
