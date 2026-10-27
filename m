@@ -1,76 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086413;
-	b=Id5sTJ54GHQROOvFp3abd+dsdOqrFdEx9H+ngu0kz+B4ZsTGs3TLtwJCqF6nlLYVCGwM
-	 xxIHhmbOJJCpuO2IG8bJG32rLIVou0pyp9zTv5D8R4b+iVWnwnpdK/JKnr4fAsq6d2njq
-	 xouRLK8qv81ZdbQhKVJwXsh9OGf09SXdYjJHquuw85GGWw1ZOVxlfPvUvi0KZTdYetXyc
-	 uVI3ox/TFbwZM0vjGg9xqs2U8LKfW0BDXdR15tjq9YdF3spPz8egtsphktVzxW8yms9M+
-	 EtNDmRxdcpsP3ParzpQCD59OLNaNMVC5EceStCTS68EhRrpIvnJXK8ZrBvYfs1FPx8g==
+	t=1793086429;
+	b=una23MHE51ZBS3ZORmHd9jDrnnTy8pp240RoyHkFlqoyfJEA2bf+1oCv8tYIJngYUCrx
+	 IeD8xuNkFCCNT3ZwnQ6BW/P5UUBEVMlyWKnXrNPtYHT5vtm1ZW0dnjMrdw/U2JwpVj2V6
+	 tCjHEqWOtJjgVKL4Ev1+cdcjMDOKJIXhCO/z7wgjV86xGQEo1o0KjamT/lHwxd+u7+3PE
+	 R7XVsFJ2ja7eQWrxGw313Ovyrjp/j7qoRx8Z/LVa+ZE1UarnYvkJ7IljPxQ+Zde+wl8+h
+	 zWwE0YV7azH8rq+1e/5zFIIEl6FiTluUAkgJGOCziosBCGj2oiudhxPXqrxzcq+iHGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086413;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=c4asv2oLk9Lr3sJYos/ifsYQ9GPfjFMZTnHiWhziWyg=;
-	b=GaPJ4/HYkWb8HWWMHpCr7DF76QQ8gGfN6fquPmwNClEL0LO2whHqabLnoz5JGaSom5Bq
-	 beXs2Qlcrkw211z5rZIo0ceP0O98PgeCxRSLVusr5SyQccTP0YT+df7yZcrZXcluDF0kc
-	 p+TVgCZTDhcvsrKU7qbNfM6LJh4ad6PQLLCqTxPF41LdD7XNq0GaSTsf7BgdUkXrYg5le
-	 3olenHogGblLmNgKuiPLdZejUOfzKpWi6qB9/R9qRpArpFsoOZsOXj5ZVmJzzDujyhlI0
-	 KtM6J6EwEU2CPnmOdlWMMEQe8HKQ1jmFOuCSVuumHRZ5Od6mQGy6Kv9Kzcs+kMxBVuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086429;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=wwnouJYD+nzpJg6HWwIkDfVSGS1KUb/CmR0yR3zipz4=;
+	b=DQu6iyvozsGcj6VuD1KndturBRp3II4g8pIT/fS8W3lorH0Y30eVHitnN+Sesp5k8LN6
+	 3YNi1aFVL6x6eXF1Njs8TM3bKOpTiZjh03bMqOtB5vSK7oa7bCFJDTUG83KMSWDLn3snG
+	 7K7V4dTdexY21U304dPUiCD1EIITA92MOJdcYBxnkQqbY70HtRqhjowiXg0NSQe2i1tqj
+	 jKiS5xsxnlygRLIY9mptxN9aFVhtf/fEUF6ckxS656GQp8khZYhMXSyxrXc/c/PQaf0q3
+	 4TQb/lmz62DdRooZRYYLCGMMUkTnAuFvQeQyzn53E2oU1u55aE90woRcWMrNGH/JyCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="W4/QDgCK";
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q7R2roFX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Rz96YG2x;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F956606A31B;
-	Tue, 27 Oct 2026 07:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F956606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68C1606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:33:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C68C1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W4/QDgCK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793086412; x=1824622412;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6jciHiMHy1GGQ8JHzB5fQMjbZGta+3V23LC6ekMKTgM=;
-  b=W4/QDgCKgDOvqlxUSEqyfQc1+M06Qr8m9K1ZmyqlEQb7MZQhPkZ/G8/v
-   PTv0CO3358VgON7hHbVljOx+kfacOqEi0fSgvoqKjfH8ayRPaxpXAcE4F
-   tUvO8alvXEaN8gEElgyzbbOexH5PF/oWYhn4a1Vfmkv7IpHkc/OjrgXBx
-   JR4qnIVLEZxvw22gWst/UImYPEjJmYImnMgSUfE0UAc0QAYZZnFs5m01Z
-   QELSogg+I4I2C27LfZb1gqR3rUfKSQz0nqLU15xaIE0QFrjG4JD+0azP6
-   +9cNCmaquVDxuqrqQE9odvSbEfLs+3CT532d4TkEO7eHTiWzw/mjzYkES
-   g==;
-X-CSE-ConnectionGUID: h8wXG5i/RWiE7eoFlhUHxQ==
-X-CSE-MsgGUID: PMxiTs4rTjO84nmE1vXgVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1801366"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1801366"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:33:31 -0700
-X-CSE-ConnectionGUID: T09RbCoZSwGarkr+NdcJKg==
-X-CSE-MsgGUID: 2AveHeL8S6+7dzuDmtOdFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4428777"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:33:29 -0700
-Date: Tue, 27 Oct 2026 09:33:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com
-Subject: Re: [PATCH v3 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <auBTxjakiTKn1LL_@ashevche-desk.local>
-References: <at-0cXiBV0RM-Att@ashevche-desk.local>
- <SN1PR12MB2528986412BA8C9716B3F87FA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q7R2roFX;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Rz96YG2x
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5Z1md1244824
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:33:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wwnouJYD+nzpJg6HWwIkDfVSGS1KUb/CmR0yR3zipz4=; b=Q7R2roFXRZ694ZsA
+	oTuUuzcpbi4WErRSIKJ6v1VmZn8p0B1ww46xVLuB8yzMkDtKWr39blyalzr9j+Ja
+	t9r5K1f5BEb3dP3j18GTrQLPNYQB4LC3noy33hHtRxfcAlDGQI2KhHEhcYZmzuDl
+	QXP0oHh1mEPdrf5WwaDtsL8YShM/QUcwxEh2mXCZ2wJgAD5dBF0AUyH6sHXIhzJ0
+	cC1t5XR2Y8yrgRowx6Bp8rpky8nJyGZckfu0GvHLFbwMswBiW9EK2q8MnR7On1OH
+	50PUEjIPRoy3sMADroitJ/LTM+jIfy20yOZ2MWIHs313icj1OVY7QMMzND1oIFLC
+	X1SFfA==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj56y465t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:33:47 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-4a7da05b026so5495044fac.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:33:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793086427; x=1793691227; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wwnouJYD+nzpJg6HWwIkDfVSGS1KUb/CmR0yR3zipz4=;
+        b=Rz96YG2xrpFcXPg6hEi6oJFz/6HOoOO9JeKiP1GkOaHLAbxohdJxH1UjegUzmKfMK4
+         edmvaVbszLfi56bMQn06RV3aSRtDB1ntrScWebcS9erYjhH48NNt76cCG9ZCI9YtlxQU
+         rcj4aq4XGuexEHKCKE6C77EgRQwGMVJUTXWwYsWf5fstC1EJOkm/8d7njx64hzitLBrM
+         0hfWdlguRjM4e5zo5cCef3zGbKZ0Ew3+Ujs+umCbzi2IpFhl54Wp4L53VAneQF3GOsDq
+         h2hwFufotcm78cRIRJVtijL43z9cRgrzGXAS+4+tb9zmf06w7v5Q+2AnjgBeIKEYfDO/
+         NN/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793086427; x=1793691227;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wwnouJYD+nzpJg6HWwIkDfVSGS1KUb/CmR0yR3zipz4=;
+        b=anROdhdJnN0yTO4N03PHT76OGUljaLCbIkpIkobLYjVcaVbYxuBypa8XNDeXxuOUEe
+         Hjxbk5kpcHwSz7tSSr0djSeuFnVquUEf0HleZhRngyNx1LQISxOegrG41nC9wcCZA24g
+         RyR+BEE7sQZZBtthMt0m8fPEerAvCcGdeg8E88/0PhaKDwwntKRh9xHB01X4Q9tgbUzN
+         RlQV3YkX+qbvpnMLJwCnyy9Qau3luIKxEEJVdwGsXE0gEOIqZ7JPNg53KiZi2bFd+Evb
+         23tcKPNKNYiFJ35VYma8bDxW8fomSQoXDtpfk9kiWnaFIl3r4gSwPM5CGU66ZmNglXQ1
+         ikNA==
+X-Forwarded-Encrypted: i=1; AKwUvBx2oSlgzgX+WjKl/P4PFPA4Vsxxhx9TseNxcOMakRll5Mg+9bxMXraN2d6Nl7P6XD2KnY4uIF9qEE0mx5Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUIoiavO87sYwao83VwIYop6RB8eKpqpqsp+TRhio3QShuZwdu
+	g5+4X9hSAU1Exb+Ub9Qr136h7Qpuvxoy/aGueiw70b/iNj8/o+sayLVZRlFwzjlj36szZc/7FEc
+	At2ndvXrH9xmaHR4zQl6C78EYsKFnxStvf/xNAfYC2ftDO/GXUV5zDJLOAfK7ebik01A=
+X-Gm-Gg: AYBFou3aXn2CdWFEd3giOtqiy9Y0e+U9ehan42LfF67OkKwOja3F2LgUwnsTMp1QW93
+	YWV64FmALR3n/70xV9R0TzuMCJeQmLuLGBn+8VVfUcs7b9t4KmBGAmawT5cuQDF2Tc2JPKVz0xX
+	pa0Ghw6FeEwFgrYE+QmNYobJUMuv5N1cDHdQSCbn0B3aor7Vt+Ftnal+CNNnl9VYHuqOAhrmfBX
+	4UJRA1VEaIZq8dbxhQhnl/olNNQev04qjXjcaeZhi3v9YfKRJViafho74pIfm8/zK1GESjXt4EC
+	V1cbiwEsllE0M9wLr+A+spTe2iWZfykEMwyGwCVjKj6D0AeTuoGx/1zrIQBjR1mZ0GRAZrmrPvG
+	RX8GkxfM081F5J0vQe2BEiXIuFOe5XcwFRbdtv+yVudjNxRGOxGrgprZAp5e3PXrC
+X-Received: by 2002:a05:6871:5298:b0:493:8967:86c2 with SMTP id 586e51a60fabf-4a83f4eb4c0mr5116188fac.16.1793086427079;
+        Tue, 27 Oct 2026 00:33:47 -0700 (PDT)
+X-Received: by 2002:a05:6871:5298:b0:493:8967:86c2 with SMTP id 586e51a60fabf-4a83f4eb4c0mr5116170fac.16.1793086426651;
+        Tue, 27 Oct 2026 00:33:46 -0700 (PDT)
+Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a843225d69sm6181923fac.15.2026.10.27.00.33.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 00:33:46 -0700 (PDT)
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 00:33:33 -0700
+Subject: [PATCH v2 1/3] dt-bindings: arm: qcom: Document Microsoft Surface
+ Laptop 8th Edition
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,94 +116,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB2528986412BA8C9716B3F87FA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-mahua-surface-laptop-v2-1-7dd903a12d22@oss.qualcomm.com>
+References: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
+In-Reply-To: <20261027-mahua-surface-laptop-v2-0-7dd903a12d22@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793086424; l=712;
+ i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
+ h=from:subject:message-id; bh=I5VGgvURKCSh7RVlYn3xw6pmM2/y68t8tHmKUFQr6Nc=;
+ b=k0RlEAFG+6mYw2LZ2mOH7ywRiIRgsH7NO3QjxcnAGxl8AE89aMSwrSxYS/2AHMfMSjGuEkv6z
+ XREfC8bq6aaD0ehDBkKI+mDKwIf/KeWydhGGVgs9CQnsD4tA9Rm3BNk
+X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
+ pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAyOSBTYWx0ZWRfXw3jHyeLKDr1h
+ rWyY83cI0UlM5XrT2VKv1PYad+uYluop4jqQnOmVSWRIo9TELgVqTp7FKhpYdmO796KzWDJQrV1
+ 8L0ELncY5vgaPDVtLXaO9vrYfdW9I9Q=
+X-Authority-Analysis: v=2.4 cv=eMeGH3p1 c=1 sm=1 tr=0 ts=6ae053db cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=KuocmVZnZXzmgL9DMHkA:9 a=QEXdDO2ut3YA:10
+ a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAyOSBTYWx0ZWRfX/qyyUhqkEoCw
+ Q39s261J/8AwASch5zRf5w74Cko7gOU1gZuPIBZsRGfNpQQk43PugbvzHRYtmszwlLnrSXvG3hm
+ hUhE3HRVQVqxbNL0lkcvlredlV3qOhLkeO7Px4MLoKF7bFVITS2Alqj2bYJTCzVlT4BYYEZBsDr
+ R811YSzDY1aiTWk2PMFq6lYaRPEqRYdKHonKJEbYTCgmXnOc+1hy+hwY0LkB9cI8VrMzMxOF0EO
+ 51KGXcnrgwg8jZh5ZqG+kKN3WU6Jw6/585x8CtQe+ymixDyILqNyLxU5xeMJAqtuCRXwpRRooFC
+ cNnnJxpFshq6H2YbEFnIXU/Jb+BmF5oth898LFF0QDbyJARJaefSUAXrwE2AEPtl8mt89OYS8jJ
+ tYhuMFP98BtGBGENp/FT1K3awffKl/Kkfu7PCx9KZBYt0vxqLQGmAX8j9mA2/O4fsoZD69oNMyx
+ 2lsOwqPIQXH1TvtYZeA==
+X-Proofpoint-GUID: tEQA_LUAIjev_zisgUH89ulqhGvz8nkt
+X-Proofpoint-ORIG-GUID: tEQA_LUAIjev_zisgUH89ulqhGvz8nkt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ spamscore=0 phishscore=0 priorityscore=1501 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270029
 
-On Mon, Oct 26, 2026 at 09:13:25PM -0500, Victor Chernyakin wrote:
+Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
 
-...
+Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-> > > +		/*
-> > > +		 * Now read the two registers making up the measurement.
-> > > +		 * The datasheet says to read MSB first, LSB second.
-> > > +		 */
-> > > +		ret = regmap_bulk_read(map, FDC1004_REG_MEASn_MSB(0),
-> > > +				       reg_vals, ARRAY_SIZE(reg_vals));
-> > > +		if (ret)
-> > > +			return ret;
-> > > +
-> > > +		*val = (sign_extend32(reg_vals[0], 15) << 8) | (reg_vals[1] >> 8);
-> > 
-> > We still have two shift operators, so it might be not a bad idea after all to
-> > have a combined variable with wordswap done in case of LITTLE_ENDIAN
-> > architecture. Jonathan, what do you think about this? Reading the whole set as
-> > 32-bit value and convert it if required
-> > 
-> > 		// also note in this case we don't need to have _MSB in the name
-> > 		ret = regmap_bulk_read(map, FDC1004_REG_MEASn(0), reg_val, sizeof(reg_val));
-> 
-> I agree we could drop the _MSB if this was the only use
-> of FDC1004_REG_MEASn_MSB, but we use both _MSB and _LSB macros in the
-> volatile register table definition, and it would be weird to have one
-> macro with _LSB but the other without _MSB.
-
-You can have three!
-
-> > 		if (ret)
-> > 			return ret;
-> > 
-> > #ifdef __LITTLE_ENDIAN
-> > 		reg_val = swahw32(reg_val);
-> > #endif
-> > 
-> > 		*val = sign_extend32(reg_val >> 8, 23);
-> > 
-> > 		// I assume the following is also possible in this case
-> > 		// *val = (int)reg_val >> 8;
-> > 		// but usually we use sign_extend32() in IIO even when simple
-> > 		// casting is okay
-> >
-> > This also reduces stack usage.
-> 
-> AFAIK a good optimizer should be able to see that reg_val and reg_vals are
-> never live at the same time and reuse the same stack slot for both (whether
-> GCC or Clang actually do that for this function, I can't be bothered to check).
-> 
-> If you and Jonathan prefer that version for other reasons though, I can
-> switch to it.
-
-I gave an idea, I would wait for Jonathan to judge on it.
-
-...
-
-> > > +static const int fdc1004_calibbias_decomposed[] = {
-> > > +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
-> > > +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
-> > > +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
-> > > +};
-> > > +
-> > > +static const int fdc1004_calibscale_decomposed[] = {
-> > > +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
-> > > +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
-> > > +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
-> > > +};
-> > 
-> > We still haven't decided on this one. I think the 2D array is better for these.
-> > And with the above we effectively have a duplication of the tables.
-> 
-> I don't like the duplication either, but I think the real problem here is
-> that read_avail is just a somewhat awkward interface that doesn't allow me
-> to return s64 values directly. To me, having this separate decomposed table
-> just for read_avail and otherwise working with s64 values is the least bad
-> approach.
-
-What about adding .read_avail64() (in a separate change)? Problem solved!
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557ce1e..14941a0b0854 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -191,6 +191,7 @@ properties:
+ 
+       - items:
+           - enum:
++              - microsoft,surface-laptop-8-13p8
+               - qcom,mahua-crd
+           - const: qcom,mahua
+ 
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
