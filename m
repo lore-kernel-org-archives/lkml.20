@@ -1,92 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098118;
-	b=T9aR3inCe6TTuU25/m6TAO2s0eP2c2/8Um8dwj3piUx/2OtBkTB6v3l+hg5sOuiO40Mz
-	 vQoIgdtqbeHtbGhklfBYNIqTNZbTdxBzaA8A6oSRg/z9OE+2St806WCHB22fZEmTo/V3r
-	 c/Yi4s4CEAHSP7/ALM2V2IdY4QwqwIL0JFLU8Bf96/5nwgtr6/S9rZJrE6yZjAOCIG1US
-	 WO1FNc10aUSaqR4K64utrxNjDH4SF4s8pVvCZoApRyA79qx5Cb1FbrlJ7WzDjcffU9atT
-	 qfN8s3G7/kbMl1dj8Y0Gbp11pRKaC70PrrV1WeUiyTROiIV0bNqmzFYb6edN6y/SxHg==
+	t=1793098135;
+	b=qekBheFZ8p+ozj29XzjR614RoNRQlsh8txAOEYV0dEekEVuGIgSwK7P6HOJSqw9mrwgP
+	 WL+glKF4gNd0HpeJCreRQQFlNpGE9WucnteQ7XfITluGLL8LthzvuMox7fbKirxDMiQgj
+	 H6b/jiMzk49Oo9KLpW87kq5GnOZgyay+gD40iazkKbc8CesVcSJ8DJUFv1q4+Ry6wfZ5V
+	 spdMDgkQ2nWWB27MdL5iA3kZFhgxfB3V51LGdW164E9LQNOi6kwT1YvODo+mWsXbIDQjc
+	 y6QAujorV22Eivb7pCiUTKDpj81xK3ahDXYL8cMVkM/Y8r4hEqPCsxWHJiV+Vuqe05Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098118;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Mt3Mq9SNW050+eWeZNF7XPUNXgUiqiP1/haRS99oyLQ=;
-	b=tKXlhc321Yt/ITLKDwJcj1Jm2YVzZeXxHFMqffAXWoAg0bXKpGprEsEV607OW2+yH2mU
-	 ajQqCIhQAeOR+7cc/0O+gOa7NbQST0l+TXPEsnF1tLomxi248IXdst1uIC1I8UUy5Sm/z
-	 341kbZTWA7HKwiTc7zhryb7IM7mHKU99eKoMHd7S1G2mL5U5FrURKLXjRRc7+bTZdpxQm
-	 NSD8sLvSbyGRp60pSrwl2Kjc50Law02vUiMFxopfJZ7VVBk3h7FA7iIniKi5TSzxlvZPH
-	 HKLsZys2rYMq4U+NAc0/5eUnyzKM3cMgSPIt0twggujXbMmT6sccgISbrzQ0xVk0N4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098135;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=DdfPHLsH7kc/+1cgS+rlu0pCzzpU0AOxet3fG9LRYIg=;
+	b=Kyj2jHY/qZh3FPgtgGOB6M5cdaqDeBnpwl6zVJBp5mNauXxBgj8eUwivy3+lad81Ma1p
+	 LjQr0ln1XgQsYswO2jFxvVs9i8IPmriYJVTug4En6EIFjIL8gUDOcmJbAbHAq8lqx0z/u
+	 Iybz3tF8yvrUM/quEXB/KQGEcLckb4wDxfEB7dHahlimrzu6it4nvTVV1nQYm0PGsip4q
+	 Ez8y+KiAs4GWqBWV563ALTcCWi3a9Hp9Y01Czo+C9sboq5GF8eLVM0OTCqab+vjIPA4xL
+	 Qs5TOmPAFIJhrmHw8gMZRNKveTdNzZeHx13c9nYIGauKyjMRA4g+KdxZSRj7X/FQ2IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v67nMU0v;
-	arc=none smtp.remote-ip=91.218.175.1
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mythread.it;
+	spf=pass smtp.mailfrom=mythread.it;
+	arc=none smtp.remote-ip=62.149.156.162
+Received: from smtpcmd14162.aruba.it (smtpcmd14162.aruba.it [62.149.156.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C2A606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:48:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5C2A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=v67nMU0v
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BlCR7qyhz1RBwYmpMqZM4257yNl/7pbJi2t5We+ivQE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793098116; v=1; x=1793702916;
- b=v67nMU0vGQP/WQIZsCMYRI+TTnGwN0UcjXrjwbIg4xlVGVHgs08fduZdse0S7H6AvqLE2YSb
- hmU+y0GD5J70InBBqCMzvfe5N679LAU9ff6MxvtAsGIxhxDKy/KmYaF0KPOCES33Z1Aw6nNCgnZ
- Hxo+Wc9RtL8ohuR1V8cs0kH8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 65688ab5fc1ffcf3;
-	Tue, 27 Oct 2026 10:48:35 +0000
-X-Mizu-Trace-ID: 65688ab5fc1ffcf3
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	stable@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Joel Granados <joel.granados@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Willem de Bruijn <willemb@google.com>,
-	Maoyi Xie <maoyi.xie@ntu.edu.sg>,
-	Daniel J Blueman <daniel@quora.org>,
-	Jiri Wiesner <jwiesner@suse.de>,
-	Gerd Rausch <gerd.rausch@oracle.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
-	Wyatt Feng <bronzed_45_vested@icloud.com>,
-	Yung Chih Su <yuuchihsu@gmail.com>,
-	Hannes Frederic Sowa <hannes@stressinduktion.org>,
-	Flavio Leitner <fbl@redhat.com>,
-	Petr Mladek <pmladek@suse.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 2/5] ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
-Date: Tue, 27 Oct 2026 18:45:30 +0800
-Message-ID: <20261027104701.296240-3-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261027104701.296240-1-jiayuan.chen@linux.dev>
-References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F29606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:48:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64F29606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+Received: from DELL-MOBILE03.ad.smart.it ([77.89.54.34])
+	by Aruba SMTP with ESMTPSA
+	id LejUxJRT2TDqGLejUxslGP; Tue, 27 Oct 2026 11:48:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1793098125; bh=mNB86yC/7Ni2CUmBcCuRV8CRTkiHOe+lPSu680Pw83U=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=SVqO09vhtcsvagwyaPSRz6w1oNlK+2hIq3bKv9hXF+izgC8PLGm2xadhoQ1wT8V3s
+	 qkqywW5Z3DgzDe17LmmUFszOk3h/b3k5ulTU7RwdSSSf+mPdM1rAOEdZQjuLLCMzmk
+	 3hLhxI3hN8A5aHWNNivYV0P5KmtgkdcvbwjxvvqF7e0k/tQKv7aCECChq5t3juuiuR
+	 SZ0GCETTMONQ9r5gZQzVVVdp4xlACw3urH33Qi0aRKIpI94abohB6KJ7OI3n4M/EQk
+	 8rOmOroVYZhKxp/oPd/UfTmbBTQICFjMQB2YdaVdbLY8bqktK9e0IAeuwMjsUy1tt3
+	 13QfYxbsVAlRQ==
+Date: Tue, 27 Oct 2026 11:48:42 +0100
+From: Alessio Ferri <alessio.ferri@mythread.it>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
+ <zajec5@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Florian
+ Fainelli <florian.fainelli@broadcom.com>, Broadcom internal kernel review
+ list <bcm-kernel-feedback-list@broadcom.com>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] dt-bindings: bus: add Broadcom BCM6362 WLAN AXI
+ backplane
+Message-ID: <20261027114842.04491599@DELL-MOBILE03.ad.smart.it>
+In-Reply-To: <20261013-universe-emptier-0bd405092733@spud>
+References: <20261012-bcm6362-wlan-v2-0-4752da7e0982@mythread.it>
+	<20261012-bcm6362-wlan-v2-1-4752da7e0982@mythread.it>
+	<20261012-shaping-runway-7e6065b8d730@spud>
+	<20261013180925.2c93e460@DELL-MOBILE03.ad.smart.it>
+	<20261013-universe-emptier-0bd405092733@spud>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,96 +72,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfJDxMCoQfjpAsNO9+IlLCDtmiGcxt+vWeMsFyYQARj8+o94/x/8H+/6l9j0y13g2HD3DkaNPJNyMA0JgBCzgeEK5ox1SPiBrTjvWRRYjQwsmlsktT3y+
+ AERL13J0glSgTYMla7OZ1aHFaRFLAu2alHIHPBTbQMTu03gasC8H2LhbxmPkr8QKSaylgBosVnIv439/9nS2aPumSIGG3Lj1cON9Z09S59L3IwMVk1UX/sAy
+ KsgkNoptaz+EU3mXH1ahePCXcPMsdAo6NqMZTA60BvKhXveW2/qNz7bR7mzuD/U7ftaLPiRzmI6w8Dh4ys2pqoQcRNNraexb4K08B8BKGvi9HiRoQSUkZqdM
+ +zLE20nI1A1cuSKHax5Tm5Y9zLgCnNAAzugKKy3BMegulU2QSrf8DxiQQOkR9TA9wsYU7tL61xSoIBosuhEJ34Acks4lMg7blP9jWOMyxAUqltQ8MJXKlA/x
+ j7QfkcP9GICKBKYVKfY5RPN5KmUc4nD4RdwzmlPXyyH4Tm0NX1Nquh1mWEwVXWzWcm+1HZd3vn/o7mwoTYeb7KNXoDFmSiKJNLN24z5buxTFsW5fvvZMXPFp
+ 09JuFk8akEXYcB8oHdsAtuVCAVsBQ4Sv0Mm4t8zHIkJk9Vz/DDAB0dPC4e9N0x8E1To=
 
-ip_rt_redirect_number is the max number of ICMP Redirects we send to one
-endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
-the redirects an exponential backoff:
+On Tue, 13 Oct 2026 17:42:45 +0100
+Conor Dooley <conor@kernel.org> wrote:
 
-	if (peer->n_redirects == 0 ||
-	    time_after(jiffies,
-		       (peer->rate_last +
-			(ip_rt_redirect_load << peer->n_redirects)))) {
+> On Tue, Oct 13, 2026 at 06:09:25PM +0200, Alessio Ferri wrote:
+> > On Mon, 12 Oct 2026 20:13:46 +0100
+> > Conor Dooley <conor@kernel.org> wrote:
+> >   
+> > > On Mon, Oct 12, 2026 at 12:45:25AM +0200, Alessio Ferri wrote:  
+> > > > The BCM6362 integrates a WLAN macro on its own AXI backplane.
+> > > > Unlike the backplanes covered by brcm,bus-axi, its cores have no
+> > > > wrappers: clock gating and reset are driven through a separate
+> > > > WLAN control register block, and the macro needs a clock, two
+> > > > resets and the WLAN pads power domain before the backplane can
+> > > > be accessed. The backplane registers are big-endian.
+> > > > 
+> > > > Add a binding describing the ChipCommon and WLAN control
+> > > > register blocks, the clock, resets and power domain, and the
+> > > > interrupt-map used to route core interrupts, following the
+> > > > brcm,bus-axi convention.
+> > > > 
+> > > > Assisted-by: LLM
+> > > > Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+> > > > ---
+> > > >  .../bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml    | 100
+> > > > +++++++++++++++++++++ 1 file changed, 100 insertions(+)
+> > > > 
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> > > > b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> > > > new file mode 100644 index 000000000000..183de28fd032 ---
+> > > > /dev/null +++
+> > > > b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> > > > @@ -0,0 +1,100 @@ +# SPDX-License-Identifier: (GPL-2.0-only OR
+> > > > BSD-2-Clause) +%YAML 1.2
+> > > > +---
+> > > > +$id:
+> > > > http://devicetree.org/schemas/bus/brcm,bcm6362-wlan-bus-axi.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml# +
+> > > > +title: Broadcom BCM6362 integrated WLAN AXI backplane
+> > > > +
+> > > > +maintainers:
+> > > > +  - Alessio Ferri <alessio.ferri@mythread.it>
+> > > > +
+> > > > +description: |
+> > > > +  The BCM6362 integrates a WLAN macro on a dedicated AXI
+> > > > backplane
+> > > > +  (bcma), whose cores are discovered at runtime from the
+> > > > backplane
+> > > > +  EROM.
+> > > > +
+> > > > +  The cores have no DMP wrappers: clock gating and reset of the
+> > > > +  ChipCommon and 802.11 cores are controlled through a separate
+> > > > WLAN
+> > > > +  control register block. The backplane registers are
+> > > > big-endian. +
+> > > > +  Interrupts of the cores are described with an interrupt-map,
+> > > > keyed
+> > > > +  by the core base address and the core interrupt index, as for
+> > > > +  brcm,bus-axi.
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    const: brcm,bcm6362-wlan-bus-axi
+> > > > +
+> > > > +  reg:
+> > > > +    items:
+> > > > +      - description: ChipCommon core registers
+> > > > +      - description: WLAN control registers
+> > > > +
+> > > > +  reg-names:
+> > > > +    items:
+> > > > +      - const: chipcommon
+> > > > +      - const: wlan-ctrl
+> > > > +
+> > > > +  clocks:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  resets:
+> > > > +    items:
+> > > > +      - description: WLAN macro reset
+> > > > +      - description: WLAN UBUS interface reset
+> > > > +
+> > > > +  reset-names:
+> > > > +    items:
+> > > > +      - const: wlan
+> > > > +      - const: wlan-ubus
+> > > > +
+> > > > +  power-domains:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  "#address-cells":
+> > > > +    const: 1
+> > > > +
+> > > > +  "#interrupt-cells":
+> > > > +    const: 1
+> > > > +
+> > > > +  interrupt-map-mask: true
+> > > > +
+> > > > +  interrupt-map: true    
+> > > 
+> > > I'd like to see some constraints on these, particularly since
+> > > there's a very high chance the mask is fixed and the map has a
+> > > fixed number of elements.  
+> > 
+> > Yes, you're right, i'll add them in the next batch. 
+> >   
+> > > 
+> > > I'd also like to see what the child nodes on this bus look like.
+> > > Do you have some dts examples?
+> > >   
+> > 
+> > the children are enumerated dynamically by bcma itself, so i don't
+> > expect any. I know that a childless bus is suspect, but bcma seems
+> > to work this way.  
+> 
+> How does the interrupt map work if nothing references the bus node as
+> an interrupt parent?
+> I assume there's some code in the driver for the bus that detects what
+> bus-indexed interrupt the device wants, and the map is used to convert
+> that into an interrupt number of the interrupt parent of the bus?
 
-n_redirects grows until it reaches ip_rt_redirect_number, and both
-redirect_number and redirect_load are plain proc_dointvec sysctls with
-no upper bound. Set redirect_number past 32 and n_redirects climbs past
-31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit int by
->= 32 bits, which is UB:
+Yes, bcma enumerates the cores from the EROM, and for each core without
+its own DT node bcma_of_irq_parse(), it builds the key <core base
+address, core interrupt index> and runs of_irq_parse_raw() starting
+from the bus node.
 
-  UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
-  shift exponent 32 is too large for 32-bit type 'int'
-  CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
-  Call Trace:
-   <IRQ>
-   dump_stack_lvl+0xc1/0xf0
-   dump_stack+0x10/0x20
-   __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
-   ip_rt_send_redirect.cold+0x2c/0x146
-   ip_forward+0x1ddc/0x2430
-   ip_rcv+0x2b1/0x320
-   __netif_receive_skb_one_core+0x16b/0x1c0
-   __netif_receive_skb+0x21/0x150
-   process_backlog+0x37e/0x1200
-   __napi_poll.constprop.0+0xa5/0x5e0
-   net_rx_action+0x4c0/0xf70
+In the next version the binding description will say that the node
+has no child nodes and how that the interrupt map is there only to
+allow for the mechanism described above.
 
-Bounding redirect_number instead is not an option: 0 disables redirects
-and -1 removes the cap. Compute the backoff in u64 with the shift count
-capped at 31, which cannot overflow once ip_rt_redirect_load is
-non-negative, and clamp the result to MAX_JIFFY_OFFSET: on 32-bit a
-backoff of 2^31 or more is read by time_after() as already expired. This
-keeps redirect_number as the limit on how many ICMP redirects are sent,
-and the shift can no longer go out of bounds.
+Thanks,
+Alessio
 
-redirect_load on the other hand gets a lower bound of 0. A negative
-backoff never meant anything, the old code only happened to treat it as
-no backoff, and once converted to u64 it would turn into the maximum
-backoff instead.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/ipv4/route.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 595a3b7f17830..f2c899f4cf8ca 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -907,6 +907,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
- 	struct inet_peer *peer;
- 	int log_martians;
- 	struct net *net;
-+	u64 backoff;
- 	int vif;
- 
- 	rcu_read_lock();
-@@ -945,10 +946,10 @@ void ip_rt_send_redirect(struct sk_buff *skb)
- 	/* Check for load limit; set rate_last to the latest sent
- 	 * redirect.
- 	 */
-+	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
-+	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
- 	if (peer->n_redirects == 0 ||
--	    time_after(jiffies,
--		       (peer->rate_last +
--			(ip_rt_redirect_load << peer->n_redirects)))) {
-+	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
- 		__be32 gw = rt_nexthop(rt, ip_hdr(skb)->daddr);
- 
- 		icmp_send(skb, ICMP_REDIRECT, ICMP_REDIR_HOST, gw);
-@@ -3573,7 +3574,8 @@ static struct ctl_table ipv4_route_table[] = {
- 		.data		= &ip_rt_redirect_load,
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
-+		.proc_handler	= proc_dointvec_minmax,
-+		.extra1		= SYSCTL_ZERO,
- 	},
- 	{
- 		.procname	= "redirect_number",
--- 
-2.43.0
+> 
+> >   
+> > > Thanks,
+> > > Conor.
+> > >   
+> > > > +
+> > > > +required:
+> > > > +  - compatible
+> > > > +  - reg
+> > > > +  - reg-names
+> > > > +  - clocks
+> > > > +  - resets
+> > > > +  - reset-names
+> > > > +  - power-domains
+> > > > +  - "#address-cells"
+> > > > +  - "#interrupt-cells"
+> > > > +  - interrupt-map-mask
+> > > > +  - interrupt-map
+> > > > +
+> > > > +additionalProperties: false
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    #include <dt-bindings/clock/bcm6362-clock.h>
+> > > > +    #include <dt-bindings/reset/bcm6362-reset.h>
+> > > > +    #include <dt-bindings/soc/bcm6362-pm.h>
+> > > > +
+> > > > +    bus@10004000 {
+> > > > +        compatible = "brcm,bcm6362-wlan-bus-axi";
+> > > > +        reg = <0x10004000 0x1000>, <0x10007000 0x100>;
+> > > > +        reg-names = "chipcommon", "wlan-ctrl";
+> > > > +
+> > > > +        #address-cells = <1>;
+> > > > +        clocks = <&periph_clk BCM6362_CLK_WLAN_OCP>;
+> > > > +        #interrupt-cells = <1>;
+> > > > +        interrupt-map = <0x00005000 0 &periph_intc 7>;
+> > > > +        interrupt-map-mask = <0x000fffff 0xffff>;
+> > > > +        power-domains = <&periph_pwr  
+> > > > BCM6362_POWER_DOMAIN_WLAN_PADS>;  
+> > > > +        resets = <&periph_rst BCM6362_RST_WLAN_SHIM>,
+> > > > +                 <&periph_rst BCM6362_RST_WLAN_UBUS>;
+> > > > +        reset-names = "wlan", "wlan-ubus";
+> > > > +    };
+> > > > 
+> > > > -- 
+> > > > 2.56.0
+> > > >     
+> > 
+> > Thanks for the inputs,
+> > Alessio  
 
