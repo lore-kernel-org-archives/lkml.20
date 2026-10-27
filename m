@@ -1,84 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098260;
-	b=FswAzJ4izP8ckAPGlAIJWIQnTCtSnz418/6OcHCtfITw45MAFpzYrpwiKuhPEEA7j/Ai
-	 ptx+q5JsVSnN8x/5PieiLPMbalu6AyKGEmf3LEbbxH79QFN2aUWKTX4vbJbDCAXKmXlo5
-	 JU2M7KtecurpC/1wCzCM0b5c4rMp47MKjPnEw7Qghaf5/i2O5PIK0yds82CXhIiyuUBsU
-	 UiPmDNOjAOUqqIArfFbrI6WpUYTySjko3Mj3JZ7E+vRATFz557/ak6hFRclssYDb3KUqx
-	 WHHhXvFIZkcf1czJ6llmlljBP3iRlQ7ELC8j/M1NVFVYlbzcZytoRKFbprvRKcofk2g==
+	t=1793098258;
+	b=DjeVnQTo7tRwnFxreluZPG02oy9gKpSO8lLcwnZpdh6Ywv/pZ3Z8HbRqAVQmNQJjCe2b
+	 znT8NhTTX/pcDDKW9rRIJlFoR1yLJ+YkyBGJxNQGta+NDpXrsEpT2bHP8PcCRdUZymx4F
+	 EKV1Z33LyfnSjBtfYz2tUCvpBd6jnHhw77AJrp8Ed7tiG6CHAebx4l518XnzwOAmG2ifj
+	 hnZp91HmZDOCn0qCY5XOSx8r0NGQuZMceuR+ulRCqlrA8crrbw/drwF261y2Rz/DS1y6B
+	 irsOrOqDO9rGpBaArHxhWeqHcpDoEcVRWMUeoOv+d2mNR/a7gN8bX02RU6aDEtC878Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098260;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=iXwCpHgCtD+mL+jAAnxmm63sYXCWuHM0daWYuNJz/gw=;
-	b=k4W54EZdwV9kD9P9tbTOKp8oudsWt66nifi2TfbsNmUHgT3fo2magWw3cpQz0/3K0cOD
-	 JOQXIra8Xy1LaGDZL1cjI9JzNiAjO/Dcz9UTU2Myg5w87LJWfgxR7m9gX3DZYAC9Ms8qo
-	 +D1YXH/8DHm6WK51slN4eRF4/CcTUj4fCw/gQJXEt5VIINtQg/lzCNpAPmh5Ie0875oL6
-	 Cb2klb0lcvjyLB1HIAsx2R3kbKHp8BAthWGuaQER1xbRyO3JtphDnVUchhrPYbThfgm3/
-	 OReK1uXFvp0XRBJNUoDfcW0Iovfn2nqk1XZpEKofcFhBchEE+3krH3XBSGyF3B7EkhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098258;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=INcGWnRRhoqTTTMkGs+NaSl2Mw/HHIWD5x7cD7yG5wc=;
+	b=MoRGY7VEqUT8CxypUsiLOJg6xLIUOhhRrOVra2eDcU1ED6JD1fEQsllXMAe8JCh8Jo7t
+	 cQnt/UNGFH0PkZu2CWv+0sEUyfl/4axyquzwA5TD0aaktVPOLiS4k4321ZfUzu4j82deF
+	 lUGEbmb52cWI8vcf9jLdr/F2UDycUHc4yauBFhWeSL3N7MW2GYK9eAjjWa2H767r78XAX
+	 1NhUbmJzdzo9dgkX8/cfT45Lw9wtG5UuQO97VCwn9WjgSKfHFL/4QvHuHy+vKb/7JqPz3
+	 iz/SkX7ceyT3bF1Kp1nt28IrCS3Cvx9WM/M3ZH5FxSZPPk/k55wqbEstzzA5Xlp/aeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lsH1KVsq;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QhGWZJUi;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C08606C26A;
-	Tue, 27 Oct 2026 10:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98C08606C26A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE340606C24C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE340606C24C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lsH1KVsq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793098260; x=1824634260;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=d3FNV/vonboNOKnOS+u1QVjkWcvOuNKNT3TAowUMjxY=;
-  b=lsH1KVsq+bcERtEPXI7ByiaHZgpfIiRpkM14Qux3DOrfaXgA+1DhtdO1
-   bXOc1t2APzxshK4N6C9V8gxbRaQo42Vs74BXIxmLdSDXfCnPzJnyuZvTd
-   3B8LqSJi5CYxY/FTlryJgi2zBR6Q5AP5nOhsD08A1Sayheu/GNSis2nJv
-   y5HtMb/pG19oYmw9LckkdliXzIHmshsMnxpTQ9nObCUqxwuayBElsKMmL
-   u/d9Wru1Zjb41IBaArDfVvst6wsODqDdtPo/0tf0IlUACsYKdwNA4A+Jw
-   l8WEZAi75BGMDHQUo8aZGrYaPzKpT9UmlfrAzB5y/U5HKG7Qv+pD/NmEn
-   g==;
-X-CSE-ConnectionGUID: fmKumOm+SteCL/1MdS7nrw==
-X-CSE-MsgGUID: H+Y3lXn6QxasXw+l4qKuBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1703607"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1703607"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:59 -0700
-X-CSE-ConnectionGUID: 1/e5ZU2wRbKZUmry3qp3oQ==
-X-CSE-MsgGUID: d2sK+CFTQeaNW0FkfX64yQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4919378"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:56 -0700
-Date: Tue, 27 Oct 2026 12:50:53 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, Bartosz Golaszewski <brgl@kernel.org>,
-	linux-gpio@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH v12 09/11] gpio: pl061: switch data path to
- gpio-regmap
-Message-ID: <auCCDWsCrmDtBdVd@ashevche-desk.local>
-References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
- <20261027-cv75-gpio-v12-9-c22555400e18@ambarella.com>
- <auBbdz_fBiKr1tJb@ashevche-desk.local>
- <68410604.9376.1a17ceac8d5.Coremail.zl020895@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QhGWZJUi
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso41318435e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793098256; x=1793703056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=INcGWnRRhoqTTTMkGs+NaSl2Mw/HHIWD5x7cD7yG5wc=;
+        b=QhGWZJUiOTInFGaWDDe/cw6qBTEktv1aWzIknPfPTKPflWDlHWZ4OYAiX8RDOSxemi
+         OhNYjHau1DnvGu7rHtSYIxnNrSb0+Hr9eIWWQK0daEqsCKV/nT0DfrJmAjn3FIII8p9s
+         8zJz4ifEe6k8GXUp9Tm6JQ5VOhklzX/SDHKwFnt/c3Xpt2ocRUt1oc+BGY3LlJRC2QSl
+         L/O6V4um0FSVSUNkVgrTqSVpnbcKOtthAQiEhMl2WBK9Ug4H6NLYkoWOd2c+Ef7pRMRr
+         p1euP6DABp7XYtvKhc64vrkssXnsWKwcbnOobTmL09WljAm9+xsxlWJYIyS38ad3DdNU
+         arUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793098256; x=1793703056;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=INcGWnRRhoqTTTMkGs+NaSl2Mw/HHIWD5x7cD7yG5wc=;
+        b=K1lMD48sC8vIDfZcFJnDAmGjg8Y5IiHUHYKfO4scoxiUN1dz09WJ+6JruuGyMLevPP
+         VzeLgNX2G0b45mv5tKPk/aUjsXJG74piGD3T88ji/843BIuz8McGB+8/p6VxpPrkwzvz
+         D0JPoOmcKZWZPJoy/WM/Qyh1KdnbwpEkebyh5GuweoJO/0ANWoWa9i/Bz0N4mIO6kBCq
+         FdTyd0ErQ2Rak0qTCvCXesec41tow5GjPxXUyk+DoZwwMzg7fOd3pahAx+2F/ipDSY9m
+         V8G43e6/asLzm3uslySJ7bzj6WhzS4aI/lPPjs4wh6p7mjATZq7LZLBcT9m2Fdl4TfrK
+         irMw==
+X-Forwarded-Encrypted: i=1; AKwUvByQ53jMxoz5LSlu5uPFzss9lkvmiFHes3A47AdJLrvIlc6yyt4NAIsoroa50uVu4Rmue/yVCw+jf3wYEhE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5IcILB80sYQFzmoDWMvyaom3zbJf/YoQ9rK0XmnMElJvALzKT
+	C+pplaNy0LZzqFsjz5DJsDM6R4eZSrLQoztX8hWFHeCEJA6W6FnWXeUKivUvHfpVoq8=
+X-Gm-Gg: AYBFou0DWFzPaCHU8Qa1qKLpBToCqySFU6K4PI5KuaERzPsK1J3KQL6QPrcSrHSEY/L
+	Jk4GDP8ZzlIAbG8U02TlZPOkNJ60XYDTdY7QGiAllmpyAzpP1m07PjLyjd8vkTRKEjvVYkJ1TfK
+	/jZPNqUkeDtBJr0Re9wKHrdPkLDpgjQFe3PvQ5TszMlhsU1s5Oao4EpSEx8y+Igusd+fm3eZWDH
+	3/BzXgSUUpcSHkwuWf/Nghvzz3XkcTiAwkyn3+7bpt8FXwN3sg1JD6mj3+ghAyBjt1QZt0gyU4O
+	DfkRrql6UeUeTBVGQvXsUMOPW8/qwyUqUBUVr5G/5TOMd8woMzONHuRzs0v86PUMAaL1NeXeIQ+
+	PXvq8Zqsc8wA1G5sTBCsc2mh7EORxzZ64twYuzNNam86vsg0fYQGtP2hs/95JfO5UEs088LWJ4v
+	rznmovRP1m73r0dKCxmLh2R22XJ5PZMExj9HoHYHomJd8kbY5Pz/FptpcTFRurVHA4S1JhgQ828
+	8TZrYw414+/quC6w/BQealPnFLqr32yKCPPJr7VXs8NhdqWrZr82dE+ezHWvWyAp8PLfDmL+g2H
+	QmF94AyAv+fzmettZfqOzUk8rvkWUWdNjgqDl2OyIZE=
+X-Received: by 2002:a05:600c:3f0f:b0:4a1:acaa:9d4c with SMTP id 5b1f17b1804b1-4a35acafb3fmr159109975e9.25.1793098256150;
+        Tue, 27 Oct 2026 03:50:56 -0700 (PDT)
+Received: from localhost (p200300f65f19a904240e81f1f32a429c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:240e:81f1:f32a:429c])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a35a04ad39sm672357445e9.1.2026.10.27.03.50.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:50:55 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Michael Buesch <m@bues.ch>,
+	Andy Shevchenko <andy@kernel.org>,
+	William Breathitt Gray <wbg@kernel.org>,
+	Robert Richter <rric@kernel.org>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: [PATCH v4 22/23] gpio: Unify style of pci_device_id arrays
+Date: Tue, 27 Oct 2026 11:48:59 +0100
+Message-ID:  <4cfcd6189bf6f281487a2eeed4fa1b1fe5521550.1793097104.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.56.0.rc1
+In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,50 +105,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <68410604.9376.1a17ceac8d5.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4640; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=6gWNIGJcUloKBAdjaWOYMsqCGx3lqiKCuf5GHsvsiCs=; b=owGbwMvMwMXY3/A7olbonx/jabUkhqwHjfe6V+yPmRCyfyk3Q+2BE9Ift/Ecljt+/OhL9uD3S 2dbzjz1v5PRmIWBkYtBVkyRxb5xTaZVlVxk59p/l2EGsTKBTGHg4hSAidjqczAsOy6vtcPg//sM judrjVh+rsjmP6gwqVjye2W+7bkv7xgOKL40+LDnkeW7TUx/SxNtbsgznF/0X7re8Nmv6PpL8n1 l83+YKa9LWdfskP8kwtFIS/bNFQfxHNFY3VgFBcG9P5cmMr4p0+OWCDq391XHK3c9q1Bew6qyCi utSV3HDvlXfe4MDWr6lCnx4fBfndUr+y/+EpZIvh04fYND9hq/OisPvccLV/lk895VFPteX15z5 WdSkKlRs3uZQPXZ5y+apuW8Mn+zzsXTbU/VmeoHZhWHA6O+CEd8OmzR3lPCvJ/9adihCv/emT7H Hz20UJjmvjGOY284Q4N4woL9FeK+nGFOtupKBTyhHolNAA==
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 06:32:04PM +0800, zl020895 wrote:
-> At 2026-10-27 16:06:15, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
-> >On Tue, Oct 27, 2026 at 12:18:56PM +0800, Long Zhao via B4 Relay wrote:
+Update the various of_device_id arrays to conform to the most used and
+generally recommended coding style. That is:
 
-...
+ - no comma after the list terminator;
+ - a comma after an initializer if (and only if) the closing } is not
+   directly following;
+ - no explicit zeros in the list terminator;
+ - a space after an opening { and before a closing }, a single space in
+   the list terminator;
+ - at most one entry per line;
 
-> >> +	if (irq) {
-> >> +		irq_set_chained_handler_and_data(irq, pl061_irq_handler, pl061);
-> >
-> >> +		pl061->irq_handler_installed = true;
-> >
-> >Can't we remove the chained handler unconditionally?
-> >
-> >> +	}
+Adapt the few offenders accordingly.
 
-> On the chained-handler teardown: pl061_remove_irq() is registered
-> before devm_gpio_regmap_register(), so on unbind it runs after
-> gpiochip_remove(). gpiochip_free_remaining_irqs() therefore still
-> sees the irq domain and its mappings; the action then disposes
-> them. The chained handler is installed only after
-> devm_gpio_regmap_register() succeeds. If that call fails, the
-> action still runs although no handler was installed, which is
-> why irq_handler_installed exists.
-> 
-> Options for v13:
-> A) Keep irq_handler_installed and document this ordering.
-> B) Split into two devm actions. The early one, still registered
->    before the gpiochip, only calls irq_dispose_mapping(), so
->    unbind order is unchanged. A second action, registered right
->    after irq_set_chained_handler_and_data(), clears the handler
->    unconditionally, and the flag goes away.
-> 
-> Do you prefer A or B?
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+ drivers/gpio/gpio-amd8111.c      | 2 +-
+ drivers/gpio/gpio-bt8xx.c        | 2 +-
+ drivers/gpio/gpio-ml-ioh.c       | 2 +-
+ drivers/gpio/gpio-pci-idio-16.c  | 3 ++-
+ drivers/gpio/gpio-pcie-idio-24.c | 8 +++++---
+ drivers/gpio/gpio-sodaville.c    | 2 +-
+ drivers/gpio/gpio-thunderx.c     | 3 +--
+ 7 files changed, 12 insertions(+), 10 deletions(-)
 
-Option B seems plausible.
-
+diff --git a/drivers/gpio/gpio-amd8111.c b/drivers/gpio/gpio-amd8111.c
+index 8078b5d7b80c..25ad6d82f708 100644
+--- a/drivers/gpio/gpio-amd8111.c
++++ b/drivers/gpio/gpio-amd8111.c
+@@ -60,7 +60,7 @@
+  */
+ static const struct pci_device_id pci_tbl[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_8111_SMBUS) },
+-	{ },	/* terminate list */
++	{ }	/* terminate list */
+ };
+ MODULE_DEVICE_TABLE(pci, pci_tbl);
+ 
+diff --git a/drivers/gpio/gpio-bt8xx.c b/drivers/gpio/gpio-bt8xx.c
+index f3a2321bc388..3f568a0d61d7 100644
+--- a/drivers/gpio/gpio-bt8xx.c
++++ b/drivers/gpio/gpio-bt8xx.c
+@@ -255,7 +255,7 @@ static const struct pci_device_id bt8xxgpio_pci_tbl[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROOKTREE, PCI_DEVICE_ID_BT849) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROOKTREE, PCI_DEVICE_ID_BT878) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROOKTREE, PCI_DEVICE_ID_BT879) },
+-	{ 0, },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, bt8xxgpio_pci_tbl);
+ 
+diff --git a/drivers/gpio/gpio-ml-ioh.c b/drivers/gpio/gpio-ml-ioh.c
+index 391188c0f2c2..ba1b540db28f 100644
+--- a/drivers/gpio/gpio-ml-ioh.c
++++ b/drivers/gpio/gpio-ml-ioh.c
+@@ -514,7 +514,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(ioh_gpio_pm_ops, ioh_gpio_suspend, ioh_gpio_resu
+ 
+ static const struct pci_device_id ioh_gpio_pcidev_id[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_ROHM, 0x802E) },
+-	{ 0, }
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, ioh_gpio_pcidev_id);
+ 
+diff --git a/drivers/gpio/gpio-pci-idio-16.c b/drivers/gpio/gpio-pci-idio-16.c
+index 9d28ca8e1d6f..ddb644be92ac 100644
+--- a/drivers/gpio/gpio-pci-idio-16.c
++++ b/drivers/gpio/gpio-pci-idio-16.c
+@@ -98,7 +98,8 @@ static int idio_16_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ }
+ 
+ static const struct pci_device_id idio_16_pci_dev_id[] = {
+-	{ PCI_DEVICE(0x494F, 0x0DC8) }, { 0 }
++	{ PCI_DEVICE(0x494F, 0x0DC8) },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, idio_16_pci_dev_id);
+ 
+diff --git a/drivers/gpio/gpio-pcie-idio-24.c b/drivers/gpio/gpio-pcie-idio-24.c
+index b99f4863443d..685e8bea7f2e 100644
+--- a/drivers/gpio/gpio-pcie-idio-24.c
++++ b/drivers/gpio/gpio-pcie-idio-24.c
+@@ -382,9 +382,11 @@ static int idio_24_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ }
+ 
+ static const struct pci_device_id idio_24_pci_dev_id[] = {
+-	{ PCI_DEVICE(0x494F, 0x0FD0) }, { PCI_DEVICE(0x494F, 0x0BD0) },
+-	{ PCI_DEVICE(0x494F, 0x07D0) }, { PCI_DEVICE(0x494F, 0x0FC0) },
+-	{ 0 }
++	{ PCI_DEVICE(0x494F, 0x0FD0) },
++	{ PCI_DEVICE(0x494F, 0x0BD0) },
++	{ PCI_DEVICE(0x494F, 0x07D0) },
++	{ PCI_DEVICE(0x494F, 0x0FC0) },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, idio_24_pci_dev_id);
+ 
+diff --git a/drivers/gpio/gpio-sodaville.c b/drivers/gpio/gpio-sodaville.c
+index 950aa12815eb..49e9d2863542 100644
+--- a/drivers/gpio/gpio-sodaville.c
++++ b/drivers/gpio/gpio-sodaville.c
+@@ -239,7 +239,7 @@ static int sdv_gpio_probe(struct pci_dev *pdev,
+ 
+ static const struct pci_device_id sdv_gpio_pci_ids[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_SDV_GPIO) },
+-	{ 0, },
++	{ }
+ };
+ MODULE_DEVICE_TABLE(pci, sdv_gpio_pci_ids);
+ 
+diff --git a/drivers/gpio/gpio-thunderx.c b/drivers/gpio/gpio-thunderx.c
+index be96853063ba..d7d60d6044e0 100644
+--- a/drivers/gpio/gpio-thunderx.c
++++ b/drivers/gpio/gpio-thunderx.c
+@@ -589,9 +589,8 @@ static void thunderx_gpio_remove(struct pci_dev *pdev)
+ 
+ static const struct pci_device_id thunderx_gpio_id_table[] = {
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_CAVIUM, 0xA00A) },
+-	{ 0, }	/* end of table */
++	{ }	/* end of table */
+ };
+-
+ MODULE_DEVICE_TABLE(pci, thunderx_gpio_id_table);
+ 
+ static struct pci_driver thunderx_gpio_driver = {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0.rc1
 
