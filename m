@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793101751;
-	b=2LI1XJpTw8sn/s6+sXUQgQJtv4k9yOrykIH8yo9UUJKCjQoL7VYixYNkt+gpyNnoMx/1
-	 c2Q9Z6uNjHwv+YDOrdPAVH0uipb+iLnJ7zEjwD/HG2YL+mmwxXZ3KWdWK07hwwZcommyl
-	 Usj6pvCFWuA+/cTa3zroqmb0qNL8X6Iyp89oiNDF3kyEuQBvLxz5qd+bLK8Oe5A63bWU6
-	 5jyqnpKxMumIWQ2Q1IX4Fca7nkkJZBZe0DjU0v3XFqzTJcjiPPQsW1Bq3LIjhcBoVWmOI
-	 Vp53EdN61ZCJmCOq2lZJ1CVDoRjzgKP+elZMaFk9gd7oxIdcxqFFI7X6VT0HBFeiwmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101751;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=n2g9BVPgPIcnwD1/br3vEj5plzxjX60zzyQRO+kbF6w=;
-	b=Ue8hwJe61tT2mn0ItJlHo0RQjmz/RYSpzorqqFAIcsmwZhDA320s+mfgkjta6o8zIGbl
-	 u9AcFuPvvaZEgCnGSyYoRFvCl78HlnbkdJvx0aPKK4pctIaODg3nX7HVrak6vNzh9LHJK
-	 ZHJE638SG3BUItnf/WfFNyahXIR0+I8C6boNspkn3Qryv6i6ZrODYB96UBY1YnEb8dH7B
-	 j0VmX5E3JUl5tZu0DK5r0aGyDVt9xW8SRMKwxxELQCK1sDNLV0yPFwM0Ybl9bhPK2CjuZ
-	 gJKoGFydClnD7TlqvZE4WuibcR2QKSqnCyYoNiAsMDk6J18XmcsU29k9cUvJi0K2ILg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=HdeTX17Q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793101754;
+	b=e02ieup7aNpR5Uo9LrihPYknFEGGrzWEIFLIKmJA/YYrckEH49Sfhf/m5RlP4VYYzL4V
+	 5uHvZfsr0N4xlKEsb/WuhSQaKraxiYXI2KUSOyybi7bLFmsQAUFJg8tSpYuvvf2/gMNqu
+	 wkxSoC7LoSEpcOQyjMJxDOfkXRGrFgtDR3E/FMI76+kc3EVNzCfAQDQhmNvDne26bP6Up
+	 7ePPpUi145w8HJNeiH8wdfPopitYjNhBFj0UcukRKX4iOwv/JbfDIJm8cvA8rLA6nvhgm
+	 Z/drIJKcoWMrk+9adXsux7LjDZqxi8LkNG35oZ+TeenVx6Ds+RGGHQsSAQy/9kFimTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101754;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=TTJmA88cQwl8RM34llTru5b4J/+2xPkGiT4W3SD2CjI=;
+	b=uRtJK/j+3LGsGZxmpN5qT2mjqfPxSfNBoLo4IKjBGA1EFHqVVhn79wiQQX1+ibT1wuHY
+	 r7xzOeuxcyohUxTz6lbxhklK22qRnDO8EX4eeqzCFkwRK0q4m6X/zT0Capa0WTwFHUrC5
+	 9jG295JMzed5v1/KPSMk+xQkKgkzJqyaF8yj1ETiZSnjeihG8rHq+87h5iZtxwYqo6uA/
+	 i44lvPvTJmqKEDi3erbjY9EYo0MofHpjoSN8IqFoIA8gx3xkm6BX7LSN7yBOYRP3RRo6U
+	 MJD6j0gr4mJDHImN67FqdYxdngWJUC4lFucAYsFQRjlY6J2YI45vHrAIA/4oeFda+6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dKQrZ86V;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54514606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:49:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54514606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3393606A336;
+	Tue, 27 Oct 2026 11:49:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=HdeTX17Q
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso2312181f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:49:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793101750; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JS42eiTaEECdNjmLDlyxvILHbnn/cgpy+Coc05pAYCGLERjpo9uroIanGH+LXAxu5z
-         3ZGZOm8t6gL7KPLp+yjCTQvPMIQrXglZ5qTVJx6dOZ9R8OUr0CcGIGKUnsNWGs6a/zeB
-         GSU6LDVKCdERCGAKbZ5MrUmQVV9iTTbZcgumMH9t4nM+yK9o5ZpP4OplO4Qwr0+TWbtI
-         V4geyUF86qVkXYKyrkIOHjV8IApIzMAZEjBGn1nz3lqSyEKDe9GL79nAgZt4Hre4zdPr
-         dTNDg5QDDiB1ZVUSMX4kbo0cUc1SmeFkqBtvy3unBHuDN5h1w4HDHfJvvHP7emGjoivv
-         dopQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=n2g9BVPgPIcnwD1/br3vEj5plzxjX60zzyQRO+kbF6w=;
-        fh=S4e/fV8O01z5FAbtQhwnj2wNez5MdAhehd0xc0kX0IA=;
-        b=ceSXCKCDTSy0nX8BirBD/iteSeOT5F/k7VHajEPierdZOTVw5Z2cUYWpbukgfnEPfZ
-         sBL7qlBcZUcHq0XkIWk/doBzVw93YsoZdaMfW5VTAMETYUCCJWUyiJilbx66HzpdOSjZ
-         cKNYl4EuNNZfaWQkmUATx75A9AJe10GVR0T+QGOSB4EnpMwZgiaRDb9cebLX4e3Oi8WD
-         OHbkTyFKh4hVyrUMuVi8m9BJj1MdAequiG0HKxHRkIz6u9vobJXpUpDp67D1mG5BTg7p
-         6fNFPU/KxJ6P3jvmC9fv84VvqP2eqV0e8Y0AXALJ0h+yIJDsyGlKSzw8zTqCtKg7Kq0+
-         Wovg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793101750; x=1793706550; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n2g9BVPgPIcnwD1/br3vEj5plzxjX60zzyQRO+kbF6w=;
-        b=HdeTX17Q2dYHH21YoUKfBxODfXZ93WNWS+0Gm1IiEY2jwKZ6NNJWIt/j9WKn41Y48A
-         jIIoyF0Vkq5GC2JPg3oSf7PgaC25F523GW/cylESRM475j2+t43eDF2ysyIbnzts+j8J
-         5VHlY9+RRj1/0x5dDSLabLwCtA895AEH31PPHdxKWIYNYbEEoYbwj6+Ijyw+zSQyquF2
-         rHTiOOaveiPrzJZqeqMPp02TFVBcHg5HJIV3+leWDGAbxhCSaP5gitw4CHNmsb+Mjrqr
-         cEhh9jwkuQocYqRV6VCv5K/sPUp7rmDVoRbMac8Z4N49mKdUjHOApzQ+NVa1tKy+wzuO
-         u4FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793101750; x=1793706550;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=n2g9BVPgPIcnwD1/br3vEj5plzxjX60zzyQRO+kbF6w=;
-        b=HrtGc194OkQL2hSU5nl+siNxhNBzHfsDn2b/vJXW+iuUh8CVE3HOUQTC74yG51AfCq
-         bPC73ip50prQzJ620JxX2pdYbpD01RSnBAc/i9TLZXFe+K7b/ge8xEfVZChpc6scVCWB
-         NsobCerdK26vWEBNvzi3OvRJd2/cDC0ZDStmysQnu//jFbir88OCAxARcBwqi7XlDdQA
-         Cu7+aj+Qt9UTl8B1QDLLtB/OFQjhZxrdPba5hKbIocjpZ3iCmOLd9/Xt9kB7OIEeXJNY
-         RS/0dvN90hLq8JAk+gsAXfQyMfWlZ1ztIzAlZLrWsLpNtY8+M9ha/pGjUu4TzeLzxWWM
-         Nw0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxOJqkYWuZITa4Oo9R5R7Nso1ejSXqZgiPd0ukf3eRjWD2M6QEQNUzTNQ+xlk3HVM1WMvCSxTwWvnl/Kpk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPfpA89JDuRwLqCvxIb4BvcOpfY/1Jhdwbd3cmQKi/16BMkSrz
-	zB3MXLTKxaZIATBkPbCIg1HpZOh25EYfuSJY9EgWbFek8iDFgtpF1smBqY9E84EteomTIRW/u3/
-	nBulXWrix0gM8higlT2u7yAulxVJO0d4lAQpe8Iv9jECo5DQSAjVFYEw=
-X-Gm-Gg: AYBFou0AP9kqe67B6r+wvYcFfcfMrGXY82gO1HZs7WrKt8PyUG2nkY5D57Z7cTX37gy
-	a5MQbY71uFqx4RdUSHfJaFgdQ8ovamFViJoh5PAdTVgkPozINyEyr0aKjjS456NOw31y2/7r5D4
-	DSCS/KrCgSKX4lVjAYZuAYwiu0c7FNZ4Erg9ziPheUPxqL0eOTwGxSHwrgs+S3ONoyD/iuvKDXi
-	CLO2/JZIG/zsfu+4aT4ScscKOEEsa5Cd4Rl+pYGkmshHkssjcDfBfGZrpSjz7U2Y9XWzUcVFiAQ
-	+BXS1Yq9U9BKH1o+O7vPfuCPFDwB6pm6G25EgVqPti9y78eCbPJ1N0cQdMRDdKvGqfGBHiLCwyT
-	hUXEmhI4B74rQEEcfM1WbswLtQrhqZ4XfkvFwAZMbCMkKDkfN9vYdsKfgumoU4QxRkPUKi8P++F
-	cz5vkvAv2p022fxTlKC2BA1AoTg6yQ+ypjNFU=
-X-Received: by 2002:a05:6000:24c5:b0:48c:69bd:e971 with SMTP id
- ffacd0b85a97d-48e3eb859dcmr17962003f8f.16.1793101749776; Tue, 27 Oct 2026
- 04:49:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dKQrZ86V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA7C61F031E2;
+	Tue, 27 Oct 2026 11:49:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793101753;
+	bh=TTJmA88cQwl8RM34llTru5b4J/+2xPkGiT4W3SD2CjI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dKQrZ86V/MgtlDd9erFpBEbDINUFDYKxpaJ0c9GzZddPcL5izD/JvS3GMduWQRsw+
+	 +uX2yxVaBqp4gpGP4/GlC23UHC8FEMb7v8Mre72s/egjMKM3o/iDfoRo68XUPG9KZL
+	 xCU/38JGHWavOHWo12+O3L41eRPHH+UX8KpcuoP9xDu/ERlIYCUzmP++Ujuw7qYPsf
+	 FurDh2Uvz1kHhbZZxIs0wBf53AGC2kk6HqyXEtnxsXFn15jvnfE+C1nCbLt9e1/tKZ
+	 PweYLnUIRKvaa3CuJXTpPmlrHfZtzS7KBSEkoyHx8GpEDlPf0di9KENeUIUU9nm/2C
+	 n34EB43LaI+SA==
+Subject: Re: [PATCH net 2/2] selftests: net: netlink-dumps: start a dump with
+ a notification queued
+From: netdev-bot+sashiko@kernel.org
+To: jhonata.poma@gmail.com
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, shuah@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kuniyu@google.com
+Date: Tue, 27 Oct 2026 11:49:12 +0000
+Message-ID: <179310175236.3134.7064612436495160668@kernel.org>
+In-Reply-To: <20261023-netlink-dump-livelock-v1-2-478214a635d2@gmail.com>
+References: <20261023-netlink-dump-livelock-v1-2-478214a635d2@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,72 +64,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <1b0822425d9c76cbf7dc4e5fe9eedf62ac153b56.1793095807.git.wqu@suse.com>
-In-Reply-To: <1b0822425d9c76cbf7dc4e5fe9eedf62ac153b56.1793095807.git.wqu@suse.com>
-From: Daniel Vacek <neelx@suse.com>
-Date: Tue, 27 Oct 2026 12:48:59 +0100
-X-Gm-Features: AclHuK9xjjyPxUFOC8E53XVJHVXp005yxnBPTO3OG5ctbKV28EPtiGeGiwnD5TQ
-Message-ID: <CAPjX3Fe5+7PTmqx5HNmbQLgsv-DtGhJxgF=u14mZQnTMFN-nCw@mail.gmail.com>
-Subject: Re: [PATCH v2] .gitignore: ignore GNUmakefile
-To: Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 27 Oct 2026 at 11:15, Qu Wenruo <wqu@suse.com> wrote:
-> I use GNUmakefile to shorten the command of "make".
->
-> E.g. for my arm64 worktree, I have a GNUmakefile with:
->
->  export ARCH := arm64
->  export LLVM := 1
->  export PACMAN_PKGBASE := linux-arm64-custom
->  export PACMAN_EXTRAPACKAGES :=
->  export PKGEXT := .pkg.tar
->  MAKEFLAGS += -j12
->  include Makefile
->
-> And for my x86_64 worktree, it looks a little simpler:
->
->  export LLVM := 1
->  export PACMAN_PKGBASE := linux-custom
->  export PACMAN_EXTRAPACKAGES :=
->  export PKGEXT := pkg.tar
->  MAKEFLAGS += -j12
->  include Makefile
->
-> So at least in my case, GNUmakefile is really a shortcut to specify
-> extra environment variables and build flags.
-> Thus it should be added to gitignore.
->
-> Signed-off-by: Qu Wenruo <wqu@suse.com>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-LGTM.
+Low priority / nit picks for your consideration:
 
-Reviewed-by: Daniel Vacek <neelx@suse.com>
+- [Low] The new test dump_with_queued_ntf in
+  tools/testing/selftests/net/netlink-dumps.c needs privileges that the…
+- [Low] dump_with_queued_ntf sets done = true as soon as it sees any
+  NLMSG_DONE with nlmsg_seq == 1.
 
-Thanks
+--
 
-> ---
-> Changelog:
-> v2:
-> - Limit the GNUmakefile to the top-level directory
-> ---
->  .gitignore | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/.gitignore b/.gitignore
-> index 9875120ea7bd..6f018294a119 100644
-> --- a/.gitignore
-> +++ b/.gitignore
-> @@ -194,3 +194,6 @@ sphinx_*/
->
->  # bc language scripts (not LLVM bitcode)
->  !kernel/time/timeconst.bc
+selftests: net: netlink-dumps: start a dump with a notification queued
+
+This adds a test, dump_with_queued_ntf, to netlink-dumps.c. It starts an
+RTM_GETLINK dump on a socket with a small receive buffer while a link
+notification is still queued. The reader peeks before each read, the way
+libnl does, and the test expects the dump to complete.
+
+> diff --git a/tools/testing/selftests/net/netlink-dumps.c b/tools/testing/selftests/net/netlink-dumps.c
+> index 51129c564d0a6..6f66a478d72f3 100644
+> --- a/tools/testing/selftests/net/netlink-dumps.c
+> +++ b/tools/testing/selftests/net/netlink-dumps.c
+
+[ ... ]
+
+> +// A dump started while a notification is still queued must make progress
+> +// for a reader which peeks before reading, like libnl does
+> +TEST(dump_with_queued_ntf)
+> +{
+> +	struct sockaddr_nl addr = {
+> +		.nl_family	= AF_NETLINK,
+> +		.nl_groups	= RTMGRP_LINK,
+> +	};
+> +	int netlink_sock, inet_sock, i;
+> +	int rcvbuf = 8192;
+> +	bool done = false;
+> +	char buf[32768];
+> +	ssize_t n;
 > +
-> +# GNUmakefile, mostly to export extra env variables or build flags
-> +/GNUmakefile
-> --
-> 2.56.0
->
->
+> +	ASSERT_EQ(unshare(CLONE_NEWNET), 0);
+
+[Severity: Low]
+Should this skip instead of fail when the test lacks privileges?
+
+unshare(CLONE_NEWNET) needs CAP_SYS_ADMIN. lo_set_up() calls
+ioctl(SIOCSIFFLAGS), which needs CAP_NET_ADMIN. Both results go through
+ASSERT_EQ, so an unprivileged run reports FAIL rather than SKIP.
+
+The other tests in this binary (dump_extack, test_sanity,
+close_in_progress, close_with_ref) only open netlink sockets, send dump
+requests and use mq_open/mq_notify. They already run as a normal user, so
+this is the first test that makes the binary need privileges.
+
+Would checking for errno == EPERM and calling SKIP() be enough here?
+
+> +
+> +	inet_sock = socket(AF_INET, SOCK_DGRAM, 0);
+> +	ASSERT_GE(inet_sock, 0);
+
+[ ... ]
+
+> +		for (nlh = (struct nlmsghdr *)buf; NLMSG_OK(nlh, n);
+> +		     nlh = NLMSG_NEXT(nlh, n)) {
+> +			if (nlh->nlmsg_seq != dump_links.nlhdr.nlmsg_seq)
+> +				continue;
+> +			if (nlh->nlmsg_type == NLMSG_ERROR)
+> +				EXPECT_EQ(*(int *)NLMSG_DATA(nlh), 0);
+> +			if (nlh->nlmsg_type == NLMSG_DONE)
+> +				done = true;
+
+[Severity: Low]
+Can this pass when the dump ends with an error?
+
+netlink_dump_done() writes the final dump status into the NLMSG_DONE
+payload:
+
+net/netlink/af_netlink.c:netlink_dump_done() {
+    ...
+	memcpy(nlmsg_data(nlh), &nlk->dump_done_errno, sizeof(nlk->dump_done_errno));
+    ...
+}
+
+If cb->dump() returns -EMSGSIZE with an empty skb, netlink_dump() keeps
+the negative value:
+
+net/netlink/af_netlink.c:netlink_dump() {
+    ...
+		if (nlk->dump_done_errno == -EMSGSIZE && skb->len)
+			nlk->dump_done_errno = skb->len;
+    ...
+}
+
+The dump then ends with an NLMSG_DONE that carries -EMSGSIZE. Other
+negative dump errors end the same way.
+
+A dump that starts successfully sends no separate NLMSG_ERROR ack. That
+makes the NLMSG_DONE payload the only place the result is reported. This
+loop checks the errno only for NLMSG_ERROR, so EXPECT_TRUE(done) still
+passes. The test also never checks that an RTM_NEWLINK reply for lo
+arrived.
+
+The no-progress case this test targets is still caught, because no DONE
+arrives there. The gap is a future regression in skb sizing that ends the
+dump early with an error.
+
+The existing nl_get_extack() helper in this file decodes the errno from
+NLMSG_DONE as well:
+
+	ea->err = -*(int *)NLMSG_DATA(nlh);
+
+Could the new test check the NLMSG_DONE payload in the same way, and also
+check that at least one RTM_NEWLINK message was received?
+
+> +		}
+> +	}
+> +	EXPECT_TRUE(done);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023-netlink-dump-livelock-v1-0-478214a635d2%40gmail.com
