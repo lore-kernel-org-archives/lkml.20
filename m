@@ -1,55 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121957;
-	b=gqckGcsq/KiKsmRQi1L8CgW6+ryrn0O05l57NxaGlQk17Axc8pKGhqs1IaSp5ovatUzM
-	 QfXN3QJC9uiCqDP3zsQx1u9UeR2cC6k6qYzQrweWbeQoWeDqGFyLVPdVDhlDZ0L2BYZYi
-	 oeYTbvoO75t+S7G+dBNIMKxG1Muewk+RIpZw2Ppih395nY33xB+uZfUYRI33RQP51McWq
-	 pNGqpWfyyl8eHXgd+lFjT/TSPgGglBIBmaaWe4k/kzxuoSu+TRwcER95ix+/osQh/3C/q
-	 6dO+tyvcs01Xg/t1Eiart8edFySCXHybqXW/ZFywTqBr++rLar/zA+BuDCRtgoHRLFA==
+	t=1793121987;
+	b=mM1c0ue8ayssBZYxEjxx3wWQm3pJk4Ko2JrJn2XmuLYRRXcQB/pbgzQIiEcv1ZvnQD9c
+	 RU+4YtLteTNKczieZOMFxqe/3vbwvmMHo0QbH7yOA/1H8tL6k+iHiK0lzL4/A0w1gT67r
+	 5+BATPAwIcHOQ+IoC/661oVkSI946fYYMbegARD9hszLHOcxwxoiOB9AB1ZfdHTjKGmKA
+	 Ts368Xak7Z2UUC0aeJBCJtMCjqAic3qo6saBdMM4++az1V1XoKYyVb/BpSfc9Uvj8bZiv
+	 VIABq/Ire9d6pIYQTNN3o/2hK9G93xe/BPb7KVVyaxIFyNHh1kDKYuqkzagXhOxhBWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121957;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6jDbsLz7Z4thP3xHEXM66Grdqk9ofg2cghOAoc0Azow=;
-	b=MjRQhQWbYfi5Z1xrabGhJxFDOkFxmCM7tUQIJRcqgUdq1JXm2dHKnAypG9E8CqseHGds
-	 Is10Yblx6Y1ES1FtbbLqOdl9LvZ1yWOe+dHOfzSoRndkFbHz1Zob7kBpKWN3PR8yB3aOc
-	 LX95HfoXX7WGI+wxqn7CmI9ub7IWl6YR9wC0iO59FR7PVxyzCAomLzG3k5yPIUbvhzuNv
-	 czC3qnkUj0h2aWFgBtx3/UJS1Tj65AsKfO25pIAW15maEAKdpC4/YojORpYEkEmJvW3Dw
-	 Y2hs16vFOMbvMGCLio3NdcN1xa1ZBJGnNPo3RGvXwPX+fBy0WoYLzNrRfkfT4bXI7MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121987;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=VnUYDOsMXf4pJLOf13L3AnAE5vL5VsLeCMCBl/d4u2o=;
+	b=lcOMI6bImbKfeZ0hYDipT5dsjRjfp0Bu7hwtF1R7YUWyLzXtNMDoF38ElC6e2YJf0Ue/
+	 ItNtOV0ZSdHaK/Lwc+x8pizw0McfN/xkJDu0lwG6bEkZ3Rnhj2/P+KZnNkCuyrwxXZhjG
+	 LsANt76TjHzg7AG/zg3zWIJgQPpNik58+PyVBAY7dj1dA0Eqrt+/9+CUnDP2cjCZdStpF
+	 47Zq0TqwK/mrSmD6EousBybV4mPu8mlxnFwTKP4cid+EFKvnjPWIzOtCXLbDcgcxJ5vX+
+	 9kvqWw0AD/el4hXj8LgK3f59mpZ7YkaQS2yZeK/+pSYdPuUj0kbX+ybfPImBBLizATw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXzkn6Qp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6lF9NHX;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3391A606A31A;
-	Tue, 27 Oct 2026 17:25:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5EE606A31D;
+	Tue, 27 Oct 2026 17:26:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F5EE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXzkn6Qp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D151E1F01825;
-	Tue, 27 Oct 2026 17:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793121956;
-	bh=6jDbsLz7Z4thP3xHEXM66Grdqk9ofg2cghOAoc0Azow=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BXzkn6QpAQ3QV1R7Y1xvJ9l0TSAHmlthKWEU1S/vmxIUhNPPwOvcsZjwJ42vq7RP8
-	 /FrUneKkRHRH80do1cDHtJVX6f8WY17EQ/n/D2AxsZg0z8lZtGWJT/J/BxS+ZAlTE2
-	 /h9A8OoW0zbjI++uvJ9GTFbxQSJ4rIJZm3KuRhuFp0cUxTahQn8cVFqoZe7oj7NX2V
-	 HrUC+oG30hXYIdoJwUMDBKjqeaLPtviFFb5m3NiqOqmlwdaXSkOOsRroI1SXY1CXbN
-	 HK0AW5mKSSdDkNgFTg8+h2xf7l0GJWv5Dyg5qe/PjS+godeJ9e7c2FFUMWicl14zdo
-	 9Rxwx4QDZcDzw==
-Date: Tue, 27 Oct 2026 17:25:52 +0000
-From: Simon Horman <horms@kernel.org>
-To: rosenp@gmail.com
-Cc: netdev@vger.kernel.org, rafal@milecki.pl,
-	bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, nbd@openwrt.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] net: bgmac: fix TX DMA unmapping and slot cleanup
-Message-ID: <20261027172552.GP257209@horms.kernel.org>
-References: <20261022215235.3692083-1-rosenp@gmail.com>
- <20261027172240.416526-2-horms@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6lF9NHX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793121986; x=1824657986;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=TW1TXakyl8lV05rxtEra6EM04XKiaOHLbID/+oD0Dgs=;
+  b=d6lF9NHXDp65bE/9hSeCgjIhIXOEB6J3zVWCSoM4Qq5LOOFfTUPKji5X
+   /ne2I6Cxt9P6doVh1gN4RzxTkgVhjVnWeqgrry7t+HhcViFJVcrr+GRCY
+   aAGvlGdNC+TXJQgFWum8SRTIKCwRi5BscQnmeLSd1np4ZX6VrI6w1x+hO
+   Rv2snz9yylKjtwQ+fS36uc6vSen2CYqkdu/HJZy4ytrxRPm0dLFw324bo
+   ZbaAScc8yPUwSfkv7xzDa2QmNTBQaBTuC+5/l5QK1stR6/uGV+RLhaik1
+   RsqE+uFIWSx/z6KLufrwsy6n5QLWEsp/41EHINcpm9FP+D7L4ori0YDgA
+   A==;
+X-CSE-ConnectionGUID: kWLByR2oQqGHMcJLyKBGag==
+X-CSE-MsgGUID: /IReErhVSwCgn4+5vCdDTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1816492"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1816492"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:26:25 -0700
+X-CSE-ConnectionGUID: NDcdK9R9QyqueNVuHWVVkQ==
+X-CSE-MsgGUID: qKOSaz9KQM6YTIPs2vTUlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6471129"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:26:22 -0700
+Date: Tue, 27 Oct 2026 19:26:20 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/5] media: atomisp: queue: move remote queue handling
+ into helpers
+Message-ID: <auDevM3eddfKEzPb@ashevche-desk.local>
+References: <20261027120341.2305533-1-vladurares@gmail.com>
+ <20261027120341.2305533-3-vladurares@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,115 +86,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027172240.416526-2-horms@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261027120341.2305533-3-vladurares@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 27, 2026 at 05:22:41PM +0000, Simon Horman wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022215235.3692083-1-rosenp@gmail.com?part=1
-> ---
-> net: bgmac: fix TX DMA unmapping and slot cleanup
+On Tue, Oct 27, 2026 at 12:03:37PM +0000, Rareș-Mihai Vladu wrote:
+> Move the remote queue branch of every queue operation into its own
+> static helper, written the way the function is meant to look once the
+> unused local queue support is gone, and call it from the existing
+> function after the local branch.
 > 
-> This patch fixes the bgmac_dma_tx_add() error path so that the head and
-> each mapped fragment are unmapped from their own slots. It also clears
-> dma_addr on every slot the failed packet touched. In
-> bgmac_dma_tx_ring_free() it picks the unmap function from the SOF flag
-> of the descriptor, unmaps before freeing, and clears slot->skb and
-> slot->dma_addr.
-> 
-> > This was found through code inspection by an LLM while hitting other
-> > bugs on an Asus RT-N16. It did not hit these ones specifically.
-> >
-> > Fixes: 9cde94506eac ("bgmac: implement scatter/gather support")
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> 
-> [Severity: Low]
-> This isn't a bug, but the commit message says an LLM found these
-> problems. Should the trailers include an Assisted-by: tag?
-> 
-> Documentation/process/submitting-patches.rst says:
-> 
->   If you used any sort of advanced coding tool in the creation of your
->   patch, you need to acknowledge that use by adding an Assisted-by tag.
-> 
-> Documentation/process/coding-assistants.rst gives the format as
-> "Assisted-by: LLM [TOOL1] [TOOL2]". Step 6 of its procedure for finding
-> and fixing bugs also asks for an Assisted-by tag.
-> 
-> > diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-> > index 3e9c57196a397..d44ee8ed32459 100644
-> > --- a/drivers/net/ethernet/broadcom/bgmac.c
-> > +++ b/drivers/net/ethernet/broadcom/bgmac.c
-> 
-> [ ... ]
-> 
-> > @@ -535,17 +540,19 @@ static void bgmac_dma_tx_ring_free(struct bgmac *bgmac,
-> >  		unsigned int len = ctl1 & BGMAC_DESC_CTL1_LEN;
-> >  
-> >  		slot = &ring->slots[i];
-> > -		dev_kfree_skb(slot->skb);
-> >  
-> > -		if (!slot->dma_addr)
-> > -			continue;
-> > +		if (slot->dma_addr) {
-> > +			if (le32_to_cpu(dma_desc[i].ctl0) & BGMAC_DESC_CTL0_SOF)
-> > +				dma_unmap_single(dma_dev, slot->dma_addr,
-> > +						 len, DMA_TO_DEVICE);
-> > +			else
-> > +				dma_unmap_page(dma_dev, slot->dma_addr,
-> > +					       len, DMA_TO_DEVICE);
-> > +			slot->dma_addr = 0;
-> > +		}
-> >  
-> > -		if (slot->skb)
-> > -			dma_unmap_single(dma_dev, slot->dma_addr,
-> > -					 len, DMA_TO_DEVICE);
-> > -		else
-> > -			dma_unmap_page(dma_dev, slot->dma_addr,
-> > -				       len, DMA_TO_DEVICE);
-> > +		dev_kfree_skb(slot->skb);
-> > +		slot->skb = NULL;
-> 
-> [Severity: Low]
-> If a pending packet wraps around the end of the ring, is the skb still
-> freed before all of its slots are unmapped?
-> 
-> The commit message says bgmac_dma_tx_ring_free() will "unmap before
-> freeing". That ordering only holds within a single slot, because the
-> loop walks slots in physical order from 0 to BGMAC_TX_RING_SLOTS - 1.
-> 
-> bgmac_dma_tx_add() puts fragments in consecutive slots modulo the ring
-> size, and sets slot->skb only on the last one:
-> 
-> drivers/net/ethernet/broadcom/bgmac.c:bgmac_dma_tx_add() {
->     ...
-> 		index = (index + 1) % BGMAC_TX_RING_SLOTS;
-> 		slot = &ring->slots[index];
->     ...
-> 	slot->skb = skb;
->     ...
-> }
-> 
-> Take a scatter/gather packet whose head (SOF) is in the last slot of the
-> ring and whose last fragment, which owns the skb, is in slot 0. The loop
-> reaches i == 0 first and calls dev_kfree_skb(), which releases skb->head
-> and the frag pages. Only later, at i == BGMAC_TX_RING_SLOTS - 1, does it
-> call dma_unmap_single() on the head buffer, which is already freed.
-> 
-> bgmac_stop() and the suspend path call bgmac_chip_reset() before
-> bgmac_dma_cleanup(), and the mappings are DMA_TO_DEVICE. So this may
-> have no visible effect, but it still breaks the DMA API rule that a
-> buffer is unmapped before it is freed.
-> 
-> bgmac_dma_tx_free() avoids this by walking from ring->start to
-> ring->end. Could the same be done here? Another option is to unmap every
-> slot in a first pass and free the skbs in a second pass.
-
-Hi Rosen,
-
-The issue flagged above does seem somewhat concerning.
-What is your take on it?
+> This prepares for removing the local queue support in the next patch
+> and keeps that change easy to review. No functional change intended.
 
 ...
+
+> +static int ia_css_queue_dequeue_remote(ia_css_queue_t *qhandle, uint32_t *item)
+> +{
+> +	ia_css_circbuf_desc_t cb_desc;
+> +	ia_css_circbuf_elem_t cb_elem;
+> +	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+> +	int error;
+
+> +	if (!qhandle || NULL == item)
+
+While at it, do some small improvements on the moved lines, like
+
+	if (!qhandle || !item)
+
+> +		return -EINVAL;
+
+> +	/* a. Load the queue from remote */
+> +	QUEUE_CB_DESC_INIT(&cb_desc);
+> +
+> +	error = ia_css_queue_load(qhandle, &cb_desc, ignore_desc_flags);
+> +	if (error != 0)
+
+Drop all these ' != 0' parts where it appropriate.
+
+> +		return error;
+> +
+> +	/* b. Operate on the queue */
+> +	if (ia_css_circbuf_desc_is_empty(&cb_desc))
+> +		return -ENODATA;
+> +
+> +	error = ia_css_queue_item_load(qhandle, cb_desc.start, &cb_elem);
+> +	if (error != 0)
+> +		return error;
+> +
+> +	*item = cb_elem.val;
+> +
+> +	cb_desc.start = (cb_desc.start + 1) % cb_desc.size;
+> +
+> +	/* c. Store the queue object */
+> +	/* Set only fields requiring update with
+> +	 * valid value. Avoids unnecessary calls
+> +	 * to load/store functions
+> +	 */
+> +	ignore_desc_flags = QUEUE_IGNORE_SIZE_END_STEP_FLAGS;
+
+> +	error = ia_css_queue_store(qhandle, &cb_desc, ignore_desc_flags);
+> +	if (error != 0)
+> +		return error;
+> +
+>  	return 0;
+
+So it's simply
+
+	return ia_css_queue_store(qhandle, &cb_desc, ignore_desc_flags);
+
+>  }
+
+...
+
+> +static int ia_css_queue_is_full_remote(ia_css_queue_t *qhandle, bool *is_full)
+> +{
+> +	ia_css_circbuf_desc_t cb_desc;
+> +	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+> +	int error;
+> +
+> +	if ((!qhandle) || (!is_full))
+
+Drop useless parentheses.
+
+> +		return -EINVAL;
+> +
+> +	/* a. Load the queue from remote */
+> +	QUEUE_CB_DESC_INIT(&cb_desc);
+> +	error = ia_css_queue_load(qhandle, &cb_desc, ignore_desc_flags);
+> +	if (error != 0)
+> +		return error;
+> +
+> +	/* b. Operate on the queue */
+> +	*is_full = ia_css_circbuf_desc_is_full(&cb_desc);
+> +
+>  	return 0;
+>  }
+
+...and so on...
+
+With all above being addressed in the whole patch feel free to add
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+...
+
+>  	if ((!qhandle) || (!is_full))
+>  		return -EINVAL;
+
+(But no need to touch the lines that are going to be removed!)
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
