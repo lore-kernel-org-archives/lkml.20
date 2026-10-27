@@ -1,76 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793107720;
-	b=mwZThOfDlIOl9SYawEGmfxf289f3T9RIXSb8DtQhB9p527nRNAsfBUTYOLLEbPt7Uxgb
-	 8fulkkJ8s7Id3Uchgvw2+kOfWkHwmUu+8jl4shjcsCDXnqQ1pHi95hk3uWVNDyF0fvZP9
-	 WdbCRTLA16zqOJdQNSPEp8e+fEH8aQfgDX50ctpGIgfx8+grmOVbHmsQpKp1yjUVy0d+y
-	 5iTvWlBhNs3Crt4JB1ikuElLPfexAuFfINiQIXXyolTajWxT9OjQMNtZ/2ePTw7jSPyn9
-	 Z98b0NaSwxugCLivXJjFx6qX40/8VDiurHCu9lUsPxKfL6Si8U5/PmQsrq7CF2aLTlQ==
+	t=1793107710;
+	b=TjCyfjx4KDMkOsoDR7CVZiQSD3nzW79y9Qj55i0q66uAPW5X5uh4FCECcBeFpi5dWDm8
+	 BagYBzOf9UPydBEdzQJOEDDp7Jj35GpD4Znw5pnWv4fyldnhfdq+xrQ6DULI/vfKSIgTt
+	 fGH19wTmEhtM77hkmixJxEUWK1q+cHTWHh2w3ejE0Mi5KLPoxw1bC1nfamcuyFjxGytrV
+	 nYCYBk/JXKoLJKZ8jOSAyEEi4nPeVKFUyz5rRgVpL2DZYNGYhOCBerCoZry4f5ilRrBc4
+	 8iwZT7dCGNwkWm3527eSNB8kBfqUsdGibRpY/dDd1Ibt6Wcn7zNR5Tt2QLiqstR5l4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107720;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=nOqC9OWKjg029mBZT3JOPxVG/2VXRtzk5BAZKZpnbTE=;
-	b=yV95MDBQ7bmyFfWnsBCSlqEZztq0CExLZAPzfqU1wDiVj7RhshKVv7k2REhUkqtFPOnL
-	 eBTCRZki3xG87GLc4dZDpp8lAiHvmbgYJigRED2KKTNKbFxNORmUZqICDYhcrSzyjQpUF
-	 im+08OIyy3B6m9NNMlcJXKPqF6bGyhQ/t7ByEmnpq53Tjsc75l3ST8nTUm+o22nqkyk97
-	 P9WGoEI/fn/BY4F4nLT2HUiYH3Z/GEn+w2Pw94KCADL4RMmBb9dLU/m64XIGPork0Vdsb
-	 VESwJ3MsXBAbTJkXhML+lqILY43IsBEMCRiUR2DgnsjFPPLNkz7/FgZnow+TyTdCYpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107710;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/LmQHCswd8SfIeeqDopTMeOWKOyvGpThjlAJzBDjBj8=;
+	b=dtl4cTbJsPGxkgA05kdaKrpV2y0IoC9dbIJ7fYgx6a4lLSD4MQDcCdBW6PMQo40Fh5qk
+	 cvxK7zr3MyVyULklYJVC0plPsyyXzrYN9fbnx6S2BlXAW0mBYLu4Xd8c4K3ahzuNkJWdn
+	 TQfxEqwvCvvbjVhaFoKQIUiZqZkCTEtQvkNFUWNUkie+K7laQcfe+uiPP01hbnq8hO1su
+	 hXhKsl1T0Y6JpfwSBA2GCpLaXZRTR9ZTB/XDE5yPyG/W9ho6VxSYg6APBy5MaoU0Z07wH
+	 fTuP0UZiEb0rzCvRe7KqBvRB/d1BvhYm7/Il47WxlMSY6GHgdm4JfRV9NucvlZZXlJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Bgr8Ixgu;
-	arc=none smtp.remote-ip=154.81.10.147
-Received: from mail-m10147.netease.com (mail-m10147.netease.com [154.81.10.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HnYSOYnP;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D19606A32F;
-	Tue, 27 Oct 2026 13:28:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53D19606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B5D606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:28:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04B5D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Bgr8Ixgu
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 528777a35;
-	Tue, 27 Oct 2026 21:28:25 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Sandy Huang <hjc@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v5 09/18] drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
-Date: Tue, 27 Oct 2026 21:28:01 +0800
-Message-Id: <20261027132810.1746118-10-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027132810.1746118-1-damon.ding@rock-chips.com>
-References: <20261027132810.1746118-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HnYSOYnP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793107710; x=1824643710;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=QSmYqMUwrdiGhBYnC3D3j5Sn+FvYFhvblMJneOyMsyk=;
+  b=HnYSOYnPchw+gi4Gd97I8XY/e6aYNEFuL+iEgwSMI0/rOEa0mrEKvsIU
+   DP6TbImak1bXl1eqhkSIrrdIeQcBqfzPG+hOYpD/u+sY+ox5X4zMZ0svY
+   Y/F4/rideHr3IICH2lQ1EVZXXAQyt+/XQAI1XB897g23frualA/2E4huI
+   EsOvCdR1v/k/N/qqWSuV+zW01YqJkuR2GmBaI53IJBzXYDbxhsgvhA7o7
+   8qR6KqCMBWZYVgbRy888gHc2/QmSnAuXiN3keMlIvBPv9Y90D6RHBjy6C
+   Frw9x9yV0Ylepe+RpQs2BuarGu4xmOPlxOpKAwfMCAGRdTL/f26bEwrYE
+   A==;
+X-CSE-ConnectionGUID: E1bMi81AR52nqoKdHaA+Kg==
+X-CSE-MsgGUID: 26N83fhbQtSwNpTkEbMYDg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1818614"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1818614"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 06:28:29 -0700
+X-CSE-ConnectionGUID: i7b1Vzy2RHWeRyJSFHrysQ==
+X-CSE-MsgGUID: OaJPxecrSYi3WX3z5GRmsQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4940576"
+Received: from linux.intel.com ([10.54.29.200])
+  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 06:28:29 -0700
+Received: from [10.144.160.194] (unknown [10.144.160.194])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by linux.intel.com (Postfix) with ESMTPS id 9ED6120B8CD1;
+	Tue, 27 Oct 2026 06:28:28 -0700 (PDT)
+Message-ID: <0836c005-2690-4b76-adad-2a7a708a4e18@linux.intel.com>
+Date: Tue, 27 Oct 2026 06:28:25 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,86 +79,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] async: Use ktime_us_delta() for debug timings
+To: zhoumin <teczm@foxmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>
+References: <tencent_58D610F93574D60C9AE734253AF69A528506@qq.com>
+Content-Language: en-US
+From: Arjan van de Ven <arjan@linux.intel.com>
+In-Reply-To: <tencent_58D610F93574D60C9AE734253AF69A528506@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa17d8c3f5d03a8kunm87c266213d570d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH01DVh1CGUhPSExJSE5DHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=Bgr8IxguL2oGLP8lYHE48F1V1ytVyVupOgQelu7W9QGn82ieDALfa254LgRconK1AlQyBAJ7t2wsELs92fzItrFr3aw4Mf9zT6yLoI1ej5kU0BrLgQdCbztBcYEZH7ztqOH7zvJG/m1yC+e8h+Z3FKHwAqF3wXdJm1zUXAWbzv8=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=nOqC9OWKjg029mBZT3JOPxVG/2VXRtzk5BAZKZpnbTE=;
-	h=date:mime-version:subject:message-id:from;
 
-Simplify analogix_dp_config_interrupt() by removing the local
-COMMON_INT_MASK and INT_STA_MASK macros, replacing the open-coded
-writel(0) calls for COMMON_INT_MASK_1~3, and leveraging
-analogix_dp_unmute_hpd_interrupt() with the full HPD_IRQ_ALL mask to
-initialize the HPD interrupt state.
 
-Tested-by: Heiko Stuebner <heiko@sntech.de>
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+On 10/27/2026 5:01 AM, zhoumin wrote:
+> Replace microseconds_since() with ktime_us_delta() for accurate
+> microsecond timings.
 
----
+Hi,
 
-Changes in v3:
-- Replace macro HPD_IRQ with HPD_IRQ_ALL.
 
-Changes in v4:
-- Add Tested-by tag.
+while there is clearly nothing wrong with the change and it is a slight 
+cleanup (so "Reviewed-by:  Arjan van de Ven <arjan@linux.intel.com> "), I'm
 
-Changes in v5:
-- Simplify the commig msg.
----
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 25 +++----------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
+less convinced this is reaching to the level that this change is worth 
+the churn in this era of mass AI originated changes that are fixing 
+actual bugs.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 6ac03a1aa512..0f1406e4a5d3 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -18,12 +18,6 @@
- #include "analogix_dp_core.h"
- #include "analogix_dp_reg.h"
- 
--#define COMMON_INT_MASK_1	0
--#define COMMON_INT_MASK_2	0
--#define COMMON_INT_MASK_3	0
--#define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
--#define INT_STA_MASK		INT_HPD
--
- #define HPD_IRQ_ALL		(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
- 				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
- 
-@@ -189,23 +183,12 @@ void analogix_dp_swreset(struct analogix_dp_device *dp)
- 
- void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- {
--	u32 reg;
--
- 	/* 0: mask, 1: unmask */
--	reg = COMMON_INT_MASK_1;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
--
--	reg = COMMON_INT_MASK_2;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
--
--	reg = COMMON_INT_MASK_3;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
--
--	reg = COMMON_INT_MASK_4;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_4);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
- 
--	reg = INT_STA_MASK;
--	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA_MASK);
-+	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
- }
- 
- /*
--- 
-2.34.1
+Obviously I'm totally fine either way and will let Andrew decide in the 
+end ;-)
 
+
+
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
