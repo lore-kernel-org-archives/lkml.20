@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793110206;
-	b=dPxLrLV/2EsYslDfkcqPIwOcvJ4uu+xJ9Qi4pjJ53E6P3Jd/P9iumOrsqZY2aLX+WRqP
-	 rRgTGNYn3WDHD7qU/zt4TNQuiDIPxyMDf0CsRqODJyPBnl986sKk1VWk8EeCWIwjkP3vu
-	 djVpEhiKgJ28Y2jIocCBf5AbV2UD5iMqAcGxmUYXrhlkau9Cui2SWqv5hUUg8jrXuoEFr
-	 9XpQEXZ9WpjuyD0pGkUGC5kG6UlyosaT1f1/Y6GRf+4G32qgwLy09uStlGcSPTDkUIxaI
-	 /EDo134sl3uBMkEk9qllX78kbRgJWqNrP1ibWNlPd6utrhaCsNadTcChIzNGPIGlvQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110206;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tOHCbTTh38wgZqUQAraRD2c7zMfmVdF5wzMAOJI6e4A=;
-	b=qzVgcQteyzzx58Vvi8PrvJbJA9kiibcPsR9nf3gV+cnc3LuLQYCknpmY7Dn1+y/a/ZqQ
-	 TUfoZW/4cpRCk80msouPWE60cYtlBGgupReDSJjLRdwPsGLwaOmmv5aiBa+SBBO0FxqK5
-	 y4w/XEPjnz0XQ82m5xwLEp2d/1Cvj5AYxzpM6Ze5qV4G1Ou/i3Je/ZvTDQ1fLFWU9p/fw
-	 sQVJlcjviuBmHfpUGqt7rilcUV/cR2yZ+XJD6Td0DadGosdlghBvGL9LmnsRrsaC+EQc6
-	 +elUDxzKEtiCCzpj54dLjwLdvGWNblss7THnebWYKdwi9PHYxyK0M4ZlZf1SX+J/TOg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dI63M4Px;
-	arc=none smtp.remote-ip=209.85.221.173
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793110212;
+	b=DtQrnX4UbzWhkum5OSyunWC+OLlr08hWaHSWesS+y89krPgwBOHkcaQr00/+vB/cGG6L
+	 T06pWyPMVsNrOsXraWcHvw/GcfCBfrVUOQ1xZi4xWqoAQe3E0ivPxMAWRxeRcT8TbffwR
+	 e/2bNrEiMxmcf2iRiRmQ5is+tYIcZ1JSz3Hf6jpbL+MY3W/ZLE5jYnjtfqxkmlQsyH3C/
+	 NUjxwPOG/QR2HB5seqm54l2Tx1lok56lXmfgd1RbcjYT0XxViZkFjDc7g666qijSMEeLn
+	 ihVjgu7yrY2duUUjdZR04zAP7NiDdDn62fh/ekkqujpUntYXTalD6EAy1mexoNuSOKw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110212;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Pq6s+u2TlIWtZL+DDokegL/xiT6K1SaF82GBWh2B82A=;
+	b=KjnVicXMvLM31cyLuW6dMSzRzt06Nm5m3ELw6wPAuWDn4nYr+kZ4gXICIxEJBzIoALbU
+	 4WAO+53g5jCf5sAXx986BCDixpG/4GEfEog+XJDJcFHrJ02yAoJGzLh14gBZD1iuFzf2i
+	 WI9F67+z5wIoBB69rAI6tQwconciuvIpUx6G9P6AYWK3f7SjcGe6VRBonG1IGIoJx+pGS
+	 EnKfr/gDgSvocVPkvTJA9b6AA/KuIM8SmCIazi9/VvZhK5h7jFKj/Ezfdy8xNNky7mhfs
+	 J+amWHGZnGBnMLz47QzWo7iyRzDgSEghKTBuTVq6wn3DJpk2Y6Ycm1XTp5wpXktooNg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="OBphp18/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.9
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010009.outbound.protection.outlook.com [52.101.69.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4FE606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:10:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C4FE606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED0F606A31B;
+	Tue, 27 Oct 2026 14:10:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ED0F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dI63M4Px
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eae12762c9so1874618e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:10:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793110205; x=1793715005; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tOHCbTTh38wgZqUQAraRD2c7zMfmVdF5wzMAOJI6e4A=;
-        b=dI63M4PxXAmh33C1faoeAIWALThrz3212zXcx2BHJGELfhI1wyGYqyfdo3hg6C88u6
-         ca5B7VDDsjIc6mXZVPqTGaE8HHpL7C3sVSyrinLJQ2HpMD6s7cJ6MMGvCvXRl15pKeGW
-         3siVGRUyB+qb916C7qlOVuaY8Zu9W5VAmahfct8cfXwUAU14et8BhukBjU29j89T+N37
-         GfrRgBAB3q+vn8v7hHRTlif/oi986SPDJOx5UKrJATQ3QPzwm7v7JrV+Y/WLEAKoTw1x
-         mH6KPAExVztiu4C8dHM3I67T2DMDrlfXtXo0i4tE8QZb4O5R/QiVjyMItFHDBP3v6FyI
-         65/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793110205; x=1793715005;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tOHCbTTh38wgZqUQAraRD2c7zMfmVdF5wzMAOJI6e4A=;
-        b=Bnwm2knIt7GpZWU+m5goOL2tiVFDrD609oqvUH0S8pNBeO5ov4u5HpOpt58damN5NK
-         McfP3TBM6fE9hD5BwryUDL7UO/TGhUzdCCZuxnbSQoc/v0eWQHIVQpp+v9WdlN4tt1L3
-         JauvgsT4x+9wd7/Q3d5Hw0MKndIC2OjuoR3URT9igPIauMC0BUBc54v+aaw+cY3GOyOq
-         5ej64RfXss+lD1a8qvSmIiLZ6hUFOrbSnLQJcm9TnF7sJgW8kI1Hdp6C7XZmq+xCk1bV
-         EB4Crah9fqUjdJqvNl2P8GjdbhAR1BCGVt6g42UpnUtrAYmZfJ4qhvp2h9OjdMkGq9mU
-         1y5A==
-X-Forwarded-Encrypted: i=1; AKwUvByQF+qslqKDdLMFA8vUKbCEwdwPW+LyDgsGqvHmVnyt9SGEkRYzI1ycXveMXK3B+XAmU7/HtXiLROCn/w4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2MbQNsUjLV9yL6y4HP8Xnut4EjU1vq8GSMOaBhh6J7Fb9iRY/
-	CfgihN+1zO51KmZAtjYndwBh9ilHbiarhPfkWYnghBtrQ+D7CDoOOWrq
-X-Gm-Gg: AYBFou0JtZSvzby0gVDUBNKpXZqfC1BLS9uID9bDo6CFP/MMYHN2DPl7pHZfzMo/8DJ
-	mY63t6dnGcI23/3D/F5NwsMrBrWcpN23kb2xzAFWep22To6/rocXDNH/sz8Y3A7E6x13Cp2i/EI
-	NjZbLvWiL4KvKvX4C75a13C66NvabSK2+oeiNIpaYNq1PX10rIUJjq9wDjGWwxn6W/mw62J/8L1
-	Gov3tmSqVdaNw/Bl/NEBRaMNQwj5VV8zS5rD1Nz09PMk8cAlcav8Ac9yJxCtt6C6CflUQsCPqlY
-	Kqz1hhi/kw5tBjLGcNlh1Swg7xjuFtCW7mZjxGGOVeiSlMeQzliGFWG9lBk53hq0BiEWh+yqdcU
-	BuZePrTTk/5C9YDAW03B1ZQi+ObWbVcuGIsdNIb+P1hJQuG9+zIlDdRz60Vw5MAU7DjXzP35aGE
-	EOQTL2Fnlhhgu5A9JVrVP3x6Onme6KW+jktHeC6pcg0w5qRcsqEzNF3ppJ8OpBJJq5miURHo+uF
-	VHoT8o2eRwcrm58lfJ/HuftsK0uHSx9HzDJjEtPl3ff3Nv/hKnrxVHq8C/tlRdml5phKnLwO39y
-	kwqvNlzbUvOC3rYwKE3utOYsAnwIP7SzwP/eHzB8EI4ixfeeOuxS2GtHa+v74GlRdpBIHaVdLL+
-	tUv2uCgY=
-X-Received: by 2002:a05:6122:ec5:b0:5c0:fb8d:9993 with SMTP id 71dfb90a1353d-5ec22ecfe84mr3781126e0c.0.1793110205099;
-        Tue, 27 Oct 2026 07:10:05 -0700 (PDT)
-Received: from fedora ([187.120.134.44])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec233f4d28sm11903907e0c.3.2026.10.27.07.10.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:10:04 -0700 (PDT)
-From: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	rppt@kernel.org,
-	surenb@google.com,
-	trintaeoitogc@gmail.com,
-	vbabka@kernel.org
-Subject: Re: [PATCH] mm: clear pmd in pmdp_invalidate()
-Date: Tue, 27 Oct 2026 11:09:50 -0300
-Message-ID: <20261027140950.1337359-1-trintaeoitogc@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <f1b2ec5a-f7a7-442c-97fd-f67fe6ecb197@kernel.org>
-References: <f1b2ec5a-f7a7-442c-97fd-f67fe6ecb197@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=OBphp18/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rxDWmB8futg0FhR7bcDVgqk1RgStOtAQ6GmhZlKsk38w4qQq4Jv3H4jvXRUxJbcrh1rQq9e3znpska3i8iOmsCL5Cawwh9Qloo+QunoWjK843iEefilZiFgNLJVqWmRZ4uXgIdZ2kdvuQPczIHTHioa2wR5QlKdDVUmeaiwvcI/XNurd4GzXBfe7yRpcqqCAJm29JpfU+TKj4kAUOHRbt8Pam4A4XAM7R0LtD2DjXpD/KyQgWTq3aPA0BsjswN9K7IUX5Psr/3e/mMDFUOLOKGRVf0RNRJ4HGDryCns855qkl5OljPOvE3DFMmsydAhHsda+/YrVQw+FZuMzqn32Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pq6s+u2TlIWtZL+DDokegL/xiT6K1SaF82GBWh2B82A=;
+ b=ZfF9ASnkQoXr41DC9SIBNK4QKZcNMY+cTzmjXsuuPMZJyveTCWEdeP/MeRXexF3ANEiT6EQu1lheg8jUjSFuc7pi2AR6+/RTffaeIaOeMo7qKgzmhIe0JVh+JOYaL15VCRZbKqS+F7taK1HdwI4r/jQMk9RW3XsvxbcJqr0Tyxj9Rk4akfF1i3NOxhJdDHaGQbHjXVGOPOqeXItMT0PZw1300ETaRZnhHZkA7jT3TnTtARNskKNRpRyjeZeoeBgm5PSne53lltU4pLoS9YKgY/o5e/fxz/USe36U1fxUP6caZ46OoGuGeQCrQWaaCi6yIW7EuT835TX0A2RAdbx6lw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pq6s+u2TlIWtZL+DDokegL/xiT6K1SaF82GBWh2B82A=;
+ b=OBphp18/FUzbWhulGya7C+kzoMpV4r+ylsm05GeetE8K3fQvssOmKEhrRtBeLWQKWPeXGcxoUWSOwD8PwWJxf2/i+BhpjEDjJoEuGH4ELK1GXVmGLdNVEJknen3CyBp+gtY6BmlwmRrE0sA4r62eOyJZKoNgsYGHDpfwlwxwpuOxIjkxUJpHoJE94RitNOIS6iELDBXFwur2rwlkBT+IWQshswWo2TDXg8KyBBCdn4Gkz53fnkzRgEuZMSDCfS/jWOi4LRsP8ZsoZfQ1GiW95mqPxDuNuOMJ98QGezQiqAzrdQb0aSoBozuDytNHK54+Mr1KiAQnQTOBJkUaxZEqAw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by VI0PR04MB350952.eurprd04.prod.outlook.com (2603:10a6:800:364::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 14:10:09 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 14:10:09 +0000
+Date: Tue, 27 Oct 2026 09:10:00 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v7 03/12] gpio: mxc: use 'unsigned int' instead of bare
+ 'unsigned'
+Message-ID: <auCwuBsoTY0mjWxU@SMW015318>
+References: <20261027-gpio-mxc-cleanup-v7-4-v7-0-7b602d70c149@nxp.com>
+ <20261027-gpio-mxc-cleanup-v7-4-v7-3-7b602d70c149@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-gpio-mxc-cleanup-v7-4-v7-3-7b602d70c149@nxp.com>
+X-ClientProxiedBy: PH7PR17CA0015.namprd17.prod.outlook.com
+ (2603:10b6:510:324::26) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,125 +103,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI0PR04MB350952:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41c9ce8e-1059-4946-f205-08df3434025e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|366016|376014|1800799024|7416014|4143699003|11063799006|56012099006|261021123027099003|261021121427099003|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	pfIRz/fN8WZ8hp7jH1O8kOEacFJXb14aDbFP5hjiulTygNAzHLTVph4yDSd/A5LQwGDx190JPnlbNpfqVtnkyu0axY+ydAYQsHtIMN75mWLgbgWmSTgmqUE40B+p1oPmUyHO+jAVVldGLyK2k4RFwCrqvWT5ohVALSwIqNyA1SQy5M08itoz/pamaGo2kTeAKgr/qEQkkROHj1+R65gvL2fmnZM6WDg2Y6H95uH4TS6X64RHPGQ6McEWZr/kfBFwAVLOGnIzvCox4j1GdwdtxMOgxEdn+U9kv7tlORmgJZw9dyv2ljKYzcL6Sf2c+cxJW+xrBiiW8l/fmKrK8a2ED1uqIfEM5T6sFfqC2GonB+y+rN3R/TiZYB4y2ijPqjqvL2tLlO4WrjnUJIT+BdjcsfeoU4Py1l2SC2iW96DVpAt/3/2pQnaroEoBv5mKVrRk6eiQBQA4MJ3t6gytBzGUV8NykoG+frs75m9NhqdNQcNYof0ryCmdRPEOvTyLsu8/0HICCml1j8Rk4YvivLm2l5cniIIPA6tPqZxIAfKI2Wi7pU8jy2Ku+A/H25TIAO2dSpBliLsSQIS63MjeshbG+5IAevRwjvsgN5lu43o0AHYnYhLYyeMEUDhg62ELYIIhuKcE+RdBrrpYKDuCX9HcUDEmm2hPbSrQOJfKZXmrhUM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(376014)(1800799024)(7416014)(4143699003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XXaMN+cqVgjXohQWGjNnUV2o/MDNJVWRg1e5p5iF9jAjMdt39YwcaUcB0G1O?=
+ =?us-ascii?Q?OPeXTt0pBmgoTZlbtPzgB5Ozpu2XMU1ZoHLo7GUqmew76geSpjWZGsUBd9oy?=
+ =?us-ascii?Q?HZclcJxLoLP4n50OoSQsA1+c4WWEAoZY10PW2PBQBunEv7EsGcqn7VlqWJuO?=
+ =?us-ascii?Q?z/tS20VgV6oRbewIfOCBFWOmefuoNsIPb55krvAdccDoqhw/A6B85TUyA6ra?=
+ =?us-ascii?Q?UodxOWgiIyraA6tHodF1SZN2mfLrKcuo4UAu+B+/wrLf+FeBDCTcSGcRHd+O?=
+ =?us-ascii?Q?CauuVw27pdRbnpIuIIz1ejIXUy/zx1+a3gUXog7r1a/TMKvYjr4xC3U5euah?=
+ =?us-ascii?Q?PYc6s7Ay0ObzFGJhg4XCjY4NhhOgPPJ9Ib2b/6PkCxc5VSV6/R3MoBcQdDvW?=
+ =?us-ascii?Q?FUjolaDKd1W7B+sBwePsdP8GiZn997wEr5vaxRS1L8DjrdKy0mkKVjUCnxSH?=
+ =?us-ascii?Q?S0Q2a+5Y0SgwMJ0qOQzaCdpYbzR5hfi3rCHAb4fLsKTcQwchsIzrSIxvExYa?=
+ =?us-ascii?Q?6x/4LhQRXGxuaBa5mIVltH27ZIJpyWgqheGDlifCpp8K7XgqgEsEMdo09I3k?=
+ =?us-ascii?Q?gxTWKsv1masNr+2sSsgZSkE0cXMVMj7eQm5nVnC8AU2w1i92QKfYw5s6n1Cf?=
+ =?us-ascii?Q?lQKI0E7/vluxURfoetE100bDyP/om0HTqMujXo29ZllJD6Usa1149DzNGXkz?=
+ =?us-ascii?Q?UbIDE4YqSgsPoy1f/NVpGj1ZHjICxb38Z0ogDq7ROhT+391UV+2fnRzQ0+LI?=
+ =?us-ascii?Q?1FCz54QCQ2UMQMJEtXn/uDsXwK8qLiIjjR3IF59aOS4WpT+T3YklLXrylfpt?=
+ =?us-ascii?Q?NI14FiiZwJ/zygWLqqib7E35U7c6+5HyxyrZiYencb20Pe2QGpKpZSsH5pJw?=
+ =?us-ascii?Q?lYTezZYj5HiHqNSlOpo22HlUVObtNFQy1id9KzS2fwqHWzw3C5oibhLAl+m/?=
+ =?us-ascii?Q?60knBCoyHvwPdZq7aQH3wZ5aTrP5kO2rvMvXoiVKE75SvRf7dz/RJPM98sCx?=
+ =?us-ascii?Q?X0nfUi/Y/PZfCFvipUph77Xvd5Rgi1HNPJ+9YZx5oJf6/ded1z1QoY4xfdT3?=
+ =?us-ascii?Q?qC5lwtxIb6J9kOzzspiilDj3KvP/PLw7fAcoCNtKU+n6ZYxEIRAtQH/qsy2O?=
+ =?us-ascii?Q?2FCYj93ivY9lmXaSs7QXbzLPpb9wslEMm8AGubk4a8s0+iV3NlyyJ9nevZA/?=
+ =?us-ascii?Q?AV29+qlKnSFu0CvLT0jEdTVQeb7y5BaqUO41T3KYsf/YO3rggrehaZSEG5+8?=
+ =?us-ascii?Q?akaXv5+v7Ito4x8r/Xdro9Aeotz/XOU9V68si7vYiJTcIxP3+Ycf22HWxUu2?=
+ =?us-ascii?Q?ybtH26lLq9zDzDPn1itBnuNJ0YZn23G8BeR69W+5XuwWsChA1gXdGTVXByDC?=
+ =?us-ascii?Q?1fYQCw580Id4kwsJEZw7JMrlgwu9Ls7U/ylqgEGRMIg/JxpYMAx6uaUUlTwC?=
+ =?us-ascii?Q?80+TtoViEeniupMrKH3Uzk9TqKOboN5Z5dJCKAN/ejJTYt9zUO7DItNFZNBK?=
+ =?us-ascii?Q?HCcr2PhPTBUgxYsmgsS+HmqnbHSLCFaR4+PTyIlWYMPJQLqusQROGrphG52f?=
+ =?us-ascii?Q?IqJ6RiQtKSwJHbW/ghPBawI89ndCM4AiE6CUAem0vj92EauJEbdA8KvFrcxE?=
+ =?us-ascii?Q?LuQGhXo+c02EwTgQJ213RPkwfVGBztVbwERqJ0RNKdXBRqloewJQtrpAp/cI?=
+ =?us-ascii?Q?V6Pjm+Tpwd6jeaWq4ROjgnxBQ4XcI9QZ9qzh2umPKxvXk0Q/9U34SX9mGO62?=
+ =?us-ascii?Q?KIjJTppQ/SNasBWcllZLh9so6lrNXAX/Ct8e6usgF4SADadKiNqZ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41c9ce8e-1059-4946-f205-08df3434025e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:10:09.4690
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O29yN8y8nNO6U/Up8Ht8P5/mnfPr56WXfPGdOW2xcaUqqhDaoML4yKYZSUTTM0tQ62BTcWT3UvTC0t29zVNn4mJDaOM4D4dDE4j+5g/dLwxk1Bw41HAca+4m0ihp8Iy9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB350952
 
-"David Hildenbrand (Arm)" <david@kernel.org> wrote:
-> > when attempt to do a madvise in a chunk of memory allocated by mmap, the
-> > folio_split is called to split a portion of memory, and despite the path
-> > leads to pmd_mkinvalid() they do not clear the pmd and clearer wording,
-> > leading to a BUG_ON inside page_table_check_set() because the map count
-> > is more than 1.
-> > 
-> > Call the page_table_check_pmd_clear() inside pmdp_invalidate() generic
-> > function to ensure that the pmd will have they map count decrement.
-> > 
-> 
-> The subject + description is rather confusing: you are not "clearing the pmd",
-> you tell page-table-check that the PMD was cleared.
-> 
-> This is all about apge-table-check.
-Yes, you are right, i'm not clearing the pmd, I will improve this.
+On Tue, Oct 27, 2026 at 08:09:30PM +0800, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+>
+> The kernel coding style prefers 'unsigned int' over bare 'unsigned'.
+> Fix all instances in struct mxc_gpio_hwdata and mxc_gpio_to_irq().
+>
+> No functional change.
+>
+> Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
 
-> 
-> Can you post the actual kernel splat you ran into? Or is this generated by an LLM?
-Of course, the stack trace of error is (already decoded):
-page_table_check_set (mm/page_table_check.c:118)
-__page_table_check_ptes_set (mm/page_table_check.c:223)
-remove_migration_pte (include/linux/page_table_check.h:83 arch/riscv/include/asm/pgtable.h:642 mm/migrate.c:448)
-rmap_walk_anon (mm/rmap.c:3053)
-rmap_walk_locked (mm/rmap.c:3169 mm/rmap.c:3164)
-remove_migration_ptes (mm/migrate.c:483)
-__folio_split (mm/huge_memory.c:3640 mm/huge_memory.c:4289)
-split_folio_to_list (mm/huge_memory.c:4435 include/linux/huge_mm.h:416 mm/huge_memory.c:4499)
-madvise_cold_or_pageout_pte_range (mm/madvise.c:420)
-walk_pgd_range (mm/pagewalk.c:147 mm/pagewalk.c:237 mm/pagewalk.c:278 mm/pagewalk.c:319)
-__walk_page_range (mm/pagewalk.c:427)
-walk_page_range_vma_unsafe (mm/pagewalk.c:737)
-walk_page_range_vma (mm/pagewalk.c:747)
-madvise_cold (mm/madvise.c:594 mm/madvise.c:614)
-madvise_vma_behavior (mm/madvise.c:1364)
-madvise_walk_vmas (mm/madvise.c:1721)
-madvise_do_behavior (mm/madvise.c:1916)
-do_madvise (mm/madvise.c:2014)
-__riscv_sys_madvise (mm/madvise.c:2023 mm/madvise.c:2021 mm/madvise.c:2021)
-syscall_handler (arch/riscv/include/asm/syscall.h:112)
-do_trap_ecall_u (arch/riscv/kernel/traps.c:341)
-handle_exception (arch/riscv/kernel/entry.S:237)
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-And the repro.c that I writed to reproduce bug:
-```
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/mman.h>
-#include <sys/syscall.h>
-#include <errno.h>
-#include <linux/mman.h>
-
-#ifndef MADV_COLD
-#define MADV_COLD 20
-#endif
-
-#define HPAGE_PMD_SIZE (2 * 1024 * 1024)  // 2MB huge page on RISC-V
-
-int main(void)
-{
-	char *addr;
-	size_t len = HPAGE_PMD_SIZE * 2;  // 4MB - two huge pages
-	int ret;
-
-	printf("Testing page_table_check bug with madvise(MADV_COLD)...\n");
-	printf("Huge page size: %zu MB\n", HPAGE_PMD_SIZE / (1024*1024));
-
-	// Fallback: try without MAP_HUGETLB (kernel will use THP)
-	printf("starting THP...\n");
-	addr = mmap(NULL, len, PROT_READ | PROT_WRITE,
-		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	if (addr == MAP_FAILED) {
-		perror("mmap failed");
-		return 1;
-	}
-	// Enable THP for this mapping
-	ret = madvise(addr, len, MADV_HUGEPAGE);
-	if (ret) {
-		perror("madvise(MADV_HUGEPAGE) failed");
-		return 1;
-	}
-
-	printf("Allocated memory at %p\n", addr);
-
-	// Write to the pages to ensure they're mapped
-	memset(addr, 'A', len);
-	memset(addr + HPAGE_PMD_SIZE, 'B', HPAGE_PMD_SIZE);
-
-	// Touch pages to ensure huge page allocation
-	for (size_t i = 0; i < len; i += HPAGE_PMD_SIZE) {
-		addr[i] = 'X';
-	}
-
-	printf("Memory initialized, calling madvise(MADV_COLD) on partial range...\n");
-
-	// Call madvise(MADV_COLD) on a partial range of the first huge page
-	// This should trigger the huge page split and the bug
-	ret = madvise(addr + 4096, HPAGE_PMD_SIZE - 8192, MADV_COLD);
-	if (ret) {
-		perror("madvise(MADV_COLD) failed");
-		// Don't return - the kernel might have crashed
-	}
-
-	printf("madvise returned: %d (errno: %d)\n", ret, errno);
-
-	// If we get here without kernel crash, the bug might be fixed
-	// or the conditions weren't met
-	printf("Test completed (if kernel didn't crash, bug may be fixed or not triggered)\n");
-
-	munmap(addr, len);
-	return 0;
-}
-```
-
-I see this BUG here:
-https://lore.kernel.org/all/69851c62.a00a0220.37c87e.002e.GAE@google.com/T/
-
-Yes, I'd should mencioned "Reported-by: syzbot+227179d5a8a87e9df90d@syzkaller.appspotmail.com", my bad
+>  drivers/gpio/gpio-mxc.c | 24 ++++++++++++------------
+>  1 file changed, 12 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
+> index 848d7725ccfe..43868a214c17 100644
+> --- a/drivers/gpio/gpio-mxc.c
+> +++ b/drivers/gpio/gpio-mxc.c
+> @@ -36,18 +36,18 @@
+>
+>  /* device type dependent stuff */
+>  struct mxc_gpio_hwdata {
+> -	unsigned dr_reg;
+> -	unsigned gdir_reg;
+> -	unsigned psr_reg;
+> -	unsigned icr1_reg;
+> -	unsigned icr2_reg;
+> -	unsigned imr_reg;
+> -	unsigned isr_reg;
+> +	unsigned int dr_reg;
+> +	unsigned int gdir_reg;
+> +	unsigned int psr_reg;
+> +	unsigned int icr1_reg;
+> +	unsigned int icr2_reg;
+> +	unsigned int imr_reg;
+> +	unsigned int isr_reg;
+>  	int edge_sel_reg;
+> -	unsigned low_level;
+> -	unsigned high_level;
+> -	unsigned rise_edge;
+> -	unsigned fall_edge;
+> +	unsigned int low_level;
+> +	unsigned int high_level;
+> +	unsigned int rise_edge;
+> +	unsigned int fall_edge;
+>  };
+>
+>  struct mxc_gpio_reg_saved {
+> @@ -367,7 +367,7 @@ static int mxc_gpio_init_gc(struct mxc_gpio_port *port, int irq_base)
+>  	return rv;
+>  }
+>
+> -static int mxc_gpio_to_irq(struct gpio_chip *gc, unsigned offset)
+> +static int mxc_gpio_to_irq(struct gpio_chip *gc, unsigned int offset)
+>  {
+>  	struct mxc_gpio_port *port = gpiochip_get_data(gc);
+>
+>
+> --
+> 2.51.0
+>
+>
