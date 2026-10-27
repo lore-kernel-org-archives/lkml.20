@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793060284;
-	b=ZUKYHiN6yXL2GzF9O7yx+92M9HeLre7yJ+nBvht3ZZc0y5EmKqA9JzK1stcU4z9sk4GH
-	 yWRfMI3tt7fQx3iMZxhdjhNDi2kCn6I5HHp+ePvDLHk30bVEnwaDT7Vb+x9yC6qlf2C2y
-	 mnA53V533D/qkFSZLTMAlHoDwn3fkDSTvsqkhX/sPaD4dBvKDGFric7+3BivgGGAfQLJA
-	 typ6xlyJSKKGBVsC+MFL3Kzs9MQgy2DqSHknyGeI5Q+dKMFc31+xOKdx9+SyaTYTzbvsF
-	 ZBWp9+SQCYO+W3EaSKhZjviZHhvgM/pi9LvLsVVFeCdYjcpYs3DnH9utgMSxmHRBVZw==
+	t=1793060288;
+	b=uiN7DGkfl+D6iCyQ8jSNIAa/+1XNn8m35G0I6m5PE5iNNlDrqrnj9GsvZlv/7rnHS/Ri
+	 P/DQRwh//AnkoJy8YA9peuJ6UhOKMi54Soo0wJ5QR2VJKOjDHRUGn8GXt0C/zD/Xbq0AL
+	 KIdQtk71s/K2mkeboDZlOoSZsI9fk5aOMXuTk0z3jtjyELZiuasxIuiWmWRXbzLlhc2Bu
+	 8dKfcrqOEPxM1P69cq+pbGn6QAx48o/B6hyS8DMe9+VqVCaS/cxaRBqAD2fVBRoZ9jxiD
+	 DRj2hyBGZLk6xc73sBycxvK2KRK/v/OJ2LlTnguX42t+kxEwKqeAl8cf6QoFvPZm2Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793060284;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793060288;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=SxViyOr5QpgGOYT8e+Wn5l6ia50QPFlkjeDPz8Xp/o0=;
-	b=F4uqBMwuig89ZDdsL7nO69XJMUEdjEvTq0Q9yfiMpHngTWCrz0oPBqwh1uzFyHl3jY39
-	 P9Xygdsw7PE8G6o5ypALeemk5iDNQIfh/6e7XMlIWBEuxJwIxBbOV1btxoWv9euvnEIsy
-	 7qMFbsKzNTByGM6koZu0X9Tm6xKTquVfcFkDWszRrOjDjqFFLS6zQ21wZchAYx39G0Gqq
-	 qKIkf+F3FPHtlTpaZTAPDWE22ms96A0M0lVq9WIKJOpZ6ujjdiWzVoxKnvOvPZkfbih74
-	 jzBk5WCsfwQPo4BdBdBb345N+5HREcOCjUBKs35gwtbHnib03OEmQeVQOgBTlktbqUw==
+	bh=RkGyvTDjy/1c6mRWRZe2A6mwAU8fhf5Ihhcp0fewrkI=;
+	b=oaKExaz03ynIP0rWqbBVJiUPEiIh0v6nLsQht2hJgotZdPYTxlPALPJltkGn/ufv1kY/
+	 Jf8MZIJEJZ9VUmoUlnhOxC/z9uhsJF+Radw2BMJYV34EZj8VXngQn6oGsIbz/kb02iFUj
+	 DD5K7d9a+y9mHTI51HyI8d/CTaBtKaXM8suF122378Z6bQ2DAQttpWhJgUJAYpamm8r8S
+	 5H5GLCvHYP27miGWxj1s/q6X6/YzZr1A2cUUICzH78ci0+3+dpPbh07oyqK4/6OPAFJdA
+	 fPg05UhbuhY09v0yqtwBGnZgXm7y2BPeDCn8R1x54vfmGj8la08t2m9vaoutADzd74Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtFYx9Is;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jI14s6s2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0752C606A324;
-	Tue, 27 Oct 2026 00:18:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A22A60A3828;
+	Tue, 27 Oct 2026 00:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtFYx9Is
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A22381F01829;
-	Tue, 27 Oct 2026 00:18:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jI14s6s2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4781F031E4;
+	Tue, 27 Oct 2026 00:18:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793060283;
-	bh=SxViyOr5QpgGOYT8e+Wn5l6ia50QPFlkjeDPz8Xp/o0=;
+	s=k20260515; t=1793060288;
+	bh=RkGyvTDjy/1c6mRWRZe2A6mwAU8fhf5Ihhcp0fewrkI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JtFYx9IswL4TqiNJ8l64SqiW0a2p7rBxRQZHqZmgXDhGn29B6L4irrZc2gHIZ/F2D
-	 iq7hs+Age7siukDduYbSRQxy3r2xXh8fN3fZhnCvHKNGlDxAi+NXcRHAsgroeh/wl1
-	 jAL3tDJklfkny4/hqNzDKqDCNGFkMKusV5bdn9hnTeCtScAdYRMJdHGByapU+foIX8
-	 QigAMLeixEzuGPN6JkCgM+6B/EprFxqMqPkZnPXD7a6GWkmvu2A9/iJarBnn6ULcpl
-	 jZhSn7bXPBOgfMTiYULnsXaeochDBRQacQn77/eR+2RuhMKwy5CksgjiWJuiNS/0Ds
-	 bmpKvb4XhL1cw==
+	b=jI14s6s2ifFaLAtxJEidMqsYtbrbcV81nyGmmtg1NWYDEvwOYda/4JpXC/qxvmPpd
+	 852NNBvf0VkA/c5I0eM5/WVOENFzwI5M1GBnhLN+nXSOnKKAvhD7cCAWYZMf8QKcqb
+	 Y1b19y2UrU9Qk2276lIurY4Fhghpsu7RfXDiNgp6J/U/NPHsw8srwFcd8UiA6Cj7Ed
+	 vVTApfmlxozp2WU0EkVn5YAXszQLPS5PeyMajM3rHcz4DygvhfJPMeGxhJmaEvPuS+
+	 Opl8XY4cSdBmT6UlVsSP7MjS6HCn8RQ80jUzsxNAfZromQxv1807joZLOrxF9PwFZW
+	 GSKemP1/DCUrg==
 From: Tejun Heo <tj@kernel.org>
 To: sched-ext@lists.linux.dev
 Cc: David Vernet <void@manifault.com>,
@@ -48,9 +48,9 @@ Cc: David Vernet <void@manifault.com>,
 	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Tejun Heo <tj@kernel.org>
-Subject: [PATCH 13/18] sched_ext: Fix bypassed tasks stalling when the host lacks SCX_CAP_BASE
-Date: Mon, 26 Oct 2026 14:17:44 -1000
-Message-ID: <20261027001749.1821379-14-tj@kernel.org>
+Subject: [PATCH 17/18] sched_ext: Fix queued bypassed tasks stalling when the host loses SCX_CAP_BASE
+Date: Mon, 26 Oct 2026 14:17:48 -1000
+Message-ID: <20261027001749.1821379-18-tj@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027001749.1821379-1-tj@kernel.org>
 References: <20261027001749.1821379-1-tj@kernel.org>
@@ -65,292 +65,370 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A bypassed task stalls on a cpu where its host lacks SCX_CAP_BASE. The host,
-the nearest ancestor that is not bypassing, runs a bypassing sub-scheduler's
-tasks through its per-cpu bypass DSQs. A cpu's dispatch only descends into
-schedulers holding BASE on it, so the host's bypass DSQ on such a cpu is
-never consumed until the host regains the cap.
+A task already queued on a bypass DSQ stalls when the host loses
+SCX_CAP_BASE on that cpu, as the cpu no longer consumes the DSQ. Sending a
+bypassed task to rescue at enqueue time covers only a task enqueued after
+the loss, and the balancer no longer donates to a capless cpu.
 
-Resolve a bypassed task against its host at enqueue time. If the host lacks
-BASE on the cpu, send the task to rescue on that cpu, which runs it at
-bounded bandwidth without the host's dispatch having to reach it.
+Have the bypass load balancer drain such a DSQ: a cpu where the host lacks
+BASE is a donor with a target of zero, and the donees take its tasks under
+their ordinary fill.
 
-The enqueue does not look above the host for an ancestor that holds BASE.
-That ancestor would run the task on cpus it never granted the host.
+A drained task no donee can take is reenqueued at its home: to rescue when
+the host lacks BASE there and rescue is enabled, and to the home's bypass
+DSQ otherwise.
 
-With rescue disabled the task goes to the host's bypass DSQ as before and
-stalls there until the host regains BASE or the bypass ends, or until the
-stall watchdog ejects the host, which it blames for a task stuck on its DSQ.
-A task that must run on the cpu, migration-disabled or with a migration
-pending, is admitted to the local DSQ instead, as any insert of such a task
-is.
+A balancing donor leaves a task that can't move to its donee where it is.
+Reenqueueing it at home would put a task homed on the donor cpu at the tail
+of its own DSQ, and a blocked task that proxy execution migrated there,
+which every remote cpu refuses, would go to the tail on every pass.
 
-Bypass also used to end a rescue, sending a preempted rescuee to the bypass
-DSQ with every other preempted task. Now that rescue is how a bypassed task
-runs while its host lacks BASE, keep a preempted rescuee on the local DSQ
-under bypass too. dispatch_one() also keeps such a rescuee running, as an
-earlier patch's bypass expiry leaves a kernel slice alone. The grant stays
-bounded by served time.
+Without rescue, a task homed on the drained cpu goes back onto the drained
+DSQ, once per pass, and waits for the host to regain BASE, the bypass to
+end, or the stall watchdog to eject the host. Its reenqueues are not counted
+against the reenqueue limit, as its scheduler is bypassing.
 
-A task scx_fail_parent() punted to its bypassing parent at NONE can be a
-rescuee too. switched_from_scx() ends its slice as it does for an enabled
-task, so that a NONE rescuee leaving sched_ext while running doesn't leave
-rq->scx.rescue.curr pointing at it.
+A BASE loss kicks the balancer so that the drain doesn't wait for the next
+interval. With a zero interval the kick is the only pass, and a task that
+lands on the drained DSQ after it waits the same way.
 
-While at it, the rescue test in __scx_resolve_local_dsq() goes through the
-new scx_rescue_enabled() helper.
-
-v2:
-- The description notes that dispatch_one() keeps a bypassed rescuee too,
-  through the new patch before this one (sashiko).
-- scx_rescue_keep()'s kerneldoc drops dispatch_one() declining a rescuee
-  with slice left, which the new patch removes.
+v2: The description drops an in-flight affinity change from the causes of a
+refused balancer move.
 
 v3:
-- With rescue disabled, a task that must run on the cpu is admitted to the
-  local DSQ instead of waiting on the host's bypass DSQ.
+- The description says that a stuck task's reenqueues are not counted
+  against the reenqueue limit (sashiko).
 - The description names the stall watchdog as the way out for a task stuck
-  without rescue.
+  without rescue, and the tasks a zero interval leaves on a drained DSQ.
+- bypass_lb_reenq_home()'s kerneldoc and the description give the placement
+  with rescue disabled and for a task that must run at home, and the other
+  two comments on that placement point to the kerneldoc.
 
 v4:
-- switched_from_scx() ends the slice of a NONE task, which can now be a
-  rescuee (sashiko).
-- scx_punt_task()'s kerneldoc no longer says that switched_from_scx() skips
-  a NONE task.
-- scx_bypass()'s kerneldoc and the ops.sub_ecaps_updated() doc say where a
-  bypassed task can be besides the bypass DSQs.
+- Skip a task the donee would refuse on a balancing donor instead of
+  reenqueueing it at home (Andrea).
+- bypass_lb_reenq_home()'s kerneldoc is corrected on a migration-disabled
+  task homed on a donee and on the local DSQ admission.
+- The description is condensed.
 
 Fixes: 147d1885f390 ("sched_ext: Add the SCX_CAP_ENQ_IMMED cap")
 Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- kernel/sched/ext/ext.c      | 52 ++++++++++++++++++++++++++++++-------
- kernel/sched/ext/internal.h |  5 ++--
- kernel/sched/ext/sub.c      | 24 +++++++++--------
- kernel/sched/ext/sub.h      |  9 +++++++
- 4 files changed, 68 insertions(+), 22 deletions(-)
+ kernel/sched/ext/ext.c      | 163 ++++++++++++++++++++++++++----------
+ kernel/sched/ext/internal.h |   1 +
+ kernel/sched/ext/sub.c      |   8 ++
+ 3 files changed, 129 insertions(+), 43 deletions(-)
 
 diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index dafb40c75cbc..a75d3c3bfad9 100644
+index f02be209c44a..c7a5eba4b468 100644
 --- a/kernel/sched/ext/ext.c
 +++ b/kernel/sched/ext/ext.c
-@@ -388,8 +388,12 @@ static const struct sched_class *scx_setscheduler_class(struct task_struct *p)
- 	return __setscheduler_class(p->policy, p->prio);
+@@ -6619,36 +6619,76 @@ bool scx_hardlockup(int cpu)
+ 	return true;
  }
  
--static struct scx_dispatch_q *bypass_enq_target_dsq(struct scx_sched *sch, s32 cpu)
-+static struct scx_dispatch_q *bypass_enq_target_dsq(struct scx_sched *sch, struct rq *rq,
-+						    struct task_struct *p, u64 *enq_flags)
- {
-+	struct scx_sched *host = scx_exec_sched(sch, cpu_of(rq));
-+	struct scx_dispatch_q *dsq;
-+
- 	/*
- 	 * If @sch is a sub-sched which is bypassing, its tasks should go into
- 	 * the bypass DSQs of the nearest ancestor which is not bypassing. The
-@@ -400,8 +404,29 @@ static struct scx_dispatch_q *bypass_enq_target_dsq(struct scx_sched *sch, s32 c
- 	 * Whenever a sched starts bypassing, all runnable tasks in its subtree
- 	 * are re-enqueued after scx_bypassing() is turned on, guaranteeing that
- 	 * all tasks are transferred to the right DSQs.
--	 */
--	return scx_bypass_dsq(scx_exec_sched(sch, cpu), cpu);
-+	 *
-+	 * A cpu's dispatch only descends into a host holding %SCX_CAP_BASE on
-+	 * it, so the bypass DSQ of a host without BASE here is never consumed.
-+	 * Send @p to rescue on this cpu instead, resolving against @host.
-+	 * scx_dispatch_enqueue() resolves a local DSQ again, against the
-+	 * bypassing @sch. %SCX_ENQ_IGNORE_CAPS makes that second resolution
-+	 * admit @p.
-+	 *
-+	 * A migration-disabled task can't leave this cpu, and a task with a
-+	 * migration pending must run here until the migration moves it. Either
-+	 * would wait on the unconsumed bypass DSQ until the host regains BASE.
-+	 * Resolve them too when rescue is disabled. The resolution admits both
-+	 * to the local DSQ, as it does any insert of such a task.
-+	 */
-+	if (unlikely(scx_missing_caps(host, cpu_of(rq), SCX_CAP_BASE)) &&
-+	    (scx_rescue_enabled() || is_migration_disabled(p) || p->migration_pending)) {
-+		*enq_flags |= SCX_ENQ_RESCUE;
-+		dsq = scx_resolve_local_dsq(host, rq, p, enq_flags);
-+		*enq_flags |= SCX_ENQ_IGNORE_CAPS;
-+	} else {
-+		dsq = scx_bypass_dsq(host, cpu_of(rq));
-+	}
-+	return dsq;
- }
- 
- /**
-@@ -2353,7 +2378,7 @@ void scx_do_enqueue_task(struct rq *rq, struct task_struct *p, u64 enq_flags,
- 	dsq = find_global_dsq(sch, task_cpu(p));
- 	goto enqueue;
- bypass:
--	dsq = bypass_enq_target_dsq(sch, task_cpu(p));
-+	dsq = bypass_enq_target_dsq(sch, rq, p, &enq_flags);
- 	goto enqueue;
- 
- enqueue:
-@@ -3735,8 +3760,13 @@ static void put_prev_task_scx(struct rq *rq, struct task_struct *p,
- 		 * The exception is an IMMED donor put by proxy_resched_idle():
- 		 * the CPU isn't busy, proxy resolution is only retrying through
- 		 * idle, so keep the donor where it can be picked again.
-+		 *
-+		 * A task with a kernel slice stays on the local DSQ even while
-+		 * @sch bypasses. Under bypass, rescue runs @p when the host
-+		 * lacks %SCX_CAP_BASE, see bypass_enq_target_dsq().
- 		 */
--		if (p->scx.slice && !scx_bypassing(sch, cpu_of(rq))) {
-+		if (p->scx.slice && (!scx_bypassing(sch, cpu_of(rq)) ||
-+				     scx_task_has_kernel_slice(p))) {
- 			if ((p->scx.flags & SCX_TASK_IMMED) && !proxy_put) {
- 				p->scx.flags |= SCX_TASK_REENQ_PREEMPTED;
- 				scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
-@@ -4987,11 +5017,14 @@ static void switched_from_scx(struct rq *rq, struct task_struct *p)
- 	 * parent's own teardown). There is nothing to disable; calling
- 	 * scx_disable_task() would WARN on the non-%ENABLED state and trigger a
- 	 * NONE -> READY validation failure.
-+	 *
-+	 * @p can still be a rescuee under the parent. End its slice as
-+	 * scx_disable_task() does for an enabled task.
- 	 */
- 	if (scx_get_task_state(p) == SCX_TASK_NONE)
--		return;
--
--	scx_disable_task(scx_task_sched(p), p);
-+		scx_task_slice_ended(rq, p);
-+	else
-+		scx_disable_task(scx_task_sched(p), p);
- }
- 
- static void switched_to_scx(struct rq *rq, struct task_struct *p) {}
-@@ -6930,7 +6963,8 @@ static void unbypass_renotify_idle(struct rq *rq, struct scx_sched *pos,
-  * - ops.dispatch() is ignored.
-  *
-  * - ops.sub_ecaps_updated() and ops.sub_child_ecaps_updated() are still called.
-- *   The bypassed tasks are on the bypass DSQs, out of their reach.
-+ *   The bypassed tasks are on the bypass DSQs, under rescue or admitted to a
-+ *   local DSQ, out of their reach.
-  *
-  * - dispatch_one() expires prev's slice before its keep test as the slice can't
-  *   be trusted. Each tick does the same and rotates the running task to the
-diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-index ed63e29c9442..ecd677c4b561 100644
---- a/kernel/sched/ext/internal.h
-+++ b/kernel/sched/ext/internal.h
-@@ -924,8 +924,9 @@ struct sched_ext_ops {
- 	 * ops.sub_attach() and any change since are reported then. A cpu that
- 	 * isn't online at that point reports them once it comes online.
- 	 * Deliveries continue while this sched bypasses. Its tasks are then on
--	 * the bypass DSQs, where this op can't insert or move them. Deliveries
--	 * stop once this sched is being disabled.
-+	 * the bypass DSQs, under rescue or admitted to a local DSQ, where this
-+	 * op can't insert or move them. Deliveries stop once this sched is
-+	 * being disabled.
- 	 *
- 	 * Until this sched is being disabled, whenever an op of this sched runs
- 	 * under a cid's rq lock, its effective caps on the cid are the @after
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 6fa8cea1ef88..01215384eaa5 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -36,7 +36,7 @@ static DEFINE_STATIC_KEY_FALSE(__scx_ops_cid_sched_updated_enabled);
- static s32 scx_nr_ops_cid_sched_updated;	/* such scheds, under scx_enable_mutex */
- 
- /* latched at root enable before any rescue runs */
--static s32 scx_rescue_bw_1024;
-+s32 scx_rescue_bw_1024;			/* 0 if disabled, see scx_rescue_enabled() */
- static s64 scx_rescue_quantum_ns;
- static s64 scx_rescue_sat_delta_ns;
- static unsigned long scx_rescue_decay_halflife;
-@@ -519,8 +519,8 @@ void scx_rescue_end(struct rq *rq)
-  * rescuee. dispatch_one() keeps it running and put_prev_task_scx() reinserts it
-  * at the tail of the local DSQ, behind whatever preempted the rescuee.
-  *
-- * Return %false to end the rescue instead - the slice is already fully served,
-- * @p is leaving the rq or bypass is dismantling rescues.
-+ * Return %false to end the rescue instead - the slice is already fully served
-+ * or @p is leaving the rq.
-  */
- bool scx_rescue_keep(struct rq *rq, struct task_struct *p)
- {
-@@ -528,8 +528,7 @@ bool scx_rescue_keep(struct rq *rq, struct task_struct *p)
- 
- 	lockdep_assert_rq_held(rq);
- 
--	if (!remaining || !(p->scx.flags & SCX_TASK_QUEUED) ||
--	    scx_bypassing(scx_task_sched(p), cpu_of(rq)))
-+	if (!remaining || !(p->scx.flags & SCX_TASK_QUEUED))
- 		return false;
- 
- 	/* never called on a protected rescuee, so the write can't be refused */
-@@ -887,9 +886,11 @@ void scx_rescue_init(struct rq *rq)
-  * %SCX_ENQ_PREEMPT_LAZY are also cleared on a fallback migration-disabled
-  * admission.
-  *
-- * Bypass doesn't need special-casing as a bypassing sched's tasks are enqueued
-- * to and run by its nearest non-bypassing ancestor. If root is bypassing, it
-- * always holds all caps.
-+ * bypass_enq_target_dsq() also calls this with the host as @sch when the host
-+ * lacks %SCX_CAP_BASE on @rq's cid, if rescue is enabled or @p must run on the
-+ * cpu, migration-disabled or with a migration pending. The bypassed task is
-+ * then admitted or diverted like a capless %SCX_ENQ_RESCUE insert by the host
-+ * itself.
-  */
- struct scx_dispatch_q *__scx_resolve_local_dsq(struct scx_sched *sch, struct rq *rq,
- 					       struct task_struct *p, u64 *enq_flags)
-@@ -932,7 +933,7 @@ struct scx_dispatch_q *__scx_resolve_local_dsq(struct scx_sched *sch, struct rq
- 	scx_divert_strip_flags(p, enq_flags);
- 
- 	/* the enqueuer opted for rescue instead of rejection and reenqueue */
--	if ((*enq_flags & SCX_ENQ_RESCUE) && likely(scx_rescue_bw_1024)) {
-+	if (scx_rescue_enabled() && (*enq_flags & SCX_ENQ_RESCUE)) {
- 		__scx_add_event(sch, SCX_EV_SUB_RESCUE, 1);
- 		if (scx_rescue_try_admit(rq, p))
- 			return &rq->scx.local_dsq;
-@@ -1656,8 +1657,9 @@ static void scx_rehome_task(struct scx_sched *to, struct task_struct *p)
-  *
-  * Used when @to must take over @p but failed to initialize it. Bypass keeps
-  * scheduling decisions away from @to but @p can still trigger its task ops,
-- * which may confuse the BPF side. @to is dying anyway. The exit paths skip
-- * %NONE tasks (see __scx_disable_and_exit_task() and switched_from_scx()).
-+ * which may confuse the BPF side. @to is dying anyway. The exit paths call no
-+ * op on a %NONE task. __scx_disable_and_exit_task() skips it and
-+ * switched_from_scx() only ends its slice.
-  */
- static void scx_punt_task(struct scx_sched *to, struct task_struct *p)
- {
-diff --git a/kernel/sched/ext/sub.h b/kernel/sched/ext/sub.h
-index de80a8af524c..b6d4a522a5a3 100644
---- a/kernel/sched/ext/sub.h
-+++ b/kernel/sched/ext/sub.h
-@@ -14,6 +14,8 @@
- 
- #ifdef CONFIG_EXT_SUB_SCHED
- 
-+extern s32 scx_rescue_bw_1024;
-+
- struct scx_sched *scx_skip_subtree_pre(struct scx_sched *pos, struct scx_sched *root);
- struct scx_sched *scx_next_descendant_pre(struct scx_sched *pos, struct scx_sched *root);
- void scx_cid_sched_update(struct rq *rq, struct scx_sched *sch);
-@@ -51,6 +53,12 @@ void scx_rescue_dump(struct seq_buf *s, struct rq *rq);
- void scx_rescue_set_knobs(struct scx_sched *sch);
- void scx_rescue_init(struct rq *rq);
- 
-+/* false only when the root disabled rescue, see scx_rescue_set_knobs() */
-+static inline bool scx_rescue_enabled(void)
++/**
++ * bypass_lb_reenq_home - Reenqueue a task at its home from the balancer
++ * @rq: @p's home rq, locked
++ * @p: task off any DSQ, taken from the bypass DSQ of @dsq_cpu
++ * @dsq_cpu: cpu whose bypass DSQ gave up @p
++ *
++ * @p came off the bypass DSQ of @dsq_cpu with no donee able to take it. A drain
++ * sends a migration-disabled @p here unless the donee picked for it is its
++ * home, as every other cpu refuses it. The enqueue sends @p to rescue when the
++ * host lacks %SCX_CAP_BASE at home and rescue is enabled, and to the home's
++ * bypass DSQ otherwise. When @p must run at home, migration-disabled or with a
++ * migration pending, and the host lacks BASE there, it is admitted to the
++ * home's local DSQ in either case, see bypass_enq_target_dsq(). No DSQ lock may
++ * be held, as the enqueue takes one.
++ */
++static void bypass_lb_reenq_home(struct rq *rq, struct task_struct *p, s32 dsq_cpu)
 +{
-+	return likely(scx_rescue_bw_1024);
++	lockdep_assert_rq_held(rq);
++
++	WARN_ON_ONCE(p->scx.flags & SCX_TASK_REENQ_REASON_MASK);
++	p->scx.flags |= SCX_TASK_REENQ_CAP;
++	p->scx.reenq_reason_caps = SCX_CAP_BASE;
++	p->scx.reenq_reason_cid = __scx_cpu_to_cid(dsq_cpu);
++	scx_do_enqueue_task(rq, p, SCX_ENQ_REENQ, -1);
 +}
 +
- /*
-  * cgrp->scx_sched is written by root/sub enable/disable under all of
-  * scx_enable_mutex, scx_fork_rwsem and cgroup_mutex. A new cgroup inherits the
-@@ -128,6 +136,7 @@ static inline void scx_rescue_end(struct rq *rq) {}
- static inline bool scx_rescue_keep(struct rq *rq, struct task_struct *p) { return false; }
- static inline void scx_rescue_flush(struct rq *rq) {}
- static inline void scx_rescue_dump(struct seq_buf *s, struct rq *rq) {}
-+static inline bool scx_rescue_enabled(void) { return false; }
- static inline void scx_rescue_set_knobs(struct scx_sched *sch) {}
- static inline void scx_rescue_init(struct rq *rq) {}
- static inline void scx_dec_has_subs(struct scx_sched *sch) {}
++/**
++ * bypass_lb_can_move - Test whether @p can move to the bypass DSQ of @donee
++ * @sch: host sched whose bypass DSQs are balanced
++ * @p: task on a bypass DSQ of @sch, homed anywhere
++ * @donee: cpu whose bypass DSQ would receive @p, -1 for none
++ *
++ * @p's rq lock pins @p's affinity. Without it the answer is a hint. A task
++ * whose donee is its own cpu can always run there, and
++ * task_can_run_on_remote_rq() warns when asked about a task's own cpu.
++ */
++static bool bypass_lb_can_move(struct scx_sched *sch, struct task_struct *p, s32 donee)
++{
++	return donee >= 0 && (donee == task_cpu(p) ||
++			      task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false));
++}
++
+ /**
+  * bypass_lb_move - Move one task off a bypass DSQ for the balancer
+  * @sch: host sched whose bypass DSQs are balanced
+  * @donor_rq: rq of the cpu whose bypass DSQ gives up @p, locked
+  * @donor_dsq: @sch's bypass DSQ on @donor_rq's cpu, locked
+  * @p: task on @donor_dsq, homed anywhere
+- * @donee: cpu whose bypass DSQ receives @p
++ * @donee: cpu whose bypass DSQ receives @p, -1 for none
+  *
+  * Take @p off @donor_dsq and insert it into the bypass DSQ of @donee. The
+- * caller picks @donee from @p's affinity alone and task_can_run_on_remote_rq()
+- * can still refuse the move under @p's rq lock. @p then goes back to the head
+- * of @donor_dsq.
++ * caller tests bypass_lb_can_move() without @p's rq lock for a task homed
++ * elsewhere, and not at all for a drain, so the test is repeated here under
++ * @p's rq lock. A task that fails it is not put back, as the host may no longer
++ * consume @donor_dsq. bypass_lb_reenq_home() reenqueues it at its home instead.
+  *
+- * The insert runs under @p's rq lock. A task homed on @donor_rq is dequeued in
+- * place. unlink_dsq_and_switch_rq_lock() takes one homed elsewhere off and
+- * switches the rq lock from @donor_rq to its own. The switch can lose to a
+- * dequeue, and @p then belongs to the dequeuer.
++ * The insert and the reenqueue run under @p's rq lock. A task homed on
++ * @donor_rq is dequeued in place. unlink_dsq_and_switch_rq_lock() takes one
++ * homed elsewhere off and switches the rq lock from @donor_rq to its own. The
++ * switch can lose to a dequeue, and @p then belongs to the dequeuer.
+  *
+  * @donor_rq and @donor_dsq are locked on entry and on return. @donor_dsq is
+  * unlocked in between, and @donor_rq too while the lock is switched, so the
+  * caller's walk must find its place in @donor_dsq again after the call.
+  *
+- * Return the cpu that received @p, or -1 if @p went back onto @donor_dsq or was
+- * lost to a dequeue.
++ * Return the cpu that received @p, or -1 if @p was lost to a dequeue.
+  */
+ static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
+ 			  struct scx_dispatch_q *donor_dsq, struct task_struct *p, s32 donee)
+ {
+-	struct scx_dispatch_q *dst_dsq;
+-	u64 enq_flags;
+ 	struct rq *rq = task_rq(p);
+ 	s32 ret;
+ 
+@@ -6665,23 +6705,17 @@ static s32 bypass_lb_move(struct scx_sched *sch, struct rq *donor_rq,
+ 		goto out;
+ 	}
+ 
+-	/*
+-	 * @p's affinity is stable under its rq lock. A task whose donee is its
+-	 * own cpu can always run there, and task_can_run_on_remote_rq() warns
+-	 * when asked about a task's own cpu.
+-	 */
+-	if (donee == task_cpu(p) || task_can_run_on_remote_rq(sch, p, cpu_rq(donee), false)) {
+-		dst_dsq = scx_bypass_dsq(sch, donee);
+-		enq_flags = 0;
++	if (bypass_lb_can_move(sch, p, donee)) {
++		scx_dispatch_enqueue(sch, rq, scx_bypass_dsq(sch, donee), p, 0, 0, 0);
+ 		ret = donee;
+ 	} else {
+-		/* back where it was, at the head so that the walk skips it */
+-		dst_dsq = donor_dsq;
+-		enq_flags = SCX_ENQ_HEAD;
+-		ret = -1;
++		/*
++		 * No donee, or @p can't run on it. Reenqueue @p at home
++		 * instead, see bypass_lb_reenq_home().
++		 */
++		bypass_lb_reenq_home(rq, p, cpu_of(donor_rq));
++		ret = cpu_of(rq);
+ 	}
+-
+-	scx_dispatch_enqueue(sch, rq, dst_dsq, p, 0, 0, enq_flags);
+ out:
+ 	if (rq != donor_rq)
+ 		switch_rq_lock(rq, donor_rq);
+@@ -6704,10 +6738,11 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
+ 	 * All we want to guarantee is reasonable forward progress. No reason to
+ 	 * fine tune. Assuming every task on @donor_dsq runs their full slice,
+ 	 * consider offloading iff the total queued duration is over the
+-	 * threshold.
++	 * threshold. A zero target is a drain and empties the DSQ regardless.
+ 	 */
+ 	min_delta_us = READ_ONCE(scx_bypass_lb_intv_us) / SCX_BYPASS_LB_MIN_DELTA_DIV;
+-	if (delta < DIV_ROUND_UP(min_delta_us, READ_ONCE(scx_slice_bypass_us)))
++	if (nr_donor_target &&
++	    delta < DIV_ROUND_UP(min_delta_us, READ_ONCE(scx_slice_bypass_us)))
+ 		return 0;
+ 
+ 	raw_spin_rq_lock_irq(donor_rq);
+@@ -6727,18 +6762,29 @@ static u32 bypass_lb_cpu(struct scx_sched *sch, s32 donor,
+ 		if (donor_dsq->nr <= nr_donor_target)
+ 			break;
+ 
+-		if (cpumask_empty(donee_mask))
++		/*
++		 * Without a donee, a balancing donor has nothing to do. A drain
++		 * still sends its tasks home.
++		 */
++		if (cpumask_empty(donee_mask) && nr_donor_target)
+ 			break;
+ 
+ 		/*
+ 		 * A task queued after the walk began, including one the walk
+-		 * itself put back, is left for the next pass.
++		 * itself reenqueued, is left for the next pass.
+ 		 */
+ 		if (u32_before(cursor.priv, p->scx.dsq_seq))
+ 			continue;
+ 
++		/*
++		 * A balancing donor leaves a task that can't move where it is.
++		 * A home reenqueue would push one homed on the donor to the
++		 * back of @donor_dsq on every pass. A drain sends it home.
++		 */
+ 		donee = cpumask_any_and_distribute(donee_mask, p->cpus_ptr);
+ 		if (donee >= nr_cpu_ids)
++			donee = -1;
++		if (nr_donor_target && !bypass_lb_can_move(sch, p, donee))
+ 			continue;
+ 
+ 		/*
+@@ -6795,6 +6841,7 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
+ 	const struct cpumask *node_mask = cpumask_of_node(node);
+ 	struct cpumask *donee_mask = sch->bypass_lb_donee_cpumask;
+ 	struct cpumask *resched_mask = sch->bypass_lb_resched_cpumask;
++	u32 intv_us = READ_ONCE(scx_bypass_lb_intv_us);
+ 	u32 nr_tasks = 0, nr_cpus = 0, nr_balanced = 0;
+ 	u32 nr_target, nr_donor_target;
+ 	u32 before_min = U32_MAX, before_max = 0;
+@@ -6814,7 +6861,7 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
+ 		before_max = max(nr, before_max);
+ 	}
+ 
+-	if (!nr_cpus)
++	if (!nr_tasks)
+ 		return;
+ 
+ 	/*
+@@ -6822,7 +6869,7 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
+ 	 * balancing to fill donee CPUs up to $nr_target. Once targets are
+ 	 * calculated, find the donee CPUs.
+ 	 */
+-	nr_target = DIV_ROUND_UP(nr_tasks, nr_cpus);
++	nr_target = nr_cpus ? DIV_ROUND_UP(nr_tasks, nr_cpus) : 0;
+ 	nr_donor_target = DIV_ROUND_UP(nr_target * SCX_BYPASS_LB_DONOR_PCT, 100);
+ 
+ 	cpumask_clear(donee_mask);
+@@ -6833,18 +6880,28 @@ static void bypass_lb_node(struct scx_sched *sch, int node)
+ 			cpumask_set_cpu(cpu, donee_mask);
+ 	}
+ 
+-	/* iterate !donee CPUs and see if they should be offloaded */
++	/*
++	 * Offload the !donee cpus. A cpu where the host lost %SCX_CAP_BASE no
++	 * longer consumes its DSQ. Drain it as a donor with a target of zero. A
++	 * zero interval disables the balancing, not the drain.
++	 */
+ 	cpumask_clear(resched_mask);
+ 	for_each_cpu_and(cpu, cpu_online_mask, node_mask) {
+-		if (cpumask_empty(donee_mask))
+-			break;
+-		if (cpumask_test_cpu(cpu, donee_mask))
++		u32 target = nr_donor_target;
++
++		if (unlikely(scx_missing_caps(sch, cpu, SCX_CAP_BASE))) {
++			/* the mask may predate the loss, keep this cpu out */
++			cpumask_clear_cpu(cpu, donee_mask);
++			target = 0;
++		} else if (!intv_us || cpumask_empty(donee_mask) ||
++			   cpumask_test_cpu(cpu, donee_mask)) {
+ 			continue;
+-		if (READ_ONCE(scx_bypass_dsq(sch, cpu)->nr) <= nr_donor_target)
++		}
++		if (READ_ONCE(scx_bypass_dsq(sch, cpu)->nr) <= target)
+ 			continue;
+ 
+ 		nr_balanced += bypass_lb_cpu(sch, cpu, donee_mask, resched_mask,
+-					     nr_donor_target, nr_target);
++					     target, nr_target);
+ 	}
+ 
+ 	for_each_cpu(cpu, resched_mask)
+@@ -6883,9 +6940,28 @@ static void scx_bypass_lb_timerfn(struct timer_list *timer)
+ 	for_each_node_with_cpus(node)
+ 		bypass_lb_node(sch, node);
+ 
++	/*
++	 * A kick during this run can leave the timer pending at now, see
++	 * scx_bypass_lb_kick(). timer_reduce() only brings the expiry forward,
++	 * so that kick is kept.
++	 */
+ 	intv_us = READ_ONCE(scx_bypass_lb_intv_us);
+ 	if (intv_us)
+-		mod_timer(timer, jiffies + usecs_to_jiffies(intv_us));
++		timer_reduce(timer, jiffies + usecs_to_jiffies(intv_us));
++}
++
++/**
++ * scx_bypass_lb_kick - Run the bypass load balancer now
++ * @sch: sched that lost %SCX_CAP_BASE on a cpu
++ *
++ * @sch no longer consumes its bypass DSQ on that cpu. Have the balancer drain
++ * it without waiting for the next interval, see bypass_lb_node(). A loss during
++ * a run leaves the timer pending at now, and the run that follows sees it.
++ */
++void scx_bypass_lb_kick(struct scx_sched *sch)
++{
++	if (scx_bypass_dsp_enabled(sch))
++		mod_timer(&sch->bypass_lb_timer, jiffies);
+ }
+ 
+ static bool inc_bypass_depth(struct scx_sched *sch)
+@@ -6954,11 +7030,12 @@ static void enable_bypass_dsp(struct scx_sched *sch)
+ 
+ 	/*
+ 	 * The LB timer will stop running if bypass dispatch is disabled. Start
+-	 * after enabling bypass dispatch.
++	 * after enabling bypass dispatch. A kick from a BASE loss can have set
++	 * the timer to expire now in the meantime, see scx_bypass_lb_kick().
++	 * timer_reduce() keeps that expiry.
+ 	 */
+-	if (intv_us && !timer_pending(&host->bypass_lb_timer))
+-		mod_timer(&host->bypass_lb_timer,
+-			  jiffies + usecs_to_jiffies(intv_us));
++	if (intv_us)
++		timer_reduce(&host->bypass_lb_timer, jiffies + usecs_to_jiffies(intv_us));
+ }
+ 
+ /* may be called without holding scx_bypass_lock */
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index ecd677c4b561..ff0a3d508533 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2332,6 +2332,7 @@ void scx_cgroup_unlock(void);
+ s32 scx_alloc_kern_arena_objs(struct scx_sched *sch);
+ void scx_disable_bypass_dsp(struct scx_sched *sch);
+ void scx_bypass(struct scx_sched *sch, bool bypass);
++void scx_bypass_lb_kick(struct scx_sched *sch);
+ s32 scx_link_sched(struct scx_sched *sch);
+ void scx_unlink_sched(struct scx_sched *sch);
+ void scx_disable_dump(struct scx_sched *sch);
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 01215384eaa5..ecab82ca5e82 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -1243,6 +1243,14 @@ void __scx_process_sync_ecaps(struct rq *rq, struct task_struct *prev)
+ 		gained = ecaps & ~old;
+ 		lost_all |= lost;
+ 
++		/*
++		 * The bypass DSQ on this cpu is no longer consumed, so drain
++		 * it. A bypassing sched's own bypass DSQs are empty, as its
++		 * tasks sit on the host's.
++		 */
++		if ((lost & SCX_CAP_BASE) && !scx_bypassing(pcpu->sch, cpu))
++			scx_bypass_lb_kick(pcpu->sch);
++
+ 		/*
+ 		 * Tell the sched and its parent that the sched's effective caps
+ 		 * on this cid changed. The invocations are equivalent to the
 -- 
 2.56.0
 
