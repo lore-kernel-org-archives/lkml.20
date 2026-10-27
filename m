@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099003;
-	b=ROHBeKq5n6kx8YilXO9xGlgyObkiFBajIUcjDhRYtbNkJpP0jCqk9DxGZd+Ay09ShAIy
-	 VFBgnyxlk8oyShgT45rk4Ko/D0XrBZ5m/GHaT1C/Nadrf/wyybY52Df4uJa8Ke+dG58SR
-	 mH76KNBzMfm6V8HHW06qNP7wJZA9zQZ2eK/t24vvMoxeqAuy8oMIA2ox3qtTbk8xcfdAR
-	 FgMBcdv8QowtDTmoGjQUIZ1pnT4dX/XsusuzL/cM9msy9D9NwLY8qJsFTI72Fkv+TA6WT
-	 pgKF6Klwbi02xqT6BCxKx/7dV/YxO+ZXbXhBHtJrf7x4qGHyqnNLDJR+I6mw8pB4Kfg==
+	t=1793099018;
+	b=EquYW9qiiXH/3eD67Rr3vOsDgBKuZWYQUnjlwc8JM/ni63YhoKRMRBn3ucle68CDM3ca
+	 lj3LY9DgVyExMMAIgTiNUl9XaAWMuysUodoOVRkFQro2RyxKXxnJVZwAB8LJwmaObhDHH
+	 cuIUTa037i7+n/gI7zcq07yRCoZ7+G0UhkE/T65ixc7TrdhgQvhC1YCnyl5wYbu21RocO
+	 O1QLEYxQrWbKEMf1lMhL51JMB5mNXoe0sT9WM7Ho174DRa2DkbA3csMoRLLXaEaGRZl6w
+	 gZ27oFLrsbuNPKVWP4RsX2f3OigroHFCSsyXiUiOvt9SGH56N+AbQP2q/3IBQgxHPTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099003;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Debian-User;
-	bh=nHKLSnMheiDS31UsYegs6BbwSkSWlAIzLYimnH7hx8Q=;
-	b=N0U8hM4ywZnFcMO6AOzX8cjM2L5mnyKiKyzYADaX+x9IBU58G4nPCUwsUfIaI0mjYT+l
-	 PtI+sFUaXIym0jUYD2RV+RlYA9gAC23fLETnp9Hn6B8RF2Xvb+sZYaRoT/H4Kn4zBL834
-	 dIZaqNM3lIR/iMfVL4SE9oWN6raA9ojwhdbPXGDNnH8j970fyavt1jqGBq96o+2H7AUo6
-	 5LonYKCoKejGpGjNyMApo9vhktD6CWnPzPAtLSu+4d0miaiG8end6jfX5Ps4JlggwVg8Z
-	 k6F7khEWEPQ6oIv7SD4FDbEo7KDnGem8Jy7YRuArq/JYzWnJ7h12mNXaqKjQay/7YMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099018;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=yAbU5I2eU/VIR9BDkWK2xzH7j/NK2q9jtYmR8/DGsU4=;
+	b=dc933CUzGUzYo/H+g5xuDjEVXOwBlKW7WqprYdFxO4OcEvfgddGQcrNuZP64KvloYXZx
+	 o5erTFRZBjFWYvdDaHxkS2lYSlVoAjYCUuNqvz/K9PEUb7RDT4GZmE9e+db0z7GZ1Ccc8
+	 Poo1BDPysQhZzxD3DvDtESUQyx95S8RATX0liudL5cqQrgiDZu4ybZvkmsWC1JZz47T5z
+	 qGhFfPuQQnj856k+yUdl8uaodz6MIdydIW4PmFVEpOCuzRvkt4NhO1BE85KHmDUYyiiTz
+	 V9F6IzjtYO13BEg+MsLIrvgit013Pa8Wa0Th/ZA84AqkILyi+VZN9fFfvWkzoujQfcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=CDGqGFrQ;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WEThs2/Q";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B832A606A31A;
-	Tue, 27 Oct 2026 11:03:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B832A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80A5606A31D;
+	Tue, 27 Oct 2026 11:03:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=CDGqGFrQ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:Content-Type
-	:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=nHKLSnMheiDS31UsYegs6BbwSkSWlAIzLYimnH7hx8Q=; b=CDGqGFrQj13sJzTvPFh8hxKOI4
-	tWPrzRcLGwpip55Rbobm6xmCZ/uxw1yl62klWic/qdlMub8verqkijomwN1NCMQUIa6lj9iw5bQf9
-	m+WbIGPuqA9P/UjDcnk7FNCc8c06wGta4CIzVMVgMqrrCh9uufQl5/69gnDx7VDyRaiq4JyaXuQPM
-	JyLZyTAm5x7dZWsuhaHXvywQNueEMi3Qqpvw7yC8SmBvb1GeRQPj4fDxuGHPDQFBviyXaOPv3pyb5
-	btSILkzLCg00e1I+q/SEnoy4P/BFRjm4+2hD3Z0zguJPD8wgqaoZybeVC4KXypp0GntDhiD4GBnWL
-	mVoh+fVw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xLexV-001PYe-0m;
-	Tue, 27 Oct 2026 11:03:13 +0000
-From: Breno Leitao <leitao@debian.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Gary Guo <gary@garyguo.net>,
-	Priya Bala Govindasamy <pgovind2@uci.edu>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH] configfs: zero the write buffer on allocation
-Date: Tue, 27 Oct 2026 04:02:59 -0700
-Message-ID: <179309887602.2591736.10699614115751352307.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261015-b4-configfs_kzalloc-v1-1-17c1ba6db062@debian.org>
-References: <20261015-b4-configfs_kzalloc-v1-1-17c1ba6db062@debian.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEThs2/Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0203D1F01829;
+	Tue, 27 Oct 2026 11:03:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793099017;
+	bh=yAbU5I2eU/VIR9BDkWK2xzH7j/NK2q9jtYmR8/DGsU4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WEThs2/Qu3ffSZECM0r6Y8xDhs8eOr1Etzm93ywP4PoBLKeJrSb3MkpfB6JFnxHMN
+	 l2kXIklS6UZou1+p5GFf7ZFslidssCz+t1O2p8hHu87QNK532TO0EYohndrhA++7MQ
+	 UDrkDn3qMPlSSVBGuwRuNj4hJvsqpFwL7HgqQe6nXagfeDEDtxF9kiVPqQv/gh4RvU
+	 dpPAZv/uMOFGozhMKIyC5zw0lpwyPfyUYyT6bUi/zf3L4pN/Y74Teb/XQ3LlCZGIT/
+	 4fGjAODJgeCkgyh43T57CN6BWux0C9M/iW5OX7Ua8YqNsZkatntCA8yDev1sJXf9qm
+	 nO5VWdEK01W1Q==
+Message-ID: <4aba41b5-0aa9-4a3e-8d8e-efc5ee45fc54@kernel.org>
+Date: Tue, 27 Oct 2026 12:03:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,29 +51,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: clock: ti: dpll: drop the ti,ssc-*
+ properties
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ linux-kernel@vger.kernel.org
+Cc: linux-amarula@amarulasolutions.com, michael@amarulasolutions.com,
+ Brian Masney <bmasney+clk@redhat.com>, Conor Dooley <conor+dt@kernel.org>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org
+References: <20261026074654.3997494-1-dario.binacchi@amarulasolutions.com>
+ <20261026074654.3997494-2-dario.binacchi@amarulasolutions.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261026074654.3997494-2-dario.binacchi@amarulasolutions.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Thu, 15 Oct 2026 06:20:38 -0700, Breno Leitao wrote:
-> fill_write_buffer() allocates the per-open buffer page with kmalloc()
-> and initializes only the bytes copied from userspace plus the
-> terminating NUL. fill_read_buffer() reuses that page if it is already
-> allocated.
+On 26/10/2026 08:46, Dario Binacchi wrote:
+> The common clock binding provides assigned-clock-sscs to configure
+> spread spectrum clocking (SSC), supported by the clock core since commit
+> a7f16660af39 ("clk: conf: Support assigned-clock-sscs"). Keeping the
+> vendor specific ti,ssc-deltam, ti,ssc-modfreq-hz and ti,ssc-downspread
+> properties would leave two ways to describe the same thing.
 > 
-> After a write, a read on the same file descriptor therefore passes
-> ->show() a page that still holds stale heap data. A ->show() that
-> returns only what it wrote never notices, but one that returns a length
-> covering bytes it did not write leaks that data to userspace.
+> The properties have no in-tree users, so they can be dropped.
 > 
-> [...]
+> Existing DTS files using them continue to work, with SSC disabled,
+> until they switch to assigned-clock-sscs.
+> 
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+> 
+> ---
+> If keeping the properties as deprecated is preferred, I can add a
+> fallback to the driver in v2.
+> 
+> (no changes since v1)
+> 
 
-Applied, thanks!
+I responded under v1, so same here:
 
-[1/1] configfs: zero the write buffer on allocation
-      https://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux.git/commit/?id=ea00693fd86e
+I see the user:
+	git grep ti,ssc-deltam
+
+Maybe you ordered patches incorrectly. Anyway, properties with in-tree
+users must be documented, so make them deprecated instead.
 
 Best regards,
--- 
-Breno Leitao <leitao@debian.org>
+Krzysztof
