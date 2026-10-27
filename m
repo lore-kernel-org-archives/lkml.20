@@ -1,100 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116059;
-	b=pJbYvTpayQnFOMbAPaWw2mQMmkOpJXyzjpGGq3rZZBFxvigvrhS5L/pUiJuHyUzqtdp8
-	 7QxtaOkeWlEFYSj42510Cm1IPI0mx8UzcRPr7Jw0FzdLW54BGCpZAmBMbjithidodv1BX
-	 GHHgHR3tkdpXhm3K1PtoG7ZPFXRFE9ft6L3u8WPU5ShqH0ePfN38wDYQUbQ3tMLsCoxni
-	 3uQe6qnPEYYEz/EKN+7FTNlLXZOEcheX04H/jr0dzUpNa/p9s82xrglF2AUXDsLhAKiE8
-	 5UeNNar90I2AoveWd/Iloyn67tTHLYs+vQRrH755Aquw572xFF3SGuqTphj59jYWZfw==
+	t=1793116063;
+	b=F+bkhu/Kdvl6YrvWZV1qrX8hIjXO+p35sdJosRyJR7VXlCbWKu6wEDU6Eu+JoBFF8lFD
+	 /s8bo4kGcj8rc4i4dCFTg0W7nhSw+Eo568ulK+W51eSTePumKr9944ANTJYSWkHj2dHRZ
+	 AlcqalKy/te1fI17QHlI+h76ZuKuHh90qkOjG5YWAgFd/KiFckys77UqOG7YLeN3aPAyM
+	 jfGrGt62rQEYUfxw7vNhWuIpRqq4eXAUNTluOBjhpzyLlYffvmwDBNi7JxPs67var7kRX
+	 e1Y0WwlT2pspTu/XZ3o5ML3w95RQsLHK/79JPSLfguq9W0krE+4CoBCBI6kUVcYZaSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
-	b=wdFRQmXBc8KbYW50Bi66jkscjPGDTHGYOnDVBg4bNRKhR5wgh6ABkUslLd4UBIBhxwTI
-	 N4lq0JqxyNkldffv+1hcXdG0b6qXqD6kyr7ihEPJ55+NIMKW/RoKL0EFT6zn32npl5Jkw
-	 pGioSMJyhfB27bSQ+HWIATnS4sLuqJIPNqVF/hm6qwe4gPSewjxE0FTzFAQSLlQ9MpztI
-	 iJ8M+QOAy+cSRLGuhE7T6xzV+YRz9kNr7rHNW/VJ4NbFKSztd6SO3tPPZmVme06kzsTJ+
-	 xz7hjulOVDArCJmQQRtM5VPCNa7wKcEAIrHv5YlsVj/jm3zc9UHgUJwLL4dETHYz+MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116063;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=+Gugmp3BIEkOqv8FF7ZJdq+ktVSv07Or0XQY3RY45wY=;
+	b=OUG+BRcvDQkwIQwZ9V+NduD/J35dboNbVuoLeXVHr6doyDRWuEZREO4rgOufnxg7/L2W
+	 8uW9tjgNGGzCXZBYX7m2yOV0uFfLPRdzxdC6nSHGSwvQe19f7e+FoOwPOnL/WOiICfjxc
+	 C5eIuhAl7sJgC7OlgmjGhnmpJ5yn19labgm5ekQsbCWSbAI2B4qu+DD79TnzDLd3P/RRx
+	 SUY5J6InBAqW1KFrHF+rkpaLjy60luIbAkGC6jJ2/OqBneIiOBkbuaen7jKsFSxQU2H0N
+	 4CLFUisIgoDR2ez+O7JEZkZNgWAE8eVc2A4LPIOUHJUjnizKeWZGGmpbOH1PQmt0ROA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wL6MI4s+;
-	arc=none smtp.remote-ip=209.85.222.43
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="fExQ5/g4";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="9MPJ7/Rj";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="fExQ5/g4";
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="9MPJ7/Rj";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C51060709F1
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C51060709F1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C9160709F1;
+	Tue, 27 Oct 2026 15:47:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C9160709F1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wL6MI4s+
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so912303241.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:47:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793116058; x=1793720858; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
-        b=wL6MI4s+mj6iZumr/hBUO4nDNtwWFMZolYyAB8VQpHY3486JGkmdiSnZlVuHswjdH8
-         fr9VH1dtvaL4YSgJnc9zJHVFxD+3Aoyi7047feaTRDkmP7Wwcavr4RxYKOubGEkkjcjr
-         5IFpVTY2nSVdHB9+UOE7yaXWlbFEBVN04kAMcpWuF5WkaMiXvjySc1Ljzhli8NSvkC7E
-         4D9FdI3ZFPNHIykZjqqcBFAhGSPwIKto1yqwrK7djPuIdPWcpk6HbJ7FqazGAsTyCKdR
-         jrcdRE/C1Dbd0/qLhpRmhpDR8i5yubkz2n1YniaoptK/uPkKys5mLfLlTGJc/xlpivHb
-         E4dA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793116058; x=1793720858;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
-        b=jJi+MQP4AFqTNeN+vFgbsMekL84RKJ9Ho6HHOP9iD9oI6CrQdDTwysB/miNgCi4qt2
-         S+h6NDRss6PDNeksuroX6kO/POx9QWtiB2MABLFXxKCiBxvyL5yHC3Yl98+/ZMjJKTmx
-         tbxLELpIE5SybiC+7BlPFO/oBkt67VNT4w8rRegKO5pgEtkA9gDE27MmtpY3wb959R8I
-         5rXWjMoycglAiC8M/XZQfJDFX/JTkjDpm3OlVD5AJY4WpMxLL0f3pta+KjwOV2WhjLUj
-         5WrmG0ZyHmwqwYeC/yywXGe1KSoEfUY2Hpsm1BbQbXFGmKu3FELGKGxedhKi31PSD9Vm
-         36dg==
-X-Forwarded-Encrypted: i=1; AKwUvBxN6XJLk9DwyMFHlMy5LvQOclGeKRHU9zr2dw4gp27owM9NOFoaCpxhFmkAGbYnQbQT02SD2mcPfRdwCvk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLO63Pdx1cKyd1sTbmv8+J2VMAgLzRp5093Ji0DbdkPdCnnvOTy
-	ZJem5iyhAIc2SfSd7v6qjLKPmALErBOoguHlYu7wSB+kmF2AsvmdQCN0
-X-Gm-Gg: AYBFou1Y7Ka9gbLRJTX6QLiIkKIdW4BCgFpMxVtXC9k+7MgTmrZX3gC970NTwpG09i+
-	LCauO2DOvyO+4TV4OdsBVEI0rNquspdRd/2w3gOeEzmiEvzvNWPLbw7k7eMG24Y/uPNm38EFOy8
-	gvwLzkMr8UP2bGf/GFeoNGOeSXBQKG66nDzs305VuBeF93KFm3aLfaFqRsVU2xQSxy3BVgfAoOb
-	n/aTIQ1RCeXfvdWEOSQ+Gm3Q3QBnBOU35Mx7V1O4WsQI2W+31umAYFl/fFA0zyp6RJRPA0MZP2w
-	qO7MUwtihSkjyX3IYKoMv4XAy+rJJSLK7vgcilrOutl1QM8AvOwP8YgKGJkg0++JGdH5bAAE2Ag
-	hA+nnHXRQo6H9mFYDo9DmPliWj9Np/AmTyg8LKpu7xXA4b8Gw3Px+3/oWjJcbswOy+QoyIiYYw6
-	Kp/YI/a5dpMdqzDyMpyRpBOvUp/t5s+24Lan58mag/GWcJa9zR6xwIS4CUKRA0mo187jUsksXlr
-	GlSyj0laQILQ9f7VgwXOWwu1vnwpSvuy5hFjWCrzgB94UqcV5y8W30D7tIGjoGeOtZo9dyVWl6j
-	uBSSnfAt6h72jOY=
-X-Received: by 2002:a05:6102:390b:b0:7bb:64cc:1362 with SMTP id ada2fe7eead31-7cea1300c05mr1004091137.6.1793116058224;
-        Tue, 27 Oct 2026 08:47:38 -0700 (PDT)
-Received: from localhost.localdomain ([177.155.254.22])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3973caesm2799894137.2.2026.10.27.08.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:47:37 -0700 (PDT)
-From: Matheus Tagliari <mptagliari@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Matheus Tagliari <mptagliari@gmail.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and Trinity
-Date: Tue, 27 Oct 2026 12:47:17 -0300
-Message-ID: <20261027154719.155006-1-mptagliari@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CADnq5_OGgbFOJtBu7SwvvnaN01F=RSqtxZgBhJ1fty4pwBHmVg@mail.gmail.com>
-References: <20261022114754.865669-1-mptagliari@gmail.com> <20261022114754.865669-2-mptagliari@gmail.com> <88c61950-125e-4109-955e-ce09ebaab7af@amd.com> <0c7e45a13fb78064390818bb501e754b62f16f6e.camel@gmail.com> <20261027001506.27266-1-mptagliari@gmail.com> <6e0b5af2-692a-4b2f-ae20-9c164e7e42ed@amd.com> <d451b9a185817c576ebb7943a604fd1952470412.camel@gmail.com> <CADnq5_OGgbFOJtBu7SwvvnaN01F=RSqtxZgBhJ1fty4pwBHmVg@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fExQ5/g4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9MPJ7/Rj;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fExQ5/g4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9MPJ7/Rj
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 3FCE01F456;
+	Tue, 27 Oct 2026 15:47:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793116061; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Gugmp3BIEkOqv8FF7ZJdq+ktVSv07Or0XQY3RY45wY=;
+	b=fExQ5/g4l4jzRnWsMtKXdPLgHby/4FctEIiTmJi06ZdU6sU2b33bbqoWDiz8ZPql4JOeBz
+	HX0hfXJplz1L0jtdbp3HcNN5mDaz4NIMkvgQ4ZRXl1E5tbkpzctV5uuT6rg1//TDXkZAyR
+	q0kBPoDUw0sL0AhS0wvk513xzDdfbQM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793116061;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Gugmp3BIEkOqv8FF7ZJdq+ktVSv07Or0XQY3RY45wY=;
+	b=9MPJ7/RjJUpKrDqXUMZ3nzgd6sY1UlkFRfN/lmEQwJgJbwyqz6GArEZBt7oGudqXW8R3Xt
+	BfVafROpvUosVhBA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="fExQ5/g4";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="9MPJ7/Rj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793116061; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Gugmp3BIEkOqv8FF7ZJdq+ktVSv07Or0XQY3RY45wY=;
+	b=fExQ5/g4l4jzRnWsMtKXdPLgHby/4FctEIiTmJi06ZdU6sU2b33bbqoWDiz8ZPql4JOeBz
+	HX0hfXJplz1L0jtdbp3HcNN5mDaz4NIMkvgQ4ZRXl1E5tbkpzctV5uuT6rg1//TDXkZAyR
+	q0kBPoDUw0sL0AhS0wvk513xzDdfbQM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793116061;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Gugmp3BIEkOqv8FF7ZJdq+ktVSv07Or0XQY3RY45wY=;
+	b=9MPJ7/RjJUpKrDqXUMZ3nzgd6sY1UlkFRfN/lmEQwJgJbwyqz6GArEZBt7oGudqXW8R3Xt
+	BfVafROpvUosVhBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5F08213319;
+	Tue, 27 Oct 2026 15:47:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +kHeCpnH4GpVXAAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Tue, 27 Oct 2026 15:47:37 +0000
+Date: Tue, 27 Oct 2026 15:47:35 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 06/46] mm/filemap: read mapping->a_ops->free_folio under
+ i_lock
+Message-ID: <auDG-5bYh2tSQem8@pedro-suse.lan>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,36 +137,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-6-6f74bec9a5bb@kernel.org>
+X-Rspamd-Queue-Id: 3FCE01F456
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
+	RCVD_TLS_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_GT_50(0.00)[65];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.01
 
-Hi Alex, Timur, Christian,
+On Tue, Oct 27, 2026 at 12:17:26AM +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
+> after the inode has been freed. Once the folio is deleted from the
+> pagecache it no longer pins the mapping, so after i_lock is dropped
+> e.g., a concurrent final iput() can evict and free the inode before
+> filemap_free_folio() looks up mapping->a_ops->free_folio.
 
-Thanks Alex for picking these up, and Christian for the Trinity
-background.
+Ok, but after iput() then nothing also pins the filesystem, and thus the
+module. So we can be calling into total garbage. So what gives?
 
-Timur, yes, that is possible. The only place where Trinity/Richland
-gets the interrupt enabled is the family check in vce_v1_0_start() in
-patch 2.  Today it reads "rdev->family < CHIP_BONAIRE", which also
-matches CHIP_ARUBA.  Narrowing it to
+You can't just take the pointer, you need to make sure the filesystem
+is also still alive.
 
-	if (rdev->family >= CHIP_TAHITI && rdev->family < CHIP_BONAIRE)
-
-enables it on Tahiti, Pitcairn, Verde, Oland and Hainan only, and
-leaves Trinity/Richland (and CIK) as they were.  I built vce_v1_0.o
-with that change against 6.12 and checked the gate against the
-radeon_family enum: SI on, ARUBA and CIK off.  On SI the generated
-code is the same register write I tested on the Cape Verde card, so
-the earlier results still apply there.  I cannot test the Trinity side.
-
-The handling added to evergreen_irq_process() by patch 1 stays
-harmless on Trinity: with the trap interrupt left disabled it is
-never raised.
-
-Since the series is already applied, I did not want to send a v3 on
-top of it unasked.  If Christian would still prefer to keep Trinity
-out of the picture, especially for stable, I can send this as a
-small follow-up against the current tree right away.  Otherwise I
-will leave it as it is.
-
-Thanks,
-Matheus
+-- 
+Pedro
