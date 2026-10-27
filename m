@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092935;
-	b=ejM3f7AI0o3KsaRCuzpLLvltJrXLMMO1CII4lGNkvdVOact3Wg8BmMDPmQFW5z+YELtD
-	 IHnwBlCrrxDu8Kii45SXPRZhPFhAS4me2DGCX7TOtApIaiJsHOa9YHjymV09Iko39v4mQ
-	 6356kP6JkwhnL2YT9Lr3gErqW2dUbAO4d7xeSheHs+WmamZ+RoHuaFHC1vIyTNH17xBo5
-	 fz9BR4J36//zTddF/U2R4j0eLsy2OervTI6qj3j1Bm89M19zw6bCH/zL3qdXaZWWEguOs
-	 iG9eoNWT2KwHTc8nES7fugce8DvZd0qx2moYw3WZFjQBdFaNGIdJbh1AEd7rTSccobg==
+	t=1793093002;
+	b=SWhglei/43QHw2mDhsD3OdRqjSnkbS9bCJA9Z2/Wnjb6pSSRbmYAIHMfXfAtz1OQQanM
+	 QFih4BTT1kMvUr22K1B9Msh8WmwDI0VT0xZB2mKSh8mEDR8dFmNr3K2c8FMUDqA8rZP2z
+	 h0RhS9lI0bxJQRGZevMQcWR2MsA9EPvuuuimuSb4gr8eOZBUeOATPKCVyE6C520Ff3+iN
+	 TwB1VjRNXwDjJIIrKGIu8wZTvQsWIZgO2JbUELaSRi9QnCqGjKzwvjmxcLt5saHxdeTPn
+	 4fmCuA0hAOzcAdg0PSjaRJjeGixKtC/WhPsEeYyV1kWvi66fcmnMBF9BqeoSyT1xpvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092935;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093002;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5wbVVmWcm5uyGXGomrFfyWmbiAFVDweHi8XdGjAXgF4=;
-	b=Jr5ZeIOigSYzszX4+/h07nusS7CzWqzN2IgYXh4t8DOJF4NrPtTDTpfRTkN5N9szm7q4
-	 FXTqj7nj1hjEko1BLeRwFBIwoeek3IsDhthJOvgyiIMlWREAvAgEi+h4P1yA/Ig8/eLS+
-	 k5pxWOZXtUezauikkYuN93iYRCyO4zw2D5dDpL91fVYXn2OXOqhSq+PrbpbgPn2wlFKvy
-	 SwS+M+TuZ82WFpKkOvXGa3FPGzR68rOnYLef66ILPxVq1lUTIsr1tgxzsyZaYUAKwiutf
-	 JL+hwegXH2DFip8QvrwJC8WWcXijKaD2yWYenoRQvb0dq0EwdYhUBHX2uk2MUyq39DA==
+	bh=ZpmrUqEHskHm7Yfzl2QMlE2cj/pVeGl7eiRLC9pfoCo=;
+	b=AIYazZwm3CfLu1LEgOdg+c6UKw9vltPZDtgUU3UiD3g4Qj9a/5phaTd6ClKgAR7cZFa7
+	 HNzJNZkMWR2uipZFA0djPOjpmBRyuPzQIcdofyegfw3+27AF0ZwaATJmIA7ktveNK+efJ
+	 vYdeje8+vLrHg5NmYtRqqiierD3bJrdX4GhOx37Xoqv81J81uRXPSsnJxVuE3LAx3zrk7
+	 j+6Izdnuglk0El5pWLwt3Imvq8JPPdBAnlWV8NOwrUxcWDJXa9FqsUWl6At4rPTew2hf3
+	 oKHbVuiu+N59t61lJlJWS4a48fR8UwRMOWFWOOpkUHLpIxsvdsNlClM6AjSRZsgayEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NntJ1JRD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpfbwKG0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F138606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:22:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACAB606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:23:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NntJ1JRD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C4F1F01828
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:22:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EpfbwKG0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2202D1F031E0
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:23:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793092934;
-	bh=5wbVVmWcm5uyGXGomrFfyWmbiAFVDweHi8XdGjAXgF4=;
+	s=k20260515; t=1793093001;
+	bh=ZpmrUqEHskHm7Yfzl2QMlE2cj/pVeGl7eiRLC9pfoCo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NntJ1JRD5zuaIH1sEJqcaDk7B0Ax6k/eRn9dvAeGr0nrl6CxXhf2Nu39GqD+C4+AQ
-	 BbzPLzahtw396Ew6Bbfq6HyC7ff2nf4JA3ywd7i1ppBpAELifBEpVgfp67CNXPNdT1
-	 9V8S92ShdHt8BjemfEkXIHxMP8gU0Uz4cl7CaDuJczuPK4/YGfOUiBocSR34iZoHWb
-	 1Y5wAOpxXwHapV7bNZlPhtaIMGgg75oIkW0cZq+TPIBBAJVtav44yZ/ctmzO8It3j0
-	 xBJqO1LdLHfv00EC2r0Ib0/PVuJFloaWushhK7Okhv5HvFlCdZ3apigbPnn7S7zem9
-	 YMgwmAqNxLfpA==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a9e87ba696so27437021fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:22:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwfKC6rZv55XraF457E+POOxT6dgEbQTNA3RXCTNiKlCeMwUrJfxDXI/KPSixiKmfWQdG4o5aQAMmtX7Mc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSkutn8UnQsTegcwxwZOT4uwyfQZsxAOzOMBl9uSe3IDJFqyTI
-	4tHlOdjFTdQq4mqJ2jfDnZ/6Fb7Y2UOESbyQ/B0pLcOxYMNVt9CsOYj1Xswwb5hVaF7bksmUqcl
-	RpR5/qz4EqC+jomY19FKa8hoEmPNyigA=
-X-Received: by 2002:a05:651c:1445:b0:3ab:4c60:897c with SMTP id
- 38308e7fff4ca-3ac6fd59c08mr21629081fa.27.1793092933744; Tue, 27 Oct 2026
- 02:22:13 -0700 (PDT)
+	b=EpfbwKG0eOtmWr3qkD0KLNU4slcgf8jGwVDQBLW70jgfx4I4/AgaXkSpdWaLbKSZ+
+	 xp7Z0oZnETGKAnQkwbXb0MV3QCyA/vpbC8m9aC1KzZg0Ctd9qit0ZjqQ4VBiZ7yelp
+	 2g+PpZHmQ+2nN2W9QqTEj7mpz7fYt4b9plZ4I9HRmgB7PnsfaeNY3kbDOV0ey/1liO
+	 ojb2CwIHuw4vuUkqNmStVCzYrksamGf1HSCW7dlJwMGR/aBVO1R6QVM/xc/BWc2PQb
+	 mng5wuslyXcIiSq3SVPAKtN+XaA7QbPkrL4HYIKCiC1vCggXPvEoXWLZ9um9SUISgv
+	 ONGmlIWwKquXw==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c45551fa84eso570020366b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:23:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByAr3GT0N0sUIycIXKH4ENi1zLjyERz2jTSrs/1xKXBafJWMsmt6SEI+i+l3V2QYz99DJgMNahkJIoIXGI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf7ZpF7inut3H9hQNRgDiLFw/JMlYyuHK0EBwxJWdKlazlOd6F
+	bykbKBLNsVRD2V4gvcoLcV/w0IMN2sj4++6PVMBKU+R8vRMktSas2IuM4tyqViqqRCxn9CnrD+w
+	qNhaYF01qF1c9tw3j1ZlkbXtPkxixSUc=
+X-Received: by 2002:a17:907:3949:b0:c49:9231:5518 with SMTP id
+ a640c23a62f3a-c4992316908mr380586866b.21.1793092999740; Tue, 27 Oct 2026
+ 02:23:19 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,40 +59,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021235732.1313305-2-kj2864@nyu.edu>
-In-Reply-To: <20261021235732.1313305-2-kj2864@nyu.edu>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 27 Oct 2026 10:22:00 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiiq0Ti5kAr4sRsG+XV6XJDMJkhk0eMaQW7n_AZAbghDOYA@mail.gmail.com>
-X-Gm-Features: AclHuK8APDmMNo0ydcpfXRwiZ53y6y4WHS1Nwl34pF8p4sVxWR75dI3yGh_H4Dg
-Message-ID: <CAL4Wiiq0Ti5kAr4sRsG+XV6XJDMJkhk0eMaQW7n_AZAbghDOYA@mail.gmail.com>
-Subject: Re: [PATCH net v6] net: ipv4: add zero check for snd_cwnd_clamp
-To: Kaho Jiang <kj2864@nyu.edu>
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, edumazet@google.com, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	co+71b6509cb791e531@bugs.sh, stable@vger.kernel.org
+References: <7c0b17f73a031ae5564825ab94909f77eb2387d9.1793043780.git.bvanassche@acm.org>
+In-Reply-To: <7c0b17f73a031ae5564825ab94909f77eb2387d9.1793043780.git.bvanassche@acm.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 27 Oct 2026 18:23:07 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9Pbf7r3YF2rOZpo6sOX-3UbbNr1h7KGQJ0fh9M03UMeA@mail.gmail.com>
+X-Gm-Features: AclHuK_w6Ld8kHOPNQuIC5yXLVGjtNE2R34EhtGj44KaJOMahykBSf3-rMwBjrU
+Message-ID: <CAKYAXd9Pbf7r3YF2rOZpo6sOX-3UbbNr1h7KGQJ0fh9M03UMeA@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: Fix error handling in __ntfs_create()
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le jeu. 22 oct. 2026 =C3=A0 01:58, Kaho Jiang <kj2864@nyu.edu> a =C3=A9crit=
- :
+On Tue, Oct 27, 2026 at 4:43=E2=80=AFAM Bart Van Assche <bvanassche@acm.org=
+> wrote:
 >
-> When RTAX_CWND is locked, user is able to pass 0 into it.
-> This could lead to writing 0 to tp->snd_cwnd, leading to a
-> division by zero error.
+> In __ntfs_create(), if ntfs_init_acl() fails before
+> ntfs_mft_record_alloc() is called, jumping to err_out frees MFT record
+> 0 ($MFT), unmaps an unmapped record and unlocks the unheld
+> &dir_ni->mrec_lock and &ni->mrec_lock mutexes. Call iput(vi) and
+> return ERR_PTR(err) directly instead, matching the
+> ntfs_mft_record_alloc() failure path right below it.
 >
->
-
->
-> Fix by checking if user pass in zero as parameter and if lock is present.
->
-> Fixes: 814d488c6126 ("tcp: fix the timid additive increase on stretch ACK=
-s")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Eric Dumazet <edumazet@kernel.org>
-> Reported-by: co+71b6509cb791e531@bugs.sh
-> Assisted-by: LLM
-> Signed-off-by: Kaho Jiang <kj2864@nyu.edu>
-
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+> Fixes: af0db57d4293 ("ntfs: update inode operations")
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+Applied it to #ntfs-next.
+Thanks!
