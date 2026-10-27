@@ -1,45 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099260;
-	b=4wmMekPWHMi48kyd35mzQL8hwbI2INUp6MaiVSlSJ3fCyoil7AmPli/7K59o0prSkngi
-	 aA7b9uLiiyg72sJ6xzWwDDQHY1DQ0hPA6yMSPGdp83wAywf2MXQVTD+WKTipkwOrjdVJi
-	 MnbQO2ZQ8wNM8GJ9meXD1qfuXYsUMumPTgzUapP0rCJqWZ4LPdv2r7ZcnWXHvr88/bGjm
-	 VcGp8ZNuM6AcbsFJrM/CauWyBh9P7zVRyQ+Emw+WWFMPI1dSLWdoqM/wKA2DCdyUaQkrR
-	 Q1B/JCaXDxPVl3DIQfbOSAasxBsMW77UbbzWiIsUcKV+BjVSGpGWw/KZKLJqR9brKlw==
+	t=1793099299;
+	b=XK7jii9ouhg47Dz1jnN/vuAVhzVPe0yN5MZgYnFwDmVp0Khry1JKJ8Aib/f7zkI3SWnT
+	 dbdI2Wv/rFpZVhaDYwgTVOBZCMQn+/+RHrXn1GAfZZcghWKYJIJK+ZK71TIcj8MXKfomL
+	 VofAN3a+aoSWkfvQ4fOanUPv1SWfZAs0pP1hZnzFCzAZdDOoyXKB+JCg5XZsaAFeeiaxb
+	 c6Wn+JUMCYRMZdLOVDfaMJrrf7FLE86EW2Dh3nwcvdKZqwh13KqCzMFz5LUD9C08HI6QL
+	 iAsqnu4vHcJ/AYk/MCnmR8JlWQbsRARtsQisUZiAg73Tjj+Bc5gmlKtqBQBS/7hAX+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099260;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dNl5ic2amd4z3lkcUUtwLKZNHP6Pu6cXCxhMSbp50xA=;
-	b=Ev0OlvXIFdDr7aSoA9CvTNYiqEN31JWmAyOExUDAEk7Wb8znVGFLMpkFRcRiw3KDFHLL
-	 RoN7yZu3XkzAjVxtwB9LKJerNPTj1Q479Uy4yMOW2thSNGkqO7gZapXxrHajpqYlZ0SRc
-	 hyeXDUU1pzu8Dpl8Z2hmYYtzDk6x5hKwWoEuGBz6RfxQGUeT0R162tjw3n1rbsI4juMdO
-	 9W9ap8KGaq2qw+yms1LGyphEju85ROIxYXxLZ+Bfq0/OqtnhRZlb4IDYBXeJFUOsz0zWY
-	 OTClVOY296zICYHIywGig4Ce9vd79EoTQWefNd8hqusDcxU6HZ0I/XGHOS0VejaMCBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099299;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=J2d2zJ5HLBob4v1CtJnPXEx47rAgJ9b+O4LDKjyJETg=;
+	b=Mwm7tnYZtZwU//WX8dFyOK/7sMQcOMtpO9imcJRcoG04MsusJkpq/6treaTbd1d18Q0C
+	 GaLtUGOAT7qcpQ5/vFoKoOHvybq0ZLyTpZKHtA2eTD3G50j5VHRs5RGUZCVMPmiV9oBz2
+	 5jzReOrY4gBwye4RZE6+SxfIA+dU238a0tI/hrZjflex7S1QcOsqIFutbzV8QS4zaqK9I
+	 OnqtuQI2jkROsEO4eqs+sCQhYRZtrKCfHb1fJnZdU5TBGGA5mf2bLe0BUJx/X0I+DI5BL
+	 cy+IgHaqlvDPxjpZEbsDDmw3ZUKKw/LmM3KPdh3mF+BcDFCEnop0q6hIFsKNV5RWekQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hX5C9xuN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="MoH/qVXp";
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A890606A9AF;
-	Tue, 27 Oct 2026 11:07:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFC4606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDFC4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hX5C9xuN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B0C1F01825;
-	Tue, 27 Oct 2026 11:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793099259;
-	bh=dNl5ic2amd4z3lkcUUtwLKZNHP6Pu6cXCxhMSbp50xA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hX5C9xuNNaw47Cy0z1djiAIOS+OFgwDnL1OJHunbqFE/BuzztaruLk+por6gAM3my
-	 OUR7K+uAS3dPDwAh9YS+v2BB9tc/TnpiwchCHV4LKvu16vIn4o7miiPWMzxJILLM6A
-	 QgrmrG67SNZH6c35+ULo3PKMikw6RwQ/M+3H7Nm8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 12:06:47 +0100
-Subject: [PATCH 21/24] serial: samsung: don't leak the tty on an RX IRQ
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=MoH/qVXp
+Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261027110815epoutp024b6ed9d4f8eb48727fb45a7b11676567~iXk8UFwdo2839528395epoutp02G
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:08:15 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261027110815epoutp024b6ed9d4f8eb48727fb45a7b11676567~iXk8UFwdo2839528395epoutp02G
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793099295;
+	bh=J2d2zJ5HLBob4v1CtJnPXEx47rAgJ9b+O4LDKjyJETg=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=MoH/qVXp1KJnlmYOItify0XUtHFePB31y9JecR0hmjt6jSGvR5XNUfTH/s3+Nutjm
+	 /rMdkHoawjN4G0v1TXQZpjscg8ob1cL9N61DDbXlRL+2tK0ZMXBQx4YkLEtVsaESso
+	 RuT5PlRltBF0me6AXh1PsPePJdqPT2K80lhebMVM=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261027110814epcas2p276d32aee099ea7822dbe9495c9d4dcd4~iXk71-ODu0483304833epcas2p2F;
+	Tue, 27 Oct 2026 11:08:14 +0000 (GMT)
+Received: from epcas2p1.samsung.com (unknown [182.195.38.202]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jDSQk40V1z6B9mB; Tue, 27 Oct
+	2026 11:08:14 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb~iXk6uJPBq0449304493epcas2p4t;
+	Tue, 27 Oct 2026 11:08:13 +0000 (GMT)
+Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261027110813epsmtip2c36e1e5b4a84ca8655d87b84dd827fcb~iXk6pG0-l0549405494epsmtip2Q;
+	Tue, 27 Oct 2026 11:08:13 +0000 (GMT)
+From: HOYOUNG SEO <hy50.seo@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
+	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
+Cc: HOYOUNG SEO <hy50.seo@samsung.com>, stable@vger.kernel.org, Stanley Jhu
+	<stanleyjhu@google.com>
+Subject: [PATCH v6] scsi: ufs: Change the error check sequence for auto
+ hibern8
+Date: Tue, 27 Oct 2026 20:03:57 +0900
+Message-Id: <20261027110357.3649301-1-hy50.seo@samsung.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,100 +81,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-tty-llm-v1-21-99b0202ae546@linuxfoundation.org>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
-In-Reply-To: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
- Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>
-Cc: Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
- Florian Fainelli <f.fainelli@gmail.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Peter Hurley <peter@hurleysoftware.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
- Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, 
- Olof Johansson <olof@lixom.net>, 
- =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
- Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Robert Baldyga <r.baldyga@samsung.com>, 
- Thomas Abraham <thomas.abraham@linaro.org>, 
- Kukjin Kim <kgene.kim@samsung.com>, 
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- Srinivas Kandagatla <srini@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Andy Shevchenko <andy.shevchenko@gmail.com>, 
- Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
- Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org, 
- linux-serial@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1703;
- i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=zUTDnaRvGyw7vfTWdI9Bk89WKI6qR559yEa3wVXeQvw=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPWvcnlftdszL/emBOwLMpS30kDr1rPzFX1eKQhMUSj
- xWBDpk1HbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjCRvDiGBTcKlzFP5n39h0ch
- NrhdkMOmYeb5IoZ5mn2cG2/ULBb5M+X7yp5q3cseGg/cAA==
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
- fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb
+References: <CGME20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb@epcas2p4.samsung.com>
 
-From: Josef Bacik <josef@toxicpanda.com>
+Auto-hibern8 enter and exit are performed by the host controller without
+a UIC command, and the auto-hibern8 idle timer only runs while no UIC
+command is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is
+therefore usually reported while hba->active_uic_cmd is NULL.
 
-s3c24xx_serial_rx_chars_dma() starts by taking a reference to the tty.
-If the interrupt is not a receive timeout, it switches the port from PIO
-back to DMA and leaves through the "finish" label, which does not drop
-the reference.
+Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
+easier to analyze"), ufshcd_uic_cmd_compl() returns early when
+hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
+called. Such auto-hibern8 errors are no longer recorded in hba->errors,
+so ufshcd_check_errors() is not called for them and the error handler is
+not scheduled.
 
-A port with RX DMA changes to PIO on every receive timeout, that is at
-the end of every burst of data, and comes back this way when the next
-burst starts.  So each burst takes a reference which is never dropped,
-and the tty structure is not freed when the port is closed for the last
-time.
+Check for auto-hibern8 errors before checking for an active UIC command,
+as was done before that commit, but keep returning early when there is
+no active UIC command so that a NULL cmd is never dereferenced. Only
+report the missing UIC command if no auto-hibern8 error was found.
 
-Drop the reference on both paths.
-
-Fixes: b543c301c2c5 ("serial: samsung: add DMA support for RX")
-Cc: stable <stable@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Robert Baldyga <r.baldyga@samsung.com>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier to analyze")
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
+Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/tty/serial/samsung_tty.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Changes in v6:
+ - Add the missing "Cc: stable@vger.kernel.org" tag next to the Fixes tag
+   and keep the tags in one block (Bart Van Assche, Stanley Jhu).
+ - Add Stanley's Reviewed-by. No code change.
 
-diff --git a/drivers/tty/serial/samsung_tty.c b/drivers/tty/serial/samsung_tty.c
-index 640f85e2d636..c9a870a8d155 100644
---- a/drivers/tty/serial/samsung_tty.c
-+++ b/drivers/tty/serial/samsung_tty.c
-@@ -736,14 +736,13 @@ static irqreturn_t s3c24xx_serial_rx_chars_dma(struct s3c24xx_uart_port *ourport
- 
- 	s3c24xx_serial_rx_drain_fifo(ourport);
- 
--	if (tty) {
-+	if (tty)
- 		tty_flip_buffer_push(t);
--		tty_kref_put(tty);
--	}
- 
- 	wr_regl(port, S3C2410_UTRSTAT, S3C2410_UTRSTAT_TIMEOUT);
- 
- finish:
-+	tty_kref_put(tty);
- 	uart_port_unlock(port);
- 
- 	return IRQ_HANDLED;
+Changes in v5:
+ - Fix the unmatched brace in ufshcd_uic_cmd_compl() that broke the build
+   in v4 (Stanley Jhu, Sashiko, kernel test robot).
+ - Use a local bool for the ufshcd_is_auto_hibern8_error() result instead
+   of testing hba->errors (Bart Van Assche).
+ - Move the Signed-off-by above the "---" line and Cc stable.
+ - Link to all previous versions.
 
+Changes in v4:
+ - Changed patch version
+
+Changes in v3:
+ - Check auto-hibern8 errors before the NULL check again, so that errors
+   reported while a non-hibernate UIC command is active are still
+   detected (Sashiko review).
+ - Return early when no UIC command is active instead of falling
+   through, to avoid dereferencing a NULL cmd (Sashiko review).
+ - Add Fixes tag, reword subject and commit message.
+
+Changes in v2:
+ - Check UFSHCD_UIC_HIBERN8_MASK for auto-hibern8 only when cmd is NULL.
+
+v1: https://lore.kernel.org/linux-scsi/20261021051951.1687479-1-hy50.seo@samsung.com/
+v2: https://lore.kernel.org/linux-scsi/20261022074249.3098100-1-hy50.seo@samsung.com/
+v3: https://lore.kernel.org/linux-scsi/20261026051851.1845934-1-hy50.seo@samsung.com/
+v4: https://lore.kernel.org/linux-scsi/20261026052632.1848929-1-hy50.seo@samsung.com/
+v5: https://lore.kernel.org/linux-scsi/20261027021037.3398180-1-hy50.seo@samsung.com/
+
+ drivers/ufs/core/ufshcd.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index d085d394858f..c08278a2e43e 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5939,18 +5939,26 @@ static irqreturn_t ufshcd_uic_cmd_compl(struct ufs_hba *hba, u32 intr_status)
+ {
+ 	irqreturn_t retval = IRQ_NONE;
+ 	struct uic_command *cmd;
++	bool ah8_err;
+ 
+ 	guard(spinlock_irqsave)(&hba->host->host_lock);
++
++	/*
++	 * Auto-hibern8 is performed without a UIC command, so check for
++	 * auto-hibern8 errors before checking for an active UIC command.
++	 */
++	ah8_err = ufshcd_is_auto_hibern8_error(hba, intr_status);
++	if (ah8_err)
++		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
++
+ 	cmd = hba->active_uic_cmd;
+ 	if (!cmd) {
+-		dev_err(hba->dev,
+-			"No active UIC command. Maybe a timeout occurred?\n");
++		if (!ah8_err)
++			dev_err(hba->dev,
++				"No active UIC command. Maybe a timeout occurred?\n");
+ 		return retval;
+ 	}
+ 
+-	if (ufshcd_is_auto_hibern8_error(hba, intr_status))
+-		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
+-
+ 	if (intr_status & UIC_COMMAND_COMPL) {
+ 		/*
+ 		 * Store the UIC command result in the lowest byte of
 -- 
-2.56.0
+2.34.1
 
