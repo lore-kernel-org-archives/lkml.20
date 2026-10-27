@@ -1,111 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108957;
-	b=siFILLec2fzKscBag299+E+G11PSCxyMavGPRuzx6Vej91iQWCL01Yszpg7N31jrwX5m
-	 7QvuRsV+ML2XkA3RUaemjSd8/d1Db/ePjl3OolGr+izQ+/OlJwS5LwUHemM1LlhXa7xOI
-	 lMbRF4zpy0uOcZkR4jtcVeHZkr52sD8NC25Vkup7zEThBX36ZFlH8S5LnLHTOa7d62oL2
-	 AvueMgj5A2cuLLJ1+d41UMLwkkvdOCl2Gx0XhKZGRMciPy1WZXX8jVYlrk4faSEHx527z
-	 EziVCRywdnxv3vmSSfhw9wDChHuYk26WEO9gI9sAcIjG7Lx/UuvhLo6I+zh00FRApvA==
+	t=1793109004;
+	b=KK0SF2MXa5Axq1uNN8kQtni1sflzjw3nEeviPOs0EBeGnT7n5vluggsB02e5Mtl6lgIk
+	 AQqfCfaUTA4d5HXdVuqp5tg/7mkLxAAlBjXvfTsBn2cpnuTP5edPltSx4zfbgkLho8/S3
+	 qKFPlBl7C4Ag+UOD+/02jMp7mo7t7kIoFDFvd37vwjTeOQm21tmX8pGIRS3CfX6gZeUAi
+	 eEXVdlFkeeJmK0lEQHsIDRGfuJuZEanLg5jITAmF+6Nbpa9AsMyk21bYgEuKYxTWolWBv
+	 WLOD/9mZ7CfcpE363vUCh1BYMKG8+n9eWDJ3A8Qh3hjZLpKFlo7+BELNewhV8lGKJ5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108957;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=GEmx/sUPQ2VMJDaiqbyGhNC0GffzmoblRKDktdSOsjs=;
-	b=G1JPPDJrj/q4+EIwg83UCZkf4FluDFzaCqmzHVHMFH1vMNURN/2TGq/GPGmJj5dMOpd5
-	 X8M3oQeLsqrEHmEYriBOMJoiWC1dZv0Jz5lWClcyUEy5UEHrYG29Y+9/snG/j7kSWZ/3F
-	 UkzC7dEb5IrKWFQzFmdFhDkttNALs990xbPnqqfJkku0hiPlurTS/M6qozWlkli4m7bVM
-	 IKPSa39o+n6bMTjSbPe1vBX41XCCoMpFI7gcMfY5aeHmxu0XCKygPbiuuJCoHsdLO/67v
-	 45a/5IrRoq53wNaPXe0hvrtFHuL2gqdDM7YA09Vx4kLJP+GhxhPkXJToZV+6Cal7SlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109004;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=UE+HFwEBbhDv32NluhVIPMlJ26BlYGK//kc8ol/wf4k=;
+	b=vrzV84mnjQRlWFUCFvu4LL+hkkjp/NXsnYwoyVptLLeX9b7gNNk5L5kzF29mbTI7hjul
+	 n3RcoC32szW1JcJ/+/Dh6D4dIGypmrrE1ou69NnP1KouIjj1+eYniNJgtQeVdxe0zcCfD
+	 djNGck/ZZ9600mvcG7xMDp+lbQhfDJ6RVuno4+blJCPKm+Dp2aSsQUj82bmzNmAwWIk+N
+	 Ip15g/SjR61pSCa1dt+VP/xlTa9OlSYRLCaH5Hsk5AXh66GeEMcYg9FL9ED8pQdTQpgSZ
+	 RRhN5Q85Tl0AtKyqzSU92oOoSy45nA4wY0rsuuZA01+vbb4PLjPjSIKcvYrvs4fOgIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mTTn8ZWR;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Z0LOYJhm;
-	arc=none smtp.remote-ip=202.12.124.144
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GMovIf2R;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B8B606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:49:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53B8B606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2C9606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:50:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A2C9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mTTn8ZWR;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Z0LOYJhm
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 7D14E1D00176
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:49:16 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 27 Oct 2026 09:49:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793108946;
-	 x=1793195346; bh=GEmx/sUPQ2VMJDaiqbyGhNC0GffzmoblRKDktdSOsjs=; b=
-	mTTn8ZWRIuh6yCC8N7zM1RkyjRwCnYj5ApXsvRRDF4DShqntltu32cedImYWxCZW
-	3T3+rX3vuwWPL5BhK3RzggeyxYrft8Aa0815cxCyq8/KAlrCQQgYJqtyYcVcPEAE
-	QZBFcR5xocMUdNEC/Ss256l4ZTh36L0yA6nnDmsTbvCqx+aGJldnAm0J34yVwDd5
-	m04wU9UA04ybLZrICroOAcmeVLw2Ys3YtKcCDiKCNrxuqwql7L/kxY1RPM3o8joN
-	8/N1a/j2bRPmUrjsWmf/ailBEue48H+ng2y83WUFWdeq+wi0PRYNxXfVLZstF6Am
-	KGujzhZxqmlaOMguIzoIhg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793108946; x=
-	1793195346; bh=GEmx/sUPQ2VMJDaiqbyGhNC0GffzmoblRKDktdSOsjs=; b=Z
-	0LOYJhmXY4ILhQ1ZEb9qsYJQb6aASLrmEzl9aoPc7z19rsBh9FMGWNyVNLU7hfmy
-	eZxpXf2mvRssP8XDq5BwNlaRlz5VE7OO5sTjTAUHeCklgX95D9UEE6KYLyNRa5py
-	1buGciWMGbz4a8FiV2/B0WZzxZLXehhPunxe710+MHMw23z0UhckVw58ZTZY1OFF
-	K7sJFwa+taHtRtekI+ovUwvgLNKhqphGmdlgaxNz94Ecd56bxmn/eEDHONbdfZSV
-	GC+WA7Llt0rFNrzwSacSwSzAnXm8emS5XWDdgAx/ihLYXUr3Kuu0StEEeQIx4iyU
-	s2anVNpi2GVaFVauFQC6w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793108946; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:b5M1NN4GiexdbILvccCHsL20QDElGAxNPkAlr8eabhtUN6r
-	8EJvcGHORQWzfAtT/ixdpmMnfrbXLkpZ0o/DelJfeM8fZhQTV8PNxB8I+Ofk2fNt
-	NLMfohh5SUlIy/KOKnXyx33SvGLh04OHJ+8a7BtcI2AYG5dMpcDD5FmRP1pEnDg9
-	REZyxjLm+Rna/By5M3H3VOYmyJNRp6/8nxndePbsIYced24d7TEB/uGzIs3SyvWy
-	k53x6BRx2wcvblaNBxjWFgaf5t2/FkEY98MmPwKFCPCEyrq/aydUNbkmE0UtXHGT
-	hfjBQCNDLZSQl+bcHiXz+DU6MOYm/2Ky1uHHe4Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:rJDu4bsxco/gIMrD+dD00LfJT4/xDEIwd0IpCUvE7Ok=:KdZkVqaRMOJUI0d/ETxpGSeypZPRT8HH1n5VL0jRLOY=;
-X-ME-Sender: <xms:zKvgamIraj1gKKF0eAeZnUhaYnPU1FGpZQXoPCi9QC9qq4y6HIW4Rw>
-    <xme:zKvgao9YFV_HCtCeHk0_T4CjvW0coaEmOrDF5Z2kFhRAfjJFVdAfJCZgMYi2KAs4y
-    3f0xiWGAzDybQFUZvrDJOKx47W96PA_q1fy2h9Hfuu1yJwKNNKxT-HG>
-X-ME-Proxy-Cause: dmFkZTGzAS/DSW4CsdWGOtMkgyUDpHtAQSg7qB+7/Ys6E0HD63N/Pcrnnyg0NyVoPg7+rI
-    ROPODo20FS22WszwXXzPBCSg8LrAc4Gs0zt1FYqdFSEzsiYNN6B+Zdt10yoE6tItpi5jSF
-    QuM9+Ljs5u0qdw3cXSYAYD7nPRBHPOx8gzkFNpi6Gbseu+z6gAkwtVDJbRXCWlJjnurtGi
-    Pmj6Er35n4sJoC87PBTI4TELC6x88vYuf+atC7A7hhxb4VyPJywRy4I+EgvWCkwzhpkRvn
-    nMptqgxqOXAcIdYDrgrCRIhV3oZrEOQDiLoCeq3SRJUVU6ykskJEuUkSjrW9OFNct6siFR
-    fRCHMvYkK6bV80wdgi788H8hwIJ8b9THhB9ckSuR1RmxxvD7WxOIPSotO3yOc02D3nKnM3
-    e5m4h7NOqMTkmL+0dH3YuEt+ZM4fUlHTkD+MOGsV2QC0axBtB9LuC6UF/Hga2d60sEaMeM
-    40YHfXH1iCpHr3TKPHgkxz6Pj9XU+ZkKAllecoPy6beK8+P2VrT9S8dyN4ldk28HsXkye6
-    rxBtxqQVDFqXb0+HrrMWnKRsiap6QZrMWRBn1XhjGmbJBKSbQuPyhm0bn9y/0hzTeACm5g
-    ExZO57S+I1i8J638jlcrb+h37dguBbsFt1hT6dF/Yp3L+Unc9SLLJFjplqEg
-X-ME-Proxy: <xmx:zqvgaiR9mD7HzWGzG7wCHl-DWnL2Zp7N8DEi80yl8Lf6Z1YFmMmqog>
-    <xmx:zqvgaosexHicgu3YXFdciJAflEvO83wUz3WY2lZdgiSFEu0DpPk1pA>
-    <xmx:zqvgagLpwi8qhmSfz4hjB85clzUCUokk2iF93sfQYo-JIMnIelfEzA>
-    <xmx:zqvgasfLrqodpNqK86D1uz78eKcESEEdMr7W4hbdXGZ5NycJfIS3Zw>
-    <xmx:0qvgaqh-ax7aBUwe4VoD-hxpmbytdLt64gvmlJ3Psa0VesPsIERnIBlT>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0259C32A0093; Tue, 27 Oct 2026 09:49:00 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GMovIf2R
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2949418f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:50:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793109002; x=1793713802; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UE+HFwEBbhDv32NluhVIPMlJ26BlYGK//kc8ol/wf4k=;
+        b=GMovIf2RlV1VU8qVWF9Qh32xz0ZzK4MlkuTjPwULpY8mO+6f20rEr1zLbyR3oMjB77
+         LXHC+rAzt6PaatLNuyWuuVtmBOdps2OdfJU8hP5DC+PFbIh1uojLgl6OAu3McNZXHzw0
+         G3cihtaZrunCAHiHiV8czxM4HWQMNJs7RWTcfg63RRtI/jVTn6FyCANlJodUCPa2U+pj
+         VN7XvoZMFQlShRCDE1uQY9c0/4mP55flVAyofbCb7T1PCicb1qUBo4egT+iRjm78zxUL
+         Tu4ERaUmr7o8mrPB058dgmLYJjzB1PBcjZ7swkgXilRctWYogN+gwWUZwsHZyvosrW5h
+         64KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793109002; x=1793713802;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UE+HFwEBbhDv32NluhVIPMlJ26BlYGK//kc8ol/wf4k=;
+        b=BpQckOJJmJEWZVwmBGtxwvibSYI6oREIs1gVUhZGE+Gb+aINm6ug8XO2BqvKAmn0SF
+         Kl+FVFzftcmIXQ0J9z0t76xGYwd9M8Fi6XYgbj+iDaSGO9fhaZ0xOXP4nVV5iEby5FpZ
+         tSE2a+WT6KIZcCH5pDtOzjO8HpVmnupq5pf6P2EjkaI2g67kJHuJItsx4sNRlZvMV3al
+         /HyzNRDct68KbXFGpaq6MQoyK8sM0/3oZu7UWk42wEVy8cwgRw7a0tl9JoIVVKZaRrkm
+         H9wHCL4lHS4zODPFspZ+E+ZhkH7TtPnfIYr7aO3A8Zk5Fe0XAAnla9RsC2Elgdzyshqc
+         7yVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxKqxq6PAroUFOPGiaflLVzkO6j+JAtbtJvQTPSxKbppUm1zLBoqfN0v4OWyzyIcFm2DTrWTJWdWLm8yLI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYUvITuZ0lTOWppYz8DK16xqQXG+TUlfGp296jj2QrkLAqQVww
+	/8sjcak9/rKJQ54Eil9Kx5dhxToC8obknWNgAetKBsdgiIz8lhZKgApC3SKq71CGLb8=
+X-Gm-Gg: AYBFou2ym5+S58+8nlAwztZWxLE5ITrP8fhWwIiETMJMYcPUKaSP0lT3t3v7QeOhWX9
+	RDEiiRFLC/WivW7pzBCDfGL0/uJwcXE9rm0/Egy+Ft1IuHz5CnMxUwKnpbrkSJ2FnK+wCm+l80E
+	9qoOBqANw7LmQI9bA6KFwvaPiqCJkTrSHH4Xjt0YJJZtxkniMN5TpQFkOJReTTT8lOfNbH/yFVC
+	cpVv72BPtTO0F/6cUXgoTtiv1CJlUctytpToBaLw3tIZhr0EbxcryMYaO4YKeYhqP7JD+6I0nlE
+	/lV2p2Nahn9E5mfdLuTd9hslc7Cy/1OxanLZ8JBx+5uz6rJ6B/ywUhw2LdsFXtVnihzwZccMCY0
+	CPO0zRfIWYqjqxyEQ2UgjOzysA6cIeVGK1ZisKreuqFhGuASNhLgtBA5yzhPjZeDUwbj2NYmbNl
+	NbIx3ywpHkXwIJbuzxmVI9Lk4vJ0vyjJKESd8kXmZq8hsSMRD40/K5zkbIGilK1oYsHqbTLgLSR
+	wt/c5gx3946k4iRPHtDveXYySm+EnElrlFuMUtAX9VGIv/KgAt8lHK+nw==
+X-Received: by 2002:a05:6000:2884:b0:48d:ec3c:3247 with SMTP id ffacd0b85a97d-48e3ebb18bamr17466265f8f.44.1793109002312;
+        Tue, 27 Oct 2026 06:50:02 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb9cesm24068407f8f.27.2026.10.27.06.50.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:50:01 -0700 (PDT)
+Date: Tue, 27 Oct 2026 14:50:00 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Wang Wensheng <wsw9603@163.com>
+Cc: rostedt@goodmis.org, john.ogness@linutronix.de,
+	senozhatsky@chromium.org, d-tatianin@yandex-team.ru,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] printk_ringbuffer: Fix space_used() when blk_lpos->next
+ overflows
+Message-ID: <auCsCAXZuYy1gXeO@pathway.suse.cz>
+References: <20261004075755.363989-1-wsw9603@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,101 +97,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AmcrnnMArev7
-Date: Tue, 27 Oct 2026 14:48:29 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Fuad Tabba" <fuad.tabba@linux.dev>
-Cc: "Marc Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
- kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- "Joey Gouly" <joey.gouly@arm.com>,
- "Suzuki K Poulose" <suzuki.poulose@arm.com>,
- "Zenghui Yu" <yuzenghui@huawei.com>, "Steffen Eiden" <seiden@linux.ibm.com>,
- "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
- "Mark Rutland" <mark.rutland@arm.com>,
- "Yicong Yang" <yangyicong@hisilicon.com>,
- "Zhou Wang" <wangzhou1@hisilicon.com>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <040cf379-baba-4e3a-bf3d-6bc009a9e28d@app.fastmail.com>
-In-Reply-To: 
- <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com>
-References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
- <20261023070110.1833446-2-fuad.tabba@linux.dev>
- <86fqxwzul7.wl-maz@kernel.org>
- <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com>
- <86ecdgzp6m.wl-maz@kernel.org>
- <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
- <ad724195-3452-495a-a50a-5e5c8093a483@app.fastmail.com>
- <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004075755.363989-1-wsw9603@163.com>
 
-On Sat, Oct 24, 2026, at 09:14, Fuad Tabba wrote:
-> On Fri, 23 Oct 2026 15:10:23 +0100, "Arnd Bergmann" <arnd@arndb.de> wrote:
->> diff --git a/arch/arm64/include/asm/mmu_context.h b/arch/arm64/include/asm/mmu_context.h
-> [...]
->> @@ -254,6 +269,8 @@ switch_mm(struct mm_struct *prev, struct mm_struct *next,
->>          if (prev != next)
->>                  __switch_mm(next);
->>
->> +        switch_iommu_mm(next, tsk); /* FIXME: is there a better place to do this? */
->
-> switch_mm() isn't enough when the same thread also runs a vCPU. In v2,
-> which I'll post soon, KVM will save and restore ACCDATA_EL1 only for
-> the guest, since nothing in the host uses it today. So after KVM_RUN
-> returns from a guest that has LS64_ACCDATA, the VMM thread's next
-> ST64BV0 would use the guest's value, unless KVM also saves and
-> restores the host's.
+On Sun 2026-10-04 15:57:55, Wang Wensheng wrote:
+> Since commit 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data
+> blocks around") blk_lpos is treated as not wrapped when blk_lpos->next
+> overflows to the start of data_ring. We use the indices of blk_lpos->next
+> and blk_lpos->start to calculate the size of the data_block. This computes
+> zero minus a small positive value, resulting in underflow and an
+> unexpectedly large value. Simply using the original lpos with wrap-counts
+> solves the problem.
+> 
+> Fixes: 67e1b0052f6b ("printk_ringbuffer: don't needlessly wrap data blocks around")
+> Signed-off-by: Wang Wensheng <wsw9603@163.com>
 
-Right, makes sense.
+Great catch! The fix looks good.
 
-I was a little unsure at first how ACCDATA_EL1 gets handled on PCIe
-TLPs when there are both host and guest users that set it. As I
-understand it now, this only works if the PCIe requesterID is assigned
-to the guest VMID for stage2 translation, so a guest st64bv0
-uses the ACCDATA_EL1 as PASID in combination with that VMID.
-The host would just use ACCDATA_EL1/PASID for its own stage1
-translation without stage2.
+Reviewed-by: Petr Mladek <pmladek@suse.com>
 
-This means that with your v2 patch and the switch_mm() code I
-have, this should be safe. There is a possible optimization to
-skip the host ACCDATA_EL1 save/restore if current->thread.sctlr_user
-does not enable SCTLR_EL1_EnAS0 (i.e. the same process that
-runs the KVM guest has mapped the MMIO area of an SVA device).
-This would make a difference if ACCDATA_EL1 access traps to
-EL3, but otherwise likely does not much much of a difference
-(I'd have to do some measurements on hardware).
+As John explained, fortunately it is not critical because the space
+is used only to count the free size when copying messages from
+the initial static ring buffer to a bigger one. And the bug
+will happen only when there is no free space anyway.
 
->> diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
-> [...]
->> +static bool try_enable_st64bv0(struct pt_regs *regs, unsigned long esr)
-> [...]
->> +        isar1 = read_sanitised_ftr_reg(SYS_ID_AA64ISAR1_EL1);
->> +        if (!(isar1 & ID_AA64ISAR1_EL1_LS64_LS64_ACCDATA))
->> +                return false;
->
-> v2 will add an ARM64_HAS_LS64_ACCDATA cpucap, so this could test that
-> instead. As written it tests bits [1:0] of the register, not the LS64
-> field, since ID_AA64ISAR1_EL1_LS64_LS64_ACCDATA is the unshifted field
-> value.
+Well, I will still queue it for 7.4 because I am going to create
+another pull request anyway.
 
-Thanks for pointing it out. I have rebased on top of your patches now,
-so this line is gone.
-
->> +
->> +        sysreg_clear_set(accdata_el1, ACCDATA_EL1_ACCDATA, pasid);
->> +        sctlr = current->thread.sctlr_user;
->> +        sctlr |= SCTLR_EL1_EnAS0;
->> +        current->thread.sctlr_user = sctlr;
->> +        update_sctlr_el1(sctlr);
->
-> On a host that runs at EL1 (nVHE or hVHE), this also requires
-> __init_el2_fgt to set nACCDATA_EL1 in HFGRTR_EL2 and HFGWTR_EL2, and
-> __init_el2_hcrx to set HCRX_EL2.EnAS0. Without them, the ACCDATA_EL1
-> access traps to EL2 and the hypervisor panics, and so does ST64BV0
-> once SCTLR_EL1.EnAS0 is set. Happy to write those and the KVM change
-> once you're ready to post this.
-
-Thanks for the offer, that part is definitely not my area.
-
-     Arnd
+Best Regards,
+Petr
