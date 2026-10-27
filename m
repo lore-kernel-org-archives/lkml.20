@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105176;
-	b=EXqVLPFAMIb7uvUl4WiijURxNHruFzEPEIg3CzqtY6tjWQwSjfEgwk23WoM/1/OvDEa8
-	 hLs64CRjqG6Wm3z/nJ4FgYEw8jiS3QXnDJ4+BtxAT6xSXq0BxgOFcJlHfDV6SWGPnbqWw
-	 N53hoRPe1KIib4gnj70zfzynM+csogAC56S/l5+tDd5o/hg4eSesKZ74D/yGWaQUUK+7H
-	 wX1p69yiv2JYYBokGVX7dzffk4Gn3bA/TD849uPM3+LW3aGLnnH5ovd1Mj3Eg4e/IS6rp
-	 TBuQZgHf79OV7ta4ciemzyC364Fr7n175FnF54kfi/2ZqGX0f5KMnyi0uaUgZc+UWpw==
+	t=1793105223;
+	b=pccAtSxeOD/Vji/fWGyfMrFto/S7WkzYiQobuqHrhkAvfjqv/U6EtQLx9G1UYrJWDQVP
+	 8I4QhtpSjRJVj2cCjFOZaaBJhpU1BBFZvdBAF/BjCUmuZOLk1WY3KCCnBfNOAbIro2Er7
+	 Q9B/xwLX1fIxgMsvjGqJO3x0z0ADqX8tIoit/YDU/02/l72ZvVPct/lHeXjeZv5iCtJXD
+	 Bnf2FFBP2PYfM/jfoJn+2FLJ2/ytdzhhRq3oQjz1vOxZntEt0PjRHnLv9vs0GYqt9skb6
+	 KSk2k5IsPe9qEX/SwDV6sAfyIqx/O1AdQwdiq4gQJ7AOcpRhx+T3FqEhGI6X4ZlBufw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105176;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZuPnGPtXOcWmhVu7JksGY/6MPU+imQRyhrYYsrvJoEY=;
-	b=cdoD4oitatdBrOGNUgQMC/JjvZAAZ5A+rILwSFQn0Go1nXSQCBc0FdF2OQ/bdyyQEkFx
-	 keaqz0fcoaQ0wBicd52TXye93i1+9/3dtvpKASwNdNucpzONV28lMCzGWcfO2Ec6n6A7I
-	 K8l4zyUT6GVxB8tx8CLraIMQHirYksIO4rPT4j93UXLYHxrJQyY/oBoZdsy6Oxhq6TfYr
-	 7+yugq5qgJnmxP+tPW34MQUBTx6/fz8kfXa6FZd+wTyXZ780oJIFK7ydj/h4nqMubuQzE
-	 KtLL5kJMttuVNn/jIyHKMvM8le2FHaTPJx2r9GFEMrf4ECxS9B6oOb/ZYkz/j6mWKvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105223;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=4oatTXMsciMaV01MgWRGz51vE3ilcbjFp2nhhAdcZ0Q=;
+	b=OgbD9KWWSlrCAbGhy6Rz6eA+xG7xxMO6TVcOipzOK7YLjKHcHYWOzOJ3DD43O708rJGL
+	 yH/28NVJrb2GFsawEwBHV308Nmup7aYqfvNfNIJmpsyjRY22hFMfqwpoFp/yxNJ2kljQt
+	 bSjIaVKCNL+hX/HV0NEJPyX01iTeuedqyqJgL/Y1b6C8YYGCxC7f3tBTSu5vL6+IJtukJ
+	 vXZE3TyLyMJqkSOC5SIGTNMB9Lrcs92/XzonZrq6nC/x0uTvlBQvEGO7sfSKHAGKn2NB9
+	 zOyFEbISH1AlNFfoEDAMsPyUkKwoNm87AnIwFdHregJPNj/resgW37RpDH6mB8RpXRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vhbm56jr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE42606A31E;
-	Tue, 27 Oct 2026 12:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vhbm56jr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAFF1F01825;
-	Tue, 27 Oct 2026 12:46:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793105176;
-	bh=ZuPnGPtXOcWmhVu7JksGY/6MPU+imQRyhrYYsrvJoEY=;
-	h=From:To:Cc:Subject:Date;
-	b=Vhbm56jrteQjTTsDguHLxGkwy0uhl30h+TeiYpBkTKwcKnWtgi5eXu6cJGSAGtVHN
-	 qnmYKadM/iQjZaXm5kN86nrNVfajeEwlKXp7XBhUAohzubxKZl88nJWvNZlkvibmUd
-	 pKvIXlhYJrDNj/NMg/dm6HOuw4npnMPGCjnrELNpq8Kx7YtCfLLDI0iXDagBpQxhAV
-	 1eFuMjWTWyQLfFoEQdftXK1zpkblWAD+MFmNPCfyiexQzfPQ6XABH3NcjvezNsmvAS
-	 CSzG0RIj2q8T89kJfzmx+n61e2E7BZ6BbwvvhQM5puqgznU2rZEuPeRUIJ0Mpt8T60
-	 ydBT7FGwORYLg==
-From: Joshua Crofts <crofts@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] iio: update email for Joshua Crofts
-Date: Tue, 27 Oct 2026 12:46:02 +0000
-Message-ID: <20261027124602.1533-1-crofts@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDB2606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FDB2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f2040e10d8so3734882b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:47:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793105222; x=1793710022;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4oatTXMsciMaV01MgWRGz51vE3ilcbjFp2nhhAdcZ0Q=;
+        b=fXAoIRcrR17AcsbBCDJ7gzUX/lJphpCbad5So7v9B3HKpJM6cDlIjL7Sx5VBBjTK41
+         UdyAoM51wQ9sa/ZDK6hd4+I18QIHSq8BaOZqv2Pv3VeYjjeTHPKoFHUKB3RCl7Npt9bl
+         NvIBTFrkm1xzGAjyHLZPbz9zWoXDRgWkEo3p6f2csc1pJCFk1owDXfwkpvhGh6GwCj+Z
+         aCU+gBEqRIRMZQ1LmXG0ywt3eGFwfgtq7MFqxxHHbtfvz/WgbPOhC7EP7wW9WuEd1ycf
+         REzVJ0E9RLTa1W+qKjqp1Ob6TlrroKkAPBZlIgBoCF6LqYrXNuViy0HaDzY8tn+GIYio
+         ePew==
+X-Forwarded-Encrypted: i=1; AKwUvByGLH0NsHWtzzUZHtK64qKPcPcG0Vid6xU785hJv8iDVTvLUVVLE/3/NL5ptZWPdIPbu7R1GA9RX9rfMeI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7eo9c0SLbHiax6vBfeVhmk5U1xQhx74STvelJaIDtS143kfQJ
+	vdrr7Vb7W7sBEhdjzreQV8Deowe1+aO7FBYXM5UuRtnoTKKVk6CTJohZZHfDRM4UpSCOY8Ak4BS
+	a+JpludzcabBfEZqQLAJoOH7PoqpPboc3f3EcsLj4hxbCQsSkQIK/3NFGOSY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,110 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:3082:b0:4e4:86b1:f7a0 with SMTP id
+ 5614622812f47-55c003d655dmr8926540b6e.53.1793105222110; Tue, 27 Oct 2026
+ 05:47:02 -0700 (PDT)
+Date: Tue, 27 Oct 2026 05:47:02 -0700
+In-Reply-To: <20261027122202.279516-1-diasyzhang@tencent.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae09d46.f0fe5aea.79aa1.0093.GAE@google.com>
+Subject: Re: [syzbot] [dm?] KASAN: slab-use-after-free Read in pool_ctr
+From: syzbot <syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com>
+To: diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-I'd like to use my kernel.org email going forward.
+Hello,
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
- .mailmap                                                      | 1 +
- .../devicetree/bindings/iio/dac/microchip,mcp47a1.yaml        | 2 +-
- MAINTAINERS                                                   | 4 ++--
- drivers/iio/dac/mcp47a1.c                                     | 4 ++--
- drivers/iio/light/veml3328.c                                  | 4 ++--
- 5 files changed, 8 insertions(+), 7 deletions(-)
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-diff --git a/.mailmap b/.mailmap
-index 1f5540bc33f1..07df296885ba 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -475,6 +475,7 @@ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com> <jorge.ramirez-ortiz@linaro
- <josh@joshtriplett.org> <josht@vnet.ibm.com>
- Josh Poimboeuf <jpoimboe@kernel.org> <jpoimboe@redhat.com>
- Josh Poimboeuf <jpoimboe@kernel.org> <jpoimboe@us.ibm.com>
-+Joshua Crofts <crofts@kernel.org> <joshua.crofts1@gmail.com>
- Jouni Malinen <quic_jouni@quicinc.com> <jouni@codeaurora.org>
- JP Kobryn <jp.kobryn@linux.dev> <inwardvessel@gmail.com>
- Juha Yrjola <at solidboot.com>
-diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-index b181fe73dce8..e8a8c7c88716 100644
---- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-@@ -8,7 +8,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: Microchip MCP47A1 DAC
- 
- maintainers:
--  - Joshua Crofts <joshua.crofts1@gmail.com>
-+  - Joshua Crofts <crofts@kernel.org>
- 
- description: |
-   The Microchip MCP47A1 is a 6-bit single output volatile DAC.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ecc22d1149d1..78a21782e153 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17912,7 +17912,7 @@ F:	Documentation/devicetree/bindings/iio/adc/microchip,mcp3911.yaml
- F:	drivers/iio/adc/mcp3911.c
- 
- MICROCHIP MCP47A1 DAC DRIVER
--M:	Joshua Crofts <joshua.crofts1@gmail.com>
-+M:	Joshua Crofts <crofts@kernel.org>
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
- F:	drivers/iio/dac/mcp47a1.c
-@@ -29151,7 +29151,7 @@ F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
- F:	drivers/iio/light/veml3235.c
- 
- VISHAY VEML3328 RGB IR LIGHT SENSOR DRIVER
--M:	Joshua Crofts <joshua.crofts1@gmail.com>
-+M:	Joshua Crofts <crofts@kernel.org>
- S:	Maintained
- F:	drivers/iio/light/veml3328.c
- 
-diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-index 0bf994aa0e4f..2e2cf8f645fa 100644
---- a/drivers/iio/dac/mcp47a1.c
-+++ b/drivers/iio/dac/mcp47a1.c
-@@ -2,7 +2,7 @@
- /*
-  * Microchip MCP47A1 DAC driver
-  *
-- * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
-+ * Copyright (c) 2026 Joshua Crofts <crofts@kernel.org>
-  *
-  * Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
-  */
-@@ -161,6 +161,6 @@ static struct i2c_driver mcp47a1_driver = {
- };
- module_i2c_driver(mcp47a1_driver);
- 
--MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
-+MODULE_AUTHOR("Joshua Crofts <crofts@kernel.org>");
- MODULE_DESCRIPTION("Microchip MCP47A1 DAC Driver");
- MODULE_LICENSE("GPL");
-diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
-index df36c48204be..c49dd3ff432d 100644
---- a/drivers/iio/light/veml3328.c
-+++ b/drivers/iio/light/veml3328.c
-@@ -2,7 +2,7 @@
- /*
-  * Vishay VEML3328 RGBCIR light sensor driver
-  *
-- * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
-+ * Copyright (c) 2026 Joshua Crofts <crofts@kernel.org>
-  *
-  * Datasheet: https://www.vishay.com/docs/84968/veml3328.pdf
-  */
-@@ -440,6 +440,6 @@ static struct i2c_driver veml3328_driver = {
- };
- module_i2c_driver(veml3328_driver);
- 
--MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
-+MODULE_AUTHOR("Joshua Crofts <crofts@kernel.org>");
- MODULE_DESCRIPTION("VEML3328 RGBCIR Light Sensor");
- MODULE_LICENSE("GPL");
+Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
+Tested-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
 
-base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
--- 
-2.47.3
+Tested on:
 
+commit:         d135ab45 Merge tag 'backlight-next-7.4' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10349d31580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c899018ccfbe890a
+dashboard link: https://syzkaller.appspot.com/bug?extid=83827f9a59abe148bff4
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=168ad53e580000
+
+Note: testing is done by a robot and is best-effort only.
