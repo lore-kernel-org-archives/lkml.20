@@ -1,68 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104196;
-	b=vcHDDENVosjjGX8QldGG+2loha7slQhAx3X/9Sjr23JwYPWY9t/Upce4fXmOhB4gyqLi
-	 UHuiEh9uGTuS3UaQv34khjdjtcd0/ROcF5FBDFgiSOF9Dd1KTHRNnTEcn4YD79Psk9bTm
-	 wIy8Jt3TAuz5JvsKf+yHWfkOiJgXNZLlh7i8fp1ejOZIF9jFlPkzhz9Pdr1b0Q8Y1xP+H
-	 QigZHG94iUpyR2IlJ6P9FVfi1Ko4lj8KqSnk6uV+yy4Y4eOKvqrT8Yx3itl8vMiyOSYFR
-	 LLoDwrpvbdh9mlJbQRM4W2DMo5W7AFHzOgEImivUnetdFDtM/mE4TsUUm3CZD8oHxVQ==
+	t=1793104199;
+	b=R+PJSjlR7QOdFitGqIvpyQ8s07nGdBQgMCmZ/dqYLGtPfMhS9J4l56WDeXODZ3+KjoZu
+	 xuXc5p7xrvqle2Pi6ML1qIS3NvQy+0jeYN/6Kz8JmajksAHwF6Gmyu95STS3WLh13/aRs
+	 x0orpMCiRaYQgxjHecpKaoregOwp0jCDlINI06HQJKYiFubJPJxJHAPP4DQrsJ0TDvegQ
+	 LE3uXRoj757z2py5y9p/Vm5C0yal2SvHMjkUmP3J3UKuuy4eu3ppXnaDcxo5Mchb5Gnj+
+	 lVUNZYtMosEIGUfEGqD76IKCM1iNe5SHBq5nGR+eUeN7SmqUx6hlv7/v2mN1uyps9Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104196;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=VW3vlk6yLtvUoqRXZDaZGf3txgL9CSLjcbhBlicupuw=;
-	b=qZmkBIAEtj+VQ95RBHAPRtcFy0/hmtVS/oDuZYoM5YFXrt3yDyjtT9qgiq5nomK3qPev
-	 mfWrmPc57+sx6nz20pBVDnSB5N6nS/6L5AQ1Y4yLBgwTG7x2E8JZ1TQMQzcBBajjIWPLq
-	 yZUfMSHpVrVxCpNTKhAK7ZBUHME7zIpLzC35zre38KXuEnyd67DrALVT5+0G2lLwllD8R
-	 rzk3K2Fmu101H/b9YQJe/YW0u8TyXsUoTQOBLwwRM/1VRJNjYPLHlt8WDPFwPn7Dy4sU2
-	 jhu1PoY7tJlFiN2b6AkwXBPWqdMIf4JE0z75208AwuammykX3nwnmImiVmw7slIz1eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104199;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=TEtKC47I2aW92wCX8ceE3Qq4fHsnf6t3ajY/y/wrOAM=;
+	b=2GrvQ4HK/DzIS8q4iBycIfHFF3wnnA+NioD7h1/SSpIx2TJpdhHABsG97wKoJzwkY0XD
+	 1FUt3ckUGV/LR7jGAlstbA/a/W+bPySVun12iDoLpN3/Yd7LEzaW84rhdF0z/WQVGPgF2
+	 7xtqxcQKm22OyhIxqKw+UQMmZ9LiECNHRsrzvoJw3CqRFMH+Yu8GHOaKQeYg2KhOT5ThJ
+	 NF3ZpyUiBl3hAPj0UQ+pL3hvZ2NqWkqQMFOcIc6d/MX4Orh1UvH3W3bxjLqQ4PfRcnMd8
+	 hv89rb7OEa9EQcUpWtvhH/CBpBgIWLNpfES6JLkd5ns44Cbxx/PmBO8EnC+C/ITKN8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Gf+ltLjy;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=oFz0dNxn;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43C3606CB2A;
-	Tue, 27 Oct 2026 12:29:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D43C3606CB2A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83403606CB34;
+	Tue, 27 Oct 2026 12:29:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83403606CB34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Gf+ltLjy
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AD7EDBE;
-	Tue, 27 Oct 2026 13:27:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793104061;
-	bh=nvsLBy4rEyUEJlstMjixP/DL9XbMbUy4KtNfXvk/xp4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Gf+ltLjyohMv7oD0ZtprDWZ2fTKQhM9J8e5WKpuo8aNXjFp1kpnCOV0xlp38dPNLX
-	 R5MgMvyj6eqCGIGYdADasVIvffnkA5PrShWaTy2f9er7X4qt420JBTXHwsR92X0DaJ
-	 R8HZNoP20iCh74MHxhJXs78Rh9BLrIJBkfbIsd2Y=
-Date: Tue, 27 Oct 2026 14:29:52 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-Message-ID: <20261027122952.GB2133989@killaraus.ideasonboard.com>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol>
- <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com>
- <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com>
- <3f518c8c-2950-458e-95fb-5b282db4c384@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=oFz0dNxn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=TEtKC47I2aW92wCX8ceE3Qq4fHsnf6t3ajY/y/wrOAM=; b=oFz0dNxnz56JDogfZNZ3EcKBOe
+	p/m3wd/aD1ouGh7D5TT4x8mldu1x54Im/ac1rqMMevZmEidyYtcN+ivOlf2Thn6SpMf5YxmBpAoTQ
+	ACQ0QZ5dqhlqIrZJFZjdD32yrkKpxhlXJcDwBYr4es40imisWDbsX65FBBPCyvIXijJMwJJram/IE
+	tBMccaHODu2a+6WaIkXlsMgQHpOeXupPOOVG2c+EnHZEn2cTe8Z/8tIneZpBMPZziWd0bkrYlaqgs
+	dLt6KjEQnal4f+pZgXQXpUoSzeTKvhdXVCgTa2N2pkLnI3dPR2NYs/RNJlgEklMwTx88Hl7DsRiJc
+	aetUoipA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLgJJ-0000000DUxD-3wq1;
+	Tue, 27 Oct 2026 12:29:50 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 3EE4A300DB9; Tue, 27 Oct 2026 13:29:49 +0100 (CET)
+Date: Tue, 27 Oct 2026 13:29:49 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Matthew Wilcox <willy@infradead.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	Frank van der Linden <fvdl@google.com>,
+	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	kernel-team@meta.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+Message-ID: <20261027122949.GB2668804@noisy.programming.kicks-ass.net>
+References: <20260227194302.274384-1-kas@kernel.org>
+ <20260227194302.274384-14-kas@kernel.org>
+ <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
+ <at_f43oDv73y-t7O@thinkstation>
+ <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
+ <20261027121323.GO2668564@noisy.programming.kicks-ass.net>
+ <auCXVv9yXtaS42w8@thinkstation>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,62 +95,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3f518c8c-2950-458e-95fb-5b282db4c384@kernel.org>
+In-Reply-To: <auCXVv9yXtaS42w8@thinkstation>
 
-On Mon, Oct 26, 2026 at 11:48:16AM +0100, Krzysztof Kozlowski wrote:
-> On 26/10/2026 11:40, Laurent Pinchart wrote:
-> > On Thu, Oct 22, 2026 at 08:57:55AM +0200, Krzysztof Kozlowski wrote:
-> >> That's valid and for 95% (guessing the number...) of cases will be
-> >> solved by having linux-next as a base, thus requiring the base
-> >> information is redundant. It's just linux-next.
-> >>
-> >> When patchset does NOT apply on linux-next or maintainer tree is
-> >> non-obvious, the base should be provided, but that is only "if ->
-> >> should". I think the proposal here is a bit different.
+On Tue, Oct 27, 2026 at 12:22:56PM +0000, Kiryl Shutsemau wrote:
+> On Tue, Oct 27, 2026 at 01:13:23PM +0100, Peter Zijlstra wrote:
+> > On Tue, Oct 27, 2026 at 12:00:47PM +0000, Kiryl Shutsemau wrote:
 > > 
-> > What's the downside though ? As git can easily provide the base
-> > information once configured to do so, what's the downside of asking
-> > contributors to include it ?
+> > > Fair enough. Here's some context.
+> > > 
+> > > HVO (HugeTLB Vmemmap Optimization) frees most of the memmap of a hugetlb
+> > > folio by remapping the struct pages after the first vmemmap page to a
+> > > shared page, mapped read-only.
+> > > 
+> > > Every lockless get of a page reference (e.g. page cache lookup, PFN
+> > > scanners) relies on page_ref_add_unless_zero(), which is
+> > > atomic_add_unless(&page->_refcount, nr, 0).
+> > > 
+> > > The page can be freed and reused between finding it and the get; the
+> > > zero refcount is what makes the get fail. The race:
+> > > 
+> > >   lockless get                        other CPU
+> > >   c = atomic_read(&page->_refcount)
+> > >   c != 0
+> > >                                       page freed
+> > >                                       page allocated as a hugetlb tail
+> > >                                       HVO remaps it read-only
+> > >   try_cmpxchg(&page->_refcount, &c, c + nr)
+> > >     -> write fault on read-only vmemmap
+> > 
+> > I missed a little something here; page->_refcount is in the page-frame;
+> > how does the page itself being RO affect this?
 > 
-> For me the downside is that if you require it, half or more of my
-> patches would be rejected
-
-I don't think we want to automate rejection of patches that provide no
-base information, and certainly not as a first step. The goal as I see
-it is to encourage people to provide the information. It's a process
-that will take time.
-
-> and I would need to add unnecessary step to
-> remember.
-
-It doesn't have to require manual work every time you send paches.
-format.useAutoBase in conjunction with specifying upstreams of branches
-helps.
-
-> Since this step is pointless - it would be linux-next
-> (assuming in the first place that this is what the author wanted here!)
-> - it is a waste of time for me and potential resubmit of series, just to
-> fulfill requirement which brings no benefits. So I have downside and I
-> see no upside for my case, when you require the base.
+> Emm. I am not sure I follow the question.
 > 
-> This might be affecting others as well, but now speaking about my
-> workflow - I have a lot of independent cleanups, which I stack on top of
-> each other, sometimes series, sometimes not, but stacking is important
-> so when I run `make W=1` it passes.
+> The memory itself is not touched. HVO remaps the vmemmap, the array of
+> struct pages: the part that holds the folio's tail struct pages points
+> to the shared page, mapped PAGE_KERNEL_RO. So it is the struct page,
+> and its _refcount, that is read-only.
 > 
-> What's more important, I reject the entire reasoning/cause of this
-> change, which claimed you cannot review and therefore accept such
-> patches. It's simply not true.
+> For a 2M folio with 4K pages, its struct pages take 8 pages of vmemmap;
+> the last 7 of them map to that one RO page.
 
-That's not my claim.
+Like I just explain to David on IRC; my brain has a 1:1 relation between
+PFN and struct page. It makes no sense for struct page to be RO, ever.
 
-> So please come with proper reasoning and then maybe even it would be
-> fine to require the tag. But if reasoning is not correct, changing
-> policy is not right.
-
--- 
-Regards,
-
-Laurent Pinchart
+Anyway, let me try and figure out how all this works, this is 'weird'.
