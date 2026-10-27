@@ -1,86 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793091723;
-	b=4oUKEryDnvUfcaJUGV+KgvCXYvAXpMj7/KEbMeu44Xu0+8PN9llrl6Z1jTQz7y7NOLfX
-	 R0DDhlkuj4C0gffzgadQ5sOBLMtQWlLXs7Hl5N4T7FBer6xAWHInGhvUDqK06pxIx0XFA
-	 q/GzfsAmPZ+XlSuW+dLiEZtZHYXrqilH0NJnNgVhpxYNYrO6ySeJzjbWutztd/t67btp6
-	 uZrzKTrkTGTLzTY3ccYi4vj9/aogse8oDhdObS9odaKLgsGhum3OsIGGS1OcIgfevccaQ
-	 AChZNlttrE78wNP4/lQRKidH+vmv4yHM0lby+9hzCwmvFua88Js/yA9LFdEDbLks7pQ==
+	t=1793091833;
+	b=oUOjCWWEVqOlSadAhx6B0bLctdb/PxVzUS7HBvHPrXvVe2fHjvbHWtyraTr7Dj0vnLWb
+	 IYlMcJH7RqGX3cO2X8CM4M9SDltHbRvSJguiofb+Fxozd3e5dXP4sggf162Nr8J3rkFhM
+	 TqmT/w+1TgYzwL5NBmjyEdPDG/LY5U9oI9Y1XtbkHNTNU6ZauR5iNb4MckVbxKjf4TzSd
+	 c+uBny/d6o0WRJOszicFEkLrUPamcl1Gu+MPXiqOSfzmyMMmyKk753I8beo0SjTpFGCqs
+	 tRzlv/1/Ak4KCMvboy10NG4jcs1jMtzx7Q0Ho7kPoedtbffQ41x+rsqNnzxihniBv2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091723;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=5nq/yW3E6nSzBhQE//dTYvgfzBHRxLsoSrzMo34ZjSs=;
-	b=hSaOs+4NYwLMO+cyqaWyHBDnMZOOHPdZ64HJvCazT+MhIqlro9N6oJDzz1EV7o8yrBHL
-	 LRakrWXeYq2cRrkKkIlI1tmmynsWiGZcDHN1XPTCgZvThCaamD01Bq9LFSlg1AgFXMRsZ
-	 /l6f8ujsCEDVEAoSb8UWMkcMShBFJMGNGJplq7QXzSUPDDZfzZzCfbeu5HgCE7tHmCJds
-	 rBXP4H0UvVdd2KFAgb9+BrBdOnrMjPkcM9SAwd21AvBiKqB8MFm1bsrpOxvAfSf5OCbFW
-	 dBwvxLvgiGFgMhNnQsdy6u1OiTgY9XDVKu6k1wQ0PuBNcolSTTDO+uf4Sq709yCJLvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091833;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=TNG24tQY55R3gZy9VxOdBRDeZa6e92m1sqs1xmlBkCI=;
+	b=AbEeCtgfv2V3G36xw93nZ3+c/Qy0A0TedTvpc4ng7AqSD6Ia9sobuMHCqfrJenV0K2m3
+	 X+RV2yRWWA7ZLA3ufE5UeloT417uEbX2nvL6HiI0My11YbJ6KMoh2usFHaC4YWP7aIY3p
+	 6gOORgZkMjAt7wFTD9r/eBBDV7LzHfigh8KEiv5VxL80cYJMawvLQysb+fvyPPTEOwHrU
+	 yTLS9772PjMmlLVyxcKCah5B5HxsVxut3GOX4IQ/ppTGuZ5axE1KesDz5in41GGjPChe4
+	 m1k+RGgHk39/v12lRhVKHFiwBrY5hLKjr49YWkPljAL91ONKcPNIja57b1isr+sX39w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ulj9p7Jn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=wr23r+hN;
+	arc=none smtp.remote-ip=115.124.30.119
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA4D606A324;
-	Tue, 27 Oct 2026 09:02:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52180606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:03:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52180606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ulj9p7Jn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4501F01828;
-	Tue, 27 Oct 2026 09:02:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793091723;
-	bh=5nq/yW3E6nSzBhQE//dTYvgfzBHRxLsoSrzMo34ZjSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ulj9p7JneLFV1/XhjlgoB/eMNIqEQ4GJO5bi6UfrrD8HhsEGzbsJWw9Fh7Bbk2Zmy
-	 dXTv3coxEQCqyoRT50cWG5/xQfcfb+bKo538FX9mXlQkzg7LNrBHXKUlF7evcHRIO6
-	 xIHd3fw+SGUx7bY9O/A9rtGBRK1urm4D01a3/mQ8Uyvzumxm0hJJShV2f9I5rF/M4r
-	 sHH4Vy0ixTOveeMxJf8ojt1F8pBQYGgoJSXpbxuaFNN8Zg6jEbemlo5+aeWEl6Iyj4
-	 KXqOqZUDrUkhuzR+lhyki8q6UFZaHEsvSvX/e6qq2/E2VBr3h2VRD8uZlsfRHZGFUQ
-	 aEL9J2u5dvy5Q==
-Date: Tue, 27 Oct 2026 11:01:57 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alex Williamson <alex@shazbot.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Bjorn Helgaas <helgaas@kernel.org>,
-	linux-pci@vger.kernel.org
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <20261027090157.GB28851@unreal>
-References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
- <arIvG0nx4LXG9nlW@monoceros>
- <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <20261026122243.GA28851@unreal>
- <2026102654-enlighten-perkiness-193c@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=wr23r+hN
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793091829; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=TNG24tQY55R3gZy9VxOdBRDeZa6e92m1sqs1xmlBkCI=;
+	b=wr23r+hNK4igB4J+Ai8v7KzaBTP6MHImC2UEdM+BSh2Cr5pam6OuoCLFsuOFGOpblXc6wGXqxDN/NHMsVR+d67TJ5Omy3Anq/5CHwXd1hxOV6zqmmDHZ0TUlRuASTsApQ7vkxsvhqpcMLniHdBlt+eu61D1+tR1onFE7rjOra64=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XDdD3Pp_1793091826;
+Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDdD3Pp_1793091826 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 17:03:47 +0800
+Message-ID: <87e32afd-75de-4407-8f0c-fb70b40d5eca@linux.alibaba.com>
+Date: Tue, 27 Oct 2026 17:03:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,121 +53,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2026102654-enlighten-perkiness-193c@gregkh>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] mm: memory: fix truncation removing mapped folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <d7f009c90b11ded86654885b5ebcb8c9308fa31a.1793067441.git.baolin.wang@linux.alibaba.com>
+ <2ba579e8-06fb-41f5-9eb2-f02b2aabe29b@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <2ba579e8-06fb-41f5-9eb2-f02b2aabe29b@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 09:27:25PM +0100, Greg Kroah-Hartman wrote:
-> On Mon, Oct 26, 2026 at 02:22:43PM +0200, Leon Romanovsky wrote:
-> > On Fri, Oct 23, 2026 at 06:13:26PM -0600, Alex Williamson wrote:
-> > > On Wed, 23 Sep 2026 12:29:56 +0200
-> > > Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-> > > 
-> > > > On Wed, Sep 23, 2026 at 11:54:50AM +0200, Uwe Kleine-König wrote:
-> > > > > > No, drivers should NOT have to do that in their .probe() function,
-> > > > > > that's what we moved away from decades ago!  The match function should
-> > > > > > handle all of that for you, otherwise it's contant duplication
-> > > > > > everywhere that is unneeded.  
-> > > > > 
-> > > > > Well then you have to accept that root can provoke a null pointer
-> > > > > exception (e.g. by forcing the pwm-tegra driver on a device) because at
-> > > > > least with today's platform bus match function such a match is ok.  
-> > > > 
-> > > > Agreed, yes, root can cause a crash and can do tons of horrible things
-> > > > much worse than this, that's not the issue.
-> > > > 
-> > > > That's why this taint is there, to make it obvious that this is not a
-> > > > "real" bug at all.
-> > > > 
-> > > > > > Please, learn from our history, don't make the same mistakes.
-> > > > > > 
-> > > > > > Now I might be convinced that driver_override is the way to go here, but
-> > > > > > it still feels really odd as again, bind/unbind was created as a driver
-> > > > > > debugging option only, it should NOT be a normal operation that any user
-> > > > > > should rely on.  The driver should "just work" properly instead, without
-> > > > > > requiring manual bind work, as that's not a good model at all.  
-> > > > > 
-> > > > > I agree in principle, but (in my case wifi) drivers are buggy sometimes
-> > > > > (due to missing documentation and/or engineering effort) and being able
-> > > > > to rebind the driver instead of rebooting to get a working device again
-> > > > > is very useful.  
-> > > > 
-> > > > Fine, use it!  Just don't expect that to be "normal".
-> > > > 
-> > > > > So yes, theoretically bind/unbind isn't needed, but theory and practise
-> > > > > differ in practise.  
-> > > > 
-> > > > Agreed, but again, don't rely on this as a "real" solution fo ranything.
-> > > 
-> > > Sorry, late to the party, but this isn't a few user scripts that rely
-> > > on this behavior.  Effectively every use case of vfio relies on this
-> > > behavior.  We rely on unbinding the default driver from the device
-> > > before using driver_override and drivers_probe.  That means every
-> > > hypervisor with device assignment and every userspace driver use case
-> > > now experiences a tainted kernel. That seems like a significant
-> > > regression.
-> > 
-> > Sorry, I was on vacation and missed this change earlier. This change will
-> > affect SR-IOV deployments around the world, which *rely* on being able to
-> > bind a driver manually *after* virtual functions are created but before
-> > they are used.
+
+
+On 10/27/26 5:00 PM, David Hildenbrand (Arm) wrote:
+> On 10/27/26 03:19, Baolin Wang wrote:
+>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
+>> truncating them on production:
+>> "
+>> BUG: Bad page cache in process ...  pfn:...
+>> page dumped because: still mapped when deleted
+>> "
+>>
+>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
+>> branch, and I got the following crash info. From the dump message, we can
+>> see that truncate_inode_folio() is really trying to remove mapped folios,
+>> which is incorrect.
+>>
+>> "
+>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+>> index:0x3880 pfn:0x191647
+>> [  189.171995] memcg:ffff0000cc073d40
+>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+>> .......
+>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+>> [  189.172026] ------------[ cut here ]------------
+>> [  189.172027] kernel BUG at mm/filemap.c:155!
+>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+>> .......
+>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+>> 7.3.0-rc4+ #277 PREEMPT(lazy)
+>> .......
+>> [  189.183986] Call trace:
+>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+>> [  189.184391]  __filemap_remove_folio+0x34/0x160
+>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
+>> [  189.184859]  truncate_inode_folio+0x34/0x58
+>> [  189.185087]  shmem_undo_range+0x220/0x658
+>> [  189.185308]  shmem_fallocate+0x2f0/0x470
+>> [  189.185527]  vfs_fallocate+0x128/0x328
+>> ......
+>> [  189.187078]  el0t_64_sync+0x184/0x188
+>> "
+>>
+>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
+>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
+>> MADV_DONTNEED synchronously releases the pagetable page before calling
+>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
+>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
+>> as non-zero. A possible race scenario is as follows:
+>>
+>> CPU 0                           CPU 1
+>> shmem_fallocate                 madvise_dontneed_single_vma
+>>    unmap_mapping_range            .......
+>>    ......
+>>    (filemap_map_pages() remap folios)
+>> 				  zap_pte_range
+>>    truncate_inode_folio		    zap_empty_pte_table(pmd clear)
+>>      unmap_mapping_folio
+>>      ......
+>>        zap_pmd_range (saw pmd none, skip)
+>>
+>>    filemap_remove_folio
+>>      BUG_ON(folio_mapped)
+>>                                      tlb_flush_rmaps(remove rmaps)
+>>
+>> To fix this issue, we should move the pmd clear operation (via zap_empty_pte_table())
+>> to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
+>> concurrent zapping, so that when we find a pmd_none() while unmapping a folio
+>> without holding the PTL, the folio's mappings are guaranteed to have been
+>> removed via tlb_flush_rmaps().
+>>
+>> [1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
+>> Reported-by: Ayush Ranjan <ayushr@modal.com>
+>> Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
+>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+>> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>> ---
+>> Changes from v4:
+>>   - Put the pmd_none() check in the 'else if' branch (per David).
+>> Changes from v3:
+>>   - Collect review tags from Qi, Pedro and Lorenzo. Thanks.
+>>   - Update the related comments per Lorenzo.
+>> Changes from v2:
+>>   - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per David).
+>> Changes from v1:
+>>   - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
+>> ---
+>>   mm/internal.h | 10 ++++++----
+>>   mm/memory.c   | 30 +++++++++++++++---------------
+>>   2 files changed, 21 insertions(+), 19 deletions(-)
+>>
+>> diff --git a/mm/internal.h b/mm/internal.h
+>> index b1b0f29d2216..ffb8eaec90e3 100644
+>> --- a/mm/internal.h
+>> +++ b/mm/internal.h
+>> @@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct unmap_desc *desc);
+>>   void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+>>   
+>>   /**
+>> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
+>> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+>>    * @mm: The mm_struct.
+>>    * @pmdp: Pointer to the pmd that was found to be pmd_none().
+>>    *
+>>    * When we find a pmd_none() while unmapping a folio without holding the PTL,
+>> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+>> - * indicate that it's unmapped. Skipping the PMD without synchronization could
+>> - * make folio unmapping code assume that unmapping failed.
+>> + * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
+>> + * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
+>> + * for the table have been removed, but nothing orders the pmd_none() read
+>> + * against later mapcount reads. Skipping the PMD without synchronization
+>> + * could make folio unmapping code assume that unmapping failed.
+>>    *
+>>    * Wait for concurrent zapping to complete by grabbing the PTL.
+>>    */
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index e911e63ba1ed..d9c54549b85b 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>>   		}
+>>   	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+>>   
+>> +	add_mm_rss_vec(mm, rss);
+>> +	lazy_mmu_mode_disable();
+>> +
+>> +	/* Do the actual TLB flush before dropping ptl */
+>> +	if (force_flush) {
+>> +		tlb_flush_mmu_tlbonly(tlb);
+>> +		tlb_flush_rmaps(tlb, vma);
+>> +	}
+>> +
+>>   	/*
+>>   	 * Fast path: try to hold the pmd lock and unmap the PTE page.
+>>   	 *
+>> @@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct mmu_gather *tlb,
+>>   	 * to hold the pmd lock failed, then we need to recheck all pte entries
+>>   	 * to ensure they are still none, thereby preventing the pte entries
+>>   	 * from being repopulated by another thread.
+>> +	 *
+>> +	 * Clear the PMD after the rmaps for the table have been removed, in case
+>> +	 * an incorrect mapcount is observed after unmapping the folio.
+>>   	 */
+>>   	if (can_reclaim_pt && direct_reclaim && addr == end)
+>>   		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+>> -
+>> -	add_mm_rss_vec(mm, rss);
+>> -	lazy_mmu_mode_disable();
+>> -
+>> -	/* Do the actual TLB flush before dropping ptl */
+>> -	if (force_flush) {
+>> -		tlb_flush_mmu_tlbonly(tlb);
+>> -		tlb_flush_rmaps(tlb, vma);
+>> -	}
+>>   	pte_unmap_unlock(start_pte, ptl);
+>>   
+>>   	/*
+>> @@ -2102,12 +2105,9 @@ static inline unsigned long zap_pmd_range(struct mmu_gather *tlb,
+>>   				continue;
+>>   			}
+>>   			/* fall through */
+>> -		} else if (details && details->single_folio &&
+>> -			   folio_test_pmd_mappable(details->single_folio) &&
+>> -			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+>> -			sync_with_folio_pmd_zap(tlb->mm, pmd);
+>> -		}
+>> -		if (pmd_none(*pmd)) {
+>> +		} else if (pmd_none(*pmd)) {
+>> +			if (details && details->single_folio)
+>> +				sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>   			addr = next;
+>>   			continue;
+>>   		}
 > 
-> Why can't a real driver bind to those virtual functions?  Like is
-> happening in the rust apis?
-
-The actual driver is also bound, but at a later stage. I'm not sure what you
-mean by “Rust APIs.”
-
 > 
-> > This is needed for two reasons: to save hardware and software resources
-> > when creating a large number of VFs, and to allow the PCI config space to
-> > be configured *before* the driver starts using it.
 > 
-> How is hardware and software resources an issue here at all?  And you
-> can write to PCI config space from userspace today, no driver needed
-> anywhere at all, that's always been allowed.
-
-According to the PCI spec—or, at least, the common interpretation of it—
-newly created VFs should have equivalent hardware-resource partitions.
-For most hardware resources, this is not an issue. One resource, however,
-is critical to partition correctly: the number of MSI-X vectors per VF.
-These vectors are backed by physical resources and directly affect
-performance and utilization.
-
-In a correctly configured system, the number of MSI-X vectors should
-match the number of CPUs assigned to the VM. More vectors can leave
-hardware underutilized; fewer can degrade performance.
-
-The workflow for cloud operators is therefore:
-
-1. Create a large number of VFs, but do not assign them yet.
-2. Lease a VM to a user and determine how many CPUs they requested.
-3. Repartition the internal MSI-X table allocation.
-4. Assign the VF to the user.
-5. Check how many MSI-X vectors remain available, then return to step 2.
-
-The MSI-X table size is read near the beginning of driver initialization
-and cannot be changed afterward.
-
-So, no—you cannot change those PCI values without breaking the driver
-and OS that are already running.
-
+> } else if (pmd_none(*pmd) && details && details->single_folio)) {
+> 	sync_with_folio_pmd_zap(tlb->mm, pmd);
+> }
 > 
-> > There is no in-kernel alternative.
+> if (pmd_none(*pmd) {
+> 	addr = next;
+> 	continue;
+> }
 > 
-> Then just don't have a in-kernel driver for the device and all is good?
-
-In addition to Jason's comments, the PF and VF share the same driver because
-they are nearly identical, apart from a few differences in PCI
-configuration space.
-
-Please revert the series ASAP, you are clearly breaking existing deployments.
-
-Thanks
-
 > 
-> thanks,
-> 
-> greg k-h
-> 
+> Minimal change required, no?
+
+No, keeping two pmd_none() checks cannot fix the race, as I replied 
+before. [1]
+
+[1] 
+https://lore.kernel.org/all/179c26ed-1764-4e5b-a7ee-047ddabbfea1@linux.alibaba.com/
