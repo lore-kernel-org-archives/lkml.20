@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793064310;
-	b=0bkAZqcvr7TdoFPOHXaBJwWtlfmu5o34BbtvzC5LARD2idA11mnnvdPgaC0MYVIuXb6D
-	 LVikIOEyXT5Tr6G+M5QiKbrTrGHkT/KUv2V84G/a0VTLCQvCgDVlLnyQyI+FT9uNtItng
-	 xxgX0GfIB5YRxi6H6oG0r7UhjamtOthRW2bCSX/3Tga3I1TnOTU1dJY68NMevPVuP56fq
-	 3og3jrrUaUheIimCCU94jYahyPsoKKIh2Yeu8/ghQtZLs51u+oQ2aqsOQiLODFT17BZMz
-	 hgN2YlYfQtl0B6twwZlk6ccCNetwcfWRHSQKgmpQYltMJSwVZPsXBw4IyQf6DIvGdTg==
+	t=1793064351;
+	b=snQ/6dgfWLbnKVpzVUUJR1S4V/sGXL7TPeHZXy3iaUhNQYZL22JjmVEJhxmOkYW0WRe3
+	 OL0Ra94N0ZbzmfOqzeI4p9UZW+dcU0t4YXzqPwdP5+C6Tm4/4gL6fXlmTgC+TAkbL4Jr6
+	 hMY3M8oe+j+Cw6OoYnT5TPvvIglBjd0A4hp8Sk7dyDMjufvXLY5+IIupUDM1kA/rEtww3
+	 pTnCgROxjwgRAs4uBflhem6X16B9/vhPUgsVpuW7RITxoZVOGlOzDbllwwdGCRxOs3EPq
+	 WHNLBNNT9F8HfXoSFawT74KUi00Al7MjlMLL8uSKKUwg+xdxf0heEHccDYkz8QRY9TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793064310;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=0+ZCYq8yPT7UgiJd/2I4i00Zcn8Pa1oTi/H1bjd+Tt8=;
-	b=ECnAXD4po+JDC1IJ1V4l/UZhoHSO2PHYuumW2X4cIscNgBRQJ7CWpuJxueX7nAXpSbAW
-	 WBKrDG69azL+TcjS07Lrm5t72GAKXnTNJ18MCZc9My+gQZHIDMvE/zd6TBbp8AyA793qV
-	 dAfaD64VY/I9W8DCI/w9LjztA7ZOLLJ6FvpsUXCScVgz8yvcZ/51SIyFm8xzm54AOuZR6
-	 CDr2H19MSoqG2FDALdrrJBtwlqYQjTRmwNv1fPGL+FmvorqtKoVw3BJWBVA6OcxrZrLF0
-	 9G91SKdG7YZzgPzJkYdkYf8q6Paud9H+jM+qhaDpXOO4OhtEm3IpxWoQaqq5DlH7CYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793064351;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Y+DIHcrA443uqX7QES2ZcgrJrcUrUUQxo223RqYtOdc=;
+	b=q2J4aUt6J+8AXcvvqpl3YFJ+M1lT2FA4YVJpKUB0aW98thdVDtZ9SKWR3juBhnuWakOe
+	 WqlHlzrdvafEhz3zJAk1xLvCBQ92mGibc0oULdY+5a7cqCjvVQK5oVUgtzYV2nqBZ8AsI
+	 XQcsyv1gfTPPdu+u1XgJK12Lp6zMAdM2FJDqcbw8IEY3q/yDTbYpyfpjwVZVHXn67moex
+	 UoF2h0WO+mYTvHiBKtVw/xFqXYY34Ytn0arSafLEdtUFVkC0CIeUoYKgL+6ehYBedo3SC
+	 jXAtvQhhQBlmh4pnEzrbS47krsdXFDH4oQdH2VyUlPn1QIX9RUw7ShG4OHP9uisYd6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=bGci1mOO;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L53lhoCx;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1844606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1844606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E809A606A31A;
+	Tue, 27 Oct 2026 01:25:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E809A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=bGci1mOO
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=0+ZCYq8yPT7UgiJd/2I4i00Zcn8Pa1oTi/H1bjd+Tt8=;
-	b=bGci1mOOa5uGBFMgwZR6kWqJrGm1gk2E6Bgf5zQyREHOqCHIlnENKU+mXV4DBktKNeA6Fl33A
-	UA6XNR1Qx76J/d2vDab8qtk+0GpfrGP6FSlSV4h0nt9fWBgdKfhPyjDe1uAxOagS5rttG3TazFM
-	U98VBZEKq4mxD/KsFV30fUw=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jDCTh54Xnz1K9Bq;
-	Tue, 27 Oct 2026 09:24:56 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 34C804057C;
-	Tue, 27 Oct 2026 09:25:04 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 09:25:03 +0800
-Message-ID: <cbbae8ef-b612-4a5a-a404-6e3c49d2d45d@huawei.com>
-Date: Tue, 27 Oct 2026 09:25:01 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L53lhoCx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793064351; x=1824600351;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=1W0qQOp9dlvhFLQgWLSpC14yTIgst1Lk70JE9hOkfO0=;
+  b=L53lhoCxCvJanlIjEpE/6Dp9npkN103lLRTtG+JySOpcoMOgBCsktCaN
+   imlKGhC5v3ZTYiaddOaWn8TkaMxdegrxmPu4qtYC1fQCCScajiaFyahjW
+   +o7TS2oQCNmGQ+oGYTcLYggOiEOD53TxcHOph32TVex7P+JtOrGiRnpQp
+   alXLONnxVEnLnCkNOX/iKh5QnqISDFoxvQorFwI72U2xvGMrn4TkouohL
+   j4UQ0GeBLsuVcMfPyl5tW8DGPq1mySQGlGumDVtHCO5GUbP052cKlNUYx
+   /yJHTGkCYqWFU6JESu4Syn/5u+76azHitGMf9rb48fEedMEvGu7qyPPgz
+   w==;
+X-CSE-ConnectionGUID: Ey5msoRsRW6DdEcDgbXx8A==
+X-CSE-MsgGUID: NPhX6EtZTK+64IVIaDUaFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1760137"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1760137"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 18:25:50 -0700
+X-CSE-ConnectionGUID: 499ixse/RBiiw5XlyzZDTQ==
+X-CSE-MsgGUID: 1iitD3rJT+2NzPxwk+903g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4422631"
+Received: from unknown (HELO [10.238.2.205]) ([10.238.2.205])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 18:25:44 -0700
+Message-ID: <153dd0db-32d8-4ec9-ab8d-2368a790ac55@linux.intel.com>
+Date: Tue, 27 Oct 2026 09:25:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,90 +73,79 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 RESEND 03/15] arm_mpam: Fix error return in
- resctrl_arch_mon_ctx_alloc()
-To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
-	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<babu.moger@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <fenghuay@nvidia.com>,
-	<tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>, <jic23@kernel.org>,
-	<gshan@redhat.com>, <catalin.marinas@arm.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
- <20261020134239.3921377-4-ruanjinjie@huawei.com>
- <19a84290-d0a8-4900-bb2a-ecd525eeff57@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <19a84290-d0a8-4900-bb2a-ecd525eeff57@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Subject: Re: [PATCH v10 02/28] KVM: VMX: Initialize VM entry/exit FRED
+ controls in vmcs_config
+To: Sohil Mehta <sohil.mehta@intel.com>
+Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-3-sohil.mehta@intel.com>
+ <acc168cc-e021-43dc-8846-ed1b2d69facb@linux.intel.com>
+ <a0f99d8b-b67d-42f3-b76b-90187a0bea5d@intel.com>
+ <5af354c7-9bbb-4ff2-b450-c08cc5b46304@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <5af354c7-9bbb-4ff2-b450-c08cc5b46304@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
 
-在 2026/10/26 22:40, Ben Horgan 写道:
-> Hi Jinjie,
+On 10/26/2026 1:00 PM, Sohil Mehta wrote:
+> On 10/22/2026 8:10 PM, Sohil Mehta wrote:
 > 
-> On 20/10/2026 14:42, Jinjie Ruan wrote:
->> resctrl_arch_mon_ctx_alloc() stores the allocation result in a
->> heap-allocated int and returns the pointer unconditionally. When
->> allocation fails with anything other than a retryable -ENOSPC (e.g.
->> -EINVAL, -EOPNOTSUPP, or -ENOSPC with a pending signal), the caller
->> receives a valid heap pointer that IS_ERR() does not detect.
+>> I couldn't find any precedent for this. I don't have a strong preference
+>> here. Is it worth making future-proof?
+> 
+> 
+> I did a bit of digging. The current entry in the table is the result of
+> Sean's preference provided early on in the FRED series. See
+> 
+> https://lore.kernel.org/all/Z739wdGmk4ZuWJ8v@google.com/
+> https://lore.kernel.org/all/ZUz3cPmnqSq7Lol9@google.com/
+> 
+> IIUC, we want the FRED entry/exit controls to be consistent without
+> depending on the ordering.
+> 
+> The current vmx_check_entry_exit_pairs() doesn't cover the FRED case (a
+> single entry bit mapping to two exit bits). So, the updated check would
+> cover this scenario.
+
+OK, thanks for the info!
+
+> 
+>> if (!(entry_controls & n_ctrl) == !(exit_controls & x_ctrl) &&
+>>     !(entry_controls & n_ctrl) == ((exit_controls & x_ctrl) != x_ctrl))
+>> 		continue;
 >>
->> The caller then treats the error code as a monitor index: hardware
->> reads use an out-of-range index, and resctrl_arch_mon_ctx_free() hands
->> it to ida_free(), corrupting the allocator state.
->>
->> Return ERR_PTR() when the allocation failed.
 > 
-> Is this just theoretical? What state do we have to be in for resctrl_arch_mon_ctx_alloc_no_wait() to
-> fail? I see that the same fix has already been posted by Sang-Hoon.
+> 
+> 1st line: the entry control is set if and only if *any* exit bit is set.
+> 2nd line: the entry control is set if and only if *all* exit bits are
+> set (which is specific to FRED for now).
+> 
+> Also, to make it easier to read, planning to reformat it as:
+> 
+> struct {
+> 	u32 entry_control;
+> 	u64 exit_control;
+> } const vmcs_entry_exit2_pairs[] = {
+> 	{ VM_ENTRY_LOAD_IA32_FRED, SECONDARY_VM_EXIT_SAVE_IA32_FRED |
+> 				   SECONDARY_VM_EXIT_LOAD_IA32_FRED },
+> };
+> 
+> Please let me know if you disagree with the approach.
 
-Hi Ben,
-
-Yes, this is one of sashiko reported issues. And after walking through
-the relevant code, I found it to be reasonable.
-
-Sorry, I didn't notice Sang-Hoon's fix; I will drop this fix.
-> 
-> https://lore.kernel.org/lkml/179075213853.3.16001626385793291460.idr-bug-33@gmail.com/
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->> Fixes: 2a3c79c61539 ("arm_mpam: resctrl: Allow resctrl to allocate monitors")
->> Cc: James Morse <james.morse@arm.com>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  drivers/resctrl/mpam_resctrl.c | 7 +++++++
->>  1 file changed, 7 insertions(+)
->>
->> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
->> index edd8da460fd7..23a8771ef148 100644
->> --- a/drivers/resctrl/mpam_resctrl.c
->> +++ b/drivers/resctrl/mpam_resctrl.c
->> @@ -413,6 +413,13 @@ void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
->>  	} while (*ret == -ENOSPC && !signal_pending(current));
->>  	finish_wait(&resctrl_mon_ctx_waiters, &wait);
->>  
->> +	if (*ret < 0) {
->> +		int err = *ret;
->> +
->> +		kfree(ret);
->> +		return ERR_PTR(err);
->> +	}
->> +
->>  	return ret;
-> 
-> 
->>  }
->>  
-> 
-
--- 
-Best regards,
-Jinjie
-
+It looks good to me.
