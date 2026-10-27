@@ -1,57 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102074;
-	b=eePtmSe+1RI2I6gL33l5origGKKAHNpotTABJqaWFRflIdQBX64fzsBAMcU2Ox+abwVr
-	 Dn1c7niumFEdAT/sE3LBBKQYoHSkNt/amXIhBB1ZSFNxKi1+gvTPmXHmn6Z5ZzWyiNSkR
-	 KVFz3l+dehN8gkdeNWjE9bvo+qP/H1KSWPfaY49MoqwAclKv6/VSS5+t33jbkUR5mJDek
-	 Fs61AgC77e7KviJi74Q+mnd2H1HHK2Kg0YUJ6uqsM8l++fhbEL00B2M39beqVPQ3EOhsk
-	 /cm7KcfG2PEPRahSPzAgWLVZjL45awiy820zhVZYGRUPOhGQpx6Sp5qlItdQpd9J+aQ==
+	t=1793102112;
+	b=y27YfcRdga9mZil2tPONMXX1BRkZ4h9XV9ZhEK7qxeE8sQ207ZfVAkRT7yLwVoQFQXBT
+	 itoyQa6BjOzvQCipduuCSSnROfpp5MpqK92nVRFJHQ1JlJE59IM2ZSr7UcGCUGLOxuZnJ
+	 c+i26mP488pFKv900gMElzZ1ujzILip4j9aQrRGtAEK/KTCf3dEdgMYem+USVVqeRprk8
+	 S1lg4PQ0NQK/+rxBSFdfF3tCttsNzII5Z96XyCEoGhXmZdIsWMD0yxiGtdF7QtqyXZnHc
+	 n9RrDSxPzSgPk+6vSFfiv5z5M0Jcev4bFv/5t0sdpBgOq07HmYH9j9i4kVHDeqb7Big==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102074;
-	h=DMARC-Filter:Received:Received:Message-Id:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Date:Mime-Version:From:To:Cc:Subject:
-	 Content-Type:X-MAIL:X-MSS:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=FqxKvNg4kJimCwQ4aj4TQkIJ9sNptxO95CCUSsHG0XA=;
-	b=Qo606jBrY9dG+q84bQ5M8wtnCGSR/w9esaHexKXJm4fVb5pCdZaNtb0dQHQiYmIg7Sta
-	 idNiB0E+kyeqmgWuVxqtUiidfo1WKK7WZRdU8dkKxGJ2n5F6vVR4fY9U78JDrPhP9G5GW
-	 VGMKFFw66yE/K4H4DiFIWgXKZkYZ8L2dZi2LIR6UyhFjcezuCUKQoEv+IY1A4FTV1gmuk
-	 NceaUK7+W1Ex85NKqS6HW2rJvFPGh8z0E+e724SyY55/AR86Z9VppdNkNhEQXk76HBvzI
-	 L2m1sF/tsNOWF721cOKzLWuJTtIjIg7+XhZpxZ2QqeON17NnQbc7wLYkjPkr7Dr9zAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102112;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=PA0aAaFh/9H5HFt7Di8mduI1kjnyfcgklhevJ7k24bc=;
+	b=fJT3kAiH5+Kp1xxu1lWMFLe1pZZ0MNJtVpocQkhbB3AwwygcZTpOD3VOYGyOknpytPor
+	 zJeQr4y0qwM/BULlWKFnHB4pNWbyVWcT8ZvYOZkZrxhJDdPM3qITsBiHT0VQsn2JqOF4a
+	 ctqSfs/pcmlqN/hrbs7+avEh9+DFzI7I36FCM/u76AfeH2ZM2poc8KbiOrArlc4RRqmmt
+	 hxE4tfK+GGSnMGmCHvdfkbXGkJbJEyMOidvGziuCWPSRdMzTdlksMoKHmzVNGi8SVnHqI
+	 n+ZOmi92yiZ5OGog51+KS6X2aSt29nVlFLSJ4jTGJ2CwPMc5jApztM/XZsqRGPwN9Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M6Lj7WTg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4B6606A31A;
-	Tue, 27 Oct 2026 11:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA4B6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jDTS040CLz5B13b;
-	Tue, 27 Oct 2026 19:54:24 +0800 (CST)
-Received: (from root@localhost)
-	by mse-fl2.zte.com.cn id 69RBsOlq045164;
-	Tue, 27 Oct 2026 19:54:24 +0800 (+08)
-	(envelope-from lv.yating@zte.com.cn)
-Message-Id: <202610271154.69RBsOlq045164@mse-fl2.zte.com.cn>
-Received: from szxl2zmapp07.zte.com.cn ([10.1.32.52])
-	by mse-fl1.zte.com.cn with SMTP id 69RBlTX0050550;
-	Tue, 27 Oct 2026 19:47:29 +0800 (+08)
-	(envelope-from lv.yating@zte.com.cn)
-Received: from mapi (szxlzmapp02[null])
-	by mapi (Zmail) with MAPI id mid16;
-	Tue, 27 Oct 2026 19:47:32 +0800 (CST)
-X-Zmail-TransId: 2b046ae08f547b2-3f5fc
-X-Mailer: Zmail v1.0
-Date: Tue, 27 Oct 2026 19:47:32 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF97606A31A;
+	Tue, 27 Oct 2026 11:55:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M6Lj7WTg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18B7D1F01825;
+	Tue, 27 Oct 2026 11:55:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793102111;
+	bh=PA0aAaFh/9H5HFt7Di8mduI1kjnyfcgklhevJ7k24bc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M6Lj7WTgp5gOXXOANVLTc/TCAGYF0TTH0Q/bmEx9u26HEmAyLHrPRDioFRVydnlcp
+	 ePjOXeP4WnrsZCNG9mUGeJ4OkA4iZ39ouqY1XUIrColIvGvcdmss81HOwvzbYTiliW
+	 4LJmjJILFU2jwmNxGggNwz1EyYD1zdsrntfVmVl9wMKAKmxrhHvlkjOb1+lLBCyubz
+	 h+XYmjsdx0wOoaCuACCyih8A0bd60Q4tW3TCuGsPCR54pAdTDVYeY7gxLX0SuK10Ok
+	 evgVYl0RY52hgDlICBN+YoV2ONjRKELcoy5HKDTzxnaw2YqT7Z9890B/OxWQCHxobe
+	 9PPLstGTXZHWw==
+Date: Tue, 27 Oct 2026 06:55:07 -0500
+From: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261027115507.GD3598537-robh@kernel.org>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+ <43ef0af4-0594-41f1-9ad3-499bfb3352a9@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,60 +66,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <lv.yating@zte.com.cn>
-To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-        <namhyung@kernel.org>, <mark.rutland@arm.com>,
-        <alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
-        <irogers@google.com>, <adrian.hunter@intel.com>,
-        <james.clark@linaro.org>
-Cc: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <liu.qingtao2@zte.com.cn>, <he.yilin@zte.com.cn>,
-        <zhang.cheng35@zte.com.cn>, <ye.zhihao1@zte.com.cn>,
-        <shen.lin1@zte.com.cn>, <dai.hualiang@zte.com.cn>,
-        <stable@vger.kernel.org>, <hu.shengming@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIXSBwZXJmIG1hY2hpbmU6IEZpeCBOVUxMIGRlcmVmIGluIHRocmVhZF9fcmVzb2x2ZV9jYWxsY2hhaW5fc2FtcGxlKCk=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 69RBsOlq045164
-X-MSS: AUDITRELEASE@mse-fl2.zte.com.cn
-X-TLS: YES
-X-ENVELOPE-SENDER: lv.yating@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 27 Oct 2026 19:54:24 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE090F0.000/4jDTS040CLz5B13b
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <43ef0af4-0594-41f1-9ad3-499bfb3352a9@kernel.org>
 
-From: lvyating <lv.yating@zte.com.cn>
+On Tue, Oct 27, 2026 at 08:28:06AM +0100, Krzysztof Kozlowski wrote:
+> On 26/10/2026 21:12, Rob Herring wrote:
+> > On Wed, Oct 21, 2026 at 6:55 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >>>>
+> >>>> All these tools should just work on top of linux-next. Requiring people
+> >>>> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" is
+> >>>> pointless. I understand that base is helping, but helping and requiring
+> >>>> an obvious information just do not go together.
+> >>>>
+> >>>> So again: base has ZERO meaning to the maintainer process. It has
+> >>>> meaning to tools, so fix the tools to work on known and obvious trees.
+> >>>
+> >>> So what is your proposed algorithm to apply an arbitrary patch when
+> >>
+> >> Already provided that, so to recap:
+> >>
+> >>> there's no base-commit?  Including any historical patch (from
+> >>> months/years ago), patches with dependencies, etc.
+> >>
+> >> Dependency is something else, but for every other patch:
+> >> 1. For testing/CI: you apply on top of next
+> >> 2. Every other case the maintainer knows where to apply it, because it
+> >> is his HEAD of next-branch.
+> >>
+> >> I am repeating myself, but I really had no single problem of lack of
+> >> knowledge where to apply a patch as a maintainer or reviewer of some
+> >> subsystem, thus maybe I do not understand the actual problem you are
+> >> experiencing.
+> > 
+> > Look at our DT PW. There are numerous patches that don't apply and
+> > then we silently don't test them at all. Here's one example[1] (3
+> > actually as the whole series doesn't apply). The more base-commit
+> > tags, the better. If b4 can't apply it, then I do try just linux-next,
+> > but is that today's, yesterday's or 2 weeks ago? That still doesn't
+> > work sometimes.
+> 
+> I have doubts that DT CI would know these mentioned bases, unless
+> everyone develops on master, which is obviously not possible. It could
+> work if CI has all possible next tags fetched, but then I argue that
+> without base commit such CI could apply to closest linux-next tag by date.
 
-When recording with -j stack, resolve_lbr_callchain_sample() can
-dereference a NULL 'chain' pointer while resolving the branch
-stack.
+I fetch the last 5 next trees or so. b4 will also try to guess the base, 
+but that doesn't seem to work all that well. If this is "easy", then b4 
+should just work without issue, right?
 
-$ perf record -j stack -e branches:u uname
-perf: Segmentation fault
-
-Fix it by checking 'chain' for NULL before dereferencing it.
-
-Fixes: 29be60c93d2d ("perf build-id: Mark DSO in sample callchains")
-Signed-off-by: lvyating <lv.yating@zte.com.cn>
-Cc: stable@vger.kernel.org
----
- tools/perf/util/machine.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
-index f86b3b7df742..10a88c070814 100644
---- a/tools/perf/util/machine.c
-+++ b/tools/perf/util/machine.c
-@@ -2858,7 +2858,7 @@ static int thread__resolve_callchain_sample(struct thread *thread,
- 	if (chain)
- 		chain_nr = chain->nr;
-
--	if (evsel__has_branch_callstack(evsel)) {
-+	if (chain && evsel__has_branch_callstack(evsel)) {
- 		struct perf_env *env = evsel__env(evsel);
-
- 		err = resolve_lbr_callchain_sample(thread, cursor, sample, parent,
--- 
-2.27.0
+Rob
