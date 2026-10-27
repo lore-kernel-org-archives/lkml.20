@@ -1,84 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793098065;
-	b=hV2W7GluT1IskT0rKfeSESUTTDnSGiJ/hie4lk60PN1BzJ7SawkXDiL/CN40gDA21KVZ
-	 7VC7pRIEaMdARtl6aKADCcWADRQshbTqRD4aezy2d25WEKV3IVZL6ddVbWfBaW6sIrzt9
-	 1y8lL4SVbqibpcqsRbKGONUIPPFnM6DyeyCXDc3fdMMCklye2uzMu97c12Muo2Bfr31OP
-	 0Xx5A7LAKgFhUvN1SSff2SJS4Yig0cIdo6ghK6qa5OoSO666maP7UlN5AMq5jlIecSJx8
-	 BO/Yr2BEoOjQAuuoOjX0I53N9DSt5E88ztfcXdfPQkjQPe2JBdNxOaSztpvrhVeMpSA==
+	b=qSVn0CD76vEItzHi8OP2/DRoqSKhGy8PWkS/kFqr3W6gUmUZxcSWs/fQJtwxKx6CAjYL
+	 Wtn6n9gEVp3HvIQxsJq8dsQ0SBK4EPWEjCcKka3cuThXZhaTIEwVunfVQyu3QcXRXjANl
+	 w1Ph5VyCR2S47XQRQjQq6htfFPmAcptFPn+k3mjjdu4gYjMSTlgpcewhoRP3PUleqEaij
+	 P0r26wWObaHxIzcnaeoW6QGzlC2p8p0VMrDuS3aaQO0jf2t1kuNWcM3iPlI4QdQ99AD4S
+	 25jBtUe/anBT0gqH7zn0e+QuELd3d61EtoWRWZPKzuJz2iV+r0HE5tZ4e/no5mpCPeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793098065;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=qwOP/ChYXyQgeHq4JGO8UPM3SSS01nblW3EU8Z0OF+I=;
-	b=p3nA8e1wZNy6DsX7cVq6KjbKoaMmC1V5xE6fF8J9toQSte39UzqWcylr9ndLIehje5bJ
-	 K+5p1zWMOFkGk1OuNSHlDwuB0qKo8uaujHnWb4JLmnYVvRMVTBIa+adai1NYONwS6YfMv
-	 5dTPuKTwWq0BTOcqNhwBa8Ex1l7jT/HYHVtYteLEUbrczZX1bgQC0GAOveeenL+0GTs/k
-	 l0yBP80UNT4RWEVSBKXl0PQ6OwhqNvmgs74WjWuxroQjUbPJBEaQxbyAVQOF78ihQr960
-	 xedq/ovB49FKQJswxjDIXjH5Sbjrzd0Ce7GV2GyN6W1TnL/+L5d3vOu61Sw0+mjR6/Q==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=31yePHJkZvVIMPqk+qU1LWlJ9GBJamyVeNTyh7KlbfM=;
+	b=O39Z4PeHlT8hQsJ/0njBbV8h09sZG0ALSt1ScnToDDLxNXhAZ0u8LUkhr7VXuPeIRQlj
+	 mwcCYcUY3XaFKaMF5+k7RT1PPJCo9Ey/N+VOkU8yKKaBmUblGsZ8rYc2Pd3s06UzJ01AH
+	 0ZstnIry0yqiAfGWci65qpSHXIOUIYwhGRffd0sa3IbboOsj2hAx2DwqlFOQpio1jEK/2
+	 ugxOB5VWd2OdhZeDMCCulDKlY2suXxE4oomvBqjR/XK+cM1JImtkYUuT6QTQfT6lh/oc5
+	 jPKq/F5xBhmyt0DbdwwmemcOX5l9r1K52GZJjBuEPtiNxNA8kd0QCEb++LbyAzrwpMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.118
-Received: from mta1.migadu.com (out-118.mta1.migadu.com [95.215.58.118])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nv9rbupi;
+	arc=none smtp.remote-ip=74.125.231.136
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127E8606A328
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 127E8606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=p/T42mWw683F+K90Gg/h7jvsPmk0ttOQkRNGpJzra0I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793098062; v=1; x=1793702862;
- b=YuTs0NZHMOxryt2mwDRZOe6eET0av+8LdjwteKi2emvdfdaPn5vUCeVVwplnEHqfX4D1eKCt
- SMHUe3eTZub27JqV7aj9Lgm3Jhgs+0sy0Jqle/tVBc/N+8eB0sw7FFaZL7iiZin161RsaexSM0z
- OMVh4XRy4ZdjQbZY8ZyAG768=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4f2ce23dc9097964;
-	Tue, 27 Oct 2026 10:47:41 +0000
-X-Mizu-Trace-ID: 4f2ce23dc9097964
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A6E606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:47:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92A6E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nv9rbupi
+Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6debc457754so1634634eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:47:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793098063; x=1793702863; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=31yePHJkZvVIMPqk+qU1LWlJ9GBJamyVeNTyh7KlbfM=;
+        b=nv9rbupi+ErQQzelJi+myJQTS+9F61QxOVOWKDArpr6CskZuZxl7X+alV1TdNTdN9R
+         +4/q256sSuKxfiNWGbkZVJIArsvnOzyun9qOyjB9AzykLR0T444643LiJcufHYdOfE0P
+         /WGRcjXnyR5E9cEREYWGr9ruXm/MONtTYCXSpJ8ecgs4E8ft6hCKx6YLB3ab3O96ON+L
+         hGWoVn2m5nY2HwJb7uREQxhgrk+nhbhEQ+kZdj+stW6nFirl9A6YWeAw3drYoyldwc+U
+         15BMmktxdaiiaipNAp9w98JtQrcGJ+I7Lwlaga2fOf4qf12ATD6/pFGOvdJf2jqy88cd
+         VYmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793098063; x=1793702863;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=31yePHJkZvVIMPqk+qU1LWlJ9GBJamyVeNTyh7KlbfM=;
+        b=BPT3+Bog+4PzYwiulD55dxt8lJUduPdDMTkqJQjwVidNddpLL6rkj3NDKgD2TlvMD/
+         EQ2Ol/BDqBLOTkaxeALp1DnKFIY0uKGzgZ4EURiSeODdDN67QZfAQYO05kxW8H4mf9lA
+         ABBLUh3iPQ8P6iP0MNh79+DYWvwwgI9XMkzJA1BFryL5iiqS8EeQuIaytJTjXRDbad89
+         XdkuAt6QLV4KOIi3CbLXOnIk9+LObWt2rcDraSBHKMDeketq8HiQ8L4i6TO97QcXVgjf
+         /YiOlkdJBmRvc71tus++kC+3+3Ntl0b09xZKxCjVyIqgSKJRUpRnrln8pMlZ8FUqe8GE
+         DwxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1u9WfxDt0ojn6fqQg1oa7mutUEKLM4FaqHyyMdwHrlbZXemMgNE/JizUrsdX5DZPTWkbmuXpSUTlx8yA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPdc2ONUp86IW1S9Hghq+3A41/q2+hyO00PjUxhio4Mi/gAdbn
+	uFVVoRYfY31pfJ+BqCvY8h39lz8oNfhbqpF6kSvQrVbMnkgkfzPfOay/
+X-Gm-Gg: AYBFou2VzUJEz21JXoJcAcMM4vKWE6Qa1uOMHN5zerLtdjui6j6SAvPw1c85E3JTCoi
+	RmwIN/cLzFHx3ijq/40aB1m6clRlgmbG3XMf1RDbFbIruExlj7KN3/coaDBkuKAueWfA385evd+
+	fhLTmfyqtYvZvZJxK9SpFpm9fCu6eVQAjtFFd3j9QNJ3yEHbb7+4ajGaykL8tSiyLPKWyEfEnBr
+	z3asUoXQ3j+qXN5NSWM2ZJ5/q2wcwCNjawANWjUW867S9bZ1JacuOzBjVvYB4QbmbRRzXiwI/rj
+	0ivbB1dtd1JYszPUnT6nfBuKPcZ3cuf1t0oKPzrxSLS28+mc6Ea+G30LvPGPWbkYRpMGDOW54SC
+	Ayic0ZHEroOC2oG3HQibnyo5NUW3UoC5t84xyoEhb5S9Cm6lEpZeoUcDZidDc7kdkYlY5Y1YHUv
+	idbXzvaciKVUtBwHf11GDCGoD1V7XCxwMRwssKQIuJKfCRKjRKr+onuQYSdu6gDKL/dxgJxztpm
+	WQyJ4MvZbhiFQs9UY0kEMhvz2hZbOrqSAlys+S/jhUceQ2ugwF5tu4Bs0oJEZXd0/XS1ti+ulZW
+	BeNVCjmMrcjovaszljs=
+X-Received: by 2002:a05:6820:1c84:b0:6b1:a812:9871 with SMTP id 006d021491bc7-70da9e1b77emr3695466eaf.18.1793098063493;
+        Tue, 27 Oct 2026 03:47:43 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.36])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a842e89b77sm6597299fac.2.2026.10.27.03.47.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:47:41 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Ido Schimmel <idosch@nvidia.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	"David S . Miller" <davem@davemloft.net>,
 	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
+	Andrew Lunn <andrew@lunn.ch>,
 	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Joel Granados <joel.granados@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
 	Kuniyuki Iwashima <kuniyu@google.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Willem de Bruijn <willemb@google.com>,
-	Maoyi Xie <maoyi.xie@ntu.edu.sg>,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	Jiri Wiesner <jwiesner@suse.de>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
-	Yung Chih Su <yuuchihsu@gmail.com>,
-	Wyatt Feng <bronzed_45_vested@icloud.com>,
-	Flavio Leitner <fbl@redhat.com>,
-	Hannes Frederic Sowa <hannes@stressinduktion.org>,
-	Petr Mladek <pmladek@suse.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 0/5] net: fix misc signed overflows caused by bad sysctl values
-Date: Tue, 27 Oct 2026 18:45:28 +0800
-Message-ID: <20261027104701.296240-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	Petr Machata <petrm@nvidia.com>,
+	Ferruh Yigit <ferruh.yigit@amd.com>,
+	Antoine Tenart <atenart@redhat.com>,
+	Seungwon Bae <qotmddnjs@gmail.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4 2/2] vxlan: reject VNI add when the default fdb entry is nexthop-backed
+Date: Tue, 27 Oct 2026 18:47:13 +0800
+Message-ID: <20261027104713.328028-2-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261027104713.328028-1-bsdhenrymartin@gmail.com>
+References: <20261027104713.328028-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,49 +113,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Recently I have reviewed quite a few fixes for variable overflows caused
-by config values, i.e. a value set from sysctl, module params or netlink
-that is accepted as valid but later overflows when it is used in a
-calculation. I believe there are more of these still out there, so I
-used an LLM to dig through the code and it found the issues fixed in
-this series.
+vxlan_vni_add() installs the new VNI - hash table insert, group list,
+socket attach and the RTM_NEWTUNNEL notification - before calling
+vxlan_vni_update_group(), which in turn calls
+vxlan_update_default_fdb_entry() to store the group (or the device's
+default remote) into the all-zeros fdb entry of that VNI.
 
-All of them have been reproduced and verified in QEMU.
+Now that vxlan_fdb_update_existing() rejects appending a remote to a
+nexthop-backed default entry, the group store can fail with
+-EOPNOTSUPP after the VNI has already been installed and announced,
+leaving it half-installed: present in the tables and announced, but
+with no remote stored and no multicast join.
 
-v2:
- - gc_elasticity, mld_qrv, igmp_qrv: store the sysctl as u8 and use
-   proc_dou8vec_minmax(), as suggested by Kuniyuki
- - docs: add the missing "Maximum: 255" to the mld_qrv and igmp_qrv
-   entries in ip-sysctl.rst
- - message_cost: add proc_dointvec_jiffies_minmax() instead of a local
-   handler, as Joel suggested
- - redirect_load: reject negative values as well
- - kept Fernando's Reviewed-by on gc_elasticity, mld_qrv and igmp_qrv:
-   v2 narrows the storage type to u8, the fix itself is the same
-v1: https://lore.kernel.org/netdev/20261023091419.167088-1-jiayuan.chen@linux.dev/
+Check whether the default fdb entry for the VNI is backed by a
+nexthop before installing the VNI, and reject the add up front.
 
-Jiayuan Chen (5):
-  ipv6: restrict gc_elasticity to 31
-  ipv4: fix shift-out-of-bounds in ip_rt_send_redirect()
-  ipv6: restrict mld_qrv to 255
-  ipv4: restrict igmp_qrv to 255
-  net: restrict message_cost and message_burst to non-negative values
+Note: the missing unwind in vxlan_vni_add() predates this series;
+this check avoids giving user space a deterministic way to reach it.
 
- Documentation/networking/ip-sysctl.rst        |  4 ++
- .../net_cachelines/netns_ipv4_sysctl.rst      |  2 +-
- include/linux/jiffies.h                       |  2 +
- include/net/ipv6.h                            |  2 +-
- include/net/netns/ipv4.h                      |  2 +-
- include/net/netns/ipv6.h                      |  2 +-
- kernel/time/jiffies.c                         | 40 +++++++++++++++++++
- net/core/sysctl_net_core.c                    |  6 ++-
- net/ipv4/route.c                              | 10 +++--
- net/ipv4/sysctl_net_ipv4.c                    |  4 +-
- net/ipv6/mcast.c                              |  2 +-
- net/ipv6/route.c                              |  7 +++-
- net/ipv6/sysctl_net_ipv6.c                    |  4 +-
- 13 files changed, 70 insertions(+), 17 deletions(-)
+Cc: stable@vger.kernel.org
+Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+---
 
+v4: new patch; the failure path was made reachable by patch 1, so
+    guard it before the VNI is installed (sashiko review of v2).
+
+ drivers/net/vxlan/vxlan_core.c      | 14 ++++++++++++++
+ drivers/net/vxlan/vxlan_private.h   |  2 ++
+ drivers/net/vxlan/vxlan_vnifilter.c | 14 ++++++++++++++
+ 3 files changed, 30 insertions(+)
+
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 3390e341d1e58..13143085065f6 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -422,6 +422,20 @@ static struct vxlan_fdb *vxlan_find_mac(struct vxlan_dev *vxlan,
+ 	return f;
+ }
+ 
++bool vxlan_fdb_entry_nh_backed(struct vxlan_dev *vxlan, const u8 *mac,
++			       __be32 vni)
++{
++	struct vxlan_fdb *f;
++	bool ret;
++
++	spin_lock_bh(&vxlan->hash_lock);
++	f = vxlan_find_mac(vxlan, mac, vni);
++	ret = f && rcu_access_pointer(f->nh);
++	spin_unlock_bh(&vxlan->hash_lock);
++
++	return ret;
++}
++
+ /* caller should hold vxlan->hash_lock */
+ static struct vxlan_rdst *vxlan_fdb_find_rdst(struct vxlan_fdb *f,
+ 					      union vxlan_addr *ip, __be16 port,
+
+diff --git a/drivers/net/vxlan/vxlan_private.h b/drivers/net/vxlan/vxlan_private.h
+index b1eec22163608..0454689965aeb 100644
+--- a/drivers/net/vxlan/vxlan_private.h
++++ b/drivers/net/vxlan/vxlan_private.h
+@@ -11,6 +11,8 @@
+ 
+ extern unsigned int vxlan_net_id;
+ extern const u8 all_zeros_mac[ETH_ALEN + 2];
++bool vxlan_fdb_entry_nh_backed(struct vxlan_dev *vxlan,
++			       const u8 *mac, __be32 vni);
+ extern const struct rhashtable_params vxlan_vni_rht_params;
+ 
+ #define PORT_HASH_BITS	8
+
+diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+index dd94085e08865..f07ae2a6a59ed 100644
+--- a/drivers/net/vxlan/vxlan_vnifilter.c
++++ b/drivers/net/vxlan/vxlan_vnifilter.c
+@@ -737,6 +737,20 @@ static int vxlan_vni_add(struct vxlan_dev *vxlan,
+ 		return err;
+ 	}
+ 
++	/* A default fdb entry that is backed by a nexthop group can
++	 * never take a remote; reject before the VNI is installed,
++	 * otherwise a failure in vxlan_vni_update_group() would leave
++	 * the VNI half-installed.
++	 */
++	if ((group && !vxlan_addr_any(group)) ||
++	    !vxlan_addr_any(&vxlan->cfg.remote_ip)) {
++		if (vxlan_fdb_entry_nh_backed(vxlan, all_zeros_mac, v)) {
++			NL_SET_ERR_MSG(extack,
++				       "Cannot add a remote to a nexthop fdb entry");
++			return -EOPNOTSUPP;
++		}
++	}
++
+ 	vninode = vxlan_vni_alloc(vxlan, v);
+ 	if (!vninode)
+ 		return -ENOMEM;
 -- 
-2.43.0
-
+2.43.7
