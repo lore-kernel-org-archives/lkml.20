@@ -1,75 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793142934;
-	b=sP3GliQAykjbd4569tiw2dBGwUX8GIgXfSP7wz1j2J1/NkeAgJe4lGV2EG0hvy1JlEdS
-	 Px7ppa9UvdOY7CARB6H7lOxO/UDHNDZfnLDleH9Fu2WZJB4S1T90vnpe3OdMMakUJ18jZ
-	 ecq+u1/KZxAbahx9ZZtR26DhPy8hblIEYLwwPQmyU18LKkwkSKSNmHq39iJyFvOr3l5Rf
-	 ZC1O+BQPsnb9NDIKi8af+9n7Lnib8CzWXQudStfirxRVnH+1ROx2fOlYlMJqCrkUYxBIV
-	 BOaQ/N+y+fQcbtuxn+of6ri0Ok/5VxuUNkt0QJLgG0pNr/QODI8Vh/GOHykezMjp68A==
+	t=1793142936;
+	b=1lOoH9sPB7FD+qYGHcd64k+tthTUOBWY0kyOB+lwnRVp4Q2QKrUa2TmKcE6hlIHrLIRR
+	 C+CssXEEzWNxvXzP2fX88RRM+c05D7ZW/DfU7V0FfnDZ+HCeoX1EU6s3vw8BGd7Kp4lLe
+	 fl+9ky3imaGWEI+UyvvAAdu72E7ZFFmZVJty106OEj55S54GEMaRPr3+LEtrKXS+UGRA6
+	 MzYnp/wOx/FkNX17wGsu23JVzCz5bQbSAz08VGxKrdcs2b9+LOmkysC2AUiZ8nlnUMz+t
+	 hNlHk4JwQtIOB/Sz9tJzaU4k1ipnF+QHQuP72GlgvanvQ/28WEd3iBosDq+146KoiRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142934;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=bMNJ1bgeNx4P+2tQQU55kRRJUpbr72DzOPhHaFxRyeA=;
-	b=x+blj3FzELGbHQhuzVecjCbDOq25oAEHNYsNhaeiVz1BOmO1ynwZN+av//Puj12tOTJW
-	 El0sQxESGsYavTjOu4QQA9uGS+z0GI/JKOOW9KZpeObfS7Xv7xUqUUzT7DilfpMhLULOH
-	 WMRoBQFwVts6pwX0h3HHZnJ1vRHfxUwj2oesqLVbnmb3bo/U/eUy+o7R3CFFUNBdduCZ6
-	 nmCqus7Pyw+JFdQiOjvCw0Anr0+bFsT5AIgOLGZHGRHZT7oCoNzV8OAvm3QOyg+nKIzSx
-	 tY1Jq76etHBikm693CRQYXnj5Vj3XRxrS88ikGMiwC2OADNnV7N6bQDXxy6P37HHD5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793142936;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=CA/7Tox0t7EgvF7I3HnmzpFFxPiq5q1ElSMkzQot6VE=;
+	b=lO7a6mDrxLkGYH6Ub5mzJy3NVFOOJCb+Fe8snqh5Bu5Tt1N7gDwVIFW+JLEVvVUtojhY
+	 7aWHYogYKj9Vr/QKTBo6QHjCC1WVbPLHXXmPiPj1ZlHS6hvm5Fs5i3teBypXoBfR+1y0+
+	 I2K/wbbMeIYhCnsalbBiFkZ+0rigz+CPmBISKY0ZlKqk6FBl0SOFcnbboETfFC3mrjF+Y
+	 3GwCdMscly7xM6I2l7L7VyxlOB62H0SgNlByDU1kag5kaD7pBRbLzKbe88r9/BsMSyVSl
+	 bgz2EUBHkDhReHFMOQTktJo/jEA4ZUHHyszdx+Dd91Vcfw8xgbGzVAQjjWMdcSjXnrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q21otRbc;
-	arc=none smtp.remote-ip=74.125.82.72
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVnQXRQw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0C9606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:15:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A0C9606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB4A606A32F;
+	Tue, 27 Oct 2026 23:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q21otRbc
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-16bc6f3fdb1so365525c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793142934; x=1793747734; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bMNJ1bgeNx4P+2tQQU55kRRJUpbr72DzOPhHaFxRyeA=;
-        b=Q21otRbcnbBnbX6lPWm0UQJTqGGEkQPvjL8TAkuc2i9MZu7AZLGvTFKd21ZpPqriCX
-         wiKf8dxyznIb6buG6azpti1zfJBJRFirJcQ85BQMbMt5CtBjrOpXVG5q9ZDbQmGe/+C5
-         nX4GHBHVaXDFImXNXKT4tjHpLQgGGy6Bac6lpu+OTLfXpYQXKDamVVJ2uCc6o9ECVs0i
-         onWtF7oEBumBB3OlsaHQ3tC3IRBDmoIGzJJcKcs7WCCdhI+tAmzeChj7RymKU04iLd8O
-         QVKP+macGirAepz2YSY7VY1qjxq0ioheGdCsFPt/6qPxh8tkFkQVJLosgl7ADLFVkix8
-         0LxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793142934; x=1793747734;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bMNJ1bgeNx4P+2tQQU55kRRJUpbr72DzOPhHaFxRyeA=;
-        b=Zm12y3yL6opIZjv8wVQSP0xVLWVU7/t8V6avCWxTzZosPvKz2kgWYFW3bWagBqOtlA
-         Xw5xEy5EKbBqD2iEKaHAlh7jcwbyYE4L8mSS2gdttMbKm7B7i5u0pk57dW5X2gQazRTL
-         onFVEEwASj9Rec5APO4WTDmVSJ0NrStuL5EcQiJvOZWl7PVLcvlfRo6gBG6Xmr/0FgdT
-         8OJdDcYztHDY2gatwT5Abotp0iQvRwt0WAp53igMPxFH0qBpzLX+KbghHXVjK45HCsvx
-         op9MGsjjMe8Iv3bIAaQyOMywRIqisLtLV2WD9kV9PWcmxKikEJqDRTmM3KF0KGz/n49z
-         b9zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSsY93JyL9OBxAQd/vRNwuvf6riKHmgflalhSosh0Highrte/TbyNDgQPHbLaMs6L3jeWn7GXaDnBZD2M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIe74xVD0+JDeh26y+AkN9voGD1xhDF+FISyyL2+yJRm3Bf/Tk+
-	uQlHNj0/VtRyenCwdcKh9oC2RV6wej61bywtO7/aOy1+H5xMJRUczAdhUI7nYWpmZyYzYO23+FO
-	PPJ1DOty1yg==
-X-Received: from dldyr26-n2.prod.google.com ([2002:a05:701b:451a:20b0:195:cde8:ab41])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1702:b0:151:70a0:6bfd
- with SMTP id a92af1059eb24-1a6cd0c1a2emr770600c88.24.1793142933216; Tue, 27
- Oct 2026 16:15:33 -0700 (PDT)
-Date: Tue, 27 Oct 2026 16:15:00 -0700
-In-Reply-To: <20261027231513.816148-1-irogers@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVnQXRQw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875A81F01825;
+	Tue, 27 Oct 2026 23:15:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793142935;
+	bh=CA/7Tox0t7EgvF7I3HnmzpFFxPiq5q1ElSMkzQot6VE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=PVnQXRQwjWsHVoayiNThshV99xcymU/V/pIZswtKDDmYMDJnOaOF0e4WQ7NFLyn2U
+	 hgbefSKUGrnKZ0wCwyAx6tS3q1iVEd2hqs5S1mvjxrh7pnqk7AkuDvh0wc0rFHGQZW
+	 CCI0r4bHaPu9ujtyJPNsRSPmR/5zGCIWHZHLXZ5Wp8LZlMpqX2Pd+u+Ay/HTGI+req
+	 r/99UDdROlN1XtaPaPQIWoAM1cKqtxREE8Szyk5HcNBzLT3i1yjFBRXX1sUwq8EkYr
+	 wrMun3XHkKgkbcRXvN7v9s6BDe1OKuYAOrghVqQXkizpkbbFOoNsm+SD4JzlS8ufzX
+	 6Z8j9YCxGv+ew==
+Date: Tue, 27 Oct 2026 18:15:34 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Hans Zhang <18255117159@163.com>
+Cc: bhelgaas@google.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+	mani@kernel.org, jingoohan1@gmail.com, imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org, linux-amlogic@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 00/16] PCI: dwc: Cache PCIe capability offset
+Message-ID: <20261027231534.GA520774@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,469 +59,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261027231513.816148-7-irogers@google.com>
-Subject: [PATCH v2 06/18] perf annotate: Move struct annotation to a hashmap
- and remove symbol_conf.priv_size
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, haghdoost@uber.com, james.clark@linaro.org, 
-	jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027122827.2725643-1-18255117159@163.com>
 
-Previously, enabling annotation added sizeof(struct annotation) to
-symbol_conf.priv_size, bloating every loaded struct symbol in every DSO
-even though only a small fraction of symbols are ever annotated. In
-addition, allocating private data at a negative offset ahead of struct
-symbol via symbol__priv() prevents wrapping struct symbol with
-DECLARE_RC_STRUCT(symbol) for reference-count checking.
+On Tue, Oct 27, 2026 at 08:28:11PM +0800, Hans Zhang wrote:
+> Hi,
+> 
+> The DWC PCIe core and its platform drivers repeatedly call
+> dw_pcie_find_capability(pci, PCI_CAP_ID_EXP) to obtain the offset of the
+> PCI Express Capability structure, including in paths that run more than
+> once such as link polling, suspend/resume and interrupt handlers.
+> 
+> Add a cached pcie_cap field to struct dw_pcie and a
+> dw_pcie_get_pcie_cap() helper that performs the lookup on first use and
+> caches the result, then convert the core and the 14 platform drivers
+> that use PCI_CAP_ID_EXP.
+> 
+> After this series, dw_pcie_find_capability(..., PCI_CAP_ID_EXP) no
+> longer appears in drivers/pci/controller/dwc/ outside of the helper
+> itself.
+> ...
 
-Move struct annotation storage to an on-demand hashmap in
-util/annotate.c keyed by struct symbol pointer, guarded by
-annotations_lock and tracked via a new SYMBOL_FLAG_ANNOTATED flag in
-sym->flags so unannotated symbols pay zero lookup or teardown overhead.
-If allocation fails in symbol__annotation(), return a static
-empty_annotation fallback so callers that do not check for NULL remain
-safe while mutating callers check for &empty_annotation.
+> base-commit: 4352b8aee98005853aa63f57d6377282de17a33f
 
-With annotation, TUI map browser indices, and db-export symbol IDs no
-longer using negative-offset space ahead of struct symbol, remove
-symbol_conf.priv_size and symbol__priv().
+This does indeed apply cleanly on 4352b8aee980 ("Merge tag
+'i3c/for-7.3' of git://git.kernel.org/pub/scm/linux/kernel/git/i3c/linux"),
+but that's pretty old and not really useful any more.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/builtin-test.c |   1 -
- tools/perf/ui/browsers/hists.c  |  13 +++-
- tools/perf/util/annotate.c      | 132 +++++++++++++++++++++++++++++++-
- tools/perf/util/annotate.h      |   6 +-
- tools/perf/util/sort.c          |   5 +-
- tools/perf/util/symbol.c        |  34 ++++----
- tools/perf/util/symbol.h        |  16 ++--
- tools/perf/util/symbol_conf.h   |   1 -
- 8 files changed, 167 insertions(+), 41 deletions(-)
-
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 0b8897fd42ca..9e52a194f919 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -2050,7 +2050,6 @@ int cmd_test(int argc, const char **argv)
- 	if (dont_fork)
- 		sequential = true;
- 
--	symbol_conf.priv_size = sizeof(int);
- 	symbol_conf.try_vmlinux_path = true;
- 
- 
-diff --git a/tools/perf/ui/browsers/hists.c b/tools/perf/ui/browsers/hists.c
-index 206657039223..1f1a877f667e 100644
---- a/tools/perf/ui/browsers/hists.c
-+++ b/tools/perf/ui/browsers/hists.c
-@@ -796,7 +796,9 @@ static void hist_browser__show_callchain_entry(struct hist_browser *browser,
- {
- 	int color, width;
- 	char folded_sign = callchain_list__folded(chain);
--	bool show_annotated = browser->show_dso && chain->ms.sym && symbol__annotation(chain->ms.sym)->src;
-+	bool show_annotated = browser->show_dso && chain->ms.sym &&
-+			      symbol__annotated(chain->ms.sym) &&
-+			      symbol__annotation(chain->ms.sym)->src;
- 
- 	color = HE_COLORSET_NORMAL;
- 	width = browser->b.width - (offset + 2);
-@@ -2486,6 +2488,9 @@ do_annotate(struct hist_browser *browser, struct popup_action *act)
- 	    perf_env__lookup_objdump(browser->env, &annotate_opts.objdump_path))
- 		return 0;
- 
-+	if (!symbol__annotated(act->ms.sym))
-+		return 0;
-+
- 	notes = symbol__annotation(act->ms.sym);
- 	if (!notes->src)
- 		return 0;
-@@ -2545,7 +2550,8 @@ add_annotate_opt(struct popup_action *act, char **optstr,
- 	if (!ms->sym)
- 		ms->sym = symbol__new_unresolved(addr, ms->map);
- 
--	if (ms->sym == NULL || symbol__annotation(ms->sym)->src == NULL)
-+	if (ms->sym == NULL || !symbol__annotated(ms->sym) ||
-+	    symbol__annotation(ms->sym)->src == NULL)
- 		return 0;
- 
- 	if (asprintf(optstr, "Annotate %s", symbol__name(ms->sym)) < 0)
-@@ -3204,7 +3210,8 @@ static int evsel__hists_browse(struct evsel *evsel, int nr_events, const char *h
- 				do_annotate(browser, &hotkey_act);
- 				map_symbol__exit(&hotkey_act.ms);
- 			} else {
--				if (symbol__annotation(browser->selection->sym)->src == NULL) {
-+				if (!symbol__annotated(browser->selection->sym) ||
-+				    symbol__annotation(browser->selection->sym)->src == NULL) {
- 					ui_browser__warning(&browser->b, delay_secs * 2,
- 						"No samples for the \"%s\" symbol.\n\n"
- 						"Probably appeared just in a callchain",
-diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
-index 4163689b6b2c..e4332800fda4 100644
---- a/tools/perf/util/annotate.c
-+++ b/tools/perf/util/annotate.c
-@@ -8,6 +8,9 @@
- 
- #include <errno.h>
- #include <inttypes.h>
-+#include <pthread.h>
-+#include <stdbool.h>
-+#include <stddef.h>
- #include <stdlib.h>
- #include "util.h" // hex_width()
- #include "ui/ui.h"
-@@ -35,6 +38,7 @@
- #include "string2.h"
- #include "dwarf-regs.h"
- #include "util/event.h"
-+#include "util/rwsem.h"
- #include "util/sharded_mutex.h"
- #include "arch/common.h"
- #include "namespaces.h"
-@@ -118,6 +122,7 @@ static __maybe_unused void annotated_source__delete(struct annotated_source *src
- 	if (src == NULL)
- 		return;
- 
-+	annotated_source__purge(src);
- 	if (src->samples) {
- 		hashmap__for_each_entry(src->samples, cur, bkt)
- 			zfree(&cur->pvalue);
-@@ -156,9 +161,126 @@ annotated_source__hist_entry(struct annotated_source *src, const struct evsel *e
- 	return entry;
- }
- 
-+/*
-+ * Map from struct symbol pointer to struct annotation. Allocated on demand so
-+ * unannotated symbols do not pay the memory cost of struct annotation.
-+ * empty_annotation is returned as a fallback on allocation failure so callers
-+ * that do not check for NULL do not dereference NULL, while mutating callers
-+ * check for &empty_annotation and return an error.
-+ */
-+static struct rw_semaphore _annotations_lock;
-+static struct hashmap *annotations GUARDED_BY(_annotations_lock);
-+static struct annotation empty_annotation;
-+
-+static void annotations_lock_init(void)
-+{
-+	init_rwsem(&_annotations_lock);
-+}
-+
-+static struct rw_semaphore *annotations_lock(void) LOCK_RETURNED(_annotations_lock)
-+{
-+	static pthread_once_t annotations_lock_once = PTHREAD_ONCE_INIT;
-+
-+	pthread_once(&annotations_lock_once, annotations_lock_init);
-+	return &_annotations_lock;
-+}
-+
-+static size_t sym_ptr_hash(long key, void *ctx __maybe_unused)
-+{
-+	return hash_bits((size_t)key, 16);
-+}
-+
-+static bool sym_ptr_equal(long key1, long key2, void *ctx __maybe_unused)
-+{
-+	return key1 == key2;
-+}
-+
-+struct annotation *symbol__annotation(struct symbol *sym)
-+{
-+	struct annotation *notes = NULL;
-+	long val = 0;
-+
-+	if (!sym)
-+		return NULL;
-+
-+	/* Fast path: look up existing annotation under read lock if flagged. */
-+	if (symbol__annotated(sym)) {
-+		down_read(annotations_lock());
-+		if (annotations && hashmap__find(annotations, (long)sym, &val))
-+			notes = (struct annotation *)val;
-+		up_read(annotations_lock());
-+		if (notes)
-+			return notes;
-+	}
-+
-+	down_write(annotations_lock());
-+	if (!annotations) {
-+		annotations = hashmap__new(sym_ptr_hash, sym_ptr_equal, NULL);
-+		if (IS_ERR(annotations)) {
-+			annotations = NULL;
-+			up_write(annotations_lock());
-+			return &empty_annotation;
-+		}
-+	} else if (hashmap__find(annotations, (long)sym, &val)) {
-+		notes = (struct annotation *)val;
-+		up_write(annotations_lock());
-+		return notes;
-+	}
-+
-+	notes = zalloc(sizeof(*notes));
-+	if (!notes) {
-+		up_write(annotations_lock());
-+		return &empty_annotation;
-+	}
-+	annotation__init(notes);
-+	if (hashmap__add(annotations, (long)sym, notes) < 0) {
-+		free(notes);
-+		if (hashmap__size(annotations) == 0) {
-+			hashmap__free(annotations);
-+			annotations = NULL;
-+		}
-+		up_write(annotations_lock());
-+		return &empty_annotation;
-+	}
-+	symbol__set_annotated(sym, true);
-+	up_write(annotations_lock());
-+	return notes;
-+}
-+
-+void symbol__annotation_delete(struct symbol *sym)
-+{
-+	struct annotation *notes = NULL;
-+	long val = 0;
-+
-+	/* Unannotated symbols avoid taking annotations_lock on teardown. */
-+	if (!sym || !symbol__annotated(sym))
-+		return;
-+
-+	down_write(annotations_lock());
-+	if (annotations && hashmap__delete(annotations, (long)sym, NULL, &val)) {
-+		notes = (struct annotation *)val;
-+		if (hashmap__size(annotations) == 0) {
-+			hashmap__free(annotations);
-+			annotations = NULL;
-+		}
-+	}
-+	symbol__set_annotated(sym, false);
-+	up_write(annotations_lock());
-+
-+	if (notes) {
-+		annotation__exit(notes);
-+		free(notes);
-+	}
-+}
-+
- void symbol__annotate_zero_histograms(struct symbol *sym)
- {
--	struct annotation *notes = symbol__annotation(sym);
-+	struct annotation *notes;
-+
-+	if (!symbol__annotated(sym))
-+		return;
-+
-+	notes = symbol__annotation(sym);
- 
- 	annotation__lock(notes);
- 	if (notes->src != NULL) {
-@@ -298,7 +420,7 @@ static int __symbol__inc_addr_samples(struct map_symbol *ms,
- 
- struct annotated_branch *annotation__get_branch(struct annotation *notes)
- {
--	if (notes == NULL)
-+	if (notes == NULL || notes == &empty_annotation)
- 		return NULL;
- 
- 	if (notes->branch == NULL)
-@@ -337,6 +459,9 @@ struct annotated_source *symbol__hists(struct symbol *sym, int nr_hists)
- {
- 	struct annotation *notes = symbol__annotation(sym);
- 
-+	if (!notes || notes == &empty_annotation)
-+		return NULL;
-+
- 	if (notes->src == NULL) {
- 		notes->src = annotated_source__new();
- 		if (notes->src == NULL)
-@@ -1142,6 +1267,9 @@ int symbol__annotate(struct map_symbol *ms, struct evsel *evsel,
- 	if (parch)
- 		*parch = arch;
- 
-+	if (!notes || notes == &empty_annotation)
-+		return -ENOMEM;
-+
- 	if (notes->src && !list_empty(&notes->src->source))
- 		return 0;
- 
-diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
-index 1b47c1156b9a..d87de0f11a60 100644
---- a/tools/perf/util/annotate.h
-+++ b/tools/perf/util/annotate.h
-@@ -449,10 +449,8 @@ static inline struct sym_hist *annotation__histogram(struct annotation *notes,
- struct sym_hist_entry *
- annotated_source__hist_entry(struct annotated_source *src, const struct evsel *evsel, u64 offset);
- 
--static inline struct annotation *symbol__annotation(struct symbol *sym)
--{
--	return (void *)sym - symbol_conf.priv_size;
--}
-+struct annotation *symbol__annotation(struct symbol *sym);
-+void symbol__annotation_delete(struct symbol *sym);
- 
- int addr_map_symbol__inc_samples(struct addr_map_symbol *ams, struct perf_sample *sample);
- 
-diff --git a/tools/perf/util/sort.c b/tools/perf/util/sort.c
-index 62cf3d40e4b6..c4eca7a98642 100644
---- a/tools/perf/util/sort.c
-+++ b/tools/perf/util/sort.c
-@@ -795,14 +795,15 @@ static int hist_entry__sym_ipc_snprintf(struct hist_entry *he, char *bf,
- {
- 
- 	struct symbol *sym = he->ms.sym;
--	struct annotated_branch *branch;
-+	struct annotated_branch *branch = NULL;
- 	double ipc = 0.0, coverage = 0.0;
- 	char tmp[64];
- 
- 	if (!sym)
- 		return repsep_snprintf(bf, size, "%-*s", width, "-");
- 
--	branch = symbol__annotation(sym)->branch;
-+	if (symbol__annotated(sym))
-+		branch = symbol__annotation(sym)->branch;
- 
- 	if (branch && branch->hit_cycles)
- 		ipc = branch->hit_insn / ((double)branch->hit_cycles);
-diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-index 991167b2dfa4..5b50cca7989d 100644
---- a/tools/perf/util/symbol.c
-+++ b/tools/perf/util/symbol.c
-@@ -319,19 +319,11 @@ void symbols__fixup_end(struct rb_root_cached *symbols, bool is_kallsyms)
- struct symbol *symbol__new(u64 start, u64 len, u8 binding, u8 type, const char *name)
- {
- 	size_t namelen = strlen(name) + 1;
--	struct symbol *sym = calloc(1, (symbol_conf.priv_size +
--					sizeof(*sym) + namelen));
-+	struct symbol *sym = calloc(1, sizeof(*sym) + namelen);
-+
- 	if (sym == NULL)
- 		return NULL;
- 
--	if (symbol_conf.priv_size) {
--		if (symbol_conf.init_annotation) {
--			struct annotation *notes = (void *)sym;
--			annotation__init(notes);
--		}
--		sym = ((void *)sym) + symbol_conf.priv_size;
--	}
--
- 	sym->start   = start;
- 	sym->end     = len ? start + len : start;
- 	atomic_init(&sym->flags, (type << SYMBOL_FLAG_TYPE_SHIFT) |
-@@ -347,14 +339,9 @@ struct symbol *symbol__new(u64 start, u64 len, u8 binding, u8 type, const char *
- 
- void symbol__delete(struct symbol *sym)
- {
--	if (symbol_conf.priv_size) {
--		if (symbol_conf.init_annotation) {
--			struct annotation *notes = symbol__annotation(sym);
--
--			annotation__exit(notes);
--		}
--	}
--	free(((void *)sym) - symbol_conf.priv_size);
-+	if (symbol__annotated(sym))
-+		symbol__annotation_delete(sym);
-+	free(sym);
- }
- 
- void symbol__set_ignore(struct symbol *sym, bool ignore)
-@@ -389,6 +376,14 @@ void symbol__set_ifunc_alias(struct symbol *sym, bool ifunc_alias)
- 		atomic_fetch_and(&sym->flags, ~SYMBOL_FLAG_IFUNC_ALIAS);
- }
- 
-+void symbol__set_annotated(struct symbol *sym, bool annotated)
-+{
-+	if (annotated)
-+		atomic_fetch_or(&sym->flags, SYMBOL_FLAG_ANNOTATED);
-+	else
-+		atomic_fetch_and(&sym->flags, ~SYMBOL_FLAG_ANNOTATED);
-+}
-+
- static void symbol__set_idle(struct symbol *sym, bool idle)
- {
- 	uint16_t old_flags = atomic_load_explicit(&sym->flags, memory_order_relaxed);
-@@ -2482,7 +2477,6 @@ int symbol__annotation_init(void)
- 		return -1;
- 	}
- 
--	symbol_conf.priv_size += sizeof(struct annotation);
- 	symbol_conf.init_annotation = true;
- 	return 0;
- }
-@@ -2525,8 +2519,6 @@ int symbol__init(struct perf_env *env)
- 	if (symbol_conf.initialized)
- 		return 0;
- 
--	symbol_conf.priv_size = PERF_ALIGN(symbol_conf.priv_size, sizeof(u64));
--
- 	symbol__elf_init();
- 
- 	if (symbol_conf.try_vmlinux_path && vmlinux_path__init(env) < 0)
-diff --git a/tools/perf/util/symbol.h b/tools/perf/util/symbol.h
-index 780ea3030a6f..37e6ab1478b5 100644
---- a/tools/perf/util/symbol.h
-+++ b/tools/perf/util/symbol.h
-@@ -80,9 +80,9 @@ enum symbol_idle_kind {
- #define SYMBOL_FLAG_INLINED         (1 << 11)
- #define SYMBOL_FLAG_ANNOTATE2       (1 << 12)
- #define SYMBOL_FLAG_IFUNC_ALIAS     (1 << 13)
-+#define SYMBOL_FLAG_ANNOTATED       (1 << 14)
- /**
-- * A symtab entry. When allocated this may be preceded by an annotation (see
-- * symbol__annotation) and/or a browser_index (see symbol__browser_index).
-+ * A symtab entry.
-  */
- struct symbol {
- 	struct rb_node	rb_node;
-@@ -178,12 +178,19 @@ static inline bool symbol__ifunc_alias(const struct symbol *sym)
- 		SYMBOL_FLAG_IFUNC_ALIAS) != 0;
- }
- 
-+static inline bool symbol__annotated(const struct symbol *sym)
-+{
-+	return (atomic_load_explicit(&sym->flags, memory_order_relaxed) &
-+		SYMBOL_FLAG_ANNOTATED) != 0;
-+}
-+
- bool symbol__is_idle(struct symbol *sym, const struct dso *dso, struct perf_env *env);
- 
- void symbol__set_ignore(struct symbol *sym, bool ignore);
- void symbol__set_annotate2(struct symbol *sym, bool annotate2);
- void symbol__set_inlined(struct symbol *sym, bool inlined);
- void symbol__set_ifunc_alias(struct symbol *sym, bool ifunc_alias);
-+void symbol__set_annotated(struct symbol *sym, bool annotated);
- 
- /* symbols__for_each_entry - iterate over symbols (rb_root)
-  *
-@@ -217,11 +224,6 @@ static inline int __symbol__join_symfs(char *bf, size_t size, const char *path)
- extern int vmlinux_path__nr_entries;
- extern char **vmlinux_path;
- 
--static inline void *symbol__priv(struct symbol *sym)
--{
--	return ((void *)sym) - symbol_conf.priv_size;
--}
--
- struct ref_reloc_sym {
- 	const char	*name;
- 	u64		addr;
-diff --git a/tools/perf/util/symbol_conf.h b/tools/perf/util/symbol_conf.h
-index 37d35f42dcc1..aaa7148c3ac1 100644
---- a/tools/perf/util/symbol_conf.h
-+++ b/tools/perf/util/symbol_conf.h
-@@ -42,7 +42,6 @@ struct symbol_conf {
- 	/* Was hybrid_merge given on the command line rather than in a config file? */
- 	bool		hybrid_merge_set;
- 	bool		nanosecs;
--	unsigned short	priv_size;
- 	bool		try_vmlinux_path,
- 			init_annotation,
- 			force,
--- 
-2.56.0.313.g2479322e68-goog
-
+PCI topic branches are typically based on -rc1, but of course v7.4-rc1
+hasn't been tagged.  Until it is, you can use pci/main as a good base.
+It's currently 17bb0e2f6c80 ("Merge tag 'pci-v7.4-changes' of
+git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci"), so
+drivers/pci/ in v7.4-rc1 will be pretty close to that.
