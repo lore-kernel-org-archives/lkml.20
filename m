@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090058;
-	b=2rgje2ONi2ykmLFEJdT/frbQo2YJi5zaB0I4VIjxlogOEs8x7MhYu+36xg2w4s2+7HS+
-	 cmlWKUumqBEzCG5k1PH/weDxM1Kxnice2tM0XSBb3xrYAlsCGmJ1Q3ju2dsk9fAUn4pTy
-	 K7zPvBJgCKWkPTkH6hKjo/pYZ88kSSY4JsqZk5MxzDV8xQra3oWnCOA1GiBW8iM3djbii
-	 0SgBI+nrYHlIcztfjiyLfDNItv8KKtvTfXTnzQNmlzZy+aosZJHy+YEp8RsR397mA8lry
-	 XaYtHizQtXwSlJumSiLCAQMvwljPeDUgg/WTF3BJ0TkAcl8FkUChsRWC8n8/MOC38rQ==
+	t=1793090069;
+	b=Y4StLnZXsbFXsvyUNz7inA1axZF7dadw31XxhtjpD+LB1s2Hj9jiDCCVrjRqGaBv7nR6
+	 392SCWThYA5XAD08Z2Op7u1iqCMNpyxRRQhvtQE5nf4GWkY7W3LQpd8oWPZLCc62yPS1X
+	 ZO095EOZb3qvaJJXYfM4PA3XQAkX4NhqBLC2f1rX9HxsAtxqmhZlIA7V6wWMuVPovayht
+	 P89jiG/EG10HtJC3nvOTGzawKnFmhdgFFlGHb9bFMUL0dG3BfTeM6FimwZ8GyivqxNeLv
+	 FaAVQ5QSUmT+6/OfDmYrkmVl4dwFe5gJHbtVgpv8pOgWzNNAS9D3rQnPsIQhaXzkTBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090058;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=Paz70CUE45Za5sCIaBCXSjkvwQezPROW6m2aMims3AY=;
-	b=yhD++NL+bbTO/qtg2NiVmt/sYak+9/Et/LulG0CXFBCWQyRrR0D4l729B4wPHJWCUitG
-	 xla/doJ4+w6XxqDAghA8cZt2TGkCRHEY2h9XIEmwi7cwv7mDPW/evS1u4nM/dz5etQ2NX
-	 mu2JWx4fW/tYyFWazy8TfZcRC9+/f4+Sqx4jhVE8s2GAxlB/tcBdxmEwynItyzPjx2zZV
-	 eTm+nmGRP++cOiX+0TLKgWeIs/Ryo6lh1dNryNRyCp6uHrXNyLEDchjaLYyrl9w0hzLz1
-	 fLVOszx1wA5BbutU7lwJidURFcWfGnyioBZjHfTr2bMhSQ94qG0tfpangLkfa/wq17A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090069;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=Tqtx97Mqlim2ETCdbAWzFT1K6COkig+THJDQuWiLO7A=;
+	b=L5YZY3CfQzlnN1bAWJf1x+TFThXMS+0jB0nPu/03RXcoiAuJUG6PiYU+BvYd6xwaY3g1
+	 g1p6gXhASE1bY2WOtROvfgGW2m737FqwC5tHhUy9d9aQ8H4D2dSxpxfb+mITotD9vOKUv
+	 dppHCVPPAJw5JMbjmS3kS/sDQzXQNboTbjZTv8GoI948J+uF6foVeXlJQ8o659rFHDhmq
+	 GbJzhZ17O84XqVXOO15yK2+Q2yzqVbVB1rYZtmgsBxLi0F+asfS/BKY+Xn4Rmg3Yok3dE
+	 iZl4rbXmCuH+p2fUrOwg7Ja5uHo7+WIkofkyc+saPRse8gYumQr9scqHGbi6PUy0XCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QCjKH4ww;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE23F606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE23F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QCjKH4ww
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Paz70CUE45Za5sCIaBCXSjkvwQezPROW6m2aMims3AY=;
-	b=QCjKH4wwbxLVvROikxS5bkrF++9leg0mfIB3QR4giEMGIb82tHm8U7zlam2teLcUtmubZcl5E
-	n6p2BKIvhiD6BVQmDLxEbFV+W7x0PTmYarRsmCkPHs3YazFtigkV8ko/GHg87JJOHq9sMKQ9P7C
-	bf2aRIpweJ/1pXyMeDS+Scs=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jDP0p0FlXz1cyQt;
-	Tue, 27 Oct 2026 16:34:02 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2839D40563;
-	Tue, 27 Oct 2026 16:34:08 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 16:34:07 +0800
-Message-ID: <48a17188-cddb-4759-b5df-2ba5691f17ac@huawei.com>
-Date: Tue, 27 Oct 2026 16:34:06 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CE1606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74CE1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab260600easo1003488b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:34:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793090068; x=1793694868;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Tqtx97Mqlim2ETCdbAWzFT1K6COkig+THJDQuWiLO7A=;
+        b=Mh+OHVEDqRd2YrEcOfcZWuKSg7w4Zuk5yy40IW6335mbp1jahy51kj6jkqn4atxoD/
+         iws/iKDzyZ+YHUQHfDpD8wCNLCvEO3gyR/M+UBmfLh9qqz9Zei6wIUVjj6vgg4VBDiAB
+         baZAjzKU7645JyAgaV6Mp3JpINDRTsBY59GmgfmHxQkT2Rpdu1NiIQr57o2+OZEGwny1
+         3hn/fAxRcOh71DAGISGhXF82P/++jygd5fX3jK0Vi0MUaU0rknVPTzd+yGTuRaZ/yFKL
+         0oEMj7j++24Ws5p988QupRwVRHdxoTJ1lippPQ979puo/lVu9oPP4s0Ln3Ev2Z+GpLHc
+         93sA==
+X-Forwarded-Encrypted: i=1; AKwUvBx4ijwMLA36mcNQHDUqyjK26hblylEnQf/Pe61pkEm1w1/dJ/lzlfA4FQgFZrR8eA+CBuRxC8KHHjrKdIc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9gS77uPbAajIb2auXJAwcVr4Y+lJV8XqbkP/QEWnscTWdr1B7
+	byCEqldZjH1xHF7Rfn3jVf0GwYOo7vIRFtMHADfGHTgZtQq4SjRohfEPmNSdqewuG6CJmM6wWJa
+	XV/qMVCaBfdTd7mg5587PP1KzMP2aZM6XAvoo0STdQ+ACXMtsk3wMv791b+w=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,81 +58,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] fs/resctrl: Drop unnecessary is_mba_linear()
- helper
-To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
-	<ben.horgan@arm.com>, <james.morse@arm.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <bp@alien8.de>, <tglx@linutronix.de>,
-	<dave.hansen@linux.intel.com>
-CC: <x86@kernel.org>, <hpa@zytor.com>, <fustini@kernel.org>,
-	<fenghuay@nvidia.com>, <peternewman@google.com>, <yu.c.chen@intel.com>,
-	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
-References: <cover.1791406459.git.reinette.chatre@intel.com>
- <816855328d87740b2cb720215d222702abba4b0f.1791406459.git.reinette.chatre@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <816855328d87740b2cb720215d222702abba4b0f.1791406459.git.reinette.chatre@intel.com>
+X-Received: by 2002:a05:6808:14d4:b0:4c2:e32c:1ee2 with SMTP id
+ 5614622812f47-55f7ef3ce97mr958316b6e.22.1793090068498; Tue, 27 Oct 2026
+ 01:34:28 -0700 (PDT)
+Date: Tue, 27 Oct 2026 01:34:28 -0700
+In-Reply-To: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae06214.6200f071.51519.0f44.GAE@google.com>
+Subject: [syzbot ci] Re: gs_usb: fixes
+From: syzbot ci <syzbot+ci0e4b58e5e6ed7fb1@syzkaller.appspotmail.com>
+To: eric@evenchick.com, kernel@pengutronix.de, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mailhol@kernel.org, max@schneidersoft.net, 
+	mkl@pengutronix.de, pfink@christ-es.de, stable@vger.kernel.org, 
+	wg@grandegger.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+
+syzbot ci has tested the following series
+
+[v3] gs_usb: fixes
+https://lore.kernel.org/all/20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de
+* [PATCH v3 1/4] can: gs_usb: gs_can_start_xmit(): don't leak uninitialized memory over USB
+* [PATCH v3 2/4] can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
+* [PATCH v3 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
+* [PATCH v3 4/4] can: gs_usb: gs_usb_receive_bulk_callback(): add missing call to can_rx_offload_irq_finish
+
+and found the following issue:
+general protection fault in can_rx_offload_del
+
+Full report is available here:
+https://ci.syzbot.org/series/0c1fc4c5-6a50-43da-a45c-fbc3a8685c3d
+
+***
+
+general protection fault in can_rx_offload_del
+
+tree:      axboe
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/axboe/linux.git
+base:      734bef548a96e8774d6eef5dfa2026c6edc4e80b
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/03f4b948-ccf7-4d18-8177-b9847267246c/config
+syz repro: https://ci.syzbot.org/findings/e4142ca3-3d98-40ef-95df-e6f3ad59fd4e/syz_repro
+
+gs_usb 1-1:0.0: Couldn't get bit timing const for channel 0 (-EPROTO)
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000005f: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x00000000000002f8-0x00000000000002ff]
+CPU: 1 UID: 0 PID: 5651 Comm: kworker/1:4 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:__netif_napi_del include/linux/netdevice.h:3007 [inline]
+RIP: 0010:netif_napi_del include/linux/netdevice.h:3026 [inline]
+RIP: 0010:can_rx_offload_del+0x3c/0x1e0 drivers/net/can/dev/rx-offload.c:423
+Code: 48 89 fb 48 bd 00 00 00 00 00 fc ff df e8 9c 5f fc fa 4c 8d a3 d0 00 00 00 49 89 dd 4c 8d b3 00 01 00 00 4c 89 f3 48 c1 eb 03 <80> 3c 2b 00 74 08 4c 89 f7 e8 26 57 6d fb 41 bf 38 0e 00 00 49 8b
+RSP: 0018:ffffc90006a4eb30 EFLAGS: 00010206
+RAX: ffffffff86cbe694 RBX: 000000000000005f RCX: ffff8881ba5cbc00
+RDX: 0000000000000000 RSI: 000000000000009e RDI: 00000000000001f9
+RBP: dffffc0000000000 R08: ffffc90006a4e6c7 R09: 1ffff92000d49cd8
+R10: dffffc0000000000 R11: fffff52000d49cd9 R12: 00000000000002c9
+R13: 00000000000001f9 R14: 00000000000002f9 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff8882a7ca4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fd875c71220 CR3: 0000000115016000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ gs_destroy_candev drivers/net/can/usb/gs_usb.c:1510 [inline]
+ gs_usb_probe+0x2201/0x2730 drivers/net/can/usb/gs_usb.c:1639
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__netif_napi_del include/linux/netdevice.h:3007 [inline]
+RIP: 0010:netif_napi_del include/linux/netdevice.h:3026 [inline]
+RIP: 0010:can_rx_offload_del+0x3c/0x1e0 drivers/net/can/dev/rx-offload.c:423
+Code: 48 89 fb 48 bd 00 00 00 00 00 fc ff df e8 9c 5f fc fa 4c 8d a3 d0 00 00 00 49 89 dd 4c 8d b3 00 01 00 00 4c 89 f3 48 c1 eb 03 <80> 3c 2b 00 74 08 4c 89 f7 e8 26 57 6d fb 41 bf 38 0e 00 00 49 8b
+RSP: 0018:ffffc90006a4eb30 EFLAGS: 00010206
+RAX: ffffffff86cbe694 RBX: 000000000000005f RCX: ffff8881ba5cbc00
+RDX: 0000000000000000 RSI: 000000000000009e RDI: 00000000000001f9
+RBP: dffffc0000000000 R08: ffffc90006a4e6c7 R09: 1ffff92000d49cd8
+R10: dffffc0000000000 R11: fffff52000d49cd9 R12: 00000000000002c9
+R13: 00000000000001f9 R14: 00000000000002f9 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff8882a7ca4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f58953fcfe0 CR3: 000000000fb48000 CR4: 00000000000006f0
+----------------
+Code disassembly (best guess):
+   0:	48 89 fb             	mov    %rdi,%rbx
+   3:	48 bd 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbp
+   a:	fc ff df
+   d:	e8 9c 5f fc fa       	call   0xfafc5fae
+  12:	4c 8d a3 d0 00 00 00 	lea    0xd0(%rbx),%r12
+  19:	49 89 dd             	mov    %rbx,%r13
+  1c:	4c 8d b3 00 01 00 00 	lea    0x100(%rbx),%r14
+  23:	4c 89 f3             	mov    %r14,%rbx
+  26:	48 c1 eb 03          	shr    $0x3,%rbx
+* 2a:	80 3c 2b 00          	cmpb   $0x0,(%rbx,%rbp,1) <-- trapping instruction
+  2e:	74 08                	je     0x38
+  30:	4c 89 f7             	mov    %r14,%rdi
+  33:	e8 26 57 6d fb       	call   0xfb6d575e
+  38:	41 bf 38 0e 00 00    	mov    $0xe38,%r15d
+  3e:	49                   	rex.WB
+  3f:	8b                   	.byte 0x8b
 
 
+***
 
-在 2026/10/8 5:06, Reinette Chatre 写道:
-> is_mba_linear() assumes it operates on the MBA resource and returns whether
-> the resource's delay values are linear. There is only one caller that
-> separately makes the same assumption.
-> 
-> Avoid duplicating the resource assumptions and let the only caller access
-> the needed property directly.
-> 
-> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-> Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-> ---
-> Changes from RFC v1:
-> - RFC v1 made bandwidth delay a resource property. That change was dropped
->   and this cleanup is all that remained.
-> 
-> Changes since v1:
-> - Add Chenyu and Ben's Reviewed-by tags.
-> - Clarify "resource is linear" vs. "resource's delay values are linear".
-> ---
->  fs/resctrl/rdtgroup.c | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
-> 
-> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-> index 68be9b903ac6..821c6e2b10f4 100644
-> --- a/fs/resctrl/rdtgroup.c
-> +++ b/fs/resctrl/rdtgroup.c
-> @@ -2577,11 +2577,6 @@ mongroup_create_dir(struct kernfs_node *parent_kn, struct rdtgroup *prgrp,
->  	return ret;
->  }
->  
-> -static inline bool is_mba_linear(void)
-> -{
-> -	return resctrl_arch_get_resource(RDT_RESOURCE_MBA)->membw.delay_linear;
-> -}
-> -
->  static int mba_sc_domain_allocate(struct rdt_resource *r, struct rdt_ctrl_domain *d)
->  {
->  	u32 num_closid = resctrl_arch_get_num_closid(r);
-> @@ -2621,7 +2616,7 @@ static bool supports_mba_mbps(void)
->  	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_MBA);
->  
->  	return (resctrl_is_mbm_enabled() &&
-> -		r->alloc_capable && is_mba_linear() &&
-> +		r->alloc_capable && r->membw.delay_linear &&
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
 
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
->  		r->ctrl_scope == rmbm->mon_scope &&
->  		!rmbm->mon.mbm_cntr_assignable);
->  }
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
 
--- 
-Best regards,
-Jinjie
-
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
