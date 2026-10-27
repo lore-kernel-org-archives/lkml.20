@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115177;
-	b=0fxPuVTRi3H7X5wPU6rhBtklfDaUAzCW8LWCMEr4MWVxvqUMcOqQsUSgJRAPpZZ6xB7Q
-	 BXp9Duhy6rZQNhpXJd9C6tYPshoqFSvLhYR6qml3S58COJJOa7MYvuJunaOZ4DBo9vcET
-	 vpKafygXgdkxzV79w7ARs28LCQTui7oQNMMZMJYtLu1YdUcBlBSvmN20/A7zlKd81IHug
-	 fbH8k/p+KyIzP9cBQppylqZoi5NgFoYqjc7lijNcuDBNaFNIfiCPeQwrtqA5yWnuwxmtE
-	 FXa70vLVqf2ubAnyattjWFkoWroVSONjengUwqfH3KzME77LGkXQDIFmiHBm9Mj2WVQ==
+	t=1793115170;
+	b=EzqFoS3H8miA2YPVTSEuxT5ipo15tzajVdgkvN31zDH/ur2ZxkCke6ux1Rx8M1DU2Sqt
+	 bHd5F3orCie9WxaGs74Q5PZaZfUXPw8/jGxYUV/uFkPcH5nN1AbRENE79PqedkWFouf3P
+	 O72zCMv6zB01AV2jyyCw9B3JB1ex0TnpS/sCSL27kJwGnbaHi+Yopxq7dw4TScmpCK31t
+	 Nia+N8aYm8RRpLzdLoklAjroTlhGylZXkKEDPd+d6O2BScWcRA8hKLImoyF8GXwLguUUk
+	 nqHO2KB10mghRRyLlI69l5lcF6s6RkJ2Jw/Y8kk6QDZ8BMXMwPZ9VX8voFmxUC09e/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115170;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
 	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=7LMuaf5x+G5vJCWy/uKvKS2aFv577p/jdhBqPwmdYmE=;
-	b=L7iHEFpYqCfA4Hanse2M1qQLf7otYP+dG3SrU3ECnXcvmY44dr64ZKUtVqbc1bln12uV
-	 4i46kZJgolUcmxL/mYISOmBO4/LwgDsy8vli8BHGPZRdW8utj1uVnJ0iyL33+62GM+b+0
-	 yF7psd0N1+1yLkczFYBqzEA5fOMUlV4Vq6/bPjKhb1hfavDSzZzclI/psZC8sMsWnKgwc
-	 WARZDViNqp7vGFaBItKUBxfjD2IJY51NjDJrSRLN54DXQu+7P6X7NK0/sYWixsFP/f/2Z
-	 CZu0FL9PpHnMsp2OZkVvsFSwFbWkha1g89LckNYTJnSdEr3/kg2rTbBOxjM9KsTFwhQ==
+	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
+	b=uotcF8SQbRHfYPKmTS2U1Nfd3v6t8RHeKxClVjb5INFlrmCa8NL6r0ivcVy70Rb7sl+v
+	 7rkBPU3L3aJ8IstmQNdKDvd5jx4vUy263qOp/IWRXoy/eVsjNB3ylA4gvBJib62jg2XPn
+	 4MnZOHQhXqVImAESW0swmGhuGpuSI6+iIpoZgCs2QTF4k6M/tga7U4zF2h+WYPzPBeaKb
+	 0+FqjG/W0RGN5DHiPFFB/0QRhKerv0GULtJYIlhlvwQlFltIpo4T55vbG0QdHf6JHuP8s
+	 WWzFZOCXTuEheZeTL7ttoQhct1r1kQQ3K03JfR9aPKJU6mqvdeOBnKLvdRsXZ74o+EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxrcYpdA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC3D606A31A;
-	Tue, 27 Oct 2026 15:32:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857F606A31B;
+	Tue, 27 Oct 2026 15:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxrcYpdA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5043A1F01825;
-	Tue, 27 Oct 2026 15:32:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0452A1F01825;
+	Tue, 27 Oct 2026 15:32:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115176;
-	bh=7LMuaf5x+G5vJCWy/uKvKS2aFv577p/jdhBqPwmdYmE=;
+	s=k20260515; t=1793115169;
+	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=cxrcYpdAQ9W/FlWVaAPDf6Hgqd2abZpYBZAQx174DTFsIrU5vWQxX4f8BpelVBPLL
-	 reMLDpomGxogYTjVq9B1VSgEcbSbZ5sR6S6ob0fDKDsp/uUbEaL5F+ik5chymcVBrZ
-	 Stt15ZORbG5LYT8PzngT4Jnbb6bLS0ZR12J9kZaLvqxjqavVCwfnU3fRpxhJJvTFxv
-	 YjVf8FQGe39voNmJ/ryA1aaVVbHlGoSdNsgY8d2zsYPBb0JtWRaoPX5o+8DK19RHNU
-	 eHEf0pFSF2ieKMeJ6avt62dg7O9s8/6PIyXsh5yuQIWnph5tc833K1qOUKJjUJ8H2V
-	 xl/28PVCpCw0A==
-Message-ID: <5f21c0f1-39cd-42ee-b091-4b1dad06c1a9@kernel.org>
-Date: Tue, 27 Oct 2026 16:32:53 +0100
+	b=dtEwIKUUeNK/0V3q72RuhjcM3XB9lvACZ3yKUhInj8Zf+PtknFhFFKjhNFk5Efdkp
+	 xpANNTMa9TXxqHgWiccafR7WvvDydpYotUzIOI5DNnocm2KagZ4TLJqbciqwQLDZM9
+	 vcWbnU+CUX/0GkNzKsFrWSl5vheOnQzevABytfwin/U9fc9d2YLjHBknOiunYPulRo
+	 cBVAKaLp9o6rAcYW5iz4YSXOWSHlIIREcpLNS5k89b9hozEB09uf6sUB7Cf0yCLiTk
+	 8/qgCOZRxIDRGOiNCcAcboen3xq2yxLY8oYoZ7dfpniILZNhE0t/9FMlMBhKPcSfrz
+	 qaGSp5cSzwymQ==
+Message-ID: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
+Date: Tue, 27 Oct 2026 16:32:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,16 +53,18 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] iio: proximity: sx9310: keep the IRQ balanced across
- suspend and resume
-To: Arnav Kapoor <kapoorarnav43@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Gwendal Grignou <gwendal@chromium.org>, linux-iio@vger.kernel.org,
+Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20261026100322.16720-1-kapoorarnav43@gmail.com>
+Cc: stable@vger.kernel.org
+References: <20261027145313.136305-1-lgs201920130244@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -107,31 +109,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261026100322.16720-1-kapoorarnav43@gmail.com>
+In-Reply-To: <20261027145313.136305-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/10/2026 11:03, Arnav Kapoor wrote:
-> sx9310_suspend() disables the interrupt first and returns with it still
-> disabled if a register access fails. Resume isn't called after a failed
-> suspend, so the interrupt is never enabled again. sx9310_resume() also
-> returns without enabling it on error. Without an interrupt line,
-> client->irq is 0 and both callbacks act on IRQ 0, which the driver
-> doesn't own.
+On 27/10/2026 15:53, Guangshuo Li wrote:
+> fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
+> DMA address does not satisfy the firmware alignment requirement,
+> but leaves is->memory.vaddr non-NULL.
 > 
-> Disable the interrupt only once the device is asleep, always enable it
-> in resume, and skip both when there is no interrupt.
+> Because firmware loading is asynchronous, this error path may run
+> after probe has returned successfully. A later remove can then
+> attempt to free the same DMA allocation again.
 > 
-> Fixes: 72ad02b15d63 ("iio: Add SEMTECH SX9310/9311 sensor driver")
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> Set is->memory.vaddr to NULL after freeing the buffer so the
+> existing NULL check in fimc_is_free_cpu_memory() skips the
+> already-freed allocation.
+> 
+> This issue was found by our static analysis tool under development.
+> 
+> Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
-> I'm sending the same fix for sx9310, sx9324 and sx9360 as separate
-> patches, as the Fixes tags differ.
-> 
 
-Please group them in patchset to make reviewing and applying easier. Or
-rejecting, or even commenting that something is wrong. Previously you
-were sending AI slop and this resembles recent AI-bot spamming.
+More of postings by bot ignoring any feedback.
 
 Best regards,
 Krzysztof
