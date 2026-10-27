@@ -1,91 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793078216;
-	b=Tm0AbbFTkP8s/miR1nHtvTAy5vA4iAQrxaSoMrUsM5EWBknjHgsWql3LzsumQHidjvyr
-	 9Q2ZbvrvUk1qSkc+EwHaLk7CYCWt2v+2WQRrGk4idKBmCW3oL3lZQ8kegoaRhBYVDFnjd
-	 LeyoS5sF4gAjlrojY2IhcXsq15/S/2RHWv6IWXc/SyybimvsTiygUxJtp0zLvwS62zp7l
-	 MQVrQO1HU9qNZDDNX2BzmjyGmpjtmC7fxFeHPNDXq3kqVl7ufcaLgvmJOwk+mwilzNfDy
-	 mPXZTZfmL/Uz+Ng+j28V3/JXT5a7QWOolr/yzjE17A/Ab2TwH6m/uDXmI6Ijnn9Nhaw==
+	t=1793078283;
+	b=AZkapVc0FUOzRnIBzBPhaLeDN4SB1dPr8G3W+JrmJ14t5HBXjpm6gY+fJZig3ScQUSVZ
+	 mX2W39CRqRey5onF4hRlg1ouJbc/QLl7IwHWr3fSgnRHHkq5/e5fx9CgHJaW9fTWf0XDb
+	 C4D2kOJSs7eKinL+wNQa4VGySHjCErs0/GqPMJs5Izb/P8pT/n4mSSs3Zf/Batn912j/a
+	 h+7NxW3yzyW12jXeNn5fEqC3TNuqnZQEbPc/LZKxfHtZKVlHKt+2kz1Xm5xJRqDq90eeQ
+	 T5bNLtjvbrPPm4U/zBuVh1hLCf5FSsdN/cQfHN4B+T6B0hZFDZl7quM6sPYccs+Drcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793078283;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vGh75Iw3Cr4ZXSsVzMiMk9iqd5h96hKoaA3EVoxwtCM=;
-	b=C+keg6Oik7W7IIBcSCxnJH9xjShrWZAiNM43Z/m0gcYychmj7gtWlFzuPIumFYYZtjPY
-	 GC4+VmXdqrRjV0vc1LM1DjG9GuuaqhOURJiVK4VxBdPGdCJ/lz9zG4p+gFrw2r2hA4GL1
-	 SqC+7SfpEF2C95JU5bTdqaGN6bY0WUJUUEFBPyoQl/vyETPUIeGJEzTO2s5ot7Wm3JOOJ
-	 WxPhJGqZf7/rQJNSjYBJ+TqVnf/kYrjy4+oAF4TxcJ+IVbnaegR6ZExBzzx3juBLxuLv5
-	 oFyvEMilyulwqjKYX47Fi+uIcG2yKXOJSwdb7knMlG8WGKspr3oKH3X8mwDPwO5XPbw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+uCDR7ARq9hwUSQpZmzeL9ODBMFv/c2hElI0jHGVpjQ=;
+	b=G77G3rl9hqnuOe9pj9YcLVBO8/KmAvSFADDf0hHSzksjQ2q4ES99YlMFQa/mLKM8/oC4
+	 j+d6lMoN/hjOMDdFNwiEzY68dAoqpWFFYqK1H0k9nfLNVC7FZY0ZHl3AjVRsVGv9kzrCL
+	 xC1GrCmqCokwnPmex7SDGbBj7KZRELH8EyxCz3dH8nzjZwnImvBNvCb/DDUKadzXXmsvi
+	 0WRFI9dZ1t3F7EMt9Rd09sVFvPUloCy+8ldx8iFESkYOOKlbp86BzixQWeOXducvJGs43
+	 u+eraa0hKAfw7g7ooIKBNFLu04eyiIZJswGfRJ+Xba95eRZHheRApIa0Kh7HscJRysQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ca3f3ZlK;
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=gF7Eblbs;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC8D606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:16:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FC8D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02E0606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B02E0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ca3f3ZlK
-Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-3adc8668936so1081918a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:16:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=gF7Eblbs
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a0592d4539so5477546b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:18:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793078215; x=1793683015; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vGh75Iw3Cr4ZXSsVzMiMk9iqd5h96hKoaA3EVoxwtCM=;
-        b=Ca3f3ZlKBertWWsGkM+3esqXj7KCLdbJU4qzIEIPUYga91dju10BzgHUv8NiFhqftR
-         rdD+xIJ0T2bULvy4cEkYeI3iArHJTMXJsvsb5H1N3bR7TuLSBj/+O0+Ka/EfA0w+qoh7
-         mIq3pNU0IFMN0nIfNL0MY3lp0eqPXHba/tc3Y6fzpa3vVfUlyNT/icfbKRYfVRdaUOSk
-         VF94vsng/3PwuV1OO3vmynb3UNUwltsYiLjGsOYkXmVJvWjgy4EocXAWQyv/7gcCfCOx
-         G6xxW6ThQZsI72QQf+lOtDSw4QF5RXns74jk3v37AoM21rxws09cWyTjIRuJvOWMX7qq
-         5UFw==
+        d=google.com; s=20251104; t=1793078282; x=1793683082; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+uCDR7ARq9hwUSQpZmzeL9ODBMFv/c2hElI0jHGVpjQ=;
+        b=gF7EblbsH3ojBkdb6w6nq//fNkJG1k1aTP4FuBUkw2OmJ5fWxuho50V/jvnUG/ca3Y
+         Soc25H7RWaK5dJCL/yNj+bxhrExQPbXaeupbyeyPrEd7hqdJ6olZvHmAIhhw45VjxRd+
+         k1ZVEsqRXbu+JLlygpswvpHQ+hkV3iGcG1VZRQLFiZ7oGHS/P95ePr6lRM+AEH0czKgA
+         8ioQjMZqgQwLSM/jBQXnbfYiCp0vP8PjzkQbaSrbxVdtc41uSlq3XGxLmzXeqS7NGxbz
+         Ls68xd7P60C2QUeLVUVuYAhssNz/01hB5yzoFhHw6hqwzeRxAFZ6SkEhPjiIJ7FS9tTD
+         rgwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793078215; x=1793683015;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793078282; x=1793683082;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vGh75Iw3Cr4ZXSsVzMiMk9iqd5h96hKoaA3EVoxwtCM=;
-        b=D7F5nHwUVphSoEvrBR4086e+f12z/bTORW57N/8RvLk0PSYIsNWqJoHnuOUT2IkNui
-         S9AZBqcQN41qztNSwmDSIFtM84qZgAqhgOMy0gDO26Lzd6EJ8US4vXu9Cix93ipq+cvq
-         6aSMIErdZnDedSSzCA5se11y7nV5r/2wrmOM0TAsSTRiE9Dicyuk/wUfiosl/HsmvS59
-         WcN+WCgfznfZBhc9rcO/bHH/pjHK+ehVunTpeKJ8VkZJkCddec55tdvO+k0W/yvXI9Cq
-         r4lOMKNYdhcc3F8WGnVEx8RKrs92xuAKH3p45m90qilZ5jNARH76pvl6vcI7Qcb82iad
-         MbFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzeqUcRjygfrjToMHbYTUsTPAaSP7naHOnQIIZ4kFXgDRKTLENL8wfwnnFXSHS19KYaTzKy4QYlupfCgbo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIW7eKgV7DLlJ+ix9eRxxWPse6HGYbHpQM5DtMGKtxu84zc6Pwz
-	bUC4OSo2GEBhV2eGCnzaQlt/Zlri3afD079ktOcFkOHYVubIFvtI811r
-X-Gm-Gg: AYBFou1RXL2vwQ08gVVcnmQNJ1AXOE/OiDbhTaPrNnT86pRJ+0hJG+gkhIr4xcvt04P
-	HwgxEIZN+50N8atudwcVs0TvEdRvBH2o5N5Qm6+/BE3HOep532GJjU3d18fxjMI64remz/fildh
-	N32MggZTdzQSO/GxKGdcqunmf4Hu3b0knsOMLxnCW+41xZctOo2tsagOjjMiONjgsvEBbD4gtb1
-	yxDq/ui+Vm0EWX13KdohGXOs1YCqSFrQMzu6Eh73ZUR4e0ti4WhRR4udIC93tMGtYyY51JJrFk6
-	+MvsGOtBdqETJpBNoiTPzcL1f+ugy2+Iw6NWw/6LwttqyytRC/o8INXaY6zzPjRoWNp6YKf2FJr
-	xJJRw0Gqd8R834aWpp3lR2pzkl3L/glA3p+J2VkbmOxnaZSkdz+R8htmrvVl8edvRGfLJOTUTyW
-	GDSG8uHLKfaT4DYIWq20wdJVqMsojQJ1BiQDTkCkJrFVus6UaWrU7r80SCw444Uur2Rp6gFCFLg
-	D4IuSHFJuhcXSEQLXy4rFD38BV6oIZvmB8PSdugrA5v0Qcfw+X0YHbFLcsG5EujRr/mpP+tMPTh
-	CHbyWHs=
-X-Received: by 2002:a17:90b:4a86:b0:3a7:e126:4980 with SMTP id 98e67ed59e1d1-3adeae6d5cdmr7235384a91.43.1793078214787;
-        Mon, 26 Oct 2026 22:16:54 -0700 (PDT)
-Received: from nixos ([2607:9000:3000:11::93f5:b3b7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40614daasm1920474a91.4.2026.10.26.22.16.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:16:54 -0700 (PDT)
-From: sprooc <sprooc69@gmail.com>
-To: tj@kernel.org
-Cc: sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Junbin Zhang <sprooc69@gmail.com>
-Subject: [PATCH] sched_ext: Reject rq-lock-taking kfuncs in tracing programs
-Date: Tue, 27 Oct 2026 13:16:34 +0800
-Message-ID: <20261027051634.2009082-1-sprooc69@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        bh=+uCDR7ARq9hwUSQpZmzeL9ODBMFv/c2hElI0jHGVpjQ=;
+        b=ogeWukulZfNDfjCHWNE9zJBewKUPyyPAHxYNX0LhXh9DqOImEJjRktClDyvrF3hLCa
+         tOT8MA9LNbRVc/XVAe4zLTsP52Ur7KV84hMd00ODDV/qilJCMzza0PeiozD7eQkz6l7a
+         UI6QGL9F13ITnHz4FwODsN8prnp3j+cGYlquKbaPEew76AQiSyHvdPTYliKSeNTexf8o
+         GM3g4oEpf2W1iLldFGd59Issk98RMjs1QgVlMjsA1T0uefVX1CN085Z4J/iz1hxp53Ps
+         iXyPKFkddAPnLwdWgKsiCmXMTmSXvqZgwH1q9bSMPeE2UX1KC8IVfYt39FCqeJq6wfuB
+         Dfew==
+X-Forwarded-Encrypted: i=1; AKwUvByqx44nrf/WRpGRFzAibwhv45Yoy2siAiIIhCYQtt2oQ28bbDw9W0B9J6t15izV6H3tuyvOFUc5jfCcSQw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJW7cyEqvZ/JJUf0cktThnHNWkTA/6mhxMriqWsL4oSninbwYe/
+	ZFE6yli9XeGMXwZvEM+tTx6qLx3luyj/fpIreSLNnIseZ3WJdRy7aqJsU/s0qzQdzJ4OsyP/D2i
+	kFjm0mw==
+X-Received: from pfoh11.prod.google.com ([2002:aa7:86cb:0:b0:89f:e0c9:a666])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2d99:b0:8a0:3483:51ec
+ with SMTP id d2e1a72fcca58-8a367e17451mr7352130b3a.58.1793078281782; Mon, 26
+ Oct 2026 22:18:01 -0700 (PDT)
+Date: Tue, 27 Oct 2026 05:18:01 +0000
+In-Reply-To: <20261023091419.167088-2-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,146 +77,108 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261023091419.167088-1-jiayuan.chen@linux.dev> <20261023091419.167088-2-jiayuan.chen@linux.dev>
+Message-ID: <auAzkt5o37MCjPFU@google.com>
+Subject: Re: [PATCH net 1/5] ipv6: restrict gc_elasticity to 31
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Joel Granados <joel.granados@kernel.org>, 
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>, 
+	Wyatt Feng <bronzed_45_vested@icloud.com>, 
+	Fernando Fernandez Mancera <fmancera@suse.de>, Yung Chih Su <yuuchihsu@gmail.com>, Flavio Leitner <fbl@redhat.com>, 
+	Hannes Frederic Sowa <hannes@stressinduktion.org>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-From: Junbin Zhang <sprooc69@gmail.com>
+On Fri, 23 Oct 2026 17:13:27 +0800, Jiayuan Chen wrote:
+> Every counted IPv6 dst allocation runs ip6_dst_gc() once the number of
+> live dst goes over gc_thresh (1024 by default). ip6_dst_gc() decays
+> ip6_rt_gc_expire by gc_elasticity: the smaller gc_elasticity is, the
+> smaller ip6_rt_gc_expire gets, i.e. the more aggressive the gc.
+> 
+> ip6_rt_gc_expire is a u32, but gc_elasticity has no upper bound, so
+> writing >= 32 shifts a 32-bit value by >= 32 bits, which is UB:
+> 
+> 	val = atomic_read(&net->ipv6.ip6_rt_gc_expire);
+> 	atomic_set(&net->ipv6.ip6_rt_gc_expire, val - (val >> rt_elasticity));
+> 
+>   UBSAN: shift-out-of-bounds in net/ipv6/route.c:3369:53
+>   shift exponent 32 is too large for 32-bit type 'unsigned int'
+>   CPU: 2 UID: 0 PID: 615 Comm: ping6 Not tainted 7.3.0-rc7+ #364 PREEMPT
+>   Call Trace:
+>    <IRQ>
+>    dump_stack_lvl+0xc1/0xf0
+>    dump_stack+0x10/0x20
+>    __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>    ip6_dst_gc.cold+0x15/0x1a
+>    dst_alloc+0x4e0/0x620
+>    ip6_rt_cache_alloc+0x189/0x7e0
+>    __ip6_rt_update_pmtu+0x68e/0x1160
+>    ip6_update_pmtu+0x30c/0x3a0
+>    icmpv6_err+0x1fa/0x330
+>    icmpv6_notify+0x303/0x770
+>    icmpv6_rcv+0xc12/0x1670
+>    ip6_protocol_deliver_rcu+0xb4a/0x1520
+>    ip6_input_finish+0x19c/0x400
+>    ip6_input+0xd4/0x240
+>    ipv6_rcv+0x1fd/0x330
+>    __netif_receive_skb_one_core+0x118/0x1c0
+>    __netif_receive_skb+0x21/0x150
+>    process_backlog+0x37e/0x1200
+>    __napi_poll.constprop.0+0xa5/0x5e0
+>    net_rx_action+0x4c0/0xf70
+>    handle_softirqs+0x204/0x9b0
+>    __do_softirq+0x10/0x18
+> 
+> Cap it at 31. 31 and 32 are equivalent anyway: ip6_rt_gc_expire starts
+> at 30*HZ (~30000 with HZ=1000), and such a value shifted right by 15 or
+> more is already 0, so val - (val >> rt_elasticity) stops decaying well
+> before 31. Values above 31 add no new behaviour, they only hit the UB.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>  net/ipv6/route.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+> index 94e5ef1c4f83..6f2efc219f39 100644
+> --- a/net/ipv6/route.c
+> +++ b/net/ipv6/route.c
+> @@ -6579,6 +6579,8 @@ static int ipv6_sysctl_rtcache_flush(const struct ctl_table *ctl, int write,
+>  	return 0;
+>  }
+>  
+> +static int ip6_rt_gc_elasticity_max = 31;
+> +
+>  static const struct ctl_table ipv6_route_table_template[] = {
+>  	{
+>  		.procname	=	"max_size",
+> @@ -6627,7 +6629,9 @@ static const struct ctl_table ipv6_route_table_template[] = {
+>  		.data		=	&init_net.ipv6.sysctl.ip6_rt_gc_elasticity,
+>  		.maxlen		=	sizeof(int),
+>  		.mode		=	0644,
+> -		.proc_handler	=	proc_dointvec,
+> +		.proc_handler	=	proc_dointvec_minmax,
 
-scx_bpf_cpuperf_set() and scx_bpf_cidperf_set() are members of
-scx_kfunc_ids_any, which is registered for BPF_PROG_TYPE_TRACING.
-A tracing program can run in a context which already holds the target
-rq lock, in which case scx_cpuperf_set() attempts to acquire the same
-lock again:
+If you need v2 or as follow-up in net-next, please make it u8.
 
-  __schedule()
-    rq_lock(rq);                          /* rq->__lock is held */
-    trace_sched_switch();
-      BPF tracing program
-        scx_bpf_cpuperf_set(smp_processor_id(), 1024);
-          scx_cpuperf_set();
-            locked_rq = scx_locked_rq(); /* NULL */
-            rq_lock_irqsave(rq, &rf);    /* same lock */
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 
-scx_locked_rq() only tracks rq locks held during SCX callback
-invocations, so it cannot detect an rq lock held by the surrounding
-kernel code.
 
-The deadlock can be reproduced with two BPF programs. The first is a
-minimal SCX scheduler, which only needs to be registered and enabled:
 
-  SEC(".struct_ops.link")
-  struct sched_ext_ops minimal_ops = {
-          .name = "minimal",
-  };
 
-The second is a tracing program attached to tp_btf/sched_switch,
-which fires from __schedule() with rq->__lock already held:
-
-  SEC("tp_btf/sched_switch")
-  int BPF_PROG(on_sched_switch, bool preempt, struct task_struct *prev,
-               struct task_struct *next, unsigned int prev_state)
-  {
-          scx_bpf_cpuperf_set(bpf_get_smp_processor_id(), 1024);
-          return 0;
-  }
-
-With both programs attached, the next context switch on any CPU
-deadlocks that CPU. Lockdep reports:
-
-  WARNING: possible recursive locking detected
-  7.3.0-rc7 #3 Not tainted
-  swapper/3/0 is trying to acquire lock:
-   (&rq->__lock){-.-.}-{2:2}, at: raw_spin_rq_lock_nested+0x1e/0x30
-
-  but task is already holding lock:
-   (&rq->__lock){-.-.}-{2:2}, at: __schedule+0xeb/0x1430
-
-   Possible unsafe locking scenario:
-
-         CPU0
-         ----
-    lock(&rq->__lock);
-    lock(&rq->__lock);
-
-    *** DEADLOCK ***
-
-  Call Trace:
-   <TASK>
-   print_deadlock_bug.cold+0xc0/0xd0
-   __lock_acquire+0x12fa/0x1b80
-   lock_acquire+0xd1/0x2f0
-   _raw_spin_lock_nested+0x32/0x40
-   raw_spin_rq_lock_nested+0x1e/0x30
-   scx_cpuperf_set+0x1e9/0x310
-   scx_bpf_cpuperf_set+0x9b/0x230
-   bpf_prog_..._on_sched_switch+0x3d/0x41
-   bpf_trace_run4+0x125/0x450
-   __traceiter_sched_switch+0x4b/0x70
-   __schedule+0x94a/0x1430
-   schedule_idle+0x26/0x50
-   cpu_startup_entry+0x2d/0x30
-   start_secondary+0xfc/0x100
-   </TASK>
-
-The CPU remains locked up with interrupts disabled.
-scx_bpf_cidperf_set() is similarly affected, as it resolves the CID
-through scx_cid_to_cpu() before reaching the same rq-locking path.
-
-There is no reliable way for these kfuncs to determine whether the
-surrounding tracing context already holds an rq lock. Reject calls to
-both kfuncs from tracing programs at verification time, while
-preserving their availability to SCX struct_ops and syscall programs.
-
-Fixes: a11d6784d731 ("sched_ext: Fix missing rq lock in scx_bpf_cpuperf_set()")
-Signed-off-by: Junbin Zhang <sprooc69@gmail.com>
----
- kernel/sched/ext/ext.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 4b7d2602b4d4..88f4abe944a8 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -11822,6 +11822,22 @@ static const struct btf_kfunc_id_set scx_kfunc_set_any = {
- 	.filter			= scx_kfunc_context_filter,
- };
- 
-+/*
-+ * Kfuncs which may take the rq lock on their unlocked path.
-+ *
-+ * A tracing program can execute in any kernel context, including ones which
-+ * already hold the rq lock (e.g. sched_switch). scx_locked_rq() only tracks
-+ * rq locks taken for SCX callbacks, so from such a context it returns NULL
-+ * and these kfuncs would acquire the already held rq lock again and deadlock
-+ * the CPU. They cannot be made safe for tracing programs, so keep them off
-+ * the tracing hook. Members must also stay in scx_kfunc_ids_any so that
-+ * struct_ops and syscall programs keep their access.
-+ */
-+BTF_KFUNCS_START(scx_kfunc_ids_no_tracing)
-+BTF_ID_FLAGS(func, scx_bpf_cpuperf_set, KF_IMPLICIT_ARGS)
-+BTF_ID_FLAGS(func, scx_bpf_cidperf_set, KF_IMPLICIT_ARGS)
-+BTF_KFUNCS_END(scx_kfunc_ids_no_tracing)
-+
- /*
-  * cpu-form kfuncs that are forbidden from cid-form schedulers
-  * (bpf_sched_ext_ops_cid). Programs targeting the cid struct_ops type must
-@@ -11930,6 +11946,7 @@ int scx_kfunc_context_filter(const struct bpf_prog *prog, u32 kfunc_id)
- 	bool in_any = btf_id_set8_contains(&scx_kfunc_ids_any, kfunc_id);
- 	bool in_cpu_only = btf_id_set8_contains(&scx_kfunc_ids_cpu_only, kfunc_id);
- 	bool in_cid = btf_id_set8_contains(&scx_kfunc_ids_cid, kfunc_id);
-+	bool in_no_tracing = btf_id_set8_contains(&scx_kfunc_ids_no_tracing, kfunc_id);
- 	u32 moff, flags;
- 
- 	/* Not an SCX kfunc - allow. */
-@@ -11942,7 +11959,7 @@ int scx_kfunc_context_filter(const struct bpf_prog *prog, u32 kfunc_id)
- 		return (in_unlocked || in_select_cpu || in_idle || in_any || in_cid) ? 0 : -EACCES;
- 
- 	if (prog->type != BPF_PROG_TYPE_STRUCT_OPS)
--		return (in_any || in_idle || in_cid) ? 0 : -EACCES;
-+		return (!in_no_tracing && (in_any || in_idle || in_cid)) ? 0 : -EACCES;
- 
- 	/*
- 	 * add_subprog_and_kfunc() collects all kfunc calls, including dead code
--- 
-2.54.0
-
+> +		.extra1		=	SYSCTL_ZERO,
+> +		.extra2		=	&ip6_rt_gc_elasticity_max,
+>  	},
+>  	{
+>  		.procname	=	"mtu_expires",
+> -- 
+> 2.43.0
+> 
