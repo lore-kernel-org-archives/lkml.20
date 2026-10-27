@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793122706;
-	b=5sVX3Z8sNCYSTf3hqGPWKVTrx1zLqohnqueHyqSYbyF7+qV+beztZAhlDNqf55JaPfxY
-	 WZNETsALVypa7zFi0fJOzgllzKzoUYIhg67IsF9RlB2zw4NxcA04iplZv1lg2/1MDx00p
-	 IMd01fA6Ei7c+xbpCMfhRbkHT+C3NKZq9p+CGWurofRPhbxFu2p2wZV0JTvxKd9PbO2HB
-	 BHR7wJONsda9nirBsPIh9hNGVSTRPvAZ8+OZSee5C9M++W0CTh045DpS9X4gBl0In8U5W
-	 QkBn6hrrOIRmtnVGv8jJkrEBWRYuyxRCaFH7sujXduGaqaw2b6k0NmHdBHYUF0v5mbw==
+	t=1793122720;
+	b=txOuyTgabM+M6BuRNZhijxiEQErPzvKuQm3UyyKlXANG8fD7mMu32eBf+18xGN2KE0Hw
+	 ulSzixkzVa6g6kxk5/7iIc8Nw1S4VzY2QzmoVEjlt0Jerv0kpFvnxlHzPBFVIx2jlY1zq
+	 8PlS9YLfTCqsyXKP0MvsW/onklNt9z0/u1AMtbFSiX/1OtRNp9bpI95818KtXnJKDHSKM
+	 R1LgR5s/U4oCSsRVYVvpcuh77PryLDhj//IAVoayKtlayJKe7UiSoJN3MvYoIwRo18j0X
+	 F7j+kX1ClM6Lc5PLwim2qzQH1b+xh+VZxUme0LgRCz+itIWufFLW9rdLeXX6YwDhzZQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122720;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=75xnGPQfUpxl4aF5uqa7AQlJeR6+8S5bvRDT/N741Fo=;
-	b=2wA9BhYYeJjLHpfnB425rhH7T2vnhFLNIfC5xXzTGo3ieVHxFG1tFMSyPRv1SD29j2ct
-	 xTXkc+bM7ZKr2PcodkK89FdS5lASBZC6wq79rSW3fMd8kRqZvPqAaaW3HfJytKtlZD99z
-	 1GedffUwU6z1aisoIfkA2tw0V+PhuYnnEn9D0IAGFWqmrZjU7CbIufSWce6E7Fr30afdW
-	 Yr76FZg8NDBPQfMZU2vTrYrcb4ZhUWoRDyA+o7LLDoOuih70XIof8Bi+MCYU0z597qRnl
-	 8e+EcfF6W2sUOkdOAbWClPuF03Pe9j6fa9U1kX7WqFjb6OjKuK5f085AVWEQKi+WdQw==
+	bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+	b=bz2sT2+tHm+5i4+ecY1/P8iQ8xDrPjT7JqrqK8o2KNRTXdRermVO6pq3pS4cipDctv4t
+	 3e76WaQ7aPIRsSNjzWAVCNH/r/3//xBq7+/WCR9I0Y56nFvHHcXEyYV6IZkqEFOuGvZFk
+	 VvN6BUvu9mJuvVg5e+srzGoNCSJ8JE3+fAmoXoOD5h5tIidC0Qioe1vfBij+cd5VOz4hh
+	 k74daHqqwM/z+A0uqByC5RcPbVm8Ay4WrvDOpc/qrNLaj9HmT/uvvnh/ducFtB8beU+KE
+	 mxn0NUOmmCVXpgBdvlGmxXL9we4p4iSowoJ4KtinRBIhur5qZPSTycxQaew4T07kZ/w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BpaGH1Tx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TMbu8PxL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13A6606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:38:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A13A6606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C02606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C02606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BpaGH1Tx
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c3fd91337baso9096866b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:38:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793122704; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TMbu8PxL
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso1006a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:38:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793122719; cv=none;
         d=google.com; s=arc-20260327;
-        b=gr/tHc6B4lLLkYuOFRE5mjHRepwE2X9xS+PM1l3keBfFXInKv3KH81Xox2fN/RdFzm
-         PeHjxvy3XUymBtZsOW+ZelnJO/hN7PBWwkZjJVyX0uw5zM7y2pBtdgIsaFGyCrif7KdU
-         VoIFhU1R8OHl+eZSR1nUjFwn7rD75vnM923I76OBj0wpwcvoT0ouyNo7rpEh6/Z0Jemm
-         yfM9ULWrShJMFYZfyTVcMReSQQ/HD1Oe6/bee4Z/mMc0fIBGZ2AD2CD1JnL2z31GIGJK
-         7p8NmYv/CIWbxyR+vGj75WwDmo4Bpj+7/clzyF+nCI53tu6D9UGm0mUeObKx36BAYk1D
-         jLkg==
+        b=sNcejGbip6NUgT6MBGdy5e5D17ht8dct5ALRp65MANqj/w+1W02G2aBvke3gcy9Uss
+         /XVeg3DWbseaSSc8jI2SyU5BaT4RXXC/jUAlu3DU5KxhEeFrdRcQRZ7lURI++lvz4umH
+         m3A7wwGVqfYegc4gdeG8y9kvpLIR9EKSEoLEhFy5I8gxxui8r2wXvRl9WpISLGXCk/kM
+         RBE6fqHK8+WufA7O4rl0H2McTrp19ykrUGJ1SjuD9ZkrK3qwenV8adqsoH2EtB673NDs
+         9l4gPUHenz4+epU0xcT1UGDU8BoV+sdPwEC65nSvoHC3ShRgrnvBQSzbIFxlovtC88v8
+         ysSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=75xnGPQfUpxl4aF5uqa7AQlJeR6+8S5bvRDT/N741Fo=;
-        fh=zwbiGZPM/NM/4YCwkzTBlpWOF82dAbguHlv/TArnoEo=;
-        b=KYo7813n5C9bK7MwnuOh7AzORnA7QOZiYqHbhfaKtaiaCpCpYxnrXWbm4HG17lC6ED
-         7WxT8Ng8wR+A9YwJar5l8ILLfm4m6W8ZVmGgPlG/Dm0nurd34/XjwBI2Kr9Uvwqs7dSE
-         2gWMx3nKwiLBRGVIlRcp7Gs+VRdvCrcLzDi3HRX8aQZZxSyUD8PC79j61/6mIAPfzxFi
-         4CKV/VL761dtrnS3nYtU76QU0BN3PgP3Dmk5CKfQcLywfUu8c4/N5sk8YPk4dqLDztqV
-         VwECw2mZ9g6HEcBXn7b2Iqrx8Jtu3sPgGHXvr63eTHUz40LZDmDj0chHrX9RgKTZJPdZ
-         oW2A==;
+        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+        fh=t5hTSbBIoI42BFGZ4l5YBerqJGyNceMx0DkbndKtGik=;
+        b=kTOh4FRFo1qj6v+UAx07pnsVLE1SIDoW45R4tRHzlF4Vml76/lIDjZ/q3fxRQVTcHg
+         Pexn/ZG2BI0+NoF/Wqx21WNCtd3x32cx9PHVJ8RcTIFGMAG/l99FiKd+p2OmPoGJFo5j
+         JltnUi5CdHPxqKYEZvGRy2AsEuC89wTP0VGz8rbOiYlJXG4m67Vv6SY0AihbGPDBsF2J
+         Gxke7WBPcrYHPGZ5kVqP+fsHLQOFaE/2n100bDNJOQmZb1EAmV9SbdKcF7OjlQdt+txG
+         DY4dK8x1JkRRbryeTtJ/FnmUb02f+Kj4lBguFK+4Bfj+zlQRZ1mZPca+ygKZFZ/bsv9m
+         9hMQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793122704; x=1793727504; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793122719; x=1793727519; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=75xnGPQfUpxl4aF5uqa7AQlJeR6+8S5bvRDT/N741Fo=;
-        b=BpaGH1Txd/+w5/V9hrGM2M4C4HXHif8xNS790Y75yM+gjPsyf9RDVpi3ythXOIyyxB
-         LHbA39OrkFv6VPnuEf7YxyrFUeKLqjhKTuodkRzxStOKPPqtkjvXRm8JON1kZARoOGZw
-         G+WE5WGXAh0gXHbGB/5AAOkcpk6oAAotpa8S4NsTzjTX151h94ky5bJl/0uFFt8oqWBD
-         dSi8tn6WRA1fzl/53FwPJp809JfuxeD+VFM72MMcHhy/yO2MVvMG4SAVojeP94ItGytF
-         rFXKgKpRIjqswwKzrkuh1/hhW61PeuNmG2g6oTy0jNK4pMKDJifndJWntEqZ/Dne6xve
-         QRnA==
+        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+        b=TMbu8PxLhpBm5Jxc+UmD3OrKaB4W+TrO+HcdLK/qemtnz4THsUOJblzPEUuFNQdsAX
+         xVppISd9HZVk1k52dXnBDZH5JY2olDDSO95++GZTKXt09LrvWQXh0bdmoGTLejAK1OLt
+         bxZAkxblGRQiGMML4G9URFa8xQWaDlL49VzCVKznumP2+MyKHmYFopFrp7Vomsp36yZT
+         yCc03PZELOyQAfukDHyz3vOgAGIADyvURsSBd2Fsfa6RJBwz/JWJp+HSEvxtvlpPmo9U
+         hDMP72JYBeOYHs8QzW38V9/J7Ub9YckAD4l0ZmHIvx0H8IlISifANZcUpwjvV3oxhTkL
+         uyiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793122704; x=1793727504;
+        d=1e100.net; s=20260707; t=1793122719; x=1793727519;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=75xnGPQfUpxl4aF5uqa7AQlJeR6+8S5bvRDT/N741Fo=;
-        b=gtvHYzTT6F/p+nOGAVRypZ79+aNs47W5MBku3T1A8bUYKjIOGooaOA3r0O0mfm8m/t
-         GRlmaR+wEKG8IL1HSp+QEpCzGQ6JFf97AEWHAvBjsJocNWk2uj8ZyUqkKskz5rQmaqDM
-         moTwLAdcz018P7364dZ009TgX46541bIc8/UIWNhlmShGBhdAfgIxpiYHE0K0lI28dSo
-         RPGcSA0RmtN2S81ucG7i0InUtj0XodRqaYty9zgHkwr4FbdbOXiH25AmqU8Msu2i7kfa
-         Cf1zlP+XCkjzW+WyT5ceJDbPffxEh2VNISrwNvIdo2+4/KFIwjUIp90WQ7dO3JxYWgNZ
-         +ZZg==
-X-Forwarded-Encrypted: i=1; AKwUvBx4oGfG9hVaWqrdDvg4+Uz3YZnmaw4iK2yQofbjUvlGNe3TE/Xl04eR069aE7d7DUqpzWfqvqFTuJbWRIE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJroiHcD8DVGZjg+lCm5tytGYplgECwkgAe79KNFnXMe78CMwq
-	T7S1gkeGpDKfh0ehxx4BkWWmgzPZNgsaMhhDNBJncUn8TCKmOaWCngow4CShA/EACM/SOeorsNX
-	lF0yVmT/ZMkkpmNqbt01uhs+4ktR7lbSH5NBLrFbu
-X-Gm-Gg: AYBFou1zrJNaYrdKj+FS8HpG1kbpHAXbB+mNFqEal8u5QvE47HwovL0G9IlEx0rsLNG
-	SNDslnGHD0sDLFoU9xXZAXdn2A2hYh5ts1gfBr3U4O1L9NXs5cZBa0UHg5l9QaPUE4H28N0izGj
-	oEflgqSO+kkyv4EpCmIOSOJEjj5shX2GSKoxI1RY5aijEiGbFwM7iTZio5ozsEVJcMRKMMAFM63
-	vfsOri2qNamrz6SjWl+Cy6pm8EDGa4rD4yYeicWjha/FwCvCDP7EUINt9AuFUwKGoBziZKNUxnp
-	4ZBh2/BhpucePHtfrYuJqtQGSChAidby8IypMRGA+X7DTrei6M2h6LGwvctouNT8Qfw19MTFUd+
-	8k5juW+bpQE3WvFkWLYJUY/OAXTlA8XYd+Jwgxg==
-X-Received: by 2002:a17:907:d308:b0:c2e:378c:8ce3 with SMTP id
- a640c23a62f3a-c46bde8c44fmr1091193766b.32.1793122703439; Tue, 27 Oct 2026
- 10:38:23 -0700 (PDT)
+        bh=AYi2YiR3kh+gzZk6CrM84tIidytqPHRNR76c45jsmXI=;
+        b=FOCfyKLxX5zWKKXCK+GhYHMQeiYSvnrpf5FoxEfb68RKkbpC9WfPTP0Zz805mEDXYP
+         HgovaYTiQbENO8FlewMFmjmQC4xP3evWwW7vTMKPbJ2/lhk/vxY5dUSQpYzx9fs9Uhc6
+         gjMsj+gWB+BHlolat0SzU/YlvAbmdmcyjSmL58YKwse7OKnwUXf2M38Azp+iXOcvme2Q
+         t9U5x9hgV3YHNxsh1s9E4CGSaQaid6+JlRfEQ3EdK29PpMLz3xzrSDUuxBMdxm354sRY
+         jzTfwN1K9hS6dMOx8+jmdeMOddGmhT72qgXig8gLa7g7NMdV7YxkS4fobpvHHC9auKLF
+         PYIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLZa5HALLuqUDMSXuebimt7FJTN23dnMKtn04pWcTSHIqoeAmqEseYqRReJNnYt5zjH/fPlCOgSY+KWE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9WksvIJ9smHOKSqtEeVcEFUEb9sC+m6XbQ2X2W1e9xrObBl/a
+	fdo40055OjadKeB+52JkuVIHKAWD6JmIdeq7CEa6W8gOqZT+QboH9mO9wdQkgJVIY7pibF17D8r
+	cgFUCzQ8G/rMEFnlVGhTjiXCStZzQE5sagqT3YhFp
+X-Gm-Gg: AYBFou2fYIDUEKYNWubJdEuLpw2de2Zny99ZW7+FneLGX7udgeGfyCOgd+6l6KwhDck
+	4OQJz7huyBXXh0uFIJzCGmfcUuN85dkTxwK5nEjHwsHANyhTqwegRoYuO85wvVQQOQxqyKk4ExH
+	Qhyx7ArSDFn0hGG1o7OQQwXAZZwam3tGxSrdBY/X4idRYfytq3B/sbVjWtrMU8E7VlpybuDUdEg
+	801bTWwQ07rYSxBHObJoY4Lpiq3iajbcZ14rSwTtfHQJQFe4Cwn2dUoXOn9E/Abr99v4HgsCy8N
+	gntmmEzIvWOkhDl8icN/ay6qjur2RyMX5JRktXMN+Sw+c8hij32bJZ5k1DokK0nSQM9oRdqz+sA
+	MmPAPnFgpeXcEmevNQY+ZK9cXbaK1wHjehVDSC8sdAoFgOP4KbiGi2Vm+RZ2X+h3eNQ==
+X-Received: by 2002:a05:6402:a2cf:10b0:6b4:597f:50ed with SMTP id
+ 4fb4d7f45d1cf-6b4994c5b30mr2214a12.5.1793122718174; Tue, 27 Oct 2026 10:38:38
+ -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,121 +104,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-4-tarunsahu@google.com>
- <atlQ_Er0Ig7CCSxv@google.com> <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
- <9huzzew0el59.fsf@tarunix.c.googlers.com> <at_CncIPYCxOVkLo@google.com> <auDT5MjXYq3lcQjE@google.com>
-In-Reply-To: <auDT5MjXYq3lcQjE@google.com>
-From: David Matlack <dmatlack@google.com>
-Date: Tue, 27 Oct 2026 10:37:56 -0700
-X-Gm-Features: AclHuK9nhZy1yfbGSOSB3h6FsOr-7RUqfg5DsC4iepC4uLqRp9MK3EAsOEkjOYw
-Message-ID: <CALzav=dYKAP7pKfoPtz32X1cT_tH4LN0X47_jTO8_HOCT4Pi=w@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
- a 2-bit pair feature header
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: tarunsahu@google.com, Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
-	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
-	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, 
-	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org, 
-	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
-	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
-	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-23-6f74bec9a5bb@kernel.org> <auBityGTDQjXURWg@gremlin>
+In-Reply-To: <auBityGTDQjXURWg@gremlin>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 27 Oct 2026 10:38:22 -0700
+X-Gm-Features: AclHuK8I8xcfhrxH9JH4rYz28CrMoohsxda9QortkIHbiI93aH5ozWron9iLPAM
+Message-ID: <CAJuCfpHEHPNj9DKOGbVHYCUsmLf==-XkhzBAR94gNt_ErhdnnA@mail.gmail.com>
+Subject: Re: [PATCH 23/46] mm/userfaultfd: write-lock the VMA before waking
+ waiters when unregistering
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
+	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+	Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+	linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 9:40=E2=80=AFAM Pasha Tatashin
-<pasha.tatashin@soleen.com> wrote:
+On Tue, Oct 27, 2026 at 1:43=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
 >
-> On 10-26 21:14, David Matlack wrote:
-> > On 2026-10-26 11:50 AM, tarunsahu@google.com wrote:
-> > > Right, Required bit should be source kernel payload property to tell
-> > > target kernel that the payload must be handled to correctly deseriali=
-ze
-> > > the data. It should be source kernel (userspace) responsiblity to mak=
-e
-> > > sure it understand the target kernel before doing liveupdate.
-> > >
-> > > Saying this, During deserialization, target kernel's required bit is =
-not
-> > > necessary. So I propose the following truth table.
-> > >
-> > > Source hdr  Target supported[i]  Action
-> > > ----------  -------------------  ----------------------------------
-> > > 00          0 or 1               Accept: feature absent in payload
-> > > 01          0                    Accept: ignore the feature data
-> > > 01          1                    Accept: use the feature data
-> > > 11          0                    Reject: -EOPNOTSUPP
-> > > 11          1                    Accept: use the feature data
-> > > 10          0 or 1               Reject: -EINVAL (invalid encoding)
-> >
-> > Yes, this matches what I had in mind for the semantics.
-> >
-> > To be explicit: the source kernel should set the bits for each Live
-> > Update based on what is actually preserved, rather than generating the
-> > header from a static per-kernel array. E.g. memfd would only mark a
-> > feature present for memfds that actually use it. That's what allows
-> > rollback to an older kernel as long as nothing being preserved depends
-> > on the new feature.
-> >
-> > But looking at this again, I think the required bit is redundant. Wheth=
-er
-> > a feature can be safely ignored is a property of the feature itself, no=
-t
-> > of any particular file. Every file that has a feature present will have
-> > the same required bit for it. The only thing that actually varies per
-> > file is whether the feature is present.
-> >
-> > The required bit still has to be conveyed to the target somehow, since
-> > the kernel that needs it is the one that doesn't know about the feature=
-.
-> > But it can be conveyed by the feature's number rather than an extra bit=
-:
-> > split the flag space into required features and optional features, and
-> > assign each feature to one of them when it is defined. This is similar
-> > to the required_flags and optional_flags approach in struct pci_ser [1]=
-.
-> >
-> > Keeping the same header shape as discussed with Pasha:
-> >
-> > struct kho_ser_hdr {
-> >     __u32 size;           /* Size of header + payload in bytes */
-> >     __u16 nr_required;    /* Number of required feature bits */
-> >     __u16 nr_optional;    /* Number of optional feature bits */
-> >     __u64 flags[];        /* Required bits, followed by optional bits *=
-/
-> > };
-> >
-> > Required feature N is bit N of flags[], and optional feature N is bit
-> > nr_required + N (using nr_required from the incoming header). The lengt=
-h
-> > of flags[] is DIV_ROUND_UP(nr_required + nr_optional, 64). Both spaces
-> > are numbered contiguously, so there are no gaps, and up to 64 features
-> > still fit in a 16-byte header.
-> >
-> > Each bit just means the feature is present, so the truth table becomes:
-> >
-> > Source bit       Target supports  Action
-> > ---------------  ---------------  ------------------------------
-> > Not set          -                Accept: feature absent
-> > Optional set     No               Accept: ignore the feature data
-> > Optional set     Yes              Accept: use the feature data
-> > Required set     No               Reject: -EOPNOTSUPP
-> > Required set     Yes              Accept: use the feature data
-> >
+> On Tue, Oct 27, 2026 at 12:17:43AM +0100, David Hildenbrand (Arm) wrote:
+> > userfaultfd_unregister() wakes pending missing faults before clearing t=
+he
+> > VMA's userfaultfd registration. With per-VMA fault locking, holding
+> > mmap_lock for write does not prevent another fault from queuing after
+> > the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+> > waiter can then remain asleep indefinitely.
 >
-> I like this proposal. I bet most features are going to be either
-> optional or required, and even if we ever have a magical
-> sometimes-optional feature, it can have its own required flag. So, no
-> need to pay double the cost on every flag.
+> Oof.
 >
-> Just need to make sure that optional features always start from 0, in
-> their own enum, so the offset can be computed correctly in the incoming
-> kernel.
+> I guess userfaultfd_clear_vma() only implicitly takes the VMA write lock =
+via
+> vma_modify_flags_uffd().
+>
+> >
+> > Call vma_start_write() before waking waiters. Existing fault handlers
+> > queue themselves before dropping the VMA read lock, and new readers are
+> > excluded until mmap_write_unlock().
+>
+> Clearly an oversight from the VMA locks work. I guess was always a Hercul=
+ean
+> task to catch every single point at which there is an implicit assumption=
+ that
+> mmap write lock ~ readers (esp. faults) excluded.
+>
+> >
+> > Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Josef Bacik <josef@toxicpanda.com>
+> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Right. Instead of having a single 32-bit feature space where every
-feature can either be optional or required, we have 2 16-bit feature
-spaces, one for required features and one for optional features. Both
-feature spaces span from 0 to 2^16-1, and then are packed into
-flags[].
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+
+Thanks!
+
+>
+> > ---
+> >  mm/userfaultfd.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> >
+> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> > index 669f71d485d02..7e30b5ff17be1 100644
+> > --- a/mm/userfaultfd.c
+> > +++ b/mm/userfaultfd.c
+> > @@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaul=
+tfd_ctx *ctx,
+> >                       start =3D vma->vm_start;
+> >               vma_end =3D min(end, vma->vm_end);
+> >
+> > +             /* Prevent new userfaults from being queued after the wak=
+eup. */
+> > +             vma_start_write(vma);
+> > +
+> >               if (userfaultfd_missing(vma)) {
+> >                       /*
+> >                        * Wake any concurrent pending userfault while
+> >
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Cheers, Lorenzo
