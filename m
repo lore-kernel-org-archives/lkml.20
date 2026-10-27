@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793123238;
-	b=ScxNZ/BL4+FDJmeqVDGu9mtZ/2kqUIVkMRvqwKAlwldgtc8mev0s2eC0Dk/bXjWIcluJ
-	 tJ8+7W2yMOsVRd9uYegCXnz0x9MtThEqTUTBkEHeZjHhNhxFDLvFtNWsYMLyCDqcuSjAc
-	 7i4mgof6v8MRlxV38odDgAZK7cAKqFfsswomqmbCIALZtbgvVt1BXE1u8WtSwwuFjJxo2
-	 /Y3boIyNvUxjQQ6ZvbBAbH+JEYrnpmaC5InxJX6sbSlxFlp9OOcFLboF5dvJ+kW6HO9e7
-	 T6G/EjFxgNp99ZeCxnHxmkfouJlMIIrklx+BxC7v1W24kmMkjHVvFdKWEFDmCsnhBYQ==
+	t=1793123264;
+	b=mpv+wKhYKiAN5hNz/mAjX2n37/+dDkU0bRByzZiYTULDyP1DYqr8FeSdRoFhxdQsaSNM
+	 5DGPTJjoosUDCjBLEtIFZu88sQswcx7S7Di1SqaPTGd2yY49MoUVSqchzeDAZs/rDwtqP
+	 on+UurVP4/W8560AcUmoTYbFHKBqmuVUvT0clFSz29coG3o0acbDXE90xKih0CpeViwk1
+	 JTcp94FddKb7gPCXKDrb2XXR00gY2H6xnlBrVdRbmQgW/1SKUVuwOOD3+eFEkyhngNBl5
+	 ygliovs1IN/zwvot+reM31nEOv0EOWHv4xmqWI8SC5GImV7eC9TG8xtrBU6InOU2W0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793123238;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=B0WmHqt0cscJHveslkVyUeUM8TEfsZfLiCkpxKjH9o4=;
-	b=rKpfMITci/QCZm3As8KKyK0OKgpuRcdOCr7EoCVhx1f6ojZUa3QQdlGyZDtsJLc4GhAC
-	 Oq2mz05DQksMyUrGDjqbOubitjW+MBqDKyRmWrp4CPqaHpXasj9NrSRGn8AQ5lQVw14lK
-	 v6XjkI4ikJFy5f8GbSWDPAvPYhWjDaJQhjMDCWx9tIe01nznCHYQXPd6tvyxj1bt1hy8s
-	 NCRXWNToafsq0IndcF5a21QnGgU6MKkAs/Wtcczgoh7inEaE14c1FrysLXlNS6aSPOHzV
-	 EMoNtJU8J06UsZWLyaNJtl/bUos19v+9pvzZ8thOzL74pwEPtbQM8Hb30ELqrk4Fl6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793123264;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=l7VNpg2kRwd5b+144/iE+6hpJCf1dqpyVWjx64qc4l0=;
+	b=DTBUAFJ1cGEi8N3SMPAWrcxSScBNzKbb3MZ9qC3shmFBQ11LJI15uBL0X1/lPEPazU5s
+	 tWXub8jN+XQA5LwyAi0dkbfwjLUiPEb3kjXcYTUncewm5IQVlCMPiEghkv64QHrxacm4+
+	 WLpGAmVOSdG0Sx5It+hBj2BwKZxp2L8+VtXajh0vvzKPSG6wogU7eaghxKeK0w4RCPT9j
+	 7wZiQBkaJp43/uhY1X+hjpbYWdBhzA5C0lwL2xM9pOkPz9JfCGrbinN/Uv3w3kHO1GuIU
+	 Qnq94A+1PRJauBKLj7uH/nofqa0XI1L6VXCia56YbpMgQhKS5eWhiVcohY3GissexdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT6Hbttd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nxx8rD+n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C29606A31A;
-	Tue, 27 Oct 2026 17:47:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8287606A31A;
+	Tue, 27 Oct 2026 17:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT6Hbttd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3B51F01825;
-	Tue, 27 Oct 2026 17:47:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nxx8rD+n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F3A1F01825;
+	Tue, 27 Oct 2026 17:47:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793123238;
-	bh=B0WmHqt0cscJHveslkVyUeUM8TEfsZfLiCkpxKjH9o4=;
+	s=k20260515; t=1793123263;
+	bh=l7VNpg2kRwd5b+144/iE+6hpJCf1dqpyVWjx64qc4l0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kT6HbttdiBLrR1m3OW27/DR2kyYb/PWcfkWadakIG8ssY/hobR35DzdT4GOhBOvuo
-	 Zm9Ju81O4rN//fkMnenozPvZH0zbQ8Cjto7FDT0L5EoA4DAvkded+7YA26fLyLpmPx
-	 Fy9FLXNkZXDmkmv1cmvmRu9joGDqROC+iIgCyP4haYPSE3VcW0E6Ro1kWEanZQYKYa
-	 3TzKzqiXVk64RQGt12mKi/ZAObBVpOOKEhUAFppTCDjxJ/6cfj1fwd9YNbo3janghy
-	 CDem0JctUTybSZnjzMco5QwUb8SWqJU6lyKDeyQLdHpeQAPqYyhh66fpGiYG8kRZCo
-	 vpnzmXfQXiJbQ==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 824171FB1AE8; Tue, 27 Oct 2026 17:47:15 +0000 (GMT)
-Date: Tue, 27 Oct 2026 17:47:15 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	b=nxx8rD+nror4YxninkczUDa2I1XrwE4PQI2duzB6BvO+3EYvOaufFAvzZ2Gj9nES5
+	 m2zhP7itgsRY8ByszH9+QY7e9oymBBzxIfJ3zvBXW3w7bS6/kqkm6HK9EIP2hRF3gx
+	 hmOiOawrr2NgRfzq2VABkINRuQlPg0a+bna9PAWyTbUKUg2DYcYwVY5G62OPWiiqC0
+	 cqXPw4Ti6rzYnpvSwsqPFTPY3B5TNQYlaXC3wYiszTVKqykpL5QqmAYXK9OJ0TFckC
+	 JKJ0i0m5eOlPsX6OEZ8okOsW/w8f3mni5EbM2CUucBT4uAj2MoFNgzkAtZFEU8ibdM
+	 AdUSHht44XH2w==
+Date: Tue, 27 Oct 2026 17:47:38 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: Re: [PATCH v4 1/4] regulator: dt-bindings: maxim,max8907: Convert to
- DT schema
-Message-ID: <auDjowGAJtxOMmOj@sirena.org.uk>
-References: <20261027114634.79706-1-clamor95@gmail.com>
- <20261027114634.79706-2-clamor95@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+Message-ID: <20261027-crunching-outsmart-deb81d2c4d6c@spud>
+References: <20261023204209.48556-1-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,31 +64,125 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+XHv1W9dviYH0tpW"
+	protocol="application/pgp-signature"; boundary="IVzTkKMFsWARD4NZ"
 Content-Disposition: inline
-In-Reply-To: <20261027114634.79706-2-clamor95@gmail.com>
-X-Cookie: Whoever dies with the most toys wins.
+In-Reply-To: <20261023204209.48556-1-olivier@mgcrea.io>
 
-
---+XHv1W9dviYH0tpW
+--IVzTkKMFsWARD4NZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 01:46:31PM +0200, Svyatoslav Ryhel wrote:
-> Convert Maxim MAX8907 regulator binding from text to DT schema. Reference
-> to nvidia,tegra-regulators-coupling in child regulator nodes.
+On Fri, Oct 23, 2026 at 10:42:08PM +0200, Olivier Louvignes wrote:
+> The X1600's SAR ADC has four auxiliary channels and none of the
+> touchscreen or battery engines of the JZ47xx ADCs in
+> ingenic,adc.yaml, so it gets a binding of its own.
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+>  .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 60 +++++++++++++++++++
+>  1 file changed, 60 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/ingenic,x16=
+00-adc.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.=
+yaml b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> new file mode 100644
+> index 000000000000..7886836b10c6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> @@ -0,0 +1,60 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Ingenic X1600 ADC
+> +
+> +maintainers:
+> +  - Olivier Louvignes <olivier@mgcrea.io>
+> +
+> +description:
+> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input channe=
+ls
+> +  measured against a 3.3 V reference. Its clients select a channel by in=
+dex
+> +  through "io-channels".
+> +
+> +properties:
+> +  compatible:
+> +    const: ingenic,x1600-adc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: adc
 
-Acked-by: Mark Brown <broonie@kernel.org>
+This clock name is pointless, but also probably wrong? The name of a
+clock should be the name of the port/function in the device being
+documented, not the name of the clock at the provider.
 
---+XHv1W9dviYH0tpW
-Content-Type: application/pgp-signature; name="signature.asc"
+But it's not useful when you only have one clock, just like you do not
+have reg-names or interrupt-names.
+
+Otherwise, this looks fine.
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  '#io-channel-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - '#io-channel-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    adc@10070000 {
+> +        compatible =3D "ingenic,x1600-adc";
+> +        reg =3D <0x10070000 0x30>;
+> +
+> +        clocks =3D <&cgu 28>;
+> +        clock-names =3D "adc";
+> +
+> +        interrupt-parent =3D <&intc>;
+> +        interrupts =3D <11>;
+> +
+> +        #io-channel-cells =3D <1>;
+> +    };
+>=20
+> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+> --=20
+> 2.39.5
+>=20
+
+--IVzTkKMFsWARD4NZ
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCauDjowAKCRAv73Ows9A4
-iW/fAQCXV7KhjzT8cE6hGtVt0/Qz500eVRVBYFcd/8e34zrE8wEAz4g7C/8qDMia
-2VHHW4qZ487dgQRJU3Mz6UhN4KU5Mg4=
-=UbbV
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauDjugAKCRB4tDGHoIJi
+0rHiAQDJqflN11vFOAQL32ZMWC+E2VMahLfw+dfMccVcVRCF9wD/b4ROSm7WtF59
+puNa4dwEMEvAxnNVq+n1mo1WhBFgQgo=
+=1Ief
 -----END PGP SIGNATURE-----
 
---+XHv1W9dviYH0tpW--
+--IVzTkKMFsWARD4NZ--
