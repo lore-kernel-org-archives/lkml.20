@@ -1,114 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793078854;
-	b=VOKCm9ovNkpc7aCR4weApxXOJUHhTWszIe9THXLtcBrsTFzKhbA12oWjDyaJ+TSRPq1H
-	 p4j82Urr+2XXPA5paffkMP855Ms3o0lG6ptIbSfR/VrD9e5CRJnU/ouJG6Bpk1O7jQ3DH
-	 j6C0Typw8raavZX+lqaLQK/ZOpJSKRJXI+d5JPxO5BjCCVX+3uUQPtWcDUL8+haIDE266
-	 hzqeVQuh+1z1CBzgab/ToEWOrO/XL4RWpOSZiHg3tH6egRQ9IH7ne2rc+dyCwa2nFZfD6
-	 NMBLskMAoOt990mKWxtw233TM1t4ZR6zPBETCfJCtlx/vTv+K6aO65WHdT6H1uKUfpw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078854;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5MkuSML0CXj91wrVIEGiElyyqrZvS0iKDa7bMqbnP3k=;
-	b=Ceiciy1Y3X8q9ZS5/bb+QQkzzXU2KRBQdj/VEYtk3iqYFVx+BGmSU1KX/9MmcAP3J7l6
-	 NDS9HYlObw2V78S0/t4DxaZbK6f2ktAafSbtvGNFaT6diqhXrXPTW6oEvqyIouxBQdahP
-	 eSbXLbuB4nBrvRO3FvBQbMrT+nBYaXf6aTgYSlTNxOZtp1fRmcvYbxryrLneAFiCg9xUg
-	 IhEF5A09jB/G8IK+tCKy59vHsOpSpDYrnyxqJnSb05/eLI3+LXrzjAYrKXpLRW46GcJOI
-	 J/wZ6Y9j4CsmIk87mhEHmuKhLPPtR0cPoQhi4PqRviMVxiCkDS3yqs7/pB3CtXdJX2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wbh7ObBm;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793078859;
+	b=YaqTrXS6Lu384en+w0L3U6wW5pn0w31f42I5VtvUOt70o5ZoPuBYtvvIJ7MiCOU3SK4u
+	 vxKvgcQPypd6y8qmbNMwAteF2YuspkhgX6dmjQl1XArIiKRBDAGOGuMW4i8H2R4f11BWQ
+	 YYCoDsHakFJWlfi/e6IrZH4xoRkTH4w7BgYsBQVQAQf3j9aj792ShQghbEUn/gh/f92Eo
+	 EjQg8EpfWkbm7YJyPSac3BtoMkSNpZQdT2LKCOVGcBdh+qXQvpS4qIK8K4VtDG1vlQsHl
+	 uCLkOUsCAy6Wqrc+1Fw1qvehZpmrkWiHaAUvZttdAY+EsmAWDEm1L/LQh65L3oB8RGg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793078859;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Tf2PWZY1fKwgg5B7a9yjZqdkktnSO5wV2PBaYvFNA9A=;
+	b=Spd9OfsN0NeC4U1AjHWAK6u6dz5H0zAg5FBaIb5SsdvoVBJzqmq2fgnoAEQPlgMFAQ6a
+	 E1glaARm+xFS8tlc89hN9Z/Hv0CPy2ie2LJ2RPgCJwUv6gTlGqDKPKDbbgxkgLa2QHQkU
+	 aDfCgJe21P+0e/LzLxMRu2AfoOz/jw0G/01uc8ZlXfbU2v5RGkjN/HlQvThkGDPsh+VXE
+	 3WOTbOBYWvcfyigrZ9PbrK0HIoNJBWEnZlp6nQjnepX229SFW/Eoys0Dh9Qs5oqVt6OK6
+	 Ck/xL3+v+slPHTKlqyE4pbsFOdkGMgYhqdUSiZjRscelzUI8F+gUu41SPT62p+6mnWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mhun5C5p;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.13
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013013.outbound.protection.outlook.com [40.93.201.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C280606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:27:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C280606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90ACA606A31A;
+	Tue, 27 Oct 2026 05:27:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90ACA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Wbh7ObBm
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ea0efd636dso29844685ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:27:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793078853; x=1793683653; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5MkuSML0CXj91wrVIEGiElyyqrZvS0iKDa7bMqbnP3k=;
-        b=Wbh7ObBm9t0sFRe+lEvHInaznHfzDZOk1RC/RdczuVDSEFritYt8FqpKanNdyCSCdG
-         izo+YS6LISu0SHTr82t9mMm3P3FcwvIowRi8hEDvW6lTrA8680FnaVHvTc6GMUoQvhzn
-         lp3cxP6kvO3/CBkqEjP7DBBIcND0YksompdhrGtHftdrqTXgjeb8rkE9vCSLIUHqJSt2
-         fIrUTGaVgrhowpmDPgH9ApqIq31hpRaP+8j8/bQynU9mmedNyuUy0n2OT4qWw9/zYenb
-         r1OzclrqkT9tHOlqa/jG5Kj7pNYt+/jlO+HMK1UcELBMTed6FGG6im2rO2Ct/wgCHd35
-         l4lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793078853; x=1793683653;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5MkuSML0CXj91wrVIEGiElyyqrZvS0iKDa7bMqbnP3k=;
-        b=Qi6/+bxGl1Ih4qHVF6xvlqJ0Ij2Gx1sOPtoNL9f3ndTMNV2qcrmeSlw5KwNOhG216R
-         nE4lG7Aul6onHQQJWbgoUJgNIM4F8FqqQzdLPhA+Ni0MIbJKKc4h4TmpCAIMvOYuzoUR
-         f2C0rKRlTzNE/50MOWqTzCyXWz+m2/j7yh56BCzn2V8bc0P/mlETsREDImhuDYDh0glh
-         LMoIZbF/948nZpcEqqYAwQPKqkK5TdPI2ydmVgJEDfd2RpIbe6IRqaTHvPEz2gYIDNhe
-         f6RU3a6tKEPvGQxQ2k+7QyWw8RgYrz8u046AY8Ruw2iB8r3YlTfYdDh9eY2HrdLL67ud
-         qkvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQUIB6ChobLOm8gC5PfElo9fzC8nqqfIc2qOQ7wiBSwwLEtMttH1rhTch0ymRa930HIsQ/9RfwxAuKfQ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOI3/c/6yMMy8D6NGkIZH9HccdFt+sN3NhzNYLgPNRNAlEFume
-	KFtt0Zp/gC2qAX2TcRlRqZhHa85yRB5HMBhGYyuWNRLrxi+EiAAS1Y9v
-X-Gm-Gg: AYBFou0wc6Jf3Zxy3UF3TMwY56jxRmKQblWwbSibq8gd8PNNv3dkGJdp5ZQT9XocBps
-	sjYLxU1txBRuuhbLAgQIunIIKNOORZddsUPpFXkKr8NLYqjx2ibh+oeWD++akjww5N7bzYPLWcr
-	cE1ii3eViWkDkHqxT07IkTqVve/NyDX0p9WdPgGEas8efYPjvGAO3eHLtQ9x72qohCqjwGAvHuE
-	IUUmuHkHBiKhN0lAHAw6Ro/olXgx/oxSZP8H4x4VUYpVZ7fYeKYlndTxZO2V3uGE9Oa739vRrsp
-	7JIogC2gtHSybrULG1VmGhVNV9LHBijoaJeIOQXkGluK/r7vtSZGReKIPRIJPhtKPsbuedWva13
-	ARHk5J1KZkzJTCfgridBmB/CuRrfvejtUYjLpu8xaSxmZYaJ15w5JctN303bsnebsWRuZu2TtEP
-	xeUbEx6t4pvSKXd4bT/XKj5pXzqDJxUrLB7Rq3WJD9XBgtLagGJ2dCA4BrFnA3idzDdiF3cm1PK
-	E8rOmjsodEBgpEU+L5yUqTTn/isqty3W3xcW0K+j2kN++sf7OiKD2HH91kKfSOxEOrQaJfBQnzf
-	vPKR4mZPLBar9q4eZog=
-X-Received: by 2002:a17:902:ea12:b0:2e9:5507:b52c with SMTP id d9443c01a7336-2ea9c833a8amr76830915ad.34.1793078853454;
-        Mon, 26 Oct 2026 22:27:33 -0700 (PDT)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.27.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:27:31 -0700 (PDT)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: akpm@linux-foundation.org,
-	bhelgaas@google.com,
-	lukas@wunner.de,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	alistair@alistair23.me,
-	rust-for-linux@vger.kernel.org,
-	jic23@kernel.org
-Cc: ojeda@kernel.org,
-	aliceryhl@google.com,
-	a.hindborg@kernel.org,
-	alistair23@gmail.com,
-	wilfred.mallawa@wdc.com,
-	bjorn3_gh@protonmail.com,
-	gregkh@linuxfoundation.org,
-	boqun.feng@gmail.com,
-	benno.lossin@proton.me,
-	gary@garyguo.net,
-	tmgross@umich.edu,
-	alex.gaynor@gmail.com,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH v5 14/23] lib: rspdm: Support SPDM get_version
-Date: Tue, 27 Oct 2026 15:25:27 +1000
-Message-ID: <20261027052536.1722081-15-alistair.francis@wdc.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027052536.1722081-1-alistair.francis@wdc.com>
-References: <20261027052536.1722081-1-alistair.francis@wdc.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mhun5C5p
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JSvyM0mJXk90RMr5x/O4O+hWFPvtOkgteQUfH/qqGvCESqVBUoU77ZLMmcSLHLeKa5klWkdOAYjk+QQq0//+hRwzdbfPlqDuGe+J/tuKnYsoDtV4V51fPCW34lOvgc5jdlrPNSBhpSkPibgM6CVbIsHscC0MVqr8i7y+yQwcTAwrnVv3Xqge/wiLAJyrFxNyo2IcEAzcS5qckb05jDr35wCrHYSR+Y93auc8sJmUaiMY1r8NqKpvdsYhHylLWBxJcRGMH4zoLTLn3+MGi2yJ3MEdQIkfs0bV3dhlOZnAb6dxHQyItJ0KJr/FUk/wKpNFA37V8F8Ix2Rhh20EygHOtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Tf2PWZY1fKwgg5B7a9yjZqdkktnSO5wV2PBaYvFNA9A=;
+ b=oCz9hkPWtV24/VfdL2KfC3nyoiV/weFSrgPXNE4b9voNwC3DFCYNEtxrWkxbFjVPoHzFpvKv9XGqNbeptu3M8dQ+5+ConTmtgCN2InELaZPCCO6D8AppK/koB8mcClg1cpI+IjlvXa+fNowDzshrUr1G1AI3OemTs0dNBhA9N3K9fstr/vYbKbfwVYKhWj2YB/fuXplbKM7OIYRdPok8fA4FLqaZt/nH9r9rCZhdVriYQJDSPvsWKCQn0xNVbXGl/i81wYnySXJ6ijCZwLHvekm8YRGT9JSDBTPFXe91FsZ45RNsWblkyC++JJjhqCGBFkBkNc8HbkfnylvfRSe07w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tf2PWZY1fKwgg5B7a9yjZqdkktnSO5wV2PBaYvFNA9A=;
+ b=mhun5C5pHV89iQdnxX7yXQn3w6hzq8zGs6p1uigmFsmbJeah+GoD7l1yG252DA6gH9XF0WtBdYSrrJPOC+NANeXOPmdwWNs0VcBqLtb5HMCdprqmi+ONFSwE6PziShp4VT61YOa8FOS5Q/8mMsZKtFUdtDt1QfqvqMvVR9/YBC8=
+Received: from DS0PR17CA0016.namprd17.prod.outlook.com (2603:10b6:8:191::7) by
+ PH8PR12MB8605.namprd12.prod.outlook.com (2603:10b6:510:1cc::6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.22; Tue, 27 Oct 2026 05:23:30 +0000
+Received: from CY7PEPF000000ED.namprd04.prod.outlook.com
+ (2603:10b6:8:191:cafe::2d) by DS0PR17CA0016.outlook.office365.com
+ (2603:10b6:8:191::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 27 Oct 2026 05:23:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY7PEPF000000ED.mail.protection.outlook.com (10.167.247.169) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 05:23:29 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 00:23:28 -0500
+Received: from [10.136.37.101] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 27 Oct 2026 00:23:23 -0500
+Message-ID: <ded8ef5a-8919-4063-815e-27fc38e4c204@amd.com>
+Date: Tue, 27 Oct 2026 10:53:22 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,283 +100,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: perf/amd/ibs: [BUG?] ibs_op sampling silently stops on Zen3:
+ MSR_AMD64_IBSOPCTL latched, no NMI delivered
+To: Liew Rui Yan <aethernet65535@gmail.com>
+CC: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<x86@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Manali Shukla
+	<manali.shukla@amd.com>, Jim Mattson <jmattson@google.com>, Ingo Molnar
+	<mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
+ Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Ravi Bangoria <ravi.bangoria@amd.com>
+References: <20261019212028.119312-1-aethernet65535@gmail.com>
+Content-Language: en-US
+From: Ravi Bangoria <ravi.bangoria@amd.com>
+In-Reply-To: <20261019212028.119312-1-aethernet65535@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY7PEPF000000ED:EE_|PH8PR12MB8605:EE_
+X-MS-Office365-Filtering-Correlation-Id: 76aad62b-c112-49c4-2fe4-08df33ea6f7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|36860700016|1800799024|82310400026|261022105027099003|261021121427099003|261022075727099003|3023799007|10067099003|56012099006|22082099003|18002099003|13003099007|11063799006|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	OH0ij9HPFKsF0eK2lQuwSfiqQ/oPAfYy3JRdCeUF6CxNwUAi2O0XWJR6aBSA3sCCBjUnvsO5oG/BVU1hqOMyRrHJEGV5fs6AjkLz8JnuzIbKXJm2amAUb3qVwRJsIjipIW5Hc89wfSq0e8bl3tdNiHQ5UazDL7k47MuvSJGzMS+hBTIlfs3UcuU6bj4V6Z67hQc4LSd6a3C1dnl+rjENw7arikIrTT30Y6RQvhCpzjmH89ArVYPOotNV7/6bzwg4qidBVoR5p6hDx+JUzcjnFLMVotpNOmJp8ARfzCCXhvbYtk3HPjGS7r1AtMGWK6Rb8Nfw9oVRkulcB8Hv9U53z32Qol0hG1w55iNJ2XIDfT5CLsXmLHX04ZTnqv6YF9aG2zrmFJXwoRcpP6545mMlhMc6VTAHk1757FJDLE1LzqRczD7qAj6EHd/jjcO63dp/QCNKGlKpxbjtOjkiShC43ne2ri/E0msIGVHIKQS88d76lxv79OLsC1yz/3V8Ro2rWYXxdkqBOmqxK9KX3LYAQsDyytwphyab3xWxq/mQBDJgSMpO2Aow3TLGXVEM2wkCcZlDB5M2QP7bzGFTv45BDx3Jh2bOEwVwIJSx8y4kJaHTjZ5LVkyZjgo/IvK3I1Ph4dNYSU6xC2ZZHf/9ZNFWPWHJ714XPXZWM33bUB8K7OE=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(261022105027099003)(261021121427099003)(261022075727099003)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003)(13003099007)(11063799006)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Xhr+VhoT710W9a6zFAymbjs+ClVI1GC+OPyyhKLjZpx519xJCOaFilZctDk30jH3D1Q5UWzszzQHZFBqg0SMhbtDur5oe8fIcfFsJ8sWEr4Ry++Bg9RRXY/RBtrVjr32HBzs5Mw6ns34hdXSMXxRnBW4xe7dXasH3d9DSzQYZ4/jV27Fp4bFQrBp2UWMW0+Wbp9u9z0gPq4hAj312eWS2lm7pkIHkaVn7Hierz53DAGCoGXqZZYaw2+Z1jlNbDxnWKf76/uFylwVeSjvVDK3keqccHn6FPDtwuxgpAzuYcLSPXZGL26erfNBid9s0hj0Ye2O2K80MZwB+/kGOyKP0gdBLwlv8lE2Li+Ta+90SqUZ/J07hq8vG4iSHeGO5GMCHVXYVK7BpUZLgXj9IbSQKe2MX0LfTfPpQhYluHAcvP+gwFHrDZx1Wg4cUHYgLOqX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:23:29.4783
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76aad62b-c112-49c4-2fe4-08df33ea6f7c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY7PEPF000000ED.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8605
 
-From: Alistair Francis <alistair.francis@wdc.com>
+> I found an issue with ibs_op sampling that I can reproduce on my AMD
+> Zen3 laptop.  Under full CPU load, sampling PMIs stop arriving on each
+> CPU, one after another.  Reading MSR_AMD64_IBSOPCTL (0xc0011033) while
+> perf is still running shows the hardware has latched a completed sample
+> (IBS_OP_ENABLE=1, IBS_OP_VAL=1, IBS_OP_CUR_CNT frozen) and is waiting
+> for an NMI that never arrives.  The CPU never recovers on its own.
+> 
+> I am really not very familiar with CPU, so I would appreciate any
+> guidance on whether this is known and what to test next.
 
-Support the GET_VERSION SPDM command.
+This is a known Zen3 hardware bug. The workaround involves opening a
+PMC event alongside the IBS event so that the IBS sample is acknowledged
+during the PMC NMI, thereby resuming the stalled IBS instance.
 
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
----
- lib/rspdm/consts.rs    | 17 +++++++-
- lib/rspdm/lib.rs       | 25 +++++++++++-
- lib/rspdm/state.rs     | 43 +++++++++++++++++++-
- lib/rspdm/validator.rs | 90 +++++++++++++++++++++++++++++++++++++++++-
- 4 files changed, 169 insertions(+), 6 deletions(-)
+More details in The Revision guide:
 
-diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
-index ef6d61d4998b5..a130673b6473c 100644
---- a/lib/rspdm/consts.rs
-+++ b/lib/rspdm/consts.rs
-@@ -7,12 +7,25 @@
- //! Rust implementation of the DMTF Security Protocol and Data Model (SPDM)
- //! <https://www.dmtf.org/dsp/DSP0274>
- 
-+use crate::validator::SpdmHeader;
-+use core::mem;
-+
- // SPDM versions supported by this implementation
- pub(crate) const SPDM_VER_10: u8 = 0x10;
-+#[expect(dead_code)]
-+pub(crate) const SPDM_VER_11: u8 = 0x11;
-+#[expect(dead_code)]
-+pub(crate) const SPDM_VER_12: u8 = 0x12;
-+#[expect(dead_code)]
-+pub(crate) const SPDM_VER_13: u8 = 0x13;
-+pub(crate) const SPDM_VER_14: u8 = 0x14;
- 
- pub(crate) const SPDM_MIN_VER: u8 = SPDM_VER_10;
-+pub(crate) const SPDM_MAX_VER: u8 = SPDM_VER_14;
- 
--#[allow(dead_code)]
- pub(crate) const SPDM_REQ: u8 = 0x80;
--#[allow(dead_code)]
- pub(crate) const SPDM_ERROR: u8 = 0x7f;
-+
-+pub(crate) const SPDM_GET_VERSION: u8 = 0x84;
-+pub(crate) const SPDM_GET_VERSION_LEN: usize =
-+    mem::size_of::<SpdmHeader>() + 2 + (u8::MAX as usize) * mem::size_of::<u16>();
-diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
-index 27449ac1ca25d..e0fb7b49d4a07 100644
---- a/lib/rspdm/lib.rs
-+++ b/lib/rspdm/lib.rs
-@@ -238,7 +238,30 @@ fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
- ///
- /// See `include/linux/spdm.h` for the full C API documentation.
- #[export]
--pub extern "C" fn spdm_authenticate(_state_ptr: *mut spdm_state) -> c_int {
-+pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
-+    if state_ptr.is_null() {
-+        return -(bindings::EINVAL as c_int);
-+    }
-+
-+    // SAFETY: `state_ptr` was returned from `spdm_create()` which used `into_foreign()`
-+    // to create the pointer, and it remains valid until `spdm_destroy()` is called.
-+    // We only borrow here (rather than `from_foreign()`) so that ownership stays
-+    // with the foreign (C) caller.
-+    // The exclusive `&mut SpdmState` lives entirely inside the lock guard, so
-+    // concurrent FFI callers serialize on the mutex and can never form
-+    // aliased `&mut SpdmState` references.
-+    let mutex = unsafe {
-+        <Pin<KBox<Mutex<SpdmState<'_, CTransport>>>> as ForeignOwnable>::borrow(
-+            state_ptr.cast::<c_void>(),
-+        )
-+    };
-+
-+    let mut state = mutex.lock();
-+
-+    if let Err(e) = state.get_version() {
-+        return e.to_errno() as c_int;
-+    }
-+
-     -(EPROTONOSUPPORT as i32)
- }
- 
-diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
-index f864d869eff0c..22655b2aff258 100644
---- a/lib/rspdm/state.rs
-+++ b/lib/rspdm/state.rs
-@@ -20,10 +20,14 @@
- 
- use crate::consts::{
-     SPDM_ERROR,
-+    SPDM_GET_VERSION_LEN,
-+    SPDM_MAX_VER,
-     SPDM_MIN_VER,
-     SPDM_REQ, //
- };
- use crate::validator::{
-+    GetVersionReq,
-+    GetVersionRsp,
-     SpdmErrorRsp,
-     SpdmHeader, //
- };
-@@ -97,7 +101,6 @@ pub(crate) fn new(
-     ///
-     /// The data in `request_buf` is sent to the device and the response
-     /// is returned as untrusted data to be validated by the caller.
--    #[allow(dead_code)]
-     pub(crate) fn spdm_exchange(
-         &self,
-         request_buf: &[u8],
-@@ -142,4 +145,42 @@ pub(crate) fn spdm_exchange(
- 
-         Ok(Untrusted::new(response_buf))
-     }
-+
-+    /// Negotiate a supported SPDM version and store the information
-+    /// in the `SpdmState`.
-+    pub(crate) fn get_version(&mut self) -> Result<(), Error> {
-+        let mut request = GetVersionReq::default();
-+        request.header.version = SPDM_MIN_VER;
-+        self.version = SPDM_MIN_VER;
-+
-+        let mut request_buf = request.to_bytes()?;
-+
-+        let response_vec: KVec<u8> = KVec::from_elem(0u8, SPDM_GET_VERSION_LEN, GFP_KERNEL)?;
-+
-+        let response: GetVersionRsp = self
-+            .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-+            .validate(&*self)?;
-+
-+        let mut foundver = false;
-+        for &entry in response.version_number_entries.iter() {
-+            let alpha_version = (entry & 0xF) as u8;
-+            let version = (entry >> 8) as u8;
-+
-+            if alpha_version != 0 {
-+                pr_warn!("Alpha version {alpha_version} is not specifically supported\n");
-+            }
-+
-+            if version >= self.version && version <= SPDM_MAX_VER {
-+                self.version = version;
-+                foundver = true;
-+            }
-+        }
-+
-+        if !foundver {
-+            pr_err!("No common supported version\n");
-+            return Err(EPROTO);
-+        }
-+
-+        Ok(())
-+    }
- }
-diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
-index 0fe341b8dce12..98922638a228b 100644
---- a/lib/rspdm/validator.rs
-+++ b/lib/rspdm/validator.rs
-@@ -7,11 +7,16 @@
- //! Rust implementation of the DMTF Security Protocol and Data Model (SPDM)
- //! <https://www.dmtf.org/dsp/DSP0274>
- 
-+use crate::consts::{
-+    SPDM_GET_VERSION,
-+    SPDM_MIN_VER, //
-+};
- use crate::{
-     SpdmErrorCode,
-     SpdmState,
-     Transport, //
- };
-+use core::mem;
- use kernel::prelude::*;
- use kernel::{
-     error::Error,
-@@ -31,7 +36,6 @@ pub(crate) struct SpdmHeader {
- }
- 
- impl SpdmHeader {
--    #[expect(dead_code)]
-     pub(crate) fn new(code: u8) -> Self {
-         SpdmHeader {
-             version: 0,
-@@ -41,7 +45,6 @@ pub(crate) fn new(code: u8) -> Self {
-         }
-     }
- 
--    #[expect(dead_code)]
-     pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
-         let mut out = KVec::new();
- 
-@@ -90,3 +93,86 @@ fn validate(unvalidated: &[u8], _context: &'c SpdmState<'c, T>) -> Result<Self,
-         })
-     }
- }
-+
-+pub(crate) struct GetVersionReq {
-+    pub(crate) header: SpdmHeader,
-+}
-+
-+impl GetVersionReq {
-+    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
-+        self.header.to_bytes()
-+    }
-+}
-+
-+impl Default for GetVersionReq {
-+    fn default() -> Self {
-+        GetVersionReq {
-+            header: SpdmHeader::new(SPDM_GET_VERSION),
-+        }
-+    }
-+}
-+
-+#[expect(dead_code)]
-+pub(crate) struct GetVersionRsp {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) version_number_entry_count: u8,
-+    pub(crate) version_number_entries: KVec<u16>,
-+
-+    /// The actual length of the SPDM message. `raw_bytes` might be longer
-+    /// as it includes transport specific padding.
-+    length: usize,
-+
-+    /// Entire response, used for the transcript hash.
-+    raw_bytes: KVec<u8>,
-+}
-+
-+impl GetVersionRsp {
-+    #[expect(dead_code)]
-+    pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-+        self.raw_bytes.get(..self.length).ok_or(EPROTO)
-+    }
-+}
-+
-+impl<'c, T: Transport> Validate<'c, Untrusted<KVec<u8>>, &'c SpdmState<'c, T>> for GetVersionRsp {
-+    type Err = Error;
-+
-+    fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<'c, T>) -> Result<Self, Self::Err> {
-+        let header: SpdmHeader =
-+            Untrusted::new(unvalidated.get(0..4).ok_or(EPROTO)?).validate(context)?;
-+
-+        if header.code != SPDM_GET_VERSION - 0x80 {
-+            return Err(EPROTO);
-+        }
-+
-+        if header.version != SPDM_MIN_VER {
-+            return Err(EPROTO);
-+        }
-+
-+        let version_number_entry_count = *unvalidated.get(5).ok_or(EPROTO)?;
-+
-+        // Entries follow header (4) + reserved (1) + count (1) = 6 bytes.
-+        let mut offset = mem::size_of::<SpdmHeader>() + 2;
-+
-+        let mut version_number_entries = KVec::new();
-+        for _ in 0..version_number_entry_count {
-+            let entry = u16::from_le_bytes(
-+                unvalidated
-+                    .get(offset..offset + mem::size_of::<u16>())
-+                    .ok_or(EPROTO)?
-+                    .try_into()
-+                    .map_err(|_| EPROTO)?,
-+            );
-+            version_number_entries.push(entry, GFP_KERNEL)?;
-+            offset += mem::size_of::<u16>();
-+        }
-+
-+        Ok(GetVersionRsp {
-+            header,
-+            version_number_entry_count,
-+            version_number_entries,
-+            length: offset,
-+            raw_bytes: unvalidated,
-+        })
-+    }
-+}
--- 
-2.56.0
+  https://bugzilla.kernel.org/attachment.cgi?id=311307
+  Erratum 1285 Processor May Fail to Report IBS (Instruction Based
+               Sampling) Performance Sample
 
+Thanks,
+Ravi
