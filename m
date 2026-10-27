@@ -1,93 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793076529;
-	b=mgAXWutcHJ3mMOcAqTmHS8WumRCA6JOD7LHTkbG4ub0HratKAPk8iCLy/gdv4jI38b5I
-	 K5wXFJFBrzBplSMw1eVWlk58TwT3zjEi6JBLpbDwxuqJDAhVc33sYtyc6bmcfrdKaovoZ
-	 7UpebEe4gUckUME+jBnw0bzb+BHtSsiRUyhW3XT3bhs646szzTYUn+2Gfa/EWaSrevkjz
-	 V97dGr88zQsuzAgRbK6Jke3DJLJ2ZANJqkLfqpxUFZMC7ho3QPsrEvQn8Z+j3Hi/sRZgN
-	 +BHCqpQ0ys5l6L11E67PitfT7Fp6YABPsWha2hwGZFvP6U3kflhn1PsluS40jR7LTuQ==
+	t=1793076672;
+	b=YBk/05BE/lWsP/E73kM4LdIDSd/MlSy+w37+LgymueSoF77Fty4uf2iHSu9TWNIZi1hL
+	 iae3G+Q0J9JNIT9YCkv55CjRgT4/vXQt4JHp5ARHDyNlhiS4qZT9NeEte8Lspn1JGcMLB
+	 9ZGbJpIapMb4fcb9U7DGzmX6j+hubYifHjOav1HXyFzrl8yfOIRjGNoRfJYLx9v1yg5tZ
+	 tzC+mg65whfjYGJ1lDOJippPI87aKthCf/pwRpCkGUWLlsOA2ODFlnZdHxgZJhqsKGotE
+	 w9ihmHu0GbZ9eLOfvda0xLdxY3++zpt8SLFsKP1QSVsQW+hueiRNNxSwAUA5Rxt4qPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793076529;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793076672;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=8nNac71k806PRByKbpE3u7jP68UWqjas3/Ce4QU52ks=;
-	b=e7vXHnBJn9E1XWfevEq9O7ROM4FUmd0dvsJxE7mhFB14wORtQrcJT53O/DOwh+LYBbZ1
-	 1bg8HVTs47MpBqLuuLYVRetomemMknycVjrdGSeCXJv/ILXG0AJWpqxcDUyjkdIi4izyX
-	 XyyICJtQpy926Rpk3QOU369MxGNIcBAF6pHGXDGeAzloo5om/m3M7vuceUPLKqf9HiJ2i
-	 TnmRTkQefv2bQLBnbSwME2JAMInQBm2pGz8RoCR49muPTfu88xvopAJ4mYRj5AIYBBAz8
-	 zhgaDgNi4BXNGJSdFMjluZ+7PVUPDeJG8rldAwuM5X+PrEEi/vIef3HkekmgwbxahHA==
+	bh=UorkZN7XGO6iTpvoLvTmemMJ2RzNdn72w5oN6AlbaTc=;
+	b=tJAkVEUCGa/bXCsGxdVBIUPCbXBGyp1uZmfcIR482NS0Iy4wZH5TFVljsg1ZsrKVvwig
+	 giDtCAorBGhW9syA+1OLMByJyJY/Jvzx8q6UNu+poJZVAUTYR9tgVsN7pzQcmA4TSv8mW
+	 Sky7RqkbPdDDdnjTSAPPn3SWhlXtOhLUkdOSqnXcWndUhMqi0x9tuSVegrV4uFmcK3oCT
+	 DbEpukiQVg6eAGn1regC6JoIfPGy2RlscBhCHb6ak6okntcbp2lAEQRFlPkouC+r8tw+n
+	 aj0YuJIERhUZx+53JvkRv2ATuiqZeey/KGEL4Hcjy4NEWLzkolK/z2ODwt4ruaVWpBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="h8o2RV/2";
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LYM5HoMj;
+	arc=none smtp.remote-ip=203.205.221.236
+Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D689606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:48:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D689606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5382F606A31A;
+	Tue, 27 Oct 2026 04:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5382F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h8o2RV/2
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35b2c599f43so2206439eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:48:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793076528; x=1793681328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8nNac71k806PRByKbpE3u7jP68UWqjas3/Ce4QU52ks=;
-        b=h8o2RV/2sYe53gexNI2Si0Z5yxPSGWY++KAOL1mrgPIbLEYpHp5RsU3VvFnpklPE6u
-         dO+G7mMcIVag9eMvNv/5ZuILFUH+xb7W8fMMvQRM623dyJoDUqxzCAAQosHWtHa/oPgR
-         B4hUEQ1h760ZMuWxZHb5RXprFxM2Ax9gzxGbyW2ttI6D77gdzSIYBqiU5tw/l+5Kd5iu
-         l0qg6pLOBFwendHQLujqu7m7yPbt4wqoE5woEwtwSFSVbJJtHPizwighEUB9Ke8D8PEX
-         RmFwUgd5McV90SzwE/kGgeJ+slQ0FrD9ScCJqSD3cGYbL8TnDogGxN9dvXCAB8samSEZ
-         PnAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793076528; x=1793681328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8nNac71k806PRByKbpE3u7jP68UWqjas3/Ce4QU52ks=;
-        b=v5EmF5PKvho0R2Wil/bEup1/JOYhZqudeeUR6rQmfOuB9c9oVqxHxMalZsp2bQFz2i
-         BWWEC4+9u3U2rHnA0pIodE9HltsJffF7gIjfWf+hS9ff+S9d/Ohu6eJ5kYbYLbLBd7q7
-         eIwpclNaCD4k+sniioKGfXdRDprPHawt85UVSJDAjxWGPUG+wA6TMCFO1tdCzJtT+f/c
-         KGKy6nAz6UEQqdDN586em9dgYXvMVzl+jhT5soG+8PhUl+wYCswhwmsA3aocoANAfJbY
-         Q1WRYqHaiYy/yqm9taQBYLnZrCfA5a/P1Mz+3uWd3qE4NI6Af8Mzud4crXhxvrROaMix
-         A2vw==
-X-Forwarded-Encrypted: i=1; AKwUvBxXmlPQSYnwNLtKF7vPGmThAmIpOeHOKOZg7mtjUwkYL7yVwoSGkM8zU9UuIu4ZDls18t+R55mnTPDTIJc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAo4z9mW8Pz/Gu+iFcftZrW2c+K9jn8yoaDW111RHIk51N8xP0
-	xPNJ9nW6yGab3BT2EUqDDZzEbUhVMIZB43yasX4Ay/tuR+HCdBobiWmZKXqzystH
-X-Gm-Gg: AYBFou0XXjymAduKPFqrYQOMz2sNYAchko+fecOzO041oXNY4W6/9zjGHBX81QaGlmi
-	LRGlyim9j260bXhcKza2Q6jG7ASpFcBwkZd6zvLFJhz28gaPPo5iOoRhFFmHCT4wDAoeyjhL22S
-	L0O5Vt2we015OTK4mOgdwbUao9W23qwx1mvQFP9ZECmMz3reQEEkXamouFzhORNo0j9/eN8vBnW
-	qgsbIKU9dgUzV2R3Ve5SjUE1nyN57thqGJuTPT6h1u0TqaQlRV7BPPZc4dYTEUmZKIyUEuL5mnQ
-	uoqD/Nqu7IynHFoFueMs30AFFq60ThcccPJb5H2bCw4aHTSWn9yF+6iB4a42vgV0bfiEx85tX15
-	N5eOjDJ4I5/y4SLqWQy8sTRooyBnfKbuVD7zBhBvkbtpHCrCE//1WPZBzOOLRDVmeoWZnTpRjzo
-	ZMXhJHj+fPD8qQlfaAkoCUdreeCrciPy4z5k5tj0ja2INt5NFzJF3omKCbLzKJeoTcPsJFb9PaU
-	QZUms4Xt/eRwBL8Xkc2hshEDfvb7n0OpsXfL4iDVzt7I6o34CEOIfQYIBg/3j/N35cF2axetnl4
-	8C6jL/i3cn3NX2JrCMCS8ZwOYrI8LSJacQ==
-X-Received: by 2002:a05:693c:821a:b0:36a:30b:5dce with SMTP id 5a478bee46e88-36a030b74dbmr7205493eec.19.1793076528157;
-        Mon, 26 Oct 2026 21:48:48 -0700 (PDT)
-Received: from chitransh.. ([27.61.39.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7b23sm41283776eec.19.2026.10.26.21.48.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:48:47 -0700 (PDT)
-From: chitranshmandhaniya@gmail.com
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LYM5HoMj
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793076666; bh=UorkZN7XGO6iTpvoLvTmemMJ2RzNdn72w5oN6AlbaTc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LYM5HoMjLp2fnyYyMLHmEEsZ6Pc6H4J80F/wJZ+8Zfsct8nxjkVpubi7Z2pJPm6zq
+	 2MK5IpQaYAZIZNm1/5xq/w/X/HEwxG2tEn7y8/r6Gva+t84Pnb2tY6NI0f4XdrNxL6
+	 +C5cHLn4VFjiBtEiRhvJFOSBlQ6CcAZtKu56nxcs=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:ad3c:addd:6586:2a94])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id CC41E4C1; Tue, 27 Oct 2026 12:51:04 +0800
+X-QQ-mid: xmsmtpt1793076664t4f3k1b4q
+Message-ID: <tencent_604E28FF9F3ED582CCAC563D0788102E8109@qq.com>
+X-QQ-XMAILINFO: OEUhVsHQax4MacOqvanj1DwW9XK6UfrtiZ7MhPCNLdhXV5VcJwJw/9pM8kYm8X
+	 Y4Bt8XvuziYr3chxXzmw/aznxt6hWwlICeMR7O74mgCgeCxqCfniujwxPAe4yq/E160FqjWQvVUX
+	 ZP7Fwq0WxPwMl9VZWhB+GzdsEN5rboOSH/i+ob8A/SXrNog52jtHq/JoZsULLsJfmtr4W+9cTHph
+	 XPfOXiZ2KZ+JoI2alMIRq76G3CzAbxcpHtGX+L7wegJocSBbNWe0thzhjS1eldqvWjNSiGI1B6zk
+	 UtwlLdzeC8s6FdpKf+ooHgdGcq92So11e1zq/vPbQS8JbbicUtSlT/FZ5Sb7ByWW17V2KOFciSEi
+	 Rc8CcWIo6/yz5XfNnqmRhqKe0qD/dEr10RlV3UyKtHD5rrnc28sBwnBDKVTRGAOnmqrUQ6lvOjsz
+	 TkkKMhgIbn55P2Ah2/FeHl7qem/0Dz+LiKGgC2rXT7GRIHxS7AOHsk3PWfHNgxy3bNr7g+M+hKRM
+	 tcxQKyqz3LFF77FRMWTtQSbKZoA3haJuOfaYFm3Tpk0DyFf7mwLlVQWzBemnTRkTn//z6IuATbKS
+	 PcbHAJh2ICsAQ7koErnN1MJiZBrwmS1Wy7RLqH/yFewM5nue2kKoRBiFqr8gx2XRJFkR7zQfv5i9
+	 bIfzBCoYuwTnVlE34jAuMCLkDP4sfHhx1cQsNIHKxsna0P0qBFIGW2/PSaWL2OuMTUpSu/8OTNTI
+	 37chlhLiKnSAKhBYx8JFQc+XQCbm6ijM+YCdrTl1WJOy+j5d1QiKrlSeFQ2LiCydlKDlcuDkeD4k
+	 /uk//zEWeF+UUBHmM+szYPlaMsmJJLMzWsovhp4gYb74Wm4TIvSQc+BQMOUzIa+FHsCroLxhBE7m
+	 Frg0mDXRT4k08GuXKb9VpQM5gBrokGyMmpPU7fch2J0QI1Ig4qmCqMx6VvbHVFkV0uNP6UpuuEoK
+	 MOOP/VudDiJX56mBQ4qle/hId1jD7wmN0e1OYQN236WFs1dFKT186Bx1/O9jgoVXhvBgaV23dX0M
+	 Q1go2u3CL2+vv+MI2U9376EusoAXya5OLN4/j8yri8EcsuYOEsRI/7BfZrw9Y=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Yingjie Wang <1075151112@qq.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chitransh_Mandhaniya@dell.com,
-	W_Armin@gmx.de
-Subject: [PATCH] platform/x86: dell-wmi-ddv: switch sensor mutex to devm_mutex_init()
-Date: Tue, 27 Oct 2026 10:18:19 +0530
-Message-ID: <20261027044819.75761-1-chitranshmandhaniya@gmail.com>
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] af_unix: order MSG_PEEK references against garbage collection
+Date: Tue, 27 Oct 2026 12:51:03 +0800
+X-OQ-MSGID: <20261027123817.af-unix-thread-pointer.0d699734-c1fe-4ef3-ae49-db494da51216@qq.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <auABC6uMYxXmPqtb@google.com>
+References: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com> <auABC6uMYxXmPqtb@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,46 +85,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
+On Tue, Oct 27, 2026 at 01:42:05AM +0000, Kuniyuki Iwashima wrote:
+> Actually there is another thread going on for this issue and
+> I suggested another aproach, so ...
 
-Replace mutex_init() with devm_mutex_init() for the sensor caching
-mutex so the mutex lifecycle is managed by devres. This allows
-removing the manual mutex_destroy() call from the
-dell_wmi_ddv_hwmon_cache_destroy() cleanup callback.
-
-The translation_cache_lock in the same driver already uses
-devm_mutex_init(); this brings the sensor lock in line.
-
-Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
----
- drivers/platform/x86/dell/dell-wmi-ddv.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/platform/x86/dell/dell-wmi-ddv.c b/drivers/platform/x86/dell/dell-wmi-ddv.c
-index f8903ced461b..c7f3d07abbc7 100644
---- a/drivers/platform/x86/dell/dell-wmi-ddv.c
-+++ b/drivers/platform/x86/dell/dell-wmi-ddv.c
-@@ -548,7 +548,6 @@ static void dell_wmi_ddv_hwmon_cache_destroy(void *data)
- 	struct dell_wmi_ddv_sensors *sensors = data;
- 
- 	sensors->active = false;
--	mutex_destroy(&sensors->lock);
- 	kfree(sensors->buffer);
- }
- 
-@@ -566,7 +565,9 @@ static struct hwmon_channel_info *dell_wmi_ddv_channel_init(struct wmi_device *w
- 	if (ret < 0)
- 		return ERR_PTR(ret);
- 
--	mutex_init(&sensors->lock);
-+	ret = devm_mutex_init(&wdev->dev, &sensors->lock);
-+	if (ret < 0)
-+		return ERR_PTR(ret);
- 	sensors->active = true;
- 
- 	ret = devm_add_action_or_reset(&wdev->dev, dell_wmi_ddv_hwmon_cache_destroy, sensors);
--- 
-2.43.0
+Could you please point me to that thread?  I could not find it in the
+recent netdev or Patchwork archives.  If it is not public, should I wait
+for that approach before revising this patch?
 
