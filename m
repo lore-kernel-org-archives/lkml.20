@@ -1,112 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092510;
-	b=4hikfKkVu4KrMIbhF0OMj/DxwCRgcVdu7IUb4rIzaVL5t8oe+smZMw2Ur7n90vcwEPFG
-	 C5NLyLfoP8CfVSfMjKNMKl7BTO+W3Pwqf/UNj7ap1PjGjVchZOvevCqG3rmRMvvozcdNk
-	 /XygfSat2PUWlgFdyd04dsPNqjSnAET4hhVEjTCyXinHtKwKg5mmwCcPBZwJhIUP5b1jD
-	 LntPlSoTd64ZbIl833uQvjsrKAZTT3lNr37NG5BAv2Trc8uCFjKe45zR6beSr2t1m60dq
-	 /kPPXmLuR1sRIphOwY+jUHjYqgnWZ34YEpjZ1F+zB6dpUo81cUfSfXelH4P3P4/XCIg==
+	t=1793092566;
+	b=WNZfDqeiQABntJRnG0VxiLvjzCTWHFOfhmtMZ5GQ8TH+4eyEgzNNDqBE2h1g6ZD9Bgp4
+	 Btm8RnNGeRC6SeYeAC4X6CmrLSAuRKmzYW6HFMlorGTzzIjFHGBW8LYlwyLEi5a5w8hWx
+	 ZG3VHF+vvTFV4nYvWSPhh871s+LZiX+QSTP87nWvalMRoxxJUDg5+bUu3cWcN4yIlIkAE
+	 z13K2tEZzg0MTzwslTDFyMgcFcZK/wQG9JJrE9B64dJtig4YA1vfJ+DdprL2nKC8DxEDg
+	 v45wdf/GRKKueEWudCEOQmtdlQXNMG/y/vq6t9LCfjDMi1oITzOw8GSuYzJ0ZrkdZQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092510;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=Ujm34fnOIGPSTccM2EPBmX3ApSn6Ieb0vSFOU048XLI=;
-	b=nrp3zob7pW+JhK8J0Uw6xsDaf9FQMJMnqeLwXJ9CwliZ/3GkrcQxM82h9qdv+VrbpEla
-	 il9P9WifecC7zWlaaybXl6nZhpkWayugW1prBmjdHPYh9ztc4/5fGC8zwtDFJ8d3cpRkW
-	 nlS/EJ6wIe38iKQoI0ajhYtCom+0BGrQcjLcGgmxKPKXCO5P2Kt7kb5UqhAYCGrdg4lOx
-	 +UfsmYE/vzTY38FxI7LM5ignr0MJHxtTJ/g9Sz8BtqWiywbj+lQFQb23nK1E2SHn+QCw9
-	 mZX3wqcz6G4OIrIXK1WUiZwBs/FouIzL8jj/9FdOd6JTgCxgq++tMNNijPlHX68pmMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uvIjmI+HRIAkGOyGjy/GnDVEBAcECg6oog9cRdexHmk=;
+	b=Zae7C/TKLTYO8Pj0+tYOFkw0ScK32t1muPTLScSzVlsWH9ZiImdWvDvZHVoNesHmWQdy
+	 gM18A/Qyp4zT+XD6QRDyFy6enBUTBYg7Wl7dHiupR/22qow7yXsZ/Xb7GVWn8FNJvjAhH
+	 VAA4s94BPnzrpJHZM6btPjc+Cjj9Q8Q5VDCMNyRfbHtM7yK+ekstT3IhsR1L4+5exFkiE
+	 BzK+Ir44Pl83GZlTr3g6nOX1U6XX7Rx5kv8OBbp5cUqvQvaQft+2A2fFx2t2A9xoOH9hK
+	 3kL4bdT+hjqX7dpqiUpWZ49p9filiWg2htO9XJQDAkCw2U8KfjEFaFpTGSKfREkw0pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GXXCk0b5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=da3zDgLo;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GXXCk0b5;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=da3zDgLo;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tAkgNglS;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D15E606A322;
-	Tue, 27 Oct 2026 09:15:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D15E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E96F606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E96F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GXXCk0b5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=da3zDgLo;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=GXXCk0b5;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=da3zDgLo
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4951D21DE7;
-	Tue, 27 Oct 2026 09:15:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793092502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujm34fnOIGPSTccM2EPBmX3ApSn6Ieb0vSFOU048XLI=;
-	b=GXXCk0b5hYzjSh4mTjEBZNeZsajzCA9yrz/7ZowmqfMNVjLNG6xAqr/3cf45gTMaRcGjUp
-	QdjYFCxBEWn77RgRw549Bsf06QhsIvsiiv3ggThg/yalj7fIGYW3Go44aQKv7OxARuhBR+
-	Tk/lDXsqNXKzsaOZcHoqhHUVRpm/53s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793092502;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujm34fnOIGPSTccM2EPBmX3ApSn6Ieb0vSFOU048XLI=;
-	b=da3zDgLo0D0AGuVFuLX1e9yj5oiI/1n59qyY6Glz48xgSVSXppnei+NUgHXc4U+7gd6+XH
-	33fVXUPPTs9uE9Aw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=GXXCk0b5;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=da3zDgLo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793092502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujm34fnOIGPSTccM2EPBmX3ApSn6Ieb0vSFOU048XLI=;
-	b=GXXCk0b5hYzjSh4mTjEBZNeZsajzCA9yrz/7ZowmqfMNVjLNG6xAqr/3cf45gTMaRcGjUp
-	QdjYFCxBEWn77RgRw549Bsf06QhsIvsiiv3ggThg/yalj7fIGYW3Go44aQKv7OxARuhBR+
-	Tk/lDXsqNXKzsaOZcHoqhHUVRpm/53s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793092502;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ujm34fnOIGPSTccM2EPBmX3ApSn6Ieb0vSFOU048XLI=;
-	b=da3zDgLo0D0AGuVFuLX1e9yj5oiI/1n59qyY6Glz48xgSVSXppnei+NUgHXc4U+7gd6+XH
-	33fVXUPPTs9uE9Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E868613319;
-	Tue, 27 Oct 2026 09:15:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id c4eSLpVr4GpLQgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 27 Oct 2026 09:15:01 +0000
-Date: Tue, 27 Oct 2026 10:15:01 +0100
-Message-ID: <87cxsv33oq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Joonho Lee <mynameisjune111@gmail.com>
-Cc: linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] ALSA: virtio-snd: fix dsnoop capture with staged buffers
-In-Reply-To: <20261025064038.81674-1-mynameisjune111@gmail.com>
-References: <20261025064038.81674-1-mynameisjune111@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=tAkgNglS
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36661f953e4so7165511eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:16:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793092565; x=1793697365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uvIjmI+HRIAkGOyGjy/GnDVEBAcECg6oog9cRdexHmk=;
+        b=tAkgNglSz/+ybvpncEJVs1gO7yn9HYgmP0XNkHiEkJjFhVm+DYSgT9C6sAEWqkXtZt
+         fZJgBvZWCrX5u7ND/7BAaa4Cu2+0hPN69tRHVe5s3KwCH1ljo+hSUggL5+FZBqnBDX38
+         MvX1WQSghE6OYXMzbf/KlQJIHTr3Bv2/+L2Dw+yLTvAKAvVCIfg/MzFr/nFUncneMkN7
+         jl5AS4hAnA9XyUMqBBEXHTXMcu2ubQjGjFe4ynLum6ibXiddWJAqNF5CAJ7Km1WGka3z
+         Lll80hKtKAH+2rACEGl+3JEijyvX2JCYPvKOfmIwfGjTw1uVfsoy/zaGF6dDyyzclypo
+         VMyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793092565; x=1793697365;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uvIjmI+HRIAkGOyGjy/GnDVEBAcECg6oog9cRdexHmk=;
+        b=Zh0+vaa37/sLERUz1YkzGz7Joc6RHdyhvbSmIIthOSHecPqyQkAOG5krbkzZLr+sq9
+         E67FHQyjSnCOvxoDHbVF5tLmdNKkYijHlxWyLsSYVmVgRFsyoWEyf5pJH5h8R/hgJCU9
+         GvQWNOBjMOYIPe9NY7qq2BtxCd3WfT4g0lQPc6V4amCxUQ8MPotNJ4luESJT+tZgnEn1
+         yJUgDBX0AUF9aRqenv1JdSu/puey89AwqBeRLmo8DSfbMrfkueabfIAnXemeLtII28Ro
+         kxeAsDayBZNQvmYrlcF+5QzYZqvf5iH2XigOhk25KBX7UvD/ZPEwuDwx5ltUAcfyLahJ
+         gtTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpdkOStvKEnKLtuJdQ0lgq1TH3D97faIi6C3Sa5UC11HMITNt/tG3zkWYDHbPoYX0YGWdvQ/975Kuat+4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKciTlthsLaEeF7Cgp2TAapjJxYb9whJYPMBlWe0drf/z91DhRt
+	YGkMahHSY7N5+JT4DxdxGq7mYzdtcBHpRs58vCkZw/ZZcL+YhiV7HinD
+X-Gm-Gg: AYBFou14zjeMU6e7xx0t6dN7mLUVmGQAyelc7rocD/trTwf0Wwyaox+50skGwge01XL
+	iO8YuvKS3WStygjXHxcqaiwDaN33kqo05bKek+c5K0CdOS2CMNL6w8NSazqCZUNeRWLXy3jruyS
+	2bpd47kXPwbFwbbwc9dlzdfMlPhWpK0fM0qVIoMs0Ob6aeuKKjX9i9mo1m46aAyGsxomfDdaPwk
+	IWRtm4GgzcGpEfSqFns0qTvAJVrqgR+otpRX5iQPwGrXDekTytVXVmLXjEEytCEPQp9qgmAA5Vy
+	/rVklazRS4OZm8qdlLFMgL8Z4sAet6r/eJtLveN/qA96w2mR526/j1rIiO23DIzQ0NhAD6OYeo6
+	n4DFSogc9Ir9anSbLaLQsnQJP8EghCT4sjtvXTxm9AhDI/eZjM+qZXFEZm1bWndju4wh5ZRc3Go
+	V/g8bq14LSPGCRG2Qt1WN/0PazhXfVT8XUC5493Fuzxp/svmvCCC7mbd2J5KCnylrl6W/Q7lZRx
+	kOGLTt1pIO0/FtQGuXn5k4Ew3hSXnDoaHhKIY15OM6b3kVfcY+uTWOyIwHnxz4a5SEOjPNOt+p9
+	yqnGy4Ehyg==
+X-Received: by 2002:a05:7301:fc10:b0:36a:1008:5815 with SMTP id 5a478bee46e88-36a10085e66mr2611715eec.5.1793092565123;
+        Tue, 27 Oct 2026 02:16:05 -0700 (PDT)
+Received: from Zoro.lan ([2409:4090:2022:b00e:72eb:d31b:8aa6:1b54])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ee71f5sm41232082eec.28.2026.10.27.02.16.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 02:16:04 -0700 (PDT)
+From: Vishal Satle <vishalsatleit24@gmail.com>
+To: Richard Weinberger <richard@nod.at>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Zhihao Cheng <chengzhihao1@huawei.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vishal Satle <vishalsatleit24@gmail.com>
+Subject: [PATCH] mtd: ubi: nvmem: Fix device_node leak in ubi_nvmem_add()
+Date: Tue, 27 Oct 2026 14:45:07 +0530
+Message-ID: <20261027091507.130294-1-vishalsatleit24@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,175 +99,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 4951D21DE7
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 25 Oct 2026 07:40:36 +0100,
-Joonho Lee wrote:
-> 
-> Hi,
-> 
-> Changes in v4:
-> * Arm synchronous stop before paused capture enters XRUN through ACK or
->   period work, so recovery releases pending RX requests before prepare.
-> * Add read/forward ACK regressions for first-prepare recovery and direct
->   close/reopen, with native pause and pause-restart on one and two vCPUs.
-> * Keep patch 1 and the prerequisite metadata unchanged.
-> 
-> Sashiko identified a missing cleanup path in v3 patch 2:
-> https://sashiko.dev/#/patchset/20261025055702.69259-1-mynameisjune111%40gmail.com?part=2
-> 
-> Previous version:
-> https://lore.kernel.org/all/20261025055702.69259-1-mynameisjune111@gmail.com/
-> 
-> This series fixes dsnoop capture on top of the staged-capture virtio-snd
-> changes. dsnoop configures its slave with stop_threshold == boundary and
-> can keep capture running without advancing the slave application pointer as
-> an ordinary reader would. The staged-capture accounting currently exhausts
-> its bounded unread capacity in this configuration.
-> 
-> The first patch marks stop_threshold accesses used by the driver's policy
-> sampling. READ_ONCE/WRITE_ONCE provide single-access annotations; the
-> virtio-snd state transitions remain protected by the substream lock.
-> 
-> The second patch caches the prepared boundary and samples the stop policy
-> under that lock. A completion uses one sampled policy for validation,
-> copying and queue refill. Free-running capture keeps requests queued and
-> retains the existing frame, payload and pointer-window checks. Returning to
-> bounded capture restores unread accounting from the monotonic counters. If
-> the outstanding data already fills the ring, the policy helper returns
-> -EPIPE without changing the cached mode or counters. The detecting RX,
-> pointer or ACK path then reports XRUN through its existing error path.
-> Native pause-release refill failures schedule the period worker to move a
-> paused stream to XRUN and wake capture waiters.
-> This does not guarantee a synchronous error from the sw_params ioctl.
-> 
-> The ACK accounting and subsequent queue refill each sample the policy under
-> the appropriate locks. Prepare and teardown reset the cached state. The
-> existing ACK-race and priority changes are prerequisites to this series and
-> are excluded from these two diffs.
-> 
-> New testing for v4:
-> 
-> * v3 reproduced -EPIPE from paused read/forward ACK, followed by -EBADFD
->   on the first prepare in both native pause and pause-restart modes.
-> * The corrected module passed 16 combinations of ACK operation, recovery
->   route, pause mode and vCPU count under ARM64 QEMU with KASAN/lockdep.
->   Prepare recovery uses the first prepare without an intervening drop.
->   Recovery and reopening each capture 48,000 frames.
-> * The native-pause regression and 13-case mode suite also passed.
->   No KASAN or lockdep diagnostics were recorded in the six final VM runs.
-> * Direct close/reopen succeeded even on v3 in this fixture; these results
->   establish the prepare regression, without establishing a persistent
->   buffer leak across close. Forced RX/pause interleaving, new physical
->   microphone tests and KCSAN reruns were not performed for v4.
-> 
-> Earlier testing for v3:
-> 
-> * ARM64 QEMU with KASAN and lockdep, native pause: v2 returned -EPIPE
->   but stayed PAUSED, and a waiting poll timed out. The corrected module
->   reached XRUN, woke poll with POLLERR and returned -EPIPE from read.
->   Prepare recovery and reopening each captured 48,000 frames. The
->   corrected case passed with both one and two vCPUs.
-> * The 13-case mode suite passed with the corrected module, including
->   direct and mmap capture, policy transitions, delayed-reader recovery,
->   reopening, mixed-rate dsnoop readers and client departure. KASAN and
->   lockdep reported no diagnostics in these runs.
-> 
-> The following testing was performed on v2 before this focused change:
-> 
-> * ARM64 QEMU synthetic dsnoop capture: 12 files and 2,160,000 frames
->   matched the reference sequence from each client's observed starting
->   position. All 48 corruption, loss, duplication and reordering controls
->   were detected.
-> * Default KCSAN: 13/13 cases and 619 policy transitions passed without
->   race or lockdep reports. Forced RX/ACK policy changes and four isolated
->   policy-helper branches passed under KASAN and KCSAN.
-> * macOS VZ with MOTU UltraLite-mk5 at 48 kHz: comparisons used one or two
->   vCPUs and idle or CPU-saturated guests. The baseline failed all 32
->   shared-client captures. The candidate passed 48 captures and eight
->   recovery diagnostics, including mixed-rate sharing, client departure,
->   reopening and recovery after an intentionally delayed reader.
->   Loaded shared captures ran for 70 seconds. All eight accepted VM runs
->   shut down on the first request.
-> 
-> The physical tests checked frame counts and nonzero input. Exact sample
-> continuity was checked with the QEMU synthetic source. VZ exposed mono;
-> these tests do not establish physical input-channel routing or multichannel
-> support. Aggressive KCSAN still produced dsnoop client-threshold XRUNs with
-> a 160 ms buffer. Further isolation supports a deadline sensitivity, but
-> does not exclude every kernel timing contribution. Separate generic KCSAN
-> reports remain recorded in the test evidence.
-> 
-> This series depends on the staged-capture prerequisite stack below. The
-> tested local base is 8d0d4c1a6c4bcb81ae9f52d1c0d979fafb2e22f2, consisting
-> of nine prerequisite patches above sound.git commit
-> 5618f6837ef3314e2c581d4c05ec13b7ed975cb4.
-> 
-> Prerequisites, in application order:
-> 
-> 1-5. Lifetime and error recovery v3:
-> https://lore.kernel.org/all/cover.1791881787.git.mynameisjune111@gmail.com/
-> 6. Generic teardown/control wait v2:
-> https://lore.kernel.org/all/rfc-v2-generic-control-wait-0.2eddd58a796e497f@gmail.com/
-> 7. VZ staged capture v2:
-> https://lore.kernel.org/all/rfc-v2-vz-capture-compat-1.b9ab4c1540dc4691@gmail.com/
-> 8-9. ACK accounting and high-priority period work:
-> https://lore.kernel.org/all/rfc-virtio-snd-capture-followups-1.f2737c95c12e45b4@gmail.com/
-> https://lore.kernel.org/all/rfc-virtio-snd-capture-followups-2.f2737c95c12e45b4@gmail.com/
-> 
-> This fixes the staged-capture accounting introduced by that prerequisite
-> stack. The reproductions do not establish the same failure in an unmodified
-> upstream kernel.
-> 
-> The policy uses the existing stop_threshold == boundary convention.
-> Sampling it under the driver lock avoids introducing a PCM stream lock into
-> RX completion. A completion overlapping a policy update may finish with the
-> previous policy; its accounting and refill use that same sample. Rejecting
-> a transition whose bounded accounting cannot be restored preserves
-> explicit overflow detection and lets the caller recover the stream.
-> 
-> Patches:
->   ALSA: pcm: mark stop-threshold accesses for capture policy sampling
->   ALSA: virtio-snd: fix dsnoop capture with staged buffers
+ubi_nvmem_add() calls of_get_child_by_name() to verify that the UBI
+volume device node contains an "nvmem-layout" subnode.
+of_get_child_by_name() returns a pointer to the child device_node
+with its reference count incremented.
 
-The patch2 doesn't seem cleanly applicable to the latest sound git
-tree.  Could you verify and rebase/submit?  I think it'll be a
-material for 7.5, as it's no regression fix, though.
+Because the returned pointer was only evaluated as a boolean condition
+and not retained or put, the reference count of the "nvmem-layout" node
+was leaked whenever an NVMEM-enabled UBI volume was registered.
 
+Assign the child node to a local variable and release it with
+of_node_put() once existence has been validated.
 
-thanks,
+Fixes: 34a5d8525b6a ("mtd: ubi: add NVMEM support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
+---
+ drivers/mtd/ubi/nvmem.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Takashi
+diff --git a/drivers/mtd/ubi/nvmem.c b/drivers/mtd/ubi/nvmem.c
+index 2dade9727..15737d511 100644
+--- a/drivers/mtd/ubi/nvmem.c
++++ b/drivers/mtd/ubi/nvmem.c
+@@ -61,6 +61,7 @@ static int ubi_nvmem_reg_read(void *priv, unsigned int from,
+ static int ubi_nvmem_add(struct ubi_volume_info *vi)
+ {
+ 	struct device_node *np = dev_of_node(vi->dev);
++	struct device_node *layout;
+ 	struct nvmem_config config = {};
+ 	struct ubi_nvmem *unv;
+ 	int ret;
+@@ -68,9 +69,12 @@ static int ubi_nvmem_add(struct ubi_volume_info *vi)
+ 	if (!np)
+ 		return 0;
+ 
+-	if (!of_get_child_by_name(np, "nvmem-layout"))
++	layout = of_get_child_by_name(np, "nvmem-layout");
++	if (!layout)
+ 		return 0;
+ 
++	of_node_put(layout);
++
+ 	if (WARN_ON_ONCE(vi->usable_leb_size <= 0) ||
+ 	    WARN_ON_ONCE(vi->size <= 0))
+ 		return -EINVAL;
+-- 
+2.51.0
+
