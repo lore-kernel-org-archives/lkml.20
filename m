@@ -1,48 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793123911;
-	b=4OEt/9sZvL6C+c36ZRB7z857U0m3RhbbaUGciGGdzO6/irunlHDmRrb8Nn0i9CqNE9lg
-	 g8n1Rt6rmqJBPGROuzi22X3JuhQxa4FOMax/DqYbi+y56zlb48Wqa48WjR/ki9SAuTAP+
-	 NOmzL7Fx8RBclZa3/fODJ6cGJ+QeRtwwQah4b/pWeocUgD0FCyWFe3NqM7Jgx3lR3sGwP
-	 7RUYexJ3S3weifrWK+UCPHuDlYbPjoFYwtn8NoSIm6EFKGjOawmQIgQb7+b6TJj6HX45Z
-	 r5tzjJwyHtOr2tbxtCUikDuYLTKiUIeuzjaECOs/WklzZmAG7rxNycPt3ry3MMge17A==
+	t=1793123933;
+	b=MH+b8Dh9vZIiL2vw6m1IYOrmBamUS4Z5fXaL/b7z1WcU8NMtEO2i9WUBZl8EHEdtKod5
+	 Lo3JHxj+PDiBnol6UET+qST7SeXw1Vxi3vFKBHxdlpD/dpCNZK6nflmDyT6jnPBrSNX1M
+	 xSl5eot6auOmUFNsFO5BuaOJleGzrQ2Ij8o8bCcCTuZsl59NuAbj+zv9gOqxp8RHd2u6d
+	 JVin/rcrJ+FRCNLkKIfajmQCPbjICriBLllImZ+z7Vsb2aSa84C+fPWBwLNNIVmfmX4Dt
+	 poMBq/EXsK8vXOhbuqdI7dZg4K8Ozr2CCxODvOYGzAdV0277Eys4K+rbN3GKOYhQDuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793123911;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Kluc6hFtXJb4Em0lOMEIwEdYqD1TeutOmfFOrNFeE7o=;
-	b=1SlX8ISt8Mql5nWt7n9DCC+TgXUJy8ytLdwvTuiY/uY0EYdS4OiS7OwiuA5Frow7YLrI
-	 6sRrdzOmUYxP9kEbCdNflR7HA9A09eqbs8XAxc0d/cz7oHsPO3PQ7/7FFnt0u4D852f9l
-	 neKd+IvZtOSg6LgSptd8xNFftmiXVtS7lefVYY4HA/Rm38gXnI94Uk4GRTx8WXalx7fIb
-	 qqrRkBAOwim6hsPYEpDLP9XX4xIl5O2y0oWe2ZtpbOuPgeVtB10rnJnXXtsoONHJz4gDE
-	 qKNRMCKc43ZmuuGSwgmkBE5kTaoIKl58DSQHk1RCfr+xxfSYNT3NBgQwiC7U1xqxqfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793123933;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=M8FcrobU4PWYnzF3J8Ti9CwzWUXYvw2NVyV3AaFVHkM=;
+	b=1p8LzLqrOk7JjoFNlDdHMKmWec+wkT9fvgNtWB+jQVXq/MdRbWzizMh6X5sA6M5p2v0k
+	 6gRAmTyswSdrj5M+LaNCPj9/cjEfsbgN/tulwe8NFEi3sBBUYKB2dMcc+QQucSPYzwGlP
+	 RemdqyKvuKERwkGaY8TIJu9a+4j7SKzAb83iVpuJpCPF6Ql0qt1kWAsNMjzQZQ5bzNySJ
+	 AHpaIU/yIdc4gwBS0bA46BUELM///kS8kiY0J8EuNRq2mzm2s9D+fXTJfs2VNvDK4gBHI
+	 uNY57thMFiO3MFG/TJZ/9pOTZB7JrdoG0mtVtgaVCbomGhKCVAXKw0mTtKpTKaCHuEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n781NjVq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LKpee6sr;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF06606A31D;
-	Tue, 27 Oct 2026 17:58:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A40606A31A;
+	Tue, 27 Oct 2026 17:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27A40606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n781NjVq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BEC1F01825;
-	Tue, 27 Oct 2026 17:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793123911;
-	bh=Kluc6hFtXJb4Em0lOMEIwEdYqD1TeutOmfFOrNFeE7o=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=n781NjVqQ7a8HXlnJvIXpV1KW0jFM9Be0hvr/LVy1uguNYye+k2OJ5kmLcoc+wiFN
-	 JfmvUYUzUWBYJ5yuJ/fwopsv2m0H9HoG/3YSHWDEBB3vsgqZ5u8v+ZNjElRpP6Bp/h
-	 O5ukEYSAKsgNcqJ1N2Z3/ngxey+FqqgtdR7Zq9YH48q5L7rkAOFfB9xL27p0D15ubf
-	 nzEnlOQSkxCPKdl9ehHtjqyRDMBEgFS4fK0Cqs4uAepg90YxoxM0NYVP9TdirhDRLl
-	 V1X5pT8OEjcRskHfoUsLRp5VvIkpKAuaZi9Kjapee16WH5NHTznm4/2YJB+LqZn3Ac
-	 MOrHH8KL4YQ0Q==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 602BB1FB1F2C;
-	Tue, 27 Oct 2026 17:58:25 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LKpee6sr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793123932; x=1824659932;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=V5nk5TrDo3y7uwo5ofs90/ZobCzIgluhbPJ7QRc4l2U=;
+  b=LKpee6srHthOt7bR+1lJNtky38C865SF1ZEepItX4FZ3cbTXstVgFohY
+   yAyxoT5QaDx1qJvqX/7S/dtFQm6dnD5dwrEeAz2Dxcj78EsAyHzzLF/0F
+   yQEEVp7tY0HmSbB6PkDR3Y2DTMX0PquuIudYWnDaMeagWioUyWHCut+T+
+   jcxiYpCL9UqZWaZES14mtEJP7UvvWrmO83nQimjOILWHODCc8m04KekBP
+   k5DXZQmEEwV+On4mp4TcMZ+kLA86qs4KYtSsYG2Itkxh6xZDRg2rUBsqk
+   LIB4kgprMtAhTkkalMVW6t6uubMcNbIFiWEVYxpMn9jESRqZSDPa4v5Bw
+   Q==;
+X-CSE-ConnectionGUID: cGHdzeJ+S6KpSGAHKasYpw==
+X-CSE-MsgGUID: vmwd13+TQg2r4D8vuCIXHA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1722795"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1722795"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:58:52 -0700
+X-CSE-ConnectionGUID: +0exPYOTTm6oOm+wGzbULw==
+X-CSE-MsgGUID: kBC2SElbSbuJR2Lo2C3tlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4669236"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:58:51 -0700
+Message-ID: <31371b32-b88a-4bc3-8f82-3d7f5be02100@intel.com>
+Date: Tue, 27 Oct 2026 12:58:50 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,55 +72,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] dt-bindings: regulator: add Will Semiconductor WL2868C
- PMIC
-From: Mark Brown <broonie@kernel.org>
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261027051055.213301-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261027051055.213301-1-xiaqinghuan@mail.ustc.edu.cn>
-Date: Tue, 27 Oct 2026 17:58:24 +0000
-Message-Id: <179312390429.199157.12016700546762955000.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=937; i=broonie@kernel.org;
- h=from:subject:message-id; bh=7GnfAYrB0f1KOKXlzm+iTfZ1ZUsE2LHmey/skD6jKZ4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIePHPc8Dth7onf6y9dW/Uxw6SZY6bNnFztmUeVg6Xn8
- j+XqtDZ1lHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJuMoyMsy8/2tL0To9H56N
- r29nMQr9qzk8PVfq+0dzj40NbNbB2kAVJ1Su3o0rmW71sTe8LjAo5rLd6+mZk0vuVf//+mAp50x
- nZgA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+User-Agent: Mozilla Thunderbird
+Subject: Re: perf/uncore: CPU-hotplug box migration racing PCI box removal
+ operates on a freed intel_uncore_box (no common lock, no reference on the
+ hotplug side)
+To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>, peterz@infradead.org,
+ mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>
+References: <51d7f699.14c14.1a163eaabac.Coremail.xuhx@hust.edu.cn>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <51d7f699.14c14.1a163eaabac.Coremail.xuhx@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> Add DT binding for the Will Semiconductor WL2868C camera PMIC with
-> seven programmable LDOs.
+Hi Hanxiang,
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+Thank you for reporting another long-standing issue in uncore PCI handling.
 
-> @@ -29303,6 +29303,12 @@ F:	include/linux/regulator/
->  F:	include/uapi/regulator/
->  K:	regulator_get_optional
->  
-> +WILLSEMI WL2868C CAMERA PMIC DRIVER
+On multi-die systems sharing uncore PMU boxes across dies, removing a
+single die's PCI device unregisters that die's box and drops its PCI
+device reference while surviving events on other dies remain active,
+risking a Use-After-Free during hardware callback execution.
 
-Please keep the file sorted.
+Additionally, CPU hotplug migration walks pmu->boxes[] without locking
+against PCI device removal, leading to a Use-After-Free during context
+migration.
 
-Seems a bit premature to say we've got a driver when this is just the
-binding!
+Unlike MSR and MMIO boxes, which remain allocated until module exit, PCI
+boxes are dynamically freed upon device removal.
 
-> +M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-> +L:	linux-media@vger.kernel.org
+Patches addressing both issues will be included in the uncore bug-fix
+series that I will post to LKML shortly.
 
-A bit odd to have linux-media, I guess that's because of the systems tis
-is usually used on?
+Thanks,
+Zide
 
--- 
-Mark Brown <broonie@kernel.org>
+
+On 10/22/2026 9:01 AM, 徐晗翔 wrote:
+> When a CPU goes offline (or online) on a multi-die host, the uncore
+> hotplug callback walks every type's boxes through
+> uncore_change_type_ctx(), which reads pmu->boxes[die], writes box
+> fields, cancels the box hrtimer and calls perf_pmu_migrate_context()
+> -- all without taking a reference on the box and without any lock in
+> common with the PCI remove path, which on the "last box" transition
+> NULLs the slot and kfrees the box.  The hotplug side can therefore
+> hold and keep using a box the PCI side just freed: hrtimer_cancel()
+> on a freed timer (its base pointer read leads to a spinlock on
+> arbitrary memory), writes into freed slab, and a migration chain that
+> may also dereference an unregistered PMU's freed per-CPU contexts.
+> 7.3's recent box-refcounting refactor covered the PCI probe/remove
+> pair but left the hotplug side unreferenced, so the race is fully
+> present in current mainline; the perf-core half of the transmission
+> chain, in contrast, I verified dynamically to be properly protected,
+> which pins the defect squarely in the uncore layer.
+> 
+> The two paths share pmu->boxes[die] and the box object with nothing
+> to serialize them (arch/x86/events/intel/uncore.c): the CPU hotplug
+> callbacks take the cpu hotplug locks, the PCI remove callback takes
+> its device's lock -- neither takes the other's, and unlike the probe
+> path, PCI remove has no cpu_hotplug_disable() wrapper.  The box
+> reference count that 7.3 introduced is taken by the PCI probe
+> (atomic_inc(&box->refcnt), uncore.c:1215) and dropped by PCI remove
+> (uncore.c:1293-1296), but the hotplug side's uncore_box_ref()/
+> uncore_box_unref() iterate only the MSR and MMIO uncore arrays
+> (uncore.c:1590-1591 on offline, :1692-1693 on online) -- the PCI
+> types reach uncore_change_type_ctx() via
+> uncore_change_context(uncore_pci_uncores, ...) (uncore.c:1608/1689)
+> with no reference at all.  Triggering needs a multi-die host with
+> id-table uncore PCI drivers and concurrent CPU offline/online plus
+> PCI unbind/remove (administrator actions, or a hotplug event racing
+> an admin operation).
+> 
+> The detailed description:
+> 
+> * Test environment / affected version
+> 
+>   Linux version 7.3.0 (gcc 13.3.0, GNU ld 2.42) #1 SMP PREEMPT_DYNAMIC
+>   -- vanilla mainline 7.3 release tarball (kernel.org, unmodified),
+>   rebuilt with CONFIG_PERF_EVENTS=y, CONFIG_PERF_EVENTS_INTEL_UNCORE=y,
+>   CONFIG_HOTPLUG_CPU=y, KASAN enabled, QEMU/KVM x86_64 guest.  Line
+>   numbers below are from 7.3 (the refactor that added box refcounting
+>   and PMU_BROKEN is the current shape analyzed here).
+> 
+> * Mechanism
+> 
+>   H side -- CPU offline for this die (uncore_event_cpu_offline(),
+>   uncore.c:1584):
+> 
+>       uncore_box_unref(uncore_msr_uncores, die);    /* :1590  msr/mmio
+>       uncore_box_unref(uncore_mmio_uncores, die);   /* :1591  only!   */
+>       ...
+>       uncore_change_context(uncore_pci_uncores, cpu, target); /* :1608 */
+>         -> uncore_change_type_ctx()                  /* :1514 */
+>              box = pmu->boxes[die];                   /* :1523  no ref */
+>              ... box->cpu / cpumask writes ...        /* :1531/:1538   */
+>              uncore_pmu_cancel_hrtimer(box);          /* :1547         */
+>              perf_pmu_migrate_context(&pmu->pmu, old_cpu, new_cpu);
+>                                                       /* :1548, sleeps */
+>              box->cpu = new_cpu;                      /* :1549  use of
+>                                                          box AFTER the
+>                                                          sleepable call */
+>              cpumask_set_cpu(new_cpu, &pmu->cpu_mask);/* :1550         */
+> 
+>   P side -- PCI remove of that die's box (uncore_pci_pmu_unregister(),
+>   uncore.c:1283):
+> 
+>       pmu->boxes[die] = NULL;                         /* :1289 */
+>       if (atomic_dec_return(&pmu->activeboxes) == 0)
+>               uncore_pmu_unregister(pmu);             /* :1291-1292 (the
+>                                                          register/unreg
+>                                                          race reported
+>                                                          separately) */
+>       if (atomic_dec_return(&box->refcnt) == 0) {     /* :1293: probe's
+>                                                          ref is the only
+>                                                          one -> 0 */
+>               uncore_box_exit(box);
+>               kfree(box);                             /* :1295 */
+>       }
+> 
+>   Interleaving: H reads box at :1523, P NULLs the slot and drops the
+>   refcount to zero and kfrees; H continues on freed memory:
+>   - uncore_pmu_cancel_hrtimer() (uncore.c:356) -> hrtimer_cancel() ->
+>     lock_hrtimer_base() reads the freed timer->base and then
+>     raw_spin_locks whatever address that freed word now holds (GPF or
+>     a lockup on reuse; KASAN would report the UAF read);
+>   - perf_pmu_migrate_context() (kernel/events/core.c:14467) runs
+>     while the PMU itself may be getting unregistered by the same
+>     remove (its __perf_pmu_install_event() -> find_get_pmu_context()
+>     dereferences pmu->cpu_pmu_context -- converging with the consumer
+>     side of my previous report);
+>   - :1549-1550 write box->cpu/cpumask into freed slab.
+> 
+>   Online variant: allocate_boxes() (:1612) checking and installing
+>   pmu->boxes[die] races the same read-out/NULL/kfree on removal,
+>   yielding a double box in one slot or a dangling slot; note that the
+>   WARN_ON_ONCE against an occupied slot added by the 7.3 refactor
+>   (:1206) guards the probe path, not this one.
+> 
+> * Evidence
+> 
+>   - Source-level: the analysis above is on current 7.3, function by
+>     function; the lock inventory of uncore.c is unchanged by the
+>     refactor (no serialization exists or was added between the hotplug
+>     callbacks and the PCI callbacks), and the hotplug side demonstrably
+>     takes no box reference for PCI types (its ref/unref helpers are
+>     only invoked on the msr/mmio arrays).
+>   - Dynamic, NEGATIVE (this is the half I could run without uncore
+>     hardware): the perf-core transmission chain the migration funnels
+>     into -- perf_pmu_migrate_context() vs concurrent
+>     perf_pmu_unregister()/register() with in-flight event creation and
+>     CPU hotplug -- was stress-tested on the KASAN kernel with the
+>     attached module's migunreg/migopen actions (300 rounds each,
+>     sequential unregister/register + migrate hammer + open/close
+>     hammer + CPU offline/online loops): ZERO KASAN reports in both
+>     configurations.  The existing SRCU + IDR/list removal ordering +
+>     context locks protect the perf-core side; the unprotected part is
+>     precisely the uncore-layer box lifetime this report describes.
+>     (The third configuration with concurrent register churn reaches
+>     the register/unregister race of my previous report first, as
+>     expected.)
+>   - Real-hardware trigger (root, multi-die, e.g. SKX):
+> 
+>       # terminal A: offline/online a collecting CPU of the die
+>       while :; do
+>         echo 0 > /sys/devices/system/cpu/cpuN/online
+>         echo 1 > /sys/devices/system/cpu/cpuN/online
+>       done
+>       # terminal B: unbind/rebind the same die's uncore box
+>       while :; do
+>         echo <bdf> > /sys/bus/pci/drivers/skx_uncore/unbind
+>         echo <bdf> > /sys/bus/pci/drivers/skx_uncore/bind
+>       done
+>       # expected with KASAN: use-after-free in
+>       # uncore_change_type_ctx / uncore_pmu_cancel_hrtimer /
+>       # lock_hrtimer_base; or a double box in pmu->boxes[die]
+> 
+>   My test environment provides no Intel uncore PCI devices, so the
+>   H x P interleaving itself is source-proven, not dynamically
+>   reproduced.
+> 
+> 
+> Thanks for taking a look.
+> 
+> 
+> Regards,
+> Hanxiang Xu
+> xuhx@hust.edu.cn
+
