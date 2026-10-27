@@ -1,85 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.161.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096649;
-	b=1LS4vkRAFJ85KEgoyxkpxbX9s1JdKCXiFGN/rLgk7gkhO3h57glWEs66Ds2d5CQEnsny
-	 CQ1WI1tzyxElRlkRKIoMDSx9SoSnrR6CPzm86yIfzKeEpra3tZWQx+zo842QcMJjOTcxh
-	 LfbISDh87CdjVDI2LJ9bpxjP86UB7fgJ7IswWLxvBtSVNWlyDkgSPDuoAOl1HW/9ciIrT
-	 deFSW330cjSbJO9F8j+9JtutQi82q3w6kqA2y/Mh7Imn6pZYnQaCxS5EhTT3f/jyX1rCe
-	 vqhymV1eWvWI0vQJ6ysD6EPFkZ2qFeuLJUA4r1k7oEeilISGGBehZgG23ACYhJ/yMIg==
+	t=1793096769;
+	b=lFsgp3eN19ED75rovhBJnqQuKxbjtO5iBQX/5ssP7SDUPNVQcoJ4qk7MFSFLMRWeiKFw
+	 x8abzzTquXCHdHqDQe50s6PGn69RjD02uzELb8YbQaN1/6yp4zXO+D8ZiuEHsLW0ZOwN7
+	 XCsobvgnQipipbDOqf3hfqVAJMLR/Hmmj/a+52F9461LhU5V/Bc/8N0frA1uX9MTDUy6x
+	 qoHHYsZS4ogQJXAYUZOSGfeniAecFSRRtpb2xm+Ol+zOlBq6QcAC31ud5K++kxSE3Gx77
+	 lJNfNRmBnAGuN2lAS+tNyiKPx2Xs4ywlPJPyvBBIB5stdRLyl8UCUV+t/KK2geP+YRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096649;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=Np3BFME4m2pMG9jXgvX5SD91SmxHIYSOZUi9HWaNTjc=;
-	b=cVf+aWSfeRiVlPRBn0Wg7L834kvToDT4bO7vClMEeqwAEyng7LDRZzoXel1oqHn5Bt1B
-	 rgwh3MOSB2ksYIV57N7zCisbmIIaak6m+rdJEyKizGXrc5aqO6ALS9VKggvTpy/dREEKV
-	 j30H/FAADSvS5erVnJ3aW1qH87GKXkscS79IGeoiNclEPbKDyLSeO6tbN7PG7Ybh3dTGE
-	 2zXhObcVVmWvCfoxE+0ZoH34no2zcdsf6b7m6Piw3bFTGMC57c+SJ14962i51EBce1q41
-	 iWVL8mUWDl69jnaxxyUjxw8HfiOzjjyYY5glNuIIb+dtiNyPrstuK3Ctijc+h4Q3zfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096769;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=yCzviHRtrUZ0YXLgZijIqRDy9BndmZGNi93gIcBU+34=;
+	b=G/V4RBb9qfAS9Z0UnZp9gOG/BqmmnLsvV+Rf5cvsIEuVSoIdvebJUxAnuMSthCanh71n
+	 NlOrgXDpBZDNB9gYHbsLAvmZQTIQuNABU6U227uzVndrleB4NxR9He4c9qV5QGqhYH39o
+	 ZbGeT244cvPSLR9cTnvVn2WNO7+SYM4mspS8h/d13WMZtWIUK3CIHz0XZs4MV8csk90WN
+	 gaFEeJwVffNNztF5+CNzISCWS2QbpGqpzqEjiIXEorIReaQRiZ2XQTZStZaMr61UdRKDX
+	 qwPdlHkqNe6ELIZptMUlwFgGrycXHJ20C/z2c2lMNkP0YUnkCLV42j/vQGE5X7WvA1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MKsSkXpC;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA98606A31A;
-	Tue, 27 Oct 2026 10:24:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FA98606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MKsSkXpC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793096649; x=1824632649;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=NyttjD8YuQkTpUUN1sw7oU7a/3gMrQpBOQaht3notjQ=;
-  b=MKsSkXpCQPOxNztqsssndbGi732mnTuvydKPA5y1IbaVkfELd7woNOHj
-   DfC0kOkVkQ8grOuU46TXVBa7I4v+04dLVQsK3yi43yko9YwlRWMlRNbon
-   LU4Q906US/VP3zf9xO8tc6LIpqsZM3DZcTRAUQTNu5LwnEVaUsijT4SXd
-   pXcQuBketBHkGsXCiPXWAD97OazN44Gbr4dvd13o/i2uTnFkeJwfMCki1
-   fVLnHPKQwEWrN6+kQiAxSivyip2bYdUPwgqgcA/fCghsGBJUSbQ7yKdMt
-   6HFm/7jSJ+HZMySuDzoWV029bB8zdB2O5ovwLIvpGdoyglUa/2MiCgN0u
-   Q==;
-X-CSE-ConnectionGUID: QeW/viLNRrOvoJgOoRFBAw==
-X-CSE-MsgGUID: KzXGwR1cQXerYRH9x0xrsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1676334"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1676334"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:24:09 -0700
-X-CSE-ConnectionGUID: 1+bnK/JDQXGVR+AjvqNQTQ==
-X-CSE-MsgGUID: mfj3CRttQ9uljZqz7ogDpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4590568"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:24:02 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 27 Oct 2026 12:23:58 +0200 (EET)
-To: Mingyou Chen <qby140326@gmail.com>
-cc: Hans de Goede <hansg@kernel.org>, 
-    Ilya Gladyshev <ilya.gladyshev@linux.dev>, KentoNion <kento@kekto.ru>, 
-    platform-driver-x86@vger.kernel.org, ted eric <ericted8810@gmail.com>, 
-    Armin Wolf <W_Armin@gmx.de>, LKML <linux-kernel@vger.kernel.org>, 
-    Chris Taraszka <chris@miget.com>, 
-    Matias Civadda <matias.civadda2342001@gmail.com>, 
-    =?ISO-2022-JP?Q?=1B$B9b=1B=28J_=1B$B=3DSJ8=1B=28J?= <btx342@gmail.com>, 
-    powerfullz <wleizc7319@gmail.com>, 
-    =?GB2312?B?y+8g0/7D+g==?= <wolf109909@outlook.com>, 
-    =?ISO-8859-15?Q?Milo=A8_Vlku?= <vlku.milos.fun@gmail.com>, 
-    Rsplwe <i@rsplwe.com>, Bozhen Peng <bozhenpeng93@gmail.com>, 
-    Anton Karasev <uselessfire@gmail.com>, Jame Jao <jaojame6@gmail.com>, 
-    Serhiy Shliapuhin <shlyapugin@gmail.com>
-Subject: Re: [PATCH v14 4/6] platform/x86: redmi-wmi: Drop redmi-wmi driver
-In-Reply-To: <20261026102101.224568-5-qby140326@gmail.com>
-Message-ID: <43db32ea-e8db-fcc3-fbe1-545f8c5fa33a@linux.intel.com>
-References: <20261026102101.224568-1-qby140326@gmail.com> <20261026102101.224568-5-qby140326@gmail.com>
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=162.243.161.220
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A179D606A31A;
+	Tue, 27 Oct 2026 10:26:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A179D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMDW_nc1fOBqDTZfAA--.51539S2;
+	Tue, 27 Oct 2026 18:25:57 +0800 (CST)
+Received: from mudongliang-PC.tailb307d0.ts.net (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wDXseYwfOBq0WPDAA--.19105S2;
+	Tue, 27 Oct 2026 18:25:55 +0800 (CST)
+From: Dongliang Mu <dzm91@hust.edu.cn>
+To: Alex Shi <alexs@kernel.org>,
+	Yanteng Si <si.yanteng@linux.dev>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/9] docs/zh_CN: align translation paths and update guides
+Date: Tue, 27 Oct 2026 18:25:43 +0800
+Message-ID: <20261027102552.3801595-1-dzm91@hust.edu.cn>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,83 +54,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMDW_nc1fOBqDTZfAA--.51539S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoWxJw1fJF18Xw1DtF45KFyDKFg_yoW7Gr4kpa
+	s5KryfK3WxAF1UCw48GF47JF15Ca4xW398Kry7XwnYqr90yr4Fyry5try2q3sagryIqa4Y
+	qr4fKrWUu3y2yrJanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHjb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
+	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
+	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
+	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
+	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
+	CY02Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC2
+	0s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUvYsjDUUUU
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-On Mon, 26 Oct 2026, Mingyou Chen wrote:
+Some Chinese translations remain at older paths after their English
+sources moved. Align the affected files with the matching English RST
+paths and update their index entries. Remove two stale :Original: fields
+that point to unrelated English documents.
 
-> The redmi-wmi driver is no longer needed because its functionality
-> has been superseded by the new generic bitland platform driver.
-> All supported Redmi laptop models are now handled properly via the
-> updated WMI interfaces in bitland-mifs-wmi.
-> 
-> Remove the obsolete code, Kconfig entries, and Makefile references
-> to clean up the platform directory.
-> 
-> Signed-off-by: Mingyou Chen <qby140326@gmail.com>
-> ---
->  MAINTAINERS                      |   6 --
->  drivers/platform/x86/Kconfig     |  15 +--
->  drivers/platform/x86/Makefile    |   1 -
->  drivers/platform/x86/redmi-wmi.c | 154 -------------------------------
->  4 files changed, 8 insertions(+), 168 deletions(-)
->  delete mode 100644 drivers/platform/x86/redmi-wmi.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 250c471e674d..8ca065eb448f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23038,12 +23038,6 @@ S:	Maintained
->  T:	git https://github.com/pkshih/rtw.git
->  F:	drivers/net/wireless/realtek/rtw89/
->  
-> -REDMIBOOK WMI DRIVERS
-> -M:	Gladyshev Ilya <foxido@foxido.dev>
-> -L:	platform-driver-x86@vger.kernel.org
-> -S:	Maintained
-> -F:	drivers/platform/x86/redmi-wmi.c
-> -
->  BITLAND LAPTOP DRIVER
->  M:	Mingyou Chen <qby140326@gmail.com>
->  M:	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-> diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-> index 7ee9ff3879c9..6e561359a91b 100644
-> --- a/drivers/platform/x86/Kconfig
-> +++ b/drivers/platform/x86/Kconfig
-> @@ -79,16 +79,17 @@ config XIAOMI_WMI
->  	  be called xiaomi-wmi.
->  
->  config REDMI_WMI
-> -	tristate "Redmibook WMI key driver"
-> +	tristate "Redmibook WMI key driver (DEPRECATED)"
->  	depends on ACPI_WMI
-> +	depends on HWMON
->  	depends on INPUT
-> -	select INPUT_SPARSEKMAP
-> +	depends on LEDS_CLASS
-> +	depends on POWER_SUPPLY
-> +	select BITLAND_MIFS_WMI
-> +	default BITLAND_MIFS_WMI
->  	help
-> -	  Say Y here if you want support for WMI-based hotkey events on
-> -	  Xiaomi Redmibook devices.
-> -
-> -	  To compile this driver as a module, choose M here: the module will
-> -	  be called redmi-wmi.
-> +	  This option is deprecated and will be removed in a future release.
-> +	  Please enable CONFIG_BITLAND_MIFS_WMI directly.
+The series moves the GDB debugging, magic-number, GFS2, and XFRM
+translations. It also replaces legacy video4linux text with media
+administrator and V4L2 driver API RST pages, and refreshes selected
+guides and indexes to track newer English commits.
 
-Hi,
+Dongliang Mu (9):
+  docs/zh_CN: update admin-guide/index.rst translation
+  docs/zh_CN: update admin-guide/README.rst translation
+  docs/zh_CN: add media administrator guide translations
+  docs/zh_CN: reorganize process debugging guides
+  docs/zh_CN: update magic-number to match upstream
+  docs/zh_CN: reorganize media driver API translations
+  docs/zh_CN: move GFS2 translations into filesystems/gfs2
+  docs/zh_CN: update networking/xfrm/xfrm_proc.rst translation
+  docs/zh_CN: remove stale Original fields from SCSI and IPE
+    translations
 
-I think what you should do instead is use default REDMI_WMI if REDMI_WMI 
-on BITLAND side. Though I'm not sure if that's any different from plain 
-default REDMI_WMI.
-
-(I'm not always sure of things when it comes to Kconfig, so I don't know 
-if it matters to avoid what is effectively default n when REDMI_WMI=n 
-with the more complex clause or not, so played safe.)
-
-Since this is only a transitional config symbol, you should drop the help 
-text so it isn't user selectable anymore.
+ .../translations/zh_CN/admin-guide/README.rst |  89 +-
+ .../translations/zh_CN/admin-guide/index.rst  |  12 +-
+ .../zh_CN/admin-guide/media/index.rst         |  54 +
+ .../zh_CN/admin-guide/media/omap3isp.rst      |  95 ++
+ .../zh_CN/admin-guide/media/v4l-drivers.rst   |  44 +
+ .../translations/zh_CN/dev-tools/index.rst    |  37 +-
+ .../translations/zh_CN/driver-api/index.rst   | 232 +++--
+ .../zh_CN/driver-api/media/index.rst          |  52 +
+ .../zh_CN/driver-api/media/v4l2-core.rst      |  36 +
+ .../zh_CN/driver-api/media/v4l2-dev.rst       | 286 ++++++
+ .../zh_CN/driver-api/media/v4l2-device.rst    | 127 +++
+ .../zh_CN/driver-api/media/v4l2-event.rst     | 124 +++
+ .../zh_CN/driver-api/media/v4l2-fh.rst        | 123 +++
+ .../zh_CN/driver-api/media/v4l2-intro.rst     |  75 ++
+ .../zh_CN/driver-api/media/v4l2-subdev.rst    | 491 +++++++++
+ .../{gfs2-glocks.rst => gfs2/glocks.rst}      |   4 +-
+ .../filesystems/{gfs2.rst => gfs2/index.rst}  |  18 +-
+ .../{gfs2-uevents.rst => gfs2/uevents.rst}    |   4 +-
+ .../translations/zh_CN/filesystems/index.rst  | 112 +-
+ .../translations/zh_CN/networking/index.rst   | 238 +++--
+ .../zh_CN/networking/xfrm/index.rst           |  20 +
+ .../zh_CN/networking/{ => xfrm}/xfrm_proc.rst |   4 +-
+ .../zh_CN/process/applying-patches.rst        |   2 +
+ .../debugging}/gdb-kernel-debugging.rst       |  15 +-
+ .../zh_CN/process/debugging/index.rst         |  62 ++
+ .../translations/zh_CN/process/index.rst      | 111 +-
+ .../translations/zh_CN/scsi/wd719x.rst        |   2 -
+ .../translations/zh_CN/security/ipe.rst       |   2 -
+ .../translations/zh_CN/staging/index.rst      |   6 +-
+ .../{process => staging}/magic-number.rst     |  35 +-
+ .../zh_CN/video4linux/omap3isp.txt            | 277 -----
+ .../zh_CN/video4linux/v4l2-framework.txt      | 958 ------------------
+ 32 files changed, 2134 insertions(+), 1613 deletions(-)
+ create mode 100644 Documentation/translations/zh_CN/admin-guide/media/index.rst
+ create mode 100644 Documentation/translations/zh_CN/admin-guide/media/omap3isp.rst
+ create mode 100644 Documentation/translations/zh_CN/admin-guide/media/v4l-drivers.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/index.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/v4l2-core.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/v4l2-dev.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/v4l2-device.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/v4l2-event.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/v4l2-fh.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/v4l2-intro.rst
+ create mode 100644 Documentation/translations/zh_CN/driver-api/media/v4l2-subdev.rst
+ rename Documentation/translations/zh_CN/filesystems/{gfs2-glocks.rst => gfs2/glocks.rst} (99%)
+ rename Documentation/translations/zh_CN/filesystems/{gfs2.rst => gfs2/index.rst} (93%)
+ rename Documentation/translations/zh_CN/filesystems/{gfs2-uevents.rst => gfs2/uevents.rst} (97%)
+ create mode 100644 Documentation/translations/zh_CN/networking/xfrm/index.rst
+ rename Documentation/translations/zh_CN/networking/{ => xfrm}/xfrm_proc.rst (96%)
+ rename Documentation/translations/zh_CN/{dev-tools => process/debugging}/gdb-kernel-debugging.rst (93%)
+ create mode 100644 Documentation/translations/zh_CN/process/debugging/index.rst
+ rename Documentation/translations/zh_CN/{process => staging}/magic-number.rst (58%)
+ delete mode 100644 Documentation/translations/zh_CN/video4linux/omap3isp.txt
+ delete mode 100644 Documentation/translations/zh_CN/video4linux/v4l2-framework.txt
 
 -- 
- i.
+2.51.0
+
