@@ -1,98 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.36
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.64
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793118925;
-	b=tVglVS8U2TysYMPD1fcStNGYjEPROziSrI2Nox9WK5Xtj8PYa1tcK4J+kuKQpe3e8dvJ
-	 s5DBiWV4a/3tlRxj/+TCfWwQ09Xdab+Q/l7ngkQFdPxcs87KGn4YNO5XtYtR543eXu1nG
-	 QTq+3uuE2t/ynSTDppgQDzBxJIxdPXxQ6HFrWCdYrSma0Aszr+hT5swiOYljpx76nb5d0
-	 CniUguNvWOxaYct/AT669UrAXE8iu/gePkDCesf6DnhAaCl7vduodwbfZlGSQt9gZyzCX
-	 hzhxhtVmrPOXoDvCQQobOVWpXiVMM7paJXKUmazbiTUGIf48FoxGMYNTxwO+OsQwUpQ==
+	t=1793118936;
+	b=XmO6bBfIZVwdz9khunPrSDkVWokORfrU+xiWW1Dh3+gmXaJiREXdY4S9URuLaGl9ESiJ
+	 Uq2ISX7hrrVK/Td4yRf3dR1Ude4gLmDcax7w0iwDvFOqroqGMv3nCem8PJuyjTBE2XWqy
+	 GPULPtLsZZQMyhclpQesRJx2yuWDBnuv039o1Y+YOeH3/G81T/ZKzrpklCLrwwGw7WPPw
+	 8SrrdGH2GhCV+Lm2BViZ/IkEJZ/pEyGA+cNW//a6UohsUwcCuLmAMoD287oyjjWCP0u1J
+	 hmnye8OeuMsYwYdz+j0c4o2LcHF5eIG0q52VMBKWx6tE6ywBlIV/u8tXGL3rmwtGA3g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118925;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fsZYIfFgk4WYetdMXm1NDJEKlFtStMd756fw9XYMzCg=;
-	b=zK8lfEnAxHEHwM5EJTOzgpuF2QYSDAoOSXqlesGwb72xkn4QbHIyl4h3bFC4bJYkAfUm
-	 frA7yaODmNy0xZboesDpvxrodMh8LdRt0b7+Ms9SXv9iATMyRBR0IhcEbfnAucGoPjRoT
-	 JX6zq3eAUf3XIjNk3+FfMV4vN9Rft945bF15ZUKriD0/Qj2bntid7lwdSzoPpSVX5AZ1j
-	 rHRuG394F6OMto2C0+0nHCDvDZ2YYSWqn9FHrfC+LLVK0eIMLIeJsnHS9WimeyssCZB64
-	 NEhXaCNtQ8xxA7b+kPmhaNqsaM+73Jm/Ndp10nOPOyiL0Zpnii1Me6jPR2uN67wt0Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118936;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=8zfsEmvvEIyKGYebqHsmSSP0PgqljQxJolIvgr8S9M8=;
+	b=s2trgTGP9yZrTyGbQ6aGvV6ftXF6zFcvyGZ/ibQeLPxa8uRxGxapO0NaFLAY+VYQlikN
+	 HZyPMljDnROeJhZXhfmR7jgtUhUnwbwWm6lJ8XZk2MNqU9bAwVmXuoj+FFjUSex1QsztG
+	 uAlgrrVEHWjlg3h48xYfjGpIQZhn/MUWpuUc9IHOJy1Uy8G8gXAUXpdBRhYiuuCYJlrms
+	 NzV23M/gspBkidyOTSjrdPCpqqibqGvfGOxG6keIQWZhBOKwaesUImprLtmfQj/JgbEUH
+	 MIgj57RJtDll4xjrLw8Xb+m5wuDD7F4A++7ytcLKAp3Yj0dxTXL+NGLXv9CfKyPpD+A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Jsv7GN4e;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.36
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011036.outbound.protection.outlook.com [40.107.130.36])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=plt7RT+r;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.64
+Received: from mail-lr2-f0.google.com (mail-lr2-f0.google.com [74.125.230.64])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16656606A31D;
-	Tue, 27 Oct 2026 16:35:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16656606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41343606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:35:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41343606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Jsv7GN4e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kzgRd9EFPebsujo9szvEWVZKAGhcgZZP6iK0GMmGbF4kchGIbJk/iZ06uDOkk7eDoZzjAbqicIcjRIDYvtasxIATce6860y6+1rYgJemc/kB7FVLEwNsWnBkOZz7hr5qY7KXXCCh4pS1Thit3U8/STLr/FXTXW+Lvgu0rBCWX3/SyMfbRLpcYOgAAfnNN+yx9cE0Xys6+I6Rdso3yJYzau2JeGz8uZb6uoDhzOueELtvHy3tu2jYggPKf/W8S1pDeDLEM9r9LSuzImoKH5nqgWehSlilMG1R3P74Jz/U4qwkHGoDcTQb7z7saJJVFZ52gi5U7FLrmdxCYhOK72UFgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fsZYIfFgk4WYetdMXm1NDJEKlFtStMd756fw9XYMzCg=;
- b=zOXb+zDMGlpUmCKn5/pEPUp3NDyTqOuLnYFGjKi1BZ8ycTYdylr30PCvjhrVez631nzyl0AWz1Ku6CZh2Z8IGepSMFAEHHZOp3F7imNi8zIJqgomdIip+zO0n+20Bp/IX98B5f+RtIEIt2NsEMhJTIlXsVLdum/ue1GQI6M+hKj3W3KDllP/eChRQP0+WFeDTdsJRgNyvzFlg0F+GVQHIvf+f5eJGelD0qlHiH+5ZOuZeF4cQW+wHK3/IeWxnubGs7+qgzxfW6yktna64YGavkMj6F36gyee8BYio56GCehJH/x5WT/7+KSQ7F/O9mwPzmzK8sPQ3yMEjMJuWO/3aQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fsZYIfFgk4WYetdMXm1NDJEKlFtStMd756fw9XYMzCg=;
- b=Jsv7GN4eZwcXWIro9WsmnlfXLbEx9bL5V6pNjOGfb8saUkj3meWvYZe3pdBbIwcSyEOcuPNsXf/8xwjG2pMmaO0R4laoZfJx9lqWlEeZtkjnWcOEWikgqKffzEFtN/8aQKeRZ3pU7FrkqMbNpqmagUR3jmAKndmFJuzKnvxnL0jrPpI5pZhZNst+SQ3R4IPzPmCIZFvmXAq5aIw8fZXht32cat6f2pw33Eyr6P2zGiAJBi8gLBvt4V1PSwb5Hd+Rt3b20AEwHdmsAunV+gjU0gAxSox8q6yRZfXfq7xPN/Ud0p7SYCHMArbWEf/jTNHvmh9dPRX476e/4WVgR3N3fg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by ZR6PR04MB786831.eurprd04.prod.outlook.com (2603:10a6:910:dc::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Tue, 27 Oct
- 2026 16:35:21 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 16:35:21 +0000
-Date: Tue, 27 Oct 2026 12:35:12 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Guillaume Ranquet <granquet@baylibre.com>,
-	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: mediatek: uart: clear the active descriptor
- on termination
-Message-ID: <auDSwHFea_ctju7J@lizhi-Precision-Tower-5810>
-References: <20261022-submit-mtk-uart-dma-retire-v1-v1-1-3f9b99a9d89a@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-submit-mtk-uart-dma-retire-v1-v1-1-3f9b99a9d89a@gmail.com>
-X-ClientProxiedBy: PH0PR07CA0053.namprd07.prod.outlook.com
- (2603:10b6:510:e::28) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=plt7RT+r
+Received: by mail-lr2-f0.google.com with SMTP id 38308e7fff4ca-3ab1cf59ff4so27110491fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:35:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118933; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HUmsD48zzViXUusPWMbYRdDugPu5Wx1M6k6qPY13dJEFHPYWSrD+9h6VHwbqRiht4W
+         GTxKSBrnZIbWnGDrEEfbJHt04ASa1fGSj6ridgEeZYav/YMLbAO0GEDIUcRCTGJUzxKF
+         AuG2lfbpRBizksjpHrOkeVyOdWDuh6ulJ+vj42vEHzpJhWsahIemrvCQiAnL9iWqp0ct
+         0WS1bHLcx+lvR6ICU1r0en+jJqHI3OSfvyvoXKKtbxkh9J+XlIwhbDdZb3450txLzRdX
+         9ZOB6Fj/2ZUHzQI8Wunu6HhdIkPodZUltLPM3YCrP+LvcjP74H5nqZhyOxHqMh4/hq4N
+         5szg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=8zfsEmvvEIyKGYebqHsmSSP0PgqljQxJolIvgr8S9M8=;
+        fh=21n/M5Del64J/QLa7PFFiBJVsRrlISaCxEDGxeLZZs4=;
+        b=GL1maGElP8RQ6yRqz5I28VkrvJ5yeO73N4kl5Hee1yg+wdlncYjSHtZI3GkeFX48uX
+         xkf5LQT7h3JLe/pLoX1q9/xQq5mnWJwTcCvnAvUFaSTZSSToS3q+r8P1XMV7qVWtcwcV
+         6OTsGHWjlaAa0thcbY0LteZlkRz7H7k+8NqYXhTmzRdeaQu/dIuLvnhwRwoZhwjTX7Fi
+         Poau00lroFzJRhYIJA/8URHLBWL85o7yvCIi6fQ95xBn2ji/d6L4ukpJn42mM4Y9GD2T
+         65qbldGxPZhRkeedHW7W82ni4YI71UDso0ZyLkenxyQkq5wKjVw1+AgpX9rrjsjOnahB
+         WjUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793118933; x=1793723733; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8zfsEmvvEIyKGYebqHsmSSP0PgqljQxJolIvgr8S9M8=;
+        b=plt7RT+rReO1uv3DGoqtn5hgid4k6TW055WTECby5G3CxTpjrleAcNMeYuiNbbNwQk
+         Uy0soNopyCpLowEY3e9sIS568TX3wvGjidJcuKxNus1h5KSTT1o6ECpfP77rggUgunVD
+         xKDFP4KU05cYXbIetEKVvaCS0b619SdrgovzNm6FdBPCBt0jZWsd565ulgJEnvgaY3qO
+         dbMp6TUMhwXyXeDc3UOnYJqf2Y6TQzTp9jlDCaK5EX/1PwfHOzdk6Mc7GGmr0Lvn3957
+         78PyQCnu4aLn5rVOQSWAxr4hQa0GOXSxJo6teP0Nugk4j8OwLijDJgx3WjamAvg7p72N
+         16Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793118933; x=1793723733;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8zfsEmvvEIyKGYebqHsmSSP0PgqljQxJolIvgr8S9M8=;
+        b=opOdz3XOmKmwIIgBgwmgfanVdLSwcjuPeUKf+f6BbmaofHZ8SIHpa81ImIa3GTZy5X
+         9N4CCKH7YCydd2KmQ+hs16xt6j5Unwys9yymlzNWDuV9JMB0f6lz4qA6aEwfUeCrR9hO
+         wOfOTIUxL6XMsgfYlcMMID8P51+j2RzGhJ6YbmzyAw9A136qaleJcT9voCD22lgbT+55
+         jm2Nkm5sGRQoTvZY26Ooup93VETyn9pmnGLXplSQU5gpLdhVQ4zAKr2wOwYIvhx7lOJL
+         2AmvZry8705eMhce2eIfSVTFunxnORpaacDHCaGDXEsNbNCswwoGKNF3ZsiSA0/63L0E
+         ZBQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwa8AeVeXHsk4n5s7yo0NZLepBv1YcZPwjEGMkJsfKagAqdIvOa+HeasD6erRB28fgb+6SOJsTToCXruRI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLfNeVtDzPXZo93vZTQZTh/atwgCGOZ8STrHQ3jfFJ3LZNQdaTj
+	YffCeiZKXxphkdJgVyW3Bv/Y35XDEZVUnNkVLb82InUv8GED4rPdmyr6g/9+uplmhZVDKJKh1ib
+	KWx1yRPgHOdT7qMRmWxG8veO7N2NFdUkJt4riheOGSLlictWe3g==
+X-Gm-Gg: AYBFou2+pwcyAQnn/t5QTkt23FA+CnSIflkuryHJ/L/EiGYKimEW19Y0lr8b2/O3rE5
+	EIkdIDQy3DfnTKIT3P6/QurFK187D1ip6JW2ZKt+9MmHy1kmjEH0qk+numSb/inha0hhWFZ6zMy
+	Dj1Z9MQ1VNuly0ahYmByBijc2yUdRHcccXuVm2DS3qhAhh1aDxSWiCzXbrqxX2GPU2FcnnZ56c1
+	dVzBiaJ6zN7NcCUWFG/lP0z9Syfm09DOomi81lSSpk2ZEnBdYQZ0FEmgEUn1XGdO/EmlRY5gy4w
+	4hoRAWiyqOc45qKzsAVdiinqjBFB+C0FC+7IGexeD2uDzWrlbbSe2e/XxWdRQ7J0CDdoAPoxxot
+	NK5nvrFaVsZWQT4U4OpKu0FmvGXFKN0qf9fU=
+X-Received: by 2002:a05:651c:a324:b0:3ab:1639:9a79 with SMTP id
+ 38308e7fff4ca-3ac6fd0d6bcmr26637271fa.15.1793118933187; Tue, 27 Oct 2026
+ 09:35:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,102 +101,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|ZR6PR04MB786831:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e9421f7-8fa3-472a-4273-08df34484b10
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|7416014|376014|366016|1800799024|22082099003|18002099003|261026121527099003|56012099006|11063799006|261022105027099003|10067099003|261009223027099003|261021121427099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	bBQXM1h47NfflRBcLlicZ9aNCB9ym5FzVPvWegJ3++vmM6EoRaoFF3Z2ZlFegOYMmuFGV+l8n6GMCpCKNHF87jvh8iUqSIVar3sWXQPQCk8Ga28ZUOzyPw8pIvUzu74VYlNKzXXydyCFascAW+CRxz4ZtTIaL/4TdxiBAAE5YMOzeel3tM0o6yzrkk6wkrNmaU1TsLdvHmjFAu+3l+SOKz7zJwxTlDlzif8elYXs85n/xggCAPLVbv5Zh1nqO+T8YuUQsBR1pdg9f5NoQMa1cVdwZKrSloTtR3Fl+zvSf5HspQNVAjZVUFBD6x344iTRxE/F+yzw148KIvoP3vz+skVM9leFygvU7Y68c+clJYUKAN6aC6qtjc7GEE9ID6i79GIxGp0jo6snKMQ/6yeFzT7eLra/wU9KgqBbFtcyjXwASoAsC7az6hFaELFS4jxSkE7uEOtkafYZnDqbbyZ72s7qCCQS8StITzB3pStyE/P4JuLCeRnu3prTCRLeTLCep1d6gXkc8X/p8OznaDRsluDyy8PcrJTBbXvKwtoG0H2FiGPBZ1JnrQuxAbsE395cgDX69s/MU+wO2nyha7irH3qFJaEpPDJzZQYnWf7i1zFfuceUxIB6jT8ZnVLbSZz1ii4TdNHTi/FIQpN90J2VWZRfp+EDKlgrRIyO2GGVcC4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(261026121527099003)(56012099006)(11063799006)(261022105027099003)(10067099003)(261009223027099003)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?TIlzxGgHtqBNHSTRlMbbpO8yixKlB8sRt+LZ0nFOs4y668qLiy20y7Zz6sAR?=
- =?us-ascii?Q?4oETvOfgRkVu297oRI2frtF9ivDnGgO1yBsYjXPKB4mA1akihtvRm+KxTbFM?=
- =?us-ascii?Q?BFz7gUKaAf/GcFaWIj3UUW1Z5ADOjfQtn5l6fz8SDMSsK8gU37QrcGtYpxen?=
- =?us-ascii?Q?BzfWYcM0ywRSvWo5W2MBKYHvFC3RhvKw0iTWSaHU2JK8yV0H3ry7Lext6fbg?=
- =?us-ascii?Q?X4J5d/VtNBBSOK97/2guHze+wmwulJST/WTrYThVWRcoqiulrY3v9Tou7hlj?=
- =?us-ascii?Q?3zp13Y5zrF9rjkWsMw91bpgboNbFNx9OTxju5TUBndDZrfAPLK4LAbzez8Jg?=
- =?us-ascii?Q?NOTrXME8jZLxuWNBFUPgGczIDsJ+S4mR5UBDh41nSqWB6+jPbsldOWV3h3P+?=
- =?us-ascii?Q?acxHNzIt2ACKFMzDy82ebpxb4HDhhTot6zNNpZoKHavdoKHIB5DSXBRsg7Yr?=
- =?us-ascii?Q?QnpnKYa5WrIoaiWEPyIt+egLPHk4YlcqlNr0FWYXGtTJY0PqeS1TAfi/EJRg?=
- =?us-ascii?Q?xwdH/H//X7dIkiTKwHkro83hT4kuxduiKfPI2vZqsUnjRSdpVu369bPLH+u0?=
- =?us-ascii?Q?1p11QU6sIpj23ZR/5Z59sa8lUJJ4GUbSx1OwcBCMFi4EyaT3cu5M1kbtU1L1?=
- =?us-ascii?Q?VUSxV68tRJu6FxALwMZt5DVpQi97jqBGzLbND/0zc0hjqHSxxPqUp4N/0dVZ?=
- =?us-ascii?Q?+xGHIgQThc08R+H5n84n4Fc9xTuAZYQLiOXitiIwMzw6THyeJL/B2Nb/PLb8?=
- =?us-ascii?Q?uEKyJ75+lQouRtJONyDjBxqTsfMiW4CpP/GSNshm0CXe3tEz1G668tLo5K4R?=
- =?us-ascii?Q?wCCJIMrxk2WiTqBKSOgB4D2D5BO4wlEG+fzRpt3SUizSTI2ZWJwXF7mBbgwO?=
- =?us-ascii?Q?/bHMHxhQvwKMgVOsGKlDTORaJmMGGfO6YxRvFP/3lxIAsKZ4rDz15TMLVNnK?=
- =?us-ascii?Q?eOr/TGlp0sEUvIIVhDrD1XRKtwTtdebakGDMgRV+U46GN8t3D82uDahn1KHk?=
- =?us-ascii?Q?Eefd1EtR+tvLJCWfK3l3jMYvfvxrdYgzzhMM9rTkobEaUKFzWTkLlWprSuxB?=
- =?us-ascii?Q?e/FZguVFlkLYnCS8BSkCyG65ql3ObZDhlIYooowUEdrXt3cuSROBLUOCVu5l?=
- =?us-ascii?Q?1ZNPPUD+cYkIrKbSqvCa+OEReGk6ZKdeDMXSH38e4W4ULGdDhIwQKpm3sJu7?=
- =?us-ascii?Q?UWrrXKPjymaM/P5uDGe+Tt5Z/WN/LNAX8kFcg20kCy+XIecowxa30hq7RbsM?=
- =?us-ascii?Q?ZR4gzO36c9I0EIHYUPYD9eUNoCiEr+ryre9BskcWfzIU+5/SqsWnAoOIuPip?=
- =?us-ascii?Q?wcrwcXhFMN5ljg9AjYZgbu9R+xzLwMZx1QlkfrwsnTOESfDgAZVDNgeFCZaB?=
- =?us-ascii?Q?wKLhEF8Gjs8ILLoZDZNWWksQqwzw1+dnh2XQ/ljK/DDDFYNqDwxbjmERLYCC?=
- =?us-ascii?Q?axWqZKk0Iqvcd0VJAmupQa6TVp7MnbIwcO2Hd9JTryREnLyu0X6gQh8D8PEw?=
- =?us-ascii?Q?rKg8hqZ4lFyKNKd61CXub0jg2FVcVG2NQeJfxQZBrWH9mQ5C/NSibAKeQVML?=
- =?us-ascii?Q?yqE9W9HKFvBm+h7ESH2cC7Oxw5NsDXAR+obBWOYXwXmEkSOdFrdy0Oy/0VGY?=
- =?us-ascii?Q?5PwMX4B4Vj2wMt4d4lXnFAPk8tMFSFdgPJfbyF757qm7mVXy4V8w0Np9GUGM?=
- =?us-ascii?Q?vNC2V6DWEgnX4O+X34UzRP08hNKJiN++MNDukndzceMuekwxm2xNVRZYAIa3?=
- =?us-ascii?Q?PocDC+KogAvA/o8hLiYzM6GU/fR/HXdYCegeymIANg/eceFj7zKv?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e9421f7-8fa3-472a-4273-08df34484b10
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 16:35:21.2394
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qMC6Q5L1YLDHmpa7dOZeKZoK6iIcjSLFaRG6E4U5yCB4DvAQf/hgBy0sknrJecs7hev3VnnwM9sly5LitLuiwhiT+JKR9sCOpcYdacIoccrqHG89mlFbaQy1FyUHF1c+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR6PR04MB786831
+From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Date: Wed, 28 Oct 2026 00:35:20 +0800
+X-Gm-Features: AclHuK-V9AfE3y9zpjFZtwNjnX9zkj6jNEXo9wHFvEsgWVBRge4G6NUXSzqXSk0
+Message-ID: <CAO-4RZ2jOonxsnfq5RtzaTVARqHw_4s0X1yMZiEvG-h=ZFEWfg@mail.gmail.com>
+Subject: [BUG] xfs: undersized log triggers assertion in xfs_log_mount()
+To: cem@kernel.org
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 22, 2026 at 03:11:41PM -0600, James Hilliard wrote:
-> mtk_uart_apdma_issue_pending() keeps the active descriptor in desc_issued
-> and stores an alias in c->desc. Terminating the channel collects and frees
-> that list, but leaves c->desc pointing at the retired descriptor unless
-> the completion interrupt has already cleared it.
->
-> The next issue_pending() requires c->desc to be NULL before starting a
-> transfer. Canceling an active transfer can therefore leave the channel
-> unable to start subsequent transfers, even after synchronization.
->
-> Clear c->desc under the virtual-channel lock when collecting the terminated
-> descriptors, after the existing interrupt shutdown and synchronization.
->
-> Fixes: 2537b40b0a4f ("dmaengine: mediatek: do not issue a new desc if one is still current")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
+Hi Carlos,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Replaying the syzkaller recipe linked below triggers an assertion in
+xfs_log_mount(). The log size check reports 516 blocks, below the required
+minimum of 636 blocks.
 
->  drivers/dma/mediatek/mtk-uart-apdma.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/dma/mediatek/mtk-uart-apdma.c b/drivers/dma/mediatek/mtk-uart-apdma.c
-> index f74e9a328588..d9427d56bc50 100644
-> --- a/drivers/dma/mediatek/mtk-uart-apdma.c
-> +++ b/drivers/dma/mediatek/mtk-uart-apdma.c
-> @@ -433,6 +433,7 @@ static int mtk_uart_apdma_terminate_all(struct dma_chan *chan)
->
->  	spin_lock_irqsave(&c->vc.lock, flags);
->  	vchan_get_all_descriptors(&c->vc, &head);
-> +	c->desc = NULL;
->  	spin_unlock_irqrestore(&c->vc.lock, flags);
->
->  	vchan_dma_desc_free_list(&c->vc, &head);
->
-> ---
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> change-id: 20261022-submit-mtk-uart-dma-retire-v1-fe71753c51ff
->
-> Best regards,
-> --
-> James Hilliard <james.hilliard1@gmail.com>
->
+Is this an expected assertion with my XFS debug configuration, or should this
+malformed image be rejected without triggering a kernel BUG?
+
+I am reporting an observable assertion with a deliberately malformed XFS
+image. I am not claiming a new vulnerability or a specific root cause.
+
+Environment
+-----------
+- Kernel used for the actual reproduction: 7.3.0-kernsight-kasan #1 SMP
+  PREEMPT_DYNAMIC, x86_64, KASAN/KCOV. Source: mainline Linux v7.3, commit
+  091b06388b117fefdcb63336ac09956a4914b961 (release tarball sha256
+  87363c24f10e06321eb362765521094e94471f6bff8bce2d6b3e40f39f004953).
+- Original report: 7.1.3-kernsight-kasan #13, commit
+  113be0295f4f632d61f4e9c93322f70e2365f54d (the tree is not a git checkout).
+- Also reproduced on 7.2.11-kernsight-kasan, commit
+  8316c24ec1b77dba19ba072ca4fe251b36dc65d3.
+- XFS config (7.3.0): CONFIG_XFS_DEBUG=y, CONFIG_XFS_DEBUG_EXPENSIVE=y,
+  CONFIG_XFS_ASSERT_FATAL=y. The 7.2.11 config has CONFIG_XFS_DEBUG=y and
+  CONFIG_XFS_ASSERT_FATAL=y. The three .config files are in the repository.
+- Kernel source changes: none for XFS or the VFS in any of the three trees.
+  The KernSight changes are in the syzkaller tree, not in the kernel.
+- Out-of-tree modules: the original 7.1.3 log was captured in a guest with
+  the out-of-tree module ltp_tpci loaded (taint O/E). The 7.3.0 log used for
+  this report does not contain ltp_tpci and is clean on that point; a 7.1.3
+  re-validation without ltp_tpci has not been done.
+- Guest: QEMU 6.2.0, 4 vCPU, 6 GiB, KVM, x86_64; a fresh VM per run.
+- Syzkaller: revision 853b104bb454141a5b0fc0e4218ec78e9f34ffb1+
+  (2026-09-18); "+" denotes local KernSight integration (seed ordering/state
+  feedback in pkg/kernsight, prog/kernsight_*, syz-manager/kernsight_*,
+  pkg/execbackend, vm/qemu snapshot support). It does not change the XFS
+  syscall descriptions or the executor's fault-injection semantics.
+- Kernel command line: root=/dev/sda console=ttyS0 fstab=no rw
+  earlyprintk=serial net.ifnames=0 oops=panic panic_on_warn=1
+  panic=86400 hung_task_panic=1 softlockup_panic=1 nmi_watchdog=panic
+  sysctl.kernel.hung_task_all_cpu_backtrace=1
+  sysctl.kernel.panic_on_rcu_stall=1
+  sysctl.kernel.max_rcu_stall_to_panic=1 rcupdate.rcu_expedited=1
+  rcupdate.rcu_cpu_stall_cputime=1 no_hash_pointers page_owner=on
+  sysctl.vm.nr_hugepages=4 sysctl.vm.nr_overcommit_hugepages=4
+  secretmem.enable=1 msr.allow_writes=off coredump_filter=0xffff
+  vsyscall=native kvm-intel.nested=1 spec_store_bypass_disable=prctl
+  nopcid vivid.n_devs=64
+vivid.multiplanar=1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2
+  netrom.nr_ndevs=32 rose.rose_ndevs=32 smp.csd_lock_timeout=100000
+  watchdog_thresh=55 workqueue.watchdog_thresh=140
+  sysctl.net.core.netdev_unregister_timeout_secs=140 dummy_hcd.num=16
+  max_loop=32 nbd.nbds_max=32 comedi.comedi_num_legacy_minors=4
+  kunit.autorun=0 vcan.echo=1
+- Reproduction counts (methods kept separate): full 37-program recipe on
+  7.3.0: 1/1; standalone mount-32.prog on 7.3.0: 1/1; 7.2.11 state-primed:
+  1/1; 7.1.3: original report. A repeated cold-boot run (e.g. 5/5) and a
+  non-debug / CONFIG_XFS_ASSERT_FATAL=n kernel were not tested.
+
+Reproduction
+------------
+The independent trigger is `xfs-mounts/mount-32.prog`, a single
+`syz_mount_image$xfs` program extracted from the full recipe. Run it alone in
+a fresh 7.3.0 VM with the same execprog arguments:
+
+  scp syz-execprog syz-executor mount-32.prog root@guest:/tmp/
+  ssh root@guest
+  cd /tmp && chmod +x syz-execprog syz-executor
+  ./syz-execprog -procs=1 -repeat=1 -disable=swap -executor
+./syz-executor ./mount-32.prog
+
+Its serial log shows the same failure (516 < 636 blocks,
+`fs/xfs/xfs_log.c:597`, kernel BUG, panic); it is archived as
+`xfs-mounts/results/mount-32/serial.log`. The full 37-program recipe
+(`repro/repro.kernsight.prog`) also triggers it. The other 9 extracted mount
+blocks did not show the crash in their captured serial logs. The programs,
+commands and per-run logs are in `xfs-mounts/` (`xfs-mounts/RESULTS.md`).
+Note that syz-execprog's `executed programs: 0` / `EXIT:0` lines are not
+proof of execution; the serial logs are the evidence. No preceding recipe
+replay was needed in this standalone run. Further minimisation of
+`mount-32.prog` has not been attempted. `repro/repro.prog` is only the
+tty/KDSKBSENT testcase and is not the XFS trigger.
+
+Observed on 7.3.0
+-----------------
+During the full-recipe run, at 155.287 s:
+
+  [ 155.287055][T11019] XFS (loop0): Log size 516 blocks too small,
+minimum size is 636 blocks
+  [ 155.287075][T11019] XFS: Assertion failed: 0, file:
+fs/xfs/xfs_log.c, line: 597
+  [ 155.287882][T11019] kernel BUG at fs/xfs/xfs_message.c:102!
+  [ 155.295065][T11019] RIP: 0010:assfail+0xa2/0xb0
+  [ 155.304491][T11019]  xfs_log_mount+0x4e3/0x590
+  [ 155.320739][T11019] RIP: 0010:assfail+0xa2/0xb0
+  [ 155.320891][T11019] Kernel panic - not syncing: Fatal exception
+
+In the standalone mount-32 run, at 259.143/259.154 s:
+
+  [ 259.143249][T10455] XFS (loop0): Mounting V5 Filesystem
+a2f82aab-77f8-4286-afd4-a8f747a74bab
+  [ 259.154708][T10455] XFS (loop0): Log size 516 blocks too small,
+minimum size is 636 blocks
+  [ 259.154745][T10455] XFS: Assertion failed: 0, file:
+fs/xfs/xfs_log.c, line: 597
+  [ 259.155220][T10455] kernel BUG at fs/xfs/xfs_message.c:102!
+  [ 259.193047][T10455] Kernel panic - not syncing: Fatal exception
+
+The original 7.1.3 report shows the same log-size diagnostic and
+assertion at fs/xfs/xfs_log.c:593:
+
+  XFS (loop1): Log size 516 blocks too small, minimum size is 636 blocks
+  XFS: Assertion failed: 0, file: fs/xfs/xfs_log.c, line: 593
+  kernel BUG at fs/xfs/xfs_message.c:102!
+  RIP: 0010:assfail fs/xfs/xfs_message.c:102 [inline]
+  xfs_log_mount+0x4e3/0x590 fs/xfs/xfs_log.c:593
+
+On 7.2.11 the state-primed replay reproduces the same crash
+(2026-10-20T09:15:38Z, C=false); the report excerpt is in the repository.
+
+Questions
+---------
+- Is this assertion expected when mounting an image whose log is smaller
+  than the minimum, or should xfs_log_mount() reject the image without
+  triggering a kernel BUG?
+- Is the XFS (loop0) "Log size ... too small" path intended to be fatal
+  under CONFIG_XFS_DEBUG + CONFIG_XFS_ASSERT_FATAL, or is it a case that
+  should be handled gracefully regardless of the debug configuration?
+
+Materials
+---------
+The full programs, embedded image, .config files and boot-to-crash serial
+logs are available at:
+
+  https://github.com/Zheng-zheng-codes/xfs-undersized-log-assert-repro
+
+Contents:
+  repro/repro.prog                tty/KDSKBSENT testcase (NOT the XFS trigger)
+  repro/repro.kernsight.prog      full 37-program recipe; contains the
+XFS image/mounts
+  7.1.3/report0, 7.1.3/log0       original 7.1.3 report and full log
+  7.1.3/machineInfo0, 7.1.3/description, 7.1.3/pre_state0
+  7.2.11/RESULT.md, 7.2.11/repro.*   7.2.11 state-primed reproduction
+  7.3/serial-7.3.log              full 7.3.0 boot-to-crash serial log
+  7.3/console-7.3.log, 7.3/cmdline-7.3.txt,
+  7.3/boot-info-7.3.txt, 7.3/RESULT-7.3.txt
+  xfs-mounts/                     10 extracted mount blocks + standalone results
+  kernel/kernel-7.1.3.config, kernel/kernel-7.2.11.config,
+  kernel/kernel-7.3.config, kernel/SOURCES.md
+
+Best regards,
+Zheng Zheng
