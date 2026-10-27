@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793084466;
-	b=e1bX4H+8YmV/eR6ohvuOr8bxtfkyO+UMskR3xaDKbyrid+D6TxR6Z3kZCHEshalR67lj
-	 t+/YmJO/dIfddL7jsk7HLKGoWi94hi/Q0D5q09CZ59Pi7JnXT7GDAUnBTKp0wyq+wOC0t
-	 YZ2h6XQD0O9jmRS68eOEuhqnI4lFQh3D6Czdml7Kxmh89Xw0liQt0o/l5PWwFSyLgxxX6
-	 sOtHay2FKZqI5Yn9mVi/rQHWN75PtjJOUs/oLIAydXvGRWDAdmGfof0S3HlUnrXoB5/xN
-	 Vl8JM4nT1eG1WFRJ6uyxeNoRwDwwp1PEhcokGQhIqbL2Nzx0VjpMOjc0DmbZSawGI+A==
+	t=1793084465;
+	b=TK/CGR5cdGfniOF/Yne8tJkGuNSB+rNcucgB8Xg+L3x7P38aXEqpDmFUGkC94tcoNw8H
+	 mjAf2c/tODTNst5jL5N+latD4dqsyfr1Tcc1BlwBtVRTEApyaaIuI/Sf1pQEF3Jt9DAeA
+	 +/uBAlZAmezsTyKoYnVABpgH8oXaRpE5fLA3NgUhQIbStC+Gqu639QcHqd+mR5JgGHLBl
+	 mWC1K/KqOZvBe3+0xvhYSNv9TiHq5bo9xXOrQPfH5mpVWW81K0HU5ekPZqqvkvj5sRmuO
+	 63WLxbItm61cqUFmLil73PPrqH/3TW0AU7kZgD1SZVuMjwm8+QtRRKb7u5hiRYi4OSw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084465;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=C0iJcqqk6oOrRTvCA/BwoONwNFwLIPbYAm75cysG2Zg=;
-	b=XgLv9C28N7FkswGE1CifJTBnJ86EG+ySh34dCIgvXQeWGpbmJ94swNnP2nAmQK/bedms
-	 o3lD2ShOC/pzPtx8rea4ZY42LlI8R6GSFa0ZJGb83MafyvcDKQu03iDgi5YKsk7CIo32N
-	 rhjNHv+DS4fdsbjxowh8twlKpJ129Ne/6CW+gafblhdEHxiyd3mJVpVVRTBYtaUJMumXv
-	 +WJBeXzY/hfE3dcwgsXxY64wfeWD1zNp4zUuwY74KuQELFy4GinoJTOMxbSzGOHz1HF+t
-	 PsKZ/vvdN9XvRZ3ggpIHoC3iIuhG3fLR/a5iLtA8B6jhS8dNdXslurXg8JKy5yxX6zA==
+	bh=ACpglGQt7Aj2gzw/u4Za+Ar6SJo3lxfvogJ/Od0/Xgc=;
+	b=HW97aqPyjLDXoDGbseHIEZzKuMdy65WXSEmVLeYPefw1ScNxT4Vu4mJTWq5tIsPt4mDe
+	 4OlTIpqb9Lb2da8SXlYY1kRXHY/Pm1C1OMTsfOZL8MoCw1k6qO7Z5YVI/PHa5ESE6kV3E
+	 f47SdBSNplrlVNWnJ9qzPTSsbzjRde2WHRs7JPFi9QAiaQbJ1+T0PgLbN+nPcZlpjUnHB
+	 maqOnOKmiP9IAz8W7Xk9sRNEgaTdWvQpPGMjyxtNsCmj1H3t/5xDX1y5Epy+p8xd7CGQX
+	 0f6swZVcsYz7BRK2lWlqj4L54YrUVk/JHrFuWg5CRxp17XWsncE6lwA6PQoOpClpAhg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cf5Ope4K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UscR/jb3";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F25606A327;
-	Tue, 27 Oct 2026 07:01:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B4C606A325;
+	Tue, 27 Oct 2026 07:01:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cf5Ope4K
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UscR/jb3
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793084465;
-	b=NI7a5IFwYZTpQH0B4ih6zOYJRqjZheq5KpDcanEgJWnAEk+A1Ys+zsjZoPcvk0J7cN2x
-	 9lGhRYbhcRBVLJjv8/ck0AXDcYkekWbDHzFySmJq2+tI5FmCKe3XkXNHUv+eHyThAsVLB
-	 b7ygHT+uIBykdXlcevBCwPEKTqvOr0Oemxacc7tAviLuDzvh4eHo8ccaXKeZA88+Ew/i5
-	 s0z6CDv6qiEZ8qMg/YqJJTCAWefNfwMwg4CeasKM6tEDVG/thObqFuPgBseIWSSwK9YmS
-	 nzxy4hFEImpfw6G3k2T2nb9af0sTRTr304F+J4df1hx5I6MxfTvuAWIUN6fInD7ziWw==
+	t=1793084464;
+	b=mQAjTzmpZ5bn8kiK8PtLHaSvW/TM7gUu/MjBA2Wyd4hLeosrIdB8UVv0BlEz/u+d5mM5
+	 2SkxNGVGixHACVqVc/HszukVmtNIJf0PTkHZxGTLPZN/n+r1nr+P4UAlJ+M6eD0QvrwaP
+	 kEMcWXwFHA8E46DnTF+XWTmhyAgNQVJQGLChjMITg5QPobUTvi8hQEgAtSEKUcv3HIINO
+	 MmLG0fgEZklKaMeg3GOjr1VKHzcICeUFKT2Ag1g9YCbo3FlYnioe/5TRdsKhZJWsLMV39
+	 7KAaBJBTn1yqoAI7ByxM1l7fDnjIsV9Zw93NpL6BUnmkvjNw2LaCY3d4WeMwLeXL0/g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793084465;
+	c=relaxed/relaxed; t=1793084464;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=C0iJcqqk6oOrRTvCA/BwoONwNFwLIPbYAm75cysG2Zg=;
-	b=QA+cC1yIqUxqGAt2dH6tCv6Jay1EfrTSTYybsczq5P271+AM4b3KYvDjRZ6R9TW1yZmJ
-	 kqCZHBhiFnyIviFn37YbVxk0Bbz7lFsVONRujKSgcKhXk1VKcAMEcSy84AQAg5DHPB0Ja
-	 taXdoWN+dZHkYstOzUZrCvr+rMklj0VQ0/xzhZuvbOVF10Tt4Bs/iiv6mSQbX+ZdgnFod
-	 U2vebIjjzb1NGYcInqo8gG6zuM4pOwwb8WrsTl47mvtrS4ZOyx8yu155nEt1F57AbCmVr
-	 sH2oXwb27o2Kyxx7Tv2DnbPUp6ONCxq+abHmrBGYXM/qGZ1VKyoSiS5s2A2SFBGb62Q==
+	bh=ACpglGQt7Aj2gzw/u4Za+Ar6SJo3lxfvogJ/Od0/Xgc=;
+	b=g/J/pbTf96qOVU58oTp/evmY7K+enXH0eHaUYAg68ZsLjaGALwU13Y8t8Xdjn/nJUdz/
+	 tBGQEA4SrsugojFRaL+9Q7BOjO+F0G4blDmKnGlTSP2T3DguOkOWlKebmJ8qEDLIRUIgz
+	 V8TZjSsS+EFLd3AqZ7pmhw3CCyyJfUh/3Zh0RoTMTXgH2JWph4DjliKyzB7VIEebPzXwx
+	 SwgjWFGdl3fAF4pRiezS6kJtBNiyoWxjtJkTAQq278B7xTQM1ZSEjDWsW9zTIRxW5JZsV
+	 wGdMXt5jRQhbXuM661yqbLvyiBR5qjtm/8Ee8jtrJfbcQbR0UtVe+e5+oXDxbRTCVTw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B2BF51F031E1;
+	by smtp.kernel.org (Postfix) with ESMTPS id B2B181F031E0;
 	Tue, 27 Oct 2026 07:01:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793084465;
-	bh=C0iJcqqk6oOrRTvCA/BwoONwNFwLIPbYAm75cysG2Zg=;
+	s=k20260515; t=1793084464;
+	bh=ACpglGQt7Aj2gzw/u4Za+Ar6SJo3lxfvogJ/Od0/Xgc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cf5Ope4Kjpc245XTpOzQ90EAuJAyEZ6m2f+oL5Fkz+3Glg0IlWcRCeOx00qTg2Ugt
-	 e1JNRDsIFcxbaos0YRhrCgSucUQE0o8xWRwutQQb1z7EVLozhPY2D0jNIVZjKZXoVv
-	 vW4++Y+p8tQrMNiSHi/hXAK0p+JQe11hcQ3vR+BL8jrZzVeDSH15i3p52toAyW/ya8
-	 Yu0ZskVBTpo2cArfeQTsqdSzdnrwhqRz2FJfC0D+kuCeVCX7EIiNmjaEVVbG1BXYi0
-	 An5VemlxzAftXchu6X5Iti/VHaVTgcOglwt3iu5bqzz4aE6VYLekgZHbIXbeXzc+9X
-	 FhqwI2qziM02Q==
+	b=UscR/jb3F9JwU70bf1IA4JgTYIcK+wgkPiEoQIPUmcN7TMStO/o6UYK9rmWPD7jPU
+	 BYwM5CEr0hBqdD8OCj93lLrK8Uayd4eKoB6Uz9Nb9+Z4lPMj9VrxBjf40JtjXt8Hqo
+	 RdSCk8Vu5PK76jc8EEzJgfsIpObL8zRH4/zE23tUaFt/lbW5Xp37faY92xFAoIn6Te
+	 w/VeV9fuD0YXxrsbXEw+lU5Asdqrf67j+FeS5wfHGX6O2GkFwKRn79gvFTPQrgFAzZ
+	 tLD/seyRXAiorTKl9bj9fA4Ihvvnoh5hMw1Mob8yuuApADtBOyqZbCcqnhP/1zuYph
+	 V8ldf1yCtds4g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 26AA744FF8;
+	by lkml.kernel.org (Postfix) with ESMTP id 1D73444FE9;
 	Tue, 27 Oct 2026 07:01:03 +0000 (UTC)
 From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
-Date: Tue, 27 Oct 2026 08:00:46 +0100
-Subject: [PATCH v3 2/5] ceph: do not ask for LAZYIO for a lazy reader that
- holds CACHE
+Date: Tue, 27 Oct 2026 08:00:45 +0100
+Subject: [PATCH v3 1/5] ceph: invalidate a revoked cache even while its cap
+ is stale
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-b4-wip-ceph-lazyio-fix-v3-2-df2926c30867@clyso.com>
+Message-Id: <20261027-b4-wip-ceph-lazyio-fix-v3-1-df2926c30867@clyso.com>
 References: <20261027-b4-wip-ceph-lazyio-fix-v3-0-df2926c30867@clyso.com>
 In-Reply-To: <20261027-b4-wip-ceph-lazyio-fix-v3-0-df2926c30867@clyso.com>
 To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
@@ -92,11 +92,11 @@ To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
 Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Xiubo Li <xiubo.li@clyso.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793084460; l=3495;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793084460; l=3450;
  i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
- bh=9pCeVzQYSDJ5vZuuue3pphdfQCNRxqQXpuIHp+vghK8=;
- b=GmDw3voH5lOrEjEHCCJz0bTrZG4uXDy1ktpgizr71WCyiFtlv/GG0ZyvRMCFKPmv9TyLUCDMr
- KFJ1R4FFbekB3Q4aiXuFKxF3ujtahCcnCG6jVON0KHKGcdWkiCDGKia
+ bh=8QRSQn0Y4TVaLVXe6qoY9/nZ1m8oLxj3xBc5YKZ5mow=;
+ b=1ebnCVt5VLm4FD0zBjLY3YJbOHFhjIIwxsa/+1yyWeWhPt7gC/QztQbyYe8yQuir6UkRA5Nn0
+ kDqjS7MqpECCoPwqBbPatajjW40ONkI2CpF+DnXjTpvMhMreuL3RBlJ
 X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
  pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
 X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
@@ -107,95 +107,83 @@ Content-Transfer-Encoding: 7bit
 
 From: Xiubo Li <xiubo.li@clyso.com>
 
-A lazy I/O open adds LAZYIO to the caps it wants.  When the inode
-already has caps from a lookup or a stat, the open is satisfied locally,
-but LAZYIO was never issued (nobody wanted it), so the client sends a
-cap update to the MDS and gets a grant back: one extra round trip and
-two MDS messages for every open.  io500 mdtest-hard-read, for one,
-opens each file once from a client other than the writer's.
+ceph_check_caps() decides whether to invalidate the page cache from the
+caps being revoked as __ceph_caps_issued() reports them, and that skips
+a cap whose session's TTL has run out.  When it runs in that window for
+a file whose CACHE or LAZYIO is being revoked, it does not invalidate
+the cache, the per-cap check then finds the cache still in use and
+waits, and nothing calls it again without CHECK_CAPS_NOINVAL: the MDS
+waits for the revocation for good, and every other client's request
+that needs the lock with it.  A lazyio writer on a slow client (arm64
+64K pages under QEMU, whose sessions keep going stale and getting
+renewed) hung that way after shared-file writes.
 
-A reader whose cache is backed by CACHE gains nothing from LAZYIO.  Want
-it only for writing, once CACHE is gone (e.g. the file went mixed: the
-cap ack then asks for LAZYIO), or while it is still issued.  A lazy
-reader of a file that goes mixed now drops its cache once before
-LAZYIO arrives, instead of keeping it.
+Ask every cap whether it is revoking CACHE or LAZYIO before deciding,
+and when a session's caps are renewed, check the caps of every inode
+with a revocation pending, so a decision put off while the cap was
+stale is made again.
 
 Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
 ---
- fs/ceph/caps.c  | 24 +++++++++++++++++++++++-
- fs/ceph/file.c  |  4 ++++
- fs/ceph/super.h |  1 +
- 3 files changed, 28 insertions(+), 1 deletion(-)
+ fs/ceph/caps.c       | 12 ++++++++++--
+ fs/ceph/mds_client.c | 10 ++++++++++
+ 2 files changed, 20 insertions(+), 2 deletions(-)
 
 diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index ae7b62b07462..c063d3cf7d21 100644
+index b27bcdc24d29..ae7b62b07462 100644
 --- a/fs/ceph/caps.c
 +++ b/fs/ceph/caps.c
-@@ -1125,6 +1125,27 @@ static inline int ceph_adjust_caps_used_for_lazyio(struct ceph_inode_info *ci,
+@@ -2260,12 +2260,20 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
+ 	 * have cached pages, but don't want them, then try to invalidate.
+ 	 * If we fail, it's because pages are locked.... try again later.
+ 	 */
++	/*
++	 * "revoking" above only covers the caps that are valid right now:
++	 * a cap whose session's TTL ran out is left out of it, though the
++	 * MDS still waits for it to give up CACHE/LAZYIO.  Ask every cap
++	 * here, or the cache of such a cap is never invalidated, the
++	 * per-cap check below finds the cache still in use and the
++	 * revocation is never acked.
++	 */
+ 	if ((!(flags & CHECK_CAPS_NOINVAL) || mdsc->stopping) &&
+ 	    S_ISREG(inode->i_mode) &&
+ 	    !(ci->i_wb_ref || ci->i_wrbuffer_ref) &&   /* no dirty pages... */
+ 	    inode->i_data.nrpages &&		/* have cached pages */
+-	    (revoking & (CEPH_CAP_FILE_CACHE|
+-			 CEPH_CAP_FILE_LAZYIO)) && /*  or revoking cache */
++	    __ceph_caps_revoking_other(ci, NULL, CEPH_CAP_FILE_CACHE |
++					     CEPH_CAP_FILE_LAZYIO) &&
+ 	    !tried_invalidate) {
+ 		doutc(cl, "trying to invalidate on %p %llx.%llx\n",
+ 		      inode, ceph_vinop(inode));
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index d4ef8a355a48..dc8ecd771620 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -2138,13 +2138,23 @@ static int wake_up_session_cb(struct inode *inode, int mds, void *arg)
+ 		spin_unlock(&ci->i_ceph_lock);
+ 	} else if (ev == RENEWCAPS) {
+ 		struct ceph_cap *cap;
++		bool revoking = false;
  
- #define FMODE_WAIT_BIAS 1000
- 
-+/*
-+ * Does a lazy I/O open want LAZYIO?  A writer does, to keep buffering
-+ * when the file goes mixed.  A reader whose cache is backed by CACHE
-+ * gains nothing from it, and asking for it would cost a cap message to
-+ * the MDS and a grant back for every open of a file that was looked up
-+ * or stat'ed before: want it only once CACHE is gone, or keep it while
-+ * it is still issued.
-+ *
-+ * Caller must hold i_ceph_lock.
-+ */
-+bool __ceph_lazy_wants_lazyio(struct ceph_inode_info *ci, bool write)
-+{
-+	int issued;
-+
-+	if (write)
-+		return true;
-+	issued = __ceph_caps_issued(ci, NULL);
-+	return !(issued & CEPH_CAP_FILE_CACHE) ||
-+	       (issued & CEPH_CAP_FILE_LAZYIO);
-+}
-+
- /*
-  * wanted, by virtue of open file modes
-  */
-@@ -1179,7 +1200,8 @@ int __ceph_caps_file_wanted(struct ceph_inode_info *ci)
- 
- 		/* check lazyio only when read/write is wanted */
- 		if ((bits & (CEPH_FILE_MODE_RDWR << 1)) &&
--		    ci->i_nr_by_mode[LAZY_SHIFT] > 0)
-+		    ci->i_nr_by_mode[LAZY_SHIFT] > 0 &&
-+		    __ceph_lazy_wants_lazyio(ci, bits & (1 << WR_SHIFT)))
- 			bits |= 1 << LAZY_SHIFT;
- 
- 		return bits ? ceph_caps_for_mode(bits >> 1) : 0;
-diff --git a/fs/ceph/file.c b/fs/ceph/file.c
-index 856710c63765..fbdccbae0d17 100644
---- a/fs/ceph/file.c
-+++ b/fs/ceph/file.c
-@@ -462,6 +462,10 @@ int ceph_open(struct inode *inode, struct file *file)
- 		int mds_wanted = __ceph_caps_mds_wanted(ci, true);
- 		int issued = __ceph_caps_issued(ci, NULL);
- 
-+		if ((fmode & CEPH_FILE_MODE_LAZY) &&
-+		    !__ceph_lazy_wants_lazyio(ci, fmode & CEPH_FILE_MODE_WR))
-+			wanted &= ~CEPH_CAP_FILE_LAZYIO;
-+
- 		boutc(cl, "open %p fmode %d want %s issued %s using existing\n",
- 		      inode, fmode, ceph_cap_string(wanted),
- 		      ceph_cap_string(issued));
-diff --git a/fs/ceph/super.h b/fs/ceph/super.h
-index 458fd63dd79f..cdb238d48f72 100644
---- a/fs/ceph/super.h
-+++ b/fs/ceph/super.h
-@@ -952,6 +952,7 @@ static inline bool __ceph_all_opens_lazy(struct ceph_inode_info *ci)
- }
- 
- extern int __ceph_caps_file_wanted(struct ceph_inode_info *ci);
-+extern bool __ceph_lazy_wants_lazyio(struct ceph_inode_info *ci, bool write);
- extern int __ceph_caps_wanted(struct ceph_inode_info *ci);
- 
- /* what the mds thinks we want */
+ 		spin_lock(&ci->i_ceph_lock);
+ 		cap = __get_cap_for_mds(ci, mds);
+ 		/* mds did not re-issue stale cap */
+ 		if (cap && cap->cap_gen < atomic_read(&cap->session->s_cap_gen))
+ 			cap->issued = cap->implemented = CEPH_CAP_PIN;
++		/*
++		 * A revocation that ceph_check_caps() put off while the cap
++		 * was stale (its cache was not invalidated then) is not
++		 * looked at again by anything else: check the caps now.
++		 */
++		if (cap && (cap->implemented & ~cap->issued))
++			revoking = true;
+ 		spin_unlock(&ci->i_ceph_lock);
++		if (revoking)
++			ceph_queue_check_caps(inode);
+ 	} else if (ev == FORCE_RO) {
+ 	}
+ 	wake_up_all(&ci->i_cap_wq);
 
 -- 
 2.53.0
