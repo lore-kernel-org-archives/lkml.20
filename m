@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086649;
-	b=m+dggUvxOL4sVMu1yOwHEQyCAc7gZWE0xK/pULmakhCt79iAK30qlrBp47XSxYvaNwXD
-	 TvCXFe1KZci/Gbil8uXgdSsY3wV3RBfzrZIXTNvLSSumqKTWEKWneXaGnhva4P5/JYfyR
-	 RDuEIjNMYhPftIrTs6k4oM8w2V3g2cgw9v9F4qhjFLEzyWQjmfrfS1ogjSHTA1ZskbIW2
-	 3By7CwgVS+yv2HT/9jROQ9f3kRLkwAwIsdbRxi1qtFz1Yk/7JaDztZRg3sDMhRDI07JzY
-	 7KXiqaBiJgIpz06TRUcTrc5F86nq/UoRaesYTUqvan5Iei9JLYfspw5+YW3jmoAUkFw==
+	t=1793086651;
+	b=rs3LeSbBFrBM85HiQwiJ2BJYKZLukbwNxPaSC+UsP8huVbAaZUhAq1eCOntcPslQ6pEC
+	 G7L2BltQjm67OWS2OJVsYiur80aPyDCi2hLJDwvExjtTAuGiKlmAE1b8OHI0Usjc7ESfV
+	 fA98wXNyHznev6bIFxQPDOhRDtTviUx9AOQpI+afJjrWfXEWacRjzAMeOvbaEWdsU7865
+	 sWNArTsXynt4+srm/VBjPU+LN2YcSBqGAc8ds/LKDSEILwrvnM8neenjJpeV+tPAUex4W
+	 kTKr9TcC+z7KYPiwCctz9laZxpJPulvtK0UnQlcIr4XSCcxlHnMnM/FVNjYeM93kYDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086649;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=XazMYHQ4YDq84ivlXp0m0RYPuCcD0RTYnpWVm+WmuqI=;
-	b=tpTMDBvREV1FHKb6aPV8iYhlaR/jPlpmum9+dn1++YHC80Pjf0QFXDxXrKidc1O8J5uE
-	 kQ68QtNx4liCw7jwIojpIuiQWF/W6m5ukjy4uI6PIlgt+AhK0jcxLh1JzgK6l3BXn/XVD
-	 Z2TCPuq2guZicvr4rbebtLnxeDllyM/4xKEQBKGRAcx9oXtlQHYcdh/ceyVvPeUf9m+Gr
-	 KrOAwjGle8g35gjiHQYrMCpV03vSNVgztakBZPLo8dak68z+kexZMEnSMeY9a4IPQcbKs
-	 OWq2lj0j8iNQh72RNH/W/9gF124xq/GPQTzh8pSCl37Qq7PJw4jaLweYAdS8hwPwF+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086651;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=+29yArDCdFelsSw6+eilN/PClZkfKC+UVplJMN2Zd4E=;
+	b=IqSzpOgLvjZuE1bIQ7nx7uuS4BU/6Pi9mTkwC6++xLfEAKQDF8lJkjojoOPIHSiaZ1/R
+	 7tnOFSrT6wXnjpE2vhu2bawS1bqBHs18BWEQfMR2cjH+10ff+eUb+G8BRbOJ9e/NvtV/a
+	 yrYzJsy/fwRkRnQ/63NZJzQTB9QCe/7Vrz3foaPTShcwjoqLhbr+v7H41sFXMHsWLVPWV
+	 WELnUjXDplYdJynjtXr0bWXustuUhnl0/q4jRKhdsYvWci6uPnyAwxXYGr74Lxur9aQl4
+	 V2Eqzoio04GN/teHZkOZWyHQmEi9ftDLiF5bDJht1VFKH7ZFSfT4aJ8BJVfqMm9oOSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtObGSZv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125AF606AD9C;
-	Tue, 27 Oct 2026 07:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UtObGSZv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E5F61F01829;
-	Tue, 27 Oct 2026 07:37:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793086648;
-	bh=XazMYHQ4YDq84ivlXp0m0RYPuCcD0RTYnpWVm+WmuqI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UtObGSZvh4LPf0hFqvcRwEE1iA0l2y1Tp0dFCkGqH7Nn6GL7krK1XQ2BzY9VkSazt
-	 uj37l3qDLRwaN3bbFLPUvRYfAUs3y6Ucmwl1B2xAUhO5S4ZuZ2+8DdbG7LRYEsdRfB
-	 aL6pX6ToIQGSadrThkdt4grBXB00691yl7LG/OFOjLcayEbWwtdES8K1r6zoxFmgWF
-	 c95uHDC76TzVnRqztMKsSmjTX+8yWgNUSsJoGPaXRDPe6k58hlg6yXuEZPrtqA9+2V
-	 pULix4JICYRapeadyFN8nctO4dIMnKAQKl803oNnHXsksYCx0iGMl2eaV/OZAcA/d0
-	 938Ho2cZJ95wA==
-Subject: Re: [PATCH 2/4] can: gs_usb: gs_usb_probe(): init netdev completely
- before register_candev()
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
- max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 27 Oct 2026 07:37:27 +0000
-Message-ID: <179308664758.3130.9049840508592700660@kernel.org>
-In-Reply-To: <20261025-gs_usb-fixes-v1-2-f74ebbd4da36@pengutronix.de>
-References: <20261025-gs_usb-fixes-v1-2-f74ebbd4da36@pengutronix.de>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BFD606A321;
+	Tue, 27 Oct 2026 07:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BFD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 082F54BB;
+	Tue, 27 Oct 2026 08:35:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793086510;
+	bh=LuZw3twwubyd1xRHjyBg1PG1GSitNssD581FJ4JnyuM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Mm6bHsNqAcqxPbiF/11HH6vnpPGk0M1lQo9FyVRelcQlcevCBsBiocrKBL+1ejszp
+	 coGGi4RiaD1NdlqShjhn+umFUoEzPy3SiDIn1IcSa5m8bo9059HhLj0pBcXYU/HBIx
+	 AqHULMr0q3giHvDcN0ZlaIFLFexyuTidRYch99sM=
+Date: Tue, 27 Oct 2026 09:37:20 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [GIT PULL for v7.4] media updates
+Message-ID: <20261027073720.GD2005298@killaraus.ideasonboard.com>
+References: <20261024185058.20410953@foz.lan>
+ <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+ <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+ <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+ <20261027005656.6ce24b82@foz.lan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,206 +66,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027005656.6ce24b82@foz.lan>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Tue, Oct 27, 2026 at 12:56:56AM +0100, Mauro Carvalho Chehab wrote:
+> On Mon, 26 Oct 2026 08:53:07 -1000 Linus Torvalds wrote:
+> 
+> > On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> > >
+> > > The patch in question puts camera sensors and related chips in line with
+> > > how the rest of the drivers are selected elsewhere.  
+> > 
+> > .. and other places could probably be improved too, I agree.
+> > 
+> > But this made things *worse*. Much worse.
+> > 
+> > The thing is, at least hide them behind some "embedded camera options"
+> > that in turn is hidden behind "EXPERT" or something like that.
+> > 
+> > Don't make *normal* people who build their own kernels have to see or know.
+> > 
+> > Let's say that you have a laptop or something that actually uses one
+> > of these sensors for a webcam, then it STILL does not help to ask a
+> > user
+> > 
+> >  "Do you want a driver for the Analog Devices ADV7170 video encoder"
+> > 
+> > Because (a) that chip legacy and likely not in any laptop anyway and
+> > (b) even if it was, no laptop user is going to *know* that.
+> > 
+> > See what I'm saying? You literally make things worse. Don't do that.
+> > You're making the kernel Kconfig script ask insane questions. They are
+> > insane because you cannot reasonably expect people to actually know
+> > the answer to the questions.
+> > 
+> > In other words: don't ask questions that you know the user cannot answer.
+> > 
+> > There was a REASON why those menus were hidden.
+> 
+> I agree with Linus on that. You're basically rolling back a feature
+> that simplifies a lot the life for normal users: let Kconfig choose
+> options that only a media expert can answer.
+> 
+> Now, I understand why it is tempting to do that to help with IPU
+> support: camera sensors can now be easily interchangeable on new 
+> Intel hardware.
+> 
+> If you look on some drivers from the old days, like bttv, saa7134
+> and cx88, they had similar problems, but they still do support
+> autoselect mode.
+> 
+> For instance, drivers/media/tuners/Kconfig has this:
+> 
+>    config MEDIA_TUNER
+>         tristate
+>         depends on (MEDIA_ANALOG_TV_SUPPORT || MEDIA_DIGITAL_TV_SUPPORT || MEDIA_RADIO_SUPPORT || MEDIA_SDR_SUPPORT) && I2C
+>         default y
+>         select MEDIA_TUNER_XC2028 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_XC5000 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_XC4000 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_MT20XX if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TDA8290 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TEA5761 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+>         select MEDIA_TUNER_TEA5767 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+>         select MEDIA_TUNER_SIMPLE if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TDA9887 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_MC44S803 if MEDIA_SUBDRV_AUTOSELECT
+> 
+> which is meant to support the most popular I2C tuners.
+> 
+> In the specific case of IPU (and atomisp, once moved out of staging),
+> the right solution would be to have something similar to it, e.g.
+> something like:
+> 
+> 	config VIDEO_INTEL_IPU6
+> 	select VIDEO_OV2680 if MEDIA_SUBDRV_AUTOSELECT
+> 	select VIDEO_OV2685 if MEDIA_SUBDRV_AUTOSELECT
+> 	...
+> 	
+> for each sensor that might be possible to be used there. Another
+> alternative would be to do it the reverse way, e.g.:
+> 	
+> 	config VIDEO_OV2680
+> 		default MEDIA_SUBDRV_AUTOSELECT && VIDEO_INTEL_IPU6
+> 
+> or, maybe even better:
+> 
+> 	# Make setup easier by identifying PC MC-based drivers on a single place
+> 	config MEDIA_SENSOR_AUTOSELECT
+> 	depends on VIDEO_INTEL_IPU6
+> 	default y
+> 
+> 	config VIDEO_OV2680
+> 	default MEDIA_SENSOR_AUTOSELECT
+> 
+> Placing MEDIA_SENSOR_AUTOSELECT on sensor drivers. We may need
+> similar code also for other I2C drivers that could be used on IPU.
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] This patch adds a memory leak to the gs_usb_probe() error path
-  in drivers/net/can/usb/gs_usb.c.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the
-  gs_usb_probe() register-failure path keeps an existing use-after-free.
-
---
-
-can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
-
-This patch moves register_candev() out of gs_make_candev() and into a
-second loop in gs_usb_probe(). Every channel, including dev->parent and
-parent->hf_size_rx, is now fully set up before any channel is registered.
-This closes the window where userspace could bring up a partially
-initialized CAN interface.
-
-Closes: https://sashiko.dev/#/bug/linux-be54de7d-0b75-408c-b3ee-dd90c9756857
-Closes: https://sashiko.dev/#/bug/linux-71076d59-0843-4749-a5ab-fdd98a08582f
-
-> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index 15f28833f2deb..985d6a9113d96 100644
-> --- a/drivers/net/can/usb/gs_usb.c
-> +++ b/drivers/net/can/usb/gs_usb.c
-> @@ -1490,18 +1490,8 @@ static struct gs_can *gs_make_candev(unsigned int channel,
->  	can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
->  	SET_NETDEV_DEV(netdev, &intf->dev);
->  
-> -	rc = register_candev(dev->netdev);
-> -	if (rc) {
-> -		dev_err(&intf->dev,
-> -			"Couldn't register candev for channel %d (%pe)\n",
-> -			channel, ERR_PTR(rc));
-> -		goto out_can_rx_offload_del;
-> -	}
-> -
->  	return dev;
->  
-> -out_can_rx_offload_del:
-> -	can_rx_offload_del(&dev->offload);
->  out_free_candev:
->  	free_candev(dev->netdev);
->  	return ERR_PTR(rc);
-> @@ -1593,14 +1583,14 @@ static int gs_usb_probe(struct usb_interface *intf,
->  			/* save error code to return later */
->  			rc = PTR_ERR(parent->canch[i]);
->  
-> -			/* on failure destroy previously created candevs */
-> +			/* on failure clean up previously created candevs */
->  			icount = i;
-> -			for (i = 0; i < icount; i++)
-> -				gs_destroy_candev(parent->canch[i]);
-> +			for (i = 0; i < icount; i++) {
-> +				can_rx_offload_del(&parent->canch[i]->offload);
-> +				free_candev(parent->canch[i]->netdev);
-> +			}
->  
-> -			usb_kill_anchored_urbs(&parent->rx_submitted);
-> -			kfree(parent);
-> -			return rc;
-> +			goto out_usb_kill_anchored_urbs;
->  		}
->  		parent->canch[i]->parent = parent;
->  
-
-[ ... ]
-
-> @@ -1621,7 +1611,30 @@ static int gs_usb_probe(struct usb_interface *intf,
->  		parent->hf_size_rx = max(parent->hf_size_rx, hf_size_rx);
->  	}
->  
-> +	for (i = 0; i < icount; i++) {
-> +		struct gs_can *dev = parent->canch[i];
-> +
-> +		rc = register_candev(dev->netdev);
-> +		if (rc) {
-> +			dev_err(&intf->dev,
-> +				"Couldn't register candev for channel %d (%pe)\n",
-> +				i, ERR_PTR(rc));
-> +
-> +			icount = i;
-> +			for (i = 0; i < icount; i++)
-> +				gs_destroy_candev(parent->canch[i]);
-
-[Severity: High]
-Does this leak the candevs for channel i and every channel after it?
-
-The second loop only runs after the first loop has called gs_make_candev()
-for all channels. At that point every canch[] entry holds an allocated
-netdev with rx-offload attached.
-
-When register_candev() fails for channel i, only canch[0..i-1] go through
-gs_destroy_candev(). Channels canch[i] through canch[channel_cnt - 1] never
-get can_rx_offload_del() or free_candev().
-
-The kfree(parent) at out_usb_kill_anchored_urbs then frees canch[], which
-held the only pointers to those netdevs.
-
-Before this patch, gs_make_candev() cleaned up its own channel when
-register_candev() failed, and no later channels had been allocated yet.
-
-The USB device can trigger this. register_candev() returns -EINVAL when
-can_bittiming_const_valid() fails:
-
-drivers/net/can/dev/dev.c:can_bittiming_const_valid() {
-    ...
-	if (!btc->sjw_max)
-		return false;
-    ...
-}
-
-gs_make_candev() copies sjw_max straight from the device's
-GS_USB_BREQ_BT_CONST reply. A device that reports sjw_max == 0 for channel
-0 would leak every channel on each probe.
-
-Should this error path also run can_rx_offload_del() and free_candev() on
-channels i through channel_cnt - 1, the same teardown the first loop's
-error path uses?
-
-> +
-> +			goto out_usb_kill_anchored_urbs;
-> +		}
-> +	}
-> +
->  	return 0;
-> +
-> +out_usb_kill_anchored_urbs:
-> +	usb_kill_anchored_urbs(&parent->rx_submitted);
-> +	kfree(parent);
-> +
-> +	return rc;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this teardown order
-cause a use-after-free in gs_usb_receive_bulk_callback()?
-
-The old gs_make_candev() failure path had the same pattern. Registered
-channels 0..i-1 are destroyed one at a time, and gs_destroy_candev() frees
-each netdev right after unregistering it. The freed pointers stay in
-parent->canch[].
-
-The shared RX URBs are only killed when the last active channel closes:
-
-gs_can_close() {
-    ...
-	parent->active_channels--;
-	if (!parent->active_channels) {
-		usb_kill_anchored_urbs(&parent->rx_submitted);
-    ...
-}
-
-The only other place they are killed is out_usb_kill_anchored_urbs, which
-runs after the whole destroy loop.
-
-Suppose userspace has already brought up canch[0] and canch[1] when
-register_candev() fails for a later channel. Unregistering canch[0] closes
-it, but active_channels is still 1, so the RX URBs keep running after
-canch[0] is freed.
-
-If the device then sends a frame with hf->channel == 0, the callback
-dereferences the freed entry:
-
-gs_usb_receive_bulk_callback() {
-    ...
-	dev = parent->canch[hf->channel];
-
-	netdev = dev->netdev;
-	stats = &netdev->stats;
-
-	if (!netif_device_present(netdev))
-    ...
-}
-
-A frame with an out-of-range channel id goes to the device_detach label
-instead. That code calls netif_device_detach() on every non-NULL canch[]
-entry, which writes to the state field of the freed netdev.
-
-The window is shorter now that no USB control messages run between
-registrations, but the ordering is the same. gs_usb_disconnect() is not
-affected, because usb_unbind_interface() disables the interface before it
-calls disconnect.
-
-Would it help to unregister all the registered channels first, so the last
-close stops the shared RX URBs, and only then free them?
-
->  
->  static void gs_usb_disconnect(struct usb_interface *intf)
+You're forgetting that this affects not only Intel-based machines with
+raw sensors, but a lot of Arm laptops too. We would end up selecting a
+vast majority of sensor drivers unconditionally. If we want to go that
+route, a single option to select all camera sensor drivers would be
+simpler.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025-gs_usb-fixes-v1-0-f74ebbd4da36%40pengutronix.de
+Regards,
+
+Laurent Pinchart
