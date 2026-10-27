@@ -1,105 +1,105 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793142317;
-	b=ZF1GXxXo5q1sN00bpVGMLddJUWWCDyZfO9O1z4tg7XPmffNQHnrp5+X3TW5utsaBwHNh
-	 hJMXTYFFT5XC31kFC/afGL4FtmdXKfHvFcTyFKylIGLpMncYstrxtVg0uehXdy2TjwWaA
-	 XNij/0NHUEcThMJY2OaCzat94WpGGWqZmIHvweFkCxsjM6wDDkS6dL4XqZj7J/c3I9KbR
-	 2tNgTKTg9i4X1QF79T5iq4ei2EaYcO5Lqr5mZlXcU4y3ae2v2k0znNmmB9ecLs7rP5h1z
-	 58qZ82dF1X5xBm/SdnEP0ewmN15AgnimN83d3Mjut6r0ZVlBo1TTToMyBvdiwFlIZWQ==
+	t=1793142313;
+	b=YfvJ65sCT3uEG959b3ZUV8XuPQZwiFvF6/XrjmQtZ0zdCJVTqfbjPV1Bs1Edq5lnCPPv
+	 dkMsGPCW41m9nbT2/55WEm5hnRrv66nJEgPJWlx+JzpMe/9S2AoPNbCxnJbP8N7eW56mz
+	 ZEF21iV4EACL5foBA/LP349axd5Vy1DrOHrFhinsndHAHy5rfjio43OSG5p69/sB2RbHf
+	 2vTD+4RnnY/fq7qFPsiEKVxOhmLs8bsLDeK+w1dCRaEc2/L+Ep8URU1ayDxb5E0Dd4NyA
+	 ooIzgCdMkVY2/N1HcsCSjgJnvhp6DVmBy54IDRfUe34nosYhXmdfQKpNr4oIQQHNh3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142317;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793142313;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=3A6r6krJwA2+ooPkO/GTStseFtBhZbXE17EJlS5WROk=;
-	b=PgFXiHhr7uE/MIAhJ/vcQwBABgWXR0GU3/2+LYaGrdHA0UogNGwLhnfdOJIhiCSbsnbK
-	 jesTyrnpbrhK/hYvOGWPqWsX06D4+8DRbWFFxONevAl5MBWr0qedcbT5xQqy3SRlTsCwg
-	 0zOiU58GIfzyr/ry3zCk8nMOIdqpK0VOqQ0Qz91T6GHROWeKOqQF+yLfh+sCHPASjSX3s
-	 CB81zSAoEcq3NFwUQ4xguN1uAJktnCdXwnFoJRqOx9Jbdv/kK9HIYCgz2wPmXeB/njzlA
-	 B0GyJxn8xqld2/0C5zQohxqlhGM4AsWR3/CvCkN2IuIzS1ugKzLSW0fMsEI7DdObRmQ==
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=nwXaotoqXsySYhmtZoW8iErlGXBt4yCAJIzc7fNEC78=;
+	b=jrfaLI0AxlGdxQ8rVrkgWu2/mNOlH6+D0c3FIE9uArLxkyCdaI3G93C//cz3JC9f8g5j
+	 eQjCc32G5EV2Rzy8xPoQ3JpYJoIqebbu6WEQXQARMQFoQQGFoeOnC204QMEXT7nExVVpM
+	 MJSr82o6Xm2t6mjvC2bw7onzmRY2W0xVpQsLp6dj4Oe5XsdXuhrCRFOw/ylCNhKmQ7nCU
+	 fdh6i5jfuG0CIoJsIPGcncupxzOHjLZb3jQ47c53njqT1u28npW1RQm/5vZuidURt6TQo
+	 r84ysY0cGwQ5sUBI8O+9LDVxI4mF3Tbcb1Rpv2FEgqMBDVJa3xwzV5gqkD5vmEMba4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RNrOcGbA;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Pql0CwyI;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e6cgj6DY;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=N7+UQ8nH;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBD6606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFBD6606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AA0606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:05:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9AA0606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RNrOcGbA;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Pql0CwyI
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RKtF6x3823555
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:05:16 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e6cgj6DY;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=N7+UQ8nH
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RKtSsg2976402
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:05:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=3A6r6krJwA2
-	+ooPkO/GTStseFtBhZbXE17EJlS5WROk=; b=RNrOcGbAtg8CSmQX7FShR0ZUyap
-	25h1mNsJzerNfhVGtd/tXv4As9oD4PzSR0D+jLVfhSwZNG+gwptIRJilRzMEsSc5
-	rL74S/tsAN3pXgXEOgq7GWvHOJKq14NTRFWvj/NASuamgyvCJh7ISI/t2EdbjFGL
-	3W0K/aNz9lSJznGCgWIWAUOlbyrI6TT3MMpxsaH2oYSD4pesYtKQbeVJ3xNC3VIV
-	VyMOrpVj6sllCkXp2ocZtZiWpm2xvAm51Pj0Tn7c3A5i3HzqEQSywfiqFu2Rtf6z
-	v3aav1C22iERqtde7AySFD2csbPfgca4fXk6hnlYUAH3r0iUlinr7xNDxHQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk2qe0hcf-1
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=nwXaotoqXsySYhmtZoW8iErlGXBt4yCAJIz
+	c7fNEC78=; b=e6cgj6DYA10IAmENer0b2vhHva3a1v9yqSmL971iqALvaC9WOTW
+	imSeV+Dpy9yHzLozwDfE2cqc/5w3Nv/5m3yWNIcyamfjdEjOhFYTFGyEngn8rSEh
+	/AMd7xNUOikq9ogBjQtO67gecdj67bjcDeI4BEAtdc0pTTVFIQ9EhfzBrhd4B/dx
+	pfHkSZXrSPKwEO4FvbelRw+Y//ZVa7Uka8Ag+4GkSyfP4Pjq4d5i/9QHaFm0+877
+	shUs0fKqsbhn9dWGKj31u9O2s0+yMd6UNCgaHntUFgR8wQacRIdzPk1vamF2WupM
+	qcCneKTUat3PFMIHTHhLwIzks91j6/Yo2dw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqf5upu4-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:05:15 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab1e771632so1166837a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:05:15 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:05:11 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac7a4ba546so1092353a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:05:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793142315; x=1793747115; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3A6r6krJwA2+ooPkO/GTStseFtBhZbXE17EJlS5WROk=;
-        b=Pql0CwyI5QyGg82tjXdFyr2XVFMqCvXEKsQUrcuepzPVC0fIpLShSN7SFvIjlLfloK
-         NS+JO1NBsK3JMPnA8W1+N+VnC1j1cz5YuuPhFvKl4c7TgAu7HKT8eaDPVQVFOnfyiX+B
-         Cm/DBYsK7JMofzXROiH6KmtJRq3uPD0G1/qZBMfKmxiL0FElX7z34oZmsQxNfZ7Zc/ST
-         IUgJN3N5bwspKxDgoxWliqrmB71KcxpMFqaRVvssMYqNgwZVQwmwNhTpaYfqriEUczOz
-         r5rJXk4Fa28m1DnQ585i4Qf3PCmuLzyM+XPaQc4m0/S3pM1nUCTXVQmlEP//ghrFPfYE
-         KbMA==
+        d=oss.qualcomm.com; s=google; t=1793142310; x=1793747110; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nwXaotoqXsySYhmtZoW8iErlGXBt4yCAJIzc7fNEC78=;
+        b=N7+UQ8nHjKq94bNRNYUvvFWWhi+Dx9JuvxcHBEQ88J2ED1F1c0As+O5e+xvHw1wz2M
+         FPUIuybaKmhj9/3TqZfW3HF3kTmRYZktKy3qJFbG3GAxemrffoW7JARAHqJnihXwZ3uN
+         mc8nuqUY/sz674dLWb2+ihhX+Kur57d43qKoj7lRL64BRjz+gk1S0m+ma4ksotIOGb18
+         GjDLO/FoUQOz8kv+oihMiORXOUeaAd6hZuZVoUT74/LOXI6jIpCwn+Jel9lj7by2rtj6
+         g4M/s4zp5q4kwyyRDvG399gcGWapIwpqNF37aRRo9mC31GEmTckojLwcFfv/mPf6mXLG
+         nIrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793142315; x=1793747115;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3A6r6krJwA2+ooPkO/GTStseFtBhZbXE17EJlS5WROk=;
-        b=eVu1Va8xYObEl+qU+Sml5ftoJtNNDu4D9bPgxNHy0CK82KBkUph5owJsdkT34zx5bV
-         +0eyogGDn+/2N2UYlG0CyNe4m3DY7nDgGPnIRvUSE2qX11A4kD8RfhgB/LnmEzA2bDru
-         SHhwn8oiMIoKyJCZ6Dh7mWrHHvvJt/8OW1vJ1uE9yUm80f4U9YOlusXEpS4E4DyQ+mSC
-         +yUyWElO5eU79tr4gsJA67tFCGDaVKEyPJAiBdLTCTD7Hb39dlqARPL0T9+KkIYM4R9+
-         P4mM0UZhjmRGos1tQ69cK7rfgOiw6pvi95Gt55/fqHWkQqEqxZMvadG8dI1DKTOxskPQ
-         TPSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznHpg9ujaP9DtNwUM3NqI6Nc8pcjePkJFz1EQZLLnk67VSTmG82RqDztGaZzA94Zbm11Z2pW18snmPeGM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGvl+YyGItp+Y60UyJ1s32tqR+PgXAs66dX8qomh5EDg2M7h8M
-	C1hRcARA3RvChic+WNKGZ/ruWaAtWdQoiAVCiJAuD3+EkeQ8zn+4WcwtsQg3QsPJXN9e1zrWqK2
-	DAjgFhfEk00ux4K75dbJ51jTYfGNZ+t8h5ov3Ml9XN1FymULlcVDKi6jAckAMX3rxD2Q=
-X-Gm-Gg: AYBFou0tvVoGbXx/E0As8Sm5m4afcSe91sRWmXUvdvhm+WvSwGeZRq95tt+flOPhCbG
-	roJMBpL1tyc3gMmSKZ8sS2lLjC9yjSshl4y6whVPl6Dqu4/fEv1omQkxgZgRZP0cglebl7O62jY
-	ls4Wyu7TkWNGIgGAL9nh+zeCwRtPoHBJTpsMXuWHecntTvkTfEftFkFbDAMAeewWg8MmxJ7aQhl
-	5U0X7hZMMp5MhgeWSfTXzRC6PsCi5yKop7fWcyq388A5er/adk8LthM1tn6llNQMRNpny+cAGxs
-	FYnxAAtqqi9c1eNWaCZvup3O8ZrUfBFhTEy2kv8UHbC7slMx4jbDTC0VS/+4YUtqg2iwCdywCH/
-	d6QicoypcZio5e/GpgTHBg1+K8w7TkFh/t4vLVLOvwWl1Qh9SJw==
-X-Received: by 2002:a17:90a:d00c:b0:3ac:928a:68ce with SMTP id 98e67ed59e1d1-3ae58182be0mr247631a91.33.1793142314579;
-        Tue, 27 Oct 2026 16:05:14 -0700 (PDT)
-X-Received: by 2002:a17:90a:d00c:b0:3ac:928a:68ce with SMTP id 98e67ed59e1d1-3ae58182be0mr247620a91.33.1793142314089;
-        Tue, 27 Oct 2026 16:05:14 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793142310; x=1793747110;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nwXaotoqXsySYhmtZoW8iErlGXBt4yCAJIzc7fNEC78=;
+        b=DsJxF6p/ra9aofXI5wYLy27VPJrX8LW1C2j9e/S7Fctu0x5MWjlnUrEBGu9GDz24PK
+         r/HMHxL7l+2VP5EqCGKTqWjlBAMLV0KM8YxwzWPlqPmtsPA00nJmLNiToU7Lahya80aD
+         nOFfU19uzXiUvQdu3brDj88Y6lqmrCKYdV2xEWTmShphObySWj88vUubqgSfTAT1lLyD
+         +8D0xI5EYxXi4qvOlkeMdn7H3RQ0XKqux/c4KVdd0oZ0efxqNLyx/E7bgMuWTgZ2mJ5I
+         Fdiwy+Ei15d8RJ0w4LAlh+jnLWal3Qx1ReIU0v3WZN/AyZOAEDFH/2oQ7wCw8DCgTYqF
+         tDeg==
+X-Forwarded-Encrypted: i=1; AKwUvBwakHRHby5p3GeInMB+f8bUt7dBrIKpkkJCNGcMGEmTXnfGlOs/QDS9kTCYXOIShTV2WQ1CStITb6LZlF0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIY5EnlwekE8yT6NQliyIzWfWdm7irLYtuy3UfiDbOWzKj2gFKO
+	BlkFyvMWu9iUjSPOl6Pk4TD6KAwpDnUJ3PWG/1dzCJ5dYWAbUL+c0IzExm/muMDAFgXF7ca3r8g
+	jKDKNkkZ5qkYyDl8/1vrjXltmcnGz2JJg8kpQQN+g1Xq0qWJ/No7XEJa29FDPApNclb0=
+X-Gm-Gg: AYBFou2LJi+1DRXLGnVKqjsLjKJOiMvAJxA2q4PXoikugcNivbvreLhPaa4XOV0wCKO
+	xrWgYxyWzC9n5Wk4n1Q6peOuRG/Zl/vsqoRIYB8HmEwQ2ABUuo8NgVz5w1rd+F0IiYo94pYd9oz
+	aq4yQSMCpfXJP3gUEMaD4OXxwmmhikx9ZnzQwdcUVYW6b6TyzEb7Qr5/tb8naLFxbkiuEe9eyfX
+	klScD2HIiUvn2HgIWfL1aQIRMiXQ5lUpb8gvt6B7yXPKHM4DEO8n5deeOWyB4NmNuvz7v7L2kTg
+	Ku7+0QibTr+Jp/dD7KDjTUBwzHkwpvkO3tiEFvl16fP5XLJjYeaJ2IYTdydr18EsQlvJ0LcvSVP
+	ghyx4tQVXU4EHNSh1+x/uCcLwrHqUTPSHI29RGlNxaNxMdkMezjDLbermY95a49gHCLbyq7YxFZ
+	ji5vrvm/IEAsj93anD3Ai+qg==
+X-Received: by 2002:a17:90b:4a11:b0:3ab:be66:ddd3 with SMTP id 98e67ed59e1d1-3ae5816379cmr248208a91.32.1793142310442;
+        Tue, 27 Oct 2026 16:05:10 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a11:b0:3ab:be66:ddd3 with SMTP id 98e67ed59e1d1-3ae5816379cmr248185a91.32.1793142309880;
+        Tue, 27 Oct 2026 16:05:09 -0700 (PDT)
 Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9f287fsm215748a91.16.2026.10.27.16.05.13
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a5839besm248297a91.11.2026.10.27.16.05.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 16:05:13 -0700 (PDT)
+        Tue, 27 Oct 2026 16:05:08 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
@@ -108,16 +108,15 @@ Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
         Dmitry Baryshkov <lumag@kernel.org>,
         Rob Clark <robin.clark@oss.qualcomm.com>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        David Airlie <airlied@gmail.com>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        linux-kernel@vger.kernel.org (open list),
         Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 3/6] drm/msm: Extract out map/unmap helpers
-Date: Tue, 27 Oct 2026 16:04:46 -0700
-Message-ID: <20261027230452.130031-4-robin.clark@oss.qualcomm.com>
+        Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH v3 0/6] drm/msm: DMABUF_DEBUG fixes
+Date: Tue, 27 Oct 2026 16:04:43 -0700
+Message-ID: <20261027230452.130031-1-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027230452.130031-1-robin.clark@oss.qualcomm.com>
-References: <20261027230452.130031-1-robin.clark@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,282 +127,77 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: BcbsfMuTP8hYwYusEq0TfTxKWPmn8oqb
-X-Authority-Analysis: v=2.4 cv=YuGa1IYX c=1 sm=1 tr=0 ts=6ae12e2b cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA5MyBTYWx0ZWRfX2U2kY4/Maxwh
+ gt2N+TqvPtrguX5J6FmHnWq1j6oRYI0vG/ZL+v3RzE+fOfLUqxOcUcWzFeGmsDiPwzTzGYczSLs
+ 5onr1zpf7kYampU/ngbmMfRSFJEDTWk=
+X-Proofpoint-ORIG-GUID: _4QwERMCCL2AkaCm2uowUyJOEQOsd05m
+X-Proofpoint-GUID: _4QwERMCCL2AkaCm2uowUyJOEQOsd05m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA5MyBTYWx0ZWRfX1Ym+19M+jIWb
+ fa1zl5YkDtTWAbFhqfmO/bQdIwB1mXkB30Si6WCYT35Kfip4ILRQRR/4d5oA9T0Tl1oBrbr9muh
+ yIGFmD99iYy7EQTJDNdU1TRuIGlrILAPtdpB/jw0z35MJq6rR/zndVZb0cC0mrBK3Cok+RdGC9I
+ UxDojg3AeAWwTU3oaAsCuzv9IS+Y4ybT9i72Dj4BKWhH5QohgpA4smgBMX6/4UT8EczfV0qdw4+
+ B0WdT7mqdpKmqe3YNhh7EIhiqF77D8IDUyPnYYFj0AdWfyHmH9VT2/hnVkCgtvROpezleQOqJMT
+ eldws+sa2rk3jYck6b5MCn5Gnp0DvqdAvkxVpFFDQatQ7sZpbM4uJiiWOzzHAx+cwck30Fybjnf
+ t+zCcVrukwFWqWXGEPmEx13d649llPtn3aEnpiLpqFmTmO7GLOTO/o+nC6SxwPZs4RS6BCRtrJP
+ zEPCIOI76I9mDHbnI/A==
+X-Authority-Analysis: v=2.4 cv=UOFIjyfy c=1 sm=1 tr=0 ts=6ae12e27 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=BsEuFZ40A6pGwezTnxoA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA5MyBTYWx0ZWRfX/g9v6q8OkzZl
- QOj6+rL3pfwrz9YgMfDDJr70TSIdv1FdFpxfMHtaE4MAO4G6xm6jHkwNh5L7qPl0ediESGj6dJh
- F1OgrDRuXodf+kg7L2xbraAxSw6h8+o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA5MyBTYWx0ZWRfX9WY03tmURFP8
- VenjDSK2enf0nkbo7ul/CsfuORn+kJqZa14p8hI/JvLUzpahs9ZKfWowq6CWEI/2l6Vg6JuyxhY
- NvzyCV/frkBcJhSw+Wo6kd5r7Iu8kiXIrPXOZ5tEcLI9dqfUrjDQqFCcc4v6jWppzcs3tqNQzph
- O4CErQ/QxHDJGd7+p4oPpefc5QryiZ8OD7SRKKfrlhs4/vneonWd0GO/JQ1gAdqKaiaT9Cijaur
- 7VH8k7Q+YBdjJgTs5tv3sf5K7F97vVceiFwcNkjwOrkgQ24pcmvHG99H467qh/RdUSe1OAwbZlH
- R+dprFvJnCLZdAkAiseTwxxdLXv37Kbe7fLUYxATNjjOh9fGZvDmT7aHIK3+x4nJh0wsaS8hTfC
- pSCKWhxQsQml9L7nKI6jmzyPtwpVQbgKCkIHhFaoBDfJl3gYZcEYd7IER+6rgUiSUs6z+PNwlGB
- JsBqZhongKsIYKTRotw==
-X-Proofpoint-ORIG-GUID: BcbsfMuTP8hYwYusEq0TfTxKWPmn8oqb
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=puu_XB033Gd1UDA3wS8A:9 a=iS9zxrgQBfv6-_F4QbHw:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-27_06,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 adultscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270093
 
-We're going to re-use these in the next commit.  No functional changes,
-just some ugly callbacks.
+With DMABUF_DEBUG=y, the page information is stripped from the sgt that
+we get for an externally allocated buffer that is dma-buf imported (as
+opposed to an exported GEM buffer that is re-imported).  This is a bit
+unfortunate, since we need that information for mapping the buffer in
+both paths:
 
-Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com> # x1e78100 (Acer SFA14-11), v7.3-rc5 + this series, CONFIG_DMABUF_DEBUG=y
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/msm_iommu.c | 159 +++++++++++++++++++++-----------
- 1 file changed, 103 insertions(+), 56 deletions(-)
+1. Userspace GPU pgtables (TTBR0), where we use io_pgtable directly.
+   Fortunately this we can fix ourselves easily.
 
-diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
-index da6782fca6bd..5c13ad6d5a36 100644
---- a/drivers/gpu/drm/msm/msm_iommu.c
-+++ b/drivers/gpu/drm/msm/msm_iommu.c
-@@ -52,9 +52,8 @@ static struct msm_iommu_pagetable *to_pagetable(struct msm_mmu *mmu)
- }
- 
- /* based on iommu_pgsize() in iommu.c: */
--static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
--			   unsigned long iova, phys_addr_t paddr,
--			   size_t size, size_t *count)
-+static size_t calc_pgsize(unsigned long pgsize_bitmap, unsigned long iova,
-+			  phys_addr_t paddr, size_t size, size_t *count)
- {
- 	unsigned int pgsize_idx, pgsize_idx_next;
- 	unsigned long pgsizes;
-@@ -62,7 +61,7 @@ static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
- 	unsigned long addr_merge = paddr | iova;
- 
- 	/* Page sizes supported by the hardware and small enough for @size */
--	pgsizes = pagetable->pgsize_bitmap & GENMASK(__fls(size), 0);
-+	pgsizes = pgsize_bitmap & GENMASK(__fls(size), 0);
- 
- 	/* Constrain the page sizes further based on the maximum alignment */
- 	if (likely(addr_merge))
-@@ -78,7 +77,7 @@ static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
- 		return pgsize;
- 
- 	/* Find the next biggest support page size, if it exists */
--	pgsizes = pagetable->pgsize_bitmap & ~GENMASK(pgsize_idx, 0);
-+	pgsizes = pgsize_bitmap & ~GENMASK(pgsize_idx, 0);
- 	if (!pgsizes)
- 		goto out_set_count;
- 
-@@ -107,24 +106,30 @@ static size_t calc_pgsize(struct msm_iommu_pagetable *pagetable,
- 	return pgsize;
- }
- 
--static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
--		size_t size)
-+struct map_ops {
-+	size_t (*unmap)(void *arg, u64 iova, size_t pgsize, size_t count);
-+	int (*map)(void *arg, phys_addr_t padder, u64 iova, size_t pgsize,
-+		   size_t pkcount, int prot, size_t *mapped);
-+	void (*flush)(void *arg);
-+};
-+
-+static inline int
-+__do_unmap(unsigned long pgsize_bitmap, u64 iova, size_t size, void *arg,
-+	   const struct map_ops *ops)
- {
--	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
--	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
- 	int ret = 0;
- 
- 	while (size) {
- 		size_t pgsize, count;
- 		ssize_t unmapped;
- 
--		pgsize = calc_pgsize(pagetable, iova, iova, size, &count);
-+		pgsize = calc_pgsize(pgsize_bitmap, iova, iova, size, &count);
- 
--		unmapped = ops->unmap_pages(ops, iova, pgsize, count, NULL);
-+		unmapped = ops->unmap(arg, iova, pgsize, count);
- 		if (unmapped <= 0) {
- 			ret = -EINVAL;
- 			/*
--			 * Continue attempting to unamp the remained of the
-+			 * Continue attempting to unmap the remained of the
- 			 * range, so we don't end up with some dangling
- 			 * mapped pages
- 			 */
-@@ -135,55 +140,20 @@ static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova,
- 		size -= unmapped;
- 	}
- 
--	iommu_flush_iotlb_all(to_msm_iommu(pagetable->parent)->domain);
-+	ops->flush(arg);
- 
- 	return ret;
- }
- 
--static int msm_iommu_pagetable_map_prr(struct msm_mmu *mmu, u64 iova, size_t len, int prot)
-+static inline int
-+__do_map(unsigned long pgsize_bitmap, u64 iova, struct sg_table *sgt, size_t off,
-+	 size_t len, int prot, void *arg, const struct map_ops *ops)
- {
--	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
--	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
--	struct msm_iommu *iommu = to_msm_iommu(pagetable->parent);
--	phys_addr_t phys = page_to_phys(iommu->prr_page);
--	u64 addr = iova;
--
--	while (len) {
--		size_t mapped = 0;
--		size_t size = PAGE_SIZE;
--		int ret;
--
--		ret = ops->map_pages(ops, addr, phys, size, 1, prot, GFP_KERNEL, &mapped);
--
--		/* map_pages could fail after mapping some of the pages,
--		 * so update the counters before error handling.
--		 */
--		addr += mapped;
--		len  -= mapped;
--
--		if (ret) {
--			msm_iommu_pagetable_unmap(mmu, iova, addr - iova);
--			return -EINVAL;
--		}
--	}
--
--	return 0;
--}
--
--static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
--				   struct sg_table *sgt, size_t off, size_t len,
--				   int prot)
--{
--	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
--	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
- 	struct scatterlist *sg;
- 	u64 addr = iova;
- 	unsigned int i;
- 
--	if (!sgt)
--		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
--
--	for_each_sgtable_sg(sgt, sg, i) {
-+	for_each_sgtable_sg (sgt, sg, i) {
- 		size_t size = sg->length;
- 		phys_addr_t phys = sg_phys(sg);
- 
-@@ -204,10 +174,9 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
- 			size_t pgsize, count, mapped = 0;
- 			int ret;
- 
--			pgsize = calc_pgsize(pagetable, addr, phys, size, &count);
-+			pgsize = calc_pgsize(pgsize_bitmap, addr, phys, size, &count);
- 
--			ret = ops->map_pages(ops, addr, phys, pgsize, count,
--					     prot, GFP_KERNEL, &mapped);
-+			ret = ops->map(arg, phys, addr, pgsize, count, prot, &mapped);
- 
- 			/* map_pages could fail after mapping some of the pages,
- 			 * so update the counters before error handling.
-@@ -218,7 +187,7 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
- 			len  -= mapped;
- 
- 			if (ret) {
--				msm_iommu_pagetable_unmap(mmu, iova, addr - iova);
-+				__do_unmap(pgsize_bitmap, iova, addr - iova, arg, ops);
- 				return -EINVAL;
- 			}
- 		}
-@@ -227,6 +196,84 @@ static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
- 	return 0;
- }
- 
-+static size_t
-+__unmap_pgtable(void *arg, u64 iova, size_t pgsize, size_t pgcount)
-+{
-+	struct msm_iommu_pagetable *pagetable = arg;
-+	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
-+	return ops->unmap_pages(ops, iova, pgsize, pgcount, NULL);
-+}
-+
-+static int
-+__map_pgtable(void *arg, phys_addr_t paddr, u64 iova, size_t pgsize,
-+	      size_t pgcount, int prot, size_t *mapped)
-+{
-+	struct msm_iommu_pagetable *pagetable = arg;
-+	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
-+	return ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot, GFP_KERNEL, mapped);
-+}
-+
-+static void
-+__flush_pgtable(void *arg)
-+{
-+	struct msm_iommu_pagetable *pagetable = arg;
-+	iommu_flush_iotlb_all(to_msm_iommu(pagetable->parent)->domain);
-+}
-+
-+static const struct map_ops pgtable_ops = {
-+	__unmap_pgtable, __map_pgtable, __flush_pgtable
-+};
-+
-+static int msm_iommu_pagetable_unmap(struct msm_mmu *mmu, u64 iova, size_t size)
-+{
-+	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-+
-+	return __do_unmap(pagetable->pgsize_bitmap, iova, size, pagetable, &pgtable_ops);
-+}
-+
-+static int msm_iommu_pagetable_map_prr(struct msm_mmu *mmu, u64 iova, size_t len, int prot)
-+{
-+	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-+	struct io_pgtable_ops *ops = pagetable->pgtbl_ops;
-+	struct msm_iommu *iommu = to_msm_iommu(pagetable->parent);
-+	phys_addr_t phys = page_to_phys(iommu->prr_page);
-+	u64 addr = iova;
-+
-+	while (len) {
-+		size_t mapped = 0;
-+		size_t size = PAGE_SIZE;
-+		int ret;
-+
-+		ret = ops->map_pages(ops, addr, phys, size, 1, prot, GFP_KERNEL, &mapped);
-+
-+		/* map_pages could fail after mapping some of the pages,
-+		 * so update the counters before error handling.
-+		 */
-+		addr += mapped;
-+		len  -= mapped;
-+
-+		if (ret) {
-+			msm_iommu_pagetable_unmap(mmu, iova, addr - iova);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int msm_iommu_pagetable_map(struct msm_mmu *mmu, u64 iova,
-+				   struct sg_table *sgt, size_t off, size_t len,
-+				   int prot)
-+{
-+	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
-+
-+	if (!sgt)
-+		return msm_iommu_pagetable_map_prr(mmu, iova, len, prot);
-+
-+	return __do_map(pagetable->pgsize_bitmap, iova, sgt, off, len, prot,
-+			pagetable, &pgtable_ops);
-+}
-+
- static void msm_iommu_pagetable_destroy(struct msm_mmu *mmu)
- {
- 	struct msm_iommu_pagetable *pagetable = to_pagetable(mmu);
+2. Iommu managed pgtables (scanout, kernel GPU buffers (TTBR1)).  In
+   normal usage that iommu subsystem envisions the dma-mapping and
+   iommu-mapping are combined.  We can't really work around this but
+   we can stop trying to pretend to be a normal iommu user and just
+   go directly to the iommu_domain_ops.
+
+This all depends on being dma_map_direct() for the dma_map_sgtable()
+to work.  This should be the case on modern things that use arm-smmu.
+It's less clear when it comes to older pre-arm-smmu hw.  It's possible
+that this series causes those things to catch fire.  If so, look to
+commit 0e764a01015d ("iommu/arm-smmu: Allow client devices to select
+direct mapping") for inspiration.
+
+v3:
+- Fixing missing tlb flushes in error paths harder
+- Do a single dma_map/unmap_sgtable()
+- More paranoid error checking on map path
+- Link to v2: https://lore.kernel.org/all/20261027152821.51144-1-robin.clark@oss.qualcomm.com/
+
+v2:
+- Fix missing tlb flushes in error paths
+- Link to v1: https://lore.kernel.org/all/20261006131000.81501-1-robin.clark@oss.qualcomm.com/
+
+Rob Clark (6):
+  drm/msm: Cleanup if pages_to_sg() fails
+  drm/msm/gem: dma_map/unmap_sgtable()
+  drm/msm: Extract out map/unmap helpers
+  drm/msm: Convert iommu map/unmap to helpers
+  drm/msm: Convert map helper to use dma-address
+  drm/msm: Treat !mapped as an error
+
+ drivers/gpu/drm/msm/msm_gem.c   |  93 +++++++-------
+ drivers/gpu/drm/msm/msm_iommu.c | 210 +++++++++++++++++++++-----------
+ 2 files changed, 184 insertions(+), 119 deletions(-)
+
 -- 
 2.56.0
 
