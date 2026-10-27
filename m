@@ -1,68 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096099;
-	b=eYui8yD8G0yRPQdhEVNtQdCdwrZAEX4uGZK3PYgP7W3n1sqm53W84JoPzl9RXtBATnQF
-	 S7XK7H7/In4CvsFtzfGMeiU9xpUaO8K8sFkZq5PjUcVn1Vtitq9ag4VeDqeLZ1x2iVUWa
-	 v/8QH2LoNwuwWtOeOhY3hAahvdU9dfwr/4r3ISd9iupfFUYYvTreB6D2BmPeT2NqWKTF8
-	 F5oU8r4vSUr9dFdvSZWVgPDB+7TFhioiRBl/rhJa5oSF7IyNxcWAtQvrdak3Miy10VysM
-	 je1Ad15em3KJRDAdZQfCfRsCjNvGNtnF4YVp+hKyl5VyDFrXq7vyz0RcTpU19MpNYOg==
+	t=1793096169;
+	b=1/yn4AAizfA7KjNuj7D2NnYJdZAVuaPhyBVBkgo9Xo0nWK2KylRUO0GX8F7FN/C6z80F
+	 G1UXCuc3F/XKeiCzeorX1Qowek03Y1qOF5Tx5xSCu6TqTJo/Y2yRFRo4JWqsOEtxl+5gi
+	 8UVyfBCYwArfhWeg6kbzG0b7ztpE66SR5LoM23Nvy73qVGMmKWqkoEZ/DUj9+rXqt47gC
+	 +lJInTD8LBF/AC7TrK7Lfm9KqiXQ+1Xlof/ML6hXGiiWB+v3S7MYuqjsH4a/zviQne9rz
+	 +sjYmRKoL/VdD8GcC83REuqOwcQ5bw93+L0fAtfe3Gu+VXJwqfg3uWR78als8D1Kt/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096099;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=s13tSiff6fcPsfGnZQ/kV4hOjYGqsIat17pRr1AVdyQ=;
-	b=3JUl0SXxu5Z1BfxGhHENylT+eeJ5WIbu14tocPVgibVS4+1KmaNdguekOuBU/zVgmoza
-	 7/bFR3+gLRyvXivPTEo8mNCslA9GiT8BG0li4csEnr3F6bsKG3miCO/Ft8goiBr6617BT
-	 slm/p35T+8xZRMoY/CYmaSu5+X2uM++5UkpXK0X/+vqOlkzXo8GQMjj+MA1ov4CDKuQEM
-	 Qu+NjCxMEtxjMr/nbnWLltFsAcNDD56FlfPoYTO8GQ7dFbkYqg7AZzKSXyrc/3jGLhwV1
-	 wzglM3ISANNJcXigFQB43D0LThTj1atNFWAk4Gm8nrimlrZxdk/HchXmMsMj2QuA+MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096169;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=BkhzKqHk57FsBIcZJDbLzkOn5QW17cXML6NAzTysNJs=;
+	b=de+H3kX7h5tUkoPFJVTJidUuNuBKlWghIz8jvXAfbD9qdeJv9x8mAgbW939YYdy4SNGM
+	 76k4FZ4D6t6qS6T0gtERbWOpqdJmHlUzR8a2f4KRr2gT9JQmBWjrmQ+mXEO2a4G1WKsNG
+	 yfd0ujUEg/Igf79nDZap+eyC8HACzXV5mTuUKFGkXfECZh37HSP0BZHJlkaMr7XQAxsNw
+	 +I2hEoqEI1CXoaJFB8lhGhC1OlYusHuiE/LMk+aOTGBy4wNIOHO4c+A1Hlp6XZe6LERqN
+	 3KgypEZo3LpOqarvmRCuVnrad6mGhsdVWwanICdKcu7QolEHn9ziYvzqC0ceJgQxJrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kMc6wTVi;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rck7OHEG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC18F606A324;
-	Tue, 27 Oct 2026 10:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC18F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8A6606A31E;
+	Tue, 27 Oct 2026 10:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kMc6wTVi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793096099; x=1824632099;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=s13tSiff6fcPsfGnZQ/kV4hOjYGqsIat17pRr1AVdyQ=;
-  b=kMc6wTVitpWizvB0mUe6cemWbvv4BNkZhd+yrhhdNdCBnCXdyRUsFvb0
-   UWRLi+Ndiv2Aaslx1qQXHKxLSc2hE5Ersg6C34pXGTHTT4bShejoa//WW
-   1a81ubNB/xjhGP1BgZPIi4or5+Naw3hAyOOZ9Hj9ZudS3RX0t7i+FITKl
-   MdBk1roWbzlmhFQnllF8GEi76tzVAliUrtSdfRD1Qd4L/hPPwz15FrE8M
-   zE9DqYTeO+ZQ5bzYcNjO2fHlydzojJ9xqmF7iCwx2RzvxhziAK0157bJe
-   dKrRX1KdLpThojFMoupxeqSVTvp0agI3LGOhfLXLtMOEENYuyolI5Gjhh
-   g==;
-X-CSE-ConnectionGUID: PMMLogEJTl2y7naF30MKeg==
-X-CSE-MsgGUID: V1MIN0maQ4KXyfyYVQuQjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1799327"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1799327"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:14:58 -0700
-X-CSE-ConnectionGUID: x4ttERJOQu2IwdVN1yETUw==
-X-CSE-MsgGUID: Vg6kYgviTHKas9yd051bPQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4547564"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:14:56 -0700
-Message-ID: <b8693216-9d8b-427e-9657-1b1a52cf08e7@linux.intel.com>
-Date: Tue, 27 Oct 2026 18:14:53 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rck7OHEG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2468D1F01825;
+	Tue, 27 Oct 2026 10:16:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793096167;
+	bh=BkhzKqHk57FsBIcZJDbLzkOn5QW17cXML6NAzTysNJs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Rck7OHEG8G6OagRdPHGjL0nDzragotKIxn9I7T5odO8P3SEFIS4ro5D9gHjazdarP
+	 8LEvJBPVb8lpK5Lo8+VAQfglcWupzBiS3Z0ke6oB2ZtMpdKCok+cDKyKJtERPVGHGL
+	 fvRcNvxgCwgrW798nDREbllmt65oGTCXm1HXquY+xg0y5Au03PGiKyw7UFM2OO1Dgk
+	 6bi6/PRH6EXcmL7o1Aw/JIgGJgqyEeZdzQRBAU7ROD2U/oSLBtMwuSeBg7Pe/beHgR
+	 VxqBNw8prDeTR0xvK8kLbF14+H17x1eC+9+ZmkgMUSTD0lcxsOWL3xNNSBShuDoev9
+	 4/qm9zg4N7VwQ==
+Subject:
+ Re: [PATCH] net/rds: hold IB device reference through deferred cleanup
+From: netdev-bot+sashiko@kernel.org
+To: hackerowskiy@gmail.com
+Cc: achender@kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+ linux-kernel@vger.kernel.org,
+ syzbot+221e213bf17f17e0d6cd@syzkaller.appspotmail.com
+Date: Tue, 27 Oct 2026 10:16:06 +0000
+Message-ID: <179309616666.3134.5893578581226620529@kernel.org>
+In-Reply-To: <20261023100206.126692-1-hackerowskiy@gmail.com>
+References: <20261023100206.126692-1-hackerowskiy@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,440 +65,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: perf: perf_pmu_register() publishes sysfs attrs before per-CPU
- contexts exist -> NULL/poisoned cpc deref in
- perf_event_mux_interval_ms_store()
-To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>, peterz@infradead.org,
- mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <de936c3.1476b.1a162c34cec.Coremail.xuhx@hust.edu.cn>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <de936c3.1476b.1a162c34cec.Coremail.xuhx@hust.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-On 10/22/2026 4:38 PM, 徐晗翔 wrote:
-> perf_pmu_register() makes <pmu>/perf_event_mux_interval_ms writable
-> before the per-CPU PMU contexts are allocated and initialized, so a
-> concurrent write to that attribute dereferences a NULL or a published
-> -but-uninitialized cpc: a kernel oops writing to absolute address 0xf0
-> in task context, or a NULL+0xc deref on the target CPU in hardirq
-> context ending in "Fatal exception in interrupt" -- both verified
-> deterministically on mainline 7.3 and reached naturally by an ordinary
-> userspace write loop without any instrumentation.
->
->
-> The store side (perf_event_mux_interval_ms_store(),
-> kernel/events/core.c:12615) fetches cpc and writes through it with no
-> readiness/NULL check, while the register side publishes the sysfs
-> attributes first (pmu_dev_alloc() at core.c:12865) and installs the
-> per-CPU contexts afterwards (alloc_percpu at 12870; cpc pointer
-> published at 12877, its hrtimer initialized only at 12879 by
-> __perf_mux_hrtimer_init()). The registrant holds pmus_lock; sysfs
-> callbacks take no lock in common with it, so a root writer (default
-> attribute mode) racing a runtime PMU registration lands inside the
-> window. Verified on mainline 7.3 with KASAN: controlled-window
-> evidence pins both faulting instructions exactly, and a natural
-> write-hammer hits the window within ~0.6 s. The same publication
-> window also has a purely functional consequence (persistent
-> interval-configuration divergence) described at the end.
->
->
-> The detailed description:
->
->
-> * Test environment / affected version
->
-> Linux version 7.3.0 (gcc 13.3.0, GNU ld 2.42) #1 SMP PREEMPT_DYNAMIC
-> -- vanilla mainline 7.3 release tarball (kernel.org, unmodified),
-> rebuilt with CONFIG_KASAN_GENERIC=y, CONFIG_KASAN_OUTLINE=y,
-> CONFIG_KASAN_VMALLOC=y, CONFIG_PERF_EVENTS=y, CONFIG_MODULES=y,
-> CONFIG_HZ_1000=y, booted in QEMU/KVM on x86_64 (4 and 64 vCPU
-> guests). The publication order and the store code are identical in
-> 7.1.5 (function-level diff); line numbers below are from 7.3.
->
->
-> * Mechanism
->
-> perf_pmu_register() publishes first and initializes later:
->
->
-> if (pmu_bus_running && !pmu->dev) {
-> ret = pmu_dev_alloc(pmu); /* core.c:12865:
-> device_add() makes the
-> attribute group live */
-> ...
-> }
-> pmu->cpu_pmu_context = alloc_percpu(...); /* core.c:12870 */
-> for_each_possible_cpu(cpu) {
-> cpc = kmalloc_node(...); /* per-CPU allocs */
-> *per_cpu_ptr(pmu->cpu_pmu_context, cpu) = cpc; /* :12877 */
-> __perf_init_event_pmu_context(&cpc->epc, pmu);
-> __perf_mux_hrtimer_init(cpc, cpu); /* :12879 */
-> }
->
->
-> and the store path has no readiness check:
->
->
-> for_each_online_cpu(cpu) {
-> struct perf_cpu_pmu_context *cpc;
-> cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu); /* :12640 */
-> cpc->hrtimer_interval = ns_to_ktime(...); /* :12641 */
-> cpu_function_call(cpu, perf_mux_hrtimer_restart_ipi, cpc);
-> /* :12643 */
-> }
->
->
-> Two windows follow:
->
->
-> - Window A (array published, slots still NULL; register thread is in
-> the per-CPU kmalloc_node loop): the write faults at :12641 with a
-> NULL cpc. In the 7.3 build the store does
-> "mov %r14, 0xf0(%rsi)" with rsi==0 -- a write to absolute address
-> 0xf0.
->
-> - Window B (cpc pointer already published at :12877, but
-> __perf_mux_hrtimer_init() at :12879 has not run yet, so the
-> embedded hrtimer is all-zero): the write itself succeeds and the
-> IPI at :12643 executes perf_mux_hrtimer_restart() ->
-> hrtimer_forward_now() -> hrtimer_cb_get_time() on the remote CPU,
-> which reads timer->base->clockid with timer->base == NULL (offset
-> 0xc) in hardirq context.
->
->
-> pmu_dev_is_visible() (core.c:12709) does not mask the interval
-> attribute, and there is no lock common to the registrant (pmus_lock)
-> and the sysfs callback.
->
->
-> * Controlled-window evidence (deterministic, both fault forms)
->
->
-> Stalling the registering thread briefly (kprobe on the first per-CPU
-> cpc allocation for window A, on the first hrtimer_setup call for
-> window B; a 400 ms stall, writer runs during it) produces exactly
-> the predicted faults, nothing else:
->
->
-> Window A:
-> BUG: kernel NULL pointer dereference, address: 00000000000000f0
-> #PF: supervisor write access in kernel mode
-> RIP: 0010:perf_event_mux_interval_ms_store+0x18a/0x250
-> (Code: ... <4d> 89 be f0 00 00 00 ... /* mov %r14,0xf0(%rsi) */)
->
->
-> Window B:
-> BUG: kernel NULL pointer dereference, address: 00000000000000c
-> CPU: 0 ... Comm: swapper/0
-> RIP: 0010:hrtimer_cb_get_time+0x1e/0x70
-> __flush_smp_call_function_queue
-> remote_function
-> perf_mux_hrtimer_restart
-> hrtimer_cb_get_time
-> Kernel panic - not syncing: Fatal exception in interrupt
->
->
-> The kprobe module used for the stalls is available on request; it is
-> only a controlled-window amplifier and is NOT needed to hit the bug
-> naturally (next section).
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
-It looks a real issue. I suppose the changes below would fix the issue. The
-changes only pass the building, not validated yet.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 7cdd02dba4f1..e088c31534bc 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -12831,6 +12831,9 @@ perf_event_mux_interval_ms_store(struct device *dev,
-        if (timer == pmu->hrtimer_interval_ms)
-                return count;
+- [High] The patch takes an ib_device registration reference
+  (ib_device_try_get) in rds_ib_add_one() and releases it only in…
+- [High] In rds_ib_get_mr() (net/rds/ib_rdma.c), the ODP branch (need_odp
+  == ODP_ZEROBASED or ODP_VIRTUAL) takes an rds_ibdev reference through…
+- [Low] The patch is presented as a fix for a syzbot-reported use-after-
+  free: rds_ib_dev_free() runs on rds_wq after rds_ib_remove_one() has…
 
-+       if (!pmu->cpu_pmu_context)
-+               return -ENODEV;
-+
-        mutex_lock(&mux_interval_mutex);
-        pmu->hrtimer_interval_ms = timer;
+--
 
-@@ -13062,12 +13065,6 @@ int perf_pmu_register(struct pmu *_pmu, const char
-*name, int type)
-        pmu->type = pmu_type.id;
-        atomic_set(&pmu->exclusive_cnt, 0);
+net/rds: hold IB device reference through deferred cleanup
 
--       if (pmu_bus_running && !pmu->dev) {
--               int ret = pmu_dev_alloc(pmu);
--               if (ret)
--                       return ret;
--       }
--
-        pmu->cpu_pmu_context = alloc_percpu(struct perf_cpu_pmu_context *);
-        if (!pmu->cpu_pmu_context)
-                return -ENOMEM;
-@@ -13086,6 +13083,12 @@ int perf_pmu_register(struct pmu *_pmu, const char
-*name, int type)
-                __perf_mux_hrtimer_init(cpc, cpu);
-        }
+This patch takes an ib_device registration reference in rds_ib_add_one()
+and drops it at the end of rds_ib_dev_free(). The IB device then stays
+registered until the deferred cleanup on rds_wq has run. It addresses a
+syzbot-reported use-after-free in that deferred cleanup.
 
-+       if (pmu_bus_running && !pmu->dev) {
-+               int ret = pmu_dev_alloc(pmu);
-+               if (ret)
-+                       return ret;
-+       }
-+
-        if (!pmu->start_txn) {
-                if (pmu->pmu_enable) {
-                        /*
+Closes: https://syzkaller.appspot.com/bug?extid=221e213bf17f17e0d6cd
 
+> Reported-by: syzbot+221e213bf17f17e0d6cd@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=221e213bf17f17e0d6cd
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 
+[Severity: Low]
+This isn't a bug, but should there be a Fixes: tag here?
 
->
->
-> * Natural reachability (no instrumentation)
->
->
-> A minimal PMU driver registered/unregistered in a loop through the
-> exported perf core API (same lifecycle as an unloadable PMU module
-> or an Intel uncore PCI rebind), while userspace runs a tight loop
-> writing the attribute as soon as it appears (alternating values, so
-> every write passes the same-value fast path). On a 64-vCPU KASAN
-> VM (7.3) the first slab-use-after-free appears ~0.6 s after the
-> hammer starts (94 reports within the run; the writes that land late
-> in the window successfully arm cpc->hrtimer and are then freed by
-> the unregister of the same round -- that use-after-free in
-> perf_pmu_free() is a separate defect I am reporting in its own
-> mail). A fault dump in the same run shows the writer's path
-> stopping exactly at perf_event_mux_interval_ms_store+0x18a, the
-> same instruction as the controlled window-A witness. On 7.1.5 the
-> same uninstrumented hammer also faulted naturally inside the store
-> (dangling percpu array read at store+0x149).
->
->
-> * Reproducer
->
-> Module source inlined at the end of this mail; usage:
->
-> # build against the kernel under test
-> make -C <kernel-build-dir> M=$PWD modules
->
-> # in the guest (root):
-> insmod r4_repro.ko
-> # terminal A: writer hammer
-> while :; do
-> F=/sys/bus/event_source/devices/r4pmu/perf_event_mux_interval_ms
-> [ -e $F ] && { echo 100 > $F 2>/dev/null; echo 200 > $F 2>/dev/null; }
-> done
-> # terminal B:
-> echo "regloop 400" > /sys/module/r4_repro/parameters/action
->
->
-> Triggering requires a runtime PMU registration (unloadable PMU
-> driver, uncore PCI rebind on matching hardware) plus a root writer
-> (attribute mode 0644); the window is the registration interval
-> (device_add done -> last cpc timer initialized), sub-millisecond to
-> milliseconds per round, trivially hit by a write loop.
->
->
-> * Additional symptom of the same window (functional, no memory fault)
->
->
-> If the store lands between __perf_mux_hrtimer_init()'s "is the
-> field unset" read and its default assignment (the default is
-> PERF_CPU_HRTIMER = 1000/HZ; the assignment writes
-> pmu->hrtimer_interval_ms), the PMU ends up with
-> pmu->hrtimer_interval_ms == default while every cpc actually runs
-> the user's value -- and because the store's same-value fast path
-> returns early on an equal value, writing the field value back is a
-> permanent no-op: the divergence cannot be repaired by re-writing
-> the same number. Same fix point (normalize defaults before
-> publication), so reported here rather than separately.
->
->
-> Thanks for taking a look.
->
-> Regards,
-> Hanxiang Xu
-> xuhx@hust.edu.cn
->
-> ------------------------------------------------------------------------
-> reproducer: r4_repro.c (build with: make -C <kernel-build-dir> M=$PWD
-> modules; requires CONFIG_PERF_EVENTS=y and CONFIG_MODULES=y)
-> ------------------------------------------------------------------------
-> // SPDX-License-Identifier: GPL-2.0
-> /*
-> * r4_repro.c - minimal reproducer for the premature-sysfs-publication
-> * NULL dereference in perf_event_mux_interval_ms_store()
-> * (kernel/events/core.c).
-> *
-> * perf_pmu_register() publishes the PMU device and its sysfs attributes
-> * (pmu_dev_alloc() -> device_add()) *before* allocating and installing the
-> * per-CPU perf_cpu_pmu_context array and initializing each cpc's hrtimer.
-> * A concurrent root write to perf_event_mux_interval_ms during that window
-> * reaches:
-> *
-> * cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu);
-> * cpc->hrtimer_interval = ...; <- NULL cpc => write to 0xf0
-> *
-> * or, one window later (cpc published, timer not yet initialized), the
-> * restart IPI runs perf_mux_hrtimer_restart() on a zeroed hrtimer and
-> * dereferences timer->base == NULL in hrtimer_forward_now().
-> *
-> * Usage (from userspace):
-> *
-> * insmod r4_repro.ko
-> * # terminal A: writer hammer on the freshly (re)created sysfs node
-> * while :; do
-> * for F in /sys/bus/event_source/devices/r4pmu/perf_event_mux_interval_ms; do
-> * [ -e $F ] && { echo 100 > $F 2>/dev/null; echo 200 > $F 2>/dev/null; }
-> * done
-> * done
-> * # terminal B: registration churn through the exported perf core API
-> * echo "regloop 400" > /sys/module/r4_repro/parameters/action
-> *
-> * Alternating values bypass the same-value fast path so every open of the
-> * node performs a full store. On a KASAN kernel, a write landing inside
-> * the window produces an immediate NULL-pointer oops in
-> * perf_event_mux_interval_ms_store() (write fault at address 0xf0), or an
-> * IRQ-context panic via perf_mux_hrtimer_restart() -> hrtimer_cb_get_time()
-> * (NULL+0xc). Writes landing in a later part of the window succeed in
-> * arming cpc->hrtimer and will surface as use-after-free reports when the
-> * same registration round unregisters again (that is the related
-> * perf_pmu_free() defect; see the report text).
-> *
-> * No kernel source modification: everything goes through the
-> * EXPORT_SYMBOL_GPL perf core API, exactly like a real unloadable PMU
-> * provider driver (e.g. Intel uncore PCI drivers via bind/unbind).
-> */
-> #define pr_fmt(fmt) "R4REPRO: " fmt
-> #include <linux/module.h>
-> #include <linux/kernel.h>
-> #include <linux/kthread.h>
-> #include <linux/sched.h>
-> #include <linux/delay.h>
-> #include <linux/workqueue.h>
-> #include <linux/perf_event.h>
-> #include <linux/err.h>
-> #include <linux/string.h>
-> static struct pmu test_pmu;
-> static int my_registered;
-> static int test_type = -1;
-> static unsigned long stat_reg_ok, stat_reg_fail, stat_unreg_ok, stat_unreg_fail;
-> static int repro_event_init(struct perf_event *event)
-> {
-> if (event->attr.type != test_type)
-> return -ENOENT;
-> return 0;
-> }
-> static void repro_pmu_reset(void)
-> {
-> static const struct pmu tmpl = {
-> .task_ctx_nr = perf_invalid_context,
-> .module = THIS_MODULE,
-> .capabilities = PERF_PMU_CAP_NO_INTERRUPT |
-> PERF_PMU_CAP_NO_EXCLUDE,
-> .event_init = repro_event_init,
-> };
-> test_pmu = tmpl;
-> }
-> static int do_register(void)
-> {
-> int ret;
-> repro_pmu_reset();
-> ret = perf_pmu_register(&test_pmu, "r4pmu", -1);
-> if (ret) {
-> stat_reg_fail++;
-> my_registered = 0;
-> } else {
-> stat_reg_ok++;
-> my_registered = 1;
-> test_type = test_pmu.type;
-> }
-> return ret;
-> }
-> static int do_unregister(void)
-> {
-> int ret = -EINVAL;
-> if (my_registered)
-> ret = perf_pmu_unregister(&test_pmu);
-> if (ret) {
-> stat_unreg_fail++;
-> } else {
-> stat_unreg_ok++;
-> my_registered = 0;
-> }
-> return ret;
-> }
-> static char action_cmd[64];
-> static void action_workfn(struct work_struct *w)
-> {
-> char cmd[64];
-> char *p, *cp;
-> long n = 0;
-> strscpy(cmd, strstrip(action_cmd), sizeof(cmd));
-> cp = cmd;
-> p = strsep(&cp, " ");
-> if (cp && cp[0])
-> if (kstrtol(cp, 0, &n))
-> n = 0;
-> if (!strcmp(p, "register")) {
-> pr_info("register rc=%d type=%d\n", do_register(), test_type);
-> } else if (!strcmp(p, "unregister")) {
-> pr_info("unregister rc=%d\n", do_unregister());
-> } else if (!strcmp(p, "regloop") && n > 0) {
-> long i;
-> for (i = 0; i < n; i++) {
-> if (my_registered)
-> do_unregister();
-> do_register();
-> usleep_range(0, 50);
-> }
-> pr_info("REGLOOP_DONE n=%ld reg_ok=%lu reg_fail=%lu unreg_ok=%lu unreg_fail=%lu\n",
-> n, stat_reg_ok, stat_reg_fail, stat_unreg_ok,
-> stat_unreg_fail);
-> } else if (!strcmp(p, "status")) {
-> pr_info("status registered=%d type=%d reg_ok=%lu reg_fail=%lu unreg_ok=%lu unreg_fail=%lu\n",
-> my_registered, test_type, stat_reg_ok, stat_reg_fail,
-> stat_unreg_ok, stat_unreg_fail);
-> } else {
-> pr_info("unknown action '%s'\n", p);
-> }
-> pr_info("ACTION_COMPLETE\n");
-> }
-> static DECLARE_WORK(action_work, action_workfn);
-> static int action_set(const char *val, const struct kernel_param *kp)
-> {
-> int ret = param_set_copystring(val, kp);
-> if (ret == 0)
-> schedule_work(&action_work);
-> return ret;
-> }
-> static const struct kernel_param_ops action_ops = {
-> .set = action_set,
-> .get = param_get_string,
-> };
-> static struct kparam_string action_param = {
-> .maxlen = sizeof(action_cmd),
-> .string = action_cmd,
-> };
-> module_param_cb(action, &action_ops, &action_param, 0200);
-> MODULE_PARM_DESC(action, "register|unregister|regloop N|status");
-> static int __init r4_repro_init(void)
-> {
-> repro_pmu_reset();
-> pr_info("loaded; start the userspace writer hammer, then run regloop\n");
-> return 0;
-> }
-> static void __exit r4_repro_exit(void)
-> {
-> cancel_work_sync(&action_work);
-> if (my_registered)
-> do_unregister();
-> pr_info("unloaded\n");
-> }
-> module_init(r4_repro_init);
-> module_exit(r4_repro_exit);
-> MODULE_LICENSE("GPL");
-> MODULE_DESCRIPTION("Minimal reproducer: premature sysfs publication NULL deref in perf_event_mux_interval_ms_store()");
+git blame of rds_ib_dev_free() and rds_ib_dev_put() points the deferred
+free design at commit 3e0249f9c05c ("RDS/IB: add refcount tracking to
+struct rds_ib_device").
+
+Should this also have a Cc: stable?
+
+> diff --git a/net/rds/ib.c b/net/rds/ib.c
+> index 4ea9838d090c3..ca6be8b2c3227 100644
+> --- a/net/rds/ib.c
+> +++ b/net/rds/ib.c
+> @@ -115,6 +115,7 @@ static void rds_ib_dev_free(struct work_struct *work)
+>  
+>  	kfree(rds_ibdev->vector_load);
+>  
+> +	ib_device_put(rds_ibdev->dev);
+>  	kfree(rds_ibdev);
+>  }
+>  
+> @@ -142,6 +143,12 @@ static int rds_ib_add_one(struct ib_device *device)
+>  				 ibdev_to_node(device));
+>  	if (!rds_ibdev)
+>  		return -ENOMEM;
+> +	/* Keep the device registered until the deferred cleanup completes. */
+> +	if (!ib_device_try_get(device)) {
+> +		kfree(rds_ibdev);
+> +		return -ENODEV;
+> +	}
+> +	rds_ibdev->dev = device;
+
+[Severity: High]
+Can this make ib_unregister_device() wait on userspace?
+
+The reference taken here is dropped only in rds_ib_dev_free(), which runs
+only after rds_ibdev->refcount reaches zero. rds_ib_remove_one() drops
+just the client data and device list references:
+
+net/rds/ib.c:rds_ib_remove_one() {
+    ...
+	synchronize_rcu();
+	rds_ib_dev_put(rds_ibdev);
+	rds_ib_dev_put(rds_ibdev);
+}
+
+Sockets can hold other references. For example, an FRMR MR created
+through an RDS_CMSG_RDMA_MAP cmsg holds one:
+
+sendmsg()
+  rds_cmsg_rdma_map()
+    __rds_rdma_map()
+      rds_ib_get_mr()
+        rds_ib_get_device()        <- takes an rds_ibdev reference
+        rds_ib_reg_frmr()
+          ibmr->device = rds_ibdev;
+
+The MR is stored in rs->rs_rdma_keys. Its reference is dropped only in
+rds_ib_free_mr(), which runs when userspace issues RDS_FREE_MR or closes
+the socket.
+
+Neither rds_ib_remove_one() nor rds_ib_dev_shutdown() revokes these MRs.
+Suppose the HCA is unregistered (driver unload, hot-unplug, rxe/siw link
+delete) while such a socket is open. disable_device() then does:
+
+drivers/infiniband/core/device.c:disable_device() {
+    ...
+	/* Pairs with refcount_set in enable_device */
+	ib_device_put(device);
+	wait_for_completion(&device->unreg_completion);
+    ...
+}
+
+Wouldn't that wait block uninterruptibly, with unregistration_lock held,
+until the user frees the MR or closes the socket?
+
+The comment above add_client_context() and remove_client_context() says
+client add and remove must be a fence. Keeping the registration refcount
+past .remove() seems to break that rule.
+
+Would it work better to tear down the PD and MR pools synchronously in
+rds_ib_remove_one() instead?
+
+The commit message also doesn't mention that unregistration now waits on
+RDS reference holders.
+
+[Severity: High]
+Does the ODP path in rds_ib_get_mr() turn this into a permanent hang?
+
+In net/rds/ib_rdma.c, the ODP branch takes a reference with
+rds_ib_get_device(). It returns without storing that reference in
+ibmr->device and without dropping it:
+
+net/rds/ib_rdma.c:rds_ib_get_mr() {
+    ...
+	rds_ibdev = rds_ib_get_device(rs->rs_bound_addr.s6_addr32[3]);
+    ...
+	if (need_odp == ODP_ZEROBASED || need_odp == ODP_VIRTUAL) {
+    ...
+		ibmr = kzalloc_obj(*ibmr);
+    ...
+		ibmr->u.mr = ib_mr;
+		ibmr->odp = 1;
+    ...
+		return ibmr;
+	}
+    ...
+}
+
+When the MR is freed, rds_ib_free_mr() returns early for ODP MRs, before
+it reaches rds_ib_dev_put():
+
+	if (ibmr->odp) {
+    ...
+		INIT_DELAYED_WORK(&ibmr->work, rds_ib_odp_mr_worker);
+		queue_delayed_work(rds_ib_mr_wq, &ibmr->work, 0);
+		return;
+	}
+
+rds_ib_odp_mr_worker() then only calls ib_dereg_mr() and kfree(ibmr).
+
+Before this patch, that imbalance only leaked the rds_ibdev and the PD.
+With this patch, a single ODP MR keeps rds_ibdev->refcount from ever
+reaching zero, so the new ib_device_put() in rds_ib_dev_free() never
+runs.
+
+Any later unregistration of that HCA would then block forever in the
+wait_for_completion() in disable_device(), even after the socket is
+closed.
+
+A local user can reach the ODP branch on an ODP-capable HCA such as mlx5.
+It is taken when rds_pin_pages() returns -EOPNOTSUPP in __rds_rdma_map()
+or rds_cmsg_rdma_args(). One case is an FS-DAX mapping, where
+FOLL_LONGTERM pinning is refused.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023100206.126692-1-hackerowskiy%40gmail.com
