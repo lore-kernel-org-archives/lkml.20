@@ -1,64 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084510;
-	b=dK0RbAnnzadL5MEy2jPnxFGi4qnZ2AtI90grwdA7yIuT6BmdBfQxHH09EiVYbS4lEY4v
-	 Z7oHqO12Z3PXQ46Psu1MziMaOx/1/ZudTVO+X+z8zZusuBxtvw2WyI/8D3Ae8bt6JDO4n
-	 dx5uKkEBuyNORhauVhMKJe5SwMadglU742Gp1kCFOlG3xlycSOKRdbN4D/LRK/Emmjyx0
-	 Jufh508+Bsy0i4gqA9DSPtYf7CH5UGmBNbO7kf1V+mfykzsbK0w7CG8kHO86uYC4+g/Bs
-	 0e6nL33SUSMUUUFk6LFvUqnnEONYdDSI0lN1Mq2TMTB1C/e+X+TaiPej4gvCvyr6MFA==
+	t=1793084567;
+	b=EzzqmeUiZeD0Q8/GBK0o9C5oDjBzlsq7iswpuIm1e7PPW0XrJh8oytPAw6yknwrDH51y
+	 kRmsBPOhIYt2XyTFfsdf4tfYA9i30+lM+u39gCMaTfyDqQfJBqpqRxZlm1YVlyIDfYuIX
+	 9kZswzZQQ2jco5e1j/vkw00NN4u1sl5ZJNZysXkxMJPrvuwZn5Mz/0MWDTdAnlUHWU9yV
+	 5/KaOIDKxmAdVZUmkC7wlrAWFjkF3UTpxxOOfsXJFoth4crY85WPUUDRxLTQxXMyxjXLf
+	 O9QAQJl1L0gHqHIvuyxlL4pv487hTa6/inUDFtknB4CV/KRvHgvZtQPh4ztlzbY6Rbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084510;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084567;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4/uN1Zp2J/k/3SLIBOCDwzRSoBK60Gc0psw5pmXaNiM=;
-	b=LxdBYmHyirS3Dr6RWRWlPjYea+pEhaxWCyue4z767uCsDVs1lVl6IIECQrCsp1P+DqgS
-	 3umQTYLP2CAOYkZTRktEf6BJtpjPGRQuuMV7d03VK1y5G479oBZLwzE1AuVxi6dfdp9+c
-	 wL499ifToVxHm0HmsJUKc6HgIsVCQ7VblwRCd8HaMXZC9ViDlZMuL65nUFWoXySmgQmOM
-	 kHjOfXfBZ7IHqW7loN/OYTUpG3+5kR9oG0jO0TlShAOVzz/Xiw6cGOKxhmlcussfdgOuh
-	 D950TvLyrKIZD8CdUe5GR/OBgQViKrfTWAt16pUUWpuox8669ejVgApygwEw881bg/g==
+	bh=IGxxK/0rRCVYhR8uVCd/PFtvUOh1YcYCxfBfXc4JAHU=;
+	b=Eb6Iqs0N4m2yuS6P3vqgo7cfcDGXmhbqndtMABYzmUYPC7ySLLVhBh8S6REbQ5d2vUNg
+	 mr1K/0gy4tZ5mvpLc29vPDzurj3stMEVhSZL6aUGwn9Sy3kYurzcEPYtkmFsLCj8cCMFW
+	 BxJorPyemT6THAqk1XFeZUCYvel1yZVymbaIBke+O1zMZk+gfiLGgPpegNid21qrcoeDw
+	 NfbJdRxImvCswsdr4jOb5JEbgtjCgPTu+fc9R14nZXvO+hukYoK3H7p6CzOOMh5v6DqnV
+	 fQ5iEnLCOkFwPwXV7gyZmmguoTnNA+5U427y3ZNqdws0XkjbPj/KZmZHfqd8TBULsLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XSZez1WK;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8931A606A32A;
-	Tue, 27 Oct 2026 07:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8931A606A32A
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gdpeStxZ;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C51F2606A31E;
+	Tue, 27 Oct 2026 07:02:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C51F2606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XSZez1WK
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gdpeStxZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=XSZez1WK6xpj/BdbouJwFcPWPQkOxJKlaSkjGZaEpph50eorQGU5+6P6z26yWcVgSZgPldry777ue
-	 5hhBvQnz4SFLNwIY/Shcfl9TzHSX1Lze9wIshL2+BBlP71oZZQbcv4YGFAsmFkLppTi3l2fl10BaHh
-	 8rVEl9LdJua9J5dc=
+	b=gdpeStxZ+ZjdtPmuGrWdMdrRPRK5Q6qqV3TtqjmwjitGtgswKdEsU1q7q6sZ/m3QYp0QRVeTNKRGJ
+	 6D4xMkJESfsoacLwf154tcu6g6adlKmH2TV0S3wX89TO6uIhggAkDewe3+lzufhmlXk2SPFt0bLdZo
+	 PHJzhomKwZ2g2j2w=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ae04c52739-f4d96;
-	Tue, 27 Oct 2026 15:01:38 +0800 (CST)
-X-RM-TRANSID:2ee86ae04c52739-f4d96
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ae04c90be8-90f25;
+	Tue, 27 Oct 2026 15:02:43 +0800 (CST)
+X-RM-TRANSID:2ee26ae04c90be8-90f25
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ae04c509fb-d0e51;
-	Tue, 27 Oct 2026 15:01:38 +0800 (CST)
-X-RM-TRANSID:2ee66ae04c509fb-d0e51
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae04c913e8-d18ff;
+	Tue, 27 Oct 2026 15:02:43 +0800 (CST)
+X-RM-TRANSID:2eea6ae04c913e8-d18ff
 From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: krzysztof.kozlowski@linaro.org,
+To: linux-media@vger.kernel.org
+Cc: crope@iki.fi,
+	mchehab@kernel.org,
 	linux-kernel@vger.kernel.org,
-	syzbot+1c5368988052dc2d8201@syzkaller.appspotmail.com,
+	andi.shyti@kernel.org,
+	syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com,
 	Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Subject: [PATCH v2 0/2] nfc: pn533: fix hung task on stalled USB send
-Date: Tue, 27 Oct 2026 15:01:33 +0800
-Message-ID: <20261027070136.1339-1-zhaofeng2@cmss.chinamobile.com>
+Subject: [PATCH v2] media: dvb-usb-v2: ec168: reject zero-length I2C reads
+Date: Tue, 27 Oct 2026 15:02:41 +0800
+Message-ID: <20261027070241.1475-1-zhaofeng2@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,29 +73,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The out URB wait in pn533_usb_send_frame() is unbounded, so a device
-that never completes the transfer hangs the task holding the command
-lock (syzbot report).  Simply adding a timeout is not enough, because
-the error path of pn533_wq_cmd() cannot deal with a send failure: it
-drops the queued command without completing it, leaving synchronous
-callers asleep forever and the command queue frozen.
+ec168_i2c_xfer() validates the length of the write-phase message of a
+combined write-then-read transaction, but not the length of the
+read-phase message.  A userspace I2C_RDWR ioctl on the adapter's
+/dev/i2c node can therefore pass a zero-length read message, which
+makes ec168_ctrl_msg() issue an IN-direction control transfer with
+wLength == 0.
 
-Patch 1 fixes that pre-existing error path; patch 2 then adds the
-actual send timeout, handling the race where the transfer completes
-right between the timeout expiring and the URB being killed.
+The USB core treats a zero-length control transfer as OUT-direction,
+so it detects the pipe direction mismatch and emits the "BOGUS control
+dir" dev_WARN_ONCE() in usb_submit_urb(), which panics on systems
+running with panic_on_warn.
 
-Issues pointed out by the Sashiko AI review of v1.
+Reject zero-length reads the same way the driver already rejects
+zero-length writes.
 
-Link to v1: https://lore.kernel.org/netdev/20261023025602.1746-1-zhaofeng2@cmss.chinamobile.com/
+Fixes: 2bf290be4f3e ("V4L/DVB (13364): ec168: add new driver for E3C EC168 DVB USB")
+Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=ed3ada41c4eb1c4ab78e
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+---
+v2: add missing spaces around '+' flagged by checkpatch, add Fixes tag.
+    Link to v1: https://lore.kernel.org/linux-media/20261023025535.90-1-zhaofeng2@cmss.chinamobile.com/
 
-Zhao Feng (2):
-  nfc: pn533: complete failed queued commands and keep queue moving
-  nfc: pn533: add timeout to USB frame send completion wait
+Note: Andi Shyti has posted an identical fix for the same syzbot
+report (https://ci.syzbot.org/patches/80b80f7f-e688-493b-b3eb-1516027aec7b);
+happy to defer to his version.
 
- drivers/nfc/pn533/pn533.c |  8 +++++++-
- drivers/nfc/pn533/usb.c   | 20 ++++++++++++++++----
- 2 files changed, 23 insertions(+), 5 deletions(-)
+ drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb-usb-v2/ec168.c
+index 0e4773fc02..193c752b6a 100644
+--- a/drivers/media/usb/dvb-usb-v2/ec168.c
++++ b/drivers/media/usb/dvb-usb-v2/ec168.c
+@@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
+ 	while (i < num) {
+ 		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
+ 			if (msg[i].addr == ec168_ec100_config.demod_address) {
+-				if (msg[i].len < 1) {
++				if (msg[i].len < 1 || msg[i + 1].len < 1) {
+ 					i = -EOPNOTSUPP;
+ 					break;
+ 				}
 -- 
 2.39.2
 
