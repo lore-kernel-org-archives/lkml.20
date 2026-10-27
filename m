@@ -1,61 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793083860;
-	b=XzTZIA/PVKxBWPHXEhnSWr4l885tePWHAZm/H/i9g6OrSwAWykXg/21QRhE7CzzntdVp
-	 1fv964CwmFQmCDypEn6Ph6wOJ7K9fHwEI9LuYpV90ppEYZB7TZKlvgg59gUv5w9+zVdV5
-	 SyLdY7LZDwARfDj2BXj0IIQFdSqA+080eK0yp0K9kozTo8hANompPdUPzClL0sIwgLlbZ
-	 b4hOhVURWcWSwV2YM3I2GlFW1j5gScCkHZddZwQ8zHrqS3KWk5yr6q6ZkCvgaxrfXHEsY
-	 DfnHwmJp0Y05Xl+Eg4tI60DyoOokqB6kuHO7u2ktmukr/GLxBuYSWEq86nMT8nN4MVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083860;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
-	 X-ZohoMailClient;
-	bh=5v8W69pEJjNShNlPAblERevgO2fDzlhJYp4v+tSGHW0=;
-	b=gCeI00MYZxQ/hfon5Weri262MdsRwXzt7X2DNMxjwJpS2LwxBSTi0Jz5eHR3uABliQhb
-	 dKcPzidLO1OqqHins18U8Ie6eT9udq1Fu4k4sp82J5ElOHShqBCy50y91KuYYrFC1rfCK
-	 F4mlR+MJ/c4HcyDkum4OrQJUFcTAlV/faJVZjEygVNCnVeNXlSPd/7xMASi1rW0Nh+bU4
-	 SPazko2aGfhmBfnmF9zoRrsj90yR0CaA0wrl6smEQL6e8rwwZE2/OJJhAKuALMQUw54+6
-	 oFL89ApD4Hr2stOTQQF4TQyAs2wwq3sAN3Zec89pKuyzUF2HsSE6/lHca5KMIPU07dw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.com;
-	spf=pass smtp.mailfrom=zohomail.com;
-	dkim=pass header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=cAEtvNKK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
-Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793083871;
+	b=RkQiE7IbnUZCcuCNPU1awSHP/wrP79K7HtdOZ1nW/TqnpgX9lSl+OjaDD67QGOPZmtoI
+	 8qMAoedJhf8W7ftksEpXvSz0E8i+NaAaXCIzNTEOQmuLMgQ8dPlCD3+PnF6RgYGdTlH6B
+	 4nU4FZ+JCMAfEuaCh4mT3EcFwhPM3Q9P3SSp9EpYg1Wr6zFzUExdmStIRGIkMItjZ6y+L
+	 3iXL/TmRscoICk/ZnCCtQ8dsulwX0qvZO3jEvnJ7Dx89hDvAOPI483iXdtbKgB85KliFq
+	 VcpmPimZjcPLxY4JApuiF/kGmnNRIluYr8dwK5R3/dCHLM2b7MkwC75C78VvtXE9MMA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083871;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=T7GMpbDuEdomDKncFT3yYy8syZ+MfWolkM+DO91ddA4=;
+	b=vxgu7ah4ssdYyZQjWnOg3Of5ki0vTmHb95J6ST+4MOpApwkmXMlVGSWXmKX3UU15+cBw
+	 h9aG87Cu9KR3L/SNbjlU+hh4aS9KLC5Lmqz/OJMQIiBheIJkJPECr34piN6DezFo/YnOA
+	 6DIW3dcqHFLh1F0IuZqqcM5OObAy0gkywe18Kvc22TRyY6BdHHXoDTi+4pRqgMvDqOC1G
+	 FoQFYPZZuF/b6rU4aHI+/H188Ti1Y8BslqQjG6SIevqPxWoBoGytgHcgVylFQ9yM1e3Nt
+	 up+YsOP9rmNk0tEPYS25HeOE8scKwq2G3EXHRFFqU5fZoQYlYjBsWzRCRBK9SggOmfg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N7tkItcO;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22F7606A31A;
-	Tue, 27 Oct 2026 06:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F22F7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C48B606A334;
+	Tue, 27 Oct 2026 06:51:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C48B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=cAEtvNKK
-ARC-Seal: i=1; a=rsa-sha256; t=1793083850; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PkNgMiGCcnLxaLPoA/E3HWsbS5J7j74XreRe1vgxgso5pFFWndae0jtnaP2CS5wef0qlrNBY3CZ6n+FXmeni0DTtf2vdL6Qyqdzg86wQc829eul1OTHpxhgqoUsWn1MlyIuaVImla2iNYRc5u1fmeXIEzab9BaDbfSUpWteAb4A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793083850; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=5v8W69pEJjNShNlPAblERevgO2fDzlhJYp4v+tSGHW0=; 
-	b=AD3zcAe0pzAJObATYhPbZiGcYOz/9vOYB+6Asmp9KGTlqF3mGETCqaOVscmUh+c7aRAK+WDe8xSLRvEnhbpZoZzfrV8HxNMEf0r8LaHsnoy3KKCvbjkhhKg+v1e/644FxnanrsVFjnSadFS5N9b3tj+W3hR19QWxJTNO86Czv1o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793083850;
-	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
-	bh=5v8W69pEJjNShNlPAblERevgO2fDzlhJYp4v+tSGHW0=;
-	b=cAEtvNKKkKzNjty6ATH1+FDTHA0L8TaSUk6aISZzolwV38RFFf4tgr9lJG/B+nE8
-	PvBXhFgkcLR1KRWDAB6KgQSZOr9W/QwdwytKcAGhqkBwRbNHDp53PpamOWpL7eAOn2/
-	K+cmyrisd4qIVU7etJBFCEURQS+ADOzeb+MrdDCs=
-Received: by smtp.zohomail.com with SMTPS id 1793083847254143.69273226168082;
-	Mon, 26 Oct 2026 23:50:47 -0700 (PDT)
-Message-ID: <b49b15bb-26cd-4764-a5e0-2030ade2d5f7@zohomail.com>
-Date: Tue, 27 Oct 2026 14:50:40 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N7tkItcO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=T7GMpbDuEdomDKncFT3yYy8syZ+MfWolkM+DO91ddA4=; b=N
+	7tkItcOAJBFYJOpTHkz+a5Uur8gwRX0IYqacuVKvGYhfmjNwobJDyU+Oo0FHlMIP
+	IbJv+ILgqqYt5961K2QTmoAQRCTGKvNoVsxtEss5Dmz64tK6Bbb6zrW7QaTInIR+
+	8o2Qhfw0eYPIw5f7cmZOxOfy67khNJICM9jQEIp4oA=
+Date: Tue, 27 Oct 2026 14:50:49 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Sudeep Holla" <sudeep.holla@kernel.org>
+Cc: "Jassi Brar" <jassisinghbrar@gmail.com>,
+	"Mark Brown" <broonie@kernel.org>, "Arnd Bergmann" <arnd@arndb.de>,
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re:Re: [PATCH v2] mailbox: pcc: validate PCCT subspaces before
+ parsing
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <20261023-invincible-satisfied-dragon-c3dc50@sudeepholla>
+References: <20261023093839.715037-1-yaojiale02@163.com>
+ <20261023-invincible-satisfied-dragon-c3dc50@sudeepholla>
+X-NTES-SC: AL_Qu2SAfyTvEAv7ymbYekcn08ShO49XMOyvfoi2YFTc8EFhwzy3T8rZFVlLHfY28mULw+2ux6vQhhcw+doWoNAEsXTXuVpb4zAhBF5dsEARg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,353 +67,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 08/16] cxl: Refresh cached PCI HDM decoder settings
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261011021422.3428136-1-smadhavan@nvidia.com>
- <20261011021422.3428136-9-smadhavan@nvidia.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261011021422.3428136-9-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu08011227fe4f005b639ed05ddf2cf5c50000d155d2913ce8276e2d98f2d3c866a60fc355a8c93528b7501d:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+Message-ID: <6b05ec89.55fd.1a17c203cd6.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:gigvCgDnj8HKSeBqi_xgAA--.1500W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQpXkWrgScol-wAA3S
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-在 2026/10/11 10:14, Srirangan Madhavan 写道:
-> Early PCI discovery creates the HDM cache, while later CXL enumeration and
-> decoder operations provide updated programming state.
->
-> Refresh the PCI snapshot when decoders are enumerated, committed, or reset
-> so reset recovery need not walk the CXL topology. Ignore updates when no
-> cache exists and reject decoder-count mismatches.
->
-> Use CXL_RESET for the PCI HDM cache. Shared HDM register helpers do not
-> require it.
->
-> Skip cache checks and updates for DVSEC-emulated decoders, which do not
-> use HDM registers. Keep cached global control when MMIO reads return all
-> ones.
->
-> Skip non-PCI mock ports to avoid test wrappers and a circular dependency
-> between cxl_core and cxl_mock.
->
-> Link: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=50a88f5194e5df38590d413f925d8d5afa8a8488
-> Suggested-by: Dave Jiang <dave.jiang@intel.com>
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Assisted-by: LLM
-Reviewed-by: Li Ming <ming.li@zohomail.com>
-One comment below.
-> ---
->   drivers/cxl/Kconfig     |  5 +++
->   drivers/cxl/core/core.h |  3 ++
->   drivers/cxl/core/hdm.c  | 55 +++++++++++++++++++++++++++++++-
->   drivers/cxl/core/pci.c  | 70 +++++++++++++++++++++++++++++++++++++++++
->   include/cxl/cxl.h       |  1 +
->   include/cxl/hdm.h       | 25 +++++++++++++++
->   include/linux/pci.h     |  6 ++++
->   7 files changed, 164 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/cxl/Kconfig b/drivers/cxl/Kconfig
-> index 80aeb0d556bd..8b08bfdc4982 100644
-> --- a/drivers/cxl/Kconfig
-> +++ b/drivers/cxl/Kconfig
-> @@ -6,6 +6,7 @@ menuconfig CXL_BUS
->   	select FW_UPLOAD
->   	select PCI_DOE
->   	select FIRMWARE_TABLE
-> +	select CXL_RESET
->   	select NUMA_KEEP_MEMINFO if NUMA_MEMBLKS
->   	select FWCTL if CXL_FEATURES
->   	help
-> @@ -244,3 +245,7 @@ config CXL_ATL
->   	depends on ACPI_PRMT && AMD_NB
->   
->   endif
-> +
-> +# CXL_BUS requires the PCI HDM cache and built-in state helpers, even when modular.
-> +config CXL_RESET
-> +	bool
-> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-> index d69864b25656..77bc4f7d2e99 100644
-> --- a/drivers/cxl/core/core.h
-> +++ b/drivers/cxl/core/core.h
-> @@ -222,6 +222,9 @@ static inline void devm_cxl_dport_ras_setup(struct cxl_dport *dport) { }
->   int cxl_gpf_port_setup(struct cxl_dport *dport);
->   
->   struct cxl_hdm;
-> +/* Hold cxl_rwsem.dpa for write while using the returned cache. */
-> +struct cxl_hdm_info *cxl_hdm_get_cached_info(struct cxl_hdm *cxlhdm, int id);
-> +int cxl_hdm_check_decoder_count(struct cxl_hdm *cxlhdm);
->   int cxl_hdm_decode_init(struct cxl_dev_state *cxlds, struct cxl_hdm *cxlhdm,
->   			struct cxl_endpoint_dvsec_info *info);
->   int cxl_port_get_possible_dports(struct cxl_port *port);
-> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
-> index 1a19078e6c6c..b57257efbf4e 100644
-> --- a/drivers/cxl/core/hdm.c
-> +++ b/drivers/cxl/core/hdm.c
-> @@ -730,6 +730,47 @@ static void cxlsd_set_targets(struct cxl_switch_decoder *cxlsd, u64 *tgt)
->   		*tgt |= FIELD_PREP(GENMASK_ULL(63, 56), t[7]->port_id);
->   }
->   
-> +static void cxl_hdm_refresh_decoder(struct cxl_hdm *cxlhdm,
-> +				    struct cxl_decoder *cxld)
-> +{
-> +	void __iomem *hdm = cxlhdm->regs.hdm_decoder;
-> +	struct cxl_endpoint_decoder_settings *settings;
-> +	struct cxl_hdm_info *info;
-> +	u32 global_ctrl;
-> +
-> +	if (!hdm)
-> +		return;
-> +	if (!is_endpoint_decoder(&cxld->dev))
-> +		return;
-> +
-> +	guard(rwsem_write)(&cxl_rwsem.dpa);
-> +	info = cxl_hdm_get_cached_info(cxlhdm, cxld->config.id);
-> +	if (!info)
-> +		return;
-> +
-> +	/* Preserve the last good value when the device does not respond. */
-> +	global_ctrl = readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
-> +	if (global_ctrl != U32_MAX)
-> +		info->global_ctrl = global_ctrl;
-> +	settings = &info->settings[cxld->config.id];
-> +
-> +	/*
-> +	 * A disabled decoder's software object may retain its old range and
-> +	 * skip state. Leave only the decoder id in the cached settings so stale
-> +	 * state is not restored as an enabled decode.
-> +	 */
-> +	*settings = (struct cxl_endpoint_decoder_settings) {
-> +		.config.id = cxld->config.id,
-> +	};
-> +	if (cxld->config.flags & CXL_DECODER_F_ENABLE) {
-> +		struct cxl_endpoint_decoder *cxled =
-> +			to_cxl_endpoint_decoder(&cxld->dev);
-> +
-> +		settings->config = cxld->config;
-> +		settings->skip = cxled->skip;
-> +	}
-> +}
-> +
->   static void
->   cxl_endpoint_decoder_snapshot(struct cxl_endpoint_decoder *cxled,
->   			      struct cxl_endpoint_decoder_settings *settings)
-> @@ -811,6 +852,7 @@ static int cxl_decoder_commit(struct cxl_decoder *cxld)
->   	}
->   	port->commit_end++;
->   	cxld->config.flags |= CXL_DECODER_F_ENABLE;
-> +	cxl_hdm_refresh_decoder(cxlhdm, cxld);
->   
->   	return 0;
->   }
-> @@ -883,6 +925,7 @@ static void cxl_decoder_reset(struct cxl_decoder *cxld)
->   	writel(0, hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
->   
->   	cxld->config.flags &= ~CXL_DECODER_F_ENABLE;
-> +	cxl_hdm_refresh_decoder(cxlhdm, cxld);
->   
->   	/* Userspace is now responsible for reconfiguring this decoder */
->   	if (is_endpoint_decoder(&cxld->dev)) {
-> @@ -1090,9 +1133,17 @@ static int devm_cxl_enumerate_decoders(struct cxl_hdm *cxlhdm,
->   {
->   	void __iomem *hdm = cxlhdm->regs.hdm_decoder;
->   	struct cxl_port *port = cxlhdm->port;
-> -	int i;
-> +	/* DVSEC-emulated decoders do not describe the cached HDM registers. */
-> +	bool emulated = should_emulate_decoders(info);
-> +	int check_rc, i;
->   	u64 dpa_base = 0;
->   
-> +	if (is_cxl_endpoint(port) && hdm && !emulated) {
-> +		check_rc = cxl_hdm_check_decoder_count(cxlhdm);
-> +		if (check_rc)
-> +			return check_rc;
-Why needs this check_rc here? I think you can move the 'rc' defined in 
-the following for() loop to the top of this function, then reuse it.
-> +	}
-> +
->   	cxl_settle_decoders(cxlhdm);
->   
->   	for (i = 0; i < cxlhdm->decoder_count; i++) {
-> @@ -1131,6 +1182,8 @@ static int devm_cxl_enumerate_decoders(struct cxl_hdm *cxlhdm,
->   			put_device(&cxld->dev);
->   			return rc;
->   		}
-> +		if (!emulated)
-> +			cxl_hdm_refresh_decoder(cxlhdm, cxld);
->   		rc = add_hdm_decoder(port, cxld);
->   		if (rc) {
->   			dev_warn(&port->dev,
-> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-> index 33b21c8dcb21..2acddb472103 100644
-> --- a/drivers/cxl/core/pci.c
-> +++ b/drivers/cxl/core/pci.c
-> @@ -6,6 +6,7 @@
->   #include <linux/delay.h>
->   #include <linux/pci.h>
->   #include <linux/pci-doe.h>
-> +#include <cxl/hdm.h>
->   #include <cxl/pci.h>
->   #include <linux/aer.h>
->   #include <cxlpci.h>
-> @@ -180,6 +181,75 @@ int cxl_await_media_ready(struct cxl_dev_state *cxlds)
->   }
->   EXPORT_SYMBOL_NS_GPL(cxl_await_media_ready, "CXL");
->   
-> +/**
-> + * cxl_hdm_get_cached_info() - get the PCI-owned HDM cache for a decoder
-> + * @cxlhdm: HDM capability whose port identifies the upstream PCI device
-> + * @id: decoder ID to validate against the cached decoder count
-> + *
-> + * The caller must hold cxl_rwsem.dpa for write throughout this call and
-> + * all access through the returned pointer. The pointer refers to the live
-> + * cache; ownership remains with the PCI device.
-> + *
-> + * Return: the cache containing @id, or NULL if no upstream PCI device or
-> + * cache exists, or @id is outside the cached decoder count.
-> + */
-> +struct cxl_hdm_info *cxl_hdm_get_cached_info(struct cxl_hdm *cxlhdm, int id)
-> +{
-> +	struct cxl_hdm_info *info;
-> +
-> +	struct pci_dev *pdev __free(pci_dev_put) =
-> +		cxl_port_get_uport_pci_dev(cxlhdm->port);
-> +
-> +	if (!pdev)
-> +		return NULL;
-> +
-> +	lockdep_assert_held_write(&cxl_rwsem.dpa);
-> +	info = pdev->hdm;
-> +	if (!info)
-> +		return NULL;
-> +
-> +	if (id < 0 || id >= info->decoder_count) {
-> +		pci_warn(pdev, "CXL HDM decoder %d exceeds cached count %d\n",
-> +			 id, info->decoder_count);
-> +		return NULL;
-> +	}
-> +
-> +	return info;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(cxl_hdm_get_cached_info, "CXL");
-> +
-> +/**
-> + * cxl_hdm_check_decoder_count() - check enumeration against the PCI HDM cache
-> + * @cxlhdm: HDM capability containing the decoder count to check
-> + *
-> + * Take cxl_rwsem.dpa for read while comparing the cached count. Call only
-> + * for hardware HDM decoders, since DVSEC-emulated ranges do not describe
-> + * the HDM registers represented by the cache.
-> + *
-> + * Return: 0 if the counts match or no upstream PCI device or cache exists,
-> + * or -ENXIO if the cached and enumerated decoder counts differ.
-> + */
-> +int cxl_hdm_check_decoder_count(struct cxl_hdm *cxlhdm)
-> +{
-> +	struct pci_dev *pdev __free(pci_dev_put) =
-> +		cxl_port_get_uport_pci_dev(cxlhdm->port);
-> +
-> +	if (!pdev)
-> +		return 0;
-> +
-> +	guard(rwsem_read)(&cxl_rwsem.dpa);
-> +	if (pdev->hdm &&
-> +	    pdev->hdm->decoder_count != cxlhdm->decoder_count) {
-> +		pci_warn(pdev,
-> +			 "CXL HDM cache decoder count mismatch: cached=%d hdm=%d\n",
-> +			 pdev->hdm->decoder_count, cxlhdm->decoder_count);
-> +		return -ENXIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(cxl_hdm_check_decoder_count, "CXL");
-> +
->   static int cxl_set_mem_enable(struct cxl_dev_state *cxlds, u16 val)
->   {
->   	struct pci_dev *pdev = to_pci_dev(cxlds->dev);
-> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
-> index 9af01e1f45ba..b29374b34cfa 100644
-> --- a/include/cxl/cxl.h
-> +++ b/include/cxl/cxl.h
-> @@ -26,6 +26,7 @@ enum cxl_devtype {
->   };
->   
->   struct cxl_region;
-> +struct cxl_hdm_info;
->   
->   enum cxl_decoder_type {
->   	CXL_DECODER_DEVMEM = 2,
-> diff --git a/include/cxl/hdm.h b/include/cxl/hdm.h
-> index 219b9bb67440..d5e7efd2ffc0 100644
-> --- a/include/cxl/hdm.h
-> +++ b/include/cxl/hdm.h
-> @@ -16,4 +16,29 @@ struct cxl_endpoint_decoder_settings {
->   	u64 skip;
->   };
->   
-> +/**
-> + * struct cxl_hdm_info - cached CXL HDM state for a PCI device
-> + * @decoder_count: number of entries in @settings
-> + * @hdm_bar: PCI BAR containing the HDM decoder capability
-> + * @hdm_offset: offset of the HDM decoder capability in @hdm_bar
-> + * @hdm_size: size of the HDM decoder register block
-> + * @global_ctrl: HDM decoder global control register
-> + * @dvsec_ctrl: CXL DVSEC control register
-> + * @dvsec_ctrl_valid: whether @dvsec_ctrl contains valid state
-> + * @settings: per-endpoint-decoder programming state
-> + *
-> + * Publication through pci_dev.hdm and all mutable fields are protected by
-> + * cxl_rwsem.dpa.
-> + */
-> +struct cxl_hdm_info {
-> +	int decoder_count;
-> +	int hdm_bar;
-> +	resource_size_t hdm_offset;
-> +	resource_size_t hdm_size;
-> +	u32 global_ctrl;
-> +	u16 dvsec_ctrl;
-> +	bool dvsec_ctrl_valid;
-> +	struct cxl_endpoint_decoder_settings settings[] __counted_by(decoder_count);
-> +};
-> +
->   #endif /* __CXL_HDM_H__ */
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index d31a8d107b1e..7bb37fcb556d 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -339,6 +339,9 @@ struct pcie_link_state;
->   struct pci_sriov;
->   struct pci_p2pdma;
->   struct rcec_ea;
-> +#ifdef CONFIG_CXL_RESET
-> +struct cxl_hdm_info;
-> +#endif
->   
->   /* struct pci_dev - describes a PCI device
->    *
-> @@ -566,6 +569,9 @@ struct pci_dev {
->   #ifdef CONFIG_PCI_DOE
->   	struct xarray	doe_mbs;	/* Data Object Exchange mailboxes */
->   #endif
-> +#ifdef CONFIG_CXL_RESET
-> +	struct cxl_hdm_info *hdm;	/* CXL HDM decoder state */
-> +#endif
->   #ifdef CONFIG_PCI_NPEM
->   	struct npem	*npem;		/* Native PCIe Enclosure Management */
->   #endif
+QXQgMjAyNi0xMC0yMyAyMjoyNDoyOCwgIlN1ZGVlcCBIb2xsYSIgPHN1ZGVlcC5ob2xsYUBrZXJu
+ZWwub3JnPiB3cm90ZToKPihGb3Igc29tZSByZWFzb24geW91IGRvbWFpbiBnZXRzIGJsb2NrZWQg
+Zm9yIG1lLCBzbyBwbGVhc2Ugd2FpdCB1bnRpbAo+SSBjaGVjayByZXNwb25zZSBtYW51YWxseSBv
+biBsb3JlKQo+Cj5PbiBGcmksIE9jdCAyMywgMjAyNiBhdCAwNTozODozOVBNICswODAwLCBKaWFs
+ZSBZYW8gd3JvdGU6Cj4+IFRoZSBQQ0MgbWFpbGJveCBwcm9iZSB3YWxrcyBQQ0NUIGVudHJpZXMg
+YnkgdGhlaXIgZGVjbGFyZWQgbGVuZ3Rocwo+PiB3aXRob3V0IGNoZWNraW5nIHRoYXQgZWFjaCBl
+bnRyeSBpcyBjb250YWluZWQgaW4gdGhlIHRhYmxlLiBJdCBhbHNvCj4+IHBhc3NlcyBnZW5lcmlj
+IGhlYWRlcnMgdG8gdHlwZS1zcGVjaWZpYyBwYXJzZXJzIHdpdGhvdXQgZXN0YWJsaXNoaW5nIHRo
+ZQo+PiByZXF1aXJlZCByZWNvcmQgc2l6ZS4gTWFsZm9ybWVkIGZpcm13YXJlIGNhbiB0aGVyZWZv
+cmUgbW92ZSB0aGUgY3Vyc29yCj4+IG91dHNpZGUgdGhlIFBDQ1Qgb3IgY2F1c2Ugb3V0LW9mLWJv
+dW5kcyBmaWVsZCByZWFkcy4KPj4gCj4+IFZhbGlkYXRlIHRoZSB0YWJsZSBoZWFkZXIsIGVhY2gg
+c3Vic3BhY2UgcmFuZ2UsIGFuZCB0aGUgbWluaW11bSBzaXplIGZvcgo+PiBzdXBwb3J0ZWQgc3Vi
+c3BhY2UgdHlwZXMgZHVyaW5nIGJvdGggdGhlIGNvdW50aW5nIGFuZCBwcm9iZSBwYXNzZXMuCj4+
+IAo+PiBGaXhlczogODZjMjJmOGM5YTNiICgiTWFpbGJveDogQWRkIHN1cHBvcnQgZm9yIFBsYXRm
+b3JtIENvbW11bmljYXRpb24gQ2hhbm5lbCIpCj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3Jn
+Cj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPgo+PiAtLS0K
+Pj4gCj4+IE5vdGVzOgo+PiAgICAgQ2hhbmdlcyBpbiB2MjoKPj4gICAgIC0gUmVwbGFjZSB0aGUg
+dHlwZSBzd2l0Y2ggd2l0aCBhIG1pbmltdW0tbGVuZ3RoIGxvb2t1cCB0YWJsZS4KPj4gICAgIC0g
+UmVtb3ZlIHRoZSByZWR1bmRhbnQgcmVtYWluaW5nLWhlYWRlci1zaXplIGNoZWNrLgo+PiAgICAg
+LSBLZWVwIGFuIGV4cGxpY2l0IHR5cGUgYm91bmQgY2hlY2sgYmVmb3JlIGluZGV4aW5nIHRoZSB0
+YWJsZS4KPj4gCj4+ICBkcml2ZXJzL21haWxib3gvcGNjLmMgfCA0OSArKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKystCj4+ICAxIGZpbGUgY2hhbmdlZCwgNDggaW5zZXJ0
+aW9ucygrKSwgMSBkZWxldGlvbigtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJv
+eC9wY2MuYyBiL2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBpbmRleCA5ODg4ZGFiNjQ2MzkuLjkx
+Y2VmMGVlMzM5MSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tYWlsYm94L3BjYy5jCj4+ICsrKyBi
+L2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBAQCAtNTUzLDYgKzU1MywzOCBAQCBzdGF0aWMgY29u
+c3Qgc3RydWN0IG1ib3hfY2hhbl9vcHMgcGNjX2NoYW5fb3BzID0gewo+PiAgCS5sYXN0X3R4X2Rv
+bmUgPSBwY2NfbGFzdF90eF9kb25lLAo+PiAgfTsKPj4gIAo+PiArc3RhdGljIGNvbnN0IHUxNiBw
+Y2Nfc3Vic3BhY2VfbWluX2xlbltBQ1BJX1BDQ1RfVFlQRV9SRVNFUlZFRF0gPSB7Cj4+ICsJW0FD
+UElfUENDVF9UWVBFX0dFTkVSSUNfU1VCU1BBQ0VdID0KPj4gKwkJc2l6ZW9mKHN0cnVjdCBhY3Bp
+X3BjY3Rfc3Vic3BhY2UpLAo+PiArCVtBQ1BJX1BDQ1RfVFlQRV9IV19SRURVQ0VEX1NVQlNQQUNF
+XSA9Cj4+ICsJCXNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWQpLAo+PiArCVtBQ1BJ
+X1BDQ1RfVFlQRV9IV19SRURVQ0VEX1NVQlNQQUNFX1RZUEUyXSA9Cj4+ICsJCXNpemVvZihzdHJ1
+Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWRfdHlwZTIpLAo+PiArCVtBQ1BJX1BDQ1RfVFlQRV9FWFRf
+UENDX01BU1RFUl9TVUJTUEFDRV0gPQo+PiArCQlzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9leHRf
+cGNjX21hc3RlciksCj4+ICsJW0FDUElfUENDVF9UWVBFX0VYVF9QQ0NfU0xBVkVfU1VCU1BBQ0Vd
+ID0KPj4gKwkJc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19zbGF2ZSksCj4KPlBsZWFz
+ZSBhZGQgVHlwZSA1IGRldGFpbHMgaGVyZSBhcyB3ZWxsIHNvIHRoYXQgaXQgZG9lc24ndCBlc2Nh
+cGUgdGhlCj5zaXplIHZhbGlkYXRpb24uIEFzIGlzLCBpdHMgemVyby1pbml0aWFsaXplZCBhbmQg
+bGV0cyBldmVyeSBub24gMC1ieXRlCj5yZWNvcmQgcGFzcyB2YWxpZGF0aW9uLgo+Cj4+ICt9Owo+
+PiArCj4+ICtzdGF0aWMgYm9vbCBwY2Nfc3Vic3BhY2VfaXNfdmFsaWQoc3RydWN0IGFjcGlfc3Vi
+dGFibGVfaGVhZGVyICplbnRyeSwKPj4gKwkJCQkgIHVuc2lnbmVkIGxvbmcgZW5kKQo+PiArewo+
+PiArCXVuc2lnbmVkIGxvbmcgc3RhcnQgPSAodW5zaWduZWQgbG9uZyllbnRyeTsKPj4gKwlzaXpl
+X3QgbGVuZ3RoOwo+PiArCj4+ICsJaWYgKHN0YXJ0ID49IGVuZCkKPj4gKwkJcmV0dXJuIGZhbHNl
+Owo+PiArCj4+ICsJbGVuZ3RoID0gZW50cnktPmxlbmd0aDsKPj4gKwlpZiAobGVuZ3RoIDwgc2l6
+ZW9mKCplbnRyeSkgfHwgbGVuZ3RoID4gZW5kIC0gc3RhcnQpCj4+ICsJCXJldHVybiBmYWxzZTsK
+Pj4gKwo+PiArCWlmIChlbnRyeS0+dHlwZSA+PSBBQ1BJX1BDQ1RfVFlQRV9SRVNFUlZFRCkKPj4g
+KwkJcmV0dXJuIGZhbHNlOwo+PiArCj4KPllvdSBjYW4gZHJvcCB0aGUgYWJvdmUgY2hlY2sgaWYg
+cGFyc2VfcGNjX3N1YnNwYWNlKCkgZG9lcyB0aGlzIGZpcnN0Lgo+Cj4+ICsJcmV0dXJuIGxlbmd0
+aCA+PSBwY2Nfc3Vic3BhY2VfbWluX2xlbltlbnRyeS0+dHlwZV07Cj4+ICt9Cj4+ICsKPj4gIC8q
+Kgo+PiAgICogcGFyc2VfcGNjX3N1YnNwYWNlIC0gQ291bnQgUENDIHN1YnNwYWNlcyBkZWZpbmVk
+Cj4+ICAgKiBAaGVhZGVyOiBQb2ludGVyIHRvIHRoZSBBQ1BJIHN1YnRhYmxlIGhlYWRlciB1bmRl
+ciB0aGUgUENDVC4KPj4gQEAgLTU2OCw2ICs2MDAsOSBAQCBzdGF0aWMgaW50IHBhcnNlX3BjY19z
+dWJzcGFjZSh1bmlvbiBhY3BpX3N1YnRhYmxlX2hlYWRlcnMgKmhlYWRlciwKPj4gIHsKPj4gIAlz
+dHJ1Y3QgYWNwaV9wY2N0X3N1YnNwYWNlICpzcyA9IChzdHJ1Y3QgYWNwaV9wY2N0X3N1YnNwYWNl
+ICopIGhlYWRlcjsKPj4gIAo+PiArCWlmICghcGNjX3N1YnNwYWNlX2lzX3ZhbGlkKCZzcy0+aGVh
+ZGVyLCBlbmQpKQo+PiArCQlyZXR1cm4gLUVJTlZBTDsKPj4gKwo+Cj5TbyB0aGlzIHdpbGwgdGFr
+ZSBjYXJlIG9mIHZhbGlkYXRpb24gYXMgcGFydCBvZiBhY3BpX3Byb2JlKCkgaXRzZWxmIHdoaWNo
+IGlzCj5nb29kIGJ1dCBzZWUgbXkgcXVlc3Rpb24gYmVsb3cuCj4KPj4gIAlpZiAoc3MtPmhlYWRl
+ci50eXBlIDwgQUNQSV9QQ0NUX1RZUEVfUkVTRVJWRUQpCj4+ICAJCXJldHVybiAwOwo+PiAgCj4K
+Pk1ha2UgdGhpcyB0aGUgZmlyc3QgY2hlY2sobmVlZCB0byByZXZlcnNlIGl0IHRvIHJldHVybiBl
+cnJvciBub3cpIGFuZAo+ZHJvcCB0aGUgYWJvdmUgY2hlY2sgYXMgbWVudGlvbmVkLgo+Cj4+IEBA
+IC04MTIsNiArODQ3LDcgQEAgc3RhdGljIGludCBwY2NfbWJveF9wcm9iZShzdHJ1Y3QgcGxhdGZv
+cm1fZGV2aWNlICpwZGV2KQo+PiAgCXN0cnVjdCBhY3BpX3RhYmxlX2hlYWRlciAqcGNjdF90Ymw7
+Cj4+ICAJc3RydWN0IGFjcGlfc3VidGFibGVfaGVhZGVyICpwY2N0X2VudHJ5Owo+PiAgCXN0cnVj
+dCBhY3BpX3RhYmxlX3BjY3QgKmFjcGlfcGNjdF90Ymw7Cj4+ICsJdW5zaWduZWQgbG9uZyB0YWJs
+ZV9lbmQ7Cj4+ICAJYWNwaV9zdGF0dXMgc3RhdHVzID0gQUVfT0s7Cj4+ICAJaW50IGksIHJjLCBj
+b3VudCA9IHBjY19jaGFuX2NvdW50Owo+PiAgCj4+IEBAIC04MjEsNiArODU3LDEzIEBAIHN0YXRp
+YyBpbnQgcGNjX21ib3hfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4gIAlp
+ZiAoQUNQSV9GQUlMVVJFKHN0YXR1cykgfHwgIXBjY3RfdGJsKQo+PiAgCQlyZXR1cm4gLUVOT0RF
+VjsKPj4gIAo+PiArCWFjcGlfcGNjdF90YmwgPSAoc3RydWN0IGFjcGlfdGFibGVfcGNjdCAqKXBj
+Y3RfdGJsOwo+PiArCWlmIChwY2N0X3RibC0+bGVuZ3RoIDwgc2l6ZW9mKCphY3BpX3BjY3RfdGJs
+KSkgewo+PiArCQlyYyA9IC1FSU5WQUw7Cj4+ICsJCWdvdG8gZXJyOwo+PiArCX0KPj4gKwl0YWJs
+ZV9lbmQgPSAodW5zaWduZWQgbG9uZylwY2N0X3RibCArIHBjY3RfdGJsLT5sZW5ndGg7Cj4+ICsK
+Pj4gIAlwY2NfbWJveF9jaGFubmVscyA9IGRldm1fa2NhbGxvYyhkZXYsIGNvdW50LCBzaXplb2Yo
+KnBjY19tYm94X2NoYW5uZWxzKSwKPj4gIAkJCQkJIEdGUF9LRVJORUwpOwo+PiAgCWlmICghcGNj
+X21ib3hfY2hhbm5lbHMpIHsKPj4gQEAgLTg0NCw3ICs4ODcsNiBAQCBzdGF0aWMgaW50IHBjY19t
+Ym94X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+ICAJcGNjdF9lbnRyeSA9
+IChzdHJ1Y3QgYWNwaV9zdWJ0YWJsZV9oZWFkZXIgKikgKAo+PiAgCQkodW5zaWduZWQgbG9uZykg
+cGNjdF90YmwgKyBzaXplb2Yoc3RydWN0IGFjcGlfdGFibGVfcGNjdCkpOwo+PiAgCj4+IC0JYWNw
+aV9wY2N0X3RibCA9IChzdHJ1Y3QgYWNwaV90YWJsZV9wY2N0ICopIHBjY3RfdGJsOwo+PiAgCWlm
+IChhY3BpX3BjY3RfdGJsLT5mbGFncyAmIEFDUElfUENDVF9ET09SQkVMTCkgewo+PiAgCQlwY2Nf
+bWJveF9jdHJsLT50eGRvbmVfaXJxID0gdHJ1ZTsKPj4gIAkJcGNjX21ib3hfY3RybC0+dHhkb25l
+X3BvbGwgPSBmYWxzZTsKPj4gQEAgLTg1Niw2ICs4OTgsMTEgQEAgc3RhdGljIGludCBwY2NfbWJv
+eF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+PiAgCWZvciAoaSA9IDA7IGkg
+PCBjb3VudDsgaSsrKSB7Cj4+ICAJCXN0cnVjdCBwY2NfY2hhbl9pbmZvICpwY2hhbiA9IGNoYW5f
+aW5mbyArIGk7Cj4+ICAKPj4gKwkJaWYgKCFwY2Nfc3Vic3BhY2VfaXNfdmFsaWQocGNjdF9lbnRy
+eSwgdGFibGVfZW5kKSkgewo+PiArCQkJcmMgPSAtRUlOVkFMOwo+PiArCQkJZ290byBlcnI7Cj4+
+ICsJCX0KPj4gKwo+Cj5XaHkgZG8gd2UgbmVlZCB0byByZS12YWxpZGF0ZSB0aGUgc3Vic3BhY2Ug
+aWYgaXQgaXMgYWxyZWFkeSB0YWtlbiBjYXJlCj5iZWZvcmUgcGNjX21ib3hfcHJvYmUoKSBhcyBw
+YXJ0IG9mIGFjcGlfcHJvYmUoKS4gSU1PIHRoZSBjaGFuZ2VzIGluCj5wY2NfbWJveF9wcm9iZSgp
+IGNhbiBiZSBkcm9wcGVkLgoKVGhhbmtzIGZvciB5b3VyIHJldmlldywgdGhlIHVwZGF0ZSBvbmUg
+aXMgaGVyZSwKCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTAyNzA2NDgzNS4yMjY0
+NDU5LTEteWFvamlhbGUwMkAxNjMuY29tCgo+Cj4tLSAKPlJlZ2FyZHMsCj5TdWRlZXAK
