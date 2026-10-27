@@ -1,106 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793124780;
-	b=Q14U67MBRnh2VYc3UrRMjjRh9gvD8SwF2yKdqafD6Gk/eIQNdHrXg03LTtcV2jXyx5Xg
-	 zmcHwmVyebcWpa+7/xJpsis4Lr20UyPev6vCiBqclb57S8/Gb4veApwq4llsFpvtgfWuh
-	 sAcPHKJI+pDIhlTWGHg4EnArxeJZrkrj8KJaaOvMeBhOu/JdWeHwepIcTTHe9F4/DRVJ1
-	 LRkc0u8Gx0ydDxePdu1VceEXFcz1prl1tYDtDi1A5A8E1NGpRhkxoyW6MoGrIL2rhO/9g
-	 DPKj326Nrh+RH3H7wCf309j/neml/nnRiUWQ89Brstu3n64Efoz9XVa9elszLJg0sdQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124780;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-	b=Ax16ckMd0FMS09aeDGftx2Akky+ToIqZhovl8GQtQAPaoXDYd+C1XAxscjetXoFxsjzs
-	 RhiyGf6o+jsCyyCIIGIAb825vZjgfrl4Om+UrwoxwRfcPKMHSqUWdQpV+YaPUVJ9TiaG3
-	 kIqtSF+dNh3Ru/D/DRlZ4neL3zuL4rcph6BIPkZV0CVOLgXRRxwRiOgfQOT6UVh7nipNR
-	 HypgdUMuiyNr09n6fPCUqUPZW1Rrfbjbc4eldE/oV0gZCrSu+5D876gTwaE7LguOSwegg
-	 lypunK5djRXFh8n6TYiBxocgdKQhP2DqZK1Z8nGJyzzgLL1k4uiWxTBcWglIUnangOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=n2jbAlcY;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=egdW8twB;
-	arc=fail smtp.remote-ip=85.215.255.51
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C9D606A31A;
-	Tue, 27 Oct 2026 18:12:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C9D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793124824;
+	b=ngzMx9uWbQB8W58mkLyPMCZRWYeq0LU+hP6cQq4SNA+bx+oW+FI1zVrDYFCFKNDIQv6q
+	 mRUcdCu8qcbc2RQU7/Kyo2ruivWnJjWF2CcQJlEBYzbo74LS0Nnszdaglu8nVK964DMFh
+	 KjiDWyUJXgW5F+nGI+f+pXLpsBBvZDgZMfzrC2S4xHh4ytDQU/YNrSLvKwCf6NfZZSP7a
+	 013lgKO2AMkyiT+S8qHBGgg7Ts/Mh1/LdAJJgfSkVATdQ0MV+GhrpOS3Jj3zsCR+ECLIN
+	 7YwV/quJWSplw/EfBnAowAD3uW4c9zxjE+YLmUiafP+/xuphja7CtJEDLEaAO0qnLtA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793124824;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=SEGsNEKzJFKAXCSwgMTuyhg9hYL4zxxvha+xxLEPLv0=;
+	b=sewc3R0usClwkp4xSE0x8ibWi7/SYP176ci1hSVVu0vHkzly+cWFJQ2711N+19PKHs2N
+	 Nn9SWrYy/XgHZzvnoJRNt94mRKn0PT1x6NIp04QuVPzdV6nGGtcPVZPD8DCuLTYa6me0d
+	 yeEz8iS88ZJBSAk5qtHpiaKYoCcw3Q+52ppMHPyRX7q+Ytn62kcj36P2fze5//E8dGFrX
+	 GC4TKbDB9tL8Q5CGrHzzTutV5AaXM20wGMyzWmXlpfnbh0k2mVVXJtrarh+7VF6F1dsEY
+	 ZYc14jif7rrqcA5tqajvdh+qaVTNhkd3PPgsptU0XqKRWY1u1J1Rn4EZnCowbRDprMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MRWCaJvB;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85979606A31F;
+	Tue, 27 Oct 2026 18:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85979606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=n2jbAlcY;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=egdW8twB
-ARC-Seal: i=1; a=rsa-sha256; t=1793124762; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=PIoEo8fub/GpGERjlGpouvvVB8GpP7cdZoDkfCzVh7oaKbakx6rtgmoQA/G0e0566e
-    RDHf3OiSgApdYiFkO4K+9JFV/XyD5oJxPqkzYNtet/Iwnf7uRWaeqbi02nh6+gOcTEGS
-    +16ntBlFtQAJzQ+6z+AWT3bFRHrKn/Ne7WZT43DJigqhxnPaPx+ffInwFdb9jJWgP0tG
-    8EI8IBkGp9yel0qKDOAL1abnzMjCRPfQxD0tHBb7QMmDpbvATRmPAA6yugQXYGPqbQNr
-    OlhdG88CEtoyw2xDmxpzWC6Uev+jkNQWGuSQrkVb24gf0lmajHuD4ujP6hAfk7eXK03c
-    piqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793124762;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-    b=dwutRWKLncdhHyX1EGDYs9rmfTtQzI4XIPskR/LgP7IvBW6z7ck0f8vV5ZcYYMGkrW
-    bj/Y+MR3Ogs9nDm5rT6PYKzgg6qQqnlkc3KZSFKDZXutQUci61ncJLUGT0PAn5072xmC
-    YOYAIDUsXegwFUbv3BlqTEBS+Ao6Ajwvre5cRYybHgLZpP6n7rtRX3Ia0IT9uCAvKjjc
-    f0w8rXhJqLD2KrJjVQ3C7a65dGVSatOOK6agHvYujaPymyvrwJC/VmVNOn1pfRZrIJYi
-    1J/4EiJP0BTVxUJBfOZLYGcV4qT1FG3t5PFhLEDmpxzAms055vNsMuyTHQy6qgYhm+jk
-    /a4g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793124762;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-    b=n2jbAlcYTcjr+S2o3wo+mRgWFTSYQGPZovPk7NZjoBylSEXoxlJ75k81J84F9sCn/K
-    esGjbVW2E0c2iL3+ZrHJvC5TUW4Vng/E279lLCeUYTR1Heo6RucezoT6pQt9J6VuKtwm
-    aTTSmSb7Dx884gWN7wv+mli8W/BykMQWYSG3DUE8+VE5nhZGXm2jIyRs5GYB/0fXGdsO
-    IpEr7AW1ZicQ2R/h095hDcu5eCg/ehiwiEyYvo9/vfwr9oSo8hSgsQ+cZNXUZWd+vjfu
-    MBHz+W49GnLLjnKELbaYvt02kMiqEPEKk/TDro9ewpwIVG1bQgZtjM51z9GOBdji9hEv
-    czEQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793124762;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=9K0cHhogjFGdzGmlyT7TpNjKvBBWzvIeBsJB7+bteoY=;
-    b=egdW8twBSUfAwmSUUlzcedi+4pG0XAEow8WgPBhFmDylWAzgkz2+71kbAM86xkXrbr
-    Wax23uO52XvrOFSKN1Cw==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZyk"
-Received: from [10.176.237.181]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29RICf8Xg
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Tue, 27 Oct 2026 19:12:41 +0100 (CET)
-Message-ID: <112238206a5698e8766528c2b6d4d3e208c28d71.camel@iokpp.de>
-Subject: Re: [PATCH v6] scsi: ufs: Change the error check sequence for auto
- hibern8
-From: Bean Huo <beanhuo@iokpp.de>
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, avri.altman@wdc.com,
-  jejb@linux.ibm.com, martin.petersen@oracle.com, bvanassche@acm.org, 
- kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgs@samsung.com, 
- h10.kim@samsung.com
-Cc: stable@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>
-Date: Tue, 27 Oct 2026 19:12:40 +0100
-In-Reply-To: <20261027110357.3649301-1-hy50.seo@samsung.com>
-References: 
-	<CGME20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb@epcas2p4.samsung.com>
-	 <20261027110357.3649301-1-hy50.seo@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=MRWCaJvB
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5256C1650;
+	Tue, 27 Oct 2026 11:13:39 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2746E3F59E;
+	Tue, 27 Oct 2026 11:13:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793124822; bh=StP32dfIcKd8YphSKpAL+/HMutnlIIEzCaQQmma93NA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=MRWCaJvB6Q28OPTMIyyC6DjI8k5TlohZktMkWptC/He2/3HJxzp5kYwhVFDcW74p3
+	 o33mnJ07QNYP5dUnmQi2BdWSac/cz93NF/qOl3XcNpzMvuUI9ZLP8rq0VqQ5Xx4KuG
+	 8wbM62lsVAv+Qy+Es7f5beZKEbQGV8ixw8A3RHbI=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	maz@kernel.org,
+	oupton@kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	corbet@lwn.net,
+	pbonzini@redhat.com,
+	yuzenghui@huawei.com,
+	wangzhou1@hisilicon.com,
+	yangjinqian1@huawei.com,
+	caijian11@h-partners.com,
+	liuyonglong@huawei.com,
+	tangchengchang@huawei.com,
+	yezhenyu2@huawei.com,
+	yubihong@huawei.com,
+	linuxarm@huawei.com,
+	joey.gouly@arm.com,
+	kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	fuad.tabba@linux.dev,
+	mark.rutland@arm.com,
+	seanjc@google.com,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 08/15] KVM: arm64: Flush the HDBSS buffer on VM exit
+Date: Tue, 27 Oct 2026 18:13:35 +0000
+Message-ID: <auDpyRNpeDNzIk3W@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260929103655.85107-9-zhengtian10@huawei.com>
+References: <20260929103655.85107-1-zhengtian10@huawei.com> <20260929103655.85107-9-zhengtian10@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,31 +89,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-10-27 at 20:03 +0900, HOYOUNG SEO wrote:
-> Auto-hibern8 enter and exit are performed by the host controller without
-> a UIC command, and the auto-hibern8 idle timer only runs while no UIC
-> command is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is
-> therefore usually reported while hba->active_uic_cmd is NULL.
->=20
-> Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
-> easier to analyze"), ufshcd_uic_cmd_compl() returns early when
-> hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
-> called. Such auto-hibern8 errors are no longer recorded in hba->errors,
-> so ufshcd_check_errors() is not called for them and the error handler is
-> not scheduled.
->=20
-> Check for auto-hibern8 errors before checking for an active UIC command,
-> as was done before that commit, but keep returning early when there is
-> no active UIC command so that a NULL cmd is never dereferenced. Only
-> report the missing UIC command if no auto-hibern8 error was found.
->=20
-> Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier=
- to
-> analyze")
-> Cc: stable@vger.kernel.org=C2=A0# v6.13+
-> Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
-> Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
+On Tue, Sep 29, 2026 at 06:36:48PM +0800, Tian Zheng wrote:
+> From: Eillon <yezhenyu2@huawei.com>
+> 
+> HDBSS entries accumulate in the per-vCPU buffer while the guest runs,
+> and must be drained into the dirty bitmap or dirty ring before
+> userspace can observe them.
+> 
+> Drain the buffer at a single point: kvm_arch_vcpu_ioctl_run() flushes
+> it on every VM exit, before the exit reason is handled. Flushing
+> inside the run loop keeps the dirty-ring feedback timely: when a flush
+> pushes the ring past its soft limit, kvm_dirty_ring_push() raises
+> KVM_REQ_DIRTY_RING_SOFT_FULL, which check_vcpu_requests() observes at
+> the top of the next loop iteration, so the vCPU exits to userspace for
+> the harvest before re-entering the guest.
+> 
+> kvm_arch_sync_dirty_log() relies on the exit path to flush: it kicks
+> vCPUs out of guest mode, and the GET/CLEAR protocol tolerates
+> concurrent bitmap writes, so the snapshot is complete without extra
+> synchronization.
+> 
+> Signed-off-by: Eillon <yezhenyu2@huawei.com>
+> Signed-off-by: Tian Zheng <zhengtian10@huawei.com>
+> ---
+>  arch/arm64/include/asm/kvm_dirty_bit.h | 15 +++++++++
+>  arch/arm64/kvm/arm.c                   | 20 ++++++++++++
+>  arch/arm64/kvm/dirty_bit.c             | 45 ++++++++++++++++++++++++++
+>  3 files changed, 80 insertions(+)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_dirty_bit.h b/arch/arm64/include/asm/kvm_dirty_bit.h
+> index fe703f02626b..d828e6b43fe9 100644
+> --- a/arch/arm64/include/asm/kvm_dirty_bit.h
+> +++ b/arch/arm64/include/asm/kvm_dirty_bit.h
+> @@ -13,6 +13,9 @@
+>  #include <asm/sysreg.h>
+>  #include <linux/sizes.h>
+> 
+> +#define HDBSS_ENTRY_VALID	BIT(0)
+> +#define HDBSS_ENTRY_IPA	GENMASK_ULL(55, 12)
+> +
+>  #define KVM_ARM_HDBSS_DEFAULT_SIZE  PAGE_SIZE
+>  #define KVM_ARM_HDBSS_MAX_SIZE      SZ_2M
+> 
+> @@ -22,7 +25,19 @@ static inline u32 kvm_hdbss_buffer_size(struct kvm *kvm)
+>  	return kvm->arch.hdbss_buffer_size ?: KVM_ARM_HDBSS_DEFAULT_SIZE;
+>  }
+> 
+> +static inline bool kvm_hdbss_enabled(struct kvm *kvm)
+> +{
+> +	return kvm->arch.mmu.vtcr & VTCR_EL2_HDBSS;
+> +}
+> +
+> +static inline bool vcpu_hdbss_enabled(struct kvm_vcpu *vcpu)
+> +{
+> +	return vcpu->arch.hw_mmu &&
+> +		(vcpu->arch.hw_mmu->vtcr & VTCR_EL2_HDBSS);
+> +}
+> +
+
+IIUC, arch.mmu is always the canonical s2_mmu, while hw_mmu can be the 
+nested s2_mmu, if enabled.
+
+Was that your intend here?
+If not, we could use only kvm* version, which can be called with vcpu->kvm.
+
+If it was, then I would like to understand the logic here, as IIUC the 
+buffer is accessible only for the non-nested guest, as it's 
+allocated in a per-vcpu structure. (vcpu->arch)
+
+>  int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu);
+>  void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu);
+> +void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu);
+> 
+>  #endif /* __ARM64_KVM_DIRTY_BIT_H__ */
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 5ea4ac26995e..9d7bdece149a 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -1430,6 +1430,14 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+> 
+>  		trace_kvm_exit(ret, kvm_vcpu_trap_get_class(vcpu), *vcpu_pc(vcpu));
+> 
+> +		/*
+> +		 * Drain the HDBSS buffer before the exit is handled, so
+> +		 * entries pushed to the dirty ring are accounted for by
+> +		 * dirty_ring_check_request() on the next iteration.
+> +		 */
+> +		if (vcpu_hdbss_enabled(vcpu))
+> +			kvm_flush_hdbss_buffer(vcpu);
+> +
+>  		/* Exit types that need handling before we can be preempted */
+>  		handle_exit_early(vcpu, ret);
+> 
 
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+looks the correct place, haven't looked too much on that, though.
+
+
+> @@ -2017,7 +2025,19 @@ long kvm_arch_vcpu_unlocked_ioctl(struct file *filp, unsigned int ioctl,
+> 
+>  void kvm_arch_sync_dirty_log(struct kvm *kvm, struct kvm_memory_slot *memslot)
+>  {
+> +	unsigned long i;
+> +	struct kvm_vcpu *vcpu;
+> 
+> +	if (!kvm_hdbss_enabled(kvm))
+> +		return;
+> +
+> +	/*
+> +	 * The buffer is drained on every VM exit, so kicking running
+> +	 * vCPUs is enough to flush them; the dirty-log GET/CLEAR
+> +	 * protocol tolerates bits set concurrently with the snapshot.
+> +	 */
+> +	kvm_for_each_vcpu(i, vcpu, kvm)
+> +		kvm_vcpu_kick(vcpu);
+>  }
+> 
+>  static int kvm_vm_ioctl_set_device_addr(struct kvm *kvm,
+> diff --git a/arch/arm64/kvm/dirty_bit.c b/arch/arm64/kvm/dirty_bit.c
+> index f9aeb9f34ad0..be0d12555c84 100644
+> --- a/arch/arm64/kvm/dirty_bit.c
+> +++ b/arch/arm64/kvm/dirty_bit.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/kconfig.h>
+>  #include <linux/log2.h>
+>  #include <linux/mm.h>
+> +#include <linux/srcu.h>
+> 
+
+Out of curiosity, could you please explain you reasoning on selecting srcu 
+as locking here? 
+
+(Like, what are you protecting against, and why srcu is a good choice)
+
+>  int kvm_arm_vcpu_alloc_hdbss(struct kvm_vcpu *vcpu)
+>  {
+> @@ -53,3 +54,47 @@ void kvm_arm_vcpu_free_hdbss(struct kvm_vcpu *vcpu)
+>  	vcpu->arch.hdbss.hdbss_pg = NULL;
+>  	vcpu->arch.hdbss.hdbssbr_el2 = 0;
+>  }
+> +
+> +void kvm_flush_hdbss_buffer(struct kvm_vcpu *vcpu)
+> +{
+> +	int idx, curr_idx;
+> +	u64 prod;
+> +	u32 entries;
+> +	u64 *hdbss_buf;
+> +	struct kvm *kvm = vcpu->kvm;
+> +	int srcu_idx;
+> +
+> +	if (!vcpu_hdbss_enabled(vcpu))
+> +		return;
+
+You test this before calling, is it really necessary to test it again, just 
+after calling?
+
+> +
+> +	prod = read_sysreg_s(SYS_HDBSSPROD_EL2);
+> +	curr_idx = HDBSSPROD_IDX(prod);
+> +
+> +	if (curr_idx == 0 || !vcpu->arch.hdbss.hdbss_pg)
+> +		return;
+> +
+> +	hdbss_buf = page_address(vcpu->arch.hdbss.hdbss_pg);
+> +	if (!hdbss_buf)
+> +		return;
+> +
+> +	entries = kvm_hdbss_buffer_size(kvm) / sizeof(u64);
+> +
+> +	/* kvm_vcpu_mark_page_dirty() resolves the memslot under SRCU. */
+> +	srcu_idx = srcu_read_lock(&kvm->srcu);
+> +	for (idx = 0; idx < min_t(u32, curr_idx, entries); idx++) {
+> +		u64 gpa;
+> +
+> +		gpa = hdbss_buf[idx];
+> +		if (!(gpa & HDBSS_ENTRY_VALID))
+> +			continue;
+> +
+> +		gpa &= HDBSS_ENTRY_IPA;
+> +		kvm_vcpu_mark_page_dirty(vcpu, gpa >> PAGE_SHIFT);
+> +	}
+> +	srcu_read_unlock(&kvm->srcu, srcu_idx);
+> +
+> +	prod &= ~HDBSSPROD_EL2_INDEX_MASK;
+> +	write_sysreg_s(prod, SYS_HDBSSPROD_EL2);
+> +	vcpu->arch.hdbss.hdbssprod_el2 = prod;
+> +	isb();
+> +}
+> --
+> 2.43.0
+> 
+
+
+Thanks!
+Leo
+
