@@ -1,108 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793144832;
-	b=qVSNYPTyD7jUa9GKhZbFzWtBy0n/LUX78hwHyV5RCt6WfDNzadDLh3JfJjOCRT9e0MbA
-	 QPd8YBPTH5XVVxsXgYDyLJwhqT5WNIK19e3GC4KeDxsrEFi6icPXD7AaY6gSoOXMua1k9
-	 IAjJvXqVXG6HtMRodg7n/ZwjUqSOXp31dStIvfJQY1HaIuWSRmuZ0DZGTTFXDZ0eFtTJZ
-	 3TQ6h5tq5dN7LYZTkEZTB63dxkKb6MX+2/PnjHteOzog/AOBQMgiz4tazuvirJ+oOekfd
-	 436wQWoAQCaKegRaqMvkUWJyJa3IeBIHm+pB5ehdvpzQ2O7fq9mmKLtu0MvY6U+Xakg==
+	t=1793144858;
+	b=eng0wPKEZoGgrfqkQqf9ljIN03WKO3/ynoG91ozjaAtaMkYtsgqmJxPadLWIPCWpiyUp
+	 BtuPMOTCigh447mHBUp4sCCjp4mYYR69JDgSt+ok2qRBV68DAvYppTYvUeygIaVsOnilL
+	 PTbjSIldZeULXxbsMf+9gWCkjN7ENR7lRipE6h1ww+Xh+bmhrOMJLPNRzEsx73CgthxE+
+	 eyzlv2qY7mrk86HM3qttlsranUL11dkl4/jUZ+QW35IuLmZo/5jXPmR9nNbxlRBUn8UsX
+	 i4EE4T8x1RlsKA4XlRup6VeBQRE2INtvqiIzSfbMeSIM8AUFgITQb83bByRIlSB7zNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793144832;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793144858;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=0jobZ6lKMJLYxxTCc8I8rfjGuzkz6VIrJqfxqZy7dVw=;
-	b=j4jEzh22q5831OJXBLX3Z+k40oeCyw/Ggo2sWf4Pqka0o/Zcp8L/ClRgOyTCvnnEdrSx
-	 PbXpC9afTtaDMQljTw24rfyuHMP+/yIRpWbEXBon3PV2l50ACB8F+Oc+hbgJB1iz6w2Vo
-	 8Cw3ODZhn9XmzTZ9YLjDNExXZP4WkOKINNhvMybsOYuLtWrJckt6uQjtifKWKrGTsvEMS
-	 f7JJHFAtYdw/NuFbq2R8wC/+y8fLT5zVxPHKdaa4jYWO2hVaoH6H31sbqkubIEZfWJyps
-	 wNlv5o8LaKJgGvfQ6n99bxCY+TvX4YdRNctr9534dVfmVhD2zuZXIC97p/MCfHM2zog==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IeoTTHjrmkN+lAjLjMn+hlXcwBGCw4hztvP/cN1zZZU=;
+	b=ydmEjaJgV8L143W/G7/Ma3LinCVU7BKDe5hFvAlHARiXH2IXyEf3kbpOvq3z3ki/66c1
+	 0Rk5fAUSZVMGg65x3Dcgm3ND64jbApeP5xNTb1481zIRao/BwfPssKfmB1yvDIjDaE23v
+	 cIHh5cP+EgS5PFqEukWoIWh/Lqb7VTdPSL19fFIbiYMpjbAAuGZXq9pdUC6U5yTW5xhJD
+	 FjEsLlFQy8r1ehBoqaym6tGznnjFJszzwagnuTnmLacFE8QDP9geOhLvmazt1vWCTSOcJ
+	 Rq+zrwZ2ZtsxXfbqpXSiEvpLI14mgVKaIHMjsT6Qn1uDmupGXWECG4Ze1m81bNRnUig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	arc=none smtp.remote-ip=209.85.160.182
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zoRtLJTz;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AA0606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:47:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35AA0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53c4b82919fso7135991cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:47:01 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AA3606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:47:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33AA3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zoRtLJTz
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so3049695e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:47:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793144821; x=1793749621; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0jobZ6lKMJLYxxTCc8I8rfjGuzkz6VIrJqfxqZy7dVw=;
-        b=MAMauGjcQC5I4fdPuZtoQnkUL42Ja4RAOKAONT1AHTrTUlXxWwqX6qYADXfsEAR3/j
-         hUis6BLTdqxH9lpDGbebIZ+F0qhK+3Gw5A5H3+z2NBgRxi4MH2CtjOQEt/4ZNf155hzB
-         oTs4TdzanpcZpR/2BlKJXYZ5ayq9dCJ9KnWTYXDxPIGzp3UbV1x+jJ+RSlif0GRL/dJH
-         j0OePIYXBil1ld6ZPKFMsFzi6F38i35BXCm6Zqet5zyQslJePMeaHITZMn+3CDTRQJk4
-         QD6tYVzQJvCV1jaXUHg5KQO0GvIXtoG0gYWydzGqJE616loH3WeEVB2M4YGyBB7u1Jus
-         n4fA==
+        d=gmail.com; s=20260707; t=1793144856; x=1793749656; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IeoTTHjrmkN+lAjLjMn+hlXcwBGCw4hztvP/cN1zZZU=;
+        b=zoRtLJTzm3WXPgvBJXiFVZ+MUih4dfxDAUp9aZRpcShjdqilgb5SJSmPI215uBqHSC
+         KiKM9g63qR6c7yS3SOU07/XtqCGwuU8yT79uzXCjRJ7Me4+NvifGIKCWwPJ+nmMmxph7
+         2t4Opjgn1vF3qvyBPIY/KkLY+aQj4euEePwgVjtovyquuNJaBZPSd/on0/TQu1R42tdA
+         kWI9kxUhWLPvLbxI4i9F/JkAzZPH2tv+dVJJ1djR4eNrWYOfvMgLwCwiUACaLUUOPwuh
+         bon1H+JLdP3JwNznXDl7WxVXqfnj1UImUcETCi8GcuPufwicELbquu4+yrrQRdlxg1DG
+         EKfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793144821; x=1793749621;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0jobZ6lKMJLYxxTCc8I8rfjGuzkz6VIrJqfxqZy7dVw=;
-        b=2La4Run/vLRtDP62LMWv5eA/PaqoiGyP3/hMMh2y2daIzKWJv9XdrK/Q9XD6yn07Wz
-         UkNG0QiQGmk25t8aWo0fVwhfJA6r8NNshSoxmxh7odQ4PZwIdZNTNr6g7y7ySDASm46e
-         WCwupb+/r4/QApFwZsK7W/ZmoGeaJKIFAaqTAMpwjQDl/oTWUhbo6SReuwMweY6o4Dmc
-         Ms6CTraUDaEQ/q4zColiMlsoSkjbx7rz61DqkgOG3AOiKWIOyzzUEaL9Jd6UjPAmb3wh
-         tlRvg6yhNkalwKGD55e6cJlN0jBqnQM+ph0TpJgJXGoAo8X1ct43C8cR9LpYw319q7D+
-         +ZTQ==
-X-Forwarded-Encrypted: i=1; AKwUvByaZtJDP5bg86hMkLVvtD1rGpab6l7UHqXYtywwLKOlqRbmfalxOBr6eE8nrlRDvcPTKbYVxqOGCpawvNE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKt1t+KGTh7wXMwsdwovCowVQB/7nmIQ37ufVcm98LX5jCscHpu
-	oobGNP3l4sgyZudTPIa53iKZEhcXGI0EJzFVVa/kIzNFb/kO6iLB4Lic49UZ3xTyGC0=
-X-Gm-Gg: AYBFou3ImQHiISfOEncWRtm0ivVDX01bjrimxni6sgaGRaDk6HCbr16vaszPRgVdJvL
-	2c2N6eFiJ0Kc3Mt8zJNnm18O3O7syuY+YEgseVoX9pNOi+Zd4/yvakH208lEBS+afGV4+sulf1e
-	LxMMggXxVs9AM7hglJdpGRF/qz4mC7N+HeQZ+iSsPDpyh1nGmPK78zI1zLb8CjKrLXs1SP33nsg
-	ofYiwvJQUDUcoZtAl/TX560G6dkG9sZOtvvEHkvV7kemYymi16T3DgTZxFUoCqfn5R6gI3p4QcJ
-	Wttg7NkF5WX7rAhiufMhUfxYpr0B9sA09xQaV+ObfNjCHpir0Pnr8YVccpB051C2k4P2Sn1KbiS
-	/TsjSiWsAWzL1S1s+4vddyYLeIrc69Uk2dhYa7kD1kAG5hao9riTTIPidGglShQLKrGC7KZ/vLf
-	VSD5bdB3QRShhu3mM6pGBX2WGqN7xPhSctS9ioZ+C7xHnIJU7Wy0Oh2J7Ysd5mCYnm2C1CBN7fn
-	tj9hvwaXLL+epXUUALcRmR/xcrOpwAsSoynnJfdt/X4QchHbGIJQPn0pv5V86Bu7+nylagPOi5J
-	+9gCCR9Wn+oubOn/QfQ0QXKlQjTy/LEV3q+W224yES5Vb4PUxGqh7giT25LllmUd1dFHr/+03FQ
-	+Z69DTeIlcEg=
-X-Received: by 2002:a05:622a:342:b0:532:8ed7:534 with SMTP id d75a77b69052e-53fcb7f9e76mr15856551cf.37.1793144820933;
-        Tue, 27 Oct 2026 16:47:00 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47a69129sm114200426d6.4.2026.10.27.16.47.00
+        d=1e100.net; s=20260707; t=1793144856; x=1793749656;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IeoTTHjrmkN+lAjLjMn+hlXcwBGCw4hztvP/cN1zZZU=;
+        b=gFvDMGmFho52nWJFNNDVkyE7sqv9qg1XZqvW58zaOmJjf9MmJ8GhTAEwUXcHDmQvn2
+         PTViR0BPYtdBQQh5UO7a+ZRFRNuTij8E7+rdaJSlb0V7gwyitr1lJE42K6sXLWY+Zs/r
+         LN5tTh7xix4pMNmH+A5sh29rGiVDyyK2p1orHPKrt+y18diSqeH9IznYTNpRfxSWbKhg
+         kbksnvYpceGYPZXWOJzRVnhoCx0t/d5MMr34+DkPJ3L/QdGNBMdPO9IOhEzqylgUSu8e
+         OA6p5E+e8hjedXfIernLVMoq4W/FwJ/+Z0ZQ+sXeBYmkHIcFERXq2oCL06v+4wzfSmZE
+         YmOA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3d5eXSmzmU5lwrusjaWtvppzWuPR8ue+IQq1vGnV+jP/GIBYJZtifZ1LD9HRbhA0fT95G2jxQIWvACKA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJULh65oXNhiavg9itfc4vyWYoQRETuQFPV2HB/xcUZw55ckegq
+	fJmHwxckSvLnK83MtHs1KP+HTfTJA45FH43bZXfl7KgRoE5opfimqVfU
+X-Gm-Gg: AYBFou0gaj7GcYv9+1QANZNGCl+BWCO04jpQwhbONYhHc2YOVbPNLOUIaSGPpeBo5Aq
+	a1s2u8X/lpnkd+2H1akDvBxSR8ngyHZM+k0mCCw+hlANm8fcRl2zqM0Uyp/Vcgmmq6zYJipJLE4
+	UgK0UIvaDn7TGH32lmZj+ICnBPyhnqX1KjnUHAbwrabazhOsFUXNJ8RrFdzQ0Jm+M7ffsf4WCuh
+	jhDV01LeCLhwHfSKS4W5MyrxEwf7OAGph3mZoU1i937yWw0yolABBkQlbCs8OoH+xr7fl5WVTbZ
+	UO1KpZ99+DEVaR9GCp+VHnsKrPi30zucYGVrIE6RKOVx6PF9IOVEJlA8Yq/4UsGhRUAhTHAdR2k
+	SroHdrcYpnujuMuFI2E4EP+lro6RXAPHL8P3Kf35DlVCwsYMRuyDq8JzzxEVDxgYs/zNTAdiWtp
+	1CrNMC/f7KX9HkUoYv2+ZQsqDy4sltLkMjaUIlGl6X8zugEOTYqfjU0mAkQOGmV0Q5iMuRfeVpQ
+	nds3THBIe/dIkXPcDlSsIhygmqap+hIE4qQdI8WpOYGY+pC/wNdnIi4S5CLk2+yNf+COeKLeIja
+	/ZOi/ZKXxmKyDLrGIVF/hlpNOIPbY5kLM3J7Quuu7e6T42ZscOC+RoK3rzpAhEc878TodXs=
+X-Received: by 2002:a05:600c:524a:b0:4a1:efba:511 with SMTP id 5b1f17b1804b1-4a9674e6bf7mr9591635e9.35.1793144856486;
+        Tue, 27 Oct 2026 16:47:36 -0700 (PDT)
+Received: from matebook.galaxus.box (adsl-84-226-215-1.adslplus.ch. [84.226.215.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a96a8f28a1sm2905285e9.4.2026.10.27.16.47.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 16:47:00 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xLqsc-0000000BHke-3ly0;
-	Tue, 27 Oct 2026 20:46:58 -0300
-Date: Tue, 27 Oct 2026 20:46:58 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
-	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
-	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
-	dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <20261027234658.GL1685504@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <592d643f-e97d-4de8-9a87-e47d57dc8457@intel.com>
- <20261027193629.GK1685504@ziepe.ca>
- <5f33aeed-a20d-4881-9ccf-a69bc308d348@intel.com>
+        Tue, 27 Oct 2026 16:47:34 -0700 (PDT)
+From: Cian Ruane <cian.ruane1@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for Huawei MateBook X Pro 2020
+Date: Wed, 28 Oct 2026 00:47:32 +0100
+Message-ID: <20261027234732.6893-1-cian.ruane1@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,68 +95,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5f33aeed-a20d-4881-9ccf-a69bc308d348@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 04:09:19PM -0700, Dave Jiang wrote:
+The Huawei MateBook X Pro 2020 (MACHC-WAX9) has a combined headphone and
+microphone jack, but the BIOS marks pin 0x19 as unconnected (0x411111f0).
+As a result the headset microphone is missing and only the internal
+microphone is available.
 
-> There are two issues for TDX Connect. One, the device info is collected at
-> SPDM connect (TDH.SPDM.CONNECT), not at lock. TDH.TDI.BIND only returns the
-> interface report. So the measurements a TD sees at lock can be from well
-> before the lock. To get measurements taken after the bind, the TD has to
-> ask the VMM for a recollection with its own nonce.
+The mic mute LED on the F7 key does not follow the capture mute state
+either. The machine uses the PCI subsystem vendor ID 0x1e83 (Huaqin)
+rather than 0x19e5, so the Huawei vendor-wide quirk that sets up the LED
+does not match.
 
-IMHO measurements taken before lock must never be made visible through
-this interface, it defeats the security property of evidence within
-the locked session. I would expect the guest kernel TDX driver to
-prevent this.
- 
-> Second, a device may take a runtime firmware update of equal or higher SVN
-> while its TDIs stay locked, unless the lock sets NO_FW_UPDATE. The
-> TD isn't
+Add a fixup that configures pin 0x19 as a headset microphone without its
+own jack detection and chains to ALC269_FIXUP_HEADSET_MODE, which enables
+headset mode and the mic mute LED. This is the MACHR-WX9 fixup without
+its other pin overrides. The remaining BIOS pin defaults work, and pin
+0x14, which the MACHR-WX9 uses for a second speaker pair, produces no
+sound on this machine. Configuring pin 0x19 with presence detection
+(0x04a11040) does not work either: the jack state drops to unplugged
+while the headset is still connected.
 
-Sure, any of the live update things are not really relevant, the
-evidence can change asynchronously and without notification, so we can
-just ignore the issue. If the guest opts into live update then it can
-only rely on things like min svn.
+Tested on: HUAWEI MACHC-WAX9 (MateBook X Pro 2020), BIOS 1.26,
+Ubuntu 26.04 (kernel 7.0.0-38-generic, with this patch backported).
 
-> > I'm a bit puzzled by this optional challenge concept, I haven't tried
-> > to read SPDM spec yet, but it really has a way to omit the challenge
-> > from the reply? It doesn't just replace it with 0 or something?
-> 
-> SPDM puts the requester's nonce in the GET_MEASUREMENTS request, and only when
-> the request asks for a signature. The MEASUREMENTS response always carries the
-> responder's own nonce, and the signature covers the request too. An unsigned
-> request has no nonce and gets an unsigned response.
+Signed-off-by: Cian Ruane <cian.ruane1@gmail.com>
+---
+ sound/hda/codecs/realtek/alc269.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Returning an unsigned collection seems like an interesting use case,
-but why would you want to do that in the first place?
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 23329d588..5a4cb04aa 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4330,6 +4330,7 @@ enum {
+ 	ALC255_FIXUP_DELL_HEADSET_MIC,
+ 	ALC256_FIXUP_HUAWEI_MACH_WX9_PINS,
+ 	ALC256_FIXUP_HUAWEI_MACHR_WX9_PINS,
++	ALC256_FIXUP_HUAWEI_MACHC_WAX9_PINS,
+ 	ALC298_FIXUP_HUAWEI_MBX_STEREO,
+ 	ALC295_FIXUP_HP_X360,
+ 	ALC295_FIXUP_HP_PAVILION_X360,
+@@ -5063,6 +5064,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC269_FIXUP_HEADSET_MODE
+ 	},
++	[ALC256_FIXUP_HUAWEI_MACHC_WAX9_PINS] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x04a11140 }, /* use as headset mic, without its own jack detect */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC269_FIXUP_HEADSET_MODE
++	},
+ 	[ALC298_FIXUP_HUAWEI_MBX_STEREO] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc298_fixup_huawei_mbx_stereo,
+@@ -8727,6 +8737,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1e50, 0x7007, "Positivo DN50E", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x1e50, 0x7036, "Acer Gadget E10 ETBook", ALC233_FIXUP_WUJIE_SPEAKERS),
+ 	SND_PCI_QUIRK(0x1e50, 0x7038, "Positivo DN140", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
++	SND_PCI_QUIRK(0x1e83, 0x3e21, "Huawei MACHC-WAX9", ALC256_FIXUP_HUAWEI_MACHC_WAX9_PINS),
+ 	SND_PCI_QUIRK(0x1ee7, 0x204e, "HONOR DRA-XX M1020", ALC256_FIXUP_HONOR_DRA_XX_SPEAKERS),
+ 	SND_PCI_QUIRK(0x1ee7, 0x2078, "HONOR BRB-X M1010", ALC2XX_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
 
-> The empty challenge in my provider means something else though: don't
-> recollect, return the evidence collected earlier. So it's less "omit the
-> nonce" and more "no new collection". Maybe that's better as an explicit flag
-> than an empty challenge?
+base-commit: a4311e9447bbb219044db38897f95be112f46a8a
+-- 
+2.53.0
 
-I'm not sure 'no new collection' is an especially useful thing. Since
-the kernel won't be validating the signature you still need to pass
-the expected nonce from the prior collection back to userspace so it
-can check it.
-
-Is there some specific use case for this?
-
-> >> 6. tdx_attestation_test's discovery_and_construction_fields expects an
-> >>    inheritance chain of 4, but the TDX family inherits ctlv-attestation
-> >>    directly, which gives 3. In a real TDX guest it fails with
-> >>    "Expected 4 (4) == ctlv_chain_len(self->dev) (3)".
-> > 
-> > I would have naively guessed this should inherent from some SPDM family?
-> 
-> The TDX family is the TD's own attestation (TD report, Quote and RTMRs), with
-> no device or SPDM in it. In wip_attestation_all_1 it inherits ctlv-attestation
-> directly, so I think the test's 4 is what's stale. Jiri would know for sure.
-
-I think TDX report/quote/rtmrs should be a different familiy from TDX device
-assignment SPDM. They are completely different things.
-
-Jason
