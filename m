@@ -1,64 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108304;
-	b=26ozELPA1TFLRJjhrr+6GQhJHEa83TrmUgab9IpG9Vd5FnM0Z8Pamtuc5SchOjRzMrgE
-	 0NA24a+3em2BJ85/oSw00MxfdbJ2V6t4MwV8Hg6bFU2biBM8Jnv8Xw77Lklq6KczDgWux
-	 RwPDSnrbnuZTk8M9iDEsuJyk9UW1VF7jywvoz87OEnpyq8oyz0yIj0ErmrbedccTAXg1z
-	 vhHARRZEnzJ+cm8BsU6/3rfeB+bmK1AHp/bINRSofJmfcPLeZ8thX6KAFBVsf/o8NOymE
-	 JLuIXYM5BgX+43ysMXhX0TZs7+z1n0m5wIYiiqNnyyD+Wg+ZSIDN0otSJsgBQgPCWQw==
+	t=1793108317;
+	b=jqy6tnsh6ynPZGF4WSv0CUtg93YtzKcM/kmkWt5TTN1FyHMm2BeokG0vZaijesjLTLS9
+	 9+dv0oT65CGmIsuiTOZLxQyCXDfPUrgAEHmGfO4siNGFrdONtSwnMDU+SPmocx+uFNTip
+	 Gdxjvwa/AymIzrkDJWfDiWTdRLM6hSh3wFd3zWO6HliIalTd4DgQg57xxkEgxS0r5g0LF
+	 17x7y14wwWhYGGw2wkulzN6XbCs+WaM+2DuFw6Q6sclb151bZdYBR/CVGrJgV2zCBkaIk
+	 r6BCvIgssNksos0Q1QGcz8Hk4GJ7PWnaa7Gujr4mOZgFL6ufoBvMGZHyw9Lca/UMS3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108304;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bdFuKFPvJb24h483XRJDDX0AS0+LMMV13jr+VJbbWIQ=;
-	b=zsXtVKmUnPrJIu2RX16zWcyP8bR76QI036lbKVxSfj/gd3pXgC8PTDua3+YqlxEO2lrT
-	 6ggniT0eec2KGwRdov19PzH40MtcuCNuZFwdWE9mHKFHmSpzys3LA9cFOfb1XdkLPvIqt
-	 JAu5KG91UT1Ok8Yc17A2OFYsMqnTQLywx4sIZrbFwcJ28F5661aXNc4UfCRy3CumBq4Gs
-	 xVDhGVEpm0KMxJMfOD2yFtXnvYYwRCzi/dQWsavZwQYCDbXis7GAHe9PnVn6IJxBhBx/j
-	 N9F/f0ajNxnzogtYf+ZYnowBiUTR5kZsRaZrFJ0x0qzEx14bnpUvQWQoS64fsWdtYVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108317;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4wgyAUtxoYsHUq2vOhTXGeF7hsURu9DbNvr2JxybX0U=;
+	b=i3qW+Ljl08tPAnu8r3qwRJSdAbpP/6cN1h+4WXYtOGkv05yI0TNY0mHuWjgJs9M8roce
+	 EzUESAeSUDSZErle3SipUz/gFCJ7lc0As9ecx43T7yQigsFUymhESfIdbndncGO4V5V5t
+	 s6+I5P96wftoEyB7FaqAqWT8A6zHE9ydKLEXa5xWiuoIBUmufykVIZIFvM4osKDPfCGcY
+	 COJ/HYlSt1g1UVliT/lY5Z1vmuR9IBSAZRFrIWvnBxoLUpOK039Mka28JNy0RQfRDmz/u
+	 YIZz7U2U2Mfcp59B9gYB4Dqw55kEDZ7ZvC9WeeXAO5HX2RrHumlmcjjq+OigO2UqZJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZyI/32R9";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ae4xnw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF85606A31D;
-	Tue, 27 Oct 2026 13:38:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431FB606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZyI/32R9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403B71F01829;
-	Tue, 27 Oct 2026 13:38:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ae4xnw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30501F01829;
+	Tue, 27 Oct 2026 13:38:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793108303;
-	bh=bdFuKFPvJb24h483XRJDDX0AS0+LMMV13jr+VJbbWIQ=;
-	h=From:To:Cc:Subject:Date;
-	b=ZyI/32R9ROwORaTnT0OlGJ+hZX6pcdFJdIWoIf6G8El5uRC/8gfdf5Vk4SVqr9CLI
-	 QOkqtdNKMggOR/N1wBcMMx4e8IQy6bBfaKWe2N8tL3SAeA3BNufFvysEJtwDzc9eYE
-	 1BGAkQ0rIj0o0JkiYqFN9gu0dDiyikg4j69XacO8Op4164xew5wRms62JrE5ykN4+p
-	 FGdSRhiIf95F9sk4VkKFclRefAB/71d3s99fg8aTagoYoIDbdMzyUaK5SyP9wXyd5y
-	 DqkoeqG3z6TFP73wDePrRUViVxlulFrHXJRKUA54OC+738ErVWAaP12Z/amAvRgXQ8
-	 hfHA8URGZii8A==
-From: Philipp Stanner <phasta@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Jesse Zhang <jesse.zhang@amd.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Kexin Sun <kexinsun@smail.nju.edu.cn>,
-	Philipp Stanner <phasta@kernel.org>,
-	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: amdgpu_fence: remove ops->release()
-Date: Tue, 27 Oct 2026 14:37:28 +0100
-Message-ID: <20261027133727.748652-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793108317;
+	bh=4wgyAUtxoYsHUq2vOhTXGeF7hsURu9DbNvr2JxybX0U=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=G4ae4xnwEdXBCWGKKU7U7I5L7kKV265KYk1LAGWi8CVy/D94DWyv1O6Bq6sRqhXnW
+	 gwzwMlLi5+BAB6pMFTRrZlBQzo+GyBZO6unw/uCNiFGII0nL142ivBgY4fv0o/AQzi
+	 l90tZUSPg6fZkS3D6hoeJrm9lqK398DeIx9xXMPjhyL6E7HfcJ56Vjam3lq3V6BfBM
+	 r9aNX65cLv6cgCXm/ZK2o+CA+ylHVDWxqYS/HLg/FwQJlx+d7hclBsnf1CwxNNihjG
+	 ucZ6SRoc0Uq9WZB2PhTax6TaMS/2fx8/oPMqFdpAH/aWKGnkrkSedFqYNJ2unqSrIL
+	 WE0cb8WJwUTXg==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 0EB37F40066;
+	Tue, 27 Oct 2026 09:38:36 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 27 Oct 2026 09:38:36 -0400
+X-ME-Sender: <xms:W6ngagsCdM8wggJU5eEqw23mkTSHnR5VimuP5CbvzaKjN3oqkm_Cig>
+    <xme:W6ngaoSU7dW4mVPF59dOMvLr1U4beRggSDPvIcAlg8pAN5pw65LruEWurlg9FMAZq
+    dDHF91D0I-ODuWxun9o3L65H4eBNzR-5FGRUAor2G79y6DWk0NRPB-K>
+X-ME-Proxy-Cause: dmFkZTGZxu4SiG05ueDQEZeu+6fWxwmYtcso3/rWUUsricWFIQPIRp+cXnTf9MUKOQ39eG
+    7IRalJBKNW2RcTxBqwgtPhH82bDVZBrEwtsGaJl29X6DsOuB7dee+NnxD2B0/hocz7Zwjf
+    LJFO0dauFX3JLKyvo+0ohP3loERyH6y9LxqDOZTN+adCqummkoCeMpDbc99/cU9tRQMNR7
+    X7Gm2bd7Lg+V/bK28HsQ3Vjk63oXVi31kCkl3PJ+z2AnZmjtzp69af+70YIIqcZTJYQwP9
+    4x1kNSIhYVAUsfSvKmKUmcBJKxHDrEfWqaoJpL4WdSE6rt+mWJqfkt9hOsIMBOHKKcozY/
+    7ncGFTJhFOWjm+D4bhvitSTpy3CzoN9UiZ6j1JagrcUPBl2i7wHxY5GtRvl0nET6mGBKJ5
+    ++SXBLN6uPWsHN5NiVOxFANpRV7cOBzqJcGBK5TE2BDFS+nBIlALLhrA5PH2smzUsJpzZO
+    5G3pQjPXhyVSCmDzq5FXoT85bD9LM2Vj4oOZiNUWY4BboyPIoz/ARqPA6UiqEFsuiUOFcB
+    NpNY5b6z1EvfNJQr6lz3SjhqFUVncCn+mbbOAD+W8SbKU30p3jnpkSQKDYSNOeAVJhdZWF
+    kXYBc6c3xPzpGO4clYKAoWrBczmrswZIUf0yFFH4okrOdZwvUv6r0OuljoPQ
+X-ME-Proxy: <xmx:W6ngavSqpIKKirkF3A-T0g2pu-fWP0AygY50ju8nPJSDOZSxlifyWA>
+    <xmx:XKngao8SFoUVv1wzyDKKA7k-KuqVs08b9AeXXdB-T7QLS9dS1001aw>
+    <xmx:XKngagYjYSYDDt_GXvYQJqcKNeSUOC8PSL96AHi0xJbCShI1boXXPg>
+    <xmx:XKngaprT03yc_kMFvhWAgnKhX3k51q-eB2dukGEBSNlNL2yDSYyulw>
+    <xmx:XKngakS4kws4ZvHWWDp_C_A-Rukk3QK3IkB5VyGeM0Ltbmmg76D1ICvP>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id D861A78273B; Tue, 27 Oct 2026 09:38:35 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,77 +77,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AhcSeGgFL0jV
+Date: Tue, 27 Oct 2026 09:38:15 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Tristan Madani" <tristmd@gmail.com>
+Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ tristan@talencesecurity.com
+Message-Id: <cc343ef0-1277-4c57-8db7-bd9d80e1429f@slotpi15m67>
+In-Reply-To: <20261026230151.2474608-1-tristan@talencesecurity.com>
+References: <20261026230151.2474608-1-tristan@talencesecurity.com>
+Subject: Re: [PATCH] nfsd: pin client reference across async copy reaper cleanup
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-amdgpu's fence implements the deprecated fence_ops->release() callback
-which prevents the driver from ever unloading robustly.
+On 10/26/26 7:01 PM, Tristan Madani wrote:
+> nfsd4_async_copy_reaper() detaches completed async copies from the
+> client list and later calls cleanup_async_copy(), which eventually
+> drops the stid reference via nfs4_put_stid().  That path accesses
+> stid->sc_client unconditionally, but the client is not pinned during
+> the cleanup phase.
 
-amdgpu's implementation merely uses a call_rcu() that performs a kfree()
-on the fence - this functionality is already centrally implemented by
-the dma_fence backend.
+Thanks for the report. The same bug is already fixed here:
 
-The dma_fence backend invokes a kfree_rcu() on the dma_fence, which is
-fine since this is always the first member of a struct amdgpu_fence.
-Thus, amdgpu's implementation is redundant.
+  0941ff1cda56 ("nfsd: hold client reference while reaping async copies")
+  https://lore.kernel.org/linux-nfs/20260928083050.642664-1-bint4b13@gmail.com/
 
-Remove fence_ops->release().
+For future NFSD submissions, please base on the nfsd-testing
+branch at
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-Just saw that this should be unnecessary? Don't have a setup for amdgpu
-testing right now, so please take a close look, just compile-tested.
+  https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git
 
-P.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 29 -----------------------
- 1 file changed, 29 deletions(-)
+per Documentation/filesystems/nfs/nfsd-maintainer-entry-profile.rst.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 3043ad041bb4..3f8b2571d74a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -892,39 +892,10 @@ static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
- 	return true;
- }
- 
--/**
-- * amdgpu_fence_free - free up the fence memory
-- *
-- * @rcu: RCU callback head
-- *
-- * Free up the fence memory after the RCU grace period.
-- */
--static void amdgpu_fence_free(struct rcu_head *rcu)
--{
--	struct dma_fence *f = container_of(rcu, struct dma_fence, rcu);
--
--	/* free fence_slab if it's separated fence*/
--	kfree(to_amdgpu_fence(f));
--}
--
--/**
-- * amdgpu_fence_release - callback that fence can be freed
-- *
-- * @f: fence
-- *
-- * This function is called when the reference count becomes zero.
-- * It just RCU schedules freeing up the fence.
-- */
--static void amdgpu_fence_release(struct dma_fence *f)
--{
--	call_rcu(&f->rcu, amdgpu_fence_free);
--}
--
- static const struct dma_fence_ops amdgpu_fence_ops = {
- 	.get_driver_name = amdgpu_fence_get_driver_name,
- 	.get_timeline_name = amdgpu_fence_get_timeline_name,
- 	.enable_signaling = amdgpu_fence_enable_signaling,
--	.release = amdgpu_fence_release,
- };
- 
- /*
 
-base-commit: 731ba09867520c047c7de53f92e384808e0b638e
 -- 
-2.56.0
-
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
