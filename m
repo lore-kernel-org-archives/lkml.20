@@ -1,74 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793133090;
-	b=pzgLpcsJRxnWB6RasgHfaGQQmcoPJzr473E6kUb3bZTEOOX4C48ItP+fZR8rNQ9crExE
-	 uqdmwRlWtxz6ngghCU5wUcHHNH1XceFIANUgX96WcKuJ2XWNQusq52ZkwXpmofqI2vECv
-	 XQZD/FHAFL0D5UCDhsHEG/1Yvf/lisJjcggK9j98e66JPVHa7ZfQx6HKctDqq0C2c+ntp
-	 MkiKkUlrMbhpV+Ukxa//Gcvvf7OU3ddrBk3JZSOH9wfcqRtkApAGOeJsIvcFzcuzhPHN3
-	 1S3z1AqycsjpYPD/QN4BWQKd7fJOQ4ZMdJ/k+pZUbUuf44Pl4SLyO82YfIuWHKWyU9w==
+	t=1793133096;
+	b=a3JtmGNzEgd99HkWSGfPqqH7xP9XV8YL8FfVmOrF2tJqTzERqhc4ivVr5wGJI7IfrjFS
+	 XzRz90OULNjI6VlWGMCCC+Duv2tQRKpq4gDsHm/xBaeA+A8tELqEx+6LjN95qa++U4OYE
+	 EGJllHdgVpmzhN6t2XxYauQvjH1mez7lunAkHksm2ONB2LeFZnXEhBzeEOeA2txqg/pZF
+	 2Mnldvkyroex+qPwAtlolOozXL7i0lvRSIhYioWG+YssV5rVf4Uvdq4+qBFnCUZmLcMMY
+	 DYqI4aGirsWrOedkUQZtjexPBNbrzjp4hAKU0/15ORBg4O5E7Weli/3F605aRuaCU3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793133090;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yQw8l80OTevP6nVCCabCl0MW8z0aTAgvbDhANDTS3S8=;
-	b=KcaqUGPdFdwWJYU8V21S0hUYyUj/VWjilRrbDphpvSAp5ywvkSlilal/N4t+Ngjya3I6
-	 9MaRt4xhrlGFB3I0ZaWE0Kf3JyW90oKE7xYuodPGLQWCun8Zgzg3nc2xqL3s95mu4vKKQ
-	 F9UgOLlDBMmcTY+oAw0TlyhsK5g1DDxb507YW4EnC5uDDh0NVea0RD6E8aLPd5X1ZaOWo
-	 f5U8+7kbnk4STwM23T0hrG2deSJ7el11RVYyO2gUbXgCudLDM/Ab9rVfX8n3Fi3kznSgD
-	 40UOjA1Ia4Jpr8Tp/PNpP3832Lb/g41Nx3H2Ropp/VUQdTVoWxphTBQh1d45KBFcBcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133096;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject;
+	bh=b1DgRMR2Lcvcbb0t0PG6s8BYK3wrPTFv/pnY6rN0LvY=;
+	b=16jv2v+I2D4fCHf/J/7yiyo7yfqbBQ0WKIgRkMJ7e0wwXMm78Jv7WkX+sMz95OXPT1Om
+	 M69ExoQOl3xVyHmA1b2+PSN7kn+EnFYQdzZsRCVQT4ve7tId6KqpJ/6M5Eyq9d2XiJCZI
+	 hN6c3ccYq9O90Sv0hHCBUyhfVz6dVamZbrf6jWM3MfDhtxMxN4T3jLt+wP5TbpmTGr/ys
+	 h12vuGmmluoATYWKZ3JeTQsMiREHpHk+It+xHaTyqvrYgF1u26ugQuqMXOGj8dXVD8L3I
+	 ixVYwT4E0rtNQsq2jq3I4uas4Sz1axO58FVubTICobaxNSgBn4Jtu6yBkzEvMw5/h2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SBHkJp9L;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1e2Elgk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4411606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:31:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4411606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ctshao.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7B8606A327;
+	Tue, 27 Oct 2026 20:31:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=SBHkJp9L
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ab926c236aso227404a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793133089; x=1793737889; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yQw8l80OTevP6nVCCabCl0MW8z0aTAgvbDhANDTS3S8=;
-        b=SBHkJp9L9t4q9mCF6VX5/6JPD404MoqoxycjaQIZJwEEtOpZ2ogkczGK+lWrKuZFmg
-         JW17fin1XKAXhQ7Ccj8QMUxQKN0Cn1UHenlrlLMiS0j68foxaZ4BNaco5U9wNMeSrGJo
-         s/QCxtfyrW+IDWyiVF+qwiCRq7gxdHFAJJ7E8ygUeLCQ0cwT4JfOl0mg87kgY5nQlYYC
-         TnRQV242H21s4CUb8bQtJucbso1GcgPwJopYZw9ekN//aA2atwWJJtTSqBJ7K18m2AQX
-         2s/qI0Q2nerCe5CXZW3pKi6dUkg0hoLV9eM8+w5CQdzlPQtXrAbMTqmnvQkeb8XetuWI
-         liXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793133089; x=1793737889;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yQw8l80OTevP6nVCCabCl0MW8z0aTAgvbDhANDTS3S8=;
-        b=h+J/cXerZJMTVg+fl2Dp9zCftlPbIc1r0km0qkzCwFefU+B8tASNSszXyQ4I+4e/0c
-         tIXf21DP9mdp4/dq/p3tQcrVqFmI0/DNkKI4QL0/uZrELGgrTsLQ9gEZVratkWuybbP1
-         NEf4dGUZVb2pHLYK2Pq1nX6X1TaO2WKKJweJYo5eeZyYVEdEWd8PQNNhR3iWzIhwkGB5
-         HFvBozdxlhBBdd/M6bA3jZrkozLhK5DIU9d76/76fjXRUc1xzOj4rKJRMarZo38qwZGO
-         e80ei4/MTWSxSsYQbuHfE79J7mJSpV0U6BlS0Azk9qRe0pjUfQmGgN4ZlJS62DtzIch7
-         qIsg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+Tl5fhjBFvmZ4GkWx4NVdM3m0uK3M1VrGieNSCmbzzsREan5DfTKVy6Mp0LQogk2qCb4cKRhWV0qjGWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwxPSAO+P6X85HKwPn8zn1kT/olXbI1vYAb3jgsKpVYG+JWhGz
-	Sc5sFlfku740JYwlE/iNNP24SWsSmkCneCwwH9ouhGo4RZflqvKQZR0zZKusZAmgVouIu1RbN6c
-	B7q1yew==
-X-Received: from pjbgc15.prod.google.com ([2002:a17:90b:310f:b0:3a5:f1d:43a6])
- (user=ctshao job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b89:b0:3ac:9ed8:f309
- with SMTP id 98e67ed59e1d1-3ae580a0212mr181890a91.29.1793133088948; Tue, 27
- Oct 2026 13:31:28 -0700 (PDT)
-Date: Tue, 27 Oct 2026 13:31:15 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o1e2Elgk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD84E1F01829;
+	Tue, 27 Oct 2026 20:31:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793133096;
+	bh=b1DgRMR2Lcvcbb0t0PG6s8BYK3wrPTFv/pnY6rN0LvY=;
+	h=Date:From:To:Cc:Subject;
+	b=o1e2Elgky2LJqUT6D3VY+flBLSver3/z9spmItLsGhiP/JgwbqpFs0zQTzeEjY3d7
+	 1XVQgnn3OdkjjVQh2n1RbQZVsOjOg47soN0g49ma93Xp6yXkPMCeusiA55gA7RMHwW
+	 nkXa7CYydiLlbizp4Nl/5zhZAhGcTVZMCFzYVKJ3H5BCiDqFyOE5MwBvUNRz9W/gEC
+	 vzrBFH0nSVetzysPUDPe0tlA4DG4KIJn5nEZmValNjMRBJsqPU+eKuwGfMU94YZ+qt
+	 96As+LZt4e3MJKVZ4y1LC6VsdnAKivcmbPuWK6eJmrfSWrB48eZOAReQkwrri3kMY5
+	 FFq+5k8PsI1PQ==
+Date: Tue, 27 Oct 2026 10:31:34 -1000
+Message-ID: <e5758e0a056fcef3e669b4d1f285a787@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
+ Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ David Dai <david.dai@linux.dev>, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: [GIT PULL] sched_ext: Fixes for v7.4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,323 +55,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261027203115.2647914-1-ctshao@google.com>
-Subject: [PATCH v6] perf stat: Include PMU name and split uncore events per
- PMU in metric-only JSON output
-From: Chun-Tse Shao <ctshao@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Chun-Tse Shao <ctshao@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-When running `perf stat` with `-A` (--no-aggr) and `--metric-only` in
-JSON output mode (`-j`), `perf stat` evaluates metric expressions
-across all matching PMUs (including uncore PMUs like `uncore_iio_0`,
-`uncore_iio_1`, etc.).
+Hello,
 
-However, `perf stat` previously formatted JSON output by printing only
-"cpu" : "<id>" and grouping all metric values on a single line per CPU
-without identifying which PMU instance evaluated each metric. As a
-result, when an uncore event spans multiple PMU boxes, `perf stat`
-printed repeated, ambiguous metric keys without PMU names.
+The following changes since commit 1f5dde349ac2fca1f119ae8de3f0d2f1c2a8d338:
 
-Fix this by:
-1. Including "pmu" : "<pmu_name>" in print_aggr_id_json when evsel->pmu
-   is a non-core or hybrid PMU in AGGR_NONE mode (-A). Tool events are
-   not labeled as they don't belong to a hardware PMU instance.
-2. Starting a new JSON metric line in AGGR_NONE mode (-A) whenever the
-   PMU name changes, so that a line only has metrics from the PMU it is
-   labeled with.
-3. Opening a metric line only for events that have a metric, as other
-   events print nothing in metric-only mode. This avoids spurious lines
-   like {"cpu" : "0", "pmu" : "tool"} for events like user_time, while
-   metrics on tool events, like tma_info_system_time (duration_time),
-   are still printed with the line prefix.
-4. Updating perf_json_output_lint.py to recognize the new "pmu" key in
-   the JSON test suite.
+  sched_ext: Drop the locks periodically while walking a user DSQ for re-enqueue (2026-10-17 20:18:02 -1000)
 
-Before the fix:
-  $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
-  {"interval" : 1.001017947, "cpu" : "0", "MB/s  iio_bandwidth_read" : "0.0=
-", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "22.5",=
- "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.2", "M=
-B/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s=
-  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  i=
-io_bandwidth_read" : "0.0"}
+are available in the Git repository at:
 
-There is no way to determine which uncore device generated the metrics.
+  https://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git tags/sched_ext-for-7.4-fixes
 
-After:
-  $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
-  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_0", "MB/s  ii=
-o_bandwidth_read" : "0.0"}
-  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_1", "MB/s  ii=
-o_bandwidth_read" : "0.1"}
-  {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_11", "MB/s  i=
-io_bandwidth_read" : "0.0"}
-  ...
-  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_0", "MB/s  i=
-io_bandwidth_read" : "0.0"}
-  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_1", "MB/s  i=
-io_bandwidth_read" : "0.0"}
-  {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_11", "MB/s  =
-iio_bandwidth_read" : "0.0"}
+for you to fetch changes up to af4ed5682e62556beb399b76f2f1274ae1aad9e2:
 
-Assisted-by: Gemini:gemini-3.1-pro-preview
-Signed-off-by: Chun-Tse Shao <ctshao@google.com>
----
-v6:
-  - Open metric lines for events that have a metric instead of skipping
-    tool events, so metrics on tool events (e.g. tma_info_system_time)
-    keep the line prefix and are terminated properly. (Sashiko)
-  - Split JSON lines only when the shown PMU name changes. Tool event
-    metrics are no longer mislabeled with an uncore PMU name, and the
-    STD and CSV output are no longer split.
-  - Rebase onto the latest perf-tools-next.
-v5: lore.kernel.org/20260811230518.3360-2-ctshao@google.com
-  - Fix perf test "perf stat JSON output linter" failure.
-v4: lore.kernel.org/20260804210659.112192-1-ctshao@google.com
-  - Fix the line splitting issue, causing spurious empty {"pmu": "tool"}
-    objects and order-dependent PMU mislabeling.
-v3: lore.kernel.org/20260729170416.41904-1-ctshao@google.com
-  - Add before the fix output.
-v2: lore.kernel.org/20260715203055.2981363-1-ctshao@google.com
-  - Fix print_metric_begin() initialization in print_no_aggr_metric()
-    to ensure tool events always open lines cleanly.
+  sched_ext: Reject scx_bpf_sub_grant/revoke() in tracing programs (2026-10-27 09:40:56 -1000)
 
- .../tests/shell/lib/perf_json_output_lint.py  |  5 +-
- tools/perf/util/stat-display.c                | 74 ++++++++++++++++---
- 2 files changed, 66 insertions(+), 13 deletions(-)
+----------------------------------------------------------------
+sched_ext: Fixes for v7.4
 
-diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/pe=
-rf/tests/shell/lib/perf_json_output_lint.py
-index 8cde22ac9d97..982be893bd69 100644
---- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
-+++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
-@@ -65,6 +65,7 @@ def check_json_output(expected_count):
-       'metricgroup': lambda x: True,
-       'node': lambda x: True,
-       'pcnt-running': isfloat,
-+      'pmu': lambda x: True,
-       'socket': lambda x: True,
-       'thread': lambda x: True,
-       'unit': lambda x: True,
-@@ -99,8 +100,10 @@ def check_json_output(expected_count):
- try:
-   if args.no_args or args.system_wide or args.event:
-     expected_items =3D [5, 7]
--  elif args.interval or args.per_thread or args.system_wide_no_aggr:
-+  elif args.interval or args.per_thread:
-     expected_items =3D [6, 8]
-+  elif args.system_wide_no_aggr:
-+    expected_items =3D [6, 7, 8, 9]
-   elif args.per_core or args.per_socket or args.per_node or args.per_die o=
-r args.per_cluster or args.per_cache:
-     expected_items =3D [7, 9]
-   elif args.metric_only:
-diff --git a/tools/perf/util/stat-display.c b/tools/perf/util/stat-display.=
-c
-index b337cc23f413..9f1d74019d1e 100644
---- a/tools/perf/util/stat-display.c
-+++ b/tools/perf/util/stat-display.c
-@@ -1,6 +1,7 @@
- #include <stdlib.h>
- #include <stdio.h>
- #include <inttypes.h>
-+#include <string.h>
- #include <linux/string.h>
- #include <linux/time64.h>
- #include <math.h>
-@@ -23,6 +24,7 @@
- #include "pmu.h"
- #include "pmus.h"
- #include "tool_pmu.h"
-+#include "metricgroup.h"
-=20
- #define CNTR_NOT_SUPPORTED	"<not supported>"
- #define CNTR_NOT_COUNTED	"<not counted>"
-@@ -361,9 +363,33 @@ static void print_aggr_id_csv(struct perf_stat_config =
-*config,
- 	}
- }
-=20
-+/*
-+ * In no-aggregation mode, JSON output includes the PMU name of non-core a=
-nd
-+ * hybrid events so that events and metrics from different PMU instances, =
-like
-+ * uncore_iio_0 and uncore_iio_1, can be told apart. Tool events don't bel=
-ong
-+ * to a hardware PMU instance and so are not labeled.
-+ */
-+static const char *json_pmu_name(const struct evsel *evsel)
-+{
-+	if (!evsel || !evsel->pmu || evsel__is_tool(evsel))
-+		return NULL;
-+	if (evsel->pmu->is_core && !evsel__is_hybrid(evsel))
-+		return NULL;
-+	return evsel->pmu->name;
-+}
-+
-+static bool json_pmu_name_changed(const char *name, const char *prev)
-+{
-+	if (!name || !prev)
-+		return name !=3D prev;
-+	return strcmp(name, prev) !=3D 0;
-+}
-+
- static void print_aggr_id_json(struct perf_stat_config *config, struct out=
-state *os,
- 			       struct evsel *evsel, struct aggr_cpu_id id, int aggr_nr)
- {
-+	const char *pmu_name;
-+
- 	switch (config->aggr_mode) {
- 	case AGGR_CORE:
- 		json_out(os, "\"core\" : \"S%d-D%d-C%d\", \"counters\" : %d",
-@@ -397,6 +423,9 @@ static void print_aggr_id_json(struct perf_stat_config =
-*config, struct outstate
- 			json_out(os, "\"cpu\" : \"%d\"",
- 				id.cpu.cpu);
- 		}
-+		pmu_name =3D json_pmu_name(evsel);
-+		if (pmu_name)
-+			json_out(os, "\"pmu\" : \"%s\"", pmu_name);
- 		break;
- 	case AGGR_THREAD:
- 		json_out(os, "\"thread\" : \"%s-%d\"",
-@@ -1012,11 +1041,12 @@ static void print_counter_aggrdata(struct perf_stat=
-_config *config,
-=20
- static void print_metric_begin(struct perf_stat_config *config,
- 			       struct evlist *evlist,
--			       struct outstate *os, int aggr_idx)
-+			       struct outstate *os, int aggr_idx,
-+			       struct evsel *counter)
- {
- 	struct perf_stat_aggr *aggr;
- 	struct aggr_cpu_id id;
--	struct evsel *evsel;
-+	struct evsel *evsel =3D counter ?: evlist__first(evlist);
-=20
- 	os->first =3D true;
- 	if (!config->metric_only)
-@@ -1031,7 +1061,6 @@ static void print_metric_begin(struct perf_stat_confi=
-g *config,
- 		else
- 			fprintf(config->output, "%s", os->timestamp);
- 	}
--	evsel =3D evlist__first(evlist);
- 	id =3D config->aggr_map->map[aggr_idx];
- 	aggr =3D &evsel->stats->aggr[aggr_idx];
- 	aggr_printout(config, os, evsel, id, aggr->nr);
-@@ -1069,7 +1098,7 @@ static void print_aggr(struct perf_stat_config *confi=
-g,
- 	 * Without each counter has its own line.
- 	 */
- 	cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
--		print_metric_begin(config, evlist, os, aggr_idx);
-+		print_metric_begin(config, evlist, os, aggr_idx, NULL);
-=20
- 		evlist__for_each_entry(evlist, counter) {
- 			print_counter_aggrdata(config, counter, aggr_idx, os);
-@@ -1095,7 +1124,7 @@ static void print_aggr_cgroup(struct perf_stat_config=
- *config,
- 		os->cgrp =3D evsel->cgrp;
-=20
- 		cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
--			print_metric_begin(config, evlist, os, aggr_idx);
-+			print_metric_begin(config, evlist, os, aggr_idx, NULL);
-=20
- 			evlist__for_each_entry(evlist, counter) {
- 				if (counter->cgrp !=3D os->cgrp)
-@@ -1131,7 +1160,8 @@ static void print_no_aggr_metric(struct perf_stat_con=
-fig *config,
-=20
- 	perf_cpu_map__for_each_cpu(cpu, all_idx, evlist__core(evlist)->user_reque=
-sted_cpus) {
- 		struct evsel *counter;
--		bool first =3D true;
-+		const char *line_pmu =3D NULL;
-+		bool line_open =3D false;
-=20
- 		evlist__for_each_entry(evlist, counter) {
- 			u64 ena, run, val;
-@@ -1146,12 +1176,32 @@ static void print_no_aggr_metric(struct perf_stat_c=
-onfig *config,
- 				if (config->aggr_map->map[aggr_idx].cpu.cpu =3D=3D cpu.cpu)
- 					break;
- 			}
-+			if (aggr_idx >=3D config->aggr_map->nr)
-+				continue;
-=20
- 			os->evsel =3D counter;
- 			os->id =3D aggr_cpu_id__cpu(cpu, /*data=3D*/NULL);
--			if (first) {
--				print_metric_begin(config, evlist, os, aggr_idx);
--				first =3D false;
-+
-+			/*
-+			 * Only events with a metric print something in metric-only
-+			 * mode, so let them open the line. For JSON, start a new
-+			 * line when the PMU name changes so that a line only has
-+			 * metrics from the PMU it is labeled with.
-+			 */
-+			if (config->iostat_run ||
-+			    metricgroup__lookup(evlist__metric_events(evlist), counter, false))=
- {
-+				const char *pmu_name =3D json_pmu_name(counter);
-+
-+				if (line_open && config->json_output &&
-+				    json_pmu_name_changed(pmu_name, line_pmu)) {
-+					print_metric_end(config, os);
-+					line_open =3D false;
-+				}
-+				if (!line_open) {
-+					print_metric_begin(config, evlist, os, aggr_idx, counter);
-+					line_pmu =3D pmu_name;
-+					line_open =3D true;
-+				}
- 			}
- 			val =3D ps->aggr[aggr_idx].counts.val;
- 			ena =3D ps->aggr[aggr_idx].counts.ena;
-@@ -1160,7 +1210,7 @@ static void print_no_aggr_metric(struct perf_stat_con=
-fig *config,
- 			uval =3D val * counter->scale;
- 			printout(config, os, uval, run, ena, 1.0, aggr_idx);
- 		}
--		if (!first)
-+		if (line_open)
- 			print_metric_end(config, os);
- 	}
- }
-@@ -1523,7 +1573,7 @@ static void print_cgroup_counter(struct perf_stat_con=
-fig *config, struct evlist
- 				print_metric_end(config, os);
-=20
- 			os->cgrp =3D counter->cgrp;
--			print_metric_begin(config, evlist, os, /*aggr_idx=3D*/0);
-+			print_metric_begin(config, evlist, os, /*aggr_idx=3D*/0, NULL);
- 		}
-=20
- 		print_counter(config, counter, os);
-@@ -1573,7 +1623,7 @@ void evlist__print_counters(struct evlist *evlist, st=
-ruct perf_stat_config *conf
- 		} else if (config->cgroup_list) {
- 			print_cgroup_counter(config, evlist, &os);
- 		} else {
--			print_metric_begin(config, evlist, &os, /*aggr_idx=3D*/0);
-+			print_metric_begin(config, evlist, &os, /*aggr_idx=3D*/0, NULL);
- 			evlist__for_each_entry(evlist, counter) {
- 				print_counter(config, counter, &os);
- 			}
---=20
-2.56.0.317.g454f8302e1-goog
+This is a big pull for fixes, but much of it was in the works before the
+merge window. Most of these fixes are in sub-scheduler support, which nests
+BPF schedulers under a parent that hands them CPUs. It was heavily reworked
+over recent cycles and is now functionally complete. Porting real schedulers
+on it drove the latest additions and keeps finding corner cases. For
+example, once CPUs are shared and can be taken back, the kernel must keep
+every task moving when its scheduler can't run it or is failing, and those
+fallbacks interact subtly with each other and with other new core features.
 
+- The fallback paths meant to keep a task moving when its scheduler can't
+  run it or is failing could themselves leave it stuck.
+
+- The stall watchdog could blame a scheduler for time it wasn't responsible
+  for, even taking down all of sched_ext.
+
+- Sub-schedulers were told late, or not at all, which CPUs they could use.
+
+- Deferred callbacks could stay queued or be dropped under core scheduling
+  and proxy execution, with a sched/core fix to the duplicate check.
+
+- Hardening: tracing programs can no longer call kfuncs that could deadlock
+  the CPU.
+
+----------------------------------------------------------------
+Andrea Righi (3):
+      sched_ext: Queue the kick_sync wait from set_next_task_scx()
+      sched_ext: Use irq_work for deferred actions with proxy execution
+      sched/core: Avoid requeueing a singleton balance callback
+
+Hui Su (1):
+      sched_ext: Reject oversized automatic CID shards
+
+Junbin Zhang (1):
+      sched_ext: Reject rq-lock-taking kfuncs in tracing programs
+
+Michal Blaszczyk (1):
+      sched_ext: Reset runnable_at when a task leaves its scheduler
+
+Tejun Heo (28):
+      sched_ext: Factor out cid_pshard()
+      sched_ext: Free a sub-scheduler a grace period after discarding its ecaps syncs
+      sched_ext: Report a sub-scheduler's ecaps on attach and detach
+      sched_ext: Deliver ecaps only while the root has the cpu online
+      sched_ext: Report the ecaps loss when a cpu goes offline
+      sched_ext: Leave suspend and hibernation out of the ecaps reports
+      sched_ext: Fix the stall watchdog testing and blaming the wrong sched under bypass
+      sched_ext: Pack scx_ent_flags' multi-bit fields at the top
+      sched_ext: Clear holding_cpu where the claim is confirmed
+      sched_ext: Fix bypassed tasks stranded by the reenqueue limit
+      sched_ext: Fix bypassed tasks looping on a host without SCX_CAP_ENQ
+      sched_ext: Move refill_task_slice_dfl() below apply_slice_vtime()
+      sched_ext: Fix rescue served time disagreeing with the slice under proxy execution
+      sched_ext: Restore a rescuee's slice after ops.stopping()
+      sched_ext: Fix a cpu idling with a runnable rescuee
+      sched_ext: Mark the rescue grant as a kernel slice with SCX_TASK_KERNEL_SLICE
+      sched_ext: Refuse extending a kernel slice
+      sched_ext: Fix a cpu idling after put_prev_task_scx() queues its task on the local DSQ
+      sched_ext: Expire prev's slice in dispatch_one() under bypass
+      sched_ext: Fix bypassed tasks stalling when the host lacks SCX_CAP_BASE
+      sched_ext: Fix the bypass load balancer stranding tasks on cpus where the host lacks SCX_CAP_BASE
+      sched_ext: Factor out bypass_lb_move() and insert with the donor DSQ unlocked
+      sched_ext: Let the bypass load balancer move tasks homed on other cpus
+      sched_ext: Fix queued bypassed tasks stalling when the host loses SCX_CAP_BASE
+      sched_ext: Fix a lone IMMED task waiting behind a kept prev
+      sched_ext: Fix use-after-free of a NONE rescuee leaving its sched while running
+      sched_ext: Fix the rescue overload pick ejecting the wrong sub under bypass
+      sched_ext: Reject scx_bpf_sub_grant/revoke() in tracing programs
+
+ include/linux/sched/ext.h                       |  22 +-
+ kernel/sched/ext/cid.c                          |   6 +
+ kernel/sched/ext/ext.c                          | 933 +++++++++++++++++-------
+ kernel/sched/ext/inlines.h                      |  15 +-
+ kernel/sched/ext/internal.h                     |  90 ++-
+ kernel/sched/ext/sub.c                          | 718 +++++++++++++-----
+ kernel/sched/ext/sub.h                          |  26 +-
+ kernel/sched/sched.h                            |  24 +-
+ tools/sched_ext/include/scx/enum_defs.autogen.h |   1 +
+ tools/sched_ext/include/scx/enums_abi.autogen.h |  29 +-
+ tools/sched_ext/scx_qmap.bpf.c                  |  25 +-
+ 11 files changed, 1392 insertions(+), 497 deletions(-)
+
+-- 
+tejun
