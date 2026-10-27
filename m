@@ -1,101 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793136731;
-	b=3EN3mHB99Vwqqm3iTC//onsrq605Y5H4TE+Yqz6a/WRnDBrR7yTENeHhQNorwDa+0KJk
-	 ySvB/aRSxyiC811UcTVG2YlZHFMmvnrTs+96E+y3ppbFUYEyJh8mXXEu6QftpaQex6TTG
-	 oTu/iD0JeRbe6Jy5aUW17YL38ZbZxeAHT63ZTG5OOxVJYoRc2ShddYD5nEPJSVKIQaPPL
-	 Gq7rq5gIMQvTcxG6QE3bEYg+lz8hrHZ7wBekU04P1WHG4XOjMVBmdkI+zSmv12upBFgbg
-	 028F+zeKOVYcddD94JtsNpHC3YxBa3gwpJEI5Nw7SLZFnm2SYYxky40h+Icwq5L8T0Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793136731;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793136733;
+	b=gBatbYpsNAYDPAHj95Ngk5EMJ23beKITUWJtyWVPXpBO0AEcixNWi/hkJ7umF/475r63
+	 BwHXASpePE8N571ZQCe9lLwniYN7tAwvanyQvtXHT1cM+FROczQRwRIz1zoNYz/97gE5Q
+	 fdmhZGOf9VR/dhMTXeGZLukR1TYuc0JpJxM9tFqcSGzJRE81N6egQs3Ilu6c9rBcX5h2Q
+	 crU5VCJvfeS8jHmNd89/Cmm6bHKfxjqUaScBSYDJs4ipoGsyKaPFfbicxs5haBTuBiz1G
+	 8rhyIdYEuYEdbVWpqdINmia4aArYjXSVrigDc5RfIia2XRIFTkRCX7jHrO/QMjdXkbw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793136733;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QuhHDIMVu5WYcDA1LFoQtTkJOtLD/1lu0y5o2UH4ICo=;
-	b=YzrdZzOuoHxscrFOC0gypscYcDn2ru29iKQtj6HPe2IYu97zfN6kXjokqgb2GX7R1eg7
-	 dD43V3YZNGwvTh6PHpSJocygy+a1JgJ0qC1pJ6+cfCPsHOcMqQHkUpJpwEjmpp0HOY/r+
-	 o/Z7sh8H/b13K4jpYDIyG/M8tgUuTuM9G2B1kdRmgg42ZReylnlWCdPJAeUiqvdwUDGyU
-	 s1rh3JwCg+2/9NY6pXLQtdrwjsyOkHbtq2Jla4MuzAYxzpzCQVQvYKzc269RDRACcW5ny
-	 imBUSL3qamQ32boOd+tDCsFvhTUux4icgTm6LGyKJAJYjyEmpq8eJpSTHJFk+sxLGPA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S4q8x2rQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=DJ2w2d78rWYDNrNgxDsC5/JY1fsAdELb1GQ5pSRrXZs=;
+	b=ddCJkF3n5KEBz5FL4JO40qQ204X99awlFLGV9o8pyUDCQELnZF/9LZyuVb4fSyefl9Vl
+	 VLKFTngWdvK4YQK/qaLfwwBducBvREVjiT8vWxgGaHZwGbSjIwYwRGnLPzX2hvQhpvAbv
+	 MPj2plz+d2uzyujUpZtyC0waEpd7VZuxRD5UkAS7G+ziQ/KJTQ2CS+kZ5G10PYRat3H/a
+	 ixbVdP3kn2AJsQBUY1Td4vBeE/YL7c50ONxQ3oo9O8nOlyAuZKog02XH2SWDuYsu+HkjL
+	 0I/8iFIdWOfwJB8MB+V6Hkiu/aTcMQ3AWyzXk8UF7yy5p6yu0SfIGsGichMmRE5Ez2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p0IBx9JU;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D6D606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:32:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44D6D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9F5606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:32:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E9F5606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=S4q8x2rQ
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6af8620a7d2so491923a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:32:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793136730; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f3a802DYMnL048MICs73evdv/iLHej/j7bcQQAUjIzyrPPqY9aJ1K9UoTdvHmwku4u
-         jPCXedeoRAFkxFHShxI7WLL7NQrESWU8aQ48d7UAIoBu59siXXk5KHYO25FHv/JsfvFx
-         SUMW5bSDFc3f/1xib0/J6MFnm3kFV9O/KaQLVKhr18RnNAHCggLmnWSq7/RYwlrvdCZw
-         Ne6ZQpYOVjq+f+TI3makuQOMQrsMTlfzSPsY/oX4SHeyK+X3QpgIogXao1DCFlWNAnVt
-         T7N8Rg3z4hRZvsrygvZDk53gthHdNyy/jngRjI3JxuMvpsWSS2OMJDI578kw/2caYAhX
-         tvpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=QuhHDIMVu5WYcDA1LFoQtTkJOtLD/1lu0y5o2UH4ICo=;
-        fh=FbO1nBbtm3QB2iLGEo+m4MYqfMy273L4IjefKTNJkx0=;
-        b=UThyAn0rvonijCn/2uSldIakmchqiraJD8IhgRncM2+jZ/t9jU/i9HQv5ooLy2um5R
-         OA43JycT1oZzhebVzSLrfGqP6e6LhFzcQvyU5zfMJfmOxstzPy3UKgeuYF723sqq8Rcb
-         86/F1M2jTFSFMgG8EM2BPp+19mybN1QLuOhVEqUQz0kbBC2LX+5ycq7vcq0YbC6OI3Eq
-         xQBQbSxGks05BUJyKbo1VF4mFflNVv+jlGUd9yRjVO9W6RwWeo0tzX75d/VocUwliQvI
-         SQsgvHMDS7r4hwyjyejSaMEuKg8PXg2A8LVOretMHGBswX7l05+mYZhhO4/GAzQAL4Tk
-         6TwA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p0IBx9JU
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35d0be18c71so1743396eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:32:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793136730; x=1793741530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QuhHDIMVu5WYcDA1LFoQtTkJOtLD/1lu0y5o2UH4ICo=;
-        b=S4q8x2rQcUgbgnB2taH0pkeX7W824XEztlulInCkstTN98gFWl50fOUHsLcMogIWem
-         +SWWuuIF9ShMS36X+rzUjPd7KU7unYZs0GbPKlZZc+H50ZsfMxB5kFt9pJF7G8rQPafS
-         Yj/Qmgt7zp+vc5tnLKCYLsenY72iRxUoBzH1XWuLuKRRylx2sc/th56B7WwrxdvuqIlj
-         tisiwgUTXoSytzPTLshRseVU8MV/f68st3yxUw4yxkUyz/mWdH6jW87vSpFl3DClcaci
-         WvuRRwXmAgU+OVFLKqPNuTNITzE4a/9IGHAuQqBbyFGnX3jJ2y/T3HqHGFlomaAJHMvR
-         E4Jw==
+        d=gmail.com; s=20260707; t=1793136732; x=1793741532; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DJ2w2d78rWYDNrNgxDsC5/JY1fsAdELb1GQ5pSRrXZs=;
+        b=p0IBx9JUeqLNQKKLgrDYtI9hCHfsipOF+VRGSGZFhrAy0spjEU4EHRrZKKovrYz4Rc
+         RcDEV8+9d3MQoV0Gf2/oUpywHi8OO+b/NjKIxbq902elA4BvzwXjzgU/Wrj4nuqhsiis
+         9BfxNsq9c28+btj3j4fxeUQqeVFhTXffpY1WwwcIF8Uk2LXvmlyiOPqongxcvaUpgzoq
+         CQ644GdTW2dZJOGWO53sPVN2LDYXpLogY59psQlgdpI86Eh5QFy7CR5bKwHshjLUCriO
+         nGsnvHCjpJm3Fey03vtRohjfOrZqz36nI3fa5Lg/cQ5LqEAdMWdYiM6RgP42Fw3ZyyP+
+         9coQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793136730; x=1793741530;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QuhHDIMVu5WYcDA1LFoQtTkJOtLD/1lu0y5o2UH4ICo=;
-        b=dVoi9+bQgvYUCNjzv/lswjHevpPWXpLEOaoT0eVclTaQ3ZVJMFXjst4lUpoX6AwVf/
-         nzi2OfVl868v6xQxMxJdrUBW+3w6wSrlq7rwqFb1gIvn8zSIYRu0sSrw0bwlXvZBbkY8
-         7qz3MeB/GtPEZYTNyyqHmaetf0ICS8USyyQdU7aK1KjlYtEAECwbGR2yk9+UGbP2VaFL
-         J0Pw2c6H2N7ewjKcFKlGQRPY8hGvEubuMcfDb5V14k66HkKNhbJDz1JP4ede5Ie618nV
-         f/GKaY4z8D+GrzYt0iMvPABnoMIjEF8Ug0ZkILeZf2RZIE6pyfmqxHBRbiNxyviW5Rs7
-         KGPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzzXOz+EY+xqJ5zqJo8fsMe2a94MuTOeRBV4oGJ9u8qAORxRYEsoo/boFgf5PO0E+CN8yE7jA+Ff13eFDI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLskPoBqn9U9a+O9cx9s2eKxb3OEfZfOMQIDJ+db5gvRApEDw4X
-	DThTx0agqPKPZw5MLB9d7iWZzcwluPLSMk+dBOU1vwCzvCwYHTGtK8Maiw+xb+Hda2y7bOwNQRE
-	EPt4Zlv7n0WpRiE9KWe5lbtvxyQJk6tl5Sq+7ScWV
-X-Gm-Gg: AYBFou0vRx6S2/sGZSf9hg+qXSOngNJ1tMeD8wfBBR9cTbNlDLLJfjpQ4jncVSThUul
-	4zQ9hBPgJ3X+uriyJCXM7lgNsXzD87gvbhpNW5D2BBduim1+oFb56HkeUqPk1iS9/WzhjCSow+y
-	IN4HUOLw6z9Xhu1xbVYOoObU6CFSYpBukU0sDFjz6qRnrR7ZI3zbSjoSDX2lIEneVybZtwF8UOA
-	sjAlsHM5Yw+8kSCPp6I5E3jceqOkzri7NrDJrZxm611tTFrOuNWYFFLgMdRaVZy2L8RifDSUWhW
-	xobpnP12AMVXaXGvxEP3NAvoMvMUqWpud4IkoDdlBlxZ9lGsnBxAGuNsY0FNLhGjTpu5RF48kXc
-	GWR3a235DgFTlMnZQZhnLZsL+M3dYaZaGnZjEDpQTNVX03H8XpEy+eA91RjnihRF0n+/OWQsRWL
-	+pQuOMtPVXO7nM
-X-Received: by 2002:a17:907:868c:b0:c46:bbde:734b with SMTP id
- a640c23a62f3a-c49bdf39dc0mr39237466b.32.1793136729307; Tue, 27 Oct 2026
- 14:32:09 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793136732; x=1793741532;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DJ2w2d78rWYDNrNgxDsC5/JY1fsAdELb1GQ5pSRrXZs=;
+        b=y/IyeN/600Ob/HV5bRgti1DihyU6BsMNLkfHsEpXM/RLXHOiAcsVYGiFf709pJpJ7o
+         56lMhpMRkNkWZG1X35nAW06uC0kEvJDCvLTt0M2rbaPMARNC5C5tF1jvV6+vxkEEpN47
+         NXi1gWg+D8ASQKhoCk5oB1pkBn0XBodNcSQ9tI7HfBsyuNCf8P2vGdsjoH5dLgmewb2l
+         CAeUyUFgXWKBSrvIG6DA6fYuYqIz6fn3fiC+qsBJNfNpllzNVv9UPafijcBPIqMlpR18
+         abse5233rC7RxV2aW22E4HnHGDGiEvhSmXSnxeS/UG0WPkLGE/tIjZ7HuGMmO/NFWEdr
+         SAxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBya7OjEmcAN95ZKJclgeXHbAu9Evn03Ziw4AOA3Iy7S3dMd57hC4GoUo/P920QoVtQlNNXl4b9GCV5N4Bw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPOHTen9Oto90D7liip9wKlO/igCl1p9CniLGy+At/LRarNQ70
+	Xpr6dIOFKhQfgieFA8WDpt/f1LSIakJZPHR2ZJtCo6zyZcxJ+7l46uZB
+X-Gm-Gg: AYBFou3sZ1BPPRYpVMZQ5GP3lLOgHE//6MLNOl8YfA/7+dX0iIH1xgmI407Jlde8PXx
+	vHP14fbGy5b/lBYF3meFVPa6nnG/nCNasyZ6or8/1tbdnxBVfyOO2aFoulj9FZOxZZhbX9Ktm7v
+	bGRPU4KE2iW/qzxjzpWU5gTHXnWUCxKCXNOF8fXK8e8KO+VNyPvruPE055NZbSZzA5SAHx7NbAc
+	G92gvKZBmhbyZfs34Vidg2kIKRMNODxJ2HkU3eT5Zsqnp2v5aHyqx33l+GaBSPSHM+LaLBBeQH2
+	2rJgY8dt4FBlR+xw1w5ZI1JpGxwk60Lngrf0jpHB8JVus2Pus9zyPBjg8aCZyeNirxjE4c1oJq9
+	w4j+/m9RrC4htEvfWR75w8otAR6UK0n3+TP7G48ejBgikCsimdWRXA0JeejNe/nu11CucYveq+j
+	DqF0oUOBWRBUKKHe9kQfkKH6iEthI8ny1gyJ+rdl7bbMi2FARpMJkfT+wcTF+m97JjLo9Vq79K5
+	H6qP9EAo4wQjOgCuHxUck7oqLetvcWfzVNqYTrPHXBOWbk0qu135yRBB8as4roX15vatOSBK/hq
+	K07qWwmtCiU79cTLI4Ffgfm4QoIgE0ofC8mlikIJFVcd
+X-Received: by 2002:a05:7301:578c:b0:369:f644:fac0 with SMTP id 5a478bee46e88-36a2253a951mr181484eec.8.1793136731987;
+        Tue, 27 Oct 2026 14:32:11 -0700 (PDT)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:9958:9525:7799:82b5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm61693125eec.25.2026.10.27.14.32.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 14:32:11 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Subject: [PATCH v2 0/2] ASoC: codecs: twl4030: external mute GPIO lookup
+ fix and binding update
+Date: Tue, 27 Oct 2026 14:32:07 -0700
+Message-Id: <20261027-twl4030-extmute-v2-0-c7e0c90509a1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,37 +92,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023001603.560210-9-wusamuel@google.com> <a925a7a8362e8e9aa0270c2b252aedcc10694857db29c31f66d6f7c5ba89ac08@mail.kernel.org>
-In-Reply-To: <a925a7a8362e8e9aa0270c2b252aedcc10694857db29c31f66d6f7c5ba89ac08@mail.kernel.org>
-From: Samuel Wu <wusamuel@google.com>
-Date: Tue, 27 Oct 2026 14:31:57 -0700
-X-Gm-Features: AclHuK_3f2GFNzZ4NDx25anrHi3Bvdsj3Ks-ELoCN4hDAJz29yzPop2fh0fcApc
-Message-ID: <CAG2Kctryf8+44WKQzUOzyMmtL4biW3Pbg3Pntzkn3Ot49RhFow@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
-To: bot+bpf-ci@kernel.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, andrii@kernel.org, 
-	eddyz87@gmail.com, ihor.solodrai@linux.dev, ast@kernel.org, 
-	daniel@iogearbox.net, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
-	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
-	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com, 
-	justinstitt@google.com, kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev, martin.lau@kernel.org, 
-	mason@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFcY4WoC/3WNyw6CMBBFf4XM2prpIE1w5X8YFkAHGMMrbUEM4
+ d8FXLs8ybnnruDZCXu4Rys4nsXL0O9AlwjKJu9rVmJ3BkIyGolUeLc3jFHxEropsEpSTrSpkDE
+ xsK9Gx5UsZ/GZ/dhPxYvLcGQOoxEfBvc5L2d9eP/rs1aoYku2YDJoq/RRd7m013LoINu27QvXg
+ 8U+wAAAAA==
+X-Change-ID: 20261022-twl4030-extmute-59e516f0e056
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Peng Fan <peng.fan@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+X-Mailer: b4 0.17-dev-e56a4
 
-On Thu, Oct 22, 2026 at 5:51=E2=80=AFPM <bot+bpf-ci@kernel.org> wrote:
->
-> [ ... ]
->
-> Should the BY_ADDR path return -ENOENT when kallsyms_lookup() resolves to=
- a
-> BPF address (for example, is_bpf_text_address(addr) is true and the addre=
-ss
-> is not in vmlinux or a module) unless bpf_jit_kallsyms_enabled() is true?
->
+This series fixes external mute GPIO lookup for the TWL4030 codec driver
+and updates the corresponding device tree binding.
 
-Thanks for the catch. In v3, I'll update BY_ADDR to gate on
-bpf_jit_kallsyms_enabled() so hidden BPF JIT symbols return -ENOENT.
+The twl4030-codec platform device created by the twl4030-audio MFD does
+not have its own of_node or fwnode assigned, as its DT properties reside
+in the "codec" child node of the parent MFD device. Consequently,
+standard devm_gpiod_get_optional() calls on the codec device never
+succeed. Fix this by looking up the GPIO descriptor directly from the
+codec child firmware node. Also update the device tree binding to
+document the standard "ti,hs_extmute-gpios" property name.
+
+Note that to fully restore external mute GPIO lookup on existing device
+trees that still use the legacy "ti,hs_extmute_gpio" property name (with
+an underscore), the companion gpiolib OF quirk [1] is also needed at
+runtime. There is no build-time dependency between the two changes, so
+they can be merged independently via the ASoC and GPIO trees.
+
+[1] https://lore.kernel.org/r/20261022-gpiolib-of-v3-3-42c3b6439fba@gmail.com
+
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+Changes in v2:
+- Drop redundant $ref on ti,hs_extmute-gpios and add deprecated: true
+  to ti,hs_extmute_gpio in DT binding schema.
+- Link to v1: https://patch.msgid.link/20261022-twl4030-extmute-v1-0-3d2dbe260df9@gmail.com
+
+---
+Dmitry Torokhov (2):
+      ASoC: codecs: twl4030: fix external mute GPIO lookup
+      dt-bindings: mfd: twl4030-audio: document preferred name for external mute
+
+ .../bindings/sound/ti,twl4030-audio.yaml           |   8 +-
+ sound/soc/codecs/twl4030.c                         | 108 +++++++++++----------
+ 2 files changed, 62 insertions(+), 54 deletions(-)
+---
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+change-id: 20261022-twl4030-extmute-59e516f0e056
+
+Thanks.
+
+-- 
+Dmitry
+
