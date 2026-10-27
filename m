@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119383;
-	b=5av7BXuAOgDK+pl5P7AZIkqMwe+ah4TRhwsdPhzgQViasf6hstQErrLBgsJ0VJbOcgZ7
-	 O/q5qR6zPC9zANLO9G8wrYXXp6+svRIoemgL8TFgYBEvDg4wC1KyxBzgtyBgq6SlqzpsV
-	 /Lc10v5eevEL4/8xNWnVuKF15GJYtDAX7WB6jBR0gzXDQwpz7pEbx9En5Tzv6Bf6flqbh
-	 CPlPk/Ex5EhX0pE/bxvUcGwO4X97BIXyEN493zfT1y69lT3YukN2rzxSxj7/91lDjp9dd
-	 69tulUgwinuaYJuHMu0zTkEfiJpvL4RIZZ851OGlhXqVRADEGSrZ8pMmlJBJasi9hOA==
+	t=1793119411;
+	b=W/ZGga9gCtCDN4O794VxVKot9P1637vviL2LiGqjJhvjaO/15ofeIwCePRXhnhj78+6T
+	 BlqvUeb+kp5hzXPTSIiJNfYk0kYGgP18DQ6SoO5ind47UiJ8iGgcjXLQkp8ln7bznWGQS
+	 OxmauhxXjNCQkH4Bdylr2d82X/GSlrfxL2aby0nruXyHlhhwAf63VZE0Vpivs6i2KrWX8
+	 zWAhGCKizsckpW1k6XjnJaybUNsVgtJwDQHsqIp1/rC5CFdzNgq5Yy0oilw7AudUZz8S9
+	 KMEYJRAVxCh9e79JIRfwCPcghQSP+2ZfAQbPg9r94lOXwQSXQjpITL/uyWz2e1BZrKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119383;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=E1wXN/PUqUObJwX0JLlBqoqe7zckeMgtQBlkKAPsC4U=;
-	b=ZEZhK+s2BBf8LxrDncdieKM46WFDlkQLZ1OuG9JGHzpJ/tmPZwwhptfKwziF9mAGEXB8
-	 qc58Rxj4Wl/i4oA5Of8DGxMax0fACrmhNYluIHL+wzgiNFyucHkFb9bc9/B6ax8cqH31b
-	 lFOZ+TeyvupRDNjTMidbCrT/BEqE7YqzMz3w5BR/BqUrvkV4GKaHt0O4wY5hmLZEdgXd9
-	 w/KjOPR2z6FPQ6ORakWc66IymNBVBAN84tJm9j9o85nBvtd6lHhJaV2GViDW9c8wq/yCn
-	 bURD7siNe4oMs5PcDK2pDjEJY7TO31dhAMCSPCyy3rJ2t8uz9LQc66Sdr8R2NOzq3TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119411;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=BpW1F/uJk2W7aZSi1PFxYcUGdf7bE/CFaahxMUXCViQ=;
+	b=gOEswOLDxlEK0DSPk4qCEJLYRSbLNPBEflcbWqLGX17TFqydLkWiWOs7ERoCUMJFP5XY
+	 7DMrW8gLz++pQxOrqMQBhDx9PJCkaDIK2SmOAofD5Geziom8s9MHO9RFV6KgEOx1NthtB
+	 XCSXS/1UoJ0YpYDG0Qd7HWj8jUOiL4LreVOwjJ+Q/IL4G+fUj8g0ZrmgneXxrrOn2jtpO
+	 K2Q1sR2RD4B9T6ysJ1o7TWJGN1yCmrrgnZ6jhIVoYz3Bc/P4xnuj2i17brutXW5VkbChk
+	 Y+xxqorXORnMg/xJeGgNiJ4iqs+UAftFe4DTbJVnLcVO8w2GphUfDMWdi4j3VBo3gLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P7/w1DUf";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HrDiOoi3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C752606A31D;
-	Tue, 27 Oct 2026 16:43:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BF8606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:43:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P7/w1DUf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C931F01825;
-	Tue, 27 Oct 2026 16:43:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793119382;
-	bh=E1wXN/PUqUObJwX0JLlBqoqe7zckeMgtQBlkKAPsC4U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P7/w1DUfoTRy34mWn1naIkcYYpGGZf47p5kFeCWFa/1Y4OT2v+jsQ/TU2gpN0/gKQ
-	 ZLtpo/IZmUNFYbuDu2KHboM+lN+Lg/bo+Ni0AVu2JMZPYtIoSTdlGgFkuw+8QkL0Wz
-	 BHHnWkf5x7W19zu/KZcI6Cl+2GrWf3GhqZEshbW6D/KZggHp5Gc7cTywv9fTDqMAvC
-	 /KpeZDY4z2FlJb8ppioZr3XCI6rf5P3BZCzmqpgSoEql4ZVTvh6RxESLDLI9/pTtji
-	 I8/Mf0B4AeIUE2HCwsPou/tluQRnbEaqImPlij51YhWMa0+81sHkGWxAYsqCVq/ahy
-	 Bj9UWBENUVZWg==
-Message-ID: <57142d18-fc5c-4b9f-97f0-27116d4bb154@kernel.org>
-Date: Tue, 27 Oct 2026 17:42:58 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HrDiOoi3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A521F01825;
+	Tue, 27 Oct 2026 16:43:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793119410;
+	bh=BpW1F/uJk2W7aZSi1PFxYcUGdf7bE/CFaahxMUXCViQ=;
+	h=From:Subject:Date:To:Cc;
+	b=HrDiOoi3fMYuWpMuaOO6FQ0WAGQXBODeaMbINwN4FIoqzu84ESxcIebdxUATBScn0
+	 Cs1sGcQ7JLFAsVN71RN15iCPmGdvqCwTyxvXwzYwgPO+SrSmCmSNPbIuNhPv3GgrKA
+	 kne+UEpZn2/4WwIh4i/qVBAZxV1QrH7bWFMK9e6s=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 0/5] comedi: some small llm-found fixes
+Date: Tue, 27 Oct 2026 17:43:27 +0100
+Message-Id: <20261027-llm-char-misc-comedi-v1-0-1899771ee15b@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,95 +50,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mfd: hi655x-pmic: fix IRQ action memory leak on removal
-To: Lee Jones <lee@kernel.org>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
- John Stultz <john.stultz@linaro.org>, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261027024609.117371-1-lgs201920130244@gmail.com>
- <c04f2ba8-fc83-4118-a26a-76ea8cbee518@kernel.org>
- <20261027162324.GI2195460@google.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027162324.GI2195460@google.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywrCMBCF4Vcps3YgiTQBX6W4iMmoI7mUTBWh9
+ N1N6/LjcP4VhBqTwGVYodGHhWvp0KcBwtOXByHHbjDKWK2Mw5Qy9qVhZgkYaqbI6D05fR7HaKK
+ Ffp0b3fl7ZKfr3/K+vSgsewu27QedJlRoeAAAAA==
+X-Change-ID: 20261027-llm-char-misc-comedi-aae71355d2d6
+To: Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>, 
+ Frank Mori Hess <fmhess@users.sourceforge.net>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1069;
+ i=gregkh@linuxfoundation.org; h=from:subject:message-id;
+ bh=rVE8/ymwPPGnO+VXzNe3Cj22sT2e45ZGGJOtf5kLYSQ=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPrmw4vUuv/oAT//HAnIcKVdcyti++Nfd2uFWImENU5
+ NlpTCqVHbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjARPyuGubIt6qzvF0vdqKmW
+ NvvJ9HM+X4g0D8M8zTlzRL93VoX/47D59/ajFNc+W9tAAA==
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-On 27/10/2026 17:23, Lee Jones wrote:
-> On Tue, 27 Oct 2026, Krzysztof Kozlowski wrote:
-> 
->> On 27/10/2026 03:46, Guangshuo Li wrote:
->>> hi655x_pmic_remove() currently removes the regmap IRQ chip before
->>> removing the MFD child devices. regmap_del_irq_chip() disposes the
->>> child IRQ mappings and removes their IRQ descriptors.
->>>
->>> The hi65xx-powerkey child registers interrupt handlers using
->>> devm_request_any_context_irq(). During child device removal, the
->>> device-managed cleanup calls free_irq(), but the corresponding IRQ
->>> descriptors are no longer available. As a result, the allocated
->>> struct irqaction objects referenced by irq_desc->action are not
->>> freed, causing a memory leak.
->>>
->>> Remove the MFD child devices first, allowing their device-managed
->>> IRQ handlers to be released while the IRQ mappings are still valid.
->>> Then remove the regmap IRQ chip and its IRQ domain.
->>>
->>> This issue was found by our static analysis tool under development.
->>
->> More of postings by bot ignoring any feedback.
-> 
-> What did I miss?
-> 
-> This person seems to be answering to my feedback:
-> 
-> https://lore.kernel.org/r/CANUHTR9B84LoCjOtS5N5qGO0KXSXUbZkrKZ3_GFTwXmVoPQ0SA@mail.gmail.com
+Here's a series of some small llm-found fixes that have been sent to me
+recently.  Most of them are just minor bugfixes, but they are good to
+have from what I can tell.
 
-To mine not really. This all is again spread patch-per-patch, exactly
-like I asked to fix last time, more than once.
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+Josef Bacik (5):
+      comedi: fix endless recursion in comedi_event()
+      comedi: addi_apci_1500: fix clearing of the gate enable
+      comedi: ni_660x: don't poll without a DMA channel
+      comedi: ni_tio: Fix overflow of the clock period
+      comedi: vmk80xx: report failed transfers of the K8061
+
+ drivers/comedi/comedi_fops.c            |  2 +-
+ drivers/comedi/drivers/addi_apci_1500.c |  2 +-
+ drivers/comedi/drivers/ni_660x.c        |  3 ++-
+ drivers/comedi/drivers/ni_tio.c         |  2 +-
+ drivers/comedi/drivers/vmk80xx.c        | 25 ++++++++++++-------------
+ 5 files changed, 17 insertions(+), 17 deletions(-)
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261027-llm-char-misc-comedi-aae71355d2d6
 
 Best regards,
-Krzysztof
+--  
+Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
