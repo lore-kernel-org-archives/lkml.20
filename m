@@ -1,91 +1,117 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793080951;
-	b=YdL76NxcZBnDdNQpPUFmzJlij+z5kzwqydLdTY9JLk+HVoJ7cVn0O+9eYbyJ4Z6vR6wz
-	 ErpR47tWUfew0HRwXyYhbADXKyGZMCIwPGtrRZPfr2RcuvC2SNmESZ5X90yE+MzyaGDoj
-	 pYJZViRU52WCBh8KuYqYovpPhMGK4TFV8eCzVYV+tHde258hKnI2cga/oI+uIUqXbq9Wl
-	 QOg9ZLsDfNRRx6OaWIGBlqxIXV/OmFOSRSShoteHvgJPlWoFOklJt5XXoYsEB6aranTg8
-	 INuOG7DsOzu+DgXKp+9R1UpWaChKOozlzRTjccXC1tWvoRG/80IX4G+fS5FUF+HtC2Q==
+	t=1793080993;
+	b=OqPQjdYCoWUS/cyCbbaL/F4kC7qoDITUbUZHW7/MDVBemDPdmiLTIM3AxcQpSAMXCOGs
+	 ysMG6YN2gx9ZK8gUL0HLlioNhbiO4yhzGw5cs7eeyynfp13vzSrc8LBY8WCfxdDhLaIB7
+	 b2DMT0BKjYKo6mtB6KQm1VIDmy/LBWag4Ep421hxPQhERpLr2GaxQ6gT0KGnFmvTvvo3u
+	 r2c/5DzJvcEWew+qjU7MNackMvEpwzew64EBTvFTJPYHjG1kQ23KHGRKjDNUM2R8zYzFs
+	 SDrPwyMs0qG0bbe3FiJaeb/dIPa0aDRdXKJmt3VL1KXruxe7wmlTHLWpHGmucBdqVxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080951;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080993;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ej1HgTe/KHrLI49Kdk60bqEOZh+J6lt5Sf/YAb1bqN0=;
-	b=Yk+iorDTaq3oitcmagjsKg06QK+ILgGDJWGnGmF5JIPOTw9Vc6pB+hQTWo5RgYy/etWQ
-	 3uwM+DRtzOJpDCkE1sdEF+NP3jMs1E2rIpZUrastFaVLIVb5U9ISDOWCe9SEIG/HVHWTl
-	 0EtQ6kPiVozsPrx1da9zt1+gxW12OhoAuDw5mA63X4B/tSLkgxeaEM1dLMVZtTlX4X8sI
-	 iNHMBV/gSg7q4Sc9kgEbocPpujUXpFxkNMp4nK5z5CRL6nkMQTMBJdRMfItxpQvIbkGrm
-	 VUmAx+Va5Nu8LDipQcXgRNIDtP+68EH50G/P+DEeG7dGEp0axEir3yfr8lS2N3DrFvg==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=KtHkcu0sQsAK751caVzJBQDY0o4i7F/zlOnjMPPeE5I=;
+	b=CA0Wiz/pLWlE1GdMcmnQaBRspe54o882bShWnWMHtoBO3yciQWQ0yzhI6yCJS0Cpzs2a
+	 gTanTjoMOG/ITKHyGARadcy04tNcXGDQXo7KMCDMlY+TzK1Qz01GyFj0R/DPfceU7fE9x
+	 BWTgongxu0610YoK3nk3pzOYOGozhBMiLhE4mgEf1Y1bNG3QSYs7BPjC/LzArwRo9fDGu
+	 mOaSCXhvuce3oT0c70xNMB/R6XPQxMkVPHLii/IBG38BSYVZt/TB1m6kjpA4a85obHvX4
+	 dA2t0lsXlI6+pXUJTs1ce54rWQHPfxkVeOGThuaZt5bJsO1vjmSQJACUklSSHykwvcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W8y3TrE3;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fd+rVQCT;
 	arc=none smtp.remote-ip=209.85.128.42
 Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 577FB606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:02:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 577FB606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CB0606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:03:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42CB0606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W8y3TrE3
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso18299745e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:02:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Fd+rVQCT
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so25209645e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:03:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793080949; x=1793685749; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ej1HgTe/KHrLI49Kdk60bqEOZh+J6lt5Sf/YAb1bqN0=;
-        b=W8y3TrE31cqe2qsF8kCxCq0+Jbdq2zr66wZCiOcKow35sZtPu/4uKjnkfQ2NkYkl8j
-         3/zR6rpa9epY1pWY1xhl5CBYJsTe4TXvPheEwrXoaM1B9os/1eYBFt/On1lnzGtLrdRl
-         KrD6aJq0WmcHAouPYZtl0+6Q77AJ6Wt2MSIHqvpiXGn1ug16gtU4lqTB6ijt6hVEFoY3
-         P0Fp8plI6IuMjhswIOL6VjwsgvPR3dcobioA9KBZPXQhnpfs6wmt9F8J7P34WbBHgqFB
-         5XE5dVV3cXPUrJ+m8a1F1kutjkR+tjY1v0KPu1ADg7PWfRGgypDUeJ8fmH095U5b0LrL
-         EiKg==
+        d=gmail.com; s=20251104; t=1793080991; x=1793685791; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KtHkcu0sQsAK751caVzJBQDY0o4i7F/zlOnjMPPeE5I=;
+        b=Fd+rVQCT6h6iWDR02V4pfE6w4B9VB1S0lffsv2IDdIHHIRdyK3jUEt2FmHBfZxMBXo
+         /6CAn9UDjbhCtzDFEAD5X9jRnzYGPQcAkOmikfnG13ul8dm2gAbZsM9KyfdVDLAcz/Ay
+         UiOYwyOaUeF+/xVxB9iMXFcDyDlueTVmMgBFt8QsaC3JgphcNjaakCDKqO2hcesvrHWK
+         9oqTpTZC6ExZY6JzDB3EJe6w45YuoOXY55hHfzjgqADewKP+nXACtXCBTHV/WG0pE4Ke
+         YqA7i+Nq+iwiszDPQZGl2GpPWw21M4pwSa8W/8EODi1AZRQE76335KaE1hQ2D2r+gA/7
+         74bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793080949; x=1793685749;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ej1HgTe/KHrLI49Kdk60bqEOZh+J6lt5Sf/YAb1bqN0=;
-        b=NwUEd0KfjRZzaVJQwdP9mAdcm/KQZys+mPbXZU8okOyY38iDkh/nv3RDaFNhD1c1a3
-         SMvHvftX4VlIATVXJ4kdqnw3gcNg/hQSJnMpjdtvqwt54TFkXCJPVLwn+Cxzm9VAihsH
-         0pUcJFY7/jhEcoBGgpE4GiTVVLKcCCQoPJfdGILTQgbjRnvbvMXWZFxqREe+xyOnJE0V
-         9y2PhcToLRh+0maSaR760bmfVEuwBysIMKJjVRLcx8hiEJukjczBfnHAbTvL/H1vchKz
-         3XAhT0uDjttky2woy8awyk/PBZywVgQD7ti6ARoUZkse93NRND1N0SBxYrnlcZzXEFGZ
-         KSGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxJHCL++RBShvRfyEmh+UOZExD6L179K8v6Bt5wv9VmfO08URQn/U7YX2cp4YZA9NvsmFtgxwOs2ErbhAc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQHX07Dw6cK5GIg4by5zDMVlfBIbKpPPDHIsELqBnJvjnlHdGr
-	brf4vZ6jdmck3ErvtFS1WRWGJhlZAMdcCZEwUOvaSZIGnbacoUKX8x7D
-X-Gm-Gg: AYBFou1Hm75gur5yuM6RoA5Sw8BZ4F8BRafRfdlO+edRLxV6lbOo9HZSL/uvnTWpY4n
-	siCDskP4UFt/D/Iy3lOy+w53qIxeax5ExZTheEgIxp7XkS+g/LXnARUij4fFyhw/+mjLG0Is6/X
-	sEsk4vWrV0P7tAtTgW/Pz7lpcSc7HLO0wEd+hlbx0uQksRqhk71obfSSL4B09liL28ppKH+k9FY
-	lCAgbNKvqjY3Dtupd3FX758W8PcBZDcJhCT1XYqTAPsW3EysrtduMsRtsM89uLYbBaTkb3KdoQ+
-	74a6xhfe2UnBsd97zzhE/0lIc6h1lTHC2PT9AxiFliPyzbpEtSV8WqW4RLIeEzY7rXXQsOR+Oz2
-	fOEURxCjAHbtMcHc66eKpc4tDpKeKKyFiatm+n31Z7fzEgBB5zGWAGlc+HFRGhpwvCMJVlSLA6A
-	LboE2ZMkGmmyN+GS0bTeSaR8H8fiRbsVAUoYfd2LL2M7MY9U1Mvoz++xKiktsP90uEy6gwSAp0K
-	orCizEhZJX7kkosfrGcR3GZT9WUhQXK9rTy60g5EEFhkwS86CxVwVL2tdXam9AWOlo/NuWs0Dvw
-	keu/DdlAachyoOQyz9miyPVbskVkBqsu8jR+qiJOWCibxFNI1l847JBhCERuX7g9pIT7sl85LCn
-	L8axc/XzHIH9kH0Z54vE=
-X-Received: by 2002:a05:600c:8b62:b0:4a2:150f:1610 with SMTP id 5b1f17b1804b1-4a35acd5f91mr148820065e9.23.1793080948450;
-        Mon, 26 Oct 2026 23:02:28 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb90dsm19124482f8f.22.2026.10.26.23.02.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 23:02:28 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: tsbogend@alpha.franken.de
-Cc: linux-mips@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] MIPS: OCTEON: use the free memory below the kernel
-Date: Tue, 27 Oct 2026 06:02:27 +0000
-Message-ID: <20261027060227.2687979-1-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        d=1e100.net; s=20260707; t=1793080991; x=1793685791;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KtHkcu0sQsAK751caVzJBQDY0o4i7F/zlOnjMPPeE5I=;
+        b=Bh68GZnp/Q/1hAGUUEAXFXem6SUP8YEiF7SpSLCXJOxdBXDT4u9tZ5jj2zbY5Uqd+M
+         pSH32fP820i/CPsZMCdcB0OHIbK8S/BqyjOzpooQb58zqp7O87bvoY8eLDqsCtlRTdGm
+         Ds0tzgytVPAPiD5K3hFKdKqS7hPdOZZ5eXvVg0HvrRfQYdPm/WbkStPOd1x1GWvWuQWq
+         ndhsiAV+uJ2i7JSu7uYZraS8PONQwXQ0jPpnGt3AAt+glmYf6ixAvg1IgGv0f/h9Slux
+         Rzj4vx3kGZpOL+GH5RZ4KZ4+PGHGw23CIrRHXzeTY7jdYWRWjGb8d+q+NleWr+9iJ+tH
+         x+Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBw3VflQIFBvcwfVfphOYsEtp347icnvv33/aPXT8MdB+20VSnxTJu1AotJEThGAsi4NEfdQqeyn2A6gzIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuL70izfRqlh1qcFQs/Zxw/AQhgSfWhmNBwlei2J8XIBO4fwvU
+	IrJnYJCOxhRxkleTeC691Tr8dZy2xVRCDBjwbd8wkE2gGawNpC2a/Bk6
+X-Gm-Gg: AYBFou1fSHqo9o/wbFixPjECBAgm+4VLcerW40NDZOKSGIMg2P0W9iZWwvLKvWe/NIT
+	/JvFr/GNWjmCI+e7Xvn8Q++aPlYU1HmiKmbAHVwKasaQphrG8daC81RR9v6VGovGzq+OR11F/eO
+	0gizdliFhDL7+/OezK2uFhRvzpCo8YSmY9DSepG8Smfj91Xu/Yz9o2uMSfhUAqETQtXhg68EUWI
+	L4soUxQT97YLIG9Sw3E+khmdad1kzcMY9NNRIg1pNHvKORWKiNt50TP4jY+B9AeuSsR1gWnZ9V1
+	KWnK7tMiWZDzbeeQ3L+mqnGVSWgLmj9Fo0BINdLgCTSat0Gl+LTNQy5y0YvGYeI8LCvEdOvanOJ
+	Yk/gQJ9LpNg0WHdQ1m9IuRbOnkHzsQsFX2dNOmIPoMrZTuZ5jkWfvLLmxVHvYmqErom9Ris1E6/
+	5caTGtoXMIWpDO1nEu6KbRUUxpSFgIS5jFJw7i+frD7pVKGdHWiLv04601fZ4YDAc9ModjJAcXI
+	Jiox7A2Aj3bC8CM00qTRbt1qGLrwLzj7FHz9dWGYz08MfUzTY3ta7okbLPFI/Qd
+X-Received: by 2002:a05:600c:3acb:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4a35aca4fe1mr159192175e9.16.1793080991458;
+        Mon, 26 Oct 2026 23:03:11 -0700 (PDT)
+Received: from foxbook (bgu81.neoplus.adsl.tpnet.pl. [83.28.84.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5698f1sm240600745e9.8.2026.10.26.23.03.08
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Mon, 26 Oct 2026 23:03:11 -0700 (PDT)
+Date: Tue, 27 Oct 2026 07:03:00 +0100
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alex Williamson <alex@shazbot.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <u.kleine-koenig@baylibre.com>, Armin Wolf <W_Armin@gmx.de>, David Lechner
+ <dlechner@baylibre.com>, Danilo Krummrich <dakr@kernel.org>, Luis
+ Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, Daniel
+ Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron
+ Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, "Rafael
+ J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Bradley Morgan <brads@mainlining.org>,
+ Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+ Richard Weinberger <richard@nod.at>, Thierry Reding
+ <thierry.reding@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <20261027070300.4c45616a.michal.pecio@gmail.com>
+In-Reply-To: <2026102637-buggy-mothball-2a08@gregkh>
+References: <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+	<arIvG0nx4LXG9nlW@monoceros>
+	<defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+	<9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+	<2026092321-province-yearly-44aa@gregkh>
+	<arOfHEsGGglNse7T@monoceros>
+	<2026092348-victory-erased-0e5a@gregkh>
+	<20261023181326.0dc2f7ed@shazbot.org>
+	<2026102437-vista-unsoiled-b089@gregkh>
+	<20261024103512.4601ee4f@shazbot.org>
+	<2026102637-buggy-mothball-2a08@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,67 +121,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-plat_mem_setup() asks bootmem only for memory above _end. The kernel
-is loaded at 0x1100000, so whatever bootmem has free below _text is
-never added to memblock. On a CN6335 board with the Cavium bootloader
-that is 14MB, 0x200000-0xffffff:
+On Mon, 26 Oct 2026 21:34:57 +0100, Greg Kroah-Hartman wrote:
+> > Even if we could come up with a set of device IDs, it's a policy
+> > decision whether a given device is intended by the admin to be used
+> > by the default in-kernel driver or a userspace driver.  
+> 
+> Great, then have the admin never allow the in-kernel driver to be on
+> the system, or be loaded (modprobe has deny lists) and all is fine.
 
-  before: node 0: [mem 0x0000000001100000-0x0000000001cc6fff]
-  after:  node 0: [mem 0x0000000000200000-0x0000000000ffffff]
-          node 0: [mem 0x0000000001100000-0x0000000001cc6fff]
+As some maintainers like to say, it's not the '90s anymore :)
 
-Claim it before the main loop, in 1MB pieces since the holes there are
-small and unaligned. It counts towards max_memory like the rest, and a
-piece inside the crash kernel range, which is added on its own, is
-skipped as the main loop does. bootmem never hands out what the
-bootloader reserved (the exception vectors, its named blocks, the
-kernel image itself), so only free memory is claimed.
+Users don't reboot systems to kick a kernel driver off a PCI device to
+try something in a disposable VM on a whim.
 
-Assisted-by: LLM
-Signed-off-by: Orgad Shaneh <orgads@gmail.com>
----
-Tested on mips-next with cavium_octeon_defconfig (KEXEC=y, CRASH_DUMP=n)
-on a CN6335 board, 4GB, Cavium U-Boot 1.1.1: "Memory:" goes from
-4023588K/4169492K to 4037924K/4183828K available. Built with KEXEC=n
-and CRASH_DUMP=y as well.
+Even if they did, it's completely normal for desktop users to have two
+GPUs from the same vendor or two xHCI controllers and pass only one of
+them to Windows/macOS while using the other on the host.
 
- arch/mips/cavium-octeon/setup.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+bind/unbind feature prominently on every distribution wiki and forum,
+this cat is absolutely out of the bag at this point.
 
-diff --git a/arch/mips/cavium-octeon/setup.c b/arch/mips/cavium-octeon/setup.c
-index 7497be7b9431..2b1bc8fafac5 100644
---- a/arch/mips/cavium-octeon/setup.c
-+++ b/arch/mips/cavium-octeon/setup.c
-@@ -1022,6 +1022,27 @@ void __init plat_mem_setup(void)
- 	 * which is handled by memblock
- 	 */
- 	cvmx_bootmem_lock();
-+	/*
-+	 * The loop below only takes memory above the kernel. Claim what
-+	 * bootmem has free below it as well, 1MB at a time: the holes the
-+	 * bootloader leaves there are small and not aligned to
-+	 * mem_alloc_size.
-+	 */
-+	while (total < max_memory) {
-+		memory = cvmx_bootmem_phy_alloc(0x100000, 0,
-+						__pa_symbol(&_text),
-+						0x100000,
-+						CVMX_BOOTMEM_FLAG_NO_LOCKING);
-+		if (memory < 0)
-+			break;
-+#ifdef CONFIG_KEXEC
-+		/* The crash kernel range is already added */
-+		if (memory < crashk_end && memory + 0x100000 > crashk_base)
-+			continue;
-+#endif
-+		memblock_add(memory, 0x100000);
-+		total += 0x100000;
-+	}
- 	while (total < max_memory) {
- 		memory = cvmx_bootmem_phy_alloc(mem_alloc_size,
- 						__pa_symbol(&_end), -1,
--- 
-2.53.0
+> > That means that at one point we want the default driver bound and at
+> > another we want a vfio driver bound.  Coordinating this is exactly
+> > why we have driver_override and, building on that, match IDs that
+> > require driver_override.  This allows drivers to describe
+> > themselves as vfio-pci compatible drivers via modules.alias while
+> > requiring userspace to enable the match via driver_override.  
+> 
+> And as said before, that's a horrid hack and one that is breaking
+> things today in all sorts of ways, which is why the taint was added.
 
+Are you aware of bind/unbind breaking things for PCI specifically?
+
+Without also involving 'driver_override' or 'new_id'? Everyone agrees
+that these APIs used for anything other than pci-stub or vfio are foot
+guns. But your patch targets something different.
+
+We can even bind PCI drivers to wrong devices *without* using bind and
+hence, I presume but don't care to test, without tripping this taint.
+
+> If you wish to override the kernel, then great, a taint flag is added
+> and all is fine.  All this means is that now developers know what you
+> did and can decide to ignore your bug report or not.  No functionality
+> changed at all.
+
+I believe people pointed out that it's a functional change for users of
+panic_on_taint who also use bind without being idiots.
+
+Does this taint even solve a "real" problem? Those bug reports weren't
+coming from users, they were coming from "abusers" like syzbot looking
+for trouble. They were quite obvious even without a taint message.
+
+And at least on linux-usb, they seem to have stopped after Google and
+one other copycat were told to stop sending them, and before this taint
+reaches released kernels.
+
+I even told them to block not only bind but also new_id, so there will
+be no second wave of reports caused by syzbot discovering that it can
+bypass the taint by using new_id intsead of driver_override.
+
+> Why are you worried about a taint flag?  So many servers run with
+> taint flags enabled due to out-of-tree or questionable licenses with
+> no problems, what's one more informational bit here?
+
+And what's the point of a flag which is always set on countless normal
+systems in the wild? If this feature survives to April 1st, I will send
+a patch to rename it to "VM passthrough taint" because everybody (or at
+least those dealing with desktop users) knows what it *really* means.
+
+Regards,
+Michal
