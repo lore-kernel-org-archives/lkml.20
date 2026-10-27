@@ -1,75 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793142965;
-	b=Kjoag24FLmcXHwzuyo7FkWCxEirsN4QaDVs64hgnIpqvNlgZat15ye4FKINYAwHnuR4m
-	 ylCtuopSXOJ8ypz3iNgR0Qf7reQ3s+iqvpOT9AqnzeBj+qjqPdauMQ90qETD5xDg7cwh4
-	 MIoTvNK5N0sp8mrU/QUC2seEGpOLh94qGc/4KryfciivQcNSZ9dcM/BYo7R8BvZzdnBlj
-	 TTm9ZclbVZA1REDeQA1so9RAGMGdPZcqF1GiH3LDFIfLVJZQ7uADp+bv5fEIUIPFq3zZS
-	 RmzQjx0VoNb42RkUle7V4Sci0286CvDl4DVd0LsHuMBfnjwzEsnhEkSbOd8SVbw4YuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142965;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=pe3GSuD4LGl6lVRKcgy65zyTo8/iD3NoWxDHxP9Zlm8=;
-	b=h5ak3ustRov4R5t7Bw4OHb2gSFuDVrwwXyVs9ZshmZmWdryuU2MxvtRjN087ATp3k5f1
-	 YymGnOVt8F/Rb/BD80+AWU2y379Anl7WnB710dGHAwuiqECSb2LgImuuHolTigKmXyiQJ
-	 FI60EIkpCo6a20pIcYVkRoDMvccAa1XTXRYtPfczUDU5A6jeix7ek2TTm6H9HC1WsZv0t
-	 83Btalu4OmfakHKnLLjpsMAmpGWRV690kOB0eh5to1IA3Hb5/dbfLPGv4d/FpRpQQVzWd
-	 KwfoqN7Tlh1DSRYOa/SWTXuqhDgbThD/2iUlqkuUZGHaBQajKv4/e8V8yNe/x75WZtw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=o2Uxtmxj;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.65
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793142962;
+	b=AvIvYupA4X7jVeU/LMno0QkLZMtf645unZTg2FPtb2LOnmvoP1JGLFNIjRRZPQwx8l7X
+	 mUw95NakQqBQJZlthmVDYvHIQuyddh6nTBhxNu7enhhROKvMjhmEQa7dHfHBRmNqP8EHt
+	 2BScLErOz5kUBIlBx+99LR/1tzm4G4khcFwn3F7pLgDMo4LK1Vq5UPmSOeNfxTAAW45ld
+	 Amolcxd+VxczMBIGJHi52lTceuvKOi58y9hrYrxoh3zZ5Atv3vh04eLAn+an8QKB1EQqw
+	 qvb7703pLUg28nf5nPVeczBwHubgSNeFvHccd/B+6ptSAwuVKuFlZOwvl51Wu7BT+Vw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793142962;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7ISyHKlVAcM0/DZJiGCw/9XLIFyiBD/SzVNJUBpkA0g=;
+	b=IdGHutgvxHeFEQCMlHexL/JJ4hjLgffRu7devAk9sZJqdc92lrNDx2tiU9zVqKceH1/k
+	 +uRwz+6S7ffzb6MRI0rc11MsXfcz9xnDn2RMtJxFi5+hCnJNzWeykhYy68LGtIGdMg478
+	 L/xStZEY+7LAbsWIiUTf0/7CPr/s5rcazRqGU8T11mvC3f90ZlxKvqMC9QRWEeNh6Rbd5
+	 KuCGJisV4MXnpQ7eBDpkcan545uWkV4obZhGkDX3Pa4cwK3gIzmq6EnshAIVy5rn5LOiS
+	 XtjAi6QKTMlVphAJjAsRxih5Naa8aIVtxgpYxVog2S/tfg5ntkULY90A+fd2+vf971A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="Gt/46kow";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.65
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012065.outbound.protection.outlook.com [52.101.53.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A48E60A383D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A48E60A383D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA74860A3802;
+	Tue, 27 Oct 2026 23:15:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA74860A3802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=o2Uxtmxj
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a223755e4so476450eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:16:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793142965; x=1793747765; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pe3GSuD4LGl6lVRKcgy65zyTo8/iD3NoWxDHxP9Zlm8=;
-        b=o2UxtmxjVvAB6Rci3S+LSIE0BF6fLZrXhU/6xG08l7S4pknv18DcJPTSziiktSmuQg
-         2lDaJLEt64O53e7sa19/0iHJ4Ey+qZdy2Ip2xsFytQyDiIwuUNLWCqzjGVzueqsHs55s
-         ARvDVdNq89nRMadItdowhnY+mhPZ03uupHr6D2Wz2d7pd5A4Se3wnD4YoRvzq17ivwYM
-         qr79TigjTO5COEoptaqqPE8QxBgo5Lt9gjPru3QQ/5IFzCZfySwAgMtxSPJsvkNvxwfE
-         OL6rmeQifI7PV2PtOLhYqsrsrJvOm5CWTIfiXMilOzh6Qbb4M61tCpFK0zHWdrl/WB90
-         3Pnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793142965; x=1793747765;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pe3GSuD4LGl6lVRKcgy65zyTo8/iD3NoWxDHxP9Zlm8=;
-        b=dYk7gWoLeiP6coctfsLuUzIWFh0kasWg7sYxFAJ/kaBnwRdwCVdL9NZm5qmTLC2Miw
-         lFzRLDr18LaFz+sANb0p0cqT7A0Gdd2/uMPD2OZME4E7daVe2Z0nx2ENwIgEi5BUcGFe
-         8s3BN9pJhG1HynXaaII+Q3x6N1yQfCsrYkxRuznwOJnkbHLM24B1EQ8/LaEEoySx9bBr
-         y4g5EalgjTFczjd7fJpM8Zs6+sKpzGkbiqoXBexS/vFJlPAPJdCj9hkrqOw5SFz2Sl/F
-         9dr9NCqN7pwCxa/+x7RG29tM8UpnnuJPeDghoCaDYTHDksws8/0LZAcFxOA+czZgoBpC
-         F4Dw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFDlJUluWybFgwxB0EZY7xgIfM33GMIQhP3HBwmY0tY+mEmFtzEvfCimW59uizZMrlVfaCqN2oY9TARng=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLx17HQYiFxP+PEga86LyEhirqx4RXif0QSdywKzgVpJ6Gw7r3q
-	6zQnKzQ8wre/S0tn4BL88QKbaK5A0RC/eB0bgbmi2dRQuYa6BaWBWhj2Eugixdvimu81WuAMJXW
-	kP6dhBmozYQ==
-X-Received: from dlbcf38.prod.google.com ([2002:a05:7022:45a6:b0:195:8b4e:20b7])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1716:b0:186:3f0c:bd09
- with SMTP id a92af1059eb24-1a6c800e43amr1004776c88.5.1793142964241; Tue, 27
- Oct 2026 16:16:04 -0700 (PDT)
-Date: Tue, 27 Oct 2026 16:15:12 -0700
-In-Reply-To: <20261027231513.816148-1-irogers@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Gt/46kow
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SQ0rtxs2yHtePTZKSKD03j2Lp/EMu3QXDUf/w94nK9S+l9CYSX+7Cr9paPIDE4/M19m4Ca8X79C0uz89dK22pQ72n+cDOzmWDU3wG0TK0yKs4K0jp/3oIuLOfP+nbdP0y8i3vmhQd6gwRl02mrcu4ByiN+RZ8GhgbCqALGUlndhuhHv5OsXsAxiLkHufzubfHg7vmeVMkxluO80yGDKOOnS0fKbHULE0sAh1LIqaFZh7Oc+5k5hucReBYuB1hA4t0UzQYIJe2FEpnsVIbRa9NCcLN7pveLT71fbGYNPKuH2nmC/bxE/gcjOhOCp6OTi2iVqnf3pdkgdpQpEn7LUOPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7ISyHKlVAcM0/DZJiGCw/9XLIFyiBD/SzVNJUBpkA0g=;
+ b=b0JQW2AEqPk0iP8a9Zub+egPaFvQ3Dhf84zHirwe+SMZ7cbPs0/46tOcyBL2VHwrITCNhqMvFDlSoVfjuzHpvUShZ2rRyprTXr+2xJHEoJtCrTCq/qSxBvu1X+whIr0SBZqudOvFV+Hk0pqnT9+l0aBVaqR9sTE4zuLh7oD9DA/M4D0Ueo2m9Y8cv2Gf98xBykKP/uu4UIBVJHmiEFpJmW4xFNhe6B0hlBOktB/K8r+61T/36+0AhC60Iv3KqqvTCz8hoMyjiY36xf8h5RBGR+GrDYg27t4fE/Kc+iK6EFaxySSCcUo3nJ6cU/d5ZkkJsU5IyxzbTYJgerhci1O+lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7ISyHKlVAcM0/DZJiGCw/9XLIFyiBD/SzVNJUBpkA0g=;
+ b=Gt/46kowYNiZfGLkAVE6OaDkSSnYpqckrOor/qJPeSdsHwKMTjjCglaYc28asPRHN0TIJ5YbjWWz+FYDCNfl7LBI4K+P4kmPsVpQwcgoeixgHICmsdDLcX6F6xw3v88rW98z6lgDsR4c0TCgFyOXraesRF/6osIb1OZDO9j2J/Y=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by DM6PR12MB4186.namprd12.prod.outlook.com
+ (2603:10b6:5:21b::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 23:15:52 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 23:15:52 +0000
+Message-ID: <34272fe1-e5cb-490e-9053-a2fa72f29a10@amd.com>
+Date: Tue, 27 Oct 2026 19:15:49 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 8/9] drm/amdkfd: Free queue in procfs_queue_type
+ kobject release callback
+To: Ian Rogers <irogers@google.com>, Kees Cook <kees@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Zhihao Cheng <chengzhihao1@huawei.com>,
+ Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+ Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>,
+ Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev,
+ llvm@lists.linux.dev, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
+ linux-s390@vger.kernel.org, gfs2@lists.linux.dev,
+ xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Amber Lin <Amber.Lin@amd.com>
+References: <20261027223847.652884-1-irogers@google.com>
+ <20261027223847.652884-9-irogers@google.com>
+Content-Language: en-US
+From: Felix Kuehling <felix.kuehling@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261027223847.652884-9-irogers@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT1PR01CA0099.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2c::8) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,463 +118,149 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261027231513.816148-19-irogers@google.com>
-Subject: [PATCH v2 18/18] perf test symbols: Add tests for symbol shrinking
- and session alloc wrappers
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
-Cc: adrian.hunter@intel.com, haghdoost@uber.com, james.clark@linaro.org, 
-	jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DM6PR12MB4186:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4a9363e-e46d-4dba-1360-08df34803e8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|261009223027099003|261022105027099003|261021121427099003|261021123027099003|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	DSmAC/LXxQNwDa5i5URmYnYa+8b0/OwMVhNeh3ZW0NuqAJafHKuOnQaOV0lIwiLh4xwlaBNevUZsjqmNUxBpst2EwayM/QPsvWOCH0nAQ7Ouwlh2Xxrx5NbkBIBXKIT1DqRqeULra7VgJq+BY7jk8uBLBM6q/X4zWFfSe30Dw2M/22y2CzhhaNFeBZwxvLStpgYWP5LPHl1fSHxHXphIwW6FLRkZPM1oiOpWa5Wj5GAr1qWDL/VJ6Yng12EqO5soAG290Xaytsxguy25IQ9zDRdFrF/+qqV9RT8gSDSTnNOwV7ERKIKIi1G8Z/ivMVfMoFHiCrIRR1Y9VYfRwMRW/wCp68FhBilOa8m3tW1zyUagPjSy31NY1yS9ChLCORD1FtVrn3A0xQ85Nr4kZcDm9WQU9kYFKhzppGECZlJ9g7Mx8fmoN/Yqfclcu37pAXmQFyVLWlMAEXHqFTLhtC7gh35ILFxRPgDh2HcGtsCQYl9Jx4qErnS7ttXoPClfclYDED+WsPGOSE7/5NzeoleF2c47cTgMdb/WC+R/4X/WTPFkvm7W18xysyPN656LB5laecoHSmWC61nJF0Rj9CpKopp67Fn+6SIj542SLGThROjCygcddKDvn4sWrWAafoxmVK8LL3yRIU6av/Rat8GCaOFUQAtOq09LPlAM5nOv2Fk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?empiQldXdGliaGFsc1JwOFdmQWViK0VFMlV5Vi80MnI1WW9tc1ZiSmNVN0VZ?=
+ =?utf-8?B?VVlhOHVzVFliZ0NScEx0OUxNVm13eUppMm9OU25NRGNUcWRrWFYwaVl4dDg2?=
+ =?utf-8?B?RUU3S2dPSk1taGxzbU1LV3lRQUhDK0FOcFZrdTBtQ29YeW43cnB2RnQyV0F2?=
+ =?utf-8?B?SlVET3F3d0V6aU42S3dwSXIzaGdLOFo2THJwTEx4YXRDVHdWR1pzcjN5TUtF?=
+ =?utf-8?B?Y1pEKytxd3QyaUJQQmtkRWVNWG91eFcycWlvKzBldjhGZk82em0xQ09sV0VC?=
+ =?utf-8?B?R0VFZW90dUpLeDF4TVI1U2tLN0kycXlpRnplRlR3SzFPRDlqcjdoS3hKbks4?=
+ =?utf-8?B?RXBIK1d1cDIrbjJjUWc0RVdKZGltKzdPNFBlVUx5MTRTSmZER2g3NTlLNUFn?=
+ =?utf-8?B?WU5DOU84OG82cE8zc2ZBUVJYT3dxQ0JtemUxODk2QXpUb2xESG1RUzdid1B5?=
+ =?utf-8?B?ZnZneE03VHk1S1BhRzhtNE1XQmxQOVRPb05IOUhaeUhqblVtVExxR2ovOUdC?=
+ =?utf-8?B?NjNIbE91c2JwcXJtYktKN2ZDaDAzeVZ1YkErT2Q2RVJDc3Q4bDc0aHFhZVNX?=
+ =?utf-8?B?V1hMUWZKU0t2R01HVEhaTEVKamFqMUZXd1luS2NaM0ozKzV1dldwUDlaMkRk?=
+ =?utf-8?B?YTljQlN1SXVJQlM0UjNrSWdieVpMWFdESEI1STNQVHJUK3k5eW1rYWRLbXA0?=
+ =?utf-8?B?V0g0bmYwSlBLcksrNUZ5NlJyUGM3bWw3TDlCR2Izc2U5STNpRGxKUEthN2cv?=
+ =?utf-8?B?TjhyYStvUDhVTjFIYVNDenJJVHFSZ2JpTmVHK0VEYVZKSlByVC9QS0pFcVJ0?=
+ =?utf-8?B?emI2ekJBVFpXNXozYnVLRXdTUURLb2VDeldlOFE3MERLVlZYWnVzSGhkVDlt?=
+ =?utf-8?B?YW94OTFabFhWem5pdEhQWlRDMFZNMldkUmJ3dXdjdnE2R0FudUdXZzdLM2lG?=
+ =?utf-8?B?Q1JkWXh5NVpGRFFOdGtNS2oxUnZ2M1JwbjBtV0s2Y1BIT1NuZ0JWTCs0Q01J?=
+ =?utf-8?B?ZUJINmtIY1ZlRjdUVmNESENuSUNQV25pdTBaaXNHVEs3K1FYSU4xYlcvN09m?=
+ =?utf-8?B?SllmR0NqRkxFcUh4ZEJYekJpOGpHdDAxRGFJNUJUQ3RjODQzZUN2aVlVOWNw?=
+ =?utf-8?B?TEM0SFZrcE0yR1A0bFNoK1lHK2VOZXE2dENJcXZQanBRckJKUTh5elVKOU9O?=
+ =?utf-8?B?RVFmTjhrTkZnTHN0RzFDTEkxR2hMUW9zYTBJNnBTbnRhMWVEUmphanFmT1E4?=
+ =?utf-8?B?YVBKeE9FdUNNZEtZUm5lZGp6NGVRUnRudGhSWGROd2E5OEE3blArVVFvTmI5?=
+ =?utf-8?B?cHpEZm1TUGpYZVNjSzZFeHBTeGNFYm1FUTIwbmVGazh3NmM3MHZtSkREZjBh?=
+ =?utf-8?B?d1pndkJnUEJaR0ZMUUJyb2greDJ3OHJRRE8xTy93SVpuamNaakVtNVhOc0pL?=
+ =?utf-8?B?WG5KZDdhcGRzZG9zTCtpOGJqZFY2dmswVjBmMjR6aDYyc2JjK2s3MDJ5M1R0?=
+ =?utf-8?B?bHNNSk9mN0FPUjhCcWRKUW5mQnBqUStZU1pobllGSGdUa0h6WjBld203OE8w?=
+ =?utf-8?B?TytZc1ZpekF3cTJxakZvQU94dUdLT2hHTVIxKzRaMldRQk9HTTVRcS9hNm45?=
+ =?utf-8?B?WDJIK0h4TUJyUVNqSkk1RTJRTGYwY3dvSWdrNW45MnErY3FlS3BFc280SFE0?=
+ =?utf-8?B?MXNNM203SnA4VGMzMnMycVpSdjdlWENnSEQ4dlNzSHF1ckV0RzBiZ0xLKzcw?=
+ =?utf-8?B?anJZS01PZUpOTVJIa2h3VXFRTzd0YlBySVIwN2NqQ3UyNnM1d09Bc0YrVEVj?=
+ =?utf-8?B?VTk2d0ZINllJWWh0bmtXdmw3dlhyTVEyL1B2a2gwSFY1dEM5c3NYWUFLTmp5?=
+ =?utf-8?B?cVUvM3ZWRkwxTnQyQ3UyeUUwWS96QVgvamo0c21UVTYzOFlaZWRmVWxQTU92?=
+ =?utf-8?B?ZzhEZmtYVkVkTm9ldER3RDMrS3ZqMDBZZEp1Y1ZxVnhDS2lFOTRoR1F3OWVi?=
+ =?utf-8?B?NmFocUZqT2pIakJlT2FnY2ZGdFZNL0Q5aDhGOWNxT3dmbk1tOHpxZGk4TzZO?=
+ =?utf-8?B?c3pucmhJT2ZqZFpvSDRTN0dqYW5ITzFtQVBBQlhKUi8zcEtsdlJKOUFEd2k3?=
+ =?utf-8?B?KzVzS3ZWZ1FDODJnYlQ3YzBGL0ZDaVJNOUJQdGJEVHhCdjZoWGZ5SEs0T1JT?=
+ =?utf-8?B?UXJBeWZBVWRpaEJKU2ViQldVbEN3T3pKb1AxdlNTdkZOTGVUU1d0VmdjYWNj?=
+ =?utf-8?B?T0Y0a3FYcFRwTzdqLzFhNjRGd0Z0VTZaR0dhaWFBNmhqVDdWd3gvdDFJbGpR?=
+ =?utf-8?B?dm0weUVFNDI4VVNXWVZIbVp0L1g4ODlKOWREaE00SjRFSjJ0M0liZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4a9363e-e46d-4dba-1360-08df34803e8c
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:15:52.0995
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ob+TKLRgRvAPv0Q9NjDGMWPP+1+Q+RZGLPVUAzRJKfxvNbAWmbA/GcQ++WN0aIUSZde9N19st+by1XpDYPKkRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4186
 
-Ensure the new symbol sorting, reference-counted symbol and DSO
-shrinking, transparent DSO reload with retained-symbol pointer
-preservation, and session-scoped allocation wrappers are verified by
-'perf test symbols' (including under REFCNT_CHECKING=1).
+On 2026-10-27 18:38, Ian Rogers wrote:
+> struct queue embeds a struct kobject (q->kobj) for procfs entries, but
+> procfs_queue_type had no .release callback and uninit_queue() freed q
+> immediately after kfd_procfs_del_queue() called kobject_put(&q->kobj).
+> With CONFIG_DEBUG_KOBJECT_RELEASE=y, this causes a use-after-free.
+>
+> Add kfd_procfs_queue_release() to free struct queue from the kobject
+> release callback, change kfd_procfs_del_queue() to only remove the
+> kobject from sysfs via kobject_del(), and drop the final reference in
+> uninit_queue() via kobject_put(). Check q->kobj.state_in_sysfs before
+> calling kobject_del() in kfd_procfs_del_queue() to avoid warnings if
+> sysfs creation previously failed.
+>
+> Fixes: 6d220a7e7971 ("drm/amdkfd: Add queue information to sysfs")
+> Signed-off-by: Ian Rogers <irogers@google.com>
 
-Add unit tests to 'perf test symbols' covering:
-- test_symbols_sorted_insert(): Verify ascending symbols__insert(),
-  out-of-order dso__insert_symbol() maintaining sorted order, and
-  unsorted symbols__insert() followed by sort-on-lookup in
-  dso__find_symbol().
-- test_symbols_shrink(): Verify symbols__shrink() evicts unreferenced
-  symbols (refcnt == 1), retains symbols with active external references
-  (refcnt > 1), and sets symbols.shrunk.
-- test_dsos_shrink(): Verify dsos__shrink() evicts unreferenced user
-  DSOs with no remaining symbols while retaining DSOs with active
-  external references.
-- test_session_alloc_shrink(): Verify machine__session(),
-  dso__session(), perf_session__malloc/zalloc/calloc/realloc/strdup(),
-  and perf_session__shrink().
-- test_dso_shrink_and_reload(): Verify dso__shrink() on a loaded ELF
-  binary followed by map__find_symbol() transparently reloads evicted
-  symbols while preserving pointer identity for retained symbols.
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/tests/symbols.c | 372 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 372 insertions(+)
 
-diff --git a/tools/perf/tests/symbols.c b/tools/perf/tests/symbols.c
-index d70adbad3978..1a773c535732 100644
---- a/tools/perf/tests/symbols.c
-+++ b/tools/perf/tests/symbols.c
-@@ -1,13 +1,21 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <linux/compiler.h>
- #include <linux/string.h>
-+#include <linux/zalloc.h>
- #include <sys/mman.h>
-+#include <errno.h>
- #include <inttypes.h>
- #include <limits.h>
-+#include <stdbool.h>
-+#include <stddef.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
- #include "debug.h"
- #include "dso.h"
- #include "env.h"
- #include "machine.h"
-+#include "session.h"
- #include "thread.h"
- #include "symbol.h"
- #include "map.h"
-@@ -179,6 +187,264 @@ static int process_subdivided_dso(struct machine *machine, struct dso *dso)
- 	return ret < 0 ? TEST_FAIL : TEST_OK;
- }
- 
-+static int test_symbols_shrink(void)
-+{
-+	struct symbols symbols;
-+	struct symbol *sym1, *sym2, *sym3, *held;
-+	int ret = TEST_FAIL;
-+
-+	symbols__init(&symbols);
-+
-+	sym1 = symbol__new(0x100, 0x50, STB_GLOBAL, STT_FUNC, "sym1");
-+	sym2 = symbol__new(0x200, 0x50, STB_GLOBAL, STT_FUNC, "sym2");
-+	sym3 = symbol__new(0x300, 0x50, STB_GLOBAL, STT_FUNC, "sym3");
-+	if (!sym1 || !sym2 || !sym3) {
-+		symbol__put(sym1);
-+		symbol__put(sym2);
-+		symbol__put(sym3);
-+		goto out;
-+	}
-+
-+	/* Hold an active reference on sym1; sym2 and sym3 only have the table ref. */
-+	held = symbol__get(sym1);
-+
-+	symbols__insert(&symbols, sym1);
-+	symbols__insert(&symbols, sym2);
-+	symbols__insert(&symbols, sym3);
-+
-+	/*
-+	 * First shrink: sym2 and sym3 (refcnt == 1) are evicted; sym1 has
-+	 * refcnt > 1 and is retained.
-+	 */
-+	if (symbols__shrink(&symbols) != 2 || symbols.cnt != 1 || !symbols.shrunk) {
-+		pr_debug("First symbols__shrink failed (cnt=%u)!\n", symbols.cnt);
-+		symbol__put(held);
-+		goto out;
-+	}
-+
-+	/*
-+	 * Drop caller reference on sym1 and shrink again: sym1 is now evicted.
-+	 */
-+	symbol__put(held);
-+	if (symbols__shrink(&symbols) != 1 || symbols.cnt != 0) {
-+		pr_debug("Second symbols__shrink failed (cnt=%u)!\n", symbols.cnt);
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	symbols__exit(&symbols);
-+	return ret;
-+}
-+
-+static int test_dsos_shrink(void)
-+{
-+	struct dsos dsos;
-+	struct dso *dso1, *dso2;
-+	int ret = TEST_FAIL;
-+
-+	dsos__init(&dsos);
-+
-+	dso1 = dsos__findnew_id(&dsos, "/tmp/perf_test_dso1", NULL);
-+	dso2 = dsos__findnew_id(&dsos, "/tmp/perf_test_dso2", NULL);
-+	if (!dso1 || !dso2) {
-+		dso__put(dso1);
-+		dso__put(dso2);
-+		goto out;
-+	}
-+
-+	/* Keep the caller's active reference on dso1; drop caller reference on dso2. */
-+	dso__put(dso2);
-+
-+	/*
-+	 * First shrink: dso2 has refcnt == 1 and no symbols, so it is evicted;
-+	 * dso1 has refcnt == 2, so it is retained.
-+	 */
-+	if (dsos__shrink(&dsos) != 1 || dsos.cnt != 1) {
-+		pr_debug("First dsos__shrink failed (cnt=%u)!\n", dsos.cnt);
-+		dso__put(dso1);
-+		goto out;
-+	}
-+
-+	dso__put(dso1);
-+	if (dsos__shrink(&dsos) != 1 || dsos.cnt != 0) {
-+		pr_debug("Second dsos__shrink failed (cnt=%u)!\n", dsos.cnt);
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	dsos__exit(&dsos);
-+	return ret;
-+}
-+
-+static int test_session_alloc_shrink(void)
-+{
-+	struct perf_session *session = zalloc(sizeof(*session));
-+	struct dso *dso;
-+	char *p1 = NULL, *p2 = NULL, *p3 = NULL, *s = NULL;
-+	int ret = TEST_FAIL;
-+
-+	if (!session)
-+		return TEST_FAIL;
-+
-+	if (machines__init(&session->machines, session))
-+		goto out;
-+	if (machine__session(&session->machines.host) != session) {
-+		pr_debug("machine__session did not return owning session!\n");
-+		goto out;
-+	}
-+
-+	dso = machine__findnew_dso(&session->machines.host, "/tmp/perf_test_session_dso");
-+	if (!dso)
-+		goto out;
-+	if (dso__session(dso) != session) {
-+		pr_debug("dso__session did not return owning session!\n");
-+		dso__put(dso);
-+		goto out;
-+	}
-+	dso__put(dso);
-+
-+	p1 = perf_session__malloc(session, 64);
-+	p2 = perf_session__zalloc(session, 64);
-+	p3 = perf_session__calloc(session, 4, 16);
-+	s = perf_session__strdup(session, "perf_session_alloc_test");
-+	if (!p1 || !p2 || !p3 || !s || strcmp(s, "perf_session_alloc_test") != 0) {
-+		pr_debug("perf_session allocation wrappers failed!\n");
-+		goto out;
-+	}
-+
-+	p1 = perf_session__realloc(session, p1, 128);
-+	if (!p1) {
-+		pr_debug("perf_session__realloc failed!\n");
-+		goto out;
-+	}
-+
-+	if (perf_session__shrink(session) == 0 || session->machines.host.dsos.cnt != 0) {
-+		pr_debug("perf_session__shrink failed to evict unreferenced DSO!\n");
-+		goto out;
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	free(p1);
-+	free(p2);
-+	free(p3);
-+	free(s);
-+	machines__exit(&session->machines);
-+	free(session);
-+	return ret;
-+}
-+
-+struct shrink_reload_find_args {
-+	struct symbol *kept;
-+	u64 first_start;
-+	u64 second_start;
-+	char *second_name;
-+	u64 max_end;
-+};
-+
-+static int shrink_reload_find_cb(struct symbol *sym, void *data)
-+{
-+	struct shrink_reload_find_args *args = data;
-+
-+	if (!args->kept) {
-+		args->kept = symbol__get(sym);
-+		args->first_start = symbol__start(sym);
-+		args->max_end = symbol__end(sym);
-+		return 0;
-+	}
-+	if (!args->second_name && symbol__start(sym) >= args->max_end) {
-+		args->second_start = symbol__start(sym);
-+		args->second_name = strdup(symbol__name(sym));
-+		if (!args->second_name)
-+			return -ENOMEM;
-+	}
-+	if (symbol__end(sym) > args->max_end)
-+		args->max_end = symbol__end(sym);
-+	return 0;
-+}
-+
-+static int test_dso_shrink_and_reload(struct dso *dso, struct map *map)
-+{
-+	struct shrink_reload_find_args args = {
-+		.kept = NULL,
-+		.first_start = 0,
-+		.second_start = 0,
-+		.second_name = NULL,
-+		.max_end = 0,
-+	};
-+	struct symbol *sym, *reloaded;
-+	size_t removed;
-+
-+	if (!dso__can_shrink_symbols(dso) || dso__kernel(dso))
-+		return TEST_OK;
-+	if (dso__for_each_symbol(dso, shrink_reload_find_cb, &args) < 0) {
-+		symbol__put(args.kept);
-+		return TEST_FAIL;
-+	}
-+	if (!args.second_name) {
-+		symbol__put(args.kept);
-+		return TEST_OK;
-+	}
-+
-+	/* Unreferenced symbols have refcnt == 1 and are evicted immediately. */
-+	removed = dso__shrink(dso);
-+	if (removed == 0 || !dso__symbols_shrunk(dso)) {
-+		pr_debug("dso__shrink did not evict any symbols!\n");
-+		free(args.second_name);
-+		symbol__put(args.kept);
-+		return TEST_FAIL;
-+	}
-+
-+	/* Kept symbol is still found without reloading. */
-+	sym = dso__find_symbol(dso, args.first_start);
-+	if (!RC_CHK_EQUAL(sym, args.kept)) {
-+		pr_debug("Kept symbol not found after dso__shrink!\n");
-+		symbol__put(sym);
-+		free(args.second_name);
-+		symbol__put(args.kept);
-+		return TEST_FAIL;
-+	}
-+	symbol__put(sym);
-+
-+	/* Evicted symbol is no longer in dso->symbols before reload. */
-+	sym = dso__find_symbol(dso, args.second_start);
-+	if (sym != NULL) {
-+		pr_debug("Evicted symbol still found after dso__shrink!\n");
-+		symbol__put(sym);
-+		free(args.second_name);
-+		symbol__put(args.kept);
-+		return TEST_FAIL;
-+	}
-+
-+	/* Lookup via map__find_symbol transparently reloads the DSO. */
-+	reloaded = map__find_symbol(map, args.second_start);
-+	if (!reloaded || strcmp(symbol__name(reloaded), args.second_name) != 0) {
-+		pr_debug("Failed to reload evicted symbol %s!\n", args.second_name);
-+		symbol__put(reloaded);
-+		free(args.second_name);
-+		symbol__put(args.kept);
-+		return TEST_FAIL;
-+	}
-+	symbol__put(reloaded);
-+
-+	/* Kept symbol pointer was preserved across reload deduplication. */
-+	sym = dso__find_symbol(dso, args.first_start);
-+	if (!RC_CHK_EQUAL(sym, args.kept)) {
-+		pr_debug("Kept symbol pointer was not preserved across reload!\n");
-+		symbol__put(sym);
-+		free(args.second_name);
-+		symbol__put(args.kept);
-+		return TEST_FAIL;
-+	}
-+	symbol__put(sym);
-+	symbol__zput(args.kept);
-+
-+	free(args.second_name);
-+	return TEST_OK;
-+}
-+
- static int test_file(struct test_info *ti, char *filename)
- {
- 	struct map *map = NULL;
-@@ -210,18 +476,124 @@ static int test_file(struct test_info *ti, char *filename)
- 	/* Module dso is split into many dsos by section */
- 	if (ret == TEST_OK && dso__kernel(dso) != DSO_SPACE__USER)
- 		ret = process_subdivided_dso(ti->machine, dso);
-+
-+	if (ret == TEST_OK)
-+		ret = test_dso_shrink_and_reload(dso, map);
- out_put:
- 	map__put(map);
- 
- 	return ret;
- }
- 
-+static int test_symbols_sorted_insert(void)
-+{
-+	struct dso *dso = dso__new("/tmp/perf_test_sorted_insert");
-+	struct symbols *symbols;
-+	int ret = TEST_FAIL;
-+
-+	if (!dso)
-+		return TEST_FAIL;
-+
-+	symbols = dso__symbols(dso);
-+
-+	/*
-+	 * Insert 100 odd-indexed symbols in ascending order via
-+	 * symbols__insert(), then insert 5 even-indexed symbols out of order via
-+	 * dso__insert_symbol() and verify symbols->sorted remains true.
-+	 */
-+	for (unsigned int i = 0; i < 100; i++) {
-+		char name[32];
-+		u64 addr = (u64)(i * 2 + 1) * 0x100;
-+		struct symbol *sym;
-+
-+		snprintf(name, sizeof(name), "sym_%u", i * 2 + 1);
-+		sym = symbol__new(addr, 0x40, STB_GLOBAL, STT_FUNC, name);
-+		if (!sym || symbols__insert(symbols, sym))
-+			goto out;
-+	}
-+	if (!symbols->sorted || symbols->cnt != 100) {
-+		pr_debug("Expected sorted=true, cnt=100 after ordered inserts\n");
-+		goto out;
-+	}
-+
-+	for (unsigned int i = 0; i < 5; i++) {
-+		char name[32];
-+		u64 addr = (u64)(i * 20) * 0x100;
-+		struct symbol *sym;
-+
-+		snprintf(name, sizeof(name), "ins_%u", i * 20);
-+		sym = symbol__new(addr, 0x40, STB_GLOBAL, STT_FUNC, name);
-+		if (!sym || dso__insert_symbol(dso, sym))
-+			goto out;
-+		if (!symbols->sorted) {
-+			pr_debug("dso__insert_symbol did not preserve sorted invariant!\n");
-+			goto out;
-+		}
-+	}
-+
-+	/*
-+	 * Now append 95 remaining even-indexed symbols in descending order via
-+	 * symbols__insert() to exercise the unsorted append + sort-on-lookup path.
-+	 */
-+	for (unsigned int i = 99; i > 0; i--) {
-+		char name[32];
-+		u64 addr;
-+		struct symbol *sym;
-+
-+		if ((i * 2) % 20 == 0 && (i * 2) < 100)
-+			continue;
-+		addr = (u64)(i * 2) * 0x100;
-+		snprintf(name, sizeof(name), "ins_%u", i * 2);
-+		sym = symbol__new(addr, 0x40, STB_GLOBAL, STT_FUNC, name);
-+		if (!sym || symbols__insert(symbols, sym))
-+			goto out;
-+	}
-+	if (symbols->sorted || symbols->cnt != 200) {
-+		pr_debug("Unexpected sorted=%d cnt=%u before lookup\n",
-+			 symbols->sorted, symbols->cnt);
-+		goto out;
-+	}
-+
-+	for (unsigned int i = 0; i < 200; i++) {
-+		u64 addr = (u64)i * 0x100 + 0x10;
-+		struct symbol *sym = dso__find_symbol(dso, addr);
-+
-+		if (!sym || symbol__start(sym) != (u64)i * 0x100) {
-+			pr_debug("Lookup failed at idx %u (addr=%#" PRIx64 ")\n", i, addr);
-+			symbol__put(sym);
-+			goto out;
-+		}
-+		symbol__put(sym);
-+	}
-+
-+	ret = TEST_OK;
-+out:
-+	dso__put(dso);
-+	return ret;
-+}
-+
- static int test__symbols(struct test_suite *test __maybe_unused, int subtest __maybe_unused)
- {
- 	char filename[PATH_MAX];
- 	struct test_info ti;
- 	int ret;
- 
-+	ret = test_symbols_sorted_insert();
-+	if (ret != TEST_OK)
-+		return ret;
-+
-+	ret = test_symbols_shrink();
-+	if (ret != TEST_OK)
-+		return ret;
-+
-+	ret = test_dsos_shrink();
-+	if (ret != TEST_OK)
-+		return ret;
-+
-+	ret = test_session_alloc_shrink();
-+	if (ret != TEST_OK)
-+		return ret;
-+
- 	ret = init_test_info(&ti);
- 	if (ret != TEST_OK)
- 		return ret;
--- 
-2.56.0.313.g2479322e68-goog
-
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c | 12 +++++++++---
+>   drivers/gpu/drm/amd/amdkfd/kfd_queue.c   |  5 ++++-
+>   2 files changed, 13 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index 226f52626e84..8e6136d52a50 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -512,7 +512,15 @@ static const struct sysfs_ops procfs_queue_ops = {
+>   	.show = kfd_procfs_queue_show,
+>   };
+>   
+> +static void kfd_procfs_queue_release(struct kobject *kobj)
+> +{
+> +	struct queue *q = container_of(kobj, struct queue, kobj);
+> +
+> +	kfree(q);
+> +}
+> +
+>   static const struct kobj_type procfs_queue_type = {
+> +	.release = kfd_procfs_queue_release,
+>   	.sysfs_ops = &procfs_queue_ops,
+>   	.default_groups = procfs_queue_groups,
+>   };
+> @@ -552,7 +560,6 @@ int kfd_procfs_add_queue(struct queue *q)
+>   	if (ret < 0) {
+>   		pr_warn("Creating proc/<pid>/queues/%u failed",
+>   			q->properties.queue_id);
+> -		kobject_put(&q->kobj);
+>   		return ret;
+>   	}
+>   
+> @@ -697,11 +704,10 @@ static void kfd_procfs_add_sysfs_files(struct kfd_process *p)
+>   
+>   void kfd_procfs_del_queue(struct queue *q)
+>   {
+> -	if (!q || !q->process->kobj)
+> +	if (!q || !q->process || !q->process->kobj || !q->kobj.state_in_sysfs)
+>   		return;
+>   
+>   	kobject_del(&q->kobj);
+> -	kobject_put(&q->kobj);
+>   }
+>   
+>   int kfd_process_create_wq(void)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> index ae3e7c54014a..4666110aebe0 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> @@ -83,7 +83,10 @@ int init_queue(struct queue **q, const struct queue_properties *properties)
+>   
+>   void uninit_queue(struct queue *q)
+>   {
+> -	kfree(q);
+> +	if (q && q->kobj.state_initialized)
+> +		kobject_put(&q->kobj);
+> +	else
+> +		kfree(q);
+>   }
+>   
+>   #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
