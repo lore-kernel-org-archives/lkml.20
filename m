@@ -1,93 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084452;
-	b=K2COrS+/QOCs8GT2BBnRbpzOBDB3IxIDN12mz6YyxqKZtuOC5YeTb4EtUBXlrC1CZ9oL
-	 QMBjIliKQOFN4smktbFk/FhdGfHZwPAM5UpCAgc0Z+ghXC1h79pWbE5UgTZjwqqCh7fZF
-	 8EEhCz6/C3IngZuMjCV160JY8ytIJyu+gr3l2MXCmPck5ivLpZRYE+r949+JCA9UTJ9Wv
-	 5daiW3vEsTaSp+4Tjrt5RNemrlpPseRE1/jHspSFcACBjbbsSb+lGb171LoqIrtO65xo7
-	 v37fABf08SZU64T3Bf82dN0xZ4IaZG7KLhdyTkRrd+Bmdhh0g5DMjcZKWAa0VZUTq1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084452;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cGATTdkdECjcBWxNbblz5Map/VJxFsYs+1/o7jtM7Y4=;
-	b=fAu8uhGbrWEsdFUwxpKpBQaL+ik/W5219LrODR/eR9GU5xq4QIjRlxdLE/Ht/0KfkU6v
-	 5ihVyG4LM9QJYPU8N9uG+P4hysmF/h8G+ik9IX4CLA/4eXqJ3kDuJDfyHdD7mCwef0uYX
-	 MZKqyex3ayJvIwFjPGweewxUJQ1rNngZZ0fq5Ytb9FCSFOt0vk4bw1skqUKOEL+W4OGHy
-	 4uVjPN73g4MekHZOQIXWcg+aBGRYu/Xn7ri4Qg0FMW8Ssnptpfku7Z+LQS+b1I6pp9olQ
-	 fD/5cB2RLjZGAsMpmTgw4oskfbvs6eL3cRYe3GEnzdn7Ug4aWDXyFx0zeFG6HvcslFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BaBobvxM;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793084466;
+	b=e1bX4H+8YmV/eR6ohvuOr8bxtfkyO+UMskR3xaDKbyrid+D6TxR6Z3kZCHEshalR67lj
+	 t+/YmJO/dIfddL7jsk7HLKGoWi94hi/Q0D5q09CZ59Pi7JnXT7GDAUnBTKp0wyq+wOC0t
+	 YZ2h6XQD0O9jmRS68eOEuhqnI4lFQh3D6Czdml7Kxmh89Xw0liQt0o/l5PWwFSyLgxxX6
+	 sOtHay2FKZqI5Yn9mVi/rQHWN75PtjJOUs/oLIAydXvGRWDAdmGfof0S3HlUnrXoB5/xN
+	 Vl8JM4nT1eG1WFRJ6uyxeNoRwDwwp1PEhcokGQhIqbL2Nzx0VjpMOjc0DmbZSawGI+A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084466;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=C0iJcqqk6oOrRTvCA/BwoONwNFwLIPbYAm75cysG2Zg=;
+	b=XgLv9C28N7FkswGE1CifJTBnJ86EG+ySh34dCIgvXQeWGpbmJ94swNnP2nAmQK/bedms
+	 o3lD2ShOC/pzPtx8rea4ZY42LlI8R6GSFa0ZJGb83MafyvcDKQu03iDgi5YKsk7CIo32N
+	 rhjNHv+DS4fdsbjxowh8twlKpJ129Ne/6CW+gafblhdEHxiyd3mJVpVVRTBYtaUJMumXv
+	 +WJBeXzY/hfE3dcwgsXxY64wfeWD1zNp4zUuwY74KuQELFy4GinoJTOMxbSzGOHz1HF+t
+	 PsKZ/vvdN9XvRZ3ggpIHoC3iIuhG3fLR/a5iLtA8B6jhS8dNdXslurXg8JKy5yxX6zA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cf5Ope4K;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F25606A327;
+	Tue, 27 Oct 2026 07:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cf5Ope4K
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793084465;
+	b=NI7a5IFwYZTpQH0B4ih6zOYJRqjZheq5KpDcanEgJWnAEk+A1Ys+zsjZoPcvk0J7cN2x
+	 9lGhRYbhcRBVLJjv8/ck0AXDcYkekWbDHzFySmJq2+tI5FmCKe3XkXNHUv+eHyThAsVLB
+	 b7ygHT+uIBykdXlcevBCwPEKTqvOr0Oemxacc7tAviLuDzvh4eHo8ccaXKeZA88+Ew/i5
+	 s0z6CDv6qiEZ8qMg/YqJJTCAWefNfwMwg4CeasKM6tEDVG/thObqFuPgBseIWSSwK9YmS
+	 nzxy4hFEImpfw6G3k2T2nb9af0sTRTr304F+J4df1hx5I6MxfTvuAWIUN6fInD7ziWw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793084465;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=C0iJcqqk6oOrRTvCA/BwoONwNFwLIPbYAm75cysG2Zg=;
+	b=QA+cC1yIqUxqGAt2dH6tCv6Jay1EfrTSTYybsczq5P271+AM4b3KYvDjRZ6R9TW1yZmJ
+	 kqCZHBhiFnyIviFn37YbVxk0Bbz7lFsVONRujKSgcKhXk1VKcAMEcSy84AQAg5DHPB0Ja
+	 taXdoWN+dZHkYstOzUZrCvr+rMklj0VQ0/xzhZuvbOVF10Tt4Bs/iiv6mSQbX+ZdgnFod
+	 U2vebIjjzb1NGYcInqo8gG6zuM4pOwwb8WrsTl47mvtrS4ZOyx8yu155nEt1F57AbCmVr
+	 sH2oXwb27o2Kyxx7Tv2DnbPUp6ONCxq+abHmrBGYXM/qGZ1VKyoSiS5s2A2SFBGb62Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60A0606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B60A0606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BaBobvxM
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so420451f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:00:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793084450; x=1793689250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cGATTdkdECjcBWxNbblz5Map/VJxFsYs+1/o7jtM7Y4=;
-        b=BaBobvxMsAvvi0DFhbcLtLgfU0Y/8bb8HS7Yk4YGK/byyIwtPmEGG6IyURf4EbuhxH
-         pp0Vw/eVRZb/rnstVd6UP/ZYF/H9pWxsyA0oZF39NYsjNwg1+X9TidofS9cPLBR44Ijr
-         mr57urbpSYlor+h/IdtrJ/BNIwYdQgkP0g9fbytdiYQY/QOIot4Rwdjq6Yp+dYGI3zYE
-         ohcppaD3qOZce+3T8/1sy46+Ah5yp49TIjSYspOMS/6TAVbGLU4I4htShdAxmgN56F+6
-         qrTv/mPeh2kE76mUw6NARL1toS6lB6QN66L/ks6sIZk82vgo7QRL3bstXJVeEZDBGPMv
-         paJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793084450; x=1793689250;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cGATTdkdECjcBWxNbblz5Map/VJxFsYs+1/o7jtM7Y4=;
-        b=eQ7qbP7LYwNbf3fNeLUgMWd6e4YBAiMXhW+Q7BZ1uJCEwjlyn2Ue7zJ+JIvlLnVs08
-         COvqX7otNUgSpX9yk7XJJ1aRFYpgeDhKaQ0HEIBXWzL4GRdPMtLWOBNYIj9oOpkqJ48B
-         kMa+ZFOI264MleNkWjZX6sUAd+AIf0b0O3wLFFJTCm90ZSL2DCblqXcieUPuzCEDKxbm
-         e9IJJCxsh8+nrLC9doM9FP2RZy2EpOQRJiWbbwQQhtJSC3UH6wTsBUXIot4P5hXrIJgr
-         Heo6VXADj5k/xcqpQwmb7pjsFGjoA9kdAlBZFB2L/BH0wV5kzinchjT1EzaR/FHg0/u6
-         onTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBygN2Rt6LHWAiTHdRV10y5113rjPdt0H5IbxX0GJ3oxvm8WNimw0I9tehFdD6CV9l6mQVV8nbgdMA4jGgE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPqrKS0ixN1LjLroPbKOzBWZwqPi3fGx57pMm33xrfKOj+i01Z
-	RrhWkDWMc/zvcnEKoBfrVB91OXEL8y8i1IpQnHkSUe9/RN9ytt0NmvNX
-X-Gm-Gg: AYBFou1Rk3gGD4ZQkQslWS4suVGLjP1LDJ2QVBeZzHhmH9hFhR41/ddFAfidZIUG2BN
-	7naaXPbZQKf2yZaOQInSPuoCqg7e0aRD5ieuwuSqhxmy4HQVfMH3nXSI//Z908t8eRqwmrEUdr+
-	K7kRVfVCMCGBQAyZc5M+kkwj8tK89hGH3u57G7CE4Rj9GaL2ZgFVWtk5iABrh5FsnzjEFwRNyIo
-	za8Yv7RW+K37DUoBAIAdVe6yChMQmcd+sPxrdrqL3QvF7mrFQVpr+eFU4cjBmyFtgGOohVJN0oD
-	pjE+c/V5s24suBpId9NJKMeXit42TVYsLk1msDhEVL2EyFohwrjfFIJk9flpTIqFu3MU12uxuDF
-	bEhQvyvQ+AvxbEX9Hv+ftaVD2vpakiJ/ELBq3tJt/MsQ4bIYr9SnEyo4RNObSdOpDztw/aVDYt1
-	gSn2C6I6CsfnIDWLIQhJKWdy9vYdHzq/9quqrD0R9OveCsElDAzMPx0vj+5aZ4I1yAXwBlDBHPS
-	8a0MzqOWr5LI9ijJAcQkj3kZTXE0pNosy5yzsrJww2zkz/a1P86bbjWI3pOKfJjUKTG6Jz0g7XQ
-	qiqGp5+sDTgBv+2foONYmZCrq+Ncy9NoVTYNkbpGbIV+VrUpDFXLHet0lwE5yasuR4uvuG0G9/o
-	fTwGV64/c7DKS3/yeq+cm
-X-Received: by 2002:a5d:6105:0:b0:48c:58b9:f17c with SMTP id ffacd0b85a97d-48e55a3ee4amr2846576f8f.12.1793084449747;
-        Tue, 27 Oct 2026 00:00:49 -0700 (PDT)
-Received: from localhost.localdomain (193-154-207-67.adsl.highway.telekom.at. [193.154.207.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f25fsm20270127f8f.2.2026.10.27.00.00.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 00:00:49 -0700 (PDT)
-From: Andreas Gabriel-Platschek <andi.platschek@gmail.com>
-To: vkoul@kernel.org
-Cc: Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andreas Gabriel-Platschek <andi.platschek@gmail.com>
-Subject: [PATCH] dmaengine: pl08x: mark slave channels as DMA_PRIVATE
-Date: Tue, 27 Oct 2026 08:00:37 +0100
-Message-ID: <20261027070037.1809112-1-andi.platschek@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id B2BF51F031E1;
+	Tue, 27 Oct 2026 07:01:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793084465;
+	bh=C0iJcqqk6oOrRTvCA/BwoONwNFwLIPbYAm75cysG2Zg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=cf5Ope4Kjpc245XTpOzQ90EAuJAyEZ6m2f+oL5Fkz+3Glg0IlWcRCeOx00qTg2Ugt
+	 e1JNRDsIFcxbaos0YRhrCgSucUQE0o8xWRwutQQb1z7EVLozhPY2D0jNIVZjKZXoVv
+	 vW4++Y+p8tQrMNiSHi/hXAK0p+JQe11hcQ3vR+BL8jrZzVeDSH15i3p52toAyW/ya8
+	 Yu0ZskVBTpo2cArfeQTsqdSzdnrwhqRz2FJfC0D+kuCeVCX7EIiNmjaEVVbG1BXYi0
+	 An5VemlxzAftXchu6X5Iti/VHaVTgcOglwt3iu5bqzz4aE6VYLekgZHbIXbeXzc+9X
+	 FhqwI2qziM02Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 26AA744FF8;
+	Tue, 27 Oct 2026 07:01:03 +0000 (UTC)
+From: Xiubo Li via B4 Relay <devnull+xiubo.li.clyso.com@kernel.org>
+Date: Tue, 27 Oct 2026 08:00:46 +0100
+Subject: [PATCH v3 2/5] ceph: do not ask for LAZYIO for a lazy reader that
+ holds CACHE
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,42 +83,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-b4-wip-ceph-lazyio-fix-v3-2-df2926c30867@clyso.com>
+References: <20261027-b4-wip-ceph-lazyio-fix-v3-0-df2926c30867@clyso.com>
+In-Reply-To: <20261027-b4-wip-ceph-lazyio-fix-v3-0-df2926c30867@clyso.com>
+To: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xiubo Li <xiubo.li@clyso.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793084460; l=3495;
+ i=xiubo.li@clyso.com; s=20260625; h=from:subject:message-id;
+ bh=9pCeVzQYSDJ5vZuuue3pphdfQCNRxqQXpuIHp+vghK8=;
+ b=GmDw3voH5lOrEjEHCCJz0bTrZG4uXDy1ktpgizr71WCyiFtlv/GG0ZyvRMCFKPmv9TyLUCDMr
+ KFJ1R4FFbekB3Q4aiXuFKxF3ujtahCcnCG6jVON0KHKGcdWkiCDGKia
+X-Developer-Key: i=xiubo.li@clyso.com; a=ed25519;
+ pk=V3NGr0AgAopiUhaLY51ipBkLN5LlcLhjOEfLEq1RoZ8=
+X-Endpoint-Received: by B4 Relay for xiubo.li@clyso.com/20260625 with
+ auth_id=840
+X-Original-From: Xiubo Li <xiubo.li@clyso.com>
+Reply-To: xiubo.li@clyso.com
+Content-Transfer-Encoding: 7bit
 
-The pl08x slave engine channels are only ever handed out through
-explicit requests: DT clients go via pl08x_of_xlate() and the
-platform-data path uses dma_request_channel() with a filter, both of
-which end up in dma_get_slave_channel(). They are not meant to be
-published in the general-purpose channel table.
+From: Xiubo Li <xiubo.li@clyso.com>
 
-Mark the slave device with DMA_PRIVATE at probe time so the dmaengine
-core treats it as always-private. Without this, if a dmaengine client
-is already active when the device is registered,
-dma_async_device_register() takes a reference on every channel, and
-the subsequent dma_get_slave_channel() from pl08x_of_xlate() fails
-because the channel is no longer free (client_count != 0), leaving DT
-slave clients unable to acquire channels.
+A lazy I/O open adds LAZYIO to the caps it wants.  When the inode
+already has caps from a lookup or a stat, the open is satisfied locally,
+but LAZYIO was never issued (nobody wanted it), so the client sends a
+cap update to the MDS and gets a grant back: one extra round trip and
+two MDS messages for every open.  io500 mdtest-hard-read, for one,
+opens each file once from a client other than the writer's.
 
-The memcpy engine stays public as it is intended to be shared through
-the per-CPU channel table.
+A reader whose cache is backed by CACHE gains nothing from LAZYIO.  Want
+it only for writing, once CACHE is gone (e.g. the file went mixed: the
+cap ack then asks for LAZYIO), or while it is still issued.  A lazy
+reader of a file that goes mixed now drops its cache once before
+LAZYIO arrives, instead of keeping it.
 
-Signed-off-by: Andreas Gabriel-Platschek <andi.platschek@gmail.com>
+Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
 ---
- drivers/dma/amba-pl08x.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/ceph/caps.c  | 24 +++++++++++++++++++++++-
+ fs/ceph/file.c  |  4 ++++
+ fs/ceph/super.h |  1 +
+ 3 files changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
-index 543c2eb8cfa8..06881d3f29a9 100644
---- a/drivers/dma/amba-pl08x.c
-+++ b/drivers/dma/amba-pl08x.c
-@@ -2775,6 +2775,7 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
- 		pl08x->has_slave = true;
- 		dma_cap_set(DMA_SLAVE, pl08x->slave.cap_mask);
- 		dma_cap_set(DMA_CYCLIC, pl08x->slave.cap_mask);
-+		dma_cap_set(DMA_PRIVATE, pl08x->slave.cap_mask);
- 		pl08x->slave.dev = &adev->dev;
- 		pl08x->slave.device_free_chan_resources =
- 			pl08x_free_chan_resources;
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index ae7b62b07462..c063d3cf7d21 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -1125,6 +1125,27 @@ static inline int ceph_adjust_caps_used_for_lazyio(struct ceph_inode_info *ci,
+ 
+ #define FMODE_WAIT_BIAS 1000
+ 
++/*
++ * Does a lazy I/O open want LAZYIO?  A writer does, to keep buffering
++ * when the file goes mixed.  A reader whose cache is backed by CACHE
++ * gains nothing from it, and asking for it would cost a cap message to
++ * the MDS and a grant back for every open of a file that was looked up
++ * or stat'ed before: want it only once CACHE is gone, or keep it while
++ * it is still issued.
++ *
++ * Caller must hold i_ceph_lock.
++ */
++bool __ceph_lazy_wants_lazyio(struct ceph_inode_info *ci, bool write)
++{
++	int issued;
++
++	if (write)
++		return true;
++	issued = __ceph_caps_issued(ci, NULL);
++	return !(issued & CEPH_CAP_FILE_CACHE) ||
++	       (issued & CEPH_CAP_FILE_LAZYIO);
++}
++
+ /*
+  * wanted, by virtue of open file modes
+  */
+@@ -1179,7 +1200,8 @@ int __ceph_caps_file_wanted(struct ceph_inode_info *ci)
+ 
+ 		/* check lazyio only when read/write is wanted */
+ 		if ((bits & (CEPH_FILE_MODE_RDWR << 1)) &&
+-		    ci->i_nr_by_mode[LAZY_SHIFT] > 0)
++		    ci->i_nr_by_mode[LAZY_SHIFT] > 0 &&
++		    __ceph_lazy_wants_lazyio(ci, bits & (1 << WR_SHIFT)))
+ 			bits |= 1 << LAZY_SHIFT;
+ 
+ 		return bits ? ceph_caps_for_mode(bits >> 1) : 0;
+diff --git a/fs/ceph/file.c b/fs/ceph/file.c
+index 856710c63765..fbdccbae0d17 100644
+--- a/fs/ceph/file.c
++++ b/fs/ceph/file.c
+@@ -462,6 +462,10 @@ int ceph_open(struct inode *inode, struct file *file)
+ 		int mds_wanted = __ceph_caps_mds_wanted(ci, true);
+ 		int issued = __ceph_caps_issued(ci, NULL);
+ 
++		if ((fmode & CEPH_FILE_MODE_LAZY) &&
++		    !__ceph_lazy_wants_lazyio(ci, fmode & CEPH_FILE_MODE_WR))
++			wanted &= ~CEPH_CAP_FILE_LAZYIO;
++
+ 		boutc(cl, "open %p fmode %d want %s issued %s using existing\n",
+ 		      inode, fmode, ceph_cap_string(wanted),
+ 		      ceph_cap_string(issued));
+diff --git a/fs/ceph/super.h b/fs/ceph/super.h
+index 458fd63dd79f..cdb238d48f72 100644
+--- a/fs/ceph/super.h
++++ b/fs/ceph/super.h
+@@ -952,6 +952,7 @@ static inline bool __ceph_all_opens_lazy(struct ceph_inode_info *ci)
+ }
+ 
+ extern int __ceph_caps_file_wanted(struct ceph_inode_info *ci);
++extern bool __ceph_lazy_wants_lazyio(struct ceph_inode_info *ci, bool write);
+ extern int __ceph_caps_wanted(struct ceph_inode_info *ci);
+ 
+ /* what the mds thinks we want */
+
 -- 
-2.47.3
+2.53.0
+
 
