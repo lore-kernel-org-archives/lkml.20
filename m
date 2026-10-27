@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793081675;
-	b=ii+f0OzbPmUjDk1o2mYBjG9iWjJcKRm+GDy1I3Pic9Et0ihXp369HvHn5j6RC4UhLxEL
-	 UV25BvCMrj96WhcZ23ulvw3DWpFsYTG3hVMX4kL+1W448qiw0hUYqaSC3RxHWKV2Uywap
-	 gUxA60ml5nUE8unha8zXXaAQLgdvAKVzYfMc0NQq9gTLDKLbtHJk935WbC4fwdPqnzBE2
-	 XOkXh+XVGy3llEQAMsU6Y3Si95T62/6hyWbdjBjSMVtUb7+phhF0/SuiUVR/8L1qL6dHY
-	 omVf287GSuX4pNw9ZQc7O8xulYfpj+KK06TPAn9KbKOORAoWhT7nRsix1b5l0QfH2YA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793081675;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Aj57gDgkYoxrbL3zRJ5xxNDor6hGOsBG1Hto8fARzGQ=;
-	b=3o3Nf54f9IhFx9RZ7EeqF0LayAAY4IKbrv9IueQyE2h39lYaqk09FVtvkbCGb75FZ4uJ
-	 IfsBAUhdUi88hImoWHVNRKfv0lCKffwazGWhO6uzWT+2WnnHjxl9KhUlp5K+Dutq+dAVV
-	 e7R6P7lgG4o7M972+Xj16kTvVvxZjn8fZEud3dOvM+C4WhVnqJpPWXR9nGUR1RuSZwrxi
-	 1ior7rSxCoHq4PdFjqnu7qfe6Y6LEwps7KvI683VJuL2tHg45z6OLiaZRzQRwjSCQCYOu
-	 3xECnydioo1gKFg2fkunMDP5Yr7SBeiR4PC2vWX3uPjGL5wiq/FXxTRSbXHUMtRCDxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jujt5EfL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793081773;
+	b=NAcx4tyTbg/WS9yE1p7sg9TzK8mhKuYyEYjZehwxYTc9nQK5P5a7mkycr4c+C6w91Pay
+	 16d/9tlvc+g1fswZDnZCsOixU48VSNjEQPH8dQv0a98lJ4iGucewpFFBrvNIXaH9psD3w
+	 6h4aExALSx54zfUdsDwtWKQ4ZMvF/ZPgNPGQlQ2zXMvNxdqhdELOUoBWYySx4HqxSVtxc
+	 S41E3KahSRjgninNQlgeV59MJEf3Zpb3LTx06uXzBNXycDkYaz3Myshu33DXKAFCVjBK2
+	 UVpw7W6ARfEn3Xn70s8+Ky/lniincxBxyWvUJ2BrggLQr3+wKr7QOSZupJhwCua7r5w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793081773;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=uvoFAdGfaZ4vmb8FThF11NeU4sr1Yi3mbqW/0R0Xc/4=;
+	b=tdo4Fn9dN8CSQe5tfs80oH2inW1e0XgHHk9Vyw0+ghQCuVgqy7DjOIbv2DUXkVXfrHWB
+	 /v1EIFg/PpoIGz8XFllJPkLXfwTrlSxHH876Gb8NXQX4iLaQKE7frclUh946a9X93UmA6
+	 7EeOzc7UWBu6NETswaf+SGbGaE7nscKKXMY91GqJ8yBiFpbqQ8h5T6Ndr7g2dCXq7QFVT
+	 Apfl4fpFvb6jgFJF4+8mXp8n28YV9RHoc6kZOErdSFkgTQg3hGUpw+Th70vGh0ozAvKr/
+	 gslTe7HY3hySn6jo4pF7g6mT9WnweBmDRa9XPItbBWTxkZzRvambag4iuUo2Ddyn4Yw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNl64iyI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4DF606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:14:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E4DF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA07606A31A;
+	Tue, 27 Oct 2026 06:16:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jujt5EfL
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba35c0df4fso3650836e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:14:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793081673; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QL8D9+buH69bLgia5sxZM30O1SDMxQibUkNMfUIkZ4/1pouVD5oOBYXPTK7XzjuLQZ
-         TOKMijH8OOvLczCqKp9ChO6tTNtGsvWaoi7Mn/vPELwIEVWcCnKtEzdWfh6dA5nt7lOm
-         SduuguZgFrHP1WCu9DSloO+RUTm8aFdjRbZIWxwWaPK7PmHXLHRtTPxRAy33EuwudxnU
-         RSC40PsX1P7MVO3wLf7RLCBGTxCgnu4993HWVGAiGAvpSSCnVGf2//LFK08pH/yzmxd/
-         Qn7lCsPZbrixWlZQOqfFrQAsljmPBZftqxFY0vhYGqZmPRJonyJ+gbAeotKsB63ag8eV
-         yTQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Aj57gDgkYoxrbL3zRJ5xxNDor6hGOsBG1Hto8fARzGQ=;
-        fh=DVY+hYJ8/1G9cOZZvJVBS1rh+pdCrKVuu9vGfrViWMc=;
-        b=IzErtN5rhdpdZTDn/GyQvLLVC5KrLQ87N5ZmyL+6NTaj3ipmtWJ/9Y19fM7Mmz9jCa
-         Vtx3NvE9fx18WhBEzK55Bu+mKgNiUOhNMfomfZtltE1HZqT4P453v3p6FWqPpOoc9feL
-         QZtbGI5jJEmvMr50vT1WwTNEHT/3qKxLqVki/C14/+NcabeoT56F4sbkj6HLuJ+wxfyU
-         XjvfPeDV1KUrmA31vrF/LrjO2aHXc9JLHRhbzVIDEEzuM1nl7cs68on2ETVRQ76PKx2Z
-         c4pBFghbu5NpSuQDypfP8ZMKXLtpHmBrSW40CO4uid/mNcyYxoVjIDOjHlKNPqYv8jb8
-         N70w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793081673; x=1793686473; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Aj57gDgkYoxrbL3zRJ5xxNDor6hGOsBG1Hto8fARzGQ=;
-        b=jujt5EfLxkWfiU9Y4LvukWaGftjve6T81Pji1vz5Co5DA0S7dnvzB4wcmrcapqnPFY
-         uHN2zOVjKMVDva+RzQWTQ7s7XpRm9IUxWnQ1ncEFt/NX2/bAIpgqIIS9d5+zb8uaBNRd
-         u66QVycfeiGTQxRmzNPJW3WuBdHRZBUZeC+gJmW5xrVOzlESZ1T95qbydRaheqpvkO3J
-         fcTGZ5NllHVChKMNOWQyUqVQ+WowGNwN4poykAPAJS7Ow1xwV89azF4nau3dDGt6pI1K
-         d7lxZbkOBlukE7M841WRhcX04jaTj4wMAVQoI2nANEMUaMSJ7EsJ3/aht8F3X8xR6nc/
-         wRog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793081673; x=1793686473;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Aj57gDgkYoxrbL3zRJ5xxNDor6hGOsBG1Hto8fARzGQ=;
-        b=DTn7fsOWMTFqZgnfgTrCosJtJalojYDIrwjQYk10CKcG1eXXF/fbN0awyr1vwwgNWw
-         1Q857/YJkaI6xZzTLEfg0F6wa1WREKu/GPqcZaqG4T/hl/S8jRqvCjICVPQnhhevYka+
-         F7ebqGTSZ6B7yzmXq2ZDZUDb3l9con21FmbFqHhfB/ZueTw30HAbtm4O21Ut7FNsrtWb
-         kPZrUb6WY75beu/s6vxygNjIoBZzHqZrQXe4K9CZq09FxJEscxuTwpUklXrpE59yQ3zP
-         aHwG+iXvoQxnDiOhog1ZAUBjVQ4HaqIfEtSg0pZI7vCRE4lPSAwdPgm1/Ck6sQ2AEbWT
-         BxKw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsK+uruTkkDINB8KiDO/Xn2Jp+VZicd0AgzBjvQKlHvmtkDXWLDW4JlRJCLhBHtrAbj7MGHRSro8KhKgo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwu7DvFDz3iMEGmzlTzPHpDsEzz/PbGZDL4/W0tfzaACWVV58T
-	zX65EMwXIq1hq+Pl39l07D8LVF8gzOsuNHJhBJD6pjv7LLnGrZtAsAju+gmzuONKrbVxxBsATtg
-	rayguDjM1Jbc9f5ReFWjzdG1Mc802c5o=
-X-Gm-Gg: AYBFou3Raf/cB6/SRJZEsRQwGdQaK/7iynwP0QyxnWYgYqZYJcFER0SgvnMbCdNhk/1
-	C9mqjdQmG8wp4aPY7ZEG1Kj8YNoP5HiR1lvGD7Dm3srpcK7GiHBAOFChBXh+B/YFhOvYdWM79pp
-	sD6KITUPSdmcpXifkuE5b5U5EwOtU2ks5JE1m1X05HF4qnvno7XPsgeEcHJm0iydzAzDsADICa2
-	PlGyyqCVzvC2aG/T0F+ggTnXMGHAWWjFHItuprYi9mPP7OLHUF8n5D6QEqJ7zn3nCmkNpygsqwU
-	7M5ZqkG8dxD0bOsXl9rdTp6KeXkpHEAVqLcQMK4QRKCJ1ggtxdUzgNOqC4lP1yBce2QQRNAG99M
-	KZFaHW61gjuCVdxbPmIW9fLs9G9z51FtogxoagJuyhbgNSJUSqMuD8OY7MMYD1Vt07MwT7ApjAs
-	vZ0V2r8RVRmY1q/L1ZA6MTwuWxPxGfPj3KFNV+tTs6m+/zp/V1/pw=
-X-Received: by 2002:a05:6512:1247:b0:5bc:f2d3:f940 with SMTP id
- 2adb3069b0e04-5bfb71f7292mr3160287e87.56.1793081673092; Mon, 26 Oct 2026
- 23:14:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNl64iyI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA1361F01825;
+	Tue, 27 Oct 2026 06:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793081772;
+	bh=uvoFAdGfaZ4vmb8FThF11NeU4sr1Yi3mbqW/0R0Xc/4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gNl64iyIyZ4W8GCcXum/V4JdJxjcGeaRNkWl7qKsaRp/BFaacPW33xuthTBsNIuYC
+	 NrhSYSSjYD4iOKkYysX4kfSyrQ+AbHDwYohMoK7vccm6mARdHkB9C5XM3pGSUpHSG2
+	 1CJpfcUzrsMbsSYE/53UAbKFFvbAITf3JlYdlo5xeFLH/N8hlVWz0eH/l/JgzvLVta
+	 T3/rBMXkprZ4qwOSnFmQzVABINNXqc4NIgitAENXIUbOnH7E3/DtQkzQ0Zu5t3Cf0K
+	 0tNREa0hYCgFMyXZE+oqEpjtP832mky/A7AbpGVTAZE0qtTRvEPUQ0XZWq9h0V+NKI
+	 miHlkUNqsHI8g==
+Message-ID: <66361595-cbda-413f-9559-9fae22001bbd@kernel.org>
+Date: Tue, 27 Oct 2026 07:16:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,50 +51,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026095208.58504-1-yzwlhm@gmail.com>
-In-Reply-To: <20261026095208.58504-1-yzwlhm@gmail.com>
-From: Jason Xing <kerneljasonxing@gmail.com>
-Date: Tue, 27 Oct 2026 14:13:55 +0800
-X-Gm-Features: AclHuK_cgrQyrWKFQVlhzabXNnx79zQhN2Alc0sBaVdOJyWNDAmLNbsinkEAfZw
-Message-ID: <CAL+tcoCsZs3JL4CdmAP6oNk8eZD9tmtzyeQEeBnb1m9+ypMp9Q@mail.gmail.com>
-Subject: Re: [PATCH net v2] tcp: Fix fastreuse cache initialization on first bind
-To: Zhewei Yuan <yzwlhm@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] serial: 8250_dw: configure the Allwinner H616 UART
+To: James Hilliard <james.hilliard1@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev
+References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
+ <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 5:55=E2=80=AFPM Zhewei Yuan <yzwlhm@gmail.com> wrot=
-e:
->
-> inet_csk_update_fastreuse() initializes the reuse caches only when
-> tb->bhash2 is empty, but both inet_csk_get_port() and
-> __inet_inherit_port() link tb2 before calling it, so the first-bind
-> branch is never taken.
->
-> As a result, SO_REUSEADDR binds never get fastreuse=3D1 and keep
-> scanning existing owners, and SO_REUSEPORT starts in STRICT instead
-> of ANY.
->
-> Initialize the caches when tb2 is the only entry in tb->bhash2 and has
-> no owners. Timewait sockets are also linked on tb2->owners, so this is
-> equivalent to the old hlist_empty(&tb->owners) test.
->
-> Found by manual code inspection and confirmed with GDB. Binding 16000
+On 24. 10. 26, 22:22, James Hilliard wrote:
+> H616 has 256-byte transmit and receive FIFOs, but its optional DesignWare
+> component parameter register reads as zero. Generic 16550 probing leaves
+> the port using the 16-byte FIFO configuration and its trigger-level table.
+> 
+> Keep PORT_16550A and preserve the FIFO size read from firmware by
+> uart_read_port_properties(). Use it for the transmit load and derive the
+> receive thresholds from the documented 1-byte, quarter-full, half-full
+> and FIFO-depth-minus-two mapping. On H616 these are 1, 64, 128 and 254
+> bytes; the normal 16550A half-full FCR setting selects 128 bytes.
+> 
+> Serialize trigger changes with termios and hold a runtime PM reference
+> while programming FCR, preserving the FIFO contents. Propagate runtime
+> resume errors before changing either the FCR shadow or the hardware.
+> 
+> Advertise automatic flow control so CRTSCTS enables MCR.AFCE. The
+> DesignWare termios path selects hardware CTS handling, so the capability
+> must be present for the corresponding hardware control to be enabled.
+> 
+> Select the fixed configuration through the platform setup callback.
+> H616 has debug-divisor and RS485 control registers at the offsets used to
+> detect DesignWare hardware RS485 and fractional-divisor support. Avoid
+> those probes and retain the BUSY-safe integer divisor hook and software
+> RS485 handling.
+> 
+> Use the existing SKIP_SET_RATE quirk to keep the UART clock enabled during
+> termios changes. Its clock is a gate on the shared APB2 source, rather than
+> an independent baud-rate generator.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>   drivers/tty/serial/8250/8250_dw.c | 75 +++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 75 insertions(+)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index 9c171c5775a6..557832254c37 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -19,6 +19,7 @@
+>   #include <linux/io.h>
+>   #include <linux/lockdep.h>
+>   #include <linux/module.h>
+> +#include <linux/mutex.h>
+>   #include <linux/platform_device.h>
+>   #include <linux/pm_runtime.h>
+>   #include <linux/property.h>
+> @@ -648,6 +649,73 @@ static void dw8250_setup(struct uart_port *p)
+>   	dw8250_setup_dma(p);
+>   }
+>   
+> +static unsigned int dw8250_sunxi_rxtrig_bytes(struct uart_port *p, unsigned int trigger)
+> +{
+> +	switch (trigger) {
+> +	case 0:
+> +		return 1;
+> +	case 1:
+> +		return p->fifosize / 4;
+> +	case 2:
+> +		return p->fifosize / 2;
+> +	default:
+> +		return p->fifosize - 2;
 
-I thought it was discovered by an LLM.
+These constants are counterintuitive. Can you pass the fcr masked, 
+unshifted and do:
+case UART_FCR_TRIGGER_1:
+   ...
+case UART_FCR_TRIGGER_4:
+   ...
+...
+instead?
 
-> SO_REUSEADDR sockets to one address/port in a KVM guest takes 4.18 s
-> before and 19.4 ms after this patch. Existing bind/reuse selftests
-> pass. Analysis and testing were assisted by an AI tool (Codex).
->
-> Fixes: 8002d44fe84d ("tcp: Check hlist_empty(&tb->bhash2) instead of hlis=
-t_empty(&tb->owners).")
-> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-> Signed-off-by: Zhewei Yuan <yzwlhm@gmail.com>
+> +	}
+> +}
+> +
+> +static int dw8250_sunxi_get_rxtrig(struct uart_port *p)
+> +{
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +
+> +	guard(uart_port_lock_irqsave)(p);
+> +
+> +	return dw8250_sunxi_rxtrig_bytes(p, UART_FCR_R_TRIG_BITS(up->fcr));
 
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+Here:
+up->fcr & UART_FCR_TRIGGER_MASK
 
-Thanks!
+thanks,
+-- 
+js
+suse labs
