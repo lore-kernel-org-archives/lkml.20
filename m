@@ -1,98 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793090174;
-	b=DJcUNjI53g0FtsrWxg9kinps0Nfm/d9YVxxG349au0JCXZzh/tZ10UKA/mEQ+4hTe47F
-	 HW4GBDFuQPF5HxAMty7thP1qYWZktA4Gqpv44HJK4K7rCrzpoTDsngYpxOqLOxFnta+aw
-	 xJel0sdY6cSl3q4Ub6s29zArAy16SPvSh0+1OiAmi6VV00Mw0SNmlsq2wffECk9IRft/8
-	 /YjZupAuulcpY+hFIt1DWi0eq9xe5AzfhxevQZTYGtObNRHDAO26F7EiHDjyZVVqnhvdn
-	 bBDYhzJPITA+sgrjeHHtu3oqMoldaSIDmT60YXdlwKHX8HL1g6dvKRUzdcXSbBzp7EQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090174;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Content-Type;
-	bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
-	b=IAw8QYHtLusy2Jjhl7QjyzvSzAY4JvN7w/xw4R8n8EepqxeniFyV0gqbjhtu9P1RIqwL
-	 RZNJobb0zmoEi3zJqsPTXeXXJ0WXdvnoVqhASof890WU8oNYN0laFEqBAwUaU+zPgQF43
-	 3/ijjmvYNfCFd6NGoc9+GSm9fkJxQzYdrzckiYlKjTFBuO12DCQk5iPHFuj2dnBzR0+l1
-	 SeJfIrZkjNYOqLIhgjPJ4aYV/9/BvgkaEnG9EpBJQGo4akdrMpN3If2RCiBQzfvkxJz8k
-	 Uvq+A7i3IPVmPwH6AIdQ14eSV6Nl50w5pCuPBLpn4lAk0EOixjdIFsUrt6oAetTISIA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aa0vsv5I;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793090171;
+	b=BSpUW4cDJooHLHQLqlFdzU6JpgtdjTR6T6QMxZaK9sNG3dewUNG/Ng1h+H0fnC66lapd
+	 5LSI8iD7rO0M1gkgO9Wu47I5nCceGZNmt6xhs+UXZdGZZ26qzF1V2QJjFMmQ/fQogMrGl
+	 SkNWVXsrfCZCBgWzlqkT3lFfxRsXiCQ3jMVGKV7il5WxNNb8Pys9qB6HwTZUzUx904BnL
+	 XuQqlmHkDtqDoiqIQ8LVdOF83wzmItgadWocVS1W9H5hJxWRtL7dKhwD26ZIt3mqID2o0
+	 /NPCexShQrnYfJvo/ddajktt6maaON3aQixMu+jc0ftzXBTkuRoJoJGqpKL5QIO65aA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090171;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ieIMc3BBz4pKSCnrMN5uWZ94uJp0IU9fkKJ/HuBkEow=;
+	b=ZcHnlTvX3EvFYIfE55f9kCI8wTZe6xAAy8YKwR7zWAzZGkU8TnPVreqjKxKEzIK3m//q
+	 GdJTvcsdt/buYknJDxlZyoTvG5+wh/ZQxvQalmW6wruro/yNy/1BOvIp88eg3GTcDzO2b
+	 K2xhCV3fWnXZ6QWG6iEF4VBZKxONqfkJg2oHESpXsFc4Z0JDtkbuC5tVU5WSerSS2RBSh
+	 mbp+5g7UMSZdowShq/TK+TdAyMorHqnSxe7lVT/KKtd93DWPj69dnUM14GytETBvQiSfk
+	 J1EmCdgNrXnpT74fUdGG4iDG+1wcnklRHIlJZCIo94nUICQUJ9wbZR4ohaePXtYHyIA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=na4O9oqi;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S8BiWFyf;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF46606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:36:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFF46606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A504606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A504606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aa0vsv5I
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514b90bb89so8766621eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:36:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793090173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N0mR6bT+Wkkf9K3lgNPKXUmPovoIB6Gl/7ASlYs2LXXmpgm/T5uEmqWdFblZ3QxOQZ
-         xWTuyaQhACDEmAiJIeva7E8NHx3eSnlQx/B57nyZF/L3S2sQMykWyG03BvYEpMYIl7d8
-         CnciYj8255L0a8tUV24MO0IBjhP931SL9Q/36VCILeOQl50l0sWcx9jhkqofX0xojlwH
-         2PrGS/7CBnpt/SThA/Z15FuyXZ5dDi84siBP8zX0cHMONTWjWqPXRccjpF9YXrOGWk5g
-         D99w6VOghonFpBUpwhal43fyBNpvrodNSu05SCdu9SVp96sKNdfME2+zQ+ha7cekMHvS
-         AMog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
-        fh=3jt99IGe19M4Jyz2bCHkWUkjs+oJxP3+qmwGX+VS1Pc=;
-        b=UcUwkXP1O7orsgEXMyVOk5mwBhPg0d5mc8AYlIqtKOXpORe2mDaYOom979nQcGwTnK
-         ZzDSwwmQ7axgUah5Y/8KUqRLY8FmfBwv9jzvRmeDfcTUCC0PGBzn3IQaTPe/ATsB8kju
-         yhqsYAT82uFCGGPTEr9Ud4sMhfC+THNhVq9ZAqmhdRhg8vsBSyvW/KTXR8B5V5jzP0PD
-         FW8UZ9u0JGQ9wJUZDr959fof+/QkrZ18kCp4i5UKpMqnRwK72wnpZHuvnrJuAJ6ND+If
-         Kct3Z5VdFmXuHo3cfMKY1h6IIsJpJ52qTWiLDbejWXP+kHqMsnC6IOfYqi5zP+55843C
-         NKeQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=na4O9oqi;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S8BiWFyf
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5ZJ1Y3950115
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:36:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ieIMc3BBz4pKSCnrMN5uWZ94uJp0IU9fkKJ/HuBkEow=; b=na4O9oqil6AM0aDY
+	/Mw+uqnKwn7ym6DYKoWHGzHWmgNB0ru5yBvL8GWbIt66i7Ve5wRyduSp88itIdyB
+	g21P9BoPyLTtfrb3WGj0ZS3+huBWS45IUdZPse45WcZPDQRLVHYhCHb8xYbz1abc
+	PcipgCFpKzAqvYlobdVgYUULUNAWF+0bGjRmlQ28kwTek37WnOTqLUok6XmqZ9Y4
+	f6pD2mp5C1RV5gWJ+8aiP7qIl3/xZs8C2lFKvJrbd914mvs6kKUm+xv/3v5wY/oV
+	1StqwHGC/vMn6TiSnKfJdbdslJmTcvEQa+Di9XlYk90bLz8wcS9+/VRi5hitVrmi
+	bPu1BQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjb54jvjr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:36:10 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f2bdebfc5so117399685a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:36:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793090173; x=1793694973; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
-        b=aa0vsv5Io/41U+ggVEM6mQUORlawKEdfZph+jyb++6f3ALT4dKeK9+jtwFYylo06+X
-         KTMEVjqhut8tSbeYQ06lAApNxcGUYt2oeHDuEzngSJUmbe98qL1ynJGUckPvL02WQC71
-         UHMj2Zwu4fT0b76KsGiKlLV/IMNBlteGg4P9oHSDHqUdc/KXKmVIgqES8Jr7Az8aVAbw
-         ZdKUIuU5niw+ypLOSEHjLjkXLF/xeDNOQrkCwcxT1eUv4MJsECN8sXbzBIp5xBHyljco
-         /ze3oDzJyffnkxS9YhrDTdYhrTn8nJyTAbjd3j7EnUQofw4u67K8MOaznqDZCXM/2srH
-         R4eA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793090173; x=1793694973;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793090169; x=1793694969; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
-        b=nHhR0LoZuHv3k8w5WqaJ7Z4CXmwpnJfJ73og0b41jzCpyybcAHjAyel/CEPWK2taeo
-         aSwz+2KykYL1y31TuIIiqPPEpOyxREagRP8MXDO1hPAvMdGFXmkuc5N0Mv1IVF4pk0uC
-         /+SZqNrNAW9IRpxr1WP8xp1j52Pl9G3E/Lx5HaBuQErAPz+Y3BCaNJGRhZLCJ4PYShqm
-         oC+fNHZX2QnRsqVmzGyE3aTEf5upsZLkFjL3Z9S7vxhpEqMvscVi4rDyiN7BdvoxP2bd
-         NXEWybXEQWefe6CRFXCMquqen7HXTenWYi1FQirhIkx9t7SlUn8uzf0bo56X9iMH+I91
-         5JTw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbWfqEMpTkRzE8NGpXN8vbMqzbjnd0bZSHe6nYuqwYjCw6ztZH4ZxSoVlpv5s1mapBYWZLrYhv7w8/FnM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuFHB5BpldXaZNsDUmwwp5JgrJVuvU9G/Ly14BRULredOuuFZ/
-	3p9ie1lB92RYGE6lXcM/1fE0Be9hSW1IR8I5LkihnHZBq7z7vjFUQWVyJsxT1DXo9doUrJcu+BX
-	oy0YO5V30We6LeNBYmngJ096WuqR3Peo=
-X-Gm-Gg: AYBFou02J+UubtE3Od+2GWk6A5KEfCoKnng8eK/CAthAISd4gdE8Wn0dG95G7vwASow
-	r6mUDFnsbi4Bdtf3D2bvXSQonwwouBzIasaOsWjOYgKmmf12I0aP+3QJXIb1LVtARgwBYzQVwMi
-	1/PRQn0PTUaWUjaOFpHGTQBgj26fNdxigGEiQZtePpFmf4SXDGv2CNH5pPNwdqENIhelznkq++f
-	QLg4cTe36Q0pW3KIuoTlSa6Dgw3ZzODtcs8EAoYBfhl33iKOnZv+DnHDlPpLhpK5iZq7PRXgu9k
-	vdbn0tVlcNxPlnugS0DqU2GMGiudfgHeC57nNq4293FsKSSEgscBJ8TJfZ9Q7VE2lGkMF7s5T0r
-	p9pltm/0jWVFNRIXZlxKHEhbftUELNEK9GCHL7Dge+XxK7X5SZE9/79U2URbDsiI/mlHBKPBN+5
-	nKkhUvtUl6PMgjWo/bQXs4m7+qFHoiwn0VtNRN7jSURy1KKQ==
-X-Received: by 2002:a05:7300:fc0f:b0:33c:16f1:2e11 with SMTP id
- 5a478bee46e88-369e845b068mr14555898eec.7.1793090172731; Tue, 27 Oct 2026
- 01:36:12 -0700 (PDT)
+        bh=ieIMc3BBz4pKSCnrMN5uWZ94uJp0IU9fkKJ/HuBkEow=;
+        b=S8BiWFyfisgWML7PD0jZd12NUky/jM2TYvfQNISYdzs4Y80VL3N8YH8s5lNW8nbRLo
+         VK1A9BaW2LWaelD4kEyahK86wnTDDGdJeEjujYBVDJngdiObZZ5lciVB+RGtOD/h+gLF
+         T3h1vmRxr/rBxNF/cn9dTwiVtlLgXfkEbd+Beb08qz4R8DGDvfMP+50Ht8Bo0waCNifC
+         HHHiHd8jDkienXCIdQGsCKgYBkSvdAwaaFysnTOw8LiAD+oRksUHum2W9kIOxqnh/tVT
+         NHREDU7uAkVQUtNFs806R5EpGS/0vWu+gN3Id1RqzbT2hcOmdPddFc6Whv5Tdmb6jkgg
+         73Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793090169; x=1793694969;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ieIMc3BBz4pKSCnrMN5uWZ94uJp0IU9fkKJ/HuBkEow=;
+        b=DkG0Yw0mYnpoUQzTVcgYQrA5j/Fg/2jpmFVk6eyG8gQRMo+2/AHqQ240j9l34sSWJ3
+         5I34CmqZd9tQ17VJkCayi2BJo6+9CrzzANq0hyCzY9KeHnBMFAWRhGlRaXqnOor/ALP1
+         AOg6k2us1EN/NuedogypXMa9U0MJ7qvvN8EnHYxXiYujSDlxvFLpYePUEUk2U9skgpyf
+         v68BK1WTwqWVbEkQjMmyqt65xF+phBixdefPFJZYuOaPq0aTLDLXSwbTAu7pRfwuYC4i
+         QxcuaVil5Y0IXy5PTMg/7FjWCDzxAjozsSBudTOtN68sNZRai9m/4uQSCC+AvWrBA4Jc
+         36zg==
+X-Forwarded-Encrypted: i=1; AKwUvBxS4wutmBvImXRywLX3H3ggcbjcx5+aob6tkDCdzMFHucWnEgJqcysJHQtDyJuoId4n9Yh+ugNOjjr1/MI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKW6jhonTS2SFpJcgg37ohOF9VkF0Bh4M9n5ZXJPaCd5sHMeeuj
+	1oLd2KCm403dDi0TS5wHf6sUsskZtCgObi4iXx1QKh29DJVKf1I8M8zyKP+qsbtioii+Aa6+dFj
+	iKo60fXUKTpThRNUWaRJH7fH7ovL4iesCJbmncWnC/iJiOOReREyxrgRrNL1He/TAeOk=
+X-Gm-Gg: AYBFou2i6h7BtdBQhCjs8+x+I7i6sLOQFupgCaOIq09ag9yhjLDLEeJXxaFcWdzcery
+	CV0buL3dT8/SNU3VxuQwGlcLJVBOfAtnGzbxotlMt1yLwWLGydNCNtbDn8OttwrpcRQ8BCmIbHA
+	HpPyuBxJ3hFTd5tw/LX0cWSA1buH+boUlPxOU7s6p/MiqwK4NDaVGpBBj7pvvyJ7c1VTaYXFtzZ
+	KD6HklkZ2hQBNocVoKQJu34D9RpaC8TioqGRBq7YEVLSy4Nv4iEMjFoT/jCYDo55uQjhWwjieJn
+	hwsqFFsD1zM0cP+/NB5EKhB/91/t7cfFr6D6J4oLsRtY6Onqz7r0FAIMjPXqO8nIrR9L3lgrded
+	1LzXE+RBUaxDks+23y0QGig==
+X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id af79cd13be357-940ef7d5676mr1454627485a.1.1793090169382;
+        Tue, 27 Oct 2026 01:36:09 -0700 (PDT)
+X-Received: by 2002:a05:620a:8703:20b0:93f:a34:d9fa with SMTP id af79cd13be357-940ef7d5676mr1454623985a.1.1793090168889;
+        Tue, 27 Oct 2026 01:36:08 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e9995sm406415266b.15.2026.10.27.01.36.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 01:36:08 -0700 (PDT)
+Message-ID: <732de9ce-7e8e-4506-86af-239bf84dd309@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 09:36:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,114 +115,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: =?UTF-8?B?0JzQsNGA0Log0JrQvtGA0LXQvdCx0LXRgNCz?= <socketpair@gmail.com>
-Date: Tue, 27 Oct 2026 13:36:01 +0500
-X-Gm-Features: AclHuK8LYf_8PYVj_mbhVWX4NzizhrOEbQrV-IlYGk176whN1q7kTKLieg1M1X8
-Message-ID: <CAEmTpZGu5x9PS7vFwgc_dFH80rL3cFD4-geuuL_w8i=vFDo8AA@mail.gmail.com>
-Subject: [RFC] btrfs: zoned: reset stale zones in unallocated device space
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] soc: qcom: ubwc: Add SM7250 configuration
+To: patches@brar.si, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027-ubwc-sm7250-v1-1-e766b1e264cf@brar.si>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261027-ubwc-sm7250-v1-1-e766b1e264cf@brar.si>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNCBTYWx0ZWRfXz+J7P7DVYMCZ
+ 5IaK6Aj43Xw0SFCRe4TnRiJokcQl8l3GK3dwkmRMjxlwpeAfviG1PrVpughbtTcZE1yc8h5s+VR
+ iT++jD4NQMu4CU45ZdNBeeO9/rwggdA=
+X-Authority-Analysis: v=2.4 cv=bsnZl0ai c=1 sm=1 tr=0 ts=6ae0627a cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=GK7zBLNOynR7OwqPiSgA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: awKYxzBmKv_dSpqjVlvFUSCpyEqhYaAB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNCBTYWx0ZWRfX/19DT4W6nkZJ
+ x4y0Oso9lhZqZ8dDwsBv6fhXxgiO0C08zHCXbBrfgNB7fFkEHLeEg+zxPkrhM5iKwfrS6tvjxiG
+ MagxFA4acMOO53KwoVO2Y4E4e8lkjpSZAFoRbatrkb5Sg4zgqM5wliWjKpz/R+frfFTVFb2y6DH
+ zIgqIQJ28RSciLigJKpbvUrB59d5KZGWxrCCDMptqo5YtoY+g790/lPTWD6hwwc/XWLNgC54Z9X
+ M2dRfOpZN58CeYy6dc2kEltheI5nx047EgI/fOkIlOyIoj7YHas4F0WlP8jr34lVjav2r2VzTqg
+ b5PjTxyfLdvEMnYih4lghYnkeWRAWvhLKgoycdYNOHb4zFAGmK65gBUSDrfRzuzGGIiBs2LPy5/
+ Smqgy5IlKiVtWs2t90IgFjzEDWxC1xb5tzyPIrOFCQqxR5P38p6SOPgiiaAf7rHYhZI+v5nskO0
+ 0YGEX7oXBGGcHQOMfLA==
+X-Proofpoint-GUID: awKYxzBmKv_dSpqjVlvFUSCpyEqhYaAB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 suspectscore=0 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270034
 
-Hi,
+On 10/27/26 7:19 AM, Ishu Brar via B4 Relay wrote:
+> From: Ishu Brar <patches@brar.si>
+> 
+> Add the UBWC configuration of the Qualcomm SM7250 SoC (Snapdragon
+> 765/765G/768G): UBWC encoder version 3.0 with highest bank bit 14.
+> 
+> The downstream GPU devicetree of the platform sets qcom,ubwc-mode to 3
+> (UBWC 3.0) and a highest bank bit of 14, the downstream GPU driver does
+> not enable the 8-channel macrotile mode of UBWC 3.1, and the downstream
+> display devicetree also gives UBWC 3.0. No existing entry has UBWC 3.0
+> with this bank bit, so add one.
+> 
+> Without an entry, the Adreno and DPU drivers fail to probe on SM7250,
+> because qcom_ubwc_config_get_data() returns an error.
 
-I'd like to propose a feature for zoned btrfs. I'm not planning to
-implement it myself, but I'd like to get feedback and, if the idea is
-considered reasonable, have it tracked as a TODO / project idea.
+This paragraph could be omitted
 
-Background
-----------
-I maintain a host-managed zoned block device implemented with ublk,
-where each zone is backed by S3 objects. Storage cost is proportional
-to the amount of data actually held in zones, so zones that contain
-data but are not referenced by the filesystem are a real cost, not
-just lost capacity.
+> 
+> Signed-off-by: Ishu Brar <patches@brar.si>
+> ---
 
-Problem
--------
-With a long commit interval (e.g. commit=300) and heavy buffered
-writes, btrfs may allocate new block groups and write a large amount
-of data into their zones before the transaction commits. If the
-filesystem then goes down uncleanly before the commit, this is fine
-from a consistency point of view: nobody called fsync(), and after
-the next mount the filesystem is consistent at the last committed
-transaction.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-For a virtual device like mine, "goes down uncleanly" is more likely
-the ublk server crashing or losing connectivity to S3 than an actual
-power loss, but the effect on btrfs is the same: the running
-transaction never commits.
-
-The device extents of those new block groups were never persisted, so
-after the next mount the corresponding zones belong to unallocated
-device space from btrfs' point of view, while on the device they are
-still non-empty (write pointer > zone start) and hold data.
-
-As far as I can tell, btrfs currently handles this lazily: such zones
-are reset only when the allocator picks that range for a new chunk
-(btrfs_ensure_empty_zones()). Until then they hold stale data
-indefinitely. On SMR HDDs this does not matter much, but on ZNS SSDs
-(where a reset helps the device's internal GC) and especially on
-virtual/cloud-backed zoned devices it does.
-
-(Stale data past the committed alloc_offset inside *existing* block
-groups is accounted as zone_unusable and can only be reclaimed via
-relocation; this proposal does not try to address that case.)
-
-Current workaround
-------------------
-The only safe way I see today is offline: unmount, walk the dev tree
-to collect allocated dev extents, and issue BLKRESETZONE for every
-non-empty sequential zone not covered by a dev extent. Doing this on
-a mounted filesystem from userspace is unsafe, because it races with
-chunk allocation (a dev extent may be allocated in the running
-transaction but not yet visible in the committed dev tree).
-
-Proposal
---------
-Let the kernel do it, since it can serialize against chunk allocation
-(chunk_mutex / device->alloc_state). The operation itself: reset
-every sequential zone that is fully contained in unallocated device
-space and whose write pointer is not at the zone start.
-
-Possible interfaces, in order of my preference:
-
- 1. Automatic background cleanup, e.g. once after mount (after the
-    dev extents are loaded) and/or as part of the existing
-    reclaim/discard workers, possibly behind a mount option or sysfs
-    knob. This requires no administrator action and covers the
-    problem completely.
-
- 2. FITRIM: on zoned filesystems, apply the reset to unallocated
-    device space as part of fstrim. Many distributions already run
-    fstrim periodically (fstrim.timer), so this would also work
-    without extra configuration in most setups, and it fits the
-    "release unused space to the device" semantics.
-
- 3. A dedicated trigger: a new ioctl (exposed as a btrfs-progs
-    subcommand) or a sysfs knob under /sys/fs/btrfs/<UUID>/ that
-    starts the cleanup on demand. Least convenient, but still much
-    better than the current offline-only workaround.
-
-Risk
-----
-With corrupted metadata (a dev extent missing from the dev tree),
-this could reset a zone that actually holds live data. But the
-allocator already makes exactly the same assumption today when it
-resets non-empty zones before reusing them, so this does not add a
-new class of risk; it only performs the reset earlier. If automatic
-cleanup is considered too aggressive, options 2 and 3 are explicit
-and opt-in.
-
-Questions
----------
- - Does this sound like something you would accept upstream?
- - Which interface would you prefer?
- - Am I missing a reason why the reset is intentionally deferred to
-   allocation time?
-
-If the idea is acceptable, I'd appreciate it being added to the btrfs
-TODO list so that someone interested could pick it up.
-
-Thanks,
-Korenberg Mark
+Konrad
