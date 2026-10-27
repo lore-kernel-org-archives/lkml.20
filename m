@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793120686;
-	b=2YWrp4SX4kHjK9AITsSevjlN78Jp7p5VnSvySsUf5dSFmqfUGN/MeHysEfEqi++7Yrbh
-	 SQ7+ibc9zpiCkNFe9oVBl9xQRsEV0fg17hr55UvReWdedNfHd3BGSneBy23PMkUR9ttjO
-	 J8wSjZmzTKj6uq4eMf2yHsxFrol0y8tfawtOozcZhZInp0l3/udb8FkWkj4shJ85RChML
-	 zv0GR4o2Pazl+LX63G9MoZ6ToHLW3PvrhNSbSvBmlnzaA+NZnGXXar6CwIDQQt68bGh4Q
-	 JaYkyAOMtOaOXeSMD6q8p1VhTZSEd+9ZDXWNy6PpwsIFxfjjNxmQIJ7WYRntI6bREow==
+	t=1793120681;
+	b=SuzlrEmUStmpZPUyB5oowiRo6+hVERPuoKcdJczwZpjXk4TMgm4iftoYvLdWZeFqo1c7
+	 kDbwoqDivSylh/cnLDqKcBjKC3wEWtG+f7vXRCMT+kme1e4o2cNr4E5s6j59panCP4oml
+	 4HHiLgowhYg6IojtpJwAhADnVEyFflKw+PfU8FHghpuqTc+5W4jpMTUXKX37VNiMkyqig
+	 +9MUgK/tajjY8UV9+XeakWMXM5AMGpq73r7BJVldY9FAb6JDnFN4yy7xVJZnAl3U6L/n+
+	 HBtpScy0jZF5eZTaILB1Cz2A6UkkUCXoxOO+IVw2nX7u8OcfnYcdQBUZKDcbJE1rUVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793120686;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793120681;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:
 	 Content-Type;
-	bh=gVjE4i5YYyffthwilIi3npAsOinE/ZGxF9+4UzDwIXg=;
-	b=1LNGtbo3KVX1fOIqDOF/wJR42jBZP2GedjORRb07eKbmUKDN7YdC7u+nwoffOIL7GVAQ
-	 yw8u3MDAw+Bd13djZXTBbpVnyngsnc1soovA306P9XogxkdSU7YpTkH4mQa5bNwmLE3eP
-	 KCtIOGkJVSoctTS5nwjeO8yfoC5gMKTQ2uocplptY57mN4qOiEEK/y+XlevO2ONyq/Aku
-	 snf8trlV5rVuF9dIDMKi8gsFxDA+35b9/cYNxxVrSEJZKgOWdUwsPfvzRo1JREpDfyF91
-	 9bRXO5550JFL8kyvMFJnQ7ZKKqZchEm1VzM5/e0kXwA14oFDjCA5AzwYNyi1htQvpGg==
+	bh=KuPv9dNAeKsP3lHQ5az7k6lXOC/G0/2eCGVI05AUWhM=;
+	b=SehmqYasJytzL9DV5FjEEDw5t/4pRczeC7D+lXxZgLolaC36MYcFHeSmZNXhGnryf9qQ
+	 uuUXd02lfMl4Y00KyRVCAAXdZeGWaVYz7f1lh6gx0VyS4K8dwaX5CFK4ZSeSf1ofuNCdT
+	 Jvl34B6Yok+9QcypxcMCgT+5ceW2D+6TgLHSfSIQQFbWrNWadoavNcVC6dPTuRDJZH4HX
+	 R1ooSAHIno9k546iQ1l2Pcyu4Kd11YaBe1jx3M3vT+SemuUjEQMr8WVPktDEOxup4poXw
+	 q48B2P4HXovSHVV0GHUrm3SO7CEiCwlz8ctaRkzIZFq2nE5vtPTFKf39pAi+rgvit4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EKrTcaq2;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AuSlGwyL;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E62606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:04:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2E62606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5D1606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:04:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB5D1606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EKrTcaq2
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso59521eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:04:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AuSlGwyL
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36637676140so82233eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:04:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793120685; x=1793725485; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793120680; x=1793725480; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gVjE4i5YYyffthwilIi3npAsOinE/ZGxF9+4UzDwIXg=;
-        b=EKrTcaq28AutmoPVrFeFdFT8GGrC9QjC1LaaCOXtXDtFTfzFlISdkEBZUTM3NcKbxU
-         tyfiEXUgg7j09oOujTnALEMDrXdnRYODsTUZlYmQibPfjh7ER+boITLBbiqzJ+hhlja7
-         DQ4MAEkdQObrtkqNWZSN7Wfot5IFBxJiIlChUa6Qm6qGJ1y0O84oztF3BwrvY0zhGllg
-         bTO5VWzC9h0y7J9EWlSgmPiXq1pbHOrce+Uzbr0Ra0qvDG2Bk9KJGaC+xwZ8oy4eXdIy
-         n5YwPvxpC4F1lFfZhCM8YN6KPISKIiDEWrNq4D76yOY6fIOO5t41r9znDPdvHZt4NOHV
-         0gzg==
+        bh=KuPv9dNAeKsP3lHQ5az7k6lXOC/G0/2eCGVI05AUWhM=;
+        b=AuSlGwyLvMj50I5lH0VPZECM8TmzzAGBpCmgjTh4rDhbxpMDv1bOwguASPJWiLGL1U
+         Y0/rSeY1sHWQpREbVUVHGpKpDZIQDEia9akUS0u7ABwagcB+fKSjO+oZrRqk11Vp5wud
+         rTZxx9kVJS2laXDQWQkJk/vdiHDKAdAXeUyX9as0QcPBB04nibVHkBolUHP3WvIgKxzU
+         a3qD/xJuYvAhFfZJaSvuFD5VJrHw/TCQa1L9n3nP3e5jJ20iKvimCZWjQk+xoTEi58QJ
+         rTGF8RvkYsvoDVcCh3IxuCtBILia/ynU23tejEsZ90QgTr/zQersfIHdK2z+NWgsq7QC
+         Z8Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793120685; x=1793725485;
+        d=1e100.net; s=20260707; t=1793120680; x=1793725480;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gVjE4i5YYyffthwilIi3npAsOinE/ZGxF9+4UzDwIXg=;
-        b=opnDABGhFnW8vVdaFEWA9x2I5Z5dAsNUYrElvtWhfp644n1ZEjQobiBFnTp7hxmNKj
-         4CtI9GwJXGdp8mhXjh8mNjDhLEjRFcKET+tEP7cnOpTDa17WN6i2jmdavU21O3cUq2Vj
-         wSpaiqjNn0NwgFc5Gka3f67sSpAEQh/EwR8HK18IoOxB60jOsaEFQDWrP7qH/bZxuJWM
-         CFfXEb0vYwbifFZsoBJt6n4IT5G+ULfs9TKkhmKRoD8Y/Q62h65iKCv/9BuN5TJX0C5j
-         Dq/Cy30tS5d1hoqsTzx4OStCYb0si36QFSseL5DHgYPFzeOiv5whuBLRUazwKH0/ZIad
-         95dA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLnkH8emoRlkalQCDRVs7WZlSXEIgmGEKCKixOJaV9pMpejsOY+BXJRJT0znLk9iIXN3LcCrX0mlXgDSQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/IlAzfhF1ZjalIVxYqu/MslbF1ZItlkfjcF3O/9TDkgOBQ7F8
-	AGZwdl8mzc6TdcmF5Ngo/l+XfopEgf9paDR4epBRqndaNtepUWeBlvHqIeJPjroJP4xa23c2lc2
-	nLuUxcjvptA==
-X-Received: from dyw21.prod.google.com ([2002:a05:7300:8815:b0:353:7c23:55e8])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:c3a4:b0:358:8f02:e0ca
- with SMTP id 5a478bee46e88-36a2007fef6mr122722eec.9.1793120684505; Tue, 27
- Oct 2026 10:04:44 -0700 (PDT)
-Date: Tue, 27 Oct 2026 10:04:15 -0700
+        bh=KuPv9dNAeKsP3lHQ5az7k6lXOC/G0/2eCGVI05AUWhM=;
+        b=09FQfeNmZzZDdSqy7iDK7eIzcfdttAddybT/SKFi+7t2UxMJ2BOjhVXz5DV8lJonV5
+         A6Ih04efkT3a5Q82d0LtVnjsmVvgx08tcNrDK/ufyc83XLkyoz7WdfURakk3c/0NyOqV
+         gO+nq80InKbsFILh34urDKGqPfCIhoe7FwXkHzAY1NLMqRAoJ6wUr7W6MhuxLONA+LGR
+         P3YcORJteqBKLmnoxzrHaMA6foDaXVXcBwvgVtG16Qjcrr3xQ6LEznHz9WMnm0rYTFz1
+         k69pmZG+JzSxJov0/DPEokaryim5UOg/5EtpZQLN87xK5BnVLtS3imo6lnEyqrTqxCny
+         OhTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxv2LY9JCAI26CGEffT2cbwyeKPlQmhXQP8QUe+rRK+X7OLXeRbzkP8xnQyhoPQepvQ44A9kI/1heoAf44=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9/lH63iCsPJ7BJ6001brP0tBzOLUa09qWRuQGz2fukL+OSKkQ
+	5Y8obsLzdQM/7TbK871/17q6qAAlkG+GmKRjCZFVe4Fsau8j1QPyEdrZSqsLHMb2iBQVaOoZ43R
+	lKVQLbFQKxQ==
+X-Received: from dlev28.prod.google.com ([2002:a05:701b:465c:b0:181:c416:735b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:110e:b0:149:1feb:6da4
+ with SMTP id a92af1059eb24-199361b5994mr13527117c88.32.1793120679092; Tue, 27
+ Oct 2026 10:04:39 -0700 (PDT)
+Date: Tue, 27 Oct 2026 10:04:13 -0700
 In-Reply-To: <20261027170415.2815859-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261027170415.2815859-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261027170415.2815859-4-irogers@google.com>
-Subject: [PATCH v1 4/4] libperf evlist: Recompute CPU map when an evsel goes
- system wide
+Message-ID: <20261027170415.2815859-2-irogers@google.com>
+Subject: [PATCH v1 2/4] perf off-cpu: Write the sample ID for PERF_SAMPLE_ID
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -93,39 +92,31 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-perf_evlist__go_system_wide() marks the evsel as system wide and then
-propagates the evlist's maps to it. __perf_evlist__propagate_maps()
-only assigns the PMU CPUs to evsel->cpus if the map is empty, but an
-evsel added after the evlist's maps were created already has the user
-requested CPUs propagated (e.g. the "any CPU" map of -1 in per-thread
-or workload mode). Going system wide then leaves the evsel opened on
-the wrong CPUs.
+OFFCPU_SAMPLE_TYPES allows PERF_SAMPLE_ID, and the sample ID is
+computed, but off_cpu_write() only wrote it for PERF_SAMPLE_IDENTIFIER.
+When PERF_SAMPLE_ID was set the synthesized samples were one u64 short,
+so the remaining fields were misparsed. Write the ID after the time as
+the sample format requires.
 
-Drop the existing CPU map before propagating so the evsel is given all
-of its PMU's CPUs, as is expected for a system wide event.
-
-Fixes: 811082e4b668 ("perf parse-events: Support user CPUs mixed with threads/processes")
+Fixes: edc41a1099c2 ("perf record: Enable off-cpu analysis with BPF")
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/lib/perf/evlist.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ tools/perf/util/bpf_off_cpu.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/lib/perf/evlist.c b/tools/lib/perf/evlist.c
-index c1c5b0684eed..46de69aa5a86 100644
---- a/tools/lib/perf/evlist.c
-+++ b/tools/lib/perf/evlist.c
-@@ -835,7 +835,10 @@ void perf_evlist__go_system_wide(struct perf_evlist *evlist, struct perf_evsel *
- {
- 	if (!evsel->system_wide) {
- 		evsel->system_wide = true;
--		if (evlist->needs_map_propagation)
-+		if (evlist->needs_map_propagation) {
-+			perf_cpu_map__put(evsel->cpus);
-+			evsel->cpus = NULL;
- 			__perf_evlist__propagate_maps(evlist, evsel);
-+		}
- 	}
- }
+diff --git a/tools/perf/util/bpf_off_cpu.c b/tools/perf/util/bpf_off_cpu.c
+index ff8935688b43..16948761cc45 100644
+--- a/tools/perf/util/bpf_off_cpu.c
++++ b/tools/perf/util/bpf_off_cpu.c
+@@ -373,6 +373,8 @@ int off_cpu_write(struct perf_session *session)
+ 			data.array[n++] = 0;
+ 		if (sample_type & PERF_SAMPLE_TIME)
+ 			data.array[n++] = tstamp;
++		if (sample_type & PERF_SAMPLE_ID)
++			data.array[n++] = sid;
+ 		if (sample_type & PERF_SAMPLE_CPU)
+ 			data.array[n++] = 0;
+ 		if (sample_type & PERF_SAMPLE_PERIOD)
 -- 
 2.56.0.313.g2479322e68-goog
 
