@@ -1,107 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101193;
-	b=maFuHqWfDL/JCT7hlHNkLX88YHApIUm03OvdqwIU6Ej7wQmsm5zJySo1JcIRwl/kQy+1
-	 AwTkXnvlxi2i4MACO/yWpDhXrgvpmpDdJxY7OiRHCDqkdxwZRwvvuqz90w1I4t4O5BQ5f
-	 YL7tHOsazmpPZqRtH4pFdrmA42kErNrbjMueJUolFsE8UInHRoX4PK3+b7fGj1Q3aLf4F
-	 jBa0yptaU0UdzsISztouPBI+LGhGp7JkvQg9xUT93CbIIdPLWGyTnpwAWrZyxt4/ZKfLY
-	 /60jEDPqoTDOGCi6aRCUBtuCdicHiEGS1Hg0tmnYmrA9JyaufGDeWTZ5fTw5HQ/1miQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101193;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=fvfm5QHWeT+5y5RyRY9bq6ty8daU5y7ybSf8CKQi8iU=;
-	b=TuXgpK1y79KPULTNNpKLOeYSSPTbP42JqmTHuQk4r8WBaj7IFDHuUV/q5uNvSEyESo/U
-	 zxnZvkADCgYscoy2UgM0WgJigFBareoywOdGxihHT/6xwaIBU9pjCSPYuuxJaK65sIm4t
-	 AVMftLhv2gGmphr5DdbrvFo36bErwGtRagqXOUTHNcJqdr5yzMUch7cXbBokwBl+sW4wj
-	 1aSA4thM1xn3byc81lwrQRP4ixRSc4Qa/pb2mCASfnwmSeXWo/n0Fmv2JDPLdCFzMVWki
-	 guHX0MJRPbUWdq8tq20d8i6ifTAI9EG/bZTeSsA90vOEGqfIKFFc53bd4kPA6KbkYzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EkrAeAVk;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793101202;
+	b=sgzKAVS6FkFDtUAz3aP4RsHf91DSCxc2wdijjD8dwXBQDkD+zvVk5JnqXFVTwJoKBQXq
+	 3sljSVuNGz6nIakEXILuKuUcjRpzZfJCFuRvOaQuEL1sjj/0oYwyq/cV7G+BwSoL+GAcf
+	 M5FNhuzQAz/Eo9mEa55WTKtK69JMBjhuXUQwIG1j+5i2zf1sY+xqA1l0ROKbFpi8ksUf3
+	 59pIVK79OXeLpJdaFLEaQvJV3HfFKT6e0c9DX40QdqhPeXsZVXXQpOhNQm1PiaQkMxL1b
+	 dCgdg0mIINZG5f76sUJDn2/aX2EEJoaxVvua6btCwsBlrcLTA/D9M0SVVPm0iZ3Dj3g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101202;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8xwtJD2tDU+fIoTVWwQ7vdURPVaDHGIK/RJJWfEVHd4=;
+	b=cZ7EF2OTJ5pMJcQdONJACMDWUhUNKgE9vIwkwrmlVm14SWMVnddgKBMGqHkIm3bPXWKB
+	 AJwLNFf8nbNygWg0R88cu0kfaRWqZCrI/s7jCNG/TtnRNA5svNd42bUxcmOlRBf9J1ghm
+	 9jtW+9c40Wlnh57cl4LO0N20H8BZ9grRb+6v7TEmu2aTMdvoCnElvAueBAaFQKbNz7iRL
+	 HRvxV3130oQNtiMLR9RhM643dCVcsWkqmEPeZNa7F2Hqc+KkojgRdjfaqE94LSHhBopwW
+	 nG1GYrDFSFMzbXfeA9nZ0008mbK/2NoQ2sRavo5ZTX0s2/ZcotqJSnccLiJVq7rvLjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ClArcnUw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D487606AED3;
-	Tue, 27 Oct 2026 11:39:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D487606AED3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03EA4606A846
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:40:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03EA4606A846
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EkrAeAVk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793101192; x=1824637192;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=iGPNvXEcwlA5POsZZSDnagM9sJITGnqx2ASpq6Bi4fY=;
-  b=EkrAeAVkjAm4JC/C4R7VExTpGzsTRw9EzldXfkk84KywXSc0rWP5dbEN
-   PeQR46h8Uk7URVgTwUTi4vwBzBjfZKm6JSiRHU5TLja3jAoFo/HZnuO+f
-   8dn/pHQNVnXyGqB59xVr+UEM4uEI2fKYQGIRwa5XSpqHwgFHq8npBCNxl
-   u2JsEvUrgOSGVCJ7i3FtEIkPFKCUn/kLyepwdzPy/8z7jAfKibPOcEuAU
-   IrV20odlMtzqoV0fg65x4sgVRN3og4RGQ26Imka07MRyXUevrkSVmSvAR
-   8q5RJcKloaV8Dr/3by5M4K+vG9z3OlMFUromhhFKktuQ1dNYejzmG5LFb
-   A==;
-X-CSE-ConnectionGUID: 3KPT2/xIR9e9XSpuDhwUNg==
-X-CSE-MsgGUID: DiyWe2rTSDShYxp1Ajxnrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1706714"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1706714"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:39:51 -0700
-X-CSE-ConnectionGUID: Mwtodx+eSW6TwgCAM2oBGA==
-X-CSE-MsgGUID: Aii4mqylT3eKG+ZJrBtEKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="6397978"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:39:38 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 27 Oct 2026 13:39:34 +0200 (EET)
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
-    Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-    Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
-    Florian Fainelli <f.fainelli@gmail.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Peter Hurley <peter@hurleysoftware.com>, 
-    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
-    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-    Pengutronix Kernel Team <kernel@pengutronix.de>, 
-    Fabio Estevam <festevam@gmail.com>, 
-    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
-    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
-    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    Peter Griffin <peter.griffin@linaro.org>, 
-    Alim Akhtar <alim.akhtar@samsung.com>, 
-    Robert Baldyga <r.baldyga@samsung.com>, 
-    Thomas Abraham <thomas.abraham@linaro.org>, 
-    Kukjin Kim <kgene.kim@samsung.com>, 
-    Patrice Chotard <patrice.chotard@foss.st.com>, 
-    Srinivas Kandagatla <srini@kernel.org>, 
-    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-    Andy Shevchenko <andy.shevchenko@gmail.com>, 
-    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
-    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, stable <stable@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@intel.com>, 
-    Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
-    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-    Tate Whiteberg <whiteberg@arista.com>, 
-    Christian Marangi <ansuelsmth@gmail.com>, 
-    John Ogness <john.ogness@linutronix.de>, 
-    Fushuai Wang <wangfushuai@baidu.com>
-Subject: Re: [PATCH 03/24] serial: 8250: don't wait for the em485 timers
- locked
-In-Reply-To: <20261027-tty-llm-v1-3-99b0202ae546@linuxfoundation.org>
-Message-ID: <c53e055a-b2c4-9360-41e4-dfbe757c86d4@linux.intel.com>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-3-99b0202ae546@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ClArcnUw
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a01cac8733so3009314b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:40:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793101201; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BSDvf97O1dLKlwiUNnkRCXqQ/y84WSQ9zL6P7OzWPrRwtG8B0WvuhebSyvRaVltbBe
+         ippB+BC3yq7bt8t2TdhzSPE8RotM0bokI52zotAAh1xrb45HA0xMO2wjdxZZXmufQ5em
+         ckYwx/QThsu2ZLdLX+VyWEBOXh0bbsu2ohHvtPo9rXv7/jNBixpdOBCRaMNtJlg+OC+Z
+         XndeCIUUaN6XP65bklCnN6K+BrNPqYb87vGBGFSblO9syAWGgPf97lSP3h/eX0hSagTR
+         eP7t9LzyjkNJ/eoJY0qtEqVds5ZJiB8vVnOa5fk93/EI6JHD+gPmhZxLcCOJfyGfuoqr
+         ASYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8xwtJD2tDU+fIoTVWwQ7vdURPVaDHGIK/RJJWfEVHd4=;
+        fh=RTOp0jxxpOCCYwqLgsZHNeXIytktX9dRdJRTnfPT9Mw=;
+        b=D6Avng+pDzcyiyCy7SgLYTxneNgYKu4qbuYBoGyRZyzPZHBPDilfzYQvT1PPR9U4R5
+         bvOnrkd348NayQ98Q0sjl2BNN/Krdbx8NnPIrKy+03uy28F9MqS/wCODtsHHL6oB5We5
+         Yilhm3VV2tlmdhf0clCXsOu6rAJqI+LAs0RID0/qO3LoJPlKk63qa9XOVa5YAhQojlcl
+         BIKtDPgL6BPqmIRO+acya4dOD14qbpqGEymY0zNuY2LlVLEFmxPO2etvvdqaxFKFGfnC
+         Zay0j0Tgt6AxBO+PvIGYSqvrF60dKlfdg7qmwAssdU51FbGznN9Sn8OiZo7wyLuoivQq
+         lsNg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793101201; x=1793706001; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8xwtJD2tDU+fIoTVWwQ7vdURPVaDHGIK/RJJWfEVHd4=;
+        b=ClArcnUwVnEcQib5RUm+MZRj7dn3IO/z12g8FhLlci2VvfaYvuPcha2W9S00ON6tBV
+         0tjQQ9HFMjfSe9F8eB3caJN4j3Fyf+9oGcVtjUjQO2al+KX3o5Z2J5mTBbQ2V2u2Z4W1
+         4hws4IE2I/jM3+FOoY/fvG4ZgoHKCR4qMtngWjMhiP+s8x/z10c2Gldu3P4jqmSl4XDe
+         YkDAiP/Cy/rh2y8Fj0yaf1IsTtoRFByaQF5tIeSRxkX8kFv0nRUaUEznsNh3p8ayjnoJ
+         et7+XkoqJybqu9GcH5JuRuYoiFVCj/4PR0AdqTGmoOSwx2l1StTtrS2T+juZF3JvAOjn
+         sp8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793101201; x=1793706001;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8xwtJD2tDU+fIoTVWwQ7vdURPVaDHGIK/RJJWfEVHd4=;
+        b=ZKxfuPw7iRsoHDbAS2kQStih7eaYv7JTzlHouLSZnUKhUNKX2hbTIMr4NJxvKOufRJ
+         wo53JzpIeEDhnAeIdnqMYHFcG9bdSyBKeeg7CDBfVV2rI133O37+yFxJEE4W2nDSne6L
+         j+y5VR3aIiIjS6bHXwqnVZvSZC36wCsaz96q1OVc3XUHufy4/GWKPlAFnY1+vN2XqksI
+         W3w36ECjdqnJLD1vLKDu6V/2tq42wiNTKcSAN/t+LlXy+ay0v0ahFcYB7MIA9kAxZzjW
+         v7kpQmMafypIIEo4gVcbmJmNEtDF20ES48R/qwgKmc4spIu/B/GXyAj8Syav6sO98JiO
+         w66Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzp/4SgnRwrq7tnWxmHLQ1JtbFMNeQ25H95U2/PcP/2yFsLMIhl7RsupQ77ksA8yEQptwUEXs2C7MHmEqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLoMffYZVF0HKcXmoQDcx+edmJtNtRl2T/lo+xwsIk70e80gycj
+	cYFCXH164y9VS6pQsBKQHwl6//YVH12ocPh86inOHsRjSKl+Aipum27RGmNFGj/R3aR/vuHqlak
+	yYRr02E+KVhYZBNebl9fJSVRLMBX1v8f82NhmGq7IOQ==
+X-Gm-Gg: AYBFou2FD3SaJdWoccWoAz4pbcRNcPXLDrVKOlLdUOXS+MrD7U4VE32DOnys6PS2c7y
+	LTlByHeu6qnR5ls3ob72o1QA9vmku14MkmhtsP/Wil/G/Vo6NUhwiFaOnTBxn1NUommfQGyVLBJ
+	m+G0kevsA2cCLV26GFVqQwnruGfF8K7/xcC8NAgbn9vDHbilyFWaTHANfQW4F/B56yZWSF6PlJc
+	clWV4xWgajGPfeNZdKV2d4Z63bD38r94tRJrRlibFQkBgh0YIoodQJgJ3VddJTjqiKVfzwLPg7E
+	NymtM/HgBdy9H0EcWAeZ7W3yCoX+jyJFy2yY6y2c4quT/m7VLvIfjowXF+ViWP6vhV+37CNiVYz
+	QbPjHYM5dOyUkV/89mKOTlpRScpc2G49rz77ezltBE0pSCv83o58yvyAJt35/b88CexznyA==
+X-Received: by 2002:a05:6a00:98d:b0:89f:5ac6:32f6 with SMTP id
+ d2e1a72fcca58-8a366f67343mr6490150b3a.24.1793101201328; Tue, 27 Oct 2026
+ 04:40:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,228 +104,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1123129667-1793101174=:1182"
+References: <20261026084035.535989-1-hui.zhu@linux.dev>
+In-Reply-To: <20261026084035.535989-1-hui.zhu@linux.dev>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Tue, 27 Oct 2026 19:39:23 +0800
+X-Gm-Features: AclHuK_TYPiGSVgmW4A3CkA1FUOBB7hbFiGmI0M9h0LRJd1ARuctkV948Qsk3Ls
+Message-ID: <CAMgjq7AJSU9jUBTHGcm05mtGBH4EMQ_ua9YNwuLOGVzhkdLKkA@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Yu Zhao <yuzhao@google.com>, Barry Song <baohua@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-1123129667-1793101174=:1182
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
-
-> From: Josef Bacik <josef@toxicpanda.com>
->=20
-> serial8250_em485_destroy() is called with the port lock held and
-> interrupts off, from ->rs485_config() and from
-> serial8250_unregister_port().  It calls hrtimer_cancel(), which waits
-> for a handler which is running, and both handlers start by taking the
-> port lock:
->=20
->   CPU0                                  CPU1
->   ioctl(TIOCSRS485), rs485 off
->   uart_set_rs485_config()
->     uart_port_lock_irqsave()            serial8250_em485_handle_stop_tx()
->     serial8250_em485_config()             uart_port_lock_irqsave()
->       serial8250_em485_destroy()            spins
->         hrtimer_cancel()
->           spins
->=20
-> All it takes is to turn RS485 off right after the end of a transmission,
-> when the timer for delay_rts_after_send expires.
->=20
-> The handlers do nothing unless em485->active_timer points to their
-> timer, so it is enough to clear that pointer.  What cannot be done with
-> the lock held is to free the structure: hrtimer_try_to_cancel() fails
-> for a timer whose handler is running, even if it has been started again
-> in the meantime.  So keep the structure in the port when RS485 is turned
-> off, use it again when RS485 is turned on, and free it when the port is
-> unregistered, where the timers can be waited for without the lock.
->=20
-> A port on which RS485 emulation has been used once keeps the structure,
-> about 150 bytes, until it is unregistered.
->=20
-> Fixes: 6e0a5de2136b ("serial: 8250: Use hrtimers for rs485 delays")
-> Cc: stable <stable@kernel.org>
-> Cc: Jiri Slaby <jirislaby@kernel.org>
-> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> Cc: "Uwe Kleine-K=C3=B6nig (The Capable Hub)" <u.kleine-koenig@baylibre.c=
-om>
-> Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
-> Cc: Tate Whiteberg <whiteberg@arista.com>
-> Cc: Christian Marangi <ansuelsmth@gmail.com>
-> Cc: John Ogness <john.ogness@linutronix.de>
-> Cc: Crescent Hsieh <crescentcy.hsieh@moxa.com>
-> Cc: Fushuai Wang <wangfushuai@baidu.com>
-> Cc: Rafael Gago Castano <rgc@hms.se>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+On Mon, Oct 26, 2026 at 4:41=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
+>
+> From: Hui Zhu <zhuhui@kylinos.cn>
+>
+> lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
+> lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen()
+> returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check without
+> clearing the refs or PG_workingset.
+>
+> A MADV_FREE folio therefore keeps the state it had before madvise(2),
+> even though madvise_free_pte_range() has already cleared the accessed and
+> dirty bits of its PTEs.  lru_gen_folio_seq() places it one generation
+> younger, and PG_workingset puts it in the last tier, so sort_folio()
+> promotes and protects it instead of evicting it and charges it to
+> lrugen->protected[], which read_ctrl_pos() uses to balance anon against
+> file reclaim.  __folio_inc_gen() clears the refs but not PG_workingset,
+> so this repeats every time the folio reaches the oldest generation.  If
+> the folio is redirtied first, ttu_anon_lazyfree_folio() keeps it and
+> lru_gen_eviction() packs the stale state into the shadow entry, so a
+> later refault is promoted to the youngest generation.
+>
+> Call lru_gen_clear_refs() while the folio is still on the generation
+> list, as deactivate_file_folio() and folio_deactivate() already do.  Its
+> return value only says whether the folio is in the oldest generation,
+> which lru_lazyfree() does not need because it re-adds the folio below.
+> Keep folio_clear_referenced() unconditional: the classic LRU needs it,
+> and it also covers the folios that lru_gen_clear_refs() skips.
+>
+> Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
+> Suggested-by: Barry Song <baohua@kernel.org>
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 > ---
->  drivers/tty/serial/8250/8250.h      |  1 +
->  drivers/tty/serial/8250/8250_core.c |  5 +---
->  drivers/tty/serial/8250/8250_port.c | 60 ++++++++++++++++++++++++++++++-=
-------
->  include/linux/serial_8250.h         |  1 +
->  4 files changed, 52 insertions(+), 15 deletions(-)
->=20
-> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/825=
-0.h
-> index 21ed9c41b751..82a3b8359643 100644
-> --- a/drivers/tty/serial/8250/8250.h
-> +++ b/drivers/tty/serial/8250/8250.h
-> @@ -235,6 +235,7 @@ int serial8250_em485_config(struct uart_port *port, s=
-truct ktermios *termios,
->  void serial8250_em485_start_tx(struct uart_8250_port *p, bool toggle_ier=
-);
->  void serial8250_em485_stop_tx(struct uart_8250_port *p, bool toggle_ier)=
-;
->  void serial8250_em485_destroy(struct uart_8250_port *p);
-> +void serial8250_em485_free(struct uart_8250_port *p);
->  extern struct serial_rs485 serial8250_em485_supported;
-> =20
->  /* MCR <-> TIOCM conversion */
-> diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/825=
-0/8250_core.c
-> index 42319843cb5b..0951d3e42e1f 100644
-> --- a/drivers/tty/serial/8250/8250_core.c
-> +++ b/drivers/tty/serial/8250/8250_core.c
-> @@ -947,10 +947,7 @@ void serial8250_unregister_port(struct uart_8250_por=
-t *uart)
->  {
->  =09guard(mutex)(&serial_mutex);
-> =20
-> -=09if (uart->em485) {
-> -=09=09guard(uart_port_lock_irqsave)(&uart->port);
-> -=09=09serial8250_em485_destroy(uart);
-> -=09}
-> +=09serial8250_em485_free(uart);
-> =20
->  =09uart_remove_one_port(&serial8250_reg, &uart->port);
->  =09if (serial8250_isa_devs) {
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
-0/8250_port.c
-> index 36b2b0a2c05c..3d47f535d6f1 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -574,15 +574,22 @@ static int serial8250_em485_init(struct uart_8250_p=
-ort *p)
->  =09if (p->em485)
->  =09=09goto deassert_rts;
-> =20
-> -=09p->em485 =3D kmalloc_obj(struct uart_8250_em485, GFP_ATOMIC);
-> -=09if (!p->em485)
-> -=09=09return -ENOMEM;
-> +=09if (p->em485_idle) {
-> +=09=09p->em485 =3D p->em485_idle;
-> +=09=09p->em485_idle =3D NULL;
-> +=09} else {
-> +=09=09p->em485 =3D kmalloc_obj(struct uart_8250_em485, GFP_ATOMIC);
-> +=09=09if (!p->em485)
-> +=09=09=09return -ENOMEM;
-> =20
-> -=09hrtimer_setup(&p->em485->stop_tx_timer, &serial8250_em485_handle_stop=
-_tx, CLOCK_MONOTONIC,
-> -=09=09      HRTIMER_MODE_REL);
-> -=09hrtimer_setup(&p->em485->start_tx_timer, &serial8250_em485_handle_sta=
-rt_tx, CLOCK_MONOTONIC,
-> -=09=09      HRTIMER_MODE_REL);
-> -=09p->em485->port =3D p;
-> +=09=09hrtimer_setup(&p->em485->stop_tx_timer,
-> +=09=09=09      &serial8250_em485_handle_stop_tx, CLOCK_MONOTONIC,
-> +=09=09=09      HRTIMER_MODE_REL);
-> +=09=09hrtimer_setup(&p->em485->start_tx_timer,
-> +=09=09=09      &serial8250_em485_handle_start_tx, CLOCK_MONOTONIC,
-> +=09=09=09      HRTIMER_MODE_REL);
-> +=09=09p->em485->port =3D p;
-> +=09}
->  =09p->em485->active_timer =3D NULL;
->  =09p->em485->tx_stopped =3D true;
-> =20
-> @@ -604,6 +611,11 @@ static int serial8250_em485_init(struct uart_8250_po=
-rt *p)
->   *=09The function is supposed to be called from .rs485_config callback
->   *=09or from any other callback protected with p->port.lock spinlock.
->   *
-> + *=09The handlers of the timers take that lock, so they cannot be waited=
- for
-> + *=09here. One which is running does nothing, as no timer is active any =
-more.
-> + *=09The memory is kept for the next serial8250_em485_init() and freed b=
-y
-> + *=09serial8250_em485_free().
-> + *
->   *=09See also serial8250_em485_init()
->   */
->  void serial8250_em485_destroy(struct uart_8250_port *p)
-> @@ -611,14 +623,40 @@ void serial8250_em485_destroy(struct uart_8250_port=
- *p)
->  =09if (!p->em485)
->  =09=09return;
-> =20
-> -=09hrtimer_cancel(&p->em485->start_tx_timer);
-> -=09hrtimer_cancel(&p->em485->stop_tx_timer);
-> +=09hrtimer_try_to_cancel(&p->em485->start_tx_timer);
-> +=09hrtimer_try_to_cancel(&p->em485->stop_tx_timer);
-> +=09p->em485->active_timer =3D NULL;
-> =20
-> -=09kfree(p->em485);
-> +=09p->em485_idle =3D p->em485;
->  =09p->em485 =3D NULL;
->  }
->  EXPORT_SYMBOL_GPL(serial8250_em485_destroy);
+> Changelog:
+> v2:
+> Call lru_gen_clear_refs() before lruvec_del_folio() instead of
+> open-coding the flag clears; drop the lru_gen_enabled() branch and
+> the comment (Barry Song).
+>
+>  mm/folio.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/mm/folio.c b/mm/folio.c
+> index 35e242b48870..ea3adb6a89d7 100644
+> --- a/mm/folio.c
+> +++ b/mm/folio.c
+> @@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, str=
+uct folio *folio)
+>             folio_test_swapcache(folio) || folio_test_unevictable(folio))
+>                 return;
+>
+> +       lru_gen_clear_refs(folio);
+>         lruvec_del_folio(lruvec, folio);
+>         folio_clear_active(folio);
+> -       if (lru_gen_enabled())
+> -               lru_gen_clear_refs(folio);
+> -       else
+> -               folio_clear_referenced(folio);
+> +       folio_clear_referenced(folio);
 
-The name is pretty misleading after this change when all it now does is=20
-stop timers.
+Why can't we just call folio_set_lru_refs(.., 0), and should we clear
+PG_workingset? Keeping it helps PSI on refualt / redirty tracking (not
+sure if meaningful but CLRU does this), clearing it makes eviction
+better, but the eviction issue is MGLRU-only, CLRU keeps it.
 
---
- i.
+And folio_set_lru_refs(.., 0) should be a little bit faster and unify
+CLRU / MGLRU. And we can detect lazy freed folios in sort_folios to
+avoid PID form touching them?
 
-> =20
-> +/**
-> + *=09serial8250_em485_free() - release the rs485 emulation of a port
-> + *=09@p:=09uart_8250_port port instance
-> + *
-> + *=09Must be called without p->port.lock, as it waits for the timers.
-> + */
-> +void serial8250_em485_free(struct uart_8250_port *p)
-> +{
-> +=09struct uart_8250_em485 *em485;
-> +
-> +=09scoped_guard(uart_port_lock_irqsave, &p->port) {
-> +=09=09serial8250_em485_destroy(p);
-> +=09=09em485 =3D p->em485_idle;
-> +=09=09p->em485_idle =3D NULL;
-> +=09}
-> +
-> +=09if (!em485)
-> +=09=09return;
-> +
-> +=09hrtimer_cancel(&em485->start_tx_timer);
-> +=09hrtimer_cancel(&em485->stop_tx_timer);
-> +=09kfree(em485);
-> +}
-> +EXPORT_SYMBOL_GPL(serial8250_em485_free);
-> +
->  struct serial_rs485 serial8250_em485_supported =3D {
->  =09.flags =3D SER_RS485_ENABLED | SER_RS485_RTS_ON_SEND | SER_RS485_RTS_=
-AFTER_SEND |
->  =09=09 SER_RS485_TERMINATE_BUS | SER_RS485_RX_DURING_TX,
-> diff --git a/include/linux/serial_8250.h b/include/linux/serial_8250.h
-> index d91c0477be9d..0556bb722db4 100644
-> --- a/include/linux/serial_8250.h
-> +++ b/include/linux/serial_8250.h
-> @@ -173,6 +173,7 @@ struct uart_8250_port {
->  =09void=09=09=09(*dl_write)(struct uart_8250_port *up, u32 value);
-> =20
->  =09struct uart_8250_em485 *em485;
-> +=09struct uart_8250_em485 *em485_idle;=09/* kept while rs485 is off */
->  =09void=09=09=09(*rs485_start_tx)(struct uart_8250_port *up, bool toggle=
-_ier);
->  =09void=09=09=09(*rs485_stop_tx)(struct uart_8250_port *up, bool toggle_=
-ier);
-> =20
->=20
->=20
---8323328-1123129667-1793101174=:1182--
+Something like:
+diff --git a/mm/folio.c b/mm/folio.c
+index 35e242b48870..416cd4beb182 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -599,10 +599,7 @@ static void lru_lazyfree(struct lruvec *lruvec,
+struct folio *folio)
+
+        lruvec_del_folio(lruvec, folio);
+        folio_clear_active(folio);
+-       if (lru_gen_enabled())
+-               lru_gen_clear_refs(folio);
+-       else
+-               folio_clear_referenced(folio);
++       folio_set_lru_refs(folio, 0);
+        /*
+         * Lazyfree folios are clean anonymous folios.  They have
+         * the swapbacked flag cleared, to distinguish them from normal
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6a1af9b92349..e64b7f544d15 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4835,6 +4835,10 @@ static bool sort_folio(struct lruvec *lruvec,
+struct folio *folio, struct scan_c
+        if (!folio_evictable(folio))
+                return false;
+
++       /* No need to protect lazyfreed folios */
++       if (folio_test_lazyfree(folio) && !folio_test_dirty(folio))
++               return false;
++
+        /* promoted */
+        if (gen !=3D lru_gen_from_seq(lrugen->min_seq[type])) {
+                list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
+
+---
+
+BTW I also tried to cover this in MGLRU-FG series (not including the
+sort_folio part):
+https://lore.kernel.org/linux-mm/20261016-mglru-fg-v4-13-2106750c0bfa@tence=
+nt.com/
+
+I tested keeping min(refs, LRU_REFS_WORKINGSET) / just set to 0 as in
+v4, nothing different from the workload (testing using Android apps as
+workload), so I think it's fine either way but the above patch I
+posted might help to impove it by a little?
+
+And if CLRU didn't actually expect PG_workingset to be kept but that's
+just a leftover or trivial, maybe we can always do both
+folio_clear_workingset and folio_set_lru_refs(0) here?
