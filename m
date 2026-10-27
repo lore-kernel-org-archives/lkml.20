@@ -1,41 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111387;
-	b=wyz388jcnx53lHHZGAODAlA45ydyLZzCdUJRY8zjBRH8MrRV0FA+g0lybRpti4OyHOmn
-	 NPJd6o5GMin7yFOhHK/EL8qVTEPEKWN97+yZrocBSYwNXD4f+fx+LhxmtlTObtJj2SwXa
-	 wI0KFDQqPTjaEw1BTcT+tRW0HOil5uVRT7HckoZidxiKHdyBtOPq2ErGZYZvhO82NJ+qV
-	 PwT96x5b43HIORvimQSsVQSVOZ1IPKcevKNILYo5OHsIxBdTXZdqSqlaSdBooFztHWg82
-	 ixIyUUck8ol2EPn+TfT82UzMXEIDnZBzgtjQVFP1rd6UIvbsRw7SvK5PTbtVF+G3zIw==
+	t=1793111407;
+	b=bNtzAKVUrXxZmwNg/V0irwllXR+32Mbz6BgCN0pWaoRAxJ9T1v8jBZRMkp68z4Xk1A/d
+	 W35vCz0wgzb7nMgDbt/aYnFyOwKjUNBkFw/j6+lnRMGn3ymQTfcWl148+wGYvc/Xph2p7
+	 Kp7IxGmGjDuKUfSgAwUqmAnvfOthwhyGrIzkr4bN7LQr1RpVudTdJ0ojDfdA+BMM1gG2I
+	 o12jnNiRCuOAzEBSF2F9E2Cczi77xlmBGNR7GLvcgYrL/hmox1HW5vJmY9bR8HYjoUFur
+	 P5lo7n+yjewErzD5JpSFFG/fzL5ZOwL+fVKpMEjmE+zYBn/Pm2ji7RxTWKYpLTMRlxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111387;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=RRSNq1zxoA231BThBII9TjSTdWRTSwesELUafvlkFhE=;
-	b=EoY5Ck2p77SnK/GurMJFrOJZlPMfj2TMfAQk1I3KIpJmuXvDHOXgUHZK5fIDcZkZV79h
-	 QbcQrvbVcvMFWs+hHlbhD0W9LY3pwBPIgtmnZItk4RwZ9H1NQADu61Zq2RHNOOXXFdvMe
-	 yl8dUpt7o3swwejofwdX5eT82CIefi5gN15di+6n3YlGtvCq+TeW+MTQfXxlqHezTQKc/
-	 VyNpPcL4t1XjMoY8lQ0QcGWLSxKI2R3+Jq9qi74EgaLfVvcXx4PVH5vw432NRm26kkooD
-	 6a+MXregOu3mVzBL2tWUJdUrRjZJBgerZRRe96yZbarhsojwhnhFHkLhLWK5K14qWxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=mrbZ17LpAhhKkCi5iZUrqpKRsF8yfX0XjlG6eVt89YM=;
+	b=O+yf4j5xCOIGiag2EOc0wIky/Al8tyCG9ZwUNuIhylDgFEtNQqhirhoXdCscuafU9klm
+	 LPSRXVxKDHm7d5yOCNrVEtZuKAQcZDwDDoc6ggz/emCpxkxjKKTX/SzK+5Dr5PXceaLXV
+	 XD+vX1kvakixhVUxj9aYhaFc6B9HHDB7CbMUDiYtn2+Sh/CDNxpc8g8F0uZbFp5uJWXnE
+	 /XP9V+Y7nJNnRRIo8ZnCXbv+quwej8KEYd+NAHJ+eN7gRae45IKRtcppfr7E9ZQ154xC+
+	 vGcs65dBl9Q1yNNcKcaisaIURbRrFtEh68IsB53yP4gDDwyXqpJBDRbVCUgT4VqNnRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=207.46.229.174
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F413C606A31A;
-	Tue, 27 Oct 2026 14:29:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F413C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app1 (Coremail) with UTF8SMTP id IAEQrMAWW6FVteBqkKk7AQ--.34984S2;
-	Tue, 27 Oct 2026 22:29:41 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wAHjC1SteBqhTwUAA--.39766S2;
-	Tue, 27 Oct 2026 22:29:40 +0800 (CST)
-Message-ID: <8f495858-3877-4807-ac62-5320d8d6696b@hust.edu.cn>
-Date: Tue, 27 Oct 2026 22:29:38 +0800
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHNcij2v;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10282606A324;
+	Tue, 27 Oct 2026 14:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHNcij2v
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C880A1F01825;
+	Tue, 27 Oct 2026 14:30:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793111406;
+	bh=mrbZ17LpAhhKkCi5iZUrqpKRsF8yfX0XjlG6eVt89YM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=gHNcij2v6Uvwdmuo7SLo7bsuQRyYjlVaJelsmOg4LJjSOxCx6+zHgC21CndGbg7OW
+	 i/c5RCWUZ5joS7DBrwXMBVlvo5xPyu8JcAHsYCmXnqq7MV2/m0029grSHKcQE2yShJ
+	 kIgPyR43T9MypAb2k9ZABOL7SChUoqZJgUHCllO6hztNpnzDJWzjMtLSF9JOi3r25J
+	 7DLGHYnPPDdmGb1WbYh86pRd9JsCqdLYPCngL8e36RLsAQT9qs0ds2ruvm/mRL5yWv
+	 NQ5EmI4Tp5eb6qnW5V/iZL1KsrC3N7XJAYznUaqhy4NXIIq58VwtSBp/nEvMYI7R5D
+	 0ylt3xAMfz7Tg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5C73AA942E;
+	Tue, 27 Oct 2026 14:30:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,80 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] docs/zh_CN: update translation of
- doc-guide/sphinx.rst
-To: Jiandong Qiu <qiujiandong1998@gmail.com>, alexs@kernel.org,
- si.yanteng@linux.dev
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org,
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: lan966x: do not warn on MAC entries that are not
+ port destined
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179311140532.3859410.11214781707545334136.git-patchwork-notify@kernel.org>
+Date: Tue, 27 Oct 2026 14:30:05 +0000
+References: <20261026-lan966x-mac-warn-v1-1-9c885f9cbda9@microchip.com>
+In-Reply-To: <20261026-lan966x-mac-warn-v1-1-9c885f9cbda9@microchip.com>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: horatiu.vultur@microchip.com, UNGLinuxDriver@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20260706151358.2103703-1-qiujiandong1998@gmail.com>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <20260706151358.2103703-1-qiujiandong1998@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:IAEQrMAWW6FVteBqkKk7AQ--.34984S2
-Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF15Gw4kJw4ftry8Cw1xKrg_yoW8Xw4xpF
-	Wjgr95Ga1kJw13tFW7G3yxWF18JF4fAF4Utay2qw15Zrn5Ar18XrWUtryDK39rWFyI9a98
-	ZFsIvaykury2yrJanT9S1TB71UUUUj7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQKb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
-	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
-	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
-	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
-	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
-	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
-	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGw
-	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48J
-	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
-	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2
-	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
+Hello:
 
-On 7/6/26 11:13 PM, Jiandong Qiu wrote:
-> Hi all,
->
-> This series refreshes the translation of doc-guide/sphinx.rst.
-> Since the updated version refers to process/changes.rst, I also add
-> the missing zh_CN translation for that file to ensure a consistent
-> reading experience.
->
-> Changes in v2 -> v3:
-> - sync changes.rst with the latest commit.
-> Changes in v1 -> v2:
-> - drop the separate llvm.rst anchor patch
-> - remove the `_sphinxdoc_zh` anchor from .../zh_CN/doc-guide/sphinx.rst
-> - add Assisted-by tags
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
+On Mon, 26 Oct 2026 14:46:28 +0100 you wrote:
+> lan966x_mac_irq_handler() scans the rows of the MAC table that the
+> analyzer reports as changed, reads back all four columns of each row and
+> treats ANA_MACACCESS.DEST_IDX as a port number.
+> 
+> Before this patch, a destination index above num_phys_ports hits a
+> WARN_ON(). The driver installs such entries itself:
+> lan966x_mac_cpu_learn() uses PGID_CPU, and L2 multicast entries use a
+> general-purpose PGID. A row holding one of them is read back whenever
+> another entry in the same row is learned or aged out, so the scan warns
+> in normal operation, repeatedly once the MAC table is busy.
+> 
+> [...]
 
-1. Add the new page to the Chinese process index. The series creates 
-process/changes.rst, but process/index.rst 
-(Documentation/translations/zh_CN/process/index.rst:72) still lists 
-changes as plain text under Todoolist.
+Here is the summary with links:
+  - [net] net: lan966x: do not warn on MAC entries that are not port destined
+    https://git.kernel.org/netdev/net/c/2cffcf1aeabb
 
-2. Commit 2c1ccd9a1d78 is not the lastest commit of changes.rst. Would 
-you like to catch up the latest commit?
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-3. Assisted-by tag can be removed in the next version.
-
-Dongliang Mu
-
-
->
-> Link: https://lore.kernel.org/linux-doc/20260619140245.1982921-1-qiujiandong1998@gmail.com/ # v1
-> Link: https://lore.kernel.org/linux-doc/20260621131215.1303439-1-qiujiandong1998@gmail.com/ # v2
->
-> Jiandong Qiu (2):
->    docs/zh_CN: add process/changes.rst translation
->    docs/zh_CN: update sphinx.rst translation
->
->   .../translations/zh_CN/doc-guide/sphinx.rst   | 167 ++++--
->   .../translations/zh_CN/process/changes.rst    | 533 ++++++++++++++++++
->   2 files changed, 666 insertions(+), 34 deletions(-)
->   create mode 100644 Documentation/translations/zh_CN/process/changes.rst
->
 
