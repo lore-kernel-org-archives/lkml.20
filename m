@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086651;
-	b=rs3LeSbBFrBM85HiQwiJ2BJYKZLukbwNxPaSC+UsP8huVbAaZUhAq1eCOntcPslQ6pEC
-	 G7L2BltQjm67OWS2OJVsYiur80aPyDCi2hLJDwvExjtTAuGiKlmAE1b8OHI0Usjc7ESfV
-	 fA98wXNyHznev6bIFxQPDOhRDtTviUx9AOQpI+afJjrWfXEWacRjzAMeOvbaEWdsU7865
-	 sWNArTsXynt4+srm/VBjPU+LN2YcSBqGAc8ds/LKDSEILwrvnM8neenjJpeV+tPAUex4W
-	 kTKr9TcC+z7KYPiwCctz9laZxpJPulvtK0UnQlcIr4XSCcxlHnMnM/FVNjYeM93kYDw==
+	t=1793086650;
+	b=CrVwvITmR43zVnhYnTO/af+H/yRxyd/NES3AxoFY0PIwnmjmY8gKryJkRRDZbmGMb7jk
+	 eJnt1pBmEO3Con3uy6x9askwMriPYlxcNfSzP5FjT0ecg34baZdvKjdEJSD8hB1V2I1NJ
+	 HKyNbPWiWMPLgQoDKWg/KNYtcnWT++9x9NJaUh88CdYHQjZ/1mo3ZyTns4lFfWcDjR07h
+	 eOS+934BimXOwfIiwN4C4VNZ93NTn8Jm5InG5KxKodaAANc5KCDyQqNz1/+xra/RuU+2w
+	 ZyMprY2swqPKRhjW9by08H03VetWKmBbNQv+HoAq9r7+xNTLxbxYE0iNfuNsrj691Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086651;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=+29yArDCdFelsSw6+eilN/PClZkfKC+UVplJMN2Zd4E=;
-	b=IqSzpOgLvjZuE1bIQ7nx7uuS4BU/6Pi9mTkwC6++xLfEAKQDF8lJkjojoOPIHSiaZ1/R
-	 7tnOFSrT6wXnjpE2vhu2bawS1bqBHs18BWEQfMR2cjH+10ff+eUb+G8BRbOJ9e/NvtV/a
-	 yrYzJsy/fwRkRnQ/63NZJzQTB9QCe/7Vrz3foaPTShcwjoqLhbr+v7H41sFXMHsWLVPWV
-	 WELnUjXDplYdJynjtXr0bWXustuUhnl0/q4jRKhdsYvWci6uPnyAwxXYGr74Lxur9aQl4
-	 V2Eqzoio04GN/teHZkOZWyHQmEi9ftDLiF5bDJht1VFKH7ZFSfT4aJ8BJVfqMm9oOSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086650;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=2e0MsO9AHXoJdX9UWJnkLnX9r1+Gelx4hH11sNzcLnU=;
+	b=KcjVZMuXmVu0eUtZ8DOHA2TFolKt2Ha/uly1sVkd6NR9yKDd0hyDSLpZpWvjMpNzQgoP
+	 Y8S0hEXyqq6TPVMw7r+M54LtGYpvg5eqnxla39SqfcFFidAZP+gvxcz+MjolO58jpQ43S
+	 17j4nSZIpi3jdotR6iwBkUCUysIDi7eey2GnAQh2ohiY03r1DmALhIvzxuxFDI1WpWFZG
+	 UDFMlIfTLfFxeR04E/UoS3RO8UdEv4oBkTme9nYz7ogxMIeQgukt3R67BMsu8WWXmwvrX
+	 aOYA1p6BtoW7vv3OIAs34jGMLqTO6VMFKaUcML8wnEvOPC2WaJftvFeAggrCyJSMFnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LiMiXO05;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BFD606A321;
-	Tue, 27 Oct 2026 07:37:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BFD606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 082F54BB;
-	Tue, 27 Oct 2026 08:35:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793086510;
-	bh=LuZw3twwubyd1xRHjyBg1PG1GSitNssD581FJ4JnyuM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mm6bHsNqAcqxPbiF/11HH6vnpPGk0M1lQo9FyVRelcQlcevCBsBiocrKBL+1ejszp
-	 coGGi4RiaD1NdlqShjhn+umFUoEzPy3SiDIn1IcSa5m8bo9059HhLj0pBcXYU/HBIx
-	 AqHULMr0q3giHvDcN0ZlaIFLFexyuTidRYch99sM=
-Date: Tue, 27 Oct 2026 09:37:20 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Hans Verkuil <hans@jjverkuil.nl>
-Subject: Re: [GIT PULL for v7.4] media updates
-Message-ID: <20261027073720.GD2005298@killaraus.ideasonboard.com>
-References: <20261024185058.20410953@foz.lan>
- <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
- <at-a-2wTtf7bJQwU@kekkonen.localdomain>
- <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
- <20261027005656.6ce24b82@foz.lan>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDA4606ADA0;
+	Tue, 27 Oct 2026 07:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LiMiXO05
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4E41F031E2;
+	Tue, 27 Oct 2026 07:37:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793086649;
+	bh=2e0MsO9AHXoJdX9UWJnkLnX9r1+Gelx4hH11sNzcLnU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=LiMiXO059gYMjJvZr3VzMyWO43KUzF7Wp1TA4eVCncm5L4TF2HvEMMEPlmrQuxURQ
+	 7Qri08L+bSiekRaf8ahClnK+pH/yZZpL66bfaqi16kUFR74WaSNx2fUIW/Io/KjkD1
+	 ptoFnlFXzdZ6iJmcJVCDT6HjPOdbZrBcGF1OCEAtRZC8rilkLipcTQitTev10krH/+
+	 yEzaSwjgtsSruzupiE+YaAzIX0SAbe0kZR8mJGGuXbZ5HwEJ8wGaHcELskV2REmCvo
+	 DM3TfPoLLqL664GbPVq2E7xKldS4wCkDe0z5UijqVodsZ6OmlHX/E5RFNUv1FFWgGi
+	 tUo1gUXxDWqGw==
+Subject: Re: [PATCH 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check
+ for overflow flag if SKB allocation fails
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
+ max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Tue, 27 Oct 2026 07:37:28 +0000
+Message-ID: <179308664876.3130.13155434112115626633@kernel.org>
+In-Reply-To: <20261025-gs_usb-fixes-v1-3-f74ebbd4da36@pengutronix.de>
+References: <20261025-gs_usb-fixes-v1-3-f74ebbd4da36@pengutronix.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,111 +64,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261027005656.6ce24b82@foz.lan>
 
-On Tue, Oct 27, 2026 at 12:56:56AM +0100, Mauro Carvalho Chehab wrote:
-> On Mon, 26 Oct 2026 08:53:07 -1000 Linus Torvalds wrote:
-> 
-> > On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
-> > >
-> > > The patch in question puts camera sensors and related chips in line with
-> > > how the rest of the drivers are selected elsewhere.  
-> > 
-> > .. and other places could probably be improved too, I agree.
-> > 
-> > But this made things *worse*. Much worse.
-> > 
-> > The thing is, at least hide them behind some "embedded camera options"
-> > that in turn is hidden behind "EXPERT" or something like that.
-> > 
-> > Don't make *normal* people who build their own kernels have to see or know.
-> > 
-> > Let's say that you have a laptop or something that actually uses one
-> > of these sensors for a webcam, then it STILL does not help to ask a
-> > user
-> > 
-> >  "Do you want a driver for the Analog Devices ADV7170 video encoder"
-> > 
-> > Because (a) that chip legacy and likely not in any laptop anyway and
-> > (b) even if it was, no laptop user is going to *know* that.
-> > 
-> > See what I'm saying? You literally make things worse. Don't do that.
-> > You're making the kernel Kconfig script ask insane questions. They are
-> > insane because you cannot reasonably expect people to actually know
-> > the answer to the questions.
-> > 
-> > In other words: don't ask questions that you know the user cannot answer.
-> > 
-> > There was a REASON why those menus were hidden.
-> 
-> I agree with Linus on that. You're basically rolling back a feature
-> that simplifies a lot the life for normal users: let Kconfig choose
-> options that only a media expert can answer.
-> 
-> Now, I understand why it is tempting to do that to help with IPU
-> support: camera sensors can now be easily interchangeable on new 
-> Intel hardware.
-> 
-> If you look on some drivers from the old days, like bttv, saa7134
-> and cx88, they had similar problems, but they still do support
-> autoselect mode.
-> 
-> For instance, drivers/media/tuners/Kconfig has this:
-> 
->    config MEDIA_TUNER
->         tristate
->         depends on (MEDIA_ANALOG_TV_SUPPORT || MEDIA_DIGITAL_TV_SUPPORT || MEDIA_RADIO_SUPPORT || MEDIA_SDR_SUPPORT) && I2C
->         default y
->         select MEDIA_TUNER_XC2028 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_XC5000 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_XC4000 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_MT20XX if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_TDA8290 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_TEA5761 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
->         select MEDIA_TUNER_TEA5767 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
->         select MEDIA_TUNER_SIMPLE if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_TDA9887 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_MC44S803 if MEDIA_SUBDRV_AUTOSELECT
-> 
-> which is meant to support the most popular I2C tuners.
-> 
-> In the specific case of IPU (and atomisp, once moved out of staging),
-> the right solution would be to have something similar to it, e.g.
-> something like:
-> 
-> 	config VIDEO_INTEL_IPU6
-> 	select VIDEO_OV2680 if MEDIA_SUBDRV_AUTOSELECT
-> 	select VIDEO_OV2685 if MEDIA_SUBDRV_AUTOSELECT
-> 	...
-> 	
-> for each sensor that might be possible to be used there. Another
-> alternative would be to do it the reverse way, e.g.:
-> 	
-> 	config VIDEO_OV2680
-> 		default MEDIA_SUBDRV_AUTOSELECT && VIDEO_INTEL_IPU6
-> 
-> or, maybe even better:
-> 
-> 	# Make setup easier by identifying PC MC-based drivers on a single place
-> 	config MEDIA_SENSOR_AUTOSELECT
-> 	depends on VIDEO_INTEL_IPU6
-> 	default y
-> 
-> 	config VIDEO_OV2680
-> 	default MEDIA_SENSOR_AUTOSELECT
-> 
-> Placing MEDIA_SENSOR_AUTOSELECT on sensor drivers. We may need
-> similar code also for other I2C drivers that could be used on IPU.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-You're forgetting that this affects not only Intel-based machines with
-raw sensors, but a lot of Arm laptops too. We would end up selecting a
-vast majority of sensor drivers unconditionally. If we want to go that
-route, a single option to select all camera sensor drivers would be
-simpler.
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0 (1)
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In gs_usb_receive_bulk_callback()
+  (drivers/net/can/usb/gs_usb.c), both new SKB-allocation-failure…
+
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but in
+  gs_usb_receive_bulk_callback() (drivers/net/can/usb/gs_usb.c) the…
+- [Low] At this commit, the check_overflow block in
+  gs_usb_receive_bulk_callback() (drivers/net/can/usb/gs_usb.c:744-746)…
+
+--
+
+can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
+
+This commit changes the alloc_can_skb() and alloc_canfd_skb() failure
+paths in gs_usb_receive_bulk_callback(). They now update the RX statistics
+and jump to a new check_overflow label instead of resubmitting the URB
+directly. As a result, GS_CAN_FLAG_OVERFLOW in the host frame is still
+handled when the SKB allocation fails.
+
+Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
+
+> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> index 985d6a9113d96..5687544af99c8 100644
+> --- a/drivers/net/can/usb/gs_usb.c
+> +++ b/drivers/net/can/usb/gs_usb.c
+> @@ -673,8 +673,12 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+>  	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
+>  		if (hf->flags & GS_CAN_FLAG_FD) {
+>  			skb = alloc_canfd_skb(netdev, &cfd);
+> -			if (!skb)
+> -				goto resubmit_urb;
+> +			if (!skb) {
+> +				netdev->stats.rx_dropped++;
+> +				netdev->stats.rx_errors++;
+> +
+> +				goto check_overflow;
+> +			}
+
+[Severity: Medium]
+The commit message says "first update the dropped RX statistics". However,
+both new allocation failure branches (CAN FD here, and Classical CAN in the
+next hunk) also increment rx_errors. Is rx_errors the right counter for a
+host-side allocation failure?
+
+The kernel-doc for struct rtnl_link_stats64 in include/uapi/linux/if_link.h
+defines the two counters like this:
+
+ * @rx_errors: Total number of bad packets received on this network device.
+ ...
+ * @rx_dropped: Number of packets received but not processed,
+ *   e.g. due to lack of resources or unsupported protocol.
+
+In this path the frame arrived intact and only the SKB allocation on the
+host failed.
+
+Other CAN drivers that handle an alloc_can_skb() or alloc_canfd_skb()
+failure count only rx_dropped. Examples are m_can.c, c_can_main.c,
+mcp251xfd-rx.c, kvaser_usb_hydra.c and es58x_core.c. The shared rx-offload
+helper also leaves rx_errors alone:
+
+drivers/net/can/dev/rx-offload.c:can_rx_offload_offload_one() {
+    ...
+	if (IS_ERR(skb)) {
+		offload->dev->stats.rx_dropped++;
+		offload->dev->stats.rx_fifo_errors++;
+    ...
+}
+
+With this change, would memory pressure on the host show up as RX errors
+on a gs_usb interface? Those would look like bus or controller faults, and
+the change would reach stable through the Cc: stable tag.
+
+A minor point: the new lines use netdev->stats directly, while the rest of
+gs_usb_receive_bulk_callback() uses the local stats pointer.
+
+>  
+>  			cfd->can_id = le32_to_cpu(hf->can_id);
+>  			cfd->len = data_length;
+> @@ -686,8 +690,12 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+>  			memcpy(cfd->data, hf->canfd->data, data_length);
+>  		} else {
+>  			skb = alloc_can_skb(netdev, &cf);
+> -			if (!skb)
+> -				goto resubmit_urb;
+> +			if (!skb) {
+> +				netdev->stats.rx_dropped++;
+> +				netdev->stats.rx_errors++;
+> +
+> +				goto check_overflow;
+> +			}
+>  
+>  			cf->can_id = le32_to_cpu(hf->can_id);
+>  			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but the Classical CAN error
+frame handling is still skipped when alloc_can_skb() fails. A little
+further down, after the allocation succeeds:
+
+	/* ERROR frames tell us information about the controller */
+	if (le32_to_cpu(hf->can_id) & CAN_ERR_FLAG)
+		gs_update_state(dev, cf);
+
+gs_update_state() is the only place where controller state reported by the
+device reaches dev->can.state and can_stats (restarts, bus_off,
+error_warning, error_passive). It reads cf->can_id and cf->data[1], and the
+same values are available in hf->can_id and hf->classic_can->data[1].
+
+An error frame can carry a BUS_OFF, RESTARTED, warning or passive
+transition. If one arrives while alloc_can_skb() fails, the goto
+check_overflow skips the state update. Can dev->can.state then stay stale
+until another state change frame arrives and its allocation succeeds?
+
+Some peer drivers update controller state even when the error SKB
+allocation fails. For example, esd_usb.c does:
+
+	skb = alloc_can_err_skb(priv->netdev, &cf);
+	if (!skb)
+		stats->rx_dropped++;
+
+	if (state != priv->old_state) {
+
+The original return, and the later goto resubmit_urb from commit
+68c5724ecd15, also skipped this update. The patch does not address it.
+
+[ ... ]
+
+> @@ -728,6 +736,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+>  		netif_wake_queue(netdev);
+>  	}
+>  
+> +check_overflow:
+>  	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
+>  		stats->rx_over_errors++;
+>  		stats->rx_errors++;
+
+[Severity: Low]
+This is a pre-existing issue, but at this commit the overflow block
+continues like this:
+
+		skb = alloc_can_err_skb(netdev, &cf);
+		if (!skb)
+			goto resubmit_urb;
+		...
+	}
+
+	can_rx_offload_irq_finish(&dev->offload);
+
+resubmit_urb:
+
+If alloc_can_err_skb() fails, this path skips
+can_rx_offload_irq_finish(). An RX SKB queued earlier in the same callback
+by gs_usb_rx_offload(), or an echo SKB queued by gs_usb_get_echo_skb(),
+then stays on offload->skb_irq_queue. NAPI is not scheduled until a later
+URB completion calls irq_finish.
+
+On the new allocation failure paths added here, nothing has been queued
+before check_overflow, so this patch does not make the delay worse.
+
+The next patch in this series, "can: gs_usb:
+gs_usb_receive_bulk_callback(): add missing call to
+can_rx_offload_irq_finish", changes this to goto can_rx_offload_irq_finish
+and adds a matching label, which fixes the skipped irq_finish.
+
+One part is not covered by that patch: when alloc_can_err_skb() fails,
+rx_dropped is not incremented for the lost overflow error frame. The
+overflow event itself is still counted in rx_over_errors and rx_errors.
+Should rx_dropped be incremented here as well?
 
 -- 
-Regards,
-
-Laurent Pinchart
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025-gs_usb-fixes-v1-0-f74ebbd4da36%40pengutronix.de
