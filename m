@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793136603;
-	b=GoVNkM+KPDUn0Bc3S6r5ulmFHHdCgVmVbLfxzWOI+dTmfR7OSTjBcaA7jztZCXkaZVZs
-	 DxcNRmnHUYpZ1sz+h6Ks5GgpflgLRM/N+ojTfBv9SzGPaAxYzg4lP58fhgBqBgEa7FucS
-	 O0mbDBQ+l7kuu9vC36EiX+9hgUIMTjrr38Qdnln3iYqrwUAHCgLKbe+EwfFZSrnPj/H7A
-	 QTfxgsJvi7icQaVE/UB6YPATSPOEC8qcQR4Tc79YE7Lvh8/tTln9wZVUCvRBtiudXrmRL
-	 5K3C75anXnkFItCp+AJryUDvhJkswW+OVJxy3s8nJ3hjDNuphpPldKsY6uol15hS/Mg==
+	t=1793136604;
+	b=HESnWW16z685pXp/uSfcs9PoT9dFpv5D6fLaDu+1CBD6SJxWkv9rzXG7LDUQsZSIakce
+	 JeA+gZkGO/F/TLcqSK2U4jXKHGG8kuMGfmZviMrQy4K/W+69S647dgyPG4BAYiPJAA/Ni
+	 25HWUV9CwIXUTyAKv44Hk+DG0ajD0uGnDsACulFD1oYHx/DxfiVzzLpEje/dBzFGgRj7O
+	 0iD5dge6LuWQ/fAvDnVxnixLJ6ZlSqGw+Z5EL63oU3hBhIhBleZ2wzaaEZSFKioo11otC
+	 N9o0Iq5l80ckazbgNasS4JevCAu2IrT6zHjhFLGQqd2xFd7BawJWDSsUm+bjM9c78Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793136603;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=X/hQ+PibmDW7TqdpOhk5donfJe8MwWu3WLcD5XbFhlg=;
-	b=AxTyhosWtX/pwT0ejr2Z3HLSaBcXsw92FcbSs3E6lWL5ooyV8uTUBm7SPePvcubFFFJh
-	 M8xMhTP4F0KVs3InVnj3ky3s5oq85AdNMP+JwS+dpv3KMIxGBINABZlpfJCoWkoiVTiR7
-	 ARgHIps9s0nLtj6LGA9ORUyk8lLIenfeS8dncsK7PcJGkZ9co1pJecnRHDFKEsucA64Lz
-	 ixujK79/AaTfym8rEelhr7oqzbTcSQq3gK93zOBqV9DWNHm2yXZTuU8i9BieApP7nsq3b
-	 jKwa2bVgnViV3XU0LI8Qk1WP1+m+vDWPLFew6XGS6sMYkhcfsgh3YJ9WuQCOBMcgQtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793136604;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OOuxZzX03Fi4IMOZT+u4uKVj+rtt/tc93nsz9tD3bXw=;
+	b=WmzYFmr07o1l4WTvCirQMZOoPnqrmFpwvumpqe8fMtpkwUTbg+22zGIBtwip3fZEcisn
+	 0BA7ZDBxWpD7wfAT7Y0hIni6ysRkRRBPJZJu2vumFR9XdG51Z8oA3oEKyIUU9FLB0/gma
+	 Q8bmE6fXKf+jNy/vXKVvJ/idpcYe8oa/JSL5yqss2Vv6jwum3JaY8goWMNtJy4i/Jysza
+	 PNArnDhg5AJ0Cj80lW252QqijNSV7x2o10BQcVic5xoiCziFGnoHmHXMR/lrZhuBwRPrc
+	 FHJvJr8rGfKVTQAh43tBnPi2XjRLOfm+R3o9wR1MmeQ55ogntj+d6KeihzQ/USO6BGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjYdwL5w;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jnki2b8u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CD9606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:30:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1CD9606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D775606A31A;
+	Tue, 27 Oct 2026 21:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sjYdwL5w
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso879037eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:30:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793136602; x=1793741402; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=X/hQ+PibmDW7TqdpOhk5donfJe8MwWu3WLcD5XbFhlg=;
-        b=sjYdwL5wxM+HRiApAJpmIxcR1QkNSobITLQX+78/9zaAgfOT917BPtC4m6unEr0F1L
-         U9Bqkxy2WVHU8Utec8/R8It/NOpSIvrKdo+yl10zkJINaYakkwDaFsTzOXZUwP5fCGb/
-         zBZI0FX+9dT13cRRL9/JS3BsHV0+cPyRzvxNRvqyzSNAZUxZWiegCh/htQAfwruzMpPR
-         yHdDGTGCMKw+ezS2laWwfzXW4XZHja/wad3mqIV6nRIckT6fRFNQABlDS4xSUrQDt+QH
-         M0Yru/0o9qgm+wjq7VlT0Ifttjn7IBfYUyPKSNYzSdwjgOa5FCZ0VQg63SlOXdcSV6q7
-         FdTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793136602; x=1793741402;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=X/hQ+PibmDW7TqdpOhk5donfJe8MwWu3WLcD5XbFhlg=;
-        b=F3CLuMt61A4Jhft8dCZc+ZSUg7eX1hETTHbMpzzi2puaPAQjs9HD5UowLOsj8iyhQJ
-         L2qMrKpQLBUgd7IaO29wlK6VQqtUlg8WGScT0vNlZQ9PF+kIQzug25xui8Kkb7w9iie1
-         iKAXxttuFi9urLrr1FD5uT32uN0KZm5J0QirlQ+Er3KKSyDK62aLMOLZGijdgFazqZqW
-         HjL1Spi4YmSUuW9HlR2ka8M4EcifzXJTy2VIf5h9uNuKLm1ta13ebcl4Z724S5eLIYnB
-         AqQvgf4/V1TaIcYsj6kHCXkPPJY5uz6+2nG6cgo58AvsdP/GYPpEfwGYus3xz0yBigw/
-         6cIA==
-X-Forwarded-Encrypted: i=1; AKwUvBwjYd5jrXV8H5LKuBaCx6RkUH9m1007rF6pfVvf9ZiW2H61Vm8yQjVK/F22tj4HSKyRRYNdjuW2+4e5MA4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRdfzGCrZ3GWiPa1rchzh6wVXj/w/7ALEjYqAtHtEXW8OJ20HF
-	NT2vTfJKsi9k3t1s03FeHyduyuUo39YaMs9hbBTdwusUH9bQyU+9AbDD
-X-Gm-Gg: AYBFou0QY2XPhCKMCLVaEv0TcOEJv/AsuQ8TWY2PFrKZnsudMrHLqnqzX2cxcmZi628
-	3JLn+mCFmVf7/5BFgp3Q68o/zr05mm6X4k7ZJHfWZY/ktIltvbh0CRkSV5Ss6pqd9iodkgqf9yj
-	uKxFtWIIjWvt3aHZt5KVW6bbauNFW/EUB5u1VY+lssxNYB21bjKy77CQUE9WKUvU/+II2iy4OTX
-	0/L4eUyNfUZMtigc9sAabCZERxoUiBe3UYDMpNX+XV4n3Vvof7PySJI3MfiIpJBMWD5XjS9m1OU
-	4fpefUdl49Gu/sDooo5jNFL30UX0a/0Uqy0hndfOkZfdRMJmaIS0BG/DHyrtRl1Q5CgA0MUVptQ
-	u/XubtZfN9exJmVi6aN6zgdyS/hlsATw1JrjfZV+r5pgT5sDg4mTydu8uqdCnZ/k9zU8GYRtUI+
-	ikV7bTpcGuswhO+pxc4WoQvX+N7lRk/5wnjqeFgO6ol8t5Sk9zai2SyuVYIowi91dOx/XnlUZ9U
-	ud7UXKTXes7ynCja7OFMpQeGcG5QqxQKMvoHSZ6qlV1sVrDQTL/neNCa4eH9onmRFlmhSmRl5Qm
-	75UzsSZP6BVZjCOKU1d0u2ZK7H7Z3PjJagbAvb/QK1tQ
-X-Received: by 2002:a05:7022:ea8b:b0:1a2:a5b1:884f with SMTP id a92af1059eb24-1a6ce2fec4amr557384c88.31.1793136602060;
-        Tue, 27 Oct 2026 14:30:02 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:9958:9525:7799:82b5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a6d7ed488fsm723725c88.7.2026.10.27.14.30.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 14:30:01 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH 0/4] ARM: s3c: crag6410-module: software node conversion
- and cleanups
-Date: Tue, 27 Oct 2026 14:29:54 -0700
-Message-Id: <20261027-crag6410-module-swnode-v1-0-2f885799b6ad@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jnki2b8u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F38A51F01828;
+	Tue, 27 Oct 2026 21:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793136604;
+	bh=OOuxZzX03Fi4IMOZT+u4uKVj+rtt/tc93nsz9tD3bXw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jnki2b8u0n3/QXVN9wXdUVd6XlXvIeWGSJddSkLGBgsprFbZa57fVNMZH97wNm39n
+	 tKQSTKXHQiURdGTwUkABbN4Ij1+lNAsT+HR6SxdO/tYUGumbW6iJDc7eIsHwu9GLl8
+	 z/JxXbhG0b8nWOGahLcYkoAX8ZRq0IWgrPf7n9Kkr74P1bdIcMAGGKGWvsFyUbUKZB
+	 liRZgIFqgzEpxOExFedUZTTzUvS91D8dG9A2wYvPUorXr0WSezbGYV5pKVME3YW8o/
+	 /Ht6WHvP5/P92SRF3e58i/4PxSQfbr70MgEZvHmYS7GshP0x+W3UEMiiAzK6a2M24u
+	 PFrbmfkLpNIJA==
+Date: Tue, 27 Oct 2026 16:30:00 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Kees Cook <kees+treewide@kernel.org>,
+	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-kernel@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
+	Lee Jones <lee@kernel.org>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v2 2/3] dt-bindings: leds: skyworks,aat1290: Document
+ FLINH pin
+Message-ID: <179313660040.1181023.12801334630310862763.robh@kernel.org>
+References: <20261013181803.496627-1-clamor95@gmail.com>
+ <20261013181803.496627-3-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,54 +62,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANIX4WoC/yXMwQrCMBCE4Vcpe3YhiSWoryIe0mSsK5pI1mqh9
- N2NepjDd5h/IUUVKB26hSpeolJyg910FC8hj2BJzeSM87aNYw2j763he0nTDazvXBI4IO53g3f
- bYCy186PiLPMvfDz9rdNwRXx+a7SuH5Phj4B6AAAA
-X-Change-ID: 20261026-crag6410-module-swnode-aec98b623a01
-To: Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Russell King <linux@armlinux.org.uk>, 
- Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Mark Brown <broonie@kernel.org>, Lee Jones <lee@kernel.org>, 
- Arnd Bergmann <arnd@arndb.de>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- patches@opensource.cirrus.com, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.17-dev-e56a4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013181803.496627-3-clamor95@gmail.com>
 
-Convert extension module definitions for the Samsung S3C6410 Cragganmore
-board to use software nodes and property entries instead of GPIO lookup
-tables. This also fixes GPIO chip label errors, corrects the WM5102 LDO
-enable GPIO lookup name, and drops the custom WM8958 device name that
-broke regulator supply matching.
 
-Additionally, remove the unused CODEC_GPIO_BASE definition and switch
-codec platform data to dynamic GPIO base allocation, drop the empty
-wm0010 platform data, and configure the S3C_EINT(4) falling edge trigger
-type for wm0010 in board setup code in preparation for dropping
-platform data in the codec driver.
+On Tue, 13 Oct 2026 21:18:02 +0300, Svyatoslav Ryhel wrote:
+> Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory Flash
+> inhibition.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
 
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
-Dmitry Torokhov (4):
-      ARM: s3c: crag6410-module: convert GPIO lookup tables to property entries
-      ARM: s3c: crag6410: drop unused CODEC_GPIO_BASE
-      ARM: s3c: crag6410-module: drop empty wm0010 platform data
-      ARM: s3c: crag6410-module: configure wm0010 interrupt trigger type
-
- arch/arm/mach-s3c/crag6410.h             |   1 -
- arch/arm/mach-s3c/mach-crag6410-module.c | 202 ++++++++++++++++---------------
- 2 files changed, 102 insertions(+), 101 deletions(-)
----
-base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
-change-id: 20261026-crag6410-module-swnode-aec98b623a01
-
-Thanks.
-
--- 
-Dmitry
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
