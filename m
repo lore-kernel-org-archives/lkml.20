@@ -1,144 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098219;
-	b=rLevORnzdgSadQW9CrlvpPD9k2N2OVCssOCDEmRP2Jyk47Bc/PGJug91VfB1/aXSkfEt
-	 ZJm0zEA3XuCcLNZfYhTKsb+YfLTkIGH6sZg47gGGbbpd/1RUMwWRoXypOuobhhHSVkwXx
-	 gMyfL8L+mDhcEYlYvF6Pg/Gc7cIrUZ8exRnlOWqgInup/kzjZQ/sOOdjQ9PY7PpK/8ZMy
-	 2PMfCI4HDnKzfyUZFhjZz9JEJsIKeYojTwXGvkaYeAzFADM1KLDgpIgjoSv3DNcuNVr8D
-	 iMAo8F/rVuDDzSqZxr2F/fxuB/FzYF/VOy8khwQQN5XR297BZfBHkpnUnN98NRS9QKA==
+	t=1793098224;
+	b=hNi3+z+kCGJF7cCF5elS2kXj/Md7yAyDTXGmcdvgNkOUWIKyVtAAwNMf14KNgw4SrxcG
+	 plPAhJ8Ai7f3sR1SKwr4ZQmyoH0otdpNVfNBkczOUm5QG1tHwDxA/onenDbop7pQCg2GT
+	 P5DJtt7/3+Ii/RYMgH/jL73fuUXj/WdZZHun9teZxcHqvphsBqVON2Cing08SWZzL9a6P
+	 2J0AajXtXzTFNMPCVgvC1RxWx3smpovvdmePb1JQPzZZ4E9Cz6iaX6UT0aRUvYDMwMynt
+	 LLCO2gqNuzd2LHxXgdsXKbe1IMWG9XFoKgWbzeb2oKZYHBD2332qQdfhkCvrDeNfrwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098224;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=XFZzZHqRNst1BMPTvXE87RueOS4Ft9OJQfvt5VLbbcE=;
-	b=gIHNOCbZfhI36VTYuPs9CQGd0MPSwG7ng50y3vVrnTqh4+8zzoBznHunJtVSb9E1Pf6/
-	 hAe8rFbbN3VcgbuCKtVnA66MHO5JQs4xDTh2iN0Kz3pKkMyejHOFU1fQwTV7aiW/7GvTq
-	 QPnIRJ5GJFXqT3KGTcW3e6RCWprbIazQ2jAkjlA6K/KrRfRz04gG+HQP0ZSafQLBmR3Wu
-	 hd65QSwCw/ufPyPjHTjhOzfp1AijxLvh8rJSqSPkglGl0mDMaqo/9EmO00daT/bsc0KFq
-	 mPDKU8l8XsdUT9xYClzaIh3p7cjZAdHMY/HdhDtK84U9uVfo3Kr0yxEYgWVz77bZ83Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=YFk2qUWDXql5/0l0pZa5WqN5xrNBo+HVTxlmxrGp31I=;
+	b=ScwHhiWKjh/4ucg4NUdg8AyHJUe/n8Oh9PRF9cgU6ir4S3ltlIxy2fjTTyHDGCu3G14a
+	 hmwKbxYuKSH6cxRUAMPge/FzkgeEvlTP8bV2+d9BGNrz5bh2ArkRyrQiG+41YuzHQcx8f
+	 DJp5VFep3DYOHq1zqdNttuNU5CwNP7TqbB7FIBKpq426jEP1JvHFLeumejq6DiqTWyaHx
+	 nmL2uCISukrLU/FCmh/U9EVESj724oBt6+0bWYHoV3NpBtN94f4gn+fa4GFkPDzvpFUVX
+	 Vg0458dPuNzLZG9ZiDQxPvihsYpiWdXr7ZVaHg1/4ndc28il3QOGB5Z0UvdUKreMzNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dvDz+tkw;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=L1sL4jrQ;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792BB60A261C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 792BB60A261C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084E660A3803
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 084E660A3803
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=dvDz+tkw
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so608350f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=L1sL4jrQ
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a214af2076so29426915e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793098216; x=1793703016; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XFZzZHqRNst1BMPTvXE87RueOS4Ft9OJQfvt5VLbbcE=;
-        b=dvDz+tkwazGMCamxvSaEkAPNpDuRiv9BJ7CN3nyJQXubmP0JbaqRwC8SLGGTCUeADO
-         /Pro+kbJFtSm92a/VL7B+fALEk42y1o3Qe3sLe2tqjSo4lWGT1kLfBJnIJImpjPuEiK+
-         8zdPn4Q8wS/lRWI5sWj255kuWR6sQ2uqoNJeeMymQg0Uv48xDVnUmtVMWPf1MtJyIhpL
-         ACvUskKnars7NWhHhhcT0QAwiBahkXXEbH8KDRDaEAwffVHbf4cRp5kDmgGAlHSJ6m7C
-         1CXwMURcy5WcbhjeNUomKXmOleDWMRul6Eda0euAYoSIZyQJuiJCpp/GhtbjPsKQ44BB
-         nmbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098216; x=1793703016;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=baylibre.com; s=google; t=1793098222; x=1793703022; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XFZzZHqRNst1BMPTvXE87RueOS4Ft9OJQfvt5VLbbcE=;
-        b=vu71yBJ327E0glKquyS4lkh5yBhseN72au5UKBPAl6I05aH58/rVoTyjwLxNA0GbTP
-         0nfzCELgw/EzOYTr/BZGSjc1EzgziNnQ+IfiGI9cxwi2t39b6h3zpRkUqiWSDlSibww5
-         FCPoU4Vb/so9u2oriPCUMOps5cUN8nODRdWSUg1MobbH+Irt4HWxzNebgdnjlibznz9g
-         5dV9AGTFPaJ39XhWrSBVT7e5z8t+qEGxDq4uCCHMfasYdsPPloT2EZqmCEchhrDTHo2N
-         eLYKw8DCpi5YqbulQG7u4lnBz/S34ss6lgSPJ/F3+F9R4D9IN0qzsm/LnBzHlWN4a7zt
-         ML0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxhqJyW+5MydGCrMfzdp2MAkBgPYT0Bv+GoROSd94d1qS6+1ZXPL1vW+bNq8AIOgZc4oJTQjivudiCf1Sw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNiwjXdYpkSHmRLXVWCwpGyBEhsw6cw/fg0dCtDmodnogHna3+
-	OUI/Lzcn3QwnBXi3cSPLyavzgMXUJwUulmdBdXz+cMeiUrUmbHVbCSXKrBt43bZVOoc=
-X-Gm-Gg: AYBFou2TOq/uqOqSW5jChJ3aHxj3xJhGHr0Icr/qrsTpDiJ4Y+8cg8nu+GP/K3/2yHi
-	mficdGBbdWQW7UQ6jGDOxiL2fJe/5HrKkwvvguQXsETIrmfSRSC6xvMVNG85L2rbRFBnNgh/m64
-	NQremjLR871Y17XPrr9kLOgmaKEI2oPouL7BJK99eu/PhO3i9soQ7YKmFs+NThgc/2uIT7IH6vE
-	ZTgJWwcyaVwB3c0w+uAjDeqUIivYjtNw6fsg6OEnMWqH31Lgai0ZU6CQ9HlzPkD03FM7AUBdh0Z
-	e6qlJJh8o0wc6mW67tpSKY1L6w63rTeY9mJzHJvZDO2lK89JI8z7e2NshBaUTV8yX3oxcS0kLZC
-	niw0rLRjzwPkA5vMO07GR0iUTMwmfx9D3k99FWr2o6/uCNCdZSWBQOKrWipfFSpcg8gA9CzEN6Z
-	fCyKLYAb3RqAm5jGGGaijw0hEA61+GG0Fcsq/11cc2/wfEpmVLsYupriV8z10nqqAHWPljSJ6MR
-	PiIksrTs8daSwCbbszWR/dcXIUD4LfL3cUYic3Lg/XMQXMhqyKVtMJX2UDv70epuYaw1siEDeF6
-	4BifEMn+EF3r59Jr01tm8Dc5GPMcqCFM8sxNzrRQb20=
-X-Received: by 2002:a05:6000:438a:b0:48e:884:affb with SMTP id ffacd0b85a97d-48e55a51758mr5422454f8f.24.1793098215724;
-        Tue, 27 Oct 2026 03:50:15 -0700 (PDT)
+        bh=YFk2qUWDXql5/0l0pZa5WqN5xrNBo+HVTxlmxrGp31I=;
+        b=L1sL4jrQCSvpDrIgzYRuWokv1fuGio+LEhtJHcgALSBEE9Qkl7eMJDC2oWhrsXA5Al
+         7C5YO2zDQXSsM8QOw00HSkWvge2EN6PWUzFb4gh9dOtoSkCvs2QJ0I1JT9TAy7EcWaR0
+         YtjSR1228QD2MoBRyUtUh7IZWK6+0jx5dMgfSKd35xmGYb3vt56BnMwHKPp+KyNXrFgT
+         N5B8uvv57qjwkjHAF3tpmM2sn5Y6hl8ZPUIvdnz3jaiVCQTU+GwjduwS1jDzp6IjRoiE
+         HC78VP4l0MD4bQrHHqmkpqsYYDFQ/zUlTf9fBkclPhUKfj/jazZlRq0lV4hLXsnd+L57
+         RWIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793098222; x=1793703022;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YFk2qUWDXql5/0l0pZa5WqN5xrNBo+HVTxlmxrGp31I=;
+        b=JHpfGjwMMjz6Nm9WGuX4byLBI94FpDYEXtmXE4NK6rB1pK0C0d+Ej85jRFdUcBlbvs
+         PLZjwDWFU8G+GQ+ehaNbwB0MaBMapn9r/C2TuA7oek+gZuvu9FiLJYDD8JbJfMD9JmzP
+         D98RvB4+sXh2EiiwbHj1pxuSayyZHumhmMWAyXcIWvlSGYpDM5ALothWLP4bw+EgRQLu
+         0yaQUtusrL4Wn2cvk//7D8PBizzUjUFiGiJ+53zTQKLY0kjxqc/zsZ88YEF+WJokttgp
+         Bspq478aHXkN7VWUUVShRwSjgtojlJp2KWwSlua7JiCuHWqM5a0HvEMZVpZzarl7LSOs
+         hOzA==
+X-Forwarded-Encrypted: i=1; AKwUvBwkl8Vkav9p2ffnTLQqVSG5jeW7esCTqFoOA1rDlLYj8Eu7okx9hVR0NqH5CGrrJ3BcMZXEBJ/sTfMea2w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEylnfBWbKpPIpWDYPL6X2A5iwwBwUO91MXNFrz7pV3XMLo8zL
+	PDybGgfYjRcBvFxhqObVefHX4D1xvidPE0OXvEFe1xitNQbGgl+weixEj/GckLAC8J1rVCN3y7q
+	pS5d/CjA=
+X-Gm-Gg: AYBFou2wD0oY56c3v2eBxZ3MWpK1TAUBrcOFFPPc0DNBmmOEQpltLL83YQyEyR+ch9P
+	ua9uvbuj86KbzvlNzz8OissOOjunlDDCvv25Wezu1T8vg4+mjnQqS01vhK3+S94fGWtXlKXEEiz
+	XWFktff44zz6v8EbTcMCado4rKjL2XiDezjj5/LV2HMM3bxzyvRqzio7uA7YMzyY/aBde36SPU6
+	EBDPQZAPWwj2alcOcBFUu0LA2iwuvjbI3iwoCHkydGFXv/sRtERHXHmQEdWRyN+Y5l7Of9bFdHm
+	4+TkXSZ2yrn3Gox2nvnAEPS1qjlaR8GlyA9dxsJfb2yQEl/6np+7Rm7eXxNUdGtaClLe1jPLP6W
+	5O7lstrOLtWmmygkrVooyJ5cQskaP011xwwqqTN7BfnCQdwdog2rfVQ9VuzNffkCEdXpOqE+rcj
+	9ykAlWf9etw8F9nzU6GzTMe9fhDP92oVkT2RRViJ7+YJ3FkWyFAsHc3T4VKNRq7IsICIdSPoL7n
+	vELHWKw9Dk9dWWfptjnIQTaIARSNOFkLdYJPqah3YgDNs0dWh6T8QxY9WXoKOB/hXxVp6AAXwB1
+	c5gLqP5pDZ6VV7IliHXEjdc38rmR5iGIcqRDshOlUjw=
+X-Received: by 2002:a05:600c:6289:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4a35ac9f52cmr174081285e9.22.1793098222491;
+        Tue, 27 Oct 2026 03:50:22 -0700 (PDT)
 Received: from localhost (p200300f65f19a904240e81f1f32a429c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:240e:81f1:f32a:429c])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ebd48e0sm22735578f8f.38.2026.10.27.03.50.14
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a35a0aa0bcsm321119085e9.4.2026.10.27.03.50.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:50:15 -0700 (PDT)
+        Tue, 27 Oct 2026 03:50:21 -0700 (PDT)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>
 Cc: Andy Shevchenko <andy@kernel.org>,
 	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Imre Kaloz <kaloz@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Daniel Palmer <daniel@thingy.jp>,
-	Romain Perier <romain.perier@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	Hoan Tran <hoan@os.amperecomputing.com>,
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-	linux-hwmon@vger.kernel.org,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	"Enrico Weigelt, metux IT consult" <info@metux.net>,
-	Viresh Kumar <vireshk@kernel.org>,
-	virtualization@lists.linux.dev,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	linux-tegra@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Srinivas Neeli <srinivas.neeli@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	linux-aspeed@lists.ozlabs.org,
-	asahi@lists.linux.dev,
-	linux-mediatek@lists.infradead.org,
-	openbmc@lists.ozlabs.org,
-	linux-omap@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-unisoc@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Michael Buesch <m@bues.ch>,
-	William Breathitt Gray <wbg@kernel.org>,
-	Robert Richter <rric@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-acpi@vger.kernel.org
-Subject: [PATCH v4 00/23] gpio: Improvements around device-id arrays
-Date: Tue, 27 Oct 2026 11:48:37 +0100
-Message-ID: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 04/23] gpio: max7301: Drop unused assignment of spi_device_id driver data
+Date: Tue, 27 Oct 2026 11:48:41 +0100
+Message-ID:  <ec89e9fe1050042ffa47d0807288e243b1ec9d56.1793097104.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.56.0.rc1
+In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -149,179 +103,35 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8137; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=k1gONcl2UIxBepDw11jo8AHu6ai+O1G0nVgkSy8JdIE=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq4IGGNXr36bKoBw2PaxVdVtkUGC9jXmJpRnHf2 Csas+gKAK2JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCauCBhgAKCRCPgPtYfRL+ TniYCACv6CLczaP+IEWqqjNz0H2IDCNFuAhnXKDLb4106wpApOzW0y6gufg8fEnzsamxLLEBdjV dqq25XfWZfdmZg3FMHHPJqnBr5fh7Zg46EwNe1jZvPkIkqY78ho7ESao5AKRIVqqTbQRpIaZEgz NNeJQhmaiL16rAeAP+okNpbCcIyWa33O12ZEutJCFYTQrA6235nE9ZSMLfl07igU0+tu+iunwWQ mCsDqRmK3fija+zCgkc0dIt3ssbXfQa1/DrtcjbcwgL9Jsq5zWCdDhzr7Rb8pliP+Uu/VBJJxty 27ri9KePaXD/wGvqViL+tL8IZZtej2Vgp0hRAsZI/QNPpgp7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=843; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=N1ag9qLsPodh6SZJ2X6l/iSN9O9FLF3gpdlS+1pEOA4=; b=owEBbAGT/pANAwAKAY+A+1h9Ev5OAcsmYgBq4IGZcAhbz2c+bxZV02dIADUwaB3SNP3DTSSoh FRb3RFu1R6JATIEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCauCBmQAKCRCPgPtYfRL+ ThYlB/jSo1I+wisQXf8gHX3XhGf1CXFOphDem6EfgogWfaOH2dCg3RwRQmhII8Dl2enQDfRQOT/ S/6bQMz/4B7IkppUTJhVaswt5OVHFRreXAHBh9b++TQehTNxh3gOUFKmmM0yLwFCdwsoqcDqlW4 /j13nGl3lYJmjwEDDZ7fprvHXOhq045l/+VxXHZ1/HfQBCzwwBk4KuO9rcEs5mC8t7TTAtsVc9V vRa7oeta7hjW9L3kkkUOT3ob1d318OEm8cL2BuShH91e+aYtNNWfefrBCRAym7VpL/b/wij6ZCo oJ2opwBVuYqNKoB3DFkJiPFEYC5623IWkTUhspewslcxJs0=
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
-Hello,
+The driver explicitly sets the .driver_data member of struct
+spi_device_id to zero without relying on that value. Drop this unused
+assignment.
 
-the original motivation for this series are the patches that convert the
-arrays to use named initializers, see
-https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-for the idea behind it. Looking left and right a bit while implementing
-that, the series grew a bit.
+This patch doesn't modify the compiled array, only its representation
+in source form benefits.
 
-Changes since v3 (available at
-https://lore.kernel.org/all/cover.1793030820.git.u.kleine-koenig@baylibre.com):
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+ drivers/gpio/gpio-max7301.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- - Picked up review tags (b4 even found some from v2)
- - Add a 2nd MODULE_DEVICE_TABLE(of, ...) in drivers/gpio/gpio-mpc5200.c
-   (My grep didn't handle >1 driver per file well), noticed by Sashiko
- - New patch to use named initializers for auxiliary_device_id arrays
- - Fix code style of of_device_id array in drivers/gpio/gpio-grgpio.c
-   (My script doesn't handle of_device_id::name) and
-   drivers/gpio/gpio-ppc44x.c (didn't exist yet when I sent v2 and
-   failed to notice that for v3)
- - Fix code style of auxiliary_device_id array in
-   drivers/gpio/gpio-shared-proxy.c, missed as I didn't have a script
-   for auxiliary_device_id before.
- - Dropped a few broken email addresses from Cc:
-
-Best regards
-Uwe
-
-Uwe Kleine-König (The Capable Hub) (23):
-  gpio: Remove __maybe_unused annotations from acpi_device_id arrays
-  gpio: fxl6408: Remove __maybe_unused annotations from of_device_id
-    array
-  gpio: Drop unused assignment of acpi_device_id driver data
-  gpio: max7301: Drop unused assignment of spi_device_id driver data
-  gpio: mmio: Drop unused assignment of platform_device_id driver data
-  gpio: ljca: Drop unused assignment of auxiliary_device_id driver data
-  gpio: xgene: Add missing ACPI module annotation
-  gpio: sodaville: Add missing PCI module annotations
-  gpio: Add missing OF module annotations
-  gpio: pxa: Add missing platform module annotations
-  gpio: pl061: Use empty initializer for amba_id terminator
-  gpio: Use named initializers for acpi_device_id array
-  gpio: Use named initializers for auxiliary_device_id arrays
-  gpio: pcf857x: Use named initializers for of_device_id array
-  gpio: bd73800: Use named initializers for platform_device_id array
-  gpio: Use named initializers for spi_device_id array
-  gpio: virtio: Use a named initializer for virtio_device_id array
-  gpio: Unify style of acpi_device_id arrays
-  gpio: Unify style of of_device_id arrays
-  gpio: max77620: Unify style of platform_device_id array
-  gpio: Unify style of spi_device_id arrays
-  gpio: Unify style of pci_device_id arrays
-  gpio: Unify style of various *_device_id arrays
-
- drivers/gpio/gpio-74x164.c          |  4 ++--
- drivers/gpio/gpio-adnp.c            |  4 ++--
- drivers/gpio/gpio-aggregator.c      |  2 +-
- drivers/gpio/gpio-altera-a10sr.c    |  2 +-
- drivers/gpio/gpio-altera.c          |  4 ++--
- drivers/gpio/gpio-amd8111.c         |  2 +-
- drivers/gpio/gpio-amdpt.c           |  8 ++++----
- drivers/gpio/gpio-aspeed-sgpio.c    | 10 ++++-----
- drivers/gpio/gpio-aspeed.c          | 10 ++++-----
- drivers/gpio/gpio-ath79.c           |  2 +-
- drivers/gpio/gpio-bcm-kona.c        |  1 +
- drivers/gpio/gpio-bd73800.c         |  4 ++--
- drivers/gpio/gpio-blzp1600.c        |  4 ++--
- drivers/gpio/gpio-brcmstb.c         |  2 +-
- drivers/gpio/gpio-bt8xx.c           |  2 +-
- drivers/gpio/gpio-cadence.c         |  6 +++---
- drivers/gpio/gpio-creg-snps.c       |  5 +++--
- drivers/gpio/gpio-davinci.c         |  8 ++++----
- drivers/gpio/gpio-dwapb.c           | 14 ++++++-------
- drivers/gpio/gpio-elkhartlake.c     |  2 +-
- drivers/gpio/gpio-em.c              |  4 ++--
- drivers/gpio/gpio-ep93xx.c          |  1 +
- drivers/gpio/gpio-ftgpio010.c       |  3 ++-
- drivers/gpio/gpio-fxl6408.c         |  2 +-
- drivers/gpio/gpio-graniterapids.c   |  4 ++--
- drivers/gpio/gpio-grgpio.c          |  6 +++---
- drivers/gpio/gpio-gw-pld.c          |  4 ++--
- drivers/gpio/gpio-hisi.c            |  6 +++---
- drivers/gpio/gpio-hlwd.c            |  4 ++--
- drivers/gpio/gpio-imx-scu.c         |  1 +
- drivers/gpio/gpio-ixp4xx.c          |  4 ++--
- drivers/gpio/gpio-ljca.c            |  4 ++--
- drivers/gpio/gpio-loongson-64bit.c  |  4 ++--
- drivers/gpio/gpio-lp3943.c          |  2 +-
- drivers/gpio/gpio-lpc32xx.c         |  4 ++--
- drivers/gpio/gpio-ltc4283.c         |  2 +-
- drivers/gpio/gpio-macsmc.c          |  4 ++--
- drivers/gpio/gpio-max3191x.c        | 12 +++++------
- drivers/gpio/gpio-max7301.c         |  2 +-
- drivers/gpio/gpio-max7360.c         |  8 ++++----
- drivers/gpio/gpio-max77620.c        |  4 ++--
- drivers/gpio/gpio-max77759.c        |  2 +-
- drivers/gpio/gpio-mb86s7x.c         |  2 +-
- drivers/gpio/gpio-ml-ioh.c          |  2 +-
- drivers/gpio/gpio-mlxbf.c           |  6 +++---
- drivers/gpio/gpio-mlxbf2.c          |  6 +++---
- drivers/gpio/gpio-mlxbf3.c          |  4 ++--
- drivers/gpio/gpio-mm-lantiq.c       |  2 +-
- drivers/gpio/gpio-mmio.c            |  3 +--
- drivers/gpio/gpio-mockup.c          |  4 ++--
- drivers/gpio/gpio-moxtet.c          |  4 ++--
- drivers/gpio/gpio-mpc5200.c         | 10 +++++----
- drivers/gpio/gpio-mpc8xxx.c         | 25 +++++++++++-----------
- drivers/gpio/gpio-mpfs.c            |  1 +
- drivers/gpio/gpio-mpsse.c           |  3 +--
- drivers/gpio/gpio-msc313.c          |  1 +
- drivers/gpio/gpio-mt7621.c          |  2 +-
- drivers/gpio/gpio-mvebu.c           | 13 ++++++------
- drivers/gpio/gpio-mxc.c             |  2 +-
- drivers/gpio/gpio-mxs.c             |  4 ++--
- drivers/gpio/gpio-nomadik.c         |  7 ++++---
- drivers/gpio/gpio-novalake-events.c |  4 ++--
- drivers/gpio/gpio-npcm-sgpio.c      |  6 +++---
- drivers/gpio/gpio-octeon.c          |  2 +-
- drivers/gpio/gpio-omap.c            |  2 +-
- drivers/gpio/gpio-palmas.c          | 10 ++++-----
- drivers/gpio/gpio-pca953x.c         |  4 ++--
- drivers/gpio/gpio-pca9570.c         |  2 +-
- drivers/gpio/gpio-pcf857x.c         | 26 +++++++++++------------
- drivers/gpio/gpio-pci-idio-16.c     |  3 ++-
- drivers/gpio/gpio-pcie-idio-24.c    |  8 +++++---
- drivers/gpio/gpio-pisosr.c          |  4 ++--
- drivers/gpio/gpio-pl061.c           |  2 +-
- drivers/gpio/gpio-pmic-eic-sprd.c   |  2 +-
- drivers/gpio/gpio-ppc44x.c          |  2 +-
- drivers/gpio/gpio-pxa.c             | 20 ++++++++++--------
- drivers/gpio/gpio-qixis-fpga.c      |  3 +--
- drivers/gpio/gpio-rcar.c            |  2 +-
- drivers/gpio/gpio-rda.c             |  2 +-
- drivers/gpio/gpio-realtek-otto.c    |  2 +-
- drivers/gpio/gpio-rockchip.c        |  4 ++--
- drivers/gpio/gpio-sama5d2-piobu.c   |  2 +-
- drivers/gpio/gpio-shared-proxy.c    |  2 +-
- drivers/gpio/gpio-sifive.c          |  2 +-
- drivers/gpio/gpio-sl28cpld.c        |  2 +-
- drivers/gpio/gpio-sodaville.c       |  3 ++-
- drivers/gpio/gpio-spear-spics.c     |  3 ++-
- drivers/gpio/gpio-sprd.c            |  2 +-
- drivers/gpio/gpio-stmpe.c           |  2 +-
- drivers/gpio/gpio-stp-xway.c        |  2 +-
- drivers/gpio/gpio-tc9563.c          |  2 +-
- drivers/gpio/gpio-tegra.c           |  6 +++---
- drivers/gpio/gpio-tegra186.c        | 32 ++++++++++++++---------------
- drivers/gpio/gpio-thunderx.c        |  3 +--
- drivers/gpio/gpio-tps65218.c        |  2 +-
- drivers/gpio/gpio-ts4800.c          |  4 ++--
- drivers/gpio/gpio-ts4900.c          |  2 +-
- drivers/gpio/gpio-twl4030.c         |  4 ++--
- drivers/gpio/gpio-usbio.c           | 14 ++++++-------
- drivers/gpio/gpio-vf610.c           |  4 ++--
- drivers/gpio/gpio-virtio.c          |  4 ++--
- drivers/gpio/gpio-visconti.c        |  2 +-
- drivers/gpio/gpio-waveshare-dsi.c   |  2 +-
- drivers/gpio/gpio-xgene-sb.c        |  6 +++---
- drivers/gpio/gpio-xgene.c           | 10 +++++----
- drivers/gpio/gpio-xgs-iproc.c       |  2 +-
- drivers/gpio/gpio-xilinx.c          |  4 ++--
- drivers/gpio/gpio-xlp.c             |  6 +++---
- drivers/gpio/gpio-xra1403.c         |  6 +++---
- drivers/gpio/gpio-zevio.c           |  5 +++--
- drivers/gpio/gpio-zynqmp-modepin.c  |  2 +-
- drivers/gpio/gpiolib-acpi-quirks.c  |  2 +-
- 112 files changed, 278 insertions(+), 260 deletions(-)
-
-
-base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
+diff --git a/drivers/gpio/gpio-max7301.c b/drivers/gpio/gpio-max7301.c
+index 11813f41d460..c8bf6a9c3de0 100644
+--- a/drivers/gpio/gpio-max7301.c
++++ b/drivers/gpio/gpio-max7301.c
+@@ -70,7 +70,7 @@ static void max7301_remove(struct spi_device *spi)
+ }
+ 
+ static const struct spi_device_id max7301_id[] = {
+-	{ "max7301", 0 },
++	{ "max7301" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(spi, max7301_id);
 -- 
 2.56.0.rc1
 
