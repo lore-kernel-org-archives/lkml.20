@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793140210;
-	b=ayLeY099qRTetXOlbY/dI1L2bhwVQP1DH114S9svbAs3775AbKIHkU3DOFInxsmDPmEi
-	 ZHxjH3c59omVPogyFI2pvh5WP8cbHr/v0kPw21pOxiGRvQ0u5z4OFCRQT3bb5Nej+aHkZ
-	 373c/QuOnKtEVExkNfuwr/F7cdQqXsffQyaR9sZCS8SBhITEwbU/MsVpBGMWpz1WXP47D
-	 aBsygD/guM6zHeF/p8hPneWo+1zpGDmXg6EbQLRJLCzQOOFCaHFF/2gP0sq+ed697dVR+
-	 wNqH6/ybpjF9CBdPEZQnzgXUGZ/Mi3pFXQLa2XexZ9+sLethrlSrGrDj4cIP0Mok8Gw==
+	t=1793140207;
+	b=29VkV8Hu5wRnk+Vf3J3Y4j9laNZV8jqGNQ7WJvoVq51NUJuF3qHFHOmwq0NIpESAqvo0
+	 s1xOK0jdXvgp65turkV4vLtfKU+2RvG4VBdb4P+/DsdzFCeDdWBKNJhkazpYyLai7h6z9
+	 JRZcgvdbEW/nIS7FjculQ+dwbtxZhLLthxlbQ7jE0jVAIMPeBES3lylsT28GMIug0uAh0
+	 sRxRZxh5Uqc5FDjjElZqQmgxhbtre2u1yPwSJzBemKgIRe55NeWTBZ5dJ6kYilVPlG13P
+	 t+6h7f3OAGig8/sc4ryi2Fp4HQOqYQavPbVolhWidxxgyZYzhzpMUNZyn52HMcF861Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793140210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140207;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=fHlJ1wv5xEEQuy6wpLDTT9zC5ZVQRxUfazIXFu+TLHY=;
-	b=QtXQK4yg6GVa9e4k9Eu9n5jGY2LlJi+jvy+YEHn0ImSepVmfbAZlz2fAN7s9jbvOaKeU
-	 a3pJKBjZO7rHq9mURTx4gghnJlBU1LYOQZN6+9OPCT/vu0TI05RxPsjwbOs9+p65hk5ye
-	 ST1dR8nKukEYyXR/YZ2ukiF8pcRcqt7qTB0vST86dr2ycFhJc4r/ZH4Fm7JosQLNmWipF
-	 c05PzNv+lCEpFcRErGYf7/rzA02+M9BMZmnH4XVcSDkfoxfORb6kSUL5ZrruQPyRcP9Q9
-	 xsTVFF9IcS9JUieFHQ8XTJPPlua62hlj1DBpBOq9UxNF6fc+sfhclU1S84O+zMawRTg==
+	bh=xuq66sDnBhsAplEkzYm7QcixWPor8L5zRdirUDF98Vs=;
+	b=OBe8pbelmCuzZG8PSYQ7+yfR5iqYDOvZVLGkr3W6Qnn8xhi7tTuqg5I2B3h9Ytg/CED6
+	 zQELUwq6pI0NOW/RkTBfNu+YozKzunNL8RghwScJ3NrpmQKRJFBFl1ELfd3zszSgCwcl9
+	 0HAojI0xdpNJiB7IE01D1qfsGTm4xYJqkmFPMVGcN6QxvHvIhz+/WSZe8AQGNv3SJqmhM
+	 SZyC3cnmdesINxnH2aNWkQOkRrvvoYDLsg+yrTWY9M9oD4BX5iwFym3QeYzakf88Px7iC
+	 lsAM/J06wxEbtXwJOMrcJH4nuDfvcSy4o3ru2k/dvn3o9TFfB6r10ixjZ6NmAXz5Ssg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9RJUtrE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2xcgAJs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AB3606A324;
-	Tue, 27 Oct 2026 22:30:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A095606A31E;
+	Tue, 27 Oct 2026 22:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9RJUtrE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896EA1F031E4;
-	Tue, 27 Oct 2026 22:30:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2xcgAJs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F321F01829;
+	Tue, 27 Oct 2026 22:30:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793140210;
-	bh=fHlJ1wv5xEEQuy6wpLDTT9zC5ZVQRxUfazIXFu+TLHY=;
+	s=k20260515; t=1793140207;
+	bh=xuq66sDnBhsAplEkzYm7QcixWPor8L5zRdirUDF98Vs=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=O9RJUtrE+d6xFCi411NyiykGbFIeEIPZot8R02yz6683geXxyR4Adrb0kO+Cp/wkz
-	 CdDHZn7nfYQHQBKMuUAGsY7kgtYSHwL3OHLj4hnDohvfvVA2fK3zVhMgF1Wwul5jQd
-	 hbKufASFkBQWbHeXFGZB1ImOGuUjKHKajOTdYDpaIn4vKF094I+f/ZX0A2iyBWBU4z
-	 LiYhSWsYTTdpYa7Lb69/oJYPJ7Jwe8dc91JJwGHkWIzOBesxRqMXxlJnUmq031RS+H
-	 pobwPon/D9NBnkG9h/IdwU3gC6TW7a9W5bKcCnm6vnd6gdsEIHWpdL8bNLSDLm4tjV
-	 DPSvJtyXUr3XQ==
+	b=N2xcgAJsVvjA2GHoiyQcvdzZae2VtjCmB4UvxqHSPhnRgRBOwbvmrlS8vSBjyimZN
+	 K7ObJX/nInju5WgC+Ku08Ga/uyeu5S4ODHA5/PWHUrfU/tb5TECyrzIC6GTPiv2Nx0
+	 0tnRq4OXP0DP2V2ULVsqAinECK5qDmannYVKExh8nFCI9OsvKOS260KSt4pUIAZvMH
+	 kP0dsojOAXad0PIdPBtwa6oif4UdvTnq52MtwFxvxmnslByR4qEFo/s1w2K4BcFffk
+	 Q/+cziWsGEY9LAPRYrpgD+meGk5FbFF6QabkkTsc5VajyhrUkOsxHBGpQeN/zCfX7A
+	 uqC7yFlb7UVGA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 814163AA940B;
-	Tue, 27 Oct 2026 22:30:10 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id DC5943AA940C;
+	Tue, 27 Oct 2026 22:30:06 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,45 +54,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: lan966x: fix the DB dataptr of frames from
- ndo_xdp_xmit
+Subject: Re: [PATCH net] net: microchip: fdma: fix DCB corruption under
+ sustained load
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179314020904.360855.3604879146922588076.git-patchwork-notify@kernel.org>
-Date: Tue, 27 Oct 2026 22:30:09 +0000
+ <179314020569.360855.3209955034452568131.git-patchwork-notify@kernel.org>
+Date: Tue, 27 Oct 2026 22:30:05 +0000
 References: 
- <20261026-lan966x-xdp-xmit-dataptr-v1-1-d0dd068324de@microchip.com>
+ <20261026-microchip-fdma-dcb-corruption-v1-1-36dab6caca07@microchip.com>
 In-Reply-To: 
- <20261026-lan966x-xdp-xmit-dataptr-v1-1-d0dd068324de@microchip.com>
+ <20261026-microchip-fdma-dcb-corruption-v1-1-36dab6caca07@microchip.com>
 To: Daniel Machon <daniel.machon@microchip.com>
-Cc: horatiu.vultur@microchip.com, UNGLinuxDriver@microchip.com,
+Cc: Steen.Hegelund@microchip.com, UNGLinuxDriver@microchip.com,
  andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+ kuba@kernel.org, pabeni@redhat.com, horatiu.vultur@microchip.com,
+ jensemil.schulzostergaard@microchip.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Mon, 26 Oct 2026 14:46:39 +0100 you wrote:
-> lan966x_fdma_xmit_xdpf() transmits both XDP_TX frames and xdp_frames
-> from ndo_xdp_xmit, and builds the DB with
-> lan966x_fdma_xdp_tx_dataptr_cb(), which adds XDP_PACKET_HEADROOM to the
-> stored DMA address.
+On Mon, 26 Oct 2026 14:47:05 +0100 you wrote:
+> __fdma_dcb_add() prepares a DCB and links it into a channel's chain by
+> writing its address to the NEXT_PTR of the current last DCB. The FDMA
+> may be processing the chain while this happens.
 > 
-> Before this patch, the headroom is also added for xdp_frames. For
-> XDP_TX the stored address is the start of the page pool page, but for an
-> xdp_frame it is the mapping of the IFH placed in front of the frame
-> data, so frames from ndo_xdp_xmit are read from XDP_PACKET_HEADROOM
-> bytes after their IFH.
+> Before this patch, the link is written before the new DCB's own nextptr
+> and info fields, so the FDMA can follow it to a DCB that hasn't been fully
+> prepared yet. Under sustained load this stalls the FDMA.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] net: lan966x: fix the DB dataptr of frames from ndo_xdp_xmit
-    https://git.kernel.org/netdev/net/c/ce3192e0dafa
+  - [net] net: microchip: fdma: fix DCB corruption under sustained load
+    https://git.kernel.org/netdev/net/c/573a6d4c7a21
 
 You are awesome, thank you!
 -- 
