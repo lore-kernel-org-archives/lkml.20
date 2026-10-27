@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099921;
-	b=bCakyGIUMO1HTDixqeT7UNdO6bgPjcoWWK6rzgEu8Udc/1TilrbX7CcD67gL3ktrtVEs
-	 dV5OSwGGszWVPA6Aw/zbsgJ9DphupBghlFQpLFpCkYZBb6KjogD/VaoUPJ+Up92moYPyN
-	 DOFMZu5kHXfh3h3/5wo0hPEtUWVPGKWyVwZjBwzeEx/ufZXaWYNzErukhpS7RjLpzT28A
-	 L31oj3/Gd+ROY521Yr7em4qNOpvf1Ca6ptUuIYnW2Qd/9l1j8YNsmkjKtMAIFFBhPp0H/
-	 ag/1/n+6EccKPItUxJqPnPhR/wIlYnJB9+9I2bX6w5lMg7n+qygPNZj7QDDKSlkk7Ww==
+	t=1793099936;
+	b=lGKgSV8MVKAR96U6HTYFF3TxY7oZFlnovkjjgEsOLcZamSav5mChqbTwq2kH3bTNl51X
+	 UWCFjpyIVGdZqTlDc+nX6WTQslDyQEN0lrvKSg7Gt7ojcpo+YOA1/pNOXI344NMLqgHIl
+	 GhT1/BJu0isCCdBNKvFGcf82eiT+xpF2rwfmY5lhADbjXmWx4jGtfaukEiGf5b4Fn/GVr
+	 274I4k2tVf2VBA5lQudUZPKFL/Bs0yO5uC/rLAM+4NxtYZRxODzMbj9DOChgh9djZ7vRm
+	 7uh/mpWSW34Rc/Gw63HFAF6d3JGDjNR9FNiNxXAIA+firRNVLvOqYfYju2fJDCnlosA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099921;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
-	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=s1Lh+ZL65LDPjuRmX1xQUXrTEhu0tNm90UHEZqUaCnQ=;
-	b=Urn9Kkg0VMXzhJJWxMPmNXwaT0vxSTBg93xvAaSjlPLT7oOHxvysl/V6Yp1NGLk7EqHC
-	 pMRxj8oq5PnXpmlZm4kM8ySz/v6hxVjju19wXuDwK8nSxq4xPUSbDqc9VEpGgYfbR+NoJ
-	 +Q9Q9rTMm4uyRWCaV6blbncfASXS1eRSYKvOWRa1INbKIUPePHfl8FXR1H3dciPkqmOS9
-	 q+R8lFfoK6ijdA1rdkgXt+9OE4qJ+sY4nhEvxOs8jeFKulY5LkXeCvwwVdiV377LgaOOg
-	 uftf4BwNvMuma7FYwB2rQQBOsIfgDXjcKckhGyK0F6d/AM4+IhreziNXKqMIOdX+uuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099936;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=SHLKyJlQ92ycclVRVclHzYt7AhLEu/8J5eYn5vce5kI=;
+	b=lqVRwinDfbkDCuDHU9VceNTeVQphH1EMOGwzixxA2EMG8cJnFGS7c5RcZKxqnGncyVU8
+	 488fH1+fhRodiFwrLAC8xm7rqfR83VK7NQJa4bdwakB0HP8HPtr/QJ1Hu7y66YIwOkV2r
+	 F7HccqrViMxEFPvjFsGAL1K/Jz+y5Z4VuxWB8V/Y4dAuI+40zR/kaBWdPp7dh/pSZREqc
+	 2Bd0fspYsYTNBY1NB7PnSYKOZ/n0l1SD3IHGoPs+mSUE2GIiKbp+QM6HgUc2YvWau/USV
+	 1JKZafY0i9UgFUs9nuJKPanllmdp6qDsVJqpGbjUKH80CvkAnhQ8/amZ/a1zV57cvYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.4
-Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ijmtIpiD;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC177606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:18:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC177606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07438719|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0934866-0.000154431-0.906359;FP=3161518592240745554|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jqbo8fG_1793099909;
-Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jqbo8fG_1793099909 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 19:18:30 +0800
-Subject: Re: [RFC PATCH 3/6] sched/fair: SMT sibling exclusion after
- successful push
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
- <20261020083746.37068-4-likunyu@open-hieco.net>
- <20261021123904.GI2823843@noisy.programming.kicks-ass.net>
-From: Li kunyu <likunyu@open-hieco.net>
-Message-ID: <2325dcd3-2940-701f-92ab-c2711c65c1cc@open-hieco.net>
-Date: Tue, 27 Oct 2026 19:18:30 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD274606A31A;
+	Tue, 27 Oct 2026 11:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD274606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ijmtIpiD
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=SHLKyJlQ92ycclVRVclHzYt7AhLEu/8J5eYn5vce5kI=;
+	b=ijmtIpiDqGjAg+LyC4KtjTcqPEfytqF3S8pSW81KfNo/73c6OSQ+umrfumunmcizZaVSKkein
+	ECUjBwpEvNk409dyr1Pf309w/eDSEK5rCEr7ZQN1M/CRKF3IG/XxdjH4oafKDdxf33H+PwgWcna
+	Vi7kFdG0/jk70YncXV8qvUI=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jDSfm0dc8zLlXn;
+	Tue, 27 Oct 2026 19:18:40 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id EE4B940578;
+	Tue, 27 Oct 2026 19:18:45 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 27 Oct 2026 19:18:44 +0800
+Subject: Re: [PATCH] mtd: ubi: nvmem: Fix device_node leak in ubi_nvmem_add()
+To: Vishal Satle <vishalsatleit24@gmail.com>, Richard Weinberger
+	<richard@nod.at>, Daniel Golle <daniel@makrotopia.org>, Miquel Raynal
+	<miquel.raynal@bootlin.com>, Vignesh Raghavendra <vigneshr@ti.com>
+CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20261027091507.130294-1-vishalsatleit24@gmail.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <67bc8e42-c4e9-bfbd-f451-1ef5b492a084@huawei.com>
+Date: Tue, 27 Oct 2026 19:18:43 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,85 +72,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261021123904.GI2823843@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20261027091507.130294-1-vishalsatleit24@gmail.com>
+Content-Type: text/plain; charset="gbk"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-
-
-On 2026/10/21 20:39, Peter Zijlstra wrote:
-> On Tue, Oct 20, 2026 at 04:37:43PM +0800, Li kunyu wrote:
+ÔÚ 2026/10/27 17:15, Vishal Satle Ð´µÀ:
+> ubi_nvmem_add() calls of_get_child_by_name() to verify that the UBI
+> volume device node contains an "nvmem-layout" subnode.
+> of_get_child_by_name() returns a pointer to the child device_node
+> with its reference count incremented.
 > 
->> @@ -13377,7 +13379,20 @@ static struct rq *sched_balance_find_src_rq(struct lb_env *env,
->>  	struct sched_domain __maybe_unused *sd_tmp;
->>  	unsigned int busiest_nr = 0;
->>  	int __maybe_unused dst_llc;
->> -	int i;
->> +	int i, smt_cpu, dst_cpu = env->dst_cpu;
->> +
->> +	if (sched_feat(SMT_BUDDY_ASSIST) && env->is_smt_move_task) {
->> +		/*
->> +		 * Remove the SMT sibling CPU from the mask to avoid the
->> +		 * extremely rare case of pulling tasks from it.
+> Because the returned pointer was only evaluated as a boolean condition
+> and not retained or put, the reference count of the "nvmem-layout" node
+> was leaked whenever an NVMEM-enabled UBI volume was registered.
 > 
-> Your comment seems to think the SMT mask is only ever 2 cpus, we have a
-> ton of architectures where this is not true.
+> Assign the child node to a local variable and release it with
+> of_node_put() once existence has been validated.
 > 
->> +		 */
->> +		for_each_cpu(smt_cpu, cpu_smt_mask(dst_cpu)) {
->> +			if (smt_cpu == dst_cpu)
->> +				continue;
->> +
->> +			cpumask_clear_cpu(smt_cpu, env->cpus);
->> +		}
+> Fixes: 34a5d8525b6a ("mtd: ubi: add NVMEM support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
+> ---
+>   drivers/mtd/ubi/nvmem.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
 > 
-> This is terrifyingly horrible. You're using a loop and atomic bit clear
-> to clear bits in a local cpumask.
+> diff --git a/drivers/mtd/ubi/nvmem.c b/drivers/mtd/ubi/nvmem.c
+> index 2dade9727..15737d511 100644
+> --- a/drivers/mtd/ubi/nvmem.c
+> +++ b/drivers/mtd/ubi/nvmem.c
+> @@ -61,6 +61,7 @@ static int ubi_nvmem_reg_read(void *priv, unsigned int from,
+>   static int ubi_nvmem_add(struct ubi_volume_info *vi)
+>   {
+>   	struct device_node *np = dev_of_node(vi->dev);
+> +	struct device_node *layout;
+>   	struct nvmem_config config = {};
+>   	struct ubi_nvmem *unv;
+>   	int ret;
+> @@ -68,9 +69,12 @@ static int ubi_nvmem_add(struct ubi_volume_info *vi)
+>   	if (!np)
+>   		return 0;
+>   
+> -	if (!of_get_child_by_name(np, "nvmem-layout"))
+> +	layout = of_get_child_by_name(np, "nvmem-layout");
+> +	if (!layout)
+>   		return 0;
+>   
+> +	of_node_put(layout);
+> +
+>   	if (WARN_ON_ONCE(vi->usable_leb_size <= 0) ||
+>   	    WARN_ON_ONCE(vi->size <= 0))
+>   		return -EINVAL;
 > 
-> 		cpumask_andnot(env->cpus, env->cpus, cpu_smt_mask(dst_cpu));
-> 		__cpumask_set_cpu(dst_cpu, env->cpus);
-> 
 
-I have rewritten the code. I moved the clearing of the CPU in the mask to before
-the traversal of the busiest scheduling group and adopted your clearing method.
-The new code is as follows:
-
- static int sched_balance_rq(int this_cpu, struct rq *this_rq,
-                        struct sched_domain *sd, enum cpu_idle_type idle,
--                       int *continue_balancing)
-+                       int *continue_balancing, bool is_smt_move_task)
- {
-        int ld_moved, cur_ld_moved, active_balance = 0;
-        struct sched_domain *sd_parent = sd->parent;
-@@ -13784,6 +13784,7 @@ static int sched_balance_rq(int this_cpu, struct rq
-*this_rq,
-                .tasks          = LIST_HEAD_INIT(env.tasks),
-        };
-        bool need_unlock = false;
-+       bool is_smt_clean_cpu = is_smt_move_task;
-
-        cpumask_and(cpus, sched_domain_span(sd), cpu_active_mask);
-
-@@ -13803,6 +13804,15 @@ static int sched_balance_rq(int this_cpu, struct rq
-*this_rq,
-                need_unlock = true;
-        }
-
-+       /*
-+        * Remove the SMT sibling CPU from the mask to avoid the extremely
-+        * rare case of pulling tasks from it.
-+        */
-+       if (sched_feat(SMT_BUDDY_ASSIST) && is_smt_clean_cpu) {
-+               cpumask_andnot(cpus, cpus, cpu_smt_mask(this_cpu));
-+               is_smt_clean_cpu = false;
-+       }
-+
-        group = sched_balance_find_src_group(&env);
-        if (!group) {
-                schedstat_inc(sd->lb_nobusyg[idle]);
-
-
-
--- 
-thanks,
-kunyu
