@@ -1,54 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102035;
-	b=RQ1/l05DglVepp8VwLdJGWzZa4iWscX+J+yV9/ylMZzhp2HKXuWprdnNI7kHxGNgNa6M
-	 A/4UZlC9lz5w2LdUZdjP2pVBA8ht1SI26boa9GJbJpBz5HQWUAr+iraGiGdVWDhvKvKr5
-	 x+m8YaB2nrxz5ir2hdiO0LdJh+Me9JVWd/udBONYMrSqUWoYleof958d4MebF8jsnai8+
-	 u8f/BQ6Ut7Q5QBZX4cLC4XIhJsBThpyFBo6qy85p0+LWtS3BwcxAVYomhXGzzo2GkC7ON
-	 qmHaHiR9W3X0J7N19/d/OJOw404+NhL+FQ4+sjEHw75mjNw1DrtxXTDUIrpnAACfEPw==
+	t=1793102057;
+	b=vyITeu4m22csjizLOyLKPCw8FcpFslnaW/CKn05tzyBg89jcsCzyGv/Y8uC6HqMNXAGT
+	 Pc/40Uf8nY0Pmrs84jlx8DM8X50izK4wrP4fR1J6fdYz+I+lrnJ5tJP1Nevyvs/KPGHS6
+	 eGNKgPhULx5tInvIg+hHD4IxbzAFFVISubV41kiSa8iKFw4HPoka5xEyBIX2XXmnBhN2K
+	 RnsmfgjD+npIN12x1gnSffM6TPl4fPjZZUOcK6QnWfx2jD2Cbwyu/f7dgZrvr+UGXS2nr
+	 fQ0QhjTTJXwITpMYKNWmuJa3xeIqFs6SVTLeoH4jb9qw6W/eAuONSS7dTlmEviSyDGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102035;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Hg2rJTq4dugLpsyQtR4635UwYsbDjZzt3P2CYzIqr7c=;
-	b=kkqXeP0Kr+k7m2ufssMn2EfaLT+CSE/jFEqDCGLVfAbv4sIppLQyPZRNJhMdOj+72NJ5
-	 lc04NgVEaNnfibMFdTMcfEtlIeMJ9FMjh1BjT92gwvkki4r5J34koWpyfcpPghaDJrd7H
-	 +6hPwnqbKuuhZMgjTHmsqKNFDvDz4V67/RgA3FSvZNE8xMYuOfvEkuyMZ9uezQ+dMiEGg
-	 oFVcAfGFvsa+r9d0nmzxwd3AILFVSggOeeWDLhUS46YjxiIH0hFT0mc/2fyVVQFvYnsIF
-	 qGxFezW2sIdAfof6Bi6v69T3yhMPLluL6dBOlfPkKTU0nUf7OjzLveZi4Z8hLa+R2EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102057;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=wJQB7n8JnxMUATD+GJvxjgtk7nAmzv0emR6KFf8YfPc=;
+	b=tML5Nr3kUzZvqwxpJv3TF39NyhZvzaeJLTGb35otzf9OOFB2THokNtgenEci+lYF8C1V
+	 rpPXyDE9snWYDNUkh7jqAG+nzToe9ctbF+2Hv9fimBoKKAurlMo3a0fY2OL31GJn+6zF0
+	 Q1VSFfeKDjTFi4k70kHPTqJZByEnz99Cl00qXz2CH340PTEK7nSKU8W/ZR3YQGWLvBkpy
+	 t/mu1tKtGi6SnUEefhfGvkXcsBkFUrS1czgm65jgJtRePyhdgLvCuOE2pus7S3ZgdLOcs
+	 KzK/SoVE2Cbthmn+TkHL9Ngltoi+6wrzocfWI5difaDq6sfhf/jI4GZtUtaxFVvsAiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nKkrKhR4;
-	arc=none smtp.remote-ip=95.215.58.210
-Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=GM32159G;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13C3606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:53:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D13C3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091B5606A31A;
+	Tue, 27 Oct 2026 11:54:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 091B5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nKkrKhR4
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rbVRWtd1a19ORZE1+XzRUlmNZZKKanCQY2cJK+FiJ+Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793102031; v=1; x=1793706831;
- b=nKkrKhR44tamPEk3vYXQqK4zfjfTUWxU/VsSuW+khk1vlO3qKbqBpParsXDp1erbG2QRT8Mr
- VOW+l7x/YpGZVSh/wyPiYidgcnBQqB9OEWvwCIe4vGtMFDFIEEv0O9A1/1QgL8Zlx9HLvQVBwfl
- q2w3XbzDiPLmEUyv9qHreHmE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6b00a2675eea1804;
-	Tue, 27 Oct 2026 11:53:51 +0000
-X-Mizu-Trace-ID: 6b00a2675eea1804
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6e59ac7e-0186-477d-8166-083dd2987aa4@linux.dev>
-Date: Tue, 27 Oct 2026 19:53:41 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=GM32159G
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=wJQB7n8JnxMUATD+GJvxjgtk7nAmzv0emR6KFf8YfPc=; b=GM32159GJwwlVPPJOx38dIb2Go
+	/kIJkZZHIyidazcz9osxlX6NIv9yNgYYwrN+/IAdPp2c3icF7I9moNnAf7wY/Qa/aNGP9+rVOoMTl
+	kTxtnuk0d7W8U3cikyPPaj6GJ+gN8GyiPd+V+K4+c9E/4tFbkMZPo0wNMChCyNjGp0uxNbfBq4PXT
+	NRf1lUfJgik5pdHr+Qzx11E0+yUTGKnPmgkkVWVb10IVcDhS6FRBAi5ZToHNVlkrwiF7o6iBotSA7
+	JjRkzzEtz/lPJY+MWWjXOLHlKHIfX01S+siTWV1M0brtxwDqNl4rriIc/OIBlO9JDIEhEl6Yn7SLY
+	yW43JkAA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLfkp-0000000DLx2-28gn;
+	Tue, 27 Oct 2026 11:54:11 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id A8E76302F53; Tue, 27 Oct 2026 12:54:10 +0100 (CET)
+Date: Tue, 27 Oct 2026 12:54:10 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Vladimir Vdovin <deliran@verdict.gg>,
+	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/6] sched_ext: Add a kfunc to read a task's preferred
+ NUMA node
+Message-ID: <20261027115410.GK2668564@noisy.programming.kicks-ass.net>
+References: <20261027041536.3317971-1-arighi@nvidia.com>
+ <20261027041536.3317971-6-arighi@nvidia.com>
+ <cf3e5585-128e-4ee3-9352-afbddbfd50c1@amd.com>
+ <auBLYFDJ88gTxtLM@gpd4>
+ <20261027105056.GE2668564@noisy.programming.kicks-ass.net>
+ <auCJHU4_ugxayy7i@gpd4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,56 +85,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@linux.dev, =?UTF-8?B?5p6X5rab77yI57O757uf77yJ?=
- <shawn.lin@rock-chips.com>, Ulf Hansson <ulfh@kernel.org>,
- linux-mmc <linux-mmc@vger.kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Jensen Huang <jensenhuang@friendlyarm.com>
-Subject: Re: [PATCH 2/2] mmc: core: sdio: skip CMD11 if signalling is already
- 1.8V
-To: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>,
- "llj@rock-chips.com" <llj@rock-chips.com>
-References: <20261023232813.2983368-1-rojer@rojer.me>
- <20261023232813.2983368-3-rojer@rojer.me>
- <4e8bbb32-e062-40fe-8ee4-363e83a68f2b@rock-chips.com>
- <46a26683-9d8e-451b-bc98-505b1c13b09f@rock-chips.com>
- <202610261435018282601@rock-chips.com>
- <CABFmFwr0JozEeaDd4KErDzh+DWjkjkVRo6z61OxHG6BE=L_hKg@mail.gmail.com>
-From: Shawn Lin <shawn.lin@linux.dev>
-In-Reply-To: <CABFmFwr0JozEeaDd4KErDzh+DWjkjkVRo6z61OxHG6BE=L_hKg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auCJHU4_ugxayy7i@gpd4>
 
-Hi Deomid
+On Tue, Oct 27, 2026 at 12:21:01PM +0100, Andrea Righi wrote:
 
-在 2026/10/27 星期二 19:00, Deomid "rojer" Ryabkov 写道:
-> On Mon, 26 Oct 2026 at 08:35, llj@rock-chips.com <llj@rock-chips.com> wrote:
->> With this patch, swt6621s can skip CMD11 and successfully
->> enable UHS mode.
->>
->> Tested-by: Longjian Lin <llj@rock-chips.com>
+> > But should we not cleanup first and then add shiny on top?
 > 
-> thanks for testing, Longjian! so in your case it's even worse: without
-> the patch doesn't come up at all. good to know that now it does.
-> note that your reply didn't reach the list (vger drops HTML-only
-> mail). i'm quoting it here for but if you can, please re-send it in
-> plain text again, with full context.
+> Fair enough. Looking more closely, I think there're only two places in
+> fair that still use p->numa_preferred_nid when NUMA balancing is
+> disabled at runtime: find_idlest_group() and the fbq classification in
+> the load balancer (via rq->nr_numa_running / nr_preferred_running).
+> Everything else is already gated by sched_numa_balancing.
 > 
-> Shawn, thanks for the reviews! you're right about the soft-reset vs
-> power cycle: card is soft-reset, not power-cycled.
+> Assuming I'm not missing anything, we can probably add a preparatory
+> patch that gates those two on sched_numa_balancing as well, then make
+> scx_bpf_task_numa_nid() return NUMA_NO_NODE when NUMA balancing is
+> disabled. In this way the stale value is never used.
 
-Just to mention that vqmmc is optional, so if not vqmmc-supply in DT,
-the voltage is hardwired to 1.8V, then this patch doesn't help.
-
-I'm inclined to add vqmmc dependency to the commit msg of this patch as
-well. What's your opinion?
-
-
-> 
-> Ulf, if there are no other comments, please s/power-cycle the
-> card/reset the card/ in 1/2 when applying. sounds like we're
-> converging on 2a, so the alt patch can be dropped. or, if you prefer a
-> single cleaned up patch set, please let me know.
-> 
-
+Sounds like a plan :-)
