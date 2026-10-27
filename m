@@ -1,99 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101177;
-	b=kKiLNrsKyon5lu7BdAdON+O2NidCt5VHtxZdbtHlGVltODSDrTYlNwUhNsH0NXakcma0
-	 FTX2Su4NfYzy6BwOWHD4EDiJ7FIITsr4osSDu4/39Gdn7us3gOAqkG6cVE1eZSSGq1feQ
-	 nw0zHOaoRfE8kPqC7ovC+8gCsUQtuIfdyvr0JnOU+2SJ8oI6zh9uWJj7L9OWLPmVnhcFX
-	 Z/S0v1tAmJ3rX+9coYhLzAmH+qmOJHvOAYsNeZCI1Wy/Mufs+kQWpZNxXCyZSnFYk6lQR
-	 64Ew7d2g+UektBy1wOcsE6qD9jKO0kTmMjCrRfwIWhqtRBrCxvjJvuCVxPizq5YD0Zg==
+	t=1793101193;
+	b=maFuHqWfDL/JCT7hlHNkLX88YHApIUm03OvdqwIU6Ej7wQmsm5zJySo1JcIRwl/kQy+1
+	 AwTkXnvlxi2i4MACO/yWpDhXrgvpmpDdJxY7OiRHCDqkdxwZRwvvuqz90w1I4t4O5BQ5f
+	 YL7tHOsazmpPZqRtH4pFdrmA42kErNrbjMueJUolFsE8UInHRoX4PK3+b7fGj1Q3aLf4F
+	 jBa0yptaU0UdzsISztouPBI+LGhGp7JkvQg9xUT93CbIIdPLWGyTnpwAWrZyxt4/ZKfLY
+	 /60jEDPqoTDOGCi6aRCUBtuCdicHiEGS1Hg0tmnYmrA9JyaufGDeWTZ5fTw5HQ/1miQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101177;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=+4h+LosMEKQAOXs4e0h/oSVn5K7clxVAvpe79xJ2Y28=;
-	b=wR/VwIdXMIHlOSNZujtMYYsMdeeM+n1W9tUxO0DZYLC2tqgWuiAmlTcdWWqX40tPT5DP
-	 tRBafxwk9wEQN5IuWMg2dhnPsaFsgHrah/ZSgT3o4eJWU9gvR2RxizYQRbv8L8G1tIX3b
-	 AchWy3kFMUmUMh9HWL8eZU1zHPCK6G6e+22snP7/uf4MJB3opY5nkN0vUoazSMp+714j0
-	 osGjfHYXNVxB8Ge4fD/v3clvWH1psAHPtOx0oiYJ5SQZzd1gn1SJixu8B85/GsglgGvRb
-	 R8f6gd3sxD2Yj6SFlyFqq5ezPb9wIhi2ZYPDqahYUMdY8wdtjzhfGDx3vgAaNSdttBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101193;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=fvfm5QHWeT+5y5RyRY9bq6ty8daU5y7ybSf8CKQi8iU=;
+	b=TuXgpK1y79KPULTNNpKLOeYSSPTbP42JqmTHuQk4r8WBaj7IFDHuUV/q5uNvSEyESo/U
+	 zxnZvkADCgYscoy2UgM0WgJigFBareoywOdGxihHT/6xwaIBU9pjCSPYuuxJaK65sIm4t
+	 AVMftLhv2gGmphr5DdbrvFo36bErwGtRagqXOUTHNcJqdr5yzMUch7cXbBokwBl+sW4wj
+	 1aSA4thM1xn3byc81lwrQRP4ixRSc4Qa/pb2mCASfnwmSeXWo/n0Fmv2JDPLdCFzMVWki
+	 guHX0MJRPbUWdq8tq20d8i6ifTAI9EG/bZTeSsA90vOEGqfIKFFc53bd4kPA6KbkYzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FJiGDug6;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EkrAeAVk;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4710606A9C6;
-	Tue, 27 Oct 2026 11:39:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4710606A9C6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D487606AED3;
+	Tue, 27 Oct 2026 11:39:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D487606AED3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FJiGDug6
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+4h+LosMEKQAOXs4e0h/oSVn5K7clxVAvpe79xJ2Y28=;
-	b=FJiGDug68WjNx0xWDIzzod6vppyeMsZslGo8cml9EB76SuctefkJ1J7l0uWFKlc3YKPxW95A0
-	Bi33/6VwmJN6lAx71JiANxrC22DyaCsZCZaCobac9XLQmXSkIwoHQMC8HwTUXdA6AEouF8htbgB
-	4K7LxD9HDjrnfxGspaDKDWw=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jDT6j2ylBz1T4G1;
-	Tue, 27 Oct 2026 19:39:25 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id BCEA64057D;
-	Tue, 27 Oct 2026 19:39:33 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 27 Oct 2026 19:39:28 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
-	<jmorris@namei.org>, <serge@hallyn.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>, <utilityemal77@gmail.com>,
-	<caixinchen1@huawei.com>
-CC: <ast@kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>,
-	<eddyz87@gmail.com>, <memxor@gmail.com>, <martin.lau@linux.dev>,
-	<song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
-	<emil@etsalapatis.com>, <ihor.solodrai@linux.dev>, <rdunlap@infradead.org>,
-	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <dakr@kernel.org>,
-	<johan@kernel.org>, <dlemoal@kernel.org>, <hch@lst.de>, <axboe@kernel.dk>,
-	<viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
-	<dhowells@redhat.com>, <code@tyhicks.com>, <linkinjeon@kernel.org>,
-	<sj1557.seo@samsung.com>, <yuezhang.mo@sony.com>,
-	<hirofumi@mail.parknet.co.jp>, <cel@kernel.org>, <jlayton@kernel.org>,
-	<neil@brown.name>, <okorniev@redhat.com>, <Dai.Ngo@oracle.com>,
-	<tom@talpey.com>, <hyc.lee@gmail.com>, <miklos@szeredi.hu>,
-	<amir73il@gmail.com>, <senozhatsky@chromium.org>,
-	<chenxiaosong@chenxiaosong.com>, <dsterba@suse.com>, <mason@kernel.org>,
-	<kpsingh@kernel.org>, <matt@bobrowski.net>, <rostedt@goodmis.org>,
-	<mhiramat@kernel.org>, <mathieu.desnoyers@efficios.com>,
-	<john.johansen@canonical.com>, <georgia.garcia@canonical.com>,
-	<zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<stephen.smalley.work@gmail.com>, <omosnacek@gmail.com>,
-	<casey@schaufler-ca.com>, <takedakn@nttdata.co.jp>,
-	<penguin-kernel@I-love.SAKURA.ne.jp>, <xiujianfeng@huawei.com>,
-	<nanx95726@gmail.com>, <djwong@kernel.org>, <lujialin4@huawei.com>,
-	<bpf@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
-	<driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
-	<linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
-	<netfs@lists.linux.dev>, <ecryptfs@vger.kernel.org>, <exfat@lists.linux.dev>,
-	<linux-nfs@vger.kernel.org>, <ntfs@lists.linux.dev>,
-	<linux-unionfs@vger.kernel.org>, <linux-cifs@vger.kernel.org>,
-	<linux-trace-kernel@vger.kernel.org>, <apparmor@lists.ubuntu.com>,
-	<linux-integrity@vger.kernel.org>, <selinux@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>
-Subject: [PATCH v3 -next 18/18] Documentation: Update landlock doc for metadata rights
-Date: Tue, 27 Oct 2026 20:11:51 +0800
-Message-ID: <20261027121151.1887650-19-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20261027121151.1887650-1-caixinchen1@huawei.com>
-References: <20261027121151.1887650-1-caixinchen1@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EkrAeAVk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793101192; x=1824637192;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=iGPNvXEcwlA5POsZZSDnagM9sJITGnqx2ASpq6Bi4fY=;
+  b=EkrAeAVkjAm4JC/C4R7VExTpGzsTRw9EzldXfkk84KywXSc0rWP5dbEN
+   PeQR46h8Uk7URVgTwUTi4vwBzBjfZKm6JSiRHU5TLja3jAoFo/HZnuO+f
+   8dn/pHQNVnXyGqB59xVr+UEM4uEI2fKYQGIRwa5XSpqHwgFHq8npBCNxl
+   u2JsEvUrgOSGVCJ7i3FtEIkPFKCUn/kLyepwdzPy/8z7jAfKibPOcEuAU
+   IrV20odlMtzqoV0fg65x4sgVRN3og4RGQ26Imka07MRyXUevrkSVmSvAR
+   8q5RJcKloaV8Dr/3by5M4K+vG9z3OlMFUromhhFKktuQ1dNYejzmG5LFb
+   A==;
+X-CSE-ConnectionGUID: 3KPT2/xIR9e9XSpuDhwUNg==
+X-CSE-MsgGUID: DiyWe2rTSDShYxp1Ajxnrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1706714"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1706714"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:39:51 -0700
+X-CSE-ConnectionGUID: Mwtodx+eSW6TwgCAM2oBGA==
+X-CSE-MsgGUID: Aii4mqylT3eKG+ZJrBtEKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6397978"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:39:38 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 27 Oct 2026 13:39:34 +0200 (EET)
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
+    Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+    Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
+    Florian Fainelli <f.fainelli@gmail.com>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Peter Hurley <peter@hurleysoftware.com>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
+    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+    Pengutronix Kernel Team <kernel@pengutronix.de>, 
+    Fabio Estevam <festevam@gmail.com>, 
+    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
+    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
+    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+    Peter Griffin <peter.griffin@linaro.org>, 
+    Alim Akhtar <alim.akhtar@samsung.com>, 
+    Robert Baldyga <r.baldyga@samsung.com>, 
+    Thomas Abraham <thomas.abraham@linaro.org>, 
+    Kukjin Kim <kgene.kim@samsung.com>, 
+    Patrice Chotard <patrice.chotard@foss.st.com>, 
+    Srinivas Kandagatla <srini@kernel.org>, 
+    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+    Andy Shevchenko <andy.shevchenko@gmail.com>, 
+    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
+    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, stable <stable@kernel.org>, 
+    Andy Shevchenko <andriy.shevchenko@intel.com>, 
+    Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+    Tate Whiteberg <whiteberg@arista.com>, 
+    Christian Marangi <ansuelsmth@gmail.com>, 
+    John Ogness <john.ogness@linutronix.de>, 
+    Fushuai Wang <wangfushuai@baidu.com>
+Subject: Re: [PATCH 03/24] serial: 8250: don't wait for the em485 timers
+ locked
+In-Reply-To: <20261027-tty-llm-v1-3-99b0202ae546@linuxfoundation.org>
+Message-ID: <c53e055a-b2c4-9360-41e4-dfbe757c86d4@linux.intel.com>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-3-99b0202ae546@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,166 +111,228 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Type: multipart/mixed; boundary="8323328-1123129667-1793101174=:1182"
 
-Update the user space documentation for the new
-LANDLOCK_ACCESS_FS_READ_METADATA and
-LANDLOCK_ACCESS_FS_WRITE_METADATA access rights: add them to the
-example ruleset attributes, extend the ABI version fallback switch
-to remove them for ABI < 13, and document their semantics in a new
-"File metadata" section, including the fact that only explicit
-metadata changes requested by user space are restricted.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-The new section also documents the open-time semantic of both
-rights: metadata accesses requested through an already opened file
-descriptor are granted according to the rights available at open(2)
-time, like for LANDLOCK_ACCESS_FS_TRUNCATE, whereas path-based
-accesses and O_PATH file descriptors are always checked against the
-rights of the calling thread.  The "Rights associated with
-file descriptors" section is updated accordingly.
+--8323328-1123129667-1793101174=:1182
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Finally, the new section warns that most of the time,
-LANDLOCK_ACCESS_FS_READ_METADATA should be granted together with
-LANDLOCK_ACCESS_FS_READ_FILE and LANDLOCK_ACCESS_FS_READ_DIR:
-programs commonly read metadata alongside file contents and
-directory listings (e.g. with stat(2)) and do not expect such calls
-to fail, while denying only READ_FILE or READ_DIR does not hide
-metadata.
+On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
 
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
----
- Documentation/userspace-api/landlock.rst | 92 ++++++++++++++++++++++--
- 1 file changed, 86 insertions(+), 6 deletions(-)
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> serial8250_em485_destroy() is called with the port lock held and
+> interrupts off, from ->rs485_config() and from
+> serial8250_unregister_port().  It calls hrtimer_cancel(), which waits
+> for a handler which is running, and both handlers start by taking the
+> port lock:
+>=20
+>   CPU0                                  CPU1
+>   ioctl(TIOCSRS485), rs485 off
+>   uart_set_rs485_config()
+>     uart_port_lock_irqsave()            serial8250_em485_handle_stop_tx()
+>     serial8250_em485_config()             uart_port_lock_irqsave()
+>       serial8250_em485_destroy()            spins
+>         hrtimer_cancel()
+>           spins
+>=20
+> All it takes is to turn RS485 off right after the end of a transmission,
+> when the timer for delay_rts_after_send expires.
+>=20
+> The handlers do nothing unless em485->active_timer points to their
+> timer, so it is enough to clear that pointer.  What cannot be done with
+> the lock held is to free the structure: hrtimer_try_to_cancel() fails
+> for a timer whose handler is running, even if it has been started again
+> in the meantime.  So keep the structure in the port when RS485 is turned
+> off, use it again when RS485 is turned on, and free it when the port is
+> unregistered, where the timers can be waited for without the lock.
+>=20
+> A port on which RS485 emulation has been used once keeps the structure,
+> about 150 bytes, until it is unregistered.
+>=20
+> Fixes: 6e0a5de2136b ("serial: 8250: Use hrtimers for rs485 delays")
+> Cc: stable <stable@kernel.org>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Cc: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+> Cc: "Uwe Kleine-K=C3=B6nig (The Capable Hub)" <u.kleine-koenig@baylibre.c=
+om>
+> Cc: "Ilpo J=C3=A4rvinen" <ilpo.jarvinen@linux.intel.com>
+> Cc: Tate Whiteberg <whiteberg@arista.com>
+> Cc: Christian Marangi <ansuelsmth@gmail.com>
+> Cc: John Ogness <john.ogness@linutronix.de>
+> Cc: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+> Cc: Fushuai Wang <wangfushuai@baidu.com>
+> Cc: Rafael Gago Castano <rgc@hms.se>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/tty/serial/8250/8250.h      |  1 +
+>  drivers/tty/serial/8250/8250_core.c |  5 +---
+>  drivers/tty/serial/8250/8250_port.c | 60 ++++++++++++++++++++++++++++++-=
+------
+>  include/linux/serial_8250.h         |  1 +
+>  4 files changed, 52 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/825=
+0.h
+> index 21ed9c41b751..82a3b8359643 100644
+> --- a/drivers/tty/serial/8250/8250.h
+> +++ b/drivers/tty/serial/8250/8250.h
+> @@ -235,6 +235,7 @@ int serial8250_em485_config(struct uart_port *port, s=
+truct ktermios *termios,
+>  void serial8250_em485_start_tx(struct uart_8250_port *p, bool toggle_ier=
+);
+>  void serial8250_em485_stop_tx(struct uart_8250_port *p, bool toggle_ier)=
+;
+>  void serial8250_em485_destroy(struct uart_8250_port *p);
+> +void serial8250_em485_free(struct uart_8250_port *p);
+>  extern struct serial_rs485 serial8250_em485_supported;
+> =20
+>  /* MCR <-> TIOCM conversion */
+> diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/825=
+0/8250_core.c
+> index 42319843cb5b..0951d3e42e1f 100644
+> --- a/drivers/tty/serial/8250/8250_core.c
+> +++ b/drivers/tty/serial/8250/8250_core.c
+> @@ -947,10 +947,7 @@ void serial8250_unregister_port(struct uart_8250_por=
+t *uart)
+>  {
+>  =09guard(mutex)(&serial_mutex);
+> =20
+> -=09if (uart->em485) {
+> -=09=09guard(uart_port_lock_irqsave)(&uart->port);
+> -=09=09serial8250_em485_destroy(uart);
+> -=09}
+> +=09serial8250_em485_free(uart);
+> =20
+>  =09uart_remove_one_port(&serial8250_reg, &uart->port);
+>  =09if (serial8250_isa_devs) {
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
+0/8250_port.c
+> index 36b2b0a2c05c..3d47f535d6f1 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+> @@ -574,15 +574,22 @@ static int serial8250_em485_init(struct uart_8250_p=
+ort *p)
+>  =09if (p->em485)
+>  =09=09goto deassert_rts;
+> =20
+> -=09p->em485 =3D kmalloc_obj(struct uart_8250_em485, GFP_ATOMIC);
+> -=09if (!p->em485)
+> -=09=09return -ENOMEM;
+> +=09if (p->em485_idle) {
+> +=09=09p->em485 =3D p->em485_idle;
+> +=09=09p->em485_idle =3D NULL;
+> +=09} else {
+> +=09=09p->em485 =3D kmalloc_obj(struct uart_8250_em485, GFP_ATOMIC);
+> +=09=09if (!p->em485)
+> +=09=09=09return -ENOMEM;
+> =20
+> -=09hrtimer_setup(&p->em485->stop_tx_timer, &serial8250_em485_handle_stop=
+_tx, CLOCK_MONOTONIC,
+> -=09=09      HRTIMER_MODE_REL);
+> -=09hrtimer_setup(&p->em485->start_tx_timer, &serial8250_em485_handle_sta=
+rt_tx, CLOCK_MONOTONIC,
+> -=09=09      HRTIMER_MODE_REL);
+> -=09p->em485->port =3D p;
+> +=09=09hrtimer_setup(&p->em485->stop_tx_timer,
+> +=09=09=09      &serial8250_em485_handle_stop_tx, CLOCK_MONOTONIC,
+> +=09=09=09      HRTIMER_MODE_REL);
+> +=09=09hrtimer_setup(&p->em485->start_tx_timer,
+> +=09=09=09      &serial8250_em485_handle_start_tx, CLOCK_MONOTONIC,
+> +=09=09=09      HRTIMER_MODE_REL);
+> +=09=09p->em485->port =3D p;
+> +=09}
+>  =09p->em485->active_timer =3D NULL;
+>  =09p->em485->tx_stopped =3D true;
+> =20
+> @@ -604,6 +611,11 @@ static int serial8250_em485_init(struct uart_8250_po=
+rt *p)
+>   *=09The function is supposed to be called from .rs485_config callback
+>   *=09or from any other callback protected with p->port.lock spinlock.
+>   *
+> + *=09The handlers of the timers take that lock, so they cannot be waited=
+ for
+> + *=09here. One which is running does nothing, as no timer is active any =
+more.
+> + *=09The memory is kept for the next serial8250_em485_init() and freed b=
+y
+> + *=09serial8250_em485_free().
+> + *
+>   *=09See also serial8250_em485_init()
+>   */
+>  void serial8250_em485_destroy(struct uart_8250_port *p)
+> @@ -611,14 +623,40 @@ void serial8250_em485_destroy(struct uart_8250_port=
+ *p)
+>  =09if (!p->em485)
+>  =09=09return;
+> =20
+> -=09hrtimer_cancel(&p->em485->start_tx_timer);
+> -=09hrtimer_cancel(&p->em485->stop_tx_timer);
+> +=09hrtimer_try_to_cancel(&p->em485->start_tx_timer);
+> +=09hrtimer_try_to_cancel(&p->em485->stop_tx_timer);
+> +=09p->em485->active_timer =3D NULL;
+> =20
+> -=09kfree(p->em485);
+> +=09p->em485_idle =3D p->em485;
+>  =09p->em485 =3D NULL;
+>  }
+>  EXPORT_SYMBOL_GPL(serial8250_em485_destroy);
 
-diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
-index 3d45b956b640..489306ab0da8 100644
---- a/Documentation/userspace-api/landlock.rst
-+++ b/Documentation/userspace-api/landlock.rst
-@@ -87,7 +87,9 @@ to be explicit about the denied-by-default access rights.
-             LANDLOCK_ACCESS_FS_REFER |
-             LANDLOCK_ACCESS_FS_TRUNCATE |
-             LANDLOCK_ACCESS_FS_IOCTL_DEV |
--            LANDLOCK_ACCESS_FS_RESOLVE_UNIX,
-+            LANDLOCK_ACCESS_FS_RESOLVE_UNIX |
-+            LANDLOCK_ACCESS_FS_READ_METADATA |
-+            LANDLOCK_ACCESS_FS_WRITE_METADATA,
-         .handled_access_net =
-             LANDLOCK_ACCESS_NET_BIND_TCP |
-             LANDLOCK_ACCESS_NET_CONNECT_TCP |
-@@ -159,6 +161,12 @@ version, and only use the available subset of access rights:
-         ruleset_attr.handled_permissions &=
-             ~(LANDLOCK_PERMISSION_NAMESPACE_USE |
-               LANDLOCK_PERMISSION_CAPABILITY_USE);
-+        __attribute__((fallthrough));
-+    case 12:
-+        /* Removes metadata rights for ABI < 13 */
-+        ruleset_attr.handled_access_fs &=
-+            ~(LANDLOCK_ACCESS_FS_READ_METADATA |
-+              LANDLOCK_ACCESS_FS_WRITE_METADATA);
-     }
- 
- This enables the creation of an inclusive ruleset that will contain our rules.
-@@ -669,14 +677,73 @@ for writing, sidestepping the ``LANDLOCK_ACCESS_FS_TRUNCATE`` right.
- 
- The truncate right is associated with the opened file (see below).
- 
-+File metadata
-+-------------
-+
-+The ``LANDLOCK_ACCESS_FS_READ_METADATA`` right governs reading file and
-+directory metadata: :manpage:`stat(2)` and friends,
-+:manpage:`getxattr(2)`, :manpage:`listxattr(2)` and friends, and POSIX ACL
-+reads.
-+
-+The ``LANDLOCK_ACCESS_FS_WRITE_METADATA`` right governs explicit changes to
-+file and directory metadata: :manpage:`chmod(2)` and friends,
-+:manpage:`chown(2)` and friends, :manpage:`utimensat(2)`,
-+:manpage:`setxattr(2)`, :manpage:`removexattr(2)` and friends, and POSIX ACL
-+changes.  Both rights apply to files and directories alike.
-+
-+Implicit metadata changes performed by the kernel are not restricted by
-+``LANDLOCK_ACCESS_FS_WRITE_METADATA``: reading a file may update its access
-+time, writing a file updates its modification and change times and may change
-+the file size, and writing to or truncating a file with a set-user-ID or
-+set-group-ID bit clears these bits.  File size changes through
-+:manpage:`truncate(2)` and friends are governed by
-+``LANDLOCK_ACCESS_FS_TRUNCATE`` instead.  An explicit metadata change request
-+that changes nothing, e.g. :manpage:`chown(2)` with owner and group ``-1`` on
-+a file without a set-user-ID or set-group-ID bit, is not restricted either;
-+the same :manpage:`chown(2)` on a file carrying such a bit explicitly
-+requests clearing it, and therefore requires
-+``LANDLOCK_ACCESS_FS_WRITE_METADATA``.
-+
-+.. warning::
-+
-+   Many programs read metadata as part of reading file contents or listing
-+   directories (e.g. calling :manpage:`stat(2)` before or after
-+   :manpage:`open(2)`), and do not expect such calls to fail with
-+   ``EACCES``.  Most of the time, ``LANDLOCK_ACCESS_FS_READ_METADATA``
-+   should therefore be granted together with
-+   ``LANDLOCK_ACCESS_FS_READ_FILE`` and ``LANDLOCK_ACCESS_FS_READ_DIR``.
-+   Conversely, denying only ``LANDLOCK_ACCESS_FS_READ_FILE`` or
-+   ``LANDLOCK_ACCESS_FS_READ_DIR`` does not hide metadata: it remains
-+   readable through :manpage:`stat(2)` and friends unless
-+   ``LANDLOCK_ACCESS_FS_READ_METADATA`` is denied as well.  Tailored
-+   programs that do not read metadata at all can still deny this right to
-+   further restrict their sandbox.
-+
-+Both metadata rights are associated with opened files, like
-+``LANDLOCK_ACCESS_FS_TRUNCATE`` (see below): metadata accesses and changes
-+requested through an already opened file descriptor, e.g. with
-+:manpage:`fchmod(2)`, :manpage:`fchown(2)`, :manpage:`utimensat(2)` on an
-+empty path, :manpage:`fstat(2)`, :manpage:`fgetxattr(2)`,
-+:manpage:`fsetxattr(2)`, :manpage:`ioctl(2)` with ``FS_IOC_GETFLAGS`` or
-+``FS_IOC_SETFLAGS``, or ``file_getattr(2)`` and ``file_setattr(2)`` with
-+``AT_EMPTY_PATH``, are granted according to the rights available at
-+:manpage:`open(2)` time, not according to the rights of the calling thread.
-+Metadata accesses requested through a path (e.g. :manpage:`chmod(2)`,
-+:manpage:`stat(2)`) are always checked against the rights of the calling
-+thread.  ``O_PATH`` file descriptors are not opened through the open
-+permission checks: metadata accesses through them are checked against the
-+rights of the calling thread as well.
-+
- Rights associated with file descriptors
- ---------------------------------------
- 
--When opening a file, the availability of the ``LANDLOCK_ACCESS_FS_TRUNCATE`` and
--``LANDLOCK_ACCESS_FS_IOCTL_DEV`` rights is associated with the newly created
--file descriptor and will be used for subsequent truncation and ioctl attempts
--using :manpage:`ftruncate(2)` and :manpage:`ioctl(2)`.  The behavior is similar
--to opening a file for reading or writing, where permissions are checked during
-+When opening a file, the availability of the ``LANDLOCK_ACCESS_FS_TRUNCATE``,
-+``LANDLOCK_ACCESS_FS_IOCTL_DEV``, ``LANDLOCK_ACCESS_FS_READ_METADATA`` and
-+``LANDLOCK_ACCESS_FS_WRITE_METADATA`` rights is associated with the newly
-+created file descriptor and will be used for subsequent truncation, ioctl
-+and metadata attempts using :manpage:`ftruncate(2)`, :manpage:`ioctl(2)` and
-+the file descriptor-based metadata system calls.  The behavior is similar to
-+opening a file for reading or writing, where permissions are checked during
- :manpage:`open(2)`, but not during the subsequent :manpage:`read(2)` and
- :manpage:`write(2)` calls.
- 
-@@ -1051,6 +1118,19 @@ fd-reference acquisition (:manpage:`open_tree(2)`, :manpage:`fsmount(2)`) with
- the new ``LANDLOCK_PERMISSION_NAMESPACE_USE`` permission flag and
- ``LANDLOCK_RULE_NAMESPACE`` rule type.
- 
-+File metadata (ABI < 13)
-+------------------------
-+
-+Starting with the Landlock ABI version 13, it is possible to restrict
-+file metadata access with the new ``LANDLOCK_ACCESS_FS_READ_METADATA``
-+and ``LANDLOCK_ACCESS_FS_WRITE_METADATA`` access rights, which control
-+reading file and directory metadata (e.g. with :manpage:`stat(2)` and
-+:manpage:`getxattr(2)`) and changing it (e.g. with :manpage:`chmod(2)`
-+and :manpage:`setxattr(2)`).  As with ``LANDLOCK_ACCESS_FS_TRUNCATE``,
-+these rights are tied to opened files: metadata accesses through an
-+already opened file descriptor are granted according to the rights
-+available at :manpage:`open(2)` time.
-+
- .. _kernel_support:
- 
- Kernel support
--- 
-2.18.0.huawei.25
+The name is pretty misleading after this change when all it now does is=20
+stop timers.
 
+--
+ i.
+
+> =20
+> +/**
+> + *=09serial8250_em485_free() - release the rs485 emulation of a port
+> + *=09@p:=09uart_8250_port port instance
+> + *
+> + *=09Must be called without p->port.lock, as it waits for the timers.
+> + */
+> +void serial8250_em485_free(struct uart_8250_port *p)
+> +{
+> +=09struct uart_8250_em485 *em485;
+> +
+> +=09scoped_guard(uart_port_lock_irqsave, &p->port) {
+> +=09=09serial8250_em485_destroy(p);
+> +=09=09em485 =3D p->em485_idle;
+> +=09=09p->em485_idle =3D NULL;
+> +=09}
+> +
+> +=09if (!em485)
+> +=09=09return;
+> +
+> +=09hrtimer_cancel(&em485->start_tx_timer);
+> +=09hrtimer_cancel(&em485->stop_tx_timer);
+> +=09kfree(em485);
+> +}
+> +EXPORT_SYMBOL_GPL(serial8250_em485_free);
+> +
+>  struct serial_rs485 serial8250_em485_supported =3D {
+>  =09.flags =3D SER_RS485_ENABLED | SER_RS485_RTS_ON_SEND | SER_RS485_RTS_=
+AFTER_SEND |
+>  =09=09 SER_RS485_TERMINATE_BUS | SER_RS485_RX_DURING_TX,
+> diff --git a/include/linux/serial_8250.h b/include/linux/serial_8250.h
+> index d91c0477be9d..0556bb722db4 100644
+> --- a/include/linux/serial_8250.h
+> +++ b/include/linux/serial_8250.h
+> @@ -173,6 +173,7 @@ struct uart_8250_port {
+>  =09void=09=09=09(*dl_write)(struct uart_8250_port *up, u32 value);
+> =20
+>  =09struct uart_8250_em485 *em485;
+> +=09struct uart_8250_em485 *em485_idle;=09/* kept while rs485 is off */
+>  =09void=09=09=09(*rs485_start_tx)(struct uart_8250_port *up, bool toggle=
+_ier);
+>  =09void=09=09=09(*rs485_stop_tx)(struct uart_8250_port *up, bool toggle_=
+ier);
+> =20
+>=20
+>=20
+--8323328-1123129667-1793101174=:1182--
