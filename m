@@ -1,98 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793132832;
-	b=wjhEGbtVe0WG+jcNvG3hp4y3XSf0/AzDy0ORv4wAPrTJCH6iGOttV47hVkn8Z2xTjSLi
-	 +ei3Olb/FrI0NQ33cfrYsP/0I8H8Q2iX3g4YbZRV7s4IlRCgJUpFra4mv/5QbuA2O+LKJ
-	 B23tIt4YufIGXNYaBONRDchNc0PWyQKafDAiO39cQ7ycuUNjMfR0Cwj3sOjVnd6H/oKFX
-	 hnWycez6lLuPWCi+YdsgjcpJtMm+DSBeV6dcdwL34Icq/7f6JQ95d9LuW5WskWvS1YDrG
-	 ilU6DfmGlp0d+djg73rjxQJgQVBIc6ykBo7+LGDqPgkQJWvYZMfxtvUjbaA9SiNEC3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132832;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=dAIhWV14mrK0zz/OnYeaXG75ONoFCGEArK6ZD7HRTzc=;
-	b=HkYMLynZ4C5Q3oWX092Q9neYcTVfCCZeucjAGfSXspHpOr8RxJ7rsbYFhWFKyToCxIRb
-	 QON45PxIKbiJlOr68zlHhCGgHOZCvntH4QkA/BwCtQiq+FcetRJ3Af0F9KQ9U4qSJQS9S
-	 LjHQ6BpSo6lWEZaupY4bnQgbYDOV9/vF+TLOdU1JIedfSuAX+ySNQ10bxgRv7VtGH0hZ9
-	 ZtRja18oAclN1PjZxBmMq3YlzoCZpOCD0yIx9llPPxadIi6cGSvhb5+J9kG7kfyoCX3pp
-	 5mVJas+/VAcfdY0mnJJPl+ltsZUGKcRSfFUUx4gPQrXeUM48mhIcnFTl/gxEfeMvwfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=EUqxkM9z;
-	arc=none smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.195.120
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793132862;
+	b=LuJ4blLZZxBowSXn8WGcBgcSb7CEP+5MPJS9yaVVO9C37H9zfXqQ0gBSr2N0w+A7sMpK
+	 EvWMuJKQFkyObkmlOQNtoxJyUcnUIA1LqbMxaEt4TaAXA1srPMu57Tm5aLcCHqGeGGc6t
+	 YcoSvmNvbIs3v8xPGr6dt0g456iOaFi3FsGk87OG2eWKLP8cz80R6J8H/qkzfjlyPQB8L
+	 v5TaEE0kEk/Iqf2DmeF8aLdRY/Y4Y0rBGOcEsu4whlH5R3yKd3M/7SlDIS4/v+QwiwWim
+	 SNlW2ytiJnb5TCj85q3Wdp4IQ1qXnpn8tU2OsqGlzj5k5XbBSj1rsKG50dYX/q8WFpw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132862;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=xlljtLpVa3TC22agk4PtilGIM17Uc5+2eANTfGm4074=;
+	b=2NFE9fE/4SfwNv16FLM3gExE2Xigor9goElSBF8aZexSOpcOlDBguPmpVT4cXzUGYuhC
+	 7Lc9ctp8gt/pEYXhbIURsx48vCCwNQhPNx5rivfGLFyF46KTIXOqyEA8ETr0qU6jF1KPr
+	 VJlF7lDQoaz9uVb4cEsqgBF5IPyc/xKtZEJbWd+F4k1WpA2NoX6QVmu7nQpeZqVl2ZBpi
+	 6YI+lC1/ubHUNn/qX4yRwMvHeU7atKDr4kmDCVy4jZrdum+RaTC5+f0kXmW3PETv3LiC7
+	 dyXc87hB65rif3bWMBfHqGxqvfPVrkiGMF6yfixVxGqeNJTO6wwguG5hCK8anUZt/yw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.195.120
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020120.outbound.protection.outlook.com [52.101.195.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE649606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:27:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE649606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=EUqxkM9z
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 269BF3FE35
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1793132830;
-	bh=dAIhWV14mrK0zz/OnYeaXG75ONoFCGEArK6ZD7HRTzc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=EUqxkM9zd03e209GBCH1REUEURQfqN/6VsCzGi9ufv3RM1eev5Z++Q0dUlhD5YfpA
-	 OOQmzvb+CHVWOQ/p8d9aHglkxtEu+fa7rcrsO5kZwV3b0z134vaXCratkW5xEjXKKa
-	 UmmI5f5+94h2bjsnKopmyoddQ4yZugyV72NGLZxNlzdTbMqrx+r3Ktz6NOmxX5rvXG
-	 jGjrsQkGPVPxb7vyk9l53rla50hKVBF65rj8FiLaT7nGOxu5O2HdjDXjK8DFwesyHp
-	 Xq+NdkhltQ6xyKtd+kZ1B5yiWEbUHg3yJqxLfHPAlb7Zwn+1TBICMmsGBgGXMcopVu
-	 3NmFad/SkJtjzCLlwTjCpwrouRPG3PB/SG3cl7gaaww97zylFVEvJeAO9E4JWMjUV3
-	 laG+IPpYT9zPQBh6ad2gdbcs1EjLq0UalWjjYjXUcEdN52lFNPklF3k6u/wPu1tslT
-	 LgEIwbnPklCGJLrEXHccsPvASfaHDb4G68X9PzxUW7X3SWuiItU9w9cg9zLI+ak5sX
-	 m7FP6FRfekpjo2lPTLxZeivlMpt7/1oe07ex/MnnzdXiPl3Y61XLqiV6dvKvkWz2Bw
-	 +WTtZeN660f14r18QIMDaLMl3KWpt2vq1/ywiY1cIprP82a4ajEzsS85YtCOTqtYXt
-	 KnvG6s+qkV9N9BiYysHMI+3k=
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-836caf085e0so3720267b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:27:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793132829; x=1793737629;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dAIhWV14mrK0zz/OnYeaXG75ONoFCGEArK6ZD7HRTzc=;
-        b=uTXL5/Zo3wFJjQKaGZzV1wGk6qO4hw5pd3HTDm70umEVAxqYIjH1reTw7+kIZp1Be7
-         rlHHYDKl2o/rMMrFRbHNnY1ATpCJlRhmwfQGrg/Uhu5B3UZQwdeVS5UhGgYendRH4kew
-         6OzmnAFfIYfdBBcOC7AvmWXMvh51lJrm29PFnTDoWwkKPeXzAgDlaVqZE69ue2ZYcm9B
-         YpsOYN5DL9QI99jypxHXZhw2kJo2eGNpnMgCYNP1jGmleApDvCcGjvjsBCwtqHEMWnve
-         ylbl6OOPokqthqTcjCLC7fndDAWPtCL9sefC+MEyqnvVlB9N1pNCf/k1nwH7YQ/eoYr2
-         7YAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxH0+3OpWuDdKGmVuCOF5ZFCG9fRBjZUtkUELZPb7g/FvD+1zNZ9PYiIynUB9ntPnwrkPNp3+2hwXMo6fY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOO/60JVwgqG4DdkFCe0dGSB7+PrgSrol57fswo7M2IeozmtYr
-	Gx6CZmvFgkgCYgZI8agOr7/rQbXTEQiuKmCVbA20NIHs8eXF0x7YXZ03OpwP7yDJYHAl8Pbjth6
-	ECWC2NARCThJlfhUMEeUUoygU5hRnJ1vJSnjt7naupOiaXUamsVPA6f8gEJO05bn62weYQM0pze
-	N/XsH5iQ==
-X-Gm-Gg: AYBFou10lzQQZEtGJ673SguLipAu/6FOLUsAAyGOjZJLXck/knXkgif61JOfXm8TJqd
-	Zd2txZmlqNLAscU69xcjIH9SApgC4QAvRbAKjQOXje3htxnTMCpRVJQgne7L9XRdbbWvmriDUbe
-	NqyktlrtJx4Tsu9JZ0Vx3zOep4eUxqDIFOph3hvUeuOtYguPTepQdkmYFXKB4TDdGEMRg1cehDN
-	/RyXwbMeY4sCdJgz/xgoUWLE0YryMP6gppa0FjAJoBkj+kv12TGFo41d6P0YhB5+Ci+TD1AhaZY
-	cVrOB8k3JHE7qgLDXTVzkTpHXvCqUwlUIGbjSOrP+iyjtYjjLZbizcSgt70IBvqRGVCLATUjIoh
-	8fXmjZCOxC4z8UH8fXyTzbtBYTRiSzLB3MYhFs12uI++HgOVPNcbcbQM=
-X-Received: by 2002:a05:690c:6611:b0:8ac:dbb9:2204 with SMTP id 00721157ae682-8b1b5c13144mr958197b3.16.1793132828868;
-        Tue, 27 Oct 2026 13:27:08 -0700 (PDT)
-X-Received: by 2002:a05:690c:6611:b0:8ac:dbb9:2204 with SMTP id 00721157ae682-8b1b5c13144mr958097b3.16.1793132828501;
-        Tue, 27 Oct 2026 13:27:08 -0700 (PDT)
-Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
-        by smtp.googlemail.com with ESMTPSA id 00721157ae682-8b19e539e28sm18111507b3.11.2026.10.27.13.27.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 13:27:06 -0700 (PDT)
-Message-ID: <a22ce13f-50a3-41ab-a189-c8749bebf1d7@canonical.com>
-Date: Tue, 27 Oct 2026 13:27:04 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBC5606A31E;
+	Tue, 27 Oct 2026 20:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCBC5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mb9fcaWWt89Tk2ayhbL2k2MlYuDl/EHFOM2kgF6K4Sa/dzzaKh1miSmlPFNQdPS6PElXhrGj2WDA4Rba4IDhBclA3EfIOLePXNZoa4pTlrgXYQBEUqQtOKUNXPl65BWVsUZ2+X1QRT2hW+auVIKrkXjX59t99A3Mfn0hU5DqQK6o5gu5KeuJHcdJydL4iHGeJV76r9+L5Sw9NHLCx17PPpBe0eO8Fkvurbhk0BJbt7Ip38MQqld7sVrSVmvKJYJHmIjNXFZXnJWsFaYhlULqjVN/kO8cqswk+ctq0KEvtmH/Vq82SwcvLajRmYOF1A9ebEq150d2HBX61cUEgrq86g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=xlljtLpVa3TC22agk4PtilGIM17Uc5+2eANTfGm4074=;
+ b=COpcrEyBBUo3SsNdy3x4QFTk4vuUvTl7jQgrCrqhfB0ZfCihSFjPrqJQve2ldjrvyxLlGZ6sSERGrCdY7VuKMbdqozLs0f92GLNvcOKDxYgeweB5GxqxgvuSbjld9xvy4NdNJwyEkyAzU3wcbZEpYa5up5Oo0ChHoHx31zEnuol/tesNJAUGJwoYY3wl385CTZg/txHCyt5KdhrtZMGnkTrBT40ovjsP5IQk/frjFk+5yPa+YSo3FFQ1qK7vsNSN/X8SXYlc2Hm/VhdtHZcCnba5p1x5etALy2S3xwsRKp9ppBdsAzJrSC5I5v9j9OTs1KlagzCvg2zcJEp7+Hyklw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by CW1P123MB392182.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:282::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 20:27:39 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 20:27:39 +0000
+Date: Tue, 27 Oct 2026 16:27:34 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Zhan Xusheng <zhanxusheng1024@gmail.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 6/7] perf inject: Set ordering_requires_timestamps
+ before creating session
+Message-ID: <3n2avzhpvlafgmzgcrnpila4gxxomeav3bedihrhuq5uu6yzfm@it3qjkjx5bsq>
+References: <20261025220349.1244499-1-irogers@google.com>
+ <20261025220349.1244499-6-irogers@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261025220349.1244499-6-irogers@google.com>
+X-ClientProxiedBy: DS7PR06CA0037.namprd06.prod.outlook.com
+ (2603:10b6:8:54::12) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,113 +91,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] apparmor: check accept index + 1 is in bounds
-To: Guanglei Zhu <zhugl3@xiaopeng.com>,
- Georgia Garcia <georgia.garcia@canonical.com>
-Cc: apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260916115307.454593-1-zhugl3@xiaopeng.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20260916115307.454593-1-zhugl3@xiaopeng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CW1P123MB392182:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5615283c-408d-47ca-ff6a-08df3468bef8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|261026121527099003|56012099006|261021121427099003|4143699003|261021123027099003|261022075727099003|261022105027099003|261009223027099003|10067099003|18002099003|6133799003|22082099003|3023799007|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	PhAMtWMZVYWmWMKO7FzWcC7u6Y5SJqdPgab2fzKYWGCTnMRzYHku+CUJc/3o7O+t49GMRB72/oQhXEglfzFB6gUmtg75NejeCHMYqJ7FTx/7TbaN5h+gGe2sdR8b5TFJNjfp3MafGkHavj2sSq3V2J9GDdLAd2fog6V4V8dicK7e4Pc/b21U16SuUsEH4KcYJgbdFfo//ekIrg57up+/5mdArIeq1/rxLt+39JLK1VyauPf1XQLEIdYOQPZi86c6Y+A/Xh5r4LpJ7vPylnvUCxjFvaniRzblzToHvUblhTunpT9Qmp3HX0ZACJkoye5z40WK+1VQ04f05PXZWpkKjo8ioPeg5Frteot2qMOfcBQNY+RHfO0CbGSTVvASQsH8tw1nXahC15NmgobCKnvRAT/13y75J79z72sDjv7pnL32G9MXYT7meYMB2nEJp0s9RZzbHX+TIHjBCi4QnptNq2TporPxW7a/MGb+xneFR6cXEid0wBE27j5EuLmb0ys3VPqXmBL0PNHNqs6J4LhmJwiJ3i8OByUqmT5NRIUNMLyNkcSp9stJM7gZqQvFNahS/dlOvlIDPstDVxG+FRsGUDWQ9GUbvOaLJGsZXGzBUrRuuis7bAwAqmI0RFf+fEMSAjn+eXBLVyXlEMxW6+uLU9JpvTzIBO1FJ7SaeYRqqrc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(261026121527099003)(56012099006)(261021121427099003)(4143699003)(261021123027099003)(261022075727099003)(261022105027099003)(261009223027099003)(10067099003)(18002099003)(6133799003)(22082099003)(3023799007)(261026140227099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eGJSeUxtRTRvQ1JrV3BYeGJKL2hpbk9yQ1N2QUNDWDBseEE0RkE1bWZoQTJz?=
+ =?utf-8?B?TW9vZjEwSVhXaVRMaExyRGpyRzZYQTZZdmpoNHFIV0JEalYzdlI3bFd5UERJ?=
+ =?utf-8?B?OUpGbU9DUmxzc09xWDNKREU2Q3hVSk1JeE9HMm9BZzh1aS9xR0MrUFRTVlF5?=
+ =?utf-8?B?d25Hb0lHL3JDOGRSMmg5K1dwZDBZdlgrdTErTUMwUVhESmpiMW5FeHRHM1dv?=
+ =?utf-8?B?bDQ4RkxWYmlIYlFNVUlDajNuaHJwb1JTVE00SXFzWDYwK3hVQ1VxclNzWlFs?=
+ =?utf-8?B?WWJlVEFzRW8veUxwVFRpbVZIc3Q3YmoyT2tjckJ1b3UxOThCU3JMWU05aUFz?=
+ =?utf-8?B?TU1ERGFwWHFhNkhxMXpydDh2Rk9hcVN4enBHRFpZTlZKUFJTNXNGTWtpa3J6?=
+ =?utf-8?B?NlExYkVYNmMvS1NteHdZY2NxRlIrVGNmSzBWQnJpalltUUJkN2J6RGNGbkR3?=
+ =?utf-8?B?WmtlcGkyQjU5ZUM2ZjFyd3U1Z0hnUStwVGQ3MkFnMG13YTcwN3VSOTlFMmpM?=
+ =?utf-8?B?NnlNRzdTL1FKTGNTRkp6ZThsb1hoZ0xST3JZK21hMU9JblhiY2trYzVmR0xv?=
+ =?utf-8?B?ZHFvWjFCOFVYQWhZS2c5TmZINzZoSUgrRTEwdzhaNXlmYVA2SUZJVDJTNW8x?=
+ =?utf-8?B?aHRyQXZsR1ZTYUl1bkJrWmkyKzI2OGYzd1hvSXkxUnEveXJwRFhqQjFSUjFw?=
+ =?utf-8?B?bngzTGdWajkwamhTMVFLb0sxUFhrOE40Nm5NV01DMEtQQi9heE5qVitlNnpZ?=
+ =?utf-8?B?Z3plcjNyd3BkdHFha3orK2R2ODhaOVhXV3EyK0NYRXBoMEh3dy8zZlBteXpr?=
+ =?utf-8?B?dTBVaEpjZEFvSlA0TS80UTNUVEZ0MkVhWEY0TWFYdW1Ob21OZWZ6MXBjK2dF?=
+ =?utf-8?B?V0R4cFI5cHB1K1lxU0pqTzhIdlpxL1MvblFWakk0S3gyUVd3bUhyMTMvQ3BH?=
+ =?utf-8?B?N0lVN3VGYlBSMUM2VDdRVXFRUHZ2Tk51ZkswZmRBUktQUUxmbFJBTXMzbFR5?=
+ =?utf-8?B?alovYllQQkNZN2lGRFp3S3Y4dG5VSTVOdDFyRzYxVjhIWmp3eG5pRnJaN3ZH?=
+ =?utf-8?B?Rm1vdTByczFkdHB0akIzcGFoM2lLNW1MT2w1dFJTWU9yTFBnWFk5R2ZnbWZJ?=
+ =?utf-8?B?NFc3VkhRcHQ5VTJlNlRCeHdTaUhRdDYyZVdDRU1ZTXdGQXFGNXNWNGlFWFBR?=
+ =?utf-8?B?dTBnTzZQMFVqV0xheVlvT1lhZkoyYVZvQ0N6bW42QUVPYkxXRFVmOUVYSnhu?=
+ =?utf-8?B?aDFVYjg0WVVPZXBCYlgvYUtxVUFDdzNQeVhuYnVzNWxlTzZNa045VXh0K1pU?=
+ =?utf-8?B?Y3RBU1M3cUt1cmxNMTNZZk42Z3RPQ2MzTGFsKzNoeCtzTnJvTTBLc1RKazFv?=
+ =?utf-8?B?MGtPQjdYUUFhcGVMeGx6eU16QWttdDZ1cmtpMExxOS9zQ21VN0pYM0pKa3Vj?=
+ =?utf-8?B?U0xjanpqaEJpb1h4OTVJLzkxNlRvZTYzZ3ZuNnRtdlJLTVNSQ3dXU1o5Z21O?=
+ =?utf-8?B?NFAyUVZiZmZHcHI2MVduNytLczlsMWlxcVUrd0d2MEpqcXlwZFJkaElRYXdp?=
+ =?utf-8?B?MjZkZTFWbEdmZW1CL3BzaS9sWDZVcXVHazlzVGhMbjVhUXlIVkIxUE9lZlZV?=
+ =?utf-8?B?cmNkUGc3TmQwUmdhNzc0TitFeklxaUNDTkRUZkVrc2NaWkhMQXZrclZHNDJh?=
+ =?utf-8?B?RHQ3SkZHMlhHajZERlJBRnNVNWZibmdlQXZpa0FLZlJZcFZ5dndEU2Nsd3Rm?=
+ =?utf-8?B?SVZjZXpsNytMc1poZGlGSkZUVXdtWE8vVTBpRWRjdGlDUkpGRGJoaUxiNXg1?=
+ =?utf-8?B?TFNVQ09pNU05ZG1HTmFjTHFNN0U5NXFYSElJaVEwTTZpdkVjUjhpTCtIRFE4?=
+ =?utf-8?B?YTBvaC9CNEg3WnFpMFRaYm1MZzhQV09Oc3ZWaUhibEkzUlc5all6d1Q2M25L?=
+ =?utf-8?B?N2dDRUFZamZkWG5TNkRMSStKUE1FblAvRXpMcWw3MkJLNW8rbWpIdUNsMzlu?=
+ =?utf-8?B?K3R2YVpEQjFjRUJTbWNIWFB5VWFWKzlmeUlqb3R1VkhhOVJ5ZExYTmJCZ3RV?=
+ =?utf-8?B?UE00K3dUd1hTb3Q0U09DSnR0RkMyb3gvMzJLWU1maHlTVnplT2p1ODJLQTZP?=
+ =?utf-8?B?N3JzZE1wZ3NOWXQzM3FWRHA2ODlFWTNVeUxuekxCRVE1NzRiNU52OVltYWtq?=
+ =?utf-8?B?TDlHdkdIdlhzMXRQWVFiY2ptd2E1cUNXK0Q0SW0ySmVVWjl3bTNPRjdmZlkr?=
+ =?utf-8?B?NWY3OVUwV0hWaUxxRDNpUDBhUmRDVHgxbFYrQjZONzBhYzNGQVFtWnowbDVp?=
+ =?utf-8?B?Njlzc3BIL0tqMmZzTWx1SUxTajk2RjBDN29rZ0N6dWkzZld0bE1iQT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5615283c-408d-47ca-ff6a-08df3468bef8
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 20:27:39.7133
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +lnj/LUCAOuxMYl2613N48wNtU+1B7CSg64MZRN73EnOywiwp0dvlja6758PlHk8MfhJYUiScStXIHob85AYYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P123MB392182
 
-On 9/16/26 04:53, Guanglei Zhu wrote:
-> aa_lookup_condperms() returns perms[index + 1] when an accept entry has
-> ACCEPT_FLAG_OWNER set and the subject uid does not match the file uid,
-> so such an entry consumes two slots in the perms table.  But
-> verify_dfa_accept_index() only checks that index is within the perms
-> table, so a policy that sets the owner flag on the last entry is
-> accepted, and the runtime lookup then reads perms[index + 1] one entry
-> past the end of the table.
+On Sun, Oct 25, 2026 at 03:03:48PM -0700, Ian Rogers wrote:
+> In cmd_inject(), inject.tool.ordering_requires_timestamps was initialized
+> after delegating tools (such as aslr_tool__new()) and __perf_session__new()
+> had already been called, leaving delegate tools with the uninitialized
+> value. Set ordering_requires_timestamps on inject.tool before creating
+> delegate tools and the session.
 > 
-> The perms table is allocated by unpack_perms_table() with a u16 size
-> read from the policy blob, so a crafted policy can place the owner flag
-> at index size - 1 to reach the out-of-bounds read.
-> 
-> Check that index + 1 is also in bounds when the owner flag is set.
-> 
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-
-so this isn't quite right, the index+1 constraint only applies to some
-of the dfas, it very much depends on how they are used and encoded.
-I am going to take this as is, but add a follow on patch to address
-that the check is actually conditional upon which dfa and the condition
-under which it is loaded.
-
-I have pulled this into the apparmor tree
-
+> Fixes: febea9ec382f ("perf inject/aslr: Add ASLR tool infrastructure and MMAP tracking")
+> Signed-off-by: Ian Rogers <irogers@google.com>
 > ---
-> Found by code inspection: aa_lookup_condperms() reads perms[index + 1]
-> for owner-conditional entries, but verify_dfa_accept_index() does not
-> bound index + 1.
+>  tools/perf/builtin-inject.c | 49 ++++++++++++++++++++-----------------
+>  1 file changed, 26 insertions(+), 23 deletions(-)
 > 
->   security/apparmor/policy_unpack.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-> index f1fc48e72..1ea89e9c5 100644
-> --- a/security/apparmor/policy_unpack.c
-> +++ b/security/apparmor/policy_unpack.c
-> @@ -1489,6 +1489,15 @@ static bool verify_dfa_accept_index(const struct aa_dfa *dfa, int table_size)
->   	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
->   		if (ACCEPT_TABLE(dfa)[i] >= table_size)
->   			return false;
+> diff --git a/tools/perf/builtin-inject.c b/tools/perf/builtin-inject.c
+> index c30f5aaabf4c..3f3108fd3981 100644
+> --- a/tools/perf/builtin-inject.c
+> +++ b/tools/perf/builtin-inject.c
+> @@ -2463,13 +2463,18 @@ static int __cmd_inject(struct perf_inject *inject)
+>  #endif
+>  		}
+>  	} else if (inject->itrace_synth_opts.vm_time_correlation) {
+> +		bool ordered_events = inject->tool.ordered_events;
+> +		bool ordering_requires_timestamps =
+> +			inject->tool.ordering_requires_timestamps;
+> +
+>  		session->itrace_synth_opts = &inject->itrace_synth_opts;
+> -		perf_tool__init(&inject->tool, /*ordered_events=*/true);
+> +		perf_tool__init(&inject->tool, ordered_events);
+>  		inject->tool.id_index	    = perf_event__process_id_index;
+>  		inject->tool.auxtrace_info  = perf_event__process_auxtrace_info;
+>  		inject->tool.auxtrace	    = perf_event__process_auxtrace;
+>  		inject->tool.auxtrace_error = perf_event__process_auxtrace_error;
+> -		inject->tool.ordering_requires_timestamps = true;
+> +		inject->tool.ordering_requires_timestamps =
+> +			ordering_requires_timestamps;
+>  	} else if (inject->itrace_synth_opts.set) {
+>  		session->itrace_synth_opts = &inject->itrace_synth_opts;
+>  		inject->itrace_synth_opts.inject = true;
+> @@ -2482,8 +2487,6 @@ static int __cmd_inject(struct perf_inject *inject)
+>  		inject->tool.aux	    = perf_event__drop_aux;
+>  		inject->tool.itrace_start   = perf_event__drop_aux;
+>  		inject->tool.aux_output_hw_id = perf_event__drop_aux;
+> -		inject->tool.ordered_events = true;
+> -		inject->tool.ordering_requires_timestamps = true;
+>  		/* Allow space in the header for new attributes */
+>  		output_data_offset = roundup(8192 + session->header.data_offset, 4096);
+>  		if (inject->strip)
+> @@ -2514,12 +2517,6 @@ static int __cmd_inject(struct perf_inject *inject)
+>  		inject->tool.finished_round	= host__finished_round;
+>  		/* Keep track of which CPU a VCPU is runnng on */
+>  		inject->tool.context_switch	= host__context_switch;
+> -		/*
+> -		 * Must order events to be able to obey finished round
+> -		 * ordering.
+> -		 */
+> -		inject->tool.ordered_events	= true;
+> -		inject->tool.ordering_requires_timestamps = true;
+>  		/* Set up a separate session to process guest perf.data file */
+>  		ret = guest_session__start(gs, name, session->data->force);
+>  		if (ret) {
+> @@ -2536,8 +2533,6 @@ static int __cmd_inject(struct perf_inject *inject)
+>  		inject->tool.exit	= perf_event__repipe_exit;
+>  		inject->tool.mmap	= perf_event__repipe_mmap;
+>  		inject->tool.mmap2	= perf_event__repipe_mmap2;
+> -		inject->tool.ordered_events = true;
+> -		inject->tool.ordering_requires_timestamps = true;
+>  	}
+>  
+>  	if (!inject->itrace_synth_opts.set)
+> @@ -2816,6 +2811,10 @@ int cmd_inject(int argc, const char **argv)
+>  	data.path = inject.input_name;
+>  
+>  	ordered_events = inject.jit_mode || inject.sched_stat ||
+> +		inject.itrace_synth_opts.vm_time_correlation ||
+> +		inject.itrace_synth_opts.set ||
+> +		inject.guest_session.perf_data_file ||
+> +		inject.convert_callchain ||
+>  		inject.build_id_style == BID_RWS__INJECT_HEADER_LAZY ||
+>  		inject.build_id_style == BID_RWS__MMAP2_BUILDID_LAZY;
+>  	perf_tool__init(&inject.tool, ordered_events);
+> @@ -2862,6 +2861,21 @@ int cmd_inject(int argc, const char **argv)
+>  	inject.tool.schedstat_domain	= perf_event__repipe_op2_synth;
+>  	inject.tool.dont_split_sample_group = true;
+>  	inject.tool.merge_deferred_callchains = false;
+> +	if (inject.jit_mode ||
+> +	    inject.itrace_synth_opts.vm_time_correlation ||
+> +	    inject.itrace_synth_opts.set ||
+> +	    inject.guest_session.perf_data_file ||
+> +	    inject.convert_callchain ||
+> +	    inject.build_id_style == BID_RWS__INJECT_HEADER_LAZY ||
+> +	    inject.build_id_style == BID_RWS__MMAP2_BUILDID_LAZY) {
 > +		/*
-> +		 * Accept indexes for owner-conditional permissions come in
-> +		 * pairs, so the non-owner entry at index + 1 must also be
-> +		 * in bounds.
+> +		 * to make sure the mmap records are ordered correctly
+> +		 * and so that the correct especially due to jitted code
+> +		 * mmaps. We cannot generate the buildid hit list and
+> +		 * inject the jit mmaps at the same time for now.
 > +		 */
-> +		if (dfa->tables[YYTD_ID_ACCEPT2] &&
-> +		    (ACCEPT_TABLE2(dfa)[i] & ACCEPT_FLAG_OWNER) &&
-> +		    ACCEPT_TABLE(dfa)[i] + 1 >= table_size)
-> +			return false;
->   	}
->   	return true;
->   }
+> +		inject.tool.ordering_requires_timestamps = true;
+> +	}
+>  	if (inject.aslr) {
+>  		tool = aslr_tool__new(&inject.tool);
+>  		if (!tool) {
+> @@ -2932,16 +2946,6 @@ int cmd_inject(int argc, const char **argv)
+>  		}
+>  	}
+>  
+> -	if (inject.build_id_style == BID_RWS__INJECT_HEADER_LAZY ||
+> -	    inject.build_id_style == BID_RWS__MMAP2_BUILDID_LAZY) {
+> -		/*
+> -		 * to make sure the mmap records are ordered correctly
+> -		 * and so that the correct especially due to jitted code
+> -		 * mmaps. We cannot generate the buildid hit list and
+> -		 * inject the jit mmaps at the same time for now.
+> -		 */
+> -		inject.tool.ordering_requires_timestamps = true;
+> -	}
+>  	if (inject.build_id_style != BID_RWS__NONE && known_build_ids != NULL) {
+>  		inject.known_build_ids =
+>  			perf_inject__parse_known_build_ids(known_build_ids);
+> @@ -2978,7 +2982,6 @@ int cmd_inject(int argc, const char **argv)
+>  	if (inject.jit_mode) {
+>  		inject.tool.mmap2	   = perf_event__repipe_mmap2;
+>  		inject.tool.mmap	   = perf_event__repipe_mmap;
+> -		inject.tool.ordering_requires_timestamps = true;
+>  		/*
+>  		 * JIT MMAP injection injects all MMAP events in one go, so it
+>  		 * does not obey finished_round semantics.
+> -- 
+> 2.56.0.307.g5fe7bd680c-goog
+> 
 
+Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
+
+-- 
+Aaron Tomlin
