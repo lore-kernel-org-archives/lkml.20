@@ -1,65 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793127959;
-	b=VfZC5eRbnr45xjmH6fCXiyb/DdxWxmogNsrEXG1I4qQ/UT8s7WSJKsdqbgDYkLxKCxY3
-	 4dmGNN7DJdjkaTMB3r0R/lMcZlcu14/1zWq+nkwEWAqlGLIaoFUaeXekdOtTqxPYZzEDT
-	 QnDTqkp5BZQ2ZP6DXSbT1Jzs8QZlis/73XfWRnhHUzTuHfBhJbvLslTzMZcfQ1nN8XgYy
-	 xyYT0hxhUW8cAOsJlqTGZRdBgRE46MN5FB4WfOvXf5ESY/R/X6iX9q8loPc2GiCF/bFwS
-	 tdDUweILecPvxcISecICXTr4YVgfNkIzevHqeMBcPO09WBptrOxtJbskg0b9oE7zSdQ==
+	t=1793127984;
+	b=bg6tM1TJ4IY/b5/JIWhpYYXjCQ01LYCka/EcPylBDMxLp4M/bKLaCRa6W5+6bqHGoFP3
+	 6GoDTq3U0QCXVp/SDz0fN+TebZMA5qmpfdemc9OyaGE9I7K7rCkd5W7+l9V8PWRX3B6qJ
+	 bt5jBoJEXjFaWSjVIMH0F+gSCsM/OHu45POKBwUHA+eROqzLlzhXNYPHONJuTsepOOGNq
+	 JShHDWMpSBsOfHPpWyNEFC5+QQvyVZBksr8ohiQ3KOpDiCOIqeb7Xq7cItdRBe5VDSsQ1
+	 1EbBXGJRdj0k1xtECf+Q0+lpJmm3G2TUjlxv/4W4LDrwPD1+5sJzmQJYfZsBlBs/gqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793127959;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:MIME-Version;
-	bh=MYPTpHuTNuu4dEBpl/csG5iOwQPMJ8PZegnCvEYcbx0=;
-	b=xdPll1akiVTOt6DAqr7ngFXCy1faE8W2GU8tjYnvFVCJDlCTc8NtQb5xt7seDBUHN0RR
-	 EbpJ+hmjx7/ARgIkgScsB9pmsZXskziMAbwd3SVTDX5Qs0fzUgi7arQBI1hFrDLlCYog+
-	 +RfPqF8q0i3+kUI6b0xfIado4XpVG/ifdLbPMiuQkL3c65QI+BPWS1DrQsAnJl7VLk0h1
-	 T2oKuyH/7bE1yN9XxifbzH0HpWE9kwNee32Gt2KdoeCZRs2lUmL9amF00T4fOcp5UYVbh
-	 APBU1WePfph3J4jedORjb9oFoh8Xm1qxmaVKLypxvCLCwtuMUr7uJlbK5DDCOFWj8+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793127984;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=fZwZGLOAfWKshH85BY6sKy8NaWebSZHsenr7NBQaqf0=;
+	b=S4vCvkLCj/JNriFOow/m3/TTktZ11XtnsNERjLMppKWhmPmHHYPwxNtkH8C4XB0gZJJY
+	 6YKxg+U5bNDPHaqMrIXXgnJiCbpbAtUXDRkGnR0AxNY81sIQXYwzk/XjqzkStTrq+JfQz
+	 +0Zbc1au/kT7ChDn2pKyNWNLwrgWqZtU1cj8Z8VcSmS05Fx5joTUwXDVonmq4rRGDilfA
+	 KvtMivR1fbAeZnRwe/vX+0RPt5CSXzfEXkTpJyJYn4CmaB9GAWb2eicJMoT0D3XFw3SQo
+	 JrtGXXthA8m12Ty0GfS79O+5XdOe4rVPrU36KOjHASfAAiatMPd+580/BD1axeongpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=itx.no;
-	spf=pass smtp.mailfrom=itx.no;
-	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b="DI0XNS/t";
-	arc=none smtp.remote-ip=91.189.121.228
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=bqze+vGG;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29429606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:05:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29429606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B117606A31A;
+	Tue, 27 Oct 2026 19:06:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B117606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=DI0XNS/t
-Message-ID: <bd9b6592bce4b8f2e802518bf2cad561af61e78e.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1793127950;
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=bqze+vGG
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jDg2H0ql4zMlf8;
+	Tue, 27 Oct 2026 20:06:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793127975;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MYPTpHuTNuu4dEBpl/csG5iOwQPMJ8PZegnCvEYcbx0=;
-	b=DI0XNS/t62uG8V+EZIsB1JN/Hd7vsct42Wg7Yg2iUnWOabCyd3zg9BJGs+aNf1JYP2vUaA
-	270G8pfsjq4SFbxlJyyiAJ1Ten5mF6klpuQEDuInn3jfVhJ4Z8Dy5j6UUXmSuH7mamF4Nr
-	zq/eUUP2TG8ZTUI4VmVFl9/QBJcTD2Y=
-Subject: Re: [PATCH] sched/cputime: Don't warn when the tick period starts
- after idle exit
-From: Stian Halseth <stian@itx.no>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Paul Menzel
- <pmenzel@molgen.mpg.de>,  Thomas Gleixner <tglx@kernel.org>, Anna-Maria
- Behnsen <anna-maria@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,  regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Date: Tue, 27 Oct 2026 20:05:49 +0100
-In-Reply-To: <auDaMdhD2zGBLhDE@localhost.localdomain>
-References: <bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de>
-	 <20261025100202.2584654-1-stian@itx.no>
-	 <at-C_3rGi55L1v2X@localhost.localdomain>
-	 <1e00b909b81c6195b3ad5aeda207d20cbedc3971.camel@itx.no>
-	 <auDaMdhD2zGBLhDE@localhost.localdomain>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-oiCYC83f+cLXHYrEn5UX"
+	bh=fZwZGLOAfWKshH85BY6sKy8NaWebSZHsenr7NBQaqf0=;
+	b=bqze+vGGK3axguN3/po0M9kmYe8rux/EInQM7fauloKRr5ZKX65reg84flboGYO8812Hhp
+	cpNY/v/ClsI0FBVpOfq9/4CSypLFZp8Fj7gowwGZwWxOBL87o+vRnSMZxBbaqpKGXyyZF0
+	X5CpkZQCot5jAZlQgZpVn8IG73DmvcbL6i5uYqzMSHSBBRCxftsp7DLRYV76GZeYJwbHPB
+	TaLi9KjDHAqOvpH7ALx5zLliDq18M+zgGEkGa2sToL0pdcIKXRUmb1qKGDFOV7WRWkj6eQ
+	na0oYgj5+uEsXug2/QLBb+9hMDYmzuxC/hFzLYyj+63SwXBsh2bMVxBbBJ4Mhw==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: manuelebnerli@mailbox.org
+Cc: corbet@lwn.net,
+	damon@lists.linux.dev,
+	jm5905938@gmail.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	rdunlap@infradead.org,
+	sj@kernel.org,
+	skhan@linuxfoundation.org
+Subject: [PATCH v2 1/2] Docs/admin-guide/mm/damon/reclaim: improve grammar and style
+Date: Tue, 27 Oct 2026 20:05:04 +0100
+Message-ID: <20261027190503.2526945-2-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261027185938.2526259-2-manuelebnerli@mailbox.org>
+References: <20261027185938.2526259-2-manuelebnerli@mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,87 +77,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: xr4xmu89uyguo4usstrpc7595nkkf8po
+X-MBO-RS-ID: aeb77b1cf244b61b05d
 
+Fix upper case. Fix tenses. Replace 'set as' with 'set to'. Add space after
+sentence to make it double space.
 
---=-oiCYC83f+cLXHYrEn5UX
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+CC: Aveline Noir <jm5905938@gmail.com>
+---
+@ -113,8 +113,8
+Choose as you wish.
 
-Hi Frederic,
+@ 20
+should be:
+-Free Pages Reporting [3]_ based
++Free pages reporting [3]_ based
+or
++'*Free Pages Reporting'* [3]_ based
+* the right kind of quoting/ kernel-doc highlighting.
+Choose as you wish.
+---
+ .../admin-guide/mm/damon/reclaim.rst          | 36 +++++++++----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-On Tue, 2026-10-27 at 18:06 +0100, Frederic Weisbecker wrote:
+diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documentation/admin-guide/mm/damon/reclaim.rst
+index e4e2ffa52e..0bab2299ea 100644
+--- a/Documentation/admin-guide/mm/damon/reclaim.rst
++++ b/Documentation/admin-guide/mm/damon/reclaim.rst
+@@ -4,7 +4,7 @@
+ DAMON-based Reclamation
+ =======================
+ 
+-DAMON-based Reclamation (DAMON_RECLAIM) is a static kernel module that aimed to
++DAMON-based reclamation (DAMON_RECLAIM) is a static kernel module that aimes to
+ be used for proactive and lightweight reclamation under light memory pressure.
+ It doesn't aim to replace the LRU-list based page_granularity reclamation, but
+ to be selectively used for different level of memory pressure and requirements.
+@@ -30,12 +30,12 @@ guests could mitigate this problem.
+ How It Works?
+ =============
+ 
+-DAMON_RECLAIM finds memory regions that didn't accessed for specific time
++DAMON_RECLAIM finds memory regions that weren't accessed for specific time
+ duration and page out.  To avoid it consuming too much CPU for the paging out
+ operation, a speed limit can be configured.  Under the speed limit, it pages
+-out memory regions that didn't accessed longer time first.  System
++out memory regions that weren't accessed longer time first.  System
+ administrators can also configure under what situation this scheme should
+-automatically activated and deactivated with three memory pressure watermarks.
++automatically be activated and deactivated with three memory pressure watermarks.
+ 
+ Interface: Module Parameters
+ ============================
+@@ -55,10 +55,10 @@ enabled
+ 
+ Enable or disable DAMON_RECLAIM.
+ 
+-You can enable DAMON_RECLAIM by setting the value of this parameter as ``Y``.
+-Setting it as ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could do
++You can enable DAMON_RECLAIM by setting the value of this parameter to ``Y``.
++Setting it to ``N`` disables DAMON_RECLAIM.  Note that DAMON_RECLAIM could do
+ no real monitoring and reclamation due to the watermarks-based activation
+-condition.  Refer to below descriptions for the watermarks parameter for this.
++condition.  Refer to below descriptions of the watermarks parameter for this.
+ 
+ commit_inputs
+ -------------
+@@ -66,9 +66,9 @@ commit_inputs
+ Make DAMON_RECLAIM reads the input parameters again, except ``enabled``.
+ 
+ Input parameters that updated while DAMON_RECLAIM is running are not applied
+-by default.  Once this parameter is set as ``Y``, DAMON_RECLAIM reads values
++by default.  Once this parameter is set to ``Y``, DAMON_RECLAIM reads values
+ of parameters except ``enabled`` again.  Once the re-reading is done, this
+-parameter is set as ``N``.  If invalid parameters are found while the
++parameter is set to ``N``.  If invalid parameters are found while the
+ re-reading, DAMON_RECLAIM will be disabled.
+ 
+ Once ``Y`` is written to this parameter, the user must not write to any
+@@ -88,7 +88,7 @@ identifies the region as cold, and reclaims it.
+ autotune_monitoring_intervals
+ -----------------------------
+ 
+-If this parameter is set as ``Y``, DAMON_RECLAIM automatically tunes DAMON's
++If this parameter is set to ``Y``, DAMON_RECLAIM automatically tunes DAMON's
+ sampling and aggregation intervals.  The auto-tuning aims to capture meaningful
+ amount of access events in each DAMON-snapshot, while keeping the sampling
+ interval 5 milliseconds in minimum, and 10 seconds in maximum.  Setting this as
+@@ -113,10 +113,10 @@ quota_sz
+ 
+ Limit of size of memory for the reclamation in bytes.
+ 
+-DAMON_RECLAIM charges amount of memory which it tried to reclaim within a time
+-window (quota_reset_interval_ms) and makes no more than this limit is tried.
+-This can be used for limiting consumption of CPU and IO.  If this value is
+-zero, the limit is disabled.
++DAMON_RECLAIM records the amount of memory which it tried to reclaim within a time
++window (quota_reset_interval_ms) and stops trying to reclaim memory when this limit
++is reached.  This can be used for limiting consumption of CPU and IO.  If this value
++is zero, the limit is disabled.
+ 
+ 128 MiB by default.
+ 
+@@ -137,7 +137,7 @@ quota_mem_pressure_us
+ 
+ Desired level of memory pressure-stall time in microseconds.
+ 
+-While keeping the caps that set by other quotas, DAMON_RECLAIM automatically
++While keeping the caps that are set by other quotas, DAMON_RECLAIM automatically
+ increases and decreases the effective level of the quota aiming this level of
+ memory pressure is incurred.  System-wide ``some`` memory PSI in microseconds
+ per quota reset interval (``quota_reset_interval_ms``) is collected and
+@@ -219,7 +219,7 @@ monitoring.  This can be used to set lower-bound of the monitoring quality.
+ But, setting this too high could result in increased monitoring overhead.
+ Please refer to the DAMON documentation (:doc:`usage`) for more detail.
+ 
+-Note that this must be 3 or higher. Please refer to the :ref:`Monitoring
++Note that this must be 3 or higher.  Please refer to the :ref:`Monitoring
+ <damon_design_monitoring>` section of the design document for the rationale
+ behind this lower bound.
+ 
+@@ -263,7 +263,7 @@ This parameter is for setting and getting the :ref:`address unit
+ 
+ ``monitor_region_start`` and ``monitor_region_end`` should be provided in this
+ unit.  For example, let's suppose ``addr_unit``, ``monitor_region_start`` and
+-``monitor_region_end`` are set as ``1024``, ``0`` and ``10``, respectively.
++``monitor_region_end`` are set to ``1024``, ``0`` and ``10``, respectively.
+ Then DAMON_RECLAIM will work for 10 KiB length of physical address range that
+ starts from address zero (``[0 * 1024, 10 * 1024)`` in bytes).
+ 
+@@ -280,7 +280,7 @@ skip_anon
+ 
+ Skip anonymous pages reclamation.
+ 
+-If this parameter is set as ``Y``, DAMON_RECLAIM does not reclaim anonymous
++If this parameter is set to ``Y``, DAMON_RECLAIM does not reclaim anonymous
+ pages.  By default, ``N``.
+ 
+ 
+-- 
+2.55.0
 
-> Ok let me try to picture this:
->=20
-> Initially, jiffies or tsc-early, not sure, is the clocksource:
->=20
-> - tick_setup_device() sets tick_next_period to ktime_get()
-> - tick_periodic() adds TICK_NSEC to tick_next_period right before updatin=
-g=20
-> jiffies. So as you said tick_next_period =3D=3D ktime_get()
-> - Note last_tick is not involved in that mode
->=20
-> Then later on boot comes a oneshot device:
-
-The clocksource is initially jiffies, and I believe there is a step missing
-before the oneshot switch: the clocksource switch, while the tick is still
-periodic.
-
-Please let me know where I lose you, or if/when you disagree with
-my analysis.=A0Not sure if you're more confused about my attempt of an
-explanation, or by what's really happening ;)
-
-Here we go...=20
-
-The oneshot switch can only happen inside a tick, so at the earliest
-in the first tick after the clocksource switch. In the guest it came=A0
-0.7s later since tsc-early waits for the watchdog in the guest.
-
-So...for a while tick_periodic() runs on tsc-early. ktime now moves
-between ticks too, but the next tick still adds a full TICK_NSEC, so
-tick_next_period gets ahead of ktime_get() by the part of the period
-that had passed at the switch. Still here? :)
-
-In the guest that was measured at 2.3ms. With a periodic lapic it
-stays that way, with the TSC deadline timer the following tick is
-programmed from ktime again so it is gone, but in Paul's case the
-oneshot switch happens in that first tick after the clocksource
-switch, so it is still there.
-
-Then finally tick_init_jiffy_update() aligns it upwards. It is not
-tick aligned to start with since ktime starts at the sched_clock boot
-offset, so that can add most of another tick, and that becomes the
-first expiry of the sched timer.
-
-hrtimer_forward_now() doesn't touch it since it is already in the
-future. In the guest it ended up 4.66 ms after now at HZ=3D250, and
-tick_do_update_jiffies64() returns early until now gets there.
-
->=20
-> last_tick actually gets its first value when the tick is stopped for the
-> first time in tick_nohz_stop_tick() and is set to the next tick that won'=
-t
-> happen.
-
-Yes, that expiry. A stop in the first 0.66 ms saves it as last_tick,
-and kcpustat_dyntick_stop() then has last_tick - TICK_NSEC still in
-the future. I never caught the stop itself in the guest, but Paul's
-registers show now 235623102 and tick_start 236000000.
-
-
-
-/Stian
-
---=-oiCYC83f+cLXHYrEn5UX
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCauD2DQAKCRDoeAEuJe36
-VswuAP99h4ej/4Ex/kSVFi3bhDVsqfeLqgvnE6sO5SRPPHQ6mQD/Vg68zXdEi6ps
-hLHn13doRT+dtmdwZYbTdJ/big/brQk=
-=xPD+
------END PGP SIGNATURE-----
-
---=-oiCYC83f+cLXHYrEn5UX--
