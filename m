@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095994;
-	b=5Pu0VNrrgiohUh7eEbERYbjho1yXRlJvk6Gk+QzyVUwndRDMeRZQv49mCm2EjFHYm9l/
-	 xDJL9Ma7tSxdu+MQnY0jQriSUN8fGDz6wGR0lS71gEYVpcPZ06krPnjGWlLL0jPAUwYS4
-	 2RFLmt0YvEcl9qtTOldsgqU8crtCBgoM7P5Ry/zvz0RewmgjtzeynlySIj3hSSJMbVSlu
-	 0drfEemwq3mIsxRJtuC7JB+Eq1v8/vhsC58LhmUYdtamvEYBp8WOnAXSj5u3Fjz/4XFIO
-	 GWUhvipWuXHuJFoeckAhBOdFHMoBZ5AjZX5KOLT/uO1Sy8PZAd5ChxfT1nCjZ/oi9KQ==
+	t=1793096002;
+	b=N59I82UyA55i15s2pzTX8TVljektkK+GneoJWcXMihPSCgXDatByHxxXBOO6QnvU8s4d
+	 Ri1XLRn2o+elH6bXSNnb4QFcIZ+sfrM3Cx8LHgcaeUmZ2Vf+FGphlnWDp/7gVLM9p7h5x
+	 WbvVzDcl5X9LfKMPoSuJ8cT28aWH5/o2GhFe2IroJRkxn/WA58hye4IZjNPQuJr9PftdA
+	 pc0GbUUhz0xzAsF/IW5DDHG9qgqJqWoDkIGkVFaE87Rpy4zYf/yrmFTlsKxTNtoJIZgKt
+	 LpyjJhEzouLM/Qikn5mz01bWo/nTYArqMYRfcaMDVDL6bB1Zco6uWxCSmsxj0i3Fqaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095994;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tLAa1UxQOJzLJH3cJItPLav+g5tE2gLo5zLoFWT9FJw=;
-	b=opBNcrEM0gYP5Zv/ILBEeAiOWgrXIIWgKk6sER+pz/TLNXNczxSWK6WVUAgSwIHWTqDi
-	 iibfXqDYAxU+8YZrWDFqPHGCT1U3IHogt6cZcKgfaBFvciAEOG1eb6XB2MacJRmDZqqTE
-	 RttZpflReaW7947Oyi/Xs4yo6p+FhAjXVNJgJ/FHp59JE6UrMmebhn1SEmnYY7Znjrq3J
-	 D97ug05NpaRX8K7xzobskPY7MmYNZg3F0G1/Rr5RAKtGWfcfekb/yKY1DBN7CYGnwcj5h
-	 W0t0tGwsmnWRupFukNXAE1wbeqmv76puji9Jzu2ePiWxoDjrH9Wp+h8B9OMeYLQSSYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096002;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Cka5iH+f4CbA6h635wyMcWCPwiqQPm4mJkPl8r728Is=;
+	b=UPEvvgSq+2frds19yttABmQlC1fUCTBlf32N82LZDi88/iTo/74Qd/oM/8KfDwfcGCEz
+	 /WxbQL5svhJ5RFhAia3TlypM7pTTCB9I3kALoixbsKDfGoeuPhW/eelV6os/D7j1UUKCl
+	 SIi1ZB05xN4hiIVebLnniSWZ4pwCM/YGXG9CL0iH0TI3fVsjV7S0kQ/1ZvzccpcjKgxW0
+	 j5IncA+9EZdi3qJ0QqH8giGgw3qtA0gZ7fuiCyDy8dCBszpjycVj7820p7BV33kPOeTcm
+	 8Eud9LmQECjNlzwxvRQ+4gqS/xZJbdhArODuC7ZExBkpnvRwF3PeWLqmKlB21TwXknA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZS8vr6vT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbdlsP83;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C216F606A31A;
-	Tue, 27 Oct 2026 10:13:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF3C606A31F;
+	Tue, 27 Oct 2026 10:13:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZS8vr6vT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1684C1F01825;
-	Tue, 27 Oct 2026 10:13:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbdlsP83
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5EBF1F01825;
+	Tue, 27 Oct 2026 10:13:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793095993;
-	bh=tLAa1UxQOJzLJH3cJItPLav+g5tE2gLo5zLoFWT9FJw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZS8vr6vTDVmEV4BuB4alcoDZt3ZAHU3d23Kc1ClbaZlK3l54RjLe61XaE+q7itSrA
-	 P0UZCqchjP2G84fbW/XnH1UJR03H4v3oYHGqiW0QcxTkekwLwtyOcn2GRF08jwESlL
-	 M+hqPY86v2kyEICwqh08j6DpAUQr75dgAT+OAMQvG8maEX5fw4dPJAUVEiIdS20YHY
-	 dTjC6vyYkf9QKwGxBSJ6u0hpGdizekrY2dpbtrFXKVXnem83Jprx9M+lQTlWVRn/fX
-	 zozt8Pz65hV7X2Vy6NsbzvSikmttom3yB/4UswBqAL9Fe6gqXMkz8FKFd71eFdEMmf
-	 YrkxRLCJtTkeQ==
-Date: Tue, 27 Oct 2026 11:13:09 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] super: make sync(2)'s wait for s_umount killable
-Message-ID: <20261027-wedel-lenken-seehund-d85c9ba29aa9@brauner>
-References: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
- <20261023-work-super-lock_helpers-v1-4-d0fcb3f2f275@kernel.org>
- <tqgqwii6it4zxhtsfgnkri2mppbcijvsdnywrsbsyrsc3ey6w5@ts5aqmpikwyv>
- <20261027-spargel-laterne-verirren-9d984ac342d4@brauner>
+	s=k20260515; t=1793096002;
+	bh=Cka5iH+f4CbA6h635wyMcWCPwiqQPm4mJkPl8r728Is=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RbdlsP83pI0g/GUuM6VbZ/P7fr3ctS+PR6qMg7VJjK38uiDEInGcgR8axZzFGyzch
+	 Xu8ztux3zdWT/cyx43bEg029AF65TcMp6iUv4cfkEpEGcwA5TdhzIlkR1JM5IBiYkS
+	 scMq6PvraM+qnz0paWREPYrC4vjw9IkmsHcfuec+D98dS+YOkzzEjLYhkjY44jJiRf
+	 0rHtxNgZg6QQ+IpqUuHkD5F1Po5gI9bi5/DwYKYslq1ccb1h+m0ry7Ptpvr5G4QivF
+	 jNGNIs/fyfOoWObaQePwocAIqdd/Pi9bPa3VTfoe3KnH6uMFPOkKoCGDR9+NqE/nuK
+	 AVGed6pJRYBjQ==
+Message-ID: <3edbd664-a6f9-4344-8a6c-6e3feebf728a@kernel.org>
+Date: Tue, 27 Oct 2026 10:53:27 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,67 +51,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261027-spargel-laterne-verirren-9d984ac342d4@brauner>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 06/16] mm/shmem: hold off eviction in shmem_writeout()
+To: Kiryl Shutsemau <kirill@shutemov.name>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ stable@vger.kernel.org
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-6-703206d5fa0c@kernel.org>
+ <at97dZY434e1maVl@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <at97dZY434e1maVl@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 09:11:42AM +0100, Christian Brauner wrote:
-> On Mon, Oct 26, 2026 at 01:02:46PM +0100, Jan Kara wrote:
-> > On Fri 23-10-26 11:41:04, Christian Brauner wrote:
-> > > iterate_supers_sync() waits killably for a superblock that's being shut
-> > > down, but it takes s_umount of a live superblock uninterruptibly. So a
-> > > freeze_super() or remount that's stuck under s_umount, in
-> > > sync_filesystem() or ->freeze_fs() say, still hangs every sync(2) on
-> > > the machine without anyone being able to kill it.
-> > > 
-> > > That's inconsistent with fs_bdev_sync() which already uses a killable
-> > > super_lock() for both waits. And the reasoning is the same: if the task
-> > > is killed the walk stops and ksys_sync() returns, there's nobody left to
-> > > make a promise to. The emergency sync and the sync before suspend and
-> > > hibernation run from a workqueue where that can't happen. The PROM sync
-> > > on sparc32 runs in whatever task it interrupted but that one could
-> > > already be cut short while it waited for a superblock being shut down.
-> > > 
-> > > Let __iterate_supers() pass SUPER_LOCK_KILLABLE together with
-> > > SUPER_LOCK_WAIT_SHUTDOWN for SUPER_ITER_WAIT_SHUTDOWN. Only
-> > > iterate_supers_sync() passes that flag.
-> > 
-> > This might get surprising in the future, I guess SUPER_ITER_KILLABLE flag
-> > might be a more explicit way to control this but I can live with what we
-> > have now.
+On 10/26/26 17:13, Kiryl Shutsemau wrote:
+> On Mon, Oct 26, 2026 at 10:40:39AM +0100, David Hildenbrand (Arm) wrote:
+>> From: Josef Bacik <josef@toxicpanda.com>
+>>
+>> Once shmem_writeout() has moved the folio from the page cache to the
+>> swap cache, the folio lock no longer keeps the inode alive: truncation
+>> and eviction find a swap entry, free it and do not wait for anybody.
+>> That did not matter as long as swap_writeout() was the last thing the
+>> function did.  But since it puts the folio back when swap_writeout()
+>> returns AOP_WRITEPAGE_ACTIVATE, it uses the mapping and the inode
+>> afterwards:
+>>
+>>   reclaim                               last close of an unlinked file
+>>   shmem_writeout()
+>>     shmem_delete_from_page_cache()
+>>     swap_writeout()
+>>       zswap_store() fails               shmem_evict_inode()
+>>       writeback is disabled               shmem_truncate_range()
+>>       return AOP_WRITEPAGE_ACTIVATE         shmem_free_swap()
+>>                                         destroy_inode()
+>>                                         ... RCU grace period, freed
+>>     shmem_add_to_page_cache(mapping)
+>>       xas_lock_irq()            <- use after free
+>>
+>> swap_writeout() behaves that way if zswap is enabled, cannot take the
+>> folio and the memcg or one of its ancestors has memory.zswap.writeback
+>> set to 0.
+>>
+>> shmem_unuse() already added infrastructure to deal with that.
+>> Reuse info->stop_eviction to protect the inode during writeout. Increment
+>> it before removing the folio from the page cache, and decrement it after
+>> swap_writeout() and any attempted reinsertion and inode accounting.
+>> In shmem_evict_inode(), wait for the counter to reach zero even if
+>> swapoff has already removed the inode from the swap list. Add some helpers
+>> to make the code easier to digest.
+>>
+>> Fix generated by an LLM and sent by Josef Bacik in private.
+>>
+>> Fixes: 6344a6d9ce13 ("mm/shmem: writeout free swap if swap_writeout() reactivates")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>> [ david: code cleanups; improve description ]
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > 
-> I think you're right I'll fix that up in-tree.
+> ->stop_eviction is ugly, but, oh, well...
 
-I've folded:
+yeah, I was not particularly happy to learn that this exists ...
 
-diff --git a/fs/super.c b/fs/super.c
-index aff2169ca94d..cd6f57ababe0 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -1015,6 +1015,7 @@ enum super_iter_flags_t {
-        SUPER_ITER_REVERSE      = (1U << 1),
-        SUPER_ITER_WAIT_SHUTDOWN = (1U << 2),
-        SUPER_ITER_SKIP_UNBORN  = (1U << 3),
-+       SUPER_ITER_KILLABLE     = (1U << 4),
- };
+Thanks everybody for the review!
 
- static inline struct super_block *first_super(enum super_iter_flags_t flags)
-@@ -1040,7 +1041,9 @@ static int __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
-        int ret = 0;
+-- 
+Cheers,
 
-        if (flags & SUPER_ITER_WAIT_SHUTDOWN)
--               lock_flags |= SUPER_LOCK_KILLABLE | SUPER_LOCK_WAIT_SHUTDOWN;
-+               lock_flags |= SUPER_LOCK_WAIT_SHUTDOWN;
-+       if (flags & SUPER_ITER_KILLABLE)
-+               lock_flags |= SUPER_LOCK_KILLABLE;
-
-        spin_lock(&sb_lock);
-
-@@ -1122,6 +1125,7 @@ void iterate_supers_born(void (*f)(struct super_block *, void *), void *arg)
- int iterate_supers_sync(void (*f)(struct super_block *, void *), void *arg)
- {
-        return __iterate_supers(f, arg, SUPER_ITER_WAIT_SHUTDOWN |
-+                                       SUPER_ITER_KILLABLE |
-                                        SUPER_ITER_SKIP_UNBORN);
- }
-
+David
