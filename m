@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.244.194.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793087413;
-	b=JOTjS14ivixI9apjFsoXylfNnSKwyABOHahN84yJTGeel+oVaEayRLHnVOXBFLquSc4F
-	 rs3QTSEF2Q//BER1syUmFsMoC7eCvTvpi/MlHTur/C/n+87Le0D7UCxeP4UHUlfPLQfyF
-	 1gB+kUqOwewaFgE5yBOOO9cIaTMxHuzYynwlqCX8sR8Vha36V8aznWoOjJzIeCNmbsLlv
-	 l2D0cPpENK9T/rVcFwsN3RwIveLKkozmbSUEjjVwgcJ2SOJAsLcb0s+C+CKWuEe4/f2dZ
-	 BZ8naIvEOO46uMunPoKtjYskBLKIyI96HYyMZimf2hIkURxDiHJkVyYogPY20dHGARw==
+	t=1793087441;
+	b=M7pZLAHq5O3QL5FGGz8FI/tXHBbUEqqWU8GQNR6VVNybcdLJZ3Se39ewT0e2N0k10luu
+	 dECHPqXpazfWwUN1nJlelUUdGjnjy42jQyLwJAQWES1Wz8q0ihUBKeMBbVZo8t0yiTagr
+	 kNQyoPYi4E7CGwNJJTqXW7pF0Xky5uujmjYL375kF+4rZDIVgUNE6kVViYIzOZrHMsmOO
+	 hqsEtxP6023u8Wgo1Qxc+Cdwe/akrQ7PS7bGGRvwjcZPpS3U8/j64ZQ/6uje9rt6tDiSh
+	 MLBEQC8KF5xL5JR2FVOvRDGKEggm1KTDjx//Zv49XM0gkvnL3z79UVfy/oyNhV54VYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087413;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=J1K9Lnr0ZDZpcUFQrfPuwDzXU/r1MJuH+CNu9zrCW+g=;
-	b=SjfWAxPa0pmJiLUFY0lrckYoB87iKHYjkcVT/dqZB4qL7lAG/SBusCA1yM6I2oTetxst
-	 pkvWwea8jbobW7TAMCVB5EkEOMl2zls9Q9Oa+FhCqyz9YuAd2L7dL4/18Ohye6MxEtwxM
-	 gx5W0Mp3QQMtJjPwPlKOHHVnYwAtZQBzlSqtfJy9goaefRn9thvoeDbu795rn6jXu7nKx
-	 4spfgDMBwjr8vLdDg1a7RbhCGzcR+E7Ul87c7Lr/QFknxK2HcR8zeEEHDU1sZ/+nc9Mpt
-	 fCU8WNWXOk6LWcrXKnuHNDVhes1OvtJd7Vs3NdtamHx3UgA+9rINaiYvxN9BBmy/cVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793087441;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=uBFlnf4zZWU6cOTbN86hfRAP6AeoL9i7Ja6BGfaY0Ro=;
+	b=gVF2VH6GIVsWRf+VmmXBbw8DPvkgv+fauM8cGPZ+ctxkFCdO0Oa0KwHI2gANI0guOFqA
+	 sbykRBD3Ne6lTU9LnCO2QdNTt/ANt6bRB17bJVWKCVCM+IYIJkcb0pAW2tQP1j2VWTuvA
+	 NPGWnCthDy9sgshGwoGO+whdtMkScn6LGWRY8DArfEkV78lte6uLufo2rOGS4NQGHgbP9
+	 mlYUg1k1ZOYU2RhHjzju6Kl/a0U5dYnH+KXKE2rqRqmb+j8Ri9Xe0zSJsWZuuqcHvefhD
+	 7PkEwHj+CHlZoFmSuxmP9Bj5P0a4S3h9gQ8ZxMVEDHMwkdocyQN17Aj9Nzsd7lv/aKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=2pyek6gay5fdlgv37qu4itmfwm.protonmail2 header.b=sDJnZgQt;
-	arc=none smtp.remote-ip=185.70.43.103
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=HkZ4V1IB;
+	arc=none smtp.remote-ip=185.244.194.184
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E66C606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:50:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E66C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E425606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:50:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E425606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=2pyek6gay5fdlgv37qu4itmfwm.protonmail2 header.b=sDJnZgQt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=2pyek6gay5fdlgv37qu4itmfwm.protonmail2; t=1793087408;
-	x=1793346608; bh=J1K9Lnr0ZDZpcUFQrfPuwDzXU/r1MJuH+CNu9zrCW+g=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=sDJnZgQt7BOkzyepiCTw6xuWWtCZMQLP+seEjwYvGT4Uzq6b9CmoE95EK1EWlu3E2
-	 Wq6SwQYeDh0FxbWkgkOc/z+YCP0Hhk0cTbQSrdEGZPtHmgJ1/42jWjrNOdQ+8WFbSZ
-	 iJXHTp1WaAkKaAkvCA6ijZ0ZipC2xzuvYEmYKSndAgBbYor22Tk1I91WSYSC5Ajx0E
-	 nBDxprGbvvyypRZ0Bo5jmcc+ZgO7Yj7sSr/bWh+swbY0ZrNaYnc4GFCW414uX/ml2d
-	 XqmJLMg0rxKxUj9sYMXT6b6X0Sg0ChuCn8v4mapaF94jJ/Hs/oEzn4lfe1ywrdSQcd
-	 PT2c3mRUWghVQ==
-Date: Tue, 27 Oct 2026 07:50:02 +0000
-To: Daniel Scally <dan.scally@ideasonboard.com>
-From: Simon Kruse <simon0x+git@proton.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Fernando Rimoli <fernandorimoli11@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: ov5693: Use sub-device active state
-Message-ID: <20261027074933.21921-1-simon0x+git@proton.me>
-Feedback-ID: 50827409:user:proton
-X-Pm-Message-ID: 6c7811330073cffd131f0f3ba6a71a9556c12684
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=HkZ4V1IB
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jDN2M2bgnz9Vp6;
+	Tue, 27 Oct 2026 08:50:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793087419;
+	bh=csswwopQr0L6Iq80y+T2GffvxU9tazEIvHHPF/uJQv0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HkZ4V1IBXdbR8zIBbXo0biyKDXITZj3lEUomkG8fLcUGk6y8uJFdNlqNeWnHr2wfh
+	 jwjIEjA/8pY66iUUCzX4TCsKM7EQXVwqvFqIir4wcOUq6yvwazRrLoC4TpA6XRMWAe
+	 Hdbb07jovHsIT/ojDa0yxSzVpO/47Emx+8tG3dNS/QloU8wZCGfn+PkcEy7Gn4cnGz
+	 Ml8Y4bcuZYI3g8cI8iSEj2/t/9DkfraTyrYBkpmV/2b+Vt/B75/XGtEhZFUN5fBYrX
+	 Z3GbqqbEKWhU5Rpg8RzRcay56rXb3GkhUXUZMXdy/EKAV83ubGQ8gdwoPAD+iI0lSA
+	 hsD/3Ey4Y6chQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jDN151s5pz7wqj;
+	Tue, 27 Oct 2026 08:49:13 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jDN150GL9z8svC;
+	Tue, 27 Oct 2026 08:49:13 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 168085F98B;
+	Tue, 27 Oct 2026 08:49:08 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <7f21f160-f637-4b63-aa15-066d7b18e2ed@leemhuis.info>
+Date: Tue, 27 Oct 2026 08:49:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,651 +74,305 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/vblank: Don't arm vblank timer with invalid frame
+ duration
+To: Thomas Zimmermann <tzimmermann@suse.de>, Roman Ilin <me@romanilin.is>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maxime Ripard <mripard@kernel.org>, Louis Chauvet
+ <louis.chauvet@bootlin.com>, Javier Martinez Canillas <javierm@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Peter Arnesen <peter.m.arnesen@gmail.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260613224434.96501-1-me@romanilin.is>
+ <20260702181027.98526-1-me@romanilin.is>
+ <E697A2AE-5413-48AE-BFD6-3383819B388B@romanilin.is>
+ <3b192119-9709-4f21-841f-a4706cc85e4a@suse.de>
+ <0600a3f0-b2d2-4a07-ab21-f590c2979612@leemhuis.info>
+ <f0e4cc76-5cf3-4fdb-b42c-f405a09c0d2a@suse.de>
+ <ec0c2486-b127-4a47-a81c-499130f268d9@leemhuis.info>
+ <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <d106ad8a-78d4-45be-95da-0222c44107c5@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179308734871.898318.4642876887831960881@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 168085F98B
+X-NC-CID: 03+Wsu/eo55EKoo4FpYSMVEN9eFUU4u2SjKgZFAKQ8+/Avnxn6c=
 
-Store the active format and crop rectangle in the sub-device state
-instead of the driver's own ov5693_mode structure, and use the control
-handler's lock as the state lock in place of the driver mutex.
+On 9/14/26 13:00, Thomas Zimmermann wrote:
+> Am 11.09.26 um 09:39 schrieb Thorsten Leemhuis:
+>> On 9/4/26 08:19, Thomas Zimmermann wrote:
+>>> Am 03.09.26 um 16:07 schrieb Thorsten Leemhuis:
+>>>> On 7/3/26 09:26, Thomas Zimmermann wrote:
+>>>>> Am 02.07.26 um 20:23 schrieb Roman Ilin:
+>>>>>> Apologies, I accidentally fired off send-email before saving my final
+>>>>>> changelog notes. Please ignore the changelog and notes in the
+>>>>>> original
+>>>>>> v3 email.
+>>>>> We want to know when this happens. And user space will only be able to
+>>>>> trigger this once, so there's no risk of spamming the kernel log.
+>>>>>> Hmmm, just wondering: what's the status here?
+>>>> Roman Ilin, did you loose interest? Or was this continued somewhere or
+>>>> maybe even resolved and I just missed that?
+>>>>
+>>>> Thomas: if Roman left this behind, could you maybe handle this, [...]
+>>> AFAICT it was almost there except for the error messaging. The v4 then
+>>> never happened. I can finish the patch if Roman is no longer around.
+>> No answer from Roman since then, so yes, that would be great! Tia!
+> 
+> I've now sent out an update with minor changes.
 
-The sensor mode registers are now programmed from the active state when
-streaming starts, rather than from runtime resume. Binning and the
-subsampling increments are derived from the format and crop rectangle
-at that point, and the default vertical timing is computed where it is
-needed.
+Many thx again. But the thing is: it still sits on the list waiting for
+review afaics:
 
-get_fmt is replaced by v4l2_subdev_get_fmt(), which also makes
-VIDIOC_SUBDEV_G_FMT return the try format for V4L2_SUBDEV_FORMAT_TRY
-instead of the active one.
+https://lore.kernel.org/all/20260914110004.211027-1-tzimmermann@suse.de/
 
-As v4l2_subdev_init_finalize() sets V4L2_SUBDEV_FL_HAS_EVENTS for
-sub-devices with a control handler, control events are now supported,
-fixing the v4l2-compliance failure:
+Can you maybe prod the right people to finally get this resolved? Or
+what should be do instead?
 
-  fail: v4l2-test-controls.cpp(1128): subscribe event for control 'User Con=
-trols' failed
-  test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
+Ciao, Thorsten
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Simon Kruse <simon0x+git@proton.me>
----
-This replaces "[PATCH] media: i2c: ov5693: Support control events",
-following Sakari's review:
-https://lore.kernel.org/all/20261010142042.23253-1-simon0x+git@proton.me/
-
-Fernando, your Tested-by was for that patch and does not carry over to
-this rewrite. Could you test this one on your Surface Pro 9 as well?
-
-Tested on a Microsoft Surface Pro 9 (Intel Alder Lake, IPU6, OVTI5693)
-with media-committers next at d7e7bca71 and CONFIG_PROVE_LOCKING=3Dy:
-- v4l2-compliance 1.32.0 on the sensor subdev node: 46/46
-- raw captures at 2592x1944 and 1296x972, with flips, with a crop set
-  via set_selection, and right after runtime resume: same results as
-  without the patch
-- libcamera 0.7 cam: 28.6 fps
-- no lockdep reports from ov5693. Lockdep does warn on every stream
-  start at ipu6-isys-queue.c:203 (ipu6_isys_buffer_list_get() called
-  from ipu6_isys_csi2_enable_streams() without stream->mutex). That is
-  in the IPU6 driver, not in ov5693, and I will report it separately.
-
- drivers/media/i2c/ov5693.c | 236 +++++++++++++++----------------------
- 1 file changed, 95 insertions(+), 141 deletions(-)
-
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 56599f9ca..b1cbe2a2f 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -141,9 +141,6 @@ struct ov5693_device {
- =09struct device *dev;
- =09struct regmap *regmap;
-=20
--=09/* Protect against concurrent changes to controls */
--=09struct mutex lock;
--
- =09struct gpio_desc *reset;
- =09struct gpio_desc *powerdown;
- =09struct regulator_bulk_data supplies[OV5693_NUM_SUPPLIES];
-@@ -152,16 +149,6 @@ struct ov5693_device {
- =09/* Gate the MIPI clock lane when idle (CSI-2 non-continuous clock) */
- =09bool clock_ncont;
-=20
--=09struct ov5693_mode {
--=09=09struct v4l2_rect crop;
--=09=09struct v4l2_mbus_framefmt format;
--=09=09bool binning_x;
--=09=09bool binning_y;
--=09=09unsigned int inc_x_odd;
--=09=09unsigned int inc_y_odd;
--=09=09unsigned int vts;
--=09} mode;
--
- =09struct v4l2_subdev sd;
- =09struct media_pad pad;
-=20
-@@ -459,9 +446,10 @@ static int ov5693_analog_gain_configure(struct ov5693_=
-device *ov5693, u32 gain)
- =09return ret;
- }
-=20
--static int ov5693_vts_configure(struct ov5693_device *ov5693, u32 vblank)
-+static int ov5693_vts_configure(struct ov5693_device *ov5693, u32 height,
-+=09=09=09=09u32 vblank)
- {
--=09u16 vts =3D ov5693->mode.format.height + vblank;
-+=09u16 vts =3D height + vblank;
- =09int ret =3D 0;
-=20
- =09cci_write(ov5693->regmap, OV5693_TIMING_VTS_REG, vts, &ret);
-@@ -483,13 +471,18 @@ static int ov5693_s_ctrl(struct v4l2_ctrl *ctrl)
- {
- =09struct ov5693_device *ov5693 =3D
- =09    container_of(ctrl->handler, struct ov5693_device, ctrls.handler);
-+=09const struct v4l2_mbus_framefmt *format;
-+=09struct v4l2_subdev_state *state;
- =09int ret =3D 0;
-=20
-+=09state =3D v4l2_subdev_get_locked_active_state(&ov5693->sd);
-+=09format =3D v4l2_subdev_state_get_format(state, 0);
-+
- =09/* If VBLANK is altered we need to update exposure to compensate */
- =09if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
- =09=09int exposure_max;
-=20
--=09=09exposure_max =3D ov5693->mode.format.height + ctrl->val -
-+=09=09exposure_max =3D format->height + ctrl->val -
- =09=09=09       OV5693_INTEGRATION_TIME_MARGIN;
- =09=09__v4l2_ctrl_modify_range(ov5693->ctrls.exposure,
- =09=09=09=09=09 ov5693->ctrls.exposure->minimum,
-@@ -520,7 +513,7 @@ static int ov5693_s_ctrl(struct v4l2_ctrl *ctrl)
- =09=09ret =3D ov5693_flip_vert_configure(ov5693, !!ctrl->val);
- =09=09break;
- =09case V4L2_CID_VBLANK:
--=09=09ret =3D ov5693_vts_configure(ov5693, ctrl->val);
-+=09=09ret =3D ov5693_vts_configure(ov5693, format->height, ctrl->val);
- =09=09break;
- =09case V4L2_CID_TEST_PATTERN:
- =09=09ret =3D ov5693_test_pattern_configure(ov5693, ctrl->val);
-@@ -557,60 +550,70 @@ static const struct v4l2_ctrl_ops ov5693_ctrl_ops =3D=
- {
-=20
- /* System Control Functions */
-=20
--static int ov5693_mode_configure(struct ov5693_device *ov5693)
-+static int ov5693_mode_configure(struct ov5693_device *ov5693,
-+=09=09=09=09 struct v4l2_subdev_state *state)
- {
--=09const struct ov5693_mode *mode =3D &ov5693->mode;
-+=09const struct v4l2_mbus_framefmt *format;
-+=09const struct v4l2_rect *crop;
-+=09unsigned int inc_x_odd, inc_y_odd;
-+=09bool binning_x, binning_y;
- =09int ret =3D 0;
-=20
-+=09format =3D v4l2_subdev_state_get_format(state, 0);
-+=09crop =3D v4l2_subdev_state_get_crop(state, 0);
-+
-+=09binning_x =3D format->width < crop->width;
-+=09binning_y =3D format->height < crop->height;
-+=09inc_x_odd =3D binning_x ? 3 : 1;
-+=09inc_y_odd =3D binning_y ? 3 : 1;
-+
- =09/* Crop Start X */
--=09cci_write(ov5693->regmap, OV5693_CROP_START_X_REG, mode->crop.left,
--=09=09  &ret);
-+=09cci_write(ov5693->regmap, OV5693_CROP_START_X_REG, crop->left, &ret);
-=20
- =09/* Offset X */
- =09cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG, 0, &ret);
-=20
- =09/* Output Size X */
--=09cci_write(ov5693->regmap, OV5693_OUTPUT_SIZE_X_REG, mode->format.width,
-+=09cci_write(ov5693->regmap, OV5693_OUTPUT_SIZE_X_REG, format->width,
- =09=09  &ret);
-=20
- =09/* Crop End X */
- =09cci_write(ov5693->regmap, OV5693_CROP_END_X_REG,
--=09=09  mode->crop.left + mode->crop.width, &ret);
-+=09=09  crop->left + crop->width, &ret);
-=20
- =09/* Horizontal Total Size */
- =09cci_write(ov5693->regmap, OV5693_TIMING_HTS_REG, OV5693_FIXED_PPL,
- =09=09  &ret);
-=20
- =09/* Crop Start Y */
--=09cci_write(ov5693->regmap, OV5693_CROP_START_Y_REG, mode->crop.top,
--=09=09  &ret);
-+=09cci_write(ov5693->regmap, OV5693_CROP_START_Y_REG, crop->top, &ret);
-=20
- =09/* Offset Y */
- =09cci_write(ov5693->regmap, OV5693_OFFSET_START_Y_REG, 0, &ret);
-=20
- =09/* Output Size Y */
--=09cci_write(ov5693->regmap, OV5693_OUTPUT_SIZE_Y_REG, mode->format.height=
-,
-+=09cci_write(ov5693->regmap, OV5693_OUTPUT_SIZE_Y_REG, format->height,
- =09=09  &ret);
-=20
- =09/* Crop End Y */
- =09cci_write(ov5693->regmap, OV5693_CROP_END_Y_REG,
--=09=09  mode->crop.top + mode->crop.height, &ret);
-+=09=09  crop->top + crop->height, &ret);
-=20
- =09/* Subsample X increase */
- =09cci_write(ov5693->regmap, OV5693_SUB_INC_X_REG,
--=09=09  ((mode->inc_x_odd << 4) & 0xf0) | 0x01, &ret);
-+=09=09  ((inc_x_odd << 4) & 0xf0) | 0x01, &ret);
- =09/* Subsample Y increase */
- =09cci_write(ov5693->regmap, OV5693_SUB_INC_Y_REG,
--=09=09  ((mode->inc_y_odd << 4) & 0xf0) | 0x01, &ret);
-+=09=09  ((inc_y_odd << 4) & 0xf0) | 0x01, &ret);
-=20
- =09/* Binning */
- =09cci_update_bits(ov5693->regmap, OV5693_FORMAT1_REG,
- =09=09=09OV5693_FORMAT1_VBIN_EN,
--=09=09=09mode->binning_y ? OV5693_FORMAT1_VBIN_EN : 0, &ret);
-+=09=09=09binning_y ? OV5693_FORMAT1_VBIN_EN : 0, &ret);
-=20
- =09cci_update_bits(ov5693->regmap, OV5693_FORMAT2_REG,
- =09=09=09OV5693_FORMAT2_HBIN_EN,
--=09=09=09mode->binning_x ? OV5693_FORMAT2_HBIN_EN : 0, &ret);
-+=09=09=09binning_x ? OV5693_FORMAT2_HBIN_EN : 0, &ret);
-=20
- =09return ret;
- }
-@@ -663,11 +666,6 @@ static int ov5693_sensor_init(struct ov5693_device *ov=
-5693)
- =09=09return dev_err_probe(ov5693->dev, ret,
- =09=09=09=09     "global settings error\n");
-=20
--=09ret =3D ov5693_mode_configure(ov5693);
--=09if (ret)
--=09=09return dev_err_probe(ov5693->dev, ret,
--=09=09=09=09     "mode configure error\n");
--
- =09ret =3D ov5693_enable_streaming(ov5693, false);
- =09if (ret)
- =09=09dev_err(ov5693->dev, "stop streaming error\n");
-@@ -732,24 +730,16 @@ static int __maybe_unused ov5693_sensor_resume(struct=
- device *dev)
- =09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
- =09int ret;
-=20
--=09mutex_lock(&ov5693->lock);
--
- =09ret =3D ov5693_sensor_powerup(ov5693);
- =09if (ret)
--=09=09goto out_unlock;
-+=09=09return ret;
-=20
- =09ret =3D ov5693_sensor_init(ov5693);
- =09if (ret) {
- =09=09dev_err(dev, "ov5693 sensor init failure\n");
--=09=09goto err_power;
-+=09=09ov5693_sensor_powerdown(ov5693);
- =09}
-=20
--=09goto out_unlock;
--
--err_power:
--=09ov5693_sensor_powerdown(ov5693);
--out_unlock:
--=09mutex_unlock(&ov5693->lock);
- =09return ret;
- }
-=20
-@@ -786,47 +776,6 @@ static unsigned int __ov5693_calc_vts(u32 height)
- =09return ALIGN_DOWN(OV5693_PIXEL_RATE / OV5693_FIXED_PPL / tgt_fps, 2);
- }
-=20
--static struct v4l2_mbus_framefmt *
--__ov5693_get_pad_format(struct ov5693_device *ov5693,
--=09=09=09struct v4l2_subdev_state *state,
--=09=09=09unsigned int pad, enum v4l2_subdev_format_whence which)
--{
--=09switch (which) {
--=09case V4L2_SUBDEV_FORMAT_TRY:
--=09=09return v4l2_subdev_state_get_format(state, pad);
--=09case V4L2_SUBDEV_FORMAT_ACTIVE:
--=09=09return &ov5693->mode.format;
--=09default:
--=09=09return NULL;
--=09}
--}
--
--static struct v4l2_rect *
--__ov5693_get_pad_crop(struct ov5693_device *ov5693,
--=09=09      struct v4l2_subdev_state *state,
--=09=09      unsigned int pad, enum v4l2_subdev_format_whence which)
--{
--=09switch (which) {
--=09case V4L2_SUBDEV_FORMAT_TRY:
--=09=09return v4l2_subdev_state_get_crop(state, pad);
--=09case V4L2_SUBDEV_FORMAT_ACTIVE:
--=09=09return &ov5693->mode.crop;
--=09}
--
--=09return NULL;
--}
--
--static int ov5693_get_fmt(struct v4l2_subdev *sd,
--=09=09=09  struct v4l2_subdev_state *state,
--=09=09=09  struct v4l2_subdev_format *format)
--{
--=09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
--
--=09format->format =3D ov5693->mode.format;
--
--=09return 0;
--}
--
- static int ov5693_set_fmt(struct v4l2_subdev *sd,
- =09=09=09  const struct v4l2_subdev_client_info *ci,
- =09=09=09  struct v4l2_subdev_state *state,
-@@ -838,9 +787,10 @@ static int ov5693_set_fmt(struct v4l2_subdev *sd,
- =09unsigned int hratio, vratio;
- =09unsigned int width, height;
- =09unsigned int hblank;
-+=09unsigned int vts;
- =09int exposure_max;
-=20
--=09crop =3D __ov5693_get_pad_crop(ov5693, state, format->pad, format->whic=
-h);
-+=09crop =3D v4l2_subdev_state_get_crop(state, format->pad);
-=20
- =09/*
- =09 * Align to two to simplify the binning calculations below, and clamp
-@@ -860,8 +810,7 @@ static int ov5693_set_fmt(struct v4l2_subdev *sd,
- =09vratio =3D clamp_t(unsigned int,
- =09=09=09 DIV_ROUND_CLOSEST(crop->height, height), 1, 2);
-=20
--=09fmt =3D __ov5693_get_pad_format(ov5693, state, format->pad,
--=09=09=09=09      format->which);
-+=09fmt =3D v4l2_subdev_state_get_format(state, format->pad);
-=20
- =09fmt->width =3D crop->width / hratio;
- =09fmt->height =3D crop->height / vratio;
-@@ -872,34 +821,25 @@ static int ov5693_set_fmt(struct v4l2_subdev *sd,
- =09if (format->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)
- =09=09return 0;
-=20
--=09mutex_lock(&ov5693->lock);
--
--=09ov5693->mode.binning_x =3D hratio > 1;
--=09ov5693->mode.inc_x_odd =3D hratio > 1 ? 3 : 1;
--=09ov5693->mode.binning_y =3D vratio > 1;
--=09ov5693->mode.inc_y_odd =3D vratio > 1 ? 3 : 1;
--
--=09ov5693->mode.vts =3D __ov5693_calc_vts(fmt->height);
-+=09vts =3D __ov5693_calc_vts(fmt->height);
-=20
- =09__v4l2_ctrl_modify_range(ov5693->ctrls.vblank,
- =09=09=09=09 OV5693_TIMING_MIN_VTS,
- =09=09=09=09 OV5693_TIMING_MAX_VTS - fmt->height,
--=09=09=09=09 1, ov5693->mode.vts - fmt->height);
--=09__v4l2_ctrl_s_ctrl(ov5693->ctrls.vblank,
--=09=09=09   ov5693->mode.vts - fmt->height);
-+=09=09=09=09 1, vts - fmt->height);
-+=09__v4l2_ctrl_s_ctrl(ov5693->ctrls.vblank, vts - fmt->height);
-=20
- =09hblank =3D OV5693_FIXED_PPL - fmt->width;
- =09__v4l2_ctrl_modify_range(ov5693->ctrls.hblank, hblank, hblank, 1,
- =09=09=09=09 hblank);
-=20
--=09exposure_max =3D ov5693->mode.vts - OV5693_INTEGRATION_TIME_MARGIN;
-+=09exposure_max =3D vts - OV5693_INTEGRATION_TIME_MARGIN;
- =09__v4l2_ctrl_modify_range(ov5693->ctrls.exposure,
- =09=09=09=09 ov5693->ctrls.exposure->minimum, exposure_max,
- =09=09=09=09 ov5693->ctrls.exposure->step,
- =09=09=09=09 min(ov5693->ctrls.exposure->val,
- =09=09=09=09     exposure_max));
-=20
--=09mutex_unlock(&ov5693->lock);
- =09return 0;
- }
-=20
-@@ -908,14 +848,9 @@ static int ov5693_get_selection(struct v4l2_subdev *sd=
-,
- =09=09=09=09struct v4l2_subdev_state *state,
- =09=09=09=09struct v4l2_subdev_selection *sel)
- {
--=09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
--
- =09switch (sel->target) {
- =09case V4L2_SEL_TGT_CROP:
--=09=09mutex_lock(&ov5693->lock);
--=09=09sel->r =3D *__ov5693_get_pad_crop(ov5693, state, sel->pad,
--=09=09=09=09=09=09sel->which);
--=09=09mutex_unlock(&ov5693->lock);
-+=09=09sel->r =3D *v4l2_subdev_state_get_crop(state, sel->pad);
- =09=09break;
- =09case V4L2_SEL_TGT_NATIVE_SIZE:
- =09=09sel->r.top =3D 0;
-@@ -942,7 +877,6 @@ static int ov5693_set_selection(struct v4l2_subdev *sd,
- =09=09=09=09struct v4l2_subdev_state *state,
- =09=09=09=09struct v4l2_subdev_selection *sel)
- {
--=09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
- =09struct v4l2_mbus_framefmt *format;
- =09struct v4l2_rect *__crop;
- =09struct v4l2_rect rect;
-@@ -970,15 +904,14 @@ static int ov5693_set_selection(struct v4l2_subdev *s=
-d,
- =09rect.height =3D min_t(unsigned int, rect.height,
- =09=09=09    OV5693_NATIVE_HEIGHT - rect.top);
-=20
--=09__crop =3D __ov5693_get_pad_crop(ov5693, state, sel->pad, sel->which);
-+=09__crop =3D v4l2_subdev_state_get_crop(state, sel->pad);
-=20
- =09if (rect.width !=3D __crop->width || rect.height !=3D __crop->height) {
- =09=09/*
- =09=09 * Reset the output image size if the crop rectangle size has
- =09=09 * been modified.
- =09=09 */
--=09=09format =3D __ov5693_get_pad_format(ov5693, state, sel->pad,
--=09=09=09=09=09=09 sel->which);
-+=09=09format =3D v4l2_subdev_state_get_format(state, sel->pad);
- =09=09format->width =3D rect.width;
- =09=09format->height =3D rect.height;
- =09}
-@@ -992,26 +925,27 @@ static int ov5693_set_selection(struct v4l2_subdev *s=
-d,
- static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
- {
- =09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
-+=09struct v4l2_subdev_state *state;
- =09int ret;
-=20
-+=09state =3D v4l2_subdev_lock_and_get_active_state(sd);
-+
- =09if (enable) {
- =09=09ret =3D pm_runtime_resume_and_get(ov5693->dev);
- =09=09if (ret)
--=09=09=09return ret;
-+=09=09=09goto unlock;
-+
-+=09=09ret =3D ov5693_mode_configure(ov5693, state);
-+=09=09if (ret)
-+=09=09=09goto err_power_down;
-=20
--=09=09mutex_lock(&ov5693->lock);
- =09=09ret =3D __v4l2_ctrl_handler_setup(&ov5693->ctrls.handler);
--=09=09if (ret) {
--=09=09=09mutex_unlock(&ov5693->lock);
-+=09=09if (ret)
- =09=09=09goto err_power_down;
--=09=09}
-=20
- =09=09ret =3D ov5693_enable_streaming(ov5693, true);
--=09=09mutex_unlock(&ov5693->lock);
- =09} else {
--=09=09mutex_lock(&ov5693->lock);
- =09=09ret =3D ov5693_enable_streaming(ov5693, false);
--=09=09mutex_unlock(&ov5693->lock);
- =09}
- =09if (ret)
- =09=09goto err_power_down;
-@@ -1019,9 +953,13 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, in=
-t enable)
- =09if (!enable)
- =09=09pm_runtime_put(ov5693->dev);
-=20
-+=09v4l2_subdev_unlock_state(state);
-+
- =09return 0;
- err_power_down:
- =09pm_runtime_put_noidle(ov5693->dev);
-+unlock:
-+=09v4l2_subdev_unlock_state(state);
- =09return ret;
- }
-=20
-@@ -1030,7 +968,9 @@ static int ov5693_get_frame_interval(struct v4l2_subde=
-v *sd,
- =09=09=09=09     struct v4l2_subdev_frame_interval *interval)
- {
- =09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
--=09unsigned int framesize =3D OV5693_FIXED_PPL * (ov5693->mode.format.heig=
-ht +
-+=09const struct v4l2_mbus_framefmt *format =3D
-+=09=09v4l2_subdev_state_get_format(sd_state, 0);
-+=09unsigned int framesize =3D OV5693_FIXED_PPL * (format->height +
- =09=09=09=09 ov5693->ctrls.vblank->val);
- =09unsigned int fps =3D DIV_ROUND_CLOSEST(OV5693_PIXEL_RATE, framesize);
-=20
-@@ -1063,15 +1003,12 @@ static int ov5693_enum_frame_size(struct v4l2_subde=
-v *sd,
- =09=09=09=09  struct v4l2_subdev_state *state,
- =09=09=09=09  struct v4l2_subdev_frame_size_enum *fse)
- {
--=09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
- =09struct v4l2_rect *__crop;
-=20
- =09if (fse->index > 1 || fse->code !=3D MEDIA_BUS_FMT_SBGGR10_1X10)
- =09=09return -EINVAL;
-=20
--=09__crop =3D __ov5693_get_pad_crop(ov5693, state, fse->pad, fse->which);
--=09if (!__crop)
--=09=09return -EINVAL;
-+=09__crop =3D v4l2_subdev_state_get_crop(state, fse->pad);
-=20
- =09fse->min_width =3D __crop->width / (fse->index + 1);
- =09fse->min_height =3D __crop->height / (fse->index + 1);
-@@ -1088,7 +1025,7 @@ static const struct v4l2_subdev_video_ops ov5693_vide=
-o_ops =3D {
- static const struct v4l2_subdev_pad_ops ov5693_pad_ops =3D {
- =09.enum_mbus_code =3D ov5693_enum_mbus_code,
- =09.enum_frame_size =3D ov5693_enum_frame_size,
--=09.get_fmt =3D ov5693_get_fmt,
-+=09.get_fmt =3D v4l2_subdev_get_fmt,
- =09.set_fmt =3D ov5693_set_fmt,
- =09.get_selection =3D ov5693_get_selection,
- =09.set_selection =3D ov5693_set_selection,
-@@ -1100,6 +1037,19 @@ static const struct v4l2_subdev_ops ov5693_ops =3D {
- =09.pad =3D &ov5693_pad_ops,
- };
-=20
-+static int ov5693_init_state(struct v4l2_subdev *sd,
-+=09=09=09     struct v4l2_subdev_state *state)
-+{
-+=09*v4l2_subdev_state_get_crop(state, 0) =3D ov5693_default_crop;
-+=09*v4l2_subdev_state_get_format(state, 0) =3D ov5693_default_fmt;
-+
-+=09return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops ov5693_internal_ops =3D {
-+=09.init_state =3D ov5693_init_state,
-+};
-+
- /* Sensor and Driver Configuration Functions */
-=20
- static int ov5693_init_controls(struct ov5693_device *ov5693)
-@@ -1107,11 +1057,15 @@ static int ov5693_init_controls(struct ov5693_devic=
-e *ov5693)
- =09const struct v4l2_ctrl_ops *ops =3D &ov5693_ctrl_ops;
- =09struct ov5693_v4l2_ctrls *ctrls =3D &ov5693->ctrls;
- =09struct v4l2_fwnode_device_properties props;
-+=09const struct v4l2_mbus_framefmt *format =3D &ov5693_default_fmt;
- =09int vblank_max, vblank_def;
- =09int exposure_max;
-+=09unsigned int vts;
- =09int hblank;
- =09int ret;
-=20
-+=09vts =3D __ov5693_calc_vts(format->height);
-+
- =09ret =3D v4l2_ctrl_handler_init(&ctrls->handler, 12);
- =09if (ret)
- =09=09return ret;
-@@ -1130,7 +1084,7 @@ static int ov5693_init_controls(struct ov5693_device =
-*ov5693)
- =09=09=09=09=09      OV5693_PIXEL_RATE);
-=20
- =09/* Exposure */
--=09exposure_max =3D ov5693->mode.vts - OV5693_INTEGRATION_TIME_MARGIN;
-+=09exposure_max =3D vts - OV5693_INTEGRATION_TIME_MARGIN;
- =09ctrls->exposure =3D v4l2_ctrl_new_std(&ctrls->handler, ops,
- =09=09=09=09=09    V4L2_CID_EXPOSURE,
- =09=09=09=09=09    OV5693_EXPOSURE_MIN, exposure_max,
-@@ -1158,7 +1112,7 @@ static int ov5693_init_controls(struct ov5693_device =
-*ov5693)
- =09ctrls->vflip =3D v4l2_ctrl_new_std(&ctrls->handler, ops,
- =09=09=09=09=09 V4L2_CID_VFLIP, 0, 1, 1, 0);
-=20
--=09hblank =3D OV5693_FIXED_PPL - ov5693->mode.format.width;
-+=09hblank =3D OV5693_FIXED_PPL - format->width;
- =09ctrls->hblank =3D v4l2_ctrl_new_std(&ctrls->handler, ops,
- =09=09=09=09=09  V4L2_CID_HBLANK, hblank,
- =09=09=09=09=09  hblank, 1, hblank);
-@@ -1166,8 +1120,8 @@ static int ov5693_init_controls(struct ov5693_device =
-*ov5693)
- =09if (ctrls->hblank)
- =09=09ctrls->hblank->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
-=20
--=09vblank_max =3D OV5693_TIMING_MAX_VTS - ov5693->mode.format.height;
--=09vblank_def =3D ov5693->mode.vts - ov5693->mode.format.height;
-+=09vblank_max =3D OV5693_TIMING_MAX_VTS - format->height;
-+=09vblank_def =3D vts - format->height;
- =09ctrls->vblank =3D v4l2_ctrl_new_std(&ctrls->handler, ops,
- =09=09=09=09=09  V4L2_CID_VBLANK,
- =09=09=09=09=09  OV5693_TIMING_MIN_VTS,
-@@ -1195,8 +1149,6 @@ static int ov5693_init_controls(struct ov5693_device =
-*ov5693)
- =09if (ret)
- =09=09goto err_free_handler;
-=20
--=09/* Use same lock for controls as for everything else. */
--=09ctrls->handler.lock =3D &ov5693->lock;
- =09ov5693->sd.ctrl_handler =3D &ctrls->handler;
-=20
- =09return 0;
-@@ -1312,9 +1264,8 @@ static int ov5693_probe(struct i2c_client *client)
- =09if (ret)
- =09=09return ret;
-=20
--=09mutex_init(&ov5693->lock);
--
- =09v4l2_i2c_subdev_init(&ov5693->sd, client, &ov5693_ops);
-+=09ov5693->sd.internal_ops =3D &ov5693_internal_ops;
-=20
- =09ov5693->xvclk =3D devm_v4l2_sensor_clk_get(&client->dev, "xvclk");
- =09if (IS_ERR(ov5693->xvclk))
-@@ -1340,10 +1291,6 @@ static int ov5693_probe(struct i2c_client *client)
- =09ov5693->pad.flags =3D MEDIA_PAD_FL_SOURCE;
- =09ov5693->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
-=20
--=09ov5693->mode.crop =3D ov5693_default_crop;
--=09ov5693->mode.format =3D ov5693_default_fmt;
--=09ov5693->mode.vts =3D __ov5693_calc_vts(ov5693->mode.format.height);
--
- =09ret =3D ov5693_init_controls(ov5693);
- =09if (ret)
- =09=09return ret;
-@@ -1352,6 +1299,11 @@ static int ov5693_probe(struct i2c_client *client)
- =09if (ret)
- =09=09goto err_ctrl_handler_free;
-=20
-+=09ov5693->sd.state_lock =3D ov5693->ctrls.handler.lock;
-+=09ret =3D v4l2_subdev_init_finalize(&ov5693->sd);
-+=09if (ret)
-+=09=09goto err_media_entity_cleanup;
-+
- =09/*
- =09 * We need the driver to work in the event that pm runtime is disable i=
-n
- =09 * the kernel, so power up and verify the chip now. In the event that
-@@ -1361,7 +1313,7 @@ static int ov5693_probe(struct i2c_client *client)
-=20
- =09ret =3D ov5693_sensor_powerup(ov5693);
- =09if (ret)
--=09=09goto err_media_entity_cleanup;
-+=09=09goto err_subdev_cleanup;
-=20
- =09ret =3D ov5693_detect(ov5693);
- =09if (ret)
-@@ -1389,6 +1341,8 @@ static int ov5693_probe(struct i2c_client *client)
- =09pm_runtime_put_noidle(&client->dev);
- err_powerdown:
- =09ov5693_sensor_powerdown(ov5693);
-+err_subdev_cleanup:
-+=09v4l2_subdev_cleanup(&ov5693->sd);
- err_media_entity_cleanup:
- =09media_entity_cleanup(&ov5693->sd.entity);
- err_ctrl_handler_free:
-@@ -1403,9 +1357,9 @@ static void ov5693_remove(struct i2c_client *client)
- =09struct ov5693_device *ov5693 =3D to_ov5693_sensor(sd);
-=20
- =09v4l2_async_unregister_subdev(sd);
-+=09v4l2_subdev_cleanup(sd);
- =09media_entity_cleanup(&ov5693->sd.entity);
- =09v4l2_ctrl_handler_free(&ov5693->ctrls.handler);
--=09mutex_destroy(&ov5693->lock);
-=20
- =09/*
- =09 * Disable runtime PM. In case runtime PM is disabled in the kernel,
-
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
---=20
-2.53.0
-
+>>>>> So this is not really a problem. drm_WARN_ON_ONCE was ok for that. You
+>>>>> can also use a regular DRM print macro. But instead of drm_dbg_kms()
+>>>>> should use drm_err_once(). But please also output linedur_ns and
+>>>>> framedur_ns in the error. We want to know which of them is incorrect.
+>>>>> You can also add more information to the error message. See [1] for
+>>>>> the
+>>>>> mode-formating macros.
+>>>>>
+>>>>> [1] https://elixir.bootlin.com/linux/v7.1.2/source/include/drm/
+>>>>> drm_modes.h#L422
+>>>>>
+>>>>>
+>>>>>> - Updated drm_calc_timestamping_constants with the goto error
+>>>>>> fallback
+>>>>>>      to clear the stale state.
+>>>>>>
+>>>>>> Also, an automated review bot pointed out an AB-BA deadlock in
+>>>>>> drm_crtc_vblank_start_timer(). But I am leaving this out of the
+>>>>>> patch to
+>>>>>> keep the fixes orthogonal.
+>>>>>>
+>>>>>> Sorry for the noise.
+>>>>>>
+>>>>>>> On Jul 2, 2026, at 21:10, Roman Ilin <me@romanilin.is> wrote:
+>>>>>>>
+>>>>>>> When a CRTC's display mode carries a too small pixel clock,
+>>>>>>> drm_calc_timestamping_constants() computes a frame duration that
+>>>>>>> exceeds INT_MAX. drm_vblank_crtc.framedur_ns becomes negative.
+>>>>>>> drm_crtc_vblank_start_timer() then arms the vblank hrtimer with this
+>>>>>>> interval, after which vblank events are no longer delivered. Pending
+>>>>>>> page flips never complete and the display appears frozen.
+>>>>>>>
+>>>>>>> This could be triggered on virtio-gpu guests that have dynamic
+>>>>>>> resolution
+>>>>>>> enabled: when the SPICE agent or the X server resizes the output, it
+>>>>>>> submits a mode whose pixel clock is off by a factor of 1000, e.g.:
+>>>>>>>
+>>>>>>>       clock = 406 kHz, htotal = 3152, vtotal = 2148
+>>>>>>>
+>>>>>>>       framedur_ns = 3152 * 2148 * 1000000 / 406 = 16675852216 ns
+>>>>>>> (~16.7 s)
+>>>>>>>
+>>>>>>> 16675852216 does not fit into an int and wraps to roughly
+>>>>>>> -504000000.
+>>>>>>> ns_to_ktime() then yields a negative interval and the timer stops
+>>>>>>> working.
+>>>>>>>
+>>>>>>> Found by bisection, which pointed at commit a036f5fceedb ("drm/
+>>>>>>> virtgpu:
+>>>>>>> Use vblank timer"). That commit merely made virtio-gpu use the
+>>>>>>> vblank
+>>>>>>> timer and thereby exposed the pre-existing problem in the timer
+>>>>>>> setup
+>>>>>>> added by commit 74afeb812850 ("drm/vblank: Add vblank timer").
+>>>>>>>
+>>>>>>> To fix this, modify drm_calc_timestamping_constants() to use u64 for
+>>>>>>> calculations, check for INT_MAX overflows, and return an error code.
+>>>>>>> drm_crtc_vblank_start_timer() will then propagate the error,
+>>>>>>> enabling
+>>>>>>> the driver to fall back to immediate vblank events. Valid modes are
+>>>>>>> unaffected, and the timer self-heals on the next mode with a sane
+>>>>>>> clock.
+>>>>>>>
+>>>>>>> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+>>>>>>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+>>>>>>> Signed-off-by: Roman Ilin <me@romanilin.is>
+>>>>>>> ---
+>>>>>>> Changes in v3:
+>>>>>>>
+>>>>>>> - Changed the WARN_ON_ONCE to drm_err_once
+>>>>>>>
+>>>>>>> Notes:
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>> drivers/gpu/drm/drm_vblank.c | 71 ++++++++++++++++++++++
+>>>>>>> +-------------
+>>>>>>> include/drm/drm_vblank.h     |  4 +-
+>>>>>>> 2 files changed, 48 insertions(+), 27 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/
+>>>>>>> drm_vblank.c
+>>>>>>> index f90fb2d13..629b9fcc7 100644
+>>>>>>> --- a/drivers/gpu/drm/drm_vblank.c
+>>>>>>> +++ b/drivers/gpu/drm/drm_vblank.c
+>>>>>>> @@ -631,42 +631,51 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>>>>>>>     * drm_crtc_vblank_helper_get_vblank_timestamp(). They are
+>>>>>>> derived from
+>>>>>>>     * CRTC's true scanout timing, so they take things like panel
+>>>>>>> scaling or
+>>>>>>>     * other adjustments into account.
+>>>>>>> + *
+>>>>>>> + * Returns:
+>>>>>>> + * 0 on success, or a negative errno code otherwise.
+>>>>>>>     */
+>>>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> -     const struct drm_display_mode *mode)
+>>>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> +    const struct drm_display_mode *mode)
+>>>>>>> {
+>>>>>>> struct drm_device *dev = crtc->dev;
+>>>>>>> unsigned int pipe = drm_crtc_index(crtc);
+>>>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>>>> - int linedur_ns = 0, framedur_ns = 0;
+>>>>>>> + u64 linedur_ns, framedur_ns;
+>>>>>>> int dotclock = mode->crtc_clock;
+>>>>>>> + unsigned int frame_size;
+>>>>>>>
+>>>>>>> if (!drm_dev_has_vblank(dev))
+>>>>>>> - return;
+>>>>>>> + return 0;
+>>>>>>>
+>>>>>>> if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
+>>>>>>> - return;
+>>>>>>> + return -EINVAL;
+>>>>>>>
+>>>>>>> - /* Valid dotclock? */
+>>>>>>> - if (dotclock > 0) {
+>>>>>>> - int frame_size = mode->crtc_htotal * mode->crtc_vtotal;
+>>>>>>> + if (dotclock <= 0) {
+>>>>>>> + drm_err(dev, "crtc %u: Can't calculate constants, dotclock =
+>>>>>>> %d!\n",
+>>>>> Please turn this into drm_err_once() because this call can actually be
+>>>>> triggered repeatedly from userspace.
+>>>>>
+>>>>> Best regards
+>>>>> Thomas
+>>>>>
+>>>>>
+>>>>>>> + crtc->base.id, dotclock);
+>>>>>>> + goto error;
+>>>>>>> + }
+>>>>>>>
+>>>>>>> - /*
+>>>>>>> - * Convert scanline length in pixels and video
+>>>>>>> - * dot clock to line duration and frame duration
+>>>>>>> - * in nanoseconds:
+>>>>>>> - */
+>>>>>>> - linedur_ns  = div_u64((u64) mode->crtc_htotal * 1000000,
+>>>>>>> dotclock);
+>>>>>>> - framedur_ns = div_u64((u64) frame_size * 1000000, dotclock);
+>>>>>>> + frame_size = (unsigned int)mode->crtc_htotal * (unsigned int)mode-
+>>>>>>>> crtc_vtotal;
+>>>>>>> - /*
+>>>>>>> - * Fields of interlaced scanout modes are only half a frame
+>>>>>>> duration.
+>>>>>>> - */
+>>>>>>> - if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>>>> - framedur_ns /= 2;
+>>>>>>> - } else {
+>>>>>>> - drm_err(dev, "crtc %u: Can't calculate constants, dotclock = 0!
+>>>>>>> \n",
+>>>>>>> - crtc->base.id);
+>>>>>>> + /*
+>>>>>>> + * Convert scanline length in pixels and video dot clock to line
+>>>>>>> duration
+>>>>>>> + * and frame duration in nanoseconds.
+>>>>>>> + */
+>>>>>>> + linedur_ns  = div_u64((u64)mode->crtc_htotal * 1000000, dotclock);
+>>>>>>> + framedur_ns = div_u64((u64)frame_size * 1000000, dotclock);
+>>>>>>> +
+>>>>>>> + /*
+>>>>>>> + * Fields of interlaced scanout modes are only half a frame
+>>>>>>> duration.
+>>>>>>> + */
+>>>>>>> + if (mode->flags & DRM_MODE_FLAG_INTERLACE)
+>>>>>>> + framedur_ns /= 2;
+>>>>>>> +
+>>>>>>> + if (linedur_ns > INT_MAX || framedur_ns > INT_MAX) {
+>>>>>>> + drm_dbg_kms(dev, "crtc %u: Can't calculate constants, mode clock
+>>>>>>> too small!\n",
+>>>>>>> +    crtc->base.id);
+>>>>>>> + goto error;
+>>>>>>> }
+>>>>>>>
+>>>>>>> vblank->linedur_ns  = linedur_ns;
+>>>>>>> @@ -678,7 +687,16 @@ void drm_calc_timestamping_constants(struct
+>>>>>>> drm_crtc *crtc,
+>>>>>>>        crtc->base.id, mode->crtc_htotal,
+>>>>>>>        mode->crtc_vtotal, mode->crtc_vdisplay);
+>>>>>>> drm_dbg_core(dev, "crtc %u: clock %d kHz framedur %d linedur %d\n",
+>>>>>>> -     crtc->base.id, dotclock, framedur_ns, linedur_ns);
+>>>>>>> +     crtc->base.id, dotclock,
+>>>>>>> +     vblank->framedur_ns, vblank->linedur_ns);
+>>>>>>> +
+>>>>>>> + return 0;
+>>>>>>> +
+>>>>>>> +error:
+>>>>>>> + vblank->linedur_ns  = 0;
+>>>>>>> + vblank->framedur_ns = 0;
+>>>>>>> + drm_mode_copy(&vblank->hwmode, mode);
+>>>>>>> + return -EINVAL;
+>>>>>>> }
+>>>>>>> EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>>>>>>>
+>>>>>>> @@ -2221,6 +2239,7 @@ int drm_crtc_vblank_start_timer(struct
+>>>>>>> drm_crtc
+>>>>>>> *crtc)
+>>>>>>> struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+>>>>>>> struct drm_vblank_crtc_timer *vtimer = &vblank->vblank_timer;
+>>>>>>> unsigned long flags;
+>>>>>>> + int ret;
+>>>>>>>
+>>>>>>> if (!vtimer->crtc) {
+>>>>>>> /*
+>>>>>>> @@ -2239,7 +2258,9 @@ int drm_crtc_vblank_start_timer(struct
+>>>>>>> drm_crtc
+>>>>>>> *crtc)
+>>>>>>> hrtimer_try_to_cancel(&vtimer->timer);
+>>>>>>> }
+>>>>>>>
+>>>>>>> - drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>>>> + ret = drm_calc_timestamping_constants(crtc, &crtc->mode);
+>>>>>>> + if (ret)
+>>>>>>> + return ret;
+>>>>>>>
+>>>>>>> spin_lock_irqsave(&vtimer->interval_lock, flags);
+>>>>>>> vtimer->interval = ns_to_ktime(vblank->framedur_ns);
+>>>>>>> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+>>>>>>> index 2fcef9c0f..d99772dfa 100644
+>>>>>>> --- a/include/drm/drm_vblank.h
+>>>>>>> +++ b/include/drm/drm_vblank.h
+>>>>>>> @@ -311,8 +311,8 @@ void drm_crtc_vblank_on(struct drm_crtc *crtc);
+>>>>>>> u64 drm_crtc_accurate_vblank_count(struct drm_crtc *crtc);
+>>>>>>> void drm_crtc_vblank_restore(struct drm_crtc *crtc);
+>>>>>>>
+>>>>>>> -void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> -     const struct drm_display_mode *mode);
+>>>>>>> +int drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>>>>>>> +    const struct drm_display_mode *mode);
+>>>>>>> wait_queue_head_t *drm_crtc_vblank_waitqueue(struct drm_crtc *crtc);
+>>>>>>> void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
+>>>>>>>      u32 max_vblank_count);
+>>>>>>> -- 
+>>>>>>> 2.54.0
+>>>>>>>
+> 
 
