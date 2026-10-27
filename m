@@ -1,93 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.37.111.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118889;
-	b=UIkk8Wx6oX3cmHxz6hF3u88SOXwwJLlUKiIbWrQXL35zZ88uoLejBG1vlbFcyTWrcXEU
-	 pn5tqZ9jfuypENHQLsJM3jXzPisvoKu2a2dBJsK8W6/01ssT7us2w4NB7ZS/Lx8rSaKuB
-	 SntDUFoEiDbT0h0q5IGzEDOFwPg96sStA6dvh543gukJ6CrCSvA2LlIH+6V6STn7r53Di
-	 MRGsD3/aGGetBsAwtUTLNS/LeMfOZzdYt4UgHL5XF/YROo2Yqg7okF0dMPh7JzgVY+Kih
-	 /2uXt5xEG+dApAltpUBCewvHLf++mE+d8Htk5rDgoaLFbfqE0AHjXTKFBaawdjJGLGg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118889;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=lJTFG6KAtjLyj44w/zDj8zueuqa2oCfz8t6xfr7X1Ug=;
-	b=twy21On1J8aaZuE4QDvXtLfseC8MHs4OJBtpFyCXS1Naaw5K9bit0htX2Dd3GxlirsHT
-	 2Q1xtSVoTFmfXxEtvmkMO1yW8mnE0Z8xpkjT7V0cm/XaBWL2yqcGMVhcOh8VfP5vqJZPA
-	 pnYjPCGABl0a3q2HcaVkdjFRaBh6kZ7FC4pjnmgcHx4hTJPTBPByct7x/wCFnYhFy4GNO
-	 8XfGqZEEDLrJkyHhObTLp9xzz+QDL/W7cQiCogfYX7CteR2yVEyXVOwPj+1t7nfdkYhrA
-	 HBOToInTRyqnprGp6o2y23wxJ9KPdBsTVGnrlrE8u3D2EKayWF+KVvff9C4dZxcdFjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=HansenPartnership.com;
-	spf=pass smtp.mailfrom=HansenPartnership.com;
-	dkim=pass header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=UGfSzLjW;
-	arc=none smtp.remote-ip=198.37.111.173
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com [198.37.111.173])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793118890;
+	b=oIWB0NwW6t2dfTUS4PlynSRR+gE2SVr1ttxrzkdth4bmOqvuG0o3newwU2OaGrmNc7P5
+	 a2iIxoGTg1GlC0uj9/TqEK62GFXx9UuKW9VTOsFwNIzu5lLDL0qpWCJ7un0U+h3OBMeH2
+	 B3hUYPVcphuZDmMD6a9BCoAVTNP3DpS6sCx1ihjO16GFHG1ryL2Bx1ki+C3l5gjU1jGGl
+	 lw1rhCveaY1jKAyLfTNM2Zp62CjzWtt+Pm2NZew/ipLezdFtHh6jU9jnZ7LZtV6dN5tmS
+	 +k6On/mHJ1bhm8Gx2g3AF0QHXRUlNkSdXJYRHXzXcxB61rsJWI6QXHEv9Aze7WdS49A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118890;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=JTCbAAzicyeiiqXynNzoLkl9gYn7zDPQJlAnzkNb7CY=;
+	b=Nl8bnHhNzcZ9Koy4Iy3cv6ECYkHPoRRge5iwfhSHPNJeLxcvpST/xNe4bSnSZ7IAIwTq
+	 YOkiYCrU9sMc/E79PKwDmknlPNLwKBYVEzqwF/RlIDPd1FYISqnc5DqOqTAFbFtPLasVR
+	 K9bUlCvaGmJnbQ5V5wT/klPF65JzAU1GCJpVb2txbI+nmNdrL0NcCeHXMEDfczbXckuqf
+	 kX1ViprHBzOTziDtjUzlW8+DXu4rcnQwHVx1LMP/NqcX3zGIA6XHK+GI5OmDfi2VferCt
+	 ewJS9U0cQe/wtNnLwhH4lDFjukpVM/tW0V4JTmwNIJUgVh/tzBhxLzwlFrzHwDHxqsA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CGWSWKEN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299FD606A31A;
-	Tue, 27 Oct 2026 16:34:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 299FD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=HansenPartnership.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=HansenPartnership.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5E3606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:34:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C5E3606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.a=rsa-sha256 header.s=20151216 header.b=UGfSzLjW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-	d=hansenpartnership.com; s=20151216; t=1793118886;
-	bh=OpNyYRNyJU6gg+kG86JdyNEhWCyrOAzRSyOypkHvpC4=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
-	b=UGfSzLjWypAeRbcEIjwFnanplbmb+1G6c8fPH0X+DMGyC77CoR/7T8zGDij6SYCdn
-	 0DC9aJ3rMnpAMI58DZ3FdAu0RLTorZQh50KB8ZV/8VWDCaJJ9EoYlfGepUgTewIN3t
-	 rd4Y9l/sOiyVC6U4/XtrjizAbtTv996do2eJRhP4=
-Received: from lingrow.int.hansenpartnership.com (unknown [IPv6:2601:5c4:4300:d341::8309])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id A1DC11C0227;
-	Tue, 27 Oct 2026 12:34:46 -0400 (EDT)
-Message-ID: <d7d219895917cb1ad48db41bed19b5d11f3fc26f.camel@HansenPartnership.com>
-Subject: Re: [GIT PULL for v7.4] vfs keyring
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 27 Oct 2026 12:34:46 -0400
-In-Reply-To: <20261026-semester-gabel-hallimasch-34a1d883b295@brauner>
-References: <20261016-vfs-v74-41eaf6c4712c@brauner>
-	 <20261024-vfs-7.4-rc1.keyring-db88a8f3b5b1@brauner>
-	 <61898b2b9de5e6be98c7b8e462ba29595cae3e26.camel@HansenPartnership.com>
-	 <20261026-semester-gabel-hallimasch-34a1d883b295@brauner>
-Autocrypt: addr=James.Bottomley@HansenPartnership.com;
- keydata=mQENBE58FlABCADPM714lRLxGmba4JFjkocqpj1/6/Cx+IXezcS22azZetzCXDpm2MfNE
- lecY3qkFjfnoffQiw5rrOO0/oRSATOh8+2fmJ6el7naRbDuh+i8lVESfdlkoqX57H5R8h/UTIp6gn
- 1mpNlxjQv6QSZbl551zQ1nmkSVRbA5TbEp4br5GZeJ58esmYDCBwxuFTsSsdzbOBNthLcudWpJZHU
- RfMc0ew24By1nldL9F37AktNcCipKpC2U0NtGlJjYPNSVXrCd1izxKmO7te7BLP+7B4DNj1VRnaf8
- X9+VIApCi/l4Kdx+ZR3aLTqSuNsIMmXUJ3T8JRl+ag7kby/KBp+0OpotABEBAAG0N0phbWVzIEJvd
- HRvbWxleSA8SmFtZXMuQm90dG9tbGV5QEhhbnNlblBhcnRuZXJzaGlwLmNvbT6JAVgEEwEIAEICGw
- MGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAhkBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAml2ZBI
- FCS3GUMIACgkQgUrkfCFIVNZKjQf/deRzlXZClKxTC/Ee2yEPqqS7mm/INUA49KdQQ5oIhSxkUBy0
- 9J4qjMIo5F8ZFkFTqikBqeL35LKu7O7rn8WETfX8Bxvos3HUsl3jHo34DES4MUFIpoQPgtiLRGwLb
- K0cVCAArR2u2qj4ABmTRrs1I1kvdjEw6gatOuXtEe/j5O2fvfzTq9GBr0Q3n2IAsFXi4hLlx6VPE8
- tyWUZ8BWJKtih3JAeUiXFvASL3McV0rV9RnU0VbjEQEhSE7PMYhWpnDC9AyBb0lXJllQRvC3NSkUB
- 8KVQgNNxRPss0WE/nBoZ4dFA42jTyzTz8lNylxZoAWV7WJb3QxVg4oCodRVrxxrQhSmFtZXMgQm90
- dG9tbGV5IDxqZWpiQGtlcm5lbC5vcmc+iQFVBBMBCAA/AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeA
- QIXgBYhBNVgbnPItGJxvq2a34FK5HwhSFTWBQJgS5mYBQkbNYS9AAoJEIFK5HwhSFTWBpwIAL5Bk3
- 5FB34U6iHmDzzgdCbxLTs43T/YQyJpcGIvopBvnI/fDY8oSG6Df64/O6B+1R+A8TDp6ZG5ysUWnCC
- 6GuIaEHemBYkitMPglR6+sGCMQY7O0mlsPvdssvKK1KI9Bno4VU6ogaF2qVzefSqg1Djmf/DcsxWP
- rI/jdJ8FB5AYR2rjIdDFc+zRdAJuavo1/anyY2wgpFh/3R8IOYAEfWV9nGgYkf9+tA4EIn1sxE0I3
- L5oW2N3mbyRrkzuBwO8ztMCwqEPk7moWzhokcZqMXiAIahaZdkashJC+s2X2RZSGCy+g+pvY5NN4B
- BVG5XwLgVBqbHMTcxE0fbmPqz+q6O0LEphbWVzIEJvdHRvbWxleSA8amVqYkBoYW5zZW5wYXJ0bmV
- yc2hpcC5jb20+iQFXBBMBCABBFiEE1WBuc8i0YnG+rZrfgUrkfCFIVNYFAmODZ5ACGwMFCRs1hL0F
- CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQgUrkfCFIVNZu0Af/TzvL2/NdgAcw9uN3x60H8
- jc4QUq14VpxcFEFEMpcj1morkX/G93V+56HBBaXZj+yK8PhxIA/SIz+sU7C/0YvKuvzakP8ZX/7WJ
- e32SOUtjfr/VTaqjIBzNj6OxLvZpmNbBw7s6DwhhNpHOWqJ/1ml+PtDRDV71IB58yVqQjp1xlNKVl
- ZppcJ5908EJzsFnRIVjiQiDSKoppqB2BCibBbrWcln7CiWMyOC/cco6SIn6twH+f7+aivJ3xGcOE2
- a9gBKF5rNi9TBoX9oyPmshv/TDmnohsVrH7AYXlGYfZTk15SWEiROh1QX8/uD9wl/gcIv5EDUpT/F
- L2jzOsA5663bw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CGWSWKEN
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-679a2b5fe87so35837d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:34:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118888; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mrdHxtGcxZDNfFtopRQwof8cNZ+xKUgciMTiC84SdaBQEe1SNyUp6xQqIBiXMAVSA1
+         D9+VlN4nskwOBtXtBbd7ogtpGozrCGEBoymPfv0jc82hLlyJdR8M8YmuwfxNLdrq6GTE
+         a7Lb71G+HoKi06zkXXfY/KYcOcsOnc41PcI1ePeQLsBeuATxz3ivK8TsmBHZzyb1jcmc
+         kUPkh6X3p1Q84QFymSK57CqDVZDV9d7Ptx7JX8ZPnPzOQI1aTiaZCsl3QNiuqgojDM+9
+         GAg8Cmsixg3fg8P4dWDqcx4jsXlO7obZYjo5BexCSkcQVUvRkSRuaqiT9H/gf0+gHTOx
+         1KAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=JTCbAAzicyeiiqXynNzoLkl9gYn7zDPQJlAnzkNb7CY=;
+        fh=9iflGQVa4/HJ5z2N2pmVxkuRUhmleBVp4Kl78iVOfhQ=;
+        b=SX14tig8j8ByKrVrp94x+zrmq21tsxjbv6ronbgK2nIPsH1USP/Nv8JbuEkYKOJI/K
+         asBH2oV4TWm1qZ09HDGgWEyVL073Dm1m3iR3k8Q5IcLpztSlFvSoWe/YViT16Cez7IW9
+         7dkocH1Ybuq3Q8GBHy1n+t2x1h0khz96qnKAqALh0VaGQbhURW+o5MaNRJb1xbxs1461
+         s2ue1TFonbSeUs/7yCjYjANUwjlSOdHiPY14C+gyXz9E8nLzJYp3WFTbYAVu8IJj3+N0
+         lkHtNsPax31eCU2nk4NnBQyvg7lv0cEVVL0PJP55BE0sJwuQ67KmWZZJJ55+pUezA+Pa
+         kGNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793118888; x=1793723688; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JTCbAAzicyeiiqXynNzoLkl9gYn7zDPQJlAnzkNb7CY=;
+        b=CGWSWKENimpMCXj8PDWsi2VeR3x+WvLY96EsRCDrD1xbCGl67GkJJeb1A1OCZQ2ue+
+         68PE7NUVO+oWpwFm0S15j6LMfcS3zXFzRMQqaqHka2ZLMTNlbaTFgZD1TVZ4K4YlMgQo
+         vjBE6CEKxxtFeUSWPvC7IthVqLvsdorqZpNovx3sfR82GG05UUJNcf6emNxFQioKKe5J
+         aQZjYUSiXClFvjcVtiI6ti9ztMDxpMN2mDYWmoc+2ne9CPGptT8vMlqy3mUPWtE8OTde
+         VWf6En89Wdfftxm1CdFpbnlgNPk1QSTMWXcAB3Cs69AVfOOQqaiI0AYEcLeb3hc12mEB
+         iSUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793118888; x=1793723688;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JTCbAAzicyeiiqXynNzoLkl9gYn7zDPQJlAnzkNb7CY=;
+        b=b/aQdXmZob/XjJHEzkJWl+GN5vF7SpV2BoRefai6c1tXG3jE96Kte3wM8asJbsAxhv
+         Xp9R7iMFeENaykOniCzkMyor9hr3Yq6NtH90TdEAaM2tWPS2dOoOl0FwAhqfBzV3CITw
+         nwwIFwqffCT7VBbOvv0cOy4nVjOS+u09i+eEnpt+9Ctbumo/dq1/X5H4+6MGpQNPf1Eg
+         7ZmPwZTMVB78Otw89UWpcSBE1XJSpNisSI78hlXl12gDTPHKrC17PdLFbcDaELqz1EYa
+         uHFLqcTBSaLPexNvqZNYIxfdkTDXgQA+FR6hBSkiDxPlr4ZiAz3Ba3gpHoXFbWZjeJIY
+         P+hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzO3F9UhHuedc8/4WXxxHt5S1xNXWbOLla34V+2+E32x6MP6k0SxuWaeP55NkchXg53rcmBqlMViYKOePk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlHtZzcweOEna21xr9tryr2BnzlBajle6qz15wsSI4ngfrpHT1
+	Mt3DRchWPaHK+LFKr9RVUBOKSJX1518PFxwv/fHpvL6BGSWY6Hl3r6rh2DKup2T9SlB0BW3iT/K
+	kWRiEBNROeR/m7pg8RYNfn6PTbp3j/+0=
+X-Gm-Gg: AYBFou1DMtNbOSDFrIv4ntfM24tYBPs57wcuw8HF8wXPXqN7koVDQ8pSEYvzWyZBmhK
+	JWmV4b4ZesqEXaUxKZhPn3gnuy1twnMhJ79oLVtVlot3deggdV4ZlwX7l4m2H0lxqey0+Qphmtc
+	gE44vf9NL7W2FwrnFifHquh6+4PWMEfy4TKgc4sk2W/xKMB2AzGaDdtmxgJPYUyiqqzv2mv1fJT
+	XwpPmgLOgcxz+Bmb3UODicNXgL2AlinEyUumvCXIpppxuAY0j73xBEo/SUQ8kOSOfmMo1s5I2bu
+	teKzJUqhPBxp8cynSsReDnrEqTKGO7wSypr/JCEzSrXh3cENdzE7zhycdZxq6T6Lxsm7JlB86J/
+	cl2whLMdnvec3alchsfNf9FlN08MDzG1DMVsN
+X-Received: by 2002:a53:d707:0:b0:677:cb43:4b3a with SMTP id
+ 956f58d0204a3-67a7bd688afmr23659d50.156.1793118888025; Tue, 27 Oct 2026
+ 09:34:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,93 +103,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261027024609.117371-1-lgs201920130244@gmail.com> <20261027162457.GJ2195460@google.com>
+In-Reply-To: <20261027162457.GJ2195460@google.com>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 28 Oct 2026 00:34:37 +0800
+X-Gm-Features: AclHuK9F4Xh0ot3RGPhOyFM6lJKMyY_HosbzQTq8lFgxlR4gfFrqEYjNzCwXBj8
+Message-ID: <CANUHTR-3nyHpBgEBA0wyPwMejK0WM-4yveENGZwV8wvkJbBwCg@mail.gmail.com>
+Subject: Re: [PATCH] mfd: hi655x-pmic: fix IRQ action memory leak on removal
+To: Lee Jones <lee@kernel.org>
+Cc: John Stultz <john.stultz@linaro.org>, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 2026-10-26 at 21:35 +0100, Christian Brauner wrote:
-> On Mon, Oct 26, 2026 at 10:10:54AM -0400, James Bottomley wrote:
-[...]
-> > It would actually have been nice to copy the keyrings list and
-> > maintainers on this.=C2=A0 I don't think there's an objection but not
-> > cc'ing the list and maintainers makes it look like some type of end
-> > run.
->=20
-> Uhm, they were?...
->=20
-> =C2=A0=C2=A0=C2=A0 From: Andrew Halaney <andrew@amutable.com>
-> =C2=A0=C2=A0=C2=A0 To: Alexei Starovoitov <ast@kernel.org>,=C2=A0 Daniel =
-Borkmann
-> <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,=C2=A0
-> Alasdair Kergon <agk@redhat.com>, Mike
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Snitze=
-r <snitzer@kernel.org>,=C2=A0 Mikulas Patocka
-> <mpatocka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>,=C2=A0
-> David Howells <dhowells@redhat.com>,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Jarkko=
- Sakkinen <jarkko@kernel.org>,=C2=A0 Paul Moore
-> <paul@paul-moore.com>, James Morris <jmorris@namei.org>,=C2=A0 "Serge E.
-> Hallyn" <serge@hallyn.com>, Eric
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Bigger=
-s <ebiggers@kernel.org>,=C2=A0 "Theodore Y. Ts'o"
-> <tytso@mit.edu>, Jonathan Corbet <corbet@lwn.net>,=C2=A0 Shuah Khan
-> <skhan@linuxfoundation.org>, Randy
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Dunlap=
- <rdunlap@infradead.org>
-> =C2=A0=C2=A0=C2=A0 Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel=
-.org,=C2=A0
-> keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
-> bpf@vger.kernel.org,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0
-> ^^^^^^^^^^^^^^^^^^^^^^^^
+Hi Lee,
 
-By *this* I meant this pull request, not the original patches.  I can't
-really tell if David's comment on the patches was simply something that
-might be done later or something he'd like to be done now, but cc'ing
-him on the pull request might sharpen the need to clarify.
+Thank you for your suggestion.
 
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fsveri=
-ty@lists.linux.dev, linux-doc@vger.kernel.org,
-> Andrew Halaney <andrew@amutable.com>,=C2=A0 "Christian Brauner (Amutable)=
-"
-> <brauner@kernel.org>
-> =C2=A0=C2=A0=C2=A0 Subject: [PATCH bpf-next v2 0/3] keys: Add well known =
-IDs for fs-
-> verity/dm-verity keys
-> =C2=A0=C2=A0=C2=A0 Message-Id:
-> <20261008-ajhalaney-dmverity-key-identifier-v2-0-008456d189cb@amutabl
-> e.com>
->=20
-> > > Christian Brauner (2):
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Merge bpf keyring work from of
-> > > git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf-next
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Merge patch series "keys: Add well kno=
-wn IDs for fs-
-> > > verity/dm-
-> > > verity keys"
-> >=20
-> > This is a bit nasty because the keyring specs get renumbered inside
-> > the merges ... it would have been much clearer to people looking at
-> > the history if the patches were rebased instead.
->=20
-> Nothing got renumbered. Both merges are clean.
-> The only commits that touch the ids are Daniel's bpf one adding -9 in
-> bpf-next and Andrew's two adding -10 and -11. The branch is the three
-> patches on top of the bits shared with bpf-next with an explanation
-> why this was needed.
+On Wed, 28 Oct 2026 at 00:25, Lee Jones <lee@kernel.org> wrote:
+>
+> On Tue, 27 Oct 2026, Guangshuo Li wrote:
+>
+> > hi655x_pmic_remove() currently removes the regmap IRQ chip before
+> > removing the MFD child devices. regmap_del_irq_chip() disposes the
+> > child IRQ mappings and removes their IRQ descriptors.
+> >
+> > The hi65xx-powerkey child registers interrupt handlers using
+> > devm_request_any_context_irq(). During child device removal, the
+> > device-managed cleanup calls free_irq(), but the corresponding IRQ
+> > descriptors are no longer available. As a result, the allocated
+> > struct irqaction objects referenced by irq_desc->action are not
+> > freed, causing a memory leak.
+> >
+> > Remove the MFD child devices first, allowing their device-managed
+> > IRQ handlers to be released while the IRQ mappings are still valid.
+> > Then remove the regmap IRQ chip and its IRQ domain.
+> >
+> > This issue was found by our static analysis tool under development.
+> >
+> > Fixes: eb10245fb37e ("mfd: hi655x-pmic: Add powerkey device to hi655x PMIC driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/mfd/hi655x-pmic.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/mfd/hi655x-pmic.c b/drivers/mfd/hi655x-pmic.c
+> > index 5cb392892c19..3a7ccc9d30b7 100644
+> > --- a/drivers/mfd/hi655x-pmic.c
+> > +++ b/drivers/mfd/hi655x-pmic.c
+> > @@ -147,8 +147,8 @@ static void hi655x_pmic_remove(struct platform_device *pdev)
+> >  {
+> >       struct hi655x_pmic *pmic = platform_get_drvdata(pdev);
+> >
+> > -     regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
+> >       mfd_remove_devices(&pdev->dev);
+> > +     regmap_del_irq_chip(gpiod_to_irq(pmic->gpio), pmic->irq_data);
+>
+> What about devm_regmap_add_irq_chip() and devm_mfd_*()?
+>
+> >  }
+> >
+> >  static const struct of_device_id hi655x_pmic_match[] = {
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Lee Jones
 
-OK, so the second merge commit is because it was based on a version of
-bpf-next that was pulled into 7.2-rc2 (even though the top of bpf-next
-at that point was already merged into 7.2-rc2).  I understand now.
+I agree that using devm_regmap_add_irq_chip() and
+devm_mfd_add_devices() would be a cleaner and more appropriate
+approach, as it would allow the resource cleanup order to be managed
+automatically.
 
-> A rebase would given the same commit but would've meant invalidating
-> things that were already in -next.
+I'll look into this approach and update the patch accordingly.
 
--next is a rebasing tree.  But you mean things in your tree others had
-already relied on?  Yes, I get there's a balance here.
+Thanks again for your guidance.
 
-Regards,
-
-James
+Best regards,
+Guangshuo Li
