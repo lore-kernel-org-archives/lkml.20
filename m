@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.68
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793091126;
-	b=ixOIMHCpndxEw8qFZzkq68dcffDOUNV0dGlkm0pkMl68P4jM8EK9yUlrOSu6RE8gmtKd
-	 04E/mHbnGZ+JAStxjn4K0wrZ8IVxUnzF1pDjJzK/NSJzOxOMsh8pZjCyZPzf+BWQ/pnzN
-	 cqfwibiiTuyERfV8Rz4/Oa6y1MIJt4X3dbSF+N+Y1hb7xwWEIA147He46l+bGACVuPJJC
-	 2IvRokFNNzVEujOhhaUWC/uQdqKK2iWk9JT/IJPtgiweSdIir52oxxuf9Skea9EWxO6l5
-	 ZyeYjUO7+mOlnePdY++Cto8NgRScvau8WtECO3nvhXAMbJv9ZPaoffagUWK7u428osA==
+	t=1793091143;
+	b=rBqnupv2ZNgzF/gErc4HdBm2tNJnJQQVcK5g5gEKWLHJDmaebvgPCD0WtMswtvjaBqVT
+	 M/VKLjvghWJF+9b8kpmdLuUiTsH9Jka/Jgv+1JZxW2THsoGLDvdGG9v6E+sRI49ky9waw
+	 qySU9SZVZ89bHZHAEijH40cuPbkeoeum1QUE/5yZ2gp22P6xIqGjsBGidL9EivOQ3xvWW
+	 ZiDfw8mq/6KEMSyDgsRWzuBye+YtvkUMHZIJQgIVu0tRjkBdKVPyG7C2iqz8Mh0ESjp2U
+	 Zpv1ki3JumYhcOUrNSOzsc3UXaus2jOepr3zrNEuqaXTueMqnM2PgFWIQC39jpdT1+g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091126;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
-	b=aJgg/KS4HfkmrCgxWEOpYs6F9rAFYLIwqleqtnP/xT+GkA40KSPE7U795QCyxiuGhivK
-	 +G1xtRlcsBfDs/ggj7L+ra0aFTLOfx1k70lmphrcvN3JnCJdUFUvjHorYMpYkWT22yLLH
-	 473ABOyQ0nr/OQ8oZyJLdJUp83VDqIjkTv5xMzxG2Xkd2QuRLJ3UgzEX69/qbkLDaFq61
-	 aoS3npBAAZzo45ufhzrEQwHUSg+xd74ajV/opSDADnAeV6cPUfvY//XtpzgPM0a4W+CDs
-	 MR5tUqT/QoYr4xVbUx5HDOa3FDYOdqzjwUs0gouzENRazJqTd/2y8tV/aQlIKUxLV9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091143;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=MX/CFeYlqviYPEAg7kIsLI6222amXs6Sa00osu1TjYw=;
+	b=KbhjeRcnQuA5nHdW30AhcmQ05ZWKb+O4BN1d9tQGeAi8NZmFMFiSYtshOIAaKFROy+QK
+	 4ltjgz82H9c78Rvw7WpR2+IKuh7V5K/kDEmstNNXWFghuj36u7a2J1dQiqTwVqt2ZxB7o
+	 e0sqkboiPz/dL+PxU5M4TyiUuwN+flr2qkYYis2tBMsSEva8TlSmi1PrnwF/2qi+9EKkv
+	 gSUVGOMdFbK/3G0kpu1uPw4gKhhgwN+5uxDrtwLXh87hWwTa1syLPZmCxueQpMt+d4wAQ
+	 qKc04kDhaxCwzmLNvcwxaBbGjYPylEeSl5A0uum1k9CwqU4pkNDVgKNBFZMKZX1S55A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUf0+7wZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4EJEtyPD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.68
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010068.outbound.protection.outlook.com [52.101.61.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0077606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:52:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0077606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFC3606A31B;
+	Tue, 27 Oct 2026 08:52:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EFC3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUf0+7wZ
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a1947498bso208779eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:52:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793091125; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rLcp8ruMOew4mj0D8EjM4Na3Xek/FQrBKcj2b2IutjvN9EhLzVmKsnXRyLXl+H4SSu
-         tl7npG6PZySxGTt854LRzbiXWuC5H/N5YwE2W3CK0lF0PJ8Ys/nctCIfTzWvWk29gyaZ
-         9/PpcKO71dwRbUwZkClQCYZ4j10c7i2d5Q0H1fDizGHwSLdowWuL1EI22hu4jhW5xAZH
-         Bmx1plIvuvVvG+1+CZ6Pba2wscWnslfgVHHcfx+zk33GdpAsqPlXjbr1nl1GhGFlgjcQ
-         Bk7JJ+Yma9L6S06iHqWtlCJdldzELnKUQwnn7iz1nKX3TQQiTyGFGSNDi3XjBtR3GcZ3
-         HCeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
-        fh=UzFYNrtkaDVNIhBV1rsk28lK0IxTOUE64c7ZIf69snM=;
-        b=OeAHcex2Gr9xqG1+kmK7hc78/mTYNNEtNvQHpiy2rCt2Arj3d0tB9cAyxDUokDG0jH
-         8p6OFg7iVkHXRgu79sNPHvCwv/XH+HZ8lXCWlw0zq5Jzgaouvv95o4JLKVTki5aIPGY9
-         zpQwLKCrU/sL1L4t7lzY41CPchBYxT11vpCCv4PHx3COYIusrVau0vkIvyeMyfTcTzM3
-         ZQ05KifNMZV/5gaamTcvzrrQZG4gXrl+D0klBEP4enRbZAttXjRBk8Cbv7SUdcfFpfIh
-         mazrw+KJzWOvQlN4emfiyiRLYElnaED3DTamdAYfNKmcVMT6ri2RR4XOTJjdTQpN/R70
-         Nykg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793091125; x=1793695925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
-        b=pUf0+7wZWPc6vb08pmDR5P6yk7mSd0eNZggr2tJrJzBo7w39uEiKa1QXLZjKmWm7M2
-         lND4nL5vqeLmDtdnhvuFcc0vihOhPvYKaLsfE9Bm0ztBkLkB82jqwgxcK0mUGN5F4HT0
-         Yqab/3TcmGLFulnpxU5OwJi2wlujE4b54oEC7pPMBoxOyUitR1v8ONiQjoWzoRTs91Gz
-         ar2IIukgQB0zJMUt4nOtS62GihnblGXHDNbM7czAPOIgkpWaxrl2p4PVrut6ORDx+vpd
-         EhZZyqKNwyJxUGDJ/rfbjW5Bx0ZaZRG2zdnaTiXAaiQxEDeGAtFAkJxEEF4fgs774y7Q
-         jLpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793091125; x=1793695925;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=544Vs5W0iQqaMJeYnY15/Vfb543TMzE2RWHWwProMBw=;
-        b=XD6P4KTFQiYSIl+A9SAPwPh7nMu2A34htZkIa4Ukdgc9lKYa136hEjTMTo9v+ZW1sv
-         4r+XcbBWTe/K50Qpps6d4/F4kBRDIePG41OiGnYQZVjCCov4ps648J4xQ4QRkoIQoDCZ
-         IGzNyACL0Dw4NLJYf6NIBbbhQ+EJu1cxOTFAqBioDWOtMxPG8itHteSqyZSrbFAmHeZN
-         4zChlG2IDsgYRof6HrsFb3ouzmhMY0Lk4l/FxXJ6S+NGJGo5XouKkTjraEzwFtKDejRi
-         ql3mqhYzSn4hPqQ3jI3sMcaSDyR2mgkP+AhW/voRihMJJwtkQSJSS2wtlqAsPIlTQYLE
-         V8vw==
-X-Forwarded-Encrypted: i=1; AKwUvBx+rN4O+24YefIOKUYjWdqIIvLVwxyqaQdFfBIq/j0u4dbkc5+jhOu5FR4pPUtSNZF5jQn3YwaXWlcCqGk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLN7+p2gt3XdtlBTwIhX9nNH+0si4Sw8PJydWXGzN/K+ofR2aIL
-	7tIhvAOcMIQ/U2W/LEDhECudWDMLxd4fZ1cp2Lh3gp7xKCcgdtcyo5dvI4/Hz7cpq0gki9iOAg8
-	kNbXGJ522WUBU0bXRa4V+XVNq0pSf12c=
-X-Gm-Gg: AYBFou2IAasORxYaUTWAI4JGmKa+zDK5h1tHWEm7B9Zk877t/UXcLkEkkywgBC16RhH
-	7PWtH8e7maVaVl8G+UoI2+6P0xeJ9i0kV38fLnAf8GrzeuGfaCB0I0l/+PpphmjGW1vyp+/G/Ej
-	RxX8HskM6vghUPAZO0yL0Zpn6Yg8u/d5nqTiC3VfaBkx5s18O9LwZ+1w6dOJdDO/5clGXvjXuez
-	cbe9BHO+MNLas+/bbQlbhXdM/pcfkMOqi6m+EB0eV2L1AzgKqapzQd+G3Njv64Iwpfb7YoNlEFY
-	wrPV5FbqJZOLw1yEfWAUHmqytRwDH78vm+e9LC1y/AsWPrOp9Kl1OMgl1JDzYk/rcxZtGyD/I0V
-	r9Q71UBnvjSge5JFMGMeVzvYNm1cgPxICB7YbLZf0i356z9i1XmsGJMaD5VbUcZZNplNwUXRQTa
-	WtwHk40YVkjT78hec=
-X-Received: by 2002:a05:693c:8110:b0:359:2edc:e1d8 with SMTP id
- 5a478bee46e88-369e836b39bmr13749085eec.5.1793091124761; Tue, 27 Oct 2026
- 01:52:04 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4EJEtyPD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ln3QGjPtRSVak+1nLQ0H/adKraky9iCk0wnmzbkYjN4O8vZfK7NXNRUdoez8y06+WkRs/8aS1ZfQ4+ahLRlG9XmuD8Ghma9i/U9EcnasttoouUgLI9Yw198oRC6SAhVBpVvURW87p8u3HVRnpYWmEyP9yC/LObpCqkwGpW8ak7/AfiFEdqjE0g9WPBMJU3QBw5YE7npTFOjz3gV06WAyiUxB1dnrNixu5k4h/2rYusSNRDEfFu7OwhL8e3hOfCt6gGXWINDQSbdnDo9RYX31M9tM+yyv9F3bxbSTmclj3LNRsen2joJCxaOFG2oIb92efakIHBOPTbuxInbvIXHAbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MX/CFeYlqviYPEAg7kIsLI6222amXs6Sa00osu1TjYw=;
+ b=f/Jbdy0VV1vethrK7JTkuwkCEihuo3D5jkWluXxdXyf+pJVUt7HK1K0nOQCM2awBlpApwfa8bhjjN4xdC5ci3uCkS9SG1TcgUWl3+pzVfhbA9iDtCxdnpNONNSV2FFZ4rthPNdjs5E425t7eVxkJ5dVB9mthzFsFH2JAYhkXsrWbuwv5JVDrTRqn5vD4TGjzO0VfqgxOkiLXOo26BHDlxyrCiKDoNPY9UP3AZSLU2IMaS9Hnruq1yiWX3KYmZclh4P/f0VzY1vtIxECL0/iHnVqpIVrHOOyoZpGfxyGzqdWdJOF+Bv8ut0IYN3KSkaIJvcfZyjpCc5dzJEXUTXlxKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MX/CFeYlqviYPEAg7kIsLI6222amXs6Sa00osu1TjYw=;
+ b=4EJEtyPD5t9OGKBav2DD9nowxziX3id1bY7Gdxv9P41kWVsrqJ0mim5JKr2/j58TVZtYVnrUkZ/5EgjYOGNx/DMNjE7KjvYiWUP9maUSFuoSoEQFCdFQOGSquRQcfPxf8WQ6fCKHrks101cjA9DeyAUx9W5SoEU3DSFmtD/txx8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
+ by DS7PR12MB5815.namprd12.prod.outlook.com (2603:10b6:8:77::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 08:51:41 +0000
+Received: from DS0PR12MB7747.namprd12.prod.outlook.com
+ ([fe80::2ef2:e88:4708:b589]) by DS0PR12MB7747.namprd12.prod.outlook.com
+ ([fe80::2ef2:e88:4708:b589%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 08:51:41 +0000
+Message-ID: <8170cb29-05b2-4ef7-84dc-2e89f5b381ce@amd.com>
+Date: Tue, 27 Oct 2026 16:51:35 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] media: amd: isp4: hold buf_list_lock while sending
+ buffers at stream start
+To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
+ Nirujogi Pratap <pratap.nirujogi@amd.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Sultan Alsawaf <sultan@kerneltoast.com>,
+ Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "Chan, Benjamin (Koon Pan)" <Benjamin.Chan@amd.com>,
+ "Li, King" <King.Li@amd.com>
+References: <20261026182442.229869-1-saif.elden.hatim@gmail.com>
+ <20261026182442.229869-2-saif.elden.hatim@gmail.com>
+Content-Language: en-US
+From: Bin Du <Bin.Du@amd.com>
+In-Reply-To: <20261026182442.229869-2-saif.elden.hatim@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TY6P301CA0007.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::17) To DS0PR12MB7747.namprd12.prod.outlook.com
+ (2603:10b6:8:138::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,58 +104,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261004165204.205660-1-clamor95@gmail.com> <20261004165204.205660-2-clamor95@gmail.com>
- <20261026222928.GA15139-robh@kernel.org>
-In-Reply-To: <20261026222928.GA15139-robh@kernel.org>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 27 Oct 2026 10:51:52 +0200
-X-Gm-Features: AclHuK8LjCWDpNP4DuV4ZuevBx5z2yzl2RQeYjmP-HIeitxouPX3pu1AzADU8K4
-Message-ID: <CAPVz0n2rkWikz1CZhkKiZnX5P+NdDH0RfJi69AyVTEV7qw_VXg@mail.gmail.com>
-Subject: Re: [PATCH v1 1/2] dt-bindings: usb: Move Tegra-specific Chipidea USB
- properties into a dedicated schema
-To: Rob Herring <robh@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
-	Jordan Viknar <jordanviknar@gmail.com>, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7747:EE_|DS7PR12MB5815:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa8f11ab-1a10-4545-5838-08df340784b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|11063799006|261026121527099003|260925021311599003|260925021911599003|260925022911599003|56012099006|4143699003|261022075727099003|261009223027099003|261021121427099003|261021123027099003|261022105027099003|10067099003|18002099003|22082099003|3023799007|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	CZC9gOVvvz+w9xiSGtFczvOnG/FyIHUxyTBsU4YPXsGhnK0aVI0a9ghoT95MEFwSZ0rJxyiSnky8yS4+A/wsyN1AdMyRE/MY5t4ULAooGRJ/fRw+k8Q2QysGf65EV2ZRO25bO6x8mJ395ntyU6nS75+7MkxRdtk+j3ql5yPS5j36gcS0HD8McHxHt4g4Z6s+D1QLMtUBzGKnTmwCB7ZiT7K4WfzBnHP2bOd90LurLNyLftXYQz/Fyo5OIYaKKDAYYddnpXqnQE1qWhq4Sxrsds5SkDnI/pYc5+eUX/2ju/Aman4aSWJuxcieZiR4IWkYJDHE77SSZKuSosicVY+uxYrSanipP8woI1E/6kMAHoY68FAeZCjjY01YQXxAzPCaUqH5hWuFgVVmBRb+an3c3yubnmkBA9+He83SUzrDKS8fclf5a9nHOQNU30+TQ9xx8gCtEJufDhj1FOGiiYqSaSZS8B7ELZy5Yh2VLf3zYAPRbgaAFMRzFdYtQa10sIJWlwls3eWXY6D1gGqH1mlWmZTe2/CwQigUJ+xNuUjCwxXhBctZFp0aaZ7ov8vvDqaPHRwRkdWyAknE/LYOpUJc6QXW9KC+FSjAhP6kYxq3SRh70BS/Gq1UvX/NMjnIcWFMOSexjetflKiLMtDcTXsHWzysbbYUVX2DHznkMaIeJ1c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7747.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(261026121527099003)(260925021311599003)(260925021911599003)(260925022911599003)(56012099006)(4143699003)(261022075727099003)(261009223027099003)(261021121427099003)(261021123027099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(3023799007)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WGFXMEkwTzFMYWhhNUt0MGVBNDBTZzNYalJyeTIvRmg4RlZVNkhyWjFwUWZP?=
+ =?utf-8?B?a2E3K1VjSWkzSHU5S0wxYXl1d1ZWdFBxcjV3UlBQUVRjd2hsL3JVbW5SbnJB?=
+ =?utf-8?B?T01JSkVEQm5RZnFpQy9IOFQyUU5KMGttcGgvdVJIWTNJUDRUUTZsdjJRTkxK?=
+ =?utf-8?B?SDR6WGo5L1JlNjBpZ01yTmp1WG9FdTVHTVoxTk5DUktxR0V5M21icnYxMzcx?=
+ =?utf-8?B?MjNCZlJWRUpWUTVyd1BhRVNhWisvR1U5QXE5bDFwWjI4M3UwV3ZCQ0dFN215?=
+ =?utf-8?B?SnRxS283UHYrMW5NTVllMEptVVdBaFpSWTZGQWN1TmwvRUsrOFlLYlJIS2xn?=
+ =?utf-8?B?cWZUbTFLOURPaDFTZWZQeG5XN2twcjU5RVR6VXRvSGoxdmx3RlpvZFcrOU1a?=
+ =?utf-8?B?QzFLSk14Nm5zcGJVWGprWjhsYm52NGNTaHFpLzQ5WU4xZ2YvU0lOSXFCWm9F?=
+ =?utf-8?B?MjFtSmx2cDBhUHV4RjJvWFo4UFZmdll5NmlsSk82c1RwcGpZMmZVNkJtSVU0?=
+ =?utf-8?B?bFlPOGJWUkdtMkIrM1ZGbnJGNDJENnpXOGwwV0JvZFlLWjVEd3BGZmZqTVRh?=
+ =?utf-8?B?U1ZHRTVZeG9QUWhxemlBK1NiMndKMFJiaXd5blNlVGJTODlxOHJOaWN5STdG?=
+ =?utf-8?B?WkhFTWNnbktKa2JGdXBsZ1VoM1RJdEdJdlUxSlZ5dExBVG9nYmVXR0RvZ2pG?=
+ =?utf-8?B?WUVsSDRSMjl6bGRxb1RMR1JWUjFmL3RCRGVLY3haZ0RyTG5QNmk2OHRHYisz?=
+ =?utf-8?B?ckxXenlYT0lVUERPZThIMjdoenBJUUZmWm10VkM5ejI5UGhHQnJLV2h2TXpt?=
+ =?utf-8?B?YXN2QjNJU3FvSHpyRHo1SmZDemtUMXNEaHp0a0cwUFdjZDhENDlYak4xK1hF?=
+ =?utf-8?B?TDJYZXI4dVFSdEp3dWNiUDBGRXVjZUZhWnIySGg0TkNXTy96RkZLSWxadm1q?=
+ =?utf-8?B?TzFmWE1wa0Q0VDRYeHVxUFo3STdYaDRmcjhKc1Z0aDM2S0NNbG1iODZnY0JW?=
+ =?utf-8?B?ZTErWUlPdmE2eWUrU1RhUUdTVnNpNFVLUUV6Zm1RQzBTRzRLM1RydVVwR0N2?=
+ =?utf-8?B?U1Q2ZGwvbTV5c3dsZFQzY25RVUxBeElHQWFhK1BmWlJ3allWMEVHQUNHRGpE?=
+ =?utf-8?B?NytNZmZ3bmVLaWVXTXBidHVPYnY2c2FCNjlXaG84ZnQ1SlJSVEJIZWZ5RkVP?=
+ =?utf-8?B?dWNicGFVNEJyTGkzY2EyM1AvQlZVQ05EQ1RyTDhZVUxrSkZ6Q0ZhRElFRzVx?=
+ =?utf-8?B?eldLQk9kT0trNlNXNjBKVXd4alZxZUxzUFlwZVRSSytXYXJad0JGaDV4ZXZn?=
+ =?utf-8?B?RFdUeGNMZjRYMnN1c2FHcWRPZSs1WHlXMUZoaUNkamxhWjB3WEZEMTBRY21m?=
+ =?utf-8?B?NDZMNXpmSjExa3UwNFU3cnVxZ09RYzBUWEMweW5nUCswMDI1MmhSZW9nQU9k?=
+ =?utf-8?B?WGJSQ1k5TW0zcVpRQWs3S3RRN0ZnTUpVaVpKaXZlYU84aGdtUHE5OXlXZmNy?=
+ =?utf-8?B?Mms4TnI0ekE4byt4UTNYVHVtS2E5UFNqOHFhbmFFTHpxOXJtY0kyS1dJQnUw?=
+ =?utf-8?B?ck1qZzNyaTZadVBEQWdRRFRHRlBDZlVHNnQyS3VpWXlhT3NrUmFqbjZpZThG?=
+ =?utf-8?B?T1VBaEs4YkRzc0N5OGdmMVd1MEZpdjhiNDdBd1RNQ09rTU5LUjQrdTJ0bVls?=
+ =?utf-8?B?dFBVaHFpdFdDOGhCSFplSWUzSmhwdUhMNWltemlLbE4yd3dBcy9mUHNQb2o3?=
+ =?utf-8?B?OXBBR01nR0RsNzZUN29nQm10T2RwUXl5NVVxdjJqRlNUMjB5Z2xNbU8rbEdq?=
+ =?utf-8?B?MVVSYUU5bjMwNDJ3bFN6M2lqR0U0N1didkU0WnJTdnkvWE8wcForbHZCOTc0?=
+ =?utf-8?B?TU1BMExzWEhBNzVGS1RYcFhpVlpNMERDWVNnL3J5T2dKbFA0YUZrT1V2VXg4?=
+ =?utf-8?B?eHJ6RFlVRkcyMXZ6YjFtODlvcjN6SEZoVDMyMytRMlRKcGxCY2gxaFZrM1Fx?=
+ =?utf-8?B?MUw4L2dWeS9CblpGZTYveG5la0QrMThOWk5wd25yRndsMXZkSFJXeVBkNVhN?=
+ =?utf-8?B?akt4QlVBRWRHTHdNcEtDd3FsWTNKbmR0Sm9kZkZVYlhWSys4TkZxZVo1RHdE?=
+ =?utf-8?B?dzVaSU1kUDBBdThUMWYrSGxrTTdjMmcxcWVCdUtSemRwcGdQR2FuMzVHc3FD?=
+ =?utf-8?B?YTFRdUg4S3hvbXdYTkVMSmV3VWFvclpsZnJNZXlEczlTZ0ZuMWlvWmtpOGVI?=
+ =?utf-8?B?b2wxQkV4eml1aTBvY1l5V01NakxkVGZZMkpyVWFWMHUzckZvR3ZpWWtwQTlJ?=
+ =?utf-8?Q?Yo5AORlieEgSfV/S83?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa8f11ab-1a10-4545-5838-08df340784b4
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7747.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 08:51:40.8271
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /83NrGGUXCO9XJHkTIgyGF91NvDavlWYJgoLvg/2iU7Luvc4jMQOmRbbjvAg3u3n
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5815
 
-=D0=B2=D1=82, 27 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 00:2=
-9 Rob Herring <robh@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun, Oct 04, 2026 at 07:52:03PM +0300, Svyatoslav Ryhel wrote:
-> > Move all Tegra-specific Chipidea devices and their properties into a
-> > dedicated schema file, by analogy with i.MX.
->
-> I don't really see the point given it is only 2 deprecated properties.
-> Maybe those can be removed? Depends if they are deprecated and still
-> used or deprecated and removed from .dts files years ago.
->
+Reviewed-by: Bin Du <bin.du@amd.com>
 
-The ci-hdrc-usb2.yaml schema contains properties that are not
-applicable to Tegra, and conversely, Tegra-specific properties are not
-applicable to qcom, nxp, nuvoton, etc.
+On 10/27/2026 2:24 AM, Seifelden Abdelmonem wrote:
+> 
+> isp4vid_qops_start_streaming() walks isp_vdev->buf_list without
+> buf_list_lock and passes each buffer to isp4sd_ioc_send_img_buf().
+> Every other access to buf_list holds that lock.
+> 
+> vb2 serialises the walk against buf_queue(), but not against the
+> firmware response thread. Once ISP4SD_MIN_BUF_CNT_BEF_START_STREAM
+> buffers have been sent, isp4sd_ioc_send_img_buf() also sends
+> START_STREAM, so the firmware can complete buffers while the walk is
+> still running. isp4vid_handle_frame_done() then list_del()s the
+> completed buffer from buf_list. If that buffer is the current entry of
+> the walk, list_for_each_entry() follows the poisoned next pointer:
+> 
+>   Oops: general protection fault, maybe for address 0xffff8e6944d97060
+>   RIP: 0010:isp4if_alloc_buffer_node+0x37/0x50 [amd_isp4_capture]
+>   RBX: dead0000000000b8 ... RSI: dead0000000000b8
+>   Call Trace:
+>    isp4sd_ioc_send_img_buf
+>    isp4vid_qops_start_streaming
+>    vb2_start_streaming
+>    vb2_core_streamon
+> 
+> The oopsing task holds the queue lock, so the video device can no
+> longer be closed and the module cannot be unloaded until reboot.
+> 
+> This was hit on a board that is not supported upstream yet, with an
+> out-of-tree change that made one isp4sd_ioc_send_img_buf() call take
+> over a second. With the stock driver the window is much shorter, but
+> the list is still modified concurrently without the lock.
+> 
+> Hold buf_list_lock across the walk. This adds the lock order
+> buf_list_lock -> ops_mutex. No path takes them in the reverse order:
+> isp4vid_handle_frame_done() runs in the response thread without
+> ops_mutex. isp4sd_ioc_send_img_buf() only queues commands and does not
+> wait for a firmware response, so the response thread is at most
+> delayed until the initial buffers have been sent.
+> 
+> Fixes: 2ccf48af2270 ("media: platform: amd: isp4 video node and buffers handling added")
+> Signed-off-by: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+> ---
+> Testing and AI use: see the cover letter.
+> 
+>  drivers/media/platform/amd/isp4/isp4_video.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/amd/isp4/isp4_video.c b/drivers/media/platform/amd/isp4/isp4_video.c
+> index 856a2a0b4..58ea8d6ac 100644
+> --- a/drivers/media/platform/amd/isp4/isp4_video.c
+> +++ b/drivers/media/platform/amd/isp4/isp4_video.c
+> @@ -567,9 +567,11 @@ static int isp4vid_qops_start_streaming(struct vb2_queue *vq,
+>                 }
+>         }
+> 
+> -       list_for_each_entry(isp4vid_buf, &isp_vdev->buf_list, list)
+> -               isp4sd_ioc_send_img_buf(isp_vdev->isp_sdev,
+> -                                       &isp4vid_buf->img_buf);
+> +       scoped_guard(mutex, &isp_vdev->buf_list_lock) {
+> +               list_for_each_entry(isp4vid_buf, &isp_vdev->buf_list, list)
+> +                       isp4sd_ioc_send_img_buf(isp_vdev->isp_sdev,
+> +                                               &isp4vid_buf->img_buf);
+> +       }
+> 
+>         isp_vdev->stream_started = true;
+> 
+> --
+> 2.56.0
 
-The 'nvidia,needs-double-reset' property is required for Tegra20 and
-Tegra30, and it is still actively in use, as you can see here [1]. Its
-marked deprecated state appears to be incorrect, as it should simply
-be restricted to Tegra20 and Tegra30.
-
-The 'nvidia,phy' property is still used across all ARMv7 Tegra
-generations + Tegra210, as the Chipidea driver has not yet been
-converted to use the generic property. Therefore, while it is marked
-as deprecated, it remains in active use.
-
-The example I added is from Tegra30, which in the real devicetree uses
-both properties, so I've included them here as well. With your
-permission, I can remove the Tegra-specific parts from
-ci-hdrc-usb2.yaml and tailor the proposed schema to better fit the
-current state.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tre=
-e/arch/arm/boot/dts/nvidia/tegra30.dtsi?h=3Dnext-20261026#n1146
-
-> Rob
