@@ -1,70 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104394;
-	b=pOzH43ZzQXF1lealwo4Oo9EYvF203LDpHJq2mbrFvG4tnr0aOoQ05+rAs+SMbq5qIZR0
-	 Tpc1YDFzmm/cUXgLyrocfG2LAjyXcCT7WHcXDd9v2pMxhAGpt1CewkEw/2ovfYeeAH9nd
-	 o9ovB85Ot/lXKm2CuVB+Tkvpur7OPSf20en4Mz7PvPj7Vh4DBKKfgzerBEXgXM4QMAdyO
-	 toPmFAFR2nWXFCp5zNvoKLBQ29k31asFODaOuUPKx+vae8MJD5W4oWUK4kpm34AfMbJii
-	 jCSpr/QY8gD1nMKjGkzI6FF7klJsjZomnLxwt/+GFrUw9ygLUuBXCrUgnVHQQ5yMdCA==
+	t=1793104406;
+	b=u3D1ISN1sEeA12dkzPFF4DMXWLDVT5WPPoI3zKP3lXNQPRJcTKi/05fAE7glgFQQbV1Z
+	 9s1U679cImwjONke2QD4bWKl+BGAcPhr5zEMtCE4n6ojDtaH+DZFMxXJJiNFCgkaWKGtD
+	 GC2HU0tOkW9Gs4pvoM2uWGGCSBU2LA2mSH+8WRZeDLwq0LqTxD0h5FwuvK1tXucayMz3O
+	 uMx/EDKlv+QeduJ2SNGbC8zjhEjjtA00ccmfus4MQwAWx2a4LmeMTBJ5ebXuE3Xj5vj0G
+	 eHwegjCNuym1HBuNUrk/bwdh1r+lrepVRZmumo+T8MsFsIfJV3qaZ6Un/1o1mhh2bsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104394;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=EgOm60Rz2Y4VTbeDvdZCrLunNHahC8nUQ4aFV0rXVpg=;
-	b=JsR2UDLm8VoEfc1brpcAtvhye4X4f2kSRi4XFwMFEhcFAhUbEVdr/vkfsvYkCJ60amWk
-	 th6RyIRXI0hWWpxuivEap4RJnEuaD2rdTXRmZ2ehfRFFqY51w62sjKm05U+MVFe1W/SZw
-	 N6dJFz9uSg8cqI89qFLEU++KbVZE8N7Eh8DUFPRKQ+gTIzZIvE+nR/A93DC42Mn0NxuKK
-	 4N4yoAv7HzJh6jG1w5cGtLIGBI408M1AgnodRoOZ1CV+cv/8TWGRzoSA8PrYukowTQZfC
-	 vWabYEvEuocALbKks+43Er1QdC95Z3cfNmmYT2enCPPIcuZ9AikYLEpgIm3iTrgdgQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104406;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version;
+	bh=cpvnpqyqWElW+pe7rciAPazzagEVJT2rta85kTwUfmM=;
+	b=nT/hc6HuRJX4wCTS4ekVDGOXacN0uO55dG2neUN923AhaAb8t162POLouFjZiVKg8eYq
+	 2WgyyqPcPc7CR1HdacYaKIz1+eJMfPeTgNV5DCArbI5iuH6Lmohi4B5Bvk+0PUOouHtdz
+	 8d/uF5RtkWVOmnOIGFDvUVgxd7QI1VBpMP+lkSFAoENO20pceHLaHyn2BC1X9GpLzLbJU
+	 Y4hG6JkhOmmx3H1bgmCeWJPUZNjIQlIXIYeKAiO+hib1DHfFuUg7ZHMu8x/GCU+1+zVcV
+	 RieuQujNF4x5nw9wIoPiN5AV5wLBJyzSjqx5s5gP630MCMobAmRkgy8n7kinSJqhfGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=auKSwgZT;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ghY3ujiJ;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A64606A31D;
-	Tue, 27 Oct 2026 12:33:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27A64606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC192606A321;
+	Tue, 27 Oct 2026 12:33:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC192606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=auKSwgZT
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0E2EABE;
-	Tue, 27 Oct 2026 13:31:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793104260;
-	bh=8hdXfrYD+fkRQ9eLvRERPhck6E+IFpYJytDXTgJJYNA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=auKSwgZTP6uLuJF43v69AaRpgRUMLujjnm5qJnTkhTStDz02Db5s8/XK5u5eWVn32
-	 UtUsB/njklTB+WpoCidKo1Nai/stI4t51xhHHgtXR6l2rLnGzffPfFQMioYSUmghVx
-	 sRWzfKhXcK5m6h8VjgkVhYDm2sHU7OLHi0JANCVc=
-Date: Tue, 27 Oct 2026 14:33:10 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-Message-ID: <20261027123310.GB1829830@killaraus.ideasonboard.com>
-References: <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com>
- <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com>
- <CAMuHMdV7Mz0WgaNP_B8FG6OxLBqqnWwMqWJKNFBDkF2i=55fVQ@mail.gmail.com>
- <20261026145343.GC1001933@killaraus.ideasonboard.com>
- <CAMuHMdXdOAYifLgmeguqMwE4kkyJ8NDbA4niZkuEUMYBPxBBSw@mail.gmail.com>
- <20261026201905.GC2005298@killaraus.ideasonboard.com>
- <at-9VwE3BL_3OXNP@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ghY3ujiJ
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R97FVm2395709;
+	Tue, 27 Oct 2026 05:32:53 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=cpvnpqyqWElW+pe7rciAPazzagEVJT2rta85k
+	TwUfmM=; b=ghY3ujiJrCaCpoDlLItJuX81X94pueDAUzUAr1wjWxHzzhB3bz6jf
+	okyyabXRHMZ/SfC9pmefOoRTi9pUiEBm1eh2rnST/FvfAJrKpal84iic0L57/Y4Z
+	lJWMAR3gHLdqGOV5sO4HiAgr/CD00cCIsSN48CKQayYxKvAeWgXvQN4/jzsVoJWP
+	VGzOLqa88XQe5uxQ50zEnTLEINhDfB1lkGQ1wxnyAV0R3CH0gNvLcI8WlQn4Bsmc
+	m6ia5W5+hoMZuwWfxHrCox0zWf8im1PiUS6aBJUmf2NRRWO8fOa8hh7e3AgEqtqe
+	lhMRnP73gMqDUvlcXKILVFdkHnlRim9EQ==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hjs1fgyta-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Tue, 27 Oct 2026 05:32:53 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1c::11) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 27 Oct
+ 2026 12:32:53 +0000
+From: Ruben Hakobyan <hruben@meta.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>
+CC: Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+        <virtualization@lists.linux.dev>,
+        Alexander Duyck
+	<alexander.h.duyck@linux.intel.com>,
+        David Hildenbrand <david@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+        Boqun Feng <boqun@kernel.org>, Gary Guo
+	<gary@garyguo.net>,
+        =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=
+	<bjorn3_gh@protonmail.com>,
+        Benno Lossin <lossin@kernel.org>,
+        Andreas
+ Hindborg <a.hindborg@kernel.org>,
+        Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Andrew Morton
+	<akpm@linux-foundation.org>,
+        <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] virtio_balloon: submit reported pages as individual buffers
+Date: Tue, 27 Oct 2026 05:32:04 -0700
+Message-ID: <20261027123204.2671561-1-hruben@meta.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027063247-mutt-send-email-mst@kernel.org>
+References: <20261027063247-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,47 +93,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <at-9VwE3BL_3OXNP@sirena.org.uk>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0OSBTYWx0ZWRfX6tGjoFZHoaPi
+ Hs6GtVGcptmpDYZQueo1ZXM/XKtWzoBf4Dl72QrgavsdjME2Som8fBIrtgcmuGkMiWBqyl+Q7el
+ aanA2fb+gh5IxtjLV6Qc6o8vQCzN9hpQeDTmwFFv6vopNyFYfxDtPT9SNwGghfHzMLCmysYMPVq
+ xgaYBmNYDDydCJlg1HRQI9ysziwmj4WDMWBr9Tzt5WWmY8kPgonrbQ6XFEzlDJkQT3NRxORxnaX
+ 0W0+7thNmYGo6gnKyXLcikKuD3Ykl/ehCy9RFuZURGod+j9g1Ri2SGXrNCLvkDSJIwcgpV8a2No
+ FbSU+QF8b4FKM5KIf+rBJ4nVL4Rc/s2P554B62hZ5Q0fviMIYzSZSCl+JgQAc2x6N5bqo66A37O
+ ArOOGYDxsGPIgPcz4auBqpZ8vKDB/2Jq+o53wo2M01IaiRPNHJPC5Okpa74vo3xmigfL+6E8Ncr
+ fxPNSm9wp//rX1+Wd5A==
+X-Proofpoint-GUID: DFY0SqyqjgnoUS4yXiTYVjlXGdWqz5Ie
+X-Proofpoint-ORIG-GUID: DFY0SqyqjgnoUS4yXiTYVjlXGdWqz5Ie
+X-Authority-Analysis: v=2.4 cv=LJzz05W9 c=1 sm=1 tr=0 ts=6ae099f5 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=tpM8CJlwf7uhpglF1g9U:22 a=20KFwNOVAAAA:8 a=VabnemYjAAAA:8 a=QyXUC8HyAAAA:8
+ a=URxAJj9iRMZYw-DfRNEA:9 a=zY0JdQc1-4EAyPf5TuXT:22 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0OSBTYWx0ZWRfX3DsCFrgzN+gx
+ kFMiXG0WBN7iw4wooJlhpiyuHl7M+wOyMFhYYDXccwkI5hrVlJxqhMk5bo+jjm+CapWMs2XuEC+
+ LZjnkQ5g2htqoNna8u1d5cjnGhIxXUI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
 
-On Mon, Oct 26, 2026 at 08:51:35PM +0000, Mark Brown wrote:
-> On Mon, Oct 26, 2026 at 10:19:05PM +0200, Laurent Pinchart wrote:
-> > On Mon, Oct 26, 2026 at 04:37:28PM +0100, Geert Uytterhoeven wrote:
-> > > On Mon, 26 Oct 2026 at 15:53, Laurent Pinchart wrote:
-> > > > 
-> > > > Hence the prerequisite-patch-id and base tree information. Or do you
-> > > > mean your base is not public at all, neither in the form of a branch
-> > > > pushed to a public tree, nor as prerequisite patches sent to a public
-> > > > list ?
-> > > 
-> > > Correct.
-> > 
-> > How am I supposed to review or apply something that depends on work that
-> > is not public ?
-> 
-> It depends a lot on what the base commit is doing, if it's directly
-> relevant to the patch it's an issue but if it's unrelated work for
-> platform enablement that's needed for testing the changes then it
-> isn't so relevant.
+On Tue, Oct 27, 2026 at 10:35 AM Michael S. Tsirkin <mst@redhat.com> wrote:
+> On Tue, Oct 27, 2026 at 02:26:33AM -0700, Ruben Hakobyan wrote:
+> > On Mon, Oct 26, 2026 at 11:53 PM Michael S. Tsirkin <mst@redhat.com> wrote:
+> > > The virtio_balloon driver reports a scatter-gather list of free pages
+> > > to the VMM so it may discard unused pages.
+> > >
+> > > For an arm64 kernel with 64 KiB pages, the default reporting and
+> > > allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
+> > > report contains a sufficient number of large entries, we will end up
+> > > with a descriptor chain that represents over 4 GiB of memory. This
+> > > violates virtio spec, which says:
+> > >         Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
+> > >
+> > > Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
+> > >
+> > > Submit each reported page as a separate virtqueue buffer instead of one
+> > > buffer with an sg list of all pages.  This also avoids indirect
+> > > descriptor allocation (kmalloc in the reporting path).
+> > >
+> > > To avoid multiple buffers causing interrupt storms, keep callbacks
+> > > disabled while we wait for an event.
+> > >
+> > > TODO: as an alternative, keep using virtqueue_enable_cb_delayed
+> > > but add buffers after there's space in the ring.
+> > >
+> > > Note: if the virtqueue is broken, wait_event on
+> > > virtqueue_get_buf hangs.  This is a pre-existing issue:
+> > > the old single-buffer code had the same hang.
+> > >
+> > > Reported-by: Ruben Hakobyan <hruben@meta.com>
+> > > Cc: Ruben Hakobyan <hruben@meta.com>
+> > > Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
+> > > Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
+> > > Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+> > > ---
+> > >
+> > > Notes (changelog):
+> > >     changes since v1:
+> > >         keep callbacks disabled while draining: get_buf re-arms the used
+> > >         event for the next buffer, reintroducing an interrupt per page.
+> > >         Disable the reporting vq callbacks at probe, and only arm the
+> > >         delayed callback to wait.
+> > >
+> >
+> > Thanks for the patches! I think sashiko-bot found some issues on broken
+> > queues in the first patch that are worth looking into for correctness.
+>
+> Surprise removal of the balloon? Nope, it's a pre-existing issue that
+> it's broken.  Besides it's not really practical, no one removes
+> the balloon - no need.
 
-Indeed. I was thinking about the case where the dependencies are
-relevant, but there can of course be patches at the bottom of the branch
-that are entirely unrelated.
+Fair point about that. But I meant the broken queue check.
+In virtqueue_enable_cb_delayed() there is:
+```
+/*
+ * When the device is broken there is no point in polling used->idx,
+ * the backend will never update it. Return true to let callers
+ * exit their cleanup loops instead of spinning forever.
+ */
+if (unlikely(vq->broken))
+    return true;
+```
 
-> This isn't insurmountable, you can cherry pick the
-> changes over to a clean branch or something, but there's new failure
-> modes introduced by being explicit about the commit (the number of times
-> I've had to unwind a series apply in b4 because it paid attention to an
-> unsuitable sender specified base...).
+But virtqueue_enable_cb_delayed_max() doesn't have this. So I was just
+thinking the same reasoning should apply here?
 
-I've seen that too. So far it has bothered me less than not having base
-information. With an unsuitable base I can apply the patches ignoring
-the base, while with missing base I have to ask the submitter. The
-latter interrupts review. Your mileage may vary though, depending on how
-often you hit either case.
+>
+> > Other than that, I tested the "normal path" on QEMU and Cloud Hypervisor,
+> > both on 4 KiB and 64 KiB guests, and this works correctly.
+>
+> Thanks a lot! Can you pls confirm whether the performance is about the
+> same/better/worse?
 
--- 
-Regards,
+From my tests on QEMU, CPU time was about the same as my original patch
+and unmodified Linux.
 
-Laurent Pinchart
+To bring a concrete example, with these patches it took ~437 ms of CPU to
+reclaim a whole 8 GiB with 4 KiB pages (vs ~434 ms on unmodified Linux).
+
+With 64 KiB pages, it averaged 121 ms CPU (vs ~112 ms with my original
+patch).
+
+(I tested this on Nvidia Grace)
+
+>
+> --
+> MST
+>
+
