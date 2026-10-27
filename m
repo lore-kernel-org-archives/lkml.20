@@ -1,103 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102475;
-	b=XapBpFzWyO6eokUX4xz1Be7UPJjp9geG0YR6/Q9zCquN1QsB1pCXUwp8A8eq4UCF5Bx0
-	 c7rJiP0tO1QEhpoGbzzpcOPMKyU5Ou431zNkl32bu2VhCox0UuDOb4YFecbUxc8rjrKnv
-	 Df9mVsdsD6JVjihH3C5ROK9jMs+QXCbljH2OUvvotRcQ72J1c+1KdkmBcNuifJROXc5/G
-	 uPNBKdoyIL6iDfPb3dT4hhrXX74bvk630rXnGANnzWECSsahnc2vCDKvCxRfu7+ue+oIQ
-	 YopE8QT8NMGXE0l4JS1G0MPCinNnpuMIwfErNId5SZYJTU/qE0tdzoCGwThfPRoQjWw==
+	t=1793102488;
+	b=Lu09QtkrMr7a5DxUFLTldOnZGrCA/AmlFaP5s1KmW/HMyf5cF7Tg/qEZUthqpjguCklj
+	 2fkrxB+OicgbE6Y1Oby4Sz/J6Gj8MRQ3HFZ8ceTNGkrH7CPE2pavyfUOdB3txmxKSs+H0
+	 hQSYv9Py/2bzKj54CltgRriQm0uKPBVCFxH2qyaTJSDKX2fzi+YjJu+VlATNgUM0aHj6j
+	 EP9Fhsc9n9bRvPU2vtxDdkVQkSc1t7Gd61e9B9mGdnKVyKn5D/RPRFQMh1IPe6faFQi1Y
+	 AF8udBw2PsDLMJ+ZKM7/CXjRTtN7i5/DYm1uF89w25i3/WkqSNPhsqmIDHOWpFpDw1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102475;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=OQYRipuP124143QCMJhvTr9qvY3O5guW1GgytysnBfc=;
-	b=yMeTZeXADF1YKtEJpiIMMMghxMqY2cFeUXL1PdpmPxyErA4uJ7eX5MTLcNfGcmMaUZz0
-	 uySkaVOEy6kpcZXZ7HAmqARXnElsDGDA1Myyakf3ZwVEIIRLuC8h63BAiSGKQUVLpTRys
-	 conFNUW+fuSQvfOm5oeBKjcSw4yqb516X1G+aWihOZTqw77DX/xnWZO8+u6yVAkb/38vh
-	 UxezIdrSfK0F/+VMj/kDpS/mj+uK18uN9+WFPYt8Zm0iIHg2fuG//VP8tSMJ/Y5NP6Lka
-	 TpX4ebJ2RS1ywSShHjQT+2K3sk2O2vGROx3TnMbQ5CPE1dV8bae16+oXYsFzesP7Htw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102488;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=fUGviiWetGSzTGAnyMu4M1XVs/C1V+ixL8ZHmeD0LfU=;
+	b=F6v8erlqJSqA2tbBpv19C/miFeAkXdfTXuKO7ipAP9o2r5bxQkqRlQA3l7/b35UAaO96
+	 wsi36hbMOzBvBuLRP19vVxplaWuViTcA9qphw2yanDbg6aqR/zoeJ9eCkg6/SUSrI9SJr
+	 ju1zqfnK/Wc7Kqzxb+hJbkG+u5EwOvfjfZVXwljM3P+xQ6g9vsOP6Bd4GbRJfE+tN0DKw
+	 yVHtVP03BC/m31kmfPFjPykTuCt0VzpRU2mMn0/XQUdWGHKsi2x8dIAIWt34DgUdpJcZ9
+	 UeC6+xvZY7XNeJ43Cpu2QK06bPlzElyJW8mXyYDa4UZPmlWrCPsOJu8lYeBqvz8ENaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tj2ibMdQ;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=rVQNyCcg;
+	arc=none smtp.remote-ip=203.205.221.210
+Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2E660A383D;
-	Tue, 27 Oct 2026 12:01:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2E660A383D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB88606A33C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:01:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AB88606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tj2ibMdQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793102474; x=1824638474;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=Rxj6MiO85lPb0RtbvRVzjDkOvjkrpNou9e16H5MhBBI=;
-  b=Tj2ibMdQZDVT4lZPLhjEFGEY08V6m8OVjUMZTM7GdziJdu41oGfY4ENM
-   I0UW7kaclzi/+NtVNLymri04TkT0CDCGJzoeC5AVvEP4JSqrJj57GPnFw
-   dvVdInvLRG+BxhiFRWj/9QWs5KlAkcDrj0RuWqzbvQWrA/fSvzhvQRsUR
-   ScNQQfVtpVFrWbTHqwVYzcDkrqK9NEGhZzO999+/Xrm+DKaYrK3QwP09y
-   mGIhSdwrm9qrTi7DUJ0KUm9ob/XEfx1D7urRiYIYcH7QLawZYZUonDvvm
-   iSR3IWAvZubGX4qiBmSPjFyoIxQMV/cUwO/z8WLeC/pjdNRqeD5Wm5hFt
-   A==;
-X-CSE-ConnectionGUID: v/UhhZ0ISoy5dz9AisO04A==
-X-CSE-MsgGUID: axj27Y9TTi6Yhkl0GRwZKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1680964"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1680964"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:01:13 -0700
-X-CSE-ConnectionGUID: krEz9piZSJCRMHkzXB2ukA==
-X-CSE-MsgGUID: wzIAapIGT8SGweeZStrpww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4864382"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:00:59 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 27 Oct 2026 14:00:55 +0200 (EET)
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
-    Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-    Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
-    Florian Fainelli <f.fainelli@gmail.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Peter Hurley <peter@hurleysoftware.com>, 
-    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
-    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-    Pengutronix Kernel Team <kernel@pengutronix.de>, 
-    Fabio Estevam <festevam@gmail.com>, 
-    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
-    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
-    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    Peter Griffin <peter.griffin@linaro.org>, 
-    Alim Akhtar <alim.akhtar@samsung.com>, 
-    Robert Baldyga <r.baldyga@samsung.com>, 
-    Thomas Abraham <thomas.abraham@linaro.org>, 
-    Kukjin Kim <kgene.kim@samsung.com>, 
-    Patrice Chotard <patrice.chotard@foss.st.com>, 
-    Srinivas Kandagatla <srini@kernel.org>, 
-    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-    Andy Shevchenko <andy.shevchenko@gmail.com>, 
-    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
-    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, stable <stable@kernel.org>, 
-    John Ogness <john.ogness@linutronix.de>, 
-    Fushuai Wang <wangfushuai@baidu.com>, 
-    =?ISO-8859-15?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH 07/24] serial: 8250: hold hash_mutex across irq_info
- lookup and linking
-In-Reply-To: <20261027-tty-llm-v1-7-99b0202ae546@linuxfoundation.org>
-Message-ID: <ee0d971b-b928-0bfd-693e-c8ddfe9c04c2@linux.intel.com>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-7-99b0202ae546@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=rVQNyCcg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793102477;
+	bh=fUGviiWetGSzTGAnyMu4M1XVs/C1V+ixL8ZHmeD0LfU=;
+	h=From:To:Cc:Subject:Date;
+	b=rVQNyCcg1wiiuTfwyg0mg7QFMniyKsX2gPUFmBgXCrgxnA+uc7RONgg+7OVuYmE/b
+	 1akt5agVLgVEq/fFbasVMN+ekhVOy5c2MuXNNDmONFClVspGFaVLDut/wA2zzYi8ss
+	 rEPTAdk1V0LFsfkn3DZlPZtiQub2ljB7WR7DCEmU=
+Received: from RE0700.barrietech.com ([122.234.183.103])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 4EA92E0; Tue, 27 Oct 2026 20:01:14 +0800
+X-QQ-mid: xmsmtpt1793102474tey39p9ui
+Message-ID: <tencent_58D610F93574D60C9AE734253AF69A528506@qq.com>
+X-QQ-XMAILINFO: N10IrCOuXIAmRC3UH1fNZ2kU4orlxLarDA7EPMfuWZOI833ISTziBzizsE9WHp
+	 U0lXL/AypDcG0a0jYIwfBkzmQgpU88cUq6mmeQv6Ts8oEwgifiGvcBCRSZD6PIxOk+iEx7VgYBW7
+	 T2iBkpEXMsqbCQiKvWyrIKVY/dKXq+ESoIDZzYt6HHNqXPX/ZsfpzeDovWClJCPLd+KFP5SfQtyP
+	 lytkMFxCE2/VaRpLBWWKUblDDih7NRpKxAKs+o2B2hmeNUaWQIfIvlrLV/mxVeaHJR1k4rhVq+K/
+	 fL/M+SDjBZ7WR8yCOL0nlcE8AUrRXIZ3cR7iXPyO6RmC5LHIivNCKdu0htoCovP/DY7JNjOp8GLO
+	 5uGQLnQ3AjhMNLn6t3d6QJSUOtHvBsBWbkvxLUGmtMNwtiacAyfB2AMThe0kzo5tcuw8z6wggGe7
+	 Zv+UKc/otruu3EnBq1RRAf0n2kYUVhp9HYxkPFC7cczh5RM+gcbADP2HV7trq9A5fCuDXQ668D9y
+	 mpws/qGsCUkK5NzNxTLUfT5gXCU2CqSeMrE3TnPUHga9W2zSFKCd484fUAD+NmoMGbYHTnOHym5w
+	 zF+cvvnqKvTZqgbCyy8NtXWx7KEvIkJVq3jVxKYpbVILCQpBAb2YCxqLFOkYnCi9upavEySfMOPt
+	 5RJq16CNW3GlB/LPSwjEcB+Aro4S5rLocpBgSMsrVs8ktvHEM/4FuQ9siRvE3wv0eFiTOd7Y6b1L
+	 w8EYYEQYDkuNAb+EPBd+ncRfnFWzvUzYwBgtp8kD03+DY/JdroNNOyN3m3ksOcT8dH/oKd4qPfiX
+	 mUZ/Aj51Jx6Em9j7YZl4tJbNwEOLeKsMXmMFI6p41ldV+UsHfZd1U9r10g3E/XOUwuDpRH45TMWq
+	 gKl0t0iUDcPYXYHlON4vsJMhTv39LJ0RH5Xe3PRD0LbIGHjGpuYkVKFpwxE+uWBL+6wH1o1zrK2S
+	 7RZvevOKbIQ1qqxCaVy1N9jfdxIPJEkdcn7brl7JbxPCuJjg+mirDCI2tVmQAgIOVYv2tKxyJKC7
+	 O6FPXYxlazmmb/nyK16KHAk8FoXZB8BJJ/wJ0/O0fgio9vv5PfY5vnM6s0fukwpGuKx0yjJuiLq1
+	 jU6u+vWbDLFZKXnnVUCFlzi8jBMWw/FLX2VGSXJwfyjfeokJE=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: zhoumin <teczm@foxmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Arjan van de Ven <arjan@linux.intel.com>,
+	teczm@foxmail.com
+Subject: [PATCH] async: Use ktime_us_delta() for debug timings
+Date: Tue, 27 Oct 2026 20:01:12 +0800
+X-OQ-MSGID: <20261027120112.349313-1-teczm@foxmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,80 +81,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1797829899-1793102455=:1182"
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Replace microseconds_since() with ktime_us_delta() for accurate
+microsecond timings.
 
---8323328-1797829899-1793102455=:1182
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Fixes: 22a9d645677f ("async: Asynchronous function calls to speed up kernel boot")
+Signed-off-by: zhoumin <teczm@foxmail.com>
+---
+ kernel/async.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
+diff --git a/kernel/async.c b/kernel/async.c
+index 0e3a783dc991..e8862c39344b 100644
+--- a/kernel/async.c
++++ b/kernel/async.c
+@@ -80,12 +80,6 @@ static DECLARE_WAIT_QUEUE_HEAD(async_done);
+ 
+ static atomic_t entry_count;
+ 
+-static long long microseconds_since(ktime_t start)
+-{
+-	ktime_t now = ktime_get();
+-	return ktime_to_ns(ktime_sub(now, start)) >> 10;
+-}
+-
+ static async_cookie_t lowest_in_progress(struct async_domain *domain)
+ {
+ 	struct async_entry *first = NULL;
+@@ -130,7 +124,7 @@ static void async_run_entry_fn(struct work_struct *work)
+ 
+ 	pr_debug("initcall %lli_%pS returned after %lld usecs\n",
+ 		 (long long)entry->cookie, entry->func,
+-		 microseconds_since(calltime));
++		 ktime_us_delta(ktime_get(), calltime));
+ 
+ 	/* 2) remove self from the pending queues */
+ 	spin_lock_irqsave(&async_lock, flags);
+@@ -317,7 +311,7 @@ void async_synchronize_cookie_domain(async_cookie_t cookie, struct async_domain
+ 	wait_event(async_done, lowest_in_progress(domain) >= cookie);
+ 
+ 	pr_debug("async_continuing @ %i after %lli usec\n", task_pid_nr(current),
+-		 microseconds_since(starttime));
++		 ktime_us_delta(ktime_get(), starttime));
+ }
+ EXPORT_SYMBOL_GPL(async_synchronize_cookie_domain);
+ 
 
-> From: Joshua Rogers <linux@joshua.hu>
->=20
-> serial_get_or_create_irq_info() released hash_mutex before returning the
-> irq_info pointer, allowing serial_unlink_irq_chain() on another CPU to
-> free the irq_info before serial_link_irq_chain() could link its port,
-> causing a use-after-free. Hold hash_mutex in serial_link_irq_chain() for
-> its entire scope so the irq_info lifetime is protected across both
-> lookup and linking.
->=20
-> Cc: stable <stable@kernel.org>
-> Cc: Jiri Slaby <jirislaby@kernel.org>
-> Cc: John Ogness <john.ogness@linutronix.de>
-> Cc: Fushuai Wang <wangfushuai@baidu.com>
-> Cc: Crescent Hsieh <crescentcy.hsieh@moxa.com>
-> Cc: "Uwe Kleine-K=C3=B6nig (The Capable Hub)" <u.kleine-koenig@baylibre.c=
-om>
-> Signed-off-by: Joshua Rogers <linux@joshua.hu>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/tty/serial/8250/8250_core.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/825=
-0/8250_core.c
-> index 673fde55828a..5730ef97f836 100644
-> --- a/drivers/tty/serial/8250/8250_core.c
-> +++ b/drivers/tty/serial/8250/8250_core.c
-> @@ -131,12 +131,11 @@ static void serial_do_unlink(struct irq_info *i, st=
-ruct uart_8250_port *up)
->   * - find the corresponding info in the hashtable and return it, or
->   * - allocate a new one, add it to the hashtable and return it.
->   */
-> +/* Caller must hold hash_mutex */
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.53.0
 
-We do have lockdep asserts to actually check these.
-
-I also don't understand why own comment is opened for this. And it would=20
-be better to follow kerneldoc's syntax by starting with Context:
-
->  static struct irq_info *serial_get_or_create_irq_info(const struct uart_=
-8250_port *up)
->  {
->  =09struct irq_info *i;
-> =20
-> -=09guard(mutex)(&hash_mutex);
-> -
->  =09hash_for_each_possible(irq_lists, i, node, up->port.irq)
->  =09=09if (i->irq =3D=3D up->port.irq)
->  =09=09=09return i;
-> @@ -157,6 +156,8 @@ static int serial_link_irq_chain(struct uart_8250_por=
-t *up)
->  =09struct irq_info *i;
->  =09int ret;
-> =20
-> +=09guard(mutex)(&hash_mutex);
-> +
->  =09i =3D serial_get_or_create_irq_info(up);
->  =09if (IS_ERR(i))
->  =09=09return PTR_ERR(i);
->=20
->=20
-
---=20
- i.
-
---8323328-1797829899-1793102455=:1182--
