@@ -1,47 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096034;
-	b=FthpSAszuLK14MzjTqK5jEnCkX41pGMmlrQFTRK52lkuIawVhSaAoMAR9wVt5P8kmnYU
-	 ZIh3V31fQE6EA5hK1aguFbPDXSIjSJRSM/bmijc1MbCMpZLc5DOMyfSVD01qJMvjgqVQz
-	 jNoZ/yh51tmN0zA66vXVoRmc/dHE1SSPoAubw59uAF6eh+TDa7kr+T+iDX1whjzDz7Vzk
-	 KXyLFdVfy6JHXObVSG1eDcwo2r0PlkDP3HgYZX+3GWKILXmnPesW5SdQF5iNPpQidAX5a
-	 sYs0qjQKvOlia2Z4oPjPjytWhQyS++lL3KYlV25o9WG2iIgTMIWY3EwESoqVDetH1+A==
+	t=1793096092;
+	b=vBrf81C0BJHjV3uoxQtfrvIDypJjd1cWkLYFH7gSm8PmeYsxMpCyo4gzPMNmq5NqsBdV
+	 rBTx6TZKJKWw01JaIu3nKIRXwmQcrxY9Av+mrTKRenlIWoMM5Hn3LR44GIi6m5g8loWES
+	 P79otLsORI9+SXsHfZ6fUTQdu9FakQ8594t7ULad3YzUlTrWrfJX6nXM++c7ZRQSTo4rv
+	 P+gCeuosRaZnYWx6jcIsvGMTgl3sV/FTTA/iuqzRhUu/EYQ/eUN06z6NitLVPW/R2Hlfq
+	 2hKJkL7Hs2rEm2CEBnAECNROcFbblTpeZUgNxljXEoMnRrsVfOemiArRxddyd7SHhdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096034;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VcjnV7QS2G+aidrtUKihb76qyh+JC3b0hokomy9CWtI=;
-	b=DKoJbd0yAiZBHFcaGXKPKG1HIikgmsU1htZE3DqXlE4qE+1+2h+NKOEMT5XAOeMGfQSp
-	 qx0aYbwVVShcn4KEmFh/3IoX+JWi2pAOMKNAYOnKnCPCH8yLD8Q7dGvzyGBAr//6jGdnb
-	 RjzNYdpudfGCakZnfVDr2jHHzUCi4wX+HLmcVF+qsJ6ivfTTSPCDq+XOo9rLaaRWUxFIP
-	 tyXmQ+567lQ+HvNQIPsGRPTDdoJME6Se4iUS8vsga1MV+t5OpQPYLykD8C+2ZqqKlM8d/
-	 UWBuJF2VTiGlU4GeYBdzMOCsA22jNn+DqdIAp2MesPpbkOVeiv6dRQVIUG5ODstzxyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096092;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:User-Agent:MIME-Version:
+	 Content-Type;
+	bh=lvFw8tqqTR67faK5n0WofJMmY3FbQXpRy70vxZJUGus=;
+	b=OSIXHt6aHCz5MU1HS7QTdW7HF5wYA1sq/2ZhPXtqtHMl44F+2EwklkwypS1zOmNKEZM5
+	 KDRx75J4BenKO1RVxyiBbL3ljCMyFrDGrHLA1aF4bsTLdpt2QzuTv+6gEsxF+fMP1IN0+
+	 bNFtMnHXknMElV9ciyOAh+bG2v4wDN5Q+XiIXv9lyYECCvbGEMOap09O9ImeXqlHHoNhW
+	 dzLxjcUm2MTPlGjkuiWSUkbaGcDAKQ3cm5pLJFYoYS1PoJl9ErFyVskcv2qdIMaY5pRO8
+	 yRwCIRB7J85a8rrW00iPLmQP/m1Myi0Y1it354PLZEoFXuYdzDQ689HenXC03vGosWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwnkNvoo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=geanix.com;
+	spf=pass smtp.mailfrom=geanix.com;
+	dkim=pass header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=oxYiTqlz;
+	arc=none smtp.remote-ip=185.70.43.170
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 283C3606A31A;
-	Tue, 27 Oct 2026 10:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1186A606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:14:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1186A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UwnkNvoo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B261F01825;
-	Tue, 27 Oct 2026 10:13:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793096033;
-	bh=VcjnV7QS2G+aidrtUKihb76qyh+JC3b0hokomy9CWtI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UwnkNvoos1ek2AkU4HMF6xMMIsDgOXZGtVXxowwR/TRjQw2QGKWFVBS9ZULzArNQM
-	 vKjbhEVbAE3XPTSOdy8+zQwqfOB/4dPDOtAjgwfFuR+DqJwgHcwlxraumzkxaHA2ib
-	 Va2JKy62cNXxS5F+0zUgxeVYwzpiDA2KcmRzwRB7TU2ZGdFjSlpkYuldKxpsncjev3
-	 VX99o6PmXSBPUsXfoGoG2H1a1zhRt2weS+QJK9agGdCjnbHxq7Z4JjPoHfP4VxU7MW
-	 OUTqfd8SpKL3+WjGAgmochCxIqilm+wXLSmTgUwZQGbAORhAlqKbDbjxETH1txy4HI
-	 +owiB3GFSMiyg==
-Message-ID: <b45a3b54-2b96-4325-a0a3-508ba0227c16@kernel.org>
-Date: Tue, 27 Oct 2026 11:03:24 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=oxYiTqlz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1793096086; x=1793355286;
+	bh=lvFw8tqqTR67faK5n0WofJMmY3FbQXpRy70vxZJUGus=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=oxYiTqlzoEvZVMmxDj/GN0kVQFKQ8O/3lROlIwuI/iKDoyX9fTao8UOaZom6p/Y+Q
+	 yNCI8Z4szsOPk3XpsazXxeqcWf7Vj+eL1SMk5tzFCVA8n1F2X1XlQMpgEPAZfimS5B
+	 +5Llyp9iz0dwJAjBEwaaHXDObFHAbMHyHjND+vqW/hFto4biWc5MjFK4b3NO8KdE4o
+	 C/aMrZ8z2IVNxzoewo7dcmS1QCRDj1RdNTYnEnZZYGuoQqSrjAp4r4HG9KSvz1t1XN
+	 Fc1aJROZ1ERUyqW6j26qUr6IJfx2FI9KJ6iROvIp0OLnPFHG8IHLANbDIua9oPdDmz
+	 3xKt9opWotiyw==
+X-Pm-Submission-Id: 4jDRF01kHdz1DDLJ
+From: Esben Haabendal <esben@geanix.com>
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>,  "Neil Armstrong"
+ <neil.armstrong@linaro.org>,  "Robert Foss" <rfoss@kernel.org>,  "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman"
+ <jonas@kwiboo.se>,  "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>,  "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>,  "Maxime Ripard"
+ <mripard@kernel.org>,  "Thomas Zimmermann" <tzimmermann@suse.de>,  "David
+ Airlie" <airlied@gmail.com>,  "Simona Vetter" <simona@ffwll.ch>,  Guido
+ =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,  "Fabio Estevam"
+ <festevam@gmail.com>,  "Robert
+ Chiras" <robert.chiras@nxp.com>,  "Sam Ravnborg" <sam@ravnborg.org>,
+  <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
+  "Oliver F. Brown" <oliver.brown@oss.nxp.com>
+Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
+ horizontal sync timing
+In-Reply-To: <atH4i_KcmccKb8Ge@raspi>
+References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
+	<20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
+	<JYYZZ_8h4tOKBjhbfQG_VuFESQDdQRt7TE7Ef0eJ9F0gQgyRrEJ5LIi6scY_48ggvsikFa5QZB3uEHaRUDdosQ==@protonmail.internalid>
+	<atH4i_KcmccKb8Ge@raspi>
+Date: Tue, 27 Oct 2026 11:14:43 +0100
+Message-ID: <87v76nbgbw.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,183 +79,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/16] mm/shmem: stop retrying folios that cannot be split
-To: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-8-703206d5fa0c@kernel.org>
- <DMF8FVCUYJ5X.215YGBLZ7H56Y@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <DMF8FVCUYJ5X.215YGBLZ7H56Y@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 10/27/26 02:34, Zi Yan wrote:
-> On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
->> From: Chris Mason <mason@kernel.org>
+"Liu Ying" <victor.liu@nxp.com> writes:
+
+> On Wed, Oct 14, 2026 at 09:44:45AM +0200, Esben Haabendal wrote:
+>> The NWL MIPI Host controller registers specifies the horizontal front
+>> porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
+>> not in pixel clocks).
 >>
->> A fault or collapse can insert a large folio crossing EOF after
->> shmem_undo_range() has handled the boundary folios. If splitting that
->> folio fails, truncate_inode_partial_folio() retains it when it is dirty.
->> The final scan then repeatedly finds it because it restarts from an
->> unchanged start.
+>> The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
+>> the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
+>> Manual (rev. 3.1). The formula shown there does not take packet header size
+>> into account though.
 >>
->> Truncation keeps the inode lock and ignores fatal signals while looping.
->> A concurrent unlink() can then block other directory operations while
->> holding the directory lock and waiting for the file's lock.
+>> The formula implemented here converts the hfp, hsa, and hbp to DSI packet
+>> bytes and then subtracts the number of packet header bytes.
 >>
->> Advance start past the retained folio, whose truncated part has already
->> been zeroed. Do not move start backwards if the failed split has shrunk
->> the folio.
+>> It is worth noting that these values only needs to match approximately,
+>> according to the reference manual.
 >>
->> Fix generated by an LLM and sent by Chris Mason in private.
+>> Based on commit in NXP vendor tree
+>> commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
 >>
->> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Chris Mason <mason@kernel.org>
->> [ david: split fixes, simplify descriptions, adjust comments ]
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>> Cc: Robert Chiras <robert.chiras@nxp.com>
+>> Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
+>
+> Worth a Fixes tag?
+
+Yes. I think it should be the initial commit, so
+
+Fixes: commit 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+
+I am not sure if we should mark it for stable backport. If people have
+specified "wrong" timing parameters in order to have the resulting
+timing with the old code produce correct timing, they will have to
+change the parameters. Is that suitable for stable?
+
 >> ---
->>  mm/shmem.c | 8 ++++++++
->>  1 file changed, 8 insertions(+)
+>>  drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
+>>  1 file changed, 57 insertions(+), 3 deletions(-)
 >>
-> 
-> I rebased your patch on mm-stable, which has Zhang Yi's fix, and
-> 1. tweaked the comment,
-> 2. skipped the dropped folio (this is to avoid a narrow case below).
-> 
-> Since after Zhang Yi's patchset, truncate_inode_partial_folio() is
-> changed to return false when it drops the entire folio. Restetting
-> start for a dropped folio in the scenario below would leave zeroed
-> folios still in the memory, causing a waste, although it is very narrow:
-> 
-> folio A=[0, 512), B=[512, 1024), C=[1024, 1536],
-> 
-> 1. A, B and, C are inserted after the same_folio block check, so only the
->    code at whole_folios label sees all of them,
-> 2. A is split partially and the split failed, A becomes [0, 32) and
->    [32, 512) zeroed,
->    truncate_inode_partial_folio() returns false, start is set to 32,
-> 3. B is dropped entirely, false is returned, start is set to 1024,
-> 4. C is split successfully
-> 
-> After 4, index is start=1024. The [32, 512) folio is not dropped. That
-> is why I added the folio->mapping check to avoid changing start in 3.
-> 
-> 
-> 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index fadf23f9e21ed..efd54a624974c 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -1480,6 +1480,16 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
->  						index = start;
->  						break;
->  					}
-> +				} else {
-> +					/*
-> +					 * Splitting failed, but the part in the
-> +					 * range is already zeroed. If the folio
-> +					 * was not dropped, skip it when
-> +					 * restarting the scan to avoid retrying
-> +					 * it forever.
-> +					 */
-> +					if (folio->mapping)
-> +						start = max(start, folio_next_index(folio));
->  				}
->  			}
->  			folio_unlock(folio);
-> 
-> 
+>> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+>> index f3f4334136c0..eb604733eea0 100644
+>> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
+>> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+>> @@ -22,6 +22,7 @@
+>>  #include <linux/reset.h>
+>>  #include <linux/sys_soc.h>
+>>  #include <linux/time64.h>
+>> +#include <linux/math64.h>
+>
+> Sort the header files alphabetically.
+>
+>>
+>>  #include <drm/drm_atomic_state_helper.h>
+>>  #include <drm/drm_bridge.h>
+>> @@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+>>  	bool burst_mode;
+>>  	int hfront_porch, hback_porch, vfront_porch, vback_porch;
+>>  	int hsync_len, vsync_len;
+>> +	int hfp, hbp, hsa;
+>> +	u64 hs_clk_rate, pclk_rate;
+>> +	int h_blank, pkt_hdr_len, pkt_len;
+>>
+>>  	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
+>>  	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
+>> @@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
+>>  			      dsi->mode.hdisplay);
+>>  	}
+>>
+>> -	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
+>> -	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
+>> -	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
+>> +	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
+>> +	pclk_rate = (u64)dsi->mode.clock * 1000;
+>> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
+>> +
+>> +	/*
+>> +	 * Calculate the bytes needed, according to the RM formula:
+>> +	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
+>> +	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
+>> +	 * ===>
+>> +	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
+>> +	 * ===> (substituting period = 1 / rate)
+>> +	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
+>> +	 */
+>> +	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
+>> +	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
+>> +	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
+>> +
+>> +	/* Make sure horizontal blankins are even numbers */
+>
+> s/blankins/blankings/
 
-Thanks, makes my life a lot easier!
+Fixing.
 
-I'll change that to an effective:
-
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 1a81f6dca7510..c263f02fe07cf 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1481,6 +1481,15 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
-                                                index = start;
-                                                break;
-                                        }
-+                               } else if (folio->mapping) {
-+                                       /*
-+                                        * Splitting failed, but the part in the
-+                                        * range is already zeroed. The folio
-+                                        * was not dropped, so skip it when
-+                                        * restarting the scan to avoid retrying
-+                                        * it forever.
-+                                        */
-+                                       start = max(start, folio_next_index(folio));
-                                }
-                        }
-
--- 
-Cheers,
-
-David
+>
+>> +	hfp = roundup(hfp, 2);
+>> +	hbp = roundup(hbp, 2);
+>> +	hsa = roundup(hsa, 2);
+>> +
+>> +	/*
+>> +	 * We need to subtract the packet header length: 32
+>> +	 * In order to make sure we don't get negative values,
+>> +	 * subtract a proportional value to the total length of the
+>> +	 * horizontal blanking duration.
+>> +	 */
+>> +	h_blank = hfp + hbp + hsa;
+>> +
+>> +	if (h_blank) {
+>> +		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
+>> +		pkt_hdr_len = pkt_len;
+>> +		hfp -= pkt_len;
+>> +
+>> +		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
+>> +		pkt_hdr_len += pkt_len;
+>> +		hbp -= pkt_len;
+>> +
+>> +		pkt_len = min(hsa, 32 - pkt_hdr_len);
+>> +		pkt_hdr_len += pkt_len;
+>> +		hsa -= pkt_len;
+>> +		if (pkt_hdr_len != 32)
+>> +			dev_warn(dsi->dev,
+>> +				 "Unable to subtract packet header length fully: %d left\n",
+>> +				 32 - pkt_hdr_len);
+>> +	}
+>> +
+>> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
+>> +
+>> +	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
+>> +	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
+>> +	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
+>>
+>>  	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
+>>  	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
+>>
+>> --
+>> 2.56.0
+>>
+>
+> Not sure if the fix is 100% correct, but it is a correct direction to
+> change the blanking packet payload size from in pixel clocks to in bytes,
+> so better than no fix:
+> Acked-by: Liu Ying <victor.liu@nxp.com>
+>
+> --
+> Regards,
+> Liu Ying
