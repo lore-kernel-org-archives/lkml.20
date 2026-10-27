@@ -1,73 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095344;
-	b=Q2cjyYL/BZtGXFNipO3GSC8VxcjL1AiAuJZQYo/u/jylcY+H8ssdsg+5hNqS7JEryX7Z
-	 FUm7HzkXjZhl8te5U/PMU+5htAXFTDUp7g/78/vYwjraQXNvORWiyfGs7QulJDoMXcZp1
-	 OAuMsd9L8+RxZc6RkmiIbsVn6qmhzXSspUNUk3fg6R+HYQB7MIE+GdzRDHljo5oWPGCzw
-	 11J7fgjCWbYz+LBikNF5W7bEPyKTnw2kJafwbAWqyk9rOsJV3w+usC1f50/t4ggEdDJBG
-	 86DU2BNQhfZiffga6SIrVaIPk/A3krNI1+FwQ6S+Zz6JSVXjznqrLn3mhAPs80yj42Q==
+	t=1793095359;
+	b=I2ex/NqKHRfkgbFJn+h1BN6DYF4y1RVgRQah0ld9QO1M2J7IAnKlQlvEXPVDSdch/+5/
+	 Uvne8x8AgAS29+4N5raFP+ThDOEYutjBmBoOajPJJvoZuxkw/Np8uS4lQT5J8LS5jxBuh
+	 o5BTIN5BJoxEs8IfIckzyxK+wxS96P3gj6pTBFVOWhSjNgOw2oUwwZK4SAgOjP4Vl/2le
+	 QFNQf1pF2u8gMNGmK5vfdm/GnhLrMN1AIMjljm/IGhG/qcRF3F5AergMgrsl+LbOjX7C8
+	 d5R3tFWHj/4SyvLF3z13r6x8SZBFZGTspfFGT7BlT0NsrvRn4m2wGM2EHUFeJ2mtw0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095344;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8YlZ90uAKR6aXs1DTGP4PKrRtdPIJ2caVM2+niiG2is=;
-	b=Rw3jQwB1EELgdFk2G1rVbnRa1wwOmOmAV0rGz0fhB7XNa/vPKDJlkyUg1lGkNRJwul1m
-	 ir/7JIG+MVX7mOap9otzCnUlwV+NxZtDNOBQSvNzMBlt2n7SgU6K2CtUEWsOcFiTQpDqS
-	 KwcWrwi9rinvwxSmDghcXfnhd3osc9gkSL+pEAc7LjY5rtOuorm5fNazy4/1ZFlEFKqpi
-	 GqL0CnScZMjfm6Fcg3/mF3leNaz/cBb7u1HoB2luCO/bXDkiYytMsBlRszuYd7YyHSyLE
-	 KQ6XPW6WiFfurVAf/Zjkte9F31sCjXqch4nmoWxb19MpoYcewHcXK42WAg6iNnYbKUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095359;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VbkC5PiXkuQEdYLYK/YUR9pdO4ULkJikWXO9Pu6awtg=;
+	b=ODWIIoj+yTwSzUlfMfoXweF1L3r59gspplsjLnxkHiZ+Ne0G56F4mwDG8v4Ph45wuO0/
+	 AMq5Wjc5AoIoV/zSmTlC8OuNP3UT+F8qFeTQBLwXCmFm/MSchKUw3fJ2TQ7T7h/uwrS6E
+	 XXFgm6Igv1e28mSdJo+CIR3VnYiITg/7S6fVdzRYaj25CJ5NHyQ4HIpvibSOsTonWqAWA
+	 +qEMBkHmhN9ChHvqjVO2yjwYrd9QPpwXmvVjH5ofasRwaukt0kXa+4yA/LBhFTT6vb390
+	 Puke0qjuTjdPewT6UVyrCK804HmkToitKp5KTbmgafviIXPXww6OUB7/TgMPPH/FIOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CC01RG9y;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD962t4O;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C51606A31A;
-	Tue, 27 Oct 2026 10:02:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C51606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82936606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:02:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CC01RG9y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=8YlZ90uAKR6aXs1DTGP4PKrRtdPIJ2caVM2+niiG2is=; b=CC01RG9yCK1JUck1nuLgczlS3P
-	ryLsu1zlOTJtr8NEfdW2Qo8pchXHOz4UsESUenllIoa0gbAsKZW/5WulZWrfM6uM3ttLpaxGI1kTM
-	PEvsEC2Vqmte58VHit57QQyi7nuBRPPNOxFJj4XqX1fsI31af7iGTNtZJYQm8f2Y2DUv27HJoHgbp
-	BMVHTdOnyV5fslU6ICouaKU4PRBuje2dsnS3kTL3phA3LgTyucDLLC1+nWpgZqaTM3VhPgRO/ty49
-	d4M45efYTP096PvzUTotc8iOlKr2yp+VniyEdl4VHmI9h1UzLP5MTXU82WaihTDyfMZFtPGr+1AdU
-	+48KcZmw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLe0W-0000000EhbJ-3Yzd;
-	Tue, 27 Oct 2026 10:02:17 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 31058300DB9; Tue, 27 Oct 2026 11:02:15 +0100 (CET)
-Date: Tue, 27 Oct 2026 11:02:15 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: cyridge@proton.me
-Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Chris Li <sparse@chrisli.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Kees Cook <kees@kernel.org>, llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-sparse@vger.kernel.org
-Subject: Re: [PATCH] x86/kcfi: Don't emit KCFI_REFERENCE() in modules
-Message-ID: <20261027100215.GA2668804@noisy.programming.kicks-ass.net>
-References: <20261024-kcfi-reference-modules-v1-1-43c2a4a9e657@proton.me>
- <20261026103743.GD2668200@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iD962t4O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EFC1F031E5
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:02:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793095358;
+	bh=VbkC5PiXkuQEdYLYK/YUR9pdO4ULkJikWXO9Pu6awtg=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=iD962t4OeYl8fq9bTKX9Iflx2I8f4Vh717mX7u9d7sgpo3vSQSuZKwQe07yLRktiO
+	 gFdNC4bR0scWTeYeG9TlkR7+3xN4DJoKt17dRAPIvmpfuk9X3NLIT+RijO1qwXbOh1
+	 mR5OHKL7wb/iz9+5aMbhW+2FAfECvIlTyr5QtUWw5O926DvgT+4ibSkwaFOcbxHQkP
+	 W5Io98xLEQYQN5altOp6mwTly7u+9RMwt5X1lVQLP5ehGoFuIWthAYn+3X7P52B4qp
+	 /mgz5VjRAGHHSfDNtJam+ZWFb7e1U5bYIQaVa8VphujDC4wpURh4MQSpqcHAzm6Non
+	 0VXVfNNsi8ZsQ==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so27019171fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:02:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzbg9AQBEekajBar+lS3xZTeJcpkuR5nuaCfYyVUa30itAjlR31T7bIi+oFuG4DGumQg+7g7FT112+zSw8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrkr0IU0ZO5ciLEqAC1sxSwmdRIAW/x2TPBatewQd1hqcF31rn
+	QRFgm3Hcr8it4Q57yTDSJ2euem+aQWT/OryfwaripUAKx0k1DIC57sW1MuEx6wxvpUTz3y7Gr22
+	iv5Fxc7/4nkXT5stAzYe1dP1WltRQCqY=
+X-Received: by 2002:a2e:a99d:0:b0:3ab:48e6:6785 with SMTP id
+ 38308e7fff4ca-3ac6fde8009mr25044611fa.27.1793095356530; Tue, 27 Oct 2026
+ 03:02:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,51 +59,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026103743.GD2668200@noisy.programming.kicks-ass.net>
+References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
+ <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
+ <20261027-nifty-reliable-octopus-6cbac5@quoll> <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
+ <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org>
+In-Reply-To: <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 27 Oct 2026 18:02:24 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64Qr-XCRdgi+RNS2XkKUn=F8zW+8WUKaauM2PjzL2XgWg@mail.gmail.com>
+X-Gm-Features: AclHuK-r-0qVcGxijtfK3XLHMgbsvhgpkiCG_8sJWoMVAePUb1PQB2bHv8-O4VU
+Message-ID: <CAGb2v64Qr-XCRdgi+RNS2XkKUn=F8zW+8WUKaauM2PjzL2XgWg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
+ Allwinner H616
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: James Hilliard <james.hilliard1@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 11:37:43AM +0100, Peter Zijlstra wrote:
-> On Sat, Oct 24, 2026 at 06:46:33PM -0700, Cytops via B4 Relay wrote:
-> > From: Cytops <cyridge@proton.me>
-> > 
-> > KCFI_REFERENCE() takes the address of a symbol so that the compiler
-> > emits its __kcfi_typeid_ symbol, which the SYM_TYPED_FUNC_START()
-> > assembly implementing it needs. It is used from arch/x86 headers for
-> > __clear_pages_unrolled(), copy_page(), __memset() and __memmove(), and
-> > all of that assembly is built into vmlinux.
-> > 
-> > Modules include the same headers, so with CONFIG_CFI=y every module
-> > also gets an __ADDRESSABLE() reference to each of these symbols in
-> > .discard.addressable. This serves no purpose there, and since
-> > __clear_pages_unrolled() is EXPORT_SYMBOL_GPL, modpost now rejects any
-> > GPL-incompatible module that includes <linux/mm.h>:
-> > 
-> >   ERROR: modpost: GPL-incompatible module repro.ko uses GPL-only
-> >   symbol '__clear_pages_unrolled'
-> > 
-> > even though the module never uses the symbol. This makes OpenZFS
-> > impossible to build against CFI kernels; its configure checks fail
-> > in the same way and are misreported as CONFIG_DEBUG_LOCK_ALLOC.
-> > 
-> > Only emit the reference when building vmlinux.
-> > 
-> > Tested on x86_64 with clang 23.1.3, CONFIG_CFI=y and
-> > CONFIG_LTO_CLANG_FULL=y (the configuration from the Fixes: commit):
-> > vmlinux links without warnings and still contains
-> > __kcfi_typeid___clear_pages_unrolled, __kcfi_typeid_copy_page,
-> > __kcfi_typeid___memset and __kcfi_typeid___memmove. It boots in QEMU
-> > with no CFI failures. A minimal module with MODULE_LICENSE("Proprietary")
-> > including <linux/mm.h> fails modpost before this change and builds and
-> > loads after it. OpenZFS builds against a CFI kernel with this change,
-> > and its pool, encryption, checksum and send/recv operations run with
-> > CONFIG_CFI_PERMISSIVE=y without CFI failures.
-> > 
-> > Fixes: 9b041a4b66b3 ("x86/mm: Ensure clear_page() variants always have __kcfi_typeid_ symbols")
-> > Link: https://github.com/openzfs/zfs/issues/18092
-> > Assisted-by: LLM
-> > Signed-off-by: Cytops <cyridge@proton.me>
-> 
-> Yeah, I suppose this will do. Thanks.
+On Tue, Oct 27, 2026 at 5:56=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On 27/10/2026 10:39, James Hilliard wrote:
+> > On Tue, Oct 27, 2026 at 2:02=E2=80=AFAM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
+> >>
+> >> On Sat, Oct 24, 2026 at 02:22:24PM -0600, James Hilliard wrote:
+> >>> The H616 UART has 256-byte transmit and receive FIFOs, but its Design=
+Ware
+> >>> component parameter register does not report the FIFO depth. Its opti=
+onal
+> >>> register layout also differs from the generic DesignWare integration.
+> >>>
+> >>> Add a specific compatible for the integration and allow the standard
+> >>> fifo-size property to describe the capacity. Require the documented
+> >>> 256-byte size for H616, retaining snps,dw-apb-uart as a fallback.
+> >>>
+> >>> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> >>> ---
+> >>>  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml    | 17 +++++++=
+++++++++++
+> >>>  1 file changed, 17 insertions(+)
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uar=
+t.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> >>> index e2ca126d58ba..0f8fd0485879 100644
+> >>> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> >>> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> >>> @@ -13,6 +13,18 @@ allOf:
+> >>>    - $ref: serial.yaml#
+> >>>    - $ref: rs485.yaml#
+> >>>
+> >>> +  - if:
+> >>> +      properties:
+> >>> +        compatible:
+> >>> +          contains:
+> >>> +            const: allwinner,sun50i-h616-uart
+> >>> +    then:
+> >>> +      properties:
+> >>> +        fifo-size:
+> >>> +          const: 256
+> >>> +      required:
+> >>> +        - fifo-size
+> >>
+> >> Why do you require fifo-size if is const? It is implied by the
+> >> compatible.
+> >
+> > H616 has a fixed depth, but other sunxi integrations have different
+> > depths between UART instances. For example, D1 has 64-byte FIFOs on
+> > UART0 and 256-byte FIFOs on UART1=E2=80=935.
+> >
+> > Should I keep this explicit for consistency for all sunxi uarts?
+>
+> I am confused, there are no other instances here.
 
-Borislav reminded me that we need a real identity for SoB.
+I think the point is that it is going to be needed in the future when
+we add the compatibles for the SoCs that do have UARTs with different
+FIFO sizes.
