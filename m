@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105146;
-	b=glAI9mr6aUMjmKDJ3TB9ndWrkAAg7U0bOYhW9VqtuL4srkqCDroz+CSPq98x1XBiKSGZ
-	 VOcqCeuACWXeIlTVIPwumAqFbUoLdZYRiLkwnKYzBE+5Je4Sn9L9R4G/L7b3Ib6BNHYNv
-	 x1PFu374e7GtLgs8QgBveYVYBueeYZlckpBSMJJO2yaE/TLHoASP6LSqhgO0hQI1M7sxf
-	 keBX3JGC52QwY84Rai3SqB92bK5n+dg2APOaNTb/cHo38O8O84y22AgyCy/yyptWbq3qo
-	 hu/Up4GpnMvTxer9/tLTQvEdrgeN0CIrOYz159FQZFs6Ff6CeDv22Ptw05WvccUmepQ==
+	t=1793105176;
+	b=EXqVLPFAMIb7uvUl4WiijURxNHruFzEPEIg3CzqtY6tjWQwSjfEgwk23WoM/1/OvDEa8
+	 hLs64CRjqG6Wm3z/nJ4FgYEw8jiS3QXnDJ4+BtxAT6xSXq0BxgOFcJlHfDV6SWGPnbqWw
+	 N53hoRPe1KIib4gnj70zfzynM+csogAC56S/l5+tDd5o/hg4eSesKZ74D/yGWaQUUK+7H
+	 wX1p69yiv2JYYBokGVX7dzffk4Gn3bA/TD849uPM3+LW3aGLnnH5ovd1Mj3Eg4e/IS6rp
+	 TBuQZgHf79OV7ta4ciemzyC364Fr7n175FnF54kfi/2ZqGX0f5KMnyi0uaUgZc+UWpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105146;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=koFtvkLfr2oI9uXtX/n3Ay3Dy+ycp8hbA1U6raVcKYE=;
-	b=JIDfY44BnIkDiTFiQT/25YctRvKS3o8OUJeE/EsrKT9e1+46daVWlStGp3T7xQBw+geA
-	 KsR5Ik1b4NdfUTLPI4PqfPBTeycGtweBvQ4yJiYeBtvtvHcqexbYs1jH1fOZY8ZOwhYrY
-	 bI2HO+KPKQdMsKQVMQsv0/9ZMebaaNPH8QYWKAg9W1TDbswHj5w7jPHiuMqUfMTj2HtBb
-	 I4K3JkAk1e27hCeHfXWsbBVkepfSJJKZeTGzba9ny9232ehvodmbT5pCxqRfQ1Z01dN2c
-	 0kkSjZ9zNHyMmsTKNmjvUWccehMg38Yjp20w97AerKGW1N67PzzTWtBnjJzHQbpmXKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105176;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZuPnGPtXOcWmhVu7JksGY/6MPU+imQRyhrYYsrvJoEY=;
+	b=cdoD4oitatdBrOGNUgQMC/JjvZAAZ5A+rILwSFQn0Go1nXSQCBc0FdF2OQ/bdyyQEkFx
+	 keaqz0fcoaQ0wBicd52TXye93i1+9/3dtvpKASwNdNucpzONV28lMCzGWcfO2Ec6n6A7I
+	 K8l4zyUT6GVxB8tx8CLraIMQHirYksIO4rPT4j93UXLYHxrJQyY/oBoZdsy6Oxhq6TfYr
+	 7+yugq5qgJnmxP+tPW34MQUBTx6/fz8kfXa6FZd+wTyXZ780oJIFK7ydj/h4nqMubuQzE
+	 KtLL5kJMttuVNn/jIyHKMvM8le2FHaTPJx2r9GFEMrf4ECxS9B6oOb/ZYkz/j6mWKvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5B1imMU;
-	arc=none smtp.remote-ip=95.215.58.36
-Received: from mta1.migadu.com (out-36.mta1.migadu.com [95.215.58.36])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vhbm56jr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7329606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:45:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7329606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE42606A31E;
+	Tue, 27 Oct 2026 12:46:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=o5B1imMU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7hyLZnCptglh6ZfX27cwvtA9DMVa5PLCr9Si8AAJnHA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793105144; v=1; x=1793709944;
- b=o5B1imMUAsXMIe68c9yZ8nUysrg9IA3E5gU6Jo69SRBPFqKt990Xab1s4cfAE2x9M7THBwwA
- 3+KbCVOHBt2XqQu4lrWHGQzoKEqn1BBqv8Aob+fNaFgruL63suAcGmi5Ee11M9EUXcFkeTN66Sd
- ikXmkP6AWUjk+DkrHmtBniH4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c7f68ba690e126ba;
-	Tue, 27 Oct 2026 12:45:23 +0000
-X-Mizu-Trace-ID: c7f68ba690e126ba
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e25fd292-5391-41fc-a324-0ec260828415@linux.dev>
-Date: Tue, 27 Oct 2026 20:45:14 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vhbm56jr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAFF1F01825;
+	Tue, 27 Oct 2026 12:46:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793105176;
+	bh=ZuPnGPtXOcWmhVu7JksGY/6MPU+imQRyhrYYsrvJoEY=;
+	h=From:To:Cc:Subject:Date;
+	b=Vhbm56jrteQjTTsDguHLxGkwy0uhl30h+TeiYpBkTKwcKnWtgi5eXu6cJGSAGtVHN
+	 qnmYKadM/iQjZaXm5kN86nrNVfajeEwlKXp7XBhUAohzubxKZl88nJWvNZlkvibmUd
+	 pKvIXlhYJrDNj/NMg/dm6HOuw4npnMPGCjnrELNpq8Kx7YtCfLLDI0iXDagBpQxhAV
+	 1eFuMjWTWyQLfFoEQdftXK1zpkblWAD+MFmNPCfyiexQzfPQ6XABH3NcjvezNsmvAS
+	 CSzG0RIj2q8T89kJfzmx+n61e2E7BZ6BbwvvhQM5puqgznU2rZEuPeRUIJ0Mpt8T60
+	 ydBT7FGwORYLg==
+From: Joshua Crofts <crofts@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH] iio: update email for Joshua Crofts
+Date: Tue, 27 Oct 2026 12:46:02 +0000
+Message-ID: <20261027124602.1533-1-crofts@kernel.org>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,121 +63,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
- configured MTU, not the learned PMTU"
-To: echoowall@gmail.com, netdev@vger.kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- Shuah Khan <shuah@kernel.org>, Thorsten Leemhuis
- <regressions@leemhuis.info>, regressions@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>
-References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
- <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+I'd like to use my kernel.org email going forward.
 
-On 10/26/26 3:23 PM, Esko Mobius via B4 Relay wrote:
-> From: Esko Mobius <echoowall@gmail.com>
->
-> This reverts commit 2640e6419594 ("net: advertise TCP MSS from the
-> configured MTU, not the learned PMTU").
->
-> That commit stopped the learned PMTU from lowering the MSS we advertise
-> in SYN and SYN-ACK. For symmetric paths it argued that "the peer runs
-> its own PMTU discovery and usually already knows the real path MTU".
-> That only holds if ICMP "fragmentation needed" can reach the peer. When
-> the peer sits behind a firewall that drops inbound ICMP, its PMTU
-> discovery is a black hole (RFC 2923, section 2.1), and the smaller MSS
-> we advertised was the only thing keeping its full-size segments off the
-> narrow hop.
+Signed-off-by: Joshua Crofts <crofts@kernel.org>
+---
+ .mailmap                                                      | 1 +
+ .../devicetree/bindings/iio/dac/microchip,mcp47a1.yaml        | 2 +-
+ MAINTAINERS                                                   | 4 ++--
+ drivers/iio/dac/mcp47a1.c                                     | 4 ++--
+ drivers/iio/light/veml3328.c                                  | 4 ++--
+ 5 files changed, 8 insertions(+), 7 deletions(-)
 
+diff --git a/.mailmap b/.mailmap
+index 1f5540bc33f1..07df296885ba 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -475,6 +475,7 @@ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com> <jorge.ramirez-ortiz@linaro
+ <josh@joshtriplett.org> <josht@vnet.ibm.com>
+ Josh Poimboeuf <jpoimboe@kernel.org> <jpoimboe@redhat.com>
+ Josh Poimboeuf <jpoimboe@kernel.org> <jpoimboe@us.ibm.com>
++Joshua Crofts <crofts@kernel.org> <joshua.crofts1@gmail.com>
+ Jouni Malinen <quic_jouni@quicinc.com> <jouni@codeaurora.org>
+ JP Kobryn <jp.kobryn@linux.dev> <inwardvessel@gmail.com>
+ Juha Yrjola <at solidboot.com>
+diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+index b181fe73dce8..e8a8c7c88716 100644
+--- a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
++++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+@@ -8,7 +8,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: Microchip MCP47A1 DAC
+ 
+ maintainers:
+-  - Joshua Crofts <joshua.crofts1@gmail.com>
++  - Joshua Crofts <crofts@kernel.org>
+ 
+ description: |
+   The Microchip MCP47A1 is a 6-bit single output volatile DAC.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ecc22d1149d1..78a21782e153 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17912,7 +17912,7 @@ F:	Documentation/devicetree/bindings/iio/adc/microchip,mcp3911.yaml
+ F:	drivers/iio/adc/mcp3911.c
+ 
+ MICROCHIP MCP47A1 DAC DRIVER
+-M:	Joshua Crofts <joshua.crofts1@gmail.com>
++M:	Joshua Crofts <crofts@kernel.org>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+ F:	drivers/iio/dac/mcp47a1.c
+@@ -29151,7 +29151,7 @@ F:	Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
+ F:	drivers/iio/light/veml3235.c
+ 
+ VISHAY VEML3328 RGB IR LIGHT SENSOR DRIVER
+-M:	Joshua Crofts <joshua.crofts1@gmail.com>
++M:	Joshua Crofts <crofts@kernel.org>
+ S:	Maintained
+ F:	drivers/iio/light/veml3328.c
+ 
+diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
+index 0bf994aa0e4f..2e2cf8f645fa 100644
+--- a/drivers/iio/dac/mcp47a1.c
++++ b/drivers/iio/dac/mcp47a1.c
+@@ -2,7 +2,7 @@
+ /*
+  * Microchip MCP47A1 DAC driver
+  *
+- * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
++ * Copyright (c) 2026 Joshua Crofts <crofts@kernel.org>
+  *
+  * Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
+  */
+@@ -161,6 +161,6 @@ static struct i2c_driver mcp47a1_driver = {
+ };
+ module_i2c_driver(mcp47a1_driver);
+ 
+-MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
++MODULE_AUTHOR("Joshua Crofts <crofts@kernel.org>");
+ MODULE_DESCRIPTION("Microchip MCP47A1 DAC Driver");
+ MODULE_LICENSE("GPL");
+diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
+index df36c48204be..c49dd3ff432d 100644
+--- a/drivers/iio/light/veml3328.c
++++ b/drivers/iio/light/veml3328.c
+@@ -2,7 +2,7 @@
+ /*
+  * Vishay VEML3328 RGBCIR light sensor driver
+  *
+- * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
++ * Copyright (c) 2026 Joshua Crofts <crofts@kernel.org>
+  *
+  * Datasheet: https://www.vishay.com/docs/84968/veml3328.pdf
+  */
+@@ -440,6 +440,6 @@ static struct i2c_driver veml3328_driver = {
+ };
+ module_i2c_driver(veml3328_driver);
+ 
+-MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
++MODULE_AUTHOR("Joshua Crofts <crofts@kernel.org>");
+ MODULE_DESCRIPTION("VEML3328 RGBCIR Light Sensor");
+ MODULE_LICENSE("GPL");
 
-A client that cannot receive ICMP is broken beyond this: QUIC's DPLPMTUD
-hits the same black hole, and nothing the server advertises can help it.
-
-
->
-> Inbound ICMP filtering is very common in enterprise and carrier
-> networks, and it is pervasive in mainland China. We hit this in
-> production after the commit was backported to 6.12.111: TCP connections
-> that reach a server through a relay with a smaller-MTU hop complete the
-> handshake, then stall as soon as the client sends full-size segments.
-
-
-
-The learned PMTU is keyed per destination address. If your relay
-masquerades the clients, the server sees a single address, and one
-client's download seeds the entry for everyone behind it. That is why
-this looked reliable. Once the clients are spread over their own
-addresses, each one needs its own fresh entry and it falls apart. The
-old behaviour was never a mechanism for this.
-
-
-> Clients on networks that let ICMP through, and connections that bypass
-> the relay, are unaffected, which made it hard to trace back to the
-> kernel.
->
-> Reproducer, network namespaces on a single host:
->
->    cli --(1500)-- r1 --(1456)-- r2 --(1500)-- srv
->
-> r1 drops ICMP frag-needed towards cli. srv has already learned PMTU
-> 1456 towards cli, then cli uploads 1 MB to srv:
-
-
-This precondition does all the work. The server only learns the PMTU
-when it sends a full-size segment itself. If it only sends ACKs or small
-replies it never learns it, the SYN-ACK MSS is 1460 on 6.12.107 as well,
-and the upload stalls the same way. The entry also expires after 10
-minutes (ip_rt_mtu_expires), so the server must have received a
-frag-needed within the last 10 minutes before each new connection.
-
-Please re-run the 6.12.107 case without seeding the PMTU.
-
-
->
->    kernel                     SYN-ACK MSS   1 MB upload
->    6.12.107                   1416          OK
->    6.12.111                   1460          stalls, times out
->    7.3-rc7                    1460          stalls, times out
->    7.3-rc7 + this revert      1416          OK
->
-> The asymmetric case the commit was written for does not need a new
-> default: the advertised MSS can already be set per route with the
-> advmss metric, which takes precedence over default_advmss(). With this
-> revert applied, on an asymmetric path where srv learned PMTU 1456
-> towards cli while cli->srv is 1500 end to end:
->
->    srv route to cli           SYN-ACK MSS   largest cli->srv segment
->    default                    1416          1404
->    advmss 1460                1460          1448
->
-> So DSR-style setups can opt in with "ip route ... advmss <mss>", while
-> hosts whose peers cannot complete PMTU discovery keep working by
-> default.
->
-> Fixes: 2640e6419594 ("net: advertise TCP MSS from the configured MTU, not the learned PMTU")
-> Reported-by: Esko Mobius <echoowall@gmail.com>
-> Closes: https://lore.kernel.org/regressions/4F0FAEB6-A13B-47F3-BFF1-C706686C6F64@gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Esko Mobius <echoowall@gmail.com>
-
-
-
-
-Maybe a better way out than a plain revert:
-
-Revert in stable, and in net-next add a sysctl, something like 
-net.ipv4.tcp_advmss_use_pmtu,
-that decides whether an endpoint uses the PMTU it learned on its send
-side for the MSS it advertises (even though these are two opposite
-directions). Default on keeps your setup working, DSR-style setups turn
-it off
-
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+-- 
+2.47.3
 
