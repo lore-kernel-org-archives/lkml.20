@@ -1,111 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793120868;
-	b=iyMjsXOWr0QB80bMmeJiv1G8HadC7IBzzaMoiFy0ooY/YdSRHt2PuifSBfm0MKhH0vyI
-	 ToorpLJzIUtRYnzFgI+YgZ91XWNZyz/Ph7+SbGiWgBEQvIZuHsUSZypXI6YQhSMvKkSVy
-	 0NDIzaYlvUmkIg5YrRrnqjxoJD97HGdxoh+DLag8TMpUWZVvYu48hWis320c2rFWGYmTO
-	 g4o6f1tkWwzNJh4ByDu+VLacOy0QHwtFchleiXwKAqWD8nPp999k7N6daAQ9Zj0eplYqZ
-	 RNlQml3bV5lmny+oZoufZerwg/uNZDNtx79mPPGzMG6N9XQjD9upXOTpETkJb+dxXZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793120868;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=VRDVRKYaMu8kzl427JrQTQLdK+5E666eczfqK+K4CcQ=;
-	b=dEGaSrKnlGGrq9BZSs/e7tInKHc3voV+woG8VREBNcBUMqUyekOvY5epDd6GSDZvvTlA
-	 Z3VQB/Pcap4XvXjPrcNX2kH/KWUTHjX5YCKUE+uQ/9nR/8pOxTqjYYvpeTZjfHk1LkfuX
-	 2YqKDsgz6ebIRl3YU5zp1UqfFk/37i9rb2DD5u+b3JUYmUJpAqRNjMG8spftqmGOj4R6p
-	 SWZEqsUfVvd8yOlFIfa7yaas7ZTlBH2EeKQOOc+a6TuVRnbVMKaVPv7Hi07UHaRcgry9P
-	 ZhlNqerlosjZZph3bY0nVedaK5huX+GLqM+hQN9gGl6moTCWBYgjnNnj29H6grifOTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PR26Zyue;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.1
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012001.outbound.protection.outlook.com [40.107.209.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C13F606A31A;
-	Tue, 27 Oct 2026 17:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C13F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PR26Zyue
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oD2e0WpC4SCsKzQ96ePL8b1buQ/ux2QJCY3xoadYsB9Z4NLQ06MUrcHDmc+LVgwu3wx1X3/fMIxHfQETe1CJJnHr0rEtWm8+KwfAUhnrxKSdVcUzg2XdB2Zd0Un5OyZeh+Bp4tEvuh3KiXRAxjQA/+2RDz+5uBCjq7YR4s6DEZK83g4xJFnHIeIxL4BftlTjDCWjHSWMahC/oGypmuJGrOWfmTD0hcLXuQ1Sa51kehhjn7PFSZOhd9A3mELljOjaA8iXseX5dINyzw7tA0UOs1ymlR1+RgBh9vkf4a8fk/x2+ljD5iiROMVACQbBR6ijWt7dkN5U9seaflAvoJoRAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VRDVRKYaMu8kzl427JrQTQLdK+5E666eczfqK+K4CcQ=;
- b=y3tzEPkN8IMG2iAAJu4oJ9Bd+aYoy6uykz2CRi5TLtodu548sz/nWDpkloswOyOrN+O3aHpKi1C+6+P8eNMtaWQkFZTBHkx+24z/ezko0UwEoiYBDu80ptrFLIPD8mtKYtTdOA1s4NeByv/fkiBpPwKFpowhBJ0/d3FOowiuKgCWWW6mnb13gVb6SK4oaik68+tPTGtqQik33laqf92CjE6GtGa7PQYP1z435T8KIKLhuxDOV0Zzw3ekot9YTJea1gmvEhuhOl2Dil07K8Ew9MXVhcCCgqBqwuKz6iDqWEEy2FkdIy4bM3SxW2sE+OlaOwUbCdNbZdHXihaauB/CfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VRDVRKYaMu8kzl427JrQTQLdK+5E666eczfqK+K4CcQ=;
- b=PR26Zyue3Fkd/VnCgc5Klj7xPhh6S/vZcTAma9GLCFD8H2kjIDVXAurSx365NqCyCTszOkQt9QcAG/LOMtIbsEH7fm6VoHNGw8hbYlET+nKpmlGzfxvR83kMEWy+xCfDGq9b/K3aPwzaC2vVBm+aD94rVZ16jT53tUYJfPRrUNGRBai9E62CmvHa4SmJFs57vTLsfxs9MpjK3pFWlIJKOXXhV8DZxLhMMGMdNs3PX+g2f/9Em4HaRwndIvoAijjJVTnFaqmOMaeLafQM9N2+D1oAW7NidjiB5YG9NJthaI2xFk4sb0FcSpGWAqg+DUbkQIoGqcnUFK+n80XJv9Rqxg==
-Received: from DS7PR03CA0016.namprd03.prod.outlook.com (2603:10b6:5:3b8::21)
- by CH3PR12MB8880.namprd12.prod.outlook.com (2603:10b6:610:17b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 17:07:39 +0000
-Received: from CH2PEPF00000144.namprd02.prod.outlook.com
- (2603:10b6:5:3b8:cafe::90) by DS7PR03CA0016.outlook.office365.com
- (2603:10b6:5:3b8::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 17:07:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 17:07:37 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 27 Oct
- 2026 10:07:14 -0700
-Received: from vdi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 27 Oct
- 2026 10:07:12 -0700
-From: Chris Babroski <cbabroski@nvidia.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <Raju.Lakkaraju@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<andrew+netdev@lunn.ch>, <bryan.whitehead@microchip.com>,
-	<cbabroski@nvidia.com>, <davem@davemloft.net>, <davthompson@nvidia.com>,
-	<edumazet@kernel.org>, <kuba@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux@armlinux.org.uk>, <maxime.chevallier@bootlin.com>,
-	<netdev@vger.kernel.org>, <pabeni@redhat.com>, <richardcochran@gmail.com>
-Subject: Re: [PATCH net-next v1 2/5] net: lan743x: start phylink last and stop it first
-Date: Tue, 27 Oct 2026 13:07:02 -0400
-Message-ID: <20261027170702.576476-1-cbabroski@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <179242764576.3135.4479437969199107753@kernel.org>
-References: <179242764576.3135.4479437969199107753@kernel.org>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793120875;
+	b=jnnzfBRQiidJ41VsJr+Kp3877mO++APC2jrFMPPLjh2lwkHQEoJ/S4p2aDH96nkyu7hd
+	 iJLNsaEv+F74P9jq2jAxtCNCm3NiqAnJttK9QcbNY/3OG7yFD+8Mpc+yHs9RG3WA9WV7L
+	 wz7JSCs8fl6qT79sOmQ1ATD6A66WddaT4s0mOAwOFcOQ44NVCdrKi1JUrn0HsQAfZQ9wE
+	 tAcaRxEA2hgLzH7Oq4tMfYqCH5CM5QQD80Xt3rPsRWxVdFbTa3/7P/3o46KKMSuHaND1f
+	 TLuMkQ+NWIRoIhkWRrqKaoO86S1gFYmKVet1kaeQP44AmtcOHCY+S4Ffhb7Ktt7A6Ow==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793120875;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=u9oA4WbTEewM6HuFQTfW5+AilxWeVNBbE2glAWXMnxI=;
+	b=AW4vHMRdarpUqL+lhDZwZ70TNhuMKANz56v+QW0LqQpmMIEbsMqZwnKTTblGp/4ip3Sl
+	 E64ccYn43XMAqEPZwUkXiOYKpDPLNsELuFTyHYwN7FO2fOqPr/WBHCDZSNsEI3N5/Rz9y
+	 0Hj0Jg3D3GLIc6TCjzuCbwPFm1Jg59taKyhWCTrXfsO9vvEHlFVQQi1vBgz4PzUIzGjLJ
+	 QMTxbWODtz5FJlACWoxPve3wZIdv15L/QEdAri7CeOAJZINA8BmOwXg56NuD2s903o+cE
+	 2H0++VHWqm/tnRE/b/NvNx9D8GZIo/ZaQ1WKoX8oj5BClbfhuvzMn+gZiY5/wiGDawA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=52.187.6.220
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A8FD606A322;
+	Tue, 27 Oct 2026 17:07:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A8FD606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMAmTndm2uBqEt5fAA--.42777S2;
+	Wed, 28 Oct 2026 01:07:50 +0800 (CST)
+Received: from hust.edu.cn (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wDHkrpj2uBqunDEAA--.19242S2;
+	Wed, 28 Oct 2026 01:07:48 +0800 (CST)
+From: Dongliang Mu <dzm91@hust.edu.cn>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dongliang Mu <dzm91@hust.edu.cn>
+Subject: [PATCH 2/2] docs: Improve wording in Sphinx dependency checker
+Date: Wed, 28 Oct 2026 01:07:47 +0800
+Message-ID: <13b42c47a375e2ccc9f84412c10e7868f7ea7c4a.1793119566.git.dzm91@hust.edu.cn>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1793119566.git.dzm91@hust.edu.cn>
+References: <cover.1793119566.git.dzm91@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,113 +57,391 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|CH3PR12MB8880:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce13ea3e-2ce2-49f6-316f-08df344ccd1f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700016|82310400026|1800799024|23010399003|261022105027099003|18002099003|261026121527099003|22082099003|56012099006|11063799006|10067099003|261009223027099003|261022075727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	eAMBgL2zVE13ClDOf7N/tJZmGtE7ZfP+upItJO+jHRgPCdFZVAAPKpPaW9nuUXDd5cdnGdK+SXRitbumxWiZ7TEWycruGUVwlLs4Kj7BZVGCEp1AlApqdUCc/k2iXdO4yzlOe7EQdAlTCYwHKwi22WWg8hSLSVvzZtb3RqI6R8flpzReJVcbKBoh6HowmI6n03smfSmS/AHxBu4BTtg9579DRaffn8Gvpr+j8F1IXUOCmwGuE6+sX84UsFuI8a9sh9PtnRpEM1S1CwTvyOkRZiH8surnE0KytRCD+bZEMBmMtrgTrBVZ3wfKUY+zxiNgIbmtXdTTKOzvu1n9EGdxyiQFA1Rc3qRo/0Cp1D7skYmNvyaje42mYyq7VewPch1iOYdG+8XOq/YHQGCia8fAliq62NGYqj+DxC+sxsuT3MWWy3ZjqM+QvYRprhrF3fGb0KGbVPDweoriA03M4XEuecieXoSaljyyK7/wDxXFUAhhpiZO2px4xXP8CNiBTs7xfuc0mftFLG+2lS3E8AYKunYyHfKlD4B7Kgfv9xoJWyFlkRBvUE2R3/CXf6aQsKTpOJASrrGiF0/N47gL+MuNxFJkfDrNFDxn/OgmB23UBgsYIk7j7a52Rz8kjUT7sH7AjrOcFZG7241Bm/ZQttVO0KCxV6pnJZnnTztQi36oCKpsOLRmHqy3ELNE1IVoCNThuO2M6s70E7ny3p+24OtDrw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(82310400026)(1800799024)(23010399003)(261022105027099003)(18002099003)(261026121527099003)(22082099003)(56012099006)(11063799006)(10067099003)(261009223027099003)(261022075727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jgB5MxKQYRbbOVNZF5KzeX1yplQhb8LfKplFRIX2HZgsv6uUkQm4118Zd4M/ttzkxYkbK3/KGyujiz42wWEeI3IS0Dg3T+M/xEfX/EJdUniTPazy6dilPouOwIoLZyW/QFSKDRQw1fstd/tUeGxHY9wUhwuBEniQOIh7ZdtaiKEdByJMObiKMC7dEcL7kCeUblIF3s8PRBjjsmI8poeQVB84VHMpYRk784+0oSnrY8HDsYFImicqBGkMENMxmoYkWQ3QZZl2IVPNZ1Vbo7MIkBWRIlVYrUdSb3Hq71LUr7b/NxL3mglVTaCygXmIh3ToY8g22wofagM6pNtnTfvwskCGJCJHJo1u+DXDF+k5+ee8t1v+8NmlLamwkzjbEAOkWbZfexhZD/aJnWGoM3bIn/RnUegxUNclEDXXsjxP5tnLAubvmusuosrtTPIXkup5
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 17:07:37.1819
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce13ea3e-2ce2-49f6-316f-08df344ccd1f
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000144.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8880
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMAmTndm2uBqEt5fAA--.42777S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvAXoW3ur45Kr4xWw1fZryxuF48JFb_yoW8Gw1UCo
+	WrZrWDGa9rKr17JF10vas5CFyUWa10kF4fJr1Utr45Ka10va43Gw1rZ3y8Ja43AFn2kr9r
+	Was8G340yrs5JF93n29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUOW7k0a2IF6w4kM7kC6x804xWl1xkIjI8I6I8E6xAIw20EY4v2
+	0xvaj40_Wr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7
+	IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vE
+	x4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1ln4kS14
+	v26r126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF
+	6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7
+	AKxVW8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_
+	Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAV
+	WUtwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1U
+	MxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUYcID3UUUU
+	U==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-> > @@ -3334,6 +3334,8 @@ static int lan743x_netdev_close(struct net_device=
- *netdev)=0D
-> >  	struct lan743x_adapter *adapter =3D netdev_priv(netdev);=0D
-> >  	int index;=0D
-> >  =0D
-> > +	lan743x_phylink_disconnect(adapter);=0D
-> > +=0D
-> >  	for (index =3D 0; index < adapter->used_tx_channels; index++)=0D
-> >  		lan743x_tx_close(&adapter->tx[index]);=0D
->=0D
-> [Severity: High]=0D
-> Can a TX queue get woken again after this point and stay awake while the=
-=0D
-> rings are freed?=0D
-> ...=0D
-> This looks to be fixed later in the series by "net: lan743x: quiesce TX=0D
-> before freeing the rings". That commit adds a netif_device_present() chec=
-k=0D
-> before the NAPI wake, and adds synchronize_net() plus netif_tx_disable()=
-=0D
-> after lan743x_phylink_disconnect() in lan743x_netdev_close().=0D
-=0D
-As mentioned by Sashiko, this issue is resolved in patch 3/5. For v2 I=0D
-will rearrange the commit order so that patch 3/5 comes before this one.=0D
-=0D
-> [Severity: High]=0D
-> Can a transmit that is already in flight also race with the ring=0D
-> teardown here?=0D
-> ...=0D
-> This also appears to be fixed later in the series by "net: lan743x:=0D
-> quiesce TX before freeing the rings", which adds synchronize_net() and=0D
-> netif_tx_disable() right after lan743x_phylink_disconnect().=0D
-> netif_tx_disable() takes each txq lock, so it waits for in-flight=0D
-> transmits.=0D
-=0D
-Same as above.=0D
-=0D
-> > @@ -3387,6 +3383,10 @@ static int lan743x_netdev_open(struct net_device=
- *netdev)=0D
-> >  			goto close_tx;=0D
-> >  	}=0D
-> >  =0D
-> > +	ret =3D lan743x_phylink_connect(adapter);=0D
-> > +	if (ret)=0D
-> > +		goto close_tx;=0D
-> > +=0D
->=0D
-> [Severity: High]=0D
-> This is a pre-existing issue, but does every open after the first one=0D
-> fail on LAN7431/PCI11x1x boards that have no DT node and no PHY on the=0D
-> MDIO bus?=0D
-=0D
-This is a pre-existing issue and doesn't occur on the HW I have=0D
-available to test with so I'm hesitant to change as part of this patch=0D
-series. It feels out of scope, but if the maintainers can provide an=0D
-appropriate fix and want it included in this patch series I can make the=0D
-change as part of a later revision.=0D
-=0D
-> [Severity: High]=0D
-> This isn't a bug introduced by this patch, but what happens on resume=0D
-> when this goto close_tx is taken?=0D
-> ...=0D
-> A transmit path that bypasses the qdisc and does not check carrier, such=
-=0D
-> as netpoll, could also reach lan743x_tx_xmit_frame() while ring_cpu_ptr=0D
-> and buffer_info are NULL.=0D
-> =0D
-> Together with the fixed-link -EINVAL above, every resume on fixed-link=0D
-> boards without a DT node would hit this. It still seems to be present at=
-=0D
-> the end of the series. The lan743x_netdev_stop() wrapper added later only=
-=0D
-> skips close when !netif_device_present(), and resume has already=0D
-> re-attached the device by then.=0D
-=0D
-Same as above.=0D
-=0D
-Thanks,=0D
-Chris=0D
+Correct typos and awkward phrasing in user-facing installation hints,
+command-line help, and docstrings. Leave dependency checks and package
+mappings unchanged.
+
+Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
+---
+ tools/docs/sphinx-pre-install | 115 +++++++++++++++++-----------------
+ 1 file changed, 57 insertions(+), 58 deletions(-)
+
+diff --git a/tools/docs/sphinx-pre-install b/tools/docs/sphinx-pre-install
+index d1af82e1466d..00a8a42ca7d9 100755
+--- a/tools/docs/sphinx-pre-install
++++ b/tools/docs/sphinx-pre-install
+@@ -10,19 +10,19 @@
+ # incompatible python versions.
+ 
+ """
+-Dependency checker for Sphinx documentation Kernel build.
++Check Sphinx installation and Linux kernel documentation build dependencies.
+ 
+-This module provides tools to check for all required dependencies needed to
+-build documentation using Sphinx, including system packages, Python modules
+-and LaTeX packages for PDF generation.
++This module checks whether Sphinx is available and verifies dependencies
++needed to build Linux kernel documentation, including system programs,
++Python modules, and LaTeX packages for PDF output.
+ 
+-It detect packages for a subset of Linux distributions used by Kernel
+-maintainers, showing hints and missing dependencies.
++It reports missing dependencies and provides distribution-specific
++installation hints for a subset of Linux distributions used by kernel
++maintainers.
+ 
+ The main class SphinxDependencyChecker handles the dependency checking logic
+-and provides recommendations for installing missing packages. It supports both
+-system package installations and  Python virtual environments. By default,
+-system pacage install is recommended.
++and provides recommendations for installing missing packages. When Sphinx is
++missing, it can suggest a Python virtual environment or a distribution package.
+ """
+ 
+ import argparse
+@@ -51,8 +51,8 @@ class DepManager:
+     - PDF: dependencies needed by PDF builds.
+ 
+     Each dependency can be mandatory or optional. Not installing an optional
+-    dependency won't break the build, but will cause degradation at the
+-    docs output.
++    dependency won't break the build, but may degrade the generated
++    documentation.
+     """
+ 
+     # Internal types of dependencies. Don't use them outside DepManager class.
+@@ -148,7 +148,7 @@ class DepManager:
+         """
+         Clear dependencies without changing needed/optional.
+ 
+-        This is an ackward way to have a separate section to recommend
++        This is an awkward way to have a separate section to recommend
+         a package after system main dependencies.
+ 
+         TODO: rework the logic to prevent needing it.
+@@ -162,8 +162,8 @@ class DepManager:
+         Update self.missing_pkg, using progs dict to convert from the
+         agnostic package name to distro-specific one.
+ 
+-        Returns an string with the packages to be installed, sorted and
+-        with eventual duplicates removed.
++        Returns a string with the packages to be installed, sorted and
++        with duplicates removed.
+         """
+ 
+         self.missing_pkg = {}
+@@ -211,8 +211,7 @@ class DepManager:
+ 
+ class AncillaryMethods:
+     """
+-    Ancillary methods that checks for missing dependencies for different
+-    types of types, like binaries, python modules, rpm deps, etc.
++    Common helpers for locating and running programs.
+     """
+ 
+     @staticmethod
+@@ -232,7 +231,7 @@ class AncillaryMethods:
+     @staticmethod
+     def run(*args, **kwargs):
+         """
+-        Excecute a command, hiding its output by default.
++        Execute a command, hiding its output by default.
+         Preserve compatibility with older Python versions.
+         """
+ 
+@@ -288,7 +287,7 @@ class MissingCheckers(AncillaryMethods):
+ 
+     def check_missing_file(self, files, package, dtype):
+         """
+-        Does the file exists? If not, add it to missing dependencies.
++        Check whether any listed file exists; otherwise, record the missing package.
+         """
+         for f in files:
+             if os.path.exists(f):
+@@ -297,8 +296,7 @@ class MissingCheckers(AncillaryMethods):
+ 
+     def check_program(self, prog, dtype):
+         """
+-        Does the program exists and it is at the PATH?
+-        If not, add it to missing dependencies.
++        Check whether the program is in PATH; otherwise, record it as missing.
+         """
+         found = self.which(prog)
+         if found:
+@@ -310,8 +308,8 @@ class MissingCheckers(AncillaryMethods):
+ 
+     def check_perl_module(self, prog, dtype):
+         """
+-        Does perl have a dependency? Is it available?
+-        If not, add it to missing dependencies.
++        Check whether Perl and the specified module are available;
++        otherwise, record the missing dependency.
+ 
+         Right now, we still need Perl for doc build, as it is required
+         by some tools called at docs or kernel build time, like:
+@@ -340,8 +338,8 @@ class MissingCheckers(AncillaryMethods):
+ 
+     def check_python_module(self, module, is_optional=False):
+         """
+-        Does a python module exists outside venv? If not, add it to missing
+-        dependencies.
++        Check whether the Python module is available; otherwise, record it
++        as missing.
+         """
+         if is_optional:
+             dtype = DepManager.PYTHON_OPTIONAL
+@@ -355,7 +353,7 @@ class MissingCheckers(AncillaryMethods):
+ 
+     def check_rpm_missing(self, pkgs, dtype):
+         """
+-        Does a rpm package exists? If not, add it to missing dependencies.
++        Check whether each RPM package is installed; record any that are missing.
+         """
+         for prog in pkgs:
+             try:
+@@ -365,7 +363,7 @@ class MissingCheckers(AncillaryMethods):
+ 
+     def check_pacman_missing(self, pkgs, dtype):
+         """
+-        Does a pacman package exists? If not, add it to missing dependencies.
++        Check whether each pacman package is installed; record any that are missing.
+         """
+         for prog in pkgs:
+             try:
+@@ -375,7 +373,7 @@ class MissingCheckers(AncillaryMethods):
+ 
+     def check_missing_tex(self, is_optional=False):
+         """
+-        Does a LaTeX package exists? If not, add it to missing dependencies.
++        Check whether each TeX resource is available; record missing packages.
+         """
+         if is_optional:
+             dtype = DepManager.PDF_OPTIONAL
+@@ -511,7 +509,7 @@ class MissingCheckers(AncillaryMethods):
+         methods are used here.
+ 
+         By default, it will use lsb_release function. If not available, it will
+-        fail back to reading the known different places where the distro name
++        fall back to reading the known locations where the distro name
+         is stored.
+ 
+         Several modern distros now have /etc/os-release, which usually have
+@@ -784,10 +782,10 @@ class SphinxDependencyChecker(MissingCheckers):
+             if not self.distro_msg:
+                 self.distro_msg = \
+                     "Note: RHEL-based distros typically require extra repositories.\n" \
+-                    "For most, enabling epel and crb are enough:\n" \
++                    "For most, enabling EPEL and CRB is enough:\n" \
+                     "\tsudo dnf install -y epel-release\n" \
+                     "\tsudo dnf config-manager --set-enabled crb\n" \
+-                    "Yet, some may have other required repositories. Those commands could be useful:\n" \
++                    "Some may require other repositories. These commands may help:\n" \
+                     "\tsudo dnf repolist all\n" \
+                     "\tsudo dnf repoquery --available --info <pkgs>\n" \
+                     "\tsudo dnf config-manager --set-enabled '*' # enable all - probably not what you want"
+@@ -934,8 +932,8 @@ class SphinxDependencyChecker(MissingCheckers):
+             if not self.distro_msg:
+                 self.distro_msg = \
+                     "Notes:\n"\
+-                    "1. for venv, ensurepip could be broken, preventing its install method.\n" \
+-                    "2. at least on OpenMandriva LX 4.3, texlive packages seem broken"
++                    "1. ensurepip may fail while creating a Python virtual environment.\n" \
++                    "2. At least on OpenMandriva LX 4.3, TeX Live packages appear broken."
+ 
+         else:
+             packager_cmd = "urpmi"
+@@ -1155,16 +1153,16 @@ class SphinxDependencyChecker(MissingCheckers):
+ 
+         #
+         # Fall-back to generic hint code for other distros
+-        # That's far from ideal, specially for LaTeX dependencies.
++        # That's far from ideal, especially for LaTeX dependencies.
+         #
+         progs = {"sphinx-build": "sphinx"}
+         if self.pdf:
+             self.check_missing_tex()
+ 
+         self.distro_msg = \
+-            f"I don't know distro {self.system_release}.\n" \
+-            "So, I can't provide you a hint with the install procedure.\n" \
+-            "There are likely missing dependencies."
++            f"I don't recognize the distribution: {self.system_release}.\n" \
++            "I can't suggest a package installation command.\n" \
++            "Some dependencies may be missing."
+ 
+         return self.get_install_progs(progs, None)
+ 
+@@ -1184,8 +1182,8 @@ class SphinxDependencyChecker(MissingCheckers):
+         Give a hint about how to activate an already-existing virtual
+         environment containing sphinx-build.
+ 
+-        Returns a tuble with (activate_cmd_path, sphinx_version) with
+-        the newest available virtual env.
++        Returns (activate_cmd_path, sphinx_version) for a suitable virtual
++        environment, or an empty path if none is found.
+         """
+ 
+         cwd = os.getcwd()
+@@ -1220,8 +1218,8 @@ class SphinxDependencyChecker(MissingCheckers):
+ 
+             if not ver:
+                 venv_dir = f.replace("/bin/activate", "")
+-                print(f"Warning: virtual environment {venv_dir} is not working.\n" \
+-                      "Python version upgrade? Remove it with:\n\n" \
++                print(f"Warning: virtual environment {venv_dir} is unusable,\n" \
++                      "possibly after a Python upgrade. To remove it, run:\n\n" \
+                       "\trm -rf {venv_dir}\n\n")
+             else:
+                 if self.need_sphinx and ver >= self.min_version:
+@@ -1235,9 +1233,8 @@ class SphinxDependencyChecker(MissingCheckers):
+         """
+         Check if Sphinx needs to be upgraded.
+ 
+-        Returns a tuple with the higest available Sphinx version if found.
+-        Otherwise, returns None to indicate either that no upgrade is needed
+-        or no venv was found.
++        Returns a version tuple for the upgrade recommendation, or None when
++        the current Sphinx version is already sufficient.
+         """
+ 
+         # Avoid running sphinx-builds from venv if cur_version is good
+@@ -1284,7 +1281,7 @@ class SphinxDependencyChecker(MissingCheckers):
+         Recommend installing Sphinx as a distro-specific package.
+         """
+ 
+-        print("\n2) As a package with:")
++        print("\n2) From a distribution package:")
+ 
+         old_need = self.deps.need
+         old_optional = self.deps.optional
+@@ -1375,7 +1372,7 @@ class SphinxDependencyChecker(MissingCheckers):
+         # Suggest newer versions if current ones are too old
+         if self.latest_avail_ver and self.latest_avail_ver >= self.min_version:
+             if self.latest_avail_ver >= RECOMMENDED_VERSION:
+-                print(f"\nNeed to activate Sphinx (version {latest_avail_ver}) on virtualenv with:")
++                print(f"\nActivate Sphinx {latest_avail_ver} in the virtual environment with:")
+                 print(f"\t. {self.activate_cmd}")
+                 self.deactivate_help()
+                 return
+@@ -1383,21 +1380,23 @@ class SphinxDependencyChecker(MissingCheckers):
+             # Version is above the minimal required one, but may be
+             # below the recommended one. So, print warnings/notes
+             if self.latest_avail_ver < RECOMMENDED_VERSION:
+-                print(f"Warning: It is recommended at least Sphinx version {RECOMMENDED_VERSION}.")
++                print(f"Warning: Sphinx {PythonVersion.ver_str(RECOMMENDED_VERSION)} "
++                      "or newer is recommended.")
+ 
+         # At this point, either it needs Sphinx or upgrade is recommended,
+         # both via pip
+ 
+         if self.rec_sphinx_upgrade:
+             if not self.virtualenv:
+-                print("Instead of install/upgrade Python Sphinx pkg, you could use pip/pypi with:\n\n")
++                print("Instead of installing or upgrading the distribution's "
++                      "Sphinx package, you can use PyPI:\n\n")
+             else:
+                 print("To upgrade Sphinx, use:\n\n")
+         else:
+-            print("\nSphinx needs to be installed either:\n1) via pip/pypi with:\n")
++            print("\nInstall Sphinx with:\n1) A Python virtual environment:\n")
+ 
+         if not virtualenv_cmd:
+-            print("   Currently not possible.\n")
++            print("   A virtual environment is not available with this Python version.\n")
+             print("   Please upgrade Python to a newer version and run this script again")
+         else:
+             print(f"\t{virtualenv_cmd} {self.virtenv_dir}")
+@@ -1409,9 +1408,9 @@ class SphinxDependencyChecker(MissingCheckers):
+             self.recommend_package()
+ 
+         print("\n" \
+-              "   Please note that Sphinx currentlys produce false-positive\n" \
++              "   Please note that Sphinx currently produces false-positive\n" \
+               "   warnings when the same name is used for more than one type (functions,\n" \
+-              "   structs, enums,...). This is known Sphinx bug. For more details, see:\n" \
++              "   structs, enums, ...). This is a known Sphinx bug. For details, see:\n" \
+               "\thttps://github.com/sphinx-doc/sphinx/pull/8313")
+ 
+     def check_needs(self):
+@@ -1437,7 +1436,7 @@ class SphinxDependencyChecker(MissingCheckers):
+ 
+         if sys.version_info < MIN_PYTHON_VERSION:
+             min_ver = ver_str(MIN_PYTHON_VERSION)
+-            print(f"ERROR: at least python {min_ver} is required to build the kernel docs")
++            print(f"ERROR: Python {min_ver} or newer is required to build the kernel docs")
+             self.need_sphinx = 1
+ 
+         self.venv_ver = self.recommend_sphinx_upgrade()
+@@ -1445,7 +1444,7 @@ class SphinxDependencyChecker(MissingCheckers):
+         if self.need_pip:
+             if sys.version_info < MIN_PYTHON_VERSION:
+                 self.need_pip = False
+-                print("Warning: python version is not supported.")
++                print("Warning: this Python version is not supported.")
+             else:
+                 virtualenv_cmd = f"{self.python_cmd} -m venv"
+                 self.check_python_module("ensurepip")
+@@ -1499,10 +1498,10 @@ class SphinxDependencyChecker(MissingCheckers):
+         elif self.deps.need:
+             sys.exit(f"Can't build as {self.deps.need} mandatory dependencies are missing")
+ 
+-        print("Needed package dependencies are met.")
++        print("All checked mandatory package dependencies are available.")
+ 
+ DESCRIPTION = """
+-Process some flags related to Sphinx installation and documentation build.
++Check Sphinx installation and dependencies for building kernel documentation.
+ """
+ 
+ 
+@@ -1514,21 +1513,21 @@ def main():
+         "--no-virtualenv",
+         action="store_false",
+         dest="virtualenv",
+-        help="Recommend installing Sphinx instead of using a virtualenv",
++        help="Do not suggest creating a new virtual environment",
+     )
+ 
+     parser.add_argument(
+         "--no-pdf",
+         action="store_false",
+         dest="pdf",
+-        help="Don't check for dependencies required to build PDF docs",
++        help="Skip dependency checks for PDF documentation",
+     )
+ 
+     parser.add_argument(
+         "--version-check",
+         action="store_true",
+         dest="version_check",
+-        help="If version is compatible, don't check for missing dependencies",
++        help="Skip dependency checks if Sphinx meets the recommended version",
+     )
+ 
+     args = parser.parse_args()
+-- 
+2.51.0
+
