@@ -1,76 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793141366;
-	b=0eylSlmVhalBa1EXcQ072CNmR0rYUIra+JfiRoH2Y1Acji4UCfq73pqRXuwV61PU4MoQ
-	 jCaKz7LLyBmZBXxWrYADI/PTeckFPd714iLgWv4oggEEIrYOp2njfct5fvn9J+L3OdjIx
-	 7fi/TiZ5YVbgjTkXjuYia7L06uRruobaHBYvHy0ScPUmfjphAEWoRzn+PSc8sIQSdB0/a
-	 OklRji+IbqhFgQL2aZ1dB1gXTiJ/pjz6AoWT6eDuml7lgdzNec8PnnQ36A2ofZQTWsADM
-	 ccZb25bEDQTFFbkeHpeCqUeiPINyD0i6J+as6uwTMuyDN15D/fDthNe1Whiriwd2GHA==
+	t=1793141523;
+	b=0TO8IXeCH4awo2BntpdYkkt0sOdb4iWfZNl5MxDx5riJUIxXgF91cBz8oeA8krjG2ChK
+	 W28uz+1fiW5vC2JsAH5ASswMzVuC3k8Cv8f7HEg1YdOdOkyYyP0Ihsev0ypIWOF5NOcHS
+	 RgD+VLljlErFfSsbqsBNxxAftKikiXI/gY1pv1aGBe7jBJUnDnWr4eWACavThooxhvhWs
+	 vw+rSuSA9I9OcR3RJ1XRdneIbucPPKelnVRiRnp1DfjbxiJief7Ja0p7uHZZteX5Z/kXB
+	 mbwajc006+YXrzxaz5H1zsNzdgilZYqfQvMOqKKaLEaGHQj5EodYsMVy8ufGl4E763w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793141366;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793141523;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
-	 To:Cc:Content-Type;
-	bh=rOkPtWVSW1j6H8I5rspLbvj2xB0DWyNEyqjlPetgUS4=;
-	b=wfUAe19kAQxb7XaLuyz6C7fG/7RxYylKvQZKUIW3eoU2KkBSsp9qyyVEhGjVKLP00Me2
-	 Bb1h6iHkZosWG0IsDo3vVm/g5OkW9/7VwqOrZpHBVrebgfEo/F7EUxx1PjxG3uIj67rgp
-	 0nxvd1GQLiy6YreQaUVtgVF5km/7jQgZ9TMBvKzrHe0DyGVmKDO6yj24c3JaqZqWl7h9M
-	 Xgj+IIE8RCDu2g70EmsGhIcFHqQRAOPDkZdXs3WudP4nAEfdaGuKQlV2Ekiuk/wQdv43s
-	 q2ht2o8Y9TYzpzaxOnLagBPok/PXRjhxB3pvq0nZhtz+CpfgnZrmE8XTPXIt3OLFZ7w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=9nLhzNnuR7rMVo3Esh8395rEk4roZFjv/lWnMw/Mzgw=;
+	b=DTIlkfVV16o9HtCjGFwPlBMDbrJwH3+L9x7VwEWQZSWUe5C75ymZAeGHOY8FxycOl3tH
+	 W8ie2KKrgIrtfU85h0EqrqXUwY0o4eSviJIuCVUM19oprI2pn6V/R+l1k1nEVq8uKOQn6
+	 UZZ/T9cDDfsoUM6xrADKxZxthX+Ae1by1CmA2ytxHWgx6SxZbVigNHoB8H8A32NeXsfgo
+	 jNS7YBV+WkFS2CVINuWOjVKRejvdK1lKqr8MhiWxjNJ9iyApvRBZSnZTytRYDqNvNFLun
+	 r2xICqE17md5cwLBWXs8QL/d0VK0tnVaQb2sbEjIqBL2N74q83+oMIbkN+FddAivFWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WzBfKbeY;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+IpKiM9;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473E5606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 473E5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339EB606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 339EB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WzBfKbeY
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a06bc723b1so467248b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:49:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+IpKiM9
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso262587a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:52:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793141365; x=1793746165; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rOkPtWVSW1j6H8I5rspLbvj2xB0DWyNEyqjlPetgUS4=;
-        b=WzBfKbeYUwp2lyqoF/22fnY+zuNeV3VaEdioF0xmAIh1o5jOly3KZ+7TXiNluEJRS1
-         IKypoKVfHjjxDZBui6+mbi5N/6Y5MvKubKV5UhPTsRhnM4APCkrAHHU2jtf3SMohRy4P
-         OB1opReImQhwYHHr+XhoJdbQ9kXwTQ2ZBxuPTxIB7aEmT+Uq3kpewq9AdLfgpIvWacXK
-         aYrdTxt2KB2gLE0XgY87in0ILdSB9lDKmw4TKcMnkNrixNL20/KoKlq5GXFF6MRg554d
-         bJ0cl8ers+Vnc4U3VHZQiDskDfcb3BwUELyZen+mdiTGfQ8OAWVL1OdDC/QjP+V7KwFt
-         JAyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793141365; x=1793746165;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793141522; x=1793746322; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=rOkPtWVSW1j6H8I5rspLbvj2xB0DWyNEyqjlPetgUS4=;
-        b=BT+1QzDnE6V2rAxqz0QIpA3oDgvGLKa6XtdzVJEWOy/lbLvQFMHVZ8xMyMqyLlSzcM
-         OV2cd0i4piyluYIr3wyhK0FiZtxrZoxNMR9Isxe2x77CRbLFVhKZ03CiGpSjZnSoPatx
-         MCmumROAylBq4H4i2G7LveOYJ62xsLrWEO3z+1h0hH9DPzTAvlkYkLDbmmh/yGQjQyiB
-         1UAdFIPPqfelL1ajKVOTNlwQs8TSgomKadNYji2AGCUv/TqN7aytoDDx/OPL1Q1BpZgm
-         WRllOo/42I6Wi0h/VD+YJwHq7f/45fC/zy9rSTXNxOae4oJUR/7m8YpF8qxFRMLZqCeL
-         DfZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxJDCTpufmZFIsBT/dtGFQu/FQK9HrYfifuUDahZ20MAis511OD6YXupAuGKeMnvt+mcanrlDsAOndlMxI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/QGOz5ojCMxOR0RfWu9Jp135Qs+yKSAniL2lgLx6Mf4eGPj/L
-	995Yau19DGGXg71gaX5pjGU9uw1M9HTaG2FfsXBiO33qJodXVGnT9bx4nGnvBFUi/G5kPrqSt63
-	LnCe8Jg==
-X-Received: from pfff18.prod.google.com ([2002:a05:6a00:bd12:b0:8a2:1bc3:8884])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4085:b0:89f:c71e:aba5
- with SMTP id d2e1a72fcca58-8a6e74d735dmr516308b3a.37.1793141365470; Tue, 27
- Oct 2026 15:49:25 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 27 Oct 2026 15:49:13 -0700
-In-Reply-To: <20261027224914.1574319-1-seanjc@google.com>
+        bh=9nLhzNnuR7rMVo3Esh8395rEk4roZFjv/lWnMw/Mzgw=;
+        b=h+IpKiM9EJt2thLQz1fBkjo/WZpclRTehidHTaDMWs/2As2J1KRXkq5WjU7mWFvA6f
+         m+ETDsnZifKaqRyTJrVwxTJDB4rvr+WvlMqgB9CQpDZsnkPSEtaXUki5XL/ER0lEg/I6
+         7jeUBtEbST9g7e7iqOTug9MPf5PBwbqnJt6Ai2rqj0GNGcEMLFYZuxoMwSefCjD06X3b
+         I46MVsDVHmB+yhlFZaUkLkJMov+Bj5XmNkBoTc3uI617g8yxV7ZID6NiYhDmBIijL4/F
+         RSpIudgAxUs06IE2i4kne682u9l1XiM0c6JUWyy48dFyk7DdBR6zuOjW5UqnRPBHoUaw
+         ZLWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793141523; x=1793746323;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9nLhzNnuR7rMVo3Esh8395rEk4roZFjv/lWnMw/Mzgw=;
+        b=BC6M9JUlUhXJRtGPx6UNAPa/lJIppgPU8U5crkqt76f/STbPgTTYhyQj7ufkOErHrJ
+         OkmqLGYxWZWUAHKgq6VzKDieIkoURYQKSPmXnSBzzLmdMD3dZ3+6/QUk0R7Hu4SA6upx
+         FWAfzKdYlEYvEcjp/gN9vU/RB4cLglD8/Eg8eXp2USnCT3BSITyeDQYR1gF9Rbf0oY5C
+         ZEs7TwT+N/xih6RM9YltTcR8nMS8XnaAh3HEqzKuXzBopgXm6NdLXKMLghZDMkpzsAWn
+         Iq8XT1/HgzwH79RUd8HVtmRPlGGiPABl89fTyPGHq/XZWgqaGNYrPCy8Buu6SWUYKlJ1
+         16rg==
+X-Forwarded-Encrypted: i=1; AKwUvBx9PLOTGPSo2OOoNzSzXTsG3xs1gFz/9YF5tendZl3RlXYTXaaiKRZBa9mxhFnUCyR2IzQUqgmyhPhiC5c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxOrddg0VgEHKGXbytwaGkkTr83iIpx8Er+WtIBopa06TRC0Y/
+	WnvmPXdGuIWxgoeIG0mC2CHVGwDw2wCuw5NUZZaHwYpZvNfv6Mgf9Fea
+X-Gm-Gg: AYBFou39+Q1thwezUWRHxyWujaGtnKQqRDHT/EPUVEE7gZn0Ao5IOCOQbLViTEVS0D1
+	MeDAeitHvQKAidPGCJfsmnwpO+CCNzl136UU+BBTRg9Nx5IsprfwXmuBDvwVTrBq0Z3inzLpLrn
+	MQ/279vNuY+8G6J4BlLuanHcQtG1g2pnKQX6nJlQLAWFX0i73xH6ypGNO580cCKPmQpDHmNDuN/
+	cGpUSRQFB0PVVHuU3XHhIMb/JVwstYkadRhhRhND3vAf/DT3QcxZSQBg9jOOie0wifg8i40Ntsq
+	vM1wCrNL16SAH6vGaM9lCcCAeHav/9dU7ZfMaWErqRZhfpPYcYeXf2/8lII7JeFPqEX6XcuyT8F
+	Qjy67lxPTJDd1Ie+MKksp0YYZPAITHigCaio+PWGjY6FDKwtrgbz4olStkac4bTxVwg8FXif2Rq
+	4e40hlML3V5/4QIZzGVBdWZfsOoGQa7GZCZr3/48UizyOHbclo6eIg4+P3J4z1L4j/a+YNzj46Q
+	3tgL4Opo8b9+xTHeztVM/oUx8QCtlw4poNj+OVg5sQ6+0IAPvZT6o6xjXM4AipM5yaVvETFI26R
+	LrxBRcTFHtwXHlGMs8zo19Zp6vqs3JIlkBq/Uwues0BM
+X-Received: by 2002:a17:90b:2745:b0:3ae:5572:c4e2 with SMTP id 98e67ed59e1d1-3ae58317899mr361987a91.57.1793141522593;
+        Tue, 27 Oct 2026 15:52:02 -0700 (PDT)
+Received: from localhost.localdomain (ip67.244-167-222.hkg.ten111.net. [222.167.244.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a944acasm192658a91.7.2026.10.27.15.51.58
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 15:52:02 -0700 (PDT)
+From: Guoshuai Yang <yangguoshuai@gmail.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Guoshuai Yang <yangguoshuai@gmail.com>,
+	Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] xfrm: esp: reset outer TCP GSO metadata on espintcp input
+Date: Wed, 28 Oct 2026 06:51:55 +0800
+Message-ID: <20261027225155.49607-1-yangguoshuai@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <179308626642.3134.14988418944940808850@kernel.org>
+References: <20261023065311.65031-1-yangguoshuai@gmail.com> <179308626642.3134.14988418944940808850@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,147 +108,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261027224914.1574319-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027224914.1574319-6-seanjc@google.com>
-Subject: [PATCH v2 5/6] KVM: selftests: Update nSVM EFER test to expect #GP
- when clearing SVME in L2
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Sashiko Bot <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Adjust the nSVM EFER test to expect a #GP on WRMSR if L2 attempts to clear
-EFER.SVME to match KVM's new behavior (synthesizing #GP is safer for KVM as
-it doesn't require yanking the vCPU out of L2, and is fully synchronous).
+On Tue, Oct 27, 2026 at 07:31:06AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Low]
+> Is enabling rx-gro-list enough on its own to reach this case?
+...
+> Could the commit message describe that topology? Could it also say that
+> this half of the fix depends on TCP fraglist GRO? That feature is much
+> newer than e27cca96cd68 from the Fixes: tag, so on stable trees without it
+> the pre-pass does nothing.
+>
+> [Severity: Medium]
+> Is there still a BUG_ON() at this point? In the tree this patch targets,
+> skb_segment() handles the condition like this:
+...
+> Could the commit message say which kernel the trace came from? Could it
+> also describe the behavior on the kernels this patch targets?
+>
+> [Severity: Medium]
+> Can fragp point at the ->next field of a member that is still shared when
+> this store happens?
+...
+> This relink pattern looks like it comes from ___pskb_trim(). That function
+> handles skb_shared() on every member before skipping any, so it never
+> writes through a shared predecessor. Would it be safer to privatize every
+> member walked so far, including the skipped ones, or to copy from the first
+> shared member onward the way skb_cow_data() does?
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- .../selftests/kvm/x86/svm_nested_efer_test.c  | 75 ++++++++++++-------
- 1 file changed, 46 insertions(+), 29 deletions(-)
+Thank you for the detailed review. All three points are valid:
 
-diff --git a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-index fa0d76a9c390..fa9cfe8b1242 100644
---- a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-+++ b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
-@@ -15,22 +15,34 @@ static bool l2_ran;
- static void l2_clear_efer_svme(void)
- {
- 	u64 efer = rdmsr(MSR_EFER);
-+	u8 vector;
- 
- 	/* generic_svm_setup() initializes EFER_SVME set for L2 */
- 	GUEST_ASSERT(efer & EFER_SVME);
--	wrmsr(MSR_EFER, efer & ~EFER_SVME);
- 
--	/* Unreachable, L1 should be shutdown */
--	GUEST_ASSERT(0);
-+	vector = wrmsr_safe(MSR_EFER, efer & ~EFER_SVME);
-+	__GUEST_ASSERT(vector == GP_VECTOR,
-+		       "Expected #GP when clearing EFER.SVME in L2, got %s",
-+		       ex_str(vector));
-+
-+	efer = rdmsr(MSR_EFER);
-+	GUEST_ASSERT(efer & EFER_SVME);
-+
-+	l2_ran = true;
-+	vmmcall();
- }
- 
- static void l1_clear_efer_svme(struct svm_test_data *svm)
- {
-+	struct vmcb *vmcb = svm->vmcb;
-+
- 	generic_svm_setup(svm, l2_clear_efer_svme);
--	run_guest(svm->vmcb, svm->vmcb_gpa);
-+	run_guest(vmcb, svm->vmcb_gpa);
- 
--	/* Unreachable, L1 should be shutdown */
--	GUEST_ASSERT(0);
-+	GUEST_ASSERT_EQ(vmcb->control.exit_code, SVM_EXIT_VMMCALL);
-+	GUEST_ASSERT(l2_ran);
-+	GUEST_ASSERT(vmcb->save.efer & EFER_SVME);
-+	GUEST_DONE();
- }
- 
- static void l2_lmsle(void)
-@@ -130,31 +142,10 @@ static void test_enumeration(void)
- 	ksft_test_result_pass("KVM enumerates EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
- }
- 
--static void test_clear_efer_svme(void)
-+static void test_efer_in_guest(struct kvm_vcpu *vcpu)
- {
--	struct kvm_vcpu *vcpu;
--	struct kvm_vm *vm;
--
--	vcpu = create_l1_vcpu(&vm, l1_clear_efer_svme);
--
--	vcpu_run(vcpu);
--	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_SHUTDOWN);
--
--	kvm_vm_free(vm);
--	ksft_test_result_pass("L2 clearing EFER.SVME shuts down L1\n");
--}
--
--static void test_lmsle(bool lmsle_mbz)
--{
--	struct kvm_vcpu *vcpu;
--	struct kvm_vm *vm;
- 	struct ucall uc;
- 
--	vcpu = create_l1_vcpu(&vm, l1_lmsle);
--
--	vcpu_set_or_clear_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ,
--					lmsle_mbz);
--
- 	vcpu_run(vcpu);
- 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
- 
-@@ -166,6 +157,32 @@ static void test_lmsle(bool lmsle_mbz)
- 	default:
- 		TEST_FAIL("Unexpected ucall: %lu", uc.cmd);
- 	}
-+}
-+
-+static void test_clear_efer_svme(void)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	vcpu = create_l1_vcpu(&vm, l1_clear_efer_svme);
-+
-+	test_efer_in_guest(vcpu);
-+
-+	kvm_vm_free(vm);
-+	ksft_test_result_pass("L2 clearing EFER.SVME gets #GP\n");
-+}
-+
-+static void test_lmsle(bool lmsle_mbz)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	vcpu = create_l1_vcpu(&vm, l1_lmsle);
-+
-+	vcpu_set_or_clear_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ,
-+					lmsle_mbz);
-+
-+	test_efer_in_guest(vcpu);
- 
- 	kvm_vm_free(vm);
- 	ksft_test_result_pass("Guest EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
-@@ -248,7 +265,7 @@ int main(int argc, char *argv[])
- 		test_clear_efer_svme();
- 		test_lmsle(true);
- 	} else {
--		ksft_test_result_skip("L2 clearing EFER.SVME shuts down L1\n");
-+		ksft_test_result_skip("L2 clearing EFER.SVME gets #GP\n");
- 		ksft_test_result_skip("Guest EFER_LMSLE_MBZ=1\n");
- 	}
- 
--- 
-2.56.0.307.g5fe7bd680c-goog
+1. In esp_reset_espintcp_fraglist_gso(), skipping a shared predecessor
+   before checking skb_shared(frag) means a subsequent *fragp = frag store
+   would overwrite the shared predecessor's ->next pointer across both
+   clones. Unsharing every walked frag_list member first (as ___pskb_trim()
+   does) before checking SKB_GSO_FRAGLIST guarantees that fragp always
+   points into an unshared predecessor.
+2. In the commit message, I will clarify that the BUG_ON(!list_skb->head_frag)
+   oops trace was captured on a 6.12 LTS kernel, whereas on current mainline
+   kernels skb_segment() hits DEBUG_NET_WARN_ON_ONCE(1) and returns -EINVAL,
+   causing validate_xmit_skb() to drop the packet.
+3. I will also clarify the topology required for TCP fraglist GRO
+   (SKB_GSO_FRAGLIST) to reach esp_input() (e.g., rx-gro-list on a device in
+   an outer netns forwarded across veth into the netns hosting the espintcp
+   socket) and note that this pre-pass applies to kernels with TCP fraglist
+   GRO support.
 
+I will send a v4 with these updates.
+
+pw-bot: cr
