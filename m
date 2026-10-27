@@ -1,108 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793082987;
-	b=x9NkUzKIksXKYo9J3REUQQ846iwsnR+GED5TR95cvYbu9OEuyyoQHczLMByUQxje2kJg
-	 qQcGOmPdCSBSXnDlYe9zit+Hk4EKqhIktCkWPRHGMAwPyLUje+xteffEDK7+Ho5xyL1qJ
-	 CqGRqW9wPE9mBt2yaRHips2ipccH78FWL8pjcWJ9At4hSvSiAUBUJ/wvRxL0kd3l6xPxd
-	 TVNzB3JOrpNqb3YBAlGdaZVwAa+CfKLkiK6lAfO/0jIVLSYIuIV7Fv2zIrvPYK1yZORSZ
-	 wWS2fv0Txpl/QignOwz+WjivQEPGOrZkqk4bDO5y9rlWG1Uk2qLL5YWz7yQLOXPZQwQ==
+	t=1793083068;
+	b=aOExoGyZgYiSLhEMfTfOegLkVydMsc90avZB2ckQ7kMUSIsOYYX4omP9kKCfPht2LzG6
+	 29ePpmWLViUImrGsW3qGxncZKQ0uRHoonOPNm1nPNhsUiihhC5Nez8y/zrqR0KT5uUmfJ
+	 JuSgxhbfNnHxPYjIWb/LkcxEHjlKE8g3JCtcHTIQQ3KkW2PpRw9WErX3Ocxxp6mxACDnC
+	 /D3MsQuqL6/5fIwGrjUOEMnumhdjVDyySVfyVGxSPUvKYWngaKLujIjczoVMIsdVc7EfU
+	 MvmEEcQt1V2XSyklhf/R4OnAaBBwUXO2QUpV3TuKnjnvLkTOFgELyM23ilLoeOBtdfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793082987;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=jw0B9wUqj1NgmgC61ADFFOy+zq/xWh/Ds6uCN7rNkRA=;
-	b=ZaRW0kiKJtRdnxW872H2dv+6qNnJCTjau9AculI6RwWzKqC7ZaGzsRRTqAooPwThUv7v
-	 Y6WlvV4CtvYLSbZHElV2r4iCIP2JYkoj/9lcB+5XMYzUQ7S0pCy2Uf3jfSXfNaZAoHvI5
-	 9pp8SoiMtLRSzWDqvB6IMHPaJUTlXzIRcbukONlMfpdRdPAMWTWs0zZuWiAxS4WJ+/J1l
-	 upsLavicFFhWEwWE/GRpghMWIDvkdTZRpm/OXlhg6ANQiCNgG/jIIOWd3i7a8ezIsbyOy
-	 gzUHhmp4+lk1P2NPAxzN/Isf/pagrx0RxieKLZaWR9vxg8adIYAOlyNwQlz/BXRQMwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083068;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
+	b=HTH39ekeucD6rvZcla5njuzOA4z0ljBnyInMgDtgISgqB/UQrb5pLAkv1Hc/5mNaavQj
+	 +st1tUcQU1o07YpPZIpmaLI7yKrLrR9t1aK+FgzkKGIk0uYqGzGHc1K7NMRkTQM29bQF+
+	 c0yIvw0/XwdYeckGMlR9Je7UpnGVc2W3mSRUbm2BTLue5D5orei+jqkM7zLw/X6SPadZx
+	 Qki3CMoms6C+veoogq3vjjqgC42YbUd3+3mBQtjyib1tq+qmYKP5IooqXjOetBT5FtjLf
+	 NyObDdg19/Zu+36KJvP7PJWO4uK4BbmjuOZQz7a03hsJ9KkUBH/R/qmInjkxs3bp6Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=A18XSYRR;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73295606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:36:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73295606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D344606A31A;
+	Tue, 27 Oct 2026 06:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D344606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=A18XSYRR
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e98798cbddso15021735ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:36:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793082987; x=1793687787; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=jw0B9wUqj1NgmgC61ADFFOy+zq/xWh/Ds6uCN7rNkRA=;
-        b=A18XSYRRAxSuAWoSFewKd3fToOwP31OZQcX8t96ooeQ0af1YK4YGm0a0Mh+VR4Ds3o
-         KKXgJL7g9xHxAyYHn75yn3/px3xvE1TgYAHBlEqBP5CKh3xWxNqIP6X9Lo4mtgJNKz2j
-         ka1lAlUYD/xQECFuOO9WSinqPf3RjRE1sqS5o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793082987; x=1793687787;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jw0B9wUqj1NgmgC61ADFFOy+zq/xWh/Ds6uCN7rNkRA=;
-        b=TDhR2kN/IxS1KjaDQbZNfM/q9ykCVbJ5vJiwpcJUWF1vi1yuNlkQkSuTS8acaDMZiz
-         P01zN+FSv6RnZGkep9zVSDe7j9LIK8GnOS8L7ambQxTgeN3KqjqbvIdVH2/f9q6viyyl
-         kXAErVMe8177cOlMJ8N3Cl8snAFSet1gMc0UFE0zThH2amojKyckSBxPQOOymTobp7U0
-         qnB3yYv/U6gwheSKcGu9JJthZZ3jnsAXXaJduWnW3U1dcYbbwnbvD0bgZHMpsRMk9Hvk
-         knO6vWZ5k3vUr1/SlHC1jVZRX4oX8FO09QfR3UVt0dlJF/UQIU2sZt5lUtUtC+8Zlmc/
-         W5Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbZL3MbndbmXTAw3gnZw4y8bJz4qzoxTkGF8tCj85izn5KaOiQTsODSvc+Fjd7911S8+OdXVMaiJDaHHo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZB+PJymPHonzR35Q+iojoIKAWhauQcmjXivsDJCV3vg9OMXKy
-	LFu/JLn90ALJEm5/JBUmtGuIW2Gf7Ufr5sku/VxUyPFSnTY7UHSJ3BoYHUbu1uZ7ed8=
-X-Gm-Gg: AYBFou1Z7AN2oPFZpCzdnt2v1pRzLp7UyH7xMqOQlc1YpOBv39rE0He/5eMzgMw7tHe
-	lBYKJukkIxl/KOkIk5q1BkO0JtHytRUgYYxgmPAGMHz9M1VEnUUKRT191K0SRlOWdf9eUS0XDbC
-	7AhreAGx4tGd29lILRhd1FrlFxlNpe8S5z1wVfFXM1cLrwMBvaiSh0iYEOV8zv4tZeWrwX70vBm
-	+ibIeq6Q6u3YgjVO8oTddb7hdKcXh7a3YGUcaDXyeKYk9QnBxD49Zziw5x1QMrMu1eI1m4pwKAV
-	6U48FW1+77koTE1JFo70XWMz2WrmafJJW4SGF36DonsWqeVZVg2pqEqpQnrt16IaZbLe0uvSCPK
-	Q2gWFZVYDoYucxoEUDDMEnhrfXJI5chqDV9yRvzUcf6QESQXvRGAZeX0QsrkPUlhPN52GPrCSQy
-	YFF4NSSS34X5aObpeRULElZHHg8iu0awSzpd9R5igpnTsKf3VUch8ukCZei4vTSIwpmtmRdKxIt
-	l9bkjoPnvjVu2c3IFzn0YIzLOztYhAMq2tk4RV1YI3QPnbVf+Zg+QIJHZLC6FkfmbO//oo9bPnv
-	8jSgMa4WsY8XHsfBgu+We72SC8fgHmGeOTrmDSVdYLyvdSAblD7LQu7jN/O6umLeIiRgZNO64ag
-	nBx3VVZz1zUOmtBPok40RaoUwj++7P+QP+khvFAtjS8YgewN0tkGtXZh54soqXkcFTtnaByqG
-X-Received: by 2002:a17:903:3806:b0:2e9:5175:2eb with SMTP id d9443c01a7336-2ea9c0f388fmr74433055ad.1.1793082986640;
-        Mon, 26 Oct 2026 23:36:26 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b768ffsm4180085ad.24.2026.10.26.23.36.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 23:36:25 -0700 (PDT)
-Date: Tue, 27 Oct 2026 14:36:21 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Kees Cook <kees@kernel.org>
-Cc: Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Ard Biesheuvel <ardb@kernel.org>, Will Deacon <will@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH 2/3] sched/core: Add sched_stack_end_check= boot parameter
-Message-ID: <3d2bb6a8508b9d801878bb82c88165a1b1ff5f40.1793082868.git.chris@chrisdown.name>
-References: <cover.1793082868.git.chris@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 758F421C60;
+	Tue, 27 Oct 2026 06:37:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793083065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
+	b=19ou2TbY9W3Ccqwvjq/6ZD17IdSR2w+Em+tv/uz0lV6WEUhcKrHdwhaOe0Xx09m6AcQMOI
+	+D7NL/SgNXlHVZKNCOzj3cUd/e+c5TUbL8v2a39aKi7HYDBle/2GAe5TRTh2xh872y+ryg
+	u9VtT8CUKji9/ceGcdZQIEVuluUyZz0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793083065;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
+	b=dLrU6ve5YNotSHBMQeY4m/gE1+KTcv9Upp1aweXDyzrZ+Iy8sAJICz9zH4QyrZh96Ii8vr
+	MiyD7SgNBBHYOeBA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=19ou2TbY;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=dLrU6ve5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793083065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
+	b=19ou2TbY9W3Ccqwvjq/6ZD17IdSR2w+Em+tv/uz0lV6WEUhcKrHdwhaOe0Xx09m6AcQMOI
+	+D7NL/SgNXlHVZKNCOzj3cUd/e+c5TUbL8v2a39aKi7HYDBle/2GAe5TRTh2xh872y+ryg
+	u9VtT8CUKji9/ceGcdZQIEVuluUyZz0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793083065;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
+	b=dLrU6ve5YNotSHBMQeY4m/gE1+KTcv9Upp1aweXDyzrZ+Iy8sAJICz9zH4QyrZh96Ii8vr
+	MiyD7SgNBBHYOeBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2486E1321C;
+	Tue, 27 Oct 2026 06:37:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id BrwoOrhG4GptHwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 27 Oct 2026 06:37:45 +0000
+Date: Tue, 27 Oct 2026 07:37:44 +0100
+Message-ID: <87a4nz4pjb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sinan Turunc <enscrpt@pm.me>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] ALSA: usb-audio, ua101: oversized packet copies overrun PCM ring buffers
+In-Reply-To: <20261026223543.620-1-enscrpt@pm.me>
+References: <20261026223543.620-1-enscrpt@pm.me>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,99 +113,287 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1793082868.git.chris@chrisdown.name>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 758F421C60
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.51
 
-CONFIG_SCHED_STACK_END_CHECK makes schedule_debug() check the magic at
-the end of the outgoing task's stack and panic if it has been
-overwritten.
+On Mon, 26 Oct 2026 23:36:31 +0100,
+Sinan Turunc wrote:
+> 
+> Hello,
+> 
+> v1 went out under my handle, x8svc. v2 changes only the From and
+> Signed-off-by lines, which now carry my real name, as Takashi asked:
+> https://lore.kernel.org/all/87tsm86fzy.wl-tiwai@suse.de/
+> No code change.
+> 
+> I found ring-buffer overruns in snd-usb-audio and snd-ua101 when the
+> amount of data copied from or to an isochronous transfer exceeds the
+> ALSA PCM buffer size. The copy paths use a two-part memcpy() and a
+> position update that handle only one wrap, which is not enough when a
+> single packet is larger than the whole buffer.
+> 
+> I reproduced the overruns under KASAN on 7.3-rc7 (2f2f7eeef8b0) in
+> snd-usb-audio and snd-ua101, for capture and playback. The two patches
+> that follow apply to and build on current mainline (c03c1a14507d). I
+> found similar code in snd-usb-line6, snd-usb-usx2y and cx231xx-audio,
+> and reproduced them on 7.3-rc7. em28xx-audio has the same shape. I
+> booted it, and KASAN reported nothing. By reading, the
+> same shape is in 5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.2.y. I did
+> not boot those branches. 5.10.y has older code, which I have not
+> checked.
+> 
+> The reproducer is available to maintainers on request.
+> 
+> snd-usb-audio (sound/usb/pcm.c)
+> -------------------------------
+> 
+> retire_capture_urb() and copy_to_urb(), called from
+> prepare_playback_urb(), copy data across the ALSA ring buffer with a
+> two-part memcpy() and update the position with a single wrap:
+> 
+>     subs->hwptr_done += bytes;
+>     if (subs->hwptr_done >= subs->buffer_bytes)
+>             subs->hwptr_done -= subs->buffer_bytes;
+> 
+>     if (oldptr + bytes > subs->buffer_bytes) {
+>             unsigned int bytes1 = subs->buffer_bytes - oldptr;
+>             memcpy(runtime->dma_area + oldptr, cp, bytes1);
+>             memcpy(runtime->dma_area, cp + bytes1, bytes - bytes1);
+>     }
+> 
+> Nothing in the path guarantees bytes <= buffer_bytes. The device sets
+> the packet size and the PCM client sets the buffer size.
+> setup_hw_info() permits 8 kHz mono U8 with a 128-byte buffer (64-byte
+> periods, two periods), and a full-speed endpoint can send 1023-byte
+> packets.
+> 
+> The first oversized capture packet already overruns the logical PCM
+> buffer: with oldptr = 0, the two-part copy writes 128 bytes and then
+> another 895 bytes at the start of the 128-byte buffer. It also leaves
+> hwptr_done at 895 (1023 - 128), beyond buffer_bytes. On the next
+> packet, bytes1 = 128 - 895 wraps to 4294966529, and memcpy() runs past
+> the URB buffer and the vmalloc'd DMA buffer.
+> 
+> For playback, copy_to_urb() has the same single-wrap assumption, and
+> the reproducer reaches an out-of-bounds read there as well.
+> 
+> KASAN reports (7.3-rc7, x86_64):
+> 
+> Capture:
+> 
+>   snd-usb-audio 2-1:1.0: invalid position: , pos = 895, buffer size = 128, period size = 64
+>   BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
+>   Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
+>   ...
+>    retire_capture_urb+0x251/0x870
+>    snd_complete_urb
+>    __usb_hcd_giveback_urb
+>    vhci_rx_loop
+> 
+> Playback:
+> 
+>   BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
+>   Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
+>   ...
+>    prepare_playback_urb+0x98a/0x1fc0
+>   The buggy address belongs to a 1-page vmalloc region starting at
+>   0xffffc90000045000 allocated at __snd_dma_alloc_pages
+> 
+> On 6.19-rc3 the same reproducer faults in memcpy() from
+> retire_capture_urb() without KASAN (RDX = 0xfffffd01, the wrapped
+> bytes1).
+> 
+> The USB/IP server never reports an actual_length larger than the
+> requested packet: actual_length equals the URB's iso_frame_desc length
+> and curpacksize. I reproduced this through USB/IP only. I have not
+> tested a physical device or a physical host controller.
+> 
+> The local PCM client only needs permission to open the PCM device. My
+> reproducer runs as an unprivileged user in the audio group. I also
+> tested Fedora 42's PipeWire 1.4.11 with WirePlumber 0.5.14 and
+> PulseAudio 17.0 against the same USB/IP device:
+> 
+> - In the tested PipeWire configuration, the driver selects its maximum
+>   buffer, capped at two seconds (16000 bytes for this stream).
+>   Full-speed 1023-byte and high-speed 3072-byte packets fit. With a
+>   super-speed device advertising wBytesPerInterval 49152, pw-record
+>   hits retire_capture_urb() with a 33152-byte write (49152 - 16000)
+>   and then faults at the vmalloc guard page. pw-play hits copy_to_urb()
+>   with a 33152-byte read on PipeWire's data-loop.0 thread, and the
+>   machine soft-locks.
+> - PulseAudio 17.0 inside this VM turns timer-based scheduling off by
+>   itself. The measured buffer is four 25 ms fragments, 799 bytes, and
+>   a full-speed 1023-byte capture packet reproduces the
+>   retire_capture_urb() report. I did not measure timer-based scheduling
+>   left on. The PulseAudio source uses a 2 second buffer in that case.
+> 
+> A client with permission to open the PCM device directly can trigger
+> the full- and high-speed cases by selecting a sufficiently small
+> buffer. The super-speed case reproduced in the tested PipeWire
+> configuration with an ordinary recording or playback application when
+> the emulated device was selected as the default device.
+> 
+> Reproducer
+> ----------
+> 
+> I used USB/IP because I could not exercise this isochronous transfer
+> path with dummy_hcd and raw-gadget. The reproducer is available to
+> maintainers on request:
+> 
+> - usbip-server.py emulates a UAC1 microphone or, with --mode playback,
+>   a speaker. It advertises a one-channel, 8-bit, 8000 Hz Type I stream
+>   and a full-speed isochronous endpoint with wMaxPacketSize 1023 and
+>   bmAttributes 0x80 (MaxPacketsOnly). Each packet is 1023 bytes.
+> - attach.c imports the device and attaches the socket to vhci-hcd
+>   (CONFIG_USBIP_VHCI_HCD).
+> - client.c opens the PCM device with U8, one channel, 8000 Hz,
+>   period_size 64 and two periods (buffer_bytes 128), sets
+>   stop_threshold to LONG_MAX, and starts the stream. For playback it
+>   first writes 128 bytes.
+> 
+> The fault occurs within a second of starting the stream in my tests.
+> 
+> Patch 1
+> -------
+> 
+> The snd-usb-audio patch bounds the capture packet copy by the PCM
+> buffer size and stops prepare_playback_urb() from scheduling more data
+> than the buffer can hold.
+> 
+> I tested it on 7.3-rc7 with the same reproducer for 30 seconds per
+> mode. KASAN reported nothing. Capture kept streaming and logged the
+> ratelimited truncation warning. Playback entered XRUN at once because
+> the buffer cannot hold a single packet, which is the safe failure for
+> such a device. With PipeWire and a super-speed device, capture
+> truncates the packet with the same warning and the stream keeps
+> running. I did not repeat the patched playback run with PipeWire.
+> 
+> Patch 2
+> -------
+> 
+> In snd-ua101 (sound/usb/misc/ua101.c), copy_capture_data() takes the
+> frame count from actual_length, and copy_playback_data() takes it from
+> the capture packets through rate_feedback. Both split the copy at the
+> end of the ring buffer and wrap the position once.
+> 
+> set_stream_hw() permits an 18-frame buffer: periods_min is 2 and the
+> period can be 9 frames. A 672-byte packet of one-channel, 24-bit audio
+> holds 224 frames. After the first packet the position is 206, which is
+> 188 frames past the 18-frame buffer (224 - 18). On the next packet the
+> single-wrap calculation underflows.
+> 
+> KASAN reports in my tests:
+> 
+>   snd-ua101 2-1:1.0: invalid position: , pos = 206, buffer size = 18, period size = 9
+>   BUG: KASAN: slab-out-of-bounds in capture_urb_complete+0x9eb/0xcb0
+>   Read of size 4294966732 at addr ffff88800d73e7e0 by task vhci_rx/81
+> 
+>   BUG: KASAN: vmalloc-out-of-bounds in playback_work+0x789/0xac0
+>   Read of size 4294966732 at addr ffffc9000002626a by task kworker/0:1H/80
+> 
+> The reproducer uses the same USB/IP server with --device ua101 to
+> present a UA-101 interface layout, and a client using S24_3LE, 44100
+> Hz, period_size 9 and one channel.
+> 
+> The patch clamps the capture copy to the buffer size. On playback it
+> copies at most one buffer and fills the rest of the packet with
+> silence, so the URB length, the delay accounting and the data sent stay
+> consistent. I first tried shortening the playback packet instead, but
+> that makes the URB's declared length disagree with its buffer and
+> USB/IP drops the device, so I kept the length. With the patch, capture
+> and playback each ran for 30 seconds without a KASAN report and the
+> streams kept advancing.
+> 
+> The period accounting still subtracts one period at a time, so a
+> packet spanning several periods of a tiny buffer leaves period_pos
+> above one period until later calls drain it. I did not see this cause
+> a problem in the runs, but I have not analysed it further and would
+> welcome your view.
+> 
+> Other drivers
+> --------------
+> 
+> snd-usb-line6, capture, on 7.3-rc7. A GuitarPort device sent 1024-byte
+> packets into a 128-byte buffer (S16_LE, 44100 Hz, 16 frames, 2 periods,
+> 2 channels). ALSA logged:
+> 
+>   snd_usb_toneport 2-1:1.0: invalid position: , pos = 224, buffer size = 32, period size = 16
+> 
+> KASAN reported nothing. The ring is a whole page, so the extra bytes of
+> the first copy stay inside that page. The driver then stopped copying
+> and logged "driver bug: len".
+> 
+> snd-usb-usx2y, capture, on the same tree. After the hwdep firmware
+> load, a US-122 device sent 1024-byte packets into a 512-byte buffer
+> (S16_LE, 44100 Hz, 64 frames, 2 periods, 2 channels). KASAN reported:
+> 
+>   BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
+>   Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_rx/83
+> 
+> That read size is the single-wrap length once the position has passed
+> the buffer. These two patches do not change line6, usx2y, cx231xx
+> or em28xx.
+> 
+> cx231xx-audio, capture, on the same tree. A Pixelview Xcapture device
+> sent 1024-byte packets into a 128-byte buffer (S16_LE, 48000 Hz, 16
+> frames, 2 periods, 2 channels). KASAN reported:
+> 
+>   BUG: KASAN: use-after-free in cx231xx_audio_isocirq+0x2c7/0x780
+>   Read of size 4294966528 at addr ffff88800e8e0400 by task vhci_rx/82
+> 
+> ALSA logged pos = 224, buffer size = 32, period size = 16. That
+> position is one 256-frame packet minus the 32-frame buffer. The read
+> size is the single-wrap length once the position has passed the buffer.
+> 
+> em28xx-audio, capture, on the same tree. An em2860 device sent
+> 3072-byte packets into a 24576-byte buffer (S16_LE, 48000 Hz, 3072
+> frames, 2 periods, 2 channels). The endpoint was 0x83, with 64 packets
+> per URB. Capture ran for 30 seconds. KASAN reported nothing.
+> period_bytes_min is 11059 and periods_min is 2, so the smallest buffer
+> is 22118 bytes. em28xx_audio_ep_packet_size() caps a high-speed
+> endpoint at 8188 bytes, so one packet cannot pass that buffer.
+> 
+> Process
+> -------
+> 
+> I understand this to fall under the regular-bug handling in
+> Documentation/process/threat-model.rst, because reproduction uses an
+> emulated USB device, so I am sending it to the subsystem list with the
+> proposed fixes. An AI tool helped with the analysis and the patches.
+> I reviewed and tested them myself.
 
-Right now this can only be configured by setting the Kconfig option at
-build time. At Meta we have it on for some hosts and off for others,
-since it is helpful but adds cost on context switching. That means today
-we have to build separate kernels for each, which is less than ideal.
+Applied both patches now.  Thanks.
 
-So let's make this configurable at boot time. In benchmarking sched pipe
-and sched messaging performance is unaffected.
 
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
- .../admin-guide/kernel-parameters.txt         |  8 +++++
- kernel/sched/core.c                           | 33 +++++++++++++++----
- 2 files changed, 35 insertions(+), 6 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index fbee7b544903..95911d33c0fe 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -6811,6 +6811,14 @@ Kernel parameters
- 			core priority to both SMT siblings, so this option
- 			does not favor either sibling.
- 
-+	sched_stack_end_check= [KNL]
-+			Format: <bool>
-+			Check the magic value at the end of the outgoing
-+			task's stack (and its shadow call stack, if any) on
-+			every call to schedule(), and panic if it has been
-+			overwritten.
-+			Default set by CONFIG_SCHED_STACK_END_CHECK.
-+
- 	sched_verbose	[KNL,EARLY] Enables verbose scheduler debug messages.
- 
- 	schedstats=	[KNL,X86] Enable or disable scheduled statistics.
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index fc269fd10192..c1fb86b813bb 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6143,18 +6143,39 @@ static noinline void __schedule_bug(struct task_struct *prev)
- 	add_taint(TAINT_WARN, LOCKDEP_STILL_OK);
- }
- 
-+static DEFINE_STATIC_KEY_MAYBE_RO(CONFIG_SCHED_STACK_END_CHECK, sched_stack_end_check);
-+
-+static int __init setup_sched_stack_end_check(char *str)
-+{
-+	bool enable;
-+
-+	if (kstrtobool(str, &enable)) {
-+		pr_warn("Unable to parse sched_stack_end_check=\n");
-+		return 0;
-+	}
-+
-+	if (enable)
-+		static_branch_enable(&sched_stack_end_check);
-+	else
-+		static_branch_disable(&sched_stack_end_check);
-+
-+	return 1;
-+}
-+__setup("sched_stack_end_check=", setup_sched_stack_end_check);
-+
- /*
-  * Various schedule()-time debugging checks and statistics:
-  */
- static inline void schedule_debug(struct task_struct *prev, bool preempt)
- {
--#ifdef CONFIG_SCHED_STACK_END_CHECK
--	if (task_stack_end_corrupted(prev))
--		panic("corrupted stack end detected inside scheduler\n");
-+	if (static_branch_maybe(CONFIG_SCHED_STACK_END_CHECK,
-+				&sched_stack_end_check)) {
-+		if (task_stack_end_corrupted(prev))
-+			panic("corrupted stack end detected inside scheduler\n");
- 
--	if (scs_is_enabled() && task_scs_end_corrupted(prev))
--		panic("corrupted shadow stack detected inside scheduler\n");
--#endif
-+		if (scs_is_enabled() && task_scs_end_corrupted(prev))
-+			panic("corrupted shadow stack detected inside scheduler\n");
-+	}
- 
- #ifdef CONFIG_DEBUG_ATOMIC_SLEEP
- 	if (!preempt && READ_ONCE(prev->__state) && prev->non_block_count) {
--- 
-2.54.0
-
+Takashi
