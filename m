@@ -1,54 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097538;
-	b=oB39qfd5UCCbLPVZ5fHJPpYK2SsHz1uqpEAyuHd75DQhwS5UKjzAtsHOvdb4hPy/8t3x
-	 otsKsphp0+x2E2LFJv9qTjiCvgzk+RzvnDGaS2pbd/AHNWXi4ldMqdyOwu0DqvEI/Wb+p
-	 BwkBqPy3SP8ojpxWE3oGV2ZSThaqeRY0s2TkGm8q7DFdvs2hSVn7A4HGGufvt0rJhvtUX
-	 4cjmaQH/Rx5CoDJrh+TvjzFK0FiIbutk1SPMEru73qCcpYh2NI7VDKqTz0t0kRNaoflqs
-	 Tl1RmFJf0I6x+dolyJmxSIwk+ge1l8ftREkXH1aSW422ZnO/qfnBQqTsGnjFYTIijkQ==
+	t=1793097551;
+	b=gMMogu7SLEbZ2SZdgpufM5867yWg5ZNLieyVXi9z4204wLAH2HJdhyNwjyPVhuvyPQfY
+	 9XNdjmlFCvJiWYw9OyoCdV7UHiktepxbukyJSMlet8A/XyFiWIzgQ1HrVOvFYVPB/8FsG
+	 Py8FtdH34+Q2gN2BEAx+aRN1y3FN2cO9VB8osSNj3GILrZObPyhaQHMQAPixRftpxdp59
+	 qFIJiiCcMjpE2uQQY5eHvvFfvUPhH+EVuhLTLDV1VZQj3sXbGYNHQayrpLeImLINlWV6q
+	 JgLBOZvfq9xBpaKev0gxx86K0B0wAram8zkuepYPMU2FMXKaGmn4OkIwJ7VVerM0T4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097538;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097551;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YrRZ5PJgwoVm9U3m2gBPDnAMwrZhHwNt19P3sqgQjTc=;
-	b=EwzecPdvUxcEJVUfgkn1ahSgIHifbiwHFVpTT7fYcxlVgDawdB8cClj8oUoefZKpW62l
-	 uYUoHKuuS7CYPMh9OsrMEIW0pBbXJYqLOa/2s4Idi9SRhIjaDDMVPzVlzzv5JVi5gd3rZ
-	 QOOPrXU+ryfEMmjbnXD01NcBs4N1vwDFVu6a8P7VJiDaYeanc1438Umkpsmr0HYWo1WxB
-	 Cgw3C2JWo83jXisZsV46A+q+lVfocFSyo/t/HcEzkdS66ULjB0vjaSdf1+GYKuPzQDFBO
-	 YymsqvGB9xawIfMNVfwTcUx5UJC05q2biO2Q6ZDbWzv6nRuWmbxUozs22/Qk5e41X/A==
+	bh=Hv5cW4qfaMB0IAROadRd9DGB/x9+gfVZMukZPNduBgo=;
+	b=thDCMpoHiIr8q1lAz5DW+Csy2Scgb/HnGvRVzxRm6qk7Ytstyb3sLU6zLGRNkmlqibXd
+	 z9pIl9nJl4Of3EGH4VX218nWnCYlijp8ydYzOY+TFWpQGAY/b2KP4xeAi4ijz+GbwomdU
+	 2rbaYYwHk9/ZnKVVyQ23YrNxFEvpbQF4Ef3LkvaLRfDSsW3uJLIQnCgI5O/tjkf6lvnt3
+	 YxgHFg0M3+IjB8fSmuf20ypVoVCplF1iz0VipADrDugVQVYtHqJ8IUrGyEEccp5R3G4MC
+	 3DFxaTGCjX8Xm8UtmTr+IAlajS3rtjt2AH+vcn47Xi3xiJj5ulFUix+b50Hi1K5Up1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIr1Z+jr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdveWqdH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB51606A31D;
-	Tue, 27 Oct 2026 10:38:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9FC60A2605;
+	Tue, 27 Oct 2026 10:39:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIr1Z+jr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4A911F01825;
-	Tue, 27 Oct 2026 10:38:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdveWqdH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2A31F01829;
+	Tue, 27 Oct 2026 10:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097538;
-	bh=YrRZ5PJgwoVm9U3m2gBPDnAMwrZhHwNt19P3sqgQjTc=;
+	s=k20260515; t=1793097551;
+	bh=Hv5cW4qfaMB0IAROadRd9DGB/x9+gfVZMukZPNduBgo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mIr1Z+jroQC7OTg3Jo7pZKd4ADtW3yDxMdVjppJxn8O/lYtw8TOTCAXnX4HQvYi1u
-	 GRtAa+GpWZxypC5x7cHEziHPNEH2d0ZVw2llTEnNmCCZ12EcXnSIO5X14/pQ27q6lv
-	 HhmPTfoS6D3MByHZrQyJsQcBx/rEPyowsdGQGy9bP/2FMLp9K0Nzzkx8JxcuSwb2q/
-	 jUa65YeX6UWADjjqY5UQlequAFazCU/g/wHu3XmuYnLF7y0vt+hshweRYM7cp5qL+O
-	 7P4JWxM40l6oURsdU7lBceLyT/JPhtCW4YENg8ndXdLm0QmqhtvSWV2PotMrph2Npn
-	 KOaZ1uG6gkdBQ==
+	b=CdveWqdHx6IvpLnuJoBX5HN37kVBBlLCeiUmCIO7s2F1M2Msi7zU9I95fFcz7rFyu
+	 rtnk4OmBFjfcLkgS5X7vl7mkD9YM81JLsVaZ8Got6A5WASx5VF9DMZgkMVLRXe/+y6
+	 ObvMrXTC65gvB9Iho8e/ERdDJA3kuvMFsI6sJ+ctBymBHuKOua2Ec4Xl9slt6BeMt3
+	 8ZOfPpRqCuTaciU+0Y1oTjx3ucUL7yPEkQehftwLJPptLHrzZ44RLyv100ILz8pWpa
+	 KZnsgsv7H0aAaCAPlb8PWITmllL1qSncyP4EBE+tvfcpLCXI2/Jshtf2fZn8/GuPeC
+	 vvBXehu/vmAug==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 26/27] i2c: cgbc: Propagate hardware errors when polling read status
-Date: Tue, 27 Oct 2026 09:30:55 +0000
-Message-ID: <20261027093306.2812695-27-lee@kernel.org>
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Rachna Patil <rachna@ti.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	mfd@lists.linux.dev
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH v2 27/27] mfd: ti_am335x_tscadc: Remove redundant ti_tscadc_dev_get() helper
+Date: Tue, 27 Oct 2026 09:30:56 +0000
+Message-ID: <20261027093306.2812695-28-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
 References: <20261027093306.2812695-1-lee@kernel.org>
@@ -63,82 +71,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In cgbc_i2c_xfer_msg(), read_poll_timeout() uses the same ret variable
-to store the polled return value of cgbc_i2c_get_status() and the
-timeout result of the macro itself.  When cgbc_i2c_get_status() returns
-a negative error code (such as -EIO on an I2C NACK), the loop condition
-ret != CGBC_I2C_STAT_BUSY evaluates to true and read_poll_timeout()
-overwrites ret with 0.  The driver then issues CGBC_I2C_CMD_DATA, which
-completes with CGBC_STATUS_CMD_READY without populating msg->buf,
-leaving uninitialised heap memory in the caller's read buffer.
+Now that ti_tscadc_dev_get() is a single-line wrapper around
+dev_get_drvdata(p->dev.parent), remove the bespoke helper and retrieve
+the parent driver data directly in the child ADC and touchscreen
+drivers.
 
-Store the polled status in a separate variable, verify that it equals
-CGBC_I2C_STAT_DAT, and check that CGBC_I2C_CMD_DATA returns the expected
-number of bytes.
-
-Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
-Closes: https://sashiko.dev/#/bug/linux-66cbf4b1-a219-4012-969d-236417bf419a
-Cc: stable@vger.kernel.org
-Reviewed-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-Tested-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+Acked-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
+Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/i2c/busses/i2c-cgbc.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+ drivers/iio/adc/ti_am335x_adc.c           | 2 +-
+ drivers/input/touchscreen/ti_am335x_tsc.c | 2 +-
+ include/linux/mfd/ti_am335x_tscadc.h      | 5 -----
+ 3 files changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
-index 25a74fa51aa0..9909c25f0b18 100644
---- a/drivers/i2c/busses/i2c-cgbc.c
-+++ b/drivers/i2c/busses/i2c-cgbc.c
-@@ -205,9 +205,9 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
- 	struct cgbc_device_data *cgbc = i2c->cgbc;
- 	struct i2c_msg *msg = i2c->msg;
- 	u8 cmd[CGBC_I2C_CMD_SIZE];
--	int ret, max_len, len, i;
-+	int ret, status, max_len, len, i;
- 	unsigned int cmd_len;
--	u8 cmd_data;
-+	u8 cmd_data, data_len;
+diff --git a/drivers/iio/adc/ti_am335x_adc.c b/drivers/iio/adc/ti_am335x_adc.c
+index 1516dd332f90..77ea59d6c6b7 100644
+--- a/drivers/iio/adc/ti_am335x_adc.c
++++ b/drivers/iio/adc/ti_am335x_adc.c
+@@ -636,7 +636,7 @@ static int tiadc_probe(struct platform_device *pdev)
  
- 	struct cgbc_i2c_transfer xfer = {
- 		.bus_id = algo_data->bus_id,
-@@ -266,17 +266,32 @@ static int cgbc_i2c_xfer_msg(struct i2c_adapter *adap)
- 		if (ret)
- 			goto err;
+ 	adc_dev = iio_priv(indio_dev);
  
--		ret = read_poll_timeout(cgbc_i2c_get_status, ret,
--					ret != CGBC_I2C_STAT_BUSY, 0,
-+		ret = read_poll_timeout(cgbc_i2c_get_status, status,
-+					status != CGBC_I2C_STAT_BUSY, 0,
- 					2 * algo_data->read_maxtime_us, false, adap);
--		if (ret < 0)
-+		if (ret)
- 			goto err;
+-	adc_dev->mfd_tscadc = ti_tscadc_dev_get(pdev);
++	adc_dev->mfd_tscadc = dev_get_drvdata(pdev->dev.parent);
+ 	tiadc_parse_dt(pdev, adc_dev);
  
-+		if (status < 0) {
-+			ret = status;
-+			goto err;
-+		}
-+
-+		if (status != CGBC_I2C_STAT_DAT) {
-+			ret = -EIO;
-+			goto err;
-+		}
-+
- 		cmd_data = CGBC_I2C_CMD_DATA | algo_data->bus_id;
- 		ret = cgbc_command(cgbc, &cmd_data, sizeof(cmd_data),
--				   msg->buf + i2c->pos, len, NULL);
-+				   msg->buf + i2c->pos, len, &data_len);
- 		if (ret)
- 			goto err;
-+
-+		if (data_len != len) {
-+			ret = -EIO;
-+			goto err;
-+		}
- 	}
+ 	indio_dev->name = dev_name(&pdev->dev);
+diff --git a/drivers/input/touchscreen/ti_am335x_tsc.c b/drivers/input/touchscreen/ti_am335x_tsc.c
+index 623546e80668..40ffdec9d207 100644
+--- a/drivers/input/touchscreen/ti_am335x_tsc.c
++++ b/drivers/input/touchscreen/ti_am335x_tsc.c
+@@ -418,7 +418,7 @@ static int titsc_probe(struct platform_device *pdev)
+ {
+ 	struct titsc *ts_dev;
+ 	struct input_dev *input_dev;
+-	struct ti_tscadc_dev *tscadc_dev = ti_tscadc_dev_get(pdev);
++	struct ti_tscadc_dev *tscadc_dev = dev_get_drvdata(pdev->dev.parent);
+ 	int err;
  
- 	if (len == (msg->len - i2c->pos)) {
+ 	/* Allocate memory for device */
+diff --git a/include/linux/mfd/ti_am335x_tscadc.h b/include/linux/mfd/ti_am335x_tscadc.h
+index 4a048a897cf3..36d365b64fe6 100644
+--- a/include/linux/mfd/ti_am335x_tscadc.h
++++ b/include/linux/mfd/ti_am335x_tscadc.h
+@@ -175,11 +175,6 @@ struct ti_tscadc_dev {
+ 	struct adc_device *adc;
+ };
+ 
+-static inline struct ti_tscadc_dev *ti_tscadc_dev_get(struct platform_device *p)
+-{
+-	return dev_get_drvdata(p->dev.parent);
+-}
+-
+ static inline bool ti_adc_with_touchscreen(struct ti_tscadc_dev *tscadc)
+ {
+ 	return of_device_is_compatible(tscadc->dev->of_node,
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
