@@ -1,82 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793074937;
-	b=WiXz8D8rdk7Q+BPepOkX7PaZT/pw71n00XCSXAvLo1OlhuEOlMEnkotwYxwUerswmwTH
-	 0HCCoysHUPMXSG5u1W5aNNvNmMdf6/5YT/bgDMMYmxr0LJ2Ixo8MKYUhIIUdZEzV57QIz
-	 6sOj8kWLcLm1U5JEVvI9HRDUog9bxH7Qmo2I2fAnl+wUbCv6etFA/OTC6fZLZogJklfFl
-	 gcxmWT880i+MKwV0s7KzlrClGwhTvWNNZtFGT6BtGw3CrBsKF1F4zU3tu8F5dn/XAucIg
-	 Mdu6ZEQ6ZUUGLanfwfVTma5WJz84hMG5kQCco6Z0eBKs2meSWYV4eq98hhxwflBFc3g==
+	t=1793074933;
+	b=SvfXL/Gq+xTdIX2M5ocFXHm+nEYhv0T+3jc8jlhG/xB6ayIlZjm1DFWwWZNlVx5XMBGE
+	 pE9l2zLzEG69IKtpok0D316uyQAC4ypYcOawDjVRB37UELmrxkSREmFsbANOnlI9M6/ig
+	 t+1xmFLSkjvqkjlQmG6WA0tzA8scvR17qdJR3X9iXJ3TK95bu4Sh3XSUSWgiZmfBTpXx5
+	 YtOosTij30oP1zkAlj5LvomV03gPwnGDEQ8d3/YQCAqF+IMyJoGjeH9giS8j8KWi9HI/5
+	 YKeLD6tJgshHghM40wv92nRGrcHhPCflcW53/KZWWKX+uyt2vcZUe78R0nS3FF3yHUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793074937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793074933;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=CfcYGaJ4tkbNnhjQHfn5dtEgiZ6cd5xAnQKhOyf0Ms4=;
-	b=EzeBnho1ScpFRQ0hta2fshTqOAaYBzH5U1pPtz/HXAIKkFWl4m6wZjCefvhHt3UoVPFE
-	 eVforTJQ0IFi46gQfRb0khHJ5Foqq8Yk7ox7misQ2p00YJRC4RRpdTzEx9Yp5I+M0vJFD
-	 KhC7sMFjrUG1xFV6FLJGzClXRoBwqkxpHT9xIkJnIHgAEU8ah2ls/EuI4zp4aBAxL5TEQ
-	 ky3dby0fps0J+6zsrJEgkSUHTLJaNmFWUZIcq1y03sIo40AiLJbkSVGAoseuYfr5i0JfK
-	 e+gZB47F80CmVHxp33PcZNKSWyeE2mjenxxr724oCqaHvLX3cLVyJM8tPrvBxI4EVcQ==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=fubOaxOgmofN/3iFYwSrZzfn2/O9nYxlfixW+9HNaRE=;
+	b=S07m0teR5jNJe1fKl6hr2bHOmdhdvmKsJQhwRx4IUHMGM3+orxipyVoPTxoQd221q9qB
+	 hmRfX1OKmLYoQ8mnhaTBDPINTMd7y84oRUXAGyesZG4DbTSp/dejLRvb3SW0jpixHLkrZ
+	 qv4TWzqlyi3RtPjw+3OlF41+0UyzCD5JA3k8RGIfDWLTDNCPEep7sJlFNIEDhBVlCIs1W
+	 51DZy2NDTgbAgGTRYK7E+pRSzWuWn7iQ5jQ2Mg16gWA0YqRsyetvsaQVd96XI32zxPVRC
+	 3F4Z8lwcXR8XBQ8/oyzUKW14kfVDBmDeUy8amRpArjbWVGRh9uwjy09LLPSY4NCDbfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y3gLtDpB;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=GMv5hpEW;
+	arc=none smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD59606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD59606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E76F606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:22:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E76F606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y3gLtDpB
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91bb5795792so44297466d6.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:22:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=GMv5hpEW
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91b54d1e9cdso29982936d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:22:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793074936; x=1793679736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CfcYGaJ4tkbNnhjQHfn5dtEgiZ6cd5xAnQKhOyf0Ms4=;
-        b=Y3gLtDpBr+M2FDm5quUn5gPRwaJ+fyy+Qctp/Xqq2lMD6UiJWzbPv9MlofyBKVv900
-         6m1NdCDxkTiDqwSgh9vEt4LVmKHniUPhnAjTPT4WVA1CzqHelc6fFBfKcz8hxsUiltpc
-         kBEpn5xRR4grlCDKkY+ZibHGqnK4DTxcLe0VUNj/Y4ouJt17aSmtj685hXExRr4cTTb+
-         pA551bJ7Xbm+xIjMutL6A1H+BngA2tatnAWOsBrSpbdiGnD8ifrhMQFrTdHePnu7KOZ+
-         iWTdzua/H0lxYN4pk1j6so712OOLxxT2AcP22qgzQXUHqvdIMVlLUq14b59nPsSYrClv
-         2RVg==
+        d=gourry.net; s=google; t=1793074932; x=1793679732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fubOaxOgmofN/3iFYwSrZzfn2/O9nYxlfixW+9HNaRE=;
+        b=GMv5hpEWLffJj9XNe0rwhZUg80o07hoik0Uc+bdjO8vwxOQnXkUSF2+8mMCp1rmSGt
+         422HUdWwtLS1VB4wScEs1vP49yWF/b/QIcZxcCvLGxpzxfdkG/QO4ChVjpkFxuKC50av
+         6oet7ESWbw7JYI0zgNc+S3eHXRo19L931xfvoz5yHwgtnffWGdvqjFpmhI5R8RXOk1h8
+         0QkNJnQBTryIkwOvq8GkKCIoMwQgtoiUncL6CeJHYrfyrJOlDrurfXyQUbvTS6lnsRWJ
+         ZSvfU9OVAQxYd/F/o7A7Mx0OejzztF3cokITVw5wmyN2qP8i+PKMkKIgvSpomA/S4/Mz
+         xU7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793074936; x=1793679736;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CfcYGaJ4tkbNnhjQHfn5dtEgiZ6cd5xAnQKhOyf0Ms4=;
-        b=DN0u5ZKHhwWsnNpe6+LHxkTd0zumxONTMMhjLJ/K5tZ79nAtDoiW2loqxefUmT0eUM
-         QaLYt00ae7aHwL+He5/f50/KxJsHpym5JIV+PwmshksHMMYryNB+jjk/APtOvtFRcvhq
-         D215wdetR8zxshP1rhBPRuBgx9nXNaFsKTPWyA3gEzqcjDU34CQo7f0s3IAhQoeQDLJg
-         9CAqtrmJvXwjNbTlNgNpLEWavGJY8ygceabWyKlnJx8QOCqvkJyW1XYbAdzHpzaTVWf4
-         hqfWYqD2skwxR7KPcfVSQG2Z1G6+loN+yEgwLD/vjLqBTl5JeWBb5pQknAxolJp3/o6Z
-         FHTA==
-X-Gm-Message-State: AFq9FYLSNH+1QF39kkSLkEYcPX8WnJS/i9neGvFxxvx3Ruc7mE52sYAy
-	zglDiQvUdzIjMITdQicdnrsSNNI+2e5qM7ypg7R9g2nxfQh2uXZByg0IEjojyKti+yI=
-X-Gm-Gg: AYBFou2nBJQb+zTGvWrWHBs83leyZ6eSaTp5zn+3CfQIVE94BAClce1sN1ptcw9bTRc
-	ukCj6WyD2vgHg3vzcaT2VjHTzi+8WOYW0vX4UxFAQO1Pn23tXiE60e2Hn9m/JuKaX0k1bgRy3JO
-	+86XtvHMeIks9Kbbm6O6w4oM5PeKYhYHe358XXzqXig/HfEy0a9v7b1J/krSdUS+8iv01aDWAv1
-	MLcRogMckbj6XKkZ73sIgoajAnn5sSvegoVr0/AhLHcfztvF0UE6rhYwqd7V0EbWT6PmcORuu+T
-	Sph25KpCp8/GOql+P23Wlr5s1sqr2aBDKelCChKEQT6iFnhu5e7mPOms3zDVAXblhG4qPLs0570
-	O2f8CHgHy/3b2DrXj7+/sa3VPMKCgcD7wnWBNT2lJiNZXdXdYX8JA0U4owvfeQUcJPi8KTlxNak
-	SySLMz7BFhxOefyl28eSkQwFmow9FPmtdJPMK+GlFRQvzHtdAF8RJqlX3vjkIwpNptFYoXhMpGX
-	5+y+oAw1JjVxUDkwi1sxGdskVHc+ffjCCNmxo4/RYo73EXQAEMDScI9WZEhwa5j6GfSTmMgUrUL
-	MOJJQq16oiE9hL27rCTkES5EXmmFpVyayn/xvDSsaw==
-X-Received: by 2002:ad4:5c8d:0:b0:917:92c7:ce45 with SMTP id 6a1803df08f44-91c48e5705dmr159481776d6.37.1793074935786;
-        Mon, 26 Oct 2026 21:22:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793074932; x=1793679732;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fubOaxOgmofN/3iFYwSrZzfn2/O9nYxlfixW+9HNaRE=;
+        b=TfkZpn//3tfO4uzD7eoCmB7nJvKcQ/Pqdgs5JirWASZarGf/OOUD0mfOLXXqPf//s/
+         +/0wk4FrLL6hyMn2beUc7RauS1cihGIdhnPg6f9+d6Trnb4YHA25YkHMzIYlnn3D+Po3
+         fbfhf1ic6xRk3hUcoCrrTdzOxvmtchvoUekq6kJvDQboPK8bEI0C29eyHBkGiswlMAkb
+         jLrj2h/QH4sJKXBg4Sv52ooC80+C0Yfhz/RSgyOCVoAJAWe/169l/cnDzxAAanL+EvB+
+         Vk3GIx1E9b9phskviK8TITf7H1Ra2NCmCvwFlnrZoCffmaJ349CjrwCYR5pjNrp+xV6J
+         3KXw==
+X-Gm-Message-State: AFq9FYLIkiC4hKRUxVNXQ3ly5LbTqTrMiDACG9Vzlc+D2A9bptV3Fp1/
+	y6m7H2AgMIWXXGv8KrMjrQLgiRGBl5pi++TXRL45Eosxf29Vr1hwC+/J1BrZia3f59WmEujG+5E
+	DkjEgbRA=
+X-Gm-Gg: AYBFou3kihvwh6ygBr5Af5HLtbDWk4WQMlHGq+adjERihev8fcOu1Voa9LEmcCbndHF
+	Eo+dddvlivIG66v/IxWKOIbFUbGCSqXmF9bhw8wtOJYfxEVPnZaivS85JoJL7h3Xm4QNH125Tin
+	gDORxdI33+mMQ38p42EfE9HmM21AWCSFHQBQ9ws9INjkbSu2/cTxel57/i/Y9O465fBTmQHCx+n
+	CM7mcfVNBEss4qqEr9Qk8NlQk8je3Mw/B1hnGv5FzIBog8hV4uaqMkzrFNToqjSpf6pBOgoAmiz
+	7gHe89flX20Jic76USCUN7QeDf8YF4U0TGDjox8jMBzDy2OXVQqRU3lJwVROk4GOu/sOY6FLMSl
+	HtHZ5OOWxE11mP+IEgqGd/49XHog2V1HA0zp3ohG6IcgvG/EY1JOdf0OKjKAGnsHsgQ0OmqCVNt
+	TnqjGSk/3ObDyEPohJQqGlt0OEMr9ACXZrE2ffJAF1sogOXrojqf7lq4cDm3q+Jp4dlgxIaWOec
+	8/4nMspfCtP8R0gzzoIPEbC21qdAVNqgjCMA4u0ZZkmLqUNJdYtKGGWOywgAmdNhl9xaWdzzSp2
+	46lZ3ZwtbHyy/XHuXijxPddfQkgh7obUpgg/a0aHKQ==
+X-Received: by 2002:a05:6214:29ed:b0:91c:65d0:1d78 with SMTP id 6a1803df08f44-91c65d0312dmr64203956d6.50.1793074932283;
+        Mon, 26 Oct 2026 21:22:12 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd01cdsm91139676d6.7.2026.10.26.21.22.13
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd01cdsm91139676d6.7.2026.10.26.21.22.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:22:13 -0700 (PDT)
+        Mon, 26 Oct 2026 21:22:11 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -98,14 +97,11 @@ Cc: linux-kernel@vger.kernel.org,
 	osalvador@suse.de,
 	muchun.song@linux.dev,
 	iamjoonsoo.kim@lge.com,
-	anshuman.khandual@arm.com,
-	stable@vger.kernel.org
-Subject: [PATCH 1/6] mm/compaction: wait for pfn walkers before poisoning offlined memmap
-Date: Tue, 27 Oct 2026 00:21:59 -0400
-Message-ID: <20261027042204.3741307-2-gourry@gourry.net>
+	anshuman.khandual@arm.com
+Subject: [PATCH 0/6] mm: fix pfn walker races with memory offline
+Date: Tue, 27 Oct 2026 00:21:58 -0400
+Message-ID: <20261027042204.3741307-1-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027042204.3741307-1-gourry@gourry.net>
-References: <20261027042204.3741307-1-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,243 +113,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Compaction checks that a pageblock is online, then uses its pages across
-lock drops and sleeps.  If offline poisons the memmap meanwhile, a
-DEBUG_VM kernel faults:
+Several pfn walkers check that a struct page is online, then use it
+after memory offline has poisoned it (CONFIG_DEBUG_VM) or removal has
+freed the vmemmap.  Five of the races crash the kernel; the sixth leaves
+an offline spinning with the device hotplug lock held.
 
-  CPU 1 (compaction)                  CPU 2 (offline_pages)
-  pageblock_pfn_to_page()
-    block is online
-  isolate_migratepages_block()
-    cond_resched()
-                                      offline_mem_sections()
-                                      remove_pfn_range_from_zone()
-                                        page_init_poison()
-    set_pageblock_skip(valid_page)
-      reads the zone of a poisoned page
+Patch 1 adds pfn_walk, an SRCU-fast read section that offline waits for
+before poisoning the memmap.  Patches 2 and 5 use it; patches 3 and 6
+hold get_online_mems() instead.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc00000006a2
-  RIP: 0010:set_pfnblock_bit+0xa6/0x2b0
-   isolate_migratepages_block+0x2456/0x3c80
-   compact_zone+0x1638/0x3900
-   compact_node+0x12a/0x1f0
-   sysctl_compaction_handler+0xec/0x160
+  1. compaction scanners
+  2. page_owner reads
+  3. memory_failure(), soft_offline_page(), unpoison_memory()
+  4. alloc_contig_range() undoing another caller's isolation
+  5. alloc_contig_pages() isolating a range that went offline
+  6. the hwpoison-inject filter
 
-The free scanner faults the same way.  A contiguous zone skips the
-online check, since offline clears zone->contiguous only after
-poisoning.
+All six are for stable.
+  Patches 2 and 5 need patch 1
+  patch 5 builds on patch 4
+  patch 6 builds on patch 3
 
-Hold an SRCU-fast read section (pfn_walk) from the block check to the
-last use of its pages, and make remove_pfn_range_from_zone() clear
-zone->contiguous and wait for it before poisoning.  Offline pays one
-grace period per range.
+Testing
+=======
 
-Scanner positions outlive the section, and offline can shrink the zone
-meanwhile, so take the contiguous fast path only inside the current
-span, publish zone->contiguous with release, and keep the migrate
-scanner inside the zone.
+Each race was reproduced on unmodified source in a QEMU guest with three
+NUMA nodes and a pc-dimm left offline at boot (DEBUG_VM, KASAN,
+lockdep).  A test module holds one task inside the window while the
+offline or eject runs, then releases it.
 
-With a kprobe parking the migrate scanner across the offline, base
-faults in 3 of 3 runs and this patch in none.  Unforced offline/online
-cycling under compaction faults in 8 of 24 runs on base and 0 of 12 with
-this patch.
+         base                           this series
+  patch  outcome                 runs   outcome                 runs
+  -----  ----------------------  -----  ----------------------  -----
+  1      GPF                     3/3    offline waits, clean    3/3
+  2      GPF or #PF              6/6    offline waits, clean    6/6
+  3      GPF, or unpoison of a   9/9    blocks, -EIO/-ENXIO     9/9
+         poisoned page
+  4      offline still looping   4/4    offline completes       3/3
+         after 30s
+  5      GPF                     3/3    offline waits, clean    6/6
+  6      #PF                     3/3    eject waits, -ENXIO     3/3
 
-Fixes: d33695b16a9f ("mm/memory_hotplug: poison memmap in remove_pfn_range_from_zone()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
----
- mm/compaction.c     |  8 ++++++++
- mm/internal.h       | 41 +++++++++++++++++++++++++++++++++++++++++
- mm/memory_hotplug.c | 14 ++++++++++++--
- mm/mm_init.c        |  4 ++--
- mm/page_alloc.h     |  7 ++++++-
- 5 files changed, 69 insertions(+), 5 deletions(-)
+Without forcing the window, offline/online cycling under compaction
+faulted in 8 of 24 runs on base and 0 of 12 with patch 1.
 
-diff --git a/mm/compaction.c b/mm/compaction.c
-index f1b2060eb2016..2aeb18b6d54dd 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -360,6 +360,7 @@ static void __reset_isolation_suitable(struct zone *zone)
- 	if (!zone->compact_blockskip_flush)
- 		return;
- 
-+	guard(pfn_walk)();
- 	zone->compact_blockskip_flush = false;
- 
- 	/*
-@@ -716,6 +717,7 @@ isolate_freepages_range(struct compact_control *cc,
- 	unsigned long isolated, pfn, block_start_pfn, block_end_pfn;
- 	int order;
- 
-+	guard(pfn_walk)();
- 	for (order = 0; order < NR_PAGE_ORDERS; order++)
- 		INIT_LIST_HEAD(&cc->freepages[order]);
- 
-@@ -1340,6 +1342,7 @@ isolate_migratepages_range(struct compact_control *cc, unsigned long start_pfn,
- 	unsigned long pfn, block_start_pfn, block_end_pfn;
- 	int ret = 0;
- 
-+	guard(pfn_walk)();
- 	/* Scan block by block. First and last block may be incomplete */
- 	pfn = start_pfn;
- 	block_start_pfn = pageblock_start_pfn(pfn);
-@@ -1732,6 +1735,7 @@ static void isolate_freepages(struct compact_control *cc)
- 	unsigned long low_pfn;	     /* lowest pfn scanner is able to scan */
- 	unsigned int stride;
- 
-+	guard(pfn_walk)();
- 	/* Try a small search of the free lists for a candidate */
- 	fast_isolate_freepages(cc);
- 	if (cc->nr_freepages)
-@@ -2099,6 +2103,7 @@ static isolate_migrate_t isolate_migratepages(struct compact_control *cc)
- 		(cc->mode != MIGRATE_SYNC ? ISOLATE_ASYNC_MIGRATE : 0);
- 	bool fast_find_block;
- 
-+	guard(pfn_walk)();
- 	/*
- 	 * Start at where we last stopped, or beginning of the zone as
- 	 * initialized by compact_zone(). The first failure will use
-@@ -2116,6 +2121,9 @@ static isolate_migrate_t isolate_migratepages(struct compact_control *cc)
- 	 */
- 	fast_find_block = low_pfn != cc->migrate_pfn && !cc->fast_search_fail;
- 
-+	/* Offline may have shrunk the zone start past an old migrate_pfn */
-+	low_pfn = max(low_pfn, block_start_pfn);
-+
- 	/* Only scan within a pageblock boundary */
- 	block_end_pfn = pageblock_end_pfn(low_pfn);
- 
-diff --git a/mm/internal.h b/mm/internal.h
-index d497c35ee7833..8a2faa74403b5 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -18,6 +18,7 @@
- #include <linux/rmap.h>
- #include <linux/swap.h>
- #include <linux/leafops.h>
-+#include <linux/srcu.h>
- #include <linux/tracepoint-defs.h>
- 
- /* Internal core VMA manipulation functions. */
-@@ -1206,6 +1207,46 @@ struct tlbflush_unmap_batch;
-  */
- extern struct workqueue_struct *mm_percpu_wq;
- 
-+/*
-+ * Compaction checks that a pageblock is online and then uses its pages,
-+ * possibly across sleeps.  remove_pfn_range_from_zone() waits for these
-+ * readers before it poisons the memmap of a range taken offline.
-+ */
-+#ifdef CONFIG_MEMORY_HOTREMOVE
-+extern struct srcu_struct pfn_walk_srcu;
-+
-+static inline struct srcu_ctr __percpu *pfn_walk_lock(void)
-+{
-+	return srcu_read_lock_fast(&pfn_walk_srcu);
-+}
-+
-+static inline void pfn_walk_unlock(struct srcu_ctr __percpu *scp)
-+{
-+	srcu_read_unlock_fast(&pfn_walk_srcu, scp);
-+}
-+
-+static inline void pfn_walk_synchronize(void)
-+{
-+	synchronize_srcu(&pfn_walk_srcu);
-+}
-+#else
-+static inline struct srcu_ctr __percpu *pfn_walk_lock(void)
-+{
-+	return NULL;
-+}
-+
-+static inline void pfn_walk_unlock(struct srcu_ctr __percpu *scp)
-+{
-+}
-+
-+static inline void pfn_walk_synchronize(void)
-+{
-+}
-+#endif
-+
-+DEFINE_LOCK_GUARD_0(pfn_walk, _T->scp = pfn_walk_lock(),
-+		    pfn_walk_unlock(_T->scp), struct srcu_ctr __percpu *scp)
-+
- #ifdef CONFIG_ARCH_WANT_BATCHED_UNMAP_TLB_FLUSH
- void try_to_unmap_flush(void);
- void try_to_unmap_flush_dirty(void);
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 796af1028ee23..b5d9e367b893d 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -543,6 +543,16 @@ void remove_pfn_range_from_zone(struct zone *zone,
- 	struct pglist_data *pgdat = zone->zone_pgdat;
- 	unsigned long pfn, cur_nr_pages;
- 
-+	/*
-+	 * The range is offline, but compaction may still use pages it found
-+	 * online.  Make new scans check the online state instead of trusting
-+	 * zone->contiguous, and wait for the old ones before poisoning.
-+	 */
-+	if (!zone_is_zone_device(zone)) {
-+		clear_zone_contiguous(zone);
-+		pfn_walk_synchronize();
-+	}
-+
- 	/* Poison struct pages because they are now uninitialized again. */
- 	for (pfn = start_pfn; pfn < end_pfn; pfn += cur_nr_pages) {
- 		cond_resched();
-@@ -563,8 +573,6 @@ void remove_pfn_range_from_zone(struct zone *zone,
- 	if (zone_is_zone_device(zone))
- 		return;
- 
--	clear_zone_contiguous(zone);
--
- 	shrink_zone_span(zone, start_pfn, start_pfn + nr_pages);
- 	update_pgdat_span(pgdat);
- 
-@@ -1783,6 +1791,8 @@ bool mhp_range_allowed(u64 start, u64 size, bool need_mapping)
- 
- #ifdef CONFIG_MEMORY_HOTREMOVE
- 
-+DEFINE_SRCU_FAST(pfn_walk_srcu);
-+
- static int check_no_memblock_for_node_cb(struct memory_block *mem, void *arg)
- {
- 	int nid = *(int *)arg;
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index 01ced0553ce9b..db610ddc37398 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -2270,8 +2270,8 @@ void set_zone_contiguous(struct zone *zone)
- 		cond_resched();
- 	}
- 
--	/* We confirm that there is no hole */
--	zone->contiguous = true;
-+	/* We confirm that there is no hole; pairs with pageblock_pfn_to_page() */
-+	smp_store_release(&zone->contiguous, true);
- }
- 
- /*
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index 53df6b8a0c00a..7e185326b80ab 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -216,7 +216,12 @@ extern struct page *__pageblock_pfn_to_page(unsigned long start_pfn,
- static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
- 				unsigned long end_pfn, struct zone *zone)
- {
--	if (zone->contiguous)
-+	/*
-+	 * Offline can shrink the zone under a caller's old pfns and then set
-+	 * zone->contiguous again, so only trust it inside the current span.
-+	 */
-+	if (smp_load_acquire(&zone->contiguous) &&
-+	    zone_spans_pfn(zone, start_pfn) && zone_spans_pfn(zone, end_pfn - 1))
- 		return pfn_to_page(start_pfn);
- 
- 	return __pageblock_pfn_to_page(start_pfn, end_pfn, zone);
+Cost
+====
+I was unable to measure a discernable cost beyond noise, stddev of
+walkers and scanners runtimes on real hardware was wildly inconsistent.
+Leads me to believe this change is largely imperceivable.
+
+Gregory Price (Meta) (6):
+  mm/compaction: wait for pfn walkers before poisoning offlined memmap
+  mm/page_owner: hold off memory offline while a page is read
+  mm/memory-failure: keep the page online while handling it
+  mm/page_alloc: don't undo another isolation in alloc_contig_range
+  mm/page_alloc: keep the range online while alloc_contig isolates it
+  mm/hwpoison-inject: keep the page online while filtering it
+
+ mm/compaction.c      |  8 +++++++
+ mm/hwpoison-inject.c | 55 +++++++++++++++++++++++++++++---------------
+ mm/internal.h        | 41 +++++++++++++++++++++++++++++++++
+ mm/memory-failure.c  | 31 +++++++++++++++++--------
+ mm/memory_hotplug.c  | 16 +++++++++++--
+ mm/mm_init.c         |  4 ++--
+ mm/page_alloc.c      | 35 +++++++++++++++++++++++++---
+ mm/page_alloc.h      |  7 +++++-
+ mm/page_owner.c      | 45 +++++++++++++++++++-----------------
+ 9 files changed, 186 insertions(+), 56 deletions(-)
+
 -- 
 2.53.0-Meta
 
