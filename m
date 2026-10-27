@@ -1,76 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793068135;
-	b=SKx/VgYEO/xCFQVzBY71NqFH5FaHylAkNw24kAbX4wc/a2n+15jnOudVs9zwOUTFVWXg
-	 ug1+7+rUfhsKxvVMBPGTvrllWTaPZ2ZvEI7fUSSWHJY6JJib6qBfiCTTH1X2mXLshLOYZ
-	 IaY01daK4zos021KXWMojqWw+Y9EtrMnFVP72tDwBtagxN/+UD+EltF+L2Lx8a5q+kxGT
-	 lJEnetyalYvFIe5izxn1j6WnysK1QzJjg4vIgVdNDvWLj8yZzmpEzCHzN05FH+EyRNN4Z
-	 /ESjI1OGtxtC/w4wf7FVGydBCp0IgAga8QGNjmQtn6EmOPaoBeEtXJGLjAuZ7bKZ0ig==
+	t=1793068171;
+	b=3VjjBXWpF7tX9BN2zdWFaRibo+jj0ugRKIfQXAvxN7KlslDRTf8jAzEfT2orzQjnbkYg
+	 xboAuRNSnaYIk5654rIoY430qwOQS6eHcgEWOyGgMhnZwIUw1XEV+ZK8vgpdar6uBwpXb
+	 s1gtjgcYqvqfTAFAm2x+HcRJifaTBzAUD1kv2noeyNjNWddOcbZbSB0SDoIF2OSfz3KFP
+	 PM/eNuC4V9+B2fUrmYWI5xxS/BtPIDvMuyj4Axj3HhHLl6g1LWXq0DKqa+cO+LU29YVQn
+	 2OYsONDt+uA8JyjAIPksL4VIPlpzAHTQjntosgNFqOLOUhMWHrmTuKldOKOdkV5epAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793068135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793068171;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0DKYkKim1zCQPtEbSstx8AMdlP0KYJRU77N3GxfZjCQ=;
-	b=QFRav+g/HZEqqgt5ouCf1t215S49s7Bs/ZyyBoZJOeB6xxmPw+KvHsXHwqbdh9b5n9Ze
-	 Vl1P8D8kDGYju76Tis0w6etOwlevlYJejXTaiOlJIfKQxkgeta7ixdKywFKJysHt4nLOY
-	 HJqMUFo/usX1mCOqubD+Y4ChBzEDy18m23G3sGUxlMiX24+BcuEGEnElYpTbsXfK4lRCK
-	 tEW8pyjl5n00CKNl6MBRJiUv0kEy3TZD453s7xg30R1BLpMAwcX9u0KvSND6oErxIgvdL
-	 jhz2kt8lVZzCROarrYyV4zUdrdcAXdf1RnmJPudeQYQkjTnDqsRfNmFy0SfEZwe8o1A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=AuJpX+R1ikkgXuJg24CUYJMUBGehOWyuliZWHlt8VIY=;
+	b=Q2S/gUcjmlIra4/rj5J+xv5MpCDpIMPDbxUGCR9Hd4GbuRxoQ6WgbLIBzbigbB81n1hT
+	 jszmVLm/06OtNMfZ50QY2rguwj4U7fVtuV0N0MelhaMZaXJxKogpQS/vWx2f9k4otyboj
+	 U1OV1p4J0nkBBfXwcWgOdHQH8YyMz6d6opG7M0SJDFhhPp5glrRY0woWd+XAwnXleh/u2
+	 eYEj2M7tcRVzw/Hmxn4RxaEW+bqvEEwsYP137fLD2DtqBtSHHXnUxXBaUj3HbIKjdN8O4
+	 BWWSvUPKzkEzULHbrXLo8VylZ/zRLuq+/mQUZRssYe/I5B1GtqqJ2zTso4SVpd0XlVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Qh9HjegA;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DbZORDq5;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5374606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:28:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5374606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7DC606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB7DC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Qh9HjegA
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a01ea9e318so5171578b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:28:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DbZORDq5
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so29629805e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:29:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793068134; x=1793672934; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0DKYkKim1zCQPtEbSstx8AMdlP0KYJRU77N3GxfZjCQ=;
-        b=Qh9HjegAyEtpn6PG1OPFrqSgqRSnAT+UgBbUz6YO/svCJETYoLjJh3Xbyh6i3MFnHo
-         0mT1hXeXE6AoQERRJDjzqP6egkXGq+qGL/pjaQpKzcjYf71ePPRxVT4Agph23mcdKRMe
-         hGwSatkqZjIz8eypALgUtTYx6MTXjWuJ6kNks3g+hL2FODNfeVDDDsChdJm47LfTVP7X
-         BE6C7QiHgucjS8AF3PCPSnkfeLnKR9A5a5oKMxfAD09nTrinGvadnqVPN7wD80lzAyJk
-         cdccKhOiORVJG4FjBCfmhllHamFSCPzAQoMJZVdRjkoPT+nqIdyV3D4Nv5LNNbL7XJ3/
-         c6Sg==
+        d=gmail.com; s=20251104; t=1793068169; x=1793672969; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AuJpX+R1ikkgXuJg24CUYJMUBGehOWyuliZWHlt8VIY=;
+        b=DbZORDq5AiubwyjDXTjfusmrCpGrjrHPIfkmc/I3M2s4ChF1YwXLXq07UiJtP1eZkj
+         3kTv+zMiGVmJ9VZVJx5T774C5/cdDGDFA26IoBfuaKTc5DcRAo2RV/Lo+DboKBN9SJDr
+         sGHCWiaVkpVOeISEegQYs/ehQM0fJY539Emd74GXHT9L06X+ju044jAgfWAj7G40507H
+         c68wqbinZcoWx/PhiiESB+TZjMNe8XcrHLO2QMM96N/ZEJRBWNQT8ABehmIwUhGX6dDf
+         acUgNiGV0a0oAmth1z5O8a7gYiq0TGObGCbTgvv1BdjkaKh0aQEtlbDk4fwou4m9bebT
+         ktkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793068134; x=1793672934;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1793068169; x=1793672969;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0DKYkKim1zCQPtEbSstx8AMdlP0KYJRU77N3GxfZjCQ=;
-        b=0tE/IcyY+VCUS8mfKouHQMZzsTI75HiWNJOl/Xp/c1IquLVDHBd7Jf/CoMwYzLZhoo
-         kThaOErDAAwldMbPnes6zan3tB4sXH2q3ngpd4v8UjEDiYu2oRyPWzFfjmQgTyZHfaSJ
-         R7i8SFtPqR9QNP/HNsvuoPGwqN+Me1N9wuYuT381b8DRWZtFH1byvbOvkFNFC0ZqhjC6
-         WLtWKaSkHGy4TVvHYrDikFrudQY5rrurvnHNkbrZKznjRLN7dxJDi95R1O6GiFA8y3rJ
-         DF0Jo5BniKr5lK8yuUpQYiCNQ7di2d85g+8IKOvpE7e3u4Kkbimf25ZmqwvawWl4V3NC
-         Cyyw==
-X-Forwarded-Encrypted: i=1; AKwUvBxpVLUq1jsx3PZpymzOsxmLm5sQwv+zvL1W/wQNlmwqMqcne3Bn4WB39LXgATG7oGmPhQhOiHtJvgZkboQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhDxmSul7obnywKiALvmBg+WGRl4XG4vXNdjeB4NGjtflTo7N9
-	gUifFcMne38ZVikgaiR1rQ3tfbzJ2zgJSIMOfwLUBoJRl4cOBPyO5Q5+G5nLP29tZfU9NsgGUpZ
-	tqQgKIA==
-X-Received: from pfak4.prod.google.com ([2002:aa7:92c4:0:b0:887:8dda:c9e4])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3f90:b0:3e2:8ca9:5c6c
- with SMTP id adf61e73a8af0-3e7bfbd65f6mr5850646637.20.1793068133781; Mon, 26
- Oct 2026 19:28:53 -0700 (PDT)
-Date: Tue, 27 Oct 2026 02:28:53 +0000
-In-Reply-To: <CAL4WiiqQ3cychvCccpNW+WOU2SYCfNt6L=wgPkNmfTLHLy605Q@mail.gmail.com>
+        bh=AuJpX+R1ikkgXuJg24CUYJMUBGehOWyuliZWHlt8VIY=;
+        b=WFomnEJi0rBdF8JY8ADoeTeVHbr7N3Iuk6UZmpF6Qb3T1r4tstMU9aT/5HZjNcMPZK
+         4JEhiwiCXqdEzJt4pFAHxGhcCiUDZqKLxra75YU4vidLNj5e1JgdAnq2tA63UmRCUzc/
+         6dpjs7ukYPJ8KisbX8yHiSCS3l2rlly+vnInhMhBEZRkm++CJW8uYCIb20KgeNkWOYp4
+         u4ucRztsPhjVxl8Q7Qc2wjaSwiA2rC5kOW8adBfrMliVKdjQD6XfzHnrxbV6WlBopf41
+         Z9kISqC5G/dIBwcxEYL03YjaDfzslhir78YvmJKbXam+qI9CqjdGOW8xxPfxDxvyGI7M
+         WTiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy3RqoMZXPlc/xzSPOsTkryBA/oboxLGFUc9SWz9R5VsAZpNNWUgeqk9YX3DVL816IDm+wtLisUoeneVjQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6UaZmg5dPGcX0aRDKOqAKcwFNABTEAdyMe+OzaGnB36p6Uddp
+	OjPBxLzod5eVd6opUHbvxqDzbPdxo2qBfsOsf/v6uzU2OgUhMnm6uHWl
+X-Gm-Gg: AYBFou3V1fsZg3TAp1pGaayH20YW+7aan967NHR8qX0+rs4rz5PW9rC5WB6NLes1yMH
+	u5jaYqwODk2wvFWc9EVK4rOGdo+eUi08G9JAjl/bIdxnfcr4K1Nel9GVOqibbjZL6V+eEbWdWTG
+	3Md7Vt2RnA1zk/S+648ubkJt+TfsdmbrWx4H9nH8Z2w6x2O3kw7IDwyjc2WjcNRXAm1i1TZaizQ
+	EkmU8ZI46mQSvwL3e4Nq5ELVInzds19tk4pGIEt+tdpI/0i7B3gC26kB3pa4QaUN7hQ+oUwleWc
+	eTxUaXjpKUWf2LMuBnfZdQkmyHORscm9gJICnzBG+fwWObPsyPrzyRLO2ZFnVo6JbW+skpyEyfa
+	USzGRnHULOfLMc8oTgfQJ9UY6gADcXthEONvjom606Tz8D+wW3AsSpDwVoygO0ErRr+Z/ZtvnXW
+	6bbxPG3xuXnAcgW1W14+dJKZD2PBsJBTMmRgivkHDw5tAHGm5yIojkcaHCv0wrQjxQd7YuML/Om
+	C3pTAE+CVH/FOiPXLIm3QffZBo90p0jLah30tP1FVlkeRvsj1h+/vyyZbtCFxWEVXDDLRs+Fzyr
+	NCUGUSzOekuLwNEYCTI3aAe8O/z3OYAFyf5SAN6vjdFiPMhzSRRxapaanJYXDbQBHErhr7z7sJY
+	BbRYUtx2ZI61+4k4dNV7owlHiCp8YafKq/j8WJuoO
+X-Received: by 2002:a05:600c:3b8a:b0:4a2:d:5ccc with SMTP id 5b1f17b1804b1-4a35ac99e81mr157824335e9.10.1793068169174;
+        Mon, 26 Oct 2026 19:29:29 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-117-118-122.95.117.pool.telefonica.de. [95.117.118.122])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f305sm18341906f8f.3.2026.10.26.19.29.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 19:29:27 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-pwm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] pwm: atmel: Fix arithmetic overflows for long periods
+Date: Tue, 27 Oct 2026 03:27:55 +0100
+Message-Id: <20261027022755.52912-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261016161221.16553-1-kmehltretter@gmail.com>
+References: <20261016161221.16553-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,131 +103,179 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026032216.1145201-1-tavip@google.com> <20261026032216.1145201-2-tavip@google.com>
- <CAL4WiiqQ3cychvCccpNW+WOU2SYCfNt6L=wgPkNmfTLHLy605Q@mail.gmail.com>
-Message-ID: <auALgSUuoYmfKSz3@google.com>
-Subject: Re: [PATCH net v4 1/2] tcp: clamp return value of tcp_wmem_schedule()
- to non-negative
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: Octavian Purdila <tavip@google.com>, Eric Dumazet <edumazet@google.com>, 
-	Neal Cardwell <ncardwell@google.com>, "David S . Miller" <davem@davemloft.net>, 
-	David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 13:06:56 +0100, Eric Dumazet wrote:
-> Le lun. 26 oct. 2026 =C3=A0 04:22, Octavian Purdila <tavip@google.com> a =
-=C3=A9crit :
-> >
-> > When sk_wmem_schedule(sk, copy) fails under TCP memory pressure and
-> > sk->sk_wmem_queued already reaches or exceeds sysctl_tcp_wmem[0],
-> > tcp_wmem_schedule() returns min(copy, sk->sk_forward_alloc).
-> >
-> > However, sk->sk_forward_alloc is a signed int that can transiently
-> > become negative when tcp_collapse() re-packs partially read or high
-> > payload-to-truesize SKBs in the receive queue and charges newly
-> > allocated SKBs via sk_mem_charge() before freeing the original SKB.
-> >
-> > If tcp_wmem_schedule() returns a negative value, tcp_sendmsg_locked()
-> > passes that negative copy length to skb_copy_to_page_nocache() ->
-> > copy_from_iter_full() -> check_copy_size(), where it is converted to an
-> > unsigned size_t > INT_MAX, triggering a WARN_ON_ONCE(bytes > INT_MAX)
-> > in production and returning -EFAULT instead of waiting for memory or
-> > returning -EAGAIN:
-> >
-> >   WARNING: CPU: 1 PID: 939331 at include/linux/thread_info.h:249 tcp_se=
-ndmsg+0x10c1/0x1530
-> >   Call Trace:
-> >    <TASK>
-> >    __sys_sendmsg+0x292/0x490
-> >    do_syscall_64+0x88/0x340
-> >    entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> >
-> > Clamp the return value of tcp_wmem_schedule() to [0, copy] so callers
-> > treat negative sk_forward_alloc as 0 available bytes.
-> >
-> > Fixes: 849b425cd091 ("tcp: fix possible freeze in tx path under memory =
-pressure")
-> > Assisted-by: LLM
-> > Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-> > Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-> > Signed-off-by: Octavian Purdila <tavip@google.com>
-> > ---
-> >  net/ipv4/tcp.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> > index 87ef6d5cbfeba..0e062fcd94a6c 100644
-> > --- a/net/ipv4/tcp.c
-> > +++ b/net/ipv4/tcp.c
-> > @@ -1037,7 +1037,7 @@ int tcp_wmem_schedule(struct sock *sk, int copy)
-> >         left =3D READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_wmem[0]) - sk-=
->sk_wmem_queued;
-> >         if (left > 0)
-> >                 sk_forced_mem_schedule(sk, min(left, copy));
-> > -       return min(copy, sk->sk_forward_alloc);
-> > +       return clamp(sk->sk_forward_alloc, 0, copy);
-> >  }
-> >
-> >  void tcp_free_fastopen_req(struct tcp_sock *tp)
->=20
-> I do wonder if the following fix could be better (no change in the fast p=
-ath)
+atmel_pwm_calculate_cprd_and_pres() first multiplies the requested
+period by the clock rate in a u64 and only then divides by
+NSEC_PER_SEC. The product can overflow even when the quotient and the
+resulting hardware configuration are representable.
 
-Exactly, this looks better too, we can avoid negative
-sk_forward_alloc and clamp().
+For example, at 12 MHz a 1600 s period has 19.2 billion clock cycles
+and fits with prescaler 3, but the intermediate product exceeds U64_MAX.
+It wraps and the driver programs a period of about 62.8 s instead. This
+remains broken after changing fls() to fls64(). The duty-cycle
+calculation has the same overflow.
 
-The packetdrill will need to be adjusted as it triggers cgroup
-OOM with this approach, or we could defer the test to net-next too.
+Use mul_u64_u64_div_u64() for both conversions and use fls64() when
+deriving the prescaler. The multiply/divide result cannot overflow if
+the clock rate is at most NSEC_PER_SEC, so hold the clock rate exclusive
+and validate it at probe time.
 
+The reverse conversion in atmel_pwm_get_state() can overflow too: it
+multiplies CPRD or CDTY by NSEC_PER_SEC and then shifts the u64 by the
+prescaler. Convert the scaled clock ticks with the overflow-safe,
+round-up helper instead. Explicitly saturate values that cannot be
+represented by the u64 nanosecond API, rather than relying on the
+architecture-specific helper's quotient-overflow behaviour.
 
->=20
-> Before a complete fix in tcp_collapse() (in net-next)
->=20
->     tcp: do not let tcp_collapse() drive sk_forward_alloc negative
->=20
->     tcp_collapse() charges each newly allocated skb with skb_set_owner_r(=
-)
->     before the skbs it replaces are freed, without scheduling memory firs=
-t.
->=20
->     Since sk_mem_uncharge() reclaims eagerly, sk->sk_forward_alloc has no
->     cushion and can become negative. This can be durable when the collaps=
-ed
->     skbs had a high payload/truesize ratio or were partially read, becaus=
-e
->     the new skbs can have a bigger total truesize than the old ones.
->=20
->     A negative sk_forward_alloc then confuses tcp_wmem_schedule(), which
->     can return a negative length to tcp_sendmsg_locked(), triggering
->     a WARN_ON_ONCE(bytes > INT_MAX) in check_copy_size().
->=20
->     Call sk_forced_mem_schedule() before charging nskb.
->=20
->     Fixes: 4890b686f408 ("net: keep sk->sk_forward_alloc as small as poss=
-ible")
->=20
-> diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-> index 1ddce9c4b7e8cf91bfd4f5361abec3925fe25046..e879bdfddf1abe2ced80b12ea=
-8a40c1f7c958708
-> 100644
-> --- a/net/ipv4/tcp_input.c
-> +++ b/net/ipv4/tcp_input.c
-> @@ -5847,6 +5847,10 @@ tcp_collapse(struct sock *sk, struct
-> sk_buff_head *list, struct rb_root *root,
->                         __skb_queue_before(list, skb, nskb);
->                 else
->                         __skb_queue_tail(&tmp, nskb); /* defer rbtree
-> insertion */
-> +               /* nskb is charged before the skbs it replaces are freed.
-> +                * Make sure sk->sk_forward_alloc can not become negative=
-.
-> +                */
-> +               sk_forced_mem_schedule(sk, nskb->truesize);
->                 skb_set_owner_r(nskb, sk);
->                 mptcp_skb_ext_move(nskb, skb);
+Fixes: a9d887dc1c60 ("pwm: Convert period and duty cycle to u64")
+Cc: stable@vger.kernel.org
+Reported-by: Uwe Kleine-König <ukleinek@kernel.org>
+Link: https://lore.kernel.org/r/atnHHaOwTkI78_tc@monoceros
+Suggested-by: Uwe Kleine-König <ukleinek@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Changes in v3:
+- Use mul_u64_u64_div_u64() for the period conversion as suggested by
+  Uwe, and for the analogous duty-cycle conversion.
+- Fix the corresponding overflow in the get_state() conversion and
+  explicitly saturate results that cannot be represented in nanoseconds.
+- Hold the clock rate exclusive and validate the rate bound required by
+  the arithmetic.
+- Rebase onto v7.3-rc7.
+
+Testing:
+- Built an ARM zImage with clang 22.1.8 and W=1.
+- Passed 14 host boundary tests, 53 oracle-checked SAM9X75 QEMU boots,
+  and all 20 PWM device-model qtests.
+- Passed 89/89 checks on a physical SAM9X75, including overflow cases.
+  A 69.175-second period measured 69.210 seconds between interrupts; no
+  kernel errors were found.
+
+ drivers/pwm/pwm-atmel.c | 46 +++++++++++++++++++++++++++++------------
+ 1 file changed, 33 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/pwm/pwm-atmel.c b/drivers/pwm/pwm-atmel.c
+index 86918523d8..db7a14c66a 100644
+--- a/drivers/pwm/pwm-atmel.c
++++ b/drivers/pwm/pwm-atmel.c
+@@ -23,6 +23,7 @@
+ #include <linux/delay.h>
+ #include <linux/err.h>
+ #include <linux/io.h>
++#include <linux/math64.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+@@ -183,19 +184,18 @@ static int atmel_pwm_calculate_cprd_and_pres(struct pwm_chip *chip,
+ 					     unsigned long *cprd, u32 *pres)
+ {
+ 	struct atmel_pwm_chip *atmel_pwm = to_atmel_pwm_chip(chip);
+-	unsigned long long cycles = state->period;
++	unsigned long long cycles;
+ 	int shift;
+ 
+ 	/* Calculate the period cycles and prescale value */
+-	cycles *= clkrate;
+-	do_div(cycles, NSEC_PER_SEC);
++	cycles = mul_u64_u64_div_u64(state->period, clkrate, NSEC_PER_SEC);
+ 
+ 	/*
+ 	 * The register for the period length is cfg.period_bits bits wide.
+ 	 * So for each bit the number of clock cycles is wider divide the input
+ 	 * clock frequency by two using pres and shift cprd accordingly.
+ 	 */
+-	shift = fls(cycles) - atmel_pwm->data->cfg.period_bits;
++	shift = fls64(cycles) - atmel_pwm->data->cfg.period_bits;
+ 
+ 	if (shift > PWM_MAX_PRES) {
+ 		dev_err(pwmchip_parent(chip), "pres exceeds the maximum value\n");
+@@ -218,12 +218,23 @@ static void atmel_pwm_calculate_cdty(const struct pwm_state *state,
+ {
+ 	unsigned long long cycles = state->duty_cycle;
+ 
+-	cycles *= clkrate;
+-	do_div(cycles, NSEC_PER_SEC);
++	cycles = mul_u64_u64_div_u64(cycles, clkrate, NSEC_PER_SEC);
+ 	cycles >>= pres;
++
+ 	*cdty = cprd - cycles;
+ }
+ 
++static u64 atmel_pwm_ticks_to_ns(u64 ticks, unsigned long rate)
++{
++	u64 max_ticks;
++
++	max_ticks = mul_u64_u64_div_u64(U64_MAX, rate, NSEC_PER_SEC);
++	if (ticks > max_ticks)
++		return U64_MAX;
++
++	return mul_u64_u64_div_u64_roundup(ticks, NSEC_PER_SEC, rate);
++}
++
+ static void atmel_pwm_update_cdty(struct pwm_chip *chip, struct pwm_device *pwm,
+ 				  unsigned long cdty)
+ {
+@@ -352,24 +363,22 @@ static int atmel_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
+ 	if (sr & (1 << pwm->hwpwm)) {
+ 		unsigned long rate = clk_get_rate(atmel_pwm->clk);
+ 		u32 cdty, cprd, pres;
+-		u64 tmp;
++		u64 ticks;
+ 
+ 		pres = cmr & PWM_CMR_CPRE_MSK;
+ 
+ 		cprd = atmel_pwm_ch_readl(atmel_pwm, pwm->hwpwm,
+ 					  atmel_pwm->data->regs.period);
+-		tmp = (u64)cprd * NSEC_PER_SEC;
+-		tmp <<= pres;
+-		state->period = DIV64_U64_ROUND_UP(tmp, rate);
++		ticks = (u64)cprd << pres;
++		state->period = atmel_pwm_ticks_to_ns(ticks, rate);
+ 
+ 		/* Wait for an updated duty_cycle queued in hardware */
+ 		atmel_pwm_wait_nonpending(atmel_pwm, pwm->hwpwm);
+ 
+ 		cdty = atmel_pwm_ch_readl(atmel_pwm, pwm->hwpwm,
+ 					  atmel_pwm->data->regs.duty);
+-		tmp = (u64)(cprd - cdty) * NSEC_PER_SEC;
+-		tmp <<= pres;
+-		state->duty_cycle = DIV64_U64_ROUND_UP(tmp, rate);
++		ticks = (u64)(cprd - cdty) << pres;
++		state->duty_cycle = atmel_pwm_ticks_to_ns(ticks, rate);
+ 
+ 		state->enabled = true;
+ 	} else {
+@@ -487,6 +496,7 @@ static int atmel_pwm_probe(struct platform_device *pdev)
+ {
+ 	struct atmel_pwm_chip *atmel_pwm;
+ 	struct pwm_chip *chip;
++	unsigned long rate;
+ 	int ret;
+ 
+ 	chip = devm_pwmchip_alloc(&pdev->dev, 4, sizeof(*atmel_pwm));
+@@ -507,6 +517,16 @@ static int atmel_pwm_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(atmel_pwm->clk),
+ 				     "failed to get prepared PWM clock\n");
+ 
++	ret = devm_clk_rate_exclusive_get(&pdev->dev, atmel_pwm->clk);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "failed to get exclusive PWM clock rate\n");
++
++	rate = clk_get_rate(atmel_pwm->clk);
++	if (!rate || rate > NSEC_PER_SEC)
++		return dev_err_probe(&pdev->dev, -EINVAL,
++				     "invalid PWM clock rate %lu Hz\n", rate);
++
+ 	chip->ops = &atmel_pwm_ops;
+ 
+ 	ret = atmel_pwm_enable_clk_if_on(chip, true);
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.39.5 (Apple Git-154)
+
