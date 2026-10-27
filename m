@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.217
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099421;
-	b=RO9/mD6zp9hUPaZrNViP47l9wVk6wOdm7hmNklvyYw01/HkyCy2EWje/u9QTbtpqVwGJ
-	 vDZGF3MmONUfHvRR5sw82/zISoPq+ne/ctryMc+P+H7sDvs3hzLycAg2EVlSlOfPN2ljm
-	 S73+SzxKs7H7YyXeZujMAwbVFXgHaodGCFjVWwwD9Y4aAX726UcR8XUAh9BTmMVqAdrqV
-	 iwVY9z55n/+b7vP0pThK/DuQoJ3V7vINO3w5tMwp3z23xGHh+dnblGIZ2fMhWksxeCC8Q
-	 qyhDNj6GOMNd2ceAELZT9EyaLeZSk1+W4jNDRh66k0Jkh5wWfm1jsGNyys5cpMmvPhg==
+	t=1793099493;
+	b=ssrsp62GAa1ONEu3e0DSuXqzqRwM54nCEpnv7y5xA9/92vLYKeprlpnJp2T2TctRilHh
+	 839oA7yYWyPw+AQI+Uwq4fWHHXowdHzNMN+M7eA5GCA1MPq4up0PM4OFzdYyDaqJ1tnfH
+	 vVVIyMJozjSF/IaDPOXXj8p/NIVGZ9dG+pBfULa4mEmcTwce1vYymNrgHjevEPwKkhUk+
+	 OtKxhIbdfbhX4HM3un0IhD6YWNvdU3jWqGUPk0g0ut657Jx/+/TCDN2RKfYjVsI6vEjjV
+	 bQtCqxxKtVEqRuW5KF9HFg51LRuxecTN1Ebs2pjnPrasq7p5vjjx2jrs8qUPgXmqlng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099421;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
-	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2cO4lkwHL0FiVImF+BgckHg7E6xQZUk2oytqaffdZDo=;
-	b=2MwVluPJPK21kEqC2K8V9lQvkUIwE1RvHAJt2z12Relyvq+r3tZY3T8JsCFbYjf29acP
-	 q4KlNcztUr2QT+rPF4upCBX9O7tglf/9hQlcUQXWB4Sq64aOz9QCRNleRBuDOG5cYDFJI
-	 lMgD1Sk0U+fRMmurVMlpK8+6xuF1sDZUGKJZ+/4tvGh7v8w3HwJVfgenH6scysaf3kF+z
-	 vZFCHVZ0dSPIkLlM1zlYVy4R09yUTDAJONvRj206PcRLv/uOuAauAg5FcJ6XV9JDs/q32
-	 XCG85ZgZ86iIAowD2c8RpcvWL7/z6Wjimco8pEDM0mE5zllvnh88RSRaurvLnti8z0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099493;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=g3P3ROdUa1PE9DKlgSm4XNG3FysvTRIq5QVw6nc+8s0=;
+	b=qkZRtQCJy4Miq6Tm6v1KEjku3YiHYt4ly5+mWHao8tWkSj4PPL61BspqMqt1i1WHXwUo
+	 YNXKSxhd4vNh+YUi7tMy0lKgcjFPDWujdyz3Pld32/wPk54TDH4M1NzIRQk17bc7jaY4U
+	 5YdlKsILWDf5q7tn+6Q9IQtm32bTPI0v7E2actDAN9CvkB+t8Z0aslP2kHwLfXR1G9C5p
+	 GSgBRGfyvVHVLPsn9RZxtV5ZPZZPmZDUH29VhPVkfTFhOL7YneVxowi9mVF6FpKWe7V0s
+	 GPRHanwbw9f2Ak75C0fGnU3crd9eCi1Bk6j0KjS4U5493+27KC8DkWt2DEdVEUlLbgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.217
-Received: from out28-217.mail.aliyun.com (out28-217.mail.aliyun.com [115.124.28.217])
+	dmarc=pass header.from=runtimeverification.com;
+	spf=pass smtp.mailfrom=runtimeverification.com;
+	dkim=pass header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=SNSRHk7s;
+	arc=none smtp.remote-ip=109.224.244.108
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F172606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:10:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F172606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07541845|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.035794-0.000204909-0.964001;FP=9063336782742549654|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jqkClao_1793099407;
-Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jqkClao_1793099407 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 19:10:08 +0800
-Subject: Re: [RFC PATCH 1/6] sched/fair: Add SMT sibling push in periodic load
- balance
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
- <20261020083746.37068-2-likunyu@open-hieco.net>
- <20261021123438.GG2823843@noisy.programming.kicks-ass.net>
-From: Li kunyu <likunyu@open-hieco.net>
-Message-ID: <291b154d-16e3-9eea-8d61-910cf1f4eb7c@open-hieco.net>
-Date: Tue, 27 Oct 2026 19:10:08 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34FE606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:11:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F34FE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=SNSRHk7s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=runtimeverification.com; s=protonmail; t=1793099490; x=1793358690;
+	bh=g3P3ROdUa1PE9DKlgSm4XNG3FysvTRIq5QVw6nc+8s0=;
+	h=From:To:Cc:Subject:Date:Message-Id:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=SNSRHk7sekEz0JtdoPAm7O5xRvtgmDWgK+9mP2B3iGIj9wTdAeSNI+Yb/GnuZGvy6
+	 J91HudKBVvOy/ivUG1Gszi/tNo1tmBLcQKVgroS8B47kZ50szssPtBNz47I0dkIpSp
+	 8TTXR+Eo8eaOofFEIuDHdqdx1P200D1cf6s3I9o2eJujjJEzInkPU3uJwWeTvElWmv
+	 pLu2N9AmcDVVjoc8KWGqydYgucH4qkLZrWPYwTVlU49+T5sEdSBCAkYw+G/KBv5ZXs
+	 vXSHjWMfPFNllsOrBQYrzeM0hMTGf2SaP+G9hXPRqTDCy/h5Jpwv1qZqoHkfW4RPjW
+	 x/DDrULzqa8+A==
+X-Pm-Submission-Id: 4jDSVQ3kRyz2ScjB
+From: Natasha Klaus <natalie.klaus@runtimeverification.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org,
+	mchehab@kernel.org
+Cc: ribalda@chromium.org,
+	noambs2999@gmail.com,
+	david.laight.linux@gmail.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Natasha Klaus <natalie.klaus@runtimeverification.com>
+Subject: [PATCH v4 0/3] media: uvcvideo: harden the frame buffer size computation
+Date: Tue, 27 Oct 2026 14:11:13 +0300
+Message-Id: <20261027111116.119182-1-natalie.klaus@runtimeverification.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,114 +67,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261021123438.GG2823843@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
+uvc_parse_frame() computes dwMaxVideoFrameBufferSize as
+bpp * wWidth * wHeight / 8 in int, from unvalidated descriptor
+fields. The product wraps; the stored size is wrong and can be zero.
 
-On 2026/10/21 20:34, Peter Zijlstra wrote:
-> On Tue, Oct 20, 2026 at 04:37:41PM +0800, Li kunyu wrote:
-> 
-> Just a few remarks on coding style while I try and make sense of the
-> whole thing. Don't go rush out a new version with this stuff fixed
-> before you've seen feedback on the higher level stuff.
-> 
->> @@ -14226,6 +14244,94 @@ update_newidle_cost(struct sched_domain *sd, u64 cost, unsigned int success)
->>  	return false;
->>  }
->>  
->> +/*
->> + * An exciting thing is that we have implemented an efficient push
->> + * function process.
->> + *
->> + * It is applied in cycle load balancing and nohz_kick process.
->> + * It can help us solve the problem of high workload of CFS tasks in
->> + * the RQ queue.
->> + */
->> +static bool smt_buddy_move_task(struct rq *src_rq)
->> +{
->> +	bool is_overload, is_move = false;
->> +	int src_cpu = cpu_of(src_rq), smt_cpu;
->> +	unsigned long src_cpu_runnable, smt_cpu_runnable;
->> +	struct sched_domain *smt_sd;
->> +	struct task_struct *p;
->> +	struct rq *smt_rq;
->> +	struct rq_flags rf;
->> +
->> +	if (!sched_feat(SMT_BUDDY_ASSIST) || !sched_smt_active())
->> +		goto exit;
->> +
->> +restart:
->> +	if (src_rq->nr_running < 2)
->> +		goto exit;
-> Did this want to be:
-> 
-> 	while (src_rq->nr_running > 1) {
-> 
->> +
->> +	rcu_read_lock();
-> 	scoped_guard (rcu) {
-> 
->> +
->> +	is_overload = false;
->> +	src_cpu_runnable = cpu_runnable(src_rq);
->> +	for_each_cpu(smt_cpu, cpu_smt_mask(src_cpu)) {
->> +		if (smt_cpu == src_cpu)
->> +			continue;
->> +
->> +		smt_cpu_runnable = cpu_runnable(cpu_rq(smt_cpu));
->> +		if ((src_cpu_runnable * 100 > smt_cpu_runnable * sysctl_smt_buddy_imbalance_pct)
->> +			&& cpu_active(smt_cpu)) {
-> This is horrifically bad indenting. Operators go at the end of the
-> previous line and then you indent to the level of whatever ( is active.
-> If you're a vim user 'cino=(0' gets you that.
-> 
->> +			is_overload = true;
->> +			break;
->> +		}
->> +	}
->> +
->> +	if (!is_overload) {
->> +		rcu_read_unlock();
->> +		goto exit;
-> This pattern should scream at you for doing it wrong.
-> 
->> +	}
->> +
->> +	smt_sd = lowest_flag_domain(src_cpu, SD_SHARE_CPUCAPACITY);
->> +	if (!smt_sd) {
->> +		rcu_read_unlock();
->> +		goto exit;
-> And again.
-> 
->> +	}
->> +
->> +	rcu_read_unlock();
-> 	}
->> +
->> +	rq_lock_irqsave(src_rq, &rf);
-> 	scoped_guard (irqsave) {
-> 		scoped_guard (rq_lock, src_rq)
-> 
+1/3 lets uvc_parse_frame() skip one frame descriptor instead of
+failing the whole streaming interface (Ricardo's suggestion).
+2/3 is Noam's overflow fix, adapted to skip.
+3/3 skips a frame whose computed size is zero.
 
-I configured Vim as you suggested and made the necessary modifications. In
-addition, I made the following changes:
-﻿
-Changed rq->nr_running to rq->cfs.h_nr_runnable and made related changes so that
-only CFS tasks that are currently running or already queued are counted and
-migrated.
-﻿
-Added a condition requiring the current CPU's task count to be greater than that
-of its SMT sibling CPUs, so as to avoid migrating too many newly created tasks
-that have not yet started running.
-﻿
-Added a migration type, migrate_smt_task, which skips a given SMT sibling CPU
-(only for tasks that do not meet CPU affinity requirements), thereby enabling
-complete migration and checking of all SMT sibling CPUs.
+Stable: 1/3 carries Cc: stable without Fixes: because 2/3 needs it.
+Both or neither.
 
-Thank you for your guidance. Future patches will be more comprehensive and
-better justified.
+Testing: Noam, UVC gadget over dummy_hcd, on v3 code; the >> 3 in
+2/3 does not change the result for his inputs. No physical camera.
+-ENODATA path not exercised. Builds W=1 on x86_64 and i386
+allmodconfig.
 
+Tools: prepared with Claude Code. It applied Ricardo's design in 1/3
+and fixed the build, wrote the code and comment in 3/3 and found that
+case, drafted the commit messages and notes from my outline, and did
+the call path analysis. I reviewed and built everything. 2/3 is
+Noam's; he found the overflow with Claude's help and wrote the fix by
+hand (confirmed off-list).
+
+v3: https://lore.kernel.org/linux-media/20260820111556.232652-1-natalie.klaus@runtimeverification.com/
+
+Changes in v4:
+- 2/3: >> 3 instead of DIV_ROUND_UP_ULL. Per Laurent on v3 2/3, width * bpp
+  is a multiple of 8 on real devices. Keeps the stable fix minimal.
+- 2/3 and 3/3 changelogs say how each case was found.
+- No Assisted-by tag: removed from the docs in 1e035297ffda. Tool use
+  is in this cover letter instead.
+- Rebased onto d135ab453a74.
+
+Changes in v3:
+- Tested-by from Noam on all three.
+
+Changes in v2:
+- 1/3: check -ENODATA before counting the frame (Ricardo).
+- 2/3: DIV_ROUND_UP -> DIV_ROUND_UP_ULL (Ricardo).
+- Reviewed-by from Ricardo on all three.
+
+Natasha Klaus (2):
+  media: uvcvideo: Let uvc_parse_frame() report a skipped frame
+  media: uvcvideo: Skip frame descriptors with a zero computed size
+
+Noam Ben Shimon (1):
+  media: uvcvideo: Fix integer overflow in frame buffer size calculation
+
+ drivers/media/usb/uvc/uvc_driver.c | 52 ++++++++++++++++++++++--------
+ 1 file changed, 39 insertions(+), 13 deletions(-)
+
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-thanks,
-kunyu
+2.34.1
+
