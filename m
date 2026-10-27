@@ -1,133 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118468;
-	b=ycD/xe7/ShRYa8+jWlYHujHHpEmufh81/Qa+dBzU+U5k8roMa60kwXVxU5umAs5Nbz5W
-	 fwJywk8aBjA02HzVJrIxP9a/d6IZBVennGYh1vRkDemsdQz9FXOwcVZZ1IAQUrYoPvAjn
-	 +zHVJjIlpmoi7w/lhGWpfhU3XcL6jlxwYEw1yV3iOSFPYJ6w1fQYmA6CKh1nL1O2hoX/t
-	 5JN2OW2PNYgda8oxrGMg7f9DwGHhnwkt67dEMNIwsLOjgZHVbR5kHz59PDCK7JgFx4hM+
-	 mbGG1xNu9CJw2SmmfBNMg/jCmWcg4bgKHKUkOkn+wIVTVLtRX6/VNnq70EfOYUOOuOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118468;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
-	b=DudAcwAGfOV4cmAFqSdwslEEHeB8hANkgSGnBaCeR6v4QYVEr1IiIZdyxZdUUk2VxvDX
-	 tyvi7C4BPzQqq6tep726z/SesGK1wV0089GfcYpR/IMe6FgEwnd0EuTFUIxMW0BBb/pv4
-	 bSaKXwUcmR6KK1AcAFR93y7KSiu0yc5z9XA4ywkQFmJPbpg6bX3HpZa3ZrlCmqJoxSEIb
-	 oIP1tTCDwAcFoS0GqjPHBzu3y5Ot2n0WPkO/RxKjbCPkVtJhWVOYi+iH5KIiHntvuK38p
-	 SnzA2DmdcEYE0h/hv8mERHGJ+jsb2oCayb0VW3XABuCDhHqbKurJwr0IZO54eYnPQoQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="Te/hFcTC";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="Te/hFcTC";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793118480;
+	b=3HEzUUaD3b7NJTVqqp6KW0Tj88MkNOQbjpHW4wjtDvTQ3rYIqEei3+1q5YXQij398fYq
+	 tQ9VJ6wIYwFAtOoCD6MrSzwi4FPTRW9r9wNgeir4oJ78CaoSCUZksZez72iz44mHIG1L7
+	 MTjRhVQMJu7ocirLFcYTO6UVuXDkxcK0LzIx2tMgHqmGQxImaAAkcrmHR1TaicWM7hT7V
+	 AALU/LsqwHHmW44DWCQQVYguZOd/t7jAl5yixVO72DZvtmSlWSRNRO8IFcVBGtd+0wObI
+	 bb4btirgcn/3kDx7MDGmXNMUCOt13HRYhZx3jhZdboysoNfkLHY+hqewxBL0WvCyolg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118480;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
+	b=Br4fBo38xSQQXTQ8n4WoeiA6pp+SonNj1mV0yQBDA0TQGpmMSOHlXdl3i1FQ3bw8lJNb
+	 RvfAIPPlz6kMSYwdVHf5FTN7+6Uu4b/xptq4C07sd7UTBhxCo2vLewzLCr31S7VGPslsn
+	 90i8aCIkRssSfEfEj/vSHuodgyFChGAInQ4UWpXCErF6MBIw+KL05tPbkZR/+X27uZ4Vd
+	 t5eyFboHrdJ9/eGg0A7+WscOqqVSFzezWl/gAUhD5gnrxX7byB/v3PCheLuh3iJilZ9ee
+	 Mcvi6PxWpie8KpoAZANs6vHr2fnDZBOIyn8DM8UUbH6hGQCCyg6ex5BMRw5EMA/0N2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jwiM3DAC;
+	arc=fail smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C18606A31E;
-	Tue, 27 Oct 2026 16:27:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C18606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CCB606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60CCB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Te/hFcTC;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Te/hFcTC;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Hg+twqpr
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B670A21F29;
-	Tue, 27 Oct 2026 16:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793118465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
-	b=Te/hFcTCOKkoMgRX5zaqYIVBggY9Fpr20ezr2tFqxNsXOnKsbQwUmmdTdAciG+uCQTDjth
-	dVktrGDfybLq8FuT/n1SiYOTAsUYVXG9Sing0oS69R2+Iytv0Z/Y7lJYjwwMTzhsktO6j4
-	fMoJAX/MIJCIH+SrJ4jkjDxdxSCgPWE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793118465;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
-	b=Hg+twqprF0ocwkjIQM9VGipaZPJ1m+OpmAD+rhXe3by6Gq2PHVtPT9ufjbMIV82PfR4N4K
-	l27dUCgkPKJmAnBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="Te/hFcTC";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Hg+twqpr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793118465; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
-	b=Te/hFcTCOKkoMgRX5zaqYIVBggY9Fpr20ezr2tFqxNsXOnKsbQwUmmdTdAciG+uCQTDjth
-	dVktrGDfybLq8FuT/n1SiYOTAsUYVXG9Sing0oS69R2+Iytv0Z/Y7lJYjwwMTzhsktO6j4
-	fMoJAX/MIJCIH+SrJ4jkjDxdxSCgPWE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793118465;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/itwoJPNV/PYjgH1tW8TC7VQ2qoANM6I5XSJVpUiq8M=;
-	b=Hg+twqprF0ocwkjIQM9VGipaZPJ1m+OpmAD+rhXe3by6Gq2PHVtPT9ufjbMIV82PfR4N4K
-	l27dUCgkPKJmAnBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A1EA61321C;
-	Tue, 27 Oct 2026 16:27:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BayYG/3Q4GpDBwAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Tue, 27 Oct 2026 16:27:41 +0000
-Date: Tue, 27 Oct 2026 16:27:39 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Hugh Dickins <hughd@google.com>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 35/46] mm: fix unmap_mapping_range() beyond 4 GiB on
- 32-bit
-Message-ID: <auDQ66Ux9eKN-Ha4@pedro-suse.lan>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-35-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jwiM3DAC
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-188406bb948so3578051c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:28:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118479; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lWxjNWM6q9v7LyftVXX/okYocWjP+5alYtL4nlSWT4PeWX2Dy5eDw5FwqRTnQeF5Lt
+         P4Ylm1U+w5NC49koCmUe/pII6qAGOhsV+ftf05QMs38nW5Y+OtI7k2izJfwVmAm60BaF
+         DTo6O+ewHdzzhUuhHhCRl76q1VQm2VWrNZwbJG6GXkUr/z6sGHW6J0R8LKz2FWr+Fdpz
+         6M07TsDDqHzyc4rZX3svdCNoNgUXIqnvuA43MPjjdbYcRqxtQkgJpsAflqhZ6FR/kqf2
+         rjJjZih0JuCYgaKt/sHiWKgGfslb8gd2KICU8BjHEuKqTLeayTqMxtMBfDMuzZlrLWOG
+         0FBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
+        fh=j0DfUoG51yBygj0+haCnrdadNRh/nUQ+lvRImpOjRXw=;
+        b=Bpwz0++jin071YwOXpOUdIBYyiEqKAY1mHwv8Js7w7Pgb9Qqtk5WvGqUPB1QGJqMXo
+         uE6PYOSIXw+X54zBkwBmV18WY2xYx00NNLqPe0rXMpHsMlVHjIxyKch2kEu8B2JFqJQf
+         6uS6dTS8lKNd9V+DSCte3QxlfHriOILkTbqZS5Ism/RlYLGbQiuBYq7EvYEp581X7KU2
+         ddLXWyN5+6YLK5TqH/j66pzuVI+6WwZmr3C5Rya65z7h2tCoR1UwoK9nrIBRf0LcRHOL
+         PDT5/hfiBakTWSGC8JZAxG8yH/1r9so1hRp/sxcWLenR4O3lAoNzgWB8TYjCZMZblXK9
+         9T6A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793118479; x=1793723279; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
+        b=jwiM3DAC+hzebG0I9bJZcVu3LMVhP2QbElUaz8VKFPLMBFyKHJyLHkO5hK8hYcF3f/
+         p8QkamNQRjQuhCfz9lKtX5rB9C6UFeASgyGvgnQJMEU9KkqidK99pUeJq73MGdztWCpq
+         Xtt9vYT5ybj/pLaVKp9b7sFwFIawpgqX08IUcSLQIFrt6AsK4Qn+AZg6ozk//Q9f2RHR
+         qxpqqlOFDcwIoIOTEkX/uMDCzV0YBAuoE2AGvZdrgPJIASz9rN2XQbjmE+fGk74bAs98
+         f0ZO5O2/cDleMLV7/cUNyBDoRYxVu3wP6KCDHK3CrG50d7W6mmGxUx5DK0gpbbOu0ymR
+         JTpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793118479; x=1793723279;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3hqu+svzVd9ISmoYzAK4HexOUNRCnaJYNRkc+XMVyq0=;
+        b=uI/7O1Da4THSiKifzj3xNQQ+SD4s2Y24TZDPn7zT6cOlkya6q7JJhAb2aFpHt+2J2P
+         c0aPFQhl90pMl86Ej65oGcyQ3faAgkKGG062kJfdN5xCurDwd0b9I+Yed17/0X1Qig1g
+         p1ZOAzbG7HL3MKKGza7tIM/LkHnyfQ02ZSK906gOcPT+82U9jQ5SQcuwUnjlwYCDFLRz
+         YHfoDyruwbYIkrms7LR0TMVVYWpJqFYfg0MZe1k1ol9q504FMnrt0vvX5hC1z+80aSOb
+         xrx4tPB1X9hUTjv6I2fozZcrKtiqls6+3mrC+LcJtV8z2pyW+9YGpqPhMcNg6oy6fwd9
+         9/9Q==
+X-Forwarded-Encrypted: i=1; AKwUvByNp6gcppkK2xeYy9iznMWkElxD3gfeTjFJEEobbSH6fQ+EZ0Wl+SuYgY8a4XTQiiQPAfDTMsS0sWj4jHE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhGlZ2pZQW8Tf5IcNk9uj1lzljB84crQtMYjTvRyr8P6Aiqfc1
+	Ysqk5YL7AYdclJqvuleksq+nkjIVTgKQpOe8QBwrDz4NQ1yM2hzls3DhlvZ/2F9nA+vZOBECe6Q
+	mhe1I5oy67DTw7DIUiIPpV8WAgV5pHKbmQwviHgCr
+X-Gm-Gg: AYBFou1xdNLt3lz0aVdM8cgkVltNr/PdjfT8RrrCmzLipoFa0LyVLJQdS1AqAFkRdx4
+	9UHRvmxOlgIQmkTbYY77U+a8nVrtjwE4BGnDSLH1tYh/B61bN2+aaltHN1yMpaD3ybnYPRj2bxW
+	2SHUVQJnBiuXplG6M9/VWcOs9o5Vy316a/5RYZ5snZq7yNeNL2YU68f2DFEO2pIN3n4RoVCUgpr
+	mu3RReCVhPVrwSHZi721h0+WIzeIgDz/46o6kSCzAKXbP1wRBXyzCpFmpk3jLX/WSIL+9zbNBwH
+	IQQsioAPD/cjSewagg4QnTNQdtbeTXZ/cbmd14i6RnRQ81V4PqMd/nlnhqMU9d3JCgETd/QFMOY
+	3mjtHz3ybu66ATbibM8QAIwslI5tCLV5qAUs1tBEUmIqG8RqQVBQRJbg8j6ac+sIV1+0=
+X-Received: by 2002:a05:7022:28f:b0:18a:8164:ce4 with SMTP id
+ a92af1059eb24-1a093cd97d4mr8439457c88.0.1793118478203; Tue, 27 Oct 2026
+ 09:27:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,78 +104,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-35-6f74bec9a5bb@kernel.org>
-X-Rspamd-Queue-Id: B670A21F29
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_CC(0.00)[linux-foundation.org,cmpxchg.org,kernel.org,linux.dev,tencent.com,google.com,linux.alibaba.com,infradead.org,suse.com,soleen.com,suse.cz,nvidia.com,surriel.com,arm.com,intel.com,redhat.com,gmail.com,suse.de,huaweicloud.com,lge.com,gourry.net,sk.com,ziepe.ca,kvack.org,vger.kernel.org,lists.infradead.org,toxicpanda.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	URIBL_BLOCKED(0.00)[toxicpanda.com:email,suse.de:dkim,suse.de:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCPT_COUNT_GT_50(0.00)[65];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,toxicpanda.com:email]
-X-Spam-Score: -12.01
+References: <20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com> <20261006-kmsan-serie-v1-2-07fa860ef3de@gmail.com>
+In-Reply-To: <20261006-kmsan-serie-v1-2-07fa860ef3de@gmail.com>
+From: Alexander Potapenko <glider@google.com>
+Date: Tue, 27 Oct 2026 17:27:21 +0100
+X-Gm-Features: AclHuK9c8fE28gGKxDufq8O67Wv7DJr-iUBAsIf-87SKf9461Q62BbIKzKxVOkQ
+Message-ID: <CAG_fn=XHDN_zuQxrPEO_-GJTZpgasvYssxfJnxuGh49=FHmCVg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] x86/kmsan: Don't call instrumented code from kmsan_virt_addr_valid()
+To: vrilutza@gmail.com, Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, Borislav Petkov <bp@suse.de>, 
+	kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 12:17:55AM +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Commit 9eab0421fa94 ("mm: fix unmap_mapping_range high bits shift bug")
-> made holebegin and holelen unsigned before they are shifted, by casting
-> them to pgoff_t. That is an unsigned long: on a 32-bit kernel the cast
-> cuts off the upper half of the two loff_t values, so a hole which begins
-> at 4 GiB or beyond is taken for one in the first 4 GiB of the file.
-> 
-> truncate_pagecache() passes the new size of the file and asks for private
-> COWed pages to be unmapped as well. If a file of 6 GiB is truncated to
-> 5 GiB, everything from 1 GiB on is unmapped, and what a process has
-> written to a private mapping of the range between 1 GiB and 5 GiB is
-> lost: it reads the contents of the file again.
-> 
-> Where the range has an end, the wrong range is unmapped instead of the
-> right one. The page cache copes with that, as it unmaps every folio that
-> it removes. The callers which only have unmap_mapping_range() to get
-> rid of user mappings do not, for example drm_vma_node_unmap(), whose fake
-> offsets reach beyond 4 GiB on 32-bit, and revoke_iomem() with physical
-> addresses of more than 32 bits.
-> 
-> Cast to u64 instead. Nothing changes for 64-bit kernels.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 9eab0421fa94 ("mm: fix unmap_mapping_range high bits shift bug")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+On Tue, Oct 6, 2026 at 8:10=E2=80=AFPM Viorel Cernateanu via B4 Relay
+<devnull+vrilutza.gmail.com@kernel.org> wrote:
+>
+> From: Viorel Cernateanu <vrilutza@gmail.com>
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+CC Ilya, as s390 has a similar problem.
 
--- 
-Pedro
+> With CONFIG_DEBUG_PREEMPT, a KMSAN kernel hangs silently right after
+> KMSAN is enabled during boot.
+>
+> kmsan_virt_addr_valid() calls preempt_disable() and pfn_valid(), and
+> pfn_valid() calls rcu_read_lock_sched(). With CONFIG_DEBUG_PREEMPT both
+> end up in preempt_count_add(), which is instrumented. Its instrumentation
+> looks up metadata, which calls kmsan_virt_addr_valid() again, and so on
+> until the boot stack overflows.
+>
+> Use a copy of pfn_valid() that disables preemption with the notrace
+> helpers instead. It is still an RCU-sched read-side critical section,
+> and it avoids the instrumented preemption and RCU/lockdep helpers on
+> this path.
+
+Instead of forking pfn_valid(), can we factor out the non-locking part
+from the original function?
+
+        /* Caller must be in an RCU-sched read-side critical section. */
+        static inline int __pfn_valid(unsigned long pfn) { ...body
+minus RCU... }
+        static inline int pfn_valid(unsigned long pfn)
+        {
+                int ret;
+                rcu_read_lock_sched();
+                ret =3D __pfn_valid(pfn);
+                rcu_read_unlock_sched();
+                return ret;
+        }
+
+Then we'll be able to call __pfn_valid() from KMSAN.
