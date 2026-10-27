@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.189
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793075693;
-	b=WAjhNuGofzJf47sxbJQgdNEXrtgOb4HTFTG0aKOBUuBPzE8hS9WBM8Az/LhAXwKKvN6s
-	 bRES/9Jd4AlEMizTqnUxPf3E9qupa4AsLzJCOeX+I1tnHi+d29kz7ZYD7ONalyM8OfqdM
-	 k880mt+cmk+gV8ZOx1Ih08PhjpOZkAf4yyojgma14pM+YX7NMAxEa+OWP85o9VCL2m76M
-	 C6kLSbzjqsmWJP6b5UCegpEAo7pF665vaapVjjxZ9vBJUBvkGJB7spJ5Sbgihue0Yguia
-	 PcEvoCsW8xAv/oTmXxXiMUkXvzP3qJHtjZpBymrs9pFoyM1IcHMDWzbWpr3CgIATuBw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793075693;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8bPDXwOSDS16plg0sE4B84SdEhQiLrfepkoN/xaCOWc=;
-	b=UrJz9DOg3s6rUsfhJn4LIjExVvd+ug3tVoQwJbPYKHvkRgEXJtbZQ+f73+E/PbjbxuNB
-	 wfEj/viVNI9R9VMdZLfcCbyaVApwJzgPRRp1OPuW43lV1Yp46DutkgQKWR1ibwSlyDNcF
-	 UbDIJK/VQdJ5GcQ6y8fI/ESzV9efLzzYLvzZaSi9qtUNBRBBABbDMAJpOGcUZpN7PM754
-	 tp4Lns76COlbeHX21kRwvTsDLv3mxJgzGmVm4EqWmt71/ABhWt8x5BhqRLVznrscIHU3+
-	 xtTtvBxf9h8v5wqn1zI3xOpXbAxwd1lUQzPwhrRnPo9am17NRxWJGLf28n1EgjqPLnw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZXH+MRud;
-	arc=none smtp.remote-ip=95.215.58.189
-Received: from mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793075711;
+	b=n0yggmBUU1JMr/K7WA4vLkVWDONcOJAE6aBVy9u2IfBqXwKw6/GLyffnRLkidKmgIZOD
+	 V2rDZVebxsGhFuj345xx5ZPfXw5ip3AkV0JwdL0q4mZiSi3xY6hE1wqnOK9DDotxhpahJ
+	 uiaZX77d/ElxYDSc5TbiqFGMWq8Yil8OCcS/p7v1naZd1H5zuqMdXyp8yI3wP8Qd2qQjn
+	 X7b3wBd6xs93MWiAnnasJPXcT528vkxdywOL/44Ef3oLv+enn1uNuOjXDZgh7zZhqT0lG
+	 ZXA4wHUu1U+XZrTYdun8in2XJiGWIn1fPvmekIlOUik2G3OW49XXdqi5fxFMUPnUa3Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793075711;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=V9Ntqo346qzMImZTzSh8DdvT9SawvOj4TJ2OvRn5cI0=;
+	b=C1SY9ZjG0s3+UfsUlPiA0yZNrGpnEDy5Q2hHMWfB0W0U+lfjcIUz2RIdnOVRcgoLJuKb
+	 YfB3qtFMMpeek7cKM7m4EFNbzXIVReIwUssjcapvaPUIt3RTF5fx4EhtixZemH5p92VHT
+	 LqF3bE7JO3Eqc1l5P0QLyMk/LlQnv/yXToEofrDdYi1TlgeRGyolJdjoaE5fDvZ19tToo
+	 WCMQRdeZrCtDCFIm88F4aTGpUxD2eS5iG/WhBjFKDHxIzPEVdudYKC/jv3ql0Ay7l8m0W
+	 uk/6RZRC15V0hRTSTynTGbrfNU2EuQp7eR579NaEyFeYAqVQNd+f1lNakMJIp8b7bJg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WmH6h7xX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA3F606A31A;
+	Tue, 27 Oct 2026 04:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WmH6h7xX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793075711;
+	b=DZsJhRTEr8DORPfwzzVPKvynw/SeLF8Hr0m2TsDfMjDpxaxp9RhJXnlNu67deQGmVJ6T
+	 e5TAX/y3BCHOUVbJo0HlFuaKmQp1bU4CXLrQ/QDz1w46I/dGgMSwQEFNhpSDsU68GvPch
+	 L+Jjm+73YDNJmB072GDkMPFBlhKFkV/Jpup39KwM/Dv0U6l1xcJNHrLQ0OSEebPUKFc2B
+	 fDR5nchFgNUFHhvMFg9tHrjwjsYlt4v7w7g+1kEfBYWMJ160xeq6LT0WbV0ztLsYS8jha
+	 cqX4+Tf35rFlqnUJqwJmnklG3m5hZHhA9+FVVN3ahrGnKHPlbOObM3lpamtSNTsBqYA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793075711;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=V9Ntqo346qzMImZTzSh8DdvT9SawvOj4TJ2OvRn5cI0=;
+	b=29eIVk14CqKh9S+ubBx9mckOHlRirxJBT/9Momu0nc2HQQIHghRmdSGmh441b8JMnIi4
+	 nEVLpsPxeeAMh5dPbMrxBdUUuqc+wge6gYiKJXhhR6iYhezSx+4khpPfvIyfa+OogtiSk
+	 QfIsyTmZQwi0r0+GQ6ltP+MqfZyUv911eksiG9RRi/sYmgr8nG1f+ZlIDIrb9FwLAvIMF
+	 kPlEnY6EU8gnjlZrRJDHTyHfLl4Kz+F9nmhRP9FFuFhLfdNFFrauGTetfX6tdKpOG3dE8
+	 DnYRa8LvbOW+ysXSdohAJRKVteawZeFsbZEm4oDl6KHYtkt2AflxWysY0i1PHLSPIHA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C63D606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:34:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C63D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZXH+MRud
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nzg0KAy4r17iWdtc1/Guk/G16m3PL2GLFdlHcOEPTm8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793075690; v=1; x=1793680490;
- b=ZXH+MRud0A9N6N3RBKQRDno4784HvX4suabk/vTqyGni5R0GEvknRJ3hwC8RY6qdYzpS8w8z
- ub8AU3OOyuVar2e0Mq0CWSPKhgysvo7ByyynhxlXatGUGxMQZ/FqnUgFmwNjvZ2w2SHmORsjzUp
- PiG4OK58ecf0OGzLDj+76xL4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7c7d843a2b7f921b;
-	Tue, 27 Oct 2026 04:34:50 +0000
-X-Mizu-Trace-ID: 7c7d843a2b7f921b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1267a0a3-d3fa-49ee-a791-294e62c29bb6@linux.dev>
-Date: Tue, 27 Oct 2026 12:34:37 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 6A4671F01828;
+	Tue, 27 Oct 2026 04:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793075710;
+	bh=V9Ntqo346qzMImZTzSh8DdvT9SawvOj4TJ2OvRn5cI0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WmH6h7xXl/O1f8pl/dlUPpj6R+LnVaigUrAT9GuV2tpu5Nmr2RjCYFF5rDgTc1Uzt
+	 SCDk0ffh2BV7AK8o1pTnUAQIwhxekVG0CuVjqTms+VFkdHVdBwnBCYajb6wdXm2Jnn
+	 vjcIIb8RIzfzxT2SBiIt3pbkwjaaBigo2BPftsi6pw7pDxIWHtTkDR6VvwLvLsueSj
+	 NHhbAHOGO3F7zPASptY64gilaJJp4sDMPXB9l76uGZPLozhvCy2yiTHuYhjShqs35w
+	 3gqp4PrqqVuUrAJvRVLmdR1XgR57Z6NJ2REqSvP+CwUsvFPS8rS+U4g8QNOzR0Dh1r
+	 DdP5yfxBZ1pAw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F306144FA4;
+	Tue, 27 Oct 2026 04:35:09 +0000 (UTC)
+From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
+Date: Tue, 27 Oct 2026 10:05:01 +0530
+Subject: [PATCH v2 1/2] dt-bindings: clock: qcom: Add SM7250 graphics clock
+ controller
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,124 +83,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/migrate: move NR_FILE_THPS on cross-node migration
-To: "Garg, Shivank" <shivankg@amd.com>, "david@kernel.org"
- <david@kernel.org>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>
-Cc: "chenridong@xiaomi.com" <chenridong@xiaomi.com>,
- "apopple@nvidia.com" <apopple@nvidia.com>, "ziy@nvidia.com"
- <ziy@nvidia.com>, "gourry@gourry.net" <gourry@gourry.net>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "joshua.hahnjy@gmail.com" <joshua.hahnjy@gmail.com>,
- "ying.huang@linux.alibaba.com" <ying.huang@linux.alibaba.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "byungchul@sk.com" <byungchul@sk.com>,
- "willy@infradead.org" <willy@infradead.org>
-References: <20261025110209.4105994-1-ridong.chen@linux.dev>
- <c021e641-f415-48bc-badd-d340d70dd850@kernel.org>
- <6372d92c7b0ec9c3fef4e803e39e54a36f3aa918.camel@amd.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <6372d92c7b0ec9c3fef4e803e39e54a36f3aa918.camel@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-gpucc-sm7250-v2-1-773056e4043e@brar.si>
+References: <20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si>
+In-Reply-To: <20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si>
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Taniya Das <taniya.das@oss.qualcomm.com>, 
+ Imran Shaik <quic_imrashai@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ishu Brar <patches@brar.si>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793075708; l=2742;
+ i=patches@brar.si; h=from:subject:message-id;
+ bh=tY6hDzRQJRYOBlf/fKmeYB3tja46AJ3bHbMAdIz48VU=;
+ b=nKR54osy3eiFYONTpGXLaw/ILpqcoB/ulyBr1v3sMCGYYPwzXiFCyZAf2dKpMrdLV8aulyxC7
+ S/t6gZqv3MYCF1x5ap1cLsdIHHhqGuDPJhmYrMTUNzd1+pr0PtjtEWj
+X-Developer-Key: i=patches@brar.si; a=ed25519;
+ pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
+X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
+ auth_id=1189
+X-Original-From: Ishu Brar <patches@brar.si>
+Reply-To: patches@brar.si
 Content-Transfer-Encoding: 7bit
 
+From: Ishu Brar <patches@brar.si>
 
+Add the compatible for the graphics clock controller (GPU_CC) of the
+Qualcomm SM7250 SoC (Snapdragon 765/765G/768G), and the header with its
+clock, reset and GDSC indices. The clock inputs are the same as on
+SM8250, so the existing clock and clock-names constraints apply unchanged.
 
-On 10/26/2026 8:51 PM, Garg, Shivank wrote:
-> On Mon, 2026-10-26 at 11:59 +0100, David Hildenbrand (Arm) wrote:
->> On 10/25/26 12:02, Ridong Chen wrote:
->>> From: Ridong Chen <chenridong@xiaomi.com>
->>>
->>> When a page cache folio is migrated to another node,
->>> __folio_migrate_mapping() moves the per-node and per-memcg counters
->>> that are keyed off the folio's node: NR_FILE_PAGES, NR_SHMEM,
->>> NR_SHMEM_THPS, NR_SWAPCACHE and NR_FILE_DIRTY.  NR_FILE_THPS is not
->>> moved, although __filemap_add_folio() charges it to the source node and
->>> filemap_unaccount_folio() takes it off whatever node the folio lives on
->>> when it is removed.
->>>
->>> Commit 0b52c420350e ("mm: fix shmem THP counters on migration") added
->>> the NR_SHMEM_THPS case but not its file-backed counterpart.  Now that
->>> ext4, xfs, btrfs and erofs can all have PMD-sized page cache folios,
->>> migrating them via NUMA balancing, mbind(), migratepages, demotion or
->>> memory offlining leaks FileHugePages on the source node and underflows
->>> it on the destination, in both /sys/devices/system/node/nodeN/meminfo
->>> and memory.numa_stat.  The global value is unaffected, which is why this
->>> went unnoticed.
->>>
->>> Reproducer, on a 2-node QEMU guest with THP set to "always":
->>>
->>>    1. read a 256M ext4 file through a MADV_HUGEPAGE mapping while bound
->>>       to node 0, so its page cache is 128 PMD-sized folios on node 0;
->>>    2. move the mapping to node 1 with mbind(MPOL_MF_MOVE);
->>>    3. unmap the file and drop its page cache.
->>>
->>> nr_file_hugepages in /sys/devices/system/node/nodeN/vmstat after each
->>> step (in units of PMD-sized folios):
->>>
->>>                      without this patch     with this patch
->>>                       node0     node1       node0     node1
->>>    1. cached           128         0         128         0
->>>    2. migrated         128         0           0       128
->>>    3. dropped          128         0 (*)       0         0
->>>
->>>    (*) the counter has underflowed to -128; negative values read as 0.
->>>
->>> Without the patch the 128 folios stay accounted to node 0 forever, and
->>> every further round adds another 128.  The same happens to the per-memcg
->>> per-node counter: after step 3, memory.stat of the cgroup shows
->>> "file_thp 0", while memory.numa_stat still shows
->>> "file_thp N0=268435456 N1=0".  With the patch both are 0.
->>>
->>> Move NR_FILE_THPS together with NR_FILE_PAGES, using the same condition
->>> filemap_unaccount_folio() uses to take it off, so that THPs in the swap
->>> cache are left alone.
->>>
->>> Fixes: d68eccad3706 ("mm/filemap: Allow large folios to be added to the page cache")
->>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->>> ---
->>> Note: prepared with help from an LLM-based assistant (Kiro, claude-opus-5.5).
->>>
->>>   mm/migrate.c | 4 ++++
->>>   1 file changed, 4 insertions(+)
->>>
->>> diff --git a/mm/migrate.c b/mm/migrate.c
->>> index 7bdcdb57652f..d55f576a2579 100644
->>> --- a/mm/migrate.c
->>> +++ b/mm/migrate.c
->>> @@ -700,6 +700,10 @@ static int __folio_migrate_mapping(struct address_space *mapping,
->>>   				mod_lruvec_state(old_lruvec, NR_SHMEM_THPS, -nr);
->>>   				mod_lruvec_state(new_lruvec, NR_SHMEM_THPS, nr);
->>>   			}
->>> +		} else if (!folio_test_swapbacked(folio) &&
->>> +			   folio_test_pmd_mappable(folio)) {
->>> +			mod_lruvec_state(old_lruvec, NR_FILE_THPS, -nr);
->>> +			mod_lruvec_state(new_lruvec, NR_FILE_THPS, nr);
->>>   		}
->>
->> Looking at filemap_unaccount_folio(), I was (once again) surprise about the
->> different handling.
->>
->> Key is that we might be migration aonymous folios in the swapcache.
->>
->> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
->>
-> 
-> filemap_unaccount_folio() also checks for AS_KERNEL_FILE, but
-> __folio_migrate_mapping() does not.
-> 
-> Should add this as well?
-> 
-Good catch, thanks. NR_KERNEL_FILE_PAGES has the same problem, and I
-could reproduce it by demoting btrfs btree folios to a CPU-less memory
-tier. Since it was introduced separately by e3a9ac4e866e ("mm: add
-vmstat for kernel_file pages") and is a node-only counter, I sent it
-as a separate patch on top of this one:
+Signed-off-by: Ishu Brar <patches@brar.si>
+---
+ .../devicetree/bindings/clock/qcom,gpucc.yaml      |  2 ++
+ include/dt-bindings/clock/qcom,sm7250-gpucc.h      | 36 ++++++++++++++++++++++
+ 2 files changed, 38 insertions(+)
 
-https://lore.kernel.org/20261027043214.2248986-1-ridong.chen@linux.dev
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
+index 3ac4419009a9..262c0345836f 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,gpucc.yaml
+@@ -21,6 +21,7 @@ description: |
+     include/dt-bindings/clock/qcom,gpucc-sc7280.h
+     include/dt-bindings/clock/qcom,gpucc-sc8280xp.h
+     include/dt-bindings/clock/qcom,gpucc-sm6350.h
++    include/dt-bindings/clock/qcom,sm7250-gpucc.h
+     include/dt-bindings/clock/qcom,gpucc-sm8150.h
+     include/dt-bindings/clock/qcom,gpucc-sm8250.h
+     include/dt-bindings/clock/qcom,gpucc-sm8350.h
+@@ -37,6 +38,7 @@ properties:
+       - qcom,sc8180x-gpucc
+       - qcom,sc8280xp-gpucc
+       - qcom,sm6350-gpucc
++      - qcom,sm7250-gpucc
+       - qcom,sm8150-gpucc
+       - qcom,sm8250-gpucc
+       - qcom,sm8350-gpucc
+diff --git a/include/dt-bindings/clock/qcom,sm7250-gpucc.h b/include/dt-bindings/clock/qcom,sm7250-gpucc.h
+new file mode 100644
+index 000000000000..f4536808d4fc
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,sm7250-gpucc.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR BSD-3-Clause */
++/*
++ * Copyright (c) 2019, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_GPU_CC_SM7250_H
++#define _DT_BINDINGS_CLK_QCOM_GPU_CC_SM7250_H
++
++/* GPU_CC clock registers */
++#define GPU_CC_AHB_CLK				0
++#define GPU_CC_CRC_AHB_CLK			1
++#define GPU_CC_CX_APB_CLK			2
++#define GPU_CC_CX_GMU_CLK			3
++#define GPU_CC_CX_SNOC_DVM_CLK			4
++#define GPU_CC_CXO_AON_CLK			5
++#define GPU_CC_CXO_CLK				6
++#define GPU_CC_GMU_CLK_SRC			7
++#define GPU_CC_GX_GMU_CLK			8
++#define GPU_CC_GX_VSENSE_CLK			9
++#define GPU_CC_PLL1				10
++#define GPU_CC_SLEEP_CLK			11
++#define GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK		12
++
++/* GPU_CC Resets */
++#define GPUCC_GPU_CC_ACD_BCR			0
++#define GPUCC_GPU_CC_CX_BCR			1
++#define GPUCC_GPU_CC_GFX3D_AON_BCR		2
++#define GPUCC_GPU_CC_GMU_BCR			3
++#define GPUCC_GPU_CC_GX_BCR			4
++#define GPUCC_GPU_CC_XO_BCR			5
++
++/* GPU_CC GDSCRs */
++#define GPU_CX_GDSC				0
++#define GPU_GX_GDSC				1
++
++#endif
 
 -- 
-Best regards
-Ridong
+2.56.0
+
 
