@@ -1,104 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114035;
-	b=aL8S/i7A8o91JrYPz3MJzY47HaV0wfDRpgxoIClKl6D6km8jLN34nSo+JyAp+r47vbe3
-	 Qbytrdl7AY6vvzb8yFylqdL/o8PmBe5aKsl1+psgZS0zWO6NDxMC/NZy6/UPHHYxyur7t
-	 LN1TzVZ9NdRWiqN4h34U9NFwl+SWiJTIXLLNs7/A5A96upedCcDVKZBYgdXnVOajugc0o
-	 qlVpdbEzmWI4Wff0LFloaqDQA2MyX52OZ/ciOC6ZGDGALTAqyLwKqjgwWuu3+v656dSDo
-	 E5Fqb8RFq4mPn4S8du4x+jAc5dv/2u7x9mrVz2jAgGVlXrGNNcpfXxyp+QpOO0Vnriw==
+	t=1793114039;
+	b=IvqVvc7HNAmfmefuc7gTgd9nbX7ClBx+GMGGA8pODZBj3MEUJfJ9+lulzO7x4Ye18+Nk
+	 8BA6Gcr44ulFSjbjGVfPNwB4E+DXZqOaqE0v+f8KUc/tO68UIrK6w3L4/9uzd3ijfJG8l
+	 cfo+IXYzWbFNB8r6CEss3ziUIjKJL66Ac42I82Ra7md82SNpyFTgF0LuO6tQmXKFwG5eq
+	 P+0G1xLoMdoPD8g+hpv29TiUFKwOsJNDWNB8Kg0ebk01hAoejXG0OgMflfSKfwzgeVCDX
+	 uonPpJjGTpnoeLbAU5lLzLt88ogVHAEsbP5bG5Kj73EQttyIix5Dl2i42TXg16BVrIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114035;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=TYOVvhZyaUbVZFgAIc/egQ1z+khkcesoyhUa579dsZ8=;
-	b=JmZ4h6P/1eN5rPIc4sqV4LWaqY7w6Ufx0dgjKujmJl3CKk+Zg1o4zvEOsZUe0pfzuHSC
-	 OIb2ua+36cWvp0hrLKUu9uYlPFWMs11ZIlawj7Mxk1k4ysqx21nXAfgRjHZlbCl4EDzhc
-	 V5PlTApJGBEUUQmnxCue+7xrV13O2+i8SnWQtpnT6gmP/IhAHl5uuHicrn4GeHvux8ioz
-	 AAjJkVI7DcmlLwuARyRX2JVn6s395FeOxiTTYEFdyEsnj0cyzCzpjnSE9Eco2eb56Xixj
-	 qMMcsWWTOUTzvtY6mxlpabUhO43NNQpagwkIwEw15hb8zjJXWtv4rTTzqg6CNR/NKBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114039;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=X/GqxhwzDfkNlR7rtD12qLgd9HV/zNHUYPrEnneK0SA=;
+	b=CkQPYq7ysBb0nRyq9G7LoHnilngnKkTeShN2jA/nLysLHQEbXLI7GTeS5Mm/Gk/UQ2ls
+	 DqGJi1rNvXudqHygtquujFu0HxgJuTBzee9zOwUHEW5CyblN/BVDsO3YF7IW2sVXa++Sh
+	 NpFlcCfO9Bj/zTaa1G/AOX95aDxnbY3i4Nh3zKnZGECTFMnRCOz3Fb2Dh5/WQLv/2DHII
+	 yNnsHB3NpyWMhSh5d1tsa6ExdajRCEW21XM65F0+9+QNdkTGFcEsEbmE0XSBfSUTyh53A
+	 xrYqjP6iGM3u1Ug48+3Rx83gjIcWgUCsa258mi5TNWFcsDnxFYDamURcJ483nF3RpwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bU2jy0ce;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=EH80Avzg;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846E2606A31F;
-	Tue, 27 Oct 2026 15:13:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 846E2606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66624606A31E;
+	Tue, 27 Oct 2026 15:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66624606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bU2jy0ce
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793114035; x=1824650035;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nRi+oew+ldnegelRFFSjs3YHGuqmu3x5mEIberG1vWs=;
-  b=bU2jy0cePFOrDtJQq2Vp9gSku8uNQ6r5TH5HbpTPbG+QYH8qRkhCuvEy
-   aZeBR3bSo9KN7tjZVk8/Ju1KMGEbJQAxOuE7rk84Ct8N33Q6MR2qS3Qll
-   PjZeEEV5WhfeqRwk9k9+6N9vSIbo14JNW2ZnG1qP+zSkKlRkkPHjLaSbZ
-   64pxFBN13Oh+dgcjLgJffRxjaLAmLs7OarVDwv91/BJcnoNIRv5DDbgs5
-   TJHoD7FysUYbP+NCUHTUK0oR0ocfMBY28W3+DWUHvDINNO0lr0ngyY1eF
-   luHOXMw04uhd7vz/qBioAyfpQJCfzPBn51z+BPFQfh1FCCUw36+T8S3QR
-   A==;
-X-CSE-ConnectionGUID: fqo/QmdUR8+2daesaCIIpQ==
-X-CSE-MsgGUID: 6hYJEHNdRpyP9+S7llsr+g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1829010"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1829010"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:13:54 -0700
-X-CSE-ConnectionGUID: kh/UND/zTOijhbG1BjDaRQ==
-X-CSE-MsgGUID: KbuS6scPQWKi92eahLZ93A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4608083"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:13:46 -0700
-Date: Tue, 27 Oct 2026 17:13:44 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Peter Hurley <peter@hurleysoftware.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Olof Johansson <olof@lixom.net>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Robert Baldyga <r.baldyga@samsung.com>,
-	Thomas Abraham <thomas.abraham@linaro.org>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
-	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, stable <stable@kernel.org>
-Subject: Re: [PATCH 10/24] serial: 8250: pericom: validate port offset
- against BAR length
-Message-ID: <auC_qCiP6qQtlLMq@ashevche-desk.local>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
- <20261027-tty-llm-v1-10-99b0202ae546@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=EH80Avzg
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=X/GqxhwzDfkNlR7rtD12qLgd9HV/zNHUYPrEnneK0SA=; b=EH80AvzgRK9DpF1v1znDz3zR4r
+	BMj5tre3f0633b69n2SAg7pHpxxrjokoqpayRVjkV55O3x+vD5BNaAjqY67rXuxTU3dDx0IREGWc6
+	rmyNsGdVERtCBAdL/hf2jEGqKpjL8aF/xei9SSvUfXnOesFyK6hvxiiBKHYSQNhYj6t0/pVsvo4Qj
+	rRj7m9v6ovMDmRJGOfeM6FX/wq8R1yhAEFIkTtqQ+8XYg84l+Tvo9tmPtrMwhlzCSMShSHU5jSzc9
+	M0ZkU/DK2FSkcKphEuA3CIycWBnM8pUIZLiglasJDMtT6Uk6ORVnamuP5uUg1K12YZtevQGUrnVmZ
+	Y+g03WAQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLis6-000000058O3-24hT;
+	Tue, 27 Oct 2026 15:13:54 +0000
+Message-ID: <022548b6-607b-422c-b7db-5d95b0ba6b79@infradead.org>
+Date: Tue, 27 Oct 2026 08:13:52 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,34 +58,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-tty-llm-v1-10-99b0202ae546@linuxfoundation.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] nvme-tcp: validate the TLS handshake timeout
+To: Yingjie Wang <1075151112@qq.com>, linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+ kch@nvidia.com, hare@suse.de, corbet@lwn.net, skhan@linuxfoundation.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1793103202.git.1075151112@qq.com>
+ <tencent_02EC3FD2E750D09B95ACA70091EE65DE0906@qq.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <tencent_02EC3FD2E750D09B95ACA70091EE65DE0906@qq.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 12:06:36PM +0100, Greg Kroah-Hartman wrote:
-> 
-> The fourth port on 4-port Pericom devices uses offset 0x38 instead of
-> the linear 0x18, but maxnr is computed assuming uniform 8-byte spacing.
-> A malicious PCI device with an undersized BAR could cause I/O access
-> outside the assigned resource. Check that offset + 8 fits within the BAR
-> before registering each port.
 
-...
 
->  		unsigned int offset = (i == 3 && nr == 4) ? 0x38 : i * 0x8;
+On 10/27/26 5:13 AM, Yingjie Wang wrote:
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index cc54d5f169f67..a5adbf58fb8f7 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -4801,6 +4801,11 @@ Kernel parameters
+>  			Example:
+>  			nvme.quirks=7710:2267:bogus_nid,^identify_cns-9900:7711:broken_msi
 >  
-> +		if (offset + 8 > pci_resource_len(pdev, bar))
 
-For the consistency's sake 0x8?
+Maybe add "host" and "target" in the descriptions?
+or something to clarify/distinguish them.
 
-> +			break;
+> +	nvme_tcp.tls_handshake_timeout=
+> +			[NVME] TLS handshake timeout in seconds. Valid values
+> +			range from 0 to the smaller of UINT_MAX / 1000 and
+> +			MAX_JIFFY_OFFSET / HZ. Default: 10
 > +
->  		uart.port.iobase = pci_resource_start(pdev, bar) + offset;
+>  	nvmet_tcp.tls_handshake_timeout=
+>  			[NVME] TLS handshake timeout in seconds. Valid values
+>  			range from 0 to the smaller of UINT_MAX / 1000 and
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+~Randy
 
