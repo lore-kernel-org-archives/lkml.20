@@ -1,102 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793071879;
-	b=ZGE7bVXc4pE45A+aQtaoJT8aD3EL6JRycpE+Zg5BHR7zc2dvl+m/uuNobCXEuhOvdOsM
-	 DkVPsiFWxHyzFPGoJ9PLcEQBChrrMjVWnFVQeGaLzItdtawQiyevmQfaAbm7/rOySwgLq
-	 LSvdmmrJ//F+LPwG9matdlDSpxISu6fDVnSKeHshyq4Foaf5T/iiXEgpbla9Tt6rntmAU
-	 Rs9GySEt3vC/QOnp3DLhTLKLBZYhHq0jRjryFPhAQzrtKfP0ZNA9EnKuOSluWEvDqKeRL
-	 ZapCBIWoPEeE5/3cgAoHtef0sK1Ax3Ct8dHmxzj30IQv/es+sSaSqDFWszVjC+9RXMg==
+	t=1793072074;
+	b=yUSZWs0kWyyqRfO1a0sr1m7941+0U3qAObayUGJw0tWEn1av3pnsDHHI6oVvFydGul0E
+	 M5YzYe6Img5B05zWt9+KOdVK4GURyiHC1NoQQzGkQ1ohywn6W2QK335+sdqHWDapb18Ls
+	 WxBOtPN88zeFGN1t2hRaPQ3rp4M/cpaZPcaCBlkPa1tWt76G3znZEkP9ey7x5asXUi2l0
+	 uRML2LBS+j1YYwYIAjTJWdop4Uw5yk4y0YAk4XbkqC5kawIpWYp7DnYPmfePgYkbEYXXZ
+	 azE8AR877XQou6bVknqO9kaVNUk4SVf9ZtRmjECvTi99R6R3my0yt+4TEuSt63uZ9GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793071879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793072074;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FumZNvLAP3ED/34qodGOcbiLmIISEGhi+wd5f3+khLk=;
-	b=EQUpyrW9Iakmw7KRiwQek6Z7yMIbUwUAnnnrq+bJWqciAFGaVkVv7PftJxDku92vLY/W
-	 OXzPXIkZVNdCAaenZNCat6XPrYz73RIQtx4z2XK6wCcUT4ULJsQlUrERc+WCY26uYU+Dk
-	 dbOuLAe1ZQ0ltJrmq75563alPpKhcdntireIJqxP3DPsYMP9MzBmjJKdojhTeM0lX5idl
-	 RP58FRyeql2KgW2v+Mw14+jWcwd94ucO6e4L2VLVopPcBnrlHigg8U73A+RyQHh1uh/qu
-	 lQzGUuGEhPrGhCCyz27G7epvYMAlmT/ARdE/FkQNyzhtIzKsok5uhyfXxFAAOFcekJg==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=JJLvmVV2iFndDkwChBmGVao/pICrf/b8G6/BBv8WQzs=;
+	b=hIfBLrXA76HgaU/bdXca1/rDbdmYwMJY09wncEtR3YnzfLa4x8+EgkMmraRIXuqD6btK
+	 sqDF2gHbPV6CMFH8P4Eq+SdKOk9oFsmrxwrjFw6CIwCAjaRwXNB0q4qkDuCrFjit0geO6
+	 SMfoC9Q4nHmC7SUGTP4PnSDWVhsyGkmUeghoSjl6yWWEU4OVZI6DyAjuFOUXgr056H66w
+	 aHmAbfaEsPnFKSHGXyN7Kv9cz2GLXFCERoyhmCD5pdEY1W9x45HgkR1Pak0ZEDtAuznLO
+	 +O++i0NY2sSzWRc/Mu+zJFLX3NkhB4xFwk6jLh3INn442p9wSSqa4PIrl2GHlUv3z7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f4meJjGM;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PrPhYdj4;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A77606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:31:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80A77606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D946C606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:34:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D946C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f4meJjGM
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so353510f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:31:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PrPhYdj4
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c169ae1cb26so78220766b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:34:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793071878; x=1793676678; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FumZNvLAP3ED/34qodGOcbiLmIISEGhi+wd5f3+khLk=;
-        b=f4meJjGM1sNti28R+ChWYEByNP8Avx7P91CW7Tu61rkSyrhC/zF4ct509PawNUmfGT
-         x3Eug8V/hhBmBTeWrSu4fIyJ9biTRHlLncm+JY0UAHhwLkqBR8p1C1hNj5FcKifSkm4V
-         OEHVioSNYyz2rPjwTXnEgToDcCMI4EOlqcoeDRbHYRrV/k+4o08yEaVIJ41rTaZO30da
-         7DkOhIHDJwV1qOdZ5L4RfnyCdfmItVmdJ4QLNrzQ61D4l1BvWgEHNnpeXRGHGfL2RqIl
-         djYf0e+vGndi4N3zqm5+iSRxm2H1bwZagm1EO9Zc2WjWm20ht9rneQI4G7D3JY4WEQBF
-         2lCw==
+        d=gourry.net; s=google; t=1793072071; x=1793676871; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JJLvmVV2iFndDkwChBmGVao/pICrf/b8G6/BBv8WQzs=;
+        b=PrPhYdj4lsl6WY1eRcIYnVNPzLWRrynHcUVj9I5xsoprzRZAeOt6ayDDiUc/trGUDU
+         zEEtUvahpwB3yfKrXVSGtn1hq0c5++9cTKlzb4K/mtZ/zEv0TH4Zg99KXDJ6dOs2oshB
+         yFYwXMyC++79nRfPELlLKzOVJtcZEkNU0o3Xlqfv3VUoiVDmgy5KolN5DO/PO8U61iqf
+         qbx+2TKjQL21JW1lRhafU6DB6bMJdJgrDtJvkKE8E1cIupVnc0ERW7WH6J78ESjGgh+m
+         bOFvg+UcxByPQ0Z60FqDar+JfOxEjjKQlAudE0UvBAO84v60l1P9/uoWoeogBgdVcpi4
+         WtEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793071878; x=1793676678;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793072071; x=1793676871;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FumZNvLAP3ED/34qodGOcbiLmIISEGhi+wd5f3+khLk=;
-        b=27ogZvaVaFAN6UofpEx3cYT1EcIgf9GnFjP01ino06cP+hmdKXV2o4BZbFzcnoFVWm
-         iuGuxpCXJU0P+6OHp6IfNXtuzbTgmuq2I/JzvNswCUOP4YBTEqS3WtS5HjLH2wUAP9A7
-         g7V2gjY11VA/oydBsAmt2dFyqBJtADJDyZh1ftzKNzsQFXuLk7R95f8BYKMsNKxHmH+N
-         +AYHNAlimke5Fsd4KrPqv+ZphUQ1R/uW55FfKbNMvBfRsKtMSuDhr1BI2NZ88ai/SYu5
-         iVbqE5W7B7va5IY9cZ8+PrMp7sGtFNdik9/sc6cTJkfQrHsLvexOIVXoxHAAMPOBvLpa
-         GLQg==
-X-Forwarded-Encrypted: i=1; AKwUvByuzBzXuo/yJ1YdKkhWoYaO+yd5LGD0XmpHFDcufWkou8Rwc8/lwBLoGH5Z1CVgEFTVy/yf9G4l/n71I0A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJd8EjinYrguaZn8ckVz8DTvBtfBG1h/iBB12oyKRfA57I/I/V/
-	SEko6olz3Xe2DNAq/qMSJ+RvcRNYoTGD7vfQfv3CIeRSG0lVcUYuZB3P
-X-Gm-Gg: AYBFou30D+nfJFjmMEeHmHvDCphVnhuBZtsrKULHkhdiRvi61B4QbrKa3bYvpgu00Bm
-	OGTcrX/Pa9GWPNHZMPvMrGrF8Ga8RGPCsmI1XRxnv7z2s2vGrbbSzUcc4XSVHwhPI2UU2O9c/7x
-	IWXfKVEs7HAyTGgl5eCl8lAKlWJK5rYZvolA/UNBg4UxvDO0GURB5JHaRuy3e6new7tSVBG54uU
-	3Y9sHg8xCntga8Pqz81a0f97qwGZ0xkakleFu/M6FFEHp3Z8nZXWmdwB119X6lc3hz3ag3h1edv
-	EZ8mLYfpnnXKTDTJQMjRGydHr5YhE8clQneVRy4pIwATV8mUsHkAFFW+oQEMjRSVQHk+P/xYajw
-	XawTaUeydtPq5rdpMPdAmFjS5Ph4kpJmFieVE9dIzfRod0x6hoiNhjolkMqa05mQbxWeKMpwORH
-	HGWjqFo8ZB4LWtLvazZp+REA7+e2u69haov48GaDHu4FhDE2BqYRaqrGBd0/0ZbOfcM1c6GavIB
-	rD0g1JxbbrbYqcldVVyClgsk+LcHiUP4JoaiYlMhJ0VprZLVkZbnHgiOzK+ALVQue5z1BNlBUV8
-	EXZTzQQhpj8MQHPAgJl+9e5GaNmwCtLgjBvNB38wSnc+DDvJkE5aFx2F85lAra3zG/j+K5TkLCE
-	1i+OUllQzfOSyCRVx1ISQaHWogKXsOfWqYiG6EwpYHw1V4cummB32MoKKbLn4QkuKgJwlfpx//G
-	UHq3GEUEHvbbKmIFnmq5IHoqPb
-X-Received: by 2002:adf:fe48:0:b0:48e:1aa5:fd77 with SMTP id ffacd0b85a97d-48e55a15f74mr2006076f8f.15.1793071877451;
-        Mon, 26 Oct 2026 20:31:17 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-b2ac-9b01-6900-1f92-d182-4435.310.pool.telefonica.de. [2a02:3100:b2ac:9b01:6900:1f92:d182:4435])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8c05sm25685718f8f.49.2026.10.26.20.31.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 20:31:16 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Robin van der Gracht <robin@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	kernel@pengutronix.de,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3.2] can: j1939: fix j1939_ecu refcount leak
-Date: Tue, 27 Oct 2026 04:31:04 +0100
-Message-Id: <20261027033104.76618-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <3958917c-1484-41e8-8d62-99575edbf980@I-love.SAKURA.ne.jp>
-References: <7df4f6c6-b53f-42d6-9725-e60b763d01f6@I-love.SAKURA.ne.jp> <3958917c-1484-41e8-8d62-99575edbf980@I-love.SAKURA.ne.jp>
+        bh=JJLvmVV2iFndDkwChBmGVao/pICrf/b8G6/BBv8WQzs=;
+        b=Iqp9fIKm2Oj10nDl1a8zZXrsCrJLyoS0ZJGvZcwmhaQzjYpIQbZP/KCynyQMBbZ7ij
+         QPnzB/OPClVFt2bAfXNAdeLoS73eo2e/CQFT8eUuCR2k8/t4PF+j/O6Q/Cpd7VtOPWap
+         nQ+rJF5Nz+rs7+M1ENJXPau3vUUl0GHC1JzX1AMRUMdpuznKm8Umwc/JXEY6wxBX5n01
+         uEt7HZ817TaNCZEXm62C5Yb2Dok6Gkd+7Lwz3eWilxrJFxuamU7AgqhIq3Pd1ZusAJrl
+         E9SWkDFMPHf7AyHc2H6Ao6S4rO0A/N6yfh2ydrdrPpNtZGx/r7DzTiCwctNpg3b387e3
+         oKfg==
+X-Forwarded-Encrypted: i=1; AKwUvByH6aMRZDFjx+cRXJQRfUYvWwXXHUhGEJGhRF4xfZCNTynznhrr9MzqJmThbv8IfEWZMdO3qrmOot/ENDA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCCKkMIqfEtf7iak8xV4MFrT6nIxTmj4hVJgJTDyW/A/JN09jt
+	17m8a3rHI2I9/4tCII/VRSuoQgj25P4AX91fKxbG+m69lEHC2XOpA0o/aDUBqNUNyvU=
+X-Gm-Gg: AYBFou2BaMTG3kfSkMU0Kaj+forKm+xShNtv6LJLOFHqc0UeHez2B99EHZ+4wfOtxYV
+	FmUB3JodFlX79JWpU4xFq+AdvMIxxrV7sYQXOLnxzcoYEC0k7KJHr00hAPX9PB+TMOXp3OLxaFD
+	ALbmtBL8QiXEWFfyL9yQczlgBHpJRlyZNvCdste+m+GCPzX1Ir4Tz2+rK3tuP6x5wi7IBG+MKVS
+	CarCMaiuvFpWKmzsXvOp8ZDFUfDv/nBVRxSj71Q8kmK1otgpMW4YLh7nuKcsUk/0YoFqSZt9/DL
+	Q2d/71N5GK0wEt9XEZCyb6Whj4/DdvqrwDPmtYLU3NnKaqF/ApKTGfqEWbEhto2vjU9WsCuqBPh
+	iZPIzA7q8OsCoGwaBeadTRikKXSAhu1Ii4TingpWcTSeyYxrGfcgsLc2Zd+NRBuBYe6Vv/g1L4/
+	Ik0LOLu9+Ax24Q/Sy+Y5R4FotRJqt5BLpzWGhh/d1A7TP7CEnzxqbt94X3lwE5P79cMVTJB0xYG
+	JYVpy2/bB4VNmlqQVW4HBLu5d0ipW3ModlAt5ds5OLaGA==
+X-Received: by 2002:a17:907:9303:b0:c46:7de7:e41d with SMTP id a640c23a62f3a-c49a7417cabmr116191366b.18.1793072071043;
+        Mon, 26 Oct 2026 20:34:31 -0700 (PDT)
+Received: from localhost ([2a03:2880:32ff:9::])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd52435asm380825966b.36.2026.10.26.20.34.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 20:34:29 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,40 +87,279 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
+Date: Mon, 26 Oct 2026 20:34:28 -0700
+Message-Id: <179307206859.1171062.6841971971647864368.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-> 	list_for_each_entry(ecu, &priv->ecus, list) {
-> -		if (ecu->name == name)
-> +		if (ecu->name == name && j1939_ecu_valid(ecu))
-> 			return ecu;
+On 2026-10-27 00:17 +0100, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
+> read(), write() and lseek() on a shared open file description of a regular
+> file serialize on ->f_pos_lock.  The flag that asks for it,
+> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
+> too, but its struct file comes from alloc_file_pseudo() and never passes
+> through do_dentry_open(), so it does not get the flag:
+> 
+... snip ...
+> 
+> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: minor description tweaks ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-This also hides a live, named ECU from j1939_local_ecu_put() during
-unregister. The netdev core sets reg_state to NETREG_UNREGISTERING before
-issuing NETDEV_UNREGISTER, so j1939_ecu_valid() is false when a bound
-socket reaches this cleanup path:
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-    j1939_netdev_notifier()
-      j1939_sk_netdev_event_unregister()
-        j1939_local_ecu_put()
-          j1939_ecu_find_by_name_locked()
+This one arguably should have at least a trivial selftest.
 
+Test attatched
+-- >8 --
+From: Gregory Price <gourry@gourry.net>
+Subject: [PATCH] selftests/memfd: test shared file position atomicity
 
-The lookup then returns NULL. j1939_local_ecu_put() warns and returns
-without dropping the socket's ECU reference. That keeps the ECU's netdev
-and j1939_priv references alive, preventing netdev_wait_allrefs_any()
-from completing.
+Without FMODE_ATOMIC_POS, concurrent reads or writes on a shared memfd
+can use the same file position. Two writers can overwrite each other's
+records:
 
-This is based on source review with AI assistance. I have not reproduced
-the unregister hang at runtime.
+    CPU 1                         CPU 2
+    pos = file->f_pos
+                                  pos = file->f_pos
+    write a record at pos
+                                  write a record at pos
+    file->f_pos = pos + size
+                                  file->f_pos = pos + size
 
-Could teardown use a lookup that permits NETREG_UNREGISTERING and a dead
-rx_kref, while retaining the nonzero ecu->kref check? The registration
-and receive-lifetime restrictions are needed when acquiring new users,
-but cleanup must still find the ECU whose reference it owns.
+Add separate shared-read and shared-write tests using the kselftest
+harness. Check the final offset, file size and exactly-once record delivery
+rather than requiring a particular interleaving.
 
-The ecu->kref check remains necessary because zero-reference entries stay on
-the list until the RCU callback removes them.
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+---
+ tools/testing/selftests/memfd/.gitignore  |   1 +
+ tools/testing/selftests/memfd/Makefile    |   3 +-
+ tools/testing/selftests/memfd/memfd_pos.c | 136 ++++++++++++++++++++++
+ 3 files changed, 139 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/memfd/memfd_pos.c
 
-Thanks,
-Karl
+diff --git a/tools/testing/selftests/memfd/.gitignore b/tools/testing/selftests/memfd/.gitignore
+index dd9a051f608e2..574ab97ebd982 100644
+--- a/tools/testing/selftests/memfd/.gitignore
++++ b/tools/testing/selftests/memfd/.gitignore
+@@ -2,4 +2,5 @@
+ fuse_mnt
+ fuse_test
+ memfd_test
++memfd_pos
+ memfd-test-file
+diff --git a/tools/testing/selftests/memfd/Makefile b/tools/testing/selftests/memfd/Makefile
+index 163b6f68631c4..67a95c34541cd 100644
+--- a/tools/testing/selftests/memfd/Makefile
++++ b/tools/testing/selftests/memfd/Makefile
+@@ -2,7 +2,7 @@
+ CFLAGS += -D_FILE_OFFSET_BITS=64
+ CFLAGS += $(KHDR_INCLUDES)
+ 
+-TEST_GEN_PROGS := memfd_test
++TEST_GEN_PROGS := memfd_test memfd_pos
+ TEST_PROGS := run_fuse_test.sh run_hugetlbfs_test.sh
+ TEST_GEN_FILES := fuse_test fuse_mnt
+ 
+@@ -22,6 +22,7 @@ include ../lib.mk
+ 
+ $(OUTPUT)/fuse_mnt: LDLIBS += $(VAR_LDLIBS)
+ 
++$(OUTPUT)/memfd_pos: LDLIBS += -pthread
+ $(OUTPUT)/memfd_test: memfd_test.c common.c
+ $(OUTPUT)/fuse_test: fuse_test.c common.c
+ 
+diff --git a/tools/testing/selftests/memfd/memfd_pos.c b/tools/testing/selftests/memfd/memfd_pos.c
+new file mode 100644
+index 0000000000000..5f3749d13f561
+--- /dev/null
++++ b/tools/testing/selftests/memfd/memfd_pos.c
+@@ -0,0 +1,136 @@
++// SPDX-License-Identifier: GPL-2.0
++#define _GNU_SOURCE
++#include <errno.h>
++#include <pthread.h>
++#include <stdatomic.h>
++#include <stdint.h>
++#include <stdlib.h>
++#include <sys/mman.h>
++#include <sys/stat.h>
++#include <unistd.h>
++
++#include "../kselftest_harness.h"
++
++#define THREADS 4
++#define RECORDS 16384
++#define TOTAL (THREADS * RECORDS)
++
++struct worker {
++	int fd;
++	unsigned int id;
++	bool reading;
++	pthread_barrier_t *barrier;
++	atomic_uint *seen;
++	int error;
++};
++
++static void *transfer(void *arg)
++{
++	struct worker *w = arg;
++	unsigned int i;
++
++	pthread_barrier_wait(w->barrier);
++	for (i = 0; i < RECORDS; i++) {
++		uint32_t value = w->id * RECORDS + i;
++		ssize_t n;
++
++		do {
++			n = w->reading ? read(w->fd, &value, sizeof(value)) :
++				write(w->fd, &value, sizeof(value));
++		} while (n < 0 && errno == EINTR);
++		if (n != sizeof(value) || value >= TOTAL) {
++			w->error = 1;
++			break;
++		}
++		if (w->reading)
++			atomic_fetch_add(&w->seen[value], 1);
++	}
++	return NULL;
++}
++
++FIXTURE(memfd_pos) {
++	int fd;
++	atomic_uint *seen;
++};
++
++FIXTURE_SETUP(memfd_pos)
++{
++	self->fd = memfd_create("position", MFD_CLOEXEC);
++	if (self->fd < 0 && errno == ENOSYS)
++		SKIP(return, "memfd_create unavailable");
++	ASSERT_GE(self->fd, 0);
++	self->seen = calloc(TOTAL, sizeof(*self->seen));
++	ASSERT_NE(self->seen, NULL);
++	for (unsigned int i = 0; i < TOTAL; i++)
++		atomic_init(&self->seen[i], 0);
++}
++
++FIXTURE_TEARDOWN(memfd_pos)
++{
++	close(self->fd);
++	free(self->seen);
++}
++
++static int run_workers(int fd, bool reading, atomic_uint *seen)
++{
++	pthread_barrier_t barrier;
++	pthread_t threads[THREADS];
++	struct worker workers[THREADS];
++	int ret = 0;
++	unsigned int i;
++
++	if (pthread_barrier_init(&barrier, NULL, THREADS))
++		return 1;
++	for (i = 0; i < THREADS; i++) {
++		workers[i] = (struct worker) {
++			.fd = fd, .id = i, .reading = reading,
++			.barrier = &barrier, .seen = seen,
++		};
++		/* The harness isolates this test in a child; abort on setup failure. */
++		if (pthread_create(&threads[i], NULL, transfer, &workers[i]))
++			abort();
++	}
++	for (i = 0; i < THREADS; i++) {
++		if (pthread_join(threads[i], NULL) || workers[i].error)
++			ret = 1;
++	}
++	pthread_barrier_destroy(&barrier);
++	return ret;
++}
++
++/* Concurrent writes sharing an open file description must not overlap. */
++TEST_F(memfd_pos, shared_write)
++{
++	struct stat st;
++	uint32_t value;
++	unsigned int i;
++
++	ASSERT_EQ(run_workers(self->fd, false, self->seen), 0);
++	ASSERT_EQ(fstat(self->fd, &st), 0);
++	ASSERT_EQ(st.st_size, (off_t)(TOTAL * sizeof(value)));
++	ASSERT_EQ(lseek(self->fd, 0, SEEK_CUR), st.st_size);
++	ASSERT_EQ(lseek(self->fd, 0, SEEK_SET), 0);
++	for (i = 0; i < TOTAL; i++) {
++		ASSERT_EQ(read(self->fd, &value, sizeof(value)), sizeof(value));
++		ASSERT_LT(value, TOTAL);
++		atomic_fetch_add(&self->seen[value], 1);
++	}
++	for (i = 0; i < TOTAL; i++)
++		ASSERT_EQ(atomic_load(&self->seen[i]), 1);
++}
++
++/* Concurrent reads must consume every record exactly once. */
++TEST_F(memfd_pos, shared_read)
++{
++	uint32_t i;
++
++	for (i = 0; i < TOTAL; i++)
++		ASSERT_EQ(write(self->fd, &i, sizeof(i)), sizeof(i));
++	ASSERT_EQ(lseek(self->fd, 0, SEEK_SET), 0);
++	ASSERT_EQ(run_workers(self->fd, true, self->seen), 0);
++	ASSERT_EQ(lseek(self->fd, 0, SEEK_CUR), (off_t)(TOTAL * sizeof(i)));
++	for (i = 0; i < TOTAL; i++)
++		ASSERT_EQ(atomic_load(&self->seen[i]), 1);
++}
++
++TEST_HARNESS_MAIN
+
+-- 
+Gregory Price <gourry@gourry.net>
