@@ -1,75 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088723;
-	b=nX3F4XUy6gFpXobbKsaEni5dFEt1pTtYjjaW/ob+Jp7oWPBTooP5bm1ZhETNEwRWlsms
-	 vxNaJvs7SDmwUjrK8tzW+Gw8MRXfpycH/KUoDjHiTGr2bp+0lwLEgzUIJLaS04w6EvMEy
-	 pHEZwZxOQVux/ocjRC8s5mLWoDvxVlIAKopn1SqTNPUEaLekcIhWf4oX/wyjcv59Qq/hx
-	 mc/A5c066qgc2r3E0T+MvAYVQ/8z1YolDTfPZFjuIlyexfZJOxDFG6Nlpau538+rA46vc
-	 ynHLi1ry8Xf4MwSoySPraOyOcqctR1wVKR97AUaAoxE/FtWC6sy1cRECurx46DgWKcg==
+	t=1793088751;
+	b=u0kCkl668CABV22utjvUyTxvnrnlg/8HRqgVQDiuXWGpDOV6x6EvqkJ2SfVk9vp6sS8Y
+	 XXuBbPkD8NgTb0Aox75YmGpV5iBtRRk+Tx5H8MTxjGuGb88idKn5hf25SV/TCVnAIw6pJ
+	 RlCnYPMm4CSENxTKsIv53P6KAaM3h9DhBj1SIiXItCgtBMai/EAOmiwoSL8je3fYO4lKQ
+	 R1l3cyzpHlNz60HDXCRW6fzqwTpJOhr/l32HbcqMvjNrecqt4BRaXWEmX66uUYyG0DBum
+	 DhdDTnSC4XM920WSNfWgaPRbZCgka3nJxAODF9yVuk98nPvvW07eyN+ctDT4wsP0EfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088723;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Uyn+E9hPgBq3vgE8nqzAGJ7D8LXdWFW6vaCw5N5eMTY=;
-	b=hQhYUxg8FSCi/KeMqO4da9jJ60Dtq14UO5JW4czjHIAWrPry5dnuoGJawwFDd2sBUv/7
-	 m9BIz94s9UjzcOW3vuwuHLnLfBSivyeMz67fnTyfcaR8sLB2/i4apEO+lkdZeDBsupQbG
-	 Mi0Wl/eqTpKhvJwEYEMYui3uKzbxPDXnOUGdDMCP6WaKY4546+YqtfXkTTlWGPQ7KvVoa
-	 hiN9+6dV+b77Re1xrBX/5LbsB+YY6lOiX1dY8lu2Fcf/95tpuikj9BUhIIDObdV0BweRO
-	 Y2H39daevATbbNzDHa8tUpjCAgwx3JFBAheh/3Hqg/SfwTamF1C74q9hmsdoPhDGo/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088751;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FJIy+SLFeA3/C6VIteyOfVGbwqXel75/TJmRF6auaDE=;
+	b=kQu2s97OkTjmcRz+8RZCOrRP3qFJpNzVr4B0HqvFqwD2Qhx3QH/cBjMAL2CEXs3gdAGv
+	 QuOOBN5e3tl0p/sHKq1L9dHJoRruLEXy0eMq4eM3XkSVIFBqRKB332NyTDegmLbu2ijyO
+	 yHejh0VUg7Xs/1lopNYsk1Uv6Qw0XziBuunNofCcqhZYqz0tjebbTf1E0elupHt45AXhC
+	 gFjB2QRKuI2iYfCeVqBb2CbRAnDf47gIaaO+8hUeneOMWBo4raV74xPN/HLOfAGsNCURt
+	 UR8mS19LY4POaIPL/gTUL+Sa0ig4HB9iy1tJOqVbI21+/OBnDJggPsaFwLAZq2NOeEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c8XimVtV;
-	arc=none smtp.remote-ip=91.218.175.236
-Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cr4+YX5L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B7C606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04B7C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55821606A31A;
+	Tue, 27 Oct 2026 08:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c8XimVtV
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hqZxpxJ0C4wEalO5Og1g3G+zJaFBGEKypaN+rWrhA5I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793088721; v=1; x=1793693521;
- b=c8XimVtV3h/Ud99ag7hplkIn8hKtih9p62StJv1H74yejjdVXsNpPqL+9hX/jHNyvjwI2Rip
- 3bTUCMAr7CZH7pzLVnEN4tno9e3WrbZN5mc6LaTSE18fRNKc7igtjmzQu+Fz+WYiRlP1GbY749I
- CN41XGeaIABI9/PgIEeknwyw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b50314872c48fa54;
-	Tue, 27 Oct 2026 08:12:00 +0000
-X-Mizu-Trace-ID: b50314872c48fa54
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	kernel-team@android.com,
-	linux-kernel@vger.kernel.org,
-	Oculytic <oculytic@gmail.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 3/3] KVM: arm64: Disable host PMU counters for protected guests
-Date: Tue, 27 Oct 2026 08:11:47 +0000
-Message-ID: <20261027081147.498183-4-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261027081147.498183-1-fuad.tabba@linux.dev>
-References: <20261027081147.498183-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cr4+YX5L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8EB1F01829;
+	Tue, 27 Oct 2026 08:12:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793088751;
+	bh=FJIy+SLFeA3/C6VIteyOfVGbwqXel75/TJmRF6auaDE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Cr4+YX5L8b+JDgLe8VqKWnOlsnffa/ODJy2Ou4qjWz8zlG9M0QIlLf+22C9+3771U
+	 +lLULH5+2ybGwhwHmeuHjlxqFZ25swdI8jyagdxGGnv7SFc00cYxeRrQlisKAKHcft
+	 42qp2aG5np/ZvNNkn25ShHrRkABsSAt/lQfhDMHroCBRkGARWJDmYrMSOfh3qEeXDo
+	 ClRuaOihAmU3gHRyOfQ0u4hKyf4jqKpQOZGhiYPBv4udm8A8LY/IMdUqsy7DH78qgl
+	 uAO/IFnCwEKuitwdmQ+dUOFJWniS/WSW+aXzuvxmR/pJEADDmLcYouLl04B2TZaFFp
+	 6hGnhRR9ppRaw==
+Date: Tue, 27 Oct 2026 09:12:27 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Arpit Saini <arpit.saini@oss.qualcomm.com>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	venkata.valluru@oss.qualcomm.com
+Subject: Re: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
+ backlight property
+Message-ID: <20261027-fantastic-benevolent-boobook-272a9a@quoll>
+References: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,115 +63,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
 
-A protected guest has no PMU, and EL2 clears MDCR_EL2.HPME for it.
-However, HPME has no effect, since __pkvm_vcpu_load() sets HPMN to cover
-every event counter, and HPME never covers the cycle or instruction
-counter. The counters the host has enabled therefore keep counting the
-guest.
+On Sun, Oct 25, 2026 at 12:18:17PM +0530, Vishnu Saini wrote:
+> The DLC0697 panel is lit by a separate backlight device, which is
+> referenced from the panel node through the common 'backlight'
+> property.
+> 
+> Declare 'backlight: true' so the property is explicitly allowed by the
+> schema.
 
-Stop them in the world switch while a protected guest runs, reading
-PMCNTENSET_EL0 rather than trusting the host-controlled events mask.
-Gate this on a new per-CPU HAS_PMUV3 flag, since system_supports_pmuv3()
-is false when the CPUs implement different PMU versions.
+Why do you need to explicitly allow it? Since when?
 
-Side channels are outside pKVM's threat model, so this is hardening
-rather than a fix.
+I see no benefit of this patch and commit msg does not explain me what
+that benefit would be.
 
-Reported-by: Oculytic <oculytic@gmail.com>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/include/asm/kvm_host.h |  1 +
- arch/arm64/kvm/debug.c            |  4 +++-
- arch/arm64/kvm/hyp/nvhe/switch.c  | 24 ++++++++++++++++++++++++
- 3 files changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 1c6632216e327..7ecb55e5018eb 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -834,6 +834,7 @@ struct kvm_host_data {
- #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
- #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
- #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
-+#define KVM_HOST_DATA_FLAG_HAS_PMUV3			7
- 	unsigned long flags;
- 
- 	struct kvm_cpu_context host_ctxt;
-diff --git a/arch/arm64/kvm/debug.c b/arch/arm64/kvm/debug.c
-index f4d7b12045e8f..3c74b076b5278 100644
---- a/arch/arm64/kvm/debug.c
-+++ b/arch/arm64/kvm/debug.c
-@@ -79,9 +79,11 @@ void kvm_init_host_debug_data(void)
- 	unsigned int pmuver = cpuid_feature_extract_unsigned_field(dfr0,
- 								   ID_AA64DFR0_EL1_PMUVer_SHIFT);
- 
--	if (pmuv3_implemented(pmuver))
-+	if (pmuv3_implemented(pmuver)) {
- 		*host_data_ptr(nr_event_counters) = FIELD_GET(ARMV8_PMU_PMCR_N,
- 							      read_sysreg(pmcr_el0));
-+		host_data_set_flag(HAS_PMUV3);
-+	}
- 
- 	*host_data_ptr(debug_brps) = SYS_FIELD_GET(ID_AA64DFR0_EL1, BRPs, dfr0);
- 	*host_data_ptr(debug_wrps) = SYS_FIELD_GET(ID_AA64DFR0_EL1, WRPs, dfr0);
-diff --git a/arch/arm64/kvm/hyp/nvhe/switch.c b/arch/arm64/kvm/hyp/nvhe/switch.c
-index 91e1edf40bcd2..79a6277de4fc1 100644
---- a/arch/arm64/kvm/hyp/nvhe/switch.c
-+++ b/arch/arm64/kvm/hyp/nvhe/switch.c
-@@ -175,6 +175,26 @@ static void __pmu_switch_to_host(struct kvm_vcpu *vcpu)
- #define __pmu_switch_to_host(v)		do {} while (0)
- #endif
- 
-+static u64 __pmu_stop_host_counters(struct kvm_vcpu *vcpu)
-+{
-+	u64 pmcnten;
-+
-+	if (!vcpu_is_protected(vcpu) || !host_data_test_flag(HAS_PMUV3))
-+		return 0;
-+
-+	pmcnten = read_sysreg(pmcntenset_el0);
-+	if (pmcnten)
-+		write_sysreg(pmcnten, pmcntenclr_el0);
-+
-+	return pmcnten;
-+}
-+
-+static void __pmu_restore_host_counters(u64 pmcnten)
-+{
-+	if (pmcnten)
-+		write_sysreg(pmcnten, pmcntenset_el0);
-+}
-+
- /*
-  * Handler for protected VM MSR, MRS or System instruction execution in AArch64.
-  *
-@@ -282,6 +302,7 @@ int __kvm_vcpu_run(struct kvm_vcpu *vcpu)
- 	struct kvm_cpu_context *guest_ctxt;
- 	struct kvm_s2_mmu *mmu;
- 	bool pmu_switch_needed;
-+	u64 host_pmcnten;
- 	u64 exit_code;
- 
- 	/*
-@@ -300,6 +321,7 @@ int __kvm_vcpu_run(struct kvm_vcpu *vcpu)
- 	guest_ctxt = &vcpu->arch.ctxt;
- 
- 	pmu_switch_needed = __pmu_switch_to_guest(vcpu);
-+	host_pmcnten = __pmu_stop_host_counters(vcpu);
- 
- 	__sysreg_save_state_nvhe(host_ctxt);
- 	/*
-@@ -384,6 +406,8 @@ int __kvm_vcpu_run(struct kvm_vcpu *vcpu)
- 	if (pmu_switch_needed)
- 		__pmu_switch_to_host(vcpu);
- 
-+	__pmu_restore_host_counters(host_pmcnten);
-+
- 	/* Returning to host will clear PSR.I, remask PMR if needed */
- 	if (system_uses_irq_prio_masking())
- 		gic_write_pmr(GIC_PRIO_IRQOFF);
--- 
-2.47.3
+Best regards,
+Krzysztof
 
