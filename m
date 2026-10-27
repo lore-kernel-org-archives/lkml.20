@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793059432;
-	b=sA3RDqKE2qwJ0eX3WJfanTIB1bxwfLg9ujgoYkiYRHTeOvj9i0Z99TDkT7SnW/LeVFMJ
-	 Q+ATBhw2WqsNxmAAIJZO8TkdtNd7AGSgpk1Rh5gEmnIStp3isDpabNgnWIBxoWptPOxgM
-	 6QwYG4DVymLcd/Q3DxXNUzUltEpnemdMeCGSf5H07hGvm1PsxU7MduOsrLUfZvbaxpoM6
-	 ujx+nyCGuQifuWprDoGH32gEOnX5zNONNcC3nHmXfU1dyEENS2DOrFi8jvL4XEVARjmXa
-	 9dTiEqXYspYf7F7dxJxHtgZ2aXF9ih0pV7lG9Dzu/kG+F97LuDJHzIqsQ2POO8HsLRQ==
+	t=1793059471;
+	b=y7xw36677VHPvbIea4xLK5KHjCS10boMRmvNj3jTDTdZUlO3EbJ+r+hqFHQ6kWuprDid
+	 yHG6uUBYLjpX8TRM+/GxulM27jFohsPdc4dUzv64IBu4j+OSKnfbFhqIWO6lKHuFrpErv
+	 gvpyBvyQYVEw/eNgomf9hkIbaEWVL+aaPbMPS3zVbByGnLdGi0Lssi3lrZYU4hakj3VA9
+	 AqDPsZZlK7vSYh3tFWsKbWtf+MmVmSE/CLRwM5D9spFtd16eGGX0xMbBdedt+EbpPMBW4
+	 O2yNFop3UNqL0EVXGcmYU5i1pDNrrJOTBOVlKvSoh+HjPeDyWAy8QMp2PbiKHA6Liuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793059432;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kueKbL7z9iLzTPubbIyuThS9hTpuVK3Jg4WyfhBW8ak=;
-	b=dnuiY803zqYJEtqdqlu/kqitQsV+Tk/LH4klt0tUHKHIVLBps0lpM33hgqj4k2C7yeOC
-	 P/NCyocMOcmAAIx8G/IfkJQ4tjrWiI3/pBNSWFKOzbawEEDJZYCoSZn5r4TtfY8IyjR2T
-	 OQLfHGHMZ2v2RUM2hxxCNoyGcBepJdQcilbwcR8C4NVzYISFHLSErNLYEwqQUIsodwnCB
-	 C8RwLcOCnqO9KulojwtLCMVJUnhRjIqFpyENz50RgwgFOIeUSMDw3V+czx2Ip8EcrOiIF
-	 JmKVGTARFzEH+rxJW0Me931xlrwjBmz+KAtLtmqOUzVMZ8WvyKsM58JZlBAhc0/GGIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793059471;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1ZOHch2AmqXMqZdqDWn3RFjQbiJzddizdcbqQ8vsH1U=;
+	b=WqFGkyQqCdtYxYb1yoVnCjK1OcL1m4IMKzcPmQLfiTtCBKkKhLdK7e/xlI8+QU0TZIKT
+	 3gm6GBTx3rt76y03BE59CZHvIjpVzs2m6SK64A3MnhhbVvNtffKs0zyFvSrjBT6Vm8STq
+	 NMZveXOWZiaqdP+qdqBa1R/Ltg59kg/aPPmVXc/yNPQBHzP31kVgCSUWYYixUE0Ukzhv6
+	 oWlMvxATDTUgQeCtgDflRVjtxJzgfuTE4ezqkXEqayDVjzYjLynqXO4b5BI1i09PCVo/B
+	 agxFid8CbTj8mOcPJn0OB1sF4A18FRMq54yI9e3TMjJsiBWPp8kGP7O9+KlVTpiyTXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JMxy3ERP;
-	arc=none smtp.remote-ip=185.70.43.100
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EL36OXiW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631B1606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 631B1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2C8606A31B;
+	Tue, 27 Oct 2026 00:04:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=JMxy3ERP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793059423; x=1793318623;
-	bh=kueKbL7z9iLzTPubbIyuThS9hTpuVK3Jg4WyfhBW8ak=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=JMxy3ERPAIfQaKuK7uM4547GcFAgiaOQ91z9zf1U+3+CykIHrJVS9F6X0DHyV5g3D
-	 0N26K7bu+Wli+qvJQ964pAunc8/u1x07uDewGivBJmrD5Omj75Cq1B8i9rkOiSokUD
-	 DG0sitYc3MRkOyv/bW6IW6o3FLK0iMPXOigP5fDXTqtdBq1S8Ad/32wpmzW+k+1Q50
-	 IqiU2eDqfNGHwyXnho+xG1ynSvZ9uoRMb7YMKl2w1Qkdb+ta0OVJpTUwC+6CTAKBQI
-	 w3sMGuGSqirW6i9Ot8GJqPJ8SxEzG+BSfFMbMeQa+PjzUOKxmDz4OIOBdE2FQiU28n
-	 bGwUWb8KGr1Lg==
-Date: Tue, 27 Oct 2026 00:03:40 +0000
-To: rob.clark@oss.qualcomm.com
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, Jie Zhang <jie.zhang@oss.qualcomm.com>, Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org, Marijn Suijten <marijn.suijten@somainline.org>, Sean Paul <sean@poorly.run>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v2 00/14] drm/msm/a8xx: GPU state capture support
-Message-ID: <HWs63_U2peTA6inCaYP8yY8D5MkYQ_f3KzN9-WXHzURewlVA-7MMJwkLffTUASri-OqRHtp0PI8PFdyUku_7PGxBaEyUbHda176jExmf2bo=@pm.me>
-In-Reply-To: <CACSVV02x=GDTH40C57B1Eg8_CfmCgDGD_BE4f1auwFf=3eQNCg@mail.gmail.com>
-References: <20261021204244.67160-1-robin.clark@oss.qualcomm.com> <FZvwtKTpIxRNzjzcqFf6bTw12mNTJvJZmg6j9lmi8MehHBt91NogIW8oQd5yFHN5DSL8yIWL8p_b1cJPAJC57ZFkoe2BOAh_Y3kwph5SV_A=@pm.me> <CACSVV02x=GDTH40C57B1Eg8_CfmCgDGD_BE4f1auwFf=3eQNCg@mail.gmail.com>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 720cc2e5cb292645419ebbeacaaf8b15780fbbbb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EL36OXiW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671E21F01825;
+	Tue, 27 Oct 2026 00:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793059471;
+	bh=1ZOHch2AmqXMqZdqDWn3RFjQbiJzddizdcbqQ8vsH1U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=EL36OXiW5AARx0AQxa6nUBL4ebsw8YX4eKxo5NQRcCoLXigVT9lpNROmMBTegjQav
+	 s+aSXZKRRBo8aT55KS15R+vctCyD1s/nxmwGhTnuQ29edqGMAxsG2B8uezeQabciu8
+	 AdeMznDrjzVoZPe5+ukcjc92Tck6rqzFmIPPxUB0UfxbU7Jys6v4QEX3YLyURE4svh
+	 MpdpPFYwl8dZ68F/GGHlq58WmrqB9eICH9Zz2r8OGWTCfpgt8QFwvZlsC4APxRCwsG
+	 a9QuIu2Z0Qxx3TMF7MEJoOWoWKcctowUiVrb37t0xTgK8OW0z/km82rWh7J6wnFgRy
+	 bOuvf5WTPEOSw==
+Date: Tue, 27 Oct 2026 01:04:26 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>, Linux Kernel
+ Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil
+ <hans@jjverkuil.nl>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: Re: [GIT PULL for v7.4] media updates
+Message-ID: <20261027010426.126d96a8@foz.lan>
+In-Reply-To: <20261027005656.6ce24b82@foz.lan>
+References: <20261024185058.20410953@foz.lan>
+	<CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+	<at-a-2wTtf7bJQwU@kekkonen.localdomain>
+	<CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+	<20261027005656.6ce24b82@foz.lan>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,138 +66,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Tue, 27 Oct 2026 00:56:56 +0100
+Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
 
-On Monday, October 26th, 2026 at 7:32 PM, Rob Clark <rob.clark@oss.qualcomm=
-.com> wrote:
-
-> On Mon, Oct 26, 2026 at 4:06=E2=80=AFPM Alexander Koskovich <akoskovich@p=
-m.me> wrote:
-> >
-> > On Wednesday, October 21st, 2026 at 4:54 PM, Rob Clark <robin.clark@oss=
-.qualcomm.com> wrote:
+> On Mon, 26 Oct 2026 08:53:07 -1000
+> Linus Torvalds <torvalds@linux-foundation.org> wrote:
+> 
+> > On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:  
 > > >
-> > > I'd appreciate tested-by's on Hawi, Maili, Milos, and Pakala, since I
-> > > don't have these devices at-hand to test myself.  In particular, do
-> > > things look fine after the switch to generated nonctx regs.  To test
-> > > devcoredump, you can use the msm_recovery test in igt.. or just:
-> > >
-> > >   cat /sys/kernel/debug/dri/*/gpu > /dev/null
-> > >
-> >
-> > Tested this series on Milos, series as is works fine for initial boot, =
-navigating
-> > around GNOME & apps etc, but when I run 'cat /sys/kernel/debug/dri/*/gp=
-u', run
-> > into an oops.
-> >
-> > That is resolved after removing 0x20400-0x20487 from milos_gmucx_regist=
-ers,
-> > and removing 0x0f000-0x0f002 from milos_cp_cp_pipe_none_registers. Not =
-sure
-> > if access to these is restricted by TZ or something isn't configured ri=
-ght?
-> > These ranges don't seem to be described downstream in adreno_gen8_3_0_s=
-napshot.h.
->=20
-> Thanks, yeah, there seems to be some things blocked by
-> tz/hyp/something, which are not blocked on glymur/el2.  I'll have a v3
-> soon, but still chasing down some of these details.
->=20
-> >
-> > After that 'cat /sys/kernel/debug/dri/*/gpu' works and I get a dump, di=
-d observe these errors in dmesg after though:
-> >
-> > [   42.891106] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891142] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891157] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891171] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891184] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891198] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891211] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891224] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891237] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   42.891250] platform 3d6c000.gmu: GMU fence error: 0x0
-> > [   43.640122] ------------[ cut here ]------------
-> > [   43.640137] msm_dpu ae01000.display-controller: [drm] crashdumper ti=
-med out: status=3D5c00bd00 (-110)
-> > [   43.640222] WARNING: drivers/gpu/drm/msm/adreno/a8xx_gpu_state.c:115=
- at CD_RUN+0x20c/0x594 [msm], CPU#3: cat/1929
-> > [   43.640419] Modules linked in: rfcomm q6apm_dai q6prm_clocks q6apm_l=
-pass_dais snd_q6dsp_common q6prm algif_hash algif_skcipher bnep snd_q6apm p=
-anel_raydium_rm69220 fastrpc qcom_pd_mapper ath11k_ahb ath11k mac80211 hci_=
-uart btqca bluetooth qcom_iris cfg80211 ecdh_generic msm ledtrig_pattern vi=
-deobuf2_dma_contig ecc v4l2_mem2mem drm_dp_aux_bus videobuf2_memops qcom_q6=
-v5_pas ocmem qcom_pil_info videobuf2_v4l2 pwrseq_qcom_wcn gpu_sched ipa pwr=
-seq_core qmi_tmd focaltech_ft3683g qcom_q6v5 drm_gpuvm videobuf2_common drm=
-_exec rfkill drm_display_helper ubwc_config cec qcom_common mdt_loader liba=
-rc4 nft_reject_inet nf_reject_ipv6 nf_reject_ipv4 nft_reject nft_ct nf_conn=
-track nf_defrag_ipv6 nf_defrag_ipv4 nf_tables uhid fuse usb_f_ncm u_ether s=
-pi_geni_qcom evdev libcomposite
-> > [   43.640750] CPU: 3 UID: 0 PID: 1929 Comm: cat Tainted: G S          =
-         7.3.0-next-20261026 #3 PREEMPT(full)
-> > [   43.640763] Tainted: [S]=3DCPU_OUT_OF_SPEC
-> > [   43.640770] Hardware name: Nothing Phone (3a) (DT)
-> > [   43.640778] pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BT=
-YPE=3D--)
-> > [   43.640787] pc : CD_RUN+0x20c/0x594 [msm]
-> > [   43.640972] lr : CD_RUN+0x208/0x594 [msm]
-> > [   43.641155] sp : ffff8000891c3990
-> > [   43.641161] x29: ffff8000891c3990 x28: ffffc3ee34aef850 x27: ffff000=
-809253000
-> > [   43.641180] x26: 0000000000000001 x25: 0000000000000001 x24: 0000000=
-000000020
-> > [   43.641198] x23: 0000000000000000 x22: 0000000000000000 x21: 0000000=
-000002114
-> > [   43.641216] x20: 0000000a28796b5c x19: ffff000813d7f000 x18: ffff800=
-0891ad078
-> > [   43.641233] x17: 3a74756f2064656d x16: 6974207265706d75 x15: 6468736=
-17263205d
-> > [   43.641250] x14: 3fffffffffffefff x13: 0000000000000003 x12: ffffc3e=
-e5c6649c0
-> > [   43.641267] x11: 3fffffffffffefff x10: 0000000000000003 x9 : 9e14538=
-c77bb2600
-> > [   43.641284] x8 : 9e14538c77bb2600 x7 : 2e30303031306561 x6 : 2075706=
-45f6d736d
-> > [   43.641301] x5 : ffffc3ee5cb061bf x4 : 0000000000000345 x3 : 0000000=
-000000000
-> > [   43.641318] x2 : 0000000000000000 x1 : ffff8000891c3790 x0 : 0000000=
-0ffffff92
-> > [   43.641336] Call trace:
-> > [   43.641343]  CD_RUN+0x20c/0x594 [msm] (P)
-> > [   43.641530]  a8xx_gpu_state_get+0xdc4/0x2698 [msm]
-> > [   43.641714]  msm_gpu_open+0xc0/0x134 [msm]
-> > [   43.641898]  full_proxy_open_regular+0xe0/0x1e8
-> > [   43.641913]  do_dentry_open+0x154/0x4d8
-> > [   43.641927]  vfs_open_consume+0x40/0x114
-> > [   43.641939]  path_openat+0x440/0x6a0
-> > [   43.641950]  do_file_open+0xdc/0x198
-> > [   43.641960]  do_sys_openat2+0x88/0x118
-> > [   43.641972]  __arm64_sys_openat+0x78/0xac
-> > [   43.641985]  invoke_syscall+0x6c/0x12c
-> > [   43.641997]  el0_svc_common+0x98/0xf0
-> > [   43.642007]  do_el0_svc+0x28/0x38
-> > [   43.642016]  el0_svc+0x4c/0x1ac
-> > [   43.642031]  el0t_64_sync_handler+0x6c/0xe4
-> > [   43.642043]  el0t_64_sync+0x1a0/0x1a4
-> > [   43.642056] ---[ end trace 0000000000000000 ]---
->=20
-> Hmm, not sure about this, other than maybe whatever is causing GMU
-> fence errors is also causing the timeout?
->=20
-> If you run something that keeps the gpu active (or disable ifpc), does
-> that help?
+> > > The patch in question puts camera sensors and related chips in line with
+> > > how the rest of the drivers are selected elsewhere.    
+> > 
+> > .. and other places could probably be improved too, I agree.
+> > 
+> > But this made things *worse*. Much worse.
+> > 
+> > The thing is, at least hide them behind some "embedded camera options"
+> > that in turn is hidden behind "EXPERT" or something like that.
+> > 
+> > Don't make *normal* people who build their own kernels have to see or know.
+> > 
+> > Let's say that you have a laptop or something that actually uses one
+> > of these sensors for a webcam, then it STILL does not help to ask a
+> > user
+> > 
+> >  "Do you want a driver for the Analog Devices ADV7170 video encoder"
+> > 
+> > Because (a) that chip legacy and likely not in any laptop anyway and
+> > (b) even if it was, no laptop user is going to *know* that.
+> > 
+> > See what I'm saying? You literally make things worse. Don't do that.
+> > You're making the kernel Kconfig script ask insane questions. They are
+> > insane because you cannot reasonably expect people to actually know
+> > the answer to the questions.
+> > 
+> > In other words: don't ask questions that you know the user cannot answer.
+> > 
+> > There was a REASON why those menus were hidden.  
+> 
+> I agree with Linus on that. You're basically rolling back a feature
+> that simplifies a lot the life for normal users: let Kconfig choose
+> options that only a media expert can answer.
+> 
+> Now, I understand why it is tempting to do that to help with IPU
+> support: camera sensors can now be easily interchangeable on new 
+> Intel hardware.
+> 
+> If you look on some drivers from the old days, like bttv, saa7134
+> and cx88, they had similar problems, but they still do support
+> autoselect mode.
+> 
+> For instance, drivers/media/tuners/Kconfig has this:
+> 
+>    config MEDIA_TUNER
+>         tristate
+>         depends on (MEDIA_ANALOG_TV_SUPPORT || MEDIA_DIGITAL_TV_SUPPORT || MEDIA_RADIO_SUPPORT || MEDIA_SDR_SUPPORT) && I2C
+>         default y
+>         select MEDIA_TUNER_XC2028 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_XC5000 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_XC4000 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_MT20XX if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TDA8290 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TEA5761 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+>         select MEDIA_TUNER_TEA5767 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+>         select MEDIA_TUNER_SIMPLE if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TDA9887 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_MC44S803 if MEDIA_SUBDRV_AUTOSELECT
+> 
+> which is meant to support the most popular I2C tuners.
+> 
+> In the specific case of IPU (and atomisp, once moved out of staging),
+> the right solution would be to have something similar to it, e.g.
+> something like:
+> 
+> 	config VIDEO_INTEL_IPU6
+> 	select VIDEO_OV2680 if MEDIA_SUBDRV_AUTOSELECT
+> 	select VIDEO_OV2685 if MEDIA_SUBDRV_AUTOSELECT
+> 	...
+> 	
+> for each sensor that might be possible to be used there. Another
+> alternative would be to do it the reverse way, e.g.:
+> 	
+> 	config VIDEO_OV2680
+> 		default MEDIA_SUBDRV_AUTOSELECT && VIDEO_INTEL_IPU6
+> 
+> or, maybe even better:
+> 
+> 	# Make setup easier by identifying PC MC-based drivers on a single place
+> 	config MEDIA_SENSOR_AUTOSELECT
+> 	depends on VIDEO_INTEL_IPU6
+> 	default y
+> 
+> 	config VIDEO_OV2680
+> 	default MEDIA_SENSOR_AUTOSELECT
+> 
+> Placing MEDIA_SENSOR_AUTOSELECT on sensor drivers. We may need
+> similar code also for other I2C drivers that could be used on IPU.
 
-Keeping GPU active doesn't seem to matter, get the fence errors either way.
-Though, if I disable IFPC then they go away.
+In time, the "indirect" approach of using config foo with a
+default is due to drivers like this one:
 
->=20
-> BR,
-> -R
->=20
+	config VIDEO_OV2732
+	        tristate "OmniVision OV2732 sensor support"
+	        depends on OF
 
-Thanks,
-Alex
+which requires dependencies, so we can't simply use select directly
+on drivers that aren't dependent of OF (in this example).
 
+Long term, such indirect approach usually is usually easier to
+maintain.
+
+Regards,
+Mauro
