@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092751;
-	b=XKlXDnE8+G8X3ViTn6lxssHOnP0vRtOiUM8DXYkGV/B6YcJQhCtDxPcXJRIS8PLu6PqK
-	 w4f0tWAaJhn10penVmU3O2FzNDhlImX68CckRm6kAXLFN+Am0Fep7Jn5MypsVkRu2D+oE
-	 r9x/fhZYgNybI+KLuPRmVsfkTusmKb67xD+jxxYKDce1Ygj8xC4uJVLXvp10Lkv9NkOSZ
-	 bNmVA4tm0TsEZgj4KFO91/HInh6idIc/oJEydfhpJBWzFouZaTuHSxziyVU0zrbBbCb4G
-	 qcg5hep/Sb3az5T8TYdMi+xASQSeFqSxhjh4HZU1Le1XqSn62ylAhQ8ixH1WM7vLrRw==
+	t=1793092758;
+	b=QjJBxFALFLIufN3XyAMNp5sVsv4/OlL5aCP6ERThDFKRvuNW/4eiaeNoDAAx3tLy1yK8
+	 Ofs+UfvVVfBxPHa/iFoo9jNLaObb7I1VtCe2pdkejvmx0jlrh4J+dNcSXEQ2N/sG99LDa
+	 bVFnnAiVhD5RG4uDyxRe0GaPzhKlmcvOutr3vz8aQ1Hlb6DZNy6NcZhmUeL8TA3mbnVLZ
+	 /0OAuh9WYT5PP0wx8ItmTbxqez2WvYrPptg4GTII3rYUGYzzsvnRxLcBWUXphz1kq6UXI
+	 W5p9kp4EAo6LoXH/1IdhlMR6gqjnfRYTKgzT5rB0AMJHyCdwHhoucc++m7S3np1nTPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092751;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=0caqeUvhoyd73MwX92KLCVLJ4OlRT1yAOV5WgVoUV7g=;
-	b=aSfWk8aLoBb8+8W1w4j88YiOBzsygUUGIqalOTkpMWIR6BaMaj69mbJZoeQX98ll4cTg
-	 wZQwjdJPezmW7JL9xTXMbf52P9gvde7mBmcWWHRevAfa31v4kmf0c43ohQbp90SLF7b8b
-	 2+z/Q8TtHaSPZAe3O4TanHzIvSawWr85yHhi4fYyf4OZkIEbuupDtJ/0zA7qdx+My7UH5
-	 /n9bIL10HHQ3f0oiH+AEsBejtHUiumdHpiF1DxiNUZLiB/Z7DHpVc1gUzEQpntwVh4B04
-	 4HkAdKs61j4P08LiRM0AmmYi8E01B0YKPeC77WF9ehw/XHkf9x/IBLUKuxt15WIXaoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092758;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=wjhWYuYz/Y0YoGs1RYFiIWHiS+9eIIpbtVl1mUgbHKU=;
+	b=d27Biuj2Q32y6LSberZaN5HcZdwug7BgNGV29qhkOyAa+8Usqqc1U38J2ekd9K42VOUB
+	 Yfv4NChG1NEP/Z2EnVc9pN8rmmUhGQWzydRk1voxt/rdjqGG1CJosId+fjDt6+xU30gqT
+	 YAGWB9MVUo+4GVuw8XTbOW7iq1P22lxZKKvC+jw416D7R2254z9NVxjN1jvrTtTMtGSoa
+	 tRWtq+/1bb9uQQmVsHUPPJ3NRWhFtTZZyUK8mFJQkePXSk4FoMtHR9XveOVd7+OEoajPZ
+	 NMIpmU89exDrK1Ff/6qpn8C2q/yo4EUKHB7WL20oBWTvRviWaMwCzHqqAweY5S1HPCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vX34J1gO;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=f2Skfi2+;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEEB606A31B;
-	Tue, 27 Oct 2026 09:19:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEEB606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61FE606A324;
+	Tue, 27 Oct 2026 09:19:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C61FE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vX34J1gO
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=0caqeUvhoyd73MwX92KLCVLJ4OlRT1yAOV5WgVoUV7g=; b=vX34J1gO9ozZgfa3Jw58sG6Q+3
-	rL5VazSTDov9tbeKxe5PA3CQUSHnZqzZeQ3Z3AtBzt6EmOKlClFYDTW8zvKaHR40I8j8pdQv+h+JH
-	zIjXw+P9x4btEh/HukiBfONb1qlhaw2lrGPOCV0fQA3BurEFLksbLS+TmmK/atmIDGQiU2/1nrqn+
-	Njm+nTNYFJqbaNwxB3HFNQ15E8tki3Vks3ih5gOk12nPuqBflB50qAhXLlKfxzb1P8QqLJ2XPaVgq
-	Iu7hzpy2cSeRVc7JQ4eKXuuG/h97dZkdZFRYTeKcPWaYoL1a78tb7YgHUSWM0q0QnAXFIPwz7YwA0
-	j1VhnP7Q==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xLdKf-001M1U-0y;
-	Tue, 27 Oct 2026 09:19:02 +0000
-Date: Tue, 27 Oct 2026 02:18:55 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Gustavo Luiz Duarte <gustavold@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Stephen Hemminger <stephen@networkplumber.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 3/3] netconsole: recheck device registration after
- waiting for carrier
-Message-ID: <auBrysA0RUkVlTOA@gmail.com>
-References: <20261021-netcons-fixes-v4-0-3857120c6340@gmail.com>
- <20261021-netcons-fixes-v4-3-3857120c6340@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=f2Skfi2+
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793092744; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=wjhWYuYz/Y0YoGs1RYFiIWHiS+9eIIpbtVl1mUgbHKU=;
+	b=f2Skfi2+sWMb974fZK0I4Z8zHA1m6i9Hff5DwwMJTnqOQXxfR1N7JFpeiL5wKNxSDpWoRJ/logac4MKSWoHeS3/2uQ803/4ZnRtoqy1jPQRrwG7SDl/DHVad8FTZ4D1Nl3x2Fct2solX0IqP0tpuwOwvBqhkmr6k9mT5elYQM8s=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XDdLjEM_1793092738;
+Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDdLjEM_1793092738 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 17:19:00 +0800
+Message-ID: <6a2d3eba-d2e0-44ed-939e-001a5709565b@linux.alibaba.com>
+Date: Tue, 27 Oct 2026 17:18:58 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,60 +53,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-netcons-fixes-v4-3-3857120c6340@gmail.com>
-X-Debian-User: leitao
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/16] mm/shmem: preserve allocation errors when swapping
+ in large entries
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261026-fixes_shmem-v1-13-703206d5fa0c@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 03:19:07PM +0100, Gustavo Luiz Duarte wrote:
-> netcons_netpoll_setup() drops RTNL while it waits for carrier when the
-> device is not yet up. If the device is unregistered in that window, the
-> NETDEV_UNREGISTER notifier runs before np->dev is set and has nothing
-> to match.
+
+
+On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
+> shmem_swapin_folio() adjusts swap to the requested slot within a large
+> swap entry before allocating a folio. If allocation or charging fails,
+> the error path compares this adjusted value with the original entry
+> still stored in the XArray in shmem_confirm_swap().
 > 
-> We might then end up setting up netpoll on a device that is being
-> unregistered while holding a reference to it, stalling
-> unregister_netdevice() in netdev_wait_allrefs_any().
+> Unless the index is at the start of the entry, this turns -ENOMEM into
+> -EEXIST even though nothing changed.
 > 
-> Add a check to confirm the device is still registered once we retake
-> RTNL. Release the device reference and return -ENODEV otherwise.
+> The caller retries -EEXIST, so persistent allocation failures can leave
+> the task spinning instead of returning the error.
 > 
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-netcons-fixes-v3-1-1aac85ed7665@gmail.com
-> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+> Restore swap to index_entry on allocation failure so the existing error
+> path checks the original entry. This preserves the allocation error if
+> the entry is unchanged and still retries if it changed concurrently.
+> 
+> Original fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 91ab656ece13 ("mm/shmem, swap: tidy up swap entry splitting")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
->  drivers/net/netconsole.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> index be7eb632ee42..bd36ebd334aa 100644
-> --- a/drivers/net/netconsole.c
-> +++ b/drivers/net/netconsole.c
-> @@ -534,6 +534,16 @@ static int netcons_netpoll_setup(struct netconsole_target *nt)
->  		rtnl_unlock();
->  		netcons_wait_carrier(np, ndev);
->  		rtnl_lock();
-> +
-> +		/* Check that ndev hasn't been unregistered when we released
-> +		 * the RTNL above.
-> +		 */
-> +		if (ndev->reg_state != NETREG_REGISTERED) {
-> +			np_err(np, "%s was unregistered while waiting for carrier, aborting\n",
-> +			       netcons_egress_dev(np, buf, sizeof(buf)));
-> +			err = -ENODEV;
-> +			goto put;
-> +		}
->  	}
 
-I think there is a better way to do it, inside netcons_wait_carrier().
-
-netcons_wait_carrier() loops waiting for the carrier, and exit if in
-time_after(). I think it will be cleaner to exit there.
-
-then netcons_wait_carrier() would return a bool, and you goto 'put' in
-both case (ndev->reg_state != NETREG_REGISTERED) or in the
-time_after() exit.
-
-Wouldn't it be better?
-
-Thanks for the fixes,
---breno
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
