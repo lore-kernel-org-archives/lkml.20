@@ -1,71 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101591;
-	b=CfiAYQE+DE8BDBBLpcP7ny3sNAXLxSFAQP0xTB8SJB/YbDLCNtkf9IKbtWgZD+tHg0Cj
-	 nqd5ykqCZUyL1nz608Q/yWDg3IBg+d6HJaVpQpp5ZBkd4VQX0LcEeuNg8veM8A3oObOfc
-	 CyOhDdflUsY8LsubJR4AIb1G6AhuGlcBVmh9Qmr4kdsFHH5WJKtZzB7wRcepLJFp4a1yB
-	 PtedgiDPHOOOQzs5bDLcxE3gZO+9ORsk9Y0kyKuU2vVdrbVpJySveuXqpW/KUenMrCNa2
-	 mOHavaLAlXdf1qZovQdlBI3mhv38WNa2f2dBn8VMv0RQ1PR/Y2t07DpLzN92t/MVWuA==
+	t=1793101613;
+	b=gTNnDq9GgueIwAEXOVML4utG3slyQ3fwZ35efG4FauBDS7l18QiGLJ9cJo/M7w2A0uBL
+	 2yjR5YHv89fxm8xBCao8bx1XQj/ZUNYh1a1BGmI+kuWGxLHh3a812xflZWqNIIPcANLl+
+	 iVplkO8Pf6RYJ6xaNRIOeK4nCO568rt/YujFP60IbC1/ZwXgp7ZUskYaFiWsOgz2HfbfE
+	 Fn6utl6FnqL1OmeFC5GsqrSl+lEGg50MRkWgXl+EiZqPY9/+o8Jv198DOkLSYA0cipMOV
+	 9zAjMUslHqEe7TBZEJEv3KAc1RHf+fqku03PLpHuyB59e2bc69H271I4u5SDpsD+BLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101591;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101613;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=6fRga4PLyhDvRmvdApHZbO2HfBP0tzzKD/rmKO+880Q=;
-	b=d87vHTr9zazmhsklLdCJ8EznOQcEyz5RYoP7B3ZOCwXqo9Vc2mozwN1vh1xXDOw8tGRL
-	 RHaSr/SJEerwBKUIfdX+7JGVAwLST2u5D433ctefUfE0uK0XLASy1GuwQIu9eY+PS9nxs
-	 0lMyBixMqJK0nkl1pPQWU+zTLD5evrMugmDBl0N4TXlNVwcYu2taRuE2Tv5O+iRA4N01Q
-	 4JMOoX09amB6foCKCkz6q95EVXz74L01RJ3JkMCL/PNGj+MfuW3ru5NTjB3NVDtSTHATQ
-	 bVXhOqXbG50TH6Zj1NYoVPKOEJcyiLLYTyRtlPjUMMRMe+ZTtgF1h1VP4ta5i+2MW1A==
+	 Content-Transfer-Encoding;
+	bh=PpbjWdfbbKtAp++TjPKNZF4ciVe6C/tZbtzWZBBkMIs=;
+	b=uVBMveKYRIICJEkqnmqtjmANFVUGyQKC6wGrtpMuGBWrEC3pl3pjnGlQ2xwcv2JIDrZb
+	 aVfFpUf6X+rh60vmFQXbHKXOV1rAZxLJ3z1AiDVKejHitw4/+CffRAFtf8SBlUN5J9lDX
+	 aJ9MVG+s44xnbDBEAiqBazqrKipS/uYP2eWR2X4j91GjLB24IQMd+Wio1i0wwh3eX6o1D
+	 qbJHIT1anK1Q4+T/XjSradkngRbxpYLnQvRmJEQCSf+VALYXNveB8HjJ6FjPZPgzTlXVa
+	 EisS7wmEKJdJkFNTsgObzLT5W56/92UUUYrZqYUszJNOxZst0lIDzBBl45AtirsSp4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l2ojKu3I;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E641F606A7DC
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:46:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E641F606A7DC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Aq7h1hmu;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8923606A85A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:46:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8923606A85A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=l2ojKu3I
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E5AF815A1;
-	Tue, 27 Oct 2026 04:46:26 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EA94F3F59E;
-	Tue, 27 Oct 2026 04:46:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793101590; bh=aQvS8xrI1rrJ9Ub2g0brfCcZrqaYMf0KkHjzaD4o2l4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=l2ojKu3IKqobyHKB3LWMy3WiBjkW12rVYJUpa1k/psGeIhNTfHyav5r2NPSl/+/gl
-	 A+NfM4qPgmjBtML5qis6lFJRMSoN/YfDBbY1m4Nh3/mQVFrxTZLhmTO9IaCpYyABAn
-	 n6+ccYnLMvahZSsY8PmmJIE+l8vaJnRCogV8Gn4s=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	liuyonglong <liuyonglong@huawei.com>,
-	Oliver Upton <oupton@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on migration
-Date: Tue, 27 Oct 2026 11:46:25 +0000
-Message-ID: <auCPEQmnFwWldTaM@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <8eaaba87-7881-49c4-a76a-51dec2f29ffc@huawei.com>
-References: <20260901171558.2674031-1-leo.bras@arm.com> <20260901171558.2674031-6-leo.bras@arm.com> <aqneWnlsdpocLIl6@kernel.org> <aqqhDs3NyjtkZzXK@LeoBrasDK> <aqsl1_IqnV2r8kUL@kernel.org> <aqvt2gnlBZeNsaf4@LeoBrasDK> <as-mH36YSMxAosND@LeoBrasDK> <3e464bef-8dfe-44a3-afea-3c276ae87cd8@huawei.com> <attMtUqxNsuPooix@LeoBrasDK> <8eaaba87-7881-49c4-a76a-51dec2f29ffc@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Aq7h1hmu
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c315869241fso526199666b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:46:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793101610; x=1793706410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PpbjWdfbbKtAp++TjPKNZF4ciVe6C/tZbtzWZBBkMIs=;
+        b=Aq7h1hmumY8l4pkPqqrxCcKnKyHB/vtH8Os+Nk4sVGfMWUHPUbsJG51hZBIkrEBjcw
+         7CIYJtLtNnn8HQyVidWEX762708PCqI4Ocea8/CnC7BCFlCh6a93o1WKcofxofZZnT6f
+         mDLI74XhBrXa3NPZljIF5XUTAekosNGqrHijY7KUtGw3qPLMBL/rqm5TJ6vLvbgZGApM
+         ZdqTsbRRGpnZ9IlVGwBp2IseYhlkRrGcogp+cOhvgGZyUMxYttvdRJ5I2bwK+AVHFfBJ
+         JgsE9yBxGaalkzIWU2snkzGqIWRf1GyDV+aOGGObh+nP9j87+grsjcNWcgAR0BNZF3i5
+         +9Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793101610; x=1793706410;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PpbjWdfbbKtAp++TjPKNZF4ciVe6C/tZbtzWZBBkMIs=;
+        b=jY+0NuWybuSniX+OCXS8Ub2Kl4CmxWdG4RUss2FmhooZpGrZ39vcg7lBtOV4DqhTJz
+         7g2C//g2amHcLnoCWIKO0BLHFQJp9/p5hk5hwUHXrbjEOMPgOO4ln45oVe5RY18c9eMG
+         jzb5sDZw4Rp7kD8WDAWbJ/LcZsgrPV2C15mSKXzu7UpNa6qBlRyo92RrGXhwB+Rm1WsN
+         MJokRpW+UBy+Z+KU4awWMkCCDeZahUeHyZJZXA8QoeJwOPl8kCs05w+i7B0x+v9Pg944
+         XTaeTEp0Bbye97D0DL7sG5/4mnakIQONMeNDEDxz6+QFkaIG+YLvj1ihUBK5oQ78NpJz
+         hPdw==
+X-Gm-Message-State: AFq9FYJWUmtoIM+FNnVH0xdZtDQ4OY74V2kcuLl6Jp7TPeKjzTy/lf09
+	jhoLWPDiGsDlk8qMpAHqLSv7NLeit7KEiqCBgXx6vKGGzETsRP4K9kNB
+X-Gm-Gg: AYBFou3vYaex2kfmg0Lwf+L0EkCqB1iNC3AMMQbbFmAzhlwv+u3Yk6yAXJw9DXnr81B
+	x0GO5dfw51QvqXtK1w0uAf/ZIBYyEj6KgkUy04G9KKSpXMSkBj9A9OhtcN1YYOUymQREuct87/7
+	pGzIL/pfuF7fFDz1q7iRVCZPe00GlKNP3T4T0oTUbXXt6fwpEDjR0JXBcTX63xMt3BTcURw3iJ1
+	lbEYrDdiNVeZZ5/Chw1QnCuDAUmZ3oX6zjEnhC3JGLRmga+5vHlvLIn8Lemez2tluOE5cuwECIk
+	gk2ZW6cVo4xDUwDjcn5TmcE13PuvPNscvu/stEHrB3LvgjPTI0sUNsHUdUCjJVK9QHLFBvnnEuN
+	H6EFiJXlXD2uHWX5CiznuXgMgaL6lIIt0DFAVN8w8vTPg6P1jOPXQQNSw5LiXs6mnD3rogFpOkI
+	Aj1pYO+055G3Q2EoOVSanP+Pu8fhncSOMpk4XCHUSJD/DNVwhhZBq/e372PfFliFOB8TyTrfp8M
+	u/f5QSg4Q1NRCaOIalh7SWI079xrvngXVIj+8gMYqjGvjwCaT20vwd39LmIlWqVydFfEgA4Dn7m
+X-Received: by 2002:a17:907:980f:b0:c43:ae92:9b3 with SMTP id a640c23a62f3a-c46bde94336mr1059997066b.38.1793101610210;
+        Tue, 27 Oct 2026 04:46:50 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd529b3csm430692866b.37.2026.10.27.04.46.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:46:49 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH v4 1/4] regulator: dt-bindings: maxim,max8907: Convert to DT schema
+Date: Tue, 27 Oct 2026 13:46:31 +0200
+Message-ID: <20261027114634.79706-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027114634.79706-1-clamor95@gmail.com>
+References: <20261027114634.79706-1-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,129 +102,383 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 10:02:55AM +0800, Tian Zheng wrote:
-> 
-> 
-> On 10/23/2026 8:01 PM, Leonardo Bras wrote:
-> > On Fri, Oct 23, 2026 at 03:23:04PM +0800, Tian Zheng wrote:
-> > > 
-> > > 
-> > > On 10/14/2026 11:56 PM, Leonardo Bras wrote:
-> > > > On Thu, Sep 17, 2026 at 02:40:42PM +0100, Leonardo Bras wrote:
-> > > > > On Wed, Sep 16, 2026 at 04:27:19PM -0700, Oliver Upton wrote:
-> > > > > > On Wed, Sep 16, 2026 at 03:00:46PM +0100, Leonardo Bras wrote:
-> > > > > > > On Tue, Sep 15, 2026 at 05:10:02PM -0700, Oliver Upton wrote:
-> > > > > > > > Hi,
-> > > > > > > > 
-> > > > > > > > On Tue, Sep 01, 2026 at 06:15:56PM +0100, Leonardo Bras wrote:
-> > > > > > > > > When dirty-logging is disabled, even non-write faults make a page dirty,
-> > > > > > > > > which avoids a second fault when the page is actually written to.
-> > > > > > > > > 
-> > > > > > > > > On dirty-logging enable, this approach causes all (writable) pages on the
-> > > > > > > > > memslot to be marked clean, even if they were not written to, which can
-> > > > > > > > > take a lot of time, while holding the MMU lock, doing atomic writes to
-> > > > > > > > > PTEs.
-> > > > > > > > 
-> > > > > > > > Do you have any performance numbers for this? Enabling HAFDBS seems a
-> > > > > > > > bit involved to avoid some stores on the first pass.
-> > > > > > > 
-> > > > > > > Not yet, but if the idea does not look too crazy I can find hardware and
-> > > > > > > collect some data :)
-> > > > > > 
-> > > > > > TBH this looks like a micro-optimization so I'm not expecting the
-> > > > > > performance gains to justify the behavior change.
-> > > > > > 
-> > > > > 
-> > > > > Okay then, I will get a machine to figure the performance gains :)
-> > > > 
-> > > > Got the performance numbers here.
-> > > > I tested both the case where all PTEs are dirty, and the case that 50% of
-> > > > the PTEs are dirty.
-> > > > 
-> > > > For that test, actually patch #5 could make kvm_pgtable_stage2_wrprotect()
-> > > > slower, which is counter-intuitive, in all platforms tested:
-> > > > 
-> > > > When we walk the S2 pagetable to wrprotect, using the new walker, the
-> > > > write to the PTE itself is so cheap* that the cost of the branch
-> > > > misprediction (write PTE or not) for the 50/50 case is significantly higher
-> > > > than the cost of the 50% extra writes, which makes the 50/50 up to 60%
-> > > > slower than the 100% dirty case. It is still slower in the '25% dirty' as
-> > > > well, and starts to get even at '10% dirty'.
-> > > > 
-> > > > * (non-atomic, everything is in order, walker is small, cpu will probably
-> > > > bundle it all in a single cacheline write)
-> > > > 
-> > > > Since the idea of patch #5 was to reduce PTE writes in the first wrprotect
-> > > > walk, it becomes faster only if only a small portion (<10%) of the VM was
-> > > > write-faulted while the remaining was read-faulted, which seems to be a
-> > > > really reduced audience.
-> > > > 
-> > > > Since this comes with increased complexity, and also carry costs of
-> > > > having HAFDBS itself enabled outside dirty-tracking, I don't think it's a
-> > > > good idea to further pursue patch #5. It's only value is that it served as
-> > > > a base for HDBSS implementation.
-> > > > 
-> > > > Thanks for reading!
-> > > > Leo
-> > > > 
-> > > Hi Leo,
-> > > 
-> > > Thanks for running this, the numbers are really useful.
-> > > 
-> > > It means the hardware dirty mode (HD=1) should only be enabled while
-> > > dirty logging is active with HDBSS support, and stays off otherwise.
-> > 
-> > Hi Tian,
-> > 
-> > Correct, it's actually counter-productive for it to stay on without HDBSS
-> > before dirty-logging.
-> > 
-> > > 
-> > > With HD only enabled during dirty logging, we also keep the DBM-based
-> > > encoding for the HD=0 case. On systems that support FEAT_HAFDBS, DBM
-> > > remains the write bit and S2AP[1] the dirty bit even with HD=0. This
-> > > works because kvm_s2_fault_compute_prot() maps any writable page of a
-> > > non-tracked memslot writable-dirty (WD), including on read faults:
-> > > 
-> > > ```c
-> > > if (s2vi->map_writable) {
-> > >          *prot |= KVM_PGTABLE_PROT_W;
-> > > 
-> > >          if (s2vi->device ||
-> > >              !memslot_is_logging(s2fd->memslot) ||
-> > >              kvm_is_write_fault(s2fd->vcpu))
-> > >                  *prot |= KVM_PGTABLE_PROT_DIRTY;
-> > > }
-> > > ```
-> > > 
-> > > So there is no WC entry for hardware to promote, and HD is simply not
-> > > needed outside dirty logging.
-> > > 
-> > > In the next HDBSS version, we'll only turn on HD=1 when dirty logging
-> > > is active.
-> > > 
-> > 
-> > Right!
-> > I will also send a new version of the pre-patch (4 patches) for us to
-> > discuss. The first 2 patches will change meaning a bit, but should still
-> > work as they do today.
-> > 
-> > Thanks!
-> > Leo
-> > 
-> Hi Leo,
-> 
-> OK, I've seen the new DBM RFC patchset. HDBSS v6 will be based on it.
+Convert Maxim MAX8907 regulator binding from text to DT schema. Reference
+to nvidia,tegra-regulators-coupling in child regulator nodes.
 
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../devicetree/bindings/regulator/max8907.txt |  69 -----
+ .../bindings/regulator/maxim,max8907.yaml     | 283 ++++++++++++++++++
+ 2 files changed, 283 insertions(+), 69 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/regulator/max8907.txt
+ create mode 100644 Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
 
-Hi Tian, thanks for reading it, and for accepting it in your series!
+diff --git a/Documentation/devicetree/bindings/regulator/max8907.txt b/Documentation/devicetree/bindings/regulator/max8907.txt
+deleted file mode 100644
+index 371eccd1cd689..0000000000000
+--- a/Documentation/devicetree/bindings/regulator/max8907.txt
++++ /dev/null
+@@ -1,69 +0,0 @@
+-MAX8907 regulator
+-
+-Required properties:
+-- compatible: "maxim,max8907"
+-- reg: I2C slave address
+-- interrupts: The interrupt output of the controller
+-- mbatt-supply: The input supply for MBATT, BBAT, SDBY, VRTC.
+-- in-v1-supply: The input supply for SD1.
+-- in-v2-supply: The input supply for SD2.
+-- in-v3-supply: The input supply for SD3.
+-- in1-supply: The input supply for LDO1.
+-...
+-- in20-supply: The input supply for LDO20.
+-- regulators: A node that houses a sub-node for each regulator within the
+-  device. Each sub-node is identified using the node's name (or the deprecated
+-  regulator-compatible property if present), with valid values listed below.
+-  The content of each sub-node is defined by the standard binding for
+-  regulators; see regulator.txt.
+-
+-Optional properties:
+-- maxim,system-power-controller: Boolean property indicating that the PMIC
+-  controls the overall system power.
+-
+-The valid names for regulators are:
+-
+-  sd1, sd2, sd3, ldo1, ldo2, ldo3, ldo4, ldo5, ldo6, ldo7, ldo8, ldo9, ldo10,
+-  ldo11, ldo12, ldo13, ldo14, ldo15, ldo16, ldo17, ldo18, ldo19, ldo20, out5v,
+-  out33v, bbat, sdby, vrtc.
+-
+-Example:
+-
+-		max8907@3c {
+-			compatible = "maxim,max8907";
+-			reg = <0x3c>;
+-			interrupts = <0 86 0x4>;
+-
+-			maxim,system-power-controller;
+-
+-			mbatt-supply = <&some_reg>;
+-			in-v1-supply = <&mbatt_reg>;
+-			...
+-			in1-supply = <&mbatt_reg>;
+-			...
+-
+-			regulators {
+-				mbatt_reg: mbatt {
+-					regulator-name = "vbat_pmu";
+-					regulator-min-microvolt = <5000000>;
+-					regulator-max-microvolt = <5000000>;
+-					regulator-always-on;
+-				};
+-
+-				sd1 {
+-					regulator-name = "nvvdd_sv1,vdd_cpu_pmu";
+-					regulator-min-microvolt = <1000000>;
+-					regulator-max-microvolt = <1000000>;
+-					regulator-always-on;
+-				};
+-
+-				sd2 {
+-					regulator-name = "nvvdd_sv2,vdd_core";
+-					regulator-min-microvolt = <1200000>;
+-					regulator-max-microvolt = <1200000>;
+-					regulator-always-on;
+-				};
+-...
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+new file mode 100644
+index 0000000000000..6cf8e93867e1a
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+@@ -0,0 +1,283 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/maxim,max8907.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Maxim Integrated MAX8907 PMIC
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    const: maxim,max8907
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  maxim,system-power-controller:
++    type: boolean
++    deprecated: true
++    description:
++      Telling whether or not this PMIC is controlling the system power.
++
++  system-power-controller: true
++
++  mbatt-supply:
++    description:
++      The input supply for MBATT, BBAT, SDBY, VRTC.
++
++  regulators:
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      "^(sd[1-3]|ldo([1-9]|1[0-9]|20)|bbat|mbatt|out(5v|33v)|sdby|vrtc)$":
++        allOf:
++          - $ref: /schemas/regulator/regulator.yaml#
++          - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.yaml#
++        unevaluatedProperties: false
++
++patternProperties:
++  "^in-v[1-3]-supply$":
++    description:
++      The input supply for SD1, SD2 and SD3.
++
++  "^in([1-9]|1[0-9]|20)-supply$":
++    description:
++      The input supply for LDO1 - LDO20.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - regulators
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@3c {
++            compatible = "maxim,max8907";
++            reg = <0x3c>;
++            interrupts = <0 86 0x4>;
++
++            system-power-controller;
++
++            mbatt-supply = <&vdd_5v0_sys>;
++            in-v1-supply = <&vdd_3v3_vbat>;
++            in-v2-supply = <&vdd_3v3_vbat>;
++            in-v3-supply = <&vdd_3v3_vbat>;
++            in1-supply = <&vdd_3v3_vbat>;
++            in2-supply = <&vdd_1v8_vio>;
++            in3-supply = <&vdd_3v3_vbat>;
++            in4-supply = <&vdd_3v3_vbat>;
++            in5-supply = <&vdd_3v3_vbat>;
++            in6-supply = <&vdd_3v3_vbat>;
++            in7-supply = <&vdd_3v3_vbat>;
++            in8-supply = <&vdd_3v3_vbat>;
++            in9-supply = <&vdd_3v3_vbat>;
++            in10-supply = <&vdd_3v3_vbat>;
++            in11-supply = <&vdd_3v3_vbat>;
++            in12-supply = <&vdd_3v3_vbat>;
++            in13-supply = <&vdd_3v3_vbat>;
++            in14-supply = <&vdd_3v3_vbat>;
++            in15-supply = <&vdd_3v3_vbat>;
++            in16-supply = <&vdd_3v3_vbat>;
++            in17-supply = <&vdd_1v8_vio>;
++            in18-supply = <&vdd_3v3_vbat>;
++            in19-supply = <&vdd_3v3_vbat>;
++            in20-supply = <&vdd_3v3_vbat>;
++
++            regulators {
++                vdd_3v3_vbat: mbatt {
++                    regulator-name = "v_powerrail";
++                    regulator-always-on;
++                };
++
++                sd1 {
++                    regulator-name = "vcc_1v2_ddrio";
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <1200000>;
++                    regulator-always-on;
++                    regulator-boot-on;
++                };
++
++                vdd_core: sd2 {
++                    regulator-name = "vdd_core";
++                    regulator-min-microvolt = <950000>;
++                    regulator-max-microvolt = <1300000>;
++                    regulator-always-on;
++                    regulator-boot-on;
++                };
++
++                vdd_1v8_vio: sd3 {
++                    regulator-name = "vcc_1v8_io";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                    regulator-always-on;
++                    regulator-boot-on;
++                };
++
++                ldo1 {
++                    regulator-name = "vcc_3v3_ddr";
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-always-on;
++                    regulator-boot-on;
++                };
++
++                ldo2 {
++                    regulator-name = "vcc_1v1_pll";
++                    regulator-min-microvolt = <1100000>;
++                    regulator-max-microvolt = <1100000>;
++                    regulator-always-on;
++                    regulator-boot-on;
++                };
++
++                iovcc_1v8_lcd: ldo3 {
++                    regulator-name = "vcc_1v8_lcd";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                    regulator-boot-on;
++                };
++
++                avdd_3v3_usb: ldo4 {
++                    regulator-name = "avdd_3v3_usb";
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-always-on;
++                    regulator-boot-on;
++                };
++
++                vcore_emmc: ldo5 {
++                    regulator-name = "vcc_2v8_emmc";
++                    regulator-min-microvolt = <2800000>;
++                    regulator-max-microvolt = <2800000>;
++                    regulator-boot-on;
++                };
++
++                vcc_hdmi_pll: ldo6 {
++                    regulator-name = "vcc_hdmi_pll";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                vcc_3v0_sensor: ldo7 {
++                    regulator-name = "vcc_3v0_sensor";
++                    regulator-min-microvolt = <3000000>;
++                    regulator-max-microvolt = <3000000>;
++                    regulator-boot-on;
++                };
++
++                vcc_1v8_sensor: ldo8 {
++                    regulator-name = "vcc_1v8_sensor";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                    regulator-boot-on;
++                };
++
++                ldo9 {
++                    regulator-name = "vcc_3v3_fuse";
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                };
++
++                vcc_3v1_touch: ldo10 {
++                    regulator-name = "vcc_3v1_touch";
++                    regulator-min-microvolt = <3100000>;
++                    regulator-max-microvolt = <3100000>;
++                    regulator-boot-on;
++                };
++
++                vdd_3v3_hdmi: ldo11 {
++                    regulator-name = "vdd_3v3_hdmi";
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                };
++
++                vdd_usd: ldo12 {
++                    regulator-name = "vcc_2v8_sdio";
++                    regulator-min-microvolt = <2800000>;
++                    regulator-max-microvolt = <2800000>;
++                    regulator-boot-on;
++                };
++
++                vcc_3v0_motor: ldo13 {
++                    regulator-name = "vcc_3v0_motor";
++                    regulator-min-microvolt = <3000000>;
++                    regulator-max-microvolt = <3000000>;
++                };
++
++                vcc_2v8_lcd: ldo14 {
++                    regulator-name = "vcc_2v8_lcd";
++                    regulator-min-microvolt = <2800000>;
++                    regulator-max-microvolt = <2800000>;
++                    regulator-boot-on;
++                };
++
++                vcc_3v3_temp: ldo15 {
++                    regulator-name = "vcc_3v3_temp";
++                    regulator-min-microvolt = <3300000>;
++                    regulator-max-microvolt = <3300000>;
++                    regulator-boot-on;
++                };
++
++                /* LDO16 is not used */
++
++                avdd_dsi_csi: ldo17 {
++                    regulator-name = "vcc_1v2_mipi";
++                    regulator-min-microvolt = <1200000>;
++                    regulator-max-microvolt = <1200000>;
++                };
++
++                ldo18 {
++                    regulator-name = "vcc_1v8_vi";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                };
++
++                vcc_1v8_touch: ldo19 {
++                    regulator-name = "vcc_1v8_touch";
++                    regulator-min-microvolt = <1800000>;
++                    regulator-max-microvolt = <1800000>;
++                    regulator-boot-on;
++                };
++
++                /* LDO20 is not used */
++
++                out5v {
++                    regulator-name = "usb0_vbus_reg";
++                    regulator-min-microvolt = <5000000>;
++                    regulator-max-microvolt = <5000000>;
++                };
++
++                /* OUT33V is not used */
++
++                bbat {
++                    regulator-name = "vcc_bbat";
++                };
++
++                vdd_rtc: sdby {
++                    regulator-name = "vcc_rtc";
++                    regulator-min-microvolt = <950000>;
++                    regulator-max-microvolt = <1300000>;
++                    regulator-always-on;
++                    regulator-boot-on;
++                };
++
++                vrtc {
++                    regulator-name = "vrtc";
++                };
++            };
++        };
++    };
++...
+-- 
+2.53.0
 
-Before rebasing, please wait for the ongoing discussion on it's 
-correctness. Maybe I will have to send new versions before it can be used.
-
-Thanks!
-Leo
