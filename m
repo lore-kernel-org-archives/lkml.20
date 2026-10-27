@@ -1,47 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093337;
-	b=O1A6Su3aag2kZM1zrNBqxhyY6bTz//3Be0yE/S8uxPfr/we2hsZj8XxOn2u8fOR5dd45
-	 wSQJLUH7fnaCb/3k//R1mfM4CUJbj5t4Hc92vO+QIeIQxN5T5uNE5YoyA1uaKv8nXpw9b
-	 LVF9qfJ1IEiMLDyBavBxs5a47leovfSvZJF2nevXN5Yl4MY10pVUQcrZnK1tXuRzn55yQ
-	 7+h26hEMAtvFBs/DGId6Pe+mxkYh+fM4y8Nb4QeLo/3Z1vd0k95JTcYMgEHq2dhXIn1+E
-	 hd0rfJtGQ8hegh/h2zIxvihau65tkWdVEwKWhgb3JrxOIBC2nHRXUl9YyQUZDxXoTxw==
+	t=1793093362;
+	b=17R/Vl9WISByJaHmpLzfAzHNcVjMpa7Sm4l0qzKhc/PcmC090osOZFwl5xhGdKg5gN3H
+	 Tp+RiWQls5B0aEZbWWumFHWb4H4f/poBGUoCfQF/yl9qdlOIiRmUSOMxAeq1ma4qoC1oL
+	 Yqc8pgEnKsdUUpABDb+O/ln4tBcCPbL6J0TDexSpDRuK7Pxqsiq5DniWMvHd7TvvRkmPO
+	 HkE1OmFDnpzJlbf/feN+ED/04VEhTXkb8L97xxajVU+5QdR0SDWqv9Ax77yKe92bXH07e
+	 n+Oix6BK21nUCgmFqeC7OPYuxKcrvO/ET93L4FRle96JFyPTbauLa1B+b6THL4CykeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093337;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=p8NdlJeb1TRhp00Fu41Y5tkNGTY0mONjNOfygteb5+c=;
-	b=TggjYzZBugxZ3igX4Dt1ytCpL9/ZC/OC4XJRloi0UCuCtScKY5kkc7B4ay42rZz/zr5t
-	 HCEZzBDlkOCEwMKFpCxAeT1GdphMNhoRNbWzvrNwsDNEGG51nstha6mCq3EI5Vxy/Qn/G
-	 2OjTGCUkMLUYwKZAg9N2UVmKu+MbpaCUv+3Fauvcg5giuTFSqDRDg/qJqDZPIkFI7zlBU
-	 cpwL2jSZAB8gLhNVnIJtctx37kB8SqXu6MjoMx7Jf8boy7L9+FDNxhIaomkyMzgAfRCu1
-	 fhAriW1zxNS8f//pzS5WujdjVGT3Wik6byrx3duTQD0yw4sqI307Eh/peD4YlzPWFaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093362;
+	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
+	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=CpKFKPZOdaTPUlj/tP8KSDwsqd4EwHcKrOyoIT9sVms=;
+	b=yPvj27Q0zDyl7u0qJDCocS3WVYysGmBIer9hunnbI4v732pd9aWDCyS0+hBf71Ke6G2X
+	 kvK0m3cboGKJyRPaaCyfArr+u2z1A0FRA2JC4elEHtyM1x2ZfkcsdBeEshvVUajRW04/B
+	 PX/0Ri/LndQ4O2lK+F2cxfHCsQ/rQUIJxPnHHWqaFVqxNLTX4xtjEyufMHcrHnPrrtDV9
+	 4zwwGU3rSNIkR3lZIIqsPOFleAdQgPhIHnl/U/hf9Luy2UWvv0a7ipS0PTFP4LDKRETdX
+	 vCgBHmOF8/1v2FGxtx5BpyMLkaonX9NmfY/AgyQ5ZYWULGzXaDBbgH7EAedAzEAx9QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qp/NnmyW";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21447606A31B;
-	Tue, 27 Oct 2026 09:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qp/NnmyW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 693731F031E7;
-	Tue, 27 Oct 2026 09:28:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793093337;
-	bh=p8NdlJeb1TRhp00Fu41Y5tkNGTY0mONjNOfygteb5+c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qp/NnmyWnjy7TIppdQNM2xAgatHT4wbLz786wY9DtJeF/QUUDgI1CVJFfhiBvCGjd
-	 jYfK9SdhHRhYiN46SFP4dtWsWgKiI6R7IYT0rKLQAHu9NNpGNsD97qmr8vWbL9+DFj
-	 ulj1BLsPNWTRZCnXtadOID/fkikxFHo5cdXYy3Cys+K5/ELUOxgrsXWd10u+d0QITn
-	 mfA8aBdmXwqYJlACVBYHrZIcoyltSBj4HpxNDUMsGvCOc3XdpO5UvWRcGFMf9opUa1
-	 41fCjbakJqK504gwL2xBwE1y/azIUjEH/pTkgw9f6ePLgGqzvbTDZAMOOs0Q3G5QbN
-	 UuaX+vDUQ0BXQ==
-Message-ID: <2812b71c-cd0c-4d87-a57c-427ef40d078b@kernel.org>
-Date: Tue, 27 Oct 2026 10:28:53 +0100
+	dmarc=none header.from=eswincomputing.com;
+	spf=pass smtp.mailfrom=eswincomputing.com;
+	arc=none smtp.remote-ip=46.101.248.176
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E9447606A31A;
+	Tue, 27 Oct 2026 09:29:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9447606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from dongxuyang$eswincomputing.com ( [10.12.96.41] ) by
+ ajax-webmail-app2 (Coremail) ; Tue, 27 Oct 2026 17:28:58 +0800 (GMT+08:00)
+Date: Tue, 27 Oct 2026 17:28:58 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: "Xuyang Dong" <dongxuyang@eswincomputing.com>
+To: ukleinek@kernel.org, daniel.lezcano@kernel.org, tglx@kernel.org,
+	p.zabel@pengutronix.de
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	ben-linux@fluff.org, ben.dooks@codethink.co.uk,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-pwm@vger.kernel.org, ningyu@eswincomputing.com,
+	linmin@eswincomputing.com, xuxiang@eswincomputing.com,
+	wangguosheng@eswincomputing.com, pinkesh.vaghela@einfochips.com,
+	"Xuyang Dong" <dongxuyang@eswincomputing.com>
+Subject: Re: Re: [PATCH v14 0/5] Update designware pwm driver
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <6a4cf05e.948b.19ff549073f.Coremail.dongxuyang@eswincomputing.com>
+References: <20260730111425.1680-1-dongxuyang@eswincomputing.com>
+ <6a4cf05e.948b.19ff549073f.Coremail.dongxuyang@eswincomputing.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,131 +61,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net/sched: fix packet reordering on requeue
-To: Antonio Quartulli <antonio@mandelbit.com>, netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kernel-team <kernel-team@cloudflare.com>,
- Chris Arges <carges@cloudflare.com>
-References: <20261026153113.3275494-1-antonio@mandelbit.com>
-Content-Language: en-US
-From: Jesper Dangaard Brouer <hawk@kernel.org>
-In-Reply-To: <20261026153113.3275494-1-antonio@mandelbit.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <1905ec0b.b482.1a17cb103b0.Coremail.dongxuyang@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:TQJkCgAHHaDabuBqoSGIAA--.13989W
+X-CM-SenderInfo: pgrqw5xx1d0w46hv4xpqfrz1xxwl0woofrz/1tbiAgENAmrfgSsXN
+	AABsx
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-
-
-On 10/26/26 16:31, Antonio Quartulli wrote:
-> dev_requeue_skb() appends requeued skbs to the tail of q->gso_skb, while
-> dequeue_skb() takes them back one at a time from the head. If the driver
-> returns NETDEV_TX_BUSY again for the first of them, it moves behind the
-> skbs still parked there and is sent after them.
-> 
-> This showed up as heavy TCP reordering while benchmarking over veth,
-> which returns NETDEV_TX_BUSY whenever its ring is full since
-> commit dc82a33297fc ("veth: apply qdisc backpressure on full ptr_ring to reduce TX drops").
-> 
-> Requeue the skbs at the head of gso_skb, keeping their order. With 4 TCP
-> streams over a veth pair with a pfifo qdisc, this removes about 1.3M
-> out-of-order segments and 15-37k retransmits per 15 seconds, and raises
-> throughput from about 40 to 76 Gbit/s.
-> 
-> Fixes: a53851e2c321 ("net: sched: explicit locking in gso_cpu fallback")
-> Fixes: 9540d977618c ("net: sched: fix skb leak in dev_requeue_skb()")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
-> ---
-
-Thanks for finding and fixing this!
-
-Acked-by: Jesper Dangaard Brouer <hawk@kernel.org>
-
-> Notes:
-> 
-> - Setup: 8-vCPU VM, veth pair; sender with a pfifo qdisc and TSO off,
->    receiver with GRO and threaded NAPI; iperf3, 15 s runs.
-> 
-
-For others, notice threaded NAPI an important setup parameter here.
-This makes it more likely and reliable for ptr_ring producer and
-consumer to run on different CPUs.  This situation can still occur
-without threaded NAPI, when multiple localhost userspace applications
-run producing packets into veth, as they will likely get be schedules on
-different CPUs.
-
-FYI, we also run veth with threaded NAPI in production, but used in a
-routing setup (no "localhost" apps).  We have configured veth to have
-many queues (64), and we use qdisc MQ on top to avoid serialization on
-the qdisc root-lock.  Thus, we should be less affected, as we spread
-flows more across qdisc.
-
-
-> - A single stream gets about 7% slower (87 -> 81 Gbit/s), with 0
->    retransmits instead of 1-20k. This is not a cost of the change: without
->    the losses TCP keeps the veth ring full, and veth_poll() waking the
->    queue makes net_tx_action() run the transmit work on the receiver's
->    NAPI CPU. With VETH_RING_SIZE raised to 4096 the ring doesn't fill,
->    nothing is requeued and both kernels do 86-90 Gbit/s, while 4 streams
->    still go from 45 to 70 Gbit/s.
-> 
-> - History: before a53851e2c321, gso_skb was a single pointer.
->    dev_requeue_skb() stored the busy skb there with the rest of the list
->    still chained through skb->next, and dequeue_skb() handed the whole
->    chain back, so the order was kept. a53851e2c321 turned gso_skb into a
->    queue that dequeue_skb() drains one skb at a time; requeuing queued
->    only the first skb (at the head for locked qdiscs, at the tail for
->    TCQ_F_NOLOCK ones) and lost the rest of the list. 9540d977618c fixed
->    that leak by queueing every skb of the list, and moved the locked path
->    to the tail too, "to avoid skb out of order". Appending keeps a
->    requeued list in order while gso_skb is empty, but not when the
->    requeued skb was just taken from the head of a non-empty gso_skb,
->    which is the case fixed here. So locked qdiscs reorder since
->    9540d977618c, TCQ_F_NOLOCK ones since a53851e2c321; both are in 4.16.
-> 
->   net/sched/sch_generic.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-> index 6f6a6f0d5eb0..e79e9f33efba 100644
-> --- a/net/sched/sch_generic.c
-> +++ b/net/sched/sch_generic.c
-> @@ -168,8 +168,11 @@ static inline void qdisc_enqueue_skb_bad_txq(struct Qdisc *q,
->   
->   static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
->   {
-> +	struct sk_buff_head requeue;
->   	spinlock_t *lock = NULL;
->   
-> +	__skb_queue_head_init(&requeue);
-> +
->   	if (q->flags & TCQ_F_NOLOCK) {
->   		lock = qdisc_lock(q);
->   		spin_lock(lock);
-> @@ -178,7 +181,7 @@ static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
->   	while (skb) {
->   		struct sk_buff *next = skb->next;
->   
-> -		__skb_queue_tail(&q->gso_skb, skb);
-> +		__skb_queue_tail(&requeue, skb);
->   
->   		/* it's still part of the queue */
->   		if (qdisc_is_percpu_stats(q)) {
-> @@ -194,6 +197,11 @@ static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
->   		skb = next;
->   	}
->   
-> +	/* the skbs may come from the head of gso_skb, so put them back there:
-> +	 * appending them would let the ones still parked overtake them
-> +	 */
-> +	skb_queue_splice(&requeue, &q->gso_skb);
-> +
->   	if (lock) {
->   		spin_unlock(lock);
->   		set_bit(__QDISC_STATE_MISSED, &q->state);
-
+PiAKPiA+IAo+ID4gVGhlcmUgaXMgYWxyZWFkeSBhIHBhdGNoIFsxXSBmb3IgdGhlIERlc2lnbldh
+cmUgUFdNIGRyaXZlciwKPiA+IHdoaWNoIGlzIHBvc3RlZCBieSBCZW4gYW5kIHN0aWxsIHVuZGVy
+IHJldmlldy4KPiA+IEJhc2VkIG9uIHRoaXMgcGF0Y2gsIHRoaXMgc2VyaWVzIGlzIGEgY29udGlu
+dWF0aW9uIG9mIFsxXQo+ID4gdG8gYWRkIHN1cHBvcnQgZm9yIElQIHZlcnNpb25zIDIuMTFhIGFu
+ZCBsYXRlciwgd2hpY2gKPiA+IGluY2x1ZGVzIHN1cHBvcnQgZm9yICJQdWxzZSBXaWR0aCBNb2R1
+bGF0aW9uIHdpdGggMCUKPiA+IGFuZCAxMDAlIER1dHkgQ3ljbGUiLgo+ID4gCj4gPiBTdXBwb3J0
+ZWQgY2hpcHM6Cj4gPiBFU1dJTiBFSUM3NzAwIHNlcmllcyBTb0MuCj4gPiAKPiA+IFRlc3Q6Cj4g
+PiBUZXN0ZWQgdGhpcyBwYXRjaCBvbiB0aGUgU2lmaXZlIEhpRml2ZSBQcmVtaWVyIFA1NTAgKHdo
+aWNoIHVzZXMgdGhlIEVJQzc3MDAKPiA+IFNvQykuCj4gPiAKPiA+IFsxXSBodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9sa21sLzIwMjMwOTA3MTYxMjQyLjY3MTkwLTEtYmVuLmRvb2tzQGNvZGV0aGlu
+ay5jby51ay8KPiA+IAo+ID4gVXBkYXRlczoKPiA+ICAgQ2hhbmdlcyBpbiB2MTQ6Cj4gPiAgIC0g
+WUFNTDoKPiA+ICAgICAtIEFkZCAnUmV2aWV3ZWQtYnk6IEtyenlzenRvZiBLb3psb3dza2kgPGty
+enlzenRvZi5rb3psb3dza2lAb3NzLnF1YWxjb21tLmNvbT4nCj4gPiAgICAgICBmb3IgcGF0Y2gg
+MS4KPiA+ICAgICAtIERyb3AgbWluSXRlbXMgb2YgcmVzZXQtbmFtZXMgcHJvcGVydHkuCj4gPiAg
+ICAgLSBBZGQgdGhlIHJlc2V0cyBhbmQgcmVzZXQtbmFtZXMgcHJvcGVydGllcyBhbmQgcmVzdHJp
+Y3Rpb25zIGZvcgo+ID4gICAgICAgb3RoZXIgY29tcGF0aWJsZSBzdHJpbmdzLgo+ID4gICAtIERy
+aXZlcjoKPiA+ICAgICAtIFJlbW92ZSBNT0RVTEVfQUxJQVMoKSAoU2FzaGlrbyByZXZpZXcgb2Yg
+djEzKS4KPiA+ICAgICAtIFVwZGF0ZSB0aGUgY29tbWl0IG1lc3NhZ2UgYW5kIGNvbW1lbnQgZm9y
+IHBhdGNoIDUuCj4gPiAgICAgICBUaGUgZXhjbHVzaXZlIHJlc2V0IHJlZmVyZW5jZXMgbXVzdCBi
+ZSByZXRhaW5lZCBmb3IgdGhlIGxpZmV0aW1lCj4gPiAgICAgICBvZiB0aGUgdGltZXI6IHRoZSBo
+YXJkd2FyZSBrZWVwcyBydW5uaW5nIGFmdGVyIGluaXQsIGFuZCBob2xkaW5nCj4gPiAgICAgICB0
+aGUgcmVmZXJlbmNlcyBrZWVwcyB0aGUgcmVzZXRzIGRlYXNzZXJ0ZWQsIHByZXZlbnRpbmcgb3Ro
+ZXIKPiA+ICAgICAgIGRldmljZXMgb24gdGhlIGJ1cyBmcm9tIHJlLWFzc2VydGluZyB0aGVtIChT
+YXNoaWtvIHJldmlldyBvZiB2MTMpLgo+ID4gCj4gCgpIaSBVd2UsIERhbmllbCwgVGhvbWFzIGFu
+ZCBQaGlsaXBwLAoKSnVzdCBhIGZyaWVuZGx5IHJlbWluZGVyIHJlZ2FyZGluZyB0aGlzIHNlcmll
+cy4gQW55IGZlZWRiYWNrIG9yIGNvbW1lbnRzPwoKV2UgaGF2ZW4ndCByZWNlaXZlZCBhbnkgY29t
+bWVudHMgeWV0LCBhcGFydCBmcm9tIHRoZSBzYXNoaWtvLWJvdCAod2hvc2XCoApwb2ludHMgd2Vy
+ZSBhbHJlYWR5IGFkZHJlc3NlZCBpbiBwcmV2aW91cyB2ZXJzaW9ucykuCgpDb3VsZCB5b3UgcGxl
+YXNlIGhlbHAgcmV2aWV3IHRoZSByZW1haW5pbmcgcGF0Y2hlcz/CoEkgd291bGQgYXBwcmVjaWF0
+ZcKgCmFueSBmZWVkYmFjayBvciBzdWdnZXN0aW9ucyBvbiBob3cgdG8gcHJvY2VlZCB3aXRoIHRo
+aXMgc2VyaWVzLCBvciBpZsKgCnRoZXJlIGlzIGFueXRoaW5nIGVsc2UgSSBzaG91bGQgZG8gdG8g
+aGVscCBtb3ZlIGl0IGZvcndhcmQuwqAKClRoYW5rcyBmb3IgeW91ciB0aW1lIGFuZCBhdHRlbnRp
+b24uCgpCZXN0IHJlZ2FyZHMsClh1eWFuZyBEb25nCgo=
