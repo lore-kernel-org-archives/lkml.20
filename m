@@ -1,115 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.181.97.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111722;
-	b=Nidc6BsmYVyEQLNBaGs6z2LpR5vfd3KJ+Cwv2Rhk1iJ2supVBYBoQj+xDVBmHopuAo+D
-	 ns2halMgfSFxKwfPj5jgOxvGedI1spsJIlpmelQ8d9GVcL9Cx2SLRXmHEvDXzRGOAeqIk
-	 fN39K6F5wIyxg+jAOix0v6ZkGW435FQDCsHkId67FuxO2oLy0AQ5YmupI3U3dbbTQIxGV
-	 EzOhwT5xoYJoAbLpjmYP4Y2RUHMdR6dqrg07OLQT1MGsAsCtdQIihCSVqD3ROlytNzzXy
-	 ci6KuXLSEOsL4sYsYwYPjSrk/rBv+pdOVDCEeBrYqdg0UnegeKYm2iFR07yuXsjcawg==
+	t=1793111733;
+	b=FwpxGGLNqyFsR1uqT9MNwKaeR52k6ZuG5XtFNydW5ZggegqVXSXgc+Ckgm7n3RaBtOvA
+	 eC8rzdt5hJ4Yc6NUSsm9SkEQND4iEQ8yt1vBgt/40QBRR5nXQ/glreH5Wk0TlWeNDT3lD
+	 pOUq2XEu+s89qQJhSXQ37ODDKwVjgE3lP85DCD154ABXGc9OyrGyltMIupKaRV+z7JDU9
+	 QvshFDIewviRq24F/FIbQhnMF4Lpgj0BhsGrDYVopqbkMWkT+xKPQO5S8c3p0zNPlJrGV
+	 gS4MsTVJ/cC3Ar2h4g1qwxSkCvKyzb/bvxdTHAOI/94h+INdS2pgEskq7ChxS+2UMXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111722;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=Q/JtrdSYqaoMZ5K50zjIe2pHdtAbZc6SNut/NqhXrVI=;
-	b=NiU/dUBYbQ8GhBqh0W+ACBCJJOGQCCRchQOBrKGdvJKLi7NOsPdvXitoLGyhVWiUJH1F
-	 lXmvDTqy8PV8l7+UHw+ddPoQWZ64NY1N5OnfnUVvsb/pD0o3JfG7OuGpON2A8gOApC15L
-	 siKqG/Ih7wF/q3TdBwTsXC2f+QuoIS/Ehf/Zn5qewTavbCpi4yY3w8nuAWs262aHZMbUj
-	 obm8xAB2CSxKQ4AYb6NsAXSrXLr7LEpJ2nV0ifzfUKkH1L7399xNTAB24xSkEcQZfRIRW
-	 aSHKEdepVHpSFPKP3Y9ttJfTgcSsoS6klomc4CE8cnbrQkL5AKXtwqf8HLbvmLCFbig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111733;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Virus-Status:
+	 X-Anti-Virus-Server;
+	bh=/+EZTN8/RL3FnKUS4CqJCvmXjDAScPkKMIBuJc2FtX4=;
+	b=hMJVmKiBztp5zlAzR/2/M81gdnN+qcfV8o7n9QkYLZcUODM3MKgfEWzV7EVHOvDpVglv
+	 Bna7BhzgzEJaKBCMCTD0n/3gOwj5GY8299i8S6PAEV3k5LugJFapP9o7biitmytVcxUTl
+	 KRA2EiGqetCydTa1UaFDiOhUQmDFS/XRmI8DHCJvz07iZUhjP/tye1rAT6SMLO6TKqpg2
+	 eb2/oG8+A/6XlBwzjHt/c16h9oPzQnQNTpIF5bS5jc/cnrpSBDWacYC3UfhZPnk515iRJ
+	 DsG6VeMQHNzveV/e7IQMlqdGfG17rDZyvfH2m5Da5ZeVwrmqUZYSq26O4GVLVdH/EgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=howett.net;
-	spf=pass smtp.mailfrom=howett.net;
-	dkim=pass header.d=howett.net header.i=@howett.net header.a=rsa-sha256 header.s=fm2 header.b=aAGkOodr;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Qs7usP+m;
-	arc=none smtp.remote-ip=103.168.172.158
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=I-love.SAKURA.ne.jp;
+	spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp;
+	arc=none smtp.remote-ip=202.181.97.72
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12C4606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:35:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E12C4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=howett.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=howett.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=howett.net header.i=@howett.net header.a=rsa-sha256 header.s=fm2 header.b=aAGkOodr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Qs7usP+m
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 16C0F14000E4
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:35:20 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 27 Oct 2026 10:35:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=howett.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1793111720; x=1793198120; bh=Q/
-	JtrdSYqaoMZ5K50zjIe2pHdtAbZc6SNut/NqhXrVI=; b=aAGkOodrm9GJSNDFnm
-	bwuSwi3Gs1GC4H6vg/Am/RahdumD8xkzGNxD0KEA2qOEtsEBE3MiUmOeh2qiq2XY
-	z+SJmQXIobQPNrDNlqT92jBTL2f523uHtKWk38lr08N/7Zg9JOxGasBXQ762wTQS
-	6+qfy3c0UhSgLiDZoATHg4+8N3hAzc8cSufHaOuuxL90M0Nzw+GVdu7MSoKJrGN0
-	4gHGEJF2BR9448G3cRkiEgXoORbKtqIviCaJw9ROAKKLUKwF4Pjda7QLglBCIg3h
-	4/BhzRfsznzHG1WWOa2ltwxtgLCvei+H3X/GCET4BE43fuOU9rsRx4ZYdMBCdJfP
-	fGrQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1793111720; x=1793198120; bh=Q/JtrdSYqaoMZ5K50zjIe2pHdtAb
-	Zc6SNut/NqhXrVI=; b=Qs7usP+m0ZhxSsgWlLv+ETSx+HPn72pGgoDm4e8HXHke
-	PgDH/0OqXOPhbuO6u/C8HxyYpctaj08fNnQ+KFpRBciQ0bmc8P3f0HQu4QmbHPS6
-	jEAWtZmo/Dhwqhmo6A2uanuCULZmF15V+al+FGCIo2IhFJ7bkMxFHTc7SmXXA3GC
-	ItB/+CzVU9Fd4nrSO43vxwJmrTYEHarNCvRyDeFbsG3re+MJoGp1HMHwhYUXqcyT
-	3y8Uvib0CO8KvUKEG3XNLEbJrgzaK3NIpYIY+3oZDOYA/IgR5mKN4uJE+S7LwnVi
-	HTbTgWpjN0bXGDOeqGVOdk4kxQ2Xz7HxdDwSPIogCg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=howett.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793111720; d=howett.net;
-	mf=PGR1c3RpbkBob3dldHQubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:L8e+5KJ6DzI6/nUbPSrhJavpTKJNGkZbIM923YJIJEeMWad
-	e8hSAy8+W/I79noME3XsqduHqajhB+GM1JpNYRwyo4HOy91nPcovumZHSv5+OnsH
-	rxcrC/DDQ11MSMymhD7KeAsPPfVvGrNaA/WnGp6QAIbdxEjAJclMqPUxaCiTXgp+
-	0tTNK/I/u7MKweV/Gx7/VMYdroU9KwDSEN2HxHdij0rbi1pTf5ZdvmUVd5xT7Q9p
-	xGhQWLlMqusQgEC/bI8+J+MrABvgewpzD+mgbG3EF6v6+DfAlcvjp5KNr9RqGmZ1
-	fPIobwd+KeGRzYbKR1VNqSLCWhkqsRXLvzre3Lg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:7MAftU3YGbzG9HxFexOx+ZJ+tmgk6HO3PnmxawkX5MA=:b7leeV9rfUv+9vbvtzbdB4Q/59mZHGYHICDYPmQ+tXA=;
-X-ME-Sender: <xms:p7bgar1KuJh1A8xSgJOq5WoB66K1tVhPsvuuKf7R5P3-eR45wkFIsA>
-    <xme:p7bgajYQx0nepxI_6gQHsx7w3DoWN9KwgzS_m1lzYz-z8ABgZ089xpPlVKVXDBWx9
-    ICpwLwNVI7IxrthelDXld_Y7azGp8cNAZ5X1-sKdoUeEbSVH5onRoyM>
-X-ME-Received: <xmr:p7bgajI6kG4WzDPhmvI7II3W7XR5GbbIyXAzQKZYWuiemJ8AeoyjgtlWFoKEEUxrr-YFLA8HRhmEnb9pn7vl7HpkNBG1xAhJAhmESv7lRn6nZPYMNqo>
-X-ME-Proxy-Cause: dmFkZTFQce6hq3A/PH9aM+qNxdORuWXaq7+Yjm+OUnPHnfDVZyqx1Ex6cpmILMwBRVk+m0
-    0lnTD5NfIWg41bWHXe3c+sfWEDYvTGq6jjyNiDCkygIxn5gXbgfIeaYtd+/3M9jGm5d8+n
-    NtPUaskUoMJUvCGbcPWp7DvSgyxuzkKxsYslsNJMTq/8RhLcwq/Nnk7BIFtdgc3mwgIa/C
-    07lkcJz2X86CSD5VwjX083wkVDSaku1iF4aFiIHaFEH7kxy9Nlp5QsRI1MW/LCy4rYfJB7
-    DB+qShCEiIMk07knNWIebV9+5LcW9jnA39KgYkfXfboTl/0i5HAUWnHYU6JKKiy2HZYaOF
-    ljSUgYcX7xvt1XP6RU4O12FQ3fewokslBVlz9xgVdjro4YhVTYGDBLsGIDWY4qyrzBkD6n
-    mT5dCLg+PNbSTRczyVU0l5NOwRWLi+uS9J9U3jFZlnMJofxxoWjDmBwtgX0qkE/ydqg2vM
-    VSnxMKJab6VSiPpMNfQyHBa20PTFJjP23butcaCbpT/Vyxxtc/sWoyqbX2XtIvjL/Gs3bC
-    90o96BbXS52c0yQJvZ5WlZINsX/UXM3LObxPdrMKXAMU5bFAU3dMqcJrmdJczEr/NZgx95
-    X8HCIxWLj9SaVXmlWxF2OCNx96YShP8nR2gk+eSyzY4KVQEg9WDKQBn6rhLw
-X-ME-Proxy: <xmx:p7bgaiHS-Tg4mgb9Zy-3RNoZsceBbswfzqYteQ_VMCKkkjWMcR5XAw>
-    <xmx:p7bgaquUnBfXnHVG-csukZn4i6Ch-6R95S6x3D28CRhLXwJUftaW2Q>
-    <xmx:p7bgahvzrhGZEkf674JNOv8wr8g9yK_OjLYL0EP3dE0-Ex7kU_DT-A>
-    <xmx:p7bgaoCgDyiz3gVo_ucz7uPBk0KKmLMyeb6AQuqVUSS9yI-Y564Qow>
-    <xmx:qLbgakuM4kV2XIz03-g0TOFXZVNmqo-cTpZO_31q7FU_84JDbA1K7bLR>
-Feedback-ID: i32264b73:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 10:35:19 -0400 (EDT)
-From: "Dustin L. Howett" <dustin@howett.net>
-Date: Tue, 27 Oct 2026 09:35:18 -0500
-Subject: [PATCH v2] i2c-tiny-usb: add support for the Oops Electronics SFP
- Media Buddy
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838FE606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:35:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 838FE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 69REZUvj019762;
+	Tue, 27 Oct 2026 23:35:30 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 69REZUoe019759
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+	Tue, 27 Oct 2026 23:35:30 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <732e1fa7-70a0-4abf-8862-3c8913238bf0@I-love.SAKURA.ne.jp>
+Date: Tue, 27 Oct 2026 23:35:29 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,73 +51,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3.2] can: j1939: fix j1939_ecu refcount leak
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Robin van der Gracht <robin@protonic.nl>,
+        Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de,
+        Oliver Hartkopp <socketcan@hartkopp.net>,
+        Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <7df4f6c6-b53f-42d6-9725-e60b763d01f6@I-love.SAKURA.ne.jp>
+ <3958917c-1484-41e8-8d62-99575edbf980@I-love.SAKURA.ne.jp>
+ <20261027033104.76618-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+In-Reply-To: <20261027033104.76618-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-i2c-oops-electronics-v2-1-0601f2ebf579@howett.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBBGr0Jm7Rhaw58r72FYQDvIGNOSTkUN4
- e4WPIDLl3zvewsIBSaBc7ZAoJmFvUugDxmYsXM3QraJQee6VLmqkLVB7ydBepCJwTs2goW1p7J
- oqlrbDpI6BRr4vd9e2x/Ls78nYfvaFiNL9OGzd2e17f4kZoUKDTVlPtSD6qvuMvoXxXh0FKFd1
- /UL7wDVZssAAAA=
-X-Change-ID: 20261017-i2c-oops-electronics-5dd3659782da
-To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Whinis <whinis@whinis.com>, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, "Dustin L. Howett" <dustin@howett.net>
-X-Mailer: b4 0.16.0
+X-Virus-Status: clean
+X-Anti-Virus-Server: fsav212.rs.sakura.ne.jp
 
-The Oops Electronics "SFP Media Buddy" is an open-source USB device that
-provides i2c access, among other things, to a SFP+ network module.
+On 2026/10/27 12:31, Karl Mehltretter wrote:
+> This is based on source review with AI assistance. I have not reproduced
+> the unregister hang at runtime.
+> 
+> Could teardown use a lookup that permits NETREG_UNREGISTERING and a dead
+> rx_kref, while retaining the nonzero ecu->kref check? The registration
+> and receive-lifetime restrictions are needed when acquiring new users,
+> but cleanup must still find the ECU whose reference it owns.
+> 
+> The ecu->kref check remains necessary because zero-reference entries stay on
+> the list until the RCU callback removes them.
 
-It exposes a vendor protocol which is compatible with the i2c-tiny-usb
-kernel module. Due to a bug in prior firmware versions, that protocol
-can only be used with devices reporting bcdDevice >= 0x0101[^2].
+Thank you. Sashiko has the same opinion
+( https://sashiko.dev/#/patchset/3958917c-1484-41e8-8d62-99575edbf980%40I-love.SAKURA.ne.jp )
+and I followed it in the v4 patch.
 
-[^1]: https://oopselectronics.com/product/SFPB and
-      https://gitlab.whinis.com/oops-electronics/sfp-media-buddy
-
-[^2]: Devices without the fix will crash and drop off the bus when this
-      module is loaded, which prevents them from being updated.
-
-Signed-off-by: Dustin L. Howett <dustin@howett.net>
----
-Changes in v2:
-- Matching on interface class as well (thank you Andi)
-- Link to v1: https://patch.msgid.link/20261017-i2c-oops-electronics-v1-1-ce960f8f1b7a@howett.net
-
-I think I've seen the under-the-cut behavior with adding Trailers with
-b4 in the past, and was unsure how to fix it. Thank you! It should be
-better now.
----
- drivers/i2c/busses/i2c-tiny-usb.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/i2c/busses/i2c-tiny-usb.c b/drivers/i2c/busses/i2c-tiny-usb.c
-index 73355a56aabf..07cfa6598a44 100644
---- a/drivers/i2c/busses/i2c-tiny-usb.c
-+++ b/drivers/i2c/busses/i2c-tiny-usb.c
-@@ -162,6 +162,17 @@ static const struct i2c_algorithm usb_algorithm = {
- static const struct usb_device_id i2c_tiny_usb_table[] = {
- 	{ USB_DEVICE(0x0403, 0xc631) },   /* FTDI */
- 	{ USB_DEVICE(0x1c40, 0x0534) },   /* EZPrototypes */
-+	{
-+		/* OopsElectronics SFP Media Buddy v1.01+ */
-+		.match_flags = USB_DEVICE_ID_MATCH_VENDOR |
-+			USB_DEVICE_ID_MATCH_PRODUCT | USB_DEVICE_ID_MATCH_DEV_LO |
-+			USB_DEVICE_ID_MATCH_INT_CLASS,
-+		.idVendor = 0xc2f9,
-+		.idProduct = 0x0004,
-+		.bcdDevice_lo = 0x0101,
-+		.bInterfaceClass = USB_CLASS_VENDOR_SPEC
-+	},
-+
- 	{ }                               /* Terminating entry */
- };
- 
-
----
-base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
-change-id: 20261017-i2c-oops-electronics-5dd3659782da
-
-Best regards,
---  
-Dustin L. Howett <dustin@howett.net>
-
+Sashiko thinks the v4 patch is OK
+( https://sashiko.dev/#/patchset/4b2c8d95-d17e-4f36-a340-abf84693d24a%40I-love.SAKURA.ne.jp ).
+It is time to check using multiple models via the review bot.
