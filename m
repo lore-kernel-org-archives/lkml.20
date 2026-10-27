@@ -1,79 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793132988;
-	b=AzeR17ePZtLVv1wO096RSAJQ0ewWn1PKX7lfSVPZ7nw/LA8sRIJ7Obkhm3hQS+a22CZ+
-	 dTaW9WdIM2A+PcZK9m6FkjAVyyuUYTFzTW7yT9a5kjye0AxfYZSdgSg94Gik0oRUVVATA
-	 +yhfSpGZvC9s953U/X7jq27/molV5nDbKf7+mp1PkCpQC++9lLIk+OJidePG/26/886LM
-	 BHyGceOXhJ8d/SKGV+gK1Ccvxtiax8gncIBf/Lbzd9YDuABrkvXl7xM0sbWgekSmChYtk
-	 TiTHj21zoMkdGayEugVoYpbdWYo/MSWfSuSkxMXmLvd7wv68OrCMH9uTLJSWr7opxrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132988;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8oojwC4mibHluiptbodzWdpbf9DVD5AEQTgnZSOxIkY=;
-	b=4GePuN8s2pf5ywQ8TGBtgsaVILcjiOIvWp46efWsDlXAZoV3yiCjm4eQO5DMhiuw8BTK
-	 iYMO6xMdjq+9xr5seEhZqBYrcgYonxVhJA1E3HnsDiF1aPjj/Few31SktzsHNsKVnmq8s
-	 9OYpw1PCG/JLchmYm9/L5GXHt1nmALOELeZDRjVX93C54TuCqtFm9+3fQU1oeMT4Q9HmN
-	 K2rugqw8w+qajYvUoFY2ULuwiSDq2OAwU7exMD7orABgNf1h4Q/MWj0adF2WNaV3SXdIY
-	 /QZB+LpxsEMRz165q1NRpnzm3/I0wrkL7p9P5kRi7vBe9+nCGBPyccq6Vq37ob0eGbw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8TrWfCQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B190E606A904;
-	Tue, 27 Oct 2026 20:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8TrWfCQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793132987;
-	b=QrK04iyuPJO1aBmos1lgh8g/66NVYcSgstdXgGntntEmMIWW/Zq8IjFa6BmkRdAG8uiQ
-	 oke2JDPwRzSuatBXs5q+qrIh9elu2ThV4iPcTXzG6ZsBNvY/3z/AWAHd7qNdXsmm3a2hS
-	 CC1Cq6vyGQ7U84oKkr7QVvZW5dklB9YtiMC4hwKyDbanYXLMh3uqo7LFHnkF4bEwv87XD
-	 MSuiHxhrZp/cAR/+eNvmp+jJHbPG45HFpOau7QCmEI5H/6H24hrFshHGxKqu3SH/ueYym
-	 gMw5OSpXzKWHleKhe36FgOWe2bBw8NCX0kn3oKMS7Y+T2nyrhf7Cm+tHwJoS3F8SG2w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793132987;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8oojwC4mibHluiptbodzWdpbf9DVD5AEQTgnZSOxIkY=;
-	b=JS6L20xe78YvcheqR4YCOixb54gXHRDZlus5S+nDuJNoxan7XisWO2eBjktyH09dBJpL
-	 qi9Y/V5LosGKHF8jnoI6C0WEqsLsXxKEmxwXGXZgdaYFZ0wH49mkUqKOfFLbwZOmL+MEi
-	 l9UB1x/7ja0VIEys4bciLjZo8Qgqtev9ZuaAFjCZ3U4tCQVkL/QoWC2GvH6YcWGW3ilk7
-	 Ymbu6BLmFrKu+/xTlGwl9QRvZvVmAzcEhQkEOfFHkLwkc6Ja5SouTf9NXu7uxOqGAdcHq
-	 WPTDMTKJBUcdtT9obPfOfPkJkOOK+J1qPurdQaePgbveokM9xl0Lh0olBKmZNkViB2g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.99
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793133030;
+	b=EwshYpCRPjmhLdsQBl1Haa/vAAy+auEIVxIuHIlLdhF4jv5p1lVIjwvHAygxL2GxhB/i
+	 k2D/umdsZuwOKeDl7U5hbTDTI+9FW5VqvH7w5QjIzFDC9hHks7Qq64ynnN4f7numPZuKK
+	 ypii6ctzRIYyQAdMKlRQmRr7PIsiuMCi2sTFnD0voRyVKtnVujccxLsxfvRP3kzX+PXiD
+	 i02EYnXv+gIg3JS40KnnkMXz4CencY+LNdrMGv9qg0OazuArCnIZOr5BM6JI0Qsq4gSmr
+	 eSSVbOmMbfx/ouRH2puYfHhHN51EMm/+dDKxCCakMlWrAeYLtUqtqac0wMXeqTLAubg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133030;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=w74HKg/oDTjmjEJFvFMQJp2IljljHah9hQnQWOM3p64=;
+	b=e3DBPIVq3/jOYdHIqPcgTyvQwziFs2A5KHSCIYew/CHN7ucwp/fLT5svFJU2+LGW5N3J
+	 LeMpSia7HM+nPUayk5DD33xVT4NdLxlmhCAO7SH1JsmzjMgO5jKVrhc/+VmYSfv1ztzud
+	 5xvZtw8NbeQhhwmYPJ1dy3IakB3UoyJGGMT9J3IruaJCoT3cowoEk1dpvWl1HydyxRcoK
+	 oa9DI+MaJg9HZ5V8ivaoWRpqKuNLk4WzXDXftcC0UOuDlOBl3hJSAhBl2CqkCxpJCyviH
+	 hueLEgGj4zD4cZAt6Zp/vQeKp6enzGnX+cFciMp46mA/zA5fvkYuZJKzJlLjQPjLxNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MiUoP6K7;
+	arc=none smtp.remote-ip=209.85.219.99
+Received: from mail-qv1-f99.google.com (mail-qv1-f99.google.com [209.85.219.99])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A71BE1F01828;
-	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793132987;
-	bh=8oojwC4mibHluiptbodzWdpbf9DVD5AEQTgnZSOxIkY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=C8TrWfCQxXAD7hi5ChWZN3HYr+1hqB7L6Zrz07eh9dIZPKQDHXbAwh7glesdGQXq8
-	 +oiDNgWaaYRkT09HBH1MOwU5LM3YmuUzkRad8LYRDkQ0hqymyf4Q3RfbO0enG4wD8Q
-	 R3cgSfMOC39wB1yU8O6dYY+gzMh3Xpcx7UnJ+4al1NDcREcH2DGBBJ3ens6gfls6vD
-	 OHOx699ahQPuB82Rff3eqAtR160STGD/sO1fYl3WCReFyBXc4b15XVwKwIGpr5+q0o
-	 B1D8xeCEm8EKMbKiHjOQL5bNpWJtPyLwtBml6s5sRJGv7jTsQuskX32lJSsbwM6NA0
-	 oY69yAMg6SQ0Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 17D3D45211;
-	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
-From: Marco Ziliani via B4 Relay <devnull+rylos78.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 21:29:45 +0100
-Subject: [PATCH 1/3] media: i2c: ov5693: Program the mode registers on
- stream start
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45455606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:30:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45455606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=MiUoP6K7
+Received: by mail-qv1-f99.google.com with SMTP id 6a1803df08f44-91791ec1b83so2777686d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:30:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793133029; x=1793737829;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=w74HKg/oDTjmjEJFvFMQJp2IljljHah9hQnQWOM3p64=;
+        b=au3X4p93uwRDsSaLE7Ohv0T4OY+ChpBb9DJFPFsXRKqzPEdkDFyPgA7ufiSMPT/jzV
+         pmvprfZSMOiwpKqHTX3tlWRE5GdaamZoqUdRhiE+ZRxKLeE7eNi76CdOw8gsHiOezxZq
+         pBYgK+tCs4753gHfbwVShZCD2ZmHp+YKKiSZWmTY4WY6V00eCAgfiv724u5puSgjlsBi
+         07cCO1s58c4Kn5usT23VCanea3Fd63hH8UaU4SRWZTTOQfN83IHPmn0PubZCfFjvIjtK
+         Hz+9ladNB00ERBUMCXMVDlE3zBRvEg8OuKyKIUCCViLhlfc14l3XhRLkhZ4nqI819y/U
+         +aaw==
+X-Forwarded-Encrypted: i=1; AKwUvBydeHRcin+y7wpuW/VfeieXmdR3ibeqVHX0w9LA0RFmtEot24d/7UgpNULoA+KuAkAA+wTuI4HhQo7z+VQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBHt7JTLRdCz4UVRLjvf3mHPVlx0LG3F6DOac7rJ5KDRs8+Wgm
+	g/YAV3YQgo+KZRUPZCY2GXqc0R3hGP+LzXonOv++24JptItrdDCj5yPwIAfN/9E/5k3DZr+78VV
+	DH+RzpXHxH/rvCCGzopUIP5Vy8Ym3ElSwHIpzCLdcn6/6Jqv6qJEIh8pGA8KQHdtw+SZ3/rPm6S
+	7kHJav9eSbjsMIFcGO0wD6HUVFkkFCyVTSwPdImKX4xvPe2uMN6o+giLUDkloLdNvTE2Hr5HA/O
+	+rjzaO4VR6zc6xFDidvtkfTr0c=
+X-Gm-Gg: AYBFou1SZIkR7jhNDxOr9h38NCyGzSNS48s1gM1LKMYVGmqbaR4mu8IkykjKWpoF18K
+	TgNnIbaaray8zh6+iPzHtYpbm5dJ2YhcYQTkvU+kZcOCoR2h3mpZkGW/0ZLQuHhdcLiGCcIa1o8
+	Vs9z4toakkzCo8EWCMWaAB5ssPpO2sKCW+ucJOdrv+WdmxkREZXDvz/EaSFkKgk108XEk5iclcl
+	njce67hRjQGVlH3mgzstuS4NYNwxHa26MU74a04rzi0D1s97QsyH4cjDmiHPWXRXGHzsu/rJhzL
+	62/53uFLaUU18SuI1yVJEwV0DTR2Bupcu+lLsaC2k0W+vcTuaj4sJVvNtyhUd5ka5MTIDBHKlIO
+	NLEKebQWopHXmjx9aN+gr56auiBxg0wckg0tuJQFMuAdPg6s53oROO4Zc3Kaj2Ov4HB9PH2LB8S
+	cLtYNZRRiL69D/B4E3eztYzwlkmNmGBpnI8dOm8lpy
+X-Received: by 2002:a05:620a:4102:b0:940:cdec:c867 with SMTP id af79cd13be357-94408d509e6mr6062585a.70.1793133028898;
+        Tue, 27 Oct 2026 13:30:28 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-23.dlp.protect.broadcom.com. [144.49.247.23])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-940f06747besm158909785a.8.2026.10.27.13.30.28
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 27 Oct 2026 13:30:28 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso381112a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:30:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793133028; x=1793737828; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w74HKg/oDTjmjEJFvFMQJp2IljljHah9hQnQWOM3p64=;
+        b=MiUoP6K7na3x3fcnsbpxqS9CwUkCp9Af8e36FkNToyKIi1kD93WwFY/JzWqqUjjCVt
+         J17AmeBvRyOXYsv3sZ6oZoGUhAgZl/QVZi06pZNxktrlAho1e7k2KqI7OMCuNKHaFo35
+         9dOop1vTF0tWgNqiGqLv/7IiA1yX06fDllmBo=
+X-Forwarded-Encrypted: i=1; AKwUvBwUvVRiSDkJ3WijsdkYNFGRI3piO/d/q3IRLvQqeHArbttRUTZzNb4EL8NxiMDP+jgdZ3H7LXARSwGDMWI=@vger.kernel.org
+X-Received: by 2002:a17:90a:d00f:b0:3a8:5d1f:59ad with SMTP id 98e67ed59e1d1-3ae580dd6c5mr164203a91.43.1793133027283;
+        Tue, 27 Oct 2026 13:30:27 -0700 (PDT)
+X-Received: by 2002:a17:90a:d00f:b0:3a8:5d1f:59ad with SMTP id 98e67ed59e1d1-3ae580dd6c5mr164171a91.43.1793133026771;
+        Tue, 27 Oct 2026 13:30:26 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae578f19b3sm398088a91.17.2026.10.27.13.30.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 13:30:26 -0700 (PDT)
+Message-ID: <057b41c1-4952-41a6-8e7c-d1549d9213c7@broadcom.com>
+Date: Tue, 27 Oct 2026 13:30:24 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,91 +106,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-ov5693-fixes-v1-1-3c8ab1ae104d@gmail.com>
-References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
-In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>, 
- Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>, 
- linux-kernel@vger.kernel.org, Marco Ziliani <rylos78@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132984; l=2580;
- i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
- bh=vr4kUaykaNDDTvI/XPwM7e2iqb7XHZfVu3/G5P8saTI=;
- b=KEbjbj4KD+HU3Jj/r8hT87ZGcaPSoRdLqR0IID7Onp7iL1z1AJquILfFx5czVp/hu8n+pe0zz
- ZW+D/64usIrBl4yOySMrymilFd9USnYeQ+VhAUdM6CDlJuZacGEKZUh
-X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
- pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
-X-Endpoint-Received: by B4 Relay for rylos78@gmail.com/20261027 with
- auth_id=1333
-X-Original-From: Marco Ziliani <rylos78@gmail.com>
-Reply-To: rylos78@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 0/5] net: dsa: b53: Preliminary fixes
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Jonas Gorski <jonas.gorski@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ linux-kernel@vger.kernel.org
+References: <20261027202230.3539646-1-florian.fainelli@broadcom.com>
+ <179313278971.3327.16155760995395298868@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <179313278971.3327.16155760995395298868@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Marco Ziliani <rylos78@gmail.com>
+On 10/27/26 13:26, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-The mode registers (readout window, binning and subsampling) are only
-written from the runtime PM resume handler, and ov5693_set_fmt() merely
-stores the requested mode. If the sensor stays powered between two
-streams, the new mode never reaches the chip: the sensor keeps
-streaming the previous mode while the CSI-2 receiver expects the newly
-negotiated format.
-
-This happens whenever the format is changed while the sensor is still
-powered. On a Surface Pro 7+ (IPU6), with the sensor held powered
-between two streams, OUTPUT_SIZE_X read back over I2C showed the sensor
-stuck in the mode it was powered up in, and 0 of 16 streams that asked
-for a different mode produced a frame. With this change, 32 of 32
-streams completed and the register followed the requested mode. A
-Surface Pro 9 (IPU6) gave the same result: without the change
-OUTPUT_SIZE stayed at 2592x1944 in all 32 streams of 16 such switches,
-with it the register matched the requested size in all 32. On a
-Surface Pro 5 (IPU3), switching between 2592x1944 and a 1920x1080 crop
-the same way, OUTPUT_SIZE_X stayed at 2592 and none of the 16 streams
-in the new size produced a frame; with this change, 32 of 32 streams
-gave 10 of 10 frames at the requested size.
-
-Program the mode on every stream start, before the controls, so that
-the mode registers don't clobber them. This matches what commit
-4e1446ac169a ("media: i2c: ov8865: Program the sensor on stream start")
-does for the ov8865.
-
-Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
-Link: https://github.com/linux-surface/kernel/pull/181
-Signed-off-by: Marco Ziliani <rylos78@gmail.com>
----
- drivers/media/i2c/ov5693.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 56599f9ca..579aa55b7 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -1000,6 +1000,19 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
- 			return ret;
- 
- 		mutex_lock(&ov5693->lock);
-+
-+		/*
-+		 * The mode registers are otherwise only written on runtime PM
-+		 * resume, so a format change on a sensor that stays powered
-+		 * would never reach the chip. Program the mode first, then the
-+		 * controls, so the mode registers don't clobber them.
-+		 */
-+		ret = ov5693_mode_configure(ov5693);
-+		if (ret) {
-+			mutex_unlock(&ov5693->lock);
-+			goto err_power_down;
-+		}
-+
- 		ret = __v4l2_ctrl_handler_setup(&ov5693->ctrls.handler);
- 		if (ret) {
- 			mutex_unlock(&ov5693->lock);
-
+Except for issue #2, all of the other issues did trigger in testing and 
+needed to be corrected.
 -- 
-2.56.0
-
-
+Florian
