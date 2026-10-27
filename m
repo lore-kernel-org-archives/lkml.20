@@ -1,87 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112992;
-	b=T7qdsn5vYYFej+ga+YEAHMdFmSfwLEQ/OiPG3H4w5QbXEp9/anaRWG/yXMkJERIHHFSj
-	 mZIyOBfo72lJ+IN9uz+8+4id8NquX8N6EweFf2klVbmS2S+YXSn7EWvkF+n64CIwbeEgj
-	 gvN8qhIAyzD1aWophDUYlMmZXmgoc247707hb1zbmqdQ94A8PPQH6COYc/dY5JEpTJASs
-	 YemBgRuWLc9+tNwpnwXsMzNqg1jbsJs1zVlmiF6RVcA+/w2uEwiE39jEdLETBVSXOEMDU
-	 OmjUxKuE/XXRNBSvMrcIGy5iFJQg9upLGNGmi8bTWmbfmYFhnv6EVax+Ilssgy9fWaw==
+	t=1793113039;
+	b=0GS4Q/1sEKDmO9yv0gtiBB8A5ZbdMZ8z1O9NevoeSxqQMwxT2iMzkvrjMK9sqcxKUbdU
+	 aj6kfv5PD+Ut+Zpb4u5cg28XOL8xcaX5A/c75B1+rIO7BRcpo2rHezqraOCmwCVENG/hH
+	 WbZrYPjO8O+4sgxpGAbXz+zy3iLbmc6H5qE7/ta+G/dr82XGuRIT09plFsSYpg5/caMgg
+	 +c8PiNcamOMkdUjQd+xckIOm+h9vk2wKn415Z6LkZsH9AC9ifxPSwNVURBZS0yvfQuW5M
+	 lC1Dk7dW2smfdayqieOhnbheXKdAumaPaKBaAjHDbo7Z7/MZSy47DYGA0ASQui2VCJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112992;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=u1dD9kKTSvQydGIkIP8wNeoMYn3abPERgC1itA5uKVk=;
-	b=N36FDtBarBvbDo/8FpfQL8EUljEil9ZnXGDKmlTIxrkLWs51Qj44t6wH5hWR9BrQPUmP
-	 5uwUIjqJP4T7/w49LIz0S9nFtKaHeL/s7PLbGyhcsoSJm0PXO2l2yNFOv8wJrh+/LcYf7
-	 FWyg2RjiiB9CvIo2jJXrDENxGX+VOzmTgPmNaijPLRHuP6dIyMJibr38SzK6JQND44IpA
-	 H7CXRkKMHb+ML9hX2Elo20fAHRcNXk0jq3/DgvSf60erL6UGv6qkM7eShKenK8UHJPiYZ
-	 rXLcFsuTODEyTYEZj/sW0YtAXDVZevgllVtdrGNeCmcR+And0Msk9QKR9el9fZFUeYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113039;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Bvj+VEfapM0R1/crUGbkmB9nlGglctmeDzltg5vYsMA=;
+	b=RbwxOaJ/3XhDWeRCCKWo9wDKZ2z+rAQgv4YEj90g4dO5jXM5JVS3xqgauQSWS1Q36bG6
+	 uYezewISXArKFzcMEb+GMAYFiXETJZkNUSEN4gUH93mP0NaXB6nhegPcqc3fG+RDwxtB2
+	 FpoL5v0UrF3L0sN2/y+9Ay5tcMxI1lHvdL8nqAUvK0j7m5+++RhggWo9JOEaotkQWkaFX
+	 frGdiagKblKMUh5sutGb5K8dsHwLsecmHqlejVjoGhNOLr+JAwGojckZs0+aI+0X7eyoz
+	 ATMIZJNNrBf8I4dB5L386jGqjhhrr+hWYAneV9W8bOAO9OcyeHJfV4g97+8VwnVCVmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Zt7xVYh/";
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=virtuozzo.com;
+	spf=pass smtp.mailfrom=virtuozzo.com;
+	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=tN3fofTP;
+	arc=none smtp.remote-ip=130.117.225.111
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C5D606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:56:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91C5D606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8508F606A31A;
+	Tue, 27 Oct 2026 14:57:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8508F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Zt7xVYh/
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so27268555e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:56:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793112980; x=1793717780; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u1dD9kKTSvQydGIkIP8wNeoMYn3abPERgC1itA5uKVk=;
-        b=Zt7xVYh/6RPLx3K9G+46Ds3mczTrIFOD+unyxhWrSNVhSA5q4/72XC40TecYu1oArr
-         p1AjHyCl0bl2yUcnZlr0hs+C0CihP3ND0pTfG2zQNGDdtC1M9HT9jXjs0Ua4bFxQ1c/P
-         5YN/7kdhIQ1sy/zFG8ziSTbcsuSutRGdDNXSmh3aGcPZbjj+XE/yzVGC0mv3FdEr2N5d
-         Y9SJrWfikQfPaJPuMnAsjqQYj1rcFwT0FZOsZG0i1HJW/blxYfxTFfdAdQBFJ7TVz8dW
-         jUHz6XbEvRxNO5aAM8xMfgyae7ORyEw7BVtXei47eAX/B1kKIPkcC9FmNrC+7/n7RZ8H
-         aeKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793112980; x=1793717780;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u1dD9kKTSvQydGIkIP8wNeoMYn3abPERgC1itA5uKVk=;
-        b=DpRh6ZnxLOCnfCy4YJggOL2Dxf4KB2+tAfx3WZfU52c1jkb6BKmEogq0Bv0+HB/J9b
-         B31FLh/Nh5VYOrKR78u9dYsuzYnYrsLmparEqRivkpg3SFhoZgf7EBikeWFaK7m/jXu4
-         8vto5fpjYOM+T1P9Tr2hC19iZTYTY1wdhxOTALvP6/kGheN2l7hoi3BpjonQbUB2gMyY
-         8V8pmVOyR976Io8ZcyhqGw2YYk1zchVDCb5XhHrMB10jdGyMhfFXDZDNPZ04QzvEteWQ
-         wcsEhH9WVMZ41+gAGr2FBdsOH7PaoiX3Fv7spyPnkSlZpZCxCEy+ZNEJjUEEh4gxTkjx
-         Jafg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmilOnnc006D+2ZrQ3TSv+Z1NsYqivArNYZvsN7kgIm9z95eJeqqlyQcvq0NzT47lJwTyWcOqixm0oSaA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJd/COWagDYO2KGb7/6hf/6KiEjPhx6REyJ1WLoWwmx4gbQtvZB
-	dMC7YFp1sgRazfMc3AljgtT/r/M9bNHgFrnbXyf+C6TvJTUBh1FPE2jRWWGHv2BuvPA=
-X-Gm-Gg: AYBFou2YW3ak6Kr3hEZGMzxBN3VcCIyILhWt/ii1BiCGq+Uc4BRdJO8appwuuCnXqBB
-	Tk2GDx3qxzSv4dNGdYFEtiket3zGDFUIo92xfCa7YS3pGasht3k92QCi44LONAY56e/aufdZK7j
-	M74cfGCAxeMgTT2o4GjtX0NS7sce7pM1PtGQ5O9dUxpPZryhqXm6rZZdW8fcrlexXUCSHX1MwDf
-	C3FxRbW/HHg2nGYqSkwPVg54Htb//QfMXr7Cp33WF8MVQduR67gjn7J0qaef/fTrvJnZNWuW/Al
-	Pi1F9ygMn2so/2+9fLV0o5mMvI03FYEqhaCdyLCfA1eeQSpYKQ2NtrjnwB9FNBHOixgMgcHXpy3
-	HbiPzeHDRvCeQK0Z/4MtNy3yFfHSLgUQXZXHueTduK/9F7ZS6Q0uCTHerc1ccx6tdoHNOxC6tdQ
-	Q+O1pyEhVyxhTGV3xRhmuLLHEmFzFmvNldfwzf8n5XsJOy7aQ3eQktd1ifB7ihm9+iebxSze6ig
-	mUgkH224nM6IlrWGdMGVMl6qsGUgq7yAYlNA2COluk6EK8C94eu42gLlk0=
-X-Received: by 2002:a05:600c:4445:b0:4a8:b8b4:6226 with SMTP id 5b1f17b1804b1-4a8b8b4623cmr28880515e9.28.1793112980006;
-        Tue, 27 Oct 2026 07:56:20 -0700 (PDT)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm273188835e9.2.2026.10.27.07.56.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:56:19 -0700 (PDT)
-From: James Clark <james.clark@linaro.org>
-Date: Tue, 27 Oct 2026 14:55:51 +0000
-Subject: [PATCH 5/9] coresight: syscfg: Take csdev lock when removing owned
- features
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=tN3fofTP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
+	Content-Type; bh=Bvj+VEfapM0R1/crUGbkmB9nlGglctmeDzltg5vYsMA=; b=tN3fofTPUpWv
+	F8Dlif9CUns04hM+TM7EQoSaI6bJcsPiSZikR2ecvNpMzU/zZRQPnJmxkaXZW55Pxt2/dBshLpoQE
+	ouZCooicxEuxwGhRRivxVyzyjXtvAQaIeiKb0/vnOjIGEX6zGWQ+MbLnEaJQkgUw4dMZ0arC/xVLG
+	uLuFkAoDJCJDL/IKueDX/KkujoKlkoFEPJwTkSA8UIhtPaI7DSSp1T2FNjZxlIQVtIlfJbfBgOsEw
+	4kfqckP9m+IQrvh5309YOhxPl8Pn25wzU8mcv40bA8WEEQGCc2eEDQFoJRWHjBXwjL5U27Fq81IZr
+	7P6BaOha4H+mbxb1yC6x6g==;
+Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <eva.kurchatova@virtuozzo.com>)
+	id 1xLiXw-00FAir-2k;
+	Tue, 27 Oct 2026 15:56:47 +0100
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Cosmin Ratiu <cratiu@nvidia.com>,
+	Stanislav Fomichev <sdf@fomichev.me>
+Cc: linux-kernel@vger.kernel.org,
+	syzbot+c6c86a1c56b5131f2d97@syzkaller.appspotmail.com,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH net v2] net: fix self-deadlock when an upper disables a feature of its lower
+Date: Tue, 27 Oct 2026 16:00:49 +0200
+Message-ID: <20261027140121.1192299-1-eva.kurchatova@virtuozzo.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,45 +71,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-james-cs-sashiko-easy-fixes-1-v1-5-db43c4668644@linaro.org>
-References: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
-In-Reply-To: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@arm.com>, 
- Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>, Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-cscfg_remove_owned_csdev_features() modifies csdev->feature_csdev_list
-without holding csdev->cscfg_csdev_lock, but other users of the list
-like cscfg_csdev_reset_feats() take it. Take the lock in the same way
-as cscfg_remove_owned_csdev_configs() already does for the config list.
+When an upper device ends up without a NETIF_F_UPPER_DISABLES feature
+(LRO) that its lower device has, netdev_sync_lower_features() disables
+it on the lower device, taking the lower's instance lock since commit
+af5f54b0ef9e ("net: Lock lower level devices when updating features").
 
-Fixes: 02bd588e12df ("coresight: configuration: Update API to permit dynamic load/unload")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-6bcce2f2-5aba-40a4-8946-4d843ec84683
-Signed-off-by: James Clark <james.clark@linaro.org>
+Upper devices recompute their features in response to NETDEV_FEAT_CHANGE
+of the lower device, and for ops locked devices that notification is
+sent with the lower's instance lock held, e.g. from ethtool. The task
+then blocks on the lock it already holds:
+
+  dev_ethtool()                        takes lower's instance lock
+    netdev_features_change(lower)
+      <upper>_device_event()
+        netdev_update_features(upper)
+          netdev_sync_lower_features()
+            netdev_lock_ops(lower)     deadlock
+
+Triggered by enabling mlx5 LRO on a host with VM macvtaps on top of it:
+
+  INFO: task ethtool:5963 blocked for more than 122 seconds.
+  Call Trace:
+   __mutex_lock.constprop.0
+   __netdev_update_features
+   netdev_update_features
+   macvlan_device_event
+   notifier_call_chain
+   netdev_features_change
+   ethnl_set_features
+  INFO: task ethtool:5963 is blocked on a mutex likely owned by task ethtool:5963.
+
+Reproduced with these upper device configurations, and netdevsim as the
+ops-locked lower device.
+
+ - macsec with LRO in hw_features, but masked by macsec_fix_features().
+ - macvtap without LRO enabled via TUNSETOFFLOAD.
+ - macvlan, bond or team enslaved to a VRF or batman-adv device.
+
+There is no way to tell whether the current task owns the lower instance
+lock. Try to take it, and otherwise leave the job to netdev_work, which
+disables the features the uppers lack under the lower's instance lock.
+In the deadlock case above, the lock holder is the context that sent
+NETDEV_FEAT_CHANGE, so steal the pending work at the end of
+netdev_features_change() and run it inline, like netif_rx_mode_sync()
+does for rx_mode. The lower device's features are then consistent with
+its uppers when the operation returns, as before. The work only runs
+asynchronously if an unrelated task held the lock.
+
+Tested in QEMU with lockdep enabled. The stacks above hang without this
+patch, and with it the features end up disabled on the lower device
+without lockdep reports.
+
+Stacks with bridge, bond, team, ipvlan and VLAN on top of netdevsim
+behave as before: these call dev_disable_lro() on their ports.
+
+Fixes: af5f54b0ef9e ("net: Lock lower level devices when updating features")
+Reported-by: syzbot+c6c86a1c56b5131f2d97@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a6be82b.77639fcc.3d4fd0.0014.GAE@google.com/
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 ---
- drivers/hwtracing/coresight/coresight-syscfg.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-index 7e3c9844bc00..f93150a1bee4 100644
---- a/drivers/hwtracing/coresight/coresight-syscfg.c
-+++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-@@ -415,6 +415,8 @@ static void cscfg_remove_owned_csdev_features(struct coresight_device *csdev, vo
- 	if (list_empty(&csdev->feature_csdev_list))
+Changes in v2:
+- Send no NETDEV_FEAT_CHANGE when disabling the feature fails, the upper
+  deferred the job again and the recursion overflowed the stack.
+- Run the deferred job on a detached device too, instead of dropping it:
+  before the patch the caller waited for the lock and then disabled the
+  feature regardless of the presence.
+- Correct the kernel-doc of netdev_features_change() that it may disable
+  features, and explain its locking.
+
+Link to v1: https://lore.kernel.org/netdev/20261023000951.237641-1-eva.kurchatova@virtuozzo.com/
+
+ net/core/dev.c         | 47 ++++++++++++++++++++++++++++++++++++++++--
+ net/core/dev.h         |  3 +++
+ net/core/netdev_work.c |  4 ++++
+ 3 files changed, 52 insertions(+), 2 deletions(-)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index e76762e29360..853e34d5765e 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -1605,11 +1605,20 @@ int dev_get_alias(const struct net_device *dev, char *name, size_t len)
+  *	netdev_features_change - device changes features
+  *	@dev: device to cause notification
+  *
+- *	Called to indicate a device has changed features.
++ *	Called to indicate a device has changed features. Also disables the
++ *	features which upper devices of @dev have off and could not disable
++ *	on @dev while its instance lock was held, so the caller must hold
++ *	RTNL and, for an ops locked @dev, its instance lock.
+  */
+ void netdev_features_change(struct net_device *dev)
+ {
+ 	call_netdevice_notifiers(NETDEV_FEAT_CHANGE, dev);
++
++	/* Uppers reacting to the notification couldn't take our instance
++	 * lock to disable features they lack, do it now.
++	 */
++	if (__netdev_work_core_cancel(dev, NETDEV_WORK_SYNC_UPPERS))
++		netif_sync_upper_disables(dev);
+ }
+ EXPORT_SYMBOL(netdev_features_change);
+ 
+@@ -10968,6 +10977,31 @@ static netdev_features_t netdev_sync_upper_features(struct net_device *lower,
+ 	return features;
+ }
+ 
++/* Disable the features of @dev which any of its upper devices has disabled,
++ * deferred from netdev_sync_lower_features().
++ */
++void netif_sync_upper_disables(struct net_device *dev)
++{
++	netdev_features_t disable = 0;
++	struct net_device *upper;
++	struct list_head *iter;
++
++	netdev_for_each_upper_dev_rcu(dev, upper, iter)
++		disable |= ~upper->features;
++	disable &= NETIF_F_UPPER_DISABLES & dev->features;
++	if (!disable)
++		return;
++
++	dev->wanted_features &= ~disable;
++	__netdev_update_features(dev);
++
++	/* Notifying a failure would make the uppers defer this again */
++	if (unlikely(dev->features & disable))
++		netdev_WARN(dev, "failed to disable %pNF!\n", &disable);
++	else
++		netdev_features_change(dev);
++}
++
+ static void netdev_sync_lower_features(struct net_device *upper,
+ 	struct net_device *lower, netdev_features_t features)
+ {
+@@ -10980,7 +11014,16 @@ static void netdev_sync_lower_features(struct net_device *upper,
+ 		if (!(features & feature) && (lower->features & feature)) {
+ 			netdev_dbg(upper, "Disabling feature %pNF on lower dev %s.\n",
+ 				   &feature, lower->name);
+-			netdev_lock_ops(lower);
++			/* The caller may hold the lower's instance lock already,
++			 * e.g. when the upper reacts to NETDEV_FEAT_CHANGE of
++			 * the lower. Don't wait for it, let netdev_work disable
++			 * the feature instead.
++			 */
++			if (netdev_need_ops_lock(lower) && !netdev_trylock(lower)) {
++				__netdev_work_core_sched(lower,
++							 NETDEV_WORK_SYNC_UPPERS);
++				continue;
++			}
+ 			lower->wanted_features &= ~feature;
+ 			__netdev_update_features(lower);
+ 
+diff --git a/net/core/dev.h b/net/core/dev.h
+index 04fb0e9a571e..c3d9d66bfb5b 100644
+--- a/net/core/dev.h
++++ b/net/core/dev.h
+@@ -174,8 +174,11 @@ void netif_rx_mode_cancel_retry(struct net_device *dev);
+ /* Events for the async netdev work, tracked in netdev->work_core_pending. */
+ enum netdev_work_core {
+ 	NETDEV_WORK_RX_MODE	= BIT(0),	/* run the rx_mode update */
++	NETDEV_WORK_SYNC_UPPERS	= BIT(1),	/* disable features uppers lack */
+ };
+ 
++void netif_sync_upper_disables(struct net_device *dev);
++
+ void __netdev_work_core_sched(struct net_device *dev, unsigned long event);
+ unsigned long
+ __netdev_work_core_cancel(struct net_device *dev, unsigned long mask);
+diff --git a/net/core/netdev_work.c b/net/core/netdev_work.c
+index e721a06d58df..097c9535845b 100644
+--- a/net/core/netdev_work.c
++++ b/net/core/netdev_work.c
+@@ -118,6 +118,10 @@ __netdev_work_core_cancel(struct net_device *dev, unsigned long mask)
+ static void netdev_work_run(struct net_device *dev, unsigned long events,
+ 			    unsigned long core)
+ {
++	/* Not gated on presence: the caller used to wait only for the lock */
++	if (core & NETDEV_WORK_SYNC_UPPERS)
++		netif_sync_upper_disables(dev);
++
+ 	if (!netif_device_present(dev))
  		return;
  
-+	guard(raw_spinlock_irqsave)(&csdev->cscfg_csdev_lock);
-+
- 	list_for_each_entry_safe(feat_csdev, tmp, &csdev->feature_csdev_list, node) {
- 		if (feat_csdev->feat_desc->load_owner == load_owner)
- 			list_del(&feat_csdev->node);
-
 -- 
-2.43.0
+2.56.0
 
