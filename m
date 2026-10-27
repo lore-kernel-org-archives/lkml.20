@@ -1,58 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103015;
-	b=prsuqgqv8SC1pBG5B8GGnnJ00V8tcd0rOP5XDBfKt7ZKkL6VCndUb0IyAgofQBzimBqB
-	 mqPpQDCjcCbpxFbBsI8c2RWMU1bw6cRWO/VQ5rFqEfuwY4ZhEjQRbcdrSWHFLfaLin4As
-	 SP0BfZLb+BIkRUOh6WF7Ty3tLecZ9svXnYw9FecWWKUclgr5lSM0489hmZTDoOXhdWhak
-	 m8L1ojxfeUVkTO2f4vP8eyZJICVohJFb9QYG6DAb1klNsG2+2DjUIGLDdpCJ/aDKUpqmX
-	 4XOOmBm72Dk7xPkGUh9EjMK4J4mg6dLybzERBWhfw2NAwNWCJBMRz/he/SMFVLtVgEg==
+	t=1793103048;
+	b=C1qWCUkCxQE3gKOnNclMqxdblUlSUdKdRiK9Cn3exkuJ9dcRQEJ8f6x6wsqFNZPXWJJ3
+	 07q/cIO2+ZsPusbIv+iRFYXacU8CDdvK0XK1gBfxLixoE8IvcdyADPIpkl2V4d8sdbYBn
+	 XArMZuSttYrkxtegTIzXbMDy7M/GeFyXCqxAUtW2jg0Qn0PTatiGdRGZJQ5kHiMej0Zdv
+	 sAHnixOk72yQqqOyW/vvhfTx0xIxC7Tbrc7pZbSFT8lhVGZeB+MYtad//hwvzuDijkx//
+	 z+jIjiD2Sd+gRWn4I9uFU1Lp6Kl294EhixefvwjssZpZiWuqHAjgTVh4yztbUJtVnDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103015;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	b=UDtKWVQDL+pFEXF7CceHOFGcGJtZUfQJpmYg9HTHQpmqP4OZjZtLI2hkWMI72oB635f2
-	 dr4l70t3w9GhZZ2KJ7OJNsvnSVDiEBmR7D7PJSjlxfPHZiT2mRfMhEKsDHfEqusV8OiGr
-	 7VO231nkVPYLgK1Hh+kKtEgHJxm8CH5xgvV/yCnHDPWM41hzdYecWOuKjGy83CvgPpppf
-	 xHH3UhhEWNrDqYiexC+nMDDmMTRO1mYLNie/HuqRc5Iay/haEeeBY8Oja9ntEMld5gCOo
-	 tkF6dVwhW7Dbqp7KCQJgeO82BZ/a0VC6QOw600IPlMeJ1f4gQZC68c4gfR6ivi4d9WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103048;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1VQjrw1Euxi4TbH9hbPniZhHv8s080YQR+PmEDM4C/c=;
+	b=aiqho14ssy+hAwcvZ27nEmQJUPWQWHtFZaAPq974V6IwHnCpnwx0oF9h5wBF+/Qt9epy
+	 SgWK1SvIG+PBM4ZOaxx3PbBOoUlSArM/B0xcXrqcx2UdJVhNq5wJEv5r4hgjMkk/ceJzy
+	 gOkv9MchA0OTAlOC9uKNte8dhekqnagonRR6vmszG+rXWAtAHWhLmHQZILm2X74jXLkbm
+	 ZCdBvQZ4f+2snv31heaGScyT8msPzgdTDjASUWmgAC98okQWDOgtauWrZxQrTvA/LwjyF
+	 L9LTxTuQbpC9dZdrhpyt5ZEHj26Y2/CXJLXbum5ZjRL8sUd9a+1F0fycKL/HtVS0iWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fk1swWef;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=hackers.camp;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86243606A33F;
-	Tue, 27 Oct 2026 12:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fk1swWef
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2AA71F031E3;
-	Tue, 27 Oct 2026 12:10:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793103015;
-	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fk1swWefcyig7zA32v+pewLpYJn6CTN/5w6TToqyTxeQTFGppgjlhV7s2oowNr4jY
-	 hseyZyzbSH0NQxUoEO18iXZqZmON1/rwXDqNnVjtvNO4mDUMWfqi9IbCFPudSZjBMb
-	 AEI5VaEBg4XVeTg2Owmp/xYrOy5WKrQIURiLX3zSWf+qFrfC/8BfjUcGFHWOaL/5/I
-	 veaGNl2aPAdPiP3U1VPKDeEB3P0m8EFtdtNvX6u/2t/XyBLBvxsPJpe8qtrE4X6/rb
-	 yj7Ui1EsyreSIrk159iPkEXjs/FVci+5CXidV7j9wIWgPmyA1Ll9QrVjUz/19LUa8m
-	 arz7/dixxH7OQ==
-From: netdev-bot+sinfo@kernel.org
-To: Federico Musto <federico@rimpianto.com>
-Cc: chris.snook@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: atl1c: free the RX buffer when the descriptor
- reports an error
-Date: Tue, 27 Oct 2026 12:10:14 +0000
-Message-ID: <179310301440.3327.713112000658731384@kernel.org>
-In-Reply-To: <20261027115156.17128-1-federico@rimpianto.com>
-References: <20261027115156.17128-1-federico@rimpianto.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D13606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:10:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89D13606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hackers.camp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48dc1508191so603943f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:10:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793103046; x=1793707846;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1VQjrw1Euxi4TbH9hbPniZhHv8s080YQR+PmEDM4C/c=;
+        b=wih6xbxCVdcA6FbrXfkIPSqJXcwQ7I7Sr5KO6J7ihbW2vnaBxKgbeZ2ioKhdOKECsS
+         chDeTsKkPjMws0t0ulvKIfFSGnnwGm1JbrIA6kzz/qeAL+0G77QvzCHEf+F88Uu/0EC+
+         6/EVwCozILl5OUkKgyUniTrYIncI5OgbS59UJiMBM4/8D4Idg5PGiW6+D9AbiG6l+b67
+         //knFPFjky38NzxnMZ6ExkTB/gaiAZs9lSxFR76KZA56NSMbVSq/l/EnFXsv07XbkB4s
+         v3lK3o87rw6JUgENpu/6mutznDbfZCcp2yYNkIq7yPinrfeLbWzblXJxJFrRXdGaIXVD
+         pehA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvJ0I6efcX9RIPsmkUAMJqmCYPdtJnVCYLMqVfhjfXX1oRXRhZzblZ0olKIkF8dPrRgVN1g6g41JC3YyI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYShcqzsPZtEdscKvrktAqWvJjlkApCKOGLsoveIskPgMLgHEO
+	bvvI5inRB6xFiPeXRj+S3K7Ej+Gz8gOwL5ddsLKmjZocWVDr53ypLYJ3
+X-Gm-Gg: AYBFou3Qw728xwqX5iAE1nehicepn/y8DBiIBzD1ilTn68rAyfxGCgdar4IN2qWDX3D
+	MlwqAxVBja15vIF+EvaK72tTIrCCyDyOUX9mZ5/hQgdIG5SaPPyT8Es5vRwdHUA4/G2FJI6sWtM
+	bxEpag85BVd5hiVsQRGdT3Cw+6gxb8P6qDsg1E174a/XAQksidSptmgaIHrvRImlw9bo5Dmsn02
+	c28GeKX4uJ7LAGsFcgfVv5nAh5fyvwGnbdB6Fa2/EJ4Ff3Y2o/LXZqKXqd9FCW6OF9rLEb3IUoF
+	6HhkYTm11CfyFVkC1fwJXzk0nYED6qWPTLHEFcKrhzLqr70aYB6CR9hZOR2rCE68Yw2Sd7TTjdt
+	Qv+HrHGyoPFoSAoNf3qQ3XNwdxgwOV1kX4YhPY+BB2Gj4CCCq4T4VAApl5RTRe7kD/dDyx1+U0W
+	oAt3EWocHcdlNLjqZrsSiy8JdcAfGk9twvmaHPbcoKoRMhzkICiybwm5a3HiISI8/TPi2oQUKl7
+	atNtnrq8h5MtZgISYNma/8tY2kRCh5DxgaZyLlbTWoM+Q12ie24mGe80yLnOLWv/n5m9RQgKZIo
+	GNv7sEG1+W6BpEBJDA==
+X-Received: by 2002:a05:6000:2406:b0:48c:6611:82 with SMTP id ffacd0b85a97d-48e3eb2b637mr20593069f8f.1.1793103045646;
+        Tue, 27 Oct 2026 05:10:45 -0700 (PDT)
+Received: from spartian.home ([2a01:cb1c:76:ed00:602f:c5f4:d108:b925])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm22239473f8f.4.2026.10.27.05.10.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 05:10:42 -0700 (PDT)
+From: Aurelien DESBRIERES <aurelien@hackers.camp>
+To: jack@suse.cz
+Cc: brauner@kernel.org,
+	willy@infradead.org,
+	viro@zeniv.linux.org.uk,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot@lists.linux.dev,
+	syzkaller-bugs@googlegroups.com,
+	aurelien.desbrieres@gmail.com
+Subject: Re: [syzbot ci] Re: buffer: warn when a buffer is attached to a second mmb
+Date: Tue, 27 Oct 2026 13:10:41 +0100
+Message-ID: <20261027121041.68485-1-aurelien@hackers.camp>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <6ae064e5.768774f5.3237ab.0015.GAE@google.com>
+References: <6ae064e5.768774f5.3237ab.0015.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,25 +88,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+On Tue 27-10-26 01:46:29, syzbot ci wrote:
+> and found the following issues:
+> * WARNING in __ext4_handle_dirty_metadata
+> * WARNING in fat_add_entries
+> * WARNING in fat_alloc_new_dir
+> * WARNING in fat_remove_entries
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Jan, thanks for the Reviewed-by. Before the patch goes anywhere,
+syzbot answers the question it left open, in two different ways.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+The three fat hits are on crafted images (two of them print "Invalid
+FSINFO signature" first): directories whose clusters overlap, so the
+same buffer is one directory's and then another's. That is the
+multiply claimed block the cmpxchg comment is about, on-disk data the
+kernel does not control, and a WARN_ON there will be filed as a bug
+for every new image syzbot finds. If the assertion is to stay, it
+should not be a WARN on that path; a ratelimited pr_warn naming the
+device would say the same thing without a splat. I can send that as
+v2 if you prefer it.
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+The ext4 hit is different. It is the nojournal branch of
+__ext4_handle_dirty_metadata(), reached from ext4_xattr_block_set() at
+the "reusing; refcount now=N" point: an xattr block that mbcache
+deduplicates between inodes, by design, marked dirty through the mmb
+of whichever inode reuses it. That is one buffer on several inodes'
+lists in turn, in ext4 without a journal, the shape the warning was
+written for, and the window in mmb_sync() applies to it. I have not
+reproduced it outside syzbot's repro and do not know ext4 well enough
+to say what the right fix is there (mark_buffer_dirty() alone for a
+block with h_refcount > 1, or a list of their own, as we did); that
+one is yours to judge.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Aurelien
