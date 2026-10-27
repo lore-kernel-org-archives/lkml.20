@@ -1,60 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.242
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093744;
-	b=ULG379PvQkrEKIC12eIm10AunhzcadEHoiEBmkcyDnKKKEuYFCEcQiI3TUmvoqTw3239
-	 EmZak5iGzRXblPzwbKxvTFziK89dhzkmsU/BLgb1afTnhwA6uSsRsvFPKRRnXiWUeI62q
-	 2pxshNBCC+RHxOgXOskNTRMu+bSrPEUmcMjjQCsqhXTt23/Q9Vag/YYFAMjRnGQv2vDfR
-	 LnP75OvPjQhAWV3h+0OxyhS//HFUkNyHWijtqpX/IhPbrkuzrtGvOZfdZPRJ1CxTNdCG/
-	 k5U4sX6YDm7FeMXT4RevB5DWPiCvg7JEXbxIWZFHvleh9zUFDRT0DafazHSRE2py5fg==
+	t=1793093758;
+	b=SHxund1oso5Y5ax8kqB2Prg0RwOWfQ9vPeyIp20792wWeMatDGqoZJkGyf1J/GXQoT4X
+	 qRVG8D4pu0V2oCdTVNwHccT0jP5/LqnFLR4hZvPAlRJESTnwGykJrHMWpEevBkFIJoW7W
+	 F184KquLL+hF04phcV4P4ijp3gll0v/hPKBi1I/uN8NKLcIpIzKJvzaJIq+I2A6a1aqwY
+	 TtSQpAOcou+4Z2gnm1v2BGGFtQ6B9H5Qtp1Q0GmO3eGU0KoAhLVxYzqa8u3LpxKfAZkZt
+	 mIfdQz04HT+xUAvMo4/BI7k7TrWvxv5XJj70EvcHIrDXig8xgzFd5+GU2mS6ZAahwrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093744;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=zO705erkzkkbOFgseM2V3u/J1XcG7q9YV+Ps2I7c14E=;
-	b=iyL3WYXVRUFU7eWpaMKYpeuqAWGv8HMo5B/kjCsyJxb/o8Qi5PEQ/LnKjHMIOFzvbqmf
-	 m8YmMG/OfVsyFsSEkIqFTQrbD4pcHlMoRf85qvj4de/LZBz+5dgVv3QTa9uhTsqTX3oNO
-	 sSzl3jSSwMwzTy2odHe5PZckmdZl3//Aa0FSdf24ignAeEXgQuw0tU+ej8Lub9GSPpOtP
-	 xtFbaIU9eXA9AWmoRl4w0n4ua2rULyxmYumAsmtwRRSv1bH2U8rIVjvqaFm3VJ70Nrrxg
-	 edPaWEtpC5zC/Q0fXylJ627M4RjGHi/nHWMx5YUaddoyqcFMhN3BYnOtY6TKw60c3jA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093758;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=lxV7GHFbCpH33c+sUjwQ4RqgTOdSUkKKj20dfYYLSeQ=;
+	b=0czlVIWG79QaYy8ZDRNAtP9ym9bmNFdYpkfaJ6IvEWSVzK5qIdeHhzyoArdEQPafzc5I
+	 35y0f0ra5qtyjQ3WcmTUghip1rbU4MnGYjU7aI9bXE2cgTZwulaPhvevzVdDazbUL0o8t
+	 ITsnLvB3mQS9CrHT1d5LWTgrAU4zsH+jSqfgmdV2rjHf4RYjgbofps/hYRmxgZrhKC72s
+	 7ZxQtAET1dJn+yfKCcMDui6NQHNv6UGt1vskkSqmH4d7pda2TFMJgm4zmKuzQnctZXaKN
+	 uZjK9zpOZtKSHw3hnrMGGEbvMX8qX67CbkT32pziGEasRYBLJYeO/NCN4nhDqrnusVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Jobqr103;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Ed9vJqa5;
+	arc=none smtp.remote-ip=203.205.221.242
+Received: from out203-205-221-242.mail.qq.com (out203-205-221-242.mail.qq.com [203.205.221.242])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D79A606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D79A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51413606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:35:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51413606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Jobqr103
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zO
-	705erkzkkbOFgseM2V3u/J1XcG7q9YV+Ps2I7c14E=; b=Jobqr103DL/W7J1swt
-	E1R+k/FAlKCEP4mBiHO/w70n8XWjPLMymXA80U/j2YYeOTfRTgGjzo/3KhHP5VBA
-	YKplEZX72lD+syvtN15lgs+Dhzca+i0TCyiL8SOx80z6D2m+GSNhqbgxpnUSEncB
-	gRjJX2WuArCGQWzCYGpiuVb7Q=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD33xFVcOBqdMGFDQ--.18497S3;
-	Tue, 27 Oct 2026 17:35:19 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1 1/5] ntfs: initialize inherited ACLs after allocating the MFT record
-Date: Tue, 27 Oct 2026 17:35:11 +0800
-Message-ID: <20261027093515.344799-2-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261027093515.344799-1-liubaolin12138@163.com>
-References: <20261027093515.344799-1-liubaolin12138@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Ed9vJqa5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793093755; bh=lxV7GHFbCpH33c+sUjwQ4RqgTOdSUkKKj20dfYYLSeQ=;
+	h=From:To:Cc:Subject:Date;
+	b=Ed9vJqa5zQnRxbX3kekbRhcbMFoWo4vMZyP/2pKVMuaVLN1w74aqJFysB3NcMDSZr
+	 CZ/5Rn9htsKOkhKxKaDgh0tfA5O76NMmeTwyfiW0Ax7WantZYFbOdb1Ly/t7jXCITp
+	 r56UPEqe5Rkn5/KLYc2ti4GhbjCizNEHLzOggOZg=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:2e7f:4b13:c1e3:e391])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 8F4896E6; Tue, 27 Oct 2026 17:35:52 +0800
+X-QQ-mid: xmsmtpt1793093752trufkse1y
+Message-ID: <tencent_4FCBC113A5FF944F82A007AB2D4F06A2EF07@qq.com>
+X-QQ-XMAILINFO: ODafEzNm5ExjYYe6KoXUxWHyIWa19hvUZ2cc+4pA+ZCfPqGBZtNIidvd7N1+qo
+	 8Wk48bSNRy0Kj3ymxLhg8feigJiBunUBYH9xVBhFJE2TAHPiaKUp6Wgp1FC8MZW/l2ttur6LVJ3A
+	 hlGw2CRLtUgaQMDLOixDlYLipBvAKj4kBBcK9mYPiroqYk4lsd80wrhXkmshcVP7B165u2bnlHhH
+	 V7UoAcV/idtgD3Psb/QKZmjf7FkicC6CQBBYUYjgtOcBs+ZSgM29eR4ll+cJQJfENWLWwUHG1pE/
+	 zw7m3m5z7C3M9uMTO1/vYgSJM3iUbeOnW8Jn39Z73T9hem9X6ukBNq3GqxyNRx9+kIvMBrqjBerX
+	 T68DM11wXyup0JBMb48A6s7sgmdCSmJTdv/KKdcMMiSL0VgBeP54TBEqeftbTRXoc1ebMf+e4k5u
+	 VrWWV5yDIqrxS8u2GjnGVAiC8Y4bBoB0bmZeoX0L254jFTMEr++DZzC59F/qtyna6CgiXIw9IBvL
+	 T395I7woPbM84TXSzWQ3sjJXOusVmlVTAuwhWLPFIhZABbJQDUZOOTf9KH+epSqOUisszVbppyRX
+	 q/c0lRdMJr1yW/yvShcLCTgXRvRZNC7sG0Y4NrMG+RyRWUpYo9algr4h30zvjQg/Lrrc9khdwH+k
+	 yl2FzoyR9HZs6jycLl1UCVNeaAWLBZwD1Aux0+BpjARc3q0ipsPDk7888jE9R/NgkjVLHayRPUyF
+	 r92Hgfcalv5rDGgiOR5/Hh4oRS+p3ofHgO1iYtw5I9d5A9bvTBTWpYb7Kekrb4axAbPtlYjilr2k
+	 IOEMOjfpUje6lsAzoIvJoZquvSqeBbhLUQfTVoYZtX87QVMFgZGAnUJdXtWGwOJjBu0YLC6TpRdh
+	 vI15umGcnDaB6AgjLeUh4yr7496FKQ6zh4TmGt7FS2PujqSoZik1WJ7vPsePhuovZ61YL4t+tCVX
+	 EO6QxY1HQo4T5s/mR25oFx6kco9n1qKHMgDreuWFBbl7Cy0fjZOUZP05uessp/RdpgeEJM4S/bYr
+	 pkYmshwqQ1ic1IrIIKfrpCOX0m6iDepDGiQNtihxjV9DXdOMc6owgu4VkzNHM=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Yingjie Wang <1075151112@qq.com>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	kch@nvidia.com,
+	hare@suse.de,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] nvme-tcp: validate TLS handshake timeout parameters
+Date: Tue, 27 Oct 2026 17:35:50 +0800
+X-OQ-MSGID: <20261027093552.3934437-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,127 +82,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33xFVcOBqdMGFDQ--.18497S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxury3GrWrJFWxCFWktr17GFg_yoWrZryfpF
-	s3Wr47G39rXF1xWan3tw4Y9r13t395uF4UWr43J3WfAw10gwnIga48tFyjkFyftrZ5K34v
-	qF4UKw17JrWDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7Ef5UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RcEzmrgcFdKbQAA3+
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+The NVMe/TCP host and target each expose a writable
+tls_handshake_timeout parameter. Both parameters are signed integers, and
+both paths multiply their value by MSEC_PER_SEC and HZ before converting
+the results to unsigned timeout types. Large positive and negative values
+can therefore give the handshake agent and the kernel different, unintended
+timeouts.
 
-ntfs_init_acl() can write EAs, but __ntfs_create() calls it before
-allocating the new inode's MFT record. An inherited access ACL can appear
-correct in the inode cache and disappear after eviction.
+On an HZ=1000 kernel, setting the parameter to 2147484 produced a signed
+integer overflow in a real target TLS connection. A real host connection
+through /dev/nvme-fabrics produced overflows at both host conversion sites.
 
-Initialize the ACL after allocating the MFT record and adding the standard
-attributes. Release the parent and child record locks around the ACL
-helpers to avoid recursive locking, then refresh the local mode from the
-inode. On creation failure, remove any EA and EA_INFORMATION attributes
-before freeing the MFT record.
+Make each parameter unsigned and reject values that do not fit both the
+handshake agent's millisecond field and a safe jiffies delay. Read the
+parameter once per handshake so a concurrent update cannot give the two
+timeout mechanisms different values. The patches are otherwise independent.
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
----
-QEMU tests used the complete five-patch series with NTFS debug and
-lockdep enabled. An ordinary new file inherits an access ACL from a
-parent default ACL containing a named-user entry; that access ACL remains
-readable after inode eviction. An anonymous file's inherited access ACL
-also remains readable after publication, cache eviction, read-only and
-read-write remounts, unmount/mount and a fresh boot. Offline inspection
-confirmed that the recorded base MFT record was freed after an injected
-creation failure following ACL and WSL EA initialization.
+The exact series was tested on an x86-64 HZ=1000 KASAN/UBSAN kernel. Both
+parameters rejected -1 and 4294968 without changing the current value,
+accepted 4294967 and the former overflow trigger, and exercised the target
+listener and host /dev/nvme-fabrics paths without a UBSAN, KASAN, warning,
+BUG, or oops. The expected handshake failure was -ESRCH because tlshd was
+deliberately not running.
 
- fs/ntfs/namei.c | 44 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 33 insertions(+), 11 deletions(-)
+Both changed objects also built with W=1 for x86-64 and i386. The i386
+objects had no __divdi3 or __udivdi3 dependency. Arithmetic boundary checks
+covered HZ values 100, 250, 300, 1000, and 1024.
 
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 0db7da0..0c84a5c 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -422,6 +422,7 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 	struct ntfs_volume *vol = dir_ni->vol;
- 	struct ntfs_inode *ni;
- 	bool rollback_data = false, rollback_sd = false, rollback_reparse = false;
-+	bool rollback_ea = false;
- 	struct file_name_attr *fn = NULL;
- 	struct standard_information *si = NULL;
- 	int err = 0, fn_len, si_len;
-@@ -429,6 +430,7 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 	struct mft_record *ni_mrec, *dni_mrec;
- 	struct super_block *sb = dir_ni->vol->sb;
- 	struct inode *rollback_data_vi = NULL, *rollback_sd_vi = NULL;
-+	struct inode *rollback_ea_vi = NULL, *rollback_eai_vi = NULL;
- 	__le64 parent_mft_ref;
- 	u64 child_mft_ref;
- 	__le16 ea_size;
-@@ -469,17 +471,6 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 
- 	mode = vi->i_mode;
- 
--#ifdef CONFIG_NTFS_FS_POSIX_ACL
--	if (!S_ISLNK(mode) && (sb->s_flags & SB_POSIXACL)) {
--		err = ntfs_init_acl(idmap, vi, dir);
--		if (err)
--			goto err_out;
--	} else
--#endif
--	{
--		vi->i_flags |= S_NOSEC;
--	}
--
- 	if (uid_valid(vol->uid))
- 		vi->i_uid = vol->uid;
- 
-@@ -644,6 +635,24 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 			goto err_out;
- 	}
- 
-+	/* ACL EAs need the allocated MFT record and initialized attributes. */
-+	rollback_ea = true;
-+#ifdef CONFIG_NTFS_FS_POSIX_ACL
-+	if (!S_ISLNK(mode) && (sb->s_flags & SB_POSIXACL)) {
-+		/* The ACL helpers acquire both the parent's and child's locks. */
-+		mutex_unlock(&dir_ni->mrec_lock);
-+		mutex_unlock(&ni->mrec_lock);
-+		err = ntfs_init_acl(idmap, vi, dir);
-+		mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
-+		mutex_lock_nested(&dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
-+		if (err)
-+			goto err_out;
-+		mode = vi->i_mode;
-+	}
-+#endif
-+	if (S_ISLNK(mode) || !(sb->s_flags & SB_POSIXACL))
-+		vi->i_flags |= S_NOSEC;
-+
- 	err = ntfs_ea_set_wsl_inode(vi, dev, &ea_size,
- 			NTFS_EA_UID | NTFS_EA_GID | NTFS_EA_MODE);
- 	if (err)
-@@ -718,6 +727,15 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
- 	return ni;
- 
- err_out:
-+	if (rollback_ea) {
-+		if (ntfs_attr_exist(ni, AT_EA, AT_UNNAMED, 0) &&
-+		    ntfs_attr_remove(ni, AT_EA, AT_UNNAMED, 0, &rollback_ea_vi))
-+			ntfs_error(sb, "Failed to roll back EA attribute.");
-+		if (ntfs_attr_exist(ni, AT_EA_INFORMATION, AT_UNNAMED, 0) &&
-+		    ntfs_attr_remove(ni, AT_EA_INFORMATION, AT_UNNAMED, 0,
-+				     &rollback_eai_vi))
-+			ntfs_error(sb, "Failed to roll back EA_INFORMATION attribute.");
-+	}
- 	if (rollback_sd) {
- 		int rollback_err;
- 
-@@ -764,6 +782,10 @@ err_out:
- 	mutex_unlock(&dir_ni->mrec_lock);
- 	mutex_unlock(&ni->mrec_lock);
- 
-+	if (rollback_ea_vi)
-+		iput(rollback_ea_vi);
-+	if (rollback_eai_vi)
-+		iput(rollback_eai_vi);
- 	if (rollback_data_vi)
- 		iput(rollback_data_vi);
- 	if (rollback_sd_vi)
+AI-assisted analysis was used to trace the timeout arithmetic and prepare the
+initial changes. I reviewed the final diff and the test evidence above.
+
+Yingjie Wang (2):
+  nvmet-tcp: validate the TLS handshake timeout
+  nvme-tcp: validate the TLS handshake timeout
+
+ drivers/nvme/host/tcp.c   | 25 +++++++++++++++++++++----
+ drivers/nvme/target/tcp.c | 26 ++++++++++++++++++++++----
+ 2 files changed, 43 insertions(+), 8 deletions(-)
+
+
+base-commit: aaedcff9014876387504a8b92d227766cb95015c
+-- 
+2.43.0
 
