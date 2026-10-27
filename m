@@ -1,67 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101053;
-	b=tzSP9Xk3Xyub6AlhPv9+hzAYhsme87vdGy1/PgnjMtU2yilUe26w8poOF+bkUBeNc3dQ
-	 jP76NkMeY6VOePfyCVK6+rNJNWrKKICKTF6ad4OPVypsXjkADz+KVdJO+geWyJwFjIxk5
-	 uGl3pT8F4bq8Jqiws/0NUzGixwuvho6G/NT+VBY5Z4BQ1pbOpTIw4+3XeETATNClyNvpm
-	 5qylzBwkjGRYBLs4lCPd4XkEP7W2fEn5vW/eshBsVwu0H+JyvlGJ90Vl3yoxq/FMR297k
-	 7c8yi0NPkDMBcKDwC19fZqlyUd5x0vtPMVHRwWohcS3/jh8tDLCfnrK4osYHbW3geNA==
+	t=1793101048;
+	b=Rm6Ay3HzegN5Amtrts5xP8mQnWDcs+VYKmDpj4nBQapY2WYFp9bN7+xXHrbaeRjIds+3
+	 LLjwyk05tJjffBbvAbXuuCuvbvXL9mD8UrdwF5Orus0M7rUsOU0ucH60VjLE2dLqaSbsP
+	 jVqVprBjJH9x2+pO1NYIu2rTntXMqr/6fZfK+vss9QkxG5K1SSVaQe0jz3V4QPZNmL+6s
+	 UdRmyiB6VGVP5/G2jZ0yUJDndP3UHDNK12934bcSvPRzbfaLoLBDBbrEoTlCpZdY11wUi
+	 QdRzHqle3C3Qvb4QR3vFEJ3tefB3R24ZEb+BnGUpuuQmyv5bY4bVDA4BtSf6DyTy/1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101053;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=fn5ThZiF6ft5mX8IvfFLPlbW1jtEJri8lE0VlMGkxOQ=;
-	b=ipFd3flw9N7ECrtm/S2/AWRgvpMBAogtn1HFmAjtOaYv5k/uDLBrP/wqHlLMR7uDUXQ9
-	 ryS5OUuEVMwaxwq9fesIlxTajXm9oXXNcDyZHGTy6Kh2Shp6Rp0YVIXik/dLYBloymm6N
-	 aGcOzQ0JN24D8nTUXMXNDHjvqW0QmMNzKADw4SSOKreURm/gUEoquxL1VsV4FMFkbdXDG
-	 iCgaKXInBF4ZzBXk0e6unccvMYWwvWztxWqD/WYfSRsW8BraQWZcnxcJnk0oROkhXmWFF
-	 TJ7UuDxdvw46k24cHuBwQMbGdfftbHK4VI/qh8C0MCQXtPHfJmQzReJr9iw/55wQhmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101048;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=B0AENkjEZYL4fzS8mYn3YPtPPkm4rS6Tf5gq0kxi7XY=;
+	b=PLUpvVSNZSCMsFxuCjgP7vo3S/b48ihiFvQ1OYwlUwEa6OKK+wyV8r5+VNSPgm9VgloN
+	 K4Du5TJxepmDkY+BDiBPAvWflcTb6ywBbDRNMAtTv6vDf+AK5tUWoq1GqDHoYThnExhog
+	 rq9lzxbq/B80zh325RbxrTSNILKO/A6msSeGcbd5ES3RJbealQYRKdWolBs3QbT2/ICYD
+	 NO6pA6YkzDhp7csbPZS2hTIcT+6f3HJ/D4mE/QsRvSxct+w9A0uoCfZeCKV1ddLPDpXpP
+	 fzWFuIDM0lZQmu/vKPvb5/Z2y9I9ArZpszb+CKtG9Y7WwB1yqICaM5FgmaPG+mgmmZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=pICaod68;
-	arc=none smtp.remote-ip=91.218.175.41
-Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=cfVq1BF2;
+	arc=none smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DB0606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2DB0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279F1606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 279F1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=pICaod68
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1MaGHK86bjq0DWIARKF4RMLr+S8+S1AD+k2k65hcz9k=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793101050; v=1; x=1793705850;
- b=pICaod68HfVfX8i54WH1wJjjOzPJbfFCM5xHdCmFHTsmj2BBWeWPijNfuELJaYbY19ZhD+iX
- j/Ac7YxZEA7i8n58Q2Z5SlfTEpjYrxFw4AvwNzP/n+bjnvNLx1P2EkZyFOAkTaGyZkcT8xZJg9S
- F+e4ghOYzI+Wr4P2vcqyepBk9kfYKq8Fwt5+AmHsbqzk4eyrPfziRtx+ebFtv8BMukVQZSDAr0c
- hIfT2vNjCsisE8AbnUxchU9oDQuH2hELldmWrv2ClVUcguo3kQeApDdo8g54Iv+z9Fem2Q9TuiL
- qY6rRIird5nKzvxRfKuQMrRcNuPhS4ufZHJMhg5k+rh3Q==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 816eb86f856db832;
-	Tue, 27 Oct 2026 11:37:29 +0000
-X-Mizu-Trace-ID: 816eb86f856db832
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 27 Oct 2026 19:37:25 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiandong Qiu <qiujiandong1998@gmail.com>
-Subject: Re: [PATCH 2/9] docs/zh_CN: update admin-guide/README.rst translation
-Message-ID: <auCM9YrxbpXvdRv9@wyuan.org>
-References: <20261027102552.3801595-1-dzm91@hust.edu.cn>
- <20261027102552.3801595-3-dzm91@hust.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=cfVq1BF2
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5363c8de563so40505751cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:37:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793101047; x=1793705847; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B0AENkjEZYL4fzS8mYn3YPtPPkm4rS6Tf5gq0kxi7XY=;
+        b=cfVq1BF2EvPw3tStOKBPCpXo9c/BBUUyyLctzvWGZfXIYp+Z36ZjiWwM04mKSKiNDJ
+         UfdHl+ZMucUt6/4nx3kBWvhetR0TY2XikuDLZ8y7+3QHgzZKSMS7eq9OfPPcTIPnKUUM
+         gQCm2OsVLbZwxpU9arpxabWSa8OO/oc24WYEeYJZKZMdyawBegk5BjAmOonH19oYVLCG
+         zkcVDAba00f+7GZwDA4e3lpt/AgTyZ8L/qR62eRLdgNNjKQN+oxm4UYZDfZ7z8TAdGIL
+         P4sowfYMyeQMSh2QtqWXPWk+ZhX8I2LVshVfvLy/yhyowPRVJWOkh38qV0UUQeyy1Ao0
+         7JJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793101047; x=1793705847;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B0AENkjEZYL4fzS8mYn3YPtPPkm4rS6Tf5gq0kxi7XY=;
+        b=f4xit7l/NZinkYTOQpmJUNvFAn8rIJAvs6TZNLszz4PnMMvS1iQvS8AUkUQR7zhj6B
+         1M1dpcSEFoZOlktEVANe4ktZJzT1qk8JQnXF5B4g1oboisVo1cuUjOcTEDHzBGbGIjq8
+         AMHPOME0X+LAFpWawkvLEJmlNCiljFUJsFHeqdmajXwaPW/e441IFsdbhJDvOSg+jFZ4
+         5sDRDPrP1S7EnqF5IIC7RtOvajPaEGXuAswXxtozOBiyL3rvZOQitEGshperfUS5PmJj
+         +2J7oDerf2eJUSQthoKTq5TVTpZec2s4XvXvFzzvpySWVXx9iDYtk8j7aMJnaq/DPMrU
+         QnOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzd47tD/KauvPK8+7Jqb+xe8R3AEo4c5zRnIo/y1OyD1BiSMBkUXleavWWtGmYKQIH0DWkXrmz9xT/c/4c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK++bkcuq07JmaowBvwYuQwBNPBdSUzWYVWmdfxR2eovumslkXN
+	RVw5C7vt3SvTgX5VZTpDHSaloHGJ1+JP8WUlA6kNrj8RtlV+EypMzvVALRBAwahENnQ=
+X-Gm-Gg: AYBFou25IVJ0kP2lg8y8d5/2kjcTX5chuTHqoqHMN0gt2UwaB+GI+hLF+YU8xUz5Rv1
+	DUayNmzKT1EZYD0AJ9LWQ1uIfkOPpBZwT7aIXl839km9lmL5AK5DKm/YoqrjkuraahL3+Q9z3hX
+	stKpNIsHlS8jGRvjzz7JR9ZcU4DpClCPxfhHaaOyM8Y0ER1diYaaRQad+8QARpy9LZjQs5t37Yg
+	bRlaJfLdmTMYRuUm40RGwok0obTmmwSlOtSZnyEVCDtJaOkPjySzgCGA1D/xEqux7Fqa9zfqysW
+	tt6VnNc+xqMAScH+1wMZNil1V+NvEONWULN8BvuAGYyhLRDGJrv6/YGSZPRWQO/KSHyVYzm06s9
+	91p+xGa/VXJqIS7FYplAmc9MvUioYmniwoJKGw3/oeesLRVa83B+yDbPzPgeiJ0ye/wq5uVwjLY
+	gnOGZgr+pK2X0pY6ekZ2qtwiOxsG2kCiXhWVqSvF10iTKa53DWS0UVBXknETNFXLvkZp1GlnXor
+	ECl+xxDU7hzJyeUobXNREd1a7M70C7/DKO2+L5bdY4CYBtq+y/7p0rkUt0fIOOW+9zCiqeDp8Xg
+	FBHdd55haVVYIe/AgK2aEldhi8g/
+X-Received: by 2002:a05:622a:5e8c:b0:533:920d:7bf8 with SMTP id d75a77b69052e-5383b4ae34fmr146287491cf.24.1793101046776;
+        Tue, 27 Oct 2026 04:37:26 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53838cf2e96sm77329351cf.1.2026.10.27.04.37.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:37:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,61 +88,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027102552.3801595-3-dzm91@hust.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, 
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+In-Reply-To: <3022ba03-54c6-499d-b07a-2ca8d033a56d@kernel.org>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
+ <5d10eba8-11cb-4031-84e1-a394ca5b4cba@kernel.org>
+ <179304984259.319828.7383468637599462048.b4-reply@b4>
+ <3022ba03-54c6-499d-b07a-2ca8d033a56d@kernel.org>
+Date: Tue, 27 Oct 2026 07:37:25 -0400
+Message-Id: <179310104515.664110.14057520583832900506.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Dongliang Mu <dzm91@hust.edu.cn> writes:
-
-> update Documentation/admin-guide/README.rst Chinese translation
+On 2026-10-27 10:34 +0100, David Hildenbrand (Arm) wrote:
+> On 10/26/26 22:24, Gregory Price (Meta) wrote:
+> > On 2026-10-26 22:09 +0100, David Hildenbrand (Arm) wrote:
+> >> On 10/26/26 21:08, Gregory Price wrote:
+> >>>
+> >>> feel free to take or leave the selftests.
+> >>
+> >> Thanks, no time to polish selftest ;)
+> >>
+> > 
+> > It's there to show the work more than to merge, but the long-term goal
+> > here is to feed these tests into a larger session that does the polish.
 > 
-> Refresh the kernel installation guidance and correct the defconfig and
-> LSMOD descriptions. Add a label to the translated applying-patches guide
-> so the README can link to it.
+> Agreed. But a note that if these essentially contain reproducers that can cause
+> harm on real systems, posting them upstream might not be a very good idea until
+> fixed.
 > 
-> Update the translation through commit 8913632998fc
-> ("Documentation: Fix typos and grammatical errors")
+> Well, unless people can trivially generate them already.
 > 
-> Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
-> ---
->  .../translations/zh_CN/admin-guide/README.rst | 89 +++++++++++--------
->  .../zh_CN/process/applying-patches.rst        |  2 +
->  2 files changed, 53 insertions(+), 38 deletions(-)
-> 
-> diff --git a/Documentation/translations/zh_CN/admin-guide/README.rst b/Documentation/translations/zh_CN/admin-guide/README.rst
-> index ee6dd3782f4a..050f671f8acb 100644
-> --- a/Documentation/translations/zh_CN/admin-guide/README.rst
-> +++ b/Documentation/translations/zh_CN/admin-guide/README.rst
-> @@ -1,11 +1,12 @@
->  .. include:: ../disclaimer-zh_CN.rst
->  
-> -:Original: Documentation/admin-guide/README.rst
->  
->  :译者:
->  
->   吴想成 Wu XiangCheng <bobwxc@email.cn>
->  
-> +.. _readme_zh:
-> +
 
-Hi Dongliang, good evening ;-)
+Nothing here has been generated by anything the public does not have
+access to with a $20 subscription or enough RAM to a run a decent
+model locally. Otherwise I wouldn't have posted it.
 
-I remember that Jon emphasized that top-level labels should not be
-added in this thread:
+Posting the patch is the full disclosure at this point.
 
-  https://lore.kernel.org/linux-doc/87tsqytxrn.fsf@trenco.lwn.net/
+-- 
+~Gregory
 
-And I remembered that my patch (apply-patches.rst) was rendered
-correctly just using a plain path. (so I didn't add that label)
-But I'll check it again now.
-
-Also, v3 of this series is pending, if I remember correctly. In general
-I think it's not bad. So feel free to take a look when having spare
-time.
-
-v3: https://lore.kernel.org/linux-doc/20260706151358.2103703-1-qiujiandong1998@gmail.com/
-
-Therefore +cc Jiandong.
-
-Thanks!
