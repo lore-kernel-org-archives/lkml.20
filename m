@@ -1,49 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793091597;
-	b=dEKMrlf8+m5dfgaPiPrVQDzkFbKbf+UyNhPfrkXRJNiGknCL1aB8DLW6NvcfuUv1kOjr
-	 6zpeH4nJEciyTBknsVjaYpfsfeVaJJuqAYmqXPP1640B5PtyzKpAMNI8J3fcK5hp0QRwj
-	 kdV0a+YC+xEk0Zw+djsDm2j1N0WAUpdN55ZNhTXyr3PGS4ixwMwgVsyQBx/r81MjCaXXn
-	 VayXUUw/fwQXzgETJOXYtdvAzSFPtWe/RJK89tWoOj6f4d/f3Byfbl0RXsMzRe3UD9FEN
-	 68ks1e/8rzEp1ke4ARzC+3FTOReeUb+OL9k/Y9+eANMEk+sX6o0kwf45mScdrHpc+6w==
+	t=1793091631;
+	b=J/DeKC5tqgoDUbz0d6sv+/40X62h808d+M/sL+9hid/IpMdJChPiJoXHZvaX/xdyWV+N
+	 DLRiTxCLg2U+eG73gdZrPLFelCgL91Y9WkF/w4eIeiPtdMTNtqQZv8YLHxbjf/l1o9RZ2
+	 nhIOw1nvaFKRwNA8x2vLyV/bTezp5Ol2N1pHzVQnkiGpwnZL0vJEIqx/hBQi37ehDhLYd
+	 OOhgAST0AgHKZOA3bprFD9q2gw0m5qn8LURsByYYjb6JdQ5txPjO+qaeg3PXBm6C+U/oT
+	 SXYoRvaSB5TL59uuMlIq4IZ+K6+/QBgz3Ha9kQCdCaokcl47ibpWOJhICHVgA2fClhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091597;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=m6D1TMuAeRek2s1DNXoMx/ngM+qIMzVdkNgeKSRi4QI=;
-	b=ZGm+jjY2zvsZ8m6Npka0W4VhqT6BkvMeukrx0gX1bl3IDzawY9rT/k8tLD3GRvuwITBF
-	 snyfwf7N6THBrm0vBRmDMbkft9fHpfQkxCaCW6u9Al7KLfDnY1gKawLcF6fD+HVWnDoNd
-	 L74tpKfbJWMzBzp0oZHurLgCxEGoa23QoGn15jRHqqZtJqqCOk1V2kTDg2MSUiTYPbGY+
-	 58E/frprhRc2LCGGDg7XuPjvArbxa6fzYMPLWwVNURPKOVE6dM88xu51BcyBdB8QXH4sF
-	 J0GbOp1+8pxgrE5IgK3YgyxomkjYczlHJRrQcls3cgybi3a9lGPJfuRWGK6dP8wP/FA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091631;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9WCkf6QzTLTdkFQ4qPzTcHJh7ncWmxtj0NsBOYpx7Cs=;
+	b=yd6deTN36+gwHPMMsH4wu+npbmtMArlWG+EiM/GsrsouTatlJizuk8jcpg3T2qE3gIRr
+	 +yJJoQZI2iHgGaiQNBzS/Q7n4W5+f6Q+AhwZzf06aBcxEKjq525sidTUOa5+MVSL9NJp8
+	 IvIAKCmEfc28djbD9lEZp7tZ0CblqJHT9ZciDs5dKL0hbPhEpiEjsF+H58WpcR6/uhj+w
+	 eqDFAS1WZM7l4svsOFDcawNiydHEJSDu4pW0CSaH2dv4oxBRzVXkS5WC77GVw9NQIim0E
+	 3N2KQUmvyz63ogVm3Am88pJ7rqYGd4GeEDahRrToiIUGR+3OP0r7CByVNRj+2VpfURg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fxMRFOmY;
-	arc=none smtp.remote-ip=115.124.30.119
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Q00wVZLo;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC77606A31A;
-	Tue, 27 Oct 2026 08:59:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDC77606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BAD606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:00:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44BAD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fxMRFOmY
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793091587; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=m6D1TMuAeRek2s1DNXoMx/ngM+qIMzVdkNgeKSRi4QI=;
-	b=fxMRFOmY+wd33soBaZOkEcSadVJSmiqIihNxf3ScV3sPEjJv/K8LXtxNIz3x6LuLmrj699PrXjIjASwo5m3gaxcaFYU/KVTwunyf3LgGFsat/xKCDVByAxKKMD89I31mtcec1cIyBv1lYY7RgsVxaxCl7f1bNPDR70h9Xzo9BJY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R431e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XDdD1uE_1793091582;
-Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDdD1uE_1793091582 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 16:59:44 +0800
-Message-ID: <152d698f-d7bd-4e1a-9736-412d52e2370c@linux.alibaba.com>
-Date: Tue, 27 Oct 2026 16:59:42 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=Q00wVZLo
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so4105615e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793091628; x=1793696428; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9WCkf6QzTLTdkFQ4qPzTcHJh7ncWmxtj0NsBOYpx7Cs=;
+        b=Q00wVZLocYy126NOMQG7qq9WVmZmohO8+rtmzwAThGXgqrwxgbH4bTmWPDWx6dcxGR
+         cd3CXr6LLPvEAr4u8b+qwWWK6gFh0pGs9etBJfXOt1hEZ1uGK3Y4YcBCXkBaW34LDUVD
+         8jN143vhuaJ66M/PLHmbOsfJ/JY5AeKtG6dEP/JPtfeqJnkK5LPyvbxFFSqBNs5W711J
+         62NEmRsAJY6jJgdFsOpf/emt218T1qM8oNzhcwsGb/1LHYi68ZMF96vWZFYP+5kb+iOj
+         hI1ROUwAcT2tIsKXbpXhwWWVJrQo+XxV3oNQuO1zdrWYs2hYany0znrIPgyb7hZl13vm
+         u/5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793091628; x=1793696428;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9WCkf6QzTLTdkFQ4qPzTcHJh7ncWmxtj0NsBOYpx7Cs=;
+        b=NiCWzstxUK15lpIlpdNxGC+grJg6LL0aEOmLd4Gkn8JfFuibmm7ZgzDJxNIAxG8vR+
+         sEWfsnHTPwzMW0d/Ss5f3wmIIbO9RJXJfIKXM2UWcyG2gbwKYMDkSUBky0q5TpXVoc8x
+         NaugVupyjMGQ2/rQ8JrD9DPoraeHvzTPfSkr+kUam6jEJ7VySHUrqojTQkH4FuwN8Nmb
+         z7WV0sDJWwSYxepCs0h+SRn5KhZjtNTD0lefO6RBJE8U3L1pXqCBpZwSr0/Leeva5dCb
+         5UMNSlM26B4z3PeGXqE7Nb4vFRwP7u6LUfpsB3lZCyDU/uy5CL4DF/Uw4jZb0StA6VJu
+         TxHw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6Qh46HpyIveKfQJbhLzo97mmC/Mm782g6FjMxhBan6hYE+4o2lft9tyNy14ys44V9L+l2QRQqKRqtej4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItWUMoLubTvjZuywjRxo16qgUXbbxZ8wmCgeTLqouChWhmjKoF
+	jlNGrf2L8TsJ/Z+clm2JquMIkyQUthlPLkOoJCImj0km5lX67rxx0KcBxCKcqNm0B4eBgQVp4zH
+	tKR3S6/w=
+X-Gm-Gg: AYBFou2DDAHiC/owpJghrZD4BnEr3WW0jxmhvP+FyT8OC0uA595wbU8gZjXw7ABuFc/
+	kp59Wb1hjYtyQ2Q6Wdod84DeS7WNWPPmxrGoSH5WzA71OwFo0RQr7fnc3Ch0wwcSCSXTR5p030U
+	WVX8t72ttn3S0EYZ/pwn1pz1M4yOIqgQx64xnlsjT+2K5JV4IFKGmxHz1XtZoUO/pt8Q1g9pvC7
+	uuaI3FJVEqpYQf4xeOUD66QMG4ersDpxMVTgzlY5QsIrEkVrTB5p7Dtjk7ZcPu+iUS/8HLKWASs
+	xTuQEZI1tDmnI/B4Z0Cg7VwTFvQPMXfMdC2oL2QDtHOTKRtBEctcYrnSlutuzExAzA/xGZd5Tqm
+	Zpdr+lopbFEEiRoAfAF+MWMZYteFOnptp+6mB9Efg005oQbWy0qWYQu9hgL7ARG2lbYqi5RxWyK
+	Pp5B6x5D5WYXOXbw6M7QRKVbvBkeHZbgq+rNbt4tvO9VYwsMWHuPmcB5qQRXhaDXhF5Xxq1HTbE
+	1xjATusgK4DPLT7qmEniwiRx1HK1FFEll51DxUzO1bwmVrTuKasmaAQNexOb3zHF5SuGldgYGqd
+	aA==
+X-Received: by 2002:a05:600c:34cb:b0:4a8:a341:2377 with SMTP id 5b1f17b1804b1-4a8a34123eemr7244685e9.3.1793091628213;
+        Tue, 27 Oct 2026 02:00:28 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fbb725sm251375205e9.0.2026.10.27.02.00.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 02:00:27 -0700 (PDT)
+Message-ID: <3e3b9652-7de5-4391-8b5d-122f00c4b585@suse.com>
+Date: Tue, 27 Oct 2026 10:00:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,92 +94,59 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/16] mm/shmem: fix truncate hang in large swap entry
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Gregory Price
- <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
- <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261026-fixes_shmem-v1-12-703206d5fa0c@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] drm/fbdev: Replace __MODULE_STRING() with __stringify()
+To: Thomas Zimmermann <tzimmermann@suse.de>, Sasha Levin <sashal@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Luis Chamberlain <mcgrof@kernel.org>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>, dri-devel@lists.freedesktop.org,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261022175543.1831620-1-sashal@kernel.org>
+ <2a9b1325-386b-4460-8651-13fc43dca6c6@suse.de>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <2a9b1325-386b-4460-8651-13fc43dca6c6@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
-> Truncating a tmpfs file or memfd to a page-aligned size inside a large
-> swap entry can loop indefinitely in shmem_undo_range(). The task holds
-> the inode lock and cannot be killed.
+On 10/23/26 10:51 AM, Thomas Zimmermann wrote:
+> Hi
 > 
-> A large swap entry represents a whole swapped-out folio. For example,
-> truncate a file whose pages 0-7 share one swap entry to four pages:
+> Am 22.10.26 um 19:55 schrieb Sasha Levin:
+>> Commit 08abfa5a161e ("drivers: Replace __MODULE_STRING() with
+>> __stringify()") converted the drm_fbdev_overalloc parameter description
+>> in drm_fb_helper.c ahead of the removal of __MODULE_STRING().
+>>
+>> Commit 6b5a66fd9f21 ("drm/fbdev: Move fbdev module parameters next to
+>> module init") moved that parameter into drm_kms_helper_common.c while it
+>> still used __MODULE_STRING(), so the conversion never reached the moved
+>> code. drm_kms_helper_common.c is now the last user of the macro, and
+>> removing the macro breaks the build with CONFIG_DRM_FBDEV_EMULATION=y:
+>>
+>>    drivers/gpu/drm/drm_kms_helper_common.c:46:18: error: expected ')' before '__MODULE_STRING'
+>>
+>> Use __stringify() instead. The parameter description is unchanged.
+>>
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
 > 
->      [ 0  1  2  3 | 4  5  6  7 ]
->           keep    |   discard
->                   ^
->              new EOF, start = 4
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 > 
-> i_size has already been updated when boundary handling asks
-> shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
-> calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
-> because its starting offset equals i_size. Nothing is read back.
+>> ---
+>> This depends on 6b5a66fd9f21 in drm-next and 08abfa5a161e in
+>> modules-next, both queued for 7.4. Petr plans to remove
+>> __MODULE_STRING() once his conversions are in mainline, so this needs to
+>> land first, either through drm-misc after 7.4-rc1 or together with the
+>> removal patch.
 > 
-> The final scan cannot free the entry without losing pages 0-3. It skips
-> it, restarts from start = 4, and finds it again indefinitely. An unaligned
-> truncate avoids this particular failure because the requested page starts
-> below i_size. Folios already in the page-cache cannot trigger it as the
-> direct lookup will return them beyond EOF.
-> 
-> Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
-> directly for swap entries. This bypasses the read path's i_size check,
-> allowing the existing boundary handling to zero and split the folio. If
-> swap-in returns a smaller folio, it also splits the swap entry so the final
-> scan can free the entries beyond EOF. Retry the lookup if the entry
-> changes during swap-in.
+> Dave, could we put this patch directly into drm-next? It seems like this fixes a broken merge commit.
+It looks like Linus took care of this. Merge commit 5b0764a53235 ("Merge
+tag 'drm-next-2026-10-21' of https://gitlab.freedesktop.org/drm/kernel")
+updated drivers/gpu/drm/drm_kms_helper_common.c to use __stringify()
+instead of __MODULE_STRING(). The current mainline has no remaining uses of
+__MODULE_STRING().
 
-Make sense to me.
+-- 
+Thanks,
+Petr
 
-> Handling swap-in allocation failures remains broken and is unchanged by
-> this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
-> instead of -EEXIST, shmem_get_partial_folio() returns NULL and
-> shmem_undo_range() skips boundary handling. If the large swap entry
-> remains intact, truncation can still loop in the final scan, while hole
-> punching can return without zeroing the boundary.
-> 
-> This may read an entire large folio back from swap while holding
-> i_rwsem, only to discard part of it. Avoiding that I/O would require
-> splitting both the swap entry and any large folio still in the swap
-> cache. That, however, is much bigger work.
-
-But I think this case is extremely rare, where every attempt to call 
-shmem_split_large_entry() to split the large swap entry in the loop 
-fails. At that point, the system is already in serious trouble, where 
-even OOM kill cannot free up memory for the xarray allocation. Hard to 
-believe this can actually happen in practice:).
-
-> Original fix generated by LLM and sent by Chris Mason in private.
-> 
-> Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-
-Changes look good to me.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
