@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116005;
-	b=SSTsoai2etBcIsbI1JIIIOdHWRJwOhTDV2x/ojthewTRKw3ASa8S/fGMvrZUw2N7GR3z
-	 cq9tU6i3192b3cpBUOD0Md+bl1ARuwEmzW2ycLyN/qMewQY/TkpmXmi1xcvBeLLOX9rtk
-	 mfLKbkq0AEjFqDOqFtXQ0znCjR4bUW/gXA9PvBQStlht4SDfbnuRVaiPrFIObzQJHXV/r
-	 GKOATeUrfYow4F9MgGmtDzSG8hd0+3tmXCi7DIefs8+YZIjcM4EoVK+uH4GqVusRGFQvf
-	 /HmX12ETRvq+XBWauYln/GO3AdFXvS3FDlPJ2qgO8Y3T6wY39clbTFSKIPihvcqv9nA==
+	t=1793116016;
+	b=VTVwP64KCyM1EagU7ZrUc+dmZJaRq47+0z6DCtRIDtHT3iLTpTMH+Ak0rlJB/AnK9923
+	 6fJlTN16Yna13P97P6MdU03cBALshbZSVjQB+FbL63kkQ3byIXjtCs0mGT6BlbVvu+Z5r
+	 cT25cwB/mgYrlMX4sRWac9ax1gApEHA8764KgZvwm4TuWoIrEDiaUaYQw5r2IKcA3GCMc
+	 3b89uTXNEw9wt0310vTSWezTYhzLmR7cqGvW7rSmjov1m5zZdEiR9YWU8rKM6R56PmIXv
+	 XkCv7d6NvhB57dbEfq9laoFcETXfKyvsZXewFf8M1sQdvIXXnjIpstxl6NqSmnCFIEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116016;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
-	b=RWwlAaKNIzCCQnkpgpRprZl3ZzQ5mu0kHjZ0XBUobDeSfdheQ7RAbCAdrV48WhKIze/d
-	 LSHA3pUoYCocCLIM7tgm2kani/Kk1Q9Q1lKCjDdoHRdqZwpvJg6fz4A+3b8jyfflkrBJn
-	 NuYsaCa/o5ulRtW+qujdEUULRlSu+y444QAnbhZG1yD2e9XrkPSnPq0OA+Qk5aVcil+H0
-	 gJ2v8abfU7xVM4zq6kAb7xDAbzwIvZ3ioa3nrRk9VETN9Gs47/ZNGBXDZMLAz+ZgzRR4N
-	 JaVDsMFZM9AuYs/i+mPRBRFCwm4tJPel6x8vtLO3fhxMUpgPvbXNj92TrOq3kF5rn6w==
+	bh=CF4JG26SyUmlFQ+N2KC4es1n4tmJXfM005qUTadw3Gc=;
+	b=MCtIkfR+SK2EPZLUc3+hnJajW8z1TMbUXIUxWCb1AnCcos9h4a+kuICav9O96DWcRxI+
+	 COJtjYcCqfdfXVc3QEWGy1mqrJVCYt/RvR3CmYOiWFeUcCYBxRswoksGqU2Mohx9mQed4
+	 kLlimFZFpZ4/em3hIXMqvZ8+aMDLm2bQxO6fyWllNeQa+dqD4RK+6NfuFxZtwJiVakp28
+	 /EbiI1QolnulHe0hWQJj4OBD4ofS3b1lJWw+0NlIqUaGRYkSdt/anhFLvFisJOmmd4RHd
+	 VBbdUXs/XF4I+gq77fAakItC+iPQXzlqYkxLQ4bjnXK6ccOqbIq/cdGZhPy0+Te4Trw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E12ZfgfY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6oFFEUT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657FB606A329;
-	Tue, 27 Oct 2026 15:46:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC9960A3816;
+	Tue, 27 Oct 2026 15:46:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E12ZfgfY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB5F31F01825;
-	Tue, 27 Oct 2026 15:46:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6oFFEUT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA381F01825;
+	Tue, 27 Oct 2026 15:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793116005;
-	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
+	s=k20260515; t=1793116016;
+	bh=CF4JG26SyUmlFQ+N2KC4es1n4tmJXfM005qUTadw3Gc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=E12ZfgfY9ynMlsq27sp3+JPTml03yPMJtxySRvItV0bZeT/oBcKyDuGbdDrwJ7G/g
-	 /3yTyW3G2KdkQEkm7nATNIpbNf5GGLbUPJ2hlys+9e3n/nP3DQogyfyN/8Ine0Wg8K
-	 eTKj345nI26OzTolIvYj2lP0WeVmQMqVWvW7ZfSUBpJewvOxP/DmoDKYrpm8oYLaIt
-	 UjUZ+njZG2AOdpBIw79hu+wj6ia6FcGeNNRRRfdbGVMBlP8eaQyw/Je33Fa2uHH12E
-	 mANIpIC1zrp6cBBxBwtI4LvzIfFQmKD8Qq9zHZSgOZhdrvfPBJjWQL40tSdbjEoznl
-	 zEA2ZqWTrwzRg==
+	b=W6oFFEUTbkszQPQTUqjH2nM9wxzFXgif+iYI3lQBmt4ANfuR5U3fylXGePiEljIs1
+	 B4mwUBBvANjpGZ2PiIfJAMQrhHVr6KjsAN0wYrILRw70Ng0eN4GgP/LdvaNTzVERgb
+	 c3Fgtbs4k1uZyjXLwHFG1ek5AHdr/f6Vlof00Jl3xVO2XLFHS4YIEGBxUJ1HiqqIQc
+	 797DlQNMMTBp45i9AiXjBXhhjGFHEhcpKkL83+tvLnnjpaWylwM8HUW01MgAroXrIc
+	 91Hu/G2BSQafZEw0VndL2EHCjgZk/jzyU/tFfWeSMUSvT98nwszudKpJRxmuLcj4jS
+	 a4mb+yAAmPnHw==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Tue, 27 Oct 2026 16:46:29 +0100
-Subject: [PATCH 3/9] mm: page_frag: refill the cache for large fragments
+Date: Tue, 27 Oct 2026 16:46:32 +0100
+Subject: [PATCH 6/9] mm/compaction: trust zone->contiguous only in the span
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-pgalloc-ai-hotfixes-v1-3-9c7d1aca801e@kernel.org>
+Message-Id: <20261027-pgalloc-ai-hotfixes-v1-6-9c7d1aca801e@kernel.org>
 References: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 In-Reply-To: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
@@ -70,72 +70,80 @@ X-Mailer: b4 0.16.0
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-A fragment which is larger than PAGE_SIZE can only be served from the
-32K page of a page_frag_cache. If memory is low and the cache had to fall
-back to a single page, __page_frag_alloc_align() returns NULL and keeps
-that page.
+compact_zone() keeps the positions of its scanners in cc->migrate_pfn and
+cc->free_pfn for the whole run. Memory offlining can shrink the zone in
+the meantime. At the end of remove_pfn_range_from_zone(),
+set_zone_contiguous() only looks at what is left of the zone. If that has
+no hole, or if nothing is left, zone->contiguous is set again, and
+pageblock_pfn_to_page() returns the memmap of any pfn unchecked, also of
+one that the zone does not span any more.
 
-Since the offset counts up, this check comes first and is made whenever
-the fragment does not fit behind nc->offset, no matter how big the page
-of the cache is. So the cache is never refilled on behalf of a large
-fragment: with fragsz = 10000 the first three allocations succeed, the
-fourth one and all the following ones fail although memory is plentiful.
-nc->offset does not move either, so this lasts until smaller fragments
-have used up the rest of the page, which never happens if the cache has
-no other user.
+The memmap of the range that left the zone is poisoned if CONFIG_DEBUG_VM
+is set. Once the memory has been removed, the memmap and the pageblock
+flags are freed. Ejecting DIMMs that were online in ZONE_MOVABLE while
+other tasks write to /proc/sys/vm/compact_memory, no debug options set:
 
-The nfp driver allocates its receive buffers with napi_alloc_frag() and
-netdev_alloc_frag(). They are larger than a page with a jumbo MTU.
+  BUG: unable to handle page fault for address: ffffea0004000008
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  PGD 3fee9067 P4D 3fee9067 PUD 3fee8067 PMD 0
+  RIP: 0010:isolate_migratepages_block+0x32f/0x1280
+  Call Trace:
+   compact_zone+0x673/0x1140
+   compact_node+0xb6/0x130
+   sysctl_compaction_handler+0x77/0xd0
 
-Only give up if the fragment does not fit into the page at all, which is
-what the comment describes. The fourth allocation in the scenario above
-with a 32k page will thus now proceed to refill the cache.
+kcompactd and direct compaction walk into such ranges in the same way.
 
-Fixes: 8218f62c9c9b ("mm: page_frag: use initial zero offset for page_frag_alloc_align()")
+Only trust the flag for a pfn that the zone spans. Everything else goes
+to __pageblock_pfn_to_page(), which finds the section offline or gone.
+The span is written before the flag is set, so read them in the opposite
+order.
+
+Fixes: 7cf91a98e607 ("mm/compaction: speed up pageblock_pfn_to_page() when zone is contiguous")
 Cc: <stable@vger.kernel.org>
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-[vbabka@kernel.org: make the comment more obvious]
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- mm/page_frag_cache.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ mm/mm_init.c    | 4 ++--
+ mm/page_alloc.h | 7 ++++++-
+ 2 files changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/mm/page_frag_cache.c b/mm/page_frag_cache.c
-index e63efe78b7d4..8914437ddc51 100644
---- a/mm/page_frag_cache.c
-+++ b/mm/page_frag_cache.c
-@@ -119,15 +119,20 @@ void *__page_frag_alloc_align(struct page_frag_cache *nc,
- 	size = PAGE_SIZE << encoded_page_decode_order(encoded_page);
- 	offset = __ALIGN_KERNEL_MASK(nc->offset, ~align_mask);
- 	if (unlikely(offset + fragsz > size)) {
--		if (unlikely(fragsz > PAGE_SIZE)) {
-+		if (unlikely(fragsz > size)) {
- 			/*
--			 * The caller is trying to allocate a fragment
--			 * with fragsz > PAGE_SIZE but the cache isn't big
--			 * enough to satisfy the request, this may
--			 * happen in low memory conditions.
--			 * We don't release the cache page because
--			 * it could make memory pressure worse
--			 * so we simply return NULL here.
-+			 * The caller is trying to allocate a fragment that's
-+			 * larger than the whole cache page.
-+			 *
-+			 * Either fragsz is larger than PAGE_FRAG_CACHE_MAX_SIZE
-+			 * so this cannot ever succeed.
-+			 *
-+			 * Or the refill has fallen back to order-0 due to a low
-+			 * memory condition. Then we don't want to release the
-+			 * cache page to attempt a new large-size refill because
-+			 * it could make memory pressure worse.
-+			 *
-+			 * So in both cases we simply return NULL here.
- 			 */
- 			return NULL;
- 		}
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index df1f888e59b8..262e4e5e97be 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -2270,8 +2270,8 @@ void set_zone_contiguous(struct zone *zone)
+ 		cond_resched();
+ 	}
+ 
+-	/* We confirm that there is no hole */
+-	zone->contiguous = true;
++	/* We confirm that there is no hole, see pageblock_pfn_to_page() */
++	smp_store_release(&zone->contiguous, true);
+ }
+ 
+ /*
+diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+index 2b1017a91928..e24d1203c514 100644
+--- a/mm/page_alloc.h
++++ b/mm/page_alloc.h
+@@ -216,7 +216,12 @@ extern struct page *__pageblock_pfn_to_page(unsigned long start_pfn,
+ static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
+ 				unsigned long end_pfn, struct zone *zone)
+ {
+-	if (zone->contiguous)
++	/*
++	 * A scanner may still be at a pfn that has left the zone: the zone is
++	 * shrunk before set_zone_contiguous() says that it has no holes.
++	 */
++	if (smp_load_acquire(&zone->contiguous) &&
++	    zone_spans_pfn(zone, start_pfn))
+ 		return pfn_to_page(start_pfn);
+ 
+ 	return __pageblock_pfn_to_page(start_pfn, end_pfn, zone);
 
 -- 
 2.56.0
