@@ -1,84 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114486;
-	b=i36znKRQRj9CHpOrXfSyHaYsC2vN/dUU0y0ANXB8P+innASY+wfabL12baTZiD0tsOx/
-	 pfaCMtKeRcgo3subP4FVN1aoYcsQ7pFFu3qrQJx9pX/0J7MbR/ZbIaSBBWPAm2zMZvRUS
-	 BmMbA786pN7W5rpKmodDb43JTkV+nb/UaxEwpqc3sVuS/QL2U2MArjMDEBwADdkxhsQa2
-	 vRjlhMzPU8v8w3kj9Vwb31EK/iwHII/ikJLbsba6dzloDRPq98kOSOSwqqNK0UNhux3h+
-	 FeTeCB4VUNt/qSRt3fzmpAAda6mn5/B4HvKNnSXWcvl6eQgIJVurqLzv8yzxGsq2FfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114486;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=bEVYe4qrtgBeDUfBP0eqQvzjZWX5q85+496DoNmFXDU=;
-	b=niTzPBeJJQYz6ArtIsgUL55znBftTxYH1+Kuf9LqpTrzVIWoOkUCvq0JcRaMQZhvaY8d
-	 bifBM+xK4o4SOm3KnmiKHh3/z5Y8E132L87o1ZTWazwCRkbvYC6oikPl2wihtvwX1i4re
-	 rOs7bJYVFt51vQo0/K1jjiJhf32l1ojoxVIFxTjvka+vrXac6x08eQE6QsW/gSKBZ0uBB
-	 a26vAV24/RNJOG0ra1ultkNgFs/8EIXjPUDCuPiGep1PvuzsgQn5OsPlnUAEiRbIDeJkS
-	 M8WIQtkbSH6RLwTFJg3YPD0O1efVtUrwhKqugskPYveuw/8WG21HNR1lalWGZs0HTOw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=E1it5Hot;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793114490;
+	b=Rs7PHVCwmCSVDyRR0IE39+n+8QU+rHiYIcke+F5TPZLzbYgAyQstN8vYJNA4iXmIsR+S
+	 7Rb7G6mVCGlXpJz6ZfG2YgIie+55cW9h9d2jQVVRJnQfoycTCSWslavbmD0j+DyflZLop
+	 Q7AG6si/n2Q+yOqs96Dckxa+pMKtWVR2KI1P+s/BJoY6IYvCXWmfcvxKXAvU+REgfPo19
+	 e+GMUAoSRXW30E2Rn9UElNllVUKf9nSCAcPI9ThqsezQ9yfURGm4guY/j21if68twTnSx
+	 4EEf8LjwGnLR4yPCK3R9YlG1pKj6JKfpLHT/WIeNBo6aK7Fhe0dxUhu5pBi/HkYKs2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=NxM/SdWC3JhodFrjdCzECkyQ1tsAfroiL6zHs8mPuAM=;
+	b=qCqPqL/x9ydFkzH7bQM4yRqiutXCznwCjL0QOKPN9SPxFk6quxlIUY3Aocg0ls++yAEv
+	 3A8QlusZTZ1z4WzPua7uJiCUXG7RHF3INdy0pyLq0QCQELAKOXy9n5lcorTp3Ld8CMNLd
+	 ppJqAcMnLVRvrwHSXavAqEPwecl0JWpkDkxiYKlWtW21qhV8gG/O4LETVfdfXONDXP3DJ
+	 FinhOlK9ew7tM6/fWLpLPdTQZ0LBrX/8I2wmgtQiQE45A+KuKUC629BRQMyxlvGbmvGF2
+	 Kjdum3m53PwzElbfB2iijUTNAhrVSG96ru72XfPqVyOh/XgpAM2xwsiDg0I+J+CpTKA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VxSejD1G;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.175
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74057606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:21:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74057606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CC0606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:21:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00CC0606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=E1it5Hot
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id LgCnxqBcnaC0ULizJxgapq; Tue, 27 Oct 2026 15:21:21 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LizIxEmrR6hvPLizIxWP4Z; Tue, 27 Oct 2026 15:21:21 +0000
-X-Authority-Analysis: v=2.4 cv=cqCbk04i c=1 sm=1 tr=0 ts=6ae0c171
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10
- a=P7C5aodvrJ57ttQV5vYA:9 a=CjuIK1q_8ugA:10 a=wKdU7H82fLsV3NogPdHx:22
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=bEVYe4qrtgBeDUfBP0eqQvzjZWX5q85+496DoNmFXDU=; b=E1it5HotZ73aNEa7gWbQTS+itu
-	rgcRUVb8YX+QQVgjADAdDsYZK4PAUBQrl2Z1ZZs2gX4WfGLUp9ZcQ63+t+ZC8u2hiAilSegtT5cRa
-	HUf0f5DMxb7YqFtI0vg8zfBRQru61Sxni+qHChb1aWY87GMP1u3O5rrT7eBcOvvIe8e612Jzt3nBV
-	J5l/XMQhgK3KUfIRafYj8zpHNQ8BYtfZym+qwJVvKqZ9uAva3tbEuwHmGHPjGy9h1lDaoDVpp9Asq
-	5Xb5yw9+QOEcyWPLQ+BCEVp4PQFjfQ/OkhGGxqz3dMI1yOHrgQ1vay5iWg4/2wX4MYe/xA2p0XZvC
-	xPKjXXEg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:58230 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLizI-00000000CoQ-158C;
-	Tue, 27 Oct 2026 20:51:20 +0530
-Date: Tue, 27 Oct 2026 08:21:19 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Robert Marko <robert.marko@sartura.hr>,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] watchdog: gpio: add reset-from-wdt support
-Message-ID: <09731eed-13c6-46bd-a1b0-c8c1a6c50ecf@roeck-us.net>
-References: <20261013-v7-3-topic-gpio-wdt-v1-0-bc98f05a4578@pengutronix.de>
- <20261013-v7-3-topic-gpio-wdt-v1-2-bc98f05a4578@pengutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VxSejD1G
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-535f598d126so264731cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:21:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793114489; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JF5Z1D0GM9Ly86IOymGNwzrM9KBe84SvxFvPtPX/g7XrsEJdlN2+8TxeR8KvuvnmQR
+         3Pms+MXHO66YwEAZA9N8gaIiS/OOYNW5W10Yw6bpFpxhND1F4Gt6tKHc+ps0DS0eEH1Q
+         wVqBpQIjltCrALdY7E26lYrG7LAWw+vJTQGaWwARH0T1ekMBXz41hajygY8fvjU+SFOz
+         bG69NCmQmD5MjyNTPuDlv0+052ai3tLlz2vrm/G8BTUlNt8sOUZ2CsKdaYk9ctU3jxI5
+         7/JRA3dOvoJngltWc40Fz8cPgE6HRnpbp+HSwGS4aSuFpOIVhSokEzjXupcM5vLCBWip
+         iYOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NxM/SdWC3JhodFrjdCzECkyQ1tsAfroiL6zHs8mPuAM=;
+        fh=BX0ZK9A3+PGdXb9ksqQ46wf/4T1QVST+OR9FbnMFypY=;
+        b=Fxv1yJfrxhrAovpSD702m64pIy52dIbMFyHPvyhn4qx8Gndbvkyiz6SzZA2a3ukTKx
+         gV3xozUFrla+Hg/Pi9CMvSwjvayY4tZmsbWdc7IXZe5UbRJ85aF4wTehKqL1maLek9bA
+         hZ5iz1dg5rSNg8dCMi3p+XPIM+SJnACSxWnKeQqyhRZbxuLSWyyXPzsMhJF4KFSmIj+V
+         fpeZRTNT0hImBlk+y8nKgv2W0qHaUo31seKZtr+VjGyA4KcaUKCILfs/op5wQlNMUh37
+         8JDkICQELIrrIH6kQbaC6lr8nx5kVJ1eE8uL6QAru1tyQoeF+bd4qJsj2Aj4l7e9NWLJ
+         NpLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793114489; x=1793719289; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NxM/SdWC3JhodFrjdCzECkyQ1tsAfroiL6zHs8mPuAM=;
+        b=VxSejD1GY4Qc2u3eW5yvsiYM9LBwpqsts/mjdAkJVQ/2lULtq9froTo4Cgq7uu5dHv
+         DHWfY55AT8HWvd4LKYMeOsmwEfRUboaavssASngFTT5BRbMV57W7++Suo0neLAwmTQKA
+         FUagRvaiXngimTt6jzyu2ETpXw9JB1GL/lXc4ZRsqGlzvsxoSFRfG2jmnX5CRNOuzuVx
+         +3fsQgjP80RTEKK3IXzsQypHyhKt1ckPLS+duuV4Jeu8IuSIAXeNx8hPlvIc0/9bwYtf
+         RueBJIYhFbqJGbx2cbiM7nQiJsCcEKd1Zvutt/C0qoKHtvmUhUKUhl/7jB8sfTsTx0SS
+         dLzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793114489; x=1793719289;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NxM/SdWC3JhodFrjdCzECkyQ1tsAfroiL6zHs8mPuAM=;
+        b=TBy9rgLYRuDSpCjTUBA9kuRbWGQmZIN3GDY4rEQi55Dq9g/FIKDdn39/YRq7Wp+yWl
+         PKuvOvA3uevvZT9WMOxiGjh10woNc1XRDplmydJlxjj57zF2WwV2TK2fxWztRwESrBd9
+         +gIHoEyhimMkfK7DSfshyEPrq8aV2JqH8Zm9kIfY8+i9dY6Nq1DpdclmdwePHUr66Li5
+         TO3OCB+S1iKqz8NQRKGXeJ8B8V90GS43x7+YoPqFAUDzBRJ223dpZq3kgG910BXGq8uJ
+         joq1W+65Yqn2nWWurr5YdwVmMn3xb23LMI/iF4H9dY9MO4lmJI9OCGQ0Zm1t/ONBdgH0
+         0dfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwlWBwZ6N98HRARISZSNJ0AKE/9MXlUTl+eXWcMo1pvAWPpuaIEsElVpITrhq7w/mRgWaA88tPZ5ZH838=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6okppt1j+Nplre2nfhQ9QwE03Qv3ZZidIBVhGyHqycY4A7BzC
+	m5fIYJxCtMgag5rbvdUy4uEvx1Kgz1S5hyd09i2irXq9aefz4okh+FQ0VHGv9w5F1/1F4pIYasb
+	TA6At+LiLMxduDxZPROBO+JUslcpxmST7dRAdkZ8r
+X-Gm-Gg: AYBFou26d73XOfQRYo309zC7oPBjA0rVpqN0gLTXI2qPNuw91g7onWuSh4HJu73emtD
+	TtnYw+QC2kJrVmXIrugZTCC9yPeUSxjSfPzjIYvVakEvOYHHn3o/Tp3dF9Ckyo6SsE5QLDd1hJj
+	f+b7HQpSADNZa3k/WiaaTJt48ZO8pPPP5mhAi3qv6ZODkKJ2lT2AHGyzyNoeQ5CZDa/W1MGwvYo
+	K4j+ApimTVm9IMhxlmsj+LAS68FpZC0GiTRtEVgyUNvDd1gbH8iuHr57YejIbceVzAzYjSaWJZh
+	NRTClNccf65BLCQJmkmwQf4eCeD+NW/KfabWq8KCMTaX7q20RnN84sAinzmcPRlqUqtMbdNnsfE
+	0si5yfl4Mt9UOT2xUkUsNtXxtpSDgudUDEVwWRGQ0GXSvM+K9YmxyjaXLFKtUm7NsT3Y=
+X-Received: by 2002:a05:622a:4087:b0:535:8515:b4e5 with SMTP id
+ d75a77b69052e-53e55c28435mr21394481cf.6.1793114488268; Tue, 27 Oct 2026
+ 08:21:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,40 +104,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-v7-3-topic-gpio-wdt-v1-2-bc98f05a4578@pengutronix.de>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLizI-00000000CoQ-158C
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:58230
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 10
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfClX4o+0qGUL5uBFa5FBmz+DtGlA0wM3fevptnPOyf3/4TtJgJf7E/0wcOl4NRnoRbahR51s/93rrU3RZcSiKkUPjtf44Vi4+8myOjGi6g5Bp3B+oUKu
- qcQTzyh0drmuZJf0AQ4HljwAVeJe3joV0axx6Lm+2uDMZrZt144KGpBfIw5l7NVTpVpEpD+6xQ0lTR54TcrBglKFMxax5wn74/J0utcb6GI3+XYZhNRbG1Hl
+References: <202610271154.69RBsOlq045164@mse-fl2.zte.com.cn>
+In-Reply-To: <202610271154.69RBsOlq045164@mse-fl2.zte.com.cn>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 27 Oct 2026 08:21:16 -0700
+X-Gm-Features: AclHuK-Woavtv1Cz-seB3sJDtW9u6Dt6v2zVol6SMqMjeJi6wKjBOrgCgGvWdGE
+Message-ID: <CAP-5=fUbpxz9HQV+BRd62Yk+mQ5Bq-G3XvcK8ea3W8E3BqM6jg@mail.gmail.com>
+Subject: Re: [PATCH] perf machine: Fix NULL deref in thread__resolve_callchain_sample()
+To: lv.yating@zte.com.cn
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org, 
+	namhyung@kernel.org, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, 
+	jolsa@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	liu.qingtao2@zte.com.cn, he.yilin@zte.com.cn, zhang.cheng35@zte.com.cn, 
+	ye.zhihao1@zte.com.cn, shen.lin1@zte.com.cn, dai.hualiang@zte.com.cn, 
+	stable@vger.kernel.org, hu.shengming@zte.com.cn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 07:54:28AM +0200, Steffen Trumtrar wrote:
-> The reset-from-wdt is a GPIO that signals, that the last reset was
-> issued by the gpio-wdt.
-> 
-> When this GPIO is provided, read its value and set the watchdog
-> bootstatus.
-> 
-> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+On Tue, Oct 27, 2026 at 4:54=E2=80=AFAM <lv.yating@zte.com.cn> wrote:
+>
+> From: lvyating <lv.yating@zte.com.cn>
+>
+> When recording with -j stack, resolve_lbr_callchain_sample() can
+> dereference a NULL 'chain' pointer while resolving the branch
+> stack.
+>
+> $ perf record -j stack -e branches:u uname
+> perf: Segmentation fault
+>
+> Fix it by checking 'chain' for NULL before dereferencing it.
+>
+> Fixes: 29be60c93d2d ("perf build-id: Mark DSO in sample callchains")
+> Signed-off-by: lvyating <lv.yating@zte.com.cn>
+> Cc: stable@vger.kernel.org
 
-Applied.
+Tested-by: Ian Rogers <irogers@google.com>
+Reviewed-by: Ian Rogers <irogers@google.com>
+
+I wonder - this failure points to a lack of test coverage. For LBR the
+main coverage comes from:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/tests/shell/record_lbr.sh?h=3Dperf-tools-next
+Could you help expand the tests to avoid regressions?
 
 Thanks,
-Guenter
+Ian
+
+> ---
+>  tools/perf/util/machine.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+> index f86b3b7df742..10a88c070814 100644
+> --- a/tools/perf/util/machine.c
+> +++ b/tools/perf/util/machine.c
+> @@ -2858,7 +2858,7 @@ static int thread__resolve_callchain_sample(struct =
+thread *thread,
+>         if (chain)
+>                 chain_nr =3D chain->nr;
+>
+> -       if (evsel__has_branch_callstack(evsel)) {
+> +       if (chain && evsel__has_branch_callstack(evsel)) {
+>                 struct perf_env *env =3D evsel__env(evsel);
+>
+>                 err =3D resolve_lbr_callchain_sample(thread, cursor, samp=
+le, parent,
+> --
+> 2.27.0
