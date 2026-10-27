@@ -1,45 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117999;
-	b=pHaVqzs9zOkPJju1B6dIgMgFWFqsQqYp0nvYwfXrcpEkxy7xlhsjNYYRhsDE0/f3ovFE
-	 SHMYCgOSPieYYYHv6Q0OCGQRZLgjximlznmAO/l/AOgux2Izk5O9SPRs+h9QtN1Boh4GD
-	 fTCuRykAu9Tsezxi4BJRZpPM7KKYXLdyFaWiN+L20Yg6MyRb0h7Q9NJL9F1HaeTCft6a7
-	 IZ2Np/oyjO6U11XmeLMJivoLAExKOsSwD0xOY/xrSCj+wesoRbprT65Q4tDZC08juhZEB
-	 8lTTTptQGE/pxwi4N/wEFAK/HqvvIF79izyzmddgfVFnJebhjMzMcj/2Fb+Tp26Bw5Q==
+	t=1793118067;
+	b=J2jPW1gcQukPT0M14oVPpNG3x8S9hfoyy4MQ00MUWWYikJ3qYNGNBhbXlmnoDcb9d3WK
+	 +F6BbBc2yV6fkghSZuhwot4g/kaZU1+DTBqmdoNg55lj3LyTYozuj2gr3TEsZ+SzjO3Dj
+	 w/TnRIuVozTwJouu/mV+PXCtAoTtlGinWjCl9fO5XYziyjGGXRv7EQzsd5zayP7y+sI9I
+	 31nG9fT8IOJQUcSaURDC3V08IkqVpD4P04MiCzDepNl5az67S+kZEmLruQ3+JgPVDSL0v
+	 lAqtdK8P6Ry82P7mEtTYr66tBoZKvqnGhqiUWnlcVmZvTP9HaFEZyQ4/CoIGRE0I5KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117999;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yVFg12LLKvsXCmS7PNOfEgRUSO0sJfiG6IpAIexxCuc=;
-	b=KyldMLmGczOCXWJnDmfMNcZTw8BocdaBUdh02ru3QFJ3c+ZIB1ZPB/OQ9rHBj2br7tWc
-	 w9H6wnrKoqGItov1/DC5GX6EfhdAEhMtBsh0zEY21ikbcOpzFMfpCCNFe4Lod2oth2+IL
-	 Z4hLMQLTpj+zPk2xWnfe2R02iQvhnv7hrrXqUvXV8KETZZUjmCFPojaJGzkj2H4cYE31I
-	 4BcfGWERKZBUSFAyuonLEFWTrq5zCGBhRJs29QP08cQEiahZD+WFno+M24b7G+YrHjH0v
-	 uzVf9wmlbxn5YXAqMp4aBfAjxv2zl2k9hoLkphXKoZxOZGKOC7JWF7DJduPhKdsHA9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118067;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=/EJgt032IdKFtV9uvcwyjszAG6BEFtwyoI2Bq1VEXIs=;
+	b=uhLsFWyDAVvKhBbG85I78K6KwykKcEqElw0plk9kYBAQOA7pBgbgP2bn04jCj7xEygaK
+	 mt9GiRTseOEqFb2rYoMWLuc8y4w8mbI0Z725mXqPZMVMtlnkTZzshgubaM+GzzBJGgGXp
+	 wtzEarWg8j7VR1c+augRGI6v6mN83M8odENOC+3TvRXfTHb5vRog5RlFQbyrR2qgX1t7f
+	 +CS/1F+0UAZhR/72x9hIovH5u3/BYDjlvDAT7DHyv2Fzg/v1pLicj+Snsf+O82EXMQoTv
+	 aP/wO0XqDaVsPd7Qc9GR3syoH3weSe/4BjD+v+Me82KB15+Op8fYnLKKEOiTkRgXOJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fYhDAJ2V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="Q+/9W7sV";
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D1E60A383C;
-	Tue, 27 Oct 2026 16:19:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11ADE606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:21:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11ADE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fYhDAJ2V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE2B1F01828;
-	Tue, 27 Oct 2026 16:19:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793117998;
-	bh=yVFg12LLKvsXCmS7PNOfEgRUSO0sJfiG6IpAIexxCuc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fYhDAJ2VK+nZZqw1azuPg2qY0EoV9Zrddhlgn5eYzy4HJc02h0xsS5B2fkarGoiLV
-	 eF2f8kr38rHFBkbbCV1BQzkQwaI7kJZf6bh5B1J7+n0phfyMysbvLFRt0C2mMQhTO7
-	 8HP5Y8RIzpSinEhfBQLLioilJTAROTi/rBpMaIsw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 17:19:19 +0100
-Subject: [PATCH 15/15] iio: sx9310: use the data of the I2C table
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Q+/9W7sV
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id Lhnvxny6YusRSLjv8x392G; Tue, 27 Oct 2026 16:21:06 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Ljv7xxZeD7CfWLjv7xIHhH; Tue, 27 Oct 2026 16:21:06 +0000
+X-Authority-Analysis: v=2.4 cv=Z8HsHGRA c=1 sm=1 tr=0 ts=6ae0cf72
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=QDHc5EiPAAAA:8 a=cFugUJLFjlu1G8EhGgcA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=59RwALqDKVzMjVMkmKwL:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=/EJgt032IdKFtV9uvcwyjszAG6BEFtwyoI2Bq1VEXIs=; b=Q+/9W7sVWOL7f94vaxUWWWnKuw
+	/eS72wD3OA7M7OAmX+n98fIkwLOQ+u3kytxX9w2qqJWmJ2jBX4ZX3mncaSCNcMtdga1RjjBeR9C3r
+	3h3R+f7HVI/nIgVrGTcTs2nV/tLtsj3iYFaYBAXOxw4M4X34EvQOzBfIEnKuirwapyb0ZxaErHDIN
+	XAe0Iw/6AJSrQv3DI12/LAOQPuzNnYSobXDtOsx+b4/BV7jJTNXX49DDgAvOVCRrmSOpCtC7aClo8
+	7Rmvdqp8DENvcoqHQs34Z69zJi9HiMFeRVNHFY1WTuy+/urM6kxp7AXmSxVRdyWpzFGFXiHd+t2WF
+	pjghLRrA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:38130 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLjv7-00000000nU6-1WJd;
+	Tue, 27 Oct 2026 21:51:05 +0530
+Date: Tue, 27 Oct 2026 09:21:04 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Eugene Shalygin <eugene.shalygin@gmail.com>
+Cc: remy@demangeot.net, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] hwmon: (asus-ec-sensors) add water temperatures for
+ MAXIMUS IX EXTREME
+Message-ID: <1fcc110e-7269-44de-a415-1848922f75f6@roeck-us.net>
+References: <20261026-b4-m9e-ext-sensors-v1-0-644d389b2de1@demangeot.net>
+ <20261026-b4-m9e-ext-sensors-v1-3-644d389b2de1@demangeot.net>
+ <CAB95QAQaogxV6KO5kpv9RBpzhhmH_N3Dvvy=nqWHOG6qAQB_aw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,77 +85,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261027-llm-char-misc-iio-v1-15-0d818334f6c7@linuxfoundation.org>
-References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
-In-Reply-To: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
- Siratul Islam <email@sirat.me>, Matti Vaittinen <mazziesaccount@gmail.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>, Stephen Boyd <swboyd@chromium.org>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1703;
- i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=2KkR6HPwoReDkx8Le2vwFs4pVbnfBQGeycAiqqATcCY=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPzjNverjRs5MpfuEvpxivs28mzNZq6fkV/+KhqvrTQ
- zOubmoo7ohlYRBkYpAVU2T5so3n6P6KQ4pehranYeawMoEMYeDiFICJJNxjWLAgcaVP6vz522ZP
- WnxGYc4Xv6C+ayYM81Tv7pIJ/JqRnFEq2j/JTqD97X0jNwA=
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
- fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAB95QAQaogxV6KO5kpv9RBpzhhmH_N3Dvvy=nqWHOG6qAQB_aw@mail.gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLjv7-00000000nU6-1WJd
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:38130
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 50
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDuhGwcX0oySES/c1rHz6A47L54McnqLVX5pdrl8G+5MyV0/7J+F9cxZUaiZqDFNKub+KRLFOQIwjUFq7f3R4Lb3YS997eF2YRHIY9N+tXYNXOtejTgL
+ 8BNWDnkJcxXhVTXMvVuS4pSi4HwoLoUcFAa/YOYtzgbtQH38lw3B/ALqzzUIW8bxyiYok4vUuzjWaRs/szOXVTh0NXuTrijLUZ4tmGf/lmBSTG7YaQKpPiNU
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Tue, Oct 27, 2026 at 10:23:33AM +0100, Eugene Shalygin wrote:
+> Hi,
+> 
+> On Mon, 26 Oct 2026 at 09:57, Remy Demangeot via B4 Relay
+> <devnull+remy.demangeot.net@kernel.org> wrote:
+> >
+> > From: Remy Demangeot <remy@demangeot.net>
+> >
+> > The MAXIMUS IX EXTREME has a second EC (firmware ID "RGE2-Z270-0109"),
+> > not handled by the ACPI EC driver, at I/O ports 0x68 (data) and 0x6c
+> > (command/status). It uses the standard EC protocol (0x80 read, 0x81
+> > write) and the same bank register (0xff).
+> 
+> I'm not fond of re-implementing EC access logic in this driver. I
+> believe the ec.c driver needs to be changed to allow us to simply
+> create another acpi_ec structure to operate the second EC.
+> 
+Me not either, but that would (should ?) be a separate effort and might
+take a substantial amount of time to get accepted upstream.
 
-sx9310_check_whoami() takes the chip information from
-device_get_match_data(), which only looks at the OF and ACPI tables, and
-dereferences it. For a client which was bound through the i2c_device_id
-table, for instance one created with
-
-  echo sx9310 0x28 > /sys/bus/i2c/devices/i2c-1/new_device
-
-it returns NULL, and the kernel oopses as soon as something at that address
-answers the read of the WHOAMI register.
-
-The I2C table has the same pointers. Use i2c_get_match_data(), which falls
-back to it.
-
-Fixes: 21fd3b1373f6 ("iio: proximity: sx9310: Convert enum->pointer for match data table")
-Cc: stable <stable@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>
-Cc: "Nuno Sá" <nuno.sa@analog.com>
-Cc: Andy Shevchenko <andy@kernel.org>
-Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
-Cc: Siratul Islam <email@sirat.me>
-Cc: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Stephen Boyd <swboyd@chromium.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/iio/proximity/sx9310.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx9310.c
-index 79ba46d8a0aa..2585b9c6fb69 100644
---- a/drivers/iio/proximity/sx9310.c
-+++ b/drivers/iio/proximity/sx9310.c
-@@ -891,7 +891,7 @@ static int sx9310_check_whoami(struct device *dev,
- 	if (ret)
- 		return ret;
- 
--	ddata = device_get_match_data(dev);
-+	ddata = i2c_get_match_data(data->client);
- 	if (ddata->whoami != whoami)
- 		return -ENODEV;
- 
-
--- 
-2.56.0
-
+Guenter
