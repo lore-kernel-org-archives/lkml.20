@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793085005;
-	b=m/BDti55laiYt/CHa2spWZ6TdZVkmmvKu4WLDLLZXmBa5fkUoMoCtgnB7QYNOzlrf+CE
-	 9PfSiz3kykZntXdIVrQtZ5N1C2A1GMB8Zk3kf0ei+JeemBEC/KcnrSiAcKm3WEPMBteYb
-	 iKwX4O70Z/UtYt7wvTwk1hQB/wq0ugjHCpjwvOZ0TNgE8STLRhAaik87d8NFfFVhWLcaV
-	 dsKUpLSrpl2RUySK2UX57UCxvxxH2B0+8yrQx7pWnEaXtE2m1wVkJ+qRKFKeziDZ/uXsL
-	 0J3iWBIy2ilUwTCOhuyeCzom8DzM6cCWi8inXlgatt+0BM4nRC+klplT4SrCusiUHeg==
+	t=1793085023;
+	b=Zt6C254LXWHbu0/18PMOsRjFWWXWe6rHCf+7gwelhFwrNtWpcbW3oFgvA/HpOXEK8Mh4
+	 mQz8FqA/RkPD5Qh4Lpx0ywsFx88fhU086niw2vkvf1WZYfz2o4hVXt1Nmo+n8091jqtPm
+	 ucH4NA2yDLrKCHyA69us+BtunPa3c3v7EbNRCZmEZ0yngs5GK7lEJGmN8dKLT6c/UTSnZ
+	 ZELYsnWK8Weaqh8k03hAmM4mB9l40JUI/6v78S5jSrJeAFtqv2HaqqUFuOTrhj2ruznaS
+	 jPi9jlpx5sXwE3v/KhxVMqOGhbR52QeZPOMS70pGl4YKasn7qfNqjjG9Dfjm7RD01dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085023;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=EtqIIM3bW6NOeXuYxzInv9x9RXwFgInG15ngZwHQesg=;
-	b=FJ6jywfj6a4CKFj4S3aYVuY8xrQUaE8FCiIL1gwquKw7ISdsA/Cdtygi6yq8ic+0v+5w
-	 rztRwrLdPkOWyToMLJhRHAz/eiyYbrkTjIW9MLyNt7I5bjisolnKvrP2wvTm3GsYyfow7
-	 xgfji3/Us/s/6cFKt0BM0wSYrlqEyFtwL3X/rnu9lrNTzVbiUpEHWXTjJXAWiz/xdsvzj
-	 diIa8wn0E2IMaxq1iaxWDvNYnuyTMBL/9YRFhjbTrWiCCoZ88HOlp31mwUdkVxcS6umo5
-	 MsWZ5f2GcW3nYAx3uEbnUWO1p75ALJz9IUGAj7ey+2d7VDGC/Bxlq5tsxZigTyAyEKA==
+	bh=ccfSLrgWT8yZZMCQWDheXOVMnyMH2wrHGPHQpEmc4TY=;
+	b=FXJEpy6h50e79rBK/ANy2exxcaWZh9C+/Tya0oSF9RqJGz8bYDS/gYWyaYSY2s8h0QOB
+	 B4S900NOIACU7s9sX/TFTt7SAs7/JzwmTrFT+GvZsQTUBBKc26UedEfjtVQ8RENbi+eC1
+	 BC/dfgmmKAzt41k0k9Pdf+hZC1Hwtbzyx5u66PtemrF8XDlbjBhsUnvuFraitYQapPXmf
+	 I+9l8hLcaZE/WmxL2H7oSXu7KGjTPNKNcS7IWtn9s3I9j5lXbCSKPbohRShyng82UfKQS
+	 rQnFwoj2ympEkNlVf9FlTA/lkoC0yHHAkroG3DyUtbM8RlvOC601TdYVNom7AZudgOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ckAg0cTw;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MP7dcyUu;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92EB2606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92EB2606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766AF606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:10:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 766AF606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ckAg0cTw
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so1976490a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:10:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MP7dcyUu
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-89f28c3ac7bso1237727b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:10:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793085005; x=1793689805; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793085022; x=1793689822; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EtqIIM3bW6NOeXuYxzInv9x9RXwFgInG15ngZwHQesg=;
-        b=ckAg0cTwq47FgYTxX87XDEs3fE4xRTf7VVWlgSVrBnEVt87UBJOTv6tOgt1KZv5br6
-         t87WjH1iSFvnT9Udd+8Kg3ZuhbkioEr37gdcaopXk1qy4vGIn49PIS0F8rKNn2n3fpdd
-         A/YmdsWAs+6bFHUObcqSMQtoQscIu0bT8ZMkUBJz+806qHsO/tc4KT/gYxCCTFKrp5CG
-         ysghmOBqns5MJFzd52KjwTZtHdeo1V4DyxkkxEldr6ikZzdTVZStX39BuyJBVZ0Lqh2q
-         I5LY4wr2/vz6QYvTFXZrQhEfIYYMfoTaFfzxdguDNMEjDO4L2JhqASmFLZnUvvRpom3o
-         VW6A==
+        bh=ccfSLrgWT8yZZMCQWDheXOVMnyMH2wrHGPHQpEmc4TY=;
+        b=MP7dcyUuR/CsLPEGJnMAwlBC0l9Ey9m8yHP+/5XVCmXHJjEpBP/FirJHePk2scnegw
+         69ewc14JYqKDWEiUGB7BnikTVinxRqSwME9MfL/QqlK6ZfGNs0d9yfomDk8ll8Y2iUZQ
+         7rHkMfk6qMivvSmJL7/w855ApT2qWVF+PHNAZDY5gVQzMcx1vm/KjQ4jCgMJhiftIOrD
+         orhsYyCnlGo+1NpyMCV6V5NFjieMw1BDuK6Gk7qAorUP0Vv3tv1sZk0OTZoG/ciVdtSi
+         AHiYfZNHThaQ7pBViic8d+EOfk5sL5OJ2i4+tNguAJaDoXa/8Tgs8IcsoYotPoEMvifY
+         DQlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793085005; x=1793689805;
+        d=1e100.net; s=20260707; t=1793085022; x=1793689822;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EtqIIM3bW6NOeXuYxzInv9x9RXwFgInG15ngZwHQesg=;
-        b=Uvgw+bkFBGqPHoFcpXJqAaAG2lW1rhOn9h8BOSVBiGLFQe7pdAYFEkZeam/thUCGA3
-         QDZ+lpMCOsxJu4pWy+EZfsDQdtz72OseOXtpt4FUVcTXNdJIoAR5y6ocboaPR+UntyLP
-         /1n0+0VVa3pgWP0hACnrJ29wGkB69pai9bDJ7Unvsv79+QCSVmWJ27nrKTE6Hzp4iViA
-         fLxjAkrxfIoQ6kXrzUx/MliN49zBmJNPVbtwshXNm9/Wcm0nwisUpZiGe57zFlWu4sQu
-         vmGgeIlRnRI1WUy25p9jWpdnT0TQMFWW6LUS0y609ptfqUA0WhAaak4Ew8WejziP/rUL
-         PoVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxy/mL2VsZPiWPmDiyIaBvBTw9O1AKWK5U6bPe0VRRsgZtY7pHvB1K6Ie4FjS2qVOjdQk/tfezRrrLt/dg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJju4Kj7DVU53O5FKbMSP+dNdtnASoO03FFa+U+EsOjugXEyh2a
-	sMZBovHJ0SLILMVKs4SDr24u2tv2lt/yLr4aBKgdf5NP7q8KZ0irhxb4
-X-Gm-Gg: AYBFou0tk1aXDqhQv0CUd249pRIRg2Ed9GUfBVpQ8KDYTWL0+lkTXu5blJPhipryVMy
-	oHKmFDsmC4nqrZ/WfMszjbU+8A0hnrb3U7d6Qc+R7auUziw5HN/OMkrYv8Od58nq4Ng1O2lgmHH
-	ydqh1x5kyyAwXuNU9BrJzTx6dg0AcPBSRNs8XEaqBojCnY/ZZWmtgej0CklWnjk035gPhBptbxx
-	34wgQbEHjfvDFH6ybI2Ei44c9Th3KDdhW8CWoT9qGx0DxqU00VukWzFGubyLgNdoaxkL1X3llPy
-	ogrgXvBc27MHGNaYndmwQ0lbRBS2MJBtQtA3KEMnCrtSgowOFooYQ0XYZrNRqNrrukVRU1D8sOO
-	Mn3kd2vhmG2aTMlaibCrax2NOTVmcssn1Iq17AiCFDJ73JJHyOmz1N7UKCmHEf+IDmSe3MBUCri
-	t0BJBXqZZDEyUYwpTWrIKIPloK9VMY0EIU8BNF6bqbrJddBfKz4SDwDHpKVB0pQl3OQDGHX7XH0
-	P9O2T3PtClpIymFBHsAHnfgcgbYWJmFJJZLhjXVGX52opuO1TU66JCFichS5pmJKp6BPO6EplQ=
-X-Received: by 2002:a17:90b:56cf:b0:3a7:b260:9ced with SMTP id 98e67ed59e1d1-3adeae80e3fmr7279552a91.58.1793085004664;
-        Tue, 27 Oct 2026 00:10:04 -0700 (PDT)
+        bh=ccfSLrgWT8yZZMCQWDheXOVMnyMH2wrHGPHQpEmc4TY=;
+        b=jqFMxE1jyECcXzzVE85NsY6gZaYZ0DdFvyqz2ZOPAhUY7OEIGGVjYwdTjWext4XxPv
+         AYVDti0Hbfeio8IHp6ey4Hbd34FNswqcPy7YBq8y7mxnMnO12l8dWrmGSCyOFA69EEnS
+         Bq9ffBzcRIbR/EL6davW45RyngpdJLUrxuSfKPEZHvi4cqzzxh43vxxlD2hmC5AMtRK9
+         KnAz4yqANJM+7uTpG8OmRvNXIWMcXbmx3IAdCz+MZbZoT4bpEvaCj1LhLiFkAsYvSLj8
+         ZwzVVwfJJQ59I3K3M44/PUFlFd6DWgEQPTfuMrImWRFs2RGNSo23hzIpkZiiKbnZ8N05
+         UHrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxu7GVq1zVkxlO6Z1JCdGNyfhDj/hrzLqnCdmOsLRgueQ8bLe8Rj7Hz49wlt5lfIWUcRCixn2QiUOjkPKI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxWcvMuvKnOnCRIUDlnBoVaZ8uvj77Woh4cPGoD8mwPyCxkN9T
+	KU4iz4j0juzgjHu36ISZzK8vjqxt06XMtfy2C9XMztrfimw0B966vbUv
+X-Gm-Gg: AYBFou3wjrN5sgQ7uD6B63eGtVd2wcOdhVxRIswhqtUY5xIG1TBckpwygW6CUOhGkqC
+	8LIfwUste5CBiN6G21OZJgy0seiw07Xu265PhbZyFEPTPTsxGhwWyI1ldyDiDkqseHGaekNTrXu
+	AkdTE6aRBReTB6KxvK44fM1Yk/zc/QzKy9X7vQXpfsMDYta8y4TykVTDTGm0SLt8r/Ki7ep6zUR
+	fJLz2B6ObPPMeGd8jryGik5SHzfQhKHlRzzVs8Fzt2g9ReOpsjaQ8lhaqY3nqgYjqYlWpa1gXtH
+	6Cupl8riaS7MI+TNpcmHmGJ/WdJ63oXL+16qgrDKoJOPW8VW5ZF9Q94OUoFnWWbSFnqYKjcq/tu
+	32y/ySxyjFIHIDyrUTkIKRUjp7qkJ+apBQmsZOQnrmU3UGCsV+aTnU2VQBvrx3scpmV1d9HkyDb
+	IvI3UfVfEhyUGvgiVjoYhp6jrUqn/X33gC5D56F/ZlpLfNfCcJPLLccjio155SxHeyN/VVGepg2
+	einnRpZbWaA1Kt0574mW+HGZA8CFl49JvrhPmZflfNM+X/K4Nrd90STcWn0xW4DuuS6LmH2Ovc=
+X-Received: by 2002:a05:6a21:a91:b0:3de:1b92:a4dd with SMTP id adf61e73a8af0-3e7bfac2b12mr7185377637.18.1793085021537;
+        Tue, 27 Oct 2026 00:10:21 -0700 (PDT)
 Received: from kernel.tail6741c6.ts.net ([185.220.238.37])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc21274sm2277512a12.8.2026.10.27.00.09.59
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc21274sm2277512a12.8.2026.10.27.00.10.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 00:10:03 -0700 (PDT)
+        Tue, 27 Oct 2026 00:10:20 -0700 (PDT)
 From: Kunwu Chan <kunwu.chan@gmail.com>
 To: jiangshanlai@gmail.com,
 	paulmck@kernel.org,
@@ -94,9 +94,9 @@ Cc: rostedt@goodmis.org,
 	linux-kernel@vger.kernel.org,
 	Kunwu Chan <kunwu.chan@gmail.com>,
 	Kunwu Chan <chentao@kylinos.cn>
-Subject: [PATCH v2 01/10] srcu: Record callback registration stack for KASAN
-Date: Tue, 27 Oct 2026 15:09:14 +0800
-Message-ID: <20261027070923.3054462-2-kunwu.chan@gmail.com>
+Subject: [PATCH v2 02/10] srcutiny: Record callback registration stack for KASAN
+Date: Tue, 27 Oct 2026 15:09:15 +0800
+Message-ID: <20261027070923.3054462-3-kunwu.chan@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261027070923.3054462-1-kunwu.chan@gmail.com>
 References: <20261027070923.3054462-1-kunwu.chan@gmail.com>
@@ -111,38 +111,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Record the callback registration stack in __call_srcu()
-for KASAN diagnostics involving SRCU callbacks.
+Record the callback registration stack in call_srcu()
+for KASAN diagnostics involving Tiny SRCU callbacks.
 
 Suggested-by: Zqiang <qiang.zhang@linux.dev>
 Signed-off-by: Kunwu Chan <chentao@kylinos.cn>
 ---
- kernel/rcu/srcutree.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ kernel/rcu/srcutiny.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 2b0e2b2d2c18..46fe2f0cef85 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -20,6 +20,7 @@
- #include <linux/percpu.h>
- #include <linux/preempt.h>
+diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
+index 63a3f0a8bc53..3ee28885b96f 100644
+--- a/kernel/rcu/srcutiny.c
++++ b/kernel/rcu/srcutiny.c
+@@ -10,6 +10,7 @@
+ 
+ #include <linux/export.h>
  #include <linux/irq_work.h>
 +#include <linux/kasan.h>
  #include <linux/llist.h>
- #include <linux/rcupdate_wait.h>
- #include <linux/sched.h>
-@@ -1530,6 +1531,10 @@ static void __call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+ #include <linux/mutex.h>
+ #include <linux/preempt.h>
+@@ -290,6 +291,9 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
+ void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
+ 	       rcu_callback_t func)
  {
- 	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
- 		return; // Leak the callback rather than corrupt SRCU state.
-+
 +	/* Record the caller: the irq_work's stack says nothing about it. */
 +	kasan_record_aux_stack(rhp);
 +
  	if (should_rcu_defer()) {
- 		struct srcu_defer *sndp = this_cpu_ptr(&srcu_defer);
- 		struct srcu_data *sdp;
+ 		/* A re-entrant call_srcu() during the drain would livelock it. */
+ 		if (READ_ONCE(srcu_defer_draining) && !in_nmi()) {
 -- 
 2.43.0
 
