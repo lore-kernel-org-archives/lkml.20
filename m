@@ -1,108 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793091373;
-	b=CeXteLTUGrLZkJQwLOCS2eg6RjT2RKO51Lxo9BMvyyGIpRIxHLiMbjtNN+CSTf9pEAAX
-	 v+4IJ+RQ93W0l9IYNqteGAe1LF79rb2cpvKgDQc2jVUe6XJu4nKSrBGqQHJYWZxnG3K/J
-	 e2Rpr+brUD/tZEevrvie7v3aaeLAwDJP4uRR7V0MHJdrr7VSdZweRqXBEFyW2ZgGzCDNz
-	 ytEYXGLCSBp0l37PPlUvjD9EafyVx1jprkFtcsmXUEzEaPaajR02B0RZANdeD3fkM5hnc
-	 vdI1va2lo7jJ8BbyF+Q5HUPocbQ9mtDMuNsnGux7ajJcw9P/jGSFdVa7ISbUe/6GvEg==
+	t=1793091375;
+	b=q4QJT32fOK4KvIyaBK4Pnefa9apYQdMcNlqlOUE+7KE81Eoq9VgtEZfMHKt04LrGsNQ0
+	 qAXh/B0N0DJW4f6Js3pSnfnm+KjhpzexO1zaa6+3KVjTDKJ22d1Cd35iyvF1mUDWCostV
+	 Ix2BHqEyqmHj3wm57NraoxmPEDIfaZRxZNyyksKRcqhoVjLScKuhzsT31HR+N3lBgprsd
+	 s3sldvvsyjNsitE17uuHIJP2Rgmb9jM8attHLoQCzTcWAGP6t8+sFbrve6IkbrG+orPwD
+	 j4PA8WIB3T199j2W3X0Kh3pfmtUOVFk3D1iRfj/EgHIM9vszUxCzbU8fIVB1sFf+EMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091373;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HyrhFsYs+REFUgaFVShlaZ9e8ld3lHCKJ+hBUTNdVHw=;
-	b=aiYOzpZ7CwWRbeM38KxvuyZTas7MIONaUOSgMAkPWH5Yy60cm00hZIfLaeOrNk+xbk8i
-	 VsaQxOUSwVdErg1iHOjxJ8NKHMtMr/hH/k30XCbGmz1XsBLX994fAC7gaLn7BSYz45OYI
-	 JaY0v9txzHc4R3Krb5iCNpHvNz7nv81OtEJG4aHAwZTr2kaapfgcf0BjsSTX7hVPGnJaK
-	 4Cfk1HSRUAIZYi51hp6QFe+0/tTmQORF7zvPLJUidTOu80g5X01NDzDTbybiEsYR7Z9EL
-	 EAwJ2cW8hHD5YJv/MyoCqW6MHqx9dvU3ae23ibQZaMkGJKBaVbCVhNdWpS2PabBYIZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091375;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LLjeyafLWq906e/KlV7udPCtdijPfLEIi8SSit6QWfU=;
+	b=AeU9fwTpEg/wmuzjbxNHyt98vC2NSkjMlLEFn4ygx/Ls1lvhEDaztczU9sLzWCObhtnv
+	 mex6qrsXwykaflzWc9jRj1OCtI86a5hoPjCeGYpXPHaKGFCqahSDSwFGeqVpnA2uyi+kt
+	 q4jPYmzc9OH6IueE8+3Ton/bDHSfepj4s8xHJ1jH295Y9xUu0Px3NJC9FLg58rdYMGySw
+	 hUx+WcXVChWg3pZQRVk39Benp+JVP3D/mewI/TLaCS3X4Pyb/rG2aP/3sxRi4G7XwdNXI
+	 7uou41YMdzFGbjgeyYtcVZiD6rHqZbajzGfVkl4EkGLKq7yqbP0KCCS/jWvabK6a5hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XVk4s9uZ;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hVG4Z9Rz;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBNUrHgp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56512606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:56:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56512606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B841606A31E;
+	Tue, 27 Oct 2026 08:56:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XVk4s9uZ;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hVG4Z9Rz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793091371;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HyrhFsYs+REFUgaFVShlaZ9e8ld3lHCKJ+hBUTNdVHw=;
-	b=XVk4s9uZMvalsel9zIsIkXhztuP0qeiTnGFF1MpaiHK3eYxJ4pPHA3iWdBu3Q+aLWk47l3
-	GDBpFZSekfJZu6hzGTgunFWkEJHCfNagTcqBjfxx5z22Isi+oo9uUXAWtFO9AHbARS2Mbe
-	paGP0Rep85wLtTLxZtOQrpE9VMUN8qM=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-249-dc8TpeD9Pe2BC3vlhw7Zqw-1; Tue, 27 Oct 2026 04:56:09 -0400
-X-MC-Unique: dc8TpeD9Pe2BC3vlhw7Zqw-1
-X-Mimecast-MFC-AGG-ID: dc8TpeD9Pe2BC3vlhw7Zqw_1793091368
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1d1f26a63so38303935e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:56:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793091368; x=1793696168; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HyrhFsYs+REFUgaFVShlaZ9e8ld3lHCKJ+hBUTNdVHw=;
-        b=hVG4Z9Rz1dB6d2izFFKRdGgemqvVFgxclc8HXtnYV2qslRbk5JEoRgmgyoDLQ3nVMk
-         QaRuB06kOKz11LulRDJJakWKTgz4nNHX9I/FAjilMQh84UQq/8cWaecyRxnKBXpFQmUA
-         yCSqToXeTLfUL7S/qHJQVeXcDi9WkcZgDezn7vgYdjEQUMEFFX+ai/+UaIG3CbhEBKeV
-         ow7p18V+l46aMX+JF/DzBSPSaQVtzTGaK7hQ2pi/hrVkcXE+w+RycqbL+hVqqdpFR2pW
-         328iUdS62GzahwKB2yvRmHPutBubbZJMoKTYwsAolWfYG1wy/EyJ3B5MMScmf+AZaF7k
-         qjXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793091368; x=1793696168;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HyrhFsYs+REFUgaFVShlaZ9e8ld3lHCKJ+hBUTNdVHw=;
-        b=Q1ReTYbaMDNQHVWd2akz1CJW9O4/oQR049kFSRc53v2VXtczmbjVghZAJlhcF4Fii3
-         BsS0mhaTyhc9Hrd0EhIcQJC3JYUcByygdbYzJUeAaFOhcQyCeXE6KyPTHM+s110zW+l7
-         rwt3iHFLB+6blvgQoyvP0Mwb70lEQ1Xdqfosual93i9zzkiJjmZ8bG4L9a8eBdN9MAUq
-         W5wIyxtARiZ477501c4i9+DUDe7+Jw4Lrj+YvfdVAhDpPZseUVjp43i3/mnzWgP+yvB7
-         bVfCGE32/wmep5C7botumlmltnB+ad5K04VK0LPTqimyxOqz66+2I6ml99pFHeNODXjx
-         Bsfw==
-X-Forwarded-Encrypted: i=1; AKwUvBypQ/tIZaWrLUIFkc1u0LmiaMxfsBkWc8jUfMvX02yExagzmsyVaxyBslS7vOUJ9bobtDjP7bo88XY1Imw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbaXg4KepnXv27z+rH9Tw+J47dAZQFco00l6YFDZtvtcfO5rrN
-	igUb9m/daQOnQ6tc8VUFAwl3dXfS/5F/JLZccpthq4t/LZRs2MjAheB2sZ2O1LZRmO1N76Ys3DC
-	c75gynIg9BQHiqL0gWSXCXIOE4nGLvDYo/sWR7Zpz0gXzR9lV5ta6TgAJ7G4q6Hgo2A==
-X-Gm-Gg: AYBFou1sNP+PKYsBhXl2ej0yZX2x7o559myZZozpQMJ7PiTLFFzqfGb6hr9wn4Be6V4
-	rWZH649n471Yl+slQonLs3MMCggrfcZKit/mg5rmjQvVmw+nN3I6Ebt1HFcepSXuCPbSI9G9PUZ
-	VK9lp4aoSYxOA2Bdb6BOEx8fRJrsl3lY7f5ZH9xsSwh0uSc3qa3YjPDqpUMgqEB33OLhwtJa78D
-	Iic3AXwy+ZVZyoXIlz07bCAhAI8rnanQLcF3MOWPxLqnYtaxqfPrue9KZbE7wKWp8z49WBC8aud
-	Qa919/ToqV1tyPaXvfpJPQspSnUJ0rDlXPiMuGBRPkgvC7gaQ9hoKh/43Eei9VBCD7AmYH0cOZ2
-	EjmpgiYgGlrKQrQSEp3EHdt/w46bI1Sf43IhF3pIQvl98LPV7P41vdlimtDLHhvx89GFkQ0E9DA
-	==
-X-Received: by 2002:a05:600c:8183:b0:4a1:e6c5:e44c with SMTP id 5b1f17b1804b1-4a35ac9d234mr149428755e9.10.1793091368521;
-        Tue, 27 Oct 2026 01:56:08 -0700 (PDT)
-X-Received: by 2002:a05:600c:8183:b0:4a1:e6c5:e44c with SMTP id 5b1f17b1804b1-4a35ac9d234mr149428265e9.10.1793091367861;
-        Tue, 27 Oct 2026 01:56:07 -0700 (PDT)
-Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ae28sm259883715e9.2.2026.10.27.01.56.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 01:56:07 -0700 (PDT)
-Message-ID: <a3c08b59-7eae-4a1b-aa0f-042abe024525@redhat.com>
-Date: Tue, 27 Oct 2026 09:56:05 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBNUrHgp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDEAE1F01828;
+	Tue, 27 Oct 2026 08:56:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793091375;
+	bh=LLjeyafLWq906e/KlV7udPCtdijPfLEIi8SSit6QWfU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EBNUrHgpyjuV+uDWfTfjiZjrVUSiaANjjrfsc3nkFZWTw82J+OqHpWvLIciRV9TNx
+	 2ZYRqlKawGk39ZaulprNCM2tNwh2zki3TsMiowIH13vcslKJA7833dN8riI4s3kDAM
+	 Q3qfXOkNFX5VxnUmiQtmg5QWQCqFP+dYzLxz19uSTgl5bash6cqoBqqOskiaRk2/C6
+	 RL8HDc2rNHtv0XIn1ejrOpB1M3CI9bhEBJhZRP1bllfI+FRzWtybU61jzIzwI0z0Od
+	 /meOw5AGq2fgtE0iXpBuP7zSuxszxjxhbNpF90J6AdO/j7okIvx+jpqUI1F2fZM2tZ
+	 5wOIAvJFgckew==
+Date: Tue, 27 Oct 2026 08:55:58 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 44/46] mm/cma: don't release CMA pages still in use
+Message-ID: <auBmRQDzFPea5FeS@gremlin>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-44-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,30 +82,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 3/3] net/mlx5: DR, Fix out-of-bounds write when sync
- to HW fails
-To: netdev-bot+sashiko@kernel.org, tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, acassen@corp.free.fr,
- valex@nvidia.com, erezsh@nvidia.com, gal@nvidia.com, igozlan@nvidia.com,
- kees@kernel.org, kees+treewide@kernel.org, leon@kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, mbloch@nvidia.com,
- moshe@nvidia.com, prathameshdeshpande7@gmail.com, saeedm@nvidia.com,
- william@theesfeld.net, kliteyn@nvidia.com
-References: <20261021074949.3471704-4-tariqt@nvidia.com>
- <179275275762.3134.7548579754182364985@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <179275275762.3134.7548579754182364985@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-44-6f74bec9a5bb@kernel.org>
 
-On 10/23/26 12:52, netdev-bot+sashiko@kernel.org wrote:
-> - [Medium] After a single SYNC_STEERING failure the pool latches into a
->    permanent error state while allocation stays open, so device SW ICM…
+On Tue, Oct 27, 2026 at 12:18:04AM +0100, David Hildenbrand (Arm) wrote:
+> From: Rik van Riel <riel@surriel.com>
+>
+> When a driver calls dma_free_contiguous() before quiescing DMA, the
+> page might still have a reference from the device.
+> put_page_testzero() there returns false, WARN fires, but the code proceeds
+> to free_contig_frozen_range() putting a live page onto buddy and clearing
+> the bitmap. A subsequent allocation can hand the same PFN to a new
+> owner while the original holder still references it.
+>
+> A concurrent put_page() that drops the last reference between the
+> testzero loop and free_contig_frozen_range() can double-queue the page
+> via page->lru, corrupting buddy lists.
+>
+> Avoid the corruption by not freeing a CMA region if any of the
+> pages inside are still in use.
+>
+> Make it explicit in the warning that the driver allowed a leak.
+>
+> While at it, use page_ref_freeze() to make the semantics clearer and
+> switch to pr_warn_ratelimited().
+>
+> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rik van Riel <riel@surriel.com>
+> Link: https://patch.msgid.link/20260811132045.5f114772@fangorn
+> [ david: use page_ref_freeze() + pr_warn_ratelimited() ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-This one looks legit.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-/P
+> ---
+>  mm/cma.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+>
+> diff --git a/mm/cma.c b/mm/cma.c
+> index a10ea37a261da..871f95c9ae9f0 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -1020,7 +1020,7 @@ bool cma_release(struct cma *cma, const struct page *pages,
+>  		 unsigned long count)
+>  {
+>  	struct cma_memrange *cmr;
+> -	unsigned long ret = 0;
+> +	unsigned long leaked = 0;
+>  	unsigned long i, pfn;
+>
+>  	cmr = find_cma_memrange(cma, pages, count);
+> @@ -1029,9 +1029,13 @@ bool cma_release(struct cma *cma, const struct page *pages,
+>
+>  	pfn = page_to_pfn(pages);
+>  	for (i = 0; i < count; i++, pfn++)
+> -		ret += !put_page_testzero(pfn_to_page(pfn));
+> +		leaked += !page_ref_freeze(pfn_to_page(pfn), 1);
+>
+> -	WARN(ret, "%lu pages are still in use!\n", ret);
+> +	if (leaked) {
+> +		pr_warn_ratelimited("%lu pages are still in use, not freeing CMA region!\n",
+> +				   leaked);
+> +		return true;
+> +	}
+>
+>  	__cma_release_frozen(cma, cmr, pages, count);
+>
+>
+> --
+> 2.43.0
+>
 
+--
+Cheers, Lorenzo
