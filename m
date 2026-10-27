@@ -1,106 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793118677;
-	b=SuYSh7NAmDq3+ewD6VN3cxuqSAk2sIMGzgCw5m1LOdHsMbKLiwds2zJ2yL+za4MdUZTX
-	 u5p37ueyAVHYHLjPE2LI5wg2r83HdqVb5ILeTqq9w+Fkz6wLfivvZ7Ltg6LVmv+rY7OEO
-	 TB5ThgWkFx41Xs68CVE1LwJm7YsZrAgbSTQPTmWjMKI7eTmS6E3wZ8F5XlFZO0dF4DVbE
-	 jtO3w3iuQc65HEaTYnE45cmArfHD8mfz8vuBJFC+PhQFa3r/93q7JvkZQ3FAcjHENPgoz
-	 4lUHuyIH/wegX+pdyGlEl5DbhWosN1dHu5G3GoALsqRMlMs0OB5HuqW/eRTDcgejusg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118677;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ZlrRHgf+LfmmKEtQ7PGUmqOVU1FMSCnwVckjiZsu+qw=;
-	b=n61Qa8FEK2y0ghOHP4vD/QIdnaDMfVaI8S40au0s9ePiYTWCx5RtAeWGzcV23uh6//py
-	 nrdmCnq8thzwfJBJ+nd8Idt5YgxjDec7k9K+pkCKRS39+qo4aiWQ2lkn9rlBu3FBT/AQZ
-	 lExFsixH8+/7RoI17iSKU+3IB00OUwLTFqnuA8d2Yj6uXevoF1z47TV34tlwq57qECLJK
-	 IhsP9v740rubycd490f5iJ3QavUvtwB+u+kpih+8m3v5TtZA4LfqA5MfX1wkwaY8mJ8kS
-	 Q3zpASzvW72bqYHUJ8sba7kyWDdNoOc0PXvP0oH65LT51e9Z/CsQqJYOCI4ViourVaw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="Nu/IZgFD";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.9
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010009.outbound.protection.outlook.com [52.101.46.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793118683;
+	b=L76iQdm7vIzzxzCX2sv6lKYm4i66jHckGIMaFE2QCqbEXfp1jJonPaYtdvr30D3r3lhN
+	 ZEd4VV+Q5TpVmmIM30GOZwX4G5fiXBULOe5DwrYSGYqWuOTZoKIL4qt99AlaIY+ycsrZB
+	 zW24j3FvwsO0hTtZ3v2HhgKCxaW+TaL5pmmafZfLFlSPa5gBbRsENzEEnN0SVm405UHWP
+	 vyk0+gUAXKtrXbEjc0iFJm3pPLy0Ir+L6pInjFqZmVSkIkpJRlEADQqF26+vaVuesjohc
+	 5TS69oHBbE5GmofUYbHFUIszMSwn9BKeFoB3SaaVdnsufNaKysU+9krd1CgDXGzNdLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118683;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Lines:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=WRlQjLqSSanzAjPiuI4qEjre7T3Pirwo0dI+Zxx/i/k=;
+	b=yHnnhWHtfXnxcf8k8Dovmu5kox5lHXjxSGC0nHcetVIXBqLolzEVX6ILHx//+zhFNYIu
+	 Q4/iGYWhltWCGBflhsTzsbQy8EJflZMmSPgDhu8SVli8mwj5+iLRz7q705p7WhAviFR56
+	 mzSrvViQSa34OE+MBg+OOLYOcfs3iZ0qMJm7FAxtsPYBSnpjEZQNXwNdWxsyfS6j3CZ6J
+	 fVdVje51HoZtBwoZ9TM94vDMr2+hOMrLdva+jUjXVAb++S68+sI9Mclvrp1J5WRur3LK6
+	 ht6FoZu3q8WnCutX2UZNN2o6WpEjYsLK4kV1M25nKJcpv2+Yw+8K68uA+1sExunfyYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JuiLpS2s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583A8606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:31:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 583A8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2EE606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Nu/IZgFD
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qa7HIPuJQIzIgxrYbYEe7vKXvEDLC/KEEfD2t2+vMd+vAqD13qVNMr1VR+qpmSsgfMhb1Ysf0D7chD8bRipdhuyAslWWE5XVn2LfaJzSq3Zmoepiwpw9mQUdoe52+ejcmjbwZ2nqbFUlTj1pCtYZ040cRMEvwDI6t11oFXjzcVQwdBa7BxcwdErvnmh8Lzue8aJlBbKyDBSbZgU+jUrARPF/f9tBtu+8obPB83TIHoEW6wotknuB7k4NGxHywMX/aCKxvWJmtot2zRURbyqSdKvN37y5o6zBFepK5zcFJe0FLwWk4gOFyTpf/zTJRnu+tDspKfq0KL2yybZ0PMnrIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZlrRHgf+LfmmKEtQ7PGUmqOVU1FMSCnwVckjiZsu+qw=;
- b=a4cgl9o7VlV0IxuVsdXN3XKCwHZrikv7PKI3tfbEh2pRmbI8kHU9MB8DVC6GoqX0FWhTAQB16Kmyj75JBUQA9lfY5+f/6L0WnsUFnYNDmJQ69n932F6kw88j5zd8cYam36nzCZeuzkIMiH3kp7C+1LiJtxdlZpFEPr64Q6u6iNd8+kPNkRVygkOanHhKMWFXyjzUc3z1O7VBWJtXGr4dzie78DbqhrkX7XzT2iuHLyZFxV/Pftuv5g8mkCuHtnBlIJUqRccG7UjcSS+pef2qrKf1BLbQz4lqbr+6/xUTrAKnJvXpThV/C135goiMcr1/r3Ski/MgsrFPc1RtC+lZUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZlrRHgf+LfmmKEtQ7PGUmqOVU1FMSCnwVckjiZsu+qw=;
- b=Nu/IZgFDkvwtA9NKb1NxEoFb9yaj35Xbs50sTcbYRAtGAUaomLt/wuQxluJbejgPGsVd2vzOSvq+mhewy2kxvRgH97UNHK64x6hwj8pJjZ++v5LIJPfDA/G10wDBKwcQZUp5zagSDi0bpSD5oEdn0Jj3Mbte9+EV5l7pbJtTqjw=
-Received: from BN9PR03CA0204.namprd03.prod.outlook.com (2603:10b6:408:f9::29)
- by SA0PR12MB7461.namprd12.prod.outlook.com (2603:10b6:806:24b::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 16:31:13 +0000
-Received: from BN3PEPF00022BC0.namprd04.prod.outlook.com
- (2603:10b6:408:f9:cafe::1f) by BN9PR03CA0204.outlook.office365.com
- (2603:10b6:408:f9::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Tue,
- 27 Oct 2026 16:31:13 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BC0.mail.protection.outlook.com (10.167.248.123) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 16:31:13 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 11:31:13 -0500
-Received: from amd.com (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53 via Frontend
- Transport; Tue, 27 Oct 2026 11:31:09 -0500
-Date: Tue, 27 Oct 2026 16:31:05 +0000
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-CC: <joro@8bytes.org>, <suravee.suthikulpanit@amd.com>,
-	<vasant.hegde@amd.com>, <will@kernel.org>, <robin.murphy@arm.com>,
-	<seanjc@google.com>, <ashish.kalra@amd.com>, <pbonzini@redhat.com>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] iommu/amd: Clear amd_iommu_snp_en if snp_rmptable_init()
- fails
-Message-ID: <gzxyzqziegcdin6vnfpcphnu3m32dpdjdfj3hnbddpjvkdr346@akdnsb4lepbs>
-References: <20261023185041.8685-1-dheerajkumar.srivastava@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JuiLpS2s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A5391F01829;
+	Tue, 27 Oct 2026 16:31:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793118682;
+	bh=WRlQjLqSSanzAjPiuI4qEjre7T3Pirwo0dI+Zxx/i/k=;
+	h=From:To:Cc:Subject:Date;
+	b=JuiLpS2s6J+K5rTpsfmIUX2N8V1SLAGNRMQqyaGliyhq5IW8/89QAYD3zdA1xJAOm
+	 1TkTsf33MDfR0R/alNz65vYY46WkzAQua+uRn4tywkZ8FdqJ5JMgMTo9lFg289U5qn
+	 KzS2Dtci78yHcU/SKrc9KCs62Xb1qdYrhoC7eXAw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: w.d.hubbs@gmail.com,
+	chris@the-brannons.com,
+	kirk@reisers.ca,
+	samuel.thibault@ens-lyon.org
+Cc: linux-kernel@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH] speakup: don't use the ldisc data after a hangup
+Date: Tue, 27 Oct 2026 17:31:21 +0100
+Message-ID: <2026102720-shakable-voter-f08f@gregkh>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,66 +59,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261023185041.8685-1-dheerajkumar.srivastava@amd.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC0:EE_|SA0PR12MB7461:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65de3f34-00c6-4964-ca16-08df3447b760
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|261026140227099003|11063799006|56012099006|261021121427099003|261022075727099003|261009223027099003|261022105027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	895FtW99a3Km/tdF8i9MvC3cazJosDPyqsIbsSI7fw90uKjOA/XkiBeOot0v4PCGtZ1BA+AN9ZyAwDEQlp/M4JZ0rizJz5/P/6pTixeKzaGN1+eaQ44j7lsuq7qGoGp6nGyEkw0iRbjScowI3I9aYPNeAsMVJwx866x/cWRsP98QM51/GNgIe9drjYCVj7nhgYqhonbvqyMtTnavDxh+mwv95Usks6wBv1tknZJ6ETW+hKDIZMUyce8vn6yLRtt1Nb4l19ppyA2rLeiI6ULQf0egw5P/qHiw9SFiMwghG4l6nckPJhvs6k2pf5lgLHd89IvPj3IuLV7NavUfQ9tXPNklgjOcRo3Glz7bOYYec9PV6KiByihJrHbEN8JYhPAXXJzZyOfk3ieoeeqpd1mauXAwHcLIIYjU48Qv/uRO+EAA/mxXSrd7M+AC7uZ6ldY8SWrQ6spr1AN9iUi8dEj3GAImd4IhSFs103GDimKntXFuy+Q26/0poArs/pOExPklJzlkG9hNzuGU3/IpUYEHLh1trZtOVc0EHZ7/vjwdM5CY4siH4XhX6gZXberbtSxwzZI2y9TRAh+zTdf8KkRV/tRiIC5ZT+g1lJvkzgpfxsVyXRc8dGx1ghSQo+3n30yBGDt87gQpLdaBAsRwpG4gneeogWMXBPkY41SDZ6aBLhH1csnD/1igDHLLS/uA8PSOIJxvTa12ZHW0WI8EfP+9Aw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(261026140227099003)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(261009223027099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bXEGINXxP0cTwLpdRObk93D/2Kl2vtXEQe4H92bSfD8j89xv8p54rnunM3acAbdgTQP9T1euenKC3agyivg0+KrQff+tcl/dafEdqOiJqhDogr9ahL629Kuy+wGL6n6J+pspgHrBKZLgFp+nb54HdtdPDODbBfEyeNkL5vt5s+X9QGc4Am59GTVVsOCJK1cOxvqwd3PJASxCjEoszDj1fARPr9xoI3yOAxO+VEJ1YPpevMnUzSZl1NEcmbnq8y2mTkivFAJfIJCYaVOgyI/+CMBERl3+/kDNA13JiE4ygHWIZqzW+OldoTeWM/RML/+WgAwEcQSemA7CKLYw0EAiILjpZ6mVlJ/eJDYjHhElb6rfTlY8kf12bEvqvHJ4PhILhzxqSmxFzyMb+sjRN5cL1WDDcUmVxKyY5hGGnbv/zzNZvwsv1ctXpR14/13X2XAx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 16:31:13.3358
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65de3f34-00c6-4964-ca16-08df3447b760
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7461
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3386; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=TLC9h7fPcxjUYc3Fb7PQdW1aytuDC8FROk+WMo42eVs=; b=owGbwMvMwCRo6H6F97bub03G02pJDFkPLt4oarD+p17+m3++E69ktdmb16Lryi3XcU19pZl7w rNycat4RywLgyATg6yYIsuXbTxH91ccUvQytD0NM4eVCWQIAxenAEzkgA3Dgq3Kj2QEAjitqzco PmfbrFkiuvfCUYbZLHP5ftwW0WPuORNsmpz3ZPXFXpNjAA==
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 24, 2026 at 12:20:41AM +0530, Dheeraj Kumar Srivastava wrote:
-> iommu_snp_enable() checks that the IOMMU can support SNP and sets
-> amd_iommu_snp_en, then calls snp_rmptable_init() to map the RMP table.
-> If that call fails, CC_ATTR_HOST_SEV_SNP is cleared but amd_iommu_snp_en
-> is left set. Later IOMMU initialization uses amd_iommu_snp_en to
-> configure the IOMMU for SNP, on the assumption that RMP setup succeeded.
-> 
-> Clear amd_iommu_snp_en along with CC_ATTR_HOST_SEV_SNP.
-> 
-> Fixes: 409f45387c93 ("x86/sev: Fix broken SNP support with KVM module built-in")
+From: Josef Bacik <josef@toxicpanda.com>
 
-Reviewed-by: Ankit Soni <Ankit.Soni@amd.com>
+ttyio_in() takes the struct spk_ldisc_data from tty->disc_data and waits
+for its completion. The structure belongs to the line discipline:
+spk_ttyio_ldisc_close() frees it, and leaves the pointer in place.
 
-> Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-> ---
->  drivers/iommu/amd/init.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-> index 8a410d4aa370..d413b1240294 100644
-> --- a/drivers/iommu/amd/init.c
-> +++ b/drivers/iommu/amd/init.c
-> @@ -3445,6 +3445,7 @@ static __init void iommu_snp_enable(void)
->  	return;
->  
->  disable_snp:
-> +	amd_iommu_snp_en = false;
->  	cc_platform_clear(CC_ATTR_HOST_SEV_SNP);
->  #endif
->  }
-> -- 
-> 2.25.1
-> 
+speakup holds the tty until the synthesizer is released, but the line
+discipline can be closed before that. A hangup of the port does it:
+__tty_hangup() calls tty_ldisc_hangup(), and as no file is open for the
+tty, this one calls tty_ldisc_kill(). The port is hung up when a USB
+serial adapter is pulled out, and when a serial port for which CLOCAL was
+switched off loses the carrier.
+
+After that every call of ttyio_in() takes the lock of a completion in
+freed memory and may write to it. The LiteTalk and Speakout drivers call
+it through spk_synth_get_index() whenever "read all" is used. If the
+hangup comes while ttyio_in() sleeps, the completion is freed under it.
+
+Take a reference to the line discipline for the time the data is used,
+and report that there is no input if there is none any more.
+tty_ldisc_ref() does not sleep, so it can be used by the callers in
+atomic context, too. Also clear the pointer when the data is freed.
+
+Fixes: 6b9ad1c742bf ("staging: speakup: add send_xchar, tiocmset and input functionality for tty")
+Cc: stable <stable@kernel.org>
+Cc: William Hubbs <w.d.hubbs@gmail.com>
+Cc: Chris Brannon <chris@the-brannons.com>
+Cc: Kirk Reiser <kirk@reisers.ca>
+Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/accessibility/speakup/spk_ttyio.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/accessibility/speakup/spk_ttyio.c b/drivers/accessibility/speakup/spk_ttyio.c
+index 6bff78e3d872..44139d870ac4 100644
+--- a/drivers/accessibility/speakup/spk_ttyio.c
++++ b/drivers/accessibility/speakup/spk_ttyio.c
+@@ -69,6 +69,7 @@ static int spk_ttyio_ldisc_open(struct tty_struct *tty)
+ static void spk_ttyio_ldisc_close(struct tty_struct *tty)
+ {
+ 	kfree(tty->disc_data);
++	tty->disc_data = NULL;
+ }
+ 
+ static size_t spk_ttyio_receive_buf2(struct tty_struct *tty, const u8 *cp,
+@@ -291,17 +292,24 @@ static int spk_ttyio_wait_for_xmitr(struct spk_synth *in_synth)
+ static unsigned char ttyio_in(struct spk_synth *in_synth, int timeout)
+ {
+ 	struct tty_struct *tty = in_synth->dev;
+-	struct spk_ldisc_data *ldisc_data = tty->disc_data;
+-	char rv;
++	struct spk_ldisc_data *ldisc_data;
++	struct tty_ldisc *ld;
++	char rv = 0xff;
++
++	/* A hangup of the port closes the line discipline, which frees its data. */
++	ld = tty_ldisc_ref(tty);
++	if (!ld)
++		return 0xff;
++	ldisc_data = tty->disc_data;
+ 
+ 	if (!timeout) {
+ 		if (!try_wait_for_completion(&ldisc_data->completion))
+-			return 0xff;
++			goto out;
+ 	} else if (wait_for_completion_timeout(&ldisc_data->completion,
+ 					usecs_to_jiffies(timeout)) == 0) {
+ 		pr_warn("spk_ttyio: timeout (%d)  while waiting for input\n",
+ 			timeout);
+-		return 0xff;
++		goto out;
+ 	}
+ 
+ 	rv = ldisc_data->buf;
+@@ -312,6 +320,8 @@ static unsigned char ttyio_in(struct spk_synth *in_synth, int timeout)
+ 	ldisc_data->buf_free = true;
+ 	/* Let TTY push more characters */
+ 	tty_flip_buffer_push(tty->port);
++out:
++	tty_ldisc_deref(ld);
+ 
+ 	return rv;
+ }
+-- 
+2.56.0
+
