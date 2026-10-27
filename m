@@ -1,95 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117889;
-	b=s6EhoNOcZHLO9DG5miOVK/2SfYey/cs+ia2ECb//oyKuA8waDpQ71rmeK3L0j9gcjWXa
-	 zWP6aAMozG2iwKvvl79tvg2KNLERRZIibJ5AxFvbrFHOCktuMBD7cv1HSY7upJRV9h9hB
-	 u2KE1jz8+NECRqO6R+MXom5OQxprEw4HYoyVHBsO8Vgrp3BpQgVYlonU8k2+EPXLCLKzA
-	 ICAIbnm9VVLpxoki7HXiALs9ykp/sMbuGlsCPp9hJCmOx7DJ2F9fyhtIKuwCiDFs/jhQz
-	 ZBWZLYiFPjmOT+qDSD10TZPAjRYMWdKdhojrruxIeqw3Vr5s4MTyGzpp6NT8iqf/L+g==
+	t=1793117894;
+	b=UV3WCiU6w/rWrqqV1KaDswccwcnr5VcUlLDEuyYO7sd8QpGxIbMVOHbMLoRTK0ZQFx0Y
+	 QCoyJH6gNeFMtijJu/uACJcw5UKnlM1cPp2/sGardA6538+FRn9T2U2sKEcFKVkiZXCvO
+	 XQMgOxwz2M0K6HA1mSLshxJ0Z2sMbmk3jd+R9C2mWmhUxJ+OiW2hFy+M9ZUik/hy38v8b
+	 SUPJ33EDIJqMZn6dGry5R/SfInWVJm2v673jo2K78olpWMBmu9IERVXibrTLuAmU3+7vC
+	 tRlosYL8f9JlIYdg3NpAyKyu+aOrITervvBpc6yRquDNEzoQIC4hU2E2xHF3S/1BPZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117889;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DPXZ2yO3cU+s5EkiY6YjtMfPdHRJToYSpXviTD5gzv8=;
-	b=HtJ/M3Da9ZWqiFfavF7b+C/S5cKJYTJZSUJLGhAiS4zMiDUQV8r0ejPOEm338dl6Bg0S
-	 oSuNwKo2lO4bhwkArZiGYVIZjV4Kotax7eEEGR6dhs4n/gkISLTIuwtX+7S0wjD0rn5Lx
-	 XJUMUM7XyijK85BVwHKEnBqrpa4fq9P8GbQglYrDhoNUKVENhHi9E/HbxrVK3C1y3a+Ty
-	 y/t5S/ubilcOMe7QQDms4c4dP9BbbENEx6RG0PAtM18dW2v8jrEhvT//s6HToPotI4Jsy
-	 7POvCKKclrYuDC0UZKvp/93YiEZ6ZwL4idEFl75CqNqQVUDlcxyPSFTXRpO+BTbaqRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117894;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gzqWKjNAt9lqP6pzm2jk44aYuqndLp4yTwvo+4KqEyE=;
+	b=MEqwQsWqgTxDW/DP1o7vsFe3KykYE4hkr++BQFtxO10+RcV1Vs14hQ4OZvHc7PzWJTHU
+	 xw8NdI0TjWlxbQktoBumXNKAI4bgH+FpeZajmFnn+9foZjHQH06b4VhMnGds2J/w8u2UQ
+	 0BbGUxxPOf+5PQ3KeLTmaYsLwwwGw33iLC5hIjiRcFEmFt9c9kZRczzdHl1MGJk06CB6q
+	 8pppsUV7vHFu06zx9ND58zNwn5l4Sdxe7qDdeh7LQouQnpfcHc04nrqNYwWvS1VWr1YiL
+	 JKyMLM4KTqTVNhWuk8GNq5D4uWkAEdQfjWf5+gmW45fYeL2aTqrl8WIWn8kJ2IlcXXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+JlxNbb;
-	arc=none smtp.remote-ip=209.85.128.173
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eaw/6xZS";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F223B606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:18:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F223B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B030D606A31B;
+	Tue, 27 Oct 2026 16:18:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+JlxNbb
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b0ca86a515so6344397b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793117888; x=1793722688; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DPXZ2yO3cU+s5EkiY6YjtMfPdHRJToYSpXviTD5gzv8=;
-        b=O+JlxNbbBci8nKYL2Pt4pT1VkmDlJsEd1AdhRhqw9wYVP/lt7TDymN6QDIQOPZVQq3
-         HUA/xOfvzFYdfdao/+3O66XnwpitnwgsFXdhICCmraATdxZa4LwGXUdvwwNukG1cLe2L
-         5qN5g2BveaYqj6x+IUjtD/oWIa3LZHMZPB3OSKx6SzVBcL5HDu5em3O+ORdHWQ3qqStn
-         bIr81WEClQ+YbTAO/hc5rh0iDu4rFJUC6zZclKwpjN2YSRsr8Hcj7dm1GheulqnVJiVd
-         7sRV5FMdTBhs48Wh/8Cmp0zYffAFLRWmoEY1HwUDDLAVf7U7NYOpWKNLQjx8xM2ecX1J
-         lOkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793117888; x=1793722688;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DPXZ2yO3cU+s5EkiY6YjtMfPdHRJToYSpXviTD5gzv8=;
-        b=ZSjJAyyI2RGgqYVXIuiTh4GVZ4bdPpHB5SVLTZmFAiRoseiohk5gQU0B3BJgL8ejJC
-         2SAgngu1dsvHOif6smxh3EiAyh5AcjNEYe4tCS1dUXkNNY/pkpDOxdADYtt9Hap0ifHm
-         LMUZwe0gTCEse0gOTNzNhRr+t6iPW3WNM1yWw4gPgM+bv17U8VIC3WTdhlJFlhfJddQu
-         yNGXrMdgqL+5uEqfFsWEURWK+Reopy0+tXQ/zOTokASF0s83PfptR0QLKsSIdNmjbTep
-         vaDFsiwAI+swBizWb1hKY2JUBDbx53oIxAh1Ie4qullC5ZvEcxzOP5X8RLLaxVh/Max1
-         KRZw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkQ52/puCQnYKDWeeNXrJ599ZH+EsSiZfd13xurgfPuGrRd1KGfzqMNqhOkgIMMKVokDMrVUvBaSdRDgQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjt1fSk64rszyr98pOqFOIgoUv7B0LV9rbVaPegdM8yUeZuTb3
-	wPCXJb7vrR475RdxU041m4bVJ2xBJ/pka3Ff6zPtW3B2CZPs7tWt8PUl
-X-Gm-Gg: AYBFou19qmhLLzZ4aH9NadQAfGbFitQjwEYQjU43Cy+3sAsivQV7PJiGVpDwvgsvL1X
-	y2W+2h0N8Imb7ucSSX8RgEdFgtOaqU+UGo3+ik6Uwbh5/IWnTR8RbYqdTywrlR3/5PgbneTAQBZ
-	cocTlHZjiAXv/rHesInPDwc1oO0iVr3PmFz6gNBjvj/2CuJmLdLLzlfVc8B1PxTz/PRbjfi5HOx
-	A6pO1nBfil6471erJeuLHR5Yt27hs3EdFpqArarDE1lOUvIIjoebkozuVdlq1EKLkohPfejv+0V
-	pCFYlX8+TQhDMZCDF05xnjBdQKC7Zfkwv0xrO0DE8J9HYWJfDva97z/BHSw4g25bSo7eKq4A0rL
-	XK5XWKw3sqIN5zUFq3g6qlCZYZbpJR5WruM4yyFQBsmtFUUVMtwKdGSUssNj53dWMogUJGGMsiy
-	NwtW9LVEq4JOGDrpeqk8medLaL4gD/AeTY+96TFrmMw8rPNA2r2q5ISIOn2VVM+JvrBMud7Bmjc
-	dEDyNS67XaOipil23e9sAGOgvAwxrDi3x9fhMXi/wgHAJaEiN8ck1FSCIAVLSxY0jOv3dk2m9oq
-	vLHSdJE4epJgK+rlZ7BkXRrl42rrNKM=
-X-Received: by 2002:a05:690c:a847:20b0:8b1:a3dd:a6b4 with SMTP id 00721157ae682-8b1a3dda6e1mr20302397b3.4.1793117887797;
-        Tue, 27 Oct 2026 09:18:07 -0700 (PDT)
-Received: from tacolabs ([2601:6c1:600:2d04:4132:6a2c:2819:9df8])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e656162sm15033077b3.44.2026.10.27.09.18.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:18:07 -0700 (PDT)
-From: Reid Downing <skibletz@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Eric Sandeen <sandeen@redhat.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Reid Downing <skibletz@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] xfs: fix wrong compat fields in xfs_ioctl32_bstat_copyin()
-Date: Tue, 27 Oct 2026 12:17:48 -0400
-Message-ID: <20261027161748.2760321-1-skibletz@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eaw/6xZS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17FA41F01825;
+	Tue, 27 Oct 2026 16:18:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793117893;
+	bh=gzqWKjNAt9lqP6pzm2jk44aYuqndLp4yTwvo+4KqEyE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eaw/6xZSvd/iUmSOi8x3BJdGmmK2e2Au+98Gmi/jqPb/fsxjYFyg2asyyhJnch6aW
+	 wiiYi0eITIbZDq54HaW38SGswS0qGyltyrmNEvvLUgZrcg3MfWR9qehG4imuCVOpGL
+	 JLBJMFg4bFYLFuqGqIHPNPdaHWv4b1hxzIOgmIltqxGKohsv70X69oBDXW+gIkAM9P
+	 6ksq060/PG/zOz5Emn8kneLWdVFzz4b9Fry3mL204ZqJhnBuP6P3beekO0yFayQ3hq
+	 GdLB0wZ1l9tZcPdFY3Dx++WAI2wf8fFk1D10texSvMGm5UdAm082/dyBMfy0jfVO2w
+	 miwbGbIVbN6NA==
+Date: Tue, 27 Oct 2026 16:18:04 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Michal Simek <michal.simek@amd.com>
+Cc: gaohan@iscas.ac.cn, Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 01/18] firmware: arm_scmi: Allow SCMI transports on
+ RISC-V
+Message-ID: <20261027-quaint-demonic-poodle-6c1e10@sudeepholla>
+References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
+ <20261027-a210-scmi-v1-1-74d58ce85bd8@iscas.ac.cn>
+ <3d38c4a5-1a12-4af1-ac2e-413a457ce4c5@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,36 +86,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3d38c4a5-1a12-4af1-ac2e-413a457ce4c5@amd.com>
 
-bs_blocks and bs_xflags were both read from bstat32->bs_size.
-Read each one from its own field instead.
+On Tue, Oct 27, 2026 at 04:51:36PM +0100, Michal Simek wrote:
+> 
+> 
+> On 10/27/26 16:36, Han Gao via B4 Relay wrote:
+> > From: Han Gao <gaohan@iscas.ac.cn>
+> > 
+> > Mailbox and shared-memory SCMI transports do not require ARM execution.
+> > Allow RISC-V platforms to use the existing SCMI core and protocol drivers;
+> > architecture-specific transports retain their own dependencies.
+> > 
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > ---
+> >   drivers/firmware/arm_scmi/Kconfig | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/firmware/arm_scmi/Kconfig b/drivers/firmware/arm_scmi/Kconfig
+> > index 783c24a20e29..1cfe2b572d18 100644
+> > --- a/drivers/firmware/arm_scmi/Kconfig
+> > +++ b/drivers/firmware/arm_scmi/Kconfig
+> > @@ -3,7 +3,7 @@ menu "ARM System Control and Management Interface Protocol"
+> >   config ARM_SCMI_PROTOCOL
+> >   	tristate "ARM System Control and Management Interface (SCMI) Message Protocol"
+> > -	depends on ARM || ARM64 || COMPILE_TEST
+> > +	depends on ARM || ARM64 || RISCV || COMPILE_TEST
+> 
+> 
+> I would prefer to remove ARM || ARM64 dependencies completely that you don't
+> need to add RISCV there.
+> 
 
-Fixes: e94fc4a43e5c39 ("[XFS] Add compat handlers for swapext ioctl")
-Cc: <stable@vger.kernel.org> # v2.6.29
-Signed-off-by: Reid Downing <skibletz@gmail.com>
----
-v2:
- - Also fix bs_blocks (spotted by Eric Sandeen)
+Agreed. Before merging, we should trigger exploratory builds across multiple
+architectures. This will help us catch any hardware-specific dependencies,
+such as arch-exclusive IO accessors, that I might be overlooking right now.
 
- fs/xfs/xfs_ioctl32.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/xfs/xfs_ioctl32.c b/fs/xfs/xfs_ioctl32.c
-index f6875a2cc70..77bc936bf0d 100644
---- a/fs/xfs/xfs_ioctl32.c
-+++ b/fs/xfs/xfs_ioctl32.c
-@@ -143,8 +143,8 @@ xfs_ioctl32_bstat_copyin(
- 	    xfs_ioctl32_bstime_copyin(&bstat->bs_atime, &bstat32->bs_atime) ||
- 	    xfs_ioctl32_bstime_copyin(&bstat->bs_mtime, &bstat32->bs_mtime) ||
- 	    xfs_ioctl32_bstime_copyin(&bstat->bs_ctime, &bstat32->bs_ctime) ||
--	    get_user(bstat->bs_blocks,	&bstat32->bs_size)	||
--	    get_user(bstat->bs_xflags,	&bstat32->bs_size)	||
-+	    get_user(bstat->bs_blocks,	&bstat32->bs_blocks)	||
-+	    get_user(bstat->bs_xflags,	&bstat32->bs_xflags)	||
- 	    get_user(bstat->bs_extsize,	&bstat32->bs_extsize)	||
- 	    get_user(bstat->bs_extents,	&bstat32->bs_extents)	||
- 	    get_user(bstat->bs_gen,	&bstat32->bs_gen)	||
 -- 
-2.53.0
-
+Regards,
+Sudeep
