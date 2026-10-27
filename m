@@ -1,71 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116550;
-	b=fuTbc4HWzHMY8nuujOywaGSqqHXk9AAoUlT9lyZTYxvjOVvVtBD502s3cSo8xOcut1cL
-	 LqIU+hvNa0WhpOnNRZQ1RAobHMwPYbo3J+18/yKi1Kli+6NYTGgNG8b58+qWv3SpuNwsu
-	 w30qNqslL4sumQTS5pUcIipN+UM4JjB4Kt50H5rPNH9YOfYsy3heIS0L/NvLW4zgqT8ki
-	 EH6aO2g986blQEdIz+O5CrwC0yNNQFJLjKwbA5mNANiGimlA1mtUea0OF6lFZRJTpRctU
-	 MGGij9c/tJKGpOHFCMYM+vZKFNpjL/zFM7hvr0NUvhCt/Ftk2RYLqcVftje0UIk3/iA==
+	t=1793116564;
+	b=5gJOdXqwe0nzlzb7hWVSUZYkxYi6MDcQUXlBPAImduk87+veIws340rCsB3CJ5T84sNB
+	 2bTM0AWjT2GcuH2DoHLREgmMULbjCg52NkmHglNA7QwAZwGtOhYD7dr4SFANKpKucSXnc
+	 TbYoTX4vm4yzjc8K1L4e8hP634qqpkkbxCsMg396gzBPiInBy0h+GBp9jgmwddYxgkEEk
+	 5vK5vqqtIn9at0N/7K7//1zSCpZZGrl7tE2NCQ2SqXxUlLskh4VN3UgIPqThvBWk8NG5W
+	 4W9vChgnDWA+8S3Exs3kTPFNZThFujQqs5cgX5XuYtU0q4yg5a29qWr43BehwVvcp4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116550;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=X3nN5mvj2xSO5zsqyy9p2CSMqdWuPUqnZqJuz9RqDrs=;
-	b=RRoo4zz6tNnvuqGXHJZ0sZHVVE9RtoFn6kf3lyqYc+UBU4eqOqKyXWZyHDsiNqpgi7/v
-	 VhS2pjy6LNAHX0YFByiwUytyZrQBT6mHCTPs0XUbbnPneHddOs8aRWL7DP5SyLbcoXGRv
-	 yryanfa5NwqGBJde5mtj9qzT9uZoe4VgYZah4Ak7deidSxYxPj84jpH7+q5N+bLtNbjjM
-	 r9rFiHYJdd9zaxiNlBe1Dqkzt4fuSp/OG5VlVlncHuOkLVIc4LUrna91QhVavsCFaJOop
-	 W/0++UTUS5+UwmZtoQkgRSJY/ISY0yGs2XUSx7+j00TzPinFXwcG6WMjeTcXmMZr/Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116564;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=89El1rV7/cds/q2zgUXroWN26U3zg9xH5QgWcCPmMes=;
+	b=18he8wepbkM7O+bPnzm5kL+iVPWSpPySXkc4gaVFuugj0gzw2l/EiIyf6GnXSdNqvR5W
+	 ePaDjRbftdXQwUVoqwkHPMnJP3gh0nldAqQzCDk91F7bj7u0DJxNngmboEVWTJMsA9/47
+	 C1MqErRSclwSratJ7q6smF1Y1tACN8L+lRufLnSy/GMxeZsu4bYqF8ZtwnsfBpvXOJYqY
+	 sBcGtODu6gAUEUClbjGsBucaDSzbFZdqc8k4EBSQyEaBuo4nPLoxamKBjQCawpR1+8j3m
+	 yZXnTzA+bKbkxtHwfZta0QYLqb+aMJhvvvhQxrszmvQJqNrWq41TZAwOEpsHK8JpYkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nUBsgUOc;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C95F606A31A;
-	Tue, 27 Oct 2026 15:55:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C95F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=nUBsgUOc
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DFAA915A1;
-	Tue, 27 Oct 2026 08:55:44 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 99D3E3F59E;
-	Tue, 27 Oct 2026 08:55:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793116548; bh=aFf9GgQhV3g+Yk+fBjBM9rXGTN5SLkr3sBqw5a3PzYk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nUBsgUOcX9RBvoTqLb/e9N8C/nshHTMWHLcgb2RCIBaQ6+L1UA7ImCOoPnrvZ2uVX
-	 YGfOvtGfcoPWnanfMPuSHX3TVjVeXvVEC+HOOS992L9SYpwvOnie9G3LEgT8Idi5B1
-	 qMLFUQPRVx2zPKgX6I+K5/7t7JlqaYjRo2TnCD20=
-Date: Tue, 27 Oct 2026 15:55:41 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Jiri Pirko <jiri@resnulli.us>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, drdeeglaze@gmail.com,
-	James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
-Message-ID: <auDJfQz19ineLgvP@e129823.arm.com>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-3-jiri@resnulli.us>
- <at-iEMxN98nie1Qr@e129823.arm.com>
- <auBaROC0XdWpILEI@FV6GYCPJ69>
- <20261027141524.GF1685504@ziepe.ca>
- <auC5sw9YMC9NO4wl@e129823.arm.com>
- <20261027151729.GG1685504@ziepe.ca>
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5016B606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:56:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5016B606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f4612a1a5cso1336165b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:56:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793116562; x=1793721362;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=89El1rV7/cds/q2zgUXroWN26U3zg9xH5QgWcCPmMes=;
+        b=0sko9/1tz+YcccKAAdvUjAOzpiNMhmyb3J/hGKy90UFqWIIA2MflnTKA181kZ683SW
+         bAQfUimAM7UWSfPBmHWuO7zi2hJcColV+GTO3uQKiqZFO2UuisHNDNbbDKvyqvJWzKxN
+         ZTeZY0ClZ/97qqibgh3TbCL4H16NO0GBTpw3yWnTm7NrWr+gnc2yaqkqrbl1eZKv0iIS
+         8mB1S8nM4Xy3hkOplDITZ1fYx6kC834nweR1aWyJB94HY87ktkoX+8cZx4M+E2WqGJog
+         tTvUDAJqANQwk99avN7qlnpmfCGXwxDTEnxH/hfnhlkQXgJ2zH8zVcm5Xddn0sunSJqL
+         Juhg==
+X-Forwarded-Encrypted: i=1; AKwUvBylSr1FW6cs7C8+gYASjt/LGAwu+kkR3xEYd3gO9XFSBH1fZOrfE1LzBZzxEURXBOjb1R/ML+ZlMgkcFVQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBzBy87kb7jEbw04TozfIu/VKAZS8RGqU5/85mFt4+GO0d1B5k
+	q/8Uc7sspE+nw3aL81Ret8rIPUlwt4b016ycaFCgemmJC/vhgmDsTV/62aDJ43qJ8NFn3IdNcl5
+	/1mSZANqVcANMLVSC7igyU354etDNIgRCfabdFz3+YBtuHNkyyzwCu0iY9Ak=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,61 +58,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027151729.GG1685504@ziepe.ca>
+X-Received: by 2002:a05:6808:179b:b0:4c5:38f1:80cf with SMTP id
+ 5614622812f47-55f7ef393a4mr1749334b6e.21.1793116562562; Tue, 27 Oct 2026
+ 08:56:02 -0700 (PDT)
+Date: Tue, 27 Oct 2026 08:56:02 -0700
+In-Reply-To: <6a81cb33.9ebadd4d.20b15e.0018.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae0c992.768774f5.3237ab.0019.GAE@google.com>
+Subject: Re: [syzbot] [udf?] WARNING in udf_map_block
+From: syzbot <syzbot+de2fef01040748da6822@syzkaller.appspotmail.com>
+To: golasch18@web.de, jack@suse.com, jack@suse.cz, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 12:17:29PM -0300, Jason Gunthorpe wrote:
-> On Tue, Oct 27, 2026 at 02:48:19PM +0000, Yeoreum Yun wrote:
-> > > On Tue, Oct 27, 2026 at 09:02:14AM +0100, Jiri Pirko wrote:
-> > > > Mon, Oct 26, 2026 at 07:55:12PM +0100, yeoreum.yun@arm.com wrote:
-> > > > >[    3.856919]  ctlv_schema_check_attr+0x3dc/0x538
-> > > > >[    3.857105]  ctlv_schema_check_indexed_nest+0x788/0x958
-> > > > >[    3.857301]  ctlv_schema_validate+0x88/0x180
-> > > > >[    3.857482]  ctlv_msg_test_as_deep_as_the_core_allows+0x11c/0x1e8
-> > > > >[    3.857698]  kunit_try_run_case+0x64/0x188
-> > > > >[    3.857878]  kunit_generic_run_threadfn_adapter+0x30/0x68
-> > > > >[    3.858086]  kthread+0x10c/0x140
-> > > > >[    3.858245]  ret_from_fork+0x10/0x20
-> > > > >[    3.858398] SMP: stopping secondary CPUs
-> > > > >[    3.858630] Kernel Offset: disabled
-> > > > >[    3.858720] CPU features: 0x0,00000000,00b0802e,9f190bc3,2affe72f
-> > > > >[    3.858872] Memory Limit: none
-> > > > >[    3.858976] ---[ end Kernel panic - not syncing: kernel stack overflow ]---
-> > > > >
-> > > > >[...]
-> > > > >
-> > > > >I think it might be good to configurable according to architecture
-> > > > >unless it's not good to reduce the CTLV_MAX_NEST_DEPTH number
-> > > > >otherwise, increasing stack size when CTLV is enabled seems unresonable...
-> > > > 
-> > > > Agreed, will lower it down. I think we should be okay with 8 for start.
-> > > 
-> > > I'm surprised this ran out of stack though with even as few as
-> > > 32 levels.. Is there accidently something large on the stack?
-> > >
-> > 
-> > Nope.
-> > 
-> > When I see the each functions stack allocation:
-> > - ctlv_schema_check_indexed_nest():
-> > 	sub	sp, sp, #0xf0 // 240 bytes
-> > 
-> > - ctlv_schema_check_attr():
-> > 	sub	sp, sp, #0xb0 // 176 bytes
-> > 
-> > Roughly (240 + 176) * CTLV_MAX_NEST_DEPTH = 13,952 (around 14KB)
-> > consumed.
-> 
-> 400 bytes per nest seems pretty big to me...
-> 
-> Do you have debug options enabled or something that increases stack usage?
+syzbot has bisected this issue to:
 
-Actually not, I've used the distribution's Kconfig e.g) ubuntu
-+ KSASN.
+commit 62333e480d12ab186f89fe2725b372d12f72d5eb
+Author: Jan Kara <jack@suse.cz>
+Date:   Thu Jul 30 10:42:29 2026 +0000
 
-So, It doesn't seems from side-effect from debug options.
+    udf: Fix data loss when converting inline inodes to out of line
 
--- 
-Sincerely,
-Yeoreum Yun
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1422482d580000
+start commit:   d135ab453a74 Merge tag 'backlight-next-7.4' of git://git.k..
+git tree:       upstream
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=1622482d580000
+console output: https://syzkaller.appspot.com/x/log.txt?x=1222482d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b990d88b41ee3220
+dashboard link: https://syzkaller.appspot.com/bug?extid=de2fef01040748da6822
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16c93721580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16146469580000
+
+Reported-by: syzbot+de2fef01040748da6822@syzkaller.appspotmail.com
+Fixes: 62333e480d12 ("udf: Fix data loss when converting inline inodes to out of line")
+
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
