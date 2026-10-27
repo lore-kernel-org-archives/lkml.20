@@ -1,81 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793076672;
-	b=YBk/05BE/lWsP/E73kM4LdIDSd/MlSy+w37+LgymueSoF77Fty4uf2iHSu9TWNIZi1hL
-	 iae3G+Q0J9JNIT9YCkv55CjRgT4/vXQt4JHp5ARHDyNlhiS4qZT9NeEte8Lspn1JGcMLB
-	 9ZGbJpIapMb4fcb9U7DGzmX6j+hubYifHjOav1HXyFzrl8yfOIRjGNoRfJYLx9v1yg5tZ
-	 tzC+mg65whfjYGJ1lDOJippPI87aKthCf/pwRpCkGUWLlsOA2ODFlnZdHxgZJhqsKGotE
-	 w9ihmHu0GbZ9eLOfvda0xLdxY3++zpt8SLFsKP1QSVsQW+hueiRNNxSwAUA5Rxt4qPw==
+	t=1793076859;
+	b=4FByJMxGv+T59wHFb3BA5Fv+7/G1vJQVJsbL9lj+srmEDCDAaHP/6f+qOt+JTI6lgNqP
+	 ZCA3CPCVR5qwxe2Aqrz6EA5aCs3uoEoNP5TqEQpF31MjP9hBtA8j3YO1uYgXew8SSMYBt
+	 lLS5+HSE3LIYO/Af+bzTABQGckcl4P0+Q3iKLEWhTIz9g06AdMPL5BVk7+q77DbLBzqx3
+	 PaPjRSk0OydwjwxOTo2061O/T++aXvhoRrLKhClr7tvYpridAT/1HOrgTgfMRdlKvrLCK
+	 5mxLpyw4eGyET5YizbPuzbJV2FdlHErAVPllrwIWOYWY3g+WnapAtrurn8BMpoR/V5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793076672;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UorkZN7XGO6iTpvoLvTmemMJ2RzNdn72w5oN6AlbaTc=;
-	b=tJAkVEUCGa/bXCsGxdVBIUPCbXBGyp1uZmfcIR482NS0Iy4wZH5TFVljsg1ZsrKVvwig
-	 giDtCAorBGhW9syA+1OLMByJyJY/Jvzx8q6UNu+poJZVAUTYR9tgVsN7pzQcmA4TSv8mW
-	 Sky7RqkbPdDDdnjTSAPPn3SWhlXtOhLUkdOSqnXcWndUhMqi0x9tuSVegrV4uFmcK3oCT
-	 DbEpukiQVg6eAGn1regC6JoIfPGy2RlscBhCHb6ak6okntcbp2lAEQRFlPkouC+r8tw+n
-	 aj0YuJIERhUZx+53JvkRv2ATuiqZeey/KGEL4Hcjy4NEWLzkolK/z2ODwt4ruaVWpBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793076859;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
+	b=0t77OQ9ixP62G9mOBtqZEPtKBemeEd0rP00dMoLdh2GilIZdqQNyu2rj8SKEjAqpzhH8
+	 iyIYCDhwtINvZ3e3efQ/IdMoly4HQTLCFuAPFhxcquE/tgDceElJJ5V7ENVZF2we9LJYP
+	 Qt6sK1rUvu2TJDC3R7/kZKgbUN90/mLqCS+CLMwrvCKuJhR8+ktAAhPsNRk87Wd0e2x82
+	 tZ4f/UvFHLD1twvjUOnZne4X3oRxmjKbfbz2Ml0GPPAAvI3JTs6sNItfwJI79fMH2l7gu
+	 iXQ3x+HY+T1zqr1qgjZBIWuDzDT/eTRSkNRnWl/mvu6lCbzOdb1keWyufqa+ZwXKLOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LYM5HoMj;
-	arc=none smtp.remote-ip=203.205.221.236
-Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sifive.com;
+	spf=pass smtp.mailfrom=sifive.com;
+	dkim=pass header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Lp21g8nS;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5382F606A31A;
-	Tue, 27 Oct 2026 04:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5382F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110DC606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110DC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LYM5HoMj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793076666; bh=UorkZN7XGO6iTpvoLvTmemMJ2RzNdn72w5oN6AlbaTc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LYM5HoMjLp2fnyYyMLHmEEsZ6Pc6H4J80F/wJZ+8Zfsct8nxjkVpubi7Z2pJPm6zq
-	 2MK5IpQaYAZIZNm1/5xq/w/X/HEwxG2tEn7y8/r6Gva+t84Pnb2tY6NI0f4XdrNxL6
-	 +C5cHLn4VFjiBtEiRhvJFOSBlQ6CcAZtKu56nxcs=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:ad3c:addd:6586:2a94])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id CC41E4C1; Tue, 27 Oct 2026 12:51:04 +0800
-X-QQ-mid: xmsmtpt1793076664t4f3k1b4q
-Message-ID: <tencent_604E28FF9F3ED582CCAC563D0788102E8109@qq.com>
-X-QQ-XMAILINFO: OEUhVsHQax4MacOqvanj1DwW9XK6UfrtiZ7MhPCNLdhXV5VcJwJw/9pM8kYm8X
-	 Y4Bt8XvuziYr3chxXzmw/aznxt6hWwlICeMR7O74mgCgeCxqCfniujwxPAe4yq/E160FqjWQvVUX
-	 ZP7Fwq0WxPwMl9VZWhB+GzdsEN5rboOSH/i+ob8A/SXrNog52jtHq/JoZsULLsJfmtr4W+9cTHph
-	 XPfOXiZ2KZ+JoI2alMIRq76G3CzAbxcpHtGX+L7wegJocSBbNWe0thzhjS1eldqvWjNSiGI1B6zk
-	 UtwlLdzeC8s6FdpKf+ooHgdGcq92So11e1zq/vPbQS8JbbicUtSlT/FZ5Sb7ByWW17V2KOFciSEi
-	 Rc8CcWIo6/yz5XfNnqmRhqKe0qD/dEr10RlV3UyKtHD5rrnc28sBwnBDKVTRGAOnmqrUQ6lvOjsz
-	 TkkKMhgIbn55P2Ah2/FeHl7qem/0Dz+LiKGgC2rXT7GRIHxS7AOHsk3PWfHNgxy3bNr7g+M+hKRM
-	 tcxQKyqz3LFF77FRMWTtQSbKZoA3haJuOfaYFm3Tpk0DyFf7mwLlVQWzBemnTRkTn//z6IuATbKS
-	 PcbHAJh2ICsAQ7koErnN1MJiZBrwmS1Wy7RLqH/yFewM5nue2kKoRBiFqr8gx2XRJFkR7zQfv5i9
-	 bIfzBCoYuwTnVlE34jAuMCLkDP4sfHhx1cQsNIHKxsna0P0qBFIGW2/PSaWL2OuMTUpSu/8OTNTI
-	 37chlhLiKnSAKhBYx8JFQc+XQCbm6ijM+YCdrTl1WJOy+j5d1QiKrlSeFQ2LiCydlKDlcuDkeD4k
-	 /uk//zEWeF+UUBHmM+szYPlaMsmJJLMzWsovhp4gYb74Wm4TIvSQc+BQMOUzIa+FHsCroLxhBE7m
-	 Frg0mDXRT4k08GuXKb9VpQM5gBrokGyMmpPU7fch2J0QI1Ig4qmCqMx6VvbHVFkV0uNP6UpuuEoK
-	 MOOP/VudDiJX56mBQ4qle/hId1jD7wmN0e1OYQN236WFs1dFKT186Bx1/O9jgoVXhvBgaV23dX0M
-	 Q1go2u3CL2+vv+MI2U9376EusoAXya5OLN4/j8yri8EcsuYOEsRI/7BfZrw9Y=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Yingjie Wang <1075151112@qq.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Lp21g8nS
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1846bc43c28so4196108c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:54:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1793076858; x=1793681658; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
+        b=Lp21g8nSCK7QvosLUNREqcWC3uyos4X3oHoczIC1sB36odhuo9n4pCe8YPnmB5icK4
+         tsEIkkkfyEBwv5PM3ac/hWzz3VP529DY8lQoffxIHhOKJAqL9qGUxAMBWQHZjNvdR3ux
+         ZtJdm/UwhGj7LsKso0qQeY3hEEl7BKYGYoRoxsZkFONNhAHuT+Odt4GSCJIdX3eTluFU
+         x38NK/3F6EMLrUDR+VIfwbooyVxHBwTQEzQX1ainRCSz8NV3uKmcTcfSOy4aOGa+1kxB
+         I7TSu4L86KZlIVfFKjfHQQsI4OaBE4hFAEtAYLCoV0ZkWr2NNAiHZV+ppCQxuoIFnoTi
+         mCUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793076858; x=1793681658;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
+        b=SM3+s9yjwSy6TRiEVhwYMS6a2mX0a7Hj/FloQyNMTLuX2DwDfpb4osGXzoc90PvKv5
+         KWGhMFMW5ztxT1EQYiQD0YiyOnsVC/ycuQ7iQ9w0U9TuY0y30CP+U//vMt7G+hyp7iHh
+         jVg6UsK62w8VuihiHPeBfijHWTLEFS6D2TaO4b1zXKRw/1czXZGZxxTxfHhBTBnH8jaJ
+         qaW36b1MmtpuhqgR9et2SsjKKFmiWfhsun3N/kdlowu2JbZDJHv7UYB1VssJei77CEJU
+         POncmCePKJQcmLkITkMoewUOjIJqM73Lx9TC2eq/GJudIaVBRhOEv6Z/+kohyMCIZJ08
+         OsuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRA2MPthaSc3fME2FBbRxLp5Mb1h5NmvpQYyzxbnbibmAYqtBzTziWUgN3ho2glbRS3vx1AnpGtsFvMvY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5g7VoaJazKOyMo/FrWGdgOcO9QG05o+PCwEMDIHSiTFHaqDlx
+	7hQ0oQ1M28LiOUWdGD3Q/odO80jjVc6g0VG8iamOf4yBx+CzCtLXO3zvD+t3nL2Wf6U=
+X-Gm-Gg: AYBFou2Jkw5vThk2lYpIleXZAQZcb8AgmBJfe4c6MAqxHutK+R2+L+llGopOjtUbSwp
+	SEYYuzMjRDmvO3Q3x5CZ5Vve6zLo+oX9nsiqMb5RTV9GqKCpGLxEhpYPRsNZ+DUaaxclwm69Jyb
+	/Y8iSfnQhz1FmaakYqzf3HjEaLQxuGpTBUERMbx0niwVzfnWwIjEZbB0hGhqAO4bSQJ4WmMccOx
+	GDVK9IY8vp/u3RFFEO68imFJWEGq4l0itljlE/bs7r2f72a5q/YNHeCUTZp2G4dZ+5sUQbxXDKa
+	58Cj2coFQwSey8W3y85SPr8N6yYiBanpfmT6q6djClXK3mHEObFvca+y81FWsxUoQbc7g7MqKuN
+	7A6dwEKegiyoh/P460eEZ+r8I88LzgTkj8wX/eLv6jJ2236NgbzUdKJhWM70TscEjXEFp21TrzV
+	5JTaQ9XFNH0Mpgo1VUb+D+xexcHkZOD6DiDOYBuu7GAdxEhGXMIWtLCqQv1rKJa1xqkvarytr7d
+	r3I9Sy0LjO/mZ0cYRrYoClfgdVupNOYCzG3p2ODDxlX+weidk6rbHL7hiXr8fa+VOVukkiSQgmw
+	JcwszOjHPGbBVJYhh2XqvjlM7otI25qYJbEJpgrwHnPx9w==
+X-Received: by 2002:a05:7023:909:b0:144:eab0:9cbc with SMTP id a92af1059eb24-199376e0835mr15075491c88.37.1793076857722;
+        Mon, 26 Oct 2026 21:54:17 -0700 (PDT)
+Received: from lliang-1876.localdomain ([136.226.240.173])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2eefbsm30437451c88.7.2026.10.26.21.54.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 21:54:16 -0700 (PDT)
+Date: Tue, 27 Oct 2026 12:54:05 +0800
+From: Leo Liang <leo.liang@sifive.com>
+To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	Anup Patel <anup.patel@oss.qualcomm.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mayuresh Chitale <mchitale@gmail.com>,
+	Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	Andrew Jones <andrew.jones@oss.qualcomm.com>,
+	Sunil V L <sunilvl@oss.qualcomm.com>,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] af_unix: order MSG_PEEK references against garbage collection
-Date: Tue, 27 Oct 2026 12:51:03 +0800
-X-OQ-MSGID: <20261027123817.af-unix-thread-pointer.0d699734-c1fe-4ef3-ae49-db494da51216@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <auABC6uMYxXmPqtb@google.com>
-References: <tencent_287A56749EA8448A970F2715FFF29F334108@qq.com> <auABC6uMYxXmPqtb@google.com>
+	Zane Leung <liangzhen@linux.spacemit.com>
+Subject: Re: [PATCH v6 03/14] gtrace: Add RISC-V platform driver for the
+ gtrace framework
+Message-ID: <auAubdjHl1V4h16N@lliang-1876.localdomain>
+References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
+ <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,14 +116,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
 
-On Tue, Oct 27, 2026 at 01:42:05AM +0000, Kuniyuki Iwashima wrote:
-> Actually there is another thread going on for this issue and
-> I suggested another aproach, so ...
+On Thu, Oct 01, 2026 at 10:52:14AM +0530, Mayuresh Chitale wrote:
+> From: Anup Patel <anup.patel@oss.qualcomm.com>
+> 
+> The RISC-V trace components defined by the RISC-V Trace Control Interface
+> Specification are memory mapped devices which are organized in a
+> graph-like topology and described in the device tree.
+> 
+> Add the RISC-V platform driver for the gtrace framework. The driver
+> parses the RISC-V component topology from the device tree, discovers the
+> type and version of each component from its IMPL register, provides the
+> RISC-V register level control ops and registers each component with the
+> gtrace core.
+> 
+> Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+> Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+> ---
+>  drivers/hwtracing/gtrace/Kconfig            |  15 ++
+>  drivers/hwtracing/gtrace/Makefile           |   3 +
+>  drivers/hwtracing/gtrace/gtrace-of.c        | 126 +++++++++++++
+>  drivers/hwtracing/gtrace/rvtrace-platform.c | 186 ++++++++++++++++++++
+>  drivers/hwtracing/gtrace/rvtrace.h          | 121 +++++++++++++
+>  include/linux/gtrace.h                      |   3 +
+>  6 files changed, 454 insertions(+)
+>  create mode 100644 drivers/hwtracing/gtrace/gtrace-of.c
+>  create mode 100644 drivers/hwtracing/gtrace/rvtrace-platform.c
+>  create mode 100644 drivers/hwtracing/gtrace/rvtrace.h
+> 
+>
+> ...
+>
+> +
+> +/*
+> + * Parse the "out-ports" graph of the component's device tree node and allocate
 
-Could you please point me to that thread?  I could not find it in the
-recent netdev or Patchwork archives.  If it is not public, should I wait
-for that approach before revising this patch?
+typo: "in-ports"
 
+> + * pdata->inconns.
+> + *
+> + * Return: 0 on success or when there are no input ports, -ENOMEM otherwise.
+> + */
+> +int gtrace_of_parse_inconns(struct gtrace_platform_data *pdata)
+> +{
+> +	struct device_node *parent;
+> +	int ret = 0;
+> +
+> +	parent = of_get_child_by_name(dev_of_node(pdata->dev), "in-ports");
+> +	if (!parent)
+> +		return 0;
+> +
+> +	pdata->nr_inconns = of_graph_get_endpoint_count(parent);
+> +	pdata->inconns = devm_kcalloc(pdata->dev, pdata->nr_inconns,
+> +				      sizeof(*pdata->inconns), GFP_KERNEL);
+> +	if (!pdata->inconns)
+> +		ret = -ENOMEM;
+> +
+> +	of_node_put(parent);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(gtrace_of_parse_inconns);
