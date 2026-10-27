@@ -1,98 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097881;
-	b=wPpKZWASemihtORvf1D54dLd8ryOBP4ovp/v/anmcsqAcvME1BBZDtqeR+bgBYfK2bgi
-	 +WwIHxeesuz3FGJzc3KyMChIWf/qzXz3iy6QYIdCsWvxh50sCopYnqZUTkNqh57F1lK0C
-	 mRPQecJzFlwHVTCkyhRKVsdzqric02coBj2Rsd25GvE/4hV2UTau1rClnjahcHN4WCkrw
-	 NUUASPzHyaXYHrxcwwcsZqMwl/28ipkuqkKcPqG/r93grTeQNkNIOD7NSFqWY204U+axD
-	 Y5RSv5rxS6KMefvq14155U8Q7NjY9krAVb9LQXdjIMemCTsbughEgSddS4bd1aWhcbw==
+	t=1793097884;
+	b=Nftgr/Y4t9/XxH8GgE0XReVlgnBv49px95i09Zbw5zeErPgfbPM7YDcYXXKydWG+n04M
+	 HV1GF1ma19WuNZSr9jxwW3QeznPhhJMMnQaYabSEVqatTI9aE4BgBXPdiV1hHpXMTSSAC
+	 g0ArKrsXe/3AN9a9UuuYwsWOaWFPyoRaLc69LfxMwea9dLLp8RMor+3ZvOxE2tJ+hYOzA
+	 zwiAYRv+dVXbv5Jfd6AbPIygzat/UG++Hn53stwB90OYFPGiFL6tQR4bEY26SQNectF6h
+	 ijZ/kz/NvxxqBgzCwuMDIT6b5APzB5GfTYk5od18UOvApTE1gf78y7xMXtNROGSga0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097884;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JYHZC9YZVYbyd0GpVUY032a9HNdLCs8lkGIdhjOteQM=;
-	b=lVpdxrByeXcKxBmBEdPTrHKIARznbqYXGpR/eGAaexBvrpkQoWp3B55zjQTK5v7RjwVy
-	 VNHFswq5DAGh5LcypfV5H6EPRMkliKTO6V5nJ+nfdHKQIEGuDKfKGRDG6cPa5nPtZlJOV
-	 yg3tv2uutJ2OUEMGJLYCBYuBM7o2PSDfivO1d5ntHEWBT3Y5bZPkHUoViFgCFrCK2lVwY
-	 nBL1LYQURN8N9XrVuyh0iF06U1RQZFQWU2AH0X7fl6FqXRI5WChQ1pclcRR6QvJRQeZ5r
-	 QW2nuFDGcEPCVa9Np74NlpHKTQmIWkifCspthTgIs6sTzEQgl3ZwsHByBbocV3efjaA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8S+4Ca6+ZW0dJ/5s+MHcKgmRM457g71lb2YWMXhZ5MA=;
+	b=zYLGcCIkIvFx4vvLoDn8tXkvjvNHat6ziLopSSmgpAemEasDskMfa90nGlOIMwdDV90k
+	 k0l+t1L8Z1i0VbYB62qLI4DuUiKblAjIFUW4BQAwWKSlAehY7Gd1uwRg+1QhnYuA6Jyx3
+	 Ubk4YkK87p5x0zBfFU/iE62nZnBhBjk9dTdXzhK8IyIZmr+7r9w7AuF3vr9DQR6Cw13kJ
+	 y9b3bn1lkS62HbKUcZlm3/OWj6piTFO1wARVtnoOzZDE+XN7oP5TkIG0bcVVcfFbEagoT
+	 WVimbrNRanrDyxw2SYtOVm98CvBC4Ok8jQXdgzAbaEpJlxtFlzQIRkjIJ1/HqNcU4fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=It63ys77;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jj75lsKv;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3A4606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C3A4606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB2D60A2608
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:44:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FB2D60A2608
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=It63ys77
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ea138a3497so25568545ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:44:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jj75lsKv
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3535a54bed9so6130557eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:44:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793097881; x=1793702681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JYHZC9YZVYbyd0GpVUY032a9HNdLCs8lkGIdhjOteQM=;
-        b=It63ys77sAnM6efQWVHuna1Of5OoB0aw9oMmpYvbun+3XsW4BjAazCVz6XuGYxdthQ
-         R34fsxVHzXQmUXvNxJh/pv66C0c0GCtvKTmfTCNetR6VQb2/cEpQmvKZGIPUmUM2ODti
-         TBlH4kB7A+OJX1GckjfiFP+/jJjJChXbhlh95RzZ5f/4IuYelGAPoDO0XVf3AYNK/FxC
-         /RhEwqS6eY5EkPNJpcJXFZPD792hw7y2gluxarNGavJ4iWvgU0k4hNXZfi7CwywrcV22
-         VbYmFOaOexnQhOEH8O+GE7OMzQVEvUInS2o8tR4YGhFpoUyNudfls0Bw0ROydO+9vVEm
-         zV8Q==
+        d=gmail.com; s=20251104; t=1793097883; x=1793702683; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8S+4Ca6+ZW0dJ/5s+MHcKgmRM457g71lb2YWMXhZ5MA=;
+        b=jj75lsKvrp/82SYp8I910Zvhw1BiUzMi4/aySvDv7UKE5qE6p72n12Q2bCCt5lwfei
+         kEi7ttXSmxq+BXiEbdPnEVEv6PtZwORshp7mFbBIIBg+DN8O4PvlyJrJN0kidjqAYqZG
+         vVXycfaUYl2K5V08lvSSYkSf6ldSJ6TVBnnWcAylJO2ouSCpj96/v+7Eb57sLdQpEXzb
+         QyRrBI0PeU2YxBElYp3BXy1sc5SvY6IbB6chH68mfcjMimJOrlUhg9MIpm2r9d1nY3jG
+         Y1PNk5AEfxkJOdesREog/pc4d2fjTZhk6VZF59zTXPM1qyt/x+p4R7e8AUfThF2AlGsn
+         S3ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793097881; x=1793702681;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JYHZC9YZVYbyd0GpVUY032a9HNdLCs8lkGIdhjOteQM=;
-        b=eYAVSSUc3wlg4o8wPfTD3xRdGVAvxNJjeDE9b48+Z71izMiQ3761xYxeXKJ91GF/0a
-         VcSj6P6DwMJBlfNYG0sURLzRWtmnsLDymFM56XviD/8uhzzhIYN1SwIwcWO/hKrHUyDE
-         29He/jXxHY6Uk7nnLyOsq7QijHYrivgaHpyEPaYTPsy+ubXyU6Clft5pi7QMoAsDPjQY
-         XYR9h7QdyBZsshYvOblXoNGGLiTWQQrlcG+EwR9NTlSgzl9PiGvh/dL7qtJF4Q7KYSlD
-         9lH432Cn7H1wFQT1miCGtf1OfuTfa/XzfIR5UP5z6J02KlLZtSMLQHgwuh0KXTkJX3fC
-         I/Gw==
-X-Forwarded-Encrypted: i=1; AKwUvBz99AirjCFYkC1vmevS99OHuEACOgHVus1iLi/NFNX2KLT9ukY9OamVXP/icSPxXOgIJK+NwiGXNYSB7fU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAzrgWvCAwKfOq7V6XSBaxJXi3RP2w1C4yDTkaWCvO8O+xbPh0
-	6LcmRPtSTE0Gl86LyK5X6OVehdJYt/8QFZdFgl7umTRtxDqT1Ibq8KtXw5CW4A==
-X-Gm-Gg: AYBFou133P7w+h0jriR+MS5jqUZm5alXZqWPRoYMLZWCUdnG7Vno1/WTjYKy/kMKglz
-	QALCQK5uvD95c2NeZC0X5EdbS2kfyMryxSOgwQJTUaYNLndiNVTT9jiiL6dCB6FWS+qWPwLJStr
-	wRKq85iqk6mhr9Aoy7g2x5NeisWwC9yakQJ4lKMAVxydEDtSWTNZ8nQppXqopKyTFTe21EUi1J/
-	G/+3mXyClysUi1MS0G9KGaVQrmfrgG2c5Kojw/jK1AZg0iV81S/+KrYtOldVvZpaQPGm1yV4bgr
-	e8hqpWydPcHV7oNKSK2i1hyzi1hvHW58VkVtznGn9xr5hJk15HMsdeo/LEKFob78f4cfqJWgTXN
-	AmKpbx1DVYCAu+Tiui4edtbQGOL0auRdzB8OhHb3+iCi78pvTce5gRIEc54TrsqMwzppTYLvizK
-	LWOIDVRYNullqwtYvb6PBqe6sLutn87FHrEui5xXdickYvRMUw2Or3xMhLPgJGz5PW3KhkvF174
-	8cTM6HldIHev/sdTrlu+7E+HYPyHI1DxS3IFowJFt2lNeHkeXXEzWlNondEhNvLiLikGNJtPLuT
-	JyvCWPmZi/uqfvh7d3rS7IJHYdur55u1+gTLxRpmNYBGJf+XRvs+yZBgYR5Fa2BVFRd+PDI=
-X-Received: by 2002:a17:902:eccf:b0:2e2:be61:a882 with SMTP id d9443c01a7336-2ea9c6c8bc8mr82214925ad.11.1793097880831;
-        Tue, 27 Oct 2026 03:44:40 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ca1bb2sm7187525ad.68.2026.10.27.03.44.38
+        d=1e100.net; s=20260707; t=1793097883; x=1793702683;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8S+4Ca6+ZW0dJ/5s+MHcKgmRM457g71lb2YWMXhZ5MA=;
+        b=Ny1qY8LKg7dzIRT7BvcX+9pYk9V592pkEu2Mf3Xua5ft4IWHlODB89ekVni3/NDCbY
+         EKn9lvHbHz8IgTe8KWqt2ET3SWgiH0ch9MMLlzy7C4DUx9R7zymu0I1lAPIdoaae8sUj
+         VqEElOXlPGdMmlFBnbQBUrkci5QwPrSNZrEU0YuwIUqpFmeHInL1nmBTit7LpWHeFvLn
+         8sYJsO0VXTGe6ZNbXddJIL3lZno0zYVxV/P46nworwa2AZ0iNDQeOgr70fBCU30epjBh
+         yXGBP4ixH30ScN4aaUbJBf2DgfFjO6w9VWQm6zNmC6JE5HwzsMAc23eGRHmxa6hv6SKo
+         301g==
+X-Forwarded-Encrypted: i=1; AKwUvBzKryFxwzOsP1yvOWIlf0hAXT9JmGHii3vcbXb7sN4LOWoSfAEjB4nSlzKpX1M1rfru8egE4nSBS+t4wLM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvsc7wtlkYkkUzoGVrG5HDtZtiP7vPPi4wZXFSB5PcRU5bzMAK
+	HtUKJwGr1ecWoIJzwQrJ1Uyrv23Fr1QaehbTP2TDPMg1rvIQsx32UiFG
+X-Gm-Gg: AYBFou2USmTBhcWVuJDQnHX7HsNSditIDgHclaCh961Akvi4JFf3diPZjpNVxna061E
+	c1fDXigp7sqnoifpqhu/jp9wukQiZFfoZ64ImijuVfuTeZDV6FCIOmlyil4eAowWZCBSCwR/P5U
+	N7FSBoQW1tYx6kWw9JUv4Cu8DNAfaQVFE4+Egns7PbetGUmJewxOEwpI+yvkVue1hF1L7XZw5KA
+	4TTAPqegRSwaOWRbaozwup2ExDtFSdcu8Z/MwSDQ1gvjIDW7GZXLfTO8mbjfvE90MPDR57ublqh
+	j28Kd9ZfJt+p5eyG3zQigHBqvT2CZmRku6D3UtPNZEF/q4gfW+bohi6opJEQPAGFbEG0K5tN5ce
+	eXn/+jflQEr4LGH+qYky4ZiEpMS41/smD3labWKHHf4zlUPoVqAppfz3V16ke5o+NzZ5RMVsdwk
+	JufZK94Wj306d9LrvJAfBQpsxE07IOFxOaqlm4k3y7AnRQ4cNPeQYPsRkcpugGLZp/CIU4fxfQc
+	+FAqj9KVrzAYqKzhj+Kzn3XhzHLznzj8fwcYY+MNi9ne0nV+4qHaVW0SNsV0q2ufu1OjAS52EmH
+	K+btrEnD
+X-Received: by 2002:a05:7301:1828:b0:369:f9c4:1fda with SMTP id 5a478bee46e88-369f9c42405mr10913555eec.27.1793097883083;
+        Tue, 27 Oct 2026 03:44:43 -0700 (PDT)
+Received: from Zoro.lan ([2409:4090:2022:b00e:72eb:d31b:8aa6:1b54])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f27d5bf8sm31955745eec.4.2026.10.27.03.44.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:44:40 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	linux-sound@vger.kernel.org,
+        Tue, 27 Oct 2026 03:44:42 -0700 (PDT)
+From: Vishal Satle <vishalsatleit24@gmail.com>
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 2/2] ASoC: img: img-spdif-out: Fix double clock disable on probe failure
-Date: Tue, 27 Oct 2026 17:44:17 +0700
-Message-ID: <20261027104417.7150-3-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261027104417.7150-1-phucduc.bui@gmail.com>
-References: <20261027104417.7150-1-phucduc.bui@gmail.com>
+	stable@vger.kernel.org,
+	Vishal Satle <vishalsatleit24@gmail.com>
+Subject: [PATCH] mtd: virt_concat: Fix device_node reference leaks in mtd_virt_concat_create_item()
+Date: Tue, 27 Oct 2026 16:13:45 +0530
+Message-ID: <20261027104345.172612-1-vishalsatleit24@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,42 +100,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+In mtd_virt_concat_create_item(), several device_node reference count leaks
+and lifecycle bugs exist:
 
-If registering the component or the PCM fails, the error path of
-img_spdif_out_probe checks the runtime PM status and suspends the device
-by hand before calling pm_runtime_disable(). By then, the asynchronous
-suspend request queued by pm_runtime_put() may still be pending or
-running, so the suspend callback can run twice and disable the ref and
-sys clocks twice.
+1. of_parse_phandle() returns a device_node with its refcount incremented.
+   The validation loop calls mtd_is_part_concat() directly on the returned
+   pointer without releasing it, leaking the node reference on every
+   iteration and on early return.
 
-Disable runtime PM first, as img_spdif_out_dev_remove does. This cancels
-the suspend request queued by pm_runtime_put() if it is still pending,
-or waits for it to finish if it is already running, so the status is
-stable when checked and the suspend callback runs only once.
+2. item->nodes[0] is assigned directly from parts without acquiring a
+   reference via of_node_get(). However, mtd_virt_concat_destroy_items()
+   and mtd_virt_concat_destroy() call of_node_put() on all item->nodes,
+   and mtd_virt_concat_node_create() drops its own reference on parts in
+   the next iteration of of_find_node_with_property(), leading to an
+   underflow / premature release of parts.
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+3. If kzalloc_flex() fails for concat, the error path frees item without
+   releasing the acquired references in item->nodes[0..count-1].
+
+Fix these issues by releasing next after mtd_is_part_concat() in the
+validation loop, taking a reference with of_node_get() when assigning
+item->nodes[0], and releasing all acquired node references if concat
+allocation fails.
+
+Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
 ---
- sound/soc/img/img-spdif-out.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/mtd/mtd_virt_concat.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/img/img-spdif-out.c b/sound/soc/img/img-spdif-out.c
-index 39a37e4830d8..d93b3a135d79 100644
---- a/sound/soc/img/img-spdif-out.c
-+++ b/sound/soc/img/img-spdif-out.c
-@@ -386,8 +386,12 @@ static int img_spdif_out_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/mtd/mtd_virt_concat.c b/drivers/mtd/mtd_virt_concat.c
+index 40b300021..6abc88251 100644
+--- a/drivers/mtd/mtd_virt_concat.c
++++ b/drivers/mtd/mtd_virt_concat.c
+@@ -163,7 +163,11 @@ static int mtd_virt_concat_create_item(struct device_node *parts,
+ 	int i;
  
- err_suspend:
-+	pm_runtime_disable(&pdev->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
- 		img_spdif_out_runtime_suspend(&pdev->dev);
+ 	for (i = 0; i < (count - 1); i++) {
+-		if (mtd_is_part_concat(of_parse_phandle(parts, CONCAT_PROP, i)))
++		struct device_node *next = of_parse_phandle(parts, CONCAT_PROP, i);
++		bool is_concat = mtd_is_part_concat(next);
 +
-+	return ret;
-+
- err_pm_disable:
- 	pm_runtime_disable(&pdev->dev);
++		of_node_put(next);
++		if (is_concat)
+ 			return 0;
+ 	}
  
+@@ -178,13 +182,15 @@ static int mtd_virt_concat_create_item(struct device_node *parts,
+ 	 * is defined is the first device in the list of concat
+ 	 * devices.
+ 	 */
+-	item->nodes[0] = parts;
++	item->nodes[0] = of_node_get(parts);
+ 
+ 	for (i = 1; i < count; i++)
+ 		item->nodes[i] = of_parse_phandle(parts, CONCAT_PROP, (i - 1));
+ 
+ 	concat = kzalloc_flex(*concat, subdev, count);
+ 	if (!concat) {
++		for (i = 0; i < count; i++)
++			of_node_put(item->nodes[i]);
+ 		kfree(item);
+ 		return -ENOMEM;
+ 	}
 -- 
-2.43.0
+2.53.0
 
