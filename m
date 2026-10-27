@@ -1,47 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099239;
-	b=O/bWRcAHUsvPCr8qleBRMjefVa68xXVdIDAK5pzu+Vd/iZlkjJpjgeQaOOcm3Gp61B9C
-	 7jlZYfhct4SNDTVrRp69Y0g6wJ2OnUEDHZR7Spw9NHcWTafEsZn0DBc0Iv/7gv4pgyNj4
-	 3RWd+qrsEo0m1cbPzooju3ZDhD/bMs9aAFUfLeLcmUB0rhR28QxrHV9/uaJpI02iDV/jm
-	 qFKIDZknZUssMyjXh71gTldsjnzGr+z+DUL2vWcggCNQIVodXzBzWJ0QQth+CBN5fI0Pz
-	 YCqtpcTp07EaN93yI++BQ6+kuWkBPxluyHPTPinLV4WhIHtrlWlt+Hs0fdZv7IoTgsA==
+	t=1793099268;
+	b=Tve7iU/uEfcjF2vmMYIPVFDPzKMUjPJgidtDlvlIj2fnRqsMFpsaMQsTsyfjgVhtA3d7
+	 5VcoLmL6MS0Y1P4GWm9hHHPC8xb0JKV8OsmiH/aC+8PwfXJOB9+ktSyZDS0d7BKSR4F2R
+	 v0hrLu/ytn7aYUpCbKYi3iQOYygRZQx4N5lOayDDPGOu7D7LkbqGYHmrdEMz8A1+ibnuu
+	 d8JUOJc4Qrix2HXNM+XIfxusZU9ydwsUiqg8FX3UmjIJlIPYrboDIL0wnl1cpUrUtWwoH
+	 1Ib5ViOOkcoq6xgb0J20JKbskIuyTRBl0QRWs7Vbcj+tHcXk3a9H0zitVOhhPrUFkpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099239;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8iPZIytj9HMc11Ehp7wcxqisiN/TeLpY6YQqejiCqRc=;
-	b=qwIVgVaacJRXpCkdwOX4k8rtiBkyPvcte6mx2SWZQgKO/PkUn78XRGxuYdSZIVr4j/A3
-	 RI4BKIejuuRM88PASPfpzDZw4mAEYp5Bqr9OCxoBtJ1FRoiaQ11Pc/f4eMBngaPet1U3z
-	 CLXSDTrtWccYWw9dvIwhi1ZDO+Yo3YVjj5sQnpG85j9XOtmFOcsT2MpjL1YWhtOPM1ttf
-	 d/tskmHvNbYS09WWGGRzAvxBOJ2amfp3ETOWpe1eZ6ifmjWtfuHd3HQYt7Mg+ODFxuusV
-	 9ZrWpo5S9FbNZlQNnpTe+DbEu1zpn63uqhS/WPTXoA/YnC7vbJgBgFaKRZlIQnp/vRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099268;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TTg1Yw7oDYioZjTrpOrhlF2Ny/pG8qkEKJ4JDIywBus=;
+	b=0oco2Zg85FWRh5E/v92HtMQeNI8c5gBLEzmKBH/jMKndJQ0w0vGb2M9QJOvAoA25Rttz
+	 TM69Cwszic0SaW6UcqL8yrl8b0AQhaHipiVSFFDccDYHJcvU4MBq8jMqo4+UwlBHQ3Xxt
+	 Cs9cjFEJH6ls2IQF8zRbvDspf28hX1YNFeMZHzZM86tyHjL2NJcZA9m0hKWRGA1pIuc6R
+	 7w5UO/JOufyjXeCzwJxQpwYYEToIHFFkNe751HQhAv7a/k8m1EcLhWEw2eTxnPpdxFH1+
+	 r7CbGARWk3PzkMV5d6jnaGkiiItMoFQqwWsRvvNqq8kIi20vY4+OdqI5DnQVPGiTvHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5KNaiTA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U+LrCsl8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D565E60A6F4C;
-	Tue, 27 Oct 2026 11:07:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3810C606B553;
+	Tue, 27 Oct 2026 11:07:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5KNaiTA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0529A1F01280;
-	Tue, 27 Oct 2026 11:07:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793099238;
-	bh=8iPZIytj9HMc11Ehp7wcxqisiN/TeLpY6YQqejiCqRc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b5KNaiTA8pSpdpjjF4ASEo11cbOm0BIu3qUd34KZrKFQZQce+4PdZw09kfucq6sW4
-	 HZQKd8b3TWzU0iKVhQUp1f8HpNRc4ZKIvdL20Qudo4LmrTKHTR3qqZ0B2tAFw9P5r0
-	 Xi3WOuLHm+iUVGhFXJOrwoUDDXAGqRAdJvn0PHSXY+l14PDnO45nayZT/TfGrOqyyN
-	 vuEZlpAiV4r1n/MCh8tXIN9OkhhuMTd/kERLaMMEvt5bC4kAKQnQvdqBkGrJQ4Ma8l
-	 4SoH/4Z5wm9+t18XB2gqSCujI6B1yR9jGUEQezx8y8Nuo8bb1DMh7h6gCJp8XWu6vP
-	 TGUeAk2Q+miZw==
-Message-ID: <c1fc1868-5583-420f-b945-2bf934873713@kernel.org>
-Date: Tue, 27 Oct 2026 12:07:12 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U+LrCsl8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 657651F01825;
+	Tue, 27 Oct 2026 11:07:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793099268;
+	bh=TTg1Yw7oDYioZjTrpOrhlF2Ny/pG8qkEKJ4JDIywBus=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=U+LrCsl8ZZs4m5oQCTtRPMvvZYPjhzNBvcwFeZs/b3Fk6+3gTonHzywev9mLhMRr8
+	 6PGbvo2//lZxu16ka+XPXz/VcXW6SpA8umrH73hreoNpxRUSgnDT6rKPPHE3gVE+d0
+	 jy3x/ahztRofZTloWm4MK6vokAWXDPObvZrumiJY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Tue, 27 Oct 2026 12:06:50 +0100
+Subject: [PATCH 24/24] serial: stm32: don't report a wakeup to a closed tty
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,104 +49,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: clock: rockchip: Add RK3572 CRU
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Cunhao Lu <1579567540@qq.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Elaine Zhang <zhangqing@rock-chips.com>,
- Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20261026-add-board-ok3572-c-clk-v3-0-dbabfa39d692@qq.com>
- <20261026-add-board-ok3572-c-clk-v3-1-dbabfa39d692@qq.com>
- <20261027-vagabond-gabby-caracara-4edabe@quoll> <3011736.yaVYbkx8dN@diego>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <3011736.yaVYbkx8dN@diego>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-tty-llm-v1-24-99b0202ae546@linuxfoundation.org>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+In-Reply-To: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
+ Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>
+Cc: Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
+ Florian Fainelli <f.fainelli@gmail.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Peter Hurley <peter@hurleysoftware.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Olof Johansson <olof@lixom.net>, 
+ =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+ Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ Robert Baldyga <r.baldyga@samsung.com>, 
+ Thomas Abraham <thomas.abraham@linaro.org>, 
+ Kukjin Kim <kgene.kim@samsung.com>, 
+ Patrice Chotard <patrice.chotard@foss.st.com>, 
+ Srinivas Kandagatla <srini@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Andy Shevchenko <andy.shevchenko@gmail.com>, 
+ Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
+ Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org, 
+ linux-serial@vger.kernel.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1886;
+ i=gregkh@linuxfoundation.org; h=from:subject:message-id;
+ bh=EIMsWgGTJxJVsmjQvEM7+7wgUHgzqQtmp+TOkkwPZfQ=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPWveftTtcdH9Hx4Eoxwk7VoXem7v2ib/rIn0zs+TTr
+ 2eYfWgT74hlYRBkYpAVU2T5so3n6P6KQ4pehranYeawMoEMYeDiFICJHD3PsGDh2hi/tXdsxetO
+ bDDnnqb2eIVH7FaGBZMbEoPP6RlqScyvblludMrH++d1JQA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-On 27/10/2026 11:43, Heiko Stübner wrote:
-> Am Dienstag, 27. Oktober 2026, 11:17:08 Mitteleuropäische Normalzeit schrieb Krzysztof Kozlowski:
-> 
-> With code originating in the vendor kernel, it is nice to know what changed,
-> but I guess there is a tradeoff between brevity and more details.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Honestly I disagree :). Vendor kernel commits and their messages are
-irrelevant per se. They are only useful as source of knowledge, but what
-was exactly written there does not matter. Quality is dubious, coding
-practices are terrible. We want to extract the knowledge, the important
-details, but not the exact commit. We do not care what changed from
-downstream to upstream, because we know that downstream sucks so much
-that we don't even want to touch it.
+stm32_usart_interrupt() reports a wakeup interrupt as a wakeup event of
+tport->tty->dev.  That pointer is only set while the port is open.  The
+port of a console is not shut down by the last close: it stays
+initialized, so the wakeup interrupt is still enabled on suspend.  If
+the system is then woken up by the console, the handler dereferences a
+NULL pointer.
 
-> 
-> I guess this could be shorted to something less verbose, like
-> 
-> +++++++++++++
-> Signed-off-by: Elaine Zhang <zhangqing@rock-chips.com>
-> [adapted to mainline rockchip clock and reset handling (xin24m input,
->   don't introduce CLK_NR_CLKS, etc ]
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> +++++++++++++
+Take a reference to the tty, and leave the event out if there is none.
 
-Yes, if this brings anything useful. For example removal of CLK_NR_CLKS
-is completely pointless to mention. How does it explain the hardware or
-design choices? How does it explain why this driver was written that or
-other way?
+Fixes: 48a6092fb41f ("serial: stm32-usart: Add STM32 USART Driver")
+Cc: stable <stable@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>
+Cc: Peter Hurley <peter@hurleysoftware.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/tty/serial/stm32-usart.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-Just take the authorship of downstream commits and send them as your
-own. Both GPL and DCO allow this and if downstream did not bother to
-upstream that stuff, they do not deserve credits.
+diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+index ad06b760cfca..3bc2ce877585 100644
+--- a/drivers/tty/serial/stm32-usart.c
++++ b/drivers/tty/serial/stm32-usart.c
+@@ -872,8 +872,15 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+ 		writel_relaxed(USART_ICR_WUCF,
+ 			       port->membase + ofs->icr);
+ 		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_WUFIE);
+-		if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
+-			pm_wakeup_event(tport->tty->dev, 0);
++		if (irqd_is_wakeup_set(irq_get_irq_data(port->irq))) {
++			struct tty_struct *tty = tty_port_tty_get(tport);
++
++			/* A console stays set up after the last close */
++			if (tty) {
++				pm_wakeup_event(tty->dev, 0);
++				tty_kref_put(tty);
++			}
++		}
+ 		ret = IRQ_HANDLED;
+ 	}
+ 
 
+-- 
+2.56.0
 
-Best regards,
-Krzysztof
