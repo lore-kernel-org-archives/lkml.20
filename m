@@ -1,100 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793107606;
-	b=VhtCrCYJJOstVKDwT67XHcX+qdW9IgtxwUtSL5o3EbF9hptOVJ0sPJ8RjsZUPm9AjDvG
-	 JEUpr15WqIHwDnAZERyv4QCl9wbdNQtBhUObgUJv712ac+laSPza6CViqXcpArhifff1V
-	 BCs+GtWXUUq6FxT8l9EVY4rz4ooKCwb7+6wCVfisvLFiVfqHFddDuC6OXd/E8tDGz1+q5
-	 U4et7Jlu7gq1TtB7O+uqLbhgDdrB5MiA/rfeO/CDadH62O7DgSVRMufhVybASA2sjnnHk
-	 Lq1QMOxE1k/OICdWXuBBxWF9c9bgurXiBarpOuhphrtznoSfYDNZ9kScc/TlUUnLqNg==
+	t=1793107612;
+	b=vTVclL42PqsFWdNo8LdHDS0lg1b1Io1jksRfuCISSBkffvFfJIFbmMM9OE/V9F0JEo7J
+	 UW6bguj1/Y3h3Gjurq6znkP5z4omi8c1R6GpUC/TssYFN6lAAnCx0iMaujP59UrX9YYTL
+	 Vub2jQX46hqMm6sLevO9W5tp0MxvIBKP0rJ4buCjvLT5CBn6YO0H3we/RUswUdTF3zsoN
+	 fUAFNpNRLLx3zJMscWIDz0ngA5kUtLUt1m30CYSyVVhSvkYhbG/aGFpDuQ2bLTNj0lb6i
+	 AZFhhYelcjiIWo9mBnrpEj7vZ54O2DznUa4H6b7AOar+luKtD0/44TSZlZeYzcATtqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107606;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UrOpUypNxtaw7z9tGQB7pFWtoYjkYD4SVEoMwlkiYcQ=;
-	b=nG0jqTU0Ug5fKxQ8VVMEIytKDgzIH7lAHjEJXEg3tu+SS6PC3hghK8WnJTNHUAtJ3A3m
-	 7K122Pa5LxgrJIMHfUVjW8yIalPulcIYlmYw/UpPHOWt+GtLwJHTetAdIm3cM/RotORxe
-	 CoZgU6+UBRgff60CsYhLvgH5m5q7r6Yy45SkisxN3lmBo2TPy0gQ8a+LkCKyGkHie3sgE
-	 2GJzS9K+fAxPe/qtp5vuzbTRFNABMn0KhDj5vzv4gZWeOgPmpbGsUAxt2n/hm/DCiMko/
-	 cgrm7uLxj1waTnHgD7RrUWko5V/pRe8wVCyr+YRv3S9eg4duBTpKZDXYv0NsM9Gcjsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107612;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lqw+TfDddRRG6oehvVdMMbadresy6pl8QAbpbcWHAzw=;
+	b=1NaizCB32BXTsj8cryW0dc1JVFHLubZiv8Ft6AAM9BOInGdEmN+dQZXWi+6xulmmdyJD
+	 xNg9DWgbOQX4TsObfTlIOtL2okaagDWB8XsE0OKHpERaaPofXaTe2vb4SdpR7PDY4+znm
+	 TUkwfWUzZZlru9EuBtK9rEH3Mi/tHF4cbdV+wAn2tbrwHrtReFHvxhJQhJfybWAk4hqIt
+	 2UIOi/2XbiqpL6EArT8SMqaRXAi260/u2vXcHYyrnRtYAIh+S27IwuzQhKNlsVlq3LLP7
+	 9J3GGx7IHdfbTgrpmVUQIkAkrtYk4N9knu3681c3QGlKHos4BxQ3Ziufef5u2L0H89g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YxGGQope;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.12
+Received: from mta1.migadu.com (out-12.mta1.migadu.com [95.215.58.12])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4974F606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:26:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4974F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YxGGQope
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-34c522572bfso536674eec.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:26:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793107605; x=1793712405; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UrOpUypNxtaw7z9tGQB7pFWtoYjkYD4SVEoMwlkiYcQ=;
-        b=YxGGQope3XmIOEeVNsI496jKnBqjPaygkcrOvLN9Gqhp5LWOQQENnmApcZMEfWG2Uc
-         RD4meG/tdn9e+IKPZ/jqmx4kBLGjLrpuhgFZ/tvwo3OP8EBnU6+EdErQCS/J5In4ZP/B
-         knqGhBRgRSiLn5zIBa9Wx2sIjAh5g3eizE/U2FOQEmDNdwsrlXZDaDsWSriBDI9Dcdjx
-         VcakTfZkyoNYPuq+R1QlfrY01iBmJ7wS/LvBT7Ga6GSKcjXisFPUa3DOoL3nF6dooDQ8
-         Whgp+/yWcTbeE7sfrFXlI3hEKUrA1oJIzppsXDggB/ND2XzWlZyiQCAcbV0APCAU7mgH
-         L35Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793107605; x=1793712405;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UrOpUypNxtaw7z9tGQB7pFWtoYjkYD4SVEoMwlkiYcQ=;
-        b=lv8NKD17i+mXYGcv1CjP5UfR5DTABEe8/DSE1Kz5z5BqP971dFOugUcMQHqwXgQfPK
-         0FhV8Bkaa5mvp+uvuRi2aVUxorV/MDi6XTsOMHd38k+Ez/pg/7J4nqN5xSt8utioMXFT
-         DKQu1b9dyKVoc3S97eLxusVp8fM1mI30XFbbD5Vc4wezErZdbgJBnzTjyOPeJd6Mj2+p
-         +aPnmDoDoppI97L2lInImEyQbX0YqLA1SEMMioJT5tioPociD5w4V3CFzWiJdJdiUDTj
-         rcZ5xqpJUWoSUQcl0wXNkBFGFRsMzTTQMJkMhueUrAO5GNopGImpyg4FpyHgg4CehCLz
-         u9KA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZOkJa922EuZzsmYtKotUB54DycMks/uJeHL+262WEkDfgWKKsGEt33m2oCQsx0zgT58GJSTYqP6bAlcY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7BiWf/P/H0bxTBE7rxcRJjnw+RpAdxw+d/f9xSvB8blcNC/D3
-	whBV+xa1N2mLq1cu3WAfYaa/WUBUgTeOPvGY1MZ3c50/zsb0zIPGvUqW
-X-Gm-Gg: AYBFou1OTSIymXHliYORKPLwdvpGwjqNA96u32JXjwVsiz9KSaLEbgZ/AWWxs/1Jvqa
-	7Xr5doGp1Sz4Va4ANznUKQ5s8H2jRH1GibQkEhxS44WhqYd4z/zjzvGDgSmg2RJk45wN0ar6jBI
-	yt0Dg7C5mu9qW7Dg9xebxXIhp8sjvgTUSmE0hQol88tX3U/4wE7nS6a/0oypyAY6Pe8BE1rekoe
-	35XzbJMHeC+TrVomt9uyjrsDMDe0yYrJaVaq9WjGTJ9BAsxHnB42lAejpt5M0VQF2DuagV7gy6V
-	uOzz6LJgcmCW7QPxOUCcQHqG2D/bofXDdO091+7XIWd5ZzJtPkaM4viFnylDVDQGMvtFNiaG0DY
-	MVqRqekeavDpy+knjkzvHvauU9WKIjsVJA+cxpEt3b1BPLHaTHPl5t5pUmMoyiJ2pjHimWZmnJy
-	+zKR1YL4G2B3DxxLu0/znrQcxWeqHzms0uMN2du+QCsLX02UJbS+3uxF612kShpTF9v6vs2xyxQ
-	9lQGxgvEMM35yoVM7+nFS2VqMX1/EmxVlgwmDRlKp4+CVk9QWlsmMJc8w8hjBTCQpgetQKsPlxE
-	bYegIzPX08JTpAGCH8YwBNMBciLKJPArIePRPhhVfY+7dYicIbcMjxD3ewjVrGuPvr/d6nW1WUD
-	ia4DWUYmAsrIMjEz6OD9qGpQzfzLBye9+nOgBReiMjfrqUA==
-X-Received: by 2002:a05:693c:8646:20b0:368:5521:612f with SMTP id 5a478bee46e88-369e81cebffmr26854868eec.0.1793107605360;
-        Tue, 27 Oct 2026 06:26:45 -0700 (PDT)
-Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a064510b0sm18478013eec.2.2026.10.27.06.26.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 06:26:44 -0700 (PDT)
-From: Antoine Pichot <antoine.pichot@gmail.com>
-To: dmanresa@gmail.com
-Cc: linux-media@vger.kernel.org,
-	sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	djrscally@gmail.com,
-	dan.scally@ideasonboard.com,
-	hansg@kernel.org,
-	andriy.shevchenko@linux.intel.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
-Date: Tue, 27 Oct 2026 22:26:41 +0900
-Message-ID: <20261027132641.540323-1-antoine.pichot@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <6ae07c62.e52dcaf0.293af3.e647@mx.google.com>
-References: <20261026111032.88355-1-antoine.pichot@gmail.com> <6ae07c62.e52dcaf0.293af3.e647@mx.google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4701C606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:26:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4701C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bVchNI6MPrPq2ISgrQi9jHRX7+8yy0AAnhLVZeK+Z7k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793107603; v=1; x=1793712403;
+ b=v1qf0Ngn9OHSgT9zQUDtoO3QxMfR++VGO24HB3b4ODQIcAcXUm2XGZOUKA1yVmU9Hcm14L96
+ MjR9ufZ0k12bRgmrywuOKIJ8mpxD+9b3GHMbmNdxTjpd4+wl9qhM87V/z0bOLwE6UoQiGNRZB/V
+ o9DQb4k0PF76ae4CrDU+6kC8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 21122a2229b38990;
+	Tue, 27 Oct 2026 13:26:43 +0000
+X-Mizu-Trace-ID: 21122a2229b38990
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <823d68e9-dda1-4458-94d9-fe4872832d7c@linux.dev>
+Date: Tue, 27 Oct 2026 21:26:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,38 +55,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, hannes@cmpxchg.org, mhocko@kernel.org,
+ roman.gushchin@linux.dev, shakeel.butt@linux.dev, muchun.song@linux.dev,
+ penguin-kernel@I-love.SAKURA.ne.jp, tj@kernel.org, mkoutny@suse.com,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ zhanxusheng@xiaomi.com, stable@vger.kernel.org
+Subject: Re: [PATCH] mm: memcontrol: don't miss processes whose leader has
+ exited in OOM scans
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>, akpm@linux-foundation.org
+References: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi, Xusheng,
 
-On Tue, Oct 27, 2026 at 03:26:42AM -0700, D. Manresa wrote:
-> Tested-by: D. Manresa <dmanresa@gmail.com> # Surface Pro 7+, IPU6 (8086:9a19); patches 2-6 only
+在 2026/10/26 20:02, Zhan Xusheng 写道:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> mem_cgroup_scan_tasks() walks with CSS_TASK_ITER_PROCS, so it sees only
+> thread group leaders, plus a dying leader that still has live threads.
+> Moving a process whose leader has exited, by writing its PID to
+> cgroup.procs, moves the live threads but leaves the leader behind, as
+> cgroup_migrate_add_task() skips exiting tasks.
+> 
+> The destination's OOM killer then cannot see the process.  If it is
+> alone there, every attempt ends with "Out of memory and no killable
+> processes..." and the charge is retried indefinitely, and
+> memory.oom.group kills nothing; otherwise another process is killed in
+> its place.  The source's OOM killer still finds the leader, reaches the
+> moved threads' mm through find_lock_task_mm(), and kills a process that
+> has left the memcg.
+> 
+> Walk all tasks and take one per thread group: the leader, or the first
+> live thread once the leader is exiting.  Skip exiting threads, which may
+> belong to a group that has moved out.
+> 
+> Tested in a VM with memory.max=64M: in each case above the process using
+> the memory is now killed, and a process whose exited leader was not
+> moved, or whose leader is alive, is killed as before, with and without
+> memory.oom.group.
+> 
 
-Thank you for the thorough test. v2 carries the tag on 2, 4 and 5.
-Patch 6 changed after Andy's review (the span computation rewritten,
-same result), so I will carry it there too unless you object. Patch 3
-is replaced by a conversion to the sub-device active state, as Sakari
-asked.
+Tested on next-20261026 (x86_64 KVM guest, cgroup v2, 48M memory.max
+on the destination group). Without the patch the worker thread stays
+alive and the OOM scan keeps printing "Out of memory and no killable
+processes..." (2887 oom, 0 oom_kill in one minute). With the patch
+the worker is killed right away. A live leader and an exited leader
+that was not moved away are still killed as before.
 
-> That CID is not added by this series -- it comes from 5be4154f6255
-> ("media: v4l: ctrls: add a control for enabling strobe output"), which
-> landed after v6.19. Since 6/7 uses v4l2_ctrl_new_std() it needs the
-> v4l2-ctrls-defs.c entries too, not just the uapi define, or the control is
-> never created. Worth a word in the cover letter for anyone testing on a
-> stable tree.
-
-The v2 cover letter will say so: 6/7 needs the strobe control from
-kernel 7.0 and is not for stable.
-
-> 4/7: camera_orientation reads Front and camera_sensor_rotation 0, both
-> read-only, consistent with the _PLD here.
-
-On the Book 2 the firmware reports 0 but the picture comes out turned by
-90 degrees, which 7/7 corrects for that model. Could you please check
-whether the frames are upright on the Pro 7+ and, if not, tell me which
-way they turn? 7/7 can then carry the Pro 7+ as well.
-
-The link question continues on the 1/7 thread.
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+Tested-by: Tao Cui <cuitao@kylinos.cn>
 
 Thanks,
-Antoine
+Tao
+
+> Fixes: f168a9a54ec3 ("mm: memcontrol: use CSS_TASK_ITER_PROCS at mem_cgroup_scan_tasks()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+>  mm/memcontrol.c | 35 +++++++++++++++++++++++++++++++++--
+>  1 file changed, 33 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index 4d00748c8a5b..8823c549b6af 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -1427,6 +1427,36 @@ static void invalidate_reclaim_iterators(struct mem_cgroup *dead_memcg)
+>  						dead_memcg);
+>  }
+>  
+> +/*
+> + * Take one task per thread group: the leader, or the first live thread once
+> + * the leader is exiting, since migrating the group leaves an exiting leader
+> + * behind.  Exiting threads are skipped, as one left behind may belong to a
+> + * group that has moved out.
+> + */
+> +static bool mem_cgroup_scan_skip(struct task_struct *task)
+> +{
+> +	struct task_struct *leader = task->group_leader;
+> +	struct task_struct *t;
+> +	bool skip = true;
+> +
+> +	if (READ_ONCE(task->flags) & PF_EXITING)
+> +		return true;
+> +	if (task == leader)
+> +		return false;
+> +	if (!(READ_ONCE(leader->flags) & PF_EXITING))
+> +		return true;
+> +
+> +	rcu_read_lock();
+> +	for_each_thread(leader, t) {
+> +		if (!(READ_ONCE(t->flags) & PF_EXITING)) {
+> +			skip = t != task;
+> +			break;
+> +		}
+> +	}
+> +	rcu_read_unlock();
+> +	return skip;
+> +}
+> +
+>  /**
+>   * mem_cgroup_scan_tasks - iterate over tasks of a memory cgroup hierarchy
+>   * @memcg: hierarchy root
+> @@ -1452,9 +1482,10 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
+>  		struct css_task_iter it;
+>  		struct task_struct *task;
+>  
+> -		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
+> +		css_task_iter_start(&iter->css, 0, &it);
+>  		while (!ret && (task = css_task_iter_next(&it))) {
+> -			ret = fn(task, arg);
+> +			if (!mem_cgroup_scan_skip(task))
+> +				ret = fn(task, arg);
+>  			/* Avoid potential softlockup warning */
+>  			cond_resched();
+>  		}
+> 
+> base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+
