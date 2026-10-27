@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105412;
-	b=S5JdtmQ6OU2kKBRfPvUErMvIQMr8h3YNurSIpGOVuUkF18rkhoA+CxpiX7Qj2ZWllrMd
-	 Xq+oMD3Gmzcb7RLfH68Qja1VRHg3QjiOJqOOKcnioKPd1KumMRqzGNIpIwXMv5PQ3PFAE
-	 sYNr8bAkw/wnkDLaHD96KmwXzhINcmLWdWoculYNLA9zCz4r9qP8Ut0XA16giEXEqqDwv
-	 DCIFXo6587hULJ9vfkvStuoIIpKEIpXMVNCiP86PRuOUcuvQBKVmevq7xZGG5Y50+sFDv
-	 Qu9QWn47vA3CGrIoLh5aD1AyUvN/WPPJ2BlCVFIeloA/mZcrmrHCAlXj6eDvR+jG0QA==
+	t=1793105409;
+	b=WzhMz1oy1FGfKv7n5iE53MPm5+sQIGve2JyUnCyvDnNqqknvfjU/fsPF+INxMK+iEmdT
+	 nhEq6t4p7eLA+EpjZ1Xe+OE7IHsEHLy+XpjR/SxGmKoczVYIx5ynSLK2olNWzwVNziNN2
+	 Nkd9fAdlVk/sfEorSKU+Rs5RzsfWJfKBAMzbUQmNfz3GqpUeeu/HKGmHb2qpnAKP4zc53
+	 D1WJ0KIcfKanNcDszhRMCPpOCRMGeANZS6+uhDvvbHwANtsZ0xgncGTIafWOM9//uvKMV
+	 A3JPHRfx8ggjerCID961hSs0tSdk0UrSoQTfWiQBaIM7dJMukKSPYLco4dFh1dNbsSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105412;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105409;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=sODvYeqV5gDMhpF3/tE93N3B3mOo+hnfsfgEpH0noQs=;
-	b=QR5mfaj+0BnMMqNRBrXorK7uVtVMJZUp2kF9OyCDRgsWb+HOd3aIhMPcQzQb+Xmc/pVI
-	 Il3Ik2wJw73DRma0RE9BCFpw3s+4a7/YEQuPdFqe6b0RY98onJP90YRHx0jgAomT9nIqm
-	 DM0LQ+WO9zvBHrSQ/cJDBiWN8fTXVPA0W75F9Ilr7r8Qs+fv7lfFIF4l83kif+J0eTmee
-	 /iD2Vh2gGz3HwEfwkRQ4GV0+4UGU8T50DU6zFhL6aEY3fHhMe9LEOJvmfBEkG5k3/prxY
-	 TnwvNcmv+xw97AOxpUxlNARAboYDE0Z/wSop3OwrjHjJbHkw7Rsp+qkcResIFzpvM3g==
+	bh=FYHn/wr28N2yNDPHhw1evl1S59ARQnHWvpuXjgekTs4=;
+	b=wRhsFMr5KrB9aY8T+n87HfgNERNc2IsGNKjjqjXvHm8lRyaKGT3a2U6GONuHH2z1ap+d
+	 mgT3CsHHaWMNw1/LEgmsREm955qe/ErR8Grb0Mpeg+WXjxp+EexQcYZdo5R/6H7OcEjCI
+	 nIUBrSLl7y+2A5W/aeXZf1cCCmivYcgKFK9C1k9m5vmMkJ50jeIrNvwFuPPzyE1nska6m
+	 /LTYqJGEN23bYN/cnWHruwBlBD70Mg7Rl1NZ8yfxTddElu3chj7zIztek5lsxosXD3GPA
+	 2xK1gMpaMvJWbti55FnjwHgqJkENX9yL89MrHJ1owiasLwmhWG27INN2b7klFVIHNog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R5tOWkju;
-	arc=none smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ez0oGccC;
+	arc=none smtp.remote-ip=209.85.167.49
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FCD60A381D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83FCD60A381D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7EE660A2616
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7EE660A2616
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=R5tOWkju
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso1832114e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ez0oGccC
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso2629188e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793105411; x=1793710211; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793105407; x=1793710207; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sODvYeqV5gDMhpF3/tE93N3B3mOo+hnfsfgEpH0noQs=;
-        b=R5tOWkju4v00bJxZmvuwB7/pKDsqkBAU/1/eg0Y2mI3+68zI0Mic91igIxblPKDv1G
-         ITUYcqzhY/lj7Jsr1hZnifgKAqFARw15N52gxtgWV5Z4lGJVtKLPhp90ADC8Gm6jVEEK
-         m7auX7ATnMoHARvtbiA5YgQdCiP6D2li77+Jjj+62l4UY6g5dncYC3HE6dOrlNYK9L/Z
-         zF8Bd6Jya6/rQtR+dvCGbiZipSrRIlt4ttb3zUHpSQGM+8ankrnZ0WxqoNSuaIA9Hqkf
-         dSbrLbL8x0jXh1KjkboyEe31U+cLqIgHffdPEUIIPx0GRNvxzr/TlbiR3a3NLsUgNl3D
-         6Jcw==
+        bh=FYHn/wr28N2yNDPHhw1evl1S59ARQnHWvpuXjgekTs4=;
+        b=ez0oGccCIQwAhOEXNUKq4s56IEy0Key822YezRkU3GlBMBzMxj6sk7iUMGGKSFhI+f
+         Te2gzPvCY286PbONIgL9EKJvrxdMru9G8rdz5dZayZqtX1YU3uq1p2YGC4y4yV7Mi/54
+         mF7weiIuV2V8cwgez4F+iS6F5PbHdv128WWUuCOxz1yT8RFIktAvQGwrFzy/7couGtMA
+         sXB5/VRlJXxGRhi5REiehlpoUlFDWYWOfHxiNhheodEl6ncPNKqRGSs+9l4iSQA+09Ez
+         bUIKzTtcDZihGP44DwSZU8dfP5tH4GQX6jEFgjiHgdDzEOI3SQJtcB5vomFk6C7R6Y18
+         kNyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105411; x=1793710211;
+        d=1e100.net; s=20260707; t=1793105407; x=1793710207;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sODvYeqV5gDMhpF3/tE93N3B3mOo+hnfsfgEpH0noQs=;
-        b=RymLPnUZg/PflaJD/iKUm0WQMwwYlbO+g+qtuolr35h4jE+r0cKw4DscOGGZ6ke5oK
-         977CQq3j5mrTP5NXuXEPHs+xogDT/evNxRhkxxfm92p2c+CAQNw4+7Zm7v1WOsNf0dnf
-         t66F4v3NGl6QHwxOIIQjkf/GaHDCjW1BqQJIv4351elMyh7kuWK1jwCAxmc9oaopIRnN
-         rgqjnvl0FsEPi8reVtW3J7QnAxjJkU0YX74iH8aTEkSXTeZ/64k4bfoajJZEnSCMus1G
-         nTaeasFn3/nRq1T0Z55CAoVfskqbLWFxxdl7Lu8I+Zcru/ONhoXDA57JAyyx0B5jqk4u
-         I2qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzW+amUaEPpGDV1Ok/2VzYvdK5WY9lHzI0yXUF++P0dIP6lUA9U8LQgTxeHPehZk04c3mHXC/UJrjsNc7k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb9hQfPio6NRetG0lNK9iWm1gB5Rab6lubZV/SSNgsG8WeQiNk
-	k6o/oXlJ9pnoDGp81gYYoOfeuzs33z3h/bT39sEQ7gVdq4q3uoF0Gtju
-X-Gm-Gg: AYBFou2x0FMSyF0atEON3MTTpmDZzUL3cbbuOz7dHRDxj5opc2TIBXTtXSNp8BEiHDa
-	MNgdkJTCMElCckF3YGS2V+TdnvAVpR3D2gMYKvzQSMCgvF4iS9/fhGecNklmLIk+/bWzjGCtgsd
-	17rFceXSxFVkZuYEtCswOf7JKrTGV8M+jgNBG+nulQZ5XsdPyiIaKue43MCcRoDHkvhxbhVddEI
-	RsdNXVJMUa2tv/OhMoGNBhvorXHPZTDaobtEtAjRlVoPP18VB5bLv+KUg1YrtGouHAk/Kq9UWlt
-	A4SppfIHf6Yzj+g4e7mfy9YSCH3f0ifuSDpPYiOaXga0bQXgAwLXcq5AiIBr7NOo2OEhAoineaU
-	sBK5y8sqqxcrjRrW1Cc2MuoUy1ayPx2ux6YMsvGJUq32AYTuA74/O44Brnd1b76VcHyXgzw2Sxc
-	C9s/WEaWgcRUBkLtdU8ReaAXMZWymnL9KbFInTm+0ZXafWxctD9JVZL84zMTMgqpAeMXbtv+4bc
-	cPqpIIrhcjIsPpFlzM7NBYSo6V9QFUJbrQyW1YqD07YL1bf3z9jhXwwMfTSLIgWrMDyN+5h52fJ
-	SA3HSLydXyoDBoErQ58q2LIuEV/dJiIONf1pY/2IDKx49iDDao+mxUy6D4gn37Jd
-X-Received: by 2002:a05:6512:3409:b0:5bf:b963:70fa with SMTP id 2adb3069b0e04-5bfb96372f8mr3300311e87.48.1793105410585;
-        Tue, 27 Oct 2026 05:50:10 -0700 (PDT)
+        bh=FYHn/wr28N2yNDPHhw1evl1S59ARQnHWvpuXjgekTs4=;
+        b=Tn4XxinQPFLnwLUGYpLgNFGot7NOpThLODVTqsQ8S59SaSzEZ40QhdeLXDtUczdngK
+         /mKkfpEmOkElqDqyxR+IQbQgXe6R7LRxCwddYnI4Siva8zVyzcTtX8CYyRJb0xwoITF0
+         rKh+4spylXyjIgAyNSe7SGyoyZXKXg1NLEYSP+SuDM/NWIUdwBdljJ8dco4koGod0TUi
+         IY0B5Ig+SmDzIpi8/0L9AwdEPxI2LjwDEk32IiCXSF4xsCyQ77tbIptaFf1CPrM9803y
+         J8aHCVuxDzCvf7smof+ophYMblLoFxE5p/oSrZmJ7E02AmW57l6/HPnV7cdAEd59JaH9
+         uO/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzcfl7mWp4tjfvmKV0ed/dykuzbdhJ/mE4aJYMKv1VfgnXZ0pcZZIzle/DhxMtO+1owuEHsVDZHFATADjY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvIm1h2Ti3K0G3h88JaMYkXdDQClZErKVq07bwlCGBQpf4J9YA
+	osXo79A0mkkggiSbYaLoy2wOAgA7wJO200ZsZCrskb0xqLzfG9hkoZ+D
+X-Gm-Gg: AYBFou1hVq1ELuiFVbnYsoSTlg5V9ed3u2RBUHnqexcGkFZMaokFnxSdRnzwWGHBWMx
+	ZCfpA8TtT+9RPNbXWpcv/qJwe0WdsdDRj8M6s3eAGU2yZ2Mf+7OVbrBsk62n5uzBwfNAtsZRhCm
+	BSS3B7lma3Leo9fjCMZ+GXZrwyjfOe8es9WSGGsdh+/WD+iFqYxa34c8qvGa+iqckrjn7UIv0cN
+	v9ZaHrtSJxDP7rEa5yL15/qI90ksy8gp5+iF1eNEQz/GPbtdTWt+TPaAiC9Sdje+I/4d0tu0oCi
+	vRgpud6GOaXLEXDzz7g8a4jS/aqsBw6yPDip1jV6uLdud4akyHh+BiAHDEBPa9UoiXUu0p6LNt4
+	q5wtOl6sPX9DcrAYJqrerhIcIhuhM+9Csa3vWYhBLHX4ed6dLeZBFZEqGxeAqhVdIxfB0mDxXSW
+	HqStaW1J5gClU+hpmIr1sfSD8rHAJ3iZEhF7/oE0ylgv0jVLdnwRDR/devMW5vEpJ9j6iL/ZHzF
+	0vGezI7Pv6zSJZ5qVhGFZFX/skcf1qMkg3F+XVtfgye0b00Q1EoBFoWvD4Anex5Yp46ncbW7dH9
+	ih2R/jJY0IpulsruBxDdhI+ZL2aFhqmkF0bdVO7tLAtlJhl6Un6RNR46Y502rzweJA==
+X-Received: by 2002:a05:6512:3409:b0:5be:50f5:f789 with SMTP id 2adb3069b0e04-5bfb71c4555mr3678914e87.45.1793105406758;
+        Tue, 27 Oct 2026 05:50:06 -0700 (PDT)
 Received: from yantra.. (nekmmqtcmoboczbkdcs-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:55c8:a52b:6ba2:979c])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7e7cb24sm2052803e87.25.2026.10.27.05.50.09
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7e7cb24sm2052803e87.25.2026.10.27.05.50.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:50:10 -0700 (PDT)
+        Tue, 27 Oct 2026 05:50:06 -0700 (PDT)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Alex Lanzano <lanzano.alex@gmail.com>,
 	Andy Shevchenko <andy@kernel.org>,
@@ -106,9 +106,9 @@ Cc: chrome-platform@lists.linux.dev,
 	Rupesh Majhi <zoone.rupert@gmail.com>,
 	Marco Elver <elver@google.com>,
 	Bart Van Assche <bvanassche@acm.org>
-Subject: [PATCH v4 8/9] iio: light: veml6031x00: annotate the event enable helpers
-Date: Tue, 27 Oct 2026 14:49:53 +0200
-Message-ID: <20261027124954.110697-9-zoone.rupert@gmail.com>
+Subject: [PATCH v4 4/9] iio: accel: kionix-kx022a: annotate the lock helpers
+Date: Tue, 27 Oct 2026 14:49:49 +0200
+Message-ID: <20261027124954.110697-5-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261027124954.110697-1-zoone.rupert@gmail.com>
 References: <20261027124954.110697-1-zoone.rupert@gmail.com>
@@ -123,38 +123,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-veml6031x00_event_enable() and veml6031x00_event_disable() call
-veml6031x00_set_interrupt(), which needs irq_lock held. Their only
-caller holds it, so mark both __must_hold(&data->irq_lock).
+kx022a_turn_off_lock() returns with data->mutex held when it succeeds,
+and kx022a_turn_on_unlock() releases it. Annotate both so context
+analysis follows the lock into the callers.
 
 Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 ---
 Cc: Marco Elver <elver@google.com>
 Cc: Bart Van Assche <bvanassche@acm.org>
 
- drivers/iio/light/veml6031x00.c | 2 ++
+ drivers/iio/accel/kionix-kx022a.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
-index f6308498e422..476ac3717f8e 100644
---- a/drivers/iio/light/veml6031x00.c
-+++ b/drivers/iio/light/veml6031x00.c
-@@ -784,6 +784,7 @@ static int veml6031x00_read_event_config(struct iio_dev *iio,
+diff --git a/drivers/iio/accel/kionix-kx022a.c b/drivers/iio/accel/kionix-kx022a.c
+index add89512af79..a132af87fb5e 100644
+--- a/drivers/iio/accel/kionix-kx022a.c
++++ b/drivers/iio/accel/kionix-kx022a.c
+@@ -484,6 +484,7 @@ static int __kx022a_turn_on_off(struct kx022a_data *data, bool on)
  }
  
- static int veml6031x00_event_enable(struct veml6031x00_data *data)
-+	__must_hold(&data->irq_lock)
+ static int kx022a_turn_off_lock(struct kx022a_data *data)
++	__cond_acquires(0, &data->mutex)
  {
- 	struct device *dev = regmap_get_device(data->regmap);
  	int ret;
-@@ -804,6 +805,7 @@ static int veml6031x00_event_enable(struct veml6031x00_data *data)
+ 
+@@ -496,6 +497,7 @@ static int kx022a_turn_off_lock(struct kx022a_data *data)
  }
  
- static int veml6031x00_event_disable(struct veml6031x00_data *data)
-+	__must_hold(&data->irq_lock)
+ static int kx022a_turn_on_unlock(struct kx022a_data *data)
++	__releases(&data->mutex)
  {
- 	struct device *dev = regmap_get_device(data->regmap);
  	int ret;
+ 
 -- 
 2.43.0
 
