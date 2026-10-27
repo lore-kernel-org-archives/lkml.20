@@ -1,69 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117808;
-	b=HKGZDb9rP3aVh7faw1YgdOYkbGBYSn/9mqcuIzH9vkM0daGXFRhOElKxjahEI+DFugrL
-	 ZU8+rXsN0y1u0NvtVj2rTd4U9A3aWbZXuGezmNTi6G/BLHAuo6uJJHPHPou2UjHZ2vtPH
-	 keblDlzIfdgwXmAJtC0voU3BArXjiHE7dKtplm1fex+0iwPbM8H9N5D7JutG+7vB/O26q
-	 oXN77NLSb2m01tF2MLiQRfa1nreA5qxwzykq6+Znj5JZGr1CCwSAMk/ff8p8kZ7Jd/TZk
-	 b4ZbL1d2put0c/g5qf+Ew4bM7YG0TtcTCo2yxJ58ZzFR0RfFUhgN0VMx96pRHRogy0w==
+	t=1793117817;
+	b=EdQUF0092Nh4JCXUL7zdQScb/OGeptGrRlB4bOU1sY+iPuM/lu31wFM3nJCn5TBh1uYS
+	 +Q2JkBt2XmYMM2EXQCJr64JwIgLOOP1EqTWj6nuIXybmBw824JpnjTYi5Qjc/9qIWuubM
+	 ErRbWK52rWH9LxiYU6aEy3KW8K8uCKbdVFPF49Lfxiah/IR0Wdmcj4+RJHmjaIYpKw1hr
+	 EOUoSs/AAp1toAdOdsMvfMLilFj/NuCSNGOFo1/8tQJJVukI0Y+Mt/MM6040OGN7y6OdT
+	 KpTkMyWWJ73//pXyqisq0WDQCs+DaCn8z1ZBGscIz5u+VgIC5ekiW19jFM5pyHrFfZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117808;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=GbocaL4tWDPWFJT66RNMeq5SQE2l2w1Jml0mjxtf0GU=;
-	b=A2F04011pbhAe1aRmFA/POrVtzPUP9R+eZhGaqyaytSKJAiTX+LODiRj8obFaIWMdiQR
-	 o7E3TOjiREXG6+iGNQqnLFd3zadTf0uivp6/g2wXlzz6ATPTn2O1Cm03rxkU4i6tgohrr
-	 x6mCORvY/n3+SceW4jd9X5OA6aXevI2tKXX45HFVVS+zewEtQf0zunlg1PK7mZObRk6AC
-	 U7DUAcc6GQqF/Lc0Sb4InGfuI3yv+n1mSYkZES58qGYZAKlfDDLVPfY0ZGgffvU5lQm4S
-	 y7Kh+D2dxgAKIN+HshBJuAQ/wG7jUpItltWcuYUBGYNONkytL/tsXVu8qK04Zo0IvDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117817;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cPCyqMaKTCMcPIZaD/DpSt+b55Xb3f31eMSeD9/YiJM=;
+	b=N46n0hZyToBe0T53+f33BsVrOAEq0bobMPZDBlHarT+rtPl7RBbVRAzSHgDTkmCLZAKv
+	 tH2iXrwp1vHd6l4RbTatsjyMHZxTnVspcRdsLc3E98eb5sq0/T/LiV04xGqJ2UAHVNMk7
+	 YzWN8IVDY2gdf7s6egqg+4JYkDtMGUSWcBEkoduzSXkyCa0YSkMuOqsrQebTJa9IRDImQ
+	 Pl9uOdJkLliD9YMnOnLwVlkI2+F+UPWO3fzPLQbsQjx71Wo3TD5bOha6rN4im8QQ8L4cS
+	 s0/x1BtQTN7GK1yi8l+3iV0GjgsEtlh1qOMJXE1p03S8VNzdj41w9PgG6S4xQQWKVNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=luuyMayx;
-	arc=none smtp.remote-ip=95.215.58.194
-Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qZUTYq4j;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFE4606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCFE4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37520606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37520606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=luuyMayx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YMHm1UdhIogyYftZ2Kw0ekG8w2IuHdMfvUp+gtU8ncQ=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793117804; v=1; x=1793722604;
- b=luuyMayxzq/xnhIdbhVBQRImZZykPX1AWfvkSzrYCpZcUlX4WoYd9762/5qn9+shtTOHsvlJ
- ncQ5qZkEF8ALAcm51hz/h8oAH/xTcsRDAH5x0rm65/vbHp0x9zOej+r4bTmNcFvH8p7qNqWy3Wo
- UbeaQpFBQFRCP1xgfcolazToJBCtC9j5Vpku5pSpxf7yZn+jWsslEhEExzdhYICNZU9CtY1D6C/
- IfjwukINpjb54hbwtsipYwkQeUPgG3fjnLNgaEjG1BMA/tfkkvBl4rYDa/xhxOBkZ5W70R6VBvC
- Cgdx1HzMjqjlFMY9MYDrM8Dj5wppZa4DO7eGkU7VKMJKA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 58fdc84ef17a101f;
-	Tue, 27 Oct 2026 16:16:43 +0000
-X-Mizu-Trace-ID: 58fdc84ef17a101f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 28 Oct 2026 00:16:20 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qZUTYq4j
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso133775e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793117816; x=1793722616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cPCyqMaKTCMcPIZaD/DpSt+b55Xb3f31eMSeD9/YiJM=;
+        b=qZUTYq4jWuhlp5D7gKVp1d8huuo/rVtE5YFvyEvvMtnZMFOAAU5lSpyqhfb1kNkXZQ
+         lrixdFFqke4HgiNc3dGkWfXMJxDtDnbqFd3xh3UdSQAToTTethCybrMJKZBj88M+uJ5H
+         OwoKT/felqMYVOaJQ+7/ql74bUD8rAWmlU3NPvygMdNk9xbv7MHF0ycmz0oovQ2BbkBj
+         j7T4sGUvYJziH3uqZF/b5pgTS8/Q2pvh7YeqX/XxekKs2PhVD7S//EKKjxZBcZRPb6AN
+         KO0yRxMV/PSm3GorLG4hL9GcHu65evuRNWUdRY7FhyD5LBO1Az9Fui7W8ntX+9z/cF2n
+         BxOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793117816; x=1793722616;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cPCyqMaKTCMcPIZaD/DpSt+b55Xb3f31eMSeD9/YiJM=;
+        b=BYatG9FG/TTmsPhIskiO84CSy79nDOv0Jec7EEALFgjODBy49rifN+mlHtxcu58kbG
+         zhaRqh6Bq4wDI2HLhD7ARZ8ZSG4pbJwqH5xpc4GNoqelMmS7r078WfD3/2A4WCgldXZo
+         sicfXtLctbyrqDyqVvPavWXZm6kDJLPmmFEa38ymld6ZHnF4Dj7dR0+Krx73vsz8PcKC
+         RGGwREL48yqqQMGf1FOegqCv03uV8eGiAKs214i7MrtAp/99++8FYR+LPZuiyNAj6wLR
+         bcXH4l3rTuUppb7c0pQD0eWZ+lpwvqlwwl+fASry1MPQC3B0oChZNc5QvRho8+XB/oRy
+         SSeA==
+X-Forwarded-Encrypted: i=1; AKwUvBwW/kN+3GlABcrm0DU7bEFdXtNxHkGlirgAJ1YUtQqqoJZD9RjINvgnKBZQ9J3cfng9F8DcgJrqH2+jWM0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTjllrsV7zMw0gUAjIc9XTowFbJqf4W2txRAVLyrrMP4F97+Kg
+	KDSshFfFMN0+a9rZMDPR6dlieUYChCyMkNWnDtrKjLV14cuUpzVzbNZA
+X-Gm-Gg: AYBFou0vwvlfNreBnIUv0R5Q8jyGOTqb6r5EaWcduIvrUTecfRPJeYEMH3vlDWWfJpV
+	PpqVXrIGqHLiqCuua0FqF2GH19Ps1oVLqwvgoxAqP0sOUf43GW6Dosco16+JdH4Jo+alTmR4jLp
+	6bTWTbNPM88+ybmLnwZHxd8qREHXk5D7AQ75i4JAhsMtZch7vKyX6OHOG+6dSrHeNzcRCHwZJiz
+	NbVTh84ijNcL1/E2vyFKSaTswMaDzC0sHFH/r7yEKM/2hN3z1w0TnSCiQ3isV6sV1wF61OhxjUs
+	Eb7sYrDdt9RyWJxcKJ8oSICLRr36A/5p14XW6jhsac4ymgRftqltoG4y1GQUuhB4pZowuqsf2Es
+	aL41eOnb9hgs0+M9Wjl325ovPksU3RuOKFIYEk1fZ0khrVqytoGP3iXkk8JbVdmgwj0FjCzC6P5
+	HHwSoJB5DF63n9QnMvBhfDUN5IRRMeTHRQFA/rlr8F45Nv0KPLbjuYC1jHX8hiCcxHhXZnTwDjt
+	aEO4xmGGLdwXfPCv6tOU6kaxypTqnQZaYc3JLHkAvwcTQ==
+X-Received: by 2002:a05:600c:4e0e:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4a35ac9d227mr200480015e9.8.1793117814801;
+        Tue, 27 Oct 2026 09:16:54 -0700 (PDT)
+Received: from fedora ([2a02:587:85d1:a500:5135:1deb:a9ab:fb3f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a928c50222sm1765075e9.1.2026.10.27.09.16.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 09:16:54 -0700 (PDT)
+From: George Karagounis <taterraster@gmail.com>
+X-Google-Original-From: George Karagounis <mail@taterr.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jiandong Qiu <qiujiandong1998@gmail.com>
-Subject: Re: [PATCH 2/9] docs/zh_CN: update admin-guide/README.rst translation
-Message-ID: <auDOVHHfyFRWpHSa@wyuan.org>
-References: <20261027102552.3801595-1-dzm91@hust.edu.cn>
- <20261027102552.3801595-3-dzm91@hust.edu.cn>
- <auCM9YrxbpXvdRv9@wyuan.org>
- <59010171-3f94-4574-89e4-b655c1c6dc30@hust.edu.cn>
+	mail@taterr.org
+Subject: [PATCH] ACPI: fan: add missing MODULE_DESCRIPTION()
+Date: Tue, 27 Oct 2026 18:16:50 +0200
+Message-ID: <20261027161650.59170-1-mail@taterr.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,69 +96,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <59010171-3f94-4574-89e4-b655c1c6dc30@hust.edu.cn>
 
-Dongliang Mu <dzm91@hust.edu.cn> writes:
+modpost now warns about modules without a MODULE_DESCRIPTION macro.
 
-> On 10/27/26 7:37 PM, Weijie Yuan wrote:
-> > Dongliang Mu <dzm91@hust.edu.cn> writes:
-> > 
-> > > update Documentation/admin-guide/README.rst Chinese translation
-> > > 
-> > > Refresh the kernel installation guidance and correct the defconfig and
-> > > LSMOD descriptions. Add a label to the translated applying-patches guide
-> > > so the README can link to it.
-> > > 
-> > > Update the translation through commit 8913632998fc
-> > > ("Documentation: Fix typos and grammatical errors")
-> > > 
-> > > Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
-> > > ---
-> > >   .../translations/zh_CN/admin-guide/README.rst | 89 +++++++++++--------
-> > >   .../zh_CN/process/applying-patches.rst        |  2 +
-> > >   2 files changed, 53 insertions(+), 38 deletions(-)
-> > > 
-> > > diff --git a/Documentation/translations/zh_CN/admin-guide/README.rst b/Documentation/translations/zh_CN/admin-guide/README.rst
-> > > index ee6dd3782f4a..050f671f8acb 100644
-> > > --- a/Documentation/translations/zh_CN/admin-guide/README.rst
-> > > +++ b/Documentation/translations/zh_CN/admin-guide/README.rst
-> > > @@ -1,11 +1,12 @@
-> > >   .. include:: ../disclaimer-zh_CN.rst
-> > > -:Original: Documentation/admin-guide/README.rst
-> > >   :译者:
-> > >    吴想成 Wu XiangCheng <bobwxc@email.cn>
-> > > +.. _readme_zh:
-> > > +
-> > Hi Dongliang, good evening ;-)
-> > 
-> > I remember that Jon emphasized that top-level labels should not be
-> > added in this thread:
-> > 
-> >    https://lore.kernel.org/linux-doc/87tsqytxrn.fsf@trenco.lwn.net/
-> > 
-> > And I remembered that my patch (apply-patches.rst) was rendered
-> > correctly just using a plain path. (so I didn't add that label)
-> > But I'll check it again now.
-> 
-> 
-> It seems useless. I will test this removal, if it works I would remove this
-> top level in v2 patch.
+Add one for the ACPI fan driver to silence the warning and provide
 
-Checked with sphinx-build 9.1.0, rendered correctly on f857ff5bf007
-(docs/translations/pt_BR: admin-guide: add efi-stub.rst, 2026-10-15)
+proper module metadata.
 
-> > Also, v3 of this series is pending, if I remember correctly. In general
-> > I think it's not bad. So feel free to take a look when having spare
-> > time.
-> > 
-> > v3: https://lore.kernel.org/linux-doc/20260706151358.2103703-1-qiujiandong1998@gmail.com/
-> 
-> I will review this patchset today or tomorrmow.
+Signed-off-by: George Karagounis <mail@taterr.org>
+---
+ drivers/acpi/fan_attr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks for your review!
-
-
+diff --git a/drivers/acpi/fan_attr.c b/drivers/acpi/fan_attr.c
+index 9b7fa52f3c2a..6b3d91c14f5c 100644
+--- a/drivers/acpi/fan_attr.c
++++ b/drivers/acpi/fan_attr.c
+@@ -15,6 +15,7 @@
+ #include "fan.h"
+ 
+ MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Extra sysfs attributes for the ACPI fan driver");
+ 
+ static ssize_t show_state(struct device *dev, struct device_attribute *attr, char *buf)
+ {
+-- 
+2.56.0
 
