@@ -1,79 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793117743;
-	b=NPYGo1VkzbV4TrZ4vymtJDndi+OW35mkP47djHEpYrKdnIWCN64KAjY4xzvlcYmETzGl
-	 wAnKKInk+W1ZETPdesdfWe80Joooc0SmSC2YTUwV4QRBSc8AHlS4xy/RvKNM8tMRW8LbR
-	 fVOqXVGWtHaNRkLIJg88FV2Ag8Pm8Gv+qBVGYSd4wmhAc2BZwXlqV/PiCcceeGf67Uxqm
-	 qSMoE9vJ5/y346bBQdN7RlVkRRdR+oevRuZxp4sue5CC5HEoJ+8w+8PhJ/NyMsaVbAg/G
-	 iA8+q0DP5LEqYDIC1koD/IcsTfWtQo0nSJjBITlldEQNokitBo1+AShEWMP4KiQVkmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117743;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
-	b=AV74Hb6txwbNAR/f0HE2Dm5HnAH6IHmPb7OPyiV435rQ5sbWs6Ep7QByXPbLMCExY/o5
-	 oxxsBCgOjyyVqtP+sD84Ie1zHIAlZ9oREQEp5k15f5vM3chqQ1Sh9RG8iW4LClLW71XFg
-	 WSJePeIGFeWjpkzqsSxfGuwclhsvS5YOCxJwec4FJkkGgE6y1wfTCM98RJ9DboVR90Lsx
-	 V0oxsbEX0pe/j8+qyVPvB3cExm67vc/O/Ce0XAgJvImyDLOGda+vopiqAMLMdMxLteAKI
-	 D4ApdpZmf8HW+5c53QxdBG3qlLGqRaacnWwlnce/npewLhcxh7iBN0pD/Iq02F39OFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF2D606A31A;
-	Tue, 27 Oct 2026 16:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793117742;
-	b=iF6S0g6aFF9OklV15d6JH/oEqZr3oWuk+3KAqV+FAfxOUF9izHQOqWPOckECC7Vw//Oy
-	 mYPyxhuGahHhpqM2EAoGHohnghIdMoN+Aqc5BKAJU8fFSM5lFYkDMP2znE0P6NLUfLTLA
-	 MbTkfDA7h6oCbw2gkJrdYBqfZ2cZOOSHQraVS01Yd4CGjC4oLajW11kDQtfVLGRnqJQr9
-	 XZprXW3jLGg7WI5TrS1SEg6GbaS/bad3zVwbw9FD9dYq9sAmIuiTM6EbYPCtv6sKzU8nT
-	 /EB4tzILFVyL9FNCnholu6c0Bov9LqCJgdVv2dRvVegxVI3AGZcPwjQlog6wZEXwOkg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793117742;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
-	b=w81KB7+f0OFR6veUC6B22OUG83Qo3sDYmayqpOLXWCLRjaCHFQpZxSgzKQWi3qpiOEXF
-	 5BOmGbP2dYwl+0pmxoafZfLqEjm89Yrk8wwDIidAWVtnIUx/PpsvM+6fSiX0DnCeAFtvx
-	 UOv8cUVaAtnJ/IGDjtb6P+rtyBT/7DKGOvlxlmkZo62+LAmsdpj12boi7ocEo1fcfCeE9
-	 giVj4lzHVwvyViE7+MGkKbA3Yexpk5r0zJq1Ws14ZDMFfw3si4HdrsuaUO5ovT39vSere
-	 EHkUDqOfX9bgNiphWduN31Al4DMTJ/H6+HoZo9WL3Wxiu9zz19zhyjAnvZ5KFD3cfUw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.194
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793117808;
+	b=HKGZDb9rP3aVh7faw1YgdOYkbGBYSn/9mqcuIzH9vkM0daGXFRhOElKxjahEI+DFugrL
+	 ZU8+rXsN0y1u0NvtVj2rTd4U9A3aWbZXuGezmNTi6G/BLHAuo6uJJHPHPou2UjHZ2vtPH
+	 keblDlzIfdgwXmAJtC0voU3BArXjiHE7dKtplm1fex+0iwPbM8H9N5D7JutG+7vB/O26q
+	 oXN77NLSb2m01tF2MLiQRfa1nreA5qxwzykq6+Znj5JZGr1CCwSAMk/ff8p8kZ7Jd/TZk
+	 b4ZbL1d2put0c/g5qf+Ew4bM7YG0TtcTCo2yxJ58ZzFR0RfFUhgN0VMx96pRHRogy0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117808;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=GbocaL4tWDPWFJT66RNMeq5SQE2l2w1Jml0mjxtf0GU=;
+	b=A2F04011pbhAe1aRmFA/POrVtzPUP9R+eZhGaqyaytSKJAiTX+LODiRj8obFaIWMdiQR
+	 o7E3TOjiREXG6+iGNQqnLFd3zadTf0uivp6/g2wXlzz6ATPTn2O1Cm03rxkU4i6tgohrr
+	 x6mCORvY/n3+SceW4jd9X5OA6aXevI2tKXX45HFVVS+zewEtQf0zunlg1PK7mZObRk6AC
+	 U7DUAcc6GQqF/Lc0Sb4InGfuI3yv+n1mSYkZES58qGYZAKlfDDLVPfY0ZGgffvU5lQm4S
+	 y7Kh+D2dxgAKIN+HshBJuAQ/wG7jUpItltWcuYUBGYNONkytL/tsXVu8qK04Zo0IvDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=luuyMayx;
+	arc=none smtp.remote-ip=95.215.58.194
+Received: from mta1.migadu.com (out-194.mta1.migadu.com [95.215.58.194])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EBF0F1F01825;
-	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793117742;
-	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=KHaksePsMes3VvIBAzpo/Vewuvon9PnUhpFXHRp1Ycr3iZK6d3/vdXTS682Awbd3a
-	 jNTAI3wHNeJPCqdSQUbTlcPTEGT/1vBHbsiDf4jHJsLXvYpGIriK8eNi+AbuFggu4c
-	 YHgtHVvtLiy7/OybE1UDlssf4QX0ISBHuzjsAd9DV1tGt7uMdt/5fvgsg5fwU8eQrE
-	 Fj8k+iiWBYP8M9Dn6gzhFfyZwPAwRx30cS+vIM1MRZ6AdMo88HOj8MNdpIw9fZZzv7
-	 4Sc2qsTMn9FAGzJWbwreTVT3s21VdpIon3VAqVWdXkE+lx08OpMABMsyC9+r0m7VW2
-	 t46EOEfZdmRSg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4E35745153;
-	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 27 Oct 2026 17:15:37 +0100
-Subject: [PATCH v3] media: qcom: camss: Don't reject sensor links faster
- than 4x the CSIPHY timer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCFE4606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCFE4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=luuyMayx
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YMHm1UdhIogyYftZ2Kw0ekG8w2IuHdMfvUp+gtU8ncQ=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793117804; v=1; x=1793722604;
+ b=luuyMayxzq/xnhIdbhVBQRImZZykPX1AWfvkSzrYCpZcUlX4WoYd9762/5qn9+shtTOHsvlJ
+ ncQ5qZkEF8ALAcm51hz/h8oAH/xTcsRDAH5x0rm65/vbHp0x9zOej+r4bTmNcFvH8p7qNqWy3Wo
+ UbeaQpFBQFRCP1xgfcolazToJBCtC9j5Vpku5pSpxf7yZn+jWsslEhEExzdhYICNZU9CtY1D6C/
+ IfjwukINpjb54hbwtsipYwkQeUPgG3fjnLNgaEjG1BMA/tfkkvBl4rYDa/xhxOBkZ5W70R6VBvC
+ Cgdx1HzMjqjlFMY9MYDrM8Dj5wppZa4DO7eGkU7VKMJKA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 58fdc84ef17a101f;
+	Tue, 27 Oct 2026 16:16:43 +0000
+X-Mizu-Trace-ID: 58fdc84ef17a101f
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 28 Oct 2026 00:16:20 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jiandong Qiu <qiujiandong1998@gmail.com>
+Subject: Re: [PATCH 2/9] docs/zh_CN: update admin-guide/README.rst translation
+Message-ID: <auDOVHHfyFRWpHSa@wyuan.org>
+References: <20261027102552.3801595-1-dzm91@hust.edu.cn>
+ <20261027102552.3801595-3-dzm91@hust.edu.cn>
+ <auCM9YrxbpXvdRv9@wyuan.org>
+ <59010171-3f94-4574-89e4-b655c1c6dc30@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,123 +73,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-csiphy-sdm845-limits-v3-1-c58917e14107@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNOQ7CMBQFr4JcY+QlMYGKeyCKeCMfkUW2sRKi3
- B07FKkQ5UjvzczIGwfGo/NuRs5E8NB3Cfh+h1RTd3eDQSdGjDBBKsaw8jA0E/a6rYoSP6GF4LG
- khmtZ21LzCqXr4IyFcdVeb1/2L/kwKmRXXjTgQ++mtRtp3v1JRIop1lwQaY8qZewFRggH9UY5E
- NmmONHih4IlhWBMy7IWRlqyKZZl+QBo78HLCwEAAA==
-X-Change-ID: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3007; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=YngNkwq0tcL9PzNnoy5oOuxivPBzZW+yX4YIxcz9VjA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq4M4sHysknjH4WTsZyWkGpInzz0sse10LN+oGu
- LzBgYQacXGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCauDOLAAKCRBgAj/E00kg
- ct0GEACJ8rn600wBR0k5Z1JbaLYFD61PRSQA05cvG01mbkv3yrDyjRxDJSDoLU1Hud9eZh0PlmN
- g3V0sUmz/i6gzp/bgieRRnXGLj7gTElwpYQORX04ggzT/Q+HB302jsvkuxuBUf2/Ly+9Zc9Uu3x
- 2ThAX7a0ufkI7KlDtKJHtOTJPPNZkjxrErGYonI9bHNCIh6oifO4J9DUOew7lRnF0/UtvhUvZZj
- jonRCzQQOP63yxrS80V+uZXHrCfcnXaC6tVRBxpN+d9GrFCkjGNbAa+nkK+pP1m+wapQ5lyxODB
- Cen/fMp+IPA7zlXN6iE73Vf49+gHNnCvGZGOOE5hDIEdpaNsEg1BQQw3LtYzcPTJWYemukMq08s
- uqacGib7nDzC0lFq5Yj6VdipZhgf6R9df2pWOGYzZmwGF2FE7nwI8WHNiPc0YmWNNHZkR3C9X2b
- RIq1Dfl2CebMQlcpsNnRvbfhSI0+SI36LThMxKjlIa3eH9tanNcg8lyjJioC6B2YCxmnejl1+eQ
- U/70CCqLTn7UFWiHBmEUa8/Qoh6kZWiWREIjN4RWB3bJjYhZozCWwHr35DNC2ckI6hB4Tvy36oK
- n9glKnmFI77jx3URR4NZmCeqEwfqsYBAHf0x/zrkirs/4xSEtHQsQRpS0guLfxwdyDkHVoTwjkd
- Ln2CQ+ROZ/2mvxQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <59010171-3f94-4574-89e4-b655c1c6dc30@hust.edu.cn>
 
-From: David Heidelberg <david@ixit.cz>
+Dongliang Mu <dzm91@hust.edu.cn> writes:
 
-The timer clock has no such relationship to the link rate. Both the 2ph
-and 3ph code use it only as the reference for csiphy_settle_cnt_calc(),
-where a faster link makes the settle count smaller, not larger: at
-269.33 MHz the count converges to 16 as the link rate grows. The vendor
-driver pins the timer to 269.33 MHz for every sensor (it is the highest
-rate in the SDM845 clock plan) and streams this exact link with it.
+> On 10/27/26 7:37 PM, Weijie Yuan wrote:
+> > Dongliang Mu <dzm91@hust.edu.cn> writes:
+> > 
+> > > update Documentation/admin-guide/README.rst Chinese translation
+> > > 
+> > > Refresh the kernel installation guidance and correct the defconfig and
+> > > LSMOD descriptions. Add a label to the translated applying-patches guide
+> > > so the README can link to it.
+> > > 
+> > > Update the translation through commit 8913632998fc
+> > > ("Documentation: Fix typos and grammatical errors")
+> > > 
+> > > Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
+> > > ---
+> > >   .../translations/zh_CN/admin-guide/README.rst | 89 +++++++++++--------
+> > >   .../zh_CN/process/applying-patches.rst        |  2 +
+> > >   2 files changed, 53 insertions(+), 38 deletions(-)
+> > > 
+> > > diff --git a/Documentation/translations/zh_CN/admin-guide/README.rst b/Documentation/translations/zh_CN/admin-guide/README.rst
+> > > index ee6dd3782f4a..050f671f8acb 100644
+> > > --- a/Documentation/translations/zh_CN/admin-guide/README.rst
+> > > +++ b/Documentation/translations/zh_CN/admin-guide/README.rst
+> > > @@ -1,11 +1,12 @@
+> > >   .. include:: ../disclaimer-zh_CN.rst
+> > > -:Original: Documentation/admin-guide/README.rst
+> > >   :译者:
+> > >    吴想成 Wu XiangCheng <bobwxc@email.cn>
+> > > +.. _readme_zh:
+> > > +
+> > Hi Dongliang, good evening ;-)
+> > 
+> > I remember that Jon emphasized that top-level labels should not be
+> > added in this thread:
+> > 
+> >    https://lore.kernel.org/linux-doc/87tsqytxrn.fsf@trenco.lwn.net/
+> > 
+> > And I remembered that my patch (apply-patches.rst) was rendered
+> > correctly just using a plain path. (so I didn't add that label)
+> > But I'll check it again now.
+> 
+> 
+> It seems useless. I will test this removal, if it works I would remove this
+> top level in v2 patch.
 
-Clamp to the highest listed rate instead of failing, the same way the
-unknown-link-rate case is already handled.
+Checked with sphinx-build 9.1.0, rendered correctly on f857ff5bf007
+(docs/translations/pt_BR: admin-guide: add efi-stub.rst, 2026-10-15)
 
-Solves issue on sdm845 that caps the link at ~1.02 GHz,
-so the Samsung S5K2X7SP, ~2.3 Gbps/lane, link 1.15 GHz) fails with
-Pixel clock is too high for CSIPHY
+> > Also, v3 of this series is pending, if I remember correctly. In general
+> > I think it's not bad. So feel free to take a look when having spare
+> > time.
+> > 
+> > v3: https://lore.kernel.org/linux-doc/20260706151358.2103703-1-qiujiandong1998@gmail.com/
+> 
+> I will review this patchset today or tomorrmow.
 
-Fixes: bbde31047434 ("media: camss: Use optimal clock frequency rates")
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Tested on SHIFT 6MQ with sdm845-next-20260820-9.
----
-Changes in v3:
-- Added R-b and Fixes: tag.
-- Link to v2: https://patch.msgid.link/20260914-csiphy-sdm845-limits-v2-1-622db5a6ebf0@ixit.cz
+Thanks for your review!
 
-Changes in v2:
-- Drop the camcc change entirely; the 269.33 MHz ceiling stands. (Konrad)
-- Fix the check in camss instead: clamp the timer clock to the highest
-  listed rate rather than failing, matching the vendor driver.
-- Link to v1: https://patch.msgid.link/20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz
----
- drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index f99eea2ef2289..985171276ce47 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -159,25 +159,23 @@ static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
- 			long round_rate;
- 
- 			camss_add_clock_margin(&min_rate);
- 
- 			for (j = 0; j < clock->nfreqs; j++)
- 				if (min_rate < clock->freq[j])
- 					break;
- 
--			if (j == clock->nfreqs) {
--				dev_err(dev,
--					"Pixel clock is too high for CSIPHY\n");
--				return -EINVAL;
--			}
--
--			/* if sensor pixel clock is not available */
--			/* set highest possible CSIPHY clock rate */
--			if (min_rate == 0)
-+			/*
-+			 * The timer clock is only the reference for the
-+			 * settle count and does not need to track the link
-+			 * rate. Use the highest listed rate when the link is
-+			 * faster than the table covers or unknown.`
-+			 */
-+			if (j == clock->nfreqs || min_rate == 0)
- 				j = clock->nfreqs - 1;
- 
- 			round_rate = clk_round_rate(clock->clk, clock->freq[j]);
- 			if (round_rate < 0) {
- 				dev_err(dev, "clk round rate failed: %ld\n",
- 					round_rate);
- 				return -EINVAL;
- 			}
-
----
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
-change-id: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
 
 
