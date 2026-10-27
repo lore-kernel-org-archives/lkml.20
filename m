@@ -1,79 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793132546;
-	b=yzzp9qTX9DIdXUhIb6H2lDtS8rOicWzzu/e1Bp4npnDUPcjr9AoU57La2IQOg80R+0CH
-	 b2EjBI1qdZjN+Kudn4HJOSjdXwVNkTu0L3lRGUZsac3RP3wk3eWO9PPNwSAEMpIYv4ImT
-	 ix8rvz2zS7ghBwZd87sAy3AJlWZkwx1Wm3gkLzKOWN/fOC1SrDrViolTpT9Z7snmqS+Op
-	 00SDK6XmMf15R8SgZoDk3VqJZHvtovK99eJ1usF1E01aYIzmykvCZHCvMMdYc+x5GcqEz
-	 tuaB3WJqtKZOJNGVURuEitCw2OZ8L+e4r0GNcdNBzwB1e52J7tDJFhcQoWOcBY3LVOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132546;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qDF2HU5HYTyY24acBukEzCv6gxdX0qa94jrmJpjZl0c=;
-	b=fVywVjXVnSV4orvxX48Sx0OErfWjZZW2xh3poJQrxfOV8wsUFoF4Agna5xgBKWXDTdp5
-	 Its8qweebTD5pe/exwYzAwh2xeUZEDtVq2RVMSu8h5qEBQEEDx/Pj6ctdu7Jo9fuWfElz
-	 af5cFlN9dXHMY2nwwfcyVn/h5Oe/+VQTOAnDIwdXB9i4qEEV64u0Fs6GU/LnMC0AQTidH
-	 XGqKP0zZWJiGdC2D31ws9EBS3vrT+e+dkHAflkdgwRdOBs1KuWlvlU4NU2goCUtu7nXBH
-	 bMfPnrS1OPXI3eceRzwlDkGKzYtjoMcd7m4yDoNQqsTCQq+H24qn6PA6ZPwtH7bOZMw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv+yN6BW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E86FB60A5BFD;
-	Tue, 27 Oct 2026 20:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nv+yN6BW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793132545;
-	b=JPzL80H+0oTDewbRbx+7YwAC/597kDHoyZK/e2aL7dpW23Wyd+bebM7tJLH5kflPvZUZ
-	 c8yfJ458mbNEL9RnJVVmEk5ys0gGl0zRngl6J2QDFDhvHSkPzIU4+PK8osYpIrDWdYptE
-	 J+/j2e/8NHl/SzAWbC0nTAbK1YExZ8GkTY58YRtW80b/iQE5XymHajYBs3FrItSlEeY+s
-	 0hfpjYYHctcHXuuJfvkBRSCqgdfWzDOTvylnfdAg+/FzFxId5xlnpsclfkKrMZUP21cBN
-	 WU99WryJnuYmXVy9w36W45FC3YyRXYkTc+6s+KoJxsGRBK0X2KJ7nhizV4agw17OYtg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793132545;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=qDF2HU5HYTyY24acBukEzCv6gxdX0qa94jrmJpjZl0c=;
-	b=vg2fA0mQNI6me1wUPyuyszx68TpABp/0zPUbNrN9rSt03X883w1XpRlTFXRtOLw9o1io
-	 K8j0fjmzrDwuBbQl6zN3THEADgqMd4Z18qJq4Ht8ajdzh5bSC8QvMnzvtu8TG8leu8WBk
-	 XdCRKuKIfXZhIV+Gl/bRpIJNEj2gx7WTf7pCkTwVs1u1HlTmdoDL/GZKNtHzG8Q8eYVHq
-	 3TCDnUAdwM7YjOmGd0/+Ewo63qc9y0CkLbB4bJX0qwS2473wRBtSGoVjsLvaGlLpJFzxv
-	 pF3DJjsQaNphGe8DpnkDGEL+WDiRwULbNodC4cmi+zCuUjxpNlaBNEA0bj9SzUBDoOw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.228
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793132568;
+	b=AVrSmB7KI7tlSgPIxTLiNr1KLK2/a7uUrl2hoiO6Y5iKYgQQEl9DtPtpKBe6ResWDLsW
+	 hFH54KVgN5KWTJPNRuCobN72vDCgsGxzL8bwQ4lLd1RP6gktEr+v4Afsclm+baBVHmPSI
+	 FSGDY/8jLD9CVGdO1AnUGTCWutl3yBuerjCl/IAUmlf13LlW0kfz3GaozBqm+roSZ1anV
+	 E1D0CGJLWios0F2jjlVpsTWg/f22LFcFStqF8Q4AhNjUYs5sVPmJLBNnuVtTL1saM+Pou
+	 NDcpXuYQ4iWWA/U5yDqi2Jj4JVq3iPO37mmcTlrrcEoAJvzd5ijRcjbC8m7MS0N5xaw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132568;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=A1z57LQ4iJ82Q3o0NAIzq1pzrjN6qyO1yQuZ6UD77pU=;
+	b=fBZhwavJfuApZzJmpdN6bLqDIVymc5lkHTARDp6dAHcjUAPdfsTKKyTbrvp4tAuSOEk3
+	 HV6Mx/WzSn0O039eooBdlmm121OHTVfY+YR/GIx4nlUN/24yDPJaUh5iGwIahRMqlJ7Ey
+	 Et8xHd/3Hmk+Syn7AqwPYu3qVJUW23IG48hgq6xp44s1rVnlF+RL8w0PToF/RsbTXFZau
+	 /s0qyYABD+iV/7GeWSg2IVh7aBI2FAtDWkis0kOiWCorMFj5iluW9s+UqxNmLohxpfpXn
+	 f0RsGsCZDqyrqxI6VISFySJceqJX1uRwmhegCcgShsZdWEWenC7EHDTGWQuMCi6Gkbw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=e2UIeYQf;
+	arc=none smtp.remote-ip=209.85.214.228
+Received: from mail-pl1-f228.google.com (mail-pl1-f228.google.com [209.85.214.228])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 802F71F031E9;
-	Tue, 27 Oct 2026 20:22:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793132545;
-	bh=qDF2HU5HYTyY24acBukEzCv6gxdX0qa94jrmJpjZl0c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nv+yN6BW7lKn9Zcz6D6RpCf3uDhGXleFosAkKydCOUKcZhoxivKtFyVucv/wn+6t1
-	 vfaQBCJ/VTHSIZYOfWGr+u7ZueuYQBOMgoauTSwiPEqKzoZCXljc0qRdajAZEpwALF
-	 q+bZILCjq+nyPS81vJuaf3PV0jK42XO6K/PVTBShBMYTi1zl05DU+wqxVHqQPiss/5
-	 IcA7vOUBYt85iKmLaZxMPjxFxzLMyiFQ/6qtBktbAjmDE0woW1Vbv0Ts99Wmkj4LWL
-	 +CXTGFAVv8vWZY92qw3tVbn7GaLbi4zc5fxLAvzmIL2YulLii+LPrvLAIKDvq+fLM0
-	 a0FdTJXu/7hAg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4661945229;
-	Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
-From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 14:22:14 -0600
-Subject: [PATCH v13 14/39] dyndbg: refactor param_set_dyndbg_classes and
- below
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8CF606D73A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:22:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B8CF606D73A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=e2UIeYQf
+Received: by mail-pl1-f228.google.com with SMTP id d9443c01a7336-2e940d5d2beso798055ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:22:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793132568; x=1793737368;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A1z57LQ4iJ82Q3o0NAIzq1pzrjN6qyO1yQuZ6UD77pU=;
+        b=wiPGkzik+/lcNr0wdevkkOlCqAIH29MXz+6vkehtNoHtVk7D8KDt+mej/Xl4v41XAk
+         I5MItJyBOKbKrTHlgWDIMdhuPj/qR+iz06BzLksHl5eEi33iP3ymwRd8+hgpdCxaqn4o
+         zDMggq+462pkkcg1iHEzE6bJRu221D2vWkt4NN1+AFCx6QrS/EGO1ipYCmEYgHP6LxnS
+         bKVEf/ly/QlB2UI0miYwYutSR3Jf2Gcba+QSxymRW6OwS/TFyOBQrFGDAd84/qMnVqR3
+         ySiOUAbM0TNYoYjyWsVXDDDhAcBpF/BTctg2pXIGp3xJWr+SkdWX+KvgkSZulmNLWbSp
+         TUsg==
+X-Forwarded-Encrypted: i=1; AKwUvBwF3yK2G1zhDrjbpG2UD2FsWgpgjHaj1/1YisiHmXADFmTFu0H6dXG5wkD81lok98AkaLvqEPYqVIPyEP0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSCPZ/nZgq+QVD67Uee8DKCe03Tql5jMBwnVf9rm1kek7GtuDV
+	iCkEMZVk+V+9ySwXSBrLb38BsfdLOVXoEM6zeoDoDrJ7PGZWPj6d330R+jGlt6gk1HELRxF/CoT
+	JcPEPuYmvH0VZINq2OQBYnsb1h4+11zmky5XksNTTJeLx7aO2cLj1Vg5JYdd1BlL0v2JMGtmb5o
+	CiNJg2qPq9X/sUdBljTa0BU0mp4LiRaVnjOlXxTTr/KQOgiWXwYkNjHe763WgAdeZbsD1a/e+aO
+	lOcHpmWIWbj2qDPc+dt4D5C
+X-Gm-Gg: AYBFou1znGBeqUTdozkDNq03IbSrO3bATI98KmtpX/doDbSF6l5/hXRsh6uqQI+/l8a
+	DTrWYZNgEjdRYyE0E4nCsgCL2pxbrZdqBqEMSW0UaXBN77Ys/LkhjUQl0kTz8BL869d+xdNjK5t
+	oIvUC6rZa3y4QjRvV1ypiSrnnZ0H0ZOeroHYlQlDUX8BVPNRhiqhDudyBq2qHUR+JQDTdosQQz2
+	DcsULXw9Sg/KY8cJwIKpYIUszqIq1VwMaQMjh4NKR32ssM8wlqujY9L3FenePrMvoBUCgN9nd0w
+	yXSDfb+yoaq4+7kTxYzbOvYeNebMYbXLz9MFGAIGiTnzpx+sI+ZGu49zd8kDoWcZVb646wptXuv
+	V80Q2sqHxV6TgWS5cE/H3qYdYGKbhVSS0Xt3sD8GSaG1G0KCh3Imf2KlN62EKpv4NuW4z/Y4IEb
+	kvxEmYuEMOtM9mwW3TXbZqC8OmYAOJpEiO57rrpjet
+X-Received: by 2002:a17:90b:3d90:b0:3ab:be66:ddb6 with SMTP id 98e67ed59e1d1-3ae580ae5edmr126934a91.20.1793132567663;
+        Tue, 27 Oct 2026 13:22:47 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae55d611b4sm140654a91.1.2026.10.27.13.22.47
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 27 Oct 2026 13:22:47 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd68bf391e1so188140a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:22:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793132566; x=1793737366; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A1z57LQ4iJ82Q3o0NAIzq1pzrjN6qyO1yQuZ6UD77pU=;
+        b=e2UIeYQfpzS6nvef3KCq/0QHzUPB2h7NqR8+iQhIQ8fBhETTrDUpUKfLFQlsWFFp/+
+         /8x7RiaXGPKZriWbQ+Q1RLNmuqHeZXepG8FQRdzHwp/eQEebBYEfRWKm6tjRO7CakI/j
+         xB3Xjae4RCvYDGXVPSL36DyF42h37ME1p24tg=
+X-Forwarded-Encrypted: i=1; AKwUvBwWdKaDHSC4Y8OzoHBgdzpR6U4kxOarhYObwAoaBfKi4//riQYpjKzCz7KLsTrXQz57cQISSCMqYJSFgH4=@vger.kernel.org
+X-Received: by 2002:a17:90b:4fc1:b0:3ac:ffb8:1809 with SMTP id 98e67ed59e1d1-3ae58155cc9mr115437a91.39.1793132565611;
+        Tue, 27 Oct 2026 13:22:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:4fc1:b0:3ac:ffb8:1809 with SMTP id 98e67ed59e1d1-3ae58155cc9mr115421a91.39.1793132565199;
+        Tue, 27 Oct 2026 13:22:45 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae55d1650csm275486a91.1.2026.10.27.13.22.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 13:22:43 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net 4/5] net: dsa: b53: reject conflicting mirror destinations
+Date: Tue, 27 Oct 2026 13:22:29 -0700
+Message-ID: <20261027202230.3539646-5-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027202230.3539646-1-florian.fainelli@broadcom.com>
+References: <20261027202230.3539646-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,221 +121,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-dd-cmap-part2-clean-v13-14-9267923be612@gmail.com>
-References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
-In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
-To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Jonathan Corbet <corbet@net.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
- "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=6792;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=odl1V/VMh+UIrrmqU9jDNQVvpvKfmGuh3/VT//0V6/4=;
- b=NK6EqDIyhkD93auOgsrSuZ6NkNhd9Ilil+4Iqe0pC3+ypRARvhOE6+vNcZXjjTakHI9E/I5q8
- GTjQFM6uIOWCthvDs36khCn15aPhkv55YzMCR5KNltfdOMXI8SEEw8f
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
-X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
- auth_id=958
-X-Original-From: Jim Cromie <jim.cromie@gmail.com>
-Reply-To: jim.cromie@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Jim Cromie <jim.cromie@gmail.com>
+The mirror capture control register selects one destination for all
+ingress and egress mirror sources. Adding a rule for a different capture
+port currently overwrites that field and silently redirects all existing
+mirror rules.
 
-Refactor the callchain below param_set_dyndbg_classes(1) to allow
-mod-name specific settings.  Split (1) into upper/lower fns, adding
-modname param to lower, and passing NULL in from upper.  Below that,
-add the same param to ddebug_apply_class_bitmap(), and pass it thru to
-_ddebug_queries(), replacing NULL with the param.
+Read the capture control before changing any source masks and reject a
+different destination while mirroring is enabled. Return an extack which
+describes the hardware limitation, and propagate a failed capture-control
+read rather than making the decision from uninitialized data.
 
-This allows the callchain to update the classmap in just one module,
-vs just all as currently done.  While the sysfs param is unlikely to
-ever update just one module, the callchain will be used for modprobe
-handling, which should update only that just-probed module.
+Clear the capture-port field when the final source is removed so a later
+rule can select a new destination.
 
-In ddebug_apply_class_bitmap(), also check for actual changes to the
-bits before announcing them, to declutter logs.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Fixes: ed3af5fd08eb ("net: dsa: b53: Add support for port mirroring")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
-v2: move RvB after SoB
-v8: drop kdoc on static fn,
----
- lib/dynamic_debug.c | 73 ++++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 47 insertions(+), 26 deletions(-)
+ drivers/net/dsa/b53/b53_common.c | 29 +++++++++++++++++++----------
+ 1 file changed, 19 insertions(+), 10 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index d0e793a05655..bbe32fab74e8 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -618,9 +618,10 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	return nfound;
- }
- 
--/* apply a new bitmap to the sys-knob's current bit-state */
-+/* apply a new class-param setting */
- static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
--				     unsigned long *new_bits, unsigned long *old_bits)
-+				     unsigned long *new_bits, unsigned long *old_bits,
-+				     const char *query_modname)
+diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+index 0871a10d8cbc..b8a7b380bac8 100644
+--- a/drivers/net/dsa/b53/b53_common.c
++++ b/drivers/net/dsa/b53/b53_common.c
+@@ -2543,7 +2543,19 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
+ 		   struct netlink_ext_ack *extack)
  {
- #define QUERY_SIZE 128
- 	char query[QUERY_SIZE];
-@@ -628,7 +629,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
- 
--	v2pr_info("apply: 0x%lx to: 0x%lx\n", *new_bits, *old_bits);
-+	if (*new_bits != *old_bits)
-+		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-+			  *old_bits, query_modname ?: "'*'");
- 
- 	for (bi = 0; bi < map->length; bi++) {
- 		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-@@ -637,12 +640,16 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
- 			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
- 
--		ct = ddebug_exec_queries(query, NULL);
-+		ct = ddebug_exec_queries(query, query_modname);
- 		matches += ct;
- 
- 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
- 			  ct, map->class_names[bi], *new_bits);
- 	}
-+	if (*new_bits != *old_bits)
-+		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
-+			  *old_bits, query_modname ?: "'*'");
+ 	struct b53_device *dev = ds->priv;
+-	u16 reg, loc;
++	u16 reg, loc, cap_ctl;
++	int ret;
 +
- 	return matches;
- }
++	ret = b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &cap_ctl);
++	if (ret)
++		return ret;
++
++	if ((cap_ctl & MIRROR_EN) &&
++	    (cap_ctl & CAP_PORT_MASK) != mirror->to_local_port) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Only one mirroring destination is supported");
++		return -EOPNOTSUPP;
++	}
  
-@@ -651,22 +658,17 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	if (ingress)
+ 		loc = B53_IG_MIR_CTL;
+@@ -2554,11 +2566,10 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
+ 	reg |= BIT(port);
+ 	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
  
- #define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
+-	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
+-	reg &= ~CAP_PORT_MASK;
+-	reg |= mirror->to_local_port;
+-	reg |= MIRROR_EN;
+-	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
++	cap_ctl &= ~CAP_PORT_MASK;
++	cap_ctl |= mirror->to_local_port;
++	cap_ctl |= MIRROR_EN;
++	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, cap_ctl);
  
--/**
-- * param_set_dyndbg_classes - class FOO >control
-- * @instr: string echo>d to sysfs, input depends on map_type
-- * @kp:    kp->arg has state: bits/lvl, map, map_type
-- *
-- * Enable/disable prdbgs by their class, as given in the arguments to
-- * DECLARE_DYNDBG_CLASSMAP.  For LEVEL map-types, enforce relative
-- * levels by bitpos.
-- *
-- * Returns: 0 or <0 if error.
-+/*
-+ * param-setter helper to validate numeric input, clamp its value by
-+ * the classmap type and size, and apply the bits.
-  */
--int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
-+static int param_set_dyndbg_module_classes(const char *instr,
-+					   const struct kernel_param *kp,
-+					   const char *mod_name)
- {
- 	const struct ddebug_class_param *dcp = kp->arg;
- 	const struct ddebug_class_map *map = dcp->map;
--	unsigned long inrep, new_bits, old_bits;
-+	unsigned long inrep, new_bits, old_bits, old_val;
- 	int rc, totct = 0;
- 
- 	rc = kstrtoul(instr, 0, &inrep);
-@@ -686,9 +688,10 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
- 			inrep &= CLASSMAP_BITMASK(map->length);
- 		}
--		v2pr_info("bits:%lx > %s\n", inrep, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits);
--		*dcp->bits = inrep;
-+		old_val = READ_ONCE(*dcp->bits);
-+		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, &old_val, mod_name);
-+		WRITE_ONCE(*dcp->bits, inrep);
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
- 		/* input is bitpos, of highest verbosity to be enabled */
-@@ -697,11 +700,12 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 				KP_NAME(kp), inrep, map->length);
- 			inrep = map->length;
- 		}
--		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
-+		old_val = READ_ONCE(*dcp->lvl);
-+		old_bits = CLASSMAP_BITMASK(old_val);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits);
--		*dcp->lvl = inrep;
-+		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
-+		WRITE_ONCE(*dcp->lvl, inrep);
- 		break;
- 	default:
- 		pr_warn("%s: bad map type: %d\n", KP_NAME(kp), map->map_type);
-@@ -710,16 +714,33 @@ int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
- 	vpr_info("%s: total matches: %d\n", KP_NAME(kp), totct);
  	return 0;
  }
-+
-+/**
-+ * param_set_dyndbg_classes - classmap-based kernel parameter setter
-+ * @instr: string value to set (numeric bitmask or level)
-+ * @kp:    kernel parameter info referencing classmap state
-+ *
-+ * Enable or disable all class'd pr_debug callsites in the classmap,
-+ * independent of the module they're in.
-+ *
-+ * Returns: 0 on success, or a negative error code.
-+ */
-+int param_set_dyndbg_classes(const char *instr, const struct kernel_param *kp)
-+{
-+	return param_set_dyndbg_module_classes(instr, kp, NULL);
-+}
- EXPORT_SYMBOL(param_set_dyndbg_classes);
+@@ -2595,10 +2606,8 @@ void b53_mirror_del(struct dsa_switch *ds, int port,
  
- /**
-- * param_get_dyndbg_classes - classes reader
-+ * param_get_dyndbg_classes - classmap kparam getter
-  * @buffer: string description of controlled bits -> classes
-  * @kp:     kp->arg has state: bits, map
-  *
-- * Reads last written state, underlying prdbg state may have been
-- * altered by direct >control.  Displays 0x for DISJOINT, 0-N for
-- * LEVEL Returns: #chars written or <0 on error
-+ * Reads last written state, underlying pr_debug states may have been
-+ * altered by direct >control.  Displays 0x for DISJOINT classmap
-+ * types, 0-N for LEVEL types.
-+ *
-+ * Returns: ct of chars written or <0 on error
-  */
- int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
- {
-
+ 	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
+ 	/* Both no longer have ports, let's disable mirroring */
+-	if (loc_disable && other_loc_disable) {
+-		reg &= ~MIRROR_EN;
+-		reg &= ~mirror->to_local_port;
+-	}
++	if (loc_disable && other_loc_disable)
++		reg &= ~(MIRROR_EN | CAP_PORT_MASK);
+ 	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
+ }
+ EXPORT_SYMBOL(b53_mirror_del);
 -- 
-2.56.0
-
+2.53.0
 
