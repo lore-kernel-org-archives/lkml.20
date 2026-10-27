@@ -1,102 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.203
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793113377;
-	b=jwy4AGl9p0yE61EU9nhygnBnWfwF1M8t+g/QtOj1DI20efdaUk9TFXGJAgqI4JZfZTaM
-	 bch1XZf5M3zrs5/MovXRP+sR2BI3PDG5tM4metQrcfjpsrc7+SIDgU20wEYZok1ywubxb
-	 Fy3LnkulbzXS1ayjQ06rUwsQIYrJ2oJt9jBPYzFsG2HiW2tj1ACRRKB6v1XeRWydtJ3dN
-	 ba/uBlzbnHnPbnwt7YYhjqLOrd1fF0fM7yZNiaJg3VDor1ttzXUBDmCbIiipGoxU47syn
-	 PCImhlFPCRHJXXqet7iD49vP3GmXBVFhX7aLsaj7jJMAqnMZt/fI4hj6RY0uoks6Kwg==
+	t=1793113403;
+	b=gomy5+GsHZluZEU261s5xFsiX0k5rPpHwdGPdTo/OuzG8V7Y20oUXw3QdndWgeUp7ofX
+	 0cVaElP2RzWoM7lshvxPmXDm9irTeoxec16OVxesGOLfZLDjJuoiP8y56doFKKas03Ee7
+	 RMHLOsXlzMKL8Jotp4eQF8WIVHGxOZqgzd/ikuBpIo/BOP/2cpQkLFRQ+Zqjanlm3f9Eo
+	 yZjZyjP+ybfkM6gNw80mGyU3AYBFIVBG+BmMTMu33PZWAq8t4377ERBLqG5IpVbr90KZo
+	 PbLnL8MvFn2w0wjgjQNawHej7CBOpFAvvO4CWveMWnvt8tAFuMLWoWWHw3PCsPnrk0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113377;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xMtUtPiKGPudRcl9yoWKWTK5iT7yT/I2Zu+Y8WFqLV4=;
-	b=skmkj9BFa6UC9xrTAe+04Gqrq8Ne8NStO00/+M/ls3n/O8akVHpqDizgdKhGNhvsFjvW
-	 yI4ibcJetD+HxVwUlVD4CzoW8cfHfmJpRZhsgz/VRX6SMtbtsl7vM++824s+J/fP3u0Q/
-	 af19fWq6/64Hp3sOShUhTlpf7YsJnSN9CKMVAZ+4xAJs+4NS3HzpJuGIpYXHAS95xITgQ
-	 SNYNUD9JLK4ezn/XhjGze61lwIO0WL79n1gFXTOinM1eq7oRbst6/o48H2fR20O5dnPpC
-	 YCbi781COYSbgTUnonWbSCYus78Y1D0AegHrRalv6Ukhj2kQfKogUTmd9gdkqc+reHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113403;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key:X-Scanned-By;
+	bh=aOf0mUhnEWGXt/wT5adZbPR4knhMHoXNhBntHVrI1Yw=;
+	b=nBBgRAFxgmMtfScKwpop2EshJV9+aha5M44t8kJvBT6ZNg5H4E2PG1C2pMmabzCKiGQd
+	 KgsuQ05Pc3QQJVIfHDR6NbAKWXPm0OLkjuTd+VapsHQJ6v0J93TebaauyeLyJfp9Zmw2H
+	 eaPA3Ap8/c1Vqlkquju6KW4wardUVrx6c0r2ey+cs4/nNX1XywPtcXMWSW68g/enqnN3c
+	 mLpTy7w1Urx/KZnXqpFA7H5LyReHfAWXoCS4nT/8S9itvBNbDYz7UyPLIQsG5dCaj2JDE
+	 5vG2t3gnEtFmUu55IcN3jRQyNkvtCzJByCbgomWKJKQZVEhY7OGw7niOiMRXlbZi0Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O570ZE0j;
-	arc=none smtp.remote-ip=74.125.231.203
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YHC0zh1B;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C337606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:02:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C337606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B73606A32F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:03:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87B73606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O570ZE0j
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4f3f1adebb0so1552435b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:02:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793113375; x=1793718175; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xMtUtPiKGPudRcl9yoWKWTK5iT7yT/I2Zu+Y8WFqLV4=;
-        b=O570ZE0jGBbZRJ58fxR+AmHreUcx/FKLecraYYCQdKoAqZa2+G/VoKnXmzjRjnECqf
-         lHZ2X1aWN1t5uzR/OUUYTZJUsxJ5cDStMDeuI9QNJ00TWEs0wHz1w6z9jyz9JS3RyX0L
-         S680qr4RrYY2TJNIQJUqX3DekzV5YdBB3WXcXIkC/A/23U8YdHkhUPZgIMbJEfKOIvG4
-         NQdIo9PVhAGDS1ezeJV8sYIb68wFePf/ZsCA/J+wW4Hq8B4EhPnRNZa08bHZd1l5sFR4
-         8txyC2FMxCTsRtsI2Oj0KsB2KGSMNhO2LNEkbWkdaX6N9m5kseXjA8SkpKZwjS3t5vR2
-         dsRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793113375; x=1793718175;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xMtUtPiKGPudRcl9yoWKWTK5iT7yT/I2Zu+Y8WFqLV4=;
-        b=Gcq/McOjUhx2M0hNh5dUzQv2/A4HNZJayz7xIB3c11bXMXizGcDX+B9QxLphBLPTj/
-         vla5TqSZyBkAa4k/s2Nqb/lgP28k3bdUeJbLIPZlalJoGyng0Ew/yZ+87Ygnz84SuC6S
-         sNOViDpTTKPDosVSuMyNruhsObXpJ5RwVWyGsBCBL06yLv4oeU5M/LPzD0MRO9OtFNle
-         AOcvJ+3PxxBC4Y7s5U/iSke+XLXoZCEuFUzW6BvW4hhe9P8S2AkY7xn9nCpUYoQ82zYO
-         4ukCu87gPtVVYI0FA9OFOs4L3QVwJfwD3cqZ79PhzHU9R41fy7AdQ0wnt8qGSbUlE4HH
-         G2Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBwnxV54A/j9pB8EBCJO4pYQvvuE7MKYpmfdy7XJyORVcNbCZtnEL7oZydDmCz1cm6Fbia8SIjj8YfasQVU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaEFbGVnXYghGqFtDVvqzIo12xksa85ZIMFNMqYcuKcij/3ZKU
-	mnIAGAR3vlODtOPfyBPWQnHXildlNHrRdmfn+q+RsmiPF+AFnlHgcwTB
-X-Gm-Gg: AYBFou0mc/Rl2ZYvg1Xwq1dlnaGntu19RCQWw/Txd/Ca8JUkcNuYhGn3JAQ7rbeC0p2
-	hJPtbBcw4+fmwmi3UU6DHKXeRnx6gaMCqZI/GrQ3YnoO2Q1KXmsZ+Ub4bs/gO0ojcLEmY4iIu/k
-	6bKfm7vfsmsJPv3AJMXRKA8KuH+o7Xvb3PYzfuLEFl1Q2UsYhtn6r7910HBiIFZPizDtsztIQjn
-	Il++bMWX6ji0AUfxG3eXHJt/Qsthokn+iHXBNIp/7qQXHNde7YVrNNPPxCm0O/a27X6CVGFS9xv
-	Ah+lO+L9WYQ/3V6sBKfP7nUASBVm7OJ5G5sIPVWcM76IzKnTZH+jra59y+Sigcz6GpD5/irS3XC
-	QFNDfkTfDYxqfzhrfk4VPyu/2VwPYhCDM7y52fhKd+R6vozFg5jNjWU0OvhEvuDF0HcN4ZT77yW
-	Po0ARWGyu57/1CbExHgkbYhiH1J8BRgWTE5wDxgrbA/MrqvYxoWPI3CTWkfBYvLNo1aMiiw5gqz
-	msElaIaVbNCAJ800hEumWxx/KBfykp8GeYS9ag1d5TS+6zOB5zEDbJ17FGL5eUChjefGxujPuKZ
-	Mw3dV44CnyjzwTFcxjc=
-X-Received: by 2002:a05:6808:250d:b0:539:ad19:d0af with SMTP id 5614622812f47-55c0020a836mr7093980b6e.11.1793113375046;
-        Tue, 27 Oct 2026 08:02:55 -0700 (PDT)
-Received: from localhost.localdomain ([14.116.239.36])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-55c04248804sm7886907b6e.3.2026.10.27.08.02.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:02:51 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>
-Subject: [PATCH] bpf: fix out-of-bounds frame access for async callback stack args
-Date: Tue, 27 Oct 2026 23:02:37 +0800
-Message-ID: <20261027150237.938383-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YHC0zh1B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793113401;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=aOf0mUhnEWGXt/wT5adZbPR4knhMHoXNhBntHVrI1Yw=;
+	b=YHC0zh1Ba2BDbsKlalJ+/SDkR3Bwn64L21GWwRRqZzWUhVCUac5EbNeOfAfmeGzzDrg6CP
+	Lm+kHQhVXBw14fqvrGF93ah8TBGZSr4n1HhXRX/1gcQXhV2aQ1oYcn0YhwclcN5jyFim+S
+	q06X7yQJyx8AkyBEeS9tMlEuLDREw+0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-630-UjIdhJ72O6-uXk9AZAUySw-1; Tue,
+ 27 Oct 2026 11:03:16 -0400
+X-MC-Unique: UjIdhJ72O6-uXk9AZAUySw-1
+X-Mimecast-MFC-AGG-ID: UjIdhJ72O6-uXk9AZAUySw_1793113392
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DFCFA18009F0;
+	Tue, 27 Oct 2026 15:03:09 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D01D018002B1;
+	Tue, 27 Oct 2026 15:02:59 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v3 0/8] memcg: dma-buf cgroup accounting and charge
+ transfer
+Date: Tue, 27 Oct 2026 16:02:43 +0100
+Message-Id: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,65 +73,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQrCMBAF0KuUrI1kJm2srryHSKnppI3YRpISl
+ NK7mxYRXOlu/nx4f2KBvKXADtnEPEUbrBtSkJuM6a4eWuK2SZmhQCUKUfKIVbqlAJTVeO3Ja0u
+ +ap1rb1Rp13OT50abC6hCCpaYuydjH+vE6ZxyZ8Po/HNdjLB83zjgbzwCF1xJVDsBWqo9HD01X
+ T1uU8kWPeJHBIHwh4hJJKOIsGlKXegvcZ7nF8pnAWwjAQAA
+X-Change-ID: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, 
+ echanude@redhat.com, mripard@kernel.org
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793113379; l=6757;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=SbSaiBkIq+YUC6r+fSuC8xTCAnJdm8Vr2zNeXnNL3ao=;
+ b=rMh42d3K7ZdvbxPJmt30LjOl76ZkQ62Z6Ul1YgWdi/7V4axPrJSy681qwSjEcG3Y17eHAsv1y
+ +LmSEK2BvnsDaNYSlWiHuv0bXrBqtI3n02cWTu6Y6kXEFNbK6b8jRpu
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-check_stack_arg_read() resolves the caller frame with
+Shared-memory allocator services (e.g., Android's gralloc)
+allocate dma-bufs on behalf of client processes in different
+cgroups. Today those allocations are charged to the allocator's
+own cgroup, leaving client cgroups with no visibility into their
+actual memory consumption and defeating resource limits.
 
-    caller = vstate->frame[vstate->curframe - 1];
+This series adds memory cgroup accounting for dma-buf allocations,
+building on T.J. Mercier's earlier series [1] and incorporating
+feedback from previous versions and LPC discussions [2].
 
-without checking whether the current frame is the outermost one
-(curframe == 0). Regular programs always run with curframe > 0 inside
-check_stack_arg_read(), but async callbacks do not: push_async_cb()
-builds a fresh verifier state with frame[0] as the only frame and
-curframe left at its kzalloc default 0.
+Patch 1 introduces the MEMCG_DMABUF stat and reserve/commit/cancel
+and uncharge helpers. Rather than charging at the page level via
+__GFP_ACCOUNT (which would require every dma-buf exporter to implement
+charging, and makes cross-cgroup transfer impractical without access
+to backing pages), we track charges externally on struct dma_buf via
+a MEMCG_DMABUF stat counter and route all accounting through a single
+path, removing the __GFP_ACCOUNT flag from system-heap allocations
+to avoid double counting.
 
-A static subprogram invoked as an async callback (e.g. via
-bpf_timer_set_callback) may declare up to MAX_BPF_FUNC_ARGS (12)
-arguments, and arguments beyond the fifth are passed on the stack. When
-such a callback executes an r11-based incoming stack argument load
-(is_stack_arg_ldx: src_reg == BPF_REG_PARAMS, off > 0, 8-aligned), the
-spi bound check against bpf_in_stack_arg_cnt() passes while curframe is
-0, and the code above evaluates frame[-1]: an out-of-bounds read behind
-the bpf_verifier_state.frame array. frame[] is embedded in struct
-bpf_verifier_state, so for async callbacks frame[-1] reads the last 8
-bytes of the object preceding the stack element in the verifier state
-allocator, and the resulting garbage pointer is immediately used as
+Patch 2 adds a charge_fd field to DMA_HEAP_IOCTL_ALLOC, accepting
+either a pidfd or a cgroupfd to identify the target cgroup at
+allocation time. If the target cgroup cannot accommodate the charge,
+the allocation returns -ENOMEM.
 
-    arg = &caller->stack_arg_regs[spi];
+Patches 3-6 add access control for cross-cgroup charging. Letting
+userspace decide who to charge needs to be a privileged operation
+because it has material impact on OOM decission and resource limits.
+We gate it via LSM hooks for the two charge_fd flavours:
+security_dma_buf_charge_task() gates the pidfd path (target
+identified by task credentials) and security_dma_buf_charge_cgroup()
+gates the cgroupfd path (target identified by cgroup directory label),
+with SELinux implementations under a dma_buf object class.
 
-whose contents are copied into the verifier register state. The main
-program path is not affected: do_check_common() forces arg_cnt == 1 for
-subprog 0, so bpf_in_stack_arg_cnt() is 0 there and the bound check
-rejects the load.
+Patch 7 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+dma-buf fd to transfer charges post-allocation. This covers the
+double-hop allocator case (SurfaceFlinger -> gralloc -> kernel)
+and works for buffers from any exporter (DRM, V4L2, etc.). A new
+memcg_account flag is added for dma_buf_export() to ensure that
+transfer/charge is only applied for buffers backed by reclaimable
+system memory. If the receiving cgroup lacks capacity for the charge,
+the ioctl returns -ENOMEM and the original charge is preserved.
 
-Reject r11-based incoming stack argument loads when the current frame
-has no caller (curframe == 0): async callback prototypes cannot declare
-stack arguments in the first place (e.g. the timer callback prototype
-has only 3 arguments), so such a load can never be valid.
+Patch 8 adds selftests.
 
-This issue was discovered by Tencent CodeBuddy Security.
+Known limitations:
 
-Fixes: 0f6bd5e7a804 ("bpf: Support stack arguments for bpf functions")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+- Single-owner model: a dma-buf carries one memcg charge regardless
+  of how many processes share it.
+- Only memcg accounting. CMA heaps would additionally need dmem
+  controller integration.
+- If a transfer of an uncharged buffer fails, it remains uncharged.
+  The allocator (userspace) is expected to handle this (retry, free, ...).
+- The LSM hooks are intentionally narrow. Broader cgroup access controls
+  (e.g. for the memfd/kexec handover case [2]) could be a separate effort
+  reusing the same pattern.
+- Only system heap sets memcg_account today. Other exporters
+  (DRM, V4L2, etc.) can opt in by setting the flag, but are not
+  covered by this series.
+
+[1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@google.com/
+[2] https://lpc.events/event/20/contributions/2416/
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- kernel/bpf/verifier.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes in v3:
+- Split mem_cgroup_charge_dmabuf() into reserve/commit/cancel three-phase API
+- Extract mem_cgroup_get_from_fd() helper shared by allocate and xfer paths
+- Rename __padding to flags in struct dma_buf_transfer_charge
+- Fix UAF race: move mod_memcg_state() before cmpxchg in transfer
+- Add memcg_account opt-in flag; xfer returns -EOPNOTSUPP if unset
+- Wrap dma_buf_charge_cgroup hook in #ifdef CONFIG_CGROUPS
+- Fix TOCTOU in SELinux charge_cgroup xattr length handling
+- Link to v2: https://lore.kernel.org/r/20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com
 
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 5f874979b8d75..1fb3e89ac59b5 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -4232,6 +4232,11 @@ static int check_stack_arg_read(struct bpf_verifier_env *env, struct bpf_func_st
- 		return -EACCES;
- 	}
- 
-+	if (vstate->curframe == 0) {
-+		verbose(env, "stack arg read with no caller frame\n");
-+		return -EINVAL;
-+	}
-+
- 	caller = vstate->frame[vstate->curframe - 1];
- 	arg = &caller->stack_arg_regs[spi];
- 	cur = vstate->frame[vstate->curframe];
+Changes in v2:
+- Move charge_pid_fd to charge_fd, accepting cgroupfd in addition
+  to pidfd per Christian König.
+- New DMA_BUF_IOCTL_XFER_CHARGE ioctl for post-allocation charge
+  transfer on any dma-buf, not just dma-heap buffers per Christian König
+  and T.J. Mercier.
+- Moved __GFP_ACCOUNT removal to patch 1 per Barry Song.
+- dma-buf charge/uncharge helpers take struct dma_buf * directly
+  to avoid the need for caller to manage size calculations.
+- Added test_xfer_charge_cgroupfd_self to dmabuf-heap selftests.
+- Added LSM and SELinux hooks for cgroupfd-based charging.
+- Rebased to v7.3-rc7.
+- Link to v1: https://lore.kernel.org/r/20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com
+
+---
+Albert Esteve (7):
+      dma-heap: charge dma-buf memory via explicit memcg
+      security: dma-buf: Add dma_buf_charge_task LSM hook
+      security: dma-buf: Add dma_buf_charge_cgroup LSM hook
+      selinux: Restrict cross-cgroup dma-buf charging
+      selinux: Restrict dma-buf direct cgroup charging
+      dma-buf: transfer memcg charges via DMA_BUF_IOCTL_XFER_CHARGE
+      selftests/dmabuf-heaps: Add dma-buf memcg accounting tests
+
+T.J. Mercier (1):
+      memcg: Add MEMCG_DMABUF accounting infrastructure
+
+ Documentation/admin-guide/cgroup-v2.rst            |   5 +
+ drivers/dma-buf/dma-buf.c                          |  46 ++++
+ drivers/dma-buf/dma-heap.c                         |  28 +-
+ drivers/dma-buf/heaps/cma_heap.c                   |   3 +-
+ drivers/dma-buf/heaps/system_heap.c                |  22 +-
+ drivers/tee/tee_heap.c                             |   3 +-
+ include/linux/dma-buf.h                            |   9 +
+ include/linux/dma-heap.h                           |   3 +-
+ include/linux/lsm_hook_defs.h                      |   4 +
+ include/linux/memcontrol.h                         |  52 ++++
+ include/linux/security.h                           |  18 ++
+ include/uapi/linux/dma-buf.h                       |  26 ++
+ include/uapi/linux/dma-heap.h                      |   7 +
+ mm/memcontrol.c                                    | 192 ++++++++++++++
+ security/security.c                                |  34 +++
+ security/selinux/hooks.c                           |  44 ++++
+ security/selinux/include/classmap.h                |   1 +
+ tools/testing/selftests/cgroup/Makefile            |   2 +-
+ tools/testing/selftests/cgroup/test_memcontrol.c   | 290 ++++++++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/config        |   1 +
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 227 +++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/vmtest.sh     | 226 ++++++++++++++++
+ 22 files changed, 1228 insertions(+), 15 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+
+Best regards,
 -- 
-2.43.7
+Albert Esteve <aesteve@redhat.com>
+
