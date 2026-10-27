@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065364;
-	b=ZSqe7tKLJ4r9B8fdesmD4JcyvIkQES15KOKNuF9rwEeWAp91B4luoz/A/ZzHR0XXSBMw
-	 GBPF/buDOFbWdz4y+e9t8A+bbmSeVA44SMmxdK9dZCBx/ujdf83J4E+lWCHsJZFabgbGH
-	 hbtmsXHjnoWVDYX2yLgINNQY6IU12r+44A9oN9rd4zcnGG4PHxgOyAw/nR1JfGFMqvcNu
-	 KCJT6httA76fiTPf2P9NZdRL+7NoyZVdo77ndpwHUvIzZODsq5rdZGYk/VAlvGNc+9LpU
-	 jZp7VzrYQjdHEc+1tSQRWMYzOpwHpYZ2ZG14dh75sL8oG5SKl3xVDzrJ+Ry1RWpP+Gg==
+	t=1793065438;
+	b=IGStIOd4dygU1xI5BKGOVVlTc/dMxcUayag1/u6UB3XWHgg2lLSp3bOVnZKpLlhvvjia
+	 DGp/bkYXBIXlK3icZjUkm5nbYW2pYvdVlcq571FiMV9WO1BS53YR5MXjn67ahE1Q16dl3
+	 yLnuy878fH4NQw6NMTFwVuzeRPqtZdMp90vcZlBTgWvU9A6k7Kmr1UkxNAr9gkVPsHscX
+	 e2iEmbITpANLjR0jgOFu78uSEyLajiP/G287vlYF1QeNF5C5sXVdNYk3GjDUhreUGyTBV
+	 5/ysKjRk6FHOU8Nmjh3+KRF4X7mYlqL9fHzN6oky6+gYIEFZhsuLPuLRTJZyqRBac+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065364;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=k0XwnJekCivSW+VH/v0fFvb2lFTslFCHe3QDSYF+pSQ=;
-	b=lJS7nLcmF3gV7m8jqwn/0YCv1WF+dNGgPa/iFUQuJFIyTmiVLFCQxBgRQkZc51DlNGkI
-	 kk1VebJ3hVeejmpqKtRCnuuGKAaBD8rNUyOhlspzOkBiTpZBrtt9zkXWqyHMzHNPZYmQA
-	 jB3NHldPIsyg2Aa61QkM2uWNFV5hwI8QL3ZbbB28XcncjMIdlCt7uIZXbFDiavKT/AlXo
-	 0/qM7hVfcOMrBIPyK0Vo4oZvroQzIyPRbW8QYmTOqahtPKZu4DGKDoNtiOvPqeP/+BJ89
-	 LQYn+8dVDkK35cI+4zA4Tw98d2S0DDVoIZMw7x1w+KWKFylzmeFG63/GTXF9SejUdxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065438;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gHMFMQXqzSRs+VRK4YQTy0GUfL3/Ra2rTOLetkxT53M=;
+	b=xFG0IO8/aMOvzomzD8Tz2JjnxRrLgjJGnb+AO5aCzAwAlPNwQI9m3G9mEo6XdqHODfJD
+	 u63lxH7SgZUdoD5aE8DYvUdvIK3WBj+o6nvw2RbFOdCjzRU7VXoihkljHRsPBrEsSCtHT
+	 5hPP/OzUpblt0m38apU6CRJtqnLkJaZOOOAlY6xPHfDUO2qjjbgzbK+mvt43h2f2P2lA8
+	 OYKOT5YgSPqDnyR/AhTXkutfuw+q/1YIBYR2bPtoSlfTYgdf6e6fKmkdfZ3JM+4V0AdXQ
+	 /oRApnuUAFbSUnRmf3+D/5MUIVHjwwnDIQUZd3NyJUqoztLOat+FLoQYrYcOx9//WcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwP0f1FX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YB8yyDsL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11541606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:42:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2AA2606A31A;
+	Tue, 27 Oct 2026 01:43:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IwP0f1FX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9721F01829
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:42:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YB8yyDsL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F98A1F01825;
+	Tue, 27 Oct 2026 01:43:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793065363;
-	bh=k0XwnJekCivSW+VH/v0fFvb2lFTslFCHe3QDSYF+pSQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IwP0f1FXs3m+EJ3PDgJ7eC7kAwisFjGK+UbHxV8mFaWmz/lUE71lhpAVbwiOT+nGY
-	 DbN41ywKc0Thd8oeLD9ESFCsTkXUIbBeEWr+oqpCLfw+UqmquejFEsYrBXVcSIOfhX
-	 AzqJ8TVlKQvSsZBlDtIzbB7/JZnQDKCF4uE401kMVs96TGqidwifJ1cxCJNsHA1kxf
-	 EBE0yNPlSeZRbQh6Vu61uVwpzQCdBGQZ8FqIHyQeEl84HT5OT3tfvll/zNYzQERbQ0
-	 xjPKGscbdtkXCCT7zaBT0FYeV4uXj0D0s9uS+e28o70UvtvacH0FmRbUavQyZHeg1V
-	 zlIwHP3d4SfpA==
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso540423966b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:42:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxQDSLzOAofxydbyA3PidY8wedb/KxLvcjZcw+ZGx9l/mkORXMBaGtKCX0T/dtDekJwp/x+UIWuN6XpB64=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLD7jLjV/+sIvfDbiLJWVNJvs+AF7kG/FsM8kTv7SFROmA96jdl
-	4nGv84RhnQdh/nZ4jcR4uK5UQ3i6WppzJ5cqUjo9LTshzpIw6vsJC4Pw7R+IlwIAJ/SmPOsqQlm
-	vkTairCEIeK6vuHzsXAxdJfNp9L+lIGw=
-X-Received: by 2002:a17:907:97c4:b0:c2e:4c59:a3ab with SMTP id
- a640c23a62f3a-c46bdeca8f8mr931489766b.48.1793065362417; Mon, 26 Oct 2026
- 18:42:42 -0700 (PDT)
+	s=k20260515; t=1793065437;
+	bh=gHMFMQXqzSRs+VRK4YQTy0GUfL3/Ra2rTOLetkxT53M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YB8yyDsLnTgfsOVoQUdsnaLRK0e8kBmgoY085E9r81q6y14pLrOBY1TlyFz2ZtoOn
+	 u6XMqz2RvobprAGcA9DxXP/yTKdXv8ptbAGKbLqn3OYqmyB5hm/5LjtbYQeZJvBy+s
+	 8eZiXI7O1zOr+qimBcduRSNYxDZrWkAChFZUKssuAS6Bxmw0W/MjvB1Y6OH6gqC3GV
+	 IdD1m01xxoEMs59Rq1IkQltYQid0C4qGYY2klaCvD+hNQlRHyuvtBdUsVYWTjLQx7a
+	 VsIUe+B3ogH903z8uAr+AgrfI1PPB3UWhcAitLgNbRJ356Gh05B+4/0615/Ou1wmDb
+	 YEYEXSK+ZMXIg==
+Date: Mon, 26 Oct 2026 18:43:55 -0700
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Song Liu <song@kernel.org>
+Cc: live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	jikos@kernel.org, mbenes@suse.cz, pmladek@suse.com, joe.lawrence@redhat.com, 
+	shuah@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/11] klp-build: Fix dependent patches in a series
+Message-ID: <at_1V3XcGM_D1bY1@jpoimboe>
+References: <20261017002441.716615-1-song@kernel.org>
+ <20261017002441.716615-2-song@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +58,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026222600.17323-1-pali@kernel.org>
-In-Reply-To: <20261026222600.17323-1-pali@kernel.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 27 Oct 2026 10:42:30 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-i6bzHU0RS-KSxDcHSkyCwnB-bgFuRp2dD7UtNk8EStQ@mail.gmail.com>
-X-Gm-Features: AclHuK9411IYVdIn7PjqWWNnslUxj4T0yxGbaRz3q8PiwrR-lpqSE4vScfLdV9A
-Message-ID: <CAKYAXd-i6bzHU0RS-KSxDcHSkyCwnB-bgFuRp2dD7UtNk8EStQ@mail.gmail.com>
-Subject: Re: [PATCH v7.3 0/9] Various changes
-To: =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>
-Cc: Paulo Alcantara <pc@manguebit.org>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261017002441.716615-2-song@kernel.org>
 
-On Tue, Oct 27, 2026 at 7:26=E2=80=AFAM Pali Roh=C3=A1r <pali@kernel.org> w=
-rote:
->
-> Rebased changes on top of the v7.3.
-> No functional change, just fixed 3 oneliners from Sashiko.
-> Link to previous: https://lore.kernel.org/linux-cifs/20260825230622.24617=
--1-pali@kernel.org/
->
-> Pali Roh=C3=A1r (9):
->   cifs: Remove code for querying FILE_INFO_STANDARD via
->     CIFSSMBQPathInfo()
->   cifs: Remove cifs_backup_query_path_info() and replace it by
->     cifs_query_path_info()
->   cifs: Fix validation of EAs for WSL reparse points
->   cifs: Validate presence of EA $LXMOD for WSL reparse points
->   cifs: Check if server supports EAs before trying to set it for WSL
->   cifs: Extend ->set_EA() callback to allow operate on reparse point
->   cifs: Create native Window socket file compatible also with WSL
->     subsystem
->   cifs: Add support for parsing WSL symlinks in version 1 format
->   cifs: Add support for creating WSL symlinks in version 1 format
+On Fri, Oct 16, 2026 at 05:24:31PM -0700, Song Liu wrote:
+> fix_patches() refreshes each patch on its own against the original
+> source: it applies the patch, copies the patched files, and reverts it.
+> If a later patch in the series depends on an earlier one, it doesn't
+> apply to the original source, and klp-build fails even though
+> validate_patches(), which applies the patches in order, accepted the
+> series:
+> 
+>   $ ./scripts/livepatch/klp-build 0001-dummy.patch 0002-Revert-dummy.patch
+>   Validating patch(es)
+>   Building original kernel
+>   Copying original object files
+>   Fixing patch(es)
+>   Reversed (or previously applied) patch detected!  Assume -R? [n]
+>   Apply anyway? [n]
+>   1 out of 1 hunk ignored
+>   error: klp-build: .../klp-tmp/tmp.patch did not apply
 
-I expected there would be 10th Patch to fix the problem below.
+The patch fixing step should probably be done earlier, during the patch
+validating step, so any such errors get rooted out before the build.
+That would simplify things and unify the apply/revert cycles.  (can be a
+separate followup patch)
 
----------------------------------8<----------------------------------------=
--------------------------------
-> > PATCH 8/9 comment 1 - unbound memory allocation based on symlink length
-> > - this is valid, but unfortunately all the symlink parsing code would d=
-o
-> > similar thing. And we have already more symlink types. Do we have some
-> > limit how long could be symlink? Does it make sense to address only thi=
-s
-> > one issue and let all other untouched? I would rather propose to define
-> > one common limit and fix this issue on all places.
-> I agree that a common limit is preferable. cifs.ko already has
-> REPARSE_SYM_PATH_MAX(4060) for native reparse symlinks.
+> +++ b/scripts/livepatch/klp-build
+> @@ -467,60 +467,75 @@ do_init() {
+>  	set_kernelversion
+>  }
+>  
+> -# Refresh the patch hunk headers, specifically the line numbers and counts.
+> -refresh_patch() {
+> -	local patch="$1"
+> +# Combine the patches into a single patch against the original source, with
+> +# refreshed hunk headers.  The patches may depend on each other, so they can't
+> +# be refreshed individually.
 
-Lets this for followup change.
----------------------------------------------------------------------------=
----------------------------------
+It's probably no longer accurate to describe this as refreshing things
+since it's now creating a new patch?
 
-Thanks.
->
->  fs/smb/client/cifsglob.h   |  10 +-
->  fs/smb/client/cifsproto.h  |   1 +
->  fs/smb/client/cifssmb.c    |  43 ++++---
->  fs/smb/client/fs_context.c |  11 +-
->  fs/smb/client/fs_context.h |   3 +-
->  fs/smb/client/inode.c      |  98 +-------------
->  fs/smb/client/link.c       |   3 +-
->  fs/smb/client/reparse.c    | 257 ++++++++++++++++++++++++++++++++-----
->  fs/smb/client/smb1ops.c    |  11 +-
->  fs/smb/client/smb1proto.h  |   4 +-
->  fs/smb/client/smb2ops.c    |   6 +-
->  fs/smb/client/xattr.c      |   3 +-
->  fs/smb/common/fscc.h       |   5 +-
->  13 files changed, 287 insertions(+), 168 deletions(-)
->
-> --
-> 2.20.1
->
+> +combine_patches() {
+> +	local outfile="$1"
+>  	local tmpdir="$PATCH_TMP_DIR"
+> -	local input_files=()
+> -	local output_files=()
+> +	local files=()
+> +	local patch
+> +	local file
+>  
+>  	rm -rf "$tmpdir"
+> -	mkdir -p "$tmpdir/a"
+> -	mkdir -p "$tmpdir/b"
+> +	mkdir -p "$tmpdir"
+>  
+> -	# Get all source files affected by the patch
+> -	get_patch_input_files "$patch" | mapfile -t input_files
+> -	get_patch_output_files "$patch" | mapfile -t output_files
+
+Now that these helpers are only called by get_patch_files(), can they
+be folded into it and simplified with a single grep for '^(---|\+\+\+) '?
+
+> +	# Get all source files affected by the patches
+> +	for patch in "${PATCHES[@]}"; do
+> +		get_patch_files "$patch"
+> +	done | sort -u | mapfile -t files
+>  
+> -	# Copy orig source files to 'a'
+> -	echo "${input_files[@]}" | xargs cp --parents --target-directory="$tmpdir/a"
+> +	# Copy orig source files to $tmpdir
+> +	for file in "${files[@]}"; do
+> +		if [[ -e "$file" ]]; then
+> +			cp --parents "$file" "$tmpdir"
+> +		fi
+> +	done
+>  
+> -	# Copy patched source files to 'b'
+> -	apply_patch "$patch" "--silent"
+> -	echo "${output_files[@]}" | xargs cp --parents --target-directory="$tmpdir/b"
+> -	revert_patch "$patch"
+> +	# Diff the orig source files against the patched ones in place to make a
+> +	# clean patch.  Use /dev/null for created and deleted files.
+> +	: > "$outfile"
+> +	apply_patches "--silent"
+> +	for file in "${files[@]}"; do
+> +		local old="$tmpdir/$file"
+> +		local new="$file"
+> +		local old_label="a/$file"
+> +		local new_label="b/$file"
+> +		local status=0
+> +
+> +		if [[ ! -e "$old" ]]; then
+> +			old=/dev/null
+> +			old_label=/dev/null
+> +		fi
+> +		if [[ ! -e "$new" ]]; then
+> +			new=/dev/null
+> +			new_label=/dev/null
+> +		fi
+>  
+> -	# Diff 'a' and 'b' to make a clean patch
+> -	( cd "$tmpdir" && diff -Nupr a b > "$patch" ) || true
+> +		diff -up --label "$old_label" --label "$new_label" "$old" "$new" >> "$outfile" || status=$?
+> +		if (( status > 1 )); then
+> +			die "diff failed for $file"
+> +		fi
+> +	done
+> +	revert_patches
+>  }
+>  
+> -# Copy the patches to a temporary directory, fix their lines so as not to
+> -# affect the __LINE__ macro for otherwise unchanged functions further down the
+> -# file, and update $PATCHES to point to the fixed patches.
+> +# Combine the patches into a single patch, fix its lines so as not to affect
+> +# the __LINE__ macro for otherwise unchanged functions further down the file,
+> +# and update $PATCHES to point to the fixed patch.
+>  fix_patches() {
+
+This no longer fixes the patches, probably a function rename is
+warranted?
+
+> -	local idx
+> -	local i
+> +	local tmp_patch="$TMP_DIR/tmp.patch"
+> +	local new_patch="$TMP_DIR/fixed.patch"
+>  
+>  	rm -f "$TMP_DIR"/*.patch
+>  
+> -	idx=0001
+> -	for i in "${!PATCHES[@]}"; do
+> -		local old_patch="${PATCHES[$i]}"
+> -		local tmp_patch="$TMP_DIR/tmp.patch"
+> -		local patch="${PATCHES[$i]}"
+> -		local new_patch
+> -
+> -		new_patch="$TMP_DIR/$idx-fixed-$(basename "$patch")"
+> +	combine_patches "$tmp_patch"
+> +	[[ ! -s "$tmp_patch" ]] && die "no changes detected"
+>  
+> -		cp -f "$old_patch" "$tmp_patch"
+> -		refresh_patch "$tmp_patch"
+> -		"$FIX_PATCH_LINES" "$tmp_patch" | recountdiff > "$new_patch"
+> +	"$FIX_PATCH_LINES" "$tmp_patch" | recountdiff > "$new_patch"
+> +	PATCHES=("$new_patch")
+>  
+> -		PATCHES[i]="$new_patch"
+> -
+> -		rm -f "$tmp_patch"
+> -		idx=$(printf "%04d" $(( 10#$idx + 1 )))
+> -	done
+
+It's confusing that from here on out, PATCHES becomes a single-element
+array (yet its users treat it like it might have multiple entries).
+
+It should probably be a separate variable (COMBINED_PATCH?), with its
+users simplified.  And e.g., the "Fixing patch(es)" status message can
+be changed.  "Processing patch(es)"?
+
+> +	rm -f "$tmp_patch"
+
+I think this doesn't need to be removed here, it shows an intermediate
+state which could be useful for debugging.
+
+-- 
+Josh
