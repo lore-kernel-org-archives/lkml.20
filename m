@@ -1,53 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793125070;
-	b=SKFFbUGfX7Hd+6PFIZeZjuNJLgiWp8SnI/1GVN5+JArngkDBZhlal5W5XPAFTAFCyD6E
-	 gKvZHbhRu9KWgqeyar81i/b8bzClGopHifMcfjgcWCjNw0AGGr2qtAcBgjdi3RGMSzrqf
-	 KGhAB5jk7xbQbXP51vthFT40jgViBjYlsD3GjPhjl5KDli0lyG7g8fbiZtlUgzIulv6BL
-	 OP+TuRxjTSfGkJdYuU8/kF0+4a3/ZcEJQcQi0KPSKyW7toN9rA2MuGzIcQtmqo7vOJMx3
-	 gGS5jNeemQydOJwSPXa/XMERxV1CGkQFqqlvfz2padcYZwLiylkVPZ+eseioPjur5UA==
+	t=1793125071;
+	b=uslqgrGTDiPfu4eBV71aTPzyaYo75h/LD9okgG2eByVX7VOr25IMpQ2/tTZXlrrirJlz
+	 +ilUwaA2lzjown9gKvk2kH40bP8v6VQC5lQzCz0E2vs108nX8m5z4DG86gmFBcKVAWNIr
+	 /IIs8AW1uIMGb5Qv/0hz1bvk9FOkidD/YO+F39Wlq1gXl8ZQOKiCyCFrDChLu5ph3i3DB
+	 hCbEiCP416YCvw4V4sWo1ypBmSuVWDPqPXcHF059sDoFIHyIXCyx454UaE7zrj4UwmL0v
+	 ti+N7tYdQZUpqssHgKcfOOBeheQiTjpMqez32KZpC3d5tuQY0e73RX3SEnSVFtCEpEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793125070;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=Iu845MHVDpV3DXDAPLIF2pBxbDGSh6irlf/SAmJ+xBY=;
-	b=ODLjnugPuJO5/9t1Xxpe1IF0CQ9MU0EV4XZVYS5Zwf+HzoirWwJ7N36Wb5QdVezYLVIg
-	 QT34i6SnuwHVxIy1dtfqiY+jaUFEMsLV5saXPiOPANW7+RDf3opGXlQtq/EltuAb/33Fa
-	 /6q9gIWEpUGXoFZpVyFqM01196Ld+REJkzKgM8pCatsbGfC6cZ/yr/Uw1z3Rxk42mvu6Y
-	 aZtrwimoX3E8zdd72I+Snak829xGcGeW4VEQA4FNQ1h1oiUAB5MmTf9KcVwv3sNFxGDpG
-	 lgIaf8ZdFl+VUbsbVMN2kx9u1bzkabeBV1yXyVWJJqnFhcVO2jqeT5ThpZ8zuE40P6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125071;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=WfnZD24g2gdDcLADC8Y1lzpwL6/F0QAQfp4goK2tXFQ=;
+	b=3rxhaPx78lhAiX8Y52FPebsmafrBcCTessdIHdbS/Tt4lxG2EAfoxXe6T5GPvLOL9PId
+	 2n/GM7mdM06dRk/1IiI3Mok0GRdmgqW4xnLgOw2a/7iQ9aFASE0u1xDiXf0H5GWTA3BkJ
+	 Z3u5L3QUkmJSIW0Dnr5gTG7qtmXFtjvHek8RNsou41B6+GELDZPGZR0qzkwEzBSsdqhek
+	 3SYbRCiXtjwb3R8qqH9BoidPml1qE0W14CObEXeaFC3V4IW/yPcs4kyA8xwK+d4SPJogS
+	 mIndBbme5QqgB7vLLTOFVYI6R5ZaKDY1LuZqOZOdTPb+enN1P4F0/CQ+hNJYHCr0KOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VmWnGCox;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B98606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:17:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6B98606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a45b3f0bdfso250433b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:17:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793125068; x=1793729868;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Iu845MHVDpV3DXDAPLIF2pBxbDGSh6irlf/SAmJ+xBY=;
-        b=mMAbZ2LDfa5Xrv3jUmCnnsJ34+yFxOZIn6kexbdh6yRcooKQUgo7yFm0kpzgS+jOTt
-         KPVhy2ZwUd+HhNC9pYhytU8DMNUvnBZ6xfOmkWGtJj3WhgudLsgs73D+SC9LWWrzWGEF
-         VqLhP1UL3bJXU+/3YJSsUg0wk1FVUl72j7kqepXKhHRTAEh4GeY34ugVTnLTt2BmDfu7
-         wOueK3a3lsQJSxHjTc3NNrzAkBfQGmF5I8mlv0rQryPSor0JqWsOnLzI4j8w4m1lagNl
-         WBg6Xd3UJAca/1Id75h0SUg5LfakYu4bGv/Yu+ofauu6qE0s1T75klBULMVaeyjDIIRc
-         Vy6A==
-X-Gm-Message-State: AFq9FYLxRzEOJgkiADFVQhfX01qqQAGzuTUE3HjjxEXvJO3W/rUKw7fb
-	xKiii1ohVeeIwO2HAhKXt177UgXwvNe6r5QRLX97a77KWRHcaEN8jv43gsA1a9HPZl3wMgGv3CG
-	5g9mazcLviC1cjk7c79A105U5h/tv4naH6pkNCTqRR0T1QgisMifa0OyxRgM=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8977606A322;
+	Tue, 27 Oct 2026 18:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8977606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=VmWnGCox
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2D22E1A134F;
+	Tue, 27 Oct 2026 18:17:47 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 00420603BD;
+	Tue, 27 Oct 2026 18:17:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E77B210329083;
+	Tue, 27 Oct 2026 19:17:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793125062; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=WfnZD24g2gdDcLADC8Y1lzpwL6/F0QAQfp4goK2tXFQ=;
+	b=VmWnGCoxqadmsoL0mCv3fBFBAPW76ae7UqqzqY159Vbm4R71oKv1B9AvEe4YSs1YI6I9gI
+	iUL2umcHY5YUcs1N7tpon6vIaPfi15VCWlrm4WNNCJOSMn9BSOKjxmQVORbbkzOtDeAPEr
+	p04JY2sLVnbE4m+s5x3dLZAdTGlQaRF/K7V/cN+rXr+H4WoTS8RnBYIeZEjHrcT9p5pyrI
+	7cfsTEDu+Y+K1L67VHlX+bboQIZPJZxZAagdTpapJMEjgGtbNEvaMkhAB7O48MXG1qiWDh
+	9NVrAkhlbmngI1WCM9DdXhmJ6liNqoX1Hde1ldLkwCqTBkp9pRu5ssysjAEz0Q==
+Date: Tue, 27 Oct 2026 19:17:38 +0100
+From: Herve Codina <herve.codina@bootlin.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>,
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, stable
+ <stable@kernel.org>, Neill Kapron <nkapron@google.com>, Ijae Kim
+ <ae878000@gmail.com>
+Subject: Re: [PATCH 06/19] usb: gadget: snps_udc_plat: lock out the
+ interrupt
+Message-ID: <20261027191738.457acac9@bootlin.com>
+In-Reply-To: <20261027-llm-usb-v1-6-b9751ddb9c7c@linuxfoundation.org>
+References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+	<20261027-llm-usb-v1-6-b9751ddb9c7c@linuxfoundation.org>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,29 +75,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:509e:b0:4fb:a7f3:420d with SMTP id
- 5614622812f47-55c0039048dmr8139497b6e.48.1793125068640; Tue, 27 Oct 2026
- 11:17:48 -0700 (PDT)
-Date: Tue, 27 Oct 2026 11:17:48 -0700
-In-Reply-To: <6a682bf7.70955b6c.323240.0052.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae0eacc.f0fe5aea.79aa1.0099.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [acpica?] KASAN: use-after-free Read in acpi_ns_get_attached_object
-From: syzbot <syzbot+5725792ce6a9938d1b24@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+Hi Greg,
 
-***
+On Tue, 27 Oct 2026 15:57:46 +0100
+Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-Subject: Re: [syzbot] [acpica?] KASAN: use-after-free Read in acpi_ns_get_attached_object
-Author: jeff@incrediblybased.co
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> stop_udc() is called from a work item, when the extcon device reports
+> that the cable has been unplugged.  It takes udc->lock with interrupts
+> enabled.  udc_irq(), the hard interrupt handler of the controller, takes
+> the same lock.  If the controller raises an interrupt on the CPU which
+> is in stop_udc(), and it is likely to have something to report when the
+> cable is pulled, the handler spins on a lock which the interrupted work
+> holds: the CPU is stuck.
+> 
+> Disable interrupts while the lock is held.  They are enabled again for
+> the ->disconnect() callback of the gadget driver, for which the lock is
+> dropped as before.
+> 
+> Fixes: 1b9f35adb0ff ("usb: gadget: udc: Add Synopsys UDC Platform driver")
+> Cc: stable <stable@kernel.org>
+> Cc: Neill Kapron <nkapron@google.com>
+> Cc: Ijae Kim <ae878000@gmail.com>
+> Cc: Herve Codina <herve.codina@bootlin.com>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/usb/gadget/udc/snps_udc_plat.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-master
+LGTM.
 
-Resending the same patch as an attachment; the inline copy in my
-previous mail had its diff header lines merged by the mail client.
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+
+Best regards,
+Hervé
