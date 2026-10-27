@@ -1,113 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793078927;
-	b=NUdzeEcwTnImIE6Ur7hBaQnb3zIPw15AzndtJKDV4T40A5xCRkVIyIc7CC+/BZ3QZmZn
-	 lvFwDe2o/mkMCFNH40L+BKFA9q1NXXv3h9s6n2gAVSJNqJGK3jd7EDQVmb/V/oM7QOK2P
-	 LkR36G87YkiqwSLxg1h8IVp9XSnQ8kAIdI2QJc8Q+p3rbHhCFau1y9PMTN75bnDwZzyYp
-	 BfAfswENldBa0Mu6LWgTKbUeLG0gGCOErQdvzxbbvGtNC3vL/1MP4uXEOCGVQS26SnNFS
-	 oBxbQBDuaJuUDhacjLs8Q3h4vhllIQD5fB4X49mQedoMugsXPl5lTEkO24WVtSjDftw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078927;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MBDbNM7TRvq5+8s9EZqfWE5ac+V/TJ/PFg9Dwo4zUWU=;
-	b=ppadqNpOacrIk9ugDVKXui6Z/VTfGN11OdCKDA0zpfdCNX2ImiHOdv9vVcc0b8lIAD2z
-	 6wiXzyK+C1f/BDruC4lcjBQOAQJOsA5KU2DQnSdfRjDVvK4KpVXVybvUPH1yGOLLhKQKd
-	 QgMOxgx2cYS0iY6bOTx8Ds+xYMbgWTQLdy6vY7zKgx1p0y8ARL6E6ZfBKWHdXKzcFTI5Y
-	 q23I/vgMqKpsrFnHqizDDlbyw9jdhGCYvUX3gsKB4XJVCZLXsEh3Q+AuiXk/xC4vscxW+
-	 9622nOOilHIXCUS1LwwJjNmwPv/vaq0J/8YQyZJxMX05mR1TO6cFPEmfhrIab+vMBGA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FelR6Xf5;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793079030;
+	b=N5XIGlaPc1G36gXgfaBoqoiopgnBPQf7h93Yc3wVYgPQtoj/AuF47Wd/TWFH/dpnWtE9
+	 +jSB5/OeZRwMnPr+5p8NFsp5Umk76aU3wITw/33WZBGCJWQCCJvGvEjWmeW3omy9Su6zP
+	 o7SZO91YVDkEOgmGOimd+8gNXOIl8cD3NfxV3LELQBNRGnvFvFht+uEWyar9p/Gh24P9f
+	 MTDSrSWZoL7aWXRtSUOrsaCm4WTg569EPhzVAqEQcva14REUOq2izTwC0oClO4Bx9sKL6
+	 9FAr3bdosXeHBuP1rhvNLAOUTbYVByzpEzAe6G4dUqndsoVyB+W0K8V1aEbd+e4xrlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793079030;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ZzDHygYXrOKIJbl6puacNsd8dR5DBQW5HpxCkO1uSO0=;
+	b=P5T+hSTlnF+OfQvT+koFqMwh2MEv5lsCLRzz3BQYNi1hijxBAsDfqGgvZp441s05dqpG
+	 7iJWBoZi5vafUBUpdkNpkN9BfmR1SqH+37dR+H5U9juaPjMHqJ7QLb3LQ7QxayPu6Mjbj
+	 19OEP2y/9VwMeHJK4F01CBUJWMe9QmKDOvfY0pB7woXLoEpV6cvPqetDXV8m0omwEqNNI
+	 vbfaul7vLB0weNuC0z+Z8aJssmdp72EsRQvZlmyvYxpvgLXZuB3lHkV+096zQvvGdh1Xu
+	 zeTSxbKlsC9aKxnugbU0U/Nc1WbBc2+vy7JC0+0l8k9eFDeT+NRrI8youJlRPtn4fxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eueuYFIc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.50
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013050.outbound.protection.outlook.com [40.93.201.50])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAE6606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:28:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADAE6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99002606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:30:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99002606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FelR6Xf5
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9e53d011eso25875665ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793078926; x=1793683726; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MBDbNM7TRvq5+8s9EZqfWE5ac+V/TJ/PFg9Dwo4zUWU=;
-        b=FelR6Xf5Hxy+dgyEBgakpjWok6AuO3G8N0BbFXmApMGagXdx8VUovSR8mETyuhzrVk
-         PFCz3xfrA/7n06YAQtJ0FNAU1IUjB/ZeUiESaUfJeZ/7t0/TspkbZXjkbd7mYB/hBEYE
-         SBPHpLNUywYBN1eYoi55sUy2J7TPLeuAZ2FSgHnAocX1gVtnT0oe/nOnZTg8M5yGRJBY
-         5d9tgYORcMz5VTB3lfR1V8LhqSYr2ZZQB9N2pK3uO1P5RnFV0RFyI4QBGuuQogsoVe+g
-         p9f1Yjg43t1EkFzEG+LDVz+WYlZ1Jdhl8rR3zXuf4emmu5fTvRYfsQavGpf9e3MLKBDb
-         Zs4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793078926; x=1793683726;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MBDbNM7TRvq5+8s9EZqfWE5ac+V/TJ/PFg9Dwo4zUWU=;
-        b=xgZzoC/aRxbPcVSMtMZfdyPL25RTzefR4eR4IRdEt6iIdwIKiuWRA0tPSBpirWadoX
-         MxQyyKNHnywhE/t+zfe5SnRHstxnF18mxWY/I4Tnmnx1JyR62+A5I8qbId8oilGOHOgK
-         GTB6Ef/uhtGy1aiWb5Ug79RdWHEtvVso9/9ZT8+ZW9KOvu2piAQoq9v18BDmz6F5bQeb
-         +aMNunxB1A5mgOJdj3KgG4Pd52rhu5CSSRW6ZdjDVBEtAViZNP4eJjAPu1qAbF5NVyhM
-         CGKRNUWXIfT8P51PlHAojIjh2FXI8fRUzGW0PLGm9phs/lN4uIR3GHrzldj1C5jhAQ2A
-         9SIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0oUfLUCf3LSAszAztfUeFV6xgqPkJkMWxRZaQ8pYkwq1U+5bzsN4yFI5OLTNT/0yKZ6gG6uowflr88ts=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEhYpIGyHwWBl35H7517m9Yzi7FWIUhWCkVdGCdZbLxxWCgm1z
-	+IbavWhb/M6k73bnxUIVRsJWuGQy3lH1yW4OVpp0BeEC5AcgJoutBo2m
-X-Gm-Gg: AYBFou2rIIicTr4cBvXjzUBBIxRSh+gKxIW+WOfKXTfaywbGZyBf+jNywMt5lNcIF7U
-	Jl1lSW5UQI9k8WGgg4S7MAzjTSkFmhmPkhBQfIkhlyeyn1sa+czmq7IhBiswq+V2oc1hzGELddi
-	l0mV3phSVEoHiAPRAkV6n22v79G9Z5oL5riTmIim8RzlUcxMszO3QWhDGURJcCNayHLtWQVmdZx
-	uKQVRdZmSOCdk9+Iw/7M4/ERMjk5ksKkof6wlRD8pYLzLoPiLCKOAj6dpqN1yqqCOOFclqHQFHd
-	+2+MGe4bbtXJSVrK0iz2dvPsqMi3d/APAo/WyHGhzcyupeIT2zdwASI3IdeYS2daaD9tFPz0BWj
-	ap1Lq+mEr4LtsBDDfYX0bCXrqmotS9/VMfcZKMuE0y2BrXuTY7xMgrmmrzQzcT6z1A+38rQ2Oy9
-	mg4u/Hb76Hd/KbYW0pbCAw9+kA5t9yxP5tPmiM5w885wBMdY0PE6wUjIQusJFJUDBRYMz3HzmkF
-	2dgIq7W9vWHy51vavALJPTffJafGkTpc6zxGV1QBF0sPYbg6s1Nfjvf++1icMgxlvNS4ZsrPKJv
-	Od5rcO+KjNrkhcc++nV1B3OVb2a4Z8uWk2Fw8VWZ9is7Z5Y=
-X-Received: by 2002:a17:902:ef4c:b0:2e9:5eee:e087 with SMTP id d9443c01a7336-2ea9c7bd84cmr79180225ad.43.1793078926071;
-        Mon, 26 Oct 2026 22:28:46 -0700 (PDT)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.28.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:28:45 -0700 (PDT)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: akpm@linux-foundation.org,
-	bhelgaas@google.com,
-	lukas@wunner.de,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	alistair@alistair23.me,
-	rust-for-linux@vger.kernel.org,
-	jic23@kernel.org
-Cc: ojeda@kernel.org,
-	aliceryhl@google.com,
-	a.hindborg@kernel.org,
-	alistair23@gmail.com,
-	wilfred.mallawa@wdc.com,
-	bjorn3_gh@protonmail.com,
-	gregkh@linuxfoundation.org,
-	boqun.feng@gmail.com,
-	benno.lossin@proton.me,
-	gary@garyguo.net,
-	tmgross@umich.edu,
-	alex.gaynor@gmail.com,
-	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v5 23/23] lib: rspdm: Support SPDM challenge
-Date: Tue, 27 Oct 2026 15:25:36 +1000
-Message-ID: <20261027052536.1722081-24-alistair.francis@wdc.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027052536.1722081-1-alistair.francis@wdc.com>
-References: <20261027052536.1722081-1-alistair.francis@wdc.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=eueuYFIc
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Se6vAp2Mvbu1HVQprxqFJ5TJLOi0QGJ/GZADsviIXtdwtn4n3cP2/BAuxo7VkA9IvCisNbc6RroD+DqDW8njWG3z79L+PAZb1+auK3qwsbaoEsQXc2cdy3+7OcJp/jIEc5jMeT24trQXDHxjBXn4Pn4hty6s4AtWLXYrs1raXlI89SpM8fsVuSBzw+tE36DtPuU7QQk5gT+7cbspnv6DRcXSn+9sV50eJ0I/pbs80KQRwv0yJihaHXCBZwKc9kLEnpdJMOmZRev8pbqvIAnh22M2JTSdjUNPMmeNyF4H4iTYz5MyDuX1CMbWo0W0h2rVlMJkF0Z+2VtM/FDUImf4WQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZzDHygYXrOKIJbl6puacNsd8dR5DBQW5HpxCkO1uSO0=;
+ b=wUe8/c0ZS7I/JyrfItBmrlMK07zZfSvyvyV3n8uQ/QB6GFdMNwynD8gsLn5eO/aEOMXKwbeieHWVnonNNzH9N8QFrg7oX2omlHA3ZvKYGdpe1D1k5ZEopd0nJqvCRGDTxsEBV4llRzTqKrFBAs9HOaUevtGIzdr+faG5NOGdeHM4pKo8mwCAbpOd81XneFRc9L65cRHwnL4ArP3V1FIqH2YW6XWOtFBaY779oX1iNZwPRVxSeftzh6O36rkEtk/bSYw5R4KtK0iX3eH5Dw85VWUWxE5Ts1cNnsVmqGzCqrOa3mHKGueXA2nM4Kq3XAH3KPyWK3jAK4K7anARKjZs9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZzDHygYXrOKIJbl6puacNsd8dR5DBQW5HpxCkO1uSO0=;
+ b=eueuYFIck59F1/06uL09itHxlCfEgTTBiRmMKUX36TqU+9NPwgglqvsDPtwoGCjDxjLhpbS1hCO086nGFjthkPD5Loly4wM/tN6XFI/xrFehbGxWO3Nx//g0G6q1HrRb4FD9Z39nWw9zx+mkT2ZO4tzuX5ZLYqn3/ZlcbgnoAJU=
+Received: from BY5PR04CA0002.namprd04.prod.outlook.com (2603:10b6:a03:1d0::12)
+ by MW4PR12MB7481.namprd12.prod.outlook.com (2603:10b6:303:212::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 05:30:25 +0000
+Received: from SJ5PEPF000001F3.namprd05.prod.outlook.com
+ (2603:10b6:a03:1d0:cafe::a7) by BY5PR04CA0002.outlook.office365.com
+ (2603:10b6:a03:1d0::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
+ 27 Oct 2026 05:30:25 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001F3.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 05:30:25 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 00:30:24 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 00:30:24 -0500
+Received: from [10.136.43.232] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 27 Oct 2026 00:30:18 -0500
+Message-ID: <26d4c1d1-19dd-415e-beb4-05b7f34fecb3@amd.com>
+Date: Tue, 27 Oct 2026 11:00:17 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,609 +105,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] sched/numa: Notify the scheduling class of preferred
+ node changes
+To: Andrea Righi <arighi@nvidia.com>, Tejun Heo <tj@kernel.org>, David Vernet
+	<void@manifault.com>, Changwoo Min <changwoo@igalia.com>
+CC: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
+ Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+	"Vladimir Vdovin" <deliran@verdict.gg>, Gregory Price <gourry@gourry.net>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>, Christian
+ Loehle <christian.loehle@arm.com>, Balbir Singh <balbirs@nvidia.com>, Lee
+ Trager <ltrager@nvidia.com>, <sched-ext@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+References: <20261027041536.3317971-1-arighi@nvidia.com>
+ <20261027041536.3317971-4-arighi@nvidia.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20261027041536.3317971-4-arighi@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F3:EE_|MW4PR12MB7481:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61433450-a38d-488d-cf0e-08df33eb6752
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|23010399003|1800799024|261026121527099003|4143699003|11063799006|56012099006|261022105027099003|10067099003|22082099003|18002099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	9YyIJ0w74LySUSDr+hwAyE6YA1SOxeQFm7j+0d+o+jILMDxM1zijhIwoW6FXt4HOTRyVtq9HG02/7xwQQAIevRin/qs+RNNkwNfPgRXLNfyrrRLAzkUWzpi7VvYPRkVKwfqC4hA1hwiqGylHpV+GqQPLG/lQrHyemheYDjZA9xKIjFQq/OnX+wRgemjhH5c5a3V0jjREUByrwCIc4WOI3mWjeYBLPscs0HFXi1vHDfrIpLIEclKx1CfWbtypuJZeHGfYTUPqTf/ZWJ1y7VZLMvGq24SS0OdlFSvXfXER0qqMutGolHsKQ4TkLdFQ9RmTyFVk3MKpoepLxnFDb6A3WdUP7iyhqZ1YmmwdnV5AxlVUCxD2lWpcUSlN0p4oCMolHZSIsMVaThT0ndeBouGSDusVsoRV6wCujistELaXF0Y4+6aykyu0/XuR0EPYbRQTHjvOrOaIQ47njo17KkXyz7JqJgWkcS3zMS0ZlFR7ybonNealmNPD4ZlmOC+Crm/Gy2l/gSDZ/0G7bHpGeLyZkvYJ7G/6LjBTs/bFa5KV3zVA225YBC54LvsE7mSXp1EGEUzLVerKO99Hr1cTV5bJfXAXoGjy5vcwE8u+AmYhUs7DaZ0OkeD58sqW9qGwMUkiGKTT8s779/aNgJep/j0MqFwQymtTyfJCYcYivr4hIFgsyc+uQ8EZUmITCLUb0rYBzOteqJfeCrnSHfMcqtRmug==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(261026121527099003)(4143699003)(11063799006)(56012099006)(261022105027099003)(10067099003)(22082099003)(18002099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	EMQo0IIV2X33WAx0MXeusBTRV6Am70P6pTCub2t5HdcwfC0r0mfMdfy1d95XifngDdMuDIBGxVKoAhO5RuKtfWBZQN+MDZOSk12eWP/J3x1HtcpVnHWCLnXa8XlZcWY1gEEWVqJy9D51E0dsT1irqV450FZSPBIb9sKbRzqQLzXkSJ3YeV1GXtWlcJMqwUFtk3GvZxl+QBYFeROxfg00hSMftkaCh8ZqaIlJ1t8knAqc8kNVQYJ3CU3bRP0Oo7bqE+RRsJ0MGHU6Mnt/Bx3a+P+h2eAz/NV26KzWwxITCbA8XJtxLYZjPWFVfjoh0tJFJrkgWmSdCTUESrmkhRv6mPzFcFgNPk7htmJmn5F0lAhx4gV8N9fB3ng57a+WdR4r2j69u2K2msuiAkGC4mpkyUsJC22I01UPJ7pb/5erLtToidg2/3o8FiXrqmmxDlEd
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:30:25.2431
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61433450-a38d-488d-cf0e-08df33eb6752
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001F3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7481
 
-From: Alistair Francis <alistair.francis@wdc.com>
+Hello Andrea,
 
-Support the CHALLENGE SPDM command.
+On 10/27/2026 9:43 AM, Andrea Righi wrote:
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -8331,8 +8331,13 @@ int migrate_task_to(struct task_struct *p, int target_cpu)
+>  void sched_setnuma(struct task_struct *p, int nid)
+>  {
+>  	guard(task_rq_lock)(p);
+> -	scoped_guard (sched_change, p, DEQUEUE_SAVE)
+> +	scoped_guard (sched_change, p, DEQUEUE_SAVE) {
+> +		bool changed = p->numa_preferred_nid != nid;
 
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
----
- lib/rspdm/consts.rs    |   6 ++
- lib/rspdm/lib.rs       |  10 ++-
- lib/rspdm/state.rs     | 188 +++++++++++++++++++++++++++++++++++++++--
- lib/rspdm/validator.rs | 156 ++++++++++++++++++++++++++++++++--
- 4 files changed, 347 insertions(+), 13 deletions(-)
+Don't the callers of sched_setnuma() already check for this?
 
-diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
-index 964ae2a21c6da..f2cb04d82d529 100644
---- a/lib/rspdm/consts.rs
-+++ b/lib/rspdm/consts.rs
-@@ -77,6 +77,8 @@
- 
- pub(crate) const SPDM_GET_CERTIFICATE: u8 = 0x82;
- 
-+pub(crate) const SPDM_CHALLENGE: u8 = 0x83;
-+
- // If the crypto support isn't enabled don't offer the algorithms
- // to the responder
- #[cfg(CONFIG_CRYPTO_RSA)]
-@@ -105,3 +107,7 @@
- pub(crate) const SPDM_HASH_ALGOS: u32 = SPDM_HASH_SHA2_256 | SPDM_HASH_SHA2_384_512;
- 
- pub(crate) const SPDM_OPAQUE_DATA_FMT_GENERAL: u8 = bit_u8(1);
-+
-+pub(crate) const SPDM_PREFIX_SZ: usize = 64;
-+pub(crate) const SPDM_COMBINED_PREFIX_SZ: usize = 100;
-+pub(crate) const SPDM_MAX_OPAQUE_DATA: usize = 1024;
-diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
-index 5277fc8c56fb8..3d03f9dee8f33 100644
---- a/lib/rspdm/lib.rs
-+++ b/lib/rspdm/lib.rs
-@@ -11,8 +11,7 @@
- //! from other subsytems.
- 
- use crate::bindings::{
--    spdm_state,
--    EPROTONOSUPPORT, //
-+    spdm_state, //
- };
- use core::ffi::{
-     c_int,
-@@ -301,7 +300,12 @@ pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
-         provisioned_slots &= !(1 << slot);
-     }
- 
--    -(EPROTONOSUPPORT as i32)
-+    let provisioned_slots = state.provisioned_slots.trailing_zeros();
-+    if let Err(e) = state.challenge(provisioned_slots as u8) {
-+        return e.to_errno() as c_int;
-+    }
-+
-+    0
- }
- 
- /// Destroys an SPDM session.
-diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
-index aa36d4ce7b41a..993d19cd60935 100644
---- a/lib/rspdm/state.rs
-+++ b/lib/rspdm/state.rs
-@@ -21,6 +21,7 @@
-     hash::Shash,
-     public_key::PublicKey,
-     str::CStr,
-+    str::CString,
-     validate::Untrusted,
-     x509::Certificate,
- };
-@@ -33,6 +34,7 @@
-     SPDM_ASYM_RSASSA_2048,
-     SPDM_ASYM_RSASSA_3072,
-     SPDM_ASYM_RSASSA_4096,
-+    SPDM_COMBINED_PREFIX_SZ,
-     SPDM_ERROR,
-     SPDM_GET_VERSION_LEN,
-     SPDM_HASH_ALGOS,
-@@ -40,10 +42,12 @@
-     SPDM_HASH_SHA_384,
-     SPDM_HASH_SHA_512,
-     SPDM_KEY_EX_CAP,
-+    SPDM_MAX_OPAQUE_DATA,
-     SPDM_MAX_VER,
-     SPDM_MEAS_RESP_CAP,
-     SPDM_MIN_VER,
-     SPDM_OPAQUE_DATA_FMT_GENERAL,
-+    SPDM_PREFIX_SZ,
-     SPDM_REQ,
-     SPDM_RSP_MIN_CAPS,
-     SPDM_SLOTS,
-@@ -53,6 +57,8 @@
-     SPDM_VER_13, //
- };
- use crate::validator::{
-+    ChallengeReq,
-+    ChallengeRsp,
-     GetCapabilitiesReq,
-     GetCapabilitiesRsp,
-     GetCertificateReq,
-@@ -72,6 +78,8 @@
-     SPDM_CERT_CHAIN_HDR_SZ, //
- };
- 
-+const SPDM_CONTEXT: &str = "responder-challenge_auth signing";
-+
- /// Transport for exchanging SPDM messages with a responder device.
- ///
- /// This trait abstracts the bus-specific message transport (for example
-@@ -144,7 +152,7 @@ pub(crate) struct SpdmState<'a, T: Transport> {
-     base_asym_enc: &'static CStr,
-     /// Signature length of `base_asym_alg` (in bytes). S or SigLen in SPDM
-     /// specification.
--    sig_len: usize,
-+    pub(crate) sig_len: usize,
- 
-     /// Hash transformation for `base_hash_alg` computation.
-     crypto: Option<Shash>,
-@@ -155,6 +163,16 @@ pub(crate) struct SpdmState<'a, T: Transport> {
-     /// Public key portion of leaf certificate against which to check
-     /// responder's signatures.
-     pub(crate) leaf_key: Option<PublicKey>,
-+
-+    /// Concatenation of all SPDM messages exchanged during an authentication
-+    /// or measurement sequence. Used to verify the signature, as it is
-+    /// computed over the hashed transcript.
-+    transcript: VVec<u8>,
-+
-+    /// Requester nonce to be used for the next authentication sequence.
-+    /// Populated from user space through sysfs. If user space does not
-+    /// provide a nonce, the kernel uses a random one.
-+    pub(crate) next_nonce: KVec<u8>,
- }
- 
- impl<'a, T: Transport> SpdmState<'a, T> {
-@@ -181,6 +199,8 @@ pub(crate) fn new(
-             crypto: None,
-             certs: [const { KVec::new() }; SPDM_SLOTS],
-             leaf_key: None,
-+            transcript: VVec::new(),
-+            next_nonce: KVec::new(),
-         }
-     }
- 
-@@ -197,12 +217,14 @@ pub(crate) fn hash_len(&self) -> usize {
-     /// The data in `request_buf` is sent to the device and the response
-     /// is returned as untrusted data to be validated by the caller.
-     pub(crate) fn spdm_exchange(
--        &self,
-+        &mut self,
-         request_buf: &[u8],
-         mut response_buf: KVec<u8>,
-     ) -> Result<Untrusted<KVec<u8>>, Error> {
-         let header_size = core::mem::size_of::<SpdmHeader>();
--        let request: SpdmHeader = Untrusted::new(request_buf).validate(self)?;
-+        let request: SpdmHeader = Untrusted::new(request_buf).validate(&*self)?;
-+
-+        self.transcript.extend_from_slice(request_buf, GFP_KERNEL)?;
- 
-         let length = self
-             .transport
-@@ -220,11 +242,11 @@ pub(crate) fn spdm_exchange(
-         response_buf.truncate(length);
- 
-         let response: SpdmHeader =
--            Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(self)?;
-+            Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(&*self)?;
- 
-         if response.code == SPDM_ERROR {
-             let error_rsp: SpdmErrorRsp =
--                Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(self)?;
-+                Untrusted::new(response_buf.get(..header_size).ok_or(EPROTO)?).validate(&*self)?;
-             pr_err!("Error response: {error_rsp:?}\n");
-             return Err(error_rsp.error_code.into());
-         }
-@@ -248,6 +270,8 @@ pub(crate) fn get_version(&mut self) -> Result<(), Error> {
-         request.header.version = SPDM_MIN_VER;
-         self.version = SPDM_MIN_VER;
- 
-+        self.transcript.clear();
-+
-         // Clear the leaf cert as we are re-authenticating
-         self.leaf_key = None;
- 
-@@ -259,6 +283,9 @@ pub(crate) fn get_version(&mut self) -> Result<(), Error> {
-             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-             .validate(&*self)?;
- 
-+        self.transcript
-+            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
-+
-         let mut foundver = false;
-         for &entry in response.version_number_entries.iter() {
-             let alpha_version = (entry & 0xF) as u8;
-@@ -309,7 +336,11 @@ pub(crate) fn get_capabilities(&mut self) -> Result<(), Error> {
-             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-             .validate(&*self)?;
- 
-+        self.transcript
-+            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
-+
-         self.rsp_caps = response.flags;
-+
-         if (self.rsp_caps & SPDM_RSP_MIN_CAPS) != SPDM_RSP_MIN_CAPS {
-             pr_err!(
-                 "{:#x} capabilities are supported, which don't meet required {:#x}\n",
-@@ -404,6 +435,9 @@ pub(crate) fn negotiate_algs(&mut self) -> Result<(), Error> {
-             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-             .validate(&*self)?;
- 
-+        self.transcript
-+            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
-+
-         self.base_asym_alg = response.base_asym_sel;
-         self.base_hash_alg = response.base_hash_sel;
-         self.meas_hash_alg = response.measurement_hash_algo;
-@@ -450,6 +484,9 @@ pub(crate) fn get_digests(&mut self) -> Result<(), Error> {
-             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-             .validate(&*self)?;
- 
-+        self.transcript
-+            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
-+
-         let mut deprovisioned_slots = self.provisioned_slots & !response.header.param2;
-         while (deprovisioned_slots.trailing_zeros() as usize) < SPDM_SLOTS {
-             let slot = deprovisioned_slots.trailing_zeros() as usize;
-@@ -488,6 +525,9 @@ pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
-             .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-             .validate(&*self)?;
- 
-+        self.transcript
-+            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
-+
-         if (response.header.param1 & 0xF) != slot {
-             pr_err!("Invalid slot response\n");
-             return Err(EPROTO);
-@@ -521,6 +561,9 @@ pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
-                 .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-                 .validate(&*self)?;
- 
-+            self.transcript
-+                .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
-+
-             let portion_length = response.portion_length;
-             let rem_length = response.remainder_length;
- 
-@@ -603,4 +646,139 @@ pub(crate) fn validate_cert_chain(&mut self, slot: u8) -> Result<(), Error> {
- 
-         Ok(())
-     }
-+
-+    pub(crate) fn challenge_rsp_len(&mut self, nonce_len: usize, opaque_len: usize) -> usize {
-+        // No measurement summary hash requested (MSHLength == 0)
-+        let mut length =
-+            core::mem::size_of::<SpdmHeader>() + self.hash_len() + nonce_len + opaque_len + 2;
-+
-+        if self.version >= SPDM_VER_13 {
-+            length += 8;
-+        }
-+
-+        length + self.sig_len
-+    }
-+
-+    fn verify_signature(&mut self, signature: &mut [u8]) -> Result<(), Error> {
-+        let crypto = self.crypto.as_ref().ok_or(EPROTO)?;
-+        let leaf_key = self.leaf_key.as_ref().ok_or(EPROTO)?;
-+        let hash_len = crypto.hash_len();
-+        let sig_len = self.sig_len;
-+
-+        if self.transcript.len() <= sig_len {
-+            return Err(EPROTO);
-+        }
-+
-+        let mut m: KVec<u8> = KVec::new();
-+        m.extend_with(SPDM_COMBINED_PREFIX_SZ + hash_len, 0, GFP_KERNEL)?;
-+
-+        // Generate the `unverified_message_hash`, which is the hash of the
-+        // `unverified_data` (Chapter 16 - "Signature Verification").
-+        crypto.digest(
-+            &self.transcript[..(self.transcript.len() - sig_len)],
-+            &mut m[SPDM_COMBINED_PREFIX_SZ..],
-+        )?;
-+
-+        // Must be in scope whenever `sig` is used
-+        let mut mhash: KVec<u8> = KVec::new();
-+
-+        let message = if self.version <= SPDM_VER_11 {
-+            &m[SPDM_COMBINED_PREFIX_SZ..]
-+        } else {
-+            // `M` shall be the concatenation of the `combined_spdm_prefix`
-+            // and `unverified_message_hash`. We use `M` for pub/priv
-+            // signature verification below.
-+            // (Chapter 16 - "Signature Verification")
-+
-+            let major = self.version >> 4;
-+            let minor = self.version & 0xF;
-+
-+            // Generate the `spdm_prefix` (Chapter 15 - "Signature generation")
-+            let prefix = CString::try_from_fmt(fmt!("dmtf-spdm-v{major:x}.{minor:x}.*dmtf-spdm-v{major:x}.{minor:x}.*dmtf-spdm-v{major:x}.{minor:x}.*dmtf-spdm-v{major:x}.{minor:x}.*"))?;
-+
-+            if prefix.to_bytes().len() != SPDM_PREFIX_SZ {
-+                pr_err!("spdm_prefix length is incorrect\n");
-+                return Err(EPROTO);
-+            }
-+
-+            // Build the `combined_spdm_prefix` (Chapter 15 - "Signature
-+            // generation") directly in `m`: the 64 byte `spdm_prefix`, zero
-+            // padding, followed by the 36 byte `spdm_context`. `m` was zero
-+            // initialised above with the `unverified_message_hash` copied
-+            // in at offset SPDM_COMBINED_PREFIX_SZ, so only the two
-+            // non-zero portions need to be written.
-+            m[..SPDM_PREFIX_SZ].copy_from_slice(prefix.to_bytes());
-+            m[SPDM_COMBINED_PREFIX_SZ - SPDM_CONTEXT.len()..SPDM_COMBINED_PREFIX_SZ]
-+                .copy_from_slice(SPDM_CONTEXT.as_bytes());
-+
-+            // Generate a hash of `M` and use that for signature
-+            // verification (RSA or ECDSA)
-+            mhash.extend_with(hash_len, 0, GFP_KERNEL)?;
-+            crypto.digest(m.as_slice(), mhash.as_mut_slice())?;
-+
-+            mhash.as_slice()
-+        };
-+
-+        // Finally verify the generated signature against the public key
-+        leaf_key.verify_signature(signature, self.base_asym_enc, crypto.name(), message)
-+    }
-+
-+    pub(crate) fn challenge(&mut self, slot: u8) -> Result<(), Error> {
-+        let mut request = ChallengeReq::default();
-+        request.header.version = self.version;
-+        request.header.param1 = slot;
-+
-+        let nonce_len = request.nonce.len();
-+
-+        if !self.next_nonce.is_empty() {
-+            let request_nonce_len = request.nonce.len();
-+
-+            if self.next_nonce.len() == request_nonce_len {
-+                request
-+                    .nonce
-+                    .copy_from_slice(&self.next_nonce[..request_nonce_len]);
-+            } else {
-+                return Err(EINVAL);
-+            }
-+
-+            self.next_nonce.clear();
-+        } else {
-+            // SAFETY: `request.nonce` is a valid buffer of `nonce_len` length.
-+            unsafe {
-+                bindings::get_random_bytes(
-+                    core::ptr::from_mut(&mut request.nonce).cast::<c_void>(),
-+                    nonce_len,
-+                )
-+            };
-+        }
-+
-+        let rsp_sz = self.challenge_rsp_len(nonce_len, SPDM_MAX_OPAQUE_DATA);
-+
-+        let mut request_buf = request.to_bytes()?;
-+
-+        let response_vec: KVec<u8> = KVec::from_elem(0u8, rsp_sz, GFP_KERNEL)?;
-+
-+        let mut response: ChallengeRsp = self
-+            .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
-+            .validate(&*self)?;
-+
-+        self.transcript
-+            .extend_from_slice(response.as_bytes()?, GFP_KERNEL)?;
-+
-+        if request.context != response.context {
-+            pr_err!("Mismatched challenge context response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        match self.verify_signature(&mut response.signature) {
-+            Ok(()) => {
-+                pr_info!("Authenticated with certificate slot {slot}\n");
-+                Ok(())
-+            }
-+            Err(e) => {
-+                pr_err!("Cannot verify challenge_auth signature: {e:?}\n");
-+                Err(EPROTO)
-+            }
-+        }
-+    }
- }
-diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
-index 469a5722368f2..4ec0db6ffb59c 100644
---- a/lib/rspdm/validator.rs
-+++ b/lib/rspdm/validator.rs
-@@ -10,12 +10,14 @@
- use crate::consts::{
-     SPDM_ASYM_ALGOS,
-     SPDM_CAP_SUPPORTED_ALGORITHMS,
-+    SPDM_CHALLENGE,
-     SPDM_CTEXPONENT,
-     SPDM_GET_CAPABILITIES,
-     SPDM_GET_CERTIFICATE,
-     SPDM_GET_DIGESTS,
-     SPDM_GET_VERSION,
-     SPDM_HASH_ALGOS,
-+    SPDM_MAX_OPAQUE_DATA,
-     SPDM_MEAS_SPEC_DMTF,
-     SPDM_MIN_DATA_TRANSFER_SIZE,
-     SPDM_MIN_VER,
-@@ -144,7 +146,6 @@ pub(crate) struct GetVersionRsp {
- }
- 
- impl GetVersionRsp {
--    #[expect(dead_code)]
-     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-         self.raw_bytes.get(..self.length).ok_or(EPROTO)
-     }
-@@ -401,7 +402,6 @@ pub(crate) struct GetCapabilitiesRsp {
- }
- 
- impl GetCapabilitiesRsp {
--    #[expect(dead_code)]
-     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-         self.raw_bytes.get(..self.length).ok_or(EPROTO)
-     }
-@@ -592,7 +592,6 @@ pub(crate) struct NegotiateAlgsRsp {
- }
- 
- impl NegotiateAlgsRsp {
--    #[expect(dead_code)]
-     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-         self.raw_bytes.get(..self.length).ok_or(EPROTO)
-     }
-@@ -762,7 +761,6 @@ pub(crate) struct GetDigestsRsp {
- }
- 
- impl GetDigestsRsp {
--    #[expect(dead_code)]
-     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-         self.raw_bytes.get(..self.length).ok_or(EPROTO)
-     }
-@@ -924,7 +922,6 @@ pub(crate) struct GetCertificateRsp {
- }
- 
- impl GetCertificateRsp {
--    #[expect(dead_code)]
-     pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-         self.raw_bytes.get(..self.length).ok_or(EPROTO)
-     }
-@@ -981,3 +978,152 @@ fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<'c, T>) -> Result<Self
-         })
-     }
- }
-+
-+pub(crate) struct ChallengeReq {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) nonce: [u8; 32],
-+    pub(crate) context: [u8; 8],
-+}
-+
-+impl ChallengeReq {
-+    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
-+        let mut out = self.header.to_bytes()?;
-+
-+        out.extend_from_slice(&self.nonce, GFP_KERNEL)?;
-+
-+        if self.header.version > SPDM_VER_12 {
-+            out.extend_from_slice(&self.context, GFP_KERNEL)?;
-+        }
-+
-+        Ok(out)
-+    }
-+}
-+
-+impl Default for ChallengeReq {
-+    fn default() -> Self {
-+        ChallengeReq {
-+            header: SpdmHeader::new(SPDM_CHALLENGE),
-+
-+            nonce: [0; 32],
-+            context: [0; 8],
-+        }
-+    }
-+}
-+
-+#[expect(dead_code)]
-+pub(crate) struct ChallengeRsp {
-+    pub(crate) header: SpdmHeader,
-+
-+    pub(crate) cert_chain_hash: KVec<u8>,
-+    pub(crate) nonce: [u8; 32],
-+
-+    pub(crate) opaque_data_len: u16,
-+    pub(crate) opaque_data: KVec<u8>,
-+
-+    /// `RequesterContext`, only present in SPDM 1.3 and later, zeroed otherwise.
-+    pub(crate) context: [u8; 8],
-+
-+    pub(crate) signature: KVec<u8>,
-+
-+    /// The actual length of the SPDM message. `raw_bytes` might be longer
-+    /// as it includes transport specific padding.
-+    length: usize,
-+
-+    /// Entire response, used for the transcript hash.
-+    raw_bytes: KVec<u8>,
-+}
-+
-+impl ChallengeRsp {
-+    pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
-+        self.raw_bytes.get(..self.length).ok_or(EPROTO)
-+    }
-+}
-+
-+impl<'c, T: Transport> Validate<'c, Untrusted<KVec<u8>>, &'c SpdmState<'c, T>> for ChallengeRsp {
-+    type Err = Error;
-+
-+    fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<'c, T>) -> Result<Self, Self::Err> {
-+        let header: SpdmHeader =
-+            Untrusted::new(unvalidated.get(0..4).ok_or(EPROTO)?).validate(context)?;
-+
-+        if header.code != SPDM_CHALLENGE - 0x80 {
-+            return Err(EPROTO);
-+        }
-+
-+        if header.version != context.version {
-+            pr_err!("Invalid version response\n");
-+            return Err(EPROTO);
-+        }
-+
-+        let hash_len = context.hash_len();
-+
-+        let nonce_offset = mem::size_of::<SpdmHeader>() + hash_len;
-+        // MSHLength (H) is always zero as we don't support it
-+        let opaque_len_offset = nonce_offset + 32;
-+        let opaque_offset = opaque_len_offset + 2;
-+
-+        let mut cert_chain_hash = KVec::new();
-+        cert_chain_hash.extend_from_slice(
-+            unvalidated
-+                .get(mem::size_of::<SpdmHeader>()..nonce_offset)
-+                .ok_or(EPROTO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        let mut nonce = [0u8; 32];
-+        nonce.copy_from_slice(
-+            unvalidated
-+                .get(nonce_offset..nonce_offset + 32)
-+                .ok_or(EPROTO)?,
-+        );
-+
-+        let opaque_data_len = u16::from_le_bytes(
-+            unvalidated
-+                .get(opaque_len_offset..opaque_len_offset + 2)
-+                .ok_or(EPROTO)?
-+                .try_into()
-+                .map_err(|_| EPROTO)?,
-+        );
-+
-+        if opaque_data_len > SPDM_MAX_OPAQUE_DATA as u16 {
-+            return Err(EPROTO);
-+        }
-+
-+        let opaque_end = opaque_offset + opaque_data_len as usize;
-+        let mut opaque_data = KVec::new();
-+        opaque_data.extend_from_slice(
-+            unvalidated.get(opaque_offset..opaque_end).ok_or(EPROTO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        // `RequesterContext` (8 bytes) is only present in SPDM 1.3 and later.
-+        let mut req_context = [0u8; 8];
-+        let context_end;
-+        if context.version >= SPDM_VER_13 {
-+            context_end = opaque_end + 8;
-+            req_context.copy_from_slice(unvalidated.get(opaque_end..context_end).ok_or(EPROTO)?);
-+        } else {
-+            context_end = opaque_end;
-+        }
-+
-+        let signature_end = context_end + context.sig_len;
-+        let mut signature = KVec::new();
-+        signature.extend_from_slice(
-+            unvalidated.get(context_end..signature_end).ok_or(EPROTO)?,
-+            GFP_KERNEL,
-+        )?;
-+
-+        Ok(ChallengeRsp {
-+            header,
-+            cert_chain_hash,
-+            nonce,
-+            opaque_data_len,
-+            opaque_data,
-+            context: req_context,
-+            signature,
-+            length: signature_end,
-+            raw_bytes: unvalidated,
-+        })
-+    }
-+}
+Only one that doesn't is task_numa_migrate() but
+numa_migrate_preferred() only calls it when
+"task_node(p) == p->numa_preferred_nid" is false and "!sd "case resets
+"p->numa_preferred_nid" to "task_node(p)" when the task cannot be
+migrated.
+
+Afaict, "changed" is always true here. Is there a scenario that I might
+be missing?
+
+> +
+>  		p->numa_preferred_nid = nid;
+> +		if (changed && p->sched_class->numa_node_changed)
+> +			p->sched_class->numa_node_changed(task_rq(p), p, nid);
+> +	}
+>  }
+>  #endif /* CONFIG_NUMA_BALANCING */
+
 -- 
-2.56.0
+Thanks and Regards,
+Prateek
 
