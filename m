@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.190
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793129615;
-	b=B52TitS2p+qJyh0Oq8jw7gTgD38N9+/3YfxeJuQ4bHt/o4a85EYZDCig1WzJk5ilN8s1
-	 bcKHvh6nQs9d3qrZB2Nx8ayj1P9CAcC2ZvYVuSr0je/LJzYVLKGFIIEb2hfl7NrTRXLki
-	 sCLHUI5IFKrkd7ctpOi5Q7+R7ISajyLZ39bahoOCA1xuB8fsHCmZ9qoX6iolt9h7g6wGY
-	 sjdxCSZKTyn8x2FvJce8pqPKSZ+7wqWJAE+PD9AvSTC27SJrqgPjbfdhQXCQYJcZaVWpX
-	 2DJqc6oyHE/UzaEYGBlZWTdCldZKS5+j5+zrQAIFiyCKbrgB+X/rVoH7V1CQB1byxVw==
+	t=1793129756;
+	b=dI2htikUD8I6yxOFtsvIQ0+hFBfOCy++G+zZRX8lfRA2D4KHbiLkD1lxPRCUhb/CB/3P
+	 dJIBK/WYgboen3m8xZrelGf2TkwnfIUG86+t239f0CwxyB6rUgjfhHhG5wXG/oOJCB93j
+	 Vzp4LURvQqWsHDZCYygSLIRRET03YudkGSFEPhAECglnhBlD+faT+pXCQEmQPjHisRJpK
+	 yU1H8Ey92c7ROfW8jyy8TCSA8gc+I4j44qYokAz0pGwy9YzPhTjWW4hK6eE2L6dC8Xx8X
+	 XNnC8upyGbTIM4906aAZHwHGnUqRoS+GAOEvb5abfGnzJa72Fqcr2GjZ0yDuDEEfY+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793129615;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=UYHoSpCC3bJkRNY60Q75ZtY+/Q28tZmoyETvol+drwU=;
-	b=UVlKKqhasP+dfQWwjSGrijuO9eZYFnZrXpyIpSWkj4zHiLQaH0FHOuAgZn0Mj0Owd8dl
-	 yFzix7IHdn+zQGs5KMq1Tbztr5jyPjlhOfo3OYHWGWVZlhcc0r3x3FmLw7Swx6IIqhcM2
-	 hL3J0ZYJeVBhdK13riVt4hETlyf12+C+SoEZ6ZHKJnUzrBw7mnLpds6owuzDbWi5EI0zg
-	 RVVx47IyD2dxm9uDpWrzDTJIARAA72Otjn10HLeTdY22043UhXBvq1ahDWOxwZmxA7gmq
-	 SJi0u/2IlngkH/cVBhQfKRJeN5ZChiL5iG8nVToOtn3oeU5YzynegkUlwmYyiHNT3lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793129756;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=qhifMe5NrdJSN43xLGwAD+PaYWNRHWl8G+fKLSm9XzA=;
+	b=U9HGTN2J4xCa1XyOhPBVTNcIJEVR/zN4a6I8GZXCpeJrHwh8NtkG17n6CK0EPBN/vPPH
+	 e+t1m3n7iPptJ2a4vz/NHvITj0eDqvAi2r/37yY3o5qVAvakYTaVMHHItQM1cEqzehyOt
+	 IlgmvOfN7Vs9xQ3QMOU3x+ZoHcuR6iK61nQXp2Uqo/aKRpC5G0yCnhp0Cuepjg2w8qFoM
+	 S1pqbYX7liWrZ79c2WkAukLHucZBow2DLSmKYDiCBEX/09noGKn71PUjxlLsPG8LAy+id
+	 YvudkGIqU4FtOGs0ey0PmWPZe3jC62Tw4j7BCtOH7Nv25HkbxpQZbdqZR12VGrg6rfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EGolnHug;
-	arc=none smtp.remote-ip=91.218.175.190
-Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="MtjO/rMz";
+	arc=none smtp.remote-ip=44.202.169.37
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00689606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:33:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00689606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72018606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:35:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72018606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EGolnHug
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KDlDFT7/lBze1qf8C7Wzt65hkkCuNYLkslyxyezk8l0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793129610; v=1; x=1793734410;
- b=EGolnHugYI+f7JE/JFBxWzrgEaore00DVnBAu3DnDO8VIRo311Gnn/5j3Vj6ZP+Yu/sb29V9
- a5WSiRHSuN8oze/F/V9XiiyKZQRFV6ab2dxY3ZuMN0ZdAQ84X2oiFYAOr/JQWY1VJeKgkrz/RLe
- 1RWm7p6xndo3RDzu2jVMfjgc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 54aa230a64b7b18a;
-	Tue, 27 Oct 2026 19:33:30 +0000
-X-Mizu-Trace-ID: 54aa230a64b7b18a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5199fa29-64d8-48ab-b591-cbc854750789@linux.dev>
-Date: Tue, 27 Oct 2026 12:33:25 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=MtjO/rMz
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id Lkj9xaaYoJFmFLmxYxMlMm; Tue, 27 Oct 2026 19:35:48 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id LmxXxkcVzSUScLmxXxCFUf; Tue, 27 Oct 2026 19:35:47 +0000
+X-Authority-Analysis: v=2.4 cv=CpG/cm4D c=1 sm=1 tr=0 ts=6ae0fd14
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=P-IC7800AAAA:8
+ a=6E73B9sLp_2llvq6DD8A:9 a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=qhifMe5NrdJSN43xLGwAD+PaYWNRHWl8G+fKLSm9XzA=; b=MtjO/rMz1XpM
+	meCGcP8d2eVBdddohQhETLJ93I2YXb/fn/1mvyyENvsiVdMfHAUZQhjdhhxK7ZuDZ8DAwEXXVJwqz
+	HzylN+hUsPNHOaDzKlQk92bypKD/ELJliCl9fwOBQ4v3j2k0kC8iEUNGgjuXbEkB+vsyf0GWz8lce
+	YwGUcyun2hn0ctmaqS7OX4OnMoxFp8vQ4iWqWKCiDilFT9q0SUbnl1/W4ZUHVPyDgchgCoH6tQW2X
+	2t4ajuuh5n17tdK4caGVfCYNWMziOVOVv3uIX7UaunyqG9CiraB0KM5YLShftaKYfPaT6e9WURJ2N
+	yEQ+XXeqNNxnLlnMnKmSMw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:58280)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLmxX-00000002TLI-0ZxZ;
+	Wed, 28 Oct 2026 01:05:47 +0530
+Message-ID: <865349b3-77a5-406e-96e6-f8187ae112ad@roeck-us.net>
+Date: Tue, 27 Oct 2026 12:35:45 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,100 +77,261 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf v2] bpf: Fix out-of-bounds btf->types write for split
- BTF
-To: Feng Yang <yangfeng59949@163.com>, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261026073654.840705-1-yangfeng59949@163.com>
+Subject: Re: [PATCH v5 5/5] watchdog: w83627hf_wdt: Add minute mode counting
+To: Paul Louvel <paul.louvel@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: Tzung-Bi Shih <tzungbi@kernel.org>, linux-watchdog@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com>
+ <20261020-w83627hf_wdt-improvements-v5-5-90b226684fc7@bootlin.com>
 Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20261026073654.840705-1-yangfeng59949@163.com>
-Content-Type: text/plain; charset=UTF-8
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261020-w83627hf_wdt-improvements-v5-5-90b226684fc7@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLmxX-00000002TLI-0ZxZ
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:58280
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 2
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfA4akuyW5puCkoIonlJ45s+xK/Zl/j6IL4tArsP918fCm76mPvv2YaeloAD7sz+f5Zr+Q+nZzs9wEJtcjBTIrCs5X2ZngHe/zvm12Cy9140o5F77f4rJ
+ IWYR69q8Lbanc+y7p7oquaISVlcTVob1REc1Zgu6xcaPMiFbvUhjfVaz2NAcJU6Xi6LxgPJMN4fpLCePaXvYeFy/7ypB0goJo3P3VLhOYAYvd1Jei3Um1FwB
 
-On 10/26/26 12:36 AM, Feng Yang wrote:
-> From: Feng Yang <yangfeng@kylinos.cn>
+On 10/20/26 01:11, Paul Louvel wrote:
+> All of the chips supported by the driver can be set to minute mode,
+> allowing timeout value up to 255 minutes.
+> Add it to the driver.
 > 
-> btf_add_type() bounds the btf->types array by BTF_MAX_TYPE, but for a
-> split BTF the type ids it registers are start_id .. start_id +
-> nr_types - 1, so what is actually left of the id space is
-> BTF_MAX_TYPE - start_id.  Two things follow from that:
-> 
->  - the limit check is an equality test,
->    'start_id + btf->types_size == BTF_MAX_TYPE'.  It is evaluated only
->    when the array has to grow, with btf->types_size == btf->nr_types,
->    and the growth (T' = min(BTF_MAX_TYPE, T + max(T / 4, 16)), starting
->    from 0) is clamped to BTF_MAX_TYPE, which it lands on exactly (...,
->    928143, then min(BTF_MAX_TYPE, 1160178)).  So unless
->    BTF_MAX_TYPE - start_id is one of the 48 sizes that sequence hits,
->    the check does not fire for a split BTF at all;
-> 
->  - new_size is clamped to BTF_MAX_TYPE instead of
->    BTF_MAX_TYPE - start_id, so the array can still grow to
->    BTF_MAX_TYPE entries even though only BTF_MAX_TYPE - start_id type
->    ids exist.
-> 
-> As a result nr_types can reach BTF_MAX_TYPE for a split BTF while its
-> type ids have already gone past BTF_MAX_TYPE; a type never validates its
-> own id, only the ids it references (btf_ref_type_check_meta()).  At that
-> point btf->types_size == btf->nr_types == BTF_MAX_TYPE and the growth
-> branch computes the same size again: it allocates a fresh BTF_MAX_TYPE
-> entry array, copies the entries, and the loop is left with
-> btf->types_size != btf->nr_types, so that branch is not taken anymore.
-> Every type after this writes btf->types[btf->nr_types++] past the end of
-> the array: BTF_MAX_TYPE * 8 == 8388600 bytes are requested, so the first
-> such write lands in the 8 byte rounding slack of the 8MB allocation, and
-> each further type writes another 8 bytes beyond it.
-> 
-> Fix both by bounding the array with BTF_MAX_TYPE - start_id and by
-> turning the equality check into a '>=' one, so that the array stops
-> exactly where the id space ends. Base BTF behavior (start_id ==
-> 0) is unchanged.
-> 
-> Fixes: 951bb64621b8 ("bpf: Add in-kernel split BTF support")
-> Signed-off-by: Feng Yang <yangfeng@kylinos.cn>
-> Reviewed-by: Mahe Tardy <mahe.tardy@gmail.com>
+> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
 > ---
->  kernel/bpf/btf.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+>   drivers/watchdog/w83627hf_wdt.c | 68 +++++++++++++++++++++++++++++++----------
+>   1 file changed, 52 insertions(+), 16 deletions(-)
 > 
-> diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-> index 7ed1ff71a089..ca49c47f6a45 100644
-> --- a/kernel/bpf/btf.c
-> +++ b/kernel/bpf/btf.c
-> @@ -1752,15 +1752,17 @@ static int btf_add_type(struct btf_verifier_env *env, struct btf_type *t)
->  		/* Expand 'types' array */
->  
->  		struct btf_type **new_types;
-> -		u32 expand_by, new_size;
-> +		u32 expand_by, new_size, max_size;
->  
-> -		if (btf->start_id + btf->types_size == BTF_MAX_TYPE) {
-> +		if (btf->start_id >= BTF_MAX_TYPE ||
-> +		    btf->start_id + btf->types_size >= BTF_MAX_TYPE) {
+> diff --git a/drivers/watchdog/w83627hf_wdt.c b/drivers/watchdog/w83627hf_wdt.c
+> index 3d6f35e79631..c45d5b9b97b7 100644
+> --- a/drivers/watchdog/w83627hf_wdt.c
+> +++ b/drivers/watchdog/w83627hf_wdt.c
+> @@ -40,6 +40,7 @@
+>   
+>   #define WATCHDOG_NAME "w83627hf/thf/hg/dhg WDT"
+>   #define WATCHDOG_TIMEOUT 60		/* 60 sec default timeout */
+> +#define WATCHDOG_MAX_TIMEOUT (255 * 60)
+>   
+>   enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
+>   	     w83687thf, w83627ehf, w83627dhg, w83627uhg, w83667hg, w83627dhg_p,
+> @@ -49,7 +50,8 @@ enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
+>   static int timeout;			/* in seconds */
+>   module_param(timeout, int, 0);
+>   MODULE_PARM_DESC(timeout,
+> -		"Watchdog timeout in seconds. 1 <= timeout <= 255, default="
+> +		"Watchdog timeout in seconds. 1 <= timeout <= "
+> +				__MODULE_STRING(WATCHDOG_MAX_TIMEOUT) ", default="
+>   				__MODULE_STRING(WATCHDOG_TIMEOUT) ".");
+>   
+>   static bool nowayout = WATCHDOG_NOWAYOUT;
+> @@ -139,6 +141,9 @@ struct w83627hf_data {
+>   	struct watchdog_info info;
+>   	const struct w83627hf_reg *reg;
+>   	const struct w83627hf_sio_pdata *sio;
+> +	bool minute_mode;
+> +	u8 early_timer_val;
+> +	u8 timer_val;
+>   };
+>   
+>   static void superio_outb(int base, int reg, int val)
+> @@ -258,21 +263,10 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
+>   		break;
+>   	}
+>   
+> -	t = superio_inb(data->sio->addr, data->reg->timeout);
+> -	if (t != 0) {
+> -		if (early_disable) {
+> -			pr_warn("Stopping previously enabled watchdog until userland kicks in\n");
+> -			superio_outb(data->sio->addr, data->reg->timeout, 0);
+> -		} else {
+> -			pr_info("Watchdog already running. Resetting timeout to %d sec\n",
+> -				wdog->timeout);
+> -			superio_outb(data->sio->addr, data->reg->timeout, wdog->timeout);
+> -			set_bit(WDOG_HW_RUNNING, &wdog->status);
+> -		}
+> -	}
+> +	data->early_timer_val = superio_inb(data->sio->addr, data->reg->timeout);
+>   
+>   	t = superio_inb(data->sio->addr, data->reg->control) &
+> -	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
+> +	    ~WDT_CTRL_RISING_EDGE_KBD_RESET;
+>   	superio_outb(data->sio->addr, data->reg->control, t);
+>   
+>   	t = superio_inb(data->sio->addr, data->reg->csr);
+> @@ -290,6 +284,7 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
+>   static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
+>   {
+>   	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
+> +	unsigned char ctrl;
+>   	int ret;
+>   
+>   	ret = superio_enter(data->sio->addr, data->sio->cfg_enter);
+> @@ -297,6 +292,15 @@ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
+>   		return ret;
+>   
+>   	superio_select(data->sio->addr, W83627HF_LD_WDT);
+> +
+> +	ctrl = superio_inb(data->sio->addr, data->reg->control);
+> +
+> +	if (data->minute_mode)
+> +		ctrl |= WDT_CTRL_MINUTE_MODE;
+> +	else
+> +		ctrl &= ~WDT_CTRL_MINUTE_MODE;
+> +
+> +	superio_outb(data->sio->addr, data->reg->control, ctrl);
+>   	superio_outb(data->sio->addr, data->reg->timeout, timeout);
+>   	superio_exit(data->sio->addr, data->sio->cfg_leave);
+>   
+> @@ -305,7 +309,9 @@ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
+>   
+>   static int wdt_start(struct watchdog_device *wdog)
+>   {
+> -	return wdt_set_time(wdog, wdog->timeout);
+> +	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
+> +
+> +	return wdt_set_time(wdog, data->timer_val);
+>   }
+>   
+>   static int wdt_stop(struct watchdog_device *wdog)
+> @@ -315,6 +321,17 @@ static int wdt_stop(struct watchdog_device *wdog)
+>   
+>   static int wdt_set_timeout(struct watchdog_device *wdog, unsigned int timeout)
+>   {
+> +	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
+> +
+> +	if (timeout > 255) {
+> +		data->minute_mode = true;
+> +		data->timer_val = DIV_ROUND_UP(timeout, 60);
+> +		timeout = data->timer_val * 60;
+> +	} else {
+> +		data->minute_mode = false;
+> +		data->timer_val = timeout;
+> +	}
+> +
+>   	wdog->timeout = timeout;
+>   
+>   	return 0;
+> @@ -332,6 +349,8 @@ static unsigned int wdt_get_time(struct watchdog_device *wdog)
+>   
+>   	superio_select(data->sio->addr, W83627HF_LD_WDT);
+>   	timeleft = superio_inb(data->sio->addr, data->reg->timeout);
+> +	if (data->minute_mode)
+> +		timeleft *= 60;
+>   	superio_exit(data->sio->addr, data->sio->cfg_leave);
+>   
+>   	return timeleft;
+> @@ -504,7 +523,7 @@ static int wdt_probe(struct platform_device *pdev)
+>   	wdd->ops = &wdt_ops;
+>   	wdd->timeout = WATCHDOG_TIMEOUT;
+>   	wdd->min_timeout = 1;
+> -	wdd->max_timeout = 255;
+> +	wdd->max_timeout = WATCHDOG_MAX_TIMEOUT;
+>   
+>   	switch (chip) {
+>   	case nct6102:
+> @@ -526,10 +545,27 @@ static int wdt_probe(struct platform_device *pdev)
+>   	watchdog_set_nowayout(wdd, nowayout);
+>   	watchdog_stop_on_reboot(wdd);
+>   
+> +	wdt_set_timeout(wdd, wdd->timeout);
+> +
+>   	ret = w83627hf_init(wdd, chip);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "failed to initialize watchdog\n");
+>   
+> +	if (data->early_timer_val) {
+> +		if (early_disable) {
 
-Hi, thanks for the patch.
+The purpose of this flag is specifically to disable the watchdog
+"at module load time or kernel boot time". Moving it into the probe
+function would delay that and is therefore undesirable.
 
-The fix makes sense to me, however the commit message is difficult to parse.
-Do you mind respinning with a more concise explanation of the bug and fix?
+On top of that, the flag is pointless in the probe function since
+the watchdog core takes care of pinging the watchdog until
+userspace kicks in if WDOG_HW_RUNNING is set.
 
-This should help: https://docs.kernel.org/process/maintainer-tip.html#changelog
+Also, any change made in that regard should be independent of
+introducing minute mode support.
 
-pr-bot: cr
+Thanks,
+Guenter
 
-
->  			btf_verifier_log(env, "Exceeded max num of types");
->  			return -E2BIG;
->  		}
->  
-> +		max_size = BTF_MAX_TYPE - btf->start_id;
->  		expand_by = max_t(u32, btf->types_size >> 2, 16);
-> -		new_size = min_t(u32, BTF_MAX_TYPE,
-> +		new_size = min_t(u32, max_size,
->  				 btf->types_size + expand_by);
->  
->  		new_types = kvzalloc_objs(*new_types, new_size,
+> +			dev_warn(dev, "Stopping previously enabled watchdog until userland kicks in\n");
+> +			ret = wdt_stop(wdd);
+> +		} else {
+> +			dev_info(dev, "Watchdog already running. Resetting timeout to %d sec\n",
+> +				 wdd->timeout);
+> +			ret = wdt_start(wdd);
+> +			set_bit(WDOG_HW_RUNNING, &wdd->status);
+> +		}
+> +
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>   	ret = devm_watchdog_register_device(dev, wdd);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "failed to register watchdog\n");
+> 
 
