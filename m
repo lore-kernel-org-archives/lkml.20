@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116635;
-	b=OktKp/wiPdJySB21awmJhB2EF/cC1Bg7+mENNW7AGHDxhfY46rCtOhW/2RSxiRSt00WW
-	 UYpUukTnimZXwWR/a86m+GOmzeprGypwTbawFSzhwff2VIo4ru3TMJk0wGP3fkDXoFR5R
-	 8bUqlBB+6XZuAJqx10Aarq7HI0GJVaWZaj8VdYVwndjIdkb2jDYt5DyLY+uSZ4G7jvFDo
-	 bPobFko7I0heQAJGMncf1bjxBysHeInHOqJuvTXc6Lr09d0S05r9uqQgiA++IaKDeF28R
-	 YjR0ZnVyv5+Divvq+BLSogPA7H0Q7p+jJ3ht6syfhmSOm5AMzjBiXKN5QHl3KuQHG5g==
+	t=1793116725;
+	b=dtdLvlqPMhLeVaXh8143W8kvfsoBIMd+HmT5IEe7o3HF4SuI6O8mjN+kGKR+BXRGUw1R
+	 yD8o2O44kd+acA+4SX2sU3wE98i4JokxT3b2NGvLkhuYwKuAIesCQvzJrtPNjj8tFECwD
+	 r9xA9O/s+9x+zQMTHfneNgsU0uPrUzOv2QElcDbL9pp70AF17S6QR+Eqrl/sFEYNmd7HD
+	 lh1QfcHLceQ6eVzBdAvuwA8gC9Zm15wYaCV9xXT1DSyieO/vualr4iRW8vM9YQwsfkNYV
+	 udUJiTp8YHLxf6QYBm+TTcUKmsptifpI+RfcM6D/CuH2vAR8Mn4yt4nFv2kYUH6b8Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116635;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mcKoKp7A5cxaM2egpk+d6t6yNfGFN2mdne0D5jZ05Ik=;
-	b=LsbUuRweWEcOxnA9FdcBSSTZlRceC69mIziWoMH4nxDD0y3SSW55hx7g1BIajdx6ipUf
-	 kLyb2B0ARQ7nUU+ovBvBzayK/lCGb602O0aZyVOvUX3VlrG353dBxuc+s+xTtjQMQgNA9
-	 hihSvLvY8Dx1KGD1zgHY7DhCz2FwMK8qpZDp/oIzAKzVcnzB+gk8EL+PqXQHCL2fsSuI0
-	 wWVGuHCi5hKe0FOjUfT1eyzyv1WuC9rIOWuBp2OhL3bPXzXorSdVFxt5iTuzYH7y4m4f4
-	 uxnOOK7Ura76dio63cZ75fswFlv0x5O3O58M6Dov9/oTzy/bsHIWVMFcmHtWqcV5YCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116725;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=/yIWyQunKXfcHJU/jPfgnmZ55cnAcfEQ8VE3Neqv5Hg=;
+	b=4TzM3iPGeHzlELov94rM34M8mH9LoUyvz5lW/wOqp11hQoYLLtVePKYOPixbHjZWEnFd
+	 wKknvqmlSN9sr4YdNuuDuuZlHCUNSde0X5LT99PBAkRxoG06YME5Ip+GuwKLkgAFQNbOq
+	 AUgi7vBjUa+joe2ovygOYG4iJaBRFqTH34KVM1iYSjGN+srBc21S93weaRgwX14PrQ1b7
+	 HenbnkCZGl7KQYyBcCzx9OWamAmEZmciJZc7EA9q20kPNJuJvY0YczNmfOUY0aFHJM1Mc
+	 WsNor0E18Yb98tdOVk+uHCVG5TRTy6f8F+IpTb0+xADqwPLV7AGk3jHSEYWSvqRd5ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=my9FVlbO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a3XNotsa;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VlRo3Mv7;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4486C606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:57:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573A4606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:58:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 573A4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=my9FVlbO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844431F01829
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:57:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793116633;
-	bh=mcKoKp7A5cxaM2egpk+d6t6yNfGFN2mdne0D5jZ05Ik=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=my9FVlbOFdwX+wQjbjHFphosZKQFMkS4UVZM589l0DfU6yQxqhhYs/2bUj0ndt2jm
-	 CWxrrcP+kAtnBSXOAB0IfZRKFMU+IohkxNbbqAK+gT/h5M42qvZjWzyexCGqC29vlY
-	 DGWIdbKa9xYH65lkqJOIC9S7PXEDleHlUP7W4YkP+1CqmyTDrsHkagdPoIyRgtRfnS
-	 PCXkpthmXy4Ook83+K2JkR23Ro9BRKn9V4sTgWHJyGm+nya5HKouiOZljecnnzRQEX
-	 Teu7ne2ziYHXubjfG8YqQJG0Xa+YGw2H/hEpdzqBQoxdl5NfhYMnW4emQiO1mpbmSA
-	 u94SnPvQNtEcw==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bcb4f23ddeso84955e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:57:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwNBhtGmXPLq+Q0lD7EP1+SHk60HRn4cAFNmZUB73hcgXlWRgLvdvy4P8yfC1cRI2PrNqWU5TjSyfrRu4Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdKvY3n6EMPVsCIURnsf/VV6IgNtlkB6mKT0pTVBKbZmpKahQG
-	zba2YPR26koidVWIvdguVJHGxlBn4+vzAXe4l3aI35nFCnteV/Cnpjk/tbn2LLI/X+n9BwXpk1/
-	lXndnTck25lYSUsMs0fNv/53mvOp6jew=
-X-Received: by 2002:a05:6512:6891:20b0:5bf:b7d1:dbac with SMTP id
- 2adb3069b0e04-5bfb7d1dd18mr2303899e87.25.1793116631879; Tue, 27 Oct 2026
- 08:57:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=a3XNotsa;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VlRo3Mv7
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RFL9t83153567
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:58:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/yIWyQunKXfcHJU/jPfgnmZ55cnAcfEQ8VE3Neqv5Hg=; b=a3XNotsaUyDQL1uw
+	78FVAxhd5m0hakz1Wei7MQIOYmtuzS4v6+sM7J8u9rVcruRD4ll1kS6BxVr9GV4N
+	TBrLq/o6c+c7O33ZzjbNncQUxWLVHNRYEKRdnu8lGweLfRgxyBYwaD57lhQBAZj2
+	9EDgkPk0TLEe5x64l3c/pUfJZ5weO3hsEUNW+uao3Yke9TuNj8ghSQQrSjbKxA5U
+	KTRlOyPSJTOXiZ+L6SHH27V7i1Ngbm1T99UmAwmIs8VGQL9AB5Fza77GP8NoXzHJ
+	bYNTog9hETuTSK3U9kw4h/wVVHV8zIs5PJeQk+VIXDAV8LxnEWxXBqLtr20UTsEc
+	mYKZPw==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqw21yyg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:58:43 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-73a1cf1638fso83544137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:58:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793116723; x=1793721523; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/yIWyQunKXfcHJU/jPfgnmZ55cnAcfEQ8VE3Neqv5Hg=;
+        b=VlRo3Mv7kWS+xyEHcRmMPGdoGkD9y1LpqXpQK/8+ElXWQ9d5RuAEE0u6LxxhxeyFD3
+         Tk5Rvo0FmNgn2wha30jejM1C1rOsqckgdoFqh/KnodoYZMPrxTnZmTyVNziJyIQJphjU
+         00pni65XEy1trAShZeyQbMs+baJve/3a4EMJYPg2/hKwt+t4fESoPZ8UOj55jTzHvadr
+         4y4vKGAkFu2pNFluRAfDqavSPZlKrP2rTfgvSO7d23/1rFX/W4JsOwPAJEG63b8CzyAy
+         Anw+rFZiz3pucipfEtL4DpWUE416+jfV0iTLreHoOrLyLPnLjmD2IxuBvECYRG2OkRDa
+         ubSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793116723; x=1793721523;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/yIWyQunKXfcHJU/jPfgnmZ55cnAcfEQ8VE3Neqv5Hg=;
+        b=qteGXDFq/8MtHpcztuyaNINQP1AzgeMrOzofSFa1rAOCt4IvLmtFbon3pXx1Cd5SGw
+         RGzVDI1gKsZTFg10WEpjsZBOVDFr0T95PqlXvzyR5a+WOsK3AN1QPmh1MPjJx6kcA+jb
+         VWaxPEu60hLI4n855VxZ+/hCEDf7x0d0YPtZp/+x2VYioBVuaW7rhZqOoJOxsLRRUJc9
+         Y6Qkeq6MooQ98zdDQbh5coy3f6VkH+4uAkvoASjwEkw7q2lW1oo4fzoDZhBCLpf+iRid
+         geVVyQhMbVB30XenKzpdJHF344c1hBI/TISNtZOb+S9aIjsPI7A5npCv/+RrYHRgYf+i
+         OnWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByz6tTRnfC9AdXs3vRSQspGo2zs0EwuioHTiHRVsquhpVqltk2iZ2XCkH9e1/WSLFx5PEpA8kmh01FHuD4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8eYamutl0nC/M+0S+MoXMQLi+jbobD+Jz+8A9bSmn3p5O/ad/
+	aNHdiQ0rJdGGx+aSDY+LcA+fLO4e37mxoMKypkQcZnjzqr81YFtxFpG3tQ+CjrZOImj076+PwDt
+	MAaf6iOmzRVphbmTvsPaqHjZN88dXJVIKY9cnXS6uPFq2etlv/Ny5sBaSMDgIsg0v2eA=
+X-Gm-Gg: AYBFou2j0GEw1gKcireG1kYzgkTCZTpu1x0h5/84fCTRpYtEtvqzoppATDguZJsqpc4
+	kVfHbbPbimkyTCk/KAL3ZJ0hcC6GaqIs7vvJyO+Rex6+wL7nFKx6fqZEW4KkSaKj0gextB41aOh
+	rgH383IGrgwoYOC0A3dRHl/ehM+VIwgeyWIENaGFfc1FYNpTz1Uoxh5PUv3txD5twfKH7Xzo2L6
+	DnTNYL39ee9a809pTi1lZhB7kWNLVNFrPGmSVDuKfVOBxL+GQv0wiVtDoeuve6RxzFyDEd0U1ZT
+	HQVq2tvBkA5kVNBWX10hDfSoVKpAtbtuTx49MVQefNBsLyDqmyckgTmuUv496CnWpwdq3lIfzcX
+	LFJS3Z8pfBvBrRFih74C4ng==
+X-Received: by 2002:a05:6102:8699:20b0:7c8:3b8c:82ae with SMTP id ada2fe7eead31-7ce5cc59d5emr3593368137.2.1793116722581;
+        Tue, 27 Oct 2026 08:58:42 -0700 (PDT)
+X-Received: by 2002:a05:6102:8699:20b0:7c8:3b8c:82ae with SMTP id ada2fe7eead31-7ce5cc59d5emr3593344137.2.1793116722060;
+        Tue, 27 Oct 2026 08:58:42 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b49640f1b9sm227658a12.19.2026.10.27.08.58.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 08:58:41 -0700 (PDT)
+Message-ID: <9a299c47-a92b-4086-8218-3f6a06a25460@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 16:58:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,141 +115,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
-In-Reply-To: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 27 Oct 2026 16:56:59 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jwv2xYp8dSEi2nkz303ZpF00NinyHyiOkCe50YbW2gfg@mail.gmail.com>
-X-Gm-Features: AclHuK_Elp1PXV96vce-N4ZbilmgMmq6Iu8M5FDRTO3Yitc5xINYpYVJe3MyoVw
-Message-ID: <CAJZ5v0jwv2xYp8dSEi2nkz303ZpF00NinyHyiOkCe50YbW2gfg@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume
- without HWP
-To: Zak <zakbrightonknight@gmail.com>
-Cc: linux-pm@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Len Brown <lenb@kernel.org>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] firmware: qcom: pas: Add optional video memory
+ protection op
+To: Sumit Garg <sumit.garg@kernel.org>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Jorge Ramirez-Ortiz <jorge.ramirez.ortiz@gmail.com>,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>
+References: <20261027-pas-video-v2-0-5b52bca5add6@oss.qualcomm.com>
+ <20261027-pas-video-v2-1-5b52bca5add6@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261027-pas-video-v2-1-5b52bca5add6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2MyBTYWx0ZWRfX5Kcp2dJl4NU/
+ ZqCLmXGiQ8yuuePnBplizNVh7fZojK8GrU9xv9F/jZySrowhSI28ZxOZ2s9d+J496EDtqVrGCTl
+ 5DlSSCENRwBq9KRciPDYbRZpSKNm68eBTPNBCvwpnrlFPSI6VWI9bT30o45j7OyeLB4re8EMwOq
+ /81PYZ4ozzfSTVfO34j9sz69hj8in5Ela/yCdioZoc2xSQJH0Bnlv4qofJwlXWyX10Xgha35hJU
+ kX/QXTESgh47J6WUVP1JXLBnsoXYYYJKDwavbX9FIRLZLunRp5lxacVbHnxXHruFxeAYu7YP7in
+ nmsSC3TgNjH8b2nJUmGD3OLATKRqK8bOk7WoZwPnR8JAaSOugEdKz42SXSG6gFvihK9GUINEF4s
+ a/5vi/IvYjNgUA9DgVi4Lp9e8rmIeHX/k/JmoSxnBFdT6k0tWNzrFV0FXYAt5pbg9E/fZVNHy2e
+ WYRQzoZhParw7fcRzhQ==
+X-Proofpoint-GUID: PpR-j0KzvABkQ_fhRc4OR57DnwK-AoI-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2MyBTYWx0ZWRfX/VPN1x2GGKIt
+ dRBuG+e98bBDOZgj0IwUIzRhnS/Gj+ncSR/MfUh2rBGMnnJwJBpt7xyMtJprZhBz9ftgcWQvkTb
+ Bl4hzDrMOH94QvjnPEMKw6Oy5+b8TWE=
+X-Authority-Analysis: v=2.4 cv=PsYG/AM3 c=1 sm=1 tr=0 ts=6ae0ca33 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=FUnjqt_kGT4GknzHWowA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: PpR-j0KzvABkQ_fhRc4OR57DnwK-AoI-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270063
 
-On Tue, Oct 27, 2026 at 3:39=E2=80=AFPM Zak <zakbrightonknight@gmail.com> w=
-rote:
->
-> From: Zak Brighton Knight <zakbrightonknight@gmail.com>
->
-> On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
-> the CPUs stop using turbo after every suspend to RAM when intel_pstate
-> is in passive mode with the performance governor: they stay at the
-> 2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
-> policy limits change or the system is rebooted.
->
-> During resume, the firmware sets each CPU's P-state request register,
-> MSR_IA32_PERF_CTL, to the base ratio (28), and the kernel never writes
-> the requested turbo ratio (38) again.  Without hardware-managed
-> P-states (HWP), intel_pstate caches the last P-state it wrote and
-> skips writes that would not change it.  In passive mode the cpufreq
-> core also skips requests for the frequency it believes is already set
-> (policy->cur), because intel_cpufreq sets CPUFREQ_NEED_UPDATE_LIMITS
-> only with HWP.  Neither cached value is updated across suspend and
-> resume, so as long as the governor keeps requesting the same P-state,
-> as the performance governor always does, the register is never
-> rewritten.  Governors that change the request often, such as
-> schedutil, mostly hide the problem.
->
-> Fix this by writing the cached P-state back to the register in
-> intel_pstate_resume() when HWP is not used, as is already done for
-> the HWP request when it is.
->
-> The problem was found and root-caused, and this patch was drafted, with
-> the help of an AI coding assistant (Claude, by Anthropic) during a
-> performance review of the machine described above.
->
-> Fixes: 001c76f05b01 ("cpufreq: intel_pstate: Generic governors support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+On 10/27/26 1:39 PM, Sumit Garg wrote:
+> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> 
+> qcom_scm_mem_protect_video_var() is only serviced by the SCM backend.
+> Other PAS backends, e.g. OP-TEE, own secure memory protection and don't
+> implement such a call.
+> 
+> Add an optional mem_protect_video_var() PAS op along with a generic
+> qcom_pas_mem_protect_video_var() wrapper so that clients stay agnostic
+> of the active backend. The SCM backend maps it to the existing SCM call
+> while backends leaving it unset turn it into a no-op.
+> 
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
 > ---
-> Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
-> with v7.3 plus this patch and a temporary module parameter, not part
-> of this patch, to turn the fix off.  intel_pstate.c is the same in
-> v7.3 and in the base commit below.
->
-> Each row is one suspend to RAM and resume (rtcwake -m mem -s 25).
-> "Request" is the P-state read back from PERF_CTL on all eight CPUs
-> 5 and 17 seconds after resume; "clock" is the measured speed of a
-> single-threaded busy loop.  Before every suspend, all CPUs requested
-> 38 and the clock was about 3.8 GHz.
->
->   mode     governor     fix  request after resume  clock
->   passive  performance  on   38 on all CPUs        3.8 GHz
->   passive  performance  off  28 on all CPUs        2.8 GHz
->   active   performance  off  38 on all CPUs        3.8 GHz
->   active   performance  on   38 on all CPUs        3.8 GHz
->
-> The passive-mode failure was also reproduced twice on Fedora's 7.2.11
-> kernel.  In active mode the request was back at 38 after resume even
-> without the fix, so on this machine the fix only makes a difference in
-> passive mode, the default without HWP.
->
-> Not tested: systems with HWP (their code path is unchanged, only
-> restructured), other machines and firmware, and suspend-to-idle.  The
-> patch adds no warnings with W=3D1; sparse was not run.  The tests were
-> scripted and run by the same AI assistant.
->
->  drivers/cpufreq/intel_pstate.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
-e.c
-> index 17158cb..53db91a 100644
-> --- a/drivers/cpufreq/intel_pstate.c
-> +++ b/drivers/cpufreq/intel_pstate.c
-> @@ -1371,6 +1371,7 @@ static void set_power_ctl_ee_state(bool input)
->  }
->
->  static void intel_pstate_hwp_enable(struct cpudata *cpudata);
-> +static void intel_pstate_set_pstate(struct cpudata *cpu, int pstate);
->
->  static void intel_pstate_hwp_reenable(struct cpudata *cpu)
->  {
-> @@ -1404,11 +1405,20 @@ static int intel_pstate_resume(struct cpufreq_pol=
-icy *policy)
->         else if (power_ctl_ee_state =3D=3D POWER_CTL_EE_DISABLE)
->                 set_power_ctl_ee_state(false);
->
-> -       if (cpu->suspended && hwp_active) {
-> +       if (cpu->suspended) {
->                 mutex_lock(&intel_pstate_limits_lock);
->
-> -               /* Re-enable HWP, because "online" has not done that. */
-> -               intel_pstate_hwp_reenable(cpu);
-> +               if (hwp_active) {
-> +                       /* Re-enable HWP, because "online" has not done t=
-hat. */
-> +                       intel_pstate_hwp_reenable(cpu);
-> +               } else {
-> +                       /*
-> +                        * PERF_CTL may have been changed by the platform
-> +                        * firmware, but it is only written when the requ=
-ested
-> +                        * P-state changes, so restore it explicitly.
-> +                        */
-> +                       intel_pstate_set_pstate(cpu, cpu->pstate.current_=
-pstate);
 
-According to Sashiko, this introduces a possible race condition with
-concurrent P-state updates on cpu->cpu:
+I agree it's imperfect but it fits better
 
-https://sashiko.dev/#/patchset/20261027143725.3763827-1-zakbrightonknight%4=
-0gmail.com
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-It would take some more work to avoid this race AFAICS.
-
-> +               }
->
->                 mutex_unlock(&intel_pstate_limits_lock);
->         }
->
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> --
-> 2.56.0
->
+Konrad
