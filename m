@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793088109;
-	b=iF1n2FRLavl4W676Bpwy3kKvUpY9anTOV982jiRTG6ttkPl+ItsME/SsQSTWyI0PE4ki
-	 p4j56tyJ9kF/vJ8ukDnAowPQIy+EZhFBJ8i5b0kLZj9MNqJgFklxYv/asRsIRWQp7tjJ3
-	 55rvB3bLyP2LXk0IsagKiu/JotHVRNvrm6cBIj1g7sYQS/6lHwjzX6+HuoHmYdxB8d0Fw
-	 sYb32B8mF07D/0LpTevu90YJ3ROyCgve49k9pY4KV9ymMZrcMqrl3/XeHpiuqIY7r6gMf
-	 caL8sryoKwSEeb+4XUKKPRPUs4JhPK1kKykq3A/2bszbPxPrb6FwUC0G+27LJZ+I/yQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088109;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=y61Sbqy0fqJ7uPcPqzjvwLUWsxXIkkNfEEbjMBRS80s=;
-	b=q/OedJBWwsvr7O8s5HwsohmBPLW1XHk5UgjwUfJVJuo+pKZZ+4Iw8ucJHrS/6Qizuf6W
-	 lhGgB6vAdHGaa3zUwFobItchZV8sCl6ccD6yI2og1wJCbWNGP3l3Llzpbf3NyeDfmS3Uw
-	 EKHSX6KmAfeP9b/HPFVIrPUFfPenzg3tqQrzbVEpT23BzinOhpMmuow+yWXZ/pgkFKEnZ
-	 Npt4uBtJ+FsIj+ui8wH+6SwjF6Kyhhj1ByKPKfnCFUL4Suy3WG7tykUPwic2gxM6vQbbP
-	 u/p3XbP5isbnk3DxzwJtkXbibQovrhl85uOZRPpgG/26C8NbEdKTfZgiOY+E07jJHYQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MYbvhtfl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.58
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793088099;
+	b=0Q+ztbtr3A8H2OXe2l/Fa66Nqj0rtZOC13VW/yRLkkEpAp6kUBebvSKVI5UC1eEEEd0M
+	 o/J1NfzwOa6QiqWFuEHeDuhZh8Jl0d7axot92jdTqn14WffvywkRGX/+npYNd/UXvi2Tv
+	 1L/QUy+0h+6dhwXrTTZMZDidCVNrmU9lt5tXMPKe0o7NY7jXBhXUVAh/FeWRkun9L67aw
+	 vGsrm3qTJJPWMx4RaLa7SOUkuq3BxXaLQNZ5D1RyUcKPv/Gd4vppdffUEgZKt7lhlYbtn
+	 I//QWtqJiP2Om9SP6HvwwWpq2YLsl8tGbrMLoVjhHMNseJZefq75j7ltQe9lDHYSsYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088099;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X2B6wU/0TW5r/v0Xi/wCgB1SsThxqBX0ECyQ6PM2I5A=;
+	b=xH2PqN+n9SvKiWsfjfyaXkSio4zv9zwAcqedSKwHhcWKHhFoV0YAXmirz3VS/rg4Z7nz
+	 EQ/XbeDFXtBf2S0+DVB3md8MGC/7nGYZVXuyxvc7BYZoZBBm0i4P1wzwwbH9FwdVEWQdP
+	 48yKurPkow3VaAujmPbZ9qtRiAPvX38Y2jdShy3Q87euq6bW5Ca9nWDV4McYxwZOILmAS
+	 ao5c2qVmgG0b6vjbQpCA9X4Iaz0rY+8myj1Fu6QD70a8ZS5vRC+vvZsCO09A7PQFkTOUA
+	 TeQOfEiYphvrwH3LUxJ51h6U2ciPDvNSNcFbyyyTApXdFBFYnQrilwEWv8n7ximW5wA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zvc2Nuge;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EB6606A320;
-	Tue, 27 Oct 2026 08:01:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3EB6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCD3606A31B;
+	Tue, 27 Oct 2026 08:01:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=MYbvhtfl
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iEfMxrUuAx5Coz1Gdhp3k1tICL4W8nLfZzM/LcAGw1ZomeVnr3GfjmVVWtVmH4W1NaQD0DjMuf63Ou5HpqYiqhKfwkIZkga0mArq5Wb27YATiQZTCTYtSmZLjQUC8+aWjqW8bRMBVEPetjVURzOjqMHhDjBrG+tbf4nQ+BB3xMY8kXHqIPbeSRasgZiwJ3GX1bK/335A7C5YLq0chfgaA+ZqdnQD3mqs5mm3K050NKTuvZcCKpZHautipJAn5uvTimtl/ly7d4tqYxgi1alECyHlL50j8D3XrUZOD3TMp/XfgRRR2Ckjs1M/gNIv4rDVVEaPXjgggizmcXNRxaf64g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y61Sbqy0fqJ7uPcPqzjvwLUWsxXIkkNfEEbjMBRS80s=;
- b=qyhTtD5Tzo8O1RHpPzBA5Cowp+GsIyuDmuSepWDfOGS4PZ6JD7FhpCuzNPyXEkXHXcZKoZJo6EFbqJp/oZtjZLN/oaV+gtj5NQ5hUJCzbXPOxKRvK1YqB46GA6jPBuIcaaUbZZinLy6wqnaiY/jX9V9viIB+qbSSHBPMbLdgvo0p9wUvSLTGhVagc6FeuOVtmy+KWY5eNlbznYJvo+4vPKjq9WhDEqfx9DtgM7cVFMnXXw3NLujT0W3IfAw4YEUFCuRv1v8DogdJGoII4BD72cGvbwrDddMyEYLw+dNl4OYQV3CAgbPQrH/HU+shLGq36NBivXmVcOO/rVm2dgYlUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y61Sbqy0fqJ7uPcPqzjvwLUWsxXIkkNfEEbjMBRS80s=;
- b=MYbvhtflKWtZ9eOq+karAeshCb4h23IQ/7y5TlKw11PCG13OC9U2iFjYUxoShJh2egLjmxTGOpwlyJyr0J06ra+OXOL3V6uCRKvqX7Q+r1uP8VpMb6/qhWRYFMHXBNujJhnay8wHcR9MKt5czwT7F7VbhoAVRkdWkBA0pGMeM9PqW8RzPeRy9pQMTzPGxoYSxqwesXtvg1BuSDR0ccaGhxjUtqRc6e20Y0LlGDXE1M4EuRDmU1ra1oj6uc/VcTZhtpP0ImsfZrA9AYZdozCR2mPE68vtUFL3fcw5piZADrMdKpAsB1JyrH3QykqiC/8F3WIZMMNASgCvfN8UKKGKhQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- PH7PR12MB6659.namprd12.prod.outlook.com (2603:10b6:510:210::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.22; Tue, 27 Oct 2026 08:01:44 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0546.016; Tue, 27 Oct 2026
- 08:01:43 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 27 Oct 2026 17:01:40 +0900
-Message-Id: <DMFGOLKMN5B5.2R9D11QN25WPS@nvidia.com>
-Cc: "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v6 11/15] gpu: nova-core: gsp: cmdq: do not sleep when
- waiting for a message with timeout 0
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "John Hubbard"
- <jhubbard@nvidia.com>, "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
- <20261027-cmdq-rpc-v6-11-bed9669724ba@nvidia.com>
-In-Reply-To: <20261027-cmdq-rpc-v6-11-bed9669724ba@nvidia.com>
-X-ClientProxiedBy: TY4P286CA0065.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:371::7) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zvc2Nuge
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527181F01825;
+	Tue, 27 Oct 2026 08:01:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793088099;
+	bh=X2B6wU/0TW5r/v0Xi/wCgB1SsThxqBX0ECyQ6PM2I5A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Zvc2NugeSG2WXdGZJh+6V+Fz7YWUVaWK3n+l43rC+hDu/ay/tiwP/NH/bQkOPeOz7
+	 3aQTKm6E0E/GpgPfswZrx3DU+qyK4SDSyMBrAe/CSc64lwSmJAk53itoySkd1ewzkX
+	 bPJhrtfoDBqU7ldmThH8bWQpWei/CN38v0NjCpKmIjUMGM9l4ueyMVLmFtDfqQG5C2
+	 kdEWf7T6XLOD2QsvKUjIMo1+zfbTcNwKZuBOMUXCstis/pXLLwuvhDGnvHTINPJB0H
+	 PFsrXZAnPjuBfE4L3BU6dplC3zS7YPM48CYXvLoIDJHGTN1C/uCwjhdD2qzqAV4G3u
+	 JVB3IJttzK6SA==
+Date: Tue, 27 Oct 2026 09:01:34 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sakari Ailus
+ <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Linux Media Mailing List <linux-media@vger.kernel.org>, Linux Kernel
+ Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil
+ <hans@jjverkuil.nl>
+Subject: Re: [GIT PULL for v7.4] media updates
+Message-ID: <20261027090134.09b112ba@foz.lan>
+In-Reply-To: <20261027073720.GD2005298@killaraus.ideasonboard.com>
+References: <20261024185058.20410953@foz.lan>
+	<CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+	<at-a-2wTtf7bJQwU@kekkonen.localdomain>
+	<CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+	<20261027005656.6ce24b82@foz.lan>
+	<20261027073720.GD2005298@killaraus.ideasonboard.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,85 +68,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|PH7PR12MB6659:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a9eeeea-03a1-49a7-b742-08df34008a56
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|10070799003|1800799024|23010399003|366016|22082099003|18002099003|261026121527099003|56012099006|11063799006|4143699003|10067099003|261021123027099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	CJoo/AwNEgDs2BwLE+8jPe53sLk7LggqrI3c3+qmLWYQPmVZMlO60OH8KceU3akY9nNdxzaiWBpSvyTRQ0avdLy2JBO64oRQhPB4o0bjFayotySvJV7v96SKS7RzGWvm3AB2WfRkEvUjUM+/c58sljULRSKDPJ45tJJXubKuLdFPOl2qMALUySnkhhOzq6rmun1/c0vK2wHwKJKlX/RSjLN9YB/LvnkBS+XBo9+3BtWl5MAWBPzmrj8Q0jl6piXa4le8IjfvfY26AkGWcqwnYyIlpMsVADErT/uVF8i6Nhn48Q8p6cdHwmocrFYVvwAxcChhH0muHpz4YQ/ZdzTsrSiyM3bpkjgJShr4SXvic22nkhUwApLcxI41YLDAy84EREv23/5UkeUxknB5mdupiSuvBe+dapYglJbqtkT3+qddha2ygTsGuQVrm6H4LkMzU8kACVFGrHE8qPeBL2oxWOQZczEWp3QsCdxYvMTRI33rAt3nYGKYBtWQUFTlwI2LeZHYAIRjrnOYGhqUYaqQqoLSZTxhTeDlT39qwoB1irRP3v5PPqJ6GZBufoYeTG1AGE0QNeE3d69VUocoHGYLVWyn5y+/suVdj6yZd2X/c5QKWMLL9/Gg2Sef+j8hZjs2XYtGy73cbKek7d+Cfm2MmaXSl+EG3vDTynQdcj2hRU8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(23010399003)(366016)(22082099003)(18002099003)(261026121527099003)(56012099006)(11063799006)(4143699003)(10067099003)(261021123027099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aUdsQzlkU2wwTUhrYUdraDFIMFFJZkV2YjN4SUN5RDJZQStpeEloYmp3T3FS?=
- =?utf-8?B?NzR2Szg0N3pvdjJaSzY0WEdKc1Mwb0RLZ2ZJa2pIcUdla1lGS1NQemhPU3BX?=
- =?utf-8?B?eG1QYThGZFAvUlpVNGpHcVdqQXlVYlFjUzJXSkdSUWFGVzlSYjFjdmdjNXBQ?=
- =?utf-8?B?L0VucFpjQjRiRU8ybXd4ZDBKa3Q3OW1SalZOWnpmbHBOakNlY1EwOERFdkJL?=
- =?utf-8?B?VHNyaWljU3cybTRZMFFCemdFd0dicGxaQVYzQ2lWdXZsK3dPanJzVDUzVUVa?=
- =?utf-8?B?T0UxOWJoYWR6NHd6aFljMmZPT09jRGhQNTlvRVNmQ2l5K0NyWDNhZlNyRHZ1?=
- =?utf-8?B?MFlZdXVFczkwYXE2UTRmNHdBNkZMRVAxQ3pwVzlMU0xwVUlrVXpFRkQwa3pT?=
- =?utf-8?B?dWpMN0oxa1BxbHF0V1lrOTB2Rmo1dm1wU2FBamk5cGdvTCszNTFUUWt6elVC?=
- =?utf-8?B?NDUvRHZzY280czZvS2tTejRkTytOZFRUU2NPYmovWTJxM01Rdy84SFQ4ZGlw?=
- =?utf-8?B?cEdFN040RHoxaUZnRmlEbDd4dTcxaW1XeWpNWG5vVk1hKy9JSGoyZE9BcWUv?=
- =?utf-8?B?dFhkcStTbkJTNmhJdWFZNjBGOWhFVjhTRFlKWG4wY25LbUx1THJCeGx3VlY4?=
- =?utf-8?B?WHZKdml3QUVmdDVTTHI1bHl1S1M2R2N6MFR1TzYrWlkwQ3lTYUZQcDNNZzN5?=
- =?utf-8?B?MkhsQThUcWNXK3hkeGpqaWRQQmM1cUxYZkRNSG9HOThuOVBkN1pxZjNGeWRO?=
- =?utf-8?B?KysxTkM1VkVvY3pMdjQ2UFRzak42QVpXK3VUZlVJK0NINFoyU3dQRDUzakxF?=
- =?utf-8?B?QlNmUFhrWmpGcml0OFlzM2hTUmJzMjdEM25ZUkF2Y1B1QUo0ZXBxMTRLRjkz?=
- =?utf-8?B?M3ZKaFVGMTZST2FOcFJZc09qODMyeDJCZU9jMEkwOC8wMkF2MTExZXJ3d0pO?=
- =?utf-8?B?TzZ2alU2dmhZcmxQUE55cmhZQzROSjVyQ0RmU3M0cGIwaXovdXZYWGZFUGwy?=
- =?utf-8?B?UFNzUHE5d0FVVkEwYWQ1dUNoeGg0SkZ4QWs0UXRBaURnWmdFNmpscGpEL1ZG?=
- =?utf-8?B?RFBWekh6YW4xWGVaRkxST0IraWI3NStLTGpQUGxwR09kTkEvM1dsay95K1lp?=
- =?utf-8?B?ZW9aNlFjZWEzZ3gySFhLbXMycGljY2xCa0RXL0tIcnltaDNIYnZXMkRDSkVm?=
- =?utf-8?B?SEZvN2hmNncwMjJJb3pFTU5vSVV4SWRJcEFDeWRIZERhakJ4TlZzYmJhdkFN?=
- =?utf-8?B?MDh0Q29VUnhvejkzVG96NmR4OFA5NDRtYzAvMllLeEx0ZFhwV2dxdStnWjNQ?=
- =?utf-8?B?cXpTSTBuRG45NzJ3Y2ozWFRuL2l3Z1NrRnRNQkd2MU1za0czc2lDMlVhMWdZ?=
- =?utf-8?B?RVZUYUgwY2h3ZGp4bUhKaGhaT1Nvcmg5VWs1RlFJS3Q5MFJwU3A4dHlubTRE?=
- =?utf-8?B?VW13Z2xlbnNDYVMxOEt6aDlXTVByb3BNOTl3UXJuVW5vTlRTNDlWeFhURHd5?=
- =?utf-8?B?OXlTUUZwMW5WdzZ6Ym5JTE0zSjIxbW4ralh5SUV6dW1oQTZXZFdleFRFYksr?=
- =?utf-8?B?N0NoQytlUXpVQ3hiZ00vc0lIUHVjU0U5Q1hKQXJPUXFENG5hNHhtM3FXMS9H?=
- =?utf-8?B?Slo5T2ViOW1GeUt4aHNpSkJLY3BMaDZIaElTa2pBaXlGclBXNjFIdGdVck81?=
- =?utf-8?B?YVU4cW5pRGEyOUtwQ0Y3VUVwaVJ1M2twSnRzRTRlWlByaFJoSlBON2MrT0R4?=
- =?utf-8?B?N0FHYUtjdWdZcTR1dnUzR2pJV3prbS9hc0huZXpkK0psTW5TRXNHUWR1TGdv?=
- =?utf-8?B?bzIraHl0bDFlNzZGa3B0NDUxeFh3Tkk4dk9JSHB0NkdlODNZQ2hUNmFrS1hD?=
- =?utf-8?B?MmFrL2UrazV5cXV4QnVPY0xKU3h5d0l0WGJiODRMaHo3Ynl5djNJd2dIcTZD?=
- =?utf-8?B?SlNDSTZ1a3dqSDJyNnovdUwwbzdhM01ndXJ4Qm9ZWEdzTk9nZzJ6dFhCeUQ3?=
- =?utf-8?B?OEtobVZ6eCs3L01qZEk0MjBLQkZrVlNEdDVaTlVEWEVhU1VxU21RUDUwY3RU?=
- =?utf-8?B?N3FLK3hKOWg0azVWVytQemczcEM0bHpVc2wxSHkvNytORUVvZWNXbHovTGZt?=
- =?utf-8?B?OXlOQ2RzckdoZS9oa0I0QTQwaGFEcWk0TzFFWm5PWUpwRVJMQVljaTJDRDFT?=
- =?utf-8?B?RHdibnd0WXpGK0hlTnI0UmlKdW9zYkdZWjFHZFM2YVhDejAyZ0FEVnZGWnVr?=
- =?utf-8?B?eHNaOVhlTWs2OXBMaGdqTXFjY1p1NGlXY3RvaXVQQXR4SnlnTnl1eUd0VjRY?=
- =?utf-8?B?am0rUVZQOFZXc2c2Z281ZDgwVWNBNFVWaUFXa2JJMHRqamVuNkZzMnFva05o?=
- =?utf-8?Q?uVs+9P9Cnd6hEIrzS/F9TIloJR7PkesoOoMax1o18jF7N?=
-X-MS-Exchange-AntiSpam-MessageData-1: OVL5KP58HRi1Nw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a9eeeea-03a1-49a7-b742-08df34008a56
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 08:01:43.6759
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4DOPUk7wb0LKM8ArI+2Vf2PDqmpEPehXlJ9ZdG/r/uHf2ej7ygco+0Wh470XJr/WqXMV6bEwvKqkRRcIcyIKpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6659
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue Oct 27, 2026 at 4:35 PM JST, Alexandre Courbot wrote:
-> `read_poll_timeout` can potentially sleep for the specified
-> `sleep_delta` if `timeout_delta` is `Delta::ZERO` and the system clock
-> is coarse enough to not register a tick between the time the function
-> has been called and the time the loop test is done. `wait_for_msg` has a
-> short test condition and is particularly vulnerable to this condition.
->
-> Add a dedicated branch when `timeout` is `Delta::ZERO` to perform the
-> test without calling `read_poll_timeout` and avoid potentially sleeping
-> for 1ms.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
+On Tue, 27 Oct 2026 09:37:20 +0200
+Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
 
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+> On Tue, Oct 27, 2026 at 12:56:56AM +0100, Mauro Carvalho Chehab wrote:
+> > On Mon, 26 Oct 2026 08:53:07 -1000 Linus Torvalds wrote:
+> >   
+> > > On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:  
+> > > >
+> > > > The patch in question puts camera sensors and related chips in line with
+> > > > how the rest of the drivers are selected elsewhere.    
+> > > 
+> > > .. and other places could probably be improved too, I agree.
+> > > 
+> > > But this made things *worse*. Much worse.
+> > > 
+> > > The thing is, at least hide them behind some "embedded camera options"
+> > > that in turn is hidden behind "EXPERT" or something like that.
+> > > 
+> > > Don't make *normal* people who build their own kernels have to see or know.
+> > > 
+> > > Let's say that you have a laptop or something that actually uses one
+> > > of these sensors for a webcam, then it STILL does not help to ask a
+> > > user
+> > > 
+> > >  "Do you want a driver for the Analog Devices ADV7170 video encoder"
+> > > 
+> > > Because (a) that chip legacy and likely not in any laptop anyway and
+> > > (b) even if it was, no laptop user is going to *know* that.
+> > > 
+> > > See what I'm saying? You literally make things worse. Don't do that.
+> > > You're making the kernel Kconfig script ask insane questions. They are
+> > > insane because you cannot reasonably expect people to actually know
+> > > the answer to the questions.
+> > > 
+> > > In other words: don't ask questions that you know the user cannot answer.
+> > > 
+> > > There was a REASON why those menus were hidden.  
+> > 
+> > I agree with Linus on that. You're basically rolling back a feature
+> > that simplifies a lot the life for normal users: let Kconfig choose
+> > options that only a media expert can answer.
+> > 
+> > Now, I understand why it is tempting to do that to help with IPU
+> > support: camera sensors can now be easily interchangeable on new 
+> > Intel hardware.
+> > 
+> > If you look on some drivers from the old days, like bttv, saa7134
+> > and cx88, they had similar problems, but they still do support
+> > autoselect mode.
+> > 
+> > For instance, drivers/media/tuners/Kconfig has this:
+> > 
+> >    config MEDIA_TUNER
+> >         tristate
+> >         depends on (MEDIA_ANALOG_TV_SUPPORT || MEDIA_DIGITAL_TV_SUPPORT || MEDIA_RADIO_SUPPORT || MEDIA_SDR_SUPPORT) && I2C
+> >         default y
+> >         select MEDIA_TUNER_XC2028 if MEDIA_SUBDRV_AUTOSELECT
+> >         select MEDIA_TUNER_XC5000 if MEDIA_SUBDRV_AUTOSELECT
+> >         select MEDIA_TUNER_XC4000 if MEDIA_SUBDRV_AUTOSELECT
+> >         select MEDIA_TUNER_MT20XX if MEDIA_SUBDRV_AUTOSELECT
+> >         select MEDIA_TUNER_TDA8290 if MEDIA_SUBDRV_AUTOSELECT
+> >         select MEDIA_TUNER_TEA5761 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+> >         select MEDIA_TUNER_TEA5767 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+> >         select MEDIA_TUNER_SIMPLE if MEDIA_SUBDRV_AUTOSELECT
+> >         select MEDIA_TUNER_TDA9887 if MEDIA_SUBDRV_AUTOSELECT
+> >         select MEDIA_TUNER_MC44S803 if MEDIA_SUBDRV_AUTOSELECT
+> > 
+> > which is meant to support the most popular I2C tuners.
+> > 
+> > In the specific case of IPU (and atomisp, once moved out of staging),
+> > the right solution would be to have something similar to it, e.g.
+> > something like:
+> > 
+> > 	config VIDEO_INTEL_IPU6
+> > 	select VIDEO_OV2680 if MEDIA_SUBDRV_AUTOSELECT
+> > 	select VIDEO_OV2685 if MEDIA_SUBDRV_AUTOSELECT
+> > 	...
+> > 	
+> > for each sensor that might be possible to be used there. Another
+> > alternative would be to do it the reverse way, e.g.:
+> > 	
+> > 	config VIDEO_OV2680
+> > 		default MEDIA_SUBDRV_AUTOSELECT && VIDEO_INTEL_IPU6
+> > 
+> > or, maybe even better:
+> > 
+> > 	# Make setup easier by identifying PC MC-based drivers on a single place
+> > 	config MEDIA_SENSOR_AUTOSELECT
+> > 	depends on VIDEO_INTEL_IPU6
+> > 	default y
+> > 
+> > 	config VIDEO_OV2680
+> > 	default MEDIA_SENSOR_AUTOSELECT
+> > 
+> > Placing MEDIA_SENSOR_AUTOSELECT on sensor drivers. We may need
+> > similar code also for other I2C drivers that could be used on IPU.  
+> 
+> You're forgetting that this affects not only Intel-based machines with
+> raw sensors, but a lot of Arm laptops too. We would end up selecting a
+> vast majority of sensor drivers unconditionally. 
 
+I never got any ARM laptop on my hands but the principle is the same:
+For embedded systems, it is important to control each component to
+be part of the kernel, but for general computing (PCs, laptops,
+workstations), it should be simple enough to not require one to be an
+expert on media to be able to build its own kernel.
+
+So yes, the same principle applies also for ARM laptops: if
+MEDIA_SUBDRV_AUTOSELECT is enabled, all sensors and other I2C
+components that could be needed for them to work should be build
+as well.
+
+> If we want to go that
+> route, a single option to select all camera sensor drivers would be
+> simpler.
+
+Works for me, although I'm pretty sure several sensors there won't
+be used on either Intel or ARM machines. I'd say that most of
+sensor drivers older than the atomisp driver are probably not
+shipped either on Intel or ARM, because either they have very
+low resolution for those days or because they were already EOL
+by the time PC/laptop hardware started being shipped with MC-based
+cameras.
+
+So I would prefer having a MEDIA_CAMERA_SUBDRV_AUTOSELECT or
+MEDIA_SENSOR_AUTOSELECT Kconfig option, dependent of 
+MEDIA_SUBDRV_AUTOSELECT and use it for the drivers that makes
+sense.
+
+Thanks,
+Mauro
