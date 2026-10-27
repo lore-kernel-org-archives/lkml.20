@@ -1,68 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793136446;
-	b=0v1VnSLChmCCTWsB64q+tbSNw0xwLaY7GKmWVwofi9chM+bZ4MX1Kr1tXBU7Qm1rW18P
-	 kOMzsy1UyQ+j19h+t06gM7pa9ApqZPkfHjTPDK3T0KAMz73m0mQEiYBirOse6vbP4t53c
-	 lsKIUPh/4cEduRHcgND5cjtaeJf8hQlWBvvcnHC/L6yQlIqUSKGlObT7ytyGR8HDhSiE9
-	 iAIcMgwDmqd0EL14UAXvR04psKbsmmOMRue/aFOSioMtsg4E+n2rKuo9DjURPecXpHNyB
-	 9r4NW5cFhFTa4C+xzGxpnvP7/1xx5x3siiJ8yxCe0sy9mJ0KEiZNCEzJfSna06VVf4g==
+	t=1793136452;
+	b=Ehz9VHnQRyvZPMWD4HlkGjc39SIyzIVc0jpKmRNUFELfLlitpAUywPKdGU4t64WVbOFL
+	 3N0IoJUDlQtX8Zv039nl8QxwLZ8wWJe/oQxOFVIH49OT12VKRq30JFPPQ9tzZ7vDB95n6
+	 4Q9U9BB1kWHAMcIrzf0dN9E4Ejppicuq2w7/y0VQMxj7N/F24W2RJUWM85H/Mx+6kuiRi
+	 3xhoUFozguZ/5SEyoKKpiFdaBb3FQtThFHFoX2L39R85BoqZfHdHj0qQu1lkS0/ZljjHn
+	 auYo3krR7Wz2Ftj1b6EAZd1GVA69VoWzTUoHahvcoXrn/Tyoyb+KROETTz6ptKqa86A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793136446;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aIdGfGk78bfglsNu6zDlyEATBzGyUL+pcizfgre/lSI=;
-	b=ptszBpOyvq8blw2Rebf7dh1fMu0YSXIe5/C0WT2P3C6VtO04SYZt7FYRYrRUtxy5LMnF
-	 2lWpa9dVuKAEy8pEH/e5ArA7uWQkf7oJV28vxKfVwOgQrhbLDPhJNvEvF8l0lhxjMxndk
-	 EEwK73PFT6gMLgd3fFK3sHOVg1yVU6yMJWN6lHpBX1y8rqsQOkgTV5AZKJqH5O+ya+gwZ
-	 Z25oR7+fTsWH+VPHXDAclHtPVJnk/VNkEqa2s/YmuddmIKkp8DJQHU7+cKGeEcvQ1BhfG
-	 P6cwqUARveUdlm9eaIUxS5B0NQhOCPm4etNiMUMpVZ2YdYVvaWQHwEBp5n+UXWyrvwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793136452;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=zmfjQ+QJFoW1j+qRFoligu6O+sZZbd+7UWwEUgPrfjk=;
+	b=nQFwGyyIGdYiCa5SOHTqp2pkrdYsyGE0sDTjT4A/lZSf1R5R5PpFemxC7kmwyzAmj4BX
+	 6Gpp+4Au0bu2b21kBCtuFQiw6BFj3iUEwlIfgfWuKkM4kMSLmdPGGZKiXI7QofHssvskp
+	 1UY8p+YkU2HfxIh/iSgMrritbb295Ambw4sDJtKTiaLvlj2xZOZI+ZJ92k/BtM46rbjh6
+	 nQt4WRvt80sBM2P4lUaIGzrjSApSnVOBX2YATdBM1OnwvJun/NsVoz0vbiAq1m6jShC70
+	 eU/IR8rHbdmXzC04CK4gr+6g2S7LK3U//efvBU6xmMGCWmmAgr+iNEuiFsiebG5uE2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRpHIkQW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HBsaAymq;
+	arc=none smtp.remote-ip=209.85.221.176
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DCBC606A31D;
-	Tue, 27 Oct 2026 21:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE769606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:27:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE769606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lRpHIkQW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BB8E1F01825;
-	Tue, 27 Oct 2026 21:27:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793136446;
-	bh=aIdGfGk78bfglsNu6zDlyEATBzGyUL+pcizfgre/lSI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lRpHIkQWFRNurrVhjsPgALh9t20hxZewaZXFTrnBbqVoCqxvjkoa5UPVFhAluTcfd
-	 AKrBFLD6WP9DDQbdMINiBRijGcZ6k8IGjAcLgsfuT4Wdhk7Flg7ZmB3bt1HQ5d65fL
-	 ribps1QIl8kOIo+QU9VPKS/TUHVRP5bvOZKCmSgK34ElIJ25n9PxAnpcM+ed/DpXxg
-	 wTJ9dwOFGp6+vsdTTm3LNFhSrdSQKItJnvVEoLa+4nXRd70m6IQXPjBF5SyoFKlCKq
-	 XsL9dbp3wYyM7MPj7uOzvfB8wHBJiFdzw2B18pVKxBLn7NfJSHpAv0MH1QXZ6InclV
-	 x8rkMO3GPeHzQ==
-From: Imre Kaloz <kaloz@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Magnus Lindholm <linmag7@gmail.com>
-Subject: Re: [PATCH v3 4/4] mm: pass the number of PTEs to move_pte()
-Date: Tue, 27 Oct 2026 22:26:09 +0100
-Message-ID: <20261027212610.6798-1-kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <409079fe-ab52-4389-9fe0-d7246eb27bad@kernel.org>
-References: <cover.1792609488.git.kaloz@kernel.org> <2bc50d2a6829b49ee909e5bb943244859661a40b.1792609488.git.kaloz@kernel.org> <409079fe-ab52-4389-9fe0-d7246eb27bad@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HBsaAymq
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so344095e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793136450; x=1793741250; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zmfjQ+QJFoW1j+qRFoligu6O+sZZbd+7UWwEUgPrfjk=;
+        b=HBsaAymqvQ6e3C208Z9epw6vz5FpkGs2UPqRvGkcy7eeT8xedN4cMAjHC389rdsTp9
+         0ulWpDKH8JyQJhAzOmpR4u4IPYt9w+s09bGYW65H1hL1H5349sFtUf2cZKLA+rLzCJJb
+         rHvT820FBKpXmgX6vd3Avr2PUb9ETGrcpQZsdXR1YF1Us2uN9mlmggnSVAk0RebLwjfg
+         7flLpT2gMoFS6t7vhwQqTzI2BAAERs/Q2C/hJLn1sDd8oGWIa8c4xVhT5mKUKbVj//MB
+         m+p4dr/juATYVk6KgVJxCQctQY/ODmt9F272gk7sQ4fxrxtaMcJ2zlBjbW8Q7JT+RYmm
+         lnbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793136450; x=1793741250;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zmfjQ+QJFoW1j+qRFoligu6O+sZZbd+7UWwEUgPrfjk=;
+        b=khRHl3XwkQU1uOnwkkqZLyDq0Sc9P9dFsMBNKKpVz6Y7kzB4Lbc3XYCWg1jNJc6wOa
+         mx5It79P6Vzm5gi+KBamBHw6833c8pYgtscqSgVSmv+sCthrJNbE0KpY0UDDZFWl14F1
+         tzuJjGRPz0UDhlTPQv4MxPmeT8lsTOb6x+WicU+N40ssb7C2GqI3vdLkDjnTPejxh6rm
+         0JG/sI6Hc3y50/g05F57CX8R1OVtzD+AofajLpS8PEopMKNyZymrO4FF+gkHKNzkY7Qr
+         IbqLrUSgxaU00L0ZBajWcheG9ofd1RIS0sTLp7qUWg32dmIP8C8UyQMfdDN6sNhWkHnU
+         qZOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwsb5w8wgsycqeKIsCtHXw9/PJoZa+IVXniw5pZJ+2TaRU8R6PosJMEwcKNFBAL24xdtUIcNVFcayT/eww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL0fp+zKdSCNExORulsCDuT+6Vlrcz7uXclmYaSIYxZn+FN30tS
+	k0H6arFO3ZB088GjN5jlULtkRgZqbB6snJeow/7/ITQK4crUQqc8UIG1
+X-Gm-Gg: AYBFou3V3hdfZ08ifwR45NQGJ6HEJoGfHvJCh+la6tONvlsWxNeJA1SzHHXZ4EeTlbz
+	009ojp+4Bi9aUNhnCEaqOcK59M38UsQZeBIjsv4YQ+D7YKoTkNW+r/i37GbNCE4bK5dDfdQ7zBc
+	eo2DwQW8poKZlS0SOHyvgKUDyAMJlAMQhqqlvZYjGuzjh7koq4mCceAxAZXt4XY/FBTb0Hz82ah
+	LqdMIVLSTc5EHIc2zLZqHdWg+JVHfR/1fWREeLBBUE0jABiuFYkGBaHorHS3biC0lzUQndVjgbZ
+	W+Q1w28YaJVFTf5sRoEsXXcLCdu/T4lRUTbWvhB76crmUlZJjZ4rTK4D7q7PbNu/ofbDNzAiEse
+	btbOokstptTHBiiDt5owDWREYejKmcIDOu7gS56ZV2o7tqjPl7+5nprXXwyjmZll3anYC/QWASM
+	x195aYh5njRzDb9ReNjdyubvND6H1aFJB5Vy/B7CSL617IxcxAMv4qa7Y4z939/8A3wMSUHoqOx
+	PqrENbJrG7h1UL6KD51S00TifRw1gAjvCsg+8jFlv7BmQ73uk+l1G4bB9kutUfVqPqckA9Jr/yy
+	nC9tVr/iMpKeeSCl0qQRA0k/FqUVrX+uQIw3XC/2LJauJA==
+X-Received: by 2002:a05:6122:3306:b0:5c9:a60c:273d with SMTP id 71dfb90a1353d-5ec4cc9d3d9mr258607e0c.21.1793136450614;
+        Tue, 27 Oct 2026 14:27:30 -0700 (PDT)
+Received: from 16.15.168.192.in-addr.arpa ([187.74.25.171])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec23067632sm12770415e0c.0.2026.10.27.14.27.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 14:27:29 -0700 (PDT)
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+To: Simon Horman <horms@kernel.org>
+Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>,
+ Boris Pismenny <borisp@nvidia.com>, Sabrina Dubroca <sd@queasysnail.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, David S. Miller <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net/mlx5e: macsec: free SC lookup entries after an
+ RCU grace period
+Date: Tue, 27 Oct 2026 18:27:19 -0300
+Message-ID: <179313643925.89661.17416575088535677375@gmail.com>
+In-Reply-To: <20261027142601.GM257209@horms.kernel.org>
+References: <179285888829.90275.17386097105525068016@gmail.com>
+ <20261027142601.GM257209@horms.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,253 +106,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi David,
+On Tue, Oct 27, 2026 at 02:26:01PM +0000, Simon Horman wrote:
+> This patch does not apply because the problem in macsec_del_rxsc_ctx() has
+> already been addressed by ad17ad50b8dc ("net: mlx5e: Fix use-after-free of
+> the MACsec xarray entry on RX SC deletion") using kfree_rcu.
+>
+> I would suggest taking that approach in macsec_fs_id_del() too
+> unless there is a reason to use mightsleep.
 
-On 10/23/26 22:53, David Hildenbrand (Arm) wrote:
-> Is there some way we can avoid this
-> helper-that-shouldn't-exist-but-someone-hacked-it-in entirely?
-> If it makes sparc64 slightly slower #dontcare.
+Thanks Simon, I missed that ad17ad50b8dc had already landed. There is no
+reason to use the mightsleep variant, so v2 drops the macsec.c hunk and
+embeds an rcu_head in struct mlx5_fs_id so it can be freed with
+kfree_rcu():
 
-I tried three ways of doing that on an Ultra 45 (UltraSPARC IIIi, two
-CPUs), all with move_pte() removed entirely:
+https://lore.kernel.org/all/179313582625.87630.11382992904624255106@gmail.com/
 
- A) sparc64's flush_cache_range() flushes every present page in the
-    range from the D-cache;
- B) sparc64's flush_cache_range() flushes the whole D-cache;
- C) A for ranges of up to 10 pages, B above that.
-
-All three pass a test that moves pages between cache colors with
-mremap() and checks for stale data. With no flush at all the same test
-finds about 15 million stale words per run, so it does catch the
-problem.
-
-Medians of 20 runs over two boots per kernel, against this series'
-move_pte() as the baseline:
-
-                            move_pte()        A          B          C
-  apt-cache gencaches           6.63 s     +0.2%      +0.3%      +0.1%
-  fork+exec                                +0.7%      +3.1%      -0.6%
-  mremap 8K, same color          14 us      20 us      43 us      20 us
-  mremap 8K, other color         21 us      20 us      43 us      20 us
-  mremap 1M, same color          30 us     524 us      60 us      59 us
-  mremap 8M, same color         209 us    4152 us     229 us     227 us
-  mremap 8M, other color       4176 us    4166 us     236 us     233 us
-  mremap 8M THP, same color      14 us    3933 us      43 us      42 us
-
-flush_cache_range() has more callers than mremap(), mostly in rmap,
-so I also timed reclaim, migration and writeback (medians of 5):
-
-                                  A          B          C
-  MADV_PAGEOUT to swap          +0.4%     +12.9%      -1.3%
-  reclaim under memory.max      +1.9%     +17.7%      +2.0%
-  msync of shared file mappings -4.4%      -3.4%      -0.4%
-  compaction, move_pages()      within 3% for all three
-
-So A pays on large moves, B on reclaim, and C on neither: it costs
-the same as A on small ranges and the same as B on large ones. I'd go
-with C. It would only flush on Spitfire and Cheetah, which have the
-aliasing D-cache, so sun4v and the SPARC64 VII in Magnus's M3000
-series skip it.
-
-If that works for you, I'd suggest dropping 4/4 and using C as its
-replacement; it's below the scissors, on top of 1/4-3/4.
-
-Pedro, that would also settle the naming and the nr question, since
-move_pte() goes away.
-
-
-Best,
-Imre
-
--- >8 --
-Subject: [PATCH] sparc64: replace move_pte() with a flush in flush_cache_range()
-
-mremap() can move a page to an address of the other D-cache color,
-leaving lines of the old color in the virtually indexed D-cache of
-Spitfire and Cheetah.  move_pte() flushed the page for each PTE moved,
-which is only correct while move_ptes() handles one PTE at a time.
-
-Drop move_pte(), which no other architecture defines, and flush the
-old range in flush_cache_range(), which mremap() calls before moving
-the PTEs.  Flush each mapped page, or the whole D-cache for a range of
-more than ten pages, where one whole-cache flush costs about as much
-as ten page flushes.
-
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
----
-diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
-index 54a2d37008e6..1a116b288816 100644
---- a/arch/sparc/include/asm/cacheflush_64.h
-+++ b/arch/sparc/include/asm/cacheflush_64.h
-@@ -21,8 +21,8 @@ void __flushw_user(void);
- #define flush_cache_mm(__mm) \
- 	do { if ((__mm) == current->mm) flushw_user(); } while(0)
- #define flush_cache_dup_mm(mm) flush_cache_mm(mm)
--#define flush_cache_range(vma, start, end) \
--	flush_cache_mm((vma)->vm_mm)
-+void flush_cache_range(struct vm_area_struct *vma, unsigned long start,
-+		       unsigned long end);
- #define flush_cache_page(vma, page, pfn) \
- 	flush_cache_mm((vma)->vm_mm)
- 
-diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-index 1430489b9ac5..2452d959aac1 100644
---- a/arch/sparc/include/asm/pgtable_64.h
-+++ b/arch/sparc/include/asm/pgtable_64.h
-@@ -945,27 +945,6 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
- #define pte_clear(mm,addr,ptep)		\
- 	set_pte_at((mm), (addr), (ptep), __pte(0UL))
- 
--#ifdef DCACHE_ALIASING_POSSIBLE
--/* This flushes only the page the PTE maps, so it relies on move_ptes()
-- * calling it for one PTE at a time, which the default pte_batch_hint()
-- * guarantees.
-- */
--#define __HAVE_ARCH_MOVE_PTE
--#define move_pte(pte, old_addr, new_addr)				\
--({									\
--	pte_t newpte = (pte);						\
--	if (tlb_type != hypervisor && pte_present(pte)) {		\
--		unsigned long this_pfn = pte_pfn(pte);			\
--									\
--		if (pfn_valid(this_pfn) &&				\
--		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
--			flush_dcache_page_all(current->mm,		\
--					      pfn_to_page(this_pfn));	\
--	}								\
--	newpte;								\
--})
--#endif
--
- extern pgd_t swapper_pg_dir[PTRS_PER_PGD];
- 
- void paging_init(void);
-diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
-index d1f94b8d6312..466a4aa1be60 100644
---- a/arch/sparc/mm/init_64.c
-+++ b/arch/sparc/mm/init_64.c
-@@ -3115,6 +3115,95 @@ void flush_cache_vmap(unsigned long start, unsigned long end)
- #endif
- }
- 
-+static void flush_dcache_pfns(struct mm_struct *mm, unsigned long pfn,
-+			      unsigned long nr)
-+{
-+	for (; nr; nr--, pfn++)
-+		if (pfn_valid(pfn))
-+			flush_dcache_page_all(mm, pfn_to_page(pfn));
-+}
-+
-+/* A whole-cache flush costs about as much as this many page flushes. */
-+#define FLUSH_CACHE_RANGE_ALL_PAGES	10
-+
-+/*
-+ * mremap() moves the PTEs of [start, end) to addresses that may have the
-+ * other color, and calls this on the old range first.  Flush every page
-+ * mapped in the range from the D-cache, so no line of the old color
-+ * outlives the move; a larger range is flushed whole without a walk.
-+ * The walk takes no page table lock: mremap() holds the mmap_lock for
-+ * writing, and other callers at worst miss a PTE that changes under it.
-+ */
-+void flush_cache_range(struct vm_area_struct *vma, unsigned long start,
-+		       unsigned long end)
-+{
-+	struct mm_struct *mm = vma->vm_mm;
-+	unsigned long addr, next;
-+
-+	/* flush_cache_mm() spills the user register windows. */
-+	flush_cache_mm(mm);
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+	/* The D-cache is virtually indexed on Spitfire and Cheetah. */
-+	if (tlb_type != spitfire && tlb_type != cheetah &&
-+	    tlb_type != cheetah_plus)
-+		return;
-+
-+	if (((end - start) >> PAGE_SHIFT) > FLUSH_CACHE_RANGE_ALL_PAGES) {
-+		flush_dcache_all();
-+		return;
-+	}
-+
-+	for (addr = start; addr < end; addr = next) {
-+		pgd_t *pgd = pgd_offset(mm, addr);
-+		p4d_t *p4d;
-+		pud_t *pud, pudval;
-+		pmd_t *pmd, pmdval;
-+		pte_t *start_pte, *ptep, pte;
-+
-+		next = pgd_addr_end(addr, end);
-+		if (pgd_none(pgdp_get(pgd)))
-+			continue;
-+		p4d = p4d_offset(pgd, addr);
-+		next = p4d_addr_end(addr, end);
-+		if (p4d_none(p4dp_get(p4d)))
-+			continue;
-+		pud = pud_offset(p4d, addr);
-+		pudval = pudp_get(pud);
-+		next = pud_addr_end(addr, end);
-+		if (pud_none(pudval))
-+			continue;
-+		if (pud_leaf(pudval)) {
-+			if (pte_present(__pte(pud_val(pudval))))
-+				flush_dcache_pfns(mm, pud_pfn(pudval) +
-+						  ((addr & ~PUD_MASK) >> PAGE_SHIFT),
-+						  (next - addr) >> PAGE_SHIFT);
-+			continue;
-+		}
-+		pmd = pmd_offset(pud, addr);
-+		pmdval = pmdp_get_lockless(pmd);
-+		next = pmd_addr_end(addr, end);
-+		if (pmd_none(pmdval))
-+			continue;
-+		if (pmd_leaf(pmdval)) {
-+			if (pte_present(__pte(pmd_val(pmdval))))
-+				flush_dcache_pfns(mm, pmd_pfn(pmdval) +
-+						  ((addr & ~PMD_MASK) >> PAGE_SHIFT),
-+						  (next - addr) >> PAGE_SHIFT);
-+			continue;
-+		}
-+		start_pte = pte_offset_map(pmd, addr);
-+		if (!start_pte)
-+			continue;
-+		for (ptep = start_pte; addr < next; addr += PAGE_SIZE, ptep++) {
-+			pte = ptep_get(ptep);
-+			if (pte_present(pte))
-+				flush_dcache_pfns(mm, pte_pfn(pte), 1);
-+		}
-+		pte_unmap(start_pte);
-+	}
-+#endif
-+}
-+
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
- 	if (start < HI_OBP_ADDRESS && end > LOW_OBP_ADDRESS) {
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index 8c093c119e5a..b95eea612261 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -1470,10 +1470,6 @@ static inline void arch_swap_restore(swp_entry_t entry, struct folio *folio)
- }
- #endif
- 
--#ifndef __HAVE_ARCH_MOVE_PTE
--#define move_pte(pte, old_addr, new_addr)	(pte)
--#endif
--
- #ifndef pte_accessible
- # define pte_accessible(mm, pte)	((void)(pte), 1)
- #endif
-diff --git a/mm/mremap.c b/mm/mremap.c
-index e8df5cdb0ac9..2257e3010f41 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -289,7 +289,6 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 			force_flush = true;
- 		}
- 		pte = get_and_clear_ptes(mm, old_addr, old_ptep, nr_ptes);
--		pte = move_pte(pte, old_addr, new_addr);
- 		pte = move_soft_dirty_pte(pte);
- 
- 		if (need_clear_uffd_wp && pte_is_uffd_wp_marker(pte))
+Joas
