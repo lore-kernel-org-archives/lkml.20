@@ -1,77 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.46.229.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111371;
-	b=FqgLNkPbatwNbAnBGJfIDEjgUSGLIowns7hpePlKwBEaarrBYu+yATKvBgCFyzm5Jar6
-	 MD0yT9cj1ji+5TJlf14bngT5pdoP4hhshy+iv5oeAc3jZXvNNMlKZoqnSzXVMJcrU5a/l
-	 zWpjSuaxxy8NUb4KaZx7xQgnY8C1iCS7xqPlLFAA2Xe3vcykUSYq8gXX5dZ2LnYvOa2AP
-	 eVNCaTG2mxmHRY9Kd5e9lYNGTWClRINQdTcGYfANM2XCTABT4VQMBRdtMRf7zVVjt9MFL
-	 3bfNolXCFa6OLNh8+a8mhJahPVu5dVyO7Kid/G2Fr4GsZ2eF2MOd8VbVLEaSRonE7Rw==
+	t=1793111387;
+	b=wyz388jcnx53lHHZGAODAlA45ydyLZzCdUJRY8zjBRH8MrRV0FA+g0lybRpti4OyHOmn
+	 NPJd6o5GMin7yFOhHK/EL8qVTEPEKWN97+yZrocBSYwNXD4f+fx+LhxmtlTObtJj2SwXa
+	 wI0KFDQqPTjaEw1BTcT+tRW0HOil5uVRT7HckoZidxiKHdyBtOPq2ErGZYZvhO82NJ+qV
+	 PwT96x5b43HIORvimQSsVQSVOZ1IPKcevKNILYo5OHsIxBdTXZdqSqlaSdBooFztHWg82
+	 ixIyUUck8ol2EPn+TfT82UzMXEIDnZBzgtjQVFP1rd6UIvbsRw7SvK5PTbtVF+G3zIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111371;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=xqv3/WZDttv92aMuY50epWeQYW5OprQqcoNgsC7ZetA=;
-	b=Ek+jjwFjmnVOLB2NwxPKrwyyXWyigbjB7wADpyRxbWyionwv0j6nfv2vMrBzZ0vTtwuc
-	 ofG3VpmknabLp/TJfQaqITcApeAmx8zj5uJe7xoez8uPmIvdCG5h1GY88zSqaKPFllixC
-	 itiHLfaH87tosxSWOKd8OuRyZlFc2ZfzvzGcECkksclogrbnhaValYSJ/sQqG/E/ZRcDZ
-	 ju/HZtB0GQtqInTESTDHnOySlBu4Sewx70y56Ebz1yavmOC8GtYLDvAGNTn6HnPfKkmcj
-	 7aN8kWiHyUkoSlRxkgGOPWZgETOyvmacBmiZNfHFXatedXHVfDNd5zyxFYTDnpEPCIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111387;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=RRSNq1zxoA231BThBII9TjSTdWRTSwesELUafvlkFhE=;
+	b=EoY5Ck2p77SnK/GurMJFrOJZlPMfj2TMfAQk1I3KIpJmuXvDHOXgUHZK5fIDcZkZV79h
+	 QbcQrvbVcvMFWs+hHlbhD0W9LY3pwBPIgtmnZItk4RwZ9H1NQADu61Zq2RHNOOXXFdvMe
+	 yl8dUpt7o3swwejofwdX5eT82CIefi5gN15di+6n3YlGtvCq+TeW+MTQfXxlqHezTQKc/
+	 VyNpPcL4t1XjMoY8lQ0QcGWLSxKI2R3+Jq9qi74EgaLfVvcXx4PVH5vw432NRm26kkooD
+	 6a+MXregOu3mVzBL2tWUJdUrRjZJBgerZRRe96yZbarhsojwhnhFHkLhLWK5K14qWxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ACBAC606A329;
-	Tue, 27 Oct 2026 14:29:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACBAC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 320E492009C; Tue, 27 Oct 2026 15:29:21 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 2B09292009B;
-	Tue, 27 Oct 2026 14:29:21 +0000 (GMT)
-Date: Tue, 27 Oct 2026 14:29:21 +0000 (GMT)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Cameron Williams <cang1@live.co.uk>
-cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
-    Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
-    Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
-    Florian Fainelli <f.fainelli@gmail.com>, 
-    =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Peter Hurley <peter@hurleysoftware.com>, 
-    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
-    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-    Pengutronix Kernel Team <kernel@pengutronix.de>, 
-    Fabio Estevam <festevam@gmail.com>, 
-    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
-    =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
-    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    Peter Griffin <peter.griffin@linaro.org>, 
-    Alim Akhtar <alim.akhtar@samsung.com>, 
-    Robert Baldyga <r.baldyga@samsung.com>, 
-    Thomas Abraham <thomas.abraham@linaro.org>, 
-    Kukjin Kim <kgene.kim@samsung.com>, 
-    Patrice Chotard <patrice.chotard@foss.st.com>, 
-    Srinivas Kandagatla <srini@kernel.org>, 
-    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-    Andy Shevchenko <andy.shevchenko@gmail.com>, 
-    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
-    Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org, 
-    linux-serial@vger.kernel.org, 
-    =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
-    Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>, 
-    Marnix Rijnart <marnix.rijnart@iwell.eu>, stable <stable@kernel.org>
-Subject: Re: [PATCH 11/24] serial: 8250: cap OxSemi Tornado UART count against
- BAR size
-In-Reply-To: <20261027-tty-llm-v1-11-99b0202ae546@linuxfoundation.org>
-Message-ID: <alpine.DEB.2.21.2610271300480.42255@angie.orcam.me.uk>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-11-99b0202ae546@linuxfoundation.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=207.46.229.174
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F413C606A31A;
+	Tue, 27 Oct 2026 14:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F413C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app1 (Coremail) with UTF8SMTP id IAEQrMAWW6FVteBqkKk7AQ--.34984S2;
+	Tue, 27 Oct 2026 22:29:41 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wAHjC1SteBqhTwUAA--.39766S2;
+	Tue, 27 Oct 2026 22:29:40 +0800 (CST)
+Message-ID: <8f495858-3877-4807-ac62-5320d8d6696b@hust.edu.cn>
+Date: Tue, 27 Oct 2026 22:29:38 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,84 +45,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/2] docs/zh_CN: update translation of
+ doc-guide/sphinx.rst
+To: Jiandong Qiu <qiujiandong1998@gmail.com>, alexs@kernel.org,
+ si.yanteng@linux.dev
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260706151358.2103703-1-qiujiandong1998@gmail.com>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <20260706151358.2103703-1-qiujiandong1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:IAEQrMAWW6FVteBqkKk7AQ--.34984S2
+Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF15Gw4kJw4ftry8Cw1xKrg_yoW8Xw4xpF
+	Wjgr95Ga1kJw13tFW7G3yxWF18JF4fAF4Utay2qw15Zrn5Ar18XrWUtryDK39rWFyI9a98
+	ZFsIvaykury2yrJanT9S1TB71UUUUj7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQKb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
+	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
 
-> pci_oxsemi_tornado_init() reads the UART count from device-controlled
-> BAR0 memory without validation, allowing a malicious device to report up
-> to 255 ports. Cap the device-reported count against what actually fits
-> in the BAR using the Tornado register layout.
+On 7/6/26 11:13 PM, Jiandong Qiu wrote:
+> Hi all,
+>
+> This series refreshes the translation of doc-guide/sphinx.rst.
+> Since the updated version refers to process/changes.rst, I also add
+> the missing zh_CN translation for that file to ensure a consistent
+> reading experience.
+>
+> Changes in v2 -> v3:
+> - sync changes.rst with the latest commit.
+> Changes in v1 -> v2:
+> - drop the separate llvm.rst anchor patch
+> - remove the `_sphinxdoc_zh` anchor from .../zh_CN/doc-guide/sphinx.rst
+> - add Assisted-by tags
 
- Hmm, what is "a malicious device" supposed to be, a broken chip?
 
-> diff --git a/drivers/tty/serial/8250/8250_pci.c b/drivers/tty/serial/8250/8250_pci.c
-> index 1dda63be6b89..9919504334bb 100644
-> --- a/drivers/tty/serial/8250/8250_pci.c
-> +++ b/drivers/tty/serial/8250/8250_pci.c
-> @@ -1095,6 +1096,15 @@ static int pci_oxsemi_tornado_init(struct pci_dev *dev)
->  	/* Tornado device */
->  	if (deviceID == 0x07000200) {
->  		number_uarts = ioread8(p + 4);
-> +
-> +		/* Cap against BAR0 size (Tornado layout: 0x1000 + n * 0x200) */
-> +		bar_len = pci_resource_len(dev, 0);
-> +		if (bar_len >= 0x1000)
-> +			number_uarts = min_t(unsigned int, number_uarts,
-> +					     (bar_len - 0x1000) / 0x200);
-> +		else
-> +			number_uarts = 0;
-> +
+1. Add the new page to the Chinese process index. The series creates 
+process/changes.rst, but process/index.rst 
+(Documentation/translations/zh_CN/process/index.rst:72) still lists 
+changes as plain text under Todoolist.
 
- Technically an overkill and duplicating the FL_REGION_SZ_CAP feature 
-rather than making use of it, and then falsifying the actual number of 
-ports report in the kernel log (which I think ought to be accurate even if 
-do clamp the number).
+2. Commit 2c1ccd9a1d78 is not the lastest commit of changes.rst. Would 
+you like to catch up the latest commit?
 
- Sashiko is however right that this function ought to return an error 
-rather than 0, and also should BAR0 be smaller than 8, we already violate 
-access with the ioread8() call quoted (and possibly ioread32() earlier 
-on).
+3. Assisted-by tag can be removed in the next version.
 
- So I think overall this ought to look like (unchecked):
+Dongliang Mu
 
-static int pci_oxsemi_tornado_init(struct pci_dev *dev)
-{
-	u8 __iomem *p;
-	unsigned long deviceID;
-	int number_uarts = -ENXIO;
 
-	if (!pci_oxsemi_tornado_p(dev) || pci_resource_len(dev, 0) < 8)
-		return -ENXIO;
+>
+> Link: https://lore.kernel.org/linux-doc/20260619140245.1982921-1-qiujiandong1998@gmail.com/ # v1
+> Link: https://lore.kernel.org/linux-doc/20260621131215.1303439-1-qiujiandong1998@gmail.com/ # v2
+>
+> Jiandong Qiu (2):
+>    docs/zh_CN: add process/changes.rst translation
+>    docs/zh_CN: update sphinx.rst translation
+>
+>   .../translations/zh_CN/doc-guide/sphinx.rst   | 167 ++++--
+>   .../translations/zh_CN/process/changes.rst    | 533 ++++++++++++++++++
+>   2 files changed, 666 insertions(+), 34 deletions(-)
+>   create mode 100644 Documentation/translations/zh_CN/process/changes.rst
+>
 
-	p = pci_iomap(dev, 0, 5);
-	if (p == NULL)
-		return -ENOMEM;
-
-	deviceID = ioread32(p);
-	/* Tornado device */
-	if (deviceID == 0x07000200) {
-		number_uarts = ioread8(p + 4);
-		pci_dbg(dev, "%d ports detected on %s PCI Express device\n",
-			number_uarts,
-			dev->vendor == PCI_VENDOR_ID_ENDRUN ?
-			"EndRun" : "Oxford");
-		if (number_uarts < 1)
-			number_uarts = -ENXIO;
-	}
-	pci_iounmap(dev, p);
-	return number_uarts;
-}
-
-with the FL_REGION_SZ_CAP flag set for the relevant entries, and possibly 
-setting ->num_ports to 0 too since we need to determine that at run time.
-
- Not sure how this interferes with Brainboxes devices, support for which 
-seems not to have been fully merged given that pci_oxsemi_tornado_p() does 
-not let PCI_VENDOR_ID_INTASHIELD devices through.  Cameron?
-
- NB BAR0 size is 16k by the spec and the maximum # of UARTs is 16, for a 
-dual-OXPCIe958 master/slave setup, still leaving 4k of the available space 
-unoccupied.
-
-  Maciej
