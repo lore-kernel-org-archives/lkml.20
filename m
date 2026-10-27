@@ -1,87 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793135324;
-	b=iuAvxbmRKYnmFw5jcsylfwQxXGqFp2rTCyIiHS/mrvpSOfWGIrG8RYQenJpslpXfathW
-	 WeNSZoI3lHMmkaBZWve1CeRad1fMXLn0I5Qn1nJO7lkkeAxQDQxA4NHAya3OC8riL9YK/
-	 15bRKRw0wJPm6E9IFnOKOY3wTpbOMX5rV3Sf14GvUJicwjm1fN/Vi+V06xSawhYrtCCGE
-	 MQur8cwRf2+l83RZINW/i1qazaHtKmx6DAXrp85zYtwhGTiJAq4BjKf/RW7Z8UMZPLEId
-	 wof/d9BLtHWRWPcXf/fdaQSFPJqqU9AVSDyNPdVEvefWWIeHqFpFl+u4/C2w6CqM4TA==
+	t=1793135380;
+	b=o0+/+lNYeG3jHmvF8zE8cg63oPXRItATVZVa14dalxporXgvio+Sk6P8Z5b2zfXWNZdO
+	 Qj7Zcun/+plNioPKmXj6mSI8utGhL0Z2GAZpjFezg7Nw+3D6+63yC9VFEyu8ZPLBUJAKU
+	 duFyKW34PyZ5x9M7MK0Uq2VmqNDbKIdIhqKcfyH2fW7yrkqListfa20XsXXfufjJbHSXm
+	 p0snuApreccLL25L+gVD4Kc1B8WGGnJvVLjYAkQCTCRovjjc7uy01bVpy/yofBNx2np9O
+	 SZL49BXRcJupLug1plk5lytnkxFZMbWg38XcuJ4/FGVt4J96tpsBjP7fby2nKYeujvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793135324;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135380;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wBbCfwwWjZkUqDc8LVdfW0e57s/UTOwtgRob+ow3T68=;
-	b=Ah/BNp4xoy6FKas6/r7rm87XOXlet6GZbGThZA4qiK0XlspZch9jNTqr+oOkefh9jSu9
-	 Wu719puKpHsBLIE9iCHreEedCAzT8vl82jdbsiC5h/qUo9+9W7Iwms8dpY0g2h7JEcymP
-	 2N2Dd7+TkEmzwIXybNqpXDZ7dczWt1L1VsH6AWK8RvPxH+GAci4c5lYSLvEIxZ1j6zoVI
-	 t8OGU3aS9koUCoy28z/VDYmeSfFvGKo1XdDJ3bVpQxuCXozeEqveZEk0OlFpKtvAvsVTk
-	 ZDWJAk64ToWoGjhIef9txZgX3FG4bnncveu3QGDyB+xf4Ku63stR56baDBd2J2t7bAw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5xjzIYr+bH8hlCaoTxpmkLS6NjvJyW6sNrJ1hHd5rJ8=;
+	b=DSEwdeI4nhpshVzsFSRjXLDcsLaAUgANK71ztXnLXDOK9nXEovBVihopQXp0HJZhgsPo
+	 LY1vVCisNkdfjuIkNBvr6P4FUtHaKONZde7TJx2lzb6ineZF59kVGn1MERqhrRn3SQd8d
+	 dhF2RCTH2RvhaxHHVC2RRYNPGOzM/+CeABwOHJ+svKEwJ4Hvwk4yJ7pS5aQkyYh3YREiy
+	 xNRkAKQldFqz9uW71ghSxQjHw1Ahhi/7TbBrWhYZig+tDtvDu/eky3dzk8NiVrAvVChz2
+	 TVCxmzTC3OCklAK0bOEuYwgtYLLiKsCUC3qRpcy/HqtgYH/A33LFGADFM5pNDevH4tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=nilk.net;
-	spf=none smtp.mailfrom=nilk.net;
-	dkim=pass header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=Eg7+23UP;
-	arc=none smtp.remote-ip=209.85.160.51
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	dmarc=fail header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c4f9gxA9;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C46606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:08:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C46606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A803A606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A803A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=Eg7+23UP
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-499f20c7054so193465fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:08:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=mg-crea-com.20260707.gappssmtp.com header.i=@mg-crea-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=c4f9gxA9
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso204981f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:09:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nilk.net; s=nilk; t=1793135322; x=1793740122; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wBbCfwwWjZkUqDc8LVdfW0e57s/UTOwtgRob+ow3T68=;
-        b=Eg7+23UP50mz1Qlv4ERIvfc7AXiy6cSmsmUGcfTJxfGQjKjyzdsj8D6fw3s4xmZDnI
-         VP91qMb1ybsGj6pD9yNkNTp6cBc9/dVmfSHxwMAL7PpucHcjT+fOv1FCL6CDq7R7m4SH
-         mFY4vqFg3cSfRLV8ET4CFNxDmM9jkUZiTOrzE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793135322; x=1793740122;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=mg-crea-com.20260707.gappssmtp.com; s=20260707; t=1793135378; x=1793740178; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wBbCfwwWjZkUqDc8LVdfW0e57s/UTOwtgRob+ow3T68=;
-        b=Ye5HcTQqbk4tTSOPCsrEGgs/Rz9zAL6cKUPreom9mnFAAqSTuLQmjHHGa+N40U4UBG
-         TipWfxDZYXBbM/khHI8vwIU4YzdcDdTacqRDX0Tx5rEngmiLy5O+QTH3Hs0JmQYoZ9Ia
-         3QZh4+2qo6g48JpSs4pzxcBEmyb7EVw6OwoTDQdFOD96U+v0B+hW30HN1RtWYQGF6cSN
-         i1COrbPzygovllgEfqNE83tSYkbyszfJXf21th4zVoYXQfJ6flkW5NmmNgj0XKA7Jk0U
-         LfzBYKf7+gSj7AfLElcaIYY9/R6a4nauX5zZAH48BMX2TD0dAn6++RoFYSYMBX1EasIz
-         Q+Jw==
-X-Forwarded-Encrypted: i=1; AKwUvBxhm2u7O6d/54ic+7qi+Zb+/4uPE/5Dia5UsvYgVfbwc7WwQEoQLKhbN2eHzK7SJ7YC2taDaC/MpxIFAEY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/6+JXw/fiDFw24/k7FtVufQFKj3dEI2fqEY92idWKsnq7RhqV
-	z4kTBj2SGshP0Yf4FtQzCYV/Z1TLh7SRsdfNHkX4SEeNT+Ah/y8L3tcl8A7Nnxa8pQ==
-X-Gm-Gg: AYBFou3WCqFIEwiJ7c3+7qmz/k5ReHa6GTOKO6E5uSzxNxml6OAIv77XwPdEuP2MqCF
-	9QDv5C/1IooHvI1yAe+kSUReHttXOiPeMHH7ZJU4+iIpgu6IoLbIVeR/BiAEHLKj238pH5KvCjI
-	hfJ7v7BTutxBWSJDNGEoFQs2PfnssLBXxj7Ke7qU+AQlxAl2/GVo4RH6nm61WIgJJmxaaQjm++C
-	X+J4m7AN+cZTzhcZHhS/qM0jKS1Qme57MWkBwO/pz9ZSKBHa/6LvXsGT85FZohuEacQLD54GIn6
-	9F0PA5K7D/Aa9/xqhmGDDKIdzxS3iky8kqvZeBK4Qq0NfPYYTXqW5RvtBKiER3GUsnMn86YGQSK
-	+RM7ukhTCI35i8m59Hh6xCep9w1EsWp9qa2d5DLo7pD19y+aZHA4txCCoP04uVa6/XRyQ2MG/QZ
-	P97mmSv26tOrIuZHSccrtVuNP+HLZ6lsHMwlLYZbAUgKtEMKHhhsdsK+kOklsrp+aFxyOilszYR
-	0BD57oaWCfpfk+/0orYTiOlkwQXZ+pee75/3gVNg6nkkdjXkdA6xkj4+Aye88SNfPyzkzsdrMrb
-	yCtBs8j4+LuVXmikhxfN4KaRNVSsunf44poYvqxtlgyT88urK1eQo5Bd4yd1gBlSgT3oBQAVSmF
-	EJo0CneUEDiB+PVKh0PMXod0xvSlWk/qpv+X1BPUJr8wokRWxTboeVDfR21QBnx2B1i6SI3R3eM
-	o+tUietmR1OgPSTm8P9rFUQcDeXUzwCwCjMw==
-X-Received: by 2002:a05:6870:1410:b0:49e:4ed0:11ca with SMTP id 586e51a60fabf-4a8bbd30979mr536120fac.53.1793135322487;
-        Tue, 27 Oct 2026 14:08:42 -0700 (PDT)
-Received: from [192.168.0.114] ([187.14.252.108])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b74c0a7fsm970446fac.2.2026.10.27.14.08.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 14:08:41 -0700 (PDT)
-Message-ID: <111a2ccc-a1d3-4516-89d3-897823e05331@nilk.net>
-Date: Tue, 27 Oct 2026 15:08:41 -0600
+        bh=5xjzIYr+bH8hlCaoTxpmkLS6NjvJyW6sNrJ1hHd5rJ8=;
+        b=c4f9gxA9gFBSUh0oJBf053KSbkujgNmeShZvYgLYY2/Y/MjA78j5OIYZ/bPiI8JcyK
+         VjpVUOHlivKbXVx+g1cUv6I6+l+S7rowgRSvSOEZ5soXIqixdTMJlyHFcWLBaTLmoo6V
+         RMN3C7Zd5+LUwQcRVeZXTjqMkjUVtCQoMgSbe0e8tVJ9pjOYr/I3E2U5s/SSeUppUtOc
+         +Z7eMw5HLLS8bu7cB9FVKdyW6c2Tisvm2HiGpBJBRiJBragyR1zbS/JIUpuxM46OAL2P
+         VNk5ilLHefUlsi3KwRisMDvpYhmNxfAGXvSUZy0Ty5wU/dRTAu6Jcb1yYnYqvBfmh0om
+         ufbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793135378; x=1793740178;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5xjzIYr+bH8hlCaoTxpmkLS6NjvJyW6sNrJ1hHd5rJ8=;
+        b=A/bedzKZceo98xphGLmSBCyKMNgDd+3z7sRaQu+g+E2pbSZtOq1wazLmaMtB5+k8eE
+         ktAbpd0ZEv2wA2Ga73VeeQJoOsJJZlxMXLANrCExFrbSXR+jfcWquo1PK/hww9OAui55
+         /ebFrBTQ5S0s4+kAoUUAmpaGUIu1ZGOboxCOvnZIV5Gg33LAuYS1dLzjAwkjBcA63Ao3
+         oKvKB/iVuqjXEusDFNykxIDfaaR25/RgZ7w56Qxw2/mMRSWDyVAgsDqfDKAxietgQfFk
+         soH+XcmmX9ykD6NyKLVUX9xLmqfP3vsbG0TQh/7H01ovfftXhaORj3QEs7fYE3ryL5NU
+         Fj6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzMMNzji7CnLD+aLYuLG5ONKambWZUb8MRaUn1ySkswK0iEdRvIvsmJmtAI+hzjHU4aSagJcUn/KXDjVPo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0d836AwlnAV5jAipbPztR3YZhXzxht5TSBzbNRDygHC2B3Dco
+	CYFGu4skyf2R47tMrnI2TiX/aK4NOQW6yp5WMypWP2lvv9xVxwJdmHTGaPhMDguClcE=
+X-Gm-Gg: AYBFou169CCVTR6nsiuKfLOfUURf2/Ktg55mPtyAxcR+NX8FlV7NFKuGJo+mCkvaXxh
+	Jk2Em25U+dnEEANy50zGt6fI70QI3rNq6bhPopEQtTL274uukVXzb4SE7A2NhT85Hi9SBXOaFAB
+	cuFiIEZoVs4d8i3YQXAeX7VisRsGMIpxme5qDYPFCrWqXVPh0Em4/x8at3JAD3r2xux+qBI6F3m
+	0Kl742DSfUOjKI7XHVRFPBVxT4ldKObIU8P2tza8XmtQqDL2mcnnM8LogMe00AYPm8EekW7zB2Q
+	85ol6a9zIndn0XKv8msk1M5uRFtLDBHjPKLuqgRKPSZunOJvq2oMtt3dNzbcycaHeCdu/ucpm/z
+	qj9IZIVDxtOSuwH0NeWo8I0/F8r2bwmG4iA+Yaoimot5raPbLytSSUXwOMBWPDFPfeSI1Imviam
+	Zj+mTRb6uc/PUQ7uavJBYDk/Fyf5y8TBRunEJv4aQZLuNMytdkfFqkHILNnUkcmlyKh73TIYkFx
+	F0tQZDbkxyZoED1COPpYqT79gRFKH2nnPQBvnR+mADvKnjPLOaBXR7XmTe8I1zDl0AzvLW/VjBb
+	XDHsxhYal4Qf
+X-Received: by 2002:adf:e011:0:10b0:48e:43a:1d9c with SMTP id ffacd0b85a97d-48e5d5d9158mr1044256f8f.48.1793135377892;
+        Tue, 27 Oct 2026 14:09:37 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:5cfb:af57:9834:741b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8dcfsm24488905f8f.50.2026.10.27.14.09.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 14:09:37 -0700 (PDT)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: "H. Nikolaus Schaller" <hns@goldelico.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Paul Cercueil <paul@crapouillou.net>,
+	Paul Burton <paulburton@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	kernel@pyra-handheld.com,
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: Re: [PATCH 0/6] MIPS: Ingenic: Add XBurst / XBurst II infrastructure and SoC support
+Date: Tue, 27 Oct 2026 22:08:21 +0100
+Message-ID: <20261027210821.21612-1-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1792956055.git.hns@goldelico.com>
+References: <cover.1792956055.git.hns@goldelico.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,40 +104,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and
- autosuspend
-To: rylos78@gmail.com, Daniel Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Simon Kruse <simon0x+git@proton.me>,
- "D. Manresa" <dmanresa@gmail.com>, linux-kernel@vger.kernel.org
-References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
-Content-Language: en-US
-From: Chris Simpson <chris@nilk.net>
-In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Tested on a Surface Pro 9 (Intel Alder Lake-U, i7-1255U, IPU6, front
-OV5693) in a 7.3-based kernel, with the series applied to an ov5693.c
-that matches the base-commit (d7e7bca71698) apart from the pad ops'
-client_info argument, against the same file unpatched, using raw
-captures from the ISYS video node:
+Hi Nikolaus, Thomas,
 
-- Patch 1: with the sensor held powered between streams, OUTPUT_SIZE
-  (read over I2C during each stream) matched the requested size in
-  32 of 32 streams requesting 2592x1944 or 1296x972, and every
-  stream delivered image data. Unpatched, it stayed at 2592x1944 in all
-  32 and the binned streams gave no image.
-- Patch 2: raw 2592x1944 frames are BGGR at all four hflip/vflip
-  settings. Unpatched, the order is GBRG with exactly one flip on.
-- Patch 3: with autosuspend_delay_ms at 3000, the sensor suspended
-  3.4-3.7 s after stream stop (the delay plus the 25% timer slack),
-  after both 1 s and 5 s streams. Unpatched, 1-2 ms after a 5 s stream.
+Patches 2 and 3 overlap my cpu-probe v2, sent the same day with
+Nikolaus' Co-developed-by:
+https://lore.kernel.org/all/20261025073146.25326-1-olivier@mgcrea.io/
 
-The test scripts, the analysis of their output and this summary were
-prepared with an AI coding assistant (Claude); I ran the tests on my
-Surface Pro 9.
+Both add PRID_IMP_XBURST (0x0000), so only one of them can be applied
+as it is.
 
-Tested-by: Chris Simpson <chris@nilk.net>
+They also handle the X1600 differently. Mine puts PRID_IMP_XBURST on
+the PRID_IMP_XBURST_REV2 path (write-combine through
+_CACHE_CACHABLE_WA, as for the X1830), as the Letux commits
+ee3e4e8baeb6 and b799b9a5e4d3 do. Patch 3 here gives it a case of its
+own with _CACHE_UNCACHED_ACCELERATED.
+
+Tested on a HiBy R1 (X1600) with the REV2 path: it reports "00d00000
+(Ingenic XBurst)" and boots to userspace.
+
+Nikolaus, which handling do you want for the X1600? If it is yours, I
+will drop my patch.
+
+Thanks,
+Olivier
