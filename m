@@ -1,94 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095751;
-	b=VL5NpFcWrA+J+b/qePj52ZuwWSKabRg4UgN9qIV44gNwAt2F9GdlwBJfJ73qGjsHt3vk
-	 kL+9RwxdRWdJCiQBEuvnLi7F4kxQMz8hTZCw4m32RbDWBeM2KgbdGCXHsNVEmMkFSaDGV
-	 4bD8J+LrD9QNEbExGN++ztKmUa2apFMhBaSSwuMs+YcFBH36wCTvhY7r2xOcA/BeJVHoc
-	 OnLXqijc7v7ZkgN/72Li2llKLicSG53J/T7CZwKA0+uGmwVjoDyJ8XNENRrR4TQysUisP
-	 Ew5pVq9HNfzC7YOQXx0aF8OIvvBRFjuXiBbQUnSpHLvfeSsZNR10257l+kizaimxUSQ==
+	t=1793095757;
+	b=Ed9tpwzN8m/kDIbX4lNAouSlQMgQVluW607YRt1wdFnf5266N05D7+YpVRxjlVFYQ1G5
+	 +lOCKg91mZif7/DfwMwY+cw9tNFFiHc77upbsLWywRtMH1oi7RGoKo94LkkBjzQWMVYvO
+	 lAvNQrhgSDf7rXrzLokXxu9uqoFBK1KDYH7TsOzW/trv1HuThUkvwb9LE2T5aNJR8CwPp
+	 xpvhlcStwFMOmZaIYtT8d5UKZJXxfaI950VxIpx5nXu01HYTygPbnWpCRFX4hZLStQRVL
+	 dFd8w75iXg8MRX1UQ3H7H/TiSwsCOeMrOko46rgJ3A3Fuk6NrqdLZZGG8Fqqo9CIHMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095751;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Q1TQFPxvI9cCV2PEQR7e2VoXkM4CEOcgxtKO+kbRzJI=;
-	b=a5NPXh/S9ey0TvFiPzDgxOqox5Oob4CBdBrl0ASeKTfknbikrxottftezJ339DxGPNbN
-	 wM2ZxdTk6JeU9SVxy6xhf1SwZq1h8coZg5ACuzLwBSxaKiQjIwWsj3QehWR6zhvPKKlGs
-	 cn3M+d6rQ7oo4H/h8j79nQ17/88D6+1lfC3PedPeiP1KwPX4U03cVVRMdkuV0GpGWBY7h
-	 k+8G0iBP7xZl8+iOthAmalQK2CNTwt6CoH7R1ARUuNui8eKZ26+JNR6Zyd8gMLc/+QwsO
-	 Z4UTftOETO1IajvNeeIwLWq6TQj046Oas5uEULSr789km2BBSOPhq/HJO4XdL7Ve2Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095757;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=XlCCWPrEFK3RXddfXN6QH3zLg0Y/vHPMqyByA8OlxLg=;
+	b=b28OgO0n0crkxJJHW+OG9TlnaEJBZoNEfaJxuO0s9C6cGxDmu0gWDF5X3YXvFPQGdoyv
+	 3Ki8gZxmf8wnq5M+6Vka6hUlc39BZmESORIX+Wr7OOYnqmqK4TiZp2PFmagk4SHDsgNxb
+	 mJd5yVR20gXIW6jciqxkEqq3sdCOEB5KTdCBAdwVowdHt/zhhi1g1JTlJf1ein0VTcKOF
+	 eEm+pbN6zn1nkj+nMxMmAy23lQgPXqrIrib+Y3j2gyQxK870zA/684/SOO088m04UhlfC
+	 GOUw3IqLwDqYDJ8cdoz31oIv6uhAdqNdf/8H02HAKam3bcMRKDtQKpyGg7Sa6JmcFhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WBXAb0tb;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Tb/P+VBs";
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B00606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:09:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72B00606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CC3606A31E;
+	Tue, 27 Oct 2026 10:09:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36CC3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WBXAb0tb
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so5583395e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:09:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793095750; x=1793700550; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q1TQFPxvI9cCV2PEQR7e2VoXkM4CEOcgxtKO+kbRzJI=;
-        b=WBXAb0tbp2OMhaaP88j/zfTc5TECBWNVG585+Hqxb6IR+F1Ke7PrVKASf0vdcnHk/B
-         EJdNi/5SO6OWqnnJQJMm7OzH5jVX4HaPvZ+hb+3Kn/i2PmggtvY1FtYGY+KtVY8EX85n
-         G8YsR/EfxvZP9FCj6ZS8A2MK1BjNxKW+1s+5Y36C4/qjUSvhSfKtVs8zbL0ltsjXF5A0
-         D4+EqOL0C2KUW3l87l00LIRHw7JYkLJx/BKIVj5LsjX36A37qmGAmCLx9iJYcRccKbrg
-         9EOa1dgedAWdscomLZq976N9DqtT+ZeCUIHVY+cTLCqp4Hzu7h4PbhyeXVZNq4OcBzDO
-         u1UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793095750; x=1793700550;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q1TQFPxvI9cCV2PEQR7e2VoXkM4CEOcgxtKO+kbRzJI=;
-        b=BjW0g03grzIhkyBBCNhkcGtdEk8qdk582FDw0mKbm/PLz1c9rVooot4PCkC5jhUPke
-         KHioQ7dfnvlo3aFPYQnDKiSKpPct7fb6MJaY9ONt74xyP+SQB0QFYA87hdujX6f0Knvw
-         RWQmS2EZwIBB/upNgS/GqXbe6zacWNAgP/dPN+MIEKvBxqNDOIDZtlibBBeDQYS4LX4G
-         ByqTmSyVZWxOPDTKZn5finTRyFVNStRxq2wTsPUtw35wouFM+HHDNiQ6CsP6+Bag4GQU
-         qlH4tkhju1DhDWhVS8fU3ZAASHb/rFBdmIj6u72iGPRWB/W4bVhTZhAhHRkoEXhr05ga
-         5pzg==
-X-Forwarded-Encrypted: i=1; AKwUvByAebI1XgSX5B/7uomQEM5dZ8r4li4/v6DFnsxSWqoxoXeW6A3mFIXnpvaXgUFETh8OZQ24RgIrXX2R48Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJu0IP61wQqAlwdBf/nldNzdS3GtiCFeyOAVW5waz+oGx1bwBQP
-	ClwF1JbV+cp1iMhbYn9BbN31aFR0x5aoaQm8Q3rn+nZVybZa+nmMmIzSqBWCsc8B
-X-Gm-Gg: AYBFou0KlQtxiCdG9ZKqKT2NytJMkJlzYlALyfV82hi4fkqUGRJysfHGssoLV+WS1Yy
-	DRI0iF57uKJPyE3pOvrwIi80I+pPUhPPHjMrmCZP2Tle3OOduHlA5XnlcDdnda5dYA2KR4uGnOP
-	s0gbgaa/HKUZBaU0FsgGLT23Fys7uRS2C0VDA8uEeVA+I/TOJVqXQxHn1Ga+TPUFkEvB64a4XkX
-	qCwfXhQOkWRQaNkHg/8eKQ9IhAWhSqBYFWaV9k3KwjkQkzvtSD9uvipk7W36K0dxcTdCU1qfqN4
-	RUIgqaX3laj+9sbg4VgbH8RMVVrB8YPJaO7mvE83EaBIoVmDxj59TF2oXM+l5czGoKId/1TlARN
-	JzfZ6EINFRyl9VlSjVOf+vRAuQlx07g/M4FhtLQDFc/Y107sJZ6sN6D797RpKUvv86U1WnwObFv
-	mYU/Qrl9bfuln34DFvqwBtPU9fahpVCt2ANFH7kQWpB27XRa7TBj85/cxvrsM4WlMYhJ5I8XEln
-	cEKwL3UWs3rO4CoPFEwuU7ASWfLx69ewVRe4sPru/L1HUt2tvUtGTSLd17fljEure1O
-X-Received: by 2002:a05:600c:3115:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4a7c16c5294mr46820035e9.13.1793095749477;
-        Tue, 27 Oct 2026 03:09:09 -0700 (PDT)
-Received: from unicorn.lan.internal ([2a0d:3341:b894:4600:8f9a:af38:72d6:7c0e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5822a7sm266582155e9.11.2026.10.27.03.09.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:09:08 -0700 (PDT)
-From: Giuseppe Piscitelli <ooonea@gmail.com>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: Bart Van Assche <bvanassche@acm.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] scsi: core: Balance the pseudo target reap reference
-Date: Tue, 27 Oct 2026 11:08:50 +0100
-Message-ID: <20261027100859.1031135-1-ooonea@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261026202119.667348-1-ooonea@gmail.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tb/P+VBs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793095757; x=1824631757;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=jeV6wtKK2ekUAK9tJVtT+fAgjBdc7aMzHqV8Q44/Umk=;
+  b=Tb/P+VBsKVPbXkpbZ0fYtzzc0E2673LMTzoGTnXVixM/5KTd+0/u/bve
+   TnOiEuoYSheADqNUKD4jbpnqVUjG0/K3062Fl+qt8c90jplZqIgAhirc+
+   vZXQF8AvAKcme1fMSdjyNL2XlG21gtF2KYQsTDbKd+VebmFfegy1fgHwk
+   jt8k/v62QMwy8kFo8PW5I66OL5BIYSG+fpDJUsyBbPnXWCHR1vkJ1rW09
+   rYmeFyL25klk/KslgPUUR73vvQ7sfSLkKZZxSWtnAvRK6BVCcAj+t81rA
+   R3XDJ5ubsSJc91iRQx+gapCnHS/glCMgYSj/DkweRISjIhM430VJwzm7e
+   g==;
+X-CSE-ConnectionGUID: 7YuZVZDHSB+nrqyWMAfs9A==
+X-CSE-MsgGUID: v3wZqJC4QGOpCONbVdgMuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1667362"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1667362"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:09:17 -0700
+X-CSE-ConnectionGUID: VX+fSFlNRFGhu30zQY5FmA==
+X-CSE-MsgGUID: ge2Xt8SbR/CfDPX0/AJhkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6255212"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.2])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:09:14 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 455FE121CEC;
+	Tue, 27 Oct 2026 12:09:17 +0200 (EET)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xLe7I-0000000H0VP-2hdz;
+	Tue, 27 Oct 2026 12:09:16 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: [PATCH 1/1] =?UTF-8?q?Revert=20"media:=20Don't=20hide=20I=C2=B2C?= =?UTF-8?q?=20or=20SPI=20drivers=20by=20default"?=
+Date: Tue, 27 Oct 2026 12:09:16 +0200
+Message-ID: <20261027100916.4053512-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+References: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,66 +93,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-With memory allocation profiling enabled, unloading scsi_debug reports
-allocations left at module unload. A stock Linux 7.2.11 VM without OpenZFS
-emitted the following on each of three load/unload cycles:
+This reverts commit 3bf8c26a085c7b00dbec67a919b93fa8b7ad70e0.
 
-[    1.644665] drivers/scsi/scsi_debug.c:8863 module scsi_debug func:sdebug_add_host_helper has 1024 allocated at module unload
-[    1.656260] drivers/scsi/scsi_debug.c:1261 module scsi_debug func:sdebug_target_alloc has 16 allocated at module unload
+In order to avoid exposing fairly rarely needed drivers to ordinary users,
+revert this patch. People needing these drivers will need to enable
+CONFIG_EXPERT until we have a better solution for this.
 
-scsi_alloc_target() supplies a reap reference for its caller. The SCSI
-device initializer takes another reference, which device removal drops.
-scsi_get_pseudo_sdev() drops its caller reference only when device
-allocation fails. On success the target cannot be destroyed, retaining
-its driver-private data and its parent host and adapter.
-
-Drop the caller reference in the common cleanup path, as the other
-scsi_alloc_target() callers do.
-
-Fixes: d630fbf6fc8c ("scsi: core: Support allocating a pseudo SCSI device")
-Signed-off-by: Giuseppe Piscitelli <ooonea@gmail.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
-OpenAI Codex analyzed the teardown diagnostics and wrote this fix and
-its local validation. The new unpatched capture reproduces the symptom;
-it does not establish which of this fix and the separately proposed
-scsi_debug asynchronous cleanup fix removes each diagnostic.
+ drivers/media/i2c/Kconfig | 11 ++++++++++-
+ drivers/media/spi/Kconfig |  4 ++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- Include the allocation-at-unload diagnostics requested by Bart.
-- No code changes.
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 7de2d095c969..11c30252540e 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -1042,12 +1042,14 @@ endmenu
+ # V4L2 I2C drivers that aren't related with Camera support
+ #
+ 
+-comment "audio, video and radio I2C drivers"
++comment "audio, video and radio I2C drivers auto-selected by 'Autoselect ancillary drivers'"
++	depends on MEDIA_HIDE_ANCILLARY_SUBDRV
+ #
+ # Encoder / Decoder module configuration
+ #
+ 
+ menu "Audio decoders, processors and mixers"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_CS3308
+ 	tristate "Cirrus Logic CS3308 audio ADC"
+@@ -1210,6 +1212,7 @@ config VIDEO_WM8775
+ endmenu
+ 
+ menu "RDS decoders"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_SAA6588
+ 	tristate "SAA6588 Radio Chip RDS decoder support"
+@@ -1226,6 +1229,7 @@ config VIDEO_SAA6588
+ endmenu
+ 
+ menu "Video decoders"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_ADV7180
+ 	tristate "Analog Devices ADV7180 decoder"
+@@ -1585,6 +1589,7 @@ source "drivers/media/i2c/cx25840/Kconfig"
+ endmenu
+ 
+ menu "Video encoders"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_ADV7170
+ 	tristate "Analog Devices ADV7170 video encoder"
+@@ -1683,6 +1688,7 @@ config VIDEO_THS8200
+ endmenu
+ 
+ menu "Video improvement chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_UPD64031A
+ 	tristate "NEC Electronics uPD64031A Ghost Reduction"
+@@ -1711,6 +1717,7 @@ config VIDEO_UPD64083
+ endmenu
+ 
+ menu "Audio/Video compression chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_SAA6752HS
+ 	tristate "Philips SAA6752HS MPEG-2 Audio/Video Encoder"
+@@ -1726,6 +1733,7 @@ config VIDEO_SAA6752HS
+ endmenu
+ 
+ menu "SDR tuner chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config SDR_MAX2175
+ 	tristate "Maxim 2175 RF to Bits tuner"
+@@ -1742,6 +1750,7 @@ config SDR_MAX2175
+ endmenu
+ 
+ menu "Miscellaneous helper chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ source "drivers/media/i2c/cvs/Kconfig"
+ 
+diff --git a/drivers/media/spi/Kconfig b/drivers/media/spi/Kconfig
+index da3e225d420d..4656afae5bb4 100644
+--- a/drivers/media/spi/Kconfig
++++ b/drivers/media/spi/Kconfig
+@@ -1,11 +1,15 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ if VIDEO_DEV && SPI
+ 
++comment "SPI I2C drivers auto-selected by 'Autoselect ancillary drivers'"
++	depends on MEDIA_HIDE_ANCILLARY_SUBDRV && SPI
++
+ menu "Media SPI Adapters"
+ 
+ config CXD2880_SPI_DRV
+ 	tristate "Sony CXD2880 SPI support"
+ 	depends on DVB_CORE && SPI
++	default m if !MEDIA_SUBDRV_AUTOSELECT
+ 	help
+ 	  Choose if you would like to have SPI interface support for Sony CXD2880.
+ 
 
-Earlier validation covered four constructor/reference-count cases, a
-Linux 7.3 build and three ordinary corrected-module lifecycles. The new
-stock 7.2.11 run above captures the unpatched diagnostics only; no new
-patched-kernel build or comparison was run.
-
- drivers/scsi/scsi_scan.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/scsi/scsi_scan.c b/drivers/scsi/scsi_scan.c
-index 0f0f243..90e67f3 100644
---- a/drivers/scsi/scsi_scan.c
-+++ b/drivers/scsi/scsi_scan.c
-@@ -2156,14 +2156,13 @@ struct scsi_device *scsi_get_pseudo_sdev(struct Scsi_Host *shost)
- 		goto out;
- 
- 	sdev = scsi_alloc_sdev(starget, U64_MAX, NULL);
--	if (!sdev) {
--		scsi_target_reap(starget);
-+	if (!sdev)
- 		goto put_target;
--	}
- 
- 	sdev->borken = 0;
- 
- put_target:
-+	scsi_target_reap(starget);
- 	/* See also the get_device(dev) call in scsi_alloc_target(). */
- 	put_device(&starget->dev);
- 
-base-commit: 6a53f401e671b75c129245e371ca6e9d47fc3c9a
+base-commit: f39567cc92272f987c056d8c92f7c93f3fdf53ef
+prerequisite-patch-id: a907c42a90ccc410e6fffdee8c9300233a5cd4be
+prerequisite-patch-id: 82ecd20999da94a7472cd1061a0fdf8cffbac325
+prerequisite-patch-id: 7d09c7afa4c3d4109642db3fd8435b21605854c6
+prerequisite-patch-id: f9e361e419752c2c3b2d845b535e33407c7544f6
+prerequisite-patch-id: 48a068cfdcbf7d53806dd8ff9e48f5de529fc67c
+prerequisite-patch-id: ba262f258d655a87b99432ebce1e579594a16950
+prerequisite-patch-id: 64c1f90be9a61ce4b6ee3988606ab0a24e630d42
+prerequisite-patch-id: 69ddc210ad98238341ef358dfddb0a42f20b9ea0
 -- 
-2.54.0
+2.47.3
 
