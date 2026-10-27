@@ -1,85 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793124679;
-	b=JiuJDSYlykDTsLeEJGDB8r+T7T6cv2Mzkz41joNe0ZhDQgJN1ro7mY6U/uXALZ293ebV
-	 M1LBf4ZodIlVdwqoJUavTPh2B8Rm+k+d39masCVmLeqoLcI072cktXnHreRPn+2tIxRcg
-	 tFgBXY/Ba8myj3V/lE5/rdL3mx4owGTNiEV2wnSELgKBxADgFezX261AAYws4Qdu3oify
-	 quMdp6XXkitBMBT/3F906iWeK0OwV0piaJ9fmRGJLGDtPMRS+Ii5uWYaQL3aL/hI01ECZ
-	 dWwkNzuUUAOoEYdCfBfKwrVryIFnQnYqizms4WZk3R8dhlIycTdzbewclgRuNUBO4CA==
+	t=1793124779;
+	b=KL+P8Yx3+e5FKwhydkRpgE9iyq6bHUzO8X6hoBzyq8/oOfBBCQxUG/8YRsr65DgRxLGH
+	 bmIhfMGa+UaMtbimoj1mkd3HQzaMq6XUMup4b0sh5jcwCU0FNrngLWmFLhthiBVZo/wiw
+	 gKNx9MkPOPzya/Li/soCbbtt19yfaF7PJEQmMy5poTF1eHNUuO40GxmNXvxdeW7zRfkeB
+	 j06WHk2FwJyKopYOwRn61h5BRKBi9qXdxBZtIDzMy3lHrK/zJDO3PG7HY3CSHn8FwvJJA
+	 /atfTIMf87//laQCE0JbcwMfOtDenFlJQPdZ/p40f7nxM22OC9HDCKqUiVshCSOImpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124679;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
-	 To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=bS6Nvy1g1jBhJA4aHeDMQWCoFHQ0poVPxAlc9gBdDwY=;
-	b=aPjlPPInVuw977+bEyHBK3O2FKk0LPescMfPo0vQuSQXBnvNYsIM7w1j+mHi+kwUmpZY
-	 Z8XJvy2rUnnKsAbrgbM3YuMEin2VyrqUIJ9HUV0u9pJO2mjHKiVY8fv0By8n/Y59nTKJO
-	 YFkDvFzLP3CZGMl5K3Sa2m6/Lv28o1dceA2HFWmhjSCMPBIFIo/3je13/mQNY4Byqg6eR
-	 r5s8P2rgrRSYLGgz3mNM+AqEYRXio9N1ijcpedboq8nHglafS17kby7QrU3pn7kJ6wkXI
-	 LXCDTzusGrJG/YFNibR1oBkH4reNrkt8Wcdo4T8D4I+6O4VnOauO2/vyR1zpkU7lG0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793124779;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=m+qpiMLYrvzrWB47eJ8fBVYC5yEFfdvO/rZaUVVK93I=;
+	b=nG7gpyelJDzmNbXY9kKnDdl9Qk+ysob/7qL7GyjyQXsPFKRhWbDQtZiYqisDlXYUma8H
+	 WZUtOgEdiwzF3SkfIOY40Ju1f1klfkz/rTtAQ4AUH4S0bg6mWJeR5wO1i0OopW9YLGG1v
+	 VTa2Gdt1NnaiYQqI/iOzoE/lqNmXc02JRWx6Th9vmJaAO8lWammXGZASvupnlW7XM0KDa
+	 QXsFYOgUxjCkQH4Qx/dgWLkOwH1+ZbKLMby4M2oCCE1mUXm9WTfdlHeMz/SF4fwGawvXA
+	 QM590NbWdxjM1ENVV5HtNVFP8va1Hqj4smDXk4bPKl67p74WEVbG13wNdzwVlA4CIpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C093C606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:11:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C093C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so1232985e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:11:18 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1892606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:12:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1892606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5587351d419so164045b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:12:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793124677; x=1793729477;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bS6Nvy1g1jBhJA4aHeDMQWCoFHQ0poVPxAlc9gBdDwY=;
-        b=USCn6O7Dj6cIk1vR3THNqTjdU77uiwe1gql1sxFekI52EnRDbl9wmB2pXRt1Ia5MmZ
-         +I6utV5JF/ui/+6h6LFZ6rLragCEgRCPgQtYX/VzfpAVQEfOVtiwsdC2zirZrxKGptJn
-         B9qzs3pQqY7MxPZ8PwpAtgaOKbGprcH/wgfiL2+ZoTcAZqJK6x5FZD7r9HBxrMyOSb0F
-         c371y6aD04uVzPQD9xDsjTAHiY4TgIjRf+cNJwLQyNrt/Tt3s3cetgjF4PegfA2iaaWL
-         GviesVnUIW+xVYzmVeh6nPvxs5bBXdg82jxxy7XBDqYGBM8Vma86k47f+aS8t9zTeeS/
-         Zf0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxWYgpUiA6LvegNCbue68Qlf6xj/fw8SdBF8Hi3QzuJnLqDTEOY2/qcen3g9urBRv6pqSsqLrqJNuaN1Gs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwYp7ShHBR6kkX+MOjesG+IPQZ57WB/kt7gNK4il0+d3m+jcvw
-	MabiBwwkoQCaylNkZzw8jSqauO3eE2pRS+hYap1lB6M+feMP3lseCHA=
-X-Gm-Gg: AYBFou04krZvgj833YgO038z0MgMDhI1SCVimr4VUCv5EmBONtJ4eidnXtD586+wy7/
-	xD0o/HvLsZ9DIuQZGXXvIXeyrUkGuTBb3X7Br4Dy9Jt5kA/AsIU96Uy73TeCZSHs2mw5LzWPmMn
-	cR+vlSkFnIg8pDoe91KWZJYO2jORqaP/fUwHwf7ombXI0Y/gh/pvcbze9zF66OBUvjMlIj5EfGq
-	Sc6ivXbgY0V0S45LdiwguhUVIaO+FqBcjWK+nWbcKdnsnmrebAPAX7MoL/0QKYS+bKmMKxMgD1N
-	r+BdIFkXOevtOe2118MB3fVZCceJmYeCWolyDikK9GrEFopSBZXaJw4W+PCWB0CxEG4nUtUUL0Q
-	ZUXVylzJcFxWrky7ItM3puoGJeuIxZit6HuaD6gLNLsXycN300r8RtqT4Abmoy5IYNh8UzUsvcN
-	tioJ8de7QNSDXBk1vUN57JSALNUT7a6R00NeGULYtEYJEp9FtNtJiZ1lIYRDvbwFIRKu44yFRv6
-	gIvl9vxUobdA7vArA17PXPA0ArljEd9kvg0oAgmcitPjvWpw3nbd4dHeR0UYTXni6yqd1umctgB
-	SZZn+AsgKHNJmErDYUIJce08sr6u5uOEgVzvM10=
-X-Received: by 2002:a05:600c:524c:b0:4a2:8c5:5e5 with SMTP id 5b1f17b1804b1-4a35ac8c0fdmr214486665e9.7.1793124677050;
-        Tue, 27 Oct 2026 11:11:17 -0700 (PDT)
-Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a93123323dsm5491625e9.14.2026.10.27.11.11.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 11:11:16 -0700 (PDT)
-Message-ID: <6ae0e944.b6db0abd.16b13d.d261@mx.google.com>
-Date: Tue, 27 Oct 2026 11:11:16 -0700 (PDT)
-From: D. Manresa <dmanresa@gmail.com>
-To: antoine.pichot@gmail.com, linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
- dan.scally@ideasonboard.com, hansg@kernel.org,
- andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
-In-Reply-To: <20261027132637.540222-1-antoine.pichot@gmail.com>
-References: <20261026111032.88355-1-antoine.pichot@gmail.com>
- <20261026111032.88355-2-antoine.pichot@gmail.com>
- <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
- <20261027132637.540222-1-antoine.pichot@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        d=1e100.net; s=20260707; t=1793124778; x=1793729578;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=m+qpiMLYrvzrWB47eJ8fBVYC5yEFfdvO/rZaUVVK93I=;
+        b=MKW9WJCfldchF+tGSzAHZDS0/NqypqGg6S/TYYUrjSz2rp2N5qZXbzTt+dopDLNL3Y
+         vJxeHmWmKo0S2m2eSLks9Qy+JeuS7D1BchizX62+y7sBpcpPiLvIhP85ytE7KT34edxp
+         mo2ktZkN08lOwvkDbSHYTZsphVE43qhOSKg6MXwZk6VnVgOTb8dfehILlFmGNupjYunD
+         anGu6Mdkf3ahnXKzjccPwcaCuCZZygZ3i9KTbkBma2rknE8NNxKbGhYNQ9OCNtlah0dw
+         e61qgasFhZ5JDH+ufproT4s72uFzv67HU08QqMUppm1TsZ7JyR1t8rY5xzu+Cnaa/9iH
+         WNKQ==
+X-Gm-Message-State: AFq9FYLd6S5dCuA4P2YFU78GmMyheCw3dCUMM+hXh/n317Neu19uL5Fr
+	PogGvE5y1ghsq4dKJwXbcmVWFaWr05MAk2/KFHTPAIVoL644CmgTYfMMjX6F/5ig1K5Y07RdMIq
+	l6j6M7bbTh8C9bm54tcd/xvudOeiFhr6HrrceQd+f5W8E8BYIj8evEpPBAKY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,136 +57,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:1202:b0:4f5:eaac:5151 with SMTP id
+ 5614622812f47-55c002a4419mr7327518b6e.39.1793124777878; Tue, 27 Oct 2026
+ 11:12:57 -0700 (PDT)
+Date: Tue, 27 Oct 2026 11:12:57 -0700
+In-Reply-To: <6a682bf7.70955b6c.323240.0052.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae0e9a9.47d0a7c9.33355c.007a.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [acpica?] KASAN: use-after-free Read in acpi_ns_get_attached_object
+From: syzbot <syzbot+5725792ce6a9938d1b24@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-On Tue, Oct 27, 2026 at 10:26:37PM +0900, Antoine Pichot wrote:
-> Could you please try the two patches below, the first alone and then
-> both, with your 150-frame measurement?
+***
 
-Done. The swap fixes the link completely on this receiver. Details
-below, but first a correction to my own numbers, because they are wrong
-in the archive.
+Subject: Re: [syzbot] [acpica?] KASAN: use-after-free Read in acpi_ns_get_attached_object
+Author: jeff@incrediblybased.co
 
-Correction to the dropped-buffer figures in my previous mail
-------------------------------------------------------------
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+master
 
-I read v4l2-ctl's output wrong. It prints a line roughly once a second,
-and "dropped buffers: N" is the drops in that interval, not a running
-total; the suffix is omitted entirely when there were none. The column I
-posted was the last line of each run, so it was the drops in the final
-second, not the drops in the run. Summed over the run the figures are
-some fifty times larger. The CSI-2 error counts came from dmesg and are
-unaffected.
+diff --git a/drivers/acpi/acpica/utdelete.c
+b/drivers/acpi/acpica/utdelete.c index e818009..28a13f0 100644
+--- a/drivers/acpi/acpica/utdelete.c
++++ b/drivers/acpi/acpica/utdelete.c
+@@ -558,12 +558,18 @@ acpi_ut_update_object_reference(union
+acpi_operand_object *object, u16 action)
+/*
+* For complex sub-objects, push them onto the stack
+* for later processing (this eliminates recursion.)
++ * If no state can be allocated, update the sub-object
++ * right away. Abandoning the walk here would leave
++ * this object and the remaining sub-objects with
++ * unbalanced reference counts.
+*/
+status =
+acpi_ut_create_update_state_and_push
+(next_object, action, &state_list);
+if (ACPI_FAILURE(status)) {
+- goto error_exit;
++ (void)
++ acpi_ut_update_object_reference
++ (next_object, action);
+}
+break;
+}
+@@ -587,7 +593,10 @@ acpi_ut_update_object_reference(union
+acpi_operand_object *object, u16 action)
+action,
+&state_list);
+if (ACPI_FAILURE(status)) {
+- goto error_exit;
++ (void)acpi_ut_update_object_reference(object->
++ bank_field.
++ region_obj,
++ action);
+}
+break;
 
-With that fixed, 1/7 alone at 30 fps, three 150-frame runs:
+@@ -601,7 +610,10 @@ acpi_ut_update_object_reference(union
+acpi_operand_object *object, u16 action)
+action,
+&state_list);
+if (ACPI_FAILURE(status)) {
+- goto error_exit;
++ (void)acpi_ut_update_object_reference(object->
++ index_field.
++ data_obj,
++ action);
+}
+break;
 
-  dropped (sum over run)   1181    388    926
-  CSI-2 error lines        >=4996  >=1931 >=3785
-  elapsed for 150 frames   47.0 s  18.8 s 38.4 s
+@@ -645,20 +657,6 @@ acpi_ut_update_object_reference(union
+acpi_operand_object *object, u16 action)
+}
 
-A clean run of the same capture takes 5.2 s. Error totals remain lower
-bounds: the printk is rate-limited and I add the "callbacks suppressed"
-counts, but the suppressions of the last partial interval are never
-printed.
+return (AE_OK);
+-
+-error_exit:
+-
+- ACPI_EXCEPTION((AE_INFO, status,
+- "Could not update object reference count"));
+-
+- /* Free any stacked Update State objects */
+-
+- while (state_list) {
+- state = acpi_ut_pop_generic_state(&state_list);
+- acpi_ut_delete_generic_state(state);
+- }
+-
+- return (status);
+}
 
-The divider swap
-----------------
-
-Your 0001 removes the problem here. Every run: 150 of 150 frames in
-5.20 to 5.24 s at 30.00 fps, zero dropped buffers, zero CSI-2 error
-lines. Thirteen runs. Readback over i2c mid-stream, with 0x0100 = 0x01
-confirming the sensor was streaming:
-
-  build          30b0 30b1 30b3 30b4 30b5 4837  link_freq  pixel_rate
-  unpatched      0x0a 0x01 0x4b 0x03 0x05 0x19  240000000  48000000
-  1/7            0x0a 0x04 0x85 0x01 0x05 0x19  319200000  63840000
-  1/7+0001       0x0a 0x01 0x85 0x04 0x05 0x19  319200000  63840000
-  1/7+0001+0002  0x0a 0x01 0x85 0x04 0x05 0x1f  319200000  63840000
-
-The only difference from 1/7 alone is the two dividers, with the link
-frequency and pixel rate unchanged, so this is the VCO as you say and
-not the link speed.
-
-0002 adds nothing measurable: ten runs, the same perfect result as 0001
-alone. 0x4837 = 0x1f is confirmed in the hardware, so that is a real
-null and not an unapplied patch. It does no harm either.
-
-Why I ran more than three of each
----------------------------------
-
-Because on this machine each stream start is a lottery and three runs
-cannot see it. A run is either perfectly clean or uniformly broken for
-its whole duration, with nothing in between, and the unpatched driver
-began failing later in the session too, so results taken in blocks are
-confounded by drift.
-
-So I interleaved: unpatched, 1/7, 1/7+0001, 1/7+0001+0002, one 150-frame
-run of each per cycle, swapping the module every time, seven cycles.
-
-  build            runs with any CSI-2 error   stalls
-  unpatched                1 of 7                 1
-  1/7                      4 of 7                 3
-  1/7+0001                 0 of 7                 0
-  1/7+0001+0002            0 of 7                 0
-
-Pooled with the block runs: unpatched 3 bad of 13, 1/7 7 bad of 10,
-1/7+0001 0 of 13, 1/7+0001+0002 0 of 10. The +0001 build was also
-re-checked immediately after the worst runs of the session and was still
-clean, so this is not simply a good patch of time.
-
-One caveat for the record: this receiver intermittently fails to lock
-even with a completely unpatched driver, 3 of 13 runs at 30 fps
-including two 60-second stalls. The Pro 7+ has a baseline instability of
-its own. 1/7 makes it far more likely; 0001 removed it entirely in this
-sample.
-
-So v2 with the PLL table fix before the index fix, both Cc: stable,
-matches what I measure here. Send it and I will run it on this machine
-while it is still with me.
-
-2/7 at 60 and 90 fps, without 1/7
----------------------------------
-
-The error count follows frame starts, not the link. The link is 240 MHz
-/ 480 Mbps at all three rates (0x30b3 = 0x4b, 0x30b4 = 0x03 confirmed by
-readback), and vblank follows the mode as 2/7 intends: 1244, 380, 92.
-
-One module load, then 30, 60 and 90 fps interleaved, five cycles. That
-block fell entirely in the bad regime, which is what makes the rates
-comparable:
-
-  rate    errors per frame start   errors per second   mean dropped/run
-  30 fps          3.62                   104                 867
-  60 fps          3.70                   204                 517
-  90 fps          2.72                   222                 262
-
-Per second the count doubles from 30 to 60 fps over an identical link.
-Per frame start the three collapse onto each other, and 90 fps is about
-25% lower per frame while carrying three times the payload of 30 fps.
-The bad 1/7 runs at 319.2 MHz sit in the same range, 3.5 to 4.6 errors
-per frame, so the per-frame cost of a bad lock is the same at both link
-frequencies.
-
-That reads as a failure to lock at stream start which then persists for
-the whole stream, rather than anything accumulating with transported
-bits. It is also why errors per run vary by two orders of magnitude
-while errors per frame do not.
-
-On the cover letter
--------------------
-
-6/7: I would rather re-run it than have the tag carried across a rewrite
-I did not test. Send me the v2 version and I will repeat the clamp sweep
-and the photometry while the machine is still here. If v2 goes out
-before that, carry it, since you say the result is unchanged, but I
-would rather earn it.
-
-Thank you for the pixel_rate explanation. I had taken 63840000 at face
-value.
-
-7/7: I will answer on the orientation in a separate mail.
-
-D. Manresa
-
-(Written with AI assistance, directed and reviewed by me.)
+/*******************************************************************************
