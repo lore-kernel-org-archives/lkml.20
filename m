@@ -1,81 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096246;
-	b=0ak9bKgH7dYuQRezjOYu3M92W3vidhTel9rESCETe1JBF/ZnuNTIz0j4I+xUuvYqMwch
-	 CZmkKUI/b3gBgbvsyZVvtXvyuD7l6vweXoyQJJ6Hky409W8Cc7rAA22wC9+XPHnn70hcn
-	 dP5sZv3oFGa/4qmogRTmEBvluZHNuoRUL7VCJNYEJLEJWG5ZPL+o0CrXY5RLFv9K1ycAi
-	 z857WUe8g72miTjOUJ8AWsNryhezkmBSVldoTJ1GYBToD7VVL0p78UiaLMSTthJR70X36
-	 e3uW26tVppCc5eTMKCLKkRqeI95dPQbcU29E2lFDj8y858Awn3pJ/MIT9uTKvsF7Mkw==
+	t=1793096259;
+	b=gXdg5qVCOPjAFkWD9DnU4YrebLTxxg4gFduDI4fc8m+zEcreKBLE/NH7Wq3wsRDMMwDq
+	 sw9BjMRtfY8Bf2ccoZmoXXvazNAbY8EQCKK6BCPurMvWYVAhwRCOjuCKFmx2Xu8G/e7KT
+	 cYctviwL89k1fFhbYa5usSOXiFiEP0q7Buh5ME8M4xbmUQREjjVRdDqpRxOXOBWfujP/1
+	 j64wUnB7gsZpxMcQ+OH7FF1SwB4HXVdTlH2oCDyOm1A8JViwd9OnUfQcBmKzIyPg4qRI5
+	 065yL3N8qA8Qf9SEiOHnj2wMUqTrO/33iLUAJMLXyZZIhY7nBRJh/5xQCYJQ3X59/TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096246;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=z0ECnIZcfjaHWvnEWv9CS9AUxde5/Sd5zctaZmB4Mes=;
-	b=u4oqBGKdV2iHrj1AkdgjsjUHKkLmnIRlpicmIGXtimWXDPE3tWi65zFbKosStDKzL1UF
-	 HdHI7UehxtG+3Frv/PstVMJOvayVpPpwQqLHugJBesYEazEmLJ6Z7WNdox5mxUENkhUPi
-	 /JBNdndDiNGeLgkvaPBQ5LuxePQqvP2bok5DGzZnqhe0L8w786xu5sqCMwvNkMvXfpj9G
-	 Wp0GIsd47gF+ysZbcQWqrObCn2UTrQ6I6+cUtC9he9Xdo4wJHZ1zSbne86tiiUprL3SKg
-	 TAhdiBLeYw+HSAxoJXIw6qiXfgVDBppmZdgbMYOvGpJnsOQ+0VGP5sVkTeZ+IJilYmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096259;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ROl8Z/DFaCJAxQvsLDCIwxAYaCdKritEmYyIuCU28LM=;
+	b=SvG2psA7/bQlbnPN9t1K6HasIzlPSbWUYqGytN1c58ovKW9XwLagX55bpWBx5BP8TFp1
+	 cyfF9WK4m4kphtQPi8wGwXKwyZ32ZnDKxXI+hVA8/e6g061Wt9u1WLR3uT7LBz8mhU2bk
+	 Cl0Et5fHOrnvK+cwkc/UXcIgx/iPGW97/346w9vChozirpolAhjQx8A4tDQLwpKxz8o/R
+	 866/D9MNvPfi8EOZPst6AvE9cqPRVbu9I+ryCB2mKj2DmyJA7ijSYTQb6t6v0uSkibZw4
+	 uos00Slz3bdx/VVlr/UW+uYTlbOBvdQYbWxeSLK9byIVOwMiX/G3Asf57G/U2t9LfHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b="J/OytH94";
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=fmA5ZVtw;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C751606A320;
-	Tue, 27 Oct 2026 10:17:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C751606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F52606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:17:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3F52606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=J/OytH94
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=z0ECnIZcfjaHWvnEWv9CS9AUxde5/Sd5zctaZmB4Mes=; b=J/OytH94niERjjNnCyanm0sACp
-	9oX+BES4yTwe9x2jTflF5mZJPoPoMgWl7AyswlY+/XigL1zHv7gzrmgxbJoxhzi59XbOn7Y73QLow
-	Y4sIGVdAJUT5JxFbPHfXn+lQbax9Arcc6UZGhPH0VU1XhL3zRyxtEfmaS0pAQ8qiJpq7J2b/ODrV5
-	akhmUwaPYmpHCamFXp9CHTcqKNHP3CsXi/p3gjhKglmmoVY2LEFbkdElG7ZU87lQCf7h45VJfDBcB
-	pWlqfSt0JfTW3llPsaCZkQFda+FNuN3lJhb4IpbDQc08bZnSxUo5M2rAqIwfKfeICScQYhn9Ndg7M
-	0UlDbFlw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLeEq-0000000EiPL-3Sv6;
-	Tue, 27 Oct 2026 10:17:06 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 75DE43014C0; Tue, 27 Oct 2026 11:17:03 +0100 (CET)
-Date: Tue, 27 Oct 2026 11:17:03 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: Ingo Molnar <mingo@redhat.com>, Kees Cook <kees@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Ard Biesheuvel <ardb@kernel.org>, Will Deacon <will@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH 2/3] sched/core: Add sched_stack_end_check= boot parameter
-Message-ID: <20261027101703.GB2668564@noisy.programming.kicks-ass.net>
-References: <cover.1793082868.git.chris@chrisdown.name>
- <3d2bb6a8508b9d801878bb82c88165a1b1ff5f40.1793082868.git.chris@chrisdown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=fmA5ZVtw
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so30880455e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:17:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=resnulli.us; s=google; t=1793096251; x=1793701051; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ROl8Z/DFaCJAxQvsLDCIwxAYaCdKritEmYyIuCU28LM=;
+        b=fmA5ZVtwVJcNE/fAKAHqsP3pTMhIMG/B4/fp3GRzy6U2KUaRfKgSPPQRO7kH3SZ6uV
+         l+fzzhfmGr9Mctm3db6DzPN2NeHVOu5pYzT1nPmjh7/grQz1Dup/ibheJflAfN28BYGt
+         sbIOe1LMk8vFbragFHLOaRICCrM6OPu2imRyfnGBgaurj8ZgT/B2EU27xE/StHY2p3vI
+         0FtODpcVTVfduuEmzZ206fQ1o2SEoqVEe0oCCy1muVMUaUmDeCS4IvdMx8Y+6Yayv+xv
+         4MfvlIyEMIM0RMDLyW4wNgG61M8b27rM8mXK+xBP7O+Jx/KNHvVSN9NnsB2j6/T8iqaN
+         ieig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793096251; x=1793701051;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ROl8Z/DFaCJAxQvsLDCIwxAYaCdKritEmYyIuCU28LM=;
+        b=ydyxJD5o7qu9xyYTJ1rHxietaY5gaWQENdXud0hyCpXQUCwLxWZcVeGPZhfnwRNeu1
+         QTz8NWc48W6fRmqqz+nZm+nSFW/lj1GT5kuEy92T8itteRcdTL2qyqfwCM+FmWcaoqwY
+         FFu/qlTWACfneO5m+VGjxyHoiQ0vPTgsUpsH8JbYn9aDKTTImWAf0C+PKJcjM8eschlZ
+         y/xAqpjsD8Pe8BvkSiiLaU1vW91uFiczVfVOH54836ubZF2+CnOT8OJnBK9Kpd/thaQ1
+         GT2brLND5ZXpJ6OHLl35FOf5XRAX0ylOWWvf56lnEwAboL8T1BvYUh4uQjCuiTCBHYHX
+         5orA==
+X-Forwarded-Encrypted: i=1; AKwUvByeR0AdfKnJtVqDw3m02660IIHGgDwzT2BQ1zYyQrG0Q6mhN2Kk5PQhWjIgJfslZaqjsVfXSjvXd4Inl7s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIuQGkxVcf4VHk6qlL9be2kcOwVMCvyeGsS6TyCVW/qyMTg7nx8
+	PYdNAnZ/dttFNLXuiDMaW6U0mGqgcAV0nNzjMiHdjXYuWsVi12I/nH0P64V9qQxe4qg=
+X-Gm-Gg: AYBFou1FcLb7X0dhKM1SaQjQ3dr0BNnR176Kzx2FhRye3bktZeMn6d8ep8D/LPufIyx
+	q9GUh6FKTLtbErF4Iy0RYRLTQg27ECABMcQBSbqN0KEtlVv7GPdTTR2HoCBCiDYwrji1nB8UKE+
+	PYuGVSfLcDCrGufILYnN3odDV2SeIL+WnzuP2wE9ZyfB6Lu651CFYPhn32xIhyUkbathw6wKDtq
+	aJWSPAxveWNeTJ567br7MtMDxWt72+oYoKb7eWUtX7yEEB9TZ8uGjnN8JnNy0zERWrwjqvNiADK
+	Mm+CmHjtouUSrL8r/0QEORMbmozgNmsCmfwoJ648+s95r+lnjos9l9fAt3PUMwopvqH2cUjrLmu
+	uFrgAjVtIpG3qNrJwppNw+me/w9idVuAZDZK6BnExrtbAlCa+2Qhsc/marmNK2SfC51Cxtx5Xkz
+	lQqK2sUIJM/QyQOJPHUTIL2rT9TWiUf4XcLO2YtGbaVKnDDGcy7rqrBYQ0m24w6nqCZH2ptHTQq
+	iO/99dHi1rlhsueINOH5gIQ/NOQFsY4lD8md6x28pJE2Y4nDB0UADzLM3ZS+fGk
+X-Received: by 2002:a05:600c:4704:b0:4a2:190f:cf6a with SMTP id 5b1f17b1804b1-4a35acc2ea1mr170116035e9.35.1793096250940;
+        Tue, 27 Oct 2026 03:17:30 -0700 (PDT)
+Received: from localhost ([208.127.45.21])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2ed5a2sm271453735e9.15.2026.10.27.03.17.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:17:29 -0700 (PDT)
+Date: Tue, 27 Oct 2026 11:17:25 +0100
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 05/20] ctlv: Prepare message input handling
+Message-ID: <auB5yxcuA50kg5x4@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-6-jiri@resnulli.us>
+ <179302367449.58760.13616210130636541456.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,101 +106,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <3d2bb6a8508b9d801878bb82c88165a1b1ff5f40.1793082868.git.chris@chrisdown.name>
+In-Reply-To: <179302367449.58760.13616210130636541456.b4-review@b4>
 
-On Tue, Oct 27, 2026 at 02:36:21PM +0800, Chris Down wrote:
-> CONFIG_SCHED_STACK_END_CHECK makes schedule_debug() check the magic at
-> the end of the outgoing task's stack and panic if it has been
-> overwritten.
-> 
-> Right now this can only be configured by setting the Kconfig option at
-> build time. At Meta we have it on for some hosts and off for others,
-> since it is helpful but adds cost on context switching. That means today
-> we have to build separate kernels for each, which is less than ideal.
-> 
-> So let's make this configurable at boot time. In benchmarking sched pipe
-> and sched messaging performance is unaffected.
-> 
-> Signed-off-by: Chris Down <chris@chrisdown.name>
-> ---
->  .../admin-guide/kernel-parameters.txt         |  8 +++++
->  kernel/sched/core.c                           | 33 +++++++++++++++----
->  2 files changed, 35 insertions(+), 6 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-> index fbee7b544903..95911d33c0fe 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -6811,6 +6811,14 @@ Kernel parameters
->  			core priority to both SMT siblings, so this option
->  			does not favor either sibling.
->  
-> +	sched_stack_end_check= [KNL]
-> +			Format: <bool>
-> +			Check the magic value at the end of the outgoing
-> +			task's stack (and its shadow call stack, if any) on
-> +			every call to schedule(), and panic if it has been
-> +			overwritten.
-> +			Default set by CONFIG_SCHED_STACK_END_CHECK.
-> +
->  	sched_verbose	[KNL,EARLY] Enables verbose scheduler debug messages.
->  
->  	schedstats=	[KNL,X86] Enable or disable scheduled statistics.
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index fc269fd10192..c1fb86b813bb 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -6143,18 +6143,39 @@ static noinline void __schedule_bug(struct task_struct *prev)
->  	add_taint(TAINT_WARN, LOCKDEP_STILL_OK);
->  }
->  
-> +static DEFINE_STATIC_KEY_MAYBE_RO(CONFIG_SCHED_STACK_END_CHECK, sched_stack_end_check);
-> +
-> +static int __init setup_sched_stack_end_check(char *str)
-> +{
-> +	bool enable;
-> +
-> +	if (kstrtobool(str, &enable)) {
-> +		pr_warn("Unable to parse sched_stack_end_check=\n");
-> +		return 0;
-> +	}
-> +
-> +	if (enable)
-> +		static_branch_enable(&sched_stack_end_check);
-> +	else
-> +		static_branch_disable(&sched_stack_end_check);
-> +
-> +	return 1;
-> +}
-> +__setup("sched_stack_end_check=", setup_sched_stack_end_check);
-> +
->  /*
->   * Various schedule()-time debugging checks and statistics:
->   */
->  static inline void schedule_debug(struct task_struct *prev, bool preempt)
->  {
-> -#ifdef CONFIG_SCHED_STACK_END_CHECK
-> -	if (task_stack_end_corrupted(prev))
-> -		panic("corrupted stack end detected inside scheduler\n");
-> +	if (static_branch_maybe(CONFIG_SCHED_STACK_END_CHECK,
-> +				&sched_stack_end_check)) {
-> +		if (task_stack_end_corrupted(prev))
-> +			panic("corrupted stack end detected inside scheduler\n");
->  
-> -	if (scs_is_enabled() && task_scs_end_corrupted(prev))
-> -		panic("corrupted shadow stack detected inside scheduler\n");
-> -#endif
-> +		if (scs_is_enabled() && task_scs_end_corrupted(prev))
-> +			panic("corrupted shadow stack detected inside scheduler\n");
-> +	}
+Mon, Oct 26, 2026 at 03:07:54PM +0100, jgg@nvidia.com wrote:
+>> [ ... 38 lines skipped ... ]
+>> --- /dev/null
+>> +++ b/drivers/ctlv/Kconfig
+>> @@ -0,0 +1,12 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only
+>> +menuconfig CTLV
+>> +	tristate "CTLV character device TLV UAPI"
+>> +	help
+>> +	  CTLV provides character device UAPIs described by a checked-in YAML
+>> +	  specification. It owns the character device lifetime, the strict TLV
+>> +	  message format, request validation, reply serialization, the large
+>> +	  payloads a request describes rather than carries, per-open event
+>> +	  queues and runtime schema introspection, so families only implement
+>> +	  semantics.
+>> +
+>> +	  If you don't know what to do here, say N.
+>
+>This should probably just be a simple selectable config instead of a
+>full blown menuconfig. ie one with no description. Since this is
+>really just a tool for subsystems to use every subsystem that uses it
+>should just select it.
+>
+>So:
+>
+>config CTLV
+>   bool
 
-I just noticed that there's a number of task_stack_end_corrupted()
-checks that:
+Makes sense.
 
- - do not also do task_scs_end_corrupted(); should
-   task_scs_end_corrupted() be put inside task_stack_end_corrupted() to
-   make sure they're always done in tandem and the shadow stack check
-   isn't lost?
 
- - should these other sites also respect this switch? It seems weird to
-   only have this one site affected.
+>
+>
+>> [ ... 159 lines skipped ... ]
+>> +static bool ctlv_message_nest_index_ok(const struct ctlv_cursor *nest)
+>> +{
+>> +	const struct ctlv_message_input_index *index = nest->msg->index;
+>> +	const struct ctlv_message_input_nest *indexed;
+>> +	const struct ctlv_message_input_scope *scope;
+>> +	const struct ctlv_attr *attr;
+>> +
+>> +	if (WARN_ON_ONCE(!nest->msg->request || !index ||
+>> +			 nest->index_nest_scope >= index->scopes_count))
+>> +		return false;
+>> +	scope = &index->scopes[nest->index_nest_scope];
+>> +	if (WARN_ON_ONCE(scope->nest >= index->nests_count))
+>> +		return false;
+>> +	indexed = &index->nests[scope->nest];
+>> +	attr = (const void *)((const u8 *)nest->msg->root + indexed->offset);
+>> +	if (WARN_ON_ONCE(attr != nest->attr))
+>> +		return false;
+>> +	return !WARN_ON_ONCE(scope->tree != nest->tree || scope->node != nest->node);
+>
+>Maybe wrap these invariant assertions in a helper and we can compile
+>them out?
+>
+>  #ifdef CONFIG_CTLV_DEBUG
+>  #define CTLV_ASSERT(xxx) WARN_ON_ONCE(xxx)
+>  #endif
+
+Well, yeah, that would probably make sense.
+
+
+>
+>It helps manage expectations around WARN_ON. I assume these have all
+>been checked to guarentee they cannot be triggered by users space?
+
+Sure.
+
+>
+>-- 
+>Jason
