@@ -1,63 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793145199;
-	b=OuNS/bGAKJSoMrzUx3pDvWG796/9TYoY+AVAnp7dVkyzDo8acxms3tin/KTxq9K9003W
-	 ZEAR5VvkGr2ulfWNDIy8dJUi2ZqFdjX9gBVz2h4IHViWAuPQv4U5a208OG/utz7YeXcFY
-	 ruHPwXiYDAJ1uGodYkR3q6EIDJycEMHuIAs2QypOpBtzc1sMoLfhFwN6k6Z0QgwQAFM4H
-	 ToGH7Fptgz2euTSD8bH226uhv6xmZ7i9nzBLTZwphTYox8SiphSHOrmUXT/wq8XCA2pUj
-	 MNhOKF+HSrzymbZuVQhBGdrkpCnlCoejsCwaV2rFIuumFfVTwv7yl6IT2LgsQSoFyEg==
+	t=1793145226;
+	b=vYnHIspm7VEXwqXhiPashQV6rciYgVnMT2/B3zF1SaJx7tjK/08HT7y2tYD5KJ6S93p+
+	 vid5+RutJUH85WI15aNYw1ynOLbn3itM0ozlHzv0r/KO82ST37e7gEeYAbweuYLhac23w
+	 lfrc4bqfVDiShTaNizW7pvSwoKTvL2Pi0Ik79w7pNCJf9vFLadBfL8+RTYYfwgmG+7wqn
+	 9ozRhtUayYhUWT3muAROQMVr9fDRX4Cj+nwnwdMptbrguGa1HaU0zCXzlLmid9XH8HcJI
+	 uQSekb313TMGkceq/JnynM70f1OY9iP/pt0lhtZMB2WucKfLZkCex1H1X+hi+Ye7p6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793145199;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iuQfgeNxA6wGpTGomQMxImyXHDaKIESamcJco6bW6WQ=;
-	b=p+Ju7GOKyss4X3gynMx/MHR/ym865S5m6LyD5A4wgcSrVDFuK/8XbLYYrRQasRh/3b4+
-	 iSTQWaHFJZ2VfTLGG//bQtqf/LHwoOpxosIvTnD/HBFB1qEvvikYfxyJoRO0bDY4R2BHG
-	 EXgzbLSPS38b5UxPTTwpbi7iCRvxxfDBe7TDNJR2ZeqdkMPmERXP3LDU0TZD5mZO9ijSi
-	 vRDo41bF5sSpwAT4kZ6xAW+lYJKUIH9YsFFzaUht0SQsHni3l1Jz8dYW2+7khsk9svbTv
-	 5wTxHrGvNQ90yJjjh/tZ8RtmoSJwOC1glc9ztPfYGkpYeGhIyTU6BJJOIiTsJtYXGtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793145226;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=g2ZTjrdVZe/hJwae0DDMZyqDrn3UxtuOCJQnq1CLxJo=;
+	b=xUK+yXzvcKZTCjzroH3NhC80adB3QKbkjtcPmHs9uSP5GhS7U46hqQz6zJxvLo+VwrDB
+	 JSPGUxucPgBdQ9SwitRGzvFsNoe0CeG6waJykWEabYRNcJMHX71ag7KFVMcoIX37e4Zuq
+	 bkjQ+ywdo9G9TLCd69A7f/m3bC0b/3LjMN+q1Dt8I4On8O168b2pWqV43X+tsCx0f8QOP
+	 D7kEvdfeJiHuSwaw5TgdfxAcyAHjfkNja9FsyOWqchhwUorMtnIs/hQq+vM4fRaUdzK82
+	 X0PP4JtNOrfnOXUIpyb6l1h4U3XTk8hH5WGT2d6mIlKlVy5zFnsciSDrNhfFRpKyzwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksBxNZON;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=TC3oitGK;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6091A606A31A;
-	Tue, 27 Oct 2026 23:53:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFFC606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AFFC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksBxNZON
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F7A1F01825;
-	Tue, 27 Oct 2026 23:53:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793145198;
-	bh=iuQfgeNxA6wGpTGomQMxImyXHDaKIESamcJco6bW6WQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ksBxNZONPb8UCXkhTBve3goFXZZQLNXqWYD1psAQqmQ3PV384sVnXrWRRZtDEQirR
-	 KoYFh1V1XqfzzHUyFKBpYgXrgq7+gneJRolr49gTjumAnLJ75m9M4q3zSMoDVWWq36
-	 6sjR3kzQWhZTBeU8/mx+8BUMTK8Tca1N5+PrlgL4KCKf25Z/Kmmw6BEdZy0A/gCG1Y
-	 qk0Rizpie+M/WaCYxcVrjY5to3BMnQCN8GL2VCKQTDq9I0WG8Z82PzWUDjRMLQu09v
-	 95QGDJgRDeR9ueS0uM9hU68vTH7tYwA9gmiAQ3aWNE+Pnds1AHMTTL17VP50qDuNdw
-	 tDVMS4Sh/NGUA==
-Date: Tue, 27 Oct 2026 16:53:17 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	Yuchao Zhang <ndaugoing@gmail.com>, Fuad Tabba <tabba@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] KVM: arm64: vgic: LPI fixes for redistributors with
- LPIs disabled
-Message-ID: <auE5bc4NJTZO-C1o@kernel.org>
-References: <20261026092802.2636798-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=TC3oitGK
+Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	by cmsmtp with ESMTPS
+	id LoH6x2DjlMylkLqzAxFyoQ; Tue, 27 Oct 2026 23:53:44 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Lqz9x1Texf7H4LqzAxJxji; Tue, 27 Oct 2026 23:53:44 +0000
+X-Authority-Analysis: v=2.4 cv=KrVN2XWN c=1 sm=1 tr=0 ts=6ae13988
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10
+ a=SesowdIJlHH8kaKYTl0A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=g2ZTjrdVZe/hJwae0DDMZyqDrn3UxtuOCJQnq1CLxJo=; b=TC3oitGK2Pjx
+	tNeJGOphfPsj+3gf5+rcrrajX7uZo2jITZPv47pgYxPr0FYz9S+UqLa8fJrpK8T3e0GeZaSa3W5As
+	hDnjh0Cn5MiXAV5QLYK28nr9FajOUKzMdAQUuUmYB6pPtjHdnfQsKQfZwBSMbugisbLDcmYxo7FTr
+	7KmLnHIwfwllIhJGns45bhEaAjI5TgJZBCi0UQZFzj6EctPAIs4lING3o7SAydnhsCycA46/RRv+X
+	LfCReYcg0061JQvFHqRu8Ivck0OOJ2QrsT6kbUtMCuGvchLdv/fYdT9MlQIWRUCZSCWj3+78idC3W
+	TVjV7STjLvwnNhTUB1RRMA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:46902)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLqz9-00000000ASt-1Y7C;
+	Wed, 28 Oct 2026 05:23:43 +0530
+Message-ID: <50272385-6d0c-48c4-9779-2ad59a1289ad@roeck-us.net>
+Date: Tue, 27 Oct 2026 16:53:40 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,57 +75,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026092802.2636798-1-fuad.tabba@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] hwmon: (fs1603) Add driver for TDK FS160x and
+ FS1006 uPOL converters
+To: Kevin Jia <kjia@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Abdurrahman Hussain <abdurrahman@nexthop.ai>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20261020-fs1603-v2-3-0986107a5cd2@nexthop.ai>
+ <3735b504-30ba-4656-927c-d321248102e1@roeck-us.net>
+ <20261027232157.3395142-1-kjia@nexthop.ai>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261027232157.3395142-1-kjia@nexthop.ai>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLqz9-00000000ASt-1Y7C
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:46902
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 3
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfFHgcMjGVLGJfRxd5a/iA/D1ip2ObNrkcUcMubII//3/jsqustuMj4looX4NXFFbiVUQr4xkSUIBaE8wa8hgsv0ztuz/6g/QHU6a3lPn97e2UCrsk/mG
+ zsi+PmfZsu728AXe+5TaZVzEi7SA9suGWmwqSWaBte5+TzqsVoRyEfUX5AtSlBut7fpLmMy/FEABRui+kX78Ye0akrbu6OQNR+PilINO00muoN9TyxLCR2kQ
 
-On Mon, Oct 26, 2026 at 09:28:00AM +0000, Fuad Tabba wrote:
-> Hi folks,
-> 
-> Two fixes on top of Marc's cross-CPU vcpu pausing series [1], for LPIs
-> whose redistributor has LPIs disabled. Without them, the guest can take
-> such an LPI with EnableLPIs clear, or lose one mapped before it enables
-> them.
-> 
-> The first is the vgic_target_oracle() change Oliver suggested on v2 of
-> that series [2]. It stops an LPI from being queued to a redistributor
-> with EnableLPIs clear once the disable path has retired the vCPU's AP
-> list. With that check, the path has to pause the vCPU before clearing
-> EnableLPIs, so that the retire still finds its LPIs.
-> 
-> With the second, an LPI mapped while its redistributor has LPIs
-> disabled keeps its pending bit when they're enabled. The second relies
-> on the first to keep such an LPI off the AP list until the enable.
-> 
-> Reproducers for the INVALL case in the first and the map in the second
-> fail in every run without the patch and pass with it.
-> 
-> Based on kvm-arm64/cross-vcpu-sync as merged in kvmarm/fixes, which the
-> first builds on (e99ff76f4a02b; also applies to kvmarm/fixes
-> 309e1d2215255).
-> 
-> Cheers,
-> /fuad
-> 
-> [1] https://lore.kernel.org/all/20261015100539.1011760-1-maz@kernel.org/
-> [2] https://lore.kernel.org/all/asf87i2RDh-WksL-@kernel.org/
-> 
-> Fuad Tabba (2):
->   KVM: arm64: vgic: Don't forward LPIs to a redistributor with LPIs
->     disabled
->   KVM: arm64: vgic-v3: Don't drop a pending LPI mapped with LPIs
->     disabled
+Hi,
 
-Reviewed-by: Oliver Upton <oupton@kernel.org>
+On 10/27/26 16:21, Kevin Jia wrote:
+> On Mon, Oct 26, 2026 at 03:04:45PM -0700, Guenter Roeck wrote:
+>>> +static const struct of_device_id fs1603_of_match[] = {
+>>> +	{ .compatible = "tdk,fs1603", .data = &fs1603_models[fs1603] },
+>>> +	{ .compatible = "tdk,fs1604", .data = &fs1603_models[fs1604] },
+>>> +	{ .compatible = "tdk,fs1606", .data = &fs1603_models[fs1606] },
+>>> +	{ .compatible = "tdk,fs1606-0600",
+>>> +	  .data = &fs1603_models[fs1606_0600] },
+>>> +	{ .compatible = "tdk,fs1606-2500",
+>>> +	  .data = &fs1603_models[fs1606_2500] },
+>>> +	{ .compatible = "tdk,fs1006-5000",
+>>> +	  .data = &fs1603_models[fs1006] },
+>>> +	{ .compatible = "tdk,fs1006-3300",
+>>> +	  .data = &fs1603_models[fs1006] },
+>>
+>> Why those extra compatibles ? I can see that -0600 and -2500 are
+>> needed, but the others could just use tdk,fs1606.
+> 
+> The FS1606 reports in 10 mV steps from a 300 mV base, while the FS1603,
+> FS1604 and FS1006 report in 20 mV steps from a 600 mV base, so they can't
+> use tdk,fs1606. They do encode telemetry the same way as each other, as
+> does the FS1606-2500.
 
->  arch/arm64/kvm/vgic/vgic-mmio-v3.c | 31 ++++++++++++++++--------------
->  arch/arm64/kvm/vgic/vgic-v3.c      |  3 ++-
->  arch/arm64/kvm/vgic/vgic.c         | 12 ++++++++----
->  3 files changed, 27 insertions(+), 19 deletions(-)
+I referred to "tdk,fs1006-5000" and "tdk,fs1006-3300, both of which reference
+the fs1006 configuration. Sorry for the misunderstanding.
+
 > 
+> So for v3, I'd like to move the bindings to a dedicated tdk,fs1603.yaml,
+> where the FS1604, FS1006-3300, FS1006-5000 and FS1606-2500 list
+> tdk,fs1603 as a fallback. The driver would then only match tdk,fs1603,
+> tdk,fs1606 and tdk,fs1606-0600, with three sets of model data. I'd also
+> drop the OCSet check and patch 1/3.
 > 
-> base-commit: e99ff76f4a02be8542e2c3ecc8843d7339a0200d
-> -- 
-> 2.47.3
+> How does that sound? And is there anything else you'd like me to change
+> before I send v3?
 > 
-> 
+
+Sounds good to me. I don't have any further suggestions.
+
+Thanks,
+Guenter
+
