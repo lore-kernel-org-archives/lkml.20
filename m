@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793144317;
-	b=aRCxD077XxRnxAdmVKdjv/sFuBjhW8T0wzQl6daJsVEbGkUg2eVd6++HKkp1ApLgEX2X
-	 68sL7mc8smw+313RB2niuTVNWBR8a0DDv+g1OONE3tpAHQwFMvimaDN6C8sbMKPFockO5
-	 PPyt12SkHvecexxIxjx8zUy8Lqxoz6LDIWoq3l1ph0VIEpOHeGXeHyrYOMuhwp9NbZnY0
-	 OkvLEwi+FZN5rEVU9F0V3kBS2e9aYVVUPCtgjfurf32abi57EnQa3mOh1arydQ1mysHLw
-	 ORuyc4DiauuORxxs1QTK1FVnOVRZS1rFVXmaVD+cyvTVG7bw7KPkRgPDHoyh0DgywyQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793144317;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=k1MxGfpFlT7dkeupz0T5lK63fjoZTYsDJPiZEqVnvoc=;
-	b=fOo/M8vlJxkTD2+Xb+rqzaPgBk8yqcmbmnlP33wc1MGXtLrmzNmbwIhHVQTI2CI2Bf0o
-	 PJOk045vQ6cIkrOfkbliokWQAgablOOD1VQoq0PuYeTvTU+6ctzDkv/MCTIMUTn8NG9iW
-	 LFZzL46blsnt6VSx+9fV1TI1kxXQrNo8FLpA75vVPSTMEOVFYUwDJ6mLdGwvO/9Ym8FNh
-	 Dyi444TAxNF/h0OkuOHxsEaVNjqQi1uDp/hyy4WtCuAeBy8tCmR3RXCaaCpf82sGNh31Y
-	 zUrCwo4Xhof3Gs5HIjQ96jjoTWjofZhBVujjx+sTguGP7x/e3mdFUhCzaRUzLy4c62g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzexqIdz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77143606A31A;
-	Tue, 27 Oct 2026 23:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kzexqIdz
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793144315;
-	b=A8OaR42Ug/9JXwIuAP4MEe1uj+ZxlORcxyaZylUCRD8LscHi8c788eMuGGSyRvqSb2z9
-	 kr0Ym0cj5fNG/B9iZ2mK7IFdlyqQmU1KCg32TsdbY49rAJ6HP4fWwpa/pp3Q76yuEAWKi
-	 rplDx/pE8ouZNXQf7JC/N+OXBNFbndUSejj0oODkuoiSoQySEUss+ur1GwYd2TsyhRlR5
-	 TajyqtgGg6hgETf5yc+VgxzHHTkc6l+kY6IewESRkG2imWywQrqqLovWjXUnAxFv84xpy
-	 rdY/lK2Cx+qjy9z1RzpmqYnG+X6cVu9YG3j3iVGLiC6uSznwonqw4FjAc1G6DU537SA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793144315;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=k1MxGfpFlT7dkeupz0T5lK63fjoZTYsDJPiZEqVnvoc=;
-	b=OoALIzq8sEF1/d+cOFSw2EVGMjCnDgwoyMQktmfshs+QPoyjHZMaCyRm5E/uoefUGhi7
-	 ZemoY7wlI36MDwCfx+DNeWlJ0i2mYPWnOJBrHik6p6IZooKNjagdzKwL5q0JA8otOVMiI
-	 yd8zYWbi7U4YclmDbxrGY1pCO+Ag99onTawM5Dil2Y6ySBGNYW81gmDBWu1AXh9UzRSIl
-	 KQJfEyeuuEE8gf5MNokGDZtdt9KDIRlLJUQIx9O5hrDv7DfdOG0hWKRWPcaTfSYUza3zK
-	 Ri0QVwU6/JxjiVKfZ2aIDQFZgMrRjy2/bGPF7+P83ZFW4eCu21ZFKlMlahPY9kAphow==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793144395;
+	b=Wvff/hw30tjuyfgLM00sW3Ae6Xx/RV03s/IrXx9H+iJo7nyGuf/yIr+YyK4MZTfmcMsM
+	 xNasdWqyRe218uUDIcH7ljKmW2eSK3W4ibIdatddxJAFKACOvBciqGXEn6SIK/1aMX8hq
+	 J0viglW0ofjGMGY/iLZP0mCYZUDhX5npKRvUTGBtZamOloh0Xyzp0Va+K07VpWDXIwBI4
+	 09MbGFTP3sKFqKO3Tss/pYQ2P2L0ZTKpFnm/GMDVX4nMekNNBYHdTm7BlQ8RHjx7IUtsF
+	 jJFE2scruDeTneFG7XM9neFaUXiUBWBPnTF7JrszwQY3pZs2WqkB1kp0WfeJ8Fc/r6g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793144395;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+	b=qx7yfIs84APNv/oEcLFCXmOZ0hR/9roFYWmXAnd1oOP5Gq5gIlbdtAJQSYnY4aP/y4tw
+	 g7gFZMzp32IVnp2V/qZCJkKyq6ulCLb5Ta0FRYDJhj+z0KlhwHedJlU/e2JmyIxls5VDP
+	 MoBQn+rnuvhRp3Rq3u/u3ZVjp5WZHZWpow2iROPm6Bu/qGWEo4bpcMO19rbeLGTuNceuP
+	 VzXk8ofd6aO+D2LBw+yFPGCVpy+4zCv3E5C7fGHV7KQ4LKDclihPdZRFo494lRVbQ9uxV
+	 Lsg7RZW69KF3ddbX6WxyqO3wXYh3VfLNOvyvVKAL5PGfYL9SqIME5Xwif1d02vLjo/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qdYhQ3R/";
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4EA4F1F01825;
-	Tue, 27 Oct 2026 23:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793144315;
-	bh=k1MxGfpFlT7dkeupz0T5lK63fjoZTYsDJPiZEqVnvoc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=kzexqIdz6cSRJ2Ze/a7NeZDWobwtsaHagGurH863vjvvMYhhmJXtBzO/4DxH9MPF0
-	 ibBq5SYaAdWrc2odIRi5PUynPAWD/B2zowbEY6yrYYYfP3mc04T7aWDSEtD0X/ebDk
-	 TIUN7aRdAKV6K2UF0OM3o2rkUakcEN7S7pig9evxUeWlR4zr7oiLPthuqBqyWzzYS6
-	 88WtAqGMwIyPbmLgtAcy6g6xEq0/4E+HsuWewN5iUZ1hEIeQgrz5pJ5tGcVCa+/8Ij
-	 ouOxFq8aQm3oJ+QsB2loR2PoAcJZplVeS8p5fDrV1e/eEfIgL7c9/iBg6Eg/425Hsf
-	 17Kc6kWOGZUpA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BCC63452E2;
-	Tue, 27 Oct 2026 23:38:34 +0000 (UTC)
-From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
-Date: Tue, 27 Oct 2026 19:38:35 -0400
-Subject: [PATCH v2 2/2] usb: ehci-pci: Set has_hostpc for TDI EHCI on Intel
- CE5300
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D12D606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:39:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D12D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qdYhQ3R/
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-84a2bea315dso282647a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:39:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793144393; x=1793749193; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=qdYhQ3R/n3DzcCumCOhrFW/n5TjZH5P+HncGKay9qiDO9UZmBQm/zQ2sj+2AtlY2w6
+         2sEnmq38N8d/1+S06QpS157WBQaVslaN6l8YTy5W/VWOdQHilbBouyB8C/PYFA7b8WSJ
+         pdNhG2tgjbaX3QRO2ppdrv9SH9ifa8oosnT7pJXGStEl5jVKYGlFghJrdiCf86Hk1Pet
+         eKI/ClAzQ/8aj018Gk26LNs/DgsE5Dd0YRRGSJ1CfPD1jUpQi2DOPPtgmO8Gdy8y5gbb
+         p5+QFqjhWlz/HrqDK0OpUCa0m25RQhw+rRNuPQiU+OrsVMuvxZJYVXxbrttMU6znYLN8
+         318Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793144393; x=1793749193;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=FjyC0WORps79+juc7o0X2IRg8xWrNFQPyLKJUGxptjhxrym//eQ68GXsa7OI390Mzg
+         xJR+ACvhvXR/Hac2U6aoE1TBZ0lESJ4a4xABeu7J1ky6uWOKheDFk3HTJ8nwKhX7Sq6B
+         8irtl/6sK5XwCgOaQnQ9fHMRhm27EzDI/M8oUgqBm39chyU+2LEuU7HH7NSIamdJ79Ez
+         oPu/JvMLzmD2n6JnF6C0jYGKfzjTEbQSkRtaYBdwmKvbz6D3WaPnXAsmhz6q0E1whN5p
+         SUyo9f2Mv0x+nbanJIKXNqLwu3MWM9uRD/iyOhdi3zJdT1XoVuGRd1A08rQHwzuwJ8kf
+         LT/Q==
+X-Gm-Message-State: AFq9FYJ3Mpmf52yjOb7v9+Nsu81IN67W1F87MZ02AdEFkFgV48MUAc3N
+	zUx6iHtLuuQJhDZQdEAAm6O4AIJvn0Xs6SRWmAEj2jLFleX08u0r1Ec1
+X-Gm-Gg: AYBFou3V5mHpoGjVAO0niyAnRPfSvJP9w2xjny1lvuTzF1ffTsauPMtMgbJjz4pBJu5
+	FTxpogwnqLJut6efWuFjjICZkQpHCJSDfU87hsRgN4tobffSZ/sA58t8QDF3weX2k51GeAFJb5L
+	N3mXRxn58bNv9ICC6U52S8li+8bPULLwK6fVBjYeMhYwYLcEs3CXSfiAhTDYIXo9NoalBdnr6Mc
+	jiJqnmc0uxCYk0dyZF81qZDgTadum8j02cMIqfRE63mPfiO5UKkVzdCm30s2EQBb0qXfrCG5+DX
+	pjyz6P6FZL2bpyESTssfrMyBxhPzW6r0MK1ydyE6BPNju8Ois4QMaOywyUD3cBBZmnkDGqVjSFu
+	cW0fGSJ7uiR/54RIMYNBOqMj2DksJxDtIMCy5VNF+V/G5zhKlwqN4sVnLDEJ4H27MjLFTMZ01dO
+	b2Hvvj8BQLWWX3pRhR8Y2gg9WNZlZ4h9gBbhqhATrXsWkHPCwYprtmfYELOhvfPQZDI3xJC1mHr
+	Fe8uu1BPDXZShb+IRYxFMtgTYUmF/K8vvapMqxJNzqssl0VZsuAypwXadhLagcrnHi6wjQ1ORA1
+	xxubo9TsJQzOcKQCvq7M2D3zlwZcc+rAai5xf/+xiaFqEsz6wB3SRuSoy1PZ1s4ePFQxJgbMcGx
+	SS9eLGalOr1FqfKhXEQt/4XOAvreT5MzbxAdeKkhnlRgdmlJ7sSXqLh8fHRv5DJhEdEtHEld2dL
+	dYZiQ=
+X-Received: by 2002:a05:6830:25d1:b0:82f:5471:4dd7 with SMTP id 46e09a7af769-85ac11bfa1cmr895947a34.30.1793144393599;
+        Tue, 27 Oct 2026 16:39:53 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85b1fd31a6fsm62836a34.18.2026.10.27.16.39.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 16:39:53 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 27 Oct 2026 17:39:46 -0600
+Subject: [PATCH v7 1/5] serial: 8250_omap: separate locked TX DMA
+ completion processing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,114 +94,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-ehci-ce5300-hostpc-v2-2-375e9d362d74@telaak.dev>
-References: <20261027-ehci-ce5300-hostpc-v2-0-375e9d362d74@telaak.dev>
-In-Reply-To: <20261027-ehci-ce5300-hostpc-v2-0-375e9d362d74@telaak.dev>
-To: Alan Stern <stern@rowland.harvard.edu>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joseph Telaak <joseph@telaak.dev>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793144314; l=3297;
- i=joseph@telaak.dev; s=default; h=from:subject:message-id;
- bh=mAomdJY7vVHiH3SZhOh4pFTjDcxX+9QU//lNz5w7C8k=;
- b=vSS727hInN79mdgdbbEnxkaH9nfyw29I2eqlH5yTXBpHRWd+JBkXWIjomvRCLL0svZjIC5Ss0
- XkqjJgR+XxyBDTttuhbQowaE/9gCd6BlQ6t4rSjhBGu++LLcV/MRK3D
-X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
- pk=vbM2RxVf3De5c1pQhdR2zZNLas2GaS+BXNVRR5qg3hI=
-X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/default with
- auth_id=1203
-X-Original-From: Joseph Telaak <joseph@telaak.dev>
-Reply-To: joseph@telaak.dev
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-submit-serial-8250-dma-cancel-v1-v7-1-985a023ba4b4@gmail.com>
+References: <20261027-submit-serial-8250-dma-cancel-v1-v7-0-985a023ba4b4@gmail.com>
+In-Reply-To: <20261027-submit-serial-8250-dma-cancel-v1-v7-0-985a023ba4b4@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Tony Lindgren <tony@atomide.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+ Timur Tabi <timur@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Joseph Telaak <joseph@telaak.dev>
+Separate the port-locked completion processing from the DMA callback
+wrapper. Keep the shutdown check and locking in the callback, and retain
+the existing FIFO accounting, delayed register restore and THRI handling
+in the helper.
 
-The TransDimension EHCI core in the Intel CE5300 SoCs (192e:0101,
-revision >= 6) has the Moorestown-style register extensions: host
-mode is selected in USBMODE_EX rather than USBMODE, and the port speed
-is reported in HOSTPC.
-
-Without has_hostpc, ehci_reset() never programs USBMODE_EX, so the
-core stays in idle mode: USBMODE_EX reads back 0, USBCMD.RS never
-sets and no device is ever reported as connected, even though the
-probe itself succeeds. With it, USBMODE_EX reads back 0x23 and
-devices enumerate.
-
-USBMODE itself always reads back 0 on this core, so
-tdi_in_host_mode() would report a running controller as not in host
-mode and ehci_halt() would return without stopping it. Add
-has_usbmode_ex so that, for this core only, tdi_in_host_mode() reads
-host mode back from USBMODE_EX. ChipIdea also sets has_hostpc but
-keeps host mode in USBMODE, so it is unaffected.
-
-Intel's CE5300 BSP sets has_hostpc for device 0x0101, revision >= 6.
-
-Tested on a Control4 EA-3 (Intel Atom CE5310) with v7.3-rc6: a
-full-speed CP2104 USB-UART bridge (10c4:ea60) and a high-speed USB
-flash drive (0781:5575) enumerate with this change, and
-ehci_shutdown() leaves the controller halted (USBCMD.RS clear,
-USBSTS.HCHalted set); without the USBMODE_EX check it stays running.
-
-Assisted-by: LLM
-Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/usb/host/ehci-hcd.c |  5 +++++
- drivers/usb/host/ehci-pci.c | 10 ++++++++++
- drivers/usb/host/ehci.h     |  1 +
- 3 files changed, 16 insertions(+)
+ drivers/tty/serial/8250/8250_omap.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/usb/host/ehci-hcd.c b/drivers/usb/host/ehci-hcd.c
-index 75f780ec3b..fd7b47c0f0 100644
---- a/drivers/usb/host/ehci-hcd.c
-+++ b/drivers/usb/host/ehci-hcd.c
-@@ -170,6 +170,11 @@ static int tdi_in_host_mode (struct ehci_hcd *ehci)
- {
- 	u32		tmp;
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index 4805b644ccb1..b6f108d34854 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -1080,18 +1080,13 @@ static int omap_8250_rx_dma(struct uart_8250_port *p)
  
-+	if (ehci->has_usbmode_ex) {
-+		tmp = ehci_readl(ehci, &ehci->regs->usbmode_ex);
-+		return (tmp & USBMODE_EX_HC) == USBMODE_EX_HC;
-+	}
-+
- 	tmp = ehci_readl(ehci, &ehci->regs->usbmode);
- 	return (tmp & 3) == USBMODE_CM_HC;
+ static int omap_8250_tx_dma(struct uart_8250_port *p);
+ 
+-static void omap_8250_dma_tx_complete(void *param)
++static void omap_8250_tx_dma_complete(struct uart_8250_port *p)
+ {
+-	struct uart_8250_port	*p = param;
+ 	struct uart_8250_dma	*dma = p->dma;
+ 	struct tty_port		*tport = &p->port.state->port;
+ 	bool			en_thri = false;
+ 	struct omap8250_priv	*priv = p->port.private_data;
+ 
+-	guard(uart_port_lock_irqsave)(&p->port);
+-	if (dma->shutting_down)
+-		return;
+-
+ 	dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
+ 				UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 
+@@ -1123,6 +1118,18 @@ static void omap_8250_dma_tx_complete(void *param)
+ 	}
  }
-diff --git a/drivers/usb/host/ehci-pci.c b/drivers/usb/host/ehci-pci.c
-index 3c7430a06e..183002ed7d 100644
---- a/drivers/usb/host/ehci-pci.c
-+++ b/drivers/usb/host/ehci-pci.c
-@@ -155,6 +155,16 @@ static int ehci_pci_setup(struct usb_hcd *hcd)
- 	case PCI_VENDOR_ID_TDI:
- 		if (pdev->device == PCI_DEVICE_ID_TDI_EHCI)
- 			hcd->has_tt = 1;
-+		/*
-+		 * The Intel CE5300 core selects host mode in USBMODE_EX and
-+		 * reports port speed in HOSTPC, as on Moorestown. USBMODE
-+		 * reads as 0 on it, so host mode is read back from
-+		 * USBMODE_EX too.
-+		 */
-+		if (is_intel_ce_tdi(pdev)) {
-+			ehci->has_hostpc = 1;
-+			ehci->has_usbmode_ex = 1;
-+		}
- 		break;
- 	case PCI_VENDOR_ID_AMD:
- 		/* AMD PLL quirk */
-diff --git a/drivers/usb/host/ehci.h b/drivers/usb/host/ehci.h
-index 855a9d08b0..e26e913ad5 100644
---- a/drivers/usb/host/ehci.h
-+++ b/drivers/usb/host/ehci.h
-@@ -248,6 +248,7 @@ struct ehci_hcd {			/* one per controller */
- 	#define OHCI_HCCTRL_LEN         0x4
- 	__hc32			*ohci_hcctrl_reg;
- 	unsigned		has_hostpc:1;
-+	unsigned		has_usbmode_ex:1; /* host mode is in USBMODE_EX */
- 	unsigned		has_tdi_phy_lpm:1;
- 	unsigned		has_ppcd:1; /* support per-port change bits */
- 	u8			sbrn;		/* packed release number */
+ 
++static void omap_8250_dma_tx_complete(void *param)
++{
++	struct uart_8250_port *p = param;
++	struct uart_8250_dma *dma = p->dma;
++
++	guard(uart_port_lock_irqsave)(&p->port);
++
++	if (dma->shutting_down)
++		return;
++	omap_8250_tx_dma_complete(p);
++}
++
+ static int omap_8250_tx_dma(struct uart_8250_port *p)
+ {
+ 	struct uart_8250_dma		*dma = p->dma;
 
 -- 
-Git-155)
-
+2.53.0
 
