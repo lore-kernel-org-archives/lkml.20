@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793139055;
-	b=OLdcnTcw8J3MEKB5y3bjhOAAIW4w+SL8aJy7TpAvKDE/ypf8WfBLcu5lfASYB1Xt66JK
-	 1bzOL5b8uMWrHSu0oToffRwS90wwi3AqcaRTV1meGh9wIQ40FgGw+Hkdqu72hZ6lkjX9p
-	 06aWVb9/MfTp0bRQ8gRhSlygLp/FxM8NUiD8E38YBfBA7ijlQOsuuDbDKAkzipwlAnbS/
-	 RTDJvIFCk8CvBiFzJkDZi1EMQkhzh9b1sBn+yK52D0rLpebT6ktjapx08gYsNI2Nqn8AQ
-	 Ao4DXbc9tTxkaxO5kE5AT/dX18d+3Sc+s3Ij0WkLdE6o07KkE9To9dSu92opUrmvsJQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139055;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793139135;
+	b=A/jngMYQoeFepBQrWr89Yd4e5MBfs2nHCEZkDaoNMa5V9I+PD5hFw75jLIm7+M1n4NHa
+	 Kwh5AarmKFfGdra9QXfRG1nyAQbP9Y9fNMg4i/jV6+4h3uGjoDjXjUNoJXZdC1pIUi3Ch
+	 LJwgNjku9fNWYZLQuGvirk/RQGkNbF/9b1sEQf+sMotKaWplJrcv621mrf8qxgJJuCAYZ
+	 iBrUCkkjV4lSZIYLT0U68osfTzVxEQ0L5aSJRE7PbMiYgVf/1n3dPNnrOWdYqt2572mp1
+	 fNS3Vd92pk5JWf7EoupoEUtKsNbiRUjMT9yLQUxFahj+ugdsenV+3ZVQnCdfVOj2hSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
-	b=VtclTA4up0BBpThwkXRG05oB0YU4sMxo0d7F0s5K0yn8jpqQhRAwi27zdPCD98YAAqku
-	 tV/fXWdt1GxbZbuWpsYlNzjNdM8z9u43s2N7qiqE4a+awU5paPws5v65vsHg3R1j11Jgx
-	 bFJGPtr/Xp8AZTPVTodbpa55IuyZB9lAQhhheQMSG/g76xWYTCW9X+JlNxmUPlEXBuHFu
-	 IzMVniEqR9jREgy0ptURd8HFjp37fly6mMEn86LbcX08ISrSsbP0/Z899nAv579QS+1pV
-	 ZRQjiU0YMQE6mh3XD1mhhyb7stO1PraA9ed9xL9dMT1tyXBGYxLvsj0vpAO0upxzegA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=4+wo0Hnq368mIoBgSKtnd7+wHbHIcDQRZtxGt/eUG9s=;
+	b=orQZcSu/O7bIev+t7ZB0SP7k5cHWoosj5us974MmNgJfkmx+f00Rq0j/758TN/toEAa9
+	 Oplt0gHpxhWcWL2IvRZAJcjsiM/afQQ6xWuUyXZ1eyVgj60TEQvAk87qUdE5cteNY4POI
+	 eco1WVy5XIgz+2AqniT7qcsAVMjlioCnifqoA20UbTcgLryU9gFfdFoYRhrehUXCXRNJv
+	 JmGrnLUVzQZQROEv6OTcOGFzM3M3uEuoXpJSToYZJJAnz7t47u8hvEXt5HD1SlRajNcBF
+	 +HclOFfJdV3fxRq/LVlQenRr/oBGTjosgjLTT9SAigWNvF9Dzfn8R+BjAI0wrWNbk8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jAjiZRED;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=J2SuGckM;
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEBF606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:10:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAEBF606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C1DD606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:12:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C1DD606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jAjiZRED
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-533202fe429so120021cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:10:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793139054; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BS/sjtIuTzMgNZN1/rYFo/P5juiwfQfjQUZKWsDIioA8Kl/yHWAz1O++3EHyVYIOO9
-         LurD5ATS3pu4cWxYc4MSfBHsU39lrPN2FAAubTxq6bJYngSac6cADj8FyzsqJ881maIa
-         OBLovZ1Z3yWAHLfz2qdTMt65FeMczdChZONxfQp99wOv/0G1WIqS//X6whcGhvirGQv8
-         Y3GDKYsCX4c5+kFVxp8lPmfshSv3uZYYBzeVVsFQpumwWnHsJAy1/8zbkCMJ7THqJrCw
-         5EmDx7GdLQHMgnpnHcmBCDxGwWMARx7eWni0ao7+GH7E73ESUFxs/8t6Z0g1GkDobn7r
-         VEDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
-        fh=oaJVTUd+YfGXchRGimiCPJKOTPpr+cw78XhjQvtY46w=;
-        b=Ot6HfKsKk1PiXA3fyr7v/tkqfwgV9m9JqaxW2jXJlqGBZcCkvllb9KBmSvuwf9grwo
-         JELcamIq2pDqeqr8ncx5Eh1qkq5oj6sEaOPlVNF0q0iEUBBQeqXpSW2+ngjpw6HOCu2y
-         0aXVmE0186pqlQsCt5+RPcIuXJCqZK6gXw0D2FJuDUJqGS3nlh5T0T6m7DznnQR0b0BN
-         wlkCmSTCihiv/Hg7fs417uU6AUUsG2858WIl3F8/CIWAT5PAOGCALT7LstemRSaF3ez8
-         D86Dda122h7ZhTBiyISc6A0iYP8d8o3lhGq9YojuNHJDu3O4PYBxLsK6DGt87EF/Ng/+
-         xS/w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=J2SuGckM
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e60770381cso2684245ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:12:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793139054; x=1793743854; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
-        b=jAjiZRED4efHabS65rAPJo/JB9He1qV3QYfnymMDEINWid1rQWxsT1/bUsDQHQfBpw
-         I/pnK4NXhoQvGY91ujGjj7c5Fz+Cxnx8GaTX+XCY+4KKNSncRH4NBlUHoebXzv/qgvh+
-         mA93VUuqFUacnyKn4JRJISNONV9vElwrvIVZF+jKT8VrUfGwbPPK+74mvdghqIrn7pZH
-         mBJj3DEX7eEIdDhYH0HNhN7InqXX6rICLIu0gimCWKwPeFYamMM/bwZjv+HDU5Hw90YR
-         F/cEjs5VHg9u2VJhedCGDhqstPBJmCl3jBOoph/S6h9qDvcwlKY5aMqVka/44qGT8SP/
-         hRfA==
+        d=google.com; s=20260707; t=1793139134; x=1793743934; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4+wo0Hnq368mIoBgSKtnd7+wHbHIcDQRZtxGt/eUG9s=;
+        b=J2SuGckMEea6+N7uGSEKo7pSzH3SEPkJfVgT/TxTooWozy6PkCcqJ40AV8sPipP7lI
+         WOO1ylny7xZWxEtWgh8xhHbO+fvCdHLsmTj/A5+aJisxnUklHEuxqRQrbTlgutbXOt6N
+         pPAbj0+XoLo9DrhQTcPvQHGdA/F4AKc5E3W2akZHCpm+/xBwW2H2081QpRbSgRSk5q5J
+         aBicYmk+XpN3YhK89kypo5t8RyaIVPIPeHbb8eC+axo9JpY/mrcks0u6KRoBWAEgqwXR
+         uk70HunxhpzV9315Xulpbf6yspq4FJndswmETStyMa4vCMOn1rjVE4X6VlCPUNr+MarZ
+         LuEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793139054; x=1793743854;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
-        b=rqxjG0odeK+PhVgS7YPDSQ/hQdCbsv+FF4wy9BvLbNbmISAXxYsDKtQrRUmxSzp5jO
-         +gPExBhuPf2us762uVm+sq2RrfvAZpaeXsbGojZmFlyv2IBhtQVyqeZ30qZtqULjIV8G
-         OIer7bnb1BkDecrjx3E/6KFjIS6/creQuO55BxINiA9Q92J4CHG5EYnC4wm+1sOEGXZs
-         gemmQT75399wClBKOhOn7Ss9Pzikm52BbBhQWKOpeUcXnU4HBWeLaLPQnjPtWIDNiMo4
-         GvtH6rdbbd9sVMrGs8gq1MWi75TemNbqVmpqOktlyXvReZWQmbiH0H/laE+YJOvaCEte
-         qd7w==
-X-Forwarded-Encrypted: i=1; AKwUvBxW9XmeJVvtCcS8e7+LWflGFqQMp4WkmnOpXrXHk8r310heA95W+63OYa3RU58Bf9a9H8c1IxMdcEVmiR8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9R4Lb3rZe27t1iKbd2ZCCWruXZwUGSg1wp8BrVvEd3EY8gxGJ
-	DSAzCHwj8SP42gF9owDhzv5AwadpnJK5PvYlwRozZm4IH+wEFqbMrvlHKm7/En67sUwDvmMD84x
-	GNJPdJM8N+SNaifOywXLiWi0Rh0OAhHShkRlWF7Ex
-X-Gm-Gg: AYBFou1rBh7TxXv6xw+5xmK3WR8iydvaO8D0PuBfT/OWjNt1oIKyn9EwEHeP/F5HZox
-	ni9AYmXSgCHG2+ZR/i6BtclJHninIhWl/58PtQc5s3ud9MQ3UK8GoKOjjxku3hIq+SX1DUUuvAc
-	fsk7qI99m9LAOkk5ctuedv0MvpujWf6VGPfWYdvii9tm5SXpfP2Zu3JHNF8Bj2NP0MwS/NUAbIr
-	D/OHfxftGasUJJEp6NYU4aCdNBrqLfJcH1mm5LhOC65GWGDpbUKCt/InHp5VlyAyJAeAI1NIRU+
-	/SUBqOTV+0Q+etW00dca3Jz3DCAzPxH12+WBrDnbfeSoD9XG7SanemcRCpqWTNEymBZLI99n4/w
-	CC9Vv5KXXiJNZvAxKG6r68e0GGqHvLq6XMG5vbLA4OATtlLyiLtdYJ/Emn4HIRd3qqw==
-X-Received: by 2002:a05:622a:514d:b0:530:e00f:7768 with SMTP id
- d75a77b69052e-53fbb9967ddmr6974561cf.0.1793139052820; Tue, 27 Oct 2026
- 15:10:52 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793139134; x=1793743934;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4+wo0Hnq368mIoBgSKtnd7+wHbHIcDQRZtxGt/eUG9s=;
+        b=OG1u71w5pCBKcB9B9/RyQQN9D4iXOkccnOu3CnSoVWiPiEXs87SHoc5g+yF+U/YCKr
+         PBKDLJDMoBif3BtaUKP+Wqro6pmUNYQqCzpS64l4xS56Wz53YulK1lwRHr/q3pClAoPN
+         sW/EMnKhSbLCq86CiUI/0qRAsWEsyIQbfKj0G9+rlIOMiTt9EuEKdqAROatu6/4XsFRe
+         N83EAemC/i4Mg9sFY0XHcBL7ZW17KYz9PHP0sZ5JwgyJ7NRzp8gd25GnxBMi1ZKdWqYO
+         tt6J95+/eJEfJ5is7WNlZC0cFN7OKY2tnb1wQH8FbkY+Sie81rPpOWEmbW4E4TWRO/98
+         2Tfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaRO8jUAmUn3hXceOuvp5BVWn2ZvX6gLRVkPxLkmyN/+7CqHoopudXKze8C/Oh6BC2k7H/jOI10rfJ4+I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfgDTHOqYyYeXhSGfwT2aLXn+wmwA9z3mqyRxbrPWc9q0/wDLM
+	gD7qRNAFW9A0lFqW0FaGCFw7TrDYdPXcuzyIQWdp/vsbmQ5K0zUXFgKKyZJupRQfDZjtQ/LjVnB
+	lWG8cpg==
+X-Received: from pjzj16.prod.google.com ([2002:a17:90a:eb10:b0:3aa:dfda:ecdb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:582e:b0:398:e96a:8999
+ with SMTP id 98e67ed59e1d1-3ae57f637c3mr292276a91.16.1793139133835; Tue, 27
+ Oct 2026 15:12:13 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 27 Oct 2026 15:11:55 -0700
+In-Reply-To: <20261027221209.1560865-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,368 +79,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261027203115.2647914-1-ctshao@google.com>
-In-Reply-To: <20261027203115.2647914-1-ctshao@google.com>
-From: Ian Rogers <irogers@google.com>
-Date: Tue, 27 Oct 2026 15:10:41 -0700
-X-Gm-Features: AclHuK_rK__J_E1C_pyQp14ySl_0Aj2dtJg2u9thGouZYItwxYB4DJ7le9mBwoU
-Message-ID: <CAP-5=fUF4QFU=f=m29HX3JAn+Sn_K6V6hwcSymGJ3Lehe4ybZw@mail.gmail.com>
-Subject: Re: [PATCH v6] perf stat: Include PMU name and split uncore events
- per PMU in metric-only JSON output
-To: Chun-Tse Shao <ctshao@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20261027221209.1560865-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261027221209.1560865-3-seanjc@google.com>
+Subject: [PATCH v3 02/15] KVM: nVMX: Don't force a full nested VM-Exit when
+ destroying a vCPU
+From: Sean Christopherson <seanjc@google.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
+Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>, 
+	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 1:31=E2=80=AFPM Chun-Tse Shao <ctshao@google.com> w=
-rote:
->
-> When running `perf stat` with `-A` (--no-aggr) and `--metric-only` in
-> JSON output mode (`-j`), `perf stat` evaluates metric expressions
-> across all matching PMUs (including uncore PMUs like `uncore_iio_0`,
-> `uncore_iio_1`, etc.).
->
-> However, `perf stat` previously formatted JSON output by printing only
-> "cpu" : "<id>" and grouping all metric values on a single line per CPU
-> without identifying which PMU instance evaluated each metric. As a
-> result, when an uncore event spans multiple PMU boxes, `perf stat`
-> printed repeated, ambiguous metric keys without PMU names.
->
-> Fix this by:
-> 1. Including "pmu" : "<pmu_name>" in print_aggr_id_json when evsel->pmu
->    is a non-core or hybrid PMU in AGGR_NONE mode (-A). Tool events are
->    not labeled as they don't belong to a hardware PMU instance.
-> 2. Starting a new JSON metric line in AGGR_NONE mode (-A) whenever the
->    PMU name changes, so that a line only has metrics from the PMU it is
->    labeled with.
-> 3. Opening a metric line only for events that have a metric, as other
->    events print nothing in metric-only mode. This avoids spurious lines
->    like {"cpu" : "0", "pmu" : "tool"} for events like user_time, while
->    metrics on tool events, like tma_info_system_time (duration_time),
->    are still printed with the line prefix.
-> 4. Updating perf_json_output_lint.py to recognize the new "pmu" key in
->    the JSON test suite.
->
-> Before the fix:
->   $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
->   {"interval" : 1.001017947, "cpu" : "0", "MB/s  iio_bandwidth_read" : "0=
-.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "22.5=
-", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.2", =
-"MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB=
-/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s =
- iio_bandwidth_read" : "0.0"}
->
-> There is no way to determine which uncore device generated the metrics.
->
-> After:
->   $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
->   {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_0", "MB/s  =
-iio_bandwidth_read" : "0.0"}
->   {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_1", "MB/s  =
-iio_bandwidth_read" : "0.1"}
->   {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_11", "MB/s =
- iio_bandwidth_read" : "0.0"}
->   ...
->   {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_0", "MB/s =
- iio_bandwidth_read" : "0.0"}
->   {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_1", "MB/s =
- iio_bandwidth_read" : "0.0"}
->   {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_11", "MB/s=
-  iio_bandwidth_read" : "0.0"}
->
-> Assisted-by: Gemini:gemini-3.1-pro-preview
-> Signed-off-by: Chun-Tse Shao <ctshao@google.com>
-> ---
-> v6:
->   - Open metric lines for events that have a metric instead of skipping
->     tool events, so metrics on tool events (e.g. tma_info_system_time)
->     keep the line prefix and are terminated properly. (Sashiko)
->   - Split JSON lines only when the shown PMU name changes. Tool event
->     metrics are no longer mislabeled with an uncore PMU name, and the
->     STD and CSV output are no longer split.
->   - Rebase onto the latest perf-tools-next.
-> v5: lore.kernel.org/20260811230518.3360-2-ctshao@google.com
->   - Fix perf test "perf stat JSON output linter" failure.
-> v4: lore.kernel.org/20260804210659.112192-1-ctshao@google.com
->   - Fix the line splitting issue, causing spurious empty {"pmu": "tool"}
->     objects and order-dependent PMU mislabeling.
-> v3: lore.kernel.org/20260729170416.41904-1-ctshao@google.com
->   - Add before the fix output.
-> v2: lore.kernel.org/20260715203055.2981363-1-ctshao@google.com
->   - Fix print_metric_begin() initialization in print_no_aggr_metric()
->     to ensure tool events always open lines cleanly.
->
->  .../tests/shell/lib/perf_json_output_lint.py  |  5 +-
->  tools/perf/util/stat-display.c                | 74 ++++++++++++++++---
->  2 files changed, 66 insertions(+), 13 deletions(-)
->
-> diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/=
-perf/tests/shell/lib/perf_json_output_lint.py
-> index 8cde22ac9d97..982be893bd69 100644
-> --- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
-> +++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
-> @@ -65,6 +65,7 @@ def check_json_output(expected_count):
->        'metricgroup': lambda x: True,
->        'node': lambda x: True,
->        'pcnt-running': isfloat,
-> +      'pmu': lambda x: True,
->        'socket': lambda x: True,
->        'thread': lambda x: True,
->        'unit': lambda x: True,
-> @@ -99,8 +100,10 @@ def check_json_output(expected_count):
->  try:
->    if args.no_args or args.system_wide or args.event:
->      expected_items =3D [5, 7]
-> -  elif args.interval or args.per_thread or args.system_wide_no_aggr:
-> +  elif args.interval or args.per_thread:
->      expected_items =3D [6, 8]
-> +  elif args.system_wide_no_aggr:
-> +    expected_items =3D [6, 7, 8, 9]
->    elif args.per_core or args.per_socket or args.per_node or args.per_die=
- or args.per_cluster or args.per_cache:
->      expected_items =3D [7, 9]
->    elif args.metric_only:
-> diff --git a/tools/perf/util/stat-display.c b/tools/perf/util/stat-displa=
-y.c
-> index b337cc23f413..9f1d74019d1e 100644
-> --- a/tools/perf/util/stat-display.c
-> +++ b/tools/perf/util/stat-display.c
-> @@ -1,6 +1,7 @@
->  #include <stdlib.h>
->  #include <stdio.h>
->  #include <inttypes.h>
-> +#include <string.h>
->  #include <linux/string.h>
->  #include <linux/time64.h>
->  #include <math.h>
-> @@ -23,6 +24,7 @@
->  #include "pmu.h"
->  #include "pmus.h"
->  #include "tool_pmu.h"
-> +#include "metricgroup.h"
->
->  #define CNTR_NOT_SUPPORTED     "<not supported>"
->  #define CNTR_NOT_COUNTED       "<not counted>"
-> @@ -361,9 +363,33 @@ static void print_aggr_id_csv(struct perf_stat_confi=
-g *config,
->         }
->  }
->
-> +/*
-> + * In no-aggregation mode, JSON output includes the PMU name of non-core=
- and
-> + * hybrid events so that events and metrics from different PMU instances=
-, like
-> + * uncore_iio_0 and uncore_iio_1, can be told apart. Tool events don't b=
-elong
-> + * to a hardware PMU instance and so are not labeled.
-> + */
-> +static const char *json_pmu_name(const struct evsel *evsel)
-> +{
-> +       if (!evsel || !evsel->pmu || evsel__is_tool(evsel))
-> +               return NULL;
-> +       if (evsel->pmu->is_core && !evsel__is_hybrid(evsel))
-> +               return NULL;
-> +       return evsel->pmu->name;
-> +}
-> +
-> +static bool json_pmu_name_changed(const char *name, const char *prev)
-> +{
-> +       if (!name || !prev)
-> +               return name !=3D prev;
-> +       return strcmp(name, prev) !=3D 0;
-> +}
-> +
->  static void print_aggr_id_json(struct perf_stat_config *config, struct o=
-utstate *os,
->                                struct evsel *evsel, struct aggr_cpu_id id=
-, int aggr_nr)
->  {
-> +       const char *pmu_name;
-> +
->         switch (config->aggr_mode) {
->         case AGGR_CORE:
->                 json_out(os, "\"core\" : \"S%d-D%d-C%d\", \"counters\" : =
-%d",
-> @@ -397,6 +423,9 @@ static void print_aggr_id_json(struct perf_stat_confi=
-g *config, struct outstate
->                         json_out(os, "\"cpu\" : \"%d\"",
->                                 id.cpu.cpu);
->                 }
-> +               pmu_name =3D json_pmu_name(evsel);
-> +               if (pmu_name)
-> +                       json_out(os, "\"pmu\" : \"%s\"", pmu_name);
->                 break;
->         case AGGR_THREAD:
->                 json_out(os, "\"thread\" : \"%s-%d\"",
-> @@ -1012,11 +1041,12 @@ static void print_counter_aggrdata(struct perf_st=
-at_config *config,
->
->  static void print_metric_begin(struct perf_stat_config *config,
->                                struct evlist *evlist,
-> -                              struct outstate *os, int aggr_idx)
-> +                              struct outstate *os, int aggr_idx,
-> +                              struct evsel *counter)
->  {
->         struct perf_stat_aggr *aggr;
->         struct aggr_cpu_id id;
-> -       struct evsel *evsel;
-> +       struct evsel *evsel =3D counter ?: evlist__first(evlist);
+For all intents and purposes, revert commit b4b65b5642d6 ("KVM: x86: cleanup
+freeing of nested state") and go back to manually tearing down nested state
+when freeing a vCPU.
 
-This seems a bit random, what if there are two metrics? Will they have
-the same evsel?
+When a vCPU is destroyed while L2 is active, KVM synthesizes a nested
+VM-Exit, which flushes the cached shadow VMCS12 back to guest memory:
 
->
->         os->first =3D true;
->         if (!config->metric_only)
-> @@ -1031,7 +1061,6 @@ static void print_metric_begin(struct perf_stat_con=
-fig *config,
->                 else
->                         fprintf(config->output, "%s", os->timestamp);
->         }
-> -       evsel =3D evlist__first(evlist);
->         id =3D config->aggr_map->map[aggr_idx];
->         aggr =3D &evsel->stats->aggr[aggr_idx];
->         aggr_printout(config, os, evsel, id, aggr->nr);
-> @@ -1069,7 +1098,7 @@ static void print_aggr(struct perf_stat_config *con=
-fig,
->          * Without each counter has its own line.
->          */
->         cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
-> -               print_metric_begin(config, evlist, os, aggr_idx);
-> +               print_metric_begin(config, evlist, os, aggr_idx, NULL);
+  vmx_vcpu_free()
+  |-> nested_vmx_free_vcpu()
+      |-> vmx_leave_nested()
+          |-> nested_vmx_vmexit(vcpu, -1, 0, 0)
+              |-> nested_flush_cached_shadow_vmcs12()
+                  |-> kvm_write_guest_cached()
+                      |-> __copy_to_user(ghc->hva, ...)
 
-Please name arguments that are constants.  Pass evlist__first here?
+Accessing user memory via a memslot during VM destruction is broken, as
+there are no guarantees that current->mm == kvm->mm when the VM is dying,
+because the last reference to the VM can be put from a different process
+than the original creating processes.
 
->
->                 evlist__for_each_entry(evlist, counter) {
->                         print_counter_aggrdata(config, counter, aggr_idx,=
- os);
-> @@ -1095,7 +1124,7 @@ static void print_aggr_cgroup(struct perf_stat_conf=
-ig *config,
->                 os->cgrp =3D evsel->cgrp;
->
->                 cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
-> -                       print_metric_begin(config, evlist, os, aggr_idx);
-> +                       print_metric_begin(config, evlist, os, aggr_idx, =
-NULL);
+And even if the original process does put the final reference, during
+process exit, do_exit() calls exit_mm() before closing file descriptors, so
+vCPU destruction runs with current->mm == NULL on a borrowed lazy TLB
+active_mm.  If the borrowed address space has a writable mapping at the
+to-be-written userspace address, KVM will corrupt an unrelated task's
+memory since uaccess APIs, including __copy_to_user(), don't sanity check
+current->mm (and *can't* sanity perform KVM's current->mm == kvm->mm check
+since that is firmly a KVM-only concept).
 
-Use evsel here?
+Furthermore, the shadow VMCS flaw is only the tip of the iceberg, as the
+MSR load/store lists mean that emulating a nested VM-Exit can read or write
+an arbitrary set of MSRs, e.g. if MSR_KVM_SYSTEM_TIME_NEW is in L1's MSR
+load list:
 
->
->                         evlist__for_each_entry(evlist, counter) {
->                                 if (counter->cgrp !=3D os->cgrp)
-> @@ -1131,7 +1160,8 @@ static void print_no_aggr_metric(struct perf_stat_c=
-onfig *config,
->
->         perf_cpu_map__for_each_cpu(cpu, all_idx, evlist__core(evlist)->us=
-er_requested_cpus) {
->                 struct evsel *counter;
-> -               bool first =3D true;
-> +               const char *line_pmu =3D NULL;
-> +               bool line_open =3D false;
->
->                 evlist__for_each_entry(evlist, counter) {
->                         u64 ena, run, val;
-> @@ -1146,12 +1176,32 @@ static void print_no_aggr_metric(struct perf_stat=
-_config *config,
->                                 if (config->aggr_map->map[aggr_idx].cpu.c=
-pu =3D=3D cpu.cpu)
->                                         break;
->                         }
-> +                       if (aggr_idx >=3D config->aggr_map->nr)
-> +                               continue;
->
->                         os->evsel =3D counter;
->                         os->id =3D aggr_cpu_id__cpu(cpu, /*data=3D*/NULL)=
-;
-> -                       if (first) {
-> -                               print_metric_begin(config, evlist, os, ag=
-gr_idx);
-> -                               first =3D false;
-> +
-> +                       /*
-> +                        * Only events with a metric print something in m=
-etric-only
-> +                        * mode, so let them open the line. For JSON, sta=
-rt a new
-> +                        * line when the PMU name changes so that a line =
-only has
-> +                        * metrics from the PMU it is labeled with.
-> +                        */
-> +                       if (config->iostat_run ||
-> +                           metricgroup__lookup(evlist__metric_events(evl=
-ist), counter, false)) {
-> +                               const char *pmu_name =3D json_pmu_name(co=
-unter);
-> +
-> +                               if (line_open && config->json_output &&
-> +                                   json_pmu_name_changed(pmu_name, line_=
-pmu)) {
-> +                                       print_metric_end(config, os);
-> +                                       line_open =3D false;
-> +                               }
-> +                               if (!line_open) {
-> +                                       print_metric_begin(config, evlist=
-, os, aggr_idx, counter);
-> +                                       line_pmu =3D pmu_name;
-> +                                       line_open =3D true;
-> +                               }
->                         }
->                         val =3D ps->aggr[aggr_idx].counts.val;
->                         ena =3D ps->aggr[aggr_idx].counts.ena;
-> @@ -1160,7 +1210,7 @@ static void print_no_aggr_metric(struct perf_stat_c=
-onfig *config,
->                         uval =3D val * counter->scale;
->                         printout(config, os, uval, run, ena, 1.0, aggr_id=
-x);
->                 }
-> -               if (!first)
-> +               if (line_open)
->                         print_metric_end(config, os);
->         }
->  }
-> @@ -1523,7 +1573,7 @@ static void print_cgroup_counter(struct perf_stat_c=
-onfig *config, struct evlist
->                                 print_metric_end(config, os);
->
->                         os->cgrp =3D counter->cgrp;
-> -                       print_metric_begin(config, evlist, os, /*aggr_idx=
-=3D*/0);
-> +                       print_metric_begin(config, evlist, os, /*aggr_idx=
-=3D*/0, NULL);
+      kvm_arch_vcpu_destroy()
+        kvmclock_reset() - takes pv_time off kvm->gpc_list
+        vmx_vcpu_free()
+          nested_vmx_free_vcpu()
+            vmx_leave_nested()
+              nested_vmx_vmexit()
+                __nested_vmx_vmexit()
+                  load_vmcs12_host_state()
+                    nested_vmx_load_msr() - writes the MSRs that L1 listed
+                  kvm_cpu_has_injectable_intr() - reads Xen's vcpu_info
+        kvm_xen_destroy_vcpu() - deactivates the vcpu_info cache
 
-In this case, would passing counter be more obvious? The function will
-turn this into evlist__first(evlist) but there's no guarantee the
-event comes first.
+processing the MSR write puts the "pv_time" cache back on kvm->gpc_list,
+and the next list_del() writes into the freed vCPU.  And as effectively
+pointed out by syzbot[*], attempting to fix each case individually is a
+losing game of whack-a-mole.
 
->                 }
->
->                 print_counter(config, counter, os);
-> @@ -1573,7 +1623,7 @@ void evlist__print_counters(struct evlist *evlist, =
-struct perf_stat_config *conf
->                 } else if (config->cgroup_list) {
->                         print_cgroup_counter(config, evlist, &os);
->                 } else {
-> -                       print_metric_begin(config, evlist, &os, /*aggr_id=
-x=3D*/0);
-> +                       print_metric_begin(config, evlist, &os, /*aggr_id=
-x=3D*/0, NULL);
+Deliberately leave "nested_run_pending" as-is, because even though doing so
+creates potentitally inconsistent state, KVM should *never* consume said
+state while freeing a vCPU.  I.e. if leaving nested_run_pending set trips a
+sanity check or bug, then that just means there's more fixing to be done.
 
-Maybe pass evlist__first here?
+Open code only the "free vCPU" path, i.e. keep emulating a nested VM-Exit
+when forcing a vCPU out of L2 via vmx_leave_nested(), as there are a number
+of updates buried in the nested VM-Exit flow that are needed if the vCPU is
+going to run in L1, e.g. clearing pending exceptions and MTF traps, setting
+the TSC offset+scale information back to L1, and so on and so forth.  Note,
+this means svm_leave_nested() is all but guaranteed to be buggy, but that's
+basically an open secret at this point and at least any bugs "only" break
+L1, i.e. don't corrupt host state as is the case for abusing nested VM-Exit
+when freeing a vCPU.
 
-Thanks,
-Ian
+Link: https://lore.kernel.org/all/6ac0145f.34119e79.2f92f3.0003.GAE@google.com [*]
+Fixes: b4b65b5642d6 ("KVM: x86: cleanup freeing of nested state")
+Cc: stable@vger.kernel.org
+Co-developed-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/nested.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
->                         evlist__for_each_entry(evlist, counter) {
->                                 print_counter(config, counter, &os);
->                         }
-> --
-> 2.56.0.317.g454f8302e1-goog
->
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 9b0bfa2f854c..49c4529901c5 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -385,8 +385,15 @@ static void free_nested(struct kvm_vcpu *vcpu)
+  */
+ void nested_vmx_free_vcpu(struct kvm_vcpu *vcpu)
+ {
++	struct vcpu_vmx *vmx = to_vmx(vcpu);
++
+ 	vcpu_load(vcpu);
+-	vmx_leave_nested(vcpu);
++	if (is_guest_mode(vcpu)) {
++		hrtimer_cancel(&vmx->nested.preemption_timer);
++		leave_guest_mode(vcpu);
++		vmx_switch_vmcs(vcpu, &vmx->vmcs01);
++	}
++	free_nested(vcpu);
+ 	vcpu_put(vcpu);
+ }
+ 
+-- 
+2.56.0.307.g5fe7bd680c-goog
+
