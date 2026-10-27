@@ -1,100 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793068171;
-	b=3VjjBXWpF7tX9BN2zdWFaRibo+jj0ugRKIfQXAvxN7KlslDRTf8jAzEfT2orzQjnbkYg
-	 xboAuRNSnaYIk5654rIoY430qwOQS6eHcgEWOyGgMhnZwIUw1XEV+ZK8vgpdar6uBwpXb
-	 s1gtjgcYqvqfTAFAm2x+HcRJifaTBzAUD1kv2noeyNjNWddOcbZbSB0SDoIF2OSfz3KFP
-	 PM/eNuC4V9+B2fUrmYWI5xxS/BtPIDvMuyj4Axj3HhHLl6g1LWXq0DKqa+cO+LU29YVQn
-	 2OYsONDt+uA8JyjAIPksL4VIPlpzAHTQjntosgNFqOLOUhMWHrmTuKldOKOdkV5epAg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793068171;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AuJpX+R1ikkgXuJg24CUYJMUBGehOWyuliZWHlt8VIY=;
-	b=Q2S/gUcjmlIra4/rj5J+xv5MpCDpIMPDbxUGCR9Hd4GbuRxoQ6WgbLIBzbigbB81n1hT
-	 jszmVLm/06OtNMfZ50QY2rguwj4U7fVtuV0N0MelhaMZaXJxKogpQS/vWx2f9k4otyboj
-	 U1OV1p4J0nkBBfXwcWgOdHQH8YyMz6d6opG7M0SJDFhhPp5glrRY0woWd+XAwnXleh/u2
-	 eYEj2M7tcRVzw/Hmxn4RxaEW+bqvEEwsYP137fLD2DtqBtSHHXnUxXBaUj3HbIKjdN8O4
-	 BWWSvUPKzkEzULHbrXLo8VylZ/zRLuq+/mQUZRssYe/I5B1GtqqJ2zTso4SVpd0XlVA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DbZORDq5;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793068368;
+	b=Ik2ph6tlX1tdIHZkOL4W7Ik/v70bRxYW6gl8RvOGRlRL7DYysfVIX60OK7Kri6ow4d4b
+	 oxkNBS63aC3CxHBB09JpNUiw9StZFunvalDIYSDytzvqfQTDrE10N4s0lu/2WnTfRL6Ul
+	 l6chlfJgaaTUKOc/EdSl7rpmZ3r6rs59UadBblZeagUKyKRvnpv4tZ2ZKkoK2iLKCGjr0
+	 nEGTLP/iQsyDQudsc16pjC/XaTfH55IKsxohJL7tJz12jJveESXNO+EpmFvkW0diFiadH
+	 fjbmtpOTMpthK49+RJzkBU9Jth4rxAAre7ILc0D4TLikZqrwQafsrJNQPubTUmGY4uA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793068368;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:From:
+	 Subject:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=N3BH6uXe99G+oYIrm6du6+/iVxKoG1o0BHyZ52mns6A=;
+	b=TxsoxBR9O+DaLHmjJJEFAx3R1lzjhy7Q6awaRFNOKZs1pJLQmYmnYPLQHZV6IjXOQHAD
+	 mmWuSn+d5UMajGqwGUFaGDgnb54Z5CUF6KAQ+t4w7fg70LMMB1B2vAsA1hojL1Ov/0i4X
+	 RcAzyDrZBpM+wRDLwDJYGpoAjGI+OuVn3wpQ80wNRFYn4H2Q3STnlLIEPirczD++xEqZr
+	 Cn+xP8tQoD29riiICTlLTraM7pc/5JTqCLzKs0n6PV3AJyxHYoyqMXPn7vrp4hJzdnmhJ
+	 KWLsrepSLuC9V9LgX3KDDNa15hemXBWBwrBPdq0h8tabTzK1PEYxEJnQVOgp6Jl9gMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hUlKQzoI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.16
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011016.outbound.protection.outlook.com [52.101.52.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7DC606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:29:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB7DC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE409606A31A;
+	Tue, 27 Oct 2026 02:32:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE409606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DbZORDq5
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so29629805e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:29:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793068169; x=1793672969; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AuJpX+R1ikkgXuJg24CUYJMUBGehOWyuliZWHlt8VIY=;
-        b=DbZORDq5AiubwyjDXTjfusmrCpGrjrHPIfkmc/I3M2s4ChF1YwXLXq07UiJtP1eZkj
-         3kTv+zMiGVmJ9VZVJx5T774C5/cdDGDFA26IoBfuaKTc5DcRAo2RV/Lo+DboKBN9SJDr
-         sGHCWiaVkpVOeISEegQYs/ehQM0fJY539Emd74GXHT9L06X+ju044jAgfWAj7G40507H
-         c68wqbinZcoWx/PhiiESB+TZjMNe8XcrHLO2QMM96N/ZEJRBWNQT8ABehmIwUhGX6dDf
-         acUgNiGV0a0oAmth1z5O8a7gYiq0TGObGCbTgvv1BdjkaKh0aQEtlbDk4fwou4m9bebT
-         ktkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793068169; x=1793672969;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AuJpX+R1ikkgXuJg24CUYJMUBGehOWyuliZWHlt8VIY=;
-        b=WFomnEJi0rBdF8JY8ADoeTeVHbr7N3Iuk6UZmpF6Qb3T1r4tstMU9aT/5HZjNcMPZK
-         4JEhiwiCXqdEzJt4pFAHxGhcCiUDZqKLxra75YU4vidLNj5e1JgdAnq2tA63UmRCUzc/
-         6dpjs7ukYPJ8KisbX8yHiSCS3l2rlly+vnInhMhBEZRkm++CJW8uYCIb20KgeNkWOYp4
-         u4ucRztsPhjVxl8Q7Qc2wjaSwiA2rC5kOW8adBfrMliVKdjQD6XfzHnrxbV6WlBopf41
-         Z9kISqC5G/dIBwcxEYL03YjaDfzslhir78YvmJKbXam+qI9CqjdGOW8xxPfxDxvyGI7M
-         WTiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3RqoMZXPlc/xzSPOsTkryBA/oboxLGFUc9SWz9R5VsAZpNNWUgeqk9YX3DVL816IDm+wtLisUoeneVjQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6UaZmg5dPGcX0aRDKOqAKcwFNABTEAdyMe+OzaGnB36p6Uddp
-	OjPBxLzod5eVd6opUHbvxqDzbPdxo2qBfsOsf/v6uzU2OgUhMnm6uHWl
-X-Gm-Gg: AYBFou3V1fsZg3TAp1pGaayH20YW+7aan967NHR8qX0+rs4rz5PW9rC5WB6NLes1yMH
-	u5jaYqwODk2wvFWc9EVK4rOGdo+eUi08G9JAjl/bIdxnfcr4K1Nel9GVOqibbjZL6V+eEbWdWTG
-	3Md7Vt2RnA1zk/S+648ubkJt+TfsdmbrWx4H9nH8Z2w6x2O3kw7IDwyjc2WjcNRXAm1i1TZaizQ
-	EkmU8ZI46mQSvwL3e4Nq5ELVInzds19tk4pGIEt+tdpI/0i7B3gC26kB3pa4QaUN7hQ+oUwleWc
-	eTxUaXjpKUWf2LMuBnfZdQkmyHORscm9gJICnzBG+fwWObPsyPrzyRLO2ZFnVo6JbW+skpyEyfa
-	USzGRnHULOfLMc8oTgfQJ9UY6gADcXthEONvjom606Tz8D+wW3AsSpDwVoygO0ErRr+Z/ZtvnXW
-	6bbxPG3xuXnAcgW1W14+dJKZD2PBsJBTMmRgivkHDw5tAHGm5yIojkcaHCv0wrQjxQd7YuML/Om
-	C3pTAE+CVH/FOiPXLIm3QffZBo90p0jLah30tP1FVlkeRvsj1h+/vyyZbtCFxWEVXDDLRs+Fzyr
-	NCUGUSzOekuLwNEYCTI3aAe8O/z3OYAFyf5SAN6vjdFiPMhzSRRxapaanJYXDbQBHErhr7z7sJY
-	BbRYUtx2ZI61+4k4dNV7owlHiCp8YafKq/j8WJuoO
-X-Received: by 2002:a05:600c:3b8a:b0:4a2:d:5ccc with SMTP id 5b1f17b1804b1-4a35ac99e81mr157824335e9.10.1793068169174;
-        Mon, 26 Oct 2026 19:29:29 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-117-118-122.95.117.pool.telefonica.de. [95.117.118.122])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f305sm18341906f8f.3.2026.10.26.19.29.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 19:29:27 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-pwm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] pwm: atmel: Fix arithmetic overflows for long periods
-Date: Tue, 27 Oct 2026 03:27:55 +0100
-Message-Id: <20261027022755.52912-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261016161221.16553-1-kmehltretter@gmail.com>
-References: <20261016161221.16553-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hUlKQzoI
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Zvy6gYv09TbDoXpicWxxfmqle+MPzj561JPHTLorp1xrRKC222kwXcDBsClk9dAxwwilgdUhyyXJWHPRs4DlJDU8oJd3e0QA+u2NnTV03zKN6Kl8yfQCSoAWXEuf+rGpypuW5ShvsBmhFplcCWDRm7XMAL7yCx+f6fDb/x6t+yUDbngBGgIziDzJU9KXHKy1ocBTHKiGXHd2qoq+orczAMgxeD3wE4rgzqV/4MXtlEwcjFQLfG+hurMY0v2MsVbephi1JcRAWv+6b5paab+6Ts3FWg6H3izxdZcY3t+L4PdBGYIcRzN2KzMIcwByP5FET4EjmoOfVUWEgh7kffci7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N3BH6uXe99G+oYIrm6du6+/iVxKoG1o0BHyZ52mns6A=;
+ b=l0dmqg3AQ3QeDacb3b6o2s5xN7jKTtrDr4nYI57jXj5fVH3D6p4tbdGFjWPKE3EVYtTGN7YKp27fCPzALLsgvfmdJ+bqGvx2ogv43pBnEXAasasI+muA34fe2pZt5QEWSXSRIipcL3XoE9C9zfpWdSmHcn8lCGnKu3YP6/UNzvuGrA/97iqOnC/fpeZgYK0+k3zjmB8H2DdBKE43U4S1QpTM8hqNqZb1Qm8aES+c4YuUXl2A2QN8pMFSByg0xH5U2NK9lGUS0EvMtgfE3P0txeBbD2WEmrD+TNJsd9AgHW7Kw2ZZIrx8C5X76soJmrpLO0ZF2Qpovh0bZMKtmdN4eg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N3BH6uXe99G+oYIrm6du6+/iVxKoG1o0BHyZ52mns6A=;
+ b=hUlKQzoIuQcDHl/kiw7G3I5CSgeIhiKTqHiOIghWlm7S1ZOMIBsL1I8EKKJPEGRQK4O39aCws+Zp/NsxFhp8Bsvi84loI7c47DpWXkmBmDQRhXzVwqhJxMi4xoWM0nXDLfLoDEckt8i37HJc7G80uohAQe6yM33DHwfZ2RL4/nW2FGUyqAgzyc1CS469xqx5s7qzvHQrjmZ7UDJJvV/1BMnj2By0Ne90c2lBPPNu1v+egy7ZHJ1udDleKhmwwPYoC02lWlkpTEE4jwVXMaoPAW2IlYRbMlJ+1fQt2zsNVE+YhPy7kheBjqbXS7YRdcxX1aws4BXcW8nVhY1URYog7w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DS7PR12MB5744.namprd12.prod.outlook.com (2603:10b6:8:73::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 02:32:41 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 02:32:40 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 26 Oct 2026 22:32:38 -0400
+Message-Id: <DMF9OO106FGX.3P7TZUBGHUFII@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Gregory Price" <gourry@gourry.net>, "Joshua
+ Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>, "Ying
+ Huang" <ying.huang@linux.alibaba.com>, "Johannes Weiner"
+ <hannes@cmpxchg.org>, "Vladimir Davydov" <vdavydov.dev@gmail.com>, "Michal
+ Hocko" <mhocko@suse.com>, "Hugh Dickins" <hughd@google.com>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Lukas Czerner" <lczerner@redhat.com>,
+ "Carlos Maiolino" <cmaiolino@redhat.com>, "Christian Brauner"
+ <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, "Daniel Verkamp"
+ <dverkamp@chromium.org>, "Jeff Xu" <jeffxu@google.com>, "Muchun Song"
+ <muchun.song@linux.dev>, "Oscar Salvador" <osalvador@suse.de>, "David
+ Stevens" <stevensd@chromium.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "William Kucharski" <william.kucharski@oracle.com>,
+ "Chris Li" <chrisl@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Nhat
+ Pham" <nphamcs@gmail.com>, "Miaohe Lin" <linmiaohe@huawei.com>, "Naoya
+ Horiguchi" <nao.horiguchi@gmail.com>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH 11/16] mm/shmem: rescan after nonuniform folio splitting
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-11-703206d5fa0c@kernel.org>
+In-Reply-To: <20261026-fixes_shmem-v1-11-703206d5fa0c@kernel.org>
+X-ClientProxiedBy: YQBPR0101CA0219.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::16) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,178 +112,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS7PR12MB5744:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11339e87-026b-45ac-87ae-08df33d29255
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|1800799024|376014|366016|6133799003|18002099003|22082099003|261026121527099003|921020|56012099006|4143699003|11063799006|261021123027099003|10067099003|261022105027099003|261009223027099003|261021121427099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	oFs/tqf8Wf2nVZMSwXdSlABPs+Kj1HeIdgWAVuR/1YeI5CGk4IGTlW5+nfOl9vBEj0FGLTgE0lnDB5BBtCZ2MGlZ3qTmcVgMpXKvUCm6T2priOwBe/7Scu6ZcfBS1g/oHbSP04dvoZ1sbOEhaHhVPFtrpI3Ics0FNVvgIw1K1MtKotTfrAZFOvcbhvrmz5i00jfW6gMqRDW5hK62A0UykEUPWmJS4sbnR6F2uGExqQXWIPvXNKWzkNLsBcCQ1JYrx0fCOwXLW6LC6d8G3IWXeRKxKuxsfq2ZCx2ExOgbfqt4ADA3swAtzLVQUw1ngQh7iwVSuRQD8d98bVnrFfgS2R/XsteiXtN5lDxJiIUr4Mv7Us1JpWl24yT6XRRc9TFzzeCaVORqdpud2f0Wsof03CdGF45PlRLj36EXRDQ/kpVorm2p74t9e9n8w5eb+pzB76Df+36Z28XUFKPIjvDUeJNEOqCII2UURleuaMmDS5elIvahzsovmxhnk+Ljn/w2zCYDkgk2ApzMpqxRhBgEJ6xjg/CWcd33pl0L6ZVbkx7A9KEU9avbet+PrBtWvT8JQMcc2xoiAHg56UHdNPfnKejPDeHGEM5QJYZz853iM3O1e1RTIjYdYgy6iceTAnPfIbC2D0FVz6ttyu2bX9cvq3lXWV/Em6mJ0s3c+cKe8WvmO825NST7e9fW5Au8MVYMRK/kaNsGzfEpYrThqcGzow==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(376014)(366016)(6133799003)(18002099003)(22082099003)(261026121527099003)(921020)(56012099006)(4143699003)(11063799006)(261021123027099003)(10067099003)(261022105027099003)(261009223027099003)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UjlnUkZvUkhlTkhvYUxlRkczNnZiR1JEcXMvT0JiM1ViR2x2NU5HYjhYSWZM?=
+ =?utf-8?B?ODRRWXk2ZUxFemROS2tjWVJza1hKMWxTSmJodHBpNFlzZXhrNTB5bzdsNFJn?=
+ =?utf-8?B?dTJCR1FFWlNMUGRqREJGVnJZbjE1djVVclFPQ1g1bXc0K0dhcWRRS1lFOXhC?=
+ =?utf-8?B?N0FZY2ZqZ3Q2bk9uenJ3WkRkMCtpTDFjWGVPZ2Y5QzI3Y2NPZCsxQ3lEa2Qx?=
+ =?utf-8?B?WUlTaU9Md3JjS0I4KytoWmtZUnNYOUFiQVZnelhmUm1zTjlpWFFzZVpHLzBk?=
+ =?utf-8?B?ekNNd2NGdkRid2RlMmVKNTB2NmR0cTFNaU9rbFJEOGRIcDdzRERFM2JNQmlB?=
+ =?utf-8?B?azFRclpZejFHN21VWFZhSHo0UVNXa3FlSmJyVUhvYXpVbmlCNXovQXduczcv?=
+ =?utf-8?B?WTh1NWttUlB3WUNvUVBQWHUwbkJQTWNlZm1rczFpOURBSlE4bVlabGF4Nm5B?=
+ =?utf-8?B?bS80K2Vtb1d2VFB0QmdXOXlSYU5YWGlzUTZtOWFPLzJjS0pMWks1RWNCdVdM?=
+ =?utf-8?B?dDhmZnIxSWc5ME1GWm9UVG9YWUtyUVFSYWI4WkpPMUhVTlI3VUtzbmZCU3ZX?=
+ =?utf-8?B?ckpXdzhSTkFaWGY0OTBKY2R6NThwRmRiK2t1UXhjN3ZETksyenNUcjJqUTNK?=
+ =?utf-8?B?NThDK2tKbnR1VVVGQlVQUUtzRVdKd0lweEZ3VDdCM21FcmMram0wMkZJUUY3?=
+ =?utf-8?B?dTRLS1hLVDhlWHFudWFaQ0hSVHk1SUpZNHpIaUNJQ01YMTgxMWw1d2I3My9r?=
+ =?utf-8?B?K01aZXBIZFF2UzV0cWw5elFFd2hKWXp6cTNrcHplMmN3U21MbGkxMnJEWFRq?=
+ =?utf-8?B?NEVxenFyWG9sMnNzNk1pTklmZm1DdnF3UGE0TjB4Mjlkcm1Za0JmV2VTUWky?=
+ =?utf-8?B?MndVSmZSQ0ltTE9kdjR2YWxVNUhDT29XZ0hQRXVFL1lTNUpUUWRzK0JzS2pj?=
+ =?utf-8?B?T2FudldycFpwTEQ4djJNWVJiSGVLUnEwK2VYZDUrQlFVa0lYZUFZRldQRVpY?=
+ =?utf-8?B?YVVnem1EcFFWUnZDWWR3cEIzZ09JQzMyM2lRUnBCcE43S3ZWUVBKOHppMEh1?=
+ =?utf-8?B?alJQcU1SRGc5cTFvUTFXZ2V2OVBNSVR0SURZbzFEZlNDUmdUUmZTRWVjbGoy?=
+ =?utf-8?B?ZHlXRTJNVEluSHhkQVBJbWtHZFFGUEtFMzJIK2ZONVNMMWVvNGFZUUE3bkU2?=
+ =?utf-8?B?bHFuSTcrVHdYbU1QdnV4M0toSDRjSzRmMDB3R25XdmY3MSsybXdza2hOVVUw?=
+ =?utf-8?B?ZElaUlZ0K0NhTUtDcFRKdWxrRGc1S0dNd3BudGIzLzhzaGliN0J6czNTaXVt?=
+ =?utf-8?B?RG5UdDZkbDZnNFFiTEUzZHlzYUo0Q3pORE5wdThXWk1mZ1hWeW82bUVaZkxy?=
+ =?utf-8?B?d2dxa0E2cVIwOHNtaVdiaWlIWHRUcmp5UldPemdOMHhKUnJoTlNOZjMrbi93?=
+ =?utf-8?B?bEdiQmZwWWFaYm1wTFhEZ1ZmOTBaMHVHSUhRbE5QS25UaTFnUnR0WVNTVUk1?=
+ =?utf-8?B?clAycmdBM2VHdjVqSkx5MzJ5d1Zia0lWZkhSbFlRdlVFKzNoRnY4MFY0RUNB?=
+ =?utf-8?B?V1hLMzRVUmxJZGl0b2xYUDQ4M2poc0pjUkpOQmRjbnVud2lEUDRWYTFXZktX?=
+ =?utf-8?B?L3FxNk02Z0VTaytNMWdSZitDb3BZZXhqcitZck5xSFJ2Q0oza1REQ3NhcmM4?=
+ =?utf-8?B?OVNnTVBuMkV4cmxibGprSHh5dThKS285a0VpRU5LMDN3WHplckZ4MGV3VEN2?=
+ =?utf-8?B?aXFBQnVaNUJiSktEY0E3cjlPUVRkeVFIT2N0ZUF1eEo0YVlvaGVCelFwbGFo?=
+ =?utf-8?B?VVVSV1FIUHJrVXI5ZlcvM0VuZ213UDJFSXhheko5SEgxblNud2JScWtsUnYz?=
+ =?utf-8?B?UHRTcDJVRm1IVjA2eEwzdm53YU9nYTNhbzIvbUlkR1h6blpQbHVQTHE2RFN3?=
+ =?utf-8?B?eEtMd0s2cTZtb3FJaU9tVGZraWpzeGJ5SEJ4bVpKenBxWkxlUklDYzVyS2Mz?=
+ =?utf-8?B?S25XU3pHY3ZDbTA2MmdOMGt0Q2N2OTBnbXN4clQybnBzd010YlI3M2pOK1hx?=
+ =?utf-8?B?RnBLRVZTK3JpRjUyNDB3T2MrSVBZdHRmWFlvVGo2SEFIWkx0eWQ4VWlVRktk?=
+ =?utf-8?B?RWNwSmNoSGJYZmlZTHRGUDlHUWhzcTJpWVVIVVZ2bFhGZ3hEUWdpMnB6VTZW?=
+ =?utf-8?B?M3lsL3B0bTlReFNiR1VCcGJFRHFOWE14ZUE5LzY2WWlFa05DQ2ttNFEyR0Iw?=
+ =?utf-8?B?dytobmxOQVY0aDZ1ems3a0dsVnJHRGx6M0xaVFU0Z1AxKzh0UEhqNkg5ZnRF?=
+ =?utf-8?Q?Mpaf1AbPXb5fcwGEdj?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11339e87-026b-45ac-87ae-08df33d29255
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 02:32:40.2023
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: swuUTHbhu87Sxd8UTHFBEHl5riQqZCes3Prm4jzfSq0OAQy6Mm4Kgkr6LpiLGThx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5744
 
-atmel_pwm_calculate_cprd_and_pres() first multiplies the requested
-period by the clock rate in a u64 and only then divides by
-NSEC_PER_SEC. The product can overflow even when the quotient and the
-resulting hardware configuration are representable.
+On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
+> The final scan in shmem_undo_range() restarts after a successful split
+> only if the original folio is no longer large. A nonuniform split can
+> leave that folio large, so the scan skips the newly created folios.
+> Hole punching then leaves pages within the hole allocated even though
+> they could be discarded.
+>
+> For example, a fault below the hole can allocate a 2 MiB folio after
+> boundary handling. Punching a 1 MiB hole at offset 64 KiB splits the
+> folio successfully but leaves the original folio at order 4. The scan
+> continues past all 512 pages, leaving 2 MiB allocated instead of 1 MiB.
+> The hole reads as zero, but the pages and their block charges remain.
+>
 
-For example, at 12 MHz a 1600 s period has 19.2 billion clock cycles
-and fits with prescaler 3, but the intermediate product exceeds U64_MAX.
-It wraps and the driver programs a period of about 62.8 s instead. This
-remains broken after changing fls() to fls64(). The duty-cycle
-calculation has the same overflow.
 
-Use mul_u64_u64_div_u64() for both conversions and use fls64() when
-deriving the prescaler. The multiply/divide result cannot overflow if
-the clock rate is at most NSEC_PER_SEC, so hold the clock rate exclusive
-and validate it at probe time.
+> Restart when the original folio is still in the mapping after partial
+> truncation, identified by checking folio->mapping. If the helper
+> removed the whole folio, no rescan is needed.
 
-The reverse conversion in atmel_pwm_get_state() can overflow too: it
-multiplies CPRD or CDTY by NSEC_PER_SEC and then shifts the u64 by the
-prescaler. Convert the scaled clock ticks with the overflow-safe,
-round-up helper instead. Explicitly saturate values that cannot be
-represented by the u64 nanosecond API, rather than relying on the
-architecture-specific helper's quotient-overflow behaviour.
+This paragraph is no longer needed after Zhang Yi's truncate fix, since
+truncate_inode_partial_folio() returns true only if the folio is split.
+The function returns false when the whole folio is truncated[1].
 
-Fixes: a9d887dc1c60 ("pwm: Convert period and duty cycle to u64")
-Cc: stable@vger.kernel.org
-Reported-by: Uwe Kleine-König <ukleinek@kernel.org>
-Link: https://lore.kernel.org/r/atnHHaOwTkI78_tc@monoceros
-Suggested-by: Uwe Kleine-König <ukleinek@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v3:
-- Use mul_u64_u64_div_u64() for the period conversion as suggested by
-  Uwe, and for the analogous duty-cycle conversion.
-- Fix the corresponding overflow in the get_state() conversion and
-  explicitly saturate results that cannot be represented in nanoseconds.
-- Hold the clock rate exclusive and validate the rate bound required by
-  the arithmetic.
-- Rebase onto v7.3-rc7.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/tree/mm/tru=
+ncate.c?h=3Dmm-stable#n282
 
-Testing:
-- Built an ARM zImage with clang 22.1.8 and W=1.
-- Passed 14 host boundary tests, 53 oracle-checked SAM9X75 QEMU boots,
-  and all 20 PWM device-model qtests.
-- Passed 89/89 checks on a physical SAM9X75, including overflow cases.
-  A 69.175-second period measured 69.210 seconds between interrupts; no
-  kernel errors were found.
+>
+> Fixes: 7460b470a131f ("mm/truncate: use folio_split() in truncate operati=
+on")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/shmem.c | 11 ++++-------
+>  1 file changed, 4 insertions(+), 7 deletions(-)
+>
 
- drivers/pwm/pwm-atmel.c | 46 +++++++++++++++++++++++++++++------------
- 1 file changed, 33 insertions(+), 13 deletions(-)
+folio->mapping check is dropped and the comment is adjusted after the
+patch is rebased on top of mm-stable because of the aforementioned
+reason:
 
-diff --git a/drivers/pwm/pwm-atmel.c b/drivers/pwm/pwm-atmel.c
-index 86918523d8..db7a14c66a 100644
---- a/drivers/pwm/pwm-atmel.c
-+++ b/drivers/pwm/pwm-atmel.c
-@@ -23,6 +23,7 @@
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/io.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-@@ -183,19 +184,18 @@ static int atmel_pwm_calculate_cprd_and_pres(struct pwm_chip *chip,
- 					     unsigned long *cprd, u32 *pres)
- {
- 	struct atmel_pwm_chip *atmel_pwm = to_atmel_pwm_chip(chip);
--	unsigned long long cycles = state->period;
-+	unsigned long long cycles;
- 	int shift;
- 
- 	/* Calculate the period cycles and prescale value */
--	cycles *= clkrate;
--	do_div(cycles, NSEC_PER_SEC);
-+	cycles = mul_u64_u64_div_u64(state->period, clkrate, NSEC_PER_SEC);
- 
- 	/*
- 	 * The register for the period length is cfg.period_bits bits wide.
- 	 * So for each bit the number of clock cycles is wider divide the input
- 	 * clock frequency by two using pres and shift cprd accordingly.
- 	 */
--	shift = fls(cycles) - atmel_pwm->data->cfg.period_bits;
-+	shift = fls64(cycles) - atmel_pwm->data->cfg.period_bits;
- 
- 	if (shift > PWM_MAX_PRES) {
- 		dev_err(pwmchip_parent(chip), "pres exceeds the maximum value\n");
-@@ -218,12 +218,23 @@ static void atmel_pwm_calculate_cdty(const struct pwm_state *state,
- {
- 	unsigned long long cycles = state->duty_cycle;
- 
--	cycles *= clkrate;
--	do_div(cycles, NSEC_PER_SEC);
-+	cycles = mul_u64_u64_div_u64(cycles, clkrate, NSEC_PER_SEC);
- 	cycles >>= pres;
-+
- 	*cdty = cprd - cycles;
- }
- 
-+static u64 atmel_pwm_ticks_to_ns(u64 ticks, unsigned long rate)
-+{
-+	u64 max_ticks;
-+
-+	max_ticks = mul_u64_u64_div_u64(U64_MAX, rate, NSEC_PER_SEC);
-+	if (ticks > max_ticks)
-+		return U64_MAX;
-+
-+	return mul_u64_u64_div_u64_roundup(ticks, NSEC_PER_SEC, rate);
-+}
-+
- static void atmel_pwm_update_cdty(struct pwm_chip *chip, struct pwm_device *pwm,
- 				  unsigned long cdty)
- {
-@@ -352,24 +363,22 @@ static int atmel_pwm_get_state(struct pwm_chip *chip, struct pwm_device *pwm,
- 	if (sr & (1 << pwm->hwpwm)) {
- 		unsigned long rate = clk_get_rate(atmel_pwm->clk);
- 		u32 cdty, cprd, pres;
--		u64 tmp;
-+		u64 ticks;
- 
- 		pres = cmr & PWM_CMR_CPRE_MSK;
- 
- 		cprd = atmel_pwm_ch_readl(atmel_pwm, pwm->hwpwm,
- 					  atmel_pwm->data->regs.period);
--		tmp = (u64)cprd * NSEC_PER_SEC;
--		tmp <<= pres;
--		state->period = DIV64_U64_ROUND_UP(tmp, rate);
-+		ticks = (u64)cprd << pres;
-+		state->period = atmel_pwm_ticks_to_ns(ticks, rate);
- 
- 		/* Wait for an updated duty_cycle queued in hardware */
- 		atmel_pwm_wait_nonpending(atmel_pwm, pwm->hwpwm);
- 
- 		cdty = atmel_pwm_ch_readl(atmel_pwm, pwm->hwpwm,
- 					  atmel_pwm->data->regs.duty);
--		tmp = (u64)(cprd - cdty) * NSEC_PER_SEC;
--		tmp <<= pres;
--		state->duty_cycle = DIV64_U64_ROUND_UP(tmp, rate);
-+		ticks = (u64)(cprd - cdty) << pres;
-+		state->duty_cycle = atmel_pwm_ticks_to_ns(ticks, rate);
- 
- 		state->enabled = true;
- 	} else {
-@@ -487,6 +496,7 @@ static int atmel_pwm_probe(struct platform_device *pdev)
- {
- 	struct atmel_pwm_chip *atmel_pwm;
- 	struct pwm_chip *chip;
-+	unsigned long rate;
- 	int ret;
- 
- 	chip = devm_pwmchip_alloc(&pdev->dev, 4, sizeof(*atmel_pwm));
-@@ -507,6 +517,16 @@ static int atmel_pwm_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(atmel_pwm->clk),
- 				     "failed to get prepared PWM clock\n");
- 
-+	ret = devm_clk_rate_exclusive_get(&pdev->dev, atmel_pwm->clk);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret,
-+				     "failed to get exclusive PWM clock rate\n");
-+
-+	rate = clk_get_rate(atmel_pwm->clk);
-+	if (!rate || rate > NSEC_PER_SEC)
-+		return dev_err_probe(&pdev->dev, -EINVAL,
-+				     "invalid PWM clock rate %lu Hz\n", rate);
-+
- 	chip->ops = &atmel_pwm_ops;
- 
- 	ret = atmel_pwm_enable_clk_if_on(chip, true);
 
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
--- 
-2.39.5 (Apple Git-154)
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 7cf5a4d9d1ace..ddea31f44fb32 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1477,18 +1477,12 @@ static void shmem_undo_range(struct inode *inode, l=
+off_t lstart, uoff_t lend,
+ 				} else if (truncate_inode_partial_folio(folio,
+ 						lstart, lend, NULL, NULL)) {
+ 					/*
+-					 * If we split a page, reset the loop so
+-					 * that we pick up the new sub pages.
+-					 * Otherwise the THP was entirely
+-					 * dropped or the target range was
+-					 * zeroed, so just continue the loop as
+-					 * is.
++					 * The folio was split. Retry the scan
++					 * to find the split folios.
+ 					 */
+-					if (!folio_test_large(folio)) {
+-						folio_unlock(folio);
+-						index =3D start;
+-						break;
+-					}
++					folio_unlock(folio);
++					index =3D start;
++					break;
+ 				} else {
+ 					/*
+ 					 * Splitting failed, but the part in the
+
+--=20
+Best Regards,
+Yan, Zi
 
