@@ -1,101 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104745;
-	b=fc/fSI+JUOOVoN5CrrtEPAVU87savhVXMONpAnMItL0QGM1TJCTIvXDyyyfRCTToEBte
-	 X78x3GXxOL7SmRLOEPcTbW3cmWWJ5SFa1+hYhtXXENC1Y6Jbh8dJQQ135352/unQxZosj
-	 FwIYTa9FLbZSyVzmwwnBdHOoDP+VynRo/IG016Q3OGFd4+z/KzmmDrojL27ctB9TDhiNo
-	 F/QFdHF60Sxn7KN5nLjPqm2mE9zhymKGy53tQn0P6p9N2jTxsOPBG70OFccH2MUfFdiJq
-	 MoqAk5tXOeNVhiCmHzJKfgiFpMK4k8+mb0iC1gTCS9k1NvznQ75Eie+GPF1QRh13VIg==
+	t=1793104752;
+	b=0OOa9Kx2lc+40/Z5ZCUO6EP+p76legS4xPUrcQtlH3s880+bX9m/RsiQuxk93LMB+tyK
+	 JJmC4/K2fYdvz9d32C+cOkBDp8YxgYHycQWKJBAq/LjTKipf1MY9LXm3iEo0AMq5Kst4Z
+	 Yl4TUtoMUnt/oFvvDpMzpg5DQGSePqNMNGJpO5D3wkWOuoJmmuHCngzEOVsXJF0OQ3XKK
+	 oqBcRcZJR08QXpFD3au7qq9Ozffb5HLoyJ16Xdvvsdhp48xCd4Cf6/npIAdGRYbywWP87
+	 6UlbPjgPpgMk2TfQc/sGPvrAh4J7nHBIui5P+WUKvH3S0MLlD2cMRoJVuE4wBmFo0Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104745;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=kq1E/vncfl9qdy0McCIiuol7fOFggMDBnOUQpdEQG04=;
-	b=kDU9A/nOPV3TIix8EJWyOTPQq3bPRIB4zyt4yd3vs63XVTa1uN3aroxV2q5QcP2te2lc
-	 N3d0uu/2F8WDBUlQDYSLXQdYhpTd5oSqCbDaN7Al5BnRS1JazF807MHfhXR+RaSEiVJce
-	 /WKUa9GapyXSADlMHVKPQ93/OiOkjTMY7dzw5hgD7T62g57dXFtA0msLFN90suHL9BoMK
-	 2WHRkE+KIBU2+lmp4O2ESBge0YnJS5V6eqTYfGuMD6HYJq6iCGTx2or9IJYSszqtUtDST
-	 scz3h7bEDzuB8JWV5muunQBMOJr7XGSIn9HNggoWUNjh+9ofAJ2j0ORSeCyJvmvc+Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104752;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=pe8Sj0HJtyH6uzV+gQkDBmTM9okX+JshLBnFw66vHhM=;
+	b=fL+nJfQSUNpj0XnVmMht99K0LSomzwprjjlrtqZcN8n+nX8BX/JHNWe4iqrIhkq2umeE
+	 9PEfjpWtJWHoHoxLIy1zRafMQV/Xj++58j4kJIfHDg4upBj00brx4rf/qZbAvlb7koWD8
+	 ziEoLBMHuT2+24QZQmLJbLW8mHjmg9Ak5SxaQa4gjQ/4+BC69o3A+GCrDx9mRbQEwOHkC
+	 yGrdnn8Bo4+YJUzrhzR4Z2AIWgSl+8D4gv+UflMLoFTxUootQhyOf9eZFd0tL4EM+V1Nk
+	 UiHlsRvzdXxPkxI0TTL0igvjayGInkXBu+d0FE5TJzDk5drZ8aRA63V/L4M+u4oYelw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbRbKsUy;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pvjtCN0W;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Pe4Dxl0C;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FFE606A339;
-	Tue, 27 Oct 2026 12:39:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41FFE606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44DF660A263D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:39:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44DF660A263D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AbRbKsUy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793104744; x=1824640744;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=odNH/gGAYqnGtAYS7g9TAPVvmYCT7p6MhxBgVqnuSf4=;
-  b=AbRbKsUy0kkJDgbNj8C+77dNateoYsXNXI2ij4WbdRGRuIZcC9jLvl25
-   Bmw+n8n5Of1TQRL0DizydcA/iPyrd+XxeDvezIXqp2yseKLkYIapi4p/x
-   LfW0m9jl2jhiG+efwSNn3BnALmjkqFGd3YDnR9buB/g1orpChgEkSwEkW
-   MXRIZvmQamoPXDcfJuXZF9ian0WUMxOJpo8YM1fo5kbSC8m+uZIPkNZxP
-   K9BrZTZhId4Hh8TyCgkykufyHa0Ds9K011vXf7JC9Vtdotd2XIYsDzbrm
-   zkEdXci/vCNzfJizm4kvqnu/2v/+JluVNerCpU4WAeGFU0W7hJQciR7oU
-   A==;
-X-CSE-ConnectionGUID: HhUYjB5OQUqUAg47ALa6Mw==
-X-CSE-MsgGUID: Re3E1WM3TIm8hctQzni9IQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1804633"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1804633"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:39:03 -0700
-X-CSE-ConnectionGUID: OLOZxG60TkakwxXbCCvi1w==
-X-CSE-MsgGUID: zOOz759LQwuICkEDwQrfSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4879613"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:38:54 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 27 Oct 2026 14:38:49 +0200 (EET)
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>
-cc: Joshua Rogers <linux@joshua.hu>, Chris Mason <mason@kernel.org>, 
-    Josef Bacik <josef@toxicpanda.com>, Tony Lindgren <tony@atomide.com>, 
-    Rafael Gago Castano <rgc@hms.se>, Florian Fainelli <f.fainelli@gmail.com>, 
-    =?ISO-8859-15?Q?Ilpo_J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Peter Hurley <peter@hurleysoftware.com>, 
-    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
-    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-    Pengutronix Kernel Team <kernel@pengutronix.de>, 
-    Fabio Estevam <festevam@gmail.com>, 
-    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
-    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
-    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    Peter Griffin <peter.griffin@linaro.org>, 
-    Alim Akhtar <alim.akhtar@samsung.com>, 
-    Robert Baldyga <r.baldyga@samsung.com>, 
-    Thomas Abraham <thomas.abraham@linaro.org>, 
-    Kukjin Kim <kgene.kim@samsung.com>, 
-    Patrice Chotard <patrice.chotard@foss.st.com>, 
-    Srinivas Kandagatla <srini@kernel.org>, 
-    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-    Andy Shevchenko <andy.shevchenko@gmail.com>, 
-    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
-    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, stable <stable@kernel.org>
-Subject: Re: [PATCH 14/24] serial: 8250: ioc3: store registered line number
- in driver data
-In-Reply-To: <20261027-tty-llm-v1-14-99b0202ae546@linuxfoundation.org>
-Message-ID: <37ad6cbd-3a66-17d7-4221-3814a9ae7b90@linux.intel.com>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-14-99b0202ae546@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pvjtCN0W;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Pe4Dxl0C
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe3YD1935891
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:39:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pe8Sj0HJtyH6uzV+gQkDBmTM9okX+JshLBnFw66vHhM=; b=pvjtCN0Wqj2XrZ4e
+	UIBV36XzWZKnwFhOsem/tlER2xVxXi+vo69aqus5wuFWUS3l/LEEoDJYO1TXnnbw
+	tm1nPIJTrU8ZX6hIcggcXVOTRrDHfZcI/NEQPrv4s6O/hmxqhzo9ka0t2DAXPUcj
+	aeb9Q5vSYIkUmFj2cYb4sIXzL1JDcFDXnxZX3cNDrI2/QLZpwPZtsc+H5PPYmqPC
+	y3uybWlAQwuKFIKH05gI8z96UfDdrln6SHvcj7N+yI198I1GZnNPN+8F7GCWnl8C
+	yZLrOWvyFJlCvBhlpylbO//huC6JJTfqw54eiwsbrObrESipRCHb2WAx5aqGuFr4
+	dScenQ==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjfavtucg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:39:10 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so2985836c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793104750; x=1793709550; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pe8Sj0HJtyH6uzV+gQkDBmTM9okX+JshLBnFw66vHhM=;
+        b=Pe4Dxl0CYe8xc5+N88zDpxkzJFNkxh37wyQlTRvvXcK/A/8OhMlNf5muaRX+JITTGA
+         +EEVvcqtcLeUvfREps0bmLfH9exRbeyUUB+pI0ZcGZLh8Qx269coeCiyyRbMb0fW1X2E
+         IyJx6JjvLbubrioncE6wCqswrPJMRvpRcsCrYmGXbGaRxQ56U8uDxO1GbYCNQMOyPfiB
+         PBRpbzO3JYUHIRHx1eThI1diV3KworGf7ObLMgEK4sqezE5RieEPD3KK5ZoZVkQWrWge
+         2aFD1MOYezJMCJ1hbNuCR0A4T+dyvbz5f7VTLaqXmJXTXqtSBw+9SWE6JdeJ9dL3Pw8S
+         PTNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793104750; x=1793709550;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pe8Sj0HJtyH6uzV+gQkDBmTM9okX+JshLBnFw66vHhM=;
+        b=CAUPgqmhN8kya6UypLK/yfG1nvG3JvHS8wcNgflGoIDeawxt5yLG5tOvASQWKEOZhW
+         WOCL6Yr7r5Ko+N74qsVefdGc4Xf/sZt7mWcUJkEF6qELm8UT8QOZ2ksUxHbO0IRtyyDN
+         gQh48yJdErxVZKVHGxWGwM6VYI2wS+ZGpm31uTdsZbwxHUcrzyhMqAv3rpLol5IJwePB
+         0SNJQ6cHKoIWMIziKfLRkRJNhSG78Rz/SVfijc4tSv3Jdq9KazcCAnoGOJkmo0KMFweb
+         9wyQTSvA3tdX8tVK5pU+2zdXFtqHJKC7wDgl3eNwmg229YHDQEl6QfdiUc9KEovpNx1G
+         7jHw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnoRl1rITEicswySRVF+Uw++RYjc6Hg/f1tY1sPCzzBM5Zdb9671DxV4sTsMKBdj9675u028Os7rJjwWM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRyj38XcUYLScFK0fPa+/lH2QcUfbxsGgApO6gfTjNNuGKn+dE
+	eCzMUJLxQ4x7EjFZx6C63aHY6aOc3RSufZvhfslq7JHrWp5KE7W9YMZhjduwxQQU++MW+4pm5Gq
+	rY/SfQkhGj7nKel2PWtCk2e8LlFVY8G4MwnIwgDuGx5anw5Y1YqIyqQfUWoUoafxLarw=
+X-Gm-Gg: AYBFou3HvXfxQC8e9U5NsoznIB4WB+KkRi0/+8xU4CAut+jIatmuUSRnxnjXGAITW/b
+	4f5Fq2ZRMMEjo0zpqNq/LXXJF25P/CxAeDHUeLYBqGjdm1B1zNRWbAbEv8bWfWFGnulfGrUq57T
+	4ZrOlB0CL0HCbT/7bGJ7hZM4tP3D0tvFtBNo6pdgnMsaq5W8FIiaAGTO1iU+63eHjOnO6wdz+Vg
+	OOI1mEig6Q5GbGiyuSQ+lRuiGrswIYO/QPLkxoEHwuM6QaSC4oAbZNlfKof4NGjGszFMLV8R14M
+	qtunsa6a3kxAj9MHUpuK+3lXtCAuyoXrIj8DkiMwColEMlYRu4bu49/OALIxYhu/i3oOHZwMGnh
+	tQlH3IHBpzt67W1q1gQOpUVWcD4BWbeOBT5tzapMDRtYbZBy9IhNe0MS2EpRTJqQReSosGMXR0B
+	U=
+X-Received: by 2002:a05:7022:29c:20b0:1a5:32b2:9053 with SMTP id a92af1059eb24-1a532b293a4mr1466964c88.37.1793104749665;
+        Tue, 27 Oct 2026 05:39:09 -0700 (PDT)
+X-Received: by 2002:a05:7022:29c:20b0:1a5:32b2:9053 with SMTP id a92af1059eb24-1a532b293a4mr1466931c88.37.1793104749144;
+        Tue, 27 Oct 2026 05:39:09 -0700 (PDT)
+Received: from [10.218.2.197] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a21bc6cbsm32798498c88.16.2026.10.27.05.39.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 05:39:08 -0700 (PDT)
+Message-ID: <3ad598f5-2e02-45ed-bc17-e4b6119ba2ec@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 18:09:01 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,52 +116,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/9] irqchip: irq-qcom-mpm: Register MPM with cpu_pm
+ for RPM notification
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        Anna-Maria Behnsen <anna-maria@linutronix.de>,
+        Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
+ <20261015-b4-shikra_lpm_addition-v2-2-ac7f1a0d5638@oss.qualcomm.com>
+ <be076bf7-52fa-4c93-9d0f-46a8d06ae920@oss.qualcomm.com>
+Content-Language: en-US
+From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+In-Reply-To: <be076bf7-52fa-4c93-9d0f-46a8d06ae920@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: mgz4nNkexk7L3_6lsYiEYcK92tT6QW4E
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfX8lM4nT1sseCB
+ gGO3bz6AeD1xKqwlw7l6HYHMyXKQALA5C2QhXpRH6AZ3fZ8nZcit4D/1ZphuZaibvp0LLiATOss
+ OAP8o7RQQ1pQENgwWLtRWAI0x2Vlnyw=
+X-Authority-Analysis: v=2.4 cv=EIeTQFZC c=1 sm=1 tr=0 ts=6ae09b6e cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=ddxl3Jw30jVTiRF8AwAA:9 a=QEXdDO2ut3YA:10 a=vBUdepa8ALXHeOFLBtFW:22
+X-Proofpoint-ORIG-GUID: mgz4nNkexk7L3_6lsYiEYcK92tT6QW4E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfX1NrtiikOBF32
+ or8yc2yoPys5Yb9KHIEf9QFvXOBB7vYZQ1cyzaHuZ/eN6KT3xc7Vu61D+uw890YD4fAZMuV1GFU
+ ESmVWRYOhSvN8HKF2q1ON4FwSiCzvyX+mCgcP95piJ1Pwq1BQXUc+fcq0lBaS7L4R52YGeCgK+Q
+ hsVTVv2tvFMgtSy3Mio7NxA/GvEJp8/pUsYFfJeAonuuX2wU9UngtQXg12byO9W8jWOfWX6TTjb
+ skMVQYDWSsjiVUAx07r+ONXoasM0boQwGgN9YUXQ4kavTkU24U4WUb0C2jxk9gsumAx2G3dO4zP
+ h5UQe7plQTIenTvnWXk9h0Xp1NdbJHWYQYplovtTcyhWVBoqzzbMabOwCAY3SjgsVcbYJCicREr
+ +ELOVC+O8fm5o7B8rsBAvUpaacXNipCGFBXLmf72s2SiRAtWruUQTZOb8v2wN67pI1CL5uMmX5T
+ xmQEVl48LFosyaSMfzg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 suspectscore=0 spamscore=0 phishscore=0
+ bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270050
 
-On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
 
-> From: Joshua Rogers <linux@joshua.hu>
+
+On 19-10-2026 16:40, Konrad Dybcio wrote:
+> On 10/15/26 11:55 AM, Sneh Mankad wrote:
+>> MPM irqchip needs to notify RPM (Resource Power Manager) processor to read
+>> the latest wake up capable interrupts when the CPU cluster is entering the
+>> deepest idle state. This is done by sending IPC interrupt to RPM and is
+>> implemented as .power_off() callback by registering MPM as parent power
+>> domain to CPU cluster.
 > 
-> The registered line number returned by serial8250_register_8250_port()
-> was stored only in the local variable 'line' and never saved into
-> data->line, causing the remove path to always unregister line 0
-> instead of the correct port.
+> GPT suggests to register the notifier later, so that if
+> mbox_request_channel() probedefers we get a clean unwinding.
 > 
-> Cc: Jiri Slaby <jirislaby@kernel.org>
-> Cc: stable <stable@kernel.org>
-> Signed-off-by: Joshua Rogers <linux@joshua.hu>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  drivers/tty/serial/8250/8250_ioc3.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_ioc3.c b/drivers/tty/serial/8250/8250_ioc3.c
-> index 088242de2eff..3ab50e04be45 100644
-> --- a/drivers/tty/serial/8250/8250_ioc3.c
-> +++ b/drivers/tty/serial/8250/8250_ioc3.c
-> @@ -63,6 +63,7 @@ static int serial8250_ioc3_probe(struct platform_device *pdev)
->  	if (IS_ERR(uport))
->  		return PTR_ERR(uport);
->  
-> +	data->line = line;
->  	platform_set_drvdata(pdev, uport);
->  	return 0;
->  }
+> It also suggests to skip pm_genpd_remove() in the non-legacy
+> case, but the API tolerates nullptrs (although it does return
+> -EINVAL, but we ignore the value)
 
-Eh? Didn't Jiri just kill the entire line madness? In d6a0791098be 
-("serial: 8250: make port operations work on struct uart_8250_port"):
+I will move the genPD/cpu_pm registration after mbox_request_channel() to fix this.
+As for pm_genpd_remove(), as you mentioned it is harmless since it will return -EINVAL
+without disturbing anything else.
 
--struct ioc3_8250_data {
--       int line;
--};
-
-There's no "line" in the entire file anymore?!
-
-On which commit you're basing these on? How was this tested??? ;-) ...I 
-hope you're not just wasting our time by sending unfiltered LLM output to 
-us.
-
-
--- 
- i.
+Thanks,
+Sneh
 
