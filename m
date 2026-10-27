@@ -1,75 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096092;
-	b=vBrf81C0BJHjV3uoxQtfrvIDypJjd1cWkLYFH7gSm8PmeYsxMpCyo4gzPMNmq5NqsBdV
-	 rBTx6TZKJKWw01JaIu3nKIRXwmQcrxY9Av+mrTKRenlIWoMM5Hn3LR44GIi6m5g8loWES
-	 P79otLsORI9+SXsHfZ6fUTQdu9FakQ8594t7ULad3YzUlTrWrfJX6nXM++c7ZRQSTo4rv
-	 P+gCeuosRaZnYWx6jcIsvGMTgl3sV/FTTA/iuqzRhUu/EYQ/eUN06z6NitLVPW/R2Hlfq
-	 2hKJkL7Hs2rEm2CEBnAECNROcFbblTpeZUgNxljXEoMnRrsVfOemiArRxddyd7SHhdw==
+	t=1793096099;
+	b=JNZKECNUSfhWum0nitwiDyMpehhiEvs7URZNm9PjfHx71eHQQ9AyHhkhXggFl5qzl6dt
+	 RqJFNVHa40FiVu3F9PYVV6/Z807+i3z72v1c/qN7Nlql1ArEtT/BMI08PUFWWz085Kq4a
+	 LdIo92lsDJjtfbyhsvhq/GF5g1EFHNAUPKlQOsGCiBB+7Pi7UUD+DsW8eMRgMFFB3bGxh
+	 9lgaBJNr7ONd+aN19jqNDUWXLOXGAE4Lvr3bfV1YjP9QzTCyPgX9P4lwZCjOu0oltYTl3
+	 1dpikrqeiM3BvQyBiwrk/BliAbxBrOXQryJDvIkxTN6tUbhklamJywgEahRdpggcW4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096092;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:User-Agent:MIME-Version:
-	 Content-Type;
-	bh=lvFw8tqqTR67faK5n0WofJMmY3FbQXpRy70vxZJUGus=;
-	b=OSIXHt6aHCz5MU1HS7QTdW7HF5wYA1sq/2ZhPXtqtHMl44F+2EwklkwypS1zOmNKEZM5
-	 KDRx75J4BenKO1RVxyiBbL3ljCMyFrDGrHLA1aF4bsTLdpt2QzuTv+6gEsxF+fMP1IN0+
-	 bNFtMnHXknMElV9ciyOAh+bG2v4wDN5Q+XiIXv9lyYECCvbGEMOap09O9ImeXqlHHoNhW
-	 dzLxjcUm2MTPlGjkuiWSUkbaGcDAKQ3cm5pLJFYoYS1PoJl9ErFyVskcv2qdIMaY5pRO8
-	 yRwCIRB7J85a8rrW00iPLmQP/m1Myi0Y1it354PLZEoFXuYdzDQ689HenXC03vGosWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
+	b=bnRIxn1PGmlfKrNrUrxDbL/vHAxxkyhCgNTaD7IEq/4ko9NXr73RuW8nGKqQNXtYNuqq
+	 SKeCvzbRWW7kUVnQmqZdZzJL7BWNxEjf6dA4LAyKASIMRNW7YJ3cZqko90LrPIhSoAu/o
+	 kGmrKEWAkVLJCxN9F4m5bVrf8Jxvpog4BmZc97gciaMku+hVmiImRGq4x9uPaRvfyhcMx
+	 KzN59zc6fNY6m4JfJXhrMXTFM+f3o7GaN4UHa3Mh5+W3clG0hOcYGlVDuqIaXcfSWIRiY
+	 c/zsVCERV83D+7wcNa0hFi3O+lTnscrhwJQoiP/LldhHeLaKKZpVX+qxy+EdIGjh/yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=geanix.com;
-	spf=pass smtp.mailfrom=geanix.com;
-	dkim=pass header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=oxYiTqlz;
-	arc=none smtp.remote-ip=185.70.43.170
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DJ4JD5oP;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1186A606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:14:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1186A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E80606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E80606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=oxYiTqlz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1793096086; x=1793355286;
-	bh=lvFw8tqqTR67faK5n0WofJMmY3FbQXpRy70vxZJUGus=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=oxYiTqlzoEvZVMmxDj/GN0kVQFKQ8O/3lROlIwuI/iKDoyX9fTao8UOaZom6p/Y+Q
-	 yNCI8Z4szsOPk3XpsazXxeqcWf7Vj+eL1SMk5tzFCVA8n1F2X1XlQMpgEPAZfimS5B
-	 +5Llyp9iz0dwJAjBEwaaHXDObFHAbMHyHjND+vqW/hFto4biWc5MjFK4b3NO8KdE4o
-	 C/aMrZ8z2IVNxzoewo7dcmS1QCRDj1RdNTYnEnZZYGuoQqSrjAp4r4HG9KSvz1t1XN
-	 Fc1aJROZ1ERUyqW6j26qUr6IJfx2FI9KJ6iROvIp0OLnPFHG8IHLANbDIua9oPdDmz
-	 3xKt9opWotiyw==
-X-Pm-Submission-Id: 4jDRF01kHdz1DDLJ
-From: Esben Haabendal <esben@geanix.com>
-To: "Liu Ying" <victor.liu@nxp.com>
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>,  "Neil Armstrong"
- <neil.armstrong@linaro.org>,  "Robert Foss" <rfoss@kernel.org>,  "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman"
- <jonas@kwiboo.se>,  "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>,  "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>,  "Maxime Ripard"
- <mripard@kernel.org>,  "Thomas Zimmermann" <tzimmermann@suse.de>,  "David
- Airlie" <airlied@gmail.com>,  "Simona Vetter" <simona@ffwll.ch>,  Guido
- =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,  "Fabio Estevam"
- <festevam@gmail.com>,  "Robert
- Chiras" <robert.chiras@nxp.com>,  "Sam Ravnborg" <sam@ravnborg.org>,
-  <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
-  "Oliver F. Brown" <oliver.brown@oss.nxp.com>
-Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
- horizontal sync timing
-In-Reply-To: <atH4i_KcmccKb8Ge@raspi>
-References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
-	<20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
-	<JYYZZ_8h4tOKBjhbfQG_VuFESQDdQRt7TE7Ef0eJ9F0gQgyRrEJ5LIi6scY_48ggvsikFa5QZB3uEHaRUDdosQ==@protonmail.internalid>
-	<atH4i_KcmccKb8Ge@raspi>
-Date: Tue, 27 Oct 2026 11:14:43 +0100
-Message-ID: <87v76nbgbw.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DJ4JD5oP
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3adf5f6833cso1761371a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:14:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793096098; x=1793700898; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
+        b=DJ4JD5oPh4znSBd5MjH0yzKd9gZovBRDtmMqJCWZvSOefnbAZfhLhhNHc5gd0SmNG9
+         1rbBOqy8Fa3j2AadB2ypYyAARvg22x17Fj28rsbfO7bKc3HbXh5Xb5xnYp4/5C8dUYD1
+         4zNaypqM6Cdb3DVInc7lzDt4YnfziCx01A5mso4wyDXYiNRjy1G07I0gCNEz9zC4qh1z
+         aZeZcPR/P6iiIg/CgPDcgVLxg1Zh3NhoImzJPHoZ8ZuedH0WLpHHZXHcJdiW4rYWBEPZ
+         0MdWU1bKeb80IPFNPrlymToLeHzbqp+yrNd8Jn4+HvpHcMi9jMhJVekxg/ZdwoHxZegV
+         WmMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793096098; x=1793700898;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
+        b=tjSK6jczvbm2oisUT7jmv/OORSw034ypqsbFnSlmsl9ihxipLaLqUO9IUGcb+Y/jCq
+         m/o1ThpWLN3WSw+fcUz5MB02WbxCtMIv05VNspzZttGeXsNYKN2sU5fqyL9O1XSN7xey
+         0VSHlQotmz9t3F3kB+w0qgXgkF4vENKAh4/kAr3peSzMC+Cr4NZH+CDwBlsa8BnseRIT
+         jImiPToG7AMwZ/Th5h2+6QubHdHMBfkRy0E+aPv8hRc6nkUwcxlNLs+WzgFVzHvE1f6r
+         xzX18mebJfY0+k4OvGwx+1NNaVhgODxEOTSgVx/HH/BjfDXjDAYdD91TCNzWx2he6MwC
+         +PMw==
+X-Forwarded-Encrypted: i=1; AKwUvBy8o/Gx0kbT5LpewCxQTCpFYGRw3iQjBgxLismrCUgHYZiBbMejADy7tGaxuIqSavDQb+W0JSTbWH2d9fk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuvD2a4TsI7rnT4sl1kNqHKburYnr6pnQTYFtmfnbbuWueI5O0
+	4oHyPFDO/8aPk4IGH8wgvN44+EkuM49u4Zuh80o/kJtxKGdQQc6SEDxA
+X-Gm-Gg: AYBFou2Ni6TVvJGcyk12YDp1OqyakdjRbPa/JXBBIPdhzduHFG9BJiaiNfQZ2QkWiZK
+	szNXXnQBX8pr/6sgeh1ctlKfH/TGDqeQvDNQALsWSYJ5FKvMwGPjxgdYahBfDl6j/u3YYxCFRxs
+	6zOVHfXrTxILHBzX6IzXXHWFdhVGVZvBXt7hB1ZFCQGLi6ocEh73tgMWQ1lU7xRqMfwcE+wwl1q
+	i2+2EmWpImZ7xyLK5aHDoFYEcVUwO+Bb0bfPxuMAeNOUbYLmF1mXQcf2e1cbbBe4zqxP11H9k+o
+	73KiEyEUtGDjdu84wdX9UzgrYx57Q/yGc5+3UukvWjiBK0Um5+ssO+QBcm0phXnMmsqY2Ou8Ng9
+	dYjQXvNogSzLZWx+ox0btYxoE167I3yeN5cNVwf+K2Buoaiki/+3LKd1IN5AGHPE8m3ZHgnvoKE
+	aH2c/M+joVVAf9u5iydeU7d1WOZq+G+2H7gHQ2FENs2nUgdsNaHB/vqo2lQwnFQJ6NB2TzLLIOi
+	UKyvzB9WFZr+3/Y6X4YxHfbPn4A0XEZ5ln2YxW9GBSSiXxr0Tg=
+X-Received: by 2002:a17:90b:2e8c:b0:3ac:8897:7b9f with SMTP id 98e67ed59e1d1-3adeae77a16mr7444135a91.43.1793096097910;
+        Tue, 27 Oct 2026 03:14:57 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404274b2sm3188284a91.5.2026.10.27.03.14.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 03:14:57 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: mark@fasheh.com,
+	jlbec@evilplan.org,
+	joseph.qi@linux.alibaba.com
+Cc: heming.zhao@suse.com,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH v4] ocfs2/dlm: serialize migration MLE cleanup on failure
+Date: Tue, 27 Oct 2026 18:14:49 +0800
+Message-Id: <pm-ocfs2-objects-candidate-0038-v9-659f247ea980d5f3fbeb@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,152 +100,259 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-"Liu Ying" <victor.liu@nxp.com> writes:
+A migration MLE has a base reference for the mastering answer and an
+in-use reference held by dlm_migrate_lockres(). The finishing assertion
+consumes the base reference, but migration failure drops it again
+without checking whether the assertion already consumed it.
 
-> On Wed, Oct 14, 2026 at 09:44:45AM +0200, Esben Haabendal wrote:
->> The NWL MIPI Host controller registers specifies the horizontal front
->> porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
->> not in pixel clocks).
->>
->> The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
->> the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
->> Manual (rev. 3.1). The formula shown there does not take packet header size
->> into account though.
->>
->> The formula implemented here converts the hfp, hsa, and hbp to DSI packet
->> bytes and then subtracts the number of packet header bytes.
->>
->> It is worth noting that these values only needs to match approximately,
->> according to the reference manual.
->>
->> Based on commit in NXP vendor tree
->> commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> Cc: Robert Chiras <robert.chiras@nxp.com>
->> Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
->
-> Worth a Fixes tag?
+The target queues its migration worker before it acknowledges the
+ALL_DONE packet, so its finishing assertion can be handled while the
+sender still waits for the status. If the connection fails before the
+status arrives, dlm_send_one_lockres() returns an error for a migration
+that the target has already completed:
 
-Yes. I think it should be the initial commit, so
+  Old-master sender                  Finishing assertion
+  -----------------                  -------------------
+  publish MLE; take in-use reference
+  send ALL_DONE; wait for status
+                                     take lookup reference
+                                     unlink MLE
+                                     put lookup and base references
+  send returns a connection error
+  put base reference again; free MLE
+  put in-use reference; access freed MLE
 
-Fixes: commit 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+dlm_assert_master_handler() holds dlm->spinlock from the MLE lookup to
+the final puts, and it takes dlm->master_lock around the unlink and the
+puts. Decide under the same locks: if the MLE is already unhashed, the
+assertion consumed the base reference, so drop only the sender's in-use
+reference. Otherwise unlink it before consuming the base reference so a
+later assertion no longer finds it.
 
-I am not sure if we should mark it for stable backport. If people have
-specified "wrong" timing parameters in order to have the resulting
-timing with the old code produce correct timing, they will have to
-change the parameters. Is that suitable for stable?
+An assertion that got there first has also made the target the owner
+and cleared DLM_LOCK_RES_MIGRATING. Treating the attempt as failed at
+that point would leave the lockres owned by the target while this node
+still holds the other nodes' locks and refmap bits, so it could neither
+be purged nor migrated again. Finish our side as a completed migration
+does instead: drop those locks under res->spinlock if the target still
+owns the lockres, and recalculate its usage.
 
->> ---
->>  drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
->>  1 file changed, 57 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
->> index f3f4334136c0..eb604733eea0 100644
->> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
->> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
->> @@ -22,6 +22,7 @@
->>  #include <linux/reset.h>
->>  #include <linux/sys_soc.h>
->>  #include <linux/time64.h>
->> +#include <linux/math64.h>
->
-> Sort the header files alphabetically.
->
->>
->>  #include <drm/drm_atomic_state_helper.h>
->>  #include <drm/drm_bridge.h>
->> @@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
->>  	bool burst_mode;
->>  	int hfront_porch, hback_porch, vfront_porch, vback_porch;
->>  	int hsync_len, vsync_len;
->> +	int hfp, hbp, hsa;
->> +	u64 hs_clk_rate, pclk_rate;
->> +	int h_blank, pkt_hdr_len, pkt_len;
->>
->>  	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
->>  	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
->> @@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
->>  			      dsi->mode.hdisplay);
->>  	}
->>
->> -	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
->> -	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
->> -	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
->> +	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
->> +	pclk_rate = (u64)dsi->mode.clock * 1000;
->> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
->> +
->> +	/*
->> +	 * Calculate the bytes needed, according to the RM formula:
->> +	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
->> +	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
->> +	 * ===>
->> +	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
->> +	 * ===> (substituting period = 1 / rate)
->> +	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
->> +	 */
->> +	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
->> +	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
->> +	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
->> +
->> +	/* Make sure horizontal blankins are even numbers */
->
-> s/blankins/blankings/
+Use the same cleanup for the pre-send failure, the send failure and the
+target-death failure paths. The sender's in-use reference keeps the MLE
+alive until its final put outside the nested locks. Successful
+migration retains its existing in-use-only put.
 
-Fixing.
+A target that has died cannot assert after the sender has seen its
+death. The o2net node-down callback runs before the DLM one; it
+disconnects the node and flushes the workqueue that runs the message
+handlers, so an assertion already received has been handled by the time
+the DLM removes the node from the domain map. A node that leaves the
+domain cleanly sends its exit message only after its assertions have
+been answered.
 
->
->> +	hfp = roundup(hfp, 2);
->> +	hbp = roundup(hbp, 2);
->> +	hsa = roundup(hsa, 2);
->> +
->> +	/*
->> +	 * We need to subtract the packet header length: 32
->> +	 * In order to make sure we don't get negative values,
->> +	 * subtract a proportional value to the total length of the
->> +	 * horizontal blanking duration.
->> +	 */
->> +	h_blank = hfp + hbp + hsa;
->> +
->> +	if (h_blank) {
->> +		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
->> +		pkt_hdr_len = pkt_len;
->> +		hfp -= pkt_len;
->> +
->> +		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
->> +		pkt_hdr_len += pkt_len;
->> +		hbp -= pkt_len;
->> +
->> +		pkt_len = min(hsa, 32 - pkt_hdr_len);
->> +		pkt_hdr_len += pkt_len;
->> +		hsa -= pkt_len;
->> +		if (pkt_hdr_len != 32)
->> +			dev_warn(dsi->dev,
->> +				 "Unable to subtract packet header length fully: %d left\n",
->> +				 32 - pkt_hdr_len);
->> +	}
->> +
->> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
->> +
->> +	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
->> +	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
->> +	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
->>
->>  	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
->>  	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
->>
->> --
->> 2.56.0
->>
->
-> Not sure if the fix is 100% correct, but it is a correct direction to
-> change the blanking packet payload size from in pixel clocks to in bytes,
-> so better than no fix:
-> Acked-by: Liu Ying <victor.liu@nxp.com>
->
-> --
-> Regards,
-> Liu Ying
+Two windows of the hand-over itself are left as they are: the handler
+switches the owner and the sender drops the other nodes' locks moments
+later, and an assertion from a live target that arrives after the
+sender has given up still meets the owner check in the handler. Waiting
+for the target before giving up would only stretch the first window
+into the time in which recovery of the target can observe it.
+
+KASAN report, only the relevant frames are kept:
+
+BUG: KASAN: slab-use-after-free in dlm_put_mle_inuse+0xce/0xe0
+Read of size 8 at addr ffff8881190e3c20 by task umount/593
+
+Call Trace:
+ <TASK>
+ dlm_put_mle_inuse+0xce/0xe0
+ dlm_migrate_lockres+0x16af/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+ generic_shutdown_super+0x15f/0x490
+ kill_block_super+0x40/0xa0
+ deactivate_locked_super+0xae/0x120
+ deactivate_super+0xa2/0xc0
+ cleanup_mnt+0x217/0x450
+ task_work_run+0x144/0x230
+ </TASK>
+
+Allocated by task 593:
+ kmem_cache_alloc_noprof+0x20b/0x5c0
+ dlm_migrate_lockres+0x20e/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+
+Freed by task 593:
+ kmem_cache_free+0x242/0x580
+ __dlm_put_mle+0x4b2/0x660
+ dlm_migrate_lockres+0x1690/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+
+The buggy address belongs to the object at ffff8881190e3c00
+ which belongs to the cache o2dlm_mle of size 480
+The buggy address is located 32 bytes inside of
+ freed 480-byte region [ffff8881190e3c00, ffff8881190e3de0)
+
+Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+Changes in v4:
+- Drop the v3 hand-over in dlm_assert_master_handler(): removing the other
+  nodes' locks there races with dlm_send_one_lockres() still walking the
+  lock lists when the last message was sent from inside the loop. The sender
+  drops the locks as before, right away when the assertion got there first
+  (Sashiko review).
+- Drop the v2 wait for the target's death before the MLE is dropped; it
+  stretched the half handed-over window that recovery of the target can
+  observe. The failure paths decide right away as before (Sashiko review).
+- Drop the v3 domain map check on finishing assertions. The o2net node-down
+  callback runs before the DLM one and flushes the message handlers, so an
+  assertion from the target is always handled before the node leaves the
+  domain map and the late assertion from a dead target asked about in the
+  Sashiko review cannot occur.
+
+Changes in v3:
+- Hand the lockres over in one res->spinlock section:
+  dlm_assert_master_handler() drops the other nodes' locks and refmap bits
+  together with the owner switch, and the sender only does the same if the
+  handler has not reached that point; the failed-but-asserted paths just
+  recalculate usage. This removes the window in which recovery of the target
+  saw a lockres it owned with other nodes' locks still attached (Sashiko
+  review).
+- Ignore a finishing assert from a node that is no longer in the domain map,
+  so a late assert from a dead target cannot hand the lockres over after
+  recovery has cleaned it up (Sashiko review).
+
+Changes in v2:
+- Complete the migration instead of failing it when the finishing assert has
+  already switched the owner, so the lockres is not left owned by the target
+  with the other nodes' locks still held here (Sashiko review).
+- On a connection error from the send, wait for the target's death before
+  the MLE is dropped, so a late assert finds the MLE instead of hitting the
+  handler's check (Sashiko review).
+
+Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v5-5e414ac0c701d2ccd4b3@gmail.com
+Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v6-44416f9847751914bacc@gmail.com
+Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v7-7a0bd8f07ba98784f6b7@gmail.com
+
+ fs/ocfs2/dlm/dlmmaster.c | 70 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 61 insertions(+), 9 deletions(-)
+
+diff --git a/fs/ocfs2/dlm/dlmmaster.c b/fs/ocfs2/dlm/dlmmaster.c
+index 612969867ff9..ea48c013f7fb 100644
+--- a/fs/ocfs2/dlm/dlmmaster.c
++++ b/fs/ocfs2/dlm/dlmmaster.c
+@@ -2525,6 +2525,52 @@ static int dlm_is_lockres_migratable(struct dlm_ctxt *dlm,
+  */
+ 
+ 
++/*
++ * Drop the sender's references on a migration MLE after the attempt has
++ * failed. The finishing assert from the target may already have unlinked
++ * the MLE and consumed its base reference; decide under the locks the
++ * assert handler holds, and only drop the base reference while the MLE is
++ * still hashed. Returns true when the assert got there first: the target
++ * has become the master, so the caller must complete the migration.
++ */
++static bool dlm_put_migration_mle(struct dlm_ctxt *dlm,
++				  struct dlm_master_list_entry *mle)
++{
++	bool asserted;
++
++	spin_lock(&dlm->spinlock);
++	spin_lock(&dlm->master_lock);
++	__dlm_mle_detach_hb_events(dlm, mle);
++	asserted = hlist_unhashed(&mle->master_hash_node);
++	if (!asserted) {
++		__dlm_unlink_mle(dlm, mle);
++		__dlm_put_mle(mle);
++	}
++	spin_unlock(&dlm->master_lock);
++	spin_unlock(&dlm->spinlock);
++
++	dlm_put_mle_inuse(mle);
++	return asserted;
++}
++
++/*
++ * The finishing assert got there first: it switched the owner to the
++ * target and cleared DLM_LOCK_RES_MIGRATING. Drop the other nodes' locks
++ * as a completed migration does, unless recovery has taken the lockres
++ * over since, and let the usage be recalculated.
++ */
++static void dlm_migrate_lockres_asserted(struct dlm_ctxt *dlm,
++					 struct dlm_lock_resource *res,
++					 u8 target)
++{
++	spin_lock(&res->spinlock);
++	if (res->owner == target)
++		dlm_remove_nonlocal_locks(dlm, res);
++	spin_unlock(&res->spinlock);
++
++	dlm_lockres_calc_usage(dlm, res);
++}
++
+ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 			       struct dlm_lock_resource *res, u8 target)
+ {
+@@ -2609,9 +2655,10 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 
+ 	if (ret < 0) {
+ 		if (mle_added) {
+-			dlm_mle_detach_hb_events(dlm, mle);
+-			dlm_put_mle(mle);
+-			dlm_put_mle_inuse(mle);
++			if (dlm_put_migration_mle(dlm, mle)) {
++				dlm_migrate_lockres_asserted(dlm, res, target);
++				ret = 0;
++			}
+ 		} else if (mle) {
+ 			kmem_cache_free(dlm_mle_cache, mle);
+ 			mle = NULL;
+@@ -2640,9 +2687,11 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 		mlog(0, "migration to node %u failed with %d\n",
+ 		     target, ret);
+ 		/* migration failed, detach and clean up mle */
+-		dlm_mle_detach_hb_events(dlm, mle);
+-		dlm_put_mle(mle);
+-		dlm_put_mle_inuse(mle);
++		if (dlm_put_migration_mle(dlm, mle)) {
++			dlm_migrate_lockres_asserted(dlm, res, target);
++			ret = 0;
++			goto leave;
++		}
+ 		spin_lock(&res->spinlock);
+ 		res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 		wake = 1;
+@@ -2686,9 +2735,12 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 				     res->lockname.name, target);
+ 				ret = -EINVAL;
+ 				/* migration failed, detach and clean up mle */
+-				dlm_mle_detach_hb_events(dlm, mle);
+-				dlm_put_mle(mle);
+-				dlm_put_mle_inuse(mle);
++				if (dlm_put_migration_mle(dlm, mle)) {
++					dlm_migrate_lockres_asserted(dlm, res,
++								     target);
++					ret = 0;
++					goto leave;
++				}
+ 				spin_lock(&res->spinlock);
+ 				res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 				wake = 1;
