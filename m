@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793076189;
-	b=y/w6onDL2oL2S89jefQn3ERrGlbz6wlfn6C8GPXp97/89YJasmm1ZA+cadSyO+5iEETA
-	 8RmW0P7Ns0GadhmHzSi2B+5IcSSj+LkTCKr5BZBPRcQGuMe7h+XQGYNqOWNVC6UhBP5Dw
-	 IcMu65tvXM/I/QktbR0s4gUv5CY335BRPYnVGilmTu1Yig9/cmYyQWZF2i7n/UNi3w7jj
-	 /Li+ChMiYom9owN4xMVkQld+1ioCPDUj2yf+XxMw64vnJj8jHe9ws5s/CJlY5KIFWlUgK
-	 9/oDv6Q1Kt1LIbVVG6yqiycPthTkrlfLYTRojCBn9o1P8xY/UlllvCmEuNFUx+We0mA==
+	t=1793076529;
+	b=mgAXWutcHJ3mMOcAqTmHS8WumRCA6JOD7LHTkbG4ub0HratKAPk8iCLy/gdv4jI38b5I
+	 K5wXFJFBrzBplSMw1eVWlk58TwT3zjEi6JBLpbDwxuqJDAhVc33sYtyc6bmcfrdKaovoZ
+	 7UpebEe4gUckUME+jBnw0bzb+BHtSsiRUyhW3XT3bhs646szzTYUn+2Gfa/EWaSrevkjz
+	 V97dGr88zQsuzAgRbK6Jke3DJLJ2ZANJqkLfqpxUFZMC7ho3QPsrEvQn8Z+j3Hi/sRZgN
+	 +BHCqpQ0ys5l6L11E67PitfT7Fp6YABPsWha2hwGZFvP6U3kflhn1PsluS40jR7LTuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793076189;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793076529;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=l493/u62eOFn/ZLxJ8nu4m5zc4vn7EZElFZnKX4PUGE=;
-	b=zKkYgYDvwyRSGOIk5tB+DtFaElaRlP1iQdkYiPXrH+uTHLw8WT3mu6EyEsLRPbcOaLc2
-	 HokfYZOKQZ7ptZY2hK3wCbnvq89GTjzXl/RmygQ2Z4yO7t1L9EtkcC+uFAhqi0WYamIS+
-	 USsIOZUG27P243ELRkB6GJH+6VfHAWv6jDETnv29JrWAxfDZ6YczkW/EUdG/DMwphMXok
-	 KqfzyTu84zVsn6XCMZDgDU327duBMwnzeyeqsxsgGnKQdPkA6cSnf6XZPsj+5cwm2b+Ja
-	 4voCMuDMwENsfHEy22Eh4qvauJ+TRZKddNenRZYELenNW2sia5+pcyaiT1yI7qbQBbg==
+	bh=8nNac71k806PRByKbpE3u7jP68UWqjas3/Ce4QU52ks=;
+	b=e7vXHnBJn9E1XWfevEq9O7ROM4FUmd0dvsJxE7mhFB14wORtQrcJT53O/DOwh+LYBbZ1
+	 1bg8HVTs47MpBqLuuLYVRetomemMknycVjrdGSeCXJv/ILXG0AJWpqxcDUyjkdIi4izyX
+	 XyyICJtQpy926Rpk3QOU369MxGNIcBAF6pHGXDGeAzloo5om/m3M7vuceUPLKqf9HiJ2i
+	 TnmRTkQefv2bQLBnbSwME2JAMInQBm2pGz8RoCR49muPTfu88xvopAJ4mYRj5AIYBBAz8
+	 zhgaDgNi4BXNGJSdFMjluZ+7PVUPDeJG8rldAwuM5X+PrEEi/vIef3HkekmgwbxahHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JeHGCwrF;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="h8o2RV/2";
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3369B606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:43:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3369B606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D689606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:48:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D689606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JeHGCwrF
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35cd538de29so1837048eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:43:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h8o2RV/2
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35b2c599f43so2206439eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:48:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793076187; x=1793680987; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793076528; x=1793681328; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l493/u62eOFn/ZLxJ8nu4m5zc4vn7EZElFZnKX4PUGE=;
-        b=JeHGCwrF+fP/PQPoKowlvInB8EI4BT5PYNSRTpXw3tQu3GOsjanJivxZABz3p++Xgy
-         ccw5B/LxT/BKW8ngD/AjqXkUFsW82yNgTjw9b2oKmSTQpbVEFDtuBoT5NFOyzrYdZR+j
-         JEWNW8XFAoh+jDX1BAm3/vFeneUF72zmmvT2/YX3EONJTJtDidPLeXtrUuQJl8dobOvh
-         j/wWBb6see7HEUiCXtZU5J3Rx+uMPQoHn5imgoDCuDjs19HcGH5tMt8dOGmK2PN5vVlk
-         P9c5kNaw2A5un93/FDYPgHFKfcdPyH8N6onmLrQBwQDs9s/SzQaAuE4qLtogg3QvCm+5
-         Uu1Q==
+        bh=8nNac71k806PRByKbpE3u7jP68UWqjas3/Ce4QU52ks=;
+        b=h8o2RV/2sYe53gexNI2Si0Z5yxPSGWY++KAOL1mrgPIbLEYpHp5RsU3VvFnpklPE6u
+         dO+G7mMcIVag9eMvNv/5ZuILFUH+xb7W8fMMvQRM623dyJoDUqxzCAAQosHWtHa/oPgR
+         B4hUEQ1h760ZMuWxZHb5RXprFxM2Ax9gzxGbyW2ttI6D77gdzSIYBqiU5tw/l+5Kd5iu
+         l0qg6pLOBFwendHQLujqu7m7yPbt4wqoE5woEwtwSFSVbJJtHPizwighEUB9Ke8D8PEX
+         RmFwUgd5McV90SzwE/kGgeJ+slQ0FrD9ScCJqSD3cGYbL8TnDogGxN9dvXCAB8samSEZ
+         PnAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793076187; x=1793680987;
+        d=1e100.net; s=20260707; t=1793076528; x=1793681328;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l493/u62eOFn/ZLxJ8nu4m5zc4vn7EZElFZnKX4PUGE=;
-        b=swakHdARJy3Z2HT5AgEbLyvyzSvOHID8Y8c0NDqa7Cb5XPNFtjrHLuF0+eSR7hhOFo
-         1Mf2fMkt8aKFbo71OYM5V1QkqCtZ+X63d8g6SbKTsAdd+XPwiQsMxxqjJFXpikIyNzHa
-         w+Ag9ESmz6Hdv//WEys/5sCsdZKtzvrxltU5FKWSTTUrNEOHY/VEz4r1sP+XCkEbEcad
-         B/oRw3RGwHvzl7WJYN9LXMfCvKo03ZoLQGyIEHq7l9hdo3UAiFrCjPMlk52TOO5VK8/G
-         Qdcc/s0/aBKC7pjuxxDKv0E7dbAnac7AMlvTJMK/EB92QsvgmBBVF37Spkp3w8QajGSR
-         hTcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxeM1eb6mSGIFK8jHQOJwig+zJ9iMhkxQkR0icpuK8pFVe3Nj4ksV7h94YzRkePPrOMoB2wbsD0aeWx3eA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYwSWlHAGjvywyqlxZgxLDQASyNzawe74Vl82Qk8IHdbswplGI
-	XzJ43rJSfJMngJ1Kh/7qYnLc/coGzkcsqMx4BKWsErJdvLOa6rogOMHv
-X-Gm-Gg: AYBFou2oDNic13r0U6d4NANvosdZFOf17nMo8sy9EgjPaM5BWRfwfR+C5T7kszf2gw4
-	0dgE5iiXUMFlOpKgPk+QVFjiLCZfIR4hKBvFBUFqGNDWcZB8viazcmgaNQCGiFaDMGutcAqG7JU
-	RB7fh9dFQmT/NG/nYIqB+YySUC/O51pHq8ZVdGEx1OKWgZp9TNnSEHNJdZk0tlfYcR+Ik6ynwK7
-	qNoEARM1vk9MN93tXiQEgiafnhbX+3CZlDEO79MiBe7VP+mAFOi2WB44J4tOVFxpLFuYSIPBifX
-	M277OEB9ExXqiEMYz6p63NA73cPjYzhDYIeeBfHpnBx20CrEsqeLPMhTpRWY1P+XhJHNWtF57a4
-	pDgdAqP5IeMb1R6i075f6jAWtKc0ucNDrwK5/R7BWTK6FA4v0CEvv783r+GFk04oQs4Tok/8MIZ
-	0lzC1nSL3p8vo0mNJ2AWG3/XFnsRVuzcdhJpAJgb/gIudYyGzybgOMu0s+B0LomnredFZMnS9ot
-	8eBfdMZn6FXK+RzppijGIaLVCuK6HjHjCOhk6/xech806aYC244FqdU7J7R0UaEoO4m8bpQp6Nx
-	48vIqko=
-X-Received: by 2002:a05:693c:408b:b0:35c:ba31:6fef with SMTP id 5a478bee46e88-369e86749a5mr15571826eec.36.1793076187002;
-        Mon, 26 Oct 2026 21:43:07 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec50bcsm55884722eec.23.2026.10.26.21.43.06
+        bh=8nNac71k806PRByKbpE3u7jP68UWqjas3/Ce4QU52ks=;
+        b=v5EmF5PKvho0R2Wil/bEup1/JOYhZqudeeUR6rQmfOuB9c9oVqxHxMalZsp2bQFz2i
+         BWWEC4+9u3U2rHnA0pIodE9HltsJffF7gIjfWf+hS9ff+S9d/Ohu6eJ5kYbYLbLBd7q7
+         eIwpclNaCD4k+sniioKGfXdRDprPHawt85UVSJDAjxWGPUG+wA6TMCFO1tdCzJtT+f/c
+         KGKy6nAz6UEQqdDN586em9dgYXvMVzl+jhT5soG+8PhUl+wYCswhwmsA3aocoANAfJbY
+         Q1WRYqHaiYy/yqm9taQBYLnZrCfA5a/P1Mz+3uWd3qE4NI6Af8Mzud4crXhxvrROaMix
+         A2vw==
+X-Forwarded-Encrypted: i=1; AKwUvBxXmlPQSYnwNLtKF7vPGmThAmIpOeHOKOZg7mtjUwkYL7yVwoSGkM8zU9UuIu4ZDls18t+R55mnTPDTIJc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAo4z9mW8Pz/Gu+iFcftZrW2c+K9jn8yoaDW111RHIk51N8xP0
+	xPNJ9nW6yGab3BT2EUqDDZzEbUhVMIZB43yasX4Ay/tuR+HCdBobiWmZKXqzystH
+X-Gm-Gg: AYBFou0XXjymAduKPFqrYQOMz2sNYAchko+fecOzO041oXNY4W6/9zjGHBX81QaGlmi
+	LRGlyim9j260bXhcKza2Q6jG7ASpFcBwkZd6zvLFJhz28gaPPo5iOoRhFFmHCT4wDAoeyjhL22S
+	L0O5Vt2we015OTK4mOgdwbUao9W23qwx1mvQFP9ZECmMz3reQEEkXamouFzhORNo0j9/eN8vBnW
+	qgsbIKU9dgUzV2R3Ve5SjUE1nyN57thqGJuTPT6h1u0TqaQlRV7BPPZc4dYTEUmZKIyUEuL5mnQ
+	uoqD/Nqu7IynHFoFueMs30AFFq60ThcccPJb5H2bCw4aHTSWn9yF+6iB4a42vgV0bfiEx85tX15
+	N5eOjDJ4I5/y4SLqWQy8sTRooyBnfKbuVD7zBhBvkbtpHCrCE//1WPZBzOOLRDVmeoWZnTpRjzo
+	ZMXhJHj+fPD8qQlfaAkoCUdreeCrciPy4z5k5tj0ja2INt5NFzJF3omKCbLzKJeoTcPsJFb9PaU
+	QZUms4Xt/eRwBL8Xkc2hshEDfvb7n0OpsXfL4iDVzt7I6o34CEOIfQYIBg/3j/N35cF2axetnl4
+	8C6jL/i3cn3NX2JrCMCS8ZwOYrI8LSJacQ==
+X-Received: by 2002:a05:693c:821a:b0:36a:30b:5dce with SMTP id 5a478bee46e88-36a030b74dbmr7205493eec.19.1793076528157;
+        Mon, 26 Oct 2026 21:48:48 -0700 (PDT)
+Received: from chitransh.. ([27.61.39.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7b23sm41283776eec.19.2026.10.26.21.48.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:43:06 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: brauner@kernel.org,
-	viro@zeniv.linux.org.uk
-Cc: jack@suse.cz,
-	linux-fsdevel@vger.kernel.org,
+        Mon, 26 Oct 2026 21:48:47 -0700 (PDT)
+From: chitranshmandhaniya@gmail.com
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] fs: allow sendfile EOF at the file size limit
-Date: Tue, 27 Oct 2026 04:42:57 +0000
-Message-ID: <20261027044257.90408-1-dennylin0707@gmail.com>
+	Chitransh_Mandhaniya@dell.com,
+	W_Armin@gmx.de
+Subject: [PATCH] platform/x86: dell-wmi-ddv: switch sensor mutex to devm_mutex_init()
+Date: Tue, 27 Oct 2026 10:18:19 +0530
+Message-ID: <20261027044819.75761-1-chitranshmandhaniya@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,39 +99,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-do_sendfile() returns EOVERFLOW when a positive-count request starts
-at the effective file size limit. If the input file ends exactly at
-that limit, this rejects the final EOF probe even though no bytes
-remain to be copied.
+From: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
 
-For example, Python 3.12 shutil.copyfile() copies all 4294967295 bytes
-of a maximum-size FAT32 file to ext4, then raises EOVERFLOW on its
-next sendfile() call instead of completing successfully.
+Replace mutex_init() with devm_mutex_init() for the sensor caching
+mutex so the mutex lifecycle is managed by devres. This allows
+removing the manual mutex_destroy() call from the
+dell_wmi_ddv_hwmon_cache_destroy() cleanup callback.
 
-Allow the boundary position when it matches the input file size. The
-existing clamp then reduces count to zero and the remaining validation
-is retained. Continue to reject positions beyond the limit and boundary
-positions with input data still remaining.
+The translation_cache_lock in the same driver already uses
+devm_mutex_init(); this brings the sensor lock in line.
 
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Chitransh Mandhaniya <Chitransh_Mandhaniya@dell.com>
 ---
- fs/read_write.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/platform/x86/dell/dell-wmi-ddv.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/read_write.c b/fs/read_write.c
-index 4da846a2bf17..a25e23c6a327 100644
---- a/fs/read_write.c
-+++ b/fs/read_write.c
-@@ -1347,7 +1347,8 @@ static ssize_t do_sendfile(int out_fd, int in_fd, loff_t *ppos,
- 		max = min(in_inode->i_sb->s_maxbytes, out_inode->i_sb->s_maxbytes);
+diff --git a/drivers/platform/x86/dell/dell-wmi-ddv.c b/drivers/platform/x86/dell/dell-wmi-ddv.c
+index f8903ced461b..c7f3d07abbc7 100644
+--- a/drivers/platform/x86/dell/dell-wmi-ddv.c
++++ b/drivers/platform/x86/dell/dell-wmi-ddv.c
+@@ -548,7 +548,6 @@ static void dell_wmi_ddv_hwmon_cache_destroy(void *data)
+ 	struct dell_wmi_ddv_sensors *sensors = data;
  
- 	if (unlikely(pos + count > max)) {
--		if (pos >= max)
-+		if (pos > max ||
-+		    (pos == max && pos != i_size_read(in_inode)))
- 			return -EOVERFLOW;
- 		count = max - pos;
- 	}
+ 	sensors->active = false;
+-	mutex_destroy(&sensors->lock);
+ 	kfree(sensors->buffer);
+ }
+ 
+@@ -566,7 +565,9 @@ static struct hwmon_channel_info *dell_wmi_ddv_channel_init(struct wmi_device *w
+ 	if (ret < 0)
+ 		return ERR_PTR(ret);
+ 
+-	mutex_init(&sensors->lock);
++	ret = devm_mutex_init(&wdev->dev, &sensors->lock);
++	if (ret < 0)
++		return ERR_PTR(ret);
+ 	sensors->active = true;
+ 
+ 	ret = devm_add_action_or_reset(&wdev->dev, dell_wmi_ddv_hwmon_cache_destroy, sensors);
 -- 
 2.43.0
 
