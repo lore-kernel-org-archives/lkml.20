@@ -1,102 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793139960;
-	b=TWp4sUJgkm0GREcbRDD7QhHBa7ThDJodwiriayjg9ofsUvlDODxSCGR2v2KhtyMGMu33
-	 vaKNjAFP1Bf7lEo/QPyMMHR+6lwCrttoss4XRKI6EucbYyugKf6JQ6VFyP9w3BY+HlVGf
-	 tqspwHh0p3yG+JqMAdKv25hvEcVET6TxR+ObS5GbgCRf0iXrqmgtLQQpASmwFWB2DdIRu
-	 ziEqzV9L+Y67Mo7KEH4wz97VET5LrED3u8LIO0kL3o6RcFn6plNcazSheS7y8LAz5f0KT
-	 G5VMF2azF0TR5hmGkxx4qkyilzpmEVGKv/uB1kmxScINwU0LENjr1W7xL2AJwgRW/yw==
+	t=1793140170;
+	b=qgasH/GKdxLURQ8xzZ+JRjQNcx5SvW2STcISl22oe9O8esxEYjl0lS4L7e8QHnH065K5
+	 tzCym3J9GZFuHiN7peG0h/OwfsGkcvqr0prgVChE+nOxosMETbXt/lhAdzRqlxMGVbDLp
+	 QEXRTK3784Wbe65313cs612syZEO9FPVsEqdWg7H9KV9QEhzUSnFMpaz+khrSWNLuoz1n
+	 ULmCE3O9VtO39J5c3bXlvg085Ddl70V7iNo4pvkI7xDk4sbXE6klBLfuM12Zo/uDcQImR
+	 68Gy3zNl3KQXlwzBatFLDpUZx7cVqcjtCCPmohOdG8cTVsxGw0ehGH4CpjEDfpXezyw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=foMtuJXLdxu7UI1j+IPfbjutuzhkAxYfoH1ISosJmU8=;
-	b=I0+GxXPw5dtJcnzN/9+KBYcx9qNJ5upO0IRNqZZr5ea+xAxbh8MWa7bA34fDpZbZBamR
-	 Rkzn3u7Oy2eFed3dvSthyHCzfCTqptFHzLGa2LB5l7BF1Ar8wwkfPHRQIjlRii9oHblnP
-	 mkl1eXn32UBDY+XCEiDzLU55z7HCoY20eZrd9DF6tHl+PTX8NsIGLOuPJWcgUZ03mV0bl
-	 eKHCU7lmc7wLWnsCCmJMEeBIloneLRsW9L6sY6rxU05o0wxl2srYzW4ZKyHA74I9GHMMU
-	 o6I6d63j6kl0fRO2z9uxqfRNYn4SGstOxOTM04hUt4XzSt6MxBSeByibXfiLu8EHtPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140170;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=BTq7gwM4UUjUNsaagWtNQITr0gTEM8STP6VyWZ/jCrU=;
+	b=Q18/DlpBvwaRv4w+QW93YqvXoSP//csv3Nx3td93GV+aoN76kOuw57QMOXc/R/Pw1Ccr
+	 kx8tD+dJei67YgizeCdgSpBKs7IroKkotiH9ENcTJjGpRGKMXGYNQfesWY0sjn2HdpSlN
+	 1umV3QxpLavZ8XLmsloID3YPEw1/BXhU+wmpAd4NYqopgYBYiDeZ8CM9P+ocueCnUSEFl
+	 U8IpXeHNTOJMTZU/My1unvwvF4F2YiAPui7UpUDLldTL+9Ub5q32FIjyQ6rI0beykoMV8
+	 EBmUFyirDKvljXfRxDJcu3N5xZIX2AuJYdkPAMC2BvM2Abyni5e1g/Q/N/r+6aJDKyw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f6G9JLIn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lda0oYKo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E75606A31D;
+	Tue, 27 Oct 2026 22:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lda0oYKo
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793140170;
+	b=QRKD8mr662oH+WfeCsOOyDPkEuEM9gtKIA/Kc3W0fpwrLBaKJlVNcMfZANCDw4P8RBe7
+	 1Brr1bZ6rvTHIjTJ/qBvZtd5qwiBGPQ/kxDBR43qrx0Xm3DzthiISeT2KzfWysh8zPx5h
+	 ml4XAyFMWepDh/2rY1WMEuzKd8jpkaON87ZxJ7Y4iTpRE67tSpo13TKebetWT9v1MDqzF
+	 MfR+PdLTwxpUZYq3ViQYNFTY97VVR1Ftm8Gu2mojyAhUYv/yRcEPMKHkyOVDRHnto5AYc
+	 K6p+az67ZFgLMSff6WuMa1H3nZdDWs01c+fc6oXUicCzncEGMxdYPi5asvLdgQ3WrIA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793140170;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=BTq7gwM4UUjUNsaagWtNQITr0gTEM8STP6VyWZ/jCrU=;
+	b=tgNIY1IiwYp8qCND+zfHQAImqIzKxc5lyabyww0RXKLWQKqAeFHdDoyOANvr/LfbyHra
+	 f1FWggJp6m+iiHs4p69xaIyTNORjzThJ+mj8EOqI+xDDQK307YWuPxL+1e9myFICovuT1
+	 4t/1SlmJHshbYA5+Y7nWpJNPJGO/hdNdp1fiVC7oezNkADNmn9lqG99JK3H2QPG74FoaD
+	 pdXjLZx0IzrlUH2wnlNDKHDGFzHnjCvR1FCrNpNq+nmxMy7DVIeOvaxDBdRnZAsH1JYPI
+	 nW9Rq+KhkXy+5z3qY6iZLobcmDJZ7RJwA2eVpe+9brcy5OuqNTgN55OSvwX1+JIvPIQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336ED606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:26:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 336ED606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f6G9JLIn
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5eac01ff101so160725e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:26:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793139959; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oZvksQI6Bo6k1wfjaJAwD/38U8Hrqw92RAeAzoG5W4LBqTAY3zV+67a9iJbho4bOTJ
-         uCIKsFhBFoHknYXD7YIg8+Mk65z/Y/Ma9zG+yFAPawOiw94YLvI3TJI6Ecl1E9VNAAXk
-         HqipomVn1mDepRA9vqYmyWa+5sJKMEkBMag+cTFj0U46dRBmzBnv/S8tZ5TdPC/bJmnl
-         Nu9ocgao0xuWayu/C3MlgQg5uCqCh4EhCLj5zqdjEku2OaMpfMcIH7a9pyFrvMSeYSJv
-         8ombuEpCTJNeyj6eg0QjY5Qz5SNegGb6eW2XiEWU/fhg3RVp10AWitgmUyDa4WHzFh9J
-         RjOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=foMtuJXLdxu7UI1j+IPfbjutuzhkAxYfoH1ISosJmU8=;
-        fh=DpY/hTXpXiCCal7vg6AuhV2xMRnex04M0pmiLEzlmNI=;
-        b=Qofbz+zOElpU+GtvaPob7mxhkomQK79cK8Yd1WIMH2Rp6/LxNKajPQV1Ji1JEV8fp3
-         UGJ8yS5dBTEDu1UfT6WTd+5zWxU6rmV1d5MnHckgDVOfUGiy0YqdC4vjsNoZn+7q4UBz
-         dDD+cZ4xvJJ+Q9i2+lhtvdHbJ9rXeGeZh4JqoKRsJP2Rjsub28J30cp2r6xSvM45Bc5b
-         hSHXxMcvfRLGnU9FOgCwcEP/dyzpfInhI/m6JZTzB6ij8mOXIksndoq1G5WFkhyUR+aE
-         H7btRwGs7i0IPN/F0VpM0hrOb9Nw+r5Ifq4bx1TI2FHxEhHzInstNVQsL+H7Gvtjee7O
-         cTxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793139959; x=1793744759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=foMtuJXLdxu7UI1j+IPfbjutuzhkAxYfoH1ISosJmU8=;
-        b=f6G9JLInPmaSge8xffSf6HZoWcpO8d6qi4TNYFtaxBEN61UfaMNheiokRQ8WIyRVGm
-         fqj3gV5AbF8FR49SFOt+++JKsFDpRER2OP73qJqDoL5QOafpFdEtnISaF2buSi2WfuqI
-         IrOZClVF7r6IUg2ylW9lpqEx3+AfRt7srQQ7bklsW9RThWKEI4kzVLabZlQxuYyjtXux
-         DvOuLTFsRpOwnGufHeV4ugPhxQ1Yb1dxB7v9GbaYaQioisIMmy4Y2pjYydSqwdqXWtLP
-         0kREAUAA9ZU4l12AeDUeqefL5uOU0cDxJEpGGZhQIjvQ6Yamtsw/7Q0zoTQENOuPPbu8
-         8CHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793139959; x=1793744759;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=foMtuJXLdxu7UI1j+IPfbjutuzhkAxYfoH1ISosJmU8=;
-        b=WQIJRP1r63UmegKy/wgX+riLYGY24yhG6AdNBFc9YvG9rZMfz+JMwg8145tT8hudWW
-         AerXezy0rgyJ6pDP1BsbIBc/x7+b/TKeQHcfuXpD9YbemBPCukk2elDhAG0AuYK91aQJ
-         nNuY7srYDSh2mQDvmUCxqr2gUO5nHV6I8A266rNoN2xx4YwFspA1kGdjMaJUYfUGGEr2
-         JD1K1qRFBZIKVrjuQOcp/UBb0p+YV2nzkoVqVdvgsL7mCVFd+XsTY0sEUUPEiRC/5fqi
-         QHBhoV95xQKJbgV48CmdYgSJfE5fHA3cq2tp3R4NrFmrI1sdM2/m9hThNpevIlJlNeZG
-         D82w==
-X-Forwarded-Encrypted: i=1; AKwUvBws7VuTslYypYHiwfyc3HB0IrCgdjA5t08sogdC4/Ifmw+VwAXsPfQo2Lwv4vbS03WuEVAV02HMXriaYK0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMFmZCOLF2FyHEc5OrC/LhKXNP1PduZzE4XB7InjZIOWpp9chp
-	6iBX/JGu9OQ4grig6Yp6l4sklURqmYCVAfLlcKD9EqS06J20rYw+8uTQ4hnF7gvqh8rKZcJAK0s
-	1S7vxhlah5geitbYIOqwa6Ai9WO1Yecc=
-X-Gm-Gg: AYBFou3teBl/zfGUubXATwMtTpxBG4nfnXnaQ9/n+TwfNyJyZEsz2hj/W7t03VGpKf6
-	e6j5VoBETt/9KUChsDrywRzRvRFQTko9knaFdmR79TfSWMpz3yLTgZoi5zT1WrhpPQ1FS8Fr+IW
-	vUo2hNMen8uEnKTh2Zpqwe+2Gt4EmmWoLFwy0+vlaUW5gtvOZTlG7ALjf3tOSqPQdOzO6mNctSL
-	WW2Gxa7+KQJJuJK+kX9llejyBdMfNLVtLnD0i4kdM4byX4v81k2RNyOZVQZJeJ0UP9TlE0iWOB/
-	bO7g3/11w7bfuD+d59E0xrUxmEgHJMWvvzN+ltVHM0qhEVeuGslr0vuamg2z9SdfIRcuy5lDNtk
-	o/dpM3DBwbmuz2k245oRK78LtRSG0+0biL29O3R/n9b+cuvENsoUB1XWb5zs5ElfrEkhlJ3j1Pr
-	v5gSNviYlJy2wWZl0BI/rflVvGnHhJdWDiNPOuiOv7ZGRMKVCyyzankakoF8cnGZmqa+evSaD2a
-	VvsyOJgyaMgmo5XEQZcrgVwSeNfUQ==
-X-Received: by 2002:a05:6122:6602:b0:5ea:c727:11fa with SMTP id
- 71dfb90a1353d-5ec4c932ademr347091e0c.0.1793139959098; Tue, 27 Oct 2026
- 15:25:59 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id 459E61F01825;
+	Tue, 27 Oct 2026 22:29:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793140170;
+	bh=BTq7gwM4UUjUNsaagWtNQITr0gTEM8STP6VyWZ/jCrU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Lda0oYKo0qJXuEvsALaPmYE+8M1YlLyZ1K9AyECvtZFEXnRvk5SmFFVKxx9gC1x1j
+	 Cu59RWiCECWiwC1i0xClCNmMLj5EmR77GjIczSxRuOqHUW+FXPOSj6FfULwWmrj+VA
+	 8oUArtkftoZAHLgkjzvUbK6pWRFFmhaffmfbicxaX9F1Bp8tqulG0ge3Mcl8HCBqZt
+	 lExo8KfAeOPhcIp3J7i9K1fPdIszTwqI/CZvMO9sfEwuVrWMtFZz/u9p0JvEvoceDN
+	 vl9cU755gadyVe1YIO1LX8wPasOmliJpo596m1zkV3Fk0Sn/AgnPxF6mcaHffPh/pT
+	 APKAAG/WHwXyw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 99753452B9;
+	Tue, 27 Oct 2026 22:29:28 +0000 (UTC)
+From: Ridge Lomont via B4 Relay <devnull+cyridge.proton.me@kernel.org>
+Date: Tue, 27 Oct 2026 15:29:21 -0700
+Subject: [PATCH v2] x86/kcfi: Don't emit KCFI_REFERENCE() in modules
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,71 +82,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-2-286fc1b8c3c1@gmail.com>
- <20261027-nifty-reliable-octopus-6cbac5@quoll> <CADvTj4qrBYSyT39=xK3_oGgHdFoSH=oyDvTtLCSzW=F9KAgi3Q@mail.gmail.com>
- <3287a7db-fbab-4b23-9ee0-d40c52fe855a@kernel.org> <CAGb2v64Qr-XCRdgi+RNS2XkKUn=F8zW+8WUKaauM2PjzL2XgWg@mail.gmail.com>
- <18f1e637-48de-4962-8a13-65f6597eb2dc@kernel.org>
-In-Reply-To: <18f1e637-48de-4962-8a13-65f6597eb2dc@kernel.org>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 27 Oct 2026 16:25:48 -0600
-X-Gm-Features: AclHuK8HgBo8KQle8selMQ5AGJ_mUpjdczBdxOIx6OfVD5T9FzVHNBxWX4VKWiM
-Message-ID: <CADvTj4qqwC=HjPmsdHoZdNNWY8GN8TqXnQG9PqKD-GpRZo11Kg@mail.gmail.com>
-Subject: Re: [PATCH v3 2/4] dt-bindings: serial: snps-dw-apb-uart: add
- Allwinner H616
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: wens@kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-kcfi-reference-modules-v2-1-3a3247f15806@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7Zi2VIyuvIdhUcsgo9KSthAN4
+ e4WPIDLl7z//gyRAlOEczFDoIkje5dB7QqwnXF3Qm4ygxKqkkJpfNqWMVBLgZwl7H0zviii0LZ
+ UQmjTagl5PGSF31v4Wv84jrcH2bTWVqPjmHz4bM+TXL2/J5NEibq0ymhzoupwvAzBJ+/2PUG9L
+ MsXINswks4AAAA=
+X-Change-ID: 20261024-kcfi-reference-modules-04c32004af41
+To: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Chris Li <sparse@chrisli.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, 
+ llvm@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ linux-sparse@vger.kernel.org, Ridge Lomont <cyridge@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793140168; l=4583;
+ i=cyridge@proton.me; s=20261025; h=from:subject:message-id;
+ bh=OQJeHIflLTXu8GG/soe5gJtL1JN4lbjLzWGutcYzYdg=;
+ b=6F9puhQ8giJgHtu2O11XOMl3gX9kmfChhfvdlW1snl0do298NDHav1MNEv1s4gxln4pPHnqpX
+ fFSoz5RncMyBEr/G0tGtiNgwPwfHc2yfiDKs5l+daJQ8Rg6y32rWe10
+X-Developer-Key: i=cyridge@proton.me; a=ed25519;
+ pk=vUzN9FERlHN1g72uX883qK0g48rf4ZgAQ82J2Aieyyo=
+X-Endpoint-Received: by B4 Relay for cyridge@proton.me/20261025 with
+ auth_id=1315
+X-Original-From: Ridge Lomont <cyridge@proton.me>
+Reply-To: cyridge@proton.me
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 4:05=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On 27/10/2026 11:02, Chen-Yu Tsai wrote:
-> >>>>> +  - if:
-> >>>>> +      properties:
-> >>>>> +        compatible:
-> >>>>> +          contains:
-> >>>>> +            const: allwinner,sun50i-h616-uart
-> >>>>> +    then:
-> >>>>> +      properties:
-> >>>>> +        fifo-size:
-> >>>>> +          const: 256
-> >>>>> +      required:
-> >>>>> +        - fifo-size
-> >>>>
-> >>>> Why do you require fifo-size if is const? It is implied by the
-> >>>> compatible.
-> >>>
-> >>> H616 has a fixed depth, but other sunxi integrations have different
-> >>> depths between UART instances. For example, D1 has 64-byte FIFOs on
-> >>> UART0 and 256-byte FIFOs on UART1=E2=80=935.
-> >>>
-> >>> Should I keep this explicit for consistency for all sunxi uarts?
-> >>
-> >> I am confused, there are no other instances here.
-> >
-> > I think the point is that it is going to be needed in the future when
-> > we add the compatibles for the SoCs that do have UARTs with different
-> > FIFO sizes.
->
-> Then we add it. We don't create code which is not used.
+From: Ridge Lomont <cyridge@proton.me>
 
-On further investigation it appears the sunxi boards with UARTS with
-different FIFO sizes might all have a register for reading the FIFO size
-at runtime via FCC capacity bits so I guess we might not even need
-a fifo-size device tree property for any sunxi boards if that is the case,
-not entirely sure if all mixed FIFO size boards support this however but
-I have yet to come across one that doesn't.
+KCFI_REFERENCE() takes the address of a symbol so that the compiler
+emits its __kcfi_typeid_ symbol, which the SYM_TYPED_FUNC_START()
+assembly implementing it needs. It is used from arch/x86 headers for
+__clear_pages_unrolled(), copy_page(), __memset() and __memmove(), and
+all of that assembly is built into vmlinux.
 
->
-> Best regards,
-> Krzysztof
+Modules include the same headers, so with CONFIG_CFI=y every module
+also gets an __ADDRESSABLE() reference to each of these symbols in
+.discard.addressable. This serves no purpose there, and since
+__clear_pages_unrolled() is EXPORT_SYMBOL_GPL, modpost now rejects any
+GPL-incompatible module that includes <linux/mm.h>:
+
+  ERROR: modpost: GPL-incompatible module repro.ko uses GPL-only
+  symbol '__clear_pages_unrolled'
+
+even though the module never uses the symbol. This makes OpenZFS
+impossible to build against CFI kernels; its configure checks fail
+in the same way and are misreported as CONFIG_DEBUG_LOCK_ALLOC.
+
+scripts/module.lds.S does not help here: modpost checks <module>.o
+before the final link, and even after it the discarded section only
+loses its relocations, the undefined symbols stay in .symtab, where
+the module loader resolves them with the same license check.
+
+Only emit the reference when building vmlinux.
+
+Tested on x86_64 with clang 23.1.3 and CONFIG_CFI=y, with both
+CONFIG_LTO_CLANG_FULL=y (the configuration from the Fixes: commit) and
+CONFIG_LTO_CLANG_THIN=y: vmlinux links without warnings and still contains
+__kcfi_typeid___clear_pages_unrolled, __kcfi_typeid_copy_page,
+__kcfi_typeid___memset and __kcfi_typeid___memmove. It boots in QEMU
+with no CFI failures. A minimal module with MODULE_LICENSE("Proprietary")
+including <linux/mm.h> fails modpost before this change and builds and
+loads after it. OpenZFS builds against a CFI kernel with this change,
+and its pool, encryption, checksum and send/recv operations run
+without CFI failures, in QEMU and on a desktop with CFI enforcing.
+
+Fixes: 9b041a4b66b3 ("x86/mm: Ensure clear_page() variants always have __kcfi_typeid_ symbols")
+Link: https://github.com/openzfs/zfs/issues/18092
+Assisted-by: LLM
+Signed-off-by: Ridge Lomont <cyridge@proton.me>
+Acked-by: Nathan Chancellor <nathan@kernel.org>
+---
+Notes for reviewers:
+
+- The fix was found and written with an AI coding assistant (Claude
+  Opus 5.5, Claude Code). It started from "CONFIG_CFI breaks
+  OpenZFS"; the assistant traced that to the modpost failure,
+  wrote this change, and ran the tests described in the changelog.
+  I have reviewed it and take responsibility for it.
+- An alternative would be wrapping the KCFI_REFERENCE() lines in
+  arch/x86/include/asm/page_64.h in #ifndef MODULE, as suggested in
+  the OpenZFS report; doing it in the macro covers all users.
+- Only x86_64 was tested; it is the only architecture using
+  KCFI_REFERENCE(). Tested with CONFIG_LTO_CLANG_FULL=y and
+  CONFIG_LTO_CLANG_THIN=y on this tree and with LTO disabled on v7.3.
+  In-tree modules were built but not loaded.
+- checkpatch reports "Non-standard signature: Assisted-by:", which
+  conflicts with Documentation/process/coding-assistants.rst.
+---
+Changes in v2:
+- Sign off with my real name (Peter, Borislav).
+- Explain in the changelog why module.lds.S discarding
+  .discard.addressable does not help (Nathan).
+- Also tested with CONFIG_LTO_CLANG_THIN=y.
+- Add Nathan's Acked-by.
+- Link to v1: https://patch.msgid.link/20261024-kcfi-reference-modules-v1-1-43c2a4a9e657@proton.me
+---
+ include/linux/compiler.h | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/compiler.h b/include/linux/compiler.h
+index 0ea7150db..ea161a72d 100644
+--- a/include/linux/compiler.h
++++ b/include/linux/compiler.h
+@@ -258,10 +258,13 @@ void ftrace_likely_update(struct ftrace_likely_data *f, int val,
+ 
+ #endif /* __KERNEL__ */
+ 
+-#if defined(CONFIG_CFI) && !defined(__DISABLE_EXPORTS) && !defined(BUILD_VDSO)
++#if defined(CONFIG_CFI) && !defined(__DISABLE_EXPORTS) && !defined(BUILD_VDSO) && \
++	!defined(MODULE)
+ /*
+  * Force a reference to the external symbol so the compiler generates
+- * __kcfi_typid.
++ * __kcfi_typid. Only vmlinux needs it, as that is where the assembly
++ * using the typeid lives; in a module it would only add a reference to
++ * the symbol, which fails modpost if the symbol is GPL-only.
+  */
+ #define KCFI_REFERENCE(sym) __ADDRESSABLE(sym)
+ #else
+
+---
+base-commit: 6fba331225f5040e93d0947d1027e9712238291f
+change-id: 20261024-kcfi-reference-modules-04c32004af41
+
+Best regards,
+--  
+Ridge
+
+
