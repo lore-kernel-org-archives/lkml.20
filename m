@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793087771;
-	b=2SHlyp3/+Pmr/mzd/h+Oi9Z8BLY/cieBHG67/Vv7PJxeSQBr8W8IkG7FDKThYoubA413
-	 xg6L12F5uOc2T6udUNk7g7HbvhZu8FFvuJInNlrxQIlm3oVJta87Q70hwwn3fsRRgRqvP
-	 15x6wjJBIEkq6GWQUPa2WJLlo4RgcPZFoHHMa409/6tBZfgwBgeuYYfhsWON9i06ZIVhs
-	 RbGSIbkd9eFUgTZhjlZAETydvF7vC0PXSITttlrLtFDSj05oz4RLmo39zjHG5k4kmkY+M
-	 ldyuKQHcmCsa/Y/BlT8H/w3vz4JjUWUtTscBohn25V8kHe99sC+dx6qei11Bm3WFqaA==
+	t=1793088056;
+	b=INVUUhFXhtec4pGcf2PsyIJZFzPx777NRL2qOHJmdBkxAIqDDSaLY1LkUgY8zoxpTV7h
+	 dvQP8QJL6j7AWEC0Uod8RIRQY2LdG6vxzQBJCU6ZqJVBA8i0To5GTl8Xjfu7ZNEXOqsV+
+	 uTAf5brz8rdV32vfFsCymJMSrf00O8G6tzq4AmDVf0fuIB/R/7eUa9iao5Y0JJyBbu/PT
+	 cV8Vo/5qQjZlsrbRTcg+nD6+rCeklMNDSI9+o/kCScVZ+75NXRoQG/CCDaHZ19WXWSVwt
+	 nKJ9FtPmE10GvEngZxe4es9hvnwWjaT70iI29s3egk7Ehme695fQRiBp/7qkCNLKGQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087771;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=MzNz7BwRthycj+ECJC5wKz1PbH4SrkcjTpqhd1V0uhs=;
-	b=Dgh30ArF4g9AArdeFw4Aqyi1hy4WwQ1qlHLB5tJMyBWKcpf7Cx3uAIFa2Grr+Brea13x
-	 2lfBR55t+VDCmGAYcFAiKyhlkFko4f3YZZ/WkCuRYlritUHhJSvOu7WuOL5RNGDK3A9Np
-	 p3CfuySG2S3LvxWh7emZkAtNuTRTPbqLUS0Qr6qg+fqBVv2ZoVF3mPFPkLhEUlu862ZTU
-	 jRmqyjToG74ZuFcXl+N7TrSLzkEdyxBRxb0xwB/+FKdIJmt/B8INaXJXtpXPFE5x+boBa
-	 bHaUbDUzecciGNXOeoY/wqLk8SMUAtnUfq+dwiV575ujG6G5ZHeOdzzRWLS7qoktXeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088056;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=OsqTgxlY/BA/8uomt0D4CyUz1chRyWUiTmuMkAfTR+I=;
+	b=nXDKlF4mfQV2vuK2ZcuP6/mS4D0rUfLwgEUNj0JnXAl96Dic0Szkw9quHyWd/NBbHHhL
+	 PndivAjQGALWOLwO38M2BW5cJeXB3fcJjL4qwBOBivqKzW34TkQWb1/qpr6fwMb1zioVd
+	 LeqFT1p9P/mY/IV2GXhUfYqpo6Ffn0YcZ2BVknvjzTzn/hGLU0UtoeEK4QrXWPdV4HNuC
+	 VIyY1/VRqXBvYU+6b/300UXaMXFo5dPLnOkfZC1/zEYDS5v3U3v0s1DuT0dCcEM1Schb1
+	 c7QS8RseLwZ6TOes0N8uR+3vDwMR5X0ccXskLbkb06EFYKjamHS7peBREax5COATOCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSUOduEr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dzTXcVP1;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11919606A31A;
-	Tue, 27 Oct 2026 07:56:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17167606A31B;
+	Tue, 27 Oct 2026 08:00:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17167606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSUOduEr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071BB1F01828;
-	Tue, 27 Oct 2026 07:56:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793087770;
-	bh=MzNz7BwRthycj+ECJC5wKz1PbH4SrkcjTpqhd1V0uhs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GSUOduErjL4BaN0sV5QA04755U3AOuf/n64JDh+YMKiPKMQmCQP7/vrm1E019V+cF
-	 UBDB2P7hTUwND2o6IJDB1hrjYmD46uY5mx+1v+VlVJZpyojoHttNc/eFAbYAjd/o6p
-	 FyxCKIoZmwoGw+JlE6kcdmsArsVtfZxTMJi+IxX8n1uP+267LOGH3jCZTDEL94u2UA
-	 XuiKEkRvyhKnIwank1CeqRjROFlKRW7lBRtFKON2aKOjO7QT38ssKG7iacNXtS4zfF
-	 b51QYoUm9O3DNG9RQvLiRJhqgzR+SlXLjcEfiiXQpBksRkOHakScWJb28+WKD48F6J
-	 iEOt/cquD07Yg==
-Subject:
- Re: [PATCH net] octeontx2-af: fix inner LC ltype match for RSS flowkey
-From: netdev-bot+sashiko@kernel.org
-To: kmahammadraf@marvell.com
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, sgoutham@marvell.com,
- rkannoth@marvell.com, gakula@marvell.com, sbhatta@marvell.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, kirankumark@marvell.com
-Date: Tue, 27 Oct 2026 07:56:09 +0000
-Message-ID: <179308776953.3134.4396227527945551102@kernel.org>
-In-Reply-To: <20261023071905.2922825-1-kmahammadraf@marvell.com>
-References: <20261023071905.2922825-1-kmahammadraf@marvell.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dzTXcVP1
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793088045; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=OsqTgxlY/BA/8uomt0D4CyUz1chRyWUiTmuMkAfTR+I=;
+	b=dzTXcVP1Fz/2P6CFq7suCZ+FrXlaHMrbMO6UA2DGOefDyEdZusH6MylvZDokWAGwaiGsovArpkqiaXhOh+yqdwOYwCqI0lhfX/b9/PZgQhO6xgCweaxMQoOqf7iEGeu2QpJUJ+Klpo5MCa31a/vhvuV4yXvoWhsdCH2+3NK5kvM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R561e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XDd63M7_1793088039;
+Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDd63M7_1793088039 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 16:00:42 +0800
+Message-ID: <68e7521d-6645-48cc-9e4b-f2c8f1159312@linux.alibaba.com>
+Date: Tue, 27 Oct 2026 16:00:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,103 +53,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/16] mm/shmem: rescan after nonuniform folio splitting
+To: Zi Yan <ziy@nvidia.com>, "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-11-703206d5fa0c@kernel.org>
+ <DMF9OO106FGX.3P7TZUBGHUFII@nvidia.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <DMF9OO106FGX.3P7TZUBGHUFII@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 10/27/26 10:32 AM, Zi Yan wrote:
+> On Mon Oct 26, 2026 at 5:40 AM EDT, David Hildenbrand (Arm) wrote:
+>> The final scan in shmem_undo_range() restarts after a successful split
+>> only if the original folio is no longer large. A nonuniform split can
+>> leave that folio large, so the scan skips the newly created folios.
+>> Hole punching then leaves pages within the hole allocated even though
+>> they could be discarded.
+>>
+>> For example, a fault below the hole can allocate a 2 MiB folio after
+>> boundary handling. Punching a 1 MiB hole at offset 64 KiB splits the
+>> folio successfully but leaves the original folio at order 4. The scan
+>> continues past all 512 pages, leaving 2 MiB allocated instead of 1 MiB.
+>> The hole reads as zero, but the pages and their block charges remain.
+>>
+> 
+> 
+>> Restart when the original folio is still in the mapping after partial
+>> truncation, identified by checking folio->mapping. If the helper
+>> removed the whole folio, no rescan is needed.
+> 
+> This paragraph is no longer needed after Zhang Yi's truncate fix, since
+> truncate_inode_partial_folio() returns true only if the folio is split.
+> The function returns false when the whole folio is truncated[1].
+> 
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git/tree/mm/truncate.c?h=mm-stable#n282
+> 
+>>
+>> Fixes: 7460b470a131f ("mm/truncate: use folio_split() in truncate operation")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>   mm/shmem.c | 11 ++++-------
+>>   1 file changed, 4 insertions(+), 7 deletions(-)
+>>
+> 
+> folio->mapping check is dropped and the comment is adjusted after the
+> patch is rebased on top of mm-stable because of the aforementioned
+> reason:
+> 
+> 
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 7cf5a4d9d1ace..ddea31f44fb32 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1477,18 +1477,12 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+>   				} else if (truncate_inode_partial_folio(folio,
+>   						lstart, lend, NULL, NULL)) {
+>   					/*
+> -					 * If we split a page, reset the loop so
+> -					 * that we pick up the new sub pages.
+> -					 * Otherwise the THP was entirely
+> -					 * dropped or the target range was
+> -					 * zeroed, so just continue the loop as
+> -					 * is.
+> +					 * The folio was split. Retry the scan
+> +					 * to find the split folios.
+>   					 */
+> -					if (!folio_test_large(folio)) {
+> -						folio_unlock(folio);
+> -						index = start;
+> -						break;
+> -					}
+> +					folio_unlock(folio);
+> +					index = start;
+> +					break;
+>   				} else {
+>   					/*
+>   					 * Splitting failed, but the part in the
 
-- [Medium] The patch fixes an RSS regression but has no Fixes: tag.
-- [Low] The commit message gets the layer and the failure mode wrong.
-
---
-
-octeontx2-af: fix inner LC ltype match for RSS flowkey
-
-This commit changes set_flowkey_fields() in rvu_nix.c so that the inner
-IPv4 and IPv6 RSS flowkey fields use an exact ltype mask of 0xF instead
-of NPC_LT_LC_IP_MATCH_MSK and NPC_LT_LC_IP6_MATCH_MSK. The outer IPv4
-and IPv6 masks stay the same.
-
-> octeontx2-af: fix inner LC ltype match for RSS flowkey
->
-> Inner LC ltypes differ from outer LC ltypes, but RSS flowkey programming
-> was using outer LC IP/IP6 ltype masks for inner IP keys.
->
-> For inner IPv4/IPv6, match only the base IP ltype and do not include
-> extension-header matches. Keep existing outer LC masks unchanged.
-
-[Severity: Low]
-Is this description accurate? In set_flowkey_fields(), the inner IP keys
-are on layer LG, not LC:
-
-	if (key_type == NIX_FLOW_KEY_TYPE_INNR_IPV6) {
-		field->lid = NPC_LID_LG;
-		field->ltype_match = NPC_LT_LG_TU_IP6;
-
-LG also has no extension-header ltypes that could be included:
-
-drivers/net/ethernet/marvell/octeontx2/af/npc.h:
-enum npc_kpu_lg_ltype {
-	NPC_LT_LG_TU_IP = 1,
-	NPC_LT_LG_TU_IP6,
-	NPC_LT_LG_TU_ARP,
-	NPC_LT_LG_TU_ETHER_IN_NSH,
-	NPC_LT_LG_CUSTOM0 = 0xE,
-	NPC_LT_LG_CUSTOM1 = 0xF,
-};
-
-NPC_LT_LC_IP_MATCH_MSK and NPC_LT_LC_IP6_MATCH_MSK both evaluate to 0xE.
-
-With match 2 and mask 0xE, INNR_IPV6 also matches NPC_LT_LG_TU_ARP (3).
-The default KPU profile emits that ltype. As a result, tunnelled inner
-ARP packets get 32 bytes at offset 8 of the ARP header hashed as an
-IPv6 SIP/DIP.
-
-With match 1 and mask 0xE, INNR_IPV4 either aliases with LG ltype 0 (no
-inner layer) or never matches. Which one happens depends on how the
-hardware applies the mask to LTYPE_MATCH. The hash code in
-rvu_npc_hash.c compares (ltype & ltype_mask) against the match value,
-which points to the never-match case.
-
-Could the subject and body name the LG layer and describe these
-effects, so it is clear which traffic was mis-hashed?
-
-> This fixes inner-tunnel RSS key calculation and prevents mismatches in
-> inner IP flow classification.
->
-> Signed-off-by: kmahammadraf <kmahammadraf@marvell.com>
-> Signed-off-by: Kiran Kumar K <kirankumark@marvell.com>
-
-[Severity: Medium]
-Should this patch carry Fixes: tags?
-
-Before July 2024, set_flowkey_fields() set field->ltype_mask = 0xF after
-the INNR_* override. The inner keys therefore matched NPC_LT_LG_TU_IP
-and NPC_LT_LG_TU_IP6 exactly.
-
-Two commits then changed that trailing assignment:
-
-  e23ac1095b9e ("octeontx2-af: fix issue with IPv6 ext match for RSS")
-  60795bbf0476 ("octeontx2-af: fix issue with IPv4 match for RSS")
-
-They switched it to NPC_LT_LC_IP6_MATCH_MSK and NPC_LT_LC_IP_MATCH_MSK.
-The assignment runs after the INNR_* override, so the 0xE mask was also
-applied to the LG inner IP keys. This patch puts 0xF back for the inner
-keys only, which reverses that regression.
-
-Both commits carry Fixes: 41a7aa7b800d, so they are probably in stable
-trees already. Would adding the following tags let this fix reach those
-trees?
-
-Fixes: 60795bbf0476 ("octeontx2-af: fix issue with IPv4 match for RSS")
-Fixes: e23ac1095b9e ("octeontx2-af: fix issue with IPv6 ext match for RSS")
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023071905.2922825-1-kmahammadraf%40marvell.com
+Thanks for explanation. LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
