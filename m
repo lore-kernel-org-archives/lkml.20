@@ -1,70 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065897;
-	b=k1dXoJuqBsC7z3Z55eup22/ttOlNgan4VQoOgvxn46r97cLHma6lXkbz28EhOjOexOnf
-	 MFeP+OVYn+RnPuFjDjos4lE6TX1Y8sdPAmdZV3JYAhLV2nrFUD5Bg+8ea3HkLJzhd6lW6
-	 eHvwfnSRxtpwcKxDdFHtu12DZuPo68wbi946mssv2sJUOKX7wk8M1RPJWMkpU94G85aAW
-	 3uCXiyjFJRuUlN/QQV+CyMUMcaq2d5Ub2ZMq9yI3AZYNSN8+vlj081V7cNuVuS3Vh0iXN
-	 pbE3h21v0+8JJGUk2pquU/UJKsIy+m52X5iUkDoxYMrEVWp+rObhJIGZFALdfzz/zEg==
+	t=1793065933;
+	b=l8lHFQ1HeLqR+gs06hfjrxxHYIGnS0WqzUevrG5udUmPJlQQyJE0F81ROpbFGO7RxjNM
+	 9Cc8eO0cE97pa0l52m3E6KajZTZanUKHPN9drUPfxJcsKVjoTPRhH+goyfmnG5xZibRtz
+	 uwCQ+Ma+KRJ2K7y8KePm0rw5Iw/FbXxDB+ePXfpqW0BZhhrCy7cKANwitbu52k19uLNwn
+	 +CweA3i/MOn0WNueWVXOpgVmvTrP0IJ+19JUCwy87LLdspwRkMBYV1IhthiF0lVTQ7AMN
+	 QeCnp6AWQUoVQldCLYdnlF2nmQiT1EIeH82m/rfKZh98qfawZaCakmGvMnQpM6JoTLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065897;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HCa9XQJwSMKPzA0fB1HzzjRyJkdbwSuiZECSksNQJj0=;
-	b=Zo114zOPmo7aw8u1Xov8ZMcdkSRT7DD+S+L7mFJjZl/bZB/gzPX6IVuX+t5gku6e6JT/
-	 gjryINAgWQtwV7tRfOCFaMD9cqYjqtC3n+Iicrv7wb79pweDcNiiH7f9+042HgDn3lj9Z
-	 u4n3t80s6+fiY3EC83ll2PH2iMrDaX2hzzeRhaJ6RgbYZ5fNW/uuiV0ylaZjyRTz6Guh7
-	 Aj6cH1yqsKWPgRueulem/4q+7cLGlpcp/msDS9RJmdL1iQXUeDu5/jibx0F46koqxP641
-	 yX70/Fg7bcshFhfgA7TOetdsihm2PpoL950LbEFWCE9qnBs0pmcrhVb29CSaWkHcryQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065933;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Dmw+4NxcC4V2T43bzcaT/Js2XAXbRw0OaytvY2/dX+M=;
+	b=Ts6Go/iGIXaNzUWpZdYRI0ETd3tzDW8FDQUQ9BFsCcX49OUN3VuztewK4/HLBshJir6h
+	 rQFtlC45uRaL05H1YJg5I7dH0E4GbhNpqPXBjaeYpyHw9gYLZdElseIznX5MgemsGZLtF
+	 7Q2TA1JwiJ80FXzSr2L4B1EC9jFFUVOjjI2QOwj1FHMYfTJIgxfYSRXRSamaOjSwWYmcW
+	 oQ2rIUYGs34yn9EQZbsFXMkhojnXf6u2bOatdKYV89faVjsLozNKvrZwlcOewg3ZKnXzo
+	 VW0lk7Kb+nMNpOM85XMbgxdMLV1nwrD6QJMCwg6REH9UApQvD5HdXZpS/+C595z20Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=G6JO7Vam;
+	arc=none smtp.remote-ip=209.85.208.97
+Received: from mail-ed1-f97.google.com (mail-ed1-f97.google.com [209.85.208.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02AB606A31A;
-	Tue, 27 Oct 2026 01:51:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D02AB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e990beead1a811f19a56ed5b684f684d-20261027
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:19b3b936-5d1d-422a-a59b-4ec34f5a0b33,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:d7e19c3f558681996903985dad7d8eaa,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e990beead1a811f19a56ed5b684f684d-20261027
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 37645137; Tue, 27 Oct 2026 09:51:22 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Ihor Urazov <z0rc3r@gmail.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.0 on HP ZBook 8 G2i 14
-Date: Tue, 27 Oct 2026 09:51:19 +0800
-Message-Id: <20261027015119.3136930-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261026-ucsi-hp-zbook-8-g2i-v1-1-91002e9ef073@gmail.com>
-References: <20261026-ucsi-hp-zbook-8-g2i-v1-1-91002e9ef073@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82461606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82461606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=G6JO7Vam
+Received: by mail-ed1-f97.google.com with SMTP id 4fb4d7f45d1cf-6b413b0a974so4225505a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:52:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1793065930; x=1793670730; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dmw+4NxcC4V2T43bzcaT/Js2XAXbRw0OaytvY2/dX+M=;
+        b=G6JO7VamvuhFqGO4lSSNfUKa+vnljUJXzw/dWT+d+1O2l3q2S/bUr0OYEkJV4qn0Av
+         H9zZoPH3ryQGKsg3Qpx8ygAtdmqQZFbaNqdNVhQK5Wqnl5MBaHxECugWWrn8VIxNSn0A
+         RZ0V6yspWWdNScKxWjegOO1NZiaMy5LNHSo2Ka8drakqN1+iFpJlDI0FCrNykhLtEorE
+         NhdypyIYw2ZjwJWTXSK9wrPv4w/quyhgzI1JF1ZHeM1pSwxitpLw4YUa+OmKwIZgzrAQ
+         ZRqsbEaIi5F1Vu5NmXkVROqtd7cSjWyLys6ir2wNVSVHqEy0Epq/qImfBpu9mp/CK/Rq
+         eUfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793065930; x=1793670730;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dmw+4NxcC4V2T43bzcaT/Js2XAXbRw0OaytvY2/dX+M=;
+        b=0SNE+MRghKFIqFTu5p8dnWI49EYlEleTyyFRaAqJsKuvwMSqRvAXwaPBDzBZ/ukvb4
+         22F3RE+S347oFY/gfxiiLBOcLv4Upg8cE4V+6I3RT4Yd/UEmdGYlZKgmJXplph+o82TT
+         iNd9EWayDtcx9jmRxD46FvLRwrl9h4FSJ8cGEoAEhWYQnv/zF5wxe5hWQQXWe0VaLqos
+         f+yXHPsPYVHlvdPThylEed9tOC6Gev3hNxTJsBHRU9k6w0W8tKvp6lnKDWCf7m7CzzLb
+         L7APT0Pg2TWHPyXF3of0j7cVX5wpL6ahTfVb3IR9E9SOtjbS1J0p2EB4KRObz+x8ZgBd
+         IzZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwNxDNmlM/zbRlOs45vkQILxKnilsip9JfIJD0DtmE7KePs3JLHXdd9LZ0p6+af7lFJh8awmhzEH8vv8JM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLH6qcLO4ReqZeqYTxse4u17bxImSflvqDf3Zl6ARq2UFj2tryc
+	wwuf6A0/evP521ED8xVe8rP0aK9ItvK2mzlNM2K+0kWEl8/brFNso/LRbotLE6bNhgggj5PkTdC
+	AuffuY6PpUlC5UtmJrJSlLHzUPwOQmkjAHRt2
+X-Gm-Gg: AYBFou0wWrmCf8HX8VSpu85H6W8pCSJgxfH9eg577W+hJMtWl/IIcgw4ecEc2Ax2iYZ
+	bcEg4UGNYe4SCJFp0o3g1+z1VFmJpqETfS5Lg3ECfKAS9QWmId4RnjW5aQ28V4IkigKQ04Ckieh
+	OR2wjrO4aYQPSgLi5xFB4eplN9TzOR46dRphmZSQoGz07UKeyPI2Op4QIITsVjZ6++x57mxyX6M
+	6Fty5SUEUGCL5oGmxzxgxtLw0NekEQ4GG2oHoevpQABz5bM1Sd1xXIwZ0rsGVw07YpVwEqAT3t+
+	rYVt0Vc36CRgVmbXngiIzBtJ3Quvos0tXWE3hXsEPH14Int4uumRtSnzE1+x++js9vJUALsX3x1
+	E2NNhesh2XCN8LlTPZ1TmIH0D7hLp/DENY/8=
+X-Received: by 2002:a05:6402:2142:b0:6b3:b10c:40f9 with SMTP id 4fb4d7f45d1cf-6b442ff1deamr6770420a12.31.1793065929813;
+        Mon, 26 Oct 2026 18:52:09 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
+        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6b4458fa8dcsm1689318a12.4.2026.10.26.18.52.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 18:52:09 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [10.17.2.234])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id A7E1E40146;
+	Mon, 26 Oct 2026 19:52:07 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 9DA37DCE126; Mon, 26 Oct 2026 19:52:07 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Alice Mikityanska <alice.kernel@fastmail.im>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Boris Pismenny <borisp@mellanox.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] tls: restrict device-down TX fallback to hardware TX sockets
+Date: Mon, 26 Oct 2026 19:52:05 -0600
+Message-ID: <20261027015205.2169253-1-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,28 +110,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Ihor,
+tls_device_down() installs tls_validate_xmit_skb_sw() on every socket with
+hardware offload in either direction, but tls_sw_fallback() needs a
+hardware TX context in priv_ctx_tx. An RX-only socket's NULL priv_ctx_tx
+crashes the fallback on its next transmit, for instance after the device
+comes back up:
 
-I had a look at this - the approach looks right, and it follows the
-precedent that's already in the tree: ucsi_acer_read_version()
-handles the exact same zero-version firmware behaviour on the Acer
-Nitro ANV15-41 with the same read-then-substitute pattern, so this
-is the second instance of a recurring problem class rather than a
-one-off hack. Overriding read_version() is also the clean hook: it's
-called from exactly one place in the core (ucsi_register()), so the
-substitution fires once per probe, and passing non-zero versions
-through unchanged means a later re-registration picks up the real
-firmware value once the firmware has filled it in.
+  BUG: kernel NULL pointer dereference, address: 0000000000000008
+  RIP: 0010:_raw_spin_lock_irqsave+0x31/0x60
+   tls_sw_fallback+0x11b/0x450
+   validate_xmit_skb.isra.0+0x14f/0x420
+   __dev_queue_xmit+0x5e8/0xf30
 
-One small thing: the Fixes tag points at c1b0bc2dabfa, but the
-failure mode being fixed - registration rejected with -ENODEV when
-VERSION reads zero - only exists since bdc62f2bae8f ("usb: typec:
-ucsi: Simplified registration and I/O API"), which introduced the
-!version check. Might be worth pointing the Fixes tag there instead
-for accurate attribution, though given the machine is new enough the
-stable backport range is academic either way.
+A software-TX socket's priv_ctx_tx is a tls_sw_context_tx, which the
+fallback would walk as a hardware context.
 
-Reviewed-by: Huang Wei <huangwei@kylinos.cn>
+Only install the fallback on hardware TX sockets. Today tx_conf alone
+cannot identify them from tls_device_down(): tls_set_device_offload()
+drops device_offload_lock before it publishes the validator, and
+do_tls_setsockopt_conf() stores tx_conf = TLS_HW later still, under
+lock_sock, which tls_device_down() does not take. That leaves two
+windows. A NETDEV_DOWN before the validator store installs the software
+fallback, only for the hardware validator to overwrite it with
+ctx->netdev already cleared. A NETDEV_DOWN after the validator store
+leaves the fallback in place. Both read tx_conf as TLS_BASE and skip
+tls_dev_del(TX) today, which the destructor never retries
+(tls_device_queue_ctx_destruction() only queues it while ctx->netdev is
+set), so the driver TX context leaks. Gating the fallback on tx_conf
+alone would make the second window a regression: the hardware validator
+would stay in place with ctx->netdev cleared, so
+tls_is_skb_tx_device_offloaded() keeps reporting offloaded.
 
-Thanks,
-Huang Wei
+Set tx_conf to TLS_HW in tls_set_device_offload() before dropping
+device_offload_lock, and publish the validator there too, so
+tls_device_down() sees both or neither. rx_conf has the same window and
+leaks the driver RX context, as tls_device_offload_cleanup_rx() skips
+tls_dev_del() once ctx->netdev is NULL, so set it the same way in
+tls_set_device_offload_rx().
+
+The unconditional fallback install, and its overwrite by the hardware
+validator, date from c55dcdd435aa; the TX and RX leaks from 4799ac81e52a.
+
+The NULL dereference was reproduced on an RX-only socket, which now
+survives an interface down/up cycle and keeps receiving TLS records. The
+software-TX case and the setsockopt/NETDEV_DOWN races are from code
+inspection only.
+
+Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
+Fixes: 4799ac81e52a ("tls: Add rx inline crypto offload")
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+---
+ net/tls/tls_device.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index 1a5f328d80a5..9e0863dd2f96 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -1176,13 +1176,15 @@ int tls_set_device_offload(struct sock *sk)
+ 		goto release_lock;
+ 
+ 	tls_device_attach(ctx, sk, netdev);
+-	up_read(&device_offload_lock);
+ 
+ 	/* following this assignment tls_is_skb_tx_device_offloaded
+ 	 * will return true and the context might be accessed
+-	 * by the netdev's xmit function.
++	 * by the netdev's xmit function. Publish it and tx_conf under
++	 * device_offload_lock so tls_device_down() sees both or neither.
+ 	 */
+ 	smp_store_release(&sk->sk_validate_xmit_skb, tls_validate_xmit_skb);
++	ctx->tx_conf = TLS_HW;
++	up_read(&device_offload_lock);
+ 	dev_put(netdev);
+ 
+ 	return 0;
+@@ -1258,6 +1260,11 @@ int tls_set_device_offload_rx(struct sock *sk, struct tls_context *ctx)
+ 		goto free_sw_resources;
+ 
+ 	tls_device_attach(ctx, sk, netdev);
++	/* do_tls_setsockopt_conf() stores rx_conf too, but only after
++	 * device_offload_lock is dropped. Set it here so tls_device_down()
++	 * sees TLS_HW and releases the driver RX context.
++	 */
++	ctx->rx_conf = TLS_HW;
+ 	up_read(&device_offload_lock);
+ 
+ 	dev_put(netdev);
+@@ -1326,10 +1333,17 @@ static int tls_device_down(struct net_device *netdev)
+ 	spin_unlock_irqrestore(&tls_device_lock, flags);
+ 
+ 	list_for_each_entry_safe(ctx, tmp, &list, list)	{
++		bool tx_hw = ctx->tx_conf == TLS_HW;
++
+ 		/* Stop offloaded TX and switch to the fallback.
+ 		 * tls_is_skb_tx_device_offloaded will return false.
++		 * Only HW TX sockets have the context the fallback needs.
++		 * The single read above keeps the fallback and tls_dev_del()
++		 * below in agreement.
+ 		 */
+-		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
++		if (tx_hw)
++			WRITE_ONCE(ctx->sk->sk_validate_xmit_skb,
++				   tls_validate_xmit_skb_sw);
+ 
+ 		/* Stop the RX and TX resync.
+ 		 * tls_dev_resync must not be called after tls_dev_del.
+@@ -1346,7 +1360,7 @@ static int tls_device_down(struct net_device *netdev)
+ 		synchronize_net();
+ 
+ 		/* Release the offload context on the driver side. */
+-		if (ctx->tx_conf == TLS_HW)
++		if (tx_hw)
+ 			netdev->tlsdev_ops->tls_dev_del(netdev, ctx,
+ 							TLS_OFFLOAD_CTX_DIR_TX);
+ 		if (ctx->rx_conf == TLS_HW &&
+-- 
+2.50.1
+
