@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093329;
-	b=F8ugnITeZEFXQNJyP15CJO1Fmab8ZSIMxf5Br/G/oUO3whzV/HKWUf+SQjoor4YHUvXn
-	 LI53EHtOgTZOR7IgEJVVU4hvOp723rFvfO26VtZ4CnD9FbLSBqhLegdabdhtEdfiF+HR3
-	 kliW6ig0X5RNmocjPpqHElceG/U9ABzsdQlBB/Bewhh9j/VFCsWBQiF7xR8wNmMs0+plJ
-	 L9Q34X5KRgk7JEWJfQTpcLNOVyuTUPhUros0sJ/fToMmF7Wx+5i2YP2MmdXYrDsaNqlai
-	 0cY5H6Ob6G2u30o0iV9Go1MnuN1yEymb7dgsuDITdnox6RZ95mD3+4ZEsDqSbwgvGfQ==
+	t=1793093337;
+	b=O1A6Su3aag2kZM1zrNBqxhyY6bTz//3Be0yE/S8uxPfr/we2hsZj8XxOn2u8fOR5dd45
+	 wSQJLUH7fnaCb/3k//R1mfM4CUJbj5t4Hc92vO+QIeIQxN5T5uNE5YoyA1uaKv8nXpw9b
+	 LVF9qfJ1IEiMLDyBavBxs5a47leovfSvZJF2nevXN5Yl4MY10pVUQcrZnK1tXuRzn55yQ
+	 7+h26hEMAtvFBs/DGId6Pe+mxkYh+fM4y8Nb4QeLo/3Z1vd0k95JTcYMgEHq2dhXIn1+E
+	 hd0rfJtGQ8hegh/h2zIxvihau65tkWdVEwKWhgb3JrxOIBC2nHRXUl9YyQUZDxXoTxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093329;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V8WGmLvJrYrUF06O45/IMg99GC4FvPEC3Xa55t3AmUs=;
-	b=ERVcn6D1UYLw9f6m/yGiZs9xi/RLQnAndz+0pGdO9DGgp3Q/lDmwchGGnDYRsq8kAHFG
-	 i9BowRU2KYlKxjN5j34q3KptXY3SpEsfh9aJ4SezgrAH7LTZ3eud+kOO4VncmqwSJGUrc
-	 UYSWhVHBZx8to3xfbUmyjJtMxXjOd/HPja/leyLI/siVWyTn4jG8vK7c7RMExyAbQDnKg
-	 vR1CXN/cSeyGlCZMrQBDcZYI+SI0AhxEq+z28b4n/i8v5UJDflrtsTgYN/R5upnaFfrzh
-	 dOLNekxDp75N0KVtExIijJD8mrBAG2EjgxQ2XGADggvXwFYPhkxV8PnJ9efYXcNl5+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093337;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=p8NdlJeb1TRhp00Fu41Y5tkNGTY0mONjNOfygteb5+c=;
+	b=TggjYzZBugxZ3igX4Dt1ytCpL9/ZC/OC4XJRloi0UCuCtScKY5kkc7B4ay42rZz/zr5t
+	 HCEZzBDlkOCEwMKFpCxAeT1GdphMNhoRNbWzvrNwsDNEGG51nstha6mCq3EI5Vxy/Qn/G
+	 2OjTGCUkMLUYwKZAg9N2UVmKu+MbpaCUv+3Fauvcg5giuTFSqDRDg/qJqDZPIkFI7zlBU
+	 cpwL2jSZAB8gLhNVnIJtctx37kB8SqXu6MjoMx7Jf8boy7L9+FDNxhIaomkyMzgAfRCu1
+	 fhAriW1zxNS8f//pzS5WujdjVGT3Wik6byrx3duTQD0yw4sqI307Eh/peD4YlzPWFaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdLL2UOg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qp/NnmyW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0249606A31A;
-	Tue, 27 Oct 2026 09:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21447606A31B;
+	Tue, 27 Oct 2026 09:28:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YdLL2UOg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 500091F01825;
-	Tue, 27 Oct 2026 09:28:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qp/NnmyW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 693731F031E7;
+	Tue, 27 Oct 2026 09:28:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793093328;
-	bh=V8WGmLvJrYrUF06O45/IMg99GC4FvPEC3Xa55t3AmUs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YdLL2UOg5euqAuLuGOHMpQN5ll00NfPwGOe33j9Rgmj5cJnXxE60fbWzRIIDIuPE9
-	 evSlohBDpAaCPqG1shiGZtDS1GlKqI1FA0+Zx01zcQX7cDOOr7zAT2SJxRTBUijkCA
-	 2e+g6/2ZoLQpUWTlD/in5ja7Gp9btcIjK86+623ZGznX2uK4YoiVxYkDEb1FCD9uwY
-	 1r6G41UjXaqVD3yl13LrcQcCpw644+jVaa49DHYW4I+7uI+698gY6obXMuf6eTQyfm
-	 8whWhHKoIXrVZ3rBhhKCJ/mpgy4XVMLkrW7UJvOPrq2UZhPeuzxz5mLroWS2irtNXj
-	 BcRo341QNS2Rw==
-Date: Tue, 27 Oct 2026 10:28:43 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ishu Brar <patches@brar.si>
-Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: interconnect: qcom: Add SM7250 RPMh
- NoC
-Message-ID: <20261027-tangible-steadfast-serval-caccf3@quoll>
-References: <20261026-icc-sm7250-v3-0-aa303226298c@brar.si>
- <20261026-icc-sm7250-v3-1-aa303226298c@brar.si>
+	s=k20260515; t=1793093337;
+	bh=p8NdlJeb1TRhp00Fu41Y5tkNGTY0mONjNOfygteb5+c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Qp/NnmyWnjy7TIppdQNM2xAgatHT4wbLz786wY9DtJeF/QUUDgI1CVJFfhiBvCGjd
+	 jYfK9SdhHRhYiN46SFP4dtWsWgKiI6R7IYT0rKLQAHu9NNpGNsD97qmr8vWbL9+DFj
+	 ulj1BLsPNWTRZCnXtadOID/fkikxFHo5cdXYy3Cys+K5/ELUOxgrsXWd10u+d0QITn
+	 mfA8aBdmXwqYJlACVBYHrZIcoyltSBj4HpxNDUMsGvCOc3XdpO5UvWRcGFMf9opUa1
+	 41fCjbakJqK504gwL2xBwE1y/azIUjEH/pTkgw9f6ePLgGqzvbTDZAMOOs0Q3G5QbN
+	 UuaX+vDUQ0BXQ==
+Message-ID: <2812b71c-cd0c-4d87-a57c-427ef40d078b@kernel.org>
+Date: Tue, 27 Oct 2026 10:28:53 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,84 +51,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261026-icc-sm7250-v3-1-aa303226298c@brar.si>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net/sched: fix packet reordering on requeue
+To: Antonio Quartulli <antonio@mandelbit.com>, netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, kernel-team <kernel-team@cloudflare.com>,
+ Chris Arges <carges@cloudflare.com>
+References: <20261026153113.3275494-1-antonio@mandelbit.com>
+Content-Language: en-US
+From: Jesper Dangaard Brouer <hawk@kernel.org>
+In-Reply-To: <20261026153113.3275494-1-antonio@mandelbit.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 11:18:17PM +0530, Ishu Brar wrote:
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,sm7250-aggre1-noc
-> +      - qcom,sm7250-aggre2-noc
-> +      - qcom,sm7250-compute-noc
-> +      - qcom,sm7250-config-noc
-> +      - qcom,sm7250-dc-noc
-> +      - qcom,sm7250-gem-noc
-> +      - qcom,sm7250-mc-virt
-> +      - qcom,sm7250-mmss-noc
-> +      - qcom,sm7250-npu-noc
-> +      - qcom,sm7250-qup-virt
-> +      - qcom,sm7250-system-noc
-> +
-> +  reg:
-> +    maxItems: 1
 
-So no children? Why? Your previous version said they cannot act
-independently and need regmap from the parent. I did not ask to remove
-children, but to remove pointless comment. Mind where the reviewer
-comments are placed.
 
-Also, where are the clocks?
+On 10/26/26 16:31, Antonio Quartulli wrote:
+> dev_requeue_skb() appends requeued skbs to the tail of q->gso_skb, while
+> dequeue_skb() takes them back one at a time from the head. If the driver
+> returns NETDEV_TX_BUSY again for the first of them, it moves behind the
+> skbs still parked there and is sent after them.
+> 
+> This showed up as heavy TCP reordering while benchmarking over veth,
+> which returns NETDEV_TX_BUSY whenever its ring is full since
+> commit dc82a33297fc ("veth: apply qdisc backpressure on full ptr_ring to reduce TX drops").
+> 
+> Requeue the skbs at the head of gso_skb, keeping their order. With 4 TCP
+> streams over a veth pair with a pfifo qdisc, this removes about 1.3M
+> out-of-order segments and 15-37k retransmits per 15 seconds, and raises
+> throughput from about 40 to 76 Gbit/s.
+> 
+> Fixes: a53851e2c321 ("net: sched: explicit locking in gso_cpu fallback")
+> Fixes: 9540d977618c ("net: sched: fix skb leak in dev_requeue_skb()")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+> ---
 
-> +
-> +required:
-> +  - compatible
-> +
-> +allOf:
-> +  - $ref: qcom,rpmh-common.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - qcom,sm7250-compute-noc
-> +              - qcom,sm7250-mc-virt
-> +              - qcom,sm7250-qup-virt
-> +    then:
-> +      properties:
-> +        reg: false
-> +    else:
-> +      required:
-> +        - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    interconnect-0 {
-> +        compatible = "qcom,sm7250-qup-virt";
-> +        #interconnect-cells = <2>;
-> +        qcom,bcm-voters = <&apps_bcm_voter>;
-> +    };
-> +
-> +    interconnect-1 {
-> +        compatible = "qcom,sm7250-mc-virt";
-> +        #interconnect-cells = <2>;
-> +        qcom,bcm-voters = <&apps_bcm_voter>;
-> +    };
+Thanks for finding and fixing this!
 
-Drop node, redundant, because you have exactly same example
-(interconnect-0).
+Acked-by: Jesper Dangaard Brouer <hawk@kernel.org>
 
+> Notes:
+> 
+> - Setup: 8-vCPU VM, veth pair; sender with a pfifo qdisc and TSO off,
+>    receiver with GRO and threaded NAPI; iperf3, 15 s runs.
+> 
+
+For others, notice threaded NAPI an important setup parameter here.
+This makes it more likely and reliable for ptr_ring producer and
+consumer to run on different CPUs.  This situation can still occur
+without threaded NAPI, when multiple localhost userspace applications
+run producing packets into veth, as they will likely get be schedules on
+different CPUs.
+
+FYI, we also run veth with threaded NAPI in production, but used in a
+routing setup (no "localhost" apps).  We have configured veth to have
+many queues (64), and we use qdisc MQ on top to avoid serialization on
+the qdisc root-lock.  Thus, we should be less affected, as we spread
+flows more across qdisc.
+
+
+> - A single stream gets about 7% slower (87 -> 81 Gbit/s), with 0
+>    retransmits instead of 1-20k. This is not a cost of the change: without
+>    the losses TCP keeps the veth ring full, and veth_poll() waking the
+>    queue makes net_tx_action() run the transmit work on the receiver's
+>    NAPI CPU. With VETH_RING_SIZE raised to 4096 the ring doesn't fill,
+>    nothing is requeued and both kernels do 86-90 Gbit/s, while 4 streams
+>    still go from 45 to 70 Gbit/s.
+> 
+> - History: before a53851e2c321, gso_skb was a single pointer.
+>    dev_requeue_skb() stored the busy skb there with the rest of the list
+>    still chained through skb->next, and dequeue_skb() handed the whole
+>    chain back, so the order was kept. a53851e2c321 turned gso_skb into a
+>    queue that dequeue_skb() drains one skb at a time; requeuing queued
+>    only the first skb (at the head for locked qdiscs, at the tail for
+>    TCQ_F_NOLOCK ones) and lost the rest of the list. 9540d977618c fixed
+>    that leak by queueing every skb of the list, and moved the locked path
+>    to the tail too, "to avoid skb out of order". Appending keeps a
+>    requeued list in order while gso_skb is empty, but not when the
+>    requeued skb was just taken from the head of a non-empty gso_skb,
+>    which is the case fixed here. So locked qdiscs reorder since
+>    9540d977618c, TCQ_F_NOLOCK ones since a53851e2c321; both are in 4.16.
+> 
+>   net/sched/sch_generic.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+> index 6f6a6f0d5eb0..e79e9f33efba 100644
+> --- a/net/sched/sch_generic.c
+> +++ b/net/sched/sch_generic.c
+> @@ -168,8 +168,11 @@ static inline void qdisc_enqueue_skb_bad_txq(struct Qdisc *q,
+>   
+>   static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
+>   {
+> +	struct sk_buff_head requeue;
+>   	spinlock_t *lock = NULL;
+>   
+> +	__skb_queue_head_init(&requeue);
 > +
-> +    interconnect@1620000 {
-> +        compatible = "qcom,sm7250-system-noc";
-> +        reg = <0x01620000 0x19200>;
-> +        #interconnect-cells = <2>;
-> +        qcom,bcm-voters = <&apps_bcm_voter>;
-> +    };
-
-Best regards,
-Krzysztof
+>   	if (q->flags & TCQ_F_NOLOCK) {
+>   		lock = qdisc_lock(q);
+>   		spin_lock(lock);
+> @@ -178,7 +181,7 @@ static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
+>   	while (skb) {
+>   		struct sk_buff *next = skb->next;
+>   
+> -		__skb_queue_tail(&q->gso_skb, skb);
+> +		__skb_queue_tail(&requeue, skb);
+>   
+>   		/* it's still part of the queue */
+>   		if (qdisc_is_percpu_stats(q)) {
+> @@ -194,6 +197,11 @@ static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
+>   		skb = next;
+>   	}
+>   
+> +	/* the skbs may come from the head of gso_skb, so put them back there:
+> +	 * appending them would let the ones still parked overtake them
+> +	 */
+> +	skb_queue_splice(&requeue, &q->gso_skb);
+> +
+>   	if (lock) {
+>   		spin_unlock(lock);
+>   		set_bit(__QDISC_STATE_MISSED, &q->state);
 
