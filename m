@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119142;
-	b=wJ9yerfOgOOpWbbcpJgWrBHRB4RFj5iSdQWXAZp6s1Rwv2VZGW3y+rd5N4/DNdYR1POM
-	 xvpTILkhiUa3sE86LdKuSSO0BJ+vBv7ndoR+DgWP/dWOoin3T2ruBOWo6GrT3hpxlipSX
-	 a2APJ9N2HvyN13DLxlGbj6vMGYLLEzQFjy0p4e4HdO//K6XQ8GUcbmHqDNSKnuLfPhOGW
-	 zY0j6cz4HYXfNIdYOw3F3gHhbcKT57HhPx37lDmKF4aKfBIhylg0cztz+DGRFPGZL14Iw
-	 rLs4BlwnvIOUQWGKt+/gd8GB8Xkh4k68nTIt4TezsDHgirYjQ/kUeMVWRs3CVl5ToVQ==
+	t=1793119140;
+	b=t6IPRIdKh+hMJmieMFKd97ZFbwNmwgNwJueAlvreALKzLY9n6L5RMZ8Zo/sBs+YwE5HZ
+	 rTIFkfaFgy6i4i/RPDEQx5cLQhzm+H0nwE+d1B19KufRjIz6/vWv0MaJAxHpNTOtHW51s
+	 cqxC1ZtPnQlTR0a+h7c4bE1ohgcJhOib0Jl0ojf4kZolkwqW/SLfDlkGWNjWzirHFqPF1
+	 0J7WLar0hd5ka++4qYrCu2Gfsg7pBZ3qYzcjrR9JA2jzLzAcYILR4BvYNMXP9l3ubj7DZ
+	 S3HnbdxsDYKqsigctR4UxjPTdK/sGCwy672OvzCkU0XNM/38zg3enBH8pL52T/6YlwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119142;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119140;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SIOYUtjyO3LOx0Dt4B+mTWmj1MQMym+QDsKA8UeeV4g=;
-	b=TQTifdbVT67vGEPO1k+Kad6TOWvrVADcyqnvxsHSVFqQ1iYDNh4KIreIQ+gNXwhXAaNV
-	 91z1TMytxstMgQREHEQxvXxOh9EzX9JYREV3kmo/SS0cNlxcUlGS1CupWkJsjynq+iwpn
-	 98Aqh0Og8I6S0AH0T/N3LtzzMqARwLDbGmSRyNEplringhDhLEQkmwweYcgNxSUzGv7i9
-	 2okoCmwnBP6wsc1YJwwOntUu2egstk3u2xKZstmD4VHn/UIgBfnRuEwo4hneZ2T16FVu9
-	 X4gbbqTiPtZKt8T5sCVay5XwmvPC5MPhhIbyOB2PSQBcLyc7dT0HX6F/JjqHpix5/AQ==
+	bh=9uOoh9IXRFNxNkyBrfne1vGxftWSxATGplynCIne7a4=;
+	b=MzbtarEkcDZ2psdjK/lIC+AyLq1D9w6wO29OfICB54aYBculL2YEWe+jzMOqV9RuZuRB
+	 GvbhtQw3kJUUs5PqdtTg8na/p4GJqwDdipnPYwzUgF+tLRx67ybQAPTrJMMutJIMBkXuh
+	 G9etp5aCXBzI9xPHzHXeedIgdeIuPYM9iROiLCk1ou5m3j9hysd5s+yAKu/bxsx4P/slQ
+	 LZEyAfZ+Anwd3X4ssceZANnkKt2+ouRpRL3l4d3LZNyFZtQOGNUKxCAQBNEBoWqMORyJ1
+	 W5Wq2BLHH9audwn5RHhxVWkeVXQgjv5aZK0uEq5t02yrS6HrAj0gLDhZVAcUoDFEcKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jDXQ97uP;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jx7qFqdq;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3937F60A260D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:38:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3937F60A260D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB9F606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:38:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCB9F606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jDXQ97uP
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so248525e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:38:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jx7qFqdq
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e09aa5264so17315f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:38:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793119134; x=1793723934; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793119138; x=1793723938; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SIOYUtjyO3LOx0Dt4B+mTWmj1MQMym+QDsKA8UeeV4g=;
-        b=jDXQ97uPzLLLVbT5rFYdb1pQTXrcFlnapazDTPLkZZZzwm/dGHfnuIdGyn77eFA0ll
-         rVBv/5nJphqBbUw+a2Td1v6GrDeETKSOvgJ16nRoBxrVotcF0qP/50g7KcOxGtryWC0V
-         82S7gR4XD6AEFY2bR8wsJHDC2n3MXTp1j8TOVpzctgje8F6Q2LgZxBO6dMNKbxhXYYne
-         3ugxFsXqy++IHUeYF5s3xiNkbkoyShdYlrRIi7mhMt3xmm4xnSahUcRjGeZ/Y5Mb2O1b
-         ZZicvp4ASkhGLwgqJXFP12i+YmVGlubN6R19iyBxMFtHHqdFJmdg6xkHn698fClqvbJw
-         MQ4g==
+        bh=9uOoh9IXRFNxNkyBrfne1vGxftWSxATGplynCIne7a4=;
+        b=jx7qFqdqhYPNuoIM8KV8iZ9x5aEH1s3uAWqqw7VV8uWGH1JtC5Xuk4sN5w30PlYvie
+         xT+kALMnLakupfcPQYg97ISDZ5mBOPq9morEzGHWHa5V2SfQvPSomp/jBtFGV6lGifWe
+         GgqDu4FxoWbhomR86cYNudVZh/ssA17OhiDP/tjIodlk1k2kKI/vj9TNFRAJKGHDAhkT
+         4dM4QkSNR0vnhXnl/e4awY322lvD57qlyCkpoSdcghnYFQkHkBT1GrWkMKlUKmFJu/3Z
+         dkzT2R72u/XBsiV6ICsaxBAM0U5icw8xYxOUJMiiTQZb2mL1mSr7qGF8cB/mCFsaGPKC
+         PjqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119134; x=1793723934;
+        d=1e100.net; s=20260707; t=1793119138; x=1793723938;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SIOYUtjyO3LOx0Dt4B+mTWmj1MQMym+QDsKA8UeeV4g=;
-        b=mhJpoSKIv40w8yDm1UMhu4xsWCcoQYrr250eyRDB7LDUyXj7F/lNiKkTA1X9WDiOLa
-         oSOLf0BGepITX+WyW2/EhDLnvkU8l97L3dUDiq4aEKAcdjqEDKWIXe7huUDJIDpiYbNI
-         Cb38iMc0ndvEi8KU3iHRD1jfg1dLaOa5dfolllMUG5EitdOh+6ZZgN5u/K37G5nrdqRU
-         7Ek3Rnz2rS5q/MyZBscKC0kEQx86O8lx2iGS4ORNIJvxtrc8sHIiE195E3qH1cw/u/nb
-         pFeG5t8PZayTWhnKjishw6TLXpg7DWdvBY5RFf/m/bi/uUHrsAPfuyBKev7CDG7bss+d
-         mL2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw2qhZ7L+50hobsPTxW3U1cSDWhUdALQzcllmef4F3aIqSx1yLH5I+gPiPjGZBKM6a3d2w0ZxR38ciojWE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKc0ri3DdKfmAPDBosWzfCzCFtGUA0r2Xp5xeCmRN1Tk7m8g83S
-	5LEfiKWa8hK9XJw3ANHHkcgoTjAC1Ih7F4b34hCV+Dw9Dzvj0/KpVlW+
-X-Gm-Gg: AYBFou3bOocufBfCpoMr1lNEKS9ed3MR85tVW7YRTRitjsHpGyrN1GjnUSPtuNJNHwD
-	f7jHYLEh9BnLp93d9h3Cwzg63qt+3rIDbfk+qGviRRwuywA87wrtvneVr858df2CarGPk2EHGEL
-	P32OseX1XHDOq0+XOA+UTnY04hSndStwG4kxGuIX5nqdK3rf8I06P9G0NLXKIFQG3nfuUnoECua
-	ZpHQaJczDPd/pafgkrA8aPjIb/97SmgrCyhXLWl+272XAOHLuEv8BvufAEdFi257JC8/zsxuUwU
-	UVjGHzTiNbT8MxAlqvOb//zCb7PTIMU2+tQCkmy+xJ45nobA5wjWLAxPWEfvRHrp3c6HOyinK1p
-	mjbZLqiZQq0JN7OVffQ8AvZ1+hpMFlmNyNbUd1bse8jhw76a4zGBtioGXlG0YmEu3Lx+M2nolzC
-	7eFY4+yXO8yZ5kvXiNKEvnZF/mwxNfqsK4JX8CE9u5ghTq91lmePflWXhRjsMZ51bbfZQtHcYaR
-	pyqku66qEg1+uk+UmyYORUxDwnq+sNivtzMyQXMDRZqcejQljYxru6OauQTJtY/7ubMEhjhj4Jr
-	Ux8Jl/twNB7b3NmqZDIMAJfT61U=
-X-Received: by 2002:a05:600c:8114:b0:4a1:dec1:4e1 with SMTP id 5b1f17b1804b1-4a35aca4ab5mr173697125e9.22.1793119134362;
-        Tue, 27 Oct 2026 09:38:54 -0700 (PDT)
+        bh=9uOoh9IXRFNxNkyBrfne1vGxftWSxATGplynCIne7a4=;
+        b=rRMhKHnzlTwTHtXIOjMyto4n/TYK0d2XQUfzVCp/qMSZFk7CkcCCvq4p3wFEpu6fKv
+         pB3ZWS8gC6m1epkt7+q5PONFK+Y1iTVtQPkUuM4Vfy0IXlCN2aj5bdIMlz8RRDP1RFR/
+         tEymRSqYuD5LkkpK+sySnYEgk4GidLM/fVaRborM9bCzYWXlnlXLhIz0ExgLF5asqzQS
+         44hWtj/s5faMWxM20Tn9PRL4bT62gpIr74lHT1gniBvyhtBWWy6HKbAxTPu01IHwUwAr
+         5NIbmRmHX4yNNLIjr/wvqmbmhD7ZGPM+8ITkz6Cvi//uRJtFM3MrVkIvLhMBrR0YpVcG
+         KcLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFaeGI0aju7k3CrAVFGrkrs9Pu6Deb99sHBHlMNso0L87SyqKVRsxzq/s8a3DTKsW1ggyI2vw7ibnZ6qM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYh/xXGhbES0Q8LavoFvb5pN1+w5vY5ZFmIjk5wUnG6Y+oaIc1
+	KlB3SG3S4i1Ub0Azvtnuliv9Eb295VZ/JZWSUuwL+6er7SM0e3RURNUu
+X-Gm-Gg: AYBFou2nJ1rGKBZuMCFVdYdPEFes81ipLSwnCiB5scd1rhIf70ppYmtsmXv//kbHpOI
+	nngQo8oJ8MNo0Eg10Hh/zB6swdUXKPbhBHx0JM7r/tikTe+tapzB8fsTc+U1VcIwOFxMbjuRYEt
+	HRz5EyvEnPxd8/2PnikSQll6XDSUb1pa3k1RLKwUe1YLheSOyga9JQANlQpUJAgR9E9/MeArAvQ
+	GZRwxFvNsZUIIX9caBXB92t73Z7xZ0NSLikMasDnXQtUIwAQBSqztRx08dnTmytehvi7kZ1JeYx
+	WICJYKpSEZj+balDvSmJHVJ+zRI2fDqYJGMyWn5Q+KGuVCQGRO2Q6XKKp+WOGEuRgKIAQX9VeRI
+	wk0Mpno00rPPzlD3g1borSIwGNXulTb50cWk/W4iRkOheGva1fPX/Txj2eO6jUCtl7CEfwROoO2
+	OYePbL3x+K/bAi2fjYlgA862jaQcjj0qu9gZGlSWvvK/rZtAuL8vCK7PYX+MR0ZGla9AQbPUDOX
+	Q7XkvLa91FwKH338B5XDiU9q3zdcTGwlsHnjT/kxcppc41623BP2nzTAs1izp2RYEApuDzzH8bX
+	94llPM8edpvNYqfaAWVAMUbgG2XCyn7CjEaKwGazvhu7cTk=
+X-Received: by 2002:a05:600c:c0c8:b0:4a4:de70:2ad4 with SMTP id 5b1f17b1804b1-4a4de702b8bmr139023805e9.22.1793119137915;
+        Tue, 27 Oct 2026 09:38:57 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([31.189.68.219])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a92c21df84sm2358195e9.15.2026.10.27.09.38.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a92c21df84sm2358195e9.15.2026.10.27.09.38.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:38:54 -0700 (PDT)
+        Tue, 27 Oct 2026 09:38:57 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
@@ -97,9 +97,9 @@ Cc: Andrea Parri <parri.andrea@gmail.com>,
 	rcu@vger.kernel.org,
 	lkmm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH -rcu/dev 3/4] hazptr: Do not warn when a backup slot is released on another CPU
-Date: Tue, 27 Oct 2026 17:38:05 +0100
-Message-ID: <20261027163811.2470569-4-parri.andrea@gmail.com>
+Subject: [PATCH -rcu/dev 4/4] hazptrtorture: Nest a second hazard pointer in readers
+Date: Tue, 27 Oct 2026 17:38:06 +0100
+Message-ID: <20261027163811.2470569-5-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027163811.2470569-1-parri.andrea@gmail.com>
 References: <20261027163811.2470569-1-parri.andrea@gmail.com>
@@ -114,61 +114,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With CONFIG_HAZPTR_DEBUG, hazptr_release_debug() warns when a hazard
-pointer is released on a CPU other than the one that acquired it,
-unless ->detach_cpu is set.  hazptr_detach() sets it, and so does
-hazptr_note_context_switch() when it promotes a per-CPU slot to the
-backup slot.
+hazptrtorture rarely exercises the race fixed by "hazptr: Record per-CPU
+slot owner after claiming the slot": an interrupt handler acquiring a
+hazard pointer after the interrupted task chooses a slot in
+__hazptr_acquire() and before it claims it.  Readers get there only when
+their pointer is NULL or changes under them.
 
-__hazptr_acquire() can also put the hazard pointer in the backup slot
-directly, when all per-CPU slots are in use or the pointer changes
-under __hazptr_try_acquire().  Nothing sets ->detach_cpu then, so if
-the task is migrated before the release, the check warns although the
-backup slot can be released on any CPU.
+This commit therefore adds the nest_acquire module parameter, which
+makes a reader acquire and release a second hazard pointer while holding
+the first, once per the specified number of acquisitions on average
+(default two, zero disables).  While the outer hazard pointer is in
+slot 0 of the reader's CPU, the nested acquisition finds that slot in
+use and goes to __hazptr_acquire(), where hazptr_torture_acquire()
+handlers from other readers can interrupt it.
 
-From hazptrtorture, with CPU hotplug and readers that nest a second
-hazard pointer, as "hazptrtorture: Nest a second hazard pointer in
-readers" makes them do (without the nesting, 30-minute PREEMPT and
-NOPREEMPT runs do not hit it):
+Without that fix, and with the checks added by "hazptr: Check per-CPU
+slot owner with CONFIG_HAZPTR_DEBUG", the PREEMPT and NOPREEMPT
+scenarios at default parameters report the race 6.3 and 6.0 seconds
+after boot, and NOPREEMPT oopses 1.3 seconds later.  With
+nest_acquire=0, both run 10 minutes without a report.
 
-    Hazard Pointer (addr=00000000e2979b1e) released on remote cpu without context switch. Acquire: caller=hazptr_torture_read_lock+0x43/0xb0, pid=80, cpu=0. Release: pid=80, cpu=1.
-    WARNING: ./include/linux/hazptr.h:293 at hazptr_torture_read_unlock+0x80/0x160, CPU#1: hazptr_torture_/80
-    Call Trace:
-     <TASK>
-     hazptr_torture_reader_tail+0x88/0x250
-     hazptr_torture_nested_reader+0x6c/0x90
-     hazptr_torture_reader+0x2f5/0x550
-     kthread+0xdf/0x110
-     ret_from_fork+0x179/0x240
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+With the fix, 30-minute runs of both scenarios pass, as does a 10-minute
+PREEMPT run with irq_acquire=100 and nest_acquire=1.
 
-Set ->detach_cpu when __hazptr_acquire() falls back to the backup slot.
-The remote-task check still applies to such a hazard pointer.
+The nesting costs about a third of the outer reader iterations, as seen
+in the IPI acquisitions, which readers send once per irq_acquire
+iterations.  PREEMPT counts acqirq: 270645 in 10 minutes without nesting
+and acqirq: 544976 in 30 minutes with it.
 
-The false positive was found with the help of an LLM.
-
-Fixes: 3d48872eb74f ("hazptr: Introduce CONFIG_HAZPTR_DEBUG misuse detection")
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- kernel/hazptr.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../admin-guide/kernel-parameters.txt         |  6 +++++
+ kernel/rcu/hazptrtorture.c                    | 27 +++++++++++++++++++
+ 2 files changed, 33 insertions(+)
 
-diff --git a/kernel/hazptr.c b/kernel/hazptr.c
-index b15b84ebd4ceb..b06164aac3a70 100644
---- a/kernel/hazptr.c
-+++ b/kernel/hazptr.c
-@@ -112,6 +112,10 @@ void *__hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
- 	 *   synchronize forward progress.
- 	 */
- 	slot = hazptr_chain_backup_slot(ctx);
-+#ifdef CONFIG_HAZPTR_DEBUG
-+	/* Unlike a per-CPU slot, the backup slot can be released on any CPU. */
-+	ctx->detach_cpu = true;
-+#endif
- 	WRITE_ONCE(slot->addr, HAZPTR_WILDCARD);	/* Store B */
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index e3c5a6b68fc34..63bb7719457dd 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -1992,6 +1992,12 @@ Kernel parameters
+ 			is equal to zero, in which case it instead
+ 			defaults to zero (disabled).
  
- 	/* Memory ordering: Store B before Load A. */
++	hazptrtorture.nest_acquire= [KNL]
++			Acquire a second, nested hazard pointer on
++			average one out of the specified number of
++			reader acquisitions.  Zero disables.  Defaults
++			to two.
++
+ 	hazptrtorture.nreaders= [KNL]
+ 			Number of hazard-pointer reader kthreads, each
+ 			of which repeatedly acquires and releases hazard
+diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+index c46083a8af093..4373bc5fe11e5 100644
+--- a/kernel/rcu/hazptrtorture.c
++++ b/kernel/rcu/hazptrtorture.c
+@@ -37,6 +37,8 @@ torture_param(int, irq_release, -1,
+ 	      "Release hazard pointers from irq handlers once per specified #, zero to disable");
+ torture_param(int, kthread_do_pending_ms, -1,
+ 	      "Delay between cleanups for deferred hazard pointers (ms), zero to disable");
++torture_param(int, nest_acquire, 2,
++	      "Nest a second hazard pointer once per specified # of reader acquires, zero to disable");
+ torture_param(int, nreaders, -1, "Number of hazard-pointer reader threads");
+ torture_param(bool, nwriters, 1, "Number of hazard-pointer writer threads, 0 or 1");
+ torture_param(int, onoff_holdoff, 0, "Time after boot before CPU hotplugs (s)");
+@@ -449,6 +451,22 @@ static void hazptr_torture_defer(struct hazptr_pending *hppp, struct torture_ran
+ 	atomic_long_inc(per_cpu_ptr(&hazptr_torture_releases_defer, raw_smp_processor_id()));
+ }
+ 
++/*
++ * Acquire and release a second hazard pointer while the caller holds one.
++ * If the caller's hazard pointer is in this CPU's slot 0, this acquisition
++ * takes the slow path, which first tries another per-CPU slot and can race
++ * there with hazptr_torture_acquire() handlers.
++ */
++static void hazptr_torture_nested_reader(struct torture_random_state *trsp)
++{
++	struct hazptr_pending hpp;
++
++	hpp.hpp_htp = cur_ops->readlock(&hpp.hpp_hc);
++	atomic_long_inc(per_cpu_ptr(&hazptr_torture_acquires, raw_smp_processor_id()));
++	if (hpp.hpp_htp)
++		hazptr_torture_reader_tail(&hpp, trsp);
++}
++
+ /*
+  * Hazard-pointer torture reader kthread.  Repeatedly dereferences
+  * hazptr_torture_current, incrementing the corresponding element of the
+@@ -497,6 +515,8 @@ static int hazptr_torture_reader(void *arg)
+ 			schedule_timeout_interruptible(HZ / 10);
+ 			continue;
+ 		}
++		if (nest_acquire && !(torture_random(&rand) % nest_acquire))
++			hazptr_torture_nested_reader(&rand);
+ 		if (time_after(jiffies, lastsleep) && !torture_must_stop()) {
+ 			torture_hrtimeout_us(500, 1000, &rand);
+ 			lastsleep = jiffies + 10;
+@@ -721,6 +741,7 @@ hazptr_torture_print_module_parms(struct hazptr_torture_ops *cur_ops, const char
+ 	pr_alert("%s" TORTURE_FLAG
+ 		 "--- %s: nreaders=%d nwriters=%d "
+ 		 "defer_modulus=%d irq_acquire=%d irq_release=%d kthread_do_pending_ms=%d "
++		 "nest_acquire=%d "
+ 		 "onoff_interval=%d onoff_holdoff=%d "
+ 		 "preempt_duration=%d preempt_interval=%d "
+ 		 "reader_sleep_us=%d "
+@@ -728,6 +749,7 @@ hazptr_torture_print_module_parms(struct hazptr_torture_ops *cur_ops, const char
+ 		 "verbose=%d\n",
+ 		 torture_type, tag, nrealreaders, nwriters,
+ 		 defer_modulus, irq_acquire, irq_release, kthread_do_pending_ms,
++		 nest_acquire,
+ 		 onoff_interval, onoff_holdoff,
+ 		 preempt_duration, preempt_interval,
+ 		 reader_sleep_us,
+@@ -891,6 +913,11 @@ static int __init hazptr_torture_init(void)
+ 		WARN_ON(IS_BUILTIN(CONFIG_HAZPTR_TORTURE_TEST));
+ 		irq_release = 0;
+ 	}
++	if (nest_acquire < 0) {
++		pr_alert("Cannot have negative nest_acquire (%d), disabling.\n", nest_acquire);
++		WARN_ON(IS_BUILTIN(CONFIG_HAZPTR_TORTURE_TEST));
++		nest_acquire = 0;
++	}
+ 	reader_tasks = kzalloc_objs(reader_tasks[0], nrealreaders);
+ 	for (i = 0; i < nrealreaders; i++) {
+ 		firsterr = torture_create_kthread(hazptr_torture_reader, (void *)i,
 -- 
 2.53.0
 
