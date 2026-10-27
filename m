@@ -1,72 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118744;
-	b=wINac0cDxNkhA7ty9TbgisYHwoTMv94X/srzh7+GaHDwjaSLKJTkMWHkJaqmskOv0Nap
-	 FyC5FWDrFlaJSpxwupbTKAujBDOFG+yaQOFTcNxY1AgE/i+UF/Sgscs3QY+2NFsSbNEEZ
-	 d3yxIHShmylSZvh7BXyoRdg0m/kj/y87e1T6JsFAzVmVmr/EOZ2z4ONLqH1ZmCSgRsoqU
-	 N3xYQmk34o0vR4Nz0r9pJiexmRTw9NiBfFG6PGhATmE+HXjRUAkyw9vrG7p/+Mr8H7O5a
-	 2KIlxCYTtgybPCcUQcv5L7jMED6mQ+wyyr3aET/sCjwjM/cdVJIvzRLmCJ+dN5LNLfg==
+	t=1793118743;
+	b=sN8Duze6fWAE5LW9QCsoyO/TbH8lDY1wavCKw1/S1B0mOwtcM+XQF1vhQa/jtpGeiTJy
+	 oSRUmNFXp4EjyHLe5+VPNMAF6dK7AXs7OmkUZHFEsJVhVYfza136Ek4rNiFMTJtWOuRUX
+	 kRSsPf8Mvtk2v/QerZ9aitQDe5UwdL4fVDz2c4j+BO1Bkmj4pfCQhIRLQlqVY5J3W3zpd
+	 5aryKxMbyOiCZUednbM0FaQWDgdOWhKa2m+58clpDAyZqkdgW4SehPlWGts5TCUIWQpEn
+	 fkXjo5n8Vj3MYdOZyjXckaRi8gNE6i6zUUzAStu09hAFluj2E6xe+znA+irOIngIBbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118744;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=xevTPSb+55+TJBzOTJHueBHMyIEJniQWSfJqf76NMG4=;
-	b=MquCWkMvr7E+mtZiE3PSDrLPPEQh0/lpEtrOHz0cNL+NPxM4VVAzF20BbwhfeiTPrIqw
-	 8hhcLJim3OB1gaGevpIiXxCpd2eU2Mo8VwBmSypuLspHSLeJQ9eHoX6ZLIPQk23c37xke
-	 a4vE/yrsOWMtecE4wrREKaahVYD+Gt/nlZ5gSlP1mNilEAfZ5zJ5vIxwyc0xcF5A3u6LD
-	 zC3kENOIn2a7xTVxjkvGzcS/mwHm1CKN3Y4ubm+95xkDpwQfbm40jympwUiJzSgU+T12d
-	 vS0KzgP1kBwglUazumjrZn6BYAexQAxywQEVDDB17+bjfHtyZm3xNPHsMoDeHoZ16UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118743;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kvHpdbzr181XbRpEgtV1R2oktcYB29tcS5XHBNv0lQ8=;
+	b=KoUOxH97hXzKH3k8C7fdKuyRm1h9OQTOxLTUJGF0Yt1Gll9NSlkeHgBvWDqvyPcHIYz1
+	 m6pJg6gFsn7SNl23L/S9k4iuYycLbSTLMeuq26pH1kjXqBD5cQH86MrAZ84IUmSQ9mXfq
+	 dBrqnl8LGG0wKYA9jNEx5JolBcXAnwYp217An3zciqu1r7p/eptaJkmnCzx9iHz+d9k00
+	 QqjXq4/OES2mt2G/GkjI/vtU8+DW/+513Ep+Rki9ZPhqxcyKWc4nXjciX4A9rCkmvTPU2
+	 JbFFRT6t/9fz6KW7N3colL/+VU/iA9usU82igHfM8Oa87tXdUNVxn3DXFvYM59fghaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BZn5onzX;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/9wjUU8";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856FD606A31B;
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 837CE606A31A;
 	Tue, 27 Oct 2026 16:32:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 856FD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=BZn5onzX
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=xevTPSb+55+TJBzOTJHueBHMyIEJniQWSfJqf76NMG4=; b=BZn5onzXLCfaNBkHRKJ6z3d437
-	cx9NUbBkHVcpT6A8fnwOLNoryUOBd7slA5WGRwr63H3b/M4dVw9L8nkKdyDG7Nk5M2HekRD6Te5vj
-	GwQMggMVJ4AjvVDt3RvMaZ1nMc88gZBPC4QPgZtgy0oJF0iynyeN71snkVtAE9sJXDjDMvV2O8XOq
-	+ljiibzQBNl4wkufeXLLhqAJA32UCw+9RjJaT/wOaAriPBYYtETbDLq719Q+wXtZoEnHJs29M+1vw
-	rGIKnUjsYFvXRqE2K0+mMoeWEMKJiqK5ryU4HadLg7K+61kZpIV/6d8sCjTwtzjI4wK7xmb8lWI9o
-	JWd7BLwQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLk5z-0000000FESw-313w;
-	Tue, 27 Oct 2026 16:32:19 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B3FA03014C0; Tue, 27 Oct 2026 17:32:18 +0100 (CET)
-Date: Tue, 27 Oct 2026 17:32:18 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: Breno Leitao <leitao@debian.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, kernel-team@meta.com, stable@vger.kernel.org,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: Re: [PATCH] x86/nmi: Ignore negative NMI handler durations
-Message-ID: <20261027163218.GC1779021@noisy.programming.kicks-ass.net>
-References: <20261027-nmi_negative-v1-1-b436a005eb8a@debian.org>
- <6455a4e9218729d68f73006ef532e6fccc0135cf.camel@surriel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/9wjUU8
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C18B21F01825;
+	Tue, 27 Oct 2026 16:32:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793118743;
+	bh=kvHpdbzr181XbRpEgtV1R2oktcYB29tcS5XHBNv0lQ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=L/9wjUU8d3mrJwpelfh/WNYBeL7ClsTN5Z/FIX9bgBT1bfIhFUN3uaTN0CEBEiPwu
+	 QCRNL0gSXhd8ncuR9jPx5QFJNPcHNPAo2d3R8t7++MKn7Z48961Ce4h7KI5UDuxYl3
+	 07CrG3a8hujQ5s9l2pItC+VbFzItUn9n97KARlIuArpKZleglBPKNFp5J5a03ALXbf
+	 sg0amAQcUKZC/SyPFhVmBuCHVm0vaQpfcM88JU8TqsFkaVHbuf+VmMkShkS6NfPvvY
+	 oESgVQBE981tciY4ny4xpyD9tT8Ki/cRNVBY6Y4XeWq89PigUFKMseSmjmbEXl+SvT
+	 n34tFbBgT8Gow==
+Date: Tue, 27 Oct 2026 17:32:20 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Gregor Herburger <gregor.herburger@linutronix.de>, 
+	Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	Gary Guo <gary@garyguo.net>, Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH RFC 3/4] hwmon: Add driver for Raspberry Pi RP1 fan
+ tachometer
+Message-ID: <auDRHk8eaYife2zH@monoceros>
+References: <cover.1792748690.git.andrea.porta@suse.com>
+ <0d2249a66732bfce38a2260bee08cd1ba4097e51.1792748690.git.andrea.porta@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,43 +66,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wczsomz7ltpapr6j"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6455a4e9218729d68f73006ef532e6fccc0135cf.camel@surriel.com>
+In-Reply-To: <0d2249a66732bfce38a2260bee08cd1ba4097e51.1792748690.git.andrea.porta@suse.com>
 
-On Tue, Oct 27, 2026 at 12:25:20PM -0400, Rik van Riel wrote:
-> On Tue, 2026-10-27 at 03:43 -0700, Breno Leitao wrote:
-> > I am seeing NMI handlers in the Meta fleet reported as running for
-> > about 584 years. Over 30 days, 11 AMD and Intel machines logged 637
-> > such lines, for example:
-> > 
-> >   AMD EPYC 9D25 (family 0x1a, model 0x11, stepping 0x0):
-> >   [ 1650.616627] INFO: NMI handler
-> > (nmi_cpu_backtrace_handler.llvm.9643156322683129580) took too long to
-> > run: 18446744073709.551 msecs
-> > 
-> >   Intel Xeon Platinum 8321HC (family 0x6, model 0x55, stepping 0xb):
-> >   [360448.230129] INFO: NMI handler (perf_event_nmi_handler) took too
-> > long to run: 18446744071018.936 msecs
-> > 
-> >   Intel Xeon D-2191A (family 0x6, model 0x55, stepping 0x4):
-> >   [81787.188959] INFO: NMI handler (ghes_notify_nmi) took too long to
-> > run: 18446744073709.545 msecs
-> > 
-> > nmi_handle() times each handler with two sched_clock() reads. When
-> > the
-> > second read is lower than the first, the u64 subtraction wraps, and
-> > nmi_check_duration() treats the result as a duration. In the three
-> > examples, the clock went back by less than 1 us, by 2.7 s and by
-> > about
-> > 6 us.
-> > 
-> The comment above ktime_get_mono_fast_ns() makes
-> me wonder whether for time deltas we should read
-> raw TSC values, and calculate the time delta between
-> them afterward.
-> 
 
-This is sched_clock(); that *never* changes slope -- after boot, on sane
-hardware.
+--wczsomz7ltpapr6j
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 3/4] hwmon: Add driver for Raspberry Pi RP1 fan
+ tachometer
+MIME-Version: 1.0
+
+Hello,
+
+On Fri, Oct 23, 2026 at 12:15:56PM +0200, Andrea della Porta wrote:
+> Add a hardware monitoring driver to support the fan tachometer on the
+> Raspberry Pi RP1 southbridge, found on the Raspberry Pi 5.
+>=20
+> The RP1 PWM controller block contains specific MMIO registers that hold
+> the current fan speed in RPM. These registers are periodically updated by
+> the RP1 internal firmware based on the tachometer pulses.
+>=20
+> Since the Linux PWM subsystem does not currently offer a framework for
+> exposing integrated hardware tachometer readings, this driver is
+> implemented as a standalone hwmon device. It parses the
+> 'raspberrypi,pwm-tachometer' DT property to find the supplier PWM device,
+> establishes a device link to ensure proper lifecycle management, and uses
+> RP1-specific PWM functions to retrieve the RPM values.
+
+I wonder if the tachometer readout should be a counter driver? That
+would allow this driver to not be specific to the RP1 hardware.
+
+Best regards
+Uwe
+
+--wczsomz7ltpapr6j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrg0hIACgkQj4D7WH0S
+/k4tWgf/aBdc0sompTuoqGx4glA5Q7tPemfla+YycjTGdxt9ZwZgvezbioJbkniK
+oTXSogrYNoBat5wjHuBQluVrr7TxDUAYcPemNasPLXXw8YsFbuQ6VkxeNJxnoFLI
+efQX1S4xPFPOZogKw/pXdFopxrV3J+SGNyNzIKp5CLBHu+MipL78wMBX4W7j2IL8
+Fda5MbTg+pbz8BNA5NNmr1xbwLLt+hSSGommcetIOv16gzgyrKd0vZeEtFTsFQSS
+NQcPN9XQYOp9unKPk1L1FKip3M+uew5pmOyMYgGBhSoSVetzagYc7FF0YQwK6+Ai
+TrVi1WtPSfetPZ6w6o39mL5AThZ+Pg==
+=1ZwV
+-----END PGP SIGNATURE-----
+
+--wczsomz7ltpapr6j--
