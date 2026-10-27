@@ -1,99 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793087511;
-	b=EmYXKGqxWguGxeMPSYuhfO+cFW7VOkrM+CxTIlI/3q79CAiFeyur5kzB0R/9pUKbCQie
-	 f3ino7YcHImfEaaKhWTpfWWYcIlU4Wh+R6K0em9o1Ya5uNX3+nwJOCmnj5/D0fTkqSg+x
-	 Ajw0/Qpx3eCdzHHDe8yvZHbGYE6hyNUq6mjZ54SazIBWuwnmqhAFFuqlU8IAJ6dbKgqrk
-	 B1FEVHXyZIvfHRnAaQJv6t1XqQqRkQ1LNW3GREdbYJB4bzw8VqPX96XkoGLViNUmXYvEM
-	 i3wbzrulrCazpHz4zbk+4RYXoTEqniM5yYAuW04oDoNx0BMQ6UjtF0uOwJXgBjf94yA==
+	t=1793087587;
+	b=l8lWumdlRlSU2KoRbvF5/ljqPGIJK6LJ3AhMkKFzD0SqaEj/33sJH+8JEvDTZ6NtSMxD
+	 AdrmpUblTYhGndmmvTABQXlRdKNGaS4AewC4UDJsv9b7wf+BAfUzQUULVqIj1nmVd/1Si
+	 0g0p2KLPXry2mqugBHi/TzVdSyqFn10WV8bff5i8ADUgRwRb47sH6lXRLZcQQQY9mjfrI
+	 QNyCnLLR5YrMKoWlCiGfn2F6AkkbTWDc0otzjdJcVpNdSpy9qjwUsApc+Dzw51vNzy9On
+	 iqAcqWLf+0yOh+MNZ4BzcZ+58BaSpUB6y5OO/0S8KjcROlZVe4XGbRqRAOx7ZZmz1Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087511;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
-	b=ju3WyD7tm0T+1ABjol+tibsh//tPgiIwaLr+/WMdC8GVfYYjOVEZyHGHsACSfXBo9H51
-	 SKO+TqfHScOLg/hTpnszrr7ChtnQZ2CVeF+dB47QfcXVyOxE8Ekzw/wadDzux+iJ0o/Qo
-	 XXLK3/UhiQimTz7vEJIZx4n1+HwndRECigX4cP+DfSSkFRU2VvOGRels9w0vVipaU6MZ4
-	 BYNxSDT5UuuTWJkuX4RI9t6GQn2jethdu+bRS4cHkL+ko0LRhTtPLDspLpXqOwj1Gfpr+
-	 gXQ8HU3anbF2E6U/NfYJ+C5MjM1L2i3C4zuiBUPPCLwCJXtFczouzCj5QmOQETE1gIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793087587;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ncow6dC6njzXXu7ufdlagYld5QtR81SFHe3xp8WHXz0=;
+	b=ILyBbZzIoSTfCHo0P3pYJ0ZtXrnOTylIXW5aKmz3yIzC1pd4lbkZkiCFi1Fj/87fDklS
+	 ewBaLJZtcCmQWibPB5oOybXaqU0IlgON8jcdJZ3E0L659w1FaZjxS1g7xInUjSSADv8Zt
+	 QiZGnkTkq9AFR/QuSepA95E5Hzhp1LwhygkofEBWo7/5RZI8S16Z/nkgzTHFQ2uR9N2D0
+	 gPSq31dhE63N7YxJpN584UPig5d/RWsPHyYggEoJGJf34wJcpNCmoLAGWFCCIz8y13IdD
+	 4skk9WAvQb1vJb8Zri2vR92axG1tRU87vPi0xuJ6nZ4j1Hco6p0ptzlWvC/ExkodWqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Th5NzQaE;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gA+3QMcY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B51606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:51:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98B51606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9140606A31A;
+	Tue, 27 Oct 2026 07:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Th5NzQaE
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab98332238so2140556a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:51:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793087510; x=1793692310; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
-        b=Th5NzQaEUYOBrvxS+t97ujyJ6xOSEnTatgCKODt3mTYxgxQXhwzVuSyc10yg7JsvGl
-         0KSn6LlWG+wu0eJmO76dVr3pid9UXbQMAPNYvi2RXhW95Gyu7xL1VDPrtYBOwZGuB757
-         4W6PZeiP0hzZMNIvb9v7uLNgH8EbH9XOCXIjEqOpBMJ4/6Aku0habhJPpWeIi8K9fzcb
-         wdbW7pKb+qmqea+6E2ZNOXzCqxaVeYMyDDTXjLdh3Uj8YwmL5zcb5ghSEOtcznibSOiw
-         OM0sA9DFVlaaMZXUSGb0B2kAPSaD2HFuWMiTb7ZCwS31qdxVH8CWuyPw1Ci5moglEebd
-         xw9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793087510; x=1793692310;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
-        b=1zECe12JuzPgkwccRqn2YhrvzIqdaUW93kPRGsamya2IOhDWBoA9Dhx6tqp7IPi2By
-         z60W+mDNpS1FI2AGgUCsZcOw0yBSjcIXwUwzwKQ1GS4ItkKcMJXzoLw0GjCGtR3V3Rkw
-         inYIdM/G9x7O8+nqpk5AZAtlp5Syee/7W/jJ5w8BfdvZEhQc5XY47tjYYG84c4zEuAXh
-         EA02O5kdEHJ/yqSMK0MujSyiEaXXGG0mH66p9K21fugEGANCjiG3xF5DWtW+ggbTJI8B
-         m1BMwDe1d2K3cuMERtr8CKiEnGuN45CCNFWVn33rZnKySahodw5XLNcR7vUjoNmdg9zy
-         iARw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5Ce5AxyWNAUsGtARY2Dj70Gkpi/UPlLJhfhgzy//pQKnmCwFkTgayU9/PD2yvvZpkF/9tONTajlhimW8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKg3crWVSMgV8pj2PykflickXgWmnRe5lGgYqhkNPYfxezGk4pq
-	JE0nVOYt1eZpv035kfCSj4G0V00wHNxx2w+CKE/uEmy/Piv8ChkDdGkc
-X-Gm-Gg: AYBFou3OMBNJO55gbL2WboLcAmkAWDeuy47S/GJE1q+6jeQwe7lvX5D1ztBmWCd0BuM
-	dvWN7dOV61RgYpRSvao7SIUcXeugdNL+lLtgJNDDpjVxR1JPmB0Pibgf+w4sLHabqB9ccnlXj/B
-	akwX4bzAd3qtY/Do1mGx4TSu6AflyVmAlFjdU5GpslMsyKMJmrTHZ2hr5J3aa8dEbt2jR5tLShf
-	atyHFxMi4IlXxvIAdrL1zvhpMuOzE/cVj5WnIT9S4ymsX+ZH874PRuFebnrgpTAnHzqcz0nI3L/
-	FxiiTvOoA+UPcsO5kRphRlClHslkcNv49KXM5ZSqmVT/ZlvEOHTe1BNIz0w2nhzZmL9OCidDFsx
-	WGTYX9G7g8DIu3ou6kFeRi0x6SzYd6jsxhIGvnu/fgHOHST9feFX3sh9DjIcVB5dGsxaiNUujKa
-	ow5WcHepBuRfZTiVjGYI3TyKtNeoCQYr7pfP+0RIVb/3AJJC9PUf+Ilxw2ZSvp6JsZVRZAc8kwk
-	R+Tju7+7JK5NEtJAqQ48h+0wbXdorjjZOMV7P7MPMDSxxxbTEj2veyg1Dk=
-X-Received: by 2002:a17:90b:560d:b0:3ac:9ed8:f30d with SMTP id 98e67ed59e1d1-3adeafbb160mr7153902a91.39.1793087510014;
-        Tue, 27 Oct 2026 00:51:50 -0700 (PDT)
-Received: from debian.lan ([121.101.131.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40614d7dsm2542311a91.3.2026.10.27.00.51.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 00:51:49 -0700 (PDT)
-From: Amir Hanip <killdeath104@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Amir Hanip <killdeath104@gmail.com>
-Subject: [PATCH v1 1/2] dt-bindings: arm: qcom: Document Xiaomi Poco M3
-Date: Tue, 27 Oct 2026 14:51:15 +0700
-Message-ID: <20261027075116.41673-2-killdeath104@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261027075116.41673-1-killdeath104@gmail.com>
-References: <20261027075116.41673-1-killdeath104@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gA+3QMcY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54741F01825;
+	Tue, 27 Oct 2026 07:53:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793087586;
+	bh=ncow6dC6njzXXu7ufdlagYld5QtR81SFHe3xp8WHXz0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gA+3QMcYGunpp8qEs97x0hj+GghziZhSZhMcpYbjotXLOt73SajsBeKk+ElEhrlQZ
+	 Brh3757vexEnAQZmh7AbYTgUSj0wL6x/GQKtwjmnyGIdrwueJ+Xz7+D20yuqHqBg9e
+	 qbCt9kW7ymHV7htpGYSQR761ckLOmVBHpuxUiVlMNwEq/4KQdU45qPy36Yzg1keodW
+	 kBrYC+j9E8a/L8Sdu5BoOBAYJXh4J0gMuAO0x57W8sCLFvR6pv4BX0pg8gcOUEBgia
+	 k20nJWabBVzRj9GnoeFtBG29g6SgWhtCkVm2UUSuUw3w3g0c+QjWCWq8X6GDWihFtI
+	 xmmU7CgAzpRNg==
+Subject: Re: [PATCH net] seg6: fix tun_src RCU lifetime on namespace teardown
+From: netdev-bot+sashiko@kernel.org
+To: tristmd@gmail.com
+Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ david.lebrun@uclouvain.be, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ tristan@talencesecurity.com
+Date: Tue, 27 Oct 2026 07:53:05 +0000
+Message-ID: <179308758546.3134.12594467353635303069@kernel.org>
+In-Reply-To: <20261023195234.3524462-1-tristmd@gmail.com>
+References: <20261023195234.3524462-1-tristmd@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,28 +64,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add compatible for Xiaomi Poco M3 codename citrus, which is
-based on Snapdragon 662 (SM6115) SoC.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Signed-off-by: Amir Hanip <killdeath104@gmail.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Critical: 1 · High: 0 · Medium: 0 · Low: 0
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 121ca557c..8d2e4f0e3 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1068,6 +1068,7 @@ properties:
-       - items:
-           - enum:
-               - fxtec,pro1x
-+              - xiaomi,citrus
-               - xiaomi,lemon
-           - const: qcom,sm6115
- 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Critical] The patch adds a reachable NULL pointer dereference on the
+  seg6 datapath during netns teardown.
+
+--
+
+seg6: fix tun_src RCU lifetime on namespace teardown
+
+This patch adds a pre_exit callback to seg6 pernet ops. The callback
+saves the per-netns tun_src pointer in a new tun_src_old field and then
+clears the RCU pointer. The exit callback frees tun_src_old after the
+grace period that runs between pre_exit and exit.
+
+> diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
+> index 8c2b156c227a7..670052290e43c 100644
+> --- a/net/ipv6/seg6.c
+> +++ b/net/ipv6/seg6.c
+> @@ -447,18 +447,28 @@ static int __net_init seg6_net_init(struct net *net)
+>  	return 0;
+>  }
+>  
+> +static void __net_exit seg6_net_pre_exit(struct net *net)
+> +{
+> +	struct seg6_pernet_data *sdata = seg6_pernet(net);
+> +
+> +	/* Save tun_src for exit to free after the RCU grace period. */
+> +	sdata->tun_src_old = rcu_dereference_raw(sdata->tun_src);
+> +	RCU_INIT_POINTER(sdata->tun_src, NULL);
+
+[Severity: Critical]
+Can this cause a NULL pointer dereference in set_tun_src() while the
+netns is being torn down?
+
+set_tun_src() in net/ipv6/seg6_iptunnel.c assumes tun_src is never NULL.
+If the route has no per-route tunsrc configured (the default), it does:
+
+	rcu_read_lock();
+	tun_src = rcu_dereference(sdata->tun_src);
+
+	if (!ipv6_addr_any(tun_src)) {
+		memcpy(saddr, tun_src, sizeof(struct in6_addr));
+
+ipv6_addr_any() dereferences its argument in both config variants, so a
+NULL tun_src faults there.
+
+In ops_undo_list(), all pre_exit callbacks run first. After that comes
+synchronize_rcu_expedited(), then ops_exit_rtnl_list(), then
+ops_exit_list(). The netns devices are unregistered later, in
+default_device_exit_batch() during the exit phase. That means the dying
+netns keeps its registered devices and seg6 lwtunnel routes after
+seg6_net_pre_exit() has published NULL.
+
+A packet that arrives in that window, for example from a veth peer in a
+live netns or from a physical NIC, would follow:
+
+seg6_input_core() / seg6_output_core()
+  -> seg6_do_srh()
+    -> seg6_do_srh_encap() / seg6_do_srh_encap_red() / seg6_do_srh_inline()
+      -> set_tun_src()
+        -> ipv6_addr_any(NULL)
+
+This runs in softirq or xmit context. The grace period does not close
+the window, because it only waits for readers that already exist.
+Readers that load the pointer after the clear still see NULL.
+
+Before this patch, tun_src was never NULL between init and exit. Would
+it be better to leave the pointer in place and keep the kfree() in
+seg6_net_exit()? By the time exit runs, a grace period has already
+passed.
+
+seg6_genl_get_tunsrc() also passes the pointer to nla_put() without a
+NULL check. That path is probably not reachable on a dying netns, since
+a genl socket holds a netns reference.
+
+> +}
+> +
+>  static void __net_exit seg6_net_exit(struct net *net)
+>  {
+>  	struct seg6_pernet_data *sdata = seg6_pernet(net);
+>  
+>  	seg6_hmac_net_exit(net);
+>  
+> -	kfree(rcu_dereference_raw(sdata->tun_src));
+> +	kfree(sdata->tun_src_old);
+>  	kfree(sdata);
+>  }
+
+[ ... ]
+
 -- 
-2.47.3
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023195234.3524462-1-tristmd%40gmail.com
