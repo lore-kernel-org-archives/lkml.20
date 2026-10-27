@@ -1,105 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793113873;
-	b=SI4oxTDAR+UepNNC5Pl3lDCTAscsV9gm0lf3g/acNSR4kFQNUsNsPjPc7hhFq1+8LbU+
-	 Sjtlq5NRmmuKnVQ+/QTpdM6/Jj1RCd3oDgqyJ876xf/mVMpY01Y4yGaSI2iwCh80v/cmv
-	 yB+PvaiGh4ES8G3yFg7GSf+6ZjcM9MDCWDgez2dVJkyMQZlNZ6GZn0EcX8CJpU6VwKneb
-	 BGrOyhf3nC5jvp+X5+KdXxoW2mQl1TXkX4F7AK0xpDC5d7O5pAQAczIMq9WsgEh8P5sfZ
-	 Umka/HCx68beRiZX+be+IsvW5UxdNAAqshk5p/ww1gyHTQxc52BALrPF23HfwO0O1nQ==
+	t=1793113989;
+	b=H046APdmDWcV34KNNxhq8dKykvFku/9gG3ayD7T9s8tmsNsh0BbdOgKK0xVoE/FT/8z8
+	 b9E+osK/eVGgL+LVmge0toUqspSrHV/wpMkyBQtWRKxuutWKsKKgVNxg+/dVeBaT0DnEs
+	 P+uxxBci6fdEbGbeJDU4X3Ujwju4Ne0B6AM2fboNicUTYT+xxtn6oyYF0cwkl7OV5UpZs
+	 /clrGUoxU+2BwQaVngoOpa/ygDccye0TX2BWKliEY3aG2hiq6BsM5hBHd8bvd+X+1e1JJ
+	 GbBaoD7D769pE+Yx37u1K64fQdCqKVNykfOhUjuN4XkF4OSzMNLIwJNmp89jGlXIs5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113873;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=jqoascS4J1xrxtLwHHAIg2Izm1gSs4oGkns3pfwc1iQ=;
-	b=BBExqtjJ4siXVU8d476/az9xf6K+9fvFrwHL9b0L34lSSYJctjfpxWXsPvozrCyrNPl7
-	 fVuNULGS4RgH6Cd8MVwyfpJvneWEqinwrTrGxW3GyQ6HIJ0S7VVf389nACiqZTGOtgEcM
-	 sEzAziKJ20KoCXvMVgD44uBuCUFsrls47zYwzKBYQiZS3jUXymbT3qL/9qDlX3y6is0i/
-	 SDGFYi82v+83rXELeFayrG4HFpbwfsjzp2ebHT+OSi1YNzYQEzy+4++h+DkKVzfmC0Wou
-	 GiGV0af+k/1czJfAamnJetLq+TGBLuTdv7l3mr+0c+hb/8wSyCywQsD8idlmbbaciWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113989;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=A11UcNxxpBKAvqXF0gV8apwz9UitmN7B7nDEh6KsEgg=;
+	b=ejsZWZ9UNltfPPnkWTe0LCW8CwfVFRBZIIlYtTydCaVCJQPQP+sWI1++T1o09+5MQdAn
+	 huGo6crJdnOj8sdIoIuzkZBISulwFd8lwzOPPnoT5wewwklJ8NPJN+KrWeCTFB3weMK30
+	 nJSdmQXRNdgXHcOxQHUjgYmLONRaAW2Wp6Qvj9A5JbO28JRO246XYgltExQhZLr98qtGU
+	 mjm8fbx3BKwwmMA8+Zw3fjADN/CYJc3IvOi8lKLoyrsSorRuGO886bTd3hj7a+hixDHvy
+	 QWGdsx6XN0FGFHifcWQ/44IT6f1HjjaOVUrQoTE4/NhRFzIHEMtwQkRSlsBRwLLWlJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NkaS4vQ1;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h2zPKxj9;
+	arc=none smtp.remote-ip=91.218.175.65
+Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54A4606A320;
-	Tue, 27 Oct 2026 15:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C54A4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5B1606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A5B1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NkaS4vQ1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793113873; x=1824649873;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ht+lWxjxFQjahKK+nQbRKL3Gie3yJ91mjgPB+kUqqEE=;
-  b=NkaS4vQ1Fmf6xT6cU1mld9yT3APIdNP+k7vk91xsRbfO+6Ca/mtyHhWO
-   n+r+/7XQ2cQg2LpWMomdOJ4Tb46C8SMsZFWhXDgm6KpC2pcCXxguEeEzh
-   zcOqOPgLwOfHC20GF9e6kWKlULolFh/b5KmfQ5jAzKI7D+52KTgfEJt68
-   Zg/NGGIvgCWFQhV9YZ9RrqJrLWBQhE3CnYIlVwmM7yb8yZP5LC90V/uJz
-   V1uNEIEvqN1ffP0IEDG7w8JzR8eJTSGnq0w+qLfTKpiY7tWSALCsMhlH4
-   ZyIHqRGOafkSkG/LOeli0J6FKbD6kWtLyvvqqKif6cpX8GJdrH4HLBkzI
-   A==;
-X-CSE-ConnectionGUID: hQB9p/FyQMOjTrU8KPmQTQ==
-X-CSE-MsgGUID: Q9vDurQoRP61KqkkNMiHJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1905840"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1905840"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:11:06 -0700
-X-CSE-ConnectionGUID: vV+TPVzvRguZxExWATLPmA==
-X-CSE-MsgGUID: XZ1cYataRoiIvngmHg9Owg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4904054"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:10:57 -0700
-Date: Tue, 27 Oct 2026 17:10:55 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Peter Hurley <peter@hurleysoftware.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Olof Johansson <olof@lixom.net>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Robert Baldyga <r.baldyga@samsung.com>,
-	Thomas Abraham <thomas.abraham@linaro.org>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
-	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, stable <stable@kernel.org>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Subject: Re: [PATCH 09/24] serial: 8250: 8250_bcm7271: fix DMA address
- truncation to 32 bits
-Message-ID: <auC-_1Er0Kp-Wq76@ashevche-desk.local>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
- <20261027-tty-llm-v1-9-99b0202ae546@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h2zPKxj9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ot09Lr391s+gD9VJ0ej9HLZWHTp2K0z3o3CPA/71abg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793113984; v=1; x=1793718784;
+ b=h2zPKxj9hJ7iHcYoEOlylHGhe9wqrk7G6TbhNi592kKmxl11nUOM/uxiE7VVwGfy6A+YfTdm
+ jR0UwC9PyVOu/vzkL5WW6OpKREhTcRCSENpZxlzsCfnaY2J3nCcmZWHkRVna9k/DYKcNXFq/Zl3
+ QDoW2xSetQ2fILNwH3f+QYTY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 86b784ba5ef37df9;
+	Tue, 27 Oct 2026 15:13:04 +0000
+X-Mizu-Trace-ID: 86b784ba5ef37df9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a005dddd-a495-45f4-ac43-7d708eea009c@linux.dev>
+Date: Tue, 27 Oct 2026 23:12:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,26 +58,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-tty-llm-v1-9-99b0202ae546@linuxfoundation.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@linux.dev, Adrian Hunter <adrian.hunter@intel.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 4/6] mmc: core: Split sdio_set_host_pm_flags()
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-5-ulf.hansson@oss.qualcomm.com>
+From: Shawn Lin <shawn.lin@linux.dev>
+In-Reply-To: <20261027144051.249211-5-ulf.hansson@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:06:35PM +0100, Greg Kroah-Hartman wrote:
+Hi Ulf,
+
+在 2026/10/27 星期二 22:40, Ulf Hansson 写道:
+> To prepare for a subsequent change, let's split up sdio_set_host_pm_flags()
+> allowing the second part of it to be used as an internal function for the
+> core.
 > 
-> The local variable daddr is declared as u32 but assigned from dma_addr_t
-> fields (priv->rx_addr and priv->tx_addr), which are 64-bit on ARM64.
-> This silently truncates the upper 32 bits, causing upper_32_bits(daddr)
-> to always produce zero when programming the UART DMA descriptor high
-> address registers.  Change the type to dma_addr_t to preserve the full
-> DMA address.
+> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+> ---
+>   drivers/mmc/core/core.c    | 9 +++++++++
+>   drivers/mmc/core/core.h    | 1 +
+>   drivers/mmc/core/sdio_io.c | 7 +------
+>   3 files changed, 11 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
+> index 677e445dc48c..49c0494932cc 100644
+> --- a/drivers/mmc/core/core.c
+> +++ b/drivers/mmc/core/core.c
+> @@ -1422,6 +1422,15 @@ int mmc_handle_undervoltage(struct mmc_host *host)
+>   	return host->bus_ops->handle_undervoltage(host);
+>   }
+>   
+> +int mmc_set_host_pm_flags(struct mmc_host *host, mmc_pm_flag_t flags)
+> +{
+> +	if (flags & ~host->pm_caps)
+> +		return -EINVAL;
+> +
+> +	host->pm_flags |= flags;
+> +	return 0;
+> +}
+> +
+>   /*
+>    * Assign a mmc bus handler to a host. Only one bus handler may control a
+>    * host at any given time.
+> diff --git a/drivers/mmc/core/core.h b/drivers/mmc/core/core.h
+> index 9be2875608ce..d3a2ff00b18f 100644
+> --- a/drivers/mmc/core/core.h
+> +++ b/drivers/mmc/core/core.h
+> @@ -64,6 +64,7 @@ int mmc_handle_undervoltage(struct mmc_host *host);
+>   void mmc_regulator_register_undervoltage_notifier(struct mmc_host *host);
+>   void mmc_regulator_unregister_undervoltage_notifier(struct mmc_host *host);
+>   void mmc_undervoltage_workfn(struct work_struct *work);
+> +int mmc_set_host_pm_flags(struct mmc_host *host, mmc_pm_flag_t flags);
+>   
+>   static inline void mmc_delay(unsigned int ms)
+>   {
+> diff --git a/drivers/mmc/core/sdio_io.c b/drivers/mmc/core/sdio_io.c
+> index 12716ec0e35d..99f857514b63 100644
+> --- a/drivers/mmc/core/sdio_io.c
+> +++ b/drivers/mmc/core/sdio_io.c
+> @@ -726,12 +726,7 @@ int sdio_set_host_pm_flags(struct sdio_func *func, mmc_pm_flag_t flags)
+>   
+>   	host = func->card->host;
+>   
+> -	if (flags & ~host->pm_caps)
+> -		return -EINVAL;
+> -
+> -	/* function suspend methods are serialized, hence no lock needed */
 
-Since this value goes to HW, it should be u64. Even on 32-bit machines there
-are possibilities to cover a bigger address space / DMA space.
+This is an API for sdio function driver, should we preserve this commet 
+here?
 
--- 
-With Best Regards,
-Andy Shevchenko
-
+> -	host->pm_flags |= flags;
+> -	return 0;
+> +	return mmc_set_host_pm_flags(host, flags);
+>   }
+>   EXPORT_SYMBOL_GPL(sdio_set_host_pm_flags);
+>   
 
