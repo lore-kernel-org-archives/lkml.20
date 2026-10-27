@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086268;
-	b=LLC1kmP8VFRDJwV+UIUCXZou8jiwDVtK8wlBjJoyXy09/JQ8eoZcuRjt/qp+/gwngpW0
-	 jqmwZ5Av1nLU0dOXWh2goVuhh6AXBj2f1wiGqP43wWFLYKEOlcqc2lgYWHwBnUutlsK29
-	 /8hF8C9631tgpsjUU8XK2UD1aZW1usZnFztGj3nhR0QFBkcUU4d0ezauKTgaJ/kT7P+6J
-	 U5ZUrgZNPWDCMlwKwr5qw9KVfpwrk52Lu6gG604MrMX2vDroQCm4ZB5eaEUW/RKQM949o
-	 tCq7iqHTBiyt8xE611C1ZGK4/JshiqFpz4Esr8JRgfJ1/rLpj7TjjKvrwo88NOmZoqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086268;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=TSzWHCPYD+61FDYzvIaUM/XSpeBKrTUMpoKDAlcttLw=;
-	b=K86N8BVr8zBIhOOCCNgdYZLHmZvwmAIhfSuaS44nV+XjT5BV5gF41a4EoCcAuF6cw6Ab
-	 pkzIMxWHNKsaSG61pgU4dK5NZLaU/DiR/dhplzYXi550NHzUL9R6Ugm18U4l2CIMBevYL
-	 Yz+8iYYVKdgQmGVYrfjQhfR/EebLiSXTAx8E+y0+TrwDTwUWXXTrOOru2QcKbQqX8uI75
-	 HyM67VSDcO1byjcqQS/KuRqKW89iT2V4OKoSegLmMCO/isuf0UgaG4idAakWlnQJpSUwW
-	 39ooH9yIa9bBlQ/Tk53n2hPLpKFxaSf5RvK+LPJsPo6SmtONbsarFtfXDH+IfXy3C6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7g9fxfM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793086344;
+	b=Ypy15r2aiaTu54PHxJKVLBwj/fAeP7l3hm7Z4mjxXUu0S3fIc8gBME6fpYcvoTJLOrwZ
+	 nViINOIAsdNyrxPCOe/ZEfrIfv16u7q80zs0qK3dAMyIk0HAe7epT3kGgPRAvfPznIkzF
+	 matdj3RWl0cmWVhOPYqy8vWV97q+BHkcCB6pQCmCz19vTmBrJ1mz5O5U7bzhdK56APWZ2
+	 6aqcvO/ihFbcgFeHY/9czMj6NoJVFztzFFAFNrofWAVyZ3Z43HU3xmWb3QgAczL1lCP6G
+	 qqw5vxqrswmTMwGS1l5LFcmiANyn/6ZULX76Wj+c02dQaAalhpetWjSqhB/1UUHhIEA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086344;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
+	b=uEnVYAq2jmGjcmqVB7WNTM7o8bZnVoPTtcvDYAOJ6XMsoLnhkx5xeIpHygJ/tdBCa6Gf
+	 NiCpUoDNyj1CHGvGEQhT8DjnNv5mu90w3uz87T2vvCHIp5b++evCzWOaaI4/G+vQEcEvU
+	 7gdTwfNj1CJuGMjiaOiPFjrlJsHglEwjKU5YC5DHlKIP2VvPkj7p0M/+sKi/KiQPasT/7
+	 hH57dknTwiGc+5g/8SmsJAZINlPisZ/FO/GeawwuSHzHrOb/9qv8knF+IBdQRruHu2hWp
+	 wh7DZ1KX0oaGAjBNbc/zTyOEmVFPAOKFT3xnOEH1QEHs2G+JqaZvtE411Km2rUAoYiQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YL8BP8wy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4402C606A31A;
-	Tue, 27 Oct 2026 07:31:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1F0606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:32:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE1F0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7g9fxfM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E4D1F01825;
-	Tue, 27 Oct 2026 07:31:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793086267;
-	bh=TSzWHCPYD+61FDYzvIaUM/XSpeBKrTUMpoKDAlcttLw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=M7g9fxfMXawEb4o84LE3DlT49o4CGS+NuHl7wlKbmcWmn4I7EOZMpv1Rr60pITHgg
-	 Dqub4aRSd6IBNEnL3hUn1HiryZFfKQvr9frfsy2q//7GeQbxvG3TGmqZklF85tx4oq
-	 P7f58F8+wY6DAAMmzRxaE/F/12KTxkDHKEdgbEvmUBxrgpcmdUKMdcdFdFvizKt4P3
-	 m2gB66ToFe2tv+cAeDe4ouaXIp3kEuLfI9Ouals+wH76B2F6TacSsrBKriNZXpW1pu
-	 cZ2U+ndptccftx8WpToOR3zREPcneEIxezbP86VemeGq0XX+Qwr5VLmw+24yOyMjRo
-	 VlWnCOTp507gg==
-Subject:
- Re: [PATCH net v3] xfrm: esp: reset outer TCP GSO metadata on espintcp input
-From: netdev-bot+sashiko@kernel.org
-To: yangguoshuai@gmail.com
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- sd@queasysnail.net, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 27 Oct 2026 07:31:06 +0000
-Message-ID: <179308626642.3134.14988418944940808850@kernel.org>
-In-Reply-To: <20261023065311.65031-1-yangguoshuai@gmail.com>
-References: <20261023065311.65031-1-yangguoshuai@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YL8BP8wy
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e9eb579c0eso21682985ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:32:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793086343; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i3tYONOa1e9jDbTTHPaZdx1clXXWVjYuBrkGaYdXOxKRXJOmsjyq33WZrQqxOxpoOc
+         y91AamYcjJXgkN0YV4KhYr/AKJxAWXBAWaWM6Dk40kdZ0wTvXkWm1jEc33ER0ue6/PNK
+         Y/eA87xBzczTE4V77Rc0wPN9E/oy+oRtycvNIn920ThYFTv15A/SN8WD9dXs04Bwzxqi
+         M/Jg1zbn5fyC+LK+Ke5UyKt/ioytIDWwvElopWBLfoXF4UY1CKnUAYdJlnRDDkpZHPor
+         mwZH5EovAh8fnFAwya8EFoWJ0CxvEDBWTYk2tnAXY+GUwNMOogUlthn4VBX2uhdXqcdc
+         1Zaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
+        fh=NoRUVrdAtNn0rgZBTFE/9rwMW5CoTCM8GkNaMd59mUk=;
+        b=MkVHRD+519XwOvvU8LFHArVLxyKgWNKMooMvVd3oIQ+X4TeK5wVjMXXJXOPp5+UZ2g
+         rUL9VDuK7ertILUhp3nWV+cviJelIDKGb7OvWZn0T+8RThEZ72PHv1JLqtKosYU1T2oo
+         9LEIMJpeszAoof6JSEYT4PYJd5X1v5D0SyXMXlMj1yljxpT7jEHjKEpkIhFyAIxapfme
+         q58lxQoKnviV3IlUVkMzH32ng5mgrNuyCnm6TfLpCDTpy877rkUzYe9jS0+MRpsmJWZ3
+         f9Rp5A+12T6APUUwP5muh4W9ANqLuSRWgo4OpauczkVSv4P2O0meDgw0uJBv3ezeQvgv
+         mdUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793086343; x=1793691143; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
+        b=YL8BP8wyexK/8SFCO6OfsU0UaXLGTHRdaSjVBfthdxT1em3vn+LU1OwRwHpjjKSe85
+         xbIdgiqC24a71dwg6nLRJ7AevpIiXtaYPBBBdaBeMo6O3nDYhQbxz1T3IpcSrbMhz1aD
+         TT/dNLYNXzXVACoviOpQfR7Iu8F63ueoQLTIDvqkLM7qMSpfMiWi/xBwCbBKZry0pY7r
+         epkz7daeoH6cBlCntkg02KdZJI06KQEb4XOjHfUVbPMkO+PNv//rpRqVQkIkD23g0qEE
+         ORrDS6JnsryHSsbuv7pubZi/pecDF1pFQB5PyYuagf2LBpPEZDaiYFzNzQiJzfHTEHAb
+         WpFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793086343; x=1793691143;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
+        b=nCfCL3gN1jE/ulvf8zTpOlAk2cuCfxgr9kqxpZiDjOwXb2ZKcAj9ZNKfU5mjpcG2by
+         pejugwm0THXPybXAq4tunybW/mqE+RDqxseg71+nWGQ5UQ0cOpJPOsojcPuPsFmwiskL
+         F2KQEe61x9WcNJEAwIRBWyfsWnzRzMgpGM1vcTas1oZJpoFGrs8pgmfEVl+8lWf5M8AX
+         +0NpssNBUzUP9C1APEpdh7e5noD+REk9QV4SopZXob0xIwnDy0/r/dc6lkB1DQX638zw
+         LDfHKM/P4h8aRrBeHJ3NH+VpJD2Ma6ouihqoE45d8nF8hKv6jAwizIMrk7RjjEK54qzr
+         2l9w==
+X-Forwarded-Encrypted: i=1; AKwUvByu1gJhojmmiuuaori/z/s9yzozzH1sWteRdlxZBP5tJm9EMpbxiO3UQ0c14AjNMmem8Bln1y34Sx/tufk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRwmc0GkVFB2G4PnuFdKIEFEdaRRIqefod5Y6v7SLobYvcOs5q
+	vbm7LHwhWc+Jebxsb17FR/2KVQyvaTwVVpcy4y2VeNCSoKBzZ4Sccu9iKVsnV45VlWiW1j7n84c
+	EkqzkGpuINdp2YY2tTCILG7Zj6MWchrY=
+X-Gm-Gg: AYBFou3SQmFItg5BJEvLuJdZc/QCKacNLYP24WFjF87wcRp1bZPMtrH5WGefNPooX1i
+	2NvT/aPG7T7NO8jH7zk7fZ1YooT41yVVvryY8S5bTcvxJaDd4IKnFq1dc2Sg9nnqFqyzTUixIjm
+	zQ2qYPGsA3YwBblGC6/6ikPLgI0lxFTtLZeABps24n7zPKx9PVA762y3zDzEuw+qQ7KxLksbygJ
+	30TQl8gQBvlvn2oBKTEJ6815EvIykzKv46naGP1gdofO/yhyV3LZyPoIyaRTEJGsWPhYF/WN5KT
+	y8fJgwh3HJAahZpa8dQCQIXo9VCZm2Bjz/tDKz4KORat5ItiFdSgUFIyWSy11Az9//joLN6Okyy
+	YnpUMJQLxy8+7U2VG3XEWC5W6tz63fGoqvg1ktKI1m81e6ds4mtVs
+X-Received: by 2002:a17:902:cf12:b0:2e9:66c4:1713 with SMTP id
+ d9443c01a7336-2ea9c917ba4mr66194015ad.58.1793086343005; Tue, 27 Oct 2026
+ 00:32:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,182 +104,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261026003918.155321-1-pmazzini@gmail.com> <20261026003918.155321-6-pmazzini@gmail.com>
+ <f68279bc-20f1-41a9-ba5c-92b974785cd8@roeck-us.net> <20261027002635.6b831c0b@kemnade.info>
+In-Reply-To: <20261027002635.6b831c0b@kemnade.info>
+From: Pablo Mazzini <pmazzini@gmail.com>
+Date: Tue, 27 Oct 2026 07:32:14 +0000
+X-Gm-Features: AclHuK8Ysr_hMD-q4J-bxGC_qjlgkxL35TncLn6mKe9lS8sJrvJ37KNEcPQTV5s
+Message-ID: <CAAxh=jsKe95EsKnTypXtfTxGhYCMO1E7U=hWb3y6DBpgoiOVUw@mail.gmail.com>
+Subject: Re: [PATCH 5/7] regulator: sy7636a: report the temperature
+To: Andreas Kemnade <andreas@kemnade.info>, Guenter Roeck <linux@roeck-us.net>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, 
+	Alistair Francis <alistair@alistair23.me>, linux-hwmon@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Hi Guenter, Andreas,
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+On Mon, Oct 26, 2026 at 07:35:24AM -0700, Guenter Roeck wrote:
+> This is going the wrong way. The correct solution would be to convert
+> the hwmon driver to an auxiliary driver.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Understood. In v2 the hwmon driver stays in drivers/hwmon and becomes an
+auxiliary driver of the regulator, which binds the I2C device directly.
 
-- [Medium] The commit message presents a crash as the current failure
-  mode: skb_segment() 'hits BUG_ON(!list_skb->head_frag)', followed by…
-- [Medium] esp_reset_espintcp_fraglist_gso() (include/net/esp.h:31-71)
-  replaces a shared frag_list member by writing `*fragp = frag` (line…
-- [Low] The commit message names 'rx-gro-list is enabled' as the example
-  trigger for the SKB_GSO_FRAGLIST case.
-
---
-
-xfrm: esp: reset outer TCP GSO metadata on espintcp input
-
-This patch clears stale outer TCP GSO metadata from espintcp ESP records
-in esp_input() and esp6_input(). Before skb_cow_data(), a new helper
-unclones the head and any frag_list members that carry SKB_GSO_FRAGLIST.
-At skip_cow, skb_gso_reset() is called on the head and on every
-frag_list member.
-
-> Furthermore, if an outer TCP GRO aggregate carried SKB_GSO_FRAGLIST (e.g.,
-> when rx-gro-list is enabled) and was chained onto
-> skb_shinfo(head)->frag_list by __strp_recv(), skb_cow_data() invokes
-> skb_copy() / skb_copy_expand() on that frag_list member and hits
-> WARN_ON_ONCE(skb_shinfo(skb)->gso_type & SKB_GSO_FRAGLIST), failing with
-> -ENOMEM before decryption even begins.
-
-[Severity: Low]
-Is enabling rx-gro-list enough on its own to reach this case?
-
-tcp4_check_fraglist_gro() looks up an established socket in the netns of
-the GRO device. It enables fraglist GRO only when no socket is found:
-
-net/ipv4/tcp_offload.c:tcp4_check_fraglist_gro() {
-    ...
-	net = dev_net_rcu(skb->dev);
-	sk = __inet_lookup_established(net, iph->saddr, th->source,
-				       iph->daddr, ntohs(th->dest),
-				       iif, sdif);
-	NAPI_GRO_CB(skb)->is_flist = !sk && !skb_is_gso(skb);
-    ...
-}
-
-tcp6_check_fraglist_gro() does the same.
-
-An espintcp flow always ends at a locally established TCP socket. If that
-socket is in the same netns as the GRO device, is_flist stays 0. In that
-case only plain SKB_GSO_TCPV4/V6 state reaches esp_input(), and the
-skip_cow reset handles it without the new pre-pass.
-
-It looks like esp_reset_espintcp_fraglist_gso() only matters when GRO runs
-in a different netns from the espintcp socket and the aggregate arrives
-unsegmented. One example is a host NIC forwarding into a container over
-veth, since VETH_FEATURES includes NETIF_F_GSO_SOFTWARE and so
-NETIF_F_GSO_FRAGLIST.
-
-Could the commit message describe that topology? Could it also say that
-this half of the fix depends on TCP fraglist GRO? That feature is much
-newer than e27cca96cd68 from the Fixes: tag, so on stable trees without it
-the pre-pass does nothing.
-
-> stale gso_size and SKB_GSO_DODGY is not set, skb_segment() attempts to map
-> the slab-backed frag_list member as a scatter-gather page fragment and hits
-> BUG_ON(!list_skb->head_frag):
+On Tue, 27 Oct 2026 00:26:35 +0100, Andreas Kemnade wrote:
+> But it introduces another race condition.
+> The temperature might be read too early.
+> 1ms delay should suffice.
 >
->   Internal error: Oops - undefined instruction: 0 [#1] SMP ARM
->   PC is at skb_segment+0x574/0xd20
+> The  SY7636A_OPERATION_MODE_CRL_ONOFF flag might be reset before
+> reading the temperature. If that register does not reset to zero
+> but just keeps the temperature last read, then we have no problem.
 
-[Severity: Medium]
-Is there still a BUG_ON() at this point? In the tree this patch targets,
-skb_segment() handles the condition like this:
+Good points. For v2 I read power good (0x07) and the temperature (0x08)
+in one I2C transfer, and return -ENODATA unless power good is set, so no
+locking is needed.
 
-net/core/skbuff.c:skb_segment() {
-    ...
-				} else {
-					if (unlikely(!list_skb->head_frag)) {
-						DEBUG_NET_WARN_ON_ONCE(1);
-						err = -EINVAL;
-						goto err;
-					}
-    ...
-}
+Thanks,
+Pablo
 
-On current kernels, segmentation seems to fail and validate_xmit_skb()
-drops the packet. A warning appears only with CONFIG_DEBUG_NET, and there
-is no oops.
-
-Could the commit message say which kernel the trace came from? Could it
-also describe the behavior on the kernels this patch targets?
-
-> diff --git a/include/net/esp.h b/include/net/esp.h
-> index 322950727dd0a..09ed682209113 100644
-> --- a/include/net/esp.h
-> +++ b/include/net/esp.h
-> @@ -28,6 +28,57 @@ static inline void esp_output_fill_trailer(u8 *tail, int tfclen, int plen, __u8
->  	tail[plen - 1] = proto;
->  }
+On Mon, Oct 26, 2026 at 11:26=E2=80=AFPM Andreas Kemnade <andreas@kemnade.i=
+nfo> wrote:
 >
-> +static inline int esp_reset_espintcp_fraglist_gso(struct sk_buff *skb)
-> +{
-
-[ ... ]
-
-> +	if (skb_unclone(skb, GFP_ATOMIC))
-> +		return -ENOMEM;
-> +
-> +	for (fragp = &skb_shinfo(skb)->frag_list; (frag = *fragp);
-> +	     fragp = &frag->next) {
-> +		if (!(skb_shinfo(frag)->gso_type & SKB_GSO_FRAGLIST))
-> +			continue;
-> +
-> +		if (skb_shared(frag)) {
-> +			struct sk_buff *nfrag;
-> +
-> +			nfrag = skb_clone(frag, GFP_ATOMIC);
-> +			if (!nfrag)
-> +				return -ENOMEM;
-> +
-> +			nfrag->next = frag->next;
-> +			consume_skb(frag);
-> +			frag = nfrag;
-> +			*fragp = frag;
-
-[Severity: Medium]
-Can fragp point at the ->next field of a member that is still shared when
-this store happens?
-
-When the head is cloned, the skb_unclone(skb) call above goes through
-pskb_expand_head(). That calls skb_clone_fraglist(), which only takes a
-reference on each member:
-
-net/core/skbuff.c:skb_clone_fraglist() {
-	skb_walk_frags(skb, list)
-		skb_get(list);
-}
-
-After that, the old shinfo and the new shinfo both walk the same ->next
-pointers.
-
-Take a chain A -> B where A has no SKB_GSO_FRAGLIST, B does, and both are
-now shared. The loop skips A with continue. It then clones B into N, calls
-consume_skb(B), and writes A->next = N.
-
-A is shared, so the other owner's chain now points at N as well. B still
-holds one reference but is no longer linked anywhere, so it leaks. N has
-users == 1 but two chains reach it.
-
-skb_cow_data() runs next. It sees that A is shared, copies A and
-everything after it, and calls kfree_skb() on N, while the other owner's
-A->next still points at N. Can that lead to a use-after-free or double
-free of N?
-
-The -ENOMEM returns after this point can leave the same cross-linked chain
-behind.
-
-This relink pattern looks like it comes from ___pskb_trim(). That function
-handles skb_shared() on every member before skipping any, so it never
-writes through a shared predecessor. Would it be safer to privatize every
-member walked so far, including the skipped ones, or to copy from the first
-shared member onward the way skb_cow_data() does?
-
-I could not find a current producer that hands esp_input() a cloned head,
-or a shared non-FRAGLIST member in front of a FRAGLIST member. strparser
-unclones the head or allocates a fresh one before chaining. Still, the
-skb_unclone(skb) and skb_shared() branches here exist only for that case.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023065311.65031-1-yangguoshuai%40gmail.com
+> On Mon, 26 Oct 2026 07:35:24 -0700
+> Guenter Roeck <linux@roeck-us.net> wrote:
+>
+> > On Mon, Oct 26, 2026 at 12:39:16AM +0000, Pablo Mazzini wrote:
+> > > The separate hwmon cell enables VCOM at probe. Report the temperature
+> > > from here, as the TPS65185 and FP9931 drivers do, and under the chip
+> > > name as they do: read it while the rails are on and return -ENODATA
+> > > otherwise. Boards that need the rails on mark VCOM always-on. Drop th=
+e
+> > > hwmon driver.
+> >
+> > This is going the wrong way. The correct solution would be to convert
+> > the hwmon driver to an auxiliary driver. I am not going to approve
+> > this patch. I am not giving an official NACK (yet).
+> >
+>
+> First we need the problem defined, then the solution, and then we can
+> talk about what is the correct solution. The commit message does not
+> name a problem.
+>
+> So what we have:
+> one bit to turn on a bunch of things,
+> after one time to sample (< 1ms), fresh values are provided on the ADC
+> register periodically.
+> after some more time (max. 50ms), several voltage outputs are ready.
+> Powering on those things is expensive, so you would not use this as an
+> ordinary temperature sensor.
+>
+> The problems I see in the sensor driver this patch might want to solve:
+> - problems if the regulator driver is registered earlier.
+> - not having powered on the regulator all the time (that is described
+>   in the cover letter)
+>
+> The way the patch handles it does not require any structural change,
+> availabitily of the regmap is given. So it would be a separate cleanup
+> patch.
+>
+> But it introduces another race condition.
+> The temperature might be read too early.
+> 1ms delay should suffice.
+>
+> The  SY7636A_OPERATION_MODE_CRL_ONOFF flag might be reset before
+> reading the temperature. If that register does not reset to zero
+> but just keeps the temperature last read, then we have no problem.
+>
+> If not, there needs to be some synchronisation between the regulator
+> part and the sensor part, probably a mutex saved in a common structure.
+> And in that case, structural change of the drivers is needed which
+> I see the following possibilities:
+>
+> a) non-simple mfd driver
+> b) aux device as a child of the regulator driver.
+> c) regulator driver containing everything.
+>
+> No strong personal opinion here.
+>
+> Regards,
+> Andreas
+>
