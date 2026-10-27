@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139365;
-	b=WDABH7KJVaOXBHuLqc3f0yP+vZ5K+L63CSbRqfnmwD9SUgvlB82kb3BKza3AVCi2fiiR
-	 Qm1NGB6hw0wUlsFut/UnRcqxOpFgYuwxOliHEplvVPz+hXRATeKTS9P+uHUp/dn73q6Cn
-	 zgbtgvGWw0UnhGOHOlgIzeo4jPTzu7in/PL/OrD+YZ9XONva94upOZtQEmsmuyhEcncx/
-	 KtLW4EjtL3GT8lNxz+xEck7AFMlZOIW4uMatJmOz2xIiC2H+lzTK/VDAaASf2pYVcoVRd
-	 F5FpI5n36TtqGeS+37+cV+aIp8BLel9Tb/w5ioqnAjFnhZdOwNDkq7KP5QVRxktcy+A==
+	t=1793139443;
+	b=cfmm1S17HlIm11LocOdcrb726XUbnqOO1fQfatLh0XWLPZQrAJJm2X/EV0j5Orbh8+6R
+	 lwUZp/VvebvbwmHnE3v6owwKa00njJRetVIQr6G7oXJsz+CZ8gAvgWDrsJo/WhWDn43LU
+	 KGWuCiVEZ4KkHlENYyjoLuRircc9MbhqNNMNuxDruAvIWs8n+vztlPVC/UbRzDYwv+/XF
+	 htoB44ac8L9PWWJImNF/L+IUJwabT6bZdlM9wjxQHhXA4Doiw2O0GUHDv6y6FcSNcSPZL
+	 3nUK+2+vA5b3yKBGUYJAmIc9/7Z7Jz1EgU9R0SMLMiJxeDKe08bzR+ts5WCtsAKHj3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139365;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oNNEJ1079Ljh6sqrLe23wXQkibP4O9nyZNB8CGZgGC0=;
-	b=CIXwjkdGRrctNfmfSesTzUn0GHrJ+mJFEdYIkODyJmslhSE/klYC7E/c8zddzo1j5HII
-	 x4Ch86jogB6pgu/AKfbsGV66MCoKlY/YU3OrHtLZrH4iDfqReIpFuglCWIWa+MSXlWg03
-	 7jipRYb3z5pHS9WpK/HSUTxLWh1syP168ANCikmGfyxqHlMSmNBhW2Paz7OeprxbyBu/4
-	 0CWmXKpx56lq5yrYpbN+LMQGt3IDnBjLvnN8yxRACKIdB3Jkb8+YUUOz6PsgmoBh6uQ5G
-	 LQkeco50OSVBuE1VG6ZLxSYDC4B5z27kSNrQlonuvq5Z/mc8XUTLV3ez+kRi1m7QyJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139443;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=hVKAqaRTvpNfMTpi7dY5SePv1YaJkYPG09Yh8+t5E6g=;
+	b=L9MP3GZ0ncWcyIOOa0Yh039jpvdJY5LnZ8fBdkYMSfvoXGdaqO5JD2ZSC/H5S140YHsE
+	 lxVgitSLfm705lGcTK+qXBeOXe8GFhJkfjM4oL4jrK/zafFIdHJ6QP9VunZhRLGHSCSs7
+	 ng8CXxVXa9m61V413inqhibCmJYArgmh0Ipk83QimALWbkEeOzQ7G5I/Pr4SOwk/IaCuI
+	 62PEXZXU87hiVA2e2WK5AWANk434MWcUgxjElnOvtKr5aNXCXYYeLX4q71liotHrqEbEx
+	 i6XOKzJIgzJOdIvOeHv9Z0EHrLAvfJRhopazMBPY0e0jnTRAcWNnnj/EF+kz/yyD5Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X8/nw6YP";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c5lOO0dh;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BD4606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:16:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E60606A31A;
+	Tue, 27 Oct 2026 22:17:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E60606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8/nw6YP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467681F031E1
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:16:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793139364;
-	bh=oNNEJ1079Ljh6sqrLe23wXQkibP4O9nyZNB8CGZgGC0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=X8/nw6YPwWtXN74p+b9J+zZ7EniDGi7qF4stigFjwU6eNdzbuCqR5uxT+S03B7PJ7
-	 /f9C2huJz2vgh4wpIYrBmeGQqpKJalDeq0RKTmw18u6cTeq989UHtGoxricYe25IiN
-	 kIMtEbLucUySw+i6UFgOu7Aj+BjHEgKdb4ep0a0l5B0OvND5cHYPXXUTm9TgYPbcw/
-	 PAL1ulsb00a0SEM4JvkFF8Y49qK0wSUVVgZLGv1jNxyA18rUtCcZ4Cq+6JBWHcgkKL
-	 7oQLloALLzZ6I9vx1qPIp3Y8AHt7+9Vq+/NMYdbjY0iQ9qhq7PdVpSfij6fxOXWJq8
-	 7t+PZyXtXgbNA==
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso50609366b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:16:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxAfM/EXBd25rS+kwVds7/sjn9afH8EdcxrO+onHMQNXN2Ok1Q7hNvRyAbeo1htQnezmVw1qi23hKuSQ8Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIj51Bjrp2QxCaH7+g5O94VtEW5pbctYgeCZsznJYdYXirXG0Kv
-	jkL2SzQtjUyK1r6yAkpzDVJE0k0mCKaMpg8NlBoKcsVhMwIlyiu4n3SVOU6t0uAbKGboPdVv2p2
-	Ld6H+6DYptWve5JoxLNILchcFkeoYzLk=
-X-Received: by 2002:a17:907:72cd:b0:c26:19de:9126 with SMTP id
- a640c23a62f3a-c49bdf7a5b4mr47056866b.25.1793139362885; Tue, 27 Oct 2026
- 15:16:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c5lOO0dh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793139442; x=1824675442;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Zj4/qjYqWfY/IgH0aO3Zs3Tz/TTUh9hv2a6D8fRg+z4=;
+  b=c5lOO0dhoI/ez/0CztCVkRQ2D09uSoZoKV04UyICFCM7PGPnsW/L58Th
+   hQPCx4vuyU6KNIDEEIyCb5CMUu9lDwebnC4+mrxjPhOCD5hFFyDgw6euU
+   wa+ao8sG810I7HtC2gmz5dg9PJ5kKr2FbhZeLfP7+ihJ+7HIdjg7CIYpi
+   nc2qaH2W1gTjUq6IOyergTtPwllgbUUTYVODhMt9mmG2aB4inYwhk/4JQ
+   zYsVSfaK/Gp5B9JKcWrXNYR9Dhu8amDOanm43wCGALcn0RLh7aiZ8zXZg
+   +z9u88d9/FiBkeZ3e4xD1SGF/6Tj97H5ANAZCdVou37ajn7Nlc7tGYYen
+   w==;
+X-CSE-ConnectionGUID: TFuJ3TqfRKeq+Jui27nMpg==
+X-CSE-MsgGUID: /0LtJjkSROWvEJj+XxdO5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1884649"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1884649"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 15:17:21 -0700
+X-CSE-ConnectionGUID: CQ0FcGTJQiqczL3CpS4CZg==
+X-CSE-MsgGUID: XsUs85n8Rx6h7v+nBAZqGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="5006272"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 15:17:20 -0700
+Message-ID: <48d57624-b10c-4548-b082-7fc3fcfbab10@intel.com>
+Date: Tue, 27 Oct 2026 17:17:19 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,43 +72,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027091353.74642-1-dennylin0707@gmail.com>
-In-Reply-To: <20261027091353.74642-1-dennylin0707@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 28 Oct 2026 07:15:50 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9je5M1+FNbLfeVAmcqEnMJDcGnM68pa6nj-d+KKdXG3A@mail.gmail.com>
-X-Gm-Features: AclHuK9L5xX1s-zqxf291s938LbQACPBilvWoG-l11Gqv3TkZSzFpy-S9Ojb708
-Message-ID: <CAKYAXd9je5M1+FNbLfeVAmcqEnMJDcGnM68pa6nj-d+KKdXG3A@mail.gmail.com>
-Subject: Re: [PATCH] exfat: preserve creation times during rename
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: sj1557.seo@samsung.com, yuezhang.mo@sony.com, exfat@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	jlayton@kernel.org, jack@suse.cz
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 12/12] KVM: x86/pmu: Support RDPMC Metrics Clear Mode
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
+ Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
+ <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260918193937.569414-1-zide.chen@intel.com>
+ <20260918193937.569414-13-zide.chen@intel.com>
+ <20261023185544.3305206-1-jmattson@google.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <20261023185544.3305206-1-jmattson@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 6:14=E2=80=AFPM Hungyu Lin <dennylin0707@gmail.com>=
- wrote:
->
-> exfat_rename() resets the destination parent directory's i_crtime after
-> every successful rename. A normal mv within that directory therefore
-> changes its STATX_BTIME, and the new creation time is also written to
-> disk. Moving a child does not recreate its parent directory.
->
-> The function also resets i_crtime on an overwritten target inode. An
-> application holding an open file descriptor can observe its birth time
-> change even though it still refers to the same inode.
->
-> Remove both creation-time updates. simple_rename_timestamp() already
-> updates the modification and change times required by rename, while
-> creation times should remain unchanged. Jeff Layton questioned these
-> updates during the timestamp accessor conversion, but they remain in
-> the current implementation.
->
-> Fixes: 5f2aa075070c ("exfat: add inode operations")
-> Suggested-by: Jeff Layton <jlayton@kernel.org>
-> Link: https://lore.kernel.org/r/bb698e294b0d4dbbbad4b94048693360010b8010.=
-camel@kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Applied it to #dev.
-Thanks!
+
+
+On 10/23/2026 1:55 PM, Jim Mattson wrote:
+> On Fri, Sep 18, 2026 at 12:39 PM Zide Chen <zide.chen@intel.com> wrote:
+>>
+>> +		pmc = kvm_pmc_idx_to_pmc(pmu, INTEL_PMC_IDX_FIXED_SLOTS);
+>> +		if (pmc && intel_pmu_metrics_clear_enabled(pmu)) {
+> 
+> If kvm_vcpu_has_perf_metrics() requires fixed counter 3 (see my reply
+> to 5/12), pmc can't be NULL here.
+
+Agreed. If kvm_vcpu_has_perf_metrics() requires FC3, then the NULL check
+can be dropped.
+
+> [...]
+> 
+>> +	if (perf_capabilities & PERF_CAP_RDPMC_METRICS_CLEAR)
+>> +		pmu->fixed_ctr_ctrl_rsvd &=
+>> +			~intel_fixed_bits_by_idx(INTEL_FIXED_SLOTS_IDX,
+>> +						 INTEL_FIXED_3_METRICS_CLEAR);
+> 
+> This should be predicated on the guest actually having fixed counter 3
+> (and PERF_METRICS). intel_pmu_enable_fixed_counter_bits() only unmasks
+> bits for counters below nr_arch_fixed_counters.
+
+Yes, since now FC3 check is added to kvm_vcpu_has_perf_metrics(), then
+it makes sense to gate the unmasking on it as well.
+
+> 
+> [...]
+> 
+>> +		if ((data & PERF_CAP_RDPMC_METRICS_CLEAR) &&
+>> +		    !(data & PERF_CAP_PERF_METRICS))
+>> +			return 1;
+> 
+> If IA32_FIXED_CTR_CTRL.METRICS_CLEAR_EN[14] is only unmasked when the
+> vCPU has PERF_METRICS, is this check still necessary? KVM generally
+> doesn't police userspace's feature combinations unless it has to.
+
+Agreed, dropped this check from vmx_set_msr(). Since intel_pmu_refresh()
+gates unmasking METRICS_CLEAR_EN on kvm_vcpu_has_perf_metrics(vcpu),
+userspace setting RDPMC_METRICS_CLEAR without PERF_METRICS will simply
+have no effect and bit 14 remains reserved for the guest.
