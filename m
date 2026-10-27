@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793129410;
-	b=fXGQrc0YRMKnp9fWjj4ULR/o2C0aT/eRrAuZTwyIJ46H4crtCa2sQ2oUkqBMAiOYNTjR
-	 PkFcYNBjYsUX/XmViBeQyNfnl5vqs9cBYbIP87Wif5gYvABh20IuEMVjXhu/8aP50lyM6
-	 o3sUZyW4+rSVaYQso4yXs2FZYNqQfR7Q7cu90uneYqJ9LjlVrlyo5ZAdE8aHRBTmpf5hI
-	 iaD4g+NdzNX7TVKjv2eLb3s3ew7RjeZXQ3OpgCvff3u4D1UVEDG+ivMzERgUGcrF0LdX1
-	 ocZHGyW/CxVpZZQPFbOxv+DX2H+F3jvzihq+BvgeIPi3l/v1vpIDLLcPHYOfLJh17nQ==
+	t=1793129413;
+	b=bI0DZbNiiA2ZfbB7VuOS3QxMLfYRNQ/p2N50P621rulR0EUQshoo+y+aqTShoeEWW4HN
+	 0tn8Ul7UE+Ckb+cSP1b9VfHL+fCfIfV3HcZWIAwWCpWjTVSviIuY9J1wsmZusHJiuXH4S
+	 0KJ01yfIp4BiMP4Z7z/Qpu/gq1uIeC7Ao3D1SwhQ9nHIch6cQ0wOgckNa8YKN2qhK18sg
+	 7awseduSBjXT6Ak4gnzJFbCjr/62M4qOLKhf8hc55rnY96UDsKYVoggCZ98ArVrROzwJL
+	 yg3IG8PDVHdGhmU6QYUJoFb69aye0qXKpcMX7akgedLvHqX0nTEnI3XSVveOYGXxtJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793129410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793129413;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=uC7PG3x9TMielGTexzJGR5TIZiJxo92cq9xXopeL92o=;
-	b=zzI81S3m1fEoK6D7UEJRafv/PaumMpXyJ/FFfqmNw02XGj2Mkcb5DaJ5HW4VWCzpxcmY
-	 IEnyJHwS6BUrMa1Xu1T9sQ7a/MCElI73nDDk8tMGmvGMRJfGv8uknnn8Osneczj//zwdk
-	 yUpkoFF8qRkC+/c757UCzr6/uw81jmOQPvEkxmcwURjRZNV3GmxxVcSGmIaZTqMOFrXAY
-	 8YRuL6JuasSzXJtCu0BGyHtMnA09Bsd64oZssni6dgvFR0QoV8CzOBCi3k2979u/vYId4
-	 4hqGp4tZh+AjfGykXUdxGylngNCc/v8WDLO1EmLZ1+EV5SkFWy40mJrXC3E3CECHzfQ==
+	bh=zgxuY/x7o/J02YLOsOGYz7LiBbyRuniXRECMpP37/Hk=;
+	b=wiGjMTQwdP9QjRu0YNdtWOTIfjKoD0Pdfc6BGdDj3EL0SYu+jM7f1CIQP53PWZy2uYAi
+	 bwNpd+oWOem3P24LcygfpRQM9sPsHG8wJ722ZSnbjGPtown4cnh0QRDQbcNqn3R4IDyUT
+	 pGuinKxMMbzgbownpzrcx1MxZDjKJpdv+PuD6uM9O7lDgoqbppeBqkVHU1vXa249vXbEB
+	 S7LR3mOJgpKohRQHfuB6JWgfexaA3nSt/X0Y7uCUvkJJUe3f5ATpw5Gftznmtfdsd90OG
+	 tkgipv2jCrg74IIPCBTGvfdjQckcB3rwb4h+4kU5Dj+VACiOGtI3vSf7EmXNSm1cYxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9TkdTD4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2LhkGi8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A25F606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:30:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 323BA606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9TkdTD4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96FF1F01825;
-	Tue, 27 Oct 2026 19:30:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2LhkGi8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100441F01825;
+	Tue, 27 Oct 2026 19:30:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793129408;
-	bh=uC7PG3x9TMielGTexzJGR5TIZiJxo92cq9xXopeL92o=;
+	s=k20260515; t=1793129413;
+	bh=zgxuY/x7o/J02YLOsOGYz7LiBbyRuniXRECMpP37/Hk=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=b9TkdTD4QujmEBIa/COcTUudd00KDtMibujtXgT4eCUxPzt/JEH3r0JwUUOtWciqK
-	 bIXqDgRGtyfqxKkLyzUHfePhDiIc5BaTwtJiA7PKWrtVUbqE/DlP7hOJWQ7BGym5bV
-	 dxXrn4NENeXVTJZmYYGFEoWarSEBZFc5zo4aBB+ohULuLXQV+vqqgSA605jC172kWu
-	 gPUOYP1biHBTNeuujJ5OT8bu/qGFEJVvdGokH/m7fEv3BxJ+sBckPjGpB8pxpLooAz
-	 Qft0Tf9RuEa/X1KadYHfBFjH+YvphyG5KwNXlRNW+8YVJiRY6kPbVUwCsKYdXOoZNQ
-	 o6V8gAdHP/rBg==
+	b=h2LhkGi8+byOuo4N1tW/y1qvFj408VN3FxScKjH1EmlaHJFqwqpopeogQgwyaDBDH
+	 ZZzxT+NqfOvq+JW/Y6eN93RzxsR8JiWehDQw9uLwFx7hzfRjspn87xR03dSIS31ugD
+	 y3Ii5acBgleq4di0/06rsHqKatWEdGoe1qeDeZGrgkg4UZQVz8bUaFD3Tp6hDzYYoX
+	 1cegU6xpNhpAStw5w76e/9l37oXH0ZtI4bzAaA11ThWa7KVMm9wywJUSePzrq5pq/9
+	 pfX6UylKWnubhZ10wOwHDw7WNMNRCkKVLzuoNQ2iedr6QM3qVS6gUAC6PIS+DqroNy
+	 THzcwcJHpvOhA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE7FE3AA9F47;
-	Tue, 27 Oct 2026 19:30:08 +0000 (UTC)
-Subject: Re: [GIT PULL] erofs fixes for 7.4-rc1
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 074E63AA9F47;
+	Tue, 27 Oct 2026 19:30:13 +0000 (UTC)
+Subject: Re: [f2fs-dev] [GIT PULL] f2fs for 7.4-rc1
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <auDf-xw7n159FvUS@MacBookPro>
-References: <auDf-xw7n159FvUS@MacBookPro>
-X-PR-Tracked-List-Id: <linux-erofs.lists.ozlabs.org>
-X-PR-Tracked-Message-Id: <auDf-xw7n159FvUS@MacBookPro>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-7.4-rc1-2
-X-PR-Tracked-Commit-Id: 209108a5456171ab430e25b54b2dfe083455bfb6
+In-Reply-To: <at-pjQ691G9O8-2i@google.com>
+References: <at-pjQ691G9O8-2i@google.com>
+X-PR-Tracked-List-Id: <linux-f2fs-devel.lists.sourceforge.net>
+X-PR-Tracked-Message-Id: <at-pjQ691G9O8-2i@google.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git tags/f2fs-for-7.4-rc1
+X-PR-Tracked-Commit-Id: ee17c0cd763b622012bc725253015b6a721b48f8
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 83f32c773255720a661aa45d83e36278135f23f5
-Message-Id: <179312940732.284542.14864597717952963666.pr-tracker-bot@kernel.org>
-Date: Tue, 27 Oct 2026 19:30:07 +0000
-To: Gao Xiang <xiang@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-erofs@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>, Zhan Xusheng <zhanxusheng@xiaomi.com>, Hengyu Liang <hengyul@cs.unc.edu>, Chao Yu <chao@kernel.org>
+X-PR-Merge-Commit-Id: 92fcf151766d7406a36f2ba363dc811024146212
+Message-Id: <179312941156.284542.13723438000383742281.pr-tracker-bot@kernel.org>
+Date: Tue, 27 Oct 2026 19:30:11 +0000
+To: Jaegeuk Kim via Linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux F2FS Dev Mailing List <linux-f2fs-devel@lists.sourceforge.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Tue, 27 Oct 2026 18:31:39 +0100:
+The pull request you sent on Mon, 26 Oct 2026 19:27:09 +0000:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs.git tags/erofs-for-7.4-rc1-2
+> git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git tags/f2fs-for-7.4-rc1
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/83f32c773255720a661aa45d83e36278135f23f5
+https://git.kernel.org/torvalds/c/92fcf151766d7406a36f2ba363dc811024146212
 
 Thank you!
 
