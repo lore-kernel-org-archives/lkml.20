@@ -1,55 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121503;
-	b=VZwxAcDD5i91/V8oMX32gaSgjnkYECKz3eqSjoCE1+F3lmWBGIfS/3ZciDgBNGdKq5VU
-	 GC0KiWYxrfCXzed11BMfVlhRdw8dF5MH7ASRTrKm2IYB7J86JfF3tNIGMRJRntHwOIKlY
-	 GFRmrfkWiun0aDAVVWVizfLQ/bZO2kbNA6sN5k3DRfLLgstEJlGEoaozo2rWd/8KA4Kju
-	 y3RRt8hts60L7Qf79woZTjyyhCQo1D5o/cAXv4DM2sadczISpeioMVRxPcWPcqpUV16Tu
-	 +N+hRJmgHNquUYa6mvPptxkCP8cjf3h4Cg0JFw2/13zbbfV27q+dx5jjIMaMO+argpA==
+	t=1793121494;
+	b=PhnLSWjNIAQ+OVw1wO84hFQurgxzyX2q9x369cK95SsLqqXQN9jOPeF1ylt5iBvd6DoL
+	 PkxmzepWTdgr6cB346v/qsujXRCX+1EBDbybT6ldfcTGe4GsTsitevtaCfi2cDnsEwkkx
+	 uBc1JxC3pESbO1r/FejveQutTqHiNR+NUNmQrL5eGInYYsfNpZfjeFB00LuKccnjcfhW/
+	 8igpkjSE2jmOIJYm6W/GyQO/JTlzCOviMb54xxyPHgY4Olj6QYABS+Gu5q4betFqkaIJA
+	 2o/LpqNOO/9mhxqoPnAXa1faY6fEUm0cE+jjlK/DheA3SrxQhE2pcpebiE+igWAKnpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121503;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Lines:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=Jpqw1dZFFdRJ3YcOkY7F7UIGXi7r1qXZAzE2/kbVmEI=;
-	b=V7q/JQ9PmxIlvZQPDtKqd9YHq9pt2xNUdENuCqQdcy+bFfMEDizlTwf0zf+LdGqOIpAD
-	 kYsYN0a4ezV0ZA1pHeRnxNfqiZr4qG7qpMKwHbXX7GITUhA5BcIUerE1Dg9ee+EuvX4i4
-	 x39Izx0BMQ4E0f9zQ1JUrc4yBnGUmIt6PSFyi55G5ZRDwM+HfvWaam5JE8A+yq5NqDQdX
-	 ugD8sZsdXP+0WJcD+ViqdeNXZtvXl4bwXPHzsDXfjHdFyH93NKgWVGzCAZ62ui81PS6lr
-	 BQXFlMqt9RyQgilTS9157ZbLW9elIr26EDvyFAhSC4cnmQbEJ9xqT05EQpXWjaupxiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121494;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=2AhgxjpsSrdIp3v7Vm9/tI7GXfZBUU0A8emiVMRDe1Y=;
+	b=z9tskEUgWzZRzYI6fXy4P+TFFTRwOLUI9Am09ZQUlPlqfDs2ElrwAkxNHKFcosDVNnzX
+	 ojcCNQfTbpzdRpczBzqPVDyar6fYJWAiak7vcOp244QCl7GgkVqm4Y/5NlTFy0lPMxI2d
+	 DceRfGMEIma4bjJTacjLn8r5TgKrnDBnmQ3OFddm21JT41ObDXjsldRBSixqlV3WUy6HS
+	 OR0uQubPpHHObSS7LnUO0907/hYe5hycYgp+3bkUBDwCX+Rfh92H1TaA8+mC+wM2nCf8/
+	 42eyCYyTYGYVNP1xNMIHpm61xcYIoQRSDBTXglAar3u2cy+mAwZ5Zd1Bix0INIrVzAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jDcx6k1I;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=cuBwKMs9;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D547F606A31D;
-	Tue, 27 Oct 2026 17:18:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7339A606A31A;
+	Tue, 27 Oct 2026 17:18:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7339A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jDcx6k1I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7F41F01829;
-	Tue, 27 Oct 2026 17:18:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793121502;
-	bh=Jpqw1dZFFdRJ3YcOkY7F7UIGXi7r1qXZAzE2/kbVmEI=;
-	h=From:To:Cc:Subject:Date;
-	b=jDcx6k1IGZq0nDPQN04OMUEd+VaLE+BGJatcbGEK0V/pELFYJQOYS/ThgvoiNmHz9
-	 leivEQ6+F66yKJxZAjKrBImYLiV39z1l9DKyVl2Vlsdhqj792P59LD+OrZkR/C6PaQ
-	 VQ4nlztfaXoXNVzhy+NF7uk8HOgn2ph5i1oglLTk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: rafael@kernel.org,
-	dakr@kernel.org,
-	johan@kernel.org
-Cc: driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH] driver core: Limit the messages on a refused uevent
-Date: Tue, 27 Oct 2026 18:18:19 +0100
-Message-ID: <2026102718-conduit-glorious-a8dc@gregkh>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=cuBwKMs9
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 04D35108D58;
+	Tue, 27 Oct 2026 18:18:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793121487;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=2AhgxjpsSrdIp3v7Vm9/tI7GXfZBUU0A8emiVMRDe1Y=;
+	b=cuBwKMs9MSlJwuxyuBzukuPRq4nyr+PD2+XAG+5Mrfpivg6CkaDvPJUaTlihGzEBVqPNPg
+	vp/Oef/DMqwsmFyYU6aHqdiJZx1f0Nc1FfJiBZjWTCo0aWhl9ukoNcs7O0h/aWzlO4yU4Q
+	SZwOhx58k3ejTwG9KwmU3rJ5rDgT3TD3pp3z0dLyVUieJv2gOL5b9BB7Qw5F8H4VK7MJGp
+	LRbL52txxSsxbZXYQgORwx4VIeVgWDCy0cTZysihyBMZDL55k115D0G4kAFJagj4K2EMLz
+	/llBrGMjsh5UBjbE50L8yvAm2mG7xRAnqp6GQh2dQjCol4QHB6msL4yN2cAP9g==
+Message-ID: <d8c3ca76-3d93-4abc-8a78-d23e0f018975@nabladev.com>
+Date: Tue, 27 Oct 2026 18:18:02 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,58 +56,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1718; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=7WA86eHW8/XZY5jWKhBuR6+aFu6P/cEKcUjIYXwRAcs=; b=owGbwMvMwCRo6H6F97bub03G02pJDFkP7tySP+zCnBUSwFB46EjWkor4tU37lq++47P2zqtXu /qkDzA/6ohlYRBkYpAVU2T5so3n6P6KQ4pehranYeawMoEMYeDiFICJOF1mmB+zQNz0+LkDAu6/ V6Xk6X77eveg/UWGWczsPe8cbPS3sIe9ejZVzldM4NsXNQA=
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/3] dt-bindings: phy: ti,tcan104x-can: Document
+ Microchip ATA6563
+To: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Aswath Govindraju <a-govindraju@ti.com>, Conor Dooley <conor+dt@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, imx@lists.linux.dev, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260930214729.809649-1-marex@nabladev.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260930214729.809649-1-marex@nabladev.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Josef Bacik <josef@toxicpanda.com>
+On 9/30/26 11:46 PM, Marek Vasut wrote:
+> Microchip ATA6563 is High-Speed CAN Transceiver with Standby Mode.
+> It is pin-compatible with TI TCAN1042 and has a compatible programming
+> model, therefore use ti,tcan1042 as fallback compatible.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Aswath Govindraju <a-govindraju@ti.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: Frank Li <Frank.Li@nxp.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Marc Kleine-Budde <mkl@pengutronix.de>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: imx@lists.linux.dev
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-can@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> V2: No change
+> V3: No change
+> V4: No change
+> V5: Add RB from Krzysztof
+> V6: No change
+> ---
+>   Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+> index 0cf5fa21106b6..e97b1bc0a2e45 100644
+> --- a/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+> +++ b/Documentation/devicetree/bindings/phy/ti,tcan104x-can.yaml
+> @@ -18,6 +18,7 @@ properties:
+>         - items:
+>             - enum:
+>                 - microchip,ata6561
+> +              - microchip,ata6563
+>                 - ti,tcan1051
+>             - const: ti,tcan1042
+>         - items:
 
-A write to a "uevent" file which is no valid action makes
-kobject_synth_uevent() print a warning and uevent_store() an error every
-time.  This is generally considered a bad thing so rate limit these
-messages.
++CC Vinod, is this patch OK with you ?
 
-Fixes: b0e37c0d8a6a ("net-sysfs: make sure objects belong to container's owner")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/base/core.c  | 4 +++-
- lib/kobject_uevent.c | 6 +++---
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index f21e225abd51..0e2eccd3e613 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -2881,7 +2881,9 @@ static ssize_t uevent_store(struct device *dev, const struct device_attribute *a
- 	rc = kobject_synth_uevent(&dev->kobj, buf, count);
- 
- 	if (rc) {
--		dev_err(dev, "uevent: failed to send synthetic uevent: %d\n", rc);
-+		dev_err_ratelimited(dev,
-+				    "uevent: failed to send synthetic uevent: %d\n",
-+				    rc);
- 		return rc;
- 	}
- 
-diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-index 1480e2c27ed0..1d29378d4f55 100644
---- a/lib/kobject_uevent.c
-+++ b/lib/kobject_uevent.c
-@@ -223,9 +223,9 @@ int kobject_synth_uevent(struct kobject *kobj, const char *buf, size_t count)
- out:
- 	if (r) {
- 		devpath = kobject_get_path(kobj, GFP_KERNEL);
--		pr_warn("synth uevent: %s: %s\n",
--		       devpath ?: "unknown device",
--		       msg ?: "failed to send uevent");
-+		pr_warn_ratelimited("synth uevent: %s: %s\n",
-+				    devpath ?: "unknown device",
-+				    msg ?: "failed to send uevent");
- 		kfree(devpath);
- 	}
- 	return r;
--- 
-2.56.0
-
+Thank you.
