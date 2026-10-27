@@ -1,112 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793076859;
-	b=4FByJMxGv+T59wHFb3BA5Fv+7/G1vJQVJsbL9lj+srmEDCDAaHP/6f+qOt+JTI6lgNqP
-	 ZCA3CPCVR5qwxe2Aqrz6EA5aCs3uoEoNP5TqEQpF31MjP9hBtA8j3YO1uYgXew8SSMYBt
-	 lLS5+HSE3LIYO/Af+bzTABQGckcl4P0+Q3iKLEWhTIz9g06AdMPL5BVk7+q77DbLBzqx3
-	 PaPjRSk0OydwjwxOTo2061O/T++aXvhoRrLKhClr7tvYpridAT/1HOrgTgfMRdlKvrLCK
-	 5mxLpyw4eGyET5YizbPuzbJV2FdlHErAVPllrwIWOYWY3g+WnapAtrurn8BMpoR/V5w==
+	t=1793076987;
+	b=cm2kseWAIqvNyKHMPkdlcl8CYF/z9dtKUm1ZJ1Uv/ySjk2LsngbcDuf0AJ4xH/rPLAVQ
+	 N49PlKeNzOVOImNubcjWGUAmo5I1UtZl+Kv5yb3alYv7JcNVJv/+dS4xAKvB7oqlie3Fl
+	 qB7HO91OUYHSe5hFt8tfy5ye+RJjQmK1P8vRYDk4VuccnUCoRW/SAZtCoeuf4lWNch73D
+	 rsEd8gwzGNPK52huHQaE5lN/qCB1ghKTvOZTacgbVZ4S+xuvnOqNYBL3/lT99I9Qq/ACB
+	 5bQ7MFm/9lDCnG6mSiHNP60zb/Z01T7CEDw0peDEKEqbAVze0XcPSbixUn1jtRWP1JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793076859;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
-	b=0t77OQ9ixP62G9mOBtqZEPtKBemeEd0rP00dMoLdh2GilIZdqQNyu2rj8SKEjAqpzhH8
-	 iyIYCDhwtINvZ3e3efQ/IdMoly4HQTLCFuAPFhxcquE/tgDceElJJ5V7ENVZF2we9LJYP
-	 Qt6sK1rUvu2TJDC3R7/kZKgbUN90/mLqCS+CLMwrvCKuJhR8+ktAAhPsNRk87Wd0e2x82
-	 tZ4f/UvFHLD1twvjUOnZne4X3oRxmjKbfbz2Ml0GPPAAvI3JTs6sNItfwJI79fMH2l7gu
-	 iXQ3x+HY+T1zqr1qgjZBIWuDzDT/eTRSkNRnWl/mvu6lCbzOdb1keWyufqa+ZwXKLOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793076987;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=WPe+QkqQEWfbrRJG0Dlk8Dh/oJj6JFnhcm/wUcG+CUE=;
+	b=FFBAnanxLSkAFDTJG3QMMM4Eppcdy0HbscnfZ1jjYizZxa1eiLfes+P2qY9GKU8oha0I
+	 sG4Qkki1r9HiI2783QHeJn4NeZpFaGHw7h/vRdnsEND1qfeHhgZJSiLb0HHhM+WvSfRRb
+	 ELzubICnaSBbDtvG9HlvegJFp6zZWXF6F3oJbcKj3+xjQLf7CLMayghXTt9u+SAzIjlFM
+	 zMpIiSOBGzwwlsqgP7epIyzqyBoGtFHjksHsb2eu49Z+H1jODfw8GTYco6XcVtOVzjH/x
+	 xUA3GXUOMSJLrke+joyeeOaxuPrA908iiWM3hlHKGPBwwAzJR9QV8pclAbD6Di6T/GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sifive.com;
-	spf=pass smtp.mailfrom=sifive.com;
-	dkim=pass header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Lp21g8nS;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TZFBywsi;
+	arc=none smtp.remote-ip=91.218.175.5
+Received: from mta0.migadu.com (out-5.mta0.migadu.com [91.218.175.5])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110DC606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:54:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 110DC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F7B606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:56:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41F7B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sifive.com header.i=@sifive.com header.a=rsa-sha256 header.s=google header.b=Lp21g8nS
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1846bc43c28so4196108c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:54:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1793076858; x=1793681658; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
-        b=Lp21g8nSCK7QvosLUNREqcWC3uyos4X3oHoczIC1sB36odhuo9n4pCe8YPnmB5icK4
-         tsEIkkkfyEBwv5PM3ac/hWzz3VP529DY8lQoffxIHhOKJAqL9qGUxAMBWQHZjNvdR3ux
-         ZtJdm/UwhGj7LsKso0qQeY3hEEl7BKYGYoRoxsZkFONNhAHuT+Odt4GSCJIdX3eTluFU
-         x38NK/3F6EMLrUDR+VIfwbooyVxHBwTQEzQX1ainRCSz8NV3uKmcTcfSOy4aOGa+1kxB
-         I7TSu4L86KZlIVfFKjfHQQsI4OaBE4hFAEtAYLCoV0ZkWr2NNAiHZV+ppCQxuoIFnoTi
-         mCUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793076858; x=1793681658;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CBXDyafbQ+bvJr1wyuJVzQYdGq8WtwM/OAYYzlYp/Gs=;
-        b=SM3+s9yjwSy6TRiEVhwYMS6a2mX0a7Hj/FloQyNMTLuX2DwDfpb4osGXzoc90PvKv5
-         KWGhMFMW5ztxT1EQYiQD0YiyOnsVC/ycuQ7iQ9w0U9TuY0y30CP+U//vMt7G+hyp7iHh
-         jVg6UsK62w8VuihiHPeBfijHWTLEFS6D2TaO4b1zXKRw/1czXZGZxxTxfHhBTBnH8jaJ
-         qaW36b1MmtpuhqgR9et2SsjKKFmiWfhsun3N/kdlowu2JbZDJHv7UYB1VssJei77CEJU
-         POncmCePKJQcmLkITkMoewUOjIJqM73Lx9TC2eq/GJudIaVBRhOEv6Z/+kohyMCIZJ08
-         OsuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwRA2MPthaSc3fME2FBbRxLp5Mb1h5NmvpQYyzxbnbibmAYqtBzTziWUgN3ho2glbRS3vx1AnpGtsFvMvY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5g7VoaJazKOyMo/FrWGdgOcO9QG05o+PCwEMDIHSiTFHaqDlx
-	7hQ0oQ1M28LiOUWdGD3Q/odO80jjVc6g0VG8iamOf4yBx+CzCtLXO3zvD+t3nL2Wf6U=
-X-Gm-Gg: AYBFou2Jkw5vThk2lYpIleXZAQZcb8AgmBJfe4c6MAqxHutK+R2+L+llGopOjtUbSwp
-	SEYYuzMjRDmvO3Q3x5CZ5Vve6zLo+oX9nsiqMb5RTV9GqKCpGLxEhpYPRsNZ+DUaaxclwm69Jyb
-	/Y8iSfnQhz1FmaakYqzf3HjEaLQxuGpTBUERMbx0niwVzfnWwIjEZbB0hGhqAO4bSQJ4WmMccOx
-	GDVK9IY8vp/u3RFFEO68imFJWEGq4l0itljlE/bs7r2f72a5q/YNHeCUTZp2G4dZ+5sUQbxXDKa
-	58Cj2coFQwSey8W3y85SPr8N6yYiBanpfmT6q6djClXK3mHEObFvca+y81FWsxUoQbc7g7MqKuN
-	7A6dwEKegiyoh/P460eEZ+r8I88LzgTkj8wX/eLv6jJ2236NgbzUdKJhWM70TscEjXEFp21TrzV
-	5JTaQ9XFNH0Mpgo1VUb+D+xexcHkZOD6DiDOYBuu7GAdxEhGXMIWtLCqQv1rKJa1xqkvarytr7d
-	r3I9Sy0LjO/mZ0cYRrYoClfgdVupNOYCzG3p2ODDxlX+weidk6rbHL7hiXr8fa+VOVukkiSQgmw
-	JcwszOjHPGbBVJYhh2XqvjlM7otI25qYJbEJpgrwHnPx9w==
-X-Received: by 2002:a05:7023:909:b0:144:eab0:9cbc with SMTP id a92af1059eb24-199376e0835mr15075491c88.37.1793076857722;
-        Mon, 26 Oct 2026 21:54:17 -0700 (PDT)
-Received: from lliang-1876.localdomain ([136.226.240.173])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2eefbsm30437451c88.7.2026.10.26.21.54.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:54:16 -0700 (PDT)
-Date: Tue, 27 Oct 2026 12:54:05 +0800
-From: Leo Liang <leo.liang@sifive.com>
-To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ian Rogers <irogers@google.com>,
-	Anup Patel <anup.patel@oss.qualcomm.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mayuresh Chitale <mchitale@gmail.com>,
-	Anup Patel <anup@brainfault.org>,
-	Atish Patra <atish.patra@linux.dev>,
-	Andrew Jones <andrew.jones@oss.qualcomm.com>,
-	Sunil V L <sunilvl@oss.qualcomm.com>,
-	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zane Leung <liangzhen@linux.spacemit.com>
-Subject: Re: [PATCH v6 03/14] gtrace: Add RISC-V platform driver for the
- gtrace framework
-Message-ID: <auAubdjHl1V4h16N@lliang-1876.localdomain>
-References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
- <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TZFBywsi
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jju6/zoBjCAQzWEUQqLbq8Z0mePGNeIApBT1PdmuGkQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793076983; v=1; x=1793681783;
+ b=TZFBywsiO70wrcP2TlLaBfEHCCIyauxia9wJNSif0dFS0TYqGT83vevnTD4j10qjyyMGGqMg
+ +lsqBzSpHRz1/E2Bcqf0eDrKUtfhmF1M7dVE08Jh+klQfJmYxKOS9i6kO4QaqiWhCP65gQHMdiQ
+ ebaCAEnW2DNIEId4JVI71ilE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 09833c5367a263d8;
+	Tue, 27 Oct 2026 04:56:23 +0000
+X-Mizu-Trace-ID: 09833c5367a263d8
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 27 Oct 2026 12:56:18 +0800
+From: Li Wang <li.wang@linux.dev>
+To: Andrea Cervesato <andrea.cervesato@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+	ltp@lists.linux.it
+Subject: Re: [LTP] [PATCH v2] MAINTAINERS: Update Andrea Cervesato's email
+ for LTP
+Message-ID: <auAuxMRJrylrGqCP@linux.dev>
+Mail-Followup-To: Andrea Cervesato <andrea.cervesato@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, ltp@lists.linux.it
+References: <20261026-acer_maintainers-v2-1-4cf0f350fdf1@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,65 +70,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+In-Reply-To: <20261026-acer_maintainers-v2-1-4cf0f350fdf1@linux.dev>
 
-On Thu, Oct 01, 2026 at 10:52:14AM +0530, Mayuresh Chitale wrote:
-> From: Anup Patel <anup.patel@oss.qualcomm.com>
+On Mon, Oct 26, 2026 at 11:47:17AM +0100, Andrea Cervesato wrote:
+> I'm not working for SUSE anymore and I will use linux.dev email to
+> develop and maintain Linux Test Project. Also update .mailmap.
 > 
-> The RISC-V trace components defined by the RISC-V Trace Control Interface
-> Specification are memory mapped devices which are organized in a
-> graph-like topology and described in the device tree.
-> 
-> Add the RISC-V platform driver for the gtrace framework. The driver
-> parses the RISC-V component topology from the device tree, discovers the
-> type and version of each component from its IMPL register, provides the
-> RISC-V register level control ops and registers each component with the
-> gtrace core.
-> 
-> Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
-> Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-> Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-> ---
->  drivers/hwtracing/gtrace/Kconfig            |  15 ++
->  drivers/hwtracing/gtrace/Makefile           |   3 +
->  drivers/hwtracing/gtrace/gtrace-of.c        | 126 +++++++++++++
->  drivers/hwtracing/gtrace/rvtrace-platform.c | 186 ++++++++++++++++++++
->  drivers/hwtracing/gtrace/rvtrace.h          | 121 +++++++++++++
->  include/linux/gtrace.h                      |   3 +
->  6 files changed, 454 insertions(+)
->  create mode 100644 drivers/hwtracing/gtrace/gtrace-of.c
->  create mode 100644 drivers/hwtracing/gtrace/rvtrace-platform.c
->  create mode 100644 drivers/hwtracing/gtrace/rvtrace.h
-> 
->
-> ...
->
-> +
-> +/*
-> + * Parse the "out-ports" graph of the component's device tree node and allocate
+> Signed-off-by: Andrea Cervesato <andrea.cervesato@linux.dev>
 
-typo: "in-ports"
+Reviewed-by: Li Wang (Hieco) <li.wang@linux.dev>
 
-> + * pdata->inconns.
-> + *
-> + * Return: 0 on success or when there are no input ports, -ENOMEM otherwise.
-> + */
-> +int gtrace_of_parse_inconns(struct gtrace_platform_data *pdata)
-> +{
-> +	struct device_node *parent;
-> +	int ret = 0;
-> +
-> +	parent = of_get_child_by_name(dev_of_node(pdata->dev), "in-ports");
-> +	if (!parent)
-> +		return 0;
-> +
-> +	pdata->nr_inconns = of_graph_get_endpoint_count(parent);
-> +	pdata->inconns = devm_kcalloc(pdata->dev, pdata->nr_inconns,
-> +				      sizeof(*pdata->inconns), GFP_KERNEL);
-> +	if (!pdata->inconns)
-> +		ret = -ENOMEM;
-> +
-> +	of_node_put(parent);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(gtrace_of_parse_inconns);
+-- 
+Regards,
+Li Wang
