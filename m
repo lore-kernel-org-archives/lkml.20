@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090090;
-	b=kiliDaHELqHl0kYECsG+IsIiI0mIM5ofU0GU79vQ1P96QGGXLp+Ge97ko5ni2AJAMRfW
-	 tCWaSnIqheX4EoeIYsh54CoAbW4VAMeRu7Hk8ijdjz6Dx/wQGexLHLZGGTFpgV0WGzhAQ
-	 9uTjxlfjwrqoSf8JHPuU6VknfhQgf2DEdHVz9dfT1M1aPsNYw7D8nZm7Br4ZQjkZlgu8Y
-	 MDZRQbPyZW0MWyjwagufcPsCJQyGj8U/oVRLksD/p884+wSy/m/vBcTcfdNdt/xOSHd7b
-	 yct1KcEdGwV6cAthnvEaj7zBUYBMYOEIlFL/WGrtccrYWkVEGO79sg5+nW09lg9ZCiQ==
+	t=1793090106;
+	b=xCMvN+0DzWcaPPZOOM1h25cMvsDzSwrcFyf8dRg0g/06zqVMIAG5ZYAsn8tqWd+OAaI4
+	 CLa6c1RrGbAcOoCDIMIqsM8tx41YQ5GNS3jr3wJCZYnjPrFV1SYu+xzACGplUjGlgZTPB
+	 ACw56qCZocZxWchSR0tEGD9tPFS2M3476+DhQRmj/vphBOPRvtpnIOPWbS8dObV6ps2vP
+	 kZlLyqKzjp0nE+0vxAAWBNGt6OalBAWz3X7Ca9PMYYwWrtYWeaheQYvfcYQKoBTg3JS1u
+	 dMZWoJbwm5ANiQbPPWsiCDFkNDcIQx2D7dP4NPmqOjFwSUjKiJbr/jvG3WHKWjeqYiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090090;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=JBm8ffaCoPQH1JzTyc8e2It/Betu/HEG2/vRVRWiTUw=;
-	b=g1K2EkmF3zAoBFmDo5uOqQcqitiwyu55MQyRNA9PGnGGuwJWi2LlsZUeeNZWgw3ILV6q
-	 JtkIoh+SwBuKWNBAioid1BmiNHE8OK9cgSsll97oCd6orq/z9uSwrZzFyKyxENESVbMhu
-	 BMiOHu6OE+f5tdrSm+kfzV7z507E/fxvbl9ZzbOf9Ogrvtnir+va+whcO1ZLLb6VVe3hH
-	 hVUEAwpdQfAGZR35czEdLOL5IvVK3cQmuB5oljhFuGMNB4X5X5ApLEzYsL1sAZajaMgPc
-	 J4AYabj+DFjT1U5vD/fSkVh9enAAYQKSxNS9tXNvchPfBAhgc9EjoP9jlp6egf35cBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090106;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
+	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
+	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
+	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
+	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=5bahGxfUN75E2T3mOHUJ9Zz0leyIiVRMhMYoQV+Rpgs=;
+	b=x0uYXytUFi4bDj43xFr0GT9ouuFLvbqVZzo1FPVExUK2xFy+Q7gQg2tenh1/6YA5MXHE
+	 D0Ul06jLCYlJbjbuFQqWLsWHeqDhjLK3SyncdWD5YcHy55SCqWmeUMF5PTz+EKVANcXCp
+	 7rub6X/6yKqTjDUNU23STIDCD6TkH7PhtfdGCSRsmAwbPE0av4I2I0USOKGGppqRmuKfh
+	 7sBgpdqeaj0zGjXRX6ISB4iWZyRlc+01DVnsCejPmp9nPcsSqKSBH1rubG67I22UK9hKX
+	 UzNHfpPIyUAep3FZCyU+Q6wf8VWuwxUwahSowNypEPCSFJXkDoqa57AYFNWs9WJgWGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=L4lEPNd+;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A60F606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A60F606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so26082195e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:34:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793090082; x=1793694882; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JBm8ffaCoPQH1JzTyc8e2It/Betu/HEG2/vRVRWiTUw=;
-        b=o3vw+R6WJM/xY5JqumC6/LUb4K4obMv0LWE2BkRABhu2x+bsyUqCR820A7ZCHwkfnC
-         Sn/+pQ3m+CYjUbeS9jCMjyJImOaj+z8d/dCOu4EFG3Y1ZhqfTxLIi/tMTL2aAS0KAZjH
-         peSCp75+tsY1riFXx52/4tof5ojkSxcnPvRzAH7xQ0h3ImgmU9w0joDiMP/Pi1uMSjFx
-         bljGGs0wwgGfu9RqNIdZk/gyQ20assvRY1Gzxql5mzVbAXwP0jDEfcY68G9+Uy9858pf
-         CbKr3I6NEEEgEcALs+KrHMjLGmUbg8SPUS8dRewMi3C/7X8PLL31gMcyyHhQAVMuvFwa
-         KxbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793090082; x=1793694882;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JBm8ffaCoPQH1JzTyc8e2It/Betu/HEG2/vRVRWiTUw=;
-        b=mztCOrOt/HpTjLR01iAPKfnCstURoHyctKPwj9Au3MuDrZs0W+tb4EKdHm8FawvM40
-         tx0w1xfH36a+sw4JxEjINDyWCMtF8pMRBAMBjLM4mdzKb62fEki/CEsPuN4q5omzQ1WY
-         DhaQ6i5a0nNN7aquxLiyTUY6nP05rRS0FsbsCk/YJQcp8pERMUz5Im6x2e+5I27VCUgV
-         EzD/SuoXvWIiWPAuIAYQoDUcdoBqvbh1SS1NXLg9aI1MsJ6FAbkZnp2Z9nTE0DWVhLEF
-         81H9ToXJ8st3gsV77TSfFAxsWSKHEf1bPGJqvuiHuyn+NxzGwyK3dnVfz0PAm8rDqcg2
-         95YQ==
-X-Forwarded-Encrypted: i=1; AKwUvByl1TIefFYL+Aj61i/IHXOPqhmaRPQZD9ZlUQN4v3fZMs8kgmCWN/ASKTb1fV7LD4HX9YZxxC1NpsrxQjs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYCURB5LYgOiN9ktNiNo6veUD3cn7fkrkr2/Ag8r7IB6fuLYj2
-	lonAEW9RC/xAUIVC6Ao14opXy7Zh+ZNoK+V2P07ulOBP8gB6Se9xMoPZExAfz3EvdAQ=
-X-Gm-Gg: AYBFou0i2yo2+hvIKB+mWoA3rje5+M7aFRgd5xfPAmQwYQQrQn4WGrCfOTAjSbV31lX
-	Z7r8E0Xmpq3I/14dK1afRJgDp8cADQk/jZ8DD7Vw5fnkc7/CNcPHm21/z66vTSH7pl5BvZ+MaGZ
-	D8+SBkifKJPb9Bpm5gFR/GWBtCNNtDxnpsa6nrmPrKg4A2lph96UgTgDgK0k6HXMhglk96Xy2/e
-	dPhjZXtlfnAbTNGVDXXHjKSfu0t3OVHJij4XUvWLqSF6YDDx85Z0mt39IpD6kerSNxKZrkkCtUA
-	xKei+faDV73BA9iZ9ozYJUHnUpylMbRGOznbLMklV4fCiq03UyyoLsEY62skmK3MEhLUA56xBcm
-	zUshra0WYGp26F0uadX8DPDzLf9aRr6WOIKPdHyZD11SnJpA8VY29/fYAmEJc+T/rGQ0brHzKxh
-	mhpTXtXc7LBDb6h4t8tOtQ2VWfAwpV4kWrwE7tyUGYdp3MemSFPAfdrmAgRizh/k4FclScMUkTN
-	CbpGfKbwNz3wuVVSWNnEQhsvjGSvYJbJE4P5OaNUd2Wf1bnfuqQnIC8DGp+Anzj
-X-Received: by 2002:a05:600c:19d4:b0:4a2:18d4:f9e0 with SMTP id 5b1f17b1804b1-4a35acbbcaamr167523235e9.25.1793090082317;
-        Tue, 27 Oct 2026 01:34:42 -0700 (PDT)
-Received: from localhost ([128.77.52.125])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a55e99fsm261457975e9.4.2026.10.27.01.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 01:34:41 -0700 (PDT)
-Date: Tue, 27 Oct 2026 09:34:38 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 01/20] ctlv: Add the schema language and generator
-Message-ID: <auBhwll-zJAaLXRf@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-2-jiri@resnulli.us>
- <20261020233132.793b7e97@jic23-hlaptop>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DC8606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:35:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97DC8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=L4lEPNd+
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261027083503epoutp02f228f7f3546ec4fe3304f8dd4d1ac1f3~iVfL8-zQk1440014400epoutp02b
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:35:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261027083503epoutp02f228f7f3546ec4fe3304f8dd4d1ac1f3~iVfL8-zQk1440014400epoutp02b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793090103;
+	bh=5bahGxfUN75E2T3mOHUJ9Zz0leyIiVRMhMYoQV+Rpgs=;
+	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
+	b=L4lEPNd+F7ee8P3N/mHT/N1cn74Bk23jtK73oJvSICLDsyxIDUNmFDbFox9TiE9+x
+	 ADQgI+Kd7P6lLh55lo/7d7+/uivKwLd3FhCIpos1hwluRZoNZuiJTwo7wna/3uI5WM
+	 RB8L7kn8gWQ3LAMMrLPijurzgNnNQ3qzhXraLJ+s=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261027083503epcas2p494af9311ba030f4f9573dc589ba17ada~iVfLXfW_z1990719907epcas2p4J;
+	Tue, 27 Oct 2026 08:35:03 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.208]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jDP1y6RkCz6B9mR; Tue, 27 Oct
+	2026 08:35:02 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,45 +62,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020233132.793b7e97@jic23-hlaptop>
+Mime-Version: 1.0
+Subject: RE:(2) [PATCH v4 5/9] xfs: limit the count of a pNFS write
+ allocation to one extent
+Reply-To: daejun7.park@samsung.com
+Sender: Daejun Park <daejun7.park@samsung.com>
+From: Daejun Park <daejun7.park@samsung.com>
+To: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
+	<linux-xfs@vger.kernel.org>, Christoph Hellwig <hch@lst.de>, "Darrick J.
+ Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, Chuck Lever
+	<cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, Dai Ngo
+	<Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, Andrey
+	Albershteyn <aalbersh@kernel.org>, "linux-nfs@vger.kernel.org"
+	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
+X-Priority: 3
+X-Content-Kind-Code: NORMAL
+In-Reply-To: <atoImJxtg70XcIjS@quentin>
+X-CPGS-Detection: blocking_info_exchange
+X-Drm-Type: N,general
+X-Msg-Generator: Mail
+X-Msg-Type: PERSONAL
+X-Reply-Demand: N
+Message-ID: <20261027083502epcms2p736b8c20d8a66bdc43b1f68e5cde0fc24@epcms2p7>
+Date: Tue, 27 Oct 2026 17:35:02 +0900
+X-CMS-MailID: 20261027083502epcms2p736b8c20d8a66bdc43b1f68e5cde0fc24
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-223,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261022130241epcas2p22506b749cfa884fea92c554d34d3df19
+References: <atoImJxtg70XcIjS@quentin>
+	<20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
+	<20261020-xfs-pnfs-batch-v4-5-9230fa2ca4a4@samsung.com>
+	<CGME20261022130241epcas2p22506b749cfa884fea92c554d34d3df19@epcms2p7>
 
-Wed, Oct 21, 2026 at 12:31:32AM +0200, jic23@kernel.org wrote:
->On Thu, 15 Oct 2026 16:50:34 +0200
->Jiri Pirko <jiri@resnulli.us> wrote:
->
+On Thu, Oct 22, 2026 at 03:02:30PM +0200, Pankaj Raghav wrote:
+> Isn't it better we add this in xfs_direct_write_iomap_begin() instead of
+> adding it in pnfs?
+[...]
+> +       count_fsb = min_t(xfs_filblks_t, count_fsb, XFS_MAX_BMBT_EXTLEN);
 
-[..]
+Thanks. That works for pNFS as well, as xfs_fs_map_blocks() passes the
+same count to xfs_iomap_write_direct(). I put the cap in
+xfs_fs_map_blocks() because it relies on the caller asking again for
+the rest of the range, which nfsd does, and the other caller,
+xfs_direct_write_iomap_begin(), already limits a mapping to 1024 pages.
 
->> +      A named attr set, a whole attr group, or one exact attr as
->> +      "group.attr". There are no tuple selectors and no cross-family
->> +      qualification.
->> +    type: string
->> +    pattern: ^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*)?$
->> +
->> +  selectors:
->> +    oneOf:
->> +      - $ref: '#/$defs/selector'
->> +      - type: array
->> +        minItems: 1
->> +        items:
->> +          $ref: '#/$defs/selector'
->
->My yaml is terrible (and all learnt form reviewing DT bindings which are
->undoubtedly perfect :) but random LLM agrees with me that you can simplify
->this as it's a local definition.  I think doing so makes life a little
->easier for reader by indicating it is thing defined a few lines up.
->
->            $ref: 'selector'
->
->I don't care that much though.
-
-Tried it: $ref is resolved as a URI against the schema's $id, so
-'selector' doesn't resolve. '#/$defs/selector' is the shortest form that
-works without an extra $id line in every definition, and it is what DT
-bindings use, so I'm keeping it.
-
-
-[..]
+Daejun
