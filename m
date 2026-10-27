@@ -1,89 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092180;
-	b=BjebDv4MjlIIIKl1skUUH/86bBSWEA3Ta1yGuHnC6vziaoBR6Q5ggfLeRlEBAq5O6bLV
-	 FBRGFXFD7N6NGhTvZnYO+lHrnqPmA3S3E5CDSuy8IdjjVn9NAEQk29B3zheRbeP+Q66pL
-	 12hpo4z129/7/MMKOGlbiKpYU6piQC544PL89nyMT9nrKRYAeRzuEjq/TeKsJHlXgYT/m
-	 aOpoAlMIiOhDwKQy+ZfYaTa6V0xIEvRscLZUxJRkbAarZYeOk3GsjKEsaiZoXm9A670LL
-	 fG9zgle9sEVo6jyP92AefCkVEKQYr4gGD1bs6hgQUfbuN6S7iGGEr8sGGPfJdrTViWQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092180;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=1DYr0x3fLMywXuM19gzLHcrmmLthoW3aOrvT7YaDuEw=;
-	b=i78s2uFdvb58dqB9Z7fsBwfYfXKMpQm/8YkL0CwYXY1MzFVetcUNApyrVw3q15/gyDX9
-	 JXcPE7WvQpDYioDW2RxXttq6qPhxedeK8+EZE4wbfnFhq2mnHLzFmSxs9hw0s+Ue90+S4
-	 QyQ29wduZN6AmbtYZUGsGCzw8U7Z1KsYcKGKqn6JpsXVAJsJ8BZP3dcZOB1MBHl9e3Vc+
-	 +Fp2D4CD3M9sGkiz0gj8x1vGUPUpuChXPs4+L3fjIEJIyvYkST12sXYqrN2w+uqmm9gLR
-	 dykNLQGM/Bh39yRnOjsjIsp6X076hPLaYeELBFyjhCR2RHN+Qn4sIigmlqbilueqkcg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793092232;
+	b=GYoRcWYaaGR3F6etPXgoR+nExM6W6Rfqg7/YhD+QE3H4AoUJ1cmoSTBCzuuAE816Qgwo
+	 BYxEfv86buLELS26oUKleED1sZbLsx52fqaDk/lRNHx2mT4VNWelW/j3UWWsGm1CO5YwP
+	 WvwNXylxUHjLRY8ta4KkGDeL4LBv1jjMh/fpkAz537+F9XBsG3E7M+T7obV1wajWPLOFR
+	 ChY0bRi/lY1jpyjJlL/Gps15/NYoIz3DgPLUu7hTIehF29UHiIjTYnyRTUoNt37N1L6ul
+	 XfXsraCCzw43qFtScpSmPoOBD7fS439/Ku8Mx6fY8Lq6vLa6zj3wMuRhz6/phsXGA9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092232;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=FQ0g8map93RSIFeiogiCUo9+RMAmYjKQ5ZA33gRKt1c=;
+	b=dnHNdKLhJegBjn1xHiHa7CSGR5BRcrOv1PWVtx5SwXKD+4hxUGA1zYs4tlVFklA08N0b
+	 c6w5rolps31jPG19clRNiLR9qyPu7heLEJbnsayxL6LJbY4KFcMUTaAsAElI29AVughm+
+	 YWNvc+mQSGAZ9WNaQc37FaxS+I7+glljNcE8A1dkSAm+C5K8SAzMrBNtpuVe8ZtqIqXQ2
+	 ccgFvJ3Qc5u+1mujP6hIgeGhZgPpys8j0V2Po9I4BeX+44nzCqrSLjgeNFiNJr1DsLtH6
+	 ssPOxdjGDnf1Cx/0JfGTWHhXJfQEFp9klD3ifQVapDmx9/PBy6cmIz9xUZXu8sYRzSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=DLU1KhC0;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=pPbM4a6s;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BC8606A332;
-	Tue, 27 Oct 2026 09:09:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97BC8606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 1a58ffb4d1e611f19a56ed5b684f684d-20261027
-X-CTIC-Tags:
-	HR_CC_CHARSET, HR_CC_CHARSET_NUM, HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME
-	HR_CC_NO_NAME, HR_CHARSET, HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_DIGIT_LEN
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
-	IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_EXISTED
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD
-	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:096f0fea-8efb-4f92-ad16-056a18c09964,IP:10,
-	URL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACT
-	ION:release,TS:10
-X-CID-INFO: VERSION:1.3.19,REQID:096f0fea-8efb-4f92-ad16-056a18c09964,IP:10,UR
-	L:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:10
-X-CID-META: VersionHash:7db8b62,CLOUDID:d58fc6dcd6843fb4ea2fe9b6f2f3f10d,BulkI
-	D:261027170927OXGODN0I,BulkQuantity:1,SF:17|19|38|66|78|81|82|102|127|865|
-	898,TC:nil,Content:0|15|50|99,EDM:5,IP:-2|1,URL:0,File:nil,RT:nil,Bulk:40,
-	QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
-	,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_IBB
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 1a58ffb4d1e611f19a56ed5b684f684d-20261027
-X-User: liwang@kylinos.cn
-Received: from computer.. [(116.128.244.169)] by mailgw.kylinos.cn
-	(envelope-from <liwang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 342057761; Tue, 27 Oct 2026 17:09:23 +0800
-From: Li Wang <liwang@kylinos.cn>
-To: Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Pavel Begunkov <asml.silence@gmail.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mengmeng Zhao <zhaomengmeng@kylinos.cn>,
-	Li Wang <liwang@kylinos.cn>
-Subject: [RFC PATCH v2 1/1] misc: fgds: introduce GPU-File direct I/O via dma-buf
-Date: Tue, 27 Oct 2026 17:08:53 +0800
-Message-Id: <20261027090853.30099-2-liwang@kylinos.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027090853.30099-1-liwang@kylinos.cn>
-References: <20260908131545.105987-1-liwang@kylinos.cn>
- <20261027090853.30099-1-liwang@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6561F606A31A;
+	Tue, 27 Oct 2026 09:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6561F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=DLU1KhC0;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=pPbM4a6s
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R90N7o4055809;
+	Tue, 27 Oct 2026 04:10:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=FQ0g8map93RSIFeiogiCUo9+RMAmYjKQ5ZA33gRKt
+	1c=; b=DLU1KhC0VuJGOCTgiLJV12wLAbmSY7N5wNOKFGC8ugHs5NAbmBTTlfe+s
+	t5+1x0lVginzSWsOe6EteYRHsF/EXk1zDm6xUSMAmLBSRTQyBKLmn3y23NyL2yxy
+	QkOD8aB1cRvPJkRo1yiKBcILrjxD9HveTm7XlvO2lYjFHtDcOfNQs0lLNWwqL6dC
+	bsAxongs1v0o71T6rhmrrnFgAouXea/uVZjfM7uckTj6wAbUlYEwxPGlBLvTlsgi
+	o0LpIaiNbU5yqKLpN+UuRpmncMdz3ehP8rvlUD0jgn+1+jjOg1xGDKtsLl9jZhNa
+	Z9WL8CFbICVbQ+5GEgukjzTSg3k7A==
+Received: from co1pr03cu002.outbound.protection.outlook.com (mail-westus2azon11010014.outbound.protection.outlook.com [52.101.46.14])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hj9sgwfuq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 04:10:24 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AgDxDaO/wQlgrSsFz29eZoc1v8+H9JlWG3V44x1hZd7w28hJ8SxzOqO35DATcFFu5C5oOFRSimhgJe5Nq95EcMP7E1O0gOZMB3f5xwI03G6sRg8u/iQL/hVPsa3Y7Wy/7VZ53TgRPD1uc0qz7onf48SXZYFal6EnBOjn8je7oHJBzZjBILMjc4an2IG0l3tiefdeXiX1IAtNY+WFE4pZ45rBTijXGBzNlyauRGsfcQBqd69As5CWWYsyh+EbxICcMaE8XFXA4s/J4xPa0xJzsRbLSjkQFhS9UcdbcfPR4AQfV9R7aAWm7XFwVd2ZspgRDVLyFNHtOslWKTdfclwO/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FQ0g8map93RSIFeiogiCUo9+RMAmYjKQ5ZA33gRKt1c=;
+ b=SXstJ/VJPXHnJz7qBbST+NgjLrXZDFsyooeTlTRXNKfu3PRLD8oXrO6SoVnvDqHrCZfUPC+GfzI3vUoPCOgOrYpIpJUWmRTI3ZmIXEdT9kB28HayRLmlVnDRscLWxfMWwSSRpfl3xOMxbHabtT/qCQCOQQyVS3qE7iaGDQPo3Sb6Uw5wYBe67xVn8EZQ8jYywDL/BdW+tSSE6e1zzmTF+QvBL1PVw+RCGnTDvvquxmZNg+/oWECuGmEYCkNqxa0FgGTULvFWYXT+05REU1fSrbFm/J9oBihGY/YLxbHkNapTmJXza4T9k4geDjpCehrnMDL6bHZ5t5o18EBfKmVvKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FQ0g8map93RSIFeiogiCUo9+RMAmYjKQ5ZA33gRKt1c=;
+ b=pPbM4a6sJaZlzv1FIqA3hrbxbowDTLn/Q7RXFEwFPR8SgmmMItsbBqn7QncOoDIt8Wj1yHjE5sG0AkvDEQiRSHsbtQvjARjGYmxafJ9m/THXhwKyD7T+fh3zTd0sW3KXvTsq328WlSRY6LVRAmUY5mBISlXxbFXPkAZyr9Momvk=
+Received: from CH2PR14CA0018.namprd14.prod.outlook.com (2603:10b6:610:60::28)
+ by MW6PR10MB7639.namprd10.prod.outlook.com (2603:10b6:303:244::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 09:10:15 +0000
+Received: from LV8PEPF0000005C.namprd02.prod.outlook.com
+ (2603:10b6:610:60:cafe::3e) by CH2PR14CA0018.outlook.office365.com
+ (2603:10b6:610:60::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
+ 27 Oct 2026 09:10:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ LV8PEPF0000005C.mail.protection.outlook.com (10.167.245.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 09:10:13 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
+ 2026 04:09:37 -0500
+Received: from DFLE211.ent.ti.com (10.64.6.69) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
+ 2026 04:09:37 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 27 Oct 2026 04:09:37 -0500
+Received: from [10.24.51.219] (abhilash-hp.dhcp.ti.com [10.24.51.219])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69R99XnV1610982;
+	Tue, 27 Oct 2026 04:09:33 -0500
+Message-ID: <9d505e63-9d99-42fd-9638-05043ad36e90@ti.com>
+Date: Tue, 27 Oct 2026 14:39:32 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,918 +133,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: Add TI TDA54 pin controller
+To: Conor Dooley <conor@kernel.org>, Linus Walleij <linusw@kernel.org>
+CC: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <brgl@kernel.org>,
+        <linux-gpio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <afd@ti.com>, <u-kumar1@ti.com>
+References: <20260930092020.1047221-1-y-abhilashchandra@ti.com>
+ <20260930092020.1047221-2-y-abhilashchandra@ti.com>
+ <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
+ <20261001-repost-reselect-2b597c627c11@spud>
+Content-Language: en-US
+From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+In-Reply-To: <20261001-repost-reselect-2b597c627c11@spud>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PEPF0000005C:EE_|MW6PR10MB7639:EE_
+X-MS-Office365-Filtering-Correlation-Id: af0f179b-1c28-4c99-fb51-08df340a1c3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|36860700016|10067099003|261026121527099003|261009223327099003|3023799007|261021123027099003|261022105027099003|261009221227099003|261021121427099003|261021135927099003|261009220027099003|261009221727099003|261009223027099003|261022115727099003|261022075727099003|56012099006|4143699003|6133799003|22082099003|18002099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	p4GLCZRLrlVpsUtBvjwXXRPbw2SRAXpPVuAznvwWKRlLuAlV/hn1GnevHEqrZi9wAuaUQDq+Ff2Hc9F0itbnM2IonY4PBhHm/UKG27s5uCSiqGiyZDeMSVZvfyoalWqI4VQyQuONsgyk7j4D2EhVe4XsGAJJwgQ52f94Z/gRiUs9dvM/9LXrR5suBo0h/POI09d9LiGcSgExYBfVYQBugWXeOBjDdIKXqOzx0d/5ZgaEsyDq/F98bHIYrisoTmMyjcHfPomHNxLWRQpO1sW2NPYPaGmWdtHoXie6IsYaDDLdwPaSCn8PzNFiCJ+ptnztyqvQNVZWkKcmzB4XP/J+iZjsN7ApQ8QrJ2p0jwatcO6GftTTgMHoM58CIOW9GtNl5E6dUC/6+muH+BfafOKc+LNTZWWdIS/2iXKDS7TCC+U2T2SxlP5q9yueuK8GbfCBhDWwF2Ep/dWtnmOAV8qhxzBXAzmyj5ZD5y4CQEzZbuSe502tfzHtqDfewkuy/J4mZhClO+xjK3W1vt1bVIK4KXc/cJ4ui7Ob2t44oyAzayQGUjj50E2l+HCaxm4f4Dv1s/r0d9aQItkMfqGa51tPpKBK4fGqUD6tKPBPDKIKXfSrYoxyFh1bvK6pgozhZQiAP8zJJ196bpDWVyEIB7URju8hf43jG9rEySLN4kI1woA=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(261026121527099003)(261009223327099003)(3023799007)(261021123027099003)(261022105027099003)(261009221227099003)(261021121427099003)(261021135927099003)(261009220027099003)(261009221727099003)(261009223027099003)(261022115727099003)(261022075727099003)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iHNikiO7yszel2Qg7GAerVLe6RecDOsx3LIcS565EVZtuImcTCGGoBgKxQvGtnUsZUGjpFYMGxFoBWWBnJpqRkfRUXcxiNqpQzUhENrQYnRIeQdS1euCyW3s1a01woy035Y9J1+Ujs45tcc0jn1VDDSisxV97x+CqI2o6iAYBO8p7BeSjhN1hEhQL3x3cTcP6JTXWGWT/bBhvV8dt6Q9lx++0/yVXSvDhQx7aZn+cL1mvvv7M3lS8xQQmypIW8HYZjDS80BZjKUYXpgDrkuDdFVHTAckJzCjtO8c7hYTgQHirhfKgyOH8oC+samSD971g/ErfRfVn/sxLa5y/9yRgo9dZx2/sA+crS/Y/BwK3dRwcgGAkxtYn+oLNRz87WwweaNaL7t0vVnd4Q6+82FYAas1m+mhOj3xttaDiwQC0bNeFng4+JQ6H36p8j5AOLZS
+X-Exchange-RoutingPolicyChecked:
+	xDsjfTQvwB8kL+jp1LOGXRhtLf3twE52zGoM9hJ9JCpvVD0WSHZchHXIK5vh09ITfUx4n3cgo77K+WN7fkUu8XiwQK8kfOYawglJxFPmacAo6XPxJntLPUGIL4uDhNFZQtOUTpEws6B2fvrVgz0vZbWvClafkagyMZVPd+kbrGkRXn7tOI97FKQCh1Tjehqqt1OVFDOXhA52a0MlwRCMynVCuLNJXE6x3atSr232a8GEzWvDg6dqSzJ7JM3OCWA8P6suJbo0XmEKmHyil+bYT/fFKbE0i7gxf2B3QFuKNGqxTCh8VyrHLBAdVJuYjbmQ6s3QW/7UnHooPxp/LzJDGA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 09:10:13.6785
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af0f179b-1c28-4c99-fb51-08df340a1c3c
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	LV8PEPF0000005C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR10MB7639
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfX84v6jtdtq83R
+ 2JIsp9cgI+5dCplTXLPBXVuWuSSAJmDj3gJduOic9QHyOlUN0dwqMMFlT4suH9MLAbEJRdsjvbR
+ Q0Wao00a6PwAS8uTBgsQ/6i+xQUU/wA=
+X-Proofpoint-ORIG-GUID: 4-VJ0NbyI94wVxLxF59q2byIAzYK2ZbE
+X-Authority-Analysis: v=2.4 cv=O5GsLx9W c=1 sm=1 tr=0 ts=6ae06a80 cx=c_pps
+ a=f5Tl6ILaYY6UHEJdjUIuFA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=sozttTNsAAAA:8 a=Ja6DrOVAxxP7iCVqLZQA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 4-VJ0NbyI94wVxLxF59q2byIAzYK2ZbE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNiBTYWx0ZWRfX9lC3bbRnduG7
+ x6XOePTz8tfY5z2US0dmFUASi/Ud2Inrs4m5ehOwBo18VneIlcuk3yKsA+NYmKBZjU6wr7/y45h
+ 43h7WqOzByPi/BjtSpbhn4tEVd7aILMPbeABbG8u5oScyIWPpdt/QTnQQvbpPfFwfOEOX89ZyWL
+ R+rH9aV6DApLclzkLdtgxQW5qyOIj3wHUUAMssWNrfC8x9PATXOEZrYnPYgzgHFcY35TUpL3SER
+ jYn4B5W7sQKUcP76PzyZXcDz2IJXt1HeqB/qfPJDa8f5QZ4rzuJefXwTSIP6zJ9TzXzzlwMevn5
+ Gj7WG///kVC7ziX7dY1OJUunKqyvMy+FNQGfPMxshCiXM4r2vOhGZgCaY/TgdyKEBYWfscCtU63
+ DrN2+nMr/CrcKz73TnKktKj/cki+XN/gSesZyvlRiN8Vw1AeM9Stb+X4sLNkY//LENX2vP4WUEz
+ pRR+PZgMLeTl6Sm18qQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 adultscore=0 spamscore=0 clxscore=1011 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270036
 
-From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Hi Conor,
+Thanks for the review.
 
-This patch introduces a driver that allows moving data between a GPU
-dma-buf and a regular file on NVME without staging it through the page 
-cache. Userspace registers the GPU dma-buf with the device, then issues 
-read and write requests via the device's ioctls. Each transfer is direct 
-I/O: an ITER_DMABUF_MAP iterator is passed to the file's read_iter or
-write_iter, and the filesystem's iomap path submits REQ_DMABUF bios that
-already carry the dma addresses.
+On 02/10/26 02:56, Conor Dooley wrote:
+> On Thu, Oct 01, 2026 at 11:10:34PM +0200, Linus Walleij wrote:
+>> Hi Yemike,
+>>
+>> thanks for your patch!
+>>
+>> On Wed, Sep 30, 2026 at 11:21 AM Yemike Abhilash Chandra
+>> <y-abhilashchandra@ti.com> wrote:
+>>
+>>> +      ti,debounce-select:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1, 2, 3, 4, 5, 6]
+>>> +        description:
+>>> +          Selects which DBOUNCE_CFGn period register in the control module
+>>> +          drives the debounce filter for this pad. 0 disables debouncing,
+>>> +          1 to 6 select DBOUNCE_CFG1 to DBOUNCE_CFG6.
+>>
+>> What's wrong with the existing input-debounce property?
+>>
+>>    input-debounce:
+>>      $ref: /schemas/types.yaml#/definitions/uint32-array
+>>      description: Takes the debounce time in usec as argument or 0 to disable
+>>        debouncing
+>>
+>> Just translate usec:s into your custom format in the code, problem solved.
+>>
+>>> +      ti,virt-gpio-instance:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1, 2, 3, 4, 5, 6, 7]
+>>> +        description:
+>>> +          Selects which virtual GPIO instance controls this pad, allowing
+>>> +          protection between multiple virtual views of the GPIO control
+>>> +          registers. Has no effect unless the pad is muxed to GPIO mode
+>>> +          (muxmode 7).
+>>
+>> Wow crazy stuff. OK keep it :D
+>>
+>>> +      ti,wakeup:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1, 2, 3]
+>>> +        description: |
+>>> +          Wakeup event configuration for this pad.
+>>> +          0 - wakeup disabled
+>>> +          1 - wakeup triggered by any change of the pin input value
+>>> +          2 - wakeup triggered by a low value on the pin
+>>> +          3 - wakeup triggered by a high value on the pin
+>>
+>> I just have the feeling this should be a generic property. It seems so useful.
+>>
+>> Can you just add this as wakeup-mode = <custom value> in
+>> Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+> 
+> And I think it should probably be strings, so that there's some hope of
+> commonality, since obviously any user is going to invent different
+> mappings.
+>
 
-Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Signed-off-by: Li Wang <liwang@kylinos.cn>
----
- .../userspace-api/ioctl/ioctl-number.rst      |   2 +
- drivers/dma-buf/dma-buf-io.c                  |   3 +
- drivers/misc/Kconfig                          |  16 +
- drivers/misc/Makefile                         |   1 +
- drivers/misc/fgds.c                           | 506 ++++++++++++++++++
- fs/iomap/buffered-io.c                        |  11 +
- fs/iomap/direct-io.c                          |  23 +-
- fs/xfs/xfs_file.c                             |   4 +
- include/linux/iov_iter.h                      |   4 +
- include/uapi/linux/fgds.h                     | 124 +++++
- lib/iov_iter.c                                |   1 +
- mm/filemap.c                                  |  22 +-
- 12 files changed, 713 insertions(+), 4 deletions(-)
- create mode 100644 drivers/misc/fgds.c
- create mode 100644 include/uapi/linux/fgds.h
+Makes sense, I'll make generic wakeup-mode a string property in v2.
 
-diff --git a/Documentation/userspace-api/ioctl/ioctl-number.rst b/Documentation/userspace-api/ioctl/ioctl-number.rst
-index 2fc53093752d..5f93a252e773 100644
---- a/Documentation/userspace-api/ioctl/ioctl-number.rst
-+++ b/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -306,6 +306,8 @@ Code  Seq#    Include File                                             Comments
- 'v'   20-27  arch/powerpc/include/uapi/asm/vas-api.h                   VAS API
- 'v'   C0-FF  linux/meye.h                                              conflict!
- 'w'   all                                                              CERN SCI driver
-+'x'   00-0F  linux/fgds.h                                              Fast GPU Direct Storage
-+                                                                       <mailto:liwang@kylinos.cn>
- 'y'   00-1F                                                            packet based user level communications
-                                                                        <mailto:zapman@interlan.net>
- 'z'   00-3F                                                            CAN bus card conflict!
-diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
-index 8440151de860..2ee4fc683c74 100644
---- a/drivers/dma-buf/dma-buf-io.c
-+++ b/drivers/dma-buf/dma-buf-io.c
-@@ -135,6 +135,7 @@ struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx)
- 	dma_resv_unlock(ctx->dmabuf->resv);
- 	return map;
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_io_create_map, "DMA_BUF");
- 
- static void dma_buf_io_ctx_shutdown(struct dma_buf_io_ctx *ctx)
- {
-@@ -190,6 +191,7 @@ int dma_buf_io_ctx_create(struct file *file,
- 	*out_ctx = ctx;
- 	return 0;
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_io_ctx_create, "DMA_BUF");
- 
- /**
-  * dma_buf_io_ctx_release - Destroy the I/O context
-@@ -211,6 +213,7 @@ void dma_buf_io_ctx_release(struct dma_buf_io_ctx *ctx)
- 	dma_buf_put(ctx->dmabuf);
- 	kfree(ctx);
- }
-+EXPORT_SYMBOL_NS_GPL(dma_buf_io_ctx_release, "DMA_BUF");
- 
- /**
-  * dma_buf_io_invalidate_mappings - Invalidate the current map
-diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 7364931dad3a..b85fd64d27ad 100644
---- a/drivers/misc/Kconfig
-+++ b/drivers/misc/Kconfig
-@@ -568,6 +568,22 @@ config MCHP_LAN966X_PCI
- 	    - lan966x-miim (MDIO_MSCC_MIIM)
- 	    - lan966x-switch (LAN966X_SWITCH)
- 
-+config FGDS
-+	tristate "Fast GPU Direct Storage support"
-+	depends on DMA_SHARED_BUFFER && BLOCK
-+	default n
-+	help
-+	  This driver exposes a misc device that moves data between a GPU
-+	  dma-buf and a regular file with synchronous read/write ioctls,
-+	  submitting the transfer as direct I/O (REQ_DMABUF bios) through
-+	  the file system's iomap DIO path without a page cache bounce
-+	  buffer.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called fgds.
-+
-+	  If unsure, say N.
-+
- source "drivers/misc/c2port/Kconfig"
- source "drivers/misc/eeprom/Kconfig"
- source "drivers/misc/cb710/Kconfig"
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index e8d8d5d88c0d..cd98ef3d008e 100644
---- a/drivers/misc/Makefile
-+++ b/drivers/misc/Makefile
-@@ -70,4 +70,5 @@ obj-$(CONFIG_MCHP_LAN966X_PCI)	+= lan966x-pci.o
- obj-y				+= keba/
- obj-y				+= amd-sbi/
- obj-$(CONFIG_MISC_RP1)		+= rp1/
-+obj-$(CONFIG_FGDS)		+= fgds.o
- obj-$(CONFIG_INTEL_SSEI)	+= issei/
-diff --git a/drivers/misc/fgds.c b/drivers/misc/fgds.c
-new file mode 100644
-index 000000000000..3929a6514d23
---- /dev/null
-+++ b/drivers/misc/fgds.c
-@@ -0,0 +1,506 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Fast GPU Direct Storage via dma-buf.
-+ *
-+ * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
-+ *
-+ * Synchronous read/write ioctls that move data between a GPU dma-buf and
-+ * a regular file.
-+ */
-+
-+#include <linux/blkdev.h>
-+#include <linux/dma-buf.h>
-+#include <linux/dma-buf-io.h>
-+#include <linux/device.h>
-+#include <linux/fcntl.h>
-+#include <linux/fileattr.h>
-+#include <linux/fs.h>
-+#include <linux/fsnotify.h>
-+#include <linux/magic.h>
-+#include <linux/math.h>
-+#include <linux/miscdevice.h>
-+#include <linux/module.h>
-+#include <linux/overflow.h>
-+#include <linux/pagemap.h>
-+#include <linux/sched/xacct.h>
-+#include <linux/slab.h>
-+#include <linux/uaccess.h>
-+#include <linux/uio.h>
-+#include <linux/xarray.h>
-+
-+#include <linux/fgds.h>
-+
-+static struct miscdevice fgds_misc;
-+
-+/* One registered buffer: a dma-buf bound to a block device. */
-+struct fgds_reg {
-+	struct kref		kref;
-+	struct dma_buf_io_ctx	*ctx;
-+	struct file		*bdev_file;
-+	struct block_device	*bdev;
-+	u64			size;
-+};
-+
-+/* State of one /dev/fgds open file description; handles are private to it. */
-+struct fgds_state {
-+	struct xarray		regs;
-+	/* protects @regs and, with the reg kref, the lifetime of entries */
-+	struct mutex		lock;
-+};
-+
-+static void fgds_reg_release(struct kref *kref)
-+{
-+	struct fgds_reg *reg = container_of(kref, struct fgds_reg, kref);
-+
-+	dma_buf_io_ctx_release(reg->ctx);
-+	fput(reg->bdev_file);
-+	kfree(reg);
-+}
-+
-+static void fgds_reg_put(struct fgds_reg *reg)
-+{
-+	kref_put(&reg->kref, fgds_reg_release);
-+}
-+
-+static struct fgds_state *fgds_state(struct file *file)
-+{
-+	return file->private_data;
-+}
-+
-+/*
-+ * File and file-system level gate.
-+ */
-+static int fgds_gate(struct file *ffile)
-+{
-+	struct inode *inode = file_inode(ffile);
-+	struct super_block *sb = inode->i_sb;
-+	struct file_kattr fa;
-+
-+	if (!S_ISREG(inode->i_mode))
-+		return -EINVAL;
-+	if (sb->s_magic != XFS_SUPER_MAGIC)
-+		return -EOPNOTSUPP;
-+	if (IS_DAX(inode))
-+		return -EOPNOTSUPP;
-+	if (mapping_stable_writes(inode->i_mapping))
-+		return -EOPNOTSUPP;
-+	if (!sb->s_bdev)
-+		return -EOPNOTSUPP;
-+	if (bdev_is_zoned(sb->s_bdev))
-+		return -EOPNOTSUPP;
-+	if (!sb->s_bdev->bd_disk->fops->init_dma_buf_io_ctx)
-+		return -EOPNOTSUPP;
-+
-+	/*
-+	 * Realtime inodes live on a separate device whose DMA setup is not
-+	 * covered here.
-+	 */
-+	if (vfs_fileattr_get(ffile->f_path.dentry, &fa))
-+		return -EOPNOTSUPP;
-+	if (fa.fsx_xflags & FS_XFLAG_REALTIME)
-+		return -EOPNOTSUPP;
-+	return 0;
-+}
-+
-+static unsigned int fgds_file_align(struct inode *inode, bool write)
-+{
-+	unsigned int lbs = bdev_logical_block_size(inode->i_sb->s_bdev);
-+
-+	if (!write)
-+		return lbs;
-+	return max(1U << inode->i_blkbits, lbs);
-+}
-+
-+static unsigned int fgds_dma_align(struct inode *inode)
-+{
-+	return bdev_dma_alignment(inode->i_sb->s_bdev) + 1;
-+}
-+
-+static struct fgds_reg *fgds_reg_get(struct fgds_state *state, u32 handle)
-+{
-+	struct fgds_reg *reg;
-+
-+	mutex_lock(&state->lock);
-+	reg = xa_load(&state->regs, handle);
-+	if (reg)
-+		kref_get(&reg->kref);
-+	mutex_unlock(&state->lock);
-+	return reg;
-+}
-+
-+static int fgds_unregister_handle(struct fgds_state *state, u32 handle)
-+{
-+	struct fgds_reg *reg;
-+
-+	mutex_lock(&state->lock);
-+	reg = xa_erase(&state->regs, handle);
-+	mutex_unlock(&state->lock);
-+	if (reg)
-+		fgds_reg_put(reg);
-+	return reg ? 0 : -EINVAL;
-+}
-+
-+static int fgds_register(struct file *file, struct fgds_register_args __user *uarg)
-+{
-+	struct fgds_register_args args;
-+	struct fgds_state *state = fgds_state(file);
-+	struct dma_buf_io_ctx *ctx = NULL;
-+	struct block_device *bdev;
-+	struct file *bdev_file;
-+	struct dma_buf *dbuf;
-+	struct fd bfdf;
-+	struct fgds_reg *reg;
-+	u32 id;
-+	int ret;
-+
-+	if (copy_from_user(&args, uarg, sizeof(args)))
-+		return -EFAULT;
-+	if (args.handle || args.pad || args.reserved)
-+		return -EINVAL;
-+
-+	dbuf = dma_buf_get(args.dfd);
-+	if (IS_ERR(dbuf))
-+		return PTR_ERR(dbuf);
-+
-+	bfdf = fdget(args.bdev_fd);
-+	if (fd_empty(bfdf)) {
-+		ret = -EBADF;
-+		goto out_dmabuf;
-+	}
-+	bdev_file = fd_file(bfdf);
-+	if (!S_ISBLK(file_inode(bdev_file)->i_mode)) {
-+		ret = -EINVAL;
-+		goto out_fdput;
-+	}
-+	/* blkdev_init_dma_buf_io_ctx() needs O_DIRECT. */
-+	if (!(bdev_file->f_flags & O_DIRECT)) {
-+		ret = -EINVAL;
-+		goto out_fdput;
-+	}
-+
-+	bdev = file_bdev(bdev_file);
-+	if (!bdev->bd_disk->fops->init_dma_buf_io_ctx) {
-+		ret = -EOPNOTSUPP;
-+		goto out_fdput;
-+	}
-+
-+	ret = -ENOMEM;
-+	reg = kzalloc_obj(*reg);
-+	if (!reg)
-+		goto out_fdput;
-+
-+	get_file(bdev_file);
-+
-+	ret = dma_buf_io_ctx_create(bdev_file, dbuf, DMA_BIDIRECTIONAL, &ctx);
-+	if (ret) {
-+		dev_err(fgds_misc.this_device,
-+			"dma-buf-io context on %pg failed: %pe\n",
-+			bdev, ERR_PTR(ret));
-+		goto out_file;
-+	}
-+
-+	kref_init(&reg->kref);
-+	reg->ctx = ctx;
-+	reg->bdev_file = bdev_file;
-+	reg->bdev = bdev;
-+	reg->size = dbuf->size;
-+
-+	mutex_lock(&state->lock);
-+	ret = xa_alloc(&state->regs, &id, reg, XA_LIMIT(1, UINT_MAX),
-+		       GFP_KERNEL);
-+	if (ret) {
-+		mutex_unlock(&state->lock);
-+		goto out_ctx;
-+	}
-+
-+	args.handle = id;
-+	/* the window must stay inside the buffer and within 32 bits */
-+	args.max_doffset = min_t(u64, reg->size, UINT_MAX);
-+
-+	if (copy_to_user(uarg, &args, sizeof(args))) {
-+		xa_erase(&state->regs, id);
-+		mutex_unlock(&state->lock);
-+		ret = -EFAULT;
-+		goto out_ctx;
-+	}
-+	mutex_unlock(&state->lock);
-+
-+	fdput(bfdf);
-+	dma_buf_put(dbuf);
-+	return 0;
-+
-+out_ctx:
-+	dma_buf_io_ctx_release(ctx);
-+out_file:
-+	fput(bdev_file);
-+	kfree(reg);
-+out_fdput:
-+	fdput(bfdf);
-+out_dmabuf:
-+	dma_buf_put(dbuf);
-+	return ret;
-+}
-+
-+static int fgds_unregister(struct file *file, struct fgds_unregister_args __user *uarg)
-+{
-+	struct fgds_unregister_args args;
-+
-+	if (copy_from_user(&args, uarg, sizeof(args)))
-+		return -EFAULT;
-+	if (args.reserved)
-+		return -EINVAL;
-+	return fgds_unregister_handle(fgds_state(file), args.handle);
-+}
-+
-+/*
-+ * Launch one read_iter()/write_iter() call.
-+ * Returns the number of bytes the file system moved, or a negative
-+ * errno; a short read means the end of the file.
-+ */
-+static ssize_t fgds_do_rw(struct fgds_state *state,
-+			  const struct fgds_rw_args *args, bool write)
-+{
-+	struct fgds_reg *reg;
-+	struct dma_buf_io_map *map;
-+	struct file *ffile;
-+	struct inode *inode;
-+	struct iov_iter iter;
-+	struct kiocb kiocb;
-+	struct fd fdf;
-+	ssize_t (*iter_fn)(struct kiocb *kiocb, struct iov_iter *i);
-+	unsigned int file_align, dma_align;
-+	u64 length = args->length;
-+	u64 dbuf_end;
-+	loff_t offset, end;
-+	ssize_t ret;
-+
-+	if (args->flags)
-+		return -EINVAL;
-+	if (length > MAX_RW_COUNT)
-+		return -EINVAL;
-+
-+	offset = args->offset;
-+	if (offset < 0 || check_add_overflow(offset, (loff_t)length, &end))
-+		return -EINVAL;
-+	/*
-+	 * The block layer's dma-buf iterator truncates the segment offset to
-+	 * 32 bits, and the window must stay inside the registered buffer.
-+	 */
-+	if (check_add_overflow(args->doffset, length, &dbuf_end))
-+		return -EINVAL;
-+	if (dbuf_end > UINT_MAX)
-+		return -EINVAL;
-+
-+	fdf = fdget(args->ffd);
-+	if (fd_empty(fdf))
-+		return -EBADF;
-+	ffile = fd_file(fdf);
-+	inode = file_inode(ffile);
-+
-+	ret = -EINVAL;
-+	if (!S_ISREG(inode->i_mode) || (ffile->f_flags & O_APPEND))
-+		goto out_fdput;
-+
-+	if (write) {
-+		if (!(ffile->f_mode & FMODE_WRITE) ||
-+		    !(ffile->f_mode & FMODE_CAN_WRITE))
-+			goto out_fdput;
-+		iter_fn = ffile->f_op->write_iter;
-+	} else {
-+		if (!(ffile->f_mode & FMODE_READ) ||
-+		    !(ffile->f_mode & FMODE_CAN_READ))
-+			goto out_fdput;
-+		iter_fn = ffile->f_op->read_iter;
-+	}
-+	if (!iter_fn) {
-+		ret = -EOPNOTSUPP;
-+		goto out_fdput;
-+	}
-+
-+	ret = fgds_gate(ffile);
-+	if (ret)
-+		goto out_fdput;
-+
-+	reg = fgds_reg_get(state, args->handle);
-+	if (!reg) {
-+		ret = -EINVAL;
-+		goto out_fdput;
-+	}
-+
-+	if (inode->i_sb->s_bdev != reg->bdev) {
-+		ret = -EXDEV;
-+		goto out_reg;
-+	}
-+
-+	file_align = fgds_file_align(inode, write);
-+	dma_align = fgds_dma_align(inode);
-+	if ((offset | (loff_t)length) & (file_align - 1) ||
-+	    (args->doffset | (loff_t)length) & (dma_align - 1) ||
-+	    dbuf_end > reg->size ||
-+	    (!write && end > i_size_read(inode))) {
-+		ret = -EINVAL;
-+		goto out_reg;
-+	}
-+
-+	ret = rw_verify_area(write ? WRITE : READ, ffile, &offset, length);
-+	if (ret)
-+		goto out_reg;
-+	if (write)
-+		inc_syscw(current);
-+	else
-+		inc_syscr(current);
-+
-+	if (!length) {
-+		ret = 0;
-+		goto out_reg;
-+	}
-+
-+	map = dma_buf_io_get_map(reg->ctx, false);
-+	if (IS_ERR(map)) {
-+		ret = PTR_ERR(map);
-+		if (ret != -EAGAIN)
-+			dev_err_ratelimited(fgds_misc.this_device,
-+					    "dma-buf mapping failed on %pg: %pe\n",
-+					    reg->bdev, ERR_PTR(ret));
-+		goto out_reg;
-+	}
-+
-+	/*
-+	 * A direct I/O read would leave any cached pages of the range
-+	 * stale, so flush and drop them before submitting.
-+	 */
-+	if (!write) {
-+		ret = filemap_write_and_wait_range(ffile->f_mapping,
-+						   offset, end - 1);
-+		if (ret)
-+			goto out_map;
-+		ret = invalidate_inode_pages2_range(ffile->f_mapping,
-+						    offset >> PAGE_SHIFT,
-+						    (end - 1) >> PAGE_SHIFT);
-+		if (ret) {
-+			/*
-+			 * Report a retryable error instead of letting
-+			 * -EBUSY escape.
-+			 */
-+			if (ret == -EBUSY)
-+				ret = -EAGAIN;
-+			goto out_map;
-+		}
-+	}
-+
-+	if (write)
-+		file_start_write(ffile);
-+	iov_iter_dmabuf_map(&iter, write ? ITER_SOURCE : ITER_DEST,
-+			    map, args->doffset, length);
-+	init_sync_kiocb(&kiocb, ffile);
-+	kiocb.ki_flags |= IOCB_DIRECT;
-+	if (write)
-+		kiocb.ki_flags |= IOCB_WRITE;
-+	kiocb.ki_pos = offset;
-+
-+	ret = iter_fn(&kiocb, &iter);
-+	if (WARN_ON_ONCE(ret == -EIOCBQUEUED))
-+		ret = -EIO;
-+	if (write)
-+		file_end_write(ffile);
-+
-+	if (ret > 0) {
-+		if (write) {
-+			fsnotify_modify(ffile);
-+			add_wchar(current, ret);
-+		} else {
-+			fsnotify_access(ffile);
-+			add_rchar(current, ret);
-+		}
-+	}
-+
-+out_map:
-+	dma_buf_io_map_drop(map);
-+out_reg:
-+	fgds_reg_put(reg);
-+out_fdput:
-+	fdput(fdf);
-+	return ret;
-+}
-+
-+static long fgds_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-+{
-+	struct fgds_state *state = fgds_state(file);
-+	struct fgds_rw_args args;
-+
-+	switch (cmd) {
-+	case FGDS_IOCTL_WRITE:
-+	case FGDS_IOCTL_READ:
-+		if (copy_from_user(&args, (void __user *)arg, sizeof(args)))
-+			return -EFAULT;
-+		return fgds_do_rw(state, &args, cmd == FGDS_IOCTL_WRITE);
-+	case FGDS_IOCTL_REGISTER_BUF:
-+		return fgds_register(file, (struct fgds_register_args __user *)arg);
-+	case FGDS_IOCTL_UNREGISTER_BUF:
-+		return fgds_unregister(file, (struct fgds_unregister_args __user *)arg);
-+	}
-+	return -ENOTTY;
-+}
-+
-+static int fgds_open(struct inode *inode, struct file *file)
-+{
-+	struct fgds_state *state;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	xa_init_flags(&state->regs, XA_FLAGS_ALLOC);
-+	mutex_init(&state->lock);
-+	file->private_data = state;
-+	return 0;
-+}
-+
-+static int fgds_release(struct inode *inode, struct file *file)
-+{
-+	struct fgds_state *state = fgds_state(file);
-+	struct fgds_reg *reg;
-+	unsigned long id;
-+
-+	xa_for_each(&state->regs, id, reg) {
-+		xa_erase(&state->regs, id);
-+		fgds_reg_put(reg);
-+	}
-+	xa_destroy(&state->regs);
-+	mutex_destroy(&state->lock);
-+	kfree(state);
-+	return 0;
-+}
-+
-+static const struct file_operations fgds_fops = {
-+	.owner		= THIS_MODULE,
-+	.open		= fgds_open,
-+	.release	= fgds_release,
-+	.unlocked_ioctl	= fgds_ioctl,
-+	.compat_ioctl	= compat_ptr_ioctl,
-+};
-+
-+static struct miscdevice fgds_misc = {
-+	.minor	= MISC_DYNAMIC_MINOR,
-+	.name	= "fgds",
-+	.fops	= &fgds_fops,
-+};
-+
-+static int __init fgds_init(void)
-+{
-+	return misc_register(&fgds_misc);
-+}
-+
-+static void __exit fgds_exit(void)
-+{
-+	misc_deregister(&fgds_misc);
-+}
-+
-+module_init(fgds_init);
-+module_exit(fgds_exit);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("DMA_BUF");
-+MODULE_AUTHOR("Mengmeng Zhao <zhaomengmeng@kylinos.cn>, Li Wang <liwang@kylinos.cn>");
-+MODULE_DESCRIPTION("Fast GPU Direct Storage");
-+MODULE_VERSION("1.0.0");
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 0a5ebfda90f1..a7ab28edab98 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -1304,6 +1304,17 @@ iomap_file_buffered_write(struct kiocb *iocb, struct iov_iter *i,
- 	};
- 	ssize_t ret;
- 
-+	/*
-+	 * The copy helpers have no source for a dma-buf iterator: the copy
-+	 * would move zero bytes, ->write_end() would reject the untouched
-+	 * folio, fault_in_iov_iter_readable() reports the iterator as
-+	 * readable, and the loop below would never advance.  Refuse here
-+	 * rather than at each caller's entry point, so no path can reach
-+	 * the copy with such an iterator.
-+	 */
-+	if (iov_iter_is_dmabuf_map(i))
-+		return -EOPNOTSUPP;
-+
- 	if (iocb->ki_flags & IOCB_NOWAIT)
- 		iter.flags |= IOMAP_NOWAIT;
- 	if (iocb->ki_flags & IOCB_DONTCACHE)
-diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 8b4039d16ce8..eccc07d53e9c 100644
---- a/fs/iomap/direct-io.c
-+++ b/fs/iomap/direct-io.c
-@@ -595,8 +595,16 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- 
- static int iomap_dio_hole_iter(struct iomap_iter *iter, struct iomap_dio *dio)
- {
--	loff_t length = iov_iter_zero(iomap_length(iter), dio->submit.iter);
-+	loff_t length;
- 
-+	/*
-+	 * dmabuf maps do not support zero-filling holes or
-+	 * unwritten extents.
-+	 */
-+	if (iov_iter_is_dmabuf_map(dio->submit.iter))
-+		return -EOPNOTSUPP;
-+
-+	length = iov_iter_zero(iomap_length(iter), dio->submit.iter);
- 	dio->size += length;
- 	if (!length)
- 		return -EFAULT;
-@@ -683,8 +691,8 @@ static int iomap_dio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
-  * the correct total number of bytes transferred; this is essential for
-  * completing partial requests asynchronously.
-  *
-- * Returns -ENOTBLK In case of a page invalidation invalidation failure for
-- * writes.  The callers needs to fall back to buffered I/O in this case.
-+ * Returns -ENOTBLK in case of a page cache invalidation failure for writes.
-+ * The caller needs to fall back to buffered I/O in this case.
-  */
- struct iomap_dio *
- __iomap_dio_rw(struct kiocb *iocb, struct iov_iter *iter,
-@@ -794,6 +802,15 @@ __iomap_dio_rw(struct kiocb *iocb, struct iov_iter *iter,
- 					 * the caller tries again.
- 					 */
- 					ret = -EAGAIN;
-+				} else if (iov_iter_is_dmabuf_map(iter)) {
-+					/*
-+					 * Avoid -ENOTBLK (buffered fallback)
-+					 * as dmabuf are not supported. Map
-+					 * -EBUSY to -EAGAIN for transient
-+					 * retires.
-+					 */
-+					if (ret == -EBUSY)
-+						ret = -EAGAIN;
- 				} else {
- 					/* fall back to buffered write */
- 					ret = -ENOTBLK;
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 426a67b813a7..f16e9cb63e9e 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -1211,6 +1211,10 @@ xfs_file_write_iter(
- 			return ret;
- 	}
- 
-+	/* zoned and buffered I/O is not supported for dmabuf */
-+	if (iov_iter_is_dmabuf_map(from))
-+		return -EOPNOTSUPP;
-+
- 	if (xfs_is_zoned_inode(ip))
- 		return xfs_file_buffered_write_zoned(iocb, from);
- 	return xfs_file_buffered_write(iocb, from);
-diff --git a/include/linux/iov_iter.h b/include/linux/iov_iter.h
-index 2f91884d733b..a3b99e6d8255 100644
---- a/include/linux/iov_iter.h
-+++ b/include/linux/iov_iter.h
-@@ -376,6 +376,10 @@ size_t iterate_and_advance_kernel(struct iov_iter *iter, size_t len, void *priv,
- 		return iterate_folioq(iter, len, priv, priv2, step);
- 	if (iov_iter_is_xarray(iter))
- 		return iterate_xarray(iter, len, priv, priv2, step);
-+	if (iov_iter_is_dmabuf_map(iter)) {
-+		WARN_ON_ONCE(1);
-+		return 0;
-+	}
- 	return iterate_discard(iter, len, priv, priv2, step);
- }
- 
-diff --git a/include/uapi/linux/fgds.h b/include/uapi/linux/fgds.h
-new file mode 100644
-index 000000000000..9a721c92cde2
---- /dev/null
-+++ b/include/uapi/linux/fgds.h
-@@ -0,0 +1,124 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+/*
-+ * Fast GPU Direct Storage user-kernel ABI definitions.
-+ *
-+ * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
-+ *
-+ * Synchronous read/write ioctls that move data between a GPU dma-buf and
-+ * a regular file.
-+ */
-+#ifndef _FGDS_H
-+#define _FGDS_H
-+
-+#include <linux/types.h>
-+#include <linux/ioctl.h>
-+
-+/**
-+ * struct fgds_register_args - arguments for %FGDS_IOCTL_REGISTER_BUF
-+ *
-+ * @dfd:         dma-buf file descriptor exported by the GPU runtime.
-+ * @bdev_fd:     file descriptor of the underlying block device (the
-+ *               device the target files live on), opened with %O_DIRECT.
-+ *               The device is named separately from the file because:
-+ *               building the dma-buf I/O context needs a file for the
-+ *               device itself, and the device side requires %O_DIRECT
-+ *               on that file, which a regular file descriptor cannot
-+ *               provide.
-+ * @handle:      Returned handle for use with the other ioctls.  Handles
-+ *               are private to the /dev/fgds file descriptor they were
-+ *               created on and are released automatically when that
-+ *               descriptor is closed.  Output.
-+ * @pad:         Must be 0.
-+ * @max_doffset: Largest accepted value of @doffset plus @length: the
-+ *               window must stay inside the registered dma-buf and
-+ *               within the 32-bit offset bound of the block-layer
-+ *               dma-buf iterator, so this reports the smaller of the
-+ *               dma-buf size and %UINT_MAX.  Output.
-+ * @reserved:    Must be 0.  Extension slot for further output fields.
-+ *
-+ * A registered handle keeps the device attachment alive, and once a
-+ * transfer has mapped the buffer that mapping is held for the handle's
-+ * lifetime.
-+ *
-+ * Returns 0, or a negative errno.
-+ */
-+struct fgds_register_args {
-+	__s32 dfd;
-+	__s32 bdev_fd;
-+	__u32 handle;
-+	__u32 pad;
-+	__u64 max_doffset;
-+	__u64 reserved;
-+};
-+
-+/**
-+ * struct fgds_unregister_args - arguments for %FGDS_IOCTL_UNREGISTER_BUF
-+ *
-+ * @handle:   Handle returned by %FGDS_IOCTL_REGISTER_BUF.  Input.
-+ * @reserved: Must be 0.
-+ *
-+ * Returns 0, or -EINVAL if @handle is not registered on this file
-+ * descriptor.
-+ */
-+struct fgds_unregister_args {
-+	__u32 handle;
-+	__u32 reserved;
-+};
-+
-+/**
-+ * struct fgds_rw_args - arguments for %FGDS_IOCTL_WRITE / %FGDS_IOCTL_READ
-+ *
-+ * @handle:      Handle from %FGDS_IOCTL_REGISTER_BUF naming both the
-+ *               dma-buf and the block device to transfer between.  Input.
-+ * @ffd:         Regular file descriptor.  %O_DIRECT is not required on
-+ *               it, fgds forces the direct I/O path itself.  Its file
-+ *               system's device must match the one registered with
-+ *               @handle or the transfer fails with %EXDEV.  Input.
-+ * @offset:      Byte offset inside the file. Input.
-+ * @length:      Transfer length in bytes. Unlike pread() and pwrite(),
-+ *               which silently truncate an oversized request, fgds rejects
-+ *               it with %EINVAL. Input.
-+ * @doffset:     Byte offset inside the dma-buf, i.e. the start of the
-+ *               window the transfer reads from or writes to. Input.
-+ * @flags:       Must be 0.  Input.
-+ *
-+ * Like pread() and pwrite(), the ioctl returns the number of bytes
-+ * transferred or a negative errno. A return value below @length means a
-+ * read stopped at the end of the file, or a write clamped by the calling
-+ * process' RLIMIT_FSIZE.
-+ *
-+ * Contract and failure modes:
-+ *
-+ * - Alignment is enforced on two independent axes, both answered by
-+ *   statx() with %STATX_DIOALIGN.  The file side applies to @offset and
-+ *   @length: the device logical block size for a read, the max of that
-+ *   and the file system block size for a write. The buffer side applies
-+ *   to @doffset and @length: the device DMA alignment. A transfer must
-+ *   satisfy both axes at once.
-+ * - Ranges backed by file holes or unwritten extents are not supported
-+ *   for reads and fail with %EOPNOTSUPP: there is no page cache bounce
-+ *   to serve zeros from, and GPU memory is generally not CPU accessible.
-+ * - Writes past the end of the file go through the file system's own
-+ *   direct I/O extend path; no preallocation is performed by fgds.  An
-+ *   application that wants the space reserved must call fallocate()
-+ *   itself first.
-+ * - Reads flush and drop any page cache of the transferred range before
-+ *   submitting, so subsequent buffered reads observe the fresh data.
-+ */
-+struct fgds_rw_args {
-+	__u32 handle;
-+	__s32 ffd;
-+	__u64 offset;
-+	__u64 length;
-+	__u64 doffset;
-+	__u64 flags;
-+};
-+
-+#define FGDS_IOCTL_MAGIC	'x'
-+
-+#define FGDS_IOCTL_WRITE		_IOW(FGDS_IOCTL_MAGIC, 1, struct fgds_rw_args)
-+#define FGDS_IOCTL_READ			_IOW(FGDS_IOCTL_MAGIC, 2, struct fgds_rw_args)
-+#define FGDS_IOCTL_REGISTER_BUF		_IOWR(FGDS_IOCTL_MAGIC, 3, struct fgds_register_args)
-+#define FGDS_IOCTL_UNREGISTER_BUF	_IOW(FGDS_IOCTL_MAGIC, 4, struct fgds_unregister_args)
-+
-+#endif /* _FGDS_H */
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 9b46f9ada8f9..b19bf7f5e4cf 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -790,6 +790,7 @@ void iov_iter_dmabuf_map(struct iov_iter *i, unsigned int direction,
- 		.iov_offset = off,
- 	};
- }
-+EXPORT_SYMBOL_GPL(iov_iter_dmabuf_map);
- 
- /**
-  * iov_iter_discard - Initialise an I/O iterator that discards data
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 6afec636881f..ab8a5391a699 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3013,6 +3013,14 @@ generic_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
- 			return retval;
- 	}
- 
-+	/*
-+	 * Buffered I/O read is not supported for dmabuf; a short direct
-+	 * read before this point stands on its own, as in
-+	 * direct_write_fallback().
-+	 */
-+	if (iov_iter_is_dmabuf_map(iter))
-+		return retval > 0 ? retval : -EOPNOTSUPP;
-+
- 	return filemap_read(iocb, iter, retval);
- }
- EXPORT_SYMBOL(generic_file_read_iter);
-@@ -4300,8 +4308,14 @@ generic_file_direct_write(struct kiocb *iocb, struct iov_iter *from)
- 	 */
- 	written = kiocb_invalidate_pages(iocb, write_len);
- 	if (written) {
--		if (written == -EBUSY)
-+		if (written == -EBUSY) {
-+			/*
-+			 * Avoid fallback to buffered write for dmabuf.
-+			 */
-+			if (iov_iter_is_dmabuf_map(from))
-+				return -EAGAIN;
- 			return 0;
-+		}
- 		return written;
- 	}
- 
-@@ -4353,6 +4367,12 @@ ssize_t generic_perform_write(struct kiocb *iocb, struct iov_iter *i)
- 	long status = 0;
- 	ssize_t written = 0;
- 
-+	/*
-+	 * Buffered write is not supported for dmabuf.
-+	 */
-+	if (iov_iter_is_dmabuf_map(i))
-+		return -EOPNOTSUPP;
-+
- 	do {
- 		struct folio *folio;
- 		size_t offset;		/* Offset into folio */
--- 
-2.34.1
+>>
+>>> +      ti,retention-bias:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1, 2]
+>>> +        description: |
+>>> +          Enables the internal I/O pullup/pulldown resistor when pin enters
+>>> +          TDA54 I/O retention mode, and configures the I/O pull resistor
+>>> +          direction.
+>>> +          0 - OFF mode pad pull resistor disable
+>>> +          1 - Select OFF mode pulldown resistor
+>>> +          2 - Select OFF mode pullup resistor
+>>
+>> Use names inspired by the generic config types and flags instead
+>> of enums.
+>>
+>> ti,retention-bias-disable;
+>> ti,retention-bias-pull-down;
+>> ti,retention-bias-pull-up;
+>>
+>>> +      ti,retention-offmode:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1]
+>>> +        description: |
+>>> +          I/O behaviour when retention mode is active.
+>>> +          0 - I/O maintains its previous state
+>>> +          1 - I/O state is forced to the OFF mode value
+>>
+>> Behaviour of *what*?
+>>
+>> The driver stage?
+>>
+>> I suspect you should make two bool flags
+>> ti,retention-output-hold;
+>> ti,retention-output-disable;
+>>
+>>> +      ti,retention-output:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1, 2]
+>>> +        description: |
+>>> +          Output driver behaviour while the pad is in retention mode.
+>>> +          0 - output driver disabled
+>>> +          1 - output driver enabled, pad driven low
+>>> +          2 - output driver enabled, pad driven high
+>>
+>> Make three flags:
+>> ti,retention-output-disable;
+>> ti,retention-output-low;
+>> ti,retention-output-high;
+>>
+>>> +      ti,retention-force:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1]
+>>> +        description: |
+>>> +          I/O retention controls.
+>>> +          0 - gated by the Device Manager logic
+>>> +          1 - forced active, overriding the Device Manager gating logic
+>>
+>> This is clearly a bool flag. It should contain device-manager as that
+>> magic entity is involved.
+>>
+>> ti,retention-device-manager-enable;
+>> ti,retention-device-manager-forced-active;
+>>
+>> Both seems to be related to the device manager whatever that is.
+>>
+>>> +      ti,isolation-bypass:
+>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>> +        enum: [0, 1]
+>>> +        description: |
+>>> +          I/O isolation for this pad.
+>>> +          0 - isolation preserved
+>>> +          1 - isolation bypassed
+>>
+>> What does this even mean electronically speaking? Explain in a description:
+>> statement.
+>>
+>> ti,isolation-preserve;
+>> ti.isolation-bypass-enable;
+> 
+> Is this not just an either or, so there should only be one property
+> here.
+> 
 
+It is an either/or, but with a single bool, leaving it out wouldn't
+clear a bypass set by an earlier boot stage. So I'd prefer the two
+bool properties Linus suggested, does that work for you?
+
+>>
+>> perhaps?
+>>
+>> Some of the retention settings seem *very* generic, c.f. this
+>> from include/dt-bindings/pinctrl/nomadik.h that has been
+>> around forever:
+>>
+>> #define SLPM_DISABLED           0
+>> #define SLPM_ENABLED            1
+>> #define SLPM_INPUT_NOPULL       0
+>> #define SLPM_INPUT_PULLUP       1
+>> #define SLPM_INPUT_PULLDOWN     2
+>> #define SLPM_DIR_INPUT          3
+>> #define SLPM_OUTPUT_LOW         0
+>> #define SLPM_OUTPUT_HIGH        1
+>> #define SLPM_DIR_OUTPUT         2
+>> #define SLPM_WAKEUP_DISABLE     0
+>> #define SLPM_WAKEUP_ENABLE      1
+>>
+>> SLPM means "sleep mode", yeah pretty much retention...
+>>
+>> I think the corresponding retention settings for things that are really
+>> quite generic should just be added to the generic pin config bindings.
+> 
+> Additionally, if any of the custom properties are gonna be kept as
+> numerical values, they're all missing defaults. In the case where you're
+> advocating for multiple boolean properties, one of them is gonna have to
+> be required as otherwise we're looking at indeterminate states based on
+> reset values or what a prior stage may or may not have done? The reset
+> values should probably be considered default, but the cleanest way to
+> make this work with separate booleans is have a
+> oneOf:
+>   - required:
+>      - a
+>   - required:
+>      - b
+>   - required:
+>      - c
+>
+> and you've also got to deal with people potentially making mistakes and
+> adding multiple properties for the same feature or trying to overwrite a
+> $som.dtsi/$soc-common.dtsi config and not realising that they've got to
+> do a /delete-property/ on the other property for the feature.
+
+In v2, I will switch most of them to boolean properties, with every
+state available as its own flag, so a DT can always set a known value
+and override whatever an earlier stage left. For each group I'd follow
+the same pattern as the generic bias-* properties: at most one flag from
+a group, which also catches the dtsi override case in dtbs_check. If
+none is given, the driver leaves those bits untouched, same as for
+bias-*.
+
+Would that work for you, or would you still prefer one of them to be
+required?
+
+For the numerical properties that remain, I'll add a default.
+
+Thanks and Regards,
+Yemike Abhilash Chandra
