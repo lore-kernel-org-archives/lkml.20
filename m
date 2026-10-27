@@ -1,88 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793125733;
-	b=RcRZ6AWpM18HAqtobQDyDQpb/wtmbso55LpYB0nbfXkLlEgvHStBfZpPwaEx7swwXzYY
-	 PtD1fV466n46KJNCnba5WXh2haZCkSLr0pJWv8P09msOUTnSUTYPNCoJNBw5DQMAN72ms
-	 X57c00FBd+kBZ7yoex57s4UzZBllJP0P8x+Qur+y7TBsVGT6ngfDEybf+f29UoJev8sSs
-	 WSq6Z6+9YMTKRuf1CtgtxJ+UavLxekjItKDfd3fpzAf202D8WNs3+iXrJCTG4Xh0LjyuD
-	 eRO5ZLg9HDRnezCkOuqnlo5KGW0blxIZISiQqWhlCZcZ/FelNJrP/Oo7yuwrixOxM5g==
+	t=1793125720;
+	b=W0Mm20OYiDNJQGh76wSogPsSrVprYyPOTTk47UL13MB4arnXkdCxJSb4ZgNKz//tYQBQ
+	 d5rtoyDN/TnWioyyJmp5PwH525bLSGu4jOVP5FQUg4xvw/w/SaDmgjR1dVUMxrWTXM8n/
+	 RdGmaGeMDAe+wc1XEftKCIWBsTBYqKpEqxE6+uUJrCNC5exby8xtLs+2U3TpHqIFRlwsk
+	 3a9AEexIQaCnn0+33O5EIBZJ8lNbX7w+ifaiVoK2n6QM2DuuD2cnOR94EaoWJfrN7waXg
+	 sGnbfZgkNcx1HvQ8daDixHOw/YyB8tRij7ZBXI4Xw3FJjkSLpMrREZ9REOeqEhee1NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793125733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BLfFNn1Qcpgkc/CE+gfkXeaI8Qpi2GlNUfZr/MSyrCY=;
-	b=xYHQ/pC2barUD5QgX0ZZu7DRhjkIxlqCFbgdrJ4LyyMWqu/Ig8XgNpQDx2teOUgPbQX5
-	 V1aoNdEzyGzLFxXOvQL1RGZuW4PfS8cDl8P6T6iDIgGu+it6/LdnmRvuhX1BR6PrgV8U1
-	 NbskDTLkUxQltvfZUzdguqClKAhG5gGVhTAVH3hoo6xAjWlo79AX9ZheNAj2uAVFShls4
-	 vowL4n2yl0pF82/8gnTIy4WbN5j2Co4qj5SKzxsKM9fc58F5bR7zCVnuurH33MblHm3FW
-	 KGfkBymN4NJZ+NJmo5RI7u/8dInkPb9ISwIAkwK5V5J+hVWhWq7GhHMzo1WcJt46p0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125720;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qmTkjhfRVZXBH3VauU4MsoTCHvTi7jHmC9yQvfjqtMk=;
+	b=lkDim+1s1fiXJVRH6ekxO7zbZ/58ZHENqpVWUrXnA2XmcFPZnWaODvgo2LbNDzlGQi/Z
+	 EGKTEzo/0TQczBNv50Ed5XL+cx7IjsoinDM7FhN1HN4/rJYb94MWKnPids6NaV6Jf0dcI
+	 vherwUiPwEL2HhB5uH5vQlW6EwHFGrxawQ/Iq55Id+WI2FpJs9T9JKzW/jk3LatvCG4tJ
+	 +bBUPKJe8xFFzkZJ9JFKFqpYOTeIGRI3pS5D9CZ2tloNHuogB85+9n64P4Wxp7gqsXhyq
+	 8nWaXw3CMIf1YX8GqIWhrbkQ7rI1U8xge4mpp0cBGMlzGGTrRlCxttgRCSadNtozYvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IzuVmn/3";
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJr+iHiI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D53606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:28:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D53606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339EB606A31A;
+	Tue, 27 Oct 2026 18:28:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IzuVmn/3
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so137424f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:28:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793125732; x=1793730532; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BLfFNn1Qcpgkc/CE+gfkXeaI8Qpi2GlNUfZr/MSyrCY=;
-        b=IzuVmn/3PK9k7xpmQcANtQTaHfMbFHFVZuCQQjBOZcwHtm9l0fcAnfhVtYYXkWluIT
-         w71AMui723QvIQqh5zjvS+Np2nRcHflIOKTGYdUNpV8vgv4xEyY506P7MQj6e72izXZ0
-         i+E5hp1Yq6Lwl3WJ+WJ/9yIPFzgAp//w5FFtv3M0Jr4WdLpaIV78oN2QGHTbDB4dbbXu
-         qjMgzh+W/tRdSMASwKyRnLFWP7gG7UXgblH8hluuvE8pzPnzU5Oa59G79Yg6Qdso0yig
-         hvMsDOzfkUrikadI+u/5jNAghab5Umy3QgQxkFXyurFUkaAPLFfxgmSq9DLmKqkawzUN
-         aBYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793125732; x=1793730532;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BLfFNn1Qcpgkc/CE+gfkXeaI8Qpi2GlNUfZr/MSyrCY=;
-        b=LzdITWQJWlyql1HGAcbtC51mM/ye9G1A6QQR3HdeEfzJ4dnJJg91oEkBYWTHbrMs7f
-         QW8ixYpooSCpfW/p9uDOE9jlAWTKovJ8k4HXK03WxC5OzsttrfFFFyQNPS44uuus921Z
-         /G1HA1D7yeSmjKfDCbdQbxH/m4wvPB1/sV+BWLEwxA2YXi9swZTL+O4bw35u6crYh8Ha
-         bW1g688ael9ykpBwtQMMHGLHsDs/7M1rPtqUz/VMXuZsGhtJjWGjU0t7oQ03yqFLGL8o
-         S+tSNZuzRRzej6wMDOLaKb5bOGX5Au2m9SZsmaMBkbOfwPqOAhLs8OGJvHP/M1W8g6aT
-         HgIg==
-X-Forwarded-Encrypted: i=1; AKwUvBwN/7gBYEVAH4G1HNQdpx1Yh+OBKlwlXXj8pO8h9idhHSQLyRMtFNhufHoF/hLKlIQlN8yUh8vl0HjKhnk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK12OWCk3DfgF5NfiP/HrEhHXKFMAmheHLjGbNWu4GYIrvSusIk
-	AT992/pYytpBnDVUCOJOzcJKkdAw8nYGH6lfx7quQdcHDwWEIP25ZxpS
-X-Gm-Gg: AYBFou2xOjRw10DfjbsoC5/QBUrsrCl9EEZQmmf5d3vDzCB38TkdXsGYNciZzY/rcHY
-	e2Ie+m34OTvMc8OOpCcJ8HA9TOLeuCU29PleIVXDpflZwLE/Cpddf0O05IKqYNUCbHCinjkq82l
-	IJ7jFEouHCPTDN5SM9ZgKqjAPRC1TzXaDaMg+TtPLJ/FENjydhiHZzGCXQ7SAqU2ROIAnSqsLqL
-	7CQIUFVhNafd75wBUvt54W+oy6h2PvKF+Q98jE1REJN+quz9Uj22JLd8tQaNbP3XS2NUOVKHaau
-	7TzNgMNdbk0E95xj26MibxEaTaDQIK3JDuCM2o78cxDCfm5StZs+2yit3BOEnSk5HzEGlHQnWF1
-	kVV2OxIdEhrdSPKMLSwatvCKIJ37Q9T+U1xGoVZsMCNIYcxowGxR+2ycCZHzoORUCkGkqqxq4HE
-	US+wrwPP2mKVcIsu65YEp5u1VH+sULroKF/+SlU+jYdthy6/Keg2L9NYtkUmobZPiWl+MCYMgZY
-	0Qc2E2JTAsjBmlzMFR84Gje6OA7bhhhp/65TxoxIS3Zf3YvbWMS5s1bWo9GZuZGdilcdQPljKbc
-	p7HcID7hyxhh/h1AxVT+/erL1HHirlAaZxpW+ntk48ksXWqzPJG3DLhbABhLV+pPkmw=
-X-Received: by 2002:a05:6000:26cc:b0:48d:ef0e:b791 with SMTP id ffacd0b85a97d-48e5d313b51mr689662f8f.54.1793125731380;
-        Tue, 27 Oct 2026 11:28:51 -0700 (PDT)
-Received: from [192.168.42.93] (193-154-207-67.adsl.highway.telekom.at. [193.154.207.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3555sm23765915f8f.42.2026.10.27.11.28.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 11:28:50 -0700 (PDT)
-Message-ID: <60d0962f-8769-49e8-9674-48ec98278529@gmail.com>
-Date: Tue, 27 Oct 2026 19:28:49 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJr+iHiI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20C201F01825;
+	Tue, 27 Oct 2026 18:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793125719;
+	bh=qmTkjhfRVZXBH3VauU4MsoTCHvTi7jHmC9yQvfjqtMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UJr+iHiIfOZ7o5mFrf4QdKdBqCq5SUsq48wJw1mpVi3v4Klbu5UKZiA2xajQRk610
+	 DUldXfqm5y5X6yLyvtKR9DpfkgrloEGtS7dJg9A1w3F21tCVlSg+BmL/ukkpVryAjM
+	 pOQotDbtzy1QPpPzAELFTsDFgo4Rt+FYW9LxuzykHOUKMUL7uZxnakMpp13+auwV5G
+	 cuNmxW9oN+KhuB+9d6OG5XLVEj901Vt75Gjjs8Ifuu9aLMCtvjFlfxdpoP5nGpgaFM
+	 u0dTgv0Bo+mv4ExDjGYgKRKkgTq8F9Fqhn89la/8sRA0dncqxwv2zmk8RCq5t5hGXd
+	 KyJhQYazeyN4w==
+Date: Tue, 27 Oct 2026 18:28:34 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
+Message-ID: <20261027-attic-collector-cb4ffdb5cf82@spud>
+References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
+ <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,87 +65,252 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dmaengine: pl08x: mark slave channels as DMA_PRIVATE
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261027070037.1809112-1-andi.platschek@gmail.com>
- <auC3nGX0hA494DZL@SMW015318>
-Content-Language: en-US
-From: Andreas Gabriel-Platschek <andi.platschek@gmail.com>
-In-Reply-To: <auC3nGX0hA494DZL@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kalH6PIzx3Y4bVJp"
+Content-Disposition: inline
+In-Reply-To: <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
+
+--kalH6PIzx3Y4bVJp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Oct 27, 2026 at 03:44:08PM +0200, Nicolae-Daniel Deaconescu wrote:
+> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+>=20
+> Add bindings for the LTC2387-16 and LTC2387-18, 15 Msps SAR ADCs with
+> an LVDS data interface, and for the ADAQ23875, ADAQ23876 and ADAQ23878
+> uModule ADCs, which pair an LTC2387 die with a fully differential
+> amplifier front end.
+>=20
+> Conversion start (CNV) and the gated LVDS clock are driven by two PWM
+> channels. Sample data is captured by an AXI ADC IP core, referenced
+> through io-backends. adi,use-two-lanes selects two-lane output, and
+> adi,gain-milli gives the front-end gain: fixed at 2 on the ADAQ23875,
+> set by pin strapping on the ADAQ23876 and ADAQ23878.
+>=20
+> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> Co-developed-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@ana=
+log.com>
+> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analo=
+g.com>
+> Assisted-by: Claude:claude-opus-5-5
+> ---
+>  .../bindings/iio/adc/lltc,ltc2387.yaml        | 138 ++++++++++++++++++
+>  MAINTAINERS                                   |   8 +
+>  2 files changed, 146 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/lltc,ltc238=
+7.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml =
+b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> new file mode 100644
+> index 000000000000..f912260c8f79
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> @@ -0,0 +1,138 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2022 Analog Devices Inc.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/lltc,ltc2387.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Linear Technology / Analog Devices LTC2387 ADC
+> +
+> +maintainers:
+> +  - Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> +  - Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> +
+> +description: |
+> +  The LTC2387-18 is a low noise, high speed, 18-bit 15Msps
+> +  successive approximation register (SAR) ADC ideally
+> +  suited for a wide range of applications.
+> +
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/23=
+8718fa.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/23=
+8716f.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,adaq23875
+> +      - adi,adaq23876
+> +      - adi,adaq23878
+> +      - lltc,ltc2387-16
+> +      - lltc,ltc2387-16-x4
+> +      - lltc,ltc2387-18
+> +      - lltc,ltc2387-18-x4
+
+Why are we getting new devices with linear vendor prefixes? My
+understanding was that new devices from ADI subsidiaries were to use the
+adi vendor prefix.
 
 
-On 10/27/26 3:39 PM, Frank Li wrote:
-> On Tue, Oct 27, 2026 at 08:00:37AM +0100, Andreas Gabriel-Platschek wrote:
->> [You don't often get email from andi.platschek@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> The pl08x slave engine channels are only ever handed out through
->> explicit requests: DT clients go via pl08x_of_xlate() and the
->> platform-data path uses dma_request_channel() with a filter, both of
->> which end up in dma_get_slave_channel(). They are not meant to be
->> published in the general-purpose channel table.
->>
->> Mark the slave device with DMA_PRIVATE at probe time so the dmaengine
->> core treats it as always-private. Without this, if a dmaengine client
->> is already active when the device is registered,
->> dma_async_device_register() takes a reference on every channel,
-> Code change is okay. Are you sure the above description correct? where
-> code set it active when dma_async_device_register().
->
-> Frank
+> +
+> +  clocks:
+> +    description: Sampling clock
+> +    maxItems: 1
+> +
+> +  pwms:
+> +    maxItems: 2
+> +    description:
+> +      PWM signals used to synchronize the sampling procedure
+> +
+> +  pwm-names:
+> +    items:
+> +      - const: cnv
+> +      - const: clk_gate
 
-I do think so, because
+Hmm, ltc2387-16 does not appear to have these signals?
+Well, it has "cnv" but "cnv" has "sample clock" as the input name so is
+the clocks property above and pwm-clock can be used if the provider is a
+pwm?
 
-async_damengine_get() -> dmaengine_get() is called from 
-crypto/async_tx/async_tx.c and increments the dmaengine_ref_count.
-This way the dmaengine_ref_count is already >=1 before the pl08x 
-dmaengine probes.
+Either there's some mutual exclusion missing here or the modelling in
+incorrect.
 
-dma_async_device_register() (in dmaengine.c) iterates over the channels 
-inside of the following conditional:
+"clk_gate" doesn't appear in either of the datasheets I looked at, what
+does that actually do?
 
-  if (dmaengine_ref_count && !dma_has_cap(DMA_PRIVATE, device->cap_mask))
+pw-bot: changes-requested
 
-and in there a dma_chan_get() is called for each channel and increments 
-the client_count. With a client_count  >=1 we fail once 
-pl08x_of_xlate()->dma_get_slave_channel() is called.
+> +
+> +  io-backends:
+> +    description:
+> +      The AXI ADC IP block (axi_ltc2387) that captures the LVDS data str=
+eam.
+> +    maxItems: 1
+> +
+> +  vref-supply:
+> +    description:
+> +      External voltage reference. When absent the device's internal 4.09=
+6 V
+> +      reference is assumed.
+> +
+> +  adi,use-two-lanes:
+> +    description: The device uses two lanes for data transfer
+> +    type: boolean
 
-setting DMA_PRIVATE prevents the client_count from being incremented by 
-the core, keeping the client_count at 0 until a real client requests one
+Please explain how this is not determinable from the compatible.
 
-hope that makes sense?
-best!
-Andi
->
->> and
->> the subsequent dma_get_slave_channel() from pl08x_of_xlate() fails
->> because the channel is no longer free (client_count != 0), leaving DT
->> slave clients unable to acquire channels.
->>
->> The memcpy engine stays public as it is intended to be shared through
->> the per-CPU channel table.
->>
->> Signed-off-by: Andreas Gabriel-Platschek <andi.platschek@gmail.com>
->> ---
->>   drivers/dma/amba-pl08x.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
->> index 543c2eb8cfa8..06881d3f29a9 100644
->> --- a/drivers/dma/amba-pl08x.c
->> +++ b/drivers/dma/amba-pl08x.c
->> @@ -2775,6 +2775,7 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
->>                  pl08x->has_slave = true;
->>                  dma_cap_set(DMA_SLAVE, pl08x->slave.cap_mask);
->>                  dma_cap_set(DMA_CYCLIC, pl08x->slave.cap_mask);
->> +               dma_cap_set(DMA_PRIVATE, pl08x->slave.cap_mask);
->>                  pl08x->slave.dev = &adev->dev;
->>                  pl08x->slave.device_free_chan_resources =
->>                          pl08x_free_chan_resources;
->> --
->> 2.47.3
->>
+Cheers,
+Conor.
+
+> +
+> +  adi,gain-milli:
+> +    description:
+> +      Gain of the fully-differential amplifier that the ADAQ2387x modules
+> +      integrate ahead of the LTC2387 die, expressed as gain * 1000. It is
+> +      fixed on the ADAQ23875 and set by pin strapping on the ADAQ23876 a=
+nd
+> +      ADAQ23878, so it must match the board. The bare ltc2387-* parts ha=
+ve
+> +      no amplifier.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [370, 730, 870, 1380, 2000, 2250]
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - io-backends
+> +  - pwms
+> +  - pwm-names
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - lltc,ltc2387-16
+> +              - lltc,ltc2387-16-x4
+> +              - lltc,ltc2387-18
+> +              - lltc,ltc2387-18-x4
+> +    then:
+> +      properties:
+> +        adi,gain-milli: false
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: adi,adaq23875
+> +    then:
+> +      properties:
+> +        adi,gain-milli:
+> +          const: 2000
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - adi,adaq23876
+> +              - adi,adaq23878
+> +    then:
+> +      properties:
+> +        adi,gain-milli:
+> +          enum: [370, 730, 870, 1380, 2250]
+> +      required:
+> +        - adi,gain-milli
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    adc {
+> +            compatible =3D "lltc,ltc2387-16";
+> +            clocks =3D <&clk 0>;
+> +            io-backends =3D <&axi_adc>;
+> +            pwms =3D <&pwm 0 0>, <&pwm 1 0>;
+> +            pwm-names =3D "cnv", "clk_gate";
+> +            vref-supply =3D <&vref>;
+> +    };
+> +  - |
+> +    adc {
+> +            compatible =3D "adi,adaq23878";
+> +            clocks =3D <&clk 0>;
+> +            io-backends =3D <&axi_adc>;
+> +            pwms =3D <&pwm 0 0>, <&pwm 1 0>;
+> +            pwm-names =3D "cnv", "clk_gate";
+> +            vref-supply =3D <&vref>;
+> +            adi,use-two-lanes;
+> +            adi,gain-milli =3D <870>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 52024397dc78..b871d7f25d76 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -15529,6 +15529,14 @@ W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/adc/adi,ltc2378.yaml
+>  F:	drivers/iio/adc/ltc2378.c
+> =20
+> +LTC2387 IIO ADC DRIVER
+> +M:	Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> +M:	Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Supported
+> +W:	https://ez.analog.com/linux-software-drivers
+> +F:	Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> +
+>  LTC2664 IIO DAC DRIVER
+>  M:	Michael Hennerich <michael.hennerich@analog.com>
+>  M:	Kim Seer Paller <kimseer.paller@analog.com>
+> --=20
+> 2.34.1
+>=20
+
+--kalH6PIzx3Y4bVJp
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauDtUgAKCRB4tDGHoIJi
+0mhqAP412YGM8tjEuoPHIpRc3MotpTsdTFAtTjKi6T98iyNx6QEAp/G1BrLrISod
+4STFsH+BlH9SpK8CcvKlU77TLfLSVgk=
+=TQny
+-----END PGP SIGNATURE-----
+
+--kalH6PIzx3Y4bVJp--
