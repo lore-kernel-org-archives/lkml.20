@@ -1,119 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109255;
-	b=xV5Ubk49Qwa2BGing+/bm7uGuOAbK2PcEptIsHEk9G3TiKiJ2Et8TOUgRXyvssxkDvzO
-	 vWx2kvdxqPQLM7Zaqk30lmPpZjaob6880p06cplhDyry0/nDIbdhW5hfAwNex093eLDG1
-	 B1NyHv/k9Axm8g2W7k1iZUhu58DACCD/uiDFFkypD1f6ua5uvxZ3PqFM+3XlQsTvlX7jT
-	 a4azlHbPRNgI6V8ZcwKNpoD6hWJopOsjKPhgYKPMn7x1b3JPjsv+LZPb8Hdq0mtsr5TQ8
-	 aaaWt461YVT+eDI5niSsU4v24Zu/oI9FXwey6W0Nc4PmdSy6vK5jLbhp+vTdCzKY/3w==
+	t=1793109286;
+	b=WbZFwuPBhcd4TL4VLS2Z972nY7K9Pctuq3aumPYnsBVNCGTh1IyK3jAyjyujhSSyyPsd
+	 JF+AxWW43iqKFzuKZDtm0U9Vs0akTjiZLC1qop5vXjPXMS8Bc3r0I4itvByunfBMIKlGa
+	 iWrWbxtAfBa75ZqZuUb0NUKDBq5JeRLMCux8wobbjdyzW27GToVY7LGHKzfB4lzHHj+CV
+	 KOhphfB13kHKKYhv0uefqHY9wK9GRhCInZE9ZibnTSes51DeMfqdPEXliWOCaTooP1QyJ
+	 D0X/I3J44id3cmUn8vtkoMIedgbr6sNbmqalAH4QLWir5nKsKT9EXPnlOa3uEroSNgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109255;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109286;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IMpToc8GUbpePaS/6DB+RjKW/EgdDLHWVJxbsQxIDG0=;
-	b=gtzlVf1cxnM8JaUDNIDR2dSlCjAj9ae7YW8dxcCQfoE/SkYUPJuh2C96rDxx+vt+0qts
-	 0Mu1JKKgXrOyyiFqDiGYJEWwqEv702adD7LGxmLorfsHgYQ2SUnATebohf4yRhV8Dqmn2
-	 QWNBLpGsbmW3dUhaaa132+cjzGnuDKKuu1KtbfPEIKKINHnNj/KCFFGko4/OJMGhNPZRt
-	 ugjh8ZWQ7XYa2Ddwtik2ScbeU/jRDSGWIVGHMDPLfEBjMXDCA585qFKj3g4HVvzDSWHbs
-	 bA5COKxR/QzT+JvYFYFotfUOnWmxSm0O2QWgXyr3N4E7qBGjK0QHEb/HR3sD3p351gA==
+	bh=J4z9ZlSdwg17sm44uHSAYAhxQN3qoO9h/AHW0OnMDTE=;
+	b=Bpfb3U7tUuxKwhC1nIgV97j/TVI4Jmy4lTdKljtJQ1yY5UMekyNNnJthscLCZ822FGxP
+	 sc2YDh4adSDxTOAfQnMZ/JRpqICaLrne2RunIEUVn3ICPOSxO3jHV2so2pcHjcbJzkaEY
+	 K5sk6czb1JEIiTFrQUYxH9h8NyFv+NarAg2TizHcVA/rD8lqUj9OCgdRfXq93r76drtBY
+	 MaJpwKG7x4qeq7sXU8u289hMyfEGp7MdEK2vNzyLeMd/LfgoTF1tLwYcGq2Fj2iJLv4ln
+	 J1hSLZ6oUTJvogdzbUabMwN23tZu71UnyLG0MI9rEO4msOUZ4yQVkrcHpHLJbO88ONA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g/a7IWIa";
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="FNj/m/CL";
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E674D60A6F6E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:54:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E674D60A6F6E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F59606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:54:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83F59606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g/a7IWIa
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so23974255e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:54:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FNj/m/CL
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so152383466b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:54:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793109253; x=1793714053; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793109285; x=1793714085; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=IMpToc8GUbpePaS/6DB+RjKW/EgdDLHWVJxbsQxIDG0=;
-        b=g/a7IWIaUlEuSLjlKCX3yHtkNeiiQRYTYC7D+Ng/EVl+KLbalqyl0FWv3PYFslZoTG
-         gxcPx5MgXBZ0dLO3ijTzxRBFJbYKZ5tH6xPFppXm3HxeBSKp2IWn5SCmfsITujGEwRys
-         7ED1ebhpbyji3P3TwrMKmTM34oZpTtQjaGxz9P0AIoeD84Ey6f8Pjx5EVIw1CxqPmpZU
-         ATheQqGg/LdVvlAeGd6R+gR7jC7ZPsU1P/1xYvgk2s3AGyFeHCoMUCPzJXdIzWu5UisU
-         PnblmJybqTSP3uR2ERfR6e5AGqsA/G0Yv3fFwtdu2dzENDoOW2+sSD7rCsvx7bR8k+Ii
-         GkCA==
+        bh=J4z9ZlSdwg17sm44uHSAYAhxQN3qoO9h/AHW0OnMDTE=;
+        b=FNj/m/CLFG41YA1dV1oyDiEs0X78B+xLCpNSLf3GYotGxARVKAsALvTDkBXqn6A5Pd
+         vNa3jpthwBdPOAAWSW/RhaJPq/vcBe5P51B7Q4s3MjqQzNuNDqrKprqJVtIyixocWI9p
+         YU3CvJAz1J1mi0zOf8ztISM6Pt58bTx+bZrAllQulIHT0mfe0Yk9xsKMixKdR2n7vnXD
+         WnD3BgwWNv/62vp8Q10b49Y2ZTmnaw7mXRFRz0EkYPYtF0zmmPgg+E+Y5xadxp5iqIxM
+         lutdtXEU1lM41Hjr2UH8gM54465iCWILx2WIKA2VNiTa+NEFRKC7r18ZE6eoVnGg1sre
+         X2lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793109253; x=1793714053;
+        d=1e100.net; s=20260707; t=1793109285; x=1793714085;
         h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IMpToc8GUbpePaS/6DB+RjKW/EgdDLHWVJxbsQxIDG0=;
-        b=l80UZRGSObBMVM9+5Ks06qnO2/8dd5scpROFRrpOMDXnC2iB97UafMvgLXegw1Bsjy
-         cgLgHPbra+D6eLjOgWCKKfShv6fusaQ+JOCetf0uoQ323WRgPDy4jVAvzHlCywItwyp4
-         4M7sSTJ+9HN+qz6BCf/SBvbzdS2o3p2/Q/YWFEF/B/GlEOGNiX4VJ6naGul2DdJ4nWVU
-         S4GNOvcqTXEoxdGlXLR1lxnukv+sNyIr6Sec4xFUUfDDUo3np3SRQRtk/vbjTpKauupj
-         x/td2kxm4MJM9cyQiYQX354WBVAjYSCaZ+eW0WMkuZQ5JbFv6HTOw9QGusCFQyRIus0P
-         Xr+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxBpZmNj3v7GH/iSxz9bzc+stM6svo/BMaQvTZ0DhUfZHWfADuQ8GouCT2HvTaqNVLgNaWeH5LH2D8JeZ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhdjcBknpN/1a0y30GrLoeKSigzQMwJ20PT7YgMn+rhVC5Edfk
-	uEd0YrgJp/yytR3zOHgUB5aan9jyBqtVXfRVy++Kn7l56OfWQ6TwQkWa
-X-Gm-Gg: AYBFou1Ldyi+THiJk/rTaOrlRkVfU9JebtfIBhL9D0sd82oEIpgMMgEtpCiMtk9F4HM
-	0u9t0bn/4gR8Njv2d8GOFAJ2xwoYqF/NeOAtASBTNN70xJcSwsP0K5bF9XVfcSU9zNS2xxOH/BV
-	uIVw0Ey5ECHT/Snb+uRWTNF1Dji0nsSKEDnnUhB8/MpGJuFPRBwHJcOlXoiwxf9U/4xS9r0jIk4
-	6Gs17SZLqo6dttjxzgOi4uzVNUmK3i/fLuUXmFb8Uz88OD/olVweyk/ShchTthnnqIok9f3aG0O
-	2w42jVLk3So/IAkr2UEQbcmOjQdJO0BETcsPLCwEDihhr/SBxm3myNfYcGmoIISwtbt+5z/SuIn
-	xQVHKBYl34iJ9xgrUCcQt/fxmPOB2ss8UqvXuGx6hy7E9oYKuDG6lRcJgbrn15ssAFegXfIXYWL
-	ZFtjQdgNieivv4EI1MTPLROFIs1gfNlc7dFEdxcoH1VQvGBQ6U0qG71y7vHSauGdPrEX1bs9gn7
-	bawCEjgW54kEIx+62Fiku7QHvcbJkVQFoVWwLaOAeHJAi8oupCnGSxzQ1r8QA+HA19OVUz3H3Cm
-	R/fvbLo=
-X-Received: by 2002:a05:600c:6219:b0:4a1:de8a:603a with SMTP id 5b1f17b1804b1-4a35ac80a9emr181345205e9.6.1793109253262;
-        Tue, 27 Oct 2026 06:54:13 -0700 (PDT)
-Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb846sm23128058f8f.25.2026.10.27.06.54.11
+        bh=J4z9ZlSdwg17sm44uHSAYAhxQN3qoO9h/AHW0OnMDTE=;
+        b=HJ6UiByqrtk424Z2ovg2USVYwz1Lbqv5mIfI8wyARLIiyTxiRR1/pFiJGCxQaTkMSJ
+         nmUUE1nS66EI0Gy4btdg0BORdt3+9vWGk5kqg0WtPvfXZdLW/RrzF0cYzMwdaZ6xcHp/
+         s3XdbAtR9uPbAL0gOHB9r1vkWGvodMnHxUy5QpLtM0Taf5cLDMXF7wBxxzYpdJLLdHGU
+         mY+m5fSGFgUFgPSIII1ZQQK6m1nm74jr5iJxVegTSULpFpviXVIvjV6ZVc+fJWVlT2gs
+         zt7hRJK5oQOoqgoawV71rJaPgyUpDFvir7pTf9OFqDTzPfSrFLvZTOerceCEpXLvU5Tu
+         yJpw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfikEJRc8dXKqD+/umpnR9l3AN/Svyd3a/1MFHWu8/xnbkFJKyH89f9IdFY697ipUgGp7M5YjktEBHns4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRkRdp0W43Oz3aAR6gooDatYJv/Z+so5Hzf2LtyF1ueD0QI7/H
+	Ur8LHMKJYW9dO1Ob16zNcoXf+AV78QH+yyrY2450HC2Xs8Ko8ZXgM0lA
+X-Gm-Gg: AYBFou0e/aKHE6kP0VkjKqZy4VhAsqwMaapLbOqo0dVNSMYEyT7zQJcl4MOt6ZoK3Ud
+	ryilHlEz/bKwJLrpvsuMB/AFVFULaa1YjEMNJ587/VsnJZZ8AXsQb8sfgw4QsixOZj8jtrBlcUv
+	02bprHb0GaGNiyABO4UVWtBdgiblbvQYLo3OWaBdsVmzLzzOaDGAMyWkiTXKmDXeaP7hFx/bYeC
+	xBw+/ex1sMGwGjOAYcLfhpWs6sMQqzVafit6Ehj5wDpscvc6cJqeeHTWjGK3brx3fRObQY0/ffn
+	o1/poq/hmuOgqYeh3Lle6O8H/XxOqdAwkKBzyFrqvM8oi6/omxvIvFs7N9Nd5sGB60g+UjTf8sA
+	sNgwrgNTuJpyJqevzY9Xlp0bfpcK8yUSJWKoesFgjn4enBa23pHxs0YWchTi3JMjXdXQY2lWBfm
+	tE7yyUmQBhyiEA4vm2Qpd3F7ADYoBTUTkRQwfKPytuCdz/1gvKLfxcDbDLJYWwR+Mj7wHMq/7s7
+	nSJgUWaICwEF45qvdnS9GZLnVFWg8TB5pnKiVycSDCMOFAmu3f9GxBs48/R/cb64LxXXLhDDoCD
+	amVBMcapXj5cfBDz
+X-Received: by 2002:a17:906:c111:b0:c26:1cfd:4244 with SMTP id a640c23a62f3a-c49a735d022mr244123466b.11.1793109284644;
+        Tue, 27 Oct 2026 06:54:44 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b49640f1b9sm59352a12.19.2026.10.27.06.54.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 06:54:12 -0700 (PDT)
-From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Helge Deller <deller@gmx.de>,
-	Peter Jones <pjones@redhat.com>
-Cc: Francesco Valla <francesco@valla.it>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Jocelyn Falempe <jfalempe@redhat.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-embedded@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 12/15] drm/client: splash: take the background colour from the image source
-Date: Tue, 27 Oct 2026 14:53:39 +0100
-Message-Id: <20261027135342.2003632-13-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261027135342.2003632-1-maximpedraza@gmail.com>
-References: <20261027135342.2003632-1-maximpedraza@gmail.com>
+        Tue, 27 Oct 2026 06:54:44 -0700 (PDT)
+Date: Tue, 27 Oct 2026 13:54:43 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Stefan Roese <sr@denx.de>, Andi Shyti <andi.shyti@kernel.org>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Wolfram Sang <wsa@kernel.org>,
+ linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH RESEND] i2c: mt7621: fix copying uninitialized kernel
+ stack with reduced page_len
+Message-ID: <20261027135443.575faff1@pumpkin>
+In-Reply-To: <20261022193853.670625-1-ansuelsmth@gmail.com>
+References: <20261022193853.670625-1-ansuelsmth@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,122 +102,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-A logo designed for a light background looks wrong framed in black, and
-products that share a board support package differ in their colours as
-much as in their logos. The background colour belongs with the image,
-so a device tree image takes it from the optional "background-color" of
-its node. A value that is not one cell of RGB888 is reported and left
-out.
+On Thu, 22 Oct 2026 21:38:51 +0200
+Christian Marangi <ansuelsmth@gmail.com> wrote:
 
-CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR remains the colour wherever
-the source says nothing, as with the BGRT, which carries no colour, and
-the BMP loaded as firmware.
+> When a page_len is less than 5 bytes in mtk_i2c_xfer, uninitialized kernel
+> stack data is copied and written to REG_SM0D1_REG. Equally on the read
+> part, an unnecessary read is done.
+> 
+> Guard these extra copy/write and read for the page_len to fix leaking
+> uninitialized stack memory.
+> 
+> Fixes: d04913ec5f89 ("i2c: mt7621: Add MediaTek MT7621/7628/7688 I2C driver")
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  drivers/i2c/busses/i2c-mt7621.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
+> index 0a288c998419..9ea5e3f9a763 100644
+> --- a/drivers/i2c/busses/i2c-mt7621.c
+> +++ b/drivers/i2c/busses/i2c-mt7621.c
+> @@ -144,7 +144,6 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+>  	u16 addr;
+>  	int i, j, ret, len, page_len;
+>  	u32 cmd;
+> -	u32 data[2];
+>  
+>  	i2c = i2c_get_adapdata(adap);
+>  
+> @@ -186,6 +185,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+>  
+>  		/* transfer data */
+>  		for (len = pmsg->len, j = 0; len > 0; len -= 8, j += 8) {
+> +			u32 data[2] = { };
+> +
+>  			page_len = (len >= 8) ? 8 : len;
+>  
+>  			if (pmsg->flags & I2C_M_RD) {
+> @@ -194,7 +195,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+>  			} else {
+>  				memcpy(data, &pmsg->buf[j], page_len);
+>  				iowrite32(data[0], i2c->base + REG_SM0D0_REG);
+> -				iowrite32(data[1], i2c->base + REG_SM0D1_REG);
+> +				if (page_len > 4)
+> +					iowrite32(data[1], i2c->base + REG_SM0D1_REG);
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
----
- drivers/gpu/drm/clients/Kconfig      |  3 ++-
- drivers/gpu/drm/clients/drm_splash.c | 33 +++++++++++++++++++++-------
- 2 files changed, 27 insertions(+), 9 deletions(-)
+1) Why is this using memcpy() rather then just get_unaligned_u32().
+   (Yes, short transfers get tricky...)
+2) Have you checked whether the hardware requires both registers be
+   read/written for correct operation.
 
-diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
-index 172781bbc2d7..bb5fe5019756 100644
---- a/drivers/gpu/drm/clients/Kconfig
-+++ b/drivers/gpu/drm/clients/Kconfig
-@@ -104,7 +104,8 @@ config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
- 	default 0x000000
- 	range 0x000000 0xffffff
- 	help
--	  The splash background color, in RGB888 format.
-+	  The splash background color, in RGB888 format, unless the image
-+	  source has its own: a device tree image can carry its color.
- 
- config DRM_CLIENT_SPLASH_SRC_DT
- 	bool "Device tree as splash source"
-diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-index a50036155763..3f54bec87413 100644
---- a/drivers/gpu/drm/clients/drm_splash.c
-+++ b/drivers/gpu/drm/clients/drm_splash.c
-@@ -117,6 +117,8 @@ struct drm_splash {
- 	s32 off_x, off_y;
- 	/* One of DRM_MODE_ROTATE_*: turns the image, not the screen */
- 	unsigned int rotation;
-+	/* RGB888, from the image source or the kernel's default */
-+	u32 bg_color;
- };
- 
- static struct drm_splash *client_to_drm_splash(struct drm_client_dev *client)
-@@ -272,12 +274,23 @@ static void drm_splash_dt_pair(struct drm_splash *splash,
- 	*y = val[1];
- }
- 
--/* The optional placement properties of the node, read once */
--static void drm_splash_dt_placement(struct drm_splash *splash,
--				    struct device_node *np)
-+/* The optional properties of the node, read once */
-+static void drm_splash_dt_props(struct drm_splash *splash,
-+				struct device_node *np)
- {
- 	u32 val;
- 
-+	/* The colour travels with the image; a bad one is reported */
-+	if (of_property_present(np, "background-color")) {
-+		if (of_property_count_u32_elems(np, "background-color") != 1 ||
-+		    of_property_read_u32(np, "background-color", &val) ||
-+		    val > 0xffffff)
-+			drm_warn(splash->client.dev, "splash: %pOF: invalid %s\n",
-+				 np, "background-color");
-+		else
-+			splash->bg_color = val;
-+	}
-+
- 	drm_splash_dt_pair(splash, np, "logo-position", -1, 65535,
- 			   &splash->pos_x, &splash->pos_y);
- 	drm_splash_dt_pair(splash, np, "logo-offset", -65535, 65535,
-@@ -375,8 +388,8 @@ static bool drm_splash_dt_open(struct drm_splash *splash)
- 	return false;
- }
- 
--static void drm_splash_dt_placement(struct drm_splash *splash,
--				    struct device_node *np)
-+static void drm_splash_dt_props(struct drm_splash *splash,
-+				struct device_node *np)
- {
- }
- 
-@@ -802,13 +815,17 @@ static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
-  */
- static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
- {
-+	/* Unless the source says otherwise, the kernel's default colour */
-+	splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
-+
- 	if (drm_splash_dt_open(splash)) {
--		drm_splash_dt_placement(splash, splash->dt_np);
-+		drm_splash_dt_props(splash, splash->dt_np);
- 		return DRM_SPLASH_SRC_DT;
- 	}
- 
- 	if (drm_splash_bgrt_available(splash))
- 		return DRM_SPLASH_SRC_BGRT;
-+
- 	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
- 		return DRM_SPLASH_SRC_BMP;
- 
-@@ -875,8 +892,8 @@ static void drm_splash_work(struct work_struct *work)
- 			continue;
- 
- 		if (!scanout->bg_drawn) {
--			u32 rgb = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
--			u32 color = drm_draw_color_from_xrgb8888(rgb, scanout->format);
-+			u32 color = drm_draw_color_from_xrgb8888(splash->bg_color,
-+								 scanout->format);
- 
- 			/* Only success marks it done: a later pass retries */
- 			ret = drm_splash_fill_solid_color(scanout->buffer, color);
--- 
-2.39.5
+David
+
+>  				cmd = SM0CTL1_WRITE;
+>  			}
+>  
+> @@ -204,7 +206,8 @@ static int mtk_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
+>  
+>  			if (pmsg->flags & I2C_M_RD) {
+>  				data[0] = ioread32(i2c->base + REG_SM0D0_REG);
+> -				data[1] = ioread32(i2c->base + REG_SM0D1_REG);
+> +				if (page_len > 4)
+> +					data[1] = ioread32(i2c->base + REG_SM0D1_REG);
+>  				memcpy(&pmsg->buf[j], data, page_len);
+>  			} else {
+>  				if (!(pmsg->flags & I2C_M_IGNORE_NAK)) {
 
