@@ -1,89 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093244;
-	b=K5TBec7OfzQl4JZw3Y0QCUT+IQCGSso2i8A6uiK20HZosBEvUjraUz2px9e3FCbn4pqd
-	 SQe0/t8jrEpvLX5yxoCV4qegeDdHOax569kOV3MyR7UteUJFSQwMxGaRZYbFMSWZUwYNv
-	 YLgKZQOPRHxLJDrZszYqLG7ZZMISOWmyaeab0TJ+HWfE+IfAFKBEjcYvUv1a3GvauhtyV
-	 Z0af6vlVPxaiX2nkHAhHFRkMeg1K4S6mW3fxa8igTVQcnZbzQRNmBwaNAoQg4DPhMqAoK
-	 Z2a3ufel8SAyrXRondW7cCFn7HYoDU3ye/YJHQNlt8vTmmKeixBii9xE/FfOe2GHNcg==
+	t=1793093248;
+	b=iv1clrxVtysH/CiNobdl55uLOtc4Hd4zzp/AgJBGU6+fe8glzz1GieHTFQF/0Q+E0WYh
+	 cGD0aBwCFkzg8vD5AKlnzzo2kyBVTMJl8bw2NZv7ZrkMgdW9r39EAyHOAFOeWXSIbGXBD
+	 8JinMkqMJBedWVYNkmYPYaobC/dpz72OqqNex/bshwa8qkXD2qqDmdIMmLciY8xk7MKmx
+	 s2z+FlwrzEQ95OlIexOaHBSLb1YPKoqmP+V5O5GnwObo7j8IrM6vEBYvyLSgGvDASsX4a
+	 3CCoMNv372JWwHCtj3abbzSAYsZhxAgYvRaGmsgTKuFz+UPQQbiSEEd47PUzYXvYJpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093244;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version;
-	bh=UQzd8Q57y/Ls3xxOwRqM/QyCB6vFpKuUv/0iUG5QYLw=;
-	b=mx0sjbrcUXyqMYpbc4EvmjUh+v25NVG43c0XM0bPuNsUt/CGK+wibBqjQ8v3lMTZtvqI
-	 ItbProzJb8gI9EwKQ+GJ5FhrQ+BBK0bEFfhpeXh14Lzk+n30ACb7W4ePyUKU1m+RacZTn
-	 3dJC0Eg6SRvOV/1liGd/pWbGVX3EKnXAmxqv+foYgj1D6XxwF4ghSehMfQI1S+BXfn/XG
-	 BQ4UyWdnEH8U9a+j2NH2IS+2ubt5rjZIBysn5AZ38AQ5gptcccMoPHNNlNKVsGgCY6Wgx
-	 C5spqTmO8omn4nII7IrswVMHKHv8XkorkuC40M2dljD5ksUYoP1mFz5a+VaUHJhGKFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093248;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NO/PULJuoH8GueUl87hWZsGj557aWTq0iq+P8FZEMew=;
+	b=OXz7vszUVJq6pBAuI0WFdcrz8i7iO5o1e+596SouZNANv2VNuHdOKyWB6Ov7BsFp/6rC
+	 BqmcR0wlmqP3hXpFDX4kosBh3YT/0NL/ymzKoccouxA/USwzUytKEO0yUrXBwMuEW5UR3
+	 12OOJ0sExhIgEPUqlHGc5xVjyQ0JjvB9PkHozBs5iVoxI9wGjhTtskAEhYCYid73mtEyd
+	 3a4r+dC2RFPDNAokNsx6LedVHn+Mhv+G8S+ynQGO5IqOPmfCPyE36XW2s68XhMIW6vlLo
+	 PXaql0cvBOo3uLnMFdOprD4MtpPAy0IWopqQpZ8QfYgiujLgssmvB474+5qjxgpnQpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=jCVw+2jY;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="rtA7yWz/";
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04340606A31F;
-	Tue, 27 Oct 2026 09:27:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04340606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FF5606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39FF5606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=jCVw+2jY
-Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5ZUoI786386;
-	Tue, 27 Oct 2026 02:26:52 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=UQzd8Q57y/Ls3xxOwRqM/QyCB6vFpKuUv/0iU
-	G5QYLw=; b=jCVw+2jYnIGOR3X4YjUtl69gpgbj0j5Q3K2Vt1mFdlK2WSi371sGW
-	5ee4ZpkXjfQZUzTrxDqZ4BSwC8xXBjtIENmuWH6tVGZEa3TE18PvGHx2e1bse1xA
-	0Mer8qxxEH+SgHxJ15VukXW6sAJ+ty4GHe6oc72rcq758fA5rA74LJbFua1BgZ1I
-	qefN3JK/9GN9aJEyoKd3vacs0VycNNUFhtpFGQ5HGSkcCR0+YZJq+YnF+P+lsdiB
-	xCghKGkKddR6UyEJbGvj1ArpNJerzxGztCXX37hXdOkJ9D9qvCD5dGtSbv1J78+k
-	ECVgupOozN22wBN3zqWfb0fh3KyXLdshg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hgr03sauj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Tue, 27 Oct 2026 02:26:52 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1b::8e35) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 27 Oct
- 2026 09:26:51 +0000
-From: Ruben Hakobyan <hruben@meta.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>
-CC: Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-        <virtualization@lists.linux.dev>,
-        Alexander Duyck
-	<alexander.h.duyck@linux.intel.com>,
-        David Hildenbrand <david@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Gary Guo
-	<gary@garyguo.net>,
-        =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=
-	<bjorn3_gh@protonmail.com>,
-        Benno Lossin <lossin@kernel.org>,
-        Andreas
- Hindborg <a.hindborg@kernel.org>,
-        Alice Ryhl <aliceryhl@google.com>, Trevor
- Gross <tmgross@umich.edu>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Andrew Morton
-	<akpm@linux-foundation.org>,
-        <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] virtio_balloon: submit reported pages as individual buffers
-Date: Tue, 27 Oct 2026 02:26:33 -0700
-Message-ID: <20261027092633.3831267-1-hruben@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <02257263433b001cd0a55a52486857df81dd4246.1793057483.git.mst@redhat.com>
-References: <02257263433b001cd0a55a52486857df81dd4246.1793057483.git.mst@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rtA7yWz/
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b21cf1a580so4814280a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793093246; x=1793698046; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NO/PULJuoH8GueUl87hWZsGj557aWTq0iq+P8FZEMew=;
+        b=rtA7yWz/OJQELSB1HmzDG3zKW06pzYRIBoQhVr9HylKEpl/8BpK2yi87g1x16ip+Pi
+         fL7L7LTZU/P+LP6tqSBF2kn+T3PkbIfav6AB+p7jJfqohB07r1R3PbJj+iHSDOfA2lkC
+         Zo98+IGjED3QcvcZfTPyx9AkDAhssqZbALgRPWpyzhQ5XfYz/54hiiM5bcbgRREcz91j
+         r1fmiKeQgLmKHQGkRW90lyoG1oL9Fby0BbWxiRMH8PoasiIzLMc5HTazYLRzyjMDVEYa
+         m4F2fy6M9vyjirx33RfXRrSwve2RUm0QyLdHG+qFq6/zklsWGKJZJvNL6FZccBRQL9up
+         L6eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793093246; x=1793698046;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NO/PULJuoH8GueUl87hWZsGj557aWTq0iq+P8FZEMew=;
+        b=V3PF+KWI18cSKrWneOvPhb914e/lf9qxWyGzzYNre1aFstYMF0L/Ed/Rdm16/XZHFD
+         VDXFbWN/tVugpHKph4Jm79HlNG/YEJt5DQBSz+jaKPg/r78om4E0oGzQWu1dYjBj7u9W
+         9Z6mpNXZ1IXhwP4NEamRrxN1HDkpBq4/2SUXvdEOXdCIvlyKem3JmUr7bfZluwz7L2Wj
+         /VGfMWcLMvgAwyxz5gB5jbKRjkx4U6a4wmKTPPTV+UxZS8ktgC386OJ4MUHAGzgqoYjP
+         wZyaW8Pp3CKPeHYer3KZr3qzD19J3YDuYqowksMMAqQKW/N5AkgY2LOSVAprvJKN1I2V
+         xayg==
+X-Forwarded-Encrypted: i=1; AKwUvBzi3ojX3eNXZUmFUefwAR3mIImlNCSzjJztfEoXb1vkKOuj1wNmzOvp21713cMeLIIUZdT/j9ggzcG7utk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPMEQjEiVzg07B+e1D2DQatq6ha9cREwWiUk6zh/JoV01ycnYX
+	aLoN4DiV2T4OESNq9hJkhPWcUIedO6d4zlAIv0L3KqaytpoEXtZTB2qw
+X-Gm-Gg: AYBFou3hAMBaadAufNXGO81CrsQ8p+nT+xVuhw8QgMwSJ5fEaNZA7AmDXYNMOhgJclW
+	URSxNXqbDS/9Cc1qv1gOIruq02AtY5O8a1R3CSAOOClaFTgKSMXTgAYAmq097s9yfAPQFpRd1HN
+	RSvkf4mTpheZTbxHWl/QqV8eSkZlyHa1nexRACr+5+WKyIsdHw6cgWh7LvU+AdzMsaUhoQnUSGE
+	l9+SERnxL+uhYCZ9p3LPxLKQcRg6mhWMG7r7/jBaAaFYL7qz3ss70KIDl87k5ndLt4JONCk4QCW
+	Ll5jujDNlDyJWyhkrlg5Bgkzi2SNCV9+M+39BplpXUTeb6HF9ulQK8r7rRXGyKx+75LIMpip/iZ
+	1yjT1bCGfAXgS0kHj/iM2Hmz3cJF0L22ykiWA7YTxcQeR4VZu42hZVnOOoJQzioZqF7nyRXWw5S
+	YuPU5QlIwW4/W31yO6N2oEOeRGbxKhoWANGzbHiuDJUoTqxOnnP2OJItr2bWh7EtjJ8UPB0W6Wa
+	Yk3LxU4+F/U5nD3QMl//ShY522Bm+FVBErcjy4eADHU+Vzqy1ijhCuj9RNu0Wooy+ylzRpr7viG
+	+HSYQ3HfQMfP6ANiFH7vP+BFuQJUJYurcfIqnzFEZC8E8E68bRHcBsFJ75URlX8KfVdjnh+eqsb
+	88TF/Mg==
+X-Received: by 2002:a17:907:3fa6:b0:c41:f29:72b1 with SMTP id a640c23a62f3a-c46bdeba202mr1042190766b.47.1793093246326;
+        Tue, 27 Oct 2026 02:27:26 -0700 (PDT)
+Received: from CCM-PC (83-233-221-133.cust.bredband2.com. [83.233.221.133])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7984f5sm417942766b.77.2026.10.27.02.27.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 02:27:25 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	linux-kernel@vger.kernel.org,
+	Ziyang Huang <hzyitc@outlook.com>
+Subject: Re: [PATCH net v7] net: dsa: qca8k: preserve port state across MTU changes
+Date: Tue, 27 Oct 2026 10:27:18 +0100
+Message-ID: <20261027092718.266370-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <179268501671.3290.6623232109527554630@kernel.org>
+References: <20261022155837.760-1-yongzhao.derek@gmail.com> <179268501671.3290.6623232109527554630@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,74 +110,29 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNyBTYWx0ZWRfX2VSj950iOp7Z
- N4wUJseZMVGKZFT1K79AoxkcWplGruzFczPACN072fI56TQBcnDIR5d3z9xwOl3ajLxPsqwGObJ
- CuUSxsqdSs93tlCR/U2JAOmERKs094+by9aPY+tm/nyVw+LUFnMZaNOX75mSL+NJh8rIEh3EbcS
- KNpUXo/GeaOtMEy/VfVHasI0kCR+8CiAM2djUAsoKmiLyKWFx1Q5Pbtqhi5c+O2msbXXsl64PTp
- /cMv73qNqsmaXWRfCit/ivJAut+1eNPR1s/2JZAThlCzzs/Qhk4czc8m6c0QIGyJocnDhJH9jA8
- bdPJ/0bKd0tXyQPsRxLTknWCyjFXREV/+whDLf2sTTBT90lZ7dnovYsQItV73YXdxjtmrkQoVEN
- PeQ3J1uCX8VFKNWEUPrKmPsvb+VzTVNwunqASjg3AouK2MR0As7MS2JGjlls7F0cZywDTTLi1GF
- RaLgrPa0I/W4jynFu9Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNyBTYWx0ZWRfX+f30BYpJwjLB
- LmUOyQuTOtWnX0CuEvdTxgol7vKvhY+IeCsxOfBL2GHfF3WwefRcDFX6K3DwuhULowD6Mm9VTKH
- b0VEVZVwMxBHcJQY6zA2lJT96M6mkNk=
-X-Proofpoint-ORIG-GUID: -xGNlB55EHYWHVXCVtCF10g8upJUtTZI
-X-Proofpoint-GUID: -xGNlB55EHYWHVXCVtCF10g8upJUtTZI
-X-Authority-Analysis: v=2.4 cv=DLUacCNb c=1 sm=1 tr=0 ts=6ae06e5c cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=8elwO82fXORLTBIkMd32:22 a=20KFwNOVAAAA:8 a=VabnemYjAAAA:8 a=QyXUC8HyAAAA:8
- a=w1El1bXDMijZuEW-F6oA:9 a=zY0JdQc1-4EAyPf5TuXT:22 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
 
-On Mon, Oct 26, 2026 at 11:53 PM Michael S. Tsirkin <mst@redhat.com> wrote:
-> The virtio_balloon driver reports a scatter-gather list of free pages
-> to the VMM so it may discard unused pages.
->
-> For an arm64 kernel with 64 KiB pages, the default reporting and
-> allocation orders allow entries ranging from 2 MiB to 512 MiB. If the
-> report contains a sufficient number of large entries, we will end up
-> with a descriptor chain that represents over 4 GiB of memory. This
-> violates virtio spec, which says:
->         Drivers MUST NOT add a descriptor chain longer than $2^{32}$ bytes in total;
->
-> Specifically, submitting $2^{32}$ or more breaks Rust-VMM.
->
-> Submit each reported page as a separate virtqueue buffer instead of one
-> buffer with an sg list of all pages.  This also avoids indirect
-> descriptor allocation (kmalloc in the reporting path).
->
-> To avoid multiple buffers causing interrupt storms, keep callbacks
-> disabled while we wait for an event.
->
-> TODO: as an alternative, keep using virtqueue_enable_cb_delayed
-> but add buffers after there's space in the ring.
->
-> Note: if the virtqueue is broken, wait_event on
-> virtqueue_get_buf hangs.  This is a pre-existing issue:
-> the old single-buffer code had the same hang.
->
-> Reported-by: Ruben Hakobyan <hruben@meta.com>
-> Cc: Ruben Hakobyan <hruben@meta.com>
-> Fixes: b0c504f15471 ("virtio-balloon: add support for providing free page reports to host")
-> Cc: Alexander Duyck <alexander.h.duyck@linux.intel.com>
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> ---
->
-> Notes (changelog):
->     changes since v1:
->         keep callbacks disabled while draining: get_buf re-arms the used
->         event for the next buffer, reintroducing an interrupt per page.
->         Disable the reporting vq callbacks at probe, and only arm the
->         delayed callback to wait.
->
+On Thu, 22 Oct 2026 16:03:36 +0000 netdev-bot+sinfo@kernel.org wrote:
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-Thanks for the patches! I think sashiko-bot found some issues on broken
-queues in the first patch that are worth looking into for correctness.
+The original problem was found during development, not in production.
+While preparing the net-next RFC v2 [1], which extended the CPU MAC
+pause in qca8k_port_change_mtu() to internal CPU ports, I asked an LLM
+agent for an adversarial review of that change. The review found that
+the existing sequence re-enables the port 0 and 6 MACs after phylink
+has taken the link down, and that phylink callbacks can run during the
+update.
 
-Other than that, I tested the "normal path" on QEMU and Cloud Hypervisor,
-both on 4 KiB and 64 KiB guests, and this works correctly.
+The problems fixed in v6 and v7 were reported by Sashiko on v5 and v6.
+I reproduced them, and the original problem with the unpatched code,
+in a userspace harness that compiles the driver and DSA MTU functions
+with mocked register access. None of them has been reproduced on
+hardware, and v7 has not been tested on hardware.
 
+Sashiko's review of v7 is a separate question and is still open.
+
+[1] https://lore.kernel.org/netdev/20260922202653.1153-1-yongzhao.derek@gmail.com/
+
+Thanks,
+Yongzhao Chen
