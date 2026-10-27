@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114389;
-	b=b0QIC+PN5v3ztRrfLmvkowcfL/DE9shHLHIHo6Vs2En6mAYDVuQfxuj15a0aKbp4OGB8
-	 An4O0E+w6rHxyt/cKFrMXQrOeHJBYfXxWLAGDxSes0SzjSrveFz+jswvrDqt4Fi44q16U
-	 rPqI/uTJnFmgH8R7gLqc4VI2Wb2D7iT3MI4IvW4qAz7CKS756IAGBXX+Q1SIozq1NDnm7
-	 udr/FFmPiR2/JDVcCiDCnivayYV7z0xNUci9JFaUMe4wKSeyTnRRHPIlzgAsbGTffC69v
-	 sYp4dQQVDc3/U5rGqcYronhLnURG6sucyQsrBlsr5vJjXN+HHbKcmLwcgYum/7JWZWw==
+	t=1793114406;
+	b=wV8UMQ1kd8xkjLLDLlF3572hxID66A1vJEY54FF5CY+WJ+K9x7topbGuTmfUDTl6M3yJ
+	 KZuzSr4zaDMBkjvrIB+oNsvVZPMdRg/0tWUpRkbARrBRsFlRShJ27rtHYTuMOq6jrtUIa
+	 Q8rGJAz8qWnITzUeKet7tQnPobb2TqR1x9PtXzkRy49kef2LDtb1MlX5PCbHtcp6FR6I1
+	 rngpNjkdfkPEB1LpZ7ORHCIXXSHEBnrUVkWlECm5kIQiEZ0vEZb0r/YYFzRIXiw2vbjhU
+	 2odUNVExSd+31C4qSaKWaoG5Cs1nFS9b8Sd5IGURCxyADAXEIPYq9ErAQK6esitJxSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114389;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sMgUDH2AwcqoMwjXDgkudYOyFG4cLjIdTSCCeoJtqvg=;
-	b=ndsMJ7XEZhUtlhXBmmb+dU+Vlvu+foKz5LO0FRDGsonU6CMhJUbPRN/cSZ2wfgMaQpHP
-	 JnB4mG7CI91yEtUU/Jj3ZSmpWmJPfJOa11qbKbElmY2JGFkCX9sAPjYZLOzrTt+Zdz609
-	 s9pZI6czCvbJypUyC8c1pp3llaFjKInPt501koluxMg/9pqRxQ6zHD+tif8o0nsxNzPNH
-	 oftp8R7F6b4MndeP+OsoiRnyqEKGQXn7TdaQedk31Jzd/SeG2y1xjY/lRUiAuLTk8x+2L
-	 sQcEmu4teLGTn0KILuReyFnW5m9Ictd5K1XBdjkFc96GGUvmH5/ztLCyCQSxs/VhiQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114406;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kiI7xiDE1+GC/ICbGmBqxRV2LL1HNZJxrtHdqD0244w=;
+	b=BVzvmZZwjttlSmDkyrWFwC3+PJVtt/yjmkFLA7ip2eDqPrGskli/MqcqHUUQ9wQrk2yC
+	 bZIYl96AcZxPjxz3jNEo9uIg9KyJIepiOL+Zrga/igutJzCBf5YN7l4Blz3F7PiYTPzuT
+	 2CA0dgmZGf66tfliLyoNX5YPCdi0XP/H4el7nzPwHx4YxMsc26HEWxXug08XtH42jCqCj
+	 8+kS7sxXTP8kSNxqgadg8dICiFBrW2nHpsdx9o89i7ioB4wmthT8q1AFOcdZhvHPZSBDl
+	 HeSN3JKqaz57vjM2iCmY+ty0UGLxAd0wtW29IRgcWiQrcX1x0XwZk1BYxBUj0Hj0KRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7jh1tBB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G2oSc18j;
+	arc=none smtp.remote-ip=95.215.58.180
+Received: from mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9B8606A31E;
-	Tue, 27 Oct 2026 15:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F40606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:20:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F40606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7jh1tBB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982AF1F01829;
-	Tue, 27 Oct 2026 15:19:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793114389;
-	bh=sMgUDH2AwcqoMwjXDgkudYOyFG4cLjIdTSCCeoJtqvg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k7jh1tBBsOBG5dou8fhCh+tMjVrfqZ+QyYH2YOAVR8oqdJZnj8f4I6oUNYZR81/L6
-	 AApxwcBGN8jxBbomV9prXrYPjHejt3bgnfAgZy3ZCuYE5RC9rmpEuxZHT5BtMQmTAl
-	 +MHFdzxsWia+XWBxbpV1GUTmGUtz04jpnds3WL3atps/Jn0SrR4Oc3UqhH7sF7/Oak
-	 G/99NS4H4+bssn5vJNqxXd/gVyVgJmKfcxAHHvHnIMSGCNAPi507NWnO4Ad1TI/313
-	 l6R70fGsYL6j1DoCGQ1R8gMFMqc//VvUsfRU/tvrnMgNjTMs5szsrSoBAPMxvFHGDz
-	 mghJJuXIew6qQ==
-Message-ID: <8fdc66b2-6047-4f3d-932f-1e6883e370bc@kernel.org>
-Date: Tue, 27 Oct 2026 16:19:38 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G2oSc18j
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aZBjD2sq6zyiiszpJ6YLlUgF/xtCSZC/jb9y69QAG/0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793114403; v=1; x=1793719203;
+ b=G2oSc18j9E7Mfo1ps5IKbD2WNjYLd+U/2DrZMGXlTCHuGsF7mZjQae7S3UyA7HSDQ0v4Je+6
+ L/Fy+si8v6CTB19p3RZScIuoogR1MutwjgMT4Jej66+C/3FxHjlhFa58hl+EE9RNA6+FTjuBGSZ
+ u75B3dWEXJU2tb3xb5Cu+9Wg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id da19e04c926c07a8;
+	Tue, 27 Oct 2026 15:20:01 +0000
+X-Mizu-Trace-ID: da19e04c926c07a8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2872b4b5-49e3-4801-b96f-f6631aa13a22@linux.dev>
+Date: Tue, 27 Oct 2026 23:19:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,136 +59,115 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] dt-bindings: ptp: Document the TSCSS on Qualcomm
- Lemans and Monaco SoCs
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
- <20260727-tscss-v1-1-beed14e72510@oss.qualcomm.com>
- <02792987-7ad8-4a6b-81ad-559c63174bb0@kernel.org>
- <640acacb-1704-4ee6-aa34-d6be3b30b44b@oss.qualcomm.com>
- <f5aa313d-0e23-41fa-b59b-9388839b2525@kernel.org>
- <7f6839fb-59b0-4f6d-a3f8-7579f6d40857@oss.qualcomm.com>
- <aa76425c-0579-42c2-832d-cc767703f3f5@kernel.org>
- <237b2f74-4a9b-4df2-a0fe-a7b783ed5267@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <237b2f74-4a9b-4df2-a0fe-a7b783ed5267@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: shawn.lin@linux.dev, Adrian Hunter <adrian.hunter@intel.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 5/6] mmc: core: Move reset functions for eMMC
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-6-ulf.hansson@oss.qualcomm.com>
+From: Shawn Lin <shawn.lin@linux.dev>
+In-Reply-To: <20261027144051.249211-6-ulf.hansson@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 26/10/2026 13:55, Imran Shaik wrote:
->>
->>>
->>> On checking further, I found that our etu-slice sub node deviates from
->>> that example, since we don't have a compatible string for the sub node.
->>>
->>> Please let me know if we should move the pinctrl properties under the
->>> tscss node with per-slice names, or instead keep them under the
->>> etu-slice sub node and add a compatible there.
->>
->> etu-slice does not feel like device at all unfortunately. I see only
->> address space, so one resource, which might be enough but lack of
->> description for the subnode is not helping. I have doubts that separate
->> subnodes should be there in the first place, but if they stay, describe
->> the child node fully - what sort of device it is. Just because there is
->> independent timestamping counter does not make it separate device, just
->> like independent interrupt in GIC is not itself an independent device.
->>
+在 2026/10/27 星期二 22:40, Ulf Hansson 写道:
+> To prepare for a subsequent change and to simplify review, let's move the
+> function for resetting the eMMC card a few lines up in the file.
 > 
-> The ETU is an independent hardware block within TSCSS that captures/
 
-How is it independent? I see no resources, except address space. A
-channel of some device does not mean it is a separate device.
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-
-> snapshots the TSC timestamp in response to an external hardware
-> event trigger, for each slice individually. Hence the subnodes approach
-> was followed and will capture these details in the description as well.
+> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+> ---
+>   drivers/mmc/core/mmc.c | 66 +++++++++++++++++++++---------------------
+>   1 file changed, 33 insertions(+), 33 deletions(-)
 > 
-> If we drop the subnodes and add everything into the parent TSCSS node
-> instead, then all the arrays here must stay index aligned as per slice
-> mapping. Example DTS node looks like this (QDU1000, 3 slices):
-> 
-> ptp@1da0000 {
-> 	compatible = "qcom,qdu1000-tscss";
-> 	reg = <0x0 0x01da0000 0x0 0x2000>,
-> 	      <0x0 0x01db0000 0x0 0x10000>;
-> 	reg-names = "tsc", "etu";
-> 	
-> 	...
-> 
-> 	interrupts = <GIC_SPI 329 IRQ_TYPE_EDGE_RISING>,
-> 		     <GIC_SPI 333 IRQ_TYPE_EDGE_RISING>,
-> 		     <GIC_SPI 334 IRQ_TYPE_EDGE_RISING>;
-> 	interrupt-names = "slice1", "slice5", "slice6";
-> 	
-> 	pinctrl-0 = <&tod_pps>;
-> 	pinctrl-1 = <&gps_pps>;
-> 	pinctrl-2 = <&hardsync_pps>;
-> 	pinctrl-names = "slice1", "slice5", "slice6";
-> 	
-> 	qcom,etu-slice = <1 5 6>;
-> 	qcom,etu-event-sel = <1 3 2>;
+> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+> index c936272bcd81..d4bf0f25bd74 100644
+> --- a/drivers/mmc/core/mmc.c
+> +++ b/drivers/mmc/core/mmc.c
+> @@ -2271,6 +2271,39 @@ static int mmc_shutdown(struct mmc_host *host)
+>   	return err;
+>   }
+>   
+> +static bool mmc_card_can_reset(struct mmc_card *card)
+> +{
+> +	u8 rst_n_function;
+> +
+> +	rst_n_function = card->ext_csd.rst_n_function;
+> +	return ((rst_n_function & EXT_CSD_RST_N_EN_MASK) == EXT_CSD_RST_N_ENABLED);
+> +}
+> +
+> +static int _mmc_hw_reset(struct mmc_host *host)
+> +{
+> +	struct mmc_card *card = host->card;
+> +
+> +	/*
+> +	 * In the case of recovery, we can't expect flushing the cache to work
+> +	 * always, but we have a go and ignore errors.
+> +	 */
+> +	_mmc_flush_cache(host);
+> +
+> +	if ((host->caps & MMC_CAP_HW_RESET) && host->ops->card_hw_reset &&
+> +	     mmc_card_can_reset(card)) {
+> +		/* If the card accept RST_n signal, send it. */
+> +		mmc_set_clock(host, host->f_init);
+> +		host->ops->card_hw_reset(host);
+> +		/* Set initial state and call mmc_set_ios */
+> +		mmc_set_initial_state(host);
+> +	} else {
+> +		/* Do a brute force power cycle */
+> +		mmc_power_cycle(host, card->ocr);
+> +		mmc_pwrseq_reset(host);
+> +	}
+> +	return mmc_init_card(host, card->ocr, card);
+> +}
+> +
+>   /*
+>    * Callback for resume.
+>    */
+> @@ -2319,39 +2352,6 @@ static int mmc_runtime_resume(struct mmc_host *host)
+>   	return 0;
+>   }
+>   
+> -static bool mmc_card_can_reset(struct mmc_card *card)
+> -{
+> -	u8 rst_n_function;
+> -
+> -	rst_n_function = card->ext_csd.rst_n_function;
+> -	return ((rst_n_function & EXT_CSD_RST_N_EN_MASK) == EXT_CSD_RST_N_ENABLED);
+> -}
+> -
+> -static int _mmc_hw_reset(struct mmc_host *host)
+> -{
+> -	struct mmc_card *card = host->card;
+> -
+> -	/*
+> -	 * In the case of recovery, we can't expect flushing the cache to work
+> -	 * always, but we have a go and ignore errors.
+> -	 */
+> -	_mmc_flush_cache(host);
+> -
+> -	if ((host->caps & MMC_CAP_HW_RESET) && host->ops->card_hw_reset &&
+> -	     mmc_card_can_reset(card)) {
+> -		/* If the card accept RST_n signal, send it. */
+> -		mmc_set_clock(host, host->f_init);
+> -		host->ops->card_hw_reset(host);
+> -		/* Set initial state and call mmc_set_ios */
+> -		mmc_set_initial_state(host);
+> -	} else {
+> -		/* Do a brute force power cycle */
+> -		mmc_power_cycle(host, card->ocr);
+> -		mmc_pwrseq_reset(host);
+> -	}
+> -	return mmc_init_card(host, card->ocr, card);
+> -}
+> -
+>   /**
+>    * _mmc_handle_undervoltage - Handle an undervoltage event for MMC/eMMC devices
+>    * @host: MMC host structure
 
-Why this is not continuous? The slices are all fixed in the hardware. I
-don't get why do you list some of them.
-
-
-Best regards,
-Krzysztof
