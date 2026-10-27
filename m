@@ -1,76 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098214;
-	b=2zskzp69rm/nInjmuURiV14C40Zy0/T8oj/7ekwKSKVG5m+wKEhlkB7NpEnqc4jMp0nE
-	 7a/T9U/qKObHZeesGLbrgkWvP8Xwcne3J0DnICB+gt3PEoDbY73sK6xQ2dEblsbs6u9Jv
-	 vbEKVmjJHiyG9VgIfsTP27UmQWRxyHXu+l6kEd2PgQ6hv2s7LiM1eIyKdooJYusNJefda
-	 wYg512wnhOV24na7Ir9KVHPwsc7AIbhQokNXOVMAlw184I5JFkLgNXxDUUbTN2YskM39n
-	 8Dx9g0eW39Ey5GWXOy5L0kliI0yviSRAFd/2pX+lkjV5MG/ZGL7nVihDCGt9la8dMPA==
+	t=1793098209;
+	b=DxBrvZgDb3GoYJFqY1WMIG5Gm4gqPyn4fQbFwaQS0FPddc/VVp1hgsiFGlENLWq46Z7S
+	 k8jPi+fBa1Awh+0OmKGrQpAiaYxEGeHYJJUL/IN9JZC/WOHtRWtrHvQdkx9Te9b6UJjvm
+	 xMDqwMgCTzdXpGU7cI2PPMo0n5+lNPpWiQ4Mil1S00eXmrqPeRkj33q0QxCTGZsSIuxn7
+	 X+bIDNsYp9pfTbGjdQhsnp1kXezvlBnFox7pUtL9vYwrsWU+CHk/UATPFKTjzJfyMHC36
+	 q/jAxkFmZy7Tna6rIWNn5L7axq6QLRhmlGSncPoFsjusdWVEgA4rEI6hKzXtMrs82SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098214;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding;
-	bh=Zm1ZMFHt+vDtsE6uhd9cmwQ/XuV6JbZYuMkcY3vwMXo=;
-	b=pgxzybJeLId1rw8jNpM10huKRHnO5saQkWqf2R2VS/i7vA1W1Ggj7yWbvZXevIjPJQze
-	 mMQY0WU4vyD6xBBfcJDRoj0elBwFMTn/XlYBuYGm13Y8jek8zCyu+xKnFatoPxhzFHlUA
-	 A/hGuafTUQYVFFkTfvDDEE7TB0PPSBrk62P5kFGU+hw+M0rxy+/TI/nqF2/UqBFdCnsEB
-	 mpfsNWlsUCsNRWbt8ibqEXvoJR3pIHcs7d3JisUc0numyZoEQdxOO6otkiTQ/trxFom/J
-	 nKpWiZDwlOuAwIwoEq5NEGe4hXCQ6/pC84HBff2eWcVnNv7wFEavZJT1i4r8AbXFo4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098209;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=HzCuJNCWnQ9dMh722JD/KfRwZB3FHJUExkLlOiQ1KaE=;
+	b=lzbx6qalCtty3BVwsltkpQxnZ7yAZ5oqWYSQGAmU8njNeI97K0m2aVoSKaQrpgPPq7ZB
+	 KuOnGRv0FD4g46az9WqgMNkCS/xQu0PP9A27CqhfJ/i/j94B02EiM1rcEuRAzOdsdkHRL
+	 Amy6b/VmGRg7TgQdLGoteU3G+JVsgiR8Jvd6B66R+Em26ehvlbsE24zTMAaWpwSquJ8zR
+	 3OBRZ90A0/OEzvMrtD9/0Zy0vmM14mfefau941kCFJTHwyO2c59C2CX+RoJM7W1wON6VM
+	 86vNnh/lQmmgtN/oxbxPylpcS0E9xAl7qRvwweFCjhxw1ZA2Dwo6J+ggS1WGIdp1bLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aqpzT9zB;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bu7dbeu/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668D1606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 668D1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00187606A322;
+	Tue, 27 Oct 2026 10:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aqpzT9zB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793098214; x=1824634214;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=fZ5z3CH2gHmgn+ZLPgqrXD36V11lVJFgcQBStrMHoGU=;
-  b=aqpzT9zBYWMB2F/R5Rk6RT4szJtHl3aOzL/M01om5eETlYHxk0AlvUA5
-   WSTEfA+CHk9aUnIDx42suNGRRm0bOBuhPc2RBnIuU4ghoSrsTrwwQLt9L
-   YTFJP8tSKNOtbkwLNdzQRTi7CArkOzRl/oFHKt3isErNscwvI3jOO+jfC
-   0p3a49JQi0iN7vpbcdudmVBNYRomDXhSA4LvXkNst0YswtWiUHpYMTS6K
-   5jk2lXZaEhsCbOA6eZQynUr47ObkylM3RfNFXR3s2h/pj91ZWTvTI/c0H
-   I2s2hqqvInFojJc/nsnZkXactphXiO2+cU73/fqCeepCFU5eBJ1fkfIKr
-   Q==;
-X-CSE-ConnectionGUID: ebYmal3qQ1GqyAv9DoSFzg==
-X-CSE-MsgGUID: mNN0nhojSeKCBTEvSEb/RA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1806850"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1806850"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:12 -0700
-X-CSE-ConnectionGUID: CrPWIebURQa0uyex+Qyzjg==
-X-CSE-MsgGUID: x8zZB4P/QK2/pjVnw9pBNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="6359406"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:50:10 -0700
-Date: Tue, 27 Oct 2026 18:50:06 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Shubhang Kaushik <sh@gentwo.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>, sched-ext@lists.linux.dev,
-	aubrey.li@linux.intel.com, yu.c.chen@intel.com, yi1.lai@intel.com
-Subject: [linus:master] [sched]  c72945693b:
- stress-ng.rawudp.packets_32_bytes_received_per_sec 34.2% improvement
-Message-ID: <202610271134.d6bf1e10-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bu7dbeu/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA1431F01828;
+	Tue, 27 Oct 2026 10:50:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793098208;
+	bh=HzCuJNCWnQ9dMh722JD/KfRwZB3FHJUExkLlOiQ1KaE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=bu7dbeu/JC9qlixqO9Fjptsc4bPYlao2vCybIDDFCzUPSCrDUci4kGR9MusfU/qyS
+	 6LASXGu3FWuzrbtlXgim2YQHkwMLUBPsL2G12qNsGa+UtGTyIwhr/+LErDAc5CPz87
+	 OqY9CibCfkqpVnf6yGWjftKqHBoknurpTlfYuLFqC85jrb5/0dDGYrxsxFEDKPP94T
+	 14LtImEjdB080WECdZ4HtPCgKedSbN8VdE4Ox3xSDOIwltah/1QdQvZJLWjL7wEW3f
+	 UFLRJv4DKpwIPdvSlNqpzN9yxep83ibUFTctbjL/x8F+cysUgZ+GvmjyEOxZ5yiD3h
+	 FPBR53dwY4CGQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE6E03AA9380;
+	Tue, 27 Oct 2026 10:50:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,67 +53,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net 0/2] vxlan: keep reserved_bits on changelink
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179309820756.3724916.12938875629554652467.git-patchwork-notify@kernel.org>
+Date: Tue, 27 Oct 2026 10:50:07 +0000
+References: <20261023-b4-vxlan-changelink-gbp-v1-0-f0d13951c09b@proxmox.com>
+In-Reply-To: <20261023-b4-vxlan-changelink-gbp-v1-0-f0d13951c09b@proxmox.com>
+To: Hannes Laimer <h.laimer@proxmox.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, razor@blackwall.org, idosch@nvidia.com,
+ petrm@nvidia.com, dsahern@kernel.org, horms@kernel.org, shuah@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
 
+Hello:
 
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Hello,
+On Fri, 23 Oct 2026 13:14:26 +0200 you wrote:
+> Currently reserved_bits are reset on every changelink. This leads to
+> packets using extensions that were enabled on creation being dropped
+> after a changelink. The first commit describes the problem and
+> solution in more detail and the second just adds a selftest for this.
+> 
+> Signed-off-by: Hannes Laimer <h.laimer@proxmox.com>
+> 
+> [...]
 
-kernel test robot noticed a 34.2% improvement of stress-ng.rawudp.packets_32_bytes_received_per_sec on:
+Here is the summary with links:
+  - [net,1/2] vxlan: keep reserved_bits across changelink
+    https://git.kernel.org/netdev/net/c/e3a629477d52
+  - [net,2/2] selftests: forwarding: vxlan_reserved: add gbp changelink test
+    https://git.kernel.org/netdev/net/c/e7cb2f638f7e
 
-
-commit: c72945693b90423f1b46ac2dbc8749c2b7804fc8 ("sched: Restart fair hrtick after same-task repicks") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
-
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 192 threads 2 sockets Intel(R) Xeon(R) 6740E  CPU @ 2.4GHz (Sierra Forest) with 256G memory
-parameters:
-
-	nr_threads: 100%
-	testtime: 60s
-	test: rawudp
-	cpufreq_governor: performance
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261027/202610271134.d6bf1e10-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-srf-2sp3/rawudp/stress-ng/60s
-
-commit: 
-  a9b3c75705 ("sched/headers: Replace __ASSEMBLY__ with __ASSEMBLER__ in the <uapi/linux/sched.h> header")
-  c72945693b ("sched: Restart fair hrtick after same-task repicks")
-
-a9b3c7570564de40 c72945693b90423f1b46ac2dbc8
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-      0.01          +100.0%       0.02        stress-ng.rawudp.MB_recv'd_per_sec
-   4559098           +34.1%    6112029 ±  3%  stress-ng.rawudp.ops
-     76041           +34.0%     101916 ±  3%  stress-ng.rawudp.ops_per_sec
-    395.33           +34.2%     530.63 ±  3%  stress-ng.rawudp.packets_32_bytes_received_per_sec
-   2611008 ±  2%     +14.9%    2999104 ±  5%  stress-ng.time.involuntary_context_switches
-     47.70 ±  7%     +46.7%      69.96 ±  8%  stress-ng.time.user_time
-  20919233 ±  4%     +41.7%   29638128 ±  2%  stress-ng.time.voluntary_context_switches
-
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
+You are awesome, thank you!
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
