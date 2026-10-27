@@ -1,110 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793083068;
-	b=aOExoGyZgYiSLhEMfTfOegLkVydMsc90avZB2ckQ7kMUSIsOYYX4omP9kKCfPht2LzG6
-	 29ePpmWLViUImrGsW3qGxncZKQ0uRHoonOPNm1nPNhsUiihhC5Nez8y/zrqR0KT5uUmfJ
-	 JuSgxhbfNnHxPYjIWb/LkcxEHjlKE8g3JCtcHTIQQ3KkW2PpRw9WErX3Ocxxp6mxACDnC
-	 /D3MsQuqL6/5fIwGrjUOEMnumhdjVDyySVfyVGxSPUvKYWngaKLujIjczoVMIsdVc7EfU
-	 MvmEEcQt1V2XSyklhf/R4OnAaBBwUXO2QUpV3TuKnjnvLkTOFgELyM23ilLoeOBtdfw==
+	t=1793083086;
+	b=ClkUspuq3QbSXEAsXeCy+REXxDX5xnGNCGBZQaeDR5yuow7MN5Fg3IAKDe639Op+n5P0
+	 q1H/1WhYn1vNbvJnmu3qDiavuPRO1sAsLFwMwtzb48kuVMGof971MNHlP4AfqKCYG1i1i
+	 +3naBEf1iEfs0hPbljbOIbeRN+8RQCHm1pcsvH0ISObJp2S+hnnb/Zlmn0BmMUYCuoeH0
+	 YtdzRKr7QUfby8Kt+bXjTiiEsYXAWXImONNngppRKXXFzGUPs5yuThPpBIolp60ucs0gE
+	 sYWVCUHJuDzQkH60eDi5FGWkDeMV0sgubhJhyq1gXbFFSal3SC0nJqNt7XexFcowLkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083068;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
-	b=HTH39ekeucD6rvZcla5njuzOA4z0ljBnyInMgDtgISgqB/UQrb5pLAkv1Hc/5mNaavQj
-	 +st1tUcQU1o07YpPZIpmaLI7yKrLrR9t1aK+FgzkKGIk0uYqGzGHc1K7NMRkTQM29bQF+
-	 c0yIvw0/XwdYeckGMlR9Je7UpnGVc2W3mSRUbm2BTLue5D5orei+jqkM7zLw/X6SPadZx
-	 Qki3CMoms6C+veoogq3vjjqgC42YbUd3+3mBQtjyib1tq+qmYKP5IooqXjOetBT5FtjLf
-	 NyObDdg19/Zu+36KJvP7PJWO4uK4BbmjuOZQz7a03hsJ9KkUBH/R/qmInjkxs3bp6Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083086;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=UfWeCC1cXiMyZmL5ZON3N4tkEgqbhUErtax5qaYCUl8=;
+	b=3VYd+t9dxU38kIB7b8FHju2S7dzXE8ws+cUf0QiQlAIk0xnlrgaaskZCcm+A6ebNs3uF
+	 W6iSHbq3OnAinik4RN6NSzzK0mislhNMQzzbWYlsFfvEXqZriChPnbsBZcxRkEbGYibN4
+	 hWRo1rwYLo/hoDIThOuqj/HAXgykEpmQD8dtRXLnwxRCxX2WY5o4q51z0Ugz0OmAs0lUU
+	 RbyEocYlwhsBSoifVLuFKs79GWy7f6RicDePWqSAyvwYxW5jb7ucvdahbVAgwNuXVZuVf
+	 20GS893SriRMjBmlG+IkyZyahbTwBMyhrFnnqBEhSr9/aK9e0EqaA5ekFASNQUE6WdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=SmLFoREr;
+	arc=none smtp.remote-ip=117.135.210.8
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D344606A31A;
-	Tue, 27 Oct 2026 06:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D344606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2674606A31A;
+	Tue, 27 Oct 2026 06:38:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2674606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=19ou2TbY;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dLrU6ve5
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 758F421C60;
-	Tue, 27 Oct 2026 06:37:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793083065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
-	b=19ou2TbY9W3Ccqwvjq/6ZD17IdSR2w+Em+tv/uz0lV6WEUhcKrHdwhaOe0Xx09m6AcQMOI
-	+D7NL/SgNXlHVZKNCOzj3cUd/e+c5TUbL8v2a39aKi7HYDBle/2GAe5TRTh2xh872y+ryg
-	u9VtT8CUKji9/ceGcdZQIEVuluUyZz0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793083065;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
-	b=dLrU6ve5YNotSHBMQeY4m/gE1+KTcv9Upp1aweXDyzrZ+Iy8sAJICz9zH4QyrZh96Ii8vr
-	MiyD7SgNBBHYOeBA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=19ou2TbY;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=dLrU6ve5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793083065; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
-	b=19ou2TbY9W3Ccqwvjq/6ZD17IdSR2w+Em+tv/uz0lV6WEUhcKrHdwhaOe0Xx09m6AcQMOI
-	+D7NL/SgNXlHVZKNCOzj3cUd/e+c5TUbL8v2a39aKi7HYDBle/2GAe5TRTh2xh872y+ryg
-	u9VtT8CUKji9/ceGcdZQIEVuluUyZz0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793083065;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tuBh2r8CVXtpS0u82j+T5ZGZGReErCSjekEsA7Ffm9k=;
-	b=dLrU6ve5YNotSHBMQeY4m/gE1+KTcv9Upp1aweXDyzrZ+Iy8sAJICz9zH4QyrZh96Ii8vr
-	MiyD7SgNBBHYOeBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2486E1321C;
-	Tue, 27 Oct 2026 06:37:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BrwoOrhG4GptHwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 27 Oct 2026 06:37:45 +0000
-Date: Tue, 27 Oct 2026 07:37:44 +0100
-Message-ID: <87a4nz4pjb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] ALSA: usb-audio, ua101: oversized packet copies overrun PCM ring buffers
-In-Reply-To: <20261026223543.620-1-enscrpt@pm.me>
-References: <20261026223543.620-1-enscrpt@pm.me>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=SmLFoREr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Uf
+	WeCC1cXiMyZmL5ZON3N4tkEgqbhUErtax5qaYCUl8=; b=SmLFoREru1truqnH8E
+	KM8s/4F3rTWPlVTTIYfQTGsPpSiRPlz4NetqIosnFbAbxK8BzEZ78Hirz/o8SD+z
+	wIcfqDzy6tNSv/BgStlBtr4wEfhy5IR1KVR1GPbArXXU0Wnxh+L3oqZR1JJyL50G
+	N9owfErk+zjiAhvvRqoquMkfY=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3V++YRuBq7ZKjCA--.30661S2;
+	Tue, 27 Oct 2026 14:37:14 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	gnault@redhat.com,
+	kuniyu@google.com,
+	michael.bommarito@gmail.com,
+	alice.kernel@fastmail.im
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net] l2tp: fix use-after-free in l2tp_udp_encap_recv()
+Date: Tue, 27 Oct 2026 14:36:57 +0800
+Message-Id: <20261027063657.1359170-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,287 +68,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 758F421C60
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3V++YRuBq7ZKjCA--.30661S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXrWfAr4UXFW3urWUZw4UCFg_yoW5Cw43pF
+	yUGrWDGryDKr1UJr48Xay8Xa4Y9rWSvr4rCF98G3Wjkwnxu3srtay5Ar4Sya4DJr4vka1Y
+	gF1vqwn8JF4DtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2g4hUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlRqKYWrgRponQgAA3X
 
-On Mon, 26 Oct 2026 23:36:31 +0100,
-Sinan Turunc wrote:
-> 
-> Hello,
-> 
-> v1 went out under my handle, x8svc. v2 changes only the From and
-> Signed-off-by lines, which now carry my real name, as Takashi asked:
-> https://lore.kernel.org/all/87tsm86fzy.wl-tiwai@suse.de/
-> No code change.
-> 
-> I found ring-buffer overruns in snd-usb-audio and snd-ua101 when the
-> amount of data copied from or to an isochronous transfer exceeds the
-> ALSA PCM buffer size. The copy paths use a two-part memcpy() and a
-> position update that handle only one wrap, which is not enough when a
-> single packet is larger than the whole buffer.
-> 
-> I reproduced the overruns under KASAN on 7.3-rc7 (2f2f7eeef8b0) in
-> snd-usb-audio and snd-ua101, for capture and playback. The two patches
-> that follow apply to and build on current mainline (c03c1a14507d). I
-> found similar code in snd-usb-line6, snd-usb-usx2y and cx231xx-audio,
-> and reproduced them on 7.3-rc7. em28xx-audio has the same shape. I
-> booted it, and KASAN reported nothing. By reading, the
-> same shape is in 5.15.y, 6.1.y, 6.6.y, 6.12.y, 6.18.y and 7.2.y. I did
-> not boot those branches. 5.10.y has older code, which I have not
-> checked.
-> 
-> The reproducer is available to maintainers on request.
-> 
-> snd-usb-audio (sound/usb/pcm.c)
-> -------------------------------
-> 
-> retire_capture_urb() and copy_to_urb(), called from
-> prepare_playback_urb(), copy data across the ALSA ring buffer with a
-> two-part memcpy() and update the position with a single wrap:
-> 
->     subs->hwptr_done += bytes;
->     if (subs->hwptr_done >= subs->buffer_bytes)
->             subs->hwptr_done -= subs->buffer_bytes;
-> 
->     if (oldptr + bytes > subs->buffer_bytes) {
->             unsigned int bytes1 = subs->buffer_bytes - oldptr;
->             memcpy(runtime->dma_area + oldptr, cp, bytes1);
->             memcpy(runtime->dma_area, cp + bytes1, bytes - bytes1);
->     }
-> 
-> Nothing in the path guarantees bytes <= buffer_bytes. The device sets
-> the packet size and the PCM client sets the buffer size.
-> setup_hw_info() permits 8 kHz mono U8 with a 128-byte buffer (64-byte
-> periods, two periods), and a full-speed endpoint can send 1023-byte
-> packets.
-> 
-> The first oversized capture packet already overruns the logical PCM
-> buffer: with oldptr = 0, the two-part copy writes 128 bytes and then
-> another 895 bytes at the start of the 128-byte buffer. It also leaves
-> hwptr_done at 895 (1023 - 128), beyond buffer_bytes. On the next
-> packet, bytes1 = 128 - 895 wraps to 4294966529, and memcpy() runs past
-> the URB buffer and the vmalloc'd DMA buffer.
-> 
-> For playback, copy_to_urb() has the same single-wrap assumption, and
-> the reproducer reaches an out-of-bounds read there as well.
-> 
-> KASAN reports (7.3-rc7, x86_64):
-> 
-> Capture:
-> 
->   snd-usb-audio 2-1:1.0: invalid position: , pos = 895, buffer size = 128, period size = 64
->   BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
->   Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
->   ...
->    retire_capture_urb+0x251/0x870
->    snd_complete_urb
->    __usb_hcd_giveback_urb
->    vhci_rx_loop
-> 
-> Playback:
-> 
->   BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
->   Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
->   ...
->    prepare_playback_urb+0x98a/0x1fc0
->   The buggy address belongs to a 1-page vmalloc region starting at
->   0xffffc90000045000 allocated at __snd_dma_alloc_pages
-> 
-> On 6.19-rc3 the same reproducer faults in memcpy() from
-> retire_capture_urb() without KASAN (RDX = 0xfffffd01, the wrapped
-> bytes1).
-> 
-> The USB/IP server never reports an actual_length larger than the
-> requested packet: actual_length equals the URB's iso_frame_desc length
-> and curpacksize. I reproduced this through USB/IP only. I have not
-> tested a physical device or a physical host controller.
-> 
-> The local PCM client only needs permission to open the PCM device. My
-> reproducer runs as an unprivileged user in the audio group. I also
-> tested Fedora 42's PipeWire 1.4.11 with WirePlumber 0.5.14 and
-> PulseAudio 17.0 against the same USB/IP device:
-> 
-> - In the tested PipeWire configuration, the driver selects its maximum
->   buffer, capped at two seconds (16000 bytes for this stream).
->   Full-speed 1023-byte and high-speed 3072-byte packets fit. With a
->   super-speed device advertising wBytesPerInterval 49152, pw-record
->   hits retire_capture_urb() with a 33152-byte write (49152 - 16000)
->   and then faults at the vmalloc guard page. pw-play hits copy_to_urb()
->   with a 33152-byte read on PipeWire's data-loop.0 thread, and the
->   machine soft-locks.
-> - PulseAudio 17.0 inside this VM turns timer-based scheduling off by
->   itself. The measured buffer is four 25 ms fragments, 799 bytes, and
->   a full-speed 1023-byte capture packet reproduces the
->   retire_capture_urb() report. I did not measure timer-based scheduling
->   left on. The PulseAudio source uses a 2 second buffer in that case.
-> 
-> A client with permission to open the PCM device directly can trigger
-> the full- and high-speed cases by selecting a sufficiently small
-> buffer. The super-speed case reproduced in the tested PipeWire
-> configuration with an ordinary recording or playback application when
-> the emulated device was selected as the default device.
-> 
-> Reproducer
-> ----------
-> 
-> I used USB/IP because I could not exercise this isochronous transfer
-> path with dummy_hcd and raw-gadget. The reproducer is available to
-> maintainers on request:
-> 
-> - usbip-server.py emulates a UAC1 microphone or, with --mode playback,
->   a speaker. It advertises a one-channel, 8-bit, 8000 Hz Type I stream
->   and a full-speed isochronous endpoint with wMaxPacketSize 1023 and
->   bmAttributes 0x80 (MaxPacketsOnly). Each packet is 1023 bytes.
-> - attach.c imports the device and attaches the socket to vhci-hcd
->   (CONFIG_USBIP_VHCI_HCD).
-> - client.c opens the PCM device with U8, one channel, 8000 Hz,
->   period_size 64 and two periods (buffer_bytes 128), sets
->   stop_threshold to LONG_MAX, and starts the stream. For playback it
->   first writes 128 bytes.
-> 
-> The fault occurs within a second of starting the stream in my tests.
-> 
-> Patch 1
-> -------
-> 
-> The snd-usb-audio patch bounds the capture packet copy by the PCM
-> buffer size and stops prepare_playback_urb() from scheduling more data
-> than the buffer can hold.
-> 
-> I tested it on 7.3-rc7 with the same reproducer for 30 seconds per
-> mode. KASAN reported nothing. Capture kept streaming and logged the
-> ratelimited truncation warning. Playback entered XRUN at once because
-> the buffer cannot hold a single packet, which is the safe failure for
-> such a device. With PipeWire and a super-speed device, capture
-> truncates the packet with the same warning and the stream keeps
-> running. I did not repeat the patched playback run with PipeWire.
-> 
-> Patch 2
-> -------
-> 
-> In snd-ua101 (sound/usb/misc/ua101.c), copy_capture_data() takes the
-> frame count from actual_length, and copy_playback_data() takes it from
-> the capture packets through rate_feedback. Both split the copy at the
-> end of the ring buffer and wrap the position once.
-> 
-> set_stream_hw() permits an 18-frame buffer: periods_min is 2 and the
-> period can be 9 frames. A 672-byte packet of one-channel, 24-bit audio
-> holds 224 frames. After the first packet the position is 206, which is
-> 188 frames past the 18-frame buffer (224 - 18). On the next packet the
-> single-wrap calculation underflows.
-> 
-> KASAN reports in my tests:
-> 
->   snd-ua101 2-1:1.0: invalid position: , pos = 206, buffer size = 18, period size = 9
->   BUG: KASAN: slab-out-of-bounds in capture_urb_complete+0x9eb/0xcb0
->   Read of size 4294966732 at addr ffff88800d73e7e0 by task vhci_rx/81
-> 
->   BUG: KASAN: vmalloc-out-of-bounds in playback_work+0x789/0xac0
->   Read of size 4294966732 at addr ffffc9000002626a by task kworker/0:1H/80
-> 
-> The reproducer uses the same USB/IP server with --device ua101 to
-> present a UA-101 interface layout, and a client using S24_3LE, 44100
-> Hz, period_size 9 and one channel.
-> 
-> The patch clamps the capture copy to the buffer size. On playback it
-> copies at most one buffer and fills the rest of the packet with
-> silence, so the URB length, the delay accounting and the data sent stay
-> consistent. I first tried shortening the playback packet instead, but
-> that makes the URB's declared length disagree with its buffer and
-> USB/IP drops the device, so I kept the length. With the patch, capture
-> and playback each ran for 30 seconds without a KASAN report and the
-> streams kept advancing.
-> 
-> The period accounting still subtracts one period at a time, so a
-> packet spanning several periods of a tiny buffer leaves period_pos
-> above one period until later calls drain it. I did not see this cause
-> a problem in the runs, but I have not analysed it further and would
-> welcome your view.
-> 
-> Other drivers
-> --------------
-> 
-> snd-usb-line6, capture, on 7.3-rc7. A GuitarPort device sent 1024-byte
-> packets into a 128-byte buffer (S16_LE, 44100 Hz, 16 frames, 2 periods,
-> 2 channels). ALSA logged:
-> 
->   snd_usb_toneport 2-1:1.0: invalid position: , pos = 224, buffer size = 32, period size = 16
-> 
-> KASAN reported nothing. The ring is a whole page, so the extra bytes of
-> the first copy stay inside that page. The driver then stopped copying
-> and logged "driver bug: len".
-> 
-> snd-usb-usx2y, capture, on the same tree. After the hwdep firmware
-> load, a US-122 device sent 1024-byte packets into a 512-byte buffer
-> (S16_LE, 44100 Hz, 64 frames, 2 periods, 2 channels). KASAN reported:
-> 
->   BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
->   Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_rx/83
-> 
-> That read size is the single-wrap length once the position has passed
-> the buffer. These two patches do not change line6, usx2y, cx231xx
-> or em28xx.
-> 
-> cx231xx-audio, capture, on the same tree. A Pixelview Xcapture device
-> sent 1024-byte packets into a 128-byte buffer (S16_LE, 48000 Hz, 16
-> frames, 2 periods, 2 channels). KASAN reported:
-> 
->   BUG: KASAN: use-after-free in cx231xx_audio_isocirq+0x2c7/0x780
->   Read of size 4294966528 at addr ffff88800e8e0400 by task vhci_rx/82
-> 
-> ALSA logged pos = 224, buffer size = 32, period size = 16. That
-> position is one 256-frame packet minus the 32-frame buffer. The read
-> size is the single-wrap length once the position has passed the buffer.
-> 
-> em28xx-audio, capture, on the same tree. An em2860 device sent
-> 3072-byte packets into a 24576-byte buffer (S16_LE, 48000 Hz, 3072
-> frames, 2 periods, 2 channels). The endpoint was 0x83, with 64 packets
-> per URB. Capture ran for 30 seconds. KASAN reported nothing.
-> period_bytes_min is 11059 and periods_min is 2, so the smallest buffer
-> is 22118 bytes. em28xx_audio_ep_packet_size() caps a high-speed
-> endpoint at 8188 bytes, so one packet cannot pass that buffer.
-> 
-> Process
-> -------
-> 
-> I understand this to fall under the regular-bug handling in
-> Documentation/process/threat-model.rst, because reproduction uses an
-> emulated USB device, so I am sending it to the subsystem list with the
-> proposed fixes. An AI tool helped with the analysis and the patches.
-> I reviewed and tested them myself.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Applied both patches now.  Thanks.
+l2tp_udp_encap_recv() derives the tunnel pointer from the session it has
+just looked up, so the reference taken by l2tp_v2_session_get() or
+l2tp_v3_session_get() is the only thing that keeps the tunnel alive:
+l2tp_session_free() drops the tunnel reference, and l2tp_tunnel_free()
+hands the tunnel to kfree_rcu().  Both error paths of that function drop
+the reference before jumping to the invalid label, which still uses the
+tunnel:
 
+	tunnel = session->tunnel;
 
-Takashi
+	if (version != tunnel->version) {
+		l2tp_session_put(session);
+		goto invalid;
+	}
+	...
+invalid:
+	atomic_long_inc(&tunnel->stats.rx_invalid);
+
+If the session is torn down concurrently, such a put can be the last
+one, and the statistics update then writes into a freed tunnel.
+
+The frees are RCU deferred, which hides the bug on the regular path
+because __udp4_lib_rcv() holds rcu_read_lock().  It does not hide it on
+the backlog path: __release_sock() drops sk_lock before invoking
+sk_backlog_rcv(), takes no RCU read lock and may cond_resched() between
+packets, so a grace period can complete before the statistics update.
+
+Account the packet first and move the put to the invalid label, which
+can only be reached while the reference is still held, so the put is
+not applied twice.
+
+The put on the version mismatch path came later, with commit
+4d10edfd1475 ("l2tp: Fix memleak in l2tp_udp_encap_recv()."), which
+plugged a session leak without accounting for the tunnel going away
+with the session.
+
+Found by inspection; no reproducer.  Hitting the window needs a session
+teardown racing a packet on the backlog path, and the RCU deferred frees
+mean KASAN is only likely to report it with CONFIG_RCU_STRICT_GRACE_PERIOD.
+
+Fixes: ff6a2ac23cb0 ("l2tp: refactor udp recv to lookup to not use sk_user_data")
+Cc: stable@vger.kernel.org
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+---
+ net/l2tp/l2tp_core.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
+index 7e042a3e648c..36804743c761 100644
+--- a/net/l2tp/l2tp_core.c
++++ b/net/l2tp/l2tp_core.c
+@@ -1083,16 +1083,12 @@ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb)
+ 	tunnel = session->tunnel;
+ 
+ 	/* Check protocol version */
+-	if (version != tunnel->version) {
+-		l2tp_session_put(session);
++	if (version != tunnel->version)
+ 		goto invalid;
+-	}
+ 
+ 	if (version == L2TP_HDR_VER_3 &&
+-	    l2tp_v3_ensure_opt_in_linear(session, skb, &ptr, &optr)) {
+-		l2tp_session_put(session);
++	    l2tp_v3_ensure_opt_in_linear(session, skb, &ptr, &optr))
+ 		goto invalid;
+-	}
+ 
+ 	l2tp_recv_common(session, skb, ptr, optr, hdrflags, length);
+ 	l2tp_session_put(session);
+@@ -1100,7 +1096,11 @@ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb)
+ 	return 0;
+ 
+ invalid:
++	/* The session reference is the only thing keeping the tunnel alive
++	 * here, so account the invalid packet before dropping it.
++	 */
+ 	atomic_long_inc(&tunnel->stats.rx_invalid);
++	l2tp_session_put(session);
+ 
+ pass:
+ 	/* Put UDP header back */
+-- 
+2.25.1
+
