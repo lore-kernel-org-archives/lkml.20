@@ -1,95 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.67
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793077350;
-	b=Aa8UIY7VW0uOV4G9bsCI/J1ghEOKGvacKNi/cLy9FSRj3Z5dHLpQekZUhPjA5Ed1g+GB
-	 w1TAq0BBjwPWjIJD498mhO6xNGP74GCiCW+PI+UkMSZz3EvwKKxN3LHSBTs78RVc5vVtW
-	 wuLew5pABKEP1W7vIElrivQqjr6S9tGHbTfWrUKl7LgwQY96ul5/JNVMFlsVZnXibfjnk
-	 WsfzKgafONOdlRqGyV6NOH97ZZkM1w9YnWoGD3wb9Fxd7HAvKnUKdp+NPhBWEk/uEyu7R
-	 hkVrqWrj84/SsLfPjkBTCbdLLWtXsG8jBLkQwkNTwDcLPxdijiDRhq+V2X9GGOiMPHg==
+	t=1793077468;
+	b=rjB2KFrFkesUtxeNu5gYb381baW+7qibrcPfMJpozl4+56y1urqZW9vtxAyGFHeKYTCb
+	 9TB4a6I/8HD70CC8y6DuipXlCLPkXCb7Cq/uxudWkKFabCaF853JwpchqbYeDzQzwyJV3
+	 I1sBMeOH5LJsmxkGBjxByrv2K8EM/6v62XJeZBpN5SfMT/BtGKqcKa4a4CBxUyEbuG/0L
+	 eMU4L5zIGnIJYrLVJv58S3X+ICWqmQe5dbXGHbCKyAPfdGcEnJW31BoMFMllm4rc9BHZI
+	 pOeG/p4SCkdC2bjt74QdOyiK5rVq7jZmguoqmWcs+AA6Hl32r0FTjQt4RurTJGofB4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793077350;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
-	b=T/67yXHOyQqRisQ3qF4REFfrNXFq16xIDfrBXTbeC8namv5Z4M2ZsVoUEjtA9NoOf8+x
-	 iELzbZpQTfs1jTFwJ9DVAyeGKGL0AUh7Yjx2j0PHvyVeelrUo2e/NFgbQAvHdO25/yYwY
-	 32kb3R6S7ufia6FYVkkuLYAUmECAJEITPxF1a7Wzps6Dr4Wt5zIriecSiXUOTM++pYAT5
-	 kmy0QXXBrMuErOmw3loqWpokbt0R2LaFQK773S12niYgRoup7nqv1gSOfzDqLRbg0oM0r
-	 kATTv/IJrfWqpvq6ZjjW+zTRj93DYYvhvb2G7FhwjqLbBTf4KxWBgZDwzpc+DgHRvIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793077468;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Ai6yw3OuibhURm/WO66vXn3DXBjDe0k2rnzBv97yR0A=;
+	b=zJmobprvcmwl7OTR6piiF/bSXIhL8WX3hxWCFRm47ot7AbClZZD9r9965/LkKdQQEUcY
+	 Q369upMa9YE+XN+xi57njS/S8g5MqdE5Oy0yItalEHnBBmpPXMkRROmstJ2F8HX9oBadU
+	 YKjTNpOnlFb9F5VJFllRIyd5D1iMnP9sBhhdzVQFRV7Z/pmLt4Vxtze8kqdFswQKZl3si
+	 7yffA39EKLb7Fl4AhCEE5gdL8wHtM6wCEyzjCmGS4tF+SB8z1lqEMa3AA7IFmKnR1uX6h
+	 DbHNsaRXpwIIGp3Cv2f01B73w7UI67sweVXmJyGBA92Ke43ce7bR7hLMrqmeylPvQWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c5XSdy4z;
-	arc=none smtp.remote-ip=74.125.82.67
-Received: from mail-dl1-f67.google.com (mail-dl1-f67.google.com [74.125.82.67])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UhGqxwCm;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DF5606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:02:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26DF5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45171606A31A;
+	Tue, 27 Oct 2026 05:04:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45171606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c5XSdy4z
-Received: by mail-dl1-f67.google.com with SMTP id a92af1059eb24-1438d9363fbso601578c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793077349; x=1793682149; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
-        b=c5XSdy4ztScAIiHgbPzGCVSJIwwkHGig0lgK23rWrPwg2l/EKPeyBzJ4Gk4qh1LNAI
-         MqpDU3M93ZSDM+ZfHyQTNPLIYH7LKE6PTt6HVbeNcuEYx91FkUq3yXneMCsmRLiYZyhk
-         COvqB26ApyfjUcwF4LFaatMeEEo8DskjXHgjAbZ1c4pF2HSwBqpsYIherHx/ZA5Qpyto
-         59XFgop9BtU2vW5DsMfa4F4kmX/QOuT6surKOluEPqHhb6F7/B/AaksXrGCW/u/Lfzmg
-         pONuPLkyFV2rhOkOmDTHeBv1j29LBBawuHyOHuKvN8USegNEiNFStaFRuMu8BYEzFllU
-         cipQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793077349; x=1793682149;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
-        b=vlh5ioyFC7vO7IPV6nxDZJwYC6mmWHdXErV8d4Ze3w6xZ4gIaW7Wnh++/NJV7rOV0j
-         Q8tCf73syaxUJMHN4KowNjGDcD667W2UG+oXBuM6qvy8B2Vg9f0U07CAPmkFyTr0j5YQ
-         AGR2ekwmSSHig2sSO9ggg36WfbiOCus+XaCbiIyPCyDHAFewMzr1La2JyBA6cl0nUAAP
-         HW+CZROBq1C+VkQxtlTDVhBNlg2+vLAq1daH0FG+pymbeclY/waysqLJu784Yx1qZdeR
-         tOCsFT/CrGSnDbEP370jpOBAmX9AotkyNtRUEMj4qP/J2TxL7hQeL7rRBhQbawE6D6uk
-         jxtg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7H62IgCxxN/g1SE8NkL03/fv71v0+tQETUzSOPJBx+f+9k4AehbqaC47Auq6k/WKAtPXcQz0s2M16cSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAN0joZ0gU5z3aH+lLzQwkjxQmz2Zaxx8ZSbEX2RG+IltXllPK
-	Rxg5zllWmGLQ2WnPyMPA0S/9raCgy1lMLwqR2kayyajViEHedHGJVi+C
-X-Gm-Gg: AYBFou3Tgpc3p0bLvRobF6jyzjde4kGLwk78Ev0gp98c2rSrlm1OhrkLvPO0Arsl5dK
-	lEZkCP1dfa6bUspggMzu9JpEJxV7xinFirlGyAdgBK5rLJEVmn7jVSlQvuhHf/autigaBLEAkPJ
-	AIrJaXE76wRMCKvTKUdpGLs1sipC85sOTA7cg9BnnGt+QS4s8KWGScn2bjDp64ECEtSTZtApPgK
-	Y84HMoi1rDgj9eEwlAdcsBlBcDrhiHjkcEqatybC2VWOqjxBFz4VZRjjGEs7VWsbTLIfG/eu7EW
-	J+YWnyJ/xtk6V5YNe4gHXXXF2+/Mzsr8fEg/soJ3jogk5YCwqjwEUNWJ/9mq+FCfPqWAIQ/KhZg
-	qTjWFosi6o74tKkI0CweYfWR8GRryKu03SLujPoggTcLu6f8/V9OboNGz0NpLo6yYJexeVO4Gie
-	6njddltnX3BmsX5OEdzvIME+cPIF4OKkZE7/V+VppGlI6DUTo1nzMeshbW6in9uuMSJQAPAwVDi
-	LYgkpI5wzkEmlH8MnJhJEQSvzH2yRD0DiVRrCeaoFsRwg0kJDHP0TBNVO3BvsVTL2u8UdDWd4cO
-	kAMF/bxWtandZKqo
-X-Received: by 2002:a05:701b:4505:10b0:15b:1959:15e0 with SMTP id a92af1059eb24-1a3c76669abmr2075046c88.4.1793077348863;
-        Mon, 26 Oct 2026 22:02:28 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm35374587c88.6.2026.10.26.22.02.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:02:28 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	yaoyiqi3@huawei.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3] fbcon: Avoid cancel_delayed_work_sync() in atomic context
-Date: Tue, 27 Oct 2026 13:02:15 +0800
-Message-ID: <20261027050215.612762-1-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UhGqxwCm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793077467; x=1824613467;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=HAhrArfOGx4d2m+iNXRk5VLLSvyuYaHbyyD0xEP12kY=;
+  b=UhGqxwCmc3z1LpSG4EUSUyCFCEx9cbQwPK5uuGJGiEfQeXIHqQO8pt14
+   5A71N9XiErTpRAtNv+xgexTQStlc9JGaVMItg7mFZydcfysf/T22kheFR
+   6AzRmn0bvpt3vAC2SYGiL1FgL3hOd4lsIOyCstEFjfeTuLNbNG/P3UWuF
+   9EuETMtlmhHk03qCY9cH+4tUNuSEtvcqAVps1CUTpqVJzcliFz6QI/TGM
+   p6gTG9HSX0o6v+hrd+PhNoFtL5XrwXNCRBip3dFUtahraCP4HKxM55jI2
+   Uze4rJi8dyONO24zvrm1yIbI3MtkZBqe8m7iEZfOcVTJPjoRQHImzQN4t
+   g==;
+X-CSE-ConnectionGUID: /7q4neWXQeeNCJMiiB0zyg==
+X-CSE-MsgGUID: B+Eve/hlRYiU78Nx97/nvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1800146"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1800146"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 22:04:26 -0700
+X-CSE-ConnectionGUID: GCpDDQhAQtuGSgdOwwRe2g==
+X-CSE-MsgGUID: mzaicXv/SACWC/OGO9hrOA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4843596"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 26 Oct 2026 22:04:20 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xLZM8-00000000WrA-3Kg9;
+	Tue, 27 Oct 2026 05:04:16 +0000
+Date: Tue, 27 Oct 2026 13:04:14 +0800
+From: kernel test robot <lkp@intel.com>
+To: David Matlack <dmatlack@google.com>, kexec@lists.infradead.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-mm@kvack.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	David Matlack <dmatlack@google.com>
+Subject: Re: [PATCH v2 07/10] mm/shmem_luo: Retrieve tmpfs files onto a tmpfs
+ mount chosen by userspace
+Message-ID: <202610271253.yDB2IOkw-lkp@intel.com>
+References: <20261022225035.377445-8-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,165 +102,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022225035.377445-8-dmatlack@google.com>
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+Hi David,
 
-fbcon_cursor() can be reached from the console printing path, which runs
-in atomic context. When the VT software cursor is enabled
-(vc_cursor_type & CUR_SW), it calls fbcon_del_cursor_work(), which uses
-cancel_delayed_work_sync() and therefore may sleep.
+kernel test robot noticed the following build warnings:
 
-With CONFIG_DEBUG_ATOMIC_SLEEP enabled, the following is reported:
+[auto build test WARNING on 80cf37169daef112b6bea9ae7d9808355a045475]
 
-  BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0
-  ...
-  __cancel_work_sync
-  fbcon_del_cursor_work
-  fbcon_cursor
-  hide_cursor
-  vt_console_print
-  console_unlock
-  ...
+url:    https://github.com/intel-lab-lkp/linux/commits/David-Matlack/liveupdate-Pass-user-argument-to-file-preserve-and-retrieve/20261022-225026
+base:   80cf37169daef112b6bea9ae7d9808355a045475
+patch link:    https://lore.kernel.org/r/20261022225035.377445-8-dmatlack%40google.com
+patch subject: [PATCH v2 07/10] mm/shmem_luo: Retrieve tmpfs files onto a tmpfs mount chosen by userspace
+config: arm-allnoconfig (https://download.01.org/0day-ci/archive/20261027/202610271253.yDB2IOkw-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261027/202610271253.yDB2IOkw-lkp@intel.com/reproduce)
 
-Make the default helper safe: fbcon_del_cursor_work() only stops
-blinking, using cancel_delayed_work(), which is allowed in any context.
-Every "stop blinking" call site keeps using it, including fbcon_cursor().
-Only fbcon_release(), which is about to free @par and must ensure that no
-callback is still using it, calls the separate
-fbcon_del_cursor_work_sync(). New call sites therefore get the safe
-variant by default.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610271253.yDB2IOkw-lkp@intel.com/
 
-cancel_delayed_work() does not wait for a callback that is already
-running. Since fb_flashcursor() re-arms itself, a callback that has
-already been dequeued by process_one_work() can queue the work again
-after fbcon_del_cursor_work() returns. Add a cursor_blink_on flag to
-struct fbcon_par: fbcon_add_cursor_work() sets it, fbcon_del_cursor_work()
-clears it, and fb_flashcursor() checks it after taking console_lock and
-returns without drawing or re-arming once blinking has been stopped.
-Keep the requeue inside the console_lock section so that the flag check
-and the requeue are not split by a concurrent stop.
+All warnings (new ones prefixed by >>):
 
-Fixes: 3b0fb6ab25dd ("fbcon: Use delayed work for cursor")
-Cc: stable@vger.kernel.org
-Assisted-by: Opencode:deepseek-v4.1-flash
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
+>> mm/shmem.c:5867:6: warning: no previous prototype for function 'shmem_inode_on_internal_mount' [-Wmissing-prototypes]
+    5867 | bool shmem_inode_on_internal_mount(const struct inode *inode)
+         |      ^
+   mm/shmem.c:5867:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+    5867 | bool shmem_inode_on_internal_mount(const struct inode *inode)
+         | ^
+         | static 
+   1 warning generated.
 
-Changes in v3:
-- Add cursor_blink_on to struct fbcon_par so a callback that has already
-  been dequeued by process_one_work() cannot re-arm the work after
-  fbcon_del_cursor_work() has stopped blinking.
-- Keep the requeue inside console_lock so the flag check and the requeue
-  are atomic with the stop.
 
-Changes in v2:
-- Reworked per review (sashiko-AI): do not guess the context with
-  in_interrupt()/irqs_disabled().  fbcon_del_cursor_work() is now
-  non-synchronizing by default and therefore safe from any context;
-  fbcon_del_cursor_work_sync() is added for fbcon_release(), the only
-  path that frees @par and needs to drain the work.
-- Move the requeue in fb_flashcursor() under console_lock so a running
-  callback cannot re-arm the work after the non-synchronizing cancel.
+vim +/shmem_inode_on_internal_mount +5867 mm/shmem.c
 
- drivers/video/fbdev/core/fbcon.c | 41 +++++++++++++++++++++++++++-----
- drivers/video/fbdev/core/fbcon.h |  1 +
- 2 files changed, 36 insertions(+), 6 deletions(-)
+  5862	
+  5863	/*
+  5864	 * Whether @inode is on the internal shmem mount, which is used by
+  5865	 * shmem_file_setup() and thus by memfd_create().
+  5866	 */
+> 5867	bool shmem_inode_on_internal_mount(const struct inode *inode)
+  5868	{
+  5869		return inode->i_sb == shm_mnt->mnt_sb;
+  5870	}
+  5871	
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 94abbb5ac766..0847dcf18416 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -410,7 +410,8 @@ static void fb_flashcursor(struct work_struct *work)
- 	if (par->currcon != -1)
- 		vc = vc_cons[par->currcon].d;
- 
--	if (!vc || !con_is_visible(vc) ||
-+	if (!par->cursor_blink_on ||
-+	    !vc || !con_is_visible(vc) ||
- 	    fbcon_info_from_console(vc->vc_num) != info ||
- 	    vc->vc_deccm != 1) {
- 		console_unlock();
-@@ -422,25 +423,53 @@ static void fb_flashcursor(struct work_struct *work)
- 	par->bitops->cursor(vc, info, enable,
- 			    get_fg_color(vc, info, c),
- 			    get_bg_color(vc, info, c));
--	console_unlock();
- 
-+	/*
-+	 * Re-arm under console_lock so that a concurrent
-+	 * fbcon_del_cursor_work() cannot race with this requeue.
-+	 */
- 	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
- 			   par->cur_blink_jiffies);
-+	console_unlock();
- }
- 
- static void fbcon_add_cursor_work(struct fb_info *info)
- {
- 	struct fbcon_par *par = info->fbcon_par;
- 
--	if (fbcon_cursor_blink)
--		queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
--				   par->cur_blink_jiffies);
-+	if (!fbcon_cursor_blink)
-+		return;
-+
-+	par->cursor_blink_on = true;
-+	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
-+			   par->cur_blink_jiffies);
- }
- 
-+/*
-+ * Stop the cursor blink.
-+ *
-+ * Does not wait for a callback that is already running, so it is safe to
-+ * call from any context.
-+ *
-+ * console_lock serializes this with the requeue in fb_flashcursor();
-+ * otherwise a running callback could re-arm the work.
-+ */
- static void fbcon_del_cursor_work(struct fb_info *info)
- {
- 	struct fbcon_par *par = info->fbcon_par;
- 
-+	par->cursor_blink_on = false;
-+	cancel_delayed_work(&par->cursor_work);
-+}
-+
-+/*
-+ * Stop the cursor blink and wait for a running callback to finish before
-+ * @par is freed.  May sleep, only for teardown paths.
-+ */
-+static void fbcon_del_cursor_work_sync(struct fb_info *info)
-+{
-+	struct fbcon_par *par = info->fbcon_par;
-+
- 	cancel_delayed_work_sync(&par->cursor_work);
- }
- 
-@@ -765,7 +794,7 @@ static void fbcon_release(struct fb_info *info)
- 	if (info->fbcon_par) {
- 		struct fbcon_par *par = info->fbcon_par;
- 
--		fbcon_del_cursor_work(info);
-+		fbcon_del_cursor_work_sync(info);
- 		kfree(par->cursor_state.mask);
- 		kfree(par->cursor_data);
- 		kfree(par->cursor_src);
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index d93a89877d04..6a2f7f6e5a8c 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -97,6 +97,7 @@ struct fbcon_par {
- 	int    blank_state;
- 	int    graphics;
- 	bool   initialized;
-+	bool   cursor_blink_on;
- 	int    rotate;
- 	char  *cursor_data;
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
--- 
-2.56.0
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
