@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115854;
-	b=WUWj5kq3Pk6eViPkn/kCmA5TiRLuBpAC39mZX252UIRKIIhRipKWYDtVuI6kcXobfrIH
-	 CcRhqubKRqci9qSqTZzmHYjNoYS8l5WyJdz61wQputj1IK7ZaFdwExM9j67MYYuOAcuh9
-	 WVgDFNSh8c2LjPc7T8O3+6H00qfIkcHTW65CKRvVoKpHCBC9AsX28NQOI3UkF1qOa9Wfs
-	 X/wK74Xscu4o9CRGXT1xTmPpYP5nFF/IJiynTdmySa6won4pgfTgZaqCMUoLXWnYsvjpx
-	 JaQ/qZ5r8H4v+Rzl9Ly93OGNXkrHR2weeB/NxG2B2jGGFbfZuMVcnle1OBDmVh78w4Q==
+	t=1793115855;
+	b=3GEcYfIo7qkbS1I0GMH3f9l5waXHN1fQ9mgdmWy0zT3f7yAXnMXPu538xJFZ7pJOYdX/
+	 4840iaLq2JCLpQa7MqeQ93S4kuqbQgZcShLit3CP6Citq8tyM3O4irsilqce92nHzHrrb
+	 orXZ26d++71/7gp9iLuZrJgJDUyTdsLcKAdSsCx0b4WgcypAue7xCIXh5RhrJPFR1SHUz
+	 WOJGoA/pFB04hLCTmUPOeUaKTyPiuyfhECESHTytr3WzFlHe+n+3/HS5n8BPhgZE5A+cN
+	 bkWff8uKU6cNAnRQsV24/j+QG8aisxzZDiVKh5Q9QWV6UJhymSV3ER0GQgAYhOqDxtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115854;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115855;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
 	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=fpo83JJokXYjEujj6r4TMCvSFPUafgC/gibglk3KIJo=;
-	b=BR16/TxzabRcLWOiDor9flTWd3yTiZLE2YPs+FFCMIcJX+tWybwWewVfcG4cU5zU+8lz
-	 EnutPpRb08cUk3775hu1LNplJi/EFs6M0Uofdy5eNdd3NtkhxblitHRIdORIxMs5Ls4fH
-	 GTuxSHbAJdjlCPuZJRv1eByCvkmFXPlnFsqqmXg4tog3JtkoqZJ2J75Z6JQPNi6XR+u9C
-	 +F7rSDfc/aFEbr40uSJqu8EACcAUjDlDFmUOE3U0IsRVXtSB7BsufE8MZA1S7CY8XkVmA
-	 LUrnFWOduGzpEGDjy/luOp9Yv2R1nhysI0i4YgCuMGvEJUQXj3wu5PYUtSl8eFIXKDw==
+	bh=/z7vULV9ET96OVawlpuKhOOFOEzaoRsKx7ENimt5WTY=;
+	b=4tGC9v1YPOrmhv3E4tuSmGTIH36olEpnskyUp0vPlUAhn7KcceUbwlBPggcv0sPd0Xrm
+	 15TzA8arSEN2A6z1y9SMQcWViRopOuCoWctzunz1OearV9xPY69xNhV7xnD1UgHO3VbmS
+	 26fSlmHa3M6aGvkO01se0KRQIaweYxvQR1taxuDUpA6fsYghAA4wCIzGsi2ogAaUp52rw
+	 +zn1iy7JjugyRwsjSeuV4OLm2iP8KqBFKptUCQljB5eUim10NODgbYuslkTNjqaP0qBvN
+	 kz8kvA6fic1bz9Ev5nNSwqT8npiTlP5khYncGrANge5ddc+s0OyLecf0v9ZbIg5UzFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRCE5OfD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdXfyJo0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DF5606A32D;
-	Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E1460A261E;
+	Tue, 27 Oct 2026 15:44:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dRCE5OfD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C031F031F4;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jdXfyJo0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDEA01F031E1;
 	Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115854;
-	bh=fpo83JJokXYjEujj6r4TMCvSFPUafgC/gibglk3KIJo=;
+	s=k20260515; t=1793115855;
+	bh=/z7vULV9ET96OVawlpuKhOOFOEzaoRsKx7ENimt5WTY=;
 	h=Date:From:To:Cc:Subject:References;
-	b=dRCE5OfDYXBgtk7dnfD1xuKrA7mtXKGbWDZc2l5bgSltXOnLKtL5O94PrcC1+w2nX
-	 mrfpPSfkYE5jIaO0gEX2OfLARGnOE7JoPLNa8tK7YDbCvx5NX24LiQHtjHb2CdNmTL
-	 WyyDzMMJKgjtdgVcmCIkBLVWuiS/oaldsrvG+V710MKSt8wtxll4vys7tH9SOL2zsD
-	 E9FyKgeWCnJd0NxfgfSVeo7Uf/+nYxMJqYhpLGAgq+T8kFi9Kk/sVJjPpIJYxVU+De
-	 VCIcMdrlzZmaP16CqcZ4AMUqRTmDxoOkkk6SvY7bdjEA85piOfEnjkP2ng4Vc3YAAl
-	 lAq5Kv48fwh/Q==
+	b=jdXfyJo0CGxQAq6lrM+rdnAC5kkyIyDGCyaXy8RY12C/xhAmDv3kBWgF640VC9QLr
+	 5ShJWb1/tqFMTWp3gx+4Bu638fVHYryIf65TpGBn9iErS6v5zw4chc+UIqthKMFSol
+	 m7QJgZDgqjgnpl6sFCER7TZcLp5ZqjJm9yTM5hebyb6YNCzPAgGsdwC0gbxsalLn38
+	 6BtLExOerDeAlk2bQKM+UiC1Lxrm5PIavqM9G8sYWMn19MLQ3I2DWjlYV/2TCRcwCQ
+	 2IqeWVq3OUlxSdmQQEVXdpj261/935ndAUdylVs9l3k+qqwUfbv56vUmNl7D9zeeR4
+	 0hWk1S9PZO1eQ==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xLjLR-000000078hw-2W0c;
-	Tue, 27 Oct 2026 11:44:13 -0400
-Message-ID: <20261027154413.428706632@kernel.org>
+	id 1xLjLS-000000078je-0hhf;
+	Tue, 27 Oct 2026 11:44:14 -0400
+Message-ID: <20261027154413.997660461@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 27 Oct 2026 11:37:03 -0400
+Date: Tue, 27 Oct 2026 11:37:06 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
@@ -107,7 +107,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  linux-scsi@vger.kernel.org,
  linux-sctp@vger.kernel.org,
  netdev@vger.kernel.org
-Subject: [PATCH 5/9] drm: Use trace_call__##name() at guarded tracepoint call sites
+Subject: [PATCH 8/9] kernel: time, trace: Use trace_call__##name() at guarded tracepoint
+ call sites
 References: <20261027153658.703730257@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -135,75 +136,72 @@ Parts of the original v2 series have already been merged in mainline.
 This patch is being reposted as a follow-up cleanup for the remaining
 unmerged pieces.
 
-Link: https://patch.msgid.link/20260515135932.2238842-1-vineeth@bitbyteword.org
+Link: https://patch.msgid.link/20260515135959.2238922-1-vineeth@bitbyteword.org
 Suggested-by: Steven Rostedt <rostedt@goodmis.org>
 Suggested-by: Peter Zijlstra <peterz@infradead.org>
 Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
 Assisted-by: Claude:claude-sonnet-4-6
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   | 4 ++--
- drivers/gpu/drm/scheduler/sched_entity.c | 5 +++--
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ kernel/time/tick-sched.c       | 12 ++++++------
+ kernel/trace/trace_benchmark.c |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 5558e7330cf4..8873e28f526f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1025,7 +1025,7 @@ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_parser *p)
- 		struct amdgpu_job *job = p->jobs[i];
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+index 5d53ab18b31a..9bdd49e66acf 100644
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -346,32 +346,32 @@ static bool check_tick_dependency(atomic_t *dep)
+ 		return !!val;
  
- 		for (j = 0; j < job->num_ibs; ++j)
--			trace_amdgpu_cs(p, job, &job->ibs[j]);
-+			trace_call__amdgpu_cs(p, job, &job->ibs[j]);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 2bd07007def4..f10e443e1ebe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1425,7 +1425,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 
- 	if (trace_amdgpu_vm_bo_mapping_enabled()) {
- 		list_for_each_entry(mapping, &bo_va->valids, list)
--			trace_amdgpu_vm_bo_mapping(mapping);
-+			trace_call__amdgpu_vm_bo_mapping(mapping);
+ 	if (val & TICK_DEP_MASK_POSIX_TIMER) {
+-		trace_tick_stop(0, TICK_DEP_MASK_POSIX_TIMER);
++		trace_call__tick_stop(0, TICK_DEP_MASK_POSIX_TIMER);
+ 		return true;
  	}
  
- error_free:
-@@ -2189,7 +2189,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
- 				continue;
- 		}
- 
--		trace_amdgpu_vm_bo_cs(mapping);
-+		trace_call__amdgpu_vm_bo_cs(mapping);
+ 	if (val & TICK_DEP_MASK_PERF_EVENTS) {
+-		trace_tick_stop(0, TICK_DEP_MASK_PERF_EVENTS);
++		trace_call__tick_stop(0, TICK_DEP_MASK_PERF_EVENTS);
+ 		return true;
  	}
- }
  
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 7be0387bac3c..ddf161a47742 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -500,7 +500,8 @@ static bool drm_sched_entity_add_dependency_cb(struct drm_sched_entity *entity,
- 
- 	if (trace_drm_sched_job_unschedulable_enabled() &&
- 	    !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &entity->dependency->flags))
--		trace_drm_sched_job_unschedulable(sched_job, entity->dependency);
-+		trace_call__drm_sched_job_unschedulable(sched_job,
-+							entity->dependency);
- 
- 	if (!dma_fence_add_callback(entity->dependency, &entity->cb,
- 				    drm_sched_entity_wakeup))
-@@ -630,7 +631,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
- 		unsigned long index;
- 
- 		xa_for_each(&sched_job->dependencies, index, entry)
--			trace_drm_sched_job_add_dep(sched_job, entry);
-+			trace_call__drm_sched_job_add_dep(sched_job, entry);
+ 	if (val & TICK_DEP_MASK_SCHED) {
+-		trace_tick_stop(0, TICK_DEP_MASK_SCHED);
++		trace_call__tick_stop(0, TICK_DEP_MASK_SCHED);
+ 		return true;
  	}
- 	atomic_inc(entity->rq->sched->score);
- 	WRITE_ONCE(entity->last_user, current->group_leader);
+ 
+ 	if (val & TICK_DEP_MASK_CLOCK_UNSTABLE) {
+-		trace_tick_stop(0, TICK_DEP_MASK_CLOCK_UNSTABLE);
++		trace_call__tick_stop(0, TICK_DEP_MASK_CLOCK_UNSTABLE);
+ 		return true;
+ 	}
+ 
+ 	if (val & TICK_DEP_MASK_RCU) {
+-		trace_tick_stop(0, TICK_DEP_MASK_RCU);
++		trace_call__tick_stop(0, TICK_DEP_MASK_RCU);
+ 		return true;
+ 	}
+ 
+ 	if (val & TICK_DEP_MASK_RCU_EXP) {
+-		trace_tick_stop(0, TICK_DEP_MASK_RCU_EXP);
++		trace_call__tick_stop(0, TICK_DEP_MASK_RCU_EXP);
+ 		return true;
+ 	}
+ 
+diff --git a/kernel/trace/trace_benchmark.c b/kernel/trace/trace_benchmark.c
+index e19c32f2a938..189d383934fd 100644
+--- a/kernel/trace/trace_benchmark.c
++++ b/kernel/trace/trace_benchmark.c
+@@ -51,7 +51,7 @@ static void trace_do_benchmark(void)
+ 
+ 	local_irq_disable();
+ 	start = trace_clock_local();
+-	trace_benchmark_event(bm_str, bm_last);
++	trace_call__benchmark_event(bm_str, bm_last);
+ 	stop = trace_clock_local();
+ 	local_irq_enable();
+ 
 -- 
 2.53.0
