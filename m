@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793134367;
-	b=Pby3hQ1DFtyZ9tp9X2wimTGRyjjDHkKTXmr6wIzJzK2BoAeALlKIpV130JPrNeHf1TcJ
-	 Shdc1KBLvBrudye+3y/FMY4T+teG8WDuJulQ7YBhEdxrbRlAQmv9L2cFjJCu1A/mFKDNm
-	 3kwO66lB7G6QMaWtWvWvyjLJn41f/5VPm6jfZHrP6UfVeplnHuu42EP2Qf3YghbVQeKeG
-	 QvjWD/P7gOAVKh99oe2drOophsxSm9UtZfhP6h6MvOTl/5n9buur+fGQ2F6VJlcg5p60M
-	 3o/opbMeFbmLPcqvmbk4kLYvDeIqdXHWzGOfJJ37fCQUXB3OEUx9I3HwNjrqq1pQWEQ==
+	t=1793134360;
+	b=jvELdKJ4xrw+AiJtkqapbe6mqM/A51glHfpyF9PjvbFlqNH2/6M5yIUZThz3MOjLP7ar
+	 53kzJzLOvoQ/LqnB5ryJJjmVKwmjv4/XjAzCA3TyRnyfHCJjYtc9SCMCXroDtvTA22Vds
+	 mC/ix6WEMuDZ2By+LElIlfOOz1j2J3Y+E3MCCs5RSqSTP3vO3CqpELPcDoTjvitcdEBzq
+	 ATo2tbw/eR/ts8aMGlbyd2uO3qh01XYVbLwE1K6DbgwJIa7BOEZM58r+6jY90MCj9aZyH
+	 ddPOZvnqRb6Dw/q9U9jYuBoe3E3LiEPSadU2dp/5a88JMqEMU0JQzSLUu/Vm3s2q+rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793134367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793134360;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
-	b=yWNLdOnIjYoc4soXmUDckU+echZW17p5YYq+GSO0mczxx0DHnsVlcZOdHfARRM0Afm+H
-	 LvjOpK/+Er01ZJbeo6WKVQqBm6nyDf1g8dkXuFG4WirPBoNnfDBheXMBYKqpUND7dfYMX
-	 mlW7D9mFD9Nn0GixKVpJJAHNyGEMjvxGz2Nhl8J5Jaex6rwPJjZHNSRQoarLKCMQj8vjc
-	 rd0Fcboq8FhsiK29S6kLFjDKGMBxNLy1mSHQufnrgoFCa946a/DG82/TE9ZQFHM4fG2sk
-	 Mfn1KjzyVOeRxAr+qG1BqQEq6HibIyQdxwfFr/s1BiFXVGkEkvI1btqp3ARtoz2cPiQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JAPuSSjBy2HiV0XHwgEt3aaV8Ughg4BjhBgy8A9BioY=;
+	b=tqfRVoJ135Z+1Cyoif/knmZ4NZD7CdBDHaEbCXWcTKs+f5ocaBMP24UpUwIWYPIuVo78
+	 xsdMQv90+P+RTzgeV9aXXHQTpPqJhlMF8S3FSHjh44nolyZQNBAmukRpSVYeuH3g65If9
+	 aO+kPBe86alkopwnVkdhFXylH1qIXsg0RH88CNn/06TmLD55mBLaGAYpSgrLuo1fDRxmQ
+	 K8VsWH48zNLKjxXUFYWD2CLmGU/MyFTSo2EqGUn/swgRyWgrwT8IKyYsExqgVVVUqDtLL
+	 1+H3MQJKUd0xWv2mEVfDkgCPrWOtUhpJACh/aM5SI65dBToey4m46MMrkJsQ+f7cPyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HlSdKImz;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8+uIxak;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32F1606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:52:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A32F1606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEBE606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BEBE606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HlSdKImz
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so188088a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:52:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8+uIxak
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ae0852df46so255393a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:52:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793134366; x=1793739166; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
-        b=HlSdKImzgk2WYlBDUrX54M9HeRYTZ1bWEqP3eecZml5jDi+o3r/1CVeSCrqOsN73cX
-         uljc8zWNVW4z6CdvOkNgflBltbJ+Cj7ZZFWeoC1dl0U6pUat3okGPtO/K4CtLxHv78MT
-         hCI05ESMJDIuZPaUx0FGRDs5ikhkt6rSUR0DsRVLwQgivSQGa02wzeoOxw/qQ3m8PFCf
-         KrMkCNZscnGz3+4208YcWJ6ga63Fa30abhgnzrAaSXkPtzew3pROSDwpR0bk62jTEVZS
-         JtvVNBeSGjF2xFiRKVU58Foa5xhJS8atjbLcaX229j3AQVrDeWLYYDSXC6RhjARsgE0D
-         0t+A==
+        d=gmail.com; s=20260707; t=1793134359; x=1793739159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JAPuSSjBy2HiV0XHwgEt3aaV8Ughg4BjhBgy8A9BioY=;
+        b=o8+uIxakmfDagDkZCK7+K6/vRP/IVouu2zhyMfMqSNNIX8uO4j7UOSdKzAnJG10Qgg
+         TcZ0qI6eEWtQfCuXaxmrArt6DgXQAISp1+BzCg4MmL3coNG2Oa081uRLgqaSMIiS4GiY
+         hOjBeH/qnW9dN5trvA9hGcQKE1N51RrJGgVg5nGhH1aMJTlPtf4NG9qZukH5OylYQPkh
+         4nWMF2UckyXkbGyijuyO761Z7iu51tD0qaP9PyluGQbBM3+qZOpULIXkqZAs6XsUCn2p
+         7MZ77ZoeliWVVsTIgmRDtzJCJrKJ+mOLIZRFOEfFmco7vZDadczAUbT/floDWB0ZAqqK
+         YTDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793134366; x=1793739166;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
-        b=sZg4mw6fX4uwx90if/ui1hCDCuFXHD8XzqIqdtuzqisZ39LJ0AMuTKiRvkhw+oz/xI
-         tbKjmpdPlOKOgPAlZWZvNcefb1JD7Qv4A7V/lgfiF3ZbKKqNjnU0B9wjjZsPStrPQyrD
-         KKhH9r2mH/olOkeZAWzdl/tc/T015/RJO8Xvzkp1jkK8X6LS4L+qerESu3oTmo+Dstnn
-         YehaPv8qScwajEV2BnEru8aBdhcTxqxlg/0L4gQ42yDgZRRtpbk3GRMugZsh7nCHvIsP
-         Z1HM+m1sZF4EeR4y4h3u4s8n+cCzDW+WPmu1IrEoJbM4oytgE7EivpmdtN0epPrzCEY+
-         yz+A==
-X-Forwarded-Encrypted: i=1; AKwUvBw+cRA9j7SCg7KGYWwe2DpAwIK5uU49vhNHQ8Gf852fuZGdYLgXs6vhXfdaSsRyknOylseUBRDsDZCVe6U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmiQ87sBr1WbRrMN333zV1Cunofg4Teek3LtLgJDC0oQRpy78e
-	EosonRYaba4/8/b5h6Rq1/2dQ+pdBzOVq+exqjJ5U6KO82EdvT4MSokp
-X-Gm-Gg: AYBFou0z8M/JA4GO9QX6rLc/4qK5gSnd5mE7Wy0W4F6NUielNH6dS9iFGwine8ouk/s
-	WmjU0bU6xSwb/+Qz7Nqg5UkmRxUJFvsC5Rdbn3LpknTUS7FOzLmfKyVb/Xw4md9VhvPQBkHhFqE
-	bkc6nGsJSwDKNgz+6Zuj5rMClRXjAmFw6AjbSc0STlWCxPrMz40lybwzBP+0s6qTAElyLJdA5+7
-	IXnjGEzhK5N/cs0O3thy41hZSfpMm4LtDkEPTINKFEC3TViSP6ZurovjDlogFj/E+ndcIGC9pri
-	atwUZFaR+eMq8uM7njmUP5lJcEqvRjA5yRLvpk92y7KjyorDxjRzPQ16N746H9aKQW1mcCo5gkp
-	DhDw8LMhFjSw2aFaphpzx3R0NdTXGrbmHtMH/hdGq5agtd16VXjLVs9v2E+ITOw5lP3hUk0TA3w
-	qYde4g7zpZ3NxgwhvO7Xo/wrb9uYS4V3ly++Ej3EClL+iv/lj/F6t7FZA4pT6difNwaan18Ohxy
-	CJSZaTb7A+e5sARlsLIDGyFq2Y/JGsljsaaW6QVwJxcZik1Q6jKTupvjfkgVRlzKLAGhd8XjknV
-	K7OUaaGkO6/MjhxB78EmnI4BcdRHkHK5xfj9IME6lsR9CJexDYmudg==
-X-Received: by 2002:a17:90b:2543:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-3ae581b5095mr169710a91.18.1793134366005;
-        Tue, 27 Oct 2026 13:52:46 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793134359; x=1793739159;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JAPuSSjBy2HiV0XHwgEt3aaV8Ughg4BjhBgy8A9BioY=;
+        b=vn+uPU09+N12CIXMOi3c36oSmLKHSYQAaBlf5yOGlT8oXxQnUgTHG9VG4XPhXCP7Ch
+         4Mwa1TfpwRqksHL0dFhUmHESaUHAioZIoBL+u0fpUuU9u8q4XrZLfCA54lN3WNywMMrT
+         8nJ4vI9rlD97dpgPy97bqQPLk37qbzxzcHhM/5I8w4jL55OBk8CfV+PBVwX7bobUYATT
+         YlwlhfZX4NKUeYX207RTumN+omIk45GT5M6PqmcTIQBtKg44MpFKOrb/hEuRBTbucEbp
+         WqNfcyeStdJ1MG78DVxlruizCStP19ZSFdiJEkohbReI+Pvr3mGHQFhe+zfCVxraZ24X
+         7Lcw==
+X-Forwarded-Encrypted: i=1; AKwUvBx7zwgzs8G7hBKHG3sX+iwvMw5WlKC4ZU63Jdck/RgcdDduxl88qCsHcPNT5OgCGL+vUSjASTmoDeMKV/0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKfzE0sM+ugh/jRJZfJV0SBjqY76Jqud1xJA3lnmqJMCCck+Rou
+	zCfqmTAoPbblKX3qyWyO9l2Xzx30UCwWkaMtKxVqmLcND0S/CcCRsuCnm+TZUJehj4s=
+X-Gm-Gg: AYBFou1/XuTIs64wrRBeIDAa3BFpGocsBsjldCDRvKBDVDUYq4inHjzEqtUqkV6bPrH
+	1gO7tVS6mVcXBVwf90EkMYVlKO3qEG7EY4X6fxAxyjM2jL5dVsSZZbbW/PLfxYKJWvibeEmLAgc
+	5OF9gzuNHHjk8Ene2NVFDPAdf7WnNSbhVflC+SCp4P/iBR4RaeUxMVOd9nWOTP6kYm3wJ4N/Wv2
+	SF0vuYRq/NR89lV2COnAm8sPxLjNRLTHRkBVCiVuaqGWiFP+ExJg7s7rxHgRDU2gVL2a5UycGLe
+	/hYcSpFWqVNt0WgeLJeIv02Gur96QMkHArAU2wtwXcHsz+OBFjR5f+cR+CiED3tjopO1/KqXnoO
+	VCSIXAKrd9dBb45cz/Div+2xBz/LKNwggy2UZ2eDbfREF2DaEbwAtw43gU5IPVObdkS1E93nlc1
+	d4lkr46h26hAIdfmltwZPnpXbs+AJ9pPEsva/tFZiF8dfcfVKZmDwNHKEOPmJwCjq7c+P6XneNy
+	zRaX78ePCH7W/Q2gmIiKkXhKv0JjAS6g6hCfdg57u030Ix6Zj/3okdWo2EK1hABosKgjXLKe/th
+	YgNHbsl2oLbhtGI1WoiTdI3gzrtgWMAH
+X-Received: by 2002:a17:90b:1c0a:b0:3ae:3b3d:c617 with SMTP id 98e67ed59e1d1-3ae5812dd39mr123478a91.29.1793134358980;
+        Tue, 27 Oct 2026 13:52:38 -0700 (PDT)
 Received: from debian.lan ([121.101.131.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57bc67bbsm372192a91.3.2026.10.27.13.52.42
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57bc67bbsm372192a91.3.2026.10.27.13.52.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 13:52:45 -0700 (PDT)
+        Tue, 27 Oct 2026 13:52:38 -0700 (PDT)
 From: Amir Hanip <killdeath104@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -89,12 +88,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Amir Hanip <killdeath104@gmail.com>
-Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi Poco M3
-Date: Wed, 28 Oct 2026 03:51:45 +0700
-Message-ID: <20261027205146.16384-2-killdeath104@gmail.com>
+Subject: [PATCH v2 0/2] arm64: dts: qcom: Add Xiaomi Poco M3 (citrus)
+Date: Wed, 28 Oct 2026 03:51:44 +0700
+Message-ID: <20261027205146.16384-1-killdeath104@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261027205146.16384-1-killdeath104@gmail.com>
-References: <20261027205146.16384-1-killdeath104@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,26 +103,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add compatible for Xiaomi Poco M3 codename citrus, which is
-based on Snapdragon 662 (SM6115) SoC.
+This series adds initial support for the Xiaomi Poco M3 (codename
+citrus), a smartphone based on the Qualcomm Snapdragon 662 (SM6115).
 
-Signed-off-by: Amir Hanip <killdeath104@gmail.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Currently working:
+- UFS and microSD
+- USB host (OTG), limited to high-speed (SuperSpeed is untested)
+- WiFi
+- Bluetooth
+- Remoteprocs (ADSP, CDSP and modem)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 121ca557c..8d2e4f0e3 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1068,6 +1068,7 @@ properties:
-       - items:
-           - enum:
-               - fxtec,pro1x
-+              - xiaomi,citrus
-               - xiaomi,lemon
-           - const: qcom,sm6115
- 
+The memory map for the ADSP, CDSP, IPA and GPU regions differs from
+the SM6115 defaults and follows the layout of the stock firmware.
+
+Not included yet: the display panel, touchscreen and the GPU display
+pipeline, which depend on drivers that are not upstream. Until then
+the display is only available through simple-framebuffer. Audio is
+not included either.
+
+Firmware and userspace: WiFi, Bluetooth and the remoteprocs need
+device-specific firmware which is not part of this series. WiFi
+additionally needs qrtr, tqftpserv and rmtfs running in userspace,
+and the Bluetooth controller needs its BD address set from userspace.
+
+Tested on a Poco M3 booted from microSD with a v7.2-based kernel.
+The series is based on qcom/for-next, builds without new warnings
+with W=1 and passes CHECK_DTBS=y for
+qcom/sm6115-xiaomi-citrus.dtb. The existing dsi@5e94000 warning
+comes from sm6115.dtsi.
+
+Changes in v2:
+- Unrolled the wcn3950-pmu regulator scopes, used lowercase hex and
+  kept a blank line before 'status' (Konrad)
+- gpio-reserved-ranges: dropped <0 4>, the device boots fine without
+  it. Kept <14 4> (SE5 SPI), without it the device bootloops. Added
+  a comment (Konrad)
+- Kept citrus separate from lemon: reserved-memory, PM6125 regulators
+  and the wifi/bluetooth bits differ, and I can't test lemon (Konrad)
+- Patch 1/2: no changes
+
+Link to v1:
+https://lore.kernel.org/all/20261027075116.41673-1-killdeath104@gmail.com/
+
+Amir Hanip (2):
+  dt-bindings: arm: qcom: Document Xiaomi Poco M3
+  arm64: dts: qcom: Add Xiaomi Poco M3
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm6115-xiaomi-citrus.dts    | 538 ++++++++++++++++++
+ 3 files changed, 540 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm6115-xiaomi-citrus.dts
+
 -- 
 2.47.3
-
