@@ -1,44 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109496;
-	b=vDbPI69eSxGydl4lb9w6HAzK9TEx/fj/yok/QYa9285Cxvrdw8btkhodytB4q0kQ1wY1
-	 nYH1y+WBSd5mZSUaPORAFV5VJcHOL3zq/NVV3W3Ajv50be6kfHefp7PnJpS8vUQs+HQC0
-	 HSRbheaDhWsPRcI/auz86SGvctoc3PWdY88XPe/hJnPOLPpU1rZ2fhXsy13oJi7kAp//A
-	 vEdJp7bU5VMnHnywbR5l92N0l/vg5T1cOqEYNHpqBzMCV46Ti9U1VM7YyvJxaUtoBmaWR
-	 QSuf4Wno4dz6keqBNmxzvLZsUZgAVUmeK/ELj9m/eDAblMa3YJxnMB66CzNor1P1Asw==
+	t=1793109522;
+	b=GKGtP1flHCvuRR1mCfi1j8fwPygnqucWEcI5df/9X81djkNzxGN/sAjYqYxPUS72FRQS
+	 QpmFi3y0wFkShlMS69/aNPRnG2riJAsXAj4gbaWA0AKjC+aj+89FoCuZFwVsbZRJjMtEL
+	 JFooe45EC8B/v64qFVhVUXBf4Qb1T1V78iqIpGTM9qcr4a4J6btr9HHMEC3EkWDwAQ7YA
+	 qXO0OhSzdRDjc/Bt9XoXsaQ75acDFbzncVsVCbVbxYqSj1kKMWer4vwNFaoW6pCLABZsa
+	 kImf19Mtb2NNhfJsI5wn64Yw3Vja2VMsj4t1yWemiaBnK25DAAe88TZd/L9t33sq4mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109496;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=kgs6DMIElefIDmmG0Lqe7pZUKcoCtWm8n8LIAs8gWNY=;
-	b=PqyOhTO5RjeERYQPx98ywWah0fZtjpJSDGQeIrNsIn9pqsLgyglPioDNvkHPpfGF17Yp
-	 IJ2PDoB9uqP34yPghRjSTQS8a3/WZ4UkqZqL0KqSZHLPPMKgShtfQvGkF1iwoQdgV3E2f
-	 xOKhZp8i7IRITtfGDloYjqyzvDIUCcKZRADB+ZbThgQ0EtzQRvk+dLIU+QyMu0Mmj9jx6
-	 WDjnO+HNAvN+ppG+0l0/XhdVscDev1434UEwclWtVmRDP4hV3pCEufbPKSd7EoZxPiAyF
-	 xi7g2rzbzpaAQNjEdwpO6DbAXtMdpZFxpuR4GRy3x/nuYHxnbiG1WcQrhSapy4TFx8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109522;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ZNW8maKSOmUQrE7ECbKlMR017leMZ50Z6p2INihyCQg=;
+	b=im3Ud2nO2cjDSiUp7VZUyjPILIwvJMmfPe9STsjPEMyWFlIkwjBDBG47h+Lxv8tdnzmM
+	 QsQyogrkNcPLDJRV4rjnkdsc2VX3sjIV1LkR7mlyffjdAHo1P+Y9wLoRQTkfFpLDHG/FW
+	 Ne6xCJ6NclWZgyu9R6BpJz866UwY1loCpmj+AdZay00j3bfh/Zzb0ACykvLRy+LA9JZOJ
+	 VW8pshCLuUAihw5+DqyscemWd1JrF+nPJZuZmgdVPUwSB8Y/0qpykUA35Oz+M/LAwguiJ
+	 QTyoymvOIdaXjwhkdK/uUVQn1/27AvLPydQRZ7SmAz/OJUD5jFzJgcBPG761qy0dJBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ejPHUn6R;
-	arc=none smtp.remote-ip=156.224.81.154
-Received: from mail-m81154.xmail.ntesmail.com (mail-m81154.xmail.ntesmail.com [156.224.81.154])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=orL2Va6C;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB0F606A31A;
-	Tue, 27 Oct 2026 13:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBB0F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EF9606A31A;
+	Tue, 27 Oct 2026 13:58:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7EF9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ejPHUn6R
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5287e04b6;
-	Tue, 27 Oct 2026 21:58:09 +0800 (GMT+08:00)
-Message-ID: <38baaf87-4d5c-48bc-a11f-a5b6c04c20a8@rock-chips.com>
-Date: Tue, 27 Oct 2026 21:58:07 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=orL2Va6C
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=ZNW8maKSOmUQrE7ECbKlMR017leMZ50Z6p2INihyCQg=; b=orL2Va6CVyWuXhBJbyCqstSITZ
+	QSTVM/zkNxD5Kg2MQ0tcgDb5tD/EmTmbWrmGlSrO9OLn3dxw/mZD0pGZULiT9tlsC8pmmEFvSJslX
+	rvayo6wkCMlFOpKXHaUHv26z0Rpd1jwzGw+H1RAyoJ8TZrtE6IwvtidtvqgHhRNOypqz7UDySRrkY
+	P7SveV1TXDx2WLiPlknYJgMHIFkuuhEejiZtsLGNKX1vtc739ikTxo7zQjwrMXiTBiTwdio6EOBAY
+	jpSMBirFZjC9MOgoP4oBSAFZRLkCUX/7a7jUDMYuW8oKvh5OVwDpuQ9y8xq2/lEbCIUB1O9SDBdN3
+	i9lDh/lA==;
+Received: from [179.105.94.163] (helo=[192.168.0.2])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xLhh2-00BqVl-QM; Tue, 27 Oct 2026 14:58:25 +0100
+Message-ID: <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com>
+Date: Tue, 27 Oct 2026 10:58:18 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,137 +58,145 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Sergey Bostandzhyan <jin@mediatomb.cc>,
- Jensen Huang <jensenhuang@friendlyarm.com>
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi R2S
- Plus
-To: Deomid rojer Ryabkov <rojer@rojer.me>, Heiko Stuebner <heiko@sntech.de>
-References: <20261023235959.2988087-1-rojer@rojer.me>
- <20261023235959.2988087-3-rojer@rojer.me>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261023235959.2988087-3-rojer@rojer.me>
+Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
+ clock starts
+To: Lucas Tanure <lucas.tanure@neat.no>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Dom Cobley <popcornmix@gmail.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261026164028.78792-1-lucas.tanure@neat.no>
+ <at_4EgWZFghkRHzH@collabws.localdomain>
+ <a8b9450f-af4b-47bf-b7b1-3b326ed52dfc@igalia.com>
+ <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa17da7790103a4kunmcef2bd90e493
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkpCVktPHk1NTksZTUNNH1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=ejPHUn6RV6C6gpkCiecTD0LdymLzVdtND/i7tW+egwUwmUnVzgwg1PuoPjdEnE2WzH7LaBj1GyIIUE4DDgWf3rNIFIKLdN6tvHEb3Z+LKLFSWVwyWiCt/civ7J17a+XQ7mdCOCGie+xdPZJ8Pzv6aMTpvJfEauBvYDDLli8VQyI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=kgs6DMIElefIDmmG0Lqe7pZUKcoCtWm8n8LIAs8gWNY=;
-	h=date:mime-version:subject:message-id:from;
 
-Hi Deomid
+Hi Lucas,
 
-在 2026/10/24 星期六 7:59, Deomid rojer Ryabkov 写道:
-> The NanoPi R2S Plus has an M.2 E-key slot wired to the sdmmc_ext
-> controller in 4-bit SDIO mode, where FriendlyElec fit an optional
-> Fn-Link 6222B-SRC (Realtek RTL8822CS) module:
+On 27/10/26 10:53, Lucas Tanure wrote:
+> On Tue, Oct 27, 2026 at 1:07 PM Maíra Canal <mcanal@igalia.com> wrote:
+>>
+>> Hi Cristian,
+>>
+>> On 26/10/26 22:23, Cristian Ciocaltea wrote:
+>>> Hi Lucas,
+>>>
+>>> On 2026/10/26, Lucas Tanure wrote:
+>>>> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
+>>>> the TMDS clock is stopped and to start the clock at least 1 ms later.
+>>>> vc4 writes the bit, and enables the scrambler, at the end of the enable
+>>>> sequence, long after the PHY has started, and clears it before the PHY
+>>>> stops. A sink that samples the bit when the clock appears never locks
+>>>> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
+>>>> order work on the same sink.
+>>>>
+>>>> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
+>>>> was an empty stub upstream, so the PHY kept running after disable; the
+>>>> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
+>>>> pre-existing race in the scrambling work cancel that the fix would
+>>>> otherwise make easier to hit.
+>>>>
+>>>> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
+>>>> with the same change applied, against the sink that showed the
+>>>> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
+>>>> reset and a sink power cycle all lock with zero character errors. v2
+>>>> and v3 carry the same code; the hardware test of the final form is
+>>>> still pending and will be reported in this thread. Mainline was not
+>>>> booted on the Pi 5. The BCM2711 path is unchanged except for the
+>>>> enable order; I have no Pi 4 at hand.
+>>>
+>>> While converting vc4 to the common HDMI 2.0 scrambling infrastructure, I
+>>> ran several tests on the Raspberry Pi 5 and didn't notice any (obvious)
+>>> issues.
+>>>
+>>> Hence, could you please verify whether your problem reproduces with a
+>>> recent mainline kernel?  If it does, could you also give [1] a try and
+>>> report back the actual behavior?
+>>>
+>>
+>> I suspect you didn't hit this on mainline because vc6_hdmi_phy_disable()
+>> is a stub, so the TMDS clock never stops between disable and enable.
+>>
+>> Best regards,
+>> - Maíra
+>>
+>>> [1] https://protect.checkpoint.com/v2/r02/___https://lore.kernel.org/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/___.YzJlOm5lYXQ6YzpnOmQ1ODUyMWJlOGIwNzJjNjNmOWRiMDk3ZmFmYWFkNDliOjc6YTM1MTpiMzBiNzY3ODAyMzBkOGM2M2U0ZjRjMTY2MzE5ZjVhZWZjY2QxYmRjZDBlOWI4MzI0MGYxMjkyNjQ1Y2NkNzJiOnA6VDpG
+>>>
+>>> Regards,
+>>> Cristian
+>>
+>>
+> Hi Cristian, Maíra,
 > 
->    - SDIO signalling at a fixed 1.8V (VCC_18)
->    - WIFI_REG_ON on GPIO3_B0, 32kHz sleep clock from the RK805 CLKOUT2
+> Tested on a Raspberry Pi 5 with the Raspberry Pi 7.3 tree [1] as base
+> (pure mainline panics at boot on this board). That tree carries
+> vc6_hdmi_phy_disable() implemented, so the clock does stop on disable.
 > 
-> Enable the controller and add the power sequence. The SDIO pins need
-> 8mA drive strength for SDR104 tuning to succeed, as in the vendor
-> device tree [1]; with the SoC default of 4mA no sample phase works.
+> 1. plain rpi-7.3.y: 4K60 never locks.
+> 2. 7.3 + my patches: all lock.
+> 3. 7.3 + the 7.4 scrambling infrastructure + Cristian's 9 patches: same
+>     failures as in 1.
+> 4. same as 3 + drm_connector_hdmi_enable_scrambling() moved before
+>     phy_init() and drm_connector_hdmi_disable_scrambling() after
+>     phy_disable(): all lock, zero errors, picture on the panel.
 > 
-> On boards without the module the controller gives up after about 0.2s
-> ("mmc2: Failed to initialize a non-removable card"); nothing else is
-> affected.
+> Maíra, I also tried 3 with vc6_hdmi_phy_disable() emptied again, as on
+> mainline: same failures as in 1. So the stub is not what hides this.
+> Cristian did not see it because his sink re-evaluates
+> TMDS_Bit_Clock_Ratio after the clock is running and forgives the late
+> write, as most TVs do. Ours samples the bit when the clock first
+> appears and never again. So to reproduce the issue you need a strict
+> HDMI input.
 > 
-> With the mmc core change for the module's CMD11 handling at a fixed
-> 1.8V [2], the module is tuned to SDR104 at 150 MHz and works with the
-> rtw88_8822cs driver; without it, it runs in high-speed mode at 50 MHz.
+> Happy to send a v4 on top of Cristian's series, with the two helper
+> calls moved and patch 2 dropped since the common helper already cancels
+> synchronously, if that is the preferred order.
 > 
-> [1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835bba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev24.dts#L144-L172
-> [2] https://lore.kernel.org/linux-mmc/20261023232813.2983368-1-rojer@rojer.me/
-> Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
-> ---
->   .../dts/rockchip/rk3328-nanopi-r2s-plus.dts   | 56 +++++++++++++++++++
->   1 file changed, 56 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> index 6ba4a74cb1f..db19a18ae45 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> @@ -17,6 +17,15 @@ / {
->   	aliases {
->   		mmc1 = &emmc;
->   	};
-> +
-> +	sdio_pwrseq: sdio-pwrseq {
-> +		compatible = "mmc-pwrseq-simple";
-> +		clocks = <&rk805 1>;
-> +		clock-names = "ext_clock";
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&wifi_reg_on_h>;
-> +		reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
-> +	};
->   };
->   
->   &emmc {
-> @@ -34,3 +43,50 @@ &io_domains {
->   	vccio4-supply = <&vcc_io_33>;
->   	vccio6-supply = <&vcc_18>;
->   };
-> +
-> +&pinctrl {
-> +	wifi {
-> +		wifi_reg_on_h: wifi-reg-on-h {
-> +			rockchip,pins = <3 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-> +		};
-> +	};
-> +};
-> +
-> +/*
-> + * SDR104 tuning fails with the default 4mA drive strength, use 8mA like the
-> + * vendor device tree.
-> + */
-> +&sdmmc0ext_bus4 {
-> +	rockchip,pins =
-> +		<3 RK_PA4 3 &pcfg_pull_up_8ma>,
-> +		<3 RK_PA5 3 &pcfg_pull_up_8ma>,
-> +		<3 RK_PA6 3 &pcfg_pull_up_8ma>,
-> +		<3 RK_PA7 3 &pcfg_pull_up_8ma>;
-> +};
-> +
-> +&sdmmc0ext_clk {
-> +	rockchip,pins = <3 RK_PA2 3 &pcfg_pull_none_8ma>;
-> +};
-> +
-> +&sdmmc0ext_cmd {
-> +	rockchip,pins = <3 RK_PA0 3 &pcfg_pull_up_8ma>;
-> +};
-> +
-> +/* Optional M.2 E-key SDIO Wi-Fi module (Fn-Link 6222B-SRC, RTL8822CS) */
-> +&sdmmc_ext {
-> +	bus-width = <4>;
-> +	cap-sd-highspeed;
-> +	cap-sdio-irq;
-> +	disable-wp;
 
-Drop disable-wp.
+As your patches are fixes, I'd prefer to push them to drm-misc-fixes and
+then Cristian's would rebase on top of your patches, as their patches
+will go to drm-misc-next.
 
-Otherwise,
+Are you okay with this plan, Cristian?
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Best regards,
+- Maíra
 
-> +	keep-power-in-suspend;
-> +	mmc-pwrseq = <&sdio_pwrseq>;
-> +	no-mmc;
-> +	no-sd;
-> +	non-removable;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&sdmmc0ext_clk &sdmmc0ext_cmd &sdmmc0ext_bus4>;
-> +	sd-uhs-sdr104;
-> +	vmmc-supply = <&vcc_io_33>;
-> +	vqmmc-supply = <&vcc_18>;
-> +	status = "okay";
-> +};
+> [1] https://github.com/raspberrypi/linux/tree/rpi-7.3.y
+> 
+> Thanks,
+> Lucas Tanure
 
