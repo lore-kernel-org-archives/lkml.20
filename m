@@ -1,64 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793120559;
-	b=SI7G273g7D/2QKLcKUBCCjgrkh6+mPyObGfg4bHRjz2N2zn4F9DcpzN6BR+RFDt4L1D5
-	 CpMPiAr8VDGz3S4n8C0RxQT7LTeIehL7m18IDX13zRS06sxGQAuvI/LQVeZWz0q+CBd0L
-	 vWUGxNRVTt+WosKFM9rB9tOO00U4IDP0giK8Axo24jmRY3a9Yig8vYzO0x4mW1S+3tetd
-	 kfY4Zeed0aHzts5V2abUkUGOs0r7o3lI8QYbx3lHDrA2/POT8tQ7IJ/0BdUYH0TNLzT/4
-	 ru1S7b9urYGnKjnLsVrFcICvEbp2AMyrmHaqVVIzVcvKF0PqvQgWGzFGZBj8GRnbapw==
+	t=1793120575;
+	b=bgogkOIR5cQzxZ5BpNk6zsK0Yos7ipeFQRdf7dF+C7HBT73XS4HzzQzjGqtkfV0rQpWW
+	 enubFBeGCtbcluTRw1NLDz4TsI5YhrVxdqRVEEE2zktWFQZW1Lgd8CB6o+5IugKameVYc
+	 5GrgpFAEIUDwSFLP056ttIfr+Wr1K9E7Dpw38T8PkgcFU1xYiq7d0vQmsYud1nxJXtcBU
+	 h00fFwfTSSbHwQV9tPB8pY1Ug/rScPPUTcnK935OwjKYU5hFLaziG4rDftsM9UOwTU8Tl
+	 mp7+gjlRjQSYYdWZYTnmgAvIb8v+Z6QwaN0N7l0b2t4+EGtDIJ+9xg9Y48qMAR4gu3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793120559;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lz4BcpRRjlIy52XX1xait5NxJ+nHBcl/ZG0w9aFAbtA=;
-	b=ocUY50bt2WNfuU6fiPnKl75YJE92p+vP6QqXdAvLmuyNeheJ+kLBxmllJRkEKn3WtjK6
-	 4LlM8JzPLDZJVh0vlMFsrpz7fSR2CnRKn9YZsqu9B6zjtbeeq+8QFFrU691xtc2BMO4XK
-	 OuWOIOaQcv4s1QAzyk7PwojPo1bCns/nhUWA7irIEk7n9XsnDx0z1JTPX40pVLyC/PiO2
-	 44sstKpZATWPOqPyJkpo0ThhnpiKqXbRTqppn413v1e+v95/m9y7v7dhvqFrcjr5BgjLx
-	 6k+8o73cthbWRdRGd665bYm80Lu4AmVA3ZAfHLXVgx4yEcd8nrQAaiPxebbRuhXsndg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793120575;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Lines:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=QzKhctGyHAq8LmL2v4QfrOSfn76229O83J+Y0DCBOaI=;
+	b=Edj/Jdt+agRyTlL+XxcpsV1yZLIzYhMr6p1dIKHqCB9OeIHSycNu+mmh4HYWFniLigg7
+	 PoUcz/efQXGY/E4o/UZuakliMe13DrINcHCMuoD933FRqVI2u3y5X4Uo0BgdtL/uNrAaE
+	 YzAMGwVlfPHDqozYeWY1VP9r7SDfn/P64jGw4W+FkmOXx+qFkFxtdbPuP6D/+QB0PTwan
+	 /1x9B69igVRyGJNyNro2ubR8Vf9vljGCE2CIq5lzK3n7or/Pc9xXuicPYsUO7U+o3SYnU
+	 zGMaCk1MfM4pfGm/vCFS72AcadcjCYmFXIPAFMtqJCr+5bGPfGVCWzs1gK2UQm4Y8iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGQzzcz9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gNEEH0fd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB614606A31D;
-	Tue, 27 Oct 2026 17:02:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FB2606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:02:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PGQzzcz9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF001F01825;
-	Tue, 27 Oct 2026 17:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793120558;
-	bh=lz4BcpRRjlIy52XX1xait5NxJ+nHBcl/ZG0w9aFAbtA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PGQzzcz92VDG+hGERDEbtM42qWOa9VrK7DIf7K9SCeXW97YY4peyXBI4up7EhqbXV
-	 KlgVEcArAOm4kGLsInP9NvklxuAfceyRq5oQ1nBRDes94GCP3QSHQKr+CjJzGcMSHW
-	 SVItdcq1fM/b2Ra8/GmVrZCZjv7GX4YCDO+jQEhPoSokm5mDTkB7E9ltcngSia2SJC
-	 p08W7pDUUh7QmG+fpmj4HS8x6+eRK9bZflBASVCHTzd+vBLC4YlOF5zbsqw4EaOcZU
-	 n5oybu2SHoVCoiFiyZkCC8EZNGimLCVLxu5dTyqE6NH0erZiY7jMd7IM1bFkAWdYqq
-	 oTOelA4zT3wtg==
-Date: Tue, 27 Oct 2026 17:02:30 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, Jeff Xu <jeffxu@chromium.org>, 
-	Andrey Vagin <avagin@gmail.com>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	linux-mm@kvack.org, linux-hardening@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 3/3] selftests/mseal_system_mappings: Test vdso unmap and
- remap
-Message-ID: <auDY6bpeuPZ-jc-_@gremlin>
-References: <cover.1793094611.git.chris@chrisdown.name>
- <621847973ba2ec49d0a58e0261da35a9f3a97eda.1793094611.git.chris@chrisdown.name>
- <auC7_5XYr31fimvL@gremlin>
- <auDUAN9xAQRQhnCo@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gNEEH0fd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADF71F01825;
+	Tue, 27 Oct 2026 17:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793120574;
+	bh=QzKhctGyHAq8LmL2v4QfrOSfn76229O83J+Y0DCBOaI=;
+	h=From:To:Cc:Subject:Date;
+	b=gNEEH0fdN6CfXyqT78freYkUh7TC2ninUZORQjbkxx2stUVNgqf6ccK8qmqhzblwB
+	 4PuVDOMZgF2CcbCZuyMsdqXCZ63n9HUQ2nn6IAx71mfj0pViEtyk/fSB+g2+Mph/Wb
+	 KLbWqCl8ZS9tK91EhmQJ0f+JhP/qsETFsmwoaHyk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Cc: arnd@arndb.de,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH] uv_mmtimer: keep the mapping of the RTC read-only
+Date: Tue, 27 Oct 2026 18:02:53 +0100
+Message-ID: <2026102752-extrovert-undaunted-d6cb@gregkh>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,115 +56,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auDUAN9xAQRQhnCo@chrisdown.name>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1367; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=aob91zEKWLN6lVn+saRWzKrvp+l8SKX22+Vwdk4ufGg=; b=owGbwMvMwCRo6H6F97bub03G02pJDFkPbtocU2CubSh49KrNVI3LLbrVa/l8F4d7vppddZpSe Tw63d87YlkYBJkYZMUUWb5s4zm6v+KQopeh7WmYOaxMIEMYuDgFYCIq0gxzRT566JkWns2Zv1Ls kGabWuCb6m33Gebn7fS7fCWsjYeBs8Lqnty9Sbmfu5UA
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 12:40:32AM +0800, Chris Down wrote:
-> Lorenzo Stoakes (ARM) writes:
-> > Sorry, in mm we require commit messages. Even for tests :)
->
-> Sure thing, I'll add one.
->
-> > On Tue, Oct 27, 2026 at 07:43:25PM +0800, Chris Down wrote:
-> > > Signed-off-by: Chris Down <chris@chrisdown.name>
-> > > ---
-> > >  .../mseal_system_mappings/sysmap_is_sealed.c  | 92 +++++++++++++++++++
-> > >  1 file changed, 92 insertions(+)
-> > >
-> > > diff --git a/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c b/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c
-> > > index ea75ad537620..83b4fadfbfe7 100644
-> > > --- a/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c
-> > > +++ b/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c
-> >
-> > Why on earth does 'mseal_system_mappings' have its own directory...??
-> >
-> > Ugh I don't know how I let this stuff go on the original series :/
-> >
-> > Please, for the love of all that's sacred, move these tests over to
-> > tools/selftests/mm/. This is an mm feature, for our sins...
-> >
-> > You can do the move as a prerequisite patch in the series.
->
-> Will do, I'll make the move the first patch.
->
-> > (And, again, I really do insist on your change doing some cleanup here as
-> > well rather than extending this stuff.)
->
-> Yep, see my reply to 1/3.
->
-> > > @@ -10,6 +10,7 @@
-> > >  #include <unistd.h>
-> > >  #include <string.h>
-> > >  #include <stdbool.h>
-> > > +#include <sys/mman.h>
-> > >  #include <sys/utsname.h>
-> > >  #include <zlib.h>
-> > >
-> > > @@ -232,4 +233,95 @@ TEST_F(basic, check_sealed)
-> > >  	EXPECT_EQ(expected, sealed);
-> > >  };
-> > >
-> > > +static bool find_vdso(unsigned long *start, unsigned long *end)
-> > > +{
-> > > +	char line[MAX_LINE_LEN];
-> > > +	bool found = false;
-> > > +	FILE *maps;
-> > > +
-> > > +	maps = fopen("/proc/self/maps", "r");
-> > > +	if (!maps)
-> > > +		return false;
-> > > +
-> > > +	while (fgets(line, sizeof(line), maps)) {
-> > > +		if (strstr(line, "[vdso]") &&
-> > > +		    sscanf(line, "%lx-%lx", start, end) == 2) {
-> > > +			found = true;
-> > > +			break;
-> > > +		}
-> > > +	}
-> > > +
-> > > +	fclose(maps);
-> > > +	return found;
-> > > +}
-> >
-> > There's shared code for this kind of thing, please don't duplicate a
-> > /proc/self/maps thing if unnecessary. Also there's a nicer ioctl interface for
-> > all this.
-> >
-> > See vm_utils.[ch].
->
-> Oh thank you! I will use that.
->
-> > I mean arguably this is an mremap test that belongs with mremap? I guess
-> > debatable...
->
-> Hmm, I'd lean towards keeping it with the sysmap test, since it's really
-> testing that the seal is enforced on these mappings rather than anything
-> about mremap() itself, but I don't feel strongly if you insist, just let me
-> know.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Actually let's keep them together :) It's always a bit blurry...
+uv_mmtimer_mmap() refuses a writable mapping of the page with the real time
+clock, which is a page of registers of the UV hub.  It leaves VM_MAYWRITE
+set, though.  Who has opened the device for reading and writing can map the
+page shared and read-only and then make the mapping writable with
+mprotect(), which gives him the access to the hub registers that the check
+is there to prevent.
 
->
-> > This all just seems like work that should have been done in the past when this
-> > feature was proposed, and doesn't depend on your changes at all AFAICT? Maybe I
-> > missed it though.
-> >
-> > Valuable in itself, but probably worth sending separately as a result? Otherwise
-> > it's a little disconnected from the actual change you're making.
->
-> Yeah, it doesn't depend on it. I can send it separately on top of the move
-> if you like, I just don't like touching things without tests where possible.
+Clear VM_MAYWRITE.  mprotect(PROT_WRITE) now fails with -EACCES on such a
+mapping, on a private one too.
 
-Well that's a good instinct for sure :)
+Fixes: fbd8ae106850 ("drivers/char/uv_mmtimer.c: add memory mapped RTC driver for UV")
+Cc: stable <stable@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/char/uv_mmtimer.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-I mean alternatively you could send as patch 1 and explicitly say you're
-providing a tested foundation for the other changes.
+diff --git a/drivers/char/uv_mmtimer.c b/drivers/char/uv_mmtimer.c
+index 956ebe2080a5..1cced9ef745b 100644
+--- a/drivers/char/uv_mmtimer.c
++++ b/drivers/char/uv_mmtimer.c
+@@ -157,6 +157,9 @@ static int uv_mmtimer_mmap(struct file *file, struct vm_area_struct *vma)
+ 	if (PAGE_SIZE > (1 << 16))
+ 		return -ENOSYS;
+ 
++	/* Don't let mprotect() add the permission afterwards. */
++	vm_flags_clear(vma, VM_MAYWRITE);
++
+ 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 
+ 	uv_mmtimer_addr = UV_LOCAL_MMR_BASE | UVH_RTC;
+-- 
+2.56.0
 
->
-> Thanks for the review!
-
-No worries!
-
---
-Cheers, Lorenzo
