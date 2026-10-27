@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104132;
-	b=G7W6silZ3tHo6848XWQm2Z9cs/el0mv7Ye6FoZciZ5hT/96Xan8hKtgdLGvLOQYvdzbI
-	 9D/gYZl13d4TKy+yg8mMFr1gL8H63vum1wZz9KvSxtvPiu2ipKUNNjolqgXS59JYPMh9J
-	 le8tXLszb0fdAd12aEeXbkpUv2BAq00Mn8vkhKLJd0VdE5H6dSCtao4WulTTc+PN1b0wO
-	 ppjkRDaOtWR0wgfLozRtIOKRiYmvoE9Xkm8PK+3a25/mGTxdETagwQ2UWlt48c2OTkk7I
-	 W+xTaLJjjJqWXNAZ+0UqX13leR10let4j8vkcLspW/eNdl4zv7GbMpDGfmZm/5bpk9g==
+	t=1793104137;
+	b=zjg6xOTLjlUHfIjx332bbAOF+3LraboWcW3c28vp5uEbI0cre7dybyE9lEwRDZS6jAEq
+	 oMXTwkrbbMzAoQZtSnA6GvkqJ6lkDbxzHRPNR+EWRQ1SOkZya+r8XFX5ITAjtO5Y/YYnP
+	 HdugKHlqCFGEQ+ontHqjU5dZwTJW4ygBAgr6xGGSdAY9Ro6SEnDtE6KwvipPkky9AEVWO
+	 8inQl5XrIxfxJIXEqPneF7EbEEiV51v7z8JVi5f6TR4vkgj6Gp2lXjEfvr7RXX5hqa3Kw
+	 vYn9vuAz9Npyx4yc/CA5Q11RIWm9mHPP0kJcRtbIV14LC3CB5YYCsAGAbHWpaQjY7Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104132;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104137;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=glmgTATyjnbg4wMqdjZ4FGtTGk0lbwbGFFdsyO9Mwrw=;
-	b=fK3n5iJl/+jzWnkx2g+itQB0Y9B5Ru1wbVKqMp46X+zLtx8QsEdwjO0pF8/OovBcfqr5
-	 y4UvfiFPIo7+x4lgxxUqDJNw3c2ytvIqJyArmqptofOnct6X0eR7sq0WVAmReHYRTsqWL
-	 sbMnJfXLlX1QuMMvW7zNPzVmWAGWn9wpNyH7Cv+o9k3qnbpRhe3IEbG8SL4aMUZxbOtcd
-	 HM8pRSqpYe2fYq8Z6WVzAuk+NzWno9FxXUlAWDnvz4arYUZmUJleiRt6/GhCvMDHnA41E
-	 pXubs+wAC+AMI8Krf/q5jMWsk/Grs8tQk+7PQKnH6AufMrkk9nx6myHzUNW0AvpivJQ==
+	bh=WOyAdyJ3VwLj6BYWXKFaYpPKWtpHPNj/CyN5SfKZYo0=;
+	b=iH4hNGryUNs1NA1C2iLBe8FE89zaDVl6ybuq6jzPLZ7iBllrTCvhzt/gn4SnF+Wp0e39
+	 l2UzWn/qduwmyG71fZE4u5xONzR2XA9I73On43ZQ7yO3SFMQXZ2GiwMCoT0nsgB6cDikx
+	 pkZAIiFkmtI7PEJH6YOMXzuMSGhrBjoIIbttxS2ZD1p7vGifBV7+5rXKK/HYv3BcfFAmu
+	 d1xhNW5Jooh2/KIlfkrnHkvZvE6TZt3x02GCM5cqkkq5S9PDCPKj3t6bCTsBKku8/4VG/
+	 mXAjzaELJo9M/ymATjgWtPDUPs5YKp4qjrdnhnX1N/3rguONQoxjSXQNJOrRTfz7omQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UCZPqpwJ;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Lu3mH0uE;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61253606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61253606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A49E606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A49E606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UCZPqpwJ
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Lu3mH0uE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793104131;
+	s=mimecast20190719; t=1793104135;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=glmgTATyjnbg4wMqdjZ4FGtTGk0lbwbGFFdsyO9Mwrw=;
-	b=UCZPqpwJ5SOeFzcZUebbdnTnUOlV/pzxK4wXhl9g5cBoW867sgvGL5/KhalI48h5Ihbpkc
-	sHbrU6e4bIfiseWI63FSg6bzNa6VcDuMvTJZHBfZmSbK3zO36iza+YRhit5c1Ax8NG74sh
-	5l2rzNec4dP/0IdoNpJIVgXkE5pJmgU=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=WOyAdyJ3VwLj6BYWXKFaYpPKWtpHPNj/CyN5SfKZYo0=;
+	b=Lu3mH0uE2NXfv4aS5OhfPDZR1+of9pdtLnSI5OJYfkAEWAvOTjz6GGHJP6qN5eY4TSzg1Q
+	y9HLNNRxyHlz4VItGmJ2l1x6yRBHugCeyGaqH89qN/7ptgss10cO8iWb1n/x4tMYx7BeTj
+	VUXiuLdipv3eeq660kANephHoBSVgLE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-497-Wxh1G4CwPnWaNE5Bdvpbgg-1; Tue,
- 27 Oct 2026 08:28:48 -0400
-X-MC-Unique: Wxh1G4CwPnWaNE5Bdvpbgg-1
-X-Mimecast-MFC-AGG-ID: Wxh1G4CwPnWaNE5Bdvpbgg_1793104126
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-668-8NxQxAqJM0-ZHjEXoNMkvQ-1; Tue,
+ 27 Oct 2026 08:28:46 -0400
+X-MC-Unique: 8NxQxAqJM0-ZHjEXoNMkvQ-1
+X-Mimecast-MFC-AGG-ID: 8NxQxAqJM0-ZHjEXoNMkvQ_1793104124
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B39101955E76;
-	Tue, 27 Oct 2026 12:28:46 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 911D51800864;
+	Tue, 27 Oct 2026 12:28:44 +0000 (UTC)
 Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7C66030000E7;
-	Tue, 27 Oct 2026 12:28:45 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 79BC930002CB;
+	Tue, 27 Oct 2026 12:28:43 +0000 (UTC)
 From: Laurence Oberman <loberman@redhat.com>
 To: mkp@kernel.org
 Cc: linux-scsi@vger.kernel.org,
@@ -67,11 +67,10 @@ Cc: linux-scsi@vger.kernel.org,
 	bvanassche@acm.org,
 	michael.christie@oracle.com,
 	mlombard@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v6 2/4] scsi: target: Only release caw_sem if this command took it
-Date: Tue, 27 Oct 2026 08:28:35 -0400
-Message-ID: <20261027122837.2148074-3-loberman@redhat.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 1/4] scsi: target: Do not re-enable interrupts in compare_and_write_post()
+Date: Tue, 27 Oct 2026 08:28:34 -0400
+Message-ID: <20261027122837.2148074-2-loberman@redhat.com>
 In-Reply-To: <20261027122837.2148074-1-loberman@redhat.com>
 References: <20261027122837.2148074-1-loberman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -86,167 +85,59 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-sbc_parse_cdb() installs compare_and_write_callback() as the command's
-transport_complete_callback when it parses a COMPARE AND WRITE. The
-semaphore that callback releases is not taken until much later, in
-sbc_compare_and_write(), which runs when the command is executed. A
-command that is aborted or fails between those two points reaches the
-callback without holding dev->caw_sem, and releases it anyway.
+target_complete_cmd() may be called by a backend driver from interrupt
+context, as the comment above target_complete_cmd_with_sense() says. For a
+command that has been aborted it calls target_cmd_interrupted(), which
+invokes cmd->transport_complete_callback(). Once the WRITE phase of a
+COMPARE AND WRITE has been set up that callback is
+compare_and_write_post(), which takes t_state_lock with spin_lock_irq()
+and drops it with spin_unlock_irq(), unconditionally enabling interrupts
+in a caller that had them disabled.
 
-compare_and_write_callback() tries to cover that case by returning early
-when cmd->t_data_sg or cmd->t_bidi_data_sg is NULL, on the assumption that
-a command with no buffers cannot have taken the semaphore. That assumption
-does not hold: transport_generic_new_cmd() allocates both lists, and a
-command aborted while it sits in TRANSPORT_WRITE_PENDING has the buffers
-and not the semaphore. up() on a semaphore that was never taken raises its
-count, which later lets two COMPARE AND WRITE commands run against the
-same device at once.
+Use spin_lock_irqsave() / spin_unlock_irqrestore() instead.
 
-The same callback can also run more than once for one command --
-target_cmd_interrupted() and transport_generic_request_failure() both
-invoke it -- which releases the semaphore a second time.
+compare_and_write_callback() has the same pattern, but its
+spin_lock_irq() is on the path taken after a successful compare, which is
+reached only from target_complete_ok_work() in process context; the
+success == false path returns long before it. It is left alone.
 
-Track whether the semaphore is held in SCF_CAW_SEM_HELD, set once
-down_interruptible() has succeeded in sbc_compare_and_write(). Release it
-through sbc_caw_sem_release(), which tests and clears the flag under
-t_state_lock and only calls up() if the flag was set, so neither a command
-that never took the semaphore nor a second invocation of the callback can
-release it. The early return for missing buffers becomes a goto out, since
-the release is now decided by the flag rather than inferred from the
-buffers.
-
-Cc: stable@vger.kernel.org
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
 Signed-off-by: Laurence Oberman <loberman@redhat.com>
 ---
 
 Notes:
-    No Fixes: tag: the callback has been installed at parse time and the
-    semaphore taken at execute time since COMPARE AND WRITE was added, so I
-    am not confident which commit to name.  Please say which you would like
-    and I will add it.  Cc: stable is on the patch because the consequence --
-    a semaphore released without being taken -- is worth backporting
-    regardless of which commit is cited.
+    Pre-existing, and not needed by the rest of the series, but
+    compare_and_write_post() is modified by patch 2 and the mismatch between
+    its spin_lock_irq() and the spin_lock_irqsave() a few lines below would be
+    confusing to leave in place.
     
-    Not observed in the field; found while reviewing the double completion
-    that patch 2 fixes.
+    No Fixes: tag -- the pattern predates target_cmd_interrupted().
 
- drivers/target/target_core_sbc.c  | 49 +++++++++++++++++++++----------
- include/target/target_core_base.h |  1 +
- 2 files changed, 35 insertions(+), 15 deletions(-)
+ drivers/target/target_core_sbc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/target/target_core_sbc.c b/drivers/target/target_core_sbc.c
-index 8c52e1e..5193453 100644
+index 21f5cb8..8c52e1e 100644
 --- a/drivers/target/target_core_sbc.c
 +++ b/drivers/target/target_core_sbc.c
-@@ -347,10 +347,33 @@ sbc_execute_rw(struct se_cmd *cmd)
- 			       cmd->data_direction);
- }
- 
-+/*
-+ * Release dev->caw_sem, but only if this command is the one holding it.
-+ * sbc_compare_and_write() takes the semaphore when the command is executed,
-+ * which is long after sbc_parse_cdb() installs the completion callback, so a
-+ * command that is aborted or fails before then reaches the callback without
-+ * holding it.  The test and clear are done under t_state_lock so that a second
-+ * invocation of the callback cannot release the semaphore twice.
-+ */
-+static void sbc_caw_sem_release(struct se_cmd *cmd)
-+	__must_not_hold(&cmd->t_state_lock)
-+{
-+	struct se_device *dev = cmd->se_dev;
-+	unsigned long flags;
-+	bool held;
-+
-+	spin_lock_irqsave(&cmd->t_state_lock, flags);
-+	held = cmd->se_cmd_flags & SCF_CAW_SEM_HELD;
-+	cmd->se_cmd_flags &= ~SCF_CAW_SEM_HELD;
-+	spin_unlock_irqrestore(&cmd->t_state_lock, flags);
-+
-+	if (held)
-+		up(&dev->caw_sem);
-+}
-+
- static sense_reason_t compare_and_write_post(struct se_cmd *cmd, bool success,
- 					     int *post_ret)
+@@ -352,15 +352,16 @@ static sense_reason_t compare_and_write_post(struct se_cmd *cmd, bool success,
  {
--	struct se_device *dev = cmd->se_dev;
+ 	struct se_device *dev = cmd->se_dev;
  	sense_reason_t ret = TCM_NO_SENSE;
- 	unsigned long flags;
++	unsigned long flags;
  
-@@ -363,11 +386,7 @@ static sense_reason_t compare_and_write_post(struct se_cmd *cmd, bool success,
+-	spin_lock_irq(&cmd->t_state_lock);
++	spin_lock_irqsave(&cmd->t_state_lock, flags);
+ 	if (success) {
+ 		*post_ret = 1;
+ 
+ 		if (cmd->scsi_status == SAM_STAT_CHECK_CONDITION)
+ 			ret = TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
  	}
- 	spin_unlock_irqrestore(&cmd->t_state_lock, flags);
+-	spin_unlock_irq(&cmd->t_state_lock);
++	spin_unlock_irqrestore(&cmd->t_state_lock, flags);
  
--	/*
--	 * Unlock ->caw_sem originally obtained during sbc_compare_and_write()
--	 * before the original READ I/O submission.
--	 */
--	up(&dev->caw_sem);
-+	sbc_caw_sem_release(cmd);
- 
- 	return ret;
- }
-@@ -450,11 +469,12 @@ static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool succes
- 
- 	if (!success) {
- 		/*
--		 * Handle early failure in transport_generic_request_failure(),
--		 * which will not have taken ->caw_sem yet..
-+		 * Handle early failure in transport_generic_request_failure().
-+		 * Whether ->caw_sem was taken is tracked in SCF_CAW_SEM_HELD, so
-+		 * this is only about there being no buffers to compare.
- 		 */
- 		if (!cmd->t_data_sg || !cmd->t_bidi_data_sg)
--			return TCM_NO_SENSE;
-+			goto out;
- 
- 		/*
- 		 * The command has been stopped or aborted so
-@@ -556,11 +576,7 @@ static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool succes
- 	return ret;
- 
- out:
--	/*
--	 * In the MISCOMPARE or failure case, unlock ->caw_sem obtained in
--	 * sbc_compare_and_write() before the original READ I/O submission.
--	 */
--	up(&dev->caw_sem);
-+	sbc_caw_sem_release(cmd);
- 	sg_free_table(&write_tbl);
- 	return ret;
- }
-@@ -581,6 +597,9 @@ sbc_compare_and_write(struct se_cmd *cmd)
- 		cmd->transport_complete_callback = NULL;
- 		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
- 	}
-+	spin_lock_irq(&cmd->t_state_lock);
-+	cmd->se_cmd_flags |= SCF_CAW_SEM_HELD;
-+	spin_unlock_irq(&cmd->t_state_lock);
  	/*
- 	 * Reset cmd->data_length to individual block_size in order to not
- 	 * confuse backend drivers that depend on this value matching the
-@@ -592,7 +611,7 @@ sbc_compare_and_write(struct se_cmd *cmd)
- 			      DMA_FROM_DEVICE);
- 	if (ret) {
- 		cmd->transport_complete_callback = NULL;
--		up(&dev->caw_sem);
-+		sbc_caw_sem_release(cmd);
- 		return ret;
- 	}
- 	/*
-diff --git a/include/target/target_core_base.h b/include/target/target_core_base.h
-index 002b0fc..bd846ab 100644
---- a/include/target/target_core_base.h
-+++ b/include/target/target_core_base.h
-@@ -168,6 +168,7 @@ enum se_cmd_flags_table {
- 	SCF_TREAT_READ_AS_NORMAL		= (1 << 18),
- 	SCF_TASK_ORDERED_SYNC			= (1 << 19),
- 	SCF_ATOMIC				= (1 << 20),
-+	SCF_CAW_SEM_HELD			= (1 << 21),
- };
- 
- /*
+ 	 * Unlock ->caw_sem originally obtained during sbc_compare_and_write()
 -- 
 2.43.0
 
