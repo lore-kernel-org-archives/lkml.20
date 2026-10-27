@@ -1,49 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793140701;
-	b=vYJajdfAkFwBHp+IUUIW7wg1qelLXdKTzy+QQ7dJUwD+Prd39PkNUddmjKU2BhS1HpYR
-	 OyLjhNCKROp3M7zYcWcTLgPBjPwHOWz0izzcTpIH4+7NUt3BjmTAX944Awf+eIt3e2D2p
-	 RFp6enQwxPboP0oY2T1aBR5yugTRLwoSVDDs6dZUPe/nl2aU7OjVpmEwCh/zWs7aYgrtB
-	 BCsJUO+fnFQRCdRj3+KzL4jdPORs0VEP+SYl6JTz9l73FNNtiP2DlWppxNFIlx3dUV3mW
-	 dry7R4vC3BP1AVxmSvv/2vpLfS9Gug573b6lLGEqRBm6k66+tpheCLRHHRSyWiJn2cg==
+	t=1793140751;
+	b=y/hlWnOi9LkVT/CGrUDSih4laBUk/Rhl7hDYDbcSm/8LEyf436XH0x5cH8AWRQRHmQ2P
+	 dtNz7tEjkBVx+zaeEeJDMuE1TEr6tgyWYlyUdU+voRH+39c8te5BnrZTDCu568SBh/PYj
+	 XfNKvEV2R/ymULuhkx4XrJLR1D675fnN30n79Sl7emHpdCEvBUZ+EiD4AVZQqrhT0j17d
+	 a7+kFcKktt0t+JgKfZloruVveYwscB1uc+tUk3LeGo+2rmKa36iWBc7ojk2t4vdp5J54D
+	 kgabuDtcgDwVKPyerx4oLQuOBjDLnSqcU0OmFf5G6dIEGEQL43eElaioJMNIuBCmQSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793140701;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=EnxcP/GoF2SJtmPG/yNhv2LK3o8lF8cNzeHXovI7wlU=;
-	b=NhRbLhfpgVJSTrvTjMnmZ4CsOE+/0KIS/06RaA0e2DQtGpVaNf35brhm1L8yWYOb81eH
-	 HdNLfRkXKdk7DwE2qa6RGK/Wo7BKbkve/AzimUfwHAnbahKnApdAVUT7GopbOjklBdj7d
-	 ylmGQKvjUeIb7elgxKtBYbRhtl0eRM+NGW8bquedmRWBC+yM7WjSINK/NRwrv3W6Dvlcu
-	 +hNo0ManZdP3q6GJHlqutYVjqKyBlIMJIzds1oJfMPXJxz6JAeSc8AzPElxuKnsmDTcsh
-	 o3vft4eTdbRNRvGwY3oiG/ykpVlLjgUUro4hGEMJL9dxWOlV7ZNzMkwzGAWwCN7ropA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140751;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=pEmx5PL3tlnBiGr2rjVOl0G+YHkBW7VB5cziBEiH9l0=;
+	b=qkXr1v8gP8ZwjtnvuTFHGovkvFG6Cm6hbcOm5RzweNbnJmdgNvr93raFVd1yPVUwejtc
+	 HHSmsFkZuWN+ojKyN+sldSrLvKheX6GiDCu9v39HYbbhT01zDI+cbODB9ZrkBr2xT8H4A
+	 v6GTZpm87i0oHtIW1OjReWmM4PDNxIk5d5OMwI9JpjDj/rkSV9hWVxxBVVSLwRPFjG7Wq
+	 ADNOnwCb7Mz8eZiVgN7PmArL85w1Pd9MrBMSq01i6Zz9tgxqb5MfCZcmMou+I4dJDV5QT
+	 6rxT549bqOtooBqiNKhpmBYdIfsvdLYVVaWNp04MWb+9Ni+/ozGu3PdCK2P2HLKa1dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VvnMMguX;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BDC81606A31A;
-	Tue, 27 Oct 2026 22:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDC81606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WwyADfSB;
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FCE606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:39:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48FCE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=VvnMMguX
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 80E21175D;
-	Tue, 27 Oct 2026 15:38:15 -0700 (PDT)
-Received: from [172.29.20.205] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 151403F673;
-	Tue, 27 Oct 2026 15:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793140698; bh=DKmUioyZfws4gHtxba/Tvise4huEByL4XM6ptiUs0uQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VvnMMguX0GXfXEzSLqrXv8UAEziY792KmM+SeAW3HOTE3TO18R8/XI6bXMo+nK5QM
-	 ND07BNvvo2DPVG9KK9+SOYMNu4DY3IGJejFFofWpYjYFXNHL5wYepFCFEEVZh+OOz3
-	 OPlvXDcTkRzDPpCSj3k5s1o87Zb8B6Lr6l88lam4=
-Message-ID: <97bde4ed-f44b-4205-9945-6c924ff268f4@arm.com>
-Date: Tue, 27 Oct 2026 17:37:39 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WwyADfSB
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1a2f2ea3c3cso596005c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793140749; x=1793745549; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pEmx5PL3tlnBiGr2rjVOl0G+YHkBW7VB5cziBEiH9l0=;
+        b=WwyADfSBKnfQhnWY2Vcc6CNZLTbO+rAle5B1hKwX8je30uuwYFtB/vLJcoE5YY8g3l
+         ZP1V0bwQMghUb9OH8d+nqaUwuF0QhBserXEYkJY30hDkrjNFMmDQV+NHMsvOfzeO5Smj
+         W3fOXMl0JNgZhE7FX+6rfE0FyfvCs0KmuVF9AJhs4u5xFwJMb+jaWfil9w878EOrRsZY
+         CUqereYX0RsTxyE2KJ/ls1UGDevHByw15KWdqkK8Ms8Ozs9o6RT8cmJwBsNQm2eQleg+
+         e1ohgzf4BQQIJO/4X/jZBsZEqtoprO5FOBgNNOSI0iyC+HNFg11Ynpnkv5fSF/W9aYty
+         crcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793140749; x=1793745549;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pEmx5PL3tlnBiGr2rjVOl0G+YHkBW7VB5cziBEiH9l0=;
+        b=k1MPgHypwijhIbbP6K9kQkRsIRaDzkYvyq2Czut5g8ZYtb9sOU/VyvY5sd+sZAa8Ja
+         tjYCWQIzjGVcT9NI2LhcRI/3zHAJm59reuU5JLi9uIXM3E+Ex+oS4ruxxKPNLuVXtXGz
+         bKZ53I4W2trE2URqTUKT0Y6QF6sdF1ua9EgjLUb2+Ehy5QXtsbxnfJCqPLt3jjPElb1t
+         V0M/KcCKr/uLJ7fie1csVKbCg83J/2lCj7F+ilHWtHfzuQT8yuxMZFAnGGhQKDwvoL8S
+         P8P6zz+30Esuq/nBICpr10RNmo/IhM/9Fyt1WOR5ZcuzSPRU9gL6lT8Ac2XmjahxdIoV
+         tCGA==
+X-Forwarded-Encrypted: i=1; AKwUvBwAxHG2ksmkqe/tWK1++B35sA7W6zSGPRZCXsI1T8OSrAMpxJdgQfom4hUsiKkBxbHRM2eFW9DuE9tlZv8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaA2X0rwd2lVbkgXIMwuPs7a5gtdE48Us0yENoRDXRYDnlP4BS
+	Z8rBc/aKPK1l3lQ2NF3vEaQEbyUpoqbI+Rl5Dtb3oQn+WlIyHnFKxNAx7GrIMz9UBqhGfxHnig5
+	vvs9NKwEL3w==
+X-Received: from dli9.prod.google.com ([2002:a05:7022:289:b0:1a1:da78:f9b9])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:6989:b0:165:90af:a25f
+ with SMTP id a92af1059eb24-1a6cfa0c447mr941563c88.41.1793140748444; Tue, 27
+ Oct 2026 15:39:08 -0700 (PDT)
+Date: Tue, 27 Oct 2026 15:38:35 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,479 +75,152 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] perf: arm_spe: Support heterogeneous ACPI systems
-To: "Johnny.Fan" <johnny.fan@cixtech.com>, will@kernel.org,
- mark.rutland@arm.com
-Cc: linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, coresight@lists.linaro.org,
- suzuki.poulose@arm.com, mike.leach@arm.com, james.clark@linaro.org,
- leo.yan@arm.com, maz@kernel.org, cix-kernel-upstream@cixtech.com,
- bob.zhang@cixtech.com, jie.fu@cixtech.com,
- Fugang Duan <fugang.duan@cixtech.com>
-References: <20261021020322.3015121-1-johnny.fan@cixtech.com>
-Content-Language: en-US
-From: Jeremy Linton <jeremy.linton@arm.com>
-In-Reply-To: <20261021020322.3015121-1-johnny.fan@cixtech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261027223847.652884-1-irogers@google.com>
+Subject: [PATCH v2 0/9] Add __must_init and require explicit kobj_type::release
+From: Ian Rogers <irogers@google.com>
+To: Kees Cook <kees@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Sumanth Korikkar <sumanthk@linux.ibm.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, 
+	llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+	linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Clang supports the 'require_explicit_initialization' attribute on struct
+fields to enforce that the field is explicitly initialized when an
+aggregate object is constructed, emitting -Wuninitialized-explicit-init
+(enabled by default) if the field is omitted.
 
-This largely looks reasonable, some comments inline.
+Following discussion at the Linux Plumbers Conference [1], patch 1 adds
+the attribute to include/linux/compiler_attributes.h as __must_init. In
+v1 it was called __require_explicit_initialization. Kees picked up that
+patch with a first seq_file user [2], and in that thread Greg suggested
+the shorter __must_init spelling, which Kees and Miguel agreed to. As
+the attribute did not land in the v7.4 merge window, Kees asked that
+this series carry the renamed attribute. The Acked-by/Reviewed-by tags
+on patch 1 were given for the original spelling; the rename is
+mechanical.
 
-On 10/20/26 9:03 PM, Johnny.Fan wrote:
-> From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
-> 
-> On heterogeneous ACPI systems, not all CPUs implement SPE, and the
-> ones that do may use different PPIs. The MADT describes this per
-> GICC entry: a CPU without SPE reports a zero SPE overflow interrupt,
-> and the PPTT hetero id identifies CPUs of the same implementation.
-> 
-> The current code registers a single platform device and gives up if
-> the GICC entries disagree on either the hetero id or the interrupt,
-> so SPE is unavailable on such systems even though the firmware
-> describes it.
-> 
-> Group the CPUs by (hetero id, SPE interrupt) and register one
-> platform device per group. A GSI may be shared between groups with
-> non-overlapping CPU masks, so only unregister the GSI mapping when
-> no other group uses the same interrupt, as the mapping is not
-> reference counted.
-> 
-> These synthetic devices have no fwnode, so the firmware-described
-> IRQ affinity cannot tell which CPUs implement the feature. Pass the
-> CPU mask as platform data and have the drivers prefer it over the
-> IRQ affinity when present.
-> 
-> Apply the same treatment to TRBE, which shares this registration
-> code. TRBE must also pass a stable copy of the mask to
-> request_percpu_irq_affinity(), since supported_cpus is pruned as
-> CPUs are probed.
-> 
-> Tested on a CIX sky1 SoC with heterogeneous SPE support.
-> 
-> Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
-> Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
-> ---
->   drivers/hwtracing/coresight/coresight-trbe.c |  22 +-
->   drivers/perf/arm_pmu_acpi.c                  | 211 ++++++++++++-------
+As Documentation/core-api/kobject.rst notes:
+  "One important point cannot be overstated: every kobject must have a
+  release() method, and the kobject must persist (in a consistent state)
+  until that method is called. If these constraints are not met, the
+  code is flawed."
 
-It makes sense to split the device creation portion in arm_pmu_acpi.c 
-into its own patch separate from the consumption IMHO.
+Annotating struct kobj_type::release caught struct kobj_type definitions
+across the tree that omitted .release:
+- Patches 2-8 fix struct kobj_type definitions where dynamically
+  allocated kobjects, ksets, or enclosing structures were either leaked
+  on kobject_put(), freed prematurely before kobject release, or missing
+  proper static initializers.
+- Patch 9 annotates struct kobj_type::release with __must_init and
+  explicitly sets .release = NULL (with explanatory comments prefixed
+  with "Pre-existing:") on the remaining legacy struct kobj_type
+  definitions whose kobjects are static, per-CPU, permanent firmware
+  structures, or embedded in devm- or parent-managed structures.
 
->   drivers/perf/arm_spe_pmu.c                   |  10 +-
->   include/linux/perf/arm_pmu.h                 |  10 +
->   4 files changed, 176 insertions(+), 77 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
-> index c7cbca45f2de..0c4bc8fbcaf3 100644
-> --- a/drivers/hwtracing/coresight/coresight-trbe.c
-> +++ b/drivers/hwtracing/coresight/coresight-trbe.c
-> @@ -158,6 +158,7 @@ struct trbe_drvdata {
->   	struct hlist_node hotplug_node;
->   	int irq;
->   	cpumask_t supported_cpus;
-> +	cpumask_t irq_affinity;
->   	enum cpuhp_state trbe_online;
->   	struct platform_device *pdev;
->   };
-> @@ -1533,6 +1534,8 @@ static void arm_trbe_remove_cpuhp(struct trbe_drvdata *drvdata)
->   static int arm_trbe_probe_irq(struct platform_device *pdev,
->   			      struct trbe_drvdata *drvdata)
->   {
-> +	const struct arm_pmu_acpi_dev_data *acpi_data =
-> +		dev_get_platdata(&pdev->dev);
->   	const struct cpumask *affinity;
->   	int ret;
->   
-> @@ -1547,14 +1550,27 @@ static int arm_trbe_probe_irq(struct platform_device *pdev,
->   		return -EINVAL;
->   	}
->   
-> -	cpumask_copy(&drvdata->supported_cpus, affinity);
-> +	/*
-> +	 * The ACPI path has no fwnode describing which CPUs implement TRBE,
-> +	 * so it passes the mask explicitly. DT devices still use the
-> +	 * firmware-described IRQ affinity.
-> +	 */
-> +	cpumask_copy(&drvdata->supported_cpus,
-> +		     acpi_data ? &acpi_data->cpus : affinity);
-> +
-> +	/*
-> +	 * supported_cpus gets pruned as CPUs are probed, so keep a stable
-> +	 * copy for the IRQ action.
-> +	 */
-> +	cpumask_copy(&drvdata->irq_affinity, &drvdata->supported_cpus);
->   
->   	drvdata->handle = alloc_percpu(struct perf_output_handle *);
->   	if (!drvdata->handle)
->   		return -ENOMEM;
->   
-> -	ret = request_percpu_irq_affinity(drvdata->irq, arm_trbe_irq_handler, DRVNAME,
-> -					  affinity, drvdata->handle);
-> +	ret = request_percpu_irq_affinity(drvdata->irq, arm_trbe_irq_handler,
-> +					  DRVNAME, &drvdata->irq_affinity,
-> +					  drvdata->handle);
->   	if (ret) {
->   		free_percpu(drvdata->handle);
->   		return ret;
-> diff --git a/drivers/perf/arm_pmu_acpi.c b/drivers/perf/arm_pmu_acpi.c
-> index ca6bf8f86cfe..fdf39673648f 100644
-> --- a/drivers/perf/arm_pmu_acpi.c
-> +++ b/drivers/perf/arm_pmu_acpi.c
-> @@ -12,6 +12,8 @@
->   #include <linux/irqdesc.h>
->   #include <linux/percpu.h>
->   #include <linux/perf/arm_pmu.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
->   
->   #include <asm/cpu.h>
->   #include <asm/cputype.h>
-> @@ -68,91 +70,165 @@ static void arm_pmu_acpi_unregister_irq(int cpu)
->   		acpi_unregister_gsi(gsi);
->   }
->   
-> -static int __maybe_unused
-> -arm_acpi_register_pmu_device(struct platform_device *pdev, u8 len,
-> -			     u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *))
-> +struct arm_pmu_acpi_group {
-> +	int hetid;
-> +	u16 gsi;
-> +	struct cpumask cpus;
-> +};
-> +
-> +static int arm_acpi_find_group(struct arm_pmu_acpi_group *groups, int nr_groups,
-> +			       int hetid, u16 gsi)
->   {
-> -	int cpu, this_hetid, hetid, irq, ret;
-> -	u16 this_gsi = 0, gsi = 0;
-> +	int i;
->   
-> -	/*
-> -	 * Ensure that platform device must have IORESOURCE_IRQ
-> -	 * resource to hold gsi interrupt.
-> -	 */
-> -	if (pdev->num_resources != 1)
-> -		return -ENXIO;
-> +	for (i = 0; i < nr_groups; i++) {
-> +		if (groups[i].hetid == hetid && groups[i].gsi == gsi)
-> +			return i;
-> +	}
-> +
-> +	return -1;
-> +}
-> +
-> +static bool arm_acpi_gsi_is_shared(struct arm_pmu_acpi_group *groups,
-> +				   int nr_groups, int idx)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < nr_groups; i++) {
-> +		if (i != idx && groups[i].gsi == groups[idx].gsi)
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +static int arm_acpi_register_group(struct arm_pmu_acpi_group *group,
-> +				   const char *name, bool gsi_shared)
-> +{
-> +	struct arm_pmu_acpi_dev_data data = { };
-> +	struct platform_device *pdev;
-> +	struct resource res;
-> +	int irq, ret;
-> +
-> +	irq = acpi_register_gsi(NULL, group->gsi, ACPI_LEVEL_SENSITIVE,
-> +				ACPI_ACTIVE_HIGH);
-> +	if (irq < 0)
-> +		return irq;
-> +
-> +	pdev = platform_device_alloc(name, PLATFORM_DEVID_AUTO);
-> +	if (!pdev) {
-> +		ret = -ENOMEM;
-> +		goto err_unreg;
-> +	}
->   
-> -	if (pdev->resource[0].flags != IORESOURCE_IRQ)
-> -		return -ENXIO;
-> +	res = DEFINE_RES_IRQ(irq);
-> +	data.cpus = group->cpus;
->   
-> +	ret = platform_device_add_resources(pdev, &res, 1);
-> +	if (ret)
-> +		goto err_put;
-> +
-> +	ret = platform_device_add_data(pdev, &data, sizeof(data));
-> +	if (ret)
-> +		goto err_put;
-> +
-> +	ret = platform_device_add(pdev);
-> +	if (!ret)
-> +		return 0;
-> +
-> +err_put:
-> +	platform_device_put(pdev);
-> +err_unreg:
->   	/*
-> -	 * Sanity check all the GICC tables for the same interrupt
-> -	 * number. For now, only support homogeneous ACPI machines.
-> +	 * The GSI mapping is not reference counted, so only drop it if no
-> +	 * other group shares it.
->   	 */
-> +	if (!gsi_shared)
-> +		acpi_unregister_gsi(group->gsi);
+Note on tool use: An LLM coding assistant was used to help audit the
+compiler diagnostics across the tree, draft the fixes and changelog
+descriptions, and verify builds and review feedback.
 
-This is a bit odd, if whatever fails, and gets here happens on all the 
-paths associated with the shared GSI, then that GSI is never 
-unregistered and the resource is leaked.
+Changes in v2:
+- Rebased on v7.3-16928-g83f32c773255 (v7.4 merge window).
+- Patch 1: Rename __require_explicit_initialization to __must_init per
+  Greg Kroah-Hartman; document the Clang >= 20 requirement per Miguel
+  Ojeda; note the Clang gap for file-scope objects without an
+  initializer reported by Kees Cook; add tags from v1 and from Kees's
+  posting.
+- Move LLM assistance attribution from Assisted-by tags to this cover
+  letter per commit 1e035297ffda ("docs: remove Assisted-by
+  references").
+- Patch 4 (cpufreq): Use "cpufreq: governor:" prefix, drop Fixes tag,
+  fix typo, and remove the redundant runtime assignment in
+  cpufreq_dbs_governor_init() per Zhongqiu Han.
+- Dropped v1 patch 5 (ACPI: CPPC), already fixed upstream by
+  commit 27954e29d7de ("ACPI: CPPC: Release CPC descriptors through
+  kobject").
+- Patch 5 (dlm): Call kobject_del() before dlm_recoverd_stop() in
+  release_lockspace() and the new_lockspace() error path, and wait on a
+  new ls_kobj_done completion before freeing the lockspace or dropping
+  the module reference, avoiding races with delayed kobject release.
+- Dropped v1 patch 8 (s390/sclp_mem) per Sumanth Korikkar: the
+  /sys/firmware/memory/memoryX kobjects are permanent, so sclp_mem.c is
+  folded into patch 9 with .release = NULL.
+- Patch 7 (ubifs): Add Tested-by and Reviewed-by from Zhihao Cheng.
+- Patch 8 (drm/amdkfd): Check q->kobj.state_in_sysfs before
+  kobject_del() in kfd_procfs_del_queue().
+- Patch 9 (kobject): Cover sclp_mem.c and the new amdgpu_ualink.c
+  ualink_xcp_info_ktype, fix the overlay-sysfs.c comment, and prefix
+  legacy .release = NULL comments with "Pre-existing:".
+- Patch 9 (kobject): The ioat, kunpeng_hccs and omapfb display comments
+  now say that the existing teardown can use-after-free under
+  CONFIG_DEBUG_KOBJECT_RELEASE (reported by Sashiko). Fixing those
+  drivers is left to follow-up patches.
 
-> +
-> +	return ret;
-> +}
-> +
-> +static int __maybe_unused
-> +arm_acpi_register_pmu_devices(const char *name, u8 len,
-> +			      u16 (*parse_gsi)(struct acpi_madt_generic_interrupt *))
-> +{
-> +	struct arm_pmu_acpi_group *groups;
-> +	int cpu, i, nr_cpus = 0, nr_groups = 0, nr_devices = 0;
-> +	int last_err = 0, ret;
-> +
->   	for_each_possible_cpu(cpu) {
->   		struct acpi_madt_generic_interrupt *gicc;
->   
->   		gicc = acpi_cpu_get_madt_gicc(cpu);
->   		if (gicc->header.length < len)
-> -			return gsi ? -ENXIO : 0;
-> -
-> -		this_gsi = parse_gsi(gicc);
-> -		this_hetid = find_acpi_cpu_topology_hetero_id(cpu);
-> -		if (!gsi) {
-> -			hetid = this_hetid;
-> -			gsi = this_gsi;
-> -		} else if (hetid != this_hetid || gsi != this_gsi) {
-> -			pr_warn("ACPI: %s: must be homogeneous\n", pdev->name);
-> -			return -ENXIO;
-> -		}
-> +			continue;
+v1: https://lore.kernel.org/all/20261013223946.1836757-1-irogers@google.com/
+[1] https://lpc.events/event/20/contributions/2392/
+[2] https://lore.kernel.org/lkml/20261014225811.i.852-kees@kernel.org/
 
-This continue seems like a mistake, if the firmware has provided 
-unreliable tables we should abort all device creation, even if that 
-means some subset of the SPE devices which appear to be correct aren't 
-created.
+Ian Rogers (9):
+  Compiler Attributes: Add __must_init macro
+  powerpc/secvar: Add missing kobject release callback to secvar_ktype
+  sh: sq: Add missing kobject release callback to ktype_percpu_entry
+  cpufreq: governor: Initialize kobj_type release callback statically
+  dlm: Free dlm_ls in kobject release callback
+  xen/sys-hypervisor: Add release callback to hyp_sysfs_kobj_type
+  ubifs: sysfs: Use kset_create_and_add() for ubifs_kset
+  drm/amdkfd: Free queue in procfs_queue_type kobject release callback
+  kobject: Require explicit initialization of struct kobj_type::release
+
+ Documentation/conf.py                         |  1 +
+ arch/arm64/kernel/cpuinfo.c                   |  5 ++++
+ arch/powerpc/kernel/secvar-sysfs.c            |  6 +++++
+ arch/sh/kernel/cpu/sh4/sq.c                   |  6 +++++
+ drivers/acpi/sysfs.c                          |  2 ++
+ drivers/cpufreq/cpufreq_conservative.c        |  5 +++-
+ drivers/cpufreq/cpufreq_governor.c            |  4 +--
+ drivers/cpufreq/cpufreq_governor.h            |  1 +
+ drivers/cpufreq/cpufreq_ondemand.c            |  5 +++-
+ drivers/dma/ioat/sysfs.c                      |  7 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |  5 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       | 10 +++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 12 ++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  5 +++-
+ drivers/infiniband/hw/hfi1/sysfs.c            |  5 ++++
+ drivers/infiniband/hw/usnic/usnic_ib_sysfs.c  |  2 ++
+ drivers/parisc/pdc_stable.c                   |  5 ++++
+ drivers/power/supply/ab8500_fg.c              |  5 ++++
+ drivers/s390/char/sclp_mem.c                  |  2 ++
+ drivers/soc/hisilicon/kunpeng_hccs.c          | 21 +++++++++++++++
+ .../fbdev/omap2/omapfb/dss/display-sysfs.c    |  7 +++++
+ .../fbdev/omap2/omapfb/dss/manager-sysfs.c    |  5 ++++
+ .../fbdev/omap2/omapfb/dss/overlay-sysfs.c    |  5 ++++
+ drivers/xen/sys-hypervisor.c                  |  6 +++++
+ fs/dlm/dlm_internal.h                         |  1 +
+ fs/dlm/lockspace.c                            | 26 ++++++++++++++-----
+ fs/erofs/sysfs.c                              | 10 +++++++
+ fs/f2fs/sysfs.c                               | 15 +++++++++++
+ fs/ocfs2/cluster/masklog.c                    |  5 ++++
+ fs/ubifs/sysfs.c                              | 24 +++++------------
+ include/linux/compiler_attributes.h           | 12 +++++++++
+ include/linux/kobject.h                       |  2 +-
+ scripts/checkpatch.pl                         |  1 +
+ tools/lib/python/kdoc/xforms_lists.py         |  1 +
+ 34 files changed, 202 insertions(+), 32 deletions(-)
 
 
-> +		if (parse_gsi(gicc))
-> +			nr_cpus++;
->   	}
->   
-> -	if (!this_gsi)
-> +	if (!nr_cpus)
->   		return 0;
->   
-> -	irq = acpi_register_gsi(NULL, gsi, ACPI_LEVEL_SENSITIVE, ACPI_ACTIVE_HIGH);
-> -	if (irq < 0) {
-> -		pr_warn("ACPI: %s Unable to register interrupt: %d\n", pdev->name, gsi);
-> -		return -ENXIO;
-> -	}
-> +	groups = kcalloc(nr_cpus, sizeof(*groups), GFP_KERNEL);
-
-And this seemed a bit chunky because in theory this could be NR_CPUS, 
-which made me initially say, skip counting the cores and just allocate 
-the max, then I realized its close to having kcalloc() failures if there 
-are a lot of cores in the machine since this allocation becomes multiple 
-MB. I think we are creating a future headache and need something smarter 
-than counting the number of cores with valid SPE/TRBE interrupts.
-
-
-> +	if (!groups)
-> +		return -ENOMEM;
->   
-> -	pdev->resource[0].start = irq;
-> -	ret = platform_device_register(pdev);
-> -	if (ret)
-> -		acpi_unregister_gsi(gsi);
-> +	for_each_possible_cpu(cpu) {
-> +		struct acpi_madt_generic_interrupt *gicc;
-> +		int hetid;
-> +		u16 gsi;
->   
-> -	return ret;
-> -}
-> +		gicc = acpi_cpu_get_madt_gicc(cpu);
-> +		if (gicc->header.length < len)
-> +			continue;
-same continue issue here as above>
-> -#if IS_ENABLED(CONFIG_ARM_SPE_PMU)
-> -static struct resource spe_resources[] = {
-> -	{
-> -		/* irq */
-> -		.flags          = IORESOURCE_IRQ,
-> +		gsi = parse_gsi(gicc);
-> +		if (!gsi)
-> +			continue;
-> +
-> +		hetid = find_acpi_cpu_topology_hetero_id(cpu);
-
-If groups were say a linked list (or something else dynamic) you could 
-just use the failure case here to allocate the next entry and simply 
-skip the first loop iteration above counting cpus.
-
-> +		i = arm_acpi_find_group(groups, nr_groups, hetid, gsi);
-> +		if (i < 0) {
-> +			i = nr_groups++;
-> +			groups[i].hetid = hetid;
-> +			groups[i].gsi = gsi;
-> +		}
-> +
-> +		cpumask_set_cpu(cpu, &groups[i].cpus);
->   	}
-> -};
->   
-> -static struct platform_device spe_dev = {
-> -	.name = ARMV8_SPE_PDEV_NAME,
-> -	.id = -1,
-> -	.resource = spe_resources,
-> -	.num_resources = ARRAY_SIZE(spe_resources)
-> -};
-> +	for (i = 0; i < nr_groups; i++) {
-> +		ret = arm_acpi_register_group(&groups[i], name,
-> +					      arm_acpi_gsi_is_shared(groups,
-> +								     nr_groups, i));
-> +		if (ret) {
-> +			pr_warn("ACPI: %s: %*pbl: add device failed (%d)\n",
-> +				name, cpumask_pr_args(&groups[i].cpus), ret);
-> +			last_err = ret;
-> +		} else {
-> +			nr_devices++;
-> +		}
-> +	}
-> +
-> +	kfree(groups);
-> +
-> +	return nr_devices ? 0 : last_err;
-> +}
->   
-> +#if IS_ENABLED(CONFIG_ARM_SPE_PMU)
->   static u16 arm_spe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
->   {
->   	return gicc->spe_interrupt;
->   }
->   
-> -/*
-> - * For lack of a better place, hook the normal PMU MADT walk
-> - * and create a SPE device if we detect a recent MADT with
-> - * a homogeneous PPI mapping.
-> - */
->   static void arm_spe_acpi_register_device(void)
->   {
-> -	int ret = arm_acpi_register_pmu_device(&spe_dev, ACPI_MADT_GICC_SPE,
-> -					       arm_spe_parse_gsi);
-> +	int ret;
-> +
-> +	ret = arm_acpi_register_pmu_devices(ARMV8_SPE_PDEV_NAME,
-> +					    ACPI_MADT_GICC_SPE,
-> +					    arm_spe_parse_gsi);
->   	if (ret)
->   		pr_warn("ACPI: SPE: Unable to register device\n");
->   }
-> @@ -163,20 +239,6 @@ static inline void arm_spe_acpi_register_device(void)
->   #endif /* CONFIG_ARM_SPE_PMU */
->   
->   #if IS_ENABLED(CONFIG_CORESIGHT_TRBE)
-> -static struct resource trbe_resources[] = {
-> -	{
-> -		/* irq */
-> -		.flags          = IORESOURCE_IRQ,
-> -	}
-> -};
-> -
-> -static struct platform_device trbe_dev = {
-> -	.name = ARMV8_TRBE_PDEV_NAME,
-> -	.id = -1,
-> -	.resource = trbe_resources,
-> -	.num_resources = ARRAY_SIZE(trbe_resources)
-> -};
-> -
->   static u16 arm_trbe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
->   {
->   	return gicc->trbe_interrupt;
-> @@ -184,8 +246,11 @@ static u16 arm_trbe_parse_gsi(struct acpi_madt_generic_interrupt *gicc)
->   
->   static void arm_trbe_acpi_register_device(void)
->   {
-> -	int ret = arm_acpi_register_pmu_device(&trbe_dev, ACPI_MADT_GICC_TRBE,
-> -					       arm_trbe_parse_gsi);
-> +	int ret;
-> +
-> +	ret = arm_acpi_register_pmu_devices(ARMV8_TRBE_PDEV_NAME,
-> +					    ACPI_MADT_GICC_TRBE,
-> +					    arm_trbe_parse_gsi);
->   	if (ret)
->   		pr_warn("ACPI: TRBE: Unable to register device\n");
->   }
-> diff --git a/drivers/perf/arm_spe_pmu.c b/drivers/perf/arm_spe_pmu.c
-> index b70f3fedf028..712b7f187301 100644
-> --- a/drivers/perf/arm_spe_pmu.c
-> +++ b/drivers/perf/arm_spe_pmu.c
-> @@ -1330,6 +1330,8 @@ static void arm_spe_pmu_dev_teardown(struct arm_spe_pmu *spe_pmu)
->   static int arm_spe_pmu_irq_probe(struct arm_spe_pmu *spe_pmu)
->   {
->   	struct platform_device *pdev = spe_pmu->pdev;
-> +	const struct arm_pmu_acpi_dev_data *acpi_data =
-> +		dev_get_platdata(&pdev->dev);
->   	const struct cpumask *affinity;
->   	int irq;
->   
-> @@ -1342,7 +1344,13 @@ static int arm_spe_pmu_irq_probe(struct arm_spe_pmu *spe_pmu)
->   		return -EINVAL;
->   	}
->   
-> -	cpumask_copy(&spe_pmu->supported_cpus, affinity);
-> +	/*
-> +	 * The ACPI path has no fwnode describing which CPUs implement SPE,
-> +	 * so it passes the mask explicitly. DT devices still use the
-> +	 * firmware-described IRQ affinity.
-> +	 */
-> +	cpumask_copy(&spe_pmu->supported_cpus,
-> +		     acpi_data ? &acpi_data->cpus : affinity);
->   
->   	spe_pmu->irq = irq;
->   	return 0;
-> diff --git a/include/linux/perf/arm_pmu.h b/include/linux/perf/arm_pmu.h
-> index 02d2c7f45b52..7f1c03c55025 100644
-> --- a/include/linux/perf/arm_pmu.h
-> +++ b/include/linux/perf/arm_pmu.h
-> @@ -8,6 +8,7 @@
->   #ifndef __ARM_PMU_H__
->   #define __ARM_PMU_H__
->   
-> +#include <linux/cpumask.h>
->   #include <linux/interrupt.h>
->   #include <linux/perf_event.h>
->   #include <linux/platform_device.h>
-> @@ -199,6 +200,15 @@ void armpmu_free_irq(struct arm_pmu * __percpu *armpmu, int irq, int cpu);
->   #define ARMV8_SPE_PDEV_NAME "arm,spe-v1"
->   #define ARMV8_TRBE_PDEV_NAME "arm,trbe"
->   
-> +/*
-> + * Per-device CPU mask passed by the ACPI MADT walk. The synthetic
-> + * platform devices have no fwnode, so the IRQ affinity cannot describe
-> + * which CPUs actually implement the feature.
-> + */
-> +struct arm_pmu_acpi_dev_data {
-> +	struct cpumask cpus;
-> +};
-> +
->   /* Why does everything I do descend into this? */
->   #define __GEN_PMU_FORMAT_ATTR(cfg, lo, hi)				\
->   	(lo) == (hi) ? #cfg ":" #lo "\n" : #cfg ":" #lo "-" #hi
-
-Thanks for working on this.
-
-Jeremy
+base-commit: 83f32c773255720a661aa45d83e36278135f23f5
+-- 
+2.56.0.313.g2479322e68-goog
 
