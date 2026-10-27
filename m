@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115191;
-	b=gbAS1Fhk0ksKffYD9kcspG5cTC4pVWmZDZPFg7daEXfnxSZiQ1XioC+GhXDqmT2QtvGF
-	 ROYDDsJUwcJkDmN8HFdB4zrWDGuV0mQNfUByJzcy7IMwu3z30CeQY6KokoQJqAG/tdtiQ
-	 AZuEtNUkHsCdodHrPqXD4odu2TtBV7XkHDiiBmqhmQaJQbL6OQYBsZIKR4A7pJOyar6/9
-	 fiQUHSy49ZJTPMy10zIsRbKe8G43xhbTl4JOabZd3POLhmsRcqm+bO1xQYPrQil/cEvib
-	 EQo0pqPorEP05iMNEbn8c9FnmAFRV7HG6N63Jv+q17xYCI2Z6wvEX1LiqsRhRn8PAHA==
+	t=1793115206;
+	b=AkUhl32mB16YHbRFq6F1n8xUQuGjsaiCH43Bdz0xw3xZ56nFesSaFHOJjvU72SQ6LxeF
+	 xWF1RAjcbDqEfr1QvPIntRdSPyUu/DfUsyLFthTF23kN+Ekcoy5fBUSiyStT7iaWLqgJJ
+	 CcVUZ4MrLTkBXZZSKWafeuwvDPTLa0wy1czLxuKUmHVLXIkghh8QYkSUxxiiYdAwXxoS+
+	 BLV5e5X0b+jfUEYmkg/ErUZnSKUp4mmqOZ4jUbzpXozv/stKpLribfmoEpfqvISNdMkVP
+	 LgWq0niJX+w6I8KxLjvuODpxV6aPAJ9FpnprbiCi/SEwZWox1aGRSb8X0nPM88j1VaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115206;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
 	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=XOOh+ULPr07EH3JwMHJLcn39ZNkIL073krbF4dkQm4o=;
-	b=Mjz4McVgqOgqGGbcMsUxv0XaGPxT0uNNI30WLr7gJu4TVfwcw1FwMCr24QgixR1SavWy
-	 6yZq6x7ADv6op1Bic0AhjdhLBsSoimDwfV45F5a8ArNbYEMc6Jxw03S/BxjxUupfXit2W
-	 RHMpGr+azjXL9j2e0sbHr0hSchRTKAy9zJrK36A88fP5vXf/NMR9Tuf4q668Qd0frvNXA
-	 6xRr5N9v91+y4hyfVnMwCcLGEUdJqUk+KA1JrPB2KbomOI4Xct4q/VEtyOencSniso1YR
-	 XwLygeyl7oX1V3DvhuwNT1ajuXjeGMHYglGvp1FTqygHc0n4DB1ZkpUd/+3e08LI7/w==
+	bh=kePQCSGoUZPAj081YLFh89S7XOp8oMUOsNVfcvVBCzI=;
+	b=21AdVPDHCxBunZ/SIqyBrE4Hc1MFKvkE4S5D9/MxzThhIE7rbaQnkSIkCFwf7DVYBfTX
+	 XIXtY7pTbwsfCQ1LrqYIww5VnLRmovdtlSk7naG6nQJDMgcJw5+7tnN41B2gFZQQXIzVG
+	 NuBuPvnuMq3YbsOC93uxyXNPNZO7/Z/SI50hVLYT96RM0JS8qCiJH1a7YcAes+iv0bPzC
+	 +QoQ+VXa58DBOYro/jy0n9KkFPrOSiWAKE8PBGNLQ5EYbsd5EPvv12rUiLJ2WWk+2terT
+	 oiXx/3sYgef+h4lytfABMSH+aoGJLPz/FFtCGVfU98NE0jCDtu/TtL/EJwsOjwtpP2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjR1n3En;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiLk4jCB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC91F606A31E;
-	Tue, 27 Oct 2026 15:33:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8AA606A31B;
+	Tue, 27 Oct 2026 15:33:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjR1n3En
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462F41F01828;
-	Tue, 27 Oct 2026 15:33:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiLk4jCB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C04361F031E1;
+	Tue, 27 Oct 2026 15:33:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115190;
-	bh=XOOh+ULPr07EH3JwMHJLcn39ZNkIL073krbF4dkQm4o=;
+	s=k20260515; t=1793115205;
+	bh=kePQCSGoUZPAj081YLFh89S7XOp8oMUOsNVfcvVBCzI=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=GjR1n3EnMf4ak9lIFuA4X13+QrowxkshNVZpHhBG+FgMOI/FthJAxNAJiHZUIy5gj
-	 4XHjoNEZ+wxFe7XfWpYpRnP4ixWsGbATxF/3YQJ9Ak1pL5dehCuVnRBzIDoloTfb0v
-	 41V9+kbKYU7icifv508cW7HoH1e4+F0cmE8Egyu+uc8Dd6XAnsT1fE61K8+MIeLW34
-	 nwx6DZ5idef7BIL6K1OcNUH7xRI5j8MGxNpNGMZPii298rgdBRXoXsGLnVbt/s26XO
-	 SUWwK2aW3mR180DlvdsYAMNy0ZaO7DEYJJlC4Be7gKatpbvAg6r2kmpdBxgu459rPN
-	 PdaAzVeFNCMEw==
-Message-ID: <908cb70d-bfe8-4d01-b64e-44ffcfe259bd@kernel.org>
-Date: Tue, 27 Oct 2026 16:33:07 +0100
+	b=JiLk4jCBxsqn0zHmpyB32HK5HDL1Rp5HdpnA6sP/gNldXQKwQ6q5jktGEAiysUwqC
+	 FlTI1AnLb7DYhEa6SMytmnyfnIxmiN6luHcxb3xfxlmlpOIMiv0rABpakt4PH+fA2s
+	 gHLIAcomXue/ljCtUvdz/wXg5VxrJJwS3JHXbGtEGEprzFLg0Yu/ECRMM4ue73PThP
+	 zfBArf7jJR5Y55ZU6LffrD4Iapp6rQwDVkOEiE6RpoiVHF44P+Mi4bkaMd0jpJ0Ake
+	 vEMnB6U3slaLO7Ec2KJMUFcUe2Ot0fmMO7p88Z8Bxc51t8J8d5Zpu1s5+HlMgHLdvN
+	 bu9YBbEaWK2Dw==
+Message-ID: <2a29cb8e-28eb-450a-afe9-df543f99b101@kernel.org>
+Date: Tue, 27 Oct 2026 16:33:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,15 +53,18 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] platform/x86: acer-wmi: fix UAF after accelerometer
- registration failure
-To: Guangshuo Li <lgs201920130244@gmail.com>, "Lee, Chun-Yi" <jlee@suse.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Matthew Garrett <mjg@redhat.com>, Marek Vasut <marex@denx.de>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261026111103.4158855-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH v10 2/6] dt-bindings: mmc: Add reset-card-at-resume
+ property
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-3-ulf.hansson@oss.qualcomm.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -106,31 +109,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261026111103.4158855-1-lgs201920130244@gmail.com>
+In-Reply-To: <20261027144051.249211-3-ulf.hansson@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26/10/2026 12:11, Guangshuo Li wrote:
-> When input_register_device() fails in acer_wmi_accel_setup(), the error
-> path frees acer_wmi_accel_dev but leaves the global pointer non-NULL.
+On 27/10/2026 15:40, Ulf Hansson wrote:
+> From: Kamal Dasu <kamal.dasu@broadcom.com>
 > 
-> Since acer_wmi_init() ignores the accelerometer setup failure and
-> continues initialization, a later driver removal or initialization
-> failure can call input_unregister_device() on the dangling pointer,
-> resulting in a use-after-free.
+> On some platforms, firmware or other hardware accesses the card
+> during suspend/resume, before the kernel's own resume path has run,
+> leaving the card in a state the kernel can no longer assume it knows.
+> Add a flag property so such boards can tell the mmc core the card
+> needs to be reset before it can be used again.
 > 
-> Set acer_wmi_accel_dev to NULL after freeing it so that the cleanup
-> paths do not attempt to unregister the already-freed input device.
+> This is expected to be paired with keep-power-in-suspend on boards
+> whose firmware needs the card to stay powered and live throughout
+> suspend: since the card is never power-cycled, nothing else would
+> force it back to a known state on resume.
 > 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: 1eb3fe1d3b6b ("ACER: Add support for accelerometer sensor")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
+> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-So you just keep ignoring and ignoring our feedback. It's just bot, so
-little point to discuss with bot.
+Incomplete DCO, missing DT list, so not checked by automation.
+
+
+Please kindly resend and include all necessary To/Cc entries.
 
 Best regards,
 Krzysztof
