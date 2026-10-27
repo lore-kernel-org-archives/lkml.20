@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793121728;
-	b=K1XlBMjcYYdFWxSrufjWSln9n2RO0qmsMCKt/JsvJRP63X+JIMEYIM5LXWWpaosmQXPK
-	 WOFG/kQdy1z1rradZcBJqw1mmqWzX6TKroo0efVpdHEd7olBGZ2kOzBQaB0o6Ma9hk2mI
-	 ef9R8gfnksXfvsxrfyVy2EYxHYucIv8DpyqCUon6cvOLjWTLYHZFNp506GccamslCVWcv
-	 gXp+1GwvTWr8oNkCufqwq9s337qElWFOaAOtTN9YMeplZ4r8FNpQNIS4YiAbr7shqwVNW
-	 YBU9L4LIqh6tKxVvAo+NFHXGLm/PQHe+0D5zG9ha3cVEvCaL/iTM9C3IwOY2XvkpUNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121728;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
-	b=MgqLceDx10K7Dx2/nnapZW3uCb2YcNLAR5MZ1Cm19FzLvkxRrYZDaflpnM7NRR7MbPbT
-	 JTMX214eBhbF/ySW2L8s+wH7BRE3Cyi1XNM9ayVNL2h48mpfD+pMhwsNw9JcmvEmTSxVs
-	 YB8GIAi5Souq4KlPizMVClB9c8vQ78aFrrQfbhe1B812IGxa5DWLETdE3uwOGAdqw4T8n
-	 LINS9la/OGdpNSYsXvpmNVF8GhGp2vq/atQgtgt3OuroK811qXRZm2lG5d5Z+AH1z9MBC
-	 wY+IZyAP2DcyP3w4VtoOwpBBlI6TjbBzoShlXEGQBPkxEoyKM+3YbHrlxjQbNxn6VYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C41cqylo;
-	arc=fail smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793121818;
+	b=FmEUa3IQ9lOZ9YePzwch6NIrefyC/mN4pM7ICoYESNMdqPJC3PK44MevfWmiy4vAA2ug
+	 ZVBa2nIBGlzdteRIry/ekeaDF5yWS8WzF/2mcTu3S6aQQNQkq5EpGu5i5JB/7+V775Eoo
+	 ohvYt4OsPjrk9pWT+Tc7pJNAtMOlLRGPKXvb3vCsST/I/hZzRjLBLjiEmLosuUhlUF3Zz
+	 FAY3jhnmvn0K8ogVIDghwxkO92BSXOq6/E41ZQMjWyUleRscCSYWOWDnrgZh1xpIWw1sJ
+	 TAI9BWH3f1a+NvDnSOs8y7LcxKREAZjJqe+/J+gXCEK2PKFxse6RqptHAOn2vENfHsA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121818;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=WyzPYgnAxCaB3shhfFY4mLt9DwvzhM4MTGjsJr4EZvU=;
+	b=HHNvBu2GME37MQ3CRI7Cl3ay0h5FcR8mn5OKx9GAEzSwVAh0GLHeZJttity908Td9vUM
+	 wvvKtNXh3jm3dMgSpj6vlnqFiGJlfdljwSIFp+R+swip2akDPm94PW1Qq9SjeD8kbNoQy
+	 LH3y4FGh9oWucFDjCfTY3TnZxTv/hfBJHegSHwo0h0HaZSz+4ZPB+bDcHWJZOCrQyKZUN
+	 XO2Ru4D3wDQeerMLqPTG/9NBVEkR3LWA3VftQWxH1Si/7Bg6IdbcHQqqOOAjD5V6BSKqe
+	 1raFf1RLVMs/D6vFXtsZcj+B+Eu8vj+iP8B7yHFEqwV6hhLEmvWIZ+7JUZYf1rhEO/g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5F91Y0o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A0E606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:22:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A0E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5CB606A31A;
+	Tue, 27 Oct 2026 17:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C41cqylo
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-156cbe59524so35698c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:22:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793121727; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aGrQpJwzcqmzo90EWI/49w3FNTwezQt/EwD3BEidzPyBQEMXKeBC2NC3+EcOPRSPmd
-         NXUzIXkl5cQJwoZee8wXS50sCa5dk9Cq17uyFHFlarLWsNA1vWL5SgSaLtQw92BI9MkK
-         +b72xSlfkhabV9XUtSG+act0aBi/wnyAU/kTpv0keMhnI+q55PIOKBF7vEfXwkSbtKjI
-         GCOkuXC33/nqefUTd/iUUrKZyY+HVf4/GQK+0aS8R4L7fzrZJ8pNkNW/JbSHTaVpqH3w
-         oNCfCNj2XHHaJ5EQG4BNDdlaLnF/xqx+GiPHw5Z5BhCXfcL3Mwykjg0XqNDZiNxPKjrb
-         PSxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
-        fh=/RL+0gvE7dxx07EVml/kTS8zFX7GrvRAVz3pZKIMYMg=;
-        b=MvypGbdH7ETiNINROnMwNMcyX5+FgFQnmX3FBOYXLH2S0TL6cOCr0VA8XfK2akA6y5
-         QdR1p5vcsV4xW61k42Xat+fHgA9o0nfyqfgnkANA+ty3+xaSRYGuyncE1N97G1WAWdMn
-         QcvEKtf2ZJbjdtOq6oyp6oXxiYlzKjuu1iPE22wVAIwU/30b2RlikPsyquYtI/N+5/de
-         VQeXX2xel1XaiyEgiw1KrHM4Dkpj2xdRH0C7RmLs2UM0CYRndQK4mO1OGSxfnLQctBNL
-         pm7/191PaNoVHr0vmhCWWQ/AIXDoqv5/mF0AFVUAMm28rf7Sl172Y+JnLjG7jPmNDp7R
-         FNwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793121727; x=1793726527; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
-        b=C41cqyloeS/h5Vtwj4fa7MIjm2aLukQaJNMjA01Wn+JGGCcQqxaMEk4qtaeGLTgF11
-         +xXojI6iydcNCHCInBDP9VQyo1hJAFD3dr6yQmpBM6HUXazAlicytsDrwlamPA50lS4I
-         ot5PvMH/HWpuW8LsxGwuM5M0OIfhb6YxMmvO1BL7uALyaS3FIvEjHjPJFzKMoA1yF8FI
-         hrNTtVklmnbX0GKT3t5upCjaEu9RMl7g31Ii5f+e1EuriC9yJOvccQQtUIHojQFDkmTh
-         oSuMUeEQcN3ZJUIM7OREyaxa56yxzKExGn54vpm7A5KxV62XI0nsE+2SOQIxafVeXPuA
-         1IkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793121727; x=1793726527;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
-        b=Iv8axTUma56rbmoYILMUVij3NfPmEQXXVsFliZeyvN+HIYELvZim/bzdaUblM1kUND
-         YPHvaX3I8mIKv0LyVMe7hgLGPJfxPibdx2XuEK934vyPrLZVlxzm7Rz9tJBhhdLvYq0y
-         uXDqRsZhq0ySFVkd3ES9722aEp3uCEzIBgvsVgXpIlFYCdyxT1+euHsNqa0BGxCeyJg9
-         2aII8ZtQgZAbrLp8a1I6Rxh6yVUzLW9OdHwB14DDZihT+4hTHkaqaxmMQKcruLzLpDV4
-         ImWkTyug8bpHTSL+DeKFA2laei2Tk5w/E3cNl41edM85WjUaR2kdHT/7LSRD6TSUfmhi
-         QarA==
-X-Forwarded-Encrypted: i=1; AKwUvByCNS/qTetWOoSc2MQqz8yBe19MIEl4objmFTuUa8YVLyH+RlXvOz0PeP8Zo7d5EwZDAOyAyDzzZ6Tvs9c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLcx3txAW7sti1GQFvP/KY53wXLs3ANHup9qh091FAFTVRN59H
-	c4cVeY4YtG8kRUeDFNQzEddDdEc86FLiIOExRFyEusWSm/uBW8ltIu+EuiBs/LuPUpVDg5PScdW
-	tz8ZG7/BxdvoUsCeI2HylIgLnt01+SLboD4n4Ku6y
-X-Gm-Gg: AYBFou1qgkHAcl4lFdeJEiAvAmj5oOTHZPdVLS4qeDsoRf72DT/xd8d1X0vJxBAoQ+N
-	2s2zw6g4YIlWfLeuez4jOhJviFFhouD989AGJy8kLgOAFLfdP8XcbDp3xbViIurrHOJNNazBZqv
-	3GIUuz8pmL/lPGbIny+ZhVzvC8CCx0ZH2RgkZFfl7WgyRk8uk6MLP/n+mS0Te0JHRUOfecWwnJ1
-	d0BvfumCTlMz1L0u2m+rrvC7r68HrEbH3pehzYJ397wCySs14LAdlhCLGC8IQLus0+xrzCcvBZX
-	Me/NVtL8tB6VV3Nnz+UU8Q/O38htQK4F03ZyijyWFK4tSJ1h4cIyqWk711I5Ern00dwEN4muuH/
-	Y9lPSguKs/aR6hq4L+W5ot9fzmNon7+pRfLaDGe6OUkdK2awswy1IGdXOk/Rnkl4fNDm1wFODNB
-	Vp9JoPax7i5sc=
-X-Received: by 2002:a05:701b:2311:b0:16a:8ffd:4977 with SMTP id
- a92af1059eb24-199363a356emr13049111c88.17.1793121726447; Tue, 27 Oct 2026
- 10:22:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5F91Y0o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8712E1F01825;
+	Tue, 27 Oct 2026 17:23:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793121817;
+	bh=WyzPYgnAxCaB3shhfFY4mLt9DwvzhM4MTGjsJr4EZvU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Q5F91Y0oVkNb/GspDlDlV+Ar/4ksZP6qBQRYBky+gjqA73IjQbIXVp8RHAyo81xbn
+	 /fMhWZxkkdLFzuAe7zK2eifM5fWEMDRfyPZ8dxHwWBwEQWv4/TyAjiZu9XVO1nTVrC
+	 jf7u+pxMekw/BCArHVAOHLRpbV/dEi6fYW8xSu0N+881qnI3o/hne0b7+F1icbLd2Y
+	 fO3gV2voONLy3YMp79EqNsQkMS8gl0Ze+4kWZTFMZ7mibYXOtPJp4HuGQlqJRl/xCJ
+	 NBAxHvU+38TyITt4l64xcFOOOBbPCWAzklOUNraJtCVmwZ+4weiTHuMEKTrLTmJtGh
+	 PzTDswU+9mJ6g==
+From: Simon Horman <horms@kernel.org>
+To: rosenp@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	rafal@milecki.pl,
+	bcm-kernel-feedback-list@broadcom.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	nbd@openwrt.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v3] net: bgmac: fix TX DMA unmapping and slot cleanup
+Date: Tue, 27 Oct 2026 17:22:41 +0000
+Message-ID: <20261027172240.416526-2-horms@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022215235.3692083-1-rosenp@gmail.com>
+References: <20261022215235.3692083-1-rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,48 +67,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027124954.110697-1-zoone.rupert@gmail.com>
- <20261027124954.110697-10-zoone.rupert@gmail.com> <auDNzWMPy0VQcazt@ashevche-desk.local>
-In-Reply-To: <auDNzWMPy0VQcazt@ashevche-desk.local>
-From: Marco Elver <elver@google.com>
-Date: Tue, 27 Oct 2026 18:21:29 +0100
-X-Gm-Features: AclHuK8orvmEUb-f7W0Au_t0jJZW6yeRJKoPRMRQ-D7ejg8oB9UAKvhykKBG7IM
-Message-ID: <CANpmjNNNw3Ont87-Uqo_j4YrPbamHLue=EAMkc+B66Q_yywQ9A@mail.gmail.com>
-Subject: Re: [PATCH v4 9/9] iio: enable context analysis for all drivers
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Rupesh Majhi <zoone.rupert@gmail.com>, Alex Lanzano <lanzano.alex@gmail.com>, 
-	Andy Shevchenko <andy@kernel.org>, Benson Leung <bleung@chromium.org>, 
-	David Lechner <dlechner@baylibre.com>, Guenter Roeck <groeck@chromium.org>, 
-	Jagath Jog J <jagathjog1996@gmail.com>, Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Jinseob Kim <kimjinseob88@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
-	Kevin Hilman <khilman@baylibre.com>, Lorenzo Bianconi <lorenzo@kernel.org>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Matti Vaittinen <mazziesaccount@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Remi Buisson <remi.buisson@tdk.com>, chrome-platform@lists.linux.dev, 
-	linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Bart Van Assche <bvanassche@acm.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 at 17:14, Andy Shevchenko
-<andriy.shevchenko@intel.com> wrote:
->
-> On Tue, Oct 27, 2026 at 02:49:54PM +0200, Rupesh Majhi wrote:
-> > All of drivers/iio now builds without context analysis warnings, so
-> > enable it in every Makefile that builds objects, replacing the entry
-> > for dps310 alone.
->
-> ...
->
-> > +++ b/drivers/iio/Makefile
->
-> > +CONTEXT_ANALYSIS := y
->
-> Can we reduce the churn to only adding it here and do some magic to propagate
-> this recursively, please? I truly believe it's feasible to achieve.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022215235.3692083-1-rosenp@gmail.com?part=1
+---
+net: bgmac: fix TX DMA unmapping and slot cleanup
 
-Should be:
+This patch fixes the bgmac_dma_tx_add() error path so that the head and
+each mapped fragment are unmapped from their own slots. It also clears
+dma_addr on every slot the failed packet touched. In
+bgmac_dma_tx_ring_free() it picks the unmap function from the SOF flag
+of the descriptor, unmaps before freeing, and clears slot->skb and
+slot->dma_addr.
 
-subdir-ccflags-y += $(CFLAGS_CONTEXT_ANALYSIS)
+> This was found through code inspection by an LLM while hitting other
+> bugs on an Asus RT-N16. It did not hit these ones specifically.
+>
+> Fixes: 9cde94506eac ("bgmac: implement scatter/gather support")
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+
+[Severity: Low]
+This isn't a bug, but the commit message says an LLM found these
+problems. Should the trailers include an Assisted-by: tag?
+
+Documentation/process/submitting-patches.rst says:
+
+  If you used any sort of advanced coding tool in the creation of your
+  patch, you need to acknowledge that use by adding an Assisted-by tag.
+
+Documentation/process/coding-assistants.rst gives the format as
+"Assisted-by: LLM [TOOL1] [TOOL2]". Step 6 of its procedure for finding
+and fixing bugs also asks for an Assisted-by tag.
+
+> diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+> index 3e9c57196a397..d44ee8ed32459 100644
+> --- a/drivers/net/ethernet/broadcom/bgmac.c
+> +++ b/drivers/net/ethernet/broadcom/bgmac.c
+
+[ ... ]
+
+> @@ -535,17 +540,19 @@ static void bgmac_dma_tx_ring_free(struct bgmac *bgmac,
+>  		unsigned int len = ctl1 & BGMAC_DESC_CTL1_LEN;
+>  
+>  		slot = &ring->slots[i];
+> -		dev_kfree_skb(slot->skb);
+>  
+> -		if (!slot->dma_addr)
+> -			continue;
+> +		if (slot->dma_addr) {
+> +			if (le32_to_cpu(dma_desc[i].ctl0) & BGMAC_DESC_CTL0_SOF)
+> +				dma_unmap_single(dma_dev, slot->dma_addr,
+> +						 len, DMA_TO_DEVICE);
+> +			else
+> +				dma_unmap_page(dma_dev, slot->dma_addr,
+> +					       len, DMA_TO_DEVICE);
+> +			slot->dma_addr = 0;
+> +		}
+>  
+> -		if (slot->skb)
+> -			dma_unmap_single(dma_dev, slot->dma_addr,
+> -					 len, DMA_TO_DEVICE);
+> -		else
+> -			dma_unmap_page(dma_dev, slot->dma_addr,
+> -				       len, DMA_TO_DEVICE);
+> +		dev_kfree_skb(slot->skb);
+> +		slot->skb = NULL;
+
+[Severity: Low]
+If a pending packet wraps around the end of the ring, is the skb still
+freed before all of its slots are unmapped?
+
+The commit message says bgmac_dma_tx_ring_free() will "unmap before
+freeing". That ordering only holds within a single slot, because the
+loop walks slots in physical order from 0 to BGMAC_TX_RING_SLOTS - 1.
+
+bgmac_dma_tx_add() puts fragments in consecutive slots modulo the ring
+size, and sets slot->skb only on the last one:
+
+drivers/net/ethernet/broadcom/bgmac.c:bgmac_dma_tx_add() {
+    ...
+		index = (index + 1) % BGMAC_TX_RING_SLOTS;
+		slot = &ring->slots[index];
+    ...
+	slot->skb = skb;
+    ...
+}
+
+Take a scatter/gather packet whose head (SOF) is in the last slot of the
+ring and whose last fragment, which owns the skb, is in slot 0. The loop
+reaches i == 0 first and calls dev_kfree_skb(), which releases skb->head
+and the frag pages. Only later, at i == BGMAC_TX_RING_SLOTS - 1, does it
+call dma_unmap_single() on the head buffer, which is already freed.
+
+bgmac_stop() and the suspend path call bgmac_chip_reset() before
+bgmac_dma_cleanup(), and the mappings are DMA_TO_DEVICE. So this may
+have no visible effect, but it still breaks the DMA API rule that a
+buffer is unmapped before it is freed.
+
+bgmac_dma_tx_free() avoids this by walking from ring->start to
+ring->end. Could the same be done here? Another option is to unmap every
+slot in a first pass and free the skbs in a second pass.
+
+>  	}
+>  }
+
+[Severity: High]
+This is a pre-existing issue and was not introduced by this patch. When
+request_irq() fails in bgmac_open(), are the RX buffers freed while the
+hardware is still running?
+
+drivers/net/ethernet/broadcom/bgmac.c:bgmac_open() {
+	bgmac_chip_reset(bgmac);
+
+	err = bgmac_dma_init(bgmac);
+	...
+	bgmac_chip_init(bgmac);
+
+	err = request_irq(bgmac->irq, bgmac_interrupt, IRQF_SHARED,
+			  net_dev->name, net_dev);
+	if (err < 0) {
+		dev_err(bgmac->dev, "IRQ request error: %d!\n", err);
+		bgmac_dma_cleanup(bgmac);
+		return err;
+	}
+    ...
+}
+
+By the time request_irq() fails, bgmac_dma_init() has enabled the RX DMA
+engine, attached a mapped page to every RX descriptor and written
+RX_INDEX. bgmac_chip_init() has also unmasked device interrupts with
+bgmac_chip_intrs_on() and enabled the MAC with bgmac_enable().
+
+bgmac_dma_cleanup() then unmaps and frees every RX buffer through
+bgmac_dma_rx_ring_free(), and nothing stops the engine first.
+
+Could a frame received before the next bgmac_chip_reset() be DMA'd into
+pages that are already freed? The device interrupt also stays unmasked
+on an IRQF_SHARED line with no bgmac handler registered.
+
+bgmac_stop() quiesces the hardware before cleanup:
+
+drivers/net/ethernet/broadcom/bgmac.c:bgmac_stop() {
+    ...
+	bgmac_chip_intrs_off(bgmac);
+	free_irq(bgmac->irq, net_dev);
+
+	bgmac_chip_reset(bgmac);
+	bgmac_dma_cleanup(bgmac);
+    ...
+}
+
+Should the bgmac_open() error path also call bgmac_chip_intrs_off() and
+bgmac_chip_reset() before bgmac_dma_cleanup()?
