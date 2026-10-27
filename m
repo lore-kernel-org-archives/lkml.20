@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793129158;
-	b=Mq7VmvBDlH4icYEYVW+kok+V5a7hpvy7gZLXt6wyn3CUzbPSO+YjXTu9xMmD13eWn1qr
-	 kXpr/Xp3qc6fVUY3CgcSsQ5HYXnQRoGagXzhZ8+LCiZl0xshXSFwf8lsepSSiz7EIgDA+
-	 H+mj83pZGjqCDjsYRu5Xv5Qa8YV5XNI3vlGEzttArgIr5/IRNCd/WV7CKvBZeyuAfPh2J
-	 olXLpByjf3X8s+fe8YTg2yLSOAUVkJpZU8e09Ip3FfSZNIDp+vGl0q5i6c/gET5K7yHRf
-	 eA2DN0uD6Gz7D1AAtXhpqXgZxo7e45FNS4XDeTER5X4W4TgbV/kOJ/JUqlOdvba38VQ==
+	t=1793129223;
+	b=d9DaWxqT2TmCGa4X7F8XMablVmBCBrL3uCeJlEXQX6r256ucIcJZWjJxy/vuma4mJLdt
+	 av9TrCzWwuZhI58EjHn6Gr+pAmvd2R3Eh/1+Ag06klkQiyt5jd+5a52lYcHYWNa8E6U5+
+	 O0e84POFiFOBLfcqR4yperaNSqm2Q5nWzBhWHkI3IXOlSfW7JBEJJ01zBNh0EPr7mL9f4
+	 gdC/3jIy5ew3qThSF0bl/0CQZsNgTaJAm1nim+imexBX/bl6K/fMwnNOXJMGo6/6UQKfe
+	 Iy92QZD1u9e3Sqa9gW4E6znOaR/P+IZB9YvtdxkBB/D6r5m1GOPwDb4XqhVhkZvodtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793129158;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CMAE-Envelope;
-	bh=tEogqM6cDAZusNLmJc5Pb9iz70oEFEFrHnh7w79Hiwk=;
-	b=tu/ksZoubKVL8uh7aPC/5QmDtB+1Mxm1q+6MS0nYEjgs98N39dTjgomMuAneF0sdmaFh
-	 OIud3Wc9hvXXOg5OXwY2RK4JvthGovTK9xkYo+mgnaN49X9gSB9uUgamRh9oji+GZ3VZ5
-	 37P+7kmZaGQfuk3ophod9VLjv9WUDrO50RPCO11TFvAlXytuzWx3eopcJe/5SA85F1IXa
-	 efMhTK1zGYRHzL/1VLGsCJz8DSJY23PAVqT3fyqxgpAKLqQOz8lZ0K/5qDVIeweCEwjrh
-	 5k8nYAB1hloiYdV/vYIW59Kuc2S8fIfaWwhH2Qn3sbNVVz/FYUyZnhqvhXmZrlNOOgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793129223;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=dAeKk4TrxbH1VVtnTSYzhQoSXRliJkduz6UO58AYncQ=;
+	b=NfZkczxoYY+bmUq460Is3QQ+rkJbAn/57dmLdFlHO6wMKXayZjrlzBEJ4cJ+9LzUrwWY
+	 Q+K9LICb8Jr/y1fdW8JkIzvJQ4AwCZ2wzwuek0EwbW+9k2XUGYI5ch5mWC/8PsBb85vFi
+	 ZlzJ4mcm6tM/JkHVkM8ZwyNa0KE6IToiiA34LtLob5apCb/sQfVsfED1EZm6wJbbFh76Z
+	 j2Dms/KjX+5Q6JlmyXx+mrLMzFsrMWEUF62wAdFYF5awC+BKNEn8ANm9IXXp4twnxKl15
+	 6Ph0lFyN4AI6+S5aYLQrT2yhtJYCierXwiNmAwcg5+4eOGG9p/boKD29LjmeQdlTSnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mythread.it;
-	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=PX017VZB;
-	arc=none smtp.remote-ip=62.149.156.102
-Received: from smtpcmd10102.aruba.it (smtpcmd10102.aruba.it [62.149.156.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578F7606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:25:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 578F7606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=PX017VZB
-Received: from fedora ([94.34.125.0])
-	by Aruba SMTP with ESMTPSA
-	id Lmntx3q1VW41bLmntxqI5u; Tue, 27 Oct 2026 20:25:49 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793129149; bh=GDOI0xW3OjzJgooa36QpDQuuemC8QFwMBSGIM4ayZdI=;
-	h=Date:From:To:Subject:MIME-Version:Content-Type;
-	b=PX017VZBdHtuwgydU+pi0Jb/DqzK+cj1xCHoxJ69yoHDnjbuXSu7cQ3uu5BPfwVZ6
-	 DDgQLLVzvDrkFfpw1dY73AoEnOmcQDrzQx4RuFt7AGleERiy9ssdsV80hKQu/DCgJ9
-	 dWP2OZgW9jFSZ4u7ocDb5bjlg63aYWoOyyyJPggF/lc6ZJcyEbE8HYOnXV5s+Sbw7k
-	 mHvKB4M9Q7K4FlRWy0xDeA9K7N5tTYfo6y+zkD9jFEYrNfoRo4MXcohcJWyirry7sc
-	 ygJhEsqi71dXemfmzh+OERef/Z0C52Pz1H2M0mqU45PHKRb9yg0DYZcFdOiNd8vtjC
-	 cJ/T90Yuu1YHw==
-Date: Tue, 27 Oct 2026 20:25:48 +0100
-From: Alessio Ferri <alessio.ferri@mythread.it>
-To: Andreas Wendleder <gonsolo@gmail.com>
-Cc: julian.calaby@gmail.com, kvalo@kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- b43-dev@lists.infradead.org, Michael Buesch <m@bues.ch>, Johannes Berg
- <johannes@sipsolutions.net>
-Subject: Re: [PATCH wireless-next 1/2] wifi: b43: reprogram the MAC filter
- after an interface restart
-Message-ID: <20261027202548.704378e9@fedora>
-In-Reply-To: <20261027202151.7dcdfe4e@fedora>
-References: <20261014143225.82149-1-gonsolo@gmail.com>
-	<20261014143225.82149-2-gonsolo@gmail.com>
-	<20261027202151.7dcdfe4e@fedora>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28512606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:27:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28512606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e778acdbc6so356374b6e.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:27:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793129222; x=1793734022;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dAeKk4TrxbH1VVtnTSYzhQoSXRliJkduz6UO58AYncQ=;
+        b=FQx8ifiugI+0vphgMUneqiRPNTcBfn5A1Xd5rw1B72zuZ+W7y1lZIUWULUd8J7/8u+
+         9rJ3WWlzikeYI7ATA/zWGGONx+YAIb8TbpcTrSFOs6ooM9CMKgoktPGmjwlucD/9wJyD
+         dTk6yC/q+BgUxGjXFSHv0v8lXn3rcz3PhlghxIstGPUuplOvgv4pIQcCMAlzoACMR6dz
+         nPuCOjyqqbF9onGQLKe0iQ0C8SKEPh7b1z8T0IbHtAQvhdItZXL/3QJGjRFU1mZdIp+h
+         iC1AIdvh/ntnOWi6DVKrvYqTjegAtwvaNxLJHehAnLWBFJSCe1fP/6uWoVkY7CmI8/ju
+         qiWg==
+X-Forwarded-Encrypted: i=1; AKwUvByqma/rPMseVv24Ya3vRf8va9ct4BAyZ8FJfqFvnACmFT30tOs2aqU6LyT1q1RyHodxf1IFTiV2gH+xdm0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhkbsvJqXFRIDKcJm/0g/8z6MWjo5fPWQxgWlT+Ir0EyzEV9PR
+	yeCRXkyTGDij3/U5carkqWGtMNjZyaPpiHnAUOQdd1pRdGO3G+s+5KZttpulj3FNRiavB3SGmPJ
+	dJnU3UCkw7dFdKET1wT4aLODlpXeNDz3xAZP5ELv7ydH3Kerub+1DXLfdYyw=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,71 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfPlu6URVniRZ4SPGlOnRS2FmnTO9SM12PPiq9x5/EKVvirC3WRbMvkUS4PHV3wSmPIyyiOflRoYooILKKBXuLQedXOkpTK8pOwLO+obzca1VSoMRrc4s
- mQ74Sfl2VWhVpMUpCqXjna8Yj439uNznjJk9GafkxMNJzDtwmdIeMO4srNgjVYzzZRQ34IghwfQr/inkALn9LMrWMcV0DHYsvIkold8QfkToPwZDVzTjZDHh
- OnsrXLjQruPtesXyx/w5Jjab+tdLbA8RPLuC10PWAdh2Xysu4WRO473bWSWPMiBsMcNhnncwCjEtzdkD4ukNUfKVu6dppZIMtP/49ZEKEITIkusi3GYf0/JS
- IGU5ZxZSJI2iAYPllaWgWe7HgxiE7FEtwgQPlD3LH1SNll3AVamE5l/DNHrleELgG8tdPxhI
+X-Received: by 2002:a05:6809:15c:20b0:55c:928:69d7 with SMTP id
+ 5614622812f47-55c09286aafmr4664755b6e.67.1793129222111; Tue, 27 Oct 2026
+ 12:27:02 -0700 (PDT)
+Date: Tue, 27 Oct 2026 12:27:02 -0700
+In-Reply-To: <CAGsrLdYA5DgGeuLpzEFot895T_N=gC1D6P65CVc8umDYb9Dy7Q@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae0fb06.47d0a7c9.33355c.007d.GAE@google.com>
+Subject: Re: [syzbot] [acpica?] KASAN: use-after-free Read in acpi_ns_get_attached_object
+From: syzbot <syzbot+5725792ce6a9938d1b24@syzkaller.appspotmail.com>
+To: jeff@incrediblybased.co, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Il giorno Tue, 27 Oct 2026 20:21:51 +0100
-Alessio Ferri <alessio.ferri@mythread.it> ha scritto:
+Hello,
 
-> Il giorno Wed, 14 Oct 2026 16:32:24 +0200
-> Andreas Wendleder <gonsolo@gmail.com> ha scritto:
-> 
-> > b43_op_start() clears wl->filter_flags, but mac80211 computes
-> > @changed for b43_op_configure_filter() against the flags it cached
-> > from the previous run. After a down/up it can report no change, so
-> > b43_adjust_opmode() is not called and MACCTL keeps the cleared
-> > filter.
-> > 
-> > Compare the requested flags with what the hardware was programmed
-> > with and add the difference to @changed.
-> > 
-> > Signed-off-by: Andreas Wendleder <gonsolo@gmail.com>
-> > ---
-> >  drivers/net/wireless/broadcom/b43/main.c | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> > 
-> > diff --git a/drivers/net/wireless/broadcom/b43/main.c
-> > b/drivers/net/wireless/broadcom/b43/main.c index 8f4aff3..57a5935
-> > 100644 --- a/drivers/net/wireless/broadcom/b43/main.c
-> > +++ b/drivers/net/wireless/broadcom/b43/main.c
-> > @@ -4318,6 +4318,14 @@ static void b43_op_configure_filter(struct
-> > ieee80211_hw *hw, FIF_OTHER_BSS |
-> >  		   FIF_BCN_PRBRESP_PROMISC;
-> >  
-> > +	/*
-> > +	 * b43_op_start() zeroes wl->filter_flags, but mac80211
-> > computes
-> > +	 * @changed against its own cached flags, so after an
-> > interface
-> > +	 * restart it reports no change and MACCTL kept the zeroed
-> > filter.
-> > +	 * Compare against what the hardware was actually
-> > programmed with.
-> > +	 */
-> > +	if (wl->filter_flags != *fflags)
-> > +		changed |= wl->filter_flags ^ *fflags;
-> >  	wl->filter_flags = *fflags;
-> >  
-> >  	if (changed && b43_status(dev) >= B43_STAT_INITIALIZED)  
-> 
-> Tested on DSL 3580L, with 4352 chip on 5Ghz, the chip transmit and no
-> dma error arise. Without the patch the dma engine report an error on
-> the descriptor. Earlier in June i wrongly asserted that the DMA on AC
-> chips was needing 64 Kb segments, it was a wrong conclusion: going
-> 64kb did stop the error, but for the wrong reason.
-> 
-> Tested-by: Alessio Ferri <alessio.ferri@mythread.it>
-> 
-> _______________________________________________
-> b43-dev mailing list
-> b43-dev@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/b43-dev
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Ops, i meant to send it for PATCH 2/2, sorry to all
+Reported-by: syzbot+5725792ce6a9938d1b24@syzkaller.appspotmail.com
+Tested-by: syzbot+5725792ce6a9938d1b24@syzkaller.appspotmail.com
 
-Sorry again
-Alessio
+Tested on:
+
+commit:         62c45752 Merge tag 'vfs-7.4-rc1.keyring' of git://git...
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1521d53e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b7dc4693928b1
+dashboard link: https://syzkaller.appspot.com/bug?extid=5725792ce6a9938d1b24
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12bed53e580000
+
+Note: testing is done by a robot and is best-effort only.
