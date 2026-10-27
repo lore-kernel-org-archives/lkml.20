@@ -1,111 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098174;
-	b=Y80RXl18zDFz79gS6cs3oiqEiEkx6uNUBkZLG3yxsuRba7qH+RIEuKCkEhn3swn6oh0G
-	 SzY+L3NnTvaDbs1XtKjjtV4ekKm1gwjpxLfGpfV9ep7LbumNML+QzpHlp3taSweRQWa1u
-	 DNe1J28w2+dXKKqSouG/mxsS9mnw+KkTMcBaTRuWasZbAk825rihZeDQwm0ZHzGRjlFYm
-	 ko5AYKA9rwbT7Vn+a7Oie7UsRQmMkCKDdx3VmOKnCofdTw0QZ28/3rqzXCZ41u/pHU9eW
-	 Tw992mid2QWndU3gxLe2B8FxA3/LhXLEuecQTrkOfJXmGgSHMBHZrKY//H8ms0qLSgA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098174;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=k5tGmvbUJ2op+8nhPcyTDEVrgBH/N8qAtJfXgf1NHn4=;
-	b=T6t8Hk1NObZm2j7szCPQ3PnS9pKvzhj/u/KWJ0nI6r6ibwJVWLw8ATPDEubz7A6skTTZ
-	 X0DKPBNxTC1W6/rlbA6olg/r2bKjbNxQexw5TmdqshfcL1XcN7m5XoK1tLHgoz6yqav6H
-	 7SFAMAb+dmKES2lR2H/r867skU8u1TgyfDvkXVfxCmycjdytOtHvLdue2tmrevkrbPuD2
-	 brg3+IQj33XRvUiWEimLwBnI4VAu3ntUG76bdkGOChU7AuJl1k8sfpSpfFGPDnHoEOgOD
-	 9SfTKLbU/w21q070hKTlggWHhfcuItxp1gRjTHrEcAoiDR8vwDyVT4/5oR+iTMkVE7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g0Y8JYGd;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KoB7iIMz;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.21
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793098187;
+	b=r/PluwmonPZuAsael4spJR+uQFObYnihbFbcI8xiotQHLTAwnAA3UiLsVtTfJM0ZVKgn
+	 tFPHapqpYchqkJV8Bfu5hC1hsrUpt9O+Dd8PWOcqAb5rdG6auXRiWYafWKoexmf4y1Euw
+	 wbab6dOL/O2L67CLBCaJSllnaebYT27WE7VGy9UDlsGWi+u7tkmd7AdhBbiqqnTOa6Jlx
+	 PFC9Nx6i/aMnCA2c1UoAZAKfXHbQk3ljfAz5z45vBO955HSftud/vfLOpSp0LeekxaxUT
+	 etpzkt+BpqIf2DTfCOesSwYbIvX0Dje1Rib1yfzX6Or1NJcZbmee0ucw3S/IGrwOUaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098187;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=+IMCpnrkQn98REZW8av83vaLmH+UmZW6HmysnHxnV1U=;
+	b=TI3Zvc8qQoe5L+O4V5Kkb6U7QxMLhn7GrXUgXVN0zwDZ5qKb4jEpjORHSLsR6atT9siE
+	 eVhSE1D1Mb/hZbbxVsiV6xsyfmgc7Rr6K4gcU3PuTPSZTAFLyIHB9OZ9Od/zt3qsoDf34
+	 RQdTftf6iiS0i+D5oUK4fcSFARmwSg4Zmfpkjtb+zFkGAs+hB4A08NE3QRCG5JiwQCsLK
+	 yHfNfPt7lB9e4axq5sca2vzQao4TkFR5fR//DnLwbP02M4I6UsKv6Dkan0WDrIu5BQixb
+	 lr9fwlqcPK+/W7OuwAk9p8vgYE74dgI+5iAszDxHPlvueeLp2qtvwj+jDXrpXa00h7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L86k0kGh;
+	arc=fail smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D4D606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:49:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42D4D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B13E606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:49:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B13E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g0Y8JYGd;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KoB7iIMz
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe3G5432382
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:49:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	k5tGmvbUJ2op+8nhPcyTDEVrgBH/N8qAtJfXgf1NHn4=; b=g0Y8JYGd4Gq3paKq
-	f2ixC2P0SWWVpBU9vHSGH9+1X5Z9ogQsqsrQdnW/bCs1YL6b07UaTm4ADDZae4d5
-	7VgGadjp6T60ugbFKHAhJzDFoutjzc/WCbjqGL+q8apJlsXcAvF8JeWpyUYU7FVr
-	KuIoSevxpeKxOXaaKaJvj5UJonbqhSrKL3XEqJscW3t1rFBvcVLrz2IewgbH7GPD
-	JCizz23DjD/MDfAigqfL6pNlCvoTKRn91Z3o8QwMXpAh8bMLLjPDxOqEXJIB9SuC
-	aB906McLIHrrgxA7/itSyUPEj53We1mgVeOhzwjJzLfo6C93+I945da+RVH4dt1Z
-	/XmkVA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjb54kcwc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:49:33 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-536708d1a3eso15637901cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:49:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793098172; x=1793702972; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k5tGmvbUJ2op+8nhPcyTDEVrgBH/N8qAtJfXgf1NHn4=;
-        b=KoB7iIMzv+LKYWLN7yRyZS5VOvFdIEwHT5p9o4iZoLk7W+mVAIyogLgQ9A6qhssuQL
-         3V+PcitsqMzSjp4iyt37f1wSvl8pwkTxXCUYANAFXSckwfxmCda5gh1HywzhbeZnO9rX
-         J2FEyzCeDVTStN4+3568P3IWZZbWaKu0YR8ZQP8CBQj4LeptmEY7TxJAFZIE+yUxIatd
-         u09GiE8TxFQOszCWxYRJ+nmtniAuo8XSIx2hvK5340CAN0YAFKDRSF/Fhzds0DL4RQJ4
-         RQQ2OQpr2kPodebMbRffIPx0VU6gj5JvOKL8xvtZQ/uygVZX0SFRcUJAVqFruZxMWVM7
-         YppA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098172; x=1793702972;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k5tGmvbUJ2op+8nhPcyTDEVrgBH/N8qAtJfXgf1NHn4=;
-        b=vxoz/JRE2kWwfqTIS3SyqS/QAnqjHwTSLDamvc4Dix0PSc98DdyKivY9nXuftlAERi
-         fjHfemCvtr3DYCwzXzl7maKOM+cdX8aJhnbdHbme0WMaiuoumn/frDc0Ekvl9dPk6Ywf
-         w8w7iB0YqJSwAxVJjZ/a2TKAPtpqoF7dEWId7DViUzHspf9FXCPD04EFNFF7Z/LkDRs9
-         vbvKKFGCWj8AuqoIYNhr8zSLNVBXnhqKnENCwMI58k672qn7vIsc1FvpWC9TY2iW0mru
-         oCj9opmW8YG++L0W/9qpmgweYHHaPdK26rMHXikzifUwI+ECCSCjbnxOr4Kkkh9YungP
-         Dhqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxVaskhvqKgGUTcVkb1VJFhRKGBz/J3ecX6X9mvs6oOamQT1VesHAU5NnbDrx6hvI+2boE8g6ZPKYiAbwA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXvZ+PqAHWSyWKoxMZt/erisP1hLrV+n5zQdAOxhsSTV/PNYyN
-	GM57n30cfaAWAQ/wUyYVhrlMmApzellCcxteVCEa8fBVPQDMA/gNaUZutlOZPyESgBhOMjCrjKr
-	JELzjl0pFNmbSphq6/VdXbq8PIOMSXinNktQvv0nEQOPdJHYFEenk6fpYO3zYny0KxHI=
-X-Gm-Gg: AYBFou1tIYzshS1RyeDrlCkgmHRhqtdZ5eviOXZb1K+qRx7anoXJ7XNLc3YuthRb/tI
-	qlsgFgvH36k2/t2RP+wLFq2lNrGm6lK2WxIdNTDZXYjSs36vs5yxHAtoXW54HrLgU4RdG6rUP8r
-	YAm9RggONCT+z3NZuJ49z+9OB3HSJAT5SAoo5isgt176xDAf+Sre8gCcy6A+pH1zP62flEOxyXn
-	INBdvA74DlR7rTU2hDH1yFeJnQYx25XKo1UD+JCQ0T2q3mNuyyXTI0ze5wXJKD8GFxwkEVnzpXL
-	3YeJRWdSq23AcSiDUG1BNq6BUgrmbZTvI2qlYKj8ey3kZOZP/0L/h46fQfbP5k8gXA/7yXG0XSH
-	qtgMXoAFSmydwNvraIMinCQ==
-X-Received: by 2002:a05:622a:e309:20b0:536:3519:de44 with SMTP id d75a77b69052e-5383b6426e3mr146321961cf.4.1793098172330;
-        Tue, 27 Oct 2026 03:49:32 -0700 (PDT)
-X-Received: by 2002:a05:622a:e309:20b0:536:3519:de44 with SMTP id d75a77b69052e-5383b6426e3mr146321851cf.4.1793098171923;
-        Tue, 27 Oct 2026 03:49:31 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd77e1e9sm429781566b.67.2026.10.27.03.49.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 03:49:31 -0700 (PDT)
-Message-ID: <665b6014-f9df-4582-a682-e825dbb1ca4d@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 11:49:29 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L86k0kGh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793098186; x=1824634186;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=suQRkf1Q/dvB2vPCwwK2BoceTiUZTdRUyBwwQNi508k=;
+  b=L86k0kGh8QUqBnpFiXn81Cy13yu5OJTo2EaVMnhb5MdihRtJNoVVWODZ
+   uTx8sD8BEaksJMGomAz+AggVfPiCYgeME0PpHbS6XlcR6QHvT/Mdc2FFN
+   HXCqhOyvuRkwbGl7zHaUywE9py8p1a2IdynBcVXXsa5cJEXJfkLfYD5Np
+   vWqInekWNRwTgLBNASlUTsif5TUrbXR4OBStK6APA+5ouEjpCKx5GZODZ
+   fzH1YAXqGZI+SwrkGUZeAi6HPuj0bitVx2E6VqqFrqi/ftWO2L6gncFH/
+   HETx9vnSmVVi2g99a1vLgLapvs7K+CV89AT+NaJzqalqpJRcf4lbV6Di1
+   Q==;
+X-CSE-ConnectionGUID: rgFtFNlSQyes4BuqbW0d8Q==
+X-CSE-MsgGUID: yh543ZHKTcuObw6NEy60yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1885017"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1885017"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:49:45 -0700
+X-CSE-ConnectionGUID: pPrZCsIKTbCV9J59soLKWg==
+X-CSE-MsgGUID: rZcWqTeqTM60onbwLOJFGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4616281"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:49:45 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 27 Oct 2026 03:49:44 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 27 Oct 2026 03:49:44 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.59) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 27 Oct 2026 03:49:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ot2Tq3KYWcX1Q301W7G9llavvuwt0AvEVMnrJya4o6K5KRis3Vm3iGFJKjYDN+uDPmb6oaejPhmW4NFzFhTowlexC/cbNZHKJQhkjJtfAkG1r2H3NwmpiIgqZmMHR3Mq2RqdKpzE3CMnHDfIpXI4e3B61Eb6/2If+nwDxBb7KiNA2kta6CTczf5cOXTIR74pAXaWp1n0NQAX5kyKUuY8M2UwjWUr9yBd3O3BcmA3IbN1c6mNx0GLFFNu0qYmcnVc6/cDeznMAiv0dFbEwrPtX5M/DJnRtpLrNFqEEA+7UAF7Ca+Q59P10UFFdk01G4P0izYzH+Lx7F1BbkIUg8lvyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+IMCpnrkQn98REZW8av83vaLmH+UmZW6HmysnHxnV1U=;
+ b=j1SZj1Ma7Tx+GDKvM9159UL9oNJk8nVyWNHZ6v54bLmG0J12Dqj7Gf+aeh+hls9DSm2XHga0cZrP0agqjiMcM4s+yJS/mseFP9ZMkU7WCPbc+ClLoAMUdHSV8V6BkQ0jJX0PtZgLu0FwfnXMOuv7hiFL2vSZDnNNnCeH5f2nKXiRudGvsHO3X+QSEAZRhymHfU2l9ECjwKC+yhblUbukXZcnxFJxeO0Dt9BZwSkh0rjTDuxh3GrVcN7HphCTVsStXuaEuMpT+UJClVRYlsdOXDSRcNT6tNxfgwUUrbTDtRXKmNHjqtykKXcQWCZYuRnaSIjd1DEF1Yojn8pg3I5ymg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
+ PH0PR11MB5144.namprd11.prod.outlook.com (2603:10b6:510:3e::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.20; Tue, 27 Oct 2026 10:49:42 +0000
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 10:49:41 +0000
+Date: Tue, 27 Oct 2026 18:36:47 +0800
+From: Chen Yu <yu.c.chen@intel.com>
+To: Reinette Chatre <reinette.chatre@intel.com>
+CC: <tony.luck@intel.com>, <tglx@kernel.org>, <bp@alien8.de>,
+	<mingo@redhat.com>, <dave.hansen@linux.intel.com>, <hpa@zytor.com>,
+	<fenghuay@nvidia.com>, <babu.moger@amd.com>, <hongyu.ning@intel.com>,
+	<chen.yu@linux.dev>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
+	"Hongyu Ning" <hongyu.ning@linux.intel.com>
+Subject: Re: [PATCH v9 05/12] x86/resctrl: Attach ACPI ERDT information to L3
+ mon domain on CPU online
+Message-ID: <auB-vz3-QCXxfGU4@chenyu-dev>
+References: <cover.1791933001.git.yu.c.chen@intel.com>
+ <2d3327d86480b1a41bf1a7c935317f14884a83f9.1791933001.git.yu.c.chen@intel.com>
+ <2317c664-0c9b-4dad-b135-a771959be024@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <2317c664-0c9b-4dad-b135-a771959be024@intel.com>
+X-ClientProxiedBy: SI2PR02CA0019.apcprd02.prod.outlook.com
+ (2603:1096:4:195::13) To DM4PR11MB6020.namprd11.prod.outlook.com
+ (2603:10b6:8:61::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,76 +136,393 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add HP OmniBook X 16-cp1
-To: Jeff Roach <jeff.roach0@gmail.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261026154001.9323-1-jeff.roach0@gmail.com>
- <20261026154001.9323-3-jeff.roach0@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261026154001.9323-3-jeff.roach0@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0MiBTYWx0ZWRfXx6Eok+vtjmzI
- 1nz/xo2toPgTLlqNwDrnaKCW4EGza+hvMWx9V1LNUHik+j9mRmvbalfP/m4vKrIlwksJmKSV5yJ
- zh3BBNF2bN9AKa9WYNZoOlu3i0ECZ5U=
-X-Authority-Analysis: v=2.4 cv=bsnZl0ai c=1 sm=1 tr=0 ts=6ae081bd cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=qQh0c9Rk1agPjm9wVCwA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: i80tBHnPebU2xGSmkBsO9G2WeCr5IKbo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0MiBTYWx0ZWRfX30lh/b3Ivq0j
- MA6M6hRx8lCEoW5yyBhcyprx/xJsP4z/yTYc2wBwKC/g2t6rrM4+aqVONILN9P6Niu+4F198Iau
- DuUD1TfLyAqI1ca/Xx3dIBMUl/IYZF5dExT2Ygj5KvuH612ob4xu1INtBo5p0J0/JgQ/mCLo/bo
- jxJTrpKs3giq60n/ulsbt7wl8QS7J/j8/jiIt74pYGmxyenq74OwY0N3Zx4ViVebyUl4i0Xrwm9
- BprkT0vRYc3cNEt+L6q3dNvl4gmGORv2x8n/xOT9fsavoGt45yYJC+n6RN8UPt/NWFEdqQdsoVB
- T2Pi5LjydOK+XMxsVqD8PvmE8HvZdhXWserbtedVCHgXuEJUmnn05/H7aAwZjGBoR6/HwqWeD3D
- 3IjnsS6uqTUC8H3AIEtYU2Zbq7v8FO5uCW00o1jcBF5XJUZQIQAQQ23Gm2LCMotZBuDEzMf8H1J
- jW9nqYQCiR2uyVqsm1g==
-X-Proofpoint-GUID: i80tBHnPebU2xGSmkBsO9G2WeCr5IKbo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 suspectscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270042
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|PH0PR11MB5144:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75d26b7d-7fb6-49f0-38f8-08df34180127
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|6133799003|22082099003|18002099003|10067099003|261026140227099003|3023799007|261026121527099003|5023799004|4143699003|11063799006|56012099006|261009223027099003|261022075727099003|261021121427099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: zEtq5x65E0H2EXluq3Cmmwyr5nhK6vdA2VptTbaDs5tmZ+IB56DAy+vgOaMrIMr3PmDyE7YCJhWv6bzupsfzbKPTBfXLA9sGkZ4DQSD0UlMUmnaQbHXv9o8isgZa96uMT/K9/aFPZOtDiPZiZEIIq6cTqVOZH7YZKOmJpKuevDiJX+FwrnUlCcGg+PC7chC20YAXXcXFMEjWonnxLZ7jieYNlZZmY89/CRYRzd4s/Jds5d8WyQayRwSuxgxBGzAe9lqJTAA3lPBThMziqaPpWxhBPELIDlKUQrazcTiI1oqh/lHod3A9lrRTY89cxgTeRAq3l0LAnArIj6FbBWrXN7gB4OH8G1lcAHPq7W4k0ipWsY6fWqs9TrUpYAN/+W8mDvqZxNtagTvwwChuKVl2KMk9TPgMNKaoLtluwSQTZUaXkOUi7wxf5HxQFLFZ/QCGF1mrYMoiMUfcdC+q4X80Y8AlPgAECSNqentZMWRGAaf82odD7DWQuF3OpDR9oCI/Bc4RJ7Vsczw3s1fkhuxl7h4MOzg/a0polP87iU16fCLMEuUxBqC6OKz4C7irnNwmXeMW2t/hZzezyeHJu4saOjx7wqSRjdl9+RCGgdif3v3dYVMPZCTsg1w9QC2CbqGs9plVQAPhHV4YaNltVoL5dD0/hxq4UQV4ip5/LMqd9+E=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(261026140227099003)(3023799007)(261026121527099003)(5023799004)(4143699003)(11063799006)(56012099006)(261009223027099003)(261022075727099003)(261021121427099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?PMpV4PZCSWqbApbmfoN4zHucYa/M4jwOCHgiVWvQ0GsIGplKSYd1FcanwDNR?=
+ =?us-ascii?Q?9yV4ZyQWNyT6Gf0oPPxeh4Cj+IXXBw7ljf0fbhM0wSWulI7FC68uOaUccbWj?=
+ =?us-ascii?Q?msS29tK6fw/Tyu58JJGCPcAU2LQ4PQHrQhHBW3EpvgH/BTaJlKfJhBQncXka?=
+ =?us-ascii?Q?cgoB9y6MOrgkVmxG6v1OQKy84L64tpQsbl16ffJi2q0qfklaNP1bYXrLVIem?=
+ =?us-ascii?Q?8UKCkTwbL6XFhwRNP/CtlsJQIKThoyp2L9xt2bHlRlDns0mrfhpbX4QVnv4s?=
+ =?us-ascii?Q?XT5nMPst9eEzC/ZE6KIAE/bpagx34ZBBcmSCltZBJeAwDKpZOPvkEtyVFKcm?=
+ =?us-ascii?Q?f4q2aWeZMAFnvB2QqpfRxvQ6QJBbLbryJXIuqkBFb0S0NBUf66la4Ut6XKGo?=
+ =?us-ascii?Q?//7sZKJgBKg/EH55OtSKcSDZM7l2nPPxrrsFALt9i9j143sT4EUFoy7CBovH?=
+ =?us-ascii?Q?XmhntXUZhjeITIRl18Z2LrUzN44ATdC4cW9hkK80BSHtWZmhnXMn7C/Emf0L?=
+ =?us-ascii?Q?Y9cMd5zjhgN66o1FrKzb3dzeMkL9deTRiYc0S/oFA/TxF8+S1Wq2Wi8jJXVp?=
+ =?us-ascii?Q?4htbLNLLvy/T2G3g2m38if7FGptWKKBMrc6Gc9HgspN4gWAOMPJKkzPHIc1v?=
+ =?us-ascii?Q?UV2YJsSO8Nibh6loXe0q0RqLyXkVzjnzepWafcFFdcKYX29CMldjeFzVDWVx?=
+ =?us-ascii?Q?Slbz/WjAXlZnKd6401+RVRHYkQr7Y3AriUjneyuk08LKvyPtBtIsI2FkiEF+?=
+ =?us-ascii?Q?n7Xx/tsRPTut3sMPauV4uVai5LAseQY5qXU7Nt+b9/Zday6vZhyIvMHX906X?=
+ =?us-ascii?Q?HurMWwNsE0ZbuAn9QJiBqYOhgHP9/+zLbPK33ZeFfeRNs7pO0Q3dpTtAkQ9b?=
+ =?us-ascii?Q?rqH5NsesYRXZgZekwM0z/bMlxZ0denFO1RNY6p8tPZ0zMuGvXOAYFlIIKBrS?=
+ =?us-ascii?Q?KVlfDzHlDijhWEwgocWnDKudK13UbdxgfcebrcAZ4kEPrvHwCB8IzH0CnZza?=
+ =?us-ascii?Q?fdA/xd5RznQP3DTNRYbveMY5H5ufWwddWe1vrV33FwN5JYg6493pqd9322aP?=
+ =?us-ascii?Q?JS6YanaTAG5IYocjmRSh4oWOMFundKgAKXEHUqVHWb45c2cjQD5J30OhOIi+?=
+ =?us-ascii?Q?ihmDMWyHuSDgIxSE1JyJ4kynybjqehGsU88F8n+AhJKPCev4ys44XA3FXtVb?=
+ =?us-ascii?Q?OIvsKIWxz4uhH5MPq2UAvPVAegbIseCNMJeNodAr2zd9lKGK3rEXXUs5hT6U?=
+ =?us-ascii?Q?W+OYaBchble7qOw+Ar+Wk6qlrmQWrNp1Mbre0o/YFJhkRedM28KM+dgRfuDi?=
+ =?us-ascii?Q?Nf1PmSUi4sgc1oi/qwsIM4HeGLY4+VqsV5gUfOGkcq40y/J4vKvLxOuPuoDK?=
+ =?us-ascii?Q?JTX99irwwuM0KpdF5qsIawPXNR+OfkMa3QGm1oH4PwXjVGZQk5PIWO3bnyFh?=
+ =?us-ascii?Q?y/CPQdexXV2VTrYa6x1vn3j+SR55uhGbLvscKEtXOWO70jSP8UvcRIsKozRV?=
+ =?us-ascii?Q?+xPyQCFiMiLDlQBRFryJYN27PUVDrtUSANt2+QnWEPJhfPysAPN7fGSVjXAA?=
+ =?us-ascii?Q?cKAb/0ojwJdcm82Ogcx3vkAmlJqdnA8sMpsOF4rkfC36Ueah8mBMR76GComp?=
+ =?us-ascii?Q?+9hPC7TapTKnFA6bc62B1FHbhgtyXchwsDNugPRH71sUgVIpkVRmT+AU0Pq+?=
+ =?us-ascii?Q?4wyzxlF4sdMOgQGQeuZ2i7uaOk3AvHJrdvb2kN3XKcooRikDF0OkO/o3cRd4?=
+ =?us-ascii?Q?F6XjQ9YRWg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: G/aJEUKwgL490O3S1e5GI3B6tLosMURttJ1+D3p7i90ZI8SPj1ImswYTy/yqq9mtp6IVsUPx5LvcKpNvptedx9U85BG1GfeOj1VOvAiq3SAPy5WMiWA1PKhI3EFmMHKeHBfNNo5QEae0eqzt98Tb7ireL8yLQmCECsISFOnr5p6b6S0d+84CMcsDbxzirQmjjXigL/Y65o191n//5xx8ODGV3RmLskS37G3Ic8g4wIPcxr/qwY0vwKPJWbzS12Jp8UFWlZE17UDdbG62SQrDfWHlDorI2uGMptt11nzq1xGV9dO+63ViGzAlSW0h0oY3p9wg51ZjaEQ4MpDH71V+SA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75d26b7d-7fb6-49f0-38f8-08df34180127
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 10:49:41.7402
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FiAFsPQ3XIOYR4dvar50dV1pwp4C/xEKhwSeARcomLPc2RO92OwIU/fIb1+J/LAX8aJQWK8wrPoniBTCRTx1Lw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5144
+X-OriginatorOrg: intel.com
 
-On 10/26/26 4:40 PM, Jeff Roach wrote:
-> Add a device tree for the HP OmniBook X 16-cp1 laptop, based on the
-> Qualcomm Mahua (Snapdragon X2 Elite, 12 cores) SoC.
-> 
-> Supported and tested:
-> - Keyboard, touchpad and touchscreen over I2C HID
-> - Lid switch
-> - NVMe SSD (PCIe 5)
-> - Qualcomm QCC2072 Wi-Fi (PCIe 4, M.2 key E slot)
-> - Two USB-C ports with orientation switching, USB PD and battery
->   reporting through pmic-glink
-> - USB-A port (usb_2)
-> - Webcam on the internal USB 2.0 host
-> - eDP OLED panel with DP AUX backlight
-> - DisplayPort alt mode on both USB-C ports
-> - ADSP and CDSP remoteprocs
-> - Two speakers (WSA8845) and two digital microphones
-> 
-> The GPU is left disabled until Mahua's Adreno X2-85 is supported.
-> 
-> This device tree was written with the help of an AI coding assistant
-> (Claude), starting from glymur-hp-elitebook-x-g2q.dts and the laptop's
-> ACPI tables. I reviewed it and tested every feature listed above on the
-> laptop.
+Hi Reinette,
 
-I hope you asked the agent to go through the regulator settings!
+On Fri, Oct 23, 2026 at 04:57:54PM -0700, Reinette Chatre wrote:
+> Hi Chenyu,
+> 
+> On 10/13/26 7:58 PM, Chen Yu wrote:
+> > In preparation for MMIO-based LLC occupancy monitoring, link the per-domain
+> > ERDT information to the resctrl L3 monitoring domain, so the MMIO read path
+> > can locate a domain's MMIO registers.
+> 
+> Please review "Changelog" section of Documentation/process/maintainer-tip.rst
+> I understand other subsystems need a snippet that describes the change at the
+> top of changelog but x86 does not. Unless it is something really simple, which
+> this is not, there has to be some context before the change is described.
+>
 
-Konrad
+Got it, I'll revise the commit log.
+
+> > 
+> > ERDT and CPUID enumerate CPU-to-L3-domain membership independently: CPUID leaf 4
+> > describes the L3 cache topology, while the firmware CACD sub-table lists the
+> > CPUs of each ERDT domain. Both views must agree on a CPU's L3 domain for that
+> > CPU to be monitored safely.
+> > 
+> > When a CPU comes online, validate that firmware and CPUID agree on its L3 domain
+> > and bind the CPU to its ERDT domain before adding it to any resctrl domain.
+> 
+> "bind the CPU to its ERDT domain" is this not what patch #3 did?
+>
+
+Yes, this is done in patch #3. Here it actually assigns the L3 ID to the
+ERDT domain.
+
+> "adding it" - what does "it" refer to? the ERDT domain or the CPU?
+>
+
+"It" here refers to the CPU, but it is a bit confusing, I'll revise it to:
+When a CPU comes online, check that its ERDT domain and its CPUID L3 cache
+agree, and bind the ERDT domain to the CPU's L3 cache ID.
+
+> > Fail the CPU online operation on a mismatch for now. Leaving the CPU
+> > online but outside all resctrl domains is doable, but it would require a
+> > change to cpus_ctrl_write() to reject CPUs that are online but not tracked by
+> > any resctrl group. The current approach is stricter, but simpler.
+> 
+> I do not believe failing the CPU online operation is actually possible.
+> 
+> resctrl_arch_late_init() is a late initcall and all boot CPUs are already online,
+> so the failure during this time will result in resctrl not being initialized at
+> all without impacting online CPUs. A CPU onlined after that will fail to
+> initialize, but that will make the CPU unusable for *everything*, not just 
+> unmonitored. This sounds extreme for an ERDT table issue that should never happen.
+> 
+> A CPU that is online is still able to run tasks and the earlier enumeration 
+> ensured that MSR_IA32_PQR_ASSOC is accessible and what the valid values for it
+> are. Even this "failure" path demonstrates this by calling clear_closid_rmid()
+> that writes to MSR_IA32_PQR_ASSOC *after* the supposed failure.
+> 
+> resctrl's current behavior when a CPU cannot be onlined, for example when
+> domain creation fails, is to *not* prevent CPU from onlining. If a domain
+> cannot be created then the CPU is still added to the default group's
+> CPU mask (resctrl_online_cpu()) to ensure that tasks can continue to
+> be scheduled on it by writing to MSR_IA32_PQR_ASSOC with values known to
+> be valid.
+> 
+> Such a CPU is *not* added to a domain's CPU mask so resctrl will not
+> attempt to make any configuration changes to it or read any counters from it.
+>
+
+Thanks for the detailed explanation, got it. I'll change it to:
+On a mismatch the CPU stays online and is not added to any monitor domain,
+but still goes through clear_closid_rmid() and resctrl_online_cpu(),
+so it joins the default group. How about the following:
+
+        mutex_lock(&domain_list_lock);
+        /* Keep a CPU out of all domains if its ERDT and CPUID L3 domains conflict. */
+        if (!erdt_try_bind_domain(cpu))
+                goto unlock;
+
+        for_each_capable_rdt_resource(r)
+                domain_add_cpu(cpu, r);
+unlock:
+        mutex_unlock(&domain_list_lock);
+
+        clear_closid_rmid(cpu);
+        resctrl_online_cpu(cpu);
+
+        return 0;
+
+And you also mentioned that even if CPU1 is not eligible to be added to
+the monitor domain's cpumask, since the event can be read from any CPU,
+CPU1 can still read the domain's monitor data via (mmio_base, RMID) without
+involving any CPU, although the data read from this address is questionable
+because the ERDT is already broken.
+
+> > 
+> > The ID used to match a resctrl monitoring domain against an ERDT domain is
+> > always the L3 cache ID. ERDT is only enabled when Sub-NUMA Clustering is
+> > disabled, so resctrl keeps the L3 monitoring domains at L3 cache scope
+> > instead of node scope.
+> 
+> Please always write with imperative tone.
+>
+
+OK, will adjust it.
+
+> > 
+> > Suggested-by: Reinette Chatre <reinette.chatre@intel.com>
+> > Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+> > Tested-by: Hongyu Ning <hongyu.ning@linux.intel.com>
+> > ---
+> 
+> ...
+> 
+> > diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+> > index 0ea888807bd0..9a59643f366c 100644
+> > --- a/arch/x86/kernel/cpu/resctrl/core.c
+> > +++ b/arch/x86/kernel/cpu/resctrl/core.c
+> > @@ -33,6 +33,8 @@
+> >   * The rdt_resource's domain list is updated when this happens. Readers of
+> >   * the domain list must either take cpus_read_lock(), or rely on an RCU
+> >   * read-side critical section, to avoid observing concurrent modification.
+> > + * This mutex also protects the ERDT domain_info_list, which is modified when a
+> > + * CPU comes online.
+> 
+> This places unrelated text in the middle of the description about how reads and writes to
+> existing domain list is managed. Please consider entire paragraph and ensure that the end
+> result is coherent.
+>
+
+How about adding a separate paragraph after the domain list description. It also
+states more precisely what is protected: the binding:
+cpu_dom->dom_id = dom_id, not the list itself, because domain_info_list is only
+modified during init.
+
+ * All writers take this mutex.
+ *
+ * This mutex also serializes binding an ERDT domain to an L3 cache ID
+ * (erdt_domain_info::dom_id) when a CPU comes online.
+
+
+On second thought, would this race condition really happen? erdt_try_bind_domain()
+is the function that changes erdt_domain_info::dom_id, and it is invoked by
+resctrl_arch_online_cpu(). CPU onlining is performed one at a time, not in parallel,
+so it is unlikely that two CPUs invoke erdt_try_bind_domain() at the same time. Although
+in the future, it is possible that onlining could be changed to run in parallel.
+
+> >   * All writers take this mutex:
+> >   */
+> >  static DEFINE_MUTEX(domain_list_lock);
+> > @@ -558,6 +560,8 @@ static void l3_mon_domain_setup(int cpu, int id, struct rdt_resource *r, struct
+> >  		return;
+> >  	}
+> >  
+> > +	erdt_l3_mon_domain_setup(&d->hdr);
+> > +
+> >  	err = resctrl_online_mon_domain(r, &d->hdr);
+> >  	if (err) {
+> >  		l3_mon_domain_free(hw_dom);
+> > @@ -742,6 +746,13 @@ static int resctrl_arch_online_cpu(unsigned int cpu)
+> >  	struct rdt_resource *r;
+> >  
+> >  	mutex_lock(&domain_list_lock);
+> > +	/* Refuse to online a CPU whose ERDT and CPUID L3 domain views disagree. */
+> > +	if (!erdt_try_bind_cpu(cpu)) {
+> > +		mutex_unlock(&domain_list_lock);
+> > +		clear_closid_rmid(cpu);
+> > +		return -EINVAL;
+> 
+> (comments added in response to changelog)
+>
+
+OK, changed as mentioned above.
+
+> > +	}
+> > +
+> >  	for_each_capable_rdt_resource(r)
+> >  		domain_add_cpu(cpu, r);
+> >  	mutex_unlock(&domain_list_lock);
+> > diff --git a/arch/x86/kernel/cpu/resctrl/erdt.c b/arch/x86/kernel/cpu/resctrl/erdt.c
+> > index d94c54617fa1..d4b630358d6d 100644
+> > --- a/arch/x86/kernel/cpu/resctrl/erdt.c
+> > +++ b/arch/x86/kernel/cpu/resctrl/erdt.c
+> > @@ -199,6 +199,115 @@ static __init bool parse_rmdd_table(struct acpi_subtbl_hdr_16 *rmdd_hdr)
+> >  	return false;
+> >  }
+> >  
+> > +/*
+> > + * erdt_try_bind_cpu() - Validate @cpu's L3 domain against ERDT and bind the
+> 
+> Now that the changelog and descriptions come together I do not find my earlier
+> suggestion for function name to be appropriate. How about erdt_try_bind_domain()?
+>
+
+OK, changed.
+
+> > + * ERDT domain containing @cpu to that L3 domain.
+> > + *
+> > + * Find the erdt_domain_info whose CACD lists @cpu, then bind that ERDT domain
+> > + * to @cpu's L3 id. A CPU whose L3 id does not match the binding of its ERDT
+> > + * domain cannot be covered by resctrl.
+> > + *
+> > + * For example, the CACD sub-tables report:
+> > + * domain0: CPU0, CPU2, domain1: CPU1, CPU3
+> > + * while CPUID/cacheinfo reports the L3 cache is shared by:
+> > + * id0: CPU0, CPU1, id1: CPU2, CPU3
+> > + * With the CPUs coming online in order:
+> > + * - CPU0 binds domain0 to L3 id0.
+> > + * - CPU1 is in the unbound domain1, but L3 id0 is already bound to domain0,
+> > + *   so CPU1 is not covered by resctrl.
+> > + * - CPU2 is in domain0, which is bound to L3 id0 rather than CPU2's L3 id1,
+> > + *   so CPU2 is not covered by resctrl.
+> > + * - CPU3 binds domain1 to L3 id1.
+> > + *
+> > + * Return: true if @cpu can be covered by resctrl, false otherwise.
+> 
+> Could "can be covered by resctrl" be more specific?
+>
+
+OK, how about changing it to:
+
+ * Return: true if @cpu can be added to resctrl domains, false if @cpu must
+ * not be in any resctrl domain.
+
+The other "covered by resctrl" wording in the comment is updated too.
+
+> > + */
+> > +bool erdt_try_bind_cpu(int cpu)
+> > +{
+> > +	struct erdt_domain_info *d, *cpu_dom = NULL;
+> > +	int dom_id;
+> > +
+> > +	/* Without ERDT there is no firmware topology to disagree with. */
+> > +	if (!erdt_enabled)
+> > +		return true;
+> > +
+> > +	dom_id = get_cpu_cacheinfo_id(cpu, RESCTRL_L3_CACHE);
+> > +	if (dom_id < 0) {
+> > +		pr_warn_once(FW_BUG "Can't find L3 id for CPU:%d\n", cpu);
+> > +		return false;
+> > +	}
+> > +
+> > +	list_for_each_entry(d, &domain_info_list, entry) {
+> > +		if (cpumask_test_cpu(cpu, &d->cpu_mask)) {
+> > +			cpu_dom = d;
+> > +			break;
+> > +		}
+> > +	}
+> > +
+> > +	if (!cpu_dom) {
+> > +		pr_warn_once(FW_BUG "Cannot find the ERDT domain which has CPU%d\n", cpu);
+> > +		return false;
+> > +	}
+> > +
+> > +	/* This ERDT domain is already bound to this CPU's L3 domain. */
+> > +	if (cpu_dom->dom_id == dom_id)
+> > +		return true;
+> > +
+> > +	/*
+> > +	 * This ERDT domain is already bound to a different L3 domain. Rebinding it
+> > +	 * would leave two L3 domains reading the counters of one ERDT domain, so
+> > +	 * skip @cpu instead (CPU2 in the example above).
+> > +	 */
+> > +	if (cpu_dom->dom_id != ERDT_DOMAIN_ID_UNSET) {
+> > +		pr_warn_once(FW_BUG "CPU%d's id=%d not equal to CACD domain(%*pbl) id=%d, skip this CPU\n",
+> > +			     cpu, dom_id, cpumask_pr_args(&cpu_dom->cpu_mask), cpu_dom->dom_id);
+> > +
+> > +		return false;
+> > +	}
+> > +
+> > +	/*
+> > +	 * A possible new binding. Check if another ERDT domain shares the same
+> > +	 * L3 id. If yes, this is a conflict and @cpu should not be considered
+> > +	 * by resctrl (CPU1 in the example above).
+> > +	 */
+> > +	list_for_each_entry(d, &domain_info_list, entry) {
+> > +		if (d == cpu_dom)
+> > +			continue;
+> > +
+> > +		if (d->dom_id == dom_id) {
+> > +			pr_warn_once(FW_BUG "CPU%d's id=%d is already used by CACD domain(%*pbl), skip this CPU\n",
+> > +				     cpu, dom_id, cpumask_pr_args(&d->cpu_mask));
+> > +
+> > +			return false;
+> > +		}
+> > +	}
+> > +
+> > +	/* Eligible new binding, assign the L3 id. */
+> > +	cpu_dom->dom_id = dom_id;
+> > +
+> > +	return true;
+> > +}
+> > +
+> > +/*
+> > + * Associate ERDT table information with this domain.
+> 
+> Could this add a note (if it is actually true) that earlier checks ensures
+> that hw_dom->d_info will *always* point to a valid ERDT domain ... or does
+> resctrl need to check for hw_dom->d_info everywhere like erdt_mon_read()?
+> Or are those checks just for robustness?
+>
+
+It should be always valid if ERDT is enabled. The CPU that creates the L3
+monitoring domain has passed erdt_try_bind_domain(), which bound an ERDT
+domain to that CPU's L3 cache ID. The L3 monitoring domain ID is the L3
+cache ID, so the lookup should always find a match.
+
+The check in erdt_mon_read() was only for robustness(I did not find
+scenario that it could be NULL), just in case I added "if (WARN_ON_ONCE(!d))"
+in the next version.
+
+thanks,
+Chenyu
+
+> > + */
+> > +void erdt_l3_mon_domain_setup(struct rdt_domain_hdr *hdr)
+> > +{
+> > +	struct rdt_hw_l3_mon_domain *hw_dom;
+> > +	struct erdt_domain_info *d;
+> > +
+> > +	if (!erdt_enabled)
+> > +		return;
+> > +
+> > +	hw_dom = resctrl_to_arch_mon_dom(container_of(hdr, struct rdt_l3_mon_domain, hdr));
+> > +
+> > +	list_for_each_entry(d, &domain_info_list, entry) {
+> > +		if (d->dom_id == hdr->id) {
+> > +			hw_dom->d_info = d;
+> > +			return;
+> > +		}
+> > +	}
+> > +}
+> > +
+> >  void erdt_exit(void)
+> >  {
+> >  	struct erdt_domain_info *d, *tmp;
+> Reinette
+> 
