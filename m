@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102984;
-	b=2o7Ni0L92e53XaieePmAswEfJL8n2aFmySXXTJ//dIEjoNirWd6zCJpCk5+so0wzkxVr
-	 Itr/SL8FdT4he2QEp4KAxss4UH/uJsY7Zylyea8hRpviATz8EdxWUCIp+QuH0j+MrzTqD
-	 PrPthEMdM0TCGAA4GXdWgr67AccUJ2gfWf09FPB4HpDhsN0lFBtjlXKIWutOm8RkUjZIY
-	 w2/Zvt50vfI/fMHBhTyHF5phpTgrkL0dHJJfDIPNqOSVgWjhzCT2g0mhJR2GUSXvy0kai
-	 eAGDzGB81tKpDJMvPH1cszXS5hCrAFHcVJ4WUf4TXfaanSgX3AvTuKYvW7UKfDpzHZA==
+	t=1793103001;
+	b=uK002+o0ynJNvWdiAmo9hEMBphPKBvK0z+A3JDiPSsarALCwDRhGioDcPwxUYSz4vrCD
+	 5mMFRYog/J1f5rhkCc3P+tcyKtgXZK14CsroK3BTZ5XdZIsLwrXPaPo2pbAcdL/XLW+rP
+	 A18XTiU4U1UpveiRRj8NDwlmNxAcxi5TK4wISmGxwgXvDi9A+vhGNw623kHIZBVIZlrcF
+	 xi9oHDkxYmCZAVC87KFsxnrLFqVA2vQyeSbCINqetBpEedaI3PxruLPCvdMtsFA6wtvNS
+	 OPdNAGWryj35vw20LaxPxz57EE0UJGaqLLEcGK9jqbXrLTr02xwcQbgfbA2gUrsDGLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102984;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=IptyB1qH+sm+JTCt8RytNfuKsrQJA6F1Il01uz2n03Y=;
-	b=fpRMwWl43RM+bMzjyESjDKlotcKkHnzKVs50sz25nrbh+YaXfb378pwVTci9NgacnP0u
-	 oPlw3RM2YOy0xVadtRvLF9oiunCu4xt/K+EurFY9AS4fB5p3m1ilC2E+QmG1q1BMg8SCo
-	 UioVV/K3K+/qVKpSGdjvPtW4SkpvwrX1wOGZeqs769amTzgYDFQpTIeB6KmgSik82wutT
-	 NDCVuJBZ2ah9ItPgowvfY1iU6PQlpSfRq0HhdIILBYzzwjQhf22TMbq0L3GSgnaf5KXDR
-	 nemlsP7e6/eEvRFbNgjzbFObigdKIJ1TtZi+oas8etOn5du8SrcKrT1muynl+OklY8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103001;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=iLihQmMIiwpA83j6rJ9nP+JSZLoK6ZWabN1HG4eCIQg=;
+	b=SnbBkJw5ybU9ExY4zUGZXuCsJVLRYfrmWdUDnhf9WXFj2m93ZUShM/HlGlLhKKxMon4R
+	 cf42YyhQueWXYM4T1DR+KbD4GYX5vdL/EtlcEL/lWW8LYYh00KNbPh5EHZxcYaHYId5p9
+	 wItPcbfF4aZ+/wmfTBZVyx/wwG+GSCGUlyNRbGZu4vi0ClabTytfnPUIceK2DjRaIPe7X
+	 VEN262ALL1sx+klDQb70xxYCp7X/Q2Nreu0VMg2cCD8rD4rFb311r+NJfaQUCZkEW2HKa
+	 eAY189JFClH1HI98cpcLtWE20gbzfznVOG4LiY0AM1Vv/YZ7+BukAV9WxSNPW9rJS0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bW3d56zn;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BFF606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2BFF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f4612a1a5cso1019886b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:09:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102983; x=1793707783;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IptyB1qH+sm+JTCt8RytNfuKsrQJA6F1Il01uz2n03Y=;
-        b=hOP51pI7x36mAfytOfALA2K6vuhj/Uvi/jt86rg7LLa5fW+qRjMCYyM0dIYUBjqSBR
-         M0QgeqQpf/Q+JS952JM06z/pUqrUChsKS2IZFUfMRWBKVRtH+Y+HRyKDJF7nuUhDkh5s
-         ZZXZ/MHkthSBteEkUMYXAbMvzKVv+uq1I3xqEKPIKJdl/ridkqNF3bC7zGOxK0HreSOi
-         JIeP6OWM4JF9AcLy/JBtYsqVPJvsJITSvASX1IqkB929sWGMcKk+adOTbDKe7fVxhqoi
-         KTx1m0s5eCMpj7XqH0+67FPKHOmq730nnIIKU9GdgibCQ2h+Rqi3A9hjyWFP8nVhVNCN
-         1/NA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrKPuagWLwkzvZIZkDbw70ga1IokaJzfsiLCO8w99yRPJv2tuPCgAjhbeIETcPrVVpaMzKanmnlB3Il8s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9FP7LtIWlvXx8GFBv5udssjPsT23w6HHQwzBZAQmAc826Nbvq
-	CXPjOsLgYXfQm5m1I6X9A3rXTwXZT8e2ZbsdB7sy8C5uW4M1z8wxmFMcXrB6Q2nmsbvlIAoQmOl
-	nwqolhIumxH6CO1XfCSxLhoAM9Wl0EGVPoAwHv9N+QykA4kk7hyFEHVVeEvQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F3F606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:10:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8F3F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bW3d56zn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=iLihQmMIiwpA83j6rJ9nP+JSZLoK6ZWabN1HG4eCIQg=; b=bW3d56znlmj7V7jnZdXVfBRNUE
+	sYar8y4bAwE/CkHni2K2d3apJjJ9OYnjJ0F+g2ApdSQsuo5iKtKPdL0bSUoXOTrjyLvCAn+Lqon+U
+	1hp/3V5tcbXZclhdHpcMIix9Ev0B/JXe4OGPzLrIvODiVmEEawcKfuBF1yAxuKYMugNxxCygS+ffx
+	XXpVOX7vZRY1H6DxLTBbFShZb7IWt9MwrNJVXxux0g6BwEp4HFszfh3iQmp3CPaviQafq5D5p7cjg
+	kUWXSmJW5YJzFEAwFQvMHH6pF0IF86cADVl0YhPJHrDNK6ogrvNTWpghnVZY8Vh3SHMDJ2YurAieg
+	436u7/UA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLfzu-0000000DPxo-0dit;
+	Tue, 27 Oct 2026 12:09:46 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B08A3300DB9; Tue, 27 Oct 2026 13:09:45 +0100 (CET)
+Date: Tue, 27 Oct 2026 13:09:45 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, albin_yang@163.com,
+	albinwyang@tencent.com, bsegall@google.com, chen.yu@linux.dev,
+	dietmar.eggemann@arm.com, juri.lelli@redhat.com,
+	linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@redhat.com,
+	rostedt@goodmis.org, vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated
+ blocked donors
+Message-ID: <20261027120945.GN2668564@noisy.programming.kicks-ass.net>
+References: <72a6eb77-0461-477b-a0e9-c06a486e3e0e@amd.com>
+ <20261026133831.4111227-1-albin_yang@163.com>
+ <36f12b2f-9fc8-46e9-8312-536c918722f1@amd.com>
+ <auA7AQ_S9iwPHr4d@scheduler.schedules>
+ <4ac4564e-08fb-4639-a89e-a2ad54cee3f7@amd.com>
+ <auBEeDRRFKZOGlZA@scheduler.schedules>
+ <f23a6e77-58ef-46bc-b8bf-d9f043bcfa57@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,106 +77,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:448a:b0:4d6:9133:cfee with SMTP id
- 5614622812f47-55f813acd37mr1352531b6e.51.1793102982923; Tue, 27 Oct 2026
- 05:09:42 -0700 (PDT)
-Date: Tue, 27 Oct 2026 05:09:42 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae09486.768774f5.3237ab.0017.GAE@google.com>
-Subject: [syzbot] [gfs2?] WARNING in iomap_writepages
-From: syzbot <syzbot+5e659793378ad9e06387@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f23a6e77-58ef-46bc-b8bf-d9f043bcfa57@amd.com>
 
-Hello,
+On Tue, Oct 27, 2026 at 03:15:40PM +0530, K Prateek Nayak wrote:
+> On 10/27/2026 12:22 PM, Kayra Cizmeci wrote:
+> > I think this fixes the issue. BTW I think this should skip curr, no?
+> > On a case like this:
+> > 
+> > C holds M1 in CPU0, D waits that mutex in CPU1. A holds mutex M2 in
+> > CPU2. B is the working task on CPU1 but it wants mutex M2 and we enter
+> > __schedule(). B gets is_blocked. D gets chosen. We open the rq lock to
+> > get D to CPU0. While this happens A drops the mutex and wakes up B.
+> > we enter ttwu_runnable() and B is still curr. And we start the timer.
+> 
+> Good catch that!
+> 
+> > Or am I MISSSING something?
+> 
+> I can't believe something like wait time accounting can get this
+> complicated! 
 
-syzbot found the following issue on:
+:-)
 
-HEAD commit:    d135ab453a74 Merge tag 'backlight-next-7.4' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13d4dee1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ca6085a265c4d259
-dashboard link: https://syzkaller.appspot.com/bug?extid=5e659793378ad9e06387
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> Anyhow, We can perhaps call sched_info_enqueue() in
+> ttwu_runnable() instead of proxy_needs_return() like:
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 04b62c16fa8c..d5758b78b741 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -3956,6 +3956,8 @@ static int ttwu_runnable(struct task_struct *p, int wake_flags)
+>  		 * it should preempt the task that is current now.
+>  		 */
+>  		wakeup_preempt(rq, p, wake_flags | WF_TTWU_RQ);
+> +		/* Start accounting wait time. */
+> +		sched_info_enqueue(rq, p);
+>  	}
+>  	ttwu_do_wakeup(p);
+>  	return 1;
 
-Unfortunately, I don't have any reproducer for this issue yet.
+So the normal wakeup path goes through enqueue_task() which gets the
+sched_info_enqueue() callback there. But yes, ttwu_runnable() does not
+go through that, and needs this additional call.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-d135ab45.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/4dc024e5978e/vmlinux-d135ab45.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/1f7c8ddcde45/bzImage-d135ab45.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+5e659793378ad9e06387@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-(current->flags & PF_MEMALLOC)
-WARNING: fs/iomap/buffered-io.c:2084 at iomap_writepages+0x29f/0x2d0 fs/iomap/buffered-io.c:2084, CPU#0: kswapd0/82
-Modules linked in:
-CPU: 0 UID: 0 PID: 82 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:iomap_writepages+0x29f/0x2d0 fs/iomap/buffered-io.c:2084
-Code: 00 65 48 8b 0d 8a be 45 12 48 3b 4c 24 60 75 42 48 8d 65 d8 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 f2 ab 4e ff 90 <0f> 0b 90 b8 fb ff ff ff eb ac 44 89 f9 80 e1 07 80 c1 03 38 c1 0f
-RSP: 0018:ffffc90000ebe5a0 EFLAGS: 00010293
-RAX: ffffffff827a71be RBX: 0000000000000800 RCX: ffff888000300000
-RDX: 0000000000000000 RSI: 0000000000000800 RDI: 0000000000000000
-RBP: ffffc90000ebe650 R08: ffffc90000ebe70f R09: 0000000000000000
-R10: ffffc90000ebe6a0 R11: fffff520001d7ce2 R12: 1ffff920001d7cb8
-R13: dffffc0000000000 R14: ffff8880144b0218 R15: ffff88800030002c
-FS:  0000000000000000(0000) GS:ffff88808ac1d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffcb345acd0 CR3: 000000001f98a000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- gfs2_writepages+0x1bb/0x2a0 fs/gfs2/aops.c:175
- do_writepages+0x338/0x560 mm/page-writeback.c:2560
- filemap_writeback mm/filemap.c:387 [inline]
- filemap_fdatawrite_range mm/filemap.c:412 [inline]
- filemap_fdatawrite+0x1e9/0x2f0 mm/filemap.c:418
- gfs2_ordered_write fs/gfs2/log.c:730 [inline]
- __gfs2_log_flush+0x836/0x1d90 fs/gfs2/log.c:1135
- gfs2_log_flush+0x34/0x50 fs/gfs2/log.c:1217
- evict_linked_inode fs/gfs2/super.c:1439 [inline]
- gfs2_evict_inode+0x787/0x13f0 fs/gfs2/super.c:1506
- evict+0x624/0xb50 fs/inode.c:822
- dispose_list fs/inode.c:864 [inline]
- prune_icache_sb+0x223/0x2d0 fs/inode.c:1010
- super_cache_scan+0x390/0x4a0 fs/super.c:227
- do_shrink_slab+0x6d0/0x10d0 mm/shrinker.c:445
- shrink_slab_memcg mm/shrinker.c:562 [inline]
- shrink_slab+0x838/0x1210 mm/shrinker.c:640
- shrink_one+0x396/0x10f0 mm/vmscan.c:5315
- shrink_many mm/vmscan.c:5376 [inline]
- lru_gen_shrink_node mm/vmscan.c:5454 [inline]
- shrink_node+0x631e/0x6b20 mm/vmscan.c:6460
- kswapd_shrink_node mm/vmscan.c:7253 [inline]
- balance_pgdat mm/vmscan.c:7424 [inline]
- kswapd+0x1ff4/0x3a20 mm/vmscan.c:7700
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+There is one more site in ttwu() that also doesn't go through
+enqueue_task() and that is the p==current thing at the top.
