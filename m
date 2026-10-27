@@ -1,106 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.24
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793101145;
-	b=3OxkpL9IKyqfocRWAXLfrtMdIogz52SQ+M4vo7LT9kTViQxZdgmKqtWdXaP1coXWTuq8
-	 afXKJVK7era7XmWenRT/StzcNtOP+Y2Bz7aFo9RxMLzSbUTV9Mpe+cYR8hnV1JH5hozy+
-	 19EAvHqLG1qrTHtNIP/MGpk0CS3s3sViA5mD7tjMYkvILMxsKcfKgXx6SVbNkR7QUbA+r
-	 TFhyPNqXS/X8xfqd+JxJi5OjQiP5EZJZTxfXLHFv7MoFfZHOEcyPc5TDGyFP9i/WX/B4P
-	 ETonlo57Rr1HrHbA/2Os95NBAycapKy6oFentML5UnlzhM1eKu65uCNULc6BXCpUTmg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101145;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hmci46Qqf1rO22cHOZc6V46V903BeIrI79fMjtAYBwM=;
-	b=hVpixW7VPIByYu3EpnTSYaZhB2HFP/dmLcMoH9/OHOeRn0kv129q273BXEAj1hJi+wWX
-	 MVOgbwYIyiu9aN2Qpc675TBDAzRWf+3T6YbtVlLYfXOG1pJHLSIsSff11vhagCojqJvXt
-	 GtJyTp6O7RK9PEcc78VqNUlV8s7fS7Eqiqb45Qs224siQL3ZG7IkQ2qSHZkhF2epsNR7X
-	 0JXKt3Z0ATMWFP2f4Vu+FB/V6ZomSBoFNN7+FhEAXpvBpMuviYiUlY7O1f5BGvpd3AkMd
-	 uYr6I9hv731fIxRM0fzv/HzfYrSxuvfrLHiyu1rpCTtlXPbUffHgGSP7l1ITarQz0eQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X7nsBCW9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.24
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010024.outbound.protection.outlook.com [52.101.85.24])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793101146;
+	b=NHZ9VNrR3/zhkgaiF7SaALieAGTPKs+sYiaw6fJBpH8RxqkIcKWKQW53AVoZQi6mSol4
+	 Ydaip/GEEgkqu6Ei+DRZk8eDJ+KOXbGxp9xbBbTDX6HKxUGuf0zhTqE84y/UaeRI+XOGL
+	 5jUaw2NP4HWjVrlO4gOOxnIIyvu8ZezkqUQsDxckO22rq+FBa3ufnghXUwoYqhxj6j+Uv
+	 0Q+2jqrSs2dfaC3uCHYNUYoP7esXARj0NCZRnHQjX72PAwzu3mMzwhbiqXm53DwjBKAvJ
+	 YiAAjoSArzy1gayNrtjyo1tvONN3vmtTaDU4XFwgUltqH3C+mzG2oGitxSvptXqLuVA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101146;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
+	bh=YJLumQG4zZfTPvuSJgxE/h6tSrN687TQmidzif2KOyU=;
+	b=Ex1E6dPUNY99eDl9YVSuwE35lJqgOLUNo0sMVQzqLEi4Ro1/hnEIGWTzkQreUUJCSfXd
+	 QG3ErWldF0kgQzkO5b46V/FawoFwPvT7JDp4dZqQXAj6XukNIY/GhqH5UPtV0sFD0OkxD
+	 v6qqz8rF1MqkH5UTrJ23mqLOibVRZEkK8k3YifdmZ9qSHwsyoumScrEez/4noD/MuaWha
+	 qWDjvaKyUtT5B8imeRZdcttrgVRUG3dHN4NCS7EgEYhf4VNRX78lvWCVqZH04Gz//rnUZ
+	 Vzne2Sa393gLDTEh1aqu5QPc+eutQCIQ+8sNEGWreiKsijpDqbf8bAecGj4Z7ajYHMw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=f4BADt5A;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F33A606B5E9
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:39:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F33A606B5E9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F034E606A338;
+	Tue, 27 Oct 2026 11:39:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F034E606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X7nsBCW9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aSdLikhJrat/U+Uz1puCdUpPY0PkRFXJh1ET/VdZpF/Soy88dj5k+dqicaq7c6Ra6nRXfq+pTGRPZIsVB1K//OqV8LTK3JAzFABcV/wPYacMDd9jSCipYEZ5I4NCBgeJbyA1hQ5N2Bvpv43TvdduyT1lxlL8YTMUWVFtvmkHXwmfSMsVpf3a0S2V/36YORUC+8nr5pocOaEymggkfWU54WwCDWJiDROB2Siuu7ZBvE62PwMw/9JGqWYPZhJJvRBwXXwr7z3XQQY17McbE1xupE5WaLr5dTjTcqR564expSFK1TKbwGBkRW//itszBrF1ONXE/2cmzpDIxEu07YSD5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hmci46Qqf1rO22cHOZc6V46V903BeIrI79fMjtAYBwM=;
- b=QyxOcoqvKd29RHZEGDZ9MzUGu8MUnpZzW9yyiGn7Px5H2dUVN4NKB7t2fVvD6n0Ccxdsb7Wxk9tNHVEoX0V4IFvmqQMtCcJtAJqrK2zbanvmpdDtfmesy20CoHdozevAPHJkFlAbhxCBnvX39LnFS2RPLAsQilWSUlSv0eHgEkCBXn7oUaMNFEDMALi6pa9Wo+hu1IQArxDbCWsbn/RzT9eH6XdcqyHhmw+YQfvQQhD9FTpQ44XM0qzYbfbCcWr3oGQQfs2L+sBnOfrmyT0IOA8ttSjXFT7Ln2uR8q6nBnym2r1Cw72LC4/b3qbnrQyI0dQpycAzqPIYSp9LsCymVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hmci46Qqf1rO22cHOZc6V46V903BeIrI79fMjtAYBwM=;
- b=X7nsBCW9tavbjq7J+FAeJScT714qbnQabOOpMy9on+q2cHASVrXnQVFmgkmmX97+u+9CfgrREWknAKY1zKpL4OAt/df/HWSvqbQeLy5Ho15hQ6q5HNUqZBrIE35tRRA3/xd+KBx4Rizi7pCxhdfuXdlJD3iJ4VP20aSUsl3RcrpTurYG4hX2vuqMKy+TBrbbF4LMC23Hrqwak5NvULO0OtAQGl+5+AlzVPaTL4oc6PpE3qe1IEy/5ZNzwApid8CrzA+sw1QHQ7x0A3C8cFM+j+utvOZr7KXwjS1TdPsfBLcHiiomxyGnrl5rpXGRMsyq2ixVOu+NEUmbQ0ABKDFARg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by CH3PR12MB8902.namprd12.prod.outlook.com (2603:10b6:610:17d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.20; Tue, 27 Oct
- 2026 11:38:57 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 11:38:56 +0000
-Date: Tue, 27 Oct 2026 12:38:49 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET v2 sched_ext/for-7.5] sched_ext: Add NUMA balancing
- support
-Message-ID: <auCNSY0fCBu9uIDB@gpd4>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
- <20261027105209.GF2668564@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027105209.GF2668564@noisy.programming.kicks-ass.net>
-X-ClientProxiedBy: MI1PEPF000008C4.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::426) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=f4BADt5A
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=YJLumQG4zZfTPvuSJgxE/h6tSrN687TQmidzif2KOyU=;
+	b=f4BADt5ATbNEjliZle7M5BZ0Tu4lnABZbBxaRIwfeiPiXyKKt25EkCHWnBzmE3P7hMoJApx+G
+	kiv80GQRJ0OgM4ke2WBtp/WHo0L4SpwBlm6IMGjHjllHdXzKwgAVJb0VJTrsgC7YdQfnpuk+i43
+	mjib9GSjJLrmTKHySL8cQ+M=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jDT636JRKzpStY;
+	Tue, 27 Oct 2026 19:38:51 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id C57DC4058F;
+	Tue, 27 Oct 2026 19:39:02 +0800 (CST)
+Received: from octopus.huawei.com (10.67.174.191) by
+ whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 27 Oct 2026 19:38:57 +0800
+From: Cai Xinchen <caixinchen1@huawei.com>
+To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
+	<jmorris@namei.org>, <serge@hallyn.com>, <corbet@lwn.net>,
+	<skhan@linuxfoundation.org>, <utilityemal77@gmail.com>,
+	<caixinchen1@huawei.com>
+CC: <ast@kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>,
+	<eddyz87@gmail.com>, <memxor@gmail.com>, <martin.lau@linux.dev>,
+	<song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+	<emil@etsalapatis.com>, <ihor.solodrai@linux.dev>, <rdunlap@infradead.org>,
+	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <dakr@kernel.org>,
+	<johan@kernel.org>, <dlemoal@kernel.org>, <hch@lst.de>, <axboe@kernel.dk>,
+	<viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
+	<dhowells@redhat.com>, <code@tyhicks.com>, <linkinjeon@kernel.org>,
+	<sj1557.seo@samsung.com>, <yuezhang.mo@sony.com>,
+	<hirofumi@mail.parknet.co.jp>, <cel@kernel.org>, <jlayton@kernel.org>,
+	<neil@brown.name>, <okorniev@redhat.com>, <Dai.Ngo@oracle.com>,
+	<tom@talpey.com>, <hyc.lee@gmail.com>, <miklos@szeredi.hu>,
+	<amir73il@gmail.com>, <senozhatsky@chromium.org>,
+	<chenxiaosong@chenxiaosong.com>, <dsterba@suse.com>, <mason@kernel.org>,
+	<kpsingh@kernel.org>, <matt@bobrowski.net>, <rostedt@goodmis.org>,
+	<mhiramat@kernel.org>, <mathieu.desnoyers@efficios.com>,
+	<john.johansen@canonical.com>, <georgia.garcia@canonical.com>,
+	<zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
+	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
+	<stephen.smalley.work@gmail.com>, <omosnacek@gmail.com>,
+	<casey@schaufler-ca.com>, <takedakn@nttdata.co.jp>,
+	<penguin-kernel@I-love.SAKURA.ne.jp>, <xiujianfeng@huawei.com>,
+	<nanx95726@gmail.com>, <djwong@kernel.org>, <lujialin4@huawei.com>,
+	<bpf@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
+	<driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
+	<linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
+	<netfs@lists.linux.dev>, <ecryptfs@vger.kernel.org>, <exfat@lists.linux.dev>,
+	<linux-nfs@vger.kernel.org>, <ntfs@lists.linux.dev>,
+	<linux-unionfs@vger.kernel.org>, <linux-cifs@vger.kernel.org>,
+	<linux-trace-kernel@vger.kernel.org>, <apparmor@lists.ubuntu.com>,
+	<linux-integrity@vger.kernel.org>, <selinux@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>
+Subject: [PATCH v3 -next 12/18] LSM: rename the inode posix acl hooks to path_*_acl hooks
+Date: Tue, 27 Oct 2026 20:11:45 +0800
+Message-ID: <20261027121151.1887650-13-caixinchen1@huawei.com>
+X-Mailer: git-send-email 2.18.0.huawei.25
+In-Reply-To: <20261027121151.1887650-1-caixinchen1@huawei.com>
+References: <20261027121151.1887650-1-caixinchen1@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,97 +103,500 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CH3PR12MB8902:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6a66e21-d030-4e41-c179-08df341ee2b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|261009223027099003|261021121427099003|261022105027099003|261022075727099003|10067099003|56012099006|261026140227099003|22082099003|18002099003|261026121527099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	KrS8O5IREBBMCwtX0CXorg8Nom6upLwRas8mcLiam3/AzYKSpl9RVu2SCoxKcrc0ybRmlO6sHz+s/++Kln9bS8lnrQqgnD89rtTyH8pxNf/vrRECWZIbc+KCCI90SaFRAL355eKRW8SOgOqrjvpkEF0f2SnVj8rYPsybdG4DN6T/PnfejT/93E5He55yE2aRiPjeuAzfBTzEDY0Yun/ZzDVzFmObT/LzTXSdjEnE14Sh/0+t2S+IJaWa6/cQGZwDv2XCHNNEVEso09vtux7e32yvjTqS1CYAh+m+STnCuK59kmR7IkoFTNlcu4j7OrbVA8Owut+YJPCz4XIPexq5zi4R99bPxc8CEK0ZLqE2qvvMTbQiimThmifaR4C9pizUfqumA14PhFlI0By/1aRCYeO4G3zK1tRLfZU69VCgesbQpQUse9wbhrYbV2xXBEUtlGTbPqywpszPGlez/Mwhu+rRIf+oRfJ9+640M54nI2krh4VOgMv9rsWXewQpsNnVSfIeT5Au3QNhdAeM2VusAqALl/Pqk6RJN4/qhkG7ipMFttVgU+y70ku+2naStegwI5bN80VdM6syoCGCYhu3TqQ0DbpDBGSwZoJqEfo0RpVBa8VCZqcoGHaDWJ6g9VSstRu3b3ug6KHBPbnsKrE08hFGpB3RKJm1LAW90Gp9EUo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(261009223027099003)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(56012099006)(261026140227099003)(22082099003)(18002099003)(261026121527099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?TUC7BW4IGBVrAaH8L4Q87AnaSeUDiE92phwjZkc5cqonW95lEPCtri05Xtrg?=
- =?us-ascii?Q?lCLHSiAf4eb8nMKaHOZ4gzF0llybiv/kKd10iKF7HVWHbr38ALI56kBzSKjx?=
- =?us-ascii?Q?n/5S8ctSX7OcmxE7DpimwqVKQNQGvCwgudHsy71J+Pl1TF5GocJcfDKL81qX?=
- =?us-ascii?Q?YjImQDtKclHIMiNfu6lYoldJR0hGfvOyhp9oZtSzUoM036NLemdhPefEypfw?=
- =?us-ascii?Q?Ux3KRJ1bYDamyml8Fa3UI6r8QN62SjoZTOP9vxHQoAUPuBAx6yKYAFH7Uq6W?=
- =?us-ascii?Q?kqJIq9QDhbWBTLGibg9+TuacXG0O3Xlmrih7Lg2jWSh7YvhFulg6+chgJmkd?=
- =?us-ascii?Q?9BylwLLKQ85jFWm49xkYxft6ewvP+eykDJ+SodR1Q6W2dlHdm293YFB//jN7?=
- =?us-ascii?Q?lHjhpxdD6cb7WSxTRV9liSRzbH2tTTKdeJJ7zQE9T7XPF7C0Xeq1KPDuqC18?=
- =?us-ascii?Q?pzu8AUvFH6QPfnkzLNFkfuIqiFlMBauis0TgR7bgjFxBSzccRxJhZvQfvk3j?=
- =?us-ascii?Q?BNqh4YIaPPc4n1acrHM6me3EBHJGL9p3CfEVv14dPaL8YA1HyzhR5ciwXo4y?=
- =?us-ascii?Q?rV0NkTuj7u8MHWXl/X/1wihobJD21Lw7Lsq1Uwq/NxYxAPvH0gY5Gj6TGvzq?=
- =?us-ascii?Q?Yjy37bVxsS3231aE5rvB0sAc3hFhvOEaubdpaShogJhmyGP8LG0nibhSclOz?=
- =?us-ascii?Q?0lMDtbt+ENbTDUNb6OScaYAB7cwyxWp52+D1uVVDRDQXXMq32/xRTNVB6unB?=
- =?us-ascii?Q?0K3uwHq008pKRwRrlUgTa6gDyvnwNlfoX4s/hwHjOanfLfvfVi4ihXyEzclA?=
- =?us-ascii?Q?6//qHlsgvc/HF389nk4SZU1KQAb+hsOSjSp6Dy8NbLcCMbwkxzwf3+LoUha3?=
- =?us-ascii?Q?MG6SdnYI9zUsDpcLHTNCRl0qCUiyZ8wtRVbtioSQOCzHOJbERTAokoMo47a0?=
- =?us-ascii?Q?SF41OKd0uaqhNIs5z6VcRAWCeNFz7oOar+jrT0Yu+QNhaBhUH6d7OHjHbluv?=
- =?us-ascii?Q?oUVXbXgt6qnTa3nUWP8fnNslkgZnmL1uyDkU4ZU0Q9TAlItKqPlvfY0wYZzy?=
- =?us-ascii?Q?ccx3nxRDtnpQOnH+ObUvzk3gmFGJclSxa30NAHvYLaKVOq9BgnU59BRYAgR1?=
- =?us-ascii?Q?7y3o0Afgqk4C7HIV/CbKyhJ47dGm+7cf0F8DSD38QX4SHSp5x9YYb50vjGJK?=
- =?us-ascii?Q?CnqfIvbSVPQjsvOKCZwgmHUGilNZdYolfy0mm4+6qD0br1fWsczErLpTY6xy?=
- =?us-ascii?Q?NXdmyKg7F+qJx2JZG7H7iK86BC55poknb66SlHjWcvd9Xj1XuwajcsgcaWLY?=
- =?us-ascii?Q?2kL1hqN137eulG5m/LK9oZ00K5GwOW710Fol7EPzeO3bmbAGgeoRkUceY85i?=
- =?us-ascii?Q?53p+6WvUhVqnjy+9+K7wBtotsnjXDbWkTXA2YySpU7WDh0BLyD6FaksVIFrJ?=
- =?us-ascii?Q?PYlaPcOc9u5IhjnK18VIuBrmkskeHFoXlFEDXD84BqzY+qYVx8AjFKHpvs75?=
- =?us-ascii?Q?LpBn9/knEZSoK23vd6YZ0BYWy/QFykqt6vQ9N0HtOVwWtyZ2+F7zDxmGVa4x?=
- =?us-ascii?Q?TmXOciMbHbSy8oEKnKfd3fGX4Ar1Bga4Zxn5tgZq/y/7Y8MByRNAgL58q//w?=
- =?us-ascii?Q?FND13kb97ja/cpahyPIUfIZ+2my+zC7r04Bto7XsyxwKF4t9JRZN20ZpMupB?=
- =?us-ascii?Q?g8O2DvYDCZ85S4XYSdIPrDl6YsEPShr0Vo5CZFEmaeZZfOGm4PQGYNJhpFZ8?=
- =?us-ascii?Q?QiI0DqNjUQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6a66e21-d030-4e41-c179-08df341ee2b9
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:38:56.8427
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ylQpOyCy0aFFlsMnhrYQU4Lf68qCmKFwUi8X6aT+juj5Ov093CIh1nretwaNWVS5YEXVwLoFXee3+fMMnrc2pQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8902
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-On Tue, Oct 27, 2026 at 11:52:09AM +0100, Peter Zijlstra wrote:
-> On Tue, Oct 27, 2026 at 05:13:29AM +0100, Andrea Righi wrote:
-> 
-> > Ideally the ultimate goal is to give BPF schedulers both controls that
-> > NUMA balancing combines: moving a task to the node where its memory is
-> > and moving the memory a task uses to the node where the task runs. This
-> > series provides the first: with the preferred node available, a
-> > scheduler can decide where to run the task. A second series, to follow
-> > once this one lands, will provide the second: a kfunc that lets a
-> > scheduler request the node a task's memory should migrate to.
-> 
-> Fair has no real control over the memory migration part either; why
-> would you want to give BPF that?
+The inode_set_acl, inode_get_acl and inode_remove_acl hooks receive a
+struct path, so rename them to path_set_acl, path_get_acl and
+path_remove_acl to follow the path_* naming convention used for the
+other hooks that take a struct path (path_chmod, path_chown, ...).
+Rename the security_inode_*_acl() inline wrappers to
+security_path_*_acl() and the SELinux, Smack, EVM and IMA
+implementations accordingly.  The inode_post_set_acl and
+inode_post_remove_acl notification hooks still take a dentry and keep
+their names.
 
-Yeah, that's a fair point and the wording in the cover letter is a bit
-too vague.
+Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
+---
+ fs/posix_acl.c                        |  6 ++--
+ include/linux/lsm_hook_defs.h         |  6 ++--
+ include/linux/security.h              | 44 +++++++++++++--------------
+ security/integrity/evm/evm_main.c     | 26 ++++++++--------
+ security/integrity/ima/ima_appraise.c | 20 ++++++------
+ security/security.c                   | 32 +++++++++----------
+ security/selinux/hooks.c              | 26 ++++++++--------
+ security/smack/smack_lsm.c            | 32 +++++++++----------
+ 8 files changed, 96 insertions(+), 96 deletions(-)
 
-The use case behind the second part is accelerator/device locality,
-discussed at LPC in the sched_ext MC [1]: with multi-GPU systems the
-heaviest user of a task's host memory is often the device, which NUMA
-balancing can't see, since hinting faults only track CPU accesses. So
-memory follows the CPU even when it should stay close to the device, and
-today the only option is to pin everything with numactl and/or disable
-NUMA balancing.
+diff --git a/fs/posix_acl.c b/fs/posix_acl.c
+index 487e17e91e2b..5feeb651fa85 100644
+--- a/fs/posix_acl.c
++++ b/fs/posix_acl.c
+@@ -1130,7 +1130,7 @@ int vfs_set_acl(const struct mnt_idmap *idmap, const struct path *path,
+ 	if (error)
+ 		goto out_inode_unlock;
+ 
+-	error = security_inode_set_acl(idmap, path, acl_name, kacl, file);
++	error = security_path_set_acl(idmap, path, acl_name, kacl, file);
+ 	if (error)
+ 		goto out_inode_unlock;
+ 
+@@ -1189,7 +1189,7 @@ struct posix_acl *vfs_get_acl(const struct mnt_idmap *idmap,
+ 	 * The VFS has no restrictions on reading POSIX ACLs so calling
+ 	 * something like xattr_permission() isn't needed. Only LSMs get a say.
+ 	 */
+-	error = security_inode_get_acl(idmap, path, acl_name, file);
++	error = security_path_get_acl(idmap, path, acl_name, file);
+ 	if (error)
+ 		return ERR_PTR(error);
+ 
+@@ -1243,7 +1243,7 @@ int vfs_remove_acl(const struct mnt_idmap *idmap, const struct path *path,
+ 	if (error)
+ 		goto out_inode_unlock;
+ 
+-	error = security_inode_remove_acl(idmap, path, acl_name, file);
++	error = security_path_remove_acl(idmap, path, acl_name, file);
+ 	if (error)
+ 		goto out_inode_unlock;
+ 
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index 4f3d19bf4644..7602a3074375 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -173,15 +173,15 @@ LSM_HOOK(int, 0, inode_file_setattr, const struct path *path,
+ 	 struct file_kattr *fa, struct file *file)
+ LSM_HOOK(int, 0, inode_file_getattr, const struct path *path,
+ 	 struct file_kattr *fa, struct file *file)
+-LSM_HOOK(int, 0, inode_set_acl, const struct mnt_idmap *idmap,
++LSM_HOOK(int, 0, path_set_acl, const struct mnt_idmap *idmap,
+ 	 const struct path *path, const char *acl_name,
+ 	 struct posix_acl *kacl, struct file *file)
+ LSM_HOOK(void, LSM_RET_VOID, inode_post_set_acl, struct dentry *dentry,
+ 	 const char *acl_name, struct posix_acl *kacl)
+-LSM_HOOK(int, 0, inode_get_acl, const struct mnt_idmap *idmap,
++LSM_HOOK(int, 0, path_get_acl, const struct mnt_idmap *idmap,
+ 	 const struct path *path, const char *acl_name,
+ 	 struct file *file)
+-LSM_HOOK(int, 0, inode_remove_acl, const struct mnt_idmap *idmap,
++LSM_HOOK(int, 0, path_remove_acl, const struct mnt_idmap *idmap,
+ 	 const struct path *path, const char *acl_name,
+ 	 struct file *file)
+ LSM_HOOK(void, LSM_RET_VOID, inode_post_remove_acl, const struct mnt_idmap *idmap,
+diff --git a/include/linux/security.h b/include/linux/security.h
+index afbc12c6e614..305b92c0494c 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -440,17 +440,17 @@ int security_path_setxattr(const struct mnt_idmap *idmap,
+ 			   const struct path *path, const char *name,
+ 			   const void *value, size_t size, int flags,
+ 			   struct file *file);
+-int security_inode_set_acl(const struct mnt_idmap *idmap,
+-			   const struct path *path, const char *acl_name,
+-			   struct posix_acl *kacl, struct file *file);
++int security_path_set_acl(const struct mnt_idmap *idmap,
++			  const struct path *path, const char *acl_name,
++			  struct posix_acl *kacl, struct file *file);
+ void security_inode_post_set_acl(struct dentry *dentry, const char *acl_name,
+ 				 struct posix_acl *kacl);
+-int security_inode_get_acl(const struct mnt_idmap *idmap,
+-			   const struct path *path, const char *acl_name,
+-			   struct file *file);
+-int security_inode_remove_acl(const struct mnt_idmap *idmap,
+-			      const struct path *path, const char *acl_name,
+-			      struct file *file);
++int security_path_get_acl(const struct mnt_idmap *idmap,
++			  const struct path *path, const char *acl_name,
++			  struct file *file);
++int security_path_remove_acl(const struct mnt_idmap *idmap,
++			     const struct path *path, const char *acl_name,
++			     struct file *file);
+ void security_inode_post_remove_acl(const struct mnt_idmap *idmap,
+ 				    struct dentry *dentry,
+ 				    const char *acl_name);
+@@ -1030,11 +1030,11 @@ static inline int security_path_setxattr(const struct mnt_idmap *idmap,
+ 	return cap_inode_setxattr(path, name, value, size, flags, file);
+ }
+ 
+-static inline int security_inode_set_acl(const struct mnt_idmap *idmap,
+-					 const struct path *path,
+-					 const char *acl_name,
+-					 struct posix_acl *kacl,
+-					 struct file *file)
++static inline int security_path_set_acl(const struct mnt_idmap *idmap,
++				       const struct path *path,
++				       const char *acl_name,
++				       struct posix_acl *kacl,
++				       struct file *file)
+ {
+ 	return 0;
+ }
+@@ -1044,18 +1044,18 @@ static inline void security_inode_post_set_acl(struct dentry *dentry,
+ 					       struct posix_acl *kacl)
+ { }
+ 
+-static inline int security_inode_get_acl(const struct mnt_idmap *idmap,
+-					 const struct path *path,
+-					 const char *acl_name,
+-					 struct file *file)
++static inline int security_path_get_acl(const struct mnt_idmap *idmap,
++				       const struct path *path,
++				       const char *acl_name,
++				       struct file *file)
+ {
+ 	return 0;
+ }
+ 
+-static inline int security_inode_remove_acl(const struct mnt_idmap *idmap,
+-					    const struct path *path,
+-					    const char *acl_name,
+-					    struct file *file)
++static inline int security_path_remove_acl(const struct mnt_idmap *idmap,
++					  const struct path *path,
++					  const char *acl_name,
++					  struct file *file)
+ {
+ 	return 0;
+ }
+diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
+index 025606fe5fe8..a0702eeba02b 100644
+--- a/security/integrity/evm/evm_main.c
++++ b/security/integrity/evm/evm_main.c
+@@ -8,7 +8,7 @@
+  *
+  * File: evm_main.c
+  *	implements evm_path_setxattr, evm_inode_post_setxattr,
+- *	evm_path_removexattr, evm_verifyxattr, and evm_inode_set_acl.
++ *	evm_path_removexattr, evm_verifyxattr, and evm_path_set_acl.
+  */
+ 
+ #define pr_fmt(fmt) "EVM: "fmt
+@@ -689,7 +689,7 @@ static inline int evm_inode_set_acl_change(const struct mnt_idmap *idmap,
+ #endif
+ 
+ /**
+- * evm_inode_set_acl - protect the EVM extended attribute from posix acls
++ * evm_path_set_acl - protect the EVM extended attribute from posix acls
+  * @idmap: idmap of the mount
+  * @path: pointer to the affected object
+  * @acl_name: name of the posix acl
+@@ -702,10 +702,10 @@ static inline int evm_inode_set_acl_change(const struct mnt_idmap *idmap,
+  *
+  * Return: zero on success, -EPERM on failure.
+  */
+-static int evm_inode_set_acl(const struct mnt_idmap *idmap,
+-			     const struct path *path,
+-			     const char *acl_name, struct posix_acl *kacl,
+-			     struct file *file)
++static int evm_path_set_acl(const struct mnt_idmap *idmap,
++			    const struct path *path,
++			    const char *acl_name, struct posix_acl *kacl,
++			    struct file *file)
+ {
+ 	enum integrity_status evm_status;
+ 	struct dentry *dentry = path->dentry;
+@@ -746,7 +746,7 @@ static int evm_inode_set_acl(const struct mnt_idmap *idmap,
+ }
+ 
+ /**
+- * evm_inode_remove_acl - Protect the EVM extended attribute from posix acls
++ * evm_path_remove_acl - Protect the EVM extended attribute from posix acls
+  * @idmap: idmap of the mount
+  * @path: pointer to the affected object
+  * @acl_name: name of the posix acl
+@@ -758,11 +758,11 @@ static int evm_inode_set_acl(const struct mnt_idmap *idmap,
+  *
+  * Return: zero on success, -EPERM on failure.
+  */
+-static int evm_inode_remove_acl(const struct mnt_idmap *idmap,
+-				const struct path *path,
+-				const char *acl_name, struct file *file)
++static int evm_path_remove_acl(const struct mnt_idmap *idmap,
++			       const struct path *path,
++			       const char *acl_name, struct file *file)
+ {
+-	return evm_inode_set_acl(idmap, path, acl_name, NULL, file);
++	return evm_path_set_acl(idmap, path, acl_name, NULL, file);
+ }
+ 
+ static void evm_reset_status(struct inode *inode)
+@@ -1217,9 +1217,9 @@ static struct security_hook_list evm_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(inode_copy_up_xattr, evm_inode_copy_up_xattr),
+ 	LSM_HOOK_INIT(path_setxattr, evm_path_setxattr),
+ 	LSM_HOOK_INIT(inode_post_setxattr, evm_inode_post_setxattr),
+-	LSM_HOOK_INIT(inode_set_acl, evm_inode_set_acl),
++	LSM_HOOK_INIT(path_set_acl, evm_path_set_acl),
+ 	LSM_HOOK_INIT(inode_post_set_acl, evm_inode_post_set_acl),
+-	LSM_HOOK_INIT(inode_remove_acl, evm_inode_remove_acl),
++	LSM_HOOK_INIT(path_remove_acl, evm_path_remove_acl),
+ 	LSM_HOOK_INIT(inode_post_remove_acl, evm_inode_post_remove_acl),
+ 	LSM_HOOK_INIT(path_removexattr, evm_path_removexattr),
+ 	LSM_HOOK_INIT(inode_post_removexattr, evm_inode_post_removexattr),
+diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
+index c701dce1e837..8b12f73afa62 100644
+--- a/security/integrity/ima/ima_appraise.c
++++ b/security/integrity/ima/ima_appraise.c
+@@ -795,10 +795,10 @@ static int ima_path_setxattr(const struct mnt_idmap *idmap,
+ 	return result;
+ }
+ 
+-static int ima_inode_set_acl(const struct mnt_idmap *idmap,
+-			     const struct path *path,
+-			     const char *acl_name, struct posix_acl *kacl,
+-			     struct file *file)
++static int ima_path_set_acl(const struct mnt_idmap *idmap,
++			   const struct path *path,
++			   const char *acl_name, struct posix_acl *kacl,
++			   struct file *file)
+ {
+ 	if (evm_revalidate_status(acl_name))
+ 		ima_reset_appraise_flags(d_backing_inode(path->dentry), -1);
+@@ -823,19 +823,19 @@ static int ima_path_removexattr(const struct mnt_idmap *idmap,
+ 	return result;
+ }
+ 
+-static int ima_inode_remove_acl(const struct mnt_idmap *idmap,
+-				 const struct path *path,
+-				 const char *acl_name, struct file *file)
++static int ima_path_remove_acl(const struct mnt_idmap *idmap,
++				const struct path *path,
++				const char *acl_name, struct file *file)
+ {
+-	return ima_inode_set_acl(idmap, path, acl_name, NULL, file);
++	return ima_path_set_acl(idmap, path, acl_name, NULL, file);
+ }
+ 
+ static struct security_hook_list ima_appraise_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(inode_post_setattr, ima_inode_post_setattr),
+ 	LSM_HOOK_INIT(path_setxattr, ima_path_setxattr),
+-	LSM_HOOK_INIT(inode_set_acl, ima_inode_set_acl),
++	LSM_HOOK_INIT(path_set_acl, ima_path_set_acl),
+ 	LSM_HOOK_INIT(path_removexattr, ima_path_removexattr),
+-	LSM_HOOK_INIT(inode_remove_acl, ima_inode_remove_acl),
++	LSM_HOOK_INIT(path_remove_acl, ima_path_remove_acl),
+ };
+ 
+ void __init init_ima_appraise_lsm(const struct lsm_id *lsmid)
+diff --git a/security/security.c b/security/security.c
+index bca46f5444bd..13778c83fd3a 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -1969,7 +1969,7 @@ int security_path_setxattr(const struct mnt_idmap *idmap,
+ }
+ 
+ /**
+- * security_inode_set_acl() - Check if setting posix acls is allowed
++ * security_path_set_acl() - Check if setting posix acls is allowed
+  * @idmap: idmap of the mount
+  * @path: file (the VFS makes no guarantees with regard to @path->mnt)
+  * @acl_name: acl name
+@@ -1981,14 +1981,14 @@ int security_path_setxattr(const struct mnt_idmap *idmap,
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_set_acl(const struct mnt_idmap *idmap,
+-			   const struct path *path, const char *acl_name,
+-			   struct posix_acl *kacl, struct file *file)
++int security_path_set_acl(const struct mnt_idmap *idmap,
++			  const struct path *path, const char *acl_name,
++			  struct posix_acl *kacl, struct file *file)
+ {
+ 	if (unlikely(IS_PRIVATE(d_backing_inode(path->dentry))))
+ 		return 0;
+-	return call_int_hook(inode_set_acl, idmap, path, acl_name, kacl,
+-			       file);
++	return call_int_hook(path_set_acl, idmap, path, acl_name, kacl,
++			     file);
+ }
+ 
+ /**
+@@ -2009,7 +2009,7 @@ void security_inode_post_set_acl(struct dentry *dentry, const char *acl_name,
+ }
+ 
+ /**
+- * security_inode_get_acl() - Check if reading posix acls is allowed
++ * security_path_get_acl() - Check if reading posix acls is allowed
+  * @idmap: idmap of the mount
+  * @path: file (the VFS makes no guarantees with regard to @path->mnt)
+  * @acl_name: acl name
+@@ -2020,17 +2020,17 @@ void security_inode_post_set_acl(struct dentry *dentry, const char *acl_name,
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_get_acl(const struct mnt_idmap *idmap,
+-			   const struct path *path, const char *acl_name,
+-			   struct file *file)
++int security_path_get_acl(const struct mnt_idmap *idmap,
++			  const struct path *path, const char *acl_name,
++			  struct file *file)
+ {
+ 	if (unlikely(IS_PRIVATE(d_backing_inode(path->dentry))))
+ 		return 0;
+-	return call_int_hook(inode_get_acl, idmap, path, acl_name, file);
++	return call_int_hook(path_get_acl, idmap, path, acl_name, file);
+ }
+ 
+ /**
+- * security_inode_remove_acl() - Check if removing a posix acl is allowed
++ * security_path_remove_acl() - Check if removing a posix acl is allowed
+  * @idmap: idmap of the mount
+  * @path: file (the VFS makes no guarantees with regard to @path->mnt)
+  * @acl_name: acl name
+@@ -2041,13 +2041,13 @@ int security_inode_get_acl(const struct mnt_idmap *idmap,
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_remove_acl(const struct mnt_idmap *idmap,
+-			      const struct path *path, const char *acl_name,
+-			      struct file *file)
++int security_path_remove_acl(const struct mnt_idmap *idmap,
++			     const struct path *path, const char *acl_name,
++			     struct file *file)
+ {
+ 	if (unlikely(IS_PRIVATE(d_backing_inode(path->dentry))))
+ 		return 0;
+-	return call_int_hook(inode_remove_acl, idmap, path, acl_name, file);
++	return call_int_hook(path_remove_acl, idmap, path, acl_name, file);
+ }
+ 
+ /**
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 62053a9f7d9e..e0aaaee537d1 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -3477,24 +3477,24 @@ static int selinux_path_setxattr(const struct mnt_idmap *idmap,
+ 			    &ad);
+ }
+ 
+-static int selinux_inode_set_acl(const struct mnt_idmap *idmap,
+-				 const struct path *path,
+-				 const char *acl_name, struct posix_acl *kacl,
+-				 struct file *file)
++static int selinux_path_set_acl(const struct mnt_idmap *idmap,
++				const struct path *path,
++				const char *acl_name, struct posix_acl *kacl,
++				struct file *file)
+ {
+ 	return dentry_has_perm(current_cred(), path->dentry, FILE__SETATTR);
+ }
+ 
+-static int selinux_inode_get_acl(const struct mnt_idmap *idmap,
+-				 const struct path *path,
+-				 const char *acl_name, struct file *file)
++static int selinux_path_get_acl(const struct mnt_idmap *idmap,
++				const struct path *path,
++				const char *acl_name, struct file *file)
+ {
+ 	return dentry_has_perm(current_cred(), path->dentry, FILE__GETATTR);
+ }
+ 
+-static int selinux_inode_remove_acl(const struct mnt_idmap *idmap,
+-				    const struct path *path,
+-				    const char *acl_name, struct file *file)
++static int selinux_path_remove_acl(const struct mnt_idmap *idmap,
++				   const struct path *path,
++				   const char *acl_name, struct file *file)
+ {
+ 	return dentry_has_perm(current_cred(), path->dentry, FILE__SETATTR);
+ }
+@@ -7745,9 +7745,9 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(path_removexattr, selinux_path_removexattr),
+ 	LSM_HOOK_INIT(inode_file_getattr, selinux_inode_file_getattr),
+ 	LSM_HOOK_INIT(inode_file_setattr, selinux_inode_file_setattr),
+-	LSM_HOOK_INIT(inode_set_acl, selinux_inode_set_acl),
+-	LSM_HOOK_INIT(inode_get_acl, selinux_inode_get_acl),
+-	LSM_HOOK_INIT(inode_remove_acl, selinux_inode_remove_acl),
++	LSM_HOOK_INIT(path_set_acl, selinux_path_set_acl),
++	LSM_HOOK_INIT(path_get_acl, selinux_path_get_acl),
++	LSM_HOOK_INIT(path_remove_acl, selinux_path_remove_acl),
+ 	LSM_HOOK_INIT(inode_getsecurity, selinux_inode_getsecurity),
+ 	LSM_HOOK_INIT(inode_setsecurity, selinux_inode_setsecurity),
+ 	LSM_HOOK_INIT(inode_listsecurity, selinux_inode_listsecurity),
+diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+index eed06cf7af99..95a048bcf3a6 100644
+--- a/security/smack/smack_lsm.c
++++ b/security/smack/smack_lsm.c
+@@ -1551,7 +1551,7 @@ static int smack_path_removexattr(const struct mnt_idmap *idmap,
+ }
+ 
+ /**
+- * smack_inode_set_acl - Smack check for setting posix acls
++ * smack_path_set_acl - Smack check for setting posix acls
+  * @idmap: idmap of the mnt this request came from
+  * @path: the object
+  * @acl_name: name of the posix acl
+@@ -1560,10 +1560,10 @@ static int smack_path_removexattr(const struct mnt_idmap *idmap,
+  *
+  * Returns 0 if access is permitted, an error code otherwise
+  */
+-static int smack_inode_set_acl(const struct mnt_idmap *idmap,
+-			       const struct path *path,
+-			       const char *acl_name, struct posix_acl *kacl,
+-			       struct file *file)
++static int smack_path_set_acl(const struct mnt_idmap *idmap,
++			      const struct path *path,
++			      const char *acl_name, struct posix_acl *kacl,
++			      struct file *file)
+ {
+ 	struct smk_audit_info ad;
+ 	int rc;
+@@ -1577,7 +1577,7 @@ static int smack_inode_set_acl(const struct mnt_idmap *idmap,
+ }
+ 
+ /**
+- * smack_inode_get_acl - Smack check for getting posix acls
++ * smack_path_get_acl - Smack check for getting posix acls
+  * @idmap: idmap of the mnt this request came from
+  * @path: the object
+  * @acl_name: name of the posix acl
+@@ -1585,9 +1585,9 @@ static int smack_inode_set_acl(const struct mnt_idmap *idmap,
+  *
+  * Returns 0 if access is permitted, an error code otherwise
+  */
+-static int smack_inode_get_acl(const struct mnt_idmap *idmap,
+-			       const struct path *path,
+-			       const char *acl_name, struct file *file)
++static int smack_path_get_acl(const struct mnt_idmap *idmap,
++			      const struct path *path,
++			      const char *acl_name, struct file *file)
+ {
+ 	struct smk_audit_info ad;
+ 	int rc;
+@@ -1601,7 +1601,7 @@ static int smack_inode_get_acl(const struct mnt_idmap *idmap,
+ }
+ 
+ /**
+- * smack_inode_remove_acl - Smack check for getting posix acls
++ * smack_path_remove_acl - Smack check for removing posix acls
+  * @idmap: idmap of the mnt this request came from
+  * @path: the object
+  * @acl_name: name of the posix acl
+@@ -1609,9 +1609,9 @@ static int smack_inode_get_acl(const struct mnt_idmap *idmap,
+  *
+  * Returns 0 if access is permitted, an error code otherwise
+  */
+-static int smack_inode_remove_acl(const struct mnt_idmap *idmap,
+-				  const struct path *path,
+-				  const char *acl_name, struct file *file)
++static int smack_path_remove_acl(const struct mnt_idmap *idmap,
++				 const struct path *path,
++				 const char *acl_name, struct file *file)
+ {
+ 	struct smk_audit_info ad;
+ 	int rc;
+@@ -5205,9 +5205,9 @@ static struct security_hook_list smack_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(inode_post_setxattr, smack_inode_post_setxattr),
+ 	LSM_HOOK_INIT(path_getxattr, smack_path_getxattr),
+ 	LSM_HOOK_INIT(path_removexattr, smack_path_removexattr),
+-	LSM_HOOK_INIT(inode_set_acl, smack_inode_set_acl),
+-	LSM_HOOK_INIT(inode_get_acl, smack_inode_get_acl),
+-	LSM_HOOK_INIT(inode_remove_acl, smack_inode_remove_acl),
++	LSM_HOOK_INIT(path_set_acl, smack_path_set_acl),
++	LSM_HOOK_INIT(path_get_acl, smack_path_get_acl),
++	LSM_HOOK_INIT(path_remove_acl, smack_path_remove_acl),
+ 	LSM_HOOK_INIT(inode_getsecurity, smack_inode_getsecurity),
+ 	LSM_HOOK_INIT(inode_setsecurity, smack_inode_setsecurity),
+ 	LSM_HOOK_INIT(inode_listsecurity, smack_inode_listsecurity),
+-- 
+2.18.0.huawei.25
 
-But that needs to be discussed separately: as Gregory pointed out at
-LPC, NUMA balancing needs some cleanups first, and the right interface
-may not be BPF-specific at all (e.g., extending the home node concept of
-set_mempolicy_home_node() to NUMA balancing, or a device-aware hint in
-mm that both fair and ext could use, or something else).
-
-The first step for now is to, at least, allow sched_ext to see the
-preferred node computed by NUMA balancing, which is what this series
-does.
-
-[1] https://lpc.events/event/20/sessions/270/attachments/2223/5283/lpc-2026-sched_ext-mc-report.md
-
-Thanks,
--Andrea
