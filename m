@@ -1,78 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.70
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793115430;
-	b=CRsKJNlNKf+NKTjGBCIywmGlLQ3uxweUwXHLrBUfVK3AfaEUa9QAS/msBktr6uQ9jvXL
-	 p0zY8N71PQB2tmOH1llZJPV6Olfblnd5UrbkA1SbMe7F1QRgbnoVdou493FZU6k8INMGY
-	 W3vGomLI9VdJM6onKUZSL2G3gY+ZQYTkJKGb5uJK8BKkpthJLS3h8LnJyShAD4Q8QnDaD
-	 ZMjytc9STseFIYsqJERUTrALn0T3kPHjK1mKXwYgir9+RfUFqpuLHv9Q0Ot7//GgGwXbU
-	 +bbtX5ba8sgjk12ZRw8WUcYYROq9tAbg5oqUxu+sMuaiJZAtMyLqyvPJMrXZ3KdfS3w==
+	t=1793115473;
+	b=MIOaERb/JyGozFBXQyE/xo/f0cjiYMRa4AALgq+ZN0VFCTH35+zUMPMHOgQ2nt3cdAOE
+	 uOAAaGyiuP6yXZ3lxtt2Zf8o+6ZBJGUisYSBPrtzqvR0q7hhNEebWvorB6v3TW1qlwPRK
+	 Vt7ucClOCj98yFiAOiZ/3gD+GTbAkY/yKM6sQzI6D9CfJNsdJBc2vRTCv6XxfqjXzstVu
+	 LCFUA2jxH04Fx46ZQdCN1+NeoT3mTtajYpKshJ6+TqHjKh7ikxsh8Y7wWToI7AK7dcxMp
+	 KAJFwFS5R4EW39gyAKu1yjnCyqDD/aZ49vwFxjchxJBQJNwDjb8k6go0O7MDtRlz9Lw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115430;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=+p3cu7D5opnUF2UdppBUge9QydMQLoSHZJ9keRNgKhk=;
-	b=bb6QT2owNK2YkPA2HGxesuz3iwy9T3ixULHzca/ZS57li4pRYFSXG6PmbmrfqaChuZ7L
-	 jL7sWwdSFCG/G1Yi3T63SZIAa01XUbl6Dno8fRWtO43Jy9zZ1mJGqQeb5eePUWcRjBnSS
-	 ZWRipAiGlTF0H2h3mO4MunU2xctXvMEhkDmnmd8Cov78Ias/HgPVBNrcj//8uP7iRjvYZ
-	 sfDqEIoCrZ+MR0Fn9jTp5D9fSrAyPrbvYXxv5/7EymSzl34PVFdyBYdLplpGWXsiDq4Qn
-	 MuoRuPSmGXJITUrp+4bwQ+mF5tFrzqXii17hwIF548WW7W/Y7hDtTZNNNoSgjiT4dHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115473;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=OAM1BnXjz5B7co63t75PaiG5nkuDkTIhehOzyR5IT64=;
+	b=abF8NHLA8OuhhxkyBkI1AbqyThZO1ccHZ3+ETG8Uj+Sx3BOXv1tunNDh1okXoOji67LG
+	 p9Ol4Nup3lhjPV2FfyoISoPGhj59/8D2n9rivVBJ6G+muvXA+bVsbm5R88sJu1zeQYkVU
+	 cN3RLIetT6Co15F1LXdVBaUQpK3CqAHAeEJKHFWBUndZOBmtXoBm8oZYRlox+Qf32uV4C
+	 dnsG17P4yzEFYore6g0BqhqQ96ya7IQSS8r+8niOUJpcn3DkajxwsDUnSJr4IZe803CXS
+	 QyuACe9AZreN7rAf+eS2frmJE5qFkuYxBq97e2bd0DUFn/0pSXbdi2FPSPYXuOyCHsw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jm8OtCnY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718F560A5BE1;
-	Tue, 27 Oct 2026 15:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jm8OtCnY
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793115430;
-	b=2Gi64QNKS9uYfhGhH7W/V6x0PVbi1HpWjb98NsKJT++GL9p2p+5ojYjfwd+yVhZS0dpE
-	 moZSJmOBdI4BIuC39cbui6UZDpVsc4Jr5bPRGRWz9f0l1vw4+nwDVT23ltPAlHb4szRaX
-	 EoGVevlqo6DMNyzrivZuY1+qSRxlnJPyP+zoUQtql4rah0AGGm65RCRwfolLMYmXHZYBW
-	 2ZkbVFidzxGu1amZ+a/g8R5NGltBJQT8Ersoje5aHYvhL1QsCJ9THjtC78qlyCbkjLhYO
-	 Dzzb/vgw7bmxm4LAB2zfCOg9JhC4yCCSGb6Tqgccf3JlSMxMxKcp+Lhzpsc0wgPinDA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793115430;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=+p3cu7D5opnUF2UdppBUge9QydMQLoSHZJ9keRNgKhk=;
-	b=jodnIeYxmlxvrG3xe+4iFPXnqyHJevRjb/xErBthTFjxJpV8plHjHQ3lpVSDdibCtDBr
-	 49ewUCK3ER9WDcYSd9m/EHQ7SUl0CZM/7nBX6g394z49qZb8tk1ToPHkXRL2exxYcSFsc
-	 q1AZEZkpncYRswLznbdRpPUUZY7zXwm1zAqKU1BzE9GkgNKMC/k+v0v0/EUnCYE324pwT
-	 EWOUaRDm8xPhlTtyzP57n2EhyRhBgp4MwrVpYsQUEUcG+cxzxkFqW7gNaCfi1wBb2PK4v
-	 HrNJh3MBbtIth7Me6PB/V9tyzyXHloqhCY715s+cfLHTDdWrikJfc3eXhUUab1jfM7Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.70
+Received: from mail-lr2-f6.google.com (mail-lr2-f6.google.com [74.125.230.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3CFA11F01401;
-	Tue, 27 Oct 2026 15:37:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115430;
-	bh=+p3cu7D5opnUF2UdppBUge9QydMQLoSHZJ9keRNgKhk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jm8OtCnYUxOG3KyVcEDIxeW83TNSPyH7jeMQ/GbKBwqlkiv6EYxO8HtdjQG8d4GA6
-	 4L0hsxzhEnKZlQva8G47mbF+IJDhB4ar3cm20d4RiXCVU4FIqTc4DdlDf5TJqPxK4k
-	 Y3pKv6GvlnFVL9e2dly8y4RT7em/CS9WjIYax4uSiZqAMNSUmF1OIsq/iutbWDUlPY
-	 P2fCzmOSYLN4Rz4LsiuCYAx2BgLfuvJQqzcQ2w3Ef+XXdMHfp6UbJTQARu3NXwmC3Y
-	 EsAMbPV/USM9cei0x5zba9rtPF2rr/AxCoUwvAX5ijVwrw70j/D98mXfHfdDdyBC4u
-	 3s/sMOERry2Hg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B9FB14516F;
-	Tue, 27 Oct 2026 15:37:01 +0000 (UTC)
-From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Tue, 27 Oct 2026 23:37:05 +0800
-Subject: [PATCH RFC 14/18] riscv: dts: zhihe: add A210 UARTs
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB0B606D926
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:37:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBB0B606D926
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-lr2-f6.google.com with SMTP id 38308e7fff4ca-3ab1b11ca0bso22758931fa.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:37:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793115461; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k+zc+qrHdyLoRmdLih4UitdGOsvAs0AVPhRZ+zq1UVwdVCDBXGwThqByXy096MRlXc
+         PzGLRoRcvfGAnDfsXwQcPxvEN8Tv09EZawYUsm5ZbfGLOXvcJDE2a3TSjrXqAW/wMco3
+         n7icriVH3/TkCD26F+Gtikv45QBqskuA1eijDbd6re8aNOkFnRU3f8d63juJmXzw52a+
+         v6kk9SiKvNJGCEw0ed154wlsq2lBUKQacEyDugEXWx49r5OVSNMLqMNGE9IXzQihPipi
+         7Bo+T2tJETY4ueomqJgWRffvN+0q1bLYlX0pOI/k7bKZ1jnGPIHYvqq9QOupajSO+9lC
+         LEWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=OAM1BnXjz5B7co63t75PaiG5nkuDkTIhehOzyR5IT64=;
+        fh=BjPHx8Autr57R2QqBgEasE4mBWjnOubC8QjIO45o7Jc=;
+        b=lhjGwwYhDQvV+YMCC5kecZP5KTAdV3eDNSwyhLhSkE/oudvn7i8NhSoTA2Ez4b+z95
+         uc11M+rIvP+hpUVl9P2+sWY9Kvavek2frVvrniiQCnqXaOgf3javVtrR7Mq8jZlvCkxd
+         ZUL9hws71RMiCJs2Ubz/7FLXK9IkUeG9KcLaVIkW8kVmQn97Jek58POnR5uElvE2h5+j
+         myuLTK+hvxr7t6CTfcBqUH+pHvwrWBVQ87x97tD56AgO+4Zp9rZnsVzQd3rFPYPlDIvS
+         bUmWXYAbiniUzlMwpecST/ND+IzEWld5jwMkgIUSMOnM1+u3ELXXCu+b/9DOBiH4MDEC
+         qi0w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793115461; x=1793720261; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OAM1BnXjz5B7co63t75PaiG5nkuDkTIhehOzyR5IT64=;
+        b=DpLQ/mkpJ4rJWOBtyRY05rVfzGeLcMLW2eUYsuynBcgA4Gxk70/fuBxiOkj6Ice0em
+         YzlresyV/sZuDJLt51esF8fFAL6gi5ni63O/kVNcRbLiIwuccBHy33nD7qahd5vqXO6Q
+         Y98LNO1/7KRb+jyIEQzaSmVcq0Xg/EUWkwqWLTZqx763D0TUI8ablbly9lhnEpbHRzBR
+         7tVGrJTBFbsl82ArI/CL2vfzK1UIPefZGuZJIVwLuZbx76qlwapJGqmTjnUlSDZTnX9R
+         LrJinth0FIsJFK1zcq1+HmKxnHa1kf6wc+J0kFJa0swC8Rv2WAw6bkYumWkY6EI6/tad
+         62lA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793115461; x=1793720261;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OAM1BnXjz5B7co63t75PaiG5nkuDkTIhehOzyR5IT64=;
+        b=ZR36vsyjkMKRu/rq8tMFbzw1ouHUNj9FRwB+uzEtIQR0jxPCRNEqxTWOM94EqhiFgx
+         6ciBLRsyfd1Q3w3OPCHvFGAMSWaq7Y5brmyqksejIHeWqFvpnVejr0Q5RiWPgedo/2aR
+         mY8xKSqbpXm7KUJkNcKP+pWC7hyOqk8JFFXfUG67HAQjLEYR+q8elAT4tUkEdOapsbYs
+         qMyw2KFelJq7n1fLnURkH1/ll63lIwrQ3pc0IXRrj03CyxWsOActn6SEqGE5MfdFlvAD
+         6jCMHSt+XUoA2n9nVXoxRSi7OBbrRT/rwb2jtkRpt9d7q6VFefjIJm4Ck0aCV8Qmoicj
+         tsWA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4pnI80lcDB0K4cqQl1VyhmRTGcfDwvbHhK8BSW9iyHGlUG/x6go+q3bQvuc1cSyn/kUrIgCMTAXNFUSs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6LxjUAKpRq2hCAIt48YjI7YWZl5RcEgmdFRPfY11Ii3tt3S7F
+	tT8FLQY2NTVcwPxtv9xPmEKCl9DLDQza/J4Z/xtZYd34r86bFxvHGGBrIscR6uY6MeApgN+YKLr
+	+KUzUXx4PM5DhBguQBW+Mt/FViCXI9FA=
+X-Gm-Gg: AYBFou1ie9gjO13QhdcAUxXU10bqmfHXllPzHpOQiMQ0lz6G4WjHKXwYQnOyZRfolVd
+	rfABCaU/eX+6YMWs3tlucOydjbLWKRZY/k3S9oBzqfc7z83o3VbR2l/6t+NeFiD2OnNvSOwwUbW
+	o92rc2F3c13ev0tWJ4JTCDrOXcSgI+ZRNr6epARff+BIUG5jvU6hX5GzrebYxg8EeFVNBUCR0/W
+	/b7goyX/U6EgVlCCNlm8mrCvuWktCHB+TgqEuV8mPsPTV+DkyUqDWzI6PvvjXFLstmljvw2CySC
+	PBy6YYk+KYxRJNRJfNmpP7o3H7wEIN/I0RcJNJ/ufcGMk3O742BP2IhR00vkqTrehpGa7lYKEGY
+	c+dCcfJhXxGAhwNhcjuGd9qou2yJZuzRc8bk=
+X-Received: by 2002:a05:6512:31cf:b0:5bf:a6e9:4cc with SMTP id
+ 2adb3069b0e04-5bfb716e441mr3339718e87.1.1793115460664; Tue, 27 Oct 2026
+ 08:37:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,238 +98,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-a210-scmi-v1-14-74d58ce85bd8@iscas.ac.cn>
-References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
-In-Reply-To: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
-To: Sudeep Holla <sudeep.holla@kernel.org>, 
- Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Drew Fustini <fustini@kernel.org>, 
- Icenowy Zheng <uwu@icenowy.me>, Inochi Amaoto <inochiama@gmail.com>, 
- Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>, 
- Jiaxun Yang <jiaxun.yang@flygoat.com>
-Cc: arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org, 
- Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org, 
- linux-serial@vger.kernel.org, Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793115418; l=6132;
- i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=rRW4ylMF29ir1IYBIWF90YJ6C63CtXasTioTY26aDbI=;
- b=1orY14EtxCG4UhYuWnQ834lieUC3qIb9xnmL3IQSnQDQFuyeI0SpvadwpLUUAs6OSIQjFUlVA
- wXcEkKSq3ZYB5dx+qUkxDO/Qz15DPQZaTrPQiVPtERk3SDHK+C+QGWO
-X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
- pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
-X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
- auth_id=1262
-X-Original-From: Han Gao <gaohan@iscas.ac.cn>
-Reply-To: gaohan@iscas.ac.cn
+From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Date: Tue, 27 Oct 2026 23:37:28 +0800
+X-Gm-Features: AclHuK__CKSeP7Mc8wC2_HztAGdz37Y4Di0KOmsvhiBwOPC8BtfqvM0Lsguqa6Y
+Message-ID: <CAO-4RZ2ndsdZPmacvCwdVS+cYGSvMv8x6wK8kb5jPqyoUjhy-A@mail.gmail.com>
+Subject: [BUG] gfs2: umount holds s_umount in gfs2_wait_glocks(), sync() hangs
+ in __iterate_supers
+To: agruenba@redhat.com
+Cc: gfs2@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz
+Content-Type: text/plain; charset="UTF-8"
 
-From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+Hi Andreas,
 
-Describe the ten DW APB UARTs with SCMI clocks and their separate APB
-and serial resets.
+I observed an "INFO: task hung in __iterate_supers" while fuzzing with
+syzkaller. The report was first produced on Linux 7.1.3, reproduced on
+7.2.11 (state-primed replay) and on 7.3.0 (the 159-program
+state-construction sequence followed by
+repro.prog). All
+three kernels used the same KASAN/KCOV/fault-injection configuration; no GFS2
+source changes.
 
-Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
- arch/riscv/boot/dts/zhihe/a210.dtsi | 161 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 161 insertions(+)
+The hang is a lock-wait chain. A task in sync()/ksys_sync() iterates
+superblocks and blocks on the s_umount read lock in __iterate_supers() ->
+super_lock(). The same s_umount is held exclusively by a task in
+deactivate_super() running the GFS2 unmount path, which waits in
+gfs2_wait_glocks() for sd_glock_disposal to reach zero. GFS2 logs
+"1 glocks left after 61/122 seconds; still waiting", the glock does not go
+away, and the hung-task watchdog panics at 143 s.
 
-diff --git a/arch/riscv/boot/dts/zhihe/a210.dtsi b/arch/riscv/boot/dts/zhihe/a210.dtsi
-index c7b623800aa7..a23f59394659 100644
---- a/arch/riscv/boot/dts/zhihe/a210.dtsi
-+++ b/arch/riscv/boot/dts/zhihe/a210.dtsi
-@@ -363,11 +363,172 @@ peri3_padctrl: pinctrl@542000 {
- 			status = "disabled";
- 		};
- 
-+		uart0: serial@2014000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x02014000 0x0 0x400>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(0)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(0)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <321 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(0)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(0)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@2015000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x02015000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(1)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(1)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <322 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(1)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(1)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@2016000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x02016000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(2)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(2)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <323 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(2)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(2)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart3: serial@2017000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x02017000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(3)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(3)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <324 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(3)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(3)>;
-+
-+			status = "disabled";
-+		};
-+
- 		peri1_padctrl: pinctrl@2026000 {
- 			compatible = "zhihe,a210-peri1-pinctrl";
- 			reg = <0x0 0x02026000 0x0 0x1000>;
- 			clocks = <&scmi_clk A210_CLK_PERI1_PAD>;
- 			clock-names = "pclk";
-+			resets = <&scmi_reset A210_RESET_PERI1_PAD>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart4: serial@8401000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x08401000 0x0 0x400>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(4)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(4)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <325 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(4)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(4)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart5: serial@8402000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x08402000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(5)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(5)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <326 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(5)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(5)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart6: serial@8403000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x08403000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(6)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(6)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <327 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(6)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(6)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart7: serial@8404000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x08404000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(7)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(7)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <328 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(7)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(7)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart8: serial@8405000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x08405000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(8)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(8)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <329 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(8)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(8)>;
-+
-+			status = "disabled";
-+		};
-+
-+		uart9: serial@8406000 {
-+			compatible = "zhihe,a210-uart", "snps,dw-apb-uart";
-+			reg = <0x0 0x08406000 0x0 0x1000>;
-+			clocks = <&scmi_clk A210_CLK_UART_SCLK(9)>,
-+				 <&scmi_clk A210_CLK_UART_PCLK(9)>;
-+			clock-names = "baudclk", "apb_pclk";
-+			interrupt-parent = <&intc>;
-+			interrupts = <330 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-io-width = <4>;
-+			reg-shift = <2>;
-+			resets = <&scmi_reset A210_RESET_UART_PRST(9)>,
-+				 <&scmi_reset A210_RESET_UART_SRST(9)>;
- 
- 			status = "disabled";
- 		};
+On 7.3.0 the sequence also causes a GFS2 withdraw after an invalid metadata
+block in a deliberately corrupted image; a failslab failure in
+gfs2_glock_get() from gfs2_create_inode() immediately precedes the withdraw.
+I have not established whether the withdraw is required for the hang, or
+whether the failed inode-creation/unmount path is the important part.
 
--- 
-2.55.0
+Environment
+-----------
+- Kernel A (original report): 7.1.3-kernsight-kasan #13 SMP PREEMPT_DYNAMIC
+  (2026-10-13), x86_64, KASAN/KCOV. Source: Linux v7.1.3, commit
+  113be0295f4f632d61f4e9c93322f70e2365f54d; tag
+  linux-7.1.3-kernsight-kasan-v1. The saved tree is not a git checkout.
+- Kernel B (reproduced 2026-10-20): 7.2.11-kernsight-kasan #1 SMP
+  PREEMPT_DYNAMIC, x86_64. Source: Linux v7.2.11, commit
+  8316c24ec1b77dba19ba072ca4fe251b36dc65d3, release tarball sha256
+  fd0fc479f983a8c05313f13e9c36330fe6651cf725396748c40d5cd93fa1e6a4.
+- Kernel C (reproduced 2026-10-27): 7.3.0-kernsight-kasan #1 SMP
+  PREEMPT_DYNAMIC (2026-10-20), x86_64. Source: mainline Linux v7.3, commit
+  091b06388b117fefdcb63336ac09956a4914b961, release tarball sha256
+  87363c24f10e06321eb362765521094e94471f6bff8bce2d6b3e40f39f004953.
+- Kernel configs (repository): kernel/kernel-7.1.3.config,
+  kernel/kernel-7.2.11.config, kernel/kernel-7.3.config; source tags/commits
+  and tarball checksums in kernel/SOURCES.md. For 7.2.11 and 7.3.0 only the
+  kernel configuration was adapted (KASAN/KCOV and the KernSight collection
+  config); no kernel source changes were made. For 7.1.3 no source diff is
+  included.
+- Guest: QEMU 6.2.0, 4 vCPU, 6 GiB, KVM, x86_64. A fresh VM per run.
+- Syzkaller: revision 853b104bb454141a5b0fc0e4218ec78e9f34ffb1+ (2026-09-18).
+  The "+" denotes local KernSight integration changes (seed ordering/state
+  feedback: pkg/kernsight, prog/kernsight_*, syz-manager/kernsight_*,
+  pkg/execbackend, snapshot support in vm/qemu). They do not change the gfs2
+  syscall descriptions or the executor's fault-injection semantics.
+- Kernel command line (same for the three kernels; see the repository):
+  root=/dev/sda console=ttyS0 fstab=no rw earlyprintk=serial
+net.ifnames=0 oops=panic panic_on_warn=1 panic=86400 hung_task_panic=1
+softlockup_panic=1 nmi_watchdog=panic
+sysctl.kernel.hung_task_all_cpu_backtrace=1
+sysctl.kernel.panic_on_rcu_stall=1
+sysctl.kernel.max_rcu_stall_to_panic=1 rcupdate.rcu_expedited=1
+rcupdate.rcu_cpu_stall_cputime=1 no_hash_pointers page_owner=on
+sysctl.vm.nr_hugepages=4 sysctl.vm.nr_overcommit_hugepages=4
+secretmem.enable=1 msr.allow_writes=off coredump_filter=0xffff
+vsyscall=native kvm-intel.nested=1 spec_store_bypass_disable=prctl
+nopcid vivid.n_devs=64
+vivid.multiplanar=1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2
+netrom.nr_ndevs=32 rose.rose_ndevs=32 smp.csd_lock_timeout=100000
+watchdog_thresh=55 workqueue.watchdog_thresh=140
+sysctl.net.core.netdev_unregister_timeout_secs=140 dummy_hcd.num=16
+max_loop=32 nbd.nbds_max=32 comedi.comedi_num_legacy_minors=4
+kunit.autorun=0 vcan.echo=1
+- Reproduction rates: 7.1.3: original report. 7.2.11: state-primed replay
+  triggered the same report title and s_umount lock-wait pattern; the C
+  conversion failed (C=false). 7.3.0: triggered with the 159-program
+  state-construction sequence followed by repro.prog. I have not isolated the
+  required subset or characterized stability with standalone control runs.
 
+Reproduction on 7.3.0
+---------------------
+Fresh KVM guest; two steps in the same VM; do not reboot in between and keep
+the VM running afterwards (the hung-task panic can appear after both commands
+have returned, and the execprog may already have exited):
 
+  scp syz-execprog syz-executor repro.kernsight.prog repro.prog root@guest:/tmp/
+  ssh root@guest
+  cd /tmp && chmod +x syz-execprog syz-executor
+  # step 1: state construction (159 programs)
+  ./syz-execprog -procs=1 -repeat=1 -disable=swap -executor
+./syz-executor ./repro.kernsight.prog
+  # step 2: crashing testcase, immediately afterwards
+  ./syz-execprog -procs=1 -repeat=1 -disable=swap -executor
+./syz-executor ./repro.prog
+
+Execution settings: sandbox=none, threaded executor, procs=1, repeat=1, no
+additional syzkaller features. repro.kernsight.prog is the state-construction
+recipe (159 programs, ~14 MB including embedded filesystem images) replayed
+one at a time in file order; repro.prog is the crashing testcase run on that
+state. repro.prog alone does not reproduce reliably. The 7.2.11 run used the
+same 159-program sequence followed by repro.prog.
+
+The sequence contains fault-injection annotations. In the 7.3.0 run a
+failslab failure is injected in gfs2_glock_get() from gfs2_create_inode();
+the failing allocation and the subsequent withdraw are shown below. No
+additional fail_nth/debugfs fault-injection configuration was required.
+
+Observed on 7.3.0
+-----------------
+The gfs2 image is mounted read-write from a corrupt image. During an
+openat()/create, gfs2 reports a duplicate quota-change identifier, then the
+failslab failure, then an invalid metadata block and a withdraw:
+
+  [ 293.521836][T13753] gfs2: fsid=syz:syz.0: Corruption found in
+quota_change0file: duplicate identifier in slot 8637
+  [ 293.574756][T13753] FAULT_INJECTION: forcing a failure.
+  [ 293.574756][T13753] name failslab, interval 1, probability 0,
+space 0, times 0
+  [ 293.575588][T13753]  gfs2_glock_get+0xcfd/0x1240
+  [ 293.575947][T13753]  gfs2_create_inode+0x1941/0x36b0
+  [ 293.576701][T13753]  gfs2_atomic_open+0xbe/0x220
+  ...
+  [ 293.585337][T13753] gfs2: fsid=syz:syz.0: fatal: invalid metadata
+block - bh = 2342 (bad magic number), function = gfs2_meta_buffer,
+file = fs/gfs2/meta_io.c, line = 460
+  [ 293.585388][T13753]  gfs2_withdraw+0xcb/0x1d0
+  [ 293.585430][T13753]  gfs2_meta_buffer+0x384/0x3d0
+  [ 293.585470][T13753]  gfs2_dirty_inode+0x5fa/0x800
+  [ 293.585555][T13753]  __mark_inode_dirty+0x203/0x1690
+  [ 293.585574][T13753]  gfs2_create_inode+0x27f9/0x36b0
+  [ 293.586311][T13753] gfs2: fsid=syz:syz.0: about to withdraw this file system
+  [ 298.641734][T10021] gfs2: fsid=syz:syz.0: file system withdrawn
+
+About 63 seconds after the withdraw completed, the unmount task reports a
+leftover quota data object:
+
+  [ 361.670586][T12077] gfs2: fsid=syz:syz.0: 1 left-over quota data objects
+  [ 423.109212][T12077] gfs2: fsid=syz:syz.0: 1 glocks left after 61
+seconds; still waiting
+  [ 484.549370][T12077] gfs2: fsid=syz:syz.0: 1 glocks left after 122
+seconds; still waiting
+
+khungtaskd then reports the sync() task and the lock handoff:
+
+  [ 489.029328][   T43] INFO: task syz.6.106:15555 blocked for more
+than 143 seconds.
+  [ 489.029369][   T43]       Tainted: G             L
+7.3.0-kernsight-kasan #1
+  [ 489.029447][   T43] Call Trace:
+  [ 489.029671][   T43]  schedule+0xec/0x2d0
+  [ 489.029688][   T43]  schedule_preempt_disabled+0x18/0x30
+  [ 489.029704][   T43]  rwsem_down_read_slowpath+0x597/0xc10
+  [ 489.029790][   T43]  down_read+0xf4/0x4d0
+  [ 489.029825][   T43]  super_lock+0x31b/0x3e0
+  [ 489.029954][   T43]  __iterate_supers+0x377/0x460
+  [ 489.030047][   T43]  ksys_sync+0x8c/0xf0
+  [ 489.030118][   T43]  __do_sys_sync+0x13/0x20
+  [ 489.030148][   T43]  do_syscall_64+0x12e/0x7a0
+  [ 489.030257][   T43] Showing all locks held in the system:
+  [ 489.030773][   T43] locks held by syz-executor/12077: 1, on CPU#2:
+  [ 489.030782][   T43]  #0: ff11000111fe60e8
+(&type->s_umount_key#70){++++}-{4:4}, at: deactivate_super+0xb1/0xd0
+  [ 489.030886][   T43] locks held by syz.6.106/15555: 1, on CPU#3:
+  [ 489.030894][   T43]  #0: ff11000111fe60e8
+(&type->s_umount_key#70){++++}-{4:4}, at: super_lock+0x31b/0x3e0
+  [ 489.033265][   T43] Kernel panic - not syncing: hung_task: blocked tasks
+
+So the task holding s_umount at deactivate_super() is the same task
+(T12077, syz-executor) that is waiting for the last glock in
+gfs2_wait_glocks(). The sync() task remains blocked on s_umount, and
+khungtaskd triggers a kernel panic because hung_task_panic=1.
+
+7.1.3 and 7.2.11
+----------------
+On 7.1.3 the original report has the same lock handoff: the sync() task is in
+__iterate_supers() -> super_lock(), and syz-executor/9333 holds s_umount at
+deactivate_super(). Before that, gfs2 had logged:
+
+  [ 1459.515662][ T9333] gfs2: fsid=syz:syz.0: 2 glocks left after 491
+seconds; still waiting
+
+In that log, several gfs2 mounts with the same fsid had failed earlier with
+"sysfs: cannot create duplicate filename '/fs/gfs2/syz:syz'" and "error -17
+adding sysfs files"; I do not know whether that is related.
+
+On 7.2.11, state-primed replay successfully triggered
+"INFO: task hung in __iterate_supers", with the same s_umount
+lock-wait pattern. Standalone C reproducer conversion failed
+(C=false).
+
+The captured logs do not identify the filesystem holding the lock.
+An identical GFS2 root cause across versions has not yet been
+confirmed.
+
+Analysis and questions
+----------------------
+__iterate_supers() (reachable from sync()) takes s_umount for each
+superblock. deactivate_super() holds s_umount exclusively while
+gfs2_kill_sb()/gfs2_put_super() runs, and gfs2_put_super() ends in
+gfs2_wait_glocks(), which waits for sd_glock_disposal to reach zero and logs
+"N glocks left ...; still waiting". If a glock reference survives the
+withdraw/failed-create path, the unmount keeps s_umount while it waits, and
+an unrelated sync() task trips the 143-second hung-task panic first.
+
+The "1 left-over quota data objects" message suggests that quota references
+from the same failed/withdrawn path also survive, so this may not be limited
+to glocks.
+
+I would appreciate help with the following:
+
+1. Is a leftover glock (and quota object) expected after a withdraw or after
+   a failed inode creation, or does this point to a glock/reference leak in
+   the error path? In the 7.3.0 run the failing allocation is
+   gfs2_glock_get() from gfs2_create_inode(), followed by a
+   mark_inode_dirty() -> gfs2_dirty_inode() call and then the withdraw.
+
+2. Is it intended that gfs2_wait_glocks() waits while holding s_umount
+   exclusively? If the wait can legitimately exceed the hung-task timeout,
+   should the wait be moved out of the s_umount critical section, or should
+   the remaining glock be dumped earlier so the waiter can be identified?
+
+3. Can you suggest a diagnostic patch that dumps the remaining glock when the
+   60-second wait expires? I can run it on the reproducer; the panic happens
+   at 143 seconds, so a dump at 61 seconds would still be captured.
+
+4. Is the 7.1.3 duplicate-fsid mount failure a separate issue, or could it
+   leave the same kind of lingering references?
+
+I am happy to provide additional information and test proposed patches.
+
+Materials
+---------
+The full programs, logs and reports are at:
+  https://github.com/Zheng-zheng-codes/gfs2-iterate-supers-hang-repro
+
+Contents:
+  repro/repro.prog                  original syzkaller testcase (not
+sufficient alone)
+  repro/repro.kernsight.prog        159-program state-construction
+sequence (7.2.11/7.3.0; ~14 MB)
+  7.1.3/report0, 7.1.3/log0         original 7.1.3 hung-task report and full log
+  7.1.3/machineInfo0, 7.1.3/description, 7.1.3/pre_state0
+  7.2.11/repro.report, 7.2.11/repro.log   7.2.11 state-primed
+reproduction (C=false)
+  7.2.11/console-7.2.11.log                7.2.11 full batch/console log
+  7.2.11/repro.kernsight.prog, 7.2.11/RESULT.md
+  7.3/serial-7.3.log                full 7.3.0 console (contains the
+report above)
+  7.3/console-7.3.log, 7.3/cmdline-7.3.txt, 7.3/boot-info-7.3.txt
+  7.3/RESULT-7.3.txt
+  kernel/kernel-7.1.3.config, kernel/kernel-7.2.11.config,
+kernel/kernel-7.3.config
+  kernel/SOURCES.md
+  reproduce.sh                      runs repro.kernsight.prog first,
+then repro.prog
+  README.md, verify.sh, MANIFEST.sha256
+
+The kernel configs correspond to the three -kernsight-kasan builds used above
+(KASAN/KCOV; gfs2 built in).
+
+Best regards,
+Zheng Zheng
