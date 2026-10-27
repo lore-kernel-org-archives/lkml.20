@@ -1,105 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121345;
-	b=vDZeXOOAUmw2aAhbu/03JZHIA4BzXazBvxk9VrexkHkiWIe0b9LjZz8h0gburqtI+Kw4
-	 SXCjURvxWAPJwd1WL10WPU6Emjvi/pecKxl/J+vXzUMETJD0vTYgK92Wg500L7B5wAffp
-	 1ltr0MRjgk1dHPr8dzox+paKElvlKyK+fT224HXE3nMoDN+Nh1JERFjMS6HxrPRkov4Vj
-	 OsK1XWNogLwxcxpO0Z+GLMNND1acWjlhmJKMBdY7Z+tUtchlEfRCBlcHZHmFVH2+1G0Cg
-	 3S0VgR4UmX7sVJovURcduKBDauwv/5Yc2QbiihAegHBDBrRiEzgbz+kvq83/KcViDDQ==
+	t=1793121455;
+	b=oLtXv5aTDHYxJ1fLCgsiIJF2mAgswt1vq0jdqyKSqZvyYv3wxT1DpMyrxvio8wgz3OAG
+	 2BqKKosqVblN+YndsLaoRBaO3q0/s/KHDH7ANj/uHG2NvXOP/lMVsG4DV8kuQjEH64fyZ
+	 9xxjTi0qjBE/SsFCP2ZZWjDF/XE3VW46BG635NhvGzlZFGYd0H/o3xlUmvx1hq5jMZA8e
+	 mxMF5nFTqhCwXi7/gxJ3c4MWbDiPJJ/lGEKhQDZDLLGWqzTInh6Q8mqztWHxlgWsOxuS1
+	 dCEPv+tGjUM5VNuZKBeKMiod379zEOZBvQjrP1MfvjLqETFiztX/IBR4yKT4p3zaCww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121345;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121455;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
-	b=D8xk8CL6nCJwToy/cA/BjmXplO0u4/cssTfRhxsMderAtF2KEjjnrFI8VHKgX2oVW861
-	 JSG1p3hc/xA1+B5WQzyt0FPSWBXZfMfoBOWAa2BB1BvifXRKS3GJsL5fMsuBkvmt0GN2H
-	 WseWp6IG058Okq98rEZbukhwPxFaDr9PEKG8U2sxdIvgRBdg9AKb30xp7cYesPJdE25mP
-	 Llgmbzfh56AqPDaJinkd4omPRMzc/eOUr7Pa/v6+45KirXbNoblGR6HR9p16kcpH61tRu
-	 4RxUfucq6ZEN9aOnlDtkCByp4vtTBmDPz6dj++I84iJi4/k+muLEDH0JPE0etM+Cy0g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=uikZsMnz/NyOMgTmLiqZoj1Ur6F2M6OswVzpjhz9zcE=;
+	b=LI1LD+kMnJFzJ6XgW+PhO0gFuhywMknijpiE6vSKmiwOwBkEIuMRnkdNHd7bstyvN+GB
+	 jJPjHEflKAi+MnbyjqYToiQ634bnN+XgKOCLTNoaMZEX69rrybppJsdxtgMA0/hxH/Q1H
+	 SP5l+bo9H653jaJLEw/Z9Rsvh3EswDLgbeqVJPPLdTrJWgJ3glmoBUf/tWhRpwFYBIeJM
+	 eVmnYtagbgpeWvpbaiwZWByoLEaF9Liu9yEmP6lagtrNQF0dWJQT6yw+OK/YoORnLDYuV
+	 QRWUyWvhqo99pHogOkryoRvVmHwjFLNibsRSc6t+9odkFLETHqUBZSkO7aam0AgxVMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="M45/9I4w";
-	arc=none smtp.remote-ip=209.85.128.98
-Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com [209.85.128.98])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRmAjFG+;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923C8606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 923C8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483EF606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483EF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=M45/9I4w
-Received: by mail-wm1-f98.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so7483385e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:15:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRmAjFG+
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso541445e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:17:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793121343; x=1793726143; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793121453; x=1793726253; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
-        b=M45/9I4w0d9YCytxCe5LhgJSicqsUlutj91GfE6p1YPTCTfgOP0DAMAK6PJ+nZ1b2b
-         fcN6vVeuK+cr0tadZRZ6LuxCZ7qkzFTR/nzfkp49leM6wRz1shtvOAOzAGy3Ixz8tsPv
-         jfFjwbx23NRdpP9xtmoMw/15HAk979MDx5ZcoiO0mqA+nuzPnv5gIG2p/N/1JTLoNYvb
-         V/yaZ4WY4hml+tKsUgw9P+G7yCpP7O+a5mYk4IlybbGDxw3UXAzjZ6AXD/djDZRLedOw
-         ylFggX0xIMY1cVJRPULlVBNI/yk9LaPOE+POAi62Dzpen0poA9BCjej5+UBz+uwULMvx
-         9DJw==
+        bh=uikZsMnz/NyOMgTmLiqZoj1Ur6F2M6OswVzpjhz9zcE=;
+        b=xRmAjFG+bILbgyfefWrvhgWMZgcumqS35Pk34iwPunQgRuY4BuW8Yml86p+O0sVgWD
+         4IBCFWmrDYhnmj0wmiOZFQTuS5Hc/GPwaBHK3PeG/O5AyUW7EOAhjztGcKxKnoUWxb8d
+         6/muSzVTrIOXGyVEh7PzXGnV5ho6+FYjsfh1s3nMQ+NlLibwaT4+ac0zYKL6M1wcbWIF
+         kIQeIaEyrNZcMPNl3WNCcmb5jenTRWYKVXeCER++kcSB6Tuhe8LrjP+mZAlOP7cg04fM
+         8uoU6YoOs1CqwRM+a/yMjv+6t1wVjmSi1auUQDoAeJ81712QGwvXGKY5TgKNthpEJz4P
+         Odag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793121343; x=1793726143;
+        d=1e100.net; s=20260707; t=1793121453; x=1793726253;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BPbhhk5NK1NQUpR+D8C26PMm7Zm7rAAg7WS9+6YlYfo=;
-        b=nvV28oh+yD7cMb7pIbprtPQiCWegNivnq4d05beUWLdz8t+tFlDrI1TMpq1wwATeiB
-         dD4sdPv+49eFMP9ZAyvnXUzl8VJs8XRbpIKUh33f8xGPYrpQSwUWpt152OQhGiEP6TZW
-         ImVwu5ZR9PvzXDafm1p2s1Ig35cd7FqGzStFhKxVM60ZRSFF6i3uGT3CSQVfayoJZ2jd
-         762dZrrbMfm/3utp8NnKkajVMM7+9Dfp/XhbgJtFuNJQGWkz/Adko1x4pU+Tre6SmKSE
-         3VDeQEVXdXARo6sEQwkUboNEEavFj77T04912XX7XT+n3uusBAFV9A2YAhWMwSjHjvmU
-         Lqug==
-X-Forwarded-Encrypted: i=1; AKwUvBw+zhnsiXIDrZ/S9tpLJuoFTIt14BJb6ZrCkqhCsYXMZ/jmtENPlTJqDEfSQ36JCOCnvB3viY41jrAXnxQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1E4zdhFxfwQLPZODk+snmSc36Rn37LVrdTYFra4NPAVNPxmEF
-	c6xeAJ+YXAm9Fkko09+PRsjpuLVL04OKoXE9x1BvJ7MIS3Dn4CHZ13AKUPFkAOKetVpDYkTqUtc
-	4V+47Yf4eVys5FR9YqVMYb2IMrkNyT32QIYPd
-X-Gm-Gg: AYBFou3kZIaUjLKrgWdqNK71yIeWlqmzPl9aHREF2Xo3o5GkcUy2HebkrGMlzIyrz6l
-	CYor96hY4PA2T85IegZUn0hcR0cZ68+Sf7iDde4EKKf6yjRHeoNsokXrqvNY2c0B7sRXZjlcZeW
-	6atX0wL/kAqwIw3HNqJDh/P/Vyvk5Jk7EtG2Qvf5gxj+oFYhNidR81UwBXS806HDdq0TM5hNJ8O
-	VezlxwoDSkE0t7oTHRbaDEg7Tpp6q+tMcoBzcAFRLnXVVJ/9JKdQxAbiv9ReqXWMdwqMDGwEV0S
-	xCH0K+F7HNorxM+sQUyciVj2VCmLkLgGwOT8fEtwp9vQL/1jh8UBoh6Vgjo75NUIvI45kwgWBQG
-	VTtXOySuEoUW1p0a1QoEBLprn46vHQT0Geg8=
-X-Received: by 2002:a05:600c:c049:b0:4a1:9c71:9f17 with SMTP id 5b1f17b1804b1-4a7c100b0c7mr52810595e9.9.1793121342804;
-        Tue, 27 Oct 2026 10:15:42 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
-        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-4a931902eb8sm212955e9.14.2026.10.27.10.15.42
+        bh=uikZsMnz/NyOMgTmLiqZoj1Ur6F2M6OswVzpjhz9zcE=;
+        b=ksxIQCzwICxZ0gVm8EYazIFhg/TIZxHl3BPLTKdp1DsvfpZweKXRVA7T5vdIqxOs1K
+         asVMgpmOVa7EVMj94R7oYCxWIVjgSQ2beK6u+fSsqAuYkjBWERND30lzB/EfYqlneixI
+         vfgH2vaVpcXOXJ8NZe/PkDk0m+zB++XwbKtHbijN6y/pi6ad0KVBfOJ3panlmmMbGUYx
+         TjvHYOhxvxvEcraVqAM2viV3Kmy83C+phVUoqaO/s0HVkK7rKANXdCVV8Xj2WNQorYhp
+         3xL5vEdq3sts3qixFIHhQqb9bCMZyyrITQnjhSQ/mPgE/2lGE0Koq2s78s8G6Svua+Du
+         GdLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSgHlkEiS2+/h3OH7vV8EDPGPRGgS+Qu4zQnsqU0hxqAeBE17uih85HSj6RGhAvmEavyPSjGkTREdoQjM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLaDWibcz8S2p7VZqWxxfphUZ6/omq4LmYme/ziNikuZo+SIKL
+	pOdNjLJM5eZ2AklfkJzucdjhnShJyl6mRmwQepPUTFZvlkWYPFVM1ZMN
+X-Gm-Gg: AYBFou3Xj9tl7htGyX/CbHg1jrkywgbJaHDfWjLoFLVBuYWHmLkkpJRyhbZr57fpxbY
+	t580ET1dt2znza0fq6wx9ICDgi79Txua4yUwYeb8IrjpbJeqZZ+1LBKP5IVK9tl5TjbkvFzCRyn
+	9an8Ta3Yg1xJgxttMME4t/DU5+09v0AtpfAcvdOMmQDY3S3JyhaNIYiuS/0aORwiRXgRlggS2wh
+	fF7+3kvYTEEi2gL6BpRUTH1Q/UUDqZDd/aOYrpaxUPHOSJdhl7VVf1yCnPtkFJ5UPMQ2MC+ysqb
+	IV8ENLDf9WhKNlG4cGSfxgvMLyGgMkLo32hQucrKsXpByodE/tIIr2aU4EKjGWqXIaZF61sjH2j
+	QRD47oCtc60iNnsW95YAB57+Ho1aWQbcsp4rlYr1Z3a2FgXdgH4ajQTW6/PWzS9+1tGr/UP51k9
+	EHUYdJw03SjlTVciqEsFjLvFZ0qx06YOGzXmWEI/k7015Aic3171xyO/MkHdftrdWog2wj+qNho
+	j1qVwV5JXQwh0OXBzgvIRDtI2tKTCcKh9QFejt8j4DZSvXEtsrE8DzaV9p6BzlEjZ89Hc4+0NUn
+	W5Mvmr+tgvsFGpv08w==
+X-Received: by 2002:a05:600c:3f06:b0:4a1:7e77:c382 with SMTP id 5b1f17b1804b1-4a35ac99b9dmr190327005e9.5.1793121453233;
+        Tue, 27 Oct 2026 10:17:33 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:7887:1744:66c7:cbb9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a930c5b6b5sm3015175e9.12.2026.10.27.10.17.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 10:15:42 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 2C3804013C;
-	Tue, 27 Oct 2026 11:15:41 -0600 (MDT)
-Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
-	id 2667BDCE124; Tue, 27 Oct 2026 11:15:41 -0600 (MDT)
-From: Rishikesh Jethwani <rjethwani@purestorage.com>
-To: netdev@vger.kernel.org
-Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
-	stable@vger.kernel.org,
-	John Fastabend <john.fastabend@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Boris Pismenny <borisp@mellanox.com>,
-	Ilya Lesokhin <ilyal@mellanox.com>,
-	Aviad Yehezkel <aviadye@mellanox.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 1/2] tls: only install push_pending_record for a TX context
-Date: Tue, 27 Oct 2026 11:15:33 -0600
-Message-ID: <20261027171537.2317025-1-rjethwani@purestorage.com>
-X-Mailer: git-send-email 2.50.1
+        Tue, 27 Oct 2026 10:17:32 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Rafael Antognolli <Rafael.Antognolli@intel.com>,
+	Scott Bauer <scott.bauer@intel.com>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] block: sed-opal: reject invalid method status tokens
+Date: Tue, 27 Oct 2026 19:17:30 +0200
+Message-ID: <20261027171729.331186-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,63 +100,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tls_set_sw_offload() assigns ctx->push_pending_record for both
-directions, but the hook is a TX-side dispatcher. On a socket whose TX
-side is HW offloaded, tls_set_device_offload() installs
-tls_device_push_pending_record(); any later TLS_RX setsockopt
-overwrites it with tls_sw_push_pending_record(), because
-tls_set_device_offload_rx() itself calls tls_set_sw_offload(sk, 0, NULL)
-for the software half of a successful HW RX offload, and so does the
-fallback when the RX offload is declined (NIC with TX-only offload,
-tls_dev_add() failure).
+response_status() uses response_get_u64() to read the method
+status. The helper returns zero for an invalid type or unsupported
+atom width, so malformed responses can be reported as successful.
+Values such as 256 also become zero when truncated to u8.
 
-From then on tls_handle_open_record() (a TLS_SET_RECORD_TYPE cmsg after
-a MSG_MORE send, or the close path with a pending writer) runs
-tls_sw_push_pending_record() against priv_ctx_tx, which is a
-struct tls_offload_context_tx, not a struct tls_sw_context_tx, and
-reads open_rec from inside the offload context. On x86_64 without lock
-debugging that field overlays sg_tx_data[2].dma_address, which is never
-set, so the push is silently skipped and the data buffered by the
-MSG_MORE send is later sent under the cmsg's record type, e.g.
-application data in a handshake or alert record. Enabling
-CONFIG_DEBUG_SPINLOCK, CONFIG_DEBUG_LOCK_ALLOC and CONFIG_LOCKDEP, but
-not CONFIG_LOCK_STAT, in the tested x86_64 configuration moves open_rec
-over sg_tx_data[5].page_link. Once populated, its page pointer and
-scatterlist flags are interpreted as a tls_rec pointer and dereferenced
-while reading msg_plaintext.sg.size.
+Validate the status token before returning its value. Report
+DTAERROR_NO_METHOD_STATUS for invalid tokens while preserving valid
+status values and the end-session special case.
 
-Only set the hook when initialising the TX side.
-
-Found by code review while developing TLS 1.3 HW offload rekey support.
-
-Tested with HW TLS TX and RX offload on Mellanox ConnectX-6 Dx (Crypto
-Enabled): after setting TLS_RX, send() "AAAA" with MSG_MORE, then
-sendmsg() "BBBB" with a TLS_SET_RECORD_TYPE cmsg for a handshake
-record. Without this patch the peer receives a single handshake record
-"AAAABBBB"; with it, an application data record "AAAA" followed by a
-handshake record "BBBB".
-
-Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+Fixes: 455a7b238cd6 ("block: Add Sed-opal library")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- net/tls/tls_sw.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ block/sed-opal.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-index d1ad31986cf2..235b868facfa 100644
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -2591,7 +2591,8 @@ int tls_set_sw_offload(struct sock *sk, int tx,
- 		}
- 	}
+diff --git a/block/sed-opal.c b/block/sed-opal.c
+index 79b290d9458a9..1eb68ce33647b 100644
+--- a/block/sed-opal.c
++++ b/block/sed-opal.c
+@@ -1167,7 +1167,14 @@ static u8 response_status(const struct parsed_resp *resp)
+ 	if (!response_token_matches(tok, OPAL_ENDLIST))
+ 		return DTAERROR_NO_METHOD_STATUS;
  
--	ctx->push_pending_record = tls_sw_push_pending_record;
-+	if (tx)
-+		ctx->push_pending_record = tls_sw_push_pending_record;
+-	return response_get_u64(resp, resp->num - 4);
++	tok = response_get_token(resp, resp->num - 4);
++	if (IS_ERR(tok) || tok->type != OPAL_DTA_TOKENID_UINT ||
++	    (tok->width != OPAL_WIDTH_TINY &&
++	     tok->width != OPAL_WIDTH_SHORT) ||
++	    tok->stored.u > U8_MAX)
++		return DTAERROR_NO_METHOD_STATUS;
++
++	return tok->stored.u;
+ }
  
- 	/* setkey is the last operation that could fail during a
- 	 * rekey. if it succeeds, we can start modifying the
+ /* Parses and checks for errors */
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-2.50.1
+2.43.0
 
