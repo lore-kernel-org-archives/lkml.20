@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069735;
-	b=fbh4erfG0q2QPUFAGJaMXhvs5joAgrrYrCtmJa8TaSm0H+mgb0riUuhtjXFwifvi8yCp
-	 GlzPAx4V5XD07tr6x6ZJKRdMFQe7fPz0IN7kZJ4EqR0QbsyZMCk6wnZtD74+HiEZSXIn1
-	 gXyx1eW5E4dq91BAVN3iav62ZXv8I7SlYSk3l25NKvbj2tq11bMLtTScwlehUV2v1MyaV
-	 lrlxfOFAO/joUgnSZEi2NOODW30u2IHJ9QJaCAVe4FCQSMcjyHx0OpKR4Vnlne/+L2tka
-	 I1pSFPgbcLJXO08r/VGAMXUATcsii82Jd7CjR9pvksa034bbFWZvMC7942pqSJyz1jA==
+	t=1793069779;
+	b=ihWjj9QOwjJPr2J6mI1TfQ7+G9bCmIpt9iNzp6Xya0Kl1SRQXPT7qh0V4GLE2qoV6h5Q
+	 1YSy6X3qzuy/iUTRzeugr+FKIvyTSNQghmIFOqT2LApC9afi8TtCpIAMTnRV9N2EktrAg
+	 w1oowqfJsSQRIIyBITBzhgjSsBG2XO77v76wfQvyyZTXpsMAllBa1ABZ7vXuB2oadi6+0
+	 3xCOWwAf2qb91Z/eKzAypNvLt70bZqxT0A4s3au1DoyxfChRU5zShhCK87M90WD6ojuhA
+	 ELJjw4pslfFjkLNoP9y8P37qc3WqG/O60wxiwVi/9wTS1NmHEIoeKmLeSHDg5s5+QyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069735;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=V9PFsHDtvXgwv6NYqyvGmgu7gAiiaLp/I8Vm0DnTkkk=;
-	b=k8OJxyuenBmeTpCQVumx/7AQmtQVnGRD/9BWTFaofIFRj0A09y5l32q00otqy1tKv8rY
-	 OUpTNEg/PpOcbrLKAqPTimF/wH0woqPL+1FGfrv4ZTmFfGXxo/GgIK+Z6ahq7S6uP+f/Z
-	 ddUKcSqwwBQa6Arv1hfwe+D3pmdCUBYhy9BjBk0NWiWV3rBNMEMpvvr536NsVpVWOgcbx
-	 TbniBhnnTIxj5mSTKVgVE8XhkxoplaDoll80Ss2SvDHE1BSHxr8dz0GbBfBp5zHRboThr
-	 SyeuEgvDypPXbsAFxo5urgvnFNjIcO9/Cj/bDh2ZnstJkxQs/7tnAIeapvAHW1HrbvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069779;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5+bSpsav9ajafaOjuuZVYt9mGy8UVMJPb0ab7VCbVbc=;
+	b=Rt8jHm9ZHpz50w6tR74b5JGYVQnRKl3RCDD5pF7GS4AZ0/BdjnYNyGPWff89MeAQoTV3
+	 fQjshXYmAPotX7rgtu27ETceGdaxDmZVvriFolW3NnpGpjqT/i4n1P48FfZkJZwB03dBa
+	 baoAs8oeUL47BuL3linAh1E65cqKXy/3+ySOboyKbKJi4fxuLdeFXPQdMYDV/Jpnp6iKW
+	 lQtW/wCEYddtv6jM5vrTZYcAFANUEsk3cZjgA8wUVFmcDLr4q0Y4mFCqR6U6rdeWmetrG
+	 X6ns4VVrAXp2rvJ8SkxanXeRaiPyHik1VA1RnAgTs4pW+PnRm91PLz6shpIst2weLMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aBMxL8KF;
-	arc=none smtp.remote-ip=95.215.58.112
-Received: from mta1.migadu.com (out-112.mta1.migadu.com [95.215.58.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FjEN/xs0";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F861606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:55:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F861606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 39C3D606A31A;
+	Tue, 27 Oct 2026 02:56:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aBMxL8KF
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aboeRYMBw2lMDN35kj+b7/S1t+rS41JAG+rBlUvVfhg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793069731; v=1; x=1793674531;
- b=aBMxL8KFpPbDzPXO2Idhj+x/0LL9hPc0iCPINsROyW4JAgRJKEJbI4Dne6RDhrotLAq/vasN
- VUh8maR/W/RnXrExj8qcQhRACKY3emUYvEyaH5rDtvXBYOdnvXLwtrGkZqXgowqsxRD5oCbyu0l
- 97/+ERTxKtiScXm006KKWZ8s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8a802e798165f00b;
-	Tue, 27 Oct 2026 02:55:13 +0000
-X-Mizu-Trace-ID: 8a802e798165f00b
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: pfalcato@suse.de
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	jack@suse.cz,
-	djwong@kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	hch@lst.de,
-	ngocthang2710.1999@gmail.com,
-	syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4] khugepaged: fix readahead lock inversion in collapse_file()
-Date: Tue, 27 Oct 2026 10:55:07 +0800
-Message-ID: <20261027025507.59451-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <at9_1mf2kLqMX8-W@pedro-suse.tail5790ac.ts.net>
-References: <at9_1mf2kLqMX8-W@pedro-suse.tail5790ac.ts.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FjEN/xs0
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 49A8D1F031E1;
+	Tue, 27 Oct 2026 02:56:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793069778;
+	bh=5+bSpsav9ajafaOjuuZVYt9mGy8UVMJPb0ab7VCbVbc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FjEN/xs0y+W++/4yOCkNK/IMavx5di/a6GysOHnwyFk5gua1YUUaBr2RxDv9dNlFD
+	 WSgI/i6qVzf/VZnxO1mXeos5moZLNI6XWUHpwQ9+TYT1cC/vwf94CMD9qT11wRp5Rz
+	 IgipH2c3GanRIRErcU+wcu/noMXHqnwQTblJlPu3FaEGCQCrE5SB+cOEQ7U++69AMf
+	 bAERp14c4QkkTB7+4wuCidam58llkY+bhA4iFH/TGwHyAuJSMtoTYxxLtyr5zuyKU8
+	 pykMH4+wavbXRXobvr4SIRWNJamWZksIoeZUL0DOebn6+bHnYztudTd/KoGUpMD5F7
+	 5HvKEh0VslKEg==
+Date: Tue, 27 Oct 2026 04:56:14 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:RHASHTABLE" <linux-crypto@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v3 5/6] KEYS: Replace assoc_array with rhashtable
+Message-ID: <auASzrhH1Q0linVB@kernel.org>
+References: <20261025001105.1824178-1-jarkko@kernel.org>
+ <20261025001105.1824178-6-jarkko@kernel.org>
+ <20261027012952.GC2395@quark>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,156 +66,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027012952.GC2395@quark>
 
+On Mon, Oct 26, 2026 at 06:29:52PM -0700, Eric Biggers wrote:
+> How about replacing 'struct keyring_link *edit[2]' with a named struct?
+> It's kind of hard to remember what [0] and [1] are.
 
-On Mon, Oct 26, 2026 at 04:33:08PM +0000, Pedro Falcato wrote:
->On Mon, Oct 26, 2026 at 11:20:13PM +0800, Lance Yang wrote:
->> collapse_file() can call page_cache_sync_readahead() while still holding
->> source folios locked. If truncate holds mapping->invalidate_lock
->> exclusively and waits for one of those folios, readahead waits for
->> invalidate_lock and neither side can make progress.
->> 
->> We need to release those folio locks before starting readahead. On a page
->> cache miss, roll back first, populate the collapse range, and retry once.
->> Doing readahead after rollback avoids an extra pass when all folios are
->> already present. If another miss occurs on retry, give up rather than keep
->> retrying while truncate or reclaim removes folios.
->> 
->> Keep page_cache_sync_readahead() and wait for read I/O with
->> filemap_lock_folio(), releasing each folio before moving to the next. The
->> existing uptodate check during collapse still handles read errors.
->> 
->> Shmem uses shmem_get_folio() for swapin and fallocated folios without
->> taking mapping->invalidate_lock, so it is unaffected.
->> 
->> Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
->> Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Lance Yang <lance.yang@linux.dev>
->
->Thanks for the patch! This looks almost perfect!
+I'll look go through rest of the comments later but since it is two vs
+one with using named struct (David propose named struct) let's go with
+that.
 
-Thanks Pedro!
+I.e., along the lines of:
 
->
->> ---
->> v3 -> v4:
->>  - Move readahead after rollback and retry collapse once (per Pedro).
->>  - Drop the preparation pass and its redundant uptodate check (per
->>    Baolin and Pedro). Thanks!
->>  - https://lore.kernel.org/all/20261016065920.4153-1-lance.yang@linux.dev/
->> 
->>  mm/khugepaged.c | 44 +++++++++++++++++++++++++++++++++-----------
->>  1 file changed, 33 insertions(+), 11 deletions(-)
->> 
->> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->> index da91762f6358..0d3bd9e23613 100644
->> --- a/mm/khugepaged.c
->> +++ b/mm/khugepaged.c
->> @@ -2239,6 +2239,8 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->>  	enum scan_result result = SCAN_SUCCEED;
->>  	int nr_none = 0;
->>  	bool is_shmem = shmem_file(file);
->> +	bool do_readahead = false;
->> +	bool readahead_done = false;
->>  
->>  	/*
->>  	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
->> @@ -2256,6 +2258,10 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->>  
->>  	mapping_set_update(&xas, mapping);
->>  
->> +retry:
->> +	result = SCAN_SUCCEED;
->> +	do_readahead = false;
->> +	xas_set_order(&xas, start, HPAGE_PMD_ORDER);
->>  	__folio_set_locked(new_folio);
->>  	if (is_shmem)
->>  		__folio_set_swapbacked(new_folio);
->> @@ -2320,17 +2326,9 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->>  			}
->>  		} else {	/* !is_shmem */
->>  			if (!folio || xa_is_value(folio)) {
->> -				xas_unlock_irq(&xas);
->> -				page_cache_sync_readahead(mapping, &file->f_ra,
->> -							  file, index,
->> -							  end - index);
->> -				/* drain lru cache to help folio_isolate_lru() */
->> -				lru_add_drain();
->> -				folio = filemap_lock_folio(mapping, index);
->> -				if (IS_ERR(folio)) {
->> -					result = SCAN_FAIL;
->> -					goto xa_unlocked;
->> -				}
->> +				do_readahead = !readahead_done;
->> +				result = SCAN_FAIL;
->> +				goto xa_locked;
->>  			} else if (folio_test_dirty(folio)) {
->>  				/*
->>  				 * This page is dirty because it hasn't
->> @@ -2657,6 +2655,30 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
->>  	new_folio->mapping = NULL;
->>  
->>  	folio_unlock(new_folio);
->> +
->> +	/* Readahead may take invalidate_lock; source folios are unlocked. */
->> +	if (do_readahead) {
->> +		for (index = start; index < end;) {
->> +			folio = filemap_lock_folio(mapping, index);
->
->I'm not sure if there's a point in locking the folio. If we are retrying,
->then the logic above will lock it anyway and check uptodate. So I don't
->think there's much of a point doing it here. Right?
->
->So I think we could get away with a filemap_get_folio() here, and no
->filemap_lock_folio() after RA. Unless you're intent on waiting for RA
->right before failing, but I don't see a point in that.
+	struct keyring_edit {
+		struct keyring_link *new;
+		struct keyring_link *old;
+	};
 
-Right, waiting for RA is what I intended here. Without that wait, the
-retry can hit folio_trylock() while the read is still in flight and bail
-out with SCAN_PAGE_LOCK, before it even gets to the uptodate check.
+> 
+> - Eric
 
-If the read completes successfully, we can continue with collapse.
-That's why I kept the wait before retrying. Do you think waiting isn't
-worth it here, and we'd be better off leaving collapse to a later
-attempt?
-
->
->With that addressed:
->
->Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-
-Really appreciated!
-
->> +			if (IS_ERR(folio)) {
->> +				page_cache_sync_readahead(mapping, &file->f_ra,
->> +							  file, index, end - index);
->> +				folio = filemap_lock_folio(mapping, index);
->> +				if (IS_ERR(folio)) {
->> +					result = SCAN_FAIL;
->> +					goto out_put;
->> +				}
->> +			}
->> +			index = folio_next_index(folio);
->> +			folio_unlock(folio);
->> +			folio_put(folio);
->> +		}
->> +		/* Drain the local LRU batch before retrying isolation. */
->> +		lru_add_drain();
->> +		readahead_done = true;
->> +		goto retry;
->> +	}
->> +out_put:
->>  	folio_put(new_folio);
->>  out:
->>  	VM_BUG_ON(!list_empty(&pagelist));
->> -- 
->> 2.49.0
->> 
->
->-- 
->Pedro
->
+Br, Jarkko
