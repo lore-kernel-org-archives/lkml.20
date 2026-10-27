@@ -1,85 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109756;
-	b=ClUg0nMDAF0DlbCkYB0niIxPrUrdBLT54ke0h3W+IZBjqJBC9iTHDpYwalGcy6fYzvlP
-	 Y9mWdL92/QT9fem4ROBgfwj2yJ/c75xG0VP7nOZPeFDujsn1aJviFfSqgFYKu2spFzAU6
-	 VITfUuOZkrX9FigzG/AzESkRwQZnzBeb+DbG9E24Oz68l9THoLXmadlKpnaGjrOnOvsrw
-	 CWYJZ21YxrXeQ350DODBuMevkN9Gg3LZSXJinKJNQyqFiZoCRPp8pJooJ+0hE380YPbMY
-	 IuRWsoQYrJNqQw2EgziLcwLInGNCy+Y/CWXNpH5pK8TlUD5u3kv8POIVsfFgccEJ2bw==
+	t=1793109814;
+	b=NRllWJYTg2p6yo+GlIqHurx8jocNIqdMksrKFBx+JfY4F/X1Za/qBZyTU7XlsrqGvC6o
+	 wCrF3nHbHARvmyldL2P9W4S/4sUmvx10fj4sjehX6hYxnP1/A/Uevk2Bcgna+x13P4OD3
+	 xxeP4WiNJ9UNq9ozZKJtG8Ckllkyd6o44ZNxoxZg4WKKaX4HdkL1w2gnDj06w7DVv6/i0
+	 FHurX1HD4iNZmUDP99gH+QcX1AnLeiLQ4/pb8unfLYQUS9PZVI5zzYnkf06pNXHAdWtD/
+	 GGzlXLimkv/6KDt8Ta/s9zpW6JF2p3JnclUPdFJWVBxy7N23jOvFDztxzNqyvRRNxnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=1o9096nWf9ghL1mNo+bNKs9Dd0gIk9ZEkL7EBJmA/hI=;
-	b=SxQHxswxmUGLwEmzOnI3a1CXrBX5t6zP24k9VSjMJLQ4ca1GCF3gu13fnq5qQsMevT8/
-	 Nuo41bd7X/qikUjtC45hBiM818j6NpoP2tM2+HA13KOO4Z2bt2g+zUrKmU2q4GXdDbnqt
-	 AWMJdOJJr9FDjCiml59rE8GDeZG+WxONXhPaTLoQRLLHHYlXfGCZJRkbXX6QQ6FnLhBA0
-	 Vnj7a9cyRF4zF03KgXcnyx+5HWT5E8n9zA7byIsAXHwzwMNIW5oxmGwqvtfadHuYEUhww
-	 AVquTCn+MMdNIZP2X+As6Pm0TdzV2FYi0ROVqlUmf1c+oElfWc+hZwXBRdy8co/irfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109814;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/a5Q8lUWBEd/9wSdAV9zhg3EG5K6dH/Wqad5vDppMa8=;
+	b=a2pSHoBgUPObB/rwpCtaHDH2nNIudmVf3rM+kQJ8lzvuD4+sDHEmb8rBunG2Ybodcw4x
+	 fO0JDJH4XaG0v6xOi1HUFP1TGqiAD/gLqZgkgac4syilWV9S0mc/O3bAj95FVJF0Zz2Wa
+	 yPgVjQgpcCjSB35FuRvsXh6jUZNd+qyyWZs0GdL/Q/evpm32pm36fr2BM+XJolS+uvaKM
+	 B58QqpU95IULBt/7kkJck+FBA8fzXMrEJJ/4ApKvtL8OZlie6XN/X6nIL+1AA8y/RgsEA
+	 iqU6C5vXWfEgiFbtDtGfHi0UskP6p8K/tGT2LFQtNQPrVBhB0vxSWIOBs5MFZ6YPfLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=QbqqJWpy;
-	arc=none smtp.remote-ip=209.85.221.175
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYEBO1zL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D0F606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:02:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81D0F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F4F606A31A;
+	Tue, 27 Oct 2026 14:03:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=QbqqJWpy
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eaefe5b523so3053693e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:02:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793109754; x=1793714554; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1o9096nWf9ghL1mNo+bNKs9Dd0gIk9ZEkL7EBJmA/hI=;
-        b=QbqqJWpyALynH6Y5MvS4ibMIqMKo7E12zpfZyDd5nLvLRlbUDUsSCOYvMBQinzFbZK
-         jyIheOu4kXs0s8Khc6khr2B9DtcCte8Zz6fvoc7C6Q+hVFB5AAZ+9e9xLthylFSLi/15
-         91tGK9rbZSRy2w9iGdSup8jVbKogpJArLuebBYOXO4v8jZtsOXgoyUYYmS7JT3/P57RU
-         YzgvF7XduwFgBCSs1tCUgqIbjNU8D54Rk5WP+OvjqE6HEwm6jGbAz19ESHNn5JB5STz+
-         Lu7Ogssku6Ci6NUhTq1GFh/wZrwRWHz1JMtTvQK3koXjGmp8p0fXk8eIDrQDXVuduHcX
-         H/Qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793109754; x=1793714554;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1o9096nWf9ghL1mNo+bNKs9Dd0gIk9ZEkL7EBJmA/hI=;
-        b=YdGmnGqxHsJnODlYoHZ8/4zqJE6HNsEMGEhEom688iXpYyVmnPkiD8uQ4YGH0eSovO
-         +5TK3hpdss+LZoEuAaoi/clUKDXC1Cf1wTWh8PTRDJwoYUglDQ94tlyoxXKxx2Cz7C/L
-         3XKG0iJ28EJglubygMO/emixMhBAIKWc6H4F1ajqWcLNoei4sLRomY4frdB91riFgUsS
-         RstWOA8EjcOtOxH75xsx0gx8zAqjanljB4rP4tfyETMip1l8wcJquYnCwJZQ14/lq5OB
-         8pnG7nZpZsIAlq3HguqkvroinFp2wTvsZqbM1Lv4ms/9ae9E38fhRmWUK8iqL0fHjqSu
-         5OuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcZxNX0wNbG/sdlfoNoIe7AZ0LK7lK5M6mUO8P4MbCQPK61gqv9g3JuOImwLEnIRmeeQHJOzm9BF1og1k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3V2N90Y+riSRVOr9WDC0PPCObv2k/0eRvuSUSTDNMVawGy8jn
-	HuG+0EhD2ssW43Z43/CpFgFFP4RcxA0U1LbvZWdHbB1SmH9c7GP/z6IG0btQWOi4r20=
-X-Gm-Gg: AYBFou2AnZFi5PUWKDqG4vKsm7fTV/qqs0BGZ7QIHj7PZU+20/hal1dDJ2Zz4SUNoMu
-	28sVG4qrBExO+d/aViqH1/jXLIqgzhoSohz2tkYdfBrtubrmaFVfPThDs557GwAjzZJeTHEnTOW
-	injEwsnBChRz5yrhYCwR9n52ZQFdM7jsf/UqKYJIvnOX4fzJLv7p1Wrzs0FJVvqHyOwwCVBpyaU
-	I4BANLfZskW8G+AmWPlK77t7G1tAVK94MN/KqWAhodWiO4IKtllU4TFaAX3AZQoi8VjTJQ/K+jW
-	bt40gZ/eMx5vCryeV8hUhO93PrbwqXldJOVdXhNXoLYKd2ho0C9FsuwLbYjadvZ4ehEd4aFLzQL
-	3adWn9KPebcXDcptnH17zccZRxCyqtU9arx7hO205d5LiRoV4//dgzdzU+CuHG/jB7LsW2VboDy
-	4/p3XZFc9NVlt2g2GK5UF9sUMuHVkmvV8ZVgdkQpKME2yd7sHlrukBb3fIYa4ca3/Y9zQcZ467G
-	lUH/GVxTjI7xD7TUJnftKAOyClzS6Fv6OWaAl9/NSvZdLt2Cf/v+W4M/l1MVVJx9cvtqbYf0oz+
-	jco3aM9weh18zWbqr0m/8B/JlnJM18262/WLa0+8WnEJglnK9zBoTMuqlyA234ysvPbHG5k1aeT
-	V
-X-Received: by 2002:a05:6122:3c4c:b0:5ea:e197:702e with SMTP id 71dfb90a1353d-5ec23326373mr4106967e0c.20.1793109747918;
-        Tue, 27 Oct 2026 07:02:27 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bda586sm103188516d6.8.2026.10.27.07.02.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:02:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYEBO1zL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8232B1F01828;
+	Tue, 27 Oct 2026 14:03:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793109813;
+	bh=/a5Q8lUWBEd/9wSdAV9zhg3EG5K6dH/Wqad5vDppMa8=;
+	h=From:To:Cc:Subject:Date;
+	b=SYEBO1zL5ZF15BWDdDdN9iXWFFoy1Sphreo+ZkNHF0l425741/n5Gb2MeJn3i375B
+	 fO92W96b28BGlLA984Qh8udrJLq1+m5PiZ8qwelstttw8SYWUTVmKug7i8WOeQuEVZ
+	 PZdkc/bN+b8Umaf7FTY+DKuebUcMl0/OzMDVAZDnHYKSqOAcNjtmUdsW6lw0UXFGM9
+	 oJT82COi1DLQ6YPvPVcS9XFrKDKvJB4GDCABA/sqbhviFXMv9gFlwOtK7jJtVBWLxt
+	 KM5jDL+YEgGIJ9vb23zF+XFFZdrCdetFSh9zcAvPd2u30z8QTUveaPkPOnATvO+hXQ
+	 m6zZyyIsOG0eQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: [RFC PATCH 6.12.y v3] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Tue, 27 Oct 2026 07:03:25 -0700
+Message-ID: <20261027140326.153338-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,53 +60,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/mempolicy: recompute automatic interleave weights
- on memory hotplug
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, 
- rakie.kim@sk.com, ying.huang@linux.alibaba.com, honggyu.kim@sk.com, 
- stable@vger.kernel.org
-In-Reply-To: <13a3b600-8a87-478e-adcc-2425c75f98c6@kernel.org>
-References: <20261024170415.4121901-1-gourry@gourry.net>
- <e3a1ae72-9370-4c3c-8935-6a410a74377b@kernel.org>
- <at91WFlW96PH-a8A@gourry-fedora-PF4VCD3F>
- <13a3b600-8a87-478e-adcc-2425c75f98c6@kernel.org>
-Date: Tue, 27 Oct 2026 10:02:25 -0400
-Message-Id: <179310974571.2232644.3181896214940432050.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-27 14:04 +0100, David Hildenbrand (Arm) wrote:
-> >>> +	/*
-> >>> +	 * HMAT and CXL report a node's bandwidth only when it first gains
-> >>> +	 * memory, so recompute the weights whenever N_MEMORY changes.
-> >>> +	 */
-> >>> +	wi_state_refresh();
-> >>
-> >> If the function fails, should we at least pr_warn_once() ?
-> >>
-> > 
-> > The only failure state is -ENOMEM, wasn't sure that was worth warning
-> > on.  I actually debated whether to just make this a void function.
-> > 
-> > I don't have a strong feeling here, but happy to add a warn if you
-> > prefer it.
-> 
-> I'd assume we'd at least want to tell the world somehow that something is now
-> imprecise?
-> 
-> Or is not updating that harmless?
-> 
+Patch series "mm/damon: move zero damos quota target_value handling to the
+core layer".
 
-It's a potential performance regression, but if we just -ENOMEM'd a
-kernel buffer to hold the weights, there's bigger issues.
+Having zero DAMOS quota target value can cause division by zero.  DAMON
+API callers are checking the target value parameters to avoid that.  It is
+easy to make mistakes in some of the multiple API callers.  Move that to
+the core layer.
 
-I'll add a warn.
+Patch 1 adds the corner case handling into the core layer DAMON parameters
+validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
+side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
+respectively.
 
+This patch (of 3):
+
+If a DAMOS scheme has a damos_quota_goal of zero target_value,
+damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
+API callers should do the zero target_value validation.  It is easy to
+make mistakes.  Actually such bugs in DAMON_LRU_SORT and
+DAMON_SAMPLE_MTIER were found and fixed [1].
+
+It is better to handle the corner case only once in the core layer,
+instead of multiple places in all DAMON API callers.  One straightforward
+option is using an alternative denominator for the corner case in the
+damos_quota_goal().  However, the zero target_value is meaningless.  In
+this case, the quota goal is always evaluated as achieved or
+over-achieved.  The quota will only keep being reduced.
+
+Simply avoid using zero target_value by adding a check in the core layer
+DAMOS quota goal parameters validation/commit path,
+damos_commit_quota_goal().  Update it to return an error in the case.
+Also update its caller to propagate the error.
+
+Notes for stable kernel porting.  The upstream commit doesn't have
+Fixes: and therefore not ported to stable kernels.  It turned out it
+fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
+goals user input to DAMOS") which was merged into v6.8.  The user impact
+is a race condition that can result in divide-by-zero.  Hence backport.
+Reproducing the issue requires sysfs write permission, certain DAMON ABI
+usages that are supposed to be uncommon, and a rare race timing, though.
+The issue was discovered [2] by Sashiko as a part [3] of its bug report.
+
+Also, the upstream commit on this stable kernel can fix the issue for
+parameters commit paths but DAMON start path.  That's because DAMON
+start path does not invoke damon_commit_quota_goals().  To fix the path
+with minimum change, add a new small validation of quota goal target
+value before damon_start() call.
+
+[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
+[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
+
+Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
+Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
+Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes from RFC v2
+- RFC v2: https://lore.kernel.org/20261026135555.149244-1-sj@kernel.org
+- Put target pid reference count in damon_start() path -EINVAL case.
+Changes from RFC
+- RFC: https://lore.kernel.org/20261025182326.178326-1-sj@kernel.org
+- Fix a typo and macro expansion build error for quota goal iteration.
+- Destroy ctx in the before-damon_start() error path.
+
+ mm/damon/core.c  | 18 +++++++++++++-----
+ mm/damon/sysfs.c | 19 +++++++++++++++++++
+ 2 files changed, 32 insertions(+), 5 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 81d44e41de210..ed32855c16ed8 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -698,14 +698,17 @@ static struct damos_quota_goal *damos_nth_quota_goal(
+ 	return NULL;
+ }
+ 
+-static void damos_commit_quota_goal(
++static int damos_commit_quota_goal(
+ 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+ {
++	if (!src->target_value)
++		return  -EINVAL;
+ 	dst->metric = src->metric;
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+ 	/* keep last_psi_total as is, since it will be updated in next cycle */
++	return 0;
+ }
+ 
+ /**
+@@ -723,18 +726,23 @@ static void damos_commit_quota_goal(
+ int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
+ {
+ 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
+-	int i = 0, j = 0;
++	int i = 0, j = 0, err;
+ 
+ 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
+ 		src_goal = damos_nth_quota_goal(i++, src);
+-		if (src_goal)
+-			damos_commit_quota_goal(dst_goal, src_goal);
+-		else
++		if (src_goal) {
++			err = damos_commit_quota_goal(dst_goal, src_goal);
++			if (err)
++				return err;
++		} else {
+ 			damos_destroy_quota_goal(dst_goal);
++		}
+ 	}
+ 	damos_for_each_quota_goal_safe(src_goal, next, src) {
+ 		if (j++ < i)
+ 			continue;
++		if (!src_goal->target_value)
++			return -EINVAL;
+ 		new_goal = damos_new_quota_goal(
+ 				src_goal->metric, src_goal->target_value);
+ 		if (!new_goal)
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 5aa23c6545cb8..ad9fa8a86c9ef 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -1497,6 +1497,20 @@ static struct damon_ctx *damon_sysfs_build_ctx(
+ 	return ctx;
+ }
+ 
++static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
++{
++	struct damos *s;
++	struct damos_quota_goal *g;
++
++	damon_for_each_scheme(s, ctx) {
++		damos_for_each_quota_goal(g, (&s->quota)) {
++			if (!g->target_value)
++				return false;
++		}
++	}
++	return true;
++}
++
+ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ {
+ 	struct damon_ctx *ctx;
+@@ -1517,6 +1531,11 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
+ 	ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0]);
+ 	if (IS_ERR(ctx))
+ 		return PTR_ERR(ctx);
++	if (!damon_sysfs_valid_start_ctx(ctx)) {
++		damon_sysfs_destroy_targets(ctx);
++		damon_destroy_ctx(ctx);
++		return -EINVAL;
++	}
+ 	err = damon_start(&ctx, 1, false);
+ 	if (err) {
+ 		damon_destroy_ctx(ctx);
+
+base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
 -- 
-~Gregory
-
+2.47.3
