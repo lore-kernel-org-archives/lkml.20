@@ -1,49 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100839;
-	b=elkDhDjjd1B0ue+VQ/+NYOByrLQq8uA5o3XB51xhEv6w0jkLHQsp3Z7irSY3rYIkaDOj
-	 nIA2MDEdgjm6eaN7CbvlTrPWKT5ebky+hRSLP0Es2RhRw6z6oTJ+7YPHmeu/8AXAd2VcE
-	 E8e7HZArnJ2F5U9ucA1PQ1VaDfR/I14hvSYFz3cFOVcTJG9807NwjWC7WclAwWBDIdNzn
-	 S/MC/sX9wo36YQ2V0mUWcKzA6xFP0dsEdhD6ZlGmaS7mvjN/Ez3p71vTVDYUuWPuGi/O9
-	 jd0gbrfqS5W2jZIGE/Mo5J8j3467js9tFZ9rQvXX2QFAfW4VYPpn/iIL7O5Ug9NKWsw==
+	t=1793100843;
+	b=mKcjuKHmlLJhITZSd+GqVHGnzLDm+M4E3mFnkAR5qm3XDO2XRx1QAdgBBgE5AVwbEUNl
+	 VlPr9kk/hMxyGjdKSUejvJryXwONG15IFObOWcvMhdFBtkE4xDZKR8jja1sjdEJAZAOOi
+	 rRlg7nM09dj3N19LiZPCgZKyNpYXa3cdtTeiRIb47r0zzQhljArXwLYU2ltxTRm3kC2nk
+	 IVpvvgHReSBsxWzYsDfJAXwqN/BATM0JRQ63H1LPLlpMRFH89VBp7O6BYiJDazA9NMTaD
+	 1Vh93X5QyouGIxIkjT0NDD5ojxMg6JlQo+EnU1h85yI4PJ/xDdVpiTY77Pd8txYkrhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100843;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Flowmailer-Platform:Feedback-ID;
-	bh=0Sek7EhtHIj1t/6WMQlwpjOQbOVwpC06TntZr717z9k=;
-	b=BHzpbNjc1GBNH+qV+LXlZIGFStoLewhs8a5X2txq4ZiZLUcHAX6eISy/Mt4MRPeDub7D
-	 KEnKbYXmbPfqHkaPPvIW/ep6X9Qc1tNmGg7/mrdojPcA0p4/L/RI2mOVsjDodVvZf1NOA
-	 TsyjN9LCnkBzjGTTtIPDNQjJwqW2zEU6pHDH8hAUecwSFpAqjPOVlIiA5JMLl3MccBJXK
-	 ypqlostlLwVNNSaL5LANEiRBz9KQ708HSqIl26kxn/XzI35nDfw12FfYAJXg+PsLIGk0T
-	 eyYnUcx8Y8Flj16CRIlmaPRA7LbnBMPISJaPoA13I0r1buDLL43v9Vfzl1BBmbSxuxQ==
+	bh=CN0dtFVmpDOGFXmF2YV+l5pk0MBZMY+XXE39oRFUnQs=;
+	b=sEDP6rq3Ss4A/01ohZzUyrxelI4bINkTAc1mA/OqTIUkWq6PrVOCHQ7jJ5QPz/vmO1vR
+	 ePrRxvHxr/Xqe/V9uwEicUs8Lt1Dk7/ggk1gNuDfjsxgTaNlm3l/4lluoGOKSypA6Tu7L
+	 8zoZDE/7WKy2NpkvIR1G+GFzhArukm/0PhFmEY2nKScHdZX0yPj63UWZ2huZqehT7X4u0
+	 6+1cUJgouQR3UcW7Mxd2NvCZOwfz0KPjUN1HxMMfY1iRKwK7xhxADGpOYXEqL7h1kc2GZ
+	 z1sGz0nHwEL485HYyrCnbC/le4dez+4tPyzQIwS0DwsDA0TEsLCjV5accz+Ox9NNjaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siemens.com;
 	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
-	dkim=pass header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=bM+0I9Nz;
-	arc=none smtp.remote-ip=185.136.64.228
-Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
+	dkim=pass header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=THlpvoI2;
+	arc=none smtp.remote-ip=185.136.64.226
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CDA606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17CDA606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48E3606B5B3
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E48E3606B5B3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=bM+0I9Nz
-Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 202610271133543e4a3419b6000207e7
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.a=rsa-sha256 header.s=fm2 header.b=THlpvoI2
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 2026102711335380fd3e90cd000207b0
         for <linux-kernel@vger.kernel.org>;
-        Tue, 27 Oct 2026 12:33:54 +0100
+        Tue, 27 Oct 2026 12:33:53 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
  h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=0Sek7EhtHIj1t/6WMQlwpjOQbOVwpC06TntZr717z9k=;
- b=bM+0I9NzL1IdWXMGZZQo+NKBOU6Trs75lN5klXQR35nQmhjlexau5HviPB0tLFecfqZ3Bn
- AtcvCnmSd2zcUy8+2QGZvul5hmpcYjTv5pPlCKyJRMq5Y3t6gLZGJftmtrtTr316lBSeNC2c
- RzDzrVILsKR3nSmGvKr5XrOa/dDava9oCAsmy8pZb9Ke9ZUoKMmSD4p32BE2ji04pqfzHQa2
- jgRv/KKL8k8I/VFcgHUvvw0YEcZMu5tK3Q0z2msKbCpApd5mOPw8BuV+3xlB3efFBRahigo3
- rQ+bNgZGriuHZeqTY2UePjo+HtdBTUDaNsJoljF6ZA56coM/ydr96foQ==;
+ bh=CN0dtFVmpDOGFXmF2YV+l5pk0MBZMY+XXE39oRFUnQs=;
+ b=THlpvoI298VNT0b2jyKfBl88c5iJaX/UNtSMCz+kJfY0rSPWX9AMUxezTMN91tU/zRF9+j
+ 4g4chWb3p0w7WxUzcbyqne2a2eetaLTVv+FCgYkZpij5n0hw/2aUgwP9M73+Gp5K9GA8QIdT
+ wiCatsXzv8b7UeaEj3HdW9tuzLI/iL6d29U1dqXKLIhtChqdaFMByCheZ84j+R/+e9uuQ6S5
+ DvtvYC7UDQp2jbftUVvm47zzAAEg9aT8vWJsAXRcpJyyq81bWlgr5/P8cw8moEqpQ0fRJtPE
+ x3XYVsZzub/NvC8ThOfMcqqphfV00NMd8ixd42TmrMZAiZOwVBbr2y+A==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-leds@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -57,9 +57,9 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
 	Christian Marangi <ansuelsmth@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v6 4/5] leds: trigger: netdev: Report invalid interval to user space
-Date: Tue, 27 Oct 2026 12:33:44 +0100
-Message-ID: <20261027113349.383147-5-alexander.sverdlin@siemens.com>
+Subject: [PATCH v6 1/5] leds: trigger: netdev: Put netdev on activate error path
+Date: Tue, 27 Oct 2026 12:33:41 +0100
+Message-ID: <20261027113349.383147-2-alexander.sverdlin@siemens.com>
 In-Reply-To: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
 References: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -77,45 +77,39 @@ Feedback-ID: 519:519-456497:519-21489:flowmailer
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-interval_store() silently accepts out-of-range values: a write outside
-the [5, 10000] ms bounds returns the full count as if it succeeded, yet
-the interval is left unchanged.
-
-Reject out-of-range values with -EINVAL instead.
+When hw control is active, set_device_name() takes a reference on the
+netdev via dev_get_by_name(). The register_netdevice_notifier() failure
+path frees trigger_data without dropping it, leaking the netdev.
 
 Cc: stable@vger.kernel.org
-Fixes: 06f502f57d0d ("leds: trigger: Introduce a NETDEV trigger")
+Closes: https://lore.kernel.org/all/20260914140045.B8F4C1F000FF@smtp.kernel.org/
+Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
 Changelog:
-v6:
-- patch introduced
+v5:
+- removed unset_device_name()
+v3:
+- introduced unset_device_name() as a counterpart of set_device_name()
 
- drivers/leds/trigger/ledtrig-netdev.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index bf9a5ec245a43..b1f84014acab9 100644
+index 5b0132484594c..cfaf130157b3d 100644
 --- a/drivers/leds/trigger/ledtrig-netdev.c
 +++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -502,12 +502,13 @@ static ssize_t interval_store(struct device *dev,
- 		return ret;
+@@ -776,8 +776,10 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 	led_set_trigger_data(led_cdev, trigger_data);
  
- 	/* impose some basic bounds on the timer interval */
--	if (value >= 5 && value <= 10000) {
--		cancel_delayed_work_sync(&trigger_data->work);
-+	if (value < 5 || value > 10000)
-+		return -EINVAL;
+ 	rc = register_netdevice_notifier(&trigger_data->notifier);
+-	if (rc)
++	if (rc) {
++		dev_put(trigger_data->net_dev);
+ 		kfree(trigger_data);
++	}
  
--		atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
--		set_baseline_state(trigger_data);	/* resets timer */
--	}
-+	cancel_delayed_work_sync(&trigger_data->work);
-+
-+	atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
-+	set_baseline_state(trigger_data);	/* resets timer */
- 
- 	return size;
+ 	return rc;
  }
 -- 
 2.56.0
