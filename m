@@ -1,54 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793070410;
-	b=0zzvh0TzpyXqfoInAYVz8nOadZ3oMySCsqhDfW+QPVel8QvmSDGewCLsVMKu0q25MZxI
-	 PYuMzHv2Zr9KDLxQDG4kpJiwk9olGw4wPdIagdgWXyZziWwyk6JZ0l2OkhQdox2+Xgh/j
-	 cqzMqAllovx0jZqEukh0OJkUknpCJTtrygM/VLW/HHcUjkToYXNwOU182q8SCAUzro32J
-	 GgqUBMVVIrglEJt72NAIAdC14Mx0ZkfI3MeON3UVbm6kKe9ucRkO6AVHvkMD3tufE0Kca
-	 ovoE+MZrnTIGyD9HSA1NowBSZn1dcv58xKs99f60uWvelCx2SktwMJAU8jmKbhPEvwg==
+	t=1793070490;
+	b=NkjRckOCekF6h/3qLy77dnkxtsEDpjM85i7HughkHQxmYxIkpzyHXJ+7IT76G4Ac3anX
+	 Q/HBwYDaiPevhZzykrpA8WKhfs1gxjJj6Wmt5RJRdi/8rfg9CNkxX3aHoGDeueENIUOcS
+	 tolBmUw6FtMGKt8qtW/uLcSLca4f4ONyVdUtSGSS/cI67LbmRLra84Zfb2tY9cEAfEjnL
+	 +z1QV3vjy8y9Vg0O9X2vf7o8iMTS42sglCt9f6Rm62yCOTyR+THX/BjivpRkWrchBjpMT
+	 44nuhSnd4v2cqdEztk0jZbc/of+Pba2u5DfY8ezIhpvIHQjj+onqg91JDCJmkCaCkdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793070410;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793070490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NfiBYouQ7SUxOIRjsg6uwpg+DvPUrarmQVPVZOSrssU=;
-	b=kXssFRlhV6v/a4TCh7CxGx89xDctRpinIQRwjGiGbldTdo+LrwPunat6wwbrrIsTa97H
-	 /oXT4AbMlStjHjAILITAEkDJERzqmgK2Uao/t64EO1mH5QLwEQ9KiMEkzPzCyskFAUtYS
-	 Ng1sJ5FitpxtqnjaYpRNMwUoOkbr3+bSvE2E745jg1OkdJ6y5HpF/DYo7sVqYuU+v13UB
-	 Da3o+s9ZdihVpdJNDkdvNHBSsYJqvQSR4vV0LgHwGRCU1446aNZE4vG3S8R2HcZcec9Kn
-	 F6AZJyzuO9ARI/mgH3eJd/0LIrpsJk+oJz/tSOUeiG6nIOwvBHooS/yq/KNz45k0ODw==
+	bh=igNgupZEn7aKjw+PjHHDoJ6CuNjmPliTKlApfHrxbJo=;
+	b=G8IjpCGxg/k0QKtjayEJJUUpFUvc4rWqOhrZc3i/lA6pLYT5pTryDGgNgD0FibuohDR3
+	 57cnTGM3euR8N3tV5yiIBLaKs6cErwbfTAu8EeWltOldDH890n23LeG8rw7AhQqSrZTUE
+	 OY+t9pJjq5sG6qVUyE2Zy3oEt+ys3MIaUfsdfs2OYCYfkdnha6xD8DhSR8+14yMuuP3cY
+	 7BmNetL5/C1E49+Gq8d3iBmMzd2lcYhjhdwo56583D1R4CuTwuhsaEl3LF5df5oIZioS9
+	 fJVIZTfDlLuE83sSnUJ8moIXnkalDEQNj+54J250UVEn1Pk77pj/aV9rHucfcx8jzxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OmJvHkyF;
-	arc=none smtp.remote-ip=91.218.175.198
-Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T3mmvNcK;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6721E606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6721E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2D5606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:08:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B2D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OmJvHkyF
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AqI8n299OICKahJhyCKFqs0u3m8/ZWmCuQo8Rk556kA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793070407; v=1; x=1793675207;
- b=OmJvHkyFxsfeKypToUZ7LSGC2sUxdtwI3R9o6a19BnFlQ/VY2YusuFobH1ESXjXmdW4D/0v1
- 2U+cDF/TlFIvOXWIa+BCKSj8lSkeCR2P5jwvU83YvE2C4LcKuDnPaa1N3Qp/AhtOyPyWtF6jp0r
- X5a1YWHseL+TPDdj7Y10H9cA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fa452c266040fd6e;
-	Tue, 27 Oct 2026 03:06:46 +0000
-X-Mizu-Trace-ID: fa452c266040fd6e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b0f16e9c-691a-4ab1-9ac4-d76b92c58b60@linux.dev>
-Date: Tue, 27 Oct 2026 11:06:27 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T3mmvNcK
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e9cf928dc9so2231795ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:08:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793070489; x=1793675289; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=igNgupZEn7aKjw+PjHHDoJ6CuNjmPliTKlApfHrxbJo=;
+        b=T3mmvNcK8/rhpm5cNcIOD/CQ5n59Gin70ROvTsrk7xbOnpt/692Iw6ZohmPlR9U9ZU
+         +0AEIaXN+wLqA2Sh72WSFc6myjIbFm6Y3+5IfL/cj1DfRZfzwwgkYrSnZPPH4D9jKO6J
+         4fVjbYe/bYW+IfC69xgKyaK8ZC8hyOuOKHdGl8reeH6DsjS5L2b1Ow2bZDkS1Id0kJlZ
+         Al7XyCuT7vOhk+GSVN5JjrMWG8pAVhEZxCBEjlfhdYGvs/bHF2AAhpuZu76cJDR9pnbm
+         sxrEfmaauC/b1VucXRe2JFNa5xoJvenuZXFqKWuOMwFTQNHSavPCJ6HaBvqTgYRwbkOR
+         vVDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793070489; x=1793675289;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=igNgupZEn7aKjw+PjHHDoJ6CuNjmPliTKlApfHrxbJo=;
+        b=UkdraXo8E9Wv8Jgcrnv/pIRPidsfVfOKLinAbjTL6EupRI+6lcUWWvS3KU8ZQchBN6
+         kOcCDZimw9m9UKOoWPx5XQxT855a79ssi0YS91Dg2ZcD1Yw9tmuLeKlWAJF7k9bsu7nG
+         FZUQ9bdh6ICMpzt1KCx88auxhf+QhobWXNBdRPvh65VWErErnpCyLoP8UShhKUIjhc3r
+         Bl5Q7skaDtrVJ8Jsw7jDUso4g4GbDecleh38jmyhaRWr7uZ4/CTfmBNp4OG5vVwHlUhO
+         3hjbzPU//NbN2OSqDMxz09xanupXKtyOeXHy+fqB4UILrVUNDtnc06UXIz0J7ajPS/6o
+         jLgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxERWL5km1YehXJbKN3gY3RNDE8/laxXuxPIAygWRXhzl9OJLqMZo8VFoTMVdMD6hIa7br1RbLz9Qaoi8U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcyw/2PmCh9NMHHEwY5lCC0HVKoARij1B14ZUVVyah7mw0wNMj
+	fk9kVtJNWXObZzKphJPShXI1QG2RJ3GFbVit1mXK8EVmD1EEN8pHUiBy
+X-Gm-Gg: AYBFou3z1AySgmwbJdA3k4hBo/+c8NmDGmpic43Ny321+Bcew03zPs31ir3fWrFy2dy
+	q0iJBDKG55CZIVpLI7k/keTxSZP0DmU18SIe4cXfDkPKgfMDncMi/7VduUhVGDfHV1DCzG3FnLK
+	b7RAIz+tG/G0+uLbf2DE6sbzwoUqInNnDM/maFgoRXQ8oE3hzz8lr9YpvHwGeZ3/q+JWz9Ytq2I
+	sIb2n5FBEfxL6FgFZC2JFwIHbmg0luEl/KQZx1LSlStIzanZAJ6IRGEUaJBlkxwWhH0vsuPCmyB
+	RNqLGJEupjxzlxg+ayrXQg8exxp9vz+2KLEhVhefrNoOXnJc5aGKE87zV04e96wW5NyX6y2bSmB
+	bk1ocx5t/8XqNV3yeojM5BFyO18Bor4ZT/6Ppv1EWQINb6Zfy08xAYzNk5HJL8IBh+GYAgJeol0
+	IVGj9X25A8bR1hYdVpC6xM2AvGw0SR6Kwslma8ky7j3NBvBP2mufCA5g2Iomz1n6KPSttTFTtEr
+	w2dhLv3vTTvdrD9Rb4qFm/qZnTPycLxVMLlfFhMFPyWf6FlgBjvtQf3eU3Lg/NL08GRdtxk0Lvf
+	ntjZtmzz4xhg35FE0SHC7T44BSE=
+X-Received: by 2002:a17:90b:3142:b0:3a0:e568:ed63 with SMTP id 98e67ed59e1d1-3ae40268bbemr736527a91.8.1793070488963;
+        Mon, 26 Oct 2026 20:08:08 -0700 (PDT)
+Received: from lgs.. ([101.76.249.61])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebafacd4sm5767362a91.2.2026.10.26.20.08.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 20:08:08 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Support Opensource <support.opensource@diasemi.com>,
+	Lee Jones <lee@kernel.org>,
+	Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mfd: da9150: fix IRQ action memory leak on removal
+Date: Tue, 27 Oct 2026 11:08:02 +0800
+Message-ID: <20261027030803.118131-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +98,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 26/46] mm/mmu_gather: fix flushing ranges with 4 GiB or
- larger
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+da9150_remove() currently removes the regmap IRQ chip before removing
+the MFD child devices. regmap_del_irq_chip() disposes the child IRQ
+mappings and removes their IRQ descriptors.
 
+The GPADC child registers an interrupt handler using
+devm_request_threaded_irq(). When the child device is subsequently
+removed, its device-managed cleanup calls free_irq(), which can no
+longer find the corresponding IRQ descriptor. As a result, the
+allocated struct irqaction is not freed, causing a memory leak.
+The associated IRQ thread also cannot be stopped normally.
 
-On 10/27/26 7:17 AM, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> __tlb_adjust_range() takes the size of the range which has to be flushed
-> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
-> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
-> gets truncated, possibly to 0.
-> 
-> On arm64 with hugetlb, a 64k kernel can flush 16 GiB hugetlb PMDs, and a
-> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
-> at least these two scenarios are affected.
-> 
-> Fix it by flushing the proper range instead of the truncated one.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
-> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> [ david: use two-tab indent, simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->   include/asm-generic/tlb.h | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
-> index fbe1114e9a443..3f4a180b48f3c 100644
-> --- a/include/asm-generic/tlb.h
-> +++ b/include/asm-generic/tlb.h
-> @@ -350,8 +350,7 @@ struct mmu_gather {
->   void tlb_flush_mmu(struct mmu_gather *tlb);
->   
->   static inline void __tlb_adjust_range(struct mmu_gather *tlb,
-> -				      unsigned long address,
-> -				      unsigned int range_size)
-> +		unsigned long address, unsigned long range_size)
->   {
->   	tlb->start = min(tlb->start, address);
->   	tlb->end = max(tlb->end, address + range_size);
+Remove the MFD child devices first so their interrupt handlers are
+released while the IRQ mappings are still valid. Then remove the
+regmap IRQ chip and its IRQ domain.
 
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+This issue was found by our static analysis tool under development.
 
-Thanks,
-Qi
+Fixes: b8fce55c09d3 ("mfd: Add support for DA9150 combined charger & fuel-gauge device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/mfd/da9150-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
+diff --git a/drivers/mfd/da9150-core.c b/drivers/mfd/da9150-core.c
+index 5c59cc869fb3..1b6dbbed60e7 100644
+--- a/drivers/mfd/da9150-core.c
++++ b/drivers/mfd/da9150-core.c
+@@ -474,8 +474,8 @@ static void da9150_remove(struct i2c_client *client)
+ {
+ 	struct da9150 *da9150 = i2c_get_clientdata(client);
+ 
+-	regmap_del_irq_chip(da9150->irq, da9150->regmap_irq_data);
+ 	mfd_remove_devices(da9150->dev);
++	regmap_del_irq_chip(da9150->irq, da9150->regmap_irq_data);
+ 	i2c_unregister_device(da9150->core_qif);
+ }
+ 
+-- 
+2.43.0
 
