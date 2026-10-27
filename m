@@ -1,55 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065327;
-	b=oTHEnqZ6qUXW/Hk3DW/LnqsYVAOV+ydh3szDDMDlZEgygCY4DORfceER1RfmZiUrzZaS
-	 FVWX3deGlUFWxD5neFeOo2FOKjJTEJumKVc6cgifhwO0nAvawlljTaz6wb+Zw5IGWZ7CY
-	 0E6o0pkZOsMQ7pLssURJXvHWSlbFR1IeAiKdaquKOW/LE3PiGDaS/Qq6GVgf2tvW9DzsX
-	 4jp3J9bwY3m1dd0a8a+kxugehlEQ2n3v/VRD8cjzI3GUEKpc9RO7qGQRcwB86y+WGLfP9
-	 WK7RT23ypo7I0/cRbQ5QwzhYQFaUCSB9G2xQ6Ivg5FxuSQn/+jOg2Z9KozyGtw6RTfg==
+	t=1793065329;
+	b=yNHsfDB5bXHxaGUzsZtKtHLpouqjmLWaXLfo17yZNsnKvATXAvqqicBSF8IJkdK2/Ro0
+	 Rjsb16CKUYL7G68kJormejKZVpSzRpbYNvNuaUis7Sbjs1BsS/xcuVBzRO1aQdm0ta+Dm
+	 yYF5ThI/1632+GfPb+99Wi6CzbnRQs/1H3FovXrRjrjgEAZHHAZsi04gucuTJnDPSmZu2
+	 qrmVnivP4tmMcO9q834F4nam5OtlFHPts4Q8SA0jNcwxiv4H0r+uLQ1LsRFkKdx/zGcwg
+	 wvzppFlc9NEnmJXWgp7Q/P9q9Rnrx8MUlYFYbOF93f0e06nvB/5KMuJOAX8TYJ6j5cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065327;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=QPrihA68+s7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=;
-	b=vCpkcZIf84BR2caN87fC2sbgKXLBSz0sP/cncGqQAqnZWY8mtTGwPyPVJqCdMwPO5Vwn
-	 T9aBl6ucCmTSdE82tiDmOIkSjHbChrcpdpT/ecQzzNI31MkXior6VcbViPHXgcPu293m9
-	 Ta1uvO7Fj30tIaTG59EYSxueSiBh7l93BHYDAHnD0FuMTXG4r4ESWTa8rlFLBL/adOxjc
-	 74VHMV/3XhoNa3YTwjc7G43uUMkubQKK6mDvRqgvroLg/pF9dS1Fd8K0SJkAeI/Ky26Iw
-	 K3zNofp+75P5hLj90z2B50t1pSwmJhBa+DYbkXAFUWLtkS86cFRvctBkd2dVT3Uk+KA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065329;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=9d/9KitAZXEBwhLTbhpIMJwSXCsdx2BWGznXvUAvq1Y=;
+	b=jvJdNlJ1YAn2uC8rfwMNxvhRB9sCTBW8qBwEMU6HGS3nIgTXSNn5lf443fX/kqA5rTPJ
+	 LW4hzSDIZfD9urikAE1eiVuc9mERl2CWGJ6FRqhLedWbq/T++0Do/1FD+DAsRxyeqsjVl
+	 JnGQJV22ue2ly6zdNFGxZvNd9rdEc25fXs8Pqb07cl2jGmOZ3VqU1WJDQ1C9Ob9FvuLth
+	 rmos7iLZeqkMciIp7KKlOcN0Ifp7TbZpduc6y9OmLbKRsYoKr+XB50rmbXVhZ+DtcWnwA
+	 g7msj2wPTN1+Ovn4T8GcnjM3YRUhy+1tYTzwNJQg3S5I7+YPOW1gi7K11KUZtKul3bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28D13606A31A;
-	Tue, 27 Oct 2026 01:42:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D13606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=QPrihA68+s
-	7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=; b=aJWRJ5Pr668VyEYwztZVjQl2v7
-	ezuQcdj6N58AZdu+Z0QLK0xhJb4u4UM7+MnAlflrQUoVLs1n8ZQU74CH42Et9oPZ
-	6c3eL01nv6mAGlz3QPMQm7Q/EW1+GuCwONUWGxGBDM53S5zXAU8aPByjwjBLKcPN
-	PZYPPhoYUqJnLxjh8=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCGrwVYAeBqGKLsAA--.50649S2;
-	Tue, 27 Oct 2026 09:41:45 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: =?UTF-8?q?David=20H=E4rdeman?= <david@hardeman.nu>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
-Date: Tue, 27 Oct 2026 09:41:44 +0800
-Message-Id: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B59KN+ov;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C10606A32D;
+	Tue, 27 Oct 2026 01:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B59KN+ov
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 005B81F01828;
+	Tue, 27 Oct 2026 01:42:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793065329;
+	bh=9d/9KitAZXEBwhLTbhpIMJwSXCsdx2BWGznXvUAvq1Y=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=B59KN+ovxuBuaYX4aqCHx6CfdlejeF5RHsrqLZDvEnDNrfRFqFSV/bSW3HOa5Itbk
+	 6JXU1tWz8GadX4g1dADO/6v4fRgfNgRIVSrbkxcq4Zhxz/TRwoDDuKJXhPENvKSjhT
+	 ROFIXKQaM8rgwvCe/4bhBNNqcKbCXIRBw8+USgXKvHicg7/Wn7qtagyaVJhK61IUMn
+	 Ip6PFqbARNtTSFyeksfZZGKqLBu1K8/B1jkNPYfm39jYxbUfqdWy6TivV70vTTb3f8
+	 0DrtHM3mE/M8SAI64Kt4H0WZOKQ61wFFVRTbWxobDxRDGciBUFLdg0+l0hgT5lg8T0
+	 Uqi/SbKUQpWoA==
+Subject: Re: [PATCH net v3 3/4] gve: Block invalid ring sizes when device
+ options are 0
+From: netdev-bot+sashiko@kernel.org
+To: hramamurthy@google.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com,
+ nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com,
+ pkaligineedi@google.com, yangchun@google.com, patricion@google.com,
+ awogbemila@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ treapking@google.com
+Date: Tue, 27 Oct 2026 01:42:07 +0000
+Message-ID: <179306532757.3134.16501377800126286936@kernel.org>
+In-Reply-To: <20261023204706.3112215-4-hramamurthy@google.com>
+References: <20261023204706.3112215-4-hramamurthy@google.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,132 +67,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkCGrwVYAeBqGKLsAA--.50649S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAr15AryftF4xGryDArW5ZFb_yoWrXF43pa
-	n5Wa4rtryjgrsrWr47Xw42qa4rua1Iy398Zry8Kw1q9FZ3Ary3tFZ5JFyUCa4UJry0yFW3
-	tFW5J3y8uayUuF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6w4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUcID7UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FCrgAAss
 
-If rc_register_device() fails after device_add() - for example when
-ir_raw_event_register() cannot create its kthread - the unwind path
-frees the keymap via rc_free_rx_device() while the device is still
-visible in sysfs, and never clears dev->registered.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-A userspace reader of the uevent attribute then enters
-rc_dev_uevent(), passes the registered check under dev->lock and
-dereferences the already freed dev->rc_map.name:
+Low priority / nit picks for your consideration:
 
-  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
-  lib/vsprintf.c:737
-  Read of size 1 at addr ffff888007ca9d80
-   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
-   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
-   uevent_show+0x1af/0x380 drivers/base/core.c:2756
+- [Low] In gve_parse_device_option()
+  (drivers/net/ethernet/google/gve/gve_adminq.c:194-197), the new…
 
-Fix it the same way rc_unregister_device() does: take dev->lock,
-close the input device if it is still open and clear
-dev->registered before releasing any resources. rc_dev_uevent()
-then observes the cleared flag and returns -ENODEV instead of
-reading rc_map.name. The same sequence is also needed when
-rc_setup_rx_device() fails: lirc has been registered by then, so
-an open /dev/lircX file descriptor would otherwise keep calling
-driver callbacks that access the torn down device.
+Pre-existing issues:
+- [Low] gve_parse_device_option() (gve_adminq.c:177-197) accepts
+  MODIFY_RING options with option_length 9-11, because it rejects only <…
 
-Fixes: f56928abaa6d ("[media] rc-core: cleanup rc_register_device")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+--
 
----
-v2:
- - Clear dev->registered on the rc_setup_rx_device() error path too;
-   lirc is already registered there and open file descriptors can
-   still reach driver callbacks.
- - Factor the lock/close/clear sequence into rc_unregister_device_state()
-   and share it with rc_unregister_device().
----
- drivers/media/rc/rc-main.c | 29 +++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
+gve: Block invalid ring sizes when device options are 0
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index dda3479ea3ad..3ac5d532c6dc 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1888,6 +1888,24 @@ static void rc_free_rx_device(struct rc_dev *dev)
- 	ir_free_table(&dev->rc_map);
- }
- 
-+/*
-+ * Prevent userspace from accessing a device that is being taken down.
-+ *
-+ * The uevent attribute, the lirc character device and the input device
-+ * all check dev->registered under dev->lock before using driver data.
-+ * Clear it while still holding that lock, and call dev->close() for an
-+ * input device that is still open, exactly as rc_unregister_device()
-+ * does, before the resources they use are freed.
-+ */
-+static void rc_unregister_device_state(struct rc_dev *dev)
-+{
-+	mutex_lock(&dev->lock);
-+	if (dev->users && dev->close)
-+		dev->close(dev);
-+	dev->registered = false;
-+	mutex_unlock(&dev->lock);
-+}
-+
- int rc_register_device(struct rc_dev *dev)
- {
- 	const char *path;
-@@ -1954,8 +1972,10 @@ int rc_register_device(struct rc_dev *dev)
- 
- 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
- 		rc = rc_setup_rx_device(dev);
--		if (rc)
-+		if (rc) {
-+			rc_unregister_device_state(dev);
- 			goto out_lirc;
-+		}
- 	}
- 
- 	if (dev->driver_type == RC_DRIVER_IR_RAW) {
-@@ -1970,6 +1990,7 @@ int rc_register_device(struct rc_dev *dev)
- 	return 0;
- 
- out_rx:
-+	rc_unregister_device_state(dev);
- 	rc_free_rx_device(dev);
- out_lirc:
- 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
-@@ -2024,11 +2045,7 @@ void rc_unregister_device(struct rc_dev *dev)
- 	timer_delete_sync(&dev->timer_keyup);
- 	timer_delete_sync(&dev->timer_repeat);
- 
--	mutex_lock(&dev->lock);
--	if (dev->users && dev->close)
--		dev->close(dev);
--	dev->registered = false;
--	mutex_unlock(&dev->lock);
-+	rc_unregister_device_state(dev);
- 
- 	rc_free_rx_device(dev);
- 
+When the MODIFY_RING device option reports a minimum RX or TX ring size
+of 0, this patch makes gve_parse_device_option() fall back to the
+driver's default minimum ring sizes. The goal is to stop ethtool -G from
+accepting ring sizes small enough to crash gve_tx_alloc_rings_dqo().
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+> index 8b215fca9c1b6..2c848f0c23dc2 100644
+> --- a/drivers/net/ethernet/google/gve/gve_adminq.c
+> +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+> @@ -191,7 +191,9 @@ void gve_parse_device_option(struct gve_priv *priv,
+>  		*dev_op_modify_ring = (void *)(option + 1);
+>  
+>  		/* device has not provided min ring size */
+> -		if (option_length == GVE_DEVICE_OPTION_NO_MIN_RING_SIZE)
+> +		if (option_length == GVE_DEVICE_OPTION_NO_MIN_RING_SIZE ||
+> +		    be16_to_cpu((*dev_op_modify_ring)->min_rx_ring_size) == 0 ||
+> +		    be16_to_cpu((*dev_op_modify_ring)->min_tx_ring_size) == 0)
+>  			priv->device_info.default_min_ring_size = true;
+
+[Severity: Low]
+If only one of these two fields is 0, should the other minimum from the
+device be kept?
+
+Both directions share the single default_min_ring_size flag. When it is
+set, gve_enable_supported_features() replaces both minimums:
+
+drivers/net/ethernet/google/gve/gve_adminq.c:gve_enable_supported_features() {
+    ...
+		if (info->default_min_ring_size) {
+			/* If device hasn't provided minimums, use default minimums */
+			info->min_tx_ring_size = GVE_DEFAULT_MIN_TX_RING_SIZE;
+			info->min_rx_ring_size = GVE_DEFAULT_MIN_RX_RING_SIZE;
+		} else {
+    ...
+}
+
+Take a device that reports min_rx_ring_size = 1024 and
+min_tx_ring_size = 0. Its RX minimum would become
+GVE_DEFAULT_MIN_RX_RING_SIZE (512), not 1024. Before this patch, the
+non-zero value was used.
+
+gve_set_desc_cnt() copies these values into priv->min_rx_desc_cnt and
+priv->min_tx_desc_cnt. Those are the only lower bounds that
+gve_validate_req_ring_size() checks:
+
+drivers/net/ethernet/google/gve/gve_ethtool.c:gve_validate_req_ring_size() {
+    ...
+	if (new_tx_desc_cnt < priv->min_tx_desc_cnt ||
+	    new_tx_desc_cnt > priv->max_tx_desc_cnt ||
+	    new_rx_desc_cnt < priv->min_rx_desc_cnt ||
+    ...
+}
+
+Would ethtool -G rx 512 then pass validation and go to the device, even
+though it is below the minimum the device reported?
+
+A per-field fallback would use the default only for the field that is 0.
+Could that fix the zero-minimum crash and still keep the other limit from
+the device? For older devices that report both minimums as 0, as the
+commit message describes, the two approaches behave the same.
+
+[Severity: Low]
+This is a pre-existing issue, but can these new reads go past the end of
+the option payload when option_length is 9, 10 or 11?
+
+The length check earlier in this case rejects only lengths below
+GVE_DEVICE_OPTION_NO_MIN_RING_SIZE (8):
+
+drivers/net/ethernet/google/gve/gve_adminq.c:gve_parse_device_option() {
+    ...
+	case GVE_DEV_OPT_ID_MODIFY_RING:
+		if (option_length < GVE_DEVICE_OPTION_NO_MIN_RING_SIZE ||
+		    req_feat_mask != GVE_DEV_OPT_REQ_FEAT_MASK_MODIFY_RING) {
+    ...
+}
+
+min_rx_ring_size and min_tx_ring_size sit at payload offsets 8 and 10,
+and sizeof(struct gve_device_option_modify_ring) is 12. With a length of
+9 to 11, part of each read comes from the next option header or from
+unused descriptor space.
+
+gve_get_next_option() only checks option_length against the
+device-provided total_length. Also, total_length is never checked
+against the GVE_ADMINQ_BUFFER_SIZE allocation.
+
+If those out-of-option bytes are non-zero, the fallback does not fire
+and the bytes are used as the device minimums.
+
+The baseline gve_enable_supported_features() already read the same
+fields in this case, because default_min_ring_size stayed false. So this
+patch does not add any new reachable impact.
+
+Would checking option_length < sizeof(**dev_op_modify_ring), instead of
+comparing with == GVE_DEVICE_OPTION_NO_MIN_RING_SIZE, close this?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023204706.3112215-1-hramamurthy%40google.com
