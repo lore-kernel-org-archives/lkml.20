@@ -1,60 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793107782;
-	b=pXSS6LvQ2zbjFAso+vUKIS/SuK/gYez/99f7bAKTnNW8qQIr47+OvemV6q88YB+JUOdQ
-	 2JbI730sQ/rDfjnDC2gr4N4Kv5kcayig7odxaVPaKfw8+A8xzTr2f9bTxrZavLTCjRWSs
-	 iooOimeOXAg/nUiwkspoGxYHFmQfD1qFZcPqy4xNSyvlAbUqm+7yt+xBYFWFlkG+k9HSJ
-	 n3FHStFJh4iWJUmcKJQHutWRxWGLdVuFQRpMHOh7flWYp30lay+GSDs8Kq0aR7NJZeLGT
-	 cUbmp75rKcCji7dnuaPsPH76pCUFHBvjqSTLJj53NHNDfkkwGcfz97OPqcjPylxa4NA==
+	t=1793107841;
+	b=U6e7F+FcGOY2//hciDexgqmMKswTRQIYMPi0a4/nBzzHQCqMWRMR4+AgeKqaQzBH7HOX
+	 AQB7er8UyxopmgTCYc3meUoiY0XI/2HVDDYoVCNgpiotzgicDDY3GTdeSjgSd5crRvvIr
+	 vDvYT41wp3uBy8wyulapvaJ9oPIKjAt+x3OjDF2mZOVsIVJa0w+DpbiBNpV+AxAKMgWy5
+	 b881tgblpYEaxP9GZMtnURflHMimky92qX3mXLIhoejo3Q6xo5ufeNE7V0E+eBCqBWBEr
+	 srjcXwNSL1CxOY+Ed/8qA9cKjLjVPL02O2qqYLBiee/UNRiQueRY9b/AceKhdtwUAEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107782;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107841;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=usk93bEIPutx+3MHpDSumCJyW1kLRM+PSjY5FrtPGEo=;
-	b=KUEKMJ1mp86G17wNGoVSg0dDTDYoHMK+1F3L9kPBB77EsBPuorubczN2LzgtKVTWJOna
-	 QR0mAUBn+JJmQ2H4pxOVcMIXxtkxFbTKjh5COR2RH6LAooM/KCH10v2yez8rdr9Pt7YHo
-	 5bRsvB64zTvQwaYB4v9scbJmUBOiThUJL97IK8dn/TMIc75X1k2l+8nWFsXuqV+75AiDu
-	 SpB6dgIvh4YWRbF4ziotdkTyrtHVHlOQlMoQLlY+vpYifMZWyroKQA1Y9bAAePqleBjZt
-	 GjpWaHLCfC8AqWfIIYdSwuOK/jfXE7bmaqpVwJoUeeNL3d3EpGzOEEtpaYrr6njow5g==
+	bh=XKTc+ofWmOdE64HBz/HH2I+0gEqfs1LWZudIfmFSHQM=;
+	b=UuDfu74dxLjpcvbvbwiydcNp0BWzLIHiNXsESKbKPHuoXNvfuECeQAykPydCbnVpnZP0
+	 S4CDUtVtLLobwUmF6YS6w/5kBrqXE4iUwWdzKHdKGyXbyZBBW29FxHXyfyhzlxLqV4puA
+	 2q7M5g+tN+421mHXlxl12YTJjjuQC9XZFnkPa47IKGNgKOrohvT4GP3EADb4DeHkuqyHf
+	 TJ9ecg5XqRO+YszwsFHbgg9NZixWQwN+4gchCXpeMc4/PH8IuQExqTEHLYdRcC0RLU/7B
+	 dcvEXS+NISKi4ckEeuTTCBmKz3EkY33Cg0lvAk906r8s7xm9XLiHwzNdwzdoGIGw53Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=T8GvAM+o;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64182606A31F;
-	Tue, 27 Oct 2026 13:29:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64182606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=T8GvAM+o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=usk93bEIPutx+3MHpDSumCJyW1kLRM+PSj
-	Y5FrtPGEo=; b=T8GvAM+onZmdzn22hZemcL2b7hgNjDFvMAMjO3hAAuyYDmESMd
-	koL9LHPQge0lM9Ql9PR7dAgYOn0THNZAN3WskfqBtqplxZtmCA9vM4vwC8533V9Z
-	h7FY6hZ5ES0jt2nsVAih6nx0A+UtRwYbubjbyC7UkqRLMnKoMeKb/kL3k=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.11])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAHhDg5p+BqGGxRAA--.1917S4;
-	Tue, 27 Oct 2026 21:29:30 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-input@vger.kernel.org,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/5] dt-bindings: input: awinic,aw86927: document the AW86937 variant
-Date: Tue, 27 Oct 2026 21:29:26 +0800
-Message-ID: <20261027132929.242158-3-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027132929.242158-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261027132929.242158-1-xiaqinghuan@mail.ustc.edu.cn>
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=46.101.248.176
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D009C606A31F;
+	Tue, 27 Oct 2026 13:30:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D009C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app1 (Coremail) with UTF8SMTP id IAEQrMD2PaR2p+BqyGo7AQ--.16111S2;
+	Tue, 27 Oct 2026 21:30:30 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wAnqyxyp+BqXhgUAA--.39086S2;
+	Tue, 27 Oct 2026 21:30:29 +0800 (CST)
+Message-ID: <c2c3e283-7d38-4924-ba57-d95de2061b86@hust.edu.cn>
+Date: Tue, 27 Oct 2026 21:30:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,48 +45,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/zh_CN: add Chinese translation for usb/ohci.rst
+To: jiamingouyang13@gmail.com, alexs@kernel.org, si.yanteng@linux.dev,
+ corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261027132140.16295-1-jiamingouyang13@gmail.com>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <20261027132140.16295-1-jiamingouyang13@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAHhDg5p+BqGGxRAA--.1917S4
-X-Coremail-Antispam: 1UD129KBjvdXoWrKr1xtF13KFWrWF17KFW5trb_yoWfCFb_Za
-	yxJr4ku3s8CF4Fg3ZYvrs7tF17Xa18AF97Z3WrAF4kt3W8ArZrGayktw17Ar1rGw4xurW3
-	ur4kW3srWan3GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbSAYjsxI4VWxJwAYFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7
-	IE14v26r15M28IrcIa0xkI8VCY1x0267AKxVW8JVW5JwA2ocxC64kIII0Yj41l84x0c7CE
-	w4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6x
-	kF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
-	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
-	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
-	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20x
-	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
-	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIx
-	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
-	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2js
-	IEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j4yIUUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rfqlZqOAArsq
+X-CM-TRANSID:IAEQrMD2PaR2p+BqyGo7AQ--.16111S2
+Authentication-Results: app1; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrWfGF4Utw1DGw4xAF1xuFg_yoWrJw1UpF
+	s7KrWfGa1fAr1jyr1kGr1UtF18AF1xKa17G3yDJwn5JrZ7Ja40vrnrtFW3KrWxWryI9ayj
+	qFnY9FyrCa42y3DanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQKb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
+	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-The AW86937 is a sibling of the AW86938 with the same register layout and
-a distinct CHIPID.  It is described the same way as the AW86938, with the
-AW86927 compatible as fallback; software tells the parts apart by reading
-the CHIPID registers.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
-index bd74b8148..42b8f5f9e 100644
---- a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
-+++ b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
-@@ -15,6 +15,7 @@ properties:
-       - const: awinic,aw86927
-       - items:
-           - enum:
-+              - awinic,aw86937
-               - awinic,aw86938
-           - const: awinic,aw86927
- 
--- 
-2.53.0
+On 10/27/26 9:21 PM, jiamingouyang13@gmail.com wrote:
+> From: Jiaming Ouyang <jiamingouyang13@gmail.com>
+>
+> Translate Documentation/usb/ohci.rst into Chinese Simplified.
+>
+> The translation covers OHCI driver overview, hardware protocol
+> differences (OHCI vs UHCI), improvements since 2.4 kernel,
+> queueable interrupt transfers, and non-PCI support.
+Your subject is incorrect, please use [PATCH v4].
+>
+> Signed-off-by: Jiaming Ouyang <jiamingouyang13@gmail.com>
+> ---
+>
+> Changes in v4:
+> - Replaced spelling problem.
+> - In your cited discussion [1](https://lore.kernel.org/linux-doc/87o6cvrs27.fsf@trenco.lwn.net/), I still would like to keep ':翻译:' line.
+> ---
+>   .../translations/zh_CN/usb/index.rst          |  2 +-
+>   Documentation/translations/zh_CN/usb/ohci.rst | 38 +++++++++++++++++++
+>   2 files changed, 39 insertions(+), 1 deletion(-)
+>   create mode 100644 Documentation/translations/zh_CN/usb/ohci.rst
+>
+> diff --git a/Documentation/translations/zh_CN/usb/index.rst b/Documentation/translations/zh_CN/usb/index.rst
+> index df99814c6497..c96eacf13e11 100644
+> --- a/Documentation/translations/zh_CN/usb/index.rst
+> +++ b/Documentation/translations/zh_CN/usb/index.rst
+> @@ -32,6 +32,7 @@ USB 支持
+>       chipidea
+>       dwc3
+>       ehci
+> +    ohci
+>       usbmon
+>   
+>   待翻译文档：
+> @@ -49,7 +50,6 @@ USB 支持
+>   * mass-storage
+>   * misc_usbsevseg
+>   * mtouchusb
+> -* ohci
+>   * raw-gadget
+>   * usbip_protocol
+>   * usb-serial
+> diff --git a/Documentation/translations/zh_CN/usb/ohci.rst b/Documentation/translations/zh_CN/usb/ohci.rst
+> new file mode 100644
+> index 000000000000..5f2bc7b41f29
+> --- /dev/null
+> +++ b/Documentation/translations/zh_CN/usb/ohci.rst
+> @@ -0,0 +1,38 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +:Original: Documentation/usb/ohci.rst
+> +
+> +:翻译: 欧阳家铭 Jiaming Ouyang <jiamingouyang13@gmail.com>
+> +
+> +========
+> +OHCI驱动
+> +========
+> +
+> +2002年8月23日
+> +
+> +“OHCI-HCD”驱动程序是一个USB主机控制器程序（HCD），它源自2.4内核系列中的“usb-ohci”
+> +驱动程序。“usb-ohci”代码主要由 Roman Weissgaerber <weissg@vienna.at>编写但也获
+> +得了来自David Brownell <dbrownell@users.sourceforge.net>，Linus Torvalds
+> +和Gregory P. Smith的支持。
+> +
+> +它支持“开放主机控制器接口”（OHCI），该接口标准化了用于与USB 1.1主机控制器通信的
+> +硬件寄存器协议。“与英特尔早期的“通用主机控制器接口”（UHCI）相比，它将更多智能功能
+> +注入到硬件中。除英特尔和威盛之外的其他供应商的USB1.1控制器通常使用OHCI。
+> +
+> +自2.4内核以来的更改包括
+> +
+> +         - 提高了健壮性; 修复了错误; 减少了开销
+> +         - 支持更新和简化的usbcore API
+> +         - 中断传输可以更大，并且可以排队
+> +         - 通过使用上层“hcd”框架，减少代码量
+> +         - 支持一些非PCI的OHCI实现
+> +         - ... 以及更多
+> +
+> +“OHCI-hcd”驱动程序处理所有USB 1.1传输类型。所有类型的传输都可以排队。在“usb-ohci”
+> +中也是如此，但中断传输除外。以前，使用一帧的周期会因为IRQ处理的开销而导致数据丢
+> +失的风险。当中断传输排队时，可以通过确保硬件在操作系统处理相关IRQ时始终有传输需要
+> +处理，来最大限度的降低这些风险。
+> +
+> +- David Brownell
+> +  <dbrownell@users.sourceforge.net>
+> +
 
