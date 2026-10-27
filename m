@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793144678;
-	b=c3ABgwtZ3EnvZ7bsUnChrU3o/Yp+yV+nSJuswGklRLKZqVPIbz7d3z4z0GgJRyhzog21
-	 5FrH3pEz+iNGBZaiiNbxbVmYciZYZTztHNNtHoJOH2UxS2cc/hzU0V9Nlmm3FYKeXe2ah
-	 YsP4fBfi8OvYJzY+Zw/5s1d7wFkRtiaaod5ER/z7rcVRfYuX64rbviHiLgQ3kEtTIJFDX
-	 0f9R8yNuxsVi/GYWnEE2Ffg6iC8qkGqyQ1/vDLYDBoltdR/F0IM259oJGl4DQVNKu74ij
-	 co+/JMe3rWYk2qEhl0Wy0nt6bl17VNYD2MsXNR8Fur8oDqdHAHQG9qwy9srnTgAeqMw==
+	t=1793144772;
+	b=kzJRmLV+mpsKYghIDjUy0ZiZdsYO1CB1YxHzlP5wF3wQC27Ef6SToJQOKCONtKznaKQf
+	 BV+aHVQQNjEn/zunMqc5rUmiRdvZVeVODkItKq4DVAoTC6H8xiYnCWe3ZELAaCvECVJBz
+	 dEensZZ4/lRFH/zh0g5CwG3vnNEQSMTf41qDvcXXZvJvRJZNTdoItLoZEFgy23IPfHjGJ
+	 3PqHubsZIWoz4Uhz39mNvgsXgDwyEfogV0ZGaDdQhCRUir7ns5shgbNnsf+wn0iex65NJ
+	 5GwcseWmqJ88+30J9iXHDkuYrD9qgC0q74COCdrPAzcfQ7wW8BVRCkEIHSWN/9BOWFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793144678;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=h6EDD+wqeFPatnIY75r59I+JXe+hDBGTfDeQYoy9Hng=;
-	b=b6NrU9IyK/3JNmcFDyZR3VUnkRtmSEKWnM0xPYosTKACjkbE/ndk2Xx6oK0LMHfhCwoU
-	 L4jxQu81mi651L1W8h5UScl3XJa7NidddvjK1+dbX5z2Rlw7LhS5/gVuCS2HAw4WuBeQ/
-	 qKnj0L3H7xgUE0ixwq+W0AN/f6meuI2SDCVtgl+OKdxQtaU6kQKavAY2ZKVK7ULhw6mFA
-	 +miDLLtbcEk+tSeStPRRt5PvK8Awdf1kqEQrgHo5jQtnVJ6y2eLKrGrTk+TB5AgUTAS5t
-	 hkY1LYKQYfBeJLsACb0KkLdsepQRAe6L+d9J8w5I3kSl26y9hdbVRhME7GaddRIX3Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793144772;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=;
+	b=HDO9QBm7b08KvNZZXhepyPMeZ0TK0T/6Fcex2h/mph0Y/QUgn6JcVoGoumOj+cyDBNnM
+	 5MBMiYDhoveSyzfEDJB5RLUy8Tw4d3vS61Xx68HkfG0wzgxryggcgqMyEBz0ePGH186q0
+	 OiZCFrJcCBaUxiGpRY9laG8qjlIF7FKlvbw5H37GX2QmTroKejQG4cTpu9u1NQkfTzaFR
+	 bo33i1vA/iU6qtgd8lfooIDDamf1VllkWRaQuVeukGRMkS3j83Fo+3wqxnjEo/cyRZkzR
+	 rLyL6wMBCtaQ5bVuFM0eeuC7JgH+xEbcItLIbkwYjt59FUzW9XBJ0Pr4ihJ7x5Ec9ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKkOPE+R;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OhsuEJ1E;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OXInXtkG;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9992E606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:44:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9992E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD95C606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:46:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD95C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKkOPE+R
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89ff475a152so191219b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:44:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OhsuEJ1E;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OXInXtkG
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RKtP5C3336692
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:46:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=; b=OhsuEJ1EELNpbET1
+	ZDtDr9vJ+Nl7HYv9/qC1dtjz9y1LRtW1aPENhQMw2FwKRFKJhCUM2QRnDS0RPms+
+	8L8XB4CobFUaLXFINzyGWCh0j0vwQ+UuJ+WiuQZc9CodO8sRizoqqMsu6UZAGaj4
+	A6C8VJi4lfMkEr5vdsj/wZCkft/VUa9u5Qqqnwc8g0kyhJSwEKBLDBHjHQrJqGG9
+	D8oM+YdR6BvTNFGAtV746g3UXptIbLH3NTrrf2Tm11dtnN6abTMKQOEhMksLLjuH
+	HpU5M78I/ie3Um3TizGz+7kAUpkKL5C1CoMDdlU4kHppTrtJmBhdjjhJ3rlw/CTh
+	fKs56A==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjst1k59w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:46:10 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35cbea41088so510477eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:46:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793144677; x=1793749477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h6EDD+wqeFPatnIY75r59I+JXe+hDBGTfDeQYoy9Hng=;
-        b=rKkOPE+R27RUQa+QdNr8wHGsXxx2ZgN6QJoRzyDE6X1rh7diRdYvLPblsI4xGberNy
-         hkII/zDPCih21K50euaZxHKoJKH1BfLidL8rimew10DylqLdtoi7JPAAAgGYHrNP7B6V
-         Usjj00DYf6qF8iCmIiaOMjbdHkWo332qj2LaUIUyHfojHj/CRxieCnvmhxlQALVV8bw5
-         JYpnL0Pvv5LZrgXQX6wG6wwACmN4jCtPlAU7gBhxbpTfLhCPKYST5oTCFId3f10TQJFm
-         kNfyE8r1Dv8UdAEXcs8xw4xVzLsSE4BzyTCQmysVYol7p+Dpm+WBUbVJwbny+Oy/TUL6
-         uZXQ==
+        d=oss.qualcomm.com; s=google; t=1793144770; x=1793749570; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=;
+        b=OXInXtkGzYX06AU3OxoEzP/IkcnV7oIfASflVSE4YRtKCSMbyAX9tbGH6iRk/WO49L
+         nIb92uDnDpONO5T1H0uKokBg0vB03IHJwlXNhgL8a3Ga/hHbeS/RcIefG92r89HqfoY9
+         RQlShd26/WYm3LzuplHqMvJKfng6JygG2vRLmoUk/VuODUpVTDHdatY4nzAg5plOySb8
+         UfassIFwLTr1IWrAiDwQ1qvRmn069IxDMHju7Qefg6aFTlGoM4yMRvaM5ChEXzLp6zFt
+         0Cjf1vsxlZrt5+CSfwemlmeFQoPbQjkN6ht6eSTCe/cgP3WoJtMa7GADiU6igKpI6jWh
+         Nodw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793144677; x=1793749477;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h6EDD+wqeFPatnIY75r59I+JXe+hDBGTfDeQYoy9Hng=;
-        b=qXZ9sPRBUz7jdXAFtRPykLQls77cAwz+cKd3pvynOPejzuTMuJjFOmuSFGO71j+ZdD
-         BoxY/gwM1UJce03c905mrvpJxnW7k9Bie3VavQxz6yQ12MnwpoDSVQ9T75mXD/SbiED3
-         HGnZienX/11W5ZqNJCxVGvu7VgDonBfQezaX6Ru4rdbhX69Nzalo114mIJN/OHtvp2CH
-         ElmGkkeh63+Wn6JbwgmHUG22AXtVZfa5oDA8zH3roy45Y4Wvts7OE5u9k8gObz/BvT89
-         oIXomah0qVSGGjIW+KZgWL/1OvzwEHUsFdUxbjV/sky4Xtd2pzyx07Jp1SKcz/MFc8jI
-         JBwA==
-X-Forwarded-Encrypted: i=1; AKwUvByj/8IXkO6tnUjuOgwjZJ+aND8w1DetDyiOACVpQ9ai7TfSEA9eR+sZINC1uJXC++2cg5J69REauH/P1BQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLvLzZhXQ4gFtqDe5F94Hui2r/ez2YJV/mLuYC4N2F2K3onomK
-	yR8GSngDtFDUrIkfRbhVQ1S4WNgZxTNA+h3PawoEu6TSO/JdKMc5vwqu
-X-Gm-Gg: AYBFou28GCcgQJnRxd+NN4pJQerhlrrkfyFLESrGsfICeeAxLNcQYbQfeqgUh0sxz5y
-	AjleY4L1kKdxDB+q03cdEKSRl33hth0DcrfhBqvULBM2yDY2wPwUzjXxqZ7VUoebXGl9T+K9qQf
-	9GqSavSYYVYG8PT4PJkbv4tePmoIcHjxzZZJzfpJidxz3UT3fEJ8BUyNJCsfV5i+5NtuFZIufSR
-	DiJwBMM71hMrpcqnG4bg+oOtLsdi0HN9tpA4aqyON79VlGJ36s1HAwiC5Vp3MocybW3LpCR+7uC
-	N9BRT5FoV3saf6mLQqcYgzJWBGQz9fyMsfEL7JDLQKMJj7gTvWjoaf098S9ESezY24lGhbwEL+q
-	vaRldrraUggt4+kbZQIlY1UCqID8VNnFjGNWL0jN0HeQg8vaFFLhB/FaNDlzUM4Xdfn051iVosh
-	uPWwX8yQWrevrfaqx4POjVI5qAi+btlpB0Qvtxv2yDLquWJn/47gP1QkqEA8CJPVPwtMMlXZm1l
-	4V8QLz4OdJyVkibPywK2Fvsu+h0BmDbzr00zZKsV/5+6NVVCNplDr1fQL5FsSQF/6t0DfaM0AbI
-	E1OYGi+Hlbu1T08ZvWsOhA9Y/HeJ7O3VfIsQoKW10/RFDvi46LJC2+HDnmhn6UlMgt4IsGruWQ=
-	=
-X-Received: by 2002:a05:6a20:7348:b0:3e2:90da:9594 with SMTP id adf61e73a8af0-3e90210813fmr579918637.9.1793144676890;
-        Tue, 27 Oct 2026 16:44:36 -0700 (PDT)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662b9f5sm542507b3a.21.2026.10.27.16.44.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 16:44:35 -0700 (PDT)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.de,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v5 11/11] ALSA: virtio-snd: fix dsnoop capture with staged buffers
-Date: Wed, 28 Oct 2026 08:43:34 +0900
-Message-ID: <20261027234334.32551-12-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261027234334.32551-1-mynameisjune111@gmail.com>
-References: <20261027234334.32551-1-mynameisjune111@gmail.com>
+        d=1e100.net; s=20260707; t=1793144770; x=1793749570;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z2UfHBvHRgGayx7r8hZ+HGVeH8gt1wGqjG5tuFe3plk=;
+        b=yEX5xYjzk7UJlFg9m7HFCloHCLnIZ+NhNk4t82VC1oGtfljY7Wrh8hm1UUnPd+XyxC
+         oyoIVSl2QgKgUuApQyvdscGRPMQ5BVJCukYiwYVMufHubX10apGDWZbgnDaUKv5DwozL
+         9rxpgP/mlcCA9gS1CpL6/tQpKDSsq4G8uGVKGuSS0yA0P9T5Sx6FzT9OJ+xooSefWJ13
+         btfLH3yKKA4FVOUwiofShIbBSIIcqgVMBRBIG9+Q11f17tASPCloxErKIUx5O79FoB8r
+         EEaVg5MPUmzT+WK6pp2pacZ5jF93123jlC0weavCdV0MXmhOtIUr/MTa56NeMOPbpt2c
+         clZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSKbdoVOQylSA4g0EVyx3fbcSH0c1UGm/A2g637eKnLHla2pOVAziY2kYpuXhCzPo2Eh0CI99P/5nP1qU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZ8uxUfrx4REfaLB0NlW20CoAcCoHOuyPzF1gNgvOo3WYDYCdN
+	aMpb4cOLtOwhSIDPNx+n7Fs0I3Nz7nydd6Pep/gPr7Aid7CGXXY6QveEX3PNa/hz/UqMnc7wY5I
+	aUp1J9R18Ji/7T5TkT6qrgj1wrVJ4fkkFLqNfX/T6YUP8o3XkCyIIPw41LVfPhj0kias=
+X-Gm-Gg: AYBFou0t2rUtqW+5WTIi0ssG+xmNyA/fOqcdoWSM9u1uDKmyJ8lo1gI0oBj4xfMCbWK
+	AlYP8OWUk0YTJhq/Vm2+wcjtKAfDJUKWsiUyTIHOa7USIcqJVHV/650fHTQhposilC1pq8lZX9x
+	E8ESGmLRxzt1/RMoQjzP4Hh159qOsLAEG81O+Vw34WGwtU7qfIbRIrGRe0uLSQ29zumy6qns8Q5
+	ukP1lXtlzj8A+nfQzS6kfINePanYxtxYAkqp0NgI+/sHTS6AqHjYXKigtvhGoYunrCVl26DGUR2
+	HH+z1weVRCsv3V0sKpi8DjGenqB8LaGXONIVxljYYCI7N+oGM8FD8R/0b9OiQuQSWxufuFFchLZ
+	htvP943pn7yyU37UcEz4Qf4DctL8vC1R2h9J8zvhx3yRCNYsJWds4Rse9kpU11A==
+X-Received: by 2002:a05:7022:1217:b0:14f:5cd:f286 with SMTP id a92af1059eb24-1a6cf729c4fmr1036876c88.34.1793144770038;
+        Tue, 27 Oct 2026 16:46:10 -0700 (PDT)
+X-Received: by 2002:a05:7022:1217:b0:14f:5cd:f286 with SMTP id a92af1059eb24-1a6cf729c4fmr1036828c88.34.1793144769398;
+        Tue, 27 Oct 2026 16:46:09 -0700 (PDT)
+Received: from [10.134.68.191] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d85f23dsm153319c88.11.2026.10.27.16.46.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 16:46:08 -0700 (PDT)
+Message-ID: <b1312ee5-52d0-4294-a05a-f84bc334af74@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 16:46:07 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,521 +115,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/6] phy/media: Add generic MIPI C-PHY support to
+ CSI-2 stack
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <pFAaFSKH8thStYg6_Ew1gWdIvj5lbNBF36QKdamV1cU1Nc73wEZfM_KdQWL2NmB5fvaUpMPen7qMOzjHZ9ROIQ==@protonmail.internalid>
+ <20261017-cphy_support-v1-0-8b0e1237ce95@oss.qualcomm.com>
+ <141c5032-1915-4dac-bbcf-e697b762ae40@kernel.org>
+Content-Language: en-US
+From: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+In-Reply-To: <141c5032-1915-4dac-bbcf-e697b762ae40@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=HJ1WhYtv c=1 sm=1 tr=0 ts=6ae137c2 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=RNcpwd5BfBhkYgEZawkA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: CwiH43aCw63K8XKlZit2lR27hpRznpg3
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA5NSBTYWx0ZWRfX+G+kO2R6ndS3
+ qra0Q3ISOgkm+eka+FLeyF4YOzqEi23sWULLNje2cwrguD3edWfu0WVKn3Qi9Z6lEA7fV2jomaL
+ LTan6ijefe/2xpYD62u4TMbJlu30VZA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA5NSBTYWx0ZWRfX3tTSzkioC++J
+ BK0m4hBIMEo2iwJhR6QQ+FYvd+BeFjGTvGv52XeQmI1zUaTdtPKA+yjVL8qyqwUAfjnnr44q7e+
+ /XDf2p+rH9Scvorbz1Uckwa0mCWEkQPuWVtmwrix25tW2/RnnJNTBrvydzEMZmv+ktBt+9QVYoy
+ bG1l9Ts61DI8xQuTxpZtpFW0p6zFQL11EIupyalvUJnxiQO+sJIpmCNIpEYWRo/iY30s4ZDoKnq
+ JP6+E2ZUGhIFKoO5pSIKD/ec7pAYfiHY8r5bORrz0ZTesv2iAkiqRdSiZKZrWPtf7ogmEjqPR5x
+ r0yjxzDRuIaHMDSmdGG2otWohNyCbdCCaKR89Mke8cc0tK0oxCJGoFyM3rgg4Ck8IE5kRiISqSV
+ gCN0FgdBMocUbna10TBGXlQQ4B1de3Ir3Lq2614D74mEqa0wiXbfUjaFz76oCMEcafs2H77X41b
+ vPQTfPlRhBYGJeOkWSQ==
+X-Proofpoint-GUID: CwiH43aCw63K8XKlZit2lR27hpRznpg3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 spamscore=0 phishscore=0 clxscore=1011
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270095
 
-dsnoop runs its hardware slave with stop_threshold == boundary and can
-consume the mmap capture ring without advancing the hardware application
-pointer. Staged capture currently treats every stream as a bounded
-consumer: capture_ready grows until the completion capacity check fails.
+Hi Bryan,
 
-With a 48 kHz mono slave, 960-frame periods and a 7680-frame buffer, the
-baseline dsnoop reproduction stops after 6720 frames with -EPIPE and a
-ring_capacity rejection. Direct capture continues to work.
+Thanks a lot for your suggestion regarding file structuring and naming 
+convention.
+However, we think that having the separate file will make it more 
+functionality oriented distinction. It is easier for addition and 
+maintenance.
+Also, we would like to propose to remove 3ph from the file name 
+convention as this is misleading the operation. DPHY is 2ph, whereas 
+CPHY is 3ph.
+We are proposing to have a naming like phy-qcom-mipi-csi2-dphy.c and 
+phy-qcom-mipi-csi2-cphy.c as the names, DPHY and CPHY are sufficient to 
+understand the 2ph or 3ph operational mode.
 
-Cache the prepared boundary and recognize the free-running policy under
-the substream lock. Keep RX requests supplied in that mode, while retaining
-payload, frame alignment, counter and pointer-window checks. Sample the
-policy once per completion so validation, copying and refill agree.
-Refresh it separately in the ACK accounting and refill critical sections.
+Kindly provide your suggestion.
 
-On a return to bounded capture, reconstruct unread occupancy from the
-copied and acknowledged totals. If outstanding data fills the ring, the
-policy helper returns -EPIPE and preserves the cached mode and counters.
-The detecting RX, pointer or ACK path reports XRUN through its existing
-error path; this does not make sw_params fail synchronously.
-A native pause release can also detect this overflow during queue refill.
-Its trigger error leaves ALSA in PAUSED, so mark the staged capture as XRUN
-and schedule the period worker before returning the error. The worker takes
-the PCM stream lock after the pause action and wakes readers from XRUN.
-A paused ACK can reach XRUN before that worker runs. Arm synchronous stop
-before returning -EPIPE from staged ACK, and before the worker stops a
-paused stream. ALSA skips trigger(STOP) for paused streams; these paths
-must preserve the RELEASE and pending-RX cleanup needed by prepare.
-Reset cached policy state during prepare and teardown.
+Thanks,
+JZ
 
-Before the pause revisions, MOTU/VZ tests with one and two vCPUs failed all
-32 shared-client captures. The candidate passed 48 capture cases and eight
-recovery diagnostics, including 70-second CPU-saturated shared captures.
-Synthetic QEMU dsnoop data matched 2160000 reference frames across 12
-files. Forced policy transitions passed KASAN/KCSAN checks. Aggressive
-KCSAN still triggered dsnoop client-threshold XRUNs with a 160 ms buffer.
-The physical tests checked frame counts and nonzero mono input; exact
-sample continuity was checked with the synthetic source.
-
-The native-pause regression reproduces -EPIPE followed by a persistent
-PAUSED state and a poll timeout with v2. With this revision, the same case
-reaches XRUN, wakes poll with POLLERR and returns -EPIPE from read.
-Prepare recovery and reopening also pass under ARM64 QEMU with KASAN
-and lockdep.
-
-Paused read and forward ACK errors reproduced a failing first prepare
-with v3. This revision passes 16 recovery cases across native pause and
-pause-restart with one and two vCPUs. Each prepare recovery and reopen
-captures 48,000 frames. The existing 13-case mode suite and native-pause
-regression also pass with KASAN and lockdep. No new physical-device or
-KCSAN results are claimed for this revision.
-
-Assisted-by: LLM
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
-
----
-diff --git a/sound/virtio/virtio_pcm.c b/sound/virtio/virtio_pcm.c
---- a/sound/virtio/virtio_pcm.c
-+++ b/sound/virtio/virtio_pcm.c
-@@ -338,6 +338,8 @@
- 			paused_xrun = runtime &&
- 				      runtime->state == SNDRV_PCM_STATE_PAUSED &&
- 				      vss->runtime_active && vss->xfer_xrun;
-+			if (paused_xrun)
-+				virtsnd_pcm_capture_arm_paused_stop(vss);
- 		}
- 		if (paused_xrun) {
- 			/* Wake readers without sending STOP for a paused stream. */
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -47,7 +47,9 @@
-  *        substream operators, including @stopped.
-  * @buffer_bytes: Current buffer size in bytes.
-  * @hw_ptr: Substream hardware pointer value in bytes [0 ... buffer_bytes).
-- * @capture_ready: Captured bytes copied but not yet acknowledged by ALSA.
-+ * @capture_ready: Managed-mode bytes copied but not yet acknowledged by ALSA;
-+ *                 always zero in free-running mode.
-+ * @capture_boundary: ALSA boundary captured for this prepared epoch.
-  * @capture_copied_total: Monotonic bytes copied into the capture ring.
-  * @capture_acked_total: Monotonic bytes acknowledged by the capture client.
-  * @capture_pointer_seen_total: Last capture position sampled by ALSA.
-@@ -58,6 +60,7 @@
-  * @capture_staging: Capture uses request-owned payload buffers.
-  * @capture_started: Non-empty capture data was received since prepare.
-  * @capture_empty: Consecutive empty startup completions.
-+ * @capture_free_running: Cached staged-capture policy, protected by @lock.
-  * @xfer_enabled: Data transfer state (0 - off, 1 - on).
-  * @xfer_xrun: Data underflow/overflow state (0 - no xrun, 1 - xrun).
-  * @stopped: True if the substream is stopped and must be released on the device
-@@ -88,6 +91,7 @@
- 	size_t buffer_bytes;
- 	size_t hw_ptr;
- 	size_t capture_ready;
-+	snd_pcm_uframes_t capture_boundary;
- 	u64 capture_copied_total;
- 	u64 capture_acked_total;
- 	u64 capture_pointer_seen_total;
-@@ -97,6 +101,7 @@
- 	bool runtime_active;
- 	bool capture_staging;
- 	bool capture_started;
-+	bool capture_free_running;
- 	unsigned int capture_empty;
- 	bool xfer_enabled;
- 	bool xfer_xrun;
-@@ -115,6 +120,22 @@
- 	wait_queue_head_t msg_empty;
- };
- 
-+/* Caller holds the PCM stream lock and vss->lock. */
-+static inline void
-+virtsnd_pcm_capture_arm_paused_stop(struct virtio_pcm_substream *vss)
-+{
-+	struct snd_pcm_runtime *runtime = vss->substream->runtime;
-+
-+	lockdep_assert_held(&vss->lock);
-+	if (!runtime || runtime->state != SNDRV_PCM_STATE_PAUSED)
-+		return;
-+
-+	/* ALSA skips trigger(STOP) when moving a paused stream to XRUN. */
-+	vss->xfer_enabled = false;
-+	vss->stopped = true;
-+	runtime->stop_operating = true;
-+}
-+
- /* Keep non-staged PCM notifications on schedule_work()'s normal queue. */
- static inline bool
- virtsnd_pcm_schedule_period_elapsed(struct virtio_pcm_substream *vss)
-@@ -128,23 +149,29 @@
- 
- /*
-  * ALSA may observe a subperiod tail before its period callback. Keep actual
-- * unread occupancy separate from pointer observations and notification state.
-+ * unread occupancy separate from pointer observations and notification state;
-+ * free-running streams account occupancy from monotonic totals instead.
-  */
- static inline bool
- virtsnd_pcm_capture_counters_valid(const struct virtio_pcm_substream *vss)
- {
--	return vss->buffer_bytes &&
--	       vss->capture_copied_total >= vss->capture_acked_total &&
--	       vss->capture_copied_total - vss->capture_acked_total ==
--			(u64)vss->capture_ready &&
--	       vss->capture_ready < vss->buffer_bytes &&
--	       vss->capture_pointer_seen_total <= vss->capture_copied_total &&
--	       vss->hw_ptr == vss->capture_copied_total % vss->buffer_bytes &&
--	       (!vss->capture_callback_snapshot_active ||
--		(vss->capture_callback_snapshot >=
--			vss->capture_pointer_seen_total &&
--		 vss->capture_callback_snapshot <=
--			vss->capture_copied_total));
-+	u64 outstanding;
-+
-+	if (!vss->buffer_bytes ||
-+	    vss->capture_copied_total < vss->capture_acked_total ||
-+	    vss->capture_pointer_seen_total > vss->capture_copied_total ||
-+	    vss->hw_ptr != vss->capture_copied_total % vss->buffer_bytes ||
-+	    (vss->capture_callback_snapshot_active &&
-+	     (vss->capture_callback_snapshot < vss->capture_pointer_seen_total ||
-+	      vss->capture_callback_snapshot > vss->capture_copied_total)))
-+		return false;
-+
-+	if (vss->capture_free_running)
-+		return !vss->capture_ready;
-+
-+	outstanding = vss->capture_copied_total - vss->capture_acked_total;
-+	return outstanding == (u64)vss->capture_ready &&
-+	       vss->capture_ready < vss->buffer_bytes;
- }
- 
- /**
-@@ -207,6 +234,9 @@
- 
- int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss);
- 
-+int virtsnd_pcm_capture_refresh_mode_locked(struct virtio_pcm_substream *vss,
-+					    bool *free_running);
-+
- void virtsnd_pcm_msg_free(struct virtio_pcm_substream *vss);
- 
- void virtsnd_pcm_msg_reset(struct virtio_pcm_substream *vss);
-diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
---- a/sound/virtio/virtio_pcm_msg.c
-+++ b/sound/virtio/virtio_pcm_msg.c
-@@ -3,6 +3,7 @@
-  * virtio-snd: Virtio sound device
-  * Copyright (C) 2021 OpenSynergy GmbH
-  */
-+#include <linux/compiler.h>
- #include <linux/limits.h>
- #include <linux/mm.h>
- #include <linux/overflow.h>
-@@ -384,6 +385,8 @@
- 	vss->capture_notified_periods = 0;
- 	vss->capture_callback_snapshot = 0;
- 	vss->capture_callback_snapshot_active = false;
-+	vss->capture_boundary = 0;
-+	vss->capture_free_running = false;
- 	vss->capture_empty = 0;
- 	vss->capture_started = false;
- }
-@@ -508,24 +511,54 @@
- 	return 0;
- }
- 
--/**
-- * virtsnd_pcm_capture_send() - Queue staged capture requests.
-- * @vss: VirtIO PCM substream.
-- *
-- * Queue full-period requests while the outstanding requests fit the remaining
-- * ALSA ring capacity. The final request may exceed that capacity by less than
-- * one period; completion validates the returned payload before copying it.
-- *
-- * Context: Expects the RX queue and substream spinlocks to be held by caller.
-- * Return: 0 on success, -errno on failure.
-- */
--int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss)
-+/* Caller holds vss->lock. */
-+int virtsnd_pcm_capture_refresh_mode_locked(struct virtio_pcm_substream *vss,
-+					    bool *free_running)
-+{
-+	struct snd_pcm_runtime *runtime;
-+	snd_pcm_uframes_t stop_threshold;
-+	u64 outstanding;
-+	bool new_free_running;
-+
-+	if (!vss->capture_staging || !vss->runtime_active || !vss->substream)
-+		return -EBADFD;
-+
-+	runtime = vss->substream->runtime;
-+	if (!runtime || !vss->buffer_bytes || !vss->capture_boundary)
-+		return -EBADFD;
-+
-+	/* Validate the currently committed policy before observing a transition. */
-+	if (!virtsnd_pcm_capture_counters_valid(vss))
-+		return -EIO;
-+
-+	stop_threshold = READ_ONCE(runtime->stop_threshold);
-+	new_free_running = stop_threshold == vss->capture_boundary;
-+	if (new_free_running != vss->capture_free_running) {
-+		outstanding = vss->capture_copied_total -
-+			      vss->capture_acked_total;
-+		if (new_free_running) {
-+			vss->capture_ready = 0;
-+		} else {
-+			if (outstanding >= vss->buffer_bytes)
-+				return -EPIPE;
-+			vss->capture_ready = outstanding;
-+		}
-+		vss->capture_free_running = new_free_running;
-+	}
-+
-+	*free_running = new_free_running;
-+	return 0;
-+}
-+
-+/* Caller holds the RX queue and vss locks and has sampled the policy. */
-+static int virtsnd_pcm_capture_enqueue(struct virtio_pcm_substream *vss,
-+				       bool free_running)
- {
- 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
- 	struct virtqueue *vqueue = queue->vqueue;
- 	unsigned long period_bytes;
- 	size_t free_bytes;
--	size_t request_limit;
-+	size_t request_limit = vss->nmsgs;
- 	unsigned int i;
- 	bool added = false;
- 
-@@ -535,16 +568,17 @@
- 	period_bytes = snd_pcm_lib_period_bytes(vss->substream);
- 	if (!period_bytes || !vss->buffer_bytes ||
- 	    period_bytes >= vss->buffer_bytes ||
-+	    free_running != vss->capture_free_running ||
- 	    !virtsnd_pcm_capture_counters_valid(vss) ||
- 	    vss->msg_count > vss->nmsgs)
- 		return -EIO;
- 
--	free_bytes = vss->buffer_bytes - vss->capture_ready;
--	request_limit = free_bytes / period_bytes +
--			!!(free_bytes % period_bytes);
--	request_limit = min_t(size_t, request_limit, vss->nmsgs);
--	if (vss->msg_count > request_limit)
--		return -EIO;
-+	if (!free_running) {
-+		free_bytes = vss->buffer_bytes - vss->capture_ready;
-+		request_limit = free_bytes / period_bytes +
-+				!!(free_bytes % period_bytes);
-+		request_limit = min_t(size_t, request_limit, vss->nmsgs);
-+	}
- 
- 	for (i = 0; i < vss->nmsgs && vss->msg_count < request_limit; ++i) {
- 		struct virtio_pcm_msg *msg = vss->msgs[i];
-@@ -585,6 +619,25 @@
- 	return 0;
- }
- 
-+/**
-+ * virtsnd_pcm_capture_send() - Refresh policy and queue staged requests.
-+ * @vss: VirtIO PCM substream.
-+ *
-+ * Context: Expects the RX queue and substream spinlocks to be held by caller.
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int virtsnd_pcm_capture_send(struct virtio_pcm_substream *vss)
-+{
-+	bool free_running;
-+	int rc;
-+
-+	rc = virtsnd_pcm_capture_refresh_mode_locked(vss, &free_running);
-+	if (rc)
-+		return rc;
-+
-+	return virtsnd_pcm_capture_enqueue(vss, free_running);
-+}
-+
- static int virtsnd_pcm_capture_status(const struct virtio_pcm_msg *msg,
- 				      size_t written_bytes,
- 				      size_t frame_bytes,
-@@ -638,6 +691,7 @@
- 	size_t audio_bytes = 0;
- 	size_t next_ready = 0;
- 	u64 next_copied_total = 0;
-+	bool free_running = false;
- 	bool got_audio = false;
- 
- 	guard(spinlock)(&vss->lock);
-@@ -651,6 +705,9 @@
- 		/* A full ring is modulo-ambiguous, so fail closed before copying. */
- 		if (!runtime || !runtime->dma_area)
- 			invalid_reason = "runtime";
-+		else if (virtsnd_pcm_capture_refresh_mode_locked(vss,
-+								 &free_running))
-+			invalid_reason = "policy";
- 		else if (!virtsnd_pcm_capture_counters_valid(vss))
- 			invalid_reason = "counters";
- 		else if (vss->hw_ptr !=
-@@ -660,18 +717,28 @@
- 						    frame_bytes, &audio_bytes,
- 						    &latency_bytes))
- 			invalid_reason = "status";
--		else if (audio_bytes >=
--			 vss->buffer_bytes - vss->capture_ready)
--			invalid_reason = "ring_capacity";
--		else if (check_add_overflow(vss->capture_ready, audio_bytes,
--					    &next_ready))
--			invalid_reason = "ready_overflow";
--		else if (next_ready >= vss->buffer_bytes)
--			invalid_reason = "ring_full";
- 		else if (check_add_overflow(vss->capture_copied_total,
- 					    (u64)audio_bytes,
- 					    &next_copied_total))
- 			invalid_reason = "total_overflow";
-+		else if (free_running && audio_bytes >= vss->buffer_bytes)
-+			invalid_reason = "payload_exceeds_ring";
-+		else if (!free_running &&
-+			 audio_bytes >= vss->buffer_bytes - vss->capture_ready)
-+			invalid_reason = "ring_capacity";
-+		else if (!free_running &&
-+			 check_add_overflow(vss->capture_ready, audio_bytes,
-+					    &next_ready))
-+			invalid_reason = "ready_overflow";
-+		else if (!free_running && next_ready >= vss->buffer_bytes)
-+			invalid_reason = "ring_full";
-+		else if (free_running &&
-+			 (next_copied_total < vss->capture_pointer_seen_total ||
-+			  next_copied_total - vss->capture_pointer_seen_total >=
-+			  vss->buffer_bytes))
-+			invalid_reason = "pointer_window";
-+		else if (free_running)
-+			next_ready = 0;
- 
- 		if (invalid_reason) {
- 			virtsnd_pcm_capture_xrun_locked(vss);
-@@ -713,7 +780,8 @@
- 
- 	msg->length = 0;
- 	if (vss->runtime_active && vss->xfer_enabled) {
--		if (!vss->xfer_xrun && virtsnd_pcm_capture_send(vss)) {
-+		if (!vss->xfer_xrun &&
-+		    virtsnd_pcm_capture_enqueue(vss, free_running)) {
- 			dev_warn_ratelimited(&vss->snd->vdev->dev,
- 					     "SID %u: failed to refill capture queue\n",
- 					     vss->sid);
-diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
---- a/sound/virtio/virtio_pcm_ops.c
-+++ b/sound/virtio/virtio_pcm_ops.c
-@@ -543,6 +543,8 @@
- 			vss->capture_notified_periods = 0;
- 			vss->capture_callback_snapshot = 0;
- 			vss->capture_callback_snapshot_active = false;
-+			vss->capture_boundary = 0;
-+			vss->capture_free_running = false;
- 		}
- 	}
- 
-@@ -565,6 +567,7 @@
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	struct virtio_device *vdev = vss->snd->vdev;
- 	bool pause_restart = virtsnd_pcm_pause_restart_enabled(vss);
-+	bool free_running;
- 	int rc;
- 	bool stopped;
- 
-@@ -622,6 +625,15 @@
- 	vss->suspended = false;
- 	vss->msg_count = 0;
- 	virtsnd_pcm_msg_reset(vss);
-+	if (vss->capture_staging) {
-+		scoped_guard(spinlock_irqsave, &vss->lock) {
-+			vss->capture_boundary = substream->runtime->boundary;
-+			rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
-+								     &free_running);
-+		}
-+		if (rc)
-+			return rc;
-+	}
- 
- 	memset(&vss->pcm_indirect, 0, sizeof(vss->pcm_indirect));
- 	vss->pcm_indirect.sw_buffer_size =
-@@ -893,6 +905,13 @@
- 			if (rc) {
- 				vss->stopped = true;
- 				substream->runtime->stop_operating = true;
-+				if (vss->capture_staging &&
-+				    vss->direction == SNDRV_PCM_STREAM_CAPTURE &&
-+				    command == SNDRV_PCM_TRIGGER_PAUSE_RELEASE) {
-+					/* Pause undo leaves ALSA paused; wake its readers. */
-+					vss->xfer_xrun = true;
-+					virtsnd_pcm_schedule_period_elapsed(vss);
-+				}
- 				return rc;
- 			}
- 			vss->xfer_enabled = true;
-@@ -1132,12 +1151,18 @@
- 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
- 	size_t hw_ptr = 0;
- 	u64 total;
-+	bool free_running;
- 	bool xrun;
- 
- 	if (vss->capture_staging) {
- 		scoped_guard(spinlock_irqsave, &vss->lock) {
--			xrun = vss->xfer_xrun ||
--			       !virtsnd_pcm_capture_counters_valid(vss);
-+			xrun = vss->xfer_xrun;
-+			if (!xrun &&
-+			    virtsnd_pcm_capture_refresh_mode_locked(vss,
-+								    &free_running))
-+				xrun = true;
-+			if (!xrun && !virtsnd_pcm_capture_counters_valid(vss))
-+				xrun = true;
- 			if (!xrun) {
- 				total = vss->capture_callback_snapshot_active ?
- 					vss->capture_callback_snapshot :
-@@ -1244,14 +1269,18 @@
- 		snd_pcm_uframes_t appl_ptr;
- 		snd_pcm_sframes_t diff;
- 		size_t bytes;
-+		u64 outstanding;
- 		u64 next_acked_total;
-+		bool free_running;
- 
- 		if (!vss->runtime_active || !runtime || !runtime->control ||
- 		    !runtime->dma_area)
- 			return -EBADFD;
- 		if (vss->xfer_xrun)
- 			return -EPIPE;
--		if (!virtsnd_pcm_capture_counters_valid(vss)) {
-+		rc = virtsnd_pcm_capture_refresh_mode_locked(vss,
-+							     &free_running);
-+		if (rc || !virtsnd_pcm_capture_counters_valid(vss)) {
- 			vss->xfer_xrun = true;
- 			virtsnd_pcm_schedule_period_elapsed(vss);
- 			return -EPIPE;
-@@ -1270,7 +1299,11 @@
- 
- 		/* ACK includes any subperiod tail already copied to the ring. */
- 		bytes = frames_to_bytes(runtime, diff);
--		if (bytes > vss->capture_ready ||
-+		outstanding = vss->capture_copied_total -
-+			      vss->capture_acked_total;
-+		if ((!free_running && bytes > vss->capture_ready) ||
-+		    (free_running &&
-+		     (bytes > vss->buffer_bytes || bytes > outstanding)) ||
- 		    check_add_overflow(vss->capture_acked_total, (u64)bytes,
- 				       &next_acked_total) ||
- 		    next_acked_total > vss->capture_copied_total) {
-@@ -1280,7 +1313,8 @@
- 		}
- 
- 		vss->capture_acked_total = next_acked_total;
--		vss->capture_ready -= bytes;
-+		if (!free_running)
-+			vss->capture_ready -= bytes;
- 		vss->pcm_indirect.appl_ptr = appl_ptr;
- 	}
- 
-@@ -1314,8 +1348,14 @@
- 	struct virtsnd_pcm_transfer transfer = {};
- 	int rc;
- 
--	if (vss->capture_staging)
--		return virtsnd_pcm_capture_staged_ack(vss, runtime);
-+	if (vss->capture_staging) {
-+		rc = virtsnd_pcm_capture_staged_ack(vss, runtime);
-+		if (rc == -EPIPE) {
-+			guard(spinlock_irqsave)(&vss->lock);
-+			virtsnd_pcm_capture_arm_paused_stop(vss);
-+		}
-+		return rc;
-+	}
- 
- 	scoped_guard(spinlock_irqsave, &queue->lock) {
- 		guard(spinlock)(&vss->lock);
+On 10/17/2026 4:39 PM, Bryan O'Donoghue wrote:
+> On 17/10/2026 18:13, Nihal Kumar Gupta wrote:
+>> George posted a C-PHY series [1] which we are currently reviewing.
+>> As discussed with Bryan, this series shares our independent
+>> implementation so the approaches can be compared.
+>>
+>> Two aspects covered here are not in [1]:
+>>
+>> - Settle count calculation derived from sensor-reported T_PREPARE and
+>>    T_PREAMBLE timing via get_mbus_config(). [1] left this as an open
+>>    question.
+>>
+>> - Data rate based register sequence selection using effective bit
+>>    rate (link_freq * 32 / 7). [1] noted downstream does this but
+>>    deferred it; this series implements it.
+>>
+>> MIPI CSI-2 operates over two physical layer variants. D-PHY uses a
+>> dedicated differential clock lane with up to four data lanes. C-PHY
+>> encodes the clock within the data stream across up to three wire
+>> trios, eliminating the dedicated clock lane.
+>>
+>> Patch 1 extends the generic PHY framework with PHY_MODE_MIPI_CPHY
+>> and struct phy_configure_opts_mipi_cphy.
+>>
+>> Patch 2 adds t_prepare_ns and t_preamble_ns fields to the CSI-2
+>> media bus configuration and extends CAMSS to forward them to the PHY
+>> provider for settle count calculation. Sensor drivers must implement
+>> get_mbus_config() and return non-zero values in nanoseconds; stream-on
+>> returns -EINVAL otherwise. The strictness is deliberate: C-PHY settle
+>> timing is symbol-rate-range specific and no safe value can be derived
+>> from link frequency alone. A conservative fallback could be added if
+>> reviewers prefer.
+>>
+>> Patches 3-6 extend the Qualcomm CSIPHY driver: refactor D-PHY
+>> register storage to accommodate C-PHY, accept C-PHY mode with
+>> multiple data rate table selection, compute settle count, and add
+>> lane power mask support for C-PHY trios.
+>>
+>> C-PHY encodes 16 bits per 7 symbols, so the effective bit rate is:
+>>
+>>    bit_rate = link_freq * 2 * 16 / 7 = link_freq * 32 / 7
+>>
+>> where link_freq is symbol_rate / 2 as reported by the sensor via
+>> get_mbus_config(). The rate-table entry whose bandwidth first meets
+>> or exceeds bit_rate is selected.
+>>
+>> The settle count defines how many timer clock cycles the CSIPHY
+>> receiver waits before scanning for C-PHY sync. It is computed from
+>> the sensor's T_PREPARE and T_PREAMBLE timing. The /3 factor reflects
+>> that C-PHY distributes the preamble sequence across three trios:
+>>
+>>    settle_cnt = (t_prepare_ns + t_preamble_ns / 3) * timer_clk_rate / 
+>> 1e9
+>>
+>> D-PHY settle count is unchanged from before this series.
+>>
+>> [1] 
+>> https://lore.kernel.org/all/20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com/
+>>
+>> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+>> ---
+>> Nihal Kumar Gupta (6):
+>>        phy: core: Add MIPI C-PHY configurations
+>>        media: qcom: camss: Add C-PHY timing fields and get config 
+>> from sensor
+>>        phy: qcom: mipi-csi2: Split D-PHY register settings
+>>        phy: qcom: mipi-csi2: Accept C-PHY mode and add register sequence
+>>        phy: qcom: mipi-csi2: Add C-PHY settle calculation
+>>        phy: qcom: mipi-csi2: Add lane mask calculation for C-PHY
+>>
+>>   drivers/media/platform/qcom/camss/camss-csiphy.c   |  90 +++++++++---
+>>   drivers/media/platform/qcom/camss/camss-csiphy.h   |   2 +
+>>   drivers/media/platform/qcom/camss/camss.c          |   8 +-
+>>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 159 
+>> +++++++++++++++++----
+>
+> So on thing I notice about this series and like is that there's a 
+> small change to the existing 3ph-dphy.c
+>
+> - Since it supports 3ph-cphy the file should be renamed
+>   3ph-cphy-dphy.c (or something)
+> - I like the progressive nature of he changes in this series
+>   as structurally the right way to add stuff in. Small digestable
+>   commits
+> - I think the missing piece here is data_lanes[] and lane_polarities[]
+>   per the other series from Qcom
+> - Another thing is the other series from Anusha has
+>   a more advanced mipi_ops data-structure for CPHY.
+>
+> Basically I like the approach taken in this series for a smaller 
+> change to the phy-qcom-mipi-csi2-3ph-dphy.c file.
+>
+> I'd like the best of both series - I think there is alot to resolve on 
+> lanes, data-lanes and lane-polarities in the other series and looking 
+> at this series, it seems to me we don't need a separate 
+> phy-qcom-mipi-csi2-3ph-cphy.c, I think Konrad observed in George's 
+> series that really the file deals with 3-phase PHYs and that seems 
+> true enough.
+>
+> Please work out between yourself and Anusha what's next.
+>
+> If possible I would prefer to contain 3ph CPHY and DPHY to one file as 
+> is done here - at the same time the definition of CPHY ops and lane 
+> mappings is closer to the spec in the other series.
+>
+> I think either you should take Anusha's structs and lane definitions 
+> or Anusha should take your approach to minimal change to the 
+> phy-qcom-mipi-csi2-3ph-dphy.c renaming it.
+>
+> One of you needs to pick up the patches from the other one.
+>
+> George can land his stuff on top then.
+>> drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |  51 +++++--
+>>   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  25 +++-
+>>   include/linux/phy/phy.h                            |  47 ++++++
+>>   include/media/v4l2-mediabus.h                      |   2 +
+>>   8 files changed, 315 insertions(+), 69 deletions(-)
+>> ---
+>> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+>> change-id: 20261017-cphy_support-2ce4d656e631
+>>
+>> Best regards,
+>> -- 
+>> Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+>
