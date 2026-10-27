@@ -1,129 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793100743;
-	b=2T/77sPllX1hMgCgLlOEXLsmQE38V/BjuS70umVSq5IsZEA3LfT1iQYH8EmMbU0ExuJK
-	 xVf9T1EIMs8cAqPZX8kcTmpE/SzMwCP0+dK+rWRBDbAMY4DjwtD9gmJJsbvG8vJ82Kmpt
-	 ZS3B3oJjgmbss0ovp2i8fnJ5pOlMCfaqQNTmZrID0TPfoeSE6vs6k07K39PYXGlZMTtFe
-	 6jWYYcB8piPAVSe2XzcjM3kQsZor/koKTtRfxopxLqUn8DidBz9sq2kmERyySthxtpeIF
-	 8bI4sTUh5n+2SF2ojPfgnzzat7/KbdbPUYwYnBTMpvNebQm0/tjxm23/GDE3zRDnDiA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100743;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
-	 References:In-Reply-To:To:CC:X-Mailer:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6OI=;
-	b=C+6FHZm4XyISZbbcWKedgW44clLJEdtnoBRYltgu/DQAhiplJi7RgyAW8fVGE1VjGssK
-	 YYMXmkkDlX1+/C6gs6wAkzjQ9FhgsLbJEftlKYZbnFqpxcIfytKRW2BtG1MsisPO7mbrL
-	 Skaxk2rvbSt2cpFrcEq/JJ0iW/AL/Yz0ojuY/kLeAh9uDke4YGKYbL884tNTm4Vek/txd
-	 9iLyRmi5gL+//NrS5tNvErUzFsajn7gItGNPZFzleFTgXjz9uR72a6pQat/wVVb/aHO7d
-	 NZ9oy4mysvbRFiSHGPHKs1EdzYldAnnJo1MHzMx/A1gqCQqbM2kfEku88f9lEd0AxdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Wt9JXQWM;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=VI0aVh5q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793100754;
+	b=tQ0J1Po5XsanI+cGn/dOTY/tPeMaEoPa9GXt8piJgdhctdTFder/rVNL+WUJFJPFj+ow
+	 /2sXMmm9Fytce8RQ5JkV8JhM7uxgT+9vSy2U3IquBAzBxtu3pSKozEyPbUpvUNxCAsi3J
+	 Do4iVzQq9q4D8ebmLe6fio58Fjl3Bk3cG7NHn23eAapqm3HKWp9ZQ7pUpre5av0DjMMFV
+	 L/8gvv1ybfZPuZV8+1G635icoooF9Uf9ChLWSfQmxwN/u39Bq709ETUs4QPOn2ryucA3r
+	 ardbWUVjJqyy/bCBdWcZEzW+v6Ip2yzkxqfno3a0gB6gqwoarnlrutdZ6bE7WcfBJwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100754;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=qNTAwFU+tlY3DpTkFEopoDxKLqW3r+c4aweDx94NbQ8=;
+	b=dDMNIuQYRaFtYqaRomeqZCc+PiD9zz1TvsQsa60wsmQWXyFKGq5HLUOBHA7ax4Ay4unI
+	 lOCmiO7YErQIMQfDpieDIv9G2E8RodLL7b0qjuTe5fe+w7BFWblw8DhOVrUCZz9TTaj1K
+	 tQGYF+e8L6EnoXmZb5lsS1GKhc20jX01zo6O7pEMqgQ9evnz8l3QQUKEQfXTzHC+M43bp
+	 571+MMYnFYiIUluQP5buWcc/EjCCyRZewq7X/shX7B6Avq+8bCC2k9awOeVmWGU9I/3VC
+	 7erNOhftr4/663UTTfktJbUb/bCDLnzi9k4uLG7bL/ApczQ4h3S9C9GKQq9Fj6cweNw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AYEk6Mhy;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF4F606A33D;
-	Tue, 27 Oct 2026 11:32:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EF4F606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DDB606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98DDB606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Wt9JXQWM;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=VI0aVh5q
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69RBCx293385590;
-	Tue, 27 Oct 2026 06:32:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6
-	OI=; b=Wt9JXQWMF+ib813o76h/o42x0cawL5w1YxCpyFw0Lh7vjYiIYu3HUzPof
-	atkpQ/AMVIbk4YP2UgYzboVA+50n+AibUyULDdS6fCtC21IOW7MxW2xPDFf4M6TT
-	lT0ZIZ0R0rajiciLZ2jA6bv+YDHWY/BLBJvgkd8mn2e3WZy3rGSMdFdDr/jGlwhA
-	C00U1nyhl63o/sQ8bxtZuo5My6zHlSaWNl4aRteiv9UtvqTcvxumY/a6yyttgB5t
-	lzvL7ke6sylr5X2IKB3ctrMoWeUPuhgsMSzFD3up2X2zwww8NYZU21BMe/MWTCy8
-	6drUrpVSvHUmQQdJx5phGhge1kA1A==
-Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012039.outbound.protection.outlook.com [40.107.209.39])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4hjtvxg3bf-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 06:32:10 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RlR//QuUPPYgErk9pdQBRsf+IUjpqH8wAz7N/BlUxXO5UxAYaXNXiV4t8zdIxUfAUsH6La4brwPt9LWgfKeHtjjnm0fqGFgsdiBn8crpQEr3qg64DhECEMubydAk1ZGiGvrqRnb74uKAzYpbUFrpBAJFSS4bvIlxrn2xLH0tq7iNTf0xrGkxiOw13gJhGb7/71Hw6nJsmZXdX1vy7neYakXkxURCgBGKZaw7VgrlmRrmCqOSKfxNN4grbr/O+EpIze85u0vfa5g0jDAbisM7ge4CCLcU/HerbB4zQr19fm56Tg1IFGxJrtwSV47N7ooUb1wamCG2zEZTbivtgaTJAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6OI=;
- b=hSRPAxCay6TKUQxQZJKJHsNWsKb1vElkUNYsNs8SIYwUL2EmPldtWJRnyPdWAv5XzTXku2j36P5KLi6iteVIBwbd3p5T17lg8uEb/AUDFhNaZQFaw7+jIFzBip81+/Ukfxdej07fuX7AS99byH8/15DlBLNH9zeBiOebLiGQUDL84WzVwRV23xUeyYPjbMw/OcS7V3kyfDLs7y8DeOdJ4ZTCMy88l0b937YPnCU/Gl3yLJRc8se0oWo139A1DjW+m+V1xJzMEMdyyxXCM2z6sZiPF5H2N2BKuhPUfozqmYQ078XI7lsuXzHbObMfTQyX3/XvD8ghbPHGtFNQ93lirA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AYEk6Mhy
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac7c7b3a90so1905171a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:32:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6OI=;
- b=VI0aVh5q7T23NFTBsn42RVCxm5N275UpDA8rWb9px63FqHIU6JQsgFCs6eJpeue8RQM/zMHnY4SiaG85zihqUJ5VGUme+zPSKv2T6WjlNIJ2DwtV+8WF34jNIvXY85AiTmmI1fctblMOqRcfXUZ2//rgUbWxjtCmef/IvhcZyFg=
-Received: from CH0PR03CA0093.namprd03.prod.outlook.com (2603:10b6:610:cd::8)
- by DS7PR10MB7321.namprd10.prod.outlook.com (2603:10b6:8:e5::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 11:32:04 +0000
-Received: from CH3PEPF00024580.namprd04.prod.outlook.com
- (2603:10b6:610:cd:cafe::1) by CH0PR03CA0093.outlook.office365.com
- (2603:10b6:610:cd::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 11:32:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH3PEPF00024580.mail.protection.outlook.com (10.167.252.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 11:32:02 +0000
-Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 06:31:20 -0500
-Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 06:31:20 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 27 Oct 2026 06:31:20 -0500
-Received: from psdkl-workstation0.dhcp.ti.com (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69RBVAHT1817461;
-	Tue, 27 Oct 2026 06:31:17 -0500
-From: Aniket Limaye <a-limaye@ti.com>
-Date: Tue, 27 Oct 2026 17:00:36 +0530
-Subject: [PATCH v4 2/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
+        d=gmail.com; s=20251104; t=1793100752; x=1793705552; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qNTAwFU+tlY3DpTkFEopoDxKLqW3r+c4aweDx94NbQ8=;
+        b=AYEk6MhybcKLrm/jElkaqbcDi6hE7bGQydb+aAdwBHhVRIwYWD811pzCUjR1iY7D0w
+         1vp/SWjSKfAHVrzT254C3nYVeg9N01WZ7mK18yDKMCX/vTUskRFz8KlT8bij8BhDLqeR
+         qSBCD0zCzbNZhNv3dhNdJb3+04Ykoajlq8ajOGdbV/mvhi3niFyZb7jLV/Q7Oy9/T9Lx
+         NFXRO3YWpcfYoHozf0C1XaJqD5WyuiRxewlHhiJ+fs000faTuk1uJEvSIN6C1bPVI2yH
+         w6x966oySBPi1Kj4rgu/7IcH2OOcdS1sc0MxXW4fAoE1uD9rICj4e3IP3cvLUaQeD1jV
+         L5sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793100752; x=1793705552;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qNTAwFU+tlY3DpTkFEopoDxKLqW3r+c4aweDx94NbQ8=;
+        b=IEOmhXDKHpA4oEzcZPp18hsYTaxYb9hOp+JG5bdebmY0UPRYcyDtmXCIk7NgqSazay
+         oADQTKuIanDScKo4gQZjaFyiWz7Ub/u9Q6dev0PjGr5awEivhihmXqXFHYAUGxwvzUjj
+         WyDPVBawqaNd+Ici9pTY1oWRpa2M82skq3FYVZKGTl7Nl71vTqHf9FkDeV0wrE+qF2d0
+         CpPlr4HgoRVFejgRO/i0SasXwHdsCQQwff7YkePloFYgg58UWsD9AZCBGHqj/97eaOmy
+         DKq1lVhZ4aHLvfd/6HThLpjmexlJParhdz5jmdBzcxlQdLNb4moZ0zGEDHVAtZWEk7is
+         F9WA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkpMq0u42kSPXobLf9iMlshjAOhTC/wOgBR5nSCnWC0SXpmg27Yymisvsx39Zgcm/lE+6aLejtRwJThk8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDTWwxxeqEKgAJ2unG/FOmmzfZP7B6rAo35+0HVqzWYMDgqw0A
+	A2rVSAGGj06Dr1e6ZG2B5SGdgL7XHX+Xza+oAtyCUUuidVVckx60kqdl
+X-Gm-Gg: AYBFou0C9FXUrnSHg8cR8Vxwr83C/3Jej7VNg09DkkJtpHxxOqLe8AmF56dCnYDn2ct
+	oyNU4muwmtTPebBtkH6VYxX5uR/DDkr896hYH/uN3rFIlqC6GpRuXQS+qPlC9v1n8JL/PAvdY7W
+	SVsoG0bq/VSMR88fWseuwiSIiTz/rcxNteRQtyx5axz/2tSf1g+SXfZhNJTjeudX+zqEcs3W3+O
+	2byiMugM7ENDNrs0EbxZV3FHRbpYHBWtiCbajYeXgmEN+iLdLbfWDSGO3Sjbx0bqAeA4Yrxonqh
+	DbziVyfpIil+5G51eUVbB1Fgmhm6nGt59O7IbgA/cpP9sNIt1YeQSJnbOMPLsQIer5JUoMhF+s9
+	JXRe/hiJLti+puo+LSSObFac1MbHtGGQNiUOLl+guSxyNg7SOrDsw0ezeVjvlEMLB43xBVVJ9ze
+	3RfzQefP2+vo63IdHW/4O8JbCuPZQ9vK2jeXFpeax303SN7Jr9tckwFA1u52gZh1m68ofaAYqfs
+	/uiIPgwQd5ThG0o3XP+NYpAq03QEF3Z7KSHxDbfeacejd/Vgmeimn8UpPPYWM4iSulNctfcGo/t
+	JFeSjehSPECS1FhBKWRrPKfqptrGKO3iFw5ZCIsVcb5hWAFq/ZI8IT1J/vQDj+DrR0JGWMQyDkL
+	gsTlcUVu9pkS77vbthkQbq20pfJgwatk3ySxZ1dwLUYaMan2+
+X-Received: by 2002:a17:90b:3141:b0:3ac:9a54:e3ce with SMTP id 98e67ed59e1d1-3adeafb073fmr7868673a91.63.1793100751597;
+        Tue, 27 Oct 2026 04:32:31 -0700 (PDT)
+Received: from cachyos (2a01cb0c82caf900a186612f304bfea5.ipv6.abo.wanadoo.fr. [2a01:cb0c:82ca:f900:a186:612f:304b:fea5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4041fafcsm4523962a91.0.2026.10.27.04.32.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:32:30 -0700 (PDT)
+From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-usb@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>,
+	David Fredman <davfre@gmail.com>
+Subject: [PATCH v7 2/8] ALSA: usb: babyfacepro: add output masters and crosspoint routing
+Date: Tue, 27 Oct 2026 12:31:33 +0100
+Message-ID: <20261027113140.134257-3-i.bahloul01@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027113140.134257-1-i.bahloul01@gmail.com>
+References: <20261027113140.134257-1-i.bahloul01@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,1490 +108,973 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
-References: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
-In-Reply-To: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Aniket Limaye <a-limaye@ti.com>,
-        <lianfeng.ouyang@starfivetech.com>
-X-Mailer: b4 0.14.3
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00024580:EE_|DS7PR10MB7321:EE_
-X-MS-Office365-Filtering-Correlation-Id: be04997f-6352-4444-701b-08df341debf1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|6133799003|18002099003|22082099003|261026140227099003|261026130827099003|3023799007|13003099007|56012099006|5023799004|261021123027099003|10067099003|261021121427099003|261021130227099003|261009223327099003|261009220027099003|261022113327099003|261022115727099003|261009221227099003|261022105027099003|261021135927099003|261009221727099003|261022075727099003|261009223027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	5wiKMWKWhd+QYPB+8qZIbAjzIyg7/ZbeXGaAwnxLfQNKmlZrGJ8mat0Ip+pRqsknT0c02IQGGjMX+yxvvbsiOGiaK0e7gJgj3M6p7hS9wcm1L4zlId6ly7qyp6h5iPo5SUEaXJCZwNPjZ6co19wlUbXddxAZYjfucdtHYvr7WZYm9sfem7UaewpxKdUYh2wCsk0qYFzH0tyKUnI6bF4IUaRJ6aOaRbSTz73P/lOzYy7aMFEFDH2LIojaN/Wc75mw0MloZzNYHN2vW0xEee+7V/5sqeBH5DJSt2JeAMjcB4Yoa7l9oJRnMWrv2y201aN1GSAJL7ORA3+eDpPo1uKCO1aRNG6VsK43m+cCSMISlDKGlkl3zqBwDcmt+NW5DYPChkhKAVztruI8o1hlo7PSZFDD6Kh2sPMbfIqhpjTwlobzTW3tKuZ3idFz3ktxLxXkXhYPG/5ilNd532SXS8+FP7KxyHj024xPTjKvzoGxUGEzUJq6JV2foYo6Myp6/aKFqHvbznSma0oYy04FaurNX5ehwe9gAsvTuN3rMCN5SZqEHrKntEndT3qU84Dc+LtcokKyx3QDji6S0b/QF7aMViOo7ypjwVcqeflM4s+HxqC13oZFbI0Sv5fIGcykvSLooW3NYafo0jpdjg6zmufRHA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(6133799003)(18002099003)(22082099003)(261026140227099003)(261026130827099003)(3023799007)(13003099007)(56012099006)(5023799004)(261021123027099003)(10067099003)(261021121427099003)(261021130227099003)(261009223327099003)(261009220027099003)(261022113327099003)(261022115727099003)(261009221227099003)(261022105027099003)(261021135927099003)(261009221727099003)(261022075727099003)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	F2P3sg3T3MiYj3S5x8JxTS22VKYSFUvkZZ7P47qSzWCAKOdGkv5VXMgHE8eI8SrJMga9pHmqnvVukyik5qjLWLOO5VzfIz9CxIAh171A0izWorKDqhBHb0zo3+7oEixvwYv8VKxyqHtxoE20Lexm1tzSOple93oIaFANXvwzL7XazK/y39C+U+zZUKpqzRbWw0h6xYDglG9NZqFQqFZLqx7BcP8UZG8ppTsNnKmeSxzSDjgHRUmG83jdkHBqYTP39dp/mMnCmqEL5O0tISX6r2hjWlg6ZJa1OQbK4bc/JqrVaEhBgyN1mqIE59ED6gdcrJT1xaTOOMv/arqO2rJ0Af3GLLOnACcu8EW+HIQZsljf7Ma0Tr/VuGeGQwOLvVefd0n3npeqmhwZeTFXje5HwrxmVxyrMHHk5OgpZ5iAy8+Wn8hZaYdHInHWtYCiPezn
-X-Exchange-RoutingPolicyChecked:
-	bM1dzYLF0whNQ+jhdLu3cBZaRKiQvzBOJSvh47DUVNuPr6FL4v4ZQsd20Pl/JcGXjhZPVVYiTS9WmkiFMbTvjQT4RKRPDY9EnlMHUVYomRP2ffkUcRbjFo5hRDBSKiBnb3J65EE1W1r1zFsvHupd+dewJEuv2pigHfODVZBx/PsklsuSobFQr+Q/HOQOIkWFH+YA8/bC4eP4rWI8AWdVvrLumBOFRBy4mFT6K4d2z49vqXXJSUavYKp64Sh54Ahf2aHLZw/qZfRuTw5rkz+eVb2se0l3sVy/jzGVi8I0RcumiQxmauF8T9CeHNVmctxBMlQHZWLhvAzsuFLXLCPLJw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:32:02.6091
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be04997f-6352-4444-701b-08df341debf1
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00024580.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB7321
-X-Proofpoint-ORIG-GUID: lRJ4fkV1X88ZXaa94eanyxRUiD0APT1W
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX/N4fvdotKMTf
- 9T+4xSMLusQc+ia69qrf3mxhUTJSjVCelzWDacHrhPM+CgVpp9x++rMrJvQbYlPWOpAc+hHRYFT
- X0T2fUFQ/ho9GcvdvHYDoIrnxxFe4Lk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX73+huRtrXpme
- 9DqrQJe6z5qtGyATYcifNf1G8Mvr71qtvu35GgsrQTrOhhpztzOlxuDit3Hrfrwty0QtpDgwLwV
- Z3yF5/VXHLc+P7bw2vvf4vEKGmULC5BUCBJYItABzEkljTautJGj3Kw0TQFnR8KS942MGmFyYt1
- 8AviUnSht1OZb2YxzSh6TNp8DiGiXcI5VQwpH5u7F54X8ztp2giDKKy/wefypHKAf8xKeJxKRPs
- R4IrUHKRJ2dAWGay7T7WB7pk8EKY1omlhcHLfaHjt+KgJfzaKWWoF5pceHNm4mL0lbaPc0i6LMU
- okS+O/805O9qw9M/+Y9yhirUcvtuKo+0kMyR1nnPGetBxPLY/OkvZXftykghLLk3pSWlnjOyYw2
- pCkzzJ1+l+ZEOkef5WTY179SP09oXvp3+TvHIDU7dQVnVW/1LkDJnB+5XPRemABGqy+GcZFwBuN
- zNO+zVo3D2KUr45UPvw==
-X-Proofpoint-GUID: lRJ4fkV1X88ZXaa94eanyxRUiD0APT1W
-X-Authority-Analysis: v=2.4 cv=dOwzC+Zb c=1 sm=1 tr=0 ts=6ae08bba cx=c_pps
- a=c8ROGaHEYT5V2SXoku0acA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=WsEqZR2ZYLAr1KTuRVEA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 suspectscore=0 impostorscore=0 adultscore=0
- clxscore=1011 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270045
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add a new platform driver for the Synopsys Advanced I2C (DWC_i2c),
-controller mode only.
+Add the first mixer controls: the six output masters (volume + mute)
+and the 6x14 crosspoint matrix.  The device has no readback for any of
+them, so the driver keeps the state host-side and the controls read
+that cache.
 
-The register offsets are defined with respect to header registers for
-each block. These header registers are discovered at runtime by walking
-the block header chain.
+The probe's cold init clears the mixer registers, so probe writes a
+power-on default: every playback channel into every output at 0 dB,
+the hardware inputs off until a mixer raises them, and the two analog
+outputs (AN1/2, PH3/4) at -20 dB, the level the hardware DIM button
+uses.  The AN1/2 output sums from its own "low map" registers, so its
+crosspoints are written to both maps.  A volume change leaves a muted
+output muted.
 
-Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+The masters count the 8-bit register's 0.5 dB steps over the front
+panel's range: 0 is mute, 1 is -90 dB and BF_MASTER_STEP_MAX is +6 dB.
+The control value is that step, so no log table converts it, and the
+16-bit companion register is derived from the same step.
 
+A userspace usbfs claim (PipeWire, a libusb mixer daemon) detaches and
+re-probes the interface, and the cold init of the re-probe clears the
+mixer registers; alsactl restores the user's settings once the card is
+registered again.
+
+Co-developed-by: David Fredman <davfre@gmail.com>
+Signed-off-by: David Fredman <davfre@gmail.com>
+Signed-off-by: Ismaïl Bahloul <i.bahloul01@gmail.com>
 ---
+ sound/usb/babyfacepro/Makefile          |   2 +-
+ sound/usb/babyfacepro/babyfacepro-ctl.c | 656 ++++++++++++++++++++++++
+ sound/usb/babyfacepro/babyfacepro.c     |  64 ++-
+ sound/usb/babyfacepro/babyfacepro.h     | 124 ++++-
+ 4 files changed, 843 insertions(+), 3 deletions(-)
+ create mode 100644 sound/usb/babyfacepro/babyfacepro-ctl.c
 
-Changes in v4:
-- Drop the approach of extending the existing i2c-designware-* driver
-  with a MODEL_TI_TDA54 variant. Instead, add a new standalone driver
-  (i2c-dwc-adv.c) and a new binding (snps,dwc-adv-i2c.yaml), since
-  DWC_i2c is not register compatible with DW_apb_i2c. (Andy Shevchenko)
-- Drop the snps,tx-fifo-depth/snps,rx-fifo-depth DT properties from
-  the new binding; FIFO depth is now tied to the compatible string via
-  driver match data instead. (Conor Dooley)
-- Link to v3: https://lore.kernel.org/all/20260925-tda54-upstream-i2c-v3-2-544d74e992ff@ti.com/
-
-Changes in v3:
-- Revert to special handling for the max_register in regmap for
-  MODEL_AMD_NAVI_GPU instead of unconditionally including
-  AMD_UCSI_INTR_REG in the legal regmap range.
-- Link to v2: https://lore.kernel.org/all/20260925-tda54-upstream-i2c-v2-2-261785e58493@ti.com/
-
-Changes in v2:
-- Move the Reg ID -> Offset mapping inside the regmap functions such
-  that existing calls to reg_read/write are unaltered. This does change
-  the reg_read()/reg_write() functions to take reg IDs as input rather
-  than their physical offsets, which also requires updates to the
-  xe_i2c.c driver to handle the same mapping.
-- Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-2-b0b9f77be18b@ti.com/
----
- drivers/i2c/busses/Kconfig       |   11 +
- drivers/i2c/busses/Makefile      |    1 +
- drivers/i2c/busses/i2c-dwc-adv.c | 1333 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 1345 insertions(+)
-
-diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-index 275aaa7f3583..ea91221638e8 100644
---- a/drivers/i2c/busses/Kconfig
-+++ b/drivers/i2c/busses/Kconfig
-@@ -649,6 +649,17 @@ config I2C_DIGICOLOR
- 	  This driver can also be built as a module.  If so, the module
- 	  will be called i2c-digicolor.
+diff --git a/sound/usb/babyfacepro/Makefile b/sound/usb/babyfacepro/Makefile
+index 5adc6d474..a50647a06 100644
+--- a/sound/usb/babyfacepro/Makefile
++++ b/sound/usb/babyfacepro/Makefile
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-snd-usb-babyface-pro-y := babyfacepro.o
++snd-usb-babyface-pro-y := babyfacepro.o babyfacepro-ctl.o
  
-+config I2C_DWC_ADV
-+	tristate "Synopsys Advanced I2C (DWC_i2c) driver"
-+	depends on ARCH_K3 || COMPILE_TEST
-+	help
-+	  If you say yes to this option, support will be included for the
-+	  Synopsys Advanced I2C controller (DWC_i2c) driver. Only controller
-+	  mode is supported.
-+
-+	  This driver can also be built as a module.  If so, the module
-+	  will be called i2c-dwc-adv.
-+
- config I2C_EG20T
- 	tristate "Intel EG20T PCH/LAPIS Semicon IOH(ML7213/ML7223/ML7831) I2C"
- 	depends on PCI && (X86_32 || MIPS || COMPILE_TEST)
-diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-index e5440de0fe14..bf710baa9c11 100644
---- a/drivers/i2c/busses/Makefile
-+++ b/drivers/i2c/busses/Makefile
-@@ -62,6 +62,7 @@ obj-$(CONFIG_I2C_DESIGNWARE_AMDISP) += i2c-designware-amdisp.o
- obj-$(CONFIG_I2C_DESIGNWARE_PCI)			+= i2c-designware-pci.o
- i2c-designware-pci-y					:= i2c-designware-pcidrv.o
- obj-$(CONFIG_I2C_DIGICOLOR)	+= i2c-digicolor.o
-+obj-$(CONFIG_I2C_DWC_ADV)	+= i2c-dwc-adv.o
- obj-$(CONFIG_I2C_EG20T)		+= i2c-eg20t.o
- obj-$(CONFIG_I2C_EMEV2)		+= i2c-emev2.o
- obj-$(CONFIG_I2C_EXYNOS5)	+= i2c-exynos5.o
-diff --git a/drivers/i2c/busses/i2c-dwc-adv.c b/drivers/i2c/busses/i2c-dwc-adv.c
+ obj-$(CONFIG_SND_USB_BABYFACE_PRO) += snd-usb-babyface-pro.o
+diff --git a/sound/usb/babyfacepro/babyfacepro-ctl.c b/sound/usb/babyfacepro/babyfacepro-ctl.c
 new file mode 100644
-index 000000000000..1c5b7b154bed
+index 000000000..9b41dcde5
 --- /dev/null
-+++ b/drivers/i2c/busses/i2c-dwc-adv.c
-@@ -0,0 +1,1333 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
++++ b/sound/usb/babyfacepro/babyfacepro-ctl.c
+@@ -0,0 +1,656 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Synopsys Advanced I2C (DWC_i2c) controller driver
++ * RME Babyface Pro / Pro FS - proprietary-mode USB audio driver
 + *
-+ * Based on the Synopsys DesignWare I2C adapter driver (i2c-designware-*),
-+ * which is based on the TI DAVINCI I2C adapter driver.
++ * ALSA control surface: the hardware mixer (output masters and mutes,
++ * the crosspoint matrix, preamps, routing flags, varispeed pitch).
 + *
-+ * Copyright (C) 2006 Texas Instruments.
-+ * Copyright (C) 2007 MontaVista Software Inc.
-+ * Copyright (C) 2009 Provigent Ltd.
-+ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
++ * See babyfacepro.h for the shared device state and register map,
++ * and babyfacepro.c for the core driver (protocol, PCM streaming,
++ * state persistence, card lifecycle).
 + */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/math.h>
-+#include <linux/math64.h>
-+#include <linux/minmax.h>
-+#include <linux/mod_devicetable.h>
++#include <linux/log2.h>
 +#include <linux/module.h>
-+#include <linux/pinctrl/consumer.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/reset.h>
-+#include <linux/units.h>
++#include <linux/mutex.h>
++#include <linux/unaligned.h>
++#include <linux/usb.h>
++#include <linux/workqueue.h>
++#include <sound/control.h>
++#include <sound/tlv.h>
++#include <sound/core.h>
++#include <sound/initval.h>
++#include <sound/pcm.h>
 +
-+#define DWC_ADV_I2C_OP_ENABLE			0x04
-+#define DWC_ADV_I2C_OP_I2C_CAPABILITIES		0x10
-+#define DWC_ADV_I2C_OP_I2C_CAPABILITIES_LOADING_400	BIT(3)
-+#define DWC_ADV_I2C_OP_I2C_BLOCK_OFFSET		0x14
++#include "babyfacepro.h"
 +
-+#define DWC_ADV_I2C_HEADER_ID			GENMASK(7, 0)
-+#define DWC_ADV_I2C_HEADER_LENGTH		GENMASK(23, 8)
-+#define DWC_ADV_I2C_HEADER_ID_CORE		0xa1
-+#define DWC_ADV_I2C_HEADER_ID_TIMING		0xa2
-+#define DWC_ADV_I2C_HEADER_ID_FIFO		0xa3
-+#define DWC_ADV_I2C_HEADER_ID_INTR_DEBUG	0xa4
-+#define DWC_ADV_I2C_HEADER_ID_HWID		0xa5
-+
-+#define DWC_ADV_I2C_CORE_CON			0x04
-+#define DWC_ADV_I2C_CORE_TAR			0x08
-+
-+#define DWC_ADV_I2C_TIMING_HCNT			0x08
-+#define DWC_ADV_I2C_TIMING_LCNT			0x0c
-+#define DWC_ADV_I2C_TIMING_HS_HCNT		0x10
-+#define DWC_ADV_I2C_TIMING_HS_LCNT		0x14
-+#define DWC_ADV_I2C_TIMING_SDA_HOLD		0x18
-+
-+#define DWC_ADV_I2C_FIFO_DATA_CMD		0x04
-+#define DWC_ADV_I2C_FIFO_RX_TL			0x08
-+#define DWC_ADV_I2C_FIFO_TX_TL			0x0c
-+
-+#define DWC_ADV_I2C_INTR_INTR_STAT		0x04
-+#define DWC_ADV_I2C_INTR_INTR_MASK		0x08
-+#define DWC_ADV_I2C_INTR_RAW_INTR_STAT		0x0c
-+#define DWC_ADV_I2C_INTR_CLR_INTR		0x10
-+#define DWC_ADV_I2C_INTR_ENABLE_STATUS		0x14
-+#define DWC_ADV_I2C_INTR_TX_ABRT_SOURCE		0x18
-+#define DWC_ADV_I2C_INTR_STATUS			0x1c
-+#define DWC_ADV_I2C_INTR_TXFLR			0x20
-+#define DWC_ADV_I2C_INTR_RXFLR			0x24
-+
-+#define DWC_ADV_I2C_HWID_COMP_TYPE		0x0c
-+#define DWC_ADV_I2C_COMP_TYPE_VALUE		0x44570140
-+
-+#define DWC_ADV_I2C_CON_CONTROLLER		BIT(0)
-+#define DWC_ADV_I2C_CON_SPEED_MASK		GENMASK(5, 4)
-+#define DWC_ADV_I2C_CON_SPEED_STD		BIT(4)
-+#define DWC_ADV_I2C_CON_SPEED_FAST		BIT(5)
-+#define DWC_ADV_I2C_CON_SPEED_HIGH		(BIT(4) | BIT(5))
-+#define DWC_ADV_I2C_CON_10BITADDR_CTRLR		BIT(9)
-+
-+#define DWC_ADV_I2C_TAR_10BITADDR_CTRLR		BIT(12)
-+
-+#define DWC_ADV_I2C_DATA_CMD_DAT		GENMASK(7, 0)
-+#define DWC_ADV_I2C_DATA_CMD_READ		BIT(8)
-+#define DWC_ADV_I2C_DATA_CMD_STOP		BIT(9)
-+#define DWC_ADV_I2C_DATA_CMD_RESTART		BIT(10)
-+
-+#define DWC_ADV_I2C_INTR_RX_UNDER		BIT(0)
-+#define DWC_ADV_I2C_INTR_RX_OVER		BIT(1)
-+#define DWC_ADV_I2C_INTR_RX_FULL		BIT(2)
-+#define DWC_ADV_I2C_INTR_TX_OVER		BIT(3)
-+#define DWC_ADV_I2C_INTR_TX_EMPTY		BIT(4)
-+#define DWC_ADV_I2C_INTR_RD_REQ			BIT(5)
-+#define DWC_ADV_I2C_INTR_TX_ABRT		BIT(6)
-+#define DWC_ADV_I2C_INTR_RX_DONE		BIT(7)
-+#define DWC_ADV_I2C_INTR_ACTIVITY		BIT(8)
-+#define DWC_ADV_I2C_INTR_STOP_DET		BIT(9)
-+#define DWC_ADV_I2C_INTR_START_DET		BIT(10)
-+#define DWC_ADV_I2C_INTR_GEN_CALL		BIT(11)
-+#define DWC_ADV_I2C_INTR_CTRLR_ON_HOLD		BIT(13)
-+
-+#define DWC_ADV_I2C_INTR_CLR_ALL		BIT(0)
-+#define DWC_ADV_I2C_INTR_CLR_RX_UNDER		BIT(1)
-+#define DWC_ADV_I2C_INTR_CLR_RX_OVER		BIT(2)
-+#define DWC_ADV_I2C_INTR_CLR_TX_OVER		BIT(3)
-+#define DWC_ADV_I2C_INTR_CLR_RD_REQ		BIT(4)
-+#define DWC_ADV_I2C_INTR_CLR_TX_ABRT		BIT(5)
-+#define DWC_ADV_I2C_INTR_CLR_RX_DONE		BIT(6)
-+#define DWC_ADV_I2C_INTR_CLR_ACTIVITY		BIT(7)
-+#define DWC_ADV_I2C_INTR_CLR_STOP_DET		BIT(8)
-+#define DWC_ADV_I2C_INTR_CLR_START_DET		BIT(9)
-+#define DWC_ADV_I2C_INTR_CLR_GEN_CALL		BIT(10)
-+
-+#define DWC_ADV_I2C_CTRLR_INTR_MASK \
-+	(DWC_ADV_I2C_INTR_RX_FULL | DWC_ADV_I2C_INTR_TX_ABRT | \
-+	 DWC_ADV_I2C_INTR_STOP_DET | DWC_ADV_I2C_INTR_TX_EMPTY)
-+
-+#define DWC_ADV_I2C_ENABLE_ENABLE		BIT(0)
-+#define DWC_ADV_I2C_ENABLE_ABORT		BIT(1)
-+
-+#define DWC_ADV_I2C_STATUS_ACTIVITY		BIT(0)
-+#define DWC_ADV_I2C_STATUS_CTRLR_ACTIVITY	BIT(5)
-+#define DWC_ADV_I2C_STATUS_CTRLR_HOLD_TX_FIFO_EMPTY BIT(7)
-+
-+enum dwc_adv_i2c_abrt_bit {
-+	DWC_ADV_I2C_ABRT_7B_ADDR_NOACK = 0,
-+	DWC_ADV_I2C_ABRT_10ADDR1_NOACK = 1,
-+	DWC_ADV_I2C_ABRT_10ADDR2_NOACK = 2,
-+	DWC_ADV_I2C_ABRT_TXDATA_NOACK = 3,
-+	DWC_ADV_I2C_ABRT_GCALL_NOACK = 4,
-+	DWC_ADV_I2C_ABRT_GCALL_READ = 5,
-+	DWC_ADV_I2C_ABRT_HS_ACKDET = 6,
-+	DWC_ADV_I2C_ABRT_SBYTE_ACKDET = 7,
-+	DWC_ADV_I2C_ABRT_CTRLR_DIS = 11,
-+	DWC_ADV_I2C_ARB_LOST = 12,
-+	DWC_ADV_I2C_ABRT_USER_TRMNT = 16,
-+	DWC_ADV_I2C_ABRT_SDA_STUCK_AT_LOW = 17,
-+};
-+
-+#define TX_ABRT_7B_ADDR_NOACK	BIT(DWC_ADV_I2C_ABRT_7B_ADDR_NOACK)
-+#define TX_ABRT_10ADDR1_NOACK	BIT(DWC_ADV_I2C_ABRT_10ADDR1_NOACK)
-+#define TX_ABRT_10ADDR2_NOACK	BIT(DWC_ADV_I2C_ABRT_10ADDR2_NOACK)
-+#define TX_ABRT_TXDATA_NOACK	BIT(DWC_ADV_I2C_ABRT_TXDATA_NOACK)
-+#define TX_ABRT_GCALL_NOACK	BIT(DWC_ADV_I2C_ABRT_GCALL_NOACK)
-+#define TX_ABRT_GCALL_READ	BIT(DWC_ADV_I2C_ABRT_GCALL_READ)
-+#define TX_ARB_LOST		BIT(DWC_ADV_I2C_ARB_LOST)
-+#define TX_ABRT_USER_TRMNT	BIT(DWC_ADV_I2C_ABRT_USER_TRMNT)
-+#define TX_ABRT_NOACK \
-+	(TX_ABRT_7B_ADDR_NOACK | \
-+	 TX_ABRT_10ADDR1_NOACK | \
-+	 TX_ABRT_10ADDR2_NOACK | \
-+	 TX_ABRT_TXDATA_NOACK | \
-+	 TX_ABRT_GCALL_NOACK)
-+
-+#define DWC_ADV_I2C_STATUS_SW_ACTIVE		BIT(0)
-+#define DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS	BIT(1)
-+#define DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS	BIT(2)
-+#define DWC_ADV_I2C_STATUS_SW_MASK		GENMASK(2, 0)
-+
-+#define DWC_ADV_I2C_ABORT_POLL_US		10
-+#define DWC_ADV_I2C_ABORT_TIMEOUT_US		100
-+#define DWC_ADV_I2C_DISABLE_POLL_US		250
-+#define DWC_ADV_I2C_DISABLE_TIMEOUT_US		25000
-+
-+#define DWC_ADV_I2C_XFER_TIMEOUT_MS		1000
-+#define DWC_ADV_I2C_AUTOSUSPEND_DELAY_MS	1000
-+
-+static const char * const dwc_adv_i2c_abort_sources[] = {
-+	[DWC_ADV_I2C_ABRT_7B_ADDR_NOACK] =
-+		"target address not acknowledged",
-+	[DWC_ADV_I2C_ABRT_10ADDR1_NOACK] =
-+		"10-bit first address byte not acknowledged",
-+	[DWC_ADV_I2C_ABRT_10ADDR2_NOACK] =
-+		"10-bit second address byte not acknowledged",
-+	[DWC_ADV_I2C_ABRT_TXDATA_NOACK] =
-+		"data not acknowledged",
-+	[DWC_ADV_I2C_ABRT_GCALL_NOACK] =
-+		"general call not acknowledged",
-+	[DWC_ADV_I2C_ABRT_GCALL_READ] =
-+		"general call read",
-+	[DWC_ADV_I2C_ABRT_HS_ACKDET] =
-+		"high speed controller code acknowledged",
-+	[DWC_ADV_I2C_ABRT_SBYTE_ACKDET] =
-+		"start byte acknowledged",
-+	[DWC_ADV_I2C_ABRT_CTRLR_DIS] =
-+		"disabled while active",
-+	[DWC_ADV_I2C_ARB_LOST] =
-+		"arbitration lost",
-+	[DWC_ADV_I2C_ABRT_USER_TRMNT] =
-+		"terminated by user request",
-+	[DWC_ADV_I2C_ABRT_SDA_STUCK_AT_LOW] =
-+		"SDA stuck at low",
-+};
-+
-+struct dwc_adv_i2c_regs {
-+	u32 enable;
-+	u32 con;
-+	u32 tar;
-+	u32 ss_fs_hcnt;
-+	u32 ss_fs_lcnt;
-+	u32 hs_hcnt;
-+	u32 hs_lcnt;
-+	u32 sda_hold;
-+	u32 data_cmd;
-+	u32 rx_tl;
-+	u32 tx_tl;
-+	u32 intr_stat;
-+	u32 intr_mask;
-+	u32 raw_intr_stat;
-+	u32 clr_intr;
-+	u32 enable_status;
-+	u32 tx_abrt_source;
-+	u32 status;
-+	u32 txflr;
-+	u32 rxflr;
-+};
-+
-+struct dwc_adv_i2c_dev {
-+	struct device *dev;
-+	void __iomem *base;
-+	struct clk *clk;
-+	struct clk *pclk;
-+	struct reset_control *rst;
-+	struct i2c_adapter adap;
-+	struct completion cmd_complete;
-+	struct i2c_bus_recovery_info rinfo;
-+
-+	struct dwc_adv_i2c_regs regs;
-+	u32 tx_fifo_depth;
-+	u32 rx_fifo_depth;
-+
-+	struct i2c_timings timings;
-+	bool hs_loading_400pf;
-+	u32 sda_hold_time;
-+
-+	u32 ctrlr_cfg;
-+	u32 ss_hcnt;
-+	u32 ss_lcnt;
-+	u32 fs_hcnt;
-+	u32 fs_lcnt;
-+	u32 hs_hcnt;
-+	u32 hs_lcnt;
-+
-+	struct i2c_msg *msgs;
-+	int msgs_num;
-+	int msg_write_idx;
-+	int msg_read_idx;
-+	int msg_err;
-+	int cmd_err;
-+	unsigned int status;
-+	unsigned int abort_source;
-+	int rx_outstanding;
-+	bool need_restart;
-+
-+	u8 *tx_buf;
-+	size_t tx_buf_len;
-+	u8 *rx_buf;
-+	size_t rx_buf_len;
-+};
-+
-+struct dwc_adv_i2c_match_data {
-+	u32 tx_fifo_depth;
-+	u32 rx_fifo_depth;
-+};
-+
-+static const struct dwc_adv_i2c_match_data tda54_i2c_match_data = {
-+	.tx_fifo_depth = 32,
-+	.rx_fifo_depth = 32,
-+};
-+
-+static inline u32 dwc_adv_reg_read(struct dwc_adv_i2c_dev *dev, u32 offset)
-+{
-+	return readl(dev->base + offset);
-+}
-+
-+static inline void dwc_adv_reg_write(struct dwc_adv_i2c_dev *dev, u32 offset, u32 val)
-+{
-+	writel(val, dev->base + offset);
-+}
-+
-+static int dwc_adv_i2c_next_header(struct dwc_adv_i2c_dev *dev, u32 hdr_offset,
-+				   u32 expected_id, u32 *next_offset)
-+{
-+	u32 hdr = dwc_adv_reg_read(dev, hdr_offset);
-+	u32 id = FIELD_GET(DWC_ADV_I2C_HEADER_ID, hdr);
-+	u32 length_words = FIELD_GET(DWC_ADV_I2C_HEADER_LENGTH, hdr);
-+
-+	if (id != expected_id) {
-+		return dev_err_probe(dev->dev, -ENODEV,
-+				     "header at offset 0x%x has ID 0x%x, expected 0x%x\n",
-+				     hdr_offset, id, expected_id);
-+	}
-+
-+	if (!length_words) {
-+		return dev_err_probe(dev->dev, -ENODEV,
-+				     "zero length header at offset 0x%x\n", hdr_offset);
-+	}
-+
-+	if (next_offset)
-+		*next_offset = hdr_offset + length_words * 4;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Register offsets are relative to per-block header registers. Walk the
-+ * header chain to find each block, starting from the core block offset.
++/* The flag-cycle counter, its writer and the per-block crosspoint
++ * "cross" register clear are crosspoint/mixer-only, so they live here
++ * rather than in the core driver file.
 + */
-+static int dwc_adv_i2c_discover_regs(struct dwc_adv_i2c_dev *dev)
-+{
-+	struct dwc_adv_i2c_regs *regs = &dev->regs;
-+	u32 core_header, timing_header, fifo_header, intr_header, hwid_header;
-+	u32 caps, comp_type;
-+	int ret;
 +
-+	regs->enable = DWC_ADV_I2C_OP_ENABLE;
-+	caps = dwc_adv_reg_read(dev, DWC_ADV_I2C_OP_I2C_CAPABILITIES);
-+	dev->hs_loading_400pf = caps & DWC_ADV_I2C_OP_I2C_CAPABILITIES_LOADING_400;
-+	core_header = dwc_adv_reg_read(dev, DWC_ADV_I2C_OP_I2C_BLOCK_OFFSET);
-+	if (!core_header)
-+		return dev_err_probe(dev->dev, -ENODEV, "no I2C block offset\n");
++/* The transaction-flag counter cycle on 16-bit writes. */
++const u16 bf_flag_cycle[4] = { 0xc000, 0x4000, 0x8000, 0x0000 };
 +
-+	regs->con = core_header + DWC_ADV_I2C_CORE_CON;
-+	regs->tar = core_header + DWC_ADV_I2C_CORE_TAR;
-+
-+	ret = dwc_adv_i2c_next_header(dev, core_header,
-+				      DWC_ADV_I2C_HEADER_ID_CORE, &timing_header);
-+	if (ret)
-+		return ret;
-+
-+	regs->ss_fs_hcnt = timing_header + DWC_ADV_I2C_TIMING_HCNT;
-+	regs->ss_fs_lcnt = timing_header + DWC_ADV_I2C_TIMING_LCNT;
-+	regs->hs_hcnt = timing_header + DWC_ADV_I2C_TIMING_HS_HCNT;
-+	regs->hs_lcnt = timing_header + DWC_ADV_I2C_TIMING_HS_LCNT;
-+	regs->sda_hold = timing_header + DWC_ADV_I2C_TIMING_SDA_HOLD;
-+
-+	ret = dwc_adv_i2c_next_header(dev, timing_header,
-+				      DWC_ADV_I2C_HEADER_ID_TIMING, &fifo_header);
-+	if (ret)
-+		return ret;
-+
-+	regs->data_cmd = fifo_header + DWC_ADV_I2C_FIFO_DATA_CMD;
-+	regs->rx_tl = fifo_header + DWC_ADV_I2C_FIFO_RX_TL;
-+	regs->tx_tl = fifo_header + DWC_ADV_I2C_FIFO_TX_TL;
-+
-+	ret = dwc_adv_i2c_next_header(dev, fifo_header,
-+				      DWC_ADV_I2C_HEADER_ID_FIFO, &intr_header);
-+	if (ret)
-+		return ret;
-+
-+	regs->intr_stat = intr_header + DWC_ADV_I2C_INTR_INTR_STAT;
-+	regs->intr_mask = intr_header + DWC_ADV_I2C_INTR_INTR_MASK;
-+	regs->raw_intr_stat = intr_header + DWC_ADV_I2C_INTR_RAW_INTR_STAT;
-+	regs->clr_intr = intr_header + DWC_ADV_I2C_INTR_CLR_INTR;
-+	regs->enable_status = intr_header + DWC_ADV_I2C_INTR_ENABLE_STATUS;
-+	regs->tx_abrt_source = intr_header + DWC_ADV_I2C_INTR_TX_ABRT_SOURCE;
-+	regs->status = intr_header + DWC_ADV_I2C_INTR_STATUS;
-+	regs->txflr = intr_header + DWC_ADV_I2C_INTR_TXFLR;
-+	regs->rxflr = intr_header + DWC_ADV_I2C_INTR_RXFLR;
-+
-+	ret = dwc_adv_i2c_next_header(dev, intr_header,
-+				      DWC_ADV_I2C_HEADER_ID_INTR_DEBUG, &hwid_header);
-+	if (ret)
-+		return ret;
-+
-+	ret = dwc_adv_i2c_next_header(dev, hwid_header,
-+				      DWC_ADV_I2C_HEADER_ID_HWID, NULL);
-+	if (ret)
-+		return ret;
-+
-+	comp_type = dwc_adv_reg_read(dev, hwid_header + DWC_ADV_I2C_HWID_COMP_TYPE);
-+	if (comp_type != DWC_ADV_I2C_COMP_TYPE_VALUE)
-+		return dev_err_probe(dev->dev, -ENODEV,
-+				     "unknown Synopsys component type: 0x%08x\n",
-+				     comp_type);
-+
-+	return 0;
-+}
-+
-+static void dwc_adv_i2c_ack_intr(struct dwc_adv_i2c_dev *dev, u32 clr_bit)
-+{
-+	dwc_adv_reg_write(dev, dev->regs.clr_intr, clr_bit);
-+}
-+
-+static u32 dwc_adv_i2c_scl_hcnt(u32 ic_clk, u32 tsymbol, u32 tf, int offset)
-+{
-+	return DIV_ROUND_CLOSEST_ULL((u64)ic_clk * (tsymbol + tf), MICRO) - 3 + offset;
-+}
-+
-+static u32 dwc_adv_i2c_scl_lcnt(u32 ic_clk, u32 tlow, u32 tf, int offset)
-+{
-+	return DIV_ROUND_CLOSEST_ULL((u64)ic_clk * (tlow + tf), MICRO) - 1 + offset;
-+}
-+
-+static void dwc_adv_i2c_set_timings(struct dwc_adv_i2c_dev *dev)
-+{
-+	struct i2c_timings *t = &dev->timings;
-+	u32 ic_clk = clk_get_rate(dev->clk) / 1000;
-+	u32 sda_falling_time = t->sda_fall_ns ?: 300;
-+	u32 scl_falling_time = t->scl_fall_ns ?: 300;
-+	u32 t_high, t_low;
-+
-+	dev->ss_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, 4000, sda_falling_time, 0);
-+	dev->ss_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, 4700, scl_falling_time, 0);
-+
-+	if (t->bus_freq_hz == I2C_MAX_FAST_MODE_PLUS_FREQ) {
-+		dev->fs_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, 260, sda_falling_time, 0);
-+		dev->fs_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, 500, scl_falling_time, 0);
-+	} else {
-+		dev->fs_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, 600, sda_falling_time, 0);
-+		dev->fs_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, 1300, scl_falling_time, 0);
-+	}
-+
-+	if (dev->hs_loading_400pf) {
-+		t_high = 120;
-+		t_low = 320;
-+	} else {
-+		t_high = 60;
-+		t_low = 160;
-+	}
-+	dev->hs_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, t_high, sda_falling_time, 0);
-+	dev->hs_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, t_low, scl_falling_time, 0);
-+}
-+
-+static void dwc_adv_i2c_write_timings(struct dwc_adv_i2c_dev *dev)
-+{
-+	u32 speed = dev->ctrlr_cfg & DWC_ADV_I2C_CON_SPEED_MASK;
-+
-+	if (speed == DWC_ADV_I2C_CON_SPEED_HIGH) {
-+		dwc_adv_reg_write(dev, dev->regs.hs_hcnt, dev->hs_hcnt);
-+		dwc_adv_reg_write(dev, dev->regs.hs_lcnt, dev->hs_lcnt);
-+		dwc_adv_reg_write(dev, dev->regs.ss_fs_hcnt, dev->fs_hcnt);
-+		dwc_adv_reg_write(dev, dev->regs.ss_fs_lcnt, dev->fs_lcnt);
-+	} else if (speed == DWC_ADV_I2C_CON_SPEED_STD) {
-+		dwc_adv_reg_write(dev, dev->regs.ss_fs_hcnt, dev->ss_hcnt);
-+		dwc_adv_reg_write(dev, dev->regs.ss_fs_lcnt, dev->ss_lcnt);
-+	} else {
-+		dwc_adv_reg_write(dev, dev->regs.ss_fs_hcnt, dev->fs_hcnt);
-+		dwc_adv_reg_write(dev, dev->regs.ss_fs_lcnt, dev->fs_lcnt);
-+	}
-+}
-+
-+static void __dwc_adv_i2c_enable(struct dwc_adv_i2c_dev *dev)
-+{
-+	dev->status |= DWC_ADV_I2C_STATUS_SW_ACTIVE;
-+	dwc_adv_reg_write(dev, dev->regs.enable, DWC_ADV_I2C_ENABLE_ENABLE);
-+}
-+
-+static void __dwc_adv_i2c_disable_nowait(struct dwc_adv_i2c_dev *dev)
-+{
-+	u32 enable = dwc_adv_reg_read(dev, dev->regs.enable);
-+
-+	dwc_adv_reg_write(dev, dev->regs.enable, enable & ~DWC_ADV_I2C_ENABLE_ENABLE);
-+	dev->status &= ~DWC_ADV_I2C_STATUS_SW_ACTIVE;
-+}
-+
-+static u32 dwc_adv_i2c_try_disable(struct dwc_adv_i2c_dev *dev)
-+{
-+	__dwc_adv_i2c_disable_nowait(dev);
-+
-+	return dwc_adv_reg_read(dev, dev->regs.enable_status);
-+}
-+
-+/*
-+ * If the controller is holding the bus with an empty TX FIFO, terminate the
-+ * transfer first. IC_ENABLE.TERMINATE is only honoured while ENABLE is set.
++/* Write with the per-transaction flag-cycle word OR'd into idx.  The
++ * device wants the flag word (0xc000/0x4000/0x8000/0x0000, rotating)
++ * set on every 0x12/0x1a write; this is the hot path for the mixer
++ * puts, so it is factored out.
 + */
-+static void __dwc_adv_i2c_disable(struct dwc_adv_i2c_dev *dev)
++int bf_vendor_write_cycle(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx)
 +{
-+	u32 raw_intr_stat = dwc_adv_reg_read(dev, dev->regs.raw_intr_stat);
-+	u32 ic_status = dwc_adv_reg_read(dev, dev->regs.status);
-+	u32 enable = dwc_adv_reg_read(dev, dev->regs.enable);
-+	bool abort_needed = (raw_intr_stat & DWC_ADV_I2C_INTR_CTRLR_ON_HOLD) ||
-+			     (ic_status & DWC_ADV_I2C_STATUS_CTRLR_HOLD_TX_FIFO_EMPTY);
-+	u32 status;
-+	int ret;
++	u16 flag = bf_flag_cycle[chip->flag_cnt];
 +
-+	if (abort_needed) {
-+		if (!(enable & DWC_ADV_I2C_ENABLE_ENABLE)) {
-+			dwc_adv_reg_write(dev, dev->regs.enable, DWC_ADV_I2C_ENABLE_ENABLE);
-+			/* Let ENABLE take effect: 10 signaling periods */
-+			fsleep(DIV_ROUND_CLOSEST_ULL(10 * MICRO, dev->timings.bus_freq_hz));
-+			enable |= DWC_ADV_I2C_ENABLE_ENABLE;
-+		}
-+		dwc_adv_reg_write(dev, dev->regs.enable, enable | DWC_ADV_I2C_ENABLE_ABORT);
-+
-+		ret = readl_poll_timeout(dev->base + dev->regs.enable, enable,
-+					 !(enable & DWC_ADV_I2C_ENABLE_ABORT),
-+					 DWC_ADV_I2C_ABORT_POLL_US,
-+					 DWC_ADV_I2C_ABORT_TIMEOUT_US);
-+		if (ret)
-+			dev_err(dev->dev, "timeout while trying to abort current transfer\n");
-+	}
-+
-+	ret = read_poll_timeout(dwc_adv_i2c_try_disable, status,
-+				!(status & DWC_ADV_I2C_ENABLE_ENABLE),
-+				DWC_ADV_I2C_DISABLE_POLL_US,
-+				DWC_ADV_I2C_DISABLE_TIMEOUT_US, false, dev);
-+	if (ret)
-+		dev_warn(dev->dev, "timeout in disabling adapter\n");
++	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++	return bf_vendor_write(chip, req, val, idx | flag);
 +}
 +
-+static void dwc_adv_i2c_init(struct dwc_adv_i2c_dev *dev)
-+{
-+	__dwc_adv_i2c_disable(dev);
-+
-+	dwc_adv_i2c_write_timings(dev);
-+
-+	if (dev->sda_hold_time)
-+		dwc_adv_reg_write(dev, dev->regs.sda_hold, dev->sda_hold_time);
-+
-+	dwc_adv_reg_write(dev, dev->regs.tx_tl, dev->tx_fifo_depth / 2);
-+	dwc_adv_reg_write(dev, dev->regs.rx_tl, 0);
-+	dwc_adv_reg_write(dev, dev->regs.con, dev->ctrlr_cfg);
-+}
-+
-+static int dwc_adv_i2c_wait_bus_not_busy(struct dwc_adv_i2c_dev *dev)
-+{
-+	u32 status;
-+	int ret;
-+
-+	ret = readl_poll_timeout(dev->base + dev->regs.status, status,
-+				 !(status & DWC_ADV_I2C_STATUS_ACTIVITY),
-+				 1000, 20000);
-+	if (ret) {
-+		dev_warn(dev->dev, "timeout waiting for bus ready\n");
-+		i2c_recover_bus(&dev->adap);
-+
-+		status = dwc_adv_reg_read(dev, dev->regs.status);
-+		if (!(status & DWC_ADV_I2C_STATUS_ACTIVITY))
-+			ret = 0;
-+	}
-+
-+	return ret;
-+}
-+
-+/*
-+ * Wait for the controller to go idle once the transfer has completed (STOP_DET
-+ * or TX_ABRT), so that disabling it does not cut the transfer short.
-+ * Return: true if it is still active after the timeout.
++/* The 0x16 cold-init clear covers only 0x00-0x3D - the "cross"
++ * registers of a block (L-reg odd / R-reg even of the stereo
++ * sources) survive from the previous session and would sum L+R into
++ * BOTH channels of the output (mono).  Zero them explicitly: 10 odd
++ * L-registers (5,7,...23) + 10 even R-registers (4,6,...22).
 + */
-+static bool dwc_adv_i2c_is_controller_active(struct dwc_adv_i2c_dev *dev)
++int bf_crosspoint_clear_cross(struct snd_usb_babyface *chip,
++			      unsigned int pair)
 +{
-+	u32 status;
-+
-+	status = dwc_adv_reg_read(dev, dev->regs.status);
-+	if (!(status & DWC_ADV_I2C_STATUS_CTRLR_ACTIVITY))
-+		return false;
-+
-+	return readl_poll_timeout(dev->base + dev->regs.status, status,
-+				  !(status & DWC_ADV_I2C_STATUS_CTRLR_ACTIVITY),
-+				  1100, 20000) != 0;
-+}
-+
-+static void dwc_adv_i2c_xfer_init(struct dwc_adv_i2c_dev *dev)
-+{
-+	struct i2c_msg *msg = &dev->msgs[dev->msg_write_idx];
-+	u32 con;
-+
-+	__dwc_adv_i2c_disable(dev);
-+
-+	/* If the target address is ten bit address, enable 10BITADDR */
-+	con = dev->ctrlr_cfg;
-+	if (msg->flags & I2C_M_TEN)
-+		con |= DWC_ADV_I2C_CON_10BITADDR_CTRLR;
-+	else
-+		con &= ~DWC_ADV_I2C_CON_10BITADDR_CTRLR;
-+	dwc_adv_reg_write(dev, dev->regs.con, con);
-+
-+	/*
-+	 * With IC_DYNAMIC_TAR_UPDATE the 10-bit addressing mode is controlled
-+	 * by IC_TAR bit 12 and the IC_CTRL bit is read-only. This cannot be
-+	 * detected from the registers, so always set it.
-+	 */
-+	dwc_adv_reg_write(dev, dev->regs.tar, msg->addr |
-+			   ((msg->flags & I2C_M_TEN) ? DWC_ADV_I2C_TAR_10BITADDR_CTRLR : 0));
-+
-+	/*
-+	 * Enforce disabled interrupts: IC_INTR_MASK resets with TX_EMPTY
-+	 * unmasked, which would fire as soon as the controller is enabled.
-+	 */
-+	dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
-+
-+	/* Enable the adapter, then clear and enable interrupts */
-+	__dwc_adv_i2c_enable(dev);
-+	dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_ALL);
-+	dwc_adv_reg_write(dev, dev->regs.intr_mask, DWC_ADV_I2C_CTRLR_INTR_MASK);
-+}
-+
-+/*
-+ * Initiate (and continue) low level controller read/write transaction.
-+ * This function is only called from dwc_adv_i2c_isr(), and pumps i2c_msg
-+ * messages into the TX FIFO. Even if the size of i2c_msg data is longer
-+ * than the TX FIFO, it handles everything.
-+ */
-+static void dwc_adv_i2c_xfer_msg(struct dwc_adv_i2c_dev *dev)
-+{
-+	struct i2c_msg *msgs = dev->msgs;
-+	u32 intr_mask = DWC_ADV_I2C_CTRLR_INTR_MASK;
-+	int tx_limit, rx_limit;
-+	u32 buf_len = dev->tx_buf_len;
-+	u8 *buf = dev->tx_buf;
-+	u32 cmd;
-+	int rx_tl;
-+
-+	for (; dev->msg_write_idx < dev->msgs_num; dev->msg_write_idx++) {
-+		u32 flags = msgs[dev->msg_write_idx].flags;
-+
-+		if (!(dev->status & DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS)) {
-+			buf = msgs[dev->msg_write_idx].buf;
-+			buf_len = msgs[dev->msg_write_idx].len;
-+		}
-+
-+		tx_limit = dev->tx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.txflr);
-+		rx_limit = dev->rx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.rxflr);
-+
-+		while (buf_len > 0 && tx_limit > 0 && rx_limit > 0) {
-+			cmd = 0;
-+
-+			/*
-+			 * The bus is held while the TX FIFO is empty unless
-+			 * STOP is requested in IC_DATA_CMD, so always set it
-+			 * on the last byte of the last message.
-+			 *
-+			 * i2c-core always sets the buffer length of
-+			 * I2C_FUNC_SMBUS_BLOCK_DATA to 1. The length will be
-+			 * adjusted when receiving the first byte. Thus we
-+			 * can't stop the transaction here.
-+			 */
-+			if (dev->msg_write_idx == dev->msgs_num - 1 &&
-+			    buf_len == 1 && !(flags & I2C_M_RECV_LEN))
-+				cmd |= DWC_ADV_I2C_DATA_CMD_STOP;
-+
-+			/*
-+			 * A RESTART is only issued automatically when the
-+			 * direction changes. Request it explicitly at the
-+			 * start of each following message.
-+			 */
-+			if (dev->need_restart) {
-+				cmd |= DWC_ADV_I2C_DATA_CMD_RESTART;
-+				dev->need_restart = false;
-+			}
-+
-+			if (msgs[dev->msg_write_idx].flags & I2C_M_RD) {
-+				/* Avoid rx buffer overrun */
-+				if (dev->rx_outstanding >= dev->rx_fifo_depth)
-+					break;
-+				dwc_adv_reg_write(dev, dev->regs.data_cmd,
-+						  cmd | DWC_ADV_I2C_DATA_CMD_READ);
-+				rx_limit--;
-+				dev->rx_outstanding++;
-+			} else {
-+				dwc_adv_reg_write(dev, dev->regs.data_cmd, cmd | *buf++);
-+			}
-+			tx_limit--;
-+			buf_len--;
-+		}
-+
-+		dev->tx_buf = buf;
-+		dev->tx_buf_len = buf_len;
-+
-+		/*
-+		 * Because we don't know the buffer length in the
-+		 * I2C_FUNC_SMBUS_BLOCK_DATA case, we can't stop the
-+		 * transaction here. Also disable the TX_EMPTY IRQ while
-+		 * waiting for the data length byte to avoid a flood of
-+		 * bogus interrupts.
-+		 */
-+		if (flags & I2C_M_RECV_LEN) {
-+			dev->status |= DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
-+			intr_mask &= ~DWC_ADV_I2C_INTR_TX_EMPTY;
-+			break;
-+		}
-+
-+		if (buf_len > 0) {
-+			dev->status |= DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
-+			break;
-+		}
-+		dev->status &= ~DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
-+		dev->need_restart = true;
-+	}
-+
-+	/*
-+	 * If i2c_msg index search is completed, we don't need TX_EMPTY
-+	 * interrupt any more.
-+	 */
-+	if (dev->msg_write_idx == dev->msgs_num)
-+		intr_mask &= ~DWC_ADV_I2C_INTR_TX_EMPTY;
-+
-+	if (dev->msg_err)
-+		intr_mask = 0;
-+
-+	/*
-+	 * Size the RX FIFO threshold to the reads already queued, so the
-+	 * controller raises one RX_FULL for the whole burst instead of one per
-+	 * received byte. While messages remain to be queued, cap it so RX_FULL
-+	 * still arrives in time to drain the FIFO and let the next TX_EMPTY
-+	 * queue the rest.
-+	 */
-+	rx_tl = dev->rx_outstanding;
-+	if (dev->msg_write_idx < dev->msgs_num)
-+		rx_tl = min_t(int, rx_tl, dev->rx_fifo_depth / 2);
-+	dwc_adv_reg_write(dev, dev->regs.rx_tl, rx_tl ? rx_tl - 1 : 0);
-+
-+	dwc_adv_reg_write(dev, dev->regs.intr_mask, intr_mask);
-+}
-+
-+static u8 dwc_adv_i2c_recv_len(struct dwc_adv_i2c_dev *dev, u8 len)
-+{
-+	struct i2c_msg *msgs = dev->msgs;
-+	u32 flags = msgs[dev->msg_read_idx].flags;
-+	u32 intr_mask;
-+
-+	/*
-+	 * Adjust the buffer length and mask the flag
-+	 * after receiving the first byte.
-+	 */
-+	len += (flags & I2C_CLIENT_PEC) ? 2 : 1;
-+	dev->tx_buf_len = len - min_t(int, len, dev->rx_outstanding);
-+	msgs[dev->msg_read_idx].len = len;
-+	msgs[dev->msg_read_idx].flags &= ~I2C_M_RECV_LEN;
-+
-+	/*
-+	 * Received buffer length, re-enable TX_EMPTY interrupt
-+	 * to resume the SMBus transaction.
-+	 */
-+	intr_mask = dwc_adv_reg_read(dev, dev->regs.intr_mask);
-+	intr_mask |= DWC_ADV_I2C_INTR_TX_EMPTY;
-+	dwc_adv_reg_write(dev, dev->regs.intr_mask, intr_mask);
-+
-+	return len;
-+}
-+
-+static void dwc_adv_i2c_read(struct dwc_adv_i2c_dev *dev)
-+{
-+	struct i2c_msg *msgs = dev->msgs;
-+	int rx_valid;
-+
-+	for (; dev->msg_read_idx < dev->msgs_num; dev->msg_read_idx++) {
-+		u32 len;
-+		u8 *buf;
-+
-+		if (!(msgs[dev->msg_read_idx].flags & I2C_M_RD))
-+			continue;
-+
-+		if (!(dev->status & DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS)) {
-+			len = msgs[dev->msg_read_idx].len;
-+			buf = msgs[dev->msg_read_idx].buf;
-+		} else {
-+			len = dev->rx_buf_len;
-+			buf = dev->rx_buf;
-+		}
-+
-+		rx_valid = dwc_adv_reg_read(dev, dev->regs.rxflr);
-+
-+		for (; len > 0 && rx_valid > 0; len--, rx_valid--) {
-+			u32 data = dwc_adv_reg_read(dev, dev->regs.data_cmd) &
-+				   DWC_ADV_I2C_DATA_CMD_DAT;
-+
-+			if (msgs[dev->msg_read_idx].flags & I2C_M_RECV_LEN) {
-+				/*
-+				 * STOP is only set after receiving the block
-+				 * data response length. When that length is
-+				 * invalid, read one more byte with STOP set to
-+				 * complete the transaction.
-+				 */
-+				if (!data || data > I2C_SMBUS_BLOCK_MAX)
-+					data = 1;
-+
-+				len = dwc_adv_i2c_recv_len(dev, data);
-+			}
-+			*buf++ = data;
-+			dev->rx_outstanding--;
-+		}
-+
-+		if (len > 0) {
-+			dev->status |= DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS;
-+			dev->rx_buf_len = len;
-+			dev->rx_buf = buf;
-+			return;
-+		}
-+		dev->status &= ~DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS;
-+	}
-+}
-+
-+/*
-+ * Clear the sources individually: IC_CLR_INTR could clear interrupts raised
-+ * between reading IC_INTR_STAT and the clear. The abort source is saved
-+ * before TX_ABRT is cleared, as clearing also resets IC_TX_TRMNT_SOURCE.
-+ */
-+static u32 dwc_adv_i2c_read_clear_intrbits(struct dwc_adv_i2c_dev *dev)
-+{
-+	u32 stat = dwc_adv_reg_read(dev, dev->regs.intr_stat);
-+
-+	if (stat & DWC_ADV_I2C_INTR_RX_UNDER)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_UNDER);
-+	if (stat & DWC_ADV_I2C_INTR_RX_OVER)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_OVER);
-+	if (stat & DWC_ADV_I2C_INTR_TX_OVER)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_TX_OVER);
-+	if (stat & DWC_ADV_I2C_INTR_RD_REQ)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RD_REQ);
-+	if (stat & DWC_ADV_I2C_INTR_TX_ABRT) {
-+		dev->abort_source = dwc_adv_reg_read(dev, dev->regs.tx_abrt_source);
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_TX_ABRT);
-+	}
-+	if (stat & DWC_ADV_I2C_INTR_RX_DONE)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_DONE);
-+	if (stat & DWC_ADV_I2C_INTR_ACTIVITY)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_ACTIVITY);
-+	if (stat & DWC_ADV_I2C_INTR_STOP_DET &&
-+	    (dev->rx_outstanding == 0 || (stat & DWC_ADV_I2C_INTR_RX_FULL)))
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_STOP_DET);
-+	if (stat & DWC_ADV_I2C_INTR_START_DET)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_START_DET);
-+	if (stat & DWC_ADV_I2C_INTR_GEN_CALL)
-+		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_GEN_CALL);
-+
-+	return stat;
-+}
-+
-+static void dwc_adv_i2c_process_transfer(struct dwc_adv_i2c_dev *dev, u32 stat)
-+{
-+	if (stat & DWC_ADV_I2C_INTR_TX_ABRT) {
-+		/* TX_ABRT flushes the TX/RX FIFOs, nothing left to process */
-+		dev->cmd_err |= DWC_ADV_I2C_INTR_TX_ABRT;
-+		dev->status &= ~DWC_ADV_I2C_STATUS_SW_MASK;
-+		dev->rx_outstanding = 0;
-+		dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
-+		goto tx_aborted;
-+	}
-+
-+	if (stat & DWC_ADV_I2C_INTR_RX_FULL)
-+		dwc_adv_i2c_read(dev);
-+
-+	if (stat & DWC_ADV_I2C_INTR_TX_EMPTY)
-+		dwc_adv_i2c_xfer_msg(dev);
-+
-+	/* A STOP in the middle of a read or write is an error */
-+	if ((stat & DWC_ADV_I2C_INTR_STOP_DET) &&
-+	    (dev->status & (DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS |
-+			     DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS))) {
-+		dev_err(dev->dev, "spurious STOP, status 0x%x\n", dev->status);
-+		dev->rx_outstanding = 0;
-+		dev->msg_err = -EIO;
-+	}
-+
-+tx_aborted:
-+	if (((stat & (DWC_ADV_I2C_INTR_TX_ABRT | DWC_ADV_I2C_INTR_STOP_DET)) ||
-+	     dev->msg_err) && dev->rx_outstanding == 0)
-+		complete(&dev->cmd_complete);
-+}
-+
-+static irqreturn_t dwc_adv_i2c_handle_irq(struct dwc_adv_i2c_dev *dev)
-+{
-+	u32 enabled, stat;
-+
-+	enabled = dwc_adv_reg_read(dev, dev->regs.enable);
-+	stat = dwc_adv_reg_read(dev, dev->regs.raw_intr_stat);
-+
-+	if (!enabled || !(stat & ~DWC_ADV_I2C_INTR_ACTIVITY))
-+		return IRQ_NONE;
-+
-+	if (stat == GENMASK(31, 0))
-+		return IRQ_NONE;
-+
-+	stat = dwc_adv_i2c_read_clear_intrbits(dev);
-+
-+	if (!(dev->status & DWC_ADV_I2C_STATUS_SW_ACTIVE)) {
-+		dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
-+		return IRQ_HANDLED;
-+	}
-+
-+	dwc_adv_i2c_process_transfer(dev, stat);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static irqreturn_t dwc_adv_i2c_isr(int irq, void *dev_id)
-+{
-+	struct dwc_adv_i2c_dev *dev = dev_id;
-+	irqreturn_t ret;
-+	int pm;
-+
-+	pm = pm_runtime_get_if_active(dev->dev);
-+	if (!pm)
-+		return IRQ_NONE;
-+
-+	ret = dwc_adv_i2c_handle_irq(dev);
-+
-+	if (pm > 0)
-+		pm_runtime_put_autosuspend(dev->dev);
-+
-+	return ret;
-+}
-+
-+static int dwc_adv_i2c_handle_tx_abort(struct dwc_adv_i2c_dev *dev)
-+{
-+	u32 abort_source = dev->abort_source;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(dwc_adv_i2c_abort_sources); i++) {
-+		if (!(abort_source & BIT(i)) || !dwc_adv_i2c_abort_sources[i])
-+			continue;
-+		if (BIT(i) & (TX_ABRT_NOACK | TX_ABRT_USER_TRMNT))
-+			dev_dbg(dev->dev, "%s\n", dwc_adv_i2c_abort_sources[i]);
-+		else
-+			dev_err(dev->dev, "%s\n", dwc_adv_i2c_abort_sources[i]);
-+	}
-+
-+	if (abort_source & TX_ABRT_NOACK)
-+		return -EREMOTEIO;
-+	if (abort_source & TX_ARB_LOST)
-+		return -EAGAIN;
-+	if (abort_source & TX_ABRT_GCALL_READ)
-+		return -EINVAL;
-+
-+	return -EIO;
-+}
-+
-+static bool dwc_adv_i2c_msg_is_valid(struct dwc_adv_i2c_dev *dev,
-+				     struct i2c_msg *msgs, int idx)
-+{
-+	if (idx == 0)
-+		return true;
-+
-+	if (msgs[idx - 1].addr != msgs[idx].addr) {
-+		dev_err(dev->dev, "invalid target address\n");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+static int dwc_adv_i2c_xfer_one_part(struct dwc_adv_i2c_dev *dev)
-+{
-+	int ret;
-+
-+	reinit_completion(&dev->cmd_complete);
-+	dev->cmd_err = 0;
-+	dev->msg_write_idx = 0;
-+	dev->msg_read_idx = 0;
-+	dev->msg_err = 0;
-+	dev->status = 0;
-+	dev->abort_source = 0;
-+	dev->rx_outstanding = 0;
-+	dev->need_restart = false;
-+
-+	ret = dwc_adv_i2c_wait_bus_not_busy(dev);
-+	if (ret)
-+		return ret;
-+
-+	dwc_adv_i2c_xfer_init(dev);
-+
-+	if (!wait_for_completion_timeout(&dev->cmd_complete, dev->adap.timeout)) {
-+		dev_err(dev->dev, "controller timed out\n");
-+		i2c_recover_bus(&dev->adap);
-+		dwc_adv_i2c_init(dev);
-+		return -ETIMEDOUT;
-+	}
-+
-+	if (dwc_adv_i2c_is_controller_active(dev)) {
-+		/*
-+		 * If the controller is still active after the timeout, attempt a
-+		 * bus recovery to clear any potentially locked state.
-+		 */
-+		dev_err(dev->dev, "controller active after xfer, recovering\n");
-+		i2c_recover_bus(&dev->adap);
-+		dwc_adv_i2c_init(dev);
-+	} else {
-+		/*
-+		 * Disable the controller before returning, so that late
-+		 * interrupts do not race with the following transfer.
-+		 */
-+		__dwc_adv_i2c_disable_nowait(dev);
-+	}
-+
-+	if (dev->msg_err)
-+		return dev->msg_err;
-+
-+	if (!dev->cmd_err && !dev->status)
-+		return 0;
-+
-+	if (dev->cmd_err & DWC_ADV_I2C_INTR_TX_ABRT)
-+		return dwc_adv_i2c_handle_tx_abort(dev);
-+
-+	if (dev->status)
-+		dev_err(dev->dev, "transfer terminated early, status 0x%x\n", dev->status);
-+
-+	return -EIO;
-+}
-+
-+static int dwc_adv_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
-+{
-+	struct dwc_adv_i2c_dev *dev = i2c_get_adapdata(adap);
-+	int ret, idx, start = 0;
-+
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev->dev, pm);
-+	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-+		return -ENXIO;
-+
-+	for (idx = 0; idx < num; idx++) {
-+		if (!dwc_adv_i2c_msg_is_valid(dev, &msgs[start], idx - start))
-+			return -EINVAL;
-+
-+		if (!(msgs[idx].flags & I2C_M_STOP) && idx != num - 1)
-+			continue;
-+
-+		dev->msgs = &msgs[start];
-+		dev->msgs_num = idx - start + 1;
-+
-+		ret = dwc_adv_i2c_xfer_one_part(dev);
-+		if (ret)
++	int ret, k;
++
++	for (k = BF_CROSS_L_FIRST; k <= BF_CROSS_L_LAST; k += 2) {
++		ret = bf_vendor_write_cycle(chip, BF_REQ_CROSSPOINT, 0x0000,
++					    BF_REG_XPOINT_BASE_L +
++					    BF_REG_XPOINT_STRIDE * pair + k);
++		if (ret < 0)
 +			return ret;
-+
-+		start = idx + 1;
 +	}
-+
-+	return num;
++	for (k = BF_CROSS_R_FIRST; k <= BF_CROSS_R_LAST; k += 2) {
++		ret = bf_vendor_write_cycle(chip, BF_REQ_CROSSPOINT, 0x0000,
++					    BF_REG_XPOINT_BASE_R +
++					    BF_REG_XPOINT_STRIDE * pair + k);
++		if (ret < 0)
++			return ret;
++	}
++	return 0;
 +}
 +
-+static u32 dwc_adv_i2c_func(struct i2c_adapter *adap)
++const struct bf_source bf_sources[14] = {
++	{ "AN1",     0,  0 },
++	{ "AN2",     1,  1 },
++	{ "AN3",     2,  2 },
++	{ "AN4",     3,  3 },
++	{ "AS1/2",   4,  5 },
++	{ "ADAT3/4", 6,  7 },
++	{ "ADAT5/6", 8,  9 },
++	{ "ADAT7/8", 10, 11 },
++	{ "PB1",    12, 13 },
++	{ "PB2",    14, 15 },
++	{ "PB3",    16, 17 },
++	{ "PB4",    18, 19 },
++	{ "PB5",    20, 21 },
++	{ "PB6",    22, 23 },
++};
++
++/* The crosspoint blocks are in the canonical output order (AN1/2, PH3/4,
++ * AS1/2, ...), one per output pair at 0x34 * pair, see BF_REG_XPOINT_BASE_L.
++ * They used to be read as starting at 0x34, with the first two swapped,
++ * which put every pair from AS1/2 on the wrong output (see that comment).
++ */
++
++/* Master-register output order - the master map lists AN1/2 first
++ * (0x03E0) and the Phones master SECOND (0x03E2, HARDWARE-VERIFIED
++ * 2026-08-24).  Control index -> canonical output (AN1/2=0, PH3/4=1, ...)
++ * = the master register position directly: the names 'AN1/2 Playback
++ * Volume' etc. must match the register they write (corrected 2026-08-26
++ * - a {1,0,...} swap made 'AN1/2' drive the Phones and 'PH3/4' drive
++ * the AN1/2 analog out).
++ */
++static const u8 bf_master_out[6] = { 0, 1, 2, 3, 4, 5 };
++
++/* dBx2 -> 16-bit master (0x2000*2^(half_db/12), rounded), from the
++ * 12th-root table 2^(n/12).
++ */
++static const u16 bf_twelfth[12] = {
++	0x1000, 0x10f4, 0x11f6, 0x1307, 0x1429, 0x155c,
++	0x16a1, 0x17f9, 0x1966, 0x1ae9, 0x1c82, 0x1e34,
++};
++
++int bf_master_16bit(int half_db)
 +{
-+	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_BYTE | I2C_FUNC_SMBUS_BYTE_DATA |
-+	       I2C_FUNC_SMBUS_WORD_DATA | I2C_FUNC_SMBUS_BLOCK_DATA |
-+	       I2C_FUNC_SMBUS_I2C_BLOCK | I2C_FUNC_10BIT_ADDR | I2C_FUNC_PROTOCOL_MANGLING;
++	int k = half_db / 12;
++	int n = half_db % 12;
++	u32 v;
++
++	if (n < 0) {
++		n += 12;
++		k--;
++	}
++	v = (u32)bf_twelfth[n] << 1;	/* 0x2000*2^(n/12) */
++	if (k >= 0) {
++		v <<= k;
++	} else {
++		v += 1u << (-k - 1);	/* round-half-up */
++		v >>= -k;
++	}
++	return (u16)clamp(v, 1, 0x4000);
 +}
 +
-+static const struct i2c_algorithm dwc_adv_i2c_algo = {
-+	.xfer = dwc_adv_i2c_xfer,
-+	.functionality = dwc_adv_i2c_func,
-+};
-+
-+static const struct i2c_adapter_quirks dwc_adv_i2c_quirks = {
-+	.flags = I2C_AQ_NO_ZERO_LEN,
-+};
-+
-+static int dwc_adv_i2c_prepare_clk(struct dwc_adv_i2c_dev *dev, bool prepare)
++/* A master control step (BF_MASTER_STEP_*) -> the two registers. */
++u8 bf_master_reg8(unsigned int step)
 +{
-+	int ret;
++	if (step == 0)
++		return BF_MASTER_MUTE;
++	return (u8)clamp((int)step - BF_MASTER_STEP_0DB + BF_MASTER_8_0DB,
++			 BF_MASTER_8_MIN, 0xff);
++}
 +
-+	if (!prepare) {
-+		clk_disable_unprepare(dev->clk);
-+		clk_disable_unprepare(dev->pclk);
++u16 bf_master_reg16(unsigned int step)
++{
++	if (step == 0)
 +		return 0;
++	return bf_master_16bit((int)step - BF_MASTER_STEP_0DB);
++}
++
++/* The cold-init register clear zeroes the mixer registers TotalMix
++ * re-uploads afterwards.  The kernel driver has no saved scene (no
++ * readback for faders), so on a probe with no saved state it applies a
++ * factory routing so the card makes sound without any user-space mixer:
++ * the six playback channels feed every output at unity, and the
++ * hardware inputs (AN1-4, AS1/2, ADAT) are NOT routed - raising an
++ * input's crosspoint in a mixer is what monitors it.
++ *
++ * The inputs are left out deliberately.  Routing all 14 sources into
++ * every output at unity (the earlier default) summed a live mic or line
++ * input straight into the main out and the headphones the moment the
++ * module loaded, before alsa-restore had a chance to put the user's own
++ * levels back - the feedback/level hazard issue #4 raised, and the "mic
++ * audible in the phones" surprise.  The failure is asymmetric: a
++ * default that is too quiet is turned up in a second, one that is too
++ * loud cannot be taken back.
++ *
++ * The two analog masters (AN1/2, the main out; PH3/4, the headphone
++ * out) come up at -20 dB rather than TotalMix's 0 dB, for the same
++ * reason - the six playback channels into an output at unity sum, and
++ * -20 dB is plainly audible but safe.  It is not an invented number: it
++ * is the exact 8-bit/16-bit pair the hardware's own DIM button writes.
++ *
++ * The other four outputs (AS1/2, ADAT3/4, ADAT5/6, ADAT7/8) are all
++ * digital, carried over the single optical port - nothing downstream
++ * of them can be damaged by a loud signal the way a speaker or a pair
++ * of headphones can, so there is no hazard to mitigate, only a
++ * digital feed that would otherwise arrive 20 dB quiet for no reason
++ * a downstream device could infer.  They keep TotalMix's own 0 dB
++ * default (raised 2026-09-15 after David Fredman pointed out the
++ * blanket -20 dB reached them too, on his report of the AN1/2/PH3/4
++ * default - issue #4).
++ */
++int babyface_write_default_mixer(struct snd_usb_babyface *chip)
++{
++	int out, src, ret;
++	u16 flag;
++	u16 level;
++
++	/* Output masters: the two analog outputs at -20 dB, the four
++	 * digital ones at 0 dB (see the comment above).  Unmuted either
++	 * way.
++	 */
++	for (out = 0; out < 6; out++) {
++		bool analog = out < 2;
++		u8 gain8 = analog ? BF_MASTER_MINUS20_8 : BF_MASTER_UNMUTE;
++		u16 gain16 = analog ? BF_MASTER_MINUS20_16 : BF_MASTER_0DB;
++
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, gain8,
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, gain8,
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			return ret;
++		flag = bf_flag_cycle[chip->flag_cnt];
++		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, gain16,
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, gain16,
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			return ret;
++		chip->master[out][0] = analog ? BF_MASTER_STEP_MINUS20 :
++						BF_MASTER_STEP_0DB;
++		chip->master[out][1] = chip->master[out][0];
++		chip->muted[out] = false;
 +	}
 +
-+	ret = clk_prepare_enable(dev->pclk);
-+	if (ret)
-+		return ret;
++	/* Every playback source into every output pair, L and R, at 0 dB,
++	 * and the hardware inputs off.  The addresses use the source's
++	 * idx_l/idx_r on the pair's block - writing the raw index on both
++	 * bases would put PB1 R on the L side and PB1 L on the R side (L+R
++	 * on both = mono).  The "cross" registers (L-reg idx_r / R-reg
++	 * idx_l) are cleared.
++	 */
++	for (out = 0; out < 6; out++) {
++		for (src = 0; src < 14; src++) {
++			/* Only the playback channels are routed out of the
++			 * box; a hardware input stays out of every output
++			 * until a mixer raises its crosspoint.
++			 */
++			level = src < BF_SRC_PB1 ? 0 : BF_FADER_0DB;
++			ret = bf_xpoint_write(chip, out, src, level, level);
++			if (ret < 0)
++				return ret;
++		}
++		ret = bf_crosspoint_clear_cross(chip, out);
++		if (ret < 0)
++			return ret;
++	}
 +
-+	ret = clk_prepare_enable(dev->clk);
-+	if (ret)
-+		clk_disable_unprepare(dev->pclk);
++	/* Mirror the defaults into the control cache (14 controls/output). */
++	for (out = 0; out < 6; out++)
++		for (src = 0; src < 14; src++) {
++			level = src < BF_SRC_PB1 ? 0 : BF_FADER_0DB;
++			chip->xpoint[out][src][0] = level;
++			chip->xpoint[out][src][1] = level;
++		}
 +
++	/* Host settings word (clock source Internal). */
++	return bf_settings_write(chip);
++}
++
++/* The cold init's 0x16 clear leaves the 8-bit masters muted: the
++ * output stays silent until a master write lands (hardware-verified
++ * 2026-08-24 - only a write un-mutes the 8-bit register).  Re-apply
++ * the six output masters + mutes from the cache; used by the state
++ * restore that follows the cold init.
++ */
++int bf_apply_masters(struct snd_usb_babyface *chip)
++{
++	int out, ret;
++	u16 flag;
++
++	for (out = 0; out < 6; out++) {
++		u16 l = chip->muted[out] ? 0 : chip->master[out][0];
++		u16 r = chip->muted[out] ? 0 : chip->master[out][1];
++		u8 l8 = bf_master_reg8(l);
++		u8 r8 = bf_master_reg8(r);
++
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, l8,
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, r8,
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			return ret;
++		flag = bf_flag_cycle[chip->flag_cnt];
++		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(l),
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			return ret;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(r),
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			return ret;
++	}
++	return 0;
++}
++
++/* dB TLV for the output masters: 0.5 dB per step, step 0 = mute,
++ * step 1 = -90 dB, 181 = 0 dB, and the top step 193 = +6 dB, above
++ * unity as on the OUT wheel (BF_MASTER_STEP_*).  WirePlumber needs it
++ * to map the volume 1:1 to the hardware control instead of applying a
++ * software volume on top.
++ */
++static const DECLARE_TLV_DB_SCALE(bf_master_tlv, -9050, 50, 1);
++
++static int bf_master_info(struct snd_kcontrol *kctl,
++			  struct snd_ctl_elem_info *uinfo)
++{
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 2;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = BF_MASTER_STEP_MAX;
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++static int bf_master_get(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++
++	ucontrol->value.integer.value[0] = chip->master[out][0];
++	ucontrol->value.integer.value[1] = chip->master[out][1];
++	return 0;
++}
++
++static int bf_master_put(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++	long nl = ucontrol->value.integer.value[0];
++	long nr = ucontrol->value.integer.value[1];
++	u16 l, r, wire_l, wire_r, flag;
++	int ret = 0;
++
++	/* Reject anything outside the declared range, so the registers and
++	 * the cache stay in spec (the ALSA core only enforces this with
++	 * CONFIG_SND_CTL_INPUT_VALIDATION).  Check before narrowing:
++	 * .value.integer.value[] is a long.
++	 */
++	if (nl < 0 || nl > BF_MASTER_STEP_MAX ||
++	    nr < 0 || nr > BF_MASTER_STEP_MAX)
++		return -EINVAL;
++	l = nl;
++	r = nr;
++
++	mutex_lock(&chip->mutex);
++	if (l == chip->master[out][0] && r == chip->master[out][1])
++		goto out;
++
++	wire_l = chip->muted[out] ? 0 : l;
++	wire_r = chip->muted[out] ? 0 : r;
++	flag = bf_flag_cycle[chip->flag_cnt];
++	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++
++	/* Both registers, as TotalMix writes them: the 8-bit is the analog
++	 * level, the 16-bit the digital one.
++	 */
++	ret = bf_vendor_write(chip, BF_REQ_GAIN, bf_master_reg8(wire_l),
++			      BF_REG_MASTER_8 + 2 * out);
++	if (ret < 0)
++		goto out;
++	ret = bf_vendor_write(chip, BF_REQ_GAIN, bf_master_reg8(wire_r),
++			      BF_REG_MASTER_8 + 2 * out + 1);
++	if (ret < 0)
++		goto out;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(wire_l),
++			      (BF_REG_MASTER_16 + 2 * out) | flag);
++	if (ret < 0)
++		goto out;
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, bf_master_reg16(wire_r),
++			      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++	if (ret < 0)
++		goto out;
++
++	chip->master[out][0] = l;
++	chip->master[out][1] = r;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
 +	return ret;
 +}
 +
-+static void dwc_adv_i2c_prepare_recovery(struct i2c_adapter *adap)
++static int bf_mute_info(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_info *uinfo)
 +{
-+	struct dwc_adv_i2c_dev *dev = i2c_get_adapdata(adap);
-+
-+	__dwc_adv_i2c_disable(dev);
-+	reset_control_assert(dev->rst);
-+	dwc_adv_i2c_prepare_clk(dev, false);
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++	uinfo->count = 2;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = 1;
++	return 0;
 +}
 +
-+static void dwc_adv_i2c_unprepare_recovery(struct i2c_adapter *adap)
++static int bf_mute_get(struct snd_kcontrol *kctl,
++		       struct snd_ctl_elem_value *ucontrol)
 +{
-+	struct dwc_adv_i2c_dev *dev = i2c_get_adapdata(adap);
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++
++	/* ALSA convention: 1 = enabled (sound on) = not muted. */
++	ucontrol->value.integer.value[0] = !chip->muted[out];
++	ucontrol->value.integer.value[1] = !chip->muted[out];
++	return 0;
++}
++
++static int bf_mute_put(struct snd_kcontrol *kctl,
++		       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = bf_master_out[kctl->private_value];
++	bool muted = !ucontrol->value.integer.value[0];
++	u16 flag;
++	int ret = 0;
++
++	mutex_lock(&chip->mutex);
++	if (muted == chip->muted[out])
++		goto out;
++
++	flag = bf_flag_cycle[chip->flag_cnt];
++	chip->flag_cnt = (chip->flag_cnt + 1) & 3;
++
++	if (muted) {
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, BF_MASTER_MUTE,
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN, BF_MASTER_MUTE,
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, 0x0000,
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, 0x0000,
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			goto out;
++	} else {
++		/* Unmute restores the cached volume (TotalMix keeps the
++		 * pre-mute fader value host-side), 8-bit + 16-bit.
++		 */
++		ret = bf_vendor_write(chip, BF_REQ_GAIN,
++				      bf_master_reg8(chip->master[out][0]),
++				      BF_REG_MASTER_8 + 2 * out);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_GAIN,
++				      bf_master_reg8(chip->master[out][1]),
++				      BF_REG_MASTER_8 + 2 * out + 1);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT,
++				      bf_master_reg16(chip->master[out][0]),
++				      (BF_REG_MASTER_16 + 2 * out) | flag);
++		if (ret < 0)
++			goto out;
++		ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT,
++				      bf_master_reg16(chip->master[out][1]),
++				      (BF_REG_MASTER_16 + 2 * out + 1) | flag);
++		if (ret < 0)
++			goto out;
++	}
++	chip->muted[out] = muted;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* The crosspoint fader is linear in amplitude: BF_FADER_0DB (0x16a0) is
++ * unity and BF_FADER_TOP (0x2d41) is exactly twice that, i.e. +6 dB; the
++ * whole fader span follows raw = BF_FADER_0DB * 10^(dB/20).  Raw 0 is
++ * off.
++ */
++static const DECLARE_TLV_DB_LINEAR(bf_xpoint_tlv, TLV_DB_GAIN_MUTE, 600);
++
++/* Write a crosspoint slot on the wire: the pair's block of the map, see
++ * BF_REG_XPOINT_BASE_L.
++ *
++ * AN1/2 is the block at 0x0000.  It used to be written as a "low map"
++ * beside a "standard map" that this function put at 0x0068 (AN1/2 was
++ * thought to be the second block, the Phones the first), and every other
++ * pair was written one block off.  Measured on a Pro FS through the six
++ * digital loopbacks (2026-10-26), one source routed to one pair at a time:
++ * the AN1/2 control came out on AN1/2 and AS1/2, AS1/2 on ADAT3/4, ADAT3/4
++ * on ADAT5/6, ADAT5/6 on ADAT7/8, and ADAT7/8 on nothing (0x0138 is the FX
++ * send).  That also explains the finding of 2026-09-14 that sweeping the
++ * "standard map" alone changed nothing on AN1/2: it was AS1/2's submix.
++ *
++ * The AN1/2 block has only ever been written without the rotating
++ * transaction bits of wIndex, and keeps being: issue #31 reads them as the
++ * gain's lowest bits, which is a separate question.
++ */
++int bf_xpoint_write(struct snd_usb_babyface *chip, int out, int src,
++		    u16 l, u16 r)
++{
++	const struct bf_source *s = &bf_sources[src];
++	u16 flag = 0;
 +	int ret;
 +
-+	ret = dwc_adv_i2c_prepare_clk(dev, true);
-+	if (ret) {
-+		dev_err(dev->dev, "failed to enable clock for recovery: %d\n", ret);
-+		reset_control_deassert(dev->rst);
-+		return;
++	if (out) {
++		flag = bf_flag_cycle[chip->flag_cnt];
++		chip->flag_cnt = (chip->flag_cnt + 1) & 3;
 +	}
-+
-+	reset_control_deassert(dev->rst);
-+	dwc_adv_i2c_init(dev);
++	ret = bf_vendor_write(chip, BF_REQ_CROSSPOINT, l,
++			      (BF_REG_XPOINT_BASE_L +
++			       BF_REG_XPOINT_STRIDE * out + s->idx_l) | flag);
++	if (ret < 0)
++		return ret;
++	return bf_vendor_write(chip, BF_REQ_CROSSPOINT, r,
++			       (BF_REG_XPOINT_BASE_R +
++				BF_REG_XPOINT_STRIDE * out + s->idx_r) | flag);
 +}
 +
-+static int dwc_adv_i2c_init_recovery_info(struct dwc_adv_i2c_dev *dev)
++static int bf_xpoint_info(struct snd_kcontrol *kctl,
++			  struct snd_ctl_elem_info *uinfo)
 +{
-+	struct i2c_bus_recovery_info *rinfo = &dev->rinfo;
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 2;
++	uinfo->value.integer.min = 0;
++	uinfo->value.integer.max = BF_FADER_TOP;	/* +6 dB fader top */
++	uinfo->value.integer.step = 1;
++	return 0;
++}
 +
-+	rinfo->scl_gpiod = devm_gpiod_get_optional(dev->dev, "scl", GPIOD_OUT_HIGH);
-+	if (IS_ERR_OR_NULL(rinfo->scl_gpiod))
-+		return PTR_ERR_OR_ZERO(rinfo->scl_gpiod);
++static int bf_xpoint_get(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = kctl->private_value >> 8;
++	int src = kctl->private_value & 0xff;
 +
-+	rinfo->sda_gpiod = devm_gpiod_get_optional(dev->dev, "sda", GPIOD_IN);
-+	if (IS_ERR(rinfo->sda_gpiod))
-+		return PTR_ERR(rinfo->sda_gpiod);
++	ucontrol->value.integer.value[0] = chip->xpoint[out][src][0];
++	ucontrol->value.integer.value[1] = chip->xpoint[out][src][1];
++	return 0;
++}
 +
-+	rinfo->pinctrl = devm_pinctrl_get(dev->dev);
-+	if (IS_ERR(rinfo->pinctrl)) {
-+		if (PTR_ERR(rinfo->pinctrl) == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+		rinfo->pinctrl = NULL;
++static int bf_xpoint_put(struct snd_kcontrol *kctl,
++			 struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int out = kctl->private_value >> 8;
++	int src = kctl->private_value & 0xff;
++	long nl = ucontrol->value.integer.value[0];
++	long nr = ucontrol->value.integer.value[1];
++	u16 l, r;
++	int ret = 0;
++
++	/* Check before narrowing: a value of 0x10000 or more would wrap to a
++	 * passing u16 (see the note in bf_master_put()).
++	 */
++	if (nl < 0 || nl > BF_FADER_TOP || nr < 0 || nr > BF_FADER_TOP)
++		return -EINVAL;
++	l = nl;
++	r = nr;
++
++	mutex_lock(&chip->mutex);
++	if (l == chip->xpoint[out][src][0] && r == chip->xpoint[out][src][1])
++		goto out;
++
++	ret = bf_xpoint_write(chip, out, src, l, r);
++	if (ret < 0)
++		goto out;
++
++	chip->xpoint[out][src][0] = l;
++	chip->xpoint[out][src][1] = r;
++	ret = 1;
++out:
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++int babyface_create_xpoints(struct snd_usb_babyface *chip)
++{
++	struct snd_kcontrol *kctl;
++	int out, src, err;
++
++	for (out = 0; out < 6; out++) {
++		for (src = 0; src < 14; src++) {
++			kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++				.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++				.name = "Playback Volume",
++				.index = out * 14 + src,
++				.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
++					  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
++				.info = bf_xpoint_info,
++				.get = bf_xpoint_get,
++				.put = bf_xpoint_put,
++				.tlv.p = bf_xpoint_tlv,
++				.private_value = (out << 8) | src,
++			}, chip);
++			/* Name the control by its source: "AN1 Playback Volume",
++			 * "PB1 Playback Volume"... with a unique index.
++			 */
++			strscpy(kctl->id.name, bf_sources[src].name,
++				sizeof(kctl->id.name));
++			strlcat(kctl->id.name, " Playback Volume",
++				sizeof(kctl->id.name));
++			err = snd_ctl_add(chip->card, kctl);
++			if (err < 0)
++				return err;
++		}
 +	}
-+
-+	rinfo->recover_bus = i2c_generic_scl_recovery;
-+	rinfo->prepare_recovery = dwc_adv_i2c_prepare_recovery;
-+	rinfo->unprepare_recovery = dwc_adv_i2c_unprepare_recovery;
-+	dev->adap.bus_recovery_info = rinfo;
 +
 +	return 0;
 +}
 +
-+static void dwc_adv_i2c_configure_controller(struct dwc_adv_i2c_dev *dev)
++int babyface_create_masters(struct snd_usb_babyface *chip)
 +{
-+	dev->ctrlr_cfg = DWC_ADV_I2C_CON_CONTROLLER;
++	static const char * const out_names[6] = {
++		"AN1/2", "PH3/4", "AS1/2", "ADAT3/4", "ADAT5/6", "ADAT7/8"
++	};
++	struct snd_kcontrol *kctl;
++	int i, err;
 +
-+	switch (dev->timings.bus_freq_hz) {
-+	case I2C_MAX_STANDARD_MODE_FREQ:
-+		dev->ctrlr_cfg |= DWC_ADV_I2C_CON_SPEED_STD;
-+		break;
-+	case I2C_MAX_HIGH_SPEED_MODE_FREQ:
-+		dev->ctrlr_cfg |= DWC_ADV_I2C_CON_SPEED_HIGH;
-+		break;
-+	default:
-+		dev->ctrlr_cfg |= DWC_ADV_I2C_CON_SPEED_FAST;
-+		break;
-+	}
-+}
++	for (i = 0; i < 6; i++) {
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = out_names[i],
++			.index = i,
++			.access = SNDRV_CTL_ELEM_ACCESS_READWRITE |
++				  SNDRV_CTL_ELEM_ACCESS_TLV_READ,
++			.info = bf_master_info,
++			.get = bf_master_get,
++			.put = bf_master_put,
++			.tlv.p = bf_master_tlv,
++			.private_value = i,
++		}, chip);
++		strlcat(kctl->id.name, " Playback Volume", sizeof(kctl->id.name));
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
++		chip->master_kctl[i] = kctl;
 +
-+static int dwc_adv_i2c_parse_fw(struct dwc_adv_i2c_dev *dev)
-+{
-+	struct device *device = dev->dev;
++		kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++			.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++			.name = out_names[i],
++			.index = i,
++			.info = bf_mute_info,
++			.get = bf_mute_get,
++			.put = bf_mute_put,
++			.private_value = i,
++		}, chip);
++		strlcat(kctl->id.name, " Playback Switch", sizeof(kctl->id.name));
++		err = snd_ctl_add(chip->card, kctl);
++		if (err < 0)
++			return err;
 +
-+	i2c_parse_fw_timings(device, &dev->timings, false);
-+	if (!dev->timings.bus_freq_hz)
-+		dev->timings.bus_freq_hz = I2C_MAX_FAST_MODE_FREQ;
-+
-+	switch (dev->timings.bus_freq_hz) {
-+	case I2C_MAX_STANDARD_MODE_FREQ:
-+	case I2C_MAX_FAST_MODE_FREQ:
-+	case I2C_MAX_FAST_MODE_PLUS_FREQ:
-+	case I2C_MAX_HIGH_SPEED_MODE_FREQ:
-+		break;
-+	default:
-+		return dev_err_probe(device, -EINVAL, "invalid clock-frequency %u\n",
-+				     dev->timings.bus_freq_hz);
++		dev_dbg(&chip->dev->dev, "output %d = %s\n", i, out_names[i]);
 +	}
 +
 +	return 0;
 +}
-+
-+static int dwc_adv_i2c_runtime_suspend(struct device *device)
+diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
+index 81a371462..de1659307 100644
+--- a/sound/usb/babyfacepro/babyfacepro.c
++++ b/sound/usb/babyfacepro/babyfacepro.c
+@@ -5,7 +5,8 @@
+  * Core driver: USB vendor requests + cold init, interrupt-URB PCM
+  * streaming, and the card lifecycle (probe/disconnect/module entry).
+  *
+- * See babyfacepro.h for the shared device state and register map.
++ * See babyfacepro.h for the shared device state and register map,
++ * and babyfacepro-ctl.c for the ALSA control surface.
+  */
+ #include <linux/delay.h>
+ #include <linux/math64.h>
+@@ -249,6 +250,46 @@ int bf_cold_init(struct snd_usb_babyface *chip)
+ 	return 0;
+ }
+ 
++/* Re-apply the whole cached mixer state to the device, whose registers
++ * the cold init cleared.  Caller holds chip->mutex.
++ */
++int babyface_restore_state(struct snd_usb_babyface *chip)
 +{
-+	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
++	int out, src, ret;
 +
-+	__dwc_adv_i2c_disable(dev);
-+	dwc_adv_i2c_prepare_clk(dev, false);
-+
-+	return 0;
-+}
-+
-+static int dwc_adv_i2c_runtime_resume(struct device *device)
-+{
-+	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
-+	int ret;
-+
-+	ret = dwc_adv_i2c_prepare_clk(dev, true);
-+	if (ret)
++	/* Masters (8-bit = the real volume) + mutes. */
++	ret = bf_apply_masters(chip);
++	if (ret < 0)
 +		return ret;
 +
-+	dwc_adv_i2c_init(dev);
++	/* Crosspoints: one block per output pair, see BF_REG_XPOINT_BASE_L. */
++	for (out = 0; out < 6; out++) {
++		for (src = 0; src < 14; src++) {
++			ret = bf_xpoint_write(chip, out, src,
++					      chip->xpoint[out][src][0],
++					      chip->xpoint[out][src][1]);
++			if (ret < 0)
++				return ret;
++		}
++		ret = bf_crosspoint_clear_cross(chip, out);
++		if (ret < 0)
++			return ret;
++	}
 +
-+	return 0;
-+}
-+
-+static int dwc_adv_i2c_suspend(struct device *device)
-+{
-+	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
-+
-+	i2c_mark_adapter_suspended(&dev->adap);
-+
-+	return pm_runtime_force_suspend(device);
-+}
-+
-+static int dwc_adv_i2c_resume(struct device *device)
-+{
-+	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
-+	int ret;
-+
-+	ret = pm_runtime_force_resume(device);
-+	if (ret)
++	/* The rate (family register), then the varispeed ratio, which is
++	 * sticky in the device and so must be re-sent even at pitch 0 in
++	 * case something else wrote it while we were detached.
++	 */
++	ret = bf_clock_write(chip);
++	if (ret < 0)
 +		return ret;
-+
-+	i2c_mark_adapter_resumed(&dev->adap);
-+
-+	return 0;
++	return bf_pitch_write(chip, chip->pitch);
 +}
 +
-+static const struct dev_pm_ops dwc_adv_i2c_pm_ops = {
-+	LATE_SYSTEM_SLEEP_PM_OPS(dwc_adv_i2c_suspend, dwc_adv_i2c_resume)
-+	RUNTIME_PM_OPS(dwc_adv_i2c_runtime_suspend, dwc_adv_i2c_runtime_resume, NULL)
++/* Copy a saved state (if any) into a freshly probed chip and push it
++ * to the device.  Returns 1 when restored, -ENOENT when there is none,
++ * or a negative error from the vendor writes.
++ */
+ static bool babyface_capture_copy(struct snd_usb_babyface *chip,
+ 				  struct snd_pcm_substream *subs,
+ 				  const u8 *data, unsigned int frames)
+@@ -1388,6 +1429,15 @@ static int babyface_probe(struct usb_interface *intf,
+ 		goto error;
+ 	}
+ 
++	/* The 0x16 clear zeroed the mixer registers: apply the factory
++	 * default routing to keep the outputs live out of the box.  alsactl
++	 * restores the user's settings once the card is registered.
++	 */
++	err = babyface_write_default_mixer(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "default mixer restore failed: %d\n", err);
++		goto error;
++	}
+ 	/* Keep the allocation size independent of the active USB mode. */
+ 	urbsize = BF_WORDS_PER_FRAME * sizeof(u32) * chip->frames_per_urb;
+ 	chip->urbs_in = kcalloc(chip->nurbs, sizeof(*chip->urbs_in), GFP_KERNEL);
+@@ -1432,6 +1482,18 @@ static int babyface_probe(struct usb_interface *intf,
+ 		goto error;
+ 	}
+ 
++	err = babyface_create_masters(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "master control creation failed: %d\n", err);
++		goto error;
++	}
++
++	err = babyface_create_xpoints(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "crosspoint creation failed: %d\n", err);
++		goto error;
++	}
++
+ 	err = snd_card_register(chip->card);
+ 	if (err < 0) {
+ 		dev_err(&intf->dev, "snd_card_register failed: %d\n", err);
+diff --git a/sound/usb/babyfacepro/babyfacepro.h b/sound/usb/babyfacepro/babyfacepro.h
+index 93ef4c3a1..a3b118bed 100644
+--- a/sound/usb/babyfacepro/babyfacepro.h
++++ b/sound/usb/babyfacepro/babyfacepro.h
+@@ -11,7 +11,10 @@
+  * standalone (snd-usb-caiaq-style interrupt streaming) instead of an
+  * snd-usb-audio quirk.
+  *
+- * babyfacepro.c holds the card lifecycle and the PCM stream.
++ * babyfacepro.c holds the card lifecycle, the PCM stream and the
++ * mixer-state persistence across re-probes;
++ * babyfacepro-ctl.c holds the ALSA control surface - the hardware
++ * mixer.
+  *
+  * The protocol (vendor requests + 14x32-bit frame layout) was
+  * reverse-engineered from Windows captures and validated on hardware -
+@@ -90,8 +93,10 @@
+ 
+ /* Vendor requests (bmRequestType 0x40, value in wValue, no data phase). */
+ #define BF_REQ_KEEPALIVE		0x10	/* settings word / stream trigger */
++#define BF_REQ_CROSSPOINT		0x12	/* 16-bit crosspoint / master */
+ #define BF_REQ_REG_CLEAR		0x16	/* cold-init register clear */
+ #define BF_REQ_PREAMP			0x17	/* 48V/PAD state + readback */
++#define BF_REQ_GAIN			0x1a	/* 8-bit gain / master companion */
+ #define BF_REQ_DDS			0x1b	/* clock quads */
+ #define BF_REQ_STATUS_2			0x1c	/* read 4 B */
+ #define BF_REQ_SESSION_START		0x1d
+@@ -114,6 +119,96 @@
+  */
+ #define BF_SETTINGS_CLOCK_INTERNAL	0x0001
+ 
++/* Register addresses (masters + crosspoint matrix). */
++#define BF_REG_MASTER_16		0x03e0	/* + 2*out (bReq 0x12) */
++#define BF_REG_MASTER_8			0x0004	/* + 2*out (bReq 0x1a) */
++/* The crosspoint map, one block per output pair, in the canonical order
++ * (AN1/2, PH3/4, AS1/2, ADAT3/4, ADAT5/6, ADAT7/8), then the FX send bus:
++ *
++ *	left side  = 0x0000 + 0x34 * pair + idx_l
++ *	right side = 0x001a + 0x34 * pair + idx_r		(bReq 0x12)
++ *
++ * Measured on a Pro FS through the six digital loopbacks (2026-10-26, and
++ * issue #31 from captures of RME's driver): the block at 0x0034 feeds
++ * PH3/4, 0x0068 AS1/2, 0x009c ADAT3/4, 0x00d0 ADAT5/6, 0x0104 ADAT7/8 and
++ * 0x0138 the FX send.  AN1/2 is the block at 0x0000, the one this file
++ * used to call the "low map": it is not a layer beside a standard map but
++ * the first pair of the one map.  The map used to start at 0x0034 with
++ * the blocks swapped, which fed every pair from AS1/2 on the wrong output.
++ */
++#define BF_REG_XPOINT_BASE_L		0x0000	/* + 0x34*pair + idx_l */
++#define BF_REG_XPOINT_BASE_R		0x001a	/* + 0x34*pair + idx_r */
++#define BF_REG_XPOINT_STRIDE		0x0034
++/* The AN1/2 block, for the features that only reach that output. */
++#define BF_REG_LOWMAP_BASE_L		BF_REG_XPOINT_BASE_L
++#define BF_REG_LOWMAP_BASE_R		BF_REG_XPOINT_BASE_R
++
++/* The "cross" register block within each output: the L-registers sit at
++ * odd offsets 5..23 and the R-registers at even offsets 4..22 (the stereo
++ * source pairs that can be cross-linked).  bf_crosspoint_clear_cross()
++ * zeroes them because the cold-init clear does not cover them.
++ */
++#define BF_CROSS_L_FIRST		5
++#define BF_CROSS_L_LAST			23
++#define BF_CROSS_R_FIRST		4
++#define BF_CROSS_R_LAST			22
++
++/* Calibrated master value: 0 dB = 0x2000 (+6 dB = 0x4000).  See
++ * CALIBRATION.md.  The crosspoint fader curve is DIFFERENT (0 dB =
++ * 0x16a0, top 0x2d41 - see below).
++ */
++#define BF_MASTER_0DB			0x2000
++
++/* Each output has two master registers, and TotalMix writes both.  The
++ * 8-bit one is the analog level (hardware-verified 2026-08-24: writing
++ * it changes the level of an analog output, the 16-bit does not), in
++ * 0.5 dB steps: 0xf3 = 0 dB (the scene-load default), bottom 0x73 =
++ * -64 dB (silence), top 0xff = +6 dB, mute 0x3B.  The 16-bit one is
++ * linear (BF_MASTER_0DB) and is the level of the digital outputs.
++ */
++#define BF_MASTER_8_0DB			0xf3
++#define BF_MASTER_8_MIN			0x73
++#define BF_MASTER_MUTE			0x3b
++#define BF_MASTER_UNMUTE		0xf3
++/* -20 dB master, 8-bit and 16-bit: the exact pair the hardware DIM
++ * button writes (cap_dim2.pcap), reused as the power-on default.
++ */
++#define BF_MASTER_MINUS20_8		0xcb
++#define BF_MASTER_MINUS20_16		0x0333
++
++/* The output master controls count the 8-bit register's 0.5 dB steps,
++ * over the front-panel OUT wheel's range: 0 is mute, 1 is -90 dB and
++ * BF_MASTER_STEP_MAX is +6 dB.  Below -64 dB the 8-bit register stays
++ * at its bottom and only the 16-bit one goes lower.
++ */
++#define BF_MASTER_STEP_0DB		181
++#define BF_MASTER_STEP_MAX		193
++#define BF_MASTER_STEP_MINUS20		(BF_MASTER_STEP_0DB - 40)
++
++/* Crosspoint fader curve: 0 dB = 0x16a0, +6 dB = 0x2d41 (fader curve,
++ * DIFFERENT from the master 0x4000 top - see CALIBRATION.md).
++ */
++#define BF_FADER_0DB			0x16a0
++#define BF_FADER_TOP			0x2d41
++
++/* The crosspoint matrix sources (14 controls per output). */
++struct bf_source {
++	const char *name;
++	u8 idx_l;
++	u8 idx_r;
 +};
 +
-+static void dwc_adv_i2c_pm_teardown(void *data)
-+{
-+	struct dwc_adv_i2c_dev *dev = data;
-+	int ret;
++/* Crosspoint-source order (babyfacepro-ctl.c). */
++extern const struct bf_source bf_sources[14];
 +
-+	ret = pm_runtime_resume_and_get(dev->dev);
-+	if (!ret)
-+		__dwc_adv_i2c_disable(dev);
-+	pm_runtime_dont_use_autosuspend(dev->dev);
-+	if (!ret)
-+		pm_runtime_put_noidle(dev->dev);
-+	pm_runtime_disable(dev->dev);
-+}
++/* The first playback source in bf_sources[]: the four analog inputs, the
++ * optical input and the three ADAT pairs come first, the six playback
++ * channels last.  babyface_write_default_mixer() routes only the
++ * playback out of the box; a hardware input is not monitored into any
++ * output until a mixer raises its crosspoint.
++ */
++#define BF_SRC_PB1			8
 +
-+static int dwc_adv_i2c_probe(struct platform_device *pdev)
-+{
-+	struct device *device = &pdev->dev;
-+	const struct dwc_adv_i2c_match_data *match_data;
-+	struct dwc_adv_i2c_dev *dev;
-+	int irq, ret;
+ struct snd_usb_babyface {
+ 	struct snd_card *card;
+ 	struct usb_device *dev;
+@@ -160,6 +255,13 @@ struct snd_usb_babyface {
+ 	 */
+ 	ktime_t in_done;
+ 	unsigned int out_inflight;
 +
-+	match_data = device_get_match_data(device);
-+	if (!match_data)
-+		return -ENODEV;
++	/* mixer state (no gain readback exists - host-side mirror) */
++	u8 flag_cnt;			/* 0xc000/0x4000/0x8000/0x0000 */
++	struct snd_kcontrol *master_kctl[6];
++	u16 master[6][2];		/* cached masters, in BF_MASTER_STEP_* */
++	bool muted[6];
++	u16 xpoint[6][14][2];		/* cached crosspoints (out, src, L/R) */
+ };
+ 
+ struct bf_rate {
+@@ -185,3 +287,23 @@ void babyface_stream_kill(struct snd_usb_babyface *chip);
+ void babyface_pcm_stop_both(struct snd_usb_babyface *chip, snd_pcm_state_t state);
+ void babyface_stream_work(struct work_struct *work);
+ extern const struct snd_pcm_hw_constraint_list bf_rates_constraint;
 +
-+	dev = devm_kzalloc(device, sizeof(*dev), GFP_KERNEL);
-+	if (!dev)
-+		return -ENOMEM;
++/* Mixer-state persistence across interface re-probes. */
++int babyface_restore_state(struct snd_usb_babyface *chip);
 +
-+	dev->dev = device;
-+	dev->tx_fifo_depth = match_data->tx_fifo_depth;
-+	dev->rx_fifo_depth = match_data->rx_fifo_depth;
++/* babyfacepro-ctl.c */
++extern const u16 bf_flag_cycle[4];
++int bf_vendor_write_cycle(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx);
++int bf_crosspoint_clear_cross(struct snd_usb_babyface *chip,
++			      unsigned int pair);
++int babyface_write_default_mixer(struct snd_usb_babyface *chip);
++int bf_apply_masters(struct snd_usb_babyface *chip);
++int bf_xpoint_write(struct snd_usb_babyface *chip, int out, int src,
++		    u16 l, u16 r);
++int babyface_create_masters(struct snd_usb_babyface *chip);
++int babyface_create_xpoints(struct snd_usb_babyface *chip);
 +
-+	dev->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(dev->base))
-+		return PTR_ERR(dev->base);
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	dev->rst = devm_reset_control_get_optional_exclusive_deasserted(device, NULL);
-+	if (IS_ERR(dev->rst))
-+		return dev_err_probe(device, PTR_ERR(dev->rst), "failed to get reset\n");
-+
-+	ret = dwc_adv_i2c_parse_fw(dev);
-+	if (ret)
-+		return ret;
-+
-+	dwc_adv_i2c_configure_controller(dev);
-+
-+	dev->pclk = devm_clk_get_enabled(device, "pclk");
-+	if (IS_ERR(dev->pclk))
-+		return dev_err_probe(device, PTR_ERR(dev->pclk), "failed to get pclk\n");
-+
-+	dev->clk = devm_clk_get_enabled(device, "ref");
-+	if (IS_ERR(dev->clk))
-+		return dev_err_probe(device, PTR_ERR(dev->clk), "failed to get ref clock\n");
-+
-+	ret = dwc_adv_i2c_discover_regs(dev);
-+	if (ret)
-+		return ret;
-+
-+	if (dev->timings.sda_hold_ns)
-+		dev->sda_hold_time =
-+			DIV_S64_ROUND_CLOSEST((s64)clk_get_rate(dev->clk) / 1000 *
-+					      dev->timings.sda_hold_ns, MICRO);
-+
-+	dwc_adv_i2c_set_timings(dev);
-+
-+	init_completion(&dev->cmd_complete);
-+
-+	platform_set_drvdata(pdev, dev);
-+
-+	ret = devm_request_irq(device, irq, dwc_adv_i2c_isr, 0, dev_name(device), dev);
-+	if (ret)
-+		return dev_err_probe(device, ret, "failed to request irq %d\n", irq);
-+
-+	ret = dwc_adv_i2c_init_recovery_info(dev);
-+	if (ret)
-+		return dev_err_probe(device, ret, "failed to init bus recovery\n");
-+
-+	i2c_set_adapdata(&dev->adap, dev);
-+	dev->adap.owner = THIS_MODULE;
-+	strscpy(dev->adap.name, "Synopsys Advanced I2C adapter",
-+		sizeof(dev->adap.name));
-+	dev->adap.algo = &dwc_adv_i2c_algo;
-+	dev->adap.quirks = &dwc_adv_i2c_quirks;
-+	dev->adap.dev.parent = device;
-+	dev->adap.timeout = msecs_to_jiffies(DWC_ADV_I2C_XFER_TIMEOUT_MS);
-+	dev->adap.retries = 3;
-+	device_set_node(&dev->adap.dev, dev_fwnode(device));
-+
-+	dwc_adv_i2c_init(dev);
-+
-+	pm_runtime_set_autosuspend_delay(device, DWC_ADV_I2C_AUTOSUSPEND_DELAY_MS);
-+	pm_runtime_use_autosuspend(device);
-+	ret = pm_runtime_set_active(device);
-+	if (ret)
-+		return dev_err_probe(device, ret, "failed to set runtime PM active\n");
-+
-+	pm_runtime_enable(device);
-+
-+	ret = devm_add_action_or_reset(device, dwc_adv_i2c_pm_teardown, dev);
-+	if (ret)
-+		return ret;
-+
-+	return devm_i2c_add_adapter(device, &dev->adap);
-+}
-+
-+static const struct of_device_id dwc_adv_i2c_of_match[] = {
-+	{ .compatible = "ti,tda54-i2c", .data = &tda54_i2c_match_data },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, dwc_adv_i2c_of_match);
-+
-+static struct platform_driver dwc_adv_i2c_driver = {
-+	.probe = dwc_adv_i2c_probe,
-+	.driver = {
-+		.name = "i2c-dwc-adv",
-+		.of_match_table = dwc_adv_i2c_of_match,
-+		.pm = pm_ptr(&dwc_adv_i2c_pm_ops),
-+	},
-+};
-+module_platform_driver(dwc_adv_i2c_driver);
-+
-+MODULE_AUTHOR("Aniket Limaye <a-limaye@ti.com>");
-+MODULE_DESCRIPTION("Synopsys Advanced I2C (DWC_i2c) driver");
-+MODULE_LICENSE("GPL");
-
++/* Master gain-law helpers (babyfacepro-ctl.c). */
++int bf_master_16bit(int half_db);	/* dBx2 -> 16-bit master */
++u8 bf_master_reg8(unsigned int step);	/* master step -> 8-bit register */
++u16 bf_master_reg16(unsigned int step);	/* master step -> 16-bit register */
 -- 
-2.53.0
+2.56.0
 
