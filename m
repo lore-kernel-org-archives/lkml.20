@@ -1,72 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092002;
-	b=c4M99uBIEsMaZJEJ8IkKLEOeKXOrh3GgTA2LQgKQQi7eCTzZEazZ4hrTM/B8mPstE/xu
-	 v5q8LiL5mS1b47pJvH08IhTNoFx7hVqN8Z7gy53KUIczrZaW76YIz0JBOVwxqIHL52E43
-	 zlDGXz+xyAu1d9nOyXfBJBSOUVmh1PVaHwob+8lvYH0bEYdpQ5LlapI6Z/+9WVs6VEHJN
-	 6RJwUDX45gNOBY4sws66qBturINNYktl9RWEjQHgymRldnNmPOpJhugS9yYOaIkpkEJOS
-	 eKxU/Q4w78KWqlgtkfw3PVIN9L+KytihbqHFB7KzLgMcc3+QkozG7QTCNCe1YFYL8Fw==
+	t=1793092009;
+	b=5rr083msQV5bAzcPwuI63uYBKQycNU7trL2/vpo87Ygc4cBycazvsSJmArntS/r1tqsb
+	 zUTzGOFLG+TakeaoWP8huaZOtfQ9JYJCw94QC9DbaamWZShLhYRwU+oEjuO1UtBRg1HIU
+	 2RwPj3tbvzOO8eYzKXNJmu7mfaGeMQePJDDO0rix6lfaX07mNN0BoQ5rWmSiitnVd4YbF
+	 NyBXNs4pi/bnW/fNN7+rD1Amnr+JKGqHE6IxJd9t7g+gPp7DWVzYz1X5UB6dbagJg8vu5
+	 23XT9CvuFf7E5PTKgQ7lUfoGCOx1RWC1DHlsckj8yxoNz5TIGvErH6Vgxm4WWBOYITg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092002;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=zTaJNhx6jjIJnXjeoqnWeSprw8pGi/JKXn6SeEWkoek=;
-	b=zB8zvEj2mU9UsRTQqnpjhi8jth2jrgKsdHxBAYviP9M3GuvHUC7kPKl+BwpnA1p13j9t
-	 PL5Jb/EwCL0WQBKqcKxyygA9Gk4C9ue+vENl/kU4aTl1yesDn5qVx/5aL6mmfVr7h8fIc
-	 c2zWiVLACvrB3N0yQ4Y/lKao57qCGYQuo+8j737x2/3IfLXTJEGmUXcCPlW1Vc/OhSqrT
-	 Uyq/952eJkpFosaGEJ8dd4P5uWMucbIeEEpobX/26psg5HRjnTYzc4n6JriinV1FunL4n
-	 LSJXjzlkZ9c1uu2ED/KPKgSbU06NlgRR/Ccw8u8or6+AmMXX6Gb4a8JPCoLRtfeaSKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092009;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=SeLz6UNnjn09dX2sNJcs/RWFBCrPlJ5rguNKiRoIrmo=;
+	b=E5nUoEOF3Q3QPRCSugP2rDYuJUHcn9NYYnDHjkKczMvnqZ766IYZM9kHx9e+w7nH/gAC
+	 57IyPc/XD7dbUo6x20V4NCMP4Lvlh6/f180QdE3kfwIfaAvh/OxL/E8J0Z3Fj4F2P0Qrr
+	 mEyUsPHvhBD7K/9bnTKOpbHXsUA/0qh6NTpRUaR7JadOKJrFyPXqexCXMQ6ESBkoBMUl+
+	 FLmYcosLHkJKPzyHnVmeblo7MAtEDkDTzZh66ZJKx0z+ZAIByD54YOqpr+foIsWZZBOY5
+	 x9bwuHhjaKdyyNslJFpyrEwcEuVynht89pjgA0lGD/oBeCBCWcCn+AwB/tpzhgT74qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chungkai.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=N6iT+wA4;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B9k2sryY;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2186B606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:06:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2186B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chungkai.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D91606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:06:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23D91606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=N6iT+wA4
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a0522cdaf3so3454485b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:06:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793092001; x=1793696801; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zTaJNhx6jjIJnXjeoqnWeSprw8pGi/JKXn6SeEWkoek=;
-        b=N6iT+wA4jDwAuJkuzO50Ln4dqtlHbcE6fi02H1dMFDeJAgJb5AqtKeIieeUF3lNQYE
-         k42a5B7jUQ/L5hgNVkTEvIWAZjZfVzJJlVUV4YKuX3JhBtqJvtO47ollIviWq8dOotZw
-         4BSMSn2/hiN9VTjKwkylAh2+s2CsQyQm0TSlESCOE+YGDhyevuZ1mfJQlufeyafEZQhN
-         wg9uutVgfyN8Q8zB5AzXiJ8cohBu6C0gZbPJrYyoyGts9SIPBzz5SoTFvLVLRPpoX6aZ
-         5o0VL1seBuF2kSeCdS/JR47OC/2zGvAhjbZKT5OVwwl3Omf3/CsSyEYCMuyjnlq6WYK6
-         j9NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793092001; x=1793696801;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zTaJNhx6jjIJnXjeoqnWeSprw8pGi/JKXn6SeEWkoek=;
-        b=z8oIchKoRkW/cDEOUhSPFPrT8JK7O2Ljjr+W85Q4kLp+sxWUjgjWI1vA42+zP+dIOq
-         Yj22X9u01WBRmtUQMdSeCMAdeTJ41vqQTX0QZss2FExkU3xaQ0Bq4F1aLoC+mxVVRTTL
-         2XMSJl5YwcVf5YpmiMNAIrhmJ4/eEc571TrkTCyIZ4dxz8JNBD4hhXZHP01z14wdR2ZE
-         kliO9wsuoUvlyZFWPOfS1ZVeMWaLfThykIz6IcWRZrRZVbSWlfCNBhE6aT0khQGSvrq6
-         Fr46K7MNNwvLV2MYgqRfKyL+zB1OjhKj/I7efFo2GPWTnQSP3/EHohurBWfG0Fp9NI8q
-         yHUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw1Xxzvzs54F2RHi3pP7KF6gPYeTvV7cxbSGBn++XLorFMujPRj3QtEi+l2HOUGI2Gu7M1hZ6QmPd5eAh0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnbFBFa8mCMPXYbK7ZeJY1RzNrPGhxyhtGaFERr6mwyE32RJrh
-	SZkHnEChee9bHw1LjA/reMOh9Jb5hIV0ydGSt2Ac8FBAEjb1VzFKyqOohq6aRfRb1NS9aR1pEhP
-	5szwBY9CPV3SRAw==
-X-Received: from pffj5-n1.prod.google.com ([2002:a05:6a00:c2c5:10b0:89f:e459:aedd])
- (user=chungkai job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:4b11:b0:89e:fc56:a25e with SMTP id d2e1a72fcca58-8a3674448b7mr7424489b3a.41.1793092001231;
- Tue, 27 Oct 2026 02:06:41 -0700 (PDT)
-Date: Tue, 27 Oct 2026 09:06:38 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=B9k2sryY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793092009; x=1824628009;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RbhOKmBkGN8cJaPtRjwxG3ml66wPTPjYj6m1E74sTAo=;
+  b=B9k2sryYszNZDwDLIrk1tNjR2jd0xx7wL8mQUNop4mBHY3Jk8NpADL9k
+   pdIc/mA/KE1+Dg5GmfqPcUS0XzCCD5fXOXlBpxlLDytxbLqdwRPcJOoow
+   KrOSeb6j0WtKxVIlItkBQe+HwCP41F/Sc++zCRvHeeFQxncUTi+zR+Pil
+   vjd7MIJA+O4nb4qvW+Zjoeq9rNqW3Pk8fM1UKhOilt2YmnzjrLIDYUxcE
+   4G6g9iEXjmoFe1owS1LEroiSLb+EiOGFJZqXEwNWqPrE5AeGwaK55PJYW
+   71JXxv8M6AfhF949cai6RhfnntsP+s0HN+um3G0pl4THXm13O81V0vIUC
+   A==;
+X-CSE-ConnectionGUID: VJEu4LbbR3OIDiVHvm5LTA==
+X-CSE-MsgGUID: FrC1f1XfTsWjjpjkHMXQLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1817358"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1817358"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 02:06:48 -0700
+X-CSE-ConnectionGUID: g3fHArBCSBOoeRfubKcGFw==
+X-CSE-MsgGUID: SdOrAe6rTB2E9HnHYzcd4A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="5006114"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 27 Oct 2026 02:06:46 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xLd8k-00000000X3U-2wia;
+	Tue, 27 Oct 2026 09:06:42 +0000
+Date: Tue, 27 Oct 2026 17:06:38 +0800
+From: kernel test robot <lkp@intel.com>
+To: Yu Zhang <yuz08559@gmail.com>, Srinivas Kandagatla <srini@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
+	Yu Zhang <yuz08559@gmail.com>
+Subject: Re: [PATCH] nvmem: core: balance the layout module ref in
+ nvmem_cell_get_from_lookup()
+Message-ID: <202610271602.GRxskiKw-lkp@intel.com>
+References: <20261026125709.73500-1-yuz08559@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,66 +83,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027090638.900747-1-chungkai@google.com>
-Subject: [PATCH] PM: runtime: Allocate pm_wq with WQ_HIGHPRI
-From: "Chung-Kai (Michael) Mei" <chungkai@google.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Lai Jiangshan <jiangshanlai@gmail.com>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, chungkai@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026125709.73500-1-yuz08559@gmail.com>
 
-Asynchronous runtime PM work (pm_runtime_work()) and genpd power-off
-work (genpd_power_off_work_fn()) run on pm_wq. While such a work item
-executes a ->runtime_suspend() or ->runtime_resume() callback, the
-device's runtime_status is RPM_SUSPENDING or RPM_RESUMING with
-dev->power.lock dropped, and genpd_power_off_work_fn() holds the genpd
-lock.
+Hi Yu,
 
-If another task calls pm_runtime_get_sync() on the device in that
-window, rpm_resume() sleeps on dev->power.wait_queue in
-TASK_UNINTERRUPTIBLE until the work item completes. A wait queue has
-no owner, so the waiter cannot lend its priority to the kworker, and
-its latency is bounded by how quickly the pm_wq worker gets CPU time.
-Because asynchronous runtime PM work is queued onto pm_wq by the PM
-core, individual drivers cannot select a different workqueue.
+kernel test robot noticed the following build warnings:
 
-pm_wq workers run at nice 0 and can be kept off the CPU for a long
-time by higher-weight CFS tasks. On an arm64 Android device whose GPU
-driver uses runtime PM autosuspend, render threads were observed
-blocked in rpm_resume() for 5 to 19 ms while the runtime PM callback
-itself needed less than 60 us of CPU time. For more than 99% of that
-time the pm_wq worker was runnable, preempted by nice -20 tasks.
+[auto build test WARNING on linus/master]
+[also build test WARNING on v7.3 next-20261026]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Allocate pm_wq with WQ_HIGHPRI so that its work items are served by the
-unbound high-priority worker pools (nice -20), like other
-latency-sensitive kernel workqueues such as kblockd. This does not
-change the ordering or concurrency semantics of pm_wq. It only reduces
-the time a runtime PM transition spends waiting for CPU time, and with
-it the latency seen by synchronous runtime PM callers.
+url:    https://github.com/intel-lab-lkp/linux/commits/Yu-Zhang/nvmem-core-balance-the-layout-module-ref-in-nvmem_cell_get_from_lookup/20261026-225709
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20261026125709.73500-1-yuz08559%40gmail.com
+patch subject: [PATCH] nvmem: core: balance the layout module ref in nvmem_cell_get_from_lookup()
+config: hexagon-randconfig-1001-20261027 (https://download.01.org/0day-ci/archive/20261027/202610271602.GRxskiKw-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 186e70f4e6a1521991d2340d3d49b23b1beff11f)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261027/202610271602.GRxskiKw-lkp@intel.com/reproduce)
 
-Signed-off-by: Chung-Kai (Michael) Mei <chungkai@google.com>
----
- kernel/power/main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610271602.GRxskiKw-lkp@intel.com/
 
-diff --git a/kernel/power/main.c b/kernel/power/main.c
-index 5429e9f19b655..1e8ae76356b23 100644
---- a/kernel/power/main.c
-+++ b/kernel/power/main.c
-@@ -1125,7 +1125,7 @@ EXPORT_SYMBOL_GPL(pm_wq);
- 
- static int __init pm_start_workqueues(void)
- {
--	pm_wq = alloc_workqueue("pm", WQ_UNBOUND, 0);
-+	pm_wq = alloc_workqueue("pm", WQ_UNBOUND | WQ_HIGHPRI, 0);
- 	if (!pm_wq)
- 		return -ENOMEM;
- 
+All warnings (new ones prefixed by >>):
 
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.56.0.307.g5fe7bd680c-goog
+>> drivers/nvmem/core.c:1327:12: warning: function 'nvmem_layout_module_get_optional' has internal linkage but is not defined [-Wundefined-internal]
+    1327 | static int nvmem_layout_module_get_optional(struct nvmem_device *nvmem);
+         |            ^
+   drivers/nvmem/core.c:1356:8: note: used here
+    1356 |                         if (nvmem_layout_module_get_optional(nvmem)) {
+         |                             ^
+   1 warning generated.
 
+
+vim +/nvmem_layout_module_get_optional +1327 drivers/nvmem/core.c
+
+  1326	
+> 1327	static int nvmem_layout_module_get_optional(struct nvmem_device *nvmem);
+  1328	static void nvmem_layout_module_put(struct nvmem_device *nvmem);
+  1329	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
