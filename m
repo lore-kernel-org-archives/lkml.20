@@ -1,88 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793135410;
-	b=FK2B7iba6/J3MHRMfnzgf3PwAzTvGstCjfW+t7JsClD/lAcllvJOuczmyeAzkKyy4aHd
-	 jgm39X0c/Z3mobD9OLKfAhdz3tkex8PnLVhzJz0w8upa2epz4d/k9evu4uQDfwoXyZhHC
-	 HQPEeLakcOBpukVhtYKctX0lJRn2tZdhh4xQG0D++GuEGODM9WmjqaK+HsBB9WM/EgJJF
-	 qy7+WoD7FYpsAX0u0rCK9sXvfMSaUP0HGeSD/gxuocDoigaCkG8aNMWZWQ7nK6puUTbEu
-	 +y7UD25dCbdX/ICrOCcApQA/zMJGgRaCJWysmt7i/AgLNFVxp2EkmNUmZ8hBliklRgw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793135410;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=hylVN4pLJ/oWpRgIPCsClj4OvOXmuIl9PskjQZcFHUw=;
-	b=l/jp8ELJebNzGpnTPTngK0/tJo6Hq4whFIWc9Vn9QD3yPsZzhIbZsY/8pdMGzhD4VmrH
-	 hmxopF1+pc1EIUEz6Obe4qia0jurORTGttLqg75zydQbMfADIam2J7yeJN7Hno83GGhXc
-	 Snt9LZfdkirRDf/Fk5ymqQ4N0Lv07kvPs3/jI7oRt6TBMFAnsD+GFLs7aItq+aeQjyR1S
-	 19nhW6apdfEi0/81xUNxo2F6FHbEpcqpdcc1dcK49arB56H19itK4NaniOqedWST++6SB
-	 0ZkHoCs0WmZQswoaWhKaCIXbQsy/oNNs3t1n0o/9A9PRPY23zkW2rgPtWPAbFmmWEKA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=PcYmnVWp;
-	arc=none smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793135441;
+	b=FTQGB5qSnJaiCyoiWbOi0ViECsrThtSqZUae6INOS0utN0C0s0HTTzkmckVZhcXJwZTr
+	 hZN2o+vWIy4OpLqIlgaA8tAwlLqOO2W99tgmd9YAOhfM6NS0lmC4jq7d4imgCfUPLkl00
+	 hwuHe8St88OK0YcSRu1gYaHgjcyK3LKPyiHRSVUVUKVqKWUqOjYW7XziM2lsH6Wk4oVsQ
+	 uwW5EBsRhwQWCeYGbnfa25CaXTS85nsPIL6zpgmhvhY+1rQQ6W1iwVPZrWW50zjWlib6K
+	 fMKi6DwsGlpKdH6/t4SEwqwsX2pS2QKy7YYPeBkTipfwv5LF31TjeOcVSjCO9E7lW6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135441;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
+	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=joa3AxqeUObolrsuwJzh7TiY4r/2iQfMSE/c3S5Aeig=;
+	b=tVAtn5sDWvu0LrtH45mzQ5FkuSrR8Oi14F7i/gKYDEfYQOfTSOQdG7pyV9/i2Zucw8i3
+	 oEA6SVZnIfkiQDZlPfNb+dmK1DIdk2aIoZk43+SmlJVvzHiqqo/I5Z3hiEu+ECZe9Fn/y
+	 CCQv2wHtUxCasY33lS34Se0ewt5YjBJe8od40b4j9lBnS/2sv7rJG/2Q0O5mm9lfR0BUa
+	 cZ4ylhl1OBZ09unkzpCRniTSPnx0RGZJPfgArFB5PwGSJBKesT5cBR/Uer+ToqC4eia31
+	 wQKsipnxexmJ7v26zv7niDuwUSWKylS8QuHZ606EC1Q9zqJq1cMrcZWL9QFlHzM5nRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KGezkC8n;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.32
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013032.outbound.protection.outlook.com [40.93.196.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16A160A2621
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:09:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E16A160A2621
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10E9606A31F;
+	Tue, 27 Oct 2026 21:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C10E9606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=PcYmnVWp
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53665358476so4266541cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:09:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793135395; x=1793740195; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hylVN4pLJ/oWpRgIPCsClj4OvOXmuIl9PskjQZcFHUw=;
-        b=PcYmnVWpIJ5mRB58NQMpE5mtmvrIjkFJfuvX83tHAZ1CLRHHbicyM3u6h8FJcnIFgM
-         J5eugBKZk83ApO4bvKBaG03hyGfj/SReJVHl6iNberoZgsPHT7W1hGBnldbZdxpcpgNL
-         aAQs/H7L+JpEfTYN1SCnCdj2xQMaLhjfaASoqrBh+1gm69q+401VD1HX+S+42fgfqzT9
-         8I3hHMHxcEc558Dl5uKuqjZE5PkSB+YFz7DFEfIY4u/TQ5loAy+B+uLkNQFpB91/FNXV
-         6UUFhT/0oS5lY/L6UBhKSztShSN3EyYYIstmckxZlhoo4E6C/zRft0fAiS1dIA49FDVp
-         9nPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793135395; x=1793740195;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hylVN4pLJ/oWpRgIPCsClj4OvOXmuIl9PskjQZcFHUw=;
-        b=NTalKywMdBXR0YvbEO9vF8ulyWYfyfYfh2shGlBryTS9ubX6jDCesyTzQ34jf7CV47
-         Dy68r3HblUyiVCXBhR2+XeB10HZv/RTSeJh4U5VVsVFbUdBme+n6cPVpN6mLdhnLR2uq
-         93Jt0qMLCaCtgq80FijD2Mo5T8pd021hhdG29gx4MhPKSGUahTZAqj8qAwCTBFlZ4c0U
-         /pi+tCrp2xbPctAtUQpJiYlT7KjMOV2RErLkqTHUO41VgBbDhE7Irn4U6toNxB4DfNhZ
-         nFu0IEV7p9Oj4Dc96O04L1v6+EDZsSjxY/lGX9IuhyEZV3x5ANR4wD6KfV4Qo52lANF0
-         CZUg==
-X-Forwarded-Encrypted: i=1; AKwUvBysv1QGzHZbybpUDapKoDPR2HsUxH080o5H44kcw6PQPzXqG6/nH33Vywjaig1WsVsql2tMtBi1HG5x59E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6gKKZkUMwn5LR0V0KSkOIOZhrkuwyeQYN/Nrpsyz9BwAToUeQ
-	nYkme3nd9C56SB8qQ1qCvZNLbA5Pwkqap78ujCqvjkDYysi6MSdPODzdr2Q0ZxzIo7Y=
-X-Gm-Gg: AYBFou1NxKBwrGFz8ng8F9a7qgQGWsE0q+H0M/LpMttgcusK85CVjjMrFkXE1SUAt4f
-	PUabYLYp1+jh0tS3BdsNyFa8U+wWl0UWnp9hT95HwHCfqF1P7+wX/GY1Qo/yuzYha0ZadE0kpQm
-	9qMhtYqhMXGbhomNLf6/EPZxUZp7+gwSRwhiChbT5QRjTEDSgyzdCMarC+5JvQ3dkL8Z5hQnrFg
-	XfX021RQRAPylJczVt5rU41fkQHvz8F4pXYp0djHnC6IwG9xnhKvE7tuGVEmei6Oo3EGL/RdXuF
-	YxYnPoveKDJ5b7/Wub7xkjvWiK3hE9mUhbB4UMiqbDxyW8Rglw5KeIt31pFIKhy7m6rMhutXdfT
-	plMQB1EQePBFqyewRxD4khmdiAv+OS53y6MzDW8lv5XUBaSATvuwRLS7PTO7DQNNt0elToBX7tH
-	uW7s+PJDsuXJrOc8C6VE+ldNzr3rbjN0gGIFNSvgJkzVYiY+gJ/O/Ah4AQvbC9uR5W8gNiym1Ao
-	O1Wuv3tZdmI3RpHHbwzEczBPvcMKbUZjfG79jUdANDSjVMMeWMoWjvwhsplJZFWUKJ6h8MLxy7k
-	9dpQI+4wo3rJf9iapyXU1JaVgnxRn6ZU5y4+5c+mYGiXSA==
-X-Received: by 2002:a05:620a:1729:b0:93c:2726:77ec with SMTP id af79cd13be357-94408930698mr32136185a.5.1793135394896;
-        Tue, 27 Oct 2026 14:09:54 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.253])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0787fe4sm1097066885a.27.2026.10.27.14.09.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 14:09:54 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 27 Oct 2026 21:09:32 +0000
-Subject: [PATCH 06/10] ovl: mark the overlay inode dirty on modification
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KGezkC8n
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y+msr3pIv1yybBmAj1X3nNBhN7z6z+nBW2tGqDaBGsmdT8azvN1UgyBk63+RA1ofnVbktL80dUSGIXkTAhqj9w2ldKPnWZYVMrtwEqVjM5woKzsFHdG4EkZuU1apw+D7YswYssbr1pkXSFnfcAMteCu2XvCxiV/Rj7yvWr5/pFVTM07IjWWD37r2OAqMAaMhgQwOafX4XpPFkwXc/bE1ZkTB1hfgLndy0jNn/EF2vy7/GUEriHHFb1XW8CWLT7OxNivumJ+GGQEkDrgCGHi5Q7zGLZ3zvT6DuXVH5yUBSMKZfXR/rNymNi4HMGcaJf5SbjOtNvq9LhLQQgVirmZ02Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=joa3AxqeUObolrsuwJzh7TiY4r/2iQfMSE/c3S5Aeig=;
+ b=kqeOpw7uuI4H+ZkLR9y7k8PNOpNAX5tfEL92bge92tXjYD3LmaYPa/qjWZ6Vx/py0jxSN1w4dT0Yp0qL7bTYMEKoe+3Rjq+AL3nVoz1C3ZCabnJrJHsonef8AV9gF0qrJYQfkqMsPYxYk/rL6YQ3ye3E1kKbkd16QZZLYIku7oB6+UJ9K4/fMg+4OqiJ3dN7b9SEFKmTryR4YoY2tD3/tDkyccVLnf2yTXI4NPyzaumwR6UUYTobrFOLvyR7CTyXYN3z+tZzDmX5bCw44vcHrvUyafjjAqPF85fptqJiJAGUrwKgwpI+RxWrqE1kRf9utXnqUAQCUNySwKGink48Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=joa3AxqeUObolrsuwJzh7TiY4r/2iQfMSE/c3S5Aeig=;
+ b=KGezkC8nENubu7gTdli8/Ep7ah1oxBoA/mtcOIQrsboR/temf9iv1qIVXd8MnMHPTSyJwgli9Lv5RD30jSgLSkpwzJZXWP84Qc3c6yc/94tpu0KEn8pHa9xuBSgLi+0YOeRDR7O5zj73gYqNNitMom9oNvVnAaqNxYXnOJtvvld5dF2DyRNtObVtbxDnfyoAOt4YXBLlOshLyYKuA9Lq0aXmI0dd7xyjUwi8xUgca6P9753HVGOskPvTipbuR7JebGcfOHsYT6xbi2fcO9mK2GCbsDyvLvqkK5EnysNSpvsE/1kZqFalSm2SnH/Y32gbW5cczlDOo2MAKMYVUWL+Ug==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by IA4PR12MB243497.namprd12.prod.outlook.com (2603:10b6:207:12b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 21:10:36 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 21:10:36 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 27 Oct 2026 17:10:32 -0400
+Message-Id: <DMFXGLSWYF08.30SXMF7OWKDN2@nvidia.com>
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
+ <linux-arch@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
+ <stable@vger.kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Johannes Weiner" <hannes@cmpxchg.org>,
+ "Michal Hocko" <mhocko@kernel.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Barry Song"
+ <baohua@kernel.org>, "Axel Rasmussen" <axelrasmussen@google.com>, "Yuanchu
+ Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>, "Baoquan He"
+ <baoquan.he@linux.dev>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Kees
+ Cook" <kees@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Jann
+ Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>, "Hugh
+ Dickins" <hughd@google.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>,
+ "Pratyush Yadav" <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Lance Yang"
+ <lance.yang@linux.dev>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
+ <harry@kernel.org>, "Alistair Popple" <apopple@nvidia.com>, "Nico Pache"
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
+ <dev.jain@arm.com>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau"
+ <kas@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Peter Xu" <peterx@redhat.com>, "Will Deacon"
+ <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, "Nick
+ Piggin" <npiggin@gmail.com>, "Oscar Salvador" <osalvador@suse.de>, "Minchan
+ Kim" <minchan@kernel.org>, "Muchun Song" <muchun.song@linux.dev>, "Xu Xin"
+ <xu.xin@linux.dev>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Chris Li"
+ <chrisl@kernel.org>, "Kemeng Shi" <shikemeng@huaweicloud.com>, "Nhat Pham"
+ <nphamcs@gmail.com>, "Youngjun Park" <youngjun.park@lge.com>, "Gregory
+ Price" <gourry@gourry.net>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie
+ Kim" <rakie.kim@sk.com>, "Ying Huang" <ying.huang@linux.alibaba.com>,
+ "Jason Gunthorpe" <jgg@ziepe.ca>
+From: "Zi Yan" <ziy@nvidia.com>
+Subject: Re: [PATCH 11/46] mm/huge_memory: properly handle refcounted PUD
+ mappings on fork
+X-Mailer: aerc 0.22.0
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-11-6f74bec9a5bb@kernel.org>
+X-ClientProxiedBy: YQBPR01CA0147.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::8) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,201 +130,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-b4-ovl-containerized-sync-v1-6-802e512379a6@toxicpanda.com>
-References: <20261027-b4-ovl-containerized-sync-v1-0-802e512379a6@toxicpanda.com>
-In-Reply-To: <20261027-b4-ovl-containerized-sync-v1-0-802e512379a6@toxicpanda.com>
-To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Theodore Ts'o <tytso@mit.edu>, Carlos Maiolino <cem@kernel.org>, 
- David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
- Chengguang Xu <cgxu519@mykernel.net>, linux-unionfs@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org, 
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793135381; l=6734;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=IkGUnIO/d185CPUCJ4d/igDpeRoCY5CFDEBzS+HwtoU=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QOVK+4kd6b7Xr7kl9CkNEWeg+Stag9HORTgmo14n0P0eHvRSoG2YkVBQ2kqpUc+xVB+0z6G4wjg
- I8xii9QxxYQY=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA4PR12MB243497:EE_
+X-MS-Office365-Filtering-Correlation-Id: 364b219a-63e7-4001-5411-08df346ebed6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|921020|261026121527099003|4143699003|56012099006|11063799006|261009223027099003|261021123027099003|261022105027099003|261021121427099003|18002099003|22082099003|10067099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	tqoZgkyefCD9GVaBSnYTlWVsxTjxczdpbP2bgh3oPE6qREkgkWkyLz8J0RQEl3B+IR+BMgBkNBC6LCe4ai4wTizheBvS6ZgGhyHgHXJTysqWFPHK26p7JNMTKDWpbVUcVrJ93jOWt/PfcN/MBQpmEBKhhsSPvcDXtc7D/IvV7KCM9spxan2mD/W5amMSs88wdfE89+ty+WYKW6yiPfFZY/MLWr49aBdppws+I4zyrqVBfvHTcPQaXDb74BiGw7/nA4K7LCCwwni9hDgvq3G7huTcPd6/r0vHIgtG6GkYdV+dYCpTsownHv8UI6S3JSs8nVr6iL8cww9p/ryqj3aaPtRuCqdf/4a01NZj/Fpc7WkVHPeuWuHOAhg5siS3Uxc94Mp5vVmLiYdkWnrHhVu2BKHxsBvfzsLBr7J1+KPWB4uCyTfmkF9ie3YOiExZvfQUuCesd6MRLS32gHrJJ3F21esJkM/24HlgMboMAjwlJVjdMc7dz4Ki4+Hk46fXOiDL8HOAuFoH0g8MaAI1HBdMFIjLJT77NrGmhWxFuCw3o4jxwN2kWqJZDYPD2Q0TUTGJKZl7GpuRQlovNXts6Qhy5UPz82tTwSJeG4KAmeR3Aa8WdPPgMz69KmPW4oZf0cdBfUoDmS0huGL7XqNsXODVTTG7PbXZ6wODJhbWL7AWeZ0137qikuI6MRrTtw56eFWKbR/oLem4SZ3QEW68/URhXg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(921020)(261026121527099003)(4143699003)(56012099006)(11063799006)(261009223027099003)(261021123027099003)(261022105027099003)(261021121427099003)(18002099003)(22082099003)(10067099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TVpDM1JSbEVCcU4rcWhRZnZUZVA4NjlEQWxOSEpWcnlZeXFCN012cFFZMno2?=
+ =?utf-8?B?U29McXNpeXBxTE12VTA5R1FMVmo5RThCQTFCWmg5clA4eGt3b045UVozOFha?=
+ =?utf-8?B?NndhL2s4ODdnbVJyYUVGSG9EM29CM1ZWR0MzMWowTk14eDNYb0VmZXp3NUtC?=
+ =?utf-8?B?NEZZNVVvRW5xQ0JtRWMrclZmTWkzZ2QyYXdhQ2dnczhtS0ZHT1ZsejJhNzYz?=
+ =?utf-8?B?UFMzZWRpSkQyK2dyU0p3dkF3eDdBOTZuYUdYQUVUN2NLT0dDR3NYeTlKZ2hU?=
+ =?utf-8?B?blJVVzVYcHcxOFhJVHRnekQxamJqQmpwc2VETXV6QWE1UVl0Rms4T21YTlVI?=
+ =?utf-8?B?ekxhZjBQTFdXaFg1bzFwOVV4NE9mSENtQVpaSHZsWVBlanpwTTN4YjY2SjJ3?=
+ =?utf-8?B?aDMwcm8xYTBFN1I1WTlIeHFOWTFnZUFwMmtaQ083Tk5zK3VGcCs0QXlYVnIr?=
+ =?utf-8?B?WWhyRjRLZlVRdjd5STZ4R1RMQndsSGdLMXhsUkp3MEQzcmNVM2lhNDRLQlZB?=
+ =?utf-8?B?WXF3VE9IQm5RV2JUa3p4MkROcUdRSDdYZzk1ZjZYQTFJTGp5WDRWR3U5WXl5?=
+ =?utf-8?B?Z3J2NHRpWFhqempQMFhYejRrQTJHTlpNNWxnbmQ2bjgvTHdsVHU1d3lrNUR4?=
+ =?utf-8?B?Z2JnOGdWZlowVi9tSWtTU0oyNVZ6cmRSU1VmOWZOeWp1Q0F4YkpiSGJiUlQz?=
+ =?utf-8?B?QlFoS3BReHdtaFhXZXFwVjJYamJrU0ZiaHJDSzBMemJGbS9LSGlOZzNHSDZZ?=
+ =?utf-8?B?b25oMzZkd3VCWUttcTI5YWpIV2FGUTJ3Ty9yamlSRGgzZmxTcXZaM3JveERl?=
+ =?utf-8?B?d0FBMHM1Vkl4bkpOVXlBdENXUTZHb0pyM2t3RXFQYjBFL1ZmcE9lQXV3NEp6?=
+ =?utf-8?B?WVdSMEF3RVh5WjRZbEdPMkZlMnhnU2o1RjY2VncvaHFmYjVQSm1Qdy9lWmN4?=
+ =?utf-8?B?RU1YdkVIektqa0pRZUpXbGV1d3gxcDdITW41M1lmbVFqcHFvblBSUWVYMGF2?=
+ =?utf-8?B?VGI4RWo3OWk5Z2d6NHR1aDcyMnlhbmQraUsrVlpWV2ZxTlVWckdldHA2Z1pB?=
+ =?utf-8?B?cjhaVzBBNHhhd3pqOVB2Q0RzYVVpbU50MzhzdkJsa3ZkeE1yRGQ4OWViaTFW?=
+ =?utf-8?B?WXhDUUpXZ0kwekVrQmF2ZVI4UlJTUmxySzd5Rm9ncDR1ZktWSS9qYytoQ1Rr?=
+ =?utf-8?B?dmVzbTBtWjJmZkdIOFYxR1Q3Z3RDTmwxc0c3K2tnSlVnSjV4OGlmemlXcVIv?=
+ =?utf-8?B?ZUZncWxINjVBQmRRN1ZYT1BwUmk0aXpJYnF3TG4yOEhGcW4vc3B4VThDcVRH?=
+ =?utf-8?B?UllVMm54b201cWVXOGpNdGpteXoyd2wrVEdyTVJLVVFFTytMUUJHKzZxUVds?=
+ =?utf-8?B?a2l6N3E3VHN1Ykw3SGp0Y3NKbms2STBZVlJXL0VwQVAzNGZHOENjZjIvWEds?=
+ =?utf-8?B?cFVWa2RKaUNJUkxDd3ZsVFZvcWxyRk1rTDRnektVd0pFYW9QK3hOaW1SRG45?=
+ =?utf-8?B?ckZkSDY3RmFjdzRoQzZzWVBldUVwMFhYQUkyT2VXZVhrTnlMWmZQd1p6WVRE?=
+ =?utf-8?B?QVR0VWw5VmJ1ek1pYmFxVkFRUHdkRkZPR09hamxSd3hlNmZkMDhWbmVTdmt4?=
+ =?utf-8?B?YmNObkxuWXhkaktSNktZcVRRcmhmU3hlNnRocVM1UzFQeDhCVFI3VUZ4U2lj?=
+ =?utf-8?B?V1hQNUp3bGF0cXhScFdUV2Z4Uzk3NEVzNjRzOW9lZ3JsMlRVUFVLbDlpSGR2?=
+ =?utf-8?B?ZlA4a29jVzI1L210Y0dZRy9rVENqcHc5dlRtQlZzeDhsbjRRT3V2TVdHeVVX?=
+ =?utf-8?B?V0toWTJsZFVhYUdjdEVBaUZHUTZRMXU3Y3FzRTBSVmMybXcwZjRhNktVOEdE?=
+ =?utf-8?B?eG5MaHZqMGJoNjhmeVQwVFJWMlljY0lNTDBwNUFWT3JHb3FJbjRlakdzTE9v?=
+ =?utf-8?B?dDE3MDl2QzN2NXY3cWgxLzBMQ3kvZTl1N0V4cnp0TVVVemo5NzhUU3RJRnZN?=
+ =?utf-8?B?Y29xcWk3eHluVmQrNE5iUEdCYzFLbk4rU0gzUmMrallSZnQ0WUVrRk14UUo5?=
+ =?utf-8?B?cEp0TFNYbXU1eWtTQkdaUmhGeDVDb3YxTWVQYlY0V1F4RTNGcVFaV2hMakRm?=
+ =?utf-8?B?N3JUZmxYd0NnMGxBeWdobkN2SE54WFIwb2R5b2hSZ0w5U082TVVwZDRtTGQv?=
+ =?utf-8?B?TitpVkZQUm5NNGJmaXhXeHFSOHdhMkNKay9QOFVNcXhJWklGR3JRTHhSdzBT?=
+ =?utf-8?B?YmxnOC9NZFNsT0RJaW5hMVAxc2VWaXRBQzlCdjBYc1R3dzhlUnJyL3AwMHZi?=
+ =?utf-8?Q?xv8vgtOTBGlTfsuQC8?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 364b219a-63e7-4001-5411-08df346ebed6
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 21:10:36.3668
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YOffFhSYYqxdQSUeTax7Mog/FCHRaWCmwl0OxmSJ4UAH8XumVetLoQu2ABMnDzKt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB243497
 
-To sync only what was written through one overlay we have to know which
-upper inodes that is.  Mark the overlay inode dirty whenever the upper
-inode is changed through it, which puts it on the dirty list of the
-overlay's own bdi.
+On Mon Oct 26, 2026 at 7:17 PM EDT, David Hildenbrand (Arm) wrote:
+> copy_huge_pud() copies device-DAX entries without taking a folio referenc=
+e
+> or updating mapcounts and the child's RSS.
+>
+> For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
+> forcing copy_page_range() to traverse the whole VMA on fork. Any remainin=
+g
+> huge PUDs are then copied without accounting for the new mappings.
+> Unmapping them in the child decrements accounting that was never added.
+>
+> Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
+> reference and add the child's PUD rmap and RSS accounting before installi=
+ng
+> the copied entry. Pass src and dst VMAs consistently instead of src and
+> dst MM. Move the TODO.
+>
+> Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages whe=
+n mapping")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  include/linux/huge_mm.h |  5 ++---
+>  mm/huge_memory.c        | 27 +++++++++++++++++++--------
+>  mm/memory.c             |  4 +---
+>  3 files changed, 22 insertions(+), 14 deletions(-)
+>
 
-This is about data and timestamps.  Other metadata is left to ->sync_fs()
-of the upper filesystem, and nothing is marked unless that has
-SB_I_OVL_USE_SYNC_FS.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Nearly every change already ends in ovl_copyattr(), to pick up the new
-size and times, so do it there.  The one caller which hasn't changed
-anything is ovl_inode_init(), give it __ovl_copyattr().  That leaves:
-
- - copy up, which writes to the upper inode before the overlay inode knows
-   about it: ovl_inode_update()
- - copy up of the data of a metacopy inode, which has its upper inode
-   already: ovl_copy_up_meta_inode_data()
- - a new atime: ovl_update_time()
- - a shared writable mapping, through which stores go straight to the upper
-   inode: ovl_mmap().  The next patch keeps such an inode dirty for as long
-   as the mapping can be written to.
-
-The state of the upper inode isn't looked at.  Its dirty flags are cleared
-when its writeback starts, so a syncfs() during that writeback would miss
-the inode.
-
-Nothing is marked on a volatile overlay, which never syncs.
-
-An earlier version marked every overlay inode with an upper inode dirty,
-for good.  That is simple, but the flusher then walks all of them every
-time: 1.3 seconds for a million inodes, and with metacopy a container
-which chowns its image has that many.
-
-Based on work by Chengguang Xu.
-
-Link: https://lore.kernel.org/r/20211122030038.1938875-1-cgxu519@mykernel.net
-Suggested-by: Amir Goldstein <amir73il@gmail.com>
-Suggested-by: Miklos Szeredi <miklos@szeredi.hu>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- fs/overlayfs/copy_up.c   |  2 ++
- fs/overlayfs/file.c      |  8 +++++++-
- fs/overlayfs/inode.c     |  4 +++-
- fs/overlayfs/overlayfs.h | 14 ++++++++++++++
- fs/overlayfs/util.c      | 14 +++++++++++++-
- 5 files changed, 39 insertions(+), 3 deletions(-)
-
-diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index e963701b4c87..12ad3ada5517 100644
---- a/fs/overlayfs/copy_up.c
-+++ b/fs/overlayfs/copy_up.c
-@@ -1122,6 +1122,8 @@ static int ovl_copy_up_meta_inode_data(struct ovl_copy_up_ctx *c)
- 	ovl_clear_flag(OVL_HAS_DIGEST, d_inode(c->dentry));
- 	ovl_clear_flag(OVL_VERIFIED_DIGEST, d_inode(c->dentry));
- 	ovl_set_upperdata(d_inode(c->dentry));
-+	/* The data is in the upper inode now, and nobody may ever write to it */
-+	ovl_mark_inode_dirty(d_inode(c->dentry));
- out_free:
- 	kfree(capability);
- out:
-diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
-index 7433220d4ad6..cdc552c76878 100644
---- a/fs/overlayfs/file.c
-+++ b/fs/overlayfs/file.c
-@@ -473,7 +473,13 @@ static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
- 		.accessed = ovl_file_accessed,
- 	};
- 
--	return backing_file_mmap(of->realfile, vma, &ctx);
-+	int err;
-+
-+	err = backing_file_mmap(of->realfile, vma, &ctx);
-+	/* Stores through the mapping go straight to the upper inode */
-+	if (!err && vma_is_shared_maywrite(vma))
-+		ovl_mark_inode_dirty(file_inode(file));
-+	return err;
- }
- 
- static long ovl_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
-diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index 63906b3dafcb..9a4bf7c2502b 100644
---- a/fs/overlayfs/inode.c
-+++ b/fs/overlayfs/inode.c
-@@ -587,6 +587,7 @@ int ovl_update_time(struct inode *inode, enum fs_update_time type,
- 			touch_atime(&upperpath);
- 			inode_set_atime_to_ts(inode,
- 					      inode_get_atime(d_inode(upperpath.dentry)));
-+			ovl_mark_inode_dirty(inode);
- 		}
- 	}
- 	return 0;
-@@ -898,7 +899,8 @@ void ovl_inode_init(struct inode *inode, struct ovl_inode_params *oip,
- 	oi->lowerdata_redirect = oip->lowerdata_redirect;
- 
- 	realinode = ovl_inode_real(inode);
--	ovl_copyattr(inode);
-+	/* Nothing was changed, the inode is only being looked up */
-+	__ovl_copyattr(inode);
- 	ovl_copyflags(realinode, inode);
- 	ovl_map_ino(inode, ino, fsid);
- }
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 218f646b82b9..f5a17bc258b6 100644
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -676,6 +676,19 @@ static inline bool ovl_tracks_dirty(struct ovl_fs *ofs)
- 	       (ovl_upper_mnt(ofs)->mnt_sb->s_iflags & SB_I_OVL_USE_SYNC_FS);
- }
- 
-+/*
-+ * The upper inode was changed through this overlay.  Put the overlay inode on
-+ * the dirty list of the overlay, for syncfs and unmount to find.
-+ *
-+ * Do not look at the state of the upper inode here.  Its dirty flags are
-+ * cleared when its writeback starts, not when it is done.
-+ */
-+static inline void ovl_mark_inode_dirty(struct inode *inode)
-+{
-+	if (ovl_tracks_dirty(OVL_FS(inode->i_sb)))
-+		mark_inode_dirty(inode);
-+}
-+
- static inline bool ovl_should_sync_metadata(struct ovl_fs *ofs)
- {
- 	return ofs->config.fsync_mode == OVL_FSYNC_STRICT;
-@@ -873,6 +886,7 @@ bool ovl_lookup_trap_inode(struct super_block *sb, struct dentry *dir);
- struct inode *ovl_get_trap_inode(struct super_block *sb, struct dentry *dir);
- struct inode *ovl_get_inode(struct super_block *sb,
- 			    struct ovl_inode_params *oip);
-+void __ovl_copyattr(struct inode *to);
- void ovl_copyattr(struct inode *to);
- 
- /* vfs fileattr flags read from overlay.protattr xattr to ovl inode */
-diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 521717209b2e..e7402459548e 100644
---- a/fs/overlayfs/util.c
-+++ b/fs/overlayfs/util.c
-@@ -604,6 +604,8 @@ void ovl_inode_update(struct inode *inode, struct dentry *upperdentry)
- 		inode->i_private = upperinode;
- 		__insert_inode_hash(inode, (unsigned long) upperinode);
- 	}
-+	/* The copy up has written to the upper inode */
-+	ovl_mark_inode_dirty(inode);
- }
- 
- static void ovl_dir_version_inc(struct dentry *dentry, bool impurity)
-@@ -1492,7 +1494,7 @@ int ovl_sync_status(struct ovl_fs *ofs)
-  * map any lower or upper inode owned by id 1001 to id 1000. These mapping
-  * helpers are nops when the relevant layer isn't idmapped.
-  */
--void ovl_copyattr(struct inode *inode)
-+void __ovl_copyattr(struct inode *inode)
- {
- 	struct path realpath;
- 	struct inode *realinode;
-@@ -1516,3 +1518,13 @@ void ovl_copyattr(struct inode *inode)
- 	i_size_write(inode, i_size_read(realinode));
- 	spin_unlock(&inode->i_lock);
- }
-+
-+/*
-+ * The attributes are copied because the real inode was changed through the
-+ * overlay, so this is also where the overlay inode becomes dirty.
-+ */
-+void ovl_copyattr(struct inode *inode)
-+{
-+	__ovl_copyattr(inode);
-+	ovl_mark_inode_dirty(inode);
-+}
-
--- 
-2.55.0
+--=20
+Best Regards,
+Yan, Zi
 
