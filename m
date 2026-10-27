@@ -1,110 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104541;
-	b=GeHWs7oB6hk9z+vEXefrvmjoep79EBihRIwSnGjmRcfgV0OaT7aOdoXdmfpdi4batEqn
-	 FLGCuBHLFT+MBhbvpfN9dDbUH2WASs4R+if9X+co1NYpvBKcyR0wbuQjxiLmSyZ0JaR4S
-	 4Ep7MAV9wHYGWzeVFZ+CTWaF4tmxVMLdAnci6PBtMqZECnUCgPcUVxHvEy1ViFQV5F70O
-	 OKLRYA67OseZb9G5zrsP6rjtmk/z+A4NIR0SUHYt3YU4hmsoes/xfE1oWgBSvPHOfFaRn
-	 U8sFI8dsaESMo1uvVXcer32499CitAysyCueweeI4JwqU3N4fPyuE1nalooNjCtHn9A==
+	t=1793104563;
+	b=R26MJcR5iuuekIk/fCFpJBTvQXONRztXXQxnxByw8UrTcXmf2VVW8mGxQUI06NBIYFF2
+	 a2JM/nV6GT+A1nJ2yqjVEqKrwL4LGhXsIu0TIYpRjNFyTcQghZSy0VcMxrEoXRcNrj7fs
+	 in/izNtbMOiNOxaMVzsngLmQo+E25giBmk2E7eC0boKB/3maxcEsrhnbZGPv0BidGTSNN
+	 0w3hUsMWKPkCZTqdQm0inY8aAKj0wK02oM79kw6crB7jLyBGLslTQgUzb4SsKvgg4XKG/
+	 ZnQq70Auy7LLuQR4K2PrRmXsbZ0mHPUaSSZbFpKcOWFJ2YLkEVo+RnEm7RQvdbljpKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104541;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=h7LPiten+di9v04819rN8XVXOYlJoCsA50fDwSLZnhA=;
-	b=xOrY29y0Csg2NrkaF0Koh71FnY4cgM7YrEemrQYz0H2+zU1PbDBO4qRXHoDva6mSXbiY
-	 061U2E4j4NKedBug2ZYUI4JWSXQEGvWH2MQrQjre57dscreive0HJBu07UdEctGv+5Q1U
-	 4jnglYi1idiirPjRwC+zjLEIpDAns99Ct4I0npGuzPeb290c5BZIV6z8zHhKtGbgLIXKT
-	 XRAfPciecv6fdZZoScWyZ90uY0yyIVk3w8aIjsJ/sDq3UOu8L1S27TihNLT/TH04o2iIH
-	 RkAlva0erYbL0WXzjP7IoAO9CoHmV8CC0ly4P7pL6QWNqAJuvidDi9T7OFCuZ68+D+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104563;
+	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
+	 To:Cc:Subject:X-Priority:X-Mailer:X-CM-CTRLMSGS:Content-Type:
+	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=M2QHOqh+2cYZLQ7Q+bkyJ3ltnP21j7WlP8rRIb8ATSA=;
+	b=eu04ubSloLitSKwiQGthhsa+jNGDz+abSVqh62rvhSBsqY0Vc5ocfFD4ZW7q/LRQrL/4
+	 As7XGZxsY640qCT3dGvPK13ZB+5xjIuSj8VzMVlglIYzoIK1SBwcr/o9VPmTsLQTMUc0D
+	 qdAZFrsfyJvpfDCsWzQG+GCqUOK1sECLx5w+FcQEedSOCMGWKqC98qTY3MXmiZA/EMFR5
+	 oUWpQIKpZUvqW95noCYXxqHrhBLX2JT0UscpCOfkLZj5StIlBXb3x9X0UicqZyxFG2MEo
+	 fhMqHF8k37IEfDkDoOqweBMA5VmHHRZymEvVK/vdS+4n51DLV5TDYTej0A0xElNBp6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oco9Gonv;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eIQNqsEk;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5EC606A33F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:35:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F5EC606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oco9Gonv;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eIQNqsEk
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAdvJl1614467
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:35:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	h7LPiten+di9v04819rN8XVXOYlJoCsA50fDwSLZnhA=; b=oco9GonvR/JvauPF
-	UqVRBZ+M86Yru00uzdrv13N//n9BpdHKHRwi3EVh7mPPCNADLgeW5MsjCa9o9WI3
-	zNRW/lA3SvsZNFWNKmK4FGsn1ZqOMiG/J+Nn2gZHcRwqL1nAW0YYuF66SxtZouD/
-	ixSJFke0fbS52K94mJPFF17X61GPuIADnjBd2NI0HzBcUYR1SAXTFutKmZD2ZjEi
-	lcbDSQD99aOlYU6BpJjieqJ1nkCAcCjfb+YuRda+VQTG4HWjsgT+YFzpnNML6MW8
-	BwBjTPgXnmL1U/2LmIlYsYPr1oPlcErEl8m7IPv5zeo3Y3EQKvcECj/dDm2wQSd6
-	L7pGAQ==
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com [209.85.128.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqf5s5xh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:35:39 +0000 (GMT)
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-8b0e757e70eso65717417b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:35:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793104539; x=1793709339; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h7LPiten+di9v04819rN8XVXOYlJoCsA50fDwSLZnhA=;
-        b=eIQNqsEkbYz53ZcmBNu0sTascovpHfcFJIjEaoUcLXnQx/wEJy/Ki7OprbZsvS300L
-         +KYCNf2lqem/NiR09wJauKqH66aeng5y5JnTJnYe6Plubiv74fgNst145ZiUBEdg8Q0Y
-         wxm2MzLsItHLPYZgjARFdXlWE6xbVd0BWf/8+z4bRrjyxFGvA6JKczG/SDbX2eVOZjOk
-         PG2RoMzF8hSFfNGk8XpsJSoZuNZx7nktSHPZ+HVaa+ZuOBXMrM5fOMgTEsHY0BLjuhaX
-         pi07wKUMUKejpH8kgU8swDZTCSpEz3MeM3gd05rDJGFUdFj+nfPqT6ZxnU1hKLo2lfaM
-         EHTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793104539; x=1793709339;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h7LPiten+di9v04819rN8XVXOYlJoCsA50fDwSLZnhA=;
-        b=T0o81VjRffAhmqVor9M3iDV8XEBOmL83EohGnUMLdhLCEWliak0rQixx2Cl89/QBRK
-         0s3CPHf3l7Xs7UF1HqFlSKUZeuvbFVwZpps9WhN1NiXejVhIAg9n8BqNaHaJPDTVgrCU
-         QT8WtXDpQKWxq0oWk62nWg7TV+2bqN+Gpi5IGBrw/1TFMaPjiKxOP2z+muEillgcYqb/
-         1FDE91g5L/ma2D/jh1jIg/2+8J/t9GHtNmBX4B7J6dmqNxn2wOiNPjkyWycHqcfq6wwz
-         gPO/poWW7m6QmbhTWns4m3x7Qezs8BG0B/XrxQqg2kmIuvlatIVVUyJkAuKUwSWrxlNW
-         TtHw==
-X-Gm-Message-State: AFq9FYJLFKyDYmEzPsjmGlMap2utNVTR8N542S3uVWFFrWdR4bx3bS9z
-	3VPas1D+fuYjHW3TVpWmHxwKE7s1uEt4w05QcYznAi7H4fuAxlMUz2KVfUu5pzbxM11v5aGt7O+
-	/l52Z+QWN1b/+T1qd6+PPGFu17kbDu/MOiuRd3GS/zh5BpsaWJvv9aHA1PEyn7TwPcro=
-X-Gm-Gg: AYBFou2NjT8P1P6Ex+Hd1/h+wf2dK9WwRmmh9qF7kfsD29BWZWEv49Aul5kjkIlyCeT
-	ZzcY740J9FTYc1KO75RA+mTYo1yNjFX7JNIdJkFfhbsWmUdsxDStgauL/dtstQEeAI5d4/6zA7T
-	U208SbbZrfeDNJyEIyKVgj2kE5XDG0QN42V0YhSfR4dZ22hRZuhK+0oMFKd9aAUCqfbF+yUrUYm
-	HKfph1aufjKQnmErFhdUV1Mhm5wZuiA4JgxtkSLXu/KAHt9Qeuqbnm5L+Lf4TmiQH/HktCN5qGt
-	nU8pHzlV6wSmM/08rRmFswYZAignDTi04TRa8DuPQ+HeDwzyGrvm3pdDYQoenIJslV5btzhm/k3
-	j1IGE/nHXmDAt5ZhhEQ==
-X-Received: by 2002:a05:690c:c1d0:b0:8ab:3a97:d7a8 with SMTP id 00721157ae682-8b166c6c6f9mr50084937b3.80.1793104538583;
-        Tue, 27 Oct 2026 05:35:38 -0700 (PDT)
-X-Received: by 2002:a05:690c:c1d0:b0:8ab:3a97:d7a8 with SMTP id 00721157ae682-8b166c6c6f9mr50084747b3.80.1793104538052;
-        Tue, 27 Oct 2026 05:35:38 -0700 (PDT)
-Received: from [10.213.109.130] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e57d131sm10413507b3.20.2026.10.27.05.35.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:35:37 -0700 (PDT)
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 18:04:21 +0530
-Subject: [PATCH v5 4/4] regulator: qcom-rpmh: Add debounce delay before
- disabling regulator
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=46.101.248.176
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A012F606A31B;
+	Tue, 27 Oct 2026 12:35:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A012F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app1
+ (Coremail) ; Tue, 27 Oct 2026 20:35:55 +0800 (GMT+08:00)
+Date: Tue, 27 Oct 2026 20:35:55 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: usb: devio: usbdev_release() has no barrier against an  in-flight
+ async_completed() callback (use-after-free window on  struct
+ usb_dev_state)gregkh@linuxfoundation.org
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
+ 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
+X-CM-CTRLMSGS: =?B?CJLanDiH6nJ5xwDR7hwMki1N8jM=
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_344592_766044435.1793104555733"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,341 +53,435 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-regulator-off-on-delay-v5-4-f9c3b128c6d0@oss.qualcomm.com>
-References: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
-In-Reply-To: <20261027-regulator-off-on-delay-v5-0-f9c3b128c6d0@oss.qualcomm.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Saikiran <bjsaikiran@gmail.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793104512; l=10342;
- i=jishnu.prakash@oss.qualcomm.com; s=20251014; h=from:subject:message-id;
- bh=FhLJy7uEHEVyt4Rj82xe/unoocNVLUuPP1fhE8/LNHw=;
- b=0w/Mp6Np+ydqUXnw0o+5C5f8mb+KDriZolB3aj+bypyI+eEeSiaIz+3yozK2W7X+In/BtOVNq
- WxNNs6qqenZAfToQYZE0uzqto9OGeogipg0OD4crleMlvTTVCNqyZzn
-X-Developer-Key: i=jishnu.prakash@oss.qualcomm.com; a=ed25519;
- pk=g89pXdLVwRjdTeQ+uX1QzvBO346E3hQAc1N7fcTXgmk=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfXw4MuMVwt7Nuo
- 1OeXCGEMEHZqEyxnonS9+IbfLSlNPJhSsE0LTVV9IhUFQjF07I17xBOxwY6YI4pNtf3lJVy9XKe
- pqyWxHAtv3lQVQEJqYaxgFagQAsf2D0=
-X-Proofpoint-ORIG-GUID: iHe2F-XbxWTa7L_aZqkc6QWv9fKLBFeP
-X-Proofpoint-GUID: iHe2F-XbxWTa7L_aZqkc6QWv9fKLBFeP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MCBTYWx0ZWRfX7LDoBc5FiOOT
- ZhRNXl2hnBmYhnBLQluX3hh9Gyer16Ezdwie2F7HZIyOCsQQzZgEwdsVo3PYP2N/CLC5A8ZkoDa
- LEgIJcTtKFfFvjsUL7eUDQpaHRyaCYaI1r/oDKzrA5Lb3NQa9dIG92pRzv6m+5Hh+QL52ezQw+P
- cQIsgpvKJ0Y2aBGkVRb1xmGoXld39YnXHifIPqKuUJ7ynbMhKe/iXvYaQX1I4Uc1iecUE+NElDP
- PszyrgBPQk3pFfHnETMjrdrsAG3XEjsDfujm9XG6nNPQGf9ieLghOuEC/M57fekis0oQz/M6yjO
- QS0s23bd5ZI4ouhCxOw4DyFATFr2t1PWbTc436t+ZY+yY8nSz6qJeCDy0iAW8RJJ+ijJwKfRD94
- qNDlbSw1LubUtCWisIzB4IHPRtLCDowKeql9a+rglxRfniGvBIriBkJsM6+Knl3wyG/tTFLMpBh
- kHLmXI8dIswVVhwXF2Q==
-X-Authority-Analysis: v=2.4 cv=UOFIjyfy c=1 sm=1 tr=0 ts=6ae09a9b cx=c_pps
- a=g1v0Z557R90hA0UpD/5Yag==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=__8GP452ZJ-5y0T1skQA:9 a=QEXdDO2ut3YA:10
- a=MFSWADHSvvjO3QEy5MdX:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270050
+Message-ID: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:IAEQrMBGj6WsmuBqUS87AQ--.12379W
+X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAQMNB2rffWuXRAACs6
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Some consumers rapidly toggle a regulator off and back on, e.g. a
-driver that disables its supply on -EPROBE_DEFER and re-enables it on
-the next probe attempt. Sending the disable to RPMh immediately causes
-needless power cycling of the rail.
+------=_Part_344592_766044435.1793104555733
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Add a 'qcom,regulator-off-debounce-delay-us' property. When set, a
-disable vote queues a cancelable delayed work item instead of sending
-the request to RPMh immediately. A subsequent enable vote within the
-delay cancels the pending work and leaves the rail untouched; if no
-enable vote arrives, the disable is sent once the delay elapses.
+dXNiZGV2X3JlbGVhc2UoKSBlbmRzIHdpdGggYW4gdW5jb25kaXRpb25hbCBrZnJlZShwcykgd2hp
+bGUgYW4KYXN5bmNfY29tcGxldGVkKCkgY2FsbGJhY2sgdGhhdCBoYXMgYWxyZWFkeSBtb3ZlZCBp
+dHMgYXN5bmMgcmVxdWVzdCB0bwp0aGUgY29tcGxldGVkIGxpc3QgY2FuIHN0aWxsIGJlIHJ1bm5p
+bmcgaW5zaWRlIHRoZSBsb2NrLWRyb3BwZWQgd2luZG93Cm9mIGNhbmNlbF9idWxrX3VyYnMoKSAt
+LSB3aGVuIHRoZSB0d28gb3ZlcmxhcCwgdGhlIGNhbGxiYWNrIHJlLWxvY2tzLApyZXNjYW5zIHRo
+ZSBwZW5kaW5nIGxpc3QgYW5kIHdha2VzIHRoZSB3YWl0IHF1ZXVlIG9mIGZyZWVkIG1lbW9yeS4K
+VGhlIGludGVybGVhdmluZyBpdHNlbGYgaXMgcHJvdmVuIHJlYWNoYWJsZSBvbiBhIHByaXN0aW5l
+IExpbnV4IDcuMwooNjAwLzYwMCBjb250cm9sbGVkIHdpbmRvdyBvcGVuaW5ncywgd2l0aCB1c2Jk
+ZXZfcmVsZWFzZSgpIGVudGVyaW5nCnRoZSB3aW5kb3cgNDQ1IG1pY3Jvc2Vjb25kcyBhZnRlciBp
+dCBvcGVuZWQpOyBpbiB0aGUgSENEIHNoYXBlIEkKdGVzdGVkICh4SENJLCBzaW5nbGUgTVNJLCBI
+Q0RfQkgpLCB0aGUga2ZyZWUoKSBpcyBuZXZlcnRoZWxlc3MgaGVsZApiYWNrIGJ5IGFuIGluZGly
+ZWN0IGJhcnJpZXIgLS0gdXNiX2tpbGxfdXJiKCkgb24gdGhlIHNpYmxpbmcgVVJCIHdhaXRzCmZv
+ciBhIGdpdmViYWNrIHRoYXQgc2hhcmVzIHRoZSBzYW1lIHBlci1DUFUgQkggd29ya2VyIHdpdGgg
+dGhlCnN0YWxsZWQgY2FsbGJhY2sgLS0gc28gSSBhbSByZXBvcnRpbmcgdGhpcyBhcyBhIHN0cnVj
+dHVyYWxseSBwcm92ZW4Kd2luZG93IHdob3NlIGZpbmFsIHJlYWNoYWJpbGl0eSBkZXBlbmRzIG9u
+IHRoZSBIQ0QncyBjb21wbGV0aW9uCnRvcG9sb2d5LCB3aXRoIHRoZSBvcGVuIHNoYXBlcyBsaXN0
+ZWQgYmVsb3csIG5vdCBhcyBhbgppbW1lZGlhdGVseS10cmlnZ2VyYWJsZSBjcmFzaC4KClRoZSBy
+b290IGNhdXNlIGlzIGEgb25lLXdheSBnYXAgaW4gdGhlIGNsZWFudXAgcHJvdG9jb2w6IHRoZQpk
+ZXN0cm95X2FzeW5jKCkgZmFtaWx5IG9ubHkgd2FpdHMgKHZpYSB1c2Jfa2lsbF91cmIpIGZvciBV
+UkJzIGl0IGZpbmRzCm9uIHRoZSBwZW5kaW5nIGxpc3QsIGJ1dCB0aGUgbW9tZW50IGFzeW5jX2Nv
+bXBsZXRlZCgpIG1vdmVzIGFuIGFzeW5jCnRvIHRoZSBjb21wbGV0ZWQgbGlzdCAoZGV2aW8uYzo2
+MzQpIHRoYXQgVVJCIGVzY2FwZXMgZXZlcnkgZGVzdHJveQp0cmF2ZXJzYWwsIGFuZCB1c2Jfa2ls
+bF91cmIoKSdzIHdhaXQgY29uZGl0aW9uICh1c2VfY291bnQgPT0gMCkgb25seQpjb3ZlcnMgdGhl
+IFVSQidzIG93biBjYWxsYmFjayAtLSBhIGNhbGxiYWNrIHRoYXQgaGFzIHN0YXJ0ZWQgYW5kIG5v
+dAp5ZXQgcmV0dXJuZWQgaXMgd2FpdGVkIGZvciBieSBub2JvZHkuICBUaGF0IGNhbGxiYWNrIHN0
+aWxsIHRvdWNoZXMgcHMKYXQgZm91ciBwb2ludHMgYWZ0ZXIgZHJvcHBpbmcgcHMtPmxvY2sgaW5z
+aWRlIGNhbmNlbF9idWxrX3VyYnMoKQooc3Bpbl91bmxvY2sgOjYxNCAtPiB1c2JfdW5saW5rX3Vy
+YigpIC0+IHNwaW5fbG9jayA6NjE3LCB0aGVuCndha2VfdXAoJnBzLT53YWl0KSA6NjUzIGFuZCB0
+aGUgZmluYWwgdW5sb2NrIDo2NTQpLCB3aGlsZQp1c2JkZXZfcmVsZWFzZSgpIGhhcyBubyB3YWl0
+X2V2ZW50L2NvbXBsZXRpb24gb2YgYW55IGtpbmQgYmV0d2VlbiBpdHMKcmVjb3ZlcnkgbG9vcCBh
+bmQga2ZyZWUocHMpICg6MTEyNikuICBUaGUgY2xlYW5lciBkb2VzIG5vdCBkcmFpbiBhbmQKdGhl
+IGNhbGxiYWNrIGhvbGRzIG5vIHJlZmVyZW5jZTogYm90aCBiYXJyaWVycyBhcmUgbWlzc2luZy4g
+IFRoZQpwcmVtaXNlcyBhcmUgb3JkaW5hcnk6IGFueSB1c2Jmcy1hY2Nlc3NpYmxlIGRldmljZSAo
+cm9vdCAvIHVzYmZzCmdyb3VwIC8gY29udGFpbmVyIHdpdGggL2Rldi9idXMvdXNiKSB3aXRoIGEg
+YnVsayBlbmRwb2ludCB0aGF0IGNhbgplcnJvci1jb21wbGV0ZSAtLSBhIHBsYWluIHVzYi1zdG9y
+YWdlIGdhZGdldCBTVEFMTGluZyBhbiBpbnZhbGlkIENCVwppcyBlbm91Z2ggKHZlcmlmaWVkOiAt
+RVBJUEUpIC0tIGFuZCB0d28gdGhyZWFkcyBvbiBvbmUgZmQuCgpUaGUgZGV0YWlsZWQgZGVzY3Jp
+cHRpb246CiogVGVzdCBlbnZpcm9ubWVudCAvIGFmZmVjdGVkIHZlcnNpb24KICBMaW51eCB2ZXJz
+aW9uIDcuMy4wIChnY2MgMTMuMy4wLCBHTlUgbGQgMi40MikgIzEgU01QIFBSRUVNUFRfRFlOQU1J
+QwogIC0tIHZhbmlsbGEgbWFpbmxpbmUgNy4zIHJlbGVhc2UgdGFyYmFsbCAoa2VybmVsLm9yZyks
+IEtBU0FOIGVuYWJsZWQsCiAgc291cmNlIHVubW9kaWZpZWQuICBRRU1VL0tWTSB4ODZfNjQgKDQg
+dkNQVSksIHFlbXUteGhjaSArIHVzYi1zdG9yYWdlCiAgKEJPVCBidWxrLWluIDB4ODEgLyBidWxr
+LW91dCAweDAyKS4gIFRoZSByZXByb2R1Y2VyIChhdHRhY2hlZCkgaXMgYQogIHVzZXJzcGFjZSBo
+YW1tZXIgcGx1cyBhIGtwcm9iZSB3aW5kb3cgYW1wbGlmaWVyOyBuZWl0aGVyIG1vZGlmaWVzCiAg
+dGhlIGtlcm5lbC4gIFRoZSBpbnZvbHZlZCBjb2RlIHNoYXBlIGhhcyBiZWVuIGluIHBsYWNlIHNp
+bmNlIHRoZQogIDIuNiBlcmE7IEkgZm91bmQgbm8gdXBzdHJlYW0gZml4IG9yIG1hdGNoaW5nIHB1
+YmxpYyByZXBvcnQgZm9yIHRoaXMKICB3aW5kb3cgKHN5emJvdCdzIHVzYmZzIFVBRiBoaXN0b3J5
+IGNvbmNlcm5zIG90aGVyIG9iamVjdHMpLgoKKiBNZWNoYW5pc20KICAxLiBBIGJ1bGsgVVJCIChC
+MCkgY29tcGxldGVzIHdpdGggYW4gZXJyb3IgKGUuZy4gLUVQSVBFKS4KICAgICBhc3luY19jb21w
+bGV0ZWQoKSBydW5zIGluIHRoZSBjb250cm9sbGVyJ3MgY29tcGxldGlvbiBjb250ZXh0LAogICAg
+IHRha2VzIHBzLT5sb2NrLCBtb3ZlcyBCMCdzIGFzeW5jIHRvIHBzLT5hc3luY19jb21wbGV0ZWQg
+KDo2MzQpCiAgICAgLS0gZnJvbSB0aGlzIHBvaW50IG5vIGRlc3Ryb3ktZmFtaWx5IHRyYXZlcnNh
+bCBjYW4gc2VlIEIwIC0tIGFuZCwKICAgICBmb3IgYSBuZWdhdGl2ZSBzdGF0dXMgd2l0aCBhIGJ1
+bGsgYWRkcmVzcyBzZXQsIGNhbGxzCiAgICAgY2FuY2VsX2J1bGtfdXJicygpICg6NjQ5LTY1MSku
+CiAgMi4gY2FuY2VsX2J1bGtfdXJicygpIG1hcmtzIHRoZSBwZW5kaW5nIENPTlRJTlVBVElPTiBV
+UkIgKEIxKSwKICAgICB0YWtlcyBhIFVSQiByZWZlcmVuY2UsIHRoZW4gZHJvcHMgcHMtPmxvY2sg
+dG8gY2FsbAogICAgIHVzYl91bmxpbmtfdXJiKEIxKSBhbmQgcmUtbG9ja3MgKDo2MDktNjE4KS4g
+IHVzYl91bmxpbmtfdXJiKCkgaXMKICAgICBwdXJlbHkgYXN5bmNocm9ub3VzIC0tIGl0IGRvZXMg
+bm90IHdhaXQgZm9yIEIxJ3MgY2FsbGJhY2suCiAgMy4gQ29uY3VycmVudGx5LCBjbG9zZShmZCkg
+cnVucyB1c2JkZXZfcmVsZWFzZSgpOiByZWxlYXNlaW50ZiAtPgogICAgIGRlc3Ryb3lfYXN5bmNf
+b25faW50ZXJmYWNlIC0+IGRlc3Ryb3lfYXN5bmMgLT4gdXNiX2tpbGxfdXJiKEIxKQogICAgIChr
+aWxscyB3aGF0IGlzIHN0aWxsIHBlbmRpbmcgLS0gQjAgaXMgbm90KSwgdGhlbiB0aGUgcmVjb3Zl
+cnkKICAgICBsb29wIGZyZWVzIHRoZSBjb21wbGV0ZWQgQjAgKGtmcmVlKGFzKSwgdHJhbnNmZXIv
+c2V0dXAgYnVmZmVycykKICAgICBhbmQgdGhlIGZ1bmN0aW9uIGVuZHMgd2l0aCBrZnJlZShwcykg
+KDoxMTI2KS4gIE5vIGNvZGUgd2FpdHMgZm9yCiAgICAgYW4gYWxyZWFkeS1zdGFydGVkIGNhbGxi
+YWNrLgogIDQuIElmIGtmcmVlKHBzKSBsYW5kcyBpbnNpZGUgdGhlIGNhbGxiYWNrJ3MgbG9jay1k
+cm9wcGVkIHdpbmRvdywgdGhlCiAgICAgY2FsbGJhY2sncyByZS1sb2NrICg6NjE3IGF0b21pYyB3
+cml0ZSBvbiBmcmVlZCBzbGFiIG1lbW9yeSksIGl0cwogICAgIHBlbmRpbmctbGlzdCByZXNjYW4g
+KDo2ZiksIHdha2VfdXAoJnBzLT53YWl0KSAoOjY1MykgYW5kIGZpbmFsCiAgICAgdW5sb2NrICg6
+NjU0KSBhbGwgb3BlcmF0ZSBvbiBmcmVlZCBtZW1vcnkuICBPbiBzbGFiIHJldXNlLAogICAgIF9f
+d2FrZV91cF9jb21tb24oKSBpbnRlcnByZXRzIHJldXNlZCBjb250ZW50IGFzIHdhaXQgcXVldWUK
+ICAgICBlbnRyaWVzIGFuZCBjYWxscyB0aGVpciBmdW5jIHBvaW50ZXIuCiAgV2h5IHBzIGlzIHRo
+ZSBvbmx5IHZpY3RpbSAod2h5IHRoaXMgaGFzIHN0YXllZCBoaWRkZW4pOiBkdXJpbmcgdGhlCiAg
+Y2FsbGJhY2sgdGhlIFVSQiBob2xkcyB0d28gcmVmZXJlbmNlcyAoc3VibWl0J3MgZ2V0IGF0IGhj
+ZC5jOjE1MjQsCiAgcmVsZWFzZWQgb25seSBhdCBnaXZlYmFjayByZXR1cm4sIGhjZC5jOjE2NzEp
+LCBzbyB0aGUgcmVsZWFzZS1zaWRlCiAgdXNiX2ZyZWVfdXJiKCkgbWVyZWx5IGRyb3BzIGl0IHRv
+IG9uZSBhbmQgYWxsIG9mIGdpdmViYWNrJ3Mgb3duCiAgdGFpbCBhY2Nlc3NlcyBzdGF5IHNhZmU7
+IHRoZSBjYWxsYmFjayBjb3BpZXMgYXMtPnN0YXR1cy9zaWduci9waWQvCiAgY3JlZCB0byBsb2Nh
+bHMgdW5kZXIgdGhlIGxvY2sgYW5kIHRvdWNoZXMgb25seSB0aG9zZSBhZnRlcjsgdGhlCiAgYnVm
+ZmVycyBhcmUgb25seSByZWFkIHdoaWxlIHRoZSBjYWxsYmFjayBzdGlsbCBob2xkcyBwcy0+bG9j
+aywKICB3aGljaCB0aGUgcmVsZWFzZS1zaWRlIGZyZWUgcGF0aCBtdXN0IGFjcXVpcmUgZmlyc3Qu
+ICBUaGUgb25lCiAgb2JqZWN0IHVzZWQgZXhhY3RseSBpbiB0aGUgdW5wcm90ZWN0ZWQgaW50ZXJ2
+YWwgLS0gYW5kIHdpdGhvdXQgYQogIHJlZmVyZW5jZSBjb3VudCAtLSBpcyBwcyBpdHNlbGYuCgoq
+IEV2aWRlbmNlIG9uIHByaXN0aW5lIDcuMywgYW5kIHRoZSBob25lc3QgbGltaXRhdGlvbgogIC0g
+UHJlbWlzZTogc3VibWl0dGluZyBhIDMxLWJ5dGUgaW52YWxpZCBDQlcgdG8gdGhlIHVzYi1zdG9y
+YWdlCiAgICBidWxrLW91dCBlbmRwb2ludCBtYWtlcyB0aGUgZGV2aWNlIFNUQUxMIGl0OiBCMCBj
+b21wbGV0ZXMgd2l0aAogICAgc3RhdHVzIC0zMiAoLUVQSVBFKS4gIEEgZ2VuZXJpYyBzdG9yYWdl
+IGRldmljZSBpcyBlbm91Z2g7IG5vCiAgICBjdXN0b20gZ2FkZ2V0IHJlcXVpcmVkLgogIC0gTmVn
+YXRpdmUgY29udHJvbDogd2l0aCBCMSBzdWJtaXR0ZWQgV0lUSE9VVAogICAgVVNCREVWRlNfVVJC
+X0JVTEtfQ09OVElOVUFUSU9OLCBjYW5jZWxfYnVsa191cmJzKCkgbWFya3Mgbm90aGluZwogICAg
+YW5kIHRoZSB3aW5kb3cgbmV2ZXIgb3BlbnMgLS0gMC8xMDAwIHJvdW5kcyB3aXRoIHRoZSBhbXBs
+aWZpZXIKICAgIGxvYWRlZCwgemVybyBzcGxhdHMuICBUaGUgd2luZG93IGlzIGV4YWN0bHkgdGhl
+IGF1ZGl0ZWQKICAgIGNvbnRpbnVhdGlvbiBwYXRoLgogIC0gQ29udHJvbGxlZCB3aW5kb3cgKGtw
+cm9iZSBzdGFsbHMgdGhlIGNhbGxiYWNrIGF0IHRoZQogICAgdXNiX3VubGlua191cmIgY2FsbCBz
+aXRlLCByZXR1cm4tYWRkcmVzcy1maWx0ZXJlZCB0bwogICAgYXN5bmNfY29tcGxldGVkKzB4NDg1
+LCBmb3IgNSBtcyk6IHRoZSB3aW5kb3cgb3BlbmVkIGluIDYwMC82MDAKICAgIHJvdW5kcywgYW5k
+IHVzYmRldl9yZWxlYXNlKCkgZW50ZXJlZCA0NDUgdXMgYWZ0ZXIgdGhlIHdpbmRvdwogICAgb3Bl
+bmVkIC0tIHRoZSBhdWRpdGVkIGludGVybGVhdmluZyAocmVsZWFzZSByYWNpbmcgYW4gaW4tZmxp
+Z2h0CiAgICBjYWxsYmFjayB0aGF0IGhhcyBhbHJlYWR5IGxlZnQgdGhlIHBlbmRpbmcgbGlzdCkg
+aXMgcmVhbC4KICAtIFRoZSBsaW1pdGF0aW9uLCBtZWFzdXJlZDogYWNyb3NzIDQyMiB2YWxpZCBw
+YWlyZWQgd2luZG93cywKICAgIHVzYmRldl9yZWxlYXNlKCkgbmV2ZXIgY29tcGxldGVkIGluc2lk
+ZSB0aGUgNSBtcyB3aW5kb3cKICAgIChyZWxlYXNlLXJldHVybiBtaW51cyB3aW5kb3ctb3Blbjog
+bWluIDUuOTMxIC8gbWVkaWFuIDguMDE2IC8KICAgIG1heCAxNS40MTMgbXM7IDAvNDIyKTsgbmF0
+dXJhbCBtb2RlLCBubyBhbXBsaWZpZXIsIDIwMDAwIHJvdW5kczoKICAgIHplcm8gc3BsYXRzLiAg
+VGhlIGNhdXNlIGlzIGFuIGluZGlyZWN0IGJhcnJpZXIgc3BlY2lmaWMgdG8gdGhlCiAgICB0ZXN0
+ZWQgY29tcGxldGlvbiB0b3BvbG9neTogdXNiX2tpbGxfdXJiKEIxKSBpbiB0aGUgcmVsZWFzZSBw
+YXRoCiAgICB3YWl0cyBmb3IgQjEncyBnaXZlYmFjaywgYW5kIHdpdGggeEhDSSBzaW5nbGUtTVNJ
+ICsgSENEX0JILCBCMCdzCiAgICBhbmQgQjEncyBjb21wbGV0aW9ucyBhcmUgYmF0Y2hlZCBvbiB0
+aGUgc2FtZSBwZXItQ1BVIEJIIHdvcmtlcgogICAgKGhjZC5jIGdpdmViYWNrIGJhdGNoaW5nKSAt
+LSB0aGUgc3RhbGxlZCBCMCBjYWxsYmFjayBibG9ja3MgQjEncwogICAgZ2l2ZWJhY2ssIHNvIHRo
+ZSBraWxsIHdhaXRzIGFuZCBkcmFncyB0aGUgcmVsZWFzZSBwYXN0IHRoZQogICAgd2luZG93LiAg
+VGhpcyBzZXJpYWxpemF0aW9uIGlzIGluY2lkZW50YWwsIG5vdCBkZXNpZ25lZC4KICBUaGUgd2lu
+ZG93IHRoZXJlZm9yZSBuZWVkcyBvbmUgYWRkaXRpb25hbCBjb25kaXRpb246IHRoZSBtYXJrZWQK
+ICBDT05USU5VQVRJT04gVVJCJ3MgY29tcGxldGlvbiBwYXRoIG11c3QgYmUgaW5kZXBlbmRlbnQg
+b2YgdGhlCiAgc3RhbGxlZCBjYWxsYmFjaydzIGV4ZWN1dGlvbiBjb250ZXh0LiAgU2hhcGVzIHRo
+YXQgcGxhdXNpYmx5CiAgc2F0aXNmeSBpdCAob3BlbiBxdWVzdGlvbnMsIGxpc3RlZCBmb3IgcmV2
+aWV3IHJhdGhlciB0aGFuIGNsYWltZWQpOgogIDEuIEhDRHMgd2l0aG91dCBIQ0RfQkggd2hvc2Ug
+dXJiX2RlcXVldWUgZ2l2ZXMgYmFjayBzeW5jaHJvbm91c2x5CiAgICAgaW4gdGhlIGtpbGxlcidz
+IGNvbnRleHQgKGR1bW15X2hjZCAvIFVIQ0kvT0hDSSBjbGFzcyk7CiAgMi4geGhjaV91cmJfZGVx
+dWV1ZSgpJ3Mgc3luY2hyb25vdXMgZ2l2ZWJhY2sgYnJhbmNoZXMKICAgICAodGRfb25fcmluZygp
+IGZhaWx1cmUsIGRldmljZSB2ZGV2IHJlbW92ZWQsIEVQX0NMRUFSSU5HX1RUOwogICAgIHhoY2ku
+YzoxODU2LTE4NjApOwogIDMuIG11bHRpLU1TSS9NU0ktWCB2ZWN0b3JzIG9yIElSUSByb3V0aW5n
+IHBsYWNpbmcgQjAncyBhbmQgQjEncwogICAgIGNvbXBsZXRpb25zIG9uIGRpZmZlcmVudCBDUFVz
+JyB3b3JrZXJzLgogICh2Q1BVIGRlc2NoZWR1bGUsIHRoZSBjbGFzc2ljIGFtcGxpZmllciwgb25s
+eSBsZW5ndGhlbnMgdGhlCiAgY2FsbGJhY2stc2lkZSB3aW5kb3c7IGl0IGNhbm5vdCBzaG9ydGVu
+IHRoZSByZWxlYXNlLXNpZGUga2lsbCB3YWl0LAogIHNvIGFsb25lIGl0IGRvZXMgbm90IGJyZWFr
+IHRoZSBiYXJyaWVyIHNoYXBlIGFib3ZlLikKCgoqIFJlcHJvZHVjZXIgKGF0dGFjaGVkKQogIHVz
+YmRldnJhY2UuYyAtLSB1c2Vyc3BhY2UgaGFtbWVyLCBvbmUgcm91bmQgPSBvcGVuIC8gZGlzY29u
+bmVjdAogIGtlcm5lbCBkcml2ZXIgLyBjbGFpbSAvIENMRUFSX0hBTFQgLyBzdWJtaXQgQjAgKGlu
+dmFsaWQgQ0JXLAogIGZsYWdzPTApICsgQjEgKENPTlRJTlVBVElPTikgLyBkZWxheSAvIGNsb3Nl
+KGZkKS4gIE1vZGVzOiBuYXQKICAoY29udGludWF0aW9uIG9uKSwgY3RsIChjb250aW51YXRpb24g
+b2ZmLCBuZWdhdGl2ZSBjb250cm9sKSwgZXJyY2hrCiAgKHNpbmdsZS1zaG90IHByZW1pc2UgY2hl
+Y2sgcHJpbnRpbmcgQjAncyBzdGF0dXMpLiAgQnVpbGQ6IGdjYwogIC1zdGF0aWMgLU8yIC1vIHVz
+YmRldnJhY2UgdXNiZGV2cmFjZS5jOyB1c2FnZToKICAuL3VzYmRldnJhY2UgbmF0IDYwMCAzMDAg
+MTAwLgogIHVzYmRldl9zdGFsbC5jIC0tIGtwcm9iZSBhbXBsaWZpZXI6IHN0YWxscyB0aGUgY2Fs
+bGJhY2sgYXQgdGhlCiAgdXNiX3VubGlua191cmIgY2FsbCBzaXRlIChtb2RlPTEsIHJldF9vZmY9
+MHg0ODUgZm9yIG15IGJ1aWxkLAogIHJlY29tcHV0YWJsZTsgbW9kZT0yIHRhcmdldHMgdGhlIHJl
+LWxvY2sgc2l0ZSkgZm9yIHN0YWxsX3VzLCB3aXRoIGEKICBrcmV0cHJvYmUgb24gdXNiZGV2X3Jl
+bGVhc2UgcHJvZHVjaW5nIHRoZSB3aW5kb3ctb3Blbi9yZWxlYXNlCiAgdGltaW5nIGxpbmUuICBC
+dWlsZCBhcyBhbiBleHRlcm5hbCBtb2R1bGU7IGluc21vZCB1c2JkZXZfc3RhbGwua28KICBzdGFs
+bF91cz01MDAwIG1heF9oaXRzPTIwMDAuCiAgTXkgc2VxdWVuY2Ugd2FzOiBlcnJjaGsgKHByZW1p
+c2UpIC0+IGN0bCAxMDAwIChuZWdhdGl2ZSkgLT4gbmF0IDYwMAogIHdpdGggdGhlIGFtcGxpZmll
+ciAod2luZG93ICsgdGltaW5nKSAtPiBuYXQgMjAwMDAgd2l0aG91dCAobmF0dXJhbCkuCgoKKiBJ
+bXBhY3QKICBJZiB0aGUgYWRkaXRpb25hbCBjb25kaXRpb24gaG9sZHM6IGF0b21pYyBzcGlubG9j
+ayB3cml0ZXMsIGxpc3QKICByZWFkcyBhbmQgd2FpdHF1ZXVlIHdha2V1cHMgb24gZnJlZWQgc2xh
+YiBtZW1vcnk7IG9uIHJldXNlIGEKICBjb250cm9sbGVkLWNvbnRlbnQgZnVuYyBwb2ludGVyIGNh
+bGwgaXMgY29uY2VpdmFibGUsIG90aGVyd2lzZQogIHJhbmRvbSBjb3JydXB0aW9uL29vcHMuICBU
+aGUgcGVybWlzc2lvbiBwcmVtaXNlIGlzIHVzYmZzIG5vZGUKICBhY2Nlc3MgKHJvb3QgLyB1c2Jm
+cyBncm91cCAvIGNvbnRhaW5lciBtb3VudCksIHNvIHRoaXMgaXMgYQogIHdpdGhpbi1ib3VuZGFy
+eSBtZW1vcnktc2FmZXR5IGRlZmVjdCwgbm90IGEgcHJpdmlsZWdlIGVzY2FwZS4KICBXaXRob3V0
+IHRoZSBjb25kaXRpb24gaXQgaXMgYSBsYXRlbnQsIHRpbWluZy1lbmdpbmVlcmVkIHJhY2UgLS0K
+ICB3aGljaCBpcyBwcmVzdW1hYmx5IHdoeSBpdCBoYXMgbmV2ZXIgc3VyZmFjZWQuCgoKClJlZ2Fy
+ZHMsCkhhbnhpYW5nIFh1Cnh1aHhAaHVzdC5lZHUuY24KCgo=
+------=_Part_344592_766044435.1793104555733
+Content-Type: text/plain; name=usbdev_stall.c
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="usbdev_stall.c"
 
-This is independent of 'regulator-off-on-delay-us', which enforces a
-minimum off time once a disable has actually reached RPMh; the two can
-be used together. See the comments at struct rpmh_vreg's @lock,
-@debounce_delay and @off_on_delay fields for the locking rationale and
-how the two delays interact.
+Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKLyoKICogdXNiZGV2X3N0YWxsLmMg
+LSBjb250cm9sbGVkLXdpbmRvdyBpbnN0cnVtZW50IGZvciB0aGUgZGV2aW8gQ2FzZS0zIHJhY2UK
+ICogKHVzYmRldl9yZWxlYXNlIHZzIGluLWZsaWdodCBhc3luY19jb21wbGV0ZWQgLyBjYW5jZWxf
+YnVsa191cmJzKS4KICoKICogVGhlIGF1ZGl0ZWQgd2luZG93IGlzIGluc2lkZSBhc3luY19jb21w
+bGV0ZWQoKSAoY2FuY2VsX2J1bGtfdXJicyBpbmxpbmVkKToKICoKICogICBjYWxsIF9yYXdfc3Bp
+bl91bmxvY2sgICBAIGFzeW5jX2NvbXBsZXRlZCsweDQ3OCAgIChkZXZpby5jOjYxNCkKICogICBj
+YWxsIHVzYl91bmxpbmtfdXJiICAgICBAIGFzeW5jX2NvbXBsZXRlZCsweDQ4MCAgIChkZXZpby5j
+OjYxNSkgIDwtIHdpbmRvdwogKiAgIGNhbGwgdXNiX2ZyZWVfdXJiICAgICAgIEAgYXN5bmNfY29t
+cGxldGVkKzB4NDg4ICAgKGRldmlvLmM6NjE2KQogKiAgIGNhbGwgX3Jhd19zcGluX2xvY2sgICAg
+IEAgYXN5bmNfY29tcGxldGVkKzB4NDkxICAgKGRldmlvLmM6NjE3KSAgPC0gVUFGIGFjY2Vzcwog
+KgogKiAob2Zmc2V0cyBtZWFzdXJlZCBvbiB2ZXJpZmljYXRpb24vYnVpbGQta2FzYW4tNy4zL3Zt
+bGludXgsIEtBU0FOIGJ1aWxkOwogKiAgY2FuY2VsX2J1bGtfdXJicyBpcyBpbmxpbmVkIGludG8g
+YXN5bmNfY29tcGxldGVkIGluIHRoaXMgYnVpbGQpCiAqCiAqIG1vZGUgQSAoZGVmYXVsdCk6IGtw
+cm9iZSBvbiB1c2JfdW5saW5rX3VyYiwgcHJlX2hhbmRsZXIgbWF0Y2hlcyB0aGUgcmV0dXJuCiAq
+ICAgYWRkcmVzcyA9PSBhc3luY19jb21wbGV0ZWRfYmFzZSArIHJldF9vZmYgKDB4NDg1KSBhbmQg
+YnVzeS13YWl0cwogKiAgIHN0YWxsX3VzIG1pY3Jvc2Vjb25kcy4gVGhpcyBwbGFjZXMgdGhlIHN0
+YWxsIElOU0lERSB0aGUgZHJvcC1sb2NrIHdpbmRvdwogKiAgIChhZnRlciBzcGluX3VubG9jaywg
+YmVmb3JlIHVzYl91bmxpbmtfdXJiIGV4ZWN1dGVzKSwgd2hpY2ggaXMgdGhlIGV4YWN0CiAqICAg
+d2luZG93IGFuYWx5c2VkIGluIHRoZSBhdWRpdCByZXBvcnQgc2VjdGlvbiA1LjQgc3RlcHMgNmMt
+NmUuCiAqCiAqIG1vZGUgQjoga3Byb2JlIG9uIF9yYXdfc3Bpbl9sb2NrLCBzYW1lIHJhIGZpbHRl
+ciB3aXRoIHJldF9vZmY9MHg0OTYsCiAqICAgc3RhbGxpbmcgYWZ0ZXIgdW5saW5rIGhhcyBleGVj
+dXRlZCBidXQgYmVmb3JlIHRoZSByZS1sb2NrIChyZXBvcnQgc3RlcAogKiAgIDZlKS4gX3Jhd19z
+cGluX2xvY2sgaXMgaG90OyB0aGUgcmEgZmlsdGVyIG1ha2VzIGl0IGNoZWFwIGVub3VnaCBmb3Ig
+dGhlCiAqICAgaWRsZSBpbml0cmFtZnMgd29ya2xvYWQuCiAqCiAqIEJvdGggbW9kZXMgcHJpbnQg
+a3RpbWUgdGltZXN0YW1wcyBvbiBldmVyeSBoaXQuIEEga3JldHByb2JlIG9uCiAqIHVzYmRldl9y
+ZWxlYXNlIHByaW50cyBlbnRyeS9yZXR1cm4gdGltZXN0YW1wcyBzbyB0aGUgc2VyaWFsIGxvZyB5
+aWVsZHMgYQogKiBzaW5nbGUgcmVhZGFibGUgdGltZWxpbmU6IGlmIHJlbGVhc2UgcmV0dXJucyB3
+aGlsZSBhIHN0YWxsIGhpdCBpcyBpbgogKiBmbGlnaHQsIGtmcmVlKHBzKSBoYXBwZW5lZCBpbnNp
+ZGUgdGhlIHdpbmRvdyBhbmQgdGhlIG5leHQgcHMgYWNjZXNzIGZyb20KICogdGhlIGNhbGxiYWNr
+IGlzIHRoZSBhdWRpdGVkIFVBRi4KICovCiNkZWZpbmUgcHJfZm10KGZtdCkgIlVTQkRFVlNUQUxM
+OiAiIGZtdAoKI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgojaW5jbHVkZSA8bGludXgvaW5pdC5o
+PgojaW5jbHVkZSA8bGludXgva2VybmVsLmg+CiNpbmNsdWRlIDxsaW51eC9rcHJvYmVzLmg+CiNp
+bmNsdWRlIDxsaW51eC9rdGltZS5oPgojaW5jbHVkZSA8bGludXgvZGVsYXkuaD4KI2luY2x1ZGUg
+PGxpbnV4L2F0b21pYy5oPgoKc3RhdGljIGludCBzdGFsbF91cyA9IDUwMDA7Cm1vZHVsZV9wYXJh
+bShzdGFsbF91cywgaW50LCAwNjAwKTsKTU9EVUxFX1BBUk1fREVTQyhzdGFsbF91cywgImJ1c3kt
+d2FpdCBsZW5ndGggYXQgdGhlIG1hdGNoZWQgY2FsbCBzaXRlIik7CgpzdGF0aWMgaW50IG1vZGUg
+PSAxOwptb2R1bGVfcGFyYW0obW9kZSwgaW50LCAwNjAwKTsKTU9EVUxFX1BBUk1fREVTQyhtb2Rl
+LCAiMT1zdGFsbCBhdCB1c2JfdW5saW5rX3VyYiBjYWxsIHNpdGUgKDB4NDg1KSwgMj1zdGFsbCBh
+dCByZS1sb2NrIHNpdGUgKDB4NDk2KSIpOwoKc3RhdGljIGludCBtYXhfaGl0cyA9IDIwMDA7Cm1v
+ZHVsZV9wYXJhbShtYXhfaGl0cywgaW50LCAwNjAwKTsKTU9EVUxFX1BBUk1fREVTQyhtYXhfaGl0
+cywgInN0b3Agc3RhbGxpbmcgYWZ0ZXIgdGhpcyBtYW55IGhpdHMgKDA9dW5saW1pdGVkKSIpOwoK
+c3RhdGljIHVsb25nIHJldF9vZmYgPSAweDQ4NTsKbW9kdWxlX3BhcmFtKHJldF9vZmYsIHVsb25n
+LCAwNjAwKTsKTU9EVUxFX1BBUk1fREVTQyhyZXRfb2ZmLCAicmV0dXJuLWFkZHJlc3Mgb2Zmc2V0
+IGluc2lkZSBhc3luY19jb21wbGV0ZWQiKTsKCnN0YXRpYyB1bG9uZyByZXRfb2ZmX2IgPSAweDQ5
+NjsKbW9kdWxlX3BhcmFtKHJldF9vZmZfYiwgdWxvbmcsIDA2MDApOwoKc3RhdGljIHVuc2lnbmVk
+IGxvbmcgYWNfYmFzZTsKc3RhdGljIGF0b21pY190IGhpdHMgPSBBVE9NSUNfSU5JVCgwKTsKc3Rh
+dGljIGF0b21pY190IG5lYXIgPSBBVE9NSUNfSU5JVCgwKTsKCnN0YXRpYyBpbnQgc3RhbGxfcHJl
+KHN0cnVjdCBrcHJvYmUgKnAsIHN0cnVjdCBwdF9yZWdzICpyZWdzKQp7Cgl1bnNpZ25lZCBsb25n
+IHJhID0gKih1bnNpZ25lZCBsb25nICopcmVncy0+c3A7Cgl1bnNpZ25lZCBsb25nIHdhbnQgPSBh
+Y19iYXNlICsgcmV0X29mZiAtIDQ7CS8qIGtwcm9iZSBiYXNlIHNraXBzIEVOREJSICovCglpbnQg
+aDsKCglpZiAocmEgPT0gd2FudCkgewoJCWggPSBhdG9taWNfaW5jX3JldHVybigmaGl0cyk7CgkJ
+aWYgKG1heF9oaXRzICYmIGggPiBtYXhfaGl0cykKCQkJcmV0dXJuIDA7CgkJcHJfd2FybigiaGl0
+IyVkIHQ9JWxsdSBzdGFsbF91cz0lZCByYT0lbHggKGJhc2UrMHglbHgpXG4iLAoJCQloLCBrdGlt
+ZV9nZXRfbnMoKSwgc3RhbGxfdXMsIHJhLCByYSAtIGFjX2Jhc2UpOwoJCXVkZWxheShzdGFsbF91
+cyk7CgkJcmV0dXJuIDA7Cgl9CglpZiAocmEgPiBhY19iYXNlIC0gMTYgJiYgcmEgPCBhY19iYXNl
+ICsgMHg5MDApIHsKCQloID0gYXRvbWljX2luY19yZXR1cm4oJm5lYXIpOwoJCWlmIChoIDw9IDgp
+CgkJCXByX3dhcm4oIm5lYXIjJWQgcmE9YmFzZSsweCVseCAod2FudCBiYXNlKzB4JWx4KVxuIiwK
+CQkJCWgsIHJhIC0gYWNfYmFzZSwgcmV0X29mZiAtIDQpOwoJfQoJcmV0dXJuIDA7Cn0KCi8qIHNl
+Y29uZCBwcm9iZSBmb3IgbW9kZSAyOiByYXdfc3Bpbl9sb2NrLCBmaWx0ZXJlZCB0aGUgc2FtZSB3
+YXkgKi8Kc3RhdGljIGludCBzdGFsbF9wcmVfYihzdHJ1Y3Qga3Byb2JlICpwLCBzdHJ1Y3QgcHRf
+cmVncyAqcmVncykKewoJdW5zaWduZWQgbG9uZyByYSA9ICoodW5zaWduZWQgbG9uZyAqKXJlZ3Mt
+PnNwOwoJdW5zaWduZWQgbG9uZyB3YW50ID0gYWNfYmFzZSArIHJldF9vZmZfYiAtIDQ7CS8qIGtw
+cm9iZSBiYXNlIHNraXBzIEVOREJSICovCglpbnQgaDsKCglpZiAocmEgIT0gd2FudCkKCQlyZXR1
+cm4gMDsKCgloID0gYXRvbWljX2luY19yZXR1cm4oJmhpdHMpOwoJaWYgKG1heF9oaXRzICYmIGgg
+PiBtYXhfaGl0cykKCQlyZXR1cm4gMDsKCglwcl93YXJuKCJoaXQjJWQocmVsb2NrKSB0PSVsbHUg
+c3RhbGxfdXM9JWRcbiIsCgkJaCwga3RpbWVfZ2V0X25zKCksIHN0YWxsX3VzKTsKCXVkZWxheShz
+dGFsbF91cyk7CglyZXR1cm4gMDsKfQoKc3RhdGljIHN0cnVjdCBrcHJvYmUga3BfdW5saW5rID0g
+ewoJLnN5bWJvbF9uYW1lID0gInVzYl91bmxpbmtfdXJiIiwKCS5wcmVfaGFuZGxlciA9IHN0YWxs
+X3ByZSwKfTsKCnN0YXRpYyBzdHJ1Y3Qga3Byb2JlIGtwX2xvY2sgPSB7Cgkuc3ltYm9sX25hbWUg
+PSAiX3Jhd19zcGluX2xvY2siLAoJLnByZV9oYW5kbGVyID0gc3RhbGxfcHJlX2IsCn07CgpzdGF0
+aWMgc3RydWN0IGtyZXRwcm9iZSBrcl9yZWxlYXNlID0gewoJLmhhbmRsZXIgPSBOVUxMLAkvKiBz
+ZXQgYmVsb3cgKi8KCS5lbnRyeV9oYW5kbGVyID0gTlVMTCwKfTsKCnN0YXRpYyBpbnQgcmVsX2Vu
+dHJ5KHN0cnVjdCBrcmV0cHJvYmVfaW5zdGFuY2UgKnJpLCBzdHJ1Y3QgcHRfcmVncyAqcmVncykK
+ewoJcHJfaW5mbygidXNiZGV2X3JlbGVhc2UgZW50ZXIgdD0lbGx1IHBpZD0lZFxuIiwKCQlrdGlt
+ZV9nZXRfbnMoKSwgY3VycmVudC0+cGlkKTsKCXJldHVybiAwOwp9CgpzdGF0aWMgaW50IHJlbF9y
+ZXQoc3RydWN0IGtyZXRwcm9iZV9pbnN0YW5jZSAqcmksIHN0cnVjdCBwdF9yZWdzICpyZWdzKQp7
+Cglwcl9pbmZvKCJ1c2JkZXZfcmVsZWFzZSByZXQgIHQ9JWxsdSBwaWQ9JWRcbiIsCgkJa3RpbWVf
+Z2V0X25zKCksIGN1cnJlbnQtPnBpZCk7CglyZXR1cm4gMDsKfQoKc3RhdGljIHVuc2lnbmVkIGxv
+bmcgc3ltX2FkZHIoY29uc3QgY2hhciAqbmFtZSkKewoJc3RydWN0IGtwcm9iZSBwcm9iZSA9IHsg
+LnN5bWJvbF9uYW1lID0gbmFtZSwgfTsKCXVuc2lnbmVkIGxvbmcgYWRkciA9IDA7CgoJaWYgKHJl
+Z2lzdGVyX2twcm9iZSgmcHJvYmUpID09IDApIHsKCQlhZGRyID0gKHVuc2lnbmVkIGxvbmcpcHJv
+YmUuYWRkcjsKCQl1bnJlZ2lzdGVyX2twcm9iZSgmcHJvYmUpOwoJfQoJcmV0dXJuIGFkZHI7Cn0K
+CnN0YXRpYyBpbnQgX19pbml0IHVzYmRldl9zdGFsbF9pbml0KHZvaWQpCnsKCWludCByZXQ7CgoJ
+YWNfYmFzZSA9IHN5bV9hZGRyKCJhc3luY19jb21wbGV0ZWQiKTsKCWlmICghYWNfYmFzZSkgewoJ
+CXByX2VycigiY2Fubm90IHJlc29sdmUgYXN5bmNfY29tcGxldGVkXG4iKTsKCQlyZXR1cm4gLUVJ
+TlZBTDsKCX0KCXByX2luZm8oImFzeW5jX2NvbXBsZXRlZCBiYXNlPSVseCAoKzB4JWx4IHVubGlu
+ayBjYWxsLCArMHglbHggcmVsb2NrIGNhbGwpXG4iLAoJCWFjX2Jhc2UsIHJldF9vZmYsIHJldF9v
+ZmZfYik7CgoJaWYgKG1vZGUgPT0gMikgewoJCXJldCA9IHJlZ2lzdGVyX2twcm9iZSgma3BfbG9j
+ayk7CgkJaWYgKHJldCkgewoJCQlwcl9lcnIoInJlZ2lzdGVyIF9yYXdfc3Bpbl9sb2NrIHByb2Jl
+IGZhaWxlZDogJWRcbiIsIHJldCk7CgkJCXJldHVybiByZXQ7CgkJfQoJfSBlbHNlIHsKCQlyZXQg
+PSByZWdpc3Rlcl9rcHJvYmUoJmtwX3VubGluayk7CgkJaWYgKHJldCkgewoJCQlwcl9lcnIoInJl
+Z2lzdGVyIHVzYl91bmxpbmtfdXJiIHByb2JlIGZhaWxlZDogJWRcbiIsIHJldCk7CgkJCXJldHVy
+biByZXQ7CgkJfQoJfQoKCWtyX3JlbGVhc2Uua3Auc3ltYm9sX25hbWUgPSAidXNiZGV2X3JlbGVh
+c2UiOwoJa3JfcmVsZWFzZS5lbnRyeV9oYW5kbGVyID0gcmVsX2VudHJ5OwoJa3JfcmVsZWFzZS5o
+YW5kbGVyID0gcmVsX3JldDsKCXJldCA9IHJlZ2lzdGVyX2tyZXRwcm9iZSgma3JfcmVsZWFzZSk7
+CglpZiAocmV0KQoJCXByX3dhcm4oImtyZXRwcm9iZSBvbiB1c2JkZXZfcmVsZWFzZSBmYWlsZWQ6
+ICVkICh0aW1lbGluZSBkZWdyYWRlZClcbiIsIHJldCk7CgoJcHJfaW5mbygiYXJtZWQgbW9kZT0l
+ZCBzdGFsbF91cz0lZCByZXRfb2ZmPTB4JWx4IG1heF9oaXRzPSVkXG4iLAoJCW1vZGUsIHN0YWxs
+X3VzLCBtb2RlID09IDIgPyByZXRfb2ZmX2IgOiByZXRfb2ZmLCBtYXhfaGl0cyk7CglyZXR1cm4g
+MDsKfQoKc3RhdGljIHZvaWQgX19leGl0IHVzYmRldl9zdGFsbF9leGl0KHZvaWQpCnsKCWlmICht
+b2RlID09IDIpCgkJdW5yZWdpc3Rlcl9rcHJvYmUoJmtwX2xvY2spOwoJZWxzZQoJCXVucmVnaXN0
+ZXJfa3Byb2JlKCZrcF91bmxpbmspOwoJdW5yZWdpc3Rlcl9rcmV0cHJvYmUoJmtyX3JlbGVhc2Up
+OwoJcHJfaW5mbygicmVtb3ZlZCBoaXRzPSVkIG5lYXJfbWlzcz0lZFxuIiwKCQlhdG9taWNfcmVh
+ZCgmaGl0cyksIGF0b21pY19yZWFkKCZuZWFyKSk7Cn0KCm1vZHVsZV9pbml0KHVzYmRldl9zdGFs
+bF9pbml0KTsKbW9kdWxlX2V4aXQodXNiZGV2X3N0YWxsX2V4aXQpOwpNT0RVTEVfTElDRU5TRSgi
+R1BMIik7Ck1PRFVMRV9ERVNDUklQVElPTigiY29udHJvbGxlZC13aW5kb3cga3Byb2JlIHN0YWxs
+IGZvciBkZXZpbyB1c2JkZXZfcmVsZWFzZSByYWNlIHZlcmlmaWNhdGlvbiIpOwo=
+------=_Part_344592_766044435.1793104555733
+Content-Type: text/plain; name=usbdevrace.c
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="usbdevrace.c"
 
-When debounce_delay is configured, off_on_delay is read from the
-core-parsed constraint but tracked locally (see @off_on_delay) and
-enforced in enable(), since it must be measured from the deferred
-RPMh disable rather than from when disable() returns.
-
-Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
----
- drivers/regulator/qcom-rpmh-regulator.c | 166 ++++++++++++++++++++++++++++++--
- 1 file changed, 159 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/qcom-rpmh-regulator.c
-index 25c14de3cd8b..28060bcfe48f 100644
---- a/drivers/regulator/qcom-rpmh-regulator.c
-+++ b/drivers/regulator/qcom-rpmh-regulator.c
-@@ -5,9 +5,12 @@
- #define pr_fmt(fmt) "%s: " fmt, __func__
- 
- #include <linux/bits.h>
-+#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/kernel.h>
-+#include <linux/ktime.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-@@ -15,6 +18,7 @@
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/regulator/of_regulator.h>
-+#include <linux/workqueue.h>
- 
- #include <soc/qcom/cmd-db.h>
- #include <soc/qcom/rpmh.h>
-@@ -160,6 +164,33 @@ struct rpmh_vreg_hw_data {
-  * @voltage_selector:		Selector used for get_voltage_sel() and
-  *				set_voltage_sel() callbacks
-  * @mode:			RPMh VRM regulator current framework mode
-+ * @rdev:			Regulator device pointer registered for this
-+ *				regulator
-+ * @delayed_off_work:		Delayed worker used to defer sending a disable
-+ *				request to RPMh, so that a quick subsequent
-+ *				enable vote can cancel it instead of causing a
-+ *				disable/enable bounce on the rail
-+ * @debounce_delay:		Time in microseconds to wait for an enable vote
-+ *				after a disable vote, before actually sending
-+ *				the disable request to RPMh.  0 once torn down
-+ *				by rpmh_regulator_cancel_delayed_off_work().
-+ * @off_on_delay:		Like regulator_desc's off_on_delay, but tracked
-+ *				locally and measured from @last_off instead of
-+ *				from when disable() returns, since that return
-+ *				may precede the real RPMh disable by up to
-+ *				@debounce_delay.
-+ * @last_off:			Time the disable request was last actually sent
-+ *				to RPMh. Only used when debounce_delay is set.
-+ * @lock:			Serializes disable() against the teardown
-+ *				action, since both make a read-then-act decision
-+ *				on @debounce_delay that must be atomic to avoid
-+ *				queuing @delayed_off_work after teardown has
-+ *				swept it.  enable() needs no lock: its only
-+ *				shared-state access is cancel_delayed_work_sync(),
-+ *				which already serializes against
-+ *				@delayed_off_work.  @enabled and @rdev are also
-+ *				written by @delayed_off_work without this lock
-+ *				held, so they use READ_ONCE()/WRITE_ONCE() there.
-  */
- struct rpmh_vreg {
- 	struct device			*dev;
-@@ -172,6 +203,12 @@ struct rpmh_vreg {
- 	bool				bypassed;
- 	int				voltage_selector;
- 	unsigned int			mode;
-+	struct regulator_dev		*rdev;
-+	struct delayed_work		delayed_off_work;
-+	unsigned int			debounce_delay;
-+	unsigned int			off_on_delay;
-+	ktime_t				last_off;
-+	struct mutex			lock;
- };
- 
- /**
-@@ -290,13 +327,17 @@ static int rpmh_regulator_is_enabled(struct regulator_dev *rdev)
- {
- 	struct rpmh_vreg *vreg = rdev_get_drvdata(rdev);
- 
--	return vreg->enabled;
-+	/*
-+	 * Also written by delayed_off_work without vreg->lock held, so
-+	 * READ_ONCE()/WRITE_ONCE() are used instead of locking here and at
-+	 * the write site in _rpmh_regulator_set_enable_state().
-+	 */
-+	return READ_ONCE(vreg->enabled);
- }
- 
--static int rpmh_regulator_set_enable_state(struct regulator_dev *rdev,
--					bool enable)
-+static int _rpmh_regulator_set_enable_state(struct rpmh_vreg *vreg,
-+					    struct regulator_dev *rdev, bool enable)
- {
--	struct rpmh_vreg *vreg = rdev_get_drvdata(rdev);
- 	struct tcs_cmd cmd = {
- 		.addr = vreg->addr + RPMH_REGULATOR_REG_ENABLE,
- 		.data = enable,
-@@ -313,19 +354,76 @@ static int rpmh_regulator_set_enable_state(struct regulator_dev *rdev,
- 
- 	ret = rpmh_regulator_send_request(vreg, &cmd, enable);
- 	if (!ret)
--		vreg->enabled = enable;
-+		WRITE_ONCE(vreg->enabled, enable);
- 
- 	return ret;
- }
- 
-+static void rpmh_delayed_off_work(struct work_struct *work)
-+{
-+	struct rpmh_vreg *vreg = container_of(work,
-+					struct rpmh_vreg, delayed_off_work.work);
-+
-+	/*
-+	 * No locking needed. cancel_delayed_work_sync() already guarantees
-+	 * this work has either not started or has fully finished by the
-+	 * time enable()/teardown proceed to touch shared state.
-+	 */
-+	if (!_rpmh_regulator_set_enable_state(vreg, READ_ONCE(vreg->rdev), false))
-+		vreg->last_off = ktime_get_boottime();
-+}
-+
- static int rpmh_regulator_enable(struct regulator_dev *rdev)
- {
--	return rpmh_regulator_set_enable_state(rdev, true);
-+	struct rpmh_vreg *vreg = rdev_get_drvdata(rdev);
-+	s64 remaining;
-+
-+	/* See struct rpmh_vreg's @lock for why no lock is needed here. */
-+	if (cancel_delayed_work_sync(&vreg->delayed_off_work)) {
-+		/* Queued disable never reached RPMh, so undo disable()'s flip. */
-+		WRITE_ONCE(vreg->enabled, true);
-+		return 0;
-+	}
-+
-+	if (vreg->off_on_delay) {
-+		remaining = ktime_us_delta(ktime_add_us(vreg->last_off,
-+							vreg->off_on_delay),
-+							ktime_get_boottime());
-+		if (remaining > 0)
-+			fsleep(remaining);
-+	}
-+
-+	return _rpmh_regulator_set_enable_state(vreg, rdev, true);
- }
- 
- static int rpmh_regulator_disable(struct regulator_dev *rdev)
- {
--	return rpmh_regulator_set_enable_state(rdev, false);
-+	struct rpmh_vreg *vreg = rdev_get_drvdata(rdev);
-+
-+	guard(mutex)(&vreg->lock);
-+
-+	/*
-+	 * vreg->rdev is also read by delayed_off_work without this lock
-+	 * held, so READ_ONCE()/WRITE_ONCE() are used instead of locking
-+	 * there too.
-+	 */
-+	WRITE_ONCE(vreg->rdev, rdev);
-+
-+	if (vreg->debounce_delay) {
-+		/*
-+		 * Flip the logical state now so is_enabled() does not keep
-+		 * reporting "enabled" while the real RPMh disable is still
-+		 * queued. Without this, a quick re-enable would see the stale
-+		 * state and skip calling back into enable(), letting this
-+		 * queued disable run regardless.
-+		 */
-+		WRITE_ONCE(vreg->enabled, false);
-+		queue_delayed_work(system_percpu_wq, &vreg->delayed_off_work,
-+				   usecs_to_jiffies(vreg->debounce_delay));
-+		return 0;
-+	}
-+
-+	return _rpmh_regulator_set_enable_state(vreg, rdev, false);
- }
- 
- static int rpmh_regulator_vrm_set_mode_bypass(struct rpmh_vreg *vreg,
-@@ -481,6 +579,36 @@ static const struct regulator_ops rpmh_regulator_xob_ops = {
- 	.is_enabled		= rpmh_regulator_is_enabled,
- };
- 
-+static void rpmh_regulator_cancel_delayed_off_work(void *data)
-+{
-+	struct rpmh_vreg *vreg = data;
-+	bool pending;
-+
-+	/*
-+	 * Mark the feature torn down so a disable() racing with this
-+	 * teardown cannot queue delayed_off_work after the queue has
-+	 * already been cleared.
-+	 */
-+	scoped_guard(mutex, &vreg->lock)
-+		vreg->debounce_delay = 0;
-+
-+	/*
-+	 * Lock is not held across this cancel_delayed_work_sync(): a running
-+	 * instance may be waiting on an RPMh ACK, and the lock would needlessly
-+	 * block disable() for that duration.
-+	 */
-+	pending = cancel_delayed_work_sync(&vreg->delayed_off_work);
-+
-+	/*
-+	 * If a disable() was queued, run it to ensure regulator hardware
-+	 * state is synced correctly with software state.
-+	 */
-+	scoped_guard(mutex, &vreg->lock) {
-+		if (pending)
-+			_rpmh_regulator_set_enable_state(vreg, vreg->rdev, false);
-+	}
-+}
-+
- /**
-  * rpmh_regulator_init_vreg() - initialize all attributes of an rpmh-regulator
-  * @vreg:		Pointer to the individual rpmh-regulator resource
-@@ -552,6 +680,13 @@ static int rpmh_regulator_init_vreg(struct rpmh_vreg *vreg, struct device *dev,
- 	vreg->always_wait_for_ack = of_property_read_bool(node,
- 						"qcom,always-wait-for-ack");
- 
-+	of_property_read_u32(node, "qcom,regulator-off-debounce-delay-us",
-+			     &vreg->debounce_delay);
-+
-+	mutex_init(&vreg->lock);
-+
-+	INIT_DELAYED_WORK(&vreg->delayed_off_work, rpmh_delayed_off_work);
-+
- 	vreg->rdesc.owner	= THIS_MODULE;
- 	vreg->rdesc.type	= REGULATOR_VOLTAGE;
- 	vreg->rdesc.ops		= vreg->hw_data->ops;
-@@ -561,6 +696,16 @@ static int rpmh_regulator_init_vreg(struct rpmh_vreg *vreg, struct device *dev,
- 	if (!init_data)
- 		return -ENOMEM;
- 
-+	if (vreg->debounce_delay) {
-+		/*
-+		 * Enforce off_on_delay locally instead of via the core: it
-+		 * must be measured from the deferred RPMh disable, not from
-+		 * when disable() returns.
-+		 */
-+		vreg->off_on_delay = init_data->constraints.off_on_delay;
-+		init_data->constraints.off_on_delay = 0;
-+	}
-+
- 	if (rpmh_data->hw_data->regulator_type == XOB &&
- 	    init_data->constraints.min_uV &&
- 	    init_data->constraints.min_uV == init_data->constraints.max_uV) {
-@@ -581,6 +726,13 @@ static int rpmh_regulator_init_vreg(struct rpmh_vreg *vreg, struct device *dev,
- 		return ret;
- 	}
- 
-+	if (vreg->debounce_delay) {
-+		ret = devm_add_action_or_reset(dev, rpmh_regulator_cancel_delayed_off_work,
-+					       vreg);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	dev_dbg(dev, "%pOFn regulator registered for RPMh resource %s @ 0x%05X\n",
- 		node, rpmh_resource_name, vreg->addr);
- 
-
--- 
-2.43.0
+Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKLyoKICogdXNiZGV2cmFjZS5jIC0g
+dXNlcnNwYWNlIGhhbW1lciBmb3IgdGhlIGRldmlvIENhc2UtMyByYWNlCiAqICh1c2JkZXZfcmVs
+ZWFzZSB2cyBpbi1mbGlnaHQgYXN5bmNfY29tcGxldGVkIC8gY2FuY2VsX2J1bGtfdXJicykuCiAq
+CiAqIFBlciByb3VuZCAoZnJlc2ggb3BlbiBldmVyeSByb3VuZCwgc28gY2xvc2UoKSBydW5zIHVz
+YmRldl9yZWxlYXNlKCkpOgogKiAgIG9wZW4gL2Rldi9idXMvdXNiL0IvRAogKiAgIGRpc2Nvbm5l
+Y3Qga2VybmVsIGRyaXZlciAodXNiLXN0b3JhZ2UsIENPTkZJR19VU0JfU1RPUkFHRT15IGJpbmRz
+IGl0KQogKiAgIGNsYWltIGludGVyZmFjZSAwCiAqICAgQ0xFQVJfSEFMVCB0aGUgYnVsay1vdXQg
+ZW5kcG9pbnQgKGNsZWFycyBwcmV2aW91cyByb3VuZCdzIFNUQUxMKQogKiAgIHN1Ym1pdCBCMDog
+YnVsayBPVVQsIDMxIGJ5dGVzIG9mIGdhcmJhZ2UgQ0JXIChiYWQgc2lnbmF0dXJlKSwgZmxhZ3M9
+MAogKiAgICAgICAgICAgICAgLT4gUUVNVSB1c2Itc3RvcmFnZSBTVEFMTHMgYnVsay1vdXQgLT4g
+VVJCIGNvbXBsZXRlcyAtRVBJUEUKICogICBzdWJtaXQgQjE6IGJ1bGsgT1VULCAzMSBieXRlcywg
+ZmxhZ3MgPSBVU0JERVZGU19VUkJfQlVMS19DT05USU5VQVRJT04KICogICAgICAgICAgICAgICht
+b2RlPWN0bDogZmxhZ3M9MCwgbmVnYXRpdmUgY29udHJvbCwgbm8gY29udGludWF0aW9uIC0+CiAq
+ICAgICAgICAgICAgICAgY2FuY2VsX2J1bGtfdXJicyBtYXJrcyBub3RoaW5nLCB3aW5kb3cgbmV2
+ZXIgb3BlbnMpCiAqICAgdXNsZWVwKGNsb3NlX2RlbGF5X3VzKQogKiAgIGNsb3NlKGZkKSAgIC0+
+IHVzYmRldl9yZWxlYXNlKCkgcmFjZXMgdGhlIGluLWZsaWdodCBjYWxsYmFjawogKgogKiBCMCdz
+IGVycm9yIGNvbXBsZXRpb24gbWFrZXMgYXN5bmNfY29tcGxldGVkKCkgY2FsbCBjYW5jZWxfYnVs
+a191cmJzKCksCiAqIHdoaWNoIG1hcmtzIEIxIChBU19DT05USU5VQVRJT04pIGFuZCBlbnRlcnMg
+dGhlIGRyb3AtbG9jayB3aW5kb3cKICogKHNwaW5fdW5sb2NrIC0+IHVzYl91bmxpbmtfdXJiKEIx
+KSAtPiBzcGluX2xvY2spLiBUaGUgY2xvc2UoKSB0aHJlYWQKICogbXVzdCByZWFjaCBrZnJlZShw
+cykgYmVmb3JlIHRoZSBjYWxsYmFjayByZS1sb2NrczsgdGhlIGNvbnRyb2xsZWQgbW9kZQogKiBl
+bmxhcmdlcyB0aGUgd2luZG93IHdpdGggdGhlIHVzYmRldl9zdGFsbC5rbyBrcHJvYmUuCiAqCiAq
+IFVzYWdlOiB1c2JkZXZyYWNlIDxuYXR8Y3RsPiBbcm91bmRzXSBbY2xvc2VfZGVsYXlfdXNdIFt2
+ZXJib3NlX2V2ZXJ5XQogKi8KI2RlZmluZSBfR05VX1NPVVJDRQojaW5jbHVkZSA8c3RkaW8uaD4K
+I2luY2x1ZGUgPHN0ZGxpYi5oPgojaW5jbHVkZSA8c3RyaW5nLmg+CiNpbmNsdWRlIDx1bmlzdGQu
+aD4KI2luY2x1ZGUgPGZjbnRsLmg+CiNpbmNsdWRlIDxlcnJuby5oPgojaW5jbHVkZSA8ZGlyZW50
+Lmg+CiNpbmNsdWRlIDxzeXMvaW9jdGwuaD4KI2luY2x1ZGUgPGxpbnV4L3VzYmRldmljZV9mcy5o
+PgojaW5jbHVkZSA8bGludXgvdXNiL2NoOS5oPgoKI2RlZmluZSBFUF9CVUxLKGUpCSgoKGUpLT5i
+bUF0dHJpYnV0ZXMgJiAweDMpID09IDB4MikKI2RlZmluZSBFUF9PVVQoZSkJKCgoKGUpLT5iRW5k
+cG9pbnRBZGRyZXNzKSAmIDB4ODApID09IDApCiNkZWZpbmUgbGUxNl90b19oKHYpCSgodikpCS8q
+IGxpdHRsZS1lbmRpYW4gaG9zdCAqLwoKc3RhdGljIGludCBmaW5kX3VzYmRldihjaGFyICpwYXRo
+LCBzaXplX3QgcGF0aHN6KQp7Cgljb25zdCBjaGFyICpzeXNkaXIgPSAiL3N5cy9idXMvdXNiL2Rl
+dmljZXMiOwoJRElSICpkID0gb3BlbmRpcihzeXNkaXIpOwoJc3RydWN0IGRpcmVudCAqZGU7Cglj
+aGFyIGZbNTEyXTsKCWludCBidXNudW0sIGRldm51bTsKCUZJTEUgKmZwOwoKCWlmICghZCkKCQly
+ZXR1cm4gLTE7Cgl3aGlsZSAoKGRlID0gcmVhZGRpcihkKSkpIHsKCQlpbnQgdmlkID0gMCwgcGlk
+ID0gMDsKCQlpZiAoZGUtPmRfbmFtZVswXSA9PSAnLicpCgkJCWNvbnRpbnVlOwoJCXNucHJpbnRm
+KGYsIHNpemVvZihmKSwgIiVzLyVzL2lkVmVuZG9yIiwgc3lzZGlyLCBkZS0+ZF9uYW1lKTsKCQlm
+cCA9IGZvcGVuKGYsICJyIik7CgkJaWYgKCFmcCkKCQkJY29udGludWU7CgkJaWYgKGZzY2FuZihm
+cCwgIiV4IiwgJnZpZCkgIT0gMSkKCQkJdmlkID0gMDsKCQlmY2xvc2UoZnApOwoJCWlmICh2aWQg
+IT0gMHg0NmY0KQkvKiBRRU1VIHZlbmRvciBpZCAqLwoJCQljb250aW51ZTsKCQlzbnByaW50Zihm
+LCBzaXplb2YoZiksICIlcy8lcy9pZFByb2R1Y3QiLCBzeXNkaXIsIGRlLT5kX25hbWUpOwoJCWZw
+ID0gZm9wZW4oZiwgInIiKTsKCQlpZiAoZnApIHsKCQkJaWYgKGZzY2FuZihmcCwgIiV4IiwgJnBp
+ZCkgIT0gMSkKCQkJCXBpZCA9IDA7CgkJCWZjbG9zZShmcCk7CgkJfQoJCXNucHJpbnRmKGYsIHNp
+emVvZihmKSwgIiVzLyVzL2J1c251bSIsIHN5c2RpciwgZGUtPmRfbmFtZSk7CgkJZnAgPSBmb3Bl
+bihmLCAiciIpOwoJCWlmICghZnAgfHwgZnNjYW5mKGZwLCAiJWQiLCAmYnVzbnVtKSAhPSAxKSB7
+CgkJCWlmIChmcCkgZmNsb3NlKGZwKTsKCQkJY29udGludWU7CgkJfQoJCWZjbG9zZShmcCk7CgkJ
+c25wcmludGYoZiwgc2l6ZW9mKGYpLCAiJXMvJXMvZGV2bnVtIiwgc3lzZGlyLCBkZS0+ZF9uYW1l
+KTsKCQlmcCA9IGZvcGVuKGYsICJyIik7CgkJaWYgKCFmcCB8fCBmc2NhbmYoZnAsICIlZCIsICZk
+ZXZudW0pICE9IDEpIHsKCQkJaWYgKGZwKSBmY2xvc2UoZnApOwoJCQljb250aW51ZTsKCQl9CgkJ
+ZmNsb3NlKGZwKTsKCQlzbnByaW50ZihwYXRoLCBwYXRoc3osICIvZGV2L2J1cy91c2IvJTAzZC8l
+MDNkIiwgYnVzbnVtLCBkZXZudW0pOwoJCWNsb3NlZGlyKGQpOwoJCWZwcmludGYoc3RkZXJyLCAi
+VVNCREVWUkFDRTogZm91bmQgcWVtdSBkZXZpY2UgJXMgKGlkUHJvZHVjdD0lMDR4KVxuIiwKCQkJ
+cGF0aCwgcGlkKTsKCQlyZXR1cm4gMDsKCX0KCWNsb3NlZGlyKGQpOwoJcmV0dXJuIC0xOwp9Cgov
+KiB1c2JkZXZfcmVhZCgpIHJldHVybnMgdGhlIGRldmljZSBkZXNjcmlwdG9yIGF0IG9mZnNldCAw
+Li4xOCBhbmQgdGhlCiAqIHJhdyBjb25maWcgZGVzY3JpcHRvciBjaGFpbnMgKGN1cnJlbnQgY29u
+ZmlnIGZpcnN0KSBmcm9tIG9mZnNldCAxOCBvbi4gKi8Kc3RhdGljIGludCBnZXRfYnVsa19vdXQo
+aW50IGZkKQp7CglzdGF0aWMgdW5zaWduZWQgY2hhciBidWZbNDA5Nl07CglzdHJ1Y3QgdXNiX2Nv
+bmZpZ19kZXNjcmlwdG9yICpjZCA9ICh2b2lkICopKGJ1ZiArIDE4KTsKCXVuc2lnbmVkIGludCBv
+ZmYsIHRvdGFsLCBjZmdsZW47CglzdHJ1Y3QgdXNiX2Rlc2NyaXB0b3JfaGVhZGVyICpoOwoJaW50
+IGlmbnVtX2N1ciA9IC0xOwoJc3NpemVfdCBuOwoKCW4gPSBwcmVhZChmZCwgYnVmLCBzaXplb2Yo
+YnVmKSwgMCk7CglpZiAobiA8IDE5KSB7CgkJZnByaW50ZihzdGRlcnIsICJVU0JERVZSQUNFOiBy
+ZWFkIGRlc2NyaXB0b3JzIGZhaWxlZCAoJXpkKVxuIiwgbik7CgkJcmV0dXJuIC0xOwoJfQoJY2Zn
+bGVuID0gbGUxNl90b19oKGNkLT53VG90YWxMZW5ndGgpOwoJdG90YWwgPSAxOCArIGNmZ2xlbjsK
+CWlmICh0b3RhbCA+ICh1bnNpZ25lZCluKQoJCXRvdGFsID0gbjsKCWZwcmludGYoc3RkZXJyLCAi
+VVNCREVWUkFDRTogcmVhZCAlemQgYnl0ZXMsIGNvbmZpZyB3VG90YWxMZW5ndGg9JXUgYk51bUlu
+dGVyZmFjZXM9JXVcbiIsCgkJbiwgY2ZnbGVuLCBjZC0+Yk51bUludGVyZmFjZXMpOwoJZm9yIChv
+ZmYgPSAxODsgb2ZmICsgMiA8PSB0b3RhbDsgb2ZmICs9IGgtPmJMZW5ndGgpIHsKCQloID0gKHZv
+aWQgKikoYnVmICsgb2ZmKTsKCQlpZiAoaC0+Ykxlbmd0aCA8IDIgfHwgb2ZmICsgaC0+Ykxlbmd0
+aCA+IHRvdGFsKQoJCQlicmVhazsKCQlpZiAoaC0+YkRlc2NyaXB0b3JUeXBlID09IFVTQl9EVF9J
+TlRFUkZBQ0UpIHsKCQkJc3RydWN0IHVzYl9pbnRlcmZhY2VfZGVzY3JpcHRvciAqaSA9ICh2b2lk
+ICopaDsKCQkJaWZudW1fY3VyID0gaS0+YkludGVyZmFjZU51bWJlcjsKCQl9IGVsc2UgaWYgKGgt
+PmJEZXNjcmlwdG9yVHlwZSA9PSBVU0JfRFRfRU5EUE9JTlQgJiYgaWZudW1fY3VyID09IDApIHsK
+CQkJc3RydWN0IHVzYl9lbmRwb2ludF9kZXNjcmlwdG9yICplID0gKHZvaWQgKiloOwoJCQlpZiAo
+RVBfQlVMSyhlKSAmJiBFUF9PVVQoZSkpIHsKCQkJCWZwcmludGYoc3RkZXJyLCAiVVNCREVWUkFD
+RTogYnVsay1vdXQgZXAgMHglMDJ4XG4iLAoJCQkJCWUtPmJFbmRwb2ludEFkZHJlc3MpOwoJCQkJ
+cmV0dXJuIGUtPmJFbmRwb2ludEFkZHJlc3M7CgkJCX0KCQl9Cgl9CglyZXR1cm4gLTE7Cn0KCnN0
+YXRpYyB1bnNpZ25lZCBjaGFyIGJhZGNid1szMV07CgovKiBlcnJjaGs6IHN1Ym1pdCBvbmUgZ2Fy
+YmFnZS1DQlcgYnVsayBPVVQgVVJCIGFuZCByZWFwIGl0LCBwcmludGluZyB0aGUKICogY29tcGxl
+dGlvbiBzdGF0dXMuIEV4cGVjdGVkOiAtRVBJUEUgKC0zMikgYmVjYXVzZSBRRU1VJ3MgbWFzcy1z
+dG9yYWdlCiAqIFNUQUxMcyBidWxrLW91dCBvbiBhIGJhZCBDQlcgc2lnbmF0dXJlLiBUaGlzIHBy
+b3ZlcyB0aGUgZXJyb3IgcGF0aCB0aGF0CiAqIGRyaXZlcyBhc3luY19jb21wbGV0ZWQoKSBpbnRv
+IGNhbmNlbF9idWxrX3VyYnMoKS4gKi8Kc3RhdGljIGludCBlcnJjaGsoY29uc3QgY2hhciAqcGF0
+aCwgaW50IGVwKQp7CglzdHJ1Y3QgdXNiZGV2ZnNfdXJiICpyZWFwZWQgPSBOVUxMLCB1MDsKCXVu
+c2lnbmVkIGludCBpZm5vID0gMCwgZXBwID0gZXA7CglzdHJ1Y3QgdXNiZGV2ZnNfaW9jdGwgZGlz
+ID0gewoJCS5pZm5vID0gMCwKCQkuaW9jdGxfY29kZSA9IFVTQkRFVkZTX0RJU0NPTk5FQ1QsCgkJ
+LmRhdGEgPSBOVUxMLAoJfTsKCWludCBmZCwgaSwgcmM7CgoJZmQgPSBvcGVuKHBhdGgsIE9fUkRX
+Uik7CglpZiAoZmQgPCAwKSB7CgkJcGVycm9yKCJvcGVuIik7CgkJcmV0dXJuIDI7Cgl9Cglpb2N0
+bChmZCwgVVNCREVWRlNfSU9DVEwsICZkaXMpOwoJcmMgPSBpb2N0bChmZCwgVVNCREVWRlNfQ0xB
+SU1JTlRFUkZBQ0UsICZpZm5vKTsKCWZwcmludGYoc3RkZXJyLCAiVVNCREVWUkFDRTogZXJyY2hr
+IGNsYWltIHJjPSVkXG4iLCByYyk7CglpZiAocmMgPCAwKSB7CgkJY2xvc2UoZmQpOwoJCXJldHVy
+biAyOwoJfQoJaW9jdGwoZmQsIFVTQkRFVkZTX0NMRUFSX0hBTFQsICZlcHApOwoKCW1lbXNldCgm
+dTAsIDAsIHNpemVvZih1MCkpOwoJdTAudHlwZSA9IFVTQkRFVkZTX1VSQl9UWVBFX0JVTEs7Cgl1
+MC5lbmRwb2ludCA9IGVwOwoJdTAuZmxhZ3MgPSAwOwoJdTAuYnVmZmVyID0gYmFkY2J3OwoJdTAu
+YnVmZmVyX2xlbmd0aCA9IHNpemVvZihiYWRjYncpOwoJcmMgPSBpb2N0bChmZCwgVVNCREVWRlNf
+U1VCTUlUVVJCLCAmdTApOwoJZnByaW50ZihzdGRlcnIsICJVU0JERVZSQUNFOiBlcnJjaGsgc3Vi
+bWl0IHJjPSVkIGVycm5vPSVkXG4iLCByYywgZXJybm8pOwoJaWYgKHJjKSB7CgkJY2xvc2UoZmQp
+OwoJCXJldHVybiAyOwoJfQoJZm9yIChpID0gMDsgaSA8IDEwMDsgaSsrKSB7CgkJcmVhcGVkID0g
+TlVMTDsKCQlyYyA9IGlvY3RsKGZkLCBVU0JERVZGU19SRUFQVVJCTkRFTEFZLCAmcmVhcGVkKTsK
+CQlpZiAocmMgPT0gMCAmJiByZWFwZWQgPT0gJnUwKSB7CgkJCWZwcmludGYoc3RkZXJyLAoJCQkJ
+IlVTQkRFVlJBQ0U6IGVycmNoayBCMCBzdGF0dXM9JWQgYWN0dWFsPSVkICh3YW50IC0zMiBFUElQ
+RSlcbiIsCgkJCQl1MC5zdGF0dXMsIHUwLmFjdHVhbF9sZW5ndGgpOwoJCQljbG9zZShmZCk7CgkJ
+CXJldHVybiB1MC5zdGF0dXMgPT0gLTMyID8gMCA6IDE7CgkJfQoJCXVzbGVlcCgxMDAwMCk7Cgl9
+CglmcHJpbnRmKHN0ZGVyciwgIlVTQkRFVlJBQ0U6IGVycmNoayByZWFwIHRpbWVvdXQgcmM9JWQg
+ZXJybm89JWRcbiIsCgkJcmMsIGVycm5vKTsKCWNsb3NlKGZkKTsKCXJldHVybiAxOwp9CgppbnQg
+bWFpbihpbnQgYXJnYywgY2hhciAqKmFyZ3YpCnsKCWNvbnN0IGNoYXIgKm1vZGUgPSBhcmdjID4g
+MSA/IGFyZ3ZbMV0gOiAibmF0IjsKCWludCByb3VuZHMgPSBhcmdjID4gMiA/IGF0b2koYXJndlsy
+XSkgOiAyMDAwOwoJaW50IGRlbGF5X3VzID0gYXJnYyA+IDMgPyBhdG9pKGFyZ3ZbM10pIDogMzAw
+OwoJaW50IHZldmVyeSA9IGFyZ2MgPiA0ID8gYXRvaShhcmd2WzRdKSA6IDEwMDsKCWNoYXIgcGF0
+aFsxMjhdOwoJaW50IGZkLCBlcCwgaSwgcmM7CglpbnQgb2sgPSAwLCBmYWlsID0gMDsKCWludCBj
+b250ID0gc3RyY21wKG1vZGUsICJjdGwiKSAhPSAwOwkvKiBuYXQgPT4gY29udGludWF0aW9uIG9u
+ICovCgoJLyogZ2FyYmFnZSBDQlc6IDMxIGJ5dGVzLCBzaWduYXR1cmUgIT0gJ1VTQkMnICovCglt
+ZW1zZXQoYmFkY2J3LCAweDVhLCBzaXplb2YoYmFkY2J3KSk7CgoJZm9yIChpID0gMDsgaSA8IDMw
+MDsgaSsrKSB7CgkJaWYgKGZpbmRfdXNiZGV2KHBhdGgsIHNpemVvZihwYXRoKSkgPT0gMCkKCQkJ
+YnJlYWs7CgkJdXNsZWVwKDEwMDAwMCk7Cgl9CglpZiAoaSA9PSAzMDApIHsKCQlmcHJpbnRmKHN0
+ZGVyciwgIlVTQkRFVlJBQ0U6IG5vIHFlbXUgdXNiIGRldmljZSBmb3VuZFxuIik7CgkJcmV0dXJu
+IDI7Cgl9CgoJaWYgKCFzdHJjbXAobW9kZSwgImVycmNoayIpKSB7CgkJZmQgPSBvcGVuKHBhdGgs
+IE9fUkRXUik7CgkJaWYgKGZkIDwgMCkgewoJCQlwZXJyb3IoIm9wZW4iKTsKCQkJcmV0dXJuIDI7
+CgkJfQoJCWVwID0gZ2V0X2J1bGtfb3V0KGZkKTsKCQljbG9zZShmZCk7CgkJaWYgKGVwIDwgMCkK
+CQkJcmV0dXJuIDI7CgkJcmV0dXJuIGVycmNoayhwYXRoLCBlcCk7Cgl9CgoJZmQgPSBvcGVuKHBh
+dGgsIE9fUkRXUik7CglpZiAoZmQgPCAwKSB7CgkJcGVycm9yKCJvcGVuIik7CgkJcmV0dXJuIDI7
+Cgl9CgllcCA9IGdldF9idWxrX291dChmZCk7CgljbG9zZShmZCk7CglpZiAoZXAgPCAwKSB7CgkJ
+ZnByaW50ZihzdGRlcnIsICJVU0JERVZSQUNFOiBubyBidWxrLW91dCBlbmRwb2ludFxuIik7CgkJ
+cmV0dXJuIDI7Cgl9CgoJZm9yIChpID0gMDsgaSA8IHJvdW5kczsgaSsrKSB7CgkJc3RydWN0IHVz
+YmRldmZzX3VyYiB1MCwgdTE7CgkJdW5zaWduZWQgaW50IGVwcCA9IGVwOwoJCXVuc2lnbmVkIGlu
+dCBpZm5vID0gMDsKCQlzdHJ1Y3QgdXNiZGV2ZnNfaW9jdGwgZGlzID0gewoJCQkuaWZubyA9IDAs
+CgkJCS5pb2N0bF9jb2RlID0gVVNCREVWRlNfRElTQ09OTkVDVCwKCQkJLmRhdGEgPSBOVUxMLAoJ
+CX07CgoJCWZkID0gb3BlbihwYXRoLCBPX1JEV1IpOwoJCWlmIChmZCA8IDApIHsKCQkJZmFpbCsr
+OwoJCQljb250aW51ZTsKCQl9CgkJaW9jdGwoZmQsIFVTQkRFVkZTX0lPQ1RMLCAmZGlzKTsJLyog
+ZGV0YWNoIHVzYi1zdG9yYWdlICovCgkJaWYgKGlvY3RsKGZkLCBVU0JERVZGU19DTEFJTUlOVEVS
+RkFDRSwgJmlmbm8pIDwgMCkgewoJCQlpb2N0bChmZCwgVVNCREVWRlNfSU9DVEwsICZkaXMpOwoJ
+CQlpZiAoaW9jdGwoZmQsIFVTQkRFVkZTX0NMQUlNSU5URVJGQUNFLCAmaWZubykgPCAwKSB7CgkJ
+CQlmYWlsKys7CgkJCQljbG9zZShmZCk7CgkJCQljb250aW51ZTsKCQkJfQoJCX0KCQlpb2N0bChm
+ZCwgVVNCREVWRlNfQ0xFQVJfSEFMVCwgJmVwcCk7CS8qIGNsZWFyIHByZXYgc3RhbGwgKi8KCgkJ
+bWVtc2V0KCZ1MCwgMCwgc2l6ZW9mKHUwKSk7CgkJdTAudHlwZSA9IFVTQkRFVkZTX1VSQl9UWVBF
+X0JVTEs7CgkJdTAuZW5kcG9pbnQgPSBlcDsKCQl1MC5mbGFncyA9IDA7CgkJdTAuYnVmZmVyID0g
+YmFkY2J3OwoJCXUwLmJ1ZmZlcl9sZW5ndGggPSBzaXplb2YoYmFkY2J3KTsKCQlyYyA9IGlvY3Rs
+KGZkLCBVU0JERVZGU19TVUJNSVRVUkIsICZ1MCk7CgoJCWlmIChyYyA9PSAwKSB7CgkJCW1lbXNl
+dCgmdTEsIDAsIHNpemVvZih1MSkpOwoJCQl1MS50eXBlID0gVVNCREVWRlNfVVJCX1RZUEVfQlVM
+SzsKCQkJdTEuZW5kcG9pbnQgPSBlcDsKCQkJdTEuZmxhZ3MgPSBjb250ID8gVVNCREVWRlNfVVJC
+X0JVTEtfQ09OVElOVUFUSU9OIDogMDsKCQkJdTEuYnVmZmVyID0gYmFkY2J3OwoJCQl1MS5idWZm
+ZXJfbGVuZ3RoID0gc2l6ZW9mKGJhZGNidyk7CgkJCXJjID0gaW9jdGwoZmQsIFVTQkRFVkZTX1NV
+Qk1JVFVSQiwgJnUxKTsKCQl9CgoJCWlmIChyYyA9PSAwKQoJCQlvaysrOwoJCWVsc2UKCQkJZmFp
+bCsrOwoKCQlpZiAoZGVsYXlfdXMgPiAwKQoJCQl1c2xlZXAoZGVsYXlfdXMpOwoJCWNsb3NlKGZk
+KTsKCgkJaWYgKHZldmVyeSAmJiAoKGkgKyAxKSAlIHZldmVyeSA9PSAwKSkKCQkJZnByaW50Zihz
+dGRlcnIsICJVU0JERVZSQUNFOiBtb2RlPSVzIHJvdW5kICVkLyVkIG9rPSVkIGZhaWw9JWRcbiIs
+CgkJCQltb2RlLCBpICsgMSwgcm91bmRzLCBvaywgZmFpbCk7Cgl9CglmcHJpbnRmKHN0ZGVyciwg
+IlVTQkRFVlJBQ0U6IERPTkUgbW9kZT0lcyByb3VuZHM9JWQgb2s9JWQgZmFpbD0lZFxuIiwKCQlt
+b2RlLCByb3VuZHMsIG9rLCBmYWlsKTsKCXJldHVybiBvayA/IDAgOiAxOwp9Cg==
+------=_Part_344592_766044435.1793104555733--
 
