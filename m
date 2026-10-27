@@ -1,67 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084567;
-	b=EzzqmeUiZeD0Q8/GBK0o9C5oDjBzlsq7iswpuIm1e7PPW0XrJh8oytPAw6yknwrDH51y
-	 kRmsBPOhIYt2XyTFfsdf4tfYA9i30+lM+u39gCMaTfyDqQfJBqpqRxZlm1YVlyIDfYuIX
-	 9kZswzZQQ2jco5e1j/vkw00NN4u1sl5ZJNZysXkxMJPrvuwZn5Mz/0MWDTdAnlUHWU9yV
-	 5/KaOIDKxmAdVZUmkC7wlrAWFjkF3UTpxxOOfsXJFoth4crY85WPUUDRxLTQxXMyxjXLf
-	 O9QAQJl1L0gHqHIvuyxlL4pv487hTa6/inUDFtknB4CV/KRvHgvZtQPh4ztlzbY6Rbg==
+	t=1793084924;
+	b=W0lkC7yoxMA64gQXdxUVglVWDH5q7Z7coo3S9UvH7OReM6Js80U+bC3Eb/WIc3L7HP32
+	 gzPC6nIOr8PTOiwA7gfTW/Hv4Dfavuzlx5mtaPiYhAEtzq1u7YchbaEBusoSrMeOYD3f0
+	 RxQ6+iLMFpt0r07+TVi6rt6Doospet70NwIdXZNqek1td3wzl3pWfQEouNqhGiV45JRly
+	 nQxbMMEe7nZH1N7SA1lsutHaft6hMPnKWESWKyRXokYVrutd8mXl7fFNeiBI5ZoU+clgT
+	 tRNFETfLFrmb9zSMQTlKlzot5XfLd8UK7kmv8BoUXQfYmOv/Cq03eby4XhkykbuMAbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084567;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IGxxK/0rRCVYhR8uVCd/PFtvUOh1YcYCxfBfXc4JAHU=;
-	b=Eb6Iqs0N4m2yuS6P3vqgo7cfcDGXmhbqndtMABYzmUYPC7ySLLVhBh8S6REbQ5d2vUNg
-	 mr1K/0gy4tZ5mvpLc29vPDzurj3stMEVhSZL6aUGwn9Sy3kYurzcEPYtkmFsLCj8cCMFW
-	 BxJorPyemT6THAqk1XFeZUCYvel1yZVymbaIBke+O1zMZk+gfiLGgPpegNid21qrcoeDw
-	 NfbJdRxImvCswsdr4jOb5JEbgtjCgPTu+fc9R14nZXvO+hukYoK3H7p6CzOOMh5v6DqnV
-	 fQ5iEnLCOkFwPwXV7gyZmmguoTnNA+5U427y3ZNqdws0XkjbPj/KZmZHfqd8TBULsLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084924;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=6zazjVTQz3Lc+/QZ9WoAd0ReZCneFGPIxm+AtvJf/J4=;
+	b=Ri8mTyKOGbAnBfMLpeH6jcteoc9BhQ40wjYCHyviCrxk2sMP/GdOv4mNz+e7AzYlsDS2
+	 zTBb/d/eiUbyj2wjXL8JrMnDfUG1ml7d24PPxl0bMXBQxlA8AN44xMrDCgD/sDmfLnnS3
+	 EXCER9RLgga4/8Q41CwFtq+LGjAa+IFd7vuLNnSp8BWwzWqxgu5uGPnvyLH3Pj1Vd6d5p
+	 cwIexK4RGhmkUjRWTZtLFP/nmR0Q4jXpzsSfNHhCGK/Dvw1WgxT1t6ijbL7jEm7ALLkZg
+	 a6r5ixBp/RMB7x+jTJYr3MoUb7sur78hv6r7LaFaqjq4CcNbTjDlTMVZz5kTh5rWg0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gdpeStxZ;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C51F2606A31E;
-	Tue, 27 Oct 2026 07:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C51F2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AdLINEE9;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988F6606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:08:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 988F6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gdpeStxZ
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AdLINEE9
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so2587777a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:08:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=gdpeStxZ+ZjdtPmuGrWdMdrRPRK5Q6qqV3TtqjmwjitGtgswKdEsU1q7q6sZ/m3QYp0QRVeTNKRGJ
-	 6D4xMkJESfsoacLwf154tcu6g6adlKmH2TV0S3wX89TO6uIhggAkDewe3+lzufhmlXk2SPFt0bLdZo
-	 PHJzhomKwZ2g2j2w=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ae04c90be8-90f25;
-	Tue, 27 Oct 2026 15:02:43 +0800 (CST)
-X-RM-TRANSID:2ee26ae04c90be8-90f25
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae04c913e8-d18ff;
-	Tue, 27 Oct 2026 15:02:43 +0800 (CST)
-X-RM-TRANSID:2eea6ae04c913e8-d18ff
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: linux-media@vger.kernel.org
-Cc: crope@iki.fi,
-	mchehab@kernel.org,
-	linux-kernel@vger.kernel.org,
-	andi.shyti@kernel.org,
-	syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Subject: [PATCH v2] media: dvb-usb-v2: ec168: reject zero-length I2C reads
-Date: Tue, 27 Oct 2026 15:02:41 +0800
-Message-ID: <20261027070241.1475-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+        d=gmail.com; s=20251104; t=1793084923; x=1793689723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6zazjVTQz3Lc+/QZ9WoAd0ReZCneFGPIxm+AtvJf/J4=;
+        b=AdLINEE9Xgb7dNR1swD4xNFfCwJlS7Byu/htEqNWINHagScw1+K+Em34GSDuOmP9yz
+         ZihG0AtYGAemaE5lGfAhfTaFgzlIBvNwwN8HsiHQ/hQXH8i0tFls5Z5pZAgSAMgOYgXD
+         gLo7ssEfGW051qHJYkQEzSIVSiLTiLop8v4pvOrw5mprIYAgtWWqZ0o8HQyrk0thsej3
+         nDIIiRMCc8tyCsmRCM0qqWIOaxKh5Ejv2jxi4jsQCIE5quU0n3nb9UihefYhjwNKSN9L
+         FiF3ngKZUrLk+dZhhM+4zOKkXkH1S14OLPJTWeiE36tZ5cpjGmXwfx3gWpzHamR6sLHT
+         C1qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793084923; x=1793689723;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6zazjVTQz3Lc+/QZ9WoAd0ReZCneFGPIxm+AtvJf/J4=;
+        b=Duoj9vU5hqmDCa6RwUEbZR0DMngYRuaYtCTxG5qnTigwTB97W6uX1wJ14AJ6GYvi1/
+         SlrgKird1mcQJwo2YKT4H2i2YdCa5QtgO7Clj++1C8saTQfG/NvKdtCHYyxyPGq9dncj
+         eENqNad9xngHorNYGsCQdzY4iGMX4FdJdTAblLymZihO4QnxtltyGWwMk4WRxh3a/R2s
+         yvnjb+U6VTv+vuAD4E7Rb3fWOygdgQdhuJfsYStZMElAYk2BmF4bYBsUEpLMEzGeigQM
+         Rz9T2KCspjwLPXmipML/D1figKGMLRxYkv22yHjdJWhgaKIrwjeVj3tjzo3jI36FhCRY
+         iiUw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6ypXnbjAKZHwx3k0JH+enh/dfzqfpGkMCNxPI36avOYfEOVwvDHdZCxZoDNXIbOiS8Md5njX2yBP2Wxs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKm6ocQJPuioKUYgd+GEtld7+VaInOmXjvS7zKLVT5kmz8ykiF2
+	k4fYv/negxJbFeatsUyaArDgwjpsv4bVxkxSSiNMqLgAdrx3WMgsOOzOYubVA1o=
+X-Gm-Gg: AYBFou0U7J5oYcU4eOUW1bUa7MYMnXI+Lfk0dPv655Lo0dj2GetnQ2vXwsg7loQTp9U
+	2ptoLJ7pH/Cr+iPtRm/sv+AYhUoNCFoBMYoifAmuhoV0MlyxbC+/TNl+B3fGHh58ebS9bQUDmVt
+	qIrT22fgiOwcz7AeeV+ppbe0iHIXagYnYQu3SYZx1fAnC4Nfw+TNxY7MrChU3b8QFwY9cdt/P4B
+	yoaSEvG9dgse00CqbNlHjgGDrPuNIWQcaYe3ZXTm5OWoo8B5UISxIfQ9OHyaY49Tsg09M3w6Xpe
+	0rdQpC2uvvkB+p7wO1KYhlmdtgQqtUJNcM/WaYA1432xznDZQTMBhNpa2wzaJNETPSpESX4mcF+
+	e5WMPfB5MiqyAlTy+UDv/+sKWMeMAyH4oo335shnJIYVU/oQ26Cvq5bLz2SR1GeeqA/5Ywo5d/h
+	2Iu5zcKQnsDF+cBfqSY4PB5cVpntZiXBzLVCwVVJbf7i7Ob1gBbXh18/l8XQWbLnIEHV5tJKg6C
+	wx+nLfRCt097TBaJ3jljGqUFBKKuB7FDm3cGdUSfhnuajq4BwbTrd3yTRvtFbdJOz94jXKJowkQ
+	GzOO14LMudW6P8tKGkm6f+1m0LqwQOHCEDc=
+X-Received: by 2002:a17:90b:3941:b0:3ac:eeb:e0ed with SMTP id 98e67ed59e1d1-3adead5e324mr7265729a91.36.1793084922903;
+        Tue, 27 Oct 2026 00:08:42 -0700 (PDT)
+Received: from [10.1.1.198] ([71.212.222.246])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae401bf352sm2540119a91.0.2026.10.27.00.08.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 00:08:42 -0700 (PDT)
+Message-ID: <4934834b-41ab-4663-b031-d04d736e9fe8@gmail.com>
+Date: Tue, 27 Oct 2026 00:08:41 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,53 +90,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: phy: qcom: qmp-combo: Glymur USB Gen2 fails on one port (chip rev
+ 2.0)
+From: Burke Cates <burke.cates@gmail.com>
+To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+ Nabige Aala <nabige.aala@oss.qualcomm.com>,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>, linux-phy@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <5b31ea48-7918-4f0b-b012-6915b384b922@gmail.com>
+Content-Language: en-US
+In-Reply-To: <5b31ea48-7918-4f0b-b012-6915b384b922@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ec168_i2c_xfer() validates the length of the write-phase message of a
-combined write-then-read transaction, but not the length of the
-read-phase message.  A userspace I2C_RDWR ioctl on the adapter's
-/dev/i2c node can therefore pass a zero-length read message, which
-makes ec168_ctrl_msg() issue an IN-direction control transfer with
-wLength == 0.
+On 26/10/2026 23:40, Burke Cates wrote:
+> These tests used v7.3-rc5 with out-of-tree Glymur platform/board
+> patches, including DP PHY support. They were not on an unmodified
+> mainline kernel.
 
-The USB core treats a zero-length control transfer as OUT-direction,
-so it detects the pipe direction mismatch and emits the "BOGUS control
-dir" dev_WARN_ONCE() in usb_submit_urb(), which panics on systems
-running with panic_on_warn.
+The end of my message was cut off when I pasted it. It should have
+continued:
 
-Reject zero-length reads the same way the driver already rejects
-zero-length writes.
+AI coding assistants helped with the bring-up and this report. The
+logs and test results above are from the recorded hardware tests.
 
-Fixes: 2bf290be4f3e ("V4L/DVB (13364): ec168: add new driver for E3C EC168 DVB USB")
-Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=ed3ada41c4eb1c4ab78e
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-v2: add missing spaces around '+' flagged by checkpatch, add Fixes tag.
-    Link to v1: https://lore.kernel.org/linux-media/20261023025535.90-1-zhaofeng2@cmss.chinamobile.com/
-
-Note: Andi Shyti has posted an identical fix for the same syzbot
-report (https://ci.syzbot.org/patches/80b80f7f-e688-493b-b3eb-1516027aec7b);
-happy to defer to his version.
-
- drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb-usb-v2/ec168.c
-index 0e4773fc02..193c752b6a 100644
---- a/drivers/media/usb/dvb-usb-v2/ec168.c
-+++ b/drivers/media/usb/dvb-usb-v2/ec168.c
-@@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
- 	while (i < num) {
- 		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
- 			if (msg[i].addr == ec168_ec100_config.demod_address) {
--				if (msg[i].len < 1) {
-+				if (msg[i].len < 1 || msg[i + 1].len < 1) {
- 					i = -EOPNOTSUPP;
- 					break;
- 				}
--- 
-2.39.2
-
-
-
+Thanks,
+Burke
