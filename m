@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069804;
-	b=aZn2oAbeW+yHejauksfinMF3MIVNu90G5ia5W+BEfuthvCXc0VGl9C+j22t1KSBN8GuQ
-	 vjHwuHlW6piqZ1qqKWsaMhBWef/PAC73rLW8Fo6FpdyVi6FKl4r+060SvNxA/6j2MFani
-	 EVZ8LXEKZlQw5cmTyU3KZrZQ8mpwTOCjmMBxf0eZsKCJG1By0JRuGQLny7YVv/AGLNDyD
-	 sJPwsP7An6pAEFiwmYtmI9J7A/2Kcidj563W1Mnj8s7jr3Y56bJaBj10iyZ+84cYElWfw
-	 fk+SUTHST0MExqN6BYnHV/An2/UYnn7D9u8hVIGYD3k64Hciw1j4ix/ts5783md7tcA==
+	t=1793069806;
+	b=EFXwhMDVSXp8K0xY0FZSLlDvM5KrRJ8B89fJHucRxlD7ItXbfiZtM82pvxudEloN3Cm8
+	 cq2Hg2nWexckFB3dOVCGKYqlXHlRWtLHp9SbqRLwodlFBeCn2s1P708y6T/UsETg8Heho
+	 bYW0NsXL9/ilOPXAvxaO2+IxoER3iepm3kq0l2vf70FCIXU3sXR/ZakQ66nkl3HcTmOhP
+	 O39Oe5WXdMkNrxbp3Cgw9sJ0YkH5U7jjRxW0NoZrwwhZd+MwVk03SNpztolcDBmXjKYZx
+	 C87/vvTuKes1CBBdlfOeaVAn2srWDPBwizRVFHin3YYVkzTjyAgVtoKm91YhEStsN9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069806;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=0uzqgwftXz/DV+yjf2QpwILGgyMTBZAoH8uvJ/r3lMk=;
-	b=s5dliRCAnZYyZb+TzwLpJhoI7jA6C5sKdBQ9lUTjzins17h3gAX653PUhkMkw2qXltGm
-	 P4Aozk2GYClSCv7RtIS4j0Bhq2UHie3NqsJNZt7YVyukkprglwGrOxnntYCBf8NLvxoFW
-	 qGxsXfbRM8svX/zW4PSueoKO+mbWRGjhnYx1YZUxNATsHFmYDGpOVlgRfh3aXYfZxKnQK
-	 z6osOz4COfT7rSA5qb2i+G0R88j0kwEUOzQfA/uRn/4/6SgJOjbg5VkblQ6WC6EqoU8Sa
-	 c/oWRVC4X94J78PeeX9zq9RlbRGSiinNEEazIGiX+XG8DPCiuY4pLJEPeIgk1iLGCgA==
+	bh=nTmoe18Cl/4sVBSCzKT2MKtNZE6Kiks6IBw/3aH90Qo=;
+	b=fi8+v1Tk+s2dhBTWxqWDa+4ZIdit2OiY/lKJceBnCF1hfYw8dIwypO3umC6pPcp4oONZ
+	 zjK4rKppfEpJQ0smsuYI6PFTYkFHYXMCDwaVNudRpF4MbSfAmsyeEpeHdqe443xgPE/8w
+	 sJwu4s5IqTPLLufXMXBXaP4vLYhnFkbe7j5cAIlO3WdpPqhzGNglZSAOqjjRDt2MjmEhg
+	 w+EC1HU6U1PmHUckpS+AZfLznE25KGkJAPvWJC1ot/X9aODWvtgds82Irz+li1jh3wmZE
+	 HNxzaEP4UpZ94AlP4iByuc/fSfqfT6KHch4nYpSeYruVhqejNkQBDraXYRTelttRQRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jHa9QGYh;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Z62pXTP9;
+	arc=none smtp.remote-ip=209.85.210.71
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F06606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F06606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4286A606A328
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4286A606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jHa9QGYh
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so5879414b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Z62pXTP9
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-847e2926d94so7191487a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793069803; x=1793674603; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1793069805; x=1793674605; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0uzqgwftXz/DV+yjf2QpwILGgyMTBZAoH8uvJ/r3lMk=;
-        b=jHa9QGYh9X3IBMWXkVkIZOr+NsAFmipaU5nggTwDXLj19FELj902baUVTGkipnWe3Z
-         E4YZQ8TxciuXuQz58f+GelwdXWhuaE1csqWkcUYit0yhtY3cs13AAznyIIJwRng05sIA
-         dDLIKjP1s3OIxvq1+pkTXmok3LQQ3CsC2+i+riY33euyquXpE5vQOAcNeLQqZAvA4NrE
-         dxZ5zftFUUltE6+LpVpQckECMQvhny7+11Us+5m4MzTr90U15pxueHcoQunGP9fGIR9C
-         PfhgiYxrTvcpf6LtkGUVz8yVM4+dxa3yBWz5k6iPbmkgkYQW0oetuRTN1CWQtvxBh1Ep
-         8YLg==
+        bh=nTmoe18Cl/4sVBSCzKT2MKtNZE6Kiks6IBw/3aH90Qo=;
+        b=Z62pXTP9xfa3gTQxIGNoVXsy7duoq/uH7iqChJqgs30TMgADpDXAmA9S82vLp2oRE3
+         5wt/Ko8E3RdUqvtjnwFDsI7l+rVT1Et/15PCRyAsE4mH91ws0QxpiE7p6SpFgARwTHgW
+         SxSA/cQeNsBA5wr/7Al7NECagdmqb3FLzwI0ZuBQZXS/7tddFUKzIRZaOJJxMac81ZX5
+         krShLH65S4N1/6bXrK6ZUftZkp+xO4gySYOailHgxJ+hCf1HmCxds1P0qvowL3WW4rMi
+         bDEJM1dDoSzx/2W0w9+7OIPHu1uSWatpe4AD/8CHqO2f1Y6fZH3PCDKURD/Gebd1T6qM
+         POkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069803; x=1793674603;
+        d=1e100.net; s=20260707; t=1793069805; x=1793674605;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0uzqgwftXz/DV+yjf2QpwILGgyMTBZAoH8uvJ/r3lMk=;
-        b=JSS7y/lHaItdVBjPW+tm4Gtyc9uGJUtlMv6UENiy2OjXfrpLXKHjmi/ouXBTOy6t5o
-         vvO9NXZj5Py7ARYVf1pKRJ9j2iDMtNRLjx0ji3s4j0uwtCosB50bmpFXlxCzc16UZaCB
-         Q6ywaSokzkctChizDENK2ZbT/h2bXWgsSEVhS7vAzK54p5QiXRpobgdMPv+iHMtDMHzj
-         zJ7Petm5/jb+kYK9Oeok4Ipu1ktj3+i9WddZvLURKfXqbIFuRCP6mGBvoO72sgUffKqR
-         rJ78FyMUiFjB8kENkqRuovhwAozVkHguEgu+zdyCuqwYDv2p/zxmsh7kZbZe8DJHAbh8
-         2jFg==
-X-Forwarded-Encrypted: i=1; AKwUvBwcgO/XfhRRExYY2McxJlyctiGIoN4qqIEynPWtkF4HDZkP3Zs/B8JNYjYSAEmyjexnMsbJ0WY8RrOeL8g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKf9KgAD7lvbx4/R5HzzoMudTI0Ogju/kJlmfXOM8cuoq3GZO0Q
-	/3HMcu4fctz/0RQFVv2ko6ry7DFBmlTOdrQ8mBA+ZryyzwYV5M/OxeFtKB/QBBc7C1iQI4qKjMy
-	Kfbgf63ywphev8mEenj2B7sDrCliT7YJVfw==
-X-Received: from ioxz3.prod.google.com ([2002:a05:6602:17c3:b0:9c7:733a:80ab])
+        bh=nTmoe18Cl/4sVBSCzKT2MKtNZE6Kiks6IBw/3aH90Qo=;
+        b=s5jWkSEwYqs2zcGufrnuh9mkEUSb6YdS2HLzD+cLDGIvNsoy8tcYSIpfZPIffk6FSX
+         tpnAdI8ZwqYFdhG0O7U6txAiKFqTwgFYC/JFkqmAV+2Ra/NsZ4xnFJ8m+KwmE763PeQQ
+         Qaa3ZRqxfS6pNzb1tF3jd8slRIr9ws1S0rES/3bD9VhLBnaKcaX5Uq7gmDV003iKmugC
+         4uVlzUXoDZV+IJ9P2n/oAs8g/RCeJzIzOVUzvnIZRhdw6duTx2v8y3GWWivn9WucWTTI
+         RoSgPHSEkIBuTyC/kMagCRM/A083vFW6/IAmR+SJp0qPb96UhWTWi36qMIxSQZEQuYXq
+         Ry4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwmIRh998EPZeuO0JkkVOyn7z1CN3toqTnRRvrBT5/bQ81nX6u4HP8yl3oeRQU6W8DBsCFb61BbyVdu0UQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5C/oHMfPK0ImS7VFhJqIEKP7Kl0Lr7GaDbZ4OAdhisVf/W7xD
+	3OWht5tBhN9tvMI9qPVM2CZen1T8jRqen+PvaAPgx0lajcz6HYR+aV/R3F44UODG0nKB8ucuj3g
+	J+mPxR/IyzIwBnd7r2A2qCuOZiprny+170Q==
+X-Received: from ila5-n1.prod.google.com ([2002:a05:6e02:5205:10b0:50d:41bd:b30])
  (user=kevinloughlin job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:448b:b0:4ea:14ab:142d with SMTP id 5614622812f47-55c002fc7b3mr5525425b6e.40.1793069802970;
- Mon, 26 Oct 2026 19:56:42 -0700 (PDT)
-Date: Tue, 27 Oct 2026 02:56:05 +0000
+ 2002:a05:6820:c0cc:10b0:6dc:6e90:f650 with SMTP id 006d021491bc7-70ba0e0f19cmr3730965eaf.15.1793069804982;
+ Mon, 26 Oct 2026 19:56:44 -0700 (PDT)
+Date: Tue, 27 Oct 2026 02:56:06 +0000
 In-Reply-To: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027025616.1632690-3-kevinloughlin@google.com>
-Subject: [PATCH 02/13] virtio_balloon: add reporting_vq DMA map ops
+Message-ID: <20261027025616.1632690-4-kevinloughlin@google.com>
+Subject: [PATCH 03/13] x86/coco/sev: add snp_unaccept_memory()
 From: Kevin Loughlin <kevinloughlin@google.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@kernel.org>, Jason Wang <jasowangio@gmail.com>, 
 	"=?UTF-8?q?Eugenio=20P=C3=A9rez?=" <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
@@ -104,107 +104,94 @@ Cc: virtualization@lists.linux.dev, linux-coco@lists.linux.dev,
 	David Skidmore <davidskidmore@google.com>, Kevin Loughlin <kevinloughlin@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-In confidential computing guests where VIRTIO_F_ACCESS_PLATFORM is
-negotiated, the standard DMA mapping layer rejects mapping unencrypted
-or swiotlb-bounced scatterlists when reporting large free page blocks
-through reporting_vq. However, the host VMM only inspects the guest
-physical address and length of reported free page ranges in the
-virtqueue descriptor table and never reads or writes the reported guest
-memory payload.
+Add snp_unaccept_memory() and wire it up to arch_unaccept_memory() and
+arch_has_unaccept_memory() on AMD SEV-SNP guests.
 
-When guest memory encryption is active (CC_ATTR_GUEST_MEM_ENCRYPT),
-attach custom per-virtqueue mapping operations (balloon_reporting_map_ops)
-to reporting_vq that translate scatterlist entries directly to guest
-physical addresses without allocating swiotlb bounce buffers or
-decrypting guest memory.
+When memory ranges are dynamically unaccepted (such as during
+virtio-balloon inflation or free page reporting), snp_unaccept_memory()
+invokes set_pages_state(..., SNP_PAGE_STATE_SHARED). This call rescinds
+guest RMP validation via PVALIDATE(..., validate=false), handling 2MB
+PMD pages with automatic fallback to 4KB pages on RMP size mismatch.
+snp_unaccept_memory() -> set_pages_state() also issues a GHCB Page State
+Change request so the hypervisor transitions the range from private to
+shared symmetrically with snp_accept_memory().
 
 Signed-off-by: Kevin Loughlin <kevinloughlin@google.com>
 ---
- drivers/virtio/virtio_balloon.c | 56 ++++++++++++++++++++++++++++++++-
- 1 file changed, 55 insertions(+), 1 deletion(-)
+ arch/x86/coco/sev/core.c                 | 13 +++++++++++++
+ arch/x86/include/asm/sev.h               |  2 ++
+ arch/x86/include/asm/unaccepted_memory.h | 14 ++++++++++++++
+ 3 files changed, 29 insertions(+)
 
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index ab3e3d887e00..11f74848fdc4 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -19,6 +19,7 @@
- #include <linux/wait.h>
- #include <linux/mm.h>
- #include <linux/page_reporting.h>
-+#include <linux/cc_platform.h>
- 
- /*
-  * Balloon device works in 4K page units.  So each page is pointed to by
-@@ -580,6 +581,55 @@ static void update_balloon_size_func(struct work_struct *work)
- 		finish_wakeup_event(vb);
+diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
+index eb2e853e950a..3f8809bae14a 100644
+--- a/arch/x86/coco/sev/core.c
++++ b/arch/x86/coco/sev/core.c
+@@ -432,6 +432,19 @@ void snp_accept_memory(phys_addr_t start, phys_addr_t end)
+ 	set_pages_state(vaddr, npages, SNP_PAGE_STATE_PRIVATE);
  }
  
-+static dma_addr_t balloon_reporting_map_page(union virtio_map map,
-+					     struct page *page,
-+					     unsigned long offset, size_t size,
-+					     enum dma_data_direction dir,
-+					     unsigned long attrs)
++void snp_unaccept_memory(phys_addr_t start, phys_addr_t end)
 +{
-+	/*
-+	 * Free page reporting transfers physical address and size metadata
-+	 * via vring descriptors; the device/host never accesses or transfers
-+	 * data on the page itself. Return the true physical address without
-+	 * DMA mapping / bounce buffering.
-+	 */
-+	return (dma_addr_t)page_to_phys(page) + offset;
++	unsigned long vaddr, npages;
++
++	if (!cc_platform_has(CC_ATTR_GUEST_SEV_SNP))
++		return;
++
++	vaddr = (unsigned long)__va(start);
++	npages = (end - start) >> PAGE_SHIFT;
++
++	set_pages_state(vaddr, npages, SNP_PAGE_STATE_SHARED);
 +}
 +
-+static void balloon_reporting_unmap_page(union virtio_map map,
-+					 dma_addr_t map_handle, size_t size,
-+					 enum dma_data_direction dir,
-+					 unsigned long attrs)
-+{
-+}
-+
-+static void balloon_reporting_sync_single(union virtio_map map,
-+					  dma_addr_t map_handle, size_t size,
-+					  enum dma_data_direction dir)
-+{
-+}
-+
-+static bool balloon_reporting_need_sync(union virtio_map map,
-+					dma_addr_t map_handle)
-+{
-+	return false;
-+}
-+
-+static int balloon_reporting_mapping_error(union virtio_map map,
-+					   dma_addr_t map_handle)
-+{
-+	return 0;
-+}
-+
-+static const struct virtio_map_ops balloon_reporting_map_ops = {
-+	.map_page		= balloon_reporting_map_page,
-+	.unmap_page		= balloon_reporting_unmap_page,
-+	.sync_single_for_cpu	= balloon_reporting_sync_single,
-+	.sync_single_for_device	= balloon_reporting_sync_single,
-+	.need_sync		= balloon_reporting_need_sync,
-+	.mapping_error		= balloon_reporting_mapping_error,
-+};
-+
- static int init_vqs(struct virtio_balloon *vb)
+ static int vmgexit_ap_control(u64 event, struct sev_es_save_area *vmsa, u32 apic_id)
  {
- 	struct virtqueue_info vqs_info[VIRTIO_BALLOON_VQ_MAX] = {};
-@@ -641,8 +691,12 @@ static int init_vqs(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		vb->free_page_vq = vqs[VIRTIO_BALLOON_VQ_FREE_PAGE];
- 
--	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING))
-+	if (virtio_has_feature(vb->vdev, VIRTIO_BALLOON_F_REPORTING)) {
- 		vb->reporting_vq = vqs[VIRTIO_BALLOON_VQ_REPORTING];
-+		if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
-+			virtqueue_set_map_ops(vb->reporting_vq,
-+					      &balloon_reporting_map_ops);
-+	}
- 
- 	return 0;
+ 	bool create = event != SVM_VMGEXIT_AP_DESTROY;
+diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
+index c7ea9845351e..464a721f8889 100644
+--- a/arch/x86/include/asm/sev.h
++++ b/arch/x86/include/asm/sev.h
+@@ -514,6 +514,7 @@ bool snp_init(struct boot_params *bp);
+ void snp_dmi_setup(void);
+ int snp_issue_svsm_attest_req(u64 call_id, struct svsm_call *call, struct svsm_attest_call *input);
+ void snp_accept_memory(phys_addr_t start, phys_addr_t end);
++void snp_unaccept_memory(phys_addr_t start, phys_addr_t end);
+ u64 snp_get_unsupported_features(u64 status);
+ u64 sev_get_status(void);
+ void sev_show_status(void);
+@@ -624,6 +625,7 @@ static inline int snp_issue_svsm_attest_req(u64 call_id, struct svsm_call *call,
+ 	return -ENOTTY;
  }
+ static inline void snp_accept_memory(phys_addr_t start, phys_addr_t end) { }
++static inline void snp_unaccept_memory(phys_addr_t start, phys_addr_t end) { }
+ static inline u64 snp_get_unsupported_features(u64 status) { return 0; }
+ static inline u64 sev_get_status(void) { return 0; }
+ static inline void sev_show_status(void) { }
+diff --git a/arch/x86/include/asm/unaccepted_memory.h b/arch/x86/include/asm/unaccepted_memory.h
+index f5937e9866ac..931d1388973e 100644
+--- a/arch/x86/include/asm/unaccepted_memory.h
++++ b/arch/x86/include/asm/unaccepted_memory.h
+@@ -18,6 +18,20 @@ static inline void arch_accept_memory(phys_addr_t start, phys_addr_t end)
+ 	}
+ }
+ 
++static inline bool arch_has_unaccept_memory(void)
++{
++	return cc_platform_has(CC_ATTR_GUEST_SEV_SNP);
++}
++
++static inline void arch_unaccept_memory(phys_addr_t start, phys_addr_t end)
++{
++	/* Platform-specific memory-unacceptance call goes here */
++	if (cc_platform_has(CC_ATTR_GUEST_SEV_SNP))
++		snp_unaccept_memory(start, end);
++	else
++		WARN_ONCE(1, "Cannot unaccept memory: unsupported platform\n");
++}
++
+ static inline struct efi_unaccepted_memory *efi_get_unaccepted_table(void)
+ {
+ 	if (efi.unaccepted == EFI_INVALID_TABLE_ADDR)
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
