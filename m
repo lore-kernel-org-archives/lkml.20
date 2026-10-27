@@ -1,118 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793130394;
-	b=f5mpd0rkhP7faFc/gE/iMPtX3rl91SVlGc1MjQbDV2yzzxBh/eTUz742K0Iy7z4v6q4E
-	 dre31/3u7bXGt6HCsA539+4osH3jP7hzJ6ViuaLvSGCkagjFRUiRA51MYPRHMJo611UH4
-	 0jG/WT9QMDl+Lw4zaKXhd1J9o2OaaMhX+rJjaJiH2rB16jNr8B19oyy0oBB2CZG+1PCI3
-	 oXOjl1snhu/oE1jlIEk8SVxTeCMi+vRQVo0/+Cv9bO7XBkQNsAul/ncFOkLyBHjgE0qKd
-	 odxVKsKlQ5CB55H2XVvrmv0NDbXBQWle5YtLNoWk8pytJ9h9nboK+Xkv8iEhTkFe1iA==
+	t=1793130427;
+	b=ChnjTSC9KyDITJJCi4+LtsYXzGDdZxzPXXUI9VDWGnTMxXTqlUSc59IcyHXxG1MDt4GC
+	 WW74vKqEu36ap/a23BTuz7eS8TaYSiCW8Ls98k2VP3jQ/JLdwb3jMbFFR+Un4RR7K84rm
+	 ZranZISWK82wlCTbJPsmBBF57FVw1TVQTB36V4LeS2cDvZHY+wRLPjsAUvFBK959QkEQV
+	 8jczpAoOikZyfHIlCR5FRA+nSTawRoc7PGUIgADr2SOc1O0+3Wh/YwUIC+8nUu9y9Cb07
+	 tQy25JSHv3IR5RCszEnlUNYLg+9/VZDRpBgqp08apRpvS0z9+fI6a8w3X4r5pKhfDZA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793130394;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793130427;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
 	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JOTkIEV2oM01tUCfRWSA4k6sR5uZdilc8YIF5pCfTSk=;
-	b=Ks1cifnik88Jx/9AIYu+lov/aJ4XkBu49nMCMiCMjt+qFJrvnouG16TLdwdbHYTxEO/U
-	 YfpnrpOc4NyvkwYSagGoJzDxcAlyU1qx3kQCH+sYAbu2TQeWmNqzc6NG7sUrIwXS4VzhF
-	 OIbIWmQu15EudTtFq62VGW3ecGpb0uNlmgnHd9jRBV0Tpand9XMmbcBKv2N8hV6yqRvQa
-	 4sUJ4Gj/JTf7twoad2WY0GOWDshhLncuNthjUz7msCFR3T8VUjCle+xZTBaZBO9vyKbVN
-	 D+Em8qFxCgyeDhLPU6kzONmaVfjdNZSqANyWUe/XtQ9ctQ/NX1TkSSKyRcNftzaqQAQ==
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=vXupvzMkXEFxaRDSdiUYDES7qK/BByeFIiZk+85P+Ms=;
+	b=lC5jrtLXc2exM3Hgy5/oHzmCJN5o9Ajsp89nwWIDobGJ0SVFXe5jFky8MWAyrNRGihz+
+	 wB5RSYOJo1jI8gE16OyjUPBG4S3E6h39mn9pfuGk1eFfM/DeO5jroPGNfNK6lt0IzqiPY
+	 hrD0T3uFhZQDOS60I/6v4kRSALc2V3ZeTg25d8WgmMi+duHatVD+SNlqzrjSVr4xaZY5N
+	 OwlDbL7c+AyKqET+2YTggJF2dCIWtS/jiMnZye0J/myF9ivixSH/LuFTxuLiBEdq+wBQW
+	 3nIOz1OFbyFBCpq+6I+bd+C7NgpUwmyvQKSSYIPatvjcGmrdtxaBGWg0rK/jKelKCTQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DYUXjX3M;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="DcFnS/K8";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LzujQoxQ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I6PH0zyX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B56606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7B56606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 197FA606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 197FA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DYUXjX3M;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DcFnS/K8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793130392;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JOTkIEV2oM01tUCfRWSA4k6sR5uZdilc8YIF5pCfTSk=;
-	b=DYUXjX3Mmve/cvYugwfjsI2W76X/c0DFKvXV3+4dDArFnL496Nu6hf9F8qLPUrEdanPNHZ
-	xCrVxCwYA7twVHVoOsugbB7darw0KUJHREP+ZRUg58qWDU6ti/ony8QHmf2hRbL/Y3NfZL
-	fhZTarA4lASW7c5mV7PqzIMb7XJmRr0=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-680-C0ZSrFcTOrmxn1ZLc1rXQQ-1; Tue, 27 Oct 2026 15:46:31 -0400
-X-MC-Unique: C0ZSrFcTOrmxn1ZLc1rXQQ-1
-X-Mimecast-MFC-AGG-ID: C0ZSrFcTOrmxn1ZLc1rXQQ_1793130390
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48e1ad3cb66so100031f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:46:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793130390; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LzujQoxQ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I6PH0zyX
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RIIAvr3486333
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:47:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vXupvzMkXEFxaRDSdiUYDES7qK/BByeFIiZk+85P+Ms=; b=LzujQoxQ17BLu3f5
+	CN627i/BGLQfk7BgVJKjA85vLKTX5g/qZZoC2kl/3DIJZdh/j83jFT+QUiTVqbj2
+	RL6Zo4/purFVj773fYIDpUF1RMk3jELvq2WrhzHpNnAQy4OrP7aM9Dp1qwOILf9U
+	k8Ojf5uC+spAsHB1T/Ju/lrznb2t0WoB5wqIoluWT+3nv4XPPoxVhmtLOXJMCXdh
+	9jvL1LnRYK7sZmACOehN6Qps01hH9WnmZlHIjCDcZDaYinXSQx2qv688nwYoRkxZ
+	Y+WRQdhd7IczYHUpFYaeTX9SM5fJJPRiX8lWYksweVDK8y2VZBEPGgDxI+gM4UcH
+	bVL0cw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbtc53q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:47:04 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a06750c74fso160155b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:47:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793130424; cv=none;
         d=google.com; s=arc-20260327;
-        b=LZ2sJZ3/z65NGUXsGqlpNPwhPf0ob6/hPqTs0uDc91i0a1UEG0igTcSWjRwAlu38zR
-         p3HJr1A807SeAS1KUiGpNbyIizMYt/sE1BH/tK7O5VgACYb17oX+uWez9mokwvzF4KQ3
-         NIfmFcTboVdx2j+tCR5OpSJi2AGSe5Yy/uB8kZTs0Gwkiuetl0S70Luq+QC+TxFvOGMk
-         foh1+5RINdLz6FyusmWSE2v4o0vKEzCtEPS10buMa89qzLNuU2iKTWbZ83sdOkz/EZVm
-         mKPerl+kKrh5VBDNPVBLhV83Qycs9BrwJKcVaZwxJoUXNgpOdCRb97w2ExEX7ur+7tqg
-         +Dmg==
+        b=e5TjZ5agnke95GwCmH7McpOAmY94qWcjWosFDBCnrdaNCPdoWdHA039GX1uDUclQMF
+         pg2iDAo10opvjrWht9Yv3WYFqJgegre21Dk244W9jGFYx6OQEMXriuEnWvCAYwj7eeMH
+         gFz3hSFEl99g1OswTPo1+8FqZKB11B4bxC5sAOx9n4NVAdU0kP2PiB9TGX0Erwwodkox
+         09TDYFDAvry2TU8s/ie6vfEjeoq2PzMP+ZXUUhMtWeC1o3CPA9R45Uc6/P4uiMK4ByxB
+         0+mygDsIe6nNQF4ybJTZ7v85BokBEkpDJYHpigEcHL/SASc2YoWNlAHBqo6rwmiC7nsE
+         lZiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=JOTkIEV2oM01tUCfRWSA4k6sR5uZdilc8YIF5pCfTSk=;
-        fh=SHgn8Tmzfkw3NcSpFx2BmurDq/1pqRYcCyFXhVQaQJk=;
-        b=RwzekZzMj/JQowN3NvPwgh7bObBVuHoZoWYqfLvnu8ESfeVKdR+0Owi9GFiIJ29ZcM
-         daprmW+GpnulDleJ9V/mkukyPIdS/ek5Uty1gtMy5l5421yhxEUJ7sl78Acu8U8CQtJE
-         VtG9BrSB6lcUFNh0vVRV4mJhbO8zBtIvWDZmCd1/RGY2XkXqT+DqngVR8StIlpKz+3Nw
-         MEHpP7Gs+cfPJEj+/EHoc6hIlgfK8n45AURFIstrVtlrMVTDo4cS+V1009aHmUuO/PXw
-         Ust4FVAI7/JJ45WKIT/eg4+10SFlBco2vCygRIktO3cTbK+GpqxjALju8ME7Kqf82IIq
-         rxug==;
+        bh=vXupvzMkXEFxaRDSdiUYDES7qK/BByeFIiZk+85P+Ms=;
+        fh=vYqn1UBiNKbVAoQjmbJH08i2513E4uVRGNADfzxbQnM=;
+        b=HrVznFcRaYHLEO7Hvw9dILT1wBHb3cHL9hWhirVAExYjTfkPz5Fy0YfOv8zVaa1guB
+         4LbnVL5fXE1RxrQgXlUCJ1LIUymPRtiDSfSvq+Yu+mdd9SVmqNtBbWi79scXIkedyVOG
+         QnbdrxhNYrMUKSyXeD6LqFINlxpeMAgHlBlxTCGiEfzEgVBawAA1vNMvoBT1bdeFS7I7
+         hmk/JnGkInT8Hvvfci08JYB4unxD4893QV7/z9wTjc0UjN6eLyAtzO9ynnTO1syLvay0
+         H5UeggYKR2pXY00F9UyeevLF0Im66VZf1g0ynBtHKG23kLx8vUbSVNRADC1q3Sw4Tr+h
+         iBIg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793130390; x=1793735190; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793130424; x=1793735224; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JOTkIEV2oM01tUCfRWSA4k6sR5uZdilc8YIF5pCfTSk=;
-        b=DcFnS/K8dEYdmjg6ZJjKVDRati4KEQtyPwkobvaifSOUbYSlhmJOdL0zbOoWK0LIrh
-         4ppZDeB2XI/bvptNP+9IBQyfFvasqR2BU+d2wOXtDtamBQ0/OosC5/VDv4ghm1KN0Hmp
-         e9fDI6DzOQKpIWCw1KA5WP2ILp9c4h2L9n6a8a+4inJZISmDK5dRBqWYuTNmV6fgnTZU
-         wgwgqNdS5TwwdIYayRSmvLfleSdhopfD5pYh+vJnwkv+P2LsbdEwtNUd30e+U9Q4iuHv
-         kFizrcnnAiSwDDUYmC/7usVb/AYxqNh3xr4mO+ICaVyxQB1ysE+oyBmfdUA5ynopvl0I
-         Q1SA==
+        bh=vXupvzMkXEFxaRDSdiUYDES7qK/BByeFIiZk+85P+Ms=;
+        b=I6PH0zyXswXsI0b/+7VmGrLu7/KnpbM19lsLS7dYEWr3lsdYlKBsDvTMjMZZD0FjNw
+         9chhVheMrh7uoRZ9QHNeLEtYD+TVPXZ4tkhRwA5skDJQc7+qplHEEMHQYqVFeqOqY0b6
+         n+0Zobo1TQwEnGRuc3GsTTl2kKQ9oNq3Q18WKa7OO9VOlzxHx6n97EElJIIT55Y8dqCr
+         iBTh3RLr45ovZt0tL4HbcbD5vl/bXhCdp+ZPZoQW2eSPGMACcjzj8Jx07xHntzBVaCNZ
+         /0CeUZNpAlh4ze3kbmYnUl2yFvlk7kc9h98GYLyTTtkyvya3WRN2PoQykLRlrTkf683V
+         Utwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793130390; x=1793735190;
+        d=1e100.net; s=20260707; t=1793130424; x=1793735224;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JOTkIEV2oM01tUCfRWSA4k6sR5uZdilc8YIF5pCfTSk=;
-        b=UklzeghroAsxS2IzSChmR1OpGBKUMNBQIdWz/9m2rmLRuu0zxs2TfLWWh2DqKU1v1J
-         uvDGUYS3liNfiNsxllXkN2OnugGZ1jdgYJY37ULKSZTEvYrUOUrQoIIODGmAosqabqBb
-         orQsRt+eC02aRLOb7b1L0HSn9AjNi8kb33ZOr5pOhdHNqUw6ZIMhE4k08T8rpbvU+MW7
-         4AHAfcQGtrMkkpGHkRcohjOLH0L0b0TrdQYqa8NRxMfzPBRB9lVQd474Hj/s5EG2OMZZ
-         8Z+jYkMdpnj3A/w0+gsEk9WoPfl/pri9h0x67/3S23tw42NQQacBlmVAKglPztiPxFJV
-         Rjhg==
-X-Gm-Message-State: AFq9FYLvGHjqDxr2HJ1UF41j5hW9eWkBxKw8RFoxHu8yFFIGXHszt0Ad
-	us3N5l7ijWMMFniSFEn2tZk6H/6YykRxOZhI3RjijR3kK1divFyUjJO/tsSrFTfdO1/IAHG/p63
-	yq4uyfjHNHnEnAYX2V8IopMBHYqP2/W8juIA4P4P6WEUq+1F98wG6wuLk+S6WSnoq7MXuy5Ojbk
-	XtJSOFyieUOeUQvbe4w6Cc/oIe9nT6lzVg/tZHmUYuUkD5U0q3iY0=
-X-Gm-Gg: AYBFou292sf7cnapipB4OLvqHJEsUcXgag1nlwYouLoiSsiUBnlw6v5smoTR2QrM6+P
-	kySuIDqbKhCHxobJJLCg0kDO2hgRQwVdtAK4OSqL9/7MOdpBbDtBi4rCNb69AfmV1vaCAjFcMyn
-	58sAFNitXJ1+snwncmNtznFFYaWY9wUlqhgEcgpF9AY4ub6fdu/jeXiiwTGpL9LUd3aDjfkw8lN
-	pFVMntrEz2swsjFfw==
-X-Received: by 2002:a5d:588c:0:b0:48e:bf0:352 with SMTP id ffacd0b85a97d-48e5d284d78mr1237769f8f.5.1793130389908;
-        Tue, 27 Oct 2026 12:46:29 -0700 (PDT)
-X-Received: by 2002:a5d:588c:0:b0:48e:bf0:352 with SMTP id ffacd0b85a97d-48e5d284d78mr1237726f8f.5.1793130389407;
- Tue, 27 Oct 2026 12:46:29 -0700 (PDT)
+        bh=vXupvzMkXEFxaRDSdiUYDES7qK/BByeFIiZk+85P+Ms=;
+        b=OYsD2rN3mTCd6P9s7kXGpbFGo3LMh+uFflHWtu+OZXxmCeRzzJkShdjZzGa+Gr861V
+         yIOZoMJ2FGdFHeYIqq1w8YTNdbt/0swtqNO8aNwxfmhVaIXajJy+Sc+D6ssQXG+acv4/
+         CvT011tkyAxUqcZG5m5nFthCFuXJMy8fYHmAX+sIItHMDKGwDd0KY6x8ojpy3hjELaY7
+         i0lJn7YT1ItsjpGSokYPqqLRhMM6GYB0wqkpT8m1G/4q9gA84Ulbu/xuAcrPp9grT6PW
+         GsaxqxtVMKnWR+mS9hIYL/2cNQILFKk/l6I5fHPkozm+ugFHzlG5JFzk1pCETXdOX44S
+         usAg==
+X-Forwarded-Encrypted: i=1; AKwUvBysvvAlQ63v3KK6Tq+ImqqfoCLpoGkg38RcxwdmoRjwlKaYEYtCRjmMY4XwUe+Taa24VeAh0s+AbYfCHDM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1oeL+TMgOW1d6AQE+OY9GEc72ME4MNEhqnLPL82KqcbaWV1/x
+	YJizkKfUtcLAX3Clag4LMvCHkpNrXlvE2WoO4DXyUJEjLkWlSU6JnY7d+vfP+yXLqx1oD5eQIdn
+	f/b+8ONcZoAxG6NTySuffaaJtY5v7jyNntLkySw7S501yTJZAeMNIHoi/ae0GGnJwYD/SHWWSsh
+	Ab3RTjDitRv9zPffT+GDCYnCvLcfC4SfevQulW8CD+PA==
+X-Gm-Gg: AYBFou0wKZgu9J2MZpVC5wboVBvau8K77Z8ydGbUBdP6KwZYbE7bLUjL6/XzQCZQ8yr
+	K/+pqofNpCw1HADfVdNikoT8U5GATAN4gfAYwMY2BcjoMheE4J27q9XUrnJBuKheAgIEiV6wNgI
+	OcinIUE3r+pM3di7wjsBT0lUY0rz378l3XJ5ZRcrJEL75hjxpSSwiJQA4G5g==
+X-Received: by 2002:a05:6a00:399f:b0:89f:3c81:e733 with SMTP id d2e1a72fcca58-8a6e6b165f2mr200685b3a.25.1793130423820;
+        Tue, 27 Oct 2026 12:47:03 -0700 (PDT)
+X-Received: by 2002:a05:6a00:399f:b0:89f:3c81:e733 with SMTP id
+ d2e1a72fcca58-8a6e6b165f2mr200670b3a.25.1793130423390; Tue, 27 Oct 2026
+ 12:47:03 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,455 +127,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com> <20260930063919.608911-7-himanshu.chauhan@oss.qualcomm.com>
-In-Reply-To: <20260930063919.608911-7-himanshu.chauhan@oss.qualcomm.com>
-From: Jesse Taube <jtaubepe@redhat.com>
-Date: Tue, 27 Oct 2026 15:46:18 -0400
-X-Gm-Features: AclHuK-ugd-SMsap1lAbeozrFJFmptki5zc_TqPt3AXr1L797xe5xdIqlH8kHik
-Message-ID: <CADRr4bcBjUR0vSm+8kDe7dsa4v0N7jpB6OCOcJ4S3aSNeFQ+yQ@mail.gmail.com>
-Subject: Re: [PATCH v7 6/8] riscv: Add software supported single stepping with
- mc/mc6 triggers
-To: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-perf-users@vger.kernel.org, peterz@infradead.org, mingo@redhat.com, 
-	alex@ghiti.fr, aou@eecs.berkeley.edu, palmer@dabbelt.com, pjw@kernel.org, 
-	qingfang.deng@linux.dev, shuah@kernel.org, thecharlesjenkins@gmail.com, 
-	cp0613@linux.alibaba.com
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com> <583dc515-855c-48d6-aefb-abaef26b2564@linux.dev>
+In-Reply-To: <583dc515-855c-48d6-aefb-abaef26b2564@linux.dev>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 20:46:52 +0100
+X-Gm-Features: AclHuK_bapBmxktEdZVjMgWgZxWqamgn8RlHpTC8snrfTiBMci97VrdDBV-_joE
+Message-ID: <CAPx+jO_+P-ksGzbYp9Aky7etMyKtTUvtAZJZJpauw03Y8zP0Lg@mail.gmail.com>
+Subject: Re: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend
+ beyond SDIO
+To: Shawn Lin <shawn.lin@linux.dev>
+Cc: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Kamal Dasu <kamal.dasu@broadcom.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA3OSBTYWx0ZWRfX2aII+sKX3//X
+ BeYVwHhkxsx84m0TJapWEaISbdGtyOSg0+DOolVa/XF/c0tQs4kqZoZ3LuhLvk0RED+/wP1bTQ1
+ 7Sogs+bmicAwDsPSfuuIgS/nAUi1U1c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA3OSBTYWx0ZWRfX/pt2SOYdqApq
+ o4FxWAxPDT3lNSsD0VtMOd992eF03lKD1jhxsZuXbF2bCqjJZkf75kn8FSrOXhUfe6emhE5LqZA
+ zXzU5RMSOFD/XKohFzkaE+5kdoXoodptOSu/Tvsjo0yqcKfJoMKvzGdTA5ob8gTEKDkD18jvP0G
+ MqYmxTseiUr9ija++6de2UCdDNQX5O1LTWym+xTD/Ah21xVl80exr/6NhLecpej1Vnwh0fNk3tK
+ 3lPP6VpYncNQT9nb4/rxYJpWRegZkoy3aEXHeGNjmo5Q2UPia8K7bJU7GNlCilM+YVB0d2JYoG8
+ 4oPjT3ImtxunS8JXC+E+Bf4X/mpyTuKEvoGvefm354NkQvqS+Z/now+aKN1qf6TjoJ1Y/xvZUR5
+ mHxZefI/UNlsDDUaYsrdvW1z4Ith/+ZbxuJqHZdH3c0QYyDLqrFuRxbwaibJ7HNJtNa6dhLHkck
+ ZC9jtB+hV3Gmtw0zcdQ==
+X-Proofpoint-ORIG-GUID: NunE1M3-d2W3SItZysZgo8JSsw9SPnvJ
+X-Proofpoint-GUID: NunE1M3-d2W3SItZysZgo8JSsw9SPnvJ
+X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae0ffb8 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=Q-fNiiVtAAAA:8 a=EUspDBNiAAAA:8
+ a=HEP-3NFZZEzz-JMo_uAA:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270079
 
-On Wed, Sep 30, 2026 at 2:40=E2=80=AFAM Himanshu Chauhan
-<himanshu.chauhan@oss.qualcomm.com> wrote:
+On Tue, Oct 27, 2026 at 4:02=E2=80=AFPM Shawn Lin <shawn.lin@linux.dev> wro=
+te:
 >
-> With mc/mc6 triggers, after handling breakpoint at current pc, there
-> is no way to tell trigger to skip same breakpoint after the handler
-> returns. This can cause loop of breakpoints at the same address until
-> the trigger is disabled or uninstalled. Debugger may keep the breakpoints
-> enabled and if kernel disables it, there is a loss of state coherency.
+> Hi
 >
-> To avoid the loop, software disables the current breakpoint, finds the
-> next instruction that would be executed after pc and puts a breakpoint
-> at that address. When this breakpoint hits, old breakpoint is reinstalled=
-.
+> =E5=9C=A8 2026/10/27 =E6=98=9F=E6=9C=9F=E4=BA=8C 22:40, Ulf Hansson =E5=
+=86=99=E9=81=93:
+> > From: Kamal Dasu <kamal.dasu@broadcom.com>
+> >
+> > keep-power-in-suspend is currently documented as SDIO-only, but the
+> > requirement it describes -- preserving card power across a
+> > suspend/resume cycle -- applies just as well to any card type. Drop
+> > the SDIO-only restriction so eMMC and SD platforms can use it too.
+> >
 >
-> Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-> ---
->  arch/riscv/include/asm/hw_breakpoint.h |   9 +
->  arch/riscv/kernel/hw_breakpoint.c      | 256 +++++++++++++++++++------
->  2 files changed, 202 insertions(+), 63 deletions(-)
->
-> diff --git a/arch/riscv/include/asm/hw_breakpoint.h b/arch/riscv/include/=
-asm/hw_breakpoint.h
-> index ca2ef93c020c..93cbf39f4b4a 100644
-> --- a/arch/riscv/include/asm/hw_breakpoint.h
-> +++ b/arch/riscv/include/asm/hw_breakpoint.h
-> @@ -280,6 +280,10 @@ struct arch_hw_breakpoint {
->         unsigned long address;
->         unsigned long len;
->         unsigned int type;
-> +
-> +       /* Single-step callback info */
-> +       unsigned long next_addr;
-> +       bool in_callback;
->         unsigned int match;
->         unsigned int chain;
->         unsigned int select;
-> @@ -289,6 +293,11 @@ struct arch_hw_breakpoint {
->         unsigned long tdata1;
->         unsigned long tdata2;
->         unsigned long tdata3;
-> +
-> +       /* Saved trigger config for single-step restore */
-> +       unsigned long saved_tdata1;
-> +       unsigned long saved_tdata2;
-> +       unsigned long saved_tdata3;
->  };
->
->  struct perf_event_attr;
-> diff --git a/arch/riscv/kernel/hw_breakpoint.c b/arch/riscv/kernel/hw_bre=
-akpoint.c
-> index dd6f63953969..9597ed362537 100644
-> --- a/arch/riscv/kernel/hw_breakpoint.c
-> +++ b/arch/riscv/kernel/hw_breakpoint.c
-> @@ -11,9 +11,12 @@
->  #include <linux/percpu.h>
->  #include <linux/kdebug.h>
->  #include <linux/bitops.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/math.h>
->  #include <linux/cpu.h>
->  #include <linux/cpuhotplug.h>
->
-> +#include <asm/insn.h>
->  #include <asm/sbi.h>
->
->  /* Registered per-cpu bp/wp */
-> @@ -328,8 +331,11 @@ int hw_breakpoint_arch_parse(struct perf_event *bp,
->
->         /* Breakpoint address */
->         hw->address =3D attr->bp_addr;
-> +       hw->tdata1 =3D 0;
->         hw->tdata2 =3D attr->bp_addr;
->         hw->tdata3 =3D 0x0;
-> +       hw->next_addr =3D 0x0;
-> +       hw->in_callback =3D false;
->
->         switch (dbtr_type) {
->         case RISCV_DBTR_TRIG_MCONTROL:
-> @@ -347,6 +353,93 @@ int hw_breakpoint_arch_parse(struct perf_event *bp,
->         return ret;
->  }
->
-> +static ulong get_step_address(struct pt_regs *regs, ulong insn)
-> +{
-> +       return get_next_insn_address(regs, insn, regs->epc);
-> +}
-> +
-> +/*
-> + * setup_singlestep - Set the breakpoint to next instruction after curre=
-nt breakpoint.
-> + */
-> +static int setup_singlestep(struct perf_event *event, struct pt_regs *re=
-gs)
-> +{
-> +       struct arch_hw_breakpoint *bp =3D counter_arch_bp(event);
-> +       unsigned long insn, next_addr =3D 0;
-> +       int ret;
-> +       struct arch_hw_breakpoint tmp =3D {};
-> +
-> +       /*
-> +        * Save the original trigger configuration so we can restore it
-> +        * after the single-step fires.
-> +        */
-> +       bp->saved_tdata1 =3D bp->tdata1;
-> +       bp->saved_tdata2 =3D bp->tdata2;
-> +       bp->saved_tdata3 =3D bp->tdata3;
-drop saved_tdata* as they are not used.
-`hw_breakpoint_arch_parse(NULL, &event->attr, bp)` restores the
-origonal state instead.
+> I don't see how SD could use it from the following patches. Perhaps we
+> should still be more strict here to say SDIO and eMMC only, unless
+> SD part is implemented later.
 
-Thanks,
-Jesse Taube
+I didn't have the bandwidth to implement this for SD at this very
+moment, but the idea is to add it for SD too.
 
+That said, I was also thinking that maybe it would make sense to add a
+sysfs node to allow the behavior to be controlled by userspace.
+Thoughts?
 
-> +
-> +       ret =3D get_insn_safe(regs, regs->epc, &insn);
-> +       if (ret < 0)
-> +               return ret;
-> +
-> +       next_addr =3D get_step_address(regs, insn);
-> +
-> +       /*
-> +        * Software path: update the trigger in-place to an execute
-> +        * breakpoint at next_addr.  Build the tdata directly without
-> +        * calling hw_breakpoint_arch_parse() so that bp->len, bp->type
-> +        * and bp->address are not overwritten and remain valid for the
-> +        * handler's matching logic after restore.
-> +        */
-> +       tmp.tdata1 =3D 0;
-> +       tmp.tdata2 =3D next_addr;
-> +       tmp.tdata3 =3D 0;
-> +       switch (dbtr_type) {
-> +       case RISCV_DBTR_TRIG_MCONTROL6:
-> +               RISCV_DBTR_SET_MC6_EXEC_BIT(tmp.tdata1);
-> +               tmp.tdata1 =3D RISCV_DBTR_SET_MC6_SIZE(tmp.tdata1, 0);
-> +               tmp.tdata1 =3D RISCV_DBTR_SET_MC6_TYPE(tmp.tdata1,
-> +                                                    RISCV_DBTR_TRIG_MCON=
-TROL6);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_DMODE_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_TIMING_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_SELECT_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_ACTION_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_CHAIN_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_MATCH_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_M_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_VS_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_VU_BIT);
-> +               SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_S_BIT);
-> +               SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC6_U_BIT);
-> +               break;
-> +       case RISCV_DBTR_TRIG_MCONTROL:
-> +               RISCV_DBTR_SET_MC_EXEC_BIT(tmp.tdata1);
-> +               tmp.tdata1 =3D RISCV_DBTR_SET_MC_SIZELO(tmp.tdata1, 0);
-> +               tmp.tdata1 =3D RISCV_DBTR_SET_MC_SIZEHI(tmp.tdata1, 0);
-> +               tmp.tdata1 =3D RISCV_DBTR_SET_MC_TYPE(tmp.tdata1,
-> +                                                   RISCV_DBTR_TRIG_MCONT=
-ROL);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_DMODE_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_TIMING_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_SELECT_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_ACTION_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_CHAIN_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_MATCH_BIT);
-> +               CLEAR_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_M_BIT);
-> +               SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_S_BIT);
-> +               SET_DBTR_BIT(tmp.tdata1, RISCV_DBTR_MC_U_BIT);
-> +               break;
-> +       default:
-> +               return -EOPNOTSUPP;
-> +       }
-> +
-> +       bp->tdata1 =3D tmp.tdata1;
-> +       bp->tdata2 =3D next_addr;
-> +       bp->tdata3 =3D 0;
-> +       arch_update_hw_breakpoint(event);
-> +
-> +       bp->in_callback =3D true;
-> +       bp->next_addr =3D next_addr;
-> +       return 0;
-> +}
-> +
->  /*
->   * Read mcontrol6's hit1:hit0 field for trigger @idx. If either bit is s=
-et,
->   * clear it in hardware (the Debug spec requires the trigger user to do
-> @@ -401,10 +494,10 @@ static unsigned int mc6_read_and_clear_hit(int idx)
->   */
->  static int hw_breakpoint_handler(struct die_args *args)
->  {
-> -       int ret =3D NOTIFY_DONE;
-> +       int i, ret =3D 0, bp_ret =3D NOTIFY_DONE;
-> +       bool expecting_callback =3D false;
->         struct arch_hw_breakpoint *bp;
->         struct perf_event *event;
-> -       int i;
 >
->         for (i =3D 0; i < dbtr_total_num; i++) {
->                 event =3D this_cpu_read(pcpu_hw_bp_events[i]);
-> @@ -412,85 +505,122 @@ static int hw_breakpoint_handler(struct die_args *=
-args)
->                         continue;
->
->                 bp =3D counter_arch_bp(event);
-> -               switch (bp->type) {
-> -               /* Breakpoint */
-> -               case HW_BREAKPOINT_X:
-> -               {
-> -                       bool hit =3D bp->address =3D=3D args->regs->epc;
->
-> -                       if (!hit && dbtr_type =3D=3D RISCV_DBTR_TRIG_MCON=
-TROL6)
-> -                               hit =3D mc6_read_and_clear_hit(i) !=3D RI=
-SCV_DBTR_MC6_HIT_FALSE;
-> +               if (bp->in_callback) {
-> +                       expecting_callback =3D true;
-> +                       if (args->regs->epc !=3D bp->next_addr)
-> +                               continue;
-> +
-> +                       arch_uninstall_hw_breakpoint(event);
->
-> -                       if (hit) {
-> -                               perf_bp_event(event, args->regs);
-> -                               ret =3D NOTIFY_STOP;
-> +                       /* Restore original breakpoint */
-> +                       if (hw_breakpoint_arch_parse(NULL, &event->attr, =
-bp))
-> +                               goto exit;
-> +
-> +                       if (arch_install_hw_breakpoint(event))
-> +                               goto exit;
-> +
-> +                       bp->in_callback =3D false;
-> +                       bp_ret =3D NOTIFY_STOP;
-> +                       goto exit;
-> +               }
-> +
-> +               switch (event->attr.bp_type) {
-> +               /* Breakpoint */
-> +               case HW_BREAKPOINT_X:
-> +                       {
-> +                               bool hit =3D bp->address =3D=3D args->reg=
-s->epc;
-> +
-> +                               if (!hit && dbtr_type =3D=3D RISCV_DBTR_T=
-RIG_MCONTROL6)
-> +                                       hit =3D mc6_read_and_clear_hit(i)=
- !=3D RISCV_DBTR_MC6_HIT_FALSE;
-> +
-> +                               if (hit) {
-> +                                       perf_bp_event(event, args->regs);
-> +                                       ret =3D setup_singlestep(event, a=
-rgs->regs);
-> +                                       if (ret < 0) {
-> +                                               pr_err("Single step setup=
- failed: %d.\n", ret);
-> +                                               goto exit;
-> +                                       }
-> +                                       bp_ret =3D NOTIFY_STOP;
-> +                                       goto exit;
-> +                               }
->                         }
->                         break;
-> -               }
->
->                 /* Watchpoint */
->                 case HW_BREAKPOINT_W:
->                 case HW_BREAKPOINT_R:
->                 case HW_BREAKPOINT_RW:
-> -               {
-> -                       unsigned long stval =3D args->regs->badaddr;
-> -                       unsigned long bp_start =3D bp->address;
-> -                       unsigned long bp_len =3D bp->len ?: 1;
-> -                       unsigned long bp_end =3D bp_start + bp_len - 1;
-> -                       unsigned long stval_end =3D stval + sizeof(long) =
-- 1;
-> -                       bool hit =3D false;
-> -
-> -                       if (bp_end < bp_start)
-> -                               bp_end =3D ~0UL;
-> -                       if (stval_end < stval)
-> -                               stval_end =3D ~0UL;
-> -
-> -                       /*
-> -                        * Prefer tdata1.hit from SBI trigger readout whe=
-never
-> -                        * possible. Fall back to address-based matching =
-if HIT
-> -                        * isn't observed/supported.
-> -                        */
-> -                       if (dbtr_type =3D=3D RISCV_DBTR_TRIG_MCONTROL) {
-> -                               unsigned long tdata1;
-> -                               struct sbiret sret;
-> -                               union sbi_dbtr_shmem_entry *shmem;
-> -
-> -                               raw_spin_lock_irqsave(this_cpu_ptr(&ecall=
-_lock),
-> -                                                     *this_cpu_ptr(&ecal=
-l_lock_flags));
-> -                               shmem =3D this_cpu_ptr(sbi_dbtr_shmem);
-> -                               sret =3D sbi_ecall(SBI_EXT_DBTR, SBI_EXT_=
-DBTR_TRIG_READ,
-> -                                                i, 1, 0, 0, 0, 0);
-> -                               if (!sret.error) {
-> -                                       tdata1 =3D le_to_cpu(shmem->data.=
-tdata1);
-> -                                       hit =3D !!(tdata1 & RISCV_DBTR_MC=
-_HIT_BIT_MASK);
-> +                       {
-> +                               unsigned long stval =3D args->regs->badad=
-dr;
-> +                               unsigned long bp_start =3D bp->address;
-> +                               unsigned long bp_len =3D bp->len ?: 1;
-> +                               unsigned long bp_end =3D bp_start + bp_le=
-n - 1;
-> +                               unsigned long stval_end =3D stval + sizeo=
-f(long) - 1;
-> +                               bool hit =3D false;
-> +
-> +                               if (bp_end < bp_start)
-> +                                       bp_end =3D ~0UL;
-> +                               if (stval_end < stval)
-> +                                       stval_end =3D ~0UL;
-> +
-> +                               /*
-> +                                * Prefer tdata1.hit from SBI trigger rea=
-dout whenever
-> +                                * possible. Fall back to address-based m=
-atching if HIT
-> +                                * isn't observed/supported.
-> +                                */
-> +                               if (dbtr_type =3D=3D RISCV_DBTR_TRIG_MCON=
-TROL) {
-> +                                       unsigned long tdata1;
-> +                                       struct sbiret sret;
-> +                                       union sbi_dbtr_shmem_entry *shmem=
-;
-> +
-> +                                       raw_spin_lock_irqsave(this_cpu_pt=
-r(&ecall_lock),
-> +                                                             *this_cpu_p=
-tr(&ecall_lock_flags));
-> +                                       shmem =3D this_cpu_ptr(sbi_dbtr_s=
-hmem);
-> +                                       sret =3D sbi_ecall(SBI_EXT_DBTR, =
-SBI_EXT_DBTR_TRIG_READ,
-> +                                                        i, 1, 0, 0, 0, 0=
-);
-> +                                       if (!sret.error) {
-> +                                               tdata1 =3D le_to_cpu(shme=
-m->data.tdata1);
-> +                                               hit =3D !!(tdata1 & RISCV=
-_DBTR_MC_HIT_BIT_MASK);
-> +                                       }
-> +                                       raw_spin_unlock_irqrestore(this_c=
-pu_ptr(&ecall_lock),
-> +                                                                  *this_=
-cpu_ptr(&ecall_lock_flags));
-> +                               } else if (dbtr_type =3D=3D RISCV_DBTR_TR=
-IG_MCONTROL6) {
-> +                                       hit =3D mc6_read_and_clear_hit(i)=
- !=3D RISCV_DBTR_MC6_HIT_FALSE;
->                                 }
-> -                               raw_spin_unlock_irqrestore(this_cpu_ptr(&=
-ecall_lock),
-> -                                                          *this_cpu_ptr(=
-&ecall_lock_flags));
-> -                       } else if (dbtr_type =3D=3D RISCV_DBTR_TRIG_MCONT=
-ROL6) {
-> -                               hit =3D mc6_read_and_clear_hit(i) !=3D RI=
-SCV_DBTR_MC6_HIT_FALSE;
-> -                       }
->
-> -                       /*
-> -                        * Sdtrig may report STVAL as the lowest accessed
-> -                        * address while the watchpoint can match a highe=
-r byte
-> -                        * in the same access.
-> -                        */
-> -                       if (hit ||
-> -                           (stval >=3D bp_start && stval <=3D bp_end) ||
-> -                           (bp_start >=3D stval && bp_start <=3D stval_e=
-nd)) {
-> -                               perf_bp_event(event, args->regs);
-> -                               ret =3D NOTIFY_STOP;
-> +                               /*
-> +                                * Sdtrig may report STVAL as the lowest =
-accessed
-> +                                * address while the watchpoint can match=
- a higher byte
-> +                                * in the same access.
-> +                                */
-> +                               if (hit ||
-> +                                   (stval >=3D bp_start && stval <=3D bp=
-_end) ||
-> +                                   (bp_start >=3D stval && bp_start <=3D=
- stval_end)) {
-> +                                       perf_bp_event(event, args->regs);
-> +                                       ret =3D setup_singlestep(event, a=
-rgs->regs);
-> +                                       if (ret < 0) {
-> +                                               pr_err("setup_singlestep =
-failed %d.\n", ret);
-> +                                               goto exit;
-> +                                       }
-> +                                       bp_ret =3D NOTIFY_STOP;
-> +                                       goto exit;
-> +                               }
->                         }
->                         break;
-> -               }
->
->                 default:
-> -                       pr_warn("Unknown type: %u\n", bp->type);
-> -                       break;
-> +                       pr_warn("Unknown type: %u\n", event->attr.bp_type=
-);
-> +                       goto exit;
->                 }
->         }
->
-> -       return ret;
-> +       if (expecting_callback) {
-> +               pr_err("in_callback set but epc (%lx) not at next_addr (%=
-lx).\n",
-> +                      args->regs->epc, bp->next_addr);
-> +       }
-> +exit:
-> +       return bp_ret;
->  }
->
->  int hw_breakpoint_exceptions_notify(struct notifier_block *unused,
-> --
-> 2.43.0
+> > Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > ---
+> >   .../devicetree/bindings/mmc/mmc-controller-common.yaml          | 2 +=
+-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/mmc/mmc-controller-commo=
+n.yaml b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> > index 8b9b3b036129..2fc8e06d5ec9 100644
+> > --- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> > +++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> > @@ -301,7 +301,7 @@ properties:
+> >     keep-power-in-suspend:
+> >       $ref: /schemas/types.yaml#/definitions/flag
+> >       description:
+> > -      SDIO only. Preserves card power during a suspend/resume cycle.
+> > +      Preserves card power during a suspend/resume cycle.
+> >
+> >     wakeup-source:
+> >       $ref: /schemas/types.yaml#/definitions/flag
 >
 
+Kind regards
+Uffe
