@@ -1,64 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101683;
-	b=ES99uNIiI408r4/kKOAIBbK9YsQYejsXhOOqaD7blebha1vnRFdr0u+n+XWHmdOGxx9M
-	 CPhabMgxnOwFppl/aOSsiiwqSZy+Sc9DgzVtT7Lp1fXXGIpUqUWg4/Rcdx0zgng8qvxu1
-	 GRlV5CnfnL9R86uZX86kqDdJpuHOycjbfCaV2nZcBnFeZhSMais0rjbW86ATnPAA457wF
-	 hUOWoej3qS+U7fNAnEoINOWiylo6ibOJFiqGowAlPCQsJ2aEo4RiyLXezu8PnEfT455UK
-	 TNy3hC4ttKdjHijVWf7ezb9+/BQeg0LwYYgcmgs4H0xA2WpV/4PwZjfAFFS3NEkoL3Q==
+	t=1793101732;
+	b=plKzgwFLYV1uCQGkEayKhq1LQ3XNx/5HZQV4Ss5LIk45odvL6VyLq4zEvqvbU94at8H3
+	 gtxsWbrW0FDenIvbcOQ45tpyCSwAT7yFQ0retABv7QrW7K9pKvF7tk20CDuffZLXtlGaD
+	 07BAKD6IM8faaEuFYCK4WXSnXUutdSN9ozUjZKrGs0GlNjcAtx2CuQgVPU4g15Yv6y7Ql
+	 RfUDu2/o6Y+DYfKSiP0hFhlQl1rSesGn7IAmRwZl4jhGxdJK1b/wL4tIt5Vcaw/J8A2EA
+	 s0shzzViGgn55c7qFbcWDPyiIlV60lkoR4JcRfguVwvjd79Ii5mfVWXrHfuJB8vCaaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101683;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=jP5R0hiwF8cPUc5aa7ofvcurmINMhxrJaW/fyXdFY8M=;
-	b=x0jxpdDla25dLhhijEjji3bZXSrAzr1CeuJvlf83mnG80umdZyFrM1AmgM+5dzFzKvNp
-	 1ncuNDuNT5tRv2hBrXboVJC01KNsct8pNiy+RKi9yteME94foA3Cjp6p9m/QWXK3oWIBp
-	 Q6253MtP6fDp/+McLBSMu2TyAvTYKnbrgtBj7R1XuhCwC8uRjZ3yKQM3g7CtzYPg8NjaZ
-	 p4FSS64wenxxXpIKp/j2/RnuIvnk9oLCWOR0J87tWNcTTMzhUGnRksgo/T5cDhsSVbVX0
-	 lR26NuBLIWDB3d4WS0l7oSK2a8aKF8oJZN2oOFaJBxBn1G/4eskDuXyARiEeV2SEm1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101732;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=O7vhfK9LUwcbCXy6Lz5w2AgaOehiRMtoFkoe6sMjwzU=;
+	b=xqDbXT4oepCACRBColTNWx6CdWpbkK13Tb0ekMNWSn4C20asAnPJxJbu5VY3MIlr4OFR
+	 iy39Xa1onDlFDv6GBT3J7WoCUwUf56E0m0zkZeOpXW55ftxJYTTmHvwhjHAHs4RTLgl9Q
+	 mT/kI7eI1ulU2FPsJDL/5CAFUj5Vr2L51Rbd39tCiduwbORRwq5qZ/nvZ6+RMlwsGKNvi
+	 7juMNV0NrEx5KEPuOgzyCvIg0KEeodC76uNbbkILfTbNNuar9VjVC7wjrG1OVmDoxQ4JB
+	 e17LGZ81EuLo1U7z+i/8uwycTzeXWBRW4bfZN1l+4XKoe1vVDWi6EfkXzGRUq/5C0KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nwKezIz/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E204606A323;
-	Tue, 27 Oct 2026 11:48:02 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kVgmw+6F;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2FD34606A335
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:48:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FD34606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nwKezIz/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53BF1F01828;
-	Tue, 27 Oct 2026 11:47:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793101682;
-	bh=jP5R0hiwF8cPUc5aa7ofvcurmINMhxrJaW/fyXdFY8M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=nwKezIz/ZPTcw2UOCvuBX2XjLbhwhV7tVYqBPun3BxxdfGxfhZlkqFMHoTxdxR2ln
-	 48yDLkVjRkj0WoHExDVhJtp9TLF7DOZskEWvmRkWDKAtORUekwxNrdYokzuWFXUMho
-	 +mLSCEmIvqRradZTCiqXdsh9scoq2IETQQg8d0QZQv9hXLRFMKPQ36KEocxPLCoLAR
-	 ggj0QEJJY5UZsBeJjEe3qdLTQwmEO/0fUcVSXu8v1V6AaeQG2x9dpMndzZfJhexONp
-	 1bH0EueUQnxjVhi+ooTKT8JuQAO4JPeuZ7c2lNLbB33ZfPNs6x4djOX0kh2NROXplx
-	 fRPWQKVINrTEg==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>
-In-Reply-To: <20260923180749.3906547-1-fuad.tabba@linux.dev>
-References: <20260923180749.3906547-1-fuad.tabba@linux.dev>
-Subject: Re: [PATCH v2] PCI: rcar-gen4: Fix device_node leak in
- rcar_gen4_pcie_host_msi_addr()
-Message-Id: <179310167143.5889.3369983512237009866.b4-ty@b4>
-Date: Tue, 27 Oct 2026 17:17:51 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=kVgmw+6F
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6CA0A2C1E;
+	Tue, 27 Oct 2026 04:48:43 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 324883F59E;
+	Tue, 27 Oct 2026 04:48:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793101726; bh=4i03Lff+oqO8PKJE3CBuMVnwfvifHeKsuOaAebMHbYM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kVgmw+6Fqmnn0FVvLxNLgUv3QdifXiyMmx7F/nnk1SuZwg+ZsRZaXVxBrH8+ZzjhM
+	 LGl8H+mmx9XFZf1mLf9ZyJce8nQudSfO1zhncune6e/lbKr65mEVNy2jNt01tDb2hF
+	 e9Kkwk1FnLMDDMoiow4zCil36BIDElArpf50BJF8=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Oliver Upton <oupton@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Tian Zheng <zhengtian10@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 0/3] Set DBM bit on writable pages
+Date: Tue, 27 Oct 2026 11:48:41 +0000
+Message-ID: <auCPmYvvkwILa4j-@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <auCOj9dgk42AE1WX@LeoBrasDK>
+References: <20261026144413.441566-1-leo.bras@arm.com> <at-lSy7H-K60LhCB@kernel.org> <auCOj9dgk42AE1WX@LeoBrasDK>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,33 +74,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=361;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=HqTG5LbYHSglUjHnKu6oj84sGwknU7rjDDCd8F+zNHc=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4I9sNf9SRHJkQL3cylE0Fx61MgQ+sRWi4M3m1
- ERQ9PJ/87OJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauCPbAAKCRBVnxHm/pHO
- 9Zi/B/9zK56Rs5kTHRqao00gtG2CubEr6QPNABOW0xCeeD4SX5ctZAQmGhEYyTvcRnvABSvjF0d
- LNGVcgGUI6I1Fl1MqjQyJkasJHq4Lhy7jAiPgDLgCZHdpA3GS2uN0EH1AlrLbtl1x5ZEhSBDkrY
- wpJbWqH2YFAe9yfccPtHjIillBQDyu/KWPmLyHqrikgH1GDIxwmQAZRO/sQJbbBQcN3LCnXgPau
- G0YbyiJkGZbmfFGcN9KNjVy+XOr7P/BGNOrBaU+ihu03pJXRGYd99FYYLv72AQsIdwJg56kFlFn
- +JerZJ/E2XRbPr6iy3T59IPk1TShdZ+Ec9W6PblJhFXapiZe
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+
+On Tue, Oct 27, 2026 at 11:44:15AM +0000, Leonardo Bras wrote:
+> On Mon, Oct 26, 2026 at 12:08:59PM -0700, Oliver Upton wrote:
+> > On Mon, Oct 26, 2026 at 02:44:06PM +0000, Leonardo Bras wrote:
+> > > When HAFDBS is enabled (VTCR_EL2.{HA,HD}={1,1}), having a DBM bit allows 
+> > > hardware to promote a non-writable page to writable by setting (S2AP[1]=1),
+> > > without having to take a fault.
+> > > 
+> > > The reason for this patchset is to add the DBM bit when setting-up writable 
+> > > pages, so the code is prepared for future patches that make use of 
+> > > HDBSS/HACDBS to accelerate dirty-tracking. Write-bit detection still 
+> > > happens based only in S2AP[1], so no change in that aspect.
+> > > 
+> > > Having DBM set on block entries is undesired, as we benefit from the first 
+> > > fault for splitting it in PAGE_SIZE entries, which is the granularity used 
+> > > to track the dirty pages in KVM. So introduce a new walker that, on top of 
+> > > clearing S2AP[1] for every entry, also clear DBM for block entries.
+> > > 
+> > > Also introduce a new VCPU request to reload Stage2, as it will be needed on 
+> > > future HDBSS/HAFDBS patchsets. 
+> > > 
+> > > Please let me know of what do you think!
+> > 
+> > I'm pretty sure I shared this feedback before, but patches that enable
+> > DBM do not make sense in isolation. We need a single series that
+> > contains the DBM enablement as well as the corresponding HDBSS support.
+> >
+> 
+> Right, 
+> My reasoning is that we can discuss this new version, and make the needed 
+> changes, so Tian could pick this for his own patch series for the next 
+> version. I do not intend to get this merged by itself.
+> 
+> Next time I will make sure to state this in the cover letter so it's clear.
+>  
+> > > Changes since RFCv1:
+> > > - Dropped patch #5 on enabling HAFDBS on non-dirty-tracking guests, as it 
+> > >   proved to be counter-productive on wrprotect, contrary to expectations
+> > > - No more moving writable-bit to DBM. That does not seem to be the intended 
+> > >   use. It makes sense and it's easier to convert code to new DBM approach.
+> > 
+> > Sorry, where was this concluded?
+> > 
+> 
+> Sorry, this is my viewpoint after re-reading the documentation and 
+> being really pedantic while trying to get a proper answer from the people 
+> responsible for keeping/improving it. 
+> 
+> > The abstract permission flags need to have a WRITE an DIRTY state, which
+> > we then map to hardware based on the capabilities of the system.
+> > 
+> > !FEAT_HAFDBS:
+> > 
+> > 	DIRTY	=> S2AP[1]
+> > 	WRITE	=> S2AP[1]
+> > 
+> > FEAT_HAFDBS:
+> > 
+> > 	DIRTY	=> S2AP[1]
+> > 	WRITE	=> DBM
+> > 
+> 
+> I agree that it could work, and my first version was based on that.
+> 
+> But looks weird to me that we have to decide the writable bit based on 
+> having a feature enabled.
+> 
+> Take in account that we can only have DBM being the writable bit while 
+> HAFDBS is enabled (not only present), and that it is just enabled during 
+> dirty-tracking. 
+> 
 
 
-On Wed, 23 Sep 2026 19:07:49 +0100, Fuad Tabba wrote:
-> PCI: rcar-gen4: Fix device_node leak in rcar_gen4_pcie_host_msi_addr()
+> It means we would need to convert the whole pagetable between DIRTY=S2AP[1] 
+> and DIRTY=DBM every time we enable or disable dirty-tracking.
 
-Applied, thanks!
-
-[1/1] PCI: rcar-gen4: Fix device_node leak in rcar_gen4_pcie_host_msi_addr()
-      commit: 34fb13a4a9620658e43be79f818ac5c456402c54
-
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
+s/DIRTY/WRITE/
 
 
+> 
+> My suggestion with this series is to have WRITE=DIRTY=S2AP[1] at all 
+> times, and have DBM to act as a "can be promoted to writable on write" bit.
+> This way we don't actually need to convert between encodings, and it still 
+> works and complies with the architecture.
+> 
+> > Beyond making the whole HAFDBS easy to reason about, I want this for
+> > FEAT_S2PIE which reimagines bit 7 as a literal dirty bit that can be
+> > managed by software or hardware.
+> 
+> Humm, and would not that work with the above suggested approach?
+> I mean, bit 7 (Dirty, S2AP[1]) will both mean WRITE/DIRTY, but it will be 
+> able to get promoted (nonW->W, or clean->dirty) based on the indirect 
+> permissions.
+> 
+> What do you think?
+> 
+> Thanks for reviewing,
+> Leo
