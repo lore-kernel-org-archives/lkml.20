@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793126062;
-	b=hmmasQduL1QXVIIwwyNVMJCUTQoXXufQVR1JLBIQAQvP0qiQML698mC/+82FCmJ/YyY7
-	 7MVqhSdk1idumq3ODC0KMb5+mdNycpp3ng9V1ePw7D3ktw0gm3uQ4mxEOskNp3ysPtgSU
-	 oNijPS3RJYvyEC4tf45bQcNd9Zp2XJbpGptM0cW7WeZ8ZUpf1AktQzBScnHK74M08/b4t
-	 q7NCndL40siA0RX4ZWE8jqbpzdCn5Sp+yDAznxRjg+FVqdlBF5oyxT2XVDT/Y1CwfXRNB
-	 c+ec39erBeMsNniaE7FBz4Jn8BZdtEvaa28cPDi7evY+b3/JTah5XEe1k2nMYcOLhag==
+	t=1793126118;
+	b=jWjoW6b4qmS58OmpKfHuJpShEA/OfILlHY2ddOVhOegPrKhmOPdrhqQeNLjbOV05Xiwj
+	 DQB3YS/IOrMHnFO1RKbQ6AWJd4lYAoitJsLbjnihrUILvxzfaRSWOGNu5rtFpMoPJPK6Q
+	 xlblP5KEczPJxhvGpWKSEQWHU8WfGih7hPh7AGDp8zsjgfdM0nucN//0LwqElVi7Fb2yT
+	 Zn7t2KJh6+IsVBHZ5ZOOMlZZFO5UOa7fJ/r4pLi5wM+QbGIUEf70padlK554lu2i+lyDM
+	 HqwhDirRXpamSU+Wroj6/e11a4ctYT8yG5M6DY2b+F5/p5PrwiWcmUcDaoP9tVjQUOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793126062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793126118;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=BcXyn5Pt3Ud5pWl9ffP7/JMMW96ISxtzbbqlGIIDb20=;
-	b=XzQSE/mgc0hoXhvy9LnjH5gDORBIkUTPsoNGKYY2Ji365+VfBBm+DxMNrPjk0wMMZVJA
-	 wtnt/hneo321aocaPcl8jMqrth2Iplp9vn/OfyV3+CyCmPXxoLADvey3BEjd5fNuTp9CT
-	 XXULThtreyZb8QNb3ZtF+S8XhOh7YeNlyTEAHZoCnhzhkkC0mnY2Im4TKd0jiuhmquKsA
-	 hl09QpY/9MafSpnXqewmlkEjoCSVsbzZ1j9RNbZZfovT+6j82nBgnvB3H/Pc3p9VQNe6H
-	 DgR8JaIEV6//AQYlaZncI/xr0a7Mp7wxoD4fcS3ToM8oR+VHbUUvvTU50ogWfEBHVfA==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=68JN5QHnKCq47WQPiHLxuMujC+xRd0JDDXBuUw27i9U=;
+	b=UxWnOeO5CQokoQV1Zf2E7KTxU5x68rGWRh0WRHL5uMxpb7tAPNv6TKHHtF1O6wW3AzhB
+	 HMt80ZfsNgFT7JO7DHyBbv1LHD6NUM4aeuBypHg4gveiWTnks1snNmBc5KlbSenaYuq35
+	 ZXgt8zsdU/XAlsot90lBUfqtz0uRDNrp399FhLTUe8SWvdmZSiMgYER5RBhBfy3zodyFV
+	 sM30tZImkfi0ytwF2sURYw+tVBDycEe+VH/GTBV8xVB3q/OmxlLHdtnR9x7EGnUYlnPJf
+	 MfZ9GCLW+eItbbY2jGaLL1JZcgRuzqhKyEg787Ttjiu2KTUpHK/jBGyzjN8VgidH9MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=nmgeP0Sd;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XjXswNiB;
+	arc=none smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36F9606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:34:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A36F9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BEB606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:35:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BEB606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=nmgeP0Sd
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53644ab1f7bso2393591cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:34:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XjXswNiB
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91c7a0c1617so3432926d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:35:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793126060; x=1793730860; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BcXyn5Pt3Ud5pWl9ffP7/JMMW96ISxtzbbqlGIIDb20=;
-        b=nmgeP0SdWfa2tzbuqRiyYonKuXW0nk59qgp/qUPB6taLSZg8kWKK9At6O2Ajgmb2YC
-         lbLxDvJC0SIP3e/877Va0sLwnAIob1QYjqCI2C6BskQWwZaYT9QFpUmyF/PAOg79QBxa
-         BgpM0eh/MvHQfaR/MV8LfX4qyFtxm02fUmeK+3culcJ6RAaAhZD85utDK3rgmst9J1nq
-         GmMsomXLYHk4WY/N/+1acL7TT0cruXiXjV4yvffzOLHTKqdBYumYz5p3M5BFv564m37D
-         l9ayGnZcZkyCtgJ0zi8QhEkOALXxQsYIb2ifQ4B8ZCXTvhuMgj2feIVj8nsgLH2M4M6j
-         2pyw==
+        d=gourry.net; s=google; t=1793126116; x=1793730916; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=68JN5QHnKCq47WQPiHLxuMujC+xRd0JDDXBuUw27i9U=;
+        b=XjXswNiBaIyM5J+Wi10iG9bo3DMCBqtsjjRzQ3+VJAHwHozZCeZhZVKP5aLVdWbr++
+         wD4OQDUrriX98EzsAlx1DKUCa2e6QsCm32wWkRAdkw2wHc1UexYGdJx2loAbTJXpp1Ch
+         cU3NzJvsFzkLA2LuRlStfTDLf6HInHnV75Yu5btykVHVTmL1pFoh2nZCV6HIPtWd0ccl
+         cNgYKAt+HXGs1k2xaop8NzFkI3zVJlbB4LGR0e4K2M1GHuR/01HGA5RF8Ovkvta7g01Z
+         tJUEa1aEX8e/W/eXgzGfAEFeaY4ULnFvjLa8NZNRwtpE9DIagMGV/7lS65MrkiEDeH5E
+         xcpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793126060; x=1793730860;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793126116; x=1793730916;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BcXyn5Pt3Ud5pWl9ffP7/JMMW96ISxtzbbqlGIIDb20=;
-        b=nHI9XqdAjGF7ejNK/2toi7QKEAEWdv4Ku/aEY6nP7b7H0ktckH3o2xxamSCEbPbGU4
-         97oUITm8NcBuIkjX/QQueqgG+9Ch0KPfgsQYrSd3bGPHLj2b0fu/44JaoUFXiph8TZj+
-         NPiFmMFV+YbDoOy0ydm6zCzcICevomB1ith0saVSn0GNloIiwxwJ8wZtr3AfKFjMbqCH
-         zceWsdQKCaOj++96d2/Vjq/aK7rPwQBfQz1B+dl6aNGwsTyXjctPvz3SvV+bwcIUcqIb
-         RW9yQJN/8dalRmWC9wfH3TbRqEkMDNGV9YpG6nPju8TgGXMPwYygq4D+oswcgyKmUmWv
-         aN7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxHlj+UERHG8Dq/a/r7Ylr0x0H2cPz+D43ImQlO6snxdf6fbrExAKzVEvr4jQKJXglnoUe1MYXJKNLCQPg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIy1V1qJZfTVrlzM9ndl/w43q72z5Aw4mMRBtISOkJtCClVBhou
-	RJ+M41pZZIdYvTcgd8Yo18Ym8F4f3Ou4LHBTASMuDovVTwI/2Eo7iFXNZ1XA2OMsU8HKZVPb3qI
-	TQ8Pp
-X-Gm-Gg: AYBFou3DFQfAFBx0k8DBW77+CqzPhmKUWGcVBV05bsBWRA7bTjF8HxvZvAUz4XirqH/
-	48BNMiWoR/Avf0MD85sDcpwG7jM4kmnS9+dSnfaMcVJaT8miwBLCW4WPKznkeyQBDEwNE851ogY
-	TsQ1kdFuWAkbRPRjItgeD1dsOceICVqFZNfjzeXnz0JvtjwB0DFowOXG1rDXoMyNc38eJAje9YL
-	wCdYbnOgY6+bxcFEGxt1TLSD0H2eaTIjfG98gW3DXoAvWwr54mqaBjZ8fkUoA75q0KKYy/rqDqP
-	78NEzHoP1YJUiGUTd5qq+q1f8a1KiwgtmyHBIv6y/C4gjRVC5XrKPJyelzTo4/6gaPJG81+cPtG
-	137VJuUg2pO2M2nI7KiESzsdZn5qB0BZNIy/OrYq3WHxxaZyqIdpRJFe98g+6xqa+dcgCHll9DC
-	tYd6tCL3BwRpBlcMX5vZeKtYXKctVipaN7yk+xbcL/eTUz2TlYHYfC4hubPZpeZeBXkVg2ushqm
-	rOOm7K6s3Z1yJuS91J1Ga3kK2jr4A9MBNifzzKKYGTaYLhJgJGuB109rQGGAeK0n7FJHh1p8tbB
-	u4KaZ+OIHHU3ybT8ACoIkY9Q/bDVlMUZdO66sg==
-X-Received: by 2002:a05:622a:4d07:b0:536:458d:525e with SMTP id d75a77b69052e-53fcc5c17c1mr1974831cf.37.1793126060344;
-        Tue, 27 Oct 2026 11:34:20 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-538394c518csm84854701cf.8.2026.10.27.11.34.19
+        bh=68JN5QHnKCq47WQPiHLxuMujC+xRd0JDDXBuUw27i9U=;
+        b=qtyyPD6j8NB+KMruEMZwpu1WXb9uVTK91jAsknfnmPs/J8BGdlNs+QURHGK5wkHqQc
+         LYPr4A/NQBTxowraZmveVIgIU4tIkf84OjZNdRzQfSskkbeV/746tHDi5E0wM3fPYWls
+         HwsItG/uW9KTC7ZM5DN+kF51QJfGaTpdfOcPTfwPIykCsOmeOhLJMNYY+bRVzzfH0EWB
+         xwYt5+azPnZDV925buYunScg5DrjHgd62Oij+CYHLk9DP48/cF9hLlDukkHyC5iAYnlK
+         oaBkr+ieXa8ORgPjh5QIwSSiSeAhSuCJCoGGSaq5JRc/Buz944DBKriytqOj6H1JPyF7
+         g67Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxwQRyvoRzZBhToFSTwbQGCYGQZcEe3zjctN2SNv8Hz7hA/B6ptxzCInQeauKdslQjPt4mbtR71PV2WdZE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwZ6cudRpk7VKB/nPssjOPVwtvrPjKVxdXORMAhjz7IAwx2hKX
+	6y1HtXEsyI01/K9njiEezXsw6ksJVIz0OqWbHz0gmhyVEakVn0qBCN9qsSwOMGc1JiMCJNeGBF7
+	7TblMHrs=
+X-Gm-Gg: AYBFou1UDgRYM2crzyN2poAsRFl0QZgm4YBMSvcMWYqTPiTgq4nWeBfaS2ciic9U43E
+	I6zUCJRw6ireAT5ro6LYwaDPmyI+gF2VJcoqsa36eqeqi4BbuTgpcponZHhwsItue0ryvTCv1Qo
+	YEBi4g10x51Tju9XiE8o7CqukriFM2TiAIco6O2jintzKdzxJUMLREi0FcGzB5gMKRKJj+8CqKQ
+	NH8f2WCjw4J0T2O9cRjIR+yND8vcQ2/Ugc7S0SLt5QqpAPAWGleLUiFrjGaARJPvdSUtHmb9It5
+	Mw1rEFF/iIwbSZVrew7GCKWv0scGJJQly/aK+H11a/U5nu5FSwB1fOZFxoez7PUDtlTuRtekfAE
+	xl5vU+BxtJ6dgWBUaUhcV96KYBOzbu/LzVghe+WCkBGfs20Ms5rT+HP+EbPZs7OMjWTY0kTqy3r
+	x7P0K1L2KPjphZz+W21hg7iHnfMS+MK0rs6rnnJZF/x+Hgz+hd+0z3ACKgX7uTCcX3KpPCQHs/c
+	EwFCTUQw/YDyKplnaRWGJWuzjYFuH8A3varzPXRXXtsDZSvuwjRFZWWJXTx9jfvLIW5RHXa0nbz
+	CWvYdL22r2VdS4BVzFuPFehpsGgOvsUJxD+lPJP1eenIert+
+X-Received: by 2002:a05:6214:4792:b0:91c:6d83:60ed with SMTP id 6a1803df08f44-91c6d836156mr52476076d6.55.1793126116366;
+        Tue, 27 Oct 2026 11:35:16 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47c0ffd4sm110412956d6.16.2026.10.27.11.35.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 11:34:19 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xLm02-0000000AgqP-3BXi;
-	Tue, 27 Oct 2026 15:34:18 -0300
-Date: Tue, 27 Oct 2026 15:34:18 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-Cc: alex@shazbot.org, iommu@lists.linux.dev, joro@8bytes.org,
-	kevin.tian@intel.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, robin.murphy@arm.com, will@kernel.org
-Subject: Re: [PATCH v4 2/2] iommufd: Add IOMMU_GET_PCI_MMIO_WINDOWS ioctl
-Message-ID: <20261027183418.GJ1685504@ziepe.ca>
-References: <20261022193359.GF3381610@ziepe.ca>
- <20261025133000.205508-1-guanghuifeng@linux.alibaba.com>
- <20261025133000.205508-3-guanghuifeng@linux.alibaba.com>
+        Tue, 27 Oct 2026 11:35:15 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,80 +89,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025133000.205508-3-guanghuifeng@linux.alibaba.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 5/9] mm, page_alloc: pass zone pointer to
+ trace_reclaim_retry_zone
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Mike Rapoport <rppt@kernel.org>, 
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261027-pgalloc-ai-hotfixes-v1-5-9c7d1aca801e@kernel.org>
+References: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
+ <20261027-pgalloc-ai-hotfixes-v1-5-9c7d1aca801e@kernel.org>
+Date: Tue, 27 Oct 2026 14:35:14 -0400
+Message-Id: <179312611485.3837667.16073234237109614963.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Sun, Oct 25, 2026 at 09:30:00PM +0800, Guanghui Feng wrote:
-> +
-> +/**
-> + * struct iommu_pci_mmio_window - a PCI host bridge MMIO window
-> + * @start: First PCI bus address of the window
-> + * @last: Inclusive last PCI bus address of the window
-> + *
-> + * A memory window claimed by the PCI host bridge that a device sits
-> + * behind.  These are PCI bus addresses (what appears in the TLP).
-> + * A PCIe switch could misinterpret DMA to these addresses as
-> + * peer-to-peer traffic and route it to the wrong device.
-> + */
-> +struct iommu_pci_mmio_window {
-> +	__aligned_u64 start;
-> +	__aligned_u64 last;
-> +};
+On 2026-10-27 16:46 +0100, Vlastimil Babka (SUSE) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> should_reclaim_retry() walks a zonelist and passes the zoneref pointer
+> to the reclaim_retry_zone tracepoint, which loads the zone from the
+> entry again to find the node.
+> 
+> Memory hotplug rebuilds the zonelists in place while allocations are
+> under way. When a zone in front of the zoneref entry has become empty,
+> the entries move up, and this one can be the end marker by the time the
+> tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
+> zone. Short of that, the event can name another zone than the one its
+> numbers belong to.
+> 
+> Pass the zone pointer instead of the zoneref pointer.
+> 
+> Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
+> Cc: <stable@vger.kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-We already have struct iommu_iova_range, don't need another one.
+Similarly found separately and tested the fix.
 
-> +
-> +/**
-> + * struct iommu_pci_mmio_windows - ioctl(IOMMU_GET_PCI_MMIO_WINDOWS)
-> + * @size: sizeof(struct iommu_pci_mmio_windows)
-> + * @flags: Must be 0
-> + * @dev_id: The device bound to iommufd to query
-> + * @num_windows: Input/output number of MMIO windows
-> + * @out_windows: Pointer to the output array of struct iommu_pci_mmio_window
-> + *
-> + * Query the memory windows of the PCI host bridge that @dev_id sits
-> + * behind.  This is advisory: the kernel does not reserve these ranges,
-> + * it only reports them so userspace can choose to keep its IOVA
-> + * allocations away from them and avoid accidental peer-to-peer DMA
-> + * routing.  The reported windows are pessimistic (the whole host bridge
-> + * window, not the precise BAR ranges that may actually conflict).
-> + *
-> + * Windows are reported in host bridge resource list order.  They are
-> + * typically non-overlapping (host bridge address decoders are exclusive)
-> + * but no sorting guarantee is made.  Userspace should treat them as a
-> + * set and compute the union if needed.
-> + *
-> + * If an IOAS has devices behind multiple host bridges, query each device
-> + * and take the union of the results.
-> + *
-> + * On input num_windows is the length of the out_windows array.  On
-> + * output it is the total number of windows.  The ioctl will return
-> + * -EMSGSIZE and set num_windows to the required value if num_windows is
-> + * too small.  In this case the caller should allocate a larger output
-> + * array and re-issue the ioctl.
-> + *
-> + * Return: 0 on success, -EOPNOTSUPP if @dev_id is not a PCI device,
-> + * -ENOENT if @dev_id is invalid, -EMSGSIZE if the output array is too
-> + * small.
-> + */
-> +struct iommu_pci_mmio_windows {
-> +	__u32 size;
-> +	__u32 flags;
-> +	__u32 dev_id;
-> +	__u32 num_windows;
-> +	__aligned_u64 out_windows;
-> +};
-> +#define IOMMU_GET_PCI_MMIO_WINDOWS \
-> +	_IO(IOMMUFD_TYPE, IOMMUFD_CMD_GET_PCI_MMIO_WINDOWS)
->  #endif
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 
-I wonder if this should have the word PCI in it..
-
-Maybe this is 'recommended reserved regions' or something?
-
-This is also lacking a way to send the ranges back in so they create a
-restriction for the allocator.
-
-Jason
+-- 
+~Gregory
 
