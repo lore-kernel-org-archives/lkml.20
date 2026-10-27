@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102807;
-	b=f1hH0YzgcqmVynUhfXhW1SVJOSgbJadGb6dzymbbSW1TPHCcuA7FRpJeraw+eCZzrvXl
-	 pvy9OIqrVYmQOqFMeYNg7mlVNV7xuEOpaaL6sLcti8G8mrL0EDBYvhNc08iCxCfJtZdAN
-	 rzSFi717c7ccvPUhilgl3i4UCLRlE3kDMtwecQJR3VZSBhpNEoVpbqpyEKHeYp6mtgxGc
-	 /Xbi8cDb3tLhesK1TI14W6zr47CMUxYf/Fpk8fUTABo+hJGtlqAIvLONmbDu2Ye1SyH9j
-	 uNEBxfrjh05igtnNf9nPnFcD6ITpb18aiv7lun8VAkaEzaP8El578EAnItzYSMTlMhA==
+	t=1793102839;
+	b=numzfOdayHn0lS7ZVT6UWv3OVEYWz4eXhFmGaY6e2z+p4AS/D5vflETkvNT8eA5T1xoR
+	 t1sOpDW1hgl973JDIIUxpe/plO2JJ1F3cWJs7vkFxcq048Ts3pfDkEahiRmFRWlCI7aYR
+	 w4balMCn/YkzUDVJrKQPtI+LLmy10aYEtGKD7NiHw5O0ycOHlPFjYzdDbis1J6pMOYlyE
+	 vVk7qsBxcZUbci1HRMKOBvKZAqg2aDan+4IPe8EpjMY3uSVuzwKbOsViojgmD6QppiUYp
+	 MY14hm+ifOVAMDzcsruaneCagSYYS6vXYLqmYEga5YVAL1jUOFqL3Br/YWw5EXIW65Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102807;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-	b=AbFFPyNJ15pkr6Lbgx1W1kbm6qjfcvRtXnCkM8DnCcGO85svTL1qCdowxsuP5dP44Xjr
-	 O6C9wE0fXesWJMFlkt7IZ7cD2s3fXsaZn7P+J8SjbqzHJpaE/LyR08umat8ge52Rta76Z
-	 Uw4JtyKHZpsJBr4zS+MFsrebJXhzwngH+3b3pyYQbQWTWIlknzKtU8W0ICmfxLCMqcQKB
-	 kQHUL7BCbSXDN1xMbFsRF7Fj+59cOnZ+lb1Edf6Bwf/467ZXJZDlWcYTnVTGWzzgWkxZA
-	 +uNvKtlWQy+UFe6tn7ozAzR1+O5VZKdOytjBh8SMPs7BDGAKuf24pjG04FmGOGafTSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102839;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qa5CSr7uQIwst0qSmysxe9s+lZC1h4R1TF3I9gk2Z6Y=;
+	b=xGHsVH8h2O0i+xEeu8aGkDHRnj0aUJ8GgichmpK1jAzAPGEl5XDOgN4NeeWpzNJceU2u
+	 6B5f9SLB1UjNex+u5P2QaSfDXOm0y3QgBH5IDuz8TdGnTlg0CDcUbZvhpL1+VLqBl6E+W
+	 h5BdVo/qNg/zl1272iUEhjo9ELmsCxBb95ly+MYS92dOfg3iZrT4twgABxAQ7vmpaj78y
+	 hXgIL3klMwPPpUtvPNqlEz3JXgMre7rYFWobPb4M6u7ASz+AKeyOcN2QKSnl0+R9dSVok
+	 didUC4mqRfJcOSWhg/NcXerd9sxlbfoBakfMZg2t/ukUzJAlNwFXnvO68xqmcZPB7gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C8wf6H+A;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RXPeLHkn;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNcfMMVw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B08606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20B08606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70026606A31A;
+	Tue, 27 Oct 2026 12:07:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C8wf6H+A;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=RXPeLHkn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793102806;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-	b=C8wf6H+AYeIBEpNoYU9zy+75ULNP/v8GQ+JI8YeV0z07n1Y+A6DfJJMoiLDsRAkdopP1nm
-	mDDqcgNZtSs6bwlt30sfqIwMVo1hpfZjo5uyPypqxGriI9Ja/hmZFjb/UVoEAAKB0hRrO2
-	t5vzy8hgE7y5Sd8a2kTPo8g1uS2cPCU=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-399-VQu9fxEnMjSrS9QDfkZ0zg-1; Tue, 27 Oct 2026 08:06:45 -0400
-X-MC-Unique: VQu9fxEnMjSrS9QDfkZ0zg-1
-X-Mimecast-MFC-AGG-ID: VQu9fxEnMjSrS9QDfkZ0zg_1793102804
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a4654add56so26736055e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:06:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793102804; x=1793707604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-        b=RXPeLHknvGdIZGmmQOg9CAJu4ZQtCgOy3X3PowC0Os1DVS3R3aAap0u/wm9XlHjjU0
-         HM7EnBYUihFyrhh1OeTuQm1swnYuwj1Fq5vCpeTtiKUZayZvLx2FW2nE2iCCCEN8uLZS
-         rm/XjIP89WmKbQEYcS1deWV+VA4VJRJYm+1PAToAyM5Brkq2jjR8JxmcLQ4Z7AVNuVBl
-         IHAFFIrp8q1UELTYZ1iRU7F0s+8NonqxUEMQqQIT9XKQIOqDtIAL9X6LF91LY+mc2I4L
-         bl2+O7sPWb1g0mhON7TtdHK9xkW+VDA6Y7xxWXbXmAA0J1q8u4nHXpudB6pPMGTKXTzt
-         FJ7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102804; x=1793707604;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g8KMQj2HsPBF8Jjs/G4X6DPysUQ80f4vvkU0TZL7PsU=;
-        b=p2nIQr4JmL78j1slbC/r/cBE7w/fjBgqcoHPMvYAfHVgbwZHhEYoeHiNPHcODNy1bo
-         1dPuZ5GlBUs72D7OKj5bD8AOatXthnim2hsd2/nizGa8+rMRa74QYOtIyrHEiRGeVLQJ
-         I/bNlLL3pwZ6ImwEYL8M/cOm3LzZgQIUMOviZO78IPrq7zqC3nZW3fIoWINOkPIoRQVS
-         n3RBA/qZLq6XPI7tUhPHI4ntgnOjB4iojuUNwKhTWRRQUpm+4yar4PGyMFde+Dm2zagN
-         s2OOvjxe6ryiH1NzATqDgMorzzV8TBrHiBEUw2Yvi2yreuRKT9it6qnWgZIh4t8/LG1l
-         AUWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzGClu1SGM7s55rAC4JuLlxSSC9uTCD214ubm3OVdDe4RULKIH4xwgV++N6XFD2zT+vudcXI4bsM/e8YO0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYfgJHmwO4YRca9yL8C8CgjeUYIYgpO8wh4dTSuBzAU8uxr5ku
-	dXThgrQSqOkMmSnJxvyrJE1gxNoy1o8XAnmbEd303dTxIyTWqmfcuG93qBCveJl+GffOw/QGFwD
-	f9ZL9iKj+gT+qWNH3eTxqiyIIZ9xJ/KbW7YTXrVU8oqjPDyD5aViVAchLXAL0jCJ/3w==
-X-Gm-Gg: AYBFou2+WWGQdKMbc4bbQXECwuVk1SDi+1I1x+FykTul6VfN75/BLhkkhoZCkxw2ueN
-	HwLnLtIZnK5wPhE0kW6nzvAXkMIgFumrDvQNgidRGkFuQqd+LIuCQ5RHUEqOsKI7YiT0uFYmnXn
-	trgI3zKquYKn2XYDK2YDGMQ8CTnbojMGgwH6vhgT/ymA5ESLOtaoVRjfTc26LvPGSqB/xR8LiMJ
-	G4+uMHywEgTzsu3ITQbGz/GFZlSkRNfF/L+LhnWokgkIUbFfjEflAhyczA2tdNo5Qg6gIzQSvMZ
-	cVSkMhUSuFF6gdjq0VdQ1hNP0G9aTYzhOGDqeU6zKnjXOhdaU9q0GUCfyVHlxewXCVHaGM4NIgi
-	gcA/EA/EUKQhKBw5CfPh94c5PtU7u4sjblRpYuuTDNsiYswjyhGqk1jp2NhuCTQEv8sP5LSRcVw
-	==
-X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr103979855e9.11.1793102803688;
-        Tue, 27 Oct 2026 05:06:43 -0700 (PDT)
-X-Received: by 2002:a05:600c:608e:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4a642ccc70emr103979245e9.11.1793102803120;
-        Tue, 27 Oct 2026 05:06:43 -0700 (PDT)
-Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a2d9280sm259748385e9.13.2026.10.27.05.06.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 05:06:42 -0700 (PDT)
-Message-ID: <096bd22b-c569-4998-a943-0381c3fa9998@redhat.com>
-Date: Tue, 27 Oct 2026 13:06:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNcfMMVw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6E71F01825;
+	Tue, 27 Oct 2026 12:07:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793102839;
+	bh=qa5CSr7uQIwst0qSmysxe9s+lZC1h4R1TF3I9gk2Z6Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VNcfMMVwwOoyBO3YNPRzJKXAMnN7tgWXQW2Ac3SuUxS4/5Wb1RvIZ2DlTJz+fjbtl
+	 RAJeHkUSBr2T/riaHmgrwr/aXpSi0J7PaE2oei8gSy5QA/B0F72CnGOs0gn2mr2dUK
+	 8vklYkOVhmKznj1r4zloDuNVEuGEMzt5OcuF26V8Q0Nny4dNOyET1f+VMt9djx1aig
+	 pWnytNsfWekIVlH2EDDB3dGkmzytn7LB0V7t/s0RVtv7rSofF9HbwIAnSse9itcA3z
+	 KcViAEaPuT0diDjiUxIIPbHu5BlGOgbOV8yc+xkGR93Hf9LmM9uCyuLEl6QzL+A649
+	 EGHAy08LT3TTA==
+Message-ID: <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
+Date: Tue, 27 Oct 2026 13:05:58 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,96 +52,159 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] virtio_net: reject stats replies for queues outside
- the request
-To: Lianjie Wang <karin0.zst@gmail.com>, "Michael S. Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, netdev@vger.kernel.org,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261022182710.2055771-1-karin0.zst@gmail.com>
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+To: Kiryl Shutsemau <kas@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Matthew Wilcox <willy@infradead.org>,
+ Usama Arif <usamaarif642@gmail.com>, Frank van der Linden <fvdl@google.com>,
+ Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+ Vlastimil Babka <vbabka@suse.cz>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
+ Baoquan He <bhe@redhat.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
+ <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>
+References: <20260227194302.274384-1-kas@kernel.org>
+ <20260227194302.274384-14-kas@kernel.org>
+ <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
+ <at_f43oDv73y-t7O@thinkstation>
+ <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261022182710.2055771-1-karin0.zst@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <auCKv_omLGRc6wv2@thinkstation>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/22/26 20:26, Lianjie Wang wrote:
-> __virtnet_get_hw_stats() passes the vq_index of each record in the
-> device's statistics reply to virtnet_fill_stats() without checking it,
-> so the device decides where the driver writes the counters.
+On 10/27/26 13:00, Kiryl Shutsemau wrote:
+> On Tue, Oct 27, 2026 at 12:00:28PM +0100, Peter Zijlstra wrote:
+>> On Tue, Oct 27, 2026 at 12:37:13AM +0100, David Hildenbrand (Arm) wrote:
+>>>
+>>> I'm sure x86 folks will have an opinion :) . Let me CC them whether something
+>>> like that would be acceptable.
+>>
+>> This looks quite terrible, doubly so because I have no idea what its
+>> trying to fix. Please try and justify this insanity.
 > 
-> For ethtool -S, virtnet_fill_stats() uses vq_index as an offset into the
-> output array, which the ethtool core sized for curr_queue_pairs. A
-> record with the vq_index of a higher queue makes the driver write past
-> the end of the array.
+> Fair enough. Here's some context.
 > 
-> For the per-queue netlink stats, the queue type also comes from
-> vq_index. A receive record in reply to a request for a transmit queue
-> makes the driver fill the struct netdev_queue_stats_tx on the stack as
-> if it were a struct netdev_queue_stats_rx. If the device offers
-> VIRTIO_NET_STATS_TYPE_RX_SPEED, this writes one counter to the eight
-> bytes after the tx struct.
+> HVO (HugeTLB Vmemmap Optimization) frees most of the memmap of a hugetlb
+> folio by remapping the struct pages after the first vmemmap page to a
+> shared page, mapped read-only.
 > 
-> Fix this by rejecting the reply when the vq_index of a record lies
-> outside the range of queues the request asked about.
+> Every lockless get of a page reference (e.g. page cache lookup, PFN
+> scanners) relies on page_ref_add_unless_zero(), which is
+> atomic_add_unless(&page->_refcount, nr, 0).
 > 
-> Claude Opus 5.5 was used to review the driver code and draft this patch.
-> To reproduce, the virtio-net device in QEMU was modified to answer an
-> ethtool -S request on a one-pair device with a record for a receive
-> queue the device does not have. On an unmodified kernel, KASAN then
-> reports a write past the ethtool -S output array. With this patch, the
-> driver rejects the same reply with "Failed to get hw stats.", a
-> well-formed reply fills the statistics as before, and the
-> drivers/net/stats.py selftest passes.
+> The page can be freed and reused between finding it and the get; the
+> zero refcount is what makes the get fail. The race:
 > 
-> Fixes: 941168f8b40e ("virtio_net: support device stats")
-> Fixes: d888f04c09bb ("virtio-net: support queue stat")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lianjie Wang <karin0.zst@gmail.com>
-> ---
->   drivers/net/virtio_net.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
+>   lockless get                        other CPU
+>   c = atomic_read(&page->_refcount)
+>   c != 0
+>                                       page freed
+>                                       page allocated as a hugetlb tail
+>                                       HVO remaps it read-only
+>   try_cmpxchg(&page->_refcount, &c, c + nr)
+>     -> write fault on read-only vmemmap
 > 
-> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-> index daab43ac92ce4..0473fa9947858 100644
-> --- a/drivers/net/virtio_net.c
-> +++ b/drivers/net/virtio_net.c
-> @@ -4955,7 +4955,8 @@ static void virtnet_fill_stats(struct virtnet_info *vi, u32 qid,
->   static int __virtnet_get_hw_stats(struct virtnet_info *vi,
->   				  struct virtnet_stats_ctx *ctx,
->   				  struct virtio_net_ctrl_queue_stats *req,
-> -				  int req_size, void *reply, int res_size)
-> +				  int req_size, void *reply, int res_size,
-> +				  int first_vq, int last_vq, bool enable_cvq)
->   {
->   	struct virtio_net_stats_reply_hdr *hdr;
->   	struct scatterlist sgs_in, sgs_out;
-> @@ -4976,6 +4977,10 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
->   	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
->   		hdr = p;
->   		qid = le16_to_cpu(hdr->vq_index);
-> +		if ((qid < first_vq || qid > last_vq) &&
-> +		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
-> +			return -EINVAL;
+> The refcount is zero by then and the compare fails, but LOCK CMPXCHG
+> writes anyway.
+> 
+> Before v7.1, HVO mapped the tail vmemmap pages to the head vmemmap page
+> of the same folio. The first struct page in each of them read as the
+> head, with PG_head and the head's refcount: a fake head. A get on a fake
+> head of a folio in use always tried the write, not only in a race, so
+> page_ref_add_unless() checked for fake heads before the atomic.
+> 
+> Back then, the race above was closed by bd225530a4c7: rcu_read_lock()
+> around the read and the cmpxchg, and synchronize_rcu() in HVO before the
+> remap. The refcounts are already zero by then, so the get either
+> finishes its cmpxchg before the remap or reads zero and bails.
+> 
+> Since v7.1, tails encode the head as a mask instead of a pointer, so
+> tails of the same order are identical and HVO maps them to one page of
+> real tails, shared by the zone. Fake heads are gone, and every read-only
+> struct page is a tail with a zero refcount. The race is not gone, but
+> 32c440d67e6c and 01b1d0ffb6f7 dropped the RCU on both sides anyway, on
+> the wrong belief that it was only there for fake heads. That is what
+> David reported.
+> 
+> One fix is to put the RCU back. It works, but it means rcu_read_lock()
+> around every get that goes through page_ref_add_unless_zero(), GUP-fast
+> included, and synchronize_rcu() on hugetlb allocation and freeing,
+> including surplus allocation at fault time. So I am exploring other
+> options.
+> 
+> The fixup is one of them. With the new layout, a fault on that CMPXCHG
+> can only be a write to an HVO tail, so the refcount is zero and the get
+> fails, and the fault only happens in the window above. With GCC the loop
+> compiles to the same code as before; clang adds a SETE/TEST per call
+> site.
+> 
+> Writing this, I just realized that we have another option -- map the
+> shared tail page writable. A failing LOCK CMPXCHG writes back the value
+> it read, and the get never changes a zero refcount, so the race becomes
+> harmless. The cost is the protection: the page is shared by every
+> hugetlb folio of that order in the zone, so a stray write to any tail
+> silently corrupts all of them instead of oopsing.
 
-I think the above check could be simplified to:
-		if (qid < first_vq || qid > last_vq)
-			return -EINVAL;
+Right. Without HVO we would just corrupt pages in the single folio (which is
+also not nice).
 
-squashing the following in virtnet_get_hw_stats():
+I'm also questioning whether we need this RO protection all the time active.
 
--       if (enable_cvq)
-+       if (enable_cvq) {
-                 virtnet_make_stat_req(vi, ctx, req, vi->max_queue_pairs * 2, &j);
-+               last_vq++;
-+       }
+-- 
+Cheers,
 
-(likely with some meaningful comment).
-
-/P
-
+David
