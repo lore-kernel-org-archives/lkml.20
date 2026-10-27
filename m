@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793086584;
-	b=Yc7TJUNaUanMFXYI0c31gL6WT6NlLu6kZi5w9x4RpJe3HO06RwDEQpislo+zhRwOnzqp
-	 MoW0ldRAvhBzGvs6cbt/Ff44cORPbxpldBst3Fbr4z0+catBFGJgLi3qNKsjWe1jYXcx2
-	 gDTQL6DNs67TXhlBDfZvW+i/sxjWrBAi8W3WRc+0V77HOZjR5pkJnSKTAl+qy+XRS69Lh
-	 2VSgsKS/gZ+urZamdrTpMjtz9DUViJ2Fc4/IuBFNkwR1BVWpOIVci3IWa11lRO+sUSX4i
-	 A9o0Db4+dgxjaHl0KHPmCksq4jFtxtLr+XwSvmFjfnJKmv764BgeKctgjTtDUlj0haQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086584;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=/4RZIIOmuxL8f+C53eDlJcIo2qjJpACPX3brADuZDsg=;
-	b=X5RFxxxgKWtKSrTbyZY/Xhe7bj1tBK1lEQBJ2nrw5YZ328hvk2vHcX5eWmdtMc8xM8od
-	 QP/Yq+fuWPI7xCXr9aPpy84PnCyJlVijjGDqOWvpttrWSDmf9WID+sCw/ZatIednosPn9
-	 EpTWDqtiPM3H/s2t43uAbfqDuExy2khgzM5r52bdcEd+IlhNU6yWA+L4BODc+OT9sFvFm
-	 qcVHGlgIxsOIcPgCyiANl5DuoesZNXB5FxIyBYipWkciF4YAlesKoamReLsNaYv40hW8h
-	 E1Do/svyr/nS7hydH7XYZ+1p74v184SUzihH4DuvNeZQtiVzo+o4bI/URaDrpdmhDBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Z/klc9vg";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013007.outbound.protection.outlook.com [40.107.201.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793086581;
+	b=CTdGP/pZR757y38yB6uA29V8buVwysIMdNdZmU3+vJhLatUPOCWIk8oYAbBlTQSPmVr6
+	 LImUv5s10hYx81NQkOxTDMZhLQCDW9naMW0vSmeL1iNqTnyf/7xrcO5JulPLmbbiSUJXt
+	 sBMm7MiYImsa9nArALJfLrY0CRYZWzukcKAE7QY9nWhg8bf7k/yArH+oCrHfdFpUPsXuk
+	 v+EkVc1IHLlgo6QZZg+nsaNmhUARNeeklt/bDH0xZRbVOryXj2at2yAWjQGFFMB3X1UKL
+	 +44TevIDMtLtUekZDTKFn6iMJ2VT/p0OVbfc5KowEVGVGMCAviRICb/r3GKaeywrHpQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086581;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=WsDVlDiCyeeoi6YHVgqDovvrMD/IKVknSNFW9xBDDdM=;
+	b=lA9AWVf0za7HIGyY6U9gfZ5iAd6Rf96ZHLl4v4ErEEXrMqk9LWKffLmXwaigB1hR/YsZ
+	 vM6zCdLcYyforaFOMwt9Z1TZpn5s0XJpcGqC6x21ZclwUozN066ufYeqLDozdhSxKdK2Y
+	 9YheGE+MWej8VGQRhL2p0PBrneGDHCF9AAELcE2OxNDImEvrbPgcy9U6ykZmMRwvAeoZf
+	 1lDqX9wi+Vw/9dZQ+ziezwdij+Wh3GOJsuWi+UhkTUwDFnGF7roIx+WkYmu6C94kT2PGo
+	 PwJs3JX/pZczLljp+6Om6yU51ZJKZ4Wh+bpXsl6tl316yUvmbW2YCcLT/vlBPBLgagg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=oXS3sM3f;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7274F60A5BC7;
-	Tue, 27 Oct 2026 07:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7274F60A5BC7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4595E60A382F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:36:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4595E60A382F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Z/klc9vg
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h+qWJ67udRQ8elkSHRRqWfMCO/uEtJkdbDnhbQKptJktvvlMl8+Fvh6o1vmNLkTK+izg4HDO0L1+vriZvsnlU79NLNNzOyG0SPCirkIgkgPQfjzb1jLblAGNEiUr1E7pOl+jWHupww5Ly+4urqevhtrdo2eQT2VkpvXY33FeAIgvLxKl7gtiby4yNqA2dTL//VH3jhk3g40Oyy4ruDK0tbN9vkkMDvXf/NkaCdG2gyfDz6BC+ynFGm7/WdTJ/KiVw5IkGInJInzi0BRCnIHctz4QzJG7hFvh0ej9NZlfE2FMvMSk6z9L+7c2hHlNom2JjedRL+ncHJl7o2h2+YOPvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/4RZIIOmuxL8f+C53eDlJcIo2qjJpACPX3brADuZDsg=;
- b=kMFbn0+iLa2ObvSK2gfMg5wbhkt9S6OlpU/fo8Beh2cPEqRJS1HBCxwloGBoZIZkKYBDeGuij6WCY8M1LvMu9H8i3zf37v7eJYWRC2ks4UmD8/UIVTgfxnIeTS7Wbggxnv82826R7huUAPdwwj825k2zTT3rnpFohivbsO3D8MuwCPu0XHUglutQc5To5VMGkfUaZXRJjDlzNBj8o/roLEc3xQ0FVId583f22VeKHb7hXyQxm8ECxBjeRA/eG1h0XYsDQ0e8TmZTNKqyuy+5avx2wMuX4Dm7Y6UYALASq0mc/qCcp0ozVgTNt/J0MbD5rmjNbfCWtESEmZL5OXMtqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/4RZIIOmuxL8f+C53eDlJcIo2qjJpACPX3brADuZDsg=;
- b=Z/klc9vg8QmtudV/cxJmT28KWtmMGvPEiSVgN5En5joxjzdHLQ0/biEJkfVqCYIzh1CP5PKkMMj8ncz5fo2FsWLe0we0ho9av1hXbzJBa0ZahorYJ5F/L1eUZZ0rgGweTUIzw2NzQ2kGzcYhzi/iPeQFB1tRvhoDKKcK/TXTxBMv3r3kKmWc3AZVWc5qb2FVvrjrVKHFzH/gk9Tu0lF9/3i0Z2aO+yP8E+9BxMbItDKtpRbzjV5hee+BPLfdmGENAqkVzvDRtdWg2dy75nsCoUUYzTsZlB7oMfbZHwJaopFN7tvO3wxQgQLGyhPMHVtJ0JfzSPbf3QEKWnoQ2WcbXA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 07:36:21 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 07:36:21 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 27 Oct 2026 16:35:53 +0900
-Subject: [PATCH v6 10/15] gpu: nova-core: gsp: cmdq: extract await_msg_with
- from await_msg
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-cmdq-rpc-v6-10-bed9669724ba@nvidia.com>
-References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
-In-Reply-To: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
-To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
- Gary Guo <gary@garyguo.net>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P286CA0093.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:369::9) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=oXS3sM3f
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ea7190aea1so17539085ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:36:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1793086581; x=1793691381; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=WsDVlDiCyeeoi6YHVgqDovvrMD/IKVknSNFW9xBDDdM=;
+        b=oXS3sM3fj2XUadb1vc02xfYY7JbNUjMzEB1ySQjFATcVV+4RJ6CNOqYCN+U9s9XxSP
+         si6YHQT30AZD9j6WiJrWoLTheN6jeOPZ5ePo8ir8ejCjumrJJtV83vfg56+xUpAoOkT6
+         5qjOKS1SP2re90ySQ0wAQXmiVC9h3nJ/zmoyM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793086581; x=1793691381;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WsDVlDiCyeeoi6YHVgqDovvrMD/IKVknSNFW9xBDDdM=;
+        b=aOCKEO3E+UoBn3jk/qeWG1LXivxdtoWu4EUosuP6GirjE184o+zn/RbgpUHsxcrPxC
+         xYZO300XgfyzBq9t5G4b9UHEm6kuok3IQutGXcy3DPlQHXmVup73N6GoIq5B7l9+w4Qi
+         zvW+V68Gk6XT9NqMu1ujNZH9K9QQxccs0JxXozgqnWKTEzHYwVU1PZ3pgg3BZ8kvpJdl
+         8QkY3StAFGNyiFt5pJmwbgk+nHXAXs55NGp+a6fI+lzjgPPgTPOjrZ65RBGVXhM6XJ1C
+         TG3LwE/arr1SBkmgXFHYQggaUbRTNUbuwpInxuXXDwVq/5ErWVEJdXQyEwWPwStEO5Ob
+         cuXg==
+X-Forwarded-Encrypted: i=1; AKwUvBw41oJ7EiEvSY7oU3KRRkVqxI6EC8uB/JW/TW5VHzcjsQLacyvnzg8wjzBRFzclqEKTDMOz8OCb5J8GJDg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUXeayAEwX/hJ97fqIApRgNEGNYv/JhMtuCMXiO/teaqisPm6r
+	nT90xnMVTyW0ZGr5h3Q+MVT4LQkRV/9MjzqojRcxcNCvaIOFV3hu6wV1ilEMIgYOceE=
+X-Gm-Gg: AYBFou1Q1ocRNcG594acxL08OwSZxwvsUUIv6Nd63amXLlgcEebJaJTurK1M3yQx0JZ
+	9/AyoYWvdUaaNFQgxxa6NHnIpZ3+IiFAABgFc3Bj13Bv3q0H1RpKc5nkl9whszIIPbtbQbXB46i
+	gBlV4ABdtC1xb9p+d412pvxt6xSh4IE9ewUlPMP1KVGKKcEWcVccWm9O6m40E1kE0U41r7MENJh
+	vD8jkgfGeFxKGxLs1Rg+gyGFZkhnbUroKdE13jBU6wdQV33gXdS/WXA+Bxl+Kn/GDoCKfHRgxwk
+	ePUpW7pvYHYp8ujgOPersbHg18HTuc0oVjtpQmdhD9jy7zagPkgWKAXlmr5ZZht9XR9NowiN5x0
+	gG9qLG0GQfWY5pe0SysEloSN94pRtDCAMpVocAcH9N1U/XA2RkQlBQp6K9MwB1U/goffmDDW+A2
+	oWFVLST3HYFIm699nffZ/qbqNaen0mgB0vtLvKv+sex+q4BqdFaWgfC1nsYRBDAHlOJMwleJ8jB
+	fbemGHboNCU6Jp9luLbvEGlb9Qf/fD+PNTwjX9NtDJqs2HnDuvdpdHWWNQnz1ncHGl6CuvC3tYP
+	h4NbybrRrLDsRpHaPZkIo02PbxSHl0tPrqiZhQpFDlKIE1HgrgBmBWiX0sbGo17iQqqlDJx5Qs6
+	kXA3t6s9MVw0iEaOK7FaXYDs=
+X-Received: by 2002:a17:90b:35c6:b0:3ad:a17d:f46c with SMTP id 98e67ed59e1d1-3adeb194872mr6931650a91.62.1793086580701;
+        Tue, 27 Oct 2026 00:36:20 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae40614d7dsm2480038a91.3.2026.10.27.00.36.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 00:36:20 -0700 (PDT)
+Date: Tue, 27 Oct 2026 15:36:16 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Kieran Bingham <kbingham@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH 8/8] slub_kunit: Add a test for the kmalloc_partition boot
+ parameter
+Message-ID: <7c619e0ff37d83b825549ee257bb60a82bc8006f.1793086056.git.chris@chrisdown.name>
+References: <cover.1793086056.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,147 +104,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB8451:EE_
-X-MS-Office365-Filtering-Correlation-Id: f11db9c6-877a-47e9-5a6a-08df33fcfef6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|261026121527099003|260925021311599003|260925022911599003|261021123027099003|56012099006|11063799006|261021135927099003|261022105027099003|261009223027099003|261021121427099003|10067099003|260925021911599003|22082099003|18002099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	ckIL/TlnLq6oEXDOL6ZGnNmT6+TxJqI/dnEkOo30EivQtH9w9GLlSS+MgcRicjmBpyBr3bd++qEbvHuxOU2+7JkgUpfj12o8HBOBoaikHHzJhxJqlIY4CKkfJhp+izX05BIe0u+ZJINoQiLKBvhLAVee51CLhCFQq0h4101Xst8149LVhH3rUGIQJNNv6WHHJ4Hlca6wz1q8T9ogkAjD8MRS9vkS3EniZT/uKJZwwcHzTg7nSjzjE+IyoRlgjYv4q1pFiQ6nLwkVl8j00Qhf8JWuDlBCE/cjZ56gRgrWbkBYtkCwsRUXq8X5NKfLfP3Mmw2BV6DIFCHnE/JCBuzvPbaK/LglS5PQSaa5j5d7rE4QwEPCw3pg+MEU7ylEXmE9fSBSJSlN2t0TE+W8tTyOfMAMAmamKa8rs+/oINq3KpbmlY03sr6pSaVlwBoLQWalLSI7VUr1VPE79EcroepW4kWqFAMJ2pSDU1t1YCuoaDSr/IteBKDRxpMoSdc72Mn1Eyd+4DCHGY7hTupa6MEIWGYYrZySGRnVF3RGRBp/t6lp63Aa11Tc2+/x2wPCDzZGFcjJLI8mBA7qUKe0uq5ZEL5rDuIIxa0YqmPWrTOmOwonfpmLFQLMDn8EulQHFz4+20MV94AkrcGXVf6qKFsrghwz8T7JYBU41dwWNgPPP0o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(261026121527099003)(260925021311599003)(260925022911599003)(261021123027099003)(56012099006)(11063799006)(261021135927099003)(261022105027099003)(261009223027099003)(261021121427099003)(10067099003)(260925021911599003)(22082099003)(18002099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Qk5GYmx6WjFPYnVGajl0cm1SSmlMK3RLYjRNVEIwZjk3Yk1lNWd0ZXRpakRk?=
- =?utf-8?B?REF3YU1vSWZrS1Zob1o1bGVLWUExRE5ZaTdGbC9qOEhRZE5ObGV6SFkxZE82?=
- =?utf-8?B?NXRIYUZaNExwWWVBMTA3Q1ZuYmhDWmdlRHgzK3lmb1hiaHNtSmJQQkNLOXll?=
- =?utf-8?B?YlNibGszQ3I1eWZucmNlWGZnZUhrUVlpcDZDRW9PT080aVFMRjJMMFRhdFo1?=
- =?utf-8?B?SDBmcEl0NDlKZXZLenMwWWFYQ21tSWZOQ0ZRNk5rVjROKzRrenk3QUxVcGFq?=
- =?utf-8?B?V25MSEVLbjU1WEFEb0wvMnpwUktzL2xZRUc3QlNCdUhlcTVDeDJEYXk1OHpq?=
- =?utf-8?B?d0h2MTQ5NGJTcFJtOHBBaUlaK29lMHA0bFZ2Q2t4STVOVHhRN0pyemhuTG53?=
- =?utf-8?B?K1JRdWZ3UW0xT2E4TkYxZ2VxSlI2R0FnVGI2bFVlVDZ4MlBJOWxwYlIvclRM?=
- =?utf-8?B?b3FxUkYvb0tiVGY1TGNOSVJYWW5zazVmU2IvVDlLOXY2Zm9Da2M0RzdPNlNt?=
- =?utf-8?B?ZHhtMXpQRXNQdHUrVFFVQmY3OFJvcjcxeVVGOFZZT3VucEs3dlBXaWg5VHZG?=
- =?utf-8?B?L3o4dzU5bW53TzhZbW53NXhTRVJSQnhLWWZOeXp1RFk5Rkh0ODl5KzE4OElU?=
- =?utf-8?B?MVpGUUpEOUxHU1JZdmtqQ0VteHF5dGw5NThhOWZXS2hLK1BnYUd6dU02NFVZ?=
- =?utf-8?B?aitJLzZRMjdhQlhrL01wbS9kWlVnMWhyMjFicFRnaHFxak9FUE9ocTF3OWxX?=
- =?utf-8?B?ZHJMejYreXhHNnl0ZW4wam15NHQvTG1OOTVKbkFIVkxRendsSHE0UUNBRW50?=
- =?utf-8?B?dERaQm04RVQ5RFZWcmd2RnpXRHdXVFoxTWNGR2Zkd0ZMazErczlydDd1NmlZ?=
- =?utf-8?B?NXBxbHFXdjRsVEp0NFlJQVFXelR3dGFidXlTdVZuazgzcURWWjJZWmtpeGFP?=
- =?utf-8?B?UmVOdGROZ3E0d1FHSEVvSUVSNVlDS1lMQWU5MzVPZkNocDVZMXd4dUhxZ051?=
- =?utf-8?B?WXExeWVXVXR1NW8rc21MOUxGWkI4UkI5cVJyUk94aEFraFNKRHZ3OGNUSEVp?=
- =?utf-8?B?YUYrRWd6ZUFGQkdJYmNLVGRiRzIwOWE0N1BwbngxZ21XRGIyQWdNTXo4QWhh?=
- =?utf-8?B?amd5ejd6bk9zcHo2Q1RvY2ZDUmhrUE9sSmpqWi9JeWwvN1JaUXJ6b0FOWFcr?=
- =?utf-8?B?UHd5VTYrR1plSzdnWDNtTzFDazJXeHVUUFFxdzV3SkcvNDJ0MTZvQkd0RytY?=
- =?utf-8?B?MWZHMlVLUjNLMFZKaWJMOTFLenlFb2pmU0NnejFqVzJBMkxVb3hxMWkvRXR4?=
- =?utf-8?B?YVRTck9McVBEd3N5bXlpYWk5SDJnZVdWNmx5ZnQzWUZkVlAxdUljWnVsN3Yx?=
- =?utf-8?B?RllsUGJpUEJ2U0hHeDFVMFVhWkJ1ekJ6R0lxOStFaEk0TktvZVF6ZmwyckNO?=
- =?utf-8?B?MWg3UXNRL3VaVUdVdjZnemNVQVFnSHRJczdkWFltRjZiWERCRFB0WEtCSFRO?=
- =?utf-8?B?bzcyakpZNVRKcmdualhMck5qbFl6L01HR1RpMmdscGFZSTV5clBBUU4rQlZq?=
- =?utf-8?B?aldBN0FLYTNTbXpjNElpK1NVUTdGUndyK0hQdjFWVFpyOEtud3FvVmNxeVVL?=
- =?utf-8?B?TnppVDN2bTFkMFpGMWIzN3pwUElvWlEycDFYczJhSlZiK3A4ZFdQRWg5T2FS?=
- =?utf-8?B?bzBpYWYvMGxJeUtaMFZZWExQR1k0TDJ5K3dtbGRBMllCc09FWlAydDRUUzJq?=
- =?utf-8?B?MCtrUDBPM2lHVnFLclhlQStxTlNWc3VCT0RIQ0ZRUkJDenJuVzdLWWcyUkl2?=
- =?utf-8?B?cTZtSEtacUlUNmtSaEtzU2xMMEJYZWJhaHprdFl6U0VVSnk5bWx4THFPeXl0?=
- =?utf-8?B?K0ZyM1dzYUttN2poZ2xFcXZPZEVGNGVrTlBuUXVQUVJxYnR4Q0pzV01DYUdO?=
- =?utf-8?B?OGliNWJ5WnBDUkR1RWhtOXhjYkhYSFl5MUtzWEdRVDZLc0FVcDVzQzJFd1Fk?=
- =?utf-8?B?NjFVa2NjeUVYd0xOMS85T1doZ2lTS3VBcmxqc3N3TGpuVXcwMmtnL244L1NS?=
- =?utf-8?B?Nk1aRGNHTEg5RUk3T3kvalRXZzl6SkJ0dXVnQlBRY2VUOWphQXpPUVJzeW00?=
- =?utf-8?B?SnlNR290NWN6U3F0K0d5UFF4aDl4VUxZaUxENUd2K0VQbnUrbTVPcENidHRz?=
- =?utf-8?B?Kzc2N0c2K2w5aVNpWk9BbCs4V2pVK2g2cnlqRU9BcFE1UFZYOCtNKzhGTnVn?=
- =?utf-8?B?NTVqcmNySGl4eXVoT0FuTWJiUElpcTZaZHFNbEZzUnhCb0l1dGRUYXkvUzFp?=
- =?utf-8?B?Qm1MTjNPRUF0SnE3V0RVTDdPTUR1azVFTFplUjVoWDFpeUlLaFdwZFErbktV?=
- =?utf-8?Q?N1Tq/kbVhTohJPtFV+sfBkJ/9AGK5WJMjJB4m27Qi/I1s?=
-X-MS-Exchange-AntiSpam-MessageData-1: BL37dNyhW8Voxw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f11db9c6-877a-47e9-5a6a-08df33fcfef6
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 07:36:21.3494
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: a8TQM0Cq5XukBqRRka3XLJlM0yoT7IoX+XexT2pnDDLsflDYZqbhp5KJ+IrGp2StQ3F7UgqogJUDSBwk7EigAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8451
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1793086056.git.chris@chrisdown.name>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-The logic of `await_msg` is also usable for other kinds of messages that
-are not RPC; it will be used to wait for GMC messages as well. Extract
-that logic into a new `await_msg_with` method that uses a closure to
-decide whether a given message is the one we wait for, and use it in
-`await_msg`.
-
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+Signed-off-by: Chris Down <chris@chrisdown.name>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 44 ++++++++++++++++++++++++++++-----------
- 1 file changed, 32 insertions(+), 12 deletions(-)
+ lib/tests/slub_kunit.c | 46 ++++++++++++++++++++++++++++++++++++++++++
+ mm/slab.h              |  4 ++++
+ mm/slab_common.c       |  3 ++-
+ 3 files changed, 52 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 6075868638ec..9e678715c624 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -974,6 +974,36 @@ fn consume_element<R>(
-         Ok(res)
-     }
+diff --git a/lib/tests/slub_kunit.c b/lib/tests/slub_kunit.c
+index 646596663b33..0fe10cbfc83d 100644
+--- a/lib/tests/slub_kunit.c
++++ b/lib/tests/slub_kunit.c
+@@ -430,6 +430,49 @@ static void test_slab_buckets(struct kunit *test)
+ }
+ #endif
  
-+    /// Consumes messages from the queue until a message that satisfies `f` is encountered, and
-+    /// returns the result of `f`.
-+    ///
-+    /// The message is waited for up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-+    ///
-+    /// `f` is expected to return `Ok` with the result to return to the caller, and `Err(ENOMSG)` to
-+    /// signal that the received message was not the one expected (such messages are dropped). Any
-+    /// other error returned by `f` is propagated to the caller.
-+    ///
-+    /// # Errors
-+    ///
-+    /// - `ETIMEDOUT` if no message satisfying `f` arrives before the deadline, however many other
-+    ///   messages arrive while waiting.
-+    /// - `EIO` if a message fails framing or checksum validation.
-+    /// - Any error returned by `f` with the exception of `ENOMSG`.
-+    fn await_msg_with<R>(&mut self, f: impl Fn(GspParsedMessage<'_>) -> Result<R>) -> Result<R> {
-+        let deadline = Instant::<Monotonic>::now() + Cmdq::RECEIVE_TIMEOUT;
-+        loop {
-+            let remaining = deadline - Instant::<Monotonic>::now();
-+            if remaining.is_negative() {
-+                break Err(ETIMEDOUT);
-+            }
-+            match self.consume_element(remaining, &f)? {
-+                Ok(m) => break Ok(m),
-+                Err(ENOMSG) => continue,
-+                Err(e) => break Err(e),
-+            }
-+        }
-+    }
++#ifdef CONFIG_KMALLOC_PARTITION_CACHES
++/*
++ * Each partition copy is a separate cache, unless the copies were disabled
++ * with kmalloc_partition=0: then they alias the KMALLOC_NORMAL caches.
++ */
++static void test_kmalloc_partition(struct kunit *test)
++{
++	enum kmalloc_cache_type type;
++	struct kmem_cache *s;
++	unsigned int idx;
++	bool found;
++	void *p;
 +
-     /// Receives a message of type `M`, waiting up to [`Cmdq::RECEIVE_TIMEOUT`] from the call.
-     ///
-     /// Any other message that arrives first is logged as an event and does not extend the
-@@ -1016,18 +1046,8 @@ fn await_msg<M: MessageFromGsp>(&mut self) -> Result<M>
-                 Err(ENOMSG)
-             }
-         };
--        let deadline = Instant::<Monotonic>::now() + Cmdq::RECEIVE_TIMEOUT;
--        loop {
--            let remaining = deadline - Instant::<Monotonic>::now();
--            if remaining.is_negative() {
--                break Err(ETIMEDOUT);
--            }
--            match self.consume_element(remaining, f)? {
--                Ok(m) => break Ok(m),
--                Err(ENOMSG) => continue,
--                Err(e) => break Err(e),
--            }
--        }
++	for (type = KMALLOC_PARTITION_START + 1; type <= KMALLOC_PARTITION_END; type++) {
++		for (idx = 0; idx < ARRAY_SIZE(kmalloc_caches[type]); idx++) {
++			struct kmem_cache *normal = kmalloc_caches[KMALLOC_NORMAL][idx];
++			struct kmem_cache *part = kmalloc_caches[type][idx];
 +
-+        self.await_msg_with(f)
-     }
++			if (!kmalloc_partition_enabled) {
++				KUNIT_EXPECT_PTR_EQ(test, part, normal);
++			} else if (normal) {
++				KUNIT_EXPECT_NOT_NULL(test, part);
++				KUNIT_EXPECT_PTR_NE(test, part, normal);
++			}
++		}
++	}
++
++	p = kmalloc(64, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, p);
++	s = virt_to_slab(p)->slab_cache;
++	idx = kmalloc_index(64);
++	if (!kmalloc_partition_enabled) {
++		KUNIT_EXPECT_PTR_EQ(test, s, kmalloc_caches[KMALLOC_NORMAL][idx]);
++	} else {
++		found = false;
++		for (type = KMALLOC_PARTITION_START; type <= KMALLOC_PARTITION_END; type++)
++			found |= s == kmalloc_caches[type][idx];
++		KUNIT_EXPECT_TRUE_MSG(test, found, "allocated from %s", s->name);
++	}
++	kfree(p);
++}
++#endif
++
+ #if defined(CONFIG_PERF_EVENTS) || (defined(CONFIG_KPROBES) && defined(CONFIG_SMP))
+ #define NR_ITERATIONS 1000
+ #define NR_OBJECTS 1000
+@@ -628,6 +671,9 @@ static struct kunit_case test_cases[] = {
+ #ifdef CONFIG_SLAB_BUCKETS
+ 	KUNIT_CASE(test_slab_buckets),
+ #endif
++#ifdef CONFIG_KMALLOC_PARTITION_CACHES
++	KUNIT_CASE(test_kmalloc_partition),
++#endif
+ #ifdef CONFIG_PERF_EVENTS
+ 	KUNIT_CASE_SLOW(test_kmalloc_nolock_and_friends_perf),
+ #endif
+diff --git a/mm/slab.h b/mm/slab.h
+index 185df5e68419..934b9db1ef6b 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -394,6 +394,10 @@ extern struct kmem_cache *kmem_cache;
+ extern bool slab_buckets_enabled;
+ #endif
  
-     /// Logs and consumes every message the queue holds.
-
++#if IS_ENABLED(CONFIG_KUNIT) && defined(CONFIG_KMALLOC_PARTITION_CACHES)
++extern bool kmalloc_partition_enabled;
++#endif
++
+ /* A table of kmalloc cache names and sizes */
+ extern const struct kmalloc_info_struct {
+ 	const char *name[NR_KMALLOC_TYPES];
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index 5391149a2eed..406e8688ee0e 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -782,7 +782,8 @@ EXPORT_SYMBOL(random_kmalloc_seed);
+ #endif
+ 
+ #ifdef CONFIG_KMALLOC_PARTITION_CACHES
+-static bool kmalloc_partition_enabled __ro_after_init = true;
++VISIBLE_IF_KUNIT bool kmalloc_partition_enabled __ro_after_init = true;
++EXPORT_SYMBOL_IF_KUNIT(kmalloc_partition_enabled);
+ 
+ static int __init setup_kmalloc_partition(char *str)
+ {
 -- 
-2.56.0
+2.54.0
 
