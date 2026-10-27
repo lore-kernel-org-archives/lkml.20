@@ -1,97 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793073221;
-	b=fBPDj1Idi69OxvkDM1FmZFlLoph+vbdB+xq8RYBM4yNuTBqLWNgKfc0XiNAQCGMd5epF
-	 wVDS4GvtNoJOdWrcd79tkr0oL9ERtHXu6KLG3jA2Li4fY94terQ2Z6z5Ma44fJbv6uoq4
-	 vT/oJDNa0a8r7fBqDDaCQ/v95Z2TrRA64f2r+lN8d19bKI1uMEAHpu8w5UMKlCcPFlKG7
-	 6Vlp69i3HBwezeH5z0P7RprsRck2DayQ09Cv3SqRQhLN/kThtVybEnhiOWAC8kxuzz2Wj
-	 9Uk6u45tBuIw/lah3jtOfAl5jiYKAgCMPrZuY39p2jHhooDNmNAiWXdHwyxHpaGdOEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793073221;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=63XdMIgmDxPufVfDbiuncQKIwymV4Xhq1c62N9eTtiU=;
-	b=eZlPtENRg4EnFN5KSYC+xuov6mDp+e7PoFU0Z0k691uYAyk0jIHEOzCoxHaEkTVcCRFB
-	 QxqsVN/kUOXVV90/PfYOHsE++bQFFJHOYwkAMsQe6Rh5AhbnlfmBLpeSWdJoCmpu9mqWz
-	 bzbky37GhAiUHfn+RLRRQvdHFu+qvF2uUzs55APVcqKeONDVeX+qWzvo2wW1v8v0hpC3w
-	 ORbLR+qXMRh986w/XoJMgerUCTUCKto0lJWR5VNxI8o727bJjOFW4Dy6kqDmQdl03Hv/i
-	 WtIAgvvrjxPXjM0sqyEVgi1UZ1FxKJPmTrGydva/yWYDItA4VmBDxNohKs9K1gcaslg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=gmnM+VK2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.73.153
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793073273;
+	b=EWPTFEL4euP6F/w8wRW9ah3Kwy9AX7f+NPCF4Eo/0ABF/v79NR/qPG9d2RGGw/5h35r9
+	 mK9tsm7APOrx3jSOKR+UsEB0OICESzsN/Fc7PPgGCkHssKtMG9e68JqBXAD9S1OuYSUwD
+	 Lavb2KS4xa/WCVeDweqstNmBYNSzOnA3zueutw/hy2Eu5BTtcSHmUpKG2gtAHRCMtpfQy
+	 ELrC1JCec63AFVDuMc1vUTc24UQU1e2w+9v6T8QABUGEtkGPxm8cphh1cuwFM+BV+E4Xv
+	 yuraBCeQBO2Gz2GQZ4Aa6NNudMgJPd/yQVW8+dTYjkK882xCVkYqSMVJ5SGV4PZ2+FQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793073273;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 mail-alias-created-date:Received:From:Subject:To:Cc:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Info-Out:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-JNJ;
+	bh=c557NJspcrYp97wcV3FzkxycYN4AmMz1y8uOKeLXX9c=;
+	b=RREn6xXMo4stdDegV2bq3sPIhsXfZ2IGH5YPiaM+4flbdIiu9FORtW3kVg+Twz9sDG7C
+	 w0csKZm4AJDFXTcrtdvgSY4gHovDJwdlnaVOJW1OiKLgxT9aU6XJw+PXnGm85LpcIRrqe
+	 L+CdKRMzYyGjSx2saLA3RIBh5znbGGq5CnaMs4jAvwpnv15EHkOmJXZQHcoLCYOIbabuz
+	 cctDwrgnN+RK2moZNR64ERb+5n5nI+coFPfti2llTuuBEumDF+xaTtERNJpzXXXg9GJmf
+	 NPeZdtpqKoELzzEFh3NEs8a4r3J4aSC8DfOrf7P3sHLiMD3wiEIU0Zw5I53KoNn1UNA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=manyhobbies.com;
+	spf=pass smtp.mailfrom=manyhobbies.com;
+	dkim=pass header.d=manyhobbies.com header.i=@manyhobbies.com header.a=rsa-sha256 header.s=sig1 header.b=aJh0AGum;
+	arc=none smtp.remote-ip=57.103.73.153
+Received: from outbound.ms.icloud.com (ms-2001c-snip4-2.eps.apple.com [57.103.73.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E034606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:53:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E034606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67376606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:54:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67376606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=manyhobbies.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manyhobbies.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=gmnM+VK2
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6790844c9b0so2988026d50.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:53:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793073219; cv=none;
-        d=google.com; s=arc-20260327;
-        b=smEBQlFPOopcKCd6C6sObJ+FG2rLnOuZySXeoykDW5ebn9fOFIP8JA7gxNRvi/ddn9
-         B4tLot6bdmC6HjAHuA1HI0XVqCYmwghrQcljwebn8Q1KJdiDdmnWoYK31k/7dXGxbQLr
-         e4Qupnr5qXEz4cLYBV2k2xoONq/uSWWSXiEu3s1JoUn8uD6jUSFDs3dLMCTeqe0D1T67
-         SAaHoq/hQdDMJQMAvR8DSyEScCOZptAIESLqPP0oTtTRBiWL3fvsf4Ragsf/2X0I+yXG
-         kLrhy2wVuaWsIUc6bDp9gEWGt9Nb1s1I8pf6LI6//np7kO66i9X66Scwhy4tGw49o9SZ
-         m0Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=63XdMIgmDxPufVfDbiuncQKIwymV4Xhq1c62N9eTtiU=;
-        fh=Byqz4Qjym/XLKAjdrKJDknSo1WoMuBO7czMy4GJARJA=;
-        b=eFL0fhuFqoSHL71eau8L1/WYZcflOxBWrhNLe9Qa/vaNyh++PZxH3Oaju79t6hQsrN
-         SbMxDRsgBQvFK6YXi95LvBGzZfH0Nb2sZ5Tz/TbpeDxeWJ4BDrO/pVOgk54pQcclk5XE
-         0drv87TSUe7O3gOoOngWS0JJU4NlZ/VBr5kEGTcmkqOefpIAGK1BfcJGLn0JRtMpYylu
-         wAYTCXZ7edOrDbR7KV295bV9cqX1Y+8tyS0wf44lBs7rdC7tsezwWipFOJ/PApOczDwR
-         z7woiEazIIWvF01yLOEKY85gd+eGovI0UbDefmeVEWF6IQQImGJyAfF5BXqBSY2cCR2n
-         W8hw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793073219; x=1793678019; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=63XdMIgmDxPufVfDbiuncQKIwymV4Xhq1c62N9eTtiU=;
-        b=gmnM+VK2FHfRvDryYWxHCVQLkzSvELGiTjKId2CX37exxagezn5WzGkm1vyJrhbg0U
-         0ntd9vDW9Pf1TYBBZKoovsDv6XFh/lhEacqhJOcgDdqDHPrte5YSBQNI4vMKTVLIOpoG
-         gClP0iuoiU3qugTeu9sD5xek0+2z6AgQW4IwM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793073219; x=1793678019;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=63XdMIgmDxPufVfDbiuncQKIwymV4Xhq1c62N9eTtiU=;
-        b=agAAAywDo1LeSz1AfxmjPNv85CRXw9HUU+Q3ZryOh05TjhyQ85f02nqe53j6YFgIVL
-         Yz/qtDP0qY9XcUXnzIZtKdSZnMUir5sGHjySEOlAQITY9Auksw/YWvRS6/A9iRQjYBxf
-         qKpAmUuRgQBqBeuFSXSv2ojI/no235hcK0i8Wb2cZP/EO3Mox4mCF9gSZDYMoYEXfMru
-         FHrU2qVNsE3MCH6Gl+k5t1gEB4yc5833ZhKkxcQXo5K855qGzDN/6WoAU2jORu+fdTsd
-         UxOQiexuSNSNV8qKzMCsDDw6wc4KKNG493vFOQSV0w9jMrP3YpEjp1YumqGXkoQ/pQEe
-         60xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcKAl5iu+DkQwjrG6Esf1i9JFOeuVxPCZIwExFvwapxD7DdxG70oSB7ESzLK2tg/MPsknPCKdDT3UkQqg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZQVZ72+PnB4cTHjGQg2eHUEuC4We8i3DW02XnhjgJl2FpcSbw
-	wkNyhq5KrRdr68vVGgKk82KGvk578ppS7G5lMyha2yUYfHAHbra1DBhbqV7OeH5sJ4QskciAr4H
-	X9RI/0kLQ0VlshvonQGuXmWH4lshoE5Mc0G4pJZLB
-X-Gm-Gg: AYBFou2fpRezUuHGw8ToJEQndWgbpl009lkYY5zCq5RRW8Q64LwJEiezA0qYQuULVcr
-	kTEScM5vKCBdVe0WptRYlvj2JBljQvwqXnc66pfO/rdnovxKmRmNMWiuZfNZKAihkgRs2IgmlMa
-	L9MuABf0d3TudXTqMOx8eGew/xQ6XKpC7IkKU+A4VDbda0y4gGERvCS34GC8iWq/JiRmKtYm6bA
-	5lQwC8olvYds7A7lIFhNqdtZFmoNU3f4v2WSqqKWTLaU9TEUH+yqi5lz9djizSbg6FtwLX0a8Zx
-	aqIm7t/pzPQQZSfH/6ajlVuyGybYmeyN3U3+Iya2AnUsVHGxkw2ciPX072eL6mpA1MbeX/+M46Z
-	TzcAiJHdktMSy/hXJH70mMQ9HMWTDb3w+dsx+U5/NVWZT+mGxQHfhfbR6OTRUFknPlPE=
-X-Received: by 2002:a53:b644:0:b0:677:d023:49b8 with SMTP id
- 956f58d0204a3-67a4543f2demr5622996d50.66.1793073219651; Mon, 26 Oct 2026
- 20:53:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=manyhobbies.com header.i=@manyhobbies.com header.a=rsa-sha256 header.s=sig1 header.b=aJh0AGum
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-100-percent-5 (Postfix) with ESMTPS id 288F518000AA;
+	Tue, 27 Oct 2026 03:54:28 +0000 (UTC)
+X-ICL-RepId: 01a17b7e-c94a-7c5d-b7c2-55b64c5de973
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhPAUMGWQZeD04dXwVcEhVdRUcMWkVWH3kVUgNOA10SWxFWHhkIXR0ZHldQWgpcCVEXUQ9eDkFeWhdeTUUID0kZEFYBWFZdBU0aXBhZDxwdSlZaDlsERxQXG1wAFxtGAgQjAl8ARQJeCVYBMBcPVk1UGV0UXwRQElAdQENUBF9QVBFXUAtaBUkKSAReBlkDQA1WAFQPXQFeCEoAWgVTA0QITgBZAFkKRAFPBl93BlMeQBBcD1UCVwMXG1wACUtGCUkdDg5CGEYfVCdXAloKWx4=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manyhobbies.com; s=sig1; t=1793073271; x=1824609271; bh=c557NJspcrYp97wcV3FzkxycYN4AmMz1y8uOKeLXX9c=; h=From:Subject:To:Date:Message-ID:MIME-Version:Content-Type:x-icloud-hme; b=aJh0AGumjEqUA82HLgydg7bSQii8pFGQGAywdpmcFB++chslRvqswtVMzE5ZazNKcUGMRGzKtPZJS8794b+0TYfvdYOfTWqkLt29D/uZomQOMi4t+PHKAfClCJ9pVlsOBlyRfzDFpXSGGVsJUvEtDQLyc28ZuQyAXdyP43ZXY1Inz/30xp8guqug6SQAg5ds8ARhTWj5L6oXT3TxqotmXq1crgTXnhtJw0CblRC92iU+shQ9Husp2ECB8TGQ3B/L+RsftGhY18oE6we4wdWnkoSFD654T7/J13iA48f1FNOiln3O495aMSRMMByoxB3YAHAkbO9dYgQ5T2X9VMhVvg==
+mail-alias-created-date: 1780273699991
+Received: from claude-agent.manyhobbies.internal (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-100-percent-5 (Postfix) with ESMTPSA id 26068180009A;
+	Tue, 27 Oct 2026 03:54:28 +0000 (UTC)
+From: Tam Do <tam.do@manyhobbies.com>
+Subject: [PATCH] mmc: sunxi: reset the controller after an update-clock
+ timeout
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Chen-Yu Tsai <wens@kernel.org>,
+    Jernej Skrabec <jernej.skrabec@gmail.com>,
+    Samuel Holland <samuel@sholland.org>,
+    linux-mmc@vger.kernel.org,
+    linux-sunxi@lists.linux.dev,
+    linux-arm-kernel@lists.infradead.org,
+    linux-kernel@vger.kernel.org
+Date: Tue, 27 Oct 2026 03:52:01 +0000
+Message-ID: <179307312104.39863.12372814163472848752@manyhobbies.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,80 +67,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027002419.2099708-1-nbryskin@gmail.com>
-In-Reply-To: <20261027002419.2099708-1-nbryskin@gmail.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 27 Oct 2026 11:53:28 +0800
-X-Gm-Features: AclHuK9fP-f3Hs_1VqqYwtoVLd1mzJ767fSZbB5u4Nm7cGL3-Cn95lyNs_2rirg
-Message-ID: <CAGXv+5HiwX0R7a8gJeQMbZOB=AYEDUanD5ry6y0-X=wqO57RKg@mail.gmail.com>
-Subject: Re: [PATCH] clk: rockchip: rk3588: keep the OTP gates shared with the
- secure world on
-To: Nikolay Bryskin <nbryskin@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-clk@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=fbugCkQF c=1 sm=1 tr=0 ts=6ae02076
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=w2OPf45SAAAA:8
+ a=OBswR2QUZwThbbyFsH0A:9 a=QEXdDO2ut3YA:10 a=-iXIJKm6ftRzmWoHelNS:22
+X-Proofpoint-GUID: y2SgpGtdZ7vHdcPuD7Ypjoc6D-Sv23Sj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAxNSBTYWx0ZWRfX6NLdvTed6MJk
+ NDt9+8d0rQtPMNEI7W0Sgwrwc5t34pOkSvmarHPDHtAhv3/NplmE+OYdB0qFxLm6lN3CuyCeQB/
+ BEr+gIT7FTo5/RmL7XAdxxnQA5wf2cIgL17KxQ/991O1rDI8PodIbltZ/jotFG2/umWdKCAgO5X
+ LGK5r8G5VJsf9HisuUcikkDlVONrJ2fe0ACUD6RrADoZPRXs7yZsHZAn66kAhRau7pa9gtiYtYZ
+ LtJc0kxK03QFHId6WWBlNijwmYfJOykTq/+dJScH+rDAGKucc5UqKruTuKTp4ZQDrPhIF8NGchF
+ TrRkbvLAcYEBoB4Id2EHjfrmSw1/RwbQ5tX7gKcuXHvLss9AMGP+atvsvXYdp4=
+X-Proofpoint-ORIG-GUID: y2SgpGtdZ7vHdcPuD7Ypjoc6D-Sv23Sj
+X-JNJ: AAAAAAAB97Wku43oW0onLL0nsnuVzNu/wNnoSw2Lfvo1qg77wELWKGEOx6s/vTlMnrJy1v1rTIZ++H0LHfbQEvshtbpLg80viBL3MgEw9ypfH3ljJIbppdVgA/Fog/xP0A9MocRTnVlDRBQpwYD/+0IFgai8LiK4o/RNfYpBsgUwJdgK//KsqYoOvJhQ758Sn4ksBXAalCi2OYMuetJRVetvR9qaaNCGAPT8OHhXZ9DxvNMwOpuBZyuJxppSwoI6C28PPZm4R1PPSbb0wvf5/Mp6IlA2ggC4XPsRzc3qe9bFYj3+ZduQetG7/pP1FSwbyeDKp0tGjJkOnA2Lo+cU8o0hNh1MjWDB2v22l6JgbYQVd1ypsg+qlsLL9v/ZvEwxCTyCP7RcmGud8QgI8u6JkX5iAkc2UlR+nKfi+3UdI6mrdaQOTXvNpkC1lepH2Ikdgxbbh3zO1aymZQXK/n8lzJR44sgEQyGpRdPb8j2J84brmSedvC7P24qrKrPiwRZoalpw6EVqx+hbMxSwsRwmNWlCk3mQwU0BFotv+IvvRjmfmbiPzP5crWfXHAp5Dl9BzHY7YQD06WKHSvUXwm+JDXBq6RnY1gkbNiN5HJ/0aKRA0hX82FvRBhbrJsC3jeEdY2thvPN5MlAA+Cp6kUNXgYyrw3mk1RRnNFifNcxZhLFsMbDlmpVfLR7rN7X0tNPmjYbPKGo0h7IhZuDZb3GY61ESb6+O106ySIuZooKp7L1swTQ7UmHFfskNhQFJb81vNqODACe6ocjp+tjz/R3HPwe0mEhAkKu0LiMzZfe/o/7iAHBDYkWMbugTtcz+Te8t6uJvwOc3LAAXMoxNU2rI19bm2P1qtzEhz+X4jRH3fiMtRfUgNRb96sdUDr1zHTpAKZ+M9Ma5g2gbg4RYuml6e6wfRgxq3YLZwQcX5YGeliDixu+6pTVrNfK0885TG/xxwPJQdVy1eP77R4IXBMbLj0vqajXYYu7
+ +vinsDdtAIdgHFCyqTOCA70Qy3VTY1lvl57b0LU0lwwT8zLVXRPwpNZeLEzN+mXf8rrQdHMgFdhD3fxUgFNw5Fu5Qr/IwvdmjyJvsJctIJTSbQGAfafBM9rs8R94yn2rgR4ORR2C1w+FRoZv32tscoaXhycEvYsst1HAtJqrVERdFmUeSfXN6Xvlm8D/X+ynHchM9lGTywhlFSCMaszZR/2ciaL1Op/3w0PaDEjyDOh6lbw97TR4fxDUdqAA70/qZsENOLcL9R+LCbk+jKRyg75NiN85pTaId9K+eq1yXd3Xeuh1dv5aO3RLNBzZNg0D0QJWbaZAeKWmC2RwU/7MFZ+ScKEbqzjz//yFSMpIBO+tcNZYt
 
-On Tue, Oct 27, 2026 at 8:28=E2=80=AFAM Nikolay Bryskin <nbryskin@gmail.com=
-> wrote:
->
-> The secure OTP controller (OTPC_S) shares three clock gates in
-> CRU_CLKGATE_CON18 with the non-secure one: clk_otpc_arb,
-> clk_otpc_auto_rd_g and clk_otp_phy_g. The kernel treats them as ordinary
-> gates: clk_otpc_auto_rd_g is disabled as unused at the end of boot, and
-> the rockchip-otp nvmem driver enables clk_otpc_arb and clk_otp_phy_g
-> around each read and disables them again afterwards.
->
-> Firmware in the secure world (OP-TEE reads its hardware unique key and
-> the secure boot state from OTPC_S, and programs them) has no way to take
-> a reference on these clocks. Once Linux has gated them, every secure OTP
-> access times out, and a normal-world nvmem read on another CPU can gate
-> them in the middle of a secure access, including a fuse programming
-> cycle.
->
-> Mark the three gates critical so the normal world never turns them off.
-> They are 24 MHz gates for the OTP block only.
+If the clock-update command times out it stays pending in the
+controller, and every later clock update times out as well, so the
+card cannot be initialised until the next probe.
 
-If OPTEE needs some resources kept online, maybe the OPTEE DT node should
-have a reference to them?
+This happens on an R16 board whose SDIO Wi-Fi holds DAT0 busy while
+its supply comes up during the first clock update.
 
-Otherwise everyone is just playing whack-a-mole in each separate driver.
-And for folks that don't have OPTEE, it's a potential waste of power.
+Reset the controller on timeout so the next attempt can succeed.
 
+Fixes: 3cbcb16095f9 ("mmc: sunxi: Add driver for SD/MMC hosts found on Allwinner sunxi SoCs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tam Do <tam.do@manyhobbies.com>
+---
+ drivers/mmc/host/sunxi-mmc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-ChenYu
+diff --git a/drivers/mmc/host/sunxi-mmc.c b/drivers/mmc/host/sunxi-mmc.c
+index fe4c0f6..439cfa4 100644
+--- a/drivers/mmc/host/sunxi-mmc.c
++++ b/drivers/mmc/host/sunxi-mmc.c
+@@ -688,6 +688,7 @@ static int sunxi_mmc_oclk_onoff(struct sunxi_mmc_host *host, u32 oclk_en)
+ 
+ 	if (rval & SDXC_START) {
+ 		dev_err(mmc_dev(host->mmc), "fatal err update clk timeout\n");
++		sunxi_mmc_init_host(host);
+ 		return -EIO;
+ 	}
+ 
+-- 
+2.39.5
 
-> Link: https://github.com/OP-TEE/optee_os/pull/8034
-> Signed-off-by: Nikolay Bryskin <nbryskin@gmail.com>
-> ---
->  drivers/clk/rockchip/clk-rk3588.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/clk/rockchip/clk-rk3588.c b/drivers/clk/rockchip/clk=
--rk3588.c
-> index 24baa0ef9bf3..8e0f408fdfad 100644
-> --- a/drivers/clk/rockchip/clk-rk3588.c
-> +++ b/drivers/clk/rockchip/clk-rk3588.c
-> @@ -1158,11 +1158,11 @@ static struct rockchip_clk_branch rk3588_early_cl=
-k_branches[] __initdata =3D {
->                         RK3588_CLKGATE_CON(18), 9, GFLAGS),
->         GATE(CLK_OTPC_NS, "clk_otpc_ns", "xin24m", 0,
->                         RK3588_CLKGATE_CON(18), 10, GFLAGS),
-> -       GATE(CLK_OTPC_ARB, "clk_otpc_arb", "xin24m", 0,
-> +       GATE(CLK_OTPC_ARB, "clk_otpc_arb", "xin24m", CLK_IS_CRITICAL,
->                         RK3588_CLKGATE_CON(18), 11, GFLAGS),
-> -       GATE(CLK_OTP_PHY_G, "clk_otp_phy_g", "xin24m", 0,
-> +       GATE(CLK_OTP_PHY_G, "clk_otp_phy_g", "xin24m", CLK_IS_CRITICAL,
->                         RK3588_CLKGATE_CON(18), 13, GFLAGS),
-> -       GATE(CLK_OTPC_AUTO_RD_G, "clk_otpc_auto_rd_g", "xin24m", 0,
-> +       GATE(CLK_OTPC_AUTO_RD_G, "clk_otpc_auto_rd_g", "xin24m", CLK_IS_C=
-RITICAL,
->                         RK3588_CLKGATE_CON(18), 12, GFLAGS),
->
->         GATE(PCLK_SARADC, "pclk_saradc", "pclk_top_root", 0,
-> --
-> 2.56.0
->
->
