@@ -1,114 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793071595;
-	b=rqPJ/DIEYgHB71Kdpp9P6CAWHnN+HKfMEUlzO/es+ruTKKM7gESaz9aKjGkbO0KA5idq
-	 UPGuu+1kVDmv0rVtoJpIDzTd4ChcA/QRfcufz0adrhoKPxiQZDY25Rx4e4NwecOJyKqGR
-	 sSXTU5vLFAf+wWLjeh0/g1lpWFcsDqOLtIDqOwzH+liOWc/fROQtCjhA3AK9+CfqzROUr
-	 eM0Ej5wspdlpUzpFPcAN6Ez9ZGkVLwN3/U+O52hcV5lNarZASYYNtLrFjldSnjDO5CVWr
-	 AkKyYyRvRjCzGJjnpPJ/NyT35WTt4IReCsRN0vNN789ESY8tMbCQfHWbNnoCZWxOClw==
+	t=1793071728;
+	b=HBhu3hQTFtkNGR5wQwoSdMEWqZUHcoE9LiHvcUaAmV2lhk6ZAY4YXZoYvFtMm6jHECXb
+	 PzFfCi03BYGjWQ0LZY+ZPD3R10uGLUDrUbqEnE2orG0YdpMuJw3QwDVKpYj0hnT+W3/lP
+	 EF1gs6GwnRHdSD7MQi5KjRY7scAAoS774lpy+FG8Laz+1REFHtw44V4oFZmFhDsX2rBmD
+	 LwDUUjdinUHECxUf9ziyK1lIURmjGwk1r6rymv9Ht3ZYUzZZCdfHjUeGLlnprnhyy35i1
+	 AvXTMEtFQnba+VB9iyz+ArORdwCESsDwGgSJQKgmGZgappHt1PdsHzbKUvtWyHBGqQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793071595;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=mFFfrqlGcCKVNylEOU7fJD0/AGoCZ65FALqe+xT5SYA=;
-	b=zCCCIXn8nmYGicSwb3/6vYdizTwrgwKLcWno5S+d2gh6+1Xc76zOOEC51OfFgRX7sqwM
-	 LbcvvVKZpR1YjGjxHYKfRGs3rH4u9h+ahW5pkuwUjiSFFxMGcwhvFfeJg00Kys3rCfch6
-	 CvS/3dwNDoEdmh4cnPMCk9WLX3ZPFf5SLeUpRb2oCEED7f3PdVm/gQCKG1cka7ZvNohIF
-	 JoDGvtkGnFv4CyZvy4bbccHGnYhTUWX0kZ42YWcmUKJ49VKHJU4C7T468eTdIWanS7lS4
-	 XdOvGfBRrlpydd0Tbx4liC34uztbKhmERhH6sRebfsNFUyv+li4sT5yjkD/CNbbqInA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793071728;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=sb+RKkGHy3e/r4gLHkfytASA7lsn8w/DIKciO5unH5I=;
+	b=C9C8R3+2jpxWAQGrsscbUUrjX5bZVIViG0JJAaQ/+Z+flTV1hXVFGhNSULjZKC+jjPcq
+	 DzQ+2W4uoFnwDIf0FJ27Cyw/p+OwXtIiXLpcotUkkwX3AiCfR3R+STq3J2zFDb//nhPVa
+	 06GIFJUfJB8CqG7H8K0mKjmpNhDwMiJFgDaznqWJAd8JFtY2ohyJ1dauz2XqBDc/Mn+Sf
+	 Kq8s1gYhEALJMIer9ttMEslO59nt4UblKNRpz/Ul5VrxGnOla3QiJflD7xEpU7xOCzFwg
+	 wP+278+FHVirZW+pQzYpOBAuDmqgzRtUzHDHA8AQxZzLbCZrB6vAcRXlUAzVGZ2A+Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ctJlfWTF;
-	arc=none smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B33F606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:26:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B33F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ctJlfWTF
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e940d5d2beso13954825ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:26:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793071594; x=1793676394; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mFFfrqlGcCKVNylEOU7fJD0/AGoCZ65FALqe+xT5SYA=;
-        b=ctJlfWTFSAAkxOyoCbcKoCYm5sa7PQkArlEMktHuP2e1Z/TnvR6B2Eci7g7zR2OP/a
-         z0ftTAM8q4BPpA9mLqA7HjdTBvZ884W5DhsbdTWH3vGa/U34pPpFF6m6vA7CT7hUTsDE
-         EsLODOrMJPN2eHtZKvdn0E4isOhcUZnygqt4dpaj92LFqIJK5CWBhDAgNImVyZDizUUs
-         rq7cdrDg/cEa1tu2hYIjPpmenPe4O39G2U5GiueFTlIFLOa3FxrtMMGNsascOXMjvg1L
-         ynwndpzHxdBStfN0SD4wcz9ESDOBFHh48Zs79R+0rBSX9WtRnYmpf0wOG+HDjrNwStrQ
-         y0VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793071594; x=1793676394;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mFFfrqlGcCKVNylEOU7fJD0/AGoCZ65FALqe+xT5SYA=;
-        b=ECwAw4hFbt7X/caLRG2nbiuzw1JS1O8ECFTCWYVm6wdrbsMV+d00kDOoUUaY8OrudG
-         dX2BfY2X2bx5uzofjZ3hs2xzQH6D4zAhhf+3OwNfItotoYPf5ydTpRA6K7l3ke3Ezbpn
-         bMa5A8LutVUhJ37QwBjo+SIWf6qrpZg0lZkf9zd56lIldi6lcAIiD+TJxiPdL5t44/Np
-         Xx5P47d3LTuUGVAbHSxuIeNaL6/I7dDxzYr1YHs8wn3MrTFhqw4pYj9FVlPhTA0t38BL
-         MY/YBhhmvc/KxpAbDQtyAR/d4Yn3m/GNf/3L6iVm5rEzWHCWp8TjxfriHoSuNtO9Hzog
-         fEzg==
-X-Forwarded-Encrypted: i=1; AKwUvBzcl2WWgU2m3GJTOF9PXDSAablGHdyZZ17LU+l+XruZY1kZDCAVU89lLVdBCFZ5GBdyhXGobXWs1uHSNgI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAzkJZk/RQf4iTGUkAvLmeG4jIezNkR6JPGPtXFUWcxkLq7Hsn
-	Eecxt9qk0SsiRkh1gWJld5XJnPK8vKaQ2p0VwS1iVzEjVUJS6ibznP3mVVp/WOxxEQ==
-X-Gm-Gg: AYBFou3tbCZaJtzey2XdcTalPIAqOk9b/yKBlkSnx1z6t1AWnyLO2fXZ/kJwhGo0e1k
-	OF7VaEz5RigqeLB7gsYu0s1UsMnG83YmNej31fMp98LkIJolfInxsSnaCHOco9oSAZTFsbNwEQH
-	vw7yN9SAJeM6/QOVQjeiz65W84ePsRg5LoUDEqU5omJ68n7w3+oE7euVSsNH+hkssyiQvEmRK2Q
-	wUshwWDaNK49gThZ9mZSahiR7s6I8oDMia7Q0QqJD2LuMTQsWlO+JLViiDFhPcrqTp5BDPf9//f
-	6GU38QqZLXWgybjERq0kjHQxXrPWohnS+9AI+SUoe10BM43aKpZzIZlNMPuFpvXTwHzDwv6S8rO
-	pX00i5wp0Icof/LfHySepXUMcQbXnXSxb+Nn74Uop7pRvXxXDLaG5XdB47rik95l87XOhS5QvMm
-	9Ir2BWcY02nXcqmCLsxCgJMzExtj7hQ7C857PNpcYImSHP42WlqNlGtO2gvcwwOden/z0Z6FvNJ
-	SuVvkt2ZfhrU0ShaQc62uOIKKaBWrATcbJWEHscP8G0y382OngC6ezZJMBvgS09ZIWk8K4jpl7W
-	rr++axjmCfjKynLGnEXzMLqkfPOJy/313fDJ62JCmfwtf0SJntVIedq0+EkSHcRJCVARPNI=
-X-Received: by 2002:a17:902:d548:b0:2df:ad58:cf54 with SMTP id d9443c01a7336-2ea9c81ab95mr64373815ad.34.1793071593614;
-        Mon, 26 Oct 2026 20:26:33 -0700 (PDT)
-Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ce0f45sm2398915ad.70.2026.10.26.20.26.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:26:32 -0700 (PDT)
-Date: Tue, 27 Oct 2026 03:26:29 +0000
-From: David Matlack <dmatlack@google.com>
-To: Tarun Sahu <tarunsahu@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
-	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com,
-	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org,
-	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com,
-	will@kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Alexander Graf <graf@amazon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
-	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
- a 2-bit pair feature header
-Message-ID: <auAZ5agR1xBo3RLN@google.com>
-References: <20261021152527.375070-1-tarunsahu@google.com>
- <20261021152527.375070-4-tarunsahu@google.com>
- <atlQ_Er0Ig7CCSxv@google.com>
- <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
- <9huzzew0el59.fsf@tarunix.c.googlers.com>
- <at_CncIPYCxOVkLo@google.com>
- <9huzecdcghxu.fsf@tarunix.c.googlers.com>
- <at_pxoULR1Tp5anN@google.com>
- <CALe+6DxTR0BpvW7mXMjq_+dczT2jO=R_qLbHhSduhnuSPcXhzQ@mail.gmail.com>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E91D5606A31A;
+	Tue, 27 Oct 2026 03:28:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E91D5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8Axj9FkGuBqGbAZAA--.9450S3;
+	Tue, 27 Oct 2026 11:28:36 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJCxPs9hGuBqhYowAA--.35389S2;
+	Tue, 27 Oct 2026 11:28:35 +0800 (CST)
+Message-ID: <7c3d56c7-5764-4c4a-9fbc-1e70c95df0b0@loongson.cn>
+Date: Tue, 27 Oct 2026 11:25:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,105 +45,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 21/28] mfd: loongson-se: Validate engine ID, DMA buffer
+ size, and IRQ registration
+To: Lee Jones <lee@kernel.org>
+Cc: stable@vger.kernel.org, Huacai Chen <chenhuacai@kernel.org>,
+ Yinggang Gu <guyinggang@loongson.cn>, linux-crypto@vger.kernel.org,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-21-lee@kernel.org>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-21-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALe+6DxTR0BpvW7mXMjq_+dczT2jO=R_qLbHhSduhnuSPcXhzQ@mail.gmail.com>
+X-CM-TRANSID:qMiowJCxPs9hGuBqhYowAA--.35389S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXFWDGF4rXw4kGFWfuFWfZwc_yoW5tFW5pF
+	45Aa4Ykr4Yyr4xuwsxJrZ8AF1YyFyrJry7Ca9rta1IkFyDXw18Wry5WFyUWFZ3ArWUJF1f
+	XFWkGFs5uF1rGFgCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyKb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
+	xVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU2DUUUUUUU
 
-On 2026-10-27 01:55 AM, Tarun Sahu wrote:
-> On Tue, Oct 27, 2026 at 1:01 AM David Matlack <dmatlack@google.com> wrote:
 
-> > Right, whether a feature is required is a static property of the
-> > feature.  That's exactly why it's redundant to send it in every header.
-> 
-> I meant the different thing.I was saying if a Feature in a kernel will have
-> constant value either required or optional which is fixed at compile time.
-> But the same feature can have different values in two different kernels.
+在 2026/10/21 20:09, Lee Jones 写道:
+> Harden input and error checking in loongson_se_init_engine() and
+> loongson_se_probe():
+>
+> - Reject out-of-bounds engine IDs and engine 0 in
+>   loongson_se_init_engine() before indexing se->engines.
+> - Store dmam_size as u32 to match device_property_read_u32() and verify
+>   that it is large enough to hold the command buffers of all engines
+>   within engine 0's data region.
+> - Propagate negative error codes from platform_irq_count(),
+>   platform_get_irq(), and devm_request_irq() instead of ignoring IRQ
+>   registration failures or masking -EPROBE_DEFER.
+>
+> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+> Closes: https://sashiko.dev/#/bug/linux-89bf25f5-ecd9-40e3-bb4c-bd26d07c53a1
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-Those would just be 2 separate features. One optional feature, and one
-required feature. They might use the same fields in the struct, that is
-fine.
+Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-> Maybe a seal added in kernel version M. Later in kernel  version N this seal is
-> deprecated and replaced by a new seal.
+Thanks for fixing this!
 
-I think this example works fine. The old seal is still a required
-feature. The kernel just stops marking it present and marks the new seal
-present instead. Retiring a feature doesn't change whether it is
-required, only whether the source sets it.
 
-The only thing this split doesn't allow is changing the whether a
-feature is required or optional after it has been introduced. But for
-that case we just introduce a new feature of the desired type.
+Best Regards,
 
-> > I think you misunderstood the proposal. I'm not proposing to pack only
-> > the set bits, and I'm not proposing that each feature have a bit in both
-> > ranges.
-> >
-> > In my proposal, there is no such thing as "feature N", there is
-> > "required feature N" and "optional feature N".  Required feature N can
-> > be found at bit position flags[N]. Optional feature N can be found at
-> > flags[nr_required + N].
-> >
-> > In more detail:
-> >
-> >  - Each feature is defined as either required or optional, once, when
-> >    the feature is added. That choice is permanent.
-> >
-> >  - Each feature gets exactly one bit, in its range, and that bit is
-> >    always at the same position whether or not it is set. Required
-> >    feature N is bit N. Optional feature N is bit nr_required + N.
-> >
-> >  - nr_required and nr_optional are the number of features of each kind
-> >    the source kernel knows about, not the number of bits set. They tell
-> >    the target where the optional range starts and how long flags[] is.
-> >
-> >  - A set bit means the feature is present in this file's payload. A clear
-> >    bit means it is absent.
-> 
-> So For #NR number of features, We will end up using 2*NR bits which
-> is exactly same number of bits, V3 [2] uses. So this is just a different
-> way of encoding in implementation perspective.
+Qunqin.
 
-No, it's NR bits. I think this is the core misunderstanding.
+> ---
+>  drivers/mfd/loongson-se.c | 23 ++++++++++++++++++-----
+>  1 file changed, 18 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
+> index bdbab4b91729..23af05d388aa 100644
+> --- a/drivers/mfd/loongson-se.c
+> +++ b/drivers/mfd/loongson-se.c
+> @@ -26,7 +26,7 @@ struct loongson_se {
+>  	struct completion cmd_completion;
+>  
+>  	void *dmam_base;
+> -	int dmam_size;
+> +	u32 dmam_size;
+>  
+>  	struct mutex engine_init_lock;
+>  	struct loongson_se_engine engines[SE_ENGINE_MAX];
+> @@ -101,8 +101,13 @@ EXPORT_SYMBOL_GPL(loongson_se_send_engine_cmd);
+>  struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
+>  {
+>  	struct loongson_se *se = dev_get_drvdata(dev);
+> -	struct loongson_se_engine *engine = &se->engines[id];
+>  	struct loongson_se_controller_cmd cmd = {};
+> +	struct loongson_se_engine *engine;
+> +
+> +	if (id <= 0 || id >= SE_ENGINE_MAX)
+> +		return NULL;
+> +
+> +	engine = &se->engines[id];
+>  
+>  	engine->se = se;
+>  	engine->id = id;
+> @@ -186,7 +191,7 @@ static void loongson_se_stop(void *data)
+>  	mutex_unlock(&se->engine_init_lock);
+>  }
+>  
+> -static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
+> +static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, u32 size)
+>  {
+>  	struct loongson_se_controller_cmd cmd = {};
+>  	int err;
+> @@ -249,6 +254,9 @@ static int loongson_se_probe(struct platform_device *pdev)
+>  	if (device_property_read_u32(dev, "dmam_size", &se->dmam_size))
+>  		return -ENODEV;
+>  
+> +	if ((se->dmam_size / SE_ENGINE_MAX) < (SE_ENGINE_MAX * 2 * SE_ENGINE_CMD_SIZE))
+> +		return -EINVAL;
+> +
+>  	se->dmam_base = dmam_alloc_coherent(dev, se->dmam_size, &paddr, GFP_KERNEL);
+>  	if (!se->dmam_base)
+>  		return -ENOMEM;
+> @@ -258,16 +266,21 @@ static int loongson_se_probe(struct platform_device *pdev)
+>  		return PTR_ERR(se->base);
+>  
+>  	nr_irq = platform_irq_count(pdev);
+> -	if (nr_irq <= 0)
+> +	if (!nr_irq)
+>  		return -ENODEV;
+> +	if (nr_irq < 0)
+> +		return nr_irq;
+>  
+>  	writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
+>  
+>  	for (i = 0; i < nr_irq; i++) {
+>  		irq = platform_get_irq(pdev, i);
+> +		if (irq < 0)
+> +			return irq;
+> +
+>  		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
+>  		if (err)
+> -			dev_err(dev, "failed to request IRQ: %d\n", irq);
+> +			return dev_err_probe(dev, err, "Failed to request IRQ: %d\n", irq);
+>  	}
+>  
+>  	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
 
-Let's say you have 3 features. 2 are optional. 1 is required. That gets
-encoded in 3 bits:
-
-  nr_required = 1
-  nr_optional = 2
-  flags[0] = Required-Feature-0
-  flags[1] = Optional-Feature-0
-  flags[2] = Optional-Feature-1
-
-> >  - There is no invalid or reserved encoding to define. Each bit just
-> >    means "present".
-> 
-> What if a buggy source sets both required and optional for a feature?
-> That is an invalid case here. Same as 0b10 is an invalid value set by
-> buggy kernel.
-
-That cannot happen. A feature is either required or optional. If you
-have a "logical feature" that is sometimes optional and sometimes
-required then you would have 2 feature bits for that in flags[]. But
-that should be an unusual case.
-
-> >  - The target doesn't need a supported table. Required features are only
-> >    ever appended, so it rejects any required bit at or beyond its own
-> >    MEMFD_LUO_NR_REQUIRED. Optional bits need no validation; the target
-> >    just checks the ones it knows about.
-> >
-> 
-> As I explained above, incase a feature is replaced by another feature,
-> new kernel
-> can support it deserialization but it will not be required from there on. So
-> The supported table will still be needed.
-
-The one case where a count isn't enough is if a newer kernel drops
-support for an old required feature entirely (e.g. removes the code
-that translates the old seal). That can be handled with an explicit
-check in the handler, or we can keep a supported bitmap. Either way, that
-question is independent of how the header encodes required vs.
-optional.
-
-Certainly in the immediate-term we can just use a count.
