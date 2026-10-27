@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.58
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.74
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793108465;
-	b=5AMc3u9rxH1QCawQ7xUQK6qn6U0RjBAmqT61ZQtg2dKSfo7IGg97MixJNjMtYlk7WJ0L
-	 lWTjGZu9eHnjFz6QLKlrk9luOic8Q82CNGpw8tjSW/bRVxV+ZG7RKf8Kw9HLwQIVYAIBJ
-	 lOMrtRoENuo5QmSmMWVH7x4jF2/Rm76JHs7+QAmLPVSRwzfX6zbYkHn6ro4MSMvURR7IJ
-	 WOw+iNNrOsDgHexhNhM47hUod511/QatvC926hONML1x3tg0plpqBkucaVWpjUtEb0xqf
-	 LGop0l0asOHRVTRkzQwmeuLaxTpzC1zuE7SsPbOanJ4pwtvQdvz8XJ/3tV/R/WWGuuA==
+	t=1793108519;
+	b=1FX1ze4HvFOzRvLLj7fpJR/75l3XriPuq6ykpH3b8p4hiXNY/W8LPs98JIsBGHGNWh6e
+	 q/9IuyY4igZdAvwYkr29tAG6Y3qXD4PkwUMyKijZ8+MkjdlwRm9pt/QW7f3Acj+wffFlt
+	 SGLIx0nY1KhSuTQRZk9zW971yVjqChLHBOgn4Pec95KJKVIDoImwQH/2+s1teYX2ggOh2
+	 mnMTQz91K6Q3oftxRQ4F8pbTwexdqmYoOokpUQcEE3FJ+vqypBzhObFnbNjlRxqws83WI
+	 rwTvcTU/asGDE1aHoDxChIiGuezt6tFZYfycmDW2dzkRjjJClQ5IRLviJPNv/DJvxcg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108465;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108519;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=z4ABcYleVZ28FUVIT2S2CoaW9f5LYg5R5g8UmHS0U84=;
-	b=kEHxyrNST8JSEmzPwb7UB77nGwdk86Jz+C9twde9BWLlMbo8o9rLsEpOh/5g5mgZoQXO
-	 pkJUHXEJzJiMvC+B8y2EUrLsfGURlp45wziegrpti04Bj35Y8Mzoquyvc1H2s3aRPf/Sz
-	 0f5MfaTwIGZT6SL43d/V8xFzye5PjP5pKqSGwr9i6ekSyYV9TonWZdEDe7APl8Wc+e+sG
-	 lTuyHUvK+fYEatkc+taiwlfoI77uv6mM73Q1fzLr2P88WVkbIdfn5Di/Wv2AdIXBULTdw
-	 XE3BacvoEmHKECnqgQPP8ldR97U1FQZRhnMCAyndsunRtl3Vt6Ab324CtvHami/XbdQ==
+	bh=MUhl+cnLRQCd7RlzeCHbPW9mEYxVxMDylydj6kx6JyI=;
+	b=O4tDrRaLwmbx+SvGZpw1G3CEbgiKVPVdcfMs7HBKmOiFXNklM4zT9A50+lRzsm1r8mjS
+	 q/xiYM7JZyVPVg4KPJ/PjfL9GL4QtGgMB+branjHzjegKab/QmrvJEB/kj2PbbFUXGARc
+	 RXrLJjA96R6YNFcMsHL09N74p2JKCS0/hKp9HGelEi7TY6wFYG2RPrNkZkJLsbhNKVxgz
+	 lP+aZofpgfmAgVnJBcMh14FV6RiGk2FRn+yfl0QjgsZyt5SHtSsU+GDl/4w+KnzE//5M4
+	 MBuDgM8mZngWsdOT/STk0N/rmlqF6YcEI+3hTOA2g/BK6BiwkQ1HWip8nxvAjH9DPwA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Hd6NLDMi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.58
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012058.outbound.protection.outlook.com [40.107.200.58])
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=JvCy4nm5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.74
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazolkn19013074.outbound.protection.outlook.com [52.103.74.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364C3606A31D;
-	Tue, 27 Oct 2026 13:41:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 364C3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22E8606A31A;
+	Tue, 27 Oct 2026 13:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E22E8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Hd6NLDMi
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=JvCy4nm5
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hZNszL7pT9nQ18wquLryzSgRd4NHmn88kD5P847OMTudiqM7rRf57F799XkxQew7uL2dlerPSR1aOblOsvO5FsIeWMKtAvmM6HJy2mP/2ZZJHa9t1bqfznP/BtaNUVKtrQoR0s05zdN4Cd8vwmmXv8LVXBvMfp6I3oZDo3VgBxE0bgJFhQze40ORmmHD1AIXvMR0w+upVvOjvpYNcK1E3D6x7+o4ety4Iw4+NjC8/vah4/D7sgxobWxrMnhWu8On1ipLNrGtJxOFfZoljIB64gsywSLSYovhuS0g5YOrHNg8yBxx36HU2t7r+wh3cniaQhGLJfwzmS2GK4j73Y/d5A==
+ b=KOi2laIZQ5DqewfiCcD5txjCTuruggybvvwfOhc6eRgMyqoyyiNT+u/LnEIOXOZr0AUG3PAlFTBIWEd/n18um8JbQTeJ2lLADpUfw13RxPmIerKppBfzB++vAgaGw3ejZUNhCPE1jOA5clr9Yzv/DzgnsJVwXRWFVAluqKUX9UnUObe95Fw3cXge9SWMp8SWIvhoEVhN13D2tzL+oyLeksGqFZL/Lgwa71PjTkrRj79D3lA/l5kS3/XzhoaqwyuAc2j8uHVcSn0HP2AsFwgF0Y/4MdeHHrmxNrVnW6PCDOGprrFBHMfFs18OboJ0jBzPA9f2fT/JBTq137yfaH+UxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z4ABcYleVZ28FUVIT2S2CoaW9f5LYg5R5g8UmHS0U84=;
- b=hqkxUYHZD1URS8tjw2rvnMwotCuEYgO09zZFJb1z3MZ0H5O6jYNwl5uL9xJUDj53SnBfEMj22JUmdQnejWqGSAzovKHWyT8uv/DP0O2TTnELeIel9X3e21Z+X/zBpUhrp0zBW79A4onRaOMWUf2giKGGT8TwafaMSIy9qbMzvOdhq/odasQET76DM+V3giZc5NtV5Y3Jj7IhNBXL9jjnrGSRagGiwJS8rd1wcEp7BbGOUX0AgO1GEP7zc7lmcH8RdqiLkBLy6JGxvWnIUNUXWNVRXDj8hfLkqnYolLyRVmFKYK4yDG1e0VO35qkBjwRQLP2bzWwcUmocX/Gja+4NOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=MUhl+cnLRQCd7RlzeCHbPW9mEYxVxMDylydj6kx6JyI=;
+ b=wLUwc5HGW2pvd45v4K7ihV7aPvKh9/GRVb/S9oOOi7Y35XLFcUXQjbKezXVnLmc7OMgNdZ2GJn0i1jJZbM7+r7JcGAS4Va2KZCHW/rO5lsD0DTW0o5MNeQxifR5+Mim/AZH5KXCw7pmBKCejZuMS9FO6n2r4xU586gSLGrAA8p4pTHHuhBhc5rRzEigQpebXkGgaGGXLc1no1C/CNW7DP3EnxGDWoj3Br/kqWLZLM5FoE5NUn5JDuMi4qqqRpCYedmtoNdztK9AkwI+wYyXRIhcTHT8/8Xexyd359MULSiL0+TGeDNpQwiR6Fpd/LaBIon33IYUgdCSL3uKSPveuIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z4ABcYleVZ28FUVIT2S2CoaW9f5LYg5R5g8UmHS0U84=;
- b=Hd6NLDMiCzxZ26PHUPqfAa6knYxmSfJjnY3Nlin1SnW+hEKIik6XhBwTsFakbMLWhje3xvvC032olqpA71bezVKP/SAReJXk3LL3pA3b1qy++vdp8Nhxf0HEn0nuY1KmY6IgKZWwccydHKclPPr/Bn8sgM4buHCL8an9El1zAHo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB8177.namprd12.prod.outlook.com (2603:10b6:510:2b4::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=MUhl+cnLRQCd7RlzeCHbPW9mEYxVxMDylydj6kx6JyI=;
+ b=JvCy4nm5MC06/efQ0FnsByfCW+VLxTBxGxNRNIGPg9W4zn4lwLkiN4VDOQEWKX+otgCn+T9pIGRc7/HVzj6lDil9OZJqWzjb1ZfMvMMeR7oVdAJ8UIOQmbvtlKz2nyUP9dTL1FYzoN7WW6zThFj6RETBw/+qtObjlsboSO+zeZTpS4KAw+A/AbCmNpu6kHsQ8+aThkSP4TP9Bz6FFF/myD2dw36KlbvB0n9AkoN/XpQgOdc7xz57KIrCvQp0qR9a46GpXlspckpa4gPJmRgfJs+h4Hzk1sTdgnD8u7ikaT0zNfR0NiT/ENQKyntk1zgxkhOT0l1LUw+3F2T5AtjjDQ==
+Received: from OSQPR01MB6326.apcprd01.prod.exchangelabs.com
+ (2603:1096:604:290::7) by SEZPR01MB4600.apcprd01.prod.exchangelabs.com
+ (2603:1096:101:93::5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 13:41:02 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 13:41:01 +0000
-Message-ID: <54e6cd9f-57ca-402f-93b6-27fe2b15b29c@amd.com>
-Date: Tue, 27 Oct 2026 14:40:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: amdgpu_fence: remove ops->release()
-To: Philipp Stanner <phasta@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Jesse Zhang <jesse.zhang@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Kexin Sun <kexinsun@smail.nju.edu.cn>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20261027133727.748652-2-phasta@kernel.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261027133727.748652-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+ 2026 13:41:51 +0000
+Received: from OSQPR01MB6326.apcprd01.prod.exchangelabs.com
+ ([fe80::708b:59ed:4ad6:b84c]) by OSQPR01MB6326.apcprd01.prod.exchangelabs.com
+ ([fe80::708b:59ed:4ad6:b84c%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 13:41:51 +0000
+From: slack up <yxcnew@outlook.com>
+To: Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org
+Cc: Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Xiaochun Yu <yxcnew@outlook.com>
+Subject: [RFC PATCH 1/3] riscv: vector: Add a guest owner invalidation hook
+Date: Tue, 27 Oct 2026 13:13:07 +0000
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <OSQPR01MB63265385597FE472C4209353C2602@OSQPR01MB6326.apcprd01.prod.exchangelabs.com>
+References: <OSQPR01MB63265385597FE472C4209353C2602@OSQPR01MB6326.apcprd01.prod.exchangelabs.com>
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN2PR03CA0008.namprd03.prod.outlook.com
- (2603:10b6:208:23a::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Content-Type: text/plain
+X-ClientProxiedBy: SEWP216CA0142.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2be::10) To OSQPR01MB6326.apcprd01.prod.exchangelabs.com
+ (2603:1096:604:290::7)
+Message-ID:
+ <OSQPR01MB6326C7FC1D0778FA203C4CC4C2602@OSQPR01MB6326.apcprd01.prod.exchangelabs.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,143 +105,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB8177:EE_
-X-MS-Office365-Filtering-Correlation-Id: e92440ec-1431-4dcc-a660-08df342ff09d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
+X-MS-TrafficTypeDiagnostic: OSQPR01MB6326:EE_|SEZPR01MB4600:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfa4bc9e-eb82-4e52-bfbb-08df34300e62
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|261009223027099003|10067099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|56012099006|261026121527099003|6133799003|22082099003|18002099003|5023799004|921020|261026140227099003|11063799006;
+	BCL:0;ARA:14566002|15080799012|5072599009|12121999013|8060799015|19110799012|23021999003|24021099003|51005399006|41001999006|25010399006|260925184616899003|440099028|3412199025|12091999003|40105399003|1710799026;
 X-Microsoft-Antispam-Message-Info:
-	unpNOvasnT7j8sh+J+3n+0AtCm3ZmyfluYlnuyxGgR0VzLCWmysCct59q2oigwUOTWjQNW+KilbVkOLYiQS93g1Jmxei+Ojg1FKVChFLnxyQcxWAupZgy2E+ah5yiwnbelPPDai6mJnzj+WAiA1CnZkf19m0Fg1dave/Y/tEepCSNdMIfUNSnOwrzNUjaTq+6e57KY/H2JY28syQQQs1vEU29Q0p0SXRYRVXMtYpOs3AyYwcjzAE3TP0n5goyDtQxSUGHz06+Tb/PNrtDqyTajxiOPWGG+HxzkDqBib+z+e0QErn7Jzzb8BneLqO7hy8AhWdQAxDcf+p/kLX4LAz26/PZVqE784V40F1rP5ILiF+2p/uj5YPgbF5q9MKm88IMn9f8WvuHdnNSniUBwtOD270r3GaAOZ2L0KjLJPNDwzV7g1fHmo+JbCmQdlV6QAyyBf9ORkQPGvPlaNHsLPjycH2HkVAApmEAo1/eXXjB4wP05fWrQO+xauAyED0WYXfpuHsCq6q5hQ7WJPK+X5uVdmpzJ+zd+7YQp7DQbFUgTwH2qEM7Acfe5kdHID2AgYx1/YwT6qW5DWBCyw6BedLu/y5MOjhjfLrPiNCLUh0Wo6vmH+nEPd0TKo6/n4wMDfDuyLoPQbBP1mc3gUEGMGKsZzawm3uxplh4SGL1YRcBNJecQ/tek+OF69PxtoHQ/HeJFUZpliSPcj6cnPJX861xA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(261009223027099003)(10067099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(56012099006)(261026121527099003)(6133799003)(22082099003)(18002099003)(5023799004)(921020)(261026140227099003)(11063799006);DIR:OUT;SFP:1101;
+	=?us-ascii?Q?nTdm+VuyzSEln+cGYiRTBrA1aze5RdSN0u34hzm48BQF6de0It1TS4xXVpSq?=
+ =?us-ascii?Q?hOsAp0fnkZQ1PRbpkY1Q5/ppryPGdVEx41vLnvm/rN+VAQJpM3G5sIMM36NP?=
+ =?us-ascii?Q?PVGJHbE8CpqS+pNiSEbDsnXdYQ1Rv/LHUc6/+yyFwom3M9V+sNAZBkHY2J7T?=
+ =?us-ascii?Q?8PALkmyjdxmAWpMRLpYBH7d0CfR+eqNwWP057c+C9S82dzTfuUIv2+tJlJMe?=
+ =?us-ascii?Q?rU66ZqhWNBNSIGSZhihmflAE30+dKnh5HiNNRJ9XMHXD10JtUemdW1NrQxBJ?=
+ =?us-ascii?Q?LkRVRFi3Ku//8L6VYz2BRIoguvMqy1hZV2d9lBjtgar5DxMSqbOvUrRdvjbO?=
+ =?us-ascii?Q?uKP7hufLfCnxrSjelaXNbd/noodx1aCoO/gr1To83Tixg/rVtujX4td4WCGe?=
+ =?us-ascii?Q?ysFsE28/Jo5jTvaa5owTlR25zaDKzKrJvFoy8IewIERdcaBcMkXhMaxGnX8u?=
+ =?us-ascii?Q?TcOH0WMW877y/dsYYcn58CtSoJP6z559nWCpSrUMR5hhF0kzSbfNdDRyLk+K?=
+ =?us-ascii?Q?fCZ48nqUsfDu32zm4bttjA8ZEeao72TwG74nC16Lcm7fqxCVHW0O910ltqCS?=
+ =?us-ascii?Q?+L8t85KqqAkjvyPXdnATGLwWwDz0rOJKeXM6ApevbgRTARF+APzk9yj0FU9e?=
+ =?us-ascii?Q?ARMJC+cOaatgi+pekzpCcisaU+RDFPZOzdpq5nVrfdd0HdR+jYFthEEMspUU?=
+ =?us-ascii?Q?VcANr2ufasY+1UHFkoYreB45G78BZpqvfo17lNNSE4TYnFdjWKnEk/J5WzPH?=
+ =?us-ascii?Q?2qmHuic4dEleKCe+Kowc56+lRPeryYFrCZ/SfV/StQPh8+nuDy9s/AjSDUrM?=
+ =?us-ascii?Q?RLP8FVNPM/9mfZN0jikN6WXRBD71kFvYAMvDzAlt83ZraAJU5DUWfAaYor9u?=
+ =?us-ascii?Q?S0Thox31UqMb0s+L9d+5+EnJsvGxxfyo1NI7gBIfHCyfQeNIzd3ygIsSbKrG?=
+ =?us-ascii?Q?lSPTTYG4jVtZ7NW7vlKVULslEddSvJYpTaeA1kZzlOmSTIgazubJp2VvIW4/?=
+ =?us-ascii?Q?0N7Mkd6ZMGw6+JxU3Uuxg/LZ45mQ9n+mZnWaGFbRbRpghTMs085oo1GF7Dby?=
+ =?us-ascii?Q?WYggStif?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K0x3TmRQc3pBQ2VnM0ltdEgzVHVmWkNmRVVkL1F1alhXRmJOM05sZUd3S0My?=
- =?utf-8?B?UjVYQS85SFVqTmhFa0tpbjhEdmpmT1U2RG03VUJhUStGbWZ6VlMzcnlwWFNo?=
- =?utf-8?B?dHpEcWFVOXhyekJlUnFxVWZEekxYZXVBZmJvdDFJZzdjaGN1bitmWmdpSlZa?=
- =?utf-8?B?R0JScEVpUE45c2RxUFRVREpwU0tKN1RDRmZ2NHg2YTE5WXNxcmE4bUF5bzh1?=
- =?utf-8?B?aWdwdnRTMjBDWE9aWThjVGFablFJbS92WlZWTUVLL0hYazFJd1N2d1lyNDAr?=
- =?utf-8?B?U3RCVExUUTFyWDdhNG0xbEdUeXI5OHRFQmg2amNkM2phNzRRMnlHQjB3NXV0?=
- =?utf-8?B?R1JZaXFHSE8yVjdNWXJFTDBuOFVra2E3cEtFcTlEd3FoVnJLclp5ckZzMEto?=
- =?utf-8?B?cnBKZDJSTy8zcU83TmtPYkl0Rjc1Z242aTJBWWFwck5TZjFKelhVdUpMekJn?=
- =?utf-8?B?T3hEMTZwZjIrZjhjYXRkSnZCazN3L3ViNUhGMGYvcDBQRjN6VWxTWFA1b1JS?=
- =?utf-8?B?b1c3TnhNeENGTGJEejZPazQ5MjdIbHp2SzRhdVVzRVBvMHY5UU1WVXhKUjRx?=
- =?utf-8?B?cWZ0b0ovSDNMQzJrbEd0NGtRd2MrNjNaS0RsbUxBSkg3NElMMkZPNU1yRGVv?=
- =?utf-8?B?WGpXMDNiV3RjclVpTlFFaHp4NEc4am1KcEpIMW1yak5oQzNKMlFHT2VGTm44?=
- =?utf-8?B?WExTcng5ZE1PNjBFcFNNQWFBb01mSGo1dmNpVWtnbTB0R2xqaTI4OCtJSlkw?=
- =?utf-8?B?aDFTUVFwRFArS2VqRzhCa2N6SUxMUmQwNkVWSVFPQUdKSk1zSjdKZzNWajRQ?=
- =?utf-8?B?R2JHMmRjd0t6bDZZcEJ5Y3RhaVkybU5PMisvSkd0Rm10ZUd0QWMvKzlUREtt?=
- =?utf-8?B?NVRjL2NScjFHRERLSEVzODJuZEpwMjFPazJ1VFA2MkpZeWJSV2x6WGI2UE1N?=
- =?utf-8?B?RllTVGd2NUZwZE9yUktPZEZBQVBwME1hVnNPdWNmUnNFTFJ5R0FLd0VzRDBG?=
- =?utf-8?B?cWgwcHhFSHdpbE5uTFZFbnBYMUdBYmQwTGZLdmVzbUh3YXhMNDhHZVhnMGU0?=
- =?utf-8?B?ZFRyRWkybWl1bndOUENlVmFOdjFWTjVlWHA4cWRzK2RIOFFDTkdoZXkvbVlZ?=
- =?utf-8?B?U1htUk5DMW1FV0J6cDZvSmFrNjFKZ2VoSmRMdzJnWkxFRFVkYzdtYndweXRx?=
- =?utf-8?B?NnZORGxNUkhkdTBNVVREUzczWkxBMGptYUpUNDk5NzZISWpVVjZVTW1acUlt?=
- =?utf-8?B?T0VMMkVURFp4UTY5WFlwUHFybmNnTC9KTFY5SFgzeWtlWWVhV2Z5eWJ4MEZz?=
- =?utf-8?B?VCthZUY0WkZQeGU1alI4VlMzT3FWd29uQm1SckRCaks4L1NpMFB2VGE4eTB1?=
- =?utf-8?B?SmdLVDhlUnlpZy92QVZwMUlUWDNkeit3c2pWNzIxYlBQS2dsRW1xR2k2R2xB?=
- =?utf-8?B?Q1NSWldkbmYzSy9nWjA1QVFoa1hLNFZUWnNwVXhqOXZ6SXBQZHpVUE9HYXB1?=
- =?utf-8?B?QUtaTm1kV2xJSFN3T1hBc1NQbmdreHhEZ2RNblBSZ3lYY0VwR0FoRFg1MjdJ?=
- =?utf-8?B?MDBTL2IwdXF5R0EyUHhhc3JNUkdQMENHa01WOGFXTnJxcER0eVNkWFB5VmdY?=
- =?utf-8?B?MXFrMVRZZk50S2Jma0dhMDhSZUNQYzRLQzNZaGF5Y1l0OHdHdDFneEVkMEdL?=
- =?utf-8?B?UXZLeTZscUVWSGVqSkRxRzdFUlpLaytnc3h2VFkrdXlzcDV6cHdEQXN5YlpF?=
- =?utf-8?B?c3lTY2RHNDIyQjhaS2R4c2tsUHh3VnVzbjBzNWNDbkFnOHN0Q3EzUzVXckRK?=
- =?utf-8?B?NWpwajdscVJsaDJCMUhROWloRFRSdlFOb3gvRFVnTXFDVTJJZWx1RmdPQlFw?=
- =?utf-8?B?dmwxcVp5VUI5T2xKUDBXN2s5YUJmTnpQZUo4RmlrcWJyVXJWeEFrY1dCUW96?=
- =?utf-8?B?aDFyam5VMlRLNUpSTGtiNnZQOW41eFB2KzRoU1orenBwQUVCQ1Y0Z1dOTDdl?=
- =?utf-8?B?UEYvWU1Nc01jd1B3eElBTXJCMjF2M092WXd5aTEwakJTUzNQS01CNUY4OWc4?=
- =?utf-8?B?cG1nWDhCSEFxT3dkdGdldjNaeHVMSXlvTTROa2pzSEhoMENIbjdiVGUzdUpX?=
- =?utf-8?B?SEFTZVE4eXF0M3NrZDNyOFJOanNMZmtvK1NUamlyYWdhTWVWb0NacmtKZzVB?=
- =?utf-8?B?a0dqaCsxOGs0VkVqeUJTMWQ1NGlERk0yWXNvbTRub2pQaHA5UnNkRjZYVlJ2?=
- =?utf-8?B?dTFrcC9aNW1jaUR4V2JNcmIyY0FrWjBvVENSNC90K0dQU09QczdQb3FOSE9H?=
- =?utf-8?Q?1ZhSdygz5wv59bLij8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e92440ec-1431-4dcc-a660-08df342ff09d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+	=?us-ascii?Q?19gizsnHONICMD/69hcknCanyEXXh2quP94bbNEV0EkIS0u4Y0Ris1Q6IPJJ?=
+ =?us-ascii?Q?Wvnd1qOHEKzPzHyP9ovRgk9jXh2lSBwokrgDF7gx6e/aDEn16LOlfMGGbW9p?=
+ =?us-ascii?Q?QcaSswvAXxPADh9q3kM712luadCHLjz3TquRGCEqX6lF0kE5XY7saq0HS9sn?=
+ =?us-ascii?Q?r9yqShCXI186mH6iJ+JysIwYuC9SAMmutLXcdJ8rJEqIfSpLD7Wii/P3BTQ1?=
+ =?us-ascii?Q?qP3PC1VoM6aO9OeOlgjPOeGUX8a/h/NdpHZn18Pw3BlhNMR307/QG0Rema+H?=
+ =?us-ascii?Q?XcJUQkGUZRAhzRjJNYqd6PQ7Nw3sV5m8NQintlRdBn7vX5HmqRTOAo3ireDC?=
+ =?us-ascii?Q?tUBV0leNpCYS621BKnSba9d8C2Na+XvSJ/QbF4YBEve9Uhf/g5cVisieqGfY?=
+ =?us-ascii?Q?rsyuROHremD3XaBiG+8gIuItxWYQ7FV1UHgx9RpHBfQxDp/ZOcZoZ+PqVzI+?=
+ =?us-ascii?Q?HvSRCG12cpZUKIqEe8qj45E5yBsbmTcB8Peg/BqYVmm5vRatHAKoNP/dIlaH?=
+ =?us-ascii?Q?MCUbn18gnssLZ3i6olI7inQWJn+mlRQW/nSqlgSpl42Zh5BiKhDHWCjRyA79?=
+ =?us-ascii?Q?jE4llU6Dcoq4tYcBU6355NyNrLLqUdsVun/JVCPZVWxOq0FINSaCPLk19IDp?=
+ =?us-ascii?Q?jQjTBvjOcu6IQ2xNbAX1XtXqZn4N4T8jPdfXLmLaNa6W8Kej7NSUD4KFTNdP?=
+ =?us-ascii?Q?FZ5TPSYeG3EuhRBgXjs29Ue6ozFIsehTsYx+ANzAtbs3meKUvSpYFia7ON+C?=
+ =?us-ascii?Q?/4+fqvAV+DtH6IcgyG5z5vQmYp7QwHq3T+8mF0lsd0+p4yGPdsGc8xAGt89v?=
+ =?us-ascii?Q?0tEMT84qKVT6mZ99RCpvAtsRqYRI8HU0Howf62gAO0E1qLTONLhmkh7n4OiC?=
+ =?us-ascii?Q?KdtQhQwOg5NjI+mlT+L4VNFolcl2d6kv4gpgUKM9noiCl4Va9cDmsY1kDeH/?=
+ =?us-ascii?Q?F9a3eJAEBUlAC2xIBHuSUxoN/zjmeFZkv9qmizwikkrCJR8vnYdCHzN9gJEu?=
+ =?us-ascii?Q?Gh9JuEGRzlVs8FMRFNlLQLM3pnpsUmoPhB4pYVdvvWKzluasFRcnxFT97FDt?=
+ =?us-ascii?Q?QUxn1d9F1PG9MjoIFeoDVdoXso7KxXEtgRwuCOHndxcW7VFMiPd9mRWc4PhU?=
+ =?us-ascii?Q?vMPaL/NjKF8g/5fYXMe1SU1bV/X0DFM0zSGPlW7RhRxMYjq/0D+/oc/cf2Dj?=
+ =?us-ascii?Q?EqBMxAbU8aqpbz/GaZWCfoyvDbcJXI9ezQiBlOT0m89p8mhS/HMMTfBJ38/P?=
+ =?us-ascii?Q?oKD4pA7rgm5lfUWNv5vauhmIcGFiEnCRoJP7cvEK9Dr/MVhacICcCmyy/4Zq?=
+ =?us-ascii?Q?L6tDnkQ8vRK6RGyazu55uQB8QBIal3ghdJeDEDfLOyQOuCbofwzyYmvPdA6O?=
+ =?us-ascii?Q?/+eyq3SH/aHklqMvvWEzQOcLKSg5?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfa4bc9e-eb82-4e52-bfbb-08df34300e62
+X-MS-Exchange-CrossTenant-AuthSource: OSQPR01MB6326.apcprd01.prod.exchangelabs.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:41:01.6698
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:41:51.5862
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: It3xL5LV+QYvFB9qiFyjgmp7qWYGKQmGoFiIHJpTPo2zPSe6B7JQM/LvkN3BcpT3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8177
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB4600
 
-On 10/27/26 14:37, Philipp Stanner wrote:
-> amdgpu's fence implements the deprecated fence_ops->release() callback
-> which prevents the driver from ever unloading robustly.
-> 
-> amdgpu's implementation merely uses a call_rcu() that performs a kfree()
-> on the fence - this functionality is already centrally implemented by
-> the dma_fence backend.
-> 
-> The dma_fence backend invokes a kfree_rcu() on the dma_fence, which is
-> fine since this is always the first member of a struct amdgpu_fence.
-> Thus, amdgpu's implementation is redundant.
-> 
-> Remove fence_ops->release().
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+From: Xiaochun Yu <yxcnew@outlook.com>
 
-I have exactly the same patch in my pipeline as well.
+KVM can avoid restoring a guest Vector register file when it remains
+resident on the same hart, but only if every generic Vector user
+invalidates that ownership before touching the registers.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Add a single RCU-protected invalidation callback and guard its call sites
+with a static key. Hook task save, restore and discard, kernel Vector
+entry, and the resume path for preemptible kernel Vector contexts. With
+no registered consumer, the static key leaves the generic paths disabled.
 
-> ---
-> Just saw that this should be unnecessary? Don't have a setup for amdgpu
-> testing right now, so please take a close look, just compile-tested.
-> 
-> P.
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 29 -----------------------
->  1 file changed, 29 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> index 3043ad041bb4..3f8b2571d74a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-> @@ -892,39 +892,10 @@ static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
->  	return true;
->  }
->  
-> -/**
-> - * amdgpu_fence_free - free up the fence memory
-> - *
-> - * @rcu: RCU callback head
-> - *
-> - * Free up the fence memory after the RCU grace period.
-> - */
-> -static void amdgpu_fence_free(struct rcu_head *rcu)
-> -{
-> -	struct dma_fence *f = container_of(rcu, struct dma_fence, rcu);
-> -
-> -	/* free fence_slab if it's separated fence*/
-> -	kfree(to_amdgpu_fence(f));
-> -}
-> -
-> -/**
-> - * amdgpu_fence_release - callback that fence can be freed
-> - *
-> - * @f: fence
-> - *
-> - * This function is called when the reference count becomes zero.
-> - * It just RCU schedules freeing up the fence.
-> - */
-> -static void amdgpu_fence_release(struct dma_fence *f)
-> -{
-> -	call_rcu(&f->rcu, amdgpu_fence_free);
-> -}
-> -
->  static const struct dma_fence_ops amdgpu_fence_ops = {
->  	.get_driver_name = amdgpu_fence_get_driver_name,
->  	.get_timeline_name = amdgpu_fence_get_timeline_name,
->  	.enable_signaling = amdgpu_fence_enable_signaling,
-> -	.release = amdgpu_fence_release,
->  };
->  
->  /*
-> 
-> base-commit: 731ba09867520c047c7de53f92e384808e0b638e
+This patch only establishes the invalidation boundary; it does not change
+KVM behavior.
+
+Development note: OpenAI Codex assisted with source analysis,
+implementation drafting, test orchestration and changelog preparation.
+
+Signed-off-by: Xiaochun Yu <yxcnew@outlook.com>
+---
+ arch/riscv/include/asm/vector.h        | 31 +++++++++++++++++++++
+ arch/riscv/kernel/kernel_mode_vector.c | 38 ++++++++++++++++++++++++++
+ 2 files changed, 69 insertions(+)
+
+diff --git a/arch/riscv/include/asm/vector.h b/arch/riscv/include/asm/vector.h
+index 1f8dcae3af51..967dd70f4ea4 100644
+--- a/arch/riscv/include/asm/vector.h
++++ b/arch/riscv/include/asm/vector.h
+@@ -9,8 +9,17 @@
+ #include <linux/types.h>
+ #include <uapi/asm-generic/errno.h>
+ 
++enum riscv_v_invalidate_reason {
++	RISCV_V_INVALIDATE_TASK_SAVE,
++	RISCV_V_INVALIDATE_TASK_RESTORE,
++	RISCV_V_INVALIDATE_TASK_DISCARD,
++	RISCV_V_INVALIDATE_KERNEL_VECTOR,
++	RISCV_V_INVALIDATE_CPU_STATE,
++};
++
+ #ifdef CONFIG_RISCV_ISA_V
+ 
++#include <linux/jump_label.h>
+ #include <linux/stringify.h>
+ #include <linux/sched.h>
+ #include <linux/sched/task_stack.h>
+@@ -52,6 +61,17 @@ void riscv_v_thread_free(struct task_struct *tsk);
+ void __init riscv_v_setup_ctx_cache(void);
+ void riscv_v_thread_alloc(struct task_struct *tsk);
+ void __init update_regset_vector_info(unsigned long size);
++DECLARE_STATIC_KEY_FALSE(riscv_v_owner_invalidate_key);
++void __riscv_v_owner_invalidate(enum riscv_v_invalidate_reason reason);
++void kvm_riscv_register_vctx_invalidate(void (*func)(enum riscv_v_invalidate_reason reason));
++void kvm_riscv_unregister_vctx_invalidate(void);
++
++static __always_inline void
++riscv_v_owner_invalidate(enum riscv_v_invalidate_reason reason)
++{
++	if (static_branch_unlikely(&riscv_v_owner_invalidate_key))
++		__riscv_v_owner_invalidate(reason);
++}
+ 
+ static inline u32 riscv_v_flags(void)
+ {
+@@ -303,6 +323,7 @@ static inline void __riscv_v_vstate_discard(void)
+ static inline void riscv_v_vstate_discard(struct pt_regs *regs)
+ {
+ 	if (riscv_v_vstate_query(regs)) {
++		riscv_v_owner_invalidate(RISCV_V_INVALIDATE_TASK_DISCARD);
+ 		__riscv_v_vstate_discard();
+ 		__riscv_v_vstate_dirty(regs);
+ 	}
+@@ -312,6 +333,7 @@ static inline void riscv_v_vstate_save(struct __riscv_v_ext_state *vstate,
+ 				       struct pt_regs *regs)
+ {
+ 	if (__riscv_v_vstate_check(regs->status, DIRTY)) {
++		riscv_v_owner_invalidate(RISCV_V_INVALIDATE_TASK_SAVE);
+ 		__riscv_v_vstate_save(vstate, vstate->datap);
+ 		__riscv_v_vstate_clean(regs);
+ 	}
+@@ -321,6 +343,7 @@ static inline void riscv_v_vstate_restore(struct __riscv_v_ext_state *vstate,
+ 					  struct pt_regs *regs)
+ {
+ 	if (riscv_v_vstate_query(regs)) {
++		riscv_v_owner_invalidate(RISCV_V_INVALIDATE_TASK_RESTORE);
+ 		__riscv_v_vstate_restore(vstate, vstate->datap);
+ 		__riscv_v_vstate_clean(regs);
+ 	}
+@@ -393,6 +416,13 @@ static inline void __switch_to_vector(struct task_struct *prev,
+ 	}
+ 
+ 	if (riscv_preempt_v_started(next)) {
++		/*
++		 * A preemptible kernel Vector user can be scheduled back after a
++		 * vCPU published a guest owner on this hart.  Drop that owner before
++		 * the kernel context resumes or restores and overwrites the register
++		 * file.
++		 */
++		riscv_v_owner_invalidate(RISCV_V_INVALIDATE_KERNEL_VECTOR);
+ 		if (next->thread.riscv_v_flags & RISCV_PREEMPT_V_IN_SCHEDULE) {
+ 			next->thread.riscv_v_flags &= ~RISCV_PREEMPT_V_IN_SCHEDULE;
+ 			riscv_v_enable();
+@@ -423,6 +453,7 @@ static inline bool riscv_v_vstate_ctrl_user_allowed(void) { return false; }
+ #define riscv_v_vstate_discard(regs)		do {} while (0)
+ #define riscv_v_vstate_save(vstate, regs)	do {} while (0)
+ #define riscv_v_vstate_restore(vstate, regs)	do {} while (0)
++#define riscv_v_owner_invalidate(reason)	((void)(reason))
+ #define __switch_to_vector(__prev, __next)	do {} while (0)
+ #define riscv_v_vstate_off(regs)		do {} while (0)
+ #define riscv_v_vstate_on(regs)			do {} while (0)
+diff --git a/arch/riscv/kernel/kernel_mode_vector.c b/arch/riscv/kernel/kernel_mode_vector.c
+index 77e98b504485..9e87bdf02028 100644
+--- a/arch/riscv/kernel/kernel_mode_vector.c
++++ b/arch/riscv/kernel/kernel_mode_vector.c
+@@ -22,6 +22,13 @@
+ 
+ static void (* __rcu kvm_flush_vector_ctx_callback)(void);
+ 
++/*
++ * KVM may leave a guest Vector register file resident on a hart.  Keep the
++ * generic Vector paths unchanged until KVM registers the invalidation hook.
++ */
++static void (* __rcu kvm_invalidate_vector_ctx_callback)(enum riscv_v_invalidate_reason reason);
++DEFINE_STATIC_KEY_FALSE(riscv_v_owner_invalidate_key);
++
+ void kvm_riscv_register_vctx_callback(void (*func)(void))
+ {
+ 	if (WARN_ON_ONCE(rcu_access_pointer(kvm_flush_vector_ctx_callback)))
+@@ -38,6 +45,35 @@ void kvm_riscv_unregister_vctx_callback(void)
+ }
+ EXPORT_SYMBOL_GPL(kvm_riscv_unregister_vctx_callback);
+ 
++void kvm_riscv_register_vctx_invalidate(void (*func)(enum riscv_v_invalidate_reason reason))
++{
++	if (WARN_ON_ONCE(rcu_access_pointer(kvm_invalidate_vector_ctx_callback)))
++		return;
++
++	rcu_assign_pointer(kvm_invalidate_vector_ctx_callback, func);
++	static_branch_enable(&riscv_v_owner_invalidate_key);
++}
++EXPORT_SYMBOL_GPL(kvm_riscv_register_vctx_invalidate);
++
++void kvm_riscv_unregister_vctx_invalidate(void)
++{
++	static_branch_disable(&riscv_v_owner_invalidate_key);
++	rcu_assign_pointer(kvm_invalidate_vector_ctx_callback, NULL);
++	synchronize_rcu();
++}
++EXPORT_SYMBOL_GPL(kvm_riscv_unregister_vctx_invalidate);
++
++void __riscv_v_owner_invalidate(enum riscv_v_invalidate_reason reason)
++{
++	void (*invalidate_callback)(enum riscv_v_invalidate_reason reason);
++
++	rcu_read_lock();
++	invalidate_callback = rcu_dereference(kvm_invalidate_vector_ctx_callback);
++	if (invalidate_callback)
++		invalidate_callback(reason);
++	rcu_read_unlock();
++}
++
+ 
+ static inline void riscv_v_start(u32 flags)
+ {
+@@ -106,6 +142,8 @@ static void __riscv_flush_vector_context(void)
+ {
+ 	void (*vcpu_flush_v_callback)(void);
+ 
++	riscv_v_owner_invalidate(RISCV_V_INVALIDATE_KERNEL_VECTOR);
++
+ 	if (riscv_v_flags() & RISCV_V_VCPU_CTX) {
+ 		rcu_read_lock();
+ 		vcpu_flush_v_callback = rcu_dereference(kvm_flush_vector_ctx_callback);
+-- 
+2.43.0
 
