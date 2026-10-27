@@ -1,94 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793142802;
-	b=m2GaqpOC3VB9b0KuWdujqgZCmyM4x5pP+MPCycU1VjwlG3pmNFSyqcccLCHFzIAczG0m
-	 KPJx/IEu10w++zAnWrDiB8xUIf8jKnXy81kSldRFPTNp9ACpKGH0wgeNiC6WJ0KYLZSha
-	 s0bb+kwBW1V2x4KZngPxDFf6Qo3UZ0lj17JyasOT+k+Xe9loSgxRfuFYhDLeCsUAxQqSl
-	 UpF76TIFmEIQ38SaeZpM1VLSM3uh8j3TWalzkk/xfEwa3FS0x04M7xZbgYDw5V8Rr+io5
-	 kiB/Q3LLyeH6zx6p4NsqNIGnxrsfFaEtDVWQJXVri9Q1cL3KOU/0xlLV6QCPzD6A/XQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793142802;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UXwFsvzM+WoNT0NbIH4XRSDZ8DaZF3jAYjQ0EqCxIkg=;
-	b=1DWH6kyRGvib0Ld7eAuzYM8b3QLGH2FwIDjh0wb739UBBICUrrDv1wSTKTwvY/x8wiLY
-	 ZsDoEuBtrnAs726GycUCtn58hfKLto2juj2C5wVl66lbS8/P6uqismqKbLMavQY3nfe1E
-	 p6czjcqkUvY9NWJPGxAUgRX55El+qM3NLkL7m7j65M6pZk9gon4XVqbjwNLo6Alf1oSOn
-	 AqNTkxBKf93f/97wjbx6WTxG3k68kY6z7XIW0/cepOpip4KpgdM9O6D95j3uToHlcmt2R
-	 RImhWrP6NKCvdXr4sNiVyzi8UxJ/Hq8a9LIoHfZxUQJPl4NXJ5P9Qy80X/kM6/IenHg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="qJx0/2a6";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.30
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011030.outbound.protection.outlook.com [52.101.57.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793142919;
+	b=b8178tryoshEYtPE+cAPJbF67y+F3yCgR015xOyN2CMupG281H4Eh1E6ZjsLNWG2pHx1
+	 Cp7zPQ7IrIS6kgYdzOgiBzuV9XsM3Iu+mK+FgGoykzJw6Vp6SR0f2sK/MMoCmH4LJbgk/
+	 MO8rMxmaa0lVv15hK2kmFsYoy4iNS9QrZ0pkEFTJLUgCf6U+EkRbbI1QfxWPS8ono/HvN
+	 6eh4oXn78q/5zTf9oirtXw1wT4XNX0wiYbcBDoYoTx+wh6MSiCut43hY1IPH8hjRWAMnj
+	 bT4YAFXqbFvhs4gEbnxdD3aFlOEqAJIYTN2cdhWvY2RZI1/fNflKYXgSnEfyzPFfKbg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793142919;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=C4jfBN9nctBGPjsIL2hgf9L5BVjV73jNSnLq3fCJMzQ=;
+	b=BOi5sI6+Dz7tsTrFvTpf5hAMMhsMI2l4YU4n0URsY3JQ1JE7/IhGYHjwvpwtwlC10xC4
+	 in30ZaGBa+0qlIs7Pm/eojQ/EYer9KtjInrZ4PIx0W4sG/4kkXpvGFHsQN1gpvBZ2OLA+
+	 iOUsLGo332mrAytnU3R11c5R8rg65STc8OOXXaxwF5PY3760sUH5dddjs3XbHkPj75J/7
+	 D9cIOkORuosYvUflzwF0auErF5LYcFBmkwZh+hfgyn0wHOla+bIjy2sUJ2r9R4ykOanSW
+	 fl6CLyGEiIi8evjV2nvvEGjzomiDLHhpx11B5l+Af2PzBPV9nTcXyQod9hJRjX2BvZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=llMa2VCf;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04A2606A31A;
-	Tue, 27 Oct 2026 23:13:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A04A2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA847606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:15:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA847606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qJx0/2a6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EBzwpWWhyXtb0CcYD8aAGZnrpWaHxYh+kdWd+p80Bh26GrMiCgWUY1JNKbIl16yAnkV/MDMM9TeqUyR2fprpTN8X9kvMbzQqPNhtW1mviCvh9dG010jgQvpJBzPjPBONp13+oQ7oN8HCoWzESm/0RcD/2LZSrZTRjqZVzxx2JQhPAW5kI4bj00OAcGWzTrYJ42/loGVm/hur8MECh4E2mTsNOvCQbe+EXEEVdLZahvjyyuB/vy90cmv0TKAyQ2V60upu8+2X6P0RlNamFwerLxBqicer74HOXIJkhPgtCPSCCZ5LEyDdJf3d3KUyjuLLlNqPDr3nm26GOCHGZwMJLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UXwFsvzM+WoNT0NbIH4XRSDZ8DaZF3jAYjQ0EqCxIkg=;
- b=i3qf6iopE0jzHxGl3Q4M6CDYeAS5sS+MXnpQS53JZKxctr2ofOwe9hUWENS/IsY8erde7yJUN5gFsYtInHwdO0a1+eVRQpm1Q0/ZwWUkhLBru0M/TKkv0pFSqEASrFzr7LIHOiDqMR0/fh1w9pR25W6FdnR3SICJNkLOoxzOfXDKs1sBdgwJVcTKeQ6gXmmHZOFEdSNBSa1pgNLzEnE7HJUvRNZpKdxEXhlDOoycJNCeKdhejKQmfXNJgk8/BPuDRzxMKs+DkOkiJNJwlzN3lL8ZCdsl1o1gnb+LQk+3f0MtTaZb5cry66oPBS1o7r+qCSNawoorEYIBtNhnvMHbiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UXwFsvzM+WoNT0NbIH4XRSDZ8DaZF3jAYjQ0EqCxIkg=;
- b=qJx0/2a6a3TbfeMhQKVdswhQUmOjlCQ/eZ9KUQGYGke6DBPSHjONzGVzQ72MJeprUPdqMJhtWgWElRNCINw9q1qVjlXLL4hETP9hXxPY1bOYppoQyzBUj2R/bd7NZrEWDifBAmaaOcdKQB4X2odL9os6S31gT8gAXEkoRbrxGpTNYQvMMpCGKvO9BuAP00H+a4xfw2RDJ/dC4Mh/7lp+64JxCivmhDUdIgd1h4Cc2Fr7e8PMNb9JabjCdAOMbqEfpehD3yW8SjxBgdpdZ42M1+VTgo7KXI1DjMWQE8Ex7tSLzl4gTV4HLY2NMHp306oOjrB9SB2sQ4/5oJygCNf+WQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM4PR12MB7742.namprd12.prod.outlook.com (2603:10b6:8:102::18)
- by LY0PR12MB639115.namprd12.prod.outlook.com (2603:10b6:404:216::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 23:13:18 +0000
-Received: from DM4PR12MB7742.namprd12.prod.outlook.com
- ([fe80::8df:c519:298a:94f6]) by DM4PR12MB7742.namprd12.prod.outlook.com
- ([fe80::8df:c519:298a:94f6%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 23:13:17 +0000
-Date: Tue, 27 Oct 2026 19:13:15 -0400
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, paulmck@kernel.org, josh@joshtriplett.org,
-	work@onurozkan.dev, frederic@kernel.org, neeraj.upadhyay@kernel.org,
-	boqun@kernel.org, urezki@gmail.com, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, qiang.zhang@linux.dev,
-	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 00/10] rcu: Improve callback diagnostics and validation
-Message-ID: <20261027231315.GA3580680@joelbox>
-References: <20261027070923.3054462-1-kunwu.chan@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027070923.3054462-1-kunwu.chan@gmail.com>
-X-ClientProxiedBy: CH5P221CA0022.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:610:1f2::23) To DM4PR12MB7742.namprd12.prod.outlook.com
- (2603:10b6:8:102::18)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=llMa2VCf
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-359b81ad4e8so431164eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793142918; x=1793747718; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=C4jfBN9nctBGPjsIL2hgf9L5BVjV73jNSnLq3fCJMzQ=;
+        b=llMa2VCfvgb2LA41VfJsU+BEbf0whtfdTq5JBnQIWd7UGJmvODTcIimpPpiwtNOiHX
+         exdHQsbiDEDrR5rPKJiMhOpIWzgMLqS+C9SkeZxlFz0n3vWIUWVsqQFIGHFooR2kYQO4
+         4ASTsrHXW3ZjwR3Bi2I13oxbip8r3RGBDr5lKdvQQXorBqq3DJsdhMkObgc75umUeBGn
+         aDuev1H7AUO30xZIWQseN4OihwST/ady4JMyebFz6VsCX6pBl0lNjqCJDZwqRKPzWLOh
+         qCIf/8YkggaojilRtLljeOTtMaBZtwu4UkRc+JiPh7QfahwMjj6xYAwS4GmV2cQr9O70
+         qbNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793142918; x=1793747718;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C4jfBN9nctBGPjsIL2hgf9L5BVjV73jNSnLq3fCJMzQ=;
+        b=lRwvPF1dSHsPVhEBo3C7lgVTQMOExcgtFhRQABEAXfVUy5DX9HvuKEvlNc5DbKAo2R
+         7vdygjpviTXPi//9+VY7aDx6724ttLbTYtvQn/TkAJAaEUxB4o5vkE9ZiFuucVoP7X/c
+         9zI6BiSpV8sz8wzUJRWZqQAReqGzI8fIrq7IYv7J0xo9R0QvAHE7Jlvi41Rjg936N+DR
+         kvOe7w9KLxGUyjwg9NoONBkNiJW9uq7JppGORLg0XADr6CKThiwU2CdkgCp3zh6yr9g4
+         OyFEXPNUHVtZh6nF4XhHD1DyePfqbWhjmPv6e5/RfIBrn1T5yi6s+TkaexEWceRdH57o
+         ze8w==
+X-Forwarded-Encrypted: i=1; AKwUvBw3j/N/aoWGOKbGAJgmGE45Vd+c69KAccN57hFeCtNt7KZPM6XL52S2lHK1I2++hM+3SqqEMZE9E+/Iq8w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpl6+SdR/eV+jrxlMfVW3L+cgkCWQcv6PS/sZo95VYUHR7oW7o
+	+jD1zDPxm3UhpMPZ9OtTBdGw/PqiZE/eFJ5HqZVGOwEVqY/y+8ZwBXU9w6HNtTMcxAp9DJRsLSL
+	tTxZlWVUl5A==
+X-Received: from dyz26.prod.google.com ([2002:a05:693c:409a:b0:36a:13d2:4db1])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:808e:b0:36a:1434:c691
+ with SMTP id 5a478bee46e88-36a20054610mr1319693eec.14.1793142917379; Tue, 27
+ Oct 2026 16:15:17 -0700 (PDT)
+Date: Tue, 27 Oct 2026 16:14:54 -0700
+In-Reply-To: <20260928075237.3055101-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,139 +79,314 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB7742:EE_|LY0PR12MB639115:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18995f16-0c86-4abe-5335-08df347fe288
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|366016|6133799003|18002099003|22082099003|261026121527099003|3023799007|10067099003|11063799006|56012099006|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	H2xbqc1cAlGquL2Vsgm0O3cojYpU+izKvfyfFapPPMJy8QJriCCab7kBXNDhzKhQKpA16m4Y9pGBSYZCX1SYwIXDef4UZPT88CMurKBCyfpl/yxiMGTyKRWEH2hIPhopfFl8iQWedbhCv3I0c0lYcQN3AaVXEMjjk5T2emX9mtRTuWXUZ3W4MFwGPDKITZWkANNnzvUgKVdBbi6J+7QBv6MWfHSbNo8tOugehDGDiuApfPitdWTcDuURQyZsdX87m0ST2CPziBx4rUi5b/mHQAZ6Kg1rezB5TpnEhs3U9Kg/MMG89Z7TRdsEfZYeo+fOt3LtyRJ9YrYQ56ZcefDWPJjbGYjrs5klGTblkKZLyyT8kvtfwZt2uzMXVj3TMexskyYPAEmgybFt0PCekRVUo9BIXvDg4NFnVdhqE7SKZVaHFkyknUoK/7hulkVumwScdK1nCLi0wKZVwmUhtBgIdakIsQP1+jx5/krx8pvesj3/CQiC4qZmNJwiRZcL5vEdnAQdyScWXmyqF7P9BhCGvbe5bcdxYNWoFFsv2HeTlS/ZduwT4mU20ik/+9ORiIQFIfSw3bISnOMDptfjmmoVSEHj+ly3SO4UnrT06qd5zvSy8UUOtX0BYuzbqMpD+BypMsFBLCNR3lk8Wkojd/NOc4sTNJG2o51b/zCWGQ8mmpQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB7742.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(261026121527099003)(3023799007)(10067099003)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223027099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7B8rJJubYFTnYIFsR2SC3ef8yTvDXiYqPFVwO9Hqw6v1GFRVf39L0VrhvEBK?=
- =?us-ascii?Q?SoFxGriXcY0wSFTkSNZPZ+3nsyQQV1AXtU4hzoy4oRjEfySt233WjM4epEIA?=
- =?us-ascii?Q?xey7eEf5JDAN99jJ23uSeRuXjMdBrALVh132MG8lK+66v+SWyg7HkD9BZpvH?=
- =?us-ascii?Q?GAeK+B4GbPFyxvpCOCuSb59dmGKWIoGHZX0/vkFwwze/cSwRH7HRjNb0Y7YG?=
- =?us-ascii?Q?WFxvrKebvChouxrzKQ++Jfet22fvXQijPV2s4ehxd/zjbjZzyBKGppdvqBQF?=
- =?us-ascii?Q?ofR59WD88i6NLjsdQQeJO8ZOB5K3Hg0kiQ+BkLlE0i4v2IF3lfVuoqjuUnxR?=
- =?us-ascii?Q?8dVumqYnG2cslSpMn+o3th+G2YCXJxuOeHaEyvfT/Kk3YrwABWcGWwn8OSGq?=
- =?us-ascii?Q?jYyhTpVFUcpw4zue01QkbctZrhBsKjRNWPcXWEZnzkHeEX3rp39DXtQUaQ8N?=
- =?us-ascii?Q?CgKwjr1MGNxq76RJjQeFdQi3nRRI3UR58bKAA6qgOsDa4P8PTPn0tcKkAcUh?=
- =?us-ascii?Q?1yigWdEbtZvIBlEB0xK+LGyQaBuPmkRu5A/TFO0PejdbRg1tJ9WMFYQWnMJm?=
- =?us-ascii?Q?ZRg3V9gBEImS4kaN+NGspAhyQy2Odh8MKmQp4y9WCpaxd95p+M35U/NWr+fg?=
- =?us-ascii?Q?JrUZwmopk+MKkkmbsCmlwml4g/CeheGQIhNmpefdjzsa0CSjaSQNy8bnwHAE?=
- =?us-ascii?Q?QD8nMsLfFGOgapCoXmNVPvIKMD8uNCdOhxDp5FiyoGxtNkJzZbGHXh1CqB/K?=
- =?us-ascii?Q?piI1VG+Cxv0/F2oMzV5RDQWiR3+NLx3Fdp6ThTTUSye9y6T+ZQEOGDzCE8mS?=
- =?us-ascii?Q?Tai2pHZYyZpnrALH+bAP4BsgafAxFLGLWaVD6nkQb6ZllSTIqWv4vblkhYT9?=
- =?us-ascii?Q?KoL5NFWHAtK1tPi+GxkVuczeBaqYWclKovNG3yJHmyboCstu5zgtnQYt8L9z?=
- =?us-ascii?Q?1MyffpTgXv69tq98X5T6kizpN+7WmdEq5253sR6bzPJeU7RZ7NPcRLG7dEVH?=
- =?us-ascii?Q?Bh1rHvRSOZYAUHlPoo/FH+yn9j7+B/hLqE9G0v9zkdEVY0klHte5zDb3rQsI?=
- =?us-ascii?Q?LQObHOpa6iWaf7J8ZIkcwRcNpgfdySeMyxAO2uUmBuEn3UCZApulCSZPcV1I?=
- =?us-ascii?Q?q8/mhRDUwFbQMvJj+QSlKqrZgW4Bi8e9C71uF+XZlROx54IldP7UA7z6rDuS?=
- =?us-ascii?Q?ZF3crArF5ACZOrssu2PwGa2UcIAlxt+7bayAZE2uQtWB8l7RRcNqbE+g5sXI?=
- =?us-ascii?Q?CbLsUw6ebQDK2pIn9zhyWgO0xMjo1ckhzSc3yz34FWebn7M7hNatP74Scbrk?=
- =?us-ascii?Q?l1bUPzVOi9nzRAYTK6u54ayOiGkPXHXZc8BjOdzz1F/Hyok4eGpM2eKt6K4n?=
- =?us-ascii?Q?ZHUAAV501A/QARtX6TMTFGx9S4/e6bfMewB8dYZsXSWcKL1WFR0Ir6fOWot4?=
- =?us-ascii?Q?eY7Bb0FlomiGRZfgewfOSBZ9hhgV6TYpbEbY+WFxTxcY7tU7Ilh6vZBrftSE?=
- =?us-ascii?Q?Q6MVhtsvMMRb4D8TjWwt4uvpIXMup5ir9XfeQZk9CY49Ur6NGjR7fwpgwVDw?=
- =?us-ascii?Q?Cu2PEwBKsf6Cza9+tZmcJ4Uiw1eeRaZubSSFMrpNNnYWkaRcJMprzVN4Ktf2?=
- =?us-ascii?Q?TQp43EAzsecsfLHi0S4RSw0k4ZMpvKUdoZUhKeTFt2qaY9OEk5ye3o4HdH6H?=
- =?us-ascii?Q?vpi1YmygpKSPSn/Ho+fxqNwz3vav/sGp/BABw4i9Qr9Or66tEXOAueLO1YjI?=
- =?us-ascii?Q?j+MvhctUww=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18995f16-0c86-4abe-5335-08df347fe288
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB7742.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 23:13:17.7779
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cHnGS5Wj/d3KKhPTZpghcx9DgcD/piA0Na3e5jR2hoLJiGckYUQ2LsQF1h3ADaZEqW5I/XNz0oKHJ1whIbyXow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB639115
+Mime-Version: 1.0
+References: <20260928075237.3055101-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261027231513.816148-1-irogers@google.com>
+Subject: [PATCH v2 00/18] perf symbol: Reference counting, sorted arrays, and
+ memory shrinking
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, haghdoost@uber.com, james.clark@linaro.org, 
+	jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 03:09:13PM +0800, Kunwu Chan wrote:
-> Hi,
-> 
-> This series improves callback diagnostics and validation across RCU,
-> SRCU, and RCU Tasks.
-> 
-> Patches 1-3 record callback registration stacks for KASAN in Tree
-> SRCU, Tiny SRCU, and Tiny RCU.  KASAN prints the recorded auxiliary
-> stack when reporting a use-after-free.
-> 
-> Patches 4-6 add rcu_head alignment and NULL callback-function checks.
-> 
-> Patches 7-10 detect duplicate callback enqueue attempts before
-> queueing, using the RCU head debug-object mechanism.  A duplicate
-> registration is rejected at entry and __ratelimit() controls the
-> diagnostic output group (pr_err, mem_dump_obj, dump_stack).
-> Detection requires CONFIG_DEBUG_OBJECTS_RCU_HEAD.
-> 
-> Changes since v1:
-> - Patches 7-9: __ratelimit() + dump_stack() instead of hard-coded limit
-> - Patch 10 (new): same change for Tree RCU's rcu_do_enqueue()
-> - Patch 9: fixed log format to avoid pseudo-function names
-> - Tags: Reviewed-by (4-6), Suggested-by (7-10)
-> - v1: https://lore.kernel.org/all/20261023101841.2910719-1-kunwu.chan@gmail.com/
-> 
-> 
-> Testing:
->   rcutorture with KASAN (SRCU-N, SRCU-P, SRCU-T, SRCU-U, TINY01,
->   TINY02, TREE03, 3min each): all exitcode 0.
-> 
->   KASAN aux stack (QEMU, CONFIG_KASAN_GENERIC=y):
->     Last potentially related work creation:
->      kasan_save_stack+0x33/0x60
->      kasan_record_aux_stack+0x8c/0xa0
->      call_srcu+0xb2/0x390
-> 
->   Duplicate enqueue (QEMU, CONFIG_DEBUG_OBJECTS_RCU_HEAD=y):
->     call_srcu(): Duplicate call_srcu() CB ... ->cb
->     dump_stack_lvl+0x47/0x60
->     call_rcu_tasks_generic(): Duplicate CB for RCU Tasks, ... ->cb
->     dump_stack_lvl+0x47/0x60
->     rcu_do_enqueue(): Double-freed CB ... ->cb  slab kmalloc-16 ...
-> 
-> 
-> Kunwu Chan (10):
->   srcu: Record callback registration stack for KASAN
->   srcutiny: Record callback registration stack for KASAN
->   rcu: Record callback registration stack for Tiny RCU
->   srcu: Validate callback arguments
->   rcu: Validate callback arguments in Tiny RCU
->   rcu-tasks: Validate callback arguments
->   srcu: Detect duplicate callback enqueue at registration
->   srcutiny: Detect duplicate callback enqueue
->   rcu-tasks: Detect duplicate callback enqueue
->   rcu: Improve duplicate callback diagnostics
+When profiling large binaries or long-running workloads with many DSOs and
+threads, symbol and DSO tables frequently dominate perf's memory footprint
+and startup latency. Currently `struct symbol` has several structural
+limitations:
 
+1. Every `struct symbol` embeds a 24-byte `struct rb_node` for the
+   `dso->symbols` address rbtree, plus an optional negative-offset
+   allocation prefix (`symbol_conf.priv_size`) for TUI browser indices,
+   `db-export` IDs, or `struct annotation` state even when only a tiny
+   fraction of symbols are ever annotated or exported.
+2. Unlike `struct map`, `struct dso`, and `struct thread`, `struct symbol`
+   is not reference-counted: once loaded into a `struct dso`, symbols can
+   never be safely evicted while `hist_entry`, `callchain_cursor_node`, or
+   `map_symbol` references exist, and `dso__symbols()` has no internal
+   synchronization against concurrent readers/writers.
+3. ELF symbol table loading (`dso__load_sym_internal()`) repeatedly
+   invokes `libelf` section/program header lookups per symbol, calls
+   `elf_sym__name()` before filtering out non-function/non-allocated
+   symbols, runs Rust/Java demanglers on plain C symbols without fast-path
+   prefix checks, and resorts `dso->symbols` with `qsort()` even when ELF
+   symbol tables are already largely ordered in ascending address runs.
 
-Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+This series modernizes `struct symbol` to match the rest of `tools/perf/uti=
+l`
+(`DECLARE_RC_STRUCT`, `struct rw_semaphore`, sorted pointer arrays) and
+introduces symbol/DSO memory shrinking and faster ELF symbol loading:
 
-All look good to me, applying for further testing and review for 7.5. Did you
-also test double-call-srcu and confirm intended behavior? Thanks!
+- Patch 1 adds `perf bench internals symbols` and `perf bench internals map=
+s`
+  to benchmark ELF symbol loading, bulk symbol insertion/sorting/lookup,
+  incremental symbol appends, ascending map insertion, and incremental map
+  appends.
+- Patch 2 adds fast-path prefix checks in `dso__demangle_sym()` (before
+  calling `rust_demangle_demangle()`, keeping `demangle-rust-v0.c`
+  unmodified relative to upstream `rustc-demangle`) and in
+  `java_demangle_sym()`.
+- Patches 3-6 encapsulate `struct symbol` field access behind accessor
+  functions (annotated with `__attribute__((nonnull))`) and replace the
+  negative-offset `symbol_conf.priv_size` allocation prefix with on-demand
+  browser index calculation and per-DSO/per-exporter hashmaps for
+  `db-export` and `struct annotation`.
+- Patch 7 replaces `dso->symbols` (`rb_root_cached`) and `dso->symbol_names=
+`
+  with a locked `struct symbols` container backed by sorted pointer arrays
+  (`symbols` and `symbols_by_name`) protected by a `struct rw_semaphore`,
+  removing `struct rb_node` from `struct symbol`.
+- Patch 8 wraps `struct symbol` in `DECLARE_RC_STRUCT(symbol)` with
+  `refcount_t` (`symbol__get()` / `symbol__put()` / `symbol__zput()`) for
+  sanitizer-checked reference counting across `map_symbol`, `addr_location`=
+,
+  `hist_entry`, `callchain`, `thread_stack`, and `db-export`.
+- Patch 9 replaces `qsort()` in `struct symbols` with a natural-run merge
+  sort and galloping merge (taking advantage of pre-ordered runs in
+  `.symtab`/`.dynsym` and `kallsyms`) plus an in-place binary insertion
+  fast path for small incremental appends.
+- Patch 10 applies the same incremental binary-insertion sort and an O(1)
+  tail-insertion fast path to `struct maps` for `/proc/<pid>/maps` synthesi=
+s
+  and runtime `PERF_RECORD_MMAP2` / JIT map insertions.
+- Patch 11 caches ELF program and section headers during
+  `dso__load_sym_internal()`, defers `elf_sym__name()` string table lookups
+  until after symbol filtering, and runs `symbols__fixup_end()` /
+  `symbols__fixup_duplicate()` once per DSO load.
+- Patches 12-17 add `down_read_trylock()` / `down_write_trylock()`, protect
+  `machines->guests` with a `rw_semaphore`, implement `symbols__shrink()`,
+  `dso__shrink()`, `dsos__shrink()`, and `perf_session__shrink()` (with
+  transparent on-demand reload in `dso__load()` that preserves pointer
+  identity for retained symbols), and provide `perf_session__malloc()` /
+  `zalloc()` / `calloc()` / `realloc()` / `strdup()` wrappers that
+  automatically shrink unreferenced symbols and DSOs on allocation failure.
+- Patch 18 adds unit tests in `perf test symbols` covering sorted symbol
+  insertion, symbol/DSO shrinking, transparent DSO reload after shrink, and
+  session allocation wrappers.
 
-thanks,
+End-to-end benchmark results across the series:
 
-Joel Fernandes
+  perf bench internals symbols (perf binary):
+    Average DSO load + sort:      7.348 msec ->   5.324 msec (-27.5%)
+    Average DSO memory usage:        1401 KB ->      1308 KB ( -6.6%)
+    Average bulk insert + lookup: 1453.95 us -> 1161.00 us   (-20.1%)
+    Average append + lookup (200 interior inserts into 10,000 symbols):
+      rbtree: 42.85 us -> array+qsort: 40429.75 us -> array+binary-insert: =
+152.70 us
 
+  perf bench internals symbols -b libLLVM.so.21.1:
+    Average DSO load + sort:     81.196 msec ->  62.582 msec (-22.9%)
+    Average DSO memory usage:        9530 KB ->      9164 KB ( -3.8%)
 
-> 
->  kernel/rcu/srcutiny.c | 34 ++++++++++++++++++++++++++++++++++
->  kernel/rcu/srcutree.c | 36 ++++++++++++++++++++++++++++++------
->  kernel/rcu/tasks.h    | 27 +++++++++++++++++++++++++++
->  kernel/rcu/tiny.c     | 11 +++++++++++
->  kernel/rcu/tree.c     |  9 +++++++--
->  5 files changed, 109 insertions(+), 8 deletions(-)
-> 
-> 
-> base-commit: 940793b926aa94bf65ec404043050888e3053188
-> -- 
-> 2.43.0
-> 
+  perf bench internals symbols -b libLLVM.so.21.1 --no-demangle:
+    Average DSO load + sort:     32.675 msec ->  19.122 msec (-41.5%)
+    Average DSO memory usage:        7589 KB ->      7229 KB ( -4.7%)
+
+  perf bench internals maps:
+    Average ascending insert + lookup:   63.37 us -> 58.97 us ( -6.9%)
+    Average append + lookup:           7477.45 us -> 96.67 us (-98.7%, 77.3=
+x faster)
+
+Net performance and memory trade-offs:
+- Replacing the per-symbol rbtree (`struct rb_node`) and negative-offset
+  `symbol_conf.priv_size` allocation prefix with a contiguous sorted pointe=
+r
+  array reduces per-symbol heap overhead by 16 to 24+ bytes (saving 3.8% to
+  6.6% of total DSO symbol table heap memory unconditionally, and allowing
+  unreferenced symbols and DSOs to be shrunk on demand under memory
+  pressure).
+- For the dominant symbol workloads=E2=80=94loading ELF binaries (`-22.9%` =
+to
+  `-41.5%`) and bulk symbol insertion, sorting, and lookup (`-20.1%`)=E2=80=
+=94the
+  contiguous array, natural-run merge sort, ELF header caching, and
+  demangler fast paths yield substantial speedups over the rbtree baseline.
+- For synthetic single-symbol interior insertions interleaved with immediat=
+e
+  lookups into an already-large 10,000-symbol DSO (`dso__insert_symbol()`),
+  an rbtree rotation takes ~0.21 us/op (`42.85 us` for 200 ops) whereas
+  shifting the contiguous pointer array tail with `memmove()` after binary
+  search takes ~0.76 us/op (`152.70 us` for 200 ops, down from `40429.75 us=
+`
+  with naive `qsort()`). In real workloads, symbols are either loaded in
+  bulk (`dso__load()`) or inserted into small per-prog BPF/JIT DSOs where
+  the array fits in a few cache lines, making this sub-microsecond
+  difference negligible in practice.
+- Overall, the series reduces memory consumption across all workloads while
+  significantly improving=E2=80=94or remaining neutral on=E2=80=94runtime p=
+erformance.
+
+v2:
+- Rebased onto perf-tools-next (dropping "perf symbols: Fix broken
+  ELF_C_READ_MMAP fallback guard", which was merged upstream, and splitting
+  "perf libdw: Optimize fallback logic for missing DWARF" into a separate
+  fixes series).
+- Added 'perf bench internals symbols' and 'perf bench internals maps'
+  benchmarks (Patch 1) and included before/after numbers in the optimizatio=
+n
+  patches.
+- Added __attribute__((nonnull)) annotations to struct symbol accessor
+  functions (Patch 3).
+- Split the symbol_conf.priv_size removal patch into three separate patches
+  for map_browser (Patch 4), db-export (Patch 5), and annotate (Patch 6).
+- Added dedicated optimization patches for Rust/Java demangler prefix check=
+s
+  (Patch 2), natural-run merge sort and binary insertion in struct symbols
+  (Patch 9), tail-insertion and incremental binary-insertion sort in struct
+  maps (Patch 10), and ELF program/section header caching and deferred
+  symbol name lookup (Patch 11).
+- Replaced periodic heuristic LRU shrinking and windowed ELF symbol loading
+  with on-demand shrinking (symbols__shrink(), dso__shrink(),
+  dsos__shrink(), perf_session__shrink()) triggered on allocation failure v=
+ia
+  session-scoped allocation wrappers, plus transparent DSO reload preservin=
+g
+  retained symbol pointers (Patches 12-18).
+
+v1: https://lore.kernel.org/lkml/20260928075237.3055101-1-irogers@google.co=
+m/
+
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+
+Ian Rogers (18):
+  perf bench internals: Add symbols and maps benchmarks
+  perf demangle: Add fast-path prefix checks for Rust and Java
+    demanglers
+  perf symbol: Add accessor functions for struct symbol fields
+  perf map_browser: Compute symbol browser index on demand
+  perf db-export: Store symbol database IDs in a hashmap
+  perf annotate: Move struct annotation to a hashmap and remove
+    symbol_conf.priv_size
+  perf symbol: Switch backing storage from rbtree to struct symbols
+    array
+  perf symbol: Add reference counting and DECLARE_RC_STRUCT(symbol)
+  perf symbol: Optimize symbol sorting with natural-run merge sort and
+    binary insertion
+  perf maps: Optimize tail insertion and small-append sorting
+  perf symbol-elf: Cache ELF program/section headers and defer symbol
+    name lookup
+  perf rwsem: Add down_read_trylock() and down_write_trylock()
+  perf vdso: Constify dso parameter in dso__is_vdso()
+  perf machine: Protect machines->guests rbtree with a rw_semaphore
+  perf symbol: Add memory shrinking for symbols, DSOs, and machines
+  perf session: Add dso__session() and session-scoped allocation
+    wrappers
+  perf symbol: Use session allocation wrappers in symbol, DSO, thread,
+    and hist paths
+  perf test symbols: Add tests for symbol shrinking and session alloc
+    wrappers
+
+ tools/perf/Documentation/perf-bench.txt       |    6 +
+ .../arch/powerpc/util/skip-callchain-idx.c    |    2 +-
+ tools/perf/arch/powerpc/util/sym-handling.c   |   40 +-
+ tools/perf/bench/Build                        |    2 +
+ tools/perf/bench/bench.h                      |    2 +
+ tools/perf/bench/maps.c                       |  186 +++
+ tools/perf/bench/symbols.c                    |  239 +++
+ tools/perf/builtin-annotate.c                 |   22 +-
+ tools/perf/builtin-bench.c                    |    2 +
+ tools/perf/builtin-c2c.c                      |   14 -
+ tools/perf/builtin-diff.c                     |    4 +-
+ tools/perf/builtin-kallsyms.c                 |    9 +-
+ tools/perf/builtin-kmem.c                     |   82 +-
+ tools/perf/builtin-kwork.c                    |    4 +-
+ tools/perf/builtin-lock.c                     |   25 +-
+ tools/perf/builtin-mem.c                      |    2 +-
+ tools/perf/builtin-report.c                   |   14 -
+ tools/perf/builtin-sched.c                    |    6 +-
+ tools/perf/builtin-script.c                   |   18 +-
+ tools/perf/builtin-timechart.c                |    2 +-
+ tools/perf/builtin-top.c                      |   24 +-
+ tools/perf/builtin-trace.c                    |   23 +-
+ tools/perf/tests/builtin-test.c               |    1 -
+ tools/perf/tests/dlfilter-test.c              |   12 +-
+ tools/perf/tests/dwarf-unwind.c               |    2 +-
+ tools/perf/tests/hists_common.c               |    9 +-
+ tools/perf/tests/hists_cumulate.c             |    8 +-
+ tools/perf/tests/hists_filter.c               |   10 +-
+ tools/perf/tests/hists_link.c                 |   16 +-
+ tools/perf/tests/hists_output.c               |    9 +-
+ tools/perf/tests/kallsyms-split.c             |    5 +-
+ tools/perf/tests/maps.c                       |   58 +
+ tools/perf/tests/pe-file-parsing.c            |    1 +
+ tools/perf/tests/symbols.c                    |  454 +++++-
+ tools/perf/tests/vmlinux-kallsyms.c           |  187 ++-
+ tools/perf/ui/browser.c                       |    3 +
+ tools/perf/ui/browsers/annotate.c             |   10 +-
+ tools/perf/ui/browsers/hists.c                |   35 +-
+ tools/perf/ui/browsers/map.c                  |   88 +-
+ tools/perf/ui/gtk/annotate.c                  |    6 +-
+ tools/perf/ui/stdio/hist.c                    |    6 +-
+ tools/perf/util/addr2line.c                   |    8 +-
+ tools/perf/util/addr_location.c               |    4 +
+ .../perf/util/annotate-arch/annotate-alpha.c  |    5 +-
+ .../perf/util/annotate-arch/annotate-arm64.c  |   12 +-
+ .../util/annotate-arch/annotate-loongarch.c   |   15 +-
+ tools/perf/util/annotate-arch/annotate-s390.c |    6 +-
+ tools/perf/util/annotate-arch/annotate-x86.c  |   14 +-
+ tools/perf/util/annotate-data.c               |   12 +-
+ tools/perf/util/annotate.c                    |  211 ++-
+ tools/perf/util/annotate.h                    |    6 +-
+ tools/perf/util/auxtrace.c                    |  111 +-
+ tools/perf/util/block-info.c                  |   12 +-
+ tools/perf/util/bpf_lock_contention.c         |   35 +-
+ tools/perf/util/c2c-function.c                |   32 +-
+ tools/perf/util/call-path.c                   |   15 +-
+ tools/perf/util/callchain.c                   |   23 +-
+ tools/perf/util/capstone.c                    |   22 +-
+ tools/perf/util/data-convert-json.c           |    4 +-
+ tools/perf/util/db-export.c                   |   99 +-
+ tools/perf/util/db-export.h                   |    8 +
+ tools/perf/util/debug.c                       |    3 +-
+ tools/perf/util/demangle-java.c               |   23 +-
+ tools/perf/util/disasm.c                      |   69 +-
+ tools/perf/util/dlfilter.c                    |   12 +-
+ tools/perf/util/dso.c                         |  257 ++-
+ tools/perf/util/dso.h                         |   94 +-
+ tools/perf/util/dsos.c                        |   76 +
+ tools/perf/util/dsos.h                        |    3 +
+ tools/perf/util/event.c                       |   12 +-
+ tools/perf/util/evsel_fprintf.c               |    2 +-
+ tools/perf/util/hist.c                        |   70 +-
+ tools/perf/util/intel-pt.c                    |   74 +-
+ tools/perf/util/libbfd.c                      |   14 +-
+ tools/perf/util/libdw.c                       |    5 +-
+ tools/perf/util/llvm.c                        |    8 +-
+ tools/perf/util/lock-contention.c             |    8 +-
+ tools/perf/util/machine.c                     |  189 ++-
+ tools/perf/util/machine.h                     |    9 +
+ tools/perf/util/map.c                         |   27 +-
+ tools/perf/util/map.h                         |   18 +-
+ tools/perf/util/map_symbol.c                  |    4 +-
+ tools/perf/util/maps.c                        |  284 +++-
+ tools/perf/util/mutex.h                       |    3 +
+ tools/perf/util/probe-event.c                 |  148 +-
+ tools/perf/util/python.c                      |   36 +-
+ tools/perf/util/rwsem.c                       |   20 +
+ tools/perf/util/rwsem.h                       |    2 +
+ tools/perf/util/session.c                     |   78 +
+ tools/perf/util/session.h                     |    8 +
+ tools/perf/util/sort.c                        |   47 +-
+ tools/perf/util/srcline.c                     |   22 +-
+ tools/perf/util/symbol-elf.c                  |  311 +++-
+ tools/perf/util/symbol.c                      | 1438 +++++++++++++----
+ tools/perf/util/symbol.h                      |  187 ++-
+ tools/perf/util/symbol_conf.h                 |    1 -
+ tools/perf/util/symbol_fprintf.c              |   37 +-
+ tools/perf/util/thread-stack.c                |   18 +-
+ tools/perf/util/threads.c                     |   17 +-
+ tools/perf/util/unwind-libdw.c                |    4 +-
+ tools/perf/util/unwind-libunwind.c            |    2 +-
+ tools/perf/util/vdso.c                        |    2 +-
+ tools/perf/util/vdso.h                        |    2 +-
+ 103 files changed, 4557 insertions(+), 1389 deletions(-)
+ create mode 100644 tools/perf/bench/maps.c
+ create mode 100644 tools/perf/bench/symbols.c
+
+--=20
+2.56.0.313.g2479322e68-goog
+
