@@ -1,59 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.12.242.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793135842;
-	b=HIUjELti3YO43ayYVFe5rtOFRgCa3S3Uc3JRG5k9Qs2QnuGEhPta3dj8GTBmS5vlEUzZ
-	 AyGexJ3O3mhNY+5/SM0pESXabajz9x9WFp4Gp5FM2oq6RaIn6FUQC1eBxs8GaQvrT2qHT
-	 DGIteQqV1WIQVh+oR90M/HtIugRRIzkQCO3x4kqo6mGd0C9yc55OVV9Ff9UXcO4D4uYLT
-	 vDLWnzYaL6i4OoIwMNOrFXsIRZ1zXNY5zXR4Cy4vg/f3W38PshIOWgC6B2N48ur7NK/1X
-	 48DlchIZyQnyMgz7/tPBB1I15Qp379Y3vZLL0xalPyR0WmCFNEse6iJScms7ve5xrNw==
+	t=1793135925;
+	b=QXQqbq9b4mj+UATz4MZ+JHn40MQtwR7nPvw1nOarM8xq6tP/tjiUWdG8tp5Q+E7iDeTd
+	 QNcutlwhVpAInvlPiKco+Guk26zksAyNGMnTpC96N0OsL92MeNNrK9tRGL8mS/OTXFiTg
+	 5N8ZdKuhUwDf9M2wxwyKCffFZ+BO87uto2HJWhFFZ9VRY1hIxKhJ5yVoPx0u2xZvjWzwr
+	 Lln3jF6unEn16O5+9j7hFPir1hJZVnhdoy2AlF8XVcgH2zzTxbweLRS8U2884thXGSTs5
+	 jZRRz/pk215fZKJ2dhNnABXUS1Lv2rdTeHPy39tEkvQ9HDhRBoBlrPGuRb7QbwdYkEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793135842;
-	h=DMARC-Filter:Received:DKIM-Signature:X-ME-Helo:X-ME-Auth:X-ME-Date:
-	 X-ME-IP:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=t7WWjDmCABciWDe9nArkCPlp3bT8ioJksoHBjAnN3e0=;
-	b=5eV4XvRKB1UWHsvLmbFZkSvgLGeHM+ax7usP2F5kqfIy03asi9Oiw0iNX8ahhVFTJ4Ur
-	 h9AeGnBJs4/oLNtUDXBg8SPMiSwiNkF6ZoIVok3kr6Az3S2qHQkckpKpNwcoorUxZEBq/
-	 uNb+FZrC+FWSa0PmFBKoxHweRUf86nmaVTUy+clAGo/imItIUpe5DZYefwpfz3rAMJuC4
-	 htq7/X9w8RQ5B1eydY2p7yQty8PIaHFWBvF7fa79q2kdsiX5SuP4JnnPzAvB5glNwCI8L
-	 klgQScYZqYSJuPBtDq5Sy4gAKGgFJJVQafEkGLKMIE5RTRfbkSRrmWta1v88Lo5LH+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135925;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=qUMx95Z2/FLv64tnydT/x/C4fd+wJMNdslwBEILinGo=;
+	b=3nSlfqUgwuGMQggCokE9zt28Ta7uGkT2GfVKNeqxuE+D0CP8WxOiSAtqzbi1RxkLQpYC
+	 etqOqitXV/CXoC2YBsOrBPSJbQcXQTQDpj6MWzXCJbKJlDyWs2CP73RoJpLJPXBcN5Lfd
+	 4gFchbIN/I2JNQxTxStvkOznSxBPfFc+p692kGvDHav/ZfNckQNzThLqGHevHXPZ+aXfG
+	 zPTKXmR6VQZBg+EVRiCO6+axih+NIRaG7g0b0lPFTDajwxCDXTrlb0lVFD967SNsIu6+w
+	 8r6rdkqVSUhZ7++FW8NmS0BjDsxgngVCjgHREUol27jYnKxlLVEwfW+PzfJAwwQb64Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wanadoo.fr;
-	spf=pass smtp.mailfrom=wanadoo.fr;
-	dkim=pass header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=NuScA407;
-	arc=none smtp.remote-ip=80.12.242.24
-Received: from smtp.smtpout.orange.fr (smtp-24.smtpout.orange.fr [80.12.242.24])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=O9t1oNxh;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A91A606A31A;
-	Tue, 27 Oct 2026 21:17:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A91A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78CEA606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78CEA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=NuScA407
-Received: from [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
- ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
-	by smtp.orange.fr with ESMTPSA
-	id LoXcx90ADnRVmLoXcxscA3; Tue, 27 Oct 2026 22:17:13 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1793135833;
-	bh=t7WWjDmCABciWDe9nArkCPlp3bT8ioJksoHBjAnN3e0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=NuScA407MaytI8sNKey5dKys2nzV031i0kQJskb5kYu7wpvUhmqIKYNBt+ZPpzsd0
-	 DT0DZ9gZetlvID0jrwFNxkm9WFwuPiPxFFd+b1P3xOBrXS2wBkqWHl+Kfo3M9Uypst
-	 h0AdaWLVjKpaeXyYDucWVk8lmqA0p0t8BnaMsQ3l9C5sDXzjAhNUU1fayTw8UM3Zjm
-	 hAlBowVqPXcBcsb6FJbUFLpgTi/NtP6NdvyNOeSixsEybcWVodSh5EznCUkqbQvFST
-	 3iqqggjvUsABV0DnuIar+cOvRf9awJ2zWGrET1NADJbrL8wHsfjqPCDTCLdTtl3Sho
-	 EuNhg/xEDcQDA==
-X-ME-Helo: [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Tue, 27 Oct 2026 22:17:13 +0100
-X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
-Message-ID: <67844d9d-d4d4-4026-9549-73589afcc1ff@wanadoo.fr>
-Date: Tue, 27 Oct 2026 22:17:07 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=O9t1oNxh
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab7f1efe5dso432353a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:18:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793135924; x=1793740724; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qUMx95Z2/FLv64tnydT/x/C4fd+wJMNdslwBEILinGo=;
+        b=O9t1oNxhj7Xw67fxZOhJmZ8vNAdxWgxOGEEZGK9oId6/aVHLsnFtQlbNQ6bzhC9B0E
+         f9O/mJB1tznoMWpJP5vr6IAfWd7OYL3+vqog/K86lyrB9hPII1dxM6rPxBJ9Kby9+ucJ
+         q3hnsiNT2ru8vSf8egpVYYGw35wKVG80Vu3ezvTOK/2hErKcg9OsAoYftXOMXvmgvOsE
+         USSlpzb9cbn2+MUY6DGfb3+M18AMUDB5o3XD1HYrd07vSA1sr+KPFgLsCAHlt3yIU0CJ
+         46wb1/8vXqcmincC/gKw4zIHqOkFMeY2f47UtXQrgsFIIglqeYn4Rz2uN2mV+APvhSlW
+         0LBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793135924; x=1793740724;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qUMx95Z2/FLv64tnydT/x/C4fd+wJMNdslwBEILinGo=;
+        b=v1jo0YpYsIYDUtfoHA3FDpgGpaoLuV62mN8MJN2QpvzhG6/XFGiMpObBxUhJobj05M
+         gWsCwnTfELUl2Z9PtHvbP5uvKjqyPllqcAZEsJ69ZDzGBg1rDZHrQ+zTqHd3wQVW0MCr
+         y8hzM0zq//NBJMNF7MAQJUFXj+CwxnhBkLyvq4QAuX7/CFXDxoaBcj/450O1rB8+3K1Z
+         Bs1o5MD7vlQBohsW96zo25j04i+/pC+rJKS00Uun4EvkmwQ5ijW0dY/6hGsxIkDu7EUA
+         SmcIfkSm3lVFQHrFloXWxQQdNs5Pbe1ZKP2SEyIpP2XLQeBO8x4LE7r5CAsUjDIJkMfp
+         Rqhw==
+X-Forwarded-Encrypted: i=1; AKwUvBzYaiTlHygVA3Q3ZNdZKweR8pAbwaAW9IwcD5qjpWk1eQnu3DVD6Jrhq6nX2gyJvjjWRlUkyf5RBZh8+kc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgHP80V0xGwDVYdvACY+RyOCgSoQU8I3UfqsPJ/ZnANIH5DzkT
+	kGpSLWirFW9B7jIOF9aF59hyjbPGz0UN3AerHoET31Tp+EAa4X93RiVpA/HOu+AJlaQswpxr+47
+	GjlDmFg==
+X-Received: from pjvv8.prod.google.com ([2002:a17:90b:5888:b0:3ad:850b:6f1c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:288a:b0:3ac:9706:7739
+ with SMTP id 98e67ed59e1d1-3ae5819e5afmr211698a91.17.1793135923585; Tue, 27
+ Oct 2026 14:18:43 -0700 (PDT)
+Date: Tue, 27 Oct 2026 14:18:42 -0700
+In-Reply-To: <ac22215d-3e58-4aab-851e-47c30836e058@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,100 +77,102 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwrng: cctrng - Fix an error handling path in
- cctrng_probe
-To: Martin Kaiser <martin@kaiser.cx>
-Cc: Hadar Gat <hadar.gat@arm.com>, Olivia Mackall <olivia@selenic.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
- kernel-janitors@vger.kernel.org, linux-crypto@vger.kernel.org
-References: <b66b3df3d178a04b35690d0eb36dee409a95aa5d.1792782868.git.christophe.jaillet@wanadoo.fr>
- <auBfVkwtsMUdgyG9@akranes.kaiser.cx>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Content-Language: en-US, fr-FR
-In-Reply-To: <auBfVkwtsMUdgyG9@akranes.kaiser.cx>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261026215226.3713941-1-jthoughton@google.com>
+ <14f5f919-55bd-47c6-a1c8-6f1445cce733@app.fastmail.com> <CADrL8HXQdzcroeGN-ACjyy-jSAdBNHiT1_BCVVe0P+Y8ZueiyA@mail.gmail.com>
+ <ac22215d-3e58-4aab-851e-47c30836e058@app.fastmail.com>
+Message-ID: <auEVMrMDqVuKtDqh@google.com>
+Subject: Re: [RFC PATCH 00/10] uaccess: Refuse and warn on user accesses when
+ current->mm is NULL
+From: Sean Christopherson <seanjc@google.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: James Houghton <jthoughton@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Thomas Gleixner <tglx@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Kees Cook <kees@kernel.org>, 
+	"David Hildenbrand (Red Hat)" <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jim Mattson <jmattson@google.com>, Jens Axboe <axboe@kernel.dk>, 
+	Pavel Begunkov <asml.silence@gmail.com>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	John Fastabend <john.fastabend@gmail.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org, io-uring@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-btrfs@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-Le 27/10/2026 à 09:22, Martin Kaiser a écrit :
-> The sashiko review makes sense to me. We should probably call
-> pm_runtime_put_noidle after post_pm_err.
+On Tue, Oct 27, 2026, Arnd Bergmann wrote:
+> On Tue, Oct 27, 2026, at 18:29, James Houghton wrote:
+> >> I would think that user_access_begin() is a more natural place
+> >> for the added checks, as this should be called exactly once for
+> >> any function that accesses user space and also stays out of the
+> >> way of the copy_from_kernel_nofault() etc.
+> >
+> > user_access_begin() isn't used in a lot of places that I want to
+> > catch, including the KVM case. Roughly:
+> >
+> >   kvm_write_guest_cached() --> __copy_to_user() --> raw_copy_to_user()
+> >
+> > There's no user_access_begin() in there. :/
 > 
-> Best regards,
-> Martin
+> Good point, yes. After the changes described in
+> https://lwn.net/Articles/1102061/, I had assumed that all
+> __copy_{from,to}_user() are going from common code, but it looks
+> like the series so far only touches __{get,put}_user().
 > 
+> There are of course few enough of these left that I think
+> we can consider doing the same thing here and turn them all
+> into the checking version:
+> 
+> $ git grep -wl __copy_'\(from\|to\)'_user  drivers mm virt
+> drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> drivers/gpu/drm/i915/i915_gem.c
+> drivers/gpu/drm/i915/i915_query.c
+> drivers/usb/gadget/udc/atmel_usba_udc.c
+> drivers/vhost/scsi.c
+> drivers/vhost/vhost.c
+> mm/kasan/kasan_test_c.c
+> virt/kvm/kvm_main.c
+> 
+> > I do think user_access_begin() should have the new check though, so
+> > I've added it in the v2.
+> 
+> I had the details confused here. Seing that user_access_begin()
+> and the other accessors always call access_ok() at some
+> point, maybe that would be enough?:
 
-I agree that my patch looks broken.
+It would help, but it wouldn't cover everything, e.g. KVM "caches" the access_ok()
+checks well in advance of actually performing a user access.  I don't know that I
+would fixate on KVM too much though, as KVM's memslots infrastructure that begets
+that behavior is quite unique, i.e. it's unlikely other subsystems will have these
+types of bugs *and* elide access_ok() checks at the time of access.  And KVM has
+natural chokepoints for these accesses, so it's easy enough to harden KVM itself.
 
-I've not followed all sashiko explanation, but usually I try to stay 
-away from pm code, which most of the time looks too tricky for me.
+The counter-argument is that _if_ there are other subsystems that are caching
+access_ok() checks, then those are probably the subsystems that are most likely
+to mess this up and thus would benefit the most from common hardening.
 
-So should something be fixed here, I'll leave it to you.
-
-CJ
-
-> Thus wrote Christophe JAILLET (christophe.jaillet@wanadoo.fr):
+> --- a/include/asm-generic/access_ok.h
+> +++ b/include/asm-generic/access_ok.h
+> @@ -33,6 +33,9 @@ static inline int __access_ok(const void __user *ptr, unsigned long size)
+>         unsigned long limit = TASK_SIZE_MAX;
+>         unsigned long addr = (unsigned long)ptr;
+>  
+> +       if (WARN_ONCE(!current->mm))
+> +               return false;
+> +
+>         if (IS_ENABLED(CONFIG_ALTERNATE_USER_ADDRESS_SPACE) ||
+>             !IS_ENABLED(CONFIG_MMU))
+>                 return true;
 > 
->> If an error occurs after a successful cc_trng_pm_init() call, it must be
->> undone by a corresponding cc_trng_pm_fini() call.
+> (plus the few extra copies of access_ok()/__access_ok())
 > 
->> The commit in Fixes has erroneously updated the error handling path if
->> cc_trng_pm_get() fails.
-> 
->> Fixes: 8bcd96893848 ("hwrng: cctrng - let devres enable the clock")
->> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
->> ---
->> Compile tested only.
-> 
->> This patch also undo the clean-up done by commit a7ea3d63e897 ("hwrng:
->> cctrng - simplify cctrng_probe()"). Keeping an error path makes sense with
->> 2 users. But if preferred, the missing cc_trng_pm_fini() could also be
->> added after the test for errors in cc_trng_pm_get().
->> ---
->>   drivers/char/hw_random/cctrng.c | 14 ++++++++++----
->>   1 file changed, 10 insertions(+), 4 deletions(-)
-> 
->> diff --git a/drivers/char/hw_random/cctrng.c b/drivers/char/hw_random/cctrng.c
->> index 03401ee59a8e..608b3321c05a 100644
->> --- a/drivers/char/hw_random/cctrng.c
->> +++ b/drivers/char/hw_random/cctrng.c
->> @@ -524,8 +524,10 @@ static int cctrng_probe(struct platform_device *pdev)
-> 
->>   	/* increment device's usage counter */
->>   	rc = cc_trng_pm_get(dev);
->> -	if (rc)
->> -		return dev_err_probe(dev, rc, "cc_trng_pm_get returned %x\n", rc);
->> +	if (rc) {
->> +		dev_err_probe(dev, rc, "cc_trng_pm_get returned %x\n", rc);
->> +		goto post_pm_err;
->> +	}
-> 
->>   	/* set pending_hw to verify that HW won't be triggered from read */
->>   	atomic_set(&drvdata->pending_hw, 1);
->> @@ -534,8 +536,7 @@ static int cctrng_probe(struct platform_device *pdev)
->>   	rc = devm_hwrng_register(dev, &drvdata->rng);
->>   	if (rc) {
->>   		dev_err(dev, "Could not register hwrng device.\n");
->> -		cc_trng_pm_fini(drvdata);
->> -		return rc;
->> +		goto post_pm_err;
->>   	}
-> 
->>   	/* trigger HW to start generate data */
->> @@ -548,6 +549,11 @@ static int cctrng_probe(struct platform_device *pdev)
->>   	dev_info(dev, "ARM cctrng device initialized\n");
-> 
->>   	return 0;
->> +
->> +post_pm_err:
->> +	cc_trng_pm_fini(drvdata);
->> +
->> +	return rc;
->>   }
-> 
->>   static void cctrng_remove(struct platform_device *pdev)
->> -- 
->> 2.56.0
-> 
-
+> As a quick fix I would probably start with just the 'if (!mm) return false'
+> bit here to get something merged while we still discuss the other
+> details.
