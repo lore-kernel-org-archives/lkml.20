@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793085284;
-	b=ZDe9pGWwkLMXDp3O7AKhuNjL7wfhzx32dxngVnAHJi3nnVmnfeS0oyiEIM2N5wTFNEcJ
-	 CEQUCBBBoylq8HrGo6lJVd8myKd8uAvL3+PzAqT6FMLCkePnZNdNjQXpGnAflWk5D5yq8
-	 qp7S7asB80AhF30suEOE4EB7MDYC85ke531pmsBMIfSQ7ZaKB7IeOV1JL84YHc9G9rTzZ
-	 ixuMKb5GlZjDtsQvxlBH8NQtAfMiXjJ1gJyQdFsxQ6HASGxAaSL/EIgMVZHjMTm3Mj2iK
-	 cABlWDdb1XpBr07Ac4xlwRWziLJu33ktxRAByi4AwlwIb7fg15Bvc6pV0GjMNw8ylNg==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793085349;
+	b=qwT80hIadZOMSolJPE+MTXbE1jhlqifLZazJB7IDcH6a+Yy6ZPmgV7FwGM2d9eS7CV6h
+	 /hdV45mZj4dTTIn5MBlbaENdpA+KrWPTuBvBAJDUp4JsuelqsiMCewJwGJQ9ZRhcUESfd
+	 cfIdmETF/zobbHX12pUaM0fpD+rDY5qz7hrAsIU5uQPKKsduMjIkqcK3cyuaNFb1MTHc0
+	 1y8n4DPRKOW+gMmzDpSEeHlpdNyU3/NjufD4ajK5J4Nsk046Y3lR/4bjfa9Zvl/qyNR3f
+	 EgsAfFDC7+sqjfSZTXa8JwxPq1w24/SMn1SxkZkCpAYxcBsjywTOTEQNgnOyUT9ilZA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085284;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=To+1g379D+9qVbo8PmJI9ABLudKj5/o6/5g1pqlpAg0=;
-	b=JxT7XORyFnfy+ih0K8lwaCUDwcUCHaQJ+xOIH2GFG3JGqv0Dw4kWAJtnwF2HDZZf6W58
-	 JxZHv2PXkeSUBsph+7k8zIIm0Im5lY54IaCMWtjef9kqvan1gTm4+6NTO5MpM2OJM9030
-	 uPv0fmv6KGEZkB29TlSEXiPa/V1jccaBTnwgI+cvlE2q7MdWYmM9/hNX34Kgq4va7XhYW
-	 ZWs6iNQsRzaCC39L2C7RfpI+IdGdLbRfF3myaXVjR/M45BZ6rzwUvqFUo4kLf2kZtQqm0
-	 GVgZOunycWZFPwYkNcf6g/+KQ4SF5ldNHQXxv0JpMcwUSN60JBO8Ab9q/WBeEFpnAdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085349;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=R+oWYu6/QfEBhFYUPjNxhFKQR9WYE+mlse/QW0U2HJ8=;
+	b=G5ddEKp7m/GwRS9WEbdWavWntuveAi7lqJfj72zD/FMlg14q9pasWkSCERPRU7pa3rXF
+	 RbJHFvWhcGT6xbtH0zW1GW0d+NrXTX3V5eCghTfJTNyEKDPgMoqIf7iQvD5kyJQhq0sWy
+	 4hwX/7nV9qiktydr0/zcMAXHTLvI3Oxh71WmLOe1zGemkh6Xe79gYRuFnSo68r83p4a8G
+	 me+R+0SL6+OipjGY7cie4GP1UtzPzGzrnQO2XLaUGGl/UnVAC7gJa1bDtSYW/JJ89LuS6
+	 ohreMlT3QrP8io63vtGvjd4owPU9c/ebGH7JJdYOg9+fb6OBPYhHYVQ6SN9vLHtEk1A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L82zs/M7";
-	arc=fail smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=BbK3uUll;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BCBD606A321;
-	Tue, 27 Oct 2026 07:14:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3045D606A31A;
+	Tue, 27 Oct 2026 07:15:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3045D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L82zs/M7
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793085284;
-	b=qN86uBtM9Q80RWQLX1URl81O1UfrNT66PDIwMvgyhiwzfXUMeGPpIuew9FuQ15hdOINQ
-	 cfV+ABUMRYaHmebbXEZhF8lyIgKKO3gyU4Fz0LzDAvG/mZ/T9RH+eQui7leBAZOwefj4N
-	 /2lmhol8yYfdGA6plJ0hHOOnRA8NbEMXp1fdsGQmfEbPNJM89oIno0TuJqhp2LFWJ0R2F
-	 wlYjwBnVf2aImHQZiSM7948LoGl0VU/bN8id460hfMdZsRBFcJidt1fb7KW90GUkztD5O
-	 uPCio0nTjNQYq/zddnsET0U+Jufgs1LXvyilaD1kPLRmh9foqnhIUdEjiko0OK0JvPA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793085284;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=To+1g379D+9qVbo8PmJI9ABLudKj5/o6/5g1pqlpAg0=;
-	b=MWwH5k9FD0Fp5uGIOinXbCCmMSz4puCpXqybWSa4Or6RbIOYaMNJqEucd//QcVwqxwRW
-	 HNq7ghwknhzYnFATOj4B6KVFas36vUMcXE+wt4OJHGC/MK7JLNpEYe+SU2KmHBKJtE059
-	 Z2in5ocL286l8H/7FhlEVIdakBu4rsloUBJo6+sgMPJey6oNKcg1nd5/PGmd6+5BVz5LN
-	 +N/DCbhfM/uIerLxBtKONx/mDwFu2PccBKqugFiPecna5Vl9ikrSEvFbJiIqjDspKssFf
-	 aJaHGDnfuZg/nhfH9M5VWtYEefQ8iA4Qn8ALeakGPVLOTXLs3a0oNijKh/6w7obm6PA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=BbK3uUll
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E934B20155D;
+	Tue, 27 Oct 2026 08:15:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793085344;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R+oWYu6/QfEBhFYUPjNxhFKQR9WYE+mlse/QW0U2HJ8=;
+	b=BbK3uUllsCAxO+pmnHKOyBY2CIdCbsiL4S7SaR4Y0s+M8lB3VUluZ7SH/NaBQc6bMBssrZ
+	GjiMcymmleV0kowClq+iZiUyyB7E/vWO8A1OR63zPgv0VmV1G3PIz55bcor2j0xRTyFIVe
+	ztGcjxEO4DR22s8Yux1xs7ZUtSSbiNfeTNZfdZNY33OVa/kc7jITzojwzvBGliy22+D1Ml
+	pCWSJsQGc0cvau672Go6b0xCb9cSdTemturVhsZKc4m0TKNnEG18d8pTtYpBS8jNT3KEHO
+	v7XITcY9VhnY2N+YNuMAgaqg7ApX34SbOE5spHtLdMCAmIdvcRj9g6J9QH7HcQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793085344; a=rsa-sha256;
+	cv=none;
+	b=a6MnpAQpRxddvep7N8jqcgc21uO+NmcGQM6SXfM4MWsWmElThzbXYTC8G3NzuWh6SFDbKB
+	NMs6A354j6vVsaKkll4UyEK9b/GAh4cH+2f3Si9g12pImxCPWsoJ6TPpAYjXPwNUZdO2Dp
+	2gQ4NfdUnUJnFhTDnpshTBlKXN5JkFy0x6l+lQ4w3AiJ+qMxaMZ9XC+EPDlnF5nHRTBZ7h
+	ytvAbWCZce3qW5Jn7uFyVOlrSB+z5WTlRXNqkzyGRQsRcVMvNSVC3Nq6kdxgixPmOLiHN1
+	v97etZ4uf2oYYeLdO7ZZtjLlmMcYKtRhrF3uCiGGOyLkG5TyyQNhgANG6x2U4Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793085344;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R+oWYu6/QfEBhFYUPjNxhFKQR9WYE+mlse/QW0U2HJ8=;
+	b=g9P7NoRI5NLPlzTCz1h8c6WsjZFdj60m24gQWQghj+zAGHvNQVnsMFqSQclWPPcoX59XMp
+	P9KcCLk16P6/rvHN7Y82pHvPPSKNDKJJCmu5POIbk/zGvmjmi6cVqGciZdweVKvGeIwPC7
+	VSJhxidHqJk0GAJrTpeQ1RtZIrPAbvViTJH6mMqT6hr2FHZPk/zmwVFn6pn7saMfsth7ja
+	OPAQY5McDqGfpICZS2HVuJAQSNp9MG2gL1fd7dv8gDYO22JJwlqkE2yl5oN37rcRo7ADPD
+	4zVTbRddUFPlkeRrD9Zv+8dvUE57e2h+UY/W+IwDiENz7Gnub6QamI/2LgVfLg==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xLbPM-001Ocq-2g;
+	Tue, 27 Oct 2026 08:15:44 +0100
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 94A6A1F01829;
-	Tue, 27 Oct 2026 07:14:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793085284;
-	bh=To+1g379D+9qVbo8PmJI9ABLudKj5/o6/5g1pqlpAg0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=L82zs/M7/Lu6T+j/mSHT9XONFkQr24uqaNfM2L+qotLWotQIFCraZdtbgZcluL+KM
-	 hUvgQsDDpL1tzgnQqj4L9Dt7kUQsm3+VTyDR4Y9pkskXABp2MddIJutAb75V1P+VNO
-	 OeBOYn647cnivXFPgecV1wMp/ZMHLWQkRWeitHHwe73pr1M2DbM2K7SfUAvyw0Yyp/
-	 Y/658W6Kp+4wVw+nVzKvM4QPsL9oz/2mcaRtLeSm0I/+Zapq6fqn1C1922SqNrG4/O
-	 WXOBPz7lI4APsWjpyvuq1ca9dJjmNxziLRSqzV4FKfSYFiDpm6td5XWUx4nYkJeotc
-	 NlyObNdq7FpOQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 202E745010;
-	Tue, 27 Oct 2026 07:14:42 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Tue, 27 Oct 2026 12:44:35 +0530
-Subject: [PATCH v4 2/5] drm/msm/a6xx: Program the PDC sequencer on Adreno
- 620
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 8791A5D78DA;
+	Tue, 27 Oct 2026 07:15:44 +0000 (UTC)
+Date: Tue, 27 Oct 2026 08:15:43 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Song Li <songl@zju.edu.cn>
+Subject: Re: [PATCH] can: gs_usb: kill RX URBs before destroying the netdevs
+Message-ID: <20261027-artichoke-stork-of-cleaning-01979c-mkl@pengutronix.de>
+References: <20260923070352.487595-1-fanwu01@zju.edu.cn>
+ <20261026-armadillo-of-uplifting-excitement-9bcdba-mkl@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,156 +101,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-adreno-a620-v4-2-b0095e028c76@brar.si>
-References: <20261027-adreno-a620-v4-0-b0095e028c76@brar.si>
-In-Reply-To: <20261027-adreno-a620-v4-0-b0095e028c76@brar.si>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ishu Brar <patches@brar.si>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793085280; l=5346;
- i=patches@brar.si; h=from:subject:message-id;
- bh=aJdy7rbVxaJsMERQsUyF93Io1prObHlpwKiTsn6Opcc=;
- b=X37vUWlerrUc3EXCF2oG5gHXGxcTH0/ay7WzGM3H4dHzyopI5Y68vj8t6DC+XM31/clJ8w41Z
- ZGDYYEfwr5AAZUMrNRtCr59PBQNa3Ige02Sm2vcRbvOG4aTn0lwm4b+
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
-
-From: Ishu Brar <patches@brar.si>
-
-Unlike the rest of the A650 family, the A620 does not get its PDC set up
-by AOP (the downstream devicetree has no pdc_in_aop for it). Without the
-sequence, the RSC never acks the second power-up ("Unable to power on
-the GPU RSC") and the device hangs.
-
-Program the sequence from the driver, taking the xo, mx and cx resource
-addresses from cmd-db instead of the hardcoded ones. Like the downstream
-driver, also program the VRM command when cmd-db has a vrm.soc resource.
-Add adreno_is_a620() for the selection.
-
-Signed-off-by: Ishu Brar <patches@brar.si>
----
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 35 +++++++++++++++++++++++++++------
- drivers/gpu/drm/msm/adreno/adreno_gpu.h |  5 +++++
- 2 files changed, 34 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-index 662f09bec9d5..8d426f1f127e 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
-@@ -686,6 +686,7 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	u32 seqmem0_drv0_reg = REG_A6XX_RSCC_SEQ_MEM_0_DRV0;
- 	void __iomem *seqptr = NULL;
- 	uint32_t pdc_address_offset;
-+	u32 mx_addr = 0x30010, cx_addr = 0x30000, vrm_addr = 0;
- 	void __iomem *pdcptr;
- 	bool pdc_in_aop = false;
- 
-@@ -697,8 +698,18 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	if (IS_ERR(pdcptr))
- 		return;
- 
--	if (adreno_is_a650_family(adreno_gpu) ||
--	    adreno_is_a7xx(adreno_gpu))
-+	/* Unlike the rest of the A650 family, A620 has no PDC setup from AOP */
-+	if (adreno_is_a620(adreno_gpu)) {
-+		pdc_address_offset = cmd_db_read_addr("xo.lvl");
-+		mx_addr = cmd_db_read_addr("mx.lvl");
-+		cx_addr = cmd_db_read_addr("cx.lvl");
-+		vrm_addr = cmd_db_read_addr("vrm.soc");
-+		if (!pdc_address_offset || !mx_addr || !cx_addr) {
-+			DRM_DEV_ERROR(gmu->dev, "No PDC resource addresses in cmd-db\n");
-+			return;
-+		}
-+	} else if (adreno_is_a650_family(adreno_gpu) ||
-+		 adreno_is_a7xx(adreno_gpu))
- 		pdc_in_aop = true;
- 	else if (adreno_is_a618(adreno_gpu) || adreno_is_a640_family(adreno_gpu))
- 		pdc_address_offset = 0x30090;
-@@ -766,25 +777,31 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD_WAIT_FOR_CMPL_BANK, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CONTROL, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, 0x30010);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR, mx_addr);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA, 1);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 4, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, 0x30000);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 4, cx_addr);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 4, 0x0);
- 
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 8, 0x10108);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 8, pdc_address_offset);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 8, 0x0);
- 
-+	if (vrm_addr) {
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_MSGID + 12, 0x10108);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_ADDR + 12, vrm_addr + 0x4);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS1_CMD0_DATA + 12, 0x0);
-+	}
-+
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_ENABLE_BANK, 7);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD_WAIT_FOR_CMPL_BANK, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CONTROL, 0);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, 0x30010);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR, mx_addr);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA, 2);
- 
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 4, 0x10108);
--	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, 0x30000);
-+	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 4, cx_addr);
- 	if (adreno_is_a618(adreno_gpu) || adreno_is_a619(adreno_gpu) ||
- 			adreno_is_a650_family(adreno_gpu))
- 		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 4, 0x2);
-@@ -794,6 +811,12 @@ static void a6xx_gmu_rpmh_init(struct a6xx_gmu *gmu)
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 8, pdc_address_offset);
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 8, 0x3);
- 
-+	if (vrm_addr) {
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_MSGID + 12, 0x10108);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_ADDR + 12, vrm_addr + 0x4);
-+		pdc_write(pdcptr, REG_A6XX_PDC_GPU_TCS3_CMD0_DATA + 12, 0x1);
-+	}
-+
- 	/* Setup GPU PDC */
- setup_pdc:
- 	pdc_write(pdcptr, REG_A6XX_PDC_GPU_SEQ_START_ADDR, 0);
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-index 4b2156825bdf..b77502446afe 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -443,6 +443,11 @@ static inline int adreno_is_a619_holi(const struct adreno_gpu *gpu)
- 	return adreno_is_a619(gpu) && adreno_has_gmu_wrapper(gpu);
- }
- 
-+static inline int adreno_is_a620(const struct adreno_gpu *gpu)
-+{
-+	return gpu->info->chip_ids[0] == 0x06020000;
-+}
-+
- static inline int adreno_is_a621(const struct adreno_gpu *gpu)
- {
- 	return gpu->info->chip_ids[0] == 0x06020100;
-
--- 
-2.56.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ekwsdgna56i73eu4"
+Content-Disposition: inline
+In-Reply-To: <20261026-armadillo-of-uplifting-excitement-9bcdba-mkl@pengutronix.de>
 
 
+--ekwsdgna56i73eu4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] can: gs_usb: kill RX URBs before destroying the netdevs
+MIME-Version: 1.0
+
+On 26.10.2026 22:09:08, Marc Kleine-Budde wrote:
+> > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> > index ec9a7cb..663746d 100644
+> > --- a/drivers/net/can/usb/gs_usb.c
+> > +++ b/drivers/net/can/usb/gs_usb.c
+> > @@ -1595,10 +1595,10 @@ static int gs_usb_probe(struct usb_interface *i=
+ntf,
+> >
+> >  			/* on failure destroy previously created candevs */
+> >  			icount =3D i;
+> > +			usb_kill_anchored_urbs(&parent->rx_submitted);
+>
+> I've fixed the root cause of this problem. Do not register an interface,
+> before all interfaces are setup:
+>
+> https://lore.kernel.org/all/20261026-gs_usb-fixes-v4-2-59e3b6360053@pengu=
+tronix.de/
+>
+> >  			for (i =3D 0; i < icount; i++)
+> >  				gs_destroy_candev(parent->canch[i]);
+> >
+> > -			usb_kill_anchored_urbs(&parent->rx_submitted);
+> >  			kfree(parent);
+> >  			return rc;
+> >  		}
+> > @@ -1636,6 +1636,8 @@ static void gs_usb_disconnect(struct usb_interfac=
+e *intf)
+> >  		return;
+> >  	}
+> >
+> > +	usb_kill_anchored_urbs(&parent->rx_submitted);
+> > +
+>
+> The USB core disables all endpoints before calling gs_usb_disconnect(),
+> so this isn't needed.
+
+This is not 100% correct. There is a small race window, that the
+URB's callbacks have not completed. I'll fix this by first un-registering
+the netdev and then freeing the ressources.
+
+>
+> >  	for (i =3D 0; i < parent->channel_cnt; i++)
+> >  		if (parent->canch[i])
+> >  			gs_destroy_candev(parent->canch[i]);
+
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--ekwsdgna56i73eu4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCauBPnAAKCRDMOmT6rpmt
+0mWfAPsFl1MLE7QpUizLHq2sq/5RnZkerQrNKXXjmgZuNMvCggEAi+gLEGr1gfS1
+1YPQfzYKsEGvejWC//ZP3U2LjMPRzQQ=
+=sMYZ
+-----END PGP SIGNATURE-----
+
+--ekwsdgna56i73eu4--
