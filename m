@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793126203;
-	b=uzk24KmGN4oBEbR6jQSG1CI+VRz/yanfaMmGxPJgV7wKheXUAtKihknt3kWacFys0Nyq
-	 r41oWyKGPlsv/Fza1cv6Yg8Xx7S21tgdZ8IT9KlCYYRlZOQbvv4ZH6SpWGzUnD5Cu1rn5
-	 MEQqu8YpI8zbPhk6vPNwAop4vdiaWVg+cFIk9+x1T46Gu0eAhwKGr8tjhkz/8V1BRvVQB
-	 ua/P62vKV1dfOs2CQA46s+m/tQJtD1YI7kQP5lNIRSVwOhrPhUGWaIJnyNAQQompsCHrz
-	 B7ofcXS1H3h+PZ8SIVSvFbzyExLdjw8bUkviIOwY1zU4MiDE54oYuVyEaUlufLK9ekg==
+	t=1793126286;
+	b=e8aFiZJF2DZjTcdCcH7+EOz3oMyJcQPhNgmsy8XgD/gruzX4dWaBssd881izA/xJSrcW
+	 psrv7MGa216yichjE4q149laoWJUj1yKrl60YSFuAUcV1AcSl3AVfxDmLslVC++c88vzr
+	 zNohvC6nlZBp8LmQAXUwRSkXrPy8dIGEjeD/TOXSEaW0aPOzD9l/kzdP+k0/lZQE+DTy7
+	 lfv0lA1eHQOMfkHZ0pa22JPGCDJQgB4WCBKNitS6W1vc3lEb0YocQ/wKWlejpMCPcGuhX
+	 KVPeaSkijUffEA7R/eMjyqUTKHTD1GIH5W/NWxtLxKrbCF2/uIUfay5gbytEPOAuQdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793126203;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZklRgwYh2m/0QNgZqJewCA2TZqp2YQjkYuRuekeI+3Q=;
-	b=Q/IC/5hGBhDzU/Eu4RX4Dn0Nxd0d3Kqamm2xr97P9R+o32h01BJATrPx2OLPACAmekTc
-	 9R16V7gJ9bH94Q4HPMnhpx720ncaLXASInNJCLODRHAM07NolvgsUmh8UdIZvMX6I8XrS
-	 UvLk2S82IkSrB0P50mIgAJ1HJXv5tVu8Xe6uku9pRQMwFSnbq4ildzVUk6kA4vgOjnS79
-	 51UZnWWUwGp2k6IJkb6e8ql/Dc6A0eQkJjUjxjVB6xZ/uYiluFH/T/dOXLsen4mJQUheM
-	 Iw/91CZY8ry1aJcGZVohiz3pQXRZjMQFI8jxpRJjYpx+dn+cVwGiL6/O2szKoJMARNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793126286;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=I0bzisDBuTS1Q78ghbcJzWMDpiSkPusoR4glwS10mTY=;
+	b=b1jqR/YI0PyuIQ416cR21zraef/LkQ5qtxhTJ9zEoad+t0Rj18DwZkMkA+bwTrvxO68Z
+	 S501C3rJY7Ky0bbva2CqEU5SNLsTqfDgtudQEpNcbBAFwQReQQ7w67qwbICYJ7exNvXOp
+	 eRhBymSjOghNpRBGpC0V3L55R6ZJHcePjIdvIyFz04v1Rd2aepV9WIEZelMU2EBonG6Ld
+	 l7xsNgftHNtMNvrJ6GcCN78GpbQmtcNNjbsvd8TRk1ElB6Wc1+5sDa2yGK0zxN/OK9kKP
+	 layUECHtJenacSL+YA+zVW/OfaEc8emJe4ZHCHU75/boKeMzgCdV823iw7sVs6or94w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ky1HYNW2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=TbUvqJ65;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZeWGuxdf;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C58606A31D;
-	Tue, 27 Oct 2026 18:36:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFDA606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:38:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DFDA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ky1HYNW2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 157351F01825;
-	Tue, 27 Oct 2026 18:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793126202;
-	bh=ZklRgwYh2m/0QNgZqJewCA2TZqp2YQjkYuRuekeI+3Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ky1HYNW2CruhbVybe/rnHs0X6RATwdkRMNG2BuBWtm40/kJ0rqHPZY5l5zpU9qvH3
-	 eOofh7Ypl4NKKRR2BcUmFkCcczDbr9JSAtnsKi6PLkE4+buSKTl1z75zenDhGirl35
-	 JJwszMx2Nxg6QjFWuzxEa/EhQ37m+LWfA0nc46Hbur0fM+VfNCmm/dkEzN3kaPl8M1
-	 sdR3aXKK0dpzAL92kANIFokMqN6rbNxLd7F6QPCWg2KE/McTKl13CzwJwSEzwKgAuy
-	 AQBVy+OdOMXCjXi8/dS5TY+TterOkMT3QN7jiJFFpcpgC37YuDKoaGz1NFzYg8Jw5G
-	 JeEHXFoPqulew==
-Date: Tue, 27 Oct 2026 19:36:38 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aniket Limaye <a-limaye@ti.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, lianfeng.ouyang@starfivetech.com
-Subject: Re: [PATCH v4 1/2] dt-bindings: i2c: Add Synopsys DWC_i2c controller
-Message-ID: <20261027-masked-ultraviolet-kittiwake-7da8ec@quoll>
-References: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
- <20261027-tda54-upstream-i2c-v4-1-ebeeaf87d181@ti.com>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=TbUvqJ65;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZeWGuxdf
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 284C7EC0E06
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:38:05 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 27 Oct 2026 14:38:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793126267;
+	 x=1793212667; bh=I0bzisDBuTS1Q78ghbcJzWMDpiSkPusoR4glwS10mTY=; b=
+	TbUvqJ651iaEyGi/ny+upjG23e16fw5zdIUkVtuRWn3URuwJnEdU4o9bMfl14FfL
+	5qaJSQKWCTWS0JtPIKqy9J3QCnV3uOXQjJS3Axh2GIJfqeVQk8fx0SG3yXQh2Q7q
+	9uEXQSDEvW96qUsoX2OlxAutaSsZmbZvbvKdjQD7vh3cTokHneP/YLwRQ6mx6vo1
+	+nLnCFZX6z/QMZzzJToIMKP94lpBznGTIjLGKXK8eUCd7cudL/yhuH/fa/ZAhYpZ
+	iAmqZ2WtqLSy3m+pew8sv8wuhyGY5rFvPUCKhx5MzWMqWgFsMec+JKi+ZdACyTtW
+	/05UhOxvTHVLeDqhB1x6ZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793126267; x=
+	1793212667; bh=I0bzisDBuTS1Q78ghbcJzWMDpiSkPusoR4glwS10mTY=; b=Z
+	eWGuxdf9JHhw/xAFbEAvKql4PqmnFwJBiqQZ+KiMnZxILCOD3vf5VmxVj0/SGLs+
+	XaVnXjtmeIht119BNUzDz4t+OncAI/NxWbszSye3ZpEnkvWRUXRo7Y94pd/luomK
+	pjtxdv3XHivNOpy1sjX0kJcm/DehpqrxAXTqqtegItWeB/Rt/1BVsehdgo+7RLgh
+	87GYUjHHpq1DV3NnfD4xMoGZLru3zRuVwGyuokPthnhspiOnBU/F2QQf+MDM4Fyc
+	WQ90r2bzyx/TUsK1z101M9hjpz3CivbtFUM9TdM2yPvwot/0ylIOYuauqVofOwAR
+	zn2t/vxA94HBFZyE/TbQA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793126267; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:R8UMnCZW0Mjm6xdI9M1RXXsGjYj52LqgsWSxK33QsOmkSt8
+	MXdtWIINF+dCZcR0fdZcVQ2/CKfo3gs+TektV8PrLR/CCIUxIA8ASaJ5UzJeyQvb
+	z0VLEd7NxFeBttZDZNi+ZsvLWxm3/ixmCqrn1t+66Khui4xeDxhqgQX9NDLshRLn
+	TXTQtNc50FAutscmliGOSyDp0ZdDCCj+dAeRdTvvU18vfKkQv+icx2mA1p66zeLG
+	bQwl8onx3nZQ0sh6ZAYYTO5+etPUrgq+C5P9FSRp8B+JgsMS407lxEGd5MT1wIOF
+	aPamG/11ZA/K+AdK7jKimBz+zoG7kvHc53yf+nA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:shQIbZbfW2UplPxIlxdSmCWNC74DcI6YbtirgSmuf/o=:D04eJIdyxoeHJFFPd44xIR1K3XcUmM+8k3F2BW/mAYM=;
+X-ME-Sender: <xms:cO_ganAP_gJianBj89RA_0ymu92l5vyeJrdRXlM5JSGcRq7jPbRKDg>
+    <xme:cO_gaoUG2r7G_APiJ434rOh8LaWT-Gt85C6rUS7yD_CjWZknZm8jORKu3AI1oyj5U
+    cyIy0hcPvnLG_6H8OU2S1SScrWbnrY4QS0mw7Cg0IZx7dIUzaJdino>
+X-ME-Proxy-Cause: dmFkZTFUNM9h/ZpGr9ttM2X8UOAFboKzl/RmINxk15H4Mi8NcCXgrz/uu220pe/4VAqLoN
+    pk+9H7J0lh6wvCz9UicpjPpaiWzTAgQdD/n/jbGACDaxtn/pd3XG2WFPg6l72WZ9Si8+En
+    Ufv+kWWQcKd8Vl0cXqL8b0TyTnu6VaySRBaoSOjc9ARti/itUaDm8BqimvggRkmgVYK57F
+    JEsKvqk0Rx/l0OC6ZMF2NyGgW8ug7pC6KvlD0wJg87ldI1JPsrcpAz1mKZdK4cnqpI3ElC
+    5KKNTEa0TDVPolG2Q0uf9pBFK5uZcTKpsgMor/P2hTs3tbzlthg/Ak2gtMObhZ0WugGxmN
+    7VwSotz8GlwCuAiYttcv5kwZq4kjxAnO+labb698J3NdctOLWO55ULMYgbHqr26GZbYTkl
+    KPZimfM0Q8wCZPdBddGa9o457+OeYUHTRukTju6/Yk1d0fWWrO/s1HZujGcDXAn4m6eo5W
+    DpYVgCHi4/7ZYg5SCJ4vKvvNavD7VHPJki9UGgcJ24aTZx0GzR4gNGaki39OyZN8mL1Ym8
+    nHbQhxn7ndq4820m6jAsjBs3FbnATQF3H+DhA+6Irjx5NKADAUxjwBFwAdX+uFO42VB99E
+    wPXpjKL/MvmdzOkk579u3euThnauBoOP39gYNk3pGT2ptuLtFH92TXzfAiUw
+X-ME-Proxy: <xmx:du_gauVFp73xhY9ZqloV3_W7TMxNMUhxrX15mXW4sW-eU0-bGRVx8g>
+    <xmx:du_gat5usgQeLPkMC41z4NYB1DEfx0VWUFVIz8uOjLjjiTnyeUOeHw>
+    <xmx:du_gamdSdBav2pHiC02Zt7PdCqsuYQ2aD-jFSdfDwlR0AerLjT8J9g>
+    <xmx:du_garvpUo9uNooxiJI9rGbyYzzeygV319neqXWPb5iiKnsJUtsAAw>
+    <xmx:e-_gajDdi3PaFEuf93EVKyxYBA5dhAEL44TkcJY42_SyqdZWrW9K-qfQ>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6D78932A0097; Tue, 27 Oct 2026 14:37:36 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,107 +115,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261027-tda54-upstream-i2c-v4-1-ebeeaf87d181@ti.com>
+X-ThreadId: AOq_Oqeu6MIs
+Date: Tue, 27 Oct 2026 19:37:16 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Florian Fainelli" <florian.fainelli@broadcom.com>,
+ "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Jiri Slaby" <jirislaby@kernel.org>, "Joshua Rogers" <linux@joshua.hu>,
+ "Chris Mason" <mason@kernel.org>, "Josef Bacik" <josef@toxicpanda.com>,
+ "Tony Lindgren" <tony@atomide.com>, "Rafael Gago Castano" <rgc@hms.se>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Peter Hurley" <peter@hurleysoftware.com>,
+ "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
+ "Crescent Hsieh" <crescentcy.hsieh@moxa.com>, "Frank Li" <Frank.Li@nxp.com>,
+ "Sherry Sun" <sherry.sun@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>,
+ "Fabio Estevam" <festevam@gmail.com>,
+ "Manivannan Sadhasivam" <mani@kernel.org>, "Olof Johansson" <olof@lixom.net>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Peter Griffin" <peter.griffin@linaro.org>,
+ "Alim Akhtar" <alim.akhtar@samsung.com>,
+ "Robert Baldyga" <r.baldyga@samsung.com>,
+ "Thomas Abraham" <thomas.abraham@linaro.org>,
+ "Kukjin Kim" <kgene.kim@samsung.com>,
+ "Patrice Chotard" <patrice.chotard@foss.st.com>,
+ "Srinivas Kandagatla" <srini@kernel.org>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
+ "Andy Shevchenko" <andy.shevchenko@gmail.com>,
+ "Vladimir Zapolskiy" <vladimir_zapolskiy@mentor.com>,
+ "Al Cooper" <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, stable <stable@kernel.org>,
+ "Broadcom internal kernel review list" <bcm-kernel-feedback-list@broadcom.com>
+Message-Id: <4243bcc1-63a7-449b-ab8f-4eb901aec7ee@app.fastmail.com>
+In-Reply-To: <8ef10868-b203-4846-bc47-2d046805e1d3@broadcom.com>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+ <20261027-tty-llm-v1-9-99b0202ae546@linuxfoundation.org>
+ <auC-_1Er0Kp-Wq76@ashevche-desk.local>
+ <993d16f4-c8e6-4896-adf4-f7f36d937152@broadcom.com>
+ <auDb57N7KCqaTWW0@ashevche-desk.local>
+ <8ef10868-b203-4846-bc47-2d046805e1d3@broadcom.com>
+Subject: Re: [PATCH 09/24] serial: 8250: 8250_bcm7271: fix DMA address truncation to 32
+ bits
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 05:00:35PM +0530, Aniket Limaye wrote:
-> Add documentation for the Synopsys Advanced I2C (DWC_i2c) controller, as
-> found on the TI TDA54 SoC.
-> 
-> The block cannot work on its own and needs SoC integration, e.g. the
-> FIFO depths are not discoverable from the IP. Do not add a generic
-> compatible and only list SoC specific compatibles. The file is named
-> after the IP so that other SoCs integrating it can be added here.
-> 
-> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
-> 
-> ---
-> 
+On Tue, Oct 27, 2026, at 18:19, Florian Fainelli wrote:
+> On 10/27/26 10:14, Andy Shevchenko wrote:
+>> On Tue, Oct 27, 2026 at 09:41:17AM -0700, Florian Fainelli wrote:
+>> You never know this. The use of u64 is simple as that: it goes to HW as 64-bit
+>> value no matter what. Note, in the past we used to have a problematic use of
+>> dma_addr_t exactly due to its dependency on the data bus size when programming
+>> HW, and hence, based on my experience, I hardly recommend not to use dma_addr_t
+>> in this case, use plain fixed u64.
+>
+> It's not a hot path where optimizing for bus transactions would make 
+> sense, so I guess it's fine to use u64 and have the two halves 
+> programmed accordingly.
 
-Here you mention dependency on new dtschema (unreleased), since the
-property was added a few days ago.
+I would suggest also setting a 64-bit dma mask in this case. The
+reason that the temporary 32-bit address was always fine is that
+dma_alloc_coherent() is limited to a 32-bit address by default.
 
-> Changes in v4:
-> - Drop the approach of extending the existing i2c-designware-* driver
->   with a MODEL_TI_TDA54 variant. Instead, add a new standalone driver
->   (i2c-dwc-adv.c) and a new binding (snps,dwc-adv-i2c.yaml), since
->   DWC_i2c is not register compatible with DW_apb_i2c. (Andy Shevchenko)
-> - Drop the snps,tx-fifo-depth/snps,rx-fifo-depth DT properties from
->   the new binding; FIFO depth is now tied to the compatible string via
->   driver match data instead. (Conor Dooley)
-> - Link to v3: https://lore.kernel.org/all/20260925-tda54-upstream-i2c-v3-1-544d74e992ff@ti.com/
-> 
-> Changes in v2:
-> - Rename snps,dwc-i2c to ti,tda54-i2c
-> - Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com/
-> ---
->  .../devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml  | 75 ++++++++++++++++++++++
->  1 file changed, 75 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml b/Documentation/devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml
-> new file mode 100644
-> index 000000000000..7ad22536825e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml
-> @@ -0,0 +1,75 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i2c/snps,dwc-adv-i2c.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Synopsys DesignWare Advanced I2C (DWC_i2c) Controller
-> +
-> +maintainers:
-> +  - Aniket Limaye <a-limaye@ti.com>
-> +
-> +allOf:
-> +  - $ref: /schemas/i2c/i2c-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,tda54-i2c
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: I2C functional clock (ic_clk)
-> +      - description: Register interface clock (pclk)
-> +
-> +  clock-names:
-> +    items:
-> +      - const: ref
-> +      - const: pclk
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  clock-frequency:
-> +    enum: [100000, 400000, 1000000, 3400000]
-> +    default: 400000
-> +
-> +  i2c-sda-hold-time-ns: true
-
-Missing  default, constraints (minimum/maximum)
-
-
-> +
-> +  i2c-scl-falling-time-ns:
-> +    default: 300
-
-no min/max?
-
-> +
-> +  i2c-sda-falling-time-ns:
-> +    default: 300
-
-Best regards,
-Krzysztof
-
+     Arnd
