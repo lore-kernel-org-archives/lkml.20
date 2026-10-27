@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793060223;
-	b=bRfVw+irBIhpP4Hf8xLxRSbWOHngz9i88EkGrfjr0A79EOqU46vWXXZmepntQUpASfzd
-	 Ejo0B6fX1KoMbjw9mWKHtzBbVzjJ4St2jeOengyawbP/Zo9Wemn6QW2/biucGKsM0Scw3
-	 YWcWh4/urqM7zM+HN503XGyt0Dwgeq2HNE61TwCzkAWsCSiV9H816Odi4PomgRqr6HuJv
-	 CPW0ieigX2dRecODuTPHu/I/8zItPG6dZ3s8msZPw24eQMApz01yPC3LR0l882dMIbyyB
-	 KRw41m7uOPH+AXiI6JQQpZOLV2Yw/YYfYm5yT4NKLL4ASwCQCHwW1Z6FwL6m+mEA7wA==
+	t=1793060225;
+	b=YJ32/1nV9KVpK4ryJA/guTgz91fUjFopuDIj0xWkgzTzS/Ban33Y+17fXjXen2FbY94I
+	 yPTES0OcugWkX6DaphjHvwAcAPh7hqOknrBR9V5E6XWahPspwlGgSPHv+WJtN6aHBG1CR
+	 iZA+zsvx1Npk3tLf7lB4TnOUa7cIh/AjJ8r7J0tZ6XwB5a91Qhyv4FcvgHiZVl148ayex
+	 sTrKR95iYJq/UR6uI0BLLRqfWSHbLQApmddqtGZ4CuUE7V+YxaM/41INIGqGLsJBiKNsb
+	 au7B4oy9t708heShLpqJOVCSWOhmEROcOD0mqZhLmQL9Ke5uDSobmbW0YvERGqr9MfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793060223;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=X2buSjv8QkJzoYlyrpxwJTJC8kX1yUTRak0G8sS956g=;
-	b=mmpj8IrkcaDY9N76QF4zic4RK3/ZPLkhdLEc6SHdP7UGYMFYVCidTg7M8HVtdG95N3k9
-	 rmDAuyYpOF3W6Ru15xfGN4BYkZIxqN4n3IYQQystYzDq2BKu3NaJ759KhJyDQ6Pq2uJuM
-	 YMQgpGpkuHAz7LSubuxZS/bEI1EHoljOa3YyJOT/ovHWsfYYO5VyRDR7hrV7W6NroFv6z
-	 EoND5NG/0/eOcp1/G6I1gnuAo1L8GiOo9WxJVzvph7Wqx+bxHLca+p9Qn/RipcGphVInM
-	 /PoG0ZT9zTr9Vh5ZRKCxBux4aISG8djCloDWFF+cMp/gketGeskJA/iyUd6eq1Bxj0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793060225;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=6x9+N/COr+6pNBpUPwwvKfGBRH2EOtY9PmyW7dZS2UA=;
+	b=ZhwXu6ThyVwCuJOcwHSPkHqsyAc/w/jBk1vmRAJ3aAUhhQ6Yavd6l544x1P7CSjHKSL9
+	 lfHuCMHkSfvFQ/RvaiJ++6fHYQ+W/Ee0Q1u/4XbrkR52IHmB9TKRW39PcPBD4b0xfCapY
+	 ZBOaykpBfiEwwp4oOa9ZYoPEQItdQvwcpG57R3IXwhVFPtj7kG5JlUCO0sP3MhPwbR5CX
+	 qko5fKch9XfAI2/S95cxypmhjCmtkBaCEBn5fFh7vM9azqdReUFtSoDsP93dBQ7PKWJ2E
+	 V7ELWRvn5xhhn4gYI88CCDzuQVUb9Na+ANgHLunLRzW3ZAvkkvDY+ME2SUIP2mbUBCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfRHQhWF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CB4606A31A;
-	Tue, 27 Oct 2026 00:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GfRHQhWF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83A291F01825;
-	Tue, 27 Oct 2026 00:17:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793060221;
-	bh=X2buSjv8QkJzoYlyrpxwJTJC8kX1yUTRak0G8sS956g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GfRHQhWFkk40mOnqV0ZHgWI6xnJc0wKJVNuiSwLZ0/VdQptThZAm3s611gNBV2AgL
-	 Qg0ypTXikwBriNsdwH49+/ujj61JjZAwHOEgLrtCdr5Z30Gzsy6GXrKF/Tp8tDPBsN
-	 GWVOBM1YhNf+133bfEpKySml0bcj7V04HDFCh+1ZR0SpdwsypEfev58AHKJmhW/ehQ
-	 qgvazQ5nU+nOV3xttlro4pwyE6VVXWclWnK7gsd3xc8Ilnu/nQhjBrHUPTzgFQ/syt
-	 m1TGcMWksg3U3RsnCxU+DkNmAVRLCPsnl6d6SI9NEgSOezADiH62Ge38kj4UTYdIuf
-	 ZeXpBaK2gzcSg==
-Date: Mon, 26 Oct 2026 17:17:00 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Frank.sae" <frank.sae@motor-comm.com>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- lingyu.zou@motor-comm.com, xiaoyong.li@motor-comm.com,
- jie.han@motor-comm.com
-Subject: Re: [PATCH net-next v?] [PATCH net-next] net: phy: motorcomm: add
- YT8831 2.5G PHY support
-Message-ID: <20261026171700.06ce6543@kernel.org>
-In-Reply-To: <20261022054642.1332801-1-frank.sae@motor-comm.com>
-References: <20261022054642.1332801-1-frank.sae@motor-comm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5F1606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C5F1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b37620eb73so6278608b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:17:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793060224; x=1793665024;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6x9+N/COr+6pNBpUPwwvKfGBRH2EOtY9PmyW7dZS2UA=;
+        b=lrd0qDVT6jd8afahUVCEQCq44vIjyjKJenCIlGNvM4HjBYA8p9eLALZ8/q7CRavtZH
+         nVI9ofU7iMwp4CsKvvNAYtaSYc5YsQtbJ3mnB0MPq+GWtBSsoLy5chY21p8Ip5bzH0kX
+         5+1y5IHbo4u3SqT+kL4G5o9kaFkH4JlnsGXwY4+QsOXQTIQimwqFhc9QN7wETKlHqUTY
+         J/UZCXCLJIND1qfvCpdUGqOFO/mot6tqDcWQRbuY2RF87LXdOplJX9kotHBJp1x3ikY4
+         KjkjVP/Lbmkc/3zsPedXfLPpmAeOhI6kVcAQcXNzZxoGEvaMl5xsDO8TUIG8AaNqIQmH
+         o7HQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLIxMkrdnhQDX/UOyxb5hq8GibFu/il3zsEdoBnFzPoqTtUqygIvhs3tJOtOPo06iVYWh02TWj4YIKvTI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFAInZzjiEnaAPEn2MrIvTPZopCsoKq2QAxyCGx2onUgmj4JN6
+	58hkkl/q9yFlK8buYWbxRcrskQLbSgVux1PKuigCMuVwlyiqGMhfmahtRecgcKYbqP6eF7Tdrsw
+	9RFakMbAST+/nmCgNxL6RGRwmS8908Udho2UPQAspn+rMvTCcT+7a4yEf0aE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,41 +58,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:10ce:b0:4e6:db9c:9a7c with SMTP id
+ 5614622812f47-55c002ec88bmr4875116b6e.63.1793060224091; Mon, 26 Oct 2026
+ 17:17:04 -0700 (PDT)
+Date: Mon, 26 Oct 2026 17:17:04 -0700
+In-Reply-To: <6ad78978.b5bd089a.6b57.008d.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6adfed80.6200f071.51519.0efd.GAE@google.com>
+Subject: Re: [syzbot] [block?] possible deadlock in blkdev_buffered_write
+From: syzbot <syzbot+bd975ef54294bec73f0e@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, bvanassche@acm.org, hch@lst.de, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mzx199711@gmail.com, sunjunchao@bytedance.com, 
+	syzkaller-bugs@googlegroups.com, tz2294@columbia.edu
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 22 Oct 2026 05:46:42 +0000 Frank.sae wrote:
-> Add a driver for motorcomm yt8831/yt8821-vd ethernet phy.
-> Verified the driver in BPI-R3(with MTK Filogic-830 Soc)development board
-> YT8831 works in AUTO_BX2500_SGMII or FORCE_BX2500 interface,
-> supports 2.5G/1000M/100M/10M speeds, and wol(magic package)
+syzbot has bisected this issue to:
 
-## Form letter - net-next-closed
+commit 1b1be9ea4e34ccede1e7cf9ff2b6317328a5b6ad
+Author: Julian Sun <sunjunchao@bytedance.com>
+Date:   Thu Oct 15 09:11:05 2026 +0000
 
-The merge window for Linux v7.4 has begun, and the net-next
-tree is now closed for new drivers, features, code refactoring
-and optimizations. We are currently accepting bug fixes only.
+    block: take the inode lock for buffered write fallback
 
-Please repost when net-next reopens. There is some uncertainty
-about how long this merge window will last, so please check
-https://netdev.bots.linux.dev/net-next.html
-before reposting. net-next _may_ reopen on Nov 2nd.
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=165121e1580000
+start commit:   21a7f44fd076 Merge tag 'devicetree-for-7.4' of git://git.k..
+git tree:       upstream
+final oops:     https://syzkaller.appspot.com/x/report.txt?x=155121e1580000
+console output: https://syzkaller.appspot.com/x/log.txt?x=115121e1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=cb217ea80b9f9fe
+dashboard link: https://syzkaller.appspot.com/bug?extid=bd975ef54294bec73f0e
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1634b469580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=108dd695580000
 
-See:
-https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+Reported-by: syzbot+bd975ef54294bec73f0e@syzkaller.appspotmail.com
+Fixes: 1b1be9ea4e34 ("block: take the inode lock for buffered write fallback")
 
-> +/**
-> + * yt8831_set_wol() - turn wake-on-lan on or off
-> + * @phydev: a pointer to a &struct phy_device
-> + * @wol: a pointer to a &struct ethtool_wolinfo
-> + *
-> + * NOTE: YT8831_WOL_CONFIG_REG is common ext reg.
-> + */
-> +static int yt8831_set_wol(struct phy_device *phydev,
-> +			  struct ethtool_wolinfo *wol)
-
-Please run scripts/kernel-doc -Wall on this, the return
-value must be documented in newly added kdoc.
--- 
-pw-bot: defer
-pv-bot: closed
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
