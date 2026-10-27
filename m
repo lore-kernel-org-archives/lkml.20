@@ -1,133 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111619;
-	b=3AMM5Dh0q2UQkdnuzHIj4wnb0ktvOkh/Lowwobp0KLjUpm2CTPPVu/90iy1p/3ptHCBu
-	 JfOMR/FSw2HYFZi6CYsb9+eVNUAqm4/KfNrD0IgsC/mhkqBj55Rr8dMspwK67KCdse8KE
-	 7I4wuoOpeC06uJsExTrzSlrfLuPFLGE74g2vKGXqTgUdrSfGVZT6h6iHiO/K2qGGDE/ni
-	 oRzAKMnwrrX9wWFqPr2manmJK6jYRBKE/pPy1Yd+zpnGpZ1NJtzDE8MMKgWiZdkQ8Lg/s
-	 IATvIotyDN78g8xo2vw2m0RC1YmGgmoLBld3gR+rK96uJ0jE0zqgZ2Js9sEDFTIJZTg==
+	t=1793111668;
+	b=PKSDMlt1/Z0pTuDdP7NRt4pqeQoHpCVNZw4D64Q7nKH7SdjNdd97MUnQjNESsZVfQggf
+	 ipRkOjnb9jSlnYMRigI8I00e8FX6PMXCOCyOoXp0VePnzHxsfq00QzAoXYroTTIbbmerY
+	 EeBBCj7hBUvVfl/QhomfwwdWOy198qeObFQBQHU9Mpmf3bp7IZvSOr1/TdkuwYo31d+xK
+	 CJMEHa7Sb0h4CQCgp3f133Jb7sEyyehESpdPtIwRXRG4q49EqvsPtbx+GwhwQ5EWu5a2s
+	 SsYBUCsb+tNoe04MCMmHqjsi1zVGJUIM5pK/5NEz2Hbyw69LcN02N3T22WGfoUfrVUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111619;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Received:Received:From:To:cc:Subject:In-reply-to:References:
-	 Comments:X-Mailer:MIME-Version:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:Date:Message-ID;
-	bh=jdM4qcBkP3IM/VUJ/lLqwtGE0kuScpYqXF0GCIsfZJ8=;
-	b=L8isX9acjaQsM8K4g4Nt5lskgRYFiWcYRo2hozUFSVGRmXzIYsMyZ1ZHVSvyf08Hsejm
-	 IgmQrGnbBa3yl4rRJFWSJNPD1qhSm2vkSeW1MwMn3oWUFk8sqVjrL+BhSYcHu+KcjPZmE
-	 ZHndm/nj1bPSGLpBK5fj9eFGRyX7rA3dp5bxGY6MXkDqoOQTnoQYHugNzk8KRG4xuyRC+
-	 y/pfOC9987DFfruGgd9I6qEi/6VzDZfagrXqmE8Y8ldUR6aG4JOvNktBNiCC52oqRx7DA
-	 Us0ZLug6id/i0fEBD3qcHE6lYWnFcq+2gEIXNU+kZk/C4VkNYtYxs8mo8NMyHRzkIIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111668;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jT5PzdDfgSIDiw7yKOw2jNJK4YORQrPPmHqOm/sh9Ao=;
+	b=0vHNj6DdlDd5hdNiZXZ71bCbqrZjenjcUQ0SuKpH/IJ+Ojh2k8JanCfUqc7xZWVxmsHb
+	 kmRIzLZ8YkYeJFfAEGyNhDAICIwQvfHSpzfJqNz1A5JjWOSOMDHfUet6z+P1RbjUTSC2+
+	 76t43h/2zpVXLuDGnvVzoUJdw04+a9mZQP2e25BB7zRKJD6i/GVfx+VKVG8t7fjiPByg6
+	 E90I4erUsQo3RbWmGb+b65P9bzSR0e/SU0iwLe4L8ejPQcZNM4aTV34q3p3lPcNp81d+3
+	 cNadzpCvmD7EzdnHBl4BOZC++M1H5FSlN9xHpscuVIZ0BSpVLtcXozce6S/9QjjHgrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jvosburgh.net;
-	spf=pass smtp.mailfrom=jvosburgh.net;
-	dkim=pass header.d=jvosburgh.net header.i=@jvosburgh.net header.a=rsa-sha256 header.s=fm1 header.b=HQkMeeud;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pO0MwPvO;
-	arc=none smtp.remote-ip=202.12.124.144
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofxZWAjz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29334606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29334606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jvosburgh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jvosburgh.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A0E606A31A;
+	Tue, 27 Oct 2026 14:34:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jvosburgh.net header.i=@jvosburgh.net header.a=rsa-sha256 header.s=fm1 header.b=HQkMeeud;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=pO0MwPvO
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 7CF501D00151
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:33:37 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 27 Oct 2026 10:33:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jvosburgh.net;
-	 h=cc:cc:content-id:content-transfer-encoding:content-type
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm1; t=1793111616; x=1793198016; bh=jdM4qcBkP3IM/VUJ/lLqw
-	tGE0kuScpYqXF0GCIsfZJ8=; b=HQkMeeuds0blzhA+A/qnDXULpHFQa6Om1dqqA
-	PNb72f63zZVb6nT9oP3o5OWAeE7xvl1XtRDemzw6eJHNou1K5tdTI5oCwBCwd/LN
-	9YaSHtLh3w1mq8BrolJ3Nckd4mxFE//F0DFwloru1Mofjfs/y10NWsCl/w5JlpU0
-	Kv1dma805Y2e7g60woB29jNdVxnIQ+ti6aAloozQCzsKoNYVo5tQJgPWfNjPscVG
-	ldFSBlNA3GUI0Ke4ntL7WPWLjkYvPHu/b98NgPUWG62Nb0CblKti1YFqYpempkY6
-	a02AL1HSU/SZV9T8BtsXTFEKTZowf7MM/OCpaO1bd2+NRNOWg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-id
-	:content-transfer-encoding:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793111616; x=1793198016; bh=jdM4qcBkP3IM/VUJ/lLqwtGE0kuScpYqXF0
-	GCIsfZJ8=; b=pO0MwPvOsUI3LVkdnziLGI6syc6WGNwLpxBCyAcOyezpCaaxUez
-	R2WffuE3lRp9Mz0qqXDHqTlKz5fnnRWXk6+2ibXRSiLrOrfHynJrpvZUO902UiOK
-	DzrLkm0Q4+3jVJrsx2NEYIlonCOk2K2+P3AnBGyVtgohRioMVcthn3c6l4laNFIX
-	6hOnBiHnDQTpHu9mlnLQ6GXpcw6vfWVJu9fYwQMbtPFYLOpX+KI3Y5ZwzAJSABgW
-	Vhe1a9BC/gaXYXNY3hgM5qAG9O7J1pPU/b551PymVAuoSqx7U7D5B7oGnCCtE0Mc
-	6YcUjDboBZFgapJeYXHkZNnEyugeKoFihfw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=jvosburgh.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793111616; d=jvosburgh.net;
-	mf=PGp2QGp2b3NidXJnaC5uZXQ+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:HcDklV+sSxJq+9HlNHIoh8+N1JLKP5t6WXFD4gpcFWI4/J8
-	0fBPDykbZaRvmXKEhpnGygfNiSwGybarigdz0ZmxHIy4TTUtzPBYlqweMowcmwVr
-	5hj2Qwqyb8JeCpzvynNSDSke+/52tQyZaSSIj0YQk6tLNcKOOzpuE20jRcIlz+ok
-	JK2JBq2tbOKi6+854oHo7NfcQoKm27fYbeeOG7XMtpUn88W4XGY2D3vUgDZTaOFO
-	U8XOaBHr4+uGuVviv+NnqC+Nhac5LAe9Mup5l9KFwUGsUhIJVWH/an/tlldHP8fl
-	HHY3No0VedkgaFjZDJTl+FdlV9wN0i6OC2uzDqQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,comments,content-id,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:zdK+Mf8diUOjj8SMr4Shh3pnY0Rw7TAJlTMN6WzwWh8=:yeVHK8VMzd6RNxvLvncI2QW2CGJv8E7TgGv6nRb+Etg=;
-X-ME-Sender: <xms:P7bgah47vVh_vtLckqsvYB7ug621i24WR0H-g3nYkrasoe9RN3HL2w>
-    <xme:P7bgatKlz7FjCs61FwttQX8b_nqLh33gno1AI8bLbJRZp2Z_R0nnc38sTvLOgx0jZ
-    PUPT5EJkts-5sdxvI8cbKuKoGWbA2aj_4oDaaRnqA3WWQZ94ZaSTvUW>
-X-ME-Received: <xmr:P7bgahyKSjXSfN-g3klZw1N3e7gB2e36bYOMSMg2rSXqJy_-4ijPRYNOlzr4PfQjMbWYLGI>
-X-ME-Proxy-Cause: dmFkZTEo3giUd1iRoB5M8ubjAJnUph9QOqszYRsamVpVSMDt4/tIH/8DTzCOvv+4rxCWSo
-    s4IM/o9fDJbPv6umbK8ZYC4TpT1mCIN81NaOw2WlJlzkgR5fg6DETUCmhbSagmOy3rfVE7
-    fhYHBwTt45jHucSM/1+UC/FMyi6hEbTQq8ELQzZtJNN2F5QyfsgkIHyEBcERAFlBSQTtI/
-    DoZ9tXn5vrtTyp/heYgny+Vnj9oog2WbMDWR5mKyhil9EhXIH9PRz5cXC0MlaFLa112QbK
-    CPkimVTeMsPoV8VB2iBDM5JCNIliA4Rxryug8NdPTp19zve4mQhnvLGJ0xMlYrviIsihhx
-    BlCiT8WnT82vJ9QbsiHOa2U/TpVnPXThmnP4mdn4bhM58FUoErbu2aIP6nHx7ce/UoLrPK
-    U/ncJpuu0s1w9oKIl6M2XOF3ycyIutX7uMX9XDq7dVtXt/hTOeLqVxy4D+gdm7RabBJ6/L
-    a/LYzN951+/msKvngPEwWh4euT2mtaVhtLUSjP24b+m2g5VpJkf+JtTu0JBoqUxeEa3saX
-    IZoBasPVfOTx0lTbD5L2t5R9oS/RVuATmkwmOmRdwX3hF8xFzwRUGc4Qz+I1sNh84VT+xX
-    3wGWhS+qskggoB1a4Hw07a+vvEbhGNuVlXi13s4iEtHlpWfau2n/rCMmvHcg
-X-ME-Proxy: <xmx:P7bgatLIhjka4EIvrvQSz6sNg0E-JrJHkKiUSsLD-ZnrdAF59ybb2g>
-    <xmx:P7bgaoVIM6QabC0JTJ8rFbQTZ-7GDDk_vHUjkBLvUUWefS2mudDAoA>
-    <xmx:P7bgaobJyuqR7Oi8foOrZpjvLnQc4EeBMuXBnTQXc14QFq95hCQIHA>
-    <xmx:P7bganxrP-32bq-Rzu4nyxOo9r6dz3T2EVUqN0p0pXApXM9jAbYUHw>
-    <xmx:QLbgarYK1P-ovsO6HCo0ahcR2pEkFw0Kk87VMw-UdM2ZH4sQ3BQ6WPmh>
-Feedback-ID: i53714940:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 10:33:35 -0400 (EDT)
-Received: by vermin.localdomain (Postfix, from userid 1000)
-	id 66DE71C0432; Tue, 27 Oct 2026 07:33:33 -0700 (PDT)
-Received: from vermin (localhost [127.0.0.1])
-	by vermin.localdomain (Postfix) with ESMTP id 662131C024E;
-	Tue, 27 Oct 2026 09:33:33 -0500 (EST)
-From: Jay Vosburgh <jv@jvosburgh.net>
-To: ramses@well-founded.dev
-cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-    "David S. Miller" <davem@davemloft.net>,
-    Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-    Jiri Bohac <jbohac@suse.cz>, Eric Dumazet <edumazet@kernel.org>,
-    netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-    Nikolay Aleksandrov <razor@blackwall.org>,
-    Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net v3] bonding: fix initial last_rx vs ARP-monitor slack window
-In-reply-to: <20261027-bonding-last-rx-v3-1-54907f1fb042@well-founded.dev>
-References: <20261027-bonding-last-rx-v3-1-54907f1fb042@well-founded.dev>
-Comments: In-reply-to Ramses de Norre via B4 Relay <devnull+ramses.well-founded.dev@kernel.org>
-   message dated "Tue, 27 Oct 2026 13:23:29 +0100."
-X-Mailer: MH-E 8.6+git; nmh 1.7+dev; Emacs 29.0.50
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofxZWAjz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA341F01825;
+	Tue, 27 Oct 2026 14:34:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793111667;
+	bh=jT5PzdDfgSIDiw7yKOw2jNJK4YORQrPPmHqOm/sh9Ao=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ofxZWAjzBSDFYLkpmGfOLauQU+NoDFF1w3Ek76wI1nXGUsv0zzNXJ+zCnaFM7bJPV
+	 GJOzlv8CDkYDWulZ+lD+kUO9maG4FYmEixWuDFMiUU8D99DcdSqXUS6k5FbVC3wXQP
+	 l9zyaenp8OwlRk3FPOxoq4JeDWm3di7YlC9j+x9hyPkjeSwHh957dKjIfDyo5Q3+Cd
+	 Z8n0dwxXqAL34LqNtn/uqKoB0iDMLSU3yAkNZwqxfozUy6SYH2xr5hR58yDgc0ayAV
+	 7WjarZVDCVJebhdRjWUciP/QuoOnWhelQwyo9Sl4e4YVd3W4NEMQnVkIq+cU1X1MDu
+	 HaNL3gAWqJn/g==
+Message-ID: <c58c89cd-94a5-4776-b186-44c4b1b3c3ab@kernel.org>
+Date: Tue, 27 Oct 2026 15:34:19 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,117 +51,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <74902.1793111613.1@vermin>
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 27 Oct 2026 09:33:33 -0500
-Message-ID: <74903.1793111613@vermin>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: display: panel: ilitek,ili7807s: Allow
+ backlight property
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Arpit Saini <arpit.saini@oss.qualcomm.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ venkata.valluru@oss.qualcomm.com
+References: <20261025-dlc_backlight-v1-1-1d1c49c3e101@oss.qualcomm.com>
+ <20261027-fantastic-benevolent-boobook-272a9a@quoll>
+ <auCDgewe04WKbamD@hu-vishsain-blr.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <auCDgewe04WKbamD@hu-vishsain-blr.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Ramses de Norre via B4 Relay <devnull+ramses.well-founded.dev@kernel.org> =
-wrote:
+On 27/10/2026 11:57, Vishnu Saini wrote:
+> On Tue, Oct 27, 2026 at 09:12:27AM +0100, Krzysztof Kozlowski wrote:
+>> On Sun, Oct 25, 2026 at 12:18:17PM +0530, Vishnu Saini wrote:
+>>> The DLC0697 panel is lit by a separate backlight device, which is
+>>> referenced from the panel node through the common 'backlight'
+>>> property.
+>>>
+>>> Declare 'backlight: true' so the property is explicitly allowed by the
+>>> schema.
+>>
+>> Why do you need to explicitly allow it? Since when?
+>>
+>> I see no benefit of this patch and commit msg does not explain me what
+>> that benefit would be.
+> It is required for below DLC panel, when enabling backlight using gpio-backlight driver,
 
->From: Ramses de Norre <ramses@well-founded.dev>
->
->bond_enslave() seeds a new slave's last_rx with a timestamp old enough
->that the ARP monitor does not consider the slave up until a real ARP
->reply arrives. That is the purpose of the seed, see commit f31c7937c254
->("bonding: start slaves with link down for ARP monitor").
->
->The seed is one arp_interval (plus a tick) in the past, which was just
->old enough when the test was "jiffies <=3D last_rx + arp_interval".
->Commit da210f559019 ("bonding: add some slack to arp monitoring time
->limits") added arp_interval/2 of slack to every such comparison without
->adjusting the seed, so the seed now sits inside the window instead of
->outside it. For the first half ARP interval after enslavement,
->bond_ab_arp_inspect() therefore sees "received recently" for a slave
->that has not received anything and proposes it UP. This happens for any
->freshly enslaved slave, independent of primary_reselect.
->
->When the slave is the configured primary, the still-armed force_primary
->then makes it the active slave. ARP validation fails it shortly after,
->since the link has not received anything (on SFP+ ports the PHY is
->often still negotiating), and the bond falls back to the backup. With
->primary_reselect=3Dalways the bond recovers once the port really comes
->up, but drops traffic until then. With primary_reselect=3Dfailure,
->force_primary has been spent and the bond stays on the backup.
->
->Reproducer:
->
->  ip link add bond0 type bond mode active-backup arp_interval 1000 \
->      arp_validate all arp_ip_target 192.0.2.1 \
->      primary eth0 primary_reselect failure
->  # eth0: SFP+ (slow link-up), eth1: RJ45 (fast link-up)
->  ip link set eth0 master bond0
->  ip link set eth1 master bond0
->  ip link set bond0 up
->  # bond0 lands on eth0 via force_primary, ARP-fails it before the
->  # SFP+ has carrier, falls to eth1, and stays there.
->
->Seed last_rx (and with it the per-target array and last_tx) two
->intervals in the past, so it is outside the slack window from the
->start. The initial link state is unchanged, it still comes from
->netif_carrier_ok().
+How is it required? You did not really answer, so again:
 
-	If the missed_max bonding parameter is set larger or smaller
-than the default of 2, is your seed of two intervals still sufficient to
-resolve the problem?
+Why do you need to explicitly allow it?
 
-	-J
+Answer starts "because ... " and you provide technical arguments, not
+wishes.
 
->Fixes: da210f559019 ("bonding: add some slack to arp monitoring time limi=
-ts")
->Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
->Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
->---
->Changes in v3:
->- No code changes. Rebase on current net.
->- Reword the commit message along the lines of the v2 discussion: lead
->  with what the last_rx seed is for, state that the false UP happens
->  independent of primary_reselect, and that the initial link state is
->  unchanged.
->- Pick up Reviewed-by from Hangbin.
->- Cc Nikolay. Hangbin asked for a second review, Jay or Nikolay, would
->  you have a look?
->- Link to v2: https://patch.msgid.link/20260827-bonding-last-rx-v2-1-7c38=
-33822c23@well-founded.dev
->
->Changes in v2:
->- No code changes. Resend with my personal name in the From and
->  Signed-off-by lines instead of my handle, as requested for the DCO.
->- Link to v1: https://patch.msgid.link/20260817-bonding-last-rx-v1-1-9da6=
-f7fdf812@well-founded.dev
->---
-> drivers/net/bonding/bond_main.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_m=
-ain.c
->index 7019e5d8fdc8e..269384fadfa6f 100644
->--- a/drivers/net/bonding/bond_main.c
->+++ b/drivers/net/bonding/bond_main.c
->@@ -2123,7 +2123,7 @@ int bond_enslave(struct net_device *bond_dev, struc=
-t net_device *slave_dev,
-> 		new_slave->link =3D BOND_LINK_DOWN;
-> =
 
-> 	new_slave->last_rx =3D jiffies -
->-		(msecs_to_jiffies(bond->params.arp_interval) + 1);
->+		(2 * msecs_to_jiffies(bond->params.arp_interval) + 1);
-> 	for (i =3D 0; i < BOND_MAX_ARP_TARGETS; i++)
-> 		new_slave->target_last_arp_rx[i] =3D new_slave->last_rx;
-> =
-
->
->---
->base-commit: f75062536e2d45ee182828f0e47e0124be2fdc8d
->change-id: 20260817-bonding-last-rx-0303fa048f9d
->
->Best regards,
->--  =
-
->Ramses de Norre <ramses@well-founded.dev>
->
->
-
----
-	-Jay Vosburgh, jv@jvosburgh.net
+Best regards,
+Krzysztof
