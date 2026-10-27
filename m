@@ -1,67 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106242;
-	b=G+Pe+g8kntFCKHlOjvIpvYIrH4AUaYUMU9rQW5xwPvt/P3WNxPWpNdnBqVyqwaPl8jgJ
-	 kdBiOYCEJA/NO3JjkRDxeHSYZNzHMgWEMOe6bYt1ID2OBB9Bbiyp8oPd01JiCxBT03QMx
-	 OM4HXgXXwOB20Yv7YA/MUTHTRlysde4f5Ma0z/nobl/3az1rcjxnaUHl3cIeNwWzJ7Tg4
-	 uqszhp79usCF+GHlRBfYsNLlLFNo2gJUtyTmaFyBaoG0Wq5vCXi9U8hzI7dR4CjiO50l2
-	 N3IL5sNR5aPr22I2XR5il2SBhVepAWXtJ6RaHuu2p7r7mC2BcHs87i8a5HqOZUphvkQ==
+	t=1793106244;
+	b=Yhob3ieLDqaAkNhE+uGwrivOL/Fuibh3Ba7QgxwCVHoRtlKgb4B3ET0sLJE57zpmRRRg
+	 sNbYXc852sZFnDHCCJPos29JeqRzpTmQqaJ8dI/FRdIajnHj5i5tB1My4Siw2gXkcn0mr
+	 CJeMTphIT/tG3rcIOt3ioyTyxRor+GEM03BCUWKVkHl1lNNgWc4SkK4sJcFC5+mSEJYaM
+	 s65hXyR6CbV31R9rkBnoMNOKSsgccC02x9+jztpdI957864Va8b2JboAGoutDXrPjSZXX
+	 vgQSk7VTYWZu0SwCQRqpsRHcElC7yZ5ktwt5oLxIB3EIK+qlAbZVSfp6YKvG0ZQBoSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106242;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FMz8RaablssnkaAiL4pJE/9wSU7Jo/15ZzYihMTah+w=;
-	b=aOlynbBavBhq+ZdEkfvhjtlth9wGz4Xl9t5HqnP0A9Gqb5mm8ufYVcBJIJhWfwCI5Kzy
-	 pkf4759ovfxHNMdE7rEMLFRUdjhK41Qn2dPjkL5VfPwS7cXXk4d/sIE3TelQvI0ShYSYV
-	 XN/lnMkdHoxvxhoQubwzqEt+Z1kbTip56DJGz7M942hLKE3HK4L12UjyxxP+JQa2cEEGf
-	 svjafMFZltNVJ5+f8JnInBDSESVX/b5lpW7eU+r4cwOu0Fx8TtBM9rG7F2Pi7r/YSl9Kf
-	 18KxIjG0UJ24dn3tA1F3JYqrpWJh4iw7cmlNM1kIFhXopbzbAnRkXpH0Wh5PCeymXJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106244;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=/wwGXqxRc5YvwerZOSnrubg9QNwrCXY3rCABuj1vruU=;
+	b=uRwopjRUYxLHnR8Yq9Nb83cVZ8vTsjdLRjVa7xePR8tttTuHbAydqKODiKn15rhxzBL8
+	 lrRxc4G5kTKlOQUctORg7kTIsHkEt2tiLKKr4GTaES4Q94YVmGBjNV7LWq7K2hABrakGX
+	 Pp3UdeDytjguEkTF8blzoIOj+9juG0wN4v9/alu37632HIROJhf4PiZ+F+RxWdkcLPeBl
+	 jdIz7NZV+PhDuluZ/FtRaQe8CHJ0Rmp5f3EUqq3PrJkQXm568Lx29GlEHxW18ph+k0B0D
+	 0+GgOS6I/32gKptrl1TwAh1wr86ZldsxlvRtOdn4F6GapvyuY3doSzdqIs0FN5URS2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	dkim=pass header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=lJU48JOL;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drswFaK1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B706606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:04:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B706606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FE0606A339;
+	Tue, 27 Oct 2026 13:04:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=lJU48JOL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
-	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
-	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=FMz8RaablssnkaAiL4pJE/9wSU7Jo/15ZzYihMTah+w=; t=1793106240; x=1793970240; 
-	b=lJU48JOLfu+RkNkruGJQyvIE+ytc+mY/H8XNJH9O1/majuGJkRbLx/2S4aoErDHyxI0zmbSBcNI
-	MGMmWrFwvnyh5Vm0PzTlE2Qg6eTxixeD6ok2Yr4HzpLxbCO8XAecG0yWL2Fjcx/jw2Vqc3fTU9Ocm
-	hQ4Y83xmNNOb52tThzmCzSQJH7nKFIBlX6449sorQk5W/tdYW4g5bWX2b9rktrvF6+5zw7cT2q8Bl
-	qhgYrg3uxi9Fj/EmltxvfV1ihsxDM8EASgjfs8c5U6h/1Nnx5s+37BJ9Bxptr3ytAdpxYR0Fj58M7
-	vJf4/dgURy6iBB2KqxQDAeKZIfDNBCbWZvhQ==;
-Received: from mail-dl1-f42.google.com ([74.125.82.42])
-	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xLgqN-00BKP2-7h
-	for linux-kernel@vger.kernel.org;
-	Tue, 27 Oct 2026 09:03:59 -0400
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-18cdcfc05ffso5050353c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:03:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwqtKr8/orGnQv9Dj0Po1Fzu0V3xAldAjtwBUnCW1oTIVHD0zHP//puJ8P1OoNzIRjuXaJHFv8jbJrmCmI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqwWIg0ok+f5FsvswXG33U3D2ZboFQdUVj7NeGh/IGtWcLwbnT
-	uGQ7r4mPW7fF7hugb8Ypd0EVDGy8kHIzSnaNBh64yyqSRRHMXnRtrKtnWI3dLpNbYl2GDFUQAkK
-	OoVgTsPpkypFDhWV1lwXTsbviONHJekU=
-X-Received: by 2002:a05:7022:1407:b0:1a2:1a28:9348 with SMTP id
- a92af1059eb24-1a21a289389mr5533672c88.37.1793106238250; Tue, 27 Oct 2026
- 06:03:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drswFaK1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209301F01825;
+	Tue, 27 Oct 2026 13:03:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793106243;
+	bh=/wwGXqxRc5YvwerZOSnrubg9QNwrCXY3rCABuj1vruU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=drswFaK1ZVzCJ1irJvFYIsaU4ismpcQekcE0Z8MKJh1B4DRmMJDs39Pa0nAYrFC7G
+	 UMBRfFrGSO1JDe32pi+uAm6MHftdlYcnFZ2WCCR77sIBS17hJUb4M+hQRdgYg2Akv2
+	 sfs06vlX7NTuaZCxZ1RJiBzloKNdxNeRX8inZcYW9GnQiZYEsgyKjbt49kb0uUkcjP
+	 jmtdYPbwAxatCFIMWJBz/WHjoiRhBRkzhvLnEOmkvH7D28q3RnM0Qi77sDkHullbom
+	 PUiqTu72Zjws1z4jPr5Lg+DMz0F/fukgG03TKQ9wC6b2sxraGeGf86bS9d7E8hXl/m
+	 8DdSEQwH8Hnsw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 27 Oct 2026 14:03:10 +0100
+Subject: [PATCH v2 05/14] hugetlbfs: enforce F_SEAL_EXEC in setattr
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,31 +52,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025124657.836229-1-nickolai@csail.mit.edu> <auBtGChHjceaFJ6E@jlelli-thinkpadt14gen4.remote.csb>
-In-Reply-To: <auBtGChHjceaFJ6E@jlelli-thinkpadt14gen4.remote.csb>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Tue, 27 Oct 2026 09:03:45 -0400
-X-Gmail-Original-Message-ID: <CADGQE7F9fqReoMRzZoT-KyftPmTpk-ez3moGVb0vfm3doSoOFg@mail.gmail.com>
-X-Gm-Features: AclHuK-yY1uKuDcujW5r3dTswGD4w9n3PH6dTdqljm6t0Ut53Z72oPU9UFlAkgQ
-Message-ID: <CADGQE7F9fqReoMRzZoT-KyftPmTpk-ez3moGVb0vfm3doSoOFg@mail.gmail.com>
-Subject: Re: [PATCH v1] sched/deadline: Fix this_bw on class change of a dying task
-To: Juri Lelli <juri.lelli@redhat.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Luca Abeni <luca.abeni@santannapisa.it>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-fixes_shmem-v2-5-86a00952acb9@kernel.org>
+References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
+In-Reply-To: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>, stable@vger.kernel.org, 
+ Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1810; i=david@kernel.org;
+ h=from:subject:message-id; bh=kN0V+ffVNdzTEb4f73Jhvx435CzQjTpPxsBtdWyTB48=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBQ8yHgyKLi9WZ9/7ZFvJ8TePtXK+CCaxb46eMKLb
+ yqLd3+u6ShlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAiO3UYGWacUdZ5rrbJwuGG
+ xP7OBfNuKU4qZQx6Ha1fHeGykOnmXHlGhtZTJ+Ujs58mPU60ifwdZZa4+t71dWXSU5awHy7d/8z
+ fjxkA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Tue, Oct 27, 2026 at 5:21=E2=80=AFAM Juri Lelli <juri.lelli@redhat.com> =
-wrote:
-> I adapted the following to the set of other tests I maintain. You can
-> find my attempt here [1]. If you want to create a MR please go ahead,
-> otherwise I will merge mine (if you are OK with it :).
->
-> 1 - https://github.com/jlelli/sched-deadline-tests/commit/ccea314c39957a9=
-35113f6a8c058690a3a48133b
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 
-Sounds like a fine plan to me; thank you for picking this up!
+F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
+not check it. As a result, fchmod() can change the execute bits of a
+sealed hugetlbfs memfd.
 
-Nickolai.
+Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
+to execute bits when F_SEAL_EXEC is set.
+
+This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
+fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+
+Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
+Acked-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: use common helper; fixup Fixes:; check only regular files ]
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ fs/hugetlbfs/inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index ab1e4dec3f77b..1fa05b4d26531 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -28,6 +28,7 @@
+ #include <linux/folio_batch.h>
+ #include <linux/fs_parser.h>
+ #include <linux/mman.h>
++#include <linux/memfd.h>
+ #include <linux/slab.h>
+ #include <linux/dnotify.h>
+ #include <linux/statfs.h>
+@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(struct mnt_idmap *idmap,
+ 	if (error)
+ 		return error;
+ 
++	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
++		error = memfd_check_seals_mode(info->seals, inode->i_mode,
++					       attr->ia_mode);
++		if (error)
++			return error;
++	}
++
+ 	trace_hugetlbfs_setattr(inode, dentry, attr);
+ 
+ 	if (ia_valid & ATTR_SIZE) {
+
+-- 
+2.43.0
+
