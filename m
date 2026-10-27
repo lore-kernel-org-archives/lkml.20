@@ -1,129 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793085995;
-	b=Ir6VuMyXlPoPSl5K5nsd6Y4T1gJE522xSOgBGM9Qju1f5zC0DN8itauiZ5j39xDtbdtv
-	 2pDtMIVpbA5ZlcIRzvprexkX413IA2Qkc6/BGSt6M+SojeRgD/sSJlPH7M+rkrcE55k2I
-	 UQgu8FnJz8MMN1rtbFIFcQOdOGKXbdq4b3+136bi04YN+tobST3okstPAxMyjrbHUpk6+
-	 ZqkgdkgyzsuBn+w+4akei6RI8ohd7QqyO20dxC6e7G/A1I7R04cIHxXVPfrULFUX/XKyt
-	 XmPzUG/SxobNxQXCmg37FafZpxi8j5jc0QGExnaYchujuGtxMPQJVPiSgrpApdtuS9A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085995;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=A6ZE8RXfiMqWAVaIgHo9MCcOUOKTx0cS80JgbYtzqDM=;
-	b=ROSTf0b9uoFfqStKeGfs0PtSM2nQnRQZDjHVtKDNG2lYxjRzYnqThUsgw/UaM5pEYbfG
-	 2FT6RBGJKmDpBk3Wc/cXaMyoIjx/LiBtClVoci64Kb9/nu1MjleUgjRdbj5R8e1q9ySRl
-	 I2+CTPlXOHmcP7jgupesUABjkZDclQGttm7+YUlEoRdl6XUhZHfB/U/N9MBstVpCrZhz/
-	 ugNO+vnLODA8VZfYltVCnWiUIwO6DTeEotUJi01WcUJxr4AqipftSfxpiC4zqGZdstFgS
-	 +KBCQHSvN3TuJZcZATdYJfLp5TFBmTzRevkmICQNVJVKiEBsvGKiNMVJGt3HxWS0guA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZTWopbCD;
-	arc=fail smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793085998;
+	b=D4UppsgeGVB5MV5Nd1aQEmGE0n31l5QwvsgQG+WXZF1s2Pzb4z4S/n3dAPhZeaW58A8C
+	 sf0q02O5rngaL2ARJP6+2FV2kdZbt0Ov9dHjQhF//3PsnEbPzmyBCjT1g0uOF/XZ2KRWR
+	 yqm5PEKYYtWfy3ZCxsaxJ7SVLrmuvNXfBYG44U20Rha7kxqxOLTvIoNcHMO1b7SzDRh/p
+	 VeFEQgK4DEkWjFr6ppDM56pX8JjGGmVSnSoDjYkjyabO4Bowk0G/o24DDkP5wnNhyagAb
+	 aJy3PkTs/TiHI63jxyWWAkxC2bbNIcS5prh4XZ9LP+tOrRdlDQcLzAzXav+O2TEkFHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085998;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=yAZGsIyf5mfem4c6a6XJIBFQ5FbA7tpD36GRhxtwhGo=;
+	b=nvF/jPnR7qMBLsYBxDdXR8891apAI9wiilJuBc8wX+QpRNn9cMXukunVvUhWWRt6iBvQ
+	 bGZcY4kVRmDhFZpD/Ie+mTMzNv4WngL8F2Jo+FOT6kFOxvEzuv84VUOHHIqo01NkoGaaf
+	 YWDRlwbqbtMXQZOzGyUeelmyc7Tit7ZQICxgvAK9A70KOeiPJIYT+3Z37c7FduQo+kzSQ
+	 FPtPDCpd5HmRdw/W0zyEvguwfn2CZiNE2xTjpKXTcx0vQhtZBpK/MLkqevvWl0cnxJv+L
+	 27CV3ntKX09CnHe6m2Xkz5uM71ljk5bZT1PIPsZqm15DhycYk1rkiGQI5YIPLtjx9Rg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f9cQLM9d;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IX4PTdFw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f9cQLM9d;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IX4PTdFw;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81211606A32E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:26:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81211606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9007B606A31F;
+	Tue, 27 Oct 2026 07:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9007B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZTWopbCD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793085994; x=1824621994;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=I9pnVJ7mNNbNNiVOxBQYfeiItkroMbc8zSh4PrT1zwY=;
-  b=ZTWopbCDtmt/pJML88tpQzTz9REvyMu0v7ooR8bJVXxD50u0fbuUl2cJ
-   XE4ZAe8SlTuUcSVs8QOxvUd5jVD02SB7gHvgQko6DY7V67yesV3PexS2a
-   lsJRNDpkMvcSMHgX7OUa7th2InXO0+zWWvvf/Be7WVros4P1kRgoOoMpo
-   kqjkbK7Kh2UVpk5jzpHUVWHESbxJNBJldTAkIXQakExUjd4egqLjl82sV
-   DamrKu6gDfGY81UZ/IjJNe1qR+FOMZmU4ti8/1TwhpzCXrO815dJd7VnR
-   FyQiSChLyNx0atls3eMw2kVLebpMyb/TzwUB5sNfVSzK4AEFlODWaXF2w
-   Q==;
-X-CSE-ConnectionGUID: R0u3Ti8ITna/h5RniovnQw==
-X-CSE-MsgGUID: WIikHoRYTLGo5ILDsSd4OQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1655065"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1655065"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:26:33 -0700
-X-CSE-ConnectionGUID: noUGSgDHR9uv3lWa7YEOpQ==
-X-CSE-MsgGUID: LXcoDqwUQS+YiRsxm24P5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4626254"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:26:33 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 00:26:32 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 27 Oct 2026 00:26:32 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.2) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 00:26:31 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vPt0rcUkqC90yJ/obC1G7rmvkFkQc2Cxk0AZekwgqMylSOSCkg8zwhCDe6mB7aMpfDtxm2ghQXV7eAhUSM1H8iydma8smZk/XA4o4rxNe7vQg/wIkip5ZrrvsLNAoep61fnHd2u753GjoUi+o4AqYmLc5Fp1fqomfobKK3FzQV/XiPAT5C4U1EJXBzaWUSt88nynE5hSgcPKdQHV7SKB+6+VaUuF+3mV/nsNK/T0R3/KMs9T57oSFt+OoAjyMIxUWlhdNVnsqV/E3ll3fMe4nsIYHPdHns0OqeejamJgDasKfNULHqYy414Aw4+/9tU9M2ICzS5ycR24FHFIs5Q3eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A6ZE8RXfiMqWAVaIgHo9MCcOUOKTx0cS80JgbYtzqDM=;
- b=cSJVxuO3L1CbJ86ojrQEdPstGbFdeTxb8cvXvTbf9lSeKG5ME65JXzjddPL+khO4XzhmjbXpze/0pgO0eGkXuPM2K3tYOTEjVN9qkaUtTsbK57PDG72hc31C/BaEkUSG0Y1bYqgsIApLIOoe17NOP8KLn5d9UXH4aIkas56BbEKYLZNN9DGt/4p+rTlC7+/WIqhudzxWhT4un1Np+KukuXZMgwHdnCpeAtMMlfghWV+qcEEou86a5BjxlY8Pt/UHaDB8H8XiCtPxKiW8bFpEOHAFfsNdWJWBc2EC/HfzHzbhtUaMInpM+jym5nsco1TBSuKwIS1qSUYCNuSD2EQNew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS6PR11MB362586.namprd11.prod.outlook.com (2603:10b6:8:4c4::14)
- by CY8PR11MB6842.namprd11.prod.outlook.com (2603:10b6:930:61::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 07:24:54 +0000
-Received: from DS6PR11MB362586.namprd11.prod.outlook.com
- ([fe80::71a6:38f9:43ed:8f8a]) by DS6PR11MB362586.namprd11.prod.outlook.com
- ([fe80::71a6:38f9:43ed:8f8a%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 07:24:54 +0000
-Date: Tue, 27 Oct 2026 15:24:47 +0800
-From: Philip Li <philip.li@intel.com>
-To: Nathan Chancellor <nathan@kernel.org>
-CC: kernel test robot <lkp@intel.com>, <oe-kbuild-all@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, "Jason A. Donenfeld" <zx2c4@kernel.org>
-Subject: Re: error[E0080]: evaluation panicked: assertion failed:
- size_of::<isize>() == size_of::<isize_atomic_repr>()
-Message-ID: <auBRv4PoSBN9yuHL@rli9-mobl>
-References: <202610261307.vnC1uCAL-lkp@intel.com>
- <20261026215551.GD1330439@ax162>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261026215551.GD1330439@ax162>
-X-ClientProxiedBy: PH5P220CA0012.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:34a::9) To DS6PR11MB362586.namprd11.prod.outlook.com
- (2603:10b6:8:4c4::14)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f9cQLM9d;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IX4PTdFw;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=f9cQLM9d;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=IX4PTdFw
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7A7FE1F7B6;
+	Tue, 27 Oct 2026 07:26:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793085995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yAZGsIyf5mfem4c6a6XJIBFQ5FbA7tpD36GRhxtwhGo=;
+	b=f9cQLM9dYDMQf8oZc0V40RBGd2u+cFpuENcq/lUQzX+mqqHpuV8DudV/DG5kMKm0hycZiJ
+	74iMnDzmXE20Y2oIHUBMx7dXUaiVAT3DBFsYXqwCoww53b8vGySAAi5RlMmU+oc4mopLoS
+	LkRYJhZWA+70Hy+dEI+9VnRNyOF3RJI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793085995;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yAZGsIyf5mfem4c6a6XJIBFQ5FbA7tpD36GRhxtwhGo=;
+	b=IX4PTdFwFQjuf9JIy6jdbEQU4pP7aBFIw13MMT3AQZmyz+3DUY3D5asibeakVVnI8okQnV
+	yd3ozZ+gCb1sXVAQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=f9cQLM9d;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=IX4PTdFw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793085995; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yAZGsIyf5mfem4c6a6XJIBFQ5FbA7tpD36GRhxtwhGo=;
+	b=f9cQLM9dYDMQf8oZc0V40RBGd2u+cFpuENcq/lUQzX+mqqHpuV8DudV/DG5kMKm0hycZiJ
+	74iMnDzmXE20Y2oIHUBMx7dXUaiVAT3DBFsYXqwCoww53b8vGySAAi5RlMmU+oc4mopLoS
+	LkRYJhZWA+70Hy+dEI+9VnRNyOF3RJI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793085995;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yAZGsIyf5mfem4c6a6XJIBFQ5FbA7tpD36GRhxtwhGo=;
+	b=IX4PTdFwFQjuf9JIy6jdbEQU4pP7aBFIw13MMT3AQZmyz+3DUY3D5asibeakVVnI8okQnV
+	yd3ozZ+gCb1sXVAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 301BB13319;
+	Tue, 27 Oct 2026 07:26:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TzI6AitS4GqEUAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 27 Oct 2026 07:26:35 +0000
+Date: Tue, 27 Oct 2026 08:26:34 +0100
+Message-ID: <87tsm738ph.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Xie Youtian <xiedada@xiedada.net>
+Cc: linux-sound@vger.kernel.org,
+	tiwai@suse.com,
+	perex@perex.cz,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] ALSA: hda/conexant: Fix swapped speaker/headphone outputs on Huawei MateBook 16s
+In-Reply-To: <20261025080044.85736-1-xiedada@xiedada.net>
+References: <20261025080044.85736-1-xiedada@xiedada.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,156 +112,422 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS6PR11MB362586:EE_|CY8PR11MB6842:EE_
-X-MS-Office365-Filtering-Correlation-Id: 917a469c-7afc-49f3-fa94-08df33fb65ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|261009223027099003|261022105027099003|261022075727099003|261021121427099003|260925022911599003|261021135927099003|260925021911599003|260925021311599003|10067099003|56012099006|261026121527099003|22082099003|18002099003|4143699003|11063799006|261026140227099003;
-X-Microsoft-Antispam-Message-Info: SgQTlL0dlFeI5cdnUsXDl3EFF1J85tmQq0/YULVXfUYVmt2Z905OF3YP4x9bwQxEA0rZ11ea3Lq7bKZry36HFcMPyI34oLkx6oZh1L4k5RgTYvKYaIsOENAyESY4rZYcGwpSEZJ2TEzbIZt2ogcUGnW7l1wSGrsmHwaqd5Ru5QSqrYhHKGkYpOXDyRazlfTsHBucT7ZlZiv9qNmIesxKqpgIFl89VASiBYS3Oe7AsCp1OxkcxIKkJ19rD/625cn/bo/bfKEk0zWpGQW8FxBAXTC2pd3MQCzEoTj2BWkVgQCH/CHdr+MuU9n8E6qp+mkNY93yCApyqWXt4+OOgpBa4fK/+kthYrbG4/OtYJtrnYqo5Jqeq8RtUKM1BEShLAniUgQGIRnh98riEel5DzlaItLEjPnKGKggXHc0MRSgPJ4Tdy12pkSU74LlGhDCCpymNCMek829o26ncgToFnPjKATdDNhWDAvHA3BNzJkknwzz4WUR52+TIb7A8QvR8lMSIGXm8/WPn8hRvm0uGujeRjIrQUY0lOoHCzHJ8+z7U1DT+lZ6gz9z3DiW1muF/atlEfPq95Gq1WPCEH/o+aGFaUl/rKy+iFsGAFaWBT5eHnklzXJmyTnn4y1S+ScWSZRn
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS6PR11MB362586.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(260925022911599003)(261021135927099003)(260925021911599003)(260925021311599003)(10067099003)(56012099006)(261026121527099003)(22082099003)(18002099003)(4143699003)(11063799006)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+q9Q3VDe1Zf75oBMgWdtH+WZUgbTc1DbGsusW7hLcLwZ10JOXwSylXkf2+ur?=
- =?us-ascii?Q?vgCHZciUIOM/jVpUCNh0SwDLCM4041PYCFsVAf97UHwyN/m6YoCA3BBd3T8P?=
- =?us-ascii?Q?UYA52mkMl7TaGn0e/Y6thWq4Am0WjMSR3kSr4fV8RQKRFGBZ6mePUEQfxlb7?=
- =?us-ascii?Q?Isc0yqVXZ+d9NyCpNjs5WvKtiKnxd+9VJHVRMW4ZA/CElkox4EWpBQQkikYb?=
- =?us-ascii?Q?okevzbNey4hMXCG+dCzfhc7KUL5sMXtGT5IKvYwDFogBBqjpzAodMdFdGP1M?=
- =?us-ascii?Q?fqChbZaf/jBQLnD1vzp92FGvvZriMDEbp9OQQLHDdCWIIxfe1AzNAwtKq4ga?=
- =?us-ascii?Q?2g6KgtQtVFIbA0gq1T0mdAyu058YHVHIDOrc/cvrIEkY6nl40oQucMJpcfYX?=
- =?us-ascii?Q?arXHpDBFAyeSnQv0kqA4Emwd+5VDVQcQyVHsnXkZYwieqU4M0G08+gdba+3J?=
- =?us-ascii?Q?ov2AT+BzLmZOIG81WSTP+LlmeS4Iw07vgl49nGpNH5649U16OV7/tbbvHTdW?=
- =?us-ascii?Q?5VF7icP16ASK0+DDSwgzgmoWF0BZ7IwS/H01h6Ll24cY8Uwtp7li9Kl4ktHU?=
- =?us-ascii?Q?Avz4TlB2W/0yB+f3UpQq6nmLw8dKqpP1W1k54f2EkDWasuDiN4+vZWef+57M?=
- =?us-ascii?Q?fao4I66LBHZ282lma63HfVM1ku0A8ucRQzXmnUxNqde97V4S/geG8Aw8+7IF?=
- =?us-ascii?Q?fJlFPWDcj4BM1TD2i182j+Cn5ZXCONcXLmgCFGHV6fnC0L2CPzTj4aFo1cey?=
- =?us-ascii?Q?/LDioNghPvOcrrB04hKmfk9CuuYBHaPlAG05wZZmFpGQvmu9/7wtAMnYwSMd?=
- =?us-ascii?Q?gT1rzthIMxEsEjuRp8K8Lmqw0eZLo0lH4CC8USPOFirGbfd0MC0IWsUvx/YU?=
- =?us-ascii?Q?NK8fg6k2N6wZnd27RLfLNB92MZkMraSgtqo6uUKNvCF7HvsaJqrXQt2wYU4H?=
- =?us-ascii?Q?xG6GnIRxtVDtmsaME7yicMyvy0QHm10EGcoim9IU2IGBzlnEuI55/Mm8S6uR?=
- =?us-ascii?Q?Xb5oYxGeAfbaRVXxoooI5ldecI+lm6pObRbYWw3UqYADDk5zue4aTci8MSyf?=
- =?us-ascii?Q?pcdupwpwbcaDH+O9E4vsqsHJ2DjMKWp5TOH/VMq4AJ3Rnc7XlFO/lFA596ZO?=
- =?us-ascii?Q?ISgq70T36mLfiQUWslacpRbeBrAeo/U7obtPb32N31XA4koc+ppvI57T3uty?=
- =?us-ascii?Q?a/h9w3jr62mlR9u2pwBaIvmGZW8J+ntITbc4Jha4/sv9opXZXIAaTVPy48sO?=
- =?us-ascii?Q?QXU7ef0eUMQr1PO0rYUkel6z7FqpN0zcqqZRny3wAnJTTGeSsmEuhzRx34BG?=
- =?us-ascii?Q?n/TIqwLMHBE0vJw0cmBF3vXK6o0YFcilcMmmrslCNq9RnzjCfrhKhfa6KgW/?=
- =?us-ascii?Q?scp9mP6jv9mwppLjIlD7/77yCfPd1CTbD3RwoqkS5ufMEnsVEwi7UzQd3ZaH?=
- =?us-ascii?Q?Ypk08CLuysCtiWYRoSIFByTBU/Rlk5+WZTFvwhyz27JggqaEhFXkNlW9CeAK?=
- =?us-ascii?Q?cLmSg80Ti0L8Nkj+HVUHLVE71Fk23StclAzn27ri35q+wYLtsgqZ5Ir/Loud?=
- =?us-ascii?Q?PXfA+sLlxf6It9XueJg1Ov8YvfnMDyfaVuFHdG1eWhibHuW+CzTnICCLBUwp?=
- =?us-ascii?Q?8CqEz19hS/VlZ/zTn560rFWvOmfaPGxk4sF5qvnh8lbUy3ZqJQVTPJlIdaGn?=
- =?us-ascii?Q?519/gsMR6HAzQ2j47/OthLSmUihySceeH5GNUkS0YeRocFQ9NSI/isL+65q5?=
- =?us-ascii?Q?afiYEaYU5A=3D=3D?=
-X-Exchange-RoutingPolicyChecked: eIKy7lw9+qvWro+N0Q/2WQvxtQXw5UC8iGNTqf2fayf4P6A/Ryb6gBZa3FKTERmqJVxT4g0L3jQcLp6ViOwdyz0+K+/miWdS4nt7gAn8vPMhdxUZ4dHIrG8mB6f0zdH9ACMZvnBKR1RIEl8jx63yZ4WA17anBRxyREN6HQVUAao4rqAIcrOWzr/mw/bg7fMQvj7b0S0pUAsOpkSTWux/zKk1mGs/sTxRFzjD2iW2A3lzrC3oNQc11WZSgxPo1Y+TBXkO6U9YUug5dtTlKOnQTPg9JsMLZlFayOgQUkPsY0EQWQa8uP3/ER3RnjTdaI4mZFwy5+7Wm3mTm1ZXFf0Kew==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 917a469c-7afc-49f3-fa94-08df33fb65ad
-X-MS-Exchange-CrossTenant-AuthSource: DS6PR11MB362586.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 07:24:54.6840
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WkW5J0PqVb/1LELkb89+pjKfTNyvAqW+yRy7crSclsmFhFTKnFVUaUInrmz2TH/eRteZO2WjADwK88AxaA/wAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB6842
-X-OriginatorOrg: intel.com
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 7A7FE1F7B6
 
-On Mon, Oct 26, 2026 at 02:55:51PM -0700, Nathan Chancellor wrote:
-> On Mon, Oct 26, 2026 at 01:51:14PM +0100, kernel test robot wrote:
-> > Hi Nathan,
-> > 
-> > FYI, the error/warning still remains.
+On Sun, 25 Oct 2026 09:00:44 +0100,
+Xie Youtian wrote:
 > 
-> I think the result of this bisection is wrong. When building at the
-> parent change (703749b069d5) with this toolchain, there is the error
-> that this change (eb13a1ff271b) resolves:
+> On the Huawei MateBook 16s (2023) with a Conexant SN6140 codec (codec
+> SSID 0x19e5:0x3291), the speaker amplifier and the headphone jack are
+> both fed from the analog output line of pin 0x16: the jack through a
+> tap that needs GPIO1 enabled and driven low, and the speaker amp
+> switched by the EAPD of pin 0x17 - none of which matches the BIOS pin
+> config.  The generic parser therefore routes audio to the wrong
+> physical output and never powers the jack:
 > 
->   ld.lld: error: undefined symbol: memset
->   >>> referenced by getrandom.c:87 (lib/vdso/getrandom.c:87)
->   >>>               arch/loongarch/vdso/vgetrandom.o:(__vdso_getrandom)
->   make[4]: *** [arch/loongarch/vdso/Makefile:83: arch/loongarch/vdso/vdso.so.dbg] Error 1
+>  * headphones plugged: the headphone path (DAC 0x10 -> pin 0x16)
+>    drives the speakers while the jack stays silent
+>  * headphones unplugged: the speaker path (DAC 0x11 -> pin 0x17) feeds
+>    no transducer at all and the machine stays silent
 > 
-> If I use LLVM 23.1.4 + rust 1.99.1 to build at the parent change, I can
-> get the same error reported, so I don't think my change is responsible
-> for it.
+> Route the shared line to the DAC of whichever output path is currently
+> active, so a manual route selection keeps working on the shared line,
+> open or close the jack tap accordingly, and gate the speaker amp
+> through EAPD.  The verbs are applied from a private jack callback (the
+> generic unsol->automute path never fires on this machine while a stream
+> keeps the codec awake), and a delayed recheck re-applies everything
+> from a settled sample - only while the codec is already powered - and
+> resyncs the jack state cached for userspace, since any reader of the
+> pin sense can see stale data for a short while after a codec power
+> transition.  The 600 ms recheck delay matches the factory Windows
+> driver's plug-detection restart window.
+> 
+> The factory Windows driver groups codec SSIDs 0x19e5:0x3291 through
+> 0x3294 into a single audio configuration, so the siblings very likely
+> share this wiring; only 0x3291 could be tested.
+> 
+> Tested on the machine: headphone/speaker switching in both directions,
+> during playback, over the bare PCM path and through PipeWire, and
+> across suspend/resume.
+> 
+> Problem detection and the verb-level hardware experiments were
+> performed with the help of an AI coding assistant, with all audible
+> verification done by ear on the actual hardware by the submitter; the
+> fix was drafted by the assistant and then reviewed, understood,
+> adjusted and tested by the submitter.
+> 
+> Link: https://github.com/geniusinsanity/huawei-matebook16s-speaker-fix
+> Signed-off-by: Xie Youtian <xiedada@xiedada.net>
+> 
+> ---
+> Changes in v4 (addressing review comments):
+> 
+>  - The recheck now runs in up to three waves (600 ms apart) instead of
+>    a single shot, and when the codec is not active it consumes a wave
+>    and retries instead of dropping the fixup: the audio server
+>    reconfigures its route in several steps spread over more than one
+>    delay, and a runtime suspend in between must not lose the tail.
+>  - Wrap the Headphone/Speaker playback switch controls so manual route
+>    changes through alsamixer (no session manager) also trigger the
+>    recheck.
 
-Sorry for the false positive, I had updated the bot to avoid reporting this,
-and I will check how to correct the bisection as next step.
+The code change looks overly too complex, which is a typical behavior
+by AI coding.  So, sorry, I can't take this as is.
 
+The routing shouldn't be changed in that way.  In general, if the
+routing by the generic parser is wrong, the first thing you can do is
+to give some hints for better routing.  In the worst case, you can
+enforce the connection by giving the static list, too.
+
+
+thanks,
+
+Takashi
+
+
+> ---
+>  sound/hda/codecs/conexant.c | 261 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 261 insertions(+)
 > 
-> > tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-> > head:   6b4b543fa18757297ac756a6fe6e64f506b7844a
-> > commit: eb13a1ff271b0d180687eebb30611b0b276d5193 random: vDSO: avoid call to memset() when zeroing reserved parameter
-> > date:   3 weeks ago
-> > config: loongarch-randconfig-r2103-20261026 (https://download.01.org/0day-ci/archive/20261026/202610261307.vnC1uCAL-lkp@intel.com/config)
-> > compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 42d4451d86c175b745d6ea1c4081787994c7259b)
-> > rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-> > reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610261307.vnC1uCAL-lkp@intel.com/reproduce)
-> > 
-> > If you fix the issue in a separate patch/commit (i.e. not just a new version of
-> > the same patch/commit), kindly add following tags
-> > | Fixes: eb13a1ff271b ("random: vDSO: avoid call to memset() when zeroing reserved parameter")
-> > | Reported-by: kernel test robot <lkp@intel.com>
-> > | Closes: https://lore.kernel.org/oe-kbuild-all/202610261307.vnC1uCAL-lkp@intel.com/
-> > 
-> > All errors (new ones prefixed by >>):
-> > 
-> > >> error[E0080]: evaluation panicked: assertion failed: size_of::<isize>() == size_of::<isize_atomic_repr>()
-> >    --> rust/kernel/build_assert.rs:112:23
-> >    |
-> >    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
-> >    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
-> >    |
-> >    ::: rust/kernel/sync/atomic/predefine.rs:98:1
-> >    |
-> >    98 | static_assert!(size_of::<isize>() == size_of::<isize_atomic_repr>());
-> >    | -------------------------------------------------------------------- in this macro invocation
-> >    |
-> >    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
-> > --
-> > >> error[E0080]: evaluation panicked: assertion failed: align_of::<isize>() == align_of::<isize_atomic_repr>()
-> >    --> rust/kernel/build_assert.rs:112:23
-> >    |
-> >    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
-> >    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
-> >    |
-> >    ::: rust/kernel/sync/atomic/predefine.rs:99:1
-> >    |
-> >    99 | static_assert!(align_of::<isize>() == align_of::<isize_atomic_repr>());
-> >    | ---------------------------------------------------------------------- in this macro invocation
-> >    |
-> >    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
-> > --
-> > >> error[E0080]: evaluation panicked: assertion failed: size_of::<usize>() == size_of::<isize_atomic_repr>()
-> >    --> rust/kernel/build_assert.rs:112:23
-> >    |
-> >    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
-> >    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
-> >    |
-> >    ::: rust/kernel/sync/atomic/predefine.rs:100:1
-> >    |
-> >    100 | static_assert!(size_of::<usize>() == size_of::<isize_atomic_repr>());
-> >    | -------------------------------------------------------------------- in this macro invocation
-> >    |
-> >    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
-> > --
-> > >> error[E0080]: evaluation panicked: assertion failed: align_of::<usize>() == align_of::<isize_atomic_repr>()
-> >    --> rust/kernel/build_assert.rs:112:23
-> >    |
-> >    112 |         const _: () = ::core::assert!($condition $(,$arg)?);
-> >    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ evaluation of `sync::atomic::predefine::_` failed here
-> >    |
-> >    ::: rust/kernel/sync/atomic/predefine.rs:101:1
-> >    |
-> >    101 | static_assert!(align_of::<usize>() == align_of::<isize_atomic_repr>());
-> >    | ---------------------------------------------------------------------- in this macro invocation
-> >    |
-> >    = note: this error originates in the macro `::core::assert` which comes from the expansion of the macro `static_assert` (in Nightly builds, run with -Z macro-backtrace for more info)
-> > 
-> > --
-> > 0-DAY CI Kernel Test Service
-> > https://github.com/intel/lkp-tests/wiki
-> 
+> diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
+> index 9bfdbf5c9032..d171bce34d84 100644
+> --- a/sound/hda/codecs/conexant.c
+> +++ b/sound/hda/codecs/conexant.c
+> @@ -43,6 +43,12 @@ struct conexant_spec {
+>  	unsigned int gpio_mute_led_mask;
+>  	unsigned int gpio_mic_led_mask;
+>  	bool is_cx11880_sn6140;
+> +
+> +	/* quirk for Huawei MateBooks with Raptor Lake */
+> +	struct hda_codec *rpl_recheck_codec;
+> +	struct delayed_work rpl_recheck_work;
+> +	snd_kcontrol_put_t *rpl_orig_switch_put;
+> +	int rpl_recheck_arms;
+>  };
+>  
+>  
+> @@ -203,6 +209,15 @@ static void cx_auto_shutdown(struct hda_codec *codec)
+>  
+>  static void cx_remove(struct hda_codec *codec)
+>  {
+> +	struct conexant_spec *spec = codec->spec;
+> +
+> +	/* stop the quirk recheck before the spec is freed below; only the
+> +	 * quirk ever initializes the work item
+> +	 */
+> +	if (spec->rpl_recheck_codec) {
+> +		spec->rpl_recheck_codec = NULL;
+> +		cancel_delayed_work_sync(&spec->rpl_recheck_work);
+> +	}
+>  	cx_auto_shutdown(codec);
+>  	snd_hda_gen_remove(codec);
+>  }
+> @@ -312,6 +327,7 @@ enum {
+>  	CXT_FIXUP_HP_A_U,
+>  	CXT_FIXUP_ACER_SWIFT_HP,
+>  	CXT_FIXUP_HUAWEI_MATEBOOK_HP,
+> +	CXT_FIXUP_HUAWEI_MATEBOOK_RPL,
+>  };
+>  
+>  /* for hda_fixup_thinkpad_acpi() */
+> @@ -863,6 +879,243 @@ static const struct hda_pintbl cxt_pincfg_sws_js201d[] = {
+>  	{}
+>  };
+>  
+> +/*
+> + * Huawei MateBooks with Raptor Lake and SN6140 (e.g. the MateBook 16s
+> + * 2023): the speaker amp and the headphone jack are both fed from the
+> + * pin 0x16 line.  The speaker amp is gated by the EAPD of pin 0x17, the
+> + * jack tap by GPIO1 - none of which matches the BIOS pin config.  Point
+> + * pin 0x16 at the DAC of whichever output path is currently active,
+> + * gate the speaker amp via EAPD, and open or close the jack tap
+> + * accordingly, so the shared line drives exactly one transducer.
+> + */
+> +static bool cxt_matebook_raptor_lake_dac_active(struct hda_codec *codec,
+> +						hda_nid_t dac);
+> +static bool cxt_matebook_raptor_lake_sense(struct hda_codec *codec);
+> +
+> +static bool cxt_matebook_raptor_lake_dac_active(struct hda_codec *codec,
+> +						hda_nid_t dac)
+> +{
+> +	return !(snd_hda_codec_amp_read(codec, dac, 0, HDA_OUTPUT, 0) &
+> +		 AC_AMP_MUTE);
+> +}
+> +
+> +static void cxt_matebook_raptor_lake_coerce(struct hda_codec *codec)
+> +{
+> +	bool hp_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x10);
+> +	bool spk_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x11);
+> +	bool hp;
+> +
+> +	/* which path carries signal decides; if both or neither DAC is
+> +	 * active (paused, master-muted, mid-transition) fall back to the
+> +	 * jack state
+> +	 */
+> +	if (hp_dac == spk_dac)
+> +		hp = cxt_matebook_raptor_lake_sense(codec);
+> +	else
+> +		hp = hp_dac;
+> +
+> +	snd_hda_codec_write_cache(codec, 0x16, 0,
+> +				  AC_VERB_SET_CONNECT_SEL, hp ? 0x0 : 0x1);
+> +	/* the tap path needs pin 0x17 selected and driving, whatever the
+> +	 * parser does to what it thinks is a speaker pin
+> +	 */
+> +	snd_hda_codec_write_cache(codec, 0x17, 0,
+> +				  AC_VERB_SET_CONNECT_SEL, 0x0);
+> +	snd_hda_codec_write_cache(codec, 0x17, 0,
+> +				  AC_VERB_SET_PIN_WIDGET_CONTROL, 0x40);
+> +	snd_hda_codec_write_cache(codec, 0x17, 0,
+> +				  AC_VERB_SET_EAPD_BTLENABLE, hp ? 0x0 : 0x2);
+> +	/* the tap follows the opposite way: closed while the speaker path
+> +	 * is active so the shared line drives exactly one transducer
+> +	 */
+> +	snd_hda_codec_write_cache(codec, 0x01, 0,
+> +				  AC_VERB_SET_GPIO_MASK, 0x02);
+> +	snd_hda_codec_write_cache(codec, 0x01, 0,
+> +				  AC_VERB_SET_GPIO_DIRECTION, 0x02);
+> +	snd_hda_codec_write_cache(codec, 0x01, 0,
+> +				  AC_VERB_SET_GPIO_DATA, hp ? 0x00 : 0x02);
+> +}
+> +
+> +/* read the pin sense directly: snd_hda_jack_detect() returns the
+> + * cached state, which is exactly what a bounce-healing re-read must
+> + * not trust
+> + */
+> +static bool cxt_matebook_raptor_lake_sense(struct hda_codec *codec)
+> +{
+> +	return !!(snd_hda_codec_read(codec, 0x16, 0,
+> +				     AC_VERB_GET_PIN_SENSE, 0) &
+> +		  AC_PINSENSE_PRESENCE);
+> +}
+> +
+> +static void cxt_matebook_raptor_lake_apply(struct hda_codec *codec, bool hp)
+> +{
+> +	struct conexant_spec *spec = codec->spec;
+> +
+> +	spec->gen.hp_jack_present = hp;
+> +	snd_hda_gen_update_outputs(codec);
+> +	cxt_matebook_raptor_lake_coerce(codec);
+> +}
+> +
+> +/* at init or from the delayed recheck: behave like a fresh jack event
+> + * unless the mixer switches disagree with the jack state - a manual
+> + * route selection - in which case only the routing verbs follow them
+> + */
+> +static void cxt_matebook_raptor_lake_reconcile(struct hda_codec *codec)
+> +{
+> +	bool hp = cxt_matebook_raptor_lake_sense(codec);
+> +	bool hp_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x10);
+> +	bool spk_dac = cxt_matebook_raptor_lake_dac_active(codec, 0x11);
+> +
+> +	/* when the settled sample disagrees with the cached one, the cache
+> +	 * and the userspace jack state must follow, or the audio server
+> +	 * keeps routing for the stale view
+> +	 */
+> +	if (snd_hda_jack_detect(codec, 0x16) != hp) {
+> +		snd_hda_jack_set_dirty_all(codec);
+> +		snd_hda_jack_report_sync(codec);
+> +	}
+> +	if (hp_dac == spk_dac || hp_dac == hp)
+> +		cxt_matebook_raptor_lake_apply(codec, hp);
+> +	else
+> +		cxt_matebook_raptor_lake_coerce(codec);
+> +}
+> +
+> +/*
+> + * Right after the codec powers back up every reader of the pin sense -
+> + * ours and the parser's alike - can see garbage.  Re-apply everything
+> + * from a settled read a bit later, which heals any misguess made at
+> + * init or during a jack event.
+> + */
+> +static void cxt_matebook_raptor_lake_recheck(struct work_struct *work)
+> +{
+> +	struct conexant_spec *spec = container_of(work, struct conexant_spec,
+> +						  rpl_recheck_work.work);
+> +	struct hda_codec *codec = spec->rpl_recheck_codec;
+> +	bool active;
+> +
+> +	if (!codec)
+> +		return;
+> +	/* never force a resume and never wait for an ongoing suspend:
+> +	 * only run while the codec is already active; if it is not, try
+> +	 * again while there are arms left instead of dropping the fixup
+> +	 */
+> +	active = pm_runtime_get_if_active(&codec->core.dev) > 0;
+> +	if (active) {
+> +		codec_dbg(codec, "matebook-rpl: recheck\n");
+> +		cxt_matebook_raptor_lake_reconcile(codec);
+> +		pm_runtime_put_autosuspend(&codec->core.dev);
+> +	}
+> +	/* the audio server reconfigures its route in several steps spread
+> +	 * over more than a single delay; keep re-reading until the state
+> +	 * settles
+> +	 */
+> +	if (spec->rpl_recheck_arms-- > 0)
+> +		mod_delayed_work(system_percpu_wq, &spec->rpl_recheck_work,
+> +				  msecs_to_jiffies(600));
+> +}
+> +
+> +/* shared event body: apply at once from the raw sample - sleeping here
+> + * is not allowed (callbacks race teardown) - and let the delayed
+> + * recheck heal whatever a bouncing contact made it misread
+> + */
+> +static void cxt_matebook_raptor_lake_event(struct hda_codec *codec)
+> +{
+> +	struct conexant_spec *spec = codec->spec;
+> +
+> +	if (!spec->rpl_recheck_codec)
+> +		return;
+> +	codec_dbg(codec, "matebook-rpl: event\n");
+> +	cxt_matebook_raptor_lake_apply(codec,
+> +				       cxt_matebook_raptor_lake_sense(codec));
+> +	spec->rpl_recheck_arms = 2;
+> +	mod_delayed_work(system_percpu_wq, &spec->rpl_recheck_work,
+> +			  msecs_to_jiffies(600));
+> +}
+> +
+> +/* the parser reprograms pin 0x17 and the DAC amps on output updates */
+> +static void cxt_matebook_raptor_lake_update_outputs(struct hda_codec *codec)
+> +{
+> +	cxt_matebook_raptor_lake_event(codec);
+> +}
+> +
+> +/* our own jack callback: the generic unsol -> automute chain stays
+> + * silent on this machine while a stream keeps the codec awake
+> + */
+> +static void cxt_matebook_raptor_lake_jack_event(struct hda_codec *codec,
+> +					       struct hda_jack_callback *jack)
+> +{
+> +	cxt_matebook_raptor_lake_event(codec);
+> +}
+> +
+> +/* a manual route selection in the audio server rewrites the DAC amp
+> + * switches directly through the mixer; that emits no kernel event, so
+> + * wrap the switch controls and re-run the reconcile from the delayed
+> + * work once the new state has settled
+> + */
+> +static int cxt_matebook_raptor_lake_switch_put(struct snd_kcontrol *kcontrol,
+> +					       struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct hda_codec *codec = snd_kcontrol_chip(kcontrol);
+> +	struct conexant_spec *spec = codec->spec;
+> +	int ret = spec->rpl_orig_switch_put(kcontrol, ucontrol);
+> +
+> +	if (ret > 0 && spec->rpl_recheck_codec) {
+> +		spec->rpl_recheck_arms = 2;
+> +		mod_delayed_work(system_percpu_wq, &spec->rpl_recheck_work,
+> +				 msecs_to_jiffies(600));
+> +	}
+> +	return ret;
+> +}
+> +
+> +static void cxt_matebook_raptor_lake_wrap_switch(struct hda_codec *codec,
+> +						 const char *name)
+> +{
+> +	struct conexant_spec *spec = codec->spec;
+> +	struct snd_kcontrol *kctl;
+> +
+> +	kctl = snd_ctl_find_id_mixer(codec->card, name);
+> +	if (!kctl || kctl->put == cxt_matebook_raptor_lake_switch_put)
+> +		return;
+> +	spec->rpl_orig_switch_put = kctl->put;
+> +	kctl->put = cxt_matebook_raptor_lake_switch_put;
+> +}
+> +
+> +static void cxt_fixup_matebook_raptor_lake(struct hda_codec *codec,
+> +				  const struct hda_fixup *fix, int action)
+> +{
+> +	struct conexant_spec *spec = codec->spec;
+> +
+> +	switch (action) {
+> +	case HDA_FIXUP_ACT_PRE_PROBE:
+> +		spec->gen.automute_hook = cxt_matebook_raptor_lake_update_outputs;
+> +		INIT_DELAYED_WORK(&spec->rpl_recheck_work,
+> +				  cxt_matebook_raptor_lake_recheck);
+> +		spec->rpl_recheck_codec = codec;
+> +		break;
+> +	case HDA_FIXUP_ACT_PROBE:
+> +		cxt_matebook_raptor_lake_wrap_switch(codec,
+> +						     "Headphone Playback Switch");
+> +		cxt_matebook_raptor_lake_wrap_switch(codec,
+> +						     "Speaker Playback Switch");
+> +		break;
+> +	case HDA_FIXUP_ACT_INIT:
+> +		/* the parser's own view is the best guess at init; the
+> +		 * delayed recheck above heals whatever it gets wrong
+> +		 */
+> +		snd_hda_jack_detect_enable_callback(codec, 0x16,
+> +						    cxt_matebook_raptor_lake_jack_event);
+> +		cxt_matebook_raptor_lake_reconcile(codec);
+> +		spec->rpl_recheck_arms = 2;
+> +		mod_delayed_work(system_percpu_wq, &spec->rpl_recheck_work,
+> +				 msecs_to_jiffies(600));
+> +		break;
+> +	case HDA_FIXUP_ACT_FREE:
+> +		cancel_delayed_work_sync(&spec->rpl_recheck_work);
+> +		spec->rpl_recheck_codec = NULL;
+> +		break;
+> +	}
+> +}
+> +
+>  static const struct hda_fixup cxt_fixups[] = {
+>  	[CXT_PINCFG_LENOVO_X200] = {
+>  		.type = HDA_FIXUP_PINS,
+> @@ -1062,6 +1315,10 @@ static const struct hda_fixup cxt_fixups[] = {
+>  			{ }
+>  		},
+>  	},
+> +	[CXT_FIXUP_HUAWEI_MATEBOOK_RPL] = {
+> +		.type = HDA_FIXUP_FUNC,
+> +		.v.func = cxt_fixup_matebook_raptor_lake,
+> +	},
+>  };
+>  
+>  static const struct hda_quirk cxt5045_fixups[] = {
+> @@ -1164,6 +1421,10 @@ static const struct hda_quirk cxt5066_fixups[] = {
+>  	SND_PCI_QUIRK(0x17aa, 0x397b, "Lenovo S205", CXT_FIXUP_STEREO_DMIC),
+>  	SND_PCI_QUIRK_VENDOR(0x17aa, "Thinkpad/Ideapad", CXT_FIXUP_LENOVO_XPAD_ACPI),
+>  	SND_PCI_QUIRK(0x19e5, 0x3289, "Huawei Matebook", CXT_FIXUP_HUAWEI_MATEBOOK_HP),
+> +	SND_PCI_QUIRK(0x19e5, 0x3291, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
+> +	SND_PCI_QUIRK(0x19e5, 0x3292, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
+> +	SND_PCI_QUIRK(0x19e5, 0x3293, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
+> +	SND_PCI_QUIRK(0x19e5, 0x3294, "Huawei MateBook 16s (RPL)", CXT_FIXUP_HUAWEI_MATEBOOK_RPL),
+>  	SND_PCI_QUIRK(0x1c06, 0x2011, "Lemote A1004", CXT_PINCFG_LEMOTE_A1004),
+>  	SND_PCI_QUIRK(0x1c06, 0x2012, "Lemote A1205", CXT_PINCFG_LEMOTE_A1205),
+>  	SND_PCI_QUIRK(0x1d05, 0x3012, "MECHREVO Wujie 15X Pro", CXT_FIXUP_HEADSET_MIC),
 > -- 
-> Cheers,
-> Nathan
+> 2.56.0
 > 
