@@ -1,45 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119425;
-	b=yo9uqyeJDc/J9SZOWYJOgzZygNIO56UluFGTjCXYBIFvaPP/mZYfNRE7seMGWxitXw3Y
-	 Xp9RNeXVZo8sf7DJtw7FgjWQkzPTo0zO9JxuNBeJv9xOMMbF7HF1K9WuOulErGEdyBiDR
-	 51Bptx+zabCEzCBkyBToHGF5gshcVGg+m7kB9hjVf+Fcv8uHpxucpT+OOsgOR56F9Oefb
-	 8ntnexjt8/PPhZSBe6uAy+ehES0D4uxU1e4/VM5htTJoJzhOXEL9yu1Y1E3JvbgjL2lqk
-	 NoGha+qsUW7iYd6vowoQLaR2Vajl0DWIcshqSQcQnpQ3yI5OrRvDG9Am+WiivgNKJtg==
+	t=1793119453;
+	b=cg1B2q+++QU3e/VB7EmY5b1UgmcDXjlU2w7ucSGFcJUDCkVK23N34/mi1EsV+AtKYp7r
+	 54bv0dih2XLlcX1InjsyjmojkNNXXaxGefPjy1nvhf/zKm0pJ8dG81YK+1em0mz2Azjac
+	 1oPbfMvrS3EhDdZcZOVAxE8dKc88Jax+8nLCLgPi5Bw7wq+XbNYeW79hXPtOXr8F6BB/P
+	 Dfur2jpp9JhMx7wZcoz5O676UvQ9R9O5ZidhhU0h3fJVTSYv2Nh03IHdYYizy9KYqwx7/
+	 wDc23FpVbtDpYX0RGPk76Vcziv0DtY0VN46G+Vx1YqW9b56UfipS9t9bTooe9BUkkHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119425;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=b2OEDXtRqaEOlUqjaone3ufJVoeRqYEu7QBdQlbNa1c=;
-	b=ucrci4aHOdWcypvA2uEB46WR3kiJu0c7q8GeIye7NSxsvfUEYr60FyxtkWSF0cNuHQrg
-	 e5gQWAX/06Hzj5B9pv0utRyZNQiWCVghPrplHXY7Y816HqeJ6YbQX4zeyDVVt90RwDpMS
-	 AePtJoKi2nhOoFoFNSBERQcabtu5X/VrCJepk9UI75SRuIRZ6xJL74myL2bSc0Rpylkji
-	 nZKpHfStbgIsVAjEGogdGBfveqGW2KNM3EcUJP7cOp9XRKPxnUd4nuI9+rZ8pQnOIPypY
-	 gyP0HJW4ur1anlP5hRKi62gPiUX5QZVvdyYSHn+g0mjHgaufVXQmOay9Zfb274IfZbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119453;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=nx17FIAQCfOlFkP17EZEoi5gViilW8Y7/HSO+vAKVsw=;
+	b=E1ibtNJ0ZOaBwpRha7d+7lQ4FbzcpPzHyiW6yWXyVuI/7oJ48Wf7CyKJlbvoXxK/HGpQ
+	 AoOgRxoXKEth/TilhN/gYN+u1yKSLVDvClc7qR3GNhbE7Z5V9slnXWXK5YH2PcwDezUex
+	 xu/1y4t7CaLw3fFDZ3hClzj8cTk/FCn5YRpJw6puIFch6f807jVzFHVaxxUJQVRgiNK9l
+	 bfBbdqs8GiObEgIplakg+5gijYO1jU0a5CWuYWItl3oPmmC/gtGn7rWWUYxTJhIw3VyMm
+	 YSRCxPnpZ0bW8Z/2t3gCzhNP3ocjKVn4+tSa3sUERS9cSIITOymG7NpKTfLGeXGjOVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fKDzbDup;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d/gf83wv";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B94606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7820D606A31E;
+	Tue, 27 Oct 2026 16:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fKDzbDup
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8071F031E1;
-	Tue, 27 Oct 2026 16:43:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793119425;
-	bh=b2OEDXtRqaEOlUqjaone3ufJVoeRqYEu7QBdQlbNa1c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fKDzbDupbtPhbiKEsDlei0VTwy0NLd03ul+nFH0NsyCbnp6JyM0q/HxI2DcIYIA8f
-	 jSnbSbdsA4/0YVEm7ICs8wAtBY7KbNJYX2qfBaxydXNx5XrBhASjYPU4pmb31Ymm3C
-	 6dysftvzuXsTce5LcXHsPwvO8caf7e4LzPjZ0ha4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 17:43:32 +0100
-Subject: [PATCH 5/5] comedi: vmk80xx: report failed transfers of the K8061
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d/gf83wv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FB71F01825;
+	Tue, 27 Oct 2026 16:44:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793119453;
+	bh=nx17FIAQCfOlFkP17EZEoi5gViilW8Y7/HSO+vAKVsw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=d/gf83wvfXAhjxM5t1yPfeZXqDU0qDuWGm2q+pJ72nQhojJ7vCMmngQcQix56nhYC
+	 6Xezdj3m6GEpl35gmKf4SG3W8X6BYFzOmoSKWGlZNMdkSWW4vOokAvdeEeENXKDU4X
+	 3CfCOkNJohOJxcl4gWf+/m9kYb+BS7LmckkyVLWy7PTi3ZbEWFCzEwpc5u1lNSrwRp
+	 X0FE8aFBk2PWFTJxd3Zzpxia+2d30yB0Gq8QEx1qWlYeDe82ebBD90W4NSa5Unlcx5
+	 FfzyJhFf0G+loppwSMVkbb6sC8v3de2UwiY1a+RJZM+UgIQLYQfgWhaMiqcRmf4lDy
+	 zDKUuf55D2WrA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xLkHS-00000007oLP-2Vpc;
+	Tue, 27 Oct 2026 16:44:10 +0000
+Date: Tue, 27 Oct 2026 16:44:10 +0000
+Message-ID: <86se1rxfdx.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Amir Noohi <amirmnoohi@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Igor Velkov <iav@iav.lv>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Christoffer Dall <cdall@linaro.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] genirq/manage: Provide irq_set_percpu_irqchip_state()
+In-Reply-To: <20261024212844.3405617-1-amirmnoohi@gmail.com>
+References: <20261024022450.629980-1-amirmnoohi@gmail.com>
+	<20261024022450.629980-2-amirmnoohi@gmail.com>
+	<87se1v8f2r.wl-maz@kernel.org>
+	<20261024212844.3405617-1-amirmnoohi@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,115 +84,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-llm-char-misc-comedi-v1-5-1899771ee15b@linuxfoundation.org>
-References: <20261027-llm-char-misc-comedi-v1-0-1899771ee15b@linuxfoundation.org>
-In-Reply-To: <20261027-llm-char-misc-comedi-v1-0-1899771ee15b@linuxfoundation.org>
-To: Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>, 
- Frank Mori Hess <fmhess@users.sourceforge.net>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3225;
- i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=twPdbasRyn1FcntLl5Y1sYSnS68oObpYb5l2jEyFfI8=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPrmyse6NTdS1jAs9Cc/k2gTdWtnzvtBmuTdB131vye
- 73Wg9Y/HbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjARTQ6G+Tli/Qt9lpdVJKst
- Lj/ySD9cvUfjGcNc6b0G3pd+zP31O1tuYuJv2bY+Aw0NAA==
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
- fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: amirmnoohi@gmail.com, tglx@kernel.org, oupton@kernel.org, radu@rendec.net, iav@iav.lv, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, cdall@linaro.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Sat, 24 Oct 2026 22:28:44 +0100,
+Amir Noohi <amirmnoohi@gmail.com> wrote:
+> 
+> Hi Marc,
+> 
+> On Sat, 24 Oct 2026 13:21:00 +0100, Marc Zyngier <maz@kernel.org> wrote:
+> > It really feels like a leap of faith.
+> >
+> > There is nothing that says that it is safe to call this without
+> > holding the global lock. For all we know, drivers have been relying on
+> > it for a good decade, and I don't feel confident letting things rip
+> > just because it (mostly) works with the GIC.
+> >
+> > At the very least, something exposed by the irqchip (a per-IRQ flag?)
+> > should tell you whether it is safe to elide the lock.
+> 
+> Agreed, and v2 does that. There's a new IRQCHIP_PERCPU_STATE_LOCKLESS
+> flag, and irq_set_percpu_irqchip_state() only skips the descriptor lock
+> if the chip implementing irq_set_irqchip_state() has it set. Otherwise,
+> or if there's a bus lock, it just calls irq_set_irqchip_state(), so
+> drivers that don't opt in see no change.
 
-For the K8061 board vmk80xx_read_packet() and vmk80xx_write_packet() call
-vmk80xx_do_bulk_msg(), which ignores the result of its two bulk transfers,
-and return 0. After a timeout, a stall or an unplug the instruction
-handlers therefore go on and hand the old content of usb_rx_buf to user
-space as a fresh sample (analog and digital inputs, counters, PWM and
-output read-back), and writes to the outputs are reported as done.
+I'm not sure this is the correct option. Making it per irqchip is
+again assuming that the irqchip has a uniform handling of the state
+across all interrupts. I'm afraid that's not universally true, which
+is why I hinted at a per-IRQ flag.
 
-All callers check the result already, because the K8055 branch of the two
-functions returns that of usb_interrupt_msg(). Return the error of the
-bulk transfers as well, and don't wait for an answer to a command that
-could not be sent.
+Alternatively, you can audit all the providers of this API and work
+out if is it safe to do so, and split the corresponding callbacks.
+Good luck with that. :-/
 
-Fixes: 985cafccbf9b ("Staging: Comedi: vmk80xx: Add k8061 support")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/comedi/drivers/vmk80xx.c | 25 ++++++++++++-------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+> 
+> Only GICv3 sets it, in a separate patch. For SGIs/PPIs/EPPIs its
+> callback only touches the local redistributor (gic_data_rdist_sgi_base()
+> and the RWP poll), nothing shared.
 
-diff --git a/drivers/comedi/drivers/vmk80xx.c b/drivers/comedi/drivers/vmk80xx.c
-index 84dce5184a77..ddb12b48c8a4 100644
---- a/drivers/comedi/drivers/vmk80xx.c
-+++ b/drivers/comedi/drivers/vmk80xx.c
-@@ -151,7 +151,7 @@ struct vmk80xx_private {
- 	enum vmk80xx_model model;
- };
- 
--static void vmk80xx_do_bulk_msg(struct comedi_device *dev)
-+static int vmk80xx_do_bulk_msg(struct comedi_device *dev)
- {
- 	struct vmk80xx_private *devpriv = dev->private;
- 	struct usb_device *usb = comedi_to_usb_dev(dev);
-@@ -161,6 +161,7 @@ static void vmk80xx_do_bulk_msg(struct comedi_device *dev)
- 	unsigned int rx_pipe;
- 	size_t tx_size;
- 	size_t rx_size;
-+	int ret;
- 
- 	tx_addr = devpriv->ep_tx->bEndpointAddress;
- 	rx_addr = devpriv->ep_rx->bEndpointAddress;
-@@ -169,11 +170,13 @@ static void vmk80xx_do_bulk_msg(struct comedi_device *dev)
- 	tx_size = usb_endpoint_maxp(devpriv->ep_tx);
- 	rx_size = usb_endpoint_maxp(devpriv->ep_rx);
- 
--	usb_bulk_msg(usb, tx_pipe, devpriv->usb_tx_buf, tx_size, NULL,
--		     PACKET_TIMEOUT);
-+	ret = usb_bulk_msg(usb, tx_pipe, devpriv->usb_tx_buf, tx_size, NULL,
-+			   PACKET_TIMEOUT);
-+	if (ret)
-+		return ret;
- 
--	usb_bulk_msg(usb, rx_pipe, devpriv->usb_rx_buf, rx_size, NULL,
--		     PACKET_TIMEOUT);
-+	return usb_bulk_msg(usb, rx_pipe, devpriv->usb_rx_buf, rx_size, NULL,
-+			    PACKET_TIMEOUT);
- }
- 
- static int vmk80xx_read_packet(struct comedi_device *dev)
-@@ -183,10 +186,8 @@ static int vmk80xx_read_packet(struct comedi_device *dev)
- 	struct usb_endpoint_descriptor *ep;
- 	unsigned int pipe;
- 
--	if (devpriv->model == VMK8061_MODEL) {
--		vmk80xx_do_bulk_msg(dev);
--		return 0;
--	}
-+	if (devpriv->model == VMK8061_MODEL)
-+		return vmk80xx_do_bulk_msg(dev);
- 
- 	ep = devpriv->ep_rx;
- 	pipe = usb_rcvintpipe(usb, ep->bEndpointAddress);
-@@ -204,10 +205,8 @@ static int vmk80xx_write_packet(struct comedi_device *dev, int cmd)
- 
- 	devpriv->usb_tx_buf[0] = cmd;
- 
--	if (devpriv->model == VMK8061_MODEL) {
--		vmk80xx_do_bulk_msg(dev);
--		return 0;
--	}
-+	if (devpriv->model == VMK8061_MODEL)
-+		return vmk80xx_do_bulk_msg(dev);
- 
- 	ep = devpriv->ep_tx;
- 	pipe = usb_sndintpipe(usb, ep->bEndpointAddress);
+Read the code again. There is *one* callback for all distributor-owned
+interrupts, which also involves SPIs/ESPIs.
+
+> FWIW, irq-gic.c, irq-gic-v3.c and
+> irq-gic-v5.c are the only drivers with both per-CPU devid interrupts and
+> an irq_set_irqchip_state() callback. KVM's own timer chip (GICv5, no HW
+> deactivation) doesn't set it either, so those keep the lock.
+
+The KVM chip inherits whatever it is pushed upon, and it is still a
+per-CPU interrupt. To be clear, this is an all or nothing approach as
+far as KVM is concerned, so anything that KVM uses should be converted
+to the lockless approach.
+
+Even in the GICv5 case, the ICC_PPI_ENABLER0 register cannot be
+modified concurrently, so it should be safe to advertise these as
+lockless.
+
+> 
+> On GICv2 in QEMU it still takes the lock like mainline does (333k vs
+> 321k acquisitions in lock_stat, within 4%), and on GICv3 it doesn't
+> take it at all. arch_timer, arch_timer_edge_cases, vgic_irq and
+> vgic_init pass on the Altra. Under QEMU with lockdep, DEBUG_PREEMPT and
+> DEBUG_ATOMIC_SLEEP, the selftests pass on GICv3 (VHE and nVHE) and
+> GICv2 (the vGICv3 ones skip there). No splats.
+> 
+> I made it a chip flag since it's about the callback, but I can make it
+> per-IRQ if you prefer.
+
+I reckon this is a requirement.
+
+Thanks,
+
+	M.
 
 -- 
-2.56.0
-
+Without deviation from the norm, progress is not possible.
