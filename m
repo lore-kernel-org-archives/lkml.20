@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088145;
-	b=TxyPZR3qR5j5Wr/iMbkrHEjcFs+knGsfxH0bhhfnvHokbe8dT3dRZhsA39hiLe4HzBNX
-	 17x4CnxrO4f4ok6RYoMyafMXXdEDyarAiZ6h/iUEUKS32Qs0arTeeqgPbIFvjY58RO6VI
-	 cHaIZobtpnTiN2nCueARi7wvlAcwl5zUPdxym0MdMaKMxYI8az6ZB/9uxvLiPCKdeCQHL
-	 R8/0xfqbQCodnwO95bx+YMp+rKyGN2kq7XjLVMT4or07cY4Rs+jgAEbaIv+KyJ48lJCoI
-	 zosZkKRmh7SArDwmRTGHyUHewKpmZ5dGO/ZXGKVD0NDj5MZ9q4+FxkbuG95OR2yxCxg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088145;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=OscTJ3e2MwqNjRkFK+nwymaDOQ752snX6yOO/B0QxfQ=;
-	b=NXRZ1L9o1XzsCniQc8MaGf0M7swDZ19TtY1+zGSL/KDRXpw6/9gVhj6I+W3FADmntSxy
-	 NvUFa6zrVYxxJG+NXVWcAUBAkirkXE33dD2GCiVZevm054ud01IdwCnR7SKQqPbIhEGhf
-	 SmiYcFzwsq8CeE7cbX6K4KMtxd/f7vS9iWuTBkVi0XToBvpG9HrlP3dA1pRByVUkWtP2H
-	 SYqEn0B/8khqpRMLF9S+PSCTqzid63EiHyJWrjzz3dipssCGwv0aSMYojIsgL2AOr4ZBQ
-	 WsjfHnrBlW7WQf36rBtpWBd1hGIV09X4mcOC2Td1ctsWK8pv09bMCndEFfGkvM1MFew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=NMolLpc0;
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.27
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793088190;
+	b=PoudlrH4WyjRO5hd3BjzfmoOcdhytRlm7rjZZ49fflyq1CwF8pbLHVL0eUXrqENa5pnu
+	 /cavGejTNpSIKGwvp4MDct4f3T2NY0loFT7O/XKs1HwKQoT6tGmPpO8uBb+eOYcsabUKK
+	 C6rkJqik3zf69ZhjG1DIyPrvNHjQ/uCNv2SAxns/65zerhWGvlzA+k1nslu8/9pyijgjd
+	 4ANpG54M+HDJP3jTHGsxeL38He6BdqIfJb88rGHC3dyNe/sk4YSSvrPLO9SXz+V/xRtdW
+	 g/rdmCNYR6s19MjksamyYLBZoidl8H7M0wU3hIDrDJUN3JdgZHde1Kpdw/D8kbO0BGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088190;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=bkmDQ6lkNSLuAb0BzKfG+TQA9PEwYXUGia2SoymG3dE=;
+	b=4oL7GxqpszzV2hPChxVmgBpH4YOMqV0UTkm/qz9HhB1KdOFNTTPNma6DHSaEx0+ztJnp
+	 DOPzHzNU8BQ/S6sy32m0ABbIUObJJ1P96ZahXI3TXino2kA2/kWDDxY/HGUW1JxvSMyuh
+	 QTFZarnSpuG9zhPgkbKExIWLAefkJOI5umHCSNxGnyxTJDOgvjBhZWg4A9VWtLx3lBa69
+	 J6SNiR7bq+Zoswnexk8AwBfHulZX2pY1R5kSCJQvBIqCp1QPszrYNtaHHf5H3Co+ObTfK
+	 qK+IyMV8OBHTQj+N1dhYh3VFNlrbXeVgdQ2XNnXVHdVMCH39HkXGDqs3F/R9tqkLi0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=H0ivI0yt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.27
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012027.outbound.protection.outlook.com [52.101.53.27])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6429606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:02:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6429606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB827606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:03:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB827606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=NMolLpc0
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso5859280a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:02:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793088142; x=1793692942; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OscTJ3e2MwqNjRkFK+nwymaDOQ752snX6yOO/B0QxfQ=;
-        b=NMolLpc0FQhsbKyPXNo5vD2Cg/BWu9T4qNEcyg+3upoDCV1i8kqFJu94GbYuaYaXI5
-         6+weD5fjAM++wwTRv8cnloMadOuoPEYhXVjfzw0pQw4FM6O8rCvPezIKWkX3EN5AnQXo
-         oxBKOk1KCeHT6g12Bzu3kgqdZKaMVF2DpbUsqVhRdEijIE65ENncgcux89BxZu92khyP
-         mhKFEYHqyf3lF/OiBN7enB1E5XfpoxHnaUgG1pmH0KyKEqklYKNpHU47YfTGJdpowBCZ
-         LCAL1qW/7D4gjRPK+mBsDM7hr4CQjEqUjhbE6HMUtWiMBY9Z4+HqxYMWagUsowXBnwkz
-         HOCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793088142; x=1793692942;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OscTJ3e2MwqNjRkFK+nwymaDOQ752snX6yOO/B0QxfQ=;
-        b=Sp3tit2Z9LzsmEJkkZQUOhkj7GRcjBqYFt60IvslWl2f5O2bC1JOL/OzDR4B5e0A5O
-         CP3fW4HgkQnPnPCjVCKIEsepDV+VkJU1FRXJEpMJ/rPnqFC3qApLfMLDdz5mfDotEY+O
-         dUXHyN2DBVsrV1y+Si7UIvzXgbLlVrwiiO/NMZOr+gC+qi2mpmRoaSXSNhHOXLwaOoD/
-         UZbUYTZK6izZGTRVNMBorkCAe7zUL1D6f2a/+ywqf2L0HfThaZQESja25++vdnEULkbQ
-         6FHp1J6HGYcD+/WFUgi5zI83472kJ0EDHkRY2VYRiNrm+P0jRMqKEgrLQ3jfBD+/wcqo
-         IuOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwxjPZrAuWxJAjGmzManYJBEfevZluwdPKW9vsI1gidK3p3IfXTGdEpoo8Sq89Q5Nv9B/BxPxQdHwII26E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIS2wSjOdBb5l7Q+uJy2GyJxqAC7DZxCNPZX9wDRW81iRR7aJGe
-	7KWbjpPZrEq707hQQxHDsZP/RgHNLhfCKnPGc+QhHDG/DIxJCivukcLJfGThPLUZBk4=
-X-Gm-Gg: AYBFou0ZwA5S8H6vSJf5UaDhWM/yAlHuEfTqHnvQ3gg9Zq9UaDrQdd6WaczlDpdhHc8
-	i3ce8tbEcdnFmYLHiWbJVwd9ttrZ+ufuH5u3V2JkH4TzQWqkS9tIqQZKaO7UuwNd0NcplRbhNwZ
-	XPT3iOVHG0lUqdZI2S/uNvrfMW5Gxa0fUjHzpVeEVxihslAvthiWmIFK8H823EP7Tbz1ik2IXCf
-	jaJqZFbknZParSvTZmVoqIHm0kJdfmifPYXxvOlkoSoFBm8LX8sDRcz+3ALh00GhEZ27iwffDOx
-	BKFDRLZLfxxzjqMWUJXrRIampeIG1G09Tfc4HQLuL8YrZc1zwlwvlVZULQxeBsg28eZZnViZAEK
-	ejEC4tEOxyONgqHECBOKvv9QZ7gYgfWjSsUObcRHXJWaKBTMVDPGjQydVxDhmhqpC/osK/64TOM
-	98MiIStVYGPhVyRizEWZymwyKVBR1cWAWVtMX4xpRIcCNDkECjVlDcIVDuqQfRbS78Xp/2GOPUw
-	kiuBlNTCP1kZV3yGOLivf5U4yGFhglOfg7ewZF/k6bXtFtV1swmt1QskMPiEmkh
-X-Received: by 2002:aa7:d286:0:b0:6b3:8018:7643 with SMTP id 4fb4d7f45d1cf-6b44300a8d3mr6891627a12.45.1793088141026;
-        Tue, 27 Oct 2026 01:02:21 -0700 (PDT)
-Received: from localhost ([128.77.52.125])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdd5b3sm21058785f8f.53.2026.10.27.01.02.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 01:02:20 -0700 (PDT)
-Date: Tue, 27 Oct 2026 09:02:14 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
-Message-ID: <auBaROC0XdWpILEI@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-3-jiri@resnulli.us>
- <at-iEMxN98nie1Qr@e129823.arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=H0ivI0yt
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OZpmR59PPC+dh9kRGDaemj9DKmXkuBsNMjY+GF6ZHTVUAmT+pCCzm/MUgAXA+goP36m1KZeyDuvrqfHDBtn1OTpKedOfzk1win6dIwkVld181Ry8IYyDJ2p0l4GzVlIo9anAJCvPkhI/78U7dOG0OwcO2GBbDbiAxDzJvnjUa2bbqOm555l/VdXr2UXJkKkmmxKmEhURBdmkgutWqjZLrliFiVvpu6kxY5A0ByxZxF9Aa6X5F4+M605whrINXVeebex5cOLTxqw36aTrwK1dlAHNeOEIqbDNV2V9RwJApmQHfdFfuRL2l41HypJgvR3cDytcHVTijVG2pYc8iTV9eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bkmDQ6lkNSLuAb0BzKfG+TQA9PEwYXUGia2SoymG3dE=;
+ b=Rf7wGGGA66y83EaK5gtW9g1bQpsC74FZctWr0uZCG43QCLzCGwJfw83+hhh+U196MGqq3Na76ZQ1xv24+4vjHOs7rANhGlC0xU1qVijqNsV1DUJ9pi5YlJFxeofQlsP5SO1jRB+pF/iOm79cb9Tytc8F3WhDLu1fOrV4MT0OJnyeJ4qojvvcfvCBVt/QdYmccr3vMOvzmwp/bnHY5FCPtR8D+5tVqxDZA65I9YpsKjdsdhBWUwu/f47AcYRGc5qgFOhePdb0nFjRn0GqY0hEXm+yDsPzS+XK8bdPxLGIlfx3Fmpc1un5WX2UgLtPU9SGG6QXeFgJLbt8SKkPVq9cyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bkmDQ6lkNSLuAb0BzKfG+TQA9PEwYXUGia2SoymG3dE=;
+ b=H0ivI0ytB6kEZJRkGQC2jufk3+Y5V451GtOdYNcEW8rl+B+Peu4U5RcwF6/tkCtLnpOVHY/UVjImoJOux8VQZqolQjCITgvJvg8W/CcSiXtUw6tv+0xFSL2m/+XzxA9R01KLlzrwyfN1vBc8X2qzGrWV/NhZHs86B8MSVbGEqJk=
+Received: from PH7P220CA0042.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32b::25)
+ by IA0PR12MB8423.namprd12.prod.outlook.com (2603:10b6:208:3dc::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 08:03:02 +0000
+Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
+ (2603:10b6:510:32b:cafe::75) by PH7P220CA0042.outlook.office365.com
+ (2603:10b6:510:32b::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
+ 27 Oct 2026 08:03:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 08:03:02 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 03:03:01 -0500
+Received: from [10.136.43.232] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 27 Oct 2026 03:02:55 -0500
+Message-ID: <006b2a7f-ae4f-4622-87ed-de76d92847b6@amd.com>
+Date: Tue, 27 Oct 2026 13:32:54 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,94 +101,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <at-iEMxN98nie1Qr@e129823.arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] sched/numa: Notify the scheduling class of preferred
+ node changes
+To: Andrea Righi <arighi@nvidia.com>
+CC: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Changwoo Min
+	<changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra
+	<peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
+ Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Vladimir
+ Vdovin <deliran@verdict.gg>, Gregory Price <gourry@gourry.net>, David Dai
+	<david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>, Christian Loehle
+	<christian.loehle@arm.com>, Balbir Singh <balbirs@nvidia.com>, Lee Trager
+	<ltrager@nvidia.com>, <sched-ext@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+References: <20261027041536.3317971-1-arighi@nvidia.com>
+ <20261027041536.3317971-4-arighi@nvidia.com>
+ <26d4c1d1-19dd-415e-beb4-05b7f34fecb3@amd.com> <auBF7UTiwNblg6Uc@gpd4>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <auBF7UTiwNblg6Uc@gpd4>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|IA0PR12MB8423:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bf9bae5-2050-42b5-a574-08df3400b935
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|261026121527099003|5023799004|4143699003|11063799006|56012099006|261022105027099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	Uo5iCtDVxDqd5H36mnbgh9gg7oTeafiwnKEmaNXOXitVCdBYyUDi+Lx3D+tmS5xfaJ94zEOBI2QM2pD03QfAtmUgyT98fqT6TOK5CbEAn12OnbTdmLy4M6PEG+VrT97xMjCir2Y23ZKQZSt8pTFoyQuqCAEG929/U4J61toZo9Cvkb2PqF7ew0jlj3T7UEnZTedcBVYocwS8G8+vEGidGTchC2Bv2f7EBSIJE25XuWL6UNe+qcomKoN74thpAUj0NadErLxbbNQbn0Quf6p5kDySL8sC8N7CGF9Lmhsa23B4lkUZplR+Y59OY3rfFkf8yQLBcgOGvEHAwwb9d5soJ1JM0MeOgGStqrL61ZmztbwG+hnurRPxi8wKzkJv8vvGOhUX97ggDoH55qUdx/dD/w7TC0PSBGU3qYSs4GaYVVorxUo2XacNskG0ZPgKwrY6M9ehzUf7M5bpaPom7yHb6v3ktihsVHrP6Gm0HlqR+RIPLZm+WPXTuzSuRko5k3NdzTznt1vOI9CXEh649/ZoaH0F2h+3lzJotC3HJfWx2bk6W0m3kSNdLgtlvfxO0+zLT4JLFbNW5BeTdJh/5zBk+/pcjBGb59dheau5btRojUBkRk1oG+ULkfPWMBadAPSHQBRfVvA6jEJbh1sFK916ViNJSvT76Lo4NzXheRCQ6+lAzAsTsnbYDgfFUnW74z8uPAJ0ycNfCmfKo9d/rwVBCQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(261026121527099003)(5023799004)(4143699003)(11063799006)(56012099006)(261022105027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	V0NFAtfjplA6t3ytGjVyBT8ovuIhZdV3DmcAwyRSvW7+eMeHHM0PaqbePoVS/DJzlDXxxsMZjAcfD3et5TnId4ZZ/QKsK1x4pc/RKlydt/nn17vgt8lnASHbr6EmcWKgh9qfzW+MtHbrPaIlrnt+ABwTgZIcDNgdoTRL+H18d6fAWTt3nC/3DF7e0cOzQdl9GSBTcxXUW+r+J5MMMOgl7WG6qnEEF121Erh1/JlNHKlyIeqmI4SbpSEUoLg1BMzieU1DBwGB35h8tRzHoE45Z9ckJkAy9hhQMGtponNX2RLyqPnLRWgdPIXrIeT3ZUIwq3svk868ExMWLzgNFCdHCMopRe93Ws7SDbvzjt/RmPBy+/mzPAlVa1cuerlYu8S2M5OgnuNuv2n6buB0z4c1W0iZmQdvOHZASZxXm8LdHfXueFvw7fXCdUYJTDiTD0ia
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 08:03:02.0836
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bf9bae5-2050-42b5-a574-08df3400b935
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001C9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8423
 
-Mon, Oct 26, 2026 at 07:55:12PM +0100, yeoreum.yun@arm.com wrote:
->Hi,
->
->> From: Jiri Pirko <jiri@nvidia.com>
+Hello Andrea,
 
-[..]
+>> On 10/27/2026 9:43 AM, Andrea Righi wrote:
+>>> --- a/kernel/sched/core.c
+>>> +++ b/kernel/sched/core.c
+>>> @@ -8331,8 +8331,13 @@ int migrate_task_to(struct task_struct *p, int target_cpu)
+>>>  void sched_setnuma(struct task_struct *p, int nid)
+>>>  {
+>>>  	guard(task_rq_lock)(p);
+>>> -	scoped_guard (sched_change, p, DEQUEUE_SAVE)
+>>> +	scoped_guard (sched_change, p, DEQUEUE_SAVE) {
+>>> +		bool changed = p->numa_preferred_nid != nid;
+>>
+>> Don't the callers of sched_setnuma() already check for this?
+>>
+>> Only one that doesn't is task_numa_migrate() but
+>> numa_migrate_preferred() only calls it when
+>> "task_node(p) == p->numa_preferred_nid" is false and "!sd "case resets
+>> "p->numa_preferred_nid" to "task_node(p)" when the task cannot be
+>> migrated.
+>>
+>> Afaict, "changed" is always true here. Is there a scenario that I might
+>> be missing?
+> 
+> With the current callers it's always true for the tasks that can reach
+> the callback.
+> 
+>  added the check just because ->numa_node_changed() is a generic
+> sched_class callback and its contract is that it's invoked only when the
+> preferred node actually changes. Checking it in sched_setnuma(), under
+> the rq lock we're already holding, makes sure that the contract is
+> honored independently of what the callers of sched_setnuma() are doing,
+> now and in the future, instead of relying on each of them to check it.
+> 
+> That said, I don't have a strong opinion on that, if we prefer to keep
+> sched_setnuma() minimal, I can drop the check and document that the
+> callers must only invoke it on a change.
 
->> +#define CTLV_MAX_NEST_DEPTH		32
->
->JFYI, when I tested with CTLV_MAX_NEST_DEPTH as 32 and try to run
->ctlv_msg_test_as_deep_as_the_core_allows() message_kunit.c test,
->It experiences the *real stack overflow* on FVP
->(lesser value (e.g. 16) is fine):
->
->[    3.834419]     ok 22 ctlv_msg_test_the_bit_where_it_means_nothing
->[    3.836499]     ok 23 ctlv_msg_test_a_bit_no_version_declares
->[    3.837852] Insufficient stack space to handle exception!
->[    3.837875] ESR: 0x0000000096000047 -- DABT (current EL)
->[    3.837916] FAR: 0xffff800084efffe0
->[    3.837953] Task stack:     [0xffff800084f00000..0xffff800084f04000]
->[    3.838001] IRQ stack:      [0xffff800083d50000..0xffff800083d54000]
->[    3.838049] Overflow stack: [0xffff00087b7c3150..0xffff00087b7c4150]
->[    3.838114] CPU: 7 UID: 0 PID: 257 Comm: kunit_try_catch Tainted: G                 N
->** replaying previous printk message **
->[    3.838114] CPU: 7 UID: 0 PID: 257 Comm: kunit_try_catch Tainted: G                 N  7.3.0-rc4+ #1216 PREEMPTLAZY
->[    3.838219] Tainted: [N]=TEST
->[    3.838249] Hardware name:  , BIOS
->[    3.838279] pstate: 21400009 (nzCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
->[    3.838360] pc : __kmalloc_flags_noprof+0x10/0x540
->[    3.838433] lr : __alloc_empty_sheaf+0x48/0x88
->[    3.838501] sp : ffff800084efffa0
->[    3.838534] x29: ffff800084f00030 x28: 0000000000000400 x27: 0000000000000400
->[    3.838657] x26: ffff000803d721c0 x25: 0000000000000000 x24: 0000000000400cc0
->[    3.838780] x23: ffff00087b7e3398 x22: 16e0800080564b98 x21: ffff0008000a0900
->[    3.838908] x20: 0000000000000000 x19: ffff000800013600 x18: 0000000000000000
->[    3.839029] x17: 0000000000000001 x16: 0000000000000002 x15: ffffffff00000001
->[    3.839150] x14: 0000001c000001c0 x13: ffffffff00000001 x12: ffff000800013500
->[    3.839275] x11: ffff00080370a800 x10: 0000000000000060 x9 : ffff8000805627d0
->[    3.839401] x8 : 0000000000000000 x7 : ffffffff00000001 x6 : 0000001d000001d0
->[    3.839521] x5 : ffff800080567b68 x4 : 00000000ffffffff x3 : 0000000000000004
->[    3.839640] x2 : 0000000000000dc0 x1 : 0000000000000008 x0 : 0000000000000080
->[    3.839761] Kernel panic - not syncing: kernel stack overflow
->[    3.841533] CPU: 7 UID: 0 PID: 257 Comm: kunit_try_catch Tainted: G                 N  7.3.0-rc4+ #1216 PREEMPTLAZY
->[    3.841783] Tainted: [N]=TEST
->[    3.841877] Hardware name:  , BIOS
->[    3.841980] Call trace:
->[    3.842065]  show_stack+0x20/0x40 (C)
->[    3.842246]  __dump_stack+0x28/0x48
->[    3.842427]  dump_stack_lvl+0x28/0xb0
->[    3.842609]  dump_stack+0x18/0x34
->[    3.842788]  vpanic+0x208/0x5b8
->[    3.842944]  panic+0x54/0x60
->[    3.843096]  nmi_panic+0xc0/0xc8
->[    3.843273]  panic_bad_stack+0x10c/0x128
->[    3.843466]  handle_bad_stack+0x34/0x38
->[    3.843622]  __bad_stack+0x98/0xa0
->[    3.843773]  __kmalloc_flags_noprof+0x10/0x540 (P)
->[    3.843950]  __pcs_replace_empty_main+0x2ac/0x3e8
->[    3.844139]  __kmalloc_node_track_caller_noprof+0x440/0x520
->[    3.844328]  krealloc_node_align_noprof+0x178/0x390
->[    3.844509]  kvrealloc_node_align_noprof+0x98/0x130
->[    3.844690]  ctlv_schema_index_scope_add+0xb0/0x3f8
->[    3.844882]  ctlv_schema_check_indexed_nest+0x1e8/0x958
->
->(repeat ctlv_schema_check_attr()/ctlv_schema_check_indexed_nest())
->
->[    3.856919]  ctlv_schema_check_attr+0x3dc/0x538
->[    3.857105]  ctlv_schema_check_indexed_nest+0x788/0x958
->[    3.857301]  ctlv_schema_validate+0x88/0x180
->[    3.857482]  ctlv_msg_test_as_deep_as_the_core_allows+0x11c/0x1e8
->[    3.857698]  kunit_try_run_case+0x64/0x188
->[    3.857878]  kunit_generic_run_threadfn_adapter+0x30/0x68
->[    3.858086]  kthread+0x10c/0x140
->[    3.858245]  ret_from_fork+0x10/0x20
->[    3.858398] SMP: stopping secondary CPUs
->[    3.858630] Kernel Offset: disabled
->[    3.858720] CPU features: 0x0,00000000,00b0802e,9f190bc3,2affe72f
->[    3.858872] Memory Limit: none
->[    3.858976] ---[ end Kernel panic - not syncing: kernel stack overflow ]---
->
->[...]
->
->I think it might be good to configurable according to architecture
->unless it's not good to reduce the CTLV_MAX_NEST_DEPTH number
->otherwise, increasing stack size when CTLV is enabled seems unresonable...
+I too don't have a strong opinion but I'm all for smaller diffstat
+whenever possible ;-)
 
-Agreed, will lower it down. I think we should be okay with 8 for start.
+Let us wait on Peter in case he would prefer to have the defensive
+check. FWIW, I've been running a kernel with a:
+
+  WARN_ON_ONCE(p->numa_preferred_nid == nid)
+
+for a while and I haven't hit any warnings yet from sched_setnuma().
+
+-- 
+Thanks and Regards,
+Prateek
+
+"Program testing can be used to show the presence of bugs,
+ but never to show their absence!" - Edsger W. Dijkstra
