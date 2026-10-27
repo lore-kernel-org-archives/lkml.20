@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793140328;
-	b=UTZLWCVzVBPMDig1lJ6En/HvjKjOQGtaJV22HB1sZrUErM9g+n1p7e7j36wRw5SrNGOl
-	 GqmKWM35MfGo41+4GH2CVtN9yyYh00EBhAqAqhtXLKxywuCT+oAcixVXvBkzyLRVK/iJ2
-	 rWa7Gjdq3oo0+VW2TG79e91HJpZin7Kq9yPH2NI1zTI7P+Bz7GRW3lPFZyDY3jj5vzIiL
-	 yHwRWarzajgl0pHoA00JKzMUSXRxxx/9muOEIE5j1ESxnu9NZm4DhH0nWwKa1GbqW26GC
-	 xC8QVd7C4DzWpMTz6u41VzYugFEHsVSXz+lrLCSbE20IX122RLx/OIxtnrs2bW+9FPw==
+	t=1793140333;
+	b=TydRn/0JSvuZM/nzAeKLOEU0vX36m8sJyljTL+kgWImdL0XB1YWjPulKmWsMssHHv+wf
+	 q9+oVl/ZBnrQ8usO2v3J626ILa+xll+LHZp6wZkDaA9ZMmUChQmd8IPH95n2BFnmq9XXh
+	 ZNg2st/iAdGhq/lBYVMgOTiaza2wYu0EOJRQGeWXWMxWGSdAXeAB6+s8rR3LTcklk+CyI
+	 I6UxVjA3GBzPEqwrlPkvUFewNjtvb8gQgLHqUkEyAnVBKLOI2te6RiMR1UIE0OGveKWKx
+	 w687AGovOfESchdwYpJkTb2X00zaKU7PING3Klr0ZfqgPjoLS6xszftdBneQWYXAHpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793140328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140333;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JEwn/LebwMC44j3K5FGc9e2/8pQkU9pC11hZEDGdjzQ=;
-	b=TMaBVr6AwBB6lQsXC3ItYhxYQ+bG4eyg15Wceo5iVuUCKzdoADow7BnK+OranMU2MxjD
-	 YZrof7xI59eSbWN9610bTh6y9OCtFPtkx/bxSjZk+WdM6WfutEEtaYhr8A2APqYBnVAQB
-	 7Gxu9vSekWyfErE45Vw1OnMzS6t6PiuQyjQp3G7HTbMW/sFqIuz1WaJKGTtoIKet9OPV2
-	 dkXaofwjkMpzT2bgVZ/VrCKk4jxOm1LE93/wd1fWZ9UnqBHbkhC+VqI3HgnwPGaDoN6qW
-	 fxIm8vS+mAKB35dxn7mTgD6qJmkAcYr3RcXrT9JAxMNHaKeSEJYy9uD65WYgIO7cyCw==
+	bh=vFxoxFWBOlhshfxwALIfxaK+Lb04zfCNYo+3DVPtQOA=;
+	b=daWaiHx8A5B26WCtg1O8jmbCWp60XAFeu66As2DkXmZa2oeIjzQyI7O2UyDQqBNs18bC
+	 km38nqA6Gr0r7448ThnbvE6I5tTzQr4IT7fYh9SZVsf+gocRKHIPFjPAFT+gdSG91x+CT
+	 VRlHC/J/D10Eeilr27X6B55W418vtmDBXDk3ET8g3ZZWdtlWM8heeLPWrZNtQR/Y4JC4Z
+	 /6lws3t9cYZlK/kp3fV9+pbtb/8tDlo+3KsFeSB/VippyGlIWHOxHo4nICcp7pzlG/Yy6
+	 /c9YzUYMMrlDM5UbIGoo7ZWrvFIj+juJtrzNiPdE1BoVRLT8ZtpFe5FxjRdigWF+YYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICQ2xeVG;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0pS5BrSH;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C77360A260E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C77360A260E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9D660A260A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B9D660A260A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ICQ2xeVG
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-14fc585291cso232293c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:32:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0pS5BrSH
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-156cbe59622so364000c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:32:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793140326; x=1793745126; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793140333; x=1793745133; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JEwn/LebwMC44j3K5FGc9e2/8pQkU9pC11hZEDGdjzQ=;
-        b=ICQ2xeVGzmWE24Bl8MUYq5aXG06gvrlMMo8wHLIEXuyyvSmITuiPetpYC0VRhKwSk2
-         HbKhRUo4Xk6xayoeRdUCSHLTb3Q7pOMHWpVjxZlj51UDhQc4i70lgi1XpvckU9guYl2O
-         NdFaL9nh0/Nlrr5rrYdDKmDzjj3+81b/MKPsVqAGIU3xVYIJX1p3QblGtYxYR0WunAqk
-         2AWUQTQNEWmTwj8eJN8gHfGeAAW1JiECDJsAtGAT2eEQ97dsKybnfmQbnFg7vBvnVfgR
-         ofbslCCTf03wiFw3u7j+kVRan2NIoWWpETPvn/zkQQMnCB9qAcfnEJzd41FpTAK7yW8Z
-         1R6Q==
+        bh=vFxoxFWBOlhshfxwALIfxaK+Lb04zfCNYo+3DVPtQOA=;
+        b=0pS5BrSHWg6OtG5b8mJ3ZzcWHFBUygIBnHkcF+py+PlavFQ+NNeaJx28AS0ig0jf8s
+         iLs4SAUhObBEEEVRkbPMdnJRomFqb4ds5au43SOpoMh55KMRuD8L1xtg7sFuRI20JG/m
+         zgZnf2fDEhq734UOYTl5Lq+HPkXIBLUbD3kGw+AObHJ/s2evtZb91+trHl0bMPZ47oso
+         4jzuLg/GQ4XT7F+8iSZdclha93GExR4b+iyCGeFLh/uRSsuoNMZPq6CRwa5FeGEAhjUv
+         wr2ZbBPAlTuqEoJXtz3PxHtU2L5nCFADmkKDN1ym8uU/e8OuS4adrbneGLmEBqPrX4Dm
+         8ztw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793140326; x=1793745126;
+        d=1e100.net; s=20260707; t=1793140333; x=1793745133;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JEwn/LebwMC44j3K5FGc9e2/8pQkU9pC11hZEDGdjzQ=;
-        b=ouLvtNFA8vBx/joiLDqvOoy2iy7ePGPapH0gKYTN37IW8X2EG1nCPOEqua7Cs6zPha
-         dDxICMoxlHUDBwh7LteDmTs2ZDpmdKndrQ8ko9CKYyht2jtkM0yH1sxmxkZ6E6zf0ipR
-         EGhZLcHIcmespz4eUswrTksj+Wz1Ly9CDDKSz6Sw9bD3h2K1xZPB/qtKgN44nacQ8jKQ
-         UmYBmym0iHEv3zPHEVdRCfrMbRq46eC3lIq+wCuvHs5hfnI9Ub3dp7HBQU5E6MMaZLjG
-         Y0bYAsCd4/4R3dh5I5MPe0kU5MfIIlp3olqg5Gsy36JAA06H82DSOp+mybpgGdy4vbZK
-         c0Ww==
-X-Forwarded-Encrypted: i=1; AKwUvByHw0MYxQtScU7ljW00qc0NzcQjWoUnVPEp/t7ym7jf3uVpNXBtSz4BKIje6QnF+2AlO1O0HJn6AotLPoY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxhej/CcZiKL111SVcmiI1Xc7g3nqxRSjdmgtg6X1sG18woBqd
-	2ZThawB7hV3w0Q8LlfZcS+F4E/9o5mVwHMQICuL3BkiElhDLDTHVfbDm
-X-Gm-Gg: AYBFou0ibqxXksPhkDm2YU673wLtcqIv0CphDQi3QjKxm4OglWDI18lE3bd/2ZEpOBo
-	JRCADgPuO+ImxTIKi+Upa6IrD7ODNv33IH7XmYOKxBNiWGHwlBf9oWxITZqnUXzaPFsiEczUjm8
-	rAtfiwitBzki656tD3/t7PCkrPm7bxYnz+AdTxf9binf7LRJ3FBT9hAgw8bslaVFBMHEjqf9uRD
-	89j1AmxD2iSu4sEfVzN/VdBYIWSmmWwa4Tse8YWKXLGGKneUZ/bpAsijBnFeBNGHOK7LVA+5tv/
-	bkLN9sTnwoYDfPxu+U4m6BVp3CEdnSRbQ9P8Gg1kG83JPl7Gc1Z96khb+QeiRzxpMEcLbwhHbAm
-	1LQGVHcVv/P7oFQjT5jlzzZwDjtWRxgl+Fa792KIj5OfuEg9AENO32SIcjysmxBbyEfCIqFCMwK
-	JRJYFt/SXT/HFziHCVfNXy/z2B73AyfOvslzxoYG1tlrbQgNU6y7Ai7gYDqOb2/UApMJNnE7Owl
-	NM/YiK9lvnT8gXo/xuVgCIclnp6Yd9uw6GzKajmDRp5p3lUIi3Gz+glVEXbhJ8BK2ywYpb8hrKj
-	rAF/ng==
-X-Received: by 2002:a05:7022:1003:b0:19c:c396:37aa with SMTP id a92af1059eb24-1a6ce1136b3mr904232c88.22.1793140326215;
-        Tue, 27 Oct 2026 15:32:06 -0700 (PDT)
+        bh=vFxoxFWBOlhshfxwALIfxaK+Lb04zfCNYo+3DVPtQOA=;
+        b=ZW/eyGxxLA72ABnxvb9BAsQksR7PJTa9fGUYGCSOYRp70hP9QbNWdyJPh7OWSiDKGZ
+         0EfX48FWkXV0ayFKWUW6fKU59feqO0/IOIwtuE4ShVTGXSf9ocJf/vbyskxQ4OevljEg
+         HIY3OfTEgd50vSVW7h1wGosQI7nuano7omFgJU9nkwf3kGL3dQh/YhE1xzkCzgZnpsjA
+         0B5LbtY9nkp7BXHa4sgsWc2SuSR4N+L0BSLstqtYg3X3vDDq/Zt367Wrb5yJrXKyJOoq
+         BBHL8xyotqMnSfoVS5AHKseF8gSBJSEvd6hODkJYpjCC2RZ18M6j5uuayEX0BlORWa27
+         L7QQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxN6bNINW0x35gLhgLtiW3AxIU/wzF0/2TGvnuOENo+re+W9e3W8bueUgCZa3FrezrZEAowciRfl2x//l4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4PqK+byM3BWuM9OqSymv8xugnna1wjPxu/jUGzycEEb3YNtM0
+	fHU4yvdAC2YG6d8zL50o1MqanK4lmdxj4BCD+2a4aayy+SVslasgtsct
+X-Gm-Gg: AYBFou0NNwQizisR95wop5oYB/LJ6lCyS2IeAuxVWXWM8iTknQbDCDV3Ce5GHxt4I3V
+	O7A9Bg+P+KzjDYxcOtaTDvzJqhtxs05wBgGrE8sBruY23hrKGM5HQny36KoULTI7VGgVPUFQnpK
+	y5j5xdJw8LeiSq842Icj+LZ1hGIMPkpfmz9LQw5NipjProl8ykSPo0DTrLEyMBFpTIfudpn6CIe
+	xgtF7+W5x/8P6gHuZPcS/100JrkqVH6vKaRRPKM+nFZtxS+1bSYbsvKuM6y82TcJJ/jooSVJInT
+	fc9oD6eWrwKU1R1XG6qQ5yPvHTTQGYPCYGDDcYYEJS2wvZAnn7XTXJ/ek0fdu7cOFKq8A9jRMU2
+	rppfR0Wt0j1S4KN5e/au+u803g2GQnJ0wgA3VxvKY1ZOGYMmYK52s5iA8UilAgp5PF00iA7/aXY
+	FskMDbB2Yojzrlfe9OPugrN4TvgNdCb1JdgCxxGVfVX1EYwmLp/Dld198G2HmE7ftj5kBdCBwq1
+	dVppNOOBlo3alZGTDnPhZKi9YVdVpLSX0ZX5GP6nCH5vhsLNDzwF1OZfSrs2eB6BhXNp18lNUHI
+	r9xBqQ==
+X-Received: by 2002:a05:701b:4212:20b0:156:6676:d0e2 with SMTP id a92af1059eb24-1a6ced913fbmr775607c88.10.1793140332370;
+        Tue, 27 Oct 2026 15:32:12 -0700 (PDT)
 Received: from eldorado (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a6d98c93d7sm1130735c88.13.2026.10.27.15.32.04
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a6d98c93d7sm1130735c88.13.2026.10.27.15.32.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 15:32:05 -0700 (PDT)
+        Tue, 27 Oct 2026 15:32:10 -0700 (PDT)
 From: Florian Fainelli <f.fainelli@gmail.com>
 To: netdev@vger.kernel.org
 Cc: Florian Fainelli <f.fainelli@gmail.com>,
@@ -99,9 +99,9 @@ Cc: Florian Fainelli <f.fainelli@gmail.com>,
 	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
 	linux-kernel@vger.kernel.org (open list),
 	Manuel Lauss <manuel.lauss@gmail.com>
-Subject: [PATCH net 06/11] net: au1000: assign a valid MAC address without platform data
-Date: Tue, 27 Oct 2026 15:31:35 -0700
-Message-ID: <20261027223140.3774570-7-f.fainelli@gmail.com>
+Subject: [PATCH net 09/11] net: au1000: restore RX buffer addresses when restarting the MAC
+Date: Tue, 27 Oct 2026 15:31:38 -0700
+Message-ID: <20261027223140.3774570-10-f.fainelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027223140.3774570-1-f.fainelli@gmail.com>
 References: <20261027223140.3774570-1-f.fainelli@gmail.com>
@@ -116,29 +116,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The supported no-platform-data path leaves dev_addr as all zeroes. The
-device can register but eth_validate_addr() prevents it from opening.
-Generate a random address just as for platform data containing an
-invalid address.
+The MAC DMA engine updates each receive descriptor's address as it
+transfers data. Clearing the descriptor control bits during reset does
+not restore the buffer's starting address.
 
-Fixes: 7718f2c27dbd ("au1000_eth: use eth_hw_addr_random() instead of random_ether_addr()")
+au1000_init() only set RX_DMA_ENABLE on the address left in the
+descriptor. After closing and reopening the interface, a receive could
+therefore start partway through its buffer and overwrite memory beyond
+the allocation.
+
+Reload each RX descriptor from rx_db_inuse before enabling it, as the
+receive completion path already does.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 ---
- drivers/net/ethernet/amd/au1000_eth.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/amd/au1000_eth.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
-index 90887dac26bc..c0e38a507f89 100644
+index 6b817d18329b..8c2dbf72652e 100644
 --- a/drivers/net/ethernet/amd/au1000_eth.c
 +++ b/drivers/net/ethernet/amd/au1000_eth.c
-@@ -1196,6 +1196,7 @@ static int au1000_probe(struct platform_device *pdev)
- 		dev_info(&pdev->dev, "no platform_data passed,"
- 					" PHY search on MAC0\n");
- 		aup->phy1_search_mac0 = 1;
-+		eth_hw_addr_random(dev);
- 	} else {
- 		if (is_valid_ether_addr(pd->mac)) {
- 			eth_hw_addr_set(dev, pd->mac);
+@@ -722,7 +722,8 @@ static int au1000_init(struct net_device *dev)
+ 
+ 
+ 	for (i = 0; i < NUM_RX_DMA; i++)
+-		aup->rx_dma_ring[i]->buff_stat |= RX_DMA_ENABLE;
++		writel(lower_32_bits(aup->rx_db_inuse[i]->dma_addr) |
++		       RX_DMA_ENABLE, &aup->rx_dma_ring[i]->buff_stat);
+ 
+ 	wmb(); /* drain writebuffer */
+ 
 -- 
 2.53.0
 
