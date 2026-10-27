@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119896;
-	b=1uQDzSnD7aTK403O+i+C4bDFqd1z2gYbRjh/h6Vzl+oY+6Gy+Sdq/T7oxTdteMZG/7S7
-	 2ZIJxeiFBj5gqFIchWoQKQfXjbJiPY9W1Aby7GDgqllJzXRnERwq0wyL4/hdRGnblGLqU
-	 M/fUBrjIWsvISuqKHfMEBcAXUsxaH/4EmUamLD6g+z2LDmRL3t0M9Ayq7wJnmjoasbpqj
-	 d1JA81O5X/VLZ3eT4NchmV0rqA2Zid1I2pzPte6R+tBL4s1fHdtjYgXfaho8vg793N+ff
-	 fb9XdjVlr6waOnqRFHtW0PbJZWWNGou7Uth9Qqcqj5kFkwyyoTcy5YYBkrCQQ9Zu5Ng==
+	t=1793119909;
+	b=0glH64uGecsih1A1F7k4g2nkuKIWbSMTjVHqJYpITM5TVWV04DZmAU+vhd4tDyeUMXct
+	 gZhnSLS1sr9MqNkIi+IYEH1hUQJY83keyazj4xCfLWftDWq/Ty2slkUVEl4uTzNbPI7XG
+	 42D0JHHHhcYuZ/dPcMVIrSbBssK7fssD7QBjE/P7OBr4IIiZ9Bf4NYGQgFe0SS3YUR8LW
+	 84GLGp/BPUopLlQEixXPNrLA5Uun26srbzI6IXxEQ7aYrX8WLcZjuNcqlKMjibUPi5q7F
+	 cDjqt8/4/HpB7eRVaDsSMI3xAmbaTZ3W5Kdfa5+QGaNZSezu7v6M321V8jCoKL6OgEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119909;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
 	bh=aAVYI7hzWz0Ro36eEs5zq4Y7AqRKeB23+7GHTzj26rY=;
-	b=1BPrY+i9eH7tRaV9bsnV4ccGm1hUFuBoNhIbRmT7SH1piTAbOjr+TEcsQ+YXdGEzGbEO
-	 lTQXjMAq0jerC+uO8sgBMccVc71i6bRRHyaVuileXgPA4Oc/zdJb4BRtEGarOKiLj3hnr
-	 E+hrs4ASG7qDspNHbX75WMtZlndlJGNChWVA6xD28TiSnki6hpKZ23OrpdVNYCk8JNYrk
-	 DOGIQKr+4Z8kDG2bZXgH9DemzKONJuvVl97H3LQAX9Ab/hoS0sjA0HvR48mTgBnZ3ejlL
-	 J2o0gP69sr2GWaZPCSLboWmvL24yHqCpJKzJnjP2r/R4NIvQg+d8WUDfmqoqOnxe4cw==
+	b=FHzNywsvlM/nVbh/pa+gSAuu4XYKkyT0BiUq7+eNeG3NsZ6nZt66c7jbVQVqCnyIdDFH
+	 zOsvq2nEYy3+uopaxtjFYGHTX59wS4VV6vP5csm3V2ep0k+0PAuoZU/erJPCzbD5aJcYM
+	 DvtKEk582mTwTAp2gxJ+0xyU7Vmw0SZqoQZvS54055OFCuM+dI/b8oTEAQe4hhrI2Pr23
+	 BKJ6jWit29X9jy19Aav6780DDKDnmFn0jDiNfceOgZuP73s4QHLhNvu2yBCSqDU0dK9KI
+	 46oIJACsVkAOI+umcqtS0ffjuU5U+hq96ZgsATFXYJ+U6JGPS71HUiht1++AM7kPMWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=simpleble.org;
 	spf=pass smtp.mailfrom=californiaopensource.com;
-	dkim=pass header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=ln0SPSKU;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=avL7x7D3;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94190606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94190606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0C9606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:51:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA0C9606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simpleble.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=californiaopensource.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=ln0SPSKU
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36661f953e4so98652eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:51:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=avL7x7D3
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-188406bb948so3606240c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:51:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=simpleble.org; s=google; t=1793119895; x=1793724695; darn=vger.kernel.org;
+        d=simpleble.org; s=google; t=1793119908; x=1793724708; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
         bh=aAVYI7hzWz0Ro36eEs5zq4Y7AqRKeB23+7GHTzj26rY=;
-        b=ln0SPSKUgrarXzwNmH9xP9RtnX3Xmam1Y+XCMj1HIYO6IxoKRHEXJQZU5FWaP0SGSF
-         1Ouh/C6WipUr8cOUnmIXKFJzGMwZ7FIvfoGWQHEw/dPYqyVIJrGhnb+oTDlEGQH6xrno
-         HMAkD1UKct1cVcvH2UHVC9IVWRJ04zUN1DlEB3lAQdQAP5WD7UpNDpPd+IWH6sgIRbhv
-         GdviVtB4uvjxAlV04LinAZDtZFk+yVj1SnDeWegziMSA5ELrvxAuxKt2S8yUUCUXfosm
-         pEzxJv5QvvmyEjTSbiuLn3bVR30oIvja+KMrkZogNcWY476xvq29eAKh2+tyAeOISAfK
-         aKWw==
+        b=avL7x7D38BpE7bqjyGyVziff6PpmnBwDe9Yl1ufs/u922LMszIu0XxXweYGggEmAHr
+         IM4w253lGOHOZ18/tKqehpt9vhoo+CXlPgMy0Eb9xpohhEuyML5xOs/dTndSslEU13zh
+         bomgeHyT0/nPzCz/RrUtu6O8Ax4LJgXBm2fX0aZeXP/UFa6bRZzuhMXPA5oviyJ7fxYj
+         tHsPpdHQlNzKFV1A2P+QB+kG1uXUY90i5Qgo3iHAWUEh8PhKfng908FY4i59d7QGtRth
+         CYBKItmyf1J9aq0NhyyhVmTOU/GFKbWSy5ed8e7zMeLueaAUNP6TYsHTowL4Kv3WDqIC
+         92Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119895; x=1793724695;
+        d=1e100.net; s=20260707; t=1793119908; x=1793724708;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
         bh=aAVYI7hzWz0Ro36eEs5zq4Y7AqRKeB23+7GHTzj26rY=;
-        b=jGJdR8taeywEayknev0Gwo1asr2dGc9g9Ol0djwzUxZA7dIHxnDdT/4t/+kyiCLgLZ
-         GEkvTloc+imzfKMIqVYAXhUrvlM8/+isq5+SqTJ3DFLpxrpLR/jWVd/g9enGHKHCHHXX
-         3DAa36lGXvZMHJsq+zzZDclASHZ1RNHXQHSvoJ/ET1XjgdfACGDHHmGXLOTV6SxHiweX
-         5670GE3Sj28OSccIpbFTBUqnfV65zJuuWuZQVG13wsjc72/6ibQggTu1Ai6G4F3iantd
-         aNqYNdGmo3YsaDGIdj4PWcLFyO4/nmGxULqVKgHqzj07GaGE4Gau4F8lnY2zolfrMrn8
-         WvMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxIMjmScwJqRuE9ZMxvYdfN+JDto+fs2YBc2X7Z0x3ngJaj0KZw0GlMWB3275vzxGvqGnyUD3vlO25lbk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHlD6dnZYKByXPrV+r7R3L20Dsw/nSbjz5Eg3DZJerUa6AvOHx
-	y3jMLVYtAPIblAxs3LCMBJtOm46TbC3IYZatELRJAlFfP81KwX58+R57J2JMntWcwidE2CJDU8r
-	nJ4IUxI9jfw==
-X-Gm-Gg: AYBFou10tF6DAKeVLx4HOVw79DosW+r4rIeqf8+uID5OnmZbb6r8mEAHBBugL0NjAt0
-	8hV3JXdpmt9qADh54R5ABJ8YsUslZa6JyUdU7ih/uAPr60Zj6XfcFtgJfeKRBqODpBRMqmp3TkY
-	PA6stIXK29N4bSsbfJw5ULoJnh+zqN+KYbl0hOJ10Ax5F0djJs9RXRrsZid4DDGqF7r3t1+E9XU
-	i59yitUP5BhLPasE1fDBdk+/d0gNnL/A/GgTkyLaBv8wKunDIxfWt7vCdgtRxQvGn4pPG+rjxO8
-	CY/an8w/EjtekMEBr04YjTWMG1516q+EtwkkbEQ4KtxuIMIiqFEa4n3+fsBbZdE7YpJM1nqm2Ki
-	l8/TypN3Hv8pEEDRoYyFukr5XX2ByCpy3qHedF8jG46uECUi9FPVEXiJRojDN9EUqsYYrMJJ23l
-	k06KQkZKjZGzW8Dd2VOM/cSnD8koB1QNvQjhaPzPPalETgfU7KXXu61Obu35RPkTWsG14P8wB/c
-	lYCu2U4AEMGul7EH7yJqNZPJJiDH6Qm19eWMWdvljj7Fucn6r63ippXzH7s80XYr9+Wsjuc8c6H
-	qy/TSNsDNaMA4uQht6FhzuTxyghF+fbkxsO0Ti0xfInu1Qak0bi3vpJoPOxAJcihAeCoWBLp/Jr
-	35bpGOfXPb8Z6K715FUmx5A==
-X-Received: by 2002:a05:7301:6f09:b0:35d:eafd:5737 with SMTP id 5a478bee46e88-369e84e382dmr14261708eec.22.1793119894351;
-        Tue, 27 Oct 2026 09:51:34 -0700 (PDT)
+        b=dkDnCjztXXMxl7Gz1MIQef1rvMaSSkhS6Vpzmeo6C8P7+rNy/xxbkmKmZ/SgrxLIO3
+         CNTZbGfZhcvEgbEVFF2m6OFbZJ13no9rTr8FvqKwEFI5wXETmi7ZZ7RDmlfKQWb99coh
+         VanoJd43VRbpv8fzDvQpqxayDEjC3cz7XTRsBkaUpGUNsdKgoGECQ1I6RhWx7z2ePs0c
+         BBvSZsTwB1C0dg8m29Bi82OAYjH7Mh7t/GL6BVUFYw/qFs9vjR+s86nS1I1kgAceCATa
+         gFp/l+5tJXOOUIUVp0b5/+XSK6ys4++2tv+j8w0slrzYohcBYTr97/XzA5qZfd84WlxU
+         XVkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxt1brInKpdH18Lcolh3lg6e6pxqJok9nTASeYTza26lgxs7r87Mjnmm907auTe+ZXMgOO0YVnTOn9lvLw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8Cm88qcsvEE+A0VPMoJVOBo7YFrqH5lgfbASO3BvHQs/qsK7+
+	uXiLRdomn/A9os5gm6p/GIfJT0Sb1llENaH3h/7yobjT+dRnV2iVdzPKKbznlOOBql8=
+X-Gm-Gg: AYBFou2D7gOfyv70j0em0vNL2XvMpmOWMK1Te71SWbqGvR25SxWGwvIPilSmDPnEUzy
+	QQpK8ITLAEmFmjQcbfbVfKSCBTWIEwkeUWiCnC6ZyDAvaj569/NXfLIlmmkqxT8kdSMqZrqK2Ua
+	yOVPuI2+LNqemVN7NA+MNeajvkD3VRBnDMb77Xsgbjll0pUssH/xEahm553RGK2Cl06UlcBNbRj
+	n5Q6DDc3b1iwLdFd4p3WYzjmLosogwaq7NF6D7f9Y5+GDTYEi1EgNeitTcCXNz2O8Ev1cA3gZav
+	x5weKjqaDfrEyKjn7PoH1w9OIzAX1x2PzVBSbcHliqEkxld1TogCE4UaETi7EUhmxxvrUFDlIIb
+	L7xZ+AZMajX6j/aM0aNi7/daATtWWp7u9p/pZINdFqUYnpMX34bGLblvpp0cgBVBqPZOTMFo14k
+	vUoimEde4XBb4hstNSO2b9WL0QrJ3cBJOsbffiXgSqJhlKc6Pq20ksVfxLAzF52LZi6JXQEL/ld
+	Rg6N6K31fiUAzqF2sG4N9Eb0lMXS3XPJ7IM1+5/PFSTf4KaC9Cq45uW8FdrWiqfHoHSCnyoHafu
+	9X5tUQ1e+gVKxudM7FTh6S638ueRUxs6vhh0Nj+yrKvNpVGoavmtVGsZiuaOVdBAZmVuTqCWzB7
+	5l/X6RJUuDIvO/gUkQBdgCA==
+X-Received: by 2002:a05:701b:4209:20b0:14a:d8fe:3390 with SMTP id a92af1059eb24-1a631c9284fmr820274c88.32.1793119907564;
+        Tue, 27 Oct 2026 09:51:47 -0700 (PDT)
 Received: from localhost.localdomain ([147.185.47.151])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7e73sm35314092eec.20.2026.10.27.09.51.32
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d5a10csm34399611c88.1.2026.10.27.09.51.46
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 09:51:33 -0700 (PDT)
+        Tue, 27 Oct 2026 09:51:47 -0700 (PDT)
 From: Kevin Dewald <kevin@simpleble.org>
 To: linux-bluetooth@vger.kernel.org
 Cc: Marcel Holtmann <marcel@holtmann.org>,
@@ -86,8 +85,8 @@ Cc: Marcel Holtmann <marcel@holtmann.org>,
 	linux-kernel@vger.kernel.org,
 	Kevin Dewald <kevin@simpleble.org>
 Subject: [PATCH] Bluetooth: MGMT: Fix discovery stuck after a failed Stop Discovery
-Date: Tue, 27 Oct 2026 09:51:29 -0700
-Message-ID: <20261027165130.74821-1-kevin@simpleble.org>
+Date: Tue, 27 Oct 2026 09:51:44 -0700
+Message-ID: <20261027165144.75105-1-kevin@simpleble.org>
 X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
