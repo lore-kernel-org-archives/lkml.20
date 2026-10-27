@@ -1,54 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.235
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108707;
-	b=1AOUvIgAk+HEMUwycbMOc5jqN3dG/JKlddnoIqNlxHj45byXbH4t/cCqfE8ioAgjnbo8
-	 tFgS/yZpAzQGapYUyZ84tgMEBWNB1iRGFrrvehOCCJzNgqZwqyBsMRnFlCwfvr1iRBt8+
-	 eefGsKjV8+k7/NwmD71JXpjxaQ5kJgVFwqoZ9NwUxKqRQwEveKpBt+srVgx1dN4kwe1dQ
-	 FEDXgDat669UupcK8ypP6BDGghEuOrEC8m4ml3PTMFsYW8ETz2w/H3DaB5Tw9rNB+FZ5Q
-	 RxAN4QKtF9qy6LFPwl7AVmhVH1uNC74bI9AJomVmkfW7N5fgvC2EsE+Eipteq7D3ymg==
+	t=1793108718;
+	b=RvTAtM3YbSCiKagnFSSESxBlP8RH1oSqbfiRXCdtnwe1uK65IjLXGAqr9Jc8TncJHxu6
+	 3EBkrSVz6Cl0qOSX8xN7F2qgYsoiZB0vET2U4iUNXHhSlv+Fw34bqe2yPBFDB7yAAAnqN
+	 Bt84ueviW3KZbpd37LqLooIshocF5jc/r7AzMJ+0vLW/ZperAgEZfDwW216s+n4NQb2K9
+	 1lahbRNxQ97ABGCAdp5uWSH37gtUIrLbPPrlIz7eGy+TVT+Uute/xQGl+C5xDrL4CK7LU
+	 V5tXtTqI6coit4aSWQi0wUlOMno9t2+dfwxFXkprMS4/P3EA+SFSc7tR/SSqBdfwEIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108707;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+zgFas+4hJZZwgPEJMUzFoGVQwC5WpjC0swXnGqt0W0=;
-	b=q/k2YRFlPpugwyCD7SE5/SzTr7HU7of2LZSrxYxQhHOnJClgufL5UwdqmpUstoXOwoq8
-	 fU8Z3SjSHACphH20Hb2p5fr3orycWEFywiJZXmDU9q+PYKm2lwxCGdgDxafPCH/d10+4n
-	 NAItb4jn87CoMd4KF7yutvMznzZn3F4OREY1s6fs5McGlaKVRQfpOlXTaPVFDVrFO4KxO
-	 /6MGvOGMZ3zWWiNy3umdgwE2kDY+o+SfD3WJ+g2TLdlm6lTUKpOjZFT6X0rOy375WXY/L
-	 nKSSDdU6QkF44QjoWU6qErJo+FzUWxd/StkkuZU2hR97flknR33QjqCUJMPv1VBXd1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108718;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8TAIza2maHFoLukZ9iYbRq1qc6+ujGeVY4cIhriAjjI=;
+	b=b2QzmHfm0BE8TxQriwt+h7yStaYgmKgUvCoPNSgFIXHRuDqzxgLzV2++N2WEbLWSDg/l
+	 t08B56D7LzNDvIe0SMc34A5RKNkhH2BbhdZWJLZr/utEU22PQrPKp5inTgq6Z0a+ZG7Gs
+	 StlzXZQCqKZFC8tkKjgJSLjMXh5yuvPyTbievqK/2aAy6omnnJybizViaFUquV6HINhCU
+	 w3mRMB/A3Slx8eHUIPxdZDrGKoPqjTBo86A7CQLLipJrQlseEC7aSp55tpCu4KpkzM0t6
+	 6Y+ZfrprGnaHGGa9sGjxYABq0M2kzyh6mkKKoC2FZhMpq9LTR/tiiKlNaYPJFaw3ETQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QwXr001w;
-	arc=none smtp.remote-ip=91.218.175.235
-Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=shutemov.name;
+	spf=pass smtp.mailfrom=shutemov.name;
+	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=rQbXiCep;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="BkFc/OuK";
+	arc=none smtp.remote-ip=202.12.124.142
+Received: from flow-b7-smtp.messagingengine.com (flow-b7-smtp.messagingengine.com [202.12.124.142])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A98C606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:45:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A98C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3A8606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:45:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF3A8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QwXr001w
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aWAzItW6Ln/bOAVvVXsGvaelikw5SSSjsKUtt55BHao=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793108704; v=1; x=1793713504;
- b=QwXr001w6nn/Q+IYZqN6lAH940OXJ15yslwhMkAmfiRCXHN0pJaNCXr1F+MD/i9VM0ysKIqP
- IDd1JsKgoBOJMzJKsOawuVESspuHJdNoIqsNdUxNXoVrrTFbAFSsaGMGNu8iNPBCTf3+6qkpL29
- iX9PIrAHBm/x7ONwBh6bwbS0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 17da54f9e5b41fb1;
-	Tue, 27 Oct 2026 13:45:03 +0000
-X-Mizu-Trace-ID: 17da54f9e5b41fb1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f5c6c08f-2978-4c45-b8e3-91f0509b459f@linux.dev>
-Date: Tue, 27 Oct 2026 21:44:53 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=rQbXiCep;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=BkFc/OuK
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailflow.stl.internal (Postfix) with ESMTP id 2AE111302990
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:45:16 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Tue, 27 Oct 2026 09:45:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793108709; x=
+	1793115909; bh=8TAIza2maHFoLukZ9iYbRq1qc6+ujGeVY4cIhriAjjI=; b=r
+	QbXiCepoMvMX78v2pXgxAc3L4YBN1LsHDtFluN8UK4w3oM2o+85HbDzIVIv4dXfn
+	38sJseJaFFbHwZjZjzsMhJ8O95gQlp/Lk0Cmi4tuzI64arSFOqjnZYzUL57W9845
+	w5hiLemPDctUhfWBO3cv0ZFm4SYHK3hKx4P9yIQmHSIjTAPBv7Gzl7aFCORgZrKX
+	2xWFOIlDi9j5aYaXgxIvMTfYW6TIQWN34QbusR5bNMOjbL5+wsru9ykM7SRlbY8T
+	3iuH237OqrxSrt8iEJGFHUduXngz6dZGR/X9J1J3PGR3EB51XMqFCSvfI0JO7Ody
+	MYtLuF2aYVmDyu3luLzVA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793108709; x=1793115909; bh=8TAIza2maHFoLukZ9iYbRq1qc6+ujGeVY4c
+	IhriAjjI=; b=BkFc/OuK6ZU1iDEjgXsHUFdtgBRLUTJUUEKgfa9w+h0ksmiXSTR
+	QOPFjYZ7WU+pI3YTlUOEZMOZp/a4Kz3TQqmOKLWoKLOXR/Oo7Oq6gHv6AmufAuNU
+	6AU1sv5sXZSVWxvGF3K9imo+rSAS5+Y3NSFfSvUcKTG/+nqRmGSHadxQfrKqJTQs
+	m2qdEx4jTmfGKOz/R4CM8ry5bR5VodN7YTg+1zCy+mBk+A8LLHOk6wGLdqLi8oH+
+	B+JQ3J+le9+nVf+HJSVHurb/NHyqTD0an3GZ2db3zEnpVATYfEWZPJFYvrJR1oSx
+	5AEw3lxrq24hjW6fPsqnmo9EiwXC7H9jUCQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793108709; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:xQqSFNt6Bmomr3knC7T5wwLfKzAEUQHk4X4xMtVn65Xo5cR
+	CxTTZAwzRM75ybAW2sbAcWD4YtWJX9IMA0oD7cyPWGf57dL38IaWU46R2PPLQTky
+	jfkaRT5vC74t2/jcLp4wgcH/I14lL82JmH54JBWCa1D14Ct1YIDuWLXKhc+724QL
+	AhuGNdYxZUmi4TP707hMHww6I4C5t19RmK1VuhdEneSm4xtxLvLZ7ouX/AJi2qvl
+	djQqMTQyBBj/s5U041hf0Zf6ovBrJ0Wb2TIULWK4YYD7sYYM3Evseidgsc9vOFKj
+	viFBZVs/d5uc1YO/fl5NraTJ/DHu7krTupeOGNQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:seaL8eoUk9zz7RKlbs/WO4VFngl+PPR6zsD+uJ3Mc/M=:Enih+tl6eKbc4ggwNBptcy2mvOiomnW/6tHkarBfMLI=;
+X-ME-Sender: <xms:46rgasQk3ATXoQlHGjlYmuUDjSQehUiJuO75_MfqTS3uwPRLu_wIsA>
+    <xme:46rgan11uqiyYSdgHiJXmG5QnS1EDBnVXq6mGeSsgsrEOCR3a6_g2S7o2cyvomTzm
+    ZZa_QNqot9iI9Roj0DWugZ96g4SKX62q18Q9B6J3Hs3sbKRGB_Xapw>
+X-ME-Received: <xmr:46rgap1PkLRQUwyTCxzr0telQ1P9i-4_Phsd-V1cyR4QwVZE_DZCiDPDoP0>
+X-ME-Proxy-Cause: dmFkZTGblqe+wfRiQe8bcmkWYEKf3fZ/EiWo5l7bp+xDj5MkloEPRlh17pptfO3Q5h+fqJ
+    tnwEFFeraUcTpHK/tCx+CFZKuwAI9oAZ0CLgKu5WtNsHXbF250PIeIsdaPnp5LB4TK8mhU
+    3nns4LfB4Zb+Gp3SuArkJViR94h5KQbl5QTycoy4R1g6lI2N0HZjNGIm1/REnmCSE4sSeb
+    iO9NqRbEJ6d4mXWOaptabctmr11CwGRSteBTFl0vIbKml7k332veFp+P4Y64yWzaWlHibG
+    Ewcvn2Ke2kyuD/kc9DgTOu4B6JFDMG09zfFLBSRnyziPPuYJSbTWmODezy3iyx4WZFFmYg
+    AKcGkfvKZ3Jn5tMBUDtbg8/qv8CjlroBAxGH8XbxFUcHUfdWZYLaJrKeU/3ZpR3iLu4k/4
+    tdze24ILcsucOqdyrCjtnaa6N9ElZnbYkKcFhdU4rFr6+ipli12b2fbq5vGvVNLQE0Bm+j
+    4Z58gp6/30oTfcWjMyZEG454nT+YEoqoN8YOoCfC46f8hOw6scje4vy3HXntvGyFjtI07Q
+    YuLghAS6wlzOoQg48qg9z2d9JNOhFzuKm5IfqBJ9OTB/mAc21zfw0KhF6XU7tU6512y5Nh
+    gc8xPuKLL2Kj6fvREKwSuTfhh9PbqCiVuj0nX9AA3UioLAXC56WYyiFhjoEA
+X-ME-Proxy: <xmx:46rganCSTWOYxoqEvQYDO11fv7rB5mKBaWaqdJW2oHHAYT9oO5qgOw>
+    <xmx:46rgaldfQE5UbEhMGsBcWVrD_KfEwjuoJgQpGnsMuo64AT4Firlkhw>
+    <xmx:46rgao4Jnzqcv1bFo7EPmNvUWPeBDlcV6FZpWbMo4bPp6vB_TDa8Kw>
+    <xmx:46rgaiRCQE_k7-iCJwGDsDXClD4aAZpjPLZRtSBsCpBMJIustJdVgQ>
+    <xmx:5argat7gTGe6XnTgOpEjZVHu_v9aliKhzaSspQIOg9cv6OQc_EWgFnAo>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 09:45:05 -0400 (EDT)
+Date: Tue, 27 Oct 2026 13:45:04 +0000
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org, 
+	linux-mm@kvack.org, ryan.roberts@arm.com, abuehaze@amazon.com, alisaidi@amazon.com, 
+	blakgeof@amazon.com, dipietro.salvatore@gmail.com, rvvandan@amazon.com, 
+	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, linkinjeon@kernel.org, 
+	sj1557.seo@samsung.com, yuezhang.mo@sony.com, miklos@szeredi.hu, agruenba@redhat.com, 
+	djwong@kernel.org, hyc.lee@gmail.com, almaz.alexandrovich@paragon-software.com, 
+	cem@kernel.org, dlemoal@kernel.org, naohiro.aota@wdc.com, jth@kernel.org, 
+	willy@infradead.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, ziy@nvidia.com, 
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
+	gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com, 
+	ritesh.list@gmail.com, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	exfat@lists.linux.dev, fuse-devel@lists.linux.dev, gfs2@lists.linux.dev, 
+	linux-xfs@vger.kernel.org, ntfs@lists.linux.dev, ntfs3@lists.linux.dev
+Subject: Re: [PATCH 0/2] mm, iomap: account dirty at page granularity for
+ per-block dirty folios
+Message-ID: <auCqlqe97AMeqKHY@thinkstation>
+References: <20261027112702.3747009-1-dipiets@amazon.it>
+ <668c53f7-20b4-4400-b442-71749db88d03@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,71 +136,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
- configured MTU, not the learned PMTU"
-To: Esko Mobius <echoowall@gmail.com>, Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, Shuah Khan <shuah@kernel.org>,
- Thorsten Leemhuis <regressions@leemhuis.info>, regressions@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
- <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
- <e25fd292-5391-41fc-a324-0ec260828415@linux.dev>
- <CAL4Wiip=TkP2hmOFR-1Y-CU4rYHY_q=TBDhK6RmTj9UEMQ95Gw@mail.gmail.com>
- <D438C59D-09D4-4008-9240-18DA0ABBDCEA@gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <D438C59D-09D4-4008-9240-18DA0ABBDCEA@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <668c53f7-20b4-4400-b442-71749db88d03@kernel.org>
 
+On Tue, Oct 27, 2026 at 01:22:22PM +0100, David Hildenbrand (Arm) wrote:
+> On 10/27/26 12:27, Salvatore Dipietro wrote:
+> > Since iomap gained per-block dirty tracking, a large folio can be
+> > partially dirty: struct iomap_folio_state records exactly which
+> > blocks are dirty, and writeback only writes those ranges.  The mm
+> > dirty accounting, however, still charges the whole folio even if a
+> > single block is dirty (up to 512x over-accounting for a 2 MB folio
+> > over 4 KB blocks).
+> > 
+> > balance_dirty_pages() then throttles writers against a number that
+> > is unrelated to how much data actually needs writing back.  On
+> > workloads that repeatedly dirty small ranges of large folios --
+> > e.g. PostgreSQL, which writes mostly 8/16 KB pages -- dirty_thresh
+> > is crossed and writers are throttled long before the real dirty data
+> > justifies it.  On the benchmark below, run on v7.3-rc7, the
+> > unpatched kernel charges ~159 TB of dirtied pages while writing
+> > ~6 TB to the array, a factor of 27; with this series the dirtied
+> > pages charged match the data actually written.
+> > 
+> > This series makes iomap charge and discharge the mm dirty counters
+> > per dirty page for folios that carry per-block dirty state, so a
+> > partially dirty large folio is accounted for the dirty part only:
+> > 
+> >   - Patch 1 adds the mm infrastructure: an AS_DIRTY_PER_BLOCK
+> >     mapping flag, an @accounted argument to __folio_mark_dirty()
+> >     and __filemap_dirty_folio() to skip the generic per-folio
+> >     charge, and an address_space_operations::accounted_dirty_pages()
+> >     callback used by the discharge and migration paths instead of
+> >     folio_nr_pages().  No filesystem opts in, so it is a no-op on
+> >     its own.
+> > 
+> >   - Patch 2 makes iomap charge per dirty page from the per-block
+> >     dirty bitmap and wires iomap_accounted_dirty_pages() into every
+> >     iomap-based filesystem.
+> > 
+> > This was benchmarked with PostgreSQL using the pgbench simple-update
+> > workload on v7.3-rc7.  Average throughput rises 46.8% (139.8k ->
+> > 205.2k tps) and run-to-run variability drops from a 23.60% to a
+> > 3.98% coefficient of variation: the worst iteration improves from
+> > 97.9k to 191.5k tps, while the best gains 8%, 199.4k -> 215.9k.
+> > 
+> > Ten iterations per kernel, same database and workload (tps):
+> > 
+> >   Kernel                     Avg     Min     Max      CV   iters   iters
+> >                                                              1-5    6-10
+> >   ______________________  ______  ______  ______  ______  ______  ______
+> >   v7.3-rc7                139.8k   97.9k  199.4k  23.60%  164.4k  115.2k
+> >   v7.3-rc7 + this series  205.2k  191.5k  215.9k   3.98%  200.1k  210.2k
+> > 
+> > On unpatched v7.3-rc7 the worst iteration lands ~51% below the best,
+> > and throughput decays as the run progresses: iterations 6-10 average
+> > 30% below iterations 1-5.  With this series the decay is gone -- the
+> > second half is similar to the first -- and the coefficient of
+> > variation stays at 3.98%.
+> > 
+> > The over-accounting has existed since commit 4ce02c679722 ("iomap: Add
+> > per-block dirty state tracking to improve performance"), merged in
+> > v6.6, where the ifs bitmap started recording partial dirty state while
+> > the mm counters kept charging whole folios.
+> > 
+> > The throughput collapse bisects to the v6.17 readahead series, first
+> > bad commit c4602f9fa77f ("mm/readahead: store folio order in struct
+> > file_ra_state"), which lets readahead stay at the largest folio order
+> > once it has ramped up, so a single dirty block charges far more than
+> > is written.  Patch 2 therefore carries:
+> 
+> 
+> How does this relate to
+> 
+> [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap writes
+> 
+> https://lore.kernel.org/all/20260903182943.662461-1-kirill@shutemov.name/
+> 
+> ?
+> 
+> I assume they try to solve different problems, but would more fine-grained folio
+> dirtying also make your solution benefit?
 
-On 10/27/26 9:12 PM, Esko Mobius wrote:
-> On 10/27/26 1:45 PM, Jiayuan Chen wrote:
->> This precondition does all the work. The server only learns the PMTU
->> when it sends a full-size segment itself. [...]
->>
->> Please re-run the 6.12.107 case without seeding the PMTU.
-> You are right. Without seeding, 6.12.107 stalls the same way:
->
->    kernel        PMTU seeded   SYN-ACK MSS   1 MB upload
->    6.12.107      no            1460          stalls
->    6.12.107      yes (ping)    1416          OK
->
-> My reproducer took a shortcut there. What it should have modelled is
-> our production setup, which is the masquerading relay you describe:
-> the clients share the relay's address, so ordinary downloads by other
-> clients keep the server's PMTU entry fresh. Modelling that directly,
-> with no artificial seeding (cliA downloads 1 MB, then cliB, behind a
-> firewall dropping frag-needed, uploads 1 MB through the same relay):
->
->    kernel        SYN-ACK MSS to cliB   cliB upload
->    6.12.107      1416                  OK
->    6.12.111      1460                  stalls
+Yeah, it solves different problem.
 
+And I abandoned my patchset. The right way to do this is to make
+page_mkwrite() per-page, not folio.
 
-Thanks Esko for the testing, and Eric for the explanation. Agreed.
-
-
-> So I agree it was never a designed mechanism, it is the side effect
-> Eric describes. We have since added MSS clamping on our relays.
->
-> If it helps, I can send a v2 that describes the masquerading case
-> instead of the seeded one in the changelog. And I am happy to test
-> the net-next follow-up on this setup.
-
-
-No need for a v2 from my side, I just wanted to confirm the actual scenario.
-
-I saw your report earlier but was swamped and could not get to it in 
-time, sorry about that.
-
-
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
->
-> Thanks,
-> Esko
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
