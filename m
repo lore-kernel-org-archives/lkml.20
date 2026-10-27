@@ -1,119 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.56
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793127110;
-	b=ltDgPjtpi2gJNLILTqMCqYtji2rSwUuUEAOf9bb741FjQQQwEK3eGTh4QXH3u36h+Cj4
-	 LDJBgSpznxykWQRuLp1M91j/8YqHhLexZkBR5zOGl6f9V+8qm2t1MIW2jjYSSp7zIFfM6
-	 fX4z3WSOKlBrW6VzdjYeOLEIrTiP4T+hwN4itaV12sc+d7SAIHI5olm26DqCMLljSLlEQ
-	 jKcSTlvA4S7VzpWAR8RkKaY3hg7JSp5kFcLeapgAcdyd7vrDrUt2Zp7XHolBJK1ChHAQ+
-	 /NI6WMrESJZklYvl/SzTSlIuPzTkbPjRgio83vZZHwFhX4OKHUy7gT0FFAGnjMt4DRw==
+	t=1793127217;
+	b=QjNLVaCfA3I6JBE6YH7HCmiGiD68If56PI8RCDeY9x6pPfj5kVp/aBkpmLbFYzAYARmW
+	 TWkdDakF6ZgUFDkGXYh4rRjQpUuIvTg9rHRhGyVIB8WOSb2grmpuh8UG/T/V0aJScRehL
+	 ss5d8+RF6yqUeZGBTUT5msI7JsiTM21UA7gSwwr2hc1FRom8JcdaIu75aT4Z9nO9GnlqK
+	 ZrPpgqRVceXDb06khmMoUgg6gGpxrP19fgqyaMK6JJGNBdTOUJf6PybA03ALpAxx3x5N4
+	 Xrf74S99RO8yXCnrwlxzSLlGLWxinUDS5xfz9AXTWo+P+X4K1Y/dGOVAk6Y+JFDPl+g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793127110;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VowkarhRy+wyYk7debMMQ6GaJuZ7tKs1u3+zocTMjdM=;
-	b=RMr84O5TKW0THnHe+z56Sitn2E9u0GJYg8WyhmdhMSveahDL30dhILcO31bmxDwxkBzN
-	 fsDMDiHNMZKKcTBvxOg42IbpBQLI+JWuv2ghpYAcWso/UCPw8N968PntEbV6w1GlzVKFN
-	 kpf1E+2BUxIb47ohrmTDbJrTJPzCemM3jsb51b7Q6bxCGCGW/zeqdJ66ZK7ROmlYk6iT3
-	 0CcvbuxqO26OBA1JXLl1UqGcjHjJjMKtGxAS/nu6FH98EFbJdEb3CltoBGaROrlt3qP5u
-	 cOhRL13tVS6KqIsT+Q5yqifXmpmlpIIb102S86EsG6qJ7VIFBCz7ovfUbSrHo3w4pSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793127217;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=hDlERQp3ezIZQqhJZEUQq8L4M6aQksTGqf2og7oCFPE=;
+	b=iNCeQe2T4ldZncpSEnaJLoWljestRf0/gwz8ZpetyA/87X5x+2HTmRSoODUtqd1uLkzZ
+	 msUjHWc6EQXsUifsIttaVbAPnidIb/d8vrbbH4+xN+bzCLKdT6UC7OFDW6Do3M22YEXBK
+	 ybJS7teeLAS/+PjlR5u1DnIttd3aGOSksETqFVwquwEzEcIF8KdYNaBmiXspp0Ks1V9yw
+	 0C4Y7thWgBomaOTET9l1ol7gCDq89v0DdFG3ttGe73IL6v1JgYpXBXEruLIR4jb1RX7R7
+	 qpYumRILNarPDRL/khSwXs8LQZZYtqpbuWWpfm9k8pwhdSVoBpXdtreGOdalq+x9uHw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TvTNHJCa;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qvNzn01Q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HMDNv+hX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.56
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010056.outbound.protection.outlook.com [52.101.46.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1BE606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F1BE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67047606A31D;
+	Tue, 27 Oct 2026 18:53:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67047606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TvTNHJCa;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qvNzn01Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793127108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VowkarhRy+wyYk7debMMQ6GaJuZ7tKs1u3+zocTMjdM=;
-	b=TvTNHJCaNVj7WrnH1eMGFC/KSx0cJXtecYVMpOiahXMRfYCrlI8x7pzNA0arorFCUjcvlO
-	nBA9KKf0DaFTkSYFIJHYz5BPbdw9QA8bbtAAJv02spdgwI/6Pc0Kol2mTjh8Yr3O4g0yg+
-	KZ/krZizRcwoQXsomSCScuVI2QrZhSk=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-209-qv94w0BjN8SpTKOgEuWeKQ-1; Tue, 27 Oct 2026 14:51:46 -0400
-X-MC-Unique: qv94w0BjN8SpTKOgEuWeKQ-1
-X-Mimecast-MFC-AGG-ID: qv94w0BjN8SpTKOgEuWeKQ_1793127105
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a17741243eso1244255e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:51:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793127105; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kH47vTBS37rOSlAhwpJa9S+FZlU6687mESGv/XVho1o+MTN1GaPlkP2L0Utxorye3x
-         mDMoktt9V11abFQF/NhlUz2MIkOqx3P3aEyof9qv7ucdNIQsS+AQRdLgnunHs+h8sapj
-         x3ogarl8x/2/2fx5+ucgpwBCyHCvRVPjw7G8r2TLLQrN8TpcgIoOh7cdRaZtCF2+c/oW
-         apPUql4sqKuw95t1lf7lvAPiYpAkdpUGWRZ5iC150Cvu+r3kJQ2bcgGemLtlOIInDNvq
-         zmqmLsU4pMvLIbCSxEc3KDc0B100tdl6FN0gF8H2+yFo61dbP6MTH3vTQxwX2aiRghO8
-         Ezpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VowkarhRy+wyYk7debMMQ6GaJuZ7tKs1u3+zocTMjdM=;
-        fh=SHgn8Tmzfkw3NcSpFx2BmurDq/1pqRYcCyFXhVQaQJk=;
-        b=UtH680GBopf3Z3QJgRc8bwtjeZllxsbfIKNS3v0dHMdRzo0oPMbYEEOBQ6HFPH901E
-         J4D9JOFDYd/E134H8jceSHJJz+3Z3fWUFlp2RvQXfKO52wT/DmoadxRoFu6CG/VKX/Bj
-         KpplGJzoAmBjxHObk8xE3gUdko4hCUqKyV8ZcuGGQbOWRZ+8zfg8wQdi7tU5o2LHAmUV
-         xpuZMrfCRNY2+M0E1avcBE3ISACUhsSBUet4SGgmvPxyEWak+kDVdIaGfRVgvsa0Cl1W
-         9qUwUlX2X8eo8p1EM1z8k+WzmSgLf1uvf/rnkY1nx6nd6sy0vC8EyOsnuShhPEfWUF0A
-         MUZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793127105; x=1793731905; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VowkarhRy+wyYk7debMMQ6GaJuZ7tKs1u3+zocTMjdM=;
-        b=qvNzn01QewEa9B3y8xsWetbDNOWfa7Gim81DamWsYr3KBZRe5eDDx7sKYOCxIwu6IL
-         o0mPoQJZtOOwarJb47bo6iX3BgTkmKkv3QFWZcIaRj2oQ7pEXO8qUBgfsfO3bggYnGnz
-         ICvCNj1wtZBoI/wSS6DrIbTzgjO1Ins6u3llraPqObA98izefXjlllFufy3sGqJ8kADi
-         kiCcWNDETU4dpUhlN3L1xmx6HyamChzZhxKE8Smkt5A4rqPgX9E+NambysyTZz5sQSpA
-         i4ZRJ1PM4p8CZkV2rIUlNPPzaSQlUyxP+rhMpI5nKMZVKzLfgpWWwf9zI3pxnIuuGXCX
-         R4uA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793127105; x=1793731905;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VowkarhRy+wyYk7debMMQ6GaJuZ7tKs1u3+zocTMjdM=;
-        b=SaBnsQBVZHdkHDSnXEcHO7OXPzUisENo7MeqRysIBYSYBjw8ufjQ3vTZMlk+4MI+ew
-         k0UDaifZAjQSCijrvQy1meesGZu7YwaFOkRAPOHcqN2b+boaXoofpXvJnsZgObaeqDUV
-         F/qCIWjCtdS2gofosy/8NVrzPwxmujURj9FGHlqAPVG5YhSokeztww+OUrjaayi1o39D
-         m6CxhRftBJ5AZOJtDzOL86p+JaGtFE1zOCN21rac/yfAjTzepH4qwbt+oW+iWDMnhyn0
-         nOxbCDehjUF1lOcqX06paYcBed2/VD+ZI0CaHdqgxJFRG/6d7LqgHimfv+Q8onVTOahK
-         xzKQ==
-X-Gm-Message-State: AFq9FYLedsSm7dQOPmlrA73Z/zEpSjZuRQTprBsTQVMDlXww6OCLKRUB
-	7/8dXlwzbT28zgGB4d70G6eVHlhYWwq+d7Gi6HQfvJu/jLouubkUfSyo9JxoAmxzr6srmidt/35
-	/495USPFT/ExXo79j5E+1tzK6kR2YJaD4Mi6Gbpj4eAcu2DpU9ESqfFtiVdwZrtdZIVpciylCEm
-	R8/jzuRNmrx/l792YnY6/4lghG88/nGS5EUj/d2uoC
-X-Gm-Gg: AYBFou0mG87qT/FA1witAlLXdiARZrPWTURKdCqdltWAiPRs95YZufhsDtgyg7/q9Rl
-	mNx2/NGx2ngUQO48KQmHPPbAGqLA771eI7cixrkAiL9jOcbgveiYq+lz5cjBFdNC4wwxK/qU+xa
-	/OLfHVIk+LExFwUVcoJT/gmLqzbRSpjIC8DSat4NzmvtBpwwz7o+Qjj/1BIjtfNWV+8I0DvCksT
-	qghh/LnFJ/p94soHA==
-X-Received: by 2002:a05:600c:c0c8:b0:4a4:de70:2ad4 with SMTP id 5b1f17b1804b1-4a4de702b8bmr144770535e9.22.1793127105333;
-        Tue, 27 Oct 2026 11:51:45 -0700 (PDT)
-X-Received: by 2002:a05:600c:c0c8:b0:4a4:de70:2ad4 with SMTP id
- 5b1f17b1804b1-4a4de702b8bmr144770135e9.22.1793127104828; Tue, 27 Oct 2026
- 11:51:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HMDNv+hX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pStT7TGWHdqssNPhq/v2oyyWhJxUHT4HH1bgmPe0EwkTym/1diK9ZnuGxxApsdvjRdFbixP/WnqQwIg8L/GXIkf1vkkKcfrAx2pllhF9JNBaPdpiLTI547JuM6pHCdw6ctm7LTtJ1GUWKGJBpXi9b99HSilf5DgafF6NobwTbJfvnGETR6qwF1Jut9Zt7krLIWHT8Xdr4a05zze7A4n81bQ6JTFu6mjuH0zAWZ5MmF2FW7ZnisCEcVeiTc57WzuqDOOHH48qriiuL/vtf5+XmJVvJ7z8beDarqPtqqSy2NArlpio1Ouc1DOM4sYtjnYBfAG+3HJEAU225wbg2jmsZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hDlERQp3ezIZQqhJZEUQq8L4M6aQksTGqf2og7oCFPE=;
+ b=LSn9WnX5TOq+x32eTQvwGt41nv+WVHPjyyE0sr0AwsZ4ZJbqHTpBOJISaJTLvuDTjsTeF7cGah57ZriE3gkeawEvxkgFY3igvZHfu6G9lVVOmthwFvoUAU+YnM6jopqY1FBmn2kdsNePZnM9rRWLC6PAznroGUkeiEaZiDmDmdG37wZcX5B5Blu/UTtayC27l8BEK/4cYKM4Mc148pBQU1t004SZucikRUTMbW8052lKuOpkdswcvlQbHFghk+t+xV2G7XXkdtDbNDJQ0zh3KOfc6q6jJ/BhnxTBvzGOAKSKiCduU9ysz/GTt/H8hZSxezNbO8P9wLCvZnxks9vqNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hDlERQp3ezIZQqhJZEUQq8L4M6aQksTGqf2og7oCFPE=;
+ b=HMDNv+hXgEdR9Uo1aaVCmhbLpeiDA7gdMi5bJmP90MQB9ZPKLzj8V4QKHy03nmqbQ/ifoeaZ8ZRPjQjypbHdgDXJ6c0HhwmWXRlMfHeQ3h2LNYsunACPSaPkFqyOVBC+MLhzTHobs6RsRsvKCOvBSut1tL+LRpt/3CH+oveuk5tIGo8p9sE5MA4lamTkd4iFGEX2DNXJ4zKMsVYbAegBn+khlfK9t84kB0MHaQmTDovtu+tSHluQvDF/A/1H03KRzqv6Ot5YJRshayYARf5Ufu/JeH1luJiGAgpoYE+zYw7XXvdd+pHF2XCscyQHxPhsG92RgC3omIRXJiij72OcoA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CY5PR12MB6623.namprd12.prod.outlook.com (2603:10b6:930:41::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 18:53:32 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 18:53:31 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org,
+ kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org,
+ surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
+ hannes@cmpxchg.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
+ ljs@kernel.org, liam@infradead.org, rppt@kernel.org, osalvador@suse.de,
+ muchun.song@linux.dev, iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
+ alloc_contig_range
+Date: Tue, 27 Oct 2026 14:53:27 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <A4D82AB8-F33A-465C-AE69-933B746E4885@nvidia.com>
+In-Reply-To: <6f5aaf2b-894c-4306-a0b2-e56f815d0a89@kernel.org>
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <20261027042204.3741307-5-gourry@gourry.net>
+ <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
+ <179310997463.2232644.3260379218896917308.b4-reply@b4>
+ <6f5aaf2b-894c-4306-a0b2-e56f815d0a89@kernel.org>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: CH2PR18CA0052.namprd18.prod.outlook.com
+ (2603:10b6:610:55::32) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,486 +107,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com> <20260930063919.608911-6-himanshu.chauhan@oss.qualcomm.com>
-In-Reply-To: <20260930063919.608911-6-himanshu.chauhan@oss.qualcomm.com>
-From: Jesse Taube <jtaubepe@redhat.com>
-Date: Tue, 27 Oct 2026 14:51:33 -0400
-X-Gm-Features: AclHuK_RAmNTbd9qUrgxKaN7aTyMXm7OhG7N52ynsHJnVZgYoTv4uxMNIpbxeGY
-Message-ID: <CADRr4bdeQS8jXdBY3Q9VJ8rJW928=gO=qXRJPGHBp2ZyCf02FA@mail.gmail.com>
-Subject: Re: [PATCH v7 5/8] RISC-V: Add fetch and decode helpers to a common file
-To: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-perf-users@vger.kernel.org, peterz@infradead.org, mingo@redhat.com, 
-	alex@ghiti.fr, aou@eecs.berkeley.edu, palmer@dabbelt.com, pjw@kernel.org, 
-	qingfang.deng@linux.dev, shuah@kernel.org, thecharlesjenkins@gmail.com, 
-	cp0613@linux.alibaba.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CY5PR12MB6623:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec8ecf41-0a1d-4ec8-447a-08df345b9856
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|261026121527099003|4143699003|11063799006|56012099006|261022075727099003|261022105027099003|261021123027099003|10067099003|18002099003|22082099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	HzprCB56KfCEDkpIEy+H1D/wgvK2jDR0Ebr2UVaO08fdGJ1hDwelMicFAnSuD9BuYjkO0qPO2qfzY9OpVxCjEhGFobVf+L4ePYbPufEbPuR9Mzvu3bH5abj38jvaZjINicTUcvQ7EdlHLKueyGgT2fNDEHG1prtkocCj9UnbISITdkgzjXaLzupIbpE51KpmbecLqtftLiQkaiNnViN4RlXKwrgLXgQ8aQVgxBbEfA7EZLjX9fz/hKUPNv5Lg17iJN92sLP3fPb8paHdc9hXIpgsiFvSzdJhUWsmtBp01guzaSVAys8CrdEybI7/KykONWtdBWvy4ivswxtFZZtF9vmfSNNpr5wUZv0GwhXpeDriH8cIEsfFXF+4sOejSlSZl/FIKAIgZO3Lko+ZbweX4GpG/WoSFWZBcZ++jUNfAfJlz1GgLXXYVT6gPFjW5aa6TOAZCFKia91Kv/PokxAfn05DeFacLs3puyc4ltqpti+PrriSJo4YWTIWN+bwkv07rEra6IwI0tYgt/tS0+RCxbZ0Yz6AcWflJO7jfTOX2JKDOXokNpnmWGzRrmT2a2QumqqXl99xXGFwpYiruJOPbJPA7bquzIaDEzKdmhwwvr6mZU1FsRlA7hFa6A7HNOJUNVgW2o1EK61Iq8B9T8UMuXBl/d1K3E4pS80WH1SZ1F4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(261026121527099003)(4143699003)(11063799006)(56012099006)(261022075727099003)(261022105027099003)(261021123027099003)(10067099003)(18002099003)(22082099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4/fT7ZU96vwzO61undPANerpi5VOn2qMG1scJ/zoBy6dC+Koq5LLRMykDJJd?=
+ =?us-ascii?Q?Pre/Fm3Bv9rBsX3/DZcyWQzjM2O4tl6MfF8vK9LdiO41WEPbCWAy+MZLf39P?=
+ =?us-ascii?Q?DB8970HyTviBvsXGAXcxIAKQrOGxd194vtqvrMBSZcpVb5Mk8XSHXU+fuTkw?=
+ =?us-ascii?Q?3RxsG/eBMMhpnX8tFwVwnhCNYJ+cXJ0xlnVwEA513IuhWb0bOOG1ZhO097Vc?=
+ =?us-ascii?Q?QDXDo4b7yTePMXX7lk46DVHw3DWnGtwodrowdmdF3BoznjzROZvOp0PI9k2W?=
+ =?us-ascii?Q?aQZflMV9BXzKAoe08EqfP5vDgAOEI4pDdryfxs27o+vgYTQosbOkAX3FGOtK?=
+ =?us-ascii?Q?TAAtw3xoG7U3f4CQi3XlyEy82SYA44d099HaHE0dcOplPJWNWFGQs3xTRX4H?=
+ =?us-ascii?Q?/iGq3EMSmRJ3PaGDye6rshpOa4T1PhVxtV5XYXWXtpe7M8tLoYt21m6MOXmZ?=
+ =?us-ascii?Q?I3T2AJMvGIB0gLQIsPNp+vwEYWaaikIOo7/kqhIvo5iY1YoV+DcAbSet0ORw?=
+ =?us-ascii?Q?IpqqX6jFWoIFQrAbwQsSi5kCQ/v5A8/ywEObZKu0hqw5SB4ZVkJyoIkrVJCh?=
+ =?us-ascii?Q?4WGg9AA8HbPPIWhEb8mZt+riOOCVIiAcGFRcoeh2UAeuyDdDzLe4wh5nY45e?=
+ =?us-ascii?Q?XTDE6tzTM/MOfmhUqUN6Sjy8jrRcN/wjkyJ/avB8UpPC0rYNt7tWv+YRQBIn?=
+ =?us-ascii?Q?BWPgrXIH2OQ4QJXAgZXRsPbMcJ7wXfwLuOE8duKdf4E/4SK6celrK9D8evXi?=
+ =?us-ascii?Q?s9EJ2MDzw5A5Nrl96Deu454f/arUoV1LMZx8+iRii/7UJDfyELSCso0X8vG7?=
+ =?us-ascii?Q?I4QdKeYqbWfukKFK4F0cs78Frd+nk9oUs3zk/soKHPw3OxrAt7LUkvVIk9PA?=
+ =?us-ascii?Q?VNDjnRdAdm9urKQZ/emag4PfgsZgDrZPHPFXG6LabJMTrcUHTvl7bOK7hoXe?=
+ =?us-ascii?Q?0VE3Ho6MbmsnzR5Foy3MZZiqnCEbhQAx46dYxaqsdGPLjhu/u2R3/K+yu3ZG?=
+ =?us-ascii?Q?FG1+wZSCqavm455uDjMKSBsteMQ4hf6Wsesq244+tMH+Ui0ln3gp8Enw5DM4?=
+ =?us-ascii?Q?YZc20Xwplb3odBgLkWMfoVJp+klYstACqMKYsobMsB44O7J+4CFLJAMaOfK7?=
+ =?us-ascii?Q?qUYXCURvBGZYME/s/lrYQmKuN180BG/1X/XWCUcmWEeZ9SWsEJY5kH/Kf0Kx?=
+ =?us-ascii?Q?+KRHbvaC7dO4MyGNZkqcnc1OCGFfegn4Da+MJMtbWFxzhW78OBh1HMPnu9Xu?=
+ =?us-ascii?Q?4KoDpjvQxuCL1KjdcUAr7Qt9cJ7ycRgg6R5010ROzcC6fonheSMXHq3lOlb1?=
+ =?us-ascii?Q?UTdqK0Vn+52BUXt/gnfOBA0JfzTBa+lD9OBrzgkTqidFvLGhuV4EPn1NnFjd?=
+ =?us-ascii?Q?pyTYKBBFdGoTsTpjTseqof3V8taQjkMZu2ZQFLhyIa3WlswJ1aaow5vyVCZx?=
+ =?us-ascii?Q?qregNKWI+qYD6pQqCUTa4d7/si303MgBk05t5g1+dWtonCjVW8VYCSfBd2aS?=
+ =?us-ascii?Q?Qsm3FWWNM8IlGFxSRhxAzlTRdI6tY8SjQwj8i4vHrGo6VKubFfwTNGZyrq+a?=
+ =?us-ascii?Q?ArcVzGgpsODeDfFoDFNKnzCUD+2MDakHf01Om1GEIkyv6+jbTno7c9wYuXap?=
+ =?us-ascii?Q?h9Sfblwi3aFqR3LEF1OgF9GHHxrbRRGPahgfBMi4tWic/F0wJfuy6NlVohyX?=
+ =?us-ascii?Q?lA+j+Hg4sPiAbOjxDLD2vFs/zlfBJ93hHxoEuSZ3CrumjD7T4AsWAJh/x3VA?=
+ =?us-ascii?Q?65cFWnZ/xQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec8ecf41-0a1d-4ec8-447a-08df345b9856
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 18:53:31.3230
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wvaAbfmOsN/miY3wB9l9nY1Hlk45ILlcMgvkg3czQDDroCUCefZH0q2iA60cU4py
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6623
 
-On Wed, Sep 30, 2026 at 2:40=E2=80=AFAM Himanshu Chauhan
-<himanshu.chauhan@oss.qualcomm.com> wrote:
->
-> Move get_insn() and __read_insn() from traps_misaligned.c
->
-> Add helpers for RISC-V register access and control-flow emulation
->
-> Add helpers to retrieve RISC-V register values, calcuate the next
-> execution address based on current pc, register states and by evaluating
-> conditional branch instructions. the helpers accommodate both compressed
-> and standard instructions. Add helper to determine is brach will be taken
-> by current pc. It supports register-based jumps, immediate jumps, BEQZ/BN=
-EZ
-> conditional branches, and signed and unsigned comparisons for standard
-> conditional branch instructions.
->
-> Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-> Co-developed-by: Jesse Taube <jtaubepe@redhat.com>
-> ---
->  arch/riscv/include/asm/insn.h        |  15 ++
->  arch/riscv/kernel/traps_misaligned.c |  52 +-----
->  arch/riscv/lib/Makefile              |   1 +
->  arch/riscv/lib/insn.c                | 263 +++++++++++++++++++++++++++
->  4 files changed, 280 insertions(+), 51 deletions(-)
->  create mode 100644 arch/riscv/lib/insn.c
->
-> diff --git a/arch/riscv/include/asm/insn.h b/arch/riscv/include/asm/insn.=
-h
-> index c3005573e8c9..b2125728d4e9 100644
-> --- a/arch/riscv/include/asm/insn.h
-> +++ b/arch/riscv/include/asm/insn.h
-> @@ -227,9 +227,16 @@
->  #define RVC_MASK_C_EBREAK      0xffff
->  #define RVG_MASK_EBREAK                0xffffffff
->  #define RVG_MASK_SRET          0xffffffff
-> +#define RVC_MASK_INSN          GENMASK(15, 0)
->
->  #define __INSN_LENGTH_MASK     _UL(0x3)
->  #define __INSN_LENGTH_GE_32    _UL(0x3)
-> +
-> +static __always_inline bool riscv_insn_is_compressed(u32 code)
-> +{
-> +       return (code & (__INSN_LENGTH_MASK)) !=3D (__INSN_LENGTH_GE_32);
-> +}
-> +
->  #define __INSN_OPCODE_MASK     _UL(0x7F)
->  #define __INSN_BRANCH_OPCODE   _UL(RVG_OPCODE_BRANCH)
->
-> @@ -600,4 +607,12 @@ static inline void riscv_insn_insert_utype_itype_imm=
-(u32 *utype_insn, u32 *itype
->         *utype_insn |=3D (imm & RV_U_IMM_31_12_MASK) + ((imm & BIT(11)) <=
-< 1);
->         *itype_insn |=3D ((imm & RV_I_IMM_11_0_MASK) << RV_I_IMM_11_0_OPO=
-FF);
->  }
-> +#ifndef __ASSEMBLY__
-> +#include <asm/ptrace.h>
-> +
-> +int get_insn(struct pt_regs *regs, ulong epc, ulong *r_insn);
-> +int get_insn_safe(struct pt_regs *regs, ulong epc, ulong *r_insn);
-> +unsigned long get_next_insn_address(struct pt_regs *regs, ulong insn, ul=
-ong pc);
-> +#endif /* __ASSEMBLY__ */
-> +
->  #endif /* _ASM_RISCV_INSN_H */
-> diff --git a/arch/riscv/kernel/traps_misaligned.c b/arch/riscv/kernel/tra=
-ps_misaligned.c
-> index 6e8ae6c66322..541e6a5b8039 100644
-> --- a/arch/riscv/kernel/traps_misaligned.c
-> +++ b/arch/riscv/kernel/traps_misaligned.c
-> @@ -10,6 +10,7 @@
->  #include <linux/irq.h>
->  #include <linux/stringify.h>
->
-> +#include <asm/insn.h>
->  #include <asm/processor.h>
->  #include <asm/ptrace.h>
->  #include <asm/csr.h>
-> @@ -129,57 +130,6 @@ static unsigned long get_f32_rs(unsigned long insn, =
-u8 fp_reg_offset,
->  #define GET_F32_RS2C(insn, regs) (get_f32_rs(insn, 2, regs))
->  #define GET_F32_RS2S(insn, regs) (get_f32_rs(RVC_RS2S(insn), 0, regs))
->
-> -#define __read_insn(regs, insn, insn_addr, type)       \
-> -({                                                     \
-> -       int __ret;                                      \
-> -                                                       \
-> -       if (user_mode(regs)) {                          \
-> -               __ret =3D get_user(insn, (type __user *) insn_addr); \
-> -       } else {                                        \
-> -               insn =3D *(type *)insn_addr;              \
-> -               __ret =3D 0;                              \
-> -       }                                               \
-> -                                                       \
-> -       __ret;                                          \
-> -})
-> -
-> -static inline int get_insn(struct pt_regs *regs, ulong epc, ulong *r_ins=
-n)
-> -{
-> -       ulong insn =3D 0;
-> -
-> -       if (epc & 0x2) {
-> -               ulong tmp =3D 0;
-> -
-> -               if (__read_insn(regs, insn, epc, u16))
-> -                       return -EFAULT;
-> -               /* __get_user() uses regular "lw" which sign extend the l=
-oaded
-> -                * value make sure to clear higher order bits in case we =
-"or" it
-> -                * below with the upper 16 bits half.
-> -                */
-> -               insn &=3D GENMASK(15, 0);
-> -               if ((insn & __INSN_LENGTH_MASK) !=3D __INSN_LENGTH_32) {
-> -                       *r_insn =3D insn;
-> -                       return 0;
-> -               }
-> -               epc +=3D sizeof(u16);
-> -               if (__read_insn(regs, tmp, epc, u16))
-> -                       return -EFAULT;
-> -               *r_insn =3D (tmp << 16) | insn;
-> -
-> -               return 0;
-> -       } else {
-> -               if (__read_insn(regs, insn, epc, u32))
-> -                       return -EFAULT;
-> -               if ((insn & __INSN_LENGTH_MASK) =3D=3D __INSN_LENGTH_32) =
-{
-> -                       *r_insn =3D insn;
-> -                       return 0;
-> -               }
-> -               insn &=3D GENMASK(15, 0);
-> -               *r_insn =3D insn;
-> -
-> -               return 0;
-> -       }
-> -}
->
->  union reg_data {
->         u8 data_bytes[8];
-> diff --git a/arch/riscv/lib/Makefile b/arch/riscv/lib/Makefile
-> index f668b98970bd..84cdd35afa42 100644
-> --- a/arch/riscv/lib/Makefile
-> +++ b/arch/riscv/lib/Makefile
-> @@ -1,5 +1,6 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  lib-y                  +=3D delay.o
-> +lib-y                  +=3D insn.o
->  lib-y                  +=3D memcpy.o
->  lib-y                  +=3D memset.o
->  lib-y                  +=3D memmove.o
-> diff --git a/arch/riscv/lib/insn.c b/arch/riscv/lib/insn.c
-> new file mode 100644
-> index 000000000000..361cac7abe10
-> --- /dev/null
-> +++ b/arch/riscv/lib/insn.c
-> @@ -0,0 +1,263 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright 2026 Qualcomm Technoloies, Inc.
-> + */
-> +
-> +#include <linux/uaccess.h>
-> +
-> +#include <asm/insn.h>
-> +#include <asm/ptrace.h>
-> +#include <asm/uaccess.h>
-> +
-> +/**
-> + * __fetch_insn() - Fetch a RISC-V instruction parcel from memory
-> + * @regs: Register state used to determine the access context
-> + * @insn: Variable receiving the instruction value
-> + * @insn_addr: Address from which to read the instruction parcel
-> + * @type: Instruction parcel type, either @u16 or @u32
-> + *
-> + * Fetches an instruction parcel from user or kernel memory, depending o=
-n the
-> + * execution context indicated by @regs. RISC-V instruction parcels are
-> + * stored in little-endian byte order, so the fetched value is converted=
- from
-> + * little-endian to the native CPU representation before being assigned =
-to
-> + * @insn.
-> + *
-> + * The conversion is a no-op on little-endian targets and performs the
-> + * required byte swap on big-endian targets.
-> + *
-> + * Return: 0 on success, or a negative error code if reading user memory
-> + *         fails.
-> + */
-> +#define __fetch_insn(regs, insn, insn_addr, type)              \
-> +({                                                             \
-> +       type __val;                                             \
-> +       int __ret;                                              \
-> +                                                               \
-> +       if (user_mode(regs))                                    \
-> +               __ret =3D get_user(__val,                         \
-> +                                (type __user *)(insn_addr));   \
-> +       else {                                                  \
-> +               __val =3D *(type *)(insn_addr);                   \
-> +               __ret =3D 0;                                      \
-> +       }                                                       \
-> +                                                               \
-> +       if (!__ret) {                                           \
-> +               if (sizeof(type) =3D=3D sizeof(u16))                     =
-   \
-> +                       (insn) =3D le16_to_cpu((__force __le16)__val);   =
- \
-> +               else                                                    \
-> +                       (insn) =3D le32_to_cpu((__force __le32)__val);   =
- \
-> +       }                                                       \
-> +                                                               \
-> +       __ret;                                                  \
-> +})
-> +
-> +/**
-> + * get_insn() - Fetch and decode a RISC-V instruction
-> + * @regs: Register state used for instruction access
-> + * @epc: Address of the instruction to fetch
-> + * @r_insn: Pointer to store the fetched instruction encoding
-> + *
-> + * Fetches the instruction at @epc and stores its encoding in @r_insn.
-> + * Both standard 32-bit instructions and compressed 16-bit instructions =
-are
-> + * supported. If a 32-bit instruction is split across two 16-bit instruc=
-tion
-> + * accesses, the halfwords are combined into a single instruction encodi=
-ng.
-> + *
-> + * Return: 0 on success, or %-EFAULT if instruction access fails.
-> + */
-> +int get_insn(struct pt_regs *regs, ulong epc, ulong *r_insn)
-> +{
-> +       ulong insn, tmp;
-> +
-> +       if (!(epc & 0x2)) {
-> +               if (__fetch_insn(regs, insn, epc, u32))
-> +                       return -EFAULT;
-> +
-> +               if (riscv_insn_is_compressed(insn))
-> +                       insn &=3D RVC_MASK_INSN;
-> +
-> +               *r_insn =3D insn;
-> +               return 0;
-> +       }
-> +
-> +       if (__fetch_insn(regs, insn, epc, u16))
-> +               return -EFAULT;
-> +
-> +       insn &=3D RVC_MASK_INSN;
-> +       if (riscv_insn_is_compressed(insn)) {
-> +               *r_insn =3D insn;
-> +               return 0;
-> +       }
-> +
-> +       if (__fetch_insn(regs, tmp, epc + sizeof(u16), u16))
-> +               return -EFAULT;
-> +
-> +       *r_insn =3D (tmp << 16) | insn;
-> +
-> +       return 0;
-> +}
-> +
-> +int get_insn_safe(struct pt_regs *regs, ulong epc, ulong *r_insn)
-> +{
-> +       int ret;
-> +
-> +       pagefault_disable();
-> +       ret =3D get_insn(regs, epc, r_insn);
-> +       pagefault_enable();
-> +
-> +       return ret;
-> +}
-> +
-> +/**
-> + * riscv_get_reg_value() - Get the value stored the given RISC-V registe=
-r number
-> + * @regs: Register state containing the saved register values
-> + * @regno: RISC-V register number
-> + *
-> + * Returns the value of the RISC-V register identified by @regno. Regist=
-er
-> + * x0 always returns zero, as required by the RISC-V ISA.
-> + *
-> + * Return: The register value, or zero if @regno is zero.
-> + */
-> +static unsigned long riscv_get_reg_value(struct pt_regs *regs, unsigned =
-int regno)
-> +{
-> +       return regno ? regs_get_register(regs, regno * sizeof(unsigned lo=
-ng)) : 0;
-> +}
-> +
-> +/**
-> + * get_next_insn_address_compressed() - Calculate the next address for a=
- compressed
-> + * RISC-V instruction
-> + * @regs: Register state used to evaluate indirect jumps and conditional
-> + *        branches
-> + * @insn: Compressed RISC-V instruction encoding
-> + * @pc: Current program counter
-> + *
-> + * Determines the address at which execution should continue after proce=
-ssing
-> + * the compressed instruction in @insn. Indirect jumps use the value of =
-the
-> + * instruction's source register, unconditional jumps use the encoded
-> + * immediate, and conditional branches evaluate the relevant register va=
-lue.
-> + *
-> + * For a branch that is not taken, or for an unsupported compressed
-> + * instruction, the address of the following 16-bit instruction is retur=
-ned.
-> + *
-> + * Return: The next instruction address.
-> + */
-> +static unsigned long get_next_insn_address_compressed(struct pt_regs *re=
-gs, u32 insn,
-> +                                                     unsigned long pc)
-> +{
-> +       unsigned int rs1_num;
-> +
-> +       if (riscv_insn_is_c_jalr(insn) || riscv_insn_is_c_jr(insn)) {
-> +               rs1_num =3D RV_X(insn, RVC_C2_RS1_OPOFF, 5);
-Use RVC_EXTRACT_C2_RS1_REG here.
-In the other places where it extracts the register it should use
-RVC/RV_EXTRACT_*_REG
+On 27 Oct 2026, at 10:13, David Hildenbrand (Arm) wrote:
 
-Otherwise LGTM.
-
-Thanks,
-Jesse Taube
-
-> +               return regs_get_register(regs, rs1_num * sizeof(unsigned =
-long));
-> +       }
-> +
-> +       if (riscv_insn_is_c_j(insn) || riscv_insn_is_c_jal(insn))
-> +               return RVC_EXTRACT_JTYPE_IMM(insn) + pc;
-> +
-> +       if (riscv_insn_is_c_beqz(insn)) {
-> +               rs1_num =3D RV_X(insn, RVC_C1_RS1_OPOFF, 3) + 8;
-> +               if (!rs1_num || riscv_get_reg_value(regs, rs1_num) =3D=3D=
- 0)
-> +                       return RVC_EXTRACT_BTYPE_IMM(insn) + pc;
-> +               return pc + 2;
-> +       }
-> +
-> +       if (riscv_insn_is_c_bnez(insn)) {
-> +               rs1_num =3D RV_X(insn, RVC_C1_RS1_OPOFF, 3) + 8;
-> +               if (rs1_num && riscv_get_reg_value(regs, rs1_num) !=3D 0)
-> +                       return RVC_EXTRACT_BTYPE_IMM(insn) + pc;
-> +               return pc + 2;
-> +       }
-> +
-> +       return pc + 2;
-> +}
-> +
-> +/**
-> + * riscv_branch_taken() - Determine whether a RISC-V conditional branch =
-is taken
-> + * @regs: Register state used to obtain the source operand values
-> + * @insn: RISC-V branch instruction encoding
-> + *
-> + * Evaluates the branch condition encoded in @insn using the values of i=
-ts
-> + * source registers from @regs. Signed comparisons are used for BLT and =
-BGE,
-> + * while unsigned comparisons are used for BLTU and BGEU.
-> + *
-> + * Return: %true if the branch condition is satisfied, or %false otherwi=
-se.
-> + *         Unsupported branch instructions also return %false.
-> + */
-> +static bool riscv_branch_taken(struct pt_regs *regs, u32 insn)
-> +{
-> +       unsigned int rs1_num =3D RV_X(insn, RVG_RS1_OPOFF, 5);
-> +       unsigned int rs2_num =3D RV_X(insn, RVG_RS2_OPOFF, 5);
-> +       unsigned long rs1_val =3D riscv_get_reg_value(regs, rs1_num);
-> +       unsigned long rs2_val =3D riscv_get_reg_value(regs, rs2_num);
-> +
-> +       if (riscv_insn_is_beq(insn))
-> +               return rs1_val =3D=3D rs2_val;
-> +       if (riscv_insn_is_bne(insn))
-> +               return rs1_val !=3D rs2_val;
-> +       if (riscv_insn_is_blt(insn))
-> +               return (long)rs1_val < (long)rs2_val;
-> +       if (riscv_insn_is_bge(insn))
-> +               return (long)rs1_val >=3D (long)rs2_val;
-> +       if (riscv_insn_is_bltu(insn))
-> +               return rs1_val < rs2_val;
-> +       if (riscv_insn_is_bgeu(insn))
-> +               return rs1_val >=3D rs2_val;
-> +
-> +       return false;
-> +}
-> +
-> +/**
-> +* get_next_insn_address_standard() - Compute the next PC for standard RI=
-SC-V
-> +* control-flow instructions
-> +*
-> +* @regs: Register state of the current context.
-> +* @insn: Instruction located at @pc.
-> +* @pc: Address of the current instruction.
-> +*
-> +* Determine the address of the next instruction to be executed after @in=
-sn.
-> +* The function evaluates control-flow instructions whose target cannot b=
-e
-> +* obtained by simply advancing the program counter:
-> +*
-> +* - Conditional branches: returns either the branch target or @pc + 4
-> +* depending on the branch outcome.
-> +* - JAL: returns the jump target encoded in the instruction.
-> +* - JALR: returns the computed indirect jump target using the instructio=
-n
-> +* immediate and the value of the source register.
-> +* - SRET: returns @pc, as control transfer is handled by the trap return
-> +* mechanism.
-> +*
-> +* For all other instructions, execution is assumed to continue at the ne=
-xt
-> +* sequential 32-bit instruction and @pc + 4 is returned.
-> +*
-> +* Return: Address of the next instruction to be executed.
-> +*/
-> +static unsigned long get_next_insn_address_standard(struct pt_regs *regs=
-, u32 insn,
-> +                                                   unsigned long pc)
-> +{
-> +       unsigned int rs1_num;
-> +
-> +       if ((insn & __INSN_OPCODE_MASK) =3D=3D __INSN_BRANCH_OPCODE)
-> +               return riscv_branch_taken(regs, insn) ?
-> +                       RV_EXTRACT_BTYPE_IMM(insn) + pc : pc + 4;
-> +
-> +       if (riscv_insn_is_jal(insn))
-> +               return RV_EXTRACT_JTYPE_IMM(insn) + pc;
-> +
-> +       if (riscv_insn_is_jalr(insn)) {
-> +               rs1_num =3D RV_X(insn, RVG_RS1_OPOFF, 5);
-> +               return RV_EXTRACT_ITYPE_IMM(insn) + riscv_get_reg_value(r=
-egs, rs1_num);
-> +       }
-> +
-> +       if (riscv_insn_is_sret(insn))
-> +               return pc;
-> +
-> +       return pc + 4;
-> +}
-> +
-> +/* Calculate the new address for after a step */
-> +unsigned long get_next_insn_address(struct pt_regs *regs, ulong insn, ul=
-ong pc)
-> +{
-> +       if (riscv_insn_is_compressed(insn))
-> +               return get_next_insn_address_compressed(regs, insn, pc);
-> +
-> +       return get_next_insn_address_standard(regs, insn, pc);
-> +}
-> --
-> 2.43.0
+> On 10/27/26 15:06, Gregory Price (Meta) wrote:
+>> On 2026-10-27 14:37 +0100, David Hildenbrand (Arm) wrote:
+>>> On 10/27/26 05:22, Gregory Price (Meta) wrote:
+>>>
+>>> We have an existing AI fix for that as well already handled by Vlasta.
+>>>
+>>> I think we'll have to establish some model of "ask David first before posting"
+>>> because otherwise we just create duplicate work for everyone.
+>>>
+>>
+>> Yeah, this is going to happen more.
+>>
+>> I've been sitting in these patches for over a month while they soaked on
+>> hardware getting performance tests.
 >
+> I mean this fix here is really just independent and shouldn't wait that long :)
+>
+>>
+>> Maybe worth a private tree we can rebase on regularly for these kinds of
+>> un-vetted/posted fixes to see what's coming?
+>
+> Maybe. But if it's just us core people we can just talk on IRC etc (like Zi did
+> two days ago when he was about to post something that I already had on my queue).
 
+One idea is that maybe Sashiko is able to identify patches fixing
+the same issue and does some grouping or tagging on the website.
+Or send an email about it with a lore link.
+
+Best Regards,
+Yan, Zi
