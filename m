@@ -1,91 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103129;
-	b=eUr2N/98fyH22c1RnNk2ts5AuUs1uvz2f+/5BHUoc/iu8LaqUoss35HOtMwcdKEGSUF6
-	 DgWD421nGsK/tSw36Hv1zuV9QWA/jRppqmPuoOwv0IIt6BLkIl31j/b4t8UnjX17Yd5H1
-	 VTUObT62FxZzCoLPZTxSQa4V2bx9fu0IPkRrT0oV87YuG05DT2pnXlCwOGI89yzYFhrft
-	 nbcOLBqhhq24Ej16S95mRHZkTDej+xKC1LP29Trd6NXebJBJIFZieTsoPpNG+iWkSw+5r
-	 iS35urQBS+90W0GwGxHfjQyOowfxc6DIu4yUlELGAnwy9xxJSTsEy1FCjaTQFfSPbbQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103129;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=myKKudY9AElKYbxGQePv2vddrjcLrdPLn2/PF00unVI=;
-	b=0U6zQwR8C71bG8+OvqelonZndjSbzP6iYdmNjIGxFRzsTwlaV/DZZxCWQ4QZC/duDmgP
-	 0EDOy6+KJrEnk70csoHuG5bvzNjXTh951R/uKqSraM/wExxiBSFE1RoDvOmk8PqlU9F9S
-	 bLSF2xkxo77AB1wVKD55T2Zeyetw9/j882kRPTrPVY0M+pwBmOL45JfZz9AX78Mc0LqAY
-	 7IPKaXY5fP4cTveBL75z5cHgKLB7SKjnmfQIlqs1StFngulmHUzrn+jaqDxEX/q/ZqHdW
-	 FImV6Rp5pw9bCHyU5cVaOoeZDSulZRrAVQee4lDgNnb9EiV7cC4Nq2o+v4gEjaDb2yQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oSiNfkNt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793103172;
+	b=qhUhBt5iD2WB6mxb2IJA8A335s/0xFQYYxfqgCzEiDT+8Z3vHhh//BqLC+HdEg5xe2AV
+	 ZFz+Jgd8jANxfAXd6KR9mKKl/UcS3iar7bQRF7dn+5iKxIeERC0bfc9TI31RdzzXkWpJG
+	 rwYBymfnd18w5L76X3p8XSWyljrgwDWP+Z9zeMQV6SN1ULHa/nuT3aicqzUUL+w6iQNld
+	 4tNyNnYHZ4BqyjhYt5bjhPDAOC+RuxQO6RPMLWgSqGtMpmlxEcS1U63Gjd9/arjOT02M/
+	 PUM8JxrvtBcRCjCPvBfNDBhlonvP/6UNGoKfFdmix8AC+xqk46uQKpxUZsYhyg3z29Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103172;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2khqmycXQwz65se1FliWMKaPP0zVTIg2DE+VIRW6FKU=;
+	b=UaeUdY2bEk0V4Ojs+Lahs3Su7WDyKrVGnZ9Bje+jRBIl3ThCFK1vZ/p47NcM+s8qnkmp
+	 ypPZmDQ3NGzdo24tqA0y4le/l0VmJ6xtPFS5/6HWqri/DEuwYS9l2/ySHpjF2ewO7bohc
+	 OUnktF9slHv/tmb5Jfeu8GVrP7E247vzEQCkJR2yt6eO6ycWMLn/Ea0z0QRa8i5WxBRJr
+	 WgHc9hkI+7FUO2AEl7SMw4meeXHoisLt4EJr3x84sEQqJYFPI3N68V4+wtOJxWC8lxfda
+	 eO9M5FGujAXtMSt77U73PVm3gAt9VMPy3EWlRSvTHZJcgfqZBG6oiC7CxcWHWGRlGKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=exGPhOM9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.58
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012058.outbound.protection.outlook.com [52.101.66.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7E2606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:12:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33791606A31B;
+	Tue, 27 Oct 2026 12:12:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33791606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oSiNfkNt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BCD91F01828;
-	Tue, 27 Oct 2026 12:12:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793103128;
-	bh=myKKudY9AElKYbxGQePv2vddrjcLrdPLn2/PF00unVI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oSiNfkNto50HpECdbPp4NGFleAT0D4SKsshX0uko2eZJB6zT8GrhvZwDORPPoZO1O
-	 xoMmi1MpobaU3S1/V3e1SmWrZ0sIdU9VZAY254h7KadNFc2qru+jwsxPh8U9Mz/RrZ
-	 Wxg/DC7xiRSwJzmvunn4aTQ0QSZUbzym4BgCXVM5LuzT05n8iPNoLmbR0Q4U1upEmP
-	 UwzgCRwi4tXRk2uHvnq8umLXgXztSStFIN8ua3QCCmb9yOc6Uoci2uANmdgPQBkNJG
-	 zLvBMYa8SsQH2rWgRIY6DJ6IaXFHB+5HQZg+2LjMmMrrnkvcydWyIe5d2rOxPC+92N
-	 gCafwxHFsOckQ==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id B3BBC198004A;
-	Tue, 27 Oct 2026 08:11:58 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 27 Oct 2026 08:12:04 -0400
-X-ME-Sender: <xms:DpXgapG0meWIN0OM66ofji3vvc4hNVtH0drLydv1KcNIs3ErsZpJ8g>
-    <xme:DpXgassn_lZcNXJFSd8gXX8QhsKHGrp27KDHGK01N2lkLJsMN-kA-SA6sBTv8Mneb
-    CuMRL_aJzmPFEkIodcySUV_VxtN9HCoV6CjJbVJGzh5hDgWtimhgNeM>
-X-ME-Received: <xmr:DpXgatl5ve32KSZ52FWmLf7pa8yRPvWx_n5HehD8GDPXoMiFRmAlNElLDRM>
-X-ME-Proxy-Cause: dmFkZTGe5tge3hMEKwWY8gQags5EmqESoYDA0+zWY7IvA1d+/F6MsE3Cn1soB2gZC+4C8m
-    AmdeqR6xBlYdjHkIi1+xb2TKsxTiKKv5qUEaP5dpCSOsLFN98khIIpouApYCUZ9iaewTN0
-    hT1CmGkfdX9omvnjCFWDGuofhrU50LyeRF23rClfUeUbjui0PU0B5qFKnfogAY0cVw9+6O
-    4l2HB0vw+6RGJXa4SsnIhqMXtV9Neg0umvLPylEUbt52l2DRcdcEZf56++DvuebVy5KRjg
-    xa8UyxviWzWUZZykb0Fnka1ej9fCGRTSjDsN4tbCgsE4rWbtQ4MqGo2ev5BggJ27hNHiEV
-    L8ibXBG14E1YD9USjV1AJkkSV08UoWz2qtU7PPRmtKgS3ApkHJBirZCYH0ppodUqAdwlIL
-    69W31hE/Gs9Y/AZ5W/Z5yKU8cWSN6msM6P2mpNzDLiMPFopbpJ7fKurotK6JPMvwtTzs+x
-    CceVUI8VFllI706r169j/JZsf045pQEb/pwr7oaouDKNI3rsdfX0ZepQ2zVHs4CQOk6zY/
-    VugIsLjXQosrDDGEfECKAx0oj4ODRX5noTPyeL3FIjBHTxHUsQjH8ohCl1+RbkTNnO/dqR
-    jw1e2R++h7DvurnnFSeIGznQ/jdZjSoxnKgmRQCZrUCh5beAl3uD4bGaZQuQ
-X-ME-Proxy: <xmx:DpXgasQ1EyxtRBs4tFiKL8tb9Hn_Y9_cB9p6DEQ5SXWv7itXQGBAwQ>
-    <xmx:DpXgav7Y_iwdhRD6lPwDAiYjYRymzwiWwL5vNpdSwH-mETNsjZ8Y6Q>
-    <xmx:DpXgamlH7FICF6lnNILH3u5xidPa-NkHHRAF8lynadF3sQqtQ870lg>
-    <xmx:DpXgal5jGenzwm1UO_iCp-fS1b4AlC1TALorVMgfcXv_uVLHSAwGbg>
-    <xmx:DpXgapx4HHMRpaZzmToEh90JxUkL7hrk0zETU6mAek0gaMBujEKHWGps>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 08:11:57 -0400 (EDT)
-Date: Tue, 27 Oct 2026 12:11:56 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, david@kernel.org, xu.xin@linux.dev, 
-	chengming.zhou@linux.dev, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, jglisse@redhat.com, 
-	aarcange@redhat.com, peterx@redhat.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, bobbypowers@gmail.com, bgeffon@google.com, 
-	dplotnikov@virtuozzo.com, dgilbert@redhat.com, hughd@google.com, hannes@cmpxchg.org, 
-	cracauer@cons.org, mcfadden8@llnl.gov, gokhale2@llnl.gov, mgorman@suse.de, 
-	mike.kravetz@oracle.com, rppt@linux.vnet.ibm.com, xemul@openvz.org, riel@redhat.com, 
-	shli@fb.com, jthoughton@google.com, corbet@lwn.net, pbonzini@redhat.com, 
-	seanjc@google.com, sj@kernel.org, ziy@nvidia.com, stable@vger.kernel.org, 
-	samarth.colleges@gmail.com, med08elkadiri@gmail.com
-Subject: Re: [PATCH] mm/ksm: fix userfaultfd protection during merge and
- unmerge
-Message-ID: <auCTv9O6F1JPyOAu@thinkstation>
-References: <20261026130054.91461-1-lance.yang@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=exGPhOM9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y9FfJvzJhk72rT4Dh54g+zGjubgadZ7jYTlRCz72v4mkJVjvx58Wfolvra1f2s4OQJB3eLtK9EGaBqm7R72DvS4+lrK/H5EJSHl6DexJjOwj90A0SuCqdt/5PuUKBPohxUkeLcjnRr+TcHZitynLVwKwT15IWvqJW2Y6GwmLl3DyNl6MgTkspBOhlcrxCym7TZl7hTQ1JAIWy6vQW7Xg0ZSuRgfD1FOB5lf+RMYGFLFMRVASC1MTOe5L1GT38/DCKlWHQl00ow9luioR4PJlsPsHjGONMyZWO8lY5qS0nepVVxXLonRZI60x0lDywDChhJEAxf76OWVrgkjzDSJhnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2khqmycXQwz65se1FliWMKaPP0zVTIg2DE+VIRW6FKU=;
+ b=iRBvYLR4S3di1vk5Yj/DeZ7LJpeeEJwo41kfoE8juw2/X38KSpeBbjEFrpJqRZheVj4qQPuttfEYD8XFa/Lwna1lNHcrKdZpsGteTDQykWwlZAhUx3UCQ/dCxqyRPMGyQ2W2Eq7t0Bjubtx1UrD3Djc9KSFLEKATHztiB3Wjd45DIZWPDMoeL4BXFvwbwfgzfoozkcVO+E4tOiYJ0dxBBXIg7nAPa5pLgiAPFRwvuMaowEPP9JHAPoyHKSbHmoVUSECMHqPmBsBcnZTbe3kwBCTe8/fMShTI1KQLZW46qWnuVbX6bWdMhFaobqU4uVnoJ15f1ycvlgmOEzLP4JdQuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2khqmycXQwz65se1FliWMKaPP0zVTIg2DE+VIRW6FKU=;
+ b=exGPhOM9YW7ozzW+YlBitcFYwOvEn+Ppb+5JIeG7Y1Q1irMEDBPvbJNld8DHPl3V07865pZh5oB8ZzoWp0BnPxe69pJFiQkrJl4qElqJ8o4ioD92pjy9W2yr7cLHpT5KnasJLi2T4lB6JZ0rQGhYGcgahdyxKHe+bDtclrCnpSiqbso//09CVQ1MGdt6yI8lC5MIkokb3079FyNI0omS93B3k0xn1umfvHW0YI+TjNKpB8MIzMM/glXF3CxD/8fHSK6ZlPvx5JMGXFBWMl7ufFL1xptlmTqJNoJaXvfFv0ZehVmwjuBTqyGlbIxviAjr6SUqBjjbXSQRA8bvQ9Wgqw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DBBPR04MB7899.eurprd04.prod.outlook.com (2603:10a6:10:1e1::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 12:12:49 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 12:12:48 +0000
+From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Date: Tue, 27 Oct 2026 20:09:28 +0800
+Subject: [PATCH v7 01/12] gpio: mxc: use irq_set_irq_wake() to simplify
+ code
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-gpio-mxc-cleanup-v7-4-v7-1-7b602d70c149@nxp.com>
+References: <20261027-gpio-mxc-cleanup-v7-4-v7-0-7b602d70c149@nxp.com>
+In-Reply-To: <20261027-gpio-mxc-cleanup-v7-4-v7-0-7b602d70c149@nxp.com>
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SI1PR02CA0051.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5::6) To AM8PR04MB7874.eurprd04.prod.outlook.com
+ (2603:10a6:20b:24d::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,71 +102,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026130054.91461-1-lance.yang@linux.dev>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DBBPR04MB7899:EE_
+X-MS-Office365-Filtering-Correlation-Id: 245aa19d-bd0d-422a-9e0d-08df34239d8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|19092799006|366016|11063799006|56012099006|261021123027099003|261021121427099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	J9pFuEiXRGMb8ASvPTAH8/cxih1OZ9m5/xv8cJwjMRVnvjwA0I7R85Cf++82A2HbTkrm14/9skXPYdtqec4je9zROY7Uam0ct46pkwqAfUmRGCCYVS9tqjEmKYU2/SM6CcVGfTuYWEXyr+lRe+35MN4rGL6ahsj7WOd3lO0z+4vdbm5Kbxyu/Vkcmthjb2du+JpgBEc0GPMOxoa+G9+RGUZrgpnMRiptv5guvfDOPx2Y/TRaa9ksrEdiL2SlHFjTJ1wTZOSVkyQSjOJucKiSOa0dtwE4j4AZzRWgHjWeqV14Dm7ca26ZT/YBDUpjVO9Q9KAjqgA2D79EJq1xQY7QY0La0w5L/1HSUvPkl9cwNsyILPojmG2U1uZyRrzWUKl2XNQqi/HPQ59hl7a/C2D6vyKJZY9NATKuBiWpjYpDHOEet+JNTqZmnmFaZyxiiBllnFpAFV2/6s1BzCNmIv6EY8OlGWDjttGj2VHekYbHGprAvXQNtLzfSawWvprototUaGBTr5+ccA1Zw5ZybXORUhPJQ4S7GVRP/mAHxaQ9CBCzh7Oo8aeoVfa4otdEayKdoi4vBhi79RwtHHPtC7O+M7rNxzmKFz/zU4Mp6Urcc9zQRPn8i6IB4m6fOwJYJndhiC5X0kcQ+/EgWxuSpuGbSL2NIdI+MKZIULMdRljt9Xk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(19092799006)(366016)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SFBtSUdNaURpSXdTN1hzQnVaeUlNTmRxRE9sQSttNmk5Mm5tZ2lWaHNIU1pC?=
+ =?utf-8?B?OXhmcU1nOUl4Y2VjM05veFpDN0paVmVCakg3WjNGeUI2aVQ3TEg3VTk3bVB6?=
+ =?utf-8?B?VGdVOUd3NmpSZmdMakU0NloycjZIU3BFeXZOOEd6QXBTUE8zdFB1b2kwZS9j?=
+ =?utf-8?B?Q1B1NjhKS3JPZmRCYmdJRnB0cTM2c2NaS1I3R3UvdloyZXBmRndjVkUyUUFz?=
+ =?utf-8?B?WFE5V3FwVEF5RHJQSFpHQWJ3RzVuV2tIZ2ZKM2pHNVBrekF4ZWFQN3NZOU9t?=
+ =?utf-8?B?ZUtXdXY5ZVpGT0VQeHdGL2d1U3c4aWJQaVlwRy9EejBIS01VWkh5U2FTY0Fp?=
+ =?utf-8?B?aTgzaDBDd0p2QlNad20wai81ejJna0QzTmtXSmFFckpuc01qWDZjTnZKY2p0?=
+ =?utf-8?B?bzRIRWZkaG5NaURpeW5TQTdnZ1I0ZGp5bnhsTTRld1FBZFBxUldzYXNYbDA2?=
+ =?utf-8?B?VlNVTElCQmx4eXNWV0lPQnhLVEpNekVxUkcwY093TjFxdkFSV3JuRUJFbEZM?=
+ =?utf-8?B?ZXNZZUdQVXY2MzBscnVzMzdOUExreUllRWFkYnVoaFJNWnAxdnByL1BWbG13?=
+ =?utf-8?B?QzdTR0Z4RUpNVXZJcE1BL2VsQWQ4Y1hscGRHcGpWay80WHZMQlNJa0ZMUm1r?=
+ =?utf-8?B?a01NT1lrYWV0eWcrK1Z1OUl5Z0w5VGRzMlBzc2ZReVM3RDlmYW1kanV6RzBQ?=
+ =?utf-8?B?TVpYWE1NZktBUzhBNm5TWGhxT0F1YmRnQkNNdTBLaFV1QTZHZFZGcVducHg0?=
+ =?utf-8?B?bGxHQXZQeFllWTViZThIbWp3RTRMdmVhWUFKZk9UTDJRY1JFeXQ0L1ZQdG1z?=
+ =?utf-8?B?UkR5K1MweHJJRkxVL0o4TmN1bHF5QUhPY0F4SEU1SER2TE55UWdlWXdvVDdR?=
+ =?utf-8?B?dFJhWmF0UUU3d0NxU2JvRUZIVDRaNDdUYWVVUWc5VjR2Q1VrSnhhTUg2eHF6?=
+ =?utf-8?B?TDhXYndnaVdVUTN6TU1pdTc1MEI4SUM1Mng5aktFNnY0UzlJbnVUcTRRa1ZB?=
+ =?utf-8?B?U0YvUFdoRzZxZ0xEcnp2a3I0OGY3MXo1L0tBclJWU0VMcjd4ZUFvK3dsUkFG?=
+ =?utf-8?B?R2ZuRzQ2L05EQUZNNWEyUTZkL0VqMjlOb3FDTEZKUFZ3MmhhdW1QQS95aW51?=
+ =?utf-8?B?WVFrcmNUdTRMRjZQNmQyekZKSlNWUlNCRVk2VW1QRUtyZzZOOGJMSHl1OUpU?=
+ =?utf-8?B?RGQ3clQxRVpsTmdGVHI1SlhpdCtEdGxZd1JYWnhqT1ppMDBnTGd3NTR0Wnpi?=
+ =?utf-8?B?WlByYkp1UkIySXR1a2ljbjZ2T0VqSHIwZzJ2UWs4NzMzaG1uV09ndmtjVTNZ?=
+ =?utf-8?B?dW9LUmJucFloRkp0NUhCOFU3eFA2elNPZEUxVHFNZzBxLzdDOEg3aU0vUlRX?=
+ =?utf-8?B?ZWpSTG05bXUyMEIyN0RBUVNzSnZrTEJpSWRXb1NLU1dnZjRldlFOeGtQVnUz?=
+ =?utf-8?B?R29ZWFJqMGtqOTJWWjNocHhZTlJxMXQvOGJLZW1LK1E0YTR4UjlnaGxNTkpl?=
+ =?utf-8?B?WW5vUDlrYjgrd21tL04rR2dqYlkwaDQzTGkxa1RhTno5Ti9mTUNuWFduVktG?=
+ =?utf-8?B?K05Rb203MTBWWit6UWtad0NycEVWNmRmbm85czBGaDBoTks2bGdoM3BkaDFB?=
+ =?utf-8?B?NjlaK0hjbG8zVU11OGhaUjg0Q2U5YjUrcjJHemluRE1VRC82Nk1KdmdQeHlx?=
+ =?utf-8?B?Vmlmb05OMzE1WW9WbXY3VFZCWWJjc2J2NlNEbVFGSnU2ZXhmVUFuK3dmMXVK?=
+ =?utf-8?B?bEtiblVvUFRyWnpJd0ZBcU0zQTVHM0NwWTZuNDRBY0pvTHhrL3M0dmlRb1Qz?=
+ =?utf-8?B?WEN1NDhMTjBWYTVxTTF5VXBxSVlraEJnb1lmR3JrMEdlSi9kNkhKV2Z2dXlx?=
+ =?utf-8?B?U0ZVZ0cvWm9nRmY5TDVBZjVEUklKSHdvUVk5Vy9PY29obUZnZU9ZTEFVZkoz?=
+ =?utf-8?B?cUo1eDBtRDlYbGljc2xTVkVja0pyUXpZWm82OWNONk5xOXBZL3ptaVVjQlVz?=
+ =?utf-8?B?OVlVNzBDT3E2YzZxRnFHYUY2UG1JdkRITHppSGYveFpOdFJnRGlrRDZVTmF2?=
+ =?utf-8?B?Y0JaVUx2RDBnUnRZNXVSSmg3QkJwR2U0ZHlhRFkzVDE5YTJWeHJNTGJtdmwr?=
+ =?utf-8?B?U0oydExKR2h6NUxHQi9WK0xnSlBhdTR4ejFPVjYzQWwzVHZmUmtpRVgra1BD?=
+ =?utf-8?B?Zi9qblFwUWJqYmg4Mmwxanc3empvcjJ3eE5hUHZ3Mk5ZaXV6MWJZYkNvWFQx?=
+ =?utf-8?B?RXRwVHJtTTQveTRnTXRkRFAySXZTYzdMSWhkM2FZSjZyTk5Kd2haazA2Q3FW?=
+ =?utf-8?B?RUZDckRxWEt3Z05HclQ0Ymo0bk5sa3QvTFA2R3hRc1doZFJOdEduUmprVDMy?=
+ =?utf-8?Q?zgPsUXt4Guz0fRjVSstFeN/cyIpKWuLJwSgVK?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 245aa19d-bd0d-422a-9e0d-08df34239d8d
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 12:12:48.8903
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YrBNMGwZza4JWaLZBr2LRF44qjXafs6BhFrPp7lRMbbnmE7B76kiyPnJUDlO/2BiRm1Hn5tiSaB+69dhnMoZ2R0t9h8DGSUljgfFZ9X3+zbRRa+8i1THVFvLn1BHDAr/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7899
 
-On Mon, Oct 26, 2026 at 09:00:54PM +0800, Lance Yang wrote:
-> KSM loses userfaultfd protection when replace_page() builds a new PTE
-> from vma->vm_page_prot. Dropping its uffd bit lets a subsequent write go
-> through ordinary COW instead of userfaultfd write protection handling. For
-> RWP, a merged page also becomes readable without faulting.
-> 
-> Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-> have to handle unmerging. An existing KSM page can be protected with RWP
-> before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-> of preserving RWP during merging.
-> 
-> Unsharing replaces a shared page with a private one and should leave
-> userfaultfd protection in place, as do_wp_page() already does for write
-> protection. Currently, an unshare fault reaches do_uffd_rwp() before it
-> can proceed to do_wp_page().
-> 
-> - With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
->   break_ksm() then reports success with a KSM page still merged.
-> 
-> - With asynchronous RWP, protection is cleared before unsharing.
-> 
-> Preserve the uffd bit when merging, and restore PAGE_NONE for RWP. Let
-> FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-> private copy as well. Unsharing can then complete with RWP still armed
-> for a subsequent access.
-> 
-> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-> Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-> Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+From: Peng Fan <peng.fan@nxp.com>
 
-Thanks for fixing this:
+Simplify the logic by consolidating into a single irq_set_irq_wake()
+call based on the enable parameter.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ drivers/gpio/gpio-mxc.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-> @@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
->  		dec_mm_counter(mm, MM_ANONPAGES);
->  	}
->  
-> -	/* Preserve soft-dirty when replacing the page. */
-> +	/* Preserve soft-dirty and uffd protection when replacing the page. */
-
-Small nit: the period at the end of a single-line comment looks odd to
-me. Am I the only one?
-
-If you are going to respin the patch for some reason, maybe drop it?
-
->  	if (pte_soft_dirty(orig_pte))
->  		newpte = pte_mksoft_dirty(newpte);
-> +	if (pte_uffd(orig_pte)) {
-> +		newpte = pte_mkuffd(newpte);
-> +		if (userfaultfd_rwp(vma))
-> +			newpte = pte_modify(newpte, PAGE_NONE);
-> +	}
->  
->  	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
->  	/*
+diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
+index 32ded7b548fb..95dfe199409a 100644
+--- a/drivers/gpio/gpio-mxc.c
++++ b/drivers/gpio/gpio-mxc.c
+@@ -326,17 +326,10 @@ static int gpio_set_wake_irq(struct irq_data *d, u32 enable)
+ 	u32 gpio_idx = d->hwirq;
+ 	int ret;
+ 
+-	if (enable) {
+-		if (port->irq_high && (gpio_idx >= 16))
+-			ret = enable_irq_wake(port->irq_high);
+-		else
+-			ret = enable_irq_wake(port->irq);
+-	} else {
+-		if (port->irq_high && (gpio_idx >= 16))
+-			ret = disable_irq_wake(port->irq_high);
+-		else
+-			ret = disable_irq_wake(port->irq);
+-	}
++	if (port->irq_high && (gpio_idx >= 16))
++		ret = irq_set_irq_wake(port->irq_high, enable);
++	else
++		ret = irq_set_irq_wake(port->irq, enable);
+ 	if (ret)
+ 		return ret;
+ 
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.51.0
+
