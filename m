@@ -1,112 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100446;
-	b=Jbkk8c2oBYuERbyHoh+9hqbGe6uimG6cRrQ645cQufiOswVVMrzY1cusyBAfliuVyuDu
-	 +Y+KRSVkh7fgcF0Y7gTPyXdSzRGTe64+9Dl7P8jFXC8Jc3QKW0tRD43WtstlnEfNhUCj0
-	 h7szrDq3KnS29AP4D2Gvy3PrA0QwEzb8i+g240YpcbeSVcN2j5Dp1du+1uRPfUeA/PTOG
-	 E+1WeGRELgKF4Rw/U7ECRvAzAXtMP9n8/KbBWHy0NwYn2qC9OuZt44MZOaTGf3taItINB
-	 BkVfTH8+GEqlGKwbM7em5sHwjRrnYW82mGn/byw5wzgJlPIW1manuRo5LqW+BFxK9dg==
+	t=1793100447;
+	b=UeM/YSDrrtZRcSrWTXfcNaeu7mVgpvor9ePKppruJJ8/w1hO8nCunfoYT/JbYkZsc1r1
+	 P5tMUfGG3cdypVnga9J0k3uJ4kq566TcC4owkhL0oq9iQxzNd1GIeYovSxZMbcS3hXsbT
+	 Or+vQQcZcZStknkJ40/e6x6bDMTnvZwb6iYTyvbks7BZtlBumzdX6etQBKJkxVI/QuQRV
+	 Sd20ifQ2Je2QXGdsdo80Eo00quk+z49eh/DOzq1AOL3Z8ZBM1vyaYt6/7buBjdokX/oAn
+	 T2vQaQLnkvR2VMGGagsaICbtbMRWHC7DGod2F5t1OY58VtGSmXQIkIiUJ5de6g9pR2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100446;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=gnBYF/brT+54VvThiXNBFMsUkIWFN5n/zR+vlh1db8Y=;
-	b=uL/3l9mjANuB2y99z3qxceeZ/iOYXY3Z3zjaV4vMALKlzPHMqfhNVLtpBhIQIlfhbo5n
-	 eDPhkoDeQR/kq2qROKKPv5CGiJM/VSTzx2Bm8XJLaP4Gn7nfvNxD+yBgtTANsbAJ7pMWz
-	 B6LF063sEtGjI1wXCGERQSmnAKWnNN/duNZ0raZv8RyBfE//iDoznOFw3PuZMJOJzZWwv
-	 Qs0yjAhwzbvgFyfAqgkmbw+umDc9H3NJzpNLOCfZ3klDWnd77g48dNCRUJwGKQ3Kka8h7
-	 PWgMti6dnec0LZP9boWNkEdYudyiP07D2KjqaDh4bKTVP/6lCxE+J+khTer7Ot8yTPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100447;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Originating-IP:X-ClientProxiedBy:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Zhv98/DMFgaVHqthgMh+5047LoW5P9chJ9n6zONF7MI=;
+	b=UyNBbPbSQzfRYFNAGiPlDW3KWtTKUDsWMaT/EVjc3IPM1lc0/aHOlcyvWvWPnpfpwG7e
+	 JF8sQ8dLysur/c2u0uHhUrAmJeK9ZaZt8WvyFzWh1aJuxxe20eFo8i1nILGqrzJF3j8hb
+	 Rk14ngc9rUb+xZmEeXAaQTp5MoaRxlOBp3+AatpuhOsl7c1tvv1Bi/SrvrtZNq9FV0SH9
+	 pARgzJy+zmFuWybtFJ0qw7bNHPsbrP4GhIp06dNVz6QsI5ooLSmvzi42c0WI1ycZHDO5V
+	 Q5XRg7jWmgAjYpIIBV2IldV2CSvaVL0bJuJ0151csUW6oUvMyIoUqg9QdXpGorIivlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HQUiwcNl;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Tsi00V0i;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.it;
+	spf=pass smtp.mailfrom=amazon.it;
+	dkim=pass header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=IltX4WvW;
+	arc=none smtp.remote-ip=34.218.115.239
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C0FB606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:27:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C0FB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 125BE606A326;
+	Tue, 27 Oct 2026 11:27:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 125BE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HQUiwcNl;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Tsi00V0i
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe35S2458384
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:27:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gnBYF/brT+54VvThiXNBFMsUkIWFN5n/zR+vlh1db8Y=; b=HQUiwcNlg3brz6ri
-	CV15WQafTLx7qjzv19G0UAoz/qk2r/MrDavXXCnMxcAaO6l9GH68gIhEPU8Ariy4
-	Kfm0SlIfx7UmWB0O1wT6NKRj6qeS6tjn7jplPrNtWU1sLINM0qZSuJD1SuUhcD+n
-	qNSiiMEUqB7cwNBlIm9dV0tcS+aLWuyY/FCCH1gbwHL8L1HNhXT8YNSjRzFBMsdt
-	Ve/QXtL7pEHxwP24JQnSi46obVFXcJV40d8N396wQakDynE1mlpe2gn9uIbsyy6w
-	gqHlsNBvBdTNZaILenXEc3tkoDvmdCisPh+wboCxl44jWxWPLDIdr9gZ0etZZR5y
-	H3YCfw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbta114-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:27:25 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f2bdebfc5so120055585a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:27:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.it header.i=@amazon.it header.a=rsa-sha256 header.s=amazoncorp2 header.b=IltX4WvW
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793100444; x=1793705244; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gnBYF/brT+54VvThiXNBFMsUkIWFN5n/zR+vlh1db8Y=;
-        b=Tsi00V0inv16cHYyKsAxpXLniTD6HzgR3hWjUxk2/qPQXdln1BFzsygGArWN9DfM6x
-         +3yI0sau2mlWbkhSLgcHmK2t8gHaqldcCe4kBHZGpZ23BondUZ/Kdz1L3CW9ZNKMTLVe
-         YTmRXeiocUVFYKIDYdLbl9CNslnoeOsYGdXoPbAcEz/9Anoym8yrtD4eGz94yNguPb3P
-         7l7gVwTCcy3D1YXTnlSnDkhTn/5lh3d/xnVVbOhp7SYEWAO5vcSbUd+tZWlvyO2GM+NK
-         WmbXNJ8Q37b7+5bjbHZaUUkIvMOomoNetUTGALnIBMWtyNTfSiEG+FCYhfWrNqf32hLo
-         XqVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793100444; x=1793705244;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gnBYF/brT+54VvThiXNBFMsUkIWFN5n/zR+vlh1db8Y=;
-        b=qE+3V38rCrFUqAidcrMILrVqiT+8e4SFfwoBvfJdYFLNAWpxYE4VNrvpbygVVFq3Lb
-         /9UBviiAdTgjK8sAyVRchkvA+2ggsW2MXPkjw1YpdOTKz/gNcwEd6HzBYbc003z/Id3m
-         rJIBcp8bWk22ZA6VBDyjfyL7FvfMCWImd9zY9BX1cekzyBcBy2HG6MWlQfFhq0quDP9Q
-         7+fPmM2wgkRln3xmo2c16aFmDzG54mUaTKv5AAH4qDBgQJaj3M3BIOoXcAtkEk2boR+Q
-         GN1tHMezpFctIhYYBd4syXm6JIlyEcgI0nP2WiLMv3YC+s7uUOMdwTKpYFjB+gKqdGpK
-         M20Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzw83B4q0UEgMdTeP3WyneKVdqGS5u6oxtptnW3P0gt/O2Qol/CdulLAfi/4iwv9MUlbTUZeo3SczWrp6Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2ePqB91B3zfwfiyScn2pfqPbQBWxT63t8d5gIgYW/SYRGqWQL
-	JhpfFtxnXHjCircbsQloMjPXC4/7GTCsUb0p36A2pHyU7g2MXvQ0/Mx0ZBpn18mX3CpD5hS9sfI
-	zaVUCMLiQT1Ost3TMqC7jVj8kUYVE32IqwjofcX3WsaeoroZpwGZu45VNHSQLMjIVAYR51UtgwW
-	A=
-X-Gm-Gg: AYBFou1Ff+dcInPMjFU1PNtZlShDJwgAGm6iPar7WSmoFErDiiOrOaqymD9l/xo+Pte
-	0XlcsjLnosQhetei8vRkUDBkfQePbmMDpXLHC+mNS8FBOqfCmyXU9NRSlOG0EsQC8QHHkOge10n
-	yXx2C+UVkj4L9ZpDr+cdDpHWyXk8unFjSVzXPjlc6sP9eN2imQtsnq0fllZMJzSNqPny0CLHE0x
-	ie6AeXSduIjY5VL89o3vwzH0kqyG33kZkC8+943dP9GXKm8MlWtvrIECSPy32eMRoej2sYV5RiL
-	YZjUzxZSSwGkaSXdVgW8eafl30gpTCxPxVgph+RqIpbA1kqKIKRF+cY4NCCysvRLOrKsdrzhTtQ
-	ajWr8WnjUJSjna49JSCcZtg==
-X-Received: by 2002:a05:620a:4e84:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-940ef9710femr1762508685a.6.1793100444295;
-        Tue, 27 Oct 2026 04:27:24 -0700 (PDT)
-X-Received: by 2002:a05:620a:4e84:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-940ef9710femr1762502685a.6.1793100443839;
-        Tue, 27 Oct 2026 04:27:23 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4459713f9sm4946374a12.16.2026.10.27.04.27.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 04:27:22 -0700 (PDT)
-Message-ID: <7ce4f890-8850-4217-89e8-cbda80b2a5f6@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 12:27:19 +0100
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1793100447; x=1824636447;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Zhv98/DMFgaVHqthgMh+5047LoW5P9chJ9n6zONF7MI=;
+  b=IltX4WvW3H3ycZ7wCFSQqyDNe4Y+xWvxTgcIY+6vUBdGODne72kql64E
+   WihUJbBgtJp3M2B9lqNPFMsfGlOCqnpDYTC5kZOsq+f/y190fx+64YDJT
+   xovtX/K021EAEMTiQwragoHYdK8n/rA1/syQu7jayt3Px6oVD4VEBVioQ
+   goIoLKz6greU3ZX+25qk4b8BVq+hGq805jv2LNIIdYQWFY5MsDUeYI0uC
+   YfXYLO8olTtMzUzU1C39AHcLLWQtbJ05BHmEkwNKuJlNkzCQ33IWqFpN7
+   Md/07FdddF3dSYrY4oBEA6jqVRjsx1ADkOcVtNaYn+Wga6g81t7lghlKf
+   A==;
+X-CSE-ConnectionGUID: cBtv+tbPSuaYbQZrAgM8pQ==
+X-CSE-MsgGUID: fKISb3HxQf+nFB973LWUPA==
+X-IronPort-AV: E=Sophos;i="6.27,181,1787011200"; 
+   d="scan'208";a="32129592"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 11:27:24 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:27038]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.29.97:2525] with esmtp (Farcaster)
+ id 11a1da28-eaf2-40b1-b48f-53da0e26ce8e; Tue, 27 Oct 2026 11:27:24 +0000 (UTC)
+X-Farcaster-Flow-ID: 11a1da28-eaf2-40b1-b48f-53da0e26ce8e
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Tue, 27 Oct 2026 11:27:24 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Tue, 27 Oct 2026
+ 11:27:17 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <akpm@linux-foundation.org>, <linux-mm@kvack.org>
+CC: <ryan.roberts@arm.com>, <abuehaze@amazon.com>, <alisaidi@amazon.com>,
+	<blakgeof@amazon.com>, <dipietro.salvatore@gmail.com>, <rvvandan@amazon.com>,
+	<viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
+	<linkinjeon@kernel.org>, <sj1557.seo@samsung.com>, <yuezhang.mo@sony.com>,
+	<miklos@szeredi.hu>, <agruenba@redhat.com>, <djwong@kernel.org>,
+	<hyc.lee@gmail.com>, <almaz.alexandrovich@paragon-software.com>,
+	<cem@kernel.org>, <dlemoal@kernel.org>, <naohiro.aota@wdc.com>,
+	<jth@kernel.org>, <willy@infradead.org>, <david@kernel.org>,
+	<ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>,
+	<rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>, <ziy@nvidia.com>,
+	<matthew.brost@intel.com>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>,
+	<byungchul@sk.com>, <gourry@gourry.net>, <ying.huang@linux.alibaba.com>,
+	<apopple@nvidia.com>, <ritesh.list@gmail.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<exfat@lists.linux.dev>, <fuse-devel@lists.linux.dev>,
+	<gfs2@lists.linux.dev>, <linux-xfs@vger.kernel.org>, <ntfs@lists.linux.dev>,
+	<ntfs3@lists.linux.dev>
+Subject: [PATCH 0/2] mm, iomap: account dirty at page granularity for per-block dirty folios
+Date: Tue, 27 Oct 2026 11:27:00 +0000
+Message-ID: <20261027112702.3747009-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,88 +98,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 5/5] drm/msm/a6xx: Protect the 0x1c800-0x1e7ff GMU
- range on A620 and A650
-To: patches@brar.si, Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar
- <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261027-adreno-a620-v4-0-b0095e028c76@brar.si>
- <20261027-adreno-a620-v4-5-b0095e028c76@brar.si>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261027-adreno-a620-v4-5-b0095e028c76@brar.si>
-Content-Type: text/plain; charset=UTF-8
+X-ClientProxiedBy: EX19D031UWA003.ant.amazon.com (10.13.139.47) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfXzNzlkSYrFuzD
- JOC9FKr9izxMyuNh//lofQWGEuv7+wJRMe9y5hXcvNZzon7XE2nqdh5duCM0SfyZITaFJX7w2sG
- +wxEdlxt7L0LMmUwwDtC5xyivrU5Qkg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX1GwD6fcx63Ii
- S9ZRmc1UuXHYoTlYGm4N4EbB5CDjidmiRqtK86B5ss5RcVdtHdknq+JGFK0uSQvyf2HW2RjwYvF
- 5MzAvvhMcjBkk+HhSW23H9FBD4tLbThGslwNbM4eDMfGSznu7Uu+kR3a+MBjCagn/9ZydN0BYfh
- zOBR9Zv2ncfZP/9lwLUNBOkyGNbbpxGM44vOdJ3lk1uPGoOLatn3lh6rG6rEWSr27mSaFoDN81z
- OMrqLqdfHj0NRNlNF1TE1m+0H4M3sFt2qy4Iyq2Or/JksWDg6JLYn7Om9LRlJyplCs+v1/LjsDp
- W4SbHL9/T4JHyi4d5sjBJt+QA+tqFiUa9GYv9n2Vji0ejdurAfVjkmPvL80tBLfuvvpXt61MGq7
- bLM85GWpWrpYj3l56zUcNbxHhNW1M5R1bbKB5dqNGyhGqbanaKYBgJQoHpqR+4zbu7xVQZ72NnB
- gkZ2E7a9fscg6ggM+WQ==
-X-Proofpoint-ORIG-GUID: zamkoocyN1PGmjRSBO14zqhkwweovgmO
-X-Proofpoint-GUID: zamkoocyN1PGmjRSBO14zqhkwweovgmO
-X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae08a9d cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=Tm8wa4UmF2Ix6aBE:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=-zc-H5WaXjtm9W6SF9YA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270045
 
-On 10/27/26 8:14 AM, Ishu Brar via B4 Relay wrote:
-> From: Ishu Brar <patches@brar.si>
-> 
-> No protect entry covers the range from 0x1c800 to 0x1e7ff: the entry
-> at 0x1a800 ends at 0x1c7ff and the next one starts at 0x1f400. The range
-> holds GMU registers, among them GMU_NMI_CONTROL_STATUS (0x1cbf0),
-> GMU_BOOT_SLUMBER_OPTION (0x1cbf8), the GX and MX vote indexes (0x1cbf9,
-> 0x1cbfa), the DCVS option, setting and return registers (0x1cbfc to
-> 0x1cbff) and GMU_CORE_FW_VERSION (0x1d3f8), see a6xx_gmu.xml.
-> 
-> Add the range as no read/write to the A650 protect list, which A620 and
-> A650 share, so that these registers are reserved as well. This follows
-> Konrad Dybcio's suggestion; the downstream kgsl protect table of the
-> OnePlus Nord (a620_protected_regs) has no entry for this range, so there
-> is no downstream reference for it.
-> 
-> The list is also used by A621, A623, A702 and A704, which I could not
-> test. Tested on A620 only (OnePlus Nord, a 7.3 based tree): a Vulkan
-> workload ran across GPU frequency changes without protect, fault or GMU
-> errors. A write into the range being rejected was not tested.
-> 
-> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Ishu Brar <patches@brar.si>
-> ---
+Since iomap gained per-block dirty tracking, a large folio can be
+partially dirty: struct iomap_folio_state records exactly which
+blocks are dirty, and writeback only writes those ranges.  The mm
+dirty accounting, however, still charges the whole folio even if a
+single block is dirty (up to 512x over-accounting for a 2 MB folio
+over 4 KB blocks).
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+balance_dirty_pages() then throttles writers against a number that
+is unrelated to how much data actually needs writing back.  On
+workloads that repeatedly dirty small ranges of large folios --
+e.g. PostgreSQL, which writes mostly 8/16 KB pages -- dirty_thresh
+is crossed and writers are throttled long before the real dirty data
+justifies it.  On the benchmark below, run on v7.3-rc7, the
+unpatched kernel charges ~159 TB of dirtied pages while writing
+~6 TB to the array, a factor of 27; with this series the dirtied
+pages charged match the data actually written.
 
-Konrad
+This series makes iomap charge and discharge the mm dirty counters
+per dirty page for folios that carry per-block dirty state, so a
+partially dirty large folio is accounted for the dirty part only:
+
+  - Patch 1 adds the mm infrastructure: an AS_DIRTY_PER_BLOCK
+    mapping flag, an @accounted argument to __folio_mark_dirty()
+    and __filemap_dirty_folio() to skip the generic per-folio
+    charge, and an address_space_operations::accounted_dirty_pages()
+    callback used by the discharge and migration paths instead of
+    folio_nr_pages().  No filesystem opts in, so it is a no-op on
+    its own.
+
+  - Patch 2 makes iomap charge per dirty page from the per-block
+    dirty bitmap and wires iomap_accounted_dirty_pages() into every
+    iomap-based filesystem.
+
+This was benchmarked with PostgreSQL using the pgbench simple-update
+workload on v7.3-rc7.  Average throughput rises 46.8% (139.8k ->
+205.2k tps) and run-to-run variability drops from a 23.60% to a
+3.98% coefficient of variation: the worst iteration improves from
+97.9k to 191.5k tps, while the best gains 8%, 199.4k -> 215.9k.
+
+Ten iterations per kernel, same database and workload (tps):
+
+  Kernel                     Avg     Min     Max      CV   iters   iters
+                                                             1-5    6-10
+  ______________________  ______  ______  ______  ______  ______  ______
+  v7.3-rc7                139.8k   97.9k  199.4k  23.60%  164.4k  115.2k
+  v7.3-rc7 + this series  205.2k  191.5k  215.9k   3.98%  200.1k  210.2k
+
+On unpatched v7.3-rc7 the worst iteration lands ~51% below the best,
+and throughput decays as the run progresses: iterations 6-10 average
+30% below iterations 1-5.  With this series the decay is gone -- the
+second half is similar to the first -- and the coefficient of
+variation stays at 3.98%.
+
+The over-accounting has existed since commit 4ce02c679722 ("iomap: Add
+per-block dirty state tracking to improve performance"), merged in
+v6.6, where the ifs bitmap started recording partial dirty state while
+the mm counters kept charging whole folios.
+
+The throughput collapse bisects to the v6.17 readahead series, first
+bad commit c4602f9fa77f ("mm/readahead: store folio order in struct
+file_ra_state"), which lets readahead stay at the largest folio order
+once it has ramped up, so a single dirty block charges far more than
+is written.  Patch 2 therefore carries:
+
+  Fixes: 4ce02c679722 ("iomap: Add per-block dirty state tracking to improve performance")
+  Cc: stable@vger.kernel.org # v6.17+
+
+Test environment:
+
+  Hardware:  2x AWS EC2 m8g.24xlarge
+             (SUT with 12x 1TB io2, 32000 IOPS each, RAID0, XFS)
+  OS:        AL2023
+  Kernels:   v7.3-rc7, v7.3-rc7 + this series
+  Database:  PostgreSQL 17 (with huge_pages=on)
+  Workload:  pgbench simple-update
+             1024 clients, 96 threads, 600s duration
+             scale factor 8470, fillfactor=90, prepared protocol
+  Runs:      10 iterations per configuration
+
+How to replicate results:
+
+This script starts two AWS EC2 m8g.24xlarge instances (SUT + driver),
+then installs, loads and benchmarks PostgreSQL using the
+repro-collection repository.  To run it:
+
+  # Reproducer code (dirty-folio-regression branch):
+  git clone -b dirty-folio-regression \
+    https://github.com/aws/repro-collection.git ~/repro-collection
+
+  # Concatenate patches 1 and 2 of this series, in order, into one file:
+  cat 0001-*.patch 0002-*.patch > dirty-per-block.patch
+
+  # Setup and start PostgreSQL benchmark:
+  KERNEL_REPO="https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git" \
+  KERNEL_BRANCH="v7.3-rc7" \
+  ITERS=10 \
+  PLACEMENT_GROUP="pg-test" \
+  KEY="$HOME/.ssh/id_rsa" \
+  KEYPAIR="<aws keypair>" \
+  ./repros/repro-postgresql-dirty-folios/folio-reproduce.sh <benchmark name> \
+  --patch="<path to dirty-per-block.patch>"
+
+Salvatore Dipietro (2):
+  mm: add infrastructure for per-dirty-page accounting
+  mm, iomap: account dirty at page granularity for per-block dirty
+    folios
+
+ fs/buffer.c             |   4 +-
+ fs/exfat/inode.c        |   1 +
+ fs/fuse/file.c          |   1 +
+ fs/gfs2/aops.c          |   1 +
+ fs/iomap/buffered-io.c  | 167 ++++++++++++++++++++++++++++++++++++++--
+ fs/ntfs/aops.c          |   2 +
+ fs/ntfs3/inode.c        |   2 +
+ fs/xfs/xfs_aops.c       |   1 +
+ fs/zonefs/file.c        |   1 +
+ include/linux/fs.h      |   7 ++
+ include/linux/iomap.h   |   1 +
+ include/linux/pagemap.h |  20 ++++-
+ mm/internal.h           |   3 +
+ mm/migrate.c            |  17 +++-
+ mm/page-writeback.c     |  91 +++++++++++++++++-----
+ 15 files changed, 286 insertions(+), 33 deletions(-)
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+-- 
+2.50.1
+
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
+
