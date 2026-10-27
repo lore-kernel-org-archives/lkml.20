@@ -1,68 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793080234;
-	b=n3xhbxVF+0P/Yk+SGLndgQJ5k3i6Gl+eSAroASfAgZCSi2OY9COM6ttPYOqMSrW4ntBy
-	 z6Pfov55r2vlZ4A1KP07AFXAtWOMLAgFgBC39Vy/D1D3dWzU3rf/ak1DAFxzSCw1YyIjt
-	 6sR07FLL5n5hcZlSBUYriaRacJ7DAmMNTT8SNxTzSt2FjrlBE6PuVh2+CZUgOL57+8nxo
-	 xt4p8qNxgT8eem0pYc+RJ7yCc1smqQaKwtbHF5drFz44wjcXpEPNovqy2a9yf7gGNx7Tb
-	 ohpNI7z5zBfg7RzjTVX9Jnb7AevkcdTUtA0y+M+EwJWKJ8OtrbYI5PBwN2SS1W9o2Dg==
+	t=1793080297;
+	b=LEFGbH+HRf3Nhm4P2Jhh/FaQnm0kANL3/YFHg7uzyxyc/pkQK+Kmd+QV20Ynna+/98l1
+	 +3XwwbFFrkY3bzNoO9gp8o1gCxNpFGFPH/uVlbP8BLWmuJ77qBZjNLevpjtrRuR+gJdbF
+	 EtCf6ia21OM76gISjtcATOnDkwIMCfiTlO9HVXe58ru2aZzy8P3CGiFS0JeA+yZdlJ0xw
+	 6wkMKQbNhKCf+F537lx0MwWlYpkl0wekAyMVbaucoBEHY39W3n6n71zEPlDJl8AXa0K6K
+	 VWCiAsH0+MiZ9TZt5R+pCVQa04GGq5MvBfyDvx6teDSitAGMF0nEgJyp8DjXm0pl1Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080234;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FiRH3Muu0B1Y9IwpXTlmxS6fqN25x5lO7sXHc5scxXM=;
-	b=Yllc/3qxNsSSPKZikzJWPOxkS1q1Lkl5vEJ7qUICdSi9uuZ0zbDD6wMaVb4G5WTonuan
-	 GU9f9GB9UJhBO2gKy3U0LdNiZXxbCYKJv66KJAk/QeCLOr5Jc22N7jkASVpfxY03uT2re
-	 Co6INWv30KsvzXHj27t1VPMqPBSvY7spfIpQRa/Kha5Ln5QVd9TGe2tOGd3oyPU//oXVo
-	 sxKr8qbCuYS+fUYUQFp8oiPYFXyOg+gdJPTfT6QDqgxnLUuCIwQ3zW0CM9mfVxIQtEW84
-	 R0gfA2zyUVYyPcu+L+92WmqN++rxc0qNJ8rRYfJZ5OuLXa/FwATYLs/X+ZSIk75Q5Yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080297;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=sS6nMMIuDnR4tNo375vONtLVL0oaIgYfWQsXPhrKCLg=;
+	b=YI+XUJWfwp3/zPgv5H5C+5JpeQGUkzh3Wy0IVZuH53PhVzS2cS61Eg+gtiFj3QdFYET0
+	 1kXLQJRkVuc1Z4+cRs4hfTfWoh4hVRxVdvGn4FlqyGx/uBIsOjjVkZz1Tx+hQBmgSG3ra
+	 5u1vNDwsTcSroJ/db3c8IsV0hfeXDc+CqJbz8eXeJGanJLbRN8K4WDuT4kE2sglevcuKB
+	 darRhuAL9Y83gUzQQggGGdrQJtbjT6IAtZ19aLn7K9SRyTPO5La58FLFRYC6HtWqkF0vY
+	 Vr3xu/De523khlVmO+jE2YHARKKTlhxm+p38OVVkACHUu0K4UP+EeE4gT23iv/gah5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L2txWquY;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WDWp6dEv;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDCC606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DDCC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8E4606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:51:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB8E4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L2txWquY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793080233; x=1824616233;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=SETQHDzPt1GmiSTU9RrxkHVE+UqvzxnrBAdylx1br/c=;
-  b=L2txWquYjA5QIxFZM6kY8J1ehkeKZF5jEwtUHIw5AAxhs+wdqF6tw8ta
-   H+osljR1YfVN9RlQRrnUWgcEtAwEWfqHYB6vViU4dODyFQLYnmdg5y395
-   E7gb5nLfIwDJ2JwekqzRhgghk6zwWitk4qEimTNBI9wb5cwdB9wlaWO+l
-   ATi2aCaXlzysQ12nJkwzfsyNm+AyVGnCBDu5TUfgPuEZdIfVmXf0j90/Z
-   CyNd5eQYkpBDT0L2G/ttF7pwF1/TtOpUIqULwL0Gn5cY736Pk2TPitVnh
-   jooMBMutqutOZ25vaZYOuaiW+avJqKD1YFoyr5ko0E1fQJfqoor43wO0w
-   Q==;
-X-CSE-ConnectionGUID: Jiy+QdGNTHONQ3bOU2l73w==
-X-CSE-MsgGUID: fLucjSkpTsS/OA3qzyOCwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1662496"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1662496"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 22:50:33 -0700
-X-CSE-ConnectionGUID: /+pnNvTcSsaJGOR5nZ3ZkQ==
-X-CSE-MsgGUID: FSn+z2DXRvmlhnmMgtaC6Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="6207789"
-Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 22:49:41 -0700
-Message-ID: <920718ed-16a5-426e-9407-6ed37181615b@intel.com>
-Date: Tue, 27 Oct 2026 13:49:38 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WDWp6dEv
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a01cac8733so2824034b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:51:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793080291; x=1793685091; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sS6nMMIuDnR4tNo375vONtLVL0oaIgYfWQsXPhrKCLg=;
+        b=WDWp6dEv+9hmM+OJIa13/6VtgOGBZ8+a4sInfJDUojimVDQYboJ8A+wf/9hj55+Q8W
+         uy5E3xlpPAriDc77Ya1jVgavzOzfFhdmhPP5A98h66i2iIbuK2eByt5DC3JUdQGxtF4g
+         wrQobIEKmumRLWmfl0oK+To0IWg4C33bsHChnZri3RAxy185cWw4Pz2ASf9wo5GjvrBQ
+         vMfcd4gIGERMLJSUTGhKx84BLXmNz+Dqbd5scN9u+lndXqoqakITOemu+oNdQoYrylTk
+         dbYDXWIlW7PR0KYivt8IVtkg9eSrowfAqlc0B6/VcarylHWkq/y6CrknZXa+WZ0C44Ku
+         DGpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793080291; x=1793685091;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sS6nMMIuDnR4tNo375vONtLVL0oaIgYfWQsXPhrKCLg=;
+        b=GUR9ikAfL70VQRx6XxZfzg5OCcBA1x8W5gNMnpt/UMDgz7CV0RzqoBwxZnoWOVGWN9
+         n47GyD3Yo89H2PfPr5UTrDFtnOdTXEc0wG7BDRggnxDCksmSBeFhMK5QjYQwGtQHQZiV
+         v16YYBX3auNeyb6PUf1SfjtcP46ORmKJf9k3HNmp7q/7c/dM7wecY9uE2adRH+EINI6H
+         hWWd1ROkPOSroBzharfef61uDJ6xzehtuuuim/w5O6PgpNK51egbHstxHBnip8QwghDW
+         OaUi/tidyA90EDo1nhW5V2s4VW5p3Q5pnYWDPqadweFb5CkkkaUDONlthFHWkN0Lax6D
+         Azeg==
+X-Forwarded-Encrypted: i=1; AKwUvByLMGkHWaMZEpdX3BYYmk3+UIp9TuDstxSh/kWM3mIWglQBIZRmr8c0yHklKGFQI6Ipmx2fHGUReP2k2fs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTYuQCeI0kyuD41wIPi9G5QiYJ3bmrDgNr/MN8kv5tG/GNN7WM
+	E0rZ0pxhQ+T8iLl1NHEEKEGj4M0mNuDGQey9qjtyes3qqLlWVPCpnTKhecu9F1Ru
+X-Gm-Gg: AYBFou1DEwcVkHTfrArgFb4yqSdtPlRbkKM1R1OpDUXEFvGGLPco9iSwaywhlAFmI+c
+	tQxqz5aR9zOrUbxZ6N0To/3wuWz+5eoVb7kMaYQAWhAXucck69sUEMC4p+0vvL7BD5Mv3kCJINo
+	JCBA+9QUxycPf95wdLHFq+MuML3eJoXzN8acGQQAzU9BdPqS2gdw2mTWxqr0Kcx9Q+oHPUmnGNd
+	q195oEIF0nxzwqMIzxC7sSFdu4IvrNL+eVnhPmmTAr0fYzxRf5qKH5nD4GaWXtNmvZsPfy40Lgh
+	GOxiR5xFeeo5+qDdkjCk8e3Z/BuZVMrTreY5q5XBEx/csV5SmH4hvslfj9P5HZ81zoMIJveUOak
+	F3k/HQGQWL5baCv/dqv38reHYt8ZEsPES/hAuNGrwVzPV6KZxLS4uWFUu1oYcxf+KgVUP6set4L
+	ie6CZT3aaCBWBQGQDoQJCVWDsTEl7BZc56QYRvlROxgAba9jd9U9Noe2ggGWuT7GA0YZdX76d0L
+	/RAYSVZICfPd2wHxkzRpBybR4l11c/c78VzwIHPSVpNhQ==
+X-Received: by 2002:a05:6300:398:b0:3e2:86b6:9c05 with SMTP id adf61e73a8af0-3e7bfac3587mr6067370637.37.1793080291076;
+        Mon, 26 Oct 2026 22:51:31 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc682d8sm2280332a12.18.2026.10.26.22.51.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 22:51:30 -0700 (PDT)
+Date: Tue, 27 Oct 2026 14:51:27 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, wangxuewen@kylinos.cn,
+	wudandan@kylinos.cn
+Subject: Re: [PATCH v4 28/31] ntfs: report EA metadata and restoration errors
+Message-ID: <auA734yJUBRQPQD_@hyunchul-PC02>
+References: <20261020084421.2196486-1-liubaolin12138@163.com>
+ <20261020084421.2196486-29-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +97,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
- Connect
-To: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
- "x86@kernel.org" <x86@kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
- "bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>,
- "Hansen, Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "jgg@nvidia.com" <jgg@nvidia.com>, "nicolinc@nvidia.com"
- <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
- "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
- "seanjc@google.com" <seanjc@google.com>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
- "Gao, Chao" <chao.gao@intel.com>, "Verma, Vishal L"
- <vishal.l.verma@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>,
- "Peng, Chao P" <chao.p.peng@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-3-zhenzhong.duan@intel.com>
- <023f3254-c368-4ef6-89b2-8bbacb42d89d@intel.com>
- <IA3PR11MB913636B33BDBD49DBC87555C92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <IA3PR11MB913636B33BDBD49DBC87555C92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261020084421.2196486-29-liubaolin12138@163.com>
 
-On 10/27/2026 11:28 AM, Duan, Zhenzhong wrote:
->>> Abstract the underlying leaf call and pass the shared buffer physical
->>> address as a decrypted mapping. Add a runtime page alignment check
->>> for the buffer to enforce correct usage.
->> This doesn't match the implementation. The code only WARNs instead of
->> enforcing
->> correct usage.
-> You mean below code?
-> 
-> static void tdx_devsec_unlock(struct pci_tsm *tsm)
-> {
->         struct tdx_devsec *tdevsec = to_tdx_devsec(tsm);
->         struct device_evidence *evidence = tsm->evidence;
-> 
->         if (WARN_ON(tdx_tdi_unbind_dev(tdevsec)))
->                 return;
-> 
-> I think the unlock() callback should be defined with a return value so
-> userspace could catch the error.
+> @@ -605,6 +621,8 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
+>  	} while (next > 0 && offset < ea_info_qsize);
+>  
+>  out:
+> +	if (err == -EUCLEAN)
+> +		ntfs_report_file_metadata_error(inode, err);
 
-No. I meant just the code of tdx_hcall_tdcm()
+this function appears to reache here with -EIO or -ENOENT.
 
-+u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector)
-+{
-+	WARN_ON_ONCE(!PAGE_ALIGNED(buf) || !PAGE_ALIGNED(size));
-+
-+	return _tdx_hypercall(TDVMCALL_TDCM, devid, cc_mkdec(virt_to_phys(buf)), size,
-vector);
-+}
-
-it warns on the unaligned buf and size, but the unaligned data are still consumed.
+-- 
+Thanks,
+Hyunchul
