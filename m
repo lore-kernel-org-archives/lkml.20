@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088350;
-	b=R+TDp80aukaH5/1VpSPfzzCqIXQKCPaZtz1ew3WsW2lA2V/HEuDKKLGR8iQIIwajNhW9
-	 NcLi/DcqfcJEje4jhS3Q1cK58BIJxlc+A9/Lp0Kof4IIWqPEqXdMbSrwv/oqHvGFKKmXu
-	 WjTiScPV5V41q7x87OAjzs9dKP1kKT+tDUYsKuzcf1+jPvtuQj14WggCSIPA9Q2rTO7Cs
-	 JyZxezm4bpOpvQ7bQnh2P8DifnJu9caMpVDIUu1cav9cTWRv7dcfU0cSwA2U1+2icodbG
-	 uB+z/kY/nfALPQTLwDuGKCRxG3XoFeEhIv9dwDmj+WnU5JBHeSI5ipnwSqtY24yhaAQ==
+	t=1793088382;
+	b=cDXg2Um6+dCYnP3YrRfAgIK4lgTLOUU4ZxrYMGLG5Z8JKjgQwNdUiMSZkv1mxSNK/GTj
+	 P8oCYaCmCShEsVcEV6So0Lx60mZIwrhtUOO+DmuAyBVRsMSuIsRnyeW5b5kq9uzSgK17C
+	 Vx5Unrl9f4VEj3OfKedqLM/sYcN0pNjOMO463PSpPbGnOlAm/c0S0i53fe+p3KT4MDxzx
+	 ITHxT6oWcqKC6D61zvUV9cm5ekOd9EIaxpqjqDnTJUc0/OEHTG+vEJolFyFZ7kYyQ475d
+	 waO19MAficz7Nz1pw8xbgzx+iIHmsLEumYZAGY0RGrXqKAu1Ylw/cCsZpyBmDa4goAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088350;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BPrJ7zSdgkFlPfR666dcGKV7qJo/SNuXml2HNin/vAo=;
-	b=X+7ui+paETDSIiv2knxsefGwAyqZpA8PQEXU+xMgCDqcuFknDY1xH0KDwPXBRHHEjrcu
-	 fdzmbLu6C0aSFw3Go/C+gm75msBZDn+QPtYv17b+OkjyT3bJXFdHqfl5Fw0Mcp3dBuy5z
-	 4bsO2fdPdCZHUSeKGCnmvnbYtRJaucNw7vIaiIZ7U7U5+A7ulUBjkwqsQpqOA0EdJxutR
-	 kur14Tsr8snHdEZsJa2NubKydJW2hKFGQg2EAufVaG+ntGjhVzIlSNl25RMn9h6S9Uk41
-	 jF9mL5urqOO5beV48WQpJAsvHWC2MCJUuN4Ri6261fC+erC0eRRcahoEJfXt91PY5Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088382;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=v+21b7F33FfCpUxtnzjtl9dFT8uFzDCLvP4RjPFXtJY=;
+	b=mx2wykCUDf4jZeOzUFkQkEXKL8ocUXa1yUe68gJtQ7bG9BKOqwVIjgrPW8LTv2yav0u7
+	 8oA8WZ76ulIgDPMJE+8fsYVZ/ba0LetG7VH9FLHvHbfF5g7Ap0MVzODgqREfa9ckvJk20
+	 6Cz1og5PLmsuPQoTyNqhvw8+fZZ6ScEm0h/wXqB7DVg2IhrhbUo8CAJPBLjEN4lOm+S1J
+	 5XliBrZDMrcyHEAw2fndYlTQibg79XKKJawM0OsV0fIuBBPcN/dOQ25VQmdKiHM9BDV1P
+	 DhIfHop3L2dXx2tSKP89F77X2KvDMFOi/RIxH75cZ410SPRdy0H48sKAM8KVMDe2BfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E9Rt7+fy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hhwQT2iB;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAB2606A31B;
-	Tue, 27 Oct 2026 08:05:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D80606A31A;
+	Tue, 27 Oct 2026 08:06:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89D80606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E9Rt7+fy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BAF71F01825;
-	Tue, 27 Oct 2026 08:05:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793088348;
-	bh=BPrJ7zSdgkFlPfR666dcGKV7qJo/SNuXml2HNin/vAo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E9Rt7+fybzwSR2JXSEMbcSS2YSEXxhtSq/QjU3jgLpkUV+fklU2NxK+HrJcEoXOUu
-	 dllpoob+VAQlCfum2hsbbvZhGAN5hsXW3v33jsFtpHlGyzisj8rZcalg6TGHAXmfRo
-	 UQE7gkIncVP0CkPNUOXzbTknZZOlhrvtULldMSDI=
-Date: Tue, 27 Oct 2026 09:05:47 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Alex Williamson <alex@shazbot.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
-	Richard Weinberger <richard@nod.at>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <2026102711-spectator-courier-13d5@gregkh>
-References: <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
- <2026092321-province-yearly-44aa@gregkh>
- <arOfHEsGGglNse7T@monoceros>
- <2026092348-victory-erased-0e5a@gregkh>
- <20261023181326.0dc2f7ed@shazbot.org>
- <2026102437-vista-unsoiled-b089@gregkh>
- <20261024103512.4601ee4f@shazbot.org>
- <2026102637-buggy-mothball-2a08@gregkh>
- <20261027070300.4c45616a.michal.pecio@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hhwQT2iB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793088382; x=1824624382;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vMIfX1tgSRV9Ue0rRyiTFfKmn7ceGEaOfSCwwVC6LoA=;
+  b=hhwQT2iBFOCFEIZHRE0DDl2nCa9uvZ0B77LdDLUkiXuO7T0RSUKoO5tJ
+   wat3NiXF2+33MPhsnIh5twfgsirjDauQebdPQZxubd9LPGweCz02VZFWa
+   NgkbFTM/NQve3S9yFjgJd47mM/VrzD1X0NZUb+Jx3rITZkOfCqP1dA9aH
+   RKLv7jz1g2e72m7rauK+0uSMTW9YypilGijITl6mIt5J61bVUJ0n0iT0n
+   vPmo6/OzeUwor0E6jJpiHovkfiAyM2TwVCLPeYm/vISqYbLLu1aTSUtfV
+   remWtTPCCcMPd/uvfbA0tRHgsAjza+R83LD1lIq2aafWce0NLm+85mRhz
+   A==;
+X-CSE-ConnectionGUID: 2vPb9ZWSScqZ30eL2pcDKQ==
+X-CSE-MsgGUID: HR9TdeIzRjKJpJ2kClVnRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1794331"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1794331"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:06:21 -0700
+X-CSE-ConnectionGUID: aj7wMOQYRyudZ/7wEbc20g==
+X-CSE-MsgGUID: H/kiAYUERLSfmRLF3h51xw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="6232976"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 01:06:17 -0700
+Date: Tue, 27 Oct 2026 10:06:15 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v12 09/11] gpio: pl061: switch data path to gpio-regmap
+Message-ID: <auBbdz_fBiKr1tJb@ashevche-desk.local>
+References: <20261027-cv75-gpio-v12-0-c22555400e18@ambarella.com>
+ <20261027-cv75-gpio-v12-9-c22555400e18@ambarella.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,51 +87,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027070300.4c45616a.michal.pecio@gmail.com>
+In-Reply-To: <20261027-cv75-gpio-v12-9-c22555400e18@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 27, 2026 at 07:03:00AM +0100, Michal Pecio wrote:
-> > And as said before, that's a horrid hack and one that is breaking
-> > things today in all sorts of ways, which is why the taint was added.
+On Tue, Oct 27, 2026 at 12:18:56PM +0800, Long Zhao via B4 Relay wrote:
 > 
-> Are you aware of bind/unbind breaking things for PCI specifically?
-
-Yes, we had reports of this happening for many PCI drivers where unbind
-would be triggered and a random pci device would then be "bound" to the
-driver and the kernel would crash.  See the zillion syzbot reports of a
-few months ago, which caused all of this to happen.
-
-> Without also involving 'driver_override' or 'new_id'? Everyone agrees
-> that these APIs used for anything other than pci-stub or vfio are foot
-> guns. But your patch targets something different.
-
-Yes, driver_override and/or new_id was being used for most of these, BUT
-unbind for other busses was also causing problems (specifically many
-platform drivers.)
-
-> We can even bind PCI drivers to wrong devices *without* using bind and
-> hence, I presume but don't care to test, without tripping this taint.
+> Move get, set and direction onto gpio-regmap. ARM PL061 sets
+> GPIO_REGMAP_QUIRK_SET_AFTER_DIR so the output value is written
+> after the direction change.
 > 
-> > If you wish to override the kernel, then great, a taint flag is added
-> > and all is fine.  All this means is that now developers know what you
-> > did and can decide to ignore your bug report or not.  No functionality
-> > changed at all.
+> Keep a custom irqchip and irq domain. Create the domain with
+> the PL061 private data and let gpio-regmap attach it.
 > 
-> I believe people pointed out that it's a functional change for users of
-> panic_on_taint who also use bind without being idiots.
+> Leave the chained handler's regmap_read() unchecked. mis stays 0
+> on failure, so the pending loop does nothing, and
+> chained_irq_exit() still runs. irq_type still ignores MMIO write
+> returns.
 > 
-> Does this taint even solve a "real" problem? Those bug reports weren't
-> coming from users, they were coming from "abusers" like syzbot looking
-> for trouble. They were quite obvious even without a taint message.
+> The irqchip uses its own child IRQ lockdep class and clears the
+> chained handler only after it was installed, checked with lockdep
+> on the CV75 board. irq_set_parent() nests
+> the GPIO irq_desc under the AMBA parent for irq_set_wake(). The
+> gpiochip IRQ resource helpers cannot be kept here: the gpio_chip is
+> not reachable through gpio-regmap's external irq_domain path, so
+> GPIOD_FLAG_USED_AS_IRQ is never tracked. This matches the other
+> users of that path (gpio-idio-16, gpio-pcie-idio-24,
+> gpio-104-idi-48).
 
-They were not obvious at all, see the patches that many maintainers
-"accidentally" took to fix a bug that really wasn't a bug at all.  This
-was forcing additional code into all drivers for no good reason, hence
-the taint flag.
+Something happened to the text formatting, it's quite unbalanced in terms of
+occupied room on each of the lines. Make each of the lines to occupy ~72
+characters.
 
-Let me reconsider this and think about just doing it for the additional
-id and allowing busses to trip it when their unbind is hit for busses
-that should not be normally handling unbind (i.e. platform devices.)
+...
 
-thanks,
+> +struct pl061_drvdata {
+> +	const struct regmap_config *regmap_config;
+> +	const struct pl061_regs *regs;
+> +	unsigned int ngpio;
 
-greg k-h
+Is here any gap (of 4 bytes) in accordance with `pahole`? If so, you better
+relocate 'quirks' somewhere to make int and booleans be together.
+
+> +	unsigned long quirks;
+> +	bool clear_irq_on_type;
+> +	bool pm;
+> +	int (*reg_mask_xlate)(struct gpio_regmap *gpio,
+> +			      unsigned int base, unsigned int offset,
+> +			      unsigned int *reg, unsigned int *mask);
+>  };
+
+...
+
+> +static int pl061_irq_domain_map(struct irq_domain *d, unsigned int virq,
+> +				irq_hw_number_t hwirq)
+> +{
+> +	struct pl061 *pl061 = d->host_data;
+> +
+> +	irq_set_chip_data(virq, pl061);
+
+> +	irq_set_lockdep_class(virq, &pl061_irq_lock_class,
+> +			      &pl061_irq_request_class);
+
+Make it a single line.
+
+> +	irq_set_chip_and_handler(virq, &pl061_irq_chip, handle_bad_irq);
+> +	irq_set_noprobe(virq);
+> +	irq_set_parent(virq, pl061->parent_irq);
+> +
+> +	return 0;
+> +}
+
+...
+
+>  static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
+>  {
+> +	struct gpio_regmap_config config = {};
+> +	const struct pl061_drvdata *data;
+>  	struct device *dev = &adev->dev;
+> -	struct gpio_irq_chip *girq;
+> +	struct gpio_regmap *gpio_regmap;
+> +	const struct pl061_regs *regs;
+>  	struct pl061 *pl061;
+>  	void __iomem *base;
+
+> -	int ret, irq;
+> +	int ret;
+> +	int irq;
+
+Unneeded change.
+
+...
+
+> +	if (irq) {
+> +		irq_set_chained_handler_and_data(irq, pl061_irq_handler, pl061);
+
+> +		pl061->irq_handler_installed = true;
+
+Can't we remove the chained handler unconditionally?
+
+> +	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
