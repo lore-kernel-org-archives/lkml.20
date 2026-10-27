@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106701;
-	b=DV5pZo0VKE7AFr6yUDC29l82f02/D9Cph0Od9VZGWEeh3zTomjri41am5MJYhzQCUtV4
-	 WHJk6gAEQpFqg/GMT37Qwlh71BboYp/sqn1dEqebJzQ1KACCqwgegcjC6IRdKqavwdfXM
-	 ZgUDbt0IVLW6CEa7m4rh35OboGSbh1jGsIsoWWa4KNrdgdYBJWuctm3U2diH0Uy6eJg8l
-	 mNprogzCEybDmlc8Xfe8iH0B74f/2K3SUhgEMXFix+/U3Z8BEjDlg/xk4FbMKMoDlouZq
-	 pAxMqYNhjC7+HqRwiPRnF/wFBgtFYtsHu1EXdJfkc01L/2Ad9+mG+H1d+DAc/9uooxw==
+	t=1793106724;
+	b=raMoHuk0r1xyfm43dSVH83VtIXTbsbeeRFbZjZTWlcIIiHtcti0OedTy4svm4ebci71r
+	 XM2IKu/QoZgCW07SL2AUhPIPLJ8d3FwyvZQpvQJrGIAuCOb53r2li+C7Ntsc62remB5HZ
+	 tcbPp0Gg3RxEaQUgJC3UKMv9vwKte3O+YwWN+wdbgbPDFPQvkX7uFgSqOOExOVwaqJn6Z
+	 7yMplBTv6S5HKDfmMqtILC1kgmkqUEp3maHQMmWCy5jD5r4tZ4ilHdreIVivSD7ejjZrv
+	 bLnHz0NTISffRHp5eq7KOZnOJPyqcZS8JtmmHN951XRcWFBviPtypJfLBTBg9U3XzFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106724;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=6T5qHszoT5KAnaMFtpj3HuHEDlbDw72PARLkg2WqNwI=;
-	b=0OE82RBVJkbupvAUrpomROroJWrhgt3H0zy5FbMrh/r5SGKj8wG+uxOF1bPnWJRry12Z
-	 7Pb/ZnZqk/iQqE+1S9vIrd//LRs/alOi/Rx/7fYj5J+ZigeJEnGll27yJ7/JQaCKTdZGk
-	 KzeY9AQ7dMLPWLTQgDRoOQtcxdCpCGaCk9gta8/x+4caSIBvCYxSuMCGEZGHWIFUW0yr9
-	 /zH9sFjJ2wAReu5tXQpL8dKk1CY/AgW8jQhSyM6jDadVC8DFaMuS/YyEPXcWk40ZECDUz
-	 gHJyrRBhx5qGoxjJkL+c26LboSQXwpuWaxFZQSxDfkytq3//njCloWR/enISYTwyxlw==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2MMXzSmivNiYm7xgnDiu+/n7gX5wknAWsvpVij8nk9k=;
+	b=lAHU3ValCwT9R9l0QtuwsKs5O38clUhmXtnzCkCntMTwwIgMXPTqi2KydYirEByUz7Xl
+	 GdOJu0rjAhJLeY2L+OspW3e2De5qzNxswmFlsmYTzWL8mltMR3lEHoqXuLIDHiXG9NsR7
+	 2d0EDYqZcjuvQgir+7z59akfxjw8ZmwKAvV4Z9JKwLkwV9ZUG5G5YzjAR1nKouTFLx943
+	 4b/2AlucQXXT1oLeasKETY8uxBgmRXiihNgCN6ogGCss3dHnonuxkb1Em5vOMSHOUKdwG
+	 7yyiqQEHj4aYiNjdaY6fInXOjRuQIQvFb/3a5qUEzoDloTdra5kUParj94waB1I/9Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhFfP2Am;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m1KbTfFL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEB3606A31D;
-	Tue, 27 Oct 2026 13:11:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA931606A31A;
+	Tue, 27 Oct 2026 13:12:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhFfP2Am
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4FB1F01825;
-	Tue, 27 Oct 2026 13:11:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793106700;
-	bh=6T5qHszoT5KAnaMFtpj3HuHEDlbDw72PARLkg2WqNwI=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m1KbTfFL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB63E1F01825;
+	Tue, 27 Oct 2026 13:12:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793106723;
+	bh=2MMXzSmivNiYm7xgnDiu+/n7gX5wknAWsvpVij8nk9k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NhFfP2AmkN8X7XELirt7qT1omsb7npj/zadplmlZ/ndbM/9QYLp2ZJCOJx+dWlUMH
-	 WLIl9HcnEfz9gd3aqK4ZL7dj/jUrwFJl61kMEnfVFuO2eXjlv12kfExtfW8c22DCO1
-	 XS6kqIuoyvE7I5lyuEi75AOr6i07VYF2vgUNRu3r4vV1u1gvqwDF2ZJeXWx3BzDdbk
-	 wVX9EWBmnqqrIj3caxXblXv1sxbO8+kSSUkWMzV17NaqkEQBkQ8d4uTWltzWPvgaIL
-	 D6FLOCVRYM4oXdPXNHM3BFSD/u5X3pnF+GwgfpzP9KZI3CWVnt3gWDgtHSzYZ0nv/y
-	 brBln+2rf30pA==
-Date: Tue, 27 Oct 2026 14:11:32 +0100
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Cc: Ryder Lee <ryder.lee@mediatek.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?B?V2lsY3p5w4XigJ5za2k=?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v4] PCI: mediatek: Fix integer truncation and handle
- oversized resources
-Message-ID: <kfnxuro5xf4mhokabg773zcyp7otcjxwpzcn3dlo6y3kpv4uv4@bne4qf3vcif5>
-References: <20260930120539.4967-1-sreekuttan2156239@gmail.com>
+	b=m1KbTfFLRc6URg44I7EPyv0n3lBQykW7ConS/2FmF//DD57D5lAAvGm7YoCwnlX6a
+	 NQpq2Lv9L0WXiUDPKew+8VQzU660fmYwkQyBoKJbgvEb6eObZnAAWqqV+5Eq4U7i0P
+	 xUxp4GsKmpTs9AyY1CUbZM/JFyZrwvqvkPYtIZf4=
+Date: Tue, 27 Oct 2026 14:12:02 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Li Wang <liwang@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Subject: Re: [RFC PATCH v2 1/1] misc: fgds: introduce GPU-File direct I/O via
+ dma-buf
+Message-ID: <2026102734-booting-playtime-557d@gregkh>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <20261027090853.30099-1-liwang@kylinos.cn>
+ <20261027090853.30099-2-liwang@kylinos.cn>
+ <f92baf52-bc4b-432b-bc0a-f39f59483805@kernel.dk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,84 +63,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260930120539.4967-1-sreekuttan2156239@gmail.com>
+In-Reply-To: <f92baf52-bc4b-432b-bc0a-f39f59483805@kernel.dk>
 
-On Wed, Sep 30, 2026 at 12:05:39PM +0000, Sreeraj S Kurup wrote:
-> resource_size() returns a resource_size_t, which is 64-bit on 64-bit
-> architectures or 32-bit systems with LPAE/PAE enabled. Passing this
-> directly to fls(), which accepts an unsigned int, implicitly
-> truncates the upper 32 bits.
+On Tue, Oct 27, 2026 at 07:03:29AM -0600, Jens Axboe wrote:
+> On 10/27/26 3:08 AM, Li Wang wrote:
+> > From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+> > 
+> > This patch introduces a driver that allows moving data between a GPU
+> > dma-buf and a regular file on NVME without staging it through the page 
+> > cache. Userspace registers the GPU dma-buf with the device, then issues 
+> > read and write requests via the device's ioctls. Each transfer is direct 
+> > I/O: an ITER_DMABUF_MAP iterator is passed to the file's read_iter or
+> > write_iter, and the filesystem's iomap path submits REQ_DMABUF bios that
+> > already carry the dma addresses.
+> > 
+> > Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+> > Signed-off-by: Li Wang <liwang@kylinos.cn>
+> > ---
+> >  .../userspace-api/ioctl/ioctl-number.rst      |   2 +
+> >  drivers/dma-buf/dma-buf-io.c                  |   3 +
+> >  drivers/misc/Kconfig                          |  16 +
+> >  drivers/misc/Makefile                         |   1 +
+> >  drivers/misc/fgds.c                           | 506 ++++++++++++++++++
+> >  fs/iomap/buffered-io.c                        |  11 +
+> >  fs/iomap/direct-io.c                          |  23 +-
+> >  fs/xfs/xfs_file.c                             |   4 +
+> >  include/linux/iov_iter.h                      |   4 +
+> >  include/uapi/linux/fgds.h                     | 124 +++++
+> >  lib/iov_iter.c                                |   1 +
+> >  mm/filemap.c                                  |  22 +-
+> >  12 files changed, 713 insertions(+), 4 deletions(-)
+> >  create mode 100644 drivers/misc/fgds.c
+> >  create mode 100644 include/uapi/linux/fgds.h
 > 
-> Furthermore, AHB2PCIE_SIZE() uses a 5-bit mask GENMASK(4, 0). If a
-> resource size exceeds 2 GiB (order > 31), the log2 size order
-> overflows the 5-bit mask. Clamping the value silently truncates the
-> hardware window while leaving the OS resource intact, causing bus
-> errors when accessing BARs in the unmapped upper region.
-> 
-> Fix this by using fls64(size - 1) to accurately calculate log2 size
-> orders without off-by-one errors and returning -EINVAL if the resource
-> size exceeds the maximum supported 31-bit window order.
-> 
-> Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-> ---
->  drivers/pci/controller/pcie-mediatek.c | 29 ++++++++++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
-> index a60d1ae076f8..639884b22ad7 100644
-> --- a/drivers/pci/controller/pcie-mediatek.c
-> +++ b/drivers/pci/controller/pcie-mediatek.c
-> @@ -8,6 +8,7 @@
->   */
->  
->  #include <linux/bitfield.h>
-> +#include <linux/bitops.h>
->  #include <linux/clk.h>
->  #include <linux/delay.h>
->  #include <linux/errno.h>
-> @@ -686,6 +687,8 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
->  	const struct mtk_pcie_soc *soc = port->pcie->soc;
->  	u32 val;
->  	int err;
-> +	resource_size_t size;
-> +	int size_order;
->  
->  	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
->  	if (entry)
-> @@ -753,8 +756,18 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
->  		mtk_pcie_enable_msi(port);
->  
->  	/* Set AHB to PCIe translation windows */
-> +	size = resource_size(mem);
-> +	if (!size)
-> +		return -EINVAL;
+> What's the point of this, when you can just use io_uring to do
+> the same?!
 
-PCI core already rejects the zero sized MEM regions. So this check is a dead
-code.
+Agreed, I thought that the summary of the last round of reviews was
+"this isn't needed at all".  Li, what changed from that?
 
-> +
-> +	size_order = fls64(size - 1);
+thanks,
 
-This is wrong. AHB2PCIE_SIZE() register needs the full size value to enable the
-whole window. Check:
-
-c61df57343bf ("PCI: mediatek: Fix memory mapped IO range size computation")
-
-> +	if (size_order > 31) {
-> +		dev_err(pcie->dev, "Memory resource size too large: %pa\n", &size);
-> +		return -EINVAL;
-> +	}
-> +
->  	val = lower_32_bits(mem->start) |
-> -	      AHB2PCIE_SIZE(fls(resource_size(mem)));
-> +	      AHB2PCIE_SIZE(size_order);
-
-Why can't you just do, fls64(resource_size(mem))?
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+greg k-h
