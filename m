@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097254;
-	b=5XrWGeY8rKpQB6rc4hM/qXHKK9bo/KRTCyMw62ZWl1CnqgKc7+iImDDIyGbHv0bAiDuP
-	 FivoEX/lr4UmChhPkjYMVTHGKjN/HMKIreWsU6gIjbDJy1e4Kq+3tL8D0SWKO+c4dxERe
-	 OirbObrcvIMUbeBbynBPKhd0NAwpokkTHg88kMeHAPTkH/aR9QjUbjjaL00l40By+4/8E
-	 BxqCzmdW1WwzvTs7aif2cx7pyv4F5PglGZQoPfqt5lOIFdiphiQNR2AdhygplMSW/th4W
-	 Fkd+dUkvJ5YNzGIj0Y8LJHqo4W9vHwOz28q7a85cOOuM40+P9rKH78khlYei+9PgVBQ==
+	t=1793097245;
+	b=B3iCbJfiIiCfiSHzsg5bXt0U9CTeJkULAG2Vgrm756kdpkViY1reN0ao77uD6dx9Wzxx
+	 ejOs5RYz38lIah0655m/V9d4g2+mirfrLFDwNlDEmPBVEVO/q8vj1kuVCXuM57SGYt4qA
+	 fOltGask+mN8nbwulU0wcdZi2cz7+K9+3WiCtXnaJiuvVE5ad7XEQ1uWBEUxOjj2Um8aD
+	 ZL8wMfyj8IL09wHrq/GdIya4g92cCs87LuElaeOrzv/u2XMsDUBgh8Ft374aoq5wYpABE
+	 v4NXwCayC+Y5DtsvA5UZY6mlJ2mG0S6YmSsqbqOciIhYgUrT2LX1RVrNFZf3SZcbEgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097254;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097245;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=lZWQDrAmoiw6SBLgex16MiXr1FeSMl0JItqbKleN6Mg=;
-	b=nU1Ewnnl7+pPsT4S/ukag3s5Mr2d4sLfOtRWKhzJxSmYIXHsRhWIZZ+AvcYQRA0egbc1
-	 3JhcYhUz+ifWkB0LG8Joau5OPYwDY1PgYh8uT81ynLgWPLoGdJMHJq97pGWWMtfr0Ouu4
-	 XYp6JTbOUNyz95wFnT2wsff52+iWsl2XGa/hnHHYJ6LqfnhEYTIHflPBHgWi6YQRdTfAY
-	 qh4aFAwci43zcmCNUKEKyMkDfsVRfI+0//ykFqEDGetGFaVtEpFxm1IFrgvpj/rIj2EoN
-	 bgBl5fA9yto2Ywo9gYysCx64Q11AbobmCCcW6CvX0pgCx7Q4GhvX93B1h0mpqYpS7Yg==
+	bh=/sVy401gR2AeEzGop8THwUPTGkzUpgq7Tv+MYP33ejY=;
+	b=FjdgiVggIdIdMOkSQk33+shBVHDFsoP15smAcFipnvutnWDet13l4kUg1FlQRTUTtfAa
+	 wI7jVBJ36Cw4qKnUYOg7lxgH20cJUkpYsH0k5HyPpoFBLyBgXnCX2dr+7x4FZeD8NYTLV
+	 Oq0KcVajLh2CMCWX0e0xDtmRPQv4xn+ysIdDa4tYeAseIRG/gEZJlgRwtS+zKZuNqifhg
+	 l245cl3iCcfqaXpQSfSDf+7q8Hvc2nKY7sJAY4jAs68ZW+Qgn82apZZCJxRcxsMsZk25O
+	 ZexC6PF1xx0BGfjy1iLhZVZ8msdE/ZTwOI7gGIaH1DKgSGF600ULY+bhd08rOiUdJXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=geanix.com;
 	spf=pass smtp.mailfrom=geanix.com;
-	dkim=pass header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=muHUo6CB;
-	arc=none smtp.remote-ip=79.135.106.113
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+	dkim=pass header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=ccphCd2b;
+	arc=none smtp.remote-ip=185.70.43.170
+Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D16606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:34:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0D16606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2157C606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:34:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2157C606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=muHUo6CB
+	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=ccphCd2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1793097249; x=1793356449;
-	bh=lZWQDrAmoiw6SBLgex16MiXr1FeSMl0JItqbKleN6Mg=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=muHUo6CBdB8jAn3g3QcV5Uvtkq9GAAmeasq7kZe2NHZY7/LADAnhT9fbgOi01JTpc
-	 hYD9xh/J78O+Pcsj+D+p32OnsRsgyoGhfvlApTR7aa9bQvG6to1mLedIAT+tm7kfRc
-	 hHp0lxEQD9sm8aiGtmFQ73v8isZtmEau5Gy+KOX9erHWZehCCguTCncLQqod6xb9eR
-	 YjePshm33kn2owlrZ0QPfzWapTk/o039NdGwJ7wiXuoLBRf7Q4VBpUBNsGg+S5Lsmi
-	 bHkCrfcmCRkzSdLjOhQId2QJkncRxKx7G+FtJcbnbyoYVJhBIpZB/nL5L8iNcHpfH7
-	 GgD2GNiZRdhAg==
-X-Pm-Submission-Id: 4jDRgL36l0z1DF5K
+	s=protonmail; t=1793097242; x=1793356442;
+	bh=/sVy401gR2AeEzGop8THwUPTGkzUpgq7Tv+MYP33ejY=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ccphCd2bFbwuXaYq8iH1YhXtQ20TEAxITPlm7Up0peJw1tjrBudAeMsmU98rV5TBq
+	 iOUHZvT0CcOpcU2JT+5UG5/3EQAgwGOeNxxMrUK/j/naz+RLXlxQperInK70bgZbtc
+	 dgeRNM5cjObA9gl6uTiILuCTOfa0ka3fwD+Wu5VyxpBPEvO6Alb+njx1Afk6GZdc7J
+	 JJGtbfyhWtUDn/Bo1W/PRtCAp+Oc904lKniis6ZU/d5rEoicq7sfJq/JdPcnmSP21N
+	 Y+OkEL3qXzPWW6epwjyRcz6G75y8Bpl6tlUwPSncWO1QGFxU6X0UvEiOrVL49E7fiL
+	 6beMk1B/NLPsA==
+X-Pm-Submission-Id: 4jDRgB1x3vz1DDWq
 From: Esben Haabendal <esben@geanix.com>
-Date: Tue, 27 Oct 2026 11:33:52 +0100
-Subject: [PATCH v5 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI horizontal
- sync timing
+Subject: [PATCH v5 0/4] drm/bridge: nwl-dsi: Various fixes
+Date: Tue, 27 Oct 2026 11:33:48 +0100
+Message-Id: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,10 +60,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-nwl-dsi-fixes-v5-4-b6d1d3d2d356@geanix.com>
-References: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
-In-Reply-To: <20261027-nwl-dsi-fixes-v5-0-b6d1d3d2d356@geanix.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQW7CMBAF0Ksgr+tqZpw4dlfcA7GY2AO4apMqh
+ pQK5e51YAEl6vJr/vtzUVmGJFm9rS5qkDHl1Hcl1C8rFQ7c7UWnWLIiIAsNgu6+P3TMSe/SWbI
+ OWLkWOLbW1aqYr0Guh0I221vOp/ZdwnEemRuHlI/98HN9OOLc+297RA3aUxM9OnaW43ov3KXza
+ +g/1Tw+0p07MM+cCkcHnoFDVZvdgpsHvvxuCqfaRvbRNiS44NUDN/jMq8ItE2NoyXiEP3yapl+
+ r4ut8egEAAA==
+X-Change-ID: 20260710-nwl-dsi-fixes-c148b0adb685
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -77,133 +80,93 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Sam Ravnborg <sam@ravnborg.org>, imx@lists.linux.dev
 Cc: Esben Haabendal <esben@geanix.com>, Frank.Li@kernel.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
  "Oliver F. Brown" <oliver.brown@oss.nxp.com>, 
  Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>, 
  Liu Ying <victor.liu@nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793097237; l=4569;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793097237; l=3107;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=BPl/W4P4TrdcCjFEm+Lx0MMHf20hrmW0utgAkepjgi4=;
- b=Ihcv8FGi4DIdFuSdBeE1cuHcHTTvyNGzsH8MCTHaJUVWuqTWFRhufbqlExjx2CYC1aeHPF27V
- 1cuYF2GVsacAbdAbUgnoRVsRDNj6FMXUeR/ZWg5+lW7bCY5NErsxumj
+ bh=m0BPHe2DqHEKhL89dJjDFmUw11rDNI6REaVlOvyHss8=;
+ b=aRY/BQFfU0aZSQufqd1D0E2EWNHAJ0nioO/HoN49yU6Elm6cH60p3M2nXElEqY5H7NumOh5bg
+ IK5Rao5amWUBVEwWJASKJIjq0PnQ2W0Yh1Q7pyGzFq+4uKKqPhRlAYx
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-The NWL MIPI Host controller registers specifies the horizontal front
-porch, sync pulse, and back porch in DSI packet payload size in bytes (ie.
-not in pixel clocks).
+This series brings a few patches fixing horizontal sync timing, EOTP packet
+behavior and hsync/vsync polarity selection when using DCSS endpoint, as
+well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
 
-The calculation for this is (mostly) described in section 13.6.3.5.1.2 of
-the i.MX 8M Dual/8M QuadLite/8M Quad Applications Processors Reference
-Manual (rev. 3.1). The formula shown there does not take packet header size
-into account though.
+The 3rd commit ("Correct auto-insert EOTP behavior") is taken directly from
+NXP vendor tree, so I have kept Author unchanged, although I have modified
+the commit message. Let me know if I should change Author for that.
 
-The formula implemented here converts the hfp, hsa, and hbp to DSI packet
-bytes and then subtracts the number of packet header bytes.
-
-It is worth noting that these values only needs to match approximately,
-according to the reference manual.
-
-Based on commit in NXP vendor tree
-commit f2a61699749d ("LF-7981-4: drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing")
-
-Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Oliver F. Brown <oliver.brown@oss.nxp.com>
-Tested-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Acked-by: Liu Ying <victor.liu@nxp.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/gpu/drm/bridge/nwl-dsi.c | 60 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 57 insertions(+), 3 deletions(-)
+Changes in v5:
+- Add fixes tag.
+- Sort header files alphabetically.
+- Fixed speling mistake.
+- Link to v4: https://patch.msgid.link/20260831-nwl-dsi-fixes-v4-0-6a2a1cb23910@geanix.com
 
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index f3f4334136c0..870a308589cd 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -13,6 +13,7 @@
- #include <linux/math64.h>
- #include <linux/mfd/syscon.h>
- #include <linux/media-bus-format.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/mux/consumer.h>
- #include <linux/of.h>
-@@ -264,6 +265,9 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
- 	bool burst_mode;
- 	int hfront_porch, hback_porch, vfront_porch, vback_porch;
- 	int hsync_len, vsync_len;
-+	int hfp, hbp, hsa;
-+	u64 hs_clk_rate, pclk_rate;
-+	int h_blank, pkt_hdr_len, pkt_len;
- 
- 	hfront_porch = dsi->mode.hsync_start - dsi->mode.hdisplay;
- 	hsync_len = dsi->mode.hsync_end - dsi->mode.hsync_start;
-@@ -317,9 +321,59 @@ static int nwl_dsi_config_dpi(struct nwl_dsi *dsi)
- 			      dsi->mode.hdisplay);
- 	}
- 
--	nwl_dsi_write(dsi, NWL_DSI_HFP, hfront_porch);
--	nwl_dsi_write(dsi, NWL_DSI_HBP, hback_porch);
--	nwl_dsi_write(dsi, NWL_DSI_HSA, hsync_len);
-+	hs_clk_rate = dsi->phy_cfg.mipi_dphy.hs_clk_rate;
-+	pclk_rate = (u64)dsi->mode.clock * 1000;
-+	DRM_DEV_DEBUG_DRIVER(dsi->dev, "hs_clk_rate: %llu Hz\n", hs_clk_rate);
-+
-+	/*
-+	 * Calculate the bytes needed, according to the RM formula:
-+	 * Time of DPI event = time to transmit x number of bytes on the DSI interface
-+	 * dpi_event_size * dpi_pclk_period = dsi_bytes * 8 * hs_bit_period / num_lanes
-+	 * ===>
-+	 * dsi_bytes = dpi_event_size * dpi_pclk_period * num_lanes / (8 * hs_bit_period)
-+	 * ===> (substituting period = 1 / rate)
-+	 * dsi_bytes = dpi_event_size * num_lanes * hs_clk_rate / (8 * dpi_pclk_rate)
-+	 */
-+	hfp = DIV64_U64_ROUND_UP((u64)hfront_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+	hbp = DIV64_U64_ROUND_UP((u64)hback_porch * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+	hsa = DIV64_U64_ROUND_UP((u64)hsync_len * dsi->lanes * hs_clk_rate, 8 * pclk_rate);
-+
-+	/* Make sure horizontal blanking values are even numbers */
-+	hfp = roundup(hfp, 2);
-+	hbp = roundup(hbp, 2);
-+	hsa = roundup(hsa, 2);
-+
-+	/*
-+	 * We need to subtract the packet header length: 32
-+	 * In order to make sure we don't get negative values,
-+	 * subtract a proportional value to the total length of the
-+	 * horizontal blanking duration.
-+	 */
-+	h_blank = hfp + hbp + hsa;
-+
-+	if (h_blank) {
-+		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
-+		pkt_hdr_len = pkt_len;
-+		hfp -= pkt_len;
-+
-+		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
-+		pkt_hdr_len += pkt_len;
-+		hbp -= pkt_len;
-+
-+		pkt_len = min(hsa, 32 - pkt_hdr_len);
-+		pkt_hdr_len += pkt_len;
-+		hsa -= pkt_len;
-+		if (pkt_hdr_len != 32)
-+			dev_warn(dsi->dev,
-+				 "Unable to subtract packet header length fully: %d left\n",
-+				 32 - pkt_hdr_len);
-+	}
-+
-+	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
-+
-+	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
-+	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
-+	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
- 
- 	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
- 	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
+Changes in v4:
+- Change calculation of hfp/hbp/hsa to use the raw clock rates directly to
+  eliminate intermediate rounding errors.
+- Drop patch 4 (will be included in follow-up patch series, together with
+  a patch addressing the unblanced resource teardown and PM runtime
+  underflow problems in the error path).
+- Link to v3: https://patch.msgid.link/20260810-nwl-dsi-fixes-v3-0-256da9d672e1@geanix.com
 
--- 
-2.56.0
+Changes in v3:
+- Added Fixes and Cc: stable tags.
+- Split patch 1 into two, with change of endpoint mux control in a separate
+  patch.
+- Fixed mux_control_try_select() state argument.
+- Link to v2: https://patch.msgid.link/20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com
+
+Changes in v2:
+- Added safeguard against small horizontal sync timings, protecting against
+  division by zero and integer underflow.
+- Added error handling of nwl_dsi_mode_set() call.
+- Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com
+
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Guido Günther <agx@sigxcpu.org>
+To: Fabio Estevam <festevam@gmail.com>
+To: Robert Chiras <robert.chiras@nxp.com>
+To: Sam Ravnborg <sam@ravnborg.org>
+To: imx@lists.linux.dev
+Cc: Frank.Li@kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Esben Haabendal (3):
+      drm/bridge: nwl-dsi: Cleanup endpoint mux control selection
+      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+      drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
+
+Robert Chiras (1):
+      drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
+
+ drivers/gpu/drm/bridge/nwl-dsi.c | 87 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 74 insertions(+), 13 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260710-nwl-dsi-fixes-c148b0adb685
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
