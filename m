@@ -1,47 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109974;
-	b=ps6w0cUKeTybS2dg7Q6q6diVy3Hh/vOLfQU0R0zlM2B8n8ZivaUHE5ZV2XnR1h5uEghJ
-	 ZnBvZI4CuEnkJxOfKH4JKrV9tOHaIEtAUN5vy9iT6M6/AnfSX3BmV05+jf5Zu0D/BFZoi
-	 bECNkbncALmMLfPPLpbXyHxmqQQK95RkQa6KmzW09LDhRp0d1psVeFbK7XlC2FDRxNtNO
-	 8oHtQvbp8lnh2PGfej1r6rOQ31oX02lr4jbYojMz+q/VH9kSSakD4nEHKzTWTONeLaad7
-	 vR746LXh8Qahp4X4HfFwGsxBtYrpZj2bOpSw6B7MMhhTW41zmloFnIL10Xn+62uexlg==
+	t=1793109978;
+	b=yBc9hHn9KI8833owqG2N2yTC1JrsYsJHxKEZk1FpfLhiJx3sTuxIaQe+7QK7xiA0YrUP
+	 hCpJsG7yyC56yKkgpoFSHPgeJxsJhEbYY5j8BFSR6/1V13B34qUQIOy5GwSAzpYWooOse
+	 Fyscu727UcfzsD23Ma7Z+C1oZLpXJQj/HRu2TD5k0UobAkSuPsrzUfcD2XtSmcFVIQAcj
+	 AZ/to9Cdli7XPJHOk2g7OQ0PG5Km0aQB4iInmr38gmb0Jo7v8PBG/BbrrlNf6u6B2FI8P
+	 Tmz1zkcko/JkVQYdkDQ/6gKsOLQfXWADMB9A+zZ2cX2RGGEDGMgOH0UColNqFSjRNpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109974;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=82GVQF/r/unWzQfzjss77Hz55a2gB/UcDEpj21YiSxk=;
-	b=A/05J3WsAYs87ZhwdTQ39JHEWwFllP1aSe4GI4okIbkp+bGuPR+GEg68qq0iSSVAdbaJ
-	 1Oq9OyRRLsuoJCNzTLSJBpi5R9M3AT2dsftSJYwj/oDSfucq78JY/L9iqjLZGYgdi7s2Q
-	 JBMN5NXFfgqsY7T59Efg3oCpZA7YlG2cFEhefmiELOb+BWITrbHdr1iRYsY883g0mC6Y3
-	 +Bb9kfTFQHZvKf07PbSbj9Vg3m2AC9ek4mcby5WWrtVKujhSuhJs8G99HlTxVK2rSs5XS
-	 OOjUx4V8c3p/poqgGlDEbs9ZmO8Mgnv/OPTkhIBs6KUDJqT+V4FHinUzMTShjxxir9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109978;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=CcioC45MmLY3DkNK9gmi2R+KmuN+SF2m/a7+FcEpEKk=;
+	b=SIka+aWNwifOLjb9U/faVHlz2+TiSOwRTemoIiN8AuQxfuDheg10gldsYQ6DjyRpC2o7
+	 2mzLzIJifpQZw5xA5bG4Y5fTKvB2WLF1GhizzWkqkEEySh6e5O7TFPqKqzufQe3BYR11o
+	 Ft8IUSJ8HSygb9Kca5KCyxFbk1J5SGmosRm2XOvmq9PHzTKo/WROG9thxIUeabqrMyNNK
+	 DsBYixJbdU7SrrPCnmbywvbpno1Arc7h2qV2rXksvAG+Zv5lUVlASNAQ65GUTzOKoEHux
+	 OIDDRNnievtRwGgQoiVCZETWLDUcn3Z6lmYzwRzpGX0wtK2MJdVldVy0XwTCKRY/GxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nZUK+SXF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=WocpRbPS;
+	arc=none smtp.remote-ip=209.85.217.46
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3C7606A31A;
-	Tue, 27 Oct 2026 14:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1129606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:06:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1129606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nZUK+SXF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0201F01825;
-	Tue, 27 Oct 2026 14:06:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793109973;
-	bh=82GVQF/r/unWzQfzjss77Hz55a2gB/UcDEpj21YiSxk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nZUK+SXFsAgy++54w5IClDKo7g3++cFiM8TnqT2+LuG2HpPq1/K3HIQXOOIqc8mVi
-	 mimy9pQ3LiHr7Uv0RMQYlxatSPdssmML/JLJvYuIdW+skcb7OAscL1zKzvE/7KFjSi
-	 C5SfM2niQETkzsKlEAsLJjyhwPpgFj3h1BLvGqJKVglngLpLProiWkhE3sxhOwjds8
-	 Y9aYsuyyzfMODkxbCLDMI2MKNmGNxm1x3h2InAoU1pty5v5HJn/qrj2HC5Us/03zJT
-	 /pmxKM0bibEgfhWd8LG22BhwEnrdTBpRB7oS2UKU1CUeUtFxQc4UiWu8EfdKYfprbP
-	 4ptN8qpbOZvCg==
-Message-ID: <99117abf-29eb-420d-bf8e-740c2068a0ba@kernel.org>
-Date: Tue, 27 Oct 2026 15:06:04 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=WocpRbPS
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7cc013095d4so1295475137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:06:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793109977; x=1793714777; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CcioC45MmLY3DkNK9gmi2R+KmuN+SF2m/a7+FcEpEKk=;
+        b=WocpRbPSqHP+BacSU/D7X3AgNcwBTyKCSmQa1WiDzaZeb/i/7127ANs4AQKkrhDpj8
+         sre2xom8UwklJb0Fuuk+38Ac1aNbTkJEwpaMNjuw/lRn49lXI9yAJuDIvoBzbQXkq+69
+         BDfcgpBufrlBxtepqsCgYCDXFgsZqNVIKQG2cofamkjfl1KVq9n6ZJaSrL7qbhwz+J4M
+         gO/E3ecD6ph1V1pFV/pybEZvGUxvw8tQj5nBIFB9zsljg19A4tN4oPRpKDjrTwAJBRHl
+         ARuZ7aYO0XD8h13N67wpXKHOa2Efgjnc9yytKyWBmunOKcWT1TbMIDAbh/AQZIUTthuA
+         LCEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793109977; x=1793714777;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CcioC45MmLY3DkNK9gmi2R+KmuN+SF2m/a7+FcEpEKk=;
+        b=uZ5XbTuFI9kYrwBQQ0xfe7NpwiCRWCkbaFUrm5AFWjv9qXu2sezdd2A9nSJ7cHwUM2
+         HrHc/ACmVwIjf7wGJCrXZuq5KM8BkaS9QCCoaBz5bdK7OMS3FV+BP8A0fEFtmELBoU54
+         y/OYNNtyCV8mf7ojanff18PQRyYP/Tk1mEiXRzGxNJSTIdiRd7Eiadh2QyaImdVPt3tT
+         PrPMzwBXVn6GEEyuSiZ3Nk1f5OfGL4qpDSrBOeaN/cbbtmV87226FNR3C/IHwFA26KRm
+         rRQYx8UTBTeylB6iZChNYDXtNbW+C1fzGhKlzUbeEFWyb4H1HXjtiOgGZHpExb+W8DBL
+         7y+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzAlJwoGD79PeoXPfPhxZKVs77P3LzdH7fx+QTj4emENzQasCsoCV5Fg9a3YEGWxTphXPD+h52C2H0CNzw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9tdIA97Tmx/3Ap433bbj42iITYbH9aLNyGXtvWcw3n57ugjPY
+	TQqiqA1Y8Go2bGeh/2SF7l6EiAxlssexWE6IPkwzVvMBF/XgOBgKF2/fu/Wlu0i6tHg=
+X-Gm-Gg: AYBFou1+PdgZopqUy2UJAuD45e7J3fr5nQxJrlrfVcN8zbvF1Ru3mkaotRa6A7ywQdz
+	E+saybp5gjYzWXj630I34qPvgJxo/CgCuuCXSc9N7j+hbFcx9rh8GE4EIOdvcD/yaQJ9YscJQyI
+	dFvS7eaqC//6xWjrWRhymx9txAns32P8QksLuSxGZ7+RLuucfQwt2sa9WxgCN/7IhlkILk30QQB
+	XY0xWZv4Vi0B7P3WYC4h/V85aNYw7H3xsUyO81UGYsetfDj5d16QRjsZk1RSGBt+j55KWEAhYIW
+	v32+h3LqEkSBNjzD3mafPNAM0vk27HEEQIWLyLjAN5xhs2oJsRi/UhN8W+KUMKXnAe46wMg2ZPr
+	ZjgQFbjZZCoqzG3z4JLoSC0vu0lm1A3Q1FYz8epgWlqKunF6IzXVTC7G6Dyy5peqIqrbnz5Qrom
+	EACA1O6LHmWgpMqPJxeiEifO9hPCq/mwqeKFzx4kStdR79R/Zub6+ihsIuNE8poODeHM/HdZpxo
+	hRpJEZfhb3J/RoQRByZRgQ4H4/UyKzGfvps0vioVa/VUZ73XvqVefzXi0X7B7BHyT7GxliLmM0F
+	9yL+BUALOjlMDgzyGqXE0MiIlvk=
+X-Received: by 2002:a05:6102:14a3:b0:7cc:28a6:ee1c with SMTP id ada2fe7eead31-7ce5ca1e4bbmr3674778137.2.1793109976725;
+        Tue, 27 Oct 2026 07:06:16 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd2110sm103733996d6.13.2026.10.27.07.06.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 07:06:15 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,126 +88,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] mm/rmap: duplicate a PMD mapping as one in
- folio_dup_file_rmap_pmd()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>,
- kvm@vger.kernel.org, =?UTF-8?Q?Lo=C3=AFc_Molinari?=
- <loic.molinari@collabora.com>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-1-66f00b7a564c@virtuozzo.com>
- <atnEFyGRYGGf9shA@gremlin>
- <71101695-339d-4f8f-b9d8-dfadf7dbd0ed@virtuozzo.com>
- <atn3SPG5MKpj2Unj@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <atn3SPG5MKpj2Unj@gremlin>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
+ alloc_contig_range
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org, 
+ surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
+ hannes@cmpxchg.org, ziy@nvidia.com, linmiaohe@huawei.com, 
+ nao.horiguchi@gmail.com, ljs@kernel.org, liam@infradead.org, 
+ rppt@kernel.org, osalvador@suse.de, muchun.song@linux.dev, 
+ iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com, stable@vger.kernel.org
+In-Reply-To: <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <20261027042204.3741307-5-gourry@gourry.net>
+ <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
+Date: Tue, 27 Oct 2026 10:06:14 -0400
+Message-Id: <179310997463.2232644.3260379218896917308.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On 10/22/26 14:11, Lorenzo Stoakes (ARM) wrote:
-> On Thu, Oct 22, 2026 at 12:44:40PM +0200, Konstantin Khorenko wrote:
->> On 10/22/26 10:07, Lorenzo Stoakes (ARM) wrote:
->>
->>> Was this a mistake in d8ef5e311d7b, or actually intentional for whatever reason?
->>> If the latter this shouldn't be a fixes.
->>
->> commit d8ef5e311d7bfde54b60ab45026f206eff31b2d2
->>
->>     mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()
->>
->> ...
->> +static inline void folio_dup_file_rmap_ptes(struct folio *folio,
->> +               struct page *page, int nr_pages)
->> +{
->> +       __folio_dup_file_rmap(folio, page, nr_pages, RMAP_LEVEL_PTE);
->> +}
->>
->> ...
->> +static inline void folio_dup_file_rmap_pmd(struct folio *folio,
->> +               struct page *page)
->> +{
->> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
->> +       __folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, RMAP_LEVEL_PTE);
->> +#else
->> +       WARN_ON_ONCE(true);
->> +#endif
->> +}
+On 2026-10-27 14:37 +0100, David Hildenbrand (Arm) wrote:
+> On 10/27/26 05:22, Gregory Price (Meta) wrote:
 > 
-> OK so it was just wrong at the time :)
+> We have an existing AI fix for that as well already handled by Vlasta.
 > 
->>
->> Both functions were introduced in a single commit, i think it's a simple copy-paste issue.
->>
->> The helper never had a caller, so nobody could hit it. If you prefer, I
->> can drop the Fixes tag and only mention d8ef5e311d7b in the changelog, as
->> there is nothing to backport.
+> I think we'll have to establish some model of "ask David first before posting"
+> because otherwise we just create duplicate work for everyone.
 > 
-> I mean, it seems like a bug to me? If there's no harm in backporting it I think you
-> should add Cc: stable@vger.kernel.org in that case actually.
 
-It was never used, so it's by definition not even a bug. :)
+Yeah, this is going to happen more.
 
-Cc: stable makes sense if we want to backport it along the other things.
+I've been sitting in these patches for over a month while they soaked on
+hardware getting performance tests.  
+
+Maybe worth a private tree we can rebase on regularly for these kinds of
+un-vetted/posted fixes to see what's coming?
 
 -- 
-Cheers,
+~Gregory
 
-David
