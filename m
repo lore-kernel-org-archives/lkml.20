@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.217.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793114549;
-	b=Pjca4Emjg82FoNMs/x06V8+Jv2nFLSIr54YBgWW1nVwXO34QE4ppV5pR7h2nAEgZdzJ/
-	 B82oEhXYjcgNJJa6sTt53eICh/53bFJkBiBfTIJ9Y8qSaPgGlxZOowQi4YEenbfwzxWHq
-	 IFafAYGHR+HUBuBlZKFuBZfWwkucMOC8ueRuNe7gxASrLmsc1NyoCxQ5V2O3/UtUlgLkg
-	 RA6H3Fu9fNwQKJAvikbkm611vN4yoKpxca32UPePxAZ0LEJgJaWqneo5NGiowIjf6E5+r
-	 d4lc2HTZWdl/0agT8QEeWyrk34vTNfJoiRNnCRjsq4GaROGqjsepWgq4dzQ5I9cUGSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114549;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
-	b=LTWzCBDX1jfKI9ny7qqwYMNq6yTWR15olqFZ1ctrlnoecfdHJPIalUPrtGVCi6ZgqN85
-	 g2HL0rs3h1J16hrvI9OdIv2L736Qg7eCUXr4noQ72mCurQYQSXQ5HOdOCFRh1xYFMFV0R
-	 O+X7teu1EIB2OunmARHz1oSYSGEpSOxTwJp2CxWM/gFXrpgkub2EsxgZTCtWTfkx7Hb9N
-	 8t0c0QAzyiLANAU13hAAwMn0Ml306fB/LTKInPHugdN6/ATJX4quIsm5fAOeVvlUcydhY
-	 SLMNLa4+0O+9y7epqBMTcKPfg9WZpzNnhdTGffCS78Tiu3zV9c7aUPRwW16Q7oXfXsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rSdHnOiB;
-	arc=fail smtp.remote-ip=209.85.217.54
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793114601;
+	b=eatfjWB3dePjy7I6486OXokyf3K+ZV90uQ32CLhgwJuunXC09DQ/4CQRJAYBw31AhIAO
+	 vjXgZZKn1awAbpyl8yjNVsyaiEoxUTUlB754JYQXlR37EUP/PUZKy3FabTBR6tKPa79Bb
+	 dAaauuVXILQLBcTF7BEp9eaamglWJyrr5ZlA2kSRdXeVn2OPp/qIn0p9gBvfQWVtRCwBz
+	 gs9/CVQHCIGEso6KYLsz1HONtbK0NF3PrwCyXGeYFTzCi0VVqziLf1P1DcsxJT88dbTuC
+	 yE+0oLbKwCmmx/lRyKcXnSlOPSpdEBRNRGhGZCaHfATtSPALAOHWymAmnUHjfIjmgDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114601;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=wqTW5eTLzbgYPXbkTuyZQ7p9zaoW2WLVbhLcVYdeqgw=;
+	b=YCFSDBXYsTHB5yx8PBf278E3alOIJwW5ubdKqN85ENzBdfISrU9EJtFObQabHcPDe2+m
+	 du4rhbSVBs+WQnszQhSQMCJzwKobexLmRVM0TcMVUrBTDrwKnL7INYIWsBWmiJGG6HzVd
+	 NO3XJmoFzGZiFwtvehB78QuBxbU51B6KlZrEWmf6LV1aCIq+s14ulr0NHWTXgfpaozjNv
+	 gA172oqW4XKW3fsctiYXzt5HMJYbOP5L6/NrUTyU3lAeDDhPrhC+OKKzyUp5oDlJoSPKw
+	 JhINnkN5CNYm2BBxcIHJd0xV384LbdKPN+8am1gtur4lvnTpOMHf2/HUFjz8otFj2zQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=V8QtwVFd;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D905606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:22:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D905606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BF0606A31D;
+	Tue, 27 Oct 2026 15:23:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31BF0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rSdHnOiB
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc074a653cso201827137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:22:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793114548; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YyhLZTsz2OfGMO/yk/1u1nFOpoDoOfg7lkdgcBpMhl8JYOuve2X7HZtZi6Buh3ZRSz
-         PwUQtkQhYUBMG98hxsiKeIPNEC5SjqIi8FD3+1rJ8fWEccWOs9bjlPxAyvJqaMqlQa8b
-         LO1eaYj11gAuEuFet9nOqSEWer8V/FavzlCFYSHuRHvlkXCnjcOBs3ECyqIN/vVNYmTr
-         +h+7dsuUC7jDeVd20u8Jwjc9hrTYg9RQXo7sykHd+R/Ztw/QFo+E4iFq63Jf7ENUQGU3
-         l+Plkrg5r5jH01UJgLLAONiKBcR8lBfpHX78XqGdyRCP9mDDvsya1Lm0HrwZJobvtRlZ
-         qV9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
-        fh=xHIJI7aRhF4We7+3UZYNjpyrv/My5qWMoR7U+iH8M6g=;
-        b=FhBs+pPgA6nYGlxGdafW5VJiz6/H7HQ2blkACBiFBY2H4XvOzwXeQJp7TlC/2fmlc/
-         z9axckE3o/21ABedo9njiPy4q01/ZcQGKStTTabCf0BZUXLjAhVtCoACcSEnynNI7uiN
-         yh8ei0d9t6c4q7CoyQPHc1LwWn2Nrj7yxzf3YXZWO7JFGbgx+VAV2Ar2J8rsuTiYvMNw
-         SvRtSWrK98XuJ7Lqp/9rI75RlIy48fmI8xI0YBgLguBnwfNnMEalTAutKY5CJER9QXhy
-         /Z/77nPA+KYRTNnWEl+2QnlkKLy+7RFbPU8I40Cj0rfwbNnOqF8eDbPLGSULKMqplPxO
-         WZmQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793114548; x=1793719348; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
-        b=rSdHnOiBHVDYoVQv5OsAPIJexs9GauRvr0qVYof54fNCMwrl2UeCsib7ZA3sPyHzg7
-         EUmx2RJjAbgsE7vXgiJhaOeAN8ixi10oX9AR609nY7NabtRAsHdKeis97W1Pwf1YPgzi
-         5tX3vTUeOHHd2H2V2LkSbI6f2HrGpB2I6Nz6V0T2nOgmMjzr8H4zdbr4FyI3Y5FdGSFY
-         60h6IyWEhdSrI79pmztL47iXi7Bwyeqxp1Jxpoa/DTyRSO+JsTWk36Lg0C5INS1td/5r
-         Sh/M9+SFnW/UAHqQXXcd58WcS634RkaxyeXMAFAlMKlEiHV+cEWctVBs+lZ/tbx0Qnao
-         4nkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793114548; x=1793719348;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
-        b=QNtLG8hhUw+EKSKh7XoKMuKEXOIlWyJsHY6l1Kbq2f03/PwUzUwJJQwAOLlN4pKmfY
-         xRehouFvlt+Go0i80sBdTgV62Q2rq7+PlDaJPdcypSPnMsL5YWuFJim1OHdK9o634r2o
-         6RVYtLFL7KrFhOCDx087MEmTHXy17AfP6B6IfM73wnnDLyd0JUyaSOl18eug8x04a7hP
-         sbKnSClsgK78jVdVtrUV4K0qAt10mQJzp+llWVqgIKGpfTqfhBvbpXlrWqNVqB8LfoKC
-         88R5pskEYjZsnAIRfhvCUQeOnf0+e1NDR4TLMnnlbvHvEzI5NiJH/4ODUBZDdmwvLZbe
-         HmlA==
-X-Forwarded-Encrypted: i=1; AKwUvByG0DVJPMpaEjsHKa9gvJShGjbsmNe5Xbysenae2N4yuuq9cbF+xswytQy8RZIJ9JezlDD3mUF8Z1CQWnI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJELDDfVhp6qABbna8+vhRJZ9nvUPhVUWhWn3w+YRfLOEB9sgCs
-	hn1uT9dNqTO1AeA8jHjvkBpEH+tgLHrNbCiZYiamug/KqvtS1VloA3+8kZTRSjxW79pPwuSwcSh
-	0bf7l2OOBuyFbep39bKZZjcH7KlNm0aA=
-X-Gm-Gg: AYBFou13BnQaXVqTGYS4dGszdNtLaKABaDnGucVJmeSxX5SbEwOFyGYePmSWXgPxI5p
-	/cI6qpGTtuZlkw9xjY17m24M7apB1c6CegVhm4V7W46pPHE1UpXtlh33TLPjsizt6IOcvPFKYM/
-	Nft8vH42+0zyGrG45foZmIOc7tX8zC6G+sPpI1apebJ9ZJM0szxoVyU43GZhQcJPphtRrjg4c+F
-	pdZKpJOzSPdiQtVOkqadAu6QvMlVmlsfVOjLVQALjkx87n69w9YO1BWY2u9TrZEFu7r33r4uno2
-	tEqFOw9ARRQWeGW5EmyWCkV6PxLD6TqvcFrn8472l7FfQK5ITLlnd8G1u3cYxH+8THFWOvWpB9i
-	T3AZoCDjKmFW9YHNEolbLRf9V6JYKZpJuxMgNOPGA2P7UC+PyjXR3ZCkRfJcoay00beDNN17oHl
-	v7f54DCi2+zcktt9fE4gBQf2E=
-X-Received: by 2002:a05:6102:3250:10b0:7cc:174b:f7ca with SMTP id
- ada2fe7eead31-7ce5c6ba0dfmr4003174137.0.1793114548478; Tue, 27 Oct 2026
- 08:22:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=V8QtwVFd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793114602; x=1824650602;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QZU9Erid2AbAVbMMs7RGv9CtNwfMoNhnG6Wd1G+COvU=;
+  b=V8QtwVFdjeV6GKiglK2ELOLqL+UpZupmTT8zdj3uP624TWjR8dR2R8hP
+   h2NOb4evHgZrdfBld8EkkLFvXbu7syD96cBPzIBWcLfPfRtCVgazwPQ/+
+   hU15TZ7lcsoUsIJHAYzv9hsXNuonh6KXscBM/bSxJeF63z25kO7cseEvV
+   2qY2duHcOmb8JlIByT20Y/Hfn6OoJY/V6YlhKNFmomm69jGYnnlFdUWhc
+   cqyvLLipy4dvw2ONpzorkkUvK+N92oZduGLPyl9yaedwuYXbMjFWtTupo
+   W/SbEbmZ5TEFLJbXth97/40mlyTggvDoJcrd5lZVA0BLQr5ooXEc2wdqs
+   A==;
+X-CSE-ConnectionGUID: Qsnr+WJuR6+Ods9ZsK/5WQ==
+X-CSE-MsgGUID: YA4zx6c5SPqBWVWpcEsqrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1704143"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1704143"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:23:21 -0700
+X-CSE-ConnectionGUID: jsJrVQlqReqx45Xefcis2g==
+X-CSE-MsgGUID: HrpjYzA9RQWU1oghDg3yEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4534177"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:23:11 -0700
+Date: Tue, 27 Oct 2026 17:23:09 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Cameron Williams <cang1@live.co.uk>,
+	Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Peter Hurley <peter@hurleysoftware.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
+	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Olof Johansson <olof@lixom.net>,
+	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Robert Baldyga <r.baldyga@samsung.com>,
+	Thomas Abraham <thomas.abraham@linaro.org>,
+	Kukjin Kim <kgene.kim@samsung.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
+	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
+	Marnix Rijnart <marnix.rijnart@iwell.eu>,
+	stable <stable@kernel.org>
+Subject: Re: [PATCH 11/24] serial: 8250: cap OxSemi Tornado UART count
+ against BAR size
+Message-ID: <auDB3QMuEGeNpaIk@ashevche-desk.local>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+ <20261027-tty-llm-v1-11-99b0202ae546@linuxfoundation.org>
+ <alpine.DEB.2.21.2610271300480.42255@angie.orcam.me.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,42 +115,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CADnq5_O2tEUHOcbiKL8c4UHpy3AmOWtmM7A8o3jP2qLwkx2jUQ@mail.gmail.com>
- <20261027082913.8002-1-atharvatiwarilinuxdev@gmail.com>
-In-Reply-To: <20261027082913.8002-1-atharvatiwarilinuxdev@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Oct 2026 11:22:15 -0400
-X-Gm-Features: AclHuK-Adz3pXhRznVuw9H0EI3Am4aff3rHKztB_BB4zRj3ojyCoORRQiP8JW0I
-Message-ID: <CADnq5_PYSbB-Ges6vVgNcR4ZjYH4TxLZeAShifdV9uuH8swQzA@mail.gmail.com>
-Subject: Re: [PATCH 10/13] drm/amdgpu: Catch register access while GMUX keeps
- the GPU off
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: airlied@gmail.com, alexander.deucher@amd.com, 
-	amd-gfx@lists.freedesktop.org, bhelgaas@google.com, bp@alien8.de, 
-	christian.koenig@amd.com, dave.hansen@linux.intel.com, dev@deq.rocks, 
-	dri-devel@lists.freedesktop.org, hansg@kernel.org, harry.wentland@amd.com, 
-	hpa@zytor.com, ilpo.jarvinen@linux.intel.com, kenneth.feng@amd.com, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, mingo@redhat.com, 
-	platform-driver-x86@vger.kernel.org, simona@ffwll.ch, siqueira@igalia.com, 
-	sunpeng.li@amd.com, tglx@kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.21.2610271300480.42255@angie.orcam.me.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 27, 2026 at 4:29=E2=80=AFAM Atharva Tiwari
-<atharvatiwarilinuxdev@gmail.com> wrote:
->
-> > You can drop this.  Nothing about this is GMUX specific.
->
-> I agree, but there needs to be another variable. Using pm_runtime_suspend=
-ed
-> or using any other pm function will not work, as amdgpu_pmops_runtime_res=
-ume
-> also requires hardware access and even though hardware is accessable by t=
-hen
-> pm core will show that its runtime suspended.
->
+On Tue, Oct 27, 2026 at 02:29:21PM +0000, Maciej W. Rozycki wrote:
+> On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
+> 
+> > pci_oxsemi_tornado_init() reads the UART count from device-controlled
+> > BAR0 memory without validation, allowing a malicious device to report up
+> > to 255 ports. Cap the device-reported count against what actually fits
+> > in the BAR using the Tornado register layout.
+> 
+>  Hmm, what is "a malicious device" supposed to be, a broken chip?
 
-I guess the runpm code doesn't update the status until after
-resume/suspend?  If so, call it something like runpm_active.
+Carefully reconstructed malicious device in FPGA that gets connected via
+Thunderbolt. This is real vector of attacks (assuming the Thunderbolt side is
+misconfigured to automatically authorise anything connected to it).
 
-Alex
+IRL I don't believe it would ever happen as the result of this attack most
+likely would be minor if any.
+
+...
+
+> static int pci_oxsemi_tornado_init(struct pci_dev *dev)
+> {
+> 	u8 __iomem *p;
+> 	unsigned long deviceID;
+> 	int number_uarts = -ENXIO;
+
+> 	if (!pci_oxsemi_tornado_p(dev) || pci_resource_len(dev, 0) < 8)
+> 		return -ENXIO;
+> 
+> 	p = pci_iomap(dev, 0, 5);
+
+Why not 8 instead of 5?
+
+> 	if (p == NULL)
+> 		return -ENOMEM;
+
+This is so interesting... For MMIO it gives a page, I don't see how it can go
+outside the boundaries. For port based IO I think it can't be less than 4 for
+sure (due to PCI bits to interpret) and most likely can't be less than 8. But
+I have a weak memory of PCI specifications.
+
+> 	deviceID = ioread32(p);
+> 	/* Tornado device */
+> 	if (deviceID == 0x07000200) {
+> 		number_uarts = ioread8(p + 4);
+> 		pci_dbg(dev, "%d ports detected on %s PCI Express device\n",
+> 			number_uarts,
+> 			dev->vendor == PCI_VENDOR_ID_ENDRUN ?
+> 			"EndRun" : "Oxford");
+> 		if (number_uarts < 1)
+> 			number_uarts = -ENXIO;
+> 	}
+> 	pci_iounmap(dev, p);
+> 	return number_uarts;
+> }
+> 
+> with the FL_REGION_SZ_CAP flag set for the relevant entries, and possibly 
+> setting ->num_ports to 0 too since we need to determine that at run time.
+> 
+>  Not sure how this interferes with Brainboxes devices, support for which 
+> seems not to have been fully merged given that pci_oxsemi_tornado_p() does 
+> not let PCI_VENDOR_ID_INTASHIELD devices through.  Cameron?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
