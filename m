@@ -1,68 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102604;
-	b=QHuVNbmgkEUkzuHGmJ9Gkl7iL8IoomT74fSaVwXa2RBy9uDQqLfxAgKAW3YVUUfXr9Y6
-	 nEorHl968M0AjNyXC2GQW8ZxJFPLvAcbIZ0wT4Oi55/tulO6SAVHaydZBY5ubOcnCp0cV
-	 qvv+B1SDJKTXoN8LIkM0dBlwzT/jOAYsQ0pLZbDSj9PDrtvo3tniNTI3ilgjJeDuulhXh
-	 IMWrW0inMWXyiseiCAh1cF7FEJGk/HOZekq+JJalkMPChtLBeJ3leAmJh3ZZDGWQ5Jt6E
-	 Le+EOVdRTh+IWdmpwO3DhlVXYPUrYUTtaiCBBR8MC+2WyHIOn1gr+F1/W3sTazeeE0Q==
+	t=1793102591;
+	b=3xUvVK9SQ7GiawZ/hCuVamT/BxYHRGKn6iGHh+o8IsSMjQ2GSy2wkTrTS0IWBKkIJHB1
+	 Ea4m2yal3bcaZVrXMUtqbBOF8nUuxuGr9VtmHfHuuhxn4FlwMHqRguXBcFLdhwwzW9gtr
+	 BnAln+Qpxxf/XodVLzj7tWSeOFDBgRJ9WQuJ1SVkQTFNiu66SgsXPEqvdme0xr7UhbPpy
+	 1lYWFy2j9CkmU+KdsZhUksny1RmNXbuYZbp1Yfkxf913NQ3dRuVUZy9Ucb2P/l1o4GPH9
+	 3KB2DEzg33LRTnIJ86zp9fghc+eo8qbxblkfBWD+kU7IwZLXNNevRAB4RbOcNEo0SAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102604;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=StGIwkSlbsvFpESfZoYYNmkaJJMniuExQndwnG+ei5o=;
-	b=hlM7/O9suVML7ujfQfkeliuDfFQ/71GjbjSoxPqUh7SKoN951AIHA9NAx3Mwa3Z/HxSA
-	 iieWEhrXlXwFiHV2fjF51pRw7q4PbjIWztLGstDzPWwMCplVFMtpVspgtpTliX3f2UMEm
-	 If+HWgKk4c+0b+90oGiV8FBkGDg0BCA5Sz3schTbrtMK5BUMvixxFHxzNsBQkY1Jj3fqE
-	 AzR87NcFisU/YP1tXuDsRPm9GdxdG+vWujwHvlkXsaQ9doOeCJpZqCoSrwbdgLlsa5VPa
-	 2YqTSi9p2ngX+z2IR060CYoS7I/b9Tla7HewP7z6orIi0A2CQYqwAoIDpbcCBqnKicA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102591;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=Xk/3IAbzd1VTf1sorpQhYh140qhCaxvlTgIx+6FQd9A=;
+	b=GzglyaE5ra6NVJb7nRafEAno6Ra7cmFJOElNnnu0ShM5ziBUljZ9KHZUNn7RlCYjyJIW
+	 kqLD1O2mOLu9Tz/w61mtx+r6sH8Hvd977VcftSOQiZ2hFV44DnrPJmCmSOnOgPssy+R+Z
+	 WKKqWINS6fuPnVoD4hBeBcD///K6pGBnV8BAxqANZurZfpieRDzlLxdPxoqGfoDrx4Pa9
+	 Lp1fWrsomlJNybD2oR5sZ7wBPeqwVQ6FO/3fcMAwrI/5sqTZmKYRnyY7pKL0QBPePH9d8
+	 0tjpObYn8AOYKHPBq7SLcV5SrQ9eya9Ig14loPcvZl1B0snsEbv7occtp5jsvI9VCCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPqYh83d;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UoyobN5W;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D243660A3822;
-	Tue, 27 Oct 2026 12:03:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D243660A3822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FC660A262A;
+	Tue, 27 Oct 2026 12:03:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78FC660A262A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPqYh83d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793102604; x=1824638604;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=StGIwkSlbsvFpESfZoYYNmkaJJMniuExQndwnG+ei5o=;
-  b=OPqYh83dSp0QxmvENU/j/5xwVB0IE1viVjg6wWJtP81GvUtdWRksIirY
-   8mJAkXu64+qyaCI4sDlj5xjHepITCOPSzmBERqTnPTWv8HrdYjPhufNON
-   deSmrdOhIX4qAojbtyd6mAS62rq3A9Y3kfebhe8e30gd9DaYPns0XbZfT
-   7afXI0WLJIhnru1JjgUMerjdtk0VHu199Z4nTqBfhe/M7+Klbx36LiZFH
-   Y+6dIkxMivyPFG63OhqrB9f+5EuD7LFBxwUdzDUJ6GCYhf9IleLBD4E33
-   WmD34vgdgDaTs5UN1+XAVAoFIPDrvq6lmat63JQIbmC1E0QP6UBz+r0QN
-   A==;
-X-CSE-ConnectionGUID: v0v63rDCSwq9sYMQoGfazA==
-X-CSE-MsgGUID: EIeQMqQvT9Kj0VWFbvUbvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1681180"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1681180"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:03:23 -0700
-X-CSE-ConnectionGUID: 9TXP2Om7TXCg3dEKLNyiZg==
-X-CSE-MsgGUID: Lycma6y2SjKZYJo0hswuiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4864656"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:03:21 -0700
-Message-ID: <62005e0e-8963-4565-bdcd-cfcd5e925674@linux.intel.com>
-Date: Tue, 27 Oct 2026 20:03:17 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UoyobN5W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793102583;
+	bh=YWoolVgm2Ixluif9oj3rIYs3Yoa5Ka1lDDAT8MCYdfk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UoyobN5Wle8Hb0w9IdgnZ+siA/tNG7uUg0NF0kOV5aEFVGthGSjxzrOY2jYARwdLy
+	 jar4TukEip4Ektz+ER+VHW8aVHBNMnnqIwUM63lyHM1r/bqr5i3iwenKcl13VIzinX
+	 YhVJesQJCB3r4AvUeRdYiQCR2vsa8rW2cv34NSSQk7QCs1saRmvUMmBAH1Zy0UMH9m
+	 JWGZxlZbxCTVK8y7yHktAohlEOZ239L5lBRsFgnuEN2ot7RnD2qaFBQT+0/W1gOWD+
+	 cwODVBpgwQBg+7jJIA+zM5mC+saw4pr5hMDW1V61pMjfaCqW3F5pBPOJc0LzKrUoNk
+	 Zu+jD+5MxTc3g==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 16C7B259D7;
+	Tue, 27 Oct 2026 15:03:03 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Tue, 27 Oct 2026 15:02:57 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.50.125])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jDTdr20WPz2w2G;
+	Tue, 27 Oct 2026 15:02:56 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Chris Mason <clm@meta.com>,
+	Chuck Lever <cel@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Anna Schumaker <Anna.Schumaker@Netapp.com>
+Subject: [PATCH 5.10 v2 1/2] rpcrdma: Fix comments about reverse-direction operation
+Date: Tue, 27 Oct 2026 15:01:37 +0300
+Message-ID: <20261027120143.1596-2-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <20261027120143.1596-1-mdmitrichenko@astralinux.ru>
+References: <20261027120143.1596-1-mdmitrichenko@astralinux.ru>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,178 +100,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: perf: perf_pmu_free() kfree()s struct perf_cpu_pmu_context while
- its mux hrtimer is still queued (use-after-free)
-To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>, peterz@infradead.org,
- mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <ca4f133.14714.1a162b8654c.Coremail.xuhx@hust.edu.cn>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <ca4f133.14714.1a162b8654c.Coremail.xuhx@hust.edu.cn>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {Tracking_from_domain_doesnt_match_to}, {Tracking_interpol}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207024 [Oct 27 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/27 10:49:00 #28748526
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
+From: Chuck Lever <chuck.lever@oracle.com>
 
-On 10/22/2026 4:26 PM, 徐晗翔 wrote:
-> perf_pmu_free() frees every non-embedded struct perf_cpu_pmu_context
-> with a plain kfree() without cancelling cpc->hrtimer first, so
-> unregistering a PMU whose multiplexing hrtimers are queued leaves live
-> hrtimers linked into the per-CPU timer rbtree pointing into freed
-> memory -- a use-after-free (confirmed by KASAN) that is reachable with
-> two sequential root operations and no scheduling race at all.
-> perf_pmu_free() in kernel/events/core.c releases the per-CPU PMU
-> contexts without any hrtimer quiescence, while several ordinary code
-> paths leave cpc->hrtimer queued on CPUs without any event attached.
->
->
-> Unregistering the PMU then frees the cpc objects under the queued
-> timers: every later hrtimer insertion/removal on the affected CPUs
-> reads and writes freed rbtree nodes, and at expiry __run_hrtimer()
-> calls perf_mux_hrtimer_handler() on the freed cpc, taking the freed
-> cpc->hrtimer_lock and writing cpc->hrtimer_active. Verified and
-> reproduced on mainline 7.3 with KASAN; the involved code is unchanged
-> since at least 7.1. Triggering requires only root sysfs writes plus a
-> runtime PMU unregister (unloadable PMU driver module or, on matching
-> hardware, Intel uncore PCI unbind).
->
->
-> The detailed description:
->
->
-> * Test environment / affected version
->
-> Linux version 7.3.0 (gcc 13.3.0, GNU ld 2.42) #1 SMP PREEMPT_DYNAMIC
-> -- vanilla mainline 7.3 release tarball (kernel.org, unmodified),
-> rebuilt with CONFIG_KASAN_GENERIC=y, CONFIG_KASAN_OUTLINE=y,
-> CONFIG_KASAN_VMALLOC=y, CONFIG_PERF_EVENTS=y, CONFIG_MODULES=y,
-> CONFIG_HZ_1000=y, CONFIG_HOTPLUG_CPU=y, booted in QEMU/KVM on x86_64
-> (4 vCPU). The same defect code is present and identical in 7.1.5
-> (verified by function-level diff); the 7.3 line numbers below are
-> from the 7.3 tarball.
->
->
-> * Mechanism
->
-> 1. Writing /sys/bus/event_source/devices/<pmu>/perf_event_mux_interval_ms
-> takes the perf_event_mux_interval_ms_store() path
-> (kernel/events/core.c:12615). For every online CPU it stores the
-> new interval into cpc->hrtimer_interval and then calls
-> cpu_function_call(cpu, perf_mux_hrtimer_restart_ipi, cpc)
-> (core.c:12643). perf_mux_hrtimer_restart_ipi() ->
-> perf_mux_hrtimer_restart() arms cpc->hrtimer based solely on
-> hrtimer_active(), regardless of whether the PMU has any events:
-> an *idle* PMU ends up with a queued mux hrtimer on every online
-> CPU after one ordinary sysfs write.
->
->
-> 2. Unregistering the PMU (perf_pmu_unregister() ->
-> perf_pmu_free(), core.c:12805) walks all possible CPUs and frees
-> the contexts:
->
-> cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu);
-> if (!cpc)
-> continue;
-> if (cpc->epc.embedded) { /* refcount managed */
-> put_pmu_ctx(&cpc->epc);
-> continue;
-> }
-> kfree(cpc);
->
-> There is no hrtimer_cancel() (or any hrtimer call at all) in
-> perf_pmu_free(), perf_pmu_unregister(), or anywhere else on the
-> unregister path. The queued cpc->hrtimer stays linked in each
-> CPU's MONOTONIC rbtree after the kfree().
->
->
-> 3. Consequences, both observed:
-> - Immediately after the free: any hrtimer queued on an affected
-> CPU walks/rotates the rbtree through the freed node; KASAN
-> reports slab-use-after-free in rb_erase/rb_insert_color/
-> timerqueue_add/__remove_hrtimer (reads *and writes of freed
-> memory, corrupting both the timer tree and the slab's new
-> owner).
-> - At expiry (interval after the free): __run_hrtimer() reads
-> timer->function from freed memory and runs
-> perf_mux_hrtimer_handler() (core.c:1278) on the freed cpc: it
-> calls perf_rotate_context(), takes the freed cpc->hrtimer_lock
-> and writes cpc->hrtimer_active. KASAN reports the UAF in hard
-> IRQ context (swapper/N).
-> The embedded variant (put_pmu_ctx() at core.c:5277 ->
-> free_cpc_rcu() at core.c:5262) defers the kfree by one RCU grace
-> period but equally never cancels the timer, so the window merely
-> shifts; the plain-kfree path above needs no events to have ever
-> been opened on the PMU.
->
->
-> * How to reproduce (deterministic, ~30 seconds)
->
-> A minimal PMU driver registered through the exported perf core API
-> (perf_pmu_register/perf_pmu_unregister, EXPORT_SYMBOL_GPL) -- the
-> same lifecycle an unloadable PMU provider module or an Intel uncore
-> PCI driver (arch/x86/events/intel/uncore.c, uncore_pci_pmu_
-> unregister() in 7.3) goes through. Module source is inlined at the
-> end of this mail; usage:
->
-> # build against the kernel under test
-> make -C <kernel-build-dir> M=$PWD modules
->
-> # in the guest (root):
-> insmod r6_repro.ko
-> echo register > /sys/module/r6_repro/parameters/action
-> echo 10000 > /sys/bus/event_source/devices/r6pmu/perf_event_mux_interval_ms
-> echo unregister > /sys/module/r6_repro/parameters/action
-> # wait up to 10 s for expiry (or just keep the system busy);
-> # KASAN splats start immediately after 'unregister'
->
->
-> There is no interleaving window: register -> sysfs write ->
-> unregister is purely sequential. On the 4-vCPU KASAN VM this
-> produced 72 KASAN slab-use-after-free reports within ~10 seconds of
-> the unregister (histogram: rb_insert_color 19, rb_erase 18,
-> perf_mux_hrtimer_handler 12, timerqueue_linked_add 5,
-> rb_erase_linked 5, __hrtimer_run_queues 4, _raw_spin_lock/unlock 6,
-> __remove_hrtimer 2, hrtimer_start_range_ns 1).
->
->
-> * KASAN report (expiry-path witness, one of 72)
->
-> BUG: KASAN: slab-use-after-free in perf_mux_hrtimer_handler+0x8b/0x5e0
-> Read of size 8 at addr ff11000001d09600 by task swapper/2/0
-> CPU: 2 UID: 0 PID: 0 Comm: swapper/2 ... 7.3.0 #1 PREEMPT(lazy)
-> <IRQ>
-> perf_mux_hrtimer_handler+0x8b/0x5e0
-> __hrtimer_run_queues+0x166/0x340
-> hrtimer_interrupt+0x1d2/0x320
-> __sysvec_apic_timer_interrupt+0x62/0x1a0
-> sysvec_apic_timer_interrupt+0x66/0x80
-> </IRQ>
->
->
-> Allocated by task 29:
-> __kmalloc_cache_node_noprof+0x17c/0x3a0
-> perf_pmu_register+0x196/0x5a0
-> action_workfn+0x17b/0x230 [r6_repro]
->
->
-> Freed by task 48:
-> kfree+0x121/0x390
-> perf_pmu_free+0xc2/0x190
-> perf_pmu_unregister+0x497/0x620
-> action_workfn+0x217/0x230 [r6_repro]
->
->
-> The object is a struct perf_cpu_pmu_context (kmalloc-256, KASAN
-> tracks the allocation inside the per-CPU loop of
-> perf_pmu_register()). The full serial log (72 reports, all three
-> stacks for each) is available on request.
-> Thanks for taking a look.
+commit 84dff5eb86ceb2a356d5409fc1af21a366bf3c35 upstream.
 
-The analysis looks reasonable, we need to cancel the hrtimer before freeing
-the cpc for each cpu if the corresponding hrtimer is active.
+During the final stages of publication of RFC 8167, reviewers
+requested that we use the term "reverse direction" rather than
+"backwards direction". Update comments to reflect this preference.
 
-Would post a patch to fix the issue later. Thanks.
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Reviewed-by: Tom Talpey <tom@talpey.com>
+Signed-off-by: Anna Schumaker <Anna.Schumaker@Netapp.com>
+Stable-dep-of: c7653d5cebc8 ("xprtrdma: Fix bcall rep leak and unbounded peek")
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+ net/sunrpc/xprtrdma/backchannel.c          | 4 ++--
+ net/sunrpc/xprtrdma/rpc_rdma.c             | 6 +-----
+ net/sunrpc/xprtrdma/svc_rdma_backchannel.c | 4 ++--
+ net/sunrpc/xprtrdma/xprt_rdma.h            | 6 +++---
+ 4 files changed, 8 insertions(+), 12 deletions(-)
 
+diff --git a/net/sunrpc/xprtrdma/backchannel.c b/net/sunrpc/xprtrdma/backchannel.c
+index c92c1aac270a..31514e4d81ff 100644
+--- a/net/sunrpc/xprtrdma/backchannel.c
++++ b/net/sunrpc/xprtrdma/backchannel.c
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) 2015 Oracle.  All rights reserved.
+  *
+- * Support for backward direction RPCs on RPC/RDMA.
++ * Support for reverse-direction RPCs on RPC/RDMA.
+  */
+ 
+ #include <linux/sunrpc/xprt.h>
+@@ -208,7 +208,7 @@ static struct rpc_rqst *rpcrdma_bc_rqst_get(struct rpcrdma_xprt *r_xprt)
+ }
+ 
+ /**
+- * rpcrdma_bc_receive_call - Handle a backward direction call
++ * rpcrdma_bc_receive_call - Handle a reverse-direction Call
+  * @r_xprt: transport receiving the call
+  * @rep: receive buffer containing the call
+  *
+diff --git a/net/sunrpc/xprtrdma/rpc_rdma.c b/net/sunrpc/xprtrdma/rpc_rdma.c
+index b8174c77dfe1..bb5648133b10 100644
+--- a/net/sunrpc/xprtrdma/rpc_rdma.c
++++ b/net/sunrpc/xprtrdma/rpc_rdma.c
+@@ -1170,14 +1170,10 @@ rpcrdma_is_bcall(struct rpcrdma_xprt *r_xprt, struct rpcrdma_rep *rep)
+ 	 */
+ 	p = xdr_inline_decode(xdr, 3 * sizeof(*p));
+ 	if (unlikely(!p))
+-		goto out_short;
++		return true;
+ 
+ 	rpcrdma_bc_receive_call(r_xprt, rep);
+ 	return true;
+-
+-out_short:
+-	pr_warn("RPC/RDMA short backward direction call\n");
+-	return true;
+ }
+ #else	/* CONFIG_SUNRPC_BACKCHANNEL */
+ {
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_backchannel.c b/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
+index feac8c26fb87..2e860c68735f 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_backchannel.c
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (c) 2015-2018 Oracle.  All rights reserved.
+  *
+- * Support for backward direction RPCs on RPC/RDMA (server-side).
++ * Support for reverse-direction RPCs on RPC/RDMA (server-side).
+  */
+ 
+ #include <linux/sunrpc/svc_rdma.h>
+@@ -59,7 +59,7 @@ void svc_rdma_handle_bc_reply(struct svc_rqst *rqstp,
+ 	spin_unlock(&xprt->queue_lock);
+ }
+ 
+-/* Send a backwards direction RPC call.
++/* Send a reverse-direction RPC Call.
+  *
+  * Caller holds the connection's mutex and has already marshaled
+  * the RPC/RDMA request.
+diff --git a/net/sunrpc/xprtrdma/xprt_rdma.h b/net/sunrpc/xprtrdma/xprt_rdma.h
+index 73c8ab89456b..a89605e14f2f 100644
+--- a/net/sunrpc/xprtrdma/xprt_rdma.h
++++ b/net/sunrpc/xprtrdma/xprt_rdma.h
+@@ -95,9 +95,9 @@ struct rpcrdma_ep {
+ 	unsigned int		re_inline_recv;	/* negotiated */
+ };
+ 
+-/* Pre-allocate extra Work Requests for handling backward receives
+- * and sends. This is a fixed value because the Work Queues are
+- * allocated when the forward channel is set up, long before the
++/* Pre-allocate extra Work Requests for handling reverse-direction
++ * Receives and Sends. This is a fixed value because the Work Queues
++ * are allocated when the forward channel is set up, long before the
+  * backchannel is provisioned. This value is two times
+  * NFS4_DEF_CB_SLOT_TABLE_SIZE.
+  */
+-- 
+2.43.0
 
->
