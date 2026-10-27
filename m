@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100734;
-	b=Ev1JiAvsbz8ch78ZLxzpYbPwDT/C+PrfBpY7SmUPNBvmRPN5vKh3p14iUx+KziiSPBLG
-	 uH3q7uzd5zkKJ0tQ0EvZm5PPizuXbBgYRtfEHESW7QK4Z7YvexH0rNrGRTk7RdmaM80Vt
-	 NKwT92rKjk/v8tvaSVJ+pHXA7HoiiXNVA0BSjBkj1Y5H/K8A/fmliCZGync0SRmjAB0+4
-	 6W7XWvCh4CW3b8DVlj/1P80EHb4VcWWV3AoXGtrMiOrTlIJBmmTE5cJHCb43v2MXLuTfH
-	 n6APQ5iTurK+YvFKqELzq+kGC29WEcxiOwkoERNWwX+xaSwrvZLLwMin0/w4C1DjrXw==
+	t=1793100737;
+	b=Z1g2d9dqQ3Vd+5BYm8KzPnQvEnJA1QX2JCZVRvCLLse3nGaKFLbPph6V4TcSz6zK9jW4
+	 9f+Vbp5bkRoHwzx9QYS+6VmGMtU7pIbo1nhpYMedsrXeDiI3/j+vbg0pqd3WfXwLMi6HV
+	 DpBAIvE/N7E3pPA0JJTPhKIB4QeADQFha3nYjO80x1JCEhK+eDIB9RAJkWiACvNTqu2oC
+	 2pNRu0BrXlqLumgYl/Ypvi/g5kqUZMiTa02L0JkN1aho1VhOGasym1gpB7DWDYwMt5vh4
+	 KSEMmC74CSaP+eZnoTJs0iq9Pd/PeB+D5OjWJz52mCu89s1jEWikZLjjz3nJrDBb89g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100734;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=kgO/kXOlfCPm7NUchVNHQGlMrPYfe5uI+Ze6iO1thcw=;
-	b=eMxWDX7XVeH/3INhT1v5TW0vGgzMZ2BRp8UOyeI2AR7m7vrUwkTnX8d+xBjQJgxdlcN7
-	 ej8yxZMrMtkV7JA/ELlIftIOpO91weV5bXqs94vClqpzKcJ8oiobhpknFcXHc0QFbMnIh
-	 98p726D5HUg/Mfr+M4Oz/Y2JjdkjwmCOYsdo9FoLEYB4Ea+DG2RveWt5fFS1LLbnsCaCl
-	 O5ec7kocOnErdj0xbESvd5iSpf1NUIplqq49jFQFC0aMbPOf4DplOfFgHBgNKu6V0kgCF
-	 CBUDz8fE/jNs5g1rFmnEoFcG02Xuv6IZYN0sjBpd8rrtXZJMmNR111xkVl8OkcY5Q9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100737;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yGWCIPAVc00I2/xuk9J+SJ/yLSRvnaStgmMRbAybJLk=;
+	b=oloOORRNdbhDnKXE15pCXstv7HtmsUkXzQtd1Rf9YhrcRoEKws+qf5pjHMj5iYujblQp
+	 o3f1eTaUqR2rd/zTqWnUfMKnsRFcmiVBlOHXYxHKrf6l9akfAnsWe5X76X0PC9R86YAYO
+	 dcjzFopa3F0Rpwwm1Uc/kQzsv/kKElQcasfvrpUwKEx3NdPHZmk+wH39kjwypBLmkW6Kf
+	 IqadL9gnlFjuZE3FlKHMcNZNyeui08mtutAQBXsjO705dLCXr/rohJSiXnnMnYKkcEumX
+	 /9BVLeGDaYT6RF47xwUTP2hqU6ZmMYP8e1ksa+hdvPIWfAVTiK12f0RNDKramQ0YciQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BFU4QL3i;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EcYV8KhI;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kbVv5yCy;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DEE606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1DEE606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7973606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7973606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BFU4QL3i;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EcYV8KhI
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeBP51615033
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kgO/kXOlfCPm7NUchVNHQGlMrPYfe5uI+Ze6iO1thcw=; b=BFU4QL3iL1LZyXEt
-	50/ciXXuOgo6h5o0zfthlizBZ7jfRpMYOIxJJKooZBEV2GFjYiBprK3OYA24wJl4
-	MklPDMujlzcs8CaCQQ+bxCrxRMLVx6V51YVX7UIljQ9UytvlB+oOExDiPUoOWxxK
-	ZK4dCr0CeUz9EYFED4XW2d4KjZqWAHpxztnT8rIOJ7VtV4vr+0IeDM/ZGnhSbZ2n
-	6Y8pkY8ij4lxb64vXUdOaXMhkechLUOVq5DvvuRfLOyoqHmZIn0EZWsXCr7AhnwS
-	5HVTnmIgwvOcb5ALG7M1wQ0FS+007E6aUyZ6ndnuw0SJWWXOAvq1JHfQD9g4h4XK
-	Kfa7Eg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqf5rxqs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:12 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd5ca3840c5so4689613a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:32:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kbVv5yCy
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso2038139a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:32:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793100732; x=1793705532; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kgO/kXOlfCPm7NUchVNHQGlMrPYfe5uI+Ze6iO1thcw=;
-        b=EcYV8KhIB28EXdB3wuZaZbsK4IMHgoas6rqK9TQLXagW8xN8Q7joutbIxoXWUj1URX
-         5AqyTh2T4SNm4Q0NJG4r6DIVflf4ZBdtMTdjyPPsQKOESD75Bz0FSdVYGwKXj2XEeDC1
-         LhdYal4a/VxNZNp+Zueeyh04QaUKZW3J54bmkN2JqeEPFPry4cV0JCzCVuv/FuZq/vEs
-         0T22mN9b15jyzAb24fY6tHaUaThu8er5FbaNRxN2MNARWZHyqjVQxHuphmfrwHZKu4oA
-         BFFrUaZ3RdoRcZXy3VTsCFeVenrMA5cLA0LTmrJyS5JXaFUtyy0A3r3bIDUId58aeSPN
-         liPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793100732; x=1793705532;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1793100736; x=1793705536; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kgO/kXOlfCPm7NUchVNHQGlMrPYfe5uI+Ze6iO1thcw=;
-        b=H+pYxXgdsd6v7ujWENaFXC5ZXo9suWhDr/Sf6fdSXPiHeDmp9slZay19mpFdMf0qKx
-         3BgmdvwzEorFAHXpEA/SjCyQ6aykI5wb1b88X7PJOtN30EQvv7x7lQ3OKYS/qtdrYRbt
-         uao0yMiy9aT4Zt3SxAKFEcpKvd7upHR6CXt+MzL/PVXfXofq4sl/VVsdGiNblFihPkdA
-         BTVUyud8VQ4d7Pawm2cgk51rDza/gOsdB5w2uReostXP2sh5EfPXFNdnBEZKjpplzA4X
-         Kqqc8dMdXAcXh3sdVcZsc/A8loCV92LCk0+vs07TZV6OlmvnSSJ0iZ/qO06V/vAUOlkG
-         Ah3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzsppwZkYJkSJWXUfpQOZsMDXpzYH4SQ2xpILSfPfQ1J7HWw9vGxia+jDN7glTH9U72d1GdZKO4KTmsr0Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPF7hcSvBVu3HPpWIoQN4SuNHMcKYlVPKVxF+HKVhXbEIHDpdZ
-	Ftoo1tx5zRuyGau6xsUISFU2JRp3HOtHsSomhIfjf2t1YkDNgmupzKbZX1TGDEBpv5E8/LQuoJ9
-	jCPyKJMaGqYozSQvt8SHT2US99u1eKPemzRuD773RgXVkSWnb/sYjGkdwVIJs7x46zL0=
-X-Gm-Gg: AYBFou2D8sTp0eSk+lbiPRIo91qVHQF9qLm4Eowd7s9JUc5yhjySpeLFdRMdKFnVJCw
-	rr3SZX2TlGNfl5ELJMxVVpbbAyZoNB7CyBPYoYfRO12I/P+MHNurLeCIvcOugiRNmKajLGsTZTI
-	wLmdKKR/KeH9qNCYt5es38zhVN39vqzpQQkutfc5PX1a82/h/9ym/iUjUcs+Wvzc7XKBTwlS9mk
-	E/0bEwtUor7VDHMFp1MhTZJggzP2JFIJX9fxK1hT3G3ICrUwar+oYJmo8n4NK35wXpxEQrFeVRD
-	Tad2Y2nd8qJgHrGX44yg6XpF+59CFiCzukmX8NG8cXd3BK2zLhm63dz7xPfsYoByf1F2auq9PWB
-	tN62KNKrUv/ITS26jB3p8GxyfdthXazW66BAlueBXjerRFPkti8xTrCjfJ3PyKqp6F4CPog==
-X-Received: by 2002:a05:6a20:918e:b0:3de:463c:7fce with SMTP id adf61e73a8af0-3e7bfa46b23mr8395534637.12.1793100731722;
-        Tue, 27 Oct 2026 04:32:11 -0700 (PDT)
-X-Received: by 2002:a05:6a20:918e:b0:3de:463c:7fce with SMTP id adf61e73a8af0-3e7bfa46b23mr8395505637.12.1793100731157;
-        Tue, 27 Oct 2026 04:32:11 -0700 (PDT)
-Received: from [10.213.104.249] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c0fefa3sm2143836b3a.51.2026.10.27.04.32.06
+        bh=yGWCIPAVc00I2/xuk9J+SJ/yLSRvnaStgmMRbAybJLk=;
+        b=kbVv5yCyK85iYlnDfuh9Bknj6Oafle+ZV9Zb/XaOLCNCMCKOjCXck9iHCmbsEYbNRb
+         xDGmSordaBMNRcZ0BkfvACqalK3FHSJdYa9ejpR+kxasf+dvaVh2N60R7ZHtz1OJn+Jt
+         cnUVF1ci/SefMTSclsnixUmmsGaY3qAKhhqHZ1shmBg8anxzTT5NSPVBKjEOCbnYrPQh
+         BYUtGzijUEtIp+9w8rrutpijsQ+6IakrPF61lbsqn37eC9wGksUsjnyCY6h08Kqp4/GQ
+         RKov+IvuCjMWC1zeQbO9tIHNc3QeGIUAtZOc0NnstfLjXXIM/CymhNx6ICK5X+dtvD1c
+         NIYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793100736; x=1793705536;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yGWCIPAVc00I2/xuk9J+SJ/yLSRvnaStgmMRbAybJLk=;
+        b=drwoLswQioG3+VkYbGNMjtpNEirDIz1NQ6vuvqS50DRjB4T5bbOIyy6mM1Sf2BC6jO
+         n0eWMdtQdeo7yD8wnXYqsj8fzfKwZOmrV1owu1mZi2LK0/uC9nByHKfWuemxp2VG4Xfc
+         LcsJO3g6B+jAliiV21n1dxGEui7ENVgdNKADiaXFcamILgTfHZAq8vsI88SqJ9HgxRcV
+         9N6BzIBPbGXANfaEuWZsglL3lQYnt/JlxMB/ufk+rRSioCzzpmEgUxlsV7XMrVhc/JWx
+         74YkZNLKs/PmcNWg1iJnfjArgy068M48By6JjN0xGb5NvKtAStwIaoaiKr9W2JgHbfzI
+         y+SA==
+X-Forwarded-Encrypted: i=1; AKwUvBxW7y0mDTWJZn6eD6YjJfRZS2EKzsOT4oM72/bLdlAxm86AuQhslSQIYzkKJ8ndFvfa+aADu/o+pGaZQz4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaLbLbts43Dw+3iLL0KyqxSSIyNBWwLddiNdzjfXaSm9OCKSfv
+	mF37j2grdEX+ZRZLlRk/XeyY7icuuK+mkRE2+it8msjgZeFBXK9Mt/y5
+X-Gm-Gg: AYBFou0Jb4axHGYienGYfM21GDo3YfeyfJ0gziqGLYSvIifnefD+SBQtD9MV1uel6OZ
+	Z0bsp0LNPpnvsGYty29HCYl9Vp2XPA3kEu8kQ2Q3rLsHgcT4Ucq56ImtOCtVR34FuVxi5T/k3KI
+	p4mOUTwotGjKru1GrfoJw+MvWzCjnyDR3Ylbe2FHGMdcjBEGtjufvT5lZjl/IjES0m1tz/m1qQL
+	+GUdHNK7UzEyMSxDnpC1LTPe3Qtly748xDoycQ+Amz8G9LA8shP8woKQTempT0hMj6UnkkKzrPt
+	7PxlFsfQ8dzgUVRNVoUp5LOwhPaQbPKYm1BEMxLjIFhRqWBQVXe9aI9mo8i39GEr/0Ej6MT1ARL
+	KvKuqDWm5VExBDQ/s4CgmdzBwKI3SjLJDHkuS4zrcqJlK/SBpxvzYMwQ72GADTewGZD86U1C4pG
+	jWVSS5zlvtmNKxJwye73JMD8ZB+QjRyLx94i7ue7awwFKKqWpuNRpDNhtiQFckqkpJDBjlUxbSl
+	iHpB39ltVWlQEk4Uz/8krgmUzlmBeKHWMJ2AxN/GcU0wpYE1XtushOUVNCfa+LRTPK+qE5rrldu
+	HZa9BWDJS/J3hdq4Oj9c15h+BAT5mO7l7cW2+6CHpM2Kexb9mycSpgwB8HYpwTdEJGRaUYrjWmF
+	yGMr3PLq+4Ke9sgC+8p/R
+X-Received: by 2002:a17:90b:1d09:b0:3ac:8dfe:8ec9 with SMTP id 98e67ed59e1d1-3adeb0fbe41mr7097936a91.47.1793100735854;
+        Tue, 27 Oct 2026 04:32:15 -0700 (PDT)
+Received: from cachyos (2a01cb0c82caf900a186612f304bfea5.ipv6.abo.wanadoo.fr. [2a01:cb0c:82ca:f900:a186:612f:304b:fea5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4041fafcsm4523962a91.0.2026.10.27.04.32.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 04:32:10 -0700 (PDT)
-From: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 17:01:56 +0530
-Subject: [PATCH v3 2/3] arm64: dts: qcom: talos: Add Talos Lyra EVK SoM
- platform
+        Tue, 27 Oct 2026 04:32:15 -0700 (PDT)
+From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-usb@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
+Subject: [PATCH v7 0/8] ALSA: usb: add RME Babyface Pro driver (proprietary mode)
+Date: Tue, 27 Oct 2026 12:31:31 +0100
+Message-ID: <20261027113140.134257-1-i.bahloul01@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,369 +104,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-talos-lyra-evk-v2-v3-2-658fd5a7ec99@oss.qualcomm.com>
-References: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
-In-Reply-To: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
-        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
-        Monish Chunara <quic_mchunara@quicinc.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Sayali Lokhande <sayalil@qti.qualcomm.com>,
-        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX27Ot3AQzGLwW
- 2KyXJWi+DkM9WCj0DQC6y2UfLl8sqz2mieQjtDofAIS89yMz3y89DlhKeN8XNU8oMyOC/iBFOX4
- ZnCWwSUOMuLEy93kX1u/A0ZjmLoXyrQ=
-X-Proofpoint-ORIG-GUID: gU39z8xHtfjoY0JK0avX-WfN9Y55qYvT
-X-Proofpoint-GUID: gU39z8xHtfjoY0JK0avX-WfN9Y55qYvT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfXwdToR3NtXgyO
- J5TR1RyO82loGvBknbIcoGgJTaQjFjtVpBPG83ZY5150pdE9X1J9AHG47GrDLHWOSzOaC5ShWyO
- Vy+LMaP5t82ZRzhaVcKqO7sBNLD4EVsOTUwvh6SOwIhh0wy7wVg1oTOueFSjyVHT3EpETMZD0XE
- cQzSDYuGdcJ94vIdpyykf/JLhDwgSJuIN9GCo89lD8li49PYsU5TxPAugN8c7gl9M8yys3yyenh
- GD5vVPYWn2wY968abyXw3cC3l4TftBTB5PMZ7W5JQBDIKIR/yWXbENyNjBNXHFQzKiwKGs37fPi
- Yv9KWV5WeaBoAi0QcdBgjf8nMQOalKtM8AT8do64DBEXgMQlJ9rSutqwesmMoJs5dzVXisQv6Mm
- 83eHKO47pNwyij2BATCgtuLs+G02mA/FKJL/FRDnYEOiEdy13+h+/dbpwKee/Be2b8CY82h9/Ww
- vMUYmFMj/waBp4gPXkw==
-X-Authority-Analysis: v=2.4 cv=UOFIjyfy c=1 sm=1 tr=0 ts=6ae08bbc cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=-0pK_m6zGA9SUU0pzkgA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270045
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+Hi Takashi,
 
-Introduce the device tree for the QCS615-based Talos Lyra EVK SoM.
-Lyra EVK SoM is a compact compute module integrating the QCS615 SoC,
-PMIC, and essential connectivity, designed to mount on carrier boards.
+This is v7 of the RME Babyface Pro proprietary-mode driver.  The split
+is the one you asked for in the v4 review and that v5 introduced: a
+minimal core first, the mixer added piece by piece, suspend/resume near
+the end, the front panel and the DSP EQ last, and a design document.
+v7 keeps that split and folds in the fixes made since v6, and is
+rebased onto next-20261026, the most recent snapshot at the time of
+writing.
 
-The initial SoM device tree includes basic support for:
+This is not an RFC.  The split you asked for in the v4 review has been
+in place since v5, the open points at the end are documented and none
+of them blocks a merge, so the series is submitted for merge rather
+than for another design round.
 
-- CPU and memory
-- PMIC and board-level regulators
-- UFS and SD card storage
-- QUPv3 (I2C/SPI/UART) instances
-- ADSP/CDSP remoteprocs
-- GPU
+Changes since v6:
 
-Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
-Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
-Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Co-developed-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
-Signed-off-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
-Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi | 281 +++++++++++++++++++++++
- 1 file changed, 281 insertions(+)
+ - Playback underruns (patch 1, David Fredman).  The playback handler
+   clamped its copy to the frames the application had written, so
+   hw_ptr could not pass appl_ptr.  An application that runs the stream
+   free - dmix, on the hardware PCM it opens - therefore got a silent
+   stream and hung.  The handler now copies the ring as it is and moves
+   the pointer on by the whole URB, as a DMA engine would; the PCM
+   core's xrun check and stop threshold handle an underrun.
 
-diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-new file mode 100644
-index 000000000000..7d9a08471906
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi
-@@ -0,0 +1,281 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include "talos.dtsi"
-+#include "pm8150.dtsi"
-+/ {
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		mmc1 = &sdhc_2;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	clocks {
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32764>;
-+			#clock-cells = <0>;
-+		};
-+
-+		xo_board_clk: xo-board-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <38400000>;
-+			#clock-cells = <0>;
-+		};
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm8150-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+
-+		vreg_s4a: smps4 {
-+			regulator-name = "vreg_s4a";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1829000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l1a: ldo1 {
-+			regulator-name = "vreg_l1a";
-+			regulator-min-microvolt = <856000>;
-+			regulator-max-microvolt = <856000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2a: ldo2 {
-+			regulator-name = "vreg_l2a";
-+			regulator-min-microvolt = <1650000>;
-+			regulator-max-microvolt = <3100000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3a: ldo3 {
-+			regulator-name = "vreg_l3a";
-+			regulator-min-microvolt = <1000000>;
-+			regulator-max-microvolt = <1248000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5a: ldo5 {
-+			regulator-name = "vreg_l5a";
-+			regulator-min-microvolt = <875000>;
-+			regulator-max-microvolt = <975000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7a: ldo7 {
-+			regulator-name = "vreg_l7a";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1900000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8a: ldo8 {
-+			regulator-name = "vreg_l8a";
-+			regulator-min-microvolt = <1150000>;
-+			regulator-max-microvolt = <1350000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10a: ldo10 {
-+			regulator-name = "vreg_l10a";
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <3312000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l11a: ldo11 {
-+			regulator-name = "vreg_l11a";
-+			regulator-min-microvolt = <1232000>;
-+			regulator-max-microvolt = <1260000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12a: ldo12 {
-+			regulator-name = "vreg_l12a";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1890000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l13a: ldo13 {
-+			regulator-name = "vreg_l13a";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3230000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15a: ldo15 {
-+			regulator-name = "vreg_l15a";
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1904000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l16a: ldo16 {
-+			regulator-name = "vreg_l16a";
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3312000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17a: ldo17 {
-+			regulator-name = "vreg_l17a";
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <3312000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+};
-+
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/qcs615/a612_zap.mbn";
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&qupv3_id_1 {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/qcs615/adsp.mbn";
-+
-+	status = "okay";
-+};
-+
-+&remoteproc_cdsp {
-+	firmware-name = "qcom/qcs615/cdsp.mbn";
-+
-+	status = "okay";
-+};
-+
-+&sdhc_1 {
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+	bus-width = <8>;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	vmmc-supply = <&vreg_l17a>;
-+	vqmmc-supply = <&vreg_s4a>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_2 {
-+	pinctrl-0 = <&sdc2_state_on>;
-+	pinctrl-1 = <&sdc2_state_off>;
-+	pinctrl-names = "default", "sleep";
-+	bus-width = <4>;
-+	cd-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+	vmmc-supply = <&vreg_l10a>;
-+	vqmmc-supply = <&vreg_s4a>;
-+
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	reset-gpios = <&tlmm 123 GPIO_ACTIVE_LOW>;
-+	vcc-supply = <&vreg_l17a>;
-+	vcc-max-microamp = <600000>;
-+	vccq2-supply = <&vreg_s4a>;
-+	vccq2-max-microamp = <600000>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+	vdda-phy-dpdm-supply = <&vreg_l13a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_2_hsphy {
-+	vdd-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+	vdda-phy-dpdm-supply = <&vreg_l13a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy {
-+	vdda-phy-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy_2 {
-+	vdda-phy-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+
-+	status = "okay";
-+};
+ - Capture order (patch 1).  The twelve capture channels now follow
+   the device's own word order: AN1-4, AS1/2, ADAT3-8.  AS1/2 is the
+   first optical pair, so it carries ADAT 1/2 in ADAT mode and S/PDIF
+   in S/PDIF mode.  The old map kept channels 0-9 in place and moved
+   AS1/2 to 10/11; the identity map is one thing less to explain, and
+   before mainline is the last window to change the order.  The tools
+   in the development repository and the companion mixer application
+   follow.
+
+ - Output masters (patch 2, David Fredman).  The controls now count
+   the 8-bit register's 0.5 dB steps over the front panel's range; the
+   control value is the hardware step, the 16-bit companion register is
+   derived from it, and the conversion table is gone.
+
+ - Optical Out (patch 4).  A new "Optical Out Format" control switches
+   the optical port between ADAT (default) and S/PDIF, bit 10 of the
+   host settings word.
+
+ - Crosspoint map (patch 2).  The matrix addressed the output pairs
+   through a block table that shifted every pair but the first: a
+   control labelled PH3/4 fed AS1/2, and so on, and the AN1/2-only
+   features also wrote into AS1/2's submix.  The blocks are at
+   0x0034 * pair in the canonical order and the table is gone; the
+   separate "low map" is that first block, not a layer beside it.
+   Measured on the unit with a loopback capture.
+
+ - URBs in flight (patch 1).  At periods of 128 and 256 frames the
+   period is split into two URBs and one and a half periods are kept in
+   flight, which takes half a period off the round trip (554 to 490
+   frames at 128 through PipeWire).  Soaked for ten minutes at both
+   sizes, full duplex, with no xruns.
+
+ - EQ (patch 7).  A band's alpha is sin(w0 / (2Q)), the way TotalMix
+   computes it, not the cookbook's sin(w0) / (2Q): the two agree while
+   w0 is small and part ways as it grows, which is the effective Q that
+   shrinks above a few kHz in the measured response.
+
+ - Front panel (patch 6).  The OUT wheel moved ADAT7/8 with Opt
+   selected.  It moves AS1/2, the first optical pair, which is the same
+   mixer output in ADAT and S/PDIF mode, so the target does not follow
+   the format.
+
+ - Re-probes (patches 2, 5, 6, David Fredman).  The driver no longer
+   saves its mixer state at disconnect and restores it at the next
+   probe: udev's alsactl restore overwrote it on every card add, so a
+   re-probe now starts from the default mixer and alsactl restores the
+   user's settings, as for any other card.  A resume that follows a
+   device reset goes through reset_resume instead of a re-probe.  The
+   front-panel SELECT selection is the exception - it is not readable -
+   so values restored after a boot are used, while a re-probe of a unit
+   already seen leaves the pairs unknown, because SELECT may have been
+   pressed since the last store.
+
+ - The ASCII separator comments are gone (all patches, David Fredman).
+
+Every patch builds in-tree on its own against next-20261026 with W=1
+and no warnings.  Run against the generated patch files, checkpatch
+--strict reports no errors, four warnings and two checks, all known
+false positives: 'ang' (the CORDIC angle) twice and BIT() for a signed
+Q27 constant in the EQ patch, the "does MAINTAINERS need updating?"
+note on the two patches that add files (the control-surface file in
+patch 2 and the documentation in patch 8), and the CamelCase check on
+the USB descriptor's bInterfaceNumber.
+
+Validated on the unit with the final tree (out-of-tree against
+7.3.0):
+
+ - regress.sh --mixer-restore --disconnect-test passes 41/41: the
+   full-duplex sweep of the nine rates at periods 256 to 2048 with no
+   xruns, runtime renegotiation, 30 start/stop cycles, the mixer state
+   restored across an unbind/rebind, and an unbind in the middle of a
+   capture.  The mmap sweep passes 38/38.
+
+ - The AS1/2 loopback is on capture ch4/5: the sweep's tap reads it at
+   about -30 dBFS, and pcmlate follows 12 of its 13 clicks there.
+
+ - pcmlate reports a stalled writer as a playback xrun at periods of
+   256, 1024 and 2048 frames at 48 kHz, and a one-second tone through
+   dmix plays and returns (the clamp was what hung it).
+
+Known limitations, unchanged from v6:
+
+ - USB autosuspend is not supported; it is disabled at probe.  S3
+   suspend/resume works.
+
+ - A few protocol details remain open (documented in the source, not
+   blocking): the preamp readback index semantics, a width
+   strip-ownership edge case, whether DIM's scope follows TotalMix's
+   Main Out setting, and the exact high-frequency warping of the EQ
+   coefficients against the vendor curve.
+
+ - The URB size and count are load-time parameters, though the size
+   follows the period the application asks for.
+
+Disclosure: as with previous versions, the reverse-engineering and
+substantial portions of the kernel implementation were written with
+heavy assistance from AI coding assistants.  All of it was verified by
+hand on real hardware; the human authors remain responsible for the
+result via Signed-off-by.
+
+Thanks,
+Ismaïl
+
+Ismaïl Bahloul (8):
+  ALSA: usb: add RME Babyface Pro driver core (probe, PCM stream)
+  ALSA: usb: babyfacepro: add output masters and crosspoint routing
+  ALSA: usb: babyfacepro: add mic preamp, phantom/pad and input trim
+  ALSA: usb: babyfacepro: add routing flags and varispeed pitch
+  ALSA: usb: babyfacepro: add S3 suspend/resume
+  ALSA: usb: babyfacepro: add the front-panel poll and controls
+  ALSA: usb: babyfacepro: add the hardware DSP EQ
+  Documentation: sound: add the Babyface Pro proprietary-mode design doc
+
+ Documentation/sound/cards/babyface-pro.rst |  218 ++
+ Documentation/sound/cards/index.rst        |    1 +
+ MAINTAINERS                                |    6 +
+ sound/usb/Kconfig                          |   17 +
+ sound/usb/Makefile                         |    2 +-
+ sound/usb/babyfacepro/Makefile             |    4 +
+ sound/usb/babyfacepro/babyfacepro-ctl.c    | 3917 ++++++++++++++++++++
+ sound/usb/babyfacepro/babyfacepro.c        | 1988 ++++++++++
+ sound/usb/babyfacepro/babyfacepro.h        |  565 +++
+ 9 files changed, 6717 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/sound/cards/babyface-pro.rst
+ create mode 100644 sound/usb/babyfacepro/Makefile
+ create mode 100644 sound/usb/babyfacepro/babyfacepro-ctl.c
+ create mode 100644 sound/usb/babyfacepro/babyfacepro.c
+ create mode 100644 sound/usb/babyfacepro/babyfacepro.h
 
 -- 
-2.43.0
+2.56.0
 
