@@ -1,52 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105716;
-	b=xvo/BszfBlkWs5AfBSb/lA0G5yA1AuiFp7hohuFPulPP5R42CBcy3t2Va5N2nHyMk7B9
-	 wsqKWuA5SgXyy0eFIEUxoNsFJanRN0toUq9n5ukHU/ZLDRRbG7x5+T239TbBNmEoplgWs
-	 I8j8OWZLx01LTNTliW4o3Sl2g+3pNXYLbq+RH41eAfY1yIZuISBWOd25H9sEjHMu8aXsn
-	 PL26m/WrJOcYMEs77QTZFSyLqAUC5qUuVjBNJMquWo4mqeNbYAAwd4htnQnkmrbv/2bWf
-	 kAIYUZV7fA9IpuesrMHtgiWBxqFDuTB0PSDZ8Z7NOiCIuUUwX4ePcaKUlujA/bbQrgQ==
+	t=1793105771;
+	b=ANMEDJwCv6DS/OYD+5GSMIUEzpTLnx0tZn4jd+GmaUWI1715AjxrAr/v4NvXPSrgtPat
+	 UmxmRnTNTME0pmkUf33VjZhzBwk02y6tP3zXSBZRzWN9O71tDg/M1n6I6WzsZCrzWCuOK
+	 mfNk4nN25vnM6zBaDqFdjqi0pGapbjUaJF5ki9DTe6uZNbPJT+iVtNKlk0bKO4Sbm8brL
+	 tWZ2A/+GdzqwJOHEyoU4JigaS8taVJf7WK8RyJPFN0cM9XomU2iXhjPS0m4KEe4isfAU5
+	 /39KwTP5P8Mh1aanS0/zFiQdsjybMx8Q4jmm1tSVmDu7nuShetXU7KEoyLD/iH41pWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105716;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=Df7/tfGdKfRHftGQ/gC+HL2nvok6xw8ztV6Hfi9otaU=;
-	b=Ij0UDhRmGudPc1rzirpZq4YZ2IV69aacMrIJiMDA2ZNTlZ6GsPNLY51dzgAEmFf8oliu
-	 fHhD+fptEKgSW7zalva3HfgF/kG9WhArgKKbpeOriYDm730Tn3AXn5s78Pt9rPt1Htcmg
-	 DgtAh2wkZVchKtfqe4kGQyrDCTcBNU8ah1oYznSu945dCGt6qMoMitZIe4D44y3p9CDvR
-	 m/dBwVkzemAounlqxCVQurdRGpsGAb1MNMeUOelS/PHRUYWbRaEWLhAmh2tTfBFM0KatD
-	 sZso6x+b92NWVQNk/B1fB2/NxnIm+ByTfcUU7BsOH/u2Pp9DM6+eB2Wbnzq9Zov1Eng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105771;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=lcXO+Vd8p/zIO/CVoOpxlqwT9gefkkK9PohzmT8jAVo=;
+	b=PfAYrn4wMwx70u5SPSYrUZf3C/QZMEE9iqIhnBuF+4uSrJ8vqEpfZZ1SDPWXjRCZWlZS
+	 iIPRwW3spr2pilMNRucdYq+Wdt6w6Sxf91puZBe8XzbRPpvKU18feMDKtjCKww4DAETO5
+	 cNbm6tuTsZSuTzV/3Dj8QmfHzT0l+jhVbLNg0orxJRAWq1qHMRBtpZpz/0JO9Qqc2RIB3
+	 0xoy9Tj9Fc60V9bV1XOwKCmoo7rEW7z+HPrsrh+Svd8pwbFjd/ep0U2N+8NpZnhsvpMQz
+	 9O9OlquzLdYyLEIwhQULp8cpgIbWBUIHGkSrKKtUc8QL8keEEuCA+3tDC6SwhloI2/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=LuaWo06y;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79075606A332;
-	Tue, 27 Oct 2026 12:55:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79075606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=LuaWo06y
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 167B81086BE;
-	Tue, 27 Oct 2026 13:55:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793105709;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=Df7/tfGdKfRHftGQ/gC+HL2nvok6xw8ztV6Hfi9otaU=;
-	b=LuaWo06yHgeJcci5b0mvXB7saV6QxpGuSXp1fv7vvtphCljN5G+9EPMdCACYrDNJcI8bWy
-	JduBWnM9lvfWoIc81KsOWvnULaFhfVtIr+AdrhshBGFMkQ/o53BboeAO7pQpvaIdBkUA4g
-	meTWPoO59hOWpZJ29BYmqAfdR16sxJGvlQRVhNk1DpmsHio4kaZ1u1b331Bd/ntLhjEmgJ
-	/JyiD2reabKzP0sXHSaVuHax7Yu0lM6gmT51z0bfhJj6KgeYVMgUYkXKR35odSqGjEfz5n
-	eoLMz/tdybhpsa+Ub+OfhEL/2MdIcSdNPKhyug3TQPdlIoojAMJrMpJMG6whGQ==
-Message-ID: <4b2a721d-f333-4146-8e47-f5b38b378ff5@nabladev.com>
-Date: Tue, 27 Oct 2026 13:31:13 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28761606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:56:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28761606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15dd124bbe7so2456556c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:56:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1793105764; x=1793710564; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lcXO+Vd8p/zIO/CVoOpxlqwT9gefkkK9PohzmT8jAVo=;
+        b=oBNbWBMqejrGY89fgbOt84PDcmNTYTRzwo7dXYm2kKYVugiTtHm2ZRf6xPFRETFchB
+         e7Bfe7EplJmnyZJHxSmEqnqLF0apjP9r8aTHoa5QeUL+bAlPMFtQ9KPjpctTYhkk48Zs
+         GuRD3ZJsnpqhQipbgNlbQtgHjz9SJSTDtrtUbMHj1rIHCMUdr0En8+WSNRORvJC/skfp
+         jakziGpSo9AEuV1mNNVR2uCI/3+MrUf/EdOW5tpzCv30bFbfQJ9H6QO7IY0eS7+pnb37
+         LQN18Vq4yUx8IHSZdyAQgT0jxb5HH7S3m6Ds4Z1SI3FeBf2i7Hwcp2UBmQNVZq84Tyl1
+         AO0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793105764; x=1793710564;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lcXO+Vd8p/zIO/CVoOpxlqwT9gefkkK9PohzmT8jAVo=;
+        b=aYWx3W9zeLI74L2BfYsoP5+LWBXj/F51so2JEx1ohqIdFdrsakywQ9gzx4ztaK9/zZ
+         lsmjNayMuyj1fkTKBiNfiy8CRAhExlMn/Qf0Azfgiox0ldnRPMLOCRiZU/Wj6LtNf4vn
+         gcaiybIJqTSVUP//nf5dTD72hMbKTWP0EtV3d6l8GZ05WGjQprbz7AfQIT6ZET1qhVAd
+         8lT0dFvOWc6rQQjH3oLAjIOdszpPSOLfLF+QGwfqxsdfwZbr+16n5gea+iQ7sZg3SA6u
+         tg0EFN8rTnT01yiQLq2HBtjJpuBDPXAgsRZVlVPcQFEsX+p6X3A8OskC4Ul5uNoKlkVw
+         UpRA==
+X-Forwarded-Encrypted: i=1; AKwUvByyV6jgzKjLLZyChZEPr/a/4npuALqH4mAZMut+R+iIHifizaMlWpQeAjX+5vuPC3z503GodVgXNlzHAcQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJK3PfdIierBsnXX69Ur5SB/Yzl9yfXIhUHybzoSB7/mFCeBPbA
+	I8LPZHx1Y/QNETVHKzHe2pjITastV2F6m1reuseq3o1NEyQjfPpqSHVIij8mOkj2nAo=
+X-Gm-Gg: AYBFou1HOL48yMTXPdUKbBTgoFVlx4Ms82xaS31lzy3htr7Zw5+3ozAEY3IebO5pDQz
+	QHawUW+ABEjcyxbAyI1hebD8a6H5OYsQP5dMQ+48cS6CV6jbWTEuYp5rD4ByIqdS2jKLmh+vkH1
+	XJq6S4A4y3kuGGV0nPcUcN2WEewledCWxR3HcZhF+BoFczr7Vi9O99h1xd8jNptfIPGsgt7MSiT
+	mVXnq1Ub99fz2kjY35DUl3eEvui5c2+eDs0GalG+3hCyplTDWE4tUdVPwWSHqxzJv/JTa5btnS+
+	SDCaZSeJi1rDlOtIv9V0PzEm5vKmJfE90e/xv/FPzWd0Z5DECHp/Rzeo2T/VMup6ityAUBV16O5
+	40ifWOX7hBNacdT6lu1HGLXEKBUZ3/D9uWlm4Z8B3jP06M8Z6WnUCFHW0/drVDcbXVK4hnhYhi4
+	Gy8ApxqX7V33tg4KTp/JtkaawVSQHCWSPH2kL4i5UIf4SPkl6Q8S9gGKkF1KxILovRL5jafRQqH
+	zm094vO1kJgRwwbT5Y7zWMczqV8zkhwinaq9IR+V808PNKtjGJSSglKkL0SooRXkYexrxyJ2cD1
+	+6ooawXQ4mjofg3byFHuxAy/vJz+k5PM+RNmK94=
+X-Received: by 2002:a05:7022:90e:b0:194:3a84:e67d with SMTP id a92af1059eb24-1993f6d2c4dmr19379065c88.44.1793105763829;
+        Tue, 27 Oct 2026 05:56:03 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a58093678esm4301247c88.18.2026.10.27.05.56.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 05:56:03 -0700 (PDT)
+Message-ID: <5f575079-a2a1-4f42-ba1b-204730a5402e@kernel.dk>
+Date: Tue, 27 Oct 2026 06:56:03 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,32 +90,33 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 1/2] ARM: dts: imx6ull-dhcor-maveo-box: Remove unused
- SPI device
-To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
-References: <20261027111201.20936-1-cniedermaier@dh-electronics.com>
+Subject: Re: [REGRESSION] io_uring: requests can overtake consecutive drains
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: io-uring@vger.kernel.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261027043323.98916-1-kmehltretter@gmail.com>
 Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261027111201.20936-1-cniedermaier@dh-electronics.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261027043323.98916-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/27/26 12:12 PM, Christoph Niedermaier wrote:
-> On the maveo box, the SPI pins are connected to connector X10,
-> but no device is connected. The device "dhcom-board" was used
-> only to test the hardware, but was not removed afterward. So
-> remove this device to accurately represent the current hardware
-> configuration here. Also remove the okay status, since there
-> are no longer any devices defined in the interface.
+On 10/26/26 10:33 PM, Karl Mehltretter wrote:
+> Commit ecb6817b769f ("io_uring: end the drain when the drain request
+> completes") lets a request submitted after one drain overtake a second
+> drain that is still running. This breaks IOSQE_IO_DRAIN ordering for
+> both standalone and linked drains.
 > 
-> Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
-> Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-Reviewed-by: Marek Vasut <marex@nabladev.com>
+> An LLM helped with the review and reproducer.
+
+Please have your LLM also make a patch that you can send out,
+then you get credit for fixing it as well. Same goes for the
+other one you sent out.
+
+> No privilege, special device, SQPOLL, or unusual setup flag is required.
+
+Puzzled why this is necessary to state.
+
+-- 
+Jens Axboe
+
