@@ -1,95 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104672;
-	b=iLTlizkMmNWYCVJ8ByDJvSnbpoAHoVMZ5J5ij0FkHgxRQT1JAauiiKvjxkSIio/Z2tyL
-	 0w+hdFhsLfxQ2GOkELHmYCDS1py3oXUVaNXcbzS+bIxajxLAzxTfJQ6CsOQdUfIs1V/8c
-	 8bEZhf6v0/yyTyJ82OYPsBOkB2WBbnuefKdw+PKxSVdpM7aHnV0U2r9jDrLKrkxF7gn8J
-	 lUGCZoVKr/HSCpmczv66AZBLLugYrz3OST8FJTNvyJCvOalJLKWkEC9xkdaPnygPXPx2k
-	 gWTuMmeVtqDfgNYLMVEDCSEF/p87HRz7gkxV2JzdWB8wCX2ak8nBBVWx2/pXeSrPHyg==
+	t=1793104710;
+	b=o5TWNo3NlgU2pr/z8e8gh48zuDQM18zifKRjGfmSBi9S2NOpXo1YoicbHgEIrsqoUBji
+	 4kqgeiySztu+rU7F8p+NZUV09uuqNzIehleRsSY9/JrvyqFlnVIPFx4n+j8nT9sb9w4GS
+	 YpDZRBlf9+S88SBZiIECCfBBHCYGXFVB76Mr+yonWiUiYekNDTUhqnu+Q/xDzcOHfue6j
+	 RaLRxmls+W3aOauACTyqczb3sk0FKRuejA/PyERsU/hc9Ur8+/Eex69CJpMplC/Sr+7yq
+	 CJdR8ZAZW/AeF9WM9L199e1m3Z74r7Dvi+iNkKNCwUvHoZSugAJa9a4X78fJdN4U0oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104672;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/2fYbBkSw+Q0X0CFuvq2qZXwXeHUb7jlBvQS4ttpb+w=;
-	b=D9KiHupZGRyltvWmMbk8b8oMwg7K/XSbevgO35/Ppsdc+qHlGfjtC27jELLWX25stcUV
-	 w6be8kDJi+HZ5a6RINGPWqM1lq8l4eq86JUB90V3Eto8zfGjUaaBdE8uQH7XrlvRL7kvr
-	 VDp+XI2iaNvyBsEGM2CBFULDBxM+6xK5qlX4T0Dxsu+j4YAGFsSorKXDks7WJ7vO/leaa
-	 id6Kyojm5RdwujvA4jvJDR21Bl0yEvdjg/CnNpsxVQoeggIvejZKAMIc+ScsGziV3FMpn
-	 N45SxgB8XmNH5Y1FJZtZ+h/Hf8vuW8oe18ot22T70FalaOLemaf61ntWxkPjeF9iPdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104710;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=qN+oFteBBnu0qCEf7Z79N2pFESAzJvFrXcLvl6PgY1Y=;
+	b=054RjRV77eJQgJr9WLI2WGdBU4HnuvMauySTBJh9nAGCjDZWh5ar1EKeEmBT2Qs7V0G7
+	 gogQ8QyXaYUGmnpMMY9gQECE6cfhaEd9FkdG+ZbayB69Jz02TrU9dE0u6WlxHMw64eedZ
+	 56SLeo0IprfkjPVJMPtl9ERg+xnXjYkbY6+SwxmXf7eTO/kSBMuVANcBf+hZCxK4VERHt
+	 /YpyLmLHjQvxgZCONgX55CpaESs2qhZJRZv7RXO7mhjXlykNqvQR/1WhPnxJIUOLNnId5
+	 t/CabxtWLytC+m6jXnIYTdnBYcRVcTVuNT69grgoeMWCLgNAHgXRcU7g2G/43y3y1Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=CnMDTU7a;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCA2606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:37:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DCA2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K9Nmp3Ym;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E481606A31D;
+	Tue, 27 Oct 2026 12:38:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E481606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=CnMDTU7a
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a70b241fd6so2152255e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:37:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793104670; x=1793709470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/2fYbBkSw+Q0X0CFuvq2qZXwXeHUb7jlBvQS4ttpb+w=;
-        b=CnMDTU7aZ0v8MjPemUnm6nSR0Qez/31xvHI01Ts/vyEOhUN3bh/LUvz9USa4cleqtK
-         gQXTrLD9Ka8nZbKSuDE2Et5rpbbnvsWc83tepdpTA8zyplQqIVNHAae10889wSbSbZFt
-         C2Y3sOg0pYt9JW0znv6QprDgz5Ay59LpuP/wLskeAqS1Vj8jlA+bFs1kFJ1I4jdiWfp0
-         tMsv/sycV9GbStVRCxgO0ir78J7nqRkwN/OjUyynAr5ZPngiEpQ2Fn7O/DW/JRCSuETV
-         YJCOqG4uXa82Nzpi7W0LNUZLcH3mA0KWZihvXl+eFm6Vf6TEmN17WqUZQ/SkbPw9QmNQ
-         7JQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793104670; x=1793709470;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/2fYbBkSw+Q0X0CFuvq2qZXwXeHUb7jlBvQS4ttpb+w=;
-        b=SP9GhkiHKdh/NruRESbnH8o/KdANo70vgp2iDi4KdhhKaODna/nVohv6ZnwdIfgfl9
-         95KVQhFdy8KuSgNwmPM4LRv5XXEJgDkMxOLzB+Yyx4aRT7Ds7QcoruFBzh0P/L2z1b7r
-         S1We9k9wSalzfq6lab2XnvDFpieLjviwqAbAbgJwcXUGcj/OXJCKJERfxGneDBYWE7ok
-         +EURm5tCvfAttsO/D7G4YhE8PUVrKNGh/rLE02Fk3s1gn9RYPq0JijArUfKCeIYVF6Fv
-         3g07kHla5X8rx4t9nF1aYgWQTo8O117i3WFUYhve0ujCKxWye1rwXRFTCsAQcF/o/SWd
-         30LA==
-X-Gm-Message-State: AFq9FYL5jyQysj3POmvfzaYuPzEIcXFrlygIwh/EuSeqwssg+hYwDm8S
-	ymvSJRUutXQBof7SbdDTSUXaXiKh5+yUKiAktdkOILJ4gcmlRL0cbQRWazYH6gOPD4U=
-X-Gm-Gg: AYBFou0nMc0gXysIZvp83AO/H/yhg62ZW2oVK4jZWyPzoq58FzVpP6wOoC78nWhltO+
-	7v6HsTGRltb8y270Zl84jQsno7o3jmabjvZJC1PMc1nbA+/gMQ8xcGQh1z5gNu7DV7hx+Uk5ZuR
-	AuyvG9XgV/sh6REUKvrWyxoFbg4BtKFHVeTAestLZE218CQZnzFrM4IvO9uJuyJuLUeuVw69k2/
-	nPpC3sD7omjM9cR5vh2ZbyPdyb6sCgnk+d6fRjprzZVejTelDA9MuFB0w7uSKoDp0cu3dMVuK+c
-	5nG8W5A9MpZ+DNz7nPOwYzbNcAHACxQfMftSoo6v4tfpBxbvrq6f5SIQX+dBmRTJuWZU4s+LOGm
-	5fpCkefcDZSSHSAX9YAFUu/SeFo7O9pVP++PabgFnHYi2DY/yKqdSfr6DW/GEl/Fry51BfouW+u
-	4WqL40+PthMsRhT2CfaSJjwQPkyACBR95Y1XHQNkdO25YJxl5t7OW5L/B+vbiIQ/PVctg1My9FW
-	b91qrAgTuyYSJ/MiG7aNVQtfEpN/OgyeKYyQCDifuc6GbrZIReLArlz6CNRrYjN
-X-Received: by 2002:a05:600c:a114:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4a35aae2c99mr133680015e9.0.1793104669920;
-        Tue, 27 Oct 2026 05:37:49 -0700 (PDT)
-Received: from mordecai (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb9cesm23707434f8f.27.2026.10.27.05.37.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:37:49 -0700 (PDT)
-Date: Tue, 27 Oct 2026 13:37:46 +0100
-From: Petr Tesarik <ptesarik@suse.com>
-To: Thorsten Blum <blum@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo
- Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, Hans Peter Anvin <hpa@zytor.com>, Peter
- Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v2 0/3] x86/tsc: Remove some magic constants
-Message-ID: <20261027133746.3ccd4b01@mordecai>
-In-Reply-To: <20261014132932.1495303-1-ptesarik@suse.com>
-References: <20261014132932.1495303-1-ptesarik@suse.com>
-Organization: SUSE LINUX
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.53; x86_64-suse-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=K9Nmp3Ym
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D5C115A1;
+	Tue, 27 Oct 2026 05:38:25 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24FD13F871;
+	Tue, 27 Oct 2026 05:38:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793104708; bh=AsQV8EPRWv/nZtGsAUNcNbWRUUJk7ZparFQR6Yrsrl8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=K9Nmp3Ymll4ZjvGr4zTYwZFV+35ZQwesqboMyB7EIqAfv5qOu9RyO9XG9N+fpdzCo
+	 ULo58NND3GpJE273n6AvoGflscj1dRlINrrfQ6JxS0i+U388wwr+SauPBi98yZpGEr
+	 RxFv1WHb6q4sjcTeU2HZmV9Br7fuJRF2zXZbhbN8=
+Date: Tue, 27 Oct 2026 12:38:21 +0000
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
+	lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
+	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 10/20] ctlv: Prepare event queue support
+Message-ID: <auCbPdoaMq9oWoQ_@e129823.arm.com>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-11-jiri@resnulli.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,38 +69,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015145053.3664509-11-jiri@resnulli.us>
 
-Hi all,
+Hi Jiri,
 
-what about this series? It's not super-important, but neither should it
-be too hard to review...
 
-Petr T
+[...]
 
-On Wed, 14 Oct 2026 15:29:29 +0200
-Petr Tesarik <ptesarik@suse.com> wrote:
+> +int ctlv_event_emit(struct ctlv_op_ctx *ctx)
+> +{
+> +	struct ctlv_device *ctlvdev = ctx->ctlvdev;
+> +	struct ctlv_event_record *rec, *next;
+> +	struct ctlv_file *cfile;
+> +	u32 len, wanted = 0;
+> +	LIST_HEAD(spare);
+> +	int ret;
+> +
+> +	if (WARN_ON_ONCE(ctx->file))
+> +		return -EINVAL;
+> +	ret = ctlv_event_finish(ctx);
+> +	if (ret)
+> +		goto out_free;
+> +
+> +	len = sizeof(struct ctlv_event_hdr) + CTLV_ALIGN(ctx->output.root->len);
+> +	scoped_guard(spinlock, &ctlvdev->events_lock) {
+> +		if (ctlvdev->dead_announced)
+> +			goto out_free;
+> +		list_for_each_entry(cfile, &ctlvdev->files, node)
+> +			if (test_bit(ctx->op->event_index, cfile->subscribed))
+> +				wanted++;
+> +	}
 
-> The TSC code is full of various magic constants, making it difficult to
-> understand the calculations. This patch series tries to document their
-> actual meaning.
-> 
-> No functional change intended, but the code is not bit-for-bit
-> identical; some 32-bit multiplications are converted into 64-bit
-> multiplications, because HZ_PER_KHZ is an unsigned long. If anything,
-> this should reduce the risk of arithmetic overflow.
-> 
-> Changes from v1:
-> - Use TICK_NSEC instead of (NSEC_PER_SEC / HZ)
-> - Use HZ_PER_KHZ and KHZ_PER_MHZ from <linux/units.h>
-> 
-> Petr Tesarik (3):
->   x86/tsc: Replace magic constants with xxx_PER_SEC
->   x86/tsc: Use HZ_PER_KHZ and KHZ_PER_MHZ
->   x86/tsc: Use TSC_CALIBRATE_MULT for the TSC multiplier
-> 
->  arch/x86/kernel/tsc.c | 54 +++++++++++++++++++++----------------------
->  1 file changed, 27 insertions(+), 27 deletions(-)
-> 
+Suppose at the time of here, the number of subscriber is 1.
+However, before calling the ctlv_event_deliver(), another task hold the
+event_lock() to register new subscriber. for example:
 
+
+Task 1 (emit)					Task 2 (new subscriber B)
+
+wanted = 1
+unlock events_lock.
+						Register subscription.
+allocate one record
+ctlv_event_delver()
+
+  grab events_lock.
+    Deliver former subscribe event to old one.
+    new subscriber B will call ctlv_event_queue_event() with NULL.
+
+When this happens, new subscriber B would receive overflow event
+via ctlv_event_queue_dropped() though it was registered right before.
+
+Is this intended? It doesn't make sense that subscribe B receives
+the overflow event in this situation...
+
+
+> +	if (wanted) {
+> +		ctlv_event_copies(ctx, len, &spare, wanted);
+> +		ctlv_event_deliver(ctx, &spare);
+> +		list_for_each_entry_safe(rec, next, &spare, node)
+> +			kfree(rec);
+> +	}
+> +
+> +out_free:
+> +	ctlv_event_free(ctx);
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(ctlv_event_emit, "CTLV");
+> +
+
+[...]
+
+Thanks!
+
+-- 
+Sincerely,
+Yeoreum Yun
