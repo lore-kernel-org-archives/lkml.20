@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793086344;
-	b=Ypy15r2aiaTu54PHxJKVLBwj/fAeP7l3hm7Z4mjxXUu0S3fIc8gBME6fpYcvoTJLOrwZ
-	 nViINOIAsdNyrxPCOe/ZEfrIfv16u7q80zs0qK3dAMyIk0HAe7epT3kGgPRAvfPznIkzF
-	 matdj3RWl0cmWVhOPYqy8vWV97q+BHkcCB6pQCmCz19vTmBrJ1mz5O5U7bzhdK56APWZ2
-	 6aqcvO/ihFbcgFeHY/9czMj6NoJVFztzFFAFNrofWAVyZ3Z43HU3xmWb3QgAczL1lCP6G
-	 qqw5vxqrswmTMwGS1l5LFcmiANyn/6ZULX76Wj+c02dQaAalhpetWjSqhB/1UUHhIEA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086344;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
-	b=uEnVYAq2jmGjcmqVB7WNTM7o8bZnVoPTtcvDYAOJ6XMsoLnhkx5xeIpHygJ/tdBCa6Gf
-	 NiCpUoDNyj1CHGvGEQhT8DjnNv5mu90w3uz87T2vvCHIp5b++evCzWOaaI4/G+vQEcEvU
-	 7gdTwfNj1CJuGMjiaOiPFjrlJsHglEwjKU5YC5DHlKIP2VvPkj7p0M/+sKi/KiQPasT/7
-	 hH57dknTwiGc+5g/8SmsJAZINlPisZ/FO/GeawwuSHzHrOb/9qv8knF+IBdQRruHu2hWp
-	 wh7DZ1KX0oaGAjBNbc/zTyOEmVFPAOKFT3xnOEH1QEHs2G+JqaZvtE411Km2rUAoYiQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YL8BP8wy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793086413;
+	b=Id5sTJ54GHQROOvFp3abd+dsdOqrFdEx9H+ngu0kz+B4ZsTGs3TLtwJCqF6nlLYVCGwM
+	 xxIHhmbOJJCpuO2IG8bJG32rLIVou0pyp9zTv5D8R4b+iVWnwnpdK/JKnr4fAsq6d2njq
+	 xouRLK8qv81ZdbQhKVJwXsh9OGf09SXdYjJHquuw85GGWw1ZOVxlfPvUvi0KZTdYetXyc
+	 uVI3ox/TFbwZM0vjGg9xqs2U8LKfW0BDXdR15tjq9YdF3spPz8egtsphktVzxW8yms9M+
+	 EtNDmRxdcpsP3ParzpQCD59OLNaNMVC5EceStCTS68EhRrpIvnJXK8ZrBvYfs1FPx8g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086413;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=c4asv2oLk9Lr3sJYos/ifsYQ9GPfjFMZTnHiWhziWyg=;
+	b=GaPJ4/HYkWb8HWWMHpCr7DF76QQ8gGfN6fquPmwNClEL0LO2whHqabLnoz5JGaSom5Bq
+	 beXs2Qlcrkw211z5rZIo0ceP0O98PgeCxRSLVusr5SyQccTP0YT+df7yZcrZXcluDF0kc
+	 p+TVgCZTDhcvsrKU7qbNfM6LJh4ad6PQLLCqTxPF41LdD7XNq0GaSTsf7BgdUkXrYg5le
+	 3olenHogGblLmNgKuiPLdZejUOfzKpWi6qB9/R9qRpArpFsoOZsOXj5ZVmJzzDujyhlI0
+	 KtM6J6EwEU2CPnmOdlWMMEQe8HKQ1jmFOuCSVuumHRZ5Od6mQGy6Kv9Kzcs+kMxBVuQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="W4/QDgCK";
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1F0606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:32:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE1F0606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F956606A31B;
+	Tue, 27 Oct 2026 07:33:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F956606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YL8BP8wy
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e9eb579c0eso21682985ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:32:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793086343; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i3tYONOa1e9jDbTTHPaZdx1clXXWVjYuBrkGaYdXOxKRXJOmsjyq33WZrQqxOxpoOc
-         y91AamYcjJXgkN0YV4KhYr/AKJxAWXBAWaWM6Dk40kdZ0wTvXkWm1jEc33ER0ue6/PNK
-         Y/eA87xBzczTE4V77Rc0wPN9E/oy+oRtycvNIn920ThYFTv15A/SN8WD9dXs04Bwzxqi
-         M/Jg1zbn5fyC+LK+Ke5UyKt/ioytIDWwvElopWBLfoXF4UY1CKnUAYdJlnRDDkpZHPor
-         mwZH5EovAh8fnFAwya8EFoWJ0CxvEDBWTYk2tnAXY+GUwNMOogUlthn4VBX2uhdXqcdc
-         1Zaw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
-        fh=NoRUVrdAtNn0rgZBTFE/9rwMW5CoTCM8GkNaMd59mUk=;
-        b=MkVHRD+519XwOvvU8LFHArVLxyKgWNKMooMvVd3oIQ+X4TeK5wVjMXXJXOPp5+UZ2g
-         rUL9VDuK7ertILUhp3nWV+cviJelIDKGb7OvWZn0T+8RThEZ72PHv1JLqtKosYU1T2oo
-         9LEIMJpeszAoof6JSEYT4PYJd5X1v5D0SyXMXlMj1yljxpT7jEHjKEpkIhFyAIxapfme
-         q58lxQoKnviV3IlUVkMzH32ng5mgrNuyCnm6TfLpCDTpy877rkUzYe9jS0+MRpsmJWZ3
-         f9Rp5A+12T6APUUwP5muh4W9ANqLuSRWgo4OpauczkVSv4P2O0meDgw0uJBv3ezeQvgv
-         mdUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793086343; x=1793691143; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
-        b=YL8BP8wyexK/8SFCO6OfsU0UaXLGTHRdaSjVBfthdxT1em3vn+LU1OwRwHpjjKSe85
-         xbIdgiqC24a71dwg6nLRJ7AevpIiXtaYPBBBdaBeMo6O3nDYhQbxz1T3IpcSrbMhz1aD
-         TT/dNLYNXzXVACoviOpQfR7Iu8F63ueoQLTIDvqkLM7qMSpfMiWi/xBwCbBKZry0pY7r
-         epkz7daeoH6cBlCntkg02KdZJI06KQEb4XOjHfUVbPMkO+PNv//rpRqVQkIkD23g0qEE
-         ORrDS6JnsryHSsbuv7pubZi/pecDF1pFQB5PyYuagf2LBpPEZDaiYFzNzQiJzfHTEHAb
-         WpFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793086343; x=1793691143;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PlM8k58acyW5zFw4kquAsGUaXk88HzstxAu1xKTj+EE=;
-        b=nCfCL3gN1jE/ulvf8zTpOlAk2cuCfxgr9kqxpZiDjOwXb2ZKcAj9ZNKfU5mjpcG2by
-         pejugwm0THXPybXAq4tunybW/mqE+RDqxseg71+nWGQ5UQ0cOpJPOsojcPuPsFmwiskL
-         F2KQEe61x9WcNJEAwIRBWyfsWnzRzMgpGM1vcTas1oZJpoFGrs8pgmfEVl+8lWf5M8AX
-         +0NpssNBUzUP9C1APEpdh7e5noD+REk9QV4SopZXob0xIwnDy0/r/dc6lkB1DQX638zw
-         LDfHKM/P4h8aRrBeHJ3NH+VpJD2Ma6ouihqoE45d8nF8hKv6jAwizIMrk7RjjEK54qzr
-         2l9w==
-X-Forwarded-Encrypted: i=1; AKwUvByu1gJhojmmiuuaori/z/s9yzozzH1sWteRdlxZBP5tJm9EMpbxiO3UQ0c14AjNMmem8Bln1y34Sx/tufk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRwmc0GkVFB2G4PnuFdKIEFEdaRRIqefod5Y6v7SLobYvcOs5q
-	vbm7LHwhWc+Jebxsb17FR/2KVQyvaTwVVpcy4y2VeNCSoKBzZ4Sccu9iKVsnV45VlWiW1j7n84c
-	EkqzkGpuINdp2YY2tTCILG7Zj6MWchrY=
-X-Gm-Gg: AYBFou3SQmFItg5BJEvLuJdZc/QCKacNLYP24WFjF87wcRp1bZPMtrH5WGefNPooX1i
-	2NvT/aPG7T7NO8jH7zk7fZ1YooT41yVVvryY8S5bTcvxJaDd4IKnFq1dc2Sg9nnqFqyzTUixIjm
-	zQ2qYPGsA3YwBblGC6/6ikPLgI0lxFTtLZeABps24n7zPKx9PVA762y3zDzEuw+qQ7KxLksbygJ
-	30TQl8gQBvlvn2oBKTEJ6815EvIykzKv46naGP1gdofO/yhyV3LZyPoIyaRTEJGsWPhYF/WN5KT
-	y8fJgwh3HJAahZpa8dQCQIXo9VCZm2Bjz/tDKz4KORat5ItiFdSgUFIyWSy11Az9//joLN6Okyy
-	YnpUMJQLxy8+7U2VG3XEWC5W6tz63fGoqvg1ktKI1m81e6ds4mtVs
-X-Received: by 2002:a17:902:cf12:b0:2e9:66c4:1713 with SMTP id
- d9443c01a7336-2ea9c917ba4mr66194015ad.58.1793086343005; Tue, 27 Oct 2026
- 00:32:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W4/QDgCK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793086412; x=1824622412;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6jciHiMHy1GGQ8JHzB5fQMjbZGta+3V23LC6ekMKTgM=;
+  b=W4/QDgCKgDOvqlxUSEqyfQc1+M06Qr8m9K1ZmyqlEQb7MZQhPkZ/G8/v
+   PTv0CO3358VgON7hHbVljOx+kfacOqEi0fSgvoqKjfH8ayRPaxpXAcE4F
+   tUvO8alvXEaN8gEElgyzbbOexH5PF/oWYhn4a1Vfmkv7IpHkc/OjrgXBx
+   JR4qnIVLEZxvw22gWst/UImYPEjJmYImnMgSUfE0UAc0QAYZZnFs5m01Z
+   QELSogg+I4I2C27LfZb1gqR3rUfKSQz0nqLU15xaIE0QFrjG4JD+0azP6
+   +9cNCmaquVDxuqrqQE9odvSbEfLs+3CT532d4TkEO7eHTiWzw/mjzYkES
+   g==;
+X-CSE-ConnectionGUID: h8wXG5i/RWiE7eoFlhUHxQ==
+X-CSE-MsgGUID: PMxiTs4rTjO84nmE1vXgVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1801366"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1801366"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:33:31 -0700
+X-CSE-ConnectionGUID: T09RbCoZSwGarkr+NdcJKg==
+X-CSE-MsgGUID: 2AveHeL8S6+7dzuDmtOdFw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4428777"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:33:29 -0700
+Date: Tue, 27 Oct 2026 09:33:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com
+Subject: Re: [PATCH v3 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <auBTxjakiTKn1LL_@ashevche-desk.local>
+References: <at-0cXiBV0RM-Att@ashevche-desk.local>
+ <SN1PR12MB2528986412BA8C9716B3F87FA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,105 +80,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026003918.155321-1-pmazzini@gmail.com> <20261026003918.155321-6-pmazzini@gmail.com>
- <f68279bc-20f1-41a9-ba5c-92b974785cd8@roeck-us.net> <20261027002635.6b831c0b@kemnade.info>
-In-Reply-To: <20261027002635.6b831c0b@kemnade.info>
-From: Pablo Mazzini <pmazzini@gmail.com>
-Date: Tue, 27 Oct 2026 07:32:14 +0000
-X-Gm-Features: AclHuK8Ysr_hMD-q4J-bxGC_qjlgkxL35TncLn6mKe9lS8sJrvJ37KNEcPQTV5s
-Message-ID: <CAAxh=jsKe95EsKnTypXtfTxGhYCMO1E7U=hWb3y6DBpgoiOVUw@mail.gmail.com>
-Subject: Re: [PATCH 5/7] regulator: sy7636a: report the temperature
-To: Andreas Kemnade <andreas@kemnade.info>, Guenter Roeck <linux@roeck-us.net>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, 
-	Alistair Francis <alistair@alistair23.me>, linux-hwmon@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB2528986412BA8C9716B3F87FA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Guenter, Andreas,
+On Mon, Oct 26, 2026 at 09:13:25PM -0500, Victor Chernyakin wrote:
 
-On Mon, Oct 26, 2026 at 07:35:24AM -0700, Guenter Roeck wrote:
-> This is going the wrong way. The correct solution would be to convert
-> the hwmon driver to an auxiliary driver.
+...
 
-Understood. In v2 the hwmon driver stays in drivers/hwmon and becomes an
-auxiliary driver of the regulator, which binds the I2C device directly.
+> > > +		/*
+> > > +		 * Now read the two registers making up the measurement.
+> > > +		 * The datasheet says to read MSB first, LSB second.
+> > > +		 */
+> > > +		ret = regmap_bulk_read(map, FDC1004_REG_MEASn_MSB(0),
+> > > +				       reg_vals, ARRAY_SIZE(reg_vals));
+> > > +		if (ret)
+> > > +			return ret;
+> > > +
+> > > +		*val = (sign_extend32(reg_vals[0], 15) << 8) | (reg_vals[1] >> 8);
+> > 
+> > We still have two shift operators, so it might be not a bad idea after all to
+> > have a combined variable with wordswap done in case of LITTLE_ENDIAN
+> > architecture. Jonathan, what do you think about this? Reading the whole set as
+> > 32-bit value and convert it if required
+> > 
+> > 		// also note in this case we don't need to have _MSB in the name
+> > 		ret = regmap_bulk_read(map, FDC1004_REG_MEASn(0), reg_val, sizeof(reg_val));
+> 
+> I agree we could drop the _MSB if this was the only use
+> of FDC1004_REG_MEASn_MSB, but we use both _MSB and _LSB macros in the
+> volatile register table definition, and it would be weird to have one
+> macro with _LSB but the other without _MSB.
 
-On Tue, 27 Oct 2026 00:26:35 +0100, Andreas Kemnade wrote:
-> But it introduces another race condition.
-> The temperature might be read too early.
-> 1ms delay should suffice.
->
-> The  SY7636A_OPERATION_MODE_CRL_ONOFF flag might be reset before
-> reading the temperature. If that register does not reset to zero
-> but just keeps the temperature last read, then we have no problem.
+You can have three!
 
-Good points. For v2 I read power good (0x07) and the temperature (0x08)
-in one I2C transfer, and return -ENODATA unless power good is set, so no
-locking is needed.
-
-Thanks,
-Pablo
-
-On Mon, Oct 26, 2026 at 11:26=E2=80=AFPM Andreas Kemnade <andreas@kemnade.i=
-nfo> wrote:
->
-> On Mon, 26 Oct 2026 07:35:24 -0700
-> Guenter Roeck <linux@roeck-us.net> wrote:
->
-> > On Mon, Oct 26, 2026 at 12:39:16AM +0000, Pablo Mazzini wrote:
-> > > The separate hwmon cell enables VCOM at probe. Report the temperature
-> > > from here, as the TPS65185 and FP9931 drivers do, and under the chip
-> > > name as they do: read it while the rails are on and return -ENODATA
-> > > otherwise. Boards that need the rails on mark VCOM always-on. Drop th=
-e
-> > > hwmon driver.
+> > 		if (ret)
+> > 			return ret;
+> > 
+> > #ifdef __LITTLE_ENDIAN
+> > 		reg_val = swahw32(reg_val);
+> > #endif
+> > 
+> > 		*val = sign_extend32(reg_val >> 8, 23);
+> > 
+> > 		// I assume the following is also possible in this case
+> > 		// *val = (int)reg_val >> 8;
+> > 		// but usually we use sign_extend32() in IIO even when simple
+> > 		// casting is okay
 > >
-> > This is going the wrong way. The correct solution would be to convert
-> > the hwmon driver to an auxiliary driver. I am not going to approve
-> > this patch. I am not giving an official NACK (yet).
-> >
->
-> First we need the problem defined, then the solution, and then we can
-> talk about what is the correct solution. The commit message does not
-> name a problem.
->
-> So what we have:
-> one bit to turn on a bunch of things,
-> after one time to sample (< 1ms), fresh values are provided on the ADC
-> register periodically.
-> after some more time (max. 50ms), several voltage outputs are ready.
-> Powering on those things is expensive, so you would not use this as an
-> ordinary temperature sensor.
->
-> The problems I see in the sensor driver this patch might want to solve:
-> - problems if the regulator driver is registered earlier.
-> - not having powered on the regulator all the time (that is described
->   in the cover letter)
->
-> The way the patch handles it does not require any structural change,
-> availabitily of the regmap is given. So it would be a separate cleanup
-> patch.
->
-> But it introduces another race condition.
-> The temperature might be read too early.
-> 1ms delay should suffice.
->
-> The  SY7636A_OPERATION_MODE_CRL_ONOFF flag might be reset before
-> reading the temperature. If that register does not reset to zero
-> but just keeps the temperature last read, then we have no problem.
->
-> If not, there needs to be some synchronisation between the regulator
-> part and the sensor part, probably a mutex saved in a common structure.
-> And in that case, structural change of the drivers is needed which
-> I see the following possibilities:
->
-> a) non-simple mfd driver
-> b) aux device as a child of the regulator driver.
-> c) regulator driver containing everything.
->
-> No strong personal opinion here.
->
-> Regards,
-> Andreas
->
+> > This also reduces stack usage.
+> 
+> AFAIK a good optimizer should be able to see that reg_val and reg_vals are
+> never live at the same time and reuse the same stack slot for both (whether
+> GCC or Clang actually do that for this function, I can't be bothered to check).
+> 
+> If you and Jonathan prefer that version for other reasons though, I can
+> switch to it.
+
+I gave an idea, I would wait for Jonathan to judge on it.
+
+...
+
+> > > +static const int fdc1004_calibbias_decomposed[] = {
+> > > +	lower_32_bits(fdc1004_calibbias[0]), upper_32_bits(fdc1004_calibbias[0]),
+> > > +	lower_32_bits(fdc1004_calibbias[1]), upper_32_bits(fdc1004_calibbias[1]),
+> > > +	lower_32_bits(fdc1004_calibbias[2]), upper_32_bits(fdc1004_calibbias[2]),
+> > > +};
+> > > +
+> > > +static const int fdc1004_calibscale_decomposed[] = {
+> > > +	lower_32_bits(fdc1004_calibscale[0]), upper_32_bits(fdc1004_calibscale[0]),
+> > > +	lower_32_bits(fdc1004_calibscale[1]), upper_32_bits(fdc1004_calibscale[1]),
+> > > +	lower_32_bits(fdc1004_calibscale[2]), upper_32_bits(fdc1004_calibscale[2]),
+> > > +};
+> > 
+> > We still haven't decided on this one. I think the 2D array is better for these.
+> > And with the above we effectively have a duplication of the tables.
+> 
+> I don't like the duplication either, but I think the real problem here is
+> that read_avail is just a somewhat awkward interface that doesn't allow me
+> to return s64 values directly. To me, having this separate decomposed table
+> just for read_avail and otherwise working with s64 values is the least bad
+> approach.
+
+What about adding .read_avail64() (in a separate change)? Problem solved!
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
