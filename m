@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069354;
-	b=KU5oSWJHKVlpe+DjUm8Ny+nqvWVACxqGQoFFuA99DhCHzsGsSajZXS2WXRS1fcGDuy5i
-	 QNH/wJZwy39B6h/EH/GZjScNYyejSYakPhzABl6c7JEGj0cjZ7IznmTVAoCUyzDbpyMvm
-	 pYWKKtpjkC432QzMKupIjijoRJgkMTlq28VD5wKjlI2dl3rUG1OvfOE96Qv5sv18xd6mL
-	 aFUAm+xf0R78C1xPBBziBgygFRrKAZA5mbKJLkiXXg/NI/6u4hFElD+y/xp1xBizOBmFq
-	 l0VYEkb6LUD0WGtZEPIrThCjg77WIyKZ538eFsr6mv/aLGNZtgZRHR03Xpf1P9zF8/g==
+	t=1793069425;
+	b=t+ot4aZbReBSBhJzW7XU6RXt7VgrKaWzp8x2nxFyexsXJuWz17XlTvMFfeW4Sr+9hUeL
+	 9MHyrzQQci/bo4SIJhd9UpjUpWt0nRXAqzdKVLooEgwIA5JZLVvuPwvfLVJeVS7Yh+9oT
+	 JpMTwpKY9jA+ucEGXmxw1S+ZGeRYzD0O+Ozq6OQuI66GOJR7HV4NS5dVF6lws8J//2t4d
+	 3A0GPYKEbgBh7a7EUWaM7ZPVKFhzbLkd0DyLSjodBKdG7wChsANvPQ4DJHRj8Uu8M2VO4
+	 kv5RsEpbiMIZ4dSOnOwt+N3lbfJwpTD92bfqspn7fe+/cC6YBLhbApsXuTs58WH5IRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069354;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtEIJfpuzKtI=;
-	b=nUqO2TTwFBxcUcDP6EsIhfl1w03ubaj0tsGklRP5sCEEc/iSwipVINnKLvK82MBo+boU
-	 w/hfIARerCSk94FeR7U6UKKnHQI6v0FDeGItjAaYa2smWXPzLOtBVImXRx8b70GBcnbPa
-	 zrhOvyMa7FUb7NbnWekeec/s4ZV6xAZicNa7+6HIyuz7hhER+FxDs0OsAN450yDQz/sZt
-	 hioPK2letYFmeAO/s/IniBuqUZ5bdG1T2IvZVjlo21a/t+B9/fxLka11C2UIkdX7mW6I4
-	 adBFP67qzkTEXzquCwlKas7oMJpFj92XyoLQFuSEN4UefT/GUG5cMrOFanHvV0DEOhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069425;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=xruDv2a3bHWNqXV8RGWxU+fquzBodGLGa5mXEY4Eiog=;
+	b=GH95jV9O5Ub4ojm9dQr/SdFzwSM2rBa9+tNZEzKosrNGYHuV7wdRAd1I0AHwt0D2PLkb
+	 KYKLaIt0bep6TXQFyliOlTq4m9ziLrWRdV+kkIjM3UTjexDuKIGSfQnV1iK5gQv1RROEK
+	 OyPog8v9CVU+andYiCXAtV2yPKWfIDGZ1gOfbxXM//d9dz1X3/YJqC0vPKGZky5mAEPEZ
+	 TmtLstLO4HixhWYBY6GXN9M0+iCZBMZgHSDAoleuxdTUCznI97PCmxDGn9TB94P1TauGQ
+	 6P/d+fEK3WB9jtiwao/blgG3ZKCTMp9HOc/DVAnOOXunVldUiOmax0ihhhmhBBNvGzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4CE94606A31D;
-	Tue, 27 Oct 2026 02:49:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CE94606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtE
-	IJfpuzKtI=; b=byCJoAMnuO93BjTnRIKK+6Rlf15FGF+OYTBKYbTpkbetR1OGqh
-	+cGz0n0KbXS1AYSgVJpKHm1D5S/8RdfPkyPqWyA8/BUR6NQnrwcQ8dzvumgr6cBv
-	dyM7d5ytkcOGsK5RoC7jBWaJm5V1Xd0Ay0m1suBr6e/vT5StDlk78/1fY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnwQZEeBqBLjsAA--.49584S4;
-	Tue, 27 Oct 2026 10:49:05 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v4 2/3] media: dvb-core: keep dvb_device alive while checking users count in frontend release paths
-Date: Tue, 27 Oct 2026 10:48:55 +0800
-Message-Id: <20261027024856.22764-3-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027024856.22764-1-25031212351@stu.xidian.edu.cn>
-References: <20261027024856.22764-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QG9svXiu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DECB606A31A;
+	Tue, 27 Oct 2026 02:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QG9svXiu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B9D1F01825;
+	Tue, 27 Oct 2026 02:50:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793069424;
+	bh=xruDv2a3bHWNqXV8RGWxU+fquzBodGLGa5mXEY4Eiog=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=QG9svXiucGO/wO7RfIXOafyEtyGQSuvWea5zHZ+nm3mAMKp9+JdVsP08c2kUbazks
+	 HxNfony/+gr7E+vLH0Iq1rMcSoRlDfyt5fO7D/OwqTFt3eWFImis13lUiqewnq6gH5
+	 YcR5fImAri/wk71DY2W84GBtae05nQSgyeiUXfK+22eOzLPtQ40yGMruBPPS680oMH
+	 4TcqysXhdvqJzdr+FhKTFs7EI57fok4ENX/riASJ/x2eeNwCJ7EYw038xj14FoDZQK
+	 xFadJcZ/SyC3QY3eJyjOk4QgkvTU1H84cHI3PCpSy+FG3/5YNRd6UrcrIEia6Kk5jW
+	 hyFVbmk0fnbDA==
+Subject:
+ Re: [PATCH net 1/2] net/iucv: clear hs_dev before dropping its reference
+From: netdev-bot+sashiko@kernel.org
+To: hexlabsecurity@proton.me
+Cc: edumazet@kernel.org, kuba@kernel.org, davem@davemloft.net,
+ pabeni@redhat.com, wintera@linux.ibm.com, twinkler@linux.ibm.com,
+ nagamani@linux.ibm.com, netdev@vger.kernel.org, hidayath@linux.ibm.com,
+ linux-s390@vger.kernel.org, horms@kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 27 Oct 2026 02:50:23 +0000
+Message-ID: <179306942370.3134.2152050460964282662@kernel.org>
+In-Reply-To: <20261022-b4-disp-b35a9153-v1-1-d74645876195@proton.me>
+References: <20261022-b4-disp-b35a9153-v1-1-d74645876195@proton.me>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,112 +64,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBWnwQZEeBqBLjsAA--.49584S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF1kJry8CFyrCF4fury8Zrb_yoW5Krykpr
-	Z3JFW5KrWUKw4kKrs7C3W7ZrnYvF4Syr98C34xt3Z7Cr1fX34SkryFq34q9r13Cr93A3yj
-	qwnrGay8C3y7AaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmG14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1l
-	nxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
-	CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvj
-	eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I
-	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7VUUiFxUUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2rfbNNUuAABs-
 
-Both dvb_frontend_release() and the __dvb_frontend_open() error path
-inspect dvbdev->users after calling dvb_generic_release(), which ends
-with dvb_device_put().  If that put() drops the last reference - e.g.
-the device was unregistered during USB disconnect while this was the
-last open() file - "dvbdev" is freed before ->users is read:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-	BUG: KASAN: slab-use-after-free Read of size 8
-	 dvb_frontend_release+0x28b/0x2b0 dvb_frontend.c:2903
+Critical: 0 · High: 0 (3) · Medium: 1 · Low: 0
 
-The same pattern exists at err1: after dvb_generic_release() in
-__dvb_frontend_open(), the ->users check runs on an object that may
-already be gone.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Take the extra reference *before* dvb_generic_release(): the file
-still holds its own reference at that point, so the get is guaranteed
-to be valid, while a get after the put() could itself touch freed
-memory.  Drop the reference again after the ->users check.
+- [Medium] In afiucv_hs_callback_syn(), the child now takes a reference
+  on skb->dev every time, instead of copying the listener's hs_dev.
 
-On the __dvb_frontend_open() error path the reference is deliberately
-not put() back inside the function.  fops->release() does not run for
-an erroring open(), so dvb_device_open() calls dvb_device_put()
-itself; that put() drops the reference taken here.  This also keeps
-the accounting balanced: dvb_generic_release() already dropped the
-file's original reference, and the extra get hands dvb_device_open()
-one to drop in its place.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  afiucv_netdev_event() walks iucv_sk_list with sk_for_each() and holds…
+- [High] This problem wasn't introduced by this patch, but
+  afiucv_hs_callback_syn() leaks the child socket it allocates on every…
+- [High] This problem wasn't introduced by this patch, but the SYN
+  callback can publish a child into a listener's accept_q while that…
 
-In dvb_frontend_release() the reference is balanced explicitly, before
-dvb_frontend_put(fe).
+--
 
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-Fixes: a2dd235df435 ("media: dvbdev: drop refcount on error path in dvb_device_open()")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/dvb-core/dvb_frontend.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+net/iucv: clear hs_dev before dropping its reference
 
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index 0286da57f382..00c29cf7ddf0 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -2834,6 +2834,14 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
- 	mutex_unlock(&fe->dvb->mdev_lock);
- err2:
- #endif
-+	/*
-+	 * dvb_generic_release() ends with dvb_device_put(), which may
-+	 * drop the last reference if the device was unregistered while
-+	 * this file was open.  Take an extra reference first so the
-+	 * ->users check below cannot touch a freed object.
-+	 * dvb_device_open() drops it again when ->open() fails.
-+	 */
-+	dvb_device_get(dvbdev);
- 	dvb_generic_release(inode, file);
- err1:
- 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
-@@ -2934,6 +2942,15 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
- 		mb();
- 	}
- 
-+	/*
-+	 * dvb_generic_release() ends with dvb_device_put(), which may
-+	 * drop the last reference if the device was unregistered while
-+	 * this file was open.  Take an extra reference first so the
-+	 * ->users check below cannot touch a freed object, and drop it
-+	 * again right after.
-+	 */
-+	dvb_device_get(dvbdev);
-+
- 	ret = dvb_generic_release(inode, file);
- 
- 	if (dvbdev->users == -1) {
-@@ -2954,6 +2971,8 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
- 			fe->ops.ts_bus_ctrl(fe, 0);
- 	}
- 
-+	dvb_device_put(dvbdev);
-+
- 	dvb_frontend_put(fe);
- 
- 	return ret;
+This patch changes iucv_sock_close() so that iucv->hs_dev is cleared
+before dev_put(). It also marks the racing hs_dev and sk_bound_dev_if
+accesses with READ_ONCE()/WRITE_ONCE(). Finally, afiucv_hs_callback_syn()
+now takes the child's device reference and sk_bound_dev_if from skb->dev
+instead of from the listener's fields.
+
+Closes: https://lore.kernel.org/netdev/b3fea2ca-25ff-42c0-812c-f8cc6bb6667e@linux.ibm.com/
+
+> diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
+> index db261ecd19af1..501e758c5e68a 100644
+> --- a/net/iucv/af_iucv.c
+> +++ b/net/iucv/af_iucv.c
+> @@ -447,9 +447,16 @@ static void iucv_sock_close(struct sock *sk)
+>  	}
+>  
+>  	if (iucv->hs_dev) {
+> -		dev_put(iucv->hs_dev);
+> -		iucv->hs_dev = NULL;
+> -		sk->sk_bound_dev_if = 0;
+> +		struct net_device *dev = iucv->hs_dev;
+> +
+> +		/* afiucv_hs_rcv() matches frames on hs_dev under
+> +		 * iucv_sk_list.lock, not the socket lock: clear it before the
+> +		 * reference goes, so the match can no longer find a device
+> +		 * this socket does not hold.
+> +		 */
+> +		WRITE_ONCE(iucv->hs_dev, NULL);
+> +		WRITE_ONCE(sk->sk_bound_dev_if, 0);
+> +		dev_put(dev);
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but afiucv_netdev_event() also reads this
+field, and it holds neither iucv_sk_list.lock nor the socket lock:
+
+net/iucv/af_iucv.c:afiucv_netdev_event() {
+    ...
+	case NETDEV_GOING_DOWN:
+		sk_for_each(sk, &iucv_sk_list.head) {
+			iucv = iucv_sk(sk);
+			if ((iucv->hs_dev == event_dev) &&
+			    (sk->sk_state == IUCV_CONNECTED)) {
+				if (event == NETDEV_GOING_DOWN)
+					iucv_send_ctrl(sk, AF_IUCV_FLAG_FIN);
+    ...
+}
+
+iucv_sock_close() runs under lock_sock() only. Can it move the socket out
+of IUCV_CONNECTED and run this clear after the notifier's check but before
+its call to iucv_send_ctrl()?
+
+iucv_send_ctrl() reads hs_dev again and uses it without a NULL check:
+
+	blen = sizeof(struct af_iucv_trans_hdr) +
+	       LL_RESERVED_SPACE(iucv->hs_dev);
+
+The list walk itself also looks unprotected. iucv_sock_link() and
+iucv_sock_unlink() change the list under write_lock_bh(&iucv_sk_list.lock),
+and rtnl does not exclude them.
+
+Could a concurrent close() followed by iucv_sock_kill() unlink and free
+the node the notifier is on?
+
+Once this patch is applied, the notifier is the only unlocked,
+unannotated reader of hs_dev left. The notes below the commit message
+leave it to Nagamani PV's "net/iucv: fix races in afiucv_netdev_event()".
+
+[ ... ]
+
+> @@ -1912,9 +1919,14 @@ static int afiucv_hs_callback_syn(struct sock *sk, struct sk_buff *skb)
+>  	memcpy(niucv->dst_user_id, trans_hdr->srcUserID, 8);
+>  	memcpy(niucv->src_name, iucv->src_name, 8);
+>  	memcpy(niucv->src_user_id, iucv->src_user_id, 8);
+> -	nsk->sk_bound_dev_if = sk->sk_bound_dev_if;
+> -	niucv->hs_dev = iucv->hs_dev;
+> -	dev_hold(niucv->hs_dev);
+> +	/* skb->dev is the device the lookup matched against the listener's
+> +	 * hs_dev; the listener's own fields are cleared by close() under
+> +	 * lock_sock(), which this softirq does not hold. nsk is in
+> +	 * iucv_sk_list already: hold, then publish.
+> +	 */
+> +	WRITE_ONCE(nsk->sk_bound_dev_if, skb->dev->ifindex);
+> +	dev_hold(skb->dev);
+> +	WRITE_ONCE(niucv->hs_dev, skb->dev);
+
+[Severity: Medium]
+Can this leak a reference on skb->dev when the SYN races with close() of
+the listener?
+
+The callback holds only bh_lock_sock(sk). That does not exclude
+iucv_sock_close() of the listener, which holds lock_sock(), and the
+callback never checks sock_owned_by_user(). This sequence looks possible:
+
+CPU1 (softirq)
+afiucv_hs_callback_syn()
+  bh_lock_sock(sk);
+  sk->sk_state == IUCV_LISTEN, check passes
+
+CPU2 (process context)
+iucv_sock_close(listener)
+  iucv_sock_cleanup_listen()
+    drains accept_q
+  WRITE_ONCE(iucv->hs_dev, NULL);
+  dev_put(dev);
+
+CPU1
+  dev_hold(skb->dev);
+  WRITE_ONCE(niucv->hs_dev, skb->dev);
+  dev_queue_xmit(skb);
+  iucv_accept_enqueue(sk, nsk);
+  nsk->sk_state = IUCV_CONNECTED;
+
+The child then sits in IUCV_CONNECTED on the accept_q of a listener that
+has already been drained. Nothing accepts, closes or kills it.
+
+Before this patch, the callback read the listener's hs_dev as NULL in
+this interleaving, so dev_hold(NULL) did nothing and only the struct sock
+leaked. Now the child holds the ingress device.
+
+In the other interleaving, where hs_dev was read before the clear, the
+old code already leaked the listener's device reference. This change
+extends the device leak to the case that used to leak only the sock.
+
+afiucv_netdev_event() does nothing on NETDEV_UNREGISTER. On
+NETDEV_GOING_DOWN it only moves the child to IUCV_DISCONN.
+
+Would unregister_netdevice() of that HiperSockets device then wait
+forever in netdev_wait_allrefs()?
+
+The notes below the commit message mention this orphaned child, and
+that it now holds the device the frame arrived on.
+
+>  	afiucv_swap_src_dest(skb);
+>  	trans_hdr->flags = AF_IUCV_FLAG_SYN | AF_IUCV_FLAG_ACK;
+>  	trans_hdr->window = niucv->msglimit;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does
+afiucv_hs_callback_syn() leak the child socket nsk on every refused SYN?
+
+iucv_sock_alloc() runs before any of the checks. It clears SOCK_ZAPPED
+and links nsk into iucv_sk_list:
+
+net/iucv/af_iucv.c:iucv_sock_alloc() {
+    ...
+	sock_reset_flag(sk, SOCK_ZAPPED);
+
+	sk->sk_protocol = proto;
+	sk->sk_state	= IUCV_OPEN;
+
+	iucv_sock_link(&iucv_sk_list, sk);
+    ...
+}
+
+Two branches call iucv_sock_kill(nsk): the refusal branch (listener not
+in IUCV_LISTEN, or sk_acceptq_is_full()) and the dev_queue_xmit() failure
+branch. iucv_sock_kill() returns at once for a socket that is not zapped:
+
+net/iucv/af_iucv.c:iucv_sock_kill() {
+	if (!sock_flag(sk, SOCK_ZAPPED) || sk->sk_socket)
+		return;
+    ...
+}
+
+So nsk is never unlinked or freed. A HiperSockets peer can keep sending
+SYNs to a bound socket, or to a listener with a full backlog. Each leaked
+entry also makes the sk_for_each() walk in afiucv_hs_rcv() longer.
+
+On the dev_queue_xmit() failure branch, the leaked child has already done
+dev_hold(skb->dev) above.
+
+Can that reference also block unregister_netdevice() of the ingress
+device forever?
+
+The notes below the commit message say Hidayath Khan reported this in
+August and that his fix is pending.
+
+[Severity: High]
+This is a pre-existing issue, but can the child be published into the
+listener's accept_q while the listener is being torn down, and then be
+handled before it is fully set up?
+
+The callback holds only bh_lock_sock(sk), while iucv_sock_close() holds
+lock_sock(sk). iucv_accept_enqueue() makes the child visible before it
+sets the child's parent:
+
+net/iucv/af_iucv.c:iucv_accept_enqueue() {
+    ...
+	spin_lock_irqsave(&par->accept_q_lock, flags);
+	list_add_tail(&iucv_sk(sk)->accept_q, &par->accept_q);
+	spin_unlock_irqrestore(&par->accept_q_lock, flags);
+	iucv_sk(sk)->parent = parent;
+	sk_acceptq_added(parent);
+}
+
+iucv_sock_cleanup_listen() calls iucv_accept_dequeue(parent, NULL). That
+function walks accept_q without accept_q_lock and, with newsock == NULL,
+takes any child whatever its state. It then calls iucv_accept_unlink():
+
+net/iucv/af_iucv.c:iucv_accept_unlink() {
+    ...
+	struct iucv_sock *par = iucv_sk(iucv_sk(sk)->parent);
+
+	spin_lock_irqsave(&par->accept_q_lock, flags);
+    ...
+}
+
+sk_alloc() zeroes the sock, so parent is still NULL if the store in
+iucv_accept_enqueue() has not happened yet.
+
+Is that a NULL pointer dereference?
+
+If the parent store has happened, cleanup goes on to iucv_sock_close()
+and iucv_sock_kill() the child, which drops both references. The callback
+then still does:
+
+		iucv_accept_enqueue(sk, nsk);
+		nsk->sk_state = IUCV_CONNECTED;
+
+Would the write to nsk->sk_state then be a use-after-free?
+
+The commit message leaves the case of a SYN accepted while the listener
+closes to the socket-locking rework.
+
+[ ... ]
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261022-b4-disp-b35a9153-v1-0-d74645876195%40proton.me
