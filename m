@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086650;
-	b=CrVwvITmR43zVnhYnTO/af+H/yRxyd/NES3AxoFY0PIwnmjmY8gKryJkRRDZbmGMb7jk
-	 eJnt1pBmEO3Con3uy6x9askwMriPYlxcNfSzP5FjT0ecg34baZdvKjdEJSD8hB1V2I1NJ
-	 HKyNbPWiWMPLgQoDKWg/KNYtcnWT++9x9NJaUh88CdYHQjZ/1mo3ZyTns4lFfWcDjR07h
-	 eOS+934BimXOwfIiwN4C4VNZ93NTn8Jm5InG5KxKodaAANc5KCDyQqNz1/+xra/RuU+2w
-	 ZyMprY2swqPKRhjW9by08H03VetWKmBbNQv+HoAq9r7+xNTLxbxYE0iNfuNsrj691Gg==
+	t=1793086694;
+	b=D/Ov7RGpqL/F9qb6DYuCRerpNLg/0UwfjksjrkOON4oVGPm5kePSzmpwyBixwKKymSoU
+	 2r/fc8xj0RBdW6tcaEeXqxAMJCwt2huEXhzPaythpv+OrPmbfAIclXODDFq2Xq2I5zdwq
+	 57MUNMooONGSRGdkVPJ8Pa3aoe4f27auYOS3ZGXcP+jVPQ01stNa32PP5KkdOT3b7A76s
+	 tccCtk2K+Y5Kw8wusnhRPIPeTTN7DxbWv2/SS7wefNKTgx7r1XrYPVPY2lJ7knlMhWYvu
+	 waRg/dmK2BqRgEGI8QcZ92lHudvsr+w04PerrsuHKZefwISU5mQfWsPKBEZ/g6rZIug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086650;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=2e0MsO9AHXoJdX9UWJnkLnX9r1+Gelx4hH11sNzcLnU=;
-	b=KcjVZMuXmVu0eUtZ8DOHA2TFolKt2Ha/uly1sVkd6NR9yKDd0hyDSLpZpWvjMpNzQgoP
-	 Y8S0hEXyqq6TPVMw7r+M54LtGYpvg5eqnxla39SqfcFFidAZP+gvxcz+MjolO58jpQ43S
-	 17j4nSZIpi3jdotR6iwBkUCUysIDi7eey2GnAQh2ohiY03r1DmALhIvzxuxFDI1WpWFZG
-	 UDFMlIfTLfFxeR04E/UoS3RO8UdEv4oBkTme9nYz7ogxMIeQgukt3R67BMsu8WWXmwvrX
-	 aOYA1p6BtoW7vv3OIAs34jGMLqTO6VMFKaUcML8wnEvOPC2WaJftvFeAggrCyJSMFnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086694;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=DUdFRfw52ywOMQpo+REv/lQY3o2e9igJbUGF/Xyek/s=;
+	b=K/j1S92sYSyTYc+5Hw4CNigigBWUdo2by+JQxpwcsKS71tLTnslZiY4y56wTdTymsu6e
+	 0KlpJ4UJ13iaQk3NgVtNLZTnDsc6Uht3CRIol3EKmgu9F/Ifji04M3liAIPY7g2cee74x
+	 r8X/gYsmwJ7KJTMun4qldqvEiYtIyQ1aK99i3JbQmVNom//7o7QylRq31jkdOEjMxYHP4
+	 ail4uch9Ma18OY748WhdLuZWHlwjzbdbxW8S/R6UMZ4qyz4/3u1+q9odwk0jVXIibXqcM
+	 VPnuFBy7umw85lhlC4MGKJgMyiNr4arb4Lsq2VvoQSwoxI4jAKO7OPnWXHz2lhn39yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LiMiXO05;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=osTUUREs;
+	arc=none smtp.remote-ip=91.218.175.130
+Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDA4606ADA0;
-	Tue, 27 Oct 2026 07:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1594606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:38:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1594606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LiMiXO05
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4E41F031E2;
-	Tue, 27 Oct 2026 07:37:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793086649;
-	bh=2e0MsO9AHXoJdX9UWJnkLnX9r1+Gelx4hH11sNzcLnU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LiMiXO059gYMjJvZr3VzMyWO43KUzF7Wp1TA4eVCncm5L4TF2HvEMMEPlmrQuxURQ
-	 7Qri08L+bSiekRaf8ahClnK+pH/yZZpL66bfaqi16kUFR74WaSNx2fUIW/Io/KjkD1
-	 ptoFnlFXzdZ6iJmcJVCDT6HjPOdbZrBcGF1OCEAtRZC8rilkLipcTQitTev10krH/+
-	 yEzaSwjgtsSruzupiE+YaAzIX0SAbe0kZR8mJGGuXbZ5HwEJ8wGaHcELskV2REmCvo
-	 DM3TfPoLLqL664GbPVq2E7xKldS4wCkDe0z5UijqVodsZ6OmlHX/E5RFNUv1FFWgGi
-	 tUo1gUXxDWqGw==
-Subject: Re: [PATCH 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check
- for overflow flag if SKB allocation fails
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
- max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Tue, 27 Oct 2026 07:37:28 +0000
-Message-ID: <179308664876.3130.13155434112115626633@kernel.org>
-In-Reply-To: <20261025-gs_usb-fixes-v1-3-f74ebbd4da36@pengutronix.de>
-References: <20261025-gs_usb-fixes-v1-3-f74ebbd4da36@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=osTUUREs
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DUdFRfw52ywOMQpo+REv/lQY3o2e9igJbUGF/Xyek/s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793086691; v=1; x=1793691491;
+ b=osTUUREs8npe6SZ+FwdB8ZNj4GojFNVJGwETf0Dd9hSxyDU4PoPQohGX5OjTijckQV+SssS5
+ rNOLRrcIRJ+s4VcCkhU97zM+7ZGa/YQ+ZtFseojUOZ3lrchvGr1kUa2owNPs9LjdbrvKYZ6jzwg
+ 6BJgYimlogXZg4rOs82RbZKM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 73a436c6b722abe4;
+	Tue, 27 Oct 2026 07:38:11 +0000
+X-Mizu-Trace-ID: 73a436c6b722abe4
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be4a7b9e6fso4034e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:38:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwbSowTHK+evG05cIf63s2ebNCQLzGrzUiEIxlderPxvdUf9HBh8QjPv9cdVzTHAPbYJvgan6OrK7+oyzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLevjoK384yTFalNIypGO6ZlVy0PHKw3c/bc8rd5QnT0SCowayn
+	SpNkCgaG3ytV0kDdsaQCdhNKzADZjtxCim72clV+9sWpmU61el0PK2JajWO0UFCKOKfvwl3Cz8s
+	KWye36hUyr8E/jk8hkv1rVc5Z+65a1Xx0sWzWhFdc
+X-Received: by 2002:a05:6512:31ce:b0:5bf:b994:6598 with SMTP id
+ 2adb3069b0e04-5bfc64ebb06mr117765e87.6.1793086687794; Tue, 27 Oct 2026
+ 00:38:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,186 +66,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261026152639.3926498-1-fuad.tabba@linux.dev>
+ <20261026152639.3926498-2-fuad.tabba@linux.dev> <at-mF3Qvq67Nh_v5@kernel.org>
+ <87qzhc8ce6.wl-maz@kernel.org> <at_GYZQr1RIUi2Tf@kernel.org>
+In-Reply-To: <at_GYZQr1RIUi2Tf@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 27 Oct 2026 07:37:31 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTwnGzQ3ycmk+jL+Z8LKSZCBP9fy-CFvFWb18C6xb_xU1g@mail.gmail.com>
+X-Gm-Features: AclHuK8QU5R1ACHMlkVCCkXbAIJslyt5dlAA4mZb-HbR610UB57AMm525lP1-_8
+Message-ID: <CA+EHjTwnGzQ3ycmk+jL+Z8LKSZCBP9fy-CFvFWb18C6xb_xU1g@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: vgic-v4: Don't allocate vPEs for a GICv2 VM
+To: Oliver Upton <oupton@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Raghavendra Rao Ananta <rananta@google.com>, 
+	Eric Auger <eric.auger@redhat.com>, Will Deacon <will@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, 26 Oct 2026 at 21:30, Oliver Upton <oupton@kernel.org> wrote:
+>
+> On Mon, Oct 26, 2026 at 07:55:45PM +0000, Marc Zyngier wrote:
+> > On Mon, 26 Oct 2026 19:12:23 +0000,
+> > Oliver Upton <oupton@kernel.org> wrote:
+> > >
+> > > On Mon, Oct 26, 2026 at 03:26:38PM +0000, Fuad Tabba wrote:
+> > > > KVM can run a GICv2 VM on a GICv4.0 host whose CPU interface supports
+> > > > legacy operation.
+> > >
+> > > I'm pretty sure there's no IP out there that has GICv4.0 and legacy
+> > > mode...
+> >
+> > My favourite space heater, HiSi D05, says otherwise: 64 A72,
+> > GICv4.0. Remember that it is the *CPU* that provides compat mode, and
+> > not the GIC.
+>
+> Well I forgot that one got glued together. Good thing you're on the hook
+> for fixes this round then ;)
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0 (1)
+Can I at least get one of those space heaters for my effort? It's that
+time of year after all... :)
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In gs_usb_receive_bulk_callback()
-  (drivers/net/can/usb/gs_usb.c), both new SKB-allocation-failure…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but in
-  gs_usb_receive_bulk_callback() (drivers/net/can/usb/gs_usb.c) the…
-- [Low] At this commit, the check_overflow block in
-  gs_usb_receive_bulk_callback() (drivers/net/can/usb/gs_usb.c:744-746)…
-
---
-
-can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
-
-This commit changes the alloc_can_skb() and alloc_canfd_skb() failure
-paths in gs_usb_receive_bulk_callback(). They now update the RX statistics
-and jump to a new check_overflow label instead of resubmitting the URB
-directly. As a result, GS_CAN_FLAG_OVERFLOW in the host frame is still
-handled when the SKB allocation fails.
-
-Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
-
-> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
-> index 985d6a9113d96..5687544af99c8 100644
-> --- a/drivers/net/can/usb/gs_usb.c
-> +++ b/drivers/net/can/usb/gs_usb.c
-> @@ -673,8 +673,12 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
->  	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
->  		if (hf->flags & GS_CAN_FLAG_FD) {
->  			skb = alloc_canfd_skb(netdev, &cfd);
-> -			if (!skb)
-> -				goto resubmit_urb;
-> +			if (!skb) {
-> +				netdev->stats.rx_dropped++;
-> +				netdev->stats.rx_errors++;
-> +
-> +				goto check_overflow;
-> +			}
-
-[Severity: Medium]
-The commit message says "first update the dropped RX statistics". However,
-both new allocation failure branches (CAN FD here, and Classical CAN in the
-next hunk) also increment rx_errors. Is rx_errors the right counter for a
-host-side allocation failure?
-
-The kernel-doc for struct rtnl_link_stats64 in include/uapi/linux/if_link.h
-defines the two counters like this:
-
- * @rx_errors: Total number of bad packets received on this network device.
- ...
- * @rx_dropped: Number of packets received but not processed,
- *   e.g. due to lack of resources or unsupported protocol.
-
-In this path the frame arrived intact and only the SKB allocation on the
-host failed.
-
-Other CAN drivers that handle an alloc_can_skb() or alloc_canfd_skb()
-failure count only rx_dropped. Examples are m_can.c, c_can_main.c,
-mcp251xfd-rx.c, kvaser_usb_hydra.c and es58x_core.c. The shared rx-offload
-helper also leaves rx_errors alone:
-
-drivers/net/can/dev/rx-offload.c:can_rx_offload_offload_one() {
-    ...
-	if (IS_ERR(skb)) {
-		offload->dev->stats.rx_dropped++;
-		offload->dev->stats.rx_fifo_errors++;
-    ...
-}
-
-With this change, would memory pressure on the host show up as RX errors
-on a gs_usb interface? Those would look like bus or controller faults, and
-the change would reach stable through the Cc: stable tag.
-
-A minor point: the new lines use netdev->stats directly, while the rest of
-gs_usb_receive_bulk_callback() uses the local stats pointer.
-
->  
->  			cfd->can_id = le32_to_cpu(hf->can_id);
->  			cfd->len = data_length;
-> @@ -686,8 +690,12 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
->  			memcpy(cfd->data, hf->canfd->data, data_length);
->  		} else {
->  			skb = alloc_can_skb(netdev, &cf);
-> -			if (!skb)
-> -				goto resubmit_urb;
-> +			if (!skb) {
-> +				netdev->stats.rx_dropped++;
-> +				netdev->stats.rx_errors++;
-> +
-> +				goto check_overflow;
-> +			}
->  
->  			cf->can_id = le32_to_cpu(hf->can_id);
->  			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the Classical CAN error
-frame handling is still skipped when alloc_can_skb() fails. A little
-further down, after the allocation succeeds:
-
-	/* ERROR frames tell us information about the controller */
-	if (le32_to_cpu(hf->can_id) & CAN_ERR_FLAG)
-		gs_update_state(dev, cf);
-
-gs_update_state() is the only place where controller state reported by the
-device reaches dev->can.state and can_stats (restarts, bus_off,
-error_warning, error_passive). It reads cf->can_id and cf->data[1], and the
-same values are available in hf->can_id and hf->classic_can->data[1].
-
-An error frame can carry a BUS_OFF, RESTARTED, warning or passive
-transition. If one arrives while alloc_can_skb() fails, the goto
-check_overflow skips the state update. Can dev->can.state then stay stale
-until another state change frame arrives and its allocation succeeds?
-
-Some peer drivers update controller state even when the error SKB
-allocation fails. For example, esd_usb.c does:
-
-	skb = alloc_can_err_skb(priv->netdev, &cf);
-	if (!skb)
-		stats->rx_dropped++;
-
-	if (state != priv->old_state) {
-
-The original return, and the later goto resubmit_urb from commit
-68c5724ecd15, also skipped this update. The patch does not address it.
-
-[ ... ]
-
-> @@ -728,6 +736,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
->  		netif_wake_queue(netdev);
->  	}
->  
-> +check_overflow:
->  	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
->  		stats->rx_over_errors++;
->  		stats->rx_errors++;
-
-[Severity: Low]
-This is a pre-existing issue, but at this commit the overflow block
-continues like this:
-
-		skb = alloc_can_err_skb(netdev, &cf);
-		if (!skb)
-			goto resubmit_urb;
-		...
-	}
-
-	can_rx_offload_irq_finish(&dev->offload);
-
-resubmit_urb:
-
-If alloc_can_err_skb() fails, this path skips
-can_rx_offload_irq_finish(). An RX SKB queued earlier in the same callback
-by gs_usb_rx_offload(), or an echo SKB queued by gs_usb_get_echo_skb(),
-then stays on offload->skb_irq_queue. NAPI is not scheduled until a later
-URB completion calls irq_finish.
-
-On the new allocation failure paths added here, nothing has been queued
-before check_overflow, so this patch does not make the delay worse.
-
-The next patch in this series, "can: gs_usb:
-gs_usb_receive_bulk_callback(): add missing call to
-can_rx_offload_irq_finish", changes this to goto can_rx_offload_irq_finish
-and adds a matching label, which fixes the skipped irq_finish.
-
-One part is not covered by that patch: when alloc_can_err_skb() fails,
-rx_dropped is not incremented for the lost overflow error frame. The
-overflow event itself is still counted in rx_over_errors and rx_errors.
-Should rx_dropped be incremented here as well?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261025-gs_usb-fixes-v1-0-f74ebbd4da36%40pengutronix.de
+/fuad
