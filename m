@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092114;
-	b=0ymv5peC2MIsFTTuloJN5GQG/ELvHRJq+mj+HZwWICDC6p3AG6YsaBtImHhqRCIr3rZo
-	 Hj0iwmEsRUzA7VnzLw3+jE4Qcl79DCJMJkyo/jIr4rCMYGqVidytyQGxQD6BHzT85fU2R
-	 XVqgEXv7XRk5UWUTGC1zvtFDseMFu4mUy+gVR1270NNYh8U4A3F87ewmw87kanK2220PZ
-	 FI6KqgVo9JMdUDrx8qVq8CML1dUwuKqZUlNIDXulH4ZTOGg9LwTHcKJYO2Y/EyXm1f51z
-	 zi6uOjwovOvHdmuaKihgSxfYxJP9MX0L2BUZGi6VwDJ0lqhrnmhTV+ZhKieIdHb9W4Q==
+	t=1793092167;
+	b=WEDn1Huj3455mSa096LDSkvGDJ8WrVL/EpDSoyTm7Yc5LMUrVBx+SZTblcAk4DZnpcRw
+	 Wf34sgQsB0R1JvDwAEXlPwbcWWGQkJuWEz+GGKpTv2SQEoQFz+OAELKmvIi+20pGEY7fT
+	 h0KQ85+dDZ77TZd47uCtJ7uN1WF2FU6apknzcLdnmATHafbHM6aIv8Y9hUJHJwbxmlELQ
+	 T91c89HnQWqe5n97LhQzYTFMx4ne8vT+71EmTMB+u7wQt68tnbvh6+6V8qnG7rAxClzh5
+	 +fq5QUKLDRfE/TbMw8AfmUe6EfVmE1JoWL4kzFob3Ce+6SsbnE+ABBYccJRvEHunZSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092114;
-	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Content-Type:
-	 Date:Message-Id:X-Original-From:X-Lms-Return-Path:Cc:Subject:To:
-	 X-Mailer:From:Mime-Version;
-	bh=kDiKhnpR+rplcMQYgHFJZgudNbuciPpjRLcKNluE7GY=;
-	b=GewNfne1IV99/1+JWxbI4qMFVaKe2S8buhAmnlblqfNjxtCw0R5Adm+8+Rum35fgx+jd
-	 XzqqlsLh6ouUvXBlCi+wbj77m1RA3Q+zlSkTH4ER83NKPui2SfPixCu3HRa73xtPR1dKo
-	 OrRRYvFFJ8HrJshbtIRBORf2ghV+zps+zlnpL8zgHpm8BCf2lRUrXJ4p79nNKezaLdu8V
-	 3YBNdVBMg0G7MxMXdDe+rkYtHF9SuWb+Ykh8pu+1l3ZWvRWS+OcMneHup7OMWjr91VWJQ
-	 dbmlgoKWM+sQ6wX8c3KGhTlXeiWDdI17wzZMndbiw+f44SFkR4wM0ULNsMEGjj1KkEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092167;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AIk2sBpIae5R/cCZtioGN9RUgpuSqYR7dSVIP8rFOP8=;
+	b=VBgglhqWjjwJbKWhtFKGvaMPdcInJHTFSiQgGUxwippbxKMCq007C3xwAzdOmYxqtuFo
+	 xs2pcTs3Pnpyto5QSHYKA7vZ0VJgOTwLJMYhasloOVdPjymQ7iGOO7rmvviLUg7nX1kiC
+	 cytNupxNYsBlK3VfvfgOnHQUO4QicihZuIuDhpXy7MqKYLOZax/erR35lcRt+HsC5basa
+	 w76HcWe6d/I2liaPo/ICngl4/Nh1tYQiKucA2nLUIHOxQrkXi0iZFzXXPz77vA4AKoAZn
+	 gvdbOZDgD58QiAZRczApoM5JNZrkhije77LgR67f1z4CvDbAcV1H6relx03JoNenBPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gQGQpjDE;
-	arc=none smtp.remote-ip=209.127.230.115
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902F5606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 902F5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=gQGQpjDE
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793092107; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=kDiKhnpR+rplcMQYgHFJZgudNbuciPpjRLcKNluE7GY=;
- b=gQGQpjDEdaGyWcrFixPWZ8NkgZEsMhzYSUKuftf0r1z1eGIvs9jukVvzAM/BPSIoVJook2
- qZkSBF9hWuafthUcbVHuE6GbYO8Nn5zM3o1dMZliJQGNIEyqeCbPIrZK9QpPhpzf6VuFnb
- gSldzqV2mXGwu3yf7WMRqRuB/AamIlF32vkJVyeYeZDG1vz+eYdKeQ08GmTWzIECOTo9Gh
- A2c2bLySVU+0/HsckPghzPkj7aHQv3DGL32IgQlnjQSRxq1aGOToXwGFq/E5+pW+yytodN
- CmjKeeNlnnz+PTy/po36ABcftXygiwEqIvpJmadl3nps1DGQHcu7YlWYqV3Mng==
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 27 Oct 2026 17:08:09 +0800
-Message-Id: <20261027090809.94126-1-zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26ae06a09+93a4b4+vger.kernel.org+zhaogongyi@bytedance.com>
-Cc: <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: [PATCH] ata: libata-scsi: reject to-device transfers for simulated commands
-To: <dlemoal@kernel.org>, <cassel@kernel.org>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A29606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:09:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A29606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 1746a65ad1e611f19a56ed5b684f684d-20261027
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7f273f4d-e636-4915-a29d-7fa3e3422569,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:2fd54f3372cae43b81d98d84bea134ee,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 1746a65ad1e611f19a56ed5b684f684d-20261027
+X-User: renpanpan@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <renpanpan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 370526470; Tue, 27 Oct 2026 17:09:18 +0800
+From: Panpan Ren <renpanpan@kylinos.cn>
+To: takashi.iwai@suse.de,
+	perex@perex.cz
+Cc: alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	renpanpan <renpanpan@kylinos.cn>
+Subject: [PATCH] ALSA: usb-audio: Fix card name for CVT Touch Device (1ff7:0f33)
+Date: Tue, 27 Oct 2026 17:09:13 +0800
+Message-Id: <20261027090913.37647-1-renpanpan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,87 +68,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-ata_scsi_rbuf_fill() emulates commands that only return data to the
-initiator (INQUIRY, MODE SENSE, READ CAPACITY, REPORT LUNS and
-MAINTENANCE IN).  It builds the reply in a kernel buffer and then copies
-it into the request's scatterlist without looking at the transfer
-direction.
+From: renpanpan <renpanpan@kylinos.cn>
 
-The scatterlist is built from the user buffer by the passthrough paths
-(bsg/SG_IO), which derive the data direction from the transfer lengths
-supplied by userspace.  A request can therefore carry a data-in command
-while declaring a to-device transfer.  The buffer is then pinned for
-reading only.  In the observed crash, an anonymous VMA covered the
-buffer address, but its page was not populated; the read-only pin
-resolved to the shared zero page.  Copying the reply into that
-scatterlist attempted to write to a read-only kernel page:
+The CVT Touch Device (1ff7:0f33) is a USB composite device (HID + UAC
+audio). Its iProduct string "Touch Device" is generic and does not
+identify the audio function. Windows names the audio function
+"MAXHUB Speaker" from the UAC OUTPUT_TERMINAL iTerminal descriptor.
 
-  BUG: unable to handle page fault for address: ffff888005140038
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x0003) - permissions violation
-  PGD 7d00067 P4D 7d00067 PUD 7d01067 PMD 80000000050001a1
-  RIP: 0010:memcpy_orig+0x68/0x140
-  Call Trace:
-   sg_copy_buffer+0x1e2/0x250
-   ata_scsi_rbuf_fill+0xe6/0x280
-   __ata_scsi_queuecmd+0x12e4/0x1580
-   scsi_queue_rq+0x1ff7/0x33d0
-   blk_execute_rq+0x1c5/0x390
-   scsi_bsg_sg_io_fn+0x3bc/0xb00
-   bsg_ioctl+0x3ef/0x550
+Add a quirk entry to override the card shortname to "MAXHUB Speaker"
+with QUIRK_NO_INTERFACE to preserve normal stream and mixer creation.
 
-The faulting address falls inside the kernel rodata mapping and matches
-empty_zero_page (Kernel rodata 05000000-05dc2fff, empty_zero_page at
-physical 0x5140000), which confirms the reply copy attempted to write
-to the shared read-only zero page.
-
-Even when the pinned page happens to be writable the reply silently
-corrupts the user buffer, since it was not mapped for writing.  Reject
-to-device transfers for these commands with an ILLEGAL REQUEST sense
-instead of copying the reply into them.  This is the same class of
-problem as commit 5da5231bb478 ("libata: if T_LENGTH is zero, dma
-direction should be DMA_NONE"), which rejects inconsistent data
-directions for ATA pass-through commands.
-
-Reproduced on 7.3.0-rc6 with the syzkaller C reproducer against an
-ata_piix disk (/dev/bsg/0:0:0:0): the unpatched kernel panics on every
-attempt (4/4), while with this change the request completes with CHECK
-CONDITION and the reproducer survives 5/5 runs.
-
-Standard-length CDBs behave the same way.  A correctly directed 6-byte
-INQUIRY still completes normally, while a 6-byte INQUIRY and a 10-byte
-READ CAPACITY(10) declared as to-device are rejected with CHECK
-CONDITION; on the unpatched kernel those same requests silently write
-the reply into the caller's page (the transfer has to be page aligned to
-take the zero-copy mapping path, otherwise it bounces through a kernel
-buffer and nothing is visible to the caller).
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+Signed-off-by: renpanpan <renpanpan@kylinos.cn>
 ---
- drivers/ata/libata-scsi.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/usb/quirks-table.h | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index b3666519b..8b65b896e 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -2009,6 +2009,12 @@ static void ata_scsi_rbuf_fill(struct ata_device *dev, struct scsi_cmnd *cmd,
- 	unsigned long flags;
- 	unsigned int len;
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index dd02c6294edf..9a1dbbb1d1f2 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -4133,6 +4133,27 @@ QUIRK_RME_DIGIFACE(0x3fa0),
+ 	}
+ },
  
-+	/* A data-out request may contain pages pinned without write access. */
-+	if (cmd->sc_data_direction == DMA_TO_DEVICE) {
-+		ata_scsi_set_sense(dev, cmd, ILLEGAL_REQUEST, 0x24, 0x0);
-+		return;
++/*
++ * CVT Touch Device (1ff7:0f33) is a USB composite device with HID + UAC
++ * audio interfaces. The device iProduct is "Touch Device" but Windows
++ * displays the audio function as "MAXHUB Speaker" (from iTerminal).
++ * Override the card shortname to match the Windows display name, while
++ * keeping normal stream/mixer creation (ifnum = QUIRK_NO_INTERFACE).
++ */
++{
++	.match_flags = USB_DEVICE_ID_MATCH_DEVICE |
++		       USB_DEVICE_ID_MATCH_INT_CLASS |
++		       USB_DEVICE_ID_MATCH_INT_SUBCLASS,
++	.idVendor = 0x1ff7,
++	.idProduct = 0x0f33,
++	.bInterfaceClass = USB_CLASS_AUDIO,
++	.bInterfaceSubClass = USB_SUBCLASS_AUDIOCONTROL,
++	.driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
++		.product_name = "MAXHUB Speaker",
++		.ifnum = QUIRK_NO_INTERFACE,
 +	}
++},
 +
- 	spin_lock_irqsave(&ata_scsi_rbuf_lock, flags);
+ #undef QUIRK_AF16RIG_CLOCK
+ #undef QUIRK_AF16RIG
  
- 	memset(ata_scsi_rbuf, 0, ATA_SCSI_RBUF_SIZE);
 -- 
-2.39.5 (Apple Git-154)
+2.43.0
+
