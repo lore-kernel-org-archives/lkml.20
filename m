@@ -1,91 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114832;
-	b=nKCqMlzEz21UT5K8bNBXuzv4Udu/liFYVtUDV7K9OlfDCefMNPieJpy5dhdalls8o9Y1
-	 FpaGtvbI1A09Wbqs5qXkWNe4YBm1X74VVktnfIiOGvkFc9p/nQVwIJTeLYB07GHoz/H0a
-	 zbu3pkjjmr7rYfGAYbStu8p679EYkxfuY+YH6Kv14M5ijqwkqsEckH2JPV5Nxzf9exknR
-	 CEeM6yDNd4whc1lTitIBN+d7jV07DxSLvn9HtBfpYtB+ZuyBwwzLQ6AbSHhGs8HEL0Cug
-	 ZZ6FAnoJVPB+PklYWqVyakKU0/jkIH4V5awHuuCFJc88XPmdksK4B9Gz7ym5+o+jnCQ==
+	t=1793114865;
+	b=3LfL330DcVz+ufeEvspRj6AlBpimRfVxGZwnCC+LeKbSbKFLnB5zNMmFtxeHe45AjzuH
+	 yJVmJMKBvsYJ9xmlVKDMqv1MJEuCNPyfgFq31BBEwAJITORHY135R3aIM1XHsuXPm+LvQ
+	 YTw4sS/XQBJkJwLB5fv2Gyan3/VEt8PYC0zUmaj/N8wuyBLIzTVW87u3yAcKXuv6fymeT
+	 b7708cFnbG2q9uqiEuh1OJ8sLxQeV4xyPL3+peOhXjchaESu7sGdI8XyeY3fq8qad/nQk
+	 W4CIqkA+f3eGLPR2wl+81vCKwk5BO7dHZwQnSrKwRYvFEGiijns5cqRnBnAqcbmrJQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114832;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=hcVetJ3j4Yw0L4vaeF4Sin3e+Kqt87+IIjhgJbDSvlc=;
-	b=qptztRuj5LMPhhapzzmW6Vj9B5CGRn3yyFTbwAdI08+BExY4l1Gxv1ExdSypdoP/YCM0
-	 Ol+xmRkHdDY1b3W4eDVKUXnJyyL4Vsler68xdXCap6OuRrtfP2mEx/6ugwa0KWpLcrtHg
-	 RLoErCNWspvj9/At+DMcdKl0k7zBafIVFtr6SM8pbhHsRo9EUzYquwkmPCTCO7XFqYhDG
-	 UxsqnghAGVyUAVVt8h4j4txi/Q+hLhleCQUntlIUN3vqKci7dcCZBQEIjsbsLguawhv8s
-	 WQmGMr1gRcQ8NGfizNXsVUdnFo/gclJqIhgeH0fUMB43Tga2kW8Qq2e+CGYu9GewuuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114865;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=uqwtnNOMKZ62ohb4pCxSL5wBGLnxx/MLeyk7MYe67bc=;
+	b=S30cuFHxcgUDuMc6uqfQKWVPy7whQqD2oYo8mHHyGcmoxkCC7RoT3CNyb1gSYlKX3tFl
+	 IKkM7LbGRKcFERJ5m68UK57yvl4K4ywugX5DO4NpBtmXw3hStqi8/q3MSJbRxmReccfD/
+	 u4ARp8A4DVvMlIQyNrUMMzy/rmQiODTAUb+NpltO9AIg36i7vR3JKqPgvmup81W8ZStZ4
+	 KvTzf/spKOfWyreR3ZqnX1ciXOI4bOJVM/3bzaBm+i3ZtsFynzBWbugs5lViK2evllxOX
+	 0cPBgDjOFhlsszpT6VGBSLZE6wbprSAvKMynVQacSyDluhw0lIdz7vMPjzEJ9rI6kfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FmxUwmAs;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zx1yak+H;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9D8606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:27:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E9D8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7E7606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:27:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB7E7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=FmxUwmAs
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id LhouxGAtDc3XsLj4yxhQPw; Tue, 27 Oct 2026 15:27:12 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Lj4xxRI5VH2S8Lj4xxH8IU; Tue, 27 Oct 2026 15:27:12 +0000
-X-Authority-Analysis: v=2.4 cv=Mfxsu4/f c=1 sm=1 tr=0 ts=6ae0c2d0
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=xkLUNt4dAAAA:8
- a=zk4-lHRcAAAA:8 a=X3a0BiUdAAAA:8 a=_jlGtV7tAAAA:8 a=OpKgjLFNguK3uynLL7kA:9
- a=CjuIK1q_8ugA:10 a=A2EApc-QTtVVSfvlwUcc:22 a=7cv85riZL9-k45RWW8P6:22
- a=aWu3muFgq6otJbhCXpL5:22 a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=hcVetJ3j4Yw0L4vaeF4Sin3e+Kqt87+IIjhgJbDSvlc=; b=FmxUwmAs7mF4dF4b3MQBl8bdVb
-	tiCn1dYzKJ0/5zMuy3Dkl5KtJ1CdWrSMhaagLq87Gx1uPeduOFJAZZReNPm7krFrp0E60KhUlLIDc
-	70bByHiXUwq6iK+SuZfP+qFgtQERObuDjcXRMpBCSrAB+a4BQNBCvwyL7kA0dqv78KyQ6qQWLmyRA
-	Hq42mLTB+P7mkwhAHTZEbxhOIJ8RQ+dr6VZLeMOToBzgTx990t+r2R8igmo3YeZYI720aXTIoEzEs
-	LnG2PVoLpX07aKgbwkJl8Q9l2uD8LdzNHoRsOylbfZGPe9Q4HIZozVgI9EWjY8N/Ouib2/Lj2x8ET
-	IhcPGRCw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:41180 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLj4v-00000000Fjr-01VO;
-	Tue, 27 Oct 2026 20:57:09 +0530
-Date: Tue, 27 Oct 2026 08:27:07 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Primoz Fiser <primoz.fiser@norik.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Support Opensource <support.opensource@diasemi.com>,
-	Lee Jones <lee@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	mfd@lists.linux.dev, linux-watchdog@vger.kernel.org,
-	upstream@lists.phytec.de, andrej.picej@norik.com
-Subject: Re: [PATCH v2 3/4] watchdog: da9062: Add support for dlg,wdt-sd
- property
-Message-ID: <2365680e-3319-4ee1-90f4-33041e8f701b@roeck-us.net>
-References: <20260924065044.368341-1-primoz.fiser@norik.com>
- <20260924065044.368341-4-primoz.fiser@norik.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zx1yak+H
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91c75be77c4so56516d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:27:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793114864; x=1793719664; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uqwtnNOMKZ62ohb4pCxSL5wBGLnxx/MLeyk7MYe67bc=;
+        b=Zx1yak+HP4vRh1a7K2NP1uGeEoVYSv5PWBRg8nmWiinXpO6HtYk19YC0TO2GKJUQpG
+         AbHXCPy5c9GRnlxzBNGwoNDkjI8KfLr1z/1gO1G+XNPdZAw8/IG1XwI30jKNNg4ldjOy
+         sh+rPdeZbxz03X42r07RMAnnLSDscRiB92jAOrtz1RZ00JROwLooZP3BvYRFfgusczZr
+         n/Et6gNKJv8yxxssxKLyODZIDYq9IquF9P6ip0XYT9P33OlaM/utbO0z/HHvNmqt0iXa
+         wJa8DegfBACV2xpO+Lnsn7vCgEhJ6k9a4/7Beoa+fbbcHKsihGspDNfqO112CHzj8A0v
+         kZGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793114864; x=1793719664;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uqwtnNOMKZ62ohb4pCxSL5wBGLnxx/MLeyk7MYe67bc=;
+        b=O8QtIKzoKA/ht1v9S6XUiPHV3+oSnFi5VhfHxbu5Q6DNg5K5p5nIpoTqppG0PR20fZ
+         WewhuBpoaNFBkRJ+BQlzBEbDjEEm/ZEJj4OBS+VXOOKRZc+WdUJzrnL5OUToYqKqytWn
+         jsWAz24Ff96fGx2xtJ7U0XO0hgaU3JMM9XOz765fLN8m0IShJDKLqkeJM6ZWs6QM3+Gk
+         +TEh+KXoql6wWtnP1FxmpTg3/8TdRsZNg6Pa3qLkXlann6PaeFRs4MPrPY0JGpBEp3qN
+         qHnToCW1euIDkQ7yzp8DM588SeRLDmmWtoEQwDS5IebIhZvcCAqp3WWjhTdGWEsna3TF
+         3QBg==
+X-Forwarded-Encrypted: i=1; AKwUvBzqbAvJdD6UZIURxTM9FEnkGj6fiVY9wh6vLIFPJpy0qi8B8OBDvdchRRYTkGPofV00e62IRg8GrqoaIh8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImtig/iEjzaClkq/GEqt43atLSANyoT5eK3QUD8K3mlcKXzNOQ
+	NEKwto0aextAiS91moJjf5IDR51UnG6UfjVziTeSLBIddVf05fLw2nrPtmdIuQ==
+X-Gm-Gg: AYBFou08adVbhbaAkWDDK4oPExUMStR2dishi13YmEfbZPmx4F8K6+EIR2W1AJHgSnz
+	7I2IDQ/1Hi0qwIomGHQHmO2MNa2uHBnB3x1ln857OkRvj6xSj8Bh3igppBYZlFILW/27pbRJlW5
+	qdSLEHNzltIKyWRZrGIChU/3dmVT9FQGJkYLrzKrjW5kmQS2af3z37B34O7fsBfNBzJbVMepIft
+	vf5c4h2lq9p2Y8qBQbruSi+9eLPbtwUM/ynOtPaPoqDROj21anO9D5owhcvo78hjPrXArze6YwG
+	3zun8JJrjRmoVsnldWCRu5cD0IXnBTTeD9LMsp70HSSXTZgHmc6wvA/Mlu+/aNVUcC3qe6z9ltJ
+	+4vbdoldflXxi7T5il0Ifdm7pWPtx/uNUxCZoUdL+3w6g8sUygsNUEIkjW+9ANUtAfs0sEyGshN
+	Ub7wdROVWH9K2y8DIhiLqz/zCz+UJUDl9SXYmwdzAkyBX9GObJpMhdLvI2ueoEyCD3P1+7ss/oF
+	O45lSVIFroOUtFjtSE07fO9XxU5UG2J/3l4dAIdY70=
+X-Received: by 2002:a05:6214:5093:b0:91c:7673:a417 with SMTP id 6a1803df08f44-91c7673a830mr20960306d6.50.1793114863756;
+        Tue, 27 Oct 2026 08:27:43 -0700 (PDT)
+Received: from localhost ([2620:10d:c091:500::4:1ee2])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c6e20ba4fsm27571496d6.14.2026.10.27.08.27.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 08:27:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,56 +86,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924065044.368341-4-primoz.fiser@norik.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLj4v-00000000Fjr-01VO
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:41180
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 24
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGhzR6xUyZ+ePq2eSulS87LI0UKYqs0phodhnXAO2q6hn9AHtwEun8d692MEBunGx/vK3RBjqjOA0SxcPhiSI+NdAVAs8gX3qrb9pPezUpYpb3OWjDr5
- CGjkf6DXSkLcB7rrcVo9Am94pjvogHjDvG2im75HdorJqEHEvFNQqAIlypWzyypBDH6CqvoYXQ5UUXS4dKbj+lEJf8lFGjVNOLXC6HqYgGTyLzu/KW2V/9MU
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 27 Oct 2026 11:27:42 -0400
+Message-Id: <DMFQ63T8HLVV.3L1SY71TO7GHU@gmail.com>
+Cc: <netdev@vger.kernel.org>, <borisp@nvidia.com>, <saeedm@nvidia.com>,
+ <leon@kernel.org>, <tariqt@nvidia.com>, <mbloch@nvidia.com>,
+ <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+ <kuba@kernel.org>, <pabeni@redhat.com>, <daniel.zahka@gmail.com>,
+ <willemdebruijn.kernel@gmail.com>, <horms@kernel.org>, <shuah@kernel.org>,
+ <cratiu@nvidia.com>, <raeds@nvidia.com>, <rrameshbabu@nvidia.com>,
+ <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <bjorn@kernel.org>,
+ <dtatulea@nvidia.com>
+Subject: Re: [PATCH net v3 2/4] psp: support ipv6 extension headers in
+ psp_dev_rcv() decap
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: "Todd Bert Freed" <toddfreed@meta.com>, <netdev-bot+sashiko@kernel.org>
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261023234640.1459291-3-toddfreed@meta.com>
+ <179288570143.3134.8925369868949382653@kernel.org>
+ <CADh2yMyYS-PWP4912En9D6B9up6Kz-hnCthNkWot+e7N8-q7ZA@mail.gmail.com>
+In-Reply-To: <CADh2yMyYS-PWP4912En9D6B9up6Kz-hnCthNkWot+e7N8-q7ZA@mail.gmail.com>
 
-On Thu, Sep 24, 2026 at 08:50:43AM +0200, Primoz Fiser wrote:
-> From: Andrej Picej <andrej.picej@norik.com>
-> 
-> Implement a method to change watchdog timeout configuration based on the
-> "dlg,wdt-sd" devicetree property. Setting the WATCHDOG_SD bit enables
-> SHUTDOWN mode, and clearing it enables POWERDOWN mode on watchdog
-> timeout.
-> 
-> If no devicetree property is specified, the WATCHDOG_SD bit stays in the
-> default configuration, not breaking behaviour of devices which might
-> depend on default fuse configuration.
-> 
-> Signed-off-by: Andrej Picej <andrej.picej@norik.com>
-> Tested-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-> Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-> Acked-by: Guenter Roeck <linux@roeck-us.net>
-> Reviewed-by: Guenter Roeck <linux@roeck-us.net>
-> Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+On Mon Oct 26, 2026 at 6:05 PM EDT, Todd Bert Freed wrote:
+>> [Severity: High]
+>>
+>> The PSP ICV doesn't cover the outer IPv6 header or its extension headers=
+.
+>> An on-path attacker could take a captured PSP packet, insert one of thes=
+e
+>> headers, and set saddr to an address they control. This assumes the
+>> device authenticates such packets, which this patch's premise implies.
+>>
+>> Several of those handlers reply with an ICMPv6 error that quotes the
+>> packet. With default sysctls, this happens for an unrecognized routing
+>> header type (type 0, for example) with segments_left !=3D 0:
+>>
+>> Before this patch, all of these packets were dropped at the is_udp check=
+.
+>> Forwarding the decrypted skb itself looks blocked by
+>> sk_validate_xmit_skb() ("unencrypted skb with no associated socket -
+>> dropping"). That leaves the ICMP error path as the open channel.
+>
+> Agree with this finding.
+>
+> Ok, this puts me back in mind of the approach in v0 of this series ; just=
+ drop
+> packets with extension headers. Actual support for extension headers can =
+be
+> done separately from this fix.
+>
+> pw-bot: cr
+>
+> -Todd
 
-Applied.
-
-Note that this depends on the mfd patches making CONFIG_I writeable. Those
-patches have been accepted but are (as of this writing) not yet upstream.
-Assumption is that both this and the CONFIG_I patches will be applied
-with the 7.5 merge window.
-
-Thanks,
-Guenter
+Like Jakub points out, this equally could affect tls offload. We need to
+be careful with any features that can result in device-decrypted data
+being sent back onto the network. Another gap that exists currently is
+xdp tx or redirect. That would also affect both PSP and TLS offload. I
+think we should try and make these features work with crypto offload,
+rather than building up more and more defensive checks.
