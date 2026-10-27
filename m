@@ -1,74 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109619;
-	b=ZbIg4MUxIXDEr90CWJNmXN9ZrFhaBGYjX6YRlNNOfn6VIa1JtlnsrT5jcB/4SFhnqirK
-	 eS5ji1BeGH64gea1liDaRFuNToH7G5WlnVODweKIzK8zHUi2/pgphdgboOIZ29dycDUgT
-	 witi5viw++HUYWSMUHS0fZqopkGs2BXrGAH2yqNHH6knLMT7hZ+fJRbM8VoQs0POatfsK
-	 eGB97ndyzo/JWYRdeVvBwBPR5Ii57fQv5xZVio61o7i3iPcSnfyMYswL49u972CHm4nD6
-	 RnAZpALUvtTdSZIInVSuoNTvEeL6z4Z/uzYRJGEOPe5h7S4nuuwp+4/ZH0QUeBhiMlQ==
+	t=1793109732;
+	b=X7tjIR4menxo2MzJLoveNkpKNK1js92+csg4liVnhreiAf1yOhkQ6/2W0BmKG5q1fYGd
+	 SxUNMUoiogGRG3A5+7eHpRJIbLqS6dQhS06UEVm5Pjm9q4tVd99i7BOc56zsJDN9KRI/m
+	 VOZ5lIwXVxEuwxVWK/PaXSCa23Gui7M/OnuHS2k3icqxPpjtCDivsE153NDuTBHeLEhe4
+	 SGv9bks4SfrahoXvHNahvSKpCieDkTTZ+zGUrECh/ZVDCalBaB7NtWzOd7krhPKKXtMMA
+	 W8hI6bS7jZAkHrEPvhYTlES9s+YEO7FrKFsxx6FDV2gqVfL7gyG+EJMUCzfOsjH5rUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109619;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=iAMT5ErMlUqsPBFer4Lu1BUk2YLaErYsWfjiGygyJKk=;
-	b=U5VrGgQiuxdIEhvaqjjFv4WUw54HIyqFEcvvVDCuITHYRXPzfEaG5NjKqP+0R0se07xJ
-	 zr764flDByH+jgrpnndYBdD5o4/tOpZ+uYsBcIm61jm0a+ZtO/8bbjMA903WS3qhUsJQa
-	 x11In7ZGfW3j1Q2wTwlnGCzmCTIj4N3XuGsp3tzcVemym9Dkkh8OV2pD7YveoDAY2oaaw
-	 AuxgYEyXrjiFecwq/1aWIq6eYJ+F6vJGKDKFthihC5AsovUH3QhaoE5hM+5INCiKnzpQ3
-	 xAnL8Tgm5VuDQe/+WJJQVZOlNPqASJm/cSXTzZwZNiC38XqD3uHE0DSWbytbq5sMCzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109732;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:User-Agent:MIME-Version:Content-Type:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=vf4Ao8tnzx7MRA/wyLkcBxzQd6bdSmV+kWQgdB86Vec=;
+	b=aeb18MvcWCyeWUecEpYpL7dGYuLkK4usOaXEofxBjuvkUQKsgAxFMNos0pRL8V/uTIgX
+	 ICuQdc+L397QY6TA9EtBY9PiQLkhdafExO3Hmf1+d02RTon1d5C0wxJECSm/hB3rMAQ5F
+	 x/5Tu002Gw07irWrEqU3DXFnDe7lJpewUn2BjOSa3GoQV08mvO1rTwJ2HNeW0XdkvZBUZ
+	 LCpWx7UhnV6TWAtirBQN5XCe649AlQCJeBJAjH4/EMRcS+VsFohg/7sh0LAQShdF5TBX0
+	 11VpRfuaP78ECinmZkMxJ573HHlcsLtgnfnmO1WXkOyHntkhEh9P/763kWwQptC4LCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nySFIt1T;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=D0qD5mHd;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cXJsDfAl;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=D0qD5mHd;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cXJsDfAl;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611E0606A326
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:00:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 611E0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54877606A31B;
+	Tue, 27 Oct 2026 14:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54877606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nySFIt1T
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2eaf8ea208bso1180585ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:00:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793109617; x=1793714417; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iAMT5ErMlUqsPBFer4Lu1BUk2YLaErYsWfjiGygyJKk=;
-        b=nySFIt1T1/LDS5cuBqpUt5XPsI3gbP1orHudosidwc1ad00RKrXS0AQNr7Ix776QIy
-         9ltoBA3d03Equ04bcydJxXI6ENEujvWCErFjqyVWvgQIIMIH2W1dTL+maLt350gWYsPK
-         OPO0Pq4fHGSPCDAXT+/WPMiF+6sL/aXFkJfYZ0IFqhSdJq28X+kIhXPRSvqBLnVpfroM
-         rP2iAoHSAUaq/tCREBD3QoJ6ElJVLAlxo56jNGymoHI0QT/ld1npmaxhhtug/PM6lESU
-         WDPKdMbr/FOA3aC70jfVXm4GrLrSWvAudqeRequF0dJM9uz7Y3T/3NGOoDfmBQMBGDez
-         fYoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793109617; x=1793714417;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iAMT5ErMlUqsPBFer4Lu1BUk2YLaErYsWfjiGygyJKk=;
-        b=O1cbkWe+Od71i8tlVb98YFhxNrkXt9nnu/pBFJxhEaEQqi+DZpxnuIT8asNeLbQB5W
-         R0rbE8c3dWgDbq9SOZLaERBCx2hpXtNbP2rbiNol4hcqJ/Jr5AD0u5v/35mLKbgAwUSR
-         nivq4/ytQqgazMpCOjjYzmZJN41Kcq11K7akwok4RLcbmKknCz/8WeVg5D4I44iF7k6R
-         ybUC1oaJ8M8nAjo2TjE/qfrxotrc2oQPsZGrBSBZxwMxhMQAUqnPhA7mdwz6nb4rI5T9
-         3DWw+FWUD7U/u6Ur8kJWOrzh+YwzFdjaQv82wTKH0hIOCtQCtofYsoWV+aFLBqzhU4sh
-         mZdA==
-X-Forwarded-Encrypted: i=1; AKwUvBygy240wkrBMUpas6tmqVkapqGe3tc5+It4Z2OnThPgDnuM7vQfeBAS7IcxwO5NVlCQB8RDOXf1VV3Xajs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLURnhzziAmRApSCHAeP18H3wiGWILOLwB156x3H5xHHnZMBq/x
-	y5D/sA9G4h7u87Ez54eHODKANanfhj93Zw6siuc9QpFSRM61gN/P2CSsNiE0vH7f33gZZcvJ8RZ
-	KQML+iQ==
-X-Received: from plvx8.prod.google.com ([2002:a17:902:9a48:b0:2e8:410e:b193])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ecc9:b0:2e6:c39:b25b
- with SMTP id d9443c01a7336-2ea9c6c835cmr77726895ad.14.1793109617334; Tue, 27
- Oct 2026 07:00:17 -0700 (PDT)
-Date: Tue, 27 Oct 2026 07:00:16 -0700
-In-Reply-To: <20261026224305.1254-1-hdanton@sina.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=D0qD5mHd;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cXJsDfAl;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=D0qD5mHd;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cXJsDfAl
+Received: from pobox.suse.cz (unknown [10.128.32.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 603D821EE4;
+	Tue, 27 Oct 2026 14:02:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793109728; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vf4Ao8tnzx7MRA/wyLkcBxzQd6bdSmV+kWQgdB86Vec=;
+	b=D0qD5mHd3eRsZRbNGpvxUBPECmeVWS2yGLxMJXd7iEA6o6rD0iw1w0qXpzlfJsov7Uz6c9
+	6KFLEk9ZEpFMZM8cG+onwNXuM2jl/rSB7DnBjZaKRlCUPz4lwlKsE3AUUId4KYdvdD8v7i
+	4qzORuddAsNA6Py/CAG8UTtVUg1ZIyw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793109728;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vf4Ao8tnzx7MRA/wyLkcBxzQd6bdSmV+kWQgdB86Vec=;
+	b=cXJsDfAlMNGp5xm9URB0rO94no8sS1E8o7ne+6r71Inyab9o2iqUn9Ux3OJ/Yu3kUWBe3d
+	r85z91iF1cfwoABA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793109728; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vf4Ao8tnzx7MRA/wyLkcBxzQd6bdSmV+kWQgdB86Vec=;
+	b=D0qD5mHd3eRsZRbNGpvxUBPECmeVWS2yGLxMJXd7iEA6o6rD0iw1w0qXpzlfJsov7Uz6c9
+	6KFLEk9ZEpFMZM8cG+onwNXuM2jl/rSB7DnBjZaKRlCUPz4lwlKsE3AUUId4KYdvdD8v7i
+	4qzORuddAsNA6Py/CAG8UTtVUg1ZIyw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793109728;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vf4Ao8tnzx7MRA/wyLkcBxzQd6bdSmV+kWQgdB86Vec=;
+	b=cXJsDfAlMNGp5xm9URB0rO94no8sS1E8o7ne+6r71Inyab9o2iqUn9Ux3OJ/Yu3kUWBe3d
+	r85z91iF1cfwoABA==
+Date: Tue, 27 Oct 2026 15:02:08 +0100 (CET)
+From: Miroslav Benes <mbenes@suse.cz>
+To: Petr Mladek <pmladek@suse.com>
+cc: Harry Hsu <x90613@gmail.com>, jikos@kernel.org, joe.lawrence@redhat.com, 
+    jpoimboe@kernel.org, linux-kernel@vger.kernel.org, 
+    live-patching@vger.kernel.org, sashiko-reviews@lists.linux.dev, 
+    shuah@kernel.org, song@kernel.org
+Subject: Re: [PATCH v4 1/5] livepatch: Fail object initialization on duplicate
+ patched function
+In-Reply-To: <attsXfOPYrprACJw@pathway.suse.cz>
+Message-ID: <alpine.LSU.2.21.2610271459550.28401@pobox.suse.cz>
+References: <alpine.LSU.2.21.2609181452160.21788@pobox.suse.cz> <20261001043228.74946-1-x90613@gmail.com> <attsXfOPYrprACJw@pathway.suse.cz>
+User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,124 +100,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <6adf2939.67317f00.38c4bc.00ae.GAE@google.com> <20261026224305.1254-1-hdanton@sina.com>
-Message-ID: <auCucDdZb8mig7UZ@google.com>
-Subject: Re: [syzbot] [kvm?] WARNING: locking bug in __refill_objects_node
-From: Sean Christopherson <seanjc@google.com>
-To: Hillf Danton <hdanton@sina.com>
-Cc: Boqun Feng <boqun@kernel.org>, 
-	syzbot <syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>, syzkaller-bugs@googlegroups.com, 
-	Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
-	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_COUNT_ZERO(0.00)[0];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,redhat.com,vger.kernel.org,lists.linux.dev];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[]
+X-Spam-Score: -13.30
 
-+slub folks
+On Fri, 23 Oct 2026, Petr Mladek wrote:
 
-On Tue, Oct 27, 2026, Hillf Danton wrote:
-> Ask the locking people to shed light on the warning.
-
-get_partial_node_bulk() is waiting on a non-raw spinlock while in hard IRQ context,
-and it looks like __refill_objects_node() would do the same later on.  On PREEMPT_RT,
-those spinlocks become sleepable locks, which is what triggers the splat.
-
-The alloction coming from KVM-as-a-guest code is GFP_ATOMIC, so I think that wonky
-code is fine.
-
-> > Date: Mon, 26 Oct 2026 03:19:37 -0700	[thread overview]
-> > Hello,
+> On Thu 2026-10-01 12:32:28, Harry Hsu wrote:
+> > On Fri, 18 Sep 2026, Miroslav Benes wrote:
 > > 
-> > syzbot found the following issue on:
+> > > Could we also check prev_func/func->nop in the check in
+> > > klp_init_object_loaded() and have a pass if true?
 > > 
-> > HEAD commit:    c03c1a14507d Linux 7.3
-> > git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=128d8ca5580000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=f11512d1e5878ba5e60e
-> > compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=168d8ca5580000
+> > Thanks for the suggestion.
 > > 
-> > IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> > Reported-by: syzbot+f11512d1e5878ba5e60e@syzkaller.appspotmail.com
+> > Yes, I've updated the check to skip the pair when both klp_funcs are
+> > nops. Two nops added by klp_add_nops() for replaced aliases are
+> > interchangeable, so an atomic replace patch that inherits nops for
+> > __do_sys_fork and __x64_sys_fork from two previous patches now loads
+> > fine. A non-nop func colliding with a nop (or another non-nop func)
+> > is still rejected, since the nop would land on top of the real
+> > replacement on ops->func_stack and silently disable it.
 > > 
-> > =============================
-> > [ BUG: Invalid wait context ]
-> > syzkaller #0 Tainted: G S                 
-> > -----------------------------
-> > syz-executor177/6041 is trying to lock:
-> > ffff88801d040618 (&n->list_lock){-.-.}-{3:3}, at: get_partial_node_bulk mm/slub.c:3831 [inline]
-> > ffff88801d040618 (&n->list_lock){-.-.}-{3:3}, at: __refill_objects_node+0x104/0xab0 mm/slub.c:7279
-> > other info that might help us debug this:
-> > context-{2:2}
-> > locks held by syz-executor177/6041: 1, last CPU#1:
-> >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: srcu_lock_acquire include/linux/srcu.h:198 [inline]
-> >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: srcu_read_lock include/linux/srcu.h:305 [inline]
-> >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_read_lock security/tomoyo/common.h:1112 [inline]
-> >  #0: ffffffff9090b438 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_check_open_permission+0x169/0x3c0 security/tomoyo/file.c:772
-> > stack backtrace:
-> > CPU: 1 UID: 0 PID: 6041 Comm: syz-executor177 Tainted: G S                  syzkaller #0 PREEMPT(full) 
-> > Tainted: [S]=CPU_OUT_OF_SPEC
-> > Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > Call Trace:
-> >  <IRQ>
-> >  __dump_stack lib/dump_stack.c:94 [inline]
-> >  dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
-> >  print_lock_invalid_wait_context kernel/locking/lockdep.c:4874 [inline]
-> >  check_wait_context kernel/locking/lockdep.c:4946 [inline]
-> >  __lock_acquire+0xfcc/0x1f40 kernel/locking/lockdep.c:5238
-> >  lock_acquire kernel/locking/lockdep.c:5942 [inline]
-> >  lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
-> >  __raw_spin_lock_irqsave include/linux/spinlock_api_smp.h:155 [inline]
-> >  _raw_spin_lock_irqsave+0x3a/0x60 kernel/locking/spinlock.c:181
-> >  get_partial_node_bulk mm/slub.c:3831 [inline]
-> >  __refill_objects_node+0x104/0xab0 mm/slub.c:7279
-> >  refill_objects+0x58/0x410 mm/slub.c:7405
-> >  refill_sheaf mm/slub.c:2885 [inline]
-> >  __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
-> >  alloc_from_pcs mm/slub.c:4850 [inline]
-> >  slab_alloc_node mm/slub.c:4984 [inline]
-> >  __kmalloc_cache_noprof+0x4f4/0x6d0 mm/slub.c:5559
-> >  _kmalloc_noprof include/linux/slab.h:991 [inline]
-> >  _kzalloc_noprof include/linux/slab.h:1312 [inline]
-> >  kvm_async_pf_task_wake arch/x86/kernel/kvm.c:224 [inline]
-> >  __sysvec_kvm_asyncpf_interrupt+0x334/0x610 arch/x86/kernel/kvm.c:338
-> >  instr_sysvec_kvm_asyncpf_interrupt arch/x86/kernel/kvm.c:327 [inline]
-> >  sysvec_kvm_asyncpf_interrupt+0x9e/0xc0 arch/x86/kernel/kvm.c:327
-> >  </IRQ>
-> >  <TASK>
-> >  asm_sysvec_kvm_asyncpf_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:753
-> > RIP: 0010:memcmp+0x156/0x1d0 lib/string.c:665
-> > Code: 0f 86 fb fe ff ff 48 89 d8 48 89 de 48 c1 e8 03 83 e6 07 42 0f b6 14 28 48 8d 43 07 48 89 c1 48 c1 e9 03 40 38 f2 40 0f 9e c6 <84> d2 42 0f b6 0c 29 0f 95 c2 40 84 d6 0f 84 45 ff ff ff be 08 00
-> > RSP: 0018:ffffc90003ab7538 EFLAGS: 00000297
-> > RAX: ffff8880220be413 RBX: ffff8880220be40c RCX: 1ffff11004417c82
-> > RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff8880220be40c
-> > RBP: ffffffff8c58a940 R08: 0000000000000001 R09: 0000000000000066
-> > R10: 0000000000000066 R11: 0000000000000001 R12: 0000000000000012
-> > R13: dffffc0000000000 R14: dffffc0000000000 R15: 0000000000000000
-> >  strstr+0x109/0x170 lib/string.c:743
-> >  tomoyo_add_entry security/tomoyo/common.c:2157 [inline]
-> >  tomoyo_supervisor+0xf47/0x1340 security/tomoyo/common.c:2238
-> >  tomoyo_audit_path_log security/tomoyo/file.c:169 [inline]
-> >  tomoyo_path_permission security/tomoyo/file.c:592 [inline]
-> >  tomoyo_path_permission+0x270/0x3b0 security/tomoyo/file.c:577
-> >  tomoyo_check_open_permission+0x37f/0x3c0 security/tomoyo/file.c:782
-> >  tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
-> >  security_file_open+0xb5/0x1e0 security/security.c:2739
-> >  do_dentry_open+0x588/0x14d0 fs/open.c:973
-> >  vfs_open+0x82/0x3f0 fs/open.c:1101
-> >  do_open fs/namei.c:4836 [inline]
-> >  path_openat+0x1a23/0x2450 fs/namei.c:4999
-> >  do_file_open+0x20e/0x430 fs/namei.c:5028
-> >  do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
-> >  do_sys_open fs/open.c:1423 [inline]
-> >  __do_sys_openat fs/open.c:1439 [inline]
-> >  __se_sys_openat fs/open.c:1434 [inline]
-> >  __x64_sys_openat+0x12d/0x210 fs/open.c:1434
-> >  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-> >  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
-> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> > The incremental change on top of v4 1/5 is:
+> > 
+> > --- a/kernel/livepatch/core.c
+> > +++ b/kernel/livepatch/core.c
+> > @@ -894,6 +894,8 @@ static int klp_init_object_loaded(struct klp_patch *patch,
+> >  			if (prev_func == func)
+> >  				break;
+> >  			if (prev_func->old_func == func->old_func) {
+> > +				if (prev_func->nop && func->nop)
+> > +					continue;
+> >  				pr_err("'%s' and '%s' resolve to the same address, aliased symbols are not supported\n",
+> >  				       prev_func->old_name, func->old_name);
+> >  				return -EINVAL;
+> > 
+> > If this direction looks good, I'll resend the series. Petr, should I
+> > just bundle everything into a v5, or do you have changes on your side
+> > that I should wait for?
 > 
+> I am afraid that this is still not enough.
+> 
+> Problem:
+> 
+> It would work when the livepatch gets applied the nops are removed.
+> 
+> But it might cause problems when the transition gets reverted
+> in the middle. All processes should go back to use the previous
+> implementations (original code or previous livepatch).
+> But the ftrace handler would just go back from one nop to the other.
+
+Hm, you are right. There will be two nop functions on the stack in this 
+case and the redirection in the handler would not work.
+
+> Solutions:
+> 
+> 1. A solution would be to create only one not in the first place.
+
+Not a bad idea.
+
+> 2. It seems that we are close to the scoped atomic replace feature.
+>    It will prevent loading conflicting livepatches in parallel.
+>    Well, it currently checks only the function names. We should
+>    add another another check which would detect the conflict
+>    also by the alias.
+
+-ETOOMANYDEPENDENCIESBETWEENPATCHSETS. If the first solution is not 
+difficult to implement, it might be better.
+
+> PS: I am sorry for the late reply. This patchset is far from trivial
+>     because it handles several levels of "what will happen if"
+>     and makes my head spin. And it has lower priority because
+>     it handles corner cases.
+> 
+>     Also I always forget all the details before I get an answer.
+>     It seems that we are all in the same trap. ;-)
+
+Yes, it took me a while to page it all in again :).
+
+Miroslav
