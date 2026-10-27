@@ -1,75 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793141361;
-	b=rpHTcRcJBTVVTOgb4hNCN1xSA6tvYE2dRQfjHplUUtn2d6MXXzghYSCcMeqYMi60l9Lq
-	 lz2rFzMZrLMfuRyPrzvCuO8hJj3hY+yD+FyYrtiKfnXcRV4Ty5X4XhtPQz8A3oUinchLk
-	 ewOkBdTF+GS1mJVe6xiHzHxO/1n0aBDFeMBUPiXvMmlQ3bT13t7Ox3KdzToA/X84+tqU0
-	 HH6Ye4yeFODOwosk6gyvEGioPzTHZEZjul1MWbMDL9bzCj/FiSgi4akREYNw1KMkB9Iia
-	 H3R8Gbpq5XwexV6fPjlyaRTZMFzou7IfUZcsh+sZkMeUdnh6iuJbuyQ9jCSXg+FJNcw==
+	t=1793141367;
+	b=YgLJYJYZu7Qv/nNfKEefS3ui9uF4n6WTFSpAwsQ+NPJ08vl+iSD7xPw8pMv8CLgfVXLD
+	 UZ/W3lojz1jrhcXZHiRB+mQdbtm/Yh13vQv8rYw2ytucgRxfwkbZpoGMhEAqbCSPnu7ap
+	 I3E9V8gguy6JJtsJtTOBiy/QpbmQCnEV+Y0N7QSEW93WSU+bsshVvxcyFsTwaeSCNHljD
+	 ke98J0vjZ1dKW+byqE3AR8OLWyRySjEUBWZG8MtzjrCGND52vPThBZbgHNKHm1mJzJzFt
+	 1TxHNGyfIqDH99DZkPaPfztenpTK0jTYhOZfrke1Qo1k362UfkFtbrX8Vw9L0Kwe80Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793141361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793141367;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=QtXNxPuc5kmlWJMCDMXsX9xtsHAgPfmmQaHcRlB5NfI=;
-	b=cEWORe73kQ+IBr5Wf+U1UpChHwRanyzFA31mYS8Z8WaM4HCSHw0ZJ9eCJ+UB1jBdcQmA
-	 yRA26RcgoSC1/WgidSPUW5MzAePBItWRn1znZj60WGwTRF4b7Jx4MofBMro50JkGQgoZz
-	 VCUDm3OftS1RH4YIvrfU2EusJ8tX5l98iUoR1XQBhJVYuXAFPzId/lDxvKhDpL1hPXa+R
-	 bskFAAzAm4IVEM5qQEU0lPQlCQCHhbSE3yXBeKtrnogtupchOXhH2no7aSb6kQIFUpV0P
-	 oPE/4Hpgkc7qt3eBtAyueo6nRFMz1FJ7VTM06LFpLjVxYtmAivB4KYfb9TGg7Hgng9A==
+	bh=LAo1rJJbq0hs0qGWFuGYD0y3GxHx8EGe6MZyojkL/24=;
+	b=L3zmajTrjXu209D/ceTbgme37EeEGi0KlRsqEmPrROjcjpx9XTbLy+dYFkmEX3Ik2pTn
+	 LBJmIAnxpEi9YPnPtDvO5+BzllzS/ub0iHd/+y0ZpnBaQKNBH4VqdoKaTQYJpLfP2PrrV
+	 lQrPM7zXzEGFX9p6RahE3P2O4Iwb8NFbbftT3dsWxoRuCLcRIgE1XmGbSES116yoSJXpl
+	 mon6vBFDdaS5oFTq1+QutfYhEs48qdkwJam+EALOEG2VTqZ1I0DqtPJIYYIn2CSojMkvh
+	 wUO1fGFoKMf9LBTAmpi80gtOO8nYlLk+4AGAYMuOZppm28Xl2vazDs6GVCjbu/+0+sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kpdVP+Lv;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="ibTFb/Sl";
 	arc=none smtp.remote-ip=209.85.216.70
 Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5B8606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E5B8606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89F5606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:49:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D89F5606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kpdVP+Lv
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad98380ccfso646876a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:49:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ibTFb/Sl
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ac0ae43900so325713a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:49:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793141361; x=1793746161; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793141363; x=1793746163; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=QtXNxPuc5kmlWJMCDMXsX9xtsHAgPfmmQaHcRlB5NfI=;
-        b=kpdVP+Lvma2A72eGXjAbp6w3wnwfGcLHGXF1lsQmRXvVsjgKb6418Knm/dEx8P6dPv
-         qjUvXSNDlhS1uT43yao4m7wsNNvIRGFrG0MJKDWCNIPrEOtcsq5PRlSgjnXl7VRmk+zP
-         2N89Mqgd2x+Ptv3b1KmSKKndOSo1dA9JxOeGuWEJrIpodS4TydlwNuL3vzGPOsXprWqn
-         wm7OFVnoMfVj41yZgd7GCjxaA6OylHJGzWFFFEpWDBYGmLkryMmCa+jAVwPoq7/Tr4xX
-         n7vd7MLLNSGRj1d5jQUgDG8NtBHu4uE9PwKwwmvt2h/ZQkPDUHi3yjcI8+gwQe/E7Nm8
-         RRMA==
+        bh=LAo1rJJbq0hs0qGWFuGYD0y3GxHx8EGe6MZyojkL/24=;
+        b=ibTFb/SleyCWc3RA1NPUAre+RhGCwzOqefQeF6FekTrfGEzftxoa1HxKCoXlj+lqSe
+         WgkkKuSGY+DMSWGpHBwQ7jbcmYeRqnpFw8P/GjhC1zhQNSPOUOO8x8dVrhojvPNTleLD
+         18j1UL2MBLRhHQuOZc+ZiMjlJv5YZEJU63GKHRFKuPpdRAdT5oVQ826LDob1tIv52E5o
+         xEAqHU/3PVm4vAnn4HxBCukHotVXVZrBMxJIQTDe2Y9f3l3bTMJnty4Bh8RV16I+oJyW
+         vEbPFuE9rpe5wyuere93Zs9xRWvRF+8hlvyDQpnZwLNoCqEs3c0ZZ9JNuQvoLmVm+i+t
+         JKHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793141361; x=1793746161;
+        d=1e100.net; s=20260707; t=1793141363; x=1793746163;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QtXNxPuc5kmlWJMCDMXsX9xtsHAgPfmmQaHcRlB5NfI=;
-        b=pvTylaE1uIwS2Mc/ONWj0yEGHFgqnAhFdfesWXeVGSyV6noppcJd/ZZmMAvhuJ7vUg
-         Zt6RwsswKrapcEpzxQ4wLkO2urdcs7VScnaCCRqXbTwe/cAAcHG+aNZvLgh2x2uP5wCL
-         PFioGkiX67dsaoa+d9ihFLC7pbS22yA5JvYujdAfPJD81J/LElDJ9wo7szebgq5dFYQx
-         OQvj4dvnWz7/BlPYp8hp4dTz4L9ej6ZhqLP0TRi0vv144bYjMskwJyLNYZten3sHqV+x
-         tGtdGznhTsa/XsPz5Dx3oh4C/75uGjXMY5vTf6I5FXNI98lJc2UrScJzb31Op45EvBOg
-         BtFA==
-X-Forwarded-Encrypted: i=1; AKwUvBz6R2UQXy9OVghIzRMWsrtAgz+mis5PreU895GDBhNPgCG1LoX9edCSCoF3ZIUpY9zH1Q1egxu5PdCFlds=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZ/RkXgnmXDdkcSdHjFQ7WrX7Plr/rWEXK9PBlr7Ss2XubdUc/
-	b+eoGdqMp4ciiNMByFy2HziFQFCUQ+rUoGjL/4KhqOLFmFQmpO0ZmnbNJiZeLZdrp4nL2T7a2Cy
-	QT8Qfiw==
-X-Received: from pjbbw9.prod.google.com ([2002:a17:90a:f609:b0:3ab:d09d:a37a])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4ec8:b0:3ae:2969:9031
- with SMTP id 98e67ed59e1d1-3ae581432f6mr406676a91.54.1793141360760; Tue, 27
- Oct 2026 15:49:20 -0700 (PDT)
+        bh=LAo1rJJbq0hs0qGWFuGYD0y3GxHx8EGe6MZyojkL/24=;
+        b=Vv3lSd3AhjKJZeijDlKj30dBE7+YzwtY3YH4Ophzcl4qNfn2GV30ORoHELIkwv/l/1
+         xBzUYNqxRLhWGHjfHpfA7Wuo3bTbkYiDtH4cDsJYVWCkjnaxmlCrRm7jW2GiT4ir0law
+         AuQBXJCoHt4656gwQYwzmkt4Ih8xYP1+rNgPapzwv0ol84PG93X641/Y95xhTrsXZ0pn
+         QoHOh4T53SlW8sO8NbOMs+0rYgnp5TFcn4OTAmo9mknmRrjaTCYtKmzLLTu2+911WLqO
+         k+Dc80qKZ5xwqHJnjLMkG0DSfCoXGR23SLiGMgjmdWkW/ULL4AMUF58UyecfO8INCiOc
+         4lJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwWNy1ea6uXZc+7yP+dmtlgx+O8CTMXUOjxIAfS4wbn2fixmQSbnLFoC9j5KfzEaXO1lIfc74Z/gsOPt3E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKm/JJbpSdteP+UR7oUn1o5QUjMJAiubdIvQ+hAxioMtKxNl3nj
+	gxdQ+c0Il0zQlSSsISGtARwhgKRZmMLCLlpiyrCcwtN21vNpKBTZi9g6Logyikp2cdGitd8NXPp
+	UrOWQig==
+X-Received: from pjzd3.prod.google.com ([2002:a17:90a:e283:b0:3ad:ce3e:c303])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:510f:b0:3ac:7378:be04
+ with SMTP id 98e67ed59e1d1-3ae57ba6c8emr378928a91.0.1793141363121; Tue, 27
+ Oct 2026 15:49:23 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 27 Oct 2026 15:49:09 -0700
+Date: Tue, 27 Oct 2026 15:49:11 -0700
 In-Reply-To: <20261027224914.1574319-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,95 +82,91 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261027224914.1574319-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027224914.1574319-2-seanjc@google.com>
-Subject: [PATCH v2 1/6] Revert "KVM: x86: Skip EFER vs. guest CPUID checks for
- host-initiated writes"
+Message-ID: <20261027224914.1574319-4-seanjc@google.com>
+Subject: [PATCH v2 3/6] KVM: nSVM: Synthesize #GP instead of SHUTDOWN if L2
+ attempts to clear EFER.SVME
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Sashiko Bot <sashiko-bot@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Revert the misguided-in-hindsight decision to allow userspace to violate
-architectural consistency when setting EFER as it has since been solidified
-that userspace is required to configure guest CPUID prior to setting MSRs,
-and skipping the CR0.PG vs. EFER.LME check in allows userspace to load an
-end state of EFER.LMA=1 && EFER.LME=0, which is supposed to be impossible
-and trips a variety of KVM_BUG_ON()s in the MMU.
+If L2 attempts to clear EFER.SVME (because L1 neglected to intercept writes
+to EFER), synthesize a #GP instead of a triple-fault SHUTDOWN for L1, as
+yanking the vCPU out of L2 and mixing the new (invalid) EFER with L2's
+current state is unnecessarily risky for KVM since the TRIPLE_FAULT request
+isn't fully handled until KVM attempts to enter the guest, and nothing
+prevents userspace from ignoring the SHUTDOWN exit and continue running the
+guest.
 
-This reverts commit 11988499e62b310f3bf6f6d0a807a06d3f9ccc96.
+Apply the restriction to both guest and host (a.k.a. userspace) writes, as
+unlike kvm_x86_ops.set_efer() => svm_set_efer(), set_efer() is used *only*
+for targeted MSR writes, e.g. not for KVM_SET_SREGS{,2}, and KVM does NOT
+advertise EFER as an MSR that needs to be saved (because it's handled via
+sregs).  I.e. there is far less chance of breaking userspace that manually
+restores EFER with SVME=0 while L2 is active, because in all likelihood no
+such VMM exists.
 
-Fixes: 11988499e62b ("KVM: x86: Skip EFER vs. guest CPUID checks for host-initiated writes")
+Keep the sanity check in svm_set_efer() that handles the KVM_RUN case, but
+escalate it to a KVM_BUG_ON() + -EIO, as it should now be unreachable.
+
 Cc: stable@vger.kernel.org
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/msrs.c | 30 +++++++++---------------------
- 1 file changed, 9 insertions(+), 21 deletions(-)
+ arch/x86/kvm/msrs.c    | 12 ++++++++++++
+ arch/x86/kvm/svm/svm.c | 15 +++++----------
+ 2 files changed, 17 insertions(+), 10 deletions(-)
 
 diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index e91650af44c2..2df42276fd82 100644
+index 2df42276fd82..c3cb1575fe66 100644
 --- a/arch/x86/kvm/msrs.c
 +++ b/arch/x86/kvm/msrs.c
-@@ -580,8 +580,11 @@ static int do_get_feature_msr(struct kvm_vcpu *vcpu, unsigned index, u64 *data)
- 				 kvm_get_feature_msr);
- }
- 
--static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
-+bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
- {
-+	if (efer & ~kvm_caps.supported_efer_bits)
-+		return false;
-+
- 	if (efer & EFER_AUTOIBRS && !guest_cpu_cap_has(vcpu, X86_FEATURE_AUTOIBRS))
- 		return false;
- 
-@@ -610,33 +613,18 @@ static bool __kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
- 
- 	return true;
- }
--
--bool kvm_valid_efer(struct kvm_vcpu *vcpu, u64 efer)
--{
--	if (efer & ~kvm_caps.supported_efer_bits)
--		return false;
--
--	return __kvm_valid_efer(vcpu, efer);
--}
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_valid_efer);
- 
--static int set_efer(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
-+static int set_efer(struct kvm_vcpu *vcpu, u64 efer)
- {
- 	u64 old_efer = vcpu->arch.efer;
--	u64 efer = msr_info->data;
- 	int r;
- 
--	if (efer & ~kvm_caps.supported_efer_bits)
-+	if (!kvm_valid_efer(vcpu, efer))
+@@ -626,6 +626,18 @@ static int set_efer(struct kvm_vcpu *vcpu, u64 efer)
+ 	if (is_paging(vcpu) && (vcpu->arch.efer & EFER_LME) != (efer & EFER_LME))
  		return 1;
  
--	if (!msr_info->host_initiated) {
--		if (!__kvm_valid_efer(vcpu, efer))
--			return 1;
--
--		if (is_paging(vcpu) &&
--		    (vcpu->arch.efer & EFER_LME) != (efer & EFER_LME))
--			return 1;
--	}
-+	if (is_paging(vcpu) && (vcpu->arch.efer & EFER_LME) != (efer & EFER_LME))
++	/*
++	 * Architecturally (per the APM), clearing EFER.SVME while a guest is
++	 * running yields undefined behavior, i.e. KVM can do literally
++	 * anything.  Synthesize a #GP as that is the safest option for KVM,
++	 * as mixing the current vCPU state (from L2) with L1 and the new EFER
++	 * (if KVM simply forces the vCPU out of L2) may yield an unexpected
++	 * end result.
++	 */
++	if (is_guest_mode(vcpu) &&
++	    (vcpu->arch.efer & EFER_SVME) && !(efer & EFER_SVME))
 +		return 1;
- 
++
  	efer &= ~EFER_LMA;
  	efer |= vcpu->arch.efer & EFER_LMA;
-@@ -1547,7 +1535,7 @@ int kvm_set_msr_common(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
- 		wrmsrq(MSR_IA32_FLUSH_CMD, L1D_FLUSH);
- 		break;
- 	case MSR_EFER:
--		return set_efer(vcpu, msr_info);
-+		return set_efer(vcpu, msr_info->data);
- 	case MSR_K7_HWCR: {
- 		/*
- 		 * Allow McStatusWrEn and TscFreqSel. (Linux guests from v3.2
+ 
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 487897ef11dd..a6ff9635677a 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -227,17 +227,12 @@ int svm_set_efer(struct kvm_vcpu *vcpu, u64 efer)
+ 	if ((old_efer & EFER_SVME) != (efer & EFER_SVME)) {
+ 		if (!(efer & EFER_SVME)) {
+ 			/*
+-			 * Architecturally, clearing EFER.SVME while a guest is
+-			 * running yields undefined behavior, i.e. KVM can do
+-			 * literally anything.  Force the vCPU back into L1 as
+-			 * that is the safest option for KVM, but synthesize a
+-			 * triple fault (for L1!) so that KVM at least doesn't
+-			 * run random L2 code in the context of L1.  Do so if
+-			 * and only if the vCPU is actively running, e.g. to
+-			 * avoid positives if userspace is stuffing state.
++			 * KVM is supposed to synthesize #GP if L2 attempts to
++			 * clear SVME.
+ 			 */
+-			if (is_guest_mode(vcpu) && vcpu->wants_to_run)
+-				kvm_make_request(KVM_REQ_TRIPLE_FAULT, vcpu);
++			if (KVM_BUG_ON(is_guest_mode(vcpu) &&
++				       vcpu->wants_to_run, vcpu->kvm))
++				return -EIO;
+ 
+ 			svm_leave_nested(vcpu);
+ 			/* #GP intercept is still needed for vmware backdoor */
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
