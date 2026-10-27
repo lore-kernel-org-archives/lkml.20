@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090159;
-	b=4SzWQ2bLsNNTqgovFR38iKI6UwOconK8gXPzdAxaVrE6umIme6AWwhfMUF3WAyuvOFEo
-	 xVJSwqN6Agyfj8b5w2egDifstjjZd/6vZiX6nha07J17dVzTVKW3flVlTGQQgMeLikIq6
-	 kAqasfF0HrBMhBLUamCZGNed9qme6giIJfokVg1aj0dFEAx7/IVv/A5dmyD/T+Ror+KW4
-	 pjbrBK5ExHS+4prFUDKESqifR3lnk8aYMc07oC+56soBDcT5uTyyO8ozviA8bgtLls+Me
-	 ub1yhVOAxl6fbHdw+U/fo+Q2QnaDn5NGON+JbxrZVXsoQby9iMXMfd8mNAIy1KT1Oyw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090159;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=r8waEYcnEw1hlf3SuPw4jP0Swr2QvkGfUkwHSVOdcsw=;
-	b=FXxSZVTCiFHm3+XEwyeij4sV5yHKeC/OIIMBaRJsmy5h/WrinCLgHFYSpcSSysexV3h5
-	 Ud2PdvipuCJOdMA/CkBxlueMGXDNNbNDC92p80C3lcLMpEvLvBzRQXLsySvSp722ift9d
-	 E2IqpXyLv6KR4tdVM1f1cgs3Luc7fIMgnSns8Bh1rdqXeVb29bOwloo16CIReVreIB8s+
-	 tzbV3u6aRWs6M1CUO/VPAD99ccMvUN5LJjGtqZuu/QyyLc4Vi9YemAPcbAxZnz9It/Q8I
-	 XutVm7D7Ty6o/rbdYkR5r/Trmv7IOg3Mfg7KzhWX023u3b5pEZ2bq1sXCAq0UcaU+KQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RQOz9WdJ;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793090174;
+	b=DJcUNjI53g0FtsrWxg9kinps0Nfm/d9YVxxG349au0JCXZzh/tZ10UKA/mEQ+4hTe47F
+	 HW4GBDFuQPF5HxAMty7thP1qYWZktA4Gqpv44HJK4K7rCrzpoTDsngYpxOqLOxFnta+aw
+	 xJel0sdY6cSl3q4Ub6s29zArAy16SPvSh0+1OiAmi6VV00Mw0SNmlsq2wffECk9IRft/8
+	 /YjZupAuulcpY+hFIt1DWi0eq9xe5AzfhxevQZTYGtObNRHDAO26F7EiHDjyZVVqnhvdn
+	 bBDYhzJPITA+sgrjeHHtu3oqMoldaSIDmT60YXdlwKHX8HL1g6dvKRUzdcXSbBzp7EQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090174;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Content-Type;
+	bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
+	b=IAw8QYHtLusy2Jjhl7QjyzvSzAY4JvN7w/xw4R8n8EepqxeniFyV0gqbjhtu9P1RIqwL
+	 RZNJobb0zmoEi3zJqsPTXeXXJ0WXdvnoVqhASof890WU8oNYN0laFEqBAwUaU+zPgQF43
+	 3/ijjmvYNfCFd6NGoc9+GSm9fkJxQzYdrzckiYlKjTFBuO12DCQk5iPHFuj2dnBzR0+l1
+	 SeJfIrZkjNYOqLIhgjPJ4aYV/9/BvgkaEnG9EpBJQGo4akdrMpN3If2RCiBQzfvkxJz8k
+	 Uvq+A7i3IPVmPwH6AIdQ14eSV6Nl50w5pCuPBLpn4lAk0EOixjdIFsUrt6oAetTISIA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aa0vsv5I;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BFB8606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:35:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BFB8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF46606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:36:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFF46606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RQOz9WdJ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=r8waEYcnEw1hlf3SuPw4jP0Swr2QvkGfUkwHSVOdcsw=;
-	b=RQOz9WdJvH0DYcX6FjYb4KVUl5YwVa4ioOa7JqDq1gaOBB4Fr9LJTYzoafzf8czKB196xV1Mm
-	He4MzX/agDJbG4jMGvzgYbeu2L0l89JUuPjJ73JlnrVFG93SNx4G8FGbM58kBOaXmLalUDkxi/I
-	Zlbbc1NFo5YMwYFasJZJ6dI=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jDP2j4tJnz1K9B8;
-	Tue, 27 Oct 2026 16:35:41 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6723A4057A;
-	Tue, 27 Oct 2026 16:35:49 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 16:35:48 +0800
-Message-ID: <4b671902-3cee-436c-87fc-55ec1cb14782@huawei.com>
-Date: Tue, 27 Oct 2026 16:35:47 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aa0vsv5I
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3514b90bb89so8766621eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:36:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793090173; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N0mR6bT+Wkkf9K3lgNPKXUmPovoIB6Gl/7ASlYs2LXXmpgm/T5uEmqWdFblZ3QxOQZ
+         xWTuyaQhACDEmAiJIeva7E8NHx3eSnlQx/B57nyZF/L3S2sQMykWyG03BvYEpMYIl7d8
+         CnciYj8255L0a8tUV24MO0IBjhP931SL9Q/36VCILeOQl50l0sWcx9jhkqofX0xojlwH
+         2PrGS/7CBnpt/SThA/Z15FuyXZ5dDi84siBP8zX0cHMONTWjWqPXRccjpF9YXrOGWk5g
+         D99w6VOghonFpBUpwhal43fyBNpvrodNSu05SCdu9SVp96sKNdfME2+zQ+ha7cekMHvS
+         AMog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
+        fh=3jt99IGe19M4Jyz2bCHkWUkjs+oJxP3+qmwGX+VS1Pc=;
+        b=UcUwkXP1O7orsgEXMyVOk5mwBhPg0d5mc8AYlIqtKOXpORe2mDaYOom979nQcGwTnK
+         ZzDSwwmQ7axgUah5Y/8KUqRLY8FmfBwv9jzvRmeDfcTUCC0PGBzn3IQaTPe/ATsB8kju
+         yhqsYAT82uFCGGPTEr9Ud4sMhfC+THNhVq9ZAqmhdRhg8vsBSyvW/KTXR8B5V5jzP0PD
+         FW8UZ9u0JGQ9wJUZDr959fof+/QkrZ18kCp4i5UKpMqnRwK72wnpZHuvnrJuAJ6ND+If
+         Kct3Z5VdFmXuHo3cfMKY1h6IIsJpJ52qTWiLDbejWXP+kHqMsnC6IOfYqi5zP+55843C
+         NKeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793090173; x=1793694973; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
+        b=aa0vsv5Io/41U+ggVEM6mQUORlawKEdfZph+jyb++6f3ALT4dKeK9+jtwFYylo06+X
+         KTMEVjqhut8tSbeYQ06lAApNxcGUYt2oeHDuEzngSJUmbe98qL1ynJGUckPvL02WQC71
+         UHMj2Zwu4fT0b76KsGiKlLV/IMNBlteGg4P9oHSDHqUdc/KXKmVIgqES8Jr7Az8aVAbw
+         ZdKUIuU5niw+ypLOSEHjLjkXLF/xeDNOQrkCwcxT1eUv4MJsECN8sXbzBIp5xBHyljco
+         /ze3oDzJyffnkxS9YhrDTdYhrTn8nJyTAbjd3j7EnUQofw4u67K8MOaznqDZCXM/2srH
+         R4eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793090173; x=1793694973;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=533OwAPWq4vOQ8kxsIt4qtc5nCMy/Yh65N5bfM5agWA=;
+        b=nHhR0LoZuHv3k8w5WqaJ7Z4CXmwpnJfJ73og0b41jzCpyybcAHjAyel/CEPWK2taeo
+         aSwz+2KykYL1y31TuIIiqPPEpOyxREagRP8MXDO1hPAvMdGFXmkuc5N0Mv1IVF4pk0uC
+         /+SZqNrNAW9IRpxr1WP8xp1j52Pl9G3E/Lx5HaBuQErAPz+Y3BCaNJGRhZLCJ4PYShqm
+         oC+fNHZX2QnRsqVmzGyE3aTEf5upsZLkFjL3Z9S7vxhpEqMvscVi4rDyiN7BdvoxP2bd
+         NXEWybXEQWefe6CRFXCMquqen7HXTenWYi1FQirhIkx9t7SlUn8uzf0bo56X9iMH+I91
+         5JTw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbWfqEMpTkRzE8NGpXN8vbMqzbjnd0bZSHe6nYuqwYjCw6ztZH4ZxSoVlpv5s1mapBYWZLrYhv7w8/FnM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuFHB5BpldXaZNsDUmwwp5JgrJVuvU9G/Ly14BRULredOuuFZ/
+	3p9ie1lB92RYGE6lXcM/1fE0Be9hSW1IR8I5LkihnHZBq7z7vjFUQWVyJsxT1DXo9doUrJcu+BX
+	oy0YO5V30We6LeNBYmngJ096WuqR3Peo=
+X-Gm-Gg: AYBFou02J+UubtE3Od+2GWk6A5KEfCoKnng8eK/CAthAISd4gdE8Wn0dG95G7vwASow
+	r6mUDFnsbi4Bdtf3D2bvXSQonwwouBzIasaOsWjOYgKmmf12I0aP+3QJXIb1LVtARgwBYzQVwMi
+	1/PRQn0PTUaWUjaOFpHGTQBgj26fNdxigGEiQZtePpFmf4SXDGv2CNH5pPNwdqENIhelznkq++f
+	QLg4cTe36Q0pW3KIuoTlSa6Dgw3ZzODtcs8EAoYBfhl33iKOnZv+DnHDlPpLhpK5iZq7PRXgu9k
+	vdbn0tVlcNxPlnugS0DqU2GMGiudfgHeC57nNq4293FsKSSEgscBJ8TJfZ9Q7VE2lGkMF7s5T0r
+	p9pltm/0jWVFNRIXZlxKHEhbftUELNEK9GCHL7Dge+XxK7X5SZE9/79U2URbDsiI/mlHBKPBN+5
+	nKkhUvtUl6PMgjWo/bQXs4m7+qFHoiwn0VtNRN7jSURy1KKQ==
+X-Received: by 2002:a05:7300:fc0f:b0:33c:16f1:2e11 with SMTP id
+ 5a478bee46e88-369e845b068mr14555898eec.7.1793090172731; Tue, 27 Oct 2026
+ 01:36:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,91 +102,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/5] fs/resctrl: Drop unnecessary parameter from
- resctrl_io_alloc_parse_line()
-To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
-	<ben.horgan@arm.com>, <james.morse@arm.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <bp@alien8.de>, <tglx@linutronix.de>,
-	<dave.hansen@linux.intel.com>
-CC: <x86@kernel.org>, <hpa@zytor.com>, <fustini@kernel.org>,
-	<fenghuay@nvidia.com>, <peternewman@google.com>, <yu.c.chen@intel.com>,
-	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
-References: <cover.1791406459.git.reinette.chatre@intel.com>
- <b01d58ebb13c6cadd68c0fb33f469fdb32dcb597.1791406459.git.reinette.chatre@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <b01d58ebb13c6cadd68c0fb33f469fdb32dcb597.1791406459.git.reinette.chatre@intel.com>
+From: =?UTF-8?B?0JzQsNGA0Log0JrQvtGA0LXQvdCx0LXRgNCz?= <socketpair@gmail.com>
+Date: Tue, 27 Oct 2026 13:36:01 +0500
+X-Gm-Features: AclHuK8LYf_8PYVj_mbhVWX4NzizhrOEbQrV-IlYGk176whN1q7kTKLieg1M1X8
+Message-ID: <CAEmTpZGu5x9PS7vFwgc_dFH80rL3cFD4-geuuL_w8i=vFDo8AA@mail.gmail.com>
+Subject: [RFC] btrfs: zoned: reset stale zones in unallocated device space
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+Hi,
 
+I'd like to propose a feature for zoned btrfs. I'm not planning to
+implement it myself, but I'd like to get feedback and, if the idea is
+considered reasonable, have it tracked as a TODO / project idea.
 
-在 2026/10/8 5:06, Reinette Chatre 写道:
-> resctrl_io_alloc_parse_line() parses a line written to the io_alloc_cbm file.
-> It receives both a schema and a pointer to the schema's resource. Its only
-> caller looks up the resource from the schema just to pass both.
-> 
-> Passing the resource separately is redundant and allows a caller to pass a
-> resource that does not belong to the schema. parse_line(), which parses lines
-> written to the schemata file, already receives only the schema and determines
-> the resource from it.
-> 
-> Pass only the schema to resctrl_io_alloc_parse_line() and have it determine
-> the resource itself, matching parse_line() and in preparation for passing
-> additional information when supporting multiple controls.
-> 
-> No functional change.
-> 
-> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-> ---
-> Changes since RFC v2:
-> - Rework changelog.
-> 
-> Changes since v1:
-> - Rework changelog.
-> - Add justification for the change. (Ben)
-> - Add Ben's Reviewed-by tag.
-> ---
->  fs/resctrl/ctrlmondata.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
-> index 4562072b8ba6..69123b2a3274 100644
-> --- a/fs/resctrl/ctrlmondata.c
-> +++ b/fs/resctrl/ctrlmondata.c
-> @@ -955,11 +955,12 @@ int resctrl_io_alloc_cbm_show(struct kernfs_open_file *of, struct seq_file *seq,
->  	return ret;
->  }
->  
-> -static int resctrl_io_alloc_parse_line(char *line,  struct rdt_resource *r,
-> -				       struct resctrl_schema *s, u32 closid)
-> +static int resctrl_io_alloc_parse_line(char *line, struct resctrl_schema *s,
-> +				       u32 closid)
->  {
->  	enum resctrl_conf_type peer_type;
->  	unsigned long dom_id = ULONG_MAX;
-> +	struct rdt_resource *r = s->res;
->  	struct rdt_parse_data data;
->  	struct rdt_ctrl_domain *d;
->  	bool update_all = false;
-> @@ -1052,7 +1053,7 @@ ssize_t resctrl_io_alloc_cbm_write(struct kernfs_open_file *of, char *buf,
->  	io_alloc_closid = resctrl_io_alloc_closid(r);
->  
->  	rdt_staged_configs_clear();
-> -	ret = resctrl_io_alloc_parse_line(buf, r, s, io_alloc_closid);
-> +	ret = resctrl_io_alloc_parse_line(buf, s, io_alloc_closid);
+Background
+----------
+I maintain a host-managed zoned block device implemented with ublk,
+where each zone is backed by S3 objects. Storage cost is proportional
+to the amount of data actually held in zones, so zones that contain
+data but are not referenced by the filesystem are a real cost, not
+just lost capacity.
 
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Problem
+-------
+With a long commit interval (e.g. commit=300) and heavy buffered
+writes, btrfs may allocate new block groups and write a large amount
+of data into their zones before the transaction commits. If the
+filesystem then goes down uncleanly before the commit, this is fine
+from a consistency point of view: nobody called fsync(), and after
+the next mount the filesystem is consistent at the last committed
+transaction.
 
->  	if (ret)
->  		goto out_clear_configs;
->  
+For a virtual device like mine, "goes down uncleanly" is more likely
+the ublk server crashing or losing connectivity to S3 than an actual
+power loss, but the effect on btrfs is the same: the running
+transaction never commits.
 
--- 
-Best regards,
-Jinjie
+The device extents of those new block groups were never persisted, so
+after the next mount the corresponding zones belong to unallocated
+device space from btrfs' point of view, while on the device they are
+still non-empty (write pointer > zone start) and hold data.
 
+As far as I can tell, btrfs currently handles this lazily: such zones
+are reset only when the allocator picks that range for a new chunk
+(btrfs_ensure_empty_zones()). Until then they hold stale data
+indefinitely. On SMR HDDs this does not matter much, but on ZNS SSDs
+(where a reset helps the device's internal GC) and especially on
+virtual/cloud-backed zoned devices it does.
+
+(Stale data past the committed alloc_offset inside *existing* block
+groups is accounted as zone_unusable and can only be reclaimed via
+relocation; this proposal does not try to address that case.)
+
+Current workaround
+------------------
+The only safe way I see today is offline: unmount, walk the dev tree
+to collect allocated dev extents, and issue BLKRESETZONE for every
+non-empty sequential zone not covered by a dev extent. Doing this on
+a mounted filesystem from userspace is unsafe, because it races with
+chunk allocation (a dev extent may be allocated in the running
+transaction but not yet visible in the committed dev tree).
+
+Proposal
+--------
+Let the kernel do it, since it can serialize against chunk allocation
+(chunk_mutex / device->alloc_state). The operation itself: reset
+every sequential zone that is fully contained in unallocated device
+space and whose write pointer is not at the zone start.
+
+Possible interfaces, in order of my preference:
+
+ 1. Automatic background cleanup, e.g. once after mount (after the
+    dev extents are loaded) and/or as part of the existing
+    reclaim/discard workers, possibly behind a mount option or sysfs
+    knob. This requires no administrator action and covers the
+    problem completely.
+
+ 2. FITRIM: on zoned filesystems, apply the reset to unallocated
+    device space as part of fstrim. Many distributions already run
+    fstrim periodically (fstrim.timer), so this would also work
+    without extra configuration in most setups, and it fits the
+    "release unused space to the device" semantics.
+
+ 3. A dedicated trigger: a new ioctl (exposed as a btrfs-progs
+    subcommand) or a sysfs knob under /sys/fs/btrfs/<UUID>/ that
+    starts the cleanup on demand. Least convenient, but still much
+    better than the current offline-only workaround.
+
+Risk
+----
+With corrupted metadata (a dev extent missing from the dev tree),
+this could reset a zone that actually holds live data. But the
+allocator already makes exactly the same assumption today when it
+resets non-empty zones before reusing them, so this does not add a
+new class of risk; it only performs the reset earlier. If automatic
+cleanup is considered too aggressive, options 2 and 3 are explicit
+and opt-in.
+
+Questions
+---------
+ - Does this sound like something you would accept upstream?
+ - Which interface would you prefer?
+ - Am I missing a reason why the reset is intentionally deferred to
+   allocation time?
+
+If the idea is acceptable, I'd appreciate it being added to the btrfs
+TODO list so that someone interested could pick it up.
+
+Thanks,
+Korenberg Mark
