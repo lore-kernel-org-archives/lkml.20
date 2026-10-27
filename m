@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099507;
-	b=C4yFbFjUDzcLlWPt7QabnV8wiciDecf9lU+s8sfolsk0GdzA05dm2KLRvivQxttj3fJv
-	 +wMyRkC/QRZ+2ZrLDQqQ3TYzhpJgDQGDJW9lJ6dB8x74r3xmlq8gqZSu9nV0qbi3hcydD
-	 WMErLCSK5DiK03Pe9uar4EU4wi0JfupmhKWWkhga7NEKwVedYU3MRpNs/dD5VEEFS8CbN
-	 L+ip8zFjC9q/nH5Ke1V1Fk1bgiBoALmWDA7jbcZkWMO/wu63v38jUO8nnHQxiyf8DOvLq
-	 n/Vr5mW75LtNNuWkeT0xHDQYPYFTKeh7QhAvhUIIxJnGzyEU01iPNolYlIb9tZNr6mg==
+	t=1793099591;
+	b=jrf/yE+sj9gSn2DeZQuDTSOZ/aKj6cYiPUPCUhEfOdJhQkRiqrhvKRw1ZoXoVdjNCctP
+	 KSTRhoJv5CFpjLIr7VsiG+aFs0thvThs5lX2K/VEwrYcawtB7nCvGurW5rbuVOWr1GhMn
+	 zKI4uTqa9ovQRZgPVNTxgR7VHfYyM3heJEU1mPpYi3bp2MJmdYJD3tVHhUZEN84yiEs+D
+	 XkyUNAONm7a6egN7jYJGJUy10+nsjIxbkPgEsGAfLByiXbWOXFvFI4wpacAxXYgEPMa+N
+	 wIL+esBsnrzEGLyib5Csx/FW+50a36JRCLkJtVXzhevJTKwt1FzTIu3Pc/HlEcyKuhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099507;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099591;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
+	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3ZNZ1PFbAd3WXOSZ79HxKGLz5biQN25VWI9t5QUFhJg=;
-	b=4+1v3gVjrmH5+COYN1yp0x1SJ58RPbxE/h7twBkgrHOCsUnKzPPOC/pa3So7VDoWxdOD
-	 psgIMGcYb7QoecKpZ3+9Ye6j6AoaxRAVYAtuRVIa/yG/wSxkZVgJymfnIEqUBcQBy7mYR
-	 BbbZ8o3Hg9940CYL/TfJhymczsr4xJpiZJdUWZywcEnUO+ANEW9yzn83gyhNccjm2ivsy
-	 8Na4F3TYe2dRFfuND+GM7arRGDrBOYsfb5DJ3pN/r/6dyv2CK7VmAEnXl+VlVtCwpj4lZ
-	 OU83o0ELofZs7FWjSlMxDoulXBp3UNWph5bkY3E/5xIUOjJexBsYiQZw9v0c0bOpdow==
+	bh=Eto463AI7CPVW1h1ILi+4HlwmPZTj+WdyAZ+V95FEmg=;
+	b=hfFpf+nMp6sJAjp2KzU6coma75arin8sA6+ini5wgloUk9NzBDtXP5wz4JnDR3V93Jyy
+	 +HPRvPbYINAlvtcSijZjgFy7nCqXeU7T41Cs1qPkZl1GzzSzCiOwmTZF7ITXlVeUpKjd3
+	 86tmSaaIhELFu5Bjri+WvP126x3lQI05PLhEooWuo8l5zOoHjd3dgQfew52kIwW3s7D+p
+	 CHM9Xjmge3ZsXYEAwjJOQYqOMrp/A1Gze5+CGZ47NzYZpn/2cgbo5WWMw0Djy2yFLinsS
+	 VLU5DDMpMXSUvPDrM+PMq/EfzBrAz4KKITq7yKkJui29Rx5ErrYFrvY2fCo7su9FmCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=runtimeverification.com;
-	spf=pass smtp.mailfrom=runtimeverification.com;
-	dkim=pass header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=sMMu2Jvb;
-	arc=none smtp.remote-ip=109.224.244.107
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.145
+Received: from out28-145.mail.aliyun.com (out28-145.mail.aliyun.com [115.124.28.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268F9606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:11:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 268F9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=sMMu2Jvb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1793099505; x=1793358705;
-	bh=3ZNZ1PFbAd3WXOSZ79HxKGLz5biQN25VWI9t5QUFhJg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=sMMu2Jvb0v2pMl7+RupYxfJmcaPPznrS8ZFLSSnF83vJs19ql8ATvTSzVGb2SJyMV
-	 wozXQakD7Eic/Lj3cJAgySi0opZ/QpP2s7kFxmf5gDZiqBFL0OlAb/tCrIVdAF8d/4
-	 inNLUD62/sRPkENZq3G9vcitRfTZ+lyks0erh0l402ToaE1i2BBrpgtRic8LtPyxgE
-	 Xeo19wWUeijFKHlFh/FJydvkHjSXVH/ajJmAH9gGumWndTMfYfxmlsk5OkKHxXmTS3
-	 nceETJtclM4Xn/lrtSp8QArnxoHS+CXDVEb43n7nhaHUATWf0ZZj/Mg6a1kypd8MzO
-	 8nZe4UnCAgKFA==
-X-Pm-Submission-Id: 4jDSVj05Nlz2ScjB
-From: Natasha Klaus <natalie.klaus@runtimeverification.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Cc: ribalda@chromium.org,
-	noambs2999@gmail.com,
-	david.laight.linux@gmail.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH v4 3/3] media: uvcvideo: Skip frame descriptors with a zero computed size
-Date: Tue, 27 Oct 2026 14:11:16 +0300
-Message-Id: <20261027111116.119182-4-natalie.klaus@runtimeverification.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027111116.119182-1-natalie.klaus@runtimeverification.com>
-References: <20261027111116.119182-1-natalie.klaus@runtimeverification.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BD1606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7BD1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2311619|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0246483-0.0011987-0.974153;FP=4522591901444260955|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045166233;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jqlRnFq_1793099579;
+Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jqlRnFq_1793099579 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 19:13:00 +0800
+Subject: Re: [RFC PATCH 2/6] sched/fair: Add is_smt_buddy_run() to skip SMT
+ domain
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
+References: <20261020083746.37068-1-likunyu@open-hieco.net>
+ <20261020083746.37068-3-likunyu@open-hieco.net>
+ <20261021123510.GH2823843@noisy.programming.kicks-ass.net>
+From: Li kunyu <likunyu@open-hieco.net>
+Message-ID: <23a15314-42d5-d939-399c-ff206214f547@open-hieco.net>
+Date: Tue, 27 Oct 2026 19:13:00 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,75 +58,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261021123510.GH2823843@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-For uncompressed formats uvc_parse_frame() recomputes
-dwMaxVideoFrameBufferSize from the frame dimensions and the bits per
-pixel. All three operands are read straight from the descriptor bytes
-with no range check, so the computed size is zero whenever any of them
-is zero.
 
-A zero size is not harmless. It is copied into
-ctrl->dwMaxVideoFrameSize by uvc_fixup_video_ctrl() and reaches
-uvc_queue_setup() as the vb2 plane size, where it trips
-WARN_ON(!plane_sizes[i]) in vb2_core_reqbufs() at
-drivers/media/common/videobuf2/videobuf2-core.c:951 and fails
-VIDIOC_REQBUFS with -EINVAL. On a kernel built with panic_on_warn that
-WARN is fatal.
 
-Such a frame can also become the active one without any application
-asking for it: when no frame matches the device's default bFrameIndex,
-uvc_video_init() falls back to frames[0], so a device that also has
-usable frames can come up unusable.
+On 2026/10/21 20:35, Peter Zijlstra wrote:
+> Same horrific indenting fail. Surely you've read surrounding code?
 
-Skip the frame rather than rejecting the descriptor, which would discard
-the whole streaming interface and every valid format on it. This follows
-commit 81f3affa19d6 ("media: uvcvideo: Don't expose unsupported formats
-to userspace"), which drops a format descriptor the driver cannot use
-for the same reason: to keep it from reaching userspace and triggering a
-WARN_ON.
+In the new patch, these issues have been resolved. In addition, when the SMT
+scheduling domain skips a scenario, update_group_capacity(sd, cpu) is called
+automatically to update the equivalent CPU compute capacity value.
 
-The zero size case was found with Claude Code, an LLM tool, while
-reviewing Noam's overflow patch.
-
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Tested-by: Noam Ben Shimon <noambs2999@gmail.com>
-Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
----
-Changes in v4:
-- Changelog says how the zero size case was found.
-- Rebased onto d135ab453a74.
-
-Needs 1/3 for -EINVAL to mean "skip" and 2/3 for bufsize.
-
- drivers/media/usb/uvc/uvc_driver.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index 4d1380c38ec6..c1c05bba7f7f 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -308,6 +308,20 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 			return -EINVAL;
- 		}
- 
-+		/*
-+		 * A zero-sized frame is unusable: it reaches vb2 as a zero
-+		 * plane size, and it is reported to userspace as a 0x0 frame
-+		 * with a zero sizeimage. Skip the frame descriptor, the
-+		 * caller moves on to the next one.
-+		 */
-+		if (!bufsize) {
-+			dev_warn(&streaming->intf->dev,
-+				 "UVC non compliance: FRAME %u has zero size (%ux%u, %u bpp), skipping it.\n",
-+				 frame->bFrameIndex, frame->wWidth,
-+				 frame->wHeight, format->bpp);
-+			return -EINVAL;
-+		}
-+
- 		frame->dwMaxVideoFrameBufferSize = bufsize;
- 	}
- 
 -- 
-2.34.1
-
+thanks,
+kunyu
