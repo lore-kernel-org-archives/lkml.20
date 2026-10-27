@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793063508;
-	b=RJU+0GfFltcRFDZwjlGW+CfQVJBZetmHwB8KYkm7hceRPkfWj5WpYvSt9RJ2m7JE79Gn
-	 gjHQBve5g3mAOQtkePJnNJJQZP3UGoBb2KuaFwDKKPIYlAXnlxezOgHm/c4MU8Xj4BIqD
-	 uD2M/855EZvWR0kneawgedt8b4PR3/N7kn3rZRdxo/ygh2Q4vmQ5fL5oTJKNjeU23sHFg
-	 jnsqBOq5ymjNcLEI0pQcmUXHzHrASYSHfhkDMSwTNd6KWP90Ao8uc6MjXSr6OXVIAuU5S
-	 r0AzSkqjrjpKrwDiQ08t2/Wm9uaXgfeGO948AiLGYVbfxjLYU+65xrKUn4SV4xNKZDQ==
+	t=1793063552;
+	b=zqvrLVeqMG0NWqqShY6pYX2QPJ3Xwn6OnsY1GLm0AUVVpqCaEQteu03DhAa8w5HWj8x1
+	 uS9a6Wk4aymRgvPsq2dt5SsfREoS9RbYtb1HqOJuvdjPZ3qw0EtR5hnyQRvDI35bj+2DU
+	 2NCRro1nqLXE8NLGPtj8jXytYamu9Ohfqp15uWDon8dgCC7MKUKrq2T29zZe0NNrC2kaz
+	 hZGbbqpKed4XWuNJKFsPoTiEr61o/h51Wu1ygm5nXRijqpRpZbCnqJ/fL8I83YrmcvQ+c
+	 Q652gnqEmluML50lKkZBs3Pj9TVApGsP4976om1+zoE+u/wEleQmZTbnZNqjKf9AFIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793063508;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lQNU6hNGBy9jJbAi6r59f2PUJR0Koj1qckPlsZypSTk=;
-	b=vNLN9QOD8HLyNyPTo1mNW9dhl94sMHwvbyexSOQklxSmyrI6Zu/1W5fTHFiSaADLiahL
-	 SCthFrkcmADc60RUGc4AO0Ff0X0mn4yaWPkERwrLrZkFzL7itOYN7S5TWz/s02rBe9pFe
-	 QPVGCELUaXbRFHoZWr90/oZXSzHjCocUs8CjDdZX3NHF1aTuR1Z40FYA5rAnqjp7QaTax
-	 xchSRdHqGTbWy26iQOTVIV7cm/l25BCbzshwUf7FFa/VHHpX6Ng243iPBMJzeqbSs0eNB
-	 DHY8cpxJjeSk+ZYGSFI9o5k9Vm/h/bY58tar2LHyDuDvXBJtSsclm+FyXEMPaQ3BXNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793063552;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=+bPn0ocWqbaD9RySURiCm2ZhdZQ5PclNXcJ9a3ESUkU=;
+	b=RuBB3wkRsIHQ+fvxOd4K7/5dy7BJ24n+fxFYHeHD9JhrtaxL3ruKH1Mj2M4dzVkDqdRm
+	 u8vVB2+lMSuu/Xh/Nto3B9PtKrFrvWL2b1QKKXx20VfUpyCE1ZkFY6Ly6sgl4trdLac51
+	 DF4Vv/ZlszjrxTxDw0J+S+tBu9Jbdhg09W/J8d+pBYMys91RHk8jRMhRe/KwgQEhFzENX
+	 bdM0xEWnhmRzqd9PYUVNjNecsHjER8BgXjByZ2aMtB41HuWRah2t6ql1yWWo5gtATw2sC
+	 mAg317Rs2S9O+/nVuwZA4m/QLXJ1Y9paSp+6p1v20GYHr7BlDT6d3Wfg0lNEh4o5A1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hVWh675o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TDudzL6u;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696A5606A31A;
-	Tue, 27 Oct 2026 01:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23503606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23503606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hVWh675o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095CF1F01825;
-	Tue, 27 Oct 2026 01:11:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793063508;
-	bh=lQNU6hNGBy9jJbAi6r59f2PUJR0Koj1qckPlsZypSTk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hVWh675out79bGzP+eT+vTXlBvi8q+BuUtiK9jsImwMHkQGPl6iU1Ea6kIVEinF+4
-	 DHFZgHTdaKKW9mZ0zV202B8oGQhyLBepn4BvN9sBBn7VrtnHzW50wyUuLeru5LNYPd
-	 ovII4SKiUVAqkN0tif+j69bKabx4Iq3CkLozWjJ4t7a6y8BR7DRgggrKT73KP8KeNF
-	 qERUGq34uJcm4jal/W96Id3kqJJp30EAsuUk+U026hWMKcyOAbcbpxIXWR7pcXTOiy
-	 g6L8jL8g3Wex6kdkBjnIYv3K4Z7Vj+hNucD/3hvjdD6eCySP/tZrz6ir3o7WDBZEBX
-	 Co8hjVZrgkFZA==
-Date: Tue, 27 Oct 2026 01:11:43 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Nithishvelan M <mnithishvelan@gmail.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Nuno Sa <nuno.sa@analog.com>, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] staging: iio: impedance-analyzer: ad5933: use
- guard(mutex) in ad5933_show()
-Message-ID: <20261027011143.3bce4a32@jic23-hlaptop>
-In-Reply-To: <at8iQhUDfDpkRxI6@ashevche-desk.local>
-References: <20261026082828.652-1-mnithishvelan@gmail.com>
-	<at8iQhUDfDpkRxI6@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TDudzL6u
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+bPn0ocWqbaD9RySURiCm2ZhdZQ5PclNXcJ9a3ESUkU=;
+	b=TDudzL6uUHYc2/3JUMSVAxqWxtSliJQJEh8JXqNqlED9NUEglJYPOYjEhRzKtPnSSMG5nKHBn
+	P9IrZvQ1dK0Vq8MpmmciRADKm+dl4+fc2gEn9S9fG0EY1uWt8B0z7EfgcSxQeZR5Gs9Y/9p3jX9
+	0yz0hHYusoOWfLh5tovbFZM=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jDCC41DP3zRhQq;
+	Tue, 27 Oct 2026 09:12:16 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id E0E4F4058E;
+	Tue, 27 Oct 2026 09:12:23 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
+ 2026 09:12:23 +0800
+Message-ID: <1a4baea3-9741-4144-b12f-d4d85ad5bc31@huawei.com>
+Date: Tue, 27 Oct 2026 09:12:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,20 +62,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 05/10] arm_mpam: resctrl: Give the monitoring
+ domain its own structure
+To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
+	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
+CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
+	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
+References: <cover.1792443633.git.reinette.chatre@intel.com>
+ <2238eab97cc66852d0d0d1a5c6ff191c03ce9e0d.1792443633.git.reinette.chatre@intel.com>
+ <52fdd67b-49b6-44b6-8eaa-17b29fd92947@huawei.com>
+ <f288691b-6064-456e-89fc-2c4b2e6712b6@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <f288691b-6064-456e-89fc-2c4b2e6712b6@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Mon, 26 Oct 2026 11:49:54 +0200
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> On Mon, Oct 26, 2026 at 08:28:28AM +0000, Nithishvelan M wrote:
-> > Use guard(mutex) to automatically manage the state lock in
-> > ad5933_show(). This simplifies the function by allowing direct returns
-> > from each switch case, eliminating the mutable return variables and
-> > manual mutex_unlock() calls.  
+
+在 2026/10/27 0:55, Reinette Chatre 写道:
+> Hi Jinjie,
 > 
-> LGTM now,
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> On 10/26/26 5:14 AM, Jinjie Ruan wrote:
+>> 在 2026/10/20 6:07, Reinette Chatre 写道:
 > 
+> ...
+> 
+>>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+>>> index 246560247a28..ce5519635c51 100644
+>>> --- a/drivers/resctrl/mpam_resctrl.c
+>>> +++ b/drivers/resctrl/mpam_resctrl.c
+> 
+> ...
+> 
+>>> @@ -542,7 +542,7 @@ int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+>>>  			   enum resctrl_event_id eventid, u64 *val)
+>>>  {
+>>>  	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
+>>> -	struct mpam_resctrl_dom *l3_dom;
+>>> +	struct mpam_resctrl_mon_dom *l3_dom;
+>>>  	struct mpam_component *mon_comp;
+>>>  
+>>>  	if (!mpam_is_enabled())
+>>> @@ -551,7 +551,7 @@ int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+>>>  	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
+>>>  		return -EINVAL;
+>>>  
+>>> -	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
+>>> +	l3_dom = container_of(d, struct mpam_resctrl_mon_dom, resctrl_mon_dom);
+>>>  	mon_comp = l3_dom->mon_comp[eventid];
+>>
+>> Maybe following code could be extracted into a helper
+>>
+>> 553 >-------if (!mpam_is_enabled())
+>>  554 >------->-------return -EINVAL;
+>>  555
+>>  556 >-------if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
+>>  557 >------->-------return -EINVAL;
+>>  558
+>>  559 >-------l3_dom = container_of(d, struct mpam_resctrl_dom,
+>> resctrl_mon_dom);
+>>  560 >-------mon_comp = l3_dom->mon_comp[eventid];
+>>
+> 
+> Below shows an example of such helper created (for convenience) on top of this
+> series. Only compile tested. Is this what you had in mind? If it looks ok I will
+> rebase to the beginning of this series as a new preparatory patch since it refactors
+> code adjacent to this series.
 
-Applied.
+Right. It looks fine to me. resctrl_arch_rmid_read() seems a little
+different.
+
+> 
+> ---8<---
+>  drivers/resctrl/mpam_resctrl.c | 62 ++++++++++++++++++++++------------
+>  1 file changed, 41 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+> index 61fbde9c0960..d75954f8a0ad 100644
+> --- a/drivers/resctrl/mpam_resctrl.c
+> +++ b/drivers/resctrl/mpam_resctrl.c
+> @@ -7,6 +7,7 @@
+>  #include <linux/cacheinfo.h>
+>  #include <linux/cpu.h>
+>  #include <linux/cpumask.h>
+> +#include <linux/err.h>
+>  #include <linux/errno.h>
+>  #include <linux/limits.h>
+>  #include <linux/list.h>
+> @@ -536,26 +537,51 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
+>  				 closid, rmid, val);
+>  }
+>  
+> -/* MBWU counters when in ABMC mode */
+> -int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+> -			   u32 closid, u32 rmid, int mon_idx,
+> -			   enum resctrl_event_id eventid, u64 *val)
+> +/**
+> + * find_mbwu_mon_comp() - Find the component counting @eventid in a domain
+> + * @d:		The monitoring domain to search.
+> + * @eventid:	The event to find the counting component for.
+> + *
+> + * The counters reached through this component are the monitors MPAM
+> + * pre-allocated for bandwidth counting. Cache occupancy is not counted by
+> + * those monitors, it is read on demand via resctrl_arch_rmid_read().
+> + *
+> + * Return: the component counting @eventid in @d, or an error pointer when
+> + * MPAM is disabled, when @eventid is cache occupancy, or when no class was
+> + * picked to count @eventid.
+> + */
+> +static struct mpam_component *find_mbwu_mon_comp(struct rdt_l3_mon_domain *d,
+> +						 enum resctrl_event_id eventid)
+>  {
+> -	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
+>  	struct mpam_resctrl_mon_dom *l3_dom;
+> -	struct mpam_component *mon_comp;
+> +	struct mpam_resctrl_mon *mon;
+>  
+>  	if (!mpam_is_enabled())
+> -		return -EINVAL;
+> +		return ERR_PTR(-EINVAL);
+>  
+> +	mon = &mpam_resctrl_counters[eventid];
+>  	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
+> -		return -EINVAL;
+> +		return ERR_PTR(-EINVAL);
+>  
+>  	l3_dom = container_of(d, struct mpam_resctrl_mon_dom, resctrl_mon_dom);
+> -	mon_comp = l3_dom->mon_comp[eventid];
+>  
+> -	return read_mon_cdp_safe(mon, mon_comp, mpam_feat_msmon_mbwu,
+> -				 USE_PRE_ALLOCATED, closid, rmid, val);
+> +	return l3_dom->mon_comp[eventid];
+> +}
+> +
+> +/* MBWU counters when in ABMC mode */
+> +int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
+> +			   u32 closid, u32 rmid, int mon_idx,
+> +			   enum resctrl_event_id eventid, u64 *val)
+> +{
+> +	struct mpam_component *mon_comp;
+> +
+> +	mon_comp = find_mbwu_mon_comp(d, eventid);
+> +	if (IS_ERR(mon_comp))
+> +		return PTR_ERR(mon_comp);
+> +
+> +	return read_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
+> +				 mpam_feat_msmon_mbwu, USE_PRE_ALLOCATED,
+> +				 closid, rmid, val);
+>  }
+>  
+>  static void __reset_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
+> @@ -598,20 +624,14 @@ void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d
+>  			     u32 closid, u32 rmid, int cntr_id,
+>  			     enum resctrl_event_id eventid)
+>  {
+> -	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
+> -	struct mpam_resctrl_mon_dom *l3_dom;
+>  	struct mpam_component *mon_comp;
+>  
+> -	if (!mpam_is_enabled())
+> -		return;
+> -
+> -	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
+> +	mon_comp = find_mbwu_mon_comp(d, eventid);
+> +	if (IS_ERR(mon_comp))
+>  		return;
+>  
+> -	l3_dom = container_of(d, struct mpam_resctrl_mon_dom, resctrl_mon_dom);
+> -	mon_comp = l3_dom->mon_comp[eventid];
+> -
+> -	reset_mon_cdp_safe(mon, mon_comp, USE_PRE_ALLOCATED, closid, rmid);
+> +	reset_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
+> +			   USE_PRE_ALLOCATED, closid, rmid);
+>  }
+>  
+>  /*
+> ---8<--- 
+> 
+>>> @@ -1770,11 +1723,97 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
+>>>  			return dom;
+>>>  	}
+>>>  
+>>> -	if (r->rid != RDT_RESOURCE_L3)
+>>> -		return NULL;
+>>> +	return NULL;
+>>
+>> LGTM
+>> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>>
+> Thank you very much.
+> 
+> Reinette
+
+-- 
+Best regards,
+Jinjie
+
