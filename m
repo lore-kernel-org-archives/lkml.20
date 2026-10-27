@@ -1,107 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108688;
-	b=PNqLUmC7iCYuFdDUrTxKJIP4IejPVXBRs3Oz48wGvukUFTfpxsUU3s3XyDiIM0TJh/v5
-	 b5+Map2Ih9FLgCNf3+xyHT4QEUwOzuxLdu1ZXCEHaDPubznYTSqWhAJ5qD3XDxbT1xbIj
-	 U91d16P6vZUTYbeyN9/uhdZIo5eGUmdFmXLQyFpb13UMZhiLSOPK+ZyY8zjb4uouLLutP
-	 nh+nM3P+xs+FNs+jk731HRbezOOuefQzuYv1GnDSLSNCyV5QinycGXTBdWDsGZ9vw2GHO
-	 qk0K1utTcEHRD3pmrZ716Zcw9tlwGDomtYuKx4lABwEG7vWFswHVmMCe/YBIx7MfujA==
+	t=1793108699;
+	b=wTupBiWHcSl2M18hYfnbdT6aV2fsOuugTPrSBWxGhJO4KLjY6W0x3rLguHms4EkgRg+x
+	 5KvacevP/9kYVN4l/xelOK66WKERH0gqUhuQ6Pgz7P2JN62IFYThiO4fXefvVaZshYwC8
+	 mPP4rjL6Db0QWZXm/43hbjTp2JUXnpmjqZ+2kSff0ctrDx9DmMUvZKhV7i/htZrgrSZJX
+	 ZWE7n6DkhKALQTi+u4k01dM8+D3qahz3LPI6/jPkZeJ8ec951q0EsT+iFSdo7PQS1SsFS
+	 Ook9+9RdA/Yhk1ma8ArHLlvl7Y7fkm1Kb4NRtLAFSzs1NZBPHNqu5D8D7vQ3fjG+AHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108688;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-ADIRuleOP-NewSCL:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=FSelX1DXeZ34wltl4hnyDZJzfe3lOpYTnObA/WQbkb8=;
-	b=i/Z2E2kcEmYfO4810kGqHORB/PgjbJjGpdLSI6//xSJGeeKHsNnpBk+uI86fCttYOfyW
-	 VcGbvQknHBNsATyVF6KLsV9wynOtQ8LOWFK6eFVF5OQ9VJ8OsQwdvxSanZJMLQRQy3MBk
-	 Vm0NdbPs2ZUmy4fhlusASXYFOX0E4fCQkpf3KbOHgh492Rbd4oJtEBQHyeJYyUvw3lPGu
-	 7GQ4xQ6MCJTSaXFoVbj/rkbDhHi/Ox8x+fCH7QMU302T5nGdtJWQPaY7Z9HI3RFnSYBQ4
-	 vSIAwNhKuYfXHauQJ4nt9PnvLiaImsqc9F274m/W1JAcJiKwS10Cuhh7xLPCOZkG++w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108699;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=sL2aVG6bsrL4GE52EbX/cWA86ITx/elg5Ft4uIRbdAM=;
+	b=DDzXy5QlasVOs3dqoMJnL6s52SlIhsZRrjCn62W1TXlqNmLmpDzNxdu6HrSvtVNTGq4w
+	 x9B5G0wmQkAj9Ax0i7eySUf75pFRfDh1xGcTtrsj1OkQrgTa3wRJT3o3swdfu8LB6PK3a
+	 PMYfTULydW/TvyGgNUjraSzlb9o5jbSXa110vC1Ik3C30ABj2MBFxjPx8BL7hFkwDb+Gu
+	 RqxB8D4KA/EJCry3Kr5wIesOfisKwgIuiwrltzLWdPt9AbkRMD9y/MdkRA0sNXoFGITVV
+	 7luBTu9GeYjFdIo6I+4BQhC7mc07farz+u464lgqUa0h+xVq1pnKtJZFzn/pnaHaAfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=aiS21hNN;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=1EIUXxKs;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.225
+Received: from mta0.migadu.com (out-225.mta0.migadu.com [91.218.175.225])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1442A606A31B;
-	Tue, 27 Oct 2026 13:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1442A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=aiS21hNN;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=1EIUXxKs
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDRKRW490055;
-	Tue, 27 Oct 2026 09:44:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=DKIM; bh=FSelX1DXeZ34wltl
-	4hnyDZJzfe3lOpYTnObA/WQbkb8=; b=aiS21hNN1WAW85VGOMlc4aYX/8TZ0NIB
-	hqSPv/glSTffbXxVUgoT0zqpjmQbu5ncdiXe0HxFpOIA3emnoMCQXw2H/5lv/Ksx
-	wbWUm9rxyHv3FPMNuaI9Unr0OJQ0nmwHCBYDgE1h6Fz65FsWlAPwN151NGuN4dro
-	yLqgZR2ap8wn6BRNhi3TmXqCjPzQSaalEUT4WT0eppVvet+93DjP+rYo9MSvXvTD
-	34xxDJgBMnkkisdWLSQa9Qp6TIEUeqEnl3sh+Cn3ktTdeWMbUQ83kK375xlIEg/9
-	oy4xPMIsz7bUwJBemgomtFQU3lw17GCKbqxNwSfV1lB74sH4/3Gxww==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=FSelX1DXeZ34wltl4hnyDZJzfe3
-	lOpYTnObA/WQbkb8=; b=1EIUXxKs4VJFU3RJZvbsDk+MbbIljCGoiDdyCzMKK6t
-	gF+lxAzhpC1Up3DJ1DowBUiclfnmMhkPodPLXXiApxr2q56UzPWzXTerUMgb+03K
-	nnjWkmEuMlTBr3Y/MU965c/PUD+FOZfPVe9ni7PUudhkbZ52s2Cl9V2pBMvj61fZ
-	qOQ+vzrNtHZvo5MI+OsR34LEbIfw4KiaytF0umNnNsTMwybmHlx+cnOjBOSWJmKs
-	Jl2dFYpF/C0VuRCQlNd+eu3aiGbWs0WNGfXnk9oVtK+EzMc8IsV4BNELL6vLvtni
-	gVUtXkN8eI/Ahq3kBlVYIyDZHUeZx7etRRAdc/jSi1g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hjqj81vh7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 09:44:38 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69RDibgt039577
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 27 Oct 2026 09:44:37 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 27 Oct 2026 09:44:37 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 27 Oct 2026 09:44:37 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 27 Oct 2026 09:44:37 -0400
-Received: from HYB-aFjnqsVU6Ag.ad.analog.com ([10.66.6.192])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69RDiPUO014649;
-	Tue, 27 Oct 2026 09:44:28 -0400
-From: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>,
-        "Sergiu
- Cuciurean" <sergiu.cuciurean@analog.com>,
-        Jonathan Cameron
-	<jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Andy Shevchenko
-	<andy@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
-Subject: [PATCH 0/2] iio: adc: add LTC2387 and ADAQ2387x support
-Date: Tue, 27 Oct 2026 15:44:07 +0200
-Message-ID: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D5D606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:44:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54D5D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RhRuF+NCm5gpqBzj5GdgfRXNOVXiBh/CKMER0cN82jA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793108695; v=1; x=1793713495;
+ b=XYTk/py8xjg6GHRnBtYLmuZQHSlH5mT68eGutB0+asaJSVdYY81+ob9uZuDA5OABbtnMTnTs
+ ipDHgWfK+ghI+WnFMnka91pOon0xyj+4m0JWqAhF13KYdloU/LOaZspBxgAM2RM7+cep1FiUHfN
+ T6Snx6vzuyzR1IotQpU+3ysQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dbf57763c894293a;
+	Tue, 27 Oct 2026 13:44:55 +0000
+X-Mizu-Trace-ID: dbf57763c894293a
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <8cd8d3e9-da10-4201-ba76-e1ce8ae5d50a@linux.dev>
+Date: Tue, 27 Oct 2026 21:44:51 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,86 +55,196 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Fix missing effective_xcpus accounting of
+ child partitions
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: longman@redhat.com
+Cc: ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, shuah@kernel.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261027123837.100909-1-guopeng.zhang@linux.dev>
+Content-Language: en-US
+In-Reply-To: <20261027123837.100909-1-guopeng.zhang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=bLCDs/+Z c=1 sm=1 tr=0 ts=6ae0aac6 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=wI1k2SEZAAAA:8
- a=QsWrtFZefnq_ch6bf4EA:9 a=qcg49hLlgF0N60+LroqrWnV/Vu4=:19
- a=6HWbV-4b7c7AdzY24d_u:22
-X-Proofpoint-ORIG-GUID: xIxxDTYMy4jjHiD5PTQa5MaACnhU4w2H
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1NCBTYWx0ZWRfX8GlgHAZeVjh/
- iF89JYT6dlltb4OJRUuP6OQAZGF7vyrpTa/h2cO6JxtWMbpkrT1fPfdWVrERPdMcKdM/1GvHust
- uMHBweAlnvZNjNzjvvFYRC/BTI2jjnttljqxZ8U0WyeDYZLVviEBaeM4s84CAiv/j3sGAxQtXzV
- fp0H98qk47u5BjLVs8Ohs4gdn3NkMEvQAGEkCQRIezSr5dAEIL86ehuoAJqQj9cvSlGWlMV9Z37
- YyrE1I5CnSSaKlV10h3UgplqIiwUmP3j9TDgRqvzDMwTQ+01GkUq1fm2DHoNO9i/QGGY1bpQowK
- otP5Zi+OSQamYkS7upW1JvRsvAMD7FIVEgBE1SjkqQbnrtofvDqTpR72JWICecPoECsQ2WV5+N7
- yR2Rkmvc+HpYxhoCiPuIFgK8yXufu8jXER1gON8DQnsemrkZqCTyhQPOfgp82DaZOm2qxHoAgGR
- hYlUtEbPdwP+5fb/Sig==
-X-Proofpoint-GUID: xIxxDTYMy4jjHiD5PTQa5MaACnhU4w2H
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1NCBTYWx0ZWRfX7opiVJN5yj4I
- YPS2jqdKdKReKKjrBXj7DF1Ixjm9dkS3KVI6tZ0g9Dlv7Uhp9s/4HIJ08zpQupf02kvGqnl6bou
- VOPWKnZ4Z24IYoip9Rwn6XrnB8Sj3jmPoc6TuXC7v50eKUjW57YN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
- clxscore=1011 malwarescore=0 bulkscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270054
-
-This series adds a driver for the LTC2387-16/18, 15 Msps SAR ADCs with
-an LVDS data interface, and for the ADAQ23875, ADAQ23876 and ADAQ23878
-uModule ADCs, which pair an LTC2387 die with a fully differential
-amplifier front end.
-
-Conversion start (CNV) and the gated LVDS data clock are generated by
-two channels of an AXI PWM generator. Sample data is captured by the
-AXI ADC IP core and reached through the IIO backend framework. The
-front-end gain of the ADAQ parts is described with adi,gain-milli
-(fixed at 2 on the ADAQ23875, pin-strapped on the ADAQ23876/78) and
-applied to in_voltage_scale.
-
-Tested on an EV-ADAQ23875FMCZ on a ZedBoard running the adaq2387x HDL
-project in two-lane, 16-bit mode: probe, in_voltage_scale,
-sampling_frequency (writes, rounding and range checks), buffered
-capture up to 1M samples, and unbind/rebind. The bare LTC2387
-variants, one-lane mode and the -x4 variants were not tested on
-hardware.
-
-Datasheets:
-  https://www.analog.com/LTC2387-16
-  https://www.analog.com/LTC2387-18
-  https://www.analog.com/ADAQ23875
-  https://www.analog.com/ADAQ23876
-  https://www.analog.com/ADAQ23878
-
-Evaluation board:
-  https://www.analog.com/EVAL-ADAQ23875
-
-HDL reference design and IP cores:
-  https://analogdevicesinc.github.io/hdl/projects/adaq23875/index.html
-  https://analogdevicesinc.github.io/hdl/library/axi_ltc2387/index.html
-  https://analogdevicesinc.github.io/hdl/library/axi_pwm_gen/index.html
-
-Sergiu Cuciurean (2):
-  dt-bindings: iio: adc: add lltc,ltc2387
-  iio: adc: add ltc2387 driver
-
- .../bindings/iio/adc/lltc,ltc2387.yaml        | 138 +++++
- MAINTAINERS                                   |   9 +
- drivers/iio/adc/Kconfig                       |  11 +
- drivers/iio/adc/Makefile                      |   1 +
- drivers/iio/adc/ltc2387.c                     | 482 ++++++++++++++++++
- 5 files changed, 641 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
- create mode 100644 drivers/iio/adc/ltc2387.c
 
 
-base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
--- 
-2.34.1
+
+在 2026/10/27 20:38, Guopeng Zhang 写道:
+> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> 
+> When a partition root expands its exclusive CPUs, a valid child
+> partition will be able to claim more CPUs from its parent. As
+> update_cpumasks_hier() always updates a cpuset before its descendants,
+> the parent has already been committed when the child partition is
+> reached. Its effective_cpus is computed with the child's old
+> effective_xcpus subtracted and no further adjustment is made
+> after the child commits its new effective_xcpus.
+> 
+> The additional CPUs are thus granted to both the parent and the child
+> partitions. generate_sched_domains() then emits the warning below
+> about the overlapping sched domains:
+> 
+>   WARNING: kernel/cgroup/cpuset.c:919 at rebuild_sched_domains_locked+0x1ec/0x2e0, CPU#21: bash/1225
+> 
+> Fix that by taking the CPUs newly added to a valid child partition
+> away from its parent at the commit point of update_cpumasks_hier()
+> right before the new effective_xcpus is committed. The tasks in the
+> parent cpuset as well as its other children will be updated if its
+> effective_cpus is changed.
+> 
+> A new test case is added to test_cpuset_prs.sh to test this patch.
+> 
+> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> ---
+>  kernel/cgroup/cpuset.c                        | 25 +++++++++++++++++++
+>  .../selftests/cgroup/test_cpuset_prs.sh       |  4 +++
+>  2 files changed, 29 insertions(+)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3219f927c35e..ec0ef3ad0726 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2241,6 +2241,7 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+>  		struct cpuset *parent = parent_cs(cp);
+>  		bool remote = is_remote_partition(cp);
+>  		bool update_parent = false;
+> +		bool xcpus_added = false;
+>  
+>  		old_prs = new_prs = cp->partition_root_state;
+>  
+> @@ -2356,6 +2357,19 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+>  		}
+>  
+>  		spin_lock_irq(&callback_lock);
+> +		/*
+> +		 * A child partition may claim more CPUs when its parent expands
+> +		 * the exclusive CPUs. Take the newly granted CPUs away from the
+> +		 * parent which was committed earlier in this walk.
+> +		 */
+> +		if (!remote && new_prs > 0) {
+> +			compute_excpus(cp, tmp->addmask);
+> +			if (cpumask_andnot(tmp->delmask, tmp->addmask,
+> +					   cp->effective_xcpus)) {
+> +				partition_xcpus_add(new_prs, parent, tmp->delmask);
+> +				xcpus_added = true;
+> +			}
+> +		}
+>  		cpumask_copy(cp->effective_cpus, tmp->new_cpus);
+>  		cp->partition_root_state = new_prs;
+>  		/*
+> @@ -2375,6 +2389,17 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+>  
+>  		cpuset_update_tasks_cpumask(cp, tmp->new_cpus);
+>  
+> +		/*
+> +		 * The parent's effective_cpus may have been changed by
+> +		 * partition_xcpus_add() above. Update the tasks in the parent
+> +		 * cpuset and its other children, if necessary.
+> +		 */
+> +		if (xcpus_added) {
+> +			cpumask_copy(tmp->addmask, parent->effective_cpus);
+> +			cpuset_update_tasks_cpumask(parent, tmp->addmask);
+> +			update_sibling_cpumasks(parent, cp, tmp);
+> +		}
+> +
+>  		/*
+>  		 * On default hierarchy, inherit the CS_SCHED_LOAD_BALANCE
+>  		 * from parent if current cpuset isn't a valid partition root
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 83ef6c781af3..09e430570815 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -437,6 +437,10 @@ TEST_MATRIX=(
+>  	" CX1-4:P1 CX3-4:P1 .     .     X1-2     .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
+>  	" CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4   .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
+>  
+> +	# The extra CPUs gained by a child partition when its parent expands the
+> +	# exclusive CPUs have to be taken away from the parent.
+> +	" C2-6:X2-5:P1 C3-6:X3-6:P1 .      .      X2-6     .      .      .     0 A1:2|A2:3-6|XA2:3-6 A1:P1|A2:P1 ."
+> +
+>  	# Taking away all CPUs from parent or itself if there are tasks
+>  	# will make the partition invalid.
+>  	"  C2-3:P1   C3:P1  .      .      T     C2-3    .      .     0 A1:2-3|A2:2-3 A1:P1|A2:P-1"
+
+Hi Longman,
+
+I thought of another way to fix this problem that attacks the stale
+value at its source. The comment in
+update_parent_effective_cpumask() says:
+
+    When both cs and parent remain valid, parent's
+    compute_partition_effective_cpumask() call would have removed cs's
+    effective_xcpus from the parent's effective_cpus. So there is no
+    need to adjust parent's effective_cpus here.
+
+That is the design intent, but compute_partition_effective_cpumask()
+subtracts the child's old effective_xcpus, which hasn't been updated
+yet when the parent is processed. What if the parent subtracts the
+CPUs the child can claim from the newly computed parent mask instead?
+The rework (on top of the same base as the posted patch) looks like:
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 3219f927c35e..cd02b6b74ca2 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1602,10 +1602,14 @@ static int compute_trialcs_excpus(struct cpuset *trialcs, struct cpuset *cs)
+ static void compute_partition_effective_cpumask(struct cpuset *cs,
+ 						struct cpumask *new_ecpus)
+ {
++	static cpumask_t child_xcpus;
+ 	struct cgroup_subsys_state *css;
+ 	struct cpuset *child;
+ 	bool populated = partition_is_populated(cs, NULL);
+ 
++	lockdep_assert_cpuset_lock_held();
++
+ 	/*
+ 	 * Check child partition roots to see if they should be invalidated
+ 	 * when all the effective_cpus will be used up and cs is populated.
+@@ -1628,7 +1632,16 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+ 		 * partition root.
+ 		 */
+ 		WARN_ON_ONCE(is_remote_partition(child));
+-		if (populated && cpumask_subset(new_ecpus, child->effective_xcpus)) {
++		/*
++		 * The child has not been updated yet. Compute the CPUs it
++		 * can take from this newly computed parent mask, without
++		 * overwriting its old effective_xcpus.
++		 */
++		cpumask_and(&child_xcpus, new_ecpus, user_xcpus(child));
++		if (cpumask_empty(child->exclusive_cpus))
++			rm_siblings_excl_cpus(cs, child, &child_xcpus);
++
++		if (populated && cpumask_subset(new_ecpus, &child_xcpus)) {
+ 			int old_prs = child->partition_root_state;
+ 			int parent_prs = cs->partition_root_state;
+ 
+@@ -1646,8 +1659,7 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
+ 			notify_partition_change(child, old_prs);
+ 			continue;
+ 		}
+-		cpumask_andnot(new_ecpus, new_ecpus,
+-			       child->effective_xcpus);
++		cpumask_andnot(new_ecpus, new_ecpus, &child_xcpus);
+ 	}
+ 	rcu_read_unlock();
+ }
+
+compute_excpus() is not directly reused here as it reads
+parent->effective_xcpus which hasn't been updated yet at this point.
+
+This fixes the double grant in one step and keeps the accounting
+inside compute_partition_effective_cpumask(). I boot tested it on a
+32-CPU VM with the whole test_cpuset_prs.sh suite and it passes, same
+as the posted patch.
+
+Which way do you think is better? If you like the rework, I am happy
+to send a v2.
+
+Thanks,
+Guopeng
 
