@@ -1,63 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793113995;
-	b=rhVSnjemMYR3m8sz3lqwf1W4dWMPeP+YmShAdGYrBYxI70nfnf6xtddH9PX0PyBTnrj/
-	 hJ+SwB6Uk4OjZTKRvv92F45YF6hc4/PipiMkSfJ8aHmUuF+7rzL/zMjFB+qN5FSL8KlxA
-	 bMIjZ8FA2g16GqdNkK8DRzVkt0XwigLkj2HUPPWbYgH7i5wCqIwhQwTjEG8htxYR2nOmV
-	 829xclweYOgQAGZbavOeTNCGD22q149Jjj2uLBZCBJI461euZH36cUFMWz9W4L5avSdvV
-	 97ihkJ1lPlR9u0ZKsQtfRsy1tgBqoUuVJf76Q9n1nPB4dWy05jMDDZMdC5S7SCSZ82g==
+	t=1793114035;
+	b=aL8S/i7A8o91JrYPz3MJzY47HaV0wfDRpgxoIClKl6D6km8jLN34nSo+JyAp+r47vbe3
+	 Qbytrdl7AY6vvzb8yFylqdL/o8PmBe5aKsl1+psgZS0zWO6NDxMC/NZy6/UPHHYxyur7t
+	 LN1TzVZ9NdRWiqN4h34U9NFwl+SWiJTIXLLNs7/A5A96upedCcDVKZBYgdXnVOajugc0o
+	 qlVpdbEzmWI4Wff0LFloaqDQA2MyX52OZ/ciOC6ZGDGALTAqyLwKqjgwWuu3+v656dSDo
+	 E5Fqb8RFq4mPn4S8du4x+jAc5dv/2u7x9mrVz2jAgGVlXrGNNcpfXxyp+QpOO0Vnriw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113995;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114035;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=k7gtWHEOV+0mRuwXS0LTgu0AujUebPCEBDxOMt4On4s=;
-	b=Y3NhH3QyU0De02OkS7hkDKYf/AnncNHo81tXBEhdjKANKgCSqFEAG4S6p/eLTECexelx
-	 wUmKWefbijAEck8GCz+cavZGNCG/zQZmA4c4q16ZmLnYk7oQy0h5Y80jakQDr+Lv4pdNH
-	 B7Os/o9+Xk2B7bRvzk7keAGeAbmvh+FYSV096D/3n9Nwg8CZKhJ7XHGtV7pZ5C/Dd1Fsh
-	 FkEZrMSNSME+JS4yHjrW5xTjEVIM6eVRB2G08ACr5D+ia54gjbpQpaPK8CpMta9KG6JnM
-	 Y7MrP21cqXsTQPg8hPc5JE8vOGd41vIFGh/Mgh9ChJkIINMC7eTAGK1o+rWviJZ5Mwg==
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=TYOVvhZyaUbVZFgAIc/egQ1z+khkcesoyhUa579dsZ8=;
+	b=JmZ4h6P/1eN5rPIc4sqV4LWaqY7w6Ufx0dgjKujmJl3CKk+Zg1o4zvEOsZUe0pfzuHSC
+	 OIb2ua+36cWvp0hrLKUu9uYlPFWMs11ZIlawj7Mxk1k4ysqx21nXAfgRjHZlbCl4EDzhc
+	 V5PlTApJGBEUUQmnxCue+7xrV13O2+i8SnWQtpnT6gmP/IhAHl5uuHicrn4GeHvux8ioz
+	 AAjJkVI7DcmlLwuARyRX2JVn6s395FeOxiTTYEFdyEsnj0cyzCzpjnSE9Eco2eb56Xixj
+	 qMMcsWWTOUTzvtY6mxlpabUhO43NNQpagwkIwEw15hb8zjJXWtv4rTTzqg6CNR/NKBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Jy5VtYgT;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bU2jy0ce;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42661606A31E;
-	Tue, 27 Oct 2026 15:13:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42661606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846E2606A31F;
+	Tue, 27 Oct 2026 15:13:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 846E2606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=Jy5VtYgT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=k7gtWHEOV+0mRuwXS0LTgu0AujUebPCEBDxOMt4On4s=; b=Jy5VtYgTq+FjBXHRfbvISorHsx
-	VEfNu/EYcItiH4+ZF+zydU0Di1MBs1MWI6NepFWJoFNbK0liLIKbhjtCG9pmvefESXSmO1e/mz9em
-	Mv/lk+raeGyIqM4+xKmgzAL1wJDpO2F2yP6kOxv/ixNc79X9B51sJAEIbGt1HkB7WDWy78Je9HCxf
-	QIPtFXywHhbg9+ibT0PxutYZSE3j0d5QgyNOPQYTfUDCW21ffwBjZ6oNo1LRAmZKkAfnJ41ue0ud3
-	nqoI3WNq8GABcSQoW9gwKuYzl8oZEl6eud7VmnWwirfwF5pKXDpwEjiCC5JBziLzNF0X9nDCJkhgb
-	w8BPbWmg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLirP-0000000F88D-3qS1;
-	Tue, 27 Oct 2026 15:13:12 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 494E7300312; Tue, 27 Oct 2026 16:13:11 +0100 (CET)
-Date: Tue, 27 Oct 2026 16:13:11 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: linux-kernel@vger.kernel.org, stable@kernel.org
-Cc: linux-tip-commits@vger.kernel.org, Q8 <cipher.gnep@gmail.com>,
-	x86@kernel.org
-Subject: Re: [tip: perf/urgent] perf: Fix perf_remove_from_context() event
- scheduling
-Message-ID: <20261027151311.GB1739534@noisy.programming.kicks-ass.net>
-References: <179284164324.4109677.8240630031562225279.tip-bot2@tip-bot2>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bU2jy0ce
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793114035; x=1824650035;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nRi+oew+ldnegelRFFSjs3YHGuqmu3x5mEIberG1vWs=;
+  b=bU2jy0cePFOrDtJQq2Vp9gSku8uNQ6r5TH5HbpTPbG+QYH8qRkhCuvEy
+   aZeBR3bSo9KN7tjZVk8/Ju1KMGEbJQAxOuE7rk84Ct8N33Q6MR2qS3Qll
+   PjZeEEV5WhfeqRwk9k9+6N9vSIbo14JNW2ZnG1qP+zSkKlRkkPHjLaSbZ
+   64pxFBN13Oh+dgcjLgJffRxjaLAmLs7OarVDwv91/BJcnoNIRv5DDbgs5
+   TJHoD7FysUYbP+NCUHTUK0oR0ocfMBY28W3+DWUHvDINNO0lr0ngyY1eF
+   luHOXMw04uhd7vz/qBioAyfpQJCfzPBn51z+BPFQfh1FCCUw36+T8S3QR
+   A==;
+X-CSE-ConnectionGUID: fqo/QmdUR8+2daesaCIIpQ==
+X-CSE-MsgGUID: 6hYJEHNdRpyP9+S7llsr+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1829010"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1829010"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:13:54 -0700
+X-CSE-ConnectionGUID: kh/UND/zTOijhbG1BjDaRQ==
+X-CSE-MsgGUID: KbuS6scPQWKi92eahLZ93A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4608083"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:13:46 -0700
+Date: Tue, 27 Oct 2026 17:13:44 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Peter Hurley <peter@hurleysoftware.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
+	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Olof Johansson <olof@lixom.net>,
+	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Robert Baldyga <r.baldyga@samsung.com>,
+	Thomas Abraham <thomas.abraham@linaro.org>,
+	Kukjin Kim <kgene.kim@samsung.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
+	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, stable <stable@kernel.org>
+Subject: Re: [PATCH 10/24] serial: 8250: pericom: validate port offset
+ against BAR length
+Message-ID: <auC_qCiP6qQtlLMq@ashevche-desk.local>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+ <20261027-tty-llm-v1-10-99b0202ae546@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,71 +110,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <179284164324.4109677.8240630031562225279.tip-bot2@tip-bot2>
+In-Reply-To: <20261027-tty-llm-v1-10-99b0202ae546@linuxfoundation.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Oct 24, 2026 at 11:34:03AM -0000, tip-bot2 for Peter Zijlstra wrote:
-> The following commit has been merged into the perf/urgent branch of tip:
+On Tue, Oct 27, 2026 at 12:06:36PM +0100, Greg Kroah-Hartman wrote:
 > 
-> Commit-ID:     d095321349222961813333277881b3c74f10b17b
-> Gitweb:        https://git.kernel.org/tip/d095321349222961813333277881b3c74f10b17b
-> Author:        Peter Zijlstra <peterz@infradead.org>
-> AuthorDate:    Wed, 14 Oct 2026 14:45:51 +02:00
-> Committer:     Peter Zijlstra <peterz@infradead.org>
-> CommitterDate: Fri, 23 Oct 2026 19:09:52 +02:00
-> 
-> perf: Fix perf_remove_from_context() event scheduling
-> 
-> Q8 noted that it is possible to get into an inconsistent state when
-> using perf_remove_from_context() on a group leader event.
-> 
-> Specifically, when the leader gets scheduled out, we should (when not
-> destroying the grouping) schedule out the complete group, similar to
-> __perf_event_disable().
-> 
+> The fourth port on 4-port Pericom devices uses offset 0x38 instead of
+> the linear 0x18, but maxnr is computed assuming uniform 8-byte spacing.
+> A malicious PCI device with an undersized BAR could cause I/O access
+> outside the assigned resource. Check that offset + 8 fits within the BAR
+> before registering each port.
 
-I noticed that I forgot the Fixes line :-/ This is an ancient oversight
-afaict and needs backporting to all still maintained kernels.
+...
 
-Fixes: b04243ef7006 ("perf: Complete software pmu grouping")
-
-> Reported-by: Q8 <cipher.gnep@gmail.com>
-> Tested-by: Q8 <cipher.gnep@gmail.com>
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
->  kernel/events/core.c |  9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index e248f34..f36a3bb 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -2590,6 +2590,7 @@ __perf_remove_from_context(struct perf_event *event,
->  	enum perf_event_state state = PERF_EVENT_STATE_OFF;
->  	unsigned long flags = (unsigned long)info;
+>  		unsigned int offset = (i == 3 && nr == 4) ? 0x38 : i * 0x8;
 >  
-> +	perf_pmu_disable(pmu_ctx->pmu);
->  	ctx_time_update(cpuctx, ctx);
->  
->  	/*
-> @@ -2603,6 +2604,13 @@ __perf_remove_from_context(struct perf_event *event,
->  	if (flags & DETACH_DEAD)
->  		state = PERF_EVENT_STATE_DEAD;
->  
-> +	/*
-> +	 * When disabling a group leader, the whole group becomes ineligible
-> +	 * to run, so schedule out the full group.
-> +	 */
-> +	if (!(flags & DETACH_GROUP) && event == event->group_leader)
-> +		group_sched_out(event, ctx);
+> +		if (offset + 8 > pci_resource_len(pdev, bar))
+
+For the consistency's sake 0x8?
+
+> +			break;
 > +
->  	__event_disable(event, ctx, state);
->  
->  	if (flags & DETACH_GROUP)
-> @@ -2632,6 +2640,7 @@ __perf_remove_from_context(struct perf_event *event,
->  			cpuctx->task_ctx = NULL;
->  		}
->  	}
-> +	perf_pmu_enable(pmu_ctx->pmu);
->  }
->  
->  /*
+>  		uart.port.iobase = pci_resource_start(pdev, bar) + offset;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
