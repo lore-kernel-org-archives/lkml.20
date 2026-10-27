@@ -1,69 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793059285;
-	b=tFJBiT0Plvje1rXjzrASFxYxulS94ZOUJRyOYvSP76eXAysdhzWLTUp57ZrVTc3vsqR7
-	 u6nPNbA16gTmzqaLf10Nb3/ZCv/sfAP73ldtMfIBPDZfkT1PAe7nyMjbZZKNdxENQvbYV
-	 jFSUcJAGLbU7/pPynM2i/MPHv9HZKGoSfqQ8t03esFMZ8/ygPMoil9CzwyoipEcmtMEQv
-	 4bWBzYm+VdEpvQtrpFwBkZJwLnZV9oG3qCSvFzxFsz8eEzzeJU6G/eXoERyfWorgNeu1/
-	 CdqVJWfvFC9WrIanIVtcV7oF+XD1GR9Xuf5E8UuyvbW1WDzWD2tfItARO2AGwWnodfA==
+	t=1793059294;
+	b=XUT6yvRR2wl1T6BOXB/yq4szCFYUFuP6dAK5Eebk/wrqM+t+V7WhkiDrzdaggooksnqP
+	 eRebVHXIvpxquh4ipzb5K3K27hiQwdUB1M5RXpoD4t/iPhPSW9ct6lC89hU+qZRFbBfgz
+	 40qynNVbZI6K5EDMIpLXszMJKx4kiau3feOcMMHqy04Rakh/GotOA2m2CuLi2kzRvMA3k
+	 fr+iEzO4UQY4jlgDHTJFOKKSW7M83SXD2IrQHLbj9/B8bDfnxGbaNyMf9Jax7u/+H39un
+	 P9yD684iXrSPKMEadt2kLor835UgEoEq5fBWAnmmShrypfh+6KiLzOgsD7pNP5woR9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793059285;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0LRJqBrRZu8I7CaiJXMHZVTdIs/++2cjuvZ3KSCYX24=;
-	b=w5jhnkKTBJ7512ZH9NWwxEG8v4RHpe2IUSUzhCNrHb4ncmJOcQrajsMqMDcwjKkQ3Eyo
-	 ce9mFqr8nGwJW2hBfgxyvyqr5iJO4VoWZUh45OXwvni8pcCgMaTDGi+VIzHiG/H9w4SQi
-	 oppPxd9n2r6X5aSY5GBL1EjEh00CQJKInKYpS7NRIdadd3MHH6QOZr9i37vKhTvzsmNwC
-	 2BbtXKKNzEnOXxRP4z++IkEv98noJgVXraVVfr0zS7hAmLtXW4Dt+z2DDqSWdRRVEHpRr
-	 t3ChATGn9pQsBRBVgFtwwO19IabKh1KWumVpS4seIeAh9PW6vM18HroSdHvEQpc2Xkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793059294;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=1Ah8BrrnLsu2f3h+SZaSrIJTZykx5ndF54DrtT2Sjfk=;
+	b=uEq2iVFyDl/L8XU5ceCnl/rL522PRWJsCL0/9k/vI7pdnk03tnopiXiwRATLN+FT3r03
+	 XW+fmu22DXpqHS9dFI5J854BLAEoOCx8t5g6E2fvI/uyRtSBzm0styu3Fa2f7c6I1YLwA
+	 gwxAvkG0qKbNsqwvZEscyU8zgeodkEo0jMy2EfePPbvGimjeEIyoul/qacksM08C4SiKx
+	 AEgYprxyVpq3+DvBPbDjTpLW3DmUmpC/+oaguc1OOIXf0JvK39VvxfOPj7yErNxnUxEDw
+	 GEgoXyFGitXZETQVKPrfqujK0IwbRzWbd3A5iLKP+O5PIYhwDFflOLXnQhwyCHcfwcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGHGuc5d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7rOTNav;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 41EC7606A31A;
-	Tue, 27 Oct 2026 00:01:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB746606A31D;
+	Tue, 27 Oct 2026 00:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGHGuc5d
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 464D81F031E0;
-	Tue, 27 Oct 2026 00:01:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h7rOTNav
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264521F01825;
+	Tue, 27 Oct 2026 00:01:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793059284;
-	bh=0LRJqBrRZu8I7CaiJXMHZVTdIs/++2cjuvZ3KSCYX24=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lGHGuc5dcRkAffdeH2WdifKM6MiqYDJ94AyVLlffNPp+eUdT5k+99mhaU+/bhy4Re
-	 n4+j6x8DIQM4lkKLxXBYDJJ7aL3M3nCU7SaAXSiyP6dhH4P5cyeavBR8QM2fKDBDc3
-	 RGUwUYtZoVFcAjH+wDEzgcBHLgbzoFs4NZhstuExzdEBLuXC9pL5G533krFDJ2ODri
-	 QbS1TcKVy8ZIHm90MqubYovU3DvzElKK8+zK5mEO1QGE7g4ZOU0xKYNAZoZsHSPeab
-	 /FCCwXrim3GvhhLoQMaKOxlxGla2WfbijmjWTuGclw9oaaMlDWoHdHHDFqj16G665C
-	 KQNJuk4czJiyw==
-Date: Tue, 27 Oct 2026 02:01:21 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>, Thomas Graf <tgraf@suug.ch>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+	s=k20260515; t=1793059293;
+	bh=1Ah8BrrnLsu2f3h+SZaSrIJTZykx5ndF54DrtT2Sjfk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=h7rOTNavWHvnY0UaYjX9CW/w7w1qHLGHcxMxhQWYFvyVaApX37ziE1Y2163AzbFeG
+	 9YTONgGt3YpegrQqQ7/z+/x2SXLN5K6S9RFe5Cl3+4upqHoLqmoMcSyjOUV2Dt6wKg
+	 Eg7eISzf1aIfybVMg+hsdujCTSaRULl6jfbD1Nw3lZJtzw+/9S4fVNxmsc59XScJN9
+	 hxHvGp6FcWNwlZgNHB5Wnbyrxof/KlFPNGBREaWeNZNlME2p+7GrBoIsZWUgmbXpJg
+	 FsB/b5aZkWQol1GdDcQblZkHQSCB+aExQ8u/Bcsm3vjhp0FxlfDxeT7GiwK/8s1h7W
+	 l3iw/RQRlnHYg==
+From: SJ Park <sj@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	"open list:DEVICE-MAPPER (LVM)" <dm-devel@lists.linux.dev>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:FSVERITY: READ-ONLY FILE-BASED AUTHENTICITY PRO..." <fsverity@lists.linux.dev>,
-	"open list:RHASHTABLE" <linux-crypto@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH v3 4/6] KEYS: Introduce keyring_is_empty()
-Message-ID: <at_p0VD-PsPmIq-u@kernel.org>
-References: <20261025001105.1824178-1-jarkko@kernel.org>
- <20261025001105.1824178-5-jarkko@kernel.org>
- <20261026235528.GA2395@quark>
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [RFC PATCH 6.12.y v2] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Mon, 26 Oct 2026 17:01:20 -0700
+Message-ID: <20261027000120.156623-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026-10-26-1-daily-reply-0007-damon-zero-target-value-6-12@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,30 +62,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026235528.GA2395@quark>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 04:55:28PM -0700, Eric Biggers wrote:
-> On Sun, Oct 25, 2026 at 03:10:12AM +0300, Jarkko Sakkinen wrote:
-> > +/**
-> > + * keyring_is_empty - Check whether a keyring contains any links
-> > + * @keyring: The keyring to check.
-> > + */
-> 
-> "contains any links" => "contains no links"?  Or even just "is empty".
-> Otherwise it sounds backwards.
-> 
-> Note that another "is the keyring empty" check just showed up in
-> mainline in kernel/bpf/keys.c.  So a new version of this patch will be
-> needed to update that one too.
-> 
-> Otherwise this patch looks good.
+Hello Sasha,
 
-I'll fix that up. Related, bpf_keyring_lookup() also needs to be
-addressed now that I have it in my tree. 
+On Mon, 26 Oct 2026 18:55:58 -0400 Sasha Levin <sashal@kernel.org> wrote:
 
+> > Also, the upstream commit on this stable kernel can fix the issue for
+> > parameters commit paths but DAMON start path.  That's because DAMON
+> > start path does not invoke damon_commit_quota_goals().  To fix the path
+> > with minimum change, add a new small validation of quota goal target
+> > value before damon_start() call.
 > 
-> - Eric
+> Queued for 6.12, thanks.
 
-Br, Jarkko
+I'm sorry but could you please unqueue?  Sashiko found [1] a bug that can leak
+pids.
+
+Also, could we avoid queueing DAMON patches that marked as RFC in general?
+
+[1] https://lore.kernel.org/20261026150825.152576-1-sj@kernel.org
+
+
+Thanks,
+SJ
+
+[...]
