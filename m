@@ -1,130 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793100779;
-	b=QHoTciTmfbnEUSvvbUFRuANKsIuKQ+krSTE+cSZqBt4E+gpT1it4SC6HXGuXgxxnB9sU
-	 BBXlubzJ7tHFn44YryoPm9YJ+fSJ2PiQxMwgQAatb7BKO5Q7cW6tn376JzN/az9KCMesv
-	 MSCxqdov6z+0NlejmFhWlcq4n5Iy0qwiy4E7x2MpaqweaSHSulGRFNUzPtT7Vm2esTPgb
-	 72Uxi6P82u25ocg2qNEYVJ6R0jpMPhHZH4nf8dyriFl9ADq8NwQ5d1MqI/24y/0p8TEsX
-	 a8KPvhBciwk9mUwPI9l3gJTjnTa3MS8d95n8j7u1j6ujyTzMb6V9W1HA1YVVSFW2z+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100779;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=edrBBTpgeD3pBoqTJMhrAgBh+KHkcqQKsWH8mfjNP8U=;
-	b=Vpo+rQPNniaTv8MfmkzlMxB9dbgav8pGE/vQoC7woCcFw1FGTYHO7hDxA4oL+iHwlmgr
-	 fXsl2n7G6kIxMTmwP07lGLUwK8R/FV/sVwcxK0sHfCwlAtYJPuKEO3BhwXSZnTQWLQ5vG
-	 X6WjY5CpsEtxtg+OINBrA3fdRwdL4UOEu4a21y0DIDuh2n1KLcpLIyOljz514sT+Uh9GZ
-	 SvfPBrAjKFTeuIkI1J/40/WH3kS4trLu6RvB0+rVE8e2FgLHBFYggQ2Bcf+OvMcL/qmeL
-	 Tom+nQzGqptQhkg95f/OXwUWmha0dKk4HFxtpVSMatqKqzEIULSQYyygYPPu5SlHn/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=c95Cx36v;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=OJpEYMYK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793100790;
+	b=5Qu7kPIZ0RVta1ZIrE7+uw73QgPluT7tScppqtBG5U0GBCsQvMOsFWCpGcdFYUS0s9gk
+	 O6G4VjTFgr7FxT93j2GWm+CP8Mdr4CKrK7FKp3bt+pw08H/5/XzI+LkoHq3JivlKSHm1u
+	 xSh/nM9PlGfgPYi4XDhio3S80FFUvzXoqrSS6sFdgIuOm4y8ku5AMmImcxS1JvrwqvrVh
+	 m1jH24yGURypBw9VjpxeASob3A99E/ohAkalQxaA1cbnERv+KNA922DxZXKVSNiFPyhoM
+	 t4kXigu0dLF3YvHbdKbl6YIlttF//9qSlTh3BKxKUx1Y2gjtkk+HeyB24nNgWdMHFrg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100790;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=H5KcDvLrWaQWDEiTtffmiY5Lwv/tkHdqEyWHI9TYQ8I=;
+	b=1BSgii6CyF8YdFalzQgtlx3xyQJPhl9PVDbcdQe2StIeTxubCvovVHQcMcnlAp4JLJ+X
+	 xXRbReMW5Pnt0i+KEqY2Gp2kBem2F5I145p3dSdOgLmcx6F5Vt2KzJQeOGYd9R6sDL2HY
+	 Hj27Ua2K01mKCrnv20QU27j4GNnWnyibCKOh7tcgM8mFK4fjQAYBNwfGRnJtphT8XMzxp
+	 ISlwnysQwg1qD4Yrs68IhIG4AxNRuvc59pA9tBuv1PD5dq7qruX9sKroLqpCSbgiJtNdv
+	 FSo99dDyKeUAMIuzf6x9CiSvbLJCSZChXM+Csc6rvkjKUsOyYHSdcDoeYjd6kZyaFMA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NomI7bs4;
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10AB60A380F;
-	Tue, 27 Oct 2026 11:32:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E10AB60A380F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4170606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:33:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4170606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=c95Cx36v;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=OJpEYMYK
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69R9RDU7748475;
-	Tue, 27 Oct 2026 06:32:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=edrBBTpgeD3pB
-	oqTJMhrAgBh+KHkcqQKsWH8mfjNP8U=; b=c95Cx36vhqvOdhO2q4ZUIqanLBDzy
-	Reg3MS9OoZrGBgefH95997TbTjYv/SrGoK4fXadMXq9688p5goqYcvEljvvGh+t0
-	Ln0nKS9BHYN/+ZO8koYWkpa6e2RPa4B3AOMyeLNjGb0M+rCrSfl/8HlmfyrTm36c
-	mo7++UorY/d1LBWXKd+7D/LXNFkE8OlG6jrEKh7sJSyYXlN1xK65n66TD1cXqAvE
-	N9ooM1Z31Cws/6X5Wcz2rJ7a+ybLnMyjH6M6BZUvbx85Pj7+QbARf/vrmW2pksee
-	Ii9KTqnKxbpoa1q7nxs6c9pH9o/shmaRMgm8tU8MMETxmJ6HLg1wchK9g==
-Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012034.outbound.protection.outlook.com [40.107.200.34])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4hjsbb8mf5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 06:32:48 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HKNmZOSOHwRpdfHK3sobn9W6W5hriblCULCzEv8lrfJTypFBmGErMD+SUi3xRDXwoB1Za/brHVNSIYPXYz0d1o+y5KCbF1jsEPT/8Or+E0ZiCtMvfn9S6R60mwbXtFC/vKWCbod3R0KV7yGKD53qochRfUA3ztTIEIMnfH0cZLrfLqG4FBJKAyETRxXVCSfOy5CAbLyIrHEkrdNCnBjV1cDfqPS11xq5Vbkpk+T/Dm9zv3XHNKrs+9cpqrGkZAQZk4LGzM8gPoryvRslkaiaZY31UzxBux9vNvN82KOVXmQTAAnapRkAd/3k99IX3iWBFbOVGjOYTIWU05m+0Tt9+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=edrBBTpgeD3pBoqTJMhrAgBh+KHkcqQKsWH8mfjNP8U=;
- b=QtC80/k/IAN8hpk/WWfio1i+75l0tn0/TurIZ1sM78L/AcAy4HiJGa35snVMrTnPc13R5vlZ4m5aPDanVKC2+AG6kgqthNlH7/gmn9HqmKfxG+PB1RwWaDVbihaMi87Ih+83dX95n0BkUOwD226i9Pcx5w1RvvQoUUtEIXJapPc6G2RhtWsevGMeVERhk0P4lE6AX2jFztggGCUwtwuMzsLQd5835G7fBAsFgI9qRtTch6iZF3LrEG2eCtYML1kLiaQ5u8Z/NjyArdnDIyr9xmqfwrHB53Acl0mI9/d28R76TbFhep0wQ+V1iEe2oRFaTt2FanXzytzUNF+H4HwzAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NomI7bs4
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ae1da332bcso783607a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:33:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=edrBBTpgeD3pBoqTJMhrAgBh+KHkcqQKsWH8mfjNP8U=;
- b=OJpEYMYK0dsrbU9Zt+g3jAGPsEZb5Y1JzhWmMAqfvb2EVl7KsSLqLPrTPfk0pvIdsultAO5NRCJ8qVkJGpmkIRqqNQDfVlsCzFdbCcs+vHCnFLN8dxpWrqswrjQPHiR2qoVzIxEceRCrqY5g9SW67UPgrWh/tTsp80w+aJb/zaE=
-Received: from BN0PR04CA0002.namprd04.prod.outlook.com (2603:10b6:408:ee::7)
- by PH3PPF079E800A3.namprd10.prod.outlook.com (2603:10b6:518:1::786) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 11:31:44 +0000
-Received: from LV8PEPF0000006B.namprd03.prod.outlook.com
- (2603:10b6:408:ee:cafe::64) by BN0PR04CA0002.outlook.office365.com
- (2603:10b6:408:ee::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
- 27 Oct 2026 11:31:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- LV8PEPF0000006B.mail.protection.outlook.com (10.167.248.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 11:31:44 +0000
-Received: from DLEE203.ent.ti.com (157.170.170.78) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 06:31:14 -0500
-Received: from DLEE212.ent.ti.com (157.170.170.114) by DLEE203.ent.ti.com
- (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 06:31:13 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE212.ent.ti.com
- (157.170.170.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 27 Oct 2026 06:31:13 -0500
-Received: from psdkl-workstation0.dhcp.ti.com (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69RBVAHR1817461;
-	Tue, 27 Oct 2026 06:31:11 -0500
-From: Aniket Limaye <a-limaye@ti.com>
-Subject: [PATCH v4 0/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) support
- for TI TDA54
-Date: Tue, 27 Oct 2026 17:00:34 +0530
-Message-ID: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
+        d=gmail.com; s=20251104; t=1793100788; x=1793705588; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=H5KcDvLrWaQWDEiTtffmiY5Lwv/tkHdqEyWHI9TYQ8I=;
+        b=NomI7bs4k8/GaRTn0s3gTt65nyvDdq6/l81Qyc7n++vmJcrHcn6MPWV6fW2opqXuNR
+         ESkEpzbzxXrD7/KXGhTBM4nX/Lsq0/6uWU18JEX6HMnRgY5nVEzbnUYa1h4wqR4/5f/r
+         9NDMCxN1pjkHuSaPTRgr2E8jVBFHyrVtK0myFCfdb00usydLWeB6yn9TImPMWJDkGhTr
+         92+LkjjFaHJfsa0fVcGz5dUagFQiNXWRSLYVIgp12V1wNdlDeOSDDuswoKzc349d/7xL
+         WOVxdI8YnRWuQ3crbYoybeCDaC79dIulsaQzwRJ11JICz/NZA+lpnUde5F7zKoMuEgd+
+         pnlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793100788; x=1793705588;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=H5KcDvLrWaQWDEiTtffmiY5Lwv/tkHdqEyWHI9TYQ8I=;
+        b=TbAqhoyn3dN0IN+QQlNaToLRKRfZDvk4xds8IJQYf1nthRwYwx0j42urqljt4JF1UK
+         9hg20eCzr5WiJ6PueXEWW0TYwTGKXKvNNSNbECpdUKaidQRf2DqHVs5XJM/pW4S8qj9H
+         he2lRHhvNO9tjdQAW2o3vn8e4kKERLDImxbFEgr8k2eVySXt/zWcshM4ogrhLg8vYFlB
+         NC4HUIGJC5qjFZjxA+vIcuaOsaX4NSswW7yzRc2wzCAgY7PZSiR0OxnkuEziG8eTcXMH
+         hxeXWHe0uKKnB72Rj2GOzVAsL9s6abcLNykWmOgmE/WJ3wEyYyskN9Owa+k3kUOGBoVC
+         iASg==
+X-Forwarded-Encrypted: i=1; AKwUvBzIGtBbn0XeR1pMdHX4U6JY9XUTSH4lXAUtsEwSXS0OPPwuNJD2h1GhFwj33A+gzRR0TzUpUhFrAynwgPs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8Pwo4/bknknPFRxr/4kHnsfw2gWbBsdE6iO0lthr0mz4xWguG
+	gc02gia9Q8r+g5B1Z5kNDCtZmoOKFN9F2dI3pTSAqn25WtZ2XZUnzrr0
+X-Gm-Gg: AYBFou1Itw3OZgnwlVSoJQzQbS/hdEojUVMYKwVhndtchgxrD18BjqyGiCWDkew15hp
+	y/qvoqS/7sSMwTzkZdYBQvg6Hd7Eu5VoVmXmiYqZxxchaYtgu7Zs8njBSa9eehe3rOa/Hole6sx
+	mVgCU1jCboO+TkTlF93VebmM4aksOjtMaZoI9zCMm1QNOGAEkpstWmmrcUly+JbZ8BsKRZSkvat
+	RZ+2b5j1GCiiwHmKA5+LeihXXat5mItzzQZVOoMASnROOXs2GkVrhSDPAeQtmC5sTa5nxYe4LQ7
+	ui8panW1tqCaOGx48aGskn/5aekBEx92Qp3zPzRo1LrTYWsUgQKCegmRpPH4P6HhBUHX2Hlpkvu
+	oMQtFPkgXCejbTIt15ytLIKQd1etSuuar0km+ezLqXa47xcy244kxwP66NLDVxujr8IlePK/abP
+	qAz5IuICrrgHxZFJ7qtet3HOxh1bR4O+eZhJRXnI7GgzrzGNeVEkoeqLKUNOYcmloJWFh7bg2Pv
+	k5VnKd7RFoqn1fdfTIcn0YUZEFfld0921aCrzDf5xU+wFqEfofZNbWOixkHenAah3uYEd0966Tw
+	MKel4v2XdSzT2BP8JpQCxVSCSiP/gAFlUO1VgZlj0kX+wvxgmhPZ8MgIZcK8zIjEDYhCGX6B6YY
+	=
+X-Received: by 2002:a17:90b:4d8c:b0:3ab:e588:c295 with SMTP id 98e67ed59e1d1-3adead4fb47mr7470775a91.42.1793100787884;
+        Tue, 27 Oct 2026 04:33:07 -0700 (PDT)
+Received: from cachyos (2a01cb0c82caf900a186612f304bfea5.ipv6.abo.wanadoo.fr. [2a01:cb0c:82ca:f900:a186:612f:304b:fea5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4041fafcsm4523962a91.0.2026.10.27.04.33.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:33:07 -0700 (PDT)
+From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-usb@vger.kernel.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
+Subject: [PATCH v7 7/8] ALSA: usb: babyfacepro: add the hardware DSP EQ
+Date: Tue, 27 Oct 2026 12:31:38 +0100
+Message-ID: <20261027113140.134257-8-i.bahloul01@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027113140.134257-1-i.bahloul01@gmail.com>
+References: <20261027113140.134257-1-i.bahloul01@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,257 +107,773 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFuL4GoC/4XNQQ7CIBCF4as0rMUAhVJceQ/josBgWdQ2gETT9
- O7SLowmRpf/JN+bGUUIHiI6VDMKkH3047UE31XI9N31Atjb0ogR1hBFFU62ExzfppgCdAP2zGB
- LTCMdbTR3BhU4BXD+vo2ezqV7H9MYHtuPTNfrz7lMMcGaaOWk1EBbfUx+b8YBrVuZvXkmvnpWP
- GuobAWIlqv6w9f/fV284NxKDkox515+WZYnUESC6jEBAAA=
-X-Change-ID: 20260919-tda54-upstream-i2c-d0c67f16b4fc
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Aniket Limaye <a-limaye@ti.com>,
-        <lianfeng.ouyang@starfivetech.com>
-X-Mailer: b4 0.14.3
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000006B:EE_|PH3PPF079E800A3:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d28b847-9ff1-4264-9855-08df341de140
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|261026140227099003|56012099006|261022113327099003|261021123027099003|261009220027099003|261009223327099003|261022105027099003|261009223027099003|261009221727099003|261022075727099003|261009221227099003|261021121427099003|10067099003|18002099003|261026121527099003|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	zEkz1XX7yycl8JHMeiFJ0GbdpGoXbRICFN/gcbPUJsGTtVqNnoKNo4ugGO3jtDqYpPIyU6vbm+eluxHeKf/COCALeZ7xOYyNtZrz32FmmRAlWK5oMECkmpitOhCUhSU4Lf/bsc2XIDrvBjiX7dX9tC0zjvB4kjbkatTj8+zQKfXUAoOpyn0ijdM0Ohf5Sgz2zEPXVW9V9fPIL5BhGImc7K1gAw9SBeYpmcYbrODfxQ13u5r+HmX14XwFXHPvyURjqsIOqy8+gV3oAMwaJoeZ4aq+EIRm7vy9oliVLIy7u4p/H1VJBKjwCjlY7BkouOvE7dYp7gdsBS8P0P+lnSio21tW0cU+M8GqM7gON3YpknggsNGHG0itLpjAAE7eMO9gTpnm7l14kL+fdM0wwRqVfbfP3G1QjUTny77QZYyqpYJ129HmOUXyaham1u/8e35qwGQF7dYcCirbVlzlYOMzdhxh8GLZgCjd1KlkufZBesURDSvt6x+1Qbo+VfuJ7TnM1CXBOVpRnqfOUHnOfiSh/ZDH49n4pnmbZunSJHGVgv7tKfzYRDA+B5wMqb2TI9NOL4oYZ+t3sRre6lNxsVkyRzwx3hYVhpKs6I1bZAH7RpX7KNq2WVOyCIVRlZegAD2YWiLUFx7eqXVWoeOJRD5+7RYrM7z8wouHvUPwOmgoEK4=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(261026140227099003)(56012099006)(261022113327099003)(261021123027099003)(261009220027099003)(261009223327099003)(261022105027099003)(261009223027099003)(261009221727099003)(261022075727099003)(261009221227099003)(261021121427099003)(10067099003)(18002099003)(261026121527099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	2b9YTqkPiOuV/eIvitPmRjruxsREa2HmRMX6JoGzgNSO7ZwKF43tb1SOJgyZeHj4NOis1g9vuorS8JXihjxCI0dV09nJu0Fn9cP8mDBYlRmaaT1K2vhDpQFv8bHT66cqa4m7l5tgDdHMSsupobHMoy7H7/RHVcSkcNmvc3gsqV9ZiZQXWyw7VOZMUGW4gBWeAfKqVdDU4rZElcyeRMLNHGsi4p24wDOxbaCZeX9hMok4rvdxln8dp0y5QgdtYI75PzIMToUuj+FvrYOuLClIvGV+MNQBneJj65LKj9BAqea1KKulfcaEKzJAMh5cdqWC3BSjahXcK0cyrEdXqg/j/vFFxd+4cbD8xKBD2iw/t/Nk8mox57FMbwacyzRMpfZEvxB+/n5sZeZ4SvfhlIi8sZLXlp27UCokeJZjWK8uWAWk/6XO8Z8qsY9mPm4ceICf
-X-Exchange-RoutingPolicyChecked:
-	HgLFFoGZVmHsSQxXvXXIuCOUIHhr1hFbYoicOVkruiZwbDxfbmaLOgCqY744k4oKRgMKeF6/Znp7oI0zAIMYF9pvPCbhki4tZcI+GWyuhObu6L62akIZx1z+sAdnRJymkbehjq6iu3oPnIUy5X7Qsdk2wVfCwRnXzCNFDA7WelJIFp4wX58xq6w99c1X6Z/PTzcqt6IMVf+ULmlardC4H6QjQL1XRL/63p2Ka1OcLuHhxQR4Un78Hk17cS7Yq+CrmYvjc9ulzFi49ZMuZXyOfNcg+Y0nSNhVJCj1khIFdBGyfKSkGhA9GU9DtYA03/t1fXrP0lZaaSSGKnm224aUaA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:31:44.6548
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d28b847-9ff1-4264-9855-08df341de140
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000006B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF079E800A3
-X-Proofpoint-ORIG-GUID: hYi8utULhAFkJJQH1QSdmYujzyKXpdWl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfXzXrTYOifbtki
- MPmTtDcZ6g+B0bEz5StvNNAmYPv7+KfpUh/zlNluNVUNyS1/AB/uB4URy3513iL8l0x8YkmUTRE
- xfStAsmhvaMYnVqEd1IIpen587Wu3UemFezetTy7R7Y1tFnesZk5TGTuVswn4RJRYpi9cWUzDmN
- G76eGIRGLmf0Cr1YpKzwvQJrAyukrDuCG1xlfEqaStR31YG0Xv0FrDYvdEpTt+Op0PQy/PbdhA5
- /hnLq2xGAqRCx+QHqfxFIfoMatN7sMRlmDHhHC+AXAJz0pvEF560Q92ZE+O9SjKMnxKhmfU3jFy
- D1ikUGY43jjYRsQfWykUAZJEUrCl3qgpmdUvxoFElnJFavpIznWXx8Mh4610pXWKXHw+C3YlqNF
- 9ZjRhugH/ffJqKKis/ppp226K1RtR5pA1AGg/esqoJTv7drgWIA6/hR52QlV1jfbbZLkA/B7d4J
- JJBNuP7ai//hzUg1B6A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX0y/JUiBmAIA8
- jrDGklOUgWIy4AoGDfW3vd06RQkE2ro1iK5Anp+AjN8pnorcfHyHVZ3hMMq1SBN7/I5Oes7/Hap
- nwitgmfpv2xec4GE4ogjvTAzmfX2WTw=
-X-Proofpoint-GUID: hYi8utULhAFkJJQH1QSdmYujzyKXpdWl
-X-Authority-Analysis: v=2.4 cv=LIrz05W9 c=1 sm=1 tr=0 ts=6ae08be0 cx=c_pps
- a=9AcDkMntNQwiSFi2uhiI7g==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8
- a=Bq6zwJu1AAAA:8 a=sozttTNsAAAA:8 a=Lf1tmZEFbzhW_XPW6wsA:9 a=QEXdDO2ut3YA:10
- a=KQ6X2bKhxX7Fj2iT9C4S:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0 suspectscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1011 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270045
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add support for the Synopsys Advanced I2C (DWC_i2c [0])
-controller present on the TI TDA54 SoC.
+Add the 4-strip (AN1-AN4) 3-band + low-cut parametric EQ: the
+fixed-point (Q27, CORDIC) biquad coefficient math, the 64-byte blocks
+uploaded on bulk endpoint 0x0A of interface 1, and 15 controls per
+strip.
 
-This series supports controller mode only: no target mode support. TI
-TDA54's DWC_i2c instance does not implement an SMBus block, so the new
-driver does not touch any SMBus registers.
+The coefficients depend on the sample rate, so hw_params re-uploads
+them on a rate change.  The DSP is not part of the register state the
+cold init clears, so resume re-uploads them as well; after a re-probe,
+alsactl restores the EQ controls and their puts re-upload the
+coefficients.  The Q controls start at 1.0, and a band with no gain or
+no Q uploads the identity.
 
-* Why a separate driver:
+The three checkpatch CHECK notes on this code (BIT() vs (1 << 27),
+'ang' twice) are known false positives: BIT() returns unsigned long,
+wrong for this file's signed Q27 math, and 'ang' is the CORDIC angle.
 
-Earlier revisions of this series extended the existing DW_apb_i2c
-driver (drivers/i2c/busses/i2c-designware-*) to also handle DWC_i2c,
-selecting between the two register layouts at runtime via a new
-MODEL_TI_TDA54 flag.
-
-This revision instead adds a new, separate, standalone driver
-(drivers/i2c/busses/i2c-dwc-adv.c) and a new binding
-(Documentation/devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml), since
-DWC_i2c is not register compatible with DW_apb_i2c. Based on review
-feedback from previous versions, extending the existing DW_apb_i2c is
-not attempted to get away from any hacks and workarounds added there
-over the years and to avoid all of the complexity of v3 resulting from
-updating each regmap access.
-
-The cost is that the message xfers, abort handling and timing formulas
-follow i2c-designware-master.c closely and are duplicated, so fixes
-there have to be mirrored by hand. Sharing them would need every
-register access, and the interrupt acknowledgment abstracted, with some
-possible special casing; same as v3.
-
-* Delta from DW_apb_i2c:
-
-DWC_i2c differs from DW_apb_i2c as follows:
-
-  - Register layout (see below): DW_apb_i2c uses a flat set of fixed
-    register offsets. DWC_i2c groups registers into blocks (OPERATION,
-    CORE, TIMING, FIFO, INTR, DEBUG, ...) that are discovered at runtime
-    by walking a chain of block headers, each encoding the length to the
-    next block and an ID that the driver validates.
-  - CON register bitfield (see below): DWC_i2c's CON register has no
-    RESTART_EN or SLAVE_DISABLE bits; restart is implicitly always
-    enabled in hardware.
-  - Interrupt acknowledgment: DW_apb_i2c acknowledges interrupts by
-    reading from N dedicated CLR_* registers. DWC_i2c instead writes a
-    bitmask to a single CLR_INTR register.
-  - Shared SS/FS Timing registers: DW_apb_i2c has separate HCNT/LCNT
-    register pairs for standard and fast speed. DWC_i2c shares a single
-    HCNT/LCNT pair between the two; whichever value set matches the
-    configured speed is written at init time.
-  - Bus capacitance for HS mode: DW_apb_i2c modelled this through DT,
-    while in DWC_i2c this can be read (100/400pf) from
-    IC_I2C_CAPABILITIES.IC_CAP_LOADING
-  - FIFO depth / high-speed mode: DW_apb_i2c has a COMP_PARAM_1
-    register that can be used to autodetect FIFO depth and high-speed
-    support. DWC_i2c has no such register; FIFO depth comes from the
-    compatible string's driver match data instead. High speed mode is
-    always supported.
-
-Register layout differences from i2c-designware (DW_apb_i2c):
-(New driver does not make use of flat map like below, and instead only
-stores offsets from respective headers)
-
-1.  Reg offsets                         DW_apb_i2c      DWC_i2c (TDA54)
-
-    DWC_ADV_IC_I2C_CAPABILITIES         NA              0x10
-    DWC_ADV_IC_I2C_BLOCK_OFFSET         NA              0x14
-    DWC_ADV_IC_I2C_CORE_HEADER          NA              0x28
-    DWC_ADV_IC_TIMING_CTRL_HEADER       NA              0x44
-    DWC_ADV_IC_FIFO_CTRL_HEADER         NA              0x7c
-    DWC_ADV_IC_INTR_DEBUG_HEADER        NA              0xbc
-    DWC_ADV_IC_HWID_HEADER              NA              0xf8
-    [DW_IC_CON]                         0x00            0x2c
-    [DW_IC_TAR]                         0x04            0x30
-    [DW_IC_SAR]                         0x08            0x34
-    [DW_IC_DATA_CMD]                    0x10            0x80
-    [DW_IC_SS_SCL_HCNT]                 0x14            0x4c
-    [DW_IC_SS_SCL_LCNT]                 0x18            0x50
-    [DW_IC_FS_SCL_HCNT]                 0x1c            NA    /* same as SS */
-    [DW_IC_FS_SCL_LCNT]                 0x20            NA    /* same as SS */
-    [DW_IC_HS_SCL_HCNT]                 0x24            0x54
-    [DW_IC_HS_SCL_LCNT]                 0x28            0x58
-    [DW_IC_INTR_STAT]                   0x2c            0xc0
-    [DW_IC_INTR_MASK]                   0x30            0xc4
-    [DW_IC_RAW_INTR_STAT]               0x34            0xc8
-    [DW_IC_RX_TL]                       0x38            0x84
-    [DW_IC_TX_TL]                       0x3c            0x88
-    [DW_IC_CLR_INTR]                    0x40            0xcc
-    [DW_IC_CLR_RX_UNDER]                0x44            NA
-    [DW_IC_CLR_RX_OVER]                 0x48            NA
-    [DW_IC_CLR_TX_OVER]                 0x4c            NA
-    [DW_IC_CLR_RD_REQ]                  0x50            NA
-    [DW_IC_CLR_TX_ABRT]                 0x54            NA
-    [DW_IC_CLR_RX_DONE]                 0x58            NA
-    [DW_IC_CLR_ACTIVITY]                0x5c            NA
-    [DW_IC_CLR_STOP_DET]                0x60            NA
-    [DW_IC_CLR_START_DET]               0x64            NA
-    [DW_IC_CLR_GEN_CALL]                0x68            NA
-    [DW_IC_ENABLE]                      0x6c            0x04
-    [DW_IC_STATUS]                      0x70            0xd8
-    [DW_IC_TXFLR]                       0x74            0xdc
-    [DW_IC_RXFLR]                       0x78            0xe0
-    [DW_IC_SDA_HOLD]                    0x7c            0x5c
-    [DW_IC_TX_ABRT_SOURCE]              0x80            0xd4
-    [DW_IC_ENABLE_STATUS]               0x9c            0xd0
-    [DW_IC_CLR_RESTART_DET]             0xa8            NA
-    [DW_IC_SMBUS_INTR_STAT]             0xc8            NA
-    [DW_IC_SMBUS_INTR_MASK]             0xcc            NA
-    [DW_IC_CLR_SMBUS_INTR]              0xd4            NA
-    [DW_IC_COMP_PARAM_1]                0xf4            NA
-    [DW_IC_COMP_VERSION]                0xf8            0x100
-    [DW_IC_COMP_TYPE]                   0xfc            0x104
-
-2. DW_IC_CON bitfields:
-
-    DW_IC_CON_MASTER                    BIT(0)         BIT(0)
-    DW_IC_CON_SPEED_STD                 (1 << 1)       (1 << 4)
-    DW_IC_CON_SPEED_FAST                (2 << 1)       (2 << 4)
-    DW_IC_CON_SPEED_HIGH                (3 << 1)       (3 << 4)
-    DW_IC_CON_SPEED_MASK                GENMASK(2, 1)  GENMASK(5, 4)
-    DW_IC_CON_10BITADDR_SLAVE           BIT(3)         BIT(8)
-    DW_IC_CON_10BITADDR_MASTER          BIT(4)         BIT(9)
-    DW_IC_CON_RESTART_EN                BIT(5)         NA
-    DW_IC_CON_SLAVE_DISABLE             BIT(6)         NA
-    DW_IC_CON_STOP_DET_IFADDRESSED      BIT(7)         BIT(10)
-    DW_IC_CON_TX_EMPTY_CTRL             BIT(8)         BIT(11)
-    DW_IC_CON_RX_FIFO_FULL_HLD_CTRL     BIT(9)         BIT(12)
-    DW_IC_CON_BUS_CLEAR_CTRL            BIT(11)        BIT(14)
-
-The same IP is also used by the StarFive JHB100 SoC [1]. The block
-header walk is meant to accommodate such SoC specific layouts, with
-their own compatible and match data.
-
-[0]: Synopsys Advanced I2C Controller Reference Manual (Version 2.00a-lca00)
-[1]: https://lore.kernel.org/r/20260527085039.44435-1-lianfeng.ouyang@starfivetech.com
-
-Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+Signed-off-by: Ismaïl Bahloul <i.bahloul01@gmail.com>
 ---
-Changes in v4:
-- Drop the approach of extending the existing i2c-designware-* driver
-  with a MODEL_TI_TDA54 variant. Instead, add a new standalone driver
-  (i2c-dwc-adv.c) and a new binding (snps,dwc-adv-i2c.yaml), since
-  DWC_i2c is not register compatible with DW_apb_i2c. (Andy Shevchenko)
-- Drop the snps,tx-fifo-depth/snps,rx-fifo-depth DT properties from
-  the new binding; FIFO depth is now tied to the compatible string via
-  driver match data instead. (Conor Dooley)
-- Link to v3: https://lore.kernel.org/r/20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com
+ sound/usb/babyfacepro/babyfacepro-ctl.c | 604 +++++++++++++++++++++++-
+ sound/usb/babyfacepro/babyfacepro.c     |  26 +
+ sound/usb/babyfacepro/babyfacepro.h     |  25 +-
+ 3 files changed, 653 insertions(+), 2 deletions(-)
 
-Changes in v3:
-- [PATCH 2/3] Revert to special handling for the max_register in regmap
-  for MODEL_AMD_NAVI_GPU instead of unconditionally including
-  AMD_UCSI_INTR_REG in the legal regmap range. (sashiko)
-- Link to v2: https://lore.kernel.org/r/20260925-tda54-upstream-i2c-v2-0-261785e58493@ti.com
-
-Changes in v2:
-- Rename compatible/flag: snps,dwc-i2c -> ti,tda54-i2c,
-  MODEL_DWC_I2C -> MODEL_TI_TDA54.
-- Move the Reg ID -> Offset mapping inside the regmap functions such
-  that existing calls to reg_read/write are unaltered. This does change
-  the reg_read()/reg_write() functions to take reg IDs as input rather
-  than their physical offsets, which also requires updates to the
-  xe_i2c.c driver to handle the same mapping.
-- Remove i2c_dwc_has_smbus(); just skip the SMBUS_INTR_MASK write under
-  MODEL_TI_TDA54.
-- Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-0-b0b9f77be18b@ti.com
-
----
-Aniket Limaye (2):
-      dt-bindings: i2c: Add Synopsys DWC_i2c controller
-      i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
-
- .../devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml  |   75 ++
- drivers/i2c/busses/Kconfig                         |   11 +
- drivers/i2c/busses/Makefile                        |    1 +
- drivers/i2c/busses/i2c-dwc-adv.c                   | 1333 ++++++++++++++++++++
- 4 files changed, 1420 insertions(+)
----
-base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
-change-id: 20260919-tda54-upstream-i2c-d0c67f16b4fc
-
-Best regards,
+diff --git a/sound/usb/babyfacepro/babyfacepro-ctl.c b/sound/usb/babyfacepro/babyfacepro-ctl.c
+index cf41093dc..0606bcc60 100644
+--- a/sound/usb/babyfacepro/babyfacepro-ctl.c
++++ b/sound/usb/babyfacepro/babyfacepro-ctl.c
+@@ -4,7 +4,8 @@
+  *
+  * ALSA control surface: the hardware mixer (output masters and mutes,
+  * the crosspoint matrix, preamps, routing flags, varispeed pitch),
+- * and the front-panel poll and controls.
++ * the front-panel poll and controls, and the hardware DSP EQ
++ * (3-band + low cut).
+  *
+  * See babyfacepro.h for the shared device state and register map,
+  * and babyfacepro.c for the core driver (protocol, PCM streaming,
+@@ -3313,3 +3314,604 @@ int babyface_create_panel(struct snd_usb_babyface *chip)
+ 
+ 	return 0;
+ }
++
++#define BF_EQ_Q27		(1 << 27)
++#define BF_EQ_LC_OFF		0x04000000
++#define BF_EQ_BLOCK_LEN		64
++
++/* atan(2^-i) x 2^27 (CORDIC). */
++static const s64 bf_atan_tab[28] = {
++	0x6487ED5, 0x3B58CE1, 0x1F5B760, 0xFEADD5,
++	0x7FD56F, 0x3FFAAB, 0x1FFF55, 0xFFFEB,
++	0x7FFFD, 0x40000, 0x20000, 0x10000,
++	0x8000, 0x4000, 0x2000, 0x1000,
++	0x800, 0x400, 0x200, 0x100,
++	0x80, 0x40, 0x20, 0x10,
++	0x8, 0x4, 0x2, 0x1,
++};
++
++/* sin/cos of an angle in [0, pi/2] (Q27).  Simultaneous CORDIC, 28
++ * iterations (~1e-8 residual).  eq_selftest.c verifies the whole
++ * pipeline against the double-precision reference.
++ */
++static void bf_sincos(s64 ang, s64 *sn, s64 *cs)
++{
++	s64 x = 0x4DBA76D;	/* 1/1.64676 x 2^27 (CORDIC gain) */
++	s64 y = 0;
++	s64 z = ang;
++	int i;
++
++	for (i = 0; i < 28; i++) {
++		s64 d = z >= 0 ? 1 : -1;
++		s64 nx = x - d * (y >> i);
++		s64 ny = y + d * (x >> i);
++
++		x = nx;
++		y = ny;
++		z -= d * bf_atan_tab[i];
++	}
++	*cs = x;
++	*sn = y;
++}
++
++/* 2^u for u in Q27, u in [-2, 2] (gain-amplitude range). */
++static s64 bf_exp2(s64 u)
++{
++	s64 n = u >> 27;
++	s64 r = u - (n << 27);
++	s64 rl = (r * 0x58B90C0 + (1 << 26)) >> 27;	/* r.ln2 */
++	s64 e = BF_EQ_Q27;
++	s64 term = BF_EQ_Q27;
++	int k;
++
++	for (k = 1; k <= 10; k++) {
++		term = div_s64((term * rl + (1 << 26)) >> 27, k);
++		e += term;
++	}
++	return n >= 0 ? e << n : e >> -n;
++}
++
++/* The 5 stored words (c0..c3 + shared c4) for one band.
++ * type: 1 bell, 2 low shelf, 3 high shelf.  freq_hz, fs in Hz;
++ * q100 = Q x 100; gain_x10 = dB x 10.  fs is the stream rate.
++ */
++void bf_eq_band_words(s32 *w, int type, s32 freq_hz, s32 q100,
++		      s32 gain_x10, s32 fs)
++{
++	s64 f = freq_hz;
++	s64 w0, c, s, u, su, cu, alpha, A, sq;
++	s64 b0, b1, b2, a0, a1, a2;
++	s64 pi = 0x1921FB54;	/* pi, Q27 */
++	s64 hpi = 0xC90FDAA;	/* pi/2, Q27 */
++	s64 t;
++	int both = 0, cflip = 0;
++
++	if (gain_x10 == 0 || q100 <= 0) {
++		/* Inactive band: identity words (also guards the alpha
++		 * division below against the default Q=0 the controls start
++		 * with - a user setting gain before Q used to hit a kernel
++		 * divide-by-zero oops).
++		 */
++		w[0] = 0;
++		w[1] = 0;
++		w[2] = 0;
++		w[3] = 0;
++		/* w[4] is the shared scale bf_eq_update_strip() reads when the
++		 * band has a type and a gain but no Q yet (Q defaults to 0).
++		 * Leaving it unwritten uploaded a garbage shared scale.
++		 */
++		w[4] = BF_EQ_Q27;
++		return;
++	}
++
++	/* w0 = 2.pi.f/fs (Q27), reduced to [0, pi/2]. */
++	w0 = div_s64(f * BF_EQ_Q27, fs);
++	w0 = (w0 * 0x3243F6A9) >> 27;	/* x 2.pi */
++	t = w0;
++	if (t > pi) {
++		t -= pi;
++		both = 1;
++	}
++	if (t > hpi) {
++		t = pi - t;
++		cflip = 1;
++	}
++	bf_sincos(t, &s, &c);
++	if (both) {
++		s = -s;
++		c = -c;
++	}
++	if (cflip)
++		c = -c;
++
++	/* alpha = sin(w0 / (2Q)), the way TotalMix computes it, not the
++	 * cookbook's sin(w0) / (2Q): the two agree where w0 is small and
++	 * part ways as it grows, which is the effective Q that shrinks above
++	 * a few kHz in the captures (tools/usbdump/eq_biquad.md).  Checked
++	 * for Q 0.7 to 5 up to 16 kHz.  The angle is held to pi/2: past it
++	 * sin() falls again, and towards pi it would make a vanishing alpha,
++	 * a resonance with its poles on the unit circle.  It only matters for
++	 * a low Q at a high frequency (below Q 1, w0 > pi.Q), where the band
++	 * is as wide as it gets.
++	 */
++	u = div64_s64(w0 * 100 + q100, 2 * (s64)q100);
++	if (u > hpi)
++		u = hpi;
++	bf_sincos(u, &su, &cu);
++	alpha = su;
++	/* A = 10^(g/40), sqrt(A): g = gain_x10/10 dB */
++	A = bf_exp2((s64)gain_x10 * 0x11021E);
++	sq = bf_exp2((s64)gain_x10 * 0x8810F);
++
++	if (type == 1) {
++		s64 ta = (alpha * A + (1 << 26)) >> 27;
++
++		b0 = BF_EQ_Q27 + ta;
++		b1 = -2 * c;
++		b2 = BF_EQ_Q27 - ta;
++		a0 = BF_EQ_Q27 + div64_s64(alpha * BF_EQ_Q27 + A / 2, A);
++		a1 = -2 * c;
++		a2 = BF_EQ_Q27 - div64_s64(alpha * BF_EQ_Q27 + A / 2, A);
++	} else {
++		s64 ap1 = A + BF_EQ_Q27;
++		s64 am1 = A - BF_EQ_Q27;
++		s64 cp0 = (am1 * c + (1 << 26)) >> 27;	/* (A-1).c */
++		s64 cp1 = (ap1 * c + (1 << 26)) >> 27;	/* (A+1).c */
++		s64 ab = (2 * sq * alpha + (1 << 26)) >> 27;
++
++		if (type == 2) {	/* low shelf */
++			b0 = (A * (ap1 - cp0 + ab) + (1 << 26)) >> 27;
++			b1 = (2 * A * (am1 - cp1) + (1 << 26)) >> 27;
++			b2 = (A * (ap1 - cp0 - ab) + (1 << 26)) >> 27;
++			a0 = ap1 + cp0 + ab;
++			a1 = -2 * (am1 + cp1);
++			a2 = ap1 + cp0 - ab;
++		} else {		/* high shelf */
++			b0 = (A * (ap1 + cp0 + ab) + (1 << 26)) >> 27;
++			b1 = (-2 * A * (am1 + cp1) + (1 << 26)) >> 27;
++			b2 = (A * (ap1 + cp0 - ab) + (1 << 26)) >> 27;
++			a0 = ap1 - cp0 + ab;
++			a1 = -2 * (am1 - cp1);
++			a2 = ap1 - cp0 - ab;
++		}
++	}
++
++	w[0] = (s32)div64_s64(a1 * BF_EQ_Q27 + a0 / 2, a0);
++	w[1] = (s32)div64_s64(a2 * BF_EQ_Q27 + a0 / 2, a0);
++	w[2] = (s32)div64_s64(b1 * BF_EQ_Q27 + b0 / 2, b0);
++	w[3] = (s32)div64_s64(b2 * BF_EQ_Q27 + b0 / 2, b0);
++	w[4] = (s32)div64_s64(b0 * BF_EQ_Q27 + a0 / 2, a0);
++}
++
++/* Slope byte: 2^n-1 (n poles) -> 6/12/18/24 dB per oct; 0 = off. */
++static u8 bf_eq_lc_slope_byte(s32 slope_db)
++{
++	switch (slope_db) {
++	case 6:  return 0x01;
++	case 12: return 0x03;
++	case 18: return 0x07;
++	case 24: return 0x0F;
++	}
++	return 0;
++}
++
++/* The 0x38 low-cut frequency word: round(K.f'.(11656)/(11656+f')) with
++ * K = 11508, f' = f x slope-compensation factor (cap_eq9 fit, 0.003%;
++ * the slope factor keeps the composite -3 dB point constant).
++ */
++static u32 bf_eq_lc_freq_raw(s32 freq_hz, s32 slope_db)
++{
++	s64 f, word;
++
++	if (freq_hz <= 0)
++		return BF_EQ_LC_OFF;
++	f = freq_hz;
++	switch (slope_db) {
++	case 6:
++		f = f * 15267 / 10000;
++		break;
++
++	case 18:
++		f = f * 8061 / 10000;
++		break;
++
++	case 24:
++		f = f * 6977 / 10000;
++		break;
++	}
++	word = (11508 * f * 11656 + (11656 + f) / 2) / (11656 + f);
++	return (u32)word;
++}
++
++static void bf_eq_build_block(u8 *b, int ch, u8 slope,
++			      const s32 bands[3][4], s32 shared, u32 lc)
++{
++	int slot, k;
++
++	memset(b, 0, BF_EQ_BLOCK_LEN);
++	b[0] = ch;
++	b[1] = slope;
++	b[2] = ch;
++	b[3] = 0x80;	/* EQ engine active */
++	for (slot = 0; slot < 3; slot++) {
++		for (k = 0; k < 4; k++) {
++			put_unaligned_le32((u32)bands[slot][k],
++					   b + 0x04 + slot * 0x10 + 4 * k);
++		}
++	}
++	put_unaligned_le32((u32)shared, b + 0x34);
++	put_unaligned_le32(lc, b + 0x38);
++}
++
++/* Upload one 64-byte block on bulk OUT ep 0x0A (interface 1). */
++static int bf_eq_upload(struct snd_usb_babyface *chip, const u8 *block)
++{
++	u8 *buf;
++	int ret, len;
++
++	/* usb_bulk_msg DMA-maps the buffer: it must not be on the stack
++	 * (usb_hcd_map_urb_for_dma returns -EAGAIN for stack buffers).
++	 */
++	buf = kmemdup(block, BF_EQ_BLOCK_LEN, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++	ret = usb_bulk_msg(chip->dev, usb_sndbulkpipe(chip->dev, 0x0a),
++			   buf, BF_EQ_BLOCK_LEN, &len, 1000);
++	kfree(buf);
++	if (ret < 0)
++		dev_err(&chip->dev->dev, "EQ bulk upload failed: %d\n", ret);
++	return ret;
++}
++
++/* Write the L+R block pair for one strip (channel base = strip x 2). */
++static int bf_eq_write_strip(struct snd_usb_babyface *chip, int strip)
++{
++	struct bf_eq_channel *e = &chip->eq[strip];
++	u8 b[BF_EQ_BLOCK_LEN];
++	s32 identity[3][4] = { { 0 }, { 0 }, { 0 } };
++	s32 shared = e->on ? e->shared : BF_EQ_Q27;
++	u32 lc = e->on ? e->lc_raw : BF_EQ_LC_OFF;
++	/* The header slope byte (b[1]) is only valid while the low cut is
++	 * engaged: a stale slope with 0x38 = off made the device apply a
++	 * garbage-frequency cut (ear-verified: "low cut off" left only
++	 * highs).  cap_eq7: byte1 = 0x00 + 0x38 = 0x04000000 when off.
++	 */
++	u8 slope = (e->on && e->lc_hz > 0) ? e->slope : 0;
++	int ch, ret;
++
++	for (ch = 0; ch < 2; ch++) {
++		bf_eq_build_block(b, strip * 2 + ch, slope,
++				  e->on ? e->words : identity, shared, lc);
++		ret = bf_eq_upload(chip, b);
++		if (ret < 0)
++			return ret;
++	}
++	return 0;
++}
++
++/* Recompute one strip's words + low cut from its params, re-upload.
++ * Lock-free by convention: every caller must already hold chip->mutex
++ * (bf_eq_put() and bf_eq_reupload() do) - asserting it here catches a
++ * future caller that forgets, instead of a silent self-deadlock.
++ */
++static void bf_eq_update_strip(struct snd_usb_babyface *chip, int strip)
++{
++	struct bf_eq_channel *e = &chip->eq[strip];
++	s32 fs = chip->rate ? chip->rate : 48000;
++	s32 last_c4 = BF_EQ_Q27;
++	int band, i;
++
++	lockdep_assert_held(&chip->mutex);
++
++	for (band = 0; band < 3; band++) {
++		s32 w[5];
++
++		bf_eq_band_words(w, e->band_type[band], e->band_freq[band],
++				 e->band_q[band], e->band_gain[band], fs);
++		for (i = 0; i < 4; i++)
++			e->words[band][i] = w[i];
++		if (e->band_type[band] && e->band_gain[band])
++			last_c4 = w[4];	/* shared scale: the last band */
++	}
++	e->shared = last_c4;
++	e->lc_raw = bf_eq_lc_freq_raw(e->lc_hz, e->slope_db);
++	e->slope = bf_eq_lc_slope_byte(e->slope_db);
++	bf_eq_write_strip(chip, strip);
++}
++
++/* Recompute + re-upload all four strips (rate change). Caller must
++ * hold chip->mutex - bf_eq_update_strip()/bf_eq_write_strip() are
++ * lock-free by convention (see bf_eq_put()) and the only caller,
++ * babyface_pcm_hw_params(), already holds the lock across the rate
++ * change; locking here too self-deadlocked it (hung-task: "blocked
++ * on a mutex likely owned by" itself, hit via regress.sh's rate
++ * sweep).
++ */
++void bf_eq_reupload(struct snd_usb_babyface *chip)
++{
++	int strip;
++
++	for (strip = 0; strip < 4; strip++)
++		bf_eq_update_strip(chip, strip);
++}
++
++#define EQ_STRIP(pv)	((pv) >> 8)
++#define EQ_PARAM(pv)	((pv) & 0xff)
++/* params: 0 enable, 1-3 type, 4-6 freq, 7-9 q, 10-12 gain, 13 lc freq, 14 lc slope */
++
++static const char *const bf_eq_type_texts[] = {
++	"Off", "Bell", "Low Shelf", "High Shelf", NULL
++};
++
++static const char *const bf_eq_slope_texts[] = {
++	"6 dB/oct", "12 dB/oct", "18 dB/oct", "24 dB/oct", NULL
++};
++
++static int bf_eq_info(struct snd_kcontrol *kctl,
++		      struct snd_ctl_elem_info *uinfo)
++{
++	int param = EQ_PARAM(kctl->private_value);
++
++	if (param == 0) {
++		uinfo->type = SNDRV_CTL_ELEM_TYPE_BOOLEAN;
++		uinfo->count = 1;
++		return 0;
++	}
++	if (param == 1 || param == 2 || param == 3)
++		return snd_ctl_enum_info(uinfo, 1, 4, bf_eq_type_texts);
++	if (param == 14)
++		return snd_ctl_enum_info(uinfo, 1, 4, bf_eq_slope_texts);
++
++	uinfo->type = SNDRV_CTL_ELEM_TYPE_INTEGER;
++	uinfo->count = 1;
++	uinfo->value.integer.min = (param == 10 || param == 11 ||
++				    param == 12) ? -240 :
++				   (param == 7 || param == 8 ||
++				    param == 9) ? 5 : 0;
++	uinfo->value.integer.max = (param == 7 || param == 8 ||
++				    param == 9) ? 1000 :
++				   (param == 10 || param == 11 ||
++				    param == 12) ? 240 : 20000;
++	uinfo->value.integer.step = 1;
++	return 0;
++}
++
++static int bf_eq_get(struct snd_kcontrol *kctl,
++		     struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	struct bf_eq_channel *e = &chip->eq[EQ_STRIP(kctl->private_value)];
++	int param = EQ_PARAM(kctl->private_value);
++	int band = (param - 1) % 3;
++	s32 *v = NULL;
++
++	switch (param) {
++	case 0:
++		break;
++
++	case 1:
++	case 2:
++	case 3:
++		v = &e->band_type[band];
++		break;
++
++	case 4:
++	case 5:
++	case 6:
++		v = &e->band_freq[band];
++		break;
++
++	case 7:
++	case 8:
++	case 9:
++		v = &e->band_q[band];
++		break;
++
++	case 10:
++	case 11:
++	case 12:
++		v = &e->band_gain[band];
++		break;
++
++	case 13:
++		v = &e->lc_hz;
++		break;
++
++	case 14:
++		v = &e->slope_db;
++		break;
++	}
++	if (param == 0) {
++		ucontrol->value.integer.value[0] = e->on;
++	} else if (param == 14) {
++		/* Inverse of put's index->dB map: slope_db stores the raw
++		 * 6/12/18/24 dB/oct value, but an ENUMERATED control's .get
++		 * must return the enum item index (0-3), same as .put
++		 * receives - returning the raw dB value here (the bug this
++		 * replaces) fed back an out-of-range index to every ALSA
++		 * consumer (confirmed via amixer: writing index 1 read back
++		 * as value 12, not 1).
++		 */
++		s32 slope = v ? *v : 6;
++
++		ucontrol->value.enumerated.item[0] =
++			slope >= 24 ? 3 : slope >= 18 ? 2 : slope >= 12 ? 1 : 0;
++	} else if (param == 1 || param == 2 || param == 3) {
++		/* ENUMERATED band type: use the enumerated union member. */
++		ucontrol->value.enumerated.item[0] = v ? *v : 0;
++	} else {
++		ucontrol->value.integer.value[0] = v ? *v : 0;
++	}
++	return 0;
++}
++
++static int bf_eq_put(struct snd_kcontrol *kctl,
++		     struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_usb_babyface *chip = snd_kcontrol_chip(kctl);
++	int strip = EQ_STRIP(kctl->private_value);
++	int param = EQ_PARAM(kctl->private_value);
++	struct bf_eq_channel *e = &chip->eq[strip];
++	int band = (param - 1) % 3;
++	s32 nv;
++	s32 *v = NULL;
++	int ret = 0;
++
++	/* Read from the union member matching the control type: ENUMERATED
++	 * params (band type 1-3, slope 14) use .enumerated.item, everything
++	 * else (BOOL 0, INTEGER) uses .integer.value.
++	 */
++	if (param == 1 || param == 2 || param == 3 || param == 14)
++		nv = (s32)ucontrol->value.enumerated.item[0];
++	else
++		nv = (s32)ucontrol->value.integer.value[0];
++
++	/* Validate against the bounds bf_eq_info() declares.  The ALSA core
++	 * only checks these when CONFIG_SND_CTL_INPUT_VALIDATION is set, so
++	 * an out-of-range value here could otherwise reach the Q27
++	 * coefficient math (bf_eq_band_words/bf_exp2) and shift by >= width
++	 * (undefined behaviour).
++	 */
++	switch (param) {
++	case 0:
++		if (nv < 0 || nv > 1)
++			return -EINVAL;
++		break;
++	case 1:
++	case 2:
++	case 3:
++	case 14:
++		if (nv < 0 || nv > 3)
++			return -EINVAL;
++		break;
++	case 4:
++	case 5:
++	case 6:
++	case 13:
++		if (nv < 0 || nv > 20000)
++			return -EINVAL;
++		break;
++	case 7:
++	case 8:
++	case 9:
++		if (nv < 5 || nv > 1000)
++			return -EINVAL;
++		break;
++	case 10:
++	case 11:
++	case 12:
++		if (nv < -240 || nv > 240)
++			return -EINVAL;
++		break;
++	}
++
++	switch (param) {
++	case 0:
++		v = NULL;
++		break;
++
++	case 1:
++	case 2:
++	case 3:
++		v = &e->band_type[band];
++		break;
++
++	case 4:
++	case 5:
++	case 6:
++		v = &e->band_freq[band];
++		break;
++
++	case 7:
++	case 8:
++	case 9:
++		v = &e->band_q[band];
++		break;
++
++	case 10:
++	case 11:
++	case 12:
++		v = &e->band_gain[band];
++		break;
++
++	case 13:
++		v = &e->lc_hz;
++		break;
++
++	case 14:
++		v = &e->slope_db;
++		break;
++	}
++	if (param == 14)	/* slope enum items are 6/12/18/24 */
++		nv = nv == 0 ? 6 : nv == 1 ? 12 : nv == 2 ? 18 : 24;
++
++	mutex_lock(&chip->mutex);
++	if (param == 0) {
++		if (e->on != !!nv) {
++			e->on = !!nv;
++			bf_eq_update_strip(chip, strip);
++			ret = 1;
++		}
++	} else if (v && *v != nv) {
++		*v = nv;
++		bf_eq_update_strip(chip, strip);
++		ret = 1;
++	}
++	mutex_unlock(&chip->mutex);
++	return ret;
++}
++
++/* The Q controls declare 5..1000 (Q x 100) and bf_eq_put() rejects
++ * anything below 5, so a zeroed band_q would read back out of range -
++ * alsactl then fails to restore it (EINVAL) - and could reach the
++ * coefficient math.  Seed the neutral Q 1.0 on every strip at probe,
++ * before any saved state is applied so a restore still overrides it.
++ */
++void bf_eq_defaults(struct snd_usb_babyface *chip)
++{
++	int strip, band;
++
++	for (strip = 0; strip < 4; strip++)
++		for (band = 0; band < 3; band++)
++			chip->eq[strip].band_q[band] = 100;
++}
++
++int babyface_create_eq(struct snd_usb_babyface *chip)
++{
++	static const char *const names[4] = { "AN1", "AN2", "AN3", "AN4" };
++	static const char *const params[] = {
++		"EQ Enable",
++		"EQ Band 1 Type", "EQ Band 2 Type", "EQ Band 3 Type",
++		"EQ Band 1 Freq", "EQ Band 2 Freq", "EQ Band 3 Freq",
++		"EQ Band 1 Q", "EQ Band 2 Q", "EQ Band 3 Q",
++		"EQ Band 1 Gain", "EQ Band 2 Gain", "EQ Band 3 Gain",
++		"EQ Low Cut Freq", "EQ Low Cut Slope",
++	};
++	int strip, i, err;
++
++	for (strip = 0; strip < 4; strip++) {
++		for (i = 0; i < 15; i++) {
++			struct snd_kcontrol *kctl;
++			char name[64];
++
++			snprintf(name, sizeof(name), "%s %s", names[strip],
++				 params[i]);
++			kctl = snd_ctl_new1(&(struct snd_kcontrol_new){
++				.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++				.name = "EQ",
++				.index = 0,
++				.info = bf_eq_info,
++				.get = bf_eq_get,
++				.put = bf_eq_put,
++				.private_value = (strip << 8) | i,
++			}, chip);
++			if (!kctl)
++				return -ENOMEM;
++			strscpy(kctl->id.name, name, sizeof(kctl->id.name));
++			err = snd_ctl_add(chip->card, kctl);
++			if (err < 0)
++				return err;
++		}
++	}
++	return 0;
++}
+diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
+index a1aafebb2..a8212aae6 100644
+--- a/sound/usb/babyfacepro/babyfacepro.c
++++ b/sound/usb/babyfacepro/babyfacepro.c
+@@ -1299,6 +1299,8 @@ static int babyface_pcm_hw_params(struct snd_pcm_substream *subs,
+ 		new_rate = true;
+ 		chip->alt = r->alt;
+ 		chip->frame_bytes = r->frame_bytes;
++		/* The DSP EQ coefficients depend on fs: re-upload. */
++		bf_eq_reupload(chip);
+ 		dev_dbg(&chip->dev->dev, "rate %u Hz (alt %u)\n",
+ 			chip->rate, chip->alt);
+ 	}
+@@ -1696,6 +1698,8 @@ static int babyface_probe(struct usb_interface *intf,
+ 	else
+ 		chip->preamp = st[0];
+ 
++	bf_eq_defaults(chip);
++
+ 	/* The 0x16 clear zeroed the mixer registers: apply the factory
+ 	 * default routing to keep the outputs live out of the box.  alsactl
+ 	 * restores the user's settings once the card is registered.
+@@ -1713,6 +1717,7 @@ static int babyface_probe(struct usb_interface *intf,
+ 		dev_err(&intf->dev, "flag restore failed: %d\n", err);
+ 		goto error;
+ 	}
++
+ 	/* Keep the allocation size independent of the active USB mode. */
+ 	urbsize = BF_WORDS_PER_FRAME * sizeof(u32) * chip->frames_per_urb;
+ 	chip->urbs_in = kcalloc(chip->nurbs, sizeof(*chip->urbs_in), GFP_KERNEL);
+@@ -1793,6 +1798,20 @@ static int babyface_probe(struct usb_interface *intf,
+ 		goto error;
+ 	}
+ 
++	/* The DSP coefficient stream (EQ, bulk ep 0x0A) lives on interface
++	 * 1, which has a single altsetting (alt 0) already active in the
++	 * default configuration - the endpoint is scheduled, no
++	 * SET_INTERFACE or interface claim is needed (the earlier
++	 * -EAGAIN was the on-stack transfer buffer, and SET_INTERFACE on
++	 * interface 1 wedged the iface-5 audio stream - playback URBs
++	 * never completed).
++	 */
++	err = babyface_create_eq(chip);
++	if (err < 0) {
++		dev_err(&intf->dev, "EQ control creation failed: %d\n", err);
++		goto error;
++	}
++
+ 	err = snd_card_register(chip->card);
+ 	if (err < 0) {
+ 		dev_err(&intf->dev, "snd_card_register failed: %d\n", err);
+@@ -1920,6 +1939,13 @@ static int babyface_resume(struct usb_interface *intf)
+ 	if (err < 0)
+ 		goto out;
+ 	err = bf_state_apply_flags(chip);
++	if (err < 0)
++		goto out;
++	/* The device lost its DSP across the suspend; the bulk EQ uploads
++	 * are not part of the register state re-applied above, so re-send
++	 * them.
++	 */
++	bf_eq_reupload(chip);
+ out:
+ 	mutex_unlock(&chip->mutex);
+ 	if (!err)
+diff --git a/sound/usb/babyfacepro/babyfacepro.h b/sound/usb/babyfacepro/babyfacepro.h
+index c4117e55f..41c1e7d10 100644
+--- a/sound/usb/babyfacepro/babyfacepro.h
++++ b/sound/usb/babyfacepro/babyfacepro.h
+@@ -14,7 +14,7 @@
+  * babyfacepro.c holds the card lifecycle, the PCM stream and the
+  * mixer-state persistence across re-probes and resume;
+  * babyfacepro-ctl.c holds the ALSA control surface - the hardware
+- * mixer and the front panel.
++ * mixer, the front panel and the DSP EQ.
+  *
+  * The protocol (vendor requests + 14x32-bit frame layout) was
+  * reverse-engineered from Windows captures and validated on hardware -
+@@ -313,6 +313,21 @@ extern const struct bf_source bf_sources[14];
+  */
+ #define BF_SRC_PB1			8
+ 
++/* One analog-input strip of the DSP EQ (babyfacepro-ctl.c). */
++struct bf_eq_channel {
++	bool on;		/* EQ engaged (else identity blocks) */
++	s32 slope_db;		/* low-cut slope 6/12/18/24 (0 = off) */
++	s32 lc_hz;		/* low-cut freq, 0 = off */
++	u32 lc_raw;		/* cached 0x38 word */
++	u8 slope;		/* cached slope byte (2^n - 1) */
++	s32 band_type[3];	/* 0 off, 1 bell, 2 low shelf, 3 high shelf */
++	s32 band_freq[3];	/* Hz */
++	s32 band_q[3];		/* Q x 100 */
++	s32 band_gain[3];	/* dB x 10 */
++	s32 words[3][4];	/* cached c0..c3 */
++	s32 shared;		/* cached c4 (shared by the slots) */
++};
++
+ struct snd_usb_babyface {
+ 	struct snd_card *card;
+ 	struct usb_device *dev;
+@@ -479,6 +494,9 @@ struct snd_usb_babyface {
+ 	struct snd_kcontrol *panel_select_kctl[3]; /* per IN pair, likewise */
+ 	struct snd_kcontrol *dim_press_kctl;
+ 	u32 dim_press_count;		/* front-panel DIM presses, wraps */
++
++	/* DSP EQ (babyfacepro-ctl.c) - 4 analog-input strips, params kept in state */
++	struct bf_eq_channel eq[4];
+ };
+ 
+ struct bf_rate {
+@@ -535,6 +553,11 @@ int babyface_create_panel(struct snd_usb_babyface *chip);
+ void babyface_panel_start(struct snd_usb_babyface *chip);
+ void babyface_panel_stop(struct snd_usb_babyface *chip);
+ void babyface_panel_work(struct work_struct *work);
++void bf_eq_band_words(s32 *w, int type, s32 freq_hz, s32 q100,
++		      s32 gain_x10, s32 fs);
++void bf_eq_reupload(struct snd_usb_babyface *chip);
++void bf_eq_defaults(struct snd_usb_babyface *chip);
++int babyface_create_eq(struct snd_usb_babyface *chip);
+ 
+ /* Master gain-law helpers (babyfacepro-ctl.c). */
+ int bf_master_16bit(int half_db);	/* dBx2 -> 16-bit master */
 -- 
-Aniket Limaye <a-limaye@ti.com>
+2.56.0
 
