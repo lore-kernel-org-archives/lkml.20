@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.215
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088716;
-	b=bgXuPqQ9O1GQwexKBVxJ2s41c5p0dmL6g521qqis4ihkymG2jcx63aoEv0hjJCsLsmpY
-	 ChO0GvJHWxn+b+EO6kb5TeASiRMMJmZQS0BthO4PeYm85QBij8Ir4ZbYq+zpt6+5QnMnY
-	 TfChcRiOEhzUfJYdCMXTFxMHefbwPL2//pSNeRBN529Kn+QT6mP69rhvacEOmcRWzeLDU
-	 WZwRkjxQhhG3F1pNZyS0wiULMSXIPkKPg5ioH71nBod1L8eeCBgHG+oKEI9+8vI2HPor0
-	 /lSHPiDqz9uYxz77OY/4YyUaJkEZr+ccL5KDhZetsix9uAPe4/6MO+9ReJzyE3TR2Tw==
+	t=1793088719;
+	b=3MOkHQu7sYLDM+OWLjmueC3TcfTILBvkxzaM6hrxS/2Aaz/tUrE7dWJJFfw9vgIpcOYM
+	 g+wLGBCN73WjsvGMmpKqGiulN9jdCjvaQrHG+UDc3ojQt1FG+Sf34sxUtkqzbQHXpvSiN
+	 wmjvQOZmLW4KYyxxkPJInSSZH6egSoyPm5kgkVGpwXMUjC7PmaQrjgBG/2XHj2vfEUFC6
+	 FIUrzKZNMbct2gUnp3Z9BMDBUM0npNodeiod8DvOUuC742wAICs1DAzAGrWZMfQ9Jeapp
+	 Fql5Ol7UPgs6iuKgcCjzPQnvM3eQhuQvVGBPtGkMUmVPHFGU/f6TfI+ioffiPS1XaQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088719;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=gb5sZs9kXKkHxMOBK0QCN7nKSbVD+3tuMPiUXhvbYWs=;
-	b=L7A8cWxWbn9JO5fF87FklTl32Av163Hb3JlLyMTbCAH0POwUw7GRb53Lr1pmFpWH8fT1
-	 H6d7AhoeJRoVKWhT6YEMp5h5tawFACduMPrXP062mrh9jCiE3YC/U4mrUSiZ8db9Ginza
-	 Jwgq1GKZ2F7wINuLJKnVT6T0P5VdgYJfI7Cyaub4GPEfVG+TY9PF2hi/URV/ktCb+txRs
-	 OMvOtsVjJ80uFGAXVwUB8xB9A3WHiEjC7R2SXwDyqLADiBxZKNmP6ZJBbIzlBkx8XIMX7
-	 HFSOsfrw7NH2BEOjAUF/IAyv6pZesJLCdFEcgxvElx+v+q3UdCiL9jOuOOp1loVzVpA==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eYU7nRUviv0PRMWv8pLk4R1PsyRqoA4jjfpx6F91JbE=;
+	b=dyTgIOLk8xEvc4pgRgs7EWl0ooBSZi+qb6WwkOAv9oFBGi9Znr1C7W0hTxpK9u0nt9Sa
+	 m8Iz3t1P4rryOlYGcagSwx++8vMxH4h0Vg7WfAdVIgzOmsfOXaFQQRQ5KigVz571Wxqyx
+	 D8Vq+PXeoO40ZIxyS+EdrN/eD/HtSXPzfesOAv0fVATuFr2SHYgnsKzZgjapWjvFOTrjx
+	 du18U2bw2cxy40KnPlfnAplHgAFMbsg+0EXhQTT6yYS5+1zHF6M57/mNuZL4kTs+eXGFO
+	 L2FEPd90xz5bEGbagjj8AgguEHgPcEG9qYugekAdtQWtd7kAEOvZOOYDcridgVBOPKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U0BJUmhX;
-	arc=none smtp.remote-ip=91.218.175.215
-Received: from mta0.migadu.com (out-215.mta0.migadu.com [91.218.175.215])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bH9hg+ds;
+	arc=none smtp.remote-ip=91.218.175.230
+Received: from mta0.migadu.com (out-230.mta0.migadu.com [91.218.175.230])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531C2606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 531C2606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6975C606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6975C606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U0BJUmhX
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bH9hg+ds
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uPm1bCuVoiN/lEjit+HbKmRBz2Yja0dVUN8FPqoeyWI=;
+DKIM-Signature: a=rsa-sha256; bh=5fNaLh6y2LRSzbC19B0rdBidBP/uTWp/P3MFJPydJ4g=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793088712; v=1; x=1793693512;
- b=U0BJUmhX6RzNk2/1qkmWnQdb3QryqZz51xgBbvnMpozZvRbiaxWB2hkdQ53sMVYEDPg7u+Cg
- YqMPfztZI0Y8rZdq9z+651ka5O8LUIvsiXN3dfQe5V4FBJlC2sv1ty+cL9uBOmba9HluKY/CZ7B
- MmXHxSp6221CY4ky4tZmTbHE=
+ t=1793088716; v=1; x=1793693516;
+ b=bH9hg+dsFfFLMaoyqNOIZXbMcYS9djHUYeYqmmJ/WFwBCRFCCRLz4m8r8LgHqSHjNUHaLV8a
+ bsBwKoTFMNiPK1U1cvRtSxpz5w7bNnl/q9xr3MYdZameHhnxOiutmE45XQZtkhy5xvMPkc1zhS0
+ ozDLZLrbBGNWuGu9P2PhjXjA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 45e916e20e21a3dd;
-	Tue, 27 Oct 2026 08:11:52 +0000
-X-Mizu-Trace-ID: 45e916e20e21a3dd
+Received: by smtp.migadu.com with ESMTPS id de9eea40cfde8985;
+	Tue, 27 Oct 2026 08:11:56 +0000
+X-Mizu-Trace-ID: de9eea40cfde8985
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -63,10 +64,12 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	linux-kernel@vger.kernel.org,
 	Oculytic <oculytic@gmail.com>,
 	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 0/3] KVM: arm64: Fix PMU handling in pKVM
-Date: Tue, 27 Oct 2026 08:11:44 +0000
-Message-ID: <20261027081147.498183-1-fuad.tabba@linux.dev>
+Subject: [PATCH 2/3] KVM: arm64: Pass the PMU events to the hyp vCPU of non-protected guests
+Date: Tue, 27 Oct 2026 08:11:46 +0000
+Message-ID: <20261027081147.498183-3-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261027081147.498183-1-fuad.tabba@linux.dev>
+References: <20261027081147.498183-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,55 +81,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi folks,
+From: Oliver Upton <oliver.upton@linux.dev>
 
-Two fixes and a hardening patch for PMU handling in pKVM, as one series
-[1].
+Before every run, the host records in vcpu->arch.pmu.events which perf
+counters to disable and enable around guest entry, and
+__pmu_switch_to_guest() applies them at EL2. Since commit be66e67f1750
+("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()"),
+protected mode runs the hyp vCPU instead, and flush_hyp_vcpu() never
+copies the events into it. So the counters backing a non-protected
+guest's PMU are never enabled, and every counter the guest reads stays
+at 0, the cycle counter included. The host's counters that exclude
+guests keep counting the guest as well.
 
-The first is Vincent's rework of his HPMN fix. It supersedes his earlier
-posting [2]. Rather than read nr_event_counters through a different
-accessor, the host now copies the hypervisor's kvm_host_data before it's
-deprivileged, so host_data_ptr() returns what was set up at init.
-Otherwise, HPMN is 0 and a non-protected guest's event counters don't
-count.
+Copy the events into the hyp vCPU of a non-protected guest on every run.
+The events only exist with CONFIG_HW_PERF_EVENTS, so the copy is built
+under it. Like mdcr_el2, they're host-controlled and never reach a
+protected guest.
 
-The second is the non-protected half of Oliver's patch from 2024 [3]. It
-passes the host's PMU events to the hyp vCPU of a non-protected guest,
-whose counters otherwise all read 0.
-
-The third covers the protected half. It stops the host's counters while
-a protected guest runs, so the host can't count the guest's cycles and
-events. Side channels are outside pKVM's threat model, so it carries no
-Fixes: tag.
-
-Based on kvmarm/next (dd0bc00e3e920).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/86bj8kzix4.wl-maz@kernel.org/
-[2] https://lore.kernel.org/all/20261023092007.3918848-1-vdonnefort@google.com/
-[3] https://lore.kernel.org/all/20240305184840.636212-2-oliver.upton@linux.dev/
-
-Fuad Tabba (1):
-  KVM: arm64: Disable host PMU counters for protected guests
-
-Oliver Upton (1):
-  KVM: arm64: Pass the PMU events to the hyp vCPU of non-protected
-    guests
-
-Vincent Donnefort (1):
-  KVM: arm64: Synchronise kvm_host_data before host deprivileging
-
- arch/arm64/include/asm/kvm_host.h  |  1 +
- arch/arm64/kvm/debug.c             |  4 +++-
+Fixes: be66e67f1750 ("KVM: arm64: Use the pKVM hyp vCPU structure in handle___kvm_vcpu_run()")
+Link: https://lore.kernel.org/all/20240305184840.636212-2-oliver.upton@linux.dev/
+Signed-off-by: Oliver Upton <oliver.upton@linux.dev>
+[Fuad: non-protected copy only, tested on the hyp vCPU, under
+ CONFIG_HW_PERF_EVENTS, new message]
+Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 11 +++++++++++
- arch/arm64/kvm/hyp/nvhe/switch.c   | 24 ++++++++++++++++++++++++
- arch/arm64/kvm/pkvm.c              |  6 ++++++
- 5 files changed, 45 insertions(+), 1 deletion(-)
+ 1 file changed, 11 insertions(+)
 
-
-base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
+diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+index d715aa942577e..28a292deecb64 100644
+--- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
++++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
+@@ -690,6 +690,16 @@ static void sync_debug_state(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 		host_vcpu->arch.external_debug_state = hyp_vcpu->vcpu.arch.external_debug_state;
+ }
+ 
++#ifdef CONFIG_HW_PERF_EVENTS
++static void flush_pmu_state(struct pkvm_hyp_vcpu *hyp_vcpu)
++{
++	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu))
++		hyp_vcpu->vcpu.arch.pmu.events = hyp_vcpu->host_vcpu->arch.pmu.events;
++}
++#else
++static void flush_pmu_state(struct pkvm_hyp_vcpu *hyp_vcpu) {}
++#endif
++
+ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ {
+ 	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
+@@ -698,6 +708,7 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
+ 
+ 	fpsimd_sve_flush();
+ 	flush_debug_state(hyp_vcpu);
++	flush_pmu_state(hyp_vcpu);
+ 
+ 	/*
+ 	 * If we deal with a non-protected guest and the state is potentially
 -- 
 2.47.3
 
