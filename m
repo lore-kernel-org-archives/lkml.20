@@ -1,54 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793107024;
-	b=SYeolS6MgPo2YcOtywp1rEtw48PWNAdPLi/xiFTmQHmkzzYY4cYwzMm8VrW65NzX3HrZ
-	 yYBzAW6YKg8CjyVQ8OFreCNuyMgWtIO1mJ1+pgt+Txs3QrIeDc6IuWhieYnMoR6WWdLVv
-	 VEOJx4tktGKU/GmR27zpU/OcZWmIZk9bLPEnq2G/xTAc0h530bO5gRszNjhZUrXJ3Mx+M
-	 GGFcUp/7Z8h2WpCMBexIakg9Z6CrUVajbCJmOH8s8XeUwQavNmfcx4htYnrWqc8gsJIQP
-	 M51v8GDBqyoxbFq1/w78t5RxGylxX7P0Cq7D1swvq/ZEUjDDjiTLFyfTmSeaxq5N0qQ==
+	t=1793107112;
+	b=4WuWEEtWvea0o5R423cgodchSyYlwqD0pI1BjdcVCwOP/97WB0lsMWY7Z48Gs14FJx23
+	 VXQyenHLQi8Wl4/c6WvQD3cpmwD5a/O/JbWYniNvFDMTWCP5Z/pKH4aF9+zO7XZrteqex
+	 Oa/UA2L64CGu0EMxfwr5a7wctajHE+6lzbtQGUDKzrfU8niIpecg0bF9xZZuFlgPJCAKA
+	 5lr314jtH5YwSzPox7F5arCxzGV/SrseOsfSF5tsjzXha4oaXVXPuHtvEcu3V5f+Quhxs
+	 gA9YMx8faN5eVaW0WdFvh7Igzf75/FEjjLDTgn22gzv1mTd6iSH697aSzLxD59QHjnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107024;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=EpBt8CQ3npaNOOqrYPrj/fast8Ozf2jDF5Bzncmp5BU=;
-	b=f92GfZcENdGz6LN2onSUrRyK68O++/NOwMEjFPiQjDdtlOH1mBrD+5MNrDaUe9Hy9lq5
-	 9PvXGRuegSeLm+CITuIctliK5mNphxGfeiMEhFeZW63XXPVZE8s6dJ51ikNaF38KBp6vu
-	 voy49Z639BwHviW69+Ik3rIQ4kutv/b08ZK55KB3+Bodw02K5amoIVOBv+ZTEmj6IYsA1
-	 Uj5K2ive3cvvTaPim9TtYvhqgwvUTyLGsWFxjTEFWAJUhTwaLD1+U+WOfEFTb42Z0WIKp
-	 MqWER0oVU+lB8MdsHqIVqv2lthobsOcfit8hQf5pA0bFYy1ztbuREEbqPURxOd7nW6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107112;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=S1W3vj7Uq94wVrX/Lq/+NitQiEZyxkt2m/8k6adxiTs=;
+	b=D1VuizanRoOJtLKgQ5AJPQcwRNTieUAykkor0rhUI20V0dUuP84vvAC8dQfj82mggxJK
+	 7GJdv7PYGz551v78ncqvHdwiO6hv2zB18fJ2pFUkKGnMuRCTxO0WvMLoBoeLJpWzCyS48
+	 fVtOGUK9y08q30H/iWx/XVjiyWS49IU6iXLczoS4CWVdzfICPA38xTWM4WPAoHCttywUs
+	 3ZYs1KNdUWOTnnFqHxhN1/WTBZqUdxFussJOIIRdXkHidttXELzhpQan/XDiVF7COhPYN
+	 qsJyjoXLOynDPJofWTRXQfHMUbduScSywUKe1aVN8w5nJuGVbC5vC6m0plLvCv5TuSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kF3p+lyH;
-	arc=none smtp.remote-ip=91.218.175.227
-Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B23D606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:17:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B23D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kF3p+lyH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EpBt8CQ3npaNOOqrYPrj/fast8Ozf2jDF5Bzncmp5BU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793107021; v=1; x=1793711821;
- b=kF3p+lyH7Xv8GL4EeSsKMr8iP9F8HUhvpSCBZoG7WRrYdAk/KCQpl/DSdeEG3tOOu5QNf2Dg
- 5mlfjDRbPe3Khj3l3Nyce/jRhB8pcSTGaA2rimxWZBne4stDM8Wj6S8Um3cum9SU0CDpoUcn4+A
- Fs//ki1BzmnEScCTcWX3ZhnE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 7fa098b483a16b6b;
-	Tue, 27 Oct 2026 13:17:01 +0000
-X-Mizu-Trace-ID: 7fa098b483a16b6b
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28075606A320;
+	Tue, 27 Oct 2026 13:18:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7B01F01828;
+	Tue, 27 Oct 2026 13:18:27 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,82 +35,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 05/14] hugetlbfs: enforce F_SEAL_EXEC in setattr
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261027-fixes_shmem-v2-5-86a00952acb9@kernel.org>
-Date: Tue, 27 Oct 2026 21:16:28 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Gregory Price <gourry@gourry.net>,
- Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Vladimir Davydov <vdavydov.dev@gmail.com>,
- Michal Hocko <mhocko@suse.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Lukas Czerner <lczerner@redhat.com>,
- Carlos Maiolino <cmaiolino@redhat.com>,
- Christian Brauner <brauner@kernel.org>,
- Jan Kara <jack@suse.cz>,
- Daniel Verkamp <dverkamp@chromium.org>,
- Jeff Xu <jeffxu@google.com>,
- Oscar Salvador <osalvador@suse.de>,
- David Stevens <stevensd@chromium.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- William Kucharski <william.kucharski@oracle.com>,
- Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>,
- Nhat Pham <nphamcs@gmail.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
- stable@vger.kernel.org,
- Pedro Falcato <pfalcato@suse.de>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <CD47E54C-571F-4D1C-9529-20A2D177E2A2@linux.dev>
-References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
- <20261027-fixes_shmem-v2-5-86a00952acb9@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] PCI: rzg3s-host: Fix NVMe resume errors after s2idle
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: claudiu.beznea.uj@bp.renesas.com, lpieralisi@kernel.org, 
+ kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, 
+ bhelgaas@google.com, linux-pci@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261005110224.17160-1-ovidiu.panait.rb@renesas.com>
+References: <20261005110224.17160-1-ovidiu.panait.rb@renesas.com>
+Date: Tue, 27 Oct 2026 18:48:19 +0530
+Message-Id: <179310709974.16692.1197178939539578162.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2532;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=OFbVCbpecaAx01zPKDHqteptC9SazpzmX4CfIyPRIT4=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4KSe1yfPkIlyyeJ6mqhtSbqyq7u/PVEcRcEKj
+ 8t7NhoVyZGJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauCkngAKCRBVnxHm/pHO
+ 9XASB/0U1wA0WIJsrqTRuFtGIj0sAn9OOnQFldTAGUTkM+sYBko721xmb9qm0wWvwb+4YQNRmRE
+ mg0XcTwjWY2p2IfIvlZRXNAfyoFM5i+yHCquA+4XdF9GXtUaVrI34HHeWMmjpn3MmZ5aXH53Ooj
+ 8lRsSt/XWUlOmXSd6iyO+CbJG/APPxFw9eETRJeVXn/VdRtgUipadGBlTzHUyr9Zjzol7fpOwI1
+ cXmJ0WEG8R3eBVTAxP1ZtBENKhEyn9DFbivPvnKtgGjV+9ntEHFKqDGWBG/cFqpKqgTdLLc9Ch0
+ dzhLoEWe+rZ5GuSnLpKQziUi3Ne/EQ2pjkQQL2WE617FFwTx
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
+On 2026-10-05 11:02 +0000, Ovidiu Panait wrote:
+> On the Renesas RZ/V2H platform, when ASPM is enabled, resuming from s2idle
+> with an NVMe SSD connected fails with:
+> 
+>   nvme nvme0: I/O tag 27 (001b) opcode 0x9 (Admin Cmd) QID 0 timeout, reset controller
+>   nvme nvme0: Disabling device after reset failure: -19
+> 
+> This happens because during s2idle, when ASPM is enabled, nvme_suspend()
+> does not shut the drive down. It leaves it in D0, puts it in its lowest
+> NVMe power state, so that resume only has to restore the previous power
+> state instead of a full reinitialization. This assumes the drive keeps
+> its context over the suspend.
+> 
+> However, rzg3s_pcie_suspend_noirq() doesn't take this into account and
+> it always powers down the controller and asserts the controller resets,
+> including PERST#. That resets the drive, and the command the NVMe driver
+> sends on resume never completes.
+> 
+> To fix this, similar to the dwc driver, use
+> pci_host_common_d3cold_possible() to check if the controller should be
+> powered down and keep the controller running otherwise. Do this only for
+> s2idle, as deep sleep could power off the SoC and neither the power domain
+> nor the driver will restore the controller clocks and resets on resume.
+> 
+> Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
+> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+> ---
+> Note: this fix depends on the following series:
+> https://lore.kernel.org/all/20261002110935.2004349-1-claudiu.beznea@kernel.org/
+> 
+>  drivers/pci/controller/pcie-rzg3s-host.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
+> index eea215818633..9fc1a5a4bed8 100644
+> --- a/drivers/pci/controller/pcie-rzg3s-host.c
+> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
+> @@ -2272,6 +2272,14 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
+>  static int rzg3s_pcie_suspend_noirq(struct device *dev)
+>  {
+>  	struct rzg3s_pcie_host *host = dev_get_drvdata(dev);
+> +	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(host);
+> +	bool pme_capable;
+> +
+> +	if (!pm_suspend_via_firmware() &&
 
+For checking S2R, you need to use:
+	
+	if (pm_suspend_target_state != PM_SUSPEND_MEM)
 
-> On Oct 27, 2026, at 21:03, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
->=20
-> F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() =
-does
-> not check it. As a result, fchmod() can change the execute bits of a
-> sealed hugetlbfs memfd.
->=20
-> Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
-> to execute bits when F_SEAL_EXEC is set.
->=20
-> This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
-> fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
->=20
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
-> Link: =
-https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo=
-.com
-> Acked-by: Pedro Falcato <pfalcato@suse.de>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> [ david: use common helper; fixup Fixes:; check only regular files ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> +	    !pci_host_common_d3cold_possible(bridge, &pme_capable)) {
+> +		device_set_awake_path(dev);
 
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Why? To keep power domain ON? This is not justified in the commit message.
 
-Thanks.
+- Mani
+
 
