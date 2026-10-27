@@ -1,52 +1,103 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116249;
-	b=XHZlh/eY12YXbamxnNMSbalxhDN0LI7QJpOQOz2VsSo5KcKvk9rjzs3xDAYX93NIBAa4
-	 ovco6+8xVbtfGbgZmo4H9QfCbFlTDgm5z6f3uK9CABwvCra6HcVnLKr6Bfd0Okd6Da0Sp
-	 wSeyKP1ssLv+xbF2mB8NwW6JinivBGNAFZsvVEY7vM7K6jk7l1ifoF9NQQIR9tYxUGCah
-	 CXMkSlxN/HxQRTOjBCwmHBBdLWk/83Hp9WEvjKhB4OuLxrwXaGYvCblsKGQQvzGXjhKOJ
-	 6jG8GTo9mm8NVGsnoJnitMriG7KBC3Ci0fgrv35M6fDV32kRhpx+f2/XDna1n7zZezw==
+	t=1793116246;
+	b=ek0db6pFLpBEUSmISjYdkTJ8tx5XXW8HR+KUF4YrVStbK76skORY+lUTiYLwPXuG26RW
+	 KjSct6P4Y5qEQd7FpS/ZNhI1uwZOtvW6hXWp0ur0Lc0lma3xAfXfgHYl6OyyN/Ig+kCqM
+	 1kjTw8cCx+DyEI0kK7SY2BADBxhtg69ym8aVb2/sidlXVl8//8jXPRmJhBuStQ8ZSCUCJ
+	 in3KJkUk1rHDdrSkUuTZI6P1JG45/fvV4B0qCm0t3h9aT/Pc1epu2HYd31aPci6eEOj8D
+	 9xF0/gJ00IGpbb+jwi2uhOIb+2t+ut9zFpteE405i3P2ZdZ6cVF7wR1iwiNFkhDX0LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116249;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116246;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=m+Ex2ylCXH8pY+H401VFgKf2jxaf4Osd5Mhr8rVW5MY=;
-	b=lLjlqspKTZFqKtq6FJDa0wdDQjJzmesW+jytXn4A7TYKSR+nM3p2M6dI/xky5lGGIMr8
-	 bhd0o7MfMibd/6CFjyZLJRFcssX1XJTaftSLdWFI3XihAU1qWMLUaIDivEPosD5Px2Cgb
-	 HcTsQ7Q1PgbdKspeC3RGKLEO760lYINNaNJv57KtqVYmpUtdH/5uh/LN6bEx3B4HSBDcx
-	 dj6u5oZCHxS6B9IDii9Z+RnaSFh1FkJCCD8bdU7hjNz5GWMEO776sf317ZcSiDkzHUkis
-	 Osm0hCEgS9SuymcSFSyOZzBYN3ZdjNZfooPXEzaxD5qFHJMFtdup9KzZUAxbrekzFYQ==
+	bh=ByIMA20bFaAay8lMe5e8/YwK0p0NS8Mq0xbXMMWelBo=;
+	b=K+qjjq/H341yT1h9IC4urhkSnAdjv8fv4+EDh33KbZnnLpin5Rv1bGalSxwGFZ1kuExP
+	 PY/Rpj7Wa7iSRRhRKSIaGcRQKbE3gPV9F1XYzrHvNJuMEuaGy8wMDAwhTELCjxk18rgvN
+	 Aq6jivvusNVtiz4Y9/6t+aLtv5BT/iGDQocjgTwT263tk6DtC4zhEcLwKZRCoKYqu8iKc
+	 O9wePwgqNnPSLkKdVziu95YdzxA3WH/lOOA1o12feOO1acCZX/0j2stZhY0hGRHQlIkkY
+	 DxwQFYC4F6PPagunMRQo6VqChCyAiIbWhN5LuFlyDyksvSVZ/g/VWTiDV92A9BmrsfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gs9f67Ne;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gJ2PapAd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05380606E6C0;
-	Tue, 27 Oct 2026 15:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F19606DA15;
+	Tue, 27 Oct 2026 15:50:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gs9f67Ne
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A1D1F031EF;
-	Tue, 27 Oct 2026 15:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793116248;
-	bh=m+Ex2ylCXH8pY+H401VFgKf2jxaf4Osd5Mhr8rVW5MY=;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gJ2PapAd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227971F01825;
+	Tue, 27 Oct 2026 15:50:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793116245;
+	bh=ByIMA20bFaAay8lMe5e8/YwK0p0NS8Mq0xbXMMWelBo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gs9f67NeA0yVm1F6RPLTncAyE+obVjwwWe8baqzKIa+dFyX5ceObJCShr9KUAQGVy
-	 MWWy4zQp1GdaJQuUyEdPFBPqZHPjn+JvlmEF4if6BgNaZqNEyj0DEuVhJwCYW/Z3TX
-	 iUy5i0srugq5eNcsIUdfrcWAYlMpZeAB1qoGfyC98uoFgY/6xHeaHLIlfFF+D5f0mt
-	 6W2E0jQ+Ve4gg0ZTZWYaJuCWdulQApwf7hnqKch3CEmIlAY5mJjNNbOJa78XJO1H9R
-	 MO15BGnN5BS9yRNw9yMXs24RlYV9c2A8PjCm0u4Jkvium64LEf7mNadImFeEaC9cST
-	 7xZGKJxiiC7kg==
+	b=gJ2PapAdRtgzLR1TwB63TjqS+0vkNNmivCM/fp1NBCsyFMmrkC5A5Z1+SOIFVPFH5
+	 1QP054AOPFuUnVZMOGVZSPXlxTpQpHOyvklAl2RleL2NhdWA17gntbDB/P+S5KuA3Q
+	 NYOs6gAXEgUa5zYCFYG6Bj06HIsT3aLP3Jg5Efn4=
 Date: Tue, 27 Oct 2026 16:50:43 +0100
-From: Carlos Maiolino <cem@kernel.org>
-To: Wilfred Mallawa <wilfred.opensource@gmail.com>
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>
-Subject: Re: [PATCH] xfs: fix unwind handling during xfs_mount_sysfs_init()
-Message-ID: <auDFY4Lkxs76I_F5@cronus.toxiclabs.cc>
-References: <20261026053454.987673-2-wilfred.opensource@gmail.com>
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
+	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
+	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Peter Hurley <peter@hurleysoftware.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
+	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Olof Johansson <olof@lixom.net>,
+	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Robert Baldyga <r.baldyga@samsung.com>,
+	Thomas Abraham <thomas.abraham@linaro.org>,
+	Kukjin Kim <kgene.kim@samsung.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
+	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, stable <stable@kernel.org>,
+	Nicolas Pitre <npitre@baylibre.com>,
+	Kees Cook <kees+treewide@kernel.org>, Helge Deller <deller@gmx.de>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>,
+	Randy Dunlap <rdunlap@infradead.org>, Ronan Pigott <ronan@rjp.ie>,
+	Liav Mordouch <liavmordouch@gmail.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Johan Hovold <johan@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Tony Lindgren <tony.lindgren@linux.intel.com>,
+	Tate Whiteberg <whiteberg@arista.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Fushuai Wang <wangfushuai@baidu.com>,
+	Petr Mladek <pmladek@suse.com>, Moteen Shah <m-shah@ti.com>,
+	Kendall Willis <k-willis@ti.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
+	Marnix Rijnart <marnix.rijnart@iwell.eu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Linmao Li <lilinmao@kylinos.cn>, Peng Fan <peng.fan@nxp.com>,
+	Shitalkumar Gandhi <shital.gandhi45@gmail.com>,
+	Robin Gong <yibin.gong@nxp.com>, Pan Chuang <panchuang@vivo.com>
+Subject: Re: [PATCH 00/24] tty/serial: a bunch of llm-found fixes
+Message-ID: <2026102706-consensus-neon-ed05@gregkh>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
+ <auC99yMtPR0BGiiH@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,46 +109,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261026053454.987673-2-wilfred.opensource@gmail.com>
+In-Reply-To: <auC99yMtPR0BGiiH@ashevche-desk.local>
 
-On Mon, Oct 26, 2026 at 03:34:55PM +1000, Wilfred Mallawa wrote:
-> From: Wilfred Mallawa <wilfred.mallawa@wdc.com>
+On Tue, Oct 27, 2026 at 05:06:31PM +0200, Andy Shevchenko wrote:
+> On Tue, Oct 27, 2026 at 12:06:26PM +0100, Greg Kroah-Hartman wrote:
+> > Here's a series of some small llm-found fixes that have been sent to me
+> > recently.  Most of them are just minor bugfixes and locking cleanups,
+> > but they are good to have from what I can tell.
+> > 
+> > Submitting them here to get a solid Sashiko run and some second eyes on
+> > them before merging if all goes well.
 > 
-> The goto for failing to setup /error/metadata jumps to the wrong place
-> in xfs_mount_sysfs_init(). Fix it.
-> 
-> Fixes: a9a7b9e8686d ("xfs: add support for lazy direct read bounce buffering")
-> Signed-off-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
-> ---
->  fs/xfs/xfs_sysfs.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/xfs_sysfs.c b/fs/xfs/xfs_sysfs.c
-> index e77917ac179d..4a6a8c92c3a1 100644
-> --- a/fs/xfs/xfs_sysfs.c
-> +++ b/fs/xfs/xfs_sysfs.c
-> @@ -906,7 +906,7 @@ xfs_mount_sysfs_init(
->  				"metadata", &mp->m_error_meta_kobj,
->  				xfs_error_meta_init);
->  	if (error)
-> -		goto out_remove_csum_dir;
-> +		goto out_remove_error_dir;
+> Since it looks like v2 might be issued, can we move all Cc lists in the patches
+> outside of the commit messages? (Usually it can be done by moving them below
+> '---' line.) This reduces a noise in the commit messages and allows to see
+> better history on a single screen page.
 
-Hmm. I think this is wrong. Don't we need to remove the fail_at_unmount
-file *before* removing the kobject?
+b4 doesn't do that "below the --- line" mess, but I will trim things
+better next time around, this was a mess, sorry about that.
 
-So, we'd need to actually call sysfs_remove_file() before actually
-deleting the m_error_kobj.
-
-I am honestly not sure if kobject_del would clean up any attributes
-added there, but I think that's the right thing to do here?!
-
-Cheers.
-
->  
->  	return 0;
->  
-> -- 
-> 2.56.0
-> 
-> 
+greg k-h
