@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793133193;
-	b=jxznUddpN93eu+Au4gWOpqwI24Mx5/snmnU0kwuE/dF94PUYs1LyNDqTNaR4DVZpgx90
-	 k6avawKCFAgtS3xk4Eja2vwWNnbGm52oQxBK1sK5U2lMKz5JWe6+1E5RfJ7SB8Z4agjwf
-	 1csXffVqnIKO6iuvIih0P/KOrvKCVdpNquJyaWbSvWq2TthAo/y5BZV5E7STDU+6Y4ht8
-	 irnwmXAMUeRFllN1rgEnZkcRFmvdvnv0gTcJYzmdr7bJpq1+OCsc3vKuWD5FiIDfCeN7O
-	 XWFXZ3yFdSfKVX69gNEp4Vtaev4ibDMf1jByiO1+lVIonIXcWJ1z34VzTdUxCsOLbdw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793133193;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2FqCr0vtvC5ycn1qRHHA8CslBTsR5N+niQDKzSUxH7I=;
-	b=UyziU9SSzg6jhprRAvAzJ8xBSb3xmVgmpLldYcXBQIC9ZqEFJr9IG702wL5Cf4EDjM+P
-	 UCVgj7ZrSVr4OCbe0NU5dJ16AYQ7U38WQ6sIA59TmU0zSVorcdcEFaWkIQujPvaM2PwOm
-	 qZ61HlbgeUSYmzIUgXAlSA9OMa6Ez6ux7pCZqTwbaeXVdgkQKW7t9CjEfhpntYHGaqwX8
-	 oGZhF8uqyHjR0xe0FgE37QgpvSaJegxcLIZkWcXAyC79Arpi2Fql3Q/oDcF8TZrjNoJLH
-	 Mj0LYoaHb+SWI69lSPa803n4/T4MWGraBhaksr2lZ2cBHosyp1+hRBAD2BxQMGL613w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcpRYrvO;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793133213;
+	b=FOSJBwt/eo5eBn0tCrWqgw9k9BmzH1upQc1NQQHyrxh3Z1Ii/Ns39nF9gPakUHSp6SDK
+	 uceq7+bqVJCAHT0/nfqroZKQBHfL27QK28/vHThz7KzBilUWAS+1YWIT2vWH/cs3gKIkN
+	 f/bBiI8KjsuP9EnSJTOEmTfFxUiId1ycEbm5EVpJKNIMezWY++SQs98xbsgBeDYUtTwkl
+	 jDtfqiohvhgJUSeqwUByKOl7wZ53O2TOVCmfxE1419wZEkiFJXjzDafM1IHS7MNFXZ0Jc
+	 W6mBIrFkxdywUYwFZLP+WPZH7lLMgzaeUaJSnfR024s0TseIwnoaqfapCkODqxr8Dkw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133213;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RUsmSn5TTXp1D9mIJ0obASDtKKRFcgaXruKo733un9o=;
+	b=rgzeuHVwWSXK9AMI0dmg1OWO/30mvtF9DFUKr20gjE/5RlsjAajazgqB+jRyEhc/JaTf
+	 KBc/+lG/ZYBqDRCPyJ7VRH4wgmWKmN8vZDx2ApjyP2ZLl/IZQwzWzFQdh+p1xiJrhjQLP
+	 v5dbRkijxPknitL3kXekmey+CRlVkr/kJwgtVhbbS6O0ZqAQsiTvBg31VqEfM2Oxe83Fh
+	 TdNgkG0e9Z/u++yCcr6G9gtFfe8IT1QaXIALk//l6s7cE0lJGvOYXlQOFJbP8p+nn5mgJ
+	 hNHPIyOkN8O+DEQDZdUeE/KygOa912xHrJmvWLqL9FNsDJM22ebONQfu1YtJbzvyAew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXG7Q3Zw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23653606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:33:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED65606A31A;
+	Tue, 27 Oct 2026 20:33:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcpRYrvO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F01E1F01828
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:33:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXG7Q3Zw
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793133213;
+	b=jJZy6axos4EmObl9spOrPMEro1hDlSAMETbdsIgRO+p6bxwptEMafgFRDqgYeYmf6VAG
+	 cszb5a8lNTp8BSJfH/mpJ7mbZb7Y9f1ITIUxxaHJavsIbAXkfvha16TWS6uuJ8eBbsXQd
+	 8H7lyGLzen/Wr7TN9Oz46Hr6AtCgMm9eKSwp3He6HzBRPVsZS6YYMdTZzVkjhM++D25TX
+	 SWsswwbITxc8GmxkK240f36BQy5uhJWv4FHHQmkRi5kqNiwxGjdPDHrrVXS0hOInBOTeS
+	 nGR+/ugZ2Ra6O6doXaRTkVaZReHPFQBhNyB2iSMMnfDQei7+2yaxC6oyr9nTzXt5Rzg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793133213;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=RUsmSn5TTXp1D9mIJ0obASDtKKRFcgaXruKo733un9o=;
+	b=wr+DjOaaECUlchssCVu6rDPeQRrl9MH85zwGNmnm46uUQihuHSC/YMNH95JTcdPrFh54
+	 388HHTfflHCljq5CnFpLbqbs3HPWFDhOIXtiCsjF/F3jnSCSJupy2LK8W3S4t3fYMmJoh
+	 ZGfUfYLZa8hzyAEC/+ng6FTG5obFGy9e7V8I6THEgzcuzF3bZMzt6Zc0oSG7Zb6Qfhqbw
+	 g6BGzrveckbY129ZG9FDc05S4MGdfP58VxbX/ZF/IoRp8ujMN9WJFycJ0/rXhVwsg5IeX
+	 frNZFR4N9kl1LPdIkeUSvf3P0kHfp2qFvYxzHg/yOZ4pfeCPQXLanUtbH6s1t9BtrQQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 81D7C1F01825;
+	Tue, 27 Oct 2026 20:33:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793133192;
-	bh=2FqCr0vtvC5ycn1qRHHA8CslBTsR5N+niQDKzSUxH7I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WcpRYrvOVG1aJ37ezXi3++Z7WlV+yaXEVRPzmcezPwocvQFKIp8H+GG5uUjI++Nlp
-	 NjnzdunOl/mEpIb5AwgBuMsZMpkeIueQD8yZp6XdNwiyRW38+OnH4/3KoywxcXW3Mn
-	 6bqAldWChKWaIfMMrT7oJlx7eHqLAgD1mkazaQsOL1kEtij9qKNY8BxNLGFeT9p1xy
-	 Kd4w+7+y+Xd9tBjEx/ZnGpjL3yLRzYwBcuvvN5iGzMFJS4BgSfwljz3+nYCNmn/W5B
-	 rFaqIuCzTrCwV+DiYUF6+ta7KlyrNke+cH96rNeAHYeSGtfDcyGlbug1b92+xUyHlM
-	 mj+CiLPCSWh3Q==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so358567e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:33:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx9hoklsOE5DcnKvoMLWfgfZNa8WajsdlJKyui4dMO9ncM8WPaUWRXvpYnjzRY8+Ff0oVm5r8l+khPbPzY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKeJRtdnISWnYlRzjQS2qyUAfWKotE0ltuolm6gS0lm7M1nem9S
-	Wly16NpuIcZh5xN/ZgufcvHT/IHn3iooKLbRKjy7apLBYmau/OpPa5OY6KycGMuZsm8FN7Efpf5
-	bDoSL7I0HrF60k0hSWkIHySQ6iRzmHVI=
-X-Received: by 2002:a05:6512:3090:b0:5be:5b2c:4a1f with SMTP id
- 2adb3069b0e04-5bfcad78817mr180065e87.10.1793133190799; Tue, 27 Oct 2026
- 13:33:10 -0700 (PDT)
+	s=k20260515; t=1793133213;
+	bh=RUsmSn5TTXp1D9mIJ0obASDtKKRFcgaXruKo733un9o=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=BXG7Q3ZwHaXPb724Gr8w05DFzyLn8lvJXSOvLU2S147jYv6oSrNTwhqcANecrFqYw
+	 ev3zLbkLzxKyz06JNQhgHYJhz/HZe+adzyVqqmiCwhr60xMTSp/9aY3SZtrneSOzSj
+	 PqbzLYv+x+oopTyrNrv8/INVrJPtIBKDG6pOwB9uTTkQ6EGIL9ANxe4YyzsuptkXKo
+	 lOcDnRH21JPJV2T6NxWmzQlsy6x+E0B6FiByNgUIdbzcW1SF/Vp07cjR3ihXWRjxWb
+	 lUOpICDAr4Rz12rDhK2Y9IM6Gv8a1OqVM97Q85rRGwbrH7HpYEJQJU0XLre9zXovXZ
+	 I0Ix6ksxW4i6w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D5F5C451F1;
+	Tue, 27 Oct 2026 20:33:31 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Tue, 27 Oct 2026 16:33:32 -0400
+Subject: [PATCH] mm/shmem: fix swapin livelock on a mismatched large swap
+ cache folio
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,223 +83,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027143725.3763827-1-zakbrightonknight@gmail.com> <001101dd6631$6167dbd0$24379370$@telus.net>
-In-Reply-To: <001101dd6631$6167dbd0$24379370$@telus.net>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 27 Oct 2026 21:32:57 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
-X-Gm-Features: AclHuK9Y_aC0Z6Lw00AFtAqmLqdfvn5xP7iTM98AIvXgIjtr9f-bXfHMUUyvUFE
-Message-ID: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume
- without HWP
-To: Doug Smythies <dsmythies@telus.net>, Zak <zakbrightonknight@gmail.com>
-Cc: linux-pm@vger.kernel.org, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-shmem-swapin-mismatch-v1-1-84e30aa3b9e5@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrDvQBFToVYqLMY7NFJJKxqoQv
+ LtRF2/xLd6fQTkJK7yqDIkXUfnFAvOowHmKH0YZisE+bWPKUH3ggLrSJBGDaKDZeRyHloi4NbX
+ toXynxKNsV/fd3dZ//2U3nzHY9wOS/mNzeQAAAA==
+X-Change-ID: 20261026-shmem-swapin-mismatch-fd7aaae7152b
+To: Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+ David Hildenbrand <david@kernel.org>, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793133211; l=4725;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=Vdl4OKyE80c+N/UAG+bYXzpu0HL0y5evYFJyEcYjtvw=;
+ b=7uEcFzFrWSSemDyMXBbHWaNW+OuNxmh1qJi8M4WhwJ60XkoJkAc5+eqGMXNjzw5vbCxDuDjY9
+ HBoa2eD2w2CDUcUk64WjB98n/hFWwztLwUaIG5XzUTnR44iklMkG7ET
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 5:36=E2=80=AFPM Doug Smythies <dsmythies@telus.net>=
- wrote:
->
-> On 2026.10.27 07:37 Zak Brighton Knight wrote:
->
-> > From: Zak Brighton Knight <zakbrightonknight@gmail.com>
-> >
-> > On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
-> > the CPUs stop using turbo after every suspend to RAM when intel_pstate
-> > is in passive mode with the performance governor: they stay at the
-> > 2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
-> > policy limits change or the system is rebooted.
-> >
-> > During resume, the firmware sets each CPU's P-state request register,
-> > MSR_IA32_PERF_CTL, to the base ratio (28), and the kernel never writes
-> > the requested turbo ratio (38) again.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Well, not quite.
+On a SWP_SYNCHRONOUS_IO swap device, a large shmem folio can be left in
+the swap cache over swap slots that another file now uses.  Reading
+that other file then loops forever in shmem_get_folio_gfp():
+shmem_swapin_folio() finds the large folio, rounds the index and the
+swap entry down to the folio's size, finds no matching entry in the
+file and returns -EEXIST, and the retry finds the same folio again.
+Since the task keeps the mapping locked, a munmap() of the same mapping
+waits forever.
 
-If this is suspend-to-RAM, all CPUs except for CPU0 are taken offline
-during suspend and brought back online during resume.
+The folio is left behind when the slots are freed and reused while the
+swapin is still allocating it:
 
-So what happens is that cpufreq_suspend() runs first and calls
-intel_pstate_suspend() for each CPU.  Without HWP, this just sets the
-cpu->suspended flag.  In addition, in the passive mode,
-cpufreq_suspend() stops the governor for all CPUs (which does nothing
-for the performance governor).
+  Task A (reads X)                      Task B
+  ----------------                      ------
+  shmem_swapin_folio()
+    allocate a large folio
+    for X's slots
+                                        punch a hole in X
+                                        /* X's slots freed */
+                                        swap out file Y
+                                        /* Y reuses those slots */
+    add the folio to the swap
+    cache over those slots
+    shmem_confirm_swap() fails
+    /* -EEXIST, the folio stays
+       in the swap cache */
 
-When CPU offline takes place subsequently, intel_pstate_cpu_offline()
-or intel_cpufreq_cpu_offline() is called for the CPU going offline.
-The former clears the util update hook and invokes the latter.  The
-latter sees the cpu->suspended flag set and bails out.
+  Task C (reads Y)
+  ----------------
+  shmem_swapin_folio()
+    finds the large folio
+    rounds down to its start,
+    where Y has no entry
+    /* -EEXIST, retried forever */
 
-During resume, CPU online takes place first (except for CPU0) and
-cpufreq_online() runs for each of the affected CPUs.  Each of the
-involved policies is inactive at that time, so cpufreq_policy_online()
-runs.  It invokes intel_pstate_cpu_online() which doesn't do anything
-interesting without HWP, and then cpufreq_init_policy() is called and
-it ends up calling cpufreq_set_policy().  That one calls either
-intel_pstate_set_policy(), in the active mode, or the governor
-->limits() callback that for the performance governor ends up calling
-intel_cpufreq_target(), in the passive mode.
+Before commit c246d236b18b ("mm/shmem: never bypass the swap cache for
+SWP_SYNCHRONOUS_IO"), a direct swapin that failed this way freed its
+folio instead of leaving it in the swap cache.
 
-intel_pstate_set_policy() does the right thing and sets the P-state to
-the max in the "performance" case, but intel_cpufreq_target() doesn't
-update the PERF_CTL register if the new P-state value is equal to the
-cached one.  That only happens for the performance governor though.
+do_swap_page() already drops a large swap cache folio that does not
+fit for anonymous memory.  Do the same in shmem_swapin_folio() and on
+a -EEXIST, remove a large folio that is not
+anonymous/dirty/under-writeback from the swap cache so that the retry
+swaps in a folio that fits.
 
-Subsequently, cpufreq_resume() runs.  It calls intel_pstate_resume()
-for all CPUs (that doesn't do anything interesting without HWP) and
-starts the governor for each of them in the passive mode, but that
-does nothing for the performance governor.
+The reproducer below fills a small brd swap device so that a 64K shmem
+folio and the 4K pages of another file land in the same slots, and races
+a read of the first file with a hole punch and a swapout of the second.
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development, but the non-deterministic C
+reproducer can typically trigger it in the 2-4s time range.  With the
+fix, nothing is triggered after 600 seconds.
 
-This means a couple of things.
+Fixes: c246d236b18b ("mm/shmem: never bypass the swap cache for SWP_SYNCHRONOUS_IO")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Two patches in David Hildenbrand's v2 shmem fixes series are related
+to this one.  "mm/shmem: fix truncate hang in large swap entry" [1]
+makes truncation retry -EEXIST directly, so it can also loop on such a
+folio.  "mm/shmem: preserve allocation errors when swapping in large
+entries" [2] fixes a different -EEXIST loop, where a failed allocation
+is reported as -EEXIST.
 
-First of all, the fix is not needed in the active mode for CPUs other
-than CPU0 because "online" takes care of them properly.  It may be
-needed for CPU0 in that case because its PERF_CTL is never updated
-throughout suspend-resume.  However, in the active mode, if the
-performance governor is used, it is actually fine to access
-pstate.current_pstate and call intel_pstate_set_pstate() without
-synchronization because the update util hook is not set in that case.
-If the powersave governor is used in the active mode, the update util
-hook would need to be cleared at suspend time and restored at resume
-time (modulo the possible offline and online in between).
+[1] https://lore.kernel.org/all/20261027-fixes_shmem-v2-10-86a00952acb9@kernel.org/
+[2] https://lore.kernel.org/all/20261027-fixes_shmem-v2-11-86a00952acb9@kernel.org/
 
-Second, in the passive mode the fix is generally needed, but it is
-safe to do in that case because the governor has been stopped during
-suspend and will be re-started only after calling
-intel_pstate_resume() (IOW, the needed synchronization is already
-there).
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/shmemloop.c
+---
+ mm/shmem.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-> > Without hardware-managed
-> > P-states (HWP), intel_pstate caches the last P-state it wrote and
-> > skips writes that would not change it.  In passive mode the cpufreq
-> > core also skips requests for the frequency it believes is already set
-> > (policy->cur), because intel_cpufreq sets CPUFREQ_NEED_UPDATE_LIMITS
-> > only with HWP.  Neither cached value is updated across suspend and
-> > resume, so as long as the governor keeps requesting the same P-state,
-> > as the performance governor always does, the register is never
-> > rewritten.
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 13e0786436cd..f1da8432d55c 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -2568,11 +2568,14 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+ 	 * and swap cache folios are never partially freed.
+ 	 */
+ 	folio_lock(folio);
+-	if (!folio_matches_swap_entry(folio, swap) ||
+-	    shmem_confirm_swap(mapping, index, swap) < 0) {
++	if (!folio_matches_swap_entry(folio, swap)) {
+ 		error = -EEXIST;
+ 		goto unlock;
+ 	}
++	if (shmem_confirm_swap(mapping, index, swap) < 0) {
++		error = -EEXIST;
++		goto failed;
++	}
+ 	if (!folio_test_uptodate(folio)) {
+ 		error = -EIO;
+ 		goto failed;
+@@ -2613,6 +2616,15 @@ static int shmem_swapin_folio(struct inode *inode, pgoff_t index,
+ 		error = -EEXIST;
+ 	if (error == -EIO)
+ 		shmem_set_folio_swapin_error(inode, index, folio, swap);
++	/*
++	 * A large folio that does not fit the mapping, e.g. because its swap
++	 * entries were freed and reused, would be found again on every retry.
++	 * Drop it from the swap cache so the retry can swap in a fitting one.
++	 */
++	if (error == -EEXIST && folio && folio_test_large(folio) &&
++	    !folio_test_anon(folio) && !folio_test_dirty(folio) &&
++	    !folio_test_writeback(folio))
++		swap_cache_del_folio(folio);
+ unlock:
+ 	if (folio)
+ 		folio_unlock(folio);
 
-Not entirely the case as you can see from the above.
+---
+base-commit: bae9a042b03b27924c6fd5bdc00a20d6a44d6041
+change-id: 20261026-shmem-swapin-mismatch-fd7aaae7152b
 
-> > Governors that change the request often, such as schedutil, mostly hide=
- the problem.
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
 
-Well, the question is whether or not it makes sense to restore a
-pre-suspend value that's going to be overwritten immediately.  Maybe
-not.
 
-Since in the passive mode it is always safe to carry out that
-restoration, it is kind of straightforward to do it always then.  In
-the active mode though, it's probably better to just do it only in the
-"performance" case and only on CPU0 (that doesn't undergo "offline"
-and "online", but since it appears to work for you anyway, fixing the
-passive mode may be sufficient for now.
-
-I'll cut a patch for this unless someone beats me to it.
-
-> >
-> > Fix this by writing the cached P-state back to the register in
-> > intel_pstate_resume() when HWP is not used, as is already done for
-> > the HWP request when it is.
-> >
-> > The problem was found and root-caused, and this patch was drafted, with
-> > the help of an AI coding assistant (Claude, by Anthropic) during a
-> > performance review of the machine described above.
-> >
-> > Fixes: 001c76f05b01 ("cpufreq: intel_pstate: Generic governors support"=
-)
-
-I'm not sure about this.  Maybe some other change related to "offline"
-and "online" support.
-
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
-> > ---
-> > Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
-> > with v7.3 plus this patch and a temporary module parameter, not part
-> > of this patch, to turn the fix off.  intel_pstate.c is the same in
-> > v7.3 and in the base commit below.
-> >
-> > Each row is one suspend to RAM and resume (rtcwake -m mem -s 25).
-> > "Request" is the P-state read back from PERF_CTL on all eight CPUs
-> > 5 and 17 seconds after resume; "clock" is the measured speed of a
-> > single-threaded busy loop.  Before every suspend, all CPUs requested
-> > 38 and the clock was about 3.8 GHz.
-> >
-> >  mode     governor     fix  request after resume  clock
-> >  passive  performance  on   38 on all CPUs        3.8 GHz
-> >  passive  performance  off  28 on all CPUs        2.8 GHz
-> >  active   performance  off  38 on all CPUs        3.8 GHz
-
-Had the changelog been accurate, this would have been 28.
-
-> >  active   performance  on   38 on all CPUs        3.8 GHz
-> >
-> > The passive-mode failure was also reproduced twice on Fedora's 7.2.11
-> > kernel.  In active mode the request was back at 38 after resume even
-> > without the fix, so on this machine the fix only makes a difference in
-> > passive mode, the default without HWP.
-> >
-> > Not tested: systems with HWP (their code path is unchanged, only
-> > restructured), other machines and firmware, and suspend-to-idle.  The
-> > patch adds no warnings with W=3D1; sparse was not run.  The tests were
-> > scripted and run by the same AI assistant.
-> >
-> > drivers/cpufreq/intel_pstate.c | 16 +++++++++++++---
-> > 1 file changed, 13 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pst=
-ate.c
-> > index 17158cb..53db91a 100644
-> > --- a/drivers/cpufreq/intel_pstate.c
-> > +++ b/drivers/cpufreq/intel_pstate.c
-> > @@ -1371,6 +1371,7 @@ static void set_power_ctl_ee_state(bool input)
-> >  }
-> >
-> >  static void intel_pstate_hwp_enable(struct cpudata *cpudata);
-> > +static void intel_pstate_set_pstate(struct cpudata *cpu, int pstate);
-> >
-> >  static void intel_pstate_hwp_reenable(struct cpudata *cpu)
-> >  {
-> > @@ -1404,11 +1405,20 @@ static int intel_pstate_resume(struct cpufreq_p=
-olicy *policy)
-> >       else if (power_ctl_ee_state =3D=3D POWER_CTL_EE_DISABLE)
-> >               set_power_ctl_ee_state(false);
-> >
-> > -     if (cpu->suspended && hwp_active) {
-> > +     if (cpu->suspended) {
-> >               mutex_lock(&intel_pstate_limits_lock);
-> >
-> > -             /* Re-enable HWP, because "online" has not done that. */
-> > -             intel_pstate_hwp_reenable(cpu);
-> > +             if (hwp_active) {
-> > +                     /* Re-enable HWP, because "online" has not done t=
-hat. */
-> > +                     intel_pstate_hwp_reenable(cpu);
-> > +             } else {
-> > +                     /*
-> > +                      * PERF_CTL may have been changed by the platform
-> > +                      * firmware, but it is only written when the requ=
-ested
-> > +                      * P-state changes, so restore it explicitly.
-> > +                      */
-> > +                     intel_pstate_set_pstate(cpu, cpu->pstate.current_=
-pstate);
-> > +             }
-> >
-> >               mutex_unlock(&intel_pstate_limits_lock);
-> >       }
-> >
-> > base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> > --
-> > 2.56.0
->
-> I confirm your findings and tested your proposed patch. It all worked fin=
-e.
-> I had not seen Rafaels's reply about a possible race condition until now.
->
-> Test computer: i5-10600K, 6 cores, 12 CPUs, HWP disabled.
-
-Passive or active mode?
