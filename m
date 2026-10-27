@@ -1,45 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112073;
-	b=ZWbGP/nvYFqwGxKerw2fbzuJdx6qBNa8GAiAelMDm237UlpD6xRfSEba5d5sVvporB8W
-	 mWzLZXRkENt7dujQH1cjhE6WTIoZzyPK/Ujicr41P/jQVkDQLx7Ougw6/9sRFd9CjIZz5
-	 jF92h/jKfEE6/abr4hLyqVljvulqywBD14WPGftiF0nDz8AwMyEk535VXTQzR6ox4kCvn
-	 I7XUwdfujhHGifjfitVQ/cj4WTPb1R/i8qdchZVKT4Ln4JecWxmBjG3YuN/+AG3grm/bh
-	 ShL7+rzhO1LDGDYsEV/QZpvmYTReQPb1mQygHzGDDGTA7LLZTvcZfD+EXCrDjXmHZ5g==
+	t=1793112067;
+	b=CXGaQ4BNrnVAStkonJOZaj1DRlWCh7p5iVr91ZPz2soKMuDndQJ5+VPq7x/4wm35N1R+
+	 EAZy1nPMw3oK/qbmS/tHS9iN4LUJT4rT1/RBNyd8oefPMQqkkYwX7niPfE0dcrnOc8XZJ
+	 mk4oR1A2ltStqVpNW7SN0NOM2yWiwCtWvpicHFa5YpBcWfkSSW9dvNs0BPSj5PufaP95I
+	 cwE/DrbvD6Ial+LJXbA8W4J9y+nE4A17Izq8vFBLjjg+9y3pqFA0KG+Rfwr1payfLcTvC
+	 8+lpZPC+YCXiYyvtrZRq36LfR9OE2Ru+n9WjAy6R6ZAGb4nK/j/TqVwA9ZGjcyWRRYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112073;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=X+RmFDAROVwZkCrlpwtzrOtzD2qONhEja5LPD9eYkeo=;
-	b=UB+aLoOCWAoXUVQjKPHX9dIIS9lH+mS0epd9yUvQpjIpO6SJImg7C6vqdpFdm8HIM4Ax
-	 0Vd7/uH8et3mTYOegIU5ocvaT8kBevH9I3KheggKl5P2XZNx2Ni48ud6sOvko+UrP1mar
-	 O/petjBSM54xxufPhlmCoOdgBEsvO3BZ3PeJAFbExs9Yjd9KG/qVYyK3Ym3gujCpHmbVb
-	 tTnuLj3rTHp+Sm243HhC2zKYijfhVQ+mq1c+ZxIS7BWot6saG+MOmH+HHnmZTPF595Ou1
-	 T9rZnNF1NdaZmzqgovu+jo461jro/zrBODudrL7Axm+/kHmWumO3zHhT826zE7GZ2Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112067;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=tJ+CL/5XQ31zB1tm/a6298VKrPjYPjRATx64g2n2nTk=;
+	b=fXA2+o+GcWds1n1uUdZl0XHBJKKsVY0FvssAs+oBaOW5UxBAQFdRiaK3/x4U2JDLC8bH
+	 m/shr442MhN0nn9/3cVZckdkwdgQ9yQHOnVy0pNpjBinsLmHgMgUzdJqUNIRXy4ywBHHv
+	 o8MntMfhIb1LwVPKBrnqABGmZamT8gNUMNKOHAvgySnSd0qMgUAILDJLCkvkMVjG1TpGv
+	 2J4R+uvAcCf68oCm75ZodSWYlL4cf1zS71HW/OmuoRLLloiCyAcp3xF9r8nrYViK59ycR
+	 j3orXGEMimiOPyioV9mhHANSSIsrCx67BCG78WBaxNSsR519rVMPAATqvXTNjTlbD2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ygwiIoaF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZQ0U9vEk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AS3+P9LS;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2BD60A3825;
-	Tue, 27 Oct 2026 14:41:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDC560A260C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:41:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FDC560A260C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ygwiIoaF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6E1B1F01825;
-	Tue, 27 Oct 2026 14:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793112072;
-	bh=X+RmFDAROVwZkCrlpwtzrOtzD2qONhEja5LPD9eYkeo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ygwiIoaF0B9BffvezFoEZ0tODZikuJhT38QtFi954SQ71aMSdsSWtl63JStL9hb5J
-	 o0nK/71ZaT6BuLM74zFjQpTJn3Ab5Ahd/wvRBAMA26NXMU3BM4h5rd7H1fvP2AUXfA
-	 bKMzXKTySwk1Rv8nd9SAKzdrlXAu+YP5V6IuJx3M=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 15:40:50 +0100
-Subject: [PATCH 7/7] usb: storage: shuttle_usbat: bound the READ chunk size
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZQ0U9vEk;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AS3+P9LS
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDoRLg2397420
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:41:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=tJ+CL/5XQ31
+	zB1tm/a6298VKrPjYPjRATx64g2n2nTk=; b=ZQ0U9vEk14c7EmZYSr11cqlADsK
+	D+wsHP1D7lrAejlMV4UVVHVXN1Oyenpv13BN6aan5MHS0v+4DdZJ0tUtfcwyFzaJ
+	9KZgozSntZqiORHdogvHQn+cJX6ef0zD8Z3KBgY9MCosBJrX1Jebzs0Aurq89JV0
+	nYYyQKf8w/yghXAZ9V6LQ0RgdhnKXAnIkZQN9vt0u+o+J6COHMwGFDVLnVcYQVKa
+	qyI/o8OXIA2R+6AoEj6I9BONZTvkChPugBdVQGGRb4W+o3pEqyZMjEOse805Qs6Q
+	knW/81J6lrqdNX5vdG14939kXEkRs4GdVbPvwybxa8PdnRumZd7AC9XElOg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjst1h3qm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:41:06 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f32050e72so999703185a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:41:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793112065; x=1793716865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tJ+CL/5XQ31zB1tm/a6298VKrPjYPjRATx64g2n2nTk=;
+        b=AS3+P9LSI5sC3BxITxLic6pg+tWnh94nMtnrppXd4aALuQyXPFL7kw4zgpQKy/jO2p
+         s3EUnhX+Vgj+vgGmW5rbEAQtYNI5qj2h+ncgk+64Xniqzz3RBFxsVFKm/Tr0T/N2n3hF
+         wooDVX5DMyAyv2a88IsEHmvRaG0Ozle3wBRgPILxrvZH71HhKL42Vt8bGpBx9zLumM2W
+         NLR5XJ1kmYBqRiDKHpQK3S/ZKhSjr1JN27ekmygm+kmtgwqx4RGTyOTuBq9kaZA/X36Q
+         kL3CAqLATR/41U0fl7oLkFrCme6tMYtfTOo7Tagfe2Jnttx4f/G9f+LI1f/+3aLtMlOJ
+         yMmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793112065; x=1793716865;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tJ+CL/5XQ31zB1tm/a6298VKrPjYPjRATx64g2n2nTk=;
+        b=T6LnaGM3qprn03MgMLlvwQkzRnFgXCnAnKggtBcqCgFeNkvACWYqoal2U1eHsSJ4Z+
+         KgK04E+lPZkJkTdC7kizS94p/zI7QpYg4vTCu9BwYyqJySwkYSCTA4Q4DKe+7JdQMOjC
+         9uGOkuuNuU59h+89nG+9HG/yiOx5s4AXeda6YhwEGpSOimKc902w1lK9Vt5E777ORJdl
+         cyZLJvVmwdi7W8Qp1FEWQhfPIterTa1xykUCLxsCfxhy+gxYHaNb4TcBDU84uYaNmKwx
+         a4zGdhzuDLmSlSUdGFizLbmDvQ86VmwHIHAIddxOY4+ZpleRIoNEBgcCvPLfAetZVo3p
+         zfFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXz4MERD8rXwIpW5hhU1JJfwT7tZEd+fWYBQJ3Xz6QoLQAYlU9z3HJCktB/J1xnhTcd/Cs/cbXOjmEIyk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKccUCt5YDa4IaofLB93OJ/MDGyU/YuMQTNI3grxk4UVD53/+fi
+	04DxGEZCB8U0zibHP5nKlnl81hRR8U/VPllCRSU12mtCWHa4O/hO5RPruE+uODIiFHpKZm2gT0k
+	JrvOC3OBEqeRyDHUvx8rsNHdG8yf9OZesY0DHpgdhxleVqjnroLhPxB+vEB+KCVhe8os=
+X-Gm-Gg: AYBFou2Cd6hsYocPmGQtx05+FsTSXWH7+dr6CWhr2PCRH6PDwTgq2ayMIHLMiMnK3mn
+	Mf7woXaOguwcFr41Ng0BXAuuEpw+3r3SosLDafDMtTCFj6FVsQiSOKentTbtk1EbF7yYyHmESrn
+	2PvEc/UGod86DPOSO4g8g6zBjxAYXudi/8LXYgExoDM5DYlhKKevhNs7/Z+YcWpkGWxJPq3QHQH
+	P3fVk5CKMC0pDz+C01kklTrzUFNKwmX3PzG2P9WYu5fEhb3UbsySgjbvRwddNyp631RYn7YhbJC
+	SL5cmW3SnC9a+3A1kE+1fUguhjGiVrv6mK3jvqEIZ2MAPjLAq7VP01ddA4Cni+AgPSk7fOvk6l3
+	jdCCCZzoHslq6P8wr+e0kJrIk8foKThs28HYxnqgxTtEJwyY0r0r1ROehug==
+X-Received: by 2002:a05:620a:4592:b0:93e:bcbf:4ad with SMTP id af79cd13be357-940ef8d9147mr1725354785a.33.1793112065139;
+        Tue, 27 Oct 2026 07:41:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:4592:b0:93e:bcbf:4ad with SMTP id af79cd13be357-940ef8d9147mr1725349285a.33.1793112064681;
+        Tue, 27 Oct 2026 07:41:04 -0700 (PDT)
+Received: from uffe-tuxpro14.. (h-178-174-189-39.A498.priv.bahnhof.se. [178.174.189.39])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66bd3asm468527766b.56.2026.10.27.07.41.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 07:41:03 -0700 (PDT)
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+To: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+        Kamal Dasu <kamal.dasu@broadcom.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
+Date: Tue, 27 Oct 2026 15:40:39 +0100
+Message-ID: <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,75 +125,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-llm-usb-storage-v1-7-d1655e94ed10@linuxfoundation.org>
-References: <20261027-llm-usb-storage-v1-0-d1655e94ed10@linuxfoundation.org>
-In-Reply-To: <20261027-llm-usb-storage-v1-0-d1655e94ed10@linuxfoundation.org>
-To: Alan Stern <stern@rowland.harvard.edu>, 
- "Cho, Yu-Chen" <acho@novell.com>
-Cc: Josef Bacik <josef@toxicpanda.com>, Greg Kroah-Hartman <gregkh@suse.de>, 
- linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net, 
- linux-kernel@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1967;
- i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=XM8sIjIJM3MqrlqwHsq68IlQmKmB1uDm0jm58HuLutA=;
- b=kA0DAAIRMUfUDdst+ykByyZiAGrgt/OhYrevAjAj/oSeyPw8HyEcRxkzhrgUf3E34FhiO8+B6
- IhdBAARAgAdFiEE9LYMxb94wiFKMT3LMUfUDdst+ykFAmrgt/MACgkQMUfUDdst+yndbQCeP3Kv
- rHP+FYWGGtBGXc5ULL7rrWAAn32SrbQ9GrltykawEC9wRtnUjBjl
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
- fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=HJ1WhYtv c=1 sm=1 tr=0 ts=6ae0b802 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=h7aNHqOhPKB91FvYUefsSA==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=Q-fNiiVtAAAA:8
+ a=EUspDBNiAAAA:8 a=Bwok4HuJcqyDF73gS4AA:9 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: 1JqcgIsSHnbr8MTX_DQeUFsL3VniZCfd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1OCBTYWx0ZWRfX8YA/L+vMXZ/8
+ aKtw0zPNDyDLp0DDtWB8eYfy6MvzkTcJ20faqtW0EVEhM6x+RP4dRqZ1LsWFOxMRkdKj+cygDGA
+ qSTsIM0+N7OfrR8ywabbkxT3zZlQg70=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1OCBTYWx0ZWRfXy8lKgMKMw5/M
+ WkMj9XnvQxAMj9J6WEfmDCRpIAGKKL/fHBaAcvmjD4mu7BnzDiTFZAxhAzNDwbu+LBzVsq2KEdz
+ o7mgIRD7UuwIN4CQ8inrkv5DYyLxlk2kEwS8UlMVOQ+qrnjVH16xyoj1EVizwOBoIa289HPeUPd
+ 4UJC8STW1mLAKlYEDdkOlcyrYBFpPLaiYxhfZTwWMIW241ObRfebl5N6VRjDTwPVQEZbOxhhiYC
+ JDc89zagywrfKt6q8S6LZ2/EKYyiVXdXFLYTr0+QQBN0eMudRsOKbhWIvb7PyZ2QZnyn4TTTluo
+ SyJGFS5RS5UAkLWI/oxBS2BbqU+CtqE9eiNhq06FLlgobxQqyFCrhubja5QvGPYABCqHFucdEn1
+ DGrvZ8KWDBc8O1DWPEyS6xVG3ZeV8kI/wdcZxUUzvTmZQGVzVKjnxKsyZzlebbbtUapTKcj5phK
+ Wg0471cjjx5uN55sCJw==
+X-Proofpoint-GUID: 1JqcgIsSHnbr8MTX_DQeUFsL3VniZCfd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 spamscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270058
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Kamal Dasu <kamal.dasu@broadcom.com>
 
-An SG_IO READ(10) of 64KiB or more to an HP 8200e CD-RW behind a USBAT
-bridge never makes progress: the usb-storage thread keeps issuing
-zero-length reads until the SCSI command times out and is aborted.
+keep-power-in-suspend is currently documented as SDIO-only, but the
+requirement it describes -- preserving card power across a
+suspend/resume cycle -- applies just as well to any card type. Drop
+the SDIO-only restriction so eMMC and SD platforms can use it too.
 
-usbat_hp8200e_handle_read10() splits reads of 64KiB or more into chunks
-of whole sectors, using srb->transfersize as the sector size:
-
-    len = (65535/srb->transfersize) * srb->transfersize;
-
-For passthrough requests scsi_setup_scsi_cmnd() sets transfersize to
-the whole request size, and the READ CD path can likewise compute a
-value above 65535, so len becomes 0.  The loop then sends commands with
-a zero length and adds 0 to the transferred count on every pass.
-
-The bug was found by code inspection and has not been reproduced.
-
-Fix by falling back to the existing 2048-byte sector size guess when
-transfersize is larger than the maximum read size, so that every chunk
-holds at least one sector.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/usb/storage/shuttle_usbat.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ .../devicetree/bindings/mmc/mmc-controller-common.yaml          | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
-index a1b64b10bbe0..080799029643 100644
---- a/drivers/usb/storage/shuttle_usbat.c
-+++ b/drivers/usb/storage/shuttle_usbat.c
-@@ -1328,7 +1328,12 @@ static int usbat_hp8200e_handle_read10(struct us_data *us,
- 		srb->transfersize = len ? scsi_bufflen(srb) / len : 0;
- 	}
+diff --git a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+index 8b9b3b036129..2fc8e06d5ec9 100644
+--- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
++++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+@@ -301,7 +301,7 @@ properties:
+   keep-power-in-suspend:
+     $ref: /schemas/types.yaml#/definitions/flag
+     description:
+-      SDIO only. Preserves card power during a suspend/resume cycle.
++      Preserves card power during a suspend/resume cycle.
  
--	if (!srb->transfersize)  {
-+	/*
-+	 * Passthrough requests set transfersize to the whole request size,
-+	 * which can exceed the 64k-1 maximum read and leave no whole sector
-+	 * to read per chunk.
-+	 */
-+	if (!srb->transfersize || srb->transfersize > 65535) {
- 		srb->transfersize = 2048; /* A guess */
- 		usb_stor_dbg(us, "transfersize 0, forcing %d\n",
- 			     srb->transfersize);
-
+   wakeup-source:
+     $ref: /schemas/types.yaml#/definitions/flag
 -- 
-2.56.0
+2.43.0
 
