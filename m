@@ -1,96 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793101930;
-	b=2YtBuHBrsgLH3UXk7554SmpdXuuM1GcHWou7wiaLMvsiHqCiRdG4fttmQxqmx3OOf0TC
-	 qFBaFXmv/p8cwYeTVyK4k22ntrfgUQBzotZzv5OfHl2y6I9kneITCJSSf+jWcKebs+brA
-	 W8yY1Ym4oTTwzdoml7TRGULTgz484fllOxJsZflW8I5bbcfgcEOJVNWN8k543kNWGwOYi
-	 FIkJVeuxIE6lS5QVXOcHJD2YoDUG8V4IuDHNpiDqxx0RXgVua7NwEMFn798h56Gs/NC1E
-	 nyx78oBq2tiIvi0BK9IeOyXemxgBaOdddnyK1zLPqOiEG7luMxALBvgEjF4Yij/Kjyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101930;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Kxt+qCO1e5YJyMPr7jhe/tSp8GNBclL8zqh8VLZYqok=;
-	b=LWOjKJUdGF2CpZeL1zCkJ50D1tCAUKpQjhZiS5WsLwLHMaasUPR7ZeLWkG+5iIWNaJbK
-	 4V89NgsRGxH8nOYhVrFZ2fJUEunkqjjXTLDXXjXhWdFML4k9UmuhPr1X+uiCbD91dCoRk
-	 alfQS0B8tU7pKODOnT6XOqnkqwUKnXZwEBJTSRGPnTZzSF4vNt15vjnEWje9HPOfGdsCi
-	 nm57qDBR6Fr7ynO6BzYCzIy57bF5V++Ph/TiAhttKCa9y+FeSjDmCjGmQ3/pIq9v20EtJ
-	 rPuTEavJgEBMfZvWyzLVaISB0OpPgmsWcanYTwAecYP2DuokXXDilPV+ygu3Cii/LrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M7yW6w+q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.31
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012031.outbound.protection.outlook.com [40.107.209.31])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793101961;
+	b=T53XgL7ELBBMZerAICWzsda0LM3OV87I/4oT67qITazGSOw548q0HpW5JlA37k3KxyAG
+	 nM/blDA5r5V917YeI9sAf50WBkIIY93l3yrkuufaa0PI2F8mZNlxDD7syTr/WuUhg9akY
+	 Kmo+fdFjQKbuaT5mFXut6ZaeikKrASdPo1PwZ1ZIoVCMzq1/8AuXEnpqqY8oybCn0ljHv
+	 ilKqwd8q9BfP1ntXSmdi9eqDc4O+8y4qsT3CdnPdGLsP7RhA5docPM9ZYdvH6/lBGkqZU
+	 /zPnnpxHsBd4IS4H/ZXfE19HiDr5V7N4zV/99XJFE7l8y/SakeVZSElLCKCssmSjj0w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101961;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=RTUNY12Kk2hu55BR/I6ei8JLRh/Fu6fPdaSExOFhP8o=;
+	b=xMaw0eUjzg+WnGQJ3BubLZg7EFNzWjKRgX/QfRFJEuCV1J2Yvd/h4DlahqgRIc33kl4V
+	 PPlQRXBb1wDI3inM5sOUfz8HHhqmiP01lANoye9KDdiGk3lFRBsrVdJzMpIJA55AUZ6tp
+	 ydPabKJd2BtMhn2H8wPHvT4Mlo/AFUtxr0k6J152rVmRI3wFR5kKOVZZmjJ2dqUQhtvPA
+	 tgaQWvFe4TWUKDFiQ9XFfrn0BPy1iOGvmrEh/xFElIzcWMP+rbip17/nTx4GxJYi4u+no
+	 0SRY5CTSd93CGBdCP2dB/VYHXYce81sFy9pzZql0J0x8ChiP0KphGPge7oy0IRmKuGg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=TbeUJXPp;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D508606A31A;
-	Tue, 27 Oct 2026 11:52:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D508606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E5F606A31B;
+	Tue, 27 Oct 2026 11:52:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60E5F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M7yW6w+q
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Atu5CaX5CvtMHgpB4XaGK0kTMd4mnaOBcXKPiQfYeBPvd+FBTnETyIvLOetX5S1l+yOjvRSYkktXwAhjLzjhyRN9GqOzUw47I/KKmhTHGTTZ1A921+klq8XWr8lmOs/6aRdlbvSoxImgKQlnLNypzXyi/Sbr6UyfSxZWiZwnwV7IC0qyEMQmSEvOcWeVzr0N84cw9CbCsjZUOJQ4vic8bEb+Y0/J9d2afpar03KYuRhCuBhpAuUik9IoK88eR7ou4NJcqqPZumRam3tHXVdih6r1kZHZCneibKpXjost1ekAHm/E4rNMu35M1M+GCaD3+L6c9pC25ZcjenXkcxPjJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kxt+qCO1e5YJyMPr7jhe/tSp8GNBclL8zqh8VLZYqok=;
- b=pDwBEn9nqel4kFGkRsIq86tVKIWE0cmr5HXWRZT0UeWNusUBbv/prDy8rRaw74XueyGUu+DvxggRJegvaq9vJK9jyGrS7Dlv0U4bXjP3cN0TfuMNpw/0stwmH50gpg1ih8v5yalyH0xOjTR9t4Jtf2jYm+Ll4cDzPKNCmH06Jcksr6StohzN/tmX6DynGrBzWzxFu7tSkBQOA5fgFmpNrcroD3/k46wQN47ymwhI0Vcmp62Pm2ZQibmOZu4aSoiYg5a4XkVu5vVirDgkoCQQcrwHytYdCHUwFe9goZCMGR2mNK3F3YXMELjc+6fbtuOj94dzjrOrcn6FemrWt9y6ZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kxt+qCO1e5YJyMPr7jhe/tSp8GNBclL8zqh8VLZYqok=;
- b=M7yW6w+qSeu1p2c2b22AEtUGCnbyOzo928ZXq3eZrj7WK6m9W6lQdHGYszQJp2g1rOowsIsqrXjEhpb+wOvQUJ8UTvrIY5SjHaDpvuTyL+Orkrpozxq+NwST2WvEDBoNNQ9YWSKatkEc4QtByoydoojRImiwO1JOGwwcCXJBXRk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB8108.namprd12.prod.outlook.com (2603:10b6:510:2bc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 11:52:07 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 11:52:00 +0000
-Message-ID: <1ed5c075-c66a-4144-b23b-a9d80e1fc2c1@amd.com>
-Date: Tue, 27 Oct 2026 12:51:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Harden against potential deadlock
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20261026141541.469727-2-phasta@kernel.org>
- <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0358.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=TbeUJXPp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=RTUNY12Kk2hu55BR/I6ei8JLRh/Fu6fPdaSExOFhP8o=; b=TbeUJXPpj+jD7aDbOqRGfRQgwF
+	xzkudsFBiyBgSUoPn9OdSPUlvJYxN7OHzKQOolV8wuqw/sCWo+IhGeg6KDHX3+5bU1WjV0byKUa5U
+	d8IG3KOZWbxMPl+shcCt2wgZ46JwbVZDmKiAQ/ito2DHp0riE0CaK+uLPYJO/IaPWCjAh7oA48l/4
+	Z553U3ZtIL/tIl0X8V1shGtNRK+SlAzsLFa1CI1oPBZPBd+D8874dImMbPhqMN1iyj//4OzNuHeSf
+	lnsOaDEXPCWZGMbHFLFT3kOf/eiPZf1ZfJcPHo6hvqtns8WGerzahDkSO7vyMCG8lpdBrhWvdL8ji
+	DNH/Jx/g==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLfjE-0000000EtKD-0CaF;
+	Tue, 27 Oct 2026 11:52:32 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 102E63014C0; Tue, 27 Oct 2026 12:52:30 +0100 (CET)
+Date: Tue, 27 Oct 2026 12:52:30 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Vladimir Vdovin <deliran@verdict.gg>,
+	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] sched/numa: Leave the placement of a BPF-scheduled
+ task to its scheduler
+Message-ID: <20261027115230.GJ2668564@noisy.programming.kicks-ass.net>
+References: <20261027041536.3317971-1-arighi@nvidia.com>
+ <20261027041536.3317971-3-arighi@nvidia.com>
+ <20261027104317.GC2668564@noisy.programming.kicks-ass.net>
+ <auCGbbLTw4qZS536@gpd4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,134 +83,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB8108:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a31acfb-5dfa-4c33-5256-08df3420b600
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|261009223027099003|261021123027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|56012099006|261026140227099003|6133799003|18002099003|22082099003|261026121527099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	51C8fR19QL7D1PhsH7UInpSRwZXawiZI3tjbPhllxQTQ0d6JnmrdoXtX8j64jF5phQG8e+ZWTsy6kaYlj8so6ZEMZs6VRXbxVWxlFByGCLkf/fr7lzZpJKJv/vboVNHJZCZ/BLoR5qNigUDg/G5M46riF54Q9+0j2qQk6/6Yd4DBtFRHvW3x/GW+g+KOkUduyHKp/3enUZ5fFYumzFfQM9jpghvhHo6FmddZ6AfAdLovBRl7iyly10jd22s3O7pYJyMO1u+6WDWZHd8LKG52uyBqE0ATgzBnFFySp3+qs8mJ9sB2r0BywSP0sRqbErSWgEaIfiCtdtNdusLCNST2vzFu85jDZyxjDg2tQ5ftTyQffkII35Iptc7mYyIfUfx0KhkWFu65Nlk2tiz93dn9mGaWCtr7LcJQHYljhmjyaCHghCmZndZW/u0D7LT/Ed55UTBfL8ZNzafvyXfFc0Z0M5GI+J1CPKOg8aoV+Z2aLKZgXeaRfteL2VRgCRhh/+MnKtqJBAnP1lH2o1ZIzl5uspgXRcIBLS0G2az4txTTP6+awE/hObEGNtap1adOC27YmQTF9uQ5S4wVYtU935Yy02KU5BezQKGGQZunTA3caS1QDRS5WIG7C9AqjP9Eyv3q
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(261009223027099003)(261021123027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(56012099006)(261026140227099003)(6133799003)(18002099003)(22082099003)(261026121527099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OXh0TGl0Y3l0c2YwckVzcGJISnNpaVpYZE84S3FQa0JXZzBpMCtYT1lMMDJL?=
- =?utf-8?B?TTcwYnNiM2I3QUp2WW5vZEdCQVBDTE5Yb2U5LytlaUlON0FOdm00TDA4aFQw?=
- =?utf-8?B?eWJjVnp0bCtob29jZDhuelAwUDlWYXpmQ2N0b1hZZW5adThzdVRZMlRYTlRF?=
- =?utf-8?B?a1VjR2o5TloxMC91MjUvdzRWVEJNTEtnWmxIN1dlK3BNZ2JyZWR4bkhjSmdu?=
- =?utf-8?B?VjJYRUg2R2JaOEtOQVZGYkViMzl6MW4wc0VWb1pmZzg4aVNtcWN1YWsyakRy?=
- =?utf-8?B?OXRFdmJJNGdjbHdXMjlWak12OWVXQ2RSd2RkK2hIOEs1TGFVT0V1eldEejBu?=
- =?utf-8?B?cGh0dlMrYlN0Znp6WWx6VkJSK1FTSGNSdjRDUXNUeUFVTVpxZUVwSlRpWk9F?=
- =?utf-8?B?OCszc2N1TlRuRkxoUVlSWTY2WWcveVJ0MFZkbURnaFRZYWlLZEdIMlZZOU9E?=
- =?utf-8?B?WTE1d0gxdFZsU2U0TkRQbm53SzhYNU9XQk04bHBYZ3U2OXIwQUpTR3lzK0tt?=
- =?utf-8?B?STZBbjRRc01GbWp0VmdVWk9xVERlTk1tazJ4bm1QZE5vdXlvK2xURDczRjZW?=
- =?utf-8?B?RWFHYkFQdWQ2ZHBQNVNFYUlpWFVVREN1cEJRMmFUMGVjL2JJNzNOQnNCdTJX?=
- =?utf-8?B?Y1drb1R4Y3d5eDlSNVR0ZXVnT3M4WWlwODBOa2ZYRllhN2M2NFZMdU13VHp4?=
- =?utf-8?B?dlpBY0tUQUxzMTBoT1lDUS9KaXdCU2lPMDlzaHNnYWZzNDVZMVpXTnJ4dTFm?=
- =?utf-8?B?T29VSnZscm5NSXByVHVLNVpueFF3c3NzUm5yS1VDdWNrWmV5WGVsMzZEVjFH?=
- =?utf-8?B?VnNVK1hmYUhOcnRGcnc2YUs2NzFPaXpkVXhZc1lFbmlrellqZk5keGFrak9x?=
- =?utf-8?B?VmxsNndOUTFEWXNFUUJLWnNTcDJTR1NzalJQZCtMN0NBSmR2eFlTRklwNjBw?=
- =?utf-8?B?em5zOS9UMnQwOHRGR2xwek1wcm5Ickl0RGptUVp2bGhXZlhmclVsZ2V1OXhH?=
- =?utf-8?B?Y0grUjY3NFAwUTVCWlI2bUoyVGRaSXBMUEp0V3BwR3dXZEVvVnc4T09xMGZP?=
- =?utf-8?B?OTNSYUFnSFlvYkJTYzBoa2FQQ2U0S0ZybVJXRmFwQm1DZkNkUlpUQkpwTUhN?=
- =?utf-8?B?a01BNzBDeTRNcVcrNjI5VXZOTnhSSlE3QjBiK1E2YVlhd1lYdHptVW16OTFu?=
- =?utf-8?B?TWJ0Z3FKdUhjb2ZIajhrVGNpS1ZpRjducFlsdE0xR0haZVQ1dTZBdE84SGxV?=
- =?utf-8?B?V3l6QVRCVVFSbEM4dU8yTnl3MlJwak1KMjJsaEMwNVJLZ3pCUDdvK2xBUlRp?=
- =?utf-8?B?Y2lENXBwaTd2eE93LytIck5PNHBHS2RISm9IaTBpaUtETDUxRnUyazB2SGUz?=
- =?utf-8?B?NVoydXEwOVhJTElhbmVYa1JBRS9RQWJDYkNTOE1TL1VwVHpHcGtxaFU4YWJN?=
- =?utf-8?B?bHFpU0F0dUllY1BXdzROaGpFVTZDQmhVQVZ0RjI2SFNlVTNsY3B3WEx4Si9U?=
- =?utf-8?B?TUVRSkZibVRENEVyb1hrM0hnTCtic0tLSmFURTdNY1hTOHRzeUZ6NitFMWs4?=
- =?utf-8?B?YVpDSGY1S1NhQ2FrTlhBeDR6VkpobUNxQ3ZuUGI0bUlxL2pUWkdlYk96Mnc5?=
- =?utf-8?B?K29peCs3a1gyY2Y0VCs3Tlp1dnVsWXA1N2J1akZBYUZ4cHdER01ha3RLaVJB?=
- =?utf-8?B?YkorMnp4cEFQSjRVajU5T3c2SWxkMnljd25acTF3V29hbm1uVWhLSUtwTWR2?=
- =?utf-8?B?V094QThCSUR6bk56dVZ4ODdGYSszOXMvK0Q4QTdiQkpEb2pRYVlnbUFhZUx1?=
- =?utf-8?B?NGoxYm9HV2owK3JUMzI0VUdLSko0Z2gwdHlXeEFqNnZyNkNqalBkbXJUSWFN?=
- =?utf-8?B?QU04VGpYUkJDWXpINGlaekFNaTVac1dqYy9rekl5VFFubkdRbUJEQjRkU3I2?=
- =?utf-8?B?Q0ZCbklreUFnckdpTmZPRnBSNnpxSHNwTEM2TlVIaWdRdW9ORzd6YitBMHZ0?=
- =?utf-8?B?UTZpQTh4M21CVmp6SGhHT1JYb3pVTHRrUWExVmpvZVNzYVVEM0w0Wm9SK1R5?=
- =?utf-8?B?MldBeFdnR3B4K0V4MXFveThBVm5FekQ2OURsZ3FoUkg5eFkvWFdWRVNQTTlS?=
- =?utf-8?B?YkE3L21rOGZyVzZEeXpTSnFiSmhaTlpVaDA5U0JNRGU3SUgxOHdmejRsUTRM?=
- =?utf-8?B?b2YzbVNlWjE1Zjh5STV0N0NDMGtWYXp6dXBsYWFZU0FxeUd2ak1rQ2VGNW1L?=
- =?utf-8?B?Y0hHOElkOThHSzNxMVlBWnhqREVWMkc1N1I2L0pmeUNYNFgycjY3L1hMNG9r?=
- =?utf-8?Q?OQ1h4s8KAnxQhI9LZ5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a31acfb-5dfa-4c33-5256-08df3420b600
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:52:00.8313
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7wTTtDGvTlPsp9Emzoy6M72NTk6M6K2gqMcYeffsjhyW+T9rHPZ+L+8c+5aoIQrh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8108
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auCGbbLTw4qZS536@gpd4>
 
-On 10/26/26 19:31, Felix Kuehling wrote:
-> On 2026-10-26 10:15, Philipp Stanner wrote:
->> amdgpu's KFD eviction fence's dma_fence ops->enable_signaling() contains
->> a dma_fence_is_signaled() check.
->>
->> ops->enable_signaling() is currently consistently being called with the
->> dma_fence lock held. dma_fence_is_signaled() might try to take this lock
->> in its dma_fence_signal() call.
->>
->> This deadlock can currently not occur because the amdkfd_fence_ops do
->> not implement ops->signaled. Should that ever be added, however,
->> deadlocks might occur occasionally once the fastpath check in
->> dma_fence_is_signaled() is skipped.
->>
->> Replace dma_fence_is_signaled() with dma_fence_is_signaled_locked().
->>
->> Signed-off-by: Philipp Stanner <phasta@kernel.org>
->> ---
->> As detailed in my recent discussions with Christian [1], I also think
->> that drivers should be very tightly constrained as to what they do in
->> the fence_ops. I think at the very least they shouldn't use any
->> dma_fence functions there.
->>
->> So we could also remove this check here completely;
->> __dma_fence_enable_signaling() already checks the signaled-flag, after
->> all, but I'm not sure whether that might break amdgpu.
+On Tue, Oct 27, 2026 at 12:09:33PM +0100, Andrea Righi wrote:
+> Hi Peter,
 > 
-> Looking at the code, I think it should be safe to remove the check. There is another one in kgd2kfd_schedule_evict_and_restore_process, which is called from amdkfd_fence_enable_signaling, which is also redundant.
+> On Tue, Oct 27, 2026 at 11:43:17AM +0100, Peter Zijlstra wrote:
+> > On Tue, Oct 27, 2026 at 05:13:31AM +0100, Andrea Righi wrote:
+> > > A task under a BPF scheduler can take NUMA hinting faults via
+> > > task_numa_fault() and then reach numa_migrate_preferred(), which may
+> > > migrate the task to its preferred node through task_numa_migrate().
+> > > 
+> > > The migration of such a task should always be driven by its BPF
+> > > scheduler, which owns the placement of its tasks.
+> > > 
+> > > Keep collecting the statistics, which is what makes
+> > > p->numa_preferred_nid worth reading, but skip the migration for a task
+> > > owned by a BPF scheduler. The scheduler can read the preferred node and
+> > > decide for itself whether moving the task is worth the cost.
+> > > 
+> > > For the same reason, never pick a task owned by a BPF scheduler as the
+> > > swap partner of another task that NUMA balancing migrates, e.g., a fair
+> > > task when the BPF scheduler runs in partial mode. Such a task is
+> > > treated like a kthread on the destination CPU: the migrating task can
+> > > still move there alone, but the BPF-scheduled task is left in place.
+> > > 
+> > > Reported-by: Vladimir Vdovin <deliran@verdict.gg>
+> > > Link: https://lore.kernel.org/r/20261002124559.10367-1-deliran@verdict.gg
+> > > Signed-off-by: Andrea Righi <arighi@nvidia.com>
+> > > ---
+> > >  kernel/sched/fair.c | 15 ++++++++++++++-
+> > >  1 file changed, 14 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > > index 36df9a4dde534..5064c7b707f4d 100644
+> > > --- a/kernel/sched/fair.c
+> > > +++ b/kernel/sched/fair.c
+> > > @@ -3267,8 +3267,13 @@ static bool task_numa_compare(struct task_numa_env *env,
+> > >  
+> > >  	rcu_read_lock();
+> > >  	cur = rcu_dereference_all(dst_rq->curr);
+> > > +	/*
+> > > +	 * Never pick a task under a BPF scheduler as the swap partner: its
+> > > +	 * placement is left to that scheduler, see numa_migrate_preferred().
+> > > +	 * Moving the faulting task alone to the destination is still allowed.
+> > > +	 */
+> > >  	if (cur && ((cur->flags & (PF_EXITING | PF_KTHREAD)) ||
+> > > -		    !cur->mm))
+> > > +		    !cur->mm || task_on_scx(cur)))
+> > >  		cur = NULL;
+> > 
+> > Rather than check task_on_scx(); your argument with Prateek seems to
+> > highlight that the actual check you're looking for should be something
+> > like: cur->class != &fair_sched_class or somesuch, right?
 > 
-> We don't implement ops->signaled, and we explicitly signal the fence from SW with dma_fence_signal or dma_fence_check_and_signal. So the signaled flag should be the only thing that needs to be checked. The flag is only set while holding the fence lock, and checked while holding the fence lock. So in theory, relying on the check in __dma_fence_enable_signaling should be safe.
-
-I actually had a patch to remove that one send out month ago already, it was just never merged.
-
-The call absolutely doesn't make sense since the ops->signaled callback isn't implemented and the bit tested before the enable signaling callback called.
-
-I can take care and push the removal to amd-staging-drm-next when I find time.
-
-Regards,
-Christian.
-
+> Right, the actual condition is "cur is not a fair task". I used
+> task_on_scx() only to avoid changing the behavior of RT/DL tasks, but
+> the same arguments apply to them: their se.avg isn't updated either, so
+> task_h_load(cur) is stale, and their placement is driven by their own
+> class (push/pull), so fair shouldn't move them around.
 > 
-> Regards,
->   Felix
+> So yeah... "task not in the fair class" seems the right thing to do.
 > 
+> > 
+> > >  	/*
+> > > @@ -3645,6 +3650,14 @@ static void numa_migrate_preferred(struct task_struct *p)
+> > >  	if (task_node(p) == p->numa_preferred_nid)
+> > >  		return;
+> > >  
+> > > +	/*
+> > > +	 * A task under a BPF scheduler is placed by that scheduler. Keep the
+> > > +	 * statistics coming, which is what makes p->numa_preferred_nid worth
+> > > +	 * reading, but leave the placement alone.
+> > > +	 */
+> > > +	if (task_on_scx(p))
+> > > +		return;
+> > > +
+> > >  	/* Otherwise, try migrate to a CPU on the preferred node */
+> > >  	task_numa_migrate(p);
+> > >  }
+> > 
+> > I am somewhat confused on all this still, probably because I've not
+> > looked at it for more than a couple of minutes at this point :-)
+> > 
+> > But rather than putting a callback in sched_setnuma() should you not put
+> > a class call here?
+> > 
+> > That is; have this be:
+> > 
+> > 	p->class->task_numa_migrate(p);
+> > 
+> > and have fair set task_numa_migrate_fair(), which is the current
+> > function, and then ext can implement the BPF thing.
 > 
->>
->>
->> P.
->>
->> [1] https://lore.kernel.org/dri-devel/320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org/
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
->> index 9b10d015671c..61621eebb2b0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
->> @@ -123,7 +123,8 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
->>       if (!fence)
->>           return false;
->>   -    if (dma_fence_is_signaled(f))
->> +    /* The enable_signaling() ops is called under lock protection. */
->> +    if (dma_fence_is_signaled_locked(f))
->>           return true;
->>         if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, fence->context_id, f))
+> Yeah, that'd be a much cleaner approach than special-casing ext in fair.
+> But I think it gives a different signal than the sched_setnuma()
+> callback.
+> 
+> numa_migrate_preferred() is called from task_numa_fault(), in the
+> context of the faulting task, at most every numa_migrate_retry, and it
+> only gets to this point when the task isn't on its preferred node. So a
+> class call here means "this task is misplaced, migrate it if you want",
+> repeated at each retry, even if the preferred node remains the same.
 
+This is an important signal; it is fundamental to the whole controller.
+Without a force to keep a task on its preferred node, the memory will
+keep migrating around for no purpose.
+
+A task really should be moved 'back' to its preferred node it at all
+possible, and it remaining to run outside of it had better have a good
+reason (like imbalance). Of course, if a task is ran elsewhere, then
+eventually memory will migrate to the 'new' place and then a new
+preferred node will be selected.
+
+The new place is typically constrained by the numa distance, when its
+not possible to run on the preferred node, it tries to run near, which
+then limits the possible nodes and will have it converge on a new node.
+
+The recently added cache-aware will help here, since that is a short
+term signal to stick to one place, ensuring the memory migration is
+also likely to be more stable and the whole thing will converge on a new
+node more quickly.
+
+> The sched_setnuma() callback instead reports when the preferred node
+> changes, which is what a BPF scheduler needs to use the preferred node
+> as a placement hint.
+> 
+> So I think the two are complementary: the class call would replace the
+> task_on_scx() check here (ext can just skip the migration, or expose it
+> to BPF if we think it's useful), while the notification would stay in
+> sched_setnuma().
+
+I am still not quite sure I understand why sched_ext needs the
+sched_setnuma() hint for placement.
+
+> One thing to consider: RT/DL tasks would also stop being migrated here
+> (they can take hinting faults too), which seems more correct honestly:
+> task_numa_migrate() decides the move based on task_h_load(p), which is
+> stale for them, and their faults only come from pages scanned by other
+> fair threads of the same mm, since they don't drive the scanning
+> themselves.
+> 
+> Would that work for you?
+
+RT/DL should definitely be ignored. 
+
+> > Anyway, if you want to do this task_on_scx() thing like you did, its in
+> > the wrong spot, that condition right above it is irrelevant if you're
+> > not going to be calling task_numa_migrate(). 
+> 
+> Right, I'll move it before that check. It still needs to stay after the
+> p->numa_migrate_retry update though, otherwise the time_after() check in
+> task_numa_fault() would be always true for scx tasks and
+> task_numa_placement() would be called at every hinting fault.
+
+Just so.
