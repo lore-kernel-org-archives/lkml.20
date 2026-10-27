@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793106989;
-	b=d+SKD2F2C8dWz/BH1TnKvMLPsYGrZYJ/3vBpl1zXgakO3Tqoe2TdhIUHIh/9AYTGa2mk
-	 sHKuXrf49wCV3veNEJ8gyf3+aL6EqknEw0GiMqnOHmWNTArgg21aU3ECmYRWnDU3w/tgg
-	 mpYhoygiL8xW8b5dMVf5Tiv2fuwpm1Sm/pqDePKu44wxtuuL5QX32n/QNW6kLk+zBDbHn
-	 rjSgIPiVsS/KXbZQ74mO878BUnFGRQOzQe5nvKuGItUvN3iHJhUUenipeQGVMGYmFqK/t
-	 4elJLO39XBPkWTur03dpzXcyAB+enwTZwEzreFV/dAiBgJgTWiJtBGP+rEtP9SIQU4Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106989;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=G0/R4qOeV34mhh+r+kRBcgH2lrSIxGk2zS7HWrtL1xE=;
-	b=U/IMQ6QbqTe/pQY8a/TVRsXyt+h7820HNoCmx8iIBBPOh7L6iLHpQXZkNNQRbwydmnD7
-	 OE+DnidCoWvtzcCeUnWkycVY41RJMFFe7HOMgZqmiZwdAsP510ta/JFHqedYKWzl+FOE5
-	 bG8raoW+k+NNSXA5OOeLEygroJUJvSGv5oro2c+CHf2RxeqYzw1Aknc4cgNqb3EAdABZH
-	 1pY1/c5OVnZAl9HH7Bs29NUETZ57cjcw37LvRPoSz30WMQ5pWOPUT9VJTjVwNzyZWUHKR
-	 3UgThCCzC/4QNjknuvb2YOrRNmyZb3u2CTIO1IuGUz+7htsFTuyVkTbFsL3PEuQ9FIA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JjQomqj9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.20
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.227
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793107024;
+	b=SYeolS6MgPo2YcOtywp1rEtw48PWNAdPLi/xiFTmQHmkzzYY4cYwzMm8VrW65NzX3HrZ
+	 yYBzAW6YKg8CjyVQ8OFreCNuyMgWtIO1mJ1+pgt+Txs3QrIeDc6IuWhieYnMoR6WWdLVv
+	 VEOJx4tktGKU/GmR27zpU/OcZWmIZk9bLPEnq2G/xTAc0h530bO5gRszNjhZUrXJ3Mx+M
+	 GGFcUp/7Z8h2WpCMBexIakg9Z6CrUVajbCJmOH8s8XeUwQavNmfcx4htYnrWqc8gsJIQP
+	 M51v8GDBqyoxbFq1/w78t5RxGylxX7P0Cq7D1swvq/ZEUjDDjiTLFyfTmSeaxq5N0qQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107024;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=EpBt8CQ3npaNOOqrYPrj/fast8Ozf2jDF5Bzncmp5BU=;
+	b=f92GfZcENdGz6LN2onSUrRyK68O++/NOwMEjFPiQjDdtlOH1mBrD+5MNrDaUe9Hy9lq5
+	 9PvXGRuegSeLm+CITuIctliK5mNphxGfeiMEhFeZW63XXPVZE8s6dJ51ikNaF38KBp6vu
+	 voy49Z639BwHviW69+Ik3rIQ4kutv/b08ZK55KB3+Bodw02K5amoIVOBv+ZTEmj6IYsA1
+	 Uj5K2ive3cvvTaPim9TtYvhqgwvUTyLGsWFxjTEFWAJUhTwaLD1+U+WOfEFTb42Z0WIKp
+	 MqWER0oVU+lB8MdsHqIVqv2lthobsOcfit8hQf5pA0bFYy1ztbuREEbqPURxOd7nW6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kF3p+lyH;
+	arc=none smtp.remote-ip=91.218.175.227
+Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED82606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ED82606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B23D606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:17:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B23D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JjQomqj9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hyTahnugnOnegtFGOcrIhKim7BBhmDTg1bsUfyYUunBogDUvsrVw2eVSiZA62QSWeFbbe5k6L/q1gotDJZsIg11GG48ADFexhZ0rSaX8Tvx+ri03cKofub0NjTVWdEuX8jmIeEI6tjDBg0gw6RDtBV8U2a9qZk12HSfMz+JplK55scHIm8l8fxzxuNIAhMAfmuVfSfV+9RJ3PrdvYTpXyMK1Ct80hikB2BLCteZtaHDR1M1yrqDXTz5UskNuLwNnU3PQwzyJimUwTqDaswHNr+WLGjv43SWmnONBEciVWVkRXxjm8BCM26+HZ9oVxEyDfYbQcecDWfM3bdDcYqPhLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G0/R4qOeV34mhh+r+kRBcgH2lrSIxGk2zS7HWrtL1xE=;
- b=tXjQKNo5/uLdOx70MIt8M9h146YVkDF8PihrwA/K09ScIf0MuFQ5Bt1sv8zZ294JK1RQk7c/MbfBAok259YPPTMSpT6AdjDwMqzPVpoiMJVu0LmlIZIzld8W3TudctAHACfLi+Jmfac0lAtIBcWJt1bLk2+xG1hjsLMveEdemWwFDj6KxF4hyu4t1hJCQsXHf7Ja97VrDAj7b/ehw7b/fYmK6tEgXDGaSusn83ki4ofIPth/p+IlnB+MkSTYY5vnVYxv7spLOT8+kIM+8BTQm7Mf5SucHuPrLWq9IsVvSHeLewZVuGAiojlYyU+yTa0KqWd/MO4Qq8vlEZv7zm67AA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G0/R4qOeV34mhh+r+kRBcgH2lrSIxGk2zS7HWrtL1xE=;
- b=JjQomqj91i64R2UoDEizJ35kLha9/GdatibND1V6lQHJjQNeO3Z6Ijh/6NsedV9CZ7OXjbIDGMCe84oedU4QOHUSy8emRntOC9jCvy+/cSL816RAniLZsaENJQt1AFk6yzAOPjUcyKbjpTtyhqtpYQnkddxUGFRU0V8t3TSiVX4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by SA3PR12MB626779.namprd12.prod.outlook.com (2603:10b6:806:590::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 13:16:26 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 13:16:26 +0000
-Message-ID: <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
-Date: Tue, 27 Oct 2026 08:16:22 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
- iMac
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Richard Lane <richardlanedev@gmail.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
- <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
- <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0156.namprd03.prod.outlook.com
- (2603:10b6:208:32f::29) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kF3p+lyH
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EpBt8CQ3npaNOOqrYPrj/fast8Ozf2jDF5Bzncmp5BU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793107021; v=1; x=1793711821;
+ b=kF3p+lyH7Xv8GL4EeSsKMr8iP9F8HUhvpSCBZoG7WRrYdAk/KCQpl/DSdeEG3tOOu5QNf2Dg
+ 5mlfjDRbPe3Khj3l3Nyce/jRhB8pcSTGaA2rimxWZBne4stDM8Wj6S8Um3cum9SU0CDpoUcn4+A
+ Fs//ki1BzmnEScCTcWX3ZhnE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 7fa098b483a16b6b;
+	Tue, 27 Oct 2026 13:17:01 +0000
+X-Mizu-Trace-ID: 7fa098b483a16b6b
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,140 +57,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SA3PR12MB626779:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d79dd9a-a74b-442c-e340-08df342c812c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|261026140227099003|11063799006|4143699003|56012099006|261026121527099003|261021121427099003|261022105027099003|261022075727099003|261021123027099003|261009223027099003|10067099003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	se1QyKKV9uYG7hSQ77wzPMRwdREHW3KyE6NccMBem7bIBiKD5NiaNJAVtauzqniqcYVkPOrUmMnUKzdHB/xfWs095O0Sh1Nzw7duvkNFBUJJU27VB1d9srKv4wl5Y3pfSwVPlb1aiauqvMcZw+j3matJbdc4oz10dFgTKaNdUX2XnkCHDhaJTrIoC4oyektJQlThkNwxXWVHKt3VqGMDTOLoXMpFuV7OGoaplgewnE/XcGXdSZ1VYUBkhHMmLx72ctd5jXrly8wGV4d5MZtmSWoOo+GHKVvAuQEgKyzvO7ds41mOhL83pbdIAsxEF1xi7Mli8ZYoxsmpdQ8EoDMQVxNC/851ytfeHOBFxPIplNEr798OMwwMT7tcSJOIHAd/fjmUnA4cpY3/1fN71eYpY6SWgN9Pq4RTKWT8Tou25NLf7Ap5rUWLTZWQX0rjvCM6ZJgRjV0ySIhIm/P5Gzp7Natr8+kQ/X//EItMbZzfDIJGe6ybup8ZD3moZo+pnwvCeFHQ7NYsGT6NgUODh9goErPeSrwyQfHRgBhpPr6lDD/N0HlZ7qm/lJuAaqi4BcRPLQ8NO3/ytggL1noFcicI9EDB/jjO5wjcNUD/Ex6hgz9ngT9uNHQ9EuXQCO9pfRlcloEs4csDGCNZATEvY8weUN3HC+H6cLxT0d+lLGsbjjw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261026140227099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261021121427099003)(261022105027099003)(261022075727099003)(261021123027099003)(261009223027099003)(10067099003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OXl3L2lkNjA2TXNNeXFEMmhwNWl4Vk4vUGxtSy9uamRZcndhR0hjb0JHZUR6?=
- =?utf-8?B?STBJZ0lCKzV1WEUzSzJyV2xOOWk0dFFSTHRkc2l4b1QzV2FaVmZMcjZpTXl0?=
- =?utf-8?B?WGFSMmRpRWtDVDdmZjh4VEIvSEdjY3RMeDlraHpVSHJCM0xMSS92UWowd2Vq?=
- =?utf-8?B?UVpZUXZWTGhScloxQXJvODB5UGtEM2hPa3h6eUVRdUJBemFIa291emlHR3V0?=
- =?utf-8?B?KzBJQVVhY1B3Mm1HQWJxbk9tVHdHcTdWQ2hHa0tOSGZtWWpCdzFMcEhVUmFy?=
- =?utf-8?B?NTJCbDZnVHFjM2FlUk5Eei93Ry8zUlhIRTllSkY5emRIV1dOT08xT3FNeHRj?=
- =?utf-8?B?RUo5U1dTVmR5U3RERVZ4ekVPaXdOMzdDc2RVTHZReTkyUFJ5SjYvWWg2dU1J?=
- =?utf-8?B?YTdrN2dMdGdieEVGYTRKZDg3NHUzL1pBa1hJbkhKQ3dJTHBDam5oMy9aMmgw?=
- =?utf-8?B?SjhaTVlIMUs0T3JwcldtdC9WYXBZdnJUOTZrZzVGcmIrV09ucGlzRjVXUG9s?=
- =?utf-8?B?VjlnSjMwVVJQLytUY3BFMWZWYmN3VlF0bmw5ZVQ1MWdTZ1hzVitPdnc2a2Ny?=
- =?utf-8?B?endkS3I1ZldscjJ5MElGNm0vMm4yNVlwUFVBLzJaZjk4WEp1bUIvbnpxSjVF?=
- =?utf-8?B?czBFNVJaSFZTbktvRlV5S1MzMWxFU0R2R0JiVmJDYXZCUjlvaVRoMTFHak5t?=
- =?utf-8?B?UEpXV1FoUFV3bExuK2YwZUdSZnAwMzRsL0F1Uy9aRzcwajRYVVpGMGVFUm85?=
- =?utf-8?B?SlVuazFhYnBJdnRxaUgzU3d3L292bUVhUzF4ZkZpOEFaM0pYajZYZVcwMDlT?=
- =?utf-8?B?OHA0Y0ZxRXhNLzk5Q2JKWjN2RDZFTnd2cHFnYndIc0VhVCt6amcwcDdBOVE5?=
- =?utf-8?B?K0hGejYyUDB0aWtIUmkwUE9TM3Q5cnc0NStRRmQ0K1ZjMit0U0VmcjFrMDFL?=
- =?utf-8?B?WWp4TzNMU3BaaGhEQWlsS3dqa21EUGJGQUhaTWhUaVh5NXB3WERDdXBSOWdy?=
- =?utf-8?B?VFExc0hjU2hEcUNTNkxEMSt3bTl6T0VNN29wNGMvV29wMGw2Wk5TNkhFdThV?=
- =?utf-8?B?Y3Vhb1d1b1lXaStwZkFSd2xDaU9PVnNyUGlUaVo4V2F2REptV2lBcHFKK1RD?=
- =?utf-8?B?OFNlZndQYTUwaWQ0WkRibjBBU2pVVlU5bHBXeHZ3aXhuMytpZ3REaEgxSmJ6?=
- =?utf-8?B?U0ZOcW1NN0FnaFlLZkVPS3dSaWpmR0ROVXFqRlNtOGsxYndEOTJydUI2MGhh?=
- =?utf-8?B?VEtuektRb3VmR0dmUWFibTRDM3U1MEFCdjlsTW5ORm9CZTg2VHcvY3lJemVX?=
- =?utf-8?B?UysxZDNWdHB6dWtZdjVobUJtSld5bmdjeHc1SG5FUjBpbXdOOUlUZ0Nob2sy?=
- =?utf-8?B?d2VKcDhqMTU3a0Z0d09XZWdzcTI2bE00M1VhcU8vcG9sQUYvY0FBZWVIL09W?=
- =?utf-8?B?WUxiMmNhTlZ0UkdQL0Q4czZ4RHhYdmpqVFIxK2xDUVRZZ2VTVU45NVV0SHFa?=
- =?utf-8?B?WnlOV1pKenh2Z0NiT0VTeFk4ZDNEdVRIb05KdWR4TmZnSjBXUnFrUzdaVjNZ?=
- =?utf-8?B?MVB3aVZVb0Qrak1KaWJybGxlMnBSc3hvZHdtR3p6RXEyRmtVeUx6SFZTOGds?=
- =?utf-8?B?TDBWTEl2VTVuVC9DYUNsTk9oMlF1Y1JaSmxUNEpCVU9JTXpRSExOVGxKTTI4?=
- =?utf-8?B?cXl4L2RwcFBJT3JQcFdNYzhGeGtGUzRoWVJLU2pOc2prREozaStLcXBEMkFQ?=
- =?utf-8?B?T2k5RnZQQUF6aHBxaXVmK2hWaG9kYVBzYTB3d1VHSHRWMEkvbTBKRm9ZZ0Ja?=
- =?utf-8?B?RVRZcXhxQVRLV2Z1RlVieEVuUlR6d1RtVTF0cTNlMDNGSXQyMVdMZVNhVU1U?=
- =?utf-8?B?NkNOZm1PSUsyKzdOVWsyYlA4MTdKUlF5U28wMnRGOE9SaTNWM1lXaEhLZ0NS?=
- =?utf-8?B?NytZa1d0c0ZLZm40Zzdmc1p2VmJsRkwvUDc2eC9NT2pVaUFPRkEzMU1uNXdv?=
- =?utf-8?B?b3RsREhlWkZqbUNCYm4zcGl1WFc0K0NzQlRCUWkwNlhtUjZicjlnN1VIUFBF?=
- =?utf-8?B?eDBOTC8rVE1ocEZpNXI1R0xFWElhWmR4MWpEVFJJK1gwQWRBUVdjVU1KeWEx?=
- =?utf-8?B?SStjdnNuNWRySEdReW1KMXVaVVBPOWJJM2p0ZHJVdXRwVE5pUmcyVXdkbDdK?=
- =?utf-8?B?cW9wZVpUYnVuVkhmRXlJcWZiUzRDemwvWXc3T1RzOUE1SG4wSUNyR1lQZ1Ix?=
- =?utf-8?B?eXNPYXRWUFFCSE9UZGRvNG5NTGhzWlRKMXUvaDRWeGdzNXl0eXppS2lXRnhh?=
- =?utf-8?B?dExWOGJYZDJxSVZMdmsyR1d0a2E1aUFXaU50RVB5THVTbnlPdkwyUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d79dd9a-a74b-442c-e340-08df342c812c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:16:26.1952
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EuYPVUtdFGraG8rxaflGWHKt1icrPEJIAgroDLnGx2RAj/EoWyw4BF4SHr25LMo8yfsS1JKdIfX/T374OAD92Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB626779
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v2 05/14] hugetlbfs: enforce F_SEAL_EXEC in setattr
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261027-fixes_shmem-v2-5-86a00952acb9@kernel.org>
+Date: Tue, 27 Oct 2026 21:16:28 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Gregory Price <gourry@gourry.net>,
+ Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>,
+ Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>,
+ Jeff Xu <jeffxu@google.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+ stable@vger.kernel.org,
+ Pedro Falcato <pfalcato@suse.de>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CD47E54C-571F-4D1C-9529-20A2D177E2A2@linux.dev>
+References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
+ <20261027-fixes_shmem-v2-5-86a00952acb9@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
 
 
-On 10/27/26 07:57, Alex Deucher wrote:
-> On Tue, Oct 27, 2026 at 8:21 AM Christian König
-> <christian.koenig@amd.com> wrote:
->>
->> On 10/26/26 23:46, Richard Lane wrote:
->>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
->>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EFI
->>> framebuffer.
->>>
->>> Override the stolen VGA memory allocation size to 64 MiB when matching
->>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
->>> framebuffer corruption during boot handover.
->>
->> Hacks like those are usually a big no-go.
->>
->> Why is that framebuffer handling not working with DC out of the box?
-> 
-> The GMC IP code reserves the memory used by the display hardware from
-> the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
-> what display viewport was set by the pre-OS environment.  If the Macs
-> need a workaround, that's where it should go.  Since these displays
-> require multiple display pipes, my guess is you need to double the
-> allocation in that case since the current code just checks the first
-> pipe.
+> On Oct 27, 2026, at 21:03, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+>=20
+> F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() =
+does
+> not check it. As a result, fchmod() can change the execute bits of a
+> sealed hugetlbfs memfd.
+>=20
+> Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
+> to execute bits when F_SEAL_EXEC is set.
+>=20
+> This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
+> fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
+>=20
+> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+> Link: =
+https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo=
+.com
+> Acked-by: Pedro Falcato <pfalcato@suse.de>
+> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> [ david: use common helper; fixup Fixes:; check only regular files ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
 
-Could this also be a logic error in that callback?  Would it be worth 
-double checking all the register values in that callback for this system?
-
-I know for example there are a few different IP specific implementations 
-in gmc_v9_0_get_vbios_fb_size().
-
-> 
-> Alex
-> 
->>
->> Regards,
->> Christian.
->>
->>>
->>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
->>>   1 file changed, 9 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> index 4204c3c750a8..8b196fbfa724 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
->>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
->>>          } else {
->>>                  size = amdgpu_gmc_get_vbios_fb_size(adev);
->>>
->>> -               if (adev->mman.keep_stolen_vga_memory)
->>> +               /*
->>> +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPORT_SIZE
->>> +                * while scanning out up to 64M across the relocated EFI
->>> +                * framebuffer.
->>> +                */
->>> +               if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
->>> +                   size == (2560 * 2880 * 4))
->>> +                       size = 64U * 1024 * 1024;
->>> +               else if (adev->mman.keep_stolen_vga_memory)
->>>                          size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
->>>          }
->>>
->>> --
->>> 2.55.0
->>
+Thanks.
 
