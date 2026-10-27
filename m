@@ -1,87 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112978;
-	b=LrWGu1dNNNOftFCe2sFWGrxBiI9sRKkIlDD2ZYSZ1/ZVd1zhHBQ1QrVrgefba7qAxKdy
-	 49hPfjPVGlPabkaJ7Wpgh+WJQPi3GTv/RkCn9ZwNDle5/DPYd24NRozhb7P3d2F3w8CWD
-	 /dpSFhbuuYZzBFQkdpIHnXyHx7XDZUAhRhkqFsyOAGVE0AHCnYp5o7EqqCxVHChtJNqEO
-	 V/od5P4mkUxlBJPCg4mIBf5N3uhGANnaGolGWuZrPR2064KpLcFit3US6A82tOfkXLujw
-	 kPPRskied6BhzhpGyrlNVSQgZ/ToD6VLWeH2/LPoEjyjjgPW2DhzXLOVFiJfm3zQPpw==
+	t=1793112980;
+	b=A8e0EM01qatqRtnMVSb8DJiwDyuHewk0TKxgbTgeOBx2pfeGivxFHJhWY6svPuUpJtXE
+	 srBm1MsWrB3lcaEbwBQ7COTetpRXYrFhqnh2u6mRRlVEEm83VPNhwmgFUwyOgo35gzJHE
+	 JnAWkMDIaJ3TVWqvPGbJmpIDv2k0I4EiCGgE7sfHgGkDrSIyzAzpAjwwiHer/iFzeYHso
+	 jotZnTbeda7O+eM/mW9zNBnrCf+Yx1C+s8HGyuRlkLp9XgrC4SkYPzmI/sKjf3DAuW8LP
+	 g6k0Ecb8DKnsjUyKLm0nPcd2GlfKkz7dkdToSXawfMannovU0+mc3dGFzGzm9zSDInQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112980;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=PsSbhhNXZiMOwAB3tEJHSwF7cxJu37qqiwKgqgPvUX4=;
-	b=MUrDQYQ5pwtVkDQfifWPYPGdekHGPf74lLARvI/ghPm8om8VOKRA+L6dv618AAtqqJ/P
-	 H8NbB1Cdy+kLHmjCV0i6ycl8fYRQZUoLWuazBOMcCE+ONAk9250es542YdYHi5YC+Wvrl
-	 vuK30dnLsQj9lw+tlL0PFm7vCJZiH7unftjwpCrqDMBJycEG4u1tDT2FyXZkkuvCJkCnW
-	 4n1wNkBc7AHX2wyfopUosJqdAivd2AUP0lW4yNo0wsZo3MBtkZlpkCTvv9ItpyWFoB8dJ
-	 YKBzjeN+p+FGDSrfgUTOwFEvF8eBANFDHwdV3y4EDn0GhPWok+yNZwy3Vhtar3bvWIQ==
+	bh=Obe+0XIIsqY3BnVbbgH1QXLQqnb9dul7kNk0NHZTe1I=;
+	b=ty0SAPe3aSlPU3BZvXEkHJZemUclldlbOpi8CCUjXbTjmuzo4pUyfJDyq1kV/qbXmJFi
+	 O+/4yBvgjEg3pNIou5aIn7kIdyHeqtRA1Td9rtMPFUiBpNFzB++D6XSN4ObV0ToxcsG7I
+	 r8KbQBakq4d+4a6IF64AxJJefeKVlohQmwB1o7K4TEB/0nP07cgRqv3AVTa5lU8AzYDA1
+	 U6dzn+ElW/hkYLUysynawLPdhQodukqe5wdL7wg3a1LpXliRAf2g+HhdSGnjD+LVmSSrR
+	 8yJuU0JtqAUV/NsxN+RmJhbFvlArrIbRfeANzXNiysMqLIuQfDdmu9XbUG5I8GzBwTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZYXlSXyp;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WO4ptmNr;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D4A606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:56:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D4A606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0964606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:56:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0964606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ZYXlSXyp
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso21964765e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:56:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=WO4ptmNr
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso32836305e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:56:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793112976; x=1793717776; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793112978; x=1793717778; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PsSbhhNXZiMOwAB3tEJHSwF7cxJu37qqiwKgqgPvUX4=;
-        b=ZYXlSXypCzx6IpUlZ1AzcPUXFqYBKCOJduK78MIUFqlSB448NYs7cpVOZGB5w9gVTu
-         xPSnPOlp4SnwOMW/4WSVdFqWxGvlnlMliDvimMo83YJBP/TlFT8VyDymWkQDwcmwaBvW
-         nIVi+pr9u3t9Fo9YdrzFZvKtA2tm8Rg/yuDvjAj6ZNaDbEQxDdX4SI4/DjN5FllA4SXT
-         /APkFk+5V5Exf+u83EyB5414vOsbv9jrzJjNljAVEW2GQa9qSWtYixfFJnh8Gftu4M12
-         NDMs5YArC+rzgzstAkqgz0wVsinpJLDGvtGXBSFbQRauOwJx5rcXV2J/2qms04wvw6Rx
-         5EAA==
+        bh=Obe+0XIIsqY3BnVbbgH1QXLQqnb9dul7kNk0NHZTe1I=;
+        b=WO4ptmNru5vqKIA3nkv48kjnNCPquLjM6qF3RFGK9moJBPs/dW8iO1V/XRVfv64zZo
+         m0buZkR358oiOUkEAxZRXF0eGVFC6h4YyOEDs1vhVShXmghO6ozUOqTC7fEtdiq3OfET
+         Q9hJHB9aTOqSBRKkc8Lii+cFq2LlRaJE/OW2oRHwptK49SHDpamEYgnsNGnZWTah6e/p
+         wbm3OeCqRYRMVpRAlUCu7LqxhdNqcdvQK+Z/hWEH+mXJDaPFBdwhBHCXHpCfMW8xFYjC
+         Azq4I45YR1dwo3qhipFN6ZoIzoikL/t84JEOSGKliocG4VeFnw3KDpbRNzZCsH9+kyk+
+         LRwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793112976; x=1793717776;
+        d=1e100.net; s=20260707; t=1793112978; x=1793717778;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PsSbhhNXZiMOwAB3tEJHSwF7cxJu37qqiwKgqgPvUX4=;
-        b=2yuYjik95W287X0M9r2/xwMrmpxYEJy8alkrM6c5o9A8YLIxGC8iorLlG+aIrMTih1
-         F9zDRaKseuFTHMfCc0i36x/gadVDlphkuy1Js4+v9TpxcngKwfVZFU1lr5oyxd7EMPtp
-         hCZd74gkc0cQ04B+rU8biog/RU7CWQIAs6n7Uhagnbvvadk1zlI7nDcPNFxMHVchWCid
-         MCrD0oTvU12MHkWU7whCKfCjfzQcLzs0N9w9z+2qpoD32CZce9NyhQORpD6EerL0Lcmb
-         TyhLtixdMQpCXrZgUThC2FaQpgZZyf2mQ1GTMOx2h5aUdMUrEww12vrf4mZ/A/TGhYTR
-         hVxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwKnNifO54sztn/7/cfMH82hd3Nf8QsExHsQSjEpwVVR3qV39yEOM+E34Q597+hOm46PqNXBNCSOUsfj60=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3Ug2eP8g5l2yQfuxb3BtO+wifWump+0/h8iDh0NRLuab4bBi4
-	2FoKUGae7Qa7ZYErKnjTCrOA6fTfDJK+BauiRHPno97C41QqXAowxDRiZ3LDwzV7Ee0=
-X-Gm-Gg: AYBFou0TyPXNvgQVxekf9ZmJnqSAyr+6aYnyR5oDL8qkrP4kCoisiqOMH4TgyT3fz/f
-	YYXESjCgK+64ZrIj7qziEPr+FzlkcclMuu2yWUFvz5aCuwjGWY3dME+SS3joS2vuhw8Ty1lRrfp
-	8IhdGHzzqwuEC34/jfRP9S3O37xJxmEIKC99FLOWK6/W4+Lsffl1avIZlwHJJkG/GxNisv+ZlN+
-	T14unOfm3eH1/At2qU38NaDyyugLGUtKHp5nHnoA6jn/3BHJllHjhwwmQnlMsnjDwZJtC3pRH92
-	UICQUQJnF2y72w9qnUaf/3aRU+VpKyG7DLuSdHNg9CWxCvv/jYjQrDjhutthZFf4kWRmv+2JTHk
-	kriwK/ortCNJeJ93L9XzJjjoXkamkn0rk7GzHSPLs7vR+KHpLJDZkZSg8/h6dsHto1yMfQxzSuH
-	o/UfU2+hMTXzMQ9M4N+qknb112Y/Bqhj2Y2/Y8h2PmX+2+fdad+ntPNusBu9qfIbW/FM3D2eJer
-	LdkgxiusF2x+L7v2/BYCWSjVZac3XfdNeydS3P4xXBsIKKEjvi9JXqi4M+M
-X-Received: by 2002:a05:600c:3b11:b0:4a1:dade:f049 with SMTP id 5b1f17b1804b1-4a35acbd3b3mr203785635e9.15.1793112976312;
-        Tue, 27 Oct 2026 07:56:16 -0700 (PDT)
+        bh=Obe+0XIIsqY3BnVbbgH1QXLQqnb9dul7kNk0NHZTe1I=;
+        b=Tl8itPrqZT6miA5Gaz7fgMzwzx2XaJ92bDERX47QkZPcVjkdFtOmf+Xx8q+iVTNC26
+         tNanB5dhB0qrPobctgo/THCF0FXxL9VIWDiDwMUdlZ3p/kIr9c46u/ADcm/0I17K9cHM
+         ij4fPzfBGl4CeDyeMz0Wl0pTIs8MkbRKU09ZCyPLV9Yzjb7PHUN+zId5asFZNzocmOy3
+         SP0TDsU2mT7avM01Fb2x/H6H/r7yfhcK98eKiuEN+cPIa/PAc6uUSnRp0WmlwrlWhmue
+         3mN5wpX7duJ7WPthbTjbruS6OfPjiPramLB7oFbdKoTNOMVJQZ9fTqqZo0q4VoK8RqOj
+         oB8g==
+X-Forwarded-Encrypted: i=1; AKwUvBxfHtRSY2IcfhnwY84Ds8Wk4yxCRnKVnsMLgq/d9ak/oyn6s8o87WM2D/VVevoUZh95hy2y6KyfXsaNfXg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4OwBmonJw2e9Xx8HjlZfgKKf0iFqEc1zMVas353dizNSr2qfd
+	pQoG4ayeex0eodFUXgp82JZfYXs0OYCYRosT6P+ng9TFFqpjyRG4/DQqGjwMhuXScCo=
+X-Gm-Gg: AYBFou0zdhfDe9YSvB+Sblx+4qCKRyzbkMJOAxJPeqI1BVGGlQ0oxAUDvw8w1LHQqSJ
+	KNpZ5KVuWE6ps6mVm/ZScTGBmDWmRYVm4rmVB9UCR8DEUb2BYjR331g0dCWQCKyQn9VWL95YFHH
+	2gDFhkrBrPetinq1Iw/ufbD1r1mc0A3Ie6wr5rDXlPUnSVD62b2a9Se/YtJzIHPZx1gdB9S7AuD
+	/UgcxJdNbcgSHIDujSrexaxhU+W4PuKQyky+Oze35rdd437cVzeLxYNf3F3s9JXIaNdMUznLLYP
+	DN20b5KcTRr7xo8XrRykVrkQoFA7RKxkUYDIOV/eqeUFlw4waTGert62PwgJ1hxthHa1v4QZ5eV
+	JW+8eQAdi+BLuw7BWqbjSlrkESgz8JZD377vyMZIvaIB9/9ksH3KAFlTnPosV37JTi4qzduemEb
+	5/lLU4fcvr1xb+88nmi1t17DmusL3l4JX+q9VVRHiLhgRKnaVSblZjM7ku/2Lk+LNKvdDueDo67
+	tZmOnxdPIA2YcDNdfHTdGQF7JpydyQBznjnu0C5SuVLzJJLGBVdvvmfWTI=
+X-Received: by 2002:a05:600c:a03:b0:4a1:d992:9476 with SMTP id 5b1f17b1804b1-4a35ac9f30dmr202425775e9.23.1793112978097;
+        Tue, 27 Oct 2026 07:56:18 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm273188835e9.2.2026.10.27.07.56.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e22csm273188835e9.2.2026.10.27.07.56.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 07:56:15 -0700 (PDT)
+        Tue, 27 Oct 2026 07:56:17 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Date: Tue, 27 Oct 2026 14:55:47 +0000
-Subject: [PATCH 1/9] coresight: cpu-debug: Fix PM usage counter leak in
- debug_enable_func()
+Date: Tue, 27 Oct 2026 14:55:49 +0000
+Subject: [PATCH 3/9] coresight: etm4x: Fix truncation of nr_ext_inp
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +92,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-james-cs-sashiko-easy-fixes-1-v1-1-db43c4668644@linaro.org>
+Message-Id: <20261027-james-cs-sashiko-easy-fixes-1-v1-3-db43c4668644@linaro.org>
 References: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
 In-Reply-To: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, 
@@ -103,41 +102,30 @@ Cc: coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
  James Clark <james.clark@linaro.org>, Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 
-pm_runtime_get_sync() increments the usage counter even when it fails,
-but the failing CPU isn't added to the rollback mask, so its reference
-is never dropped. Use pm_runtime_resume_and_get() which drops the
-reference itself on failure.
+TRCIDR5.NUMEXTIN is a 9 bit field but it's stored in a u8, so values of
+256 or more are truncated. Make nr_ext_inp a u16.
 
-Fixes: 2227b7c74634 ("coresight: add support for CPU debug module")
+Fixes: 2e1cdfe184b5 ("coresight-etm4x: Adding CoreSight ETM4x driver")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-2ff60e6d-33ac-4a69-9c62-63eb482f1913
+Closes: https://sashiko.dev/#/bug/linux-b3468d48-ff08-49c9-9ed8-fb6af6979e1e
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- drivers/hwtracing/coresight/coresight-cpu-debug.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hwtracing/coresight/coresight-etm4x.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-index 3a806c1d50ea..06e55dfa6b91 100644
---- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-+++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-@@ -429,7 +429,7 @@ static int debug_enable_func(void)
- 		if (!drvdata)
- 			continue;
- 
--		ret = pm_runtime_get_sync(drvdata->dev);
-+		ret = pm_runtime_resume_and_get(drvdata->dev);
- 		if (ret < 0)
- 			goto err;
- 		else
-@@ -440,7 +440,7 @@ static int debug_enable_func(void)
- 
- err:
- 	/*
--	 * If pm_runtime_get_sync() has failed, need rollback on
-+	 * If pm_runtime_resume_and_get() has failed, need rollback on
- 	 * all the other CPUs that have been enabled before that.
- 	 */
- 	for_each_cpu(cpu, &mask) {
+diff --git a/drivers/hwtracing/coresight/coresight-etm4x.h b/drivers/hwtracing/coresight/coresight-etm4x.h
+index 5417280cdb27..8628dd4e15db 100644
+--- a/drivers/hwtracing/coresight/coresight-etm4x.h
++++ b/drivers/hwtracing/coresight/coresight-etm4x.h
+@@ -874,7 +874,7 @@ struct etmv4_caps {
+ 	u8	nr_pe_cmp;
+ 	u8	nr_addr_cmp;
+ 	u8	nr_cntr;
+-	u8	nr_ext_inp;
++	u16	nr_ext_inp;
+ 	u8	numcidc;
+ 	u8	numextinsel;
+ 	u8	numvmidc;
 
 -- 
 2.43.0
