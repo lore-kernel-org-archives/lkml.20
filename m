@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793132366;
-	b=w6BpiD4hHatMlZYfIukKafkaeZlJt/DGiCU61mcGQC8C6FD/gVLn8vCqeVh++uN1gG03
-	 cJYZqYp9BZWU2NDO95lJUGYj/TOmHggnGyqR7SXRuwBbcieUbH/Y4Aoi4ydl6fgG6CS5p
-	 F0EYevgzI9Ss4hqHPYmcBJd+NCt4kE6LECZLhdbo27G2wbbNvtkxiVvlBIGnTS7vq2kyF
-	 kM7Lapp3/9ftvbNnVil1T+HKhRxvU8718z2CKg/xPC0Ab0jtKL9oNctN3CQV8RfBeVCSW
-	 sr0NYIoAqJlDdwDhLGoPMc8C8D4waZFcyWWKLa1C8T9lwY/Ifbh89H9o1KWMhidrf0A==
+	t=1793132413;
+	b=zhGAktmHiwyROKsERXZ6/w7xHcq9+ycbStIRAiMG+2WLykfbfIG3Psjbj21J3oEPVUT5
+	 x1Puw+xB6ha5rh2ejeeGS909zMizTBGripF5mk4os1pJfz1BiAQYr5n+3iNaJPyN13qNe
+	 Jd85r9p5Q1pUELZDF7N082cHzsrbjjnngj8xPK8TIh4KXtEeEeCiHHo1ANb8tV3fD2Jji
+	 vBkAAf1fXl+xyRDlMWtNb0/MVy6COS91+5OUFacUxYCDuF4m+SnXXF6wMaupxv0bm1Fol
+	 riB7VSQP4tjN+yQ8eXjhoW/dAe4jhzQRxtCsJRDsFNwAmuaSNubQqabfTq/EikwZLpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132366;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dZuufkUf8GpuGJeyrf9o/MLXzvp/HAdAkmQveBEOhnw=;
-	b=UM/c7wj+9mL28HR+r0VRvWd1lLEP4JqV8Mgtt9rnlQewtoNDxokyAk4QeF0a/girUP56
-	 En0PCDw95sZqU4JRanCkuayAVuMyKv2x6MAcrhJfftCVBTuMcD0qHlnxepXB5gd4csK+c
-	 M4akvkj2lbJZJMGqoy6NQwioqMaqelCL0CC1Pnk/U4mlv01OyBr3WZxz0HgqHLARJbAhG
-	 DKtEH3gcra+cUdx3PLntNUuqZBu0gld7MbCLYqo6Et3FfoLXcv8DPiNUFw+LNgCvy0ubZ
-	 fKTPw47nfRRMaA9ByKQ15EIZZ68fsvVIHrdD3VeT34ZvDGq3o9JQSArQoNDMVbkJQRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132413;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1nq0z98nuOUnFugo129zrVuABKTo7gElCbo+rq4acFQ=;
+	b=xFwzCn1DcoNc6peaHWm9LnVlrKfQWM50saLhG78M351y7NwaSgbrdQ3JwRIEK0WdcJsB
+	 h8kmZbpcwTYDeb5RyWHW42H7KSJ1akZ8Dvu0rurunOXg3vwN0BAjFtC0tctZU82aVIdec
+	 BGaS/t8bB0AMsArKc9+Ug+CpBpEF+SMF0gBkTjfsyUbFnyT13pUiR37tgjhvmBzPJA6Kl
+	 Ro7XAeCTwfRPmUv0CvEa7yRdjaS1JFsNcJATKU6o5sahARPcJ9oowFQTUZLd/Od3gQuKD
+	 Cia7PW3ezhTBQ59vHBGE6EfifsatdR/CoYjhcFkSvjKSmlCs8jzSjesfUvw2z3nab3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=X4h2WWV5;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=Mqy1N1iz;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683D3606A31F;
-	Tue, 27 Oct 2026 20:19:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 683D3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E402E606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:20:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E402E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=X4h2WWV5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793132363;
-	bh=vDPdrRiyUL1FypybXVAL8Ck06MvORvilMP3KlioLSSM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=X4h2WWV5chjNCHuyEK1C1CGNB/yeF6RYj/nwHXe06ltvBfsN8Eye7OebM7xzJptka
-	 Y/UZw2bu1lLtQbMlefkZQp2sd3swGsoETh6pw8bK5sYKfs1U4OabEQcGUDxFbMF0KA
-	 qvNge9ddk59MjHSluO0ZJb3ZYcHzTAWpprT5fnVnGgI3eOMhrBwq7LkGLrE8sbfK2i
-	 dcbDgw9qV2e9eBLnSyKsShUhmMrvEDRpB5PDL36dr8PnLsujeo4HxZdYMy/ePUUaNf
-	 ishCEu8VFkPYyQ5eDByWNaSpZdVBxLMyvHxcruxxFJe10aand8a7emX5ZHjS5FprTm
-	 MKDtfP52Dd2CA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=Mqy1N1iz
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C468917E03FF;
-	Tue, 27 Oct 2026 21:19:22 +0100 (CET)
-Message-ID: <f534555a-b62f-4bf9-96cf-ebd74b4b30f0@collabora.com>
-Date: Tue, 27 Oct 2026 22:19:22 +0200
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 4E2E23F98D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:20:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1793132404;
+	bh=1nq0z98nuOUnFugo129zrVuABKTo7gElCbo+rq4acFQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=Mqy1N1izf2DWs5lfn21OChX+GPdYbd1BNya8ARZfGrJH20PAz/tFEI77bEzkeU1DZ
+	 GmUWvdhnwaIvhcfATr0EpnyfwyRCG20b/HeUoPKe3oE8/EQ6tV5I6gDDYiG4Tk0Fn2
+	 tAaGXMiTJJIs66KbpQHX6/QZICSCmJJNEUQUxEhgJpCSnHBLe8TceiHyeOj5T6QLii
+	 93zGi2vn0FCnBAMMPxOE10ELYjNezNc/E/S63fFUwWu8Gwi6eJCROy6/HSsxmD+dlR
+	 HYxTnjilQyhmmdYT2SV4OxL5mxZrImPvMD1sdfs5ZfybYSqd3cTerUR91ntmZhxGVt
+	 rmyhUJyi8xljmFfNOjl9dWRbMcqlXirq4NNrCLmHj19kXXmUL8Glel+ZvrVeJIH2Wj
+	 4nqnIpMsAZPed+xwCMuN9CZRLbi/XTLi6MQ0MpHeKP6O21QOrCt/xLoBYcMT0SZi8M
+	 huzF/RANmPMg+gxk3FJu4EUP9wTfg9hL2YGuRlRaOi93QVgB7WZnTKBwuK8jMKky9l
+	 K+UHOJ2vix7hEFgoN4mjY9IkIMzdWUaOlkfywqYBDEsZm86ejPjHG+VVybQVb2wnCI
+	 nHWULxqdLR7Elq/wQEyexuR11cEmuomCGVoi9Dpt4rPcWPLU4mwWJzPA93pu0NUmUm
+	 Q/7gr/BkLIleVJ8dkPjx4Z/I=
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8b0da010661so3599067b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:20:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793132403; x=1793737203;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1nq0z98nuOUnFugo129zrVuABKTo7gElCbo+rq4acFQ=;
+        b=ayBhOfHSPdh+nPcGpyYTxgjz8JSL8Owlu+WnhJWZg/ElS+K+DMmt5H1lsRXekYyz+j
+         2aCvhN8/VRgfeFUUfa5CFGe8ghOTv6BPW3+FB87XZOsro7zf4V0fbuVUCxsK12U26MOx
+         9hmC357uMh6pURV0CTo/wgxiXQLV3qaV2REVcAD7PnR8nEdqbd4slcENxoo455xrOmJ6
+         QTG6SxNGUCQdjIl8gqL1k6RRfCW5t68nLu7YQPHYSCHHE8Hnyt4a0tfrAaTOp0oZagEe
+         ay/8EUxqwi4XinTJ0YlhCzQdO2BfQXKJlYT4RgKnnFbwjEy+8YJg4BS+AXHqnMSNtHCC
+         l08Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx1Trq8Xy6fYN5sS47TKJMTZNbnTB5MAXgp3FWD4Ku/By2l2lgs9gdVrcc2NztQgrPuvDKm42O41BrZ0ic=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJg0wnd9b0wBX0Bjcutb5AZ7LQxugv0BxYjTBoqxlFQTaEJj6Hm
+	hw00DtDMy9Em0rvZi1WUDWiwLWyynl166LGWTchdYL12CbOuRqIQ5j+7WlQmDxfiXMTMyIedN/I
+	ml+pGHMG9xb7CcS/ZpfMy/AMOyGgVp/1gEqneyZZ7s6j6jpEROXjZDBh2G3WdPjsCBe/dQp7JJg
+	GSWo3Hcw==
+X-Gm-Gg: AYBFou3z/6q25GBSiPNHTg4zfV5rxUNVyCeyvPymy7l+R/Zg/7XKEAYNZCOpvIDV0+C
+	X/OunJgcorfhqKc73ZttpqozQROQcS0D24IiOcU6yzE+dVYN167GH9Nti+A8Bk3S5nwNdJy41wm
+	2vapFf+xSMFNcnH93q1MSEISKtK4XgCr3rJFMWL9W3Qwy2rsoUNRsaddGq6CWnIksr32CSUu/aa
+	YdVs5coTAO+BgFqNu4sCe5CBMAamLNDlZEwoTmnMg4jkNFAWrGp9+0K1Jh+yQLlTQFgGaepsBdm
+	nfAcrkENHG4sMk/dPa2sT8gVytg7CUU65Wh/yfXneJ/MVP1rvWTO6VS7zG1Oqn9rSyTj5B7VNtY
+	ISPmmT3vo5wl68zfAsKki29PvfqLDKfdsXHQJiMMzMHrTKbkIhPAGuMI=
+X-Received: by 2002:a05:690c:112:b0:8b0:cd30:ce8f with SMTP id 00721157ae682-8b1b5e6143amr969107b3.49.1793132403110;
+        Tue, 27 Oct 2026 13:20:03 -0700 (PDT)
+X-Received: by 2002:a05:690c:112:b0:8b0:cd30:ce8f with SMTP id 00721157ae682-8b1b5e6143amr969067b3.49.1793132402719;
+        Tue, 27 Oct 2026 13:20:02 -0700 (PDT)
+Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
+        by smtp.googlemail.com with ESMTPSA id 00721157ae682-8b19e56e8fbsm17632417b3.16.2026.10.27.13.20.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 13:20:02 -0700 (PDT)
+Message-ID: <247a50dd-9fc3-460d-8ad2-1da34c0c5678@canonical.com>
+Date: Tue, 27 Oct 2026 13:20:01 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,147 +103,96 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS
- clock starts
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Lucas Tanure <lucas.tanure@neat.no>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Dom Cobley <popcornmix@gmail.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261026164028.78792-1-lucas.tanure@neat.no>
- <at_4EgWZFghkRHzH@collabws.localdomain>
- <a8b9450f-af4b-47bf-b7b1-3b326ed52dfc@igalia.com>
- <CALt7t=Ef9LS5vNOZq7JGZ1n-L5rgMk7mXBGE66jicfdkqAC35g@mail.gmail.com>
- <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com>
+Subject: Re: [PATCH] apparmor: Fix the return value in split_token_from_name()
+ kernel-doc
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>
+Cc: apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260912000302.34565-1-kmehltretter@gmail.com>
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <a054e9e4-304a-427c-b78f-973fd06f1199@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20260912000302.34565-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Maíra, Lucas,
-
-On 10/27/26 3:58 PM, Maíra Canal wrote:
-> Hi Lucas,
+On 9/11/26 17:03, Karl Mehltretter wrote:
+> split_token_from_name() returns ERR_PTR(-EINVAL) for malformed input,
+> but its kernel-doc describes NULL as the failure result. NULL is instead
+> a successful result when the name following the token is empty.
 > 
-> On 27/10/26 10:53, Lucas Tanure wrote:
->> On Tue, Oct 27, 2026 at 1:07 PM Maíra Canal <mcanal@igalia.com> wrote:
->>>
->>> Hi Cristian,
->>>
->>> On 26/10/26 22:23, Cristian Ciocaltea wrote:
->>>> Hi Lucas,
->>>>
->>>> On 2026/10/26, Lucas Tanure wrote:
->>>>> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
->>>>> the TMDS clock is stopped and to start the clock at least 1 ms later.
->>>>> vc4 writes the bit, and enables the scrambler, at the end of the enable
->>>>> sequence, long after the PHY has started, and clears it before the PHY
->>>>> stops. A sink that samples the bit when the clock appears never locks
->>>>> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
->>>>> order work on the same sink.
->>>>>
->>>>> Patch 3 is the fix. Patch 1 is needed on BCM2712, where phy_disable()
->>>>> was an empty stub upstream, so the PHY kept running after disable; the
->>>>> Raspberry Pi tree has carried this since 2024. Patch 2 fixes a
->>>>> pre-existing race in the scrambling work cancel that the fix would
->>>>> otherwise make easier to hit.
->>>>>
->>>>> v1 was tested on a Raspberry Pi 5 running the Raspberry Pi 6.18 kernel
->>>>> with the same change applied, against the sink that showed the
->>>>> problem: plain enable at 4K60, 1080p60 to 4K60, 4K30 to 4K60, a sink
->>>>> reset and a sink power cycle all lock with zero character errors. v2
->>>>> and v3 carry the same code; the hardware test of the final form is
->>>>> still pending and will be reported in this thread. Mainline was not
->>>>> booted on the Pi 5. The BCM2711 path is unchanged except for the
->>>>> enable order; I have no Pi 4 at hand.
->>>>
->>>> While converting vc4 to the common HDMI 2.0 scrambling infrastructure, I
->>>> ran several tests on the Raspberry Pi 5 and didn't notice any (obvious)
->>>> issues.
->>>>
->>>> Hence, could you please verify whether your problem reproduces with a
->>>> recent mainline kernel?  If it does, could you also give [1] a try and
->>>> report back the actual behavior?
->>>>
->>>
->>> I suspect you didn't hit this on mainline because vc6_hdmi_phy_disable()
->>> is a stub, so the TMDS clock never stops between disable and enable.
->>>
->>> Best regards,
->>> - Maíra
->>>
->>>> [1] https://protect.checkpoint.com/v2/r02/___https://lore.kernel.org/lkml/20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com/___.YzJlOm5lYXQ6YzpnOmQ1ODUyMWJlOGIwNzJjNjNmOWRiMDk3ZmFmYWFkNDliOjc6YTM1MTpiMzBiNzY3ODAyMzBkOGM2M2U0ZjRjMTY2MzE5ZjVhZWZjY2QxYmRjZDBlOWI4MzI0MGYxMjkyNjQ1Y2NkNzJiOnA6VDpG
->>>>
->>>> Regards,
->>>> Cristian
->>>
->>>
->> Hi Cristian, Maíra,
->>
->> Tested on a Raspberry Pi 5 with the Raspberry Pi 7.3 tree [1] as base
->> (pure mainline panics at boot on this board). 
-
-I recall encountering this issue a while ago and spent significant time
-bisecting.  The faulty commit was d87773de9efe1
-("clocksource/drivers/arm_arch_timer: Default to EL2 virtual timer when running
-VHE"), introduced in v7.2-rc1.  Reverting it restored the normal boot.  
-
-Note this was later addressed via commit 94f39e4c017e
-("clocksource/drivers/arm_arch_timer: Workaround bcm2712 broken EL2 virtual
-timer"), part of the v7.2 kernel release. 
-
-Which is the mainline version you've tried?
-
->> That tree carries
->> vc6_hdmi_phy_disable() implemented, so the clock does stop on disable.
->>
->> 1. plain rpi-7.3.y: 4K60 never locks.
->> 2. 7.3 + my patches: all lock.
->> 3. 7.3 + the 7.4 scrambling infrastructure + Cristian's 9 patches: same
->>     failures as in 1.
->> 4. same as 3 + drm_connector_hdmi_enable_scrambling() moved before
->>     phy_init() and drm_connector_hdmi_disable_scrambling() after
->>     phy_disable(): all lock, zero errors, picture on the panel.
-
-Thanks for testing all this.
-
->> Maíra, I also tried 3 with vc6_hdmi_phy_disable() emptied again, as on
->> mainline: same failures as in 1. So the stub is not what hides this.
->> Cristian did not see it because his sink re-evaluates
->> TMDS_Bit_Clock_Ratio after the clock is running and forgives the late
->> write, as most TVs do. Ours samples the bit when the clock first
->> appears and never again. So to reproduce the issue you need a strict
->> HDMI input.
-
-Yeah, that's probably why this issue went unnoticed - most displays are pretty
-tolerant and don't require 100% spec conformance.
-
->>
->> Happy to send a v4 on top of Cristian's series, with the two helper
->> calls moved and patch 2 dropped since the common helper already cancels
->> synchronously, if that is the preferred order.
->>
+> Document all three results: the name, NULL for an empty name, and an
+> error pointer for malformed input.
 > 
-> As your patches are fixes, I'd prefer to push them to drm-misc-fixes and
-> then Cristian's would rebase on top of your patches, as their patches
-> will go to drm-misc-next.
+> Fixes: 63e2b423771a ("AppArmor: userspace interfaces")
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+
+Acked-by: John Johansen <john.johansen@canonical.com>
+
+I have pulled this into the apparmor tree
+
+> ---
+>   security/apparmor/procattr.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> Are you okay with this plan, Cristian?
+> diff --git a/security/apparmor/procattr.c b/security/apparmor/procattr.c
+> index c07b6e8fd9c93c73ea82361af83337774e6d1bdf..cfc45db43aa0c7418604fbba0e4c30a90f0f6cbd 100644
+> --- a/security/apparmor/procattr.c
+> +++ b/security/apparmor/procattr.c
+> @@ -74,7 +74,8 @@ int aa_getprocattr(struct aa_label *label, char **string, bool newline)
+>    * @args: string to parse  (NOT NULL)
+>    * @token: stores returned parsed token value  (NOT NULL)
+>    *
+> - * Returns: start position of name after token else NULL on failure
+> + * Returns: the name following the token, %NULL if the name is empty, or
+> + * ERR_PTR(-EINVAL) if the input is malformed.
+>    */
+>   static char *split_token_from_name(const char *op, char *args, u64 *token)
+>   {
 
-Yes, but sadly I will not be able to reproduce the issue and confirm my rebase
-will not regress.  Hence I'd appreciate if Lucas could recheck this after I send
-that series out.
-
-Also, Maíra, could you please let me know when you apply the fixes? 
-
-I guess I then need to wait for drm-misc-fixes to get merged into drm-misc-next
-before I can proceed with the rebase.
-
-Kind regards,
-Cristian
