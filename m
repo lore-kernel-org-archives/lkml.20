@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793135389;
-	b=2pFnE3OTI2W5rIqaikmYhvEV7SIKS350qN4d/DmZ5ggGCsM34bEtC3gWPeqgy0CmEYAr
-	 idX6nSBKooNOaIVLSt7AEYynkPIV8nVevBTgMxS+d2mqFWH3tH5OhOlPXXfaGQvprm/IE
-	 rjCvuoVYHTuDcdBDqiWDx8npHTcLKxa2DvJgwlPbNfsB+TlW5v8MUFdOUnqVia1kVPIMT
-	 J6SsyysV5kjmF4aZpTFLdJO/nLdXaR3j+30iIRJf3V5L1CHK9ydWdbdZiAL326RmnTjmg
-	 eF6w3Q4gSEgBmnO4RL+SBwYQa0bCt2b5WCN05PWXB57Cr8lq1C4MchL06QQOkg5fZQA==
+	t=1793135391;
+	b=rtQ/aXooDP34V+X8iUJp4zYq2tlvg/YsCl74yEZDMBISZPoEKfAjn+u/jJM5OJjLbxEf
+	 1eOWS3SXseMh1r7SGOVfUQSbTsCM+kFJsVVZBwexaCtPsyD3pO9PmNDTc59TPPakULA0L
+	 wJAkjSCpH1B/hbZRGLOOTmkqpTyzABkGrJu8qrf+9WUKo8okjw503ZYDWPGNxFHTFdJHB
+	 D8zSGMQ/9VMgYhLyFjfiT08AI0ndLlZRS/1e/XAFByq97OehdE7as30yw+G6r/Kks+wba
+	 Ytl4QeMaFPl53OhWBXketA+pfnXUelVOvNjgA7BQigP8H70ZvVHYG8KjH7gEqvqkJSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793135389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135391;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=JKFrLSjwDHREmSvEFmSCml+HwjIVnw6Jy3aXf6F/H+Y=;
-	b=WFuo+J1Ru5K+b05HOp0QKHXpJhqrubgmG/QGN6AjxtJ9Hd9VKXVomIflHD14nZokUYu5
-	 m9nG3kQ1GWaKNBcsTvEw8wopt93fdU4dCVWNpWHN9FrcKL91zAz+7rKxauxNH+nmn/t03
-	 O0xKN3OocmgIDQaapaTdD0qUptWXzTYJX2itHbJBDd+V7quFRpCo44MFitZXZm6/m+z09
-	 p6/O5001r+YFyGkXNXZd/VQzPW/+Kl8JzdEMff36Kuxqurue/EvceX6oTvFJineY55y0N
-	 Y1r/otMdskfhwztEttaxKechDs5axPJ++TLGEdA9RVV0OVKAdNO6/qfLzfZqvyzR/Yg==
+	bh=IpMKT1cwbF2BM7+4MFg5CQwWFq73xTe9BXIlwTOQUCI=;
+	b=UW+jrHogjL3uDiP23JnkuD5brtLJK7kEUuZFCH4sp7RkF0blBABPXDaJhZdW73kgwpSx
+	 idwU2X5DmW1TK+PSujSp08HYWc+2IwX0qspLyXwHgsoUxsuTQnfWDJwnisU5gBdTYzRCr
+	 GOHoZh4aNmT070/+aofKS7hAY6VD9Imu0Zb4mGZeUgJsL/eL4XRUEhUFbF1f4OxtszIsk
+	 2R9Lh3ZUlIxiVWpN1iwz2JdrnskkUDlCBeIpQtUTBiKhaTinXebLkO0Uxg/KtMSNWEqBS
+	 MXGo3C02uwmltwX4Wmd1GA9rVGRnUJwPIkTX3h10LD8rWdAtJbABnTHbG5r6mkPlmyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=n6hOQTUU;
-	arc=none smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=WnvvvdTc;
+	arc=none smtp.remote-ip=209.85.160.170
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91056606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:09:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91056606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B1F606A32E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:09:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1B1F606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=n6hOQTUU
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91b8306b9f8so4935476d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:09:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=WnvvvdTc
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5365d26ccbdso5211541cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:09:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793135388; x=1793740188; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1793135390; x=1793740190; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JKFrLSjwDHREmSvEFmSCml+HwjIVnw6Jy3aXf6F/H+Y=;
-        b=n6hOQTUUqngfoaAVe+wP7OipaQREpIZUTmr+9ABQ9A+RccYPbJ0xQON28EvRuyVBqt
-         r9HM2iZE5cGg3PPNbG9WI93phORSXncFRdrjqv+ei/9HVJWZHrloHKm4dVwJcpKUsKIZ
-         1pKz0CoBUEo0w1+Bv4ggVwqXdAraxzEKTXRBNPzZwya47RBli+DIhmUMFp4Ur5xfJGEB
-         DVacZ4aD4hdYD/qdT08/V59jlYOFpWLjCJ5MJCxwT0+od31pmaugcsv9ZAAyt0DtpK6/
-         FP7MKuzv8SSpxsigqar6AIaK6iqcvukWr6ltLO/guLJuuQgKnfFpDgSU6h1AfRjjYQvv
-         B6Sw==
+        bh=IpMKT1cwbF2BM7+4MFg5CQwWFq73xTe9BXIlwTOQUCI=;
+        b=WnvvvdTc7G1nfaWX/xZKKnrICsgfAqeL0R9qFWLgI1Lu6RxgO3Y0j6JpA78kzWjYYF
+         KyHoApYnqdtPpwWqfZAw1ZHZJU+FOrbBiHwQmZ71f/p1rv0nSKVSrveRfhtfsUqhDK77
+         whvi1LUz+/OAAEmIQmJJBuXgJAoalPNrMrCHO8ICLrteLjaaazmRhnuZZB8693EsvC0P
+         aFtcYWZhs+cUyb6MfKJ7TpwPzncqeXWQlaRPzHPMlLHVg9VuV/+ATMzV6LYkGnffpwU0
+         nteEG1kjc7zbUoS7e89EOLrDTDoYhaVC660ZHf2WhRhQ+FzhUdOwf98TItMqyoculpUQ
+         Q7lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793135388; x=1793740188;
+        d=1e100.net; s=20260707; t=1793135390; x=1793740190;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JKFrLSjwDHREmSvEFmSCml+HwjIVnw6Jy3aXf6F/H+Y=;
-        b=uqhm+gHngyr2/0Ye4cZjq9Sus9xAOyGGI4TwX/8FMBx9NDVk/yXi8MU3pOFhRtXep/
-         sKmqKNidsEnBOgDyjK/g8XG0Qgnynfot2DbPjJjuPuWbxbVg2z8xd+5Oc7oDEOgTemWJ
-         ojj7kPWA9Cc2MsRg7wyQSzs6/QzxPN3LNRjo4yIKMHgq9LdqM3hALRmue/4tifSX5WeV
-         8xKpKtQWZRx1wGLu/Fg+no+j7EVIYK9CBAzp//LsTDQhPhe3rhkB6LCSvH/aYKu0qksD
-         pqs5fEz3NkbnMPVQeJbPzQ8oHYmCmQJHVh4U4CN/pXj59VK1vz07KZgXuC9P1MN9xBi/
-         TAcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXY5qpKGnjEHLpWmkrTeVBC1avGUD3XC3ANJr1vZ4UXFVciwidMNOpCJ2VMWYc83lz4lLU/a3A0tnY5ww=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQKUMzHLFv2D0KM0sbSOIuP1DgNpPv9N7xtyXQhrKjliQAA4yk
-	Lxcm4eoWvuzbc+P/PXCFCXn5tMW2crMqEDldRU5a8phwbskTUdyLgopb9lZ3/FPJnbM=
-X-Gm-Gg: AYBFou2X2GAA1DQn/U56FiBndqQw7vQKMltTLlyI6NseURAl6GHDoD9XIIUrLbJrs0F
-	AIv8WQfluyV86gHDyQ5e04bzkvUV9Xo1NutvkqLmuisF0v72N1+Lq2ZjkeC1WFLm9MRflaKBxA7
-	nVuWR1ZYx9zWiM2mVYde4jOr2V4qNw5eU6aotqiyYMZY/fjKKNqDl1zZKtxXh5X4zmQYWdmBAdr
-	PdSkV/JLyWxJDwlAIKfKfmAs1a7bwhuRSzQFJS088LvPx40ofA5FRNQw85RuKuCfZ4i4/8lLxwW
-	a83YImtZIFejhNy9mpcoCosGQ1X8bI6ssznuXHhAWYnUwbXso4zBvR6haBve2KLwBidK2vo/iDl
-	gzAXxRd6zuEgyBFj1dxCCprLfq1h71V3WBXVad1epewWkzNNxXJviCO3ZXsNe5oi97+ezoVg9Yc
-	3oQ5IneYdls8D6ToVGsz8Jlss49cwws2CBaiGg4or5nCbVdf6t+aNx40I5wXBR+VZOpwzbTPx4l
-	B/lRKBvkE7NVvldef7yKklMASJK7E0dZjNff99CjtyBqMo8MsEXEynV+Twtk/5btsHTvnzt
-X-Received: by 2002:a05:6214:8611:b0:91c:772d:fd7d with SMTP id 6a1803df08f44-91c7cf8f9b1mr5253166d6.26.1793135388396;
-        Tue, 27 Oct 2026 14:09:48 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.246])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47c8c2b3sm113364796d6.31.2026.10.27.14.09.47
+        bh=IpMKT1cwbF2BM7+4MFg5CQwWFq73xTe9BXIlwTOQUCI=;
+        b=XfxIr3SlTW/4Se+zBlD43m753rkm5twoWY6HuIbb7tg6k/Ror4hEZuxwc0xrjP8JA0
+         WExpFHYVvtZPG+9rr/Ve5X0xsv2x/CO4VUubmFO9kayXEF9tugc/kqfOutfjni12bJEg
+         EEVmFH5KV7Ood3Pq68raBFLHY/h0kfw2wMcr95VpF2kctbBGHx5DJerRg/6DczEdmDvN
+         suhiDrhSLvGXSSywtjxvzOQd2QTuQo3igpIyNTX/iLPRsFAyiQDW7s7RwCozunGm2iQW
+         Pk8Rx6pE7HgcqLqLT/7z6b5CtjEfjhgo4FfRjqhANg4QWuIEkGMnPrSZS1xNFU9tCYmB
+         b1bw==
+X-Forwarded-Encrypted: i=1; AKwUvBzY7xqiTQSHYpItT2/puu3Yp2w020oJd0S+n9IzYs+hm4GQruyPrpfGvNrp0RsKivW7QAhApx2pOHOmWWk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIdCaKCikK/v9DIbTz9m2TIE1fK4Vog8DTpVrgyK+TDja5C7G53
+	va8duGo9o14R/eefXOYBCFwZYoK7eE6deHtMg3wbwdpuUsvRbuxoDE8iwWJyK/mVJ70=
+X-Gm-Gg: AYBFou06aaS6KuUeohZc6OfjH9hYEFyHX7oeWkMX5foYocWG7PA2ytpyj7K0sdBRQmq
+	/rbSmXnfX6BH+aQfquAGgzVD4lyV5Pino/Crf/8gfDkSqqJeTJhLPrl/anCazXZ+2tLEGP9aaiH
+	hnF+8t1fYk5dRrKrYJ4964Pd2xAIbJxZydAbBZuob9Fr3O3OlCSp2gBza7pgF8sBHLRuITFAp9x
+	1un6HNeYoX+pYDwchOFKsopxaQ/lmVsZuYKHJDbRJhOFBQcDSNiFfjtotC0hP0yWguEXli0gbvN
+	wLD05ddOIeUblc0Y9En92sPHqbfNrB4WgQCnT8TQdG9VRoSO0rmR1e3/AYWpMFYbUF0syOib7YM
+	v/SEMtfxDInwcYiZrXUUsG0qReLL2UOP/84+xhL3P4RsT8MrIsOKoAdygFEsVXAWDgoJlTs9iiU
+	zBib5hKtQfwBeRIQDWrEG2Dco3VvCBOSGNp890hA21XHioSsD9MJG8ABOpe7X/x23wERhc01PQ8
+	WM7azdgl2RzgP93ciBhfILZRuzseeRULhDeC9+l2U77YQB3OXz6EWXzrG6lj94UsdHSDsWB2Xvv
+	Ak6PkiQ3d6RUijEXVA==
+X-Received: by 2002:a05:622a:8b08:b0:535:d7e:dbe with SMTP id d75a77b69052e-53fcbee4226mr9184971cf.12.1793135390022;
+        Tue, 27 Oct 2026 14:09:50 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.255])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53838cf2dbfsm88162341cf.2.2026.10.27.14.09.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 14:09:47 -0700 (PDT)
+        Tue, 27 Oct 2026 14:09:49 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 27 Oct 2026 21:09:28 +0000
-Subject: [PATCH 02/10] ext4: set SB_I_OVL_USE_SYNC_FS if there is a journal
+Date: Tue, 27 Oct 2026 21:09:29 +0000
+Subject: [PATCH 03/10] xfs: set SB_I_OVL_USE_SYNC_FS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-b4-ovl-containerized-sync-v1-2-802e512379a6@toxicpanda.com>
+Message-Id: <20261027-b4-ovl-containerized-sync-v1-3-802e512379a6@toxicpanda.com>
 References: <20261027-b4-ovl-containerized-sync-v1-0-802e512379a6@toxicpanda.com>
 In-Reply-To: <20261027-b4-ovl-containerized-sync-v1-0-802e512379a6@toxicpanda.com>
 To: Miklos Szeredi <miklos@szeredi.hu>, Amir Goldstein <amir73il@gmail.com>, 
@@ -106,39 +107,37 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793135381; l=855;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793135381; l=709;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=aO8AZhSXBs2aP15NSjU103SL3h8/eCNuFcd5jsKb2vQ=;
+ bh=1Z5502S4N9+PxpDJ24MamzJyZyNagTbtfNLwpblShXA=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QLYucfR36lRP85t2sKZ2ZLaJ9rWkQsjCap0MbdXMa/mnYx1Aa41Uw40CeY2ykt+WukwlWz8EyZD
- bupKVdGj8SQg=
+ QDJutvjNlSBU/eOcQ9wQNaWwYhbQ0y1uFYtQSeQkyDonWymvy92FRNAyiqlerkJRJJxNhvaXRz7
+ 8R+gU7AP+DQw=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-With a journal every change of metadata is part of a transaction, and
-ext4_sync_fs() commits the running one.  ext4_write_inode() has nothing to
-add to that, it only forces a commit as well.
-
-Without a journal the flag stays clear.
+All metadata is logged, xfs_fs_sync_fs() forces the log, and there is no
+->write_inode().
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- fs/ext4/super.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/xfs/xfs_super.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 3ace06b4f9e3..037e274dca8a 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -5542,6 +5542,7 @@ static int __ext4_fill_super(struct fs_context *fc, struct super_block *sb)
- 		err = ext4_load_and_init_journal(sb, es, ctx);
- 		if (err)
- 			goto failed_mount3a;
-+		sb->s_iflags |= SB_I_OVL_USE_SYNC_FS;
- 		if (bdev_read_only(sb->s_bdev))
- 		    needs_recovery = 0;
- 	} else if (test_opt(sb, NOLOAD) && !sb_rdonly(sb) &&
+diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
+index 5a06132aa384..2f09d48b7e6f 100644
+--- a/fs/xfs/xfs_super.c
++++ b/fs/xfs/xfs_super.c
+@@ -1924,7 +1924,7 @@ xfs_fs_fill_super(
+ 		sb->s_time_max = XFS_LEGACY_TIME_MAX;
+ 	}
+ 	trace_xfs_inode_timestamp_range(mp, sb->s_time_min, sb->s_time_max);
+-	sb->s_iflags |= SB_I_CGROUPWB | SB_I_ALLOW_HSM;
++	sb->s_iflags |= SB_I_CGROUPWB | SB_I_ALLOW_HSM | SB_I_OVL_USE_SYNC_FS;
+ 
+ 	set_posix_acl_flag(sb);
+ 
 
 -- 
 2.55.0
