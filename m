@@ -1,111 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097349;
-	b=ocQPn0pfFXUWqbW8pg5NgjTN+NUvglCI8xc5Kty4KbZ4Ew81D6nrRCuzAvOEzThrYRyR
-	 /xzJbx2QCdrWEqr2JX3qJ8GiJgInijfkkdP1OTjjTiROZvh5NGAbtkFWulligZG6nn4KV
-	 A+d8DN2p3sQDlzrXZ+OzJs9jT9AYCvUh3QpKRcWG37EPnksweLEZ3fJdsHjQUbAjO3HjL
-	 95fXZT/kHY2KdaN1XbCAEwlWo9K7hcC0wxhec2nzZl6WYUvKBNo4706n9mj1/RgJ0y9eB
-	 6HM8VgzLAEbERUKOqraW7F9bZBhKEnog5MuXcl9l5tbLaDUq3LYbz7dsG9xj6USJJBA==
+	t=1793097375;
+	b=nWoxorpunWg5lhVf36UkCT7K8EKe4qO8zGD0AP2ZXT1WvdExDc6BxP6DUrkqJkHFA52V
+	 YP4GoskMmx3QusNWBbztCV1jguEiTN3K3sp08nhRynWovgnWmyb9X5p5wIl9VvYa/uegG
+	 0L6DJ26OUMDmva6MxUk/7bgb6sRFSs/Wvwkaw5/9OLrD+ArwOhtXa4zo6K8HGv7NLFK50
+	 N6A0mGOQPj8iNI607IkLIz18WlrnCB1VWckcqrdsPA0ZK5dXLUcFWmFf/WqG0OxcI4R7P
+	 DC7o7AYsv1SvCC7CkQ8BkEmqOyLFGNHqE6N1jDYECkAwpS+iBlWeDCM91M/t5AqJOmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097349;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=cD96WCdctpe4xqBu48fVzWQv2mdj+Q39Vw8+UuE9NOY=;
-	b=ANDs0ntiqSt5KA3Lbz0C6DpyVDuL6FiBCLUfiw8A+d2XuKegAx8DYfDzLqNehYq5Gj9j
-	 yczbpK2ZBjTeY1X+W6b7usLbAws8yj4zyyLGjZtiqlVcEjEcJGd60pMP+SPUPNkzENdpV
-	 mlI0pcbTtFzskydffYyx9C+9BB3Lb5Rd4iFGBiyaRu5hxOWzVDE3WHHo1KN/hdkbgdFOy
-	 LALu82ElYr0kE6jQdzELpcZxoSD7bALgttpPy1vLx/UylWlSVLs5D9IG20O9RmqjDh4eE
-	 73S3kNIi6WN41mvYmryUIdOvjM9D6E7T6W2Rxln3PfMC3MBH2seYz07JVImO7Ue/fIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097375;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=5EJSPUzg0whVepx7G/qDLZdM2wsz34VCNLXrTAyw3pI=;
+	b=yFu5+A16UKR1rYavHkDxPgp5hR9pI4RjY+/xbZIRwAY6abfZbAl7xKzqnA8XIyHIo/d5
+	 r4t8VO8reDD2su3KZ6gTsrhE4KNo1xYewSwfATzEE9qg6UXQeUDo4amR3p2YGbUYv5QnK
+	 2LOT48bGCw0Egp4ZIjRmuuYzP3FFMldLGIH6qiCQfSNKA3uBJIY9S4zCXBEJKFhqCXFtz
+	 6l4g6tNR5liRtbh6/EaHRKVfjFL+jeRG98P/2K7MWsAYZhCKLL3wbNKVBMvEv49IXpoSQ
+	 esVm0ytwAy0Af6A37PNyWuNpNna5ebNmEc8+P43lCDwuPfhSxHUCdKosWB1V5+93IHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=g0poesKL;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wMaGvRgN;
-	arc=none smtp.remote-ip=202.12.124.141
-Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iASb0re8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE34606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:35:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EE34606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9597A606A31A;
+	Tue, 27 Oct 2026 10:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=g0poesKL;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wMaGvRgN
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.stl.internal (Postfix) with ESMTP id 92530130296A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:35:48 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 27 Oct 2026 06:35:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793097324;
-	 x=1793104524; bh=cD96WCdctpe4xqBu48fVzWQv2mdj+Q39Vw8+UuE9NOY=; b=
-	g0poesKLuQGMaU7v25wYb164Iof879cLQ+jrS7Vw6CuhEsyJqwn7PFMO9TEgL555
-	salmD3V/ClUhsKzYPi0e1twlBEQsUQgTWR1AZ4ucxcvSWh0tFF+QsAmR7kyrExiD
-	rs8QFLT2d4K3gWpb7cbvYPqhV9WNtc7sDvVFrq/AeZGLbrsDceBV0QVq1catnKNP
-	0vZraw8GdX+eRczyZn9JW2/ZNbjBM4QFUKd6YGV2yTzJi2ns5fiipJSmFKiJF3sN
-	GoBWeR4K6FMeN3rQg7Q7I4UT9hD0E+qvVgrEVdMfqW0b8abtf0o6SMw5UbAH+FLg
-	hVWbTZEFzS2/5wF4AlN9FA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793097324; x=
-	1793104524; bh=cD96WCdctpe4xqBu48fVzWQv2mdj+Q39Vw8+UuE9NOY=; b=w
-	MaGvRgN74SqlQokg0yGoa0qHrxHvnpo1EgRYl+NAZ2HGjyf2DoHqc5uAKC9rWw6/
-	vV5njRj3VAjVsozr2QciajWKilgp9EVdkzTxKpA/MsGbxExu52PceTGPRcPZsISB
-	KpYKodw2SCDSr9uGfucfgcGE2SA0UG7iid20bXHmKysdvynyqnnRbJjpSNwQ33N1
-	0pa9wUuAxjPIT/YsNOqCEmHDj7Qibp8Oyln4Wr2lT6g2YFOhW7GTB1NdlTnD6Y/N
-	mqImDReIq39YA7WkoOuwESu2xsiCrgirovD+YpK1k72+skpa4xR6mPYjJvlLn92L
-	+KFpP5vjxlM5S0xUcBdYw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793097324; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:eZU4zvaIEJfIHTcMjjSlSxp9hTwlzLFd3I9ld+mLan54Yrx
-	+BghOzdsdvdmSozYKVnyPgd3eakjdR/KMBIBCVnQioxr2pW6A8zxU6cwLnBAFj88
-	mvDbc5irODGGWClz8YunEMMGZyV2DTfKVT6HZR9d6Y10R57NDH7vtmY148lFswvX
-	rkWPTuCip6iJPjiaCHMAV3AWJZauzAtMuDcf9U6a1jVZzd50fKK3Fbb4OKsUDkp4
-	TdJpxpj0edw5GlHQ2MbeNNFtxsvgSmN2uU4hHt8DAJXb2L4BKce2NECYSfS7ETfy
-	DMrmUNa6SdmNcN1Zf59kmJID2Ue9HZUxmPybfuQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:cKjetnoeFjJorNH+mroEPI71xZFnj0iEAx7opE2N30E=:+7cbM9Ly9xGwj1eAsvoI2B7rTf1bDojBouGfp8ZZDqA=;
-X-ME-Sender: <xms:Yn7gauJPeu1PinbCI2gYx0_jlj2PnQL9uVqEmxziDToBSgj9D_xRbA>
-    <xme:Yn7gag_jv3yDvc0KG6xNU0a3i3tsXlBRwgQXJ5nMfcMcUHLemzagppJ4LiVff77wd
-    kWfJ0mG4Cc1YdeleyjjRgNmR8bhi_EzFH5DKuKtc6zsMLGUhHUiVHY>
-X-ME-Proxy-Cause: dmFkZTFn5p5gNfTa2ln7Ur1M8HLGH3FByI3bMffV+IVuNBxFNqZT4qibdV0911N+HRUSXj
-    K07q1nctC5A6CcFfeLY7jBaLOsZKNIqYeTCeDTItiSfcD8KPMq3RagWnzHGWxZYBxWAiCm
-    A3VT2o0IozuPu/s7pvPmuxDhNCPVlHQtdJeKAQbZtM/B41WPfEm0WHEt7Z4VBmU7Awz3r2
-    CW1Ic84f68hqkyPgXyGKcQw2wWDeenYkz/P7wEtiFmdUVM0amFmkVyW6og0RqG5tm89hZw
-    aKjqOAwHgBmvujhKmrOmxUKnEU58c+GvStpS1gjFmbH3Cw9L2zocbcI2nShgNxT4DZbAQR
-    wgaSkDdcdMc/d9G+mxaz1POpKC9kteRE12RXj5cBt5pww+0ny7yXHoqz13E7ttwMLwV2Zx
-    irGvBcy8nzFHGZLzVSm2bc8v02AbCF8YXzUkvfzziFLvAHlSLPGQdoNZ9j8Z+n4FuXVzNX
-    YX6+5h5244zwOTl9aQiqLa2ox4HvDWrM9qIOP1ddj/Qc6TrOohBTM5knyFzE2y92EKQkba
-    jTOi3P5IOCM4Xz9GLVwUPx/34MQnZ46TWseR6J3W3XI63DkzQUPhI7lmU3qjmL7/C1LwgY
-    Sem/AhqkedQIukr61kUqtibtpdY8TqVUBtJQynB3XFjVXPk3rqiMNJFlIJrQ
-X-ME-Proxy: <xmx:Z37gapHvcVHvMaM3ipgnYUZzm2Ryqqq0XCp7NdxFgDjKT2zqjSy1vg>
-    <xmx:Z37gapt5WD8JfcDqZC3gZOEaTUAl0efsI8damzFuxdzMc9AsHa6DBA>
-    <xmx:Z37gao4LOQoh_k9Rjo00qqoo4baOxCcq29WjL83ZgQ6XABea2d3MPA>
-    <xmx:Z37galm2wjPgXkNjyPJ3HOpQNs8U8c25nqH_wkaWl6-1QurrUIflow>
-    <xmx:bH7gapzWCUwwKYEsxCX9776XutFUkBaJpOGzr7ZN12X60l-MCDK0DRme>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id A3C9932A0093; Tue, 27 Oct 2026 06:35:14 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iASb0re8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC191F01825;
+	Tue, 27 Oct 2026 10:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793097374;
+	bh=5EJSPUzg0whVepx7G/qDLZdM2wsz34VCNLXrTAyw3pI=;
+	h=From:To:Cc:Subject:Date;
+	b=iASb0re8vO6SmQzI3jESEFwNxt38qBTygyrDAMU44uQSV25dLenh7KNtveoOoALIB
+	 vraMrLKDeOVJPBQDRh1irshh95EmTzfsHSsNJ+c3FzgKVugeofULumW2D9m7YZEudc
+	 URWw9XIS7TuXb/v5ZpgQwMhKIwLpErX/ngkDurb6vIoI5VH00LuWjtQpH1ZWqMb6tt
+	 qp6UsJfvfPdgz3giYTeRGL74w5tDFtnbFn6wu2rXZV76NfCjNDclsh7qxZ05SP71jc
+	 pv7FNSGRndDCszm7EQzmxXGO1ibkeHJDKG1cnZRjj09Y/zYDNQtMBo6MiqPX2fgmt3
+	 epay1ZXJEKWkA==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Andy Shevchenko <andy@kernel.org>,
+	AnilKumar Ch <anilkumar@ti.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Brent Casavant <bcasavan@sgi.com>,
+	Chong Qiao <qiaochong@loongson.cn>,
+	Corey Minyard <corey@minyard.net>,
+	David Lechner <dlechner@baylibre.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Felipe Balbi <balbi@ti.com>,
+	Gyungoh Yoo <jack.yoo@maxim-ic.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Hsin-Hsiung Wang <hsin-hsiung.wang@mediatek.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Joshua Kinard <linux@kumba.dev>,
+	Kai Svahn <kai.svahn@nokia.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Kumar Sanghvi <kumar.sanghvi@stericsson.com>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	Mattias Nilsson <mattias.i.nilsson@stericsson.com>,
+	Mattias Wallin <mattias.wallin@stericsson.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	mfd@lists.linux.dev,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Milo Kim <woogyom.kim@gmail.com>,
+	Ming Yu <tmyu0@nuvoton.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Pantelis Antoniou <panto@antoniou-consulting.com>,
+	Pat Gefre <pfg@sgi.com>,
+	Paul Burton <paulburton@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Qunqin Zhao <zhaoqunqin@loongson.cn>,
+	Rabin Vincent <rabin.vincent@stericsson.com>,
+	Rachna Patil <rachna@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	Srinidhi Kasagar <srinidhi.kasagar@stericsson.com>,
+	Stanislaw Skowronek <skylark@unaligned.org>,
+	Stephen Warren <swarren@nvidia.com>,
+	Sundar Iyer <sundar.iyer@stericsson.com>,
+	syed khasim <x0khasim@ti.com>,
+	Thomas Bogendoerfer <tbogendoerfer@suse.de>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Yinggang Gu <guyinggang@loongson.cn>
+Subject: [PATCH v2 00/27] mfd: Assorted resource lifetime, teardown, and error-handling fixes
+Date: Tue, 27 Oct 2026 09:30:29 +0000
+Message-ID: <20261027093306.2812695-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,55 +117,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AUJ1OXWu3nCJ
-Date: Tue, 27 Oct 2026 11:33:08 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "James Houghton" <jthoughton@google.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>
-Cc: "Thomas Gleixner" <tglx@kernel.org>,
- "Peter Zijlstra" <peterz@infradead.org>, "Kees Cook" <kees@kernel.org>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>,
- "Michal Hocko" <mhocko@suse.com>, "Sean Christopherson" <seanjc@google.com>,
- "Paolo Bonzini" <pbonzini@redhat.com>, "Jim Mattson" <jmattson@google.com>,
- "Jens Axboe" <axboe@kernel.dk>, "Pavel Begunkov" <asml.silence@gmail.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <mkp@kernel.org>, "David Sterba" <dsterba@suse.com>,
- "Chris Mason" <mason@kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "John Fastabend" <john.fastabend@gmail.com>,
- "Josh Poimboeuf" <jpoimboe@kernel.org>,
- "Steven Rostedt" <rostedt@goodmis.org>,
- "Masami Hiramatsu" <mhiramat@kernel.org>,
- "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>,
- "Ingo Molnar" <mingo@redhat.com>,
- "Arnaldo Carvalho de Melo" <acme@kernel.org>,
- "Namhyung Kim" <namhyung@kernel.org>, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org, io-uring@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-btrfs@vger.kernel.org, bpf@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <3c125ff6-5426-4f19-8e34-fb564d4b6387@app.fastmail.com>
-In-Reply-To: <14f5f919-55bd-47c6-a1c8-6f1445cce733@app.fastmail.com>
-References: <20261026215226.3713941-1-jthoughton@google.com>
- <14f5f919-55bd-47c6-a1c8-6f1445cce733@app.fastmail.com>
-Subject: Re: [RFC PATCH 00/10] uaccess: Refuse and warn on user accesses when
- current->mm is NULL
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026, at 01:12, Arnd Bergmann wrote:
->
-> E.g. on arm64 with CONFIG_ARM64_SW_TTBR0_PAN, the page table base for
-> the current process is only set in user_access_begin() and would
-> not point to any task here. Without ttbr0_pan, it should be
-> covered by cpu_set_reserved_ttbr0() turning off all user space access
-> for kernel threads.
+These issues were reported by Sashiko.
 
-correction: for non-sw_ttbr0_pan, enter_lazy_tlb() does nothing
-on arm64, so it is the same as x86 and the others.
+This series addresses a collection of resource lifetime, teardown
+ordering, error-handling, and bounds-checking bugs across several MFD
+drivers.
 
-     Arnd
+v1 => v2:
+ - Collected Acked-by, Reviewed-by, and Tested-by tags from the list
+ - Dropped "mfd: cgbc: Zero-initialise version buffer in
+   cgbc_get_version()" in favour of Thomas Richard's upcoming central
+   cgbc_command() validation series
+ - Restored Fixes: tags (without Cc: stable@vger.kernel.org) on the four
+   non-Stable MFD cell stack-pointer clean-ups (ls2kbmc, bd96801,
+   ti_am335x_tscadc, and db8500-prcmu)
+
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>
+Cc: Andi Shyti <andi.shyti@kernel.org>
+Cc: Andreas Kemnade <andreas@kemnade.info>
+Cc: Andy Shevchenko <andy@kernel.org>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: AnilKumar Ch <anilkumar@ti.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Brent Casavant <bcasavan@sgi.com>
+Cc: Chong Qiao <qiaochong@loongson.cn>
+Cc: Corey Minyard <corey@minyard.net>
+Cc: David Lechner <dlechner@baylibre.com>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Felipe Balbi <balbi@ti.com>
+Cc: Gyungoh Yoo <jack.yoo@maxim-ic.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Hsin-Hsiung Wang <hsin-hsiung.wang@mediatek.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: Joshua Kinard <linux@kumba.dev>
+Cc: Kai Svahn <kai.svahn@nokia.com>
+Cc: Kevin Hilman <khilman@baylibre.com>
+Cc: Kumar Sanghvi <kumar.sanghvi@stericsson.com>
+Cc: Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-crypto@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+Cc: linux-iio@vger.kernel.org
+Cc: linux-input@vger.kernel.org
+Cc: linux-mediatek@lists.infradead.org
+Cc: linux-omap@vger.kernel.org
+Cc: Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Mattias Nilsson <mattias.i.nilsson@stericsson.com>
+Cc: Mattias Wallin <mattias.wallin@stericsson.com>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: mfd@lists.linux.dev
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Milo Kim <woogyom.kim@gmail.com>
+Cc: Ming Yu <tmyu0@nuvoton.com>
+Cc: "Nuno Sá" <nuno.sa@analog.com>
+Cc: Pantelis Antoniou <panto@antoniou-consulting.com>
+Cc: Pat Gefre <pfg@sgi.com>
+Cc: Paul Burton <paulburton@kernel.org>
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Cc: Qunqin Zhao <zhaoqunqin@loongson.cn>
+Cc: Rabin Vincent <rabin.vincent@stericsson.com>
+Cc: Rachna Patil <rachna@ti.com>
+Cc: Roger Quadros <rogerq@kernel.org>
+Cc: Samuel Ortiz <sameo@linux.intel.com>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Shi Hao <i.shihao.999@gmail.com>
+Cc: Srinidhi Kasagar <srinidhi.kasagar@stericsson.com>
+Cc: Stanislaw Skowronek <skylark@unaligned.org>
+Cc: Stephen Warren <swarren@nvidia.com>
+Cc: Sundar Iyer <sundar.iyer@stericsson.com>
+Cc: syed khasim <x0khasim@ti.com>
+Cc: Thomas Bogendoerfer <tbogendoerfer@suse.de>
+Cc: Thomas Richard <thomas.richard@bootlin.com>
+Cc: Tony Lindgren <tony@atomide.com>
+Cc: Yinggang Gu <guyinggang@loongson.cn>
+
+Lee Jones (27):
+  mfd: nct6694: Allocate USB DMA buffers with kzalloc_obj()
+  mfd: ls2kbmc: Unregister GPIO GSI via devm_add_action_or_reset()
+  mfd: ls2kbmc: Cancel reset work on teardown via devm_work_autocancel()
+  mfd: ls2kbmc: Allocate simplefb platform_data on the heap
+  mfd: bd96801: Allocate watchdog IRQ resource on the heap
+  mfd: ti_am335x_tscadc: Retrieve parent driver data via
+    dev_get_drvdata()
+  mfd: db8500-prcmu: Make AB8500 cell and IRQ resource static
+  mfd: nct6694: Do not resubmit interrupt URB on endpoint stall (-EPIPE)
+  mfd: ioc3: Request parent IRQ via request_irq() and free before domain
+    removal
+  mfd: intel-lpss: Remove registered MFD child devices on probe failure
+  mfd: max8907: Manage power-off handler via
+    devm_register_sys_off_handler()
+  mfd: twl-core: Clear pm_power_off callback in twl_remove()
+  mfd: twl-core: Clear twl_priv pointer on teardown and probe failure
+  mfd: loongson-se: Check return value of dma_set_mask_and_coherent()
+  mfd: loongson-se: Zero-initialise controller command structures
+  mfd: loongson-se: Reinitialise completions and wait uninterruptibly
+    for commands
+  mfd: loongson-se: Zero-allocate driver data and initialise engine
+    completions in probe
+  mfd: loongson-se: Prevent out-of-bounds engine access in
+    se_irq_handler()
+  mfd: loongson-se: Stop controller and mask interrupts on teardown and
+    shutdown
+  mfd: loongson-se: Validate engine ID, DMA buffer size, and IRQ
+    registration
+  mfd: abx500-core: Unregister device ops on devm release
+  mfd: ab8500-core: Register sysfs attribute groups via
+    devm_device_add_group()
+  mfd: tps65217: Manage IRQ domain teardown via devres
+  mfd: mt6397: Manage IRQ domain lifecycle with devres
+  mfd: mt6397: Unregister PM notifier on probe failure and unbind
+  i2c: cgbc: Propagate hardware errors when polling read status
+  mfd: ti_am335x_tscadc: Remove redundant ti_tscadc_dev_get() helper
+
+ drivers/i2c/busses/i2c-cgbc.c             |  27 ++++--
+ drivers/iio/adc/ti_am335x_adc.c           |   2 +-
+ drivers/input/touchscreen/ti_am335x_tsc.c |   2 +-
+ drivers/mfd/ab8500-core.c                 |  11 +--
+ drivers/mfd/abx500-core.c                 |  29 +++---
+ drivers/mfd/db8500-prcmu.c                |   8 +-
+ drivers/mfd/intel-lpss.c                  |   1 +
+ drivers/mfd/ioc3.c                        |  32 ++++---
+ drivers/mfd/loongson-se.c                 | 110 +++++++++++++++++-----
+ drivers/mfd/ls2k-bmc-core.c               |  27 ++++--
+ drivers/mfd/max8907.c                     |  28 ++++--
+ drivers/mfd/mt6358-irq.c                  |  17 +++-
+ drivers/mfd/mt6397-core.c                 |   4 +-
+ drivers/mfd/mt6397-irq.c                  |  31 +++++-
+ drivers/mfd/nct6694.c                     |  23 +++--
+ drivers/mfd/rohm-bd96801.c                |  11 ++-
+ drivers/mfd/ti_am335x_tscadc.c            |   7 +-
+ drivers/mfd/tps65217.c                    |  40 ++++----
+ drivers/mfd/twl-core.c                    |  45 +++++----
+ include/linux/mfd/loongson-se.h           |   8 +-
+ include/linux/mfd/ti_am335x_tscadc.h      |   7 --
+ 21 files changed, 326 insertions(+), 144 deletions(-)
+
+-- 
+2.56.0.307.g5fe7bd680c-goog
+
