@@ -1,95 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116058;
-	b=11NITfdmhDGbIsAsuwKMImBO5zNWS5odPktT3qT2mZQkMvh585+IyOlZ2vkBrm93DTjN
-	 BrluhtKi0iUZg0FnbuWf8ppThrU3J4R17gdUCqzEKbM5jdLswBNbN9Zq5xrFrHGx2MOLr
-	 l7reHZOqqk+pMnHyAA9FLNSoFDwE4XB/31/olDIPb20ll6XdYgGGM8NVAA/rng/PrWG4j
-	 ZtnXm/s+4U3v8KjfOpSQcJOR/yFJnW3AFFp6+0EWmEHgP+E4o8AkB9kdU5roa/p7UrtRc
-	 KxrFQFJUEb1rghCe6qmARBPUZEiR9dYtT0fTWzNVF8gis2tkmiutHLKl5XujZMHgNFQ==
+	t=1793116059;
+	b=pJbYvTpayQnFOMbAPaWw2mQMmkOpJXyzjpGGq3rZZBFxvigvrhS5L/pUiJuHyUzqtdp8
+	 7QxtaOkeWlEFYSj42510Cm1IPI0mx8UzcRPr7Jw0FzdLW54BGCpZAmBMbjithidodv1BX
+	 GHHgHR3tkdpXhm3K1PtoG7ZPFXRFE9ft6L3u8WPU5ShqH0ePfN38wDYQUbQ3tMLsCoxni
+	 3uQe6qnPEYYEz/EKN+7FTNlLXZOEcheX04H/jr0dzUpNa/p9s82xrglF2AUXDsLhAKiE8
+	 5UeNNar90I2AoveWd/Iloyn67tTHLYs+vQRrH755Aquw572xFF3SGuqTphj59jYWZfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116058;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116059;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=hJWxmNg8GRlwdEhT1CHnMxWUz05ZWTKr88CS52FhUkI=;
-	b=sSZ3064iCvoB8KaBc4OLD0BXyPX2eDEqTACS/bnO/tAm8WoX49XoFY3uOSr1wIXLuqBf
-	 mli5mNSY80mUW61P1JALqn8xkVA3nCdu3ZihxLahSCs5tVgVimzDp7hT6NlCaTRmcbeUK
-	 n0Dzt00lEx6DvEXFRwFuXAzSO1wl0QbyzJuIAQiLZZkQSEYZdt4X1ioXEsiD3u4U6LX04
-	 DsVdNEIgJUkq6kmN2kjhwcnxkTrisXDoYw6pd2d+CdlXEq9RH3MJ8+fDYKe5fSPOU4Dv0
-	 viqWLW77epw/zX2OS6rGv6vhPFICoojKTOaSj16NheiVn372qmwn0p/9flWHYtjW/9w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
+	b=wdFRQmXBc8KbYW50Bi66jkscjPGDTHGYOnDVBg4bNRKhR5wgh6ABkUslLd4UBIBhxwTI
+	 N4lq0JqxyNkldffv+1hcXdG0b6qXqD6kyr7ihEPJ55+NIMKW/RoKL0EFT6zn32npl5Jkw
+	 pGioSMJyhfB27bSQ+HWIATnS4sLuqJIPNqVF/hm6qwe4gPSewjxE0FTzFAQSLlQ9MpztI
+	 iJ8M+QOAy+cSRLGuhE7T6xzV+YRz9kNr7rHNW/VJ4NbFKSztd6SO3tPPZmVme06kzsTJ+
+	 xz7hjulOVDArCJmQQRtM5VPCNa7wKcEAIrHv5YlsVj/jm3zc9UHgUJwLL4dETHYz+MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gJIl39nG;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wL6MI4s+;
+	arc=none smtp.remote-ip=209.85.222.43
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8B56071CAD
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:47:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8B56071CAD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C51060709F1
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C51060709F1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=gJIl39nG
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4be28b82so3895443f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:47:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wL6MI4s+
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so912303241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:47:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793116056; x=1793720856; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hJWxmNg8GRlwdEhT1CHnMxWUz05ZWTKr88CS52FhUkI=;
-        b=gJIl39nGiL6ZXhYsaE1RCyXuPrx9WqbwQRiPRj1acOUBCNSEjdTPfBN+/ZVPqc5Jzz
-         uXZs4FqxLjcBTMXPkAsCebN0ozOwI9nCO/FWmbTx7xmu7dlqRuGJvIWqvf5S/oxu+gsu
-         33gaAFwSXzDLT0HK4MBzTvfioA+3DEDJw0hv+6ShaLLqnEizABiTxahIqojKLlzFkQ+o
-         sxsLs88PpQSijj3TDGFIEcwfLiMuH+doHe5ms3rzt2fEbc1g7gY3dq1i9BjTwwTtJulW
-         PPf2MqJ5cXU0naogRrAS/Mp5GCh7qmWASZ3Vr12uVicHIHLr3wMhLgtdBDF0j3iYK9f5
-         tlPw==
+        d=gmail.com; s=20260707; t=1793116058; x=1793720858; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
+        b=wL6MI4s+mj6iZumr/hBUO4nDNtwWFMZolYyAB8VQpHY3486JGkmdiSnZlVuHswjdH8
+         fr9VH1dtvaL4YSgJnc9zJHVFxD+3Aoyi7047feaTRDkmP7Wwcavr4RxYKOubGEkkjcjr
+         5IFpVTY2nSVdHB9+UOE7yaXWlbFEBVN04kAMcpWuF5WkaMiXvjySc1Ljzhli8NSvkC7E
+         4D9FdI3ZFPNHIykZjqqcBFAhGSPwIKto1yqwrK7djPuIdPWcpk6HbJ7FqazGAsTyCKdR
+         jrcdRE/C1Dbd0/qLhpRmhpDR8i5yubkz2n1YniaoptK/uPkKys5mLfLlTGJc/xlpivHb
+         E4dA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793116056; x=1793720856;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hJWxmNg8GRlwdEhT1CHnMxWUz05ZWTKr88CS52FhUkI=;
-        b=UPKMSpvmtjZDIcLHzl0BbK6z1qvZAyTdzWfMSjz/ntn1H/Dmex+QFJ84HBVSIT7ALX
-         0bbotbPq8LQlmy5lwJEqkV6xAp8IbpyL8N9AafZ8OJXOqqWrfIATiebZGZ+Pumo3Nebq
-         C1v4SvAGE7SIF40Ncr37teae7gHM3ZLi9vupV26si/bmp24vu7EE+zc2HmQdulq/80Wq
-         6o6GupxIJPgPa0EwBHz7viz/udEwbhGi5fxGZDxCa0Dt2HPIJ0k/Ixwa8nmeUr26bPuF
-         YJBfJb3RP94GUlsbxZeeUGQfMHII92H8gxvJJQjKqhlIFDXOtQBkePCB6KG7WVX6PysU
-         uhaw==
-X-Forwarded-Encrypted: i=1; AKwUvBzi+dK+hQweBX84tIWudCSf5rdcfNMffO8/CMDsxA4hl8oKWCj73Th2YT/vNSxZWHUo+CjQYQw+aWXZ1SI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI25T+g4b5qgy3mq6zDpbfSUTsUZbrT/swwxqDVezD6luAo/lpL
-	n00N+eWnzsq/CTGtakIu5FzpDL8dh3F1adbQNlUdWLQD5Tn+ultI+dNCa83MgK0ZzUA=
-X-Gm-Gg: AYBFou2QqzmezvuvZg0j9WRdEoM5VE37u0Wqfi7OOWIPcw3hp+MKyAzMBqNFOeRO3VW
-	3kOS/yjSt8kuCUjA+WD0g3Dwf5O9qu89yEWaXE9DyypWsIHFFx3Ffs69WD0bXvv7kn3H6SZEvQM
-	HqDyeOGFnFlHjSb419vMfw+z17fyXrMR0s1KR6Wjs6m/MEeZFf0OgWXQYjAbG5f7Xr4H8a0BvXW
-	5YfXKoYAmjwHESRgtVcpym/+2bX8MWGrqbgKnELPD/p9iOartIZAYuJv5ZIBDs3Btiqf0aHxaE/
-	fSPL7SY8TKayQk0ZQRIr7HtnNMKQlgi/2RnjZUwljc+KKzYNkpyO2YiniE+gVR7fmQGWhJbSIIS
-	RmUtqhQ+ZlXFllCO7RvszwdSLMaRUEvduix/xrXjxl3w25fQGxECCzJJIdAeTu5WcZpOiekxYcl
-	wTbXZsStCCu3JycE3pdnTj+2fVRY6oB/9w6GZWest/mUX+oL4Or6iVpsWngfEWU2fResPBz5AZv
-	+nUcBc3UazuoEQSvTZmGaqqpLQvrAGMk8rTrQid4kTcb9BHxVhxfxf3jA==
-X-Received: by 2002:a05:6000:1843:b0:48e:4561:8a17 with SMTP id ffacd0b85a97d-48e45618c07mr17325132f8f.16.1793116055825;
-        Tue, 27 Oct 2026 08:47:35 -0700 (PDT)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfd8dsm21964926f8f.56.2026.10.27.08.47.35
+        d=1e100.net; s=20260707; t=1793116058; x=1793720858;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0DswmWoXofnI9OqDL5xwhT8a7C+9NrwyAXFpDB+jHbw=;
+        b=jJi+MQP4AFqTNeN+vFgbsMekL84RKJ9Ho6HHOP9iD9oI6CrQdDTwysB/miNgCi4qt2
+         S+h6NDRss6PDNeksuroX6kO/POx9QWtiB2MABLFXxKCiBxvyL5yHC3Yl98+/ZMjJKTmx
+         tbxLELpIE5SybiC+7BlPFO/oBkt67VNT4w8rRegKO5pgEtkA9gDE27MmtpY3wb959R8I
+         5rXWjMoycglAiC8M/XZQfJDFX/JTkjDpm3OlVD5AJY4WpMxLL0f3pta+KjwOV2WhjLUj
+         5WrmG0ZyHmwqwYeC/yywXGe1KSoEfUY2Hpsm1BbQbXFGmKu3FELGKGxedhKi31PSD9Vm
+         36dg==
+X-Forwarded-Encrypted: i=1; AKwUvBxN6XJLk9DwyMFHlMy5LvQOclGeKRHU9zr2dw4gp27owM9NOFoaCpxhFmkAGbYnQbQT02SD2mcPfRdwCvk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLO63Pdx1cKyd1sTbmv8+J2VMAgLzRp5093Ji0DbdkPdCnnvOTy
+	ZJem5iyhAIc2SfSd7v6qjLKPmALErBOoguHlYu7wSB+kmF2AsvmdQCN0
+X-Gm-Gg: AYBFou1Y7Ka9gbLRJTX6QLiIkKIdW4BCgFpMxVtXC9k+7MgTmrZX3gC970NTwpG09i+
+	LCauO2DOvyO+4TV4OdsBVEI0rNquspdRd/2w3gOeEzmiEvzvNWPLbw7k7eMG24Y/uPNm38EFOy8
+	gvwLzkMr8UP2bGf/GFeoNGOeSXBQKG66nDzs305VuBeF93KFm3aLfaFqRsVU2xQSxy3BVgfAoOb
+	n/aTIQ1RCeXfvdWEOSQ+Gm3Q3QBnBOU35Mx7V1O4WsQI2W+31umAYFl/fFA0zyp6RJRPA0MZP2w
+	qO7MUwtihSkjyX3IYKoMv4XAy+rJJSLK7vgcilrOutl1QM8AvOwP8YgKGJkg0++JGdH5bAAE2Ag
+	hA+nnHXRQo6H9mFYDo9DmPliWj9Np/AmTyg8LKpu7xXA4b8Gw3Px+3/oWjJcbswOy+QoyIiYYw6
+	Kp/YI/a5dpMdqzDyMpyRpBOvUp/t5s+24Lan58mag/GWcJa9zR6xwIS4CUKRA0mo187jUsksXlr
+	GlSyj0laQILQ9f7VgwXOWwu1vnwpSvuy5hFjWCrzgB94UqcV5y8W30D7tIGjoGeOtZo9dyVWl6j
+	uBSSnfAt6h72jOY=
+X-Received: by 2002:a05:6102:390b:b0:7bb:64cc:1362 with SMTP id ada2fe7eead31-7cea1300c05mr1004091137.6.1793116058224;
+        Tue, 27 Oct 2026 08:47:38 -0700 (PDT)
+Received: from localhost.localdomain ([177.155.254.22])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3973caesm2799894137.2.2026.10.27.08.47.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:47:35 -0700 (PDT)
-Date: Tue, 27 Oct 2026 16:47:33 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	linux-kernel@vger.kernel.org,
-	syzbot+8324b8fd984b86905a66@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] printk: annotate the intentional data race on the
- data block id
-Message-ID: <auDHlaq17eg_uA9A@pathway.suse.cz>
-References: <20261012120341.12423-1-ngocthang2710.1999@gmail.com>
+        Tue, 27 Oct 2026 08:47:37 -0700 (PDT)
+From: Matheus Tagliari <mptagliari@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Matheus Tagliari <mptagliari@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm/radeon: process the VCE interrupt on SI and Trinity
+Date: Tue, 27 Oct 2026 12:47:17 -0300
+Message-ID: <20261027154719.155006-1-mptagliari@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CADnq5_OGgbFOJtBu7SwvvnaN01F=RSqtxZgBhJ1fty4pwBHmVg@mail.gmail.com>
+References: <20261022114754.865669-1-mptagliari@gmail.com> <20261022114754.865669-2-mptagliari@gmail.com> <88c61950-125e-4109-955e-ce09ebaab7af@amd.com> <0c7e45a13fb78064390818bb501e754b62f16f6e.camel@gmail.com> <20261027001506.27266-1-mptagliari@gmail.com> <6e0b5af2-692a-4b2f-ae20-9c164e7e42ed@amd.com> <d451b9a185817c576ebb7943a604fd1952470412.camel@gmail.com> <CADnq5_OGgbFOJtBu7SwvvnaN01F=RSqtxZgBhJ1fty4pwBHmVg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,28 +104,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012120341.12423-1-ngocthang2710.1999@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon 2026-10-12 19:03:39, Nguyen Ngoc Thang wrote:
-> data_alloc() stores the descriptor ID into a newly reserved data block
-> while data_make_reusable(), running from data_push_tail() on another CPU,
-> may still be loading the ID from the same area. The ringbuffer allows
-> this race: a stale or garbage ID simply fails the descriptor lookup or
-> the blk_lpos check. KCSAN nevertheless reports it.
-> 
-> Annotate the accesses with data_race() instead of READ_ONCE()/WRITE_ONCE(),
-> which would needlessly restrict compiler optimizations for a race that is
-> allowed by design. No functional change.
-> 
-> Reported-by: syzbot+8324b8fd984b86905a66@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=8324b8fd984b86905a66
-> Fixes: 896fbe20b4e2 ("printk: use the lockless ringbuffer")
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Hi Alex, Timur, Christian,
 
-JFYI, the patch has been committed into printk/linux.git,
-branch for-7.5-trivial.
+Thanks Alex for picking these up, and Christian for the Trinity
+background.
 
-Best Regards,
-Petr
+Timur, yes, that is possible. The only place where Trinity/Richland
+gets the interrupt enabled is the family check in vce_v1_0_start() in
+patch 2.  Today it reads "rdev->family < CHIP_BONAIRE", which also
+matches CHIP_ARUBA.  Narrowing it to
+
+	if (rdev->family >= CHIP_TAHITI && rdev->family < CHIP_BONAIRE)
+
+enables it on Tahiti, Pitcairn, Verde, Oland and Hainan only, and
+leaves Trinity/Richland (and CIK) as they were.  I built vce_v1_0.o
+with that change against 6.12 and checked the gate against the
+radeon_family enum: SI on, ARUBA and CIK off.  On SI the generated
+code is the same register write I tested on the Cape Verde card, so
+the earlier results still apply there.  I cannot test the Trinity side.
+
+The handling added to evergreen_irq_process() by patch 1 stays
+harmless on Trinity: with the trap interrupt left disabled it is
+never raised.
+
+Since the series is already applied, I did not want to send a v3 on
+top of it unasked.  If Christian would still prefer to keep Trinity
+out of the picture, especially for stable, I can send this as a
+small follow-up against the current tree right away.  Otherwise I
+will leave it as it is.
+
+Thanks,
+Matheus
