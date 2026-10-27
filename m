@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111969;
-	b=edQcIgOz1u9nfRfW1Culro+p5qFSlAJIi856ujbpBlYjgOfR6tvIWLeVxPoxJR/6YWue
-	 SS95ZczCGoR5ZtXwrVWKo1ohLpe386NrqkuSxSLBaF0rzFMCWHhtDUVNP/GbNfa4k4Yks
-	 87ETTbH6wdqtxRx36A6IBg3SchUpeQpitbUKW2EWdhvQcLSzRkt1+T4YKFfvQYLPVyyaX
-	 S9xe4zVdpaNlEJOcyYlJyaKHeZPE3dludznmmhdHISbvywEiSxyD+ZIPp+jD+D7IDrtB6
-	 viZBMwSYOPjkoxKXftckVnFJg0YOekcIw1ZcLwLhMQ7s3WZmYOuH7cQyhSrt5K2+qSg==
+	t=1793111970;
+	b=E0atrRXu8qVOOPgt8Io91b/yUVjyqOBCj6cNTfjt3tttjbfRUKY0vQm6jmTId8/ofLqX
+	 45o2bmQ1O8t+u9Npfidg6CFVe9U+6qHPH1c1YHfDSkf3WJNym16BYVvj1Yut46QL8hnNr
+	 BFoC53rS8nKT0NdcA0LLsjZ3dTUlkUH1D9GbIxrLgK1QwHjIYwxnprwIkl+wQsPygzA6s
+	 oWAcGAjVFsdyQtTTKwC+TpDg3oAtH8yShIdcA9q6tGFuq6MrKTi/Mchd34uK8qptt6sBG
+	 zNTfGIWIVolg/X7kY5i3VcOyM3NhNRsNdd8KoUIffaGoQXuQSLcKPYY2ZR3Yu/Ul/2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111969;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zWKNZJvS98TaYn91gneC8TBH6IkytbETY3YYVo94WFg=;
-	b=JmGN1xWCcrbqcd+yH+3K6vCJ+CoWNELMG1J/6cUxx1HM10nvOyGtCwuceGC1/N+4ok2p
-	 Kst8yv+n4zVs9ifoXtJFH/zaoOBCD0JX8ScgutvxaV7nUPnDv5d3C6LQaR5wnJmgINdUp
-	 505dZA5zCDtrQj6cYVr0ZaXCYEjcTdoLZTxKxVbZ05kchNTGzjjts3Y637zng3TcTKeI+
-	 B3rgHg4UmJg07VYtFWM0g3VDn9MN8f7QgA3g73LcHy1JQnYMZgYlKYNaCCOi7NrYvn1gq
-	 Mrv9Hm7glob1UO5xBMQYn3YdHA3OgDYzEkNGfxJy153Wie+luowixB/vm2RbxO0Xa6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111970;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=SsiL9XLFUNHqZME5gVEL6suEGYBNoOa/XtonB3t1YKA=;
+	b=gLSSh6I72V9z5g0DorjdaqDHzUq5Adv4QZ48tdhK9sIpJdMEcktXpnzlVlry3AXZjEml
+	 jAAxMOVDm/j3KzUGnSnum/SuyyrQvei1HC5OWrdloLWE238vPe9cRkK/CTE1npY54wAOd
+	 fwzhKMA6exBjg9t5wjFF3ZXX6Y7+CV6/iigjgAt9Lkqa7+7nALKK9any3bGTPUCz6DglL
+	 /PgD3YPbi5hs8Idg6zVxQpVitaWbJD7L6Qs3DXAN80m/5XSinnjlF87RbwnMRBfkZdSr8
+	 f/hSmChrEEz591zXrh4gXrYDyrIpo/ZU7lBjmh4I98mLLQSdqhp6eOxEpVKJoCEAP/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhtq+G06;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=dJL3S+I7;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10175606A31A;
-	Tue, 27 Oct 2026 14:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08D4606A323;
+	Tue, 27 Oct 2026 14:39:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D08D4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhtq+G06
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2A1C1F01828;
-	Tue, 27 Oct 2026 14:39:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793111968;
-	bh=zWKNZJvS98TaYn91gneC8TBH6IkytbETY3YYVo94WFg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mhtq+G06kqC3xeB4k1jE+dmZEllYWsCyHRkDYVcdsaBoV8aW199hq1GaHjzFYOz0p
-	 vuNdJJUHYSi/oKO4hOgIQ3k/DhuVPlx0CBSsPodt2GfXNCg7s9rnCI9x6Mo3k5rJNx
-	 3pbyLKia5J4YIOawICwO5EcvkwibwoPe39YF4zpytydfEtNzz1POphpsG/gvK95orM
-	 v25QLAFQvhgys9n5rsJWOHakEo+VPMg7kbTE2WMa3hJ4FIPb4m9GY1TSA9t5Z8EviY
-	 k0HqoCHaAfyCbhzNVUM2rosDzTzE+etBEveMz1+Silpow9WeNMVmUBMK6f8Q6m7mt+
-	 M6g8TfrvFDmrQ==
-Message-ID: <8c164738-8025-482f-828a-3f919150a930@kernel.org>
-Date: Tue, 27 Oct 2026 15:39:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=dJL3S+I7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793111970; x=1824647970;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=45CVcKvk/hupgpg0LhGsE87Hx7VpgL7A/4GQdvlKUVk=;
+  b=dJL3S+I7eicpAf3uNE4/IUIzoJXs6Y/9GawFTWOp+v9/DzuoO71cZj/d
+   o8fIpQ1AEH7YDQx/s4/vJV3JQoYbKOTO5xQeDrtccaeLTrX0KfG21gxfg
+   JpRt+9SaQ9P21dUIxviRTa0K9eQFCtMyCEens1XrrC91Y658BXAAAjDvd
+   R0i/2eL0etbUnBSZwcy5nDb2I7VFowyUUwPQeNQIXLuHUXEnv4oNkd7I5
+   9QBLdw52gXFPzTb9GIw6dD0FlNT1LDw8kos0W94ZbFsnUvKH2w/TjG/1T
+   XEuqe0nkIHYGglucN5vUM7Gwq6RM4XX5gaqRcQSvuJIbAvDZ9ZZop0/pD
+   g==;
+X-CSE-ConnectionGUID: MIk20CbjS9SN3RF5nH3gUw==
+X-CSE-MsgGUID: M6K2zDiKRoWUPNn9JG5Jlg==
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="65617921"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 07:39:23 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Tue, 27 Oct 2026 07:39:21 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 27 Oct 2026 07:39:19 -0700
+Date: Tue, 27 Oct 2026 15:39:18 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <horatiu.vultur@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <ast@kernel.org>,
+	<daniel@iogearbox.net>, <hawk@kernel.org>, <john.fastabend@gmail.com>,
+	<sdf@fomichev.me>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<bpf@vger.kernel.org>
+Subject: Re: [PATCH net] net: lan966x: don't disable hardirqs in fdma tx
+ clear path
+Message-ID: <20261027143918.zdn3brvcco22ehj7@DEN-DL-M70577.microsemi.net>
+References: <20261026-lan966x-fdma-tx-clear-hardirq-v1-1-5f70f026a2e4@microchip.com>
+ <179310888885.3134.1983716616405342216@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,192 +84,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] mm/huge_memory: copy file THPs at fork like
- copy_present_ptes() does
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
- =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-2-66f00b7a564c@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179310888885.3134.1983716616405342216@kernel.org>
 
-On 10/21/26 22:36, Konstantin Khorenko wrote:
-> This fixes no bug: it makes fork copy a PMD the way copy_present_ptes()
-> copies a PTE. Until now copy_huge_pmd() skipped every folio PMD of a
-> non-anonymous VMA and left the child to fault them in again, while the
-> PTEs of the same VMA are copied.
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 > 
-> Treat file folios as the PTE path does: take a reference, duplicate the
-> rmap and account them. fork then pays a reference and an rmap update
-> per PMD, and saves the child a fault per PMD it touches. The next patch
-> sends PFN mappings through the same tail.
+> Critical: 0 � High: 1 � Medium: 0 � Low: 0
 > 
-> That covers the VMAs vma_needs_copy() sends here:
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
 > 
-> - private file mappings with an anon_vma;
-> - VM_COPY_ON_FORK ones: uffd-wp and uffd-rwp, VM_MIXEDMAP (fuse DAX),
->   and VM_MAYBE_GUARD, which shared shmem, file and DAX mappings get
->   from a guard region.
+> - [High] The patch only fixes the normal NAPI case.
 > 
-> The DAX huge zero PMD is copied too, with a reference taken by
-> mm_get_huge_zero_folio() as for anonymous VMAs. A migration entry of a
-> file folio is copied and accounted like copy_nonpresent_pte() does, and
-> made read-only in both processes only in a CoW mapping.
+> --
 > 
-> The copy then gets the same tail as __copy_present_ptes(): write
-> protect both sides in a CoW mapping, mark the child's copy clean in a
-> shared one, and drop the uffd-wp bit where the child is not armed. An
-> anonymous THP is now write protected only when its PMD is writable, as
-> a PTE is.
+> net: lan966x: don't disable hardirqs in fdma tx clear path
 > 
-> A page table is deposited under the copy where the fault paths deposit
-> one: in anonymous VMAs, and wherever the architecture needs one.
+> This patch changes lan966x_fdma_tx_clear_buf() to take tx_lock with a
+> plain spin_lock() instead of spin_lock_irqsave(). The aim is to stop
+> freeing page_pool backed buffers with hardirqs disabled. That currently
+> triggers the lockdep_assert_no_hardirq() warning in
+> __page_pool_put_page().
 > 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-> ---
->  mm/huge_memory.c | 60 ++++++++++++++++++++++++++++++++++----------------------
->  1 file changed, 37 insertions(+), 23 deletions(-)
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> > index a7940eca5df31..a92bd0590b460 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+> > @@ -336,14 +336,13 @@ static void lan966x_fdma_tx_clear_buf(struct lan966x *lan966x, int weight)
 > 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 1e5d68acf62a5..13e3674fb6115 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1898,12 +1898,13 @@ static void copy_huge_non_present_pmd(
->  		pmd_t pmd, pgtable_t pgtable)
->  {
->  	softleaf_t entry = softleaf_from_pmd(pmd);
-> -	struct folio *src_folio;
-> +	struct folio *src_folio = softleaf_to_folio(entry);
->  
->  	VM_WARN_ON_ONCE(!pmd_is_valid_softleaf(pmd));
->  
-> -	if (softleaf_is_migration_write(entry) ||
-> -	    softleaf_is_migration_read_exclusive(entry)) {
-> +	if ((softleaf_is_migration_write(entry) ||
-> +	     softleaf_is_migration_read_exclusive(entry)) &&
-> +	    vma_is_cow_mapping(src_vma)) {
->  		entry = make_readable_migration_entry(swp_offset(entry));
->  		pmd = softleaf_to_pmd(entry);
->  		if (pmd_swp_soft_dirty(*src_pmd))
+> [ ... ]
+> 
+> >       xdp_frame_bulk_init(&bq);
+> >
+> > -     spin_lock_irqsave(&lan966x->tx_lock, flags);
+> > +     spin_lock(&lan966x->tx_lock);
+> 
+> [Severity: High]
+> Does this cover the netpoll case? The commit message says:
+> 
+>   tx_clear_buf() runs from the NAPI poll, so disabling hardirqs there is
+>   not needed.
+> 
+> However, netpoll can call the NAPI poll with budget 0 after the caller
+> has already disabled hardirqs:
+> 
+> netpoll_send_skb()
+>   local_irq_save(flags)
+>   __netpoll_send_skb()
+>     netpoll_poll_dev()
+>       poll_napi()
+>         poll_one_napi()
+>           napi->poll(napi, 0)
+>             lan966x_fdma_napi_poll(weight == 0)
+>               lan966x_fdma_tx_clear_buf(lan966x, 0)
+> 
+> lan966x_fdma_napi_poll() calls lan966x_fdma_tx_clear_buf() whatever the
+> weight is. tx_clear_buf() then does the XDP and page pool frees without
+> checking weight:
+> 
+>                         if (dcb_buf->xdp_ndo)
+>                                 xdp_return_frame_bulk(dcb_buf->data.xdpf, &bq);
+>                         else
+>                                 page_pool_recycle_direct(rx->page_pool,
+>                                                          dcb_buf->data.page);
+>         ...
+>         xdp_flush_frame_bulk(&bq);
+> 
+> Consider netconsole on the port that owns the FDMA NAPI (fdma_ndev, which
+> does not set IFF_DISABLE_NETPOLL), with completed XDP_TX or ndo_xdp_xmit
+> frames in the TX ring. In that case, won't page_pool_recycle_direct() and
+> xdp_flush_frame_bulk() still hit lockdep_assert_no_hardirq() in
+> __page_pool_put_page()?
 
+This patch fixes the normal NAPI path, where the driver itself disabled
+hardirqs around the frees. Fixing the netpoll case would be checking the budget,
+which seems to be unrelated to this fix.
 
-Any reason we're not adding the vma_is_cow_mapping() check on the
-softleaf_is_device_private_write() path as well?
-
-(I think they are all anonymous ... just for consistency)
-
-
-Is the fallthrough:
-
-	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR)
-
-really expected?
-
-
-> @@ -1927,7 +1928,6 @@ static void copy_huge_non_present_pmd(
->  			set_pmd_at(src_mm, addr, src_pmd, pmd);
->  		}
->  
-> -		src_folio = softleaf_to_folio(entry);
->  		VM_WARN_ON(!folio_test_large(src_folio));
->  
->  		folio_get(src_folio);
-> @@ -1939,9 +1939,11 @@ static void copy_huge_non_present_pmd(
->  					    dst_vma, src_vma);
->  	}
->  
-> -	add_mm_counter(dst_mm, MM_ANONPAGES, HPAGE_PMD_NR);
-> -	mm_inc_nr_ptes(dst_mm);
-> -	pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-> +	add_mm_counter(dst_mm, mm_counter(src_folio), HPAGE_PMD_NR);
-> +	if (pgtable) {
-> +		mm_inc_nr_ptes(dst_mm);
-> +		pgtable_trans_huge_deposit(dst_mm, dst_pmd, pgtable);
-> +	}
->  	if (!userfaultfd_protected(dst_vma))
->  		pmd = pmd_swp_clear_uffd(pmd);
->  	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
-> @@ -1957,6 +1959,7 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
->  	pmd_t pmd;
->  	pgtable_t pgtable = NULL;
->  	int ret = -ENOMEM;
-> +	bool writable;
-
-Why do we need this variable?
-
-[...]
-
-> +		goto copy_pmd;
->  	}
-
-Likely we should clean this up later to avoid the gotos.
-
-
-
--- 
-Cheers,
-
-David
+> The bulk path always goes through page_pool_recycle_ring_bulk(). The
+> direct path does too once the alloc cache is full. That function takes
+> the producer lock with spin_lock_bh(), and netpoll from process context
+> is not in softirq.
+> 
+> Can spin_unlock_bh() then run __local_bh_enable_ip() with IRQs disabled?
+> That could run pending softirqs or turn IRQs back on inside netpoll's
+> local_irq_save() section.
+> 
+> Documentation/networking/napi.rst says:
+> 
+>   skb Tx processing should happen regardless of the budget, but if
+>   the argument is 0 driver cannot call any XDP (or page pool) APIs.
+> 
+> The skb branch looks fine, because napi_consume_skb(skb, 0) falls back to
+> dev_consume_skb_any(). Could the XDP and page pool part of TX completion
+> be skipped when weight is 0, as other page_pool drivers do?
+> 
+> The missing budget check is older than this patch. Even so, it means the
+> warning this patch is meant to fix can still be triggered from
+> lan966x_fdma_tx_clear_buf().
+> 
+> [ ... ]
+> 
+> --
+> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026-lan966x-fdma-tx-clear-hardirq-v1-1-5f70f026a2e4%40microchip.com
