@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103665;
-	b=4x5ZU3YArgvF6tWPTJCSgvP+Xg7wzKEuAcLMCzukKYsGM50LXPlBqxZTedVcba7qI62H
-	 y3HYCiHm1BoGkPN53xR58iFEDYDfkoL6Kuvd4UmZXRzrrZOuCxXOJw//i9bn4/c+Cx5m+
-	 5CmrxZ1P3GK81VP3TWKPxa899JVdJw2Kf4q40I/uGbvBgHvwqIvNo5oL+ALhWhWTIpS/D
-	 mnbOSSYYREDhoW4dBUPJ2Ob79DK//PEoiyIsPxOSUn96MXs0EhVy7dsBOt9sgWpdhkFBk
-	 iNq4W+H//+x+UMBqu/mxriy6HzK6wUMi2QBvsnM60KvCumHENoLmtRlv7iu5snb2YPg==
+	t=1793103667;
+	b=MIe//8jYvjcc0X6Uv0VZBNztEfw1yq2124N+9uBeFbZBFjmvvq91UbSgvYTyJWWLXmce
+	 vET+Cy+GkaGDM44DkGV0EOrs3mMKx74W35f3JnexIARFE5F6FBCLh0zAJRspwvQbhlPYn
+	 PN5ZV+mJtjd9mtg+S45GB8AI3nDqbU1ZWgbFAwzfY99THIMQEJChlKde5wfn/pq1Wn5zz
+	 W5goau2DURDE7+5uvXluoe5Gb4MomEHDbdbbUd6YPf1xWfM355468RzxGsXTNNEuv9dRb
+	 VhzX6jf8o5ro06sUVN2wqi4qkYMlnh6ufj2T57ql1kdZTosDxRHwcKuy2deuYxhzsGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103665;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AyPN/ei9nBM4F3juP1Dd34ddlYbEVN2tSm6si2Ukado=;
-	b=e63jTsvLuLEe2YQh1UZzrxPDY9x7Pl4nstuV6kkZPxVMKhjsbpzELvd91hV8H3Kbgxtb
-	 Cc0U6vKxIpM16Ky9wGdL3xtb54RDspcV0lmfh3ht75Gum9cFlVxvuOkHftJWQe9RS4PxR
-	 AEaQjnOb5Ah0W+DDw+BWUxtCFpaEASfAK04OfN9G8KwYrpbDuwbeUS3tNkMhwsKGgeoh6
-	 QAl4F6FkfzISIUOZItcAbBCI+trlqX5R03LDntkS1k77jegPT6f+0jWM1hAnvZp8safyp
-	 DGVSM/GZIRtnBOQDHUxUo9sHjfGzMxV5AwunQn+I7UcDJy6LCFyO4I5qX4fjGZmSt6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103667;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fpqousJYIlQZ4Y3NCFJMRs4UmIAmFoTsGgfAJYD4+7Y=;
+	b=LoLR9DzZNHiU5326P2TIhPiyRf2GnG/Uefcpg8XXfRIhJewapZcvY3ZRTLFfJiX2Aij2
+	 9DqJZCB9M2jNjlyQw+WQm1TjdDN3pBDpjag3Wbit3pUkG/ue9P8blQGeMJqkXIXdzSPFY
+	 V0ttN34E77q+i9jzMxYJ7kKCTMF6vCG0G8ewWtqBpAPrnB+rjCnA2oRLiA/VfeLWfZ66d
+	 581QBadRW1fNadztCsndz+t5nxb+pPLEj65WX+5M9EdhTSZUxbl7O01TsV6xUmONzzJXP
+	 qA4DzyMqrm20/pDd/ma1z+x9onVzgBWg6kegd5E3lgoKJjtrBuBMjnK7D90ceHU4Sgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqlS7pmN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A8C606A322;
-	Tue, 27 Oct 2026 12:21:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nqlS7pmN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CA21F01825;
-	Tue, 27 Oct 2026 12:21:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793103664;
-	bh=AyPN/ei9nBM4F3juP1Dd34ddlYbEVN2tSm6si2Ukado=;
-	h=From:To:Cc:Subject:Date;
-	b=nqlS7pmNsZMYrMBlAaFdtzHnbf9gmhRd6oOk+9udt+1YXerm4XzK27jUGvFgXAtgo
-	 Pww/R9vgsOAKPbwVsIaX2NvfeK86U4pfx9leDi1d9TzYowt/I5g2BuMOcmC93XrJ6K
-	 zuHMB4y1M08ofxtGTTx1POnbQE0DuvYtdgOUnpjXRRIlUGilngQgzDCEqXYTVmJv4G
-	 CTBQflgiUVmk3U+F37/oT+AzRdSSx3F2MxpwEE6CXrwRKZPBmT160+Hidh2iLXl2RE
-	 nu5DCyW9M/u8Cu4u9IsgbdJhCvtM2OsVmuYApKylKlxwJ0qidtIa87J+Ge5fVKujF0
-	 c1uqGd1peQQ2A==
-From: Joshua Crofts <crofts@kernel.org>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] PM: runtime: clarify pm_runtime_use_autosuspend() undo mechanism
-Date: Tue, 27 Oct 2026 12:20:42 +0000
-Message-ID: <20261027122042.1444-1-crofts@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74192606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:21:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74192606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793103663; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=fpqousJYIlQZ4Y3NCFJMRs4UmIAmFoTsGgfAJYD4+7Y=;
+	b=DQhjO5SrN/mEKiK43o+b173HaGW7RC2cfhyryD4U99KMAgD1Q6uwbzirqTPaQ6Ygy99puyjLUPbw26LIHl5zoZWqcB2BU91CkV6Le64soUbLJqMmtecefu5z3yvV/iw+xDnf1PJzYDHqrkqe2d3Li/Hcgs9mesR7CWZ5MtcuPgY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R541e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XDdtXlO_1793103651;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDdtXlO_1793103651 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 20:21:01 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: "Garg, Shivank" <shivankg@amd.com>
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	"Kaitao Cheng" <kaitao.cheng@linux.dev>,
+	vbabka@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	ziy@nvidia.com,
+	wangkefeng.wang@huawei.com,
+	tujinjiang@huawei.com,
+	mgorman@techsingularity.net,
+	chengkaitao@kylinos.cn,
+	muchun.song@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	xiangzao@linux.alibaba.com
+Subject: Re: [PATCH] mm/highmem: refuse to copy hwpoisoned folios in the !copy_mc fallbacks
+Date: Tue, 27 Oct 2026 20:20:51 +0800
+Message-ID: <20261027122051.1234963-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <d1de051d8c3150df7dd0b963a51176e5221a2006.camel@amd.com>
+References: <20261026025724.1430747-1-xiangzao@linux.alibaba.com> <d1de051d8c3150df7dd0b963a51176e5221a2006.camel@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,63 +79,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()")
-introduced a pm_runtime_dont_use_autosuspend() call that is executed automatically
-on driver exit without making any changes to the kerneldocs.
+On 10/26/26 12:10, Garg, Shivank wrote:
+> Should we use is_page_hwpoison() instead? It looks simpler and more
+> reliable.
 
-Update the kerneldocs to clarify the current mechanism of
-pm_runtime_use_autosuspend() cleanup on exit.
+Agreed.  The next version checks is_page_hwpoison(from) before
+and after the copy, so the race is refused at the first check and a
+flag landing during the copy at the second.
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
----
-Hi, would it be possible for this patch to go in a fix PR before 7.4 is
-released to prevent any confusion about the mechanism of
-pm_runtime_use_autosuspend()? Thanks!
----
- Documentation/power/runtime_pm.rst | 10 +++++-----
- include/linux/pm_runtime.h         |  6 +++---
- 2 files changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/runtime_pm.rst
-index e4407b687f8b..40a5c23d5259 100644
---- a/Documentation/power/runtime_pm.rst
-+++ b/Documentation/power/runtime_pm.rst
-@@ -425,11 +425,11 @@ but it also allows more flexibility in the handling of devices during the
- removal of their drivers.
- 
- Drivers in ->remove() callback should undo the runtime PM changes done
--in ->probe(). Usually this means calling pm_runtime_disable(),
--pm_runtime_dont_use_autosuspend() etc. Alternatively, drivers can use
--devm_pm_runtime_enable() during probe, which automatically takes care of
--calling pm_runtime_disable() and pm_runtime_dont_use_autosuspend() upon driver
--detachment.
-+in ->probe(). Usually this means calling pm_runtime_disable() etc.
-+Alternatively, drivers can use devm_pm_runtime_enable() during probe, which
-+automatically takes care of calling pm_runtime_disable() upon driver detachment.
-+Any pm_runtime_use_autosuspend() calls in a driver will be automatically undone
-+on driver exit.
- 
- The user space can effectively disallow the driver of the device to power manage
- it at run time by changing the value of its /sys/devices/.../power/control
-diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-index 322e3b17f987..ae68a9dc7fc5 100644
---- a/include/linux/pm_runtime.h
-+++ b/include/linux/pm_runtime.h
-@@ -855,9 +855,9 @@ static inline void pm_runtime_disable(struct device *dev)
-  * requested (or "autosuspend" will be handled as direct runtime-suspend for
-  * it).
-  *
-- * NOTE: It's important to undo this with pm_runtime_dont_use_autosuspend()
-- * at driver exit time unless your driver initially enabled pm_runtime
-- * with devm_pm_runtime_enable() (which handles it for you).
-+ * NOTE: This is undone automatically with pm_runtime_dont_use_autosuspend() on
-+ * driver exit regardless of whether a driver uses managed devm_* functions or
-+ * not.
-  */
- static inline void pm_runtime_use_autosuspend(struct device *dev)
- {
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-2.47.3
-
+Yuanhe
