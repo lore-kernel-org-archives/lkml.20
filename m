@@ -1,105 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093248;
-	b=iv1clrxVtysH/CiNobdl55uLOtc4Hd4zzp/AgJBGU6+fe8glzz1GieHTFQF/0Q+E0WYh
-	 cGD0aBwCFkzg8vD5AKlnzzo2kyBVTMJl8bw2NZv7ZrkMgdW9r39EAyHOAFOeWXSIbGXBD
-	 8JinMkqMJBedWVYNkmYPYaobC/dpz72OqqNex/bshwa8qkXD2qqDmdIMmLciY8xk7MKmx
-	 s2z+FlwrzEQ95OlIexOaHBSLb1YPKoqmP+V5O5GnwObo7j8IrM6vEBYvyLSgGvDASsX4a
-	 3CCoMNv372JWwHCtj3abbzSAYsZhxAgYvRaGmsgTKuFz+UPQQbiSEEd47PUzYXvYJpw==
+	t=1793093241;
+	b=luZU8iD8FSxAegQSNt5Da6HQ0tyuMP1hP5Abj+dQ2tQn6cLVjQ7SEF7pg7NXAScTlLke
+	 fESd/Q9k76cE6rhwUgwzgJnNlI/zty6neAwb3Rr7JM7fH3WcFAIM+4Sc1C5rmHfl5ZZyD
+	 T9joj9LSZ/iKzdQwUfjYtwOKTTG2uMayyRD+MXZQTsh0UGEbX0aZX51P0UnoxQma5rvEK
+	 dVELMyealeJupYzhxnDaU898UeQzbFqrw2OTmZNFf0AOOxCGcUyRslh0jM8qLTlpgc5eH
+	 6bpTipQtctCICOw7I42bICfNETR1KDy1SCJnnSbw8PgUppRMKc1kFjeBN+r/MdOv+oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093248;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NO/PULJuoH8GueUl87hWZsGj557aWTq0iq+P8FZEMew=;
-	b=OXz7vszUVJq6pBAuI0WFdcrz8i7iO5o1e+596SouZNANv2VNuHdOKyWB6Ov7BsFp/6rC
-	 BqmcR0wlmqP3hXpFDX4kosBh3YT/0NL/ymzKoccouxA/USwzUytKEO0yUrXBwMuEW5UR3
-	 12OOJ0sExhIgEPUqlHGc5xVjyQ0JjvB9PkHozBs5iVoxI9wGjhTtskAEhYCYid73mtEyd
-	 3a4r+dC2RFPDNAokNsx6LedVHn+Mhv+G8S+ynQGO5IqOPmfCPyE36XW2s68XhMIW6vlLo
-	 PXaql0cvBOo3uLnMFdOprD4MtpPAy0IWopqQpZ8QfYgiujLgssmvB474+5qjxgpnQpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093241;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9KR4tQKKoouZdOn8TLp6tmMbElIQ1dBoDCjoVtfVPwU=;
+	b=PopxOgwlRjau/N/GpKneIFz85czU+ZIcZhV8nFyWg2Egc3jpS3IWrMcYQM6cr8B9Ca57
+	 CZzG+Qk68ShMmupGq2I9ITTafBNT+08uByRiJkau1uiGlaAnoARGCp8uz8DLAwhHLX6n5
+	 HVw69eS+O6u+AccQyFQHN+iyAfIUPPCwK7Nth9A1gjdwXhIX0TA9gsdlhBNc6ZQuTZc7p
+	 Epsbr+sF2FqhUKOOQbTjjgPyzWxogSLpz3t78LdhYySrfDaZuxBNRLVZv93Eoac4itExV
+	 n6U/gL0r9v26vRrp2uloKorMZoCo99zhwYl2+S0G9DpNkujNJZ9BqDHmneU3dsbq1GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="rtA7yWz/";
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZiXeWzH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FF5606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:27:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39FF5606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2219606A31A;
+	Tue, 27 Oct 2026 09:27:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rtA7yWz/
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b21cf1a580so4814280a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:27:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793093246; x=1793698046; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NO/PULJuoH8GueUl87hWZsGj557aWTq0iq+P8FZEMew=;
-        b=rtA7yWz/OJQELSB1HmzDG3zKW06pzYRIBoQhVr9HylKEpl/8BpK2yi87g1x16ip+Pi
-         fL7L7LTZU/P+LP6tqSBF2kn+T3PkbIfav6AB+p7jJfqohB07r1R3PbJj+iHSDOfA2lkC
-         Zo98+IGjED3QcvcZfTPyx9AkDAhssqZbALgRPWpyzhQ5XfYz/54hiiM5bcbgRREcz91j
-         r1fmiKeQgLmKHQGkRW90lyoG1oL9Fby0BbWxiRMH8PoasiIzLMc5HTazYLRzyjMDVEYa
-         m4F2fy6M9vyjirx33RfXRrSwve2RUm0QyLdHG+qFq6/zklsWGKJZJvNL6FZccBRQL9up
-         L6eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793093246; x=1793698046;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NO/PULJuoH8GueUl87hWZsGj557aWTq0iq+P8FZEMew=;
-        b=V3PF+KWI18cSKrWneOvPhb914e/lf9qxWyGzzYNre1aFstYMF0L/Ed/Rdm16/XZHFD
-         VDXFbWN/tVugpHKph4Jm79HlNG/YEJt5DQBSz+jaKPg/r78om4E0oGzQWu1dYjBj7u9W
-         9Z6mpNXZ1IXhwP4NEamRrxN1HDkpBq4/2SUXvdEOXdCIvlyKem3JmUr7bfZluwz7L2Wj
-         /VGfMWcLMvgAwyxz5gB5jbKRjkx4U6a4wmKTPPTV+UxZS8ktgC386OJ4MUHAGzgqoYjP
-         wZyaW8Pp3CKPeHYer3KZr3qzD19J3YDuYqowksMMAqQKW/N5AkgY2LOSVAprvJKN1I2V
-         xayg==
-X-Forwarded-Encrypted: i=1; AKwUvBzi3ojX3eNXZUmFUefwAR3mIImlNCSzjJztfEoXb1vkKOuj1wNmzOvp21713cMeLIIUZdT/j9ggzcG7utk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPMEQjEiVzg07B+e1D2DQatq6ha9cREwWiUk6zh/JoV01ycnYX
-	aLoN4DiV2T4OESNq9hJkhPWcUIedO6d4zlAIv0L3KqaytpoEXtZTB2qw
-X-Gm-Gg: AYBFou3hAMBaadAufNXGO81CrsQ8p+nT+xVuhw8QgMwSJ5fEaNZA7AmDXYNMOhgJclW
-	URSxNXqbDS/9Cc1qv1gOIruq02AtY5O8a1R3CSAOOClaFTgKSMXTgAYAmq097s9yfAPQFpRd1HN
-	RSvkf4mTpheZTbxHWl/QqV8eSkZlyHa1nexRACr+5+WKyIsdHw6cgWh7LvU+AdzMsaUhoQnUSGE
-	l9+SERnxL+uhYCZ9p3LPxLKQcRg6mhWMG7r7/jBaAaFYL7qz3ss70KIDl87k5ndLt4JONCk4QCW
-	Ll5jujDNlDyJWyhkrlg5Bgkzi2SNCV9+M+39BplpXUTeb6HF9ulQK8r7rRXGyKx+75LIMpip/iZ
-	1yjT1bCGfAXgS0kHj/iM2Hmz3cJF0L22ykiWA7YTxcQeR4VZu42hZVnOOoJQzioZqF7nyRXWw5S
-	YuPU5QlIwW4/W31yO6N2oEOeRGbxKhoWANGzbHiuDJUoTqxOnnP2OJItr2bWh7EtjJ8UPB0W6Wa
-	Yk3LxU4+F/U5nD3QMl//ShY522Bm+FVBErcjy4eADHU+Vzqy1ijhCuj9RNu0Wooy+ylzRpr7viG
-	+HSYQ3HfQMfP6ANiFH7vP+BFuQJUJYurcfIqnzFEZC8E8E68bRHcBsFJ75URlX8KfVdjnh+eqsb
-	88TF/Mg==
-X-Received: by 2002:a17:907:3fa6:b0:c41:f29:72b1 with SMTP id a640c23a62f3a-c46bdeba202mr1042190766b.47.1793093246326;
-        Tue, 27 Oct 2026 02:27:26 -0700 (PDT)
-Received: from CCM-PC (83-233-221-133.cust.bredband2.com. [83.233.221.133])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7984f5sm417942766b.77.2026.10.27.02.27.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 02:27:25 -0700 (PDT)
-From: Yongzhao Chen <yongzhao.derek@gmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-kernel@vger.kernel.org,
-	Ziyang Huang <hzyitc@outlook.com>
-Subject: Re: [PATCH net v7] net: dsa: qca8k: preserve port state across MTU changes
-Date: Tue, 27 Oct 2026 10:27:18 +0100
-Message-ID: <20261027092718.266370-1-yongzhao.derek@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <179268501671.3290.6623232109527554630@kernel.org>
-References: <20261022155837.760-1-yongzhao.derek@gmail.com> <179268501671.3290.6623232109527554630@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KZiXeWzH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9670C1F01828;
+	Tue, 27 Oct 2026 09:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793093240;
+	bh=9KR4tQKKoouZdOn8TLp6tmMbElIQ1dBoDCjoVtfVPwU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KZiXeWzHGXuM3OWjZ9ZZmKwmS8io1B07UgzhX+UL//aC9IJce1cAv/G31tLlAqztV
+	 ViI2uZ2NoO1/vLNx7FvJuVWDrtTpIT1jWBuZXgAvRdGcu9HYkiXhnGtnD5JIkJYTA3
+	 lAMomG+lUtjQfxw/m5Fz+hYLY1rHcqlvIoSE9tsYVRvjwBBkKu4ergTnoHykQGz5xD
+	 xwnYU9hIQxeABBklziX2I+QlAwse406Le/AcKBJ1GTYOKJmB4jfBuRpzzg+RAI/Fql
+	 uab6CyyjdeXEt5UiwQOu5bDTrr45h4M7ab5oAjloQs5LvgESUo6QhFs7jJcOZ5v8eS
+	 3A+MqK6uEjapA==
+Date: Tue, 27 Oct 2026 09:27:14 +0000
+From: Lee Jones <lee@kernel.org>
+To: Yaozhong Li <yaozhonguwl@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	Joseph Chen <chenjh@rock-chips.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: mfd: rk8xx: add board level power
+ hold GPIOs
+Message-ID: <20261027092714.GH2195460@google.com>
+References: <20261027084511.1992-1-yaozhonguwl@gmail.com>
+ <20261027084511.1992-2-yaozhonguwl@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,30 +65,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027084511.1992-2-yaozhonguwl@gmail.com>
 
-On Thu, 22 Oct 2026 16:03:36 +0000 netdev-bot+sinfo@kernel.org wrote:
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
+On Tue, 27 Oct 2026, Yaozhong Li wrote:
 
-The original problem was found during development, not in production.
-While preparing the net-next RFC v2 [1], which extended the CPU MAC
-pause in qca8k_port_change_mtu() to internal CPU ports, I asked an LLM
-agent for an adversarial review of that change. The review found that
-the existing sequence re-enables the port 0 and 6 MACs after phylink
-has taken the link down, and that phylink callbacks can run during the
-update.
+> Some boards route "power hold" lines from the SoC into the board's power
+> circuitry. Those lines have to be held asserted while the system is
+> running and released before the PMIC shutdown request is written,
+> otherwise the rails can drop and come back up instead of staying off.
+> 
+> Add power-hold-gpios to describe those lines and power-hold-delay-ms for
+> the settle time. The driver reads them for every RK8xx variant that is
+> the system power controller, so add them to all seven RK8xx schemas.
+> 
+> The array is bounded at two entries. Firefly's vendor kernel handles
+> exactly two such lines, pmic,hold-gpio and pmic,stby-gpio, and its board
+> files use one or both of them, with an RK808 and with an RK818.
+> 
+> The lines are released from the PMIC's power-off path, so they are only
+> meaningful when the PMIC is the system power controller. Require that.
+> A board adding these lines is expected to switch to the generic
+> system-power-controller property at the same time, so the deprecated
+> rockchip,system-power-controller spelling is not accepted here.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+> ---
+>  .../bindings/mfd/rockchip,rk801.yaml          | 24 +++++++++++++++++++
+>  .../bindings/mfd/rockchip,rk805.yaml          | 24 +++++++++++++++++++
+>  .../bindings/mfd/rockchip,rk806.yaml          | 24 +++++++++++++++++++
+>  .../bindings/mfd/rockchip,rk808.yaml          | 24 +++++++++++++++++++
+>  .../bindings/mfd/rockchip,rk816.yaml          | 24 +++++++++++++++++++
+>  .../bindings/mfd/rockchip,rk817.yaml          | 24 +++++++++++++++++++
+>  .../bindings/mfd/rockchip,rk818.yaml          | 24 +++++++++++++++++++
 
-The problems fixed in v6 and v7 were reported by Sashiko on v5 and v6.
-I reproduced them, and the original problem with the unpatched code,
-in a userspace harness that compiles the driver and DSA MTU functions
-with mocked register access. None of them has been reproduced on
-hardware, and v7 has not been tested on hardware.
+Whoa! Is duplicating 200 lines really the best solution?
 
-Sashiko's review of v7 is a separate question and is still open.
-
-[1] https://lore.kernel.org/netdev/20260922202653.1153-1-yongzhao.derek@gmail.com/
-
-Thanks,
-Yongzhao Chen
+-- 
+Lee Jones
