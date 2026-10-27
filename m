@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097410;
-	b=p2ZPoO4yEXtpkZm9GRgkKdBQpWar+YtSWV0HSFHZqGvOq2lGfmjwmMDNyI0P9Q0Dx81l
-	 WJKCEc+irrxlXU2o9NlqfKBYyWinohv2RmhpIaPhfWslztDUI+LM0wq45+TEp25vIKAIX
-	 JOoK46bMXQdYypsezYy3KZenWi/SCkNdZfct+crcFX0IqXFP5UIrc1i+er3FeK4vNXJyB
-	 ALvjacL3zSC85lTQgqN3hzg2bjdLoAMWLp0HPPSxmu509svnQ8YeO2paNXM0oMzyBT7su
-	 EH/pED0Zoac3v2nPxoSVPMLRnkCiSg+OsiYn3ROQslXGs5g0K5GllqgheYyXpW7oO1w==
+	t=1793097416;
+	b=DDZ2AmL5yoiC9vKiepq9hfbx46GJYiiffUtOnt5qmEYDItokUqdoz3S5Fnopwxg2j1Gz
+	 HS/YdEV49D+/b+Y2yMo7pFGqbGip1uB5mjRBHMVTJrjd6LoJb0XDDErW205lwlUMhJKR0
+	 rOyY1BGuR74XYoNoC4iJyygn7hEZxEQMz2cSiwBGMpNxzwjj67c2Yny+MagGkFgn9p6xA
+	 F8tfr0u8zQh3whshZ3D4yPWZ6CBEvIRFCi3gWCRfSGcjNz0dME4D0A2nRna5Z4L47TQvf
+	 Y8u790dLZ1Z/XUdHJvwQj1mCio/+F+g6C4+1jJ3vPPENbiQUcAMHWcTGstfozpOuc9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097416;
 	h=Received:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=n3Kp2y440zQOXcQZ6MfG/c3d1gw0REC1gxRRl/jFmDs=;
-	b=h9+JtzHEDdGiGl1PgQH8PtojOeJWXY/gH8PSuXbvaXF+A4/e8tQACrxaYAxjKYleaneN
-	 QmNy64C4RJcvOk0k3S6l9Wb/TJk0TryoSHFFtUzxztkN5gcQ7PeZ/OIoSb8VOJpcj4CIl
-	 snP89ap/Lax365dKt83j5494E41plIMktNGO94ilhmiVMmvar5pbhntjO7DAMpXzAp3OO
-	 CbAbMKpzmI1OjLab4gZy95gglt33OokwuQyWy9bcMVSp2BGgVD9PvqQl5KsgLvgpzHirF
-	 9sQ+uUdV0LuUPiMPU2PDzOvyd7SiYzQ3hiPVJvbsOoaWj96fc551DtBolEZCjlJ3Tjw==
+	bh=eCfNrN25WG0Lp8N9e0QR1ZUlJsFnF3TjIIskwGO1CyQ=;
+	b=ygt1WOqfAj76fGjQoVAEO2LqqpE/zjCwr7ogdIYSN6h09r7j+xeOMPOcq0K0vmnBku2f
+	 SpZPSju48urm8PZudgZsfS6vVK/s49Mc8mH0rFCFrF/BdiucY9qKcU04J3XVwh2KbjtVk
+	 6YOIatr8PHVMyVqJEcKlL/4qjVHdfXqMmBRl+vgGX6O1yoU4J7tdfcFX6EMNqDC6Kpzzs
+	 Mgj2+jQ4HHNZxpmZPO7IfXyPFIcF1kaoxEMpJit8drlq4fxX/87Zct3TQpav1TqZJZf0O
+	 RrMjP09Lr7Nrtk72RDwhz45uK+Vq9Wvc4lR7lHi1L6RW2CAJl3RMhdLMTHWaNFkfHNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUdMk3go;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAo+3cnj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4A3606A31A;
-	Tue, 27 Oct 2026 10:36:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA8A606A31D;
+	Tue, 27 Oct 2026 10:36:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUdMk3go
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0CA01F01829;
-	Tue, 27 Oct 2026 10:36:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAo+3cnj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8595E1F031E1;
+	Tue, 27 Oct 2026 10:36:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097410;
-	bh=n3Kp2y440zQOXcQZ6MfG/c3d1gw0REC1gxRRl/jFmDs=;
+	s=k20260515; t=1793097416;
+	bh=eCfNrN25WG0Lp8N9e0QR1ZUlJsFnF3TjIIskwGO1CyQ=;
 	h=From:To:Subject:Date:In-Reply-To:References;
-	b=aUdMk3gowDv3YaTRbsQcWTSyrJnudqQTcSpLbvGv8HxMHmpq1BJ5dwXY7v5eM7Jzz
-	 6Lq84aa1CjUogI//esFI21z7caUvwmCrvmvenXBi42+KLKZidAKjxGOzkEl7O9QeEi
-	 hwVqDN7LeEsSYAJ+dOMWDyTp/LbifK4LxiIXyG/x5vyy4IV6uaWI6mM3/xtl/eR8s0
-	 0yOFqXdO3EQ2UgCWJSg4Bh/zLla57O6MYXu0eMM0hc+HSElt7jRBrWU2NpMWd51h3Q
-	 lPyvZdNa4BoI4xWzEDfxOGw472nGBzXU+0iiJc3lpAG4NbiMAoDssUSIjSdwNkBAvV
-	 q6XnYN0ccR4Fw==
+	b=KAo+3cnj/Mo6mZ5IwWx68OFAxV7cAhDfrS399AIyrtiLUize18zsZR9Pi/LAeMjt+
+	 quFJauaRNjvbVW4Uj9/o8PULqRCXcCTxNKbVEvLxKmLeybri7gWCFwlWVnFs31nN2n
+	 LZlZVFHXXp0nnEEfIwtljU1RV3c9l6tuuIhrTLa04fgPYllUOd+F28jx7GD5aY2V57
+	 Q1vYDl9Oq8/HBYRT0iOxf0SVs25GhNTBkrL9MSQk7lAgbYEGe010rrSi1Mvnh0wpcd
+	 PAvLPlie4THn23L3TPmDqXR6gHsDRWn8bD9qfIXJBr7NBVrtg/AsofjelYcvnNKbfS
+	 Gqx/IzjWk3+JQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Rachna Patil <rachna@ti.com>,
-	Pantelis Antoniou <panto@antoniou-consulting.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Felipe Balbi <balbi@ti.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Kumar Sanghvi <kumar.sanghvi@stericsson.com>,
+	Sundar Iyer <sundar.iyer@stericsson.com>,
+	Mattias Nilsson <mattias.i.nilsson@stericsson.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-arm-kernel@lists.infradead.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 06/27] mfd: ti_am335x_tscadc: Retrieve parent driver data via dev_get_drvdata()
-Date: Tue, 27 Oct 2026 09:30:35 +0000
-Message-ID: <20261027093306.2812695-7-lee@kernel.org>
+Subject: [PATCH v2 07/27] mfd: db8500-prcmu: Make AB8500 cell and IRQ resource static
+Date: Tue, 27 Oct 2026 09:30:36 +0000
+Message-ID: <20261027093306.2812695-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
 References: <20261027093306.2812695-1-lee@kernel.org>
@@ -64,73 +67,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ti_tscadc_probe() stores the address of the local pointer variable
-tscadc (&tscadc) into cell->platform_data so child devices can retrieve
-the parent struct ti_tscadc_dev pointer via ti_tscadc_dev_get().
-Although mfd_add_device() deep-copies platform_data before
-ti_tscadc_probe() returns, both tscadc->cells[].platform_data and the
-shallow MFD cell copy attached to the child platform devices retain a
-stale pointer to the expired stack frame.
+db8500_prcmu_register_ab8500() declares struct resource ab850x_resource
+and the mfd_cell descriptors on the stack and assigns &ab850x_resource
+to ab850x_cell->resources.  Although mfd_add_device() deep-copies the
+resource table via platform_device_add_resources() before
+db8500_prcmu_register_ab8500() returns, the shallow MFD cell copy
+attached to the child platform device retains a stale pointer to the
+expired stack frame.
 
-Set the parent platform driver data before registering the MFD child
-devices, update ti_tscadc_dev_get() to retrieve the parent driver data
-via dev_get_drvdata(p->dev.parent), and drop the redundant cell
-platform_data assignment.
+Mark ab850x_resource as static and the ab8500_cell and ab8505_cell
+descriptors as static const so the resource pointer remains valid for
+the lifetime of the device.
 
-Fixes: 24d5c82f8227 ("mfd: ti_tscadc: deal with partial activation")
+Fixes: 55b175d7e632 ("ARM: ux500: split out prcmu initialization")
+Closes: https://sashiko.dev/#/bug/linux-554f3a1f-ca41-4078-ae9e-66d0d7fb4c9d
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/ti_am335x_tscadc.c       | 7 ++-----
- include/linux/mfd/ti_am335x_tscadc.h | 4 +---
- 2 files changed, 3 insertions(+), 8 deletions(-)
+ drivers/mfd/db8500-prcmu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mfd/ti_am335x_tscadc.c b/drivers/mfd/ti_am335x_tscadc.c
-index 068c25401c6c..4afa9928eba5 100644
---- a/drivers/mfd/ti_am335x_tscadc.c
-+++ b/drivers/mfd/ti_am335x_tscadc.c
-@@ -268,8 +268,6 @@ static	int ti_tscadc_probe(struct platform_device *pdev)
- 		cell = &tscadc->cells[cell_idx++];
- 		cell->name = tscadc->data->secondary_feature_name;
- 		cell->of_compatible = tscadc->data->secondary_feature_compatible;
--		cell->platform_data = &tscadc;
--		cell->pdata_size = sizeof(tscadc);
- 	}
+diff --git a/drivers/mfd/db8500-prcmu.c b/drivers/mfd/db8500-prcmu.c
+index 6672c55f2ebc..cdfcbeb2a88c 100644
+--- a/drivers/mfd/db8500-prcmu.c
++++ b/drivers/mfd/db8500-prcmu.c
+@@ -2953,16 +2953,15 @@ static const struct mfd_cell db8500_prcmu_devs[] = {
  
- 	/* ADC Cell */
-@@ -277,16 +275,15 @@ static	int ti_tscadc_probe(struct platform_device *pdev)
- 		cell = &tscadc->cells[cell_idx++];
- 		cell->name = tscadc->data->adc_feature_name;
- 		cell->of_compatible = tscadc->data->adc_feature_compatible;
--		cell->platform_data = &tscadc;
--		cell->pdata_size = sizeof(tscadc);
- 	}
- 
-+	platform_set_drvdata(pdev, tscadc);
-+
- 	err = mfd_add_devices(&pdev->dev, PLATFORM_DEVID_AUTO,
- 			      tscadc->cells, cell_idx, NULL, 0, NULL);
- 	if (err < 0)
- 		goto err_disable_clk;
- 
--	platform_set_drvdata(pdev, tscadc);
- 	return 0;
- 
- err_disable_clk:
-diff --git a/include/linux/mfd/ti_am335x_tscadc.h b/include/linux/mfd/ti_am335x_tscadc.h
-index 4063b0614d90..4a048a897cf3 100644
---- a/include/linux/mfd/ti_am335x_tscadc.h
-+++ b/include/linux/mfd/ti_am335x_tscadc.h
-@@ -177,9 +177,7 @@ struct ti_tscadc_dev {
- 
- static inline struct ti_tscadc_dev *ti_tscadc_dev_get(struct platform_device *p)
+ static int db8500_prcmu_register_ab8500(struct device *parent)
  {
--	struct ti_tscadc_dev **tscadc_dev = p->dev.platform_data;
--
--	return *tscadc_dev;
-+	return dev_get_drvdata(p->dev.parent);
- }
+-	struct device_node *np;
+-	struct resource ab850x_resource;
+-	const struct mfd_cell ab8500_cell = {
++	static struct resource ab850x_resource;
++	static const struct mfd_cell ab8500_cell = {
+ 		.name = "ab8500-core",
+ 		.of_compatible = "stericsson,ab8500",
+ 		.id = AB8500_VERSION_AB8500,
+ 		.resources = &ab850x_resource,
+ 		.num_resources = 1,
+ 	};
+-	const struct mfd_cell ab8505_cell = {
++	static const struct mfd_cell ab8505_cell = {
+ 		.name = "ab8505-core",
+ 		.of_compatible = "stericsson,ab8505",
+ 		.id = AB8500_VERSION_AB8505,
+@@ -2970,6 +2969,7 @@ static int db8500_prcmu_register_ab8500(struct device *parent)
+ 		.num_resources = 1,
+ 	};
+ 	const struct mfd_cell *ab850x_cell;
++	struct device_node *np;
  
- static inline bool ti_adc_with_touchscreen(struct ti_tscadc_dev *tscadc)
+ 	if (!parent->of_node)
+ 		return -ENODEV;
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
