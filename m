@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793140318;
-	b=WoHI5Jvrhhe5Jlnosz+hOis6cAEhe8mXVS+l3Hiq2D2uc1DD/LU/HyLk/52A36yLapfi
-	 PHBXeGv2wNzcH40OX1htx88336vSmsLkUnIFQgZTTS3HE4E4mNJARvnzURZtazWI8rHPn
-	 Yt7vIqFuCOfFwI+NiCDH8SkNJPYbPIhsiCLdwjeC7pAk5bFX5HKswpB2f4VcFTXYcnQhT
-	 9XSRewhHUvRXZWtiVnGttHqQFA4t1Kn7o7ty8hJyIxmwXDvd75YGUPW3DSnt4lebZNF8T
-	 R/TxGddt6kRic6c7LJLAhGcn0paYk1aIowKSYPh6WKPbgEWI8HP3vC9WJt/WJRhd7rA==
+	t=1793140316;
+	b=Jz+LwuQAfsgRlcwdk7FIcagKkp2I3rt+vF1V0OnF5TUbOcjxOFewqR3BU84fay181lVn
+	 tSdO3NEe2ya39LSDOyfA6TNJhGyLPg1qXIVEhKeBkXYtpWRPuM4w9Hrh5ZJJ3mrhPZgeF
+	 WAqiw+LeuYtturqeq721ze3WSiUBvL2krSrzn+G7yEYmzYPTBb2TcegWcEWMCZXkhhU60
+	 +dx65wLgiMNpNy6UjdMvzBqAqY6DUV+lCV1nc7yLLQQ/NT5Q0L9klIL34z94Xf4ADC5Tz
+	 bt69kj5n5tToiHXpbJf9FN3W3Ro13qXCU0v6fS0iRcQyCUS+tr/oocSs9Xl3tDw392w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793140318;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140316;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=aFPoSxt0aWUwwqX5xUF8SwWRu98kYFqbtHO45/HLvLo=;
-	b=oSTV74qfK9UHDZ0cLrY7FKiS4dTHC3WFRYE9WrQ6S/wb3o7atuL+i3bwSYMVeUGH2iCu
-	 obSe1IK90PJyM4sHGBqDgUAkKCfWOaUbx8W9gfz1xTslLmYeY6wwRSNv9K1HatT1t/sKs
-	 xh04FGthdK55sQo9TN9VHVf7OxVJhEtuxyIvlFYXdD3Ijitjm2ctS3L2sUcQHrbb9Wjb/
-	 DYmmN99w9Z5VsepSgLKdOA5YQuYLk00bb89IDILKydWpkJzNbs7UNWIJmqaEcZgAKRtI4
-	 PniUUPVhfgtVt7a+TJC+mE/Nme7r+w7mXoV2soKa4tKnc7YI6UGktLmaWJLHkAFLZ2Q==
+	bh=Fq7eVjoo8xJhvVi6unc9XNet04qh3ukyVn0blU6xcQE=;
+	b=qAmX0XWlvH5R93TRUzTRGbEcHv2CiP30byC+D+SZfutYTBPPvQ+iqDH1+QRTckXDn3Br
+	 5vMhLCmAxgPQZx0bRm8FZomVBOPPuszHsPckryxbDO48mw9Yw+Q1JbZvzyr9XkOg7+KL5
+	 I7YQk/tTF1K0mxrP2SHPRT0QcEE/Tyu9GBJRzuWVU1vqPcjdLimbiqzmCC2RwbMHEt5BO
+	 IgSRVYuUYpIVX4LQmfaIK+eQRcpwBIE/lmQnca6lcRAdsFcM05+SO+Oqmhy2YZnY89VF3
+	 gqaXeUbf/x4SNysi4EAWFuZV+5YuUVPJq6MM/OsD97W4AF73GoAchHbSWuhmMPpl7/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uM8EvCLN;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mc7y6MPo;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F7F606A33C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:31:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F7F606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF45E606A32D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:31:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF45E606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uM8EvCLN
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35829219da8so1893656eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:31:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Mc7y6MPo
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-18cdcfc05ffso481776c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:31:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793140317; x=1793745117; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793140315; x=1793745115; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aFPoSxt0aWUwwqX5xUF8SwWRu98kYFqbtHO45/HLvLo=;
-        b=uM8EvCLNm2DGrjEr2LrwYXsjBKHYFAimMRiXuB/e0kurGkMNFcn9Vui5i+Xp0Kbmr+
-         9u0uEybvTPR8dTzR9ygcxvfmziI3vRvDsx9ZW3KGugHGkWYskaBdqepcXx8o0IkFIJvm
-         pKkl/PKHao1c+aOW+fBYNkYHENYLUQwma8F+nNkxYA2vhe0DuDNh7rilonVz1ek0lWil
-         02nDbbCb4ID32L1rzgutCIlx7QvqgFS/auoDlSDdix9EJj5yu6s/JnuMUnWU+7skXXxn
-         fF5wRXziSMRZVFhfQbAjnk95Yot1yy74JovfkBZb/7jqbEjmkhSiBDFylzBevubczvh0
-         /ofA==
+        bh=Fq7eVjoo8xJhvVi6unc9XNet04qh3ukyVn0blU6xcQE=;
+        b=Mc7y6MPoCxLoMSH8hXPBCGQTPGIfVuD+bp9hGWdY/UwSmcCT0ZfwTo8AQVVE7FhLpD
+         jKG/DJgiy8dhkv6kuzfCxOylDqFCVh2d7nQyCb5oAnA2F4FeD7ejbkZZx3OmJBfQX+F1
+         xHR5vX3Gcu4xTEcSsd2icgJNPYM7tEoQ2yVarMebfopTULOqvE1zmO6YfU7tbCQ8M0vq
+         BL9u/vhFWDkkSRCSt0Y06YSjox3C0EwZVU77iFu665GMGV3juyJauwV8Evf3MLgna/AP
+         ugpek/HVNkTvLpCJBaEI1zOrvEHBnv0aSySDWXt86fmy2iUjd5VBPbXGl4kpsTt4YGpl
+         Y6Eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793140317; x=1793745117;
+        d=1e100.net; s=20260707; t=1793140315; x=1793745115;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aFPoSxt0aWUwwqX5xUF8SwWRu98kYFqbtHO45/HLvLo=;
-        b=SEcl+n36ibUTZceKiknyqMV4p2UlPzEqbwNj3kcxQGJoQ6RJ6VvJ7eKl6TkxDRnN6f
-         tGA6dKpfCMyP+3YF+pY/xb/xTcwr/SBR39GyKBg41UiQ5GS36LRfivmup+YvVcQF9CVK
-         7wUjDEC+R2wZPniiQ/ZS7dwqbHP7Hv2IdF7J7b9OnjEG7H09tECAZC+s3U0tY2MZVZhV
-         HjfBydAp+kRLkfn3s/f7wFmHspJIkoF82PDvv3mVe/WORFNvg0OV3ju4nX+Jki7172e0
-         69i6k1yPO/+vlHpaCuwITUSgDX8CXA9JfaPRaBvUnC07JqLL6UZiOq0vI06jeKCid6Xc
-         AiUw==
-X-Forwarded-Encrypted: i=1; AKwUvBweFPFAiIR/O2m/Om+ou63qVmTaui15mCRSZ2fKL30tKi/oCPhhi8EA4zq2XgC5MLNhxxTDZU3RtedNG9E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwkKLsUl1xwm7eGiLc9lrOxixRhjdH6/UkC0r/HktCZEulOrRu
-	Sl7P7yzSyjHW0q/3Ig6Aj6/nK5SdJ7zHRUEUz8a5xyn9WnGO8SLvonN6
-X-Gm-Gg: AYBFou3FU8EoRjegZTGN6Q86M3vBothcutpUWx+ZKstU2f7yMspsd02B0SruD0BB3ya
-	QA71b/YMkNH5TysPmTbeI+8j7841V2rVRoXvZ3srwAkLMnFaKetxun1zS9K44eJoZdhoQ+pEhBZ
-	S6hMEQCHbVz3i2PxlURNHndoEXnkjgrSqB+5v5JXkr6c25VrfgJEK0QfUdhYWI4w6yV9mb38U8Q
-	E9CPEUo+4XaPPtbIgI3DzyxOC/CFYdhuPNpeehl5qL0+NQuKjUPNR5KMTSi9ZuCfcxODCP5BsrD
-	tWYcK7zPehFpAzHnrZHB3Nosg1+gDNMYS3yOipqQgRp1JfT8olNEGD1/Jjypga6MQhUBFBSlIcC
-	3c70mpwxiryS+jA0NeOM17YhJg7UsUPZPWVmzh+LSqem8/tQAWp9NT7ewXOgNobcD18PusRKkuy
-	LZk3NyvmpVVHC9KdytFNh42KopWP+s7OO3Xyc3WDfAOnHMoHJNHp1jZTlYXN6H4dkzpNZnh2+6v
-	E0RkAWztmWljqogkxRJepwMVXKyC64Kw7XQJGl2v6nxVayj3bdLvB1IHXIVi6D2m6Tp4kN7Rg4k
-	fdsnTOaSqoYvOh2KVIKi+4enbGo=
-X-Received: by 2002:a05:7022:283:20b0:184:ae11:51c8 with SMTP id a92af1059eb24-1a3c9cc235emr4697526c88.23.1793140316817;
-        Tue, 27 Oct 2026 15:31:56 -0700 (PDT)
+        bh=Fq7eVjoo8xJhvVi6unc9XNet04qh3ukyVn0blU6xcQE=;
+        b=ybAPYucTRNdDPsTemWScK/gq/bJ0vPwSw9DT6m/3lc3amYpHAqp9hrGZBzokuCFpF8
+         +HZHdzttr5OmWmeQ1c+me2Z2azQho3F5SuAfFKvEedZdgFzO/j96A1TMHNLbRiLJvxXz
+         QRsIozK7nmdkO1Pj3xFhoe+2PNyOX0lgz2ccmFkVC6Q0kybtusYVE8MUqukAf2f1eDOs
+         nyDh2Dyia/2QCf4s52IUPLF2CoQGF/hY3uM8B/KRhm9pCbsLD7tpWewkvzPw/yXQiPFy
+         4vEyavC5xnbb+SfEmMJ/Fa61h38qPn1joP9qahYb5w6nOuYYCTDEjVdof2kZ3J5+bZCK
+         9oWg==
+X-Forwarded-Encrypted: i=1; AKwUvBxfL4Yxbs6LtKB/SBMgRSEltB2H+z6pscc86DwcUAUmfYrb+1dslgsQ2a7o4bMdnK5yBp9IyOfqhmYV9Og=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2ZEAXaMpoeWfKlaBpq05cEQeZSj6H5OF+DiYPe9Prr6ayq+lT
+	acpehe2wlMb2EoafmA3h0WgtcIQGxdiLkFTiIZh5BX3Crfn09Deoxafc
+X-Gm-Gg: AYBFou3KbkQXnMn1EgXTwFpmohzxp676NbdLNhIiuw21RIM662r9e/9nzRpQl4qVziV
+	6dAjpCAudopN2DqOgodwoK1oVMjJB0UOG5qlKHTz29UEsrzlORwwG1Wd4cbnzowrelZ1LNlrQA7
+	pqRGMiyCtXjMI0en0TqXDKPzEW308X1g0q4w3aC2zxyepr9jbZNtubManRBuWjIdc+dfjs7zCYx
+	ho8KPlZ/i4/PaRiIxYgLaGOUGrsDrXn6dBl8aohF5jYq3A5Kbi+xDe/AgtG8g8NDcecBOePM4AS
+	oQ36LO7Ks1tzcngCTz1JM6NMhia0hoV4jhFjT5kXbhovJIaMAIMGRn9QoomMgFHYEJ1aqRkFDo9
+	nD/wmHJwMMdlrCCbksxFgkEXutoGC27lJ9BIUSQOVgLtADR7VwRVvgDbec7VYu7IxqpQflZ+PWt
+	6yd0j3smvGZZ3II1Xv8knWIr1OpRtypSjvdvv8uRfD8Kq4UMRZ9GblV57Izrny9yyZH3TP4gCmm
+	pYge0j3q3RUsx9kWZFZHkfewhnSLJe63PkzR+SOvsQ68ANbEywnMAgAmqvpb/YZ13FtNEGhoYOI
+	mfDLoA==
+X-Received: by 2002:a05:7022:f90a:b0:15a:4155:3d9d with SMTP id a92af1059eb24-1a6cd77adc3mr688552c88.31.1793140314586;
+        Tue, 27 Oct 2026 15:31:54 -0700 (PDT)
 Received: from eldorado (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a6d98c93d7sm1130735c88.13.2026.10.27.15.31.54
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a6d98c93d7sm1130735c88.13.2026.10.27.15.31.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 15:31:55 -0700 (PDT)
+        Tue, 27 Oct 2026 15:31:53 -0700 (PDT)
 From: Florian Fainelli <f.fainelli@gmail.com>
 To: netdev@vger.kernel.org
 Cc: Florian Fainelli <f.fainelli@gmail.com>,
@@ -99,9 +99,9 @@ Cc: Florian Fainelli <f.fainelli@gmail.com>,
 	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
 	linux-kernel@vger.kernel.org (open list),
 	Manuel Lauss <manuel.lauss@gmail.com>
-Subject: [PATCH net 02/11] net: au1000: clear all-multicast mode when restoring hash filtering
-Date: Tue, 27 Oct 2026 15:31:31 -0700
-Message-ID: <20261027223140.3774570-3-f.fainelli@gmail.com>
+Subject: [PATCH net 01/11] net: au1000: recycle RX descriptors on allocation failure
+Date: Tue, 27 Oct 2026 15:31:30 -0700
+Message-ID: <20261027223140.3774570-2-f.fainelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027223140.3774570-1-f.fainelli@gmail.com>
 References: <20261027223140.3774570-1-f.fainelli@gmail.com>
@@ -116,30 +116,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MAC_PASS_ALL_MULTI remains set after IFF_ALLMULTI is cleared or the
-multicast list shrinks below the filter limit. Clear it when programming
-the selective multicast hash so unwanted multicast traffic is filtered
-again.
+An skb allocation failure retries the same completed descriptor forever
+in hard IRQ context. Return the buffer to DMA and advance the ring even
+when the packet must be dropped.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
 ---
- drivers/net/ethernet/amd/au1000_eth.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/amd/au1000_eth.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
-index cd25248f4e3a..58bc8e1b539d 100644
+index 8682323d693f..cd25248f4e3a 100644
 --- a/drivers/net/ethernet/amd/au1000_eth.c
 +++ b/drivers/net/ethernet/amd/au1000_eth.c
-@@ -1042,7 +1042,7 @@ static void au1000_multicast_list(struct net_device *dev)
- 					(long *)mc_filter);
- 		writel(mc_filter[1], &aup->mac->multi_hash_high);
- 		writel(mc_filter[0], &aup->mac->multi_hash_low);
--		reg &= ~MAC_PROMISCUOUS;
-+		reg &= ~(MAC_PROMISCUOUS | MAC_PASS_ALL_MULTI);
- 		reg |= MAC_HASH_MODE;
- 	}
- 	writel(reg, &aup->mac->control);
+@@ -788,7 +788,7 @@ static int au1000_rx(struct net_device *dev)
+ 			skb = netdev_alloc_skb(dev, frmlen + 2);
+ 			if (!skb) {
+ 				dev->stats.rx_dropped++;
+-				continue;
++				goto next;
+ 			}
+ 			skb_reserve(skb, 2);	/* 16 byte IP header align */
+ 			skb_copy_to_linear_data(skb,
+@@ -820,6 +820,7 @@ static int au1000_rx(struct net_device *dev)
+ 				pr_cont("\n");
+ 			}
+ 		}
++next:
+ 		prxd->buff_stat = lower_32_bits(pDB->dma_addr) | RX_DMA_ENABLE;
+ 		aup->rx_head = (aup->rx_head + 1) & (NUM_RX_DMA - 1);
+ 		wmb(); /* drain writebuffer */
 -- 
 2.53.0
 
