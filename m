@@ -1,63 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.98.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098874;
-	b=mkYiBPxcvWBeIjK8DMQaOX78SRGSA42sJNi3Z0EKgTQinp+4B7frHjU+sXP4YcYqGEXl
-	 fWVe4jXxuHmnV2gwf9vRNClk6vTT7xS8pyzr3mmLdVXdMsQlF93ea7RRGBTynM52neSlg
-	 RBf1EXhhHCD50IwStpkZUMjhSNBKtQ995HdGcyCjC4ZuuaHagj60HDKkGQDrNc85C5fvU
-	 7AA3Hl69PkNdJo2xPawV8BTo9qCOe/6WX07dJFi2ijNjLClANJMLFxg7mXUo+sU1OUigL
-	 66scsuXLER9x6gJ+/7AZUl8J6XP1KIy8ni/hZmhCfhAIOiGX34LYCynkVNKBb+4wTsA==
+	t=1793098882;
+	b=QLwCWvmdasmoWHpkhXXojqtMlBlneMs+3QNMmK32fJYGf4PbYmHqvZ50T6xhP/+YLMt8
+	 I3W4QV7k7j/A+MOU7cdZw79gmVGRwSgTPW6MnxlWglkJhSpORb9kqgOkkxgxTYn2J7brP
+	 nXb6ridjBfuI3IUOnUgpJjsmrcp5ZJG6FGLdP064wCUiqFglF1iO91v5UgzFpZ/WdirT2
+	 bp9b/tus/5tc8HyquQopRCJx7T26Ge7uXHhrUZQ37cfAYliZ5UUItHEihPGgTsZKqZYCN
+	 5LHZ3gRa+PEHiimrbF3DBgGZijk2eeVX+1BLn5kSB+valiY75aDj1TnycT5BgadufHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098874;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=vgn/+XBoLaT9001BrzrBGzKDV91J5TSEJlR/hOLDCBc=;
-	b=IrJUliFXAmgii27I+KUGZwCKxmlzAg1+s34JJ1EiqX3CIlqIE6YA7w5Vben+alDSpdcN
-	 XMS9JIdiF/FKSbkiUaK4NsA0ulyLYEySv3gecRbEU/6glU9tolhMQCGWISLcNWNCC4x8S
-	 6ImFAw/HR1eDYzqeMpd+SQ3IlndPBaZfo9obKxr6WU5wqa8HN/iN/fiz83PCdizAwaYmm
-	 BrE5lLSKbavl9NCrVWtlFhrtEl50QfCigRRMwTR+MTYXVVJ0F2r2YJmAbUuPun8POWRH+
-	 iTLbpqCJGbYJlNYn/4s07UmXgyx1Y8nfflzuupKbX7pSQ05KwzXO7iNKm7kzBf/1mYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098882;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=54xr3+4KV4okVrxl0DqqbNmnBRKO2e1Wm+dMoQ9wAIM=;
+	b=Nc2vriIiGhTMXSKLnD9fYMF9c/ztd9WV2KFUVkCmkYxNGUblilHh2f97IysQqXpzUayk
+	 XKAy0oq/mz8vxTDcCZCxlX5/K3WRF5B8XnRymYw/ysXWL0pP3/d+DOGENOw2v4IrWjAfR
+	 flP3lbZ/NVW7j9upMQLvTRVDnCUBXNoaZ7OYPfKfW3imkOHUxY/jZPUtO25+Hkf+tIl72
+	 SJuYcZ1J58M6ci8Dmf6wxaXnILOaEEtiK73FjTdfXV30IglmZlQDQIRXygA5xMp3m1lrB
+	 v3FrbE/yDrduLEsm5fO+Oc4vdjEukqbs7DCLCChm6a3ZrElnNf63AzQTjex7/DS3T2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=F3jqO0tq;
-	arc=none smtp.remote-ip=144.76.98.110
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [144.76.98.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZYelWIfR;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1D06606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1D06606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5B3606A31B;
+	Tue, 27 Oct 2026 11:01:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F5B3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=F3jqO0tq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1793098864; bh=4pXZShZiotLNas5yd3Kknxfosgbwr5B+M9bNvsGExxg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=F3jqO0tqnv8PmFHgSWzj0ySj7t1AbcDJMfZ9jpLJSxOsknAV2Grwh8P/gMZztA46t
-	 FbEob/NJ7TzIcEHs+sg3zMoxa2Vep7jm/nHoVjIXpEXqKLuvpvWSKRZNu9q4rtT4yk
-	 MHDvIhn5O65KAg7FxMCXRpUJBxelovh1G/Or9gTM882l45HKUx1BL9AsZ51yqjK8Nf
-	 hRid+KYnMIRf8ADrc68rDdQ+jIWU9RWabY4V5CpYQVkkby9iznEjZlL2rRGQzza0OD
-	 y8hKgkhBBkMpRfByGMcGyTStrBlchw0kxlx+e9FtnaOYzwqCI05ObdRqaUKhROwZZY
-	 HFr2Dqp2kxiOA==
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id C2A201271E3
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:01:04 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-4a77dcc4ca0so1866052fac.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:01:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz4PU9rG3nJQTzzw4ZcLpaIgjlH2vAcUwkbd1fEX69ZajGumENKSb0P5k7X4gzUp4/NU0i0q4oZQO/HDRc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdQzo3vU4mcPmw3Kx0kd963+pYAOkLnRpewJ8jNU34ErtQfwoZ
-	m0nWug91EY/iLDLEZoNBO6BT7XJfddJxJHMMoGgytHADfwW8t15+ZpUb8K2MVktB6mUfUaawb5t
-	Kl4MQ+P/YL7IvMin/BkkX5JMJoOHgOg==
-X-Received: by 2002:a05:6870:2106:b0:4a7:4452:bcb6 with SMTP id
- 586e51a60fabf-4a83f579d76mr6347732fac.38.1793098863284; Tue, 27 Oct 2026
- 04:01:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZYelWIfR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793098883; x=1824634883;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=i5DzzxlouoH9Sr8L5QKk2m0+K6t0SjdBY5att4ix7IM=;
+  b=ZYelWIfRZWr0MwJAqtWmP4G5KywZGqB+fOthXlheiPoPgZIXa/7R7Vka
+   /NaTvmNgE0/kxET1AH6RBuenp8HsBaxPdYtBubXp5VGTe/+gyuXQqtmDd
+   +FfvQ6/L1DIWDFXNiz6nW7OemVz+o/E5zDb1UnZSBQ8mhDU0/FPGVr8HF
+   JsYW2M7k/+pQ144DrSmrPD55QuY8k+hVCuyN8fwO4TW8cYqqVTkPqINy8
+   KdExoAZBmY5QJwSsbeVlxnLNVrXQoDJyDscM7iRSsN5pEJ7AxQ3UYmdMS
+   W60vjL6JL1hCFl8IUE0x/QkJcuAmU5ruJqhQBGQJ34yZO0fekMeB5/CTC
+   A==;
+X-CSE-ConnectionGUID: jAf/gOpbRtO5smctMWi8KA==
+X-CSE-MsgGUID: wyMrlxLAS5CQhSqSyQVpSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1825804"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1825804"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:01:22 -0700
+X-CSE-ConnectionGUID: RsXthhwqStGOpC7Ydn1rug==
+X-CSE-MsgGUID: tIz5YvfnR5+c67EV0Lyj+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4598550"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.2])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:01:20 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B32F6121CEC;
+	Tue, 27 Oct 2026 13:01:22 +0200 (EET)
+Date: Tue, 27 Oct 2026 13:01:22 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Hans de Goede <hansg@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH v4 13/23] gpio: Use named initializers for
+ auxiliary_device_id arrays
+Message-ID: <auCEgktEEKpnKWUx@kekkonen.localdomain>
+References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+ <ec269df979b1e0a7df04a20eb19505c332679428.1793097104.git.u.kleine-koenig@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,43 +90,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023232813.2983368-1-rojer@rojer.me> <20261023232813.2983368-3-rojer@rojer.me>
- <4e8bbb32-e062-40fe-8ee4-363e83a68f2b@rock-chips.com> <46a26683-9d8e-451b-bc98-505b1c13b09f@rock-chips.com>
- <202610261435018282601@rock-chips.com>
-In-Reply-To: <202610261435018282601@rock-chips.com>
-From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
-Date: Tue, 27 Oct 2026 13:00:52 +0200
-X-Gmail-Original-Message-ID: <CABFmFwr0JozEeaDd4KErDzh+DWjkjkVRo6z61OxHG6BE=L_hKg@mail.gmail.com>
-X-Gm-Features: AclHuK_qWW4rzaLnwQHFLDFsw_amnTa3SRrrRqVubNsZQXOOd4w_KfjlwheuRvE
-Message-ID: <CABFmFwr0JozEeaDd4KErDzh+DWjkjkVRo6z61OxHG6BE=L_hKg@mail.gmail.com>
-Subject: Re: Re: [PATCH 2/2] mmc: core: sdio: skip CMD11 if signalling is
- already 1.8V
-To: "llj@rock-chips.com" <llj@rock-chips.com>
-Cc: =?UTF-8?B?5p6X5rab77yI57O757uf77yJ?= <shawn.lin@rock-chips.com>, 
-	Ulf Hansson <ulfh@kernel.org>, linux-mmc <linux-mmc@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, Jensen Huang <jensenhuang@friendlyarm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ec269df979b1e0a7df04a20eb19505c332679428.1793097104.git.u.kleine-koenig@baylibre.com>
 
-On Mon, 26 Oct 2026 at 08:35, llj@rock-chips.com <llj@rock-chips.com> wrote:
-> With this patch, swt6621s can skip CMD11 and successfully
-> enable UHS mode.
->
-> Tested-by: Longjian Lin <llj@rock-chips.com>
+Hi Uwe,
 
-thanks for testing, Longjian! so in your case it's even worse: without
-the patch doesn't come up at all. good to know that now it does.
-note that your reply didn't reach the list (vger drops HTML-only
-mail). i'm quoting it here for but if you can, please re-send it in
-plain text again, with full context.
+On Tue, Oct 27, 2026 at 11:48:50AM +0100, Uwe Kleine-König (The Capable Hub) wrote:
+> While being less compact, using named initializers allows to more easily
+> see which members of the structs are assigned which value without having
+> to lookup the declaration of the struct. And it's also more robust
+> against changes to the struct definition.
+> 
+> The mentioned robustness is relevant for a planned change to struct
+> auxiliary_device_id that replaces .driver_data by an anonymous union
+> (though none of these drivers uses .driver_data, so this patch isn't
+> strictly necessary for the plan, but still ok for consistency).
+> 
+> This patch doesn't modify the compiled arrays, only their representation
+> in source form benefits.
+> 
+> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 
-Shawn, thanks for the reviews! you're right about the soft-reset vs
-power cycle: card is soft-reset, not power-cycled.
-
-Ulf, if there are no other comments, please s/power-cycle the
-card/reset the card/ in 1/2 when applying. sounds like we're
-converging on 2a, so the alt patch can be dropped. or, if you prefer a
-single cleaned up patch set, please let me know.
+Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com> # gpio-usbio, gpio-ljca
 
 -- 
-Deomid "rojer" Ryabkov
-rojer@rojer.me
+Regards,
+
+Sakari Ailus
