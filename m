@@ -1,49 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793080829;
-	b=LtJr4PX+CAzfsZ1vgUycfF8bOINW2cpaOrcPdL9RCByetK2ZPujyttSLHdZLXuZZdjGH
-	 AwwU4yE39AUqKLL/gbnl9whvNrZlb6XC8BtaxjIntcGdb4pPIfpnCr+7LBaKzXPR0hRb9
-	 gWbSAdXHUIEDkLA3FbtCg2A8c9cmrEuYBsAz/oKsEk5ru8j+TVwCWC27s1seFZ1xlSNbV
-	 +fZv4svve1J5sQhCzjz+41/K8i/VQYBFuiiMDFVwWDfU6vP+zJ3MhBa7we+iHvPwPR3Mo
-	 CuaGDUit3q7Y/kU9UpmXAzU7o4iSGptSf3E4+9rs28MsjmopNbJilTD0kBiWNzssR2w==
+	t=1793080939;
+	b=oOnZdxQaPSxv+w/LbxHL0z55jCCrsf2a955PRW383WpyBy+lxZnI5p5OqUNgdDLHgA0b
+	 x+9kCcjMHzCcYldVLPdBSaosKDRU3CJL8f7cOCHDDuHaLikAgPbVRLjNTJP9i1Zk0MuGc
+	 CU2kndUqmUpllISQKOz7QPXhcvtO5ZcILTXP34CXiKiBh5i4Dfd+8JNG6LpqHOtcQk4zi
+	 WsAJaBiszbh0IMPVDVx7AxUyOYsctBNy8pE+sovTdEAaFtflHtVITh8hfF64g5GB8AFt1
+	 T1EXYNfhiIIwCA20z5TFUJTxwdNZh+2oGCs+n0Xkc4005OV80xNfTGPfZ+k0BZi+UjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080829;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8QtKlWLk95ZvjKqf0XgLBO5FmpM2k3k6qlGymHzmlNw=;
-	b=IjD1klje/w7WpzKhQ7oUN4ilys0AQL7c8FuVkslORCkIqB/x9VTYsxBDNvgFa9UWAJLQ
-	 zGdm1x+nZVsGwVl051X8fmmSCrCE2IAo1j3Ip/pNVj3k3oThus/lA+YNHBdUJDTFR0fm7
-	 BKFnY/qaYgzu8+16OGkrt/F1Clsq4w/Y7xVl8ts2WNzEHxtLC1uLnsFQAzyIBY+fSXZwt
-	 YoEdTZDg7Eau6Rvz09J6P1MCpfTY4lGR4F+nxleMsXf/SNT2GVU62hMVg7Udh/RSLdWKn
-	 jfZuLXVeDe82906oI5Ys8GX337V2DvtBlEV+Kb2G4bWtUR58CGsZ8U7yRKO+7pIioRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080939;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cmvdR59+nEKktsLxK5NEcA3MaAWcKhNimY3ZNWbqo1c=;
+	b=Qdytql9yllDivXYWXBiBAAz+zPTMq13qqmz1IRWmJye4Mf+/vC9rr+E+roRwXn0XZXGT
+	 r4Ta1VMXHz03+e4BkDD77hsftzPPjfH2E/9DhJcGIap/J5KiI8BnNwSp5Zc6n0pdy69Fo
+	 mV57DPr0m3cRME5IIUl5edJIF+YR/hSACBiu9l2BUCWPAuUmlcyhaxIjFme/Onxda6MKa
+	 CeTvp0444RFrjIpObdpqsmTheHiBMDZYO6B4omgfCG0bw8jt5SKtybu1oAl+VYyG2Kys7
+	 tmgoSUAR3+c88RFZ2jayw16ZjCyUbXi9+t2/RdXJTUihVPn+Ug9v8pyohc7G0PSkcGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VNrMY3q1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f8QPHrnU;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E444A606A31B;
-	Tue, 27 Oct 2026 06:00:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27ACD606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:02:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27ACD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VNrMY3q1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7AB71F01825;
-	Tue, 27 Oct 2026 06:00:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793080828;
-	bh=8QtKlWLk95ZvjKqf0XgLBO5FmpM2k3k6qlGymHzmlNw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VNrMY3q1LA+WRx6+JO7hHekEn2N4axAXmzpio5l60y1/+5RWdIYjwr3DvZdRXvDqQ
-	 patQh2hvzK6yIQL6g8VsrbgZeIvYMyD8/9hrDv3Nd5+EcwKAojH2jTs0CT2dcGnAYs
-	 XUNxPzdbtu4u+V25Jy4y/KPimfPRT25zu4TeWUDQ=
-Date: Tue, 27 Oct 2026 07:00:27 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: jirislaby@kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tty: discard flip-buffer input for TCSAFLUSH
-Message-ID: <2026102711-venture-amicably-24c7@gregkh>
-References: <20261027054304.35543-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f8QPHrnU
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so15944385e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:02:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793080936; x=1793685736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cmvdR59+nEKktsLxK5NEcA3MaAWcKhNimY3ZNWbqo1c=;
+        b=f8QPHrnUzVxcHRBOiZeU8GkPxLp2d2ZoCipuEHRYwIz+xBSd9IMQ8jg0oS6x+ROqgr
+         ccGNogDHcWKCUQ13AVYw8IKb90NpuI3lwiPwt/21wfM5VAWOR6BZnQ27Li4EgJe8gNeJ
+         fJVvgO8a32ShtG4VPYv0k+JLLqyE+IGgjl8drm48gQVyHcbQiN3QBHuFQHLzK63XZXHh
+         PALfkBicozvdnKMhnH2upZ9k476D2aGoMOxySx1g3C/mD6h63UUCPLFTLVxyvklkn0vw
+         DAxMNZg1/7x1Jzt9geNce0VcCdNrrIZEfKv8nCWrUbcrJdmrYXbRMK7m3PfSWQioSvLe
+         wJvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793080936; x=1793685736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cmvdR59+nEKktsLxK5NEcA3MaAWcKhNimY3ZNWbqo1c=;
+        b=dZA26qjTQNFs3SHlOwYLjwglsMbepE891LvA9z5Ik0s29iTRV3cnGRN6XBTLcP5/EX
+         Xb85BDhqhooDBueP7BskJqigem2fc5Y8V8DySU7NDsKmGwWFgg42w5sI2hS2r4ZZLufw
+         YR+LiOLvZgrf+YRSjJZMiA3vDEclevMkbefk2ZOtj4/Oh00iR0mvW5CfDO8JPIXKIBoC
+         jCJBDJNN6Sc5d+++QrfpXY84TiQz+uLio1iQXybFthqdwc+x4q/UUn43czTO0rsAzmqS
+         lRl5x9UUN+nTWtkTZCSOzQZFZsuTMJ2Kom2+xY105hs9wH7PJeaCospYaRzFaGHYBJXN
+         bGTw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1wsaTjtIv1EoKHHAhzHcLQYoLATzRIx5RtL7Hz+xA41tHpQeZuhSW2uzIYSvqoP+B/wEdxCxQjkLKTAI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgcTWQpbR5AwWbdNt/z14X3AmLgiJLA0fPAvqe9hk1U90CUARm
+	8G7vTgyIme62waysWyffTxKsc7Rx81BVPD19G1u4lWkXaSGY8vvVLgnMgeLoYQ==
+X-Gm-Gg: AYBFou2bd6mIsrezvPrfYBLhA8Api+6Ohd707k6d+QD9WKstSbIXK/1v72Qy1bE/3yx
+	B6NicEbGkdNNSpQI6Q+moT4n0KojH4+vMDDEJj+2/CFe/L0LFvJNPKa8XYXSFJCpcP/A/79GYij
+	Us6cOuXJHhy6XmwFalEG6MQKA7COVl8c38mRLWC1un1sUYoIQ+1I+N+6hDiY9vKalBrJS8PzVJV
+	PMV0MPwNMK+ryD7ALxT7MuNzed2lO4eoF6uaK31ndRPj+GrZH5hZ+FyHztUzTIUrzT0kKG51OX2
+	XbfhoYG6K4eYKYNqd/2e1XHEDe/3ku1TfgDlycEq4Wq1QXh+jUQE/8KEOwlscgumegkM03kU6kL
+	GVI0Fm5/9VfX86jjWdLvINCHeAS7++FAvfZWZUM89LQOznrw+Wa8C6t34jEHZdOhUr9B4NvHdtb
+	DAEtl2Fp2RRV62eQfhueGDrChn28wNSGR/zvXpnlwDxVe/0QutZ9tPGx7o0cB0pJqR8UYv9kONC
+	JdC1qO/j3jFvfr+wuC5c7yBs2oEm9LmetktoPxNMP6CGbDDTIYwYKjcDaq3xuWKWoScp/Y26yQ9
+	QtnZt0sJk0zbrCB1JHP5z9bG/vCNNBvmv98cbDN2jsG7S6s/3xCmIndpI4469BYLUPzbvSneRNk
+	=
+X-Received: by 2002:a05:600c:6219:b0:4a1:de8a:603a with SMTP id 5b1f17b1804b1-4a35ac80a9emr155815235e9.6.1793080936226;
+        Mon, 26 Oct 2026 23:02:16 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a55e99fsm251833655e9.4.2026.10.26.23.02.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 23:02:15 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: tsbogend@alpha.franken.de
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ardb@kernel.org
+Subject: [PATCH] MIPS: OCTEON: compute the FDT CRC in device_tree_init()
+Date: Tue, 27 Oct 2026 06:02:14 +0000
+Message-ID: <20261027060214.2687878-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,53 +96,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027054304.35543-1-dennylin0707@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 05:43:04AM +0000, Hungyu Lin wrote:
-> set_termios() handles TERMIOS_FLUSH by clearing only the line discipline's
-> input buffer. Data already committed to the tty flip buffers can be
-> delivered after that flush, leaving old input readable after a successful
-> tcsetattr(TCSAFLUSH).
-> 
-> This can be reproduced with a raw PTY: complete an 8192-byte master write,
-> wait until the slave reports 4095 unread bytes, and apply TCSAFLUSH.
-> The remaining 4097 bytes are still readable afterwards. Small amounts of
-> pending input can also survive if they have not reached the line
-> discipline yet.
-> 
-> Use tty_buffer_flush() with the referenced line discipline to discard both
-> receive queues under the existing buffer lock. The helper checks for the
-> line discipline's flush_buffer callback itself.
-> 
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> ---
->  drivers/tty/tty_ioctl.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/tty/tty_ioctl.c b/drivers/tty/tty_ioctl.c
-> index 90c70d8d14e3..45cb77185dbb 100644
-> --- a/drivers/tty/tty_ioctl.c
-> +++ b/drivers/tty/tty_ioctl.c
-> @@ -496,8 +496,8 @@ static int set_termios(struct tty_struct *tty, void __user *arg, int opt)
->  
->  		ld = tty_ldisc_ref(tty);
->  		if (ld != NULL) {
-> -			if ((opt & TERMIOS_FLUSH) && ld->ops->flush_buffer)
-> -				ld->ops->flush_buffer(tty);
-> +			if (opt & TERMIOS_FLUSH)
-> +				tty_buffer_flush(tty, ld);
->  			tty_ldisc_deref(ld);
->  		}
->  
-> -- 
-> 2.43.0
-> 
-> 
+device_tree_init() assigns initial_boot_params directly and never calls
+early_init_dt_verify(), so of_fdt_crc32 stays 0 and every boot logs
 
-What commit id does this fix?  How was this tested?
+  OF: fdt: not creating '/sys/firmware/fdt': CRC check failed
 
-thanks,
+whether the blob was passed by the bootloader, appended or built in.
+Call early_init_dt_verify() once the prune and the MAC address fill-in
+are done with the blob, so the CRC matches what of_fdt_raw_init() reads
+back. x86 had the same omission, fixed by commit 628df9dc5ad8
+("x86/devicetree: Initialize device tree before using it").
 
-greg k-h
+Fixes: 08d53aa58cb1 ("of/fdt: export fdt blob as /sys/firmware/fdt")
+Assisted-by: LLM
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+---
+Tested on a CN6335 board (internal device tree, Cavium U-Boot 1.1.1),
+in a 7.3-based tree: the warning is gone and /sys/firmware/fdt holds the
+11551-byte blob. mips-next with cavium_octeon_defconfig prints the
+warning on the same board without this patch.
+
+ arch/mips/cavium-octeon/setup.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/mips/cavium-octeon/setup.c b/arch/mips/cavium-octeon/setup.c
+index 7497be7b9431..fa8273799b94 100644
+--- a/arch/mips/cavium-octeon/setup.c
++++ b/arch/mips/cavium-octeon/setup.c
+@@ -1213,6 +1213,8 @@ void __init device_tree_init(void)
+ 	}
+ 	if (fill_mac)
+ 		octeon_fill_mac_addresses();
++	/* After the edits above, so the CRC covers the final blob */
++	early_init_dt_verify(initial_boot_params, __pa(initial_boot_params));
+ 	unflatten_and_copy_device_tree();
+ 	init_octeon_system_type();
+ }
+-- 
+2.53.0
+
