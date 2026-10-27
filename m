@@ -1,79 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104136;
-	b=wk/zfobv+hfVhK7cj+7eU8e/6+pG+tSWO83Of6CAmDa9MLtwF4aNWzOfBQ37oTqfSpxg
-	 HPbSmIna9KUhwc8wJWO3IvDXtBnhOeWrq7edWUYdTMh4Smaaik11iG4fu9qTc8pmfTCTw
-	 J16BlaqyRVyv1a4uGRux9W2IuTa9uqh7X0GD+3ATfPpac1SNYhT1FeODm/R/r+8msqfHh
-	 ynFdXxC2q3I1OyJNg/zcUuXNSNt8zXuu4zEjMLQj0UDsrZWNdgWlWg9ZJUyf+LMNCULeN
-	 s21s/nMGYbUeRaAZAntuohbJxxXbpEQF3IaC0apoOlWUKfyZrSyEG9N3s8HMxHuXoSw==
+	t=1793104157;
+	b=AvalfDcuaJwuokdSuj9zvaDR/BdywzApPrDDuZt2f3cjMcXCx5i+MwrSZU6i0j+1zv7I
+	 7LfmyeIy9x8pOWe54AEGgoyPHYOsB5QMMLZ4NPDJthXQqNqimWp5DDMKZzDqATQpkxkPh
+	 4niCCG0NgBz1jiXFlw0XoTSfYt7btifRI4/XTS2KLlRdZ7dG3DvR0DUR8K+OEba/Yr2YZ
+	 jte3T9oAZXhYL+UTyHChM2NiztbrUV0LPWeFxMFS6u3H4d28XE4JrddcuLhirR4tEcpYd
+	 SVDTcz00P1tw4YjNHkC7J2L/53dl5+iZ47j8Lh0MWeZZKMUL6m/aDyibaF1jF825ugA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104136;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=9bf+WSrJj08T2EnJTuDUiU9BXqBOTuz/X6gAw7vyxoI=;
-	b=hR/2VDHk05rSvWH84e7ekXOwZD/EVtXbT6g9UK8w8dguwsx5Q8keRYCyUoiA/yNHgvY7
-	 BTk+tpU38wYwRBEDQo1HpN+85jZn3z8OiP0BiVJfY3YUfjjtgvv5IMocVmBOFWMPzVL84
-	 ZxcfZZ44bkO5jhgDADwwRsKIqou8xZ8hsGDFd/CoE7Z/a/1eYzxr0Bmc8NGOi4oFYsSk8
-	 0acckU5xYnQarZw8A21XygqLt9lbg9VaFW+VdTq83HiBr7YnHmYHxEbm5HjluEY0UCUXX
-	 H1g9u9kXhmj6K8lGCbua+Kdk+ArEtN6Jc4uWB/C2kwCBS1SIDB1+pBO/hEbs9tDbN3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104157;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=P3tLqqAFpnJH9SKq8XCpeGD7if/i4dQDDK4AIGHrwgE=;
+	b=2PU1YAO1/++WMi20KmMyWt/F8CEGJVHDMz2+MutoaO0bxxglMl8HsOcC/GUq64U6hoFL
+	 O/c6/+eMRZ0PGEmtlAsaPAD4B/vkyCsqkiQYl9QFtE+prXSRiIZ9yS8HT5fMKrDmhLin2
+	 lXfGim11NjsZKBcoB+xBSUSEecW/bZCopncwt1WzP77Oi3GFcSfPw3xYkxz+rVEF1h9EC
+	 do0BekMOaiGrP/3wdHRcnjB/JTevubRNFCIS1qVp0cdIBwEEu3cLMAaIyHtlOmoLEmChn
+	 94JYY8kEV/oiHc3FsuQfVLvHpXw2nWJ4wdEs9mrztyRUj2/xGQ7g5ppLUvB3CPoUgDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SPRT9Bbe;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=brVnHV1u;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA97606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:28:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABA97606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D3E606A32C;
+	Tue, 27 Oct 2026 12:29:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94D3E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SPRT9Bbe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793104134;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9bf+WSrJj08T2EnJTuDUiU9BXqBOTuz/X6gAw7vyxoI=;
-	b=SPRT9BbeSagwnGSo2u+QZjAj5Bh1Fs29La8y4DmhRDueL2dpvN/MpIb9qHr2q8iatkTawV
-	Geh+5nalH7USwUps7cJPhAEP6sLLnK/fr7HCyp4JJYW2sn8q56qcImqyUNCAF6aex9i2Ji
-	FNXXEpz5NjaKCpuawRazkYKbDIssZ/0=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-88-xiYosnpXMSGuzjm38u4FUg-1; Tue,
- 27 Oct 2026 08:28:50 -0400
-X-MC-Unique: xiYosnpXMSGuzjm38u4FUg-1
-X-Mimecast-MFC-AGG-ID: xiYosnpXMSGuzjm38u4FUg_1793104128
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CFA911954225;
-	Tue, 27 Oct 2026 12:28:48 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9889830002C9;
-	Tue, 27 Oct 2026 12:28:47 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	bvanassche@acm.org,
-	michael.christie@oracle.com,
-	mlombard@redhat.com,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=brVnHV1u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=P3
+	tLqqAFpnJH9SKq8XCpeGD7if/i4dQDDK4AIGHrwgE=; b=brVnHV1uBzJ2WBqtd7
+	C9/jmmzH6ng05ud6IrlRIZb5TWMKleR+0g0EHWFxQ7QAHlpKJVFWDKE/ky3p8A1n
+	ZDs7BxUFF0fiLiP8Y9RXAvcZK6m9cTit00NZy/LxDABL69Ib2sLirqkLhvE70JqH
+	OpwG9qVLJTC0MQ2ybrkvksnMg=
+Received: from Precision-7960.. (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3Dz_umOBqUsqlCw--.64541S4;
+	Tue, 27 Oct 2026 20:28:33 +0800 (CST)
+From: Hans Zhang <18255117159@163.com>
+To: bhelgaas@google.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	jingoohan1@gmail.com
+Cc: imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-amlogic@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	sophgo@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v6 3/4] scsi: target: Queue the abort of a command at most once
-Date: Tue, 27 Oct 2026 08:28:36 -0400
-Message-ID: <20261027122837.2148074-4-loberman@redhat.com>
-In-Reply-To: <20261027122837.2148074-1-loberman@redhat.com>
-References: <20261027122837.2148074-1-loberman@redhat.com>
+	Hans Zhang <18255117159@163.com>
+Subject: [PATCH v4 02/16] PCI: dwc: Use cached PCIe capability offset in core
+Date: Tue, 27 Oct 2026 20:28:13 +0800
+Message-ID: <20261027122827.2725643-3-18255117159@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027122827.2725643-1-18255117159@163.com>
+References: <20261027122827.2725643-1-18255117159@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,197 +77,92 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-CM-TRANSID:_____wD3Dz_umOBqUsqlCw--.64541S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXry3AF4UurW3tw45GrW8tFb_yoWrJr4xp3
+	y5JFyYyF18AF45ZFs29as3ZF15tF9xArW7Ga9agrnI9Fy2yrZFga10vry3tFn2kFsFyrya
+	9r1UJr15Cwn3JFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0ziveHfUUUUU=
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6xE12GrgmPEXawAA3I
 
-target_cmd_interrupted() and transport_generic_request_failure() both
-queue target_abort_work for a command that has CMD_T_ABORTED set, and
-neither records that it has done so: CMD_T_COMPLETE is not set and t_state
-is not changed, so nothing stops a second site reaching the same
-conclusion for the same command. The second call re-initialises and
-re-queues cmd->work while the first is still queued or running.
+Convert the DWC core users of
+dw_pcie_find_capability(pci, PCI_CAP_ID_EXP) to dw_pcie_get_pcie_cap():
 
-More than one site can reach that conclusion. A WRITE still in
-TRANSPORT_WRITE_PENDING has never been passed to the backend, so the
-fabric has to complete it when a TMR aborts it, and for iSCSI both the
-DataOut paths and iscsit_release_commands_from_conn() during connection
-teardown will do so. The two queueing sites can also reach each other: if
-CMD_T_ABORTED is set after target_cmd_interrupted() has returned false in
-target_execute_cmd() and execution then fails,
-transport_generic_request_failure() queues the work, and a later
-target_execute_cmd() -- from iscsit_task_reassign_complete_write(), for
-example -- queues it a second time.
+  dw_pcie_wait_for_link()
+  dw_pcie_link_set_max_speed()
+  dw_pcie_link_get_max_link_width()
+  dw_pcie_link_set_max_link_width()
+  dw_pcie_ep_init_non_sticky_registers()
 
-Add a CMD_T_ABORT_QUEUED flag, tested and set under t_state_lock by
-__target_claim_abort(), and use it at both sites. In
-target_cmd_interrupted() the CMD_T_ABORTED test moves under the same lock,
-which is the lock __target_check_io_state() sets CMD_T_ABORTED under, so
-there is no window between the test and the claim. Second and later calls
-are a no-op by design and target_cmd_interrupted() still returns true, so
-callers do not proceed with normal completion. A fabric that completes an
-aborted command exactly once never reaches the claim and is unaffected.
+These functions are reached in exactly the same situations in which the
+replaced dw_pcie_find_capability() call used to be executed, so DBI is
+accessible whenever the helper performs its first lookup. Because the
+lookup happens at the point of use, there is no window in which
+pci->pcie_cap could be used uninitialized, neither in Root Complex nor
+in Endpoint mode.
 
-target_cmd_interrupted() runs for every completion, so it keeps a lockless
-test of the two flags and only takes t_state_lock when one of them is set.
-A flag set immediately after that test is handled exactly as it was when
-the whole function was lockless.
+While at it, remove the now redundant capability lookup in
+dw_pcie_link_get_max_link_width(): the offset variable it filled is the
+one used for the register access.
 
-The CMD_T_STOP branch is deliberately left unguarded. complete_all() is
-idempotent and t_transport_stop_comp is initialised once in
-__target_init_cmd(), so a repeated call there is harmless. A guard shared
-between the two branches would also be wrong: a first call taking the
-CMD_T_STOP branch would then suppress the queueing of target_abort_work if
-CMD_T_ABORTED were set afterwards, which is the hang the next patch is
-about.
-
-transport_complete_callback() can still run more than once for a command,
-across the two branches here and from
-transport_generic_request_failure(). The only callback in the tree is
-COMPARE AND WRITE's, whose side effect -- releasing dev->caw_sem -- is
-made one-shot by the previous patch, so a repeated call now has nothing
-left to repeat.
-
-Cc: stable@vger.kernel.org
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
+Signed-off-by: Hans Zhang <18255117159@163.com>
 ---
+ drivers/pci/controller/dwc/pcie-designware-ep.c | 2 +-
+ drivers/pci/controller/dwc/pcie-designware.c    | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-Notes:
-    Prerequisite for patch 3, which relies on a second completion of an
-    aborted command being a no-op.  All three patches need to travel together
-    to stable.
-    
-    No Fixes: tag: 2c9fa49e100f added the same abort-queueing pattern to both
-    functions, so it is arguably the right one, but the double queueing is
-    not what that commit set out to do.  Happy to add it if you would like.
-
- drivers/target/target_core_transport.c | 77 ++++++++++++++++++++++----
- include/target/target_core_base.h      |  1 +
- 2 files changed, 68 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index 927861c..9ef8e93 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -882,24 +882,72 @@ static void target_abort_work(struct work_struct *work)
- 	target_handle_abort(cmd);
- }
+diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
+index de8ee3db4360..b56dbbb29733 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-ep.c
++++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
+@@ -1265,7 +1265,7 @@ static void dw_pcie_ep_init_non_sticky_registers(struct dw_pcie *pci)
+ 	 * to all other functions as well.
+ 	 */
+ 	if (funcs > 1) {
+-		offset = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++		offset = dw_pcie_get_pcie_cap(pci);
+ 		func0_lnkcap = dw_pcie_readl_dbi(pci, offset + PCI_EXP_LNKCAP);
+ 		func0_lnkcap = FIELD_GET(PCI_EXP_LNKCAP_MLW |
+ 					 PCI_EXP_LNKCAP_SLS, func0_lnkcap);
+diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
+index 593388f29bdd..bd18415e92da 100644
+--- a/drivers/pci/controller/dwc/pcie-designware.c
++++ b/drivers/pci/controller/dwc/pcie-designware.c
+@@ -806,7 +806,7 @@ int dw_pcie_wait_for_link(struct dw_pcie *pci)
  
-+/*
-+ * Claim the queueing of target_abort_work for an aborted command.  Returns
-+ * true for the one caller that must queue it; every later caller gets false.
-+ *
-+ * Caller must hold cmd->t_state_lock, which is the lock
-+ * __target_check_io_state() sets CMD_T_ABORTED under, so that the flag cannot
-+ * be set between a caller's CMD_T_ABORTED test and this claim.
-+ */
-+static bool __target_claim_abort(struct se_cmd *cmd)
-+	__must_hold(&cmd->t_state_lock)
-+{
-+	lockdep_assert_held(&cmd->t_state_lock);
-+
-+	if (cmd->transport_state & CMD_T_ABORT_QUEUED)
-+		return false;
-+
-+	cmd->transport_state |= CMD_T_ABORT_QUEUED;
-+	return true;
-+}
-+
-+/*
-+ * Returns true if the command has been aborted or stopped, in which case the
-+ * caller must not carry on with normal completion.  target_abort_work is
-+ * queued at most once per command; a later call for an already-claimed abort
-+ * is a no-op and still returns true.
-+ */
- static bool target_cmd_interrupted(struct se_cmd *cmd)
+ 	pci_host_common_link_train_delay(pci->max_link_speed);
+ 
+-	offset = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++	offset = dw_pcie_get_pcie_cap(pci);
+ 	val = dw_pcie_readw_dbi(pci, offset + PCI_EXP_LNKSTA);
+ 
+ 	dev_info(pci->dev, "PCIe Gen.%u x%u link up\n",
+@@ -844,7 +844,7 @@ static void dw_pcie_link_set_max_speed(struct dw_pcie *pci)
  {
-+	bool queue_abort = false, stop = false;
-+	unsigned long flags;
- 	int post_ret;
+ 	u32 cap, ctrl2;
+ 	enum pci_bus_speed link_speed;
+-	u8 offset = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++	u8 offset = dw_pcie_get_pcie_cap(pci);
+ 	u16 ctrl2_speed;
  
-+	/*
-+	 * This runs for every completion, so stay out of t_state_lock unless
-+	 * one of the two flags is set.  A flag set just after this test is
-+	 * handled the same way it was before the lock was introduced here.
-+	 */
-+	if (!(cmd->transport_state & (CMD_T_ABORTED | CMD_T_STOP)))
-+		return false;
-+
-+	spin_lock_irqsave(&cmd->t_state_lock, flags);
- 	if (cmd->transport_state & CMD_T_ABORTED) {
--		if (cmd->transport_complete_callback)
--			cmd->transport_complete_callback(cmd, false, &post_ret);
-+		queue_abort = __target_claim_abort(cmd);
-+		if (!queue_abort) {
-+			spin_unlock_irqrestore(&cmd->t_state_lock, flags);
-+			return true;
-+		}
-+	} else if (cmd->transport_state & CMD_T_STOP) {
-+		stop = true;
-+	}
-+	spin_unlock_irqrestore(&cmd->t_state_lock, flags);
-+
-+	if (!queue_abort && !stop)
-+		return false;
-+
-+	if (cmd->transport_complete_callback)
-+		cmd->transport_complete_callback(cmd, false, &post_ret);
-+
-+	if (queue_abort) {
- 		INIT_WORK(&cmd->work, target_abort_work);
- 		queue_work(target_completion_wq, &cmd->work);
--		return true;
--	} else if (cmd->transport_state & CMD_T_STOP) {
--		if (cmd->transport_complete_callback)
--			cmd->transport_complete_callback(cmd, false, &post_ret);
-+	} else {
- 		complete_all(&cmd->t_transport_stop_comp);
--		return true;
- 	}
+ 	cap = dw_pcie_readl_dbi(pci, offset + PCI_EXP_LNKCAP);
+@@ -879,7 +879,7 @@ static void dw_pcie_link_set_max_speed(struct dw_pcie *pci)
  
--	return false;
-+	return true;
- }
- 
- static void target_complete(struct se_cmd *cmd, int success)
-@@ -2084,6 +2132,7 @@ EXPORT_SYMBOL(target_submit_tmr);
- void transport_generic_request_failure(struct se_cmd *cmd,
- 		sense_reason_t sense_reason)
+ int dw_pcie_link_get_max_link_width(struct dw_pcie *pci)
  {
-+	unsigned long flags;
- 	int ret = 0, post_ret;
+-	u8 cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++	u8 cap = dw_pcie_get_pcie_cap(pci);
+ 	u32 lnkcap = dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCAP);
  
- 	pr_debug("-----[ Storage Engine Exception; sense_reason %d\n",
-@@ -2099,8 +2148,16 @@ void transport_generic_request_failure(struct se_cmd *cmd,
- 		cmd->transport_complete_callback(cmd, false, &post_ret);
+ 	return FIELD_GET(PCI_EXP_LNKCAP_MLW, lnkcap);
+@@ -925,7 +925,7 @@ static void dw_pcie_link_set_max_link_width(struct dw_pcie *pci, u32 num_lanes)
+ 	dw_pcie_writel_dbi(pci, PCIE_PORT_LINK_CONTROL, plc);
+ 	dw_pcie_writel_dbi(pci, PCIE_LINK_WIDTH_SPEED_CONTROL, lwsc);
  
- 	if (cmd->transport_state & CMD_T_ABORTED) {
--		INIT_WORK(&cmd->work, target_abort_work);
--		queue_work(target_completion_wq, &cmd->work);
-+		bool queue_abort;
-+
-+		spin_lock_irqsave(&cmd->t_state_lock, flags);
-+		queue_abort = __target_claim_abort(cmd);
-+		spin_unlock_irqrestore(&cmd->t_state_lock, flags);
-+
-+		if (queue_abort) {
-+			INIT_WORK(&cmd->work, target_abort_work);
-+			queue_work(target_completion_wq, &cmd->work);
-+		}
- 		return;
- 	}
- 
-diff --git a/include/target/target_core_base.h b/include/target/target_core_base.h
-index bd846ab..0341844 100644
---- a/include/target/target_core_base.h
-+++ b/include/target/target_core_base.h
-@@ -538,6 +538,7 @@ struct se_cmd {
- #define CMD_T_STOP		(1 << 5)
- #define CMD_T_TAS		(1 << 10)
- #define CMD_T_FABRIC_STOP	(1 << 11)
-+#define CMD_T_ABORT_QUEUED	(1 << 12)
- 	spinlock_t		t_state_lock;
- 	struct kref		cmd_kref;
- 	struct completion	t_transport_stop_comp;
+-	cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
++	cap = dw_pcie_get_pcie_cap(pci);
+ 	lnkcap = dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCAP);
+ 	FIELD_MODIFY(PCI_EXP_LNKCAP_MLW, &lnkcap, num_lanes);
+ 	dw_pcie_writel_dbi(pci, cap + PCI_EXP_LNKCAP, lnkcap);
 -- 
 2.43.0
 
