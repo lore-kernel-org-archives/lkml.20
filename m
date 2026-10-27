@@ -1,193 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102578;
-	b=qtOEz8a2q3Orm24puiHgxpuupxhkq7dyLqMr70O1zQtmfErYFHN5KSbFWiXxDkQOPL6/
-	 Y1HsD1fzeYLcPYvXg6rJOOwNBQZK7WDl4FZyPeQHebO7el/7DZr8E2M8ehRDfXmu1RQ8G
-	 qmpMdXacGcYE1Xk6w0RYQyaoVGeVwCt8dbll+2dcSqHhwHjB99av9s0xjpGAg6CGdaaQa
-	 tdmRZrdKKrog/LMSD9kg3YbKqhYw4ib/XFGR+TsIQk0dIwjDPS6KyvHIIDRX2j8pDtc53
-	 zDUpLEVnTClTjJ6YdqYagwZlCxRseNBiwCLZ2o3j0nie8G0wICBgQsobyN0COWuoy4g==
+	t=1793102604;
+	b=QHuVNbmgkEUkzuHGmJ9Gkl7iL8IoomT74fSaVwXa2RBy9uDQqLfxAgKAW3YVUUfXr9Y6
+	 nEorHl968M0AjNyXC2GQW8ZxJFPLvAcbIZ0wT4Oi55/tulO6SAVHaydZBY5ubOcnCp0cV
+	 qvv+B1SDJKTXoN8LIkM0dBlwzT/jOAYsQ0pLZbDSj9PDrtvo3tniNTI3ilgjJeDuulhXh
+	 IMWrW0inMWXyiseiCAh1cF7FEJGk/HOZekq+JJalkMPChtLBeJ3leAmJh3ZZDGWQ5Jt6E
+	 Le+EOVdRTh+IWdmpwO3DhlVXYPUrYUTtaiCBBR8MC+2WyHIOn1gr+F1/W3sTazeeE0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102578;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=RreJT6OdWgxLLvGlC2N7bmJyUm9m4QYaD4O3KtIV+1A=;
-	b=S6Xd+n3iB1gzJEYG5jnTwlwXTTYvXnMvfEZLyvAn+JwhfOIPcUubOJiN/pVXHT958OYW
-	 EzMq7U8jnkMISn6ssMk8/Y3USqDmDxO0AJffD3K/UtFRdQRi+1P9IzJxoer7rd12LF2Lh
-	 qvfyvjRzFHV38obsZMhHNXLiRew/YejY653skoe5UNNsfKhHts5Ynz96+uVrLFjueqign
-	 B4fBdvFlxaLXFMXqlNhUo6t67X6x/fE7asFgqTcbrMaluvZPoedXAOnMZfzRrKukwNEp0
-	 ED8yMkk0rxQy5hVF0OFJWLvwtCnUX2ZhSH7MIZ8nc9yzf4WJLVNmSr+HnzlDAyr/J9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102604;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=StGIwkSlbsvFpESfZoYYNmkaJJMniuExQndwnG+ei5o=;
+	b=hlM7/O9suVML7ujfQfkeliuDfFQ/71GjbjSoxPqUh7SKoN951AIHA9NAx3Mwa3Z/HxSA
+	 iieWEhrXlXwFiHV2fjF51pRw7q4PbjIWztLGstDzPWwMCplVFMtpVspgtpTliX3f2UMEm
+	 If+HWgKk4c+0b+90oGiV8FBkGDg0BCA5Sz3schTbrtMK5BUMvixxFHxzNsBQkY1Jj3fqE
+	 AzR87NcFisU/YP1tXuDsRPm9GdxdG+vWujwHvlkXsaQ9doOeCJpZqCoSrwbdgLlsa5VPa
+	 2YqTSi9p2ngX+z2IR060CYoS7I/b9Tla7HewP7z6orIi0A2CQYqwAoIDpbcCBqnKicA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+1n6Gi8;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="L/wBL3yB";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPqYh83d;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EFF60A262A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6EFF60A262A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D243660A3822;
+	Tue, 27 Oct 2026 12:03:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D243660A3822
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=E+1n6Gi8;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L/wBL3yB
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe9iJ894498
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:02:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=RreJT6OdWgxLLvGlC2N7bmJy
-	Um9m4QYaD4O3KtIV+1A=; b=E+1n6Gi8vcyP3M0k3o5Wgql4Sq04nvrDDWa2FIWu
-	sLVnyHOl26uyu0ziRm33cusRsQ0idxUnBjgHJ2RO/qvSp1wHmhCKSkhP2PX9UwFl
-	D8NaLY/DpIx2crNESacLyxTZ9kQuhMfSxglvu3e1a1oKGG0W6iSjx1gw/r1fp5Xd
-	k7OrLdTHpGWvnjK4pATqvpF/9fOaMQ/AzNNTTONZty1mBXLBsphEF0jiM2RS8p4p
-	Ry8ZVgJBxRqe4K/+tP9x6nh0kIssyfUW4f+D5JWoBKeWW8s+5tYb+3xWnGf/RmGW
-	fXR54qk1SYsBEQyZhnU16D8nBTna1kcthL5pM8W1wcnJSQ==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj8smvbhn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:02:56 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5cf33256d2aso838306e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:02:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793102576; x=1793707376; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RreJT6OdWgxLLvGlC2N7bmJyUm9m4QYaD4O3KtIV+1A=;
-        b=L/wBL3yBsMtrQFZ9wCDcDKGR/JElC2jPlODkzkjZu2DAMuxTCFarOL0w4RqPh1z/CC
-         EXWWxA0m/A+R6aH+Da+ulCLE/QCN9s4eW5/oZBHlBSMpwuWfj5/cAf9DtQ3eT9eH03l7
-         ua6o0W8feTusvBj5o0iIvW2kgtnmBapQSczGkowVZp8b+fwWeHAxQyxUm0x7gptt+At5
-         eVl0xRNU/6qKySgrfLoiJm50bVNxVdMEd4KpepLSYzyxlaObMwE0vvg6dSR0sI+OVA2A
-         5Q1eSfeAnFh54Nzz1FkU2bDZkIyz0nTE9CvIPXxnvTNlojFgyFir0yDw+o84UUeIxtSQ
-         sFmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102576; x=1793707376;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RreJT6OdWgxLLvGlC2N7bmJyUm9m4QYaD4O3KtIV+1A=;
-        b=YEM0RtRHdJIqZSaRI2hcK6fA+2SKOlzJ7Sipt6+J3122VEJCXlU5P20SVAcHngAypQ
-         FAPjUNshl73SFlsjgsF4uZ2DeTvqj36Ddk5rEMxXZ/MC85jxx/4/LVDNueH8DAXxIeLz
-         SfMRfH75oS4lnBA2MVj/eK8GLHCRKcfY4CcyZBy/i3WZbR/fSj9cf25AdD42BXVEDCPn
-         1o8xtLazg8SvlDvDsnSa76lyUgxoImqhkI1WCqq85YfgvmQFUxruaDTvqv8d7PwWfVen
-         dAy0Vcg0Wlno//P8fhUIfk+JzMQlzOqkkb0xMd/xBwjX2CYL9y0it9HBn7ZS5+0ltCfm
-         f+jg==
-X-Forwarded-Encrypted: i=1; AKwUvBzIRlBPw5/eL5kiW/UF/5fRtA4fIX1XcEPhB9CL2OQnFaZn1/Di/0Zta1PeUZo3tpOMkoYcsIFeLUhyGLU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIilyuvrIUH+NpyooJZ9QRM59t/URG/UFPA/7NRPrIdhXGSePlZ
-	JSwqGb9GN0F60lWns+dSz+sfeFk5ZFRqsJvk5u/xECj1ZAdkD6+v2tX7RrhaIePgUEN/I/d+59i
-	6nSimOIhhhJDRojcxSsEJF9CkUNHuPDOJEHaKrbIK5w87+cEuJ4AmApa490YRtU5DeS8=
-X-Gm-Gg: AYBFou0kGOBWD2sugYSj+/E6X57HL6nJrJRPqQB1ocmqJ8LxDb/Pra0xPZoEmoufcHF
-	Pq3fV0vkz5W/dm91lONsEyG0fAwynohzZ+m3TPiZwQhO9bx4C1NDaW6eA57FU/xqFBWMY5HNq4K
-	UO37lBHgZfpMXC+r/eztOF5VW5fAUdx3cqCw20yDMfAhl+R21VtM0GyCQRMnm3eJW8KlIs6seXC
-	E9yYD2+L7F2cJLvdOQEfVhgJgnaVhUuTq6MHEQ4mPthgfD5YjEVQKx7kQcRU3b563rd4OJTQBw4
-	003kjLsN1gbmUosCKD8Bkkm+3Fk5ColT2/fd9RNN0DUOR4tKCDf7l2RQ28oj/8Lfwey+dtov6BU
-	QQm+JqCAYFsvahgyM2rIH7TNFZ1jU3jaI0LrJRtB0bFc9BhdHofjioZTxp7cRHzcH0QPsBs1Gqd
-	/8Yuaxdrp2wcvL
-X-Received: by 2002:a05:6122:124f:b0:5cf:dd67:cb32 with SMTP id 71dfb90a1353d-5ec3ea462d5mr652289e0c.6.1793102575667;
-        Tue, 27 Oct 2026 05:02:55 -0700 (PDT)
-X-Received: by 2002:a05:6122:124f:b0:5cf:dd67:cb32 with SMTP id 71dfb90a1353d-5ec3ea462d5mr652238e0c.6.1793102575110;
-        Tue, 27 Oct 2026 05:02:55 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a9558esm2089787e87.70.2026.10.27.05.02.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:02:53 -0700 (PDT)
-Date: Tue, 27 Oct 2026 14:02:51 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jyri Sarha <jyri.sarha@iki.fi>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Andrzej Hajda <andrzej.hajda@intel.com>,
-        Robert Foss <rfoss@kernel.org>,
-        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-        Jonas Karlman <jonas@kwiboo.se>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>,
-        Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-        Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Biju Das <biju.das.jz@bp.renesas.com>,
-        Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>,
-        Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
-        Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>,
-        Seung-Woo Kim <sw0312.kim@samsung.com>,
-        Kyungmin Park <kyungmin.park@samsung.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Alison Wang <alison.wang@nxp.com>,
-        Paul Kocialkowski <paulk@sys-base.io>,
-        Yannick Fertre <yannick.fertre@foss.st.com>,
-        Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
-        Philippe Cornu <philippe.cornu@foss.st.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
-        Thierry Reding <thierry.reding@kernel.org>,
-        Mikko Perttunen <mperttunen@nvidia.com>,
-        Jonathan Hunter <jonathanh@nvidia.com>,
-        Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>,
-        Javier Martinez Canillas <javierm@redhat.com>,
-        Igor Reznichenko <igor@reznichenko.net>,
-        Michael Walle <mwalle@kernel.org>,
-        Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-        Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>,
-        Guido =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,
-        Purism Kernel Team <kernel@puri.sm>,
-        Jerry Han <hanxu5@huaqin.corp-partner.google.com>,
-        Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>,
-        Michael Trimarchi <michael@amarulasolutions.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Casey Connolly <casey.connolly@linaro.org>,
-        Michael Tretter <m.tretter@pengutronix.de>,
-        Cristian Cozzolino <cristian_ci@protonmail.com>,
-        Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>,
-        Nickolay Goppen <setotau@mainlining.org>,
-        Stefan Mavrodiev <stefan@olimex.com>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Robert Chiras <robert.chiras@nxp.com>,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Markuss Broks <markuss.broks@gmail.com>,
-        Artur Weber <aweber.kernel@gmail.com>,
-        David Heidelberg <david@ixit.cz>,
-        Dzmitry Sankouski <dsankouski@gmail.com>,
-        Yedaya Katsman <yedaya.ka@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-mips@vger.kernel.org, imx@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org,
-        linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
-        linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
-        linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-Subject: Re: [PATCH 00/35] drm/panel: let the panels use the atomic state
-Message-ID: <cxsgo7u2hfb4jskscqcbeaaneiyfh7bdmlvku2wxwtduekwhxz@3vsizgxvekw7>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OPqYh83d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793102604; x=1824638604;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=StGIwkSlbsvFpESfZoYYNmkaJJMniuExQndwnG+ei5o=;
+  b=OPqYh83dSp0QxmvENU/j/5xwVB0IE1viVjg6wWJtP81GvUtdWRksIirY
+   8mJAkXu64+qyaCI4sDlj5xjHepITCOPSzmBERqTnPTWv8HrdYjPhufNON
+   deSmrdOhIX4qAojbtyd6mAS62rq3A9Y3kfebhe8e30gd9DaYPns0XbZfT
+   7afXI0WLJIhnru1JjgUMerjdtk0VHu199Z4nTqBfhe/M7+Klbx36LiZFH
+   Y+6dIkxMivyPFG63OhqrB9f+5EuD7LFBxwUdzDUJ6GCYhf9IleLBD4E33
+   WmD34vgdgDaTs5UN1+XAVAoFIPDrvq6lmat63JQIbmC1E0QP6UBz+r0QN
+   A==;
+X-CSE-ConnectionGUID: v0v63rDCSwq9sYMQoGfazA==
+X-CSE-MsgGUID: EIeQMqQvT9Kj0VWFbvUbvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1681180"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1681180"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:03:23 -0700
+X-CSE-ConnectionGUID: 9TXP2Om7TXCg3dEKLNyiZg==
+X-CSE-MsgGUID: Lycma6y2SjKZYJo0hswuiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4864656"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:03:21 -0700
+Message-ID: <62005e0e-8963-4565-bdcd-cfcd5e925674@linux.intel.com>
+Date: Tue, 27 Oct 2026 20:03:17 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -197,145 +72,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: yVHVLQyLXzC6N9XJUD7p2Nd_bsXwq25s
-X-Authority-Analysis: v=2.4 cv=Sfti5fRu c=1 sm=1 tr=0 ts=6ae092f0 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=dDezlKT4IyV31VqxjHAA:9 a=CjuIK1q_8ugA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-GUID: yVHVLQyLXzC6N9XJUD7p2Nd_bsXwq25s
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX+HMuUO82CIfv
- Ft0Mtqv7ccCnbr1IrbcV7+3vmPNOHCtTkBC30TZ/rMOeG3ULPCfj+m5m2PiQXn1twjEr10L18Bv
- oTn5zFqNTMM0+V0NhSAnCtGM7VxZ6OU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX+Ugy7Y3Xy36j
- EKNnKiYs2Hdo91PqE/vUUolRaRuc38uMI1p2EKGe2GMvt6d9shZFYwD0XbBspdxU7s1XyXyZiVU
- js/LRh/K+LrjhXyLakQbVZGJPLYjW21vQA6EvmQyvyQXwLSzH8h7IFNT9ZdYdCnOYfiUIX8t9Nn
- MSvK1ccP6YdM9/v9MihWeagqgEJBcSb48AzqDZaC+Qt2IUv+E4N5qy0PSahyuLWwJSl5InZ8ZMC
- xW6UmjaUV4U8Dh+1KPVVnuxSaUksogA3biREpbW5Kl+dyvnCiEeYFZ4/Iz/dqakvu3eSgQxzYOj
- wkluPyb3QvJwRWaTDfjyu97GWsh7xvn2LYgiWnNKB2CsTB5/IhadSqqKe+ag8aEzKPJmZkSBQR2
- 2H5leIP2xljmeqHxWONTFc9/rPSe2ezEva6hbE5GT7fgYYH7s2GCBtFopmG/agiDDGfos9/d/qr
- agZWyMFBRWkBDhWqz/Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270047
+User-Agent: Mozilla Thunderbird
+Subject: Re: perf: perf_pmu_free() kfree()s struct perf_cpu_pmu_context while
+ its mux hrtimer is still queued (use-after-free)
+To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>, peterz@infradead.org,
+ mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <ca4f133.14714.1a162b8654c.Coremail.xuhx@hust.edu.cn>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <ca4f133.14714.1a162b8654c.Coremail.xuhx@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 01:09:49PM +0200, Dmitry Baryshkov wrote:
-> The panel is the only element of the display pipeline which never sees
-> the atomic commit. Its prepare() and enable() callbacks get nothing but
-> the panel, so a panel which has to be programmed differently depending
-> on the mode can only guess it. The NT35950 driver, for example, saves
-> the connector in get_modes() and reads connector->state->crtc->state
-> while being prepared: without the locks, from the current state rather
-> than from the one being committed, and with no way to reject a mode it
-> doesn't know.
-> 
-> Every panel has a struct drm_bridge embedded into it, and the bridge
-> already has all the missing parts: atomic_check(), a state object which
-> can be subclassed and the commit passed to the callbacks. Rather than
-> growing struct drm_panel_funcs into a copy of that, let the panel driver
-> provide struct drm_bridge_funcs for the embedded bridge. This is opt-in:
-> the panels which have no use for the atomic state keep using struct
-> drm_panel_funcs and are not touched by it.
-> 
-> To get there the bridge callbacks become the entry point to the panel,
-> with drm_panel_prepare() and friends calling them rather than the other
-> way around. The panel core still has to track the panel state, notify
-> the panel followers and handle the backlight, so the driver doesn't fill
-> in the power callbacks directly, it wraps its functions with the macros
-> doing that part. NT35950 is converted as the first user.
-> 
-> The bulk of the series is the cleanup of what the panel core and the
-> bridge need from the panel driver, so that a panel providing the bridge
-> callbacks doesn't need struct drm_panel_funcs for anything:
-> 
-> - get_timings() had no callers.
-> 
-> - The connector type was stored both in the panel and in its bridge, and
->   the display drivers could override it while creating the panel bridge.
-> 
-> - The orientation was read from the DT, stored and returned by nearly
->   identical code in more than twenty panel drivers, and some of them
->   also had to set it on the connector from get_modes(), with a TODO
->   asking for a better place. The core reads it now. It is applied to the
->   connector from the new connector_init() bridge callback, which is not
->   specific to the panels: other bridges have properties to set up on the
->   connector being created too (HDCP, DP link properties), and currently
->   have nowhere to do it.
-> 
-> - disable() and unprepare() returned an error which nobody could act on.
->   Worse, a failed unprepare() left the panel marked as prepared, so it
->   was never initialised again.
-> 
-> Behaviour changes worth knowing about:
-> 
-> - Panels with the rotation property whose driver ignored it now get the
->   orientation property. In the tree this is the Motorola Mapphone panel
->   (panel-dsi-cm).
-> 
-> - sun6i_mipi_dsi, sti_dvo and the Tegra DSI get their panel after the
->   DRM device has been registered, which is too late to create the
->   property, so they lose the orientation which the panel drivers used to
->   set from get_modes(). None of the rotated panels in the tree are used
->   with them.
-> 
-> - A panel implementing atomic_check() can only be driven through the
->   bridge chain. The display drivers calling drm_panel_prepare() directly
->   have no commit to pass.
-> 
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
-> Dmitry Baryshkov (35):
->       drm/panel: remove the get_timings() callback
->       drm/panel: remove the unused struct panel_bridge
->       drm/tidss: get the panel type from the embedded bridge
->       drm/bridge: lvds-codec: use devm_drm_panel_bridge_add()
->       drm/ingenic: use devm_drm_panel_bridge_add()
->       drm: mxsfb: use devm_drm_panel_bridge_add()
->       drm: rcar-du: use devm_drm_panel_bridge_add()
->       drm: rz-du: use devm_drm_panel_bridge_add()
->       drm/mcde: use drm_panel_bridge_add()
->       drm/pl111: use drm_panel_bridge_add()
->       drm/rockchip: lvds: use drm_panel_bridge_add()
->       drm/rockchip: rgb: use drm_panel_bridge_add()
->       drm/panel: remove the _typed() panel bridge functions
 
-Gmail barked at me for sending too many emails for too many recipients
-in the middle of the series. I guess, I'll have to split the series into
-smaller parts. Please consider reviewing the posted patches, letting me
-split / land the series in parts.
+On 10/22/2026 4:26 PM, 徐晗翔 wrote:
+> perf_pmu_free() frees every non-embedded struct perf_cpu_pmu_context
+> with a plain kfree() without cancelling cpc->hrtimer first, so
+> unregistering a PMU whose multiplexing hrtimers are queued leaves live
+> hrtimers linked into the per-CPU timer rbtree pointing into freed
+> memory -- a use-after-free (confirmed by KASAN) that is reachable with
+> two sequential root operations and no scheduling race at all.
+> perf_pmu_free() in kernel/events/core.c releases the per-CPU PMU
+> contexts without any hrtimer quiescence, while several ordinary code
+> paths leave cpc->hrtimer queued on CPUs without any event attached.
+>
+>
+> Unregistering the PMU then frees the cpc objects under the queued
+> timers: every later hrtimer insertion/removal on the affected CPUs
+> reads and writes freed rbtree nodes, and at expiry __run_hrtimer()
+> calls perf_mux_hrtimer_handler() on the freed cpc, taking the freed
+> cpc->hrtimer_lock and writing cpc->hrtimer_active. Verified and
+> reproduced on mainline 7.3 with KASAN; the involved code is unchanged
+> since at least 7.1. Triggering requires only root sysfs writes plus a
+> runtime PMU unregister (unloadable PMU driver module or, on matching
+> hardware, Intel uncore PCI unbind).
+>
+>
+> The detailed description:
+>
+>
+> * Test environment / affected version
+>
+> Linux version 7.3.0 (gcc 13.3.0, GNU ld 2.42) #1 SMP PREEMPT_DYNAMIC
+> -- vanilla mainline 7.3 release tarball (kernel.org, unmodified),
+> rebuilt with CONFIG_KASAN_GENERIC=y, CONFIG_KASAN_OUTLINE=y,
+> CONFIG_KASAN_VMALLOC=y, CONFIG_PERF_EVENTS=y, CONFIG_MODULES=y,
+> CONFIG_HZ_1000=y, CONFIG_HOTPLUG_CPU=y, booted in QEMU/KVM on x86_64
+> (4 vCPU). The same defect code is present and identical in 7.1.5
+> (verified by function-level diff); the 7.3 line numbers below are
+> from the 7.3 tarball.
+>
+>
+> * Mechanism
+>
+> 1. Writing /sys/bus/event_source/devices/<pmu>/perf_event_mux_interval_ms
+> takes the perf_event_mux_interval_ms_store() path
+> (kernel/events/core.c:12615). For every online CPU it stores the
+> new interval into cpc->hrtimer_interval and then calls
+> cpu_function_call(cpu, perf_mux_hrtimer_restart_ipi, cpc)
+> (core.c:12643). perf_mux_hrtimer_restart_ipi() ->
+> perf_mux_hrtimer_restart() arms cpc->hrtimer based solely on
+> hrtimer_active(), regardless of whether the PMU has any events:
+> an *idle* PMU ends up with a queued mux hrtimer on every online
+> CPU after one ordinary sysfs write.
+>
+>
+> 2. Unregistering the PMU (perf_pmu_unregister() ->
+> perf_pmu_free(), core.c:12805) walks all possible CPUs and frees
+> the contexts:
+>
+> cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu);
+> if (!cpc)
+> continue;
+> if (cpc->epc.embedded) { /* refcount managed */
+> put_pmu_ctx(&cpc->epc);
+> continue;
+> }
+> kfree(cpc);
+>
+> There is no hrtimer_cancel() (or any hrtimer call at all) in
+> perf_pmu_free(), perf_pmu_unregister(), or anywhere else on the
+> unregister path. The queued cpc->hrtimer stays linked in each
+> CPU's MONOTONIC rbtree after the kfree().
+>
+>
+> 3. Consequences, both observed:
+> - Immediately after the free: any hrtimer queued on an affected
+> CPU walks/rotates the rbtree through the freed node; KASAN
+> reports slab-use-after-free in rb_erase/rb_insert_color/
+> timerqueue_add/__remove_hrtimer (reads *and writes of freed
+> memory, corrupting both the timer tree and the slab's new
+> owner).
+> - At expiry (interval after the free): __run_hrtimer() reads
+> timer->function from freed memory and runs
+> perf_mux_hrtimer_handler() (core.c:1278) on the freed cpc: it
+> calls perf_rotate_context(), takes the freed cpc->hrtimer_lock
+> and writes cpc->hrtimer_active. KASAN reports the UAF in hard
+> IRQ context (swapper/N).
+> The embedded variant (put_pmu_ctx() at core.c:5277 ->
+> free_cpc_rcu() at core.c:5262) defers the kfree by one RCU grace
+> period but equally never cancels the timer, so the window merely
+> shifts; the plain-kfree path above needs no events to have ever
+> been opened on the PMU.
+>
+>
+> * How to reproduce (deterministic, ~30 seconds)
+>
+> A minimal PMU driver registered through the exported perf core API
+> (perf_pmu_register/perf_pmu_unregister, EXPORT_SYMBOL_GPL) -- the
+> same lifecycle an unloadable PMU provider module or an Intel uncore
+> PCI driver (arch/x86/events/intel/uncore.c, uncore_pci_pmu_
+> unregister() in 7.3) goes through. Module source is inlined at the
+> end of this mail; usage:
+>
+> # build against the kernel under test
+> make -C <kernel-build-dir> M=$PWD modules
+>
+> # in the guest (root):
+> insmod r6_repro.ko
+> echo register > /sys/module/r6_repro/parameters/action
+> echo 10000 > /sys/bus/event_source/devices/r6pmu/perf_event_mux_interval_ms
+> echo unregister > /sys/module/r6_repro/parameters/action
+> # wait up to 10 s for expiry (or just keep the system busy);
+> # KASAN splats start immediately after 'unregister'
+>
+>
+> There is no interleaving window: register -> sysfs write ->
+> unregister is purely sequential. On the 4-vCPU KASAN VM this
+> produced 72 KASAN slab-use-after-free reports within ~10 seconds of
+> the unregister (histogram: rb_insert_color 19, rb_erase 18,
+> perf_mux_hrtimer_handler 12, timerqueue_linked_add 5,
+> rb_erase_linked 5, __hrtimer_run_queues 4, _raw_spin_lock/unlock 6,
+> __remove_hrtimer 2, hrtimer_start_range_ns 1).
+>
+>
+> * KASAN report (expiry-path witness, one of 72)
+>
+> BUG: KASAN: slab-use-after-free in perf_mux_hrtimer_handler+0x8b/0x5e0
+> Read of size 8 at addr ff11000001d09600 by task swapper/2/0
+> CPU: 2 UID: 0 PID: 0 Comm: swapper/2 ... 7.3.0 #1 PREEMPT(lazy)
+> <IRQ>
+> perf_mux_hrtimer_handler+0x8b/0x5e0
+> __hrtimer_run_queues+0x166/0x340
+> hrtimer_interrupt+0x1d2/0x320
+> __sysvec_apic_timer_interrupt+0x62/0x1a0
+> sysvec_apic_timer_interrupt+0x66/0x80
+> </IRQ>
+>
+>
+> Allocated by task 29:
+> __kmalloc_cache_node_noprof+0x17c/0x3a0
+> perf_pmu_register+0x196/0x5a0
+> action_workfn+0x17b/0x230 [r6_repro]
+>
+>
+> Freed by task 48:
+> kfree+0x121/0x390
+> perf_pmu_free+0xc2/0x190
+> perf_pmu_unregister+0x497/0x620
+> action_workfn+0x217/0x230 [r6_repro]
+>
+>
+> The object is a struct perf_cpu_pmu_context (kmalloc-256, KASAN
+> tracks the allocation inside the per-CPU loop of
+> perf_pmu_register()). The full serial log (72 reports, all three
+> stacks for each) is available on request.
+> Thanks for taking a look.
 
->       drm/panel: remove drm_panel.connector_type
->       drm/bridge: anx6345: set the panel orientation on the connector
->       drm/exynos: dpi: set the panel orientation on the connector
->       drm/fsl-dcu: set the panel orientation on the connector
->       drm/logicvc: set the panel orientation on the connector
->       drm/stm: lvds: set the panel orientation on the connector
->       drm/sun4i: set the panel orientation on the connector
->       drm/tegra: sor: set the panel orientation on the connector
->       drm/panel: drop the orientation workaround from get_modes()
->       drm/panel: read the panel orientation in the core
->       drm/panel: use the orientation from the panel core
->       drm/panel: remove the get_orientation() callback
->       drm/bridge: add the connector_init callback
->       drm/bridge-connector: let the bridges set up the connector
->       drm/panel: let the bridges set up the panel connector
->       drm/panel: set the orientation from the connector_init callback
->       drm/panel: make the disable and unprepare callbacks return void
->       drm/panel: don't hold the follower lock over the panel callbacks
->       drm/panel: route the panel calls through the bridge callbacks
->       drm/panel: let the panel drivers provide struct drm_bridge_funcs
->       drm/panel: novatek-nt35950: provide struct drm_bridge_funcs
->       drm/panel: novatek-nt35950: use the atomic state to select the mode
-> 
+The analysis looks reasonable, we need to cancel the hrtimer before freeing
+the cpc for each cpu if the corresponding hrtimer is active.
 
--- 
-With best wishes
-Dmitry
+Would post a patch to fix the issue later. Thanks.
+
+
+>
