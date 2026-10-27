@@ -1,52 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092734;
-	b=PyP4Pge4ObT+ziRw9urD/FYsEq6LKHbA9SXXF/Cx5OAkI+jfkgISKMWLpZU69hxnEf2y
-	 vwc66C+LJdAPb18SDTSsY1Blbv+nFZx3gTX5B5HHRxvBsRcVx02sowBMW8H4XSifY7WU2
-	 7/cQuOD8gA1JV7R8ej2irLN8bNpDEttNApMZ3pK6mDQyTtz03jEnox6wh0vlibS7jct/b
-	 Z80BYO0/aeviF23QKIyNYC4mjLcFax1Z0svTaEKRHCSarzlHDfH7SCxqPZOdLNmdS6enX
-	 yV4014zApFCP+CM121u6p13TrQj7NfnEoHBWQC4+PzJss7PNxoNFg6RRvjgIYTyZc9Q==
+	t=1793092747;
+	b=grfx+LCugneZiFivawUzIpK5ekT+8G5IRx7K1mVDE36GeEgW3TDhYNhN2JsUutbcpHK/
+	 UEmErFFKHBn4Q48qtllt7XpuDX3TuRnFHFoe+pmLaKRFiB6oAjFmMzdtbeuZQThYKvYvD
+	 rMjj5xAsX9oezs4Xhg/P77WxZxn/vF543PZl4lrPF4VHg5fyFBsNE8aAWKAOrYQZ24rNI
+	 hPCkrwHhArBdbmVXSIcqUPK5LVQN/B7Wr5OR/pBS5i4L09pS/kOVr8mmivaVZKGMpW16B
+	 VfcgXIf5e83ZUXrIg00sqlNbSP6h9jCTGsKTfU5ESxkQPPoqv1imrrBjsHJrajGbi6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092734;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=X0pd8nSiY8Zw7J+PG/0C4cmjY7lSYmmgt38+MBBu3fY=;
-	b=2uHuvyrlNmrwWq7RRVZ/Zv08LzURm0D2aElS+UQpavRCY/GOGnriGdWYgiGsgG3R4Z/A
-	 mI3zxDMlpAtVXRg5GI/BbGgbiAI+SzZiYq3zBcQM+0d1v3S9Pjxbge6pZONvw7QkJ6Maz
-	 sl/cWNpNfI8sxilhpbzMKDd0rHYFkxx6QQWxjosfQ4DhAy1W79WNtdbeejrbWb2R1tDiX
-	 cCVpwMzbgwwA/8jq6hVQW54eEAl//4WZ74RzCpamDSTYJVR8SP93hQdlyk2TRnO12Yocm
-	 VvhLizugJ7rwho+4ivOFv80Yb72+PmFf6+SZWpr2FPhueCTulyoNUzG+/OikoOA5iQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092747;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=w51d3Ey+37TwEHPT+bpsc9olaubKgaBtRO6hacL921I=;
+	b=ZaW4eWHuFfugRZ53FzzB1efciXlo3BrWHonPfRLnaamHFg1q86rH8aWNWRWbmG8SBs7k
+	 cMhVagL0ZItAj9BbP2TFb1s+Al3KhelkHPLKqS0ZrNfmrCXzMrq5/5GA2efe/IbSCLS1C
+	 L3In9H8dSKgfIGDaLBiPw4mWfq3rNb61obaZGjoRaZCEOD21NMZsyRkeCzB7jHgqUSH/M
+	 +cvfwH6Qz18vKIbBlz/eY4pwEUkPWAtMGACEpXpyxpO5NgDHYkR3YW+RV+ITgVRIbrcJ5
+	 tFVZnM7BKfP+LyuT6pehKFdio8y3iYganqzlG8xHSeHeUIXXS3LYpCHfPyAd+pfIspQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=makrotopia.org;
-	spf=pass smtp.mailfrom=makrotopia.org;
-	arc=none smtp.remote-ip=185.142.180.65
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=OnQmH4+W;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85F4606A31A;
-	Tue, 27 Oct 2026 09:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E85F4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xLdHD-0000000021l-066a;
-	Tue, 27 Oct 2026 09:18:40 +0000
-Date: Tue, 27 Oct 2026 09:18:38 +0000
-From: Daniel Golle <daniel@makrotopia.org>
-To: Vishal Satle <vishalsatleit24@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mtd: ubi: nvmem: Fix device_node leak in ubi_nvmem_add()
-Message-ID: <auBsbmS11_TQTryC@makrotopia.org>
-References: <20261027091507.130294-1-vishalsatleit24@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AC9606A31B;
+	Tue, 27 Oct 2026 09:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8AC9606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=OnQmH4+W
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=w51d3Ey+37TwEHPT+bpsc9olaubKgaBtRO6hacL921I=; t=1793092746; x=1794302346; 
+	b=OnQmH4+WofNc7T5cfXGPfnpnGdoiPaw6+ebyeTZM+ltnbWX7BGznmzD5PUSq6+4IzEtVg03qQoT
+	YF4cuA0x0lZJwEjiFbrCsg8Hd03tqFi2oIbANFYnUImX08XeSUNPQ6W0PvlyI/xuoUX4xowSW5vfy
+	Ztkrsw+SaMT+YxiuWLIR0unq5u1Wd/sky2x0roC2W6z7q7THWvsY6blp2c4VCO4JVELnJDWLkyWlO
+	w/hCV9AlHPf+9O/+Gc4JdBdrrHEAm8tqLzgtEFpOyh5tpmNuSCu3u1Gm03xYzKyvbPmuZT5iIVXiE
+	bLc/zMPZldQuO35CDq5D+TX9pAhoYSbUQIMw==;
+Date: Tue, 27 Oct 2026 10:18:52 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, Alistair
+ Francis <alistair@alistair23.me>, linux-hwmon@vger.kernel.org,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/7] regulator: sy7636a: report the temperature
+Message-ID: <20261027101852.39b9031a@kemnade.info>
+In-Reply-To: <CAAxh=jsKe95EsKnTypXtfTxGhYCMO1E7U=hWb3y6DBpgoiOVUw@mail.gmail.com>
+References: <20261026003918.155321-1-pmazzini@gmail.com>
+	<20261026003918.155321-6-pmazzini@gmail.com>
+	<f68279bc-20f1-41a9-ba5c-92b974785cd8@roeck-us.net>
+	<20261027002635.6b831c0b@kemnade.info>
+	<CAAxh=jsKe95EsKnTypXtfTxGhYCMO1E7U=hWb3y6DBpgoiOVUw@mail.gmail.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,27 +67,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027091507.130294-1-vishalsatleit24@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 02:45:07PM +0530, Vishal Satle wrote:
-> ubi_nvmem_add() calls of_get_child_by_name() to verify that the UBI
-> volume device node contains an "nvmem-layout" subnode.
-> of_get_child_by_name() returns a pointer to the child device_node
-> with its reference count incremented.
-> 
-> Because the returned pointer was only evaluated as a boolean condition
-> and not retained or put, the reference count of the "nvmem-layout" node
-> was leaked whenever an NVMEM-enabled UBI volume was registered.
-> 
-> Assign the child node to a local variable and release it with
-> of_node_put() once existence has been validated.
-> 
-> Fixes: 34a5d8525b6a ("mtd: ubi: add NVMEM support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
+On Tue, 27 Oct 2026 07:32:14 +0000
+Pablo Mazzini <pmazzini@gmail.com> wrote:
 
-Thanks for fixing this.
+> Hi Guenter, Andreas,
+>=20
+> On Mon, Oct 26, 2026 at 07:35:24AM -0700, Guenter Roeck wrote:
+> > This is going the wrong way. The correct solution would be to convert
+> > the hwmon driver to an auxiliary driver. =20
+>=20
+> Understood. In v2 the hwmon driver stays in drivers/hwmon and becomes an
+> auxiliary driver of the regulator, which binds the I2C device directly.
+>=20
+But that is a cleanup action, which is at least a separate patch (maybe
+replacing and exending your patch 6). So the other patches can go into
+their separate trees.
 
-Reviewed-by: Daniel Golle <daniel@makrotopia.org>
+> On Tue, 27 Oct 2026 00:26:35 +0100, Andreas Kemnade wrote:
+> > But it introduces another race condition.
+> > The temperature might be read too early.
+> > 1ms delay should suffice.
+> >
+> > The  SY7636A_OPERATION_MODE_CRL_ONOFF flag might be reset before
+> > reading the temperature. If that register does not reset to zero
+> > but just keeps the temperature last read, then we have no problem. =20
+>=20
+> Good points. For v2 I read power good (0x07) and the temperature (0x08)
+> in one I2C transfer, and return -ENODATA unless power good is set, so no
+> locking is needed.
+>=20
+=46rom the data sheet we can ensure that power good occurs guaranteed after
+the first sampling, so this approach is fine for the most common
+use case. It reduces the time window with readable temperature
+a bit more than needed, but that should not matter.
+
+Regards,
+Andreas
