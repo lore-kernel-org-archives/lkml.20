@@ -1,117 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105408;
-	b=jCDGjqrO774v9SasBhjWjuA2U6IYJ4BdThSN80CA/ubTigfMx2LVzJk44lheo6wb5gLm
-	 5DyF+dt8nU5g0qWOFlLV1VLrrS4cKN6bb8W0F6IYnwjtvDiL5qZdr16drUQvmlefCQhHQ
-	 1YPuyDpfDsHn/3XyLLhxC7wWGv1wiGqtUiviPLsD4tv9vxnxm/nDlt+MQsRBJLsNaTVe0
-	 Kic2vh6bbL8wY5HcImjooA+E3TW1JHh1okMocCezj5B0WRV++bjH7wQDtWsLZWgsXCk0C
-	 G8pawLEe9n1kLFybT1vtaJZn4Lf7ZD9mFhccS2K2CRs68mWsmvACBIk55PxTRxe9N7Q==
+	t=1793105452;
+	b=DDeUG01VhbZtjQNp0orqYhM6LuIjkKSXlRLRT35XAIEJ0qBLbhJCy7ALqITS9YxnSgVh
+	 9uULilC0H1hM9xhorkaE3Mwy9tP1G4Lu/HZ5GPyV17CToozeMnqL4PkEFXlgL3SCmgVE4
+	 VejKyogWnXo/TZ1u1LoMHGjggpIESejPiOlc84kMYahGhoyZ/ijgytR6GyuWO8CCZ2PfJ
+	 1sD7Jpsiq+eGQgegub4Yv2cY0Gc7HtAEc4WXB6fM1H6+ZQ8KngE05gzkzYe5L1FhnVRaq
+	 Wasm7hHxC8Wk2Iawycqmimzlx79UmwUgDHmzvrjE2LsWd5ZlGT+SRmSHs6Kh5zd6hKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=5maieUrV3gg0OvUYuumtngfF5Rbt74fkE8XBQYCal3Q=;
-	b=BGeEF9uS4S/Xwsv9eCU12rgLcrVdlVwtEa9UGf1OoP3125+e7V+2KrHEyWoLBd8ULeKd
-	 XHF0q18qCpG1XeZfXIJGHNElmmxAZF0Up9mQ5YiZY4Ttj3UuAP6YpJYRS0AC6nuJ09LaH
-	 yAgo1wvo9MAXjGRVZ3n3oHul8XvWJY6gt+CwMoNBkJyMDWwjm6rI012HRtXBy4721GdB+
-	 Inps9EzuEEKCmCJLCjsskwe8fQxwiTndhrML3bE2TQm/Cj5AzMS+T8A31lgHn2W+6L9eY
-	 mBG5OOUBymfVm48b53zvU4b6ndYduUR1JJ/iqjRe6iBJQ4N70aKCxnPq1PxPcA/+9Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105452;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=2ki1DP5OhpeVVGgytP6sTrVXQsGKeGWZHq3HMgm8Yio=;
+	b=WIvC3IQBYNXNORIxNk6iJLpYx3UPX9MUX66Khdp/7zBh+3gNdu2O5JAYqGKJ6WtC1wb8
+	 i9/gHYT1M/eaq+Y54gHRSWwwOf5A8apo3rvUXenFzQ9m17h8fOc34INPL/hhw/T2ygCkG
+	 uqdiC6JehXs2vBEkj+xtYqfjM/ALOZwwQsZTKeREF3VoDmBVZbWIo3JOzIlxApp+HD/32
+	 VTesGuoRnJYVSVE+ZnpuUPXyEu4v4g5FcJG7+mqkOZoIpuj2x+uWk/S7FgVcogT9HBnVj
+	 dQrU+GlmdXd8nywFyAXyYrzf26Vf1T2kx5pQFJfkLLVE6n0wojgiHqK5217NpqDRUtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hRl9iP1r;
-	arc=none smtp.remote-ip=209.85.167.54
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XQ1GjOgB;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD94660A2606
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD94660A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED9F606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED9F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hRl9iP1r
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1787129e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793105406; x=1793710206; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5maieUrV3gg0OvUYuumtngfF5Rbt74fkE8XBQYCal3Q=;
-        b=hRl9iP1rX7Yescz/IkmbkH6cXyf/ED1aKA7Xz0y5VNBAW8maE8GgmBLi1Wh1HJz5Xq
-         zK07nv2LlnsuYPggwoPLVCpg9cILU7yxCYhUI8kfh//X0q4h84Uxy4WnAqOym2Z8oQ94
-         870cWd01UkCi1PlsYPmlcE4siKtHAmuIkZEvSG/jnBk6fQ5mVK2vhe27IgRTfeNsKKDl
-         YMuUVPSGHaTgX13h5g1TJatd7M9jShSpYRsgvpTcBOVfsiSGUtW2jk4UkN8GZ1buI9G5
-         uY4QIKF9bGFC6ba9VYdtJIgBxMjedCj7bDXcmJ1v/U2lGc93fGlda0Wo+SvL83E1oZsb
-         G2PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105406; x=1793710206;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5maieUrV3gg0OvUYuumtngfF5Rbt74fkE8XBQYCal3Q=;
-        b=0X/eCwWzIIPkR/iDTqA25Abkk5Fw0R0TD27GLl7rDd8jWrMcLomaT+WWPlvUy2hi1N
-         UTOqCxHGVTkuXOKTn2H7ptmaLi3pkoLOOmOFqQgB682mDTQZ9rTEYceMmMm288F9LL5z
-         N9HK93mb2Wfp+N7A8CfWsDwwi3EpNmiw1zfHXRbCrGREQ/pfDxm2xktNHEOgxEkp0KRO
-         iwTPtxY0v5H8ENx29Rn2yhmaiSaMnNsLzBAP5r6oKBmZg4sDQ35Zt5upVY9QKCh4CdVs
-         8xrT61355ccVSj/9xqx4BsNKpW8VOHhDbIX/VOuU+homF8KXk/miTuOWabL25OFe1Yr/
-         h43g==
-X-Forwarded-Encrypted: i=1; AKwUvBzrsJ8dOmpR6n16O9HLRPbwLn37ldmbsB/qpmVIxr9zJRUT9kP6wDsJZgzZLxvSk8DDc6KQcyuAqRbN870=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImAYxBU3xjgUB1XseTVo8Lb3ASmj22YQBxeICYJ/GfBsrcVigO
-	FWIGN8QvB5WWevhggnlhBYTZ7S89bnmXm1XT0DW400rd6kRoRSSg7t89
-X-Gm-Gg: AYBFou1TZKWlcLqq9AA4R6vhpHVx4lNRqyF2GGt90qsj5cTXulDdpFq+1lgO3Q8L35/
-	cGS4hcrcNgHJMGP7S3w27CEB3enGNzO1VjKnZwIE5LaYPyxB0ifdvVXxmsqOVV25DuU1Y+aqCs6
-	WnA9b1ATnY/3FIdUN1DxQxI25/4gcEkDqBj+W3L5coD14KJ0bKr9/UgvcYhajdcMkyYd7cPRVD9
-	mAVbeppRhe981IoPYfxGwZuuW5glksWiGVtvgCokRz+E8MYZwOi+1Wf1m/v89E7ZIS70XjRWaF4
-	3Xj6x9atBL/TNidDSJJGy17JQcqbRUKBRJ5kuCXKTnjCYvq3b2aFbpk97RTCvqaNX19rejxived
-	Ol32vq5d0D5NtVbnhZpv314H+2gxwDRPnP5UWO6PsTew5CyKcCxYQ1OdogMu9Tg5kcdWIv6dWhD
-	M4dC/oKgmZArJC4bBnW8CSvYnzXW2nkB019/hEqb55r71DjZ1dZCerNYUNSVl518kg9iEUrY7js
-	S4b63xUtYOdMnO0mldt2ZFxEYP5oupiTT26nM1ANytInndv7w/RRLUsbM4hCP20/rB8eiw+biJ0
-	hfdK2BIN9qVeTxojHid67Hf7hexdLsDOCWhlZqgt+SaEjUqr0RejS2PJgmkCnyvr
-X-Received: by 2002:ac2:4c47:0:b0:5bc:b15d:beb9 with SMTP id 2adb3069b0e04-5bfb71c6b52mr3628166e87.29.1793105405831;
-        Tue, 27 Oct 2026 05:50:05 -0700 (PDT)
-Received: from yantra.. (nekmmqtcmoboczbkdcs-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:55c8:a52b:6ba2:979c])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7e7cb24sm2052803e87.25.2026.10.27.05.50.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:50:05 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Alex Lanzano <lanzano.alex@gmail.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Guenter Roeck <groeck@chromium.org>,
-	Jagath Jog J <jagathjog1996@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Jinseob Kim <kimjinseob88@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Remi Buisson <remi.buisson@tdk.com>
-Cc: chrome-platform@lists.linux.dev,
-	linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rupesh Majhi <zoone.rupert@gmail.com>,
-	Marco Elver <elver@google.com>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: [PATCH v4 3/9] iio: core: mark the mode lock helpers __context_unsafe
-Date: Tue, 27 Oct 2026 14:49:48 +0200
-Message-ID: <20261027124954.110697-4-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261027124954.110697-1-zoone.rupert@gmail.com>
-References: <20261027124954.110697-1-zoone.rupert@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=XQ1GjOgB
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793105442; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=2ki1DP5OhpeVVGgytP6sTrVXQsGKeGWZHq3HMgm8Yio=;
+	b=XQ1GjOgBvYfqVTmxh2zAtP5fFmvOaFZxJWKLSHWHj0tXKhAQE6yAL+7i8k2fqVpZrj+bduhcjLIyRigrYo67VLKPSw4lh7vDx1RqDlviB3+PVS6xJ1YAO5q/gD3mG4kbJRiKR/IlFFRgJN8MncpTo1GgWTG6oExYu22MkbbH/Xs=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XDdu1Jp_1793105440;
+Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDdu1Jp_1793105440 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 20:50:40 +0800
+Message-ID: <f41d0720-ca14-4aa3-a2e4-3ba2de3280d0@linux.alibaba.com>
+Date: Tue, 27 Oct 2026 20:50:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,42 +53,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] mm: memory: fix truncation removing mapped folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
+ pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <d7f009c90b11ded86654885b5ebcb8c9308fa31a.1793067441.git.baolin.wang@linux.alibaba.com>
+ <2ba579e8-06fb-41f5-9eb2-f02b2aabe29b@kernel.org>
+ <87e32afd-75de-4407-8f0c-fb70b40d5eca@linux.alibaba.com>
+ <81ee2c92-f342-4f7f-aacd-d9558e67a980@kernel.org>
+ <de0b41fb-4ae2-46a5-afe0-c021134ebba0@linux.alibaba.com>
+ <4880d4ff-8486-4e22-9923-bd4f2407b1cb@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <4880d4ff-8486-4e22-9923-bd4f2407b1cb@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-__iio_dev_mode_lock() and __iio_dev_mode_unlock() are declared to take
-and release indio_dev, a token for the mode lock, because the mutex
-itself is private to the core. Their bodies take and release the mutex
-instead, which context analysis reports once it is on for the core.
-Mark both definitions __context_unsafe().
 
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
----
-Cc: Marco Elver <elver@google.com>
-Cc: Bart Van Assche <bvanassche@acm.org>
 
- drivers/iio/industrialio-core.c | 2 ++
- 1 file changed, 2 insertions(+)
+On 10/27/26 6:55 PM, David Hildenbrand (Arm) wrote:
+> On 10/27/26 11:35, Baolin Wang wrote:
+>>
+>>
+>> On 10/27/26 5:33 PM, David Hildenbrand (Arm) wrote:
+>>> On 10/27/26 10:03, Baolin Wang wrote:
+>>>>
+>>>>
+>>>>
+>>>> No, keeping two pmd_none() checks cannot fix the race, as I replied before. [1]
+>>>>
+>>>
+>>> Best to wait to submit new versions if there are open discussions? Because now
+>>> we have the same discussion in two places.
+>>
+>> Sure.
+>>
+>>>
+>>> I think you're right about the race, the issue is that we check for
+>>> pmd_is_huge(), not pmd_present() which confused me.
+>>>
+>>> Clearest to me would be to not drop the second pmd_none() check but move it
+>>> where it belongs: if splitting zapped the PMD.
+>>>
+>>> @@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_range(struct
+>>> mmu_gather *tlb,
+>>>                                   addr = next;
+>>>                                   continue;
+>>>                           }
+>>> +                       /* We already synchronized with concurrent zapping. */
+>>> +                       if (pmd_none(*pmd)) {
+>>> +                               addr = next;
+>>> +                               continue;
+>>> +                       }
+>>>                           /* fall through */
+>>> -               } else if (details && details->single_folio &&
+>>> -                          folio_test_pmd_mappable(details->single_folio) &&
+>>> -                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+>>> -                       sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>> -               }
+>>> -               if (pmd_none(*pmd)) {
+>>> +               } else if (pmd_none(*pmd)) {
+>>> +                       if (details && details->single_folio)
+>>> +                               sync_with_folio_pmd_zap(tlb->mm, pmd);
+>>>                           addr = next;
+>>>                           continue;
+>>>                   }
+>>
+>> IMHO, I'm not a big fan of adding two pmd_none() checks just to avoid an
+>> uncommon concurrent sync.
+> 
+> It's what we already had. We had to: one for handling pmd_none() directly and
+> one for handling zapping while splitting (file THPs).
+> 
+> We just managed to let the second also handle the final piece of the former.
+> 
+> Anyhow, let's get this fixed.
+> 
+> If you think the code is clearer your way (where I disagree)
 
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-index d73f2541375f..e9a5d1d905c1 100644
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -2252,6 +2252,7 @@ EXPORT_SYMBOL_GPL(__devm_iio_device_register);
-  * iio_device_try_claim_buffer_mode() pairs or related helpers instead.
-  */
- void __iio_dev_mode_lock(struct iio_dev *indio_dev)
-+	__context_unsafe(/* returns with mlock held */)
- {
- 	mutex_lock(&to_iio_dev_opaque(indio_dev)->mlock);
- }
-@@ -2262,6 +2263,7 @@ EXPORT_SYMBOL_GPL(__iio_dev_mode_lock);
-  * @indio_dev: the iio_dev associated with the device
-  */
- void __iio_dev_mode_unlock(struct iio_dev *indio_dev)
-+	__context_unsafe(/* releases mlock */)
- {
- 	mutex_unlock(&to_iio_dev_opaque(indio_dev)->mlock);
- }
--- 
-2.43.0
+Fair enough. Though I have a different taste, I'd still like to make the 
+maintainer happy. I'll send out v6 tomorrow following your suggestion.
 
+But could you help check the following whole diff to avoid any 
+unnecessary misunderstandings? (I don't want to give Andrew more trouble 
+:)). Thanks.
+
+diff --git a/mm/internal.h b/mm/internal.h
+index b1b0f29d2216..ffb8eaec90e3 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct 
+unmap_desc *desc);
+  void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+
+  /**
+- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
++ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+   * @mm: The mm_struct.
+   * @pmdp: Pointer to the pmd that was found to be pmd_none().
+   *
+   * When we find a pmd_none() while unmapping a folio without holding 
+the PTL,
+- * zap_huge_pmd() may have cleared the PMD but not yet modified the 
+folio to
+- * indicate that it's unmapped. Skipping the PMD without 
+synchronization could
+- * make folio unmapping code assume that unmapping failed.
++ * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
++ * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
++ * for the table have been removed, but nothing orders the pmd_none() read
++ * against later mapcount reads. Skipping the PMD without synchronization
++ * could make folio unmapping code assume that unmapping failed.
+   *
+   * Wait for concurrent zapping to complete by grabbing the PTL.
+   */
+diff --git a/mm/memory.c b/mm/memory.c
+index e911e63ba1ed..e0fef107a022 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct 
+mmu_gather *tlb,
+                 }
+         } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+
++       add_mm_rss_vec(mm, rss);
++       lazy_mmu_mode_disable();
++
++       /* Do the actual TLB flush before dropping ptl */
++       if (force_flush) {
++               tlb_flush_mmu_tlbonly(tlb);
++               tlb_flush_rmaps(tlb, vma);
++       }
++
+         /*
+          * Fast path: try to hold the pmd lock and unmap the PTE page.
+          *
+@@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct 
+mmu_gather *tlb,
+          * to hold the pmd lock failed, then we need to recheck all pte 
+entries
+          * to ensure they are still none, thereby preventing the pte 
+entries
+          * from being repopulated by another thread.
++        *
++        * Clear the PMD after the rmaps for the table have been 
+removed, in case
++        * an incorrect mapcount is observed after unmapping the folio.
+          */
+         if (can_reclaim_pt && direct_reclaim && addr == end)
+                 direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, 
+&pmdval);
+-
+-       add_mm_rss_vec(mm, rss);
+-       lazy_mmu_mode_disable();
+-
+-       /* Do the actual TLB flush before dropping ptl */
+-       if (force_flush) {
+-               tlb_flush_mmu_tlbonly(tlb);
+-               tlb_flush_rmaps(tlb, vma);
+-       }
+         pte_unmap_unlock(start_pte, ptl);
+
+         /*
+@@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_range(struct 
+mmu_gather *tlb,
+                                 addr = next;
+                                 continue;
+                         }
++                       /* We already synchronized with concurrent 
+zapping. */
++                       if (pmd_none(*pmd)) {
++                               addr = next;
++                               continue;
++                       }
+                         /* fall through */
+-               } else if (details && details->single_folio &&
+-                          folio_test_pmd_mappable(details->single_folio) &&
+-                          next - addr == HPAGE_PMD_SIZE && 
+pmd_none(*pmd)) {
+-                       sync_with_folio_pmd_zap(tlb->mm, pmd);
+-               }
+-               if (pmd_none(*pmd)) {
++               } else if (pmd_none(*pmd)) {
++                       if (details && details->single_folio)
++                               sync_with_folio_pmd_zap(tlb->mm, pmd);
+                         addr = next;
+                         continue;
+                 }
