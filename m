@@ -1,95 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793080207;
-	b=3qev1uaqlyHHlPpIx2BxVzH7tmXHN9s7mRI8uwzWtWYTW8m+5gtmwlz3AWQgDQ+N2PAf
-	 4sYRvjTwXZ/5IYEsukIxGcYX8s5/fdyJI9O2c7SoDLmqrLDi2r4WN9rL6DGYhcO1rvSMT
-	 JrQPS1O5YXfqGbak2Gm17C3NeELol1Gx+FKOiUaKd09h/kXFJjlbEJ5FxV6Qx8s/FaV9f
-	 c9YqRYoSNslqeVLnI4PuBRMHVxhAsGTMXvo089enJ2zy1iDyFtzFjtRZ6FSujOiGAgzUk
-	 k7IvluWVdmm1el7SEABO4Jhdi/BtYzsvzejEtcZgCeWXGv8mI+aUfgZ5ynR0MmQRV7w==
+	t=1793080214;
+	b=SFOv1rRfL2DgTPozxTtKEhX17/OhkfzPr6kD1HJGQWTur/OGKmYX2JfXq5FIf6pMylxK
+	 3o/QSrK7u1Ag87rZDBFhDl7DQZ1dZPP03ljTTJ86OZTecSIUB2UeoZyUc4apNANp9B/fN
+	 yMh4CRzhN3VTT6PxENINxHBxiPinXF5rt/wSAm0HDv7oODU+DTWMvgdI8V4ST4twCad01
+	 xqbpebBDnjf+bb0wXKJzLl9W5djFTdRzvwSYrkOSwLIeBMmmXEX/edfPDVCKb8WrB0IwS
+	 2O8GWhi3T8y/dv05XuiPYqQPG0M6hGy+Z++bQXuE+u5xhi4X8pbWtl5bcZ4F4slfUlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080207;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=X+HEVGecC2vlXZIUhRdFDMRPIoGMulv5Gor7+ZJ0UO8=;
-	b=X2+roAA6guWdOFrTajady0edNSjdMD2iQODAh12S62fuM0r848Hm+ltyhRajoef2DmMg
-	 G7F9PmDZ1h5aP8yqBPSF1g39GfGFAVkkITyt/mG6SO2A8TPi13fYO111dGhmOQmSZZDkw
-	 7qUAXTom7JXpA5QhretkEfDPqGWXBrM+XI9koTM3kD4+Vbup8T4ywT5Yi6sCNsy8k4nRy
-	 Zul/TeN32+dunDDUpQLJVnaUy1Uz6UF/5hcvkr+RACgDIHOEnXnZ3h/+3wpvmO47d7JFa
-	 on6XF7noHP5mCM6nPDtbJcEFSHjzKNPW4ceApQzz6x6zh0XQUz9iaNM3clprtMiGaSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080214;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=dH+1qS3r3/qThoPs/bcfpRZ8WDJsMNF5jVHZIGMNezg=;
+	b=c3zqUQRpR0fNFEr8UtAd1TPSNqp2dJ6riv2P1n2Uj8+BikKBfi7WGXy9PnOuQMUnPRZw
+	 aZBmqmPHY4vB9KDc/YWsKm2sgVTs3O8hNNzxaAbtRaiTOV2GQ8CGcfISauP1kuvA7PfDt
+	 cA8chfBdMuwUaNGDsFvaDzMrSo9ttpnRmcUFyqFRNelHh2gN4h2Qe53i522Sq5UT5DFK4
+	 +82esOhryj3t9ap+9Lv8poXGIMcw9KqHC0kUS6PmMtROhmhv0YAJHrLWKeE3/aTlSzKLK
+	 gZQwcbSWbzROteySkj/cmPAyod0DOXd0vKPwpE9NEEL7dEJDaQIEQoFy5sCaOkCkpmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ToKTNQZX;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VN52ouDJ;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C53606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5C53606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9EA606A327;
+	Tue, 27 Oct 2026 05:50:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A9EA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ToKTNQZX
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso2389954a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:50:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793080206; x=1793685006; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X+HEVGecC2vlXZIUhRdFDMRPIoGMulv5Gor7+ZJ0UO8=;
-        b=ToKTNQZXU5vtYdFpwJz06UoiHgvDUuuQECwXprnOXZ/Vv1ArKBaEkMhy3/b63PB1EU
-         kyrFbyJt3DKfvgjNG/qaLiW7NqUt3LuQ9qZ52chCfP6Z6IdncHUuYZ0Bs+yRSH2jO44D
-         6ssJVtrjKeGzPGfOZp+/ESPYQxx1DUTRSSGfPSOjyVnLGPYKb8gV8ADUqL47McsIoySs
-         ItRVq+Yy8QWvRBB9P0CYSAx8B6wy5AQKeaoFg2l0H6JSkia+oetiT8Zj67dpXGCCbUxa
-         CKbRar2gVV+n4EuCO/oruYIaIaPfWRj/HP7moFIEIYsMBjuo90C2I2fDpI+GQgS3sfd+
-         q0CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793080206; x=1793685006;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X+HEVGecC2vlXZIUhRdFDMRPIoGMulv5Gor7+ZJ0UO8=;
-        b=RpOI7Nv57rP1JLjF+FIIpxpwWPyReb2IwoGVqa+6sBToaZm+alsRRDV2Et6V+b/i8m
-         igD9i3LlH6eqzb16w6XJ9mXawowEevwdr1a6Dp2jAijYe7p15dcxUBlJuPsv0ABjQNGO
-         FwcDXRGOCYoChvfq/k//C5bntyRN72yT8rIppMjmdq0NFXn5TAUhDgpwxKN1jijdxzZB
-         XRs2jHohqmYYEmphtGoyE2OVSRt7hC+a5jhCOS0HttFBiH3AA7z1g0mv/01NB4IImS+e
-         5FbjiN8mbY/puKEG1pBDT15x74ExcFoGbx0H+ssiXFdw8VaPA+7S/F+u85J1siSV0awG
-         IRFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0OOcTU1fcxsCoFt3X/PDaLVZTWZzjXHofJ+xOLlSCmwZO/vaEwXrrvNYGwEHXRhiY6m8XvDIuF3LYFRQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzub2fkUYDOM0HjmXVIbvES1s+GzVVTXzKz0q5QRC78kmOS1oH
-	pwqri699/V1/eV/8TUhY/6YESqgSY4RSwR/Iq6LKaNHywRC6IlaRfyYy
-X-Gm-Gg: AYBFou0bo3oN+VJLWx8k312pY7RKVYMcrR51qab2LgtbXTo4WsEL2MOpLWJiccXZ9jg
-	P9EAPXPvN5d6tzOX8+O4I/W8GbYVXHs3gAm2QsJE0PN0bM1PhWtBAT2BOaO2QaTSfWxKg9+PZKO
-	9VN/EShFUbkv9tMbMKy5rGZlq5lQp8wYwOvKY0DP5d3oZoTXYSjNiAljMjkBWTiGgDo40ZFtT+K
-	se8ERVgGJ16Ux9IhrzOg0473uaRYiO2YELaym8vMP8rVerJjZ5QHVgqAcHSmGq8Tz1PMznEeBcu
-	MzbiKwxGfJ1o2kcoIsYLd2xaMJR5Gte3fJ7mM/TWHgJ2ch11fPSSsoyw3WXh6/zRyDFcynmi5BE
-	C85Z6cy/98A3UxhZtpxDfNfPYrbF3619oSJXddWAmPCeU7Si+XfhprS83Q4TIFxDk6ml6qRGGzu
-	cx8Bqh3OsmDgMIaID9wF8obuFYyVKJvvEdsLVuDr7CkNcN3UaaNV4sM6EwRoJVQJ7COWraGIL6i
-	1Zcc0dnao0TbLKdERgpntrlnYLDllXh7QkgWMMgifiTw1dNuPJrDJw705cpjlSWVAHgbSeDSduX
-	1MyWdtjrImELV2GK3wM=
-X-Received: by 2002:a05:6a20:5482:b0:3e2:b31f:b3c4 with SMTP id adf61e73a8af0-3e7bfbcbadfmr6078616637.43.1793080205882;
-        Mon, 26 Oct 2026 22:50:05 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc666e9sm2190321a12.15.2026.10.26.22.50.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:50:05 -0700 (PDT)
-Date: Tue, 27 Oct 2026 14:50:02 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Baolin Liu <liubaolin12138@163.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, wangxuewen@kylinos.cn,
-	wudandan@kylinos.cn
-Subject: Re: [PATCH v4 06/31] ntfs: report required system file and volume
- metadata errors
-Message-ID: <auA7imuJoZKDGzpa@hyunchul-PC02>
-References: <20261020084421.2196486-1-liubaolin12138@163.com>
- <20261020084421.2196486-7-liubaolin12138@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VN52ouDJ
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69R5nWhqD701598, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793080172; bh=dH+1qS3r3/qThoPs/bcfpRZ8WDJsMNF5jVHZIGMNezg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=VN52ouDJwmzTdlQG+++aCY8axAkumQe6RJ9XGHpLcMPAjjDdLbZiYxgtuctwNTLXx
+	 TAOO+unwUfOeir/gNyfNih1EwJdaubbdduk5atv1ufvygNAvcthcnKdyS7B+l59Qz5
+	 8tNB2ihWBOAUCNkhqbdxxqZ89JF0hrsXm7VQMmlgfDnlWzy0gQ4H6lBTvqygdD9seQ
+	 yCgKK9Nnc6QgnZMji7BMZVe8RtmZEALvoGJgO9PlU0jt1omvh/Jd8NIHTj9vafwMjD
+	 j1hKjWYcjP393Ji+eXKtpOb8RCAJCIP7/AcLYwJR80GbVy3z0In0W7r+ZWqNHjj+uU
+	 tnLZobeY4LRnA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69R5nWhqD701598
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 27 Oct 2026 13:49:32 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 27 Oct 2026 13:49:33 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 27 Oct 2026 13:49:32 +0800
+Received: from RTKEXHMBS03.realtek.com.tw ([::1]) by
+ RTKEXHMBS03.realtek.com.tw ([fe80::f36f:a844:4916:93f2%9]) with mapi id
+ 15.02.2562.049; Tue, 27 Oct 2026 13:49:32 +0800
+From: Hayes Wang <hayeswang@realtek.com>
+To: Linmao Li <lilinmao@kylinos.cn>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
+CC: nic_swsd <nic_swsd@realtek.com>, Chih Kai Hsu <hsu.chih.kai@realtek.com>,
+	"mail@birger-koblitz.de" <mail@birger-koblitz.de>,
+	"zhangxiangqian@kylinos.cn" <zhangxiangqian@kylinos.cn>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH net v3] r8152: Use BMSR to detect the link state
+Thread-Topic: [PATCH net v3] r8152: Use BMSR to detect the link state
+Thread-Index: AQHdZOi1SWakue5+fUmL1fScAZd2QbcQ421w
+Date: Tue, 27 Oct 2026 05:49:31 +0000
+Message-ID: <65b2cd5e124a4fee9eb5b013e4069e44@realtek.com>
+References: <20261026012345.1902285-1-lilinmao@kylinos.cn>
+In-Reply-To: <20261026012345.1902285-1-lilinmao@kylinos.cn>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,30 +92,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020084421.2196486-7-liubaolin12138@163.com>
 
-> @@ -1685,23 +1718,29 @@ static int load_and_check_badclus(struct ntfs_volume *vol)
->  	size_t i;
->  	int err;
->  
-> -	base_ino = ntfs_iget(sb, FILE_BadClus);
-> +	base_ino = ntfs_system_iget(vol, FILE_BadClus);
->  	if (IS_ERR(base_ino))
->  		return PTR_ERR(base_ino);
->  	if (!S_ISREG(base_ino->i_mode)) {
-> -		err = -EIO;
-> +		err = -EFSCORRUPTED;
-> +		ntfs_report_metadata_error(vol, -EFSCORRUPTED);
+Linmao Li <lilinmao@kylinos.cn>
+> Sent: Monday, October 26, 2026 9:24 AM
+> To: andrew+netdev@lunn.ch; davem@davemloft.net; edumazet@kernel.org;
+> kuba@kernel.org; pabeni@redhat.com
+> Cc: Hayes Wang <hayeswang@realtek.com>; nic_swsd
+> <nic_swsd@realtek.com>; Chih Kai Hsu <hsu.chih.kai@realtek.com>;
+> mail@birger-koblitz.de; zhangxiangqian@kylinos.cn; linux-usb@vger.kernel.=
+org;
+> netdev@vger.kernel.org; linux-kernel@vger.kernel.org; stable@vger.kernel.=
+org;
+> Linmao Li <lilinmao@kylinos.cn>
+> Subject: [PATCH net v3] r8152: Use BMSR to detect the link state
+>=20
+>=20
+> External mail : This email originated from outside the organization. Do n=
+ot
+> reply, click links, or open attachments unless you recognize the sender a=
+nd
+> know the content is safe.
+>=20
+>=20
+>=20
+> r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
+> BMSR_LSTATUS can remain latched low after link up. Since
+> commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
+> cable is not connected"), the first speed query can then report
+> SPEED_UNKNOWN, which applications such as NetworkManager may cache
+> until the next carrier change.
+>=20
+> Use BMSR_LSTATUS in set_carrier() so a latched link down can turn
+> carrier off after the link has recovered. If BMSR reports down but
+> PLA_PHYSTATUS reports up, reschedule the link work to read the current
+> state without waiting for another notification.
+>=20
+> Tested on an RTL8153B: NetworkManager reported 1000 Mb/s after 3 of 3
+> rebinds, instead of an unknown speed.
+>=20
+> Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network ca=
+ble is
+> not connected")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Hayes Wang <hayeswang@realtek.com>
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 
-ntfs_report_*_metadata_error() calls seem to be repeated across serveral
-functions. Would it be possible to move and call them right before
-returing from the fucntion? Also, could you apply the same change to the
-other patches as well?
+Reviewed-by: Hayes Wang <hayeswang@realtek.com>
 
->  		goto iput_base;
->  	}
--- 
-Thanks,
-Hyunchul
+Best Regards,
+Hayes
+
