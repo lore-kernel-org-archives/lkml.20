@@ -1,63 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793143178;
-	b=25JrBPHNzEfO0DUuJMt176sXYTYTaB7KVI50vUZpWCr/qKdaxOoCF6q5zFN+T6iuBE5a
-	 jbpRkUnX5ke2HN6qI43+4TOqkP0X6cyK/ZO7OTH+Qo5YAaBS8fpTvi+5+uD/tOECWSOIR
-	 qpeqSl/FQW6jbJty7tSH54CVrExBzGFFtXYrIgjtJlERVUZF2Q/q7x9ihY7mE7bv0/1j8
-	 zVJoIdKR88ksu6N3dzK9nOOTWglimM6Zop4PjFD7z8F6/+i0lfx5AfpFc1De5NWt9nhrE
-	 i/hF5EPq9aSfYHmqxQl+HLFmUsrR6xWj/lVFCYH2M2Q+HY+ipKcpCfH8av9xDQO0biw==
+	t=1793143208;
+	b=MQJvj3UdXRfltSqaPAKOsg6zodL77rQiLI4+R6kcp8o+vU7TQ5EAlx20gAQIQ42ZfCuJ
+	 oZYEHCdbubwt68DBhNgpbWZLJ/ncs705u8JasLh17bH8z0+msmRLorz95f7AtcWY2/3ui
+	 08QrGXrzHHL4QKWIUTcNJTjp/FLC1s3wWlWHxLxJ4mg3+jlNeHRIpsp3ZSa9R2pqdc17C
+	 +wJKFz0E84Ci1fevXMP2d/Mb3qdSTM3Ys9dPszV9rqEPh/7O5+Rb077GtISROJAaqMAux
+	 sOjfHdlbvMmt8J+8sUsFacxNUU3zmlQ5/tiQyjRHEg8ANjU/hXGwYAryPngBeUrEVgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793143178;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gcC21IdQ6bspw7TEhlauUEjBQvyVhgVj7MtVw7/gPRo=;
-	b=bTPZ6aMtDc0hI46AMVm4cDJd5UqfJrNs8snbua2LOC1rCqqY2/p6/JhSezJp1Yz/cl/d
-	 B4uumYHBE8iFSjUABnp/r101kUPVb1fDCVKOEggCdgDp/HDAgUrYrTCMQtDbFvW1QXB6P
-	 7cPbQVWDFYKyqhlbwgS2DMKcBzpCx5RBh7tXJ/MQiD/OALBTb3I3GsMrEn2FLNaW8nwpH
-	 EW0AFvzGQoRFgDoW0MBW7+v8x/6hOOGa1dQUAOHpGwE2uOVvdjh1MczmtNryCaR7dXM1M
-	 VdrE7h02ox7w+ZdlbqJEaMQzNsQhjMI40f7MY4IkgkL1sa3EUrZyl0hjoVGwfj4M68Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793143208;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=C1YzYxWQLlY0bleKlsvWkmwPfmAxiSghc2kv9ELLlIg=;
+	b=2R6HcNPgLhE+vPAp239xXTjtvCSIRMOUqfTxkIxK2p0kHhlWDXvr6RJUt/FtzMJ7FKI6
+	 6NPNSNdOvQ01CuE7b33riXYDVdcHCUImJop8o52L/y7Tk/56fQPSONNLTOsF+M+QXQtCw
+	 R6C6zUye8kPSVbhLcpY9MNOESAUNPDNBel6zGvDqnJWa9eZrmytNnz8ontD1XiuqB1dWd
+	 Vi0dV2eBh8bow/YByrLrLbResudiMQE4IjPUzpOmtaWmFZfT3vVhj7L4tiuZwksHqjguj
+	 /i/V1BOlbhEr8W+g0BrjXpB/jlHyHVONWfPKp1zP0pzT1G3N1Vj2G97vXo6V5noDJvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgjbfQwc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KpnF4ims;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CF9606A31A;
-	Tue, 27 Oct 2026 23:19:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0063E606A31A;
+	Tue, 27 Oct 2026 23:20:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgjbfQwc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08BED1F01825;
-	Tue, 27 Oct 2026 23:19:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KpnF4ims
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7641F01825;
+	Tue, 27 Oct 2026 23:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793143177;
-	bh=gcC21IdQ6bspw7TEhlauUEjBQvyVhgVj7MtVw7/gPRo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VgjbfQwcwbx4G42W26MolZaeZmmXJ+28ATNkVJuDLpN6KYpStv2PVQpQCZthLi0Sy
-	 Vg0fSiXXlPFlQ2xu6X1+pCN+9q6fY7DXGldExk148QvFsIMOnibTPS5MsHvQvqsHGo
-	 07mQQeDmtm7rZSrNK8pHGNFYOR5ywAuC4MhrwEaXpmUq8KKc33oP7JqKe0HzJxHc4Y
-	 cvsHOp+fAuG8FjhIKLfqOa3ge07+dILxP+q5mEHAnecHIR/yExBg4iTxMbXktXJjd7
-	 WnCBeJjmEbHqadHxsujCA5q1asob8LX6bl2nZWJtVF+b9irHKjGz47+rLya+R9tQ2D
-	 P1OmVj1Q4oAaQ==
-Date: Tue, 27 Oct 2026 16:19:35 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Leonardo Bras <leo.bras@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Tian Zheng <zhengtian10@huawei.com>,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/3] Set DBM bit on writable pages
-Message-ID: <auExh5laWQbUKmUY@kernel.org>
-References: <20261026144413.441566-1-leo.bras@arm.com>
- <at-lSy7H-K60LhCB@kernel.org>
- <auCOj9dgk42AE1WX@LeoBrasDK>
+	s=k20260515; t=1793143207;
+	bh=C1YzYxWQLlY0bleKlsvWkmwPfmAxiSghc2kv9ELLlIg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=KpnF4imsBD0T6IoQiPgmxaGepdupRSon4aahO4eWlEZs5aGsVNiRzPO8+365wWBMD
+	 kOKSNxWf02IlCKUsYMxbC1WrOdcyYNno9LzWYRnmo0F+QqlUbuwQ2xFCBE+ZLGc9lX
+	 x7iC7/cMtmmO3FVY+4JAumNwUA5jERFt5vvm2CpfvhUUxIY/QMBgnkpWjKcBYbmJgj
+	 zaTfqpM1TGXjBQr5afGTAWrP1pU9uT5zohdE3tM2P8HtxKvHI6RczMUvn7E+kyw0WD
+	 NZZlOwegWYLcvAjv3P5AF9oOFDf+7tU7bOAuDSxBKIXr8sgDb/27im7yb6v3PNCC/h
+	 Cptp46wlUx56Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 815AB3AA9413;
+	Tue, 27 Oct 2026 23:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,77 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auCOj9dgk42AE1WX@LeoBrasDK>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2 0/2] net: dsa: mv88e6xxx: 88E6171 stats fixes
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179314320632.387971.15732408988094892405.git-patchwork-notify@kernel.org>
+Date: Tue, 27 Oct 2026 23:20:06 +0000
+References: <20261026164733.737299-1-f.fainelli@gmail.com>
+In-Reply-To: <20261026164733.737299-1-f.fainelli@gmail.com>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org
 
-On Tue, Oct 27, 2026 at 11:44:15AM +0000, Leonardo Bras wrote:
-> > I'm pretty sure I shared this feedback before, but patches that enable
-> > DBM do not make sense in isolation. We need a single series that
-> > contains the DBM enablement as well as the corresponding HDBSS support.
-> >
-> 
-> Right, 
-> My reasoning is that we can discuss this new version, and make the needed 
-> changes, so Tian could pick this for his own patch series for the next 
-> version. I do not intend to get this merged by itself.
-> 
-> Next time I will make sure to state this in the cover letter so it's clear.
+Hello:
 
-Can you just work this out off-list? Let's keep the on-list dialogue
-consolidated to a single series to review.
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> > The abstract permission flags need to have a WRITE an DIRTY state, which
-> > we then map to hardware based on the capabilities of the system.
-> > 
-> > !FEAT_HAFDBS:
-> > 
-> > 	DIRTY	=> S2AP[1]
-> > 	WRITE	=> S2AP[1]
-> > 
-> > FEAT_HAFDBS:
-> > 
-> > 	DIRTY	=> S2AP[1]
-> > 	WRITE	=> DBM
-> > 
+On Mon, 26 Oct 2026 09:47:31 -0700 you wrote:
+> These two patches fixes statistics on the 88E6171 present on the Linksys
+> EA4500 router. These changes were found during testing using a
+> resurrected version of Andrew's dsa-tests:
 > 
-> I agree that it could work, and my first version was based on that.
+> https://github.com/lunn/dsa-tests
 > 
-> But looks weird to me that we have to decide the writable bit based on 
-> having a feature enabled.
+> Changes in v2:
 > 
-> Take in account that we can only have DBM being the writable bit while 
-> HAFDBS is enabled (not only present), and that it is just enabled during 
-> dirty-tracking. 
-> 
-> It means we would need to convert the whole pagetable between DIRTY=S2AP[1] 
-> and DIRTY=DBM every time we enable or disable dirty-tracking.
-> 
-> My suggestion with this series is to have WRITE=DIRTY=S2AP[1] at all 
-> times, and have DBM to act as a "can be promoted to writable on write" bit.
-> This way we don't actually need to convert between encodings, and it still 
-> works and complies with the architecture.
+> [...]
 
-There's no such "can be promoted to writable on write" in the indirect
-permission model. This is why I'm suggesting that we align the abstract
-permission bits (i.e. KVM_PGTABLE_PROT_*) with the architecture's own
-abstracted permissions (e.g. uX, pX, RO, RW).
+Here is the summary with links:
+  - [net,v2,1/2] net: dsa: mv88e6xxx: fix 6351 family statistics snapshot
+    https://git.kernel.org/netdev/net/c/9663edfa71e8
+  - [net,v2,2/2] net: dsa: mv88e6xxx: fix 88E6171 statistics type
+    https://git.kernel.org/netdev/net/c/df66431f3942
 
-That composes nicely with nested virt as it is unambiguous what
-permissions we're trying to represent in a shadow stage-2. And in the
-non-nested case you can just lay down writable-dirty translations for
-most things and use writable-clean when necessary for HDBSS.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-> > Beyond making the whole HAFDBS easy to reason about, I want this for
-> > FEAT_S2PIE which reimagines bit 7 as a literal dirty bit that can be
-> > managed by software or hardware.
-> 
-> Humm, and would not that work with the above suggested approach?
-> I mean, bit 7 (Dirty, S2AP[1]) will both mean WRITE/DIRTY, but it will be 
-> able to get promoted (nonW->W, or clean->dirty) based on the indirect 
-> permissions.
 
-There's a bit more though. We need to have an entry in S2PIR_EL2 that
-encodes write permission and select that with PIIndex. So then we wind
-up mapping the abstract WRITE permission bit to two fields into the
-descriptor rather than 1.
