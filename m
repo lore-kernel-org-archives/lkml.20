@@ -1,65 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100340;
-	b=SYXy8mmwpJhx0SxQ2w/FAUKhWXXUxRBO8zVyg3UXajAYXqsBk5NFmc58ktaL/tV77sWX
-	 gKanIUejjHcCmL0gWeSrQ0yyVZs09HLLb/mrd9QOANoiX31OlwDgmoxY7yeC2n7L8LTDU
-	 W4tyuwF1WeHTL0Nll+Ka+VcwM69UVObpeMoGxI0ow0otk4P/nH2UfbA9Lf4S7h3X4+Hf2
-	 yenk5ImoQKL1G9sKGXyHGHyOTXvbGbzzy1eZJ/1kgaeRw6uG5BEidYFa7HjAMTRANWWxE
-	 Ebux2YsdLx4txK2QSTfbK5HvENRXBvlZOcT5J/B+SpYhWkBWNat2zu2H3xRuoPLZ5mQ==
+	t=1793100356;
+	b=w048Tg0qI0JiOZJjJmdLBf0ktnxvvOEmCY2LU6OmfPpGwpwsQ92Om+NGGGsWD6B1sLj5
+	 KO5UMaad5EO3quWGoCna23FuJZFhbEw4BcF0tSfNwTmqrs9zxA9Fh5FMy1tscU6ddKdMP
+	 aFodjS43PMl9Cc/kssdpFH5fRly1bN0jARxnbygp98AFekA1s9X4PvV0ZOi/x/R2x3A6c
+	 Dcx7tnOSRg7aSeOHT1kiimjLjBore0twm+yFQkaSIuzg1+waofvKDLXxF+m8SOewhfue1
+	 Kq82Tz7zFeBQVy1V1XAzzNep7IQxe73MSkypli69Jtj6el5fb+Rgc6Iy+yfMnX9dNRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100340;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=gNaOmLJ54pQ1sRvF3/VAAAqJujB8QNCU6C1ZtrVopkw=;
-	b=EMqVR6ZhD95YpRI/gBrTH1uLQz5Xd/XNomV7ciO82MGAYLqDW8LDpjZCXuW8UFo/YQaZ
-	 DwB6FJO1Hey51CVqNEO/cGAe3TidplB8CD68v/8gdIHwEBej/kxpoV9Do3Mc1F0V0twUw
-	 qKkPXrwVVYenaU/+D2ABB5UGc7kXOQP1qqlJHBrsGc1pKRbLotgPYk+p9LqVFkFiRAFu/
-	 iIAwHx5aEOXS1oSbBxLZwyDfKaVGBiXeaNTryt6YpaHFd3C4/cX+Eel+oEF5DYTBdDLg/
-	 IkO00hJfwY9uSNFjuFoBEraS0k2HWZjE83VjgBYBYqoxa9Q9ppw+Eopwo4ie7LTqqaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100356;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=gV1fCIZW2NicXlmFikXGuq/gfQCQSMfGDpxSV8le4/s=;
+	b=WVOhKKRbRU2vhqwx+7MTLnLtwFT+6a5GMxnY6aWSllGEav4aunEkTAREV8FZchO876Xo
+	 BCE4S8QQDDQNXqLcYyLff9fKLrM+YSwmRmYNXN3HmVE6zQItyv71hcdHHtS5CCtLrMBJa
+	 w2qKrxQ+Pd97i6VXAxpxF2OaVlGgB0wTpqF753MrZSdZfffzitwbROqu743fmRKX+UCoG
+	 TPz3op1O4TCoEalobqtdn4AJNEuTgTSNm+UX7Laq/5iJZcesOxLGoqOO+TvihHQFWlH3d
+	 y3DGSbm7u3QOrMW1mQFGfMEVyI1eBKWn2AG8xGE5JcJlkjrbHe0YIA8AouUmcb29eaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sAX4aqcl;
-	arc=none smtp.remote-ip=115.124.30.99
-Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y1uE8HYU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hspT3pBB;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632C5606A31B;
-	Tue, 27 Oct 2026 11:25:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 632C5606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C77606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:25:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C77606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=sAX4aqcl
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793100333; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=gNaOmLJ54pQ1sRvF3/VAAAqJujB8QNCU6C1ZtrVopkw=;
-	b=sAX4aqclhG3gavWkBfeM4ig7Ez5nXLhBK2ooNXshYWsylEz1TNc8t029AnELw7ZPCKsV+2zTNTrfmzKySDJTRSMQ/GtB8oyw5NBnYD2mrTuq2vM5BRwp3/bYCvyV8ixA+l2ARJ+lIyQX+RQ/qvFrujNGl97FPrcvtp2WCVdorPU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R541e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XDdfyuc_1793100331;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XDdfyuc_1793100331 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 19:25:32 +0800
-Date: Tue, 27 Oct 2026 19:25:31 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: alibuda@linux.alibaba.com, sidraya@linux.ibm.com,
-	mjambigi@linux.ibm.com, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com, horms@kernel.org,
-	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 2/3] net/smc: serialize early link group cleanup
- with termination
-Message-ID: <auCKK_VoWfbT0YH5@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
- <20261013091716.1210420-3-nicoyip.dev@gmail.com>
- <atisUaV2eIC2yTvX@linux.alibaba.com>
- <CAAo+4rXas4BS85yfiDSPvDhzpWkjoKBiZSHn9VeV0VcATTO0Aw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Y1uE8HYU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hspT3pBB
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAdsUu1973270
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:25:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gV1fCIZW2NicXlmFikXGuq/gfQCQSMfGDpxSV8le4/s=; b=Y1uE8HYUsfHvUvss
+	Qj3DmyU2upZPPNVhR9q8/VjNENWt1taFK2PCoNcctzpcVmaHSbLjowUZbGsrD48B
+	p+CrGgHE94fa0P9b8cx+dd5HR4xU7cyc9zzfR3Hs3ENoNyre2PvGr+UOfp/hNpNH
+	y480kMXKzxhXjCExAEON2I8QqphpfXEuE1lVGB7JBLVZy7PuZmS/E7WS/GbXEswp
+	oAY1B3aMUX25/y02/jQZ+OfB/4XfcOhM08IV3mfrM04dEwzZB2uS+ubEmQR8E7j9
+	iRj1fCXbgIWcLnGR7gwMPEHwl2lqJy9qCJYf8H9+AraxJOHnNfdXIhZQjDBV11Cy
+	FAF40Q==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjst1ga5q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:25:55 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5360b8cf8f5so11613701cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:25:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793100354; x=1793705154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gV1fCIZW2NicXlmFikXGuq/gfQCQSMfGDpxSV8le4/s=;
+        b=hspT3pBBz98ehQ5gB/otIzronwEYvfIUdCOzqaFCl0QY8pVVfSubR2y7TKmBkledrS
+         2LZtq7CZnQURD2KZetNdoJQBUiVz4Q0crjcaiDWPRWy9r5hj7/D79U2p3qTi1Ik/VoIx
+         JpjgBsyb0irW3rRK8sIiV77HCIcY4qjw8bNU0Xkv6Vg6OQ2Xskwz0lfpi/3ZnK/cQ0G+
+         Vy9HvymSJj/8+vr0i2Am/GRtUqPganmup5M/to0MqK6cFk9msax/gHn0dP9hK/we1kOM
+         /eat02GGQEe3UUTm0gvKP74vEdFdlmbl1NtSmDVmGhq5Lvi2uA2rly8rwkqWa+U/eeNb
+         1lCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793100354; x=1793705154;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gV1fCIZW2NicXlmFikXGuq/gfQCQSMfGDpxSV8le4/s=;
+        b=jSrDJGblaRdNK2S0Erk991UjXVoyNDOS4I4ip9htNjc8APUOi6RbDk2PfTDzUiFp3B
+         sZnmtYMscC9cNOw5UbZaIPdHZXBE2tQ3rkW6k0XRHJoJHozpwtnzZWuohrUMhXEISKJF
+         aPquuK3nBAvHIxiulD3tNhgp/9yd7UxS8jqAn+J9xKRkmeTbpi74HR/+NECMYvK/iMvU
+         z1lIh8dkR1ZQEUnMSN8mwDZnHVrvWDh3jPz8zVQsCP+SnmgCLkwmtNwffiVq8o6hlOgK
+         JjFOfd7L+msrtpAXVB7c91UHMtWzC4NTsmRBBP4ighd1+pQfyIUsG7qotj1E1bwVzg76
+         prUA==
+X-Forwarded-Encrypted: i=1; AKwUvBydJa1V+neES+WAcz9vfYZxc9d90H4kcTUw9nfYENnz4yBHgUHKKZz1N2ToQfBR9YyiEMeoe3xT8QRT6yg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIv3y9Y28gbmRc4uefdKwwYIUkQDqc8Lus1VWuu8G3Db/6/t6Z
+	4U8mSBz2ZRMuZaIy3DCkmjZtoHsY15Sf8iJkDya11QsFEmPanfTRu/QGW4F2ATaQLZ1WZCs/HBN
+	N0Fvtvul4zVn1m7LtAy8mhDO1Y2js6Jyjhx3pnYP20aafoYTz/qnwEmZZci+Y23tzbFA=
+X-Gm-Gg: AYBFou0eDQG2CCYcNgLo0rA3hCQuam0t6Sp/acV+ygPWzQ12YEHR2GRHz5vMvf27p5A
+	8D+OHMWkt2IhWOBhyZzV3KkOANC/20QI/iTMMBeMglXhntIenzaY/bX6f4JCyPKKxXCAiGEQTHJ
+	80Q1PXfjSKf5l5EZa+0t1JLw+VXBM1Or6MDjT5UXUz/YbbiedLcaqTOOxjRWy3CIW0ZvvbG43jY
+	g147XANuRB+7YkhT/ktN/1BVQq9DwDGXOyK7oDRV2DF+Xft201HqKZCbtYECEqJHtNyRFaPDBud
+	QMVAaWXERiUj6Qdb3VEcKr2m9SMRQ3id5C02MwynfG+cg0YLaq1sHOrEaqQtpPaD9Lod5PEai83
+	r71dWRHMOk6tdYIGpsFYmxw==
+X-Received: by 2002:a05:622a:e0ca:20b0:538:40e2:bba3 with SMTP id d75a77b69052e-53840e30413mr135312781cf.0.1793100354150;
+        Tue, 27 Oct 2026 04:25:54 -0700 (PDT)
+X-Received: by 2002:a05:622a:e0ca:20b0:538:40e2:bba3 with SMTP id d75a77b69052e-53840e30413mr135312391cf.0.1793100353679;
+        Tue, 27 Oct 2026 04:25:53 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b45e167f4esm3315889a12.2.2026.10.27.04.25.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 04:25:51 -0700 (PDT)
+Message-ID: <7e6cfbd2-c54f-4a21-af27-f681e6ea19b4@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 12:25:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,189 +115,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAo+4rXas4BS85yfiDSPvDhzpWkjoKBiZSHn9VeV0VcATTO0Aw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/5] drm/msm/a6xx: Factor out the common BCM list
+To: patches@brar.si, Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261027-adreno-a620-v4-0-b0095e028c76@brar.si>
+ <20261027-adreno-a620-v4-3-b0095e028c76@brar.si>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261027-adreno-a620-v4-3-b0095e028c76@brar.si>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=HJ1WhYtv c=1 sm=1 tr=0 ts=6ae08a43 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=J8-uP8xFOBs1Kl34Lf4A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: Og_SXOvOK06KmRdTJgVwmiLQp4iGjCil
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX5nzJril/bT90
+ nObtE/MjVfXDPadv3NZdGMWiiqdRS8b3uwZ92RXlljYh/CQRwzMz8N54R2JwrZgsZndSPqE8d37
+ q0TtYUK2Ud4YIwwAmJ7jmz4GRlkMKrk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX6cPSJBBEmlqP
+ A2LwljtzuA8/g+TdDRuOfQiT6Quo1POxqFMO70s+OHeOaHSqaljmfBl7zDGfmjg4KYaZ4k7tcVz
+ BHVT59em1glFXO1MUzALydeHNXnAzTRUf4721yk9F6L0BlgJ8rRcDrX7ydoDAa9z9x2Ka+9KytO
+ 6WQD0v2KRebRu18r1kpF3dJfwa1EiPv8zRM8bPERKhbYMdp/71Y2MFX1oVwMHWIaDFUVu2qTyMY
+ hH9msDBvJgmRX2lJWxK/aeJHaydWlrYujrGIY5DQlkEn2c6WDJ3vFjPkcg/nGMZ3cwAPSQSq6DP
+ fiFr+5mrrA9qEfCk+4+qqcwHNwaNthFQ7A/YXWOMTON9fzf5FeovCH7wgolYnSec/UyswSW2WGU
+ /jnCHjcZUHmqTo5xrqW73MVtT26N5OQ4GOMfPh7aXAyChAsYMR3U5f4w/37FBo34I/V/QgHsCm7
+ FaofdJKrsjXciNnAEHg==
+X-Proofpoint-GUID: Og_SXOvOK06KmRdTJgVwmiLQp4iGjCil
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 spamscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270045
 
-On 2026-10-27 19:16:26, Chengfeng Ye wrote:
->Hi Dust,
->
->Sorry for the late reply.
->
->On Wed, Oct 21, 2026 at 8:13 PM Dust Li <dust.li@linux.alibaba.com> wrote:
->>
->> On 2026-10-13 17:17:15, Chengfeng Ye wrote:
->> >smc_lgr_cleanup_early() enters __smc_lgr_terminate() even when another
->> >teardown path has already claimed lgr->freeing. Both callers can observe
->> >lgr->terminating clear before either sets it, then tear down the same
->> >link group, causing use-after-free and duplicate resource release.
->> >
->> >  BUG: KASAN: use-after-free in __smc_lgr_terminate+0x393/0x3a0
->> >  Write of size 1 at addr ffff8880bf2c0300 by task poc/106
->> >  Call Trace:
->> >   __smc_lgr_terminate+0x393/0x3a0
->> >   __smc_connect+0x2e3d/0x4930
->> >   smc_connect+0x42c/0x580
->> >   __sys_connect+0xfc/0x130
->> >   __x64_sys_connect+0x6d/0xb0
->> >
->> >Check freeing under the link group list lock before unlinking the group
->> >or entering termination. The existing locked freeing transition then
->> >claims exclusive teardown ownership; an early cleanup that loses the
->> >claim leaves teardown to the existing owner and does not remove the group
->> >from a device teardown's private list.
->> >
->> >Keep a temporary link group reference across smc_conn_free() and early
->> >cleanup in smc_conn_abort(). Once the connection is unregistered, a
->> >termination worker can finish without taking its socket lock. The extra
->> >reference keeps the allocation alive until the ownership check returns.
->> >
->> >A new group is published before its first connection is registered. Hold
->> >it before publication until registration or failed-registration cleanup
->> >finishes. The reference keeps the allocation alive, but teardown can still
->> >destroy the group's resources before registration. Take the list lock
->> >around the freeing check and first registration, nesting conns_lock as in
->> >the reuse path. Reject a group already claimed for teardown and clear
->> >conn->lgr, since that connection never acquired a group reference.
->> >
->> >On success, acquire the connection reference before dropping the temporary
->> >hold. A later terminator sees the registered connection and must acquire
->> >its socket lock before removing it. On failure, keep the temporary hold
->> >through early cleanup and then release it. Reused groups retain their
->> >existing reference protocol.
->> >
->> >This depends on "net/smc: serialize link group free work scheduling" for
->> >the standalone freeing bool and the locked early-cleanup transition.
->> >
->> >Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
->> >Cc: stable@vger.kernel.org
->> >Assisted-by: GPT-6.1-Sol
->> >Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
->> >---
->> >Changes in v3:
->> >- Serialize first registration with the teardown claim under the group list
->> >  lock, nesting conns_lock in the same order as connection reuse.
->> >- Reject groups already being freed and clear conn->lgr on that path.
->> >- Document the scheduling fix prerequisite in the permanent commit message.
->> >
->> >Changes in v2:
->> >- Pin newly created link groups before publication, covering the
->> >  registration failure handoff to early cleanup. Drop the temporary hold
->> >  after cleanup on failure, or after the connection hold on success.
->> >- Send after the free-work scheduling fix and reuse its standalone
->> >  freeing bool and locked early-cleanup transition.
->> >- Pin the link group across the smc_conn_abort() early-cleanup ownership
->> >  check.
->> >
->> >v1: https://lore.kernel.org/r/20260927063607.3691520-1-nicoyip.dev@gmail.com/
->> >
->> >v2: https://lore.kernel.org/r/20261003183237.2284245-3-nicoyip.dev@gmail.com/
->> >
->> > net/smc/af_smc.c   |  8 ++++++--
->> > net/smc/smc_core.c | 21 ++++++++++++++++++---
->> > 2 files changed, 24 insertions(+), 5 deletions(-)
->> >
->> >diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
->> >index e9f93b3ab435..97b0a0b51066 100644
->> >--- a/net/smc/af_smc.c
->> >+++ b/net/smc/af_smc.c
->> >@@ -1011,12 +1011,16 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
->> >       struct smc_link_group *lgr = conn->lgr;
->> >       bool lgr_valid = false;
->> >
->> >-      if (smc_conn_lgr_valid(conn))
->> >+      if (local_first && smc_conn_lgr_valid(conn)) {
->> >               lgr_valid = true;
->> >+              smc_lgr_hold(lgr);
->> >+      }
->> >
->> >       smc_conn_free(conn);
->> >-      if (local_first && lgr_valid)
->> >+      if (lgr_valid) {
->> >               smc_lgr_cleanup_early(lgr);
->> >+              smc_lgr_put(lgr);
->> >+      }
->> > }
->> >
->> > /* check if there is a rdma device available for this connection. */
->> >diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
->> >index 660cd41ec720..c1bb284c4233 100644
->> >--- a/net/smc/smc_core.c
->> >+++ b/net/smc/smc_core.c
->> >@@ -693,6 +693,10 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
->> >
->> >       smc_lgr_list_head(lgr, &lgr_lock);
->> >       spin_lock_bh(lgr_lock);
->> >+      if (lgr->freeing) {
->> >+              spin_unlock_bh(lgr_lock);
->> >+              return;
->> >+      }
->> >       /* do not use this link group for new connections */
->> >       if (!list_empty(&lgr->list))
->> >               list_del_init(&lgr->list);
->> >@@ -999,6 +1003,7 @@ static int smc_lgr_create(struct smc_sock *smc, struct smc_init_info *ini)
->> >               lgr->buf_type = lgr->net->smc.sysctl_smcr_buf_type;
->> >               atomic_inc(&lgr_cnt);
->> >       }
->> >+      smc_lgr_hold(lgr); /* lgr_put in smc_conn_create() */
->> >       smc->conn.lgr = lgr;
->> >       spin_lock_bh(lgr_lock);
->> >       list_add_tail(&lgr->list, lgr_list);
->> >@@ -2049,15 +2054,25 @@ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini)
->> >               if (rc)
->> >                       goto out;
->> >               lgr = conn->lgr;
->> >-              write_lock_bh(&lgr->conns_lock);
->> >-              rc = smc_lgr_register_conn(conn, true);
->> >-              write_unlock_bh(&lgr->conns_lock);
->> >+              spin_lock_bh(lgr_lock);
->> >+              if (lgr->freeing) {
->> >+                      conn->lgr = NULL;
->> >+                      rc = SMC_CLC_DECL_SYNCERR;
->>
->> This should not be SMC_CLC_DECL_SYNCERR, maybe SMC_CLC_DECL_INTERR or add
->> a new error code.
->
->No problem, I will use SMC_CLC_DECL_INTERR in v4.
->
->> >+              } else {
->> >+                      write_lock_bh(&lgr->conns_lock);
->> >+                      rc = smc_lgr_register_conn(conn, true);
->> >+                      write_unlock_bh(&lgr->conns_lock);
->> >+              }
->> >+              spin_unlock_bh(lgr_lock);
->> >               if (rc) {
->> >                       smc_lgr_cleanup_early(lgr);
->> >+                      smc_lgr_put(lgr); /* lgr_hold in smc_lgr_create() */
->>
->> smc_lgr_put() may call smcr_buf_free() -> vfree(), which may sleep.
->> And you put it in the spinlock.
->
->It seems the smc_lgr_put(lgr) is added after the
->spin_unlock_bh(lgr_lock). Were you referring to another lock held by a
->caller? I will keep this unchanged in v4, let me know if anything
->should be adjusted further.
+On 10/27/26 8:14 AM, Ishu Brar via B4 Relay wrote:
+> From: Ishu Brar <patches@brar.si>
+> 
+> The A690 entry carries a list of the Bus Clock Managers it votes for
+      ^A623
 
-No, I mean this part in [PATCH net v3 3/3], sorry for replying to the wrong thread.
-
-
-@@ -89,14 +89,22 @@ static void smc_lgr_schedule_free_work(struct smc_link_group *lgr)
-         * otherwise there is a risk of out-of-sync link groups.
-         */
-        if (!lgr->freeing) {
--               mod_delayed_work(system_percpu_wq, &lgr->free_work,
--                                (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
--                                               SMC_LGR_FREE_DELAY_CLNT :
--                                               SMC_LGR_FREE_DELAY_SERV);
-+               smc_lgr_hold(lgr); /* released by the worker or cancellation */
-+               if (mod_delayed_work(system_percpu_wq, &lgr->free_work,
-+                                    (!lgr->is_smcd && lgr->role == SMC_CLNT) ?
-+                                            SMC_LGR_FREE_DELAY_CLNT :
-+                                            SMC_LGR_FREE_DELAY_SERV))
-+                       smc_lgr_put(lgr); /* pending work already owns a reference */
-        }
-        spin_unlock_bh(lgr_lock);
-
-Best regards,
-Dust
+Konrad
