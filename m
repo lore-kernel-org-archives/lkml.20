@@ -1,32 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102349;
-	b=JmaWmyzebBMMS2F4f2/OyFviZDnCAhFXWrcPCm59rWuIePssRz0skolitfdrLeKLVvvo
-	 lpvKks6sFF+LOjMaqhxRVGkBJNFH6UfAlBcPQneB+KO5doY7TCd+51sU7DzrKZgo4FHOx
-	 pv9fAFlmtjZupYA606OubD+4uiB3wZ1TFRCP9Brtvm9MJj+uk+yrDxEpntaOSPjDt6D8b
-	 U4D2HlzkbamkcYBcDP/qkC7GJ7i++6tis8e2mLm7NqnUz/pGl/vdJyTNr9neIgS9oXGOR
-	 D1cawHx9nng+xBS4VnZMYmzM4y/fuaPjZl5qSDsiHtGOaP8R4ZV4O5kYYqYBE60J/Fw==
+	t=1793102406;
+	b=vcKiQDB8Wprg9sFCsIKz3Z+Bb3mVBglgH1FmigqOuZbzZcnXwsV0KTeZ0KXZUkQP6nXG
+	 YH0+Q/ho7os4m1LpDtFq2nhpuGEMfzzCcQgeqo0LIC3FT1h20WcEMM+rv2Wb53zTVCSsj
+	 0l6wACpa6eTNcq3hY56xZ3CM0hdpKwYaWDAOEtQSCsKIN05mb3CfLWL7eEuP8jtXraA3m
+	 5zkp59q0LCHM9qp1nr/kEM4dk8FNnxP/a12zWmeuBi9NNNWjAbjEUWxFkk7mkGfGMOBhN
+	 gboDsJE6j1IL0KrLzUPNqnu+kbuwCFfm9eL9dByiqYjH1f+84ez/mRzIAyY45uY0egA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102349;
-	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
-	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=6ghFkMGjgkKUVgJSsrNjglhbUuFeRKKfCk5oqXCgc0M=;
-	b=G5SW6ntz42TEgSgrU60OFnQE1i6EZ4FV9MnUhRj6Ib5rgcumtNwifByc6dX3DvnTr5C6
-	 HI0VLp+O/uy38Mtoby4eJ7M2gItAEIqVoSS7Wt9NIr7+0rniScsCvULPpROeupd8pUbNF
-	 XTJjMoSA7yHZXdhBOQa2/vyv2oVFRikHR16pko/b6P8TURkqQWLgvUhZkJKCy9qRVXIc+
-	 w6pcHIxvaElpS+nuj1PYWixuwVlVt5uYZIJlgc2vlzHccBBXxxA3oe3nVX3MYqUUA2l8B
-	 YK0JRzk/d5AaNBdYDO6aT9hUnZ9GZQMoYbHLTTBf+MTYWBUM1/w+0ZCBxB6qRi61L9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102406;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=22OilN3OWHAsf4ZnKYCUCqyoE4jo68G/Rnat5EPiPAs=;
+	b=TgRoBw+DD/Zz6uy/0Yq9qz+s5xkSc4RxCMsR7sSSFC6rVDnyCI7mDdolrqjyPPNQ6cro
+	 1/qjehp9bEB/9NNcs4CRxVYjMa3PV7ZASutau8PVvVJEb7m/rHG7GSUQ5LCeDga07qugv
+	 bM66XPUYOaETabPbmXl8njO9mYFi7n7/U5ly1Gkl3OTc2soWUKTuDt7SI1ZIRlnqMqGFW
+	 Ka1n00qvZuXdKPRhSbnC9zY4Jb9UG3deCb8PNgyWx5JRFkn+NpOap/dVON+kpsLZpmjFf
+	 GdD8o66dDqqLCgQdTf4kCJff8Ms2XjgUFD81JdSOGRtFpl9MNwN27JixJFwXm9ok8qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="hZ/Ow0ro";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC5A606A31A;
-	Tue, 27 Oct 2026 11:59:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FB841F01828;
-	Tue, 27 Oct 2026 11:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB5C606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:00:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB5C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=hZ/Ow0ro
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=22OilN3OWHAsf4ZnKYCUCqyoE4jo68G/Rnat5EPiPAs=; b=hZ/Ow0roMzSE6yS/Enuvr71b/R
+	dPnK8+fdUYq9MNWyNw3mFA9CBhIs0m1St9Yk2Ddl1mOzI0ghUTkS5l0LOyAgA489QRwVzkXufKIF/
+	tRzXxd419Nq5fXvU35Yr6bMft+1/iuV3bYQ0gH7kOQZTa17H/fO2V7fckLIlE8ZfqQgYLxI/6Gw1Z
+	wv8/3NpmC2nyEaPvJRvmLMCXtMFPkjBH2xJrZgLNn1K68bkfU0CidLRudY0jFLqozzH19UywHckQp
+	4YqXz43UaUzygXk5AXuyPMku/yNa8IvggNT+rHYiZH10lYxKZqb+smsAoShzC9bYA4lngzg/WN35f
+	BG04PZrw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xLfqP-001RTE-0X;
+	Tue, 27 Oct 2026 11:59:57 +0000
+Date: Tue, 27 Oct 2026 04:59:52 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kas@kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] arm64: Kconfig: Don't select CPUMASK_OFFSTACK with 64K
+ pages
+Message-ID: <auCSG2OmNMQKp3dq@gmail.com>
+References: <20261007-arm_stack-v1-1-b48dad5fa8b2@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -36,58 +68,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] power: sequencing: pcie-m2: Drive the Key E
- SDIO_RESET# signal
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: William Bright <william.bright@imd-tec.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, linux-pci@vger.kernel.org, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <at9cGzb2p4VB8EfW@will-Legion-Slim-5-16APH8>
-References: <20261026-pwrseq-pcie-m2-sdio-reset-v1-1-02ecdafce518@imd-tec.com>
- <at9KREB4Fyf-Jl5S@debian> <at9cGzb2p4VB8EfW@will-Legion-Slim-5-16APH8>
-Date: Tue, 27 Oct 2026 17:29:01 +0530
-Message-Id: <179310234194.16692.5070156797811021066.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=861;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=CcGfh8L5LVnxTc4Pe/8nKaGbUYPnKwSLFkzEH5+Zduo=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4JIJEq2AjgSjdmWztpFe13hNRTc2OfVtt5TDt
- UGDACgy0DGJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauCSCQAKCRBVnxHm/pHO
- 9T8jB/9zokkwzoKWEqjBoUBsewBlSJalPolszQPsirCPgckJ5dtG8HnC+ev9CQMv87Zg1Br1q6O
- wclQoBmr5dlG4I5cWo5raCBiZJ/K0fmrBfXlz+44R5zN4Yokh/jIut8nP0N5gqRyaNijkl0MIUn
- MCjEOhNQ/PnGKdzeGtJaRpTDqLMj3v/qBQmDlHrwGV7Nn46A8PNQxtlGTjZrBO5bew3r1cRBpFi
- SM3VYDbs+zW4TPIzw0p/SaQfiMmvA9LAruN2YhZDsgyAIrVKZlc33ezcT1R/yTpgfyJkb2T1nVK
- GviX91Jo8qN9FiHk0DZ4KWGj9LnWfDSaKYgyuiXrIEFs9GIY
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007-arm_stack-v1-1-b48dad5fa8b2@debian.org>
+X-Debian-User: leitao
 
-On 2026-10-26 13:56 +0000, William Bright wrote:
-> On Mon, Oct 26, 2026 at 06:16:38PM +0530, Manivannan Sadhasivam wrote:
-> > 
-> > Do we have SDIO pwrseq consumer driver in mainline?
-> > 
-> > 
+On Wed, Oct 07, 2026 at 12:58:16AM -0700, Breno Leitao wrote:
+> arm64 selects CPUMASK_OFFSTACK when NR_CPUS is above 256, which keeps
+> cpumask_var_t off the kernel stack. With 64K pages the kernel stack is
+> 64K as well, we have enough room to keep cpumask on the stack, avoiding
+> extra alocation and possible performance penalties.
 > 
-> No. MMC still uses its own mmc-pwrseq framework.
+> Skip the select when ARM64_64K_PAGES is set. A 64K kernel can then raise
+> NR_CPUS above 256 and keep cpumask_var_t as an inline array. 4K and 16K
+> page kernels are unchanged.
 > 
-> > You should not add GPIO control to the pwrseq_pcie_m2_vregs_{enable/disable}()
-> > callbacks. You should create a new 'sdio-enable' and populate
-> > pwrseq_unit_data->enable/disable callbacks for the SDIO_RESET# control.
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+> Based on Will presentation at LPC, I've decided to have a look at Meta's
+> stack usage, and I found that this might be an small optimization!?
+> ---
+>  arch/arm64/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> An sdio-enable unit wouldn't ever be called until MMC gains a consumer.
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index 5f2db2cecf9772..b73371327d2a47 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -111,7 +111,7 @@ config ARM64
+>  	select CLONE_BACKWARDS
+>  	select COMMON_CLK
+>  	select CPU_PM if (SUSPEND || CPU_IDLE)
+> -	select CPUMASK_OFFSTACK if NR_CPUS > 256
+> +	select CPUMASK_OFFSTACK if NR_CPUS > 256 && !ARM64_64K_PAGES
 
-Yes.
-
-> Should I add the unit anyway, or drop this patch until an SDIO user
-> exists? Maybe I should switch to working on this first? But it looks to
-> be quite a big task.
-> 
-
-If there is no user, then the unit will be a dead code and we don't add dead
-code in the kernel.
-
-- Mani
-
+Does this one sound sane?
