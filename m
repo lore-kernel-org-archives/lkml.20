@@ -1,74 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065671;
-	b=STqLaC7SgOLw5kCPGnXsIvt4favo7Ta0mTse/FOKPi/ZvyxI1TZ8m4Mdv6sc8HDXfwkr
-	 n0yCmDalwcTK3VtgfPoCkcrnLhD5ohRO+Fho9T6i+Nm6nd9Q/rJ5Qt8t3ggnbRYRcYy68
-	 YV4bS5jIvO40Tyiq3IHXP0Dx1YxgDY4SK9YBl4kFWzKd3u8ghNWTDI20c5l3mtvRVz6+n
-	 8/yaiwq2sYaU9FNaP/lK+8JxdN+CF3Mrza0qrz1dartXxuAiQA2VAwqQkjUwUJUvpsJH+
-	 zxvBxvdtIY1vZ+4ImcF8cBcIRmTKS51S7gsnThdYW2TN058JHz4et2nFKLp/QRrRLSA==
+	t=1793065759;
+	b=hELl/RrLOkx4rlkE1oKop3nK9+fPDciCZZRgm1L4hsbEqHZdsgMMDCkh8w9aigGPUZMl
+	 lnXKIXZyC/KQGOrH90mvYuL9Pl0Ey9NIZU7nvngY5K15r84EWnNFhoizLePKmK6eXQQxU
+	 Ug8nZ8BdWJnhcc7OqroPMW3A1wjjjkmXRB4IFfoE5BcsaMumHibsehCK7ZTPmfjVQ3R06
+	 QdV887EESvez++1L6uv6ZjJ+bo4q8aBIt36InAoBURYvqbVnDm7cgBs+PF8F2B0EHq0bA
+	 QCJPp4rciCHwUeQVnfQ/Qpy4zhF8N1LO31bYPdQO8EDqVUqGv9yHMFUcSWtzbH+r5uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065671;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=uATvahXuhODQd5DDWhOQGeIgpgR0Pf+m8wG01EkXzps=;
-	b=lgEQbSjmmw8KSIcgybCGvXGOKEEBe2ghwtFqT1noacKW1GnyBgs0F6RIxEJ7hJ3wPQbG
-	 2M2XaVGJ8SqcCV1cHEsemmiR7NUrhs1lajnnVQNilY7WcCNTSBB/n/YSetmQTH+flOHMM
-	 5KFC+H8RuQDeRS25guZtVmR+o+YCExL+cAiMnhRSTRbympeb51tT9Y6GzRiHixvqtqtRG
-	 ok2SCrMUoRGQAOrk3rzmjdhyocnlEWgqOegwSYg3uZMq76PkYInHROfjukPTlmZnaZvW5
-	 e7eCf9vGJuVRd4DEhXZVpqi4pXZogjkISBOHbIpAM+ml1M7ey3w9VCTDEui2JDk8KNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793065759;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gR5q3OLftxCFHkyBKlQqeU6c6KN++ASiwpqlGffKbrQ=;
+	b=1kIac03OxhPCBkPjvDMPZZipN517Q6F6DQlqIoZbzTIfk43iEedfpOdxv5abpg+WJadv
+	 y45Ypd+kcmC3Y9/zDkXGGw/1Nv//TEvojbnNp260AMYc8Krx/JSKzgyDKuGoSg7uRS4SS
+	 hlJrkFTNAEUV4mEuECqPB25uMSF/ainpkLfDp+11qqMVFrfJuuois3++PwBAhx8EcE1sh
+	 M5rGpLdKccsKjTeRONS9BRxAO/QkyQwCD6k8MhjGULTh5xRWSSWthEm3H7EWs0z6RV/Vb
+	 6o227KpKyxlVrHBFsy8nJphbuRoWIYY/TJfwPM5oEM27ZuTfBZvORwRWl+NfkYBmddw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nsJ9qv7d;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="RUBbrT/U";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BBB606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:47:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0BBB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC5B606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC5B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nsJ9qv7d
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-89e6ddd4554so2741748b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:47:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793065670; x=1793670470; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uATvahXuhODQd5DDWhOQGeIgpgR0Pf+m8wG01EkXzps=;
-        b=nsJ9qv7d84L5r1gJDnff54uqJiqW/gnmh7ufhnA9LpXADMQN/pwCZdSHqpL9/HAkO/
-         oenK4IXbpqqSuG5xA4vc/AUFE4VYbB8dMHsA+FP4ZaMVjurs73yGBjbkXrpZiqnwEXIK
-         y5ph3qlgCwtpQqx9mZRUGxHYuAZp0d+2lzecfKda2dN3i3eVgPU+41dvXF+mJ5L39eNB
-         8YcgqPYYD/WRbCnFOeVk2o+bKXs2v2l0KvjznUKUwJObPIu6BDuoRiT62SjRp2JKL1Um
-         TyuQrLjR9C5xcK2XZDGWY4TPMbELyKsFGCu2IzbdH2ndO0+D96RhOyxIkH3wFaYVvGpA
-         KRmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793065670; x=1793670470;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uATvahXuhODQd5DDWhOQGeIgpgR0Pf+m8wG01EkXzps=;
-        b=g4knTWE58x6RS9HtJlMVz4ZXYCrr+16vr0/Ywk6iTaogd3YqcdNHk+Kq8TQ/rK8exC
-         B2/9Wo3m6hxgrswBlz31davlbRyzSXDrmKkzQL6QA5E8tKll420uVN7/LrYJ0uibFXrg
-         KBWp0RQspA14fN1jcaFKxHt8ZmjPUkgVZUgxSnlvJwce7fWqRb2wSDyWyQw7uDAWLE76
-         3TouWELQSVKlHq5sFD8ehsLJxH4E9v+5q3r6zTAWFn3oLv8StMPDD9/MNJLC3TyUXVLl
-         JvW2KHOdwbhCBAIcQEEUZNNoALTDrCiSCqaDJbOcMca8aPjPKvwrmrqvav5mpa6bU2F9
-         d05A==
-X-Forwarded-Encrypted: i=1; AKwUvByvRJG3ZebeunrPKro/77oVjR89nDGMk9tT5RqNAXvdQM/111C27N32kxD7C2GvrbY3IgdUL0cBuUB2yjg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIuP0/F5W9PwTdJOAvLI++vtW+/VzgzYuxiXYj41zqf06FYIYDG
-	tIknZ0f4PYPiSIn8oEOAZZLzM+3gzT5VzEwZg7rkaJMOcN3DyQlHmDbrf2xJ/dwPPY2L/UnI0Rx
-	gv6lrmQ==
-X-Received: from pfnx11.prod.google.com ([2002:aa7:84cb:0:b0:8a1:6f:7af2])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:a20d:b0:89e:261c:448b
- with SMTP id d2e1a72fcca58-8a366d7a756mr6449404b3a.34.1793065669835; Mon, 26
- Oct 2026 18:47:49 -0700 (PDT)
-Date: Tue, 27 Oct 2026 01:47:49 +0000
-In-Reply-To: <at_TlVBS-5KVZAkg@devvm16445.scu0.facebook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RUBbrT/U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793065756;
+	bh=Wbi3NY9WnYJfeKXoxOhR70QLmxw4mM2jPoXXqAXFUT4=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=RUBbrT/UfeZQyQKecbvscc15wRIqp19C98IasaXLYH8nwqeGEVK2ly52sqBdShAbG
+	 RM0EUZRbamZfZAFyxfRo/GCdoaE9O1Ekzt3c3tTkwBNnwaBl89uypfNFRoughodKqi
+	 b4cbG+OXQXPJOjb1EWwGNkO1k9vjiBpDH9nVUUdtC+4y+OI0O/WPGxfK9tpgCmg/xY
+	 3mLRlzRDuiHf9Yw3oJU7DKAR1aag5Z8fcc09wG7Rsfg+DjaQIPD7kUNSGDEM+OxYhv
+	 IMrH6ueghpO9jyuI/GhvUg4hyfT+IETKiI2R3HpDpdKdxgHVuqiTXu60a0CbCpInPW
+	 eErCLtqHNyskw==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D429B17E0254;
+	Tue, 27 Oct 2026 02:49:15 +0100 (CET)
+Message-ID: <a6314959-1287-4381-88a0-2fbc3edbe3b2@collabora.com>
+Date: Tue, 27 Oct 2026 03:49:15 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,136 +60,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261026221306.3151025-1-namangulati@google.com> <at_TlVBS-5KVZAkg@devvm16445.scu0.facebook.com>
-Message-ID: <auABpyzeuUl2S3_W@google.com>
-Subject: Re: [PATCH net] netdev-genl: ignore NETDEV_UNREGISTER rebroadcasts
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: Naman Gulati <namangulati@google.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/9] drm/vc4: hdmi: Convert to common HDMI 2.0
+ scrambling infrastructure
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 15:28:44 -0700, Stanislav Fomichev wrote:
-> On 10/26, Naman Gulati wrote:
-> > netdev_wait_allrefs_any() re-sends NETDEV_UNREGISTER every second while
-> > it waits for the last references on a device to be dropped. By then
-> > netdev_run_todo() has already marked the device NETREG_UNREGISTERED and
-> > RTNL has been dropped at least once since the initial notification sent
-> > by unregister_netdevice_many_notify().
-> > 
-> > netdev_genl_netdevice_event() does not tell these rebroadcasts apart
-> > from the initial notification and sends a NETDEV_CMD_DEV_DEL_NTF
-> > multicast for each of them. At best this spams NETDEV_NLGRP_MGMT
-> > listeners with duplicate notifications; at worst the pernet state of
-> > the netns the device belongs to is already gone and the handler
-> > dereferences a NULL pointer.
-> > 
-> > default_device_exit_batch() only unregisters the devices still listed
-> > in the exiting netns; it does not wait for in-flight unregistrations of
-> > devices that were already unlisted (the barrier doing that was removed
-> > by commit 8a4fc54b07d7 ("net: get rid of rtnl_lock_unregistering()")).
-> > So when a device is unregistered by something other than the
-> > cleanup_net() of its own netns while references on it are still held,
-> > e.g. a veth whose peer in another netns gets deleted, and that netns
-> > exits while the device is stuck in netdev_wait_allrefs_any(), the
-> > remaining pernet exit handlers run and genl_pernet_exit() sets
-> > net->genl_sock to NULL. The next rebroadcast then crashes in
-> > genl_has_listeners():
-> > 
-> >   BUG: KASAN: null-ptr-deref in netlink_has_listeners+0x3d/0x3f0 net/netlink/af_netlink.c:1388
-> >   Read of size 8 at addr 0000000000000578 by task syz.0.0/5325
-> >   Call Trace:
-> >    <TASK>
-> >    netlink_has_listeners+0x3d/0x3f0 net/netlink/af_netlink.c:1388
-> >    genl_has_listeners include/net/genetlink.h:644 [inline]
-> >    netdev_genl_dev_notify+0x161/0x450 net/core/netdev-genl.c:93
-> >    netdev_genl_netdevice_event+0x98/0x3c0 net/core/netdev-genl.c:1491
-> >    notifier_call_chain+0x1a5/0x3d0 kernel/notifier.c:85
-> >    netdev_wait_allrefs_any net/core/dev.c:11690 [inline]
-> >    netdev_run_todo+0x731/0x1060 net/core/dev.c:11808
-> >    rtnl_unlock net/core/rtnetlink.c:157 [inline]
-> >    rtnl_dellink+0x68f/0x810 net/core/rtnetlink.c:3707
-> > 
-> > syzbot hit this by moving one end of a veth pair into a short-lived
-> > netns while netdevsim's deferred FIB event processing still held a
-> > reference on it, and then deleting the other end (repro [1]). While the
-> > source of this bug is netdevsim deferring FIB processing for and holding
-> > onto the device reference for O(seconds) which is being fixed
-> > separately [2], any driver may introduce such a delay and trigger the
-> > null-ptr-deref.
-> > 
-> > Skip the rebroadcasts, which are the only NETDEV_UNREGISTER events
-> > delivered with reg_state == NETREG_UNREGISTERED. The notifications sent
-> > by unregister_netdevice_many_notify() and, for a device leaving a netns,
-> > by __dev_change_net_namespace() are issued under RTNL in the same
-> > critical section that unlists the device, before its netns can be torn
-> > down, and keep being handled. This mirrors what ip6_route_dev_notify()
-> > already does to cope with the rebroadcasts.
-> > 
-> > This change should not break the UAPI spec as it defines dev-del-ntf as
-> > a "Notification about device disappearing." which is a single event. The
-> > rebroadcast in netdev_wait_allrefs_any() exists to re-kick in-kernel
-> > subsystems holding references; netdev-genl happens to be on the notifier
-> > chain and forwards it.
-> > 
-> > [1] https://gist.github.com/NamanGulati/2d1b49b8757f9a88b0bd6e55018c02ae
-> > [2] https://lore.kernel.org/r/20261023191517.607834-1-kuniyu@google.com
-> > 
-> > Fixes: d3d854fd6a1d ("netdev-genl: create a simple family for netdev stuff")
-> > Reported-by: syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
-> > Closes: https://lore.kernel.org/netdev/6adf9f64.6200f071.51519.0ed1.GAE@google.com/
-> > Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-> > Signed-off-by: Naman Gulati <namangulati@google.com>
-> > ---
-> > Note that the reproducer attached to the syzbot bug targets a different
-> > bug (via devlink_port_notify() on netns teardown) that happens to share
-> > the same crash title, not the one in the original reported crash report.
-> > ---
-> >  net/core/netdev-genl.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
-> > index 33b9f4eb9565a..2032ab9a864c2 100644
-> > --- a/net/core/netdev-genl.c
-> > +++ b/net/core/netdev-genl.c
-> > @@ -1487,6 +1487,12 @@ static int netdev_genl_netdevice_event(struct notifier_block *nb,
-> >  		netdev_unlock_full_to_ops(netdev);
-> >  		break;
-> >  	case NETDEV_UNREGISTER:
-> > +		/* netdev_wait_allrefs_any() rebroadcasts NETDEV_UNREGISTER
-> > +		 * while waiting for the last references to be dropped; the
-> > +		 * netns may already be torn down by then. Notify only once.
-> > +		 */
+Hi Dave, Maira,
+
+On 10/14/26 4:03 AM, Cristian Ciocaltea wrote:
+> This series includes patches 42-48 from "[PATCH v11 00/74] Add HDMI 2.0
+> support to DW HDMI QP TX" [1], which convert the VC4 HDMI driver to the
+> common HDMI 2.0 scrambling infrastructure as a proof of concept for
+> reusing the shared code.  It adopts the shared TMDS character rate
+> constants, switches to drm_hdmi_mode_needs_scrambling() and force_ctx(),
+> fixes -EDEADLK handling, and replaces the driver-local scrambling
+> implementation with the common SCDC scrambling helpers.
 > 
-> [..]
+> The infrastructure patches have been merged and there are no remaining
+> dependencies, so the vc4 patches are now sent as a separate series,
+> rebased on top of the latest drm-misc-next.
 > 
-> > +		if (READ_ONCE(netdev->reg_state) == NETREG_UNREGISTERED)
-> > +			break;
+> Tested on a Raspberry Pi 5 Model B Rev 1.1 (BCM2712 D0).
 > 
-> Same as
-> https://lore.kernel.org/netdev/20261026063743.1797-1-lege.wang@jaguarmicro.com/
-> ?
-> 
-> reg_state is protected by netdev, why not do this under netdev_lock?
-> Also seems like we are fixing a symptom, not the problem?
+> [1] https://lore.kernel.org/all/20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com/
 
-fwiw, I suggested not to take the lock since we are only interested
-in NETREG_UNREGISTERED here and there is a clear ordering in the case.
+This series is the only remaining blocker to finalize the infrastructure
+cleanup. 
 
-The root cause is netdevsim this time, and I have a fix,
+Therefore, may I kindly ask if we could get this merged, so that I can prepare
+and (re)submit the last part of the original (large) series?
 
-https://syzkaller.appspot.com/text?tag=Patch&x=15923c21580000
+The only patches that haven't been reviewed/acked yet are 7 and 8. Those are not
+critical, and I'd rather send them separately (together with patch 9) if that
+would let us move forward sooner.
 
-but rebroadcast itself is not-ideal-but-valid behaviour, so each
-NETDEV_UNREGISTER must be idempotent unless we can completley remove
-the rebroadcast mechanism itself in the future.
-
-
-
-> 
-> >  		netdev_lock(netdev);
-> >  		netdev_genl_dev_notify(netdev, NETDEV_CMD_DEV_DEL_NTF);
-> >  		netdev_unlock(netdev);
+Thanks,
+Cristian
