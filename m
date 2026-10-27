@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116843;
-	b=nPqH6w13qqufSEq19d5Ld3ptzbVTbi5XN3QduTbV7OpONlsp3IlnwCTPCY0mYWPgC8Tr
-	 wfmn2XoqiPcHjeWjJ3Kb6kM9vFTb3M7uOBpHSsLB0YrMjJ+4W3mbrRx3BHyvhY4iRD0+S
-	 vYWr2rMP9vnGB1+MHfKHE98Z4os9yXu7Eq5a2xjLmWPXosBcD4FUWJgiZ9BT08ngM8Opg
-	 +mKW6Xdit6jazmnoq8wPgHPGtSFdhFhT1crsMjAufScM22DptGvgLQny7Jy61PimKX/MD
-	 C77VfdVeXIw1unhf1oEHqCQdsekhHunQfLE14o8gbXV+O0ngGjijmBpXE/e7YhaMzvg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116843;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793116902;
+	b=YinjpPlIKR8Vvo2ka1nQrwppwD2WrKApS6cDgRuUZpxGIv4ZjTWTgxfKWxCY5SPRfZ/G
+	 pPhySToXTAtyJyRDTkhOpGS6JObTiIrKxEf2LN3tcaeLpIY7Bo56Va6pmiPs5cl//wEJ7
+	 WIr1FOvYYrf37So8DYUP6gQfeRiMB9p8Y6zVBGOVvt2pTFezHVFLkNPqVSkhoCr11f9KY
+	 8JfjXKaT9iLjmR54jvoCO29jXWLy6KB2htMMkJF+LJXvu95cBr3cFA4mzNGr4IIhgntFd
+	 k97Gf0yE/ZohlhdycOl0P9kBKabRL86Qo1b/XUDlvn1CeIVxe//87O/sx/QDhRi1gfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116902;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
-	bh=lUFPvWUhnbq1nlKdj+4iPr3v7FCFuq1r2DJKFXSbd2o=;
-	b=ZNxOB+rCv2p0Y0+MdB1MfhVKX2Vc/gMr0HariagfmqOQPcY00DGOUG2uDwbrV1P7fVNw
-	 JimpRR+xHoDfARs1DigaHWI40vr5vsbpbtLdgmAAqBfglXHM9GwtjljjiCrgkz/YojkIR
-	 b4qx9m8PAyw8qbAcecl+pc8lT6IVhBlUTbt0/lsUcTjydK7dcntKOYvkSpt5tLna90mvF
-	 AV0RH/2qAFtL6vEKL3HAVdKojjbDr99HJWFGRg1y5FyXsD2/4xki49wZppNTKJwAYSZcm
-	 VdjJv3Qf7SnoS1xNYs9cdfBkTOCzBO6joi0myYYymSJNGfOLuzi0fv+DiF5UQOpNn+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=bdT3D+5oUO/jp2H0mchjeHCyIHynK+r7g48DQ7wQVYI=;
+	b=dwrE75QssCZS9CP+vV8H1egieSQ17IPYWkRYeWQ3cPYZnLC2IVfa0KfB80wUsip1dMMb
+	 PHeJVtMHKEFuiwmqeWC+jyG26/QxkktYc/7/LjYN42Vcqu2sA2U5G4UNkQ9FQzYzJWyw9
+	 lI4FHwOjg22BmsIbP8UfFUYAOn1UqYMF/XrzMqEQuYDDZjU1PaUp6wusT7Er87qJawbOn
+	 N7mre/kYgKdKkS4PUI2jSO/iiySzfGi/qtADKpx+Jx5CCqPtQOEMzsak4qAlprHmtozQx
+	 GS8aXPBukC+LwtKWcNlnbGSI05nMckKcwavGFqIvPEzzxGIW7Cr3rbCbHWSXeXlkEaw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UP4I+lit;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7305B606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:00:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7305B606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFDD606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:01:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CFDD606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UP4I+lit
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso28348635ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:00:42 -0700 (PDT)
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a9a1ed66b9so31908071fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:01:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793116900; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L8tKXpK531w4IFFh6BSroXh+HglvwCquDfl0VA+WRedd+vW7BY/tDBR8L4Rc4St2ae
+         3dLoiTGk1ojgwhvxmiSyRSbCp4qN2l2+YJHPmPGSS4VhVRuUcuA95+pxHjmGwX3fSaiQ
+         0PPlNorDpRWM8SBMlJO/0eQtUBp4oA0dFb0mzLw/ZGXc9xHiDGjCl5NbUoPCSIyMkh9J
+         +27zEpnfr1mLmqSmvGiPC8qBnCSWP5KpN50hcC8rU4hQ8LNL05uJplhJM8sKyz/bDr3H
+         euD+7H9SbYhtV5wJqYnqsnqEYgDYKCx/9K8wRxkcW/SgblvQ0YvTBNNvbMKSuRQIwkK2
+         kzHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bdT3D+5oUO/jp2H0mchjeHCyIHynK+r7g48DQ7wQVYI=;
+        fh=D/2HVks5BwAjaVqm6nWqkatHMOby20T+I+hLvIOLDjc=;
+        b=Weqp5HfVOCmgcN6bQdOMhYnhHhZP9Koramy3UJAa14SgpATPB95Uh8f1iTMSxMepZH
+         InquUTxdT85TiD1XwU3hq8wCJDKcdf1hdxn2Ny2ykNmZVi/8VYeSq6dM77/5u8OfDR6R
+         Pua31KzhAb5t+2z0B4o9YlVEc8L06tr6da5gqkFLqbFF83LafYdpMMNY+X3S09inb4cN
+         X64icg88wdZGAo+P60Mq5qf55UO/spEaSgk+hfJ1pLC7h3QCboJLAN3x5VMuepJW3RXL
+         WogvQ8IVtDV9VeAM2QoNY56uyVmrCoE12yHwJE+Q15GZVtZ2+pZrn3pDw3D2Ogio2Ae4
+         pGdw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793116842; x=1793721642; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lUFPvWUhnbq1nlKdj+4iPr3v7FCFuq1r2DJKFXSbd2o=;
-        b=UP4I+lity2OJEUV3qsO7bHkzdbX35UzOsi9Z1qCPcLXNwsd3PIO15GMKJGPsJSKswz
-         +8swA9mTq4HBrCHMrOoXwpfrfddCukMbyU+XJWL2farluTgk1ZO9u+SKEThV2MTNTTGD
-         mr7imid/fvgWdKEMEcCPeAaQgoV1RoKsx7Z7F5rqlS/5zaHOSF0rjchIJLLImzuoGPju
-         2SuLSLfDJ3yh+GVnVYcm+jv9CUjc6kvadeQ7GO2PUbxh/Ylp+zntQTvFXC2+RBN3PkdW
-         r8SYMwqTC5OnUm7aTTZOG33G+owpRGu3Zm6PERP2xmdnnCCLsd/d9St/EjfWn2AnQnMa
-         XZ0g==
+        d=gmail.com; s=20260707; t=1793116900; x=1793721700; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bdT3D+5oUO/jp2H0mchjeHCyIHynK+r7g48DQ7wQVYI=;
+        b=R+i0ENjHbFAiqIQHVYIbPtk3lUIKATox7FpUI+/nPzbZPTE7YhcmfrIwXD6kdXCAZ8
+         qZXwKAwxft+xFnzrNvLexPkmOZ/5e9Sb6B2WYvDWrDgqBKCfU+eCtnkbaix2Gm2ZkwgQ
+         dgqqsPsSG7T7h3j/oicsT0YwZ/lcoi4fy0oD3zn4ZnWAbD1fhEeLoSeQWUorO/S4icSn
+         IIiX9334mlLFwUOTcp3vAMjkcswEvRZsKYPzqiF67+Cn60IES5kbs8MRVxx/twS8GmuU
+         rjPOSrB0/TdiAoZ2e6Rbun6iVTjJbJMtA6kvPaLcVRpNgmIDpJws/8a2nPiQrLzPoAwg
+         JMOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793116842; x=1793721642;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lUFPvWUhnbq1nlKdj+4iPr3v7FCFuq1r2DJKFXSbd2o=;
-        b=UmhFUxnDSecDKTasv5+wIj9uHVus3YTMFJbN51ey9fjlaGP8yK2loKNtCpHf+OrEEk
-         1rfRU+N3cCOuxd4Li7W0sFUDea9JiU4IRD6MORNeIAsQNx7e6RABCiGzdIHHdx4ZZH7h
-         97Rfrb3oSBAhbSj4tybQwV+WPNvQDjrs9tfRGKPW0Vi6IHkQDE9I+u0HYnP6P0dKwxNZ
-         b+T0K4avOpaV8ybXyEiXVZD5uwr2KxfzsWTdnubPm+3yLCBBlOhece5LfGNf0tLfEnS5
-         Mb0KBuxfh9biXphF3vD3bGmsDfShWnA0eM5cER/QWsJNwpkdqLtPfbqv5LaGjwZZubBS
-         TpiQ==
-X-Gm-Message-State: AFq9FYIpGx33ZoSgGUZM8J6DOHMw9qSdE5nma3gvMfnFjGTUwCCTqd22
-	aHKKNTfraCPSr/6qbYxgRKa2EQvNwFKZZYKN/zp7upJKOEqixRXw902g
-X-Gm-Gg: AYBFou36z5Kgqt5H7Pewz6nQWbM6i0hci6m214xwyG9r1SlpqWnhBHtFe5wRb+2Nrl7
-	HR/HcNOIXVNYJ7z9xjSjdz9MdnK5CeoL1471x2igexkELwrWbXjaafbHfnmJmt7AUmPADtRQ7uA
-	AAziv5COQ3RcAwMmP4bFdK4N0UkyV46NoK7QC9hhbq82R0uLMBS8kFA/r4BFZqvdPfou0MB8xmn
-	2mZxxNXgxZI7Be6BnJfeHgfxGSgqWVz+L2YKV99+wUtftTjKvWzKTRMVmNhaMNLash/9PvCPHgd
-	FNUmGjTXX0dSGpfKIGtjHhUruC1DdyKXdnUiXX44Vl19NDac1tON1X+t/I5rS36fsUy8Bx70B0w
-	IxZFFgXM7Qe+bxwyxv30ODQPtS/eI29nRGPQmEbFSBCpSKp4n3WzTMyG8Y+dR8ogr+4tbixePY8
-	YKp8qYSkipbZMKlE99fn5wT6ruCgUr7jBN9QXmIxFjL2C2Ng9JL7EhvAkwDphihNTywLqUy0lWD
-	EpxqT4IMsniC1D7NQFo+122fQv4leHbtjiwqXdFMTVcfWfQFkYevjZTtcbReXBbrJlkfOVxNMpg
-	WiAyNQZa5b58O/wGLOo5YHFX+ADGCJ/0tA89GbfU6hg/++AmMhRZgEpy27x1M1tXNdmi
-X-Received: by 2002:a17:90b:528c:b0:3a0:e4ce:31fd with SMTP id 98e67ed59e1d1-3adead444ecmr8771470a91.10.1793116841476;
-        Tue, 27 Oct 2026 09:00:41 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4064f4bdsm4334209a91.11.2026.10.27.09.00.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 09:00:40 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	nphamcs@gmail.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	shikemeng@huaweicloud.com,
-	kasong@tencent.com,
-	linjh22s@gmail.com,
-	kunwu.chan@linux.dev,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	tglx@kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [RFC PATCH v3 00/18] mm/swap: introduce priority queues for swap device allocation
-Date: Tue, 27 Oct 2026 23:58:40 +0800
-Message-ID: <cover.1793106426.git.lianux.mm@gmail.com>
+        d=1e100.net; s=20260707; t=1793116900; x=1793721700;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bdT3D+5oUO/jp2H0mchjeHCyIHynK+r7g48DQ7wQVYI=;
+        b=v/P0NIzi8DH7A/ZORD1Ym5zx13U+J7ZYAdUVN9j56NiKI6Sfj5/yrbgi2/+L+Yhfxc
+         vkEO0h69SeWm8d0JaNhTpLkVUrmTWhJQKC05TQvg+reLAV7Cjlt9PSkV5vrb+xmV0Xqs
+         2PHR9OrJF+sNBZ1RYJp+FzLG+EDA9YrPIcawk3JSU/g4u+XuYC6pwK1SYG/u3StWB/z6
+         4o8P1/g7e0SWCgYnlgsb95U4WZlNk3cfrM0rvWBOKTa3b+qg7O98amNnGhIqrgS1EFWc
+         mcshoB1Z4P2qpEp0PhUIpO1Ag5X7V4f6s0gFGCqVnzxpni492FCU9Ijh8KOu3/L8ri3j
+         nUVw==
+X-Forwarded-Encrypted: i=1; AKwUvBxCs8Hxvu1Sk/EyZ8lm+kFrHcfmDlJ0gXSg6gmulU6/C2IxQujDFduWoUZDZnSOB/M12mxN/ij92d0p19c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTurbGb07k4f425yvmbDXvSgAsZ4kxqmk7pz5fKVjrJSR+rRLH
+	oCe4B29XW4u4Kj9XA3wGGzXfWS/ZcQIAmRSYl0LkbtfQn/r00RsFX22u/j/BH/qOpnbx+IJQzn6
+	3LWh87wwYCQm4Dn9MFfqk67UWXhvMbP4=
+X-Gm-Gg: AYBFou3eAWD2DOxBL844/1aDvWY2PPbFLuy5sLjFLhZLa28iq7mrQxhlONC2EC+bPie
+	yyyUxx/x76qOkpVNOrX0GIbJ+Q1FiZ4qIQvQayZW5NzX4D1XW2BaHFRfF4UDkNiWHNaO2CjRKXH
+	vXX7eKO1FrrGrXH6Yi+lStrMLSbfnrjjJvqJ12TKA2+DTZK/0XGagQ288eiy3dAi3pl8tEIAt1M
+	L5TB0vCswyqLb2P1kxLqYtimjcZmt8sie1hrNSb1Mn0dnvg4+uqJrLgV9pQ4v6lnzmubaEJnzHt
+	Fl+0IhZgqbz/VYz6rniC4+J6g8SR0wsg7yjb47EOgesQmMslF/FF1yQw9pZnNyomA42OZbYFJ5v
+	Lb9mw3Pc6Ei3d1VLFNLx66qhz5hrddFM+kEviIMVSVXNo9gFFcxRa9w4+mRg=
+X-Received: by 2002:a2e:b88a:0:b0:3a9:707e:ad88 with SMTP id
+ 38308e7fff4ca-3ac6fb00e5fmr31194041fa.2.1793116899535; Tue, 27 Oct 2026
+ 09:01:39 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,202 +100,302 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
+ <179260197668.3127.18219777718091081046@linux.dev> <CAO26r3QK+Q5=JR5TeMzEX-WiLpgYWd8Zn0O1qx11LxTgN96BPg@mail.gmail.com>
+ <179286358623.55649.5397316745104390556@linux.dev>
+In-Reply-To: <179286358623.55649.5397316745104390556@linux.dev>
+From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+Date: Tue, 27 Oct 2026 23:01:27 +0700
+X-Gm-Features: AclHuK9XyZS4JOmzYbfgvE22vBOI3uerZPKafh4gT7tPY74tjD-uKeEtjig8Twc
+Message-ID: <CAO26r3Qk3bEUwL1=MyHP6hu_YQNSN-uD_2-ceA0KtK=ejxLf2g@mail.gmail.com>
+Subject: Re: [RFC PATCH v6 0/4] iio: position: add Rust driver for ams AS5600
+To: Igor Korotin <igor.korotin@linux.dev>
+Cc: Danilo Krummrich <dakr@kernel.org>, Jonathan Cameron <jic23@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Lars-Peter Clausen <lars@metafoo.de>, 
+	Mark Brown <broonie@kernel.org>, Brandon StJohn <branstj@gmail.com>, linux-iio@vger.kernel.org, 
+	linux-i2c@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi all,
+On Sun, 25 Oct 2026 at 00:39, Igor Korotin <igor.korotin@linux.dev> wrote:
+>
+> Hi Coirul,
+>
+> Here's the full diff, applied on top of your v6 patches 3 and 4.
+>
+> diff --git a/drivers/iio/position/as5600.rs b/drivers/iio/position/as5600.rs
+> index b72775241e81..f2897fbf8aa2 100644
+> --- a/drivers/iio/position/as5600.rs
+> +++ b/drivers/iio/position/as5600.rs
+> @@ -36,7 +36,8 @@
+>          Device,
+>          IioChanInfo,
+>          IioDriver,
+> -        IioVal, //
+> +        IioVal,
+> +        Registered, //
+>      },
+>      io::Io,
+>      module_i2c_driver,
+> @@ -65,14 +66,12 @@
+>
+>  i2c_device_table!(
+>      I2C_TABLE,
+> -    MODULE_I2C_TABLE,
+>      <As5600 as Driver>::IdInfo,
+>      [(DeviceId::new(c"as5600"), ())]
+>  );
+>
+>  of_device_table!(
+>      OF_TABLE,
+> -    MODULE_OF_TABLE,
+>      <As5600 as Driver>::IdInfo,
+>      [(of::DeviceId::new(c"ams,as5600"), ())]
+>  );
+> @@ -97,25 +96,29 @@ unsafe impl Sync for As5600Channels {}
+>  });
+>
+>  #[pin_data]
+> -struct As5600Priv {
+> +struct As5600Priv<'a> {
+> +    client: &'a I2cClient<Bound>,
+>      #[pin]
+>      io_lock: Mutex<()>,
+>  }
+>
+> +// SAFETY: `I2cClient<Bound>` methods go through kernel I2C core functions
+> +// that provide their own synchronization (bus locking); no `&self` method
+> +// exposes interior mutability. The borrowed `client` field can therefore be
+> +// safely accessed and shared across threads like the rest of `As5600Priv`.
+> +unsafe impl Send for As5600Priv<'_> {}
+> +// SAFETY: See above.
+> +unsafe impl Sync for As5600Priv<'_> {}
+> +
+>  // SAFETY: AS5600_CHANNELS contains one valid, immutable IIO_ANGL channel
+>  // exposing only RAW and SCALE. It has no event or extension callbacks,
+>  // and all optional pointer fields are null.
+> -unsafe impl IioDriver for As5600Priv {
+> -    fn read_raw(
+> -        &self,
+> -        parent: &kernel::device::Device<Bound>,
+> -        _chan: *const iio_chan_spec,
+> -        info: IioChanInfo,
+> -    ) -> Result<IioVal> {
+> +unsafe impl IioDriver for As5600Priv<'_> {
+> +    fn read_raw(&self, _chan: *const iio_chan_spec, info: IioChanInfo) -> Result<IioVal> {
+>          match info {
+>              IioChanInfo::Raw => {
+>                  let _guard = self.io_lock.lock();
+> -                let client: &I2cClient<Bound> = parent.try_into()?;
+> +                let client = self.client;
+>
+>                  let io = client.smbus_io();
+>                  // Read status register to verify magnet presence before
+> @@ -142,14 +145,17 @@ fn channels(&self) -> &'static [iio_chan_spec] {
+>      }
+>  }
+>
+> +struct As5600;
+> +
+>  #[pin_data]
+> -struct As5600 {
+> -    _registration: (),
+> +struct As5600Data<'bound> {
+> +    #[pin]
+> +    _iio_dev: Device<As5600Priv<'bound>, Registered>,
+>  }
+>
+>  impl Driver for As5600 {
+>      type IdInfo = ();
+> -    type Data<'bound> = As5600;
+> +    type Data<'bound> = As5600Data<'bound>;
+>
+>      const I2C_ID_TABLE: Option<IdTable<Self::IdInfo>> = Some(&I2C_TABLE);
+>      const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
+> @@ -162,15 +168,22 @@ fn probe<'bound>(
+>          dev: &'bound I2cClient<Core<'_>>,
+>          _id_info: Option<&'bound Self::IdInfo>,
+>      ) -> impl PinInit<Self::Data<'bound>, Error> + 'bound {
+> -        try_pin_init!(As5600 {
+> -            _registration: {
+> +        try_pin_init!(As5600Data {
+> +            _iio_dev: {
+> +                // Deref coercion: I2cClient<Core<'_>> -> I2cClient<Bound>.
+> +                let client: &'bound I2cClient<Bound> = dev;
+> +
+>                  let priv_init = pin_init!(As5600Priv {
+> +                    client,
+>                      io_lock <- new_mutex!(()),
+>                  });
+>
+> -                Device::build_device(dev.as_ref(), c"as5600", INDIO_DIRECT_MODE, priv_init)?
+> -                    .register(&crate::THIS_MODULE)?;
+> +                let unregistered =
+> +                    Device::build_device(dev.as_ref(), c"as5600", INDIO_DIRECT_MODE, priv_init)?;
+> +                let registered =
+> +                    unregistered.register(kernel::module::this_module::<crate::LocalModule>())?;
+>                  dev_dbg!(dev.as_ref(), "AS5600 magnetic position sensor ready\n");
+> +                registered
+>              }
+>          })
+>      }
+> diff --git a/rust/kernel/iio.rs b/rust/kernel/iio.rs
+> index 9ad2f50948de..4648424c7600 100644
+> --- a/rust/kernel/iio.rs
+> +++ b/rust/kernel/iio.rs
+> @@ -21,7 +21,6 @@
+>          self,
+>          Bound, //
+>      },
+> -    devres,
+>      error::{
+>          code::*,
+>          to_result,
+> @@ -159,15 +158,12 @@ pub enum IioVal {
+>  pub unsafe trait IioDriver: Send + Sync {
+>      /// Called by the IIO core to read channel information.
+>      ///
+> -    /// `parent` is the parent device supplied to [`Device::build_device`].
+>      /// `chan` identifies the channel, and `info` selects the requested
+> -    /// information, such as its raw value or scale.
+> -    fn read_raw(
+> -        &self,
+> -        parent: &device::Device<Bound>,
+> -        chan: *const iio_chan_spec,
+> -        info: IioChanInfo,
+> -    ) -> Result<IioVal>;
+> +    /// information, such as its raw value or scale. Implementors must
+> +    /// capture whatever bus-specific resources they need at registration
+> +    /// time (see [`Device::build_device`]) rather than re-deriving them
+> +    /// from a generic parent reference here.
+> +    fn read_raw(&self, chan: *const iio_chan_spec, info: IioChanInfo) -> Result<IioVal>;
+>
+>      /// Returns the channel specifications for this driver.
+>      ///
+> @@ -204,16 +200,6 @@ fn channels(&self) -> &'static [iio_chan_spec] {
+>      // initialized `T` that remains valid for the duration of this callback.
+>      let driver = unsafe { &*priv_ptr };
+>
+> -    // SAFETY: `indio_dev` is valid by the callback contract. Its parent
+> -    // was supplied as a bound device to `build_device`.
+> -    //
+> -    // During registration, the builder holds that bound parent borrow.
+> -    // After ownership is transferred, parent devres runs the registered
+> -    // device's destructor, which unregisters the IIO device and drains
+> -    // the supported read_raw paths before destroying the private data.
+> -    // The parent therefore remains bound throughout this callback.
+> -    let parent = unsafe { device::Device::<Bound>::from_raw((*indio_dev).dev.parent) };
+> -
+>      // `info` is `long` from C. Negative values and values > u32::MAX
+>      // are unsupported iio_chan_info variants; both map to EINVAL.
+>      let info_enum = match u32::try_from(info)
+> @@ -224,7 +210,7 @@ fn channels(&self) -> &'static [iio_chan_spec] {
+>          None => return EINVAL.to_errno(),
+>      };
+>
+> -    match driver.read_raw(parent, chan, info_enum) {
+> +    match driver.read_raw(chan, info_enum) {
+>          Ok(IioVal::Int(v)) => {
+>              // SAFETY: `val` is valid per the function's Safety contract above.
+>              // `val2` is not written; `IIO_VAL_INT` signals to the IIO core
+> @@ -271,11 +257,8 @@ fn channels(&self) -> &'static [iio_chan_spec] {
+>  pub struct Registered;
+>
+>  /// An initialized IIO device awaiting registration.
+> -///
+> -/// The parent remains bound until this builder is consumed or dropped.
+> -pub struct UnregisteredDevice<'a, T: IioDriver> {
+> +pub struct UnregisteredDevice<T: IioDriver> {
+>      device: Device<T>,
+> -    parent: &'a device::Device<Bound>,
+>  }
+>
+>  /// An owned IIO device with in-place initialized driver data.
+> @@ -363,12 +346,12 @@ impl<T: IioDriver> Device<T> {
+>      /// Allocation and initialization errors are propagated.
+>      ///
+>      /// Call [`UnregisteredDevice::register`] to register the device.
+> -    pub fn build_device<'a, E>(
+> -        parent: &'a device::Device<Bound>,
+> +    pub fn build_device<E>(
+> +        parent: &device::Device<Bound>,
+>          name: &'static CStr,
+>          modes: u32,
+>          init: impl PinInit<T, E>,
+> -    ) -> Result<UnregisteredDevice<'a, T>>
+> +    ) -> Result<UnregisteredDevice<T>>
+>      where
+>          Error: From<E>,
+>      {
+> @@ -406,7 +389,7 @@ pub fn build_device<'a, E>(
+>          // large enough for `T`. The private data remains at a fixed address in
+>          // the separate IIO allocation until it is dropped. On initialization
+>          // failure, the error path only frees the allocation.
+> -        let init_result = unsafe { init.__pinned_init(priv_ptr) };
+> +        let init_result = unsafe { pin_init::raw_try_init(priv_ptr, init) };
+>          if let Err(e) = init_result {
+>              // SAFETY: `pin_init` guarantees partial-init rollback internally.
+>              // `priv_` memory was not fully initialized, so we only free the
+> @@ -446,21 +429,23 @@ pub fn build_device<'a, E>(
+>              (*indio_dev).modes = modes;
+>          }
+>
+> -        Ok(UnregisteredDevice { device, parent })
+> +        Ok(UnregisteredDevice { device })
+>      }
+>  }
+>
+> -impl<T: IioDriver + 'static> UnregisteredDevice<'_, T> {
+> -    /// Registers the IIO device and transfers ownership to parent devres.
+> +impl<T: IioDriver> UnregisteredDevice<T> {
+> +    /// Registers the IIO device.
+>      ///
+> -    /// Parent resource teardown unregisters the device and completes its
+> -    /// supported `read_raw` callbacks before destroying the private data.
+> +    /// The caller owns the returned, pinned [`Device<T, Registered>`] and is
+> +    /// responsible for keeping it alive for as long as the registration
+> +    /// should remain visible to userspace; dropping it unregisters the
+> +    /// device and tears down the private data.
+>      ///
+>      /// On failure, the device is released and any successful registration is
+>      /// undone.
+>      #[inline]
+> -    pub fn register(self, module: &'static ThisModule) -> Result {
+> -        let Self { device, parent } = self;
+> +    pub fn register(self, module: &'static ThisModule) -> Result<Device<T, Registered>> {
+> +        let Self { device } = self;
+>
+>          // SAFETY: `device.indio_dev` is a valid, fully-initialized `iio_dev`
+>          // allocated by `iio_device_alloc` with its name, info vtable, channels,
+> @@ -475,6 +460,6 @@ pub fn register(self, module: &'static ThisModule) -> Result {
+>          };
+>          forget(device);
+>
+> -        devres::register(parent, registered, GFP_KERNEL)
+> +        Ok(registered)
+>      }
+>  }
 
-This is v3 of Kairui's swap priority queue RFC [1, 2], retaining the
-original authorship. It separates device selection from device-local
-cluster allocation to support integration with the ongoing swap tier
-work, while preserving existing swap priorities, the swapon interface,
-and memcg swap accounting and limits.
 
-The global per-CPU cluster cache couples device choice to cluster
-locality. Moving that cache below device selection gives each device its
-own allocation hints. The available plist's shared rotation is then
-replaced by a priority-ordered array of same-priority device rings, with
-per-CPU starting offsets and quotas. A task-local cursor keeps each retry
-walk stable. Rotational devices retain per-device sequential hints shared
-across CPUs.
+Hi Igor,
 
-This remains an RFC. I would appreciate feedback on the allocation model
-and its integration with the ongoing swap tier work.
+Thank you for your help. I really appreciate it. I've applied your
+changes locally, and the build succeeds.
 
-Following v1, the changes address related allocation problems:
+I hadn't realized that pin-init had changed upstream and that your
+patch also adapted the AS5600 and IIO code to those changes. My version
+appears to have fallen quite far behind upstream. Catching up on my own
+might have taken me weeks, perhaps even longer if I had run into other
+issues along the way.
 
-1) A cache above device selection couples the chosen device to the cached
-   cluster. Device-local ownership lets selection determine the eligible
-   device before consulting its hints, which is useful for tiering.
+This also seems to address the earlier discussion around the IIO design
+and the TryFrom implementation. I plan to test it on my hardware this
+weekend.
 
-2) Rotating the available plist changes shared state under
-   swap_avail_lock. Per-CPU readers keep rotation state off that shared
-   selection path, with a quota measured in base pages.
+Thank you so much,
+Coirul
 
-3) Device rotation was tied to cluster draining and the fast/slow split.
-   Selecting a device first also lets allocation handle its pending
-   discard directly, with a bounded amount of synchronous work.
 
-The series is organized as follows:
-
-  01-04: Cleanup, device-state boundaries and iteration helpers.
-  05-07: Locking, writer-serialized publication and accounting.
-  08:    Restore per-device per-CPU cluster locality.
-  09:    Keep cluster metadata population out of direct reclaim.
-  10-11: Introduce the safely published queue and remove the avail plist.
-  12:    Bound synchronous discard to one cluster per device attempt.
-  13-14: Preserve priority-aware throttle selection while removing the
-         active plist and unused plist_requeue API.
-  15-18: Reuse reader capacity, advance cursors directly, bypass singleton
-         rotation and redistribute reader phases on membership changes.
-
-Test results
-============
-The kernel-build and BRD tests follow the v1 workloads on a newer
-baseline. The results below compare the unpatched baseline 4dbe24720eb3
-with queue revision db66c58fac8f. The additional usemem and lock-call
-results compare the same baseline with 18ec4b962755. These are
-measurements of the named revisions; this posting contains revision
-fdfe5fac0d5b.
-
-Eight-ZRAM kernel build
-----------------------
-The workload used eight 8-GiB ZRAM devices and make -j96 in 2-GiB and
-3-GiB memcgs. Each case had 12 fresh-output builds per revision, with no
-warm-up. The workload source was fixed at 4dbe, using x86 defconfig and
-the targets bzImage modules. The revisions ran on separate boots, Before
-first; the 12 samples are within-boot repeats.
-
-Mean system CPU time in seconds (lower is better):
-
-                         Before       Queue (db66)       delta
-  2-GiB memcg          4469.0100          4457.1575       -0.27%
-  3-GiB memcg          2352.7325          2338.9325       -0.59%
-
-Mean elapsed time changed from 170.1283 to 170.3675 s (+0.14%) at 2 GiB
-and from 136.6125 to 136.6775 s (+0.05%) at 3 GiB. No clear regression
-was observed in these kernel-build runs.
-
-Twelve-BRD usemem
-----------------
-The same Before/db66 pair used twelve 8-GiB BRD devices and a private
-memcg with 24 GiB of memory and 64 GiB of swap allowance.
-
-  usemem --init-time -O -y -x -n 32 1536M
-
-There was one complete invocation per revision. Mapped throughput below
-is the requested 48 GiB divided by elapsed time, in MiB/s.
-
-                         Before       Queue (db66)       delta
-  elapsed time (s)          7.00                7.11       +1.57%
-  mapped MiB/s           7021.71             6913.08       -1.55%
-
-All 50 kernel-build and BRD invocations exited successfully, reported no
-memcg OOM events and performed swap I/O.
-
-Additional eight-ZRAM usemem and lock-call measurements
------------------------------------------------------
-A separate experiment used eight 8-GiB equal-priority ZRAM devices and
-the same usemem command, with memory.max=24 GiB, memory.swap.max=64 GiB
-and memory.zswap.max=0 in the workload's memcg. Both kernels ran on the
-same x86-64 host with configs differing only in LOCALVERSION. There was
-one workload timing run per revision, with no warm-up, on separate boots,
-18ec first.
-
-                         Before       Queue (18ec)       delta
-  elapsed time (s)          7.97                8.59       +7.78%
-  system CPU time (s)     175.13              192.39       +9.86%
-  pswpout (pages)      6,317,548           6,317,684         +136
-
-Both runs exited successfully and completed 32 workers, with no memcg
-OOM events. The times increased in this single-sample comparison; the
-cause has not been established.
-
-Separate sampled runs recorded 12,451 swap_avail_lock acquisitions at
-the selected allocation callsites in Before. Source and binary inspection
-confirmed that these calls are absent from the 18ec allocation reader
-path. Availability-update callsites recorded zero acquisitions during
-both sampled workload windows. This shows removal of the shared
-selection-lock calls, rather than an end-to-end speedup.
-
-Current revision checks
------------------------
-All 18 patches in fdfe replay to their expected intermediate trees and
-pass checkpatch. Static review and userspace checks of the actual helper
-code with ASan/UBSan cover publication, ownership, rollback, selector
-progression and throttle priority selection. These checks use userspace
-shims and do not constitute kernel runtime testing.
-
-Cooperation with swap tiers
-==========================
-Device-local cluster hints remain below device selection, so a future
-tier policy can determine the eligible candidates before those hints are
-used.
-
-V1 proposed taking tiering first and rebasing this queue onto it as an
-optimization [1]. I am happy to follow that route. Another option, if
-reviewers agree, is to take the refactoring under the existing swap
-priority model first, then work with Youngjun on adapting the queue and
-reader scope to the tier infrastructure [3].
-
-Youngjun, which ordering would fit your current work better? Are there
-constraints we should preserve to make a later rebase straightforward?
-
-The integration should have one authority for device membership,
-swapon/swapoff publication and lifetime. Tier policy would determine the
-eligible candidates before any device-local hint is used. Within-tier
-priority semantics need agreement with that work; this series adds no
-tier ABI or per-memcg device-selection control.
-
-Link: https://lore.kernel.org/all/20260714-swap-pcp-priq-v1-0-de9b164ed419@tencent.com/ [1]
-Link: https://lore.kernel.org/all/20260829-swap-pcp-priq-v2-resend-0-68d3d925578c@gmail.com/ [2]
-Link: https://lore.kernel.org/all/20260916183437.2946306-1-youngjun.park@lge.com/ [3]
-
----
-Changes in v3:
-- Serialize file/ref/writable publication when removing swapon_mutex.
-- Establish metadata and writer allocation safety at their first use.
-- Preserve priority-aware blkcg throttling when removing the active list.
-- Add reader-capacity reuse, direct cursor advancement, singleton
-  selection and membership redistribution.
-- Present the completed ZRAM/BRD results with their tested revisions and
-  sample counts, including the observed time increases.
-- Add measurements of shared selection-lock calls.
-
----
-Kairui Song (12):
-  mm/swap: remove unused parameter for reading swap header
-  mm/swap: slightly cleanup the code for hibernation error handling
-  mm/swap: cleanup and document swap device availability flag usage
-  mm/swap: introduce swap device iteration helper
-  mm/swap: change the swapon lock into a percpu rwsem
-  mm/swap: serialize swap publication before removing swapon mutex
-  mm/swap: consolidate swap inuse accounting helpers
-  mm/swap: add priority queue for swap device allocation
-  mm/swap: remove available list
-  mm/swap: bound synchronous discard during allocation
-  mm/swap: drop swap active plist
-  lib/plist.c: remove requeue function
-
-Lian Wang (5):
-  mm/swap: avoid direct reclaim when populating swap cluster metadata
-  mm/swap: reuse per-CPU queue readers across priority changes
-  mm/swap: advance the global queue cursor directly between priority
-    rings
-  mm/swap: skip reader rotation for single-device priority rings
-  mm/swap: redistribute queue readers after membership changes
-
-Youngjun Park (1):
-  mm/swap: change back to use each swap device's percpu cluster
-
- include/linux/plist.h |    2 -
- include/linux/swap.h  |   43 +-
- lib/plist.c           |   64 --
- mm/swap.h             |   12 +-
- mm/swapfile.c         | 1421 ++++++++++++++++++++++++++---------------
- 5 files changed, 926 insertions(+), 616 deletions(-)
----
-base-commit: 4dbe24720eb3811563cd56b35d87ddf3f9beed2a
-
-Best regards,
--- 
-Lian Wang <lianux.mm@gmail.com>
+> Cheers
+> Igor
