@@ -1,91 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105245;
-	b=vEaHuy44x4pbILKboHJmg8/B+hphg/v2Zo9gD3lQSFawsRXr168Kj9JjAcPdjeHD2nFZ
-	 Ec2xforIyPSsdY0oZ4fO9R1UjQ3+TGZq4em2t9W1bj6w4Vkw/5TBHBpZ15SeT+mhiWy1i
-	 owcTywh8Krg91C7w1prc8J+wD9knhXdzB8u1tKwfmOTmDTKjNaSl1T6L572NbN0H6hk6d
-	 7HYFdjVd7QYFb5nRHrAZen12U4z/zPeJG19d33f/IuofyfI4WN0LhImfUqKTqEj9JDCfg
-	 C8hIAhYY5+iEQXoiCPxftAupBkQbmgLjjpTYcNj9M46TODgxAKTeWEDyDI9y0eupwAQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105245;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ZAIpqRoqpXgz0RZ4h56d9mqozECvPzO+I5VTSFmMVtE=;
-	b=0nOgqZoSNjM5YoE5EWbsIAKpyFAtNPhQ7P61BT8off3AKM+hLjE24sO3AZfrqMG795sx
-	 dUpqDzBB9SnSIHatwtVBeouXGvo3dnKa48vPlTHO2+gX9d49Zi7jQIUMHykCS2We8/FHq
-	 /BP1NzcrAe/f5ve1UycuJLcBhwl2fNKYY5b1XVJfVSool2oELhKQtyhs7gSjs1phrfy9j
-	 ewAAFoszOv02HLEDoteSxxJYakEAPB3/V/SQsVat0d2JUfhZsTyYdlarIrRXd/dtl5Twl
-	 Ol8d3HhvLM2U971pvFWt+bBUte+iji8TxjLOlkehLQ4dF7TEgb0tJu8VoAaPR9WvAWQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Jyj7jOfk;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793105226;
+	b=QllYwkvU6vGEVvYrl8g5anRAPdUkHJqGix7N7L8J28VumHv0GahIuWiiXCXyDyp6XPQh
+	 CQPDdmrJccDTDDvIa21NuaAI+IO6vZiMrzdirNo/AXXo8HJ52Hke1q1+jflBrkWJGVe4g
+	 THBnLex9riiJ2l5xXkTpMtuRinEEt3/DN3aIh0P0xan4oUvSz6KvJ8ak5nFB46rY8+hHG
+	 UlHBJQyB3JtIrmI2+gV6KLh2hP+VuBe9YoG6f+2N/ktFR5GERfjzDiO7WthdzHYpEZ7Fz
+	 eFagqhymSfZeQr2Hm1AezxXmxQ+owsd1xq+kBFPUM+VSImlqZbYB+gAMROQ7f7KpwjA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105226;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
+	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
+	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=hUeibnzF1uSqvTtLlcSxfQ5iJwAaK0G87ncKUYrpVJI=;
+	b=CSPW9GayfoyGB0R7NJCzflCqq+Ak0ptKqdJ+xibBGFXD6ocmbNDf9o5BJGJTDJgVJvkr
+	 Thy3Xb/O+nx4ke9LH2+pVpsahI4ziYxYQsgqLuySSxzppNL5MLAhO0hwMhYdbvNAXeMce
+	 hIkTvP3hyOMHgyAx/jgedh7SiUQwCxCf2iKVvVA/Pi/0Ods4lGGHdxa1PtqkkmrDZerfa
+	 CR7u4Cx6Hnfs2ETlmSgv8y4KdlZN6We0vc98MyojBJxAOUoIDgOhyO7dsTDeJCh88sB26
+	 eXxu/pnFgTkE7VlGUMHNDXLWjjhpo4g8Ljuxbrss5fpBBuFSVTWdsD+wvyU07SjqH3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Y1OyAXVh;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=uqG4Jxwk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.9
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C086606A324;
-	Tue, 27 Oct 2026 12:47:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C086606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EA7606A32D;
+	Tue, 27 Oct 2026 12:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26EA7606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Jyj7jOfk
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=Y1OyAXVh;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=uqG4Jxwk
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793105224;
+	 b=bJetRKtUIA0DifBY3kJv1xWZsb2/HOu4nhvPXfjLF4i9WgLNmF45i/wCjOEPI0huKPB3pkGvzA
+	  ZUQRhpCsxOK+Bj9aOAswqWije0Y+SC5E0PluEqc12ALNUDlefrcjtf14gxJ+rpSIzfe+TyYmGI
+	  84AQfqvo2QHf/gsKPv2a8EWNFbT2SyS9BHEt/iqRWhX7Pjk78Sk+LlbnMxu6Hrfufsns8J3H3M
+	  gGtUpURqU4UduQASClK1sar+9UZQf+ksJXNaabC2NVzTcUsa01ALAtPqMq8EqMA7ISRf5EfaG6
+	  Told0CIEhY6BR1uGimNfSj7EJ5lGIR6Vo8udWYxgEyJPLQ==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com; s=arckey; t=1793105224;
+	bh=LeQ+3UkITZwFZJh2nj89Q3CM/bUnqFi56QC8hkbo5dk=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=FZJPuN4Irw4uwauu0jHEsm8TILbH56h+IQbSGxXKxnUKIoI/vk3EMoTpISBK6lGc9VhrNgagwM
+	  n+L/lhHYSj5XCzJt1uh1UVE/fDalWrCcZ0aOzoJU16fdHpdGKo3JvtBrdBk5YDUZtoJAk8bevw
+	  ytSztH1Xu+mXUf9RiB8pjmLqv8zRdXJ/oP9pI7Kr0t0dMem+hI/qlG36g6R+NUqkudBs9gFrkF
+	  G0d3ybzMILlO9270X4GisYCGuwuzJFEpOeroHVM9VK2wv+92pc2FR+khhIP4bH5FNlU7hPDaJG
+	  uQbrtBMTJCASMW1clIoXV1Lyr1GEXOEH2dzsBnjkMHhocg==;
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ZAIpqRoqpXgz0RZ4h56d9mqozECvPzO+I5VTSFmMVtE=; b=Jyj7jOfkJ3zLI2c3I5M3M46Zcb
-	WnQwrAXczn6dCAXUP2nPsq8E8i4il+VDWbyZfBRt8ElhZD9EVM6bXkMkelsrdJ6GzzFT4JrQ5k2fE
-	HvVnSCOOT/hXlFM44HSRfoB2SmByDM8uZCyGDhQCZ+RrkIY7H6uL+6RPWVddoEEJjx5K1r3Iyl0nd
-	vf+topQ1atCH+2NeREP/q708/GzItGv7B/7PC01xV58kaLhrw/a23RC3l/wqMvZJY6z4eOIVSBW1D
-	Nyi69d6JupfANQy+NhPNHkUsyGxbDvh2Y367Cb8T+P55YFRuWNaiZfelZ5Y9LdXhYPpImn2EH/+UO
-	I8j9sT5A==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLgaD-0000000DbOb-1oue;
-	Tue, 27 Oct 2026 12:47:17 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id F1B43300A9A; Tue, 27 Oct 2026 13:47:16 +0100 (CET)
-Date: Tue, 27 Oct 2026 13:47:16 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Matthew Wilcox <willy@infradead.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Frank van der Linden <fvdl@google.com>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	kernel-team@meta.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-Message-ID: <20261027124716.GC2668804@noisy.programming.kicks-ass.net>
-References: <20260227194302.274384-1-kas@kernel.org>
- <20260227194302.274384-14-kas@kernel.org>
- <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
- <at_f43oDv73y-t7O@thinkstation>
- <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
- <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
- <auCKv_omLGRc6wv2@thinkstation>
- <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
- <auCZFckDfBMrlfxV@thinkstation>
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=hUeibnzF1uSqvTtLlcSxfQ5iJwAaK0G87ncKUYrpVJI=; b=Y1OyAXVhEcNBtxy49BJZWgO0CY
+	J6a1fLy42b6YmNorIywCE99vGiQf+nDZ2QU15pBp/H1T91nhq+o4uwrDeH+l0rhW6/psoPkBL0+bo
+	YfA4cy6nzzw+6/RKFL6Ql5SkFqDFakIf7nbZpzenjWTEPnE6H+bp9O14ecys2EB5IGe0=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-l70q.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLgZt-0000000Ccs3-04Iw;
+	Tue, 27 Oct 2026 12:46:57 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=hUeibnzF1uSqvTtLlcSxfQ5iJwAaK0G87ncKUYrpVJI=; b=uqG4JxwkWwKujXNDCc08S2TlWU
+	XYWWXCxKHZVX1MgagD1Ltt+HzCm7j9R2Qo6uU0bdwRSNm1VjEL4Z4mAB/yb96W+5v3yaWpCYuP9P7
+	OiR3YYrQcp5JA51VP3xm3hxlZyAL2dAurV5KmLvJDwWfriU8gFoSD6oLYbuSm8P8gTS8=;
+Received: from [87.16.26.129] (port=63095 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLgZY-0000000015e-3p8g;
+	Tue, 27 Oct 2026 12:46:36 +0000
+Date: Tue, 27 Oct 2026 13:46:35 +0100
+From: Francesco Valla <francesco@valla.it>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Haixu Cui <quic_haixcui@quicinc.com>, Jason Wang <jasowangio@gmail.com>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	virtualization@lists.linux.dev
+Subject: Re: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
+Message-ID: <auCb8_ROuyXdTkQ4@bywater>
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+ <20261027065001-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,33 +108,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auCZFckDfBMrlfxV@thinkstation>
+In-Reply-To: <20261027065001-mutt-send-email-mst@kernel.org>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: b235b629c2303c70cc2b651a2410b50a
+X-AntiAbuse: ID - b235b629c2303c70cc2b651a2410b50a
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xLgZt-0000000Ccs3-04Iw-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-l70q.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On Tue, Oct 27, 2026 at 12:31:09PM +0000, Kiryl Shutsemau wrote:
-> On Tue, Oct 27, 2026 at 01:05:58PM +0100, David Hildenbrand (Arm) wrote:
-> > > Writing this, I just realized that we have another option -- map the
-> > > shared tail page writable. A failing LOCK CMPXCHG writes back the value
-> > > it read, and the get never changes a zero refcount, so the race becomes
-> > > harmless. The cost is the protection: the page is shared by every
-> > > hugetlb folio of that order in the zone, so a stray write to any tail
-> > > silently corrupts all of them instead of oopsing.
+Hello Michael,
+
+On Tue, Oct 27, 2026 at 06:50:51AM -0400, Michael S. Tsirkin wrote:
+> On Tue, Oct 27, 2026 at 08:26:32AM +0100, Francesco Valla wrote:
+> > When a virtio transport exposes a non-discoverable bus, the devicetree
+> > can be used to declare its child devices (if any) and/or other
+> > properties. To allow for that, the virtio framework searches for a node
+> > with a suitable compatible in virtio_device_of_init() when registering
+> > a device [1]; such compatible takes the form "virtio,deviceXX", where
+> > XX is the hexadecimal representation of the virtio device ID as defined
+> > by the virtio specification.
 > > 
-> > Right. Without HVO we would just corrupt pages in the single folio (which is
-> > also not nice).
+> > This patchset thus does not introduce a new functionality, but allows
+> > proper validation of nodes tied to spi-virtio devices, aligning SPI to
+> > what is already being done for e.g. I2C and GPIO virtio devices.
+> > It was sent initially as part of a different patchset [2], but since it
+> > complements a functionality that is de-facto already there and is useful
+> > beyond that specific use case it was sent separately (also following the
+> > maintainer's feedback there to separate it from remoteproc-specific
+> > changes).
 > > 
-> > I'm also questioning whether we need this RO protection all the time active.
+> > This was tested both with virtio-mmio using qemu-system-aarch64 and with
+> > remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
+> > parts still not not upstreamed - see [2]).
+> > 
+> > I added myself as reviewer for the spi-virtio driver to be CC'd on any
+> > patch involving the new bindings.
+> > 
+> > Thank you!
+> > 
+> > Regards,
+> > Francesco
+> > 
+> > [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+> > [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
+> > 
+> > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > ---
 > 
-> What do you have in mind? RO only under a debug option, or switching the
-> tail page to RO some time after the remap?
+> I hope this can be merged through the devicetree maintainers,
+> I have no idea.
+> MAINTAINERS changes needs an ack from existing maintainers, of
+> course.
 > 
-> If it is the delay, a grace period alone does not close the race. We
-> would need rcu_read_lock() back around the get, and then it is the old
-> scheme with the wait taken off the allocation path.
 
-So it used to be; back when Nick introduced try_get_page, that it was
-only allowed with IRQs disabled.
+This might prove... difficult. My e-mails to the maintainer (Haixu Cui
+@quicinc.com) continue to be bounced back by the Qualcomm postmaster
+with a RecipientNotFound error. Maybe someone from Qualcomm can give me
+a lead on how to contact them?
 
-And looking at gup.c now, I see gup_fast_pgd_range() still has
-local_irq_save/restore around it.
+> > Changes in v2:
+> > - Expanded the commit message to better explain the functionality and
+> >   the chosen compatible.
+> > - Redundant pieces dropped from bindings.
+> > - Link to v1: https://patch.msgid.link/20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it
+> > 
+> > To: Haixu Cui <quic_haixcui@quicinc.com>
+> > To: Francesco Valla <francesco@valla.it>
+> > To: Mark Brown <broonie@kernel.org>
+> > To: Rob Herring <robh@kernel.org>
+> > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> > To: Conor Dooley <conor+dt@kernel.org>
+> > Cc: virtualization@lists.linux.dev
+> > Cc: linux-spi@vger.kernel.org
+> > Cc: devicetree@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> > 
+> > ---
+> > Francesco Valla (2):
+> >       dt-bindings: spi: add spi-virtio
+> >       MAINTAINERS: add Francesco as spi-virtio reviewer
+> > 
+> >  .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
+> >  MAINTAINERS                                        |  2 +
+> >  2 files changed, 48 insertions(+)
+> > ---
+> > base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> > change-id: 20260927-spi-virtio-bindings-f4e350b2709a
+> > 
+> > Best regards,
+> > --  
+> > Francesco Valla <francesco@valla.it>
+> 
 
-So what do you need that rcu crud for?
+Regards,
+Francesco
+
