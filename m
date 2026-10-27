@@ -1,83 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093485;
-	b=13FQUtTJCFeq87HmEOiqmhoQn6qBvU0Lln/53Gg9TVHQW7Z6i2nXXQGC4VEH9PYVaV+h
-	 PWNSjdTJtrvjiJlQwNvhmyCGaRIz0MRs/E5MdWS7olaMjIi66j9bMqEKYVtQrwlFJR16S
-	 MziyphSZUbnzewe6KV+DQvQm3n9OSfb6VJ3LEW5kQVtWFloN2el0znhbYRXsrQwX10Q3/
-	 f5ZB1hrwg6is5+yk3ZuVtutzCWrtPs53nM57S3q57LBmWNKqkeZPjG1tsGI+5dtNNMpk6
-	 bhbCtckHGyQZ88Xl1pQimAcaaIm3jSDFAioCRS5PKCEAY4Ywj5AaYh50+bGOlZ2L7uw==
+	t=1793093490;
+	b=eHXMowa0x6b4u6Op5WmcOiybeGu+GUzut/QYm3goHwwSokznsISnlazYewO7VR2oFnGs
+	 xLGQH5GcjBMUiFGHm6G2lg71CNfmBMnF8qoLQkNe1WKrQEXK3w4zyVSoBKXye5NY/MjDn
+	 CIlXzU5QaHPb0L+AuIxhFXY/l+YcMft5dp9d6WVXeOAjObtyL5kPDu/M5z+iEzZlhVgCa
+	 1NVZL36DFBiofaadzL4kO+nhU1QKhSf1gTeMYx/sDHj2OBT5mZLIcZEHxpNjwsIZyAu80
+	 aDnv+tulqPXx5nzz2nPaoaVyE/vpPPmon24i2Mc/SzOOdU9FLkQxfQJ5+CViuQGspnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093485;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=ZrREaFPN1A2I23bFcrwrSvKLFXloO62VYkfEvECgFVQ=;
-	b=PIz1OtBVwHbBhCsze0Ut0sjIC6Z9tR8MrVx2TX8qewvUN02eNlewblmpE/yPfgCL1pb2
-	 BE0LQvT4SOZ2BOuJXasqrH/+8BGF+dMx0Td6Z1v703QNGYehTuWI3VRbKijdaTwKpmNis
-	 36dpt07S1bIXXU+n5hdk5FA6Q+eGkBbert5MUce+HJEbDuCrDnPmcbLBrUWL4pnLxDeAX
-	 I2ZpjPOkUa/z3WlNlPwS2CBU8ih4cE3waqNtal9AANnZf+VtiZS9hyF1hBl5ikuFbV0bz
-	 n8dlkpYeqqZB6evVtdJKEGoudNQAYGJ/3mgWdVHqsLq0kop72lKUWUSn6C9+0mEPVZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093490;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kvtdwU0KO2BtXBt6y/IVBzHQ0xmBFBGF6XhQxh8VEFk=;
+	b=foihXOqWONKWbFrb76RDR2FW4+dOQV84ZlSVSKNwReu++BeLY5p18BI6pk8qLi4qOpxb
+	 cQ8FxGSaJQs2d+V4B3yS0pUY7GN2jfyWYKk+MnwSC0h6s6ggS99UJw1Cc4JZISYrUq56F
+	 EF0TPmumnZZrfDFn/fNG0L3scWAbcK9+cHb/JF3kyDP9AEkdaSe9XGQ9LZthRWcMGGLby
+	 jhjlOGcRkWu6gs0ED+jdggraPkVfg4l9C0YcxukgLws3JRAsuCTJn+R7TUvR5tHXFBrYD
+	 6TiY/7N3Km5xQYbCf7ZHoROGYNc4PWhSOR2JyYy3X1+181uTsw/occ0ucO7UocwqO7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zizy2pld;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VTuFsuZl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D9E606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:31:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D9E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67EC4606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:31:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Zizy2pld
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793093484; x=1824629484;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=mENBM7L0NMnkFXUKkoj0KRaIna8saiPp1s2/O6X9Bsg=;
-  b=Zizy2pldXJHltUklKCgdOwd1eJaxJrw+4Wt4kML58HY8SYIJjBB3vOZy
-   arDp+Uvr7NRVaCL2S8+q/6QLVxkRVdVy3vj4VnL+Q4AknLOHVY6yE4dih
-   eZsTFiWwkgjnOhqfYs+E77a+4ueMQNYpi53dd4/GSjPbNk7avR8jdchSb
-   Z5/VpNfui2KHN95iBCA6a0ySykOiECJKJj7rNiyChTtEWsI5IkIR9EqlG
-   Erh85XZSQds1i8CxHsrlmh0//dII+INlxj7jiGiejNJe+3d+UIFoib/JY
-   mPLLkvDdrbI1Idtn+JkJn2++/ENbD9j2uYCBqL18ICAaqHn6Se5BweodW
-   w==;
-X-CSE-ConnectionGUID: +TKBXmJgQASP/fsXIWmVFA==
-X-CSE-MsgGUID: Zt3N+nsjTh2YmSEyNG1KXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1796566"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1796566"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 02:31:23 -0700
-X-CSE-ConnectionGUID: vjRQxLxUQmCYoJZVy2tglg==
-X-CSE-MsgGUID: BF2qoHQ/QPC2cHnSOnwgXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4849329"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 02:31:20 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Aman Sharma <amansharma6122002@gmail.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, Aman Sharma <amansharma6122002@gmail.com>
-Subject: Re: [PATCH v3] drm/i915/hdmi: preserve cached EDID on DDC failure
- when connector is forced
-In-Reply-To: <179284640822.1672477.8751430644960613659@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <179284356403.1659508.10439113185286055496@gmail.com>
- <179284522321.1666644.7085985666852699043@gmail.com>
- <179284640822.1672477.8751430644960613659@gmail.com>
-Date: Tue, 27 Oct 2026 11:31:17 +0200
-Message-ID: <c1c3c10002166161503e6b529726ae305d0b698c@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VTuFsuZl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04EF91F031E6
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:31:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793093489;
+	bh=kvtdwU0KO2BtXBt6y/IVBzHQ0xmBFBGF6XhQxh8VEFk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VTuFsuZlVlYXSXEfBa06AjAr4dvqbmTCvoiiH7lZI1NKPWXSSahEY/KcRNGOOED6U
+	 WbKHmI20D8IpJz+Xg3J+lJy9KUEV6p/hA/YW8h2nN1Em9a2R860IjhQcmpuEh8Hfqw
+	 q0sp6MzIVN+9cA6od3AofVS64c2uBl1HMhY1VzV6VESYBhVKsE5QnZdPCjlxaJGVZ2
+	 eJ7sHAiVBtQk1XqyQJ5c0Hpoqrlynsa37MNYiD6hfUzGALjNkhiGbxmWX+2Yy4X++w
+	 z3mcvYx9Fay6HAhzzgflObM0jAOqBSe2W2/78twpBdpKk7oahxj55TwNHqG29RX0cH
+	 ZDmD5snh9yzug==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a98fc80925so40440291fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:31:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz1KlB5hkX0AjyJNB57rGxoDjwztVTMicrmgtcLS2KwTMegrC+3Jx+R2Kn7mlBNMsaNwGg/ThUx6Z9TEa4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJv4XD2Up+1wGlcKAO8nCtXKMYL5ogilBCN9uGrZNFJcURHBZJ2
+	5XVm25OUfZIG/+rR4kLUjizWzMnTTUtGmy3a6aTG1BehAFRVsf0QNSQYgyzvy0xtQzDmLXj4l5q
+	mIMUo5AB48ff6Ylxj6OG1RDgo2WKHNqY=
+X-Received: by 2002:a05:651c:1612:b0:3a9:9b74:1ba1 with SMTP id
+ 38308e7fff4ca-3ac6fd15170mr24859951fa.8.1793093487766; Tue, 27 Oct 2026
+ 02:31:27 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,135 +59,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261026153113.3275494-1-antonio@mandelbit.com> <2812b71c-cd0c-4d87-a57c-427ef40d078b@kernel.org>
+In-Reply-To: <2812b71c-cd0c-4d87-a57c-427ef40d078b@kernel.org>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 27 Oct 2026 10:31:12 +0100
+X-Gmail-Original-Message-ID: <CAL4Wiipicgwk47pDVtxcuRY=QRWM4tbpf9jsBJ3YPhOo-emhXg@mail.gmail.com>
+X-Gm-Features: AclHuK-I6ImiJ1FO1cFDbA969CprrieCj22Ga3zWI-G3lytVH7H4AAoLQ4_fFPM
+Message-ID: <CAL4Wiipicgwk47pDVtxcuRY=QRWM4tbpf9jsBJ3YPhOo-emhXg@mail.gmail.com>
+Subject: Re: [PATCH net] net/sched: fix packet reordering on requeue
+To: Jesper Dangaard Brouer <hawk@kernel.org>
+Cc: Antonio Quartulli <antonio@mandelbit.com>, netdev@vger.kernel.org, 
+	Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	kernel-team <kernel-team@cloudflare.com>, Chris Arges <carges@cloudflare.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 24 Oct 2026, Aman Sharma <amansharma6122002@gmail.com> wrote:
-> When an HDMI connector is forced enabled (e.g. via video=HDMI-A-1:e for
-> laptop clamshell operation) and the external monitor enters DPMS standby,
-> some monitors (such as the BenQ GW2790Q) power down their internal DDC/I2C
-> controller, causing SCDC/EDID reads to fail with -ENXIO (-6).
+Le mar. 27 oct. 2026 =C3=A0 10:28, Jesper Dangaard Brouer <hawk@kernel.org>=
+ a =C3=A9crit :
 >
-> Currently, intel_hdmi_detect() and intel_hdmi_force() unconditionally call
-> intel_hdmi_unset_edid() before calling intel_hdmi_set_edid(). When
-> drm_edid_read_ddc() returns NULL during monitor standby, the connector's
-> cached detect_edid is wiped out and
-> drm_helper_probe_single_connector_modes() falls back to the 1024x768 VESA
-> no-EDID mode. When the monitor wakes back up, because the connector status
-> remained forced to connector_status_connected, no hotplug state transition
-> occurs and the display remains stuck at 1024x768 until a manual mode probe
-> (such as toggling the laptop lid) is triggered.
 >
-> Fix this by moving intel_hdmi_unset_edid() into intel_hdmi_set_edid() after
-> checking whether a forced-on connector (DRM_FORCE_ON or
-> DRM_FORCE_ON_DIGITAL) already has a valid cached EDID (detect_edid and
-> edid_blob_ptr) when DDC fails, and preserving connector_status_connected
-> on Gen11+ digital port disconnect when a forced-on connector has a cached
-> EDID. When the monitor is awake or a different monitor is plugged in,
-> drm_edid_read_ddc() succeeds, resets the previous EDID and dp_dual_mode
-> state via intel_hdmi_unset_edid(), and updates the connector with the new
-> EDID.
-
-Connector forcing and EDID reading/caching need to remain
-orthogonal. The patch at hand makes a complex thing more complex.
-
-Please file a bug as described at [1], reproducing the problem.
-
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-
-> v3:
-> - Explicitly check for DRM_FORCE_ON / DRM_FORCE_ON_DIGITAL so DRM_FORCE_OFF
->   still clears the cached EDID as expected.
-> - Report connector_status_connected on Gen11+ disconnect when a forced-on
->   connector retains its cached EDID, and jump to out in
->   intel_hdmi_set_edid() so CEC physical address remains valid and
->   drm_helper_probe_detect_ctx() does not increment epoch_counter on
->   standby HPD pulses.
 >
-> v2:
-> - Move intel_hdmi_unset_edid() into intel_hdmi_set_edid() so hotplug
->   detection via intel_hdmi_detect() also preserves the cached EDID on
->   forced connectors and resets dp_dual_mode when updating EDID.
-> - Clear detect_edid on Gen11+ disconnect when the connector is unforced,
->   and verify edid_blob_ptr is non-NULL before retaining detect_edid.
+> On 10/26/26 16:31, Antonio Quartulli wrote:
+> > dev_requeue_skb() appends requeued skbs to the tail of q->gso_skb, whil=
+e
+> > dequeue_skb() takes them back one at a time from the head. If the drive=
+r
+> > returns NETDEV_TX_BUSY again for the first of them, it moves behind the
+> > skbs still parked there and is sent after them.
+> >
+> > This showed up as heavy TCP reordering while benchmarking over veth,
+> > which returns NETDEV_TX_BUSY whenever its ring is full since
+> > commit dc82a33297fc ("veth: apply qdisc backpressure on full ptr_ring t=
+o reduce TX drops").
+> >
+> > Requeue the skbs at the head of gso_skb, keeping their order. With 4 TC=
+P
+> > streams over a veth pair with a pfifo qdisc, this removes about 1.3M
+> > out-of-order segments and 15-37k retransmits per 15 seconds, and raises
+> > throughput from about 40 to 76 Gbit/s.
+> >
+> > Fixes: a53851e2c321 ("net: sched: explicit locking in gso_cpu fallback"=
+)
+> > Fixes: 9540d977618c ("net: sched: fix skb leak in dev_requeue_skb()")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+> > ---
 >
-> Signed-off-by: Aman Sharma <amansharma6122002@gmail.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_hdmi.c | 31 ++++++++++++++++++-----
->  1 file changed, 25 insertions(+), 6 deletions(-)
+> Thanks for finding and fixing this!
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> index b6fa1a1558b8..a14a857dfe94 100644
-> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-> @@ -2570,6 +2570,21 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
->  		intel_gmbus_force_bit(ddc, false);
->  	}
->  
-> +	/*
-> +	 * If the connector is forced on (e.g. video=HDMI-A-1:e) and the sink's
-> +	 * DDC/I2C bus is powered down during DPMS standby, keep the previously
-> +	 * cached EDID rather than wiping it and falling back to 1024x768.
-> +	 */
-> +	if (!drm_edid &&
-> +	    (connector->base.force == DRM_FORCE_ON ||
-> +	     connector->base.force == DRM_FORCE_ON_DIGITAL) &&
-> +	    connector->detect_edid && connector->base.edid_blob_ptr) {
+> Acked-by: Jesper Dangaard Brouer <hawk@kernel.org>
+>
+> > Notes:
+> >
+> > - Setup: 8-vCPU VM, veth pair; sender with a pfifo qdisc and TSO off,
+> >    receiver with GRO and threaded NAPI; iperf3, 15 s runs.
+> >
+>
+> For others, notice threaded NAPI an important setup parameter here.
+> This makes it more likely and reliable for ptr_ring producer and
+> consumer to run on different CPUs.  This situation can still occur
+> without threaded NAPI, when multiple localhost userspace applications
+> run producing packets into veth, as they will likely get be schedules on
+> different CPUs.
+>
+> FYI, we also run veth with threaded NAPI in production, but used in a
+> routing setup (no "localhost" apps).  We have configured veth to have
+> many queues (64), and we use qdisc MQ on top to avoid serialization on
+> the qdisc root-lock.  Thus, we should be less affected, as we spread
+> flows more across qdisc.
 
-Drivers also have no business looking at edid_blob_ptr.
+And presumably you use TSO.
 
-BR,
-Jani.
-
-> +		connected = true;
-> +		goto out;
-> +	}
-> +
-> +	intel_hdmi_unset_edid(&connector->base);
-> +
->  	/* Below we depend on display info having been updated */
->  	drm_edid_connector_update(&connector->base, drm_edid);
->  
-> @@ -2580,6 +2595,7 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
->  		connected = true;
->  	}
->  
-> +out:
->  	intel_display_power_put(display, POWER_DOMAIN_GMBUS, wakeref);
->  
->  	cec_notifier_set_phys_addr(intel_hdmi->cec_notifier,
-> @@ -2611,10 +2627,15 @@ intel_hdmi_detect(struct drm_connector *_connector, bool force)
->  	wakeref = intel_display_power_get(display, POWER_DOMAIN_GMBUS);
->  
->  	if (DISPLAY_VER(display) >= 11 &&
-> -	    !intel_digital_port_connected(encoder))
-> +	    !intel_digital_port_connected(encoder)) {
-> +		if ((connector->base.force == DRM_FORCE_ON ||
-> +		     connector->base.force == DRM_FORCE_ON_DIGITAL) &&
-> +		    connector->detect_edid && connector->base.edid_blob_ptr)
-> +			status = connector_status_connected;
-> +		else
-> +			intel_hdmi_unset_edid(&connector->base);
->  		goto out;
-> -
-> -	intel_hdmi_unset_edid(&connector->base);
-> +	}
->  
->  	if (intel_hdmi_set_edid(&connector->base))
->  		status = connector_status_connected;
-> @@ -2638,10 +2659,10 @@ intel_hdmi_force(struct drm_connector *_connector)
->  	if (!intel_display_driver_check_access(display))
->  		return;
->  
-> -	intel_hdmi_unset_edid(&connector->base);
-> -
-> -	if (connector->base.status != connector_status_connected)
-> +	if (connector->base.status != connector_status_connected) {
-> +		intel_hdmi_unset_edid(&connector->base);
->  		return;
-> +	}
->  
->  	intel_hdmi_set_edid(&connector->base);
->  }
-
--- 
-Jani Nikula, Intel
+With TSO, chances of hitting the bug is probably quite small.
