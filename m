@@ -1,96 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793078859;
-	b=YaqTrXS6Lu384en+w0L3U6wW5pn0w31f42I5VtvUOt70o5ZoPuBYtvvIJ7MiCOU3SK4u
-	 vxKvgcQPypd6y8qmbNMwAteF2YuspkhgX6dmjQl1XArIiKRBDAGOGuMW4i8H2R4f11BWQ
-	 YYCoDsHakFJWlfi/e6IrZH4xoRkTH4w7BgYsBQVQAQf3j9aj792ShQghbEUn/gh/f92Eo
-	 EjQg8EpfWkbm7YJyPSac3BtoMkSNpZQdT2LKCOVGcBdh+qXQvpS4qIK8K4VtDG1vlQsHl
-	 uCLkOUsCAy6Wqrc+1Fw1qvehZpmrkWiHaAUvZttdAY+EsmAWDEm1L/LQh65L3oB8RGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078859;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Tf2PWZY1fKwgg5B7a9yjZqdkktnSO5wV2PBaYvFNA9A=;
-	b=Spd9OfsN0NeC4U1AjHWAK6u6dz5H0zAg5FBaIb5SsdvoVBJzqmq2fgnoAEQPlgMFAQ6a
-	 E1glaARm+xFS8tlc89hN9Z/Hv0CPy2ie2LJ2RPgCJwUv6gTlGqDKPKDbbgxkgLa2QHQkU
-	 aDfCgJe21P+0e/LzLxMRu2AfoOz/jw0G/01uc8ZlXfbU2v5RGkjN/HlQvThkGDPsh+VXE
-	 3WOTbOBYWvcfyigrZ9PbrK0HIoNJBWEnZlp6nQjnepX229SFW/Eoys0Dh9Qs5oqVt6OK6
-	 Ck/xL3+v+slPHTKlqyE4pbsFOdkGMgYhqdUSiZjRscelzUI8F+gUu41SPT62p+6mnWw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mhun5C5p;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.13
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013013.outbound.protection.outlook.com [40.93.201.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793078862;
+	b=eEgxoUSRVIX2c14rNf65xt03RjwK9VJoZ6Re/w5ZtGCosccHklXWZ6srrh+u8zAx0eHG
+	 KPw4g56RSwbHWQysNFVLAZUaA9s2rEa3wSdCuMaI/vMKwZUywmyasNjsYTDnwEsotLEGC
+	 0DBDnrOyu3SuvTdAnCl7jg9UfCho/kG4/DpnmprWpGg3Bx8a4hLquJsnISRSyJAyipe8a
+	 b+Afcj8AkkkN5jD7kAExSxj4tt+2hSSZsQpjTd5z7jUWwdFwl5setdnS8HCMjFm+m4eg5
+	 ByJUTLwbvHOxLfPkVpvvXn7JQaMO08wHEw+aKRq0a8qy2rzc4/kCKx42UmIcNOZ/VwA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793078862;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=m0nJrlnfoOSOvcfyWHeQMMPNOJzq0tbyqlK5fc75ELI=;
+	b=eBqz0OKWJ70VW/yXSrV7wbM+trzUVCyKoHLQO7qx8EwzAMt/FaVN66ABBdsid6l6Ip+N
+	 Ns3346rVfXG+5cb2kWUgAzSjNIDEhZoEOwBm73Kn0MWRMKE9XDZHtnF6pRz4LjLXO8DVB
+	 J3PbUvxrcIWEzeE262ao4PMT/YgF8cCa2i7Fus5aAdi9Uykvckl3R+AWVb/itWeA8pRlW
+	 nfjgqHgdRQfkah6iMMpZ1sZxxQvtm3KJHo5RfPPqsmXn7NbwPtiBV9v846BzVWAGZciMb
+	 HMUe7/+cxXd4OZBPeGGQPoepS7SXwfQ289lXQJPJgduhS66slgnLJZEoW66XUje0d/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ExBgSUb6;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90ACA606A31A;
-	Tue, 27 Oct 2026 05:27:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90ACA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68F7606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A68F7606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mhun5C5p
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JSvyM0mJXk90RMr5x/O4O+hWFPvtOkgteQUfH/qqGvCESqVBUoU77ZLMmcSLHLeKa5klWkdOAYjk+QQq0//+hRwzdbfPlqDuGe+J/tuKnYsoDtV4V51fPCW34lOvgc5jdlrPNSBhpSkPibgM6CVbIsHscC0MVqr8i7y+yQwcTAwrnVv3Xqge/wiLAJyrFxNyo2IcEAzcS5qckb05jDr35wCrHYSR+Y93auc8sJmUaiMY1r8NqKpvdsYhHylLWBxJcRGMH4zoLTLn3+MGi2yJ3MEdQIkfs0bV3dhlOZnAb6dxHQyItJ0KJr/FUk/wKpNFA37V8F8Ix2Rhh20EygHOtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tf2PWZY1fKwgg5B7a9yjZqdkktnSO5wV2PBaYvFNA9A=;
- b=oCz9hkPWtV24/VfdL2KfC3nyoiV/weFSrgPXNE4b9voNwC3DFCYNEtxrWkxbFjVPoHzFpvKv9XGqNbeptu3M8dQ+5+ConTmtgCN2InELaZPCCO6D8AppK/koB8mcClg1cpI+IjlvXa+fNowDzshrUr1G1AI3OemTs0dNBhA9N3K9fstr/vYbKbfwVYKhWj2YB/fuXplbKM7OIYRdPok8fA4FLqaZt/nH9r9rCZhdVriYQJDSPvsWKCQn0xNVbXGl/i81wYnySXJ6ijCZwLHvekm8YRGT9JSDBTPFXe91FsZ45RNsWblkyC++JJjhqCGBFkBkNc8HbkfnylvfRSe07w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tf2PWZY1fKwgg5B7a9yjZqdkktnSO5wV2PBaYvFNA9A=;
- b=mhun5C5pHV89iQdnxX7yXQn3w6hzq8zGs6p1uigmFsmbJeah+GoD7l1yG252DA6gH9XF0WtBdYSrrJPOC+NANeXOPmdwWNs0VcBqLtb5HMCdprqmi+ONFSwE6PziShp4VT61YOa8FOS5Q/8mMsZKtFUdtDt1QfqvqMvVR9/YBC8=
-Received: from DS0PR17CA0016.namprd17.prod.outlook.com (2603:10b6:8:191::7) by
- PH8PR12MB8605.namprd12.prod.outlook.com (2603:10b6:510:1cc::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.22; Tue, 27 Oct 2026 05:23:30 +0000
-Received: from CY7PEPF000000ED.namprd04.prod.outlook.com
- (2603:10b6:8:191:cafe::2d) by DS0PR17CA0016.outlook.office365.com
- (2603:10b6:8:191::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
- 27 Oct 2026 05:23:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY7PEPF000000ED.mail.protection.outlook.com (10.167.247.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 05:23:29 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
- 2026 00:23:28 -0500
-Received: from [10.136.37.101] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 27 Oct 2026 00:23:23 -0500
-Message-ID: <ded8ef5a-8919-4063-815e-27fc38e4c204@amd.com>
-Date: Tue, 27 Oct 2026 10:53:22 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ExBgSUb6
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e9995ce866so34938095ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:27:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793078861; x=1793683661; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m0nJrlnfoOSOvcfyWHeQMMPNOJzq0tbyqlK5fc75ELI=;
+        b=ExBgSUb63vzFTMoFanSDnjYmgrn6etR1qxF6pWrUrPMWIkGN+daQuWQGCIAkraFMp3
+         qMEGcrVUlzklN37bw9UvJhGpy+1NrBmHov6MUn7bBKOYJcwfgZdQWfiWbf45pdj3ACsQ
+         A+4DpnYhgs+9Y1t0v7qHKq1EcBYMMHk/dafRMzhBmXwHdJDV009Do6UhX34kv7OjffB3
+         VZ9EWV9nfRplSNcwQKTfhHMR8eDM1vTalTZeq4T5y7woktv+t0yfo/tU4Tp+eabdbUlO
+         Ijq9xiGI+c65Qwd0L6+xnxSgkbElDgE6J+6/APXoCLGQbAuidRd0mBIuh9ul7RMsdjhc
+         3F7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793078861; x=1793683661;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m0nJrlnfoOSOvcfyWHeQMMPNOJzq0tbyqlK5fc75ELI=;
+        b=REDz7PMEb6Z7K2xp+L7TjIi3jvq8XNWoBsD/pvfAuW98awVfauNrhRKNdaWNDCBnuq
+         jNUVuKlVAA9frvBA/LquUR8PO2pNr6886wblttWAYbHuevbiUagX3eIbplfZd5ys6/K9
+         dBVu6JsX4unGqHY6xxFZdMtguWDa9K/9sQFp1cAYvNFUq/KLSJ7njiuGz/sv12aWFm78
+         R7H6e2ELynphsytv2xg0/DlAOn+wHaN72Hxhio4FQBFWqr1ELbvY8Qn5/jMB/1gT5bpc
+         x69tDaHoWDRTbljtygfu1io5Q9D4OLYhu2kFM6eDz1ImVP8zrh+lH/sYDAHsMR2VPKzT
+         HUzg==
+X-Forwarded-Encrypted: i=1; AKwUvBxypGbcx7gdAYFuiFi0Ey8iLr9bhYdEHE9Y/YlrXUbKPW6E/m26u691dAzQ/yO9yHC+cDnF97zN1Bys0cQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtfJEgqNUob21D973CApefj+0pZ/QD6XBL3/jo4RCagrEHLEyN
+	JbvY8L/Z8T0RaXFdY3KyIuzTBz7KVUPpEnrHOiD3KFOyiIEMu4syw2T4
+X-Gm-Gg: AYBFou1D0XMzAM1diNyxbgQ7Lla0MkxaJlvoAFxzaBaYKxUh21yRWDCA8vFjdziG+x5
+	k2GHqDey4KOPtoK4QbAyYlvC2GL29db6mlT+A0xRP9cbMnHCHY7+tUo/WwmLfTfK8C+Rd2cZkOn
+	SBvYz8lJuWsWUTes1gwnFIoqQfuhyLrE+9OGX2ZGC2HrRxtJ4e0AJQN02DKtA9KuyKcFjJZUwEC
+	qWYRZ4sX3UQvwlw8vGubIeuIxxwdvKNQezm+DUZc6OxFXMLPsW2gD/L2Qny4OmnRpRX0y6w1vrU
+	/eCe4UQq2eU/Gal7DU8/M//bHmhWDd6/zR9sle4YRON1Y1Fuxlma+PYLcjGumXUsfFFTMA352dS
+	ASVBA+zDz7+LqTw8/Dedj30YexpdsBfbYyd+Qj+zRXrkWa4zm35vYpMDOlnGSVzGfWuYh2W+5v2
+	sdsjjkf3mQSF8GZyVdmDYez3WYvMb/7TBxqXNYAUhLSCb88rllHrtf0iRfwyE6Dy0TxUlLyNbhN
+	hG0mYj5ac31NtCGN4CJmu+VcSX8Mss9RuW9qTd0QyKmq84I8Vaj3y83X8T5FyhFCcbH1iFXuG+n
+	oXLkPvCcJXQ1Y9I3mAU=
+X-Received: by 2002:a17:902:ecd2:b0:2e8:30dd:523d with SMTP id d9443c01a7336-2ea9c620609mr80507945ad.13.1793078860951;
+        Mon, 26 Oct 2026 22:27:40 -0700 (PDT)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.27.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 22:27:40 -0700 (PDT)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: akpm@linux-foundation.org,
+	bhelgaas@google.com,
+	lukas@wunner.de,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	alistair@alistair23.me,
+	rust-for-linux@vger.kernel.org,
+	jic23@kernel.org
+Cc: ojeda@kernel.org,
+	aliceryhl@google.com,
+	a.hindborg@kernel.org,
+	alistair23@gmail.com,
+	wilfred.mallawa@wdc.com,
+	bjorn3_gh@protonmail.com,
+	gregkh@linuxfoundation.org,
+	boqun.feng@gmail.com,
+	benno.lossin@proton.me,
+	gary@garyguo.net,
+	tmgross@umich.edu,
+	alex.gaynor@gmail.com,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: [PATCH v5 15/23] lib: rspdm: Support SPDM get_capabilities
+Date: Tue, 27 Oct 2026 15:25:28 +1000
+Message-ID: <20261027052536.1722081-16-alistair.francis@wdc.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027052536.1722081-1-alistair.francis@wdc.com>
+References: <20261027052536.1722081-1-alistair.francis@wdc.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,72 +118,508 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: perf/amd/ibs: [BUG?] ibs_op sampling silently stops on Zen3:
- MSR_AMD64_IBSOPCTL latched, no NMI delivered
-To: Liew Rui Yan <aethernet65535@gmail.com>
-CC: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<x86@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Manali Shukla
-	<manali.shukla@amd.com>, Jim Mattson <jmattson@google.com>, Ingo Molnar
-	<mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
-	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Alexander
- Shishkin" <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, Ravi Bangoria <ravi.bangoria@amd.com>
-References: <20261019212028.119312-1-aethernet65535@gmail.com>
-Content-Language: en-US
-From: Ravi Bangoria <ravi.bangoria@amd.com>
-In-Reply-To: <20261019212028.119312-1-aethernet65535@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000ED:EE_|PH8PR12MB8605:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76aad62b-c112-49c4-2fe4-08df33ea6f7c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|36860700016|1800799024|82310400026|261022105027099003|261021121427099003|261022075727099003|3023799007|10067099003|56012099006|22082099003|18002099003|13003099007|11063799006|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	OH0ij9HPFKsF0eK2lQuwSfiqQ/oPAfYy3JRdCeUF6CxNwUAi2O0XWJR6aBSA3sCCBjUnvsO5oG/BVU1hqOMyRrHJEGV5fs6AjkLz8JnuzIbKXJm2amAUb3qVwRJsIjipIW5Hc89wfSq0e8bl3tdNiHQ5UazDL7k47MuvSJGzMS+hBTIlfs3UcuU6bj4V6Z67hQc4LSd6a3C1dnl+rjENw7arikIrTT30Y6RQvhCpzjmH89ArVYPOotNV7/6bzwg4qidBVoR5p6hDx+JUzcjnFLMVotpNOmJp8ARfzCCXhvbYtk3HPjGS7r1AtMGWK6Rb8Nfw9oVRkulcB8Hv9U53z32Qol0hG1w55iNJ2XIDfT5CLsXmLHX04ZTnqv6YF9aG2zrmFJXwoRcpP6545mMlhMc6VTAHk1757FJDLE1LzqRczD7qAj6EHd/jjcO63dp/QCNKGlKpxbjtOjkiShC43ne2ri/E0msIGVHIKQS88d76lxv79OLsC1yz/3V8Ro2rWYXxdkqBOmqxK9KX3LYAQsDyytwphyab3xWxq/mQBDJgSMpO2Aow3TLGXVEM2wkCcZlDB5M2QP7bzGFTv45BDx3Jh2bOEwVwIJSx8y4kJaHTjZ5LVkyZjgo/IvK3I1Ph4dNYSU6xC2ZZHf/9ZNFWPWHJ714XPXZWM33bUB8K7OE=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(261022105027099003)(261021121427099003)(261022075727099003)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003)(13003099007)(11063799006)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Xhr+VhoT710W9a6zFAymbjs+ClVI1GC+OPyyhKLjZpx519xJCOaFilZctDk30jH3D1Q5UWzszzQHZFBqg0SMhbtDur5oe8fIcfFsJ8sWEr4Ry++Bg9RRXY/RBtrVjr32HBzs5Mw6ns34hdXSMXxRnBW4xe7dXasH3d9DSzQYZ4/jV27Fp4bFQrBp2UWMW0+Wbp9u9z0gPq4hAj312eWS2lm7pkIHkaVn7Hierz53DAGCoGXqZZYaw2+Z1jlNbDxnWKf76/uFylwVeSjvVDK3keqccHn6FPDtwuxgpAzuYcLSPXZGL26erfNBid9s0hj0Ye2O2K80MZwB+/kGOyKP0gdBLwlv8lE2Li+Ta+90SqUZ/J07hq8vG4iSHeGO5GMCHVXYVK7BpUZLgXj9IbSQKe2MX0LfTfPpQhYluHAcvP+gwFHrDZx1Wg4cUHYgLOqX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:23:29.4783
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76aad62b-c112-49c4-2fe4-08df33ea6f7c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY7PEPF000000ED.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8605
+Content-Transfer-Encoding: 8bit
 
-> I found an issue with ibs_op sampling that I can reproduce on my AMD
-> Zen3 laptop.  Under full CPU load, sampling PMIs stop arriving on each
-> CPU, one after another.  Reading MSR_AMD64_IBSOPCTL (0xc0011033) while
-> perf is still running shows the hardware has latched a completed sample
-> (IBS_OP_ENABLE=1, IBS_OP_VAL=1, IBS_OP_CUR_CNT frozen) and is waiting
-> for an NMI that never arrives.  The CPU never recovers on its own.
-> 
-> I am really not very familiar with CPU, so I would appreciate any
-> guidance on whether this is known and what to test next.
+From: Alistair Francis <alistair.francis@wdc.com>
 
-This is a known Zen3 hardware bug. The workaround involves opening a
-PMC event alongside the IBS event so that the IBS sample is acknowledged
-during the PMC NMI, thereby resuming the stalled IBS instance.
+Support the GET_CAPABILITIES SPDM command.
 
-More details in The Revision guide:
+Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+---
+ lib/rspdm/consts.rs    |  23 ++-
+ lib/rspdm/lib.rs       |   4 +
+ lib/rspdm/state.rs     |  60 +++++++-
+ lib/rspdm/validator.rs | 319 ++++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 401 insertions(+), 5 deletions(-)
 
-  https://bugzilla.kernel.org/attachment.cgi?id=311307
-  Erratum 1285 Processor May Fail to Report IBS (Instruction Based
-               Sampling) Performance Sample
+diff --git a/lib/rspdm/consts.rs b/lib/rspdm/consts.rs
+index a130673b6473c..fe5c79e0dd911 100644
+--- a/lib/rspdm/consts.rs
++++ b/lib/rspdm/consts.rs
+@@ -9,12 +9,14 @@
+ 
+ use crate::validator::SpdmHeader;
+ use core::mem;
++use kernel::bits::{
++    bit_u32,
++    bit_u8, //
++};
+ 
+ // SPDM versions supported by this implementation
+ pub(crate) const SPDM_VER_10: u8 = 0x10;
+-#[expect(dead_code)]
+ pub(crate) const SPDM_VER_11: u8 = 0x11;
+-#[expect(dead_code)]
+ pub(crate) const SPDM_VER_12: u8 = 0x12;
+ #[expect(dead_code)]
+ pub(crate) const SPDM_VER_13: u8 = 0x13;
+@@ -29,3 +31,20 @@
+ pub(crate) const SPDM_GET_VERSION: u8 = 0x84;
+ pub(crate) const SPDM_GET_VERSION_LEN: usize =
+     mem::size_of::<SpdmHeader>() + 2 + (u8::MAX as usize) * mem::size_of::<u16>();
++
++pub(crate) const SPDM_GET_CAPABILITIES: u8 = 0xe1;
++pub(crate) const SPDM_CAP_SUPPORTED_ALGORITHMS: u8 = bit_u8(0);
++pub(crate) const SPDM_MIN_DATA_TRANSFER_SIZE: u32 = 42; // SPDM 1.2.0 margin no 226
++
++// SPDM cryptographic timeout of this implementation:
++// Assume calculations may take up to 1 sec on a busy machine, which equals
++// roughly 1 << 20.  That's within the limits mandated for responders by CMA
++// (1 << 23 usec, PCIe r6.2 sec 6.31.3) and DOE (1 sec, PCIe r6.2 sec 6.30.2).
++// Used in GET_CAPABILITIES exchange.
++pub(crate) const SPDM_CTEXPONENT: u8 = 20;
++
++pub(crate) const SPDM_CERT_CAP: u32 = bit_u32(1);
++pub(crate) const SPDM_CHAL_CAP: u32 = bit_u32(2);
++
++pub(crate) const SPDM_REQ_CAPS: u32 = SPDM_CERT_CAP | SPDM_CHAL_CAP;
++pub(crate) const SPDM_RSP_MIN_CAPS: u32 = SPDM_CERT_CAP | SPDM_CHAL_CAP;
+diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
+index e0fb7b49d4a07..728910273a2ce 100644
+--- a/lib/rspdm/lib.rs
++++ b/lib/rspdm/lib.rs
+@@ -262,6 +262,10 @@ pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
+         return e.to_errno() as c_int;
+     }
+ 
++    if let Err(e) = state.get_capabilities() {
++        return e.to_errno() as c_int;
++    }
++
+     -(EPROTONOSUPPORT as i32)
+ }
+ 
+diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
+index 22655b2aff258..815f332fabad8 100644
+--- a/lib/rspdm/state.rs
++++ b/lib/rspdm/state.rs
+@@ -23,13 +23,20 @@
+     SPDM_GET_VERSION_LEN,
+     SPDM_MAX_VER,
+     SPDM_MIN_VER,
+-    SPDM_REQ, //
++    SPDM_REQ,
++    SPDM_RSP_MIN_CAPS,
++    SPDM_VER_10,
++    SPDM_VER_11,
++    SPDM_VER_12, //
+ };
+ use crate::validator::{
++    GetCapabilitiesReq,
++    GetCapabilitiesRsp,
+     GetVersionReq,
+     GetVersionRsp,
+     SpdmErrorRsp,
+-    SpdmHeader, //
++    SpdmHeader,
++    GET_CAPABILITIES_RSP_SZ, //
+ };
+ 
+ /// Transport for exchanging SPDM messages with a responder device.
+@@ -79,6 +86,9 @@ pub(crate) struct SpdmState<'a, T: Transport> {
+     /// Maximum common supported version of requester and responder.
+     /// Negotiated during GET_VERSION exchange.
+     pub(crate) version: u8,
++    /// Cached capabilities of responder. Received during GET_CAPABILITIES
++    /// exchange.
++    pub(crate) rsp_caps: u32,
+ }
+ 
+ impl<'a, T: Transport> SpdmState<'a, T> {
+@@ -94,6 +104,7 @@ pub(crate) fn new(
+             transport_sz,
+             validate,
+             version: SPDM_MIN_VER,
++            rsp_caps: 0,
+         }
+     }
+ 
+@@ -183,4 +194,49 @@ pub(crate) fn get_version(&mut self) -> Result<(), Error> {
+ 
+         Ok(())
+     }
++
++    /// Obtain the supported capabilities from an SPDM session and store the
++    /// information in the `SpdmState`.
++    pub(crate) fn get_capabilities(&mut self) -> Result<(), Error> {
++        let mut request = GetCapabilitiesReq::default();
++        request.header.version = self.version;
++
++        let rsp_sz = match self.version {
++            SPDM_VER_10 | SPDM_VER_11 => {
++                core::mem::size_of::<SpdmHeader>() + 4 + core::mem::size_of::<u32>()
++            }
++            _ => {
++                request.data_transfer_size = self.transport_sz;
++                request.max_spdm_msg_size = self.transport_sz;
++
++                (GET_CAPABILITIES_RSP_SZ as u32 + u32::from(u16::MAX)).min(self.transport_sz)
++                    as usize
++            }
++        };
++
++        let mut request_buf = request.to_bytes()?;
++
++        let response_vec: KVec<u8> = KVec::from_elem(0u8, rsp_sz, GFP_KERNEL)?;
++
++        let response: GetCapabilitiesRsp = self
++            .spdm_exchange(request_buf.as_mut_slice(), response_vec)?
++            .validate(&*self)?;
++
++        self.rsp_caps = response.flags;
++        if (self.rsp_caps & SPDM_RSP_MIN_CAPS) != SPDM_RSP_MIN_CAPS {
++            pr_err!(
++                "{:#x} capabilities are supported, which don't meet required {:#x}\n",
++                self.rsp_caps,
++                SPDM_RSP_MIN_CAPS
++            );
++            self.rsp_caps = 0;
++            return Err(EPROTONOSUPPORT);
++        }
++
++        if self.version >= SPDM_VER_12 {
++            self.transport_sz = self.transport_sz.min(response.data_transfer_size);
++        }
++
++        Ok(())
++    }
+ }
+diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
+index 98922638a228b..080c2f2c49376 100644
+--- a/lib/rspdm/validator.rs
++++ b/lib/rspdm/validator.rs
+@@ -8,8 +8,16 @@
+ //! <https://www.dmtf.org/dsp/DSP0274>
+ 
+ use crate::consts::{
++    SPDM_CAP_SUPPORTED_ALGORITHMS,
++    SPDM_CTEXPONENT,
++    SPDM_GET_CAPABILITIES,
+     SPDM_GET_VERSION,
+-    SPDM_MIN_VER, //
++    SPDM_MIN_DATA_TRANSFER_SIZE,
++    SPDM_MIN_VER,
++    SPDM_REQ_CAPS,
++    SPDM_VER_10,
++    SPDM_VER_11,
++    SPDM_VER_12, //
+ };
+ use crate::{
+     SpdmErrorCode,
+@@ -176,3 +184,312 @@ fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<'c, T>) -> Result<Self
+         })
+     }
+ }
++
++pub(crate) struct GetCapabilitiesReq {
++    pub(crate) header: SpdmHeader,
++
++    pub(crate) ctexponent: u8,
++
++    pub(crate) flags: u32,
++
++    /* End of SPDM 1.1 structure */
++    pub(crate) data_transfer_size: u32,
++    pub(crate) max_spdm_msg_size: u32,
++}
++
++impl GetCapabilitiesReq {
++    pub(crate) fn to_bytes(&self) -> Result<KVec<u8>> {
++        let mut out = self.header.to_bytes()?;
++
++        if self.header.version <= SPDM_VER_10 {
++            return Ok(out);
++        }
++
++        out.push(0u8, GFP_KERNEL)?;
++        out.push(self.ctexponent, GFP_KERNEL)?;
++
++        out.extend_from_slice(&[0u8; 2], GFP_KERNEL)?;
++        out.extend_from_slice(&self.flags.to_le_bytes(), GFP_KERNEL)?;
++
++        if self.header.version >= SPDM_VER_12 {
++            out.extend_from_slice(&self.data_transfer_size.to_le_bytes(), GFP_KERNEL)?;
++            out.extend_from_slice(&self.max_spdm_msg_size.to_le_bytes(), GFP_KERNEL)?;
++        }
++
++        Ok(out)
++    }
++}
++
++impl Default for GetCapabilitiesReq {
++    fn default() -> Self {
++        GetCapabilitiesReq {
++            header: SpdmHeader::new(SPDM_GET_CAPABILITIES),
++
++            ctexponent: SPDM_CTEXPONENT,
++            flags: SPDM_REQ_CAPS,
++            data_transfer_size: 0,
++            max_spdm_msg_size: 0,
++        }
++    }
++}
++
++/// Response AlgStructure field format
++#[expect(dead_code)]
++pub(crate) struct RespAlgStruct {
++    pub(crate) alg_type: u8,
++    pub(crate) alg_count: u8,
++    pub(crate) alg_supported: KVec<u8>,
++    pub(crate) alg_external: KVec<u32>,
++}
++
++pub(crate) const GET_CAPABILITIES_RSP_SZ: usize = mem::size_of::<SpdmHeader>() + 16;
++
++/// The GET_CAPABILITIES SupportedAlgorithms block (SPDM 1.3+).
++///
++/// Conforms to the NEGOTIATE_ALGORITHMS request message format,
++/// including all fields from Param1 through the end of the message inclusive.
++/// The `Length` field is equal to the total size of the block (`AlgSize`).
++#[expect(dead_code)]
++pub(crate) struct SupportedAlgorithms {
++    /// param1
++    pub(crate) alg_struct_count: u8,
++    pub(crate) length: u16,
++
++    pub(crate) measurement_specification: u8,
++    pub(crate) other_params_support: u8,
++
++    pub(crate) base_asym_algo: u32,
++    pub(crate) base_hash_algo: u32,
++
++    pub(crate) ext_asym_count: u8,
++    pub(crate) ext_hash_count: u8,
++
++    pub(crate) mel_specification: u8,
++
++    pub(crate) ext_asym: KVec<u32>,
++    pub(crate) ext_hash: KVec<u32>,
++    pub(crate) alg_struct: KVec<RespAlgStruct>,
++}
++
++impl SupportedAlgorithms {
++    #[allow(clippy::get_first)]
++    fn from_bytes(buf: &[u8]) -> Result<Self, Error> {
++        let read_le16 = |off: usize| -> Result<u16, Error> {
++            Ok(u16::from_le_bytes(
++                buf.get(off..off + mem::size_of::<u16>())
++                    .ok_or(EPROTO)?
++                    .try_into()
++                    .map_err(|_| EPROTO)?,
++            ))
++        };
++        let read_le32 = |off: usize| -> Result<u32, Error> {
++            Ok(u32::from_le_bytes(
++                buf.get(off..off + mem::size_of::<u32>())
++                    .ok_or(EPROTO)?
++                    .try_into()
++                    .map_err(|_| EPROTO)?,
++            ))
++        };
++
++        let alg_struct_count = *buf.get(0).ok_or(EPROTO)?;
++        let length = read_le16(2)?;
++        let measurement_specification = *buf.get(4).ok_or(EPROTO)?;
++        let other_params_support = *buf.get(5).ok_or(EPROTO)?;
++        let base_asym_algo = read_le32(6)?;
++        let base_hash_algo = read_le32(10)?;
++        let ext_asym_count = *buf.get(26).ok_or(EPROTO)?;
++        let ext_hash_count = *buf.get(27).ok_or(EPROTO)?;
++        let mel_specification = *buf.get(29).ok_or(EPROTO)?;
++
++        let mut offset = 30;
++
++        let mut ext_asym = KVec::new();
++        for _ in 0..ext_asym_count {
++            ext_asym.push(read_le32(offset)?, GFP_KERNEL)?;
++            offset += mem::size_of::<u32>();
++        }
++
++        let mut ext_hash = KVec::new();
++        for _ in 0..ext_hash_count {
++            ext_hash.push(read_le32(offset)?, GFP_KERNEL)?;
++            offset += mem::size_of::<u32>();
++        }
++
++        let mut alg_struct = KVec::new();
++        for _ in 0..alg_struct_count {
++            let alg_type = *buf.get(offset).ok_or(EPROTO)?;
++            let alg_count = *buf.get(offset + 1).ok_or(EPROTO)?;
++
++            let fixed_alg_count = (alg_count & 0xf) as usize;
++            let ext_alg_count = (alg_count >> 4) as usize;
++
++            offset += 2;
++
++            let mut alg_supported = KVec::new();
++            alg_supported.extend_from_slice(
++                buf.get(offset..offset + fixed_alg_count).ok_or(EPROTO)?,
++                GFP_KERNEL,
++            )?;
++            offset += fixed_alg_count;
++
++            let mut alg_external = KVec::new();
++            for _ in 0..ext_alg_count {
++                alg_external.push(read_le32(offset)?, GFP_KERNEL)?;
++                offset += mem::size_of::<u32>();
++            }
++
++            alg_struct.push(
++                RespAlgStruct {
++                    alg_type,
++                    alg_count,
++                    alg_supported,
++                    alg_external,
++                },
++                GFP_KERNEL,
++            )?;
++        }
++
++        if length as usize != offset {
++            pr_err!("Malformed SupportedAlgorithms block\n");
++            return Err(EPROTO);
++        }
++
++        Ok(SupportedAlgorithms {
++            alg_struct_count,
++            length,
++            measurement_specification,
++            other_params_support,
++            base_asym_algo,
++            base_hash_algo,
++            ext_asym_count,
++            ext_hash_count,
++            mel_specification,
++            ext_asym,
++            ext_hash,
++            alg_struct,
++        })
++    }
++}
++
++#[expect(dead_code)]
++pub(crate) struct GetCapabilitiesRsp {
++    pub(crate) header: SpdmHeader,
++
++    pub(crate) ctexponent: u8,
++    pub(crate) flags: u32,
++
++    // End of SPDM 1.1 structure
++    pub(crate) data_transfer_size: u32,
++    pub(crate) max_spdm_msg_size: u32,
++
++    pub(crate) supported_algorithms: Option<SupportedAlgorithms>,
++
++    /// The actual length of the SPDM message. `raw_bytes` might be longer
++    /// as it includes transport specific padding.
++    length: usize,
++
++    /// Entire response, used for the transcript hash.
++    raw_bytes: KVec<u8>,
++}
++
++impl GetCapabilitiesRsp {
++    #[expect(dead_code)]
++    pub(crate) fn as_bytes(&self) -> Result<&[u8], Error> {
++        self.raw_bytes.get(..self.length).ok_or(EPROTO)
++    }
++}
++
++impl<'c, T: Transport> Validate<'c, Untrusted<KVec<u8>>, &'c SpdmState<'c, T>>
++    for GetCapabilitiesRsp
++{
++    type Err = Error;
++
++    fn validate(unvalidated: KVec<u8>, context: &'c SpdmState<'c, T>) -> Result<Self, Self::Err> {
++        let header: SpdmHeader =
++            Untrusted::new(unvalidated.get(0..4).ok_or(EPROTO)?).validate(context)?;
++
++        if header.code != SPDM_GET_CAPABILITIES - 0x80 {
++            return Err(EPROTO);
++        }
++
++        if header.version != context.version {
++            pr_err!("Invalid version response\n");
++            return Err(EPROTO);
++        }
++
++        let ctexponent = *unvalidated.get(5).ok_or(EPROTO)?;
++        let flags = u32::from_le_bytes(
++            unvalidated
++                .get(8..12)
++                .ok_or(EPROTO)?
++                .try_into()
++                .map_err(|_| EPROTO)?,
++        );
++
++        // DataTransferSize and MaxSPDMmsgSize only exist in SPDM 1.2 and later.
++        let (data_transfer_size, max_spdm_msg_size, supported_algorithms, length) = if context
++            .version
++            <= SPDM_VER_11
++        {
++            (
++                0,
++                0,
++                None,
++                mem::size_of::<SpdmHeader>() + 4 + mem::size_of::<u32>(),
++            )
++        } else {
++            let data_transfer_size = u32::from_le_bytes(
++                unvalidated
++                    .get(12..16)
++                    .ok_or(EPROTO)?
++                    .try_into()
++                    .map_err(|_| EPROTO)?,
++            );
++            let max_spdm_msg_size = u32::from_le_bytes(
++                unvalidated
++                    .get(16..20)
++                    .ok_or(EPROTO)?
++                    .try_into()
++                    .map_err(|_| EPROTO)?,
++            );
++
++            if data_transfer_size < SPDM_MIN_DATA_TRANSFER_SIZE {
++                pr_err!(
++                        "Invalid minimum transport size {data_transfer_size}, must be at least {SPDM_MIN_DATA_TRANSFER_SIZE}\n"
++                    );
++                return Err(EPROTONOSUPPORT);
++            }
++
++            let supported_algorithms = if header.param1 & SPDM_CAP_SUPPORTED_ALGORITHMS != 0 {
++                Some(SupportedAlgorithms::from_bytes(
++                    unvalidated.get(GET_CAPABILITIES_RSP_SZ..).ok_or(EPROTO)?,
++                )?)
++            } else {
++                None
++            };
++
++            let length = GET_CAPABILITIES_RSP_SZ
++                + supported_algorithms
++                    .as_ref()
++                    .map_or(0, |s| s.length as usize);
++
++            (
++                data_transfer_size,
++                max_spdm_msg_size,
++                supported_algorithms,
++                length,
++            )
++        };
++
++        Ok(GetCapabilitiesRsp {
++            header,
++            ctexponent,
++            flags,
++            data_transfer_size,
++            max_spdm_msg_size,
++            supported_algorithms,
++            length,
++            raw_bytes: unvalidated,
++        })
++    }
++}
+-- 
+2.56.0
 
-Thanks,
-Ravi
