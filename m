@@ -1,53 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.79
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112153;
-	b=kLC3+32BFbaTdCQWb/99thA6LyygfSHk1plxuEYaynr+VF7U9k1l3gempq7lznGnegDb
-	 NJpwmalAt1+Bd/Zp2B5JtcAuDDGUoLynkIRTas/UfJ8DL3U8BUtlTBhY49X5IHDQT1a6/
-	 +AeQNLi66PvSK7PzMQUNtcfV/C3pWGPzVKMQsUVXcChpMIpw27MoQdlyJHFS9i2dFggVl
-	 cIISK8mRMg02HMmfVy0siwJqSlzKoA39woD1ywrARw0dG6f4Lxn4LqB+xRyqXzpmxtEeC
-	 WsvLUuk386y4B0F5Xs1D6lfjenm5iXLhj1j8DtG/ui04OvRfmzT6D7KfGiPcrmuSxlA==
+	t=1793112170;
+	b=tRCDpLMseVXFR0OCsA9Lw0W0W2VySLY5Twj6lt57c7xjKlEcXYL4IQ24M9EYIfJZ3rAB
+	 hZxt7DrrvwiqsKhDadWDRU38yQS8u4OWO3FJJoyJ8u94XelaOW5emKPSpaAXDbtH5+kG4
+	 6SqzKNPiTQdn9kUW9ZSRmbb2at0k5EuA4qj5UDlSOZkawLWIUfXljFmOv6aQ2AlcKa/yW
+	 uXO5Qq05bvxRoFnofYmUIvptqk8y7iaJfGlO0180zHW0C16SaeC7rzEuenQLWakb4cdCD
+	 FawKOjGlKfdm3vyFXQ/Nkev06P3TmJPD1UdhBqCHPKGh5lLYY9wLZno5wV0zwSIMXQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112153;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=dXAjRP7BC595V+3Lvb8Om1eJYlMYJ7rrB3Kx3GGcSBI=;
-	b=BMY2fwy19FgGNzUxWIsuR18nB4k1knoUYfZJG7q+HTZDbu2Tcf3j+8/ZZ4PBAHJDZOqb
-	 8yncmZu+Dd0Za1iBS57pYkFwNIVzwEgU/up7K2y7hBB3Zar/UlPBS4968ekh6ggoPZbRv
-	 ouj0dhwFgaBi5o1Pg6oUMklcuUjsHji6WN9fZ27heFHyxPzqCyZ1K+qpHBeLOo8Y3tyxP
-	 bj/br1sE3daMGgNbwS8FhprNMOqgSmds8/t2yk8jxI/h4y/yNe7MKWzlplId6VhXBTyzv
-	 a4gnJsBdpSy5kXZrsYlHgd43yxrOHQqcbaF0xTMZpFfHVyRDHv9kI0FFqYLlgRgzrZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112170;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xoLSuofN7cQ2tWXwUvc/DSgwxulevn9ENLUaotbNxMY=;
+	b=XT1L13zuPU6KZ13I60Ngx2T0rasexpgRKfGFgN/3Y+AGc/BPXb03tr7+DEne449VTPxw
+	 Dnet6LudhdyBLoJEUu6ADVEV85DVgRJ2sYSi4MLDxtvB3jIhiYbI3HbwgRhlB8Etrt0Qm
+	 I6wE83S6+gs+RGkNdLUmHEGyvrMDpqlNr49DeOer2PJUa/+qnQ24WV9FHWtqogqVopcoi
+	 BuWi3q6ahJJpsLUUKsQt29h7TnelrfILT9y8iBG3wVtNJ01gxVaA9y6AxTTf/kX5pwKIo
+	 1aMEVsOYPtyi9YLT/bQ7OsCFBFzfXb4tNUcKeBMykOOgW4K3rshY3VGrcfQ61I0+vCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.160.79
-Received: from mail-oa1-f79.google.com (mail-oa1-f79.google.com [209.85.160.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCibtCOv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A33606BA4A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:42:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2A33606BA4A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f79.google.com with SMTP id 586e51a60fabf-482966c4f4fso1402497fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:42:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793112152; x=1793716952;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dXAjRP7BC595V+3Lvb8Om1eJYlMYJ7rrB3Kx3GGcSBI=;
-        b=UA9KhfhIsfO+cifaAbBde1b7OCSu+KkmJAXv4FuxFpmNzHIjDkAuiuXfN+g/roxJHa
-         0J9bAQr++n4eskePsnFyNejMtyudrhNNhKaquncOfFwGuPyv6/nmRBVRbnGlD9194BpD
-         stJ/q7LWzWC+rn2vDHJIrCv1JmvPQ8mPNSHx7p39wtHFGZC8zhAUvVd8Oo6p4tb5/jlH
-         WTb8v9mkaNmZj4Eutb8D1dC2DXBg0sudZJKk6GjE7N5t8qaOVjCfeydnOgg40q4Gwv8q
-         W6qXsAbjWrNRQQyamXNCBjBL/xw4F5MHBOJYY7jDA7LOxTgncNxE64BS7Z1301n55rU2
-         WqVQ==
-X-Gm-Message-State: AFq9FYKqjqGqd+sQSyiGJkLOKw4s5Me+xAHvaUEa+HPs1be3ze9JZy5q
-	Gs8OAe+op9BPQAy6mYTLunF5XddHKoXb0JwNbJFDdpsYLezJWMZAdpzXfKNS7L5Y8I2KGZg+hq0
-	xfNNd7M8RvM/Li7uRbhhOxgm+ovXPghj2H30cJNFIQfeyzyTuhWjUTU13lnme8g==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B6C606A31B;
+	Tue, 27 Oct 2026 14:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCibtCOv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F6B11F031E2;
+	Tue, 27 Oct 2026 14:42:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793112169;
+	bh=xoLSuofN7cQ2tWXwUvc/DSgwxulevn9ENLUaotbNxMY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nCibtCOvcqjhtwxq9rIemKZCtHNwaNf0BlFYC+FouftiBZosSYpxUL0mYyiauWLpd
+	 T2Y6UhXpbH0x1mHHjwNPbem/AT56EcTY0wEs4ibeYgTQGRswuJDpCv2LXbJ+CxbD6X
+	 a3MNJHAVtaQVmSxaDIlgWzSKkR19zx+tcBS53yPUPCaggBn1R319Y+LeTJTjoPQdt4
+	 U9EtvqFBnxhwsG3bg1rjQB+ZU2EMtiGPYNKf8ulZoxR+zqhKLcr7A3W4el3jE2UZme
+	 ESkSApBkTcsYRn2/FolhS5eGkQDuIExsSFIm+G8gM1QCufx8s3kvrSwfMUkqaeUqZg
+	 7DbTbx3UW5nSA==
+Message-ID: <829f5a0f-4d9a-4c65-9703-fbf6e49d2b02@kernel.org>
+Date: Tue, 27 Oct 2026 15:42:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,43 +51,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6f96:b0:4f5:214:fb96 with SMTP id
- 5614622812f47-55f80a8e80fmr1539171b6e.42.1793112151831; Tue, 27 Oct 2026
- 07:42:31 -0700 (PDT)
-Date: Tue, 27 Oct 2026 07:42:31 -0700
-In-Reply-To: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae0b857.47d0a7c9.33355c.0079.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [mm?] [usb?] WARNING in corrupted (4)
-From: syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/4] mm/huge_memory: read a special PMD under the lock
+ in copy_huge_pmd()
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
+ <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-3-66f00b7a564c@virtuozzo.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-3-66f00b7a564c@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On 10/21/26 22:36, Konstantin Khorenko wrote:
+> copy_huge_pmd() reads a special PMD without the page table lock and
+> copies that value to the child. The mmap write lock held by fork does
+> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
+> lock.
+> 
+> The zap visits the parent VMA before the child's, as dup_mmap() links
+> the child right after the parent in i_mmap. If it clears the parent PMD
+> after fork has read it, and passes the child before fork copies it, the
+> child keeps a mapping the driver has revoked, for example:
+> 
+> - vfio-pci: the child reaches the BAR after the device memory was
+>   disabled or the device was reset, instead of getting SIGBUS;
+> - panthor: the child maps the pages of an evicted buffer object after
+>   the driver has released them.
+> 
+> The same branch deposits no page table under the copy. ppc64 in hash
+> mode keeps the hash slot array of every huge PMD in that table, so the
+> child dereferences a NULL table on the first hash fault, in
+> __hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
+> 
+> Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
+> from a folio under them, as copy_present_ptes() does with
+> vm_normal_page(). The zap clears the parent PMD under the same lock, so
+> either fork finds it none and skips it, or the copy is in place before
+> the zap reaches the child.
+> 
+> The copy of a PFN mapping then goes through the same tail as a folio:
+> 
+> - it gets a page table where the architecture needs one;
+> - in a shared mapping it is marked clean in the child, as a PTE is;
+> - in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
+>   protected instead of a warning being printed.
+> 
+> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
+> Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> ---
+>  mm/huge_memory.c | 24 +++---------------------
+>  1 file changed, 3 insertions(+), 21 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 13e3674fb6115..da5918a0ade87 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1961,25 +1961,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	int ret = -ENOMEM;
+>  	bool writable;
+>  
+> -	pmd = pmdp_get_lockless(src_pmd);
+> -	if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+> -		     !is_huge_zero_pmd(pmd))) {
+> -		dst_ptl = pmd_lock(dst_mm, dst_pmd);
+> -		src_ptl = pmd_lockptr(src_mm, src_pmd);
+> -		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+> -		/*
+> -		 * No need to recheck the pmd, it can't change with write
+> -		 * mmap lock held here.
+> -		 *
+> -		 * Meanwhile, making sure it's not a CoW VMA with writable
+> -		 * mapping, otherwise it means either the anon page wrongly
+> -		 * applied special bit, or we made the PRIVATE mapping be
+> -		 * able to wrongly write to the backend MMIO.
+> -		 */
+> -		VM_WARN_ON_ONCE(vma_is_cow_mapping(src_vma) && pmd_write(pmd));
+> -		goto set_pmd;
+> -	}
+> -
+>  	if (vma_is_anonymous(dst_vma) || arch_needs_pgtable_deposit()) {
+>  		pgtable = pte_alloc_one(dst_mm);
+>  		if (unlikely(!pgtable))
+> @@ -2021,7 +2002,9 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  		goto copy_pmd;
+>  	}
+>  
+> -	src_page = pmd_page(pmd);
+> +	src_page = vm_normal_page_pmd(src_vma, addr, pmd);
+> +	if (!src_page)
+> +		goto copy_pmd;
+>  	VM_BUG_ON_PAGE(!PageHead(src_page), src_page);
+>  	src_folio = page_folio(src_page);
+>  
+> @@ -2061,7 +2044,6 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>  	}
+>  	if (src_vma->vm_flags & VM_SHARED)
+>  		pmd = pmd_mkclean(pmd);
+> -set_pmd:
+>  	pmd = pmd_mkold(pmd);
+>  	set_pmd_at(dst_mm, addr, dst_pmd, pmd);
+>  
+> 
 
-***
+Looks correct. Reading the above, I wonder about Cc: stable. It would affect
+v6.12, so not too crazy to backport.
 
-Subject: Re: [syzbot] [mm?] [usb?] WARNING in corrupted (4)
-Author: harry@kernel.org
+We'd have to backport patch #2 as well in that case (or have a simpler fix, but
+I am not sure that's really worth it).
 
-Testing whether the pending siano fix ("media: usb: siano: don't set
-URB_FREE_BUFFER flag",
-https://lore.kernel.org/all/09b616df-ea9f-4ea1-86be-ab600119f9ae@I-love.SAKURA.ne.jp/)
-resolves this report.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 5b0764a53235
+-- 
+Cheers,
 
-diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
-index 0fdc2e0950b7..8140dc0c8b7d 100644
---- a/drivers/media/usb/siano/smsusb.c
-+++ b/drivers/media/usb/siano/smsusb.c
-@@ -168,7 +168,6 @@ static int smsusb_submit_urb(struct smsusb_device_t *dev,
- 		smsusb_onresponse,
- 		surb
- 	);
--	surb->urb->transfer_flags |= URB_FREE_BUFFER;
- 
- 	return usb_submit_urb(surb->urb, GFP_ATOMIC);
- }
+David
