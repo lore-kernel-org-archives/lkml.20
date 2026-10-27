@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793107548;
-	b=teR7h8LFgfy5n4tiq7BIbipLalexeJuK/cOw+bLCn6GBLDkSGgP5w4u7pPon3i0RrwY5
-	 3ai9Ph6YCXXbrcPjyBOLulMVcmKQl0XZdjZti7NE28o1DSctyr2xJ8zLyNsY/yZp9aPMq
-	 yBdLBzKKNGEA/CVm+7HUyHzAM4EfEbeD9Ie4+7oaKm07pqV8ULYwGzCOYLYeHnz12/+zz
-	 2kSZ4MxNAlYy9YPVgSDmehwg+BbsPuq62ZeAiHdrsJb7M+nDDp6jrk48cSaC/5nmviKjc
-	 +MpPNZdDVdpN7oJlQ47k4d5agAgMNyg3HzOH0D+ieNcrB5N6HelFj/0sNnZ6dfIhD7Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107548;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
-	b=ljQ+/oTkzICtp1MheMN6E1CujI7Wr2la2kUxEHWYUZbIPAJKQB8CzJ73cE+X73omIvPI
-	 7ztkchcs1eiFbOUVu5D1/OhjqIp1VAIUOZ0YrnPRtczdsNR/X1eHLZ9n/TCE8PjUV1sZQ
-	 /KqbgZBfqSvwO9LUIIiKz8oLKVQ795UPPf/IY+4hVbZSiXiM7tMFtYCZpdfulUilXNsbC
-	 i7CfHo2A0Du0pVij1TjwrFm4117wCmqMSy95IYUpdE6dNNc5H9OeIs4s20WF5k92NsOeI
-	 NWQFxb3oSZUZXXMmNx8OjT9IDLH/KTeVb/NDVI42oRwk+4buMe+Apv3P1+m7+lv3ULQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=THsDkX3X;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705A2606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=THsDkX3X
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793107548;
-	b=thQCKuBPgSKCnoIN3m65nfF4vliTt7sC/P0ssqeAcLK3zfRNj7XnVGKy85IIVBMhY6Pb
-	 qH7TkDrEzVUQ0zUu0LnAmP5CZSyZkQCef9I1uTZ1Whlx97ZXKZ3HY7v/NmzgA8ltK8KJt
-	 AI9+04axi+ESYHDBwUH76O5a86qaTkvNCvZ7fvXsPsskM3Vy2SyrIYlYy/5urwLuiNA7x
-	 6okhD/7QAB6PqZDCMhz0SFvEDuumJ46MaUzZxmBNNGnAndysEz1FaNAhjk+VmA1IEYSl+
-	 zsX/o0hcCBDMpvW1CuB4zzvWhOmBW0rfM+0ZzokHGl03qnhbNHAxtl9yHIi9hiDn9jg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793107548;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
-	b=KpIwvyRZv6NugPgomWTVJ3x3tlCTJkhIzeb2/QhXBin/W5sG25znvyno7jTy33N0CvFR
-	 ySnDin9gbMfJAWTJvGnbh94Jnet0b3gXoJEBFC0G/VXkh1p4R3OA5JLckobHqXWgqZJE7
-	 gliohYIJlVWV1j+Yqo5v0vsc5/g6AP0iOi2CauBbmsPMzR9jx9Y3gYqMxxn73PHjzP4Q0
-	 oOC1HT7Vu06lJ+/eYlbfm0Oo8/g8WR8UYiT2loRuOoRmS2EWOM31hHYNsf2OcwxraRicl
-	 2p/akINW6Qf30amY0O2+LLgdfJWyCsPRwcGNnVOYWDnNqbUCSSEN7pIPILba4MRq19Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793107603;
+	b=PGWVQlpH6jdkZzS/mD//7ItlyImqwTRXj06+h1w93dBxCwJIujvfUpJrNl3givhjxgkf
+	 FSwZZLq1PW6JrRNCk5+EKk0HBO5BElo9ZU28T8h1Dbd5suwMicMeAg3lt3sgMN9lOyE4B
+	 jghvr+JbEMsQIAwMabZABfLRDKWa+VIlwUjlJu9Flobyf2wmFkS2wCA6I3V0Rw1rjduUB
+	 DpnTtwIniypKSaMoKE8eT5oQHjlQw16nFXwkR5Z5Q2jtpzVvU5nZ2Ns5Unxeht4ymTcVQ
+	 KPilR6umWhwjavewGSSSqR4+a9YhhWkZQileWfaOAmcJ1m38q9OcP3P+R5GgkJzMIqw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107603;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
+	b=ZK/1+n5FOpLIxU40Iblg+J8tuIxcRX4DRQDod8mwT3McGcJHvVRzybEY85JDtfd9Jtro
+	 unO0hfaHG/B6nJNnMr9FHofB9vuK2RhcDXrueqUtZgL3t24WgyBlpyoaCU8R/GPXDccdU
+	 uMWspPTjIlq8ftG6vUJTV72338W1pQ8AgIAXJR8CYnCv5BEnJ/EOuPWo0DwdN6TMWDlSp
+	 fUPIQm0S5sV2wXb0P9Dy98YhiRw/+pi2ee8AVW/fD/9G4PUu0iFOmvrwUV/TOTmupTt1w
+	 AG2yRRZVXyqkPy5DHjgBElErcBr9hOODG4W/lT0iTEv/o+atNJISlLwTRrwb0azF9Ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OK9TotMC;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0A82F1F01829;
-	Tue, 27 Oct 2026 13:25:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793107548;
-	bh=fsVyneAuwCCRnbMVOLuO3iFk91hXl4euBvA3bqTOW9E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=THsDkX3XCJban8bFO7xfDnhaAH5GxmeTOk4jtRYgUYnQvGefHPvYdmZBgk2Me0O7n
-	 GdGLvFV4/PQRc4SVYIxdvpMorTQbrR16YDDM7XPUdHdHUv+HW4ultO1zkE+ONFDlqn
-	 86Xw7Xaq8PA+1m4Dw+12wwwYMm7e/y2RTMg86qwIEGW/5xhaeD6nvnKp19p1zQffCg
-	 4oZXTjDU9LGJGdrwmGqmrubjbHzGRu/gVZIlSZdeJT4ds/EnfeL2/Y4f5BRDVOJlBS
-	 378fo7Kw8KJUKvrfKJRE/QE8DhKgzDHYsKLtHtH+Q8NMcJBOieiqMeC4S/S8iaU0e6
-	 9OzFui8vlk41w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8125A450F7;
-	Tue, 27 Oct 2026 13:25:46 +0000 (UTC)
-From: Davey Hughes via B4 Relay <devnull+davidralphhughes.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 06:25:43 -0700
-Subject: [PATCH 2/2] drm/amd/display: Test FreeSync flip timing across
- plane resets
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A55606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:26:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A55606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OK9TotMC
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-14388db1a6bso125645c88.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:26:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793107601; x=1793712401; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
+        b=OK9TotMCE05Hedid5XG0LVl7FLYqe8ZH8kprcIB7UdfEYJGARO7MopLEC7hlhuiUfd
+         0d6/N8qFuGmAzBQRrKU/QKdtNKmfzLWoc7TOJ1fWJbsHwMcE02GuvHGkgRs+tvs2LhAK
+         Hkrscyu0EGwegZHJhqwGb5RZn3lLam/DERk2NF4dffTs1dBg9gA9oh6rd93RghAtjSv+
+         /Cks4H01uITera+4iEjCUQJF0lp+IW9yYuPyVdLYFpY2B2Kb8yvkVPUvXjgfgjIobD2e
+         7D87S+QCzblGbPBx3qiGf49thDvLaKhj2MfyrFjcWsPwMUaJYG+nSaS3Y1zV3APa0dHQ
+         QsCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793107601; x=1793712401;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
+        b=pIqs+Zfm1EEl6Rhb39lmkqNVX9/qevS9uABlcNZ7dzyBySfDnU1+j+mMxJ2XqZwyrv
+         ADm592RlBzemJYHXDos0olOtFVni/wYwZl5yA+7FL7tzU3yq4zTbS15JJ/+7UJFNHzJA
+         6wLjobe95VmoRRUbh7EhwiOCZtGNn5qe57LOgk5sQVX5+4E9bsJA2opKBJDuFxxBFWOF
+         N+XqVp17LATDU3T2Dn4iaiXNTGzzyLbaIdEqEO47Ibu/3x71vbJpoJqFJNY/fU32jz6C
+         tloJ4Tfvhv5Ex2OomKUfQtyxcO+bFwZaaW4pWi3ZNTEdUGD3+z0HiFmsn5Jd+wjcg9PU
+         ggqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxr+EYv+9PxnbOvw5CygWXeD6PM8RZlBgTOKjJa2Mc9twaxsJj65jO5mlAPZFEKJ+kBjwV2vczwm7hsjDQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIJ0b7FIWAUxZWDmASDSj+9EvIKtamXA4nEOMFXb1fjXerDMBV
+	qzJ90mfa0MIOnI+/TzoeTdnXbuCqNmKZxqCYypBz3+xD0/nEeS0R4pk/
+X-Gm-Gg: AYBFou38dJaMiUgJPWYKHPwV7oNb8sYKkfLUmggCzgr6WYc01bix6o4TRG69Nm6iyti
+	W+J+WKcrkB7Tu8PHUGP5M0VbLXg+gnHNLESobL4BySmknFqRlKF7ONIuSnNs9butJiKemyB6xos
+	sgLjrLFQLQHH4JdQsbyXXWWpRzQCiV9SJxvYRw/Ht9716JQerDKgPe43wE7xU4vJjXSNwUp84dG
+	wV1ZggUTcHlk5WknOk/k7KO/QRywpm/vZiXOd/G4M4KE4WPD4TfWj7arT6aGcq6cZkBlWQEp9sB
+	1vveR4T/jBRjDtycb8Qvq69gD4tGkHiYp7SYIY3jt9Rx3lPm91Bd0fA0wfFRREVK22npuRZVGTM
+	bk2L9o+H4gNR84EiIrKNh5KgSpUeroRJ2ANrjXRO4sFDgX/mfPzVELb4fROXMGn3nViNfE+qdeA
+	8vPzLkD9sXxKG26wPoAXKkkRYZQ+j/helmFhxRMBA7MwnRymhLsTFoIUe7TGOI5bmlhzPNbeSO8
+	QtDI4FrZMz0Oazs1mBrlr44PZuKl+TQLbRKAcbj0ZDEpiQ+rt7Fj4rIj+15l0jnQ560N16qLxyS
+	QTtJ6YtuZeunCZcIuUPBo6ZDj2xzQYYSuP+XIvmIrJT5fkC1cTYY1V7jphgwWVWLsxwtvo/qSc8
+	gCVU6o2k7pvObLf9v1ewmNjKTAusHSKpmMbcv1cbMBqeFyQ==
+X-Received: by 2002:a05:7022:264b:b0:165:be2f:c56e with SMTP id a92af1059eb24-199376df85bmr20204030c88.2.1793107601105;
+        Tue, 27 Oct 2026 06:26:41 -0700 (PDT)
+Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm30235977c88.8.2026.10.27.06.26.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:26:40 -0700 (PDT)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: dmanresa@gmail.com
+Cc: linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	djrscally@gmail.com,
+	dan.scally@ideasonboard.com,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
+Date: Tue, 27 Oct 2026 22:26:37 +0900
+Message-ID: <20261027132637.540222-1-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
+References: <20261026111032.88355-1-antoine.pichot@gmail.com> <20261026111032.88355-2-antoine.pichot@gmail.com> <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,321 +105,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-freesync-plane-reset-time-v1-2-bb43b501faf4@gmail.com>
-References: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
-In-Reply-To: <20261027-freesync-plane-reset-time-v1-0-bb43b501faf4@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Davey Hughes <davidralphhughes@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793107546; l=11037;
- i=davidralphhughes@gmail.com; s=20261027; h=from:subject:message-id;
- bh=noQfQHHG6kH0mVBBbepkfdjvsuqRN4qDLINdKPj4CHU=;
- b=2cl7Nd3zslu2tZjleGBfmU2sZwGvAX4dO1xxGCadiGc5raBrd1GgBflDn5V3kXaPf06JgHaXZ
- ngrNrima+q3D258gd0XR3q6nJ++2BVBceG9GKIS5JsBhOH56eyxqwwE
-X-Developer-Key: i=davidralphhughes@gmail.com; a=ed25519;
- pk=y45yWVxpjjxFE2cXy96fGlXLfDlt6UKHFHS5szhrFAs=
-X-Endpoint-Received: by B4 Relay for davidralphhughes@gmail.com/20261027
- with auth_id=1335
-X-Original-From: Davey Hughes <davidralphhughes@gmail.com>
-Reply-To: davidralphhughes@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Davey Hughes <davidralphhughes@gmail.com>
+Hi,
 
-KUnit can't reach the plane enable path of dm_update_plane_state(), so
-the flip timing copy there is untested.
+On Tue, Oct 27, 2026 at 03:26:45AM -0700, D. Manresa wrote:
+> Applying the patch makes this machine worse, though, and since it carries
+> Cc: stable I think that is worth resolving before it goes in.
 
-Move the copy into dm_plane_inherit_flip_time() and expose it to KUnit.
-Test that a plane reset on the same CRTC keeps its flip timing, and that
-a newly enabled plane or one moved to another CRTC starts over.
+Agreed, and thank you for the measurements.
 
-Also flip a reset plane one 60 Hz frame after its last flip on a
-48-165 Hz panel with BTR. With the inherited timing BTR stays off;
-without it FreeSync engages BTR.
+The patch selects the 319.2 MHz PLL table, which the index bug has kept
+unused on IPU machines since it was added in 2022. That table runs the
+PLL oscillator (the VCO of figure 2-12 in the OV7251 datasheet, rev
+2.12) out of range: it multiplies before it divides, so the oscillator
+sits at 19.2 x 133 = 2553.6 MHz before the divide by 4 brings it down
+to 638.4 MHz, and table 2-11 allows 300 to 800 MHz. The 240 MHz table
+divides by 3 first and stays at 480 MHz. The datasheet is public at
+https://dlscorp.com/wp-content/uploads/2019/02/ov7750_ov7251_csp3_rev1f_ds_2.12.pdf
 
-Signed-off-by: Davey Hughes <davidralphhughes@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  20 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   | 190 +++++++++++++++++++++
- 3 files changed, 209 insertions(+), 4 deletions(-)
+The Windows driver on the Surface Book 2 uses both orders. Its Windows
+Hello mode divides by 4 first, which keeps the oscillator at 638.4 MHz
+for the same 638.4 Mbps, and writes 0x1f to 0x4837, the MIPI pixel
+clock period register. Its two 640x480 modes keep the mainline order,
+with the MIPI divider at 0x01 and 0x4837 at 0x19.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a69e28685857..d1c1b01584ae 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5966,6 +5966,20 @@ STATIC_IFN_KUNIT bool should_reset_plane(struct drm_atomic_commit *state,
- }
- EXPORT_IF_KUNIT(should_reset_plane);
- 
-+/* FreeSync times each frame from the plane's previous flip. */
-+STATIC_IFN_KUNIT void
-+dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
-+			   struct drm_plane_state *old_plane_state,
-+			   struct drm_plane_state *new_plane_state)
-+{
-+	struct dc_plane_state *old_dc_plane_state =
-+		to_dm_plane_state(old_plane_state)->dc_state;
-+
-+	if (old_dc_plane_state && old_plane_state->crtc == new_plane_state->crtc)
-+		dc_plane_state->time = old_dc_plane_state->time;
-+}
-+EXPORT_IF_KUNIT(dm_plane_inherit_flip_time);
-+
- STATIC_IFN_KUNIT int
- dm_update_plane_state(struct dc *dc,
- 		      struct drm_atomic_commit *state,
-@@ -6076,10 +6090,8 @@ dm_update_plane_state(struct dc *dc,
- 			goto out;
- 		}
- 
--		/* FreeSync times each frame from the plane's previous flip. */
--		if (dm_old_plane_state->dc_state &&
--		    old_plane_crtc == new_plane_crtc)
--			dc_new_plane_state->time = dm_old_plane_state->dc_state->time;
-+		dm_plane_inherit_flip_time(dc_new_plane_state, old_plane_state,
-+					   new_plane_state);
- 
- 		drm_dbg_atomic(new_plane_crtc->dev, "Enabling DRM plane: %d on DRM crtc %d\n",
- 				 plane->base.id, new_plane_crtc->base.id);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 594d275918d5..18dce8244af1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1266,6 +1266,9 @@ int dm_update_plane_state(struct dc *dc,
- 			  bool enable,
- 			  bool *lock_and_validation_needed,
- 			  bool *is_top_most_overlay);
-+void dm_plane_inherit_flip_time(struct dc_plane_state *dc_plane_state,
-+				struct drm_plane_state *old_plane_state,
-+				struct drm_plane_state *new_plane_state);
- int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			   struct drm_atomic_commit *state);
- void amdgpu_dm_mod_power_update_streams(struct drm_atomic_commit *state,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index a497cce332bb..4bdb9831f508 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -34,6 +34,7 @@
- #include "atom.h"
- #include "amdgpu_dm.h"
- #include "amdgpu_dm_audio.h"
-+#include "amdgpu_dm_freesync.h"
- #include "amdgpu_dm_hdcp.h"
- #include "amdgpu_dm_mst_types.h"
- #include "amdgpu_dm_kunit_test_helpers.h"
-@@ -3271,6 +3272,190 @@ static void dm_test_update_plane_state_detached(struct kunit *test)
- 	KUNIT_EXPECT_NULL(test, new_plane_state->dc_state);
- }
- 
-+/* Tests for dm_plane_inherit_flip_time() */
-+
-+struct dm_test_flip_time_ctx {
-+	struct dm_plane_state *old_plane_state;
-+	struct dm_plane_state *new_plane_state;
-+	struct dc_plane_state *dc_plane_state;
-+};
-+
-+/*
-+ * A plane reset on one CRTC: the old DC plane has FreeSync flip history and
-+ * the new one is freshly created.
-+ */
-+static struct dm_test_flip_time_ctx *
-+dm_test_flip_time_ctx_alloc(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx;
-+	struct dc_plane_state *old_dc;
-+	struct drm_crtc *crtc;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+	ctx->old_plane_state = kunit_kzalloc(test, sizeof(*ctx->old_plane_state),
-+					     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->old_plane_state);
-+	ctx->new_plane_state = kunit_kzalloc(test, sizeof(*ctx->new_plane_state),
-+					     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->new_plane_state);
-+	ctx->dc_plane_state = kunit_kzalloc(test, sizeof(*ctx->dc_plane_state),
-+					    GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->dc_plane_state);
-+	old_dc = kunit_kzalloc(test, sizeof(*old_dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_dc);
-+	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crtc);
-+
-+	old_dc->time.time_elapsed_in_us[0] = 16667;
-+	old_dc->time.index = 1;
-+	old_dc->time.prev_update_time_in_us = 1234567;
-+	ctx->old_plane_state->dc_state = old_dc;
-+	ctx->old_plane_state->base.crtc = crtc;
-+	ctx->new_plane_state->base.crtc = crtc;
-+
-+	return ctx;
-+}
-+
-+static void dm_test_flip_time_inherit(struct dm_test_flip_time_ctx *ctx)
-+{
-+	dm_plane_inherit_flip_time(ctx->dc_plane_state,
-+				   &ctx->old_plane_state->base,
-+				   &ctx->new_plane_state->base);
-+}
-+
-+/**
-+ * dm_test_flip_time_same_crtc - Test a reset plane keeps its flip history
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_same_crtc(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_MEMEQ(test, &ctx->dc_plane_state->time,
-+			   &ctx->old_plane_state->dc_state->time,
-+			   sizeof(ctx->dc_plane_state->time));
-+}
-+
-+/**
-+ * dm_test_flip_time_crtc_changed - Test a plane moved between CRTCs starts over
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_crtc_changed(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
-+	struct drm_crtc *other_crtc;
-+
-+	other_crtc = kunit_kzalloc(test, sizeof(*other_crtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, other_crtc);
-+	ctx->new_plane_state->base.crtc = other_crtc;
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
-+	KUNIT_EXPECT_EQ(test, time->index, 0);
-+}
-+
-+/**
-+ * dm_test_flip_time_no_old_dc_state - Test a newly enabled plane starts over
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_no_old_dc_state(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+	struct dc_plane_flip_time *time = &ctx->dc_plane_state->time;
-+
-+	ctx->old_plane_state->dc_state = NULL;
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_EQ(test, time->prev_update_time_in_us, 0);
-+	KUNIT_EXPECT_EQ(test, time->index, 0);
-+}
-+
-+/*
-+ * Flip the reset plane one 60 Hz frame after the old plane's last flip on a
-+ * 48-165 Hz panel with below-the-range compensation, and report whether
-+ * FreeSync engaged BTR.
-+ */
-+static bool dm_test_flip_time_btr_active(struct kunit *test,
-+					 struct dm_test_flip_time_ctx *ctx)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, NULL);
-+	struct dm_crtc_state *crtc_state;
-+	struct mod_vrr_params *vrr;
-+	struct amdgpu_crtc *acrtc;
-+	u32 flip_time_in_us;
-+
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, crtc_state);
-+	adev->dm.adev = adev;
-+	/* Only pre-AI flips dereference the module, so a stub will do. */
-+	adev->family = AMDGPU_FAMILY_NV;
-+	adev->dm.freesync_module = kunit_kzalloc(test, sizeof(struct mod_freesync),
-+						 GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, adev->dm.freesync_module);
-+
-+	/* 165 Hz nominal */
-+	stream->ctx = dm_kunit_alloc_dc_with_ctx(test)->ctx;
-+	stream->timing.pix_clk_100hz = 4083750;
-+	stream->timing.h_total = 2200;
-+	stream->timing.v_total = 1125;
-+
-+	crtc_state->base.crtc = &acrtc->base;
-+	crtc_state->base.vrr_enabled = true;
-+	crtc_state->stream = stream;
-+	crtc_state->vrr_supported = true;
-+	crtc_state->freesync_config.min_refresh_in_uhz = 48000000;
-+	crtc_state->freesync_config.max_refresh_in_uhz = 165000000;
-+	crtc_state->freesync_config.btr = true;
-+
-+	amdgpu_dm_update_stream_irq_parameters(&adev->dm, crtc_state);
-+
-+	vrr = &acrtc->dm_irq_params.vrr_params;
-+	KUNIT_ASSERT_EQ(test, (int)vrr->state, (int)VRR_STATE_ACTIVE_VARIABLE);
-+	KUNIT_ASSERT_TRUE(test, vrr->btr.btr_enabled);
-+	KUNIT_ASSERT_FALSE(test, vrr->btr.btr_active);
-+
-+	flip_time_in_us =
-+		ctx->old_plane_state->dc_state->time.prev_update_time_in_us + 16667;
-+	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, crtc_state, stream,
-+						  ctx->dc_plane_state,
-+						  flip_time_in_us);
-+
-+	return vrr->btr.btr_active;
-+}
-+
-+/**
-+ * dm_test_flip_time_btr_inherited - Test a reset plane's next flip stays out of BTR
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_btr_inherited(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	dm_test_flip_time_inherit(ctx);
-+
-+	KUNIT_EXPECT_FALSE(test, dm_test_flip_time_btr_active(test, ctx));
-+}
-+
-+/**
-+ * dm_test_flip_time_btr_no_history - Test a plane without flip history enters BTR
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_flip_time_btr_no_history(struct kunit *test)
-+{
-+	struct dm_test_flip_time_ctx *ctx = dm_test_flip_time_ctx_alloc(test);
-+
-+	KUNIT_EXPECT_TRUE(test, dm_test_flip_time_btr_active(test, ctx));
-+}
-+
- /**
-  * dm_test_mod_power_update_streams_empty - Test an empty commit updates no streams
-  * @test: The KUnit test context
-@@ -5361,6 +5546,11 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_aquire_global_lock_waits_commit),
- 	KUNIT_CASE(dm_test_update_crtc_state_unchanged),
- 	KUNIT_CASE(dm_test_update_plane_state_detached),
-+	KUNIT_CASE(dm_test_flip_time_same_crtc),
-+	KUNIT_CASE(dm_test_flip_time_crtc_changed),
-+	KUNIT_CASE(dm_test_flip_time_no_old_dc_state),
-+	KUNIT_CASE(dm_test_flip_time_btr_inherited),
-+	KUNIT_CASE(dm_test_flip_time_btr_no_history),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_empty),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_no_modeset),
- 	KUNIT_CASE(dm_test_mod_power_update_streams_enable),
+On my Surface Book 2 (IPU3, kernel 7.2) I ran three 150-frame captures
+at 30 fps with each of these, the last four with the series applied:
 
--- 
-2.56.0
+  the 240 MHz table (unpatched)
+  the mainline 319.2 MHz table
+  the Windows Hello divider order
+  the Windows Hello divider order + 0x4837 = 0x1f
+  the mainline table + mipi_div = 0x01 (what you tried)
 
+All gave 0 dropped buffers and 0 CSI-2 error lines, so the divider swap
+is only a hypothesis for your machine.
 
+> One hypothesis tried and failed, so you do not repeat it: the out-of-tree
+> Surface driver notes that the vendor runs the 319.2 MHz PLL with the MIPI
+> divider at 0x01 rather than 0x05. Building this patch with mipi_div
+> changed to 0x01 in the 19_2_mhz_319_2_mhz entry was worse, not better --
+> 3 frames in about four minutes. So the divider alone is not the missing
+> piece. The vendor path also uses VTS 522, which I did not try.
+
+The datasheet decodes both as "divide by 1" (0x30b5[2:0]: 2 is /2, 4 is
+/4, anything else /1). A frame length (VTS) of 522 belongs to the
+Windows driver's 640x480 modes at about 99 fps, so it is no alternative
+at 30 fps.
+
+> So either ipu-bridge's advertised link frequency is wrong for this SKU,
+> or mainline's 319.2 MHz PLL entry needs more than the index fix to be
+> usable. I have the machine for a few more days and can run whatever would
+> help decide which.
+
+Could you please try the two patches below, the first alone and then
+both, with your 150-frame measurement? They are on
+https://github.com/antoine79/surface-ir-camera/tree/test/pll1-vco under
+kernel/patches-test/, for git am on top of 1/7.
+
+The first swaps the two dividers of the 319.2 MHz table:
+
+  -  .pre_div = 0x01,
+  +  .pre_div = 0x04,
+     .mult = 0x85,
+  -  .div = 0x04,
+  +  .div = 0x01,
+
+The second also writes 0x1f instead of 0x19 to 0x4837 in the three mode
+tables.
+
+If the swap helps, v2 puts the PLL table fix before the index fix, both
+Cc: stable. If it does not, the question moves to the Pro 7+ receiver:
+ipu-bridge asks for 319.2 MHz on both machines, and the Windows driver
+programs 638.4 Mbps on the Book 2. Your unpatched numbers point the same
+way: at 480 Mbps, three runs logged thousands of error lines and your
+568-frame run logged none, with the same timing per line. Could you
+please also run 2/7 without 1/7 at 60 and 90 fps? That shows whether the
+error count follows the number of frame starts.
+
+After 1/7, pixel_rate reads 63840000, but the pixel array runs at 48 MHz
+whatever the link frequency; v2 fixes that in a separate patch. My
+319.2 MHz captures above ran at 30.0 fps, which is 48e6 / (928 pixels
+per line x 1724 lines); 63.84 MHz would give 39.9 fps. 63.84 MHz is the
+CSI-2 bus rate, not what V4L2_CID_PIXEL_RATE reports
+(Documentation/driver-api/media/tx-rx.rst).
+
+Thanks,
+Antoine
