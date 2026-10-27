@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793103005;
-	b=mCT5FLFbRHgLT5ByOG8H/ZQMsYBgATZ3kBWPDDXAC8RszTG34U/6isU51jUWV5G4u1Z7
-	 AnZ2UV5h5TqK5r01aB61DKUEXZKZRr5fbW1I9gS2kXwLll+/igSn7DmtWIKwxAigOut3c
-	 e+zfrmQboNtAoKOGkmqTX0sBH0TKybsuL68nIi0g1WiCewHdGcA8lv87hjPdXK1uSKi6+
-	 X0w9I+YNbwYBK7IhoWQOhcV2kcr/MYjEPdCybk2QqQe+Ybw0z9lPpxXsr8CtmajvVK3Ej
-	 Jif68NYEabv+c2ykME/7lbBbTquvq9f8tY8AK58J+sC+y8fqeBhCeIYiu8JkQas/tmw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103005;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yYOtM4BuIpTWTRwQ03uCapSzz1aSA0caW59ytvuj3Q8=;
-	b=G4/oebIeY99Y3O7f5FLlr0lrbO+QMhwkkGSZBw/E/HJxenrIirWsLSYmySJ9ZAkXSIE9
-	 J+Tftb4Z5LZIBguWZK5TixjIR9AgatcLWzjTslQXnAYQlAiH8y8S/E4GOm78W+oTMFEPS
-	 PwrHXJO8KznNOGrIsd4ZgzyBQ7ArN/la2oX/HvsCyslQ+wU7lG1Nlt1d0GVZrja1HwdWF
-	 2OyK6T2QS5Zmjzf01Rb30LkLmL4Gav0IY5E9rKsIbyMh80H/W9yp901pxNqJdbk/6WkbK
-	 B4fPdlX5twHWwxBABfG5hMb9m4fQ4Qlk4OdxNAVPeTwUz8tLjL4xfFNJHrSxVapZNoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmK9hhVE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793103013;
+	b=U0y251W+MEPQ7+Yv+tbFjUqwkyb6ZaeCbksmnYLhKeVfQMaOGPllr6QEO7jdniBxQ412
+	 wLFxsz8kj3DNOCHB/x10tuvC3fhIgvnVTmNxLTj0dWJIPAjdcgUZKtc0lOAFeCyzJdJGv
+	 X336NS+STd/3GTSjtoFlmrgfeBfcBv+mvO/7d2XK3kogsN7r0pZvDa+IiH80NM+yUOW8P
+	 nunHrL9GkUB6SEjtX0ALKRjPepaYETBjUcFIEtqFJT+/umRV+1qWvzuibYypUNwpT2ZwT
+	 KX2HTl5/PY2BT955mS3edQS18ls68Pu0iKJ238ScOaXzjkCc+sh8Vk1UEog2/WJczwQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103013;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IEWfHWQd96c0j/DRJsEIoAaaCiqiDtlc45DfqG2xmlY=;
+	b=z4ed7h/xi1MUU6QJ1ip/gBF+9GVfnIlK4VGpDGpbErvmyqTmOwd8Jdb1BM4F/2WAJhYX
+	 sCDm5AxoPbCmFtvkAPVxl75lvjMw5lma23qtxTvHlNUk0CMBGWen3BWndChkj4B2baRrw
+	 z/irFDttaPmHblSFRCXv/Hkd1pekGRHd3ix71RnLxmn9sPBSjcxRP4kuxLuvy+6uTy3/i
+	 x8rpna1XPU2DTkYY//ZjRcnr2Cw9nb4QMvuR7+fMU5MnBvMs+Zk4yDqG+P2BTqjpJlAF2
+	 ent9c94piWj2PRsppH4toce49Z2yhV9sI1vhRRjOet/ySF5GGSvgxwT7sd1l4Cbi5VA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSYPp18y;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17D8606A333;
-	Tue, 27 Oct 2026 12:10:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94973606A333;
+	Tue, 27 Oct 2026 12:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmK9hhVE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793103004;
-	b=DKHn1y+2DoJ8ioqNcnlnBjzhGjdPnLF8KuiMLmTn3fVCpoVmBuRo/Q/ozSjfKySpkq98
-	 2BQdo2BhiQq+YZTUqG+weNqlyPulKg1pXcrr71769uGGnUQKkqx8Ln2A53G1rKeWbqoeC
-	 inSsMKB9+jKoyQQLQw/HhLnGXm0QnS6YxFRl2dTjjgw2dm8lImxIseMCHfvVpnlYp/CoA
-	 +MNidSx0YyqZiU+fwbqCK2Tr1pMp35GAyAMC6SRuKzZWTtt/KBL1fezKxBK1vY/Z5WyhH
-	 X/nCD1AbOfti7YxwirBaIBKLev+W00wPAhoo9prGm2zwL8PDzic3XcIwEetS1Hp77wg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793103004;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=yYOtM4BuIpTWTRwQ03uCapSzz1aSA0caW59ytvuj3Q8=;
-	b=gbC9qFSV3CSiR6aHlJ8dbQXjmFUEns6W0+6pT7EzARfEl2NeQmfgScdljksDzIGxMv8P
-	 xNIXAJC6mr/SPu4qqqg8Q44PoLdVtbGumru9JOtzL+KCqUUlt8gszeJ0G67fjq16wEjZR
-	 ePPHX7agjSgsNoOqh+mwvyYUoqHgIiSfSY74kGGbj1f3s0IZAl71vmPgbt9T9/oRmjPBL
-	 r1Kuc5FyQmnMUIfG2OHI8Hp4KIIOsvREcCkjixBje8rJ5XYZz+ZZpgCbBcQMTXdy0Y96u
-	 QK+Fkpo1WJ1x8ClinqjgZX6SHVL+kGcrGfKs0CQqtmKLoNW91FqRcnYempQKNvWW/AA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AA0511F031E3;
-	Tue, 27 Oct 2026 12:10:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSYPp18y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35271F01828;
+	Tue, 27 Oct 2026 12:10:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793103004;
-	bh=yYOtM4BuIpTWTRwQ03uCapSzz1aSA0caW59ytvuj3Q8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nmK9hhVElg07pmr2dBYNsCje5Mj0ts8wsdhrAw9NXdqeNgGuHU0bcwMQ+RQXhFcBQ
-	 vdPwUcjlt/fChAvWLOyh8j/nMx90zI08R6nSWU45qUwL+AGjs4CyuYABidtrjoeISh
-	 v/dVdW0IhqKhVInu7gQTQZ+hPEZtXncTLWxXnROJAlapjIxE+k+NDJqLQ8Bh1c7FR+
-	 QmwIoR2Y8uJX5K6eAVaBlwziEOdO9bgh9xI6wwSPhLccQyu7ZGtQjDefXZ08Gsk35g
-	 LTUOVlrKqOB19foAJIFdWLgDcUgwJ0voA7jtwtW/mN+DdhQvst6dbjxMFcPqGafteo
-	 ACS+IwnFHfkiA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 23B3D450CF;
-	Tue, 27 Oct 2026 12:10:03 +0000 (UTC)
-From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
-Date: Tue, 27 Oct 2026 13:10:04 +0100
-Subject: [PATCH 2/2] rust: str: parse_int: accept a trailing newline like
- kstrtol()
+	s=k20260515; t=1793103013;
+	bh=IEWfHWQd96c0j/DRJsEIoAaaCiqiDtlc45DfqG2xmlY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FSYPp18yJrW0sUXkFUFP46foxc3InMmpObk3ZAG6yv4wNYT/nRR1uYFRiVe4xp0mx
+	 Bn0mwH6a9SGVlYU0amh0Nf8PCaJNSdgGeepgQwHwVmDf4AW8uAK9J7I9AaqvZ8RL3K
+	 4k1KX7mEdElWObdYrSDWeEu6gCWbUa2vw5ZnqgaBcp29aGwJdGGpzJWRU1gy1gsTMO
+	 Vhfgsdsz1yl8zv4MAaBHshXG8BQ+ZztW8r7TuI78ApftYxLEFzXQTE6TjQHZ03PBrn
+	 IsWT5LB+8zgzO9RhIxx9fk/L83gMjNwZ0wrbxxwOhN8WSBJBTamc/7ibAF2iAcQHOX
+	 ZuxD7Je+LuWCQ==
+Date: Tue, 27 Oct 2026 13:10:00 +0100
+From: Joel Granados <joel.granados@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Bradley Morgan <brads@mainlining.org>, 
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Yibo Tan <lhfff@tju.edu.cn>, 
+	Zhan Xusheng <zhanxusheng@xiaomi.com>, Kees Cook <kees@kernel.org>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [GIT PULL] sysctl changes for v7.4-rc1
+Message-ID: <auBcFQyaV727f4fm@hobbes>
+References: <atdn5xA9AZHAWNsM@hobbes>
+ <CAHk-=wgjwxSCDQ7VhH5NgHSK2RG+9tDb=infbWbgQbWWHjVbow@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,94 +59,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-b4-parse-int-sign-v1-2-7f386318a4b7@younes.io>
-References: <20261027-b4-parse-int-sign-v1-0-7f386318a4b7@younes.io>
-In-Reply-To: <20261027-b4-parse-int-sign-v1-0-7f386318a4b7@younes.io>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Daniel Gomez <da.gomez@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Younes Akhouayri <git@younes.io>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793103002; l=2519;
- i=git@younes.io; s=20261027; h=from:subject:message-id;
- bh=NMDljLHIBCr2SpOAfotlmJ6JzudvatDgarIHJ0F0q5Y=;
- b=NsX5K2E5gXlHF/QnhEjEST4ehx1nHzafURb/JCD+VMl/i63Qu3CsUzpQc0rNxSVoDpKCYRVbA
- sMRZsNMOTnKAw2lEZp1WTMCHE/eozMyDo1wb/6gPJjVovxrFiJn7mta
-X-Developer-Key: i=git@younes.io; a=ed25519;
- pk=TavwxGPDBjl4XGNQyFLKEW7PKSY4qOWusc7yf6hjV0c=
-X-Endpoint-Received: by B4 Relay for git@younes.io/20261027 with
- auth_id=1332
-X-Original-From: Younes Akhouayri <git@younes.io>
-Reply-To: git@younes.io
-Content-Transfer-Encoding: 7bit
-
-From: Younes Akhouayri <git@younes.io>
-
-The documentation of `ParseInt` says that any string parsed by
-`kstrtol()` or `kstrtoul()` is also parsed by `from_str()`. However,
-those functions accept a single trailing newline, and `from_str()` does
-not:
-
-    kstrtoint("5\n", 0, &v) == 0, v == 5
-    i32::from_str("5\n")    == Err(EINVAL)
-
-A trailing newline is common when the string comes from user space, for
-example when a value is written to a sysfs file with `echo`.
-
-Fix it by removing a single trailing newline before parsing, and add
-doctests for it.
-
-Fixes: 51d9ee90ea90 ("rust: str: add radix prefixed integer parsing functions")
-Signed-off-by: Younes Akhouayri <git@younes.io>
----
- rust/kernel/str/parse_int.rs | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/rust/kernel/str/parse_int.rs b/rust/kernel/str/parse_int.rs
-index 07e1fbd7be8f..ada355306fc5 100644
---- a/rust/kernel/str/parse_int.rs
-+++ b/rust/kernel/str/parse_int.rs
-@@ -54,8 +54,8 @@ fn strip_radix(src: &BStr) -> Result<(u32, &BStr)> {
- /// Strings beginning with `0x`, `0o`, or `0b` are parsed as hex, octal, or
- /// binary respectively. Strings beginning with `0` otherwise are parsed as
- /// octal. Anything else is parsed as decimal. A leading `+` or `-` is also
--/// permitted. Any string parsed by [`kstrtol()`] or [`kstrtoul()`] will be
--/// successfully parsed.
-+/// permitted, as is a single trailing newline. Any string parsed by
-+/// [`kstrtol()`] or [`kstrtoul()`] will be successfully parsed.
- ///
- /// [`kstrtol()`]: https://docs.kernel.org/core-api/kernel-api.html#c.kstrtol
- /// [`kstrtoul()`]: https://docs.kernel.org/core-api/kernel-api.html#c.kstrtoul
-@@ -88,11 +88,15 @@ fn strip_radix(src: &BStr) -> Result<(u32, &BStr)> {
- /// assert!(i32::from_str(b_str!("0x-5")).is_err());
- /// assert!(i32::from_str(b_str!("0x+5")).is_err());
- /// assert!(i32::from_str(b_str!("-+5")).is_err());
-+///
-+/// assert_eq!(Ok(5u8), u8::from_str(b_str!("5\n")));
-+/// assert!(u8::from_str(b_str!("5\n\n")).is_err());
- /// ```
- pub trait ParseInt: private::FromStrRadix + TryFrom<u64> {
-     /// Parse a string according to the description in [`Self`].
-     fn from_str(src: &BStr) -> Result<Self> {
--        match src.deref() {
-+        let src = src.strip_suffix(b"\n").unwrap_or(src);
-+        match src {
-             [b'-', rest @ ..] => {
-                 let (radix, digits) = strip_radix(rest.as_ref())?;
-                 // 2's complement values range from -2^(b-1) to 2^(b-1)-1.
-
--- 
-2.56.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gmiqxqu2mtlmixbm"
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgjwxSCDQ7VhH5NgHSK2RG+9tDb=infbWbgQbWWHjVbow@mail.gmail.com>
 
 
+--gmiqxqu2mtlmixbm
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [GIT PULL] sysctl changes for v7.4-rc1
+MIME-Version: 1.0
+
+On Fri, Oct 23, 2026 at 09:44:01AM -1000, Linus Torvalds wrote:
+> On Tue, 20 Oct 2026 at 03:09, Joel Granados <joel.granados@kernel.org> wr=
+ote:
+> >
+> > * Disallow partial vector updates
+> >
+> >   Stage sysctl vector writes before updating. Removes the chance of lea=
+ving a
+> >   sysctl vector partially updated due to erroneous input. This is not a=
+n atomic
+> >   write; a concurrent reader can still see a partially updated vector.
+>=20
+> I've pulled this, but this feels like it could easily break any number
+> of random scripts.
+>=20
+> We used to just update until we hit an error, and I would not be AT
+> ALL surprised if there are scripts around that echo some
+> not-entirely-cleaned-up string to /proc/sys.
+
+Writing fewer elements than the vector or junk after a complete vector
+behave exactly as before. What changes is only a write that already
+returned EINVAL.
+
+>=20
+> Put another way: I do not understand why that commit claims that the
+> vector data should be unchanged just because the Nth element wasn't a
+> number.
+
+Not because the Nth elem is a number, but because the write fails.
+
+Two comments:
+1. The vector must remain unchanged on error for internal custom proc
+   handlers (like vm.lowmem_reserve_ratio & kernel.sem) to avoid missing
+   post-processing of a partially updated vector.
+
+2. The user space that will be affected are the ones that ignore the
+   EINVAL return value of the writable numeric sysctl vectors [1] (14: give
+   or take) and depend on a subset of it being updated.
+
+In retrospect I see that I missed clarifying the impact of the change. I
+made a note of it for next time.
+
+>=20
+> What was the impetus for this change? Was there an actual problem it
+> fixes, or was it just a random decision to possibly break user space?
+
+This all came about from Jianlin Shi's fix for vm.lowmem_reserve_ratio
+[2]. An erroneous return from proc_dointvec_minmax meant that
+setup_per_zone_lowmem_reserve was not executed even when the some of
+sysctl_lowmem_reserve_ratio vector was changed. Andrew's take was that
+the handler should parse into a temporary, and that this is really a
+flaw in proc_dointvec_minmax(). So not just a random decision.
+
+I see 2 options:
+1. Leave this in and I'll address anything that bubbles up in the
+   7.4-rcX cycle. With the option of removing it if the impact to user
+   space is to big.
+
+2. We remove it before rc1. And make sure that all custom proc handlers
+   stage their vectors on write.
+
+Let me know what you prefer or if you have another option.
+
+Best
+
+Joel
+
+[1] kernel.{printk,acct,sem},
+    vm.lowmem_reserve_ratio,
+    net.ipv4.{tcp_rmem,tcp_wmem,tcp_mem,udp_mem},
+    net.sctp.{sctp_mem,sctp_rmem,sctp_wmem},
+    net.tipc.{tipc_rmem,sk_filter}
+    net.ipv4.vs.sync_threshold=20
+
+[2] https://lore.kernel.org/all/tencent_FFD4F4D728AAE8A8AE0AF277A59854A29A0=
+6@qq.com
+
+
+--gmiqxqu2mtlmixbm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrglIoACgkQupfNUreW
+QU983wv/Q/KXMjVcpbAuAsD5oG7qNhgamnEI0zspYtW2OFOc7QaUbpNPXFiPSIoO
+s+Z+d790pvlu1kUcJJqr8C68dtkQ6TQ4z0EF7EONj9Vd5JRnfD1QKmJMo4TUZRaL
+bZ8izP1TAGmKgFBshIhVBisXwHf54zLZafh98Dy7vrVYY8UrFST2pHhBZ+PPZIw7
+mfSbmVE/xgj0hh7G/m1x2z/YaMaWS5nC8oZGeFKExjlsYYzQQdFq25oW5fwg8+MF
+0f+3KIM7Rhd9lqt/FC4zwKL/ffu1KZcS15jNa9CWuXLx7RD1as0sOutk4DLJGyb3
+vj/wpaSunk/wbN6CQtjL1HFOx5iK96OfVxxXKDzKrp90kPEh/1D4Gmh/fAqHsgqz
+eijVrg9WzDfEwgUkckuVuWOLetweSBeViJsucC7qlRQHcHjQSp78bMgZoupB9VWN
+5I688vynZIRIrz6eZ+HBU7vsWwHdP336nc/j+YM8m96QUp931b+8DlUnHnD1OB1a
+M/r9uNLh
+=+Ps+
+-----END PGP SIGNATURE-----
+
+--gmiqxqu2mtlmixbm--
