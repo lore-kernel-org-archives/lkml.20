@@ -1,53 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095549;
-	b=CGfBAkhgliSDhpE66C2CD+FPuAPnTc1pMuVUepWNM72BLPetxvLR1l+dXWB20FHVzOgV
-	 KVKUWLr/dUBVdM5VCEOvQAlHUVg9N8o50TrkO/LZGexj7zfIFqTdSnXHX9am7PuDi2CZd
-	 1MGCvzQicFHfYONSAdqKYoZZmV7sj3WrFbP66+VvjYevexRXrqX4sPjMkCZejH2CxGNOO
-	 mLvUf+s1aHn2k5CAshYNhuh9jecEm9KZPE027PiY2HY+91P7I7//HM0CfPHVl/X7b991N
-	 A7nVxhctOiDMHJn914ysh3198Rzt1pIQ+YWgDvmeUjW14QtlTxGeULPLvGD+L1vAvrQ==
+	t=1793095555;
+	b=olGEgi79ShOKb9KgqDjsOXNkeHyWq84FBnLfbyrnrrgUbxv+jj6MRZFpE4jmHbJ/xCU6
+	 6yCfi/6BMivY1E4LsEdSU3Rjt7J88QhCLBxHzVnxPl8F19i91/fs43idWEvc7TJY69ljI
+	 Bt+8G5feUttpG9nI+jlUi307FqMV4i/Wp2/fEOXjoHfzl5sVSNqe1VTo1Bo2S3XYNr7NJ
+	 NK96BugDbl3GYGAlsmLvsEWorB+u58H1/jthRyv0cnUN2PzuqIViO2sajbxwy54OSIxf/
+	 eE1QmTPPXb+NvtZUD8OD4PGhQhD2nRCwR6lb+B9rTKw1bethzdDM6l+m0FrqV2Lr1lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095549;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
-	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XdQ3Q06SZGEU0r4ZOezudytVMNCnb9TnOa3AWTj5D5U=;
-	b=tQ+aegXWusyS0NiUpk//cN9K+udy2SHzU5BaFrGv/uDIolIIt5Ep4xx807RFbvmyRwgh
-	 Smr1RHqpwD55QBnu6fwoKuLljHNBScOgdpXmFUvwkLojOAqaDhPbHnZulzduOPZ9MMHTD
-	 NgDAd3ZqcBQDPrsp2vEdmNi/0P9GQbtf/VbObqMmEIZPUtFu22P+pWcRgENDA3CQX+hi/
-	 XrpCMHJlK1OAPkzErGVa+DJW9X4uxTexCLjKxDWB3cCvZI9FzgAPxYm0ggPkRLohJEezY
-	 KFyEilonQrbsVn5OoOOmVgHc5nFAm9yGamNaByrKLS1l6/lw4QgzrEC21rg//tbJJTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095555;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oyUjBB6oJFyp1IO71ofZ8tStrZCd29m9RWKeAe2qToI=;
+	b=BBoi/psGCfOvTTd1ohw0zaIrh69fSAj/TP26aUiubxFvk7GblnhGdopMNPEx/dkK7ugH
+	 6alqh6tmhYwIGVg2utdL8Ju4B4x3Iy7siQoAN8PxN3LPUBfM2NVhGqeqbeUtG1isOMsKj
+	 DgDS6JVb37rjEl35KFYiFSYduf5pYnLS6NOD2bUHedftEdlNOmi9/dRX9A5NmRNMjYSLo
+	 w1R3FlvKcfk5DJVwZLPgEL6GiaJ4i2F4EcD9zcHF/nPmRFHlYdVrhvlEmwvuBJ34QO65f
+	 VLT9IyljfMlGlLqdGkBKmNlEo5zQmXI7W+jc21vQoNy+hyqNWcGzwVkoSw0Noyyy1FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.51
-Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5KlNVyN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E013606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:05:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E013606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1002638|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.267259-0.0148288-0.717912;FP=3145651007775098074|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033071099199;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jqkBwYG_1793095535;
-Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jqkBwYG_1793095535 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 18:05:36 +0800
-Subject: Re: [RFC PATCH 0/6] sched/fair: Introduce the SMT_BUDDY_ASSIST
- feature
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, linux-kernel@vger.kernel.org
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
- <atiy9PAq4lvXxWj1@scheduler.schedules>
-From: Li kunyu <likunyu@open-hieco.net>
-Message-ID: <1a0c008e-1b9e-984d-5cbe-4406e5508350@open-hieco.net>
-Date: Tue, 27 Oct 2026 18:05:35 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 751AC606A31A;
+	Tue, 27 Oct 2026 10:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5KlNVyN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851671F01825;
+	Tue, 27 Oct 2026 10:05:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793095555;
+	bh=oyUjBB6oJFyp1IO71ofZ8tStrZCd29m9RWKeAe2qToI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y5KlNVyNVIUIyqglh5jwznCe1GB/mi3Q1fSFhPw1xEfS5ffznBWc6GIX29nJ0zBl7
+	 XX//Nk3878WurTyps5rLbf486eiL+ryBJdtJfuv0dtBhyhoRAt1sYqqjPp+13DNiLA
+	 fPn9kOhaKltxWOJmQgYGMGRUp1f6qxTarhpJVWM5heRTcwHUL+MdZbhIHmueZWSrG0
+	 HRah2A3/1iqCL/Igf2L10Vt+VcbMggXVzYhEk+HQWjM8/lLZx/WsibPZKVdyk4l75r
+	 /ugGkjS81XZ3fekHUmpGCNGKqUorwVLWpUMGCv/zXvOFk7cYw2P29Vrpw21S+hU9+z
+	 pcPPW2dfmzyZw==
+Date: Tue, 27 Oct 2026 11:05:51 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Selvarasu Ganesan <selvarasu.g@samsung.com>
+Cc: gregkh@linuxfoundation.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, peter.griffin@linaro.org, alim.akhtar@samsung.com, 
+	Thinh.Nguyen@synopsys.com, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	jh0801.jung@samsung.com, h10.kim@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com, 
+	hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com, 
+	muhammed.ali@samsung.com, thiagu.r@samsung.com
+Subject: Re: [PATCH v4 1/2] dt-bindings: usb: Add Samsung Exynos8855 DWC3
+ controller
+Message-ID: <20261027-puzzling-didactic-polecat-ae02af@quoll>
+References: <20261026135715.33071-1-selvarasu.g@samsung.com>
+ <CGME20261026135751epcas5p42c28c8315cd25554a11032714b85bbed@epcas5p4.samsung.com>
+ <20261026135715.33071-2-selvarasu.g@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,56 +64,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <atiy9PAq4lvXxWj1@scheduler.schedules>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+In-Reply-To: <20261026135715.33071-2-selvarasu.g@samsung.com>
 
-Hi Kayra,
-
-On 2026/10/21 20:44, Kayra Cizmeci wrote:
-> On Tue, Oct 20, 2026 at 04:37:40PM +0800, Li kunyu wrote:
+On Mon, Oct 26, 2026 at 07:27:14PM +0530, Selvarasu Ganesan wrote:
+> Add the Samsung Exynos8855 DWC3 binding using a flattened node
+> representation, where the DWC3 controller is directly addressable
+> rather than nested as a child node of a glue layer.
 > 
->> Several benchmarks show performance regressions:
->>
->> 1. tbench 32      8325.17    6772.693     -18.65%(degeneration):
->> Each tbench sample was run three times. Initially, some measurement
->> error was observed. Moreover, this patch series essentially utilized all
->> idle CPUs, whereas without the feature enabled, 5% to 10% of idle CPUs may
->> remain idle. This led to more CPUs experiencing cache interference and
->> other effects. The results are benign and within an acceptable range.
-> According to what the results are 'acceptable'? If there were some error
-> why even talk about them?
+> This is the first Samsung Exynos binding using the flattened
+> representation.
+> 
+> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
+> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
+> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+> ---
+>  .../bindings/usb/samsung,exynos8855-dwc3.yaml | 71 +++++++++++++++++++
+>  1 file changed, 71 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/samsung,exynos8855-dwc3.yaml
 
-The main point here is to describe the temporary performance degradation
-observed in tbench 32 test case.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-When multiple CPUs each have bursty tasks (by default, at least four tasks per
-CPU), moving pending or newly created tasks to an idle CPU incurs temporary
-extra overhead, such as TLB refresh and page copying/migration. Once the tasks
-settle, migration succeeds and they start running performance returns to a
-higher level. For example:
+Best regards,
+Krzysztof
 
-1. If the CPU originally selected for the task has good LLC (L3) memory
-bandwidth, choosing an idle CPU in a different LLC scheduling domain briefly
-incurs this overhead; however, after recovery, memory access latency returns to
-normal and throughput returns to its normal value.
-
-2. If the originally selected CPU's LLC (L3) memory bandwidth is already a
-bottleneck, choosing an idle CPU in a different LLC scheduling domain can reduce
-memory access latency (the migration overhead is even lower) while also
-improving throughput for NVMe and other storage devices.
-
-In this test case, we quickly utilized the idle CPUs. Once those idle CPUs have
-tasks, they enter the normal load-balancing process, which helps achieve an even
-CPU load distribution quickly. Therefore, the temporary performance degradation
-is acceptable.
-
-In addition, in the patch I am currently optimizing for my own tests, changing
-rq->nr_running to rq->cfs.h_nr_runnable (so that sleeping tasks are excluded
-from the count) reduced the degradation from -18.65% to -8.55% and produced
-significant improvements in stream-10 and stream-100.
-
-
--- 
-thanks,
-kunyu
