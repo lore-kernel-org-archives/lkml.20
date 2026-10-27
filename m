@@ -1,86 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793124906;
-	b=RRSjFiALuBmet6JOA9TKnj05ZJtlLbaI0DuhPyly911K/bbxcjCKOyZ+ns/Hol2y4c3E
-	 Ct/RjmZc5GM+K7exlgBROdWQRgdRcM2nYXtaC5UT5GqDTLpS7x7ZqP8rERzH64J7/N9pI
-	 l3NsYNVrBlCEHjThog9CM2EPQwqJeSnHeL+WsQQ3pe9RBJ0oHTZGzLIoGPHfTP52jKL89
-	 XPz25Jagi1tDkEayNhIa3UpfGGpk/TgTOvFausVB0iXQ9+7cndvngBr1UZy422yJuR8yH
-	 8ZL1q1s7J4Ib407wGifxpEJxdOGycPuopg6eyOgpznuocCk1nKgi+/t+P7ujgwCDwDw==
+	t=1793125033;
+	b=oNjDGwAYUjufgXvFqfZDOtk8ygR7JOJkqErv5xf9ugCrtTCgjVgxFACe3TpciUA4EPhk
+	 2pj4SAUl6XnAKVGjRyJ+e42O/hNrzVCvSYoRFrzyRl0pCm3lv1eAThowOmOjjQJypXSuc
+	 KH1RSOtlFNIoykUGS1/Jl3IaQ4XDR3xnfCbRwaF5gNHfPlfQ3sMZXYmPUWTRBxY0IJQLB
+	 wZ5BFcnNayl4WBnAl7XQFpAPNnFrVngiASH95VykkiTPdJR1bdEU4zDMI7B2L/f3l3g7I
+	 99QwHF4YgfBP/WOViJs8W1MLUbOPm8MFjXI1FrHg28xGMcoXzPPuJREtO3D40xE+jpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124906;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
-	 To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=a1Ja3qIFPRW5o1f0UvkP2WWshxKnpvUF89aERI+066U=;
-	b=vKfR/pRZH4OYxyxMRZB9Kuhcq0EnCuJCD0d+MrnQX3f6O0u4mUEch+zmEDTIK3XF7yfG
-	 d0LbtudtRaRWKN96PZRsBC1dbco26rV1xeg88kuwR03Chmr7JRxGh54S0tXCh9rWGIizn
-	 pSvRSAjt36QhY/lg7e5oSl8bXVumW7nKNoX2WUTPLToNNhfHj+IgPZsRLSmaIS15S46aH
-	 uW0KpFqcKN0Ovn199kEvNSJe0tTwA5f5GcivO/Zt4gWotG9bRtrHY/PRT8EtsM3c0LbYv
-	 ZQUA4SrzAYQs1eImZbMXFVTeMi2BbL7RdaRJgYFUaMYq2RHEZxtRRUzndr7JOachT9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125033;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References;
+	bh=BQlG+dpy8YjBQ/Jf8HDAX4aO1LrQ0VKAd1X1FNGlEsc=;
+	b=ydZxHM1FTxOwNYGeKHuCcwOpP2FCqg1peeharRkys3ckSn4oRIJpFd8sM4rE9WMFAWMs
+	 hOFFNxn5Sf2D5Q5R6s+bzbabmL01o/RpN9Po6PeVyzCYiHDz4+v7Df3d7CXlBYAyb+i3K
+	 QwrlJYMwM17G96vc/+4ZQl2PyukcfMEKcrX+i01uKRrBwD8kQAxRkwztdf/YDdnN92/zZ
+	 M4yhfb+9KWDd36FWutp5kObQs8INneuewYT6jhR+GV5pKISabpDieQHwX/tDoyapb3NSj
+	 cVfUryrC9d9Prniftp89AEJNTLvFmsngl2RTUJFIEFhqXafVPi+XtfvIcfgudgDeVAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLPqgKVf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF845606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:15:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF845606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so1164215e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:15:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793124904; x=1793729704;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a1Ja3qIFPRW5o1f0UvkP2WWshxKnpvUF89aERI+066U=;
-        b=hq2aTrx4Dl6GPwVr5C9e4VWLsrgqHf510FYgvTli7wOA2djPgAEizk3SnhFZGXv2xO
-         GjIgUUrZVHmBFR1AdOXnTdLC9ixyv0nFrQPmAcae1NuNXVOXo6a58aglwekkRbcu0jHJ
-         TpLdDMoXV3Jx/eoeiBmFtnyAerc3SPlWZtFt8CGm733uV+jKLnmyAvCALcP4IT+Zo/S7
-         kv0SxoUziQS1kBeZDetiBi25m3ZSDaHatUMZlk8+MV64TROecmPS4aSlFCIH3lhak87N
-         YfQhjyOhLehYhwag+Qho9cZzi93HUsoIE3K6w1KTDlTqT7peR+TZlMgNn4lvYhaJu3bI
-         usaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxeMCLeFPQe+2tf4Ke6DS4Z99b+zUW10I8Obgvf9SSjztQL6R7vNzDikvOfFez5HGng1epwZkEePX7hoRw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6wQsodatf43uoqXxrvpZEvf4jMv+wRC23yUz2BLKeBtTSmZAT
-	VqJ8G8RFlZI7zGAoHZD63CZKs57ManHAPoCrySC5F5HKu051QGX6vNw=
-X-Gm-Gg: AYBFou1Z3a4rjs7WYDXwgkvuUHLM+WaA45X2mUzbxvslZJMab89CoddiSvNKSCL5Jdr
-	wSj7/UMDNo6JoETFlKu91RyLmu1XMqeFR7gKUwPkd6dDj2OwBLp5jQoO/OCg9na7kbX4tKwik3I
-	1B8VRNruAVOhkxz++AVYAE2ZUoLyapdEF5R0YXVIhTekkKpRZGtCeSCkH3ciyn/pSNchLeTumJc
-	T083DvRWI8SWSEWoNG0KoahP7LZ9xKZuMpLQkMAE0m4kqnJ4Six2fK1Lew4tHMKyQm0mfu8ENJf
-	S9PaamJwl7m6Ubms0h54rKeAAebjwSW0cIYCWrWAyjkzIjiUfAjdl/RxXWuUpZUyGx6I9GM7ID8
-	SGduog9SkGoov1s1NSgMbjdjPCmajCsZK7IWKkVPwZLsZkR7iH/O6GehLq0c5TMjsu3Ojas3Dub
-	DcU4U5+XAU34yRK8p9ukiaWr5/AO8teD/aI+ythCWRjZ250bdkpvzVyrrP5spMhI0/LZwSX/9Px
-	B69mn1ZLv0A0UC+XPYGDT0u74aqvpIrK0cneUhvxszIu/G5yNkIO/3bavMIeuyvlAWwyM6FxwSN
-	UNt/lLON25rBjFYcjmvriI+i8sxxGkr4vIeuQO0=
-X-Received: by 2002:a05:600c:37cc:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4a35acb990emr210145325e9.33.1793124903858;
-        Tue, 27 Oct 2026 11:15:03 -0700 (PDT)
-Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94c118e19sm10345e9.5.2026.10.27.11.15.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 11:15:03 -0700 (PDT)
-Message-ID: <6ae0ea27.08a8f783.2e4276.0395@mx.google.com>
-Date: Tue, 27 Oct 2026 11:15:03 -0700 (PDT)
-From: D. Manresa <dmanresa@gmail.com>
-To: dave.stevenson@raspberrypi.com, linux-media@vger.kernel.org
-Cc: antoine.pichot@gmail.com, sakari.ailus@linux.intel.com, mchehab@kernel.org,
- dan.scally@ideasonboard.com, hansg@kernel.org,
- andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
-In-Reply-To:
- <CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com>
-References: <20261026111032.88355-1-antoine.pichot@gmail.com>
- <20261026111032.88355-2-antoine.pichot@gmail.com>
- <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
- <CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2CF606A31D;
+	Tue, 27 Oct 2026 18:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLPqgKVf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6511F031E5;
+	Tue, 27 Oct 2026 18:17:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793125032;
+	bh=BQlG+dpy8YjBQ/Jf8HDAX4aO1LrQ0VKAd1X1FNGlEsc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jLPqgKVfOPVsDgLwoMZ16UseK8OHOo8JpJwNW/YVi0kw3fyQlEsd/UVg32FMZs3OW
+	 r4P5KEJCPIj/KOyDQJDreVJVPyrB9ZKlgbeWThq5yAcHYydcr3eWO39CsPMsWs4YzX
+	 ty8ec6TIzned9CARBFQmSPik48yQoBZn5DuK+GyZh73+m/oGiaCpMUsswuEpUy1+/B
+	 23Ww8KgzPaUGxYKedH2WJ6EK08iuAw/pGCySpsh73GwcFgXbpCs1fGhaD+DjqHzW4p
+	 yCNW05kom5Kf5o1qvD3E9oL7GPtzdiHaTHg/5xmtSzKc2wlh09rM45Nyjj1+dO0iMI
+	 u+HyATTnHHaaA==
+Date: Tue, 27 Oct 2026 08:17:11 -1000
+Message-ID: <769e80ffa618327ac03c13c4657e7229@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>,
+ davem@davemloft.net, Jakub Kicinski <kuba@kernel.org>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
+ KP Singh <kpsingh@kernel.org>, Tao Chen <chen.dylane@linux.dev>,
+ Mykyta Yatsenko <yatsenko@meta.com>, Leon Hwang <leon.hwang@linux.dev>,
+ Anton Protopopov <a.s.protopopov@gmail.com>, Amery Hung <ameryhung@gmail.com>,
+ Tobias Klauser <tklauser@distanz.ch>, Eyal Birger <eyal.birger@gmail.com>,
+ Rong Tao <rongtao@cestc.cn>, Hao Luo <haoluo@google.com>,
+ Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>,
+ Jeff Xu <jeffxu@chromium.org>, mkoutny@suse.com, Jan Hendrik Farr <kernel@jfarr.cc>,
+ Christian Brauner <brauner@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ Brian Gerst <brgerst@gmail.com>, Masahiro Yamada <masahiroy@kernel.org>,
+ Willem de Bruijn <willemb@google.com>, Jason Xing <kerneljasonxing@gmail.com>,
+ Paul Chaignon <paul.chaignon@gmail.com>, Lance Yang <lance.yang@linux.dev>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Barry Song <baohua@kernel.org>,
+ Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, cgroups@vger.kernel.org, linux-mm@kvack.org,
+ netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [RFC PATCH 0/2] memcg_ext: dynamic memory.low and memory.min protection
+In-Reply-To: <cover.1793086858.git.zhuhui@kylinos.cn>
+References: <cover.1793086858.git.zhuhui@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,38 +83,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Hi Dave,
+Hello, Hui.
 
-On Tue, 27 Oct 2026 at 16:50, Dave Stevenson wrote:
-> @D. Manresa it'd be worth trying using a prediv instead of (post)div:
->     .pre_div = 0x04,
->     .mult = 0x85,
->     .div = 0x01,
+On Tue, Oct 27, 2026 at 05:11:58PM +0800, Hui Zhu wrote:
+> Why it matters: memory.low and memory.min protect a cgroup by a fixed
+> threshold and have no idea whether it is using the memory.  A
+> high-priority cgroup that holds a large working set and then goes idle
+> keeps suppressing reclaim on its siblings, and that memory is wasted.
+> A policy program sees the real activity - page faults, charges - and
+> can grant or withdraw protection as it changes.
 
-Our mails crossed, and that is exactly the change I had just finished
-measuring, from a test patch Antoine sent me. It fixes the link on this
-receiver: thirteen 150-frame runs at 30 fps, every one 150 of 150 in
-5.2 s with zero dropped buffers and zero CSI-2 error lines, against
-seven bad runs out of ten with the index fix alone, three of them hard
-stalls. i2c readback mid-stream confirms 0x30b4 = 0x04 and 0x30b1 =
-0x01 with link_frequency still 319200000, so the link rate is unchanged
-and only the VCO moved. Full numbers are in my other mail on this
-thread, which went out a few minutes after yours arrived and does not
-mention you only because I had not yet seen it.
+This doesn't justify the changes. Why can't the same be achieved by
+adjusting memory.low and memory.min from userspace? The arguments made
+so far are neither convincing nor proven.
 
-So the 19.2 MHz / 319.2 MHz mode you could not test behaves exactly as
-your 24 MHz oscilloscope measurements predict.
+Thanks.
 
-Dan's instinct in the parallel branch was right too: it was the
-driver's PLL settings and not the value ipu-bridge advertises.
-
-One data point on VBLANK, since you raised it. With 2/7 of this series
-the 90 fps mode runs at vblank 92, and in its clean runs it logged no
-CSI-2 errors and no corruption I could see here. I did not go below 40,
-so I can neither confirm nor contradict that part.
-
-D. Manresa
-
-(Written with AI assistance, directed and reviewed by me.)
+--
+tejun
