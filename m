@@ -1,106 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102464;
-	b=d+bdJ+ev2L+vqRQ0BDuxbMe9aYg2Pfa+4ssdHobmP0zOJmd7SqliTqecDEmYMgyXqC8V
-	 xDRV9rnhGyyjQn9/8aMvqUmi+E1zWGCxHwg2RDWuSnV7J+6EDWb+zibwYZg89n3hy1ag4
-	 pQBKTDHRrpdlDW7HvC6jZ4MCAjprzYRw9Kk7Y/fa+38LcHSDPWDzaQ5BbKH+mAk2olYc/
-	 tkG/a6UbBSYbIJxjLdEgcEg/z9r7+saZWBw7QvmJC2zYDxosY9GrjIxCw8X8yDvqyKXCn
-	 CdXys2YU9Vg2bpwqOEir1qeTTazEECrf+ABoZ8Tg3HBsN9yfdjJwwoqXj3ZnInL7r7A==
+	t=1793102459;
+	b=vdEadZyW5DXTJHUfkV8dUCKfdwOSwWt+VjkILjm9TDanBtgWinMQEhxCf0Tt+YS8yzkY
+	 AAP7gDJY/3ltqtOUi72G+enzvjvpCvTWNi3owi6C6cC4vtA5rfDoblVEkeyo8g4JGlzUW
+	 q/v3ua7NTsIvg8FwXrs5NpHTSiMFY7zJOmxxwHIsKFDBiVukP+5XYLb7OFJ9V2PqrHkQn
+	 CvylKr9yWn5AbAwCe3BMrCZvw9PyRvKxawNdZPe3+qIIbYRomcTJW1C8CyzUtu3NVnlcO
+	 0nGPuzvgmr/7cGNwRmsTFD+ELDnGj6Q/MOu0t28LsXG6XFYFzzc+CQzEB+I3FW0E62w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QkhiNlgHYQNRxwIcJQi3AnXhCExu73DNr0s2jcVWxCE=;
-	b=RHiCkab4Q53S3zbfGr9ogdfVOql3ogfQ8ie8/jvg6TW/kNee/DuKfKrDfCwABT2Wu8mR
-	 Z6ZwqY1qONX5etNOHUetXpk8bl0tLXrQe8o9/A+gtTpcro1dhs8S7w06vxfh0zhuXGQvz
-	 A0mN/Q/C2xeUHQCp7Qs1PknygnPg7/oOOvOc4jOUOQVN6JqckJguF9VGFDwgLAGmflYbL
-	 CxgWouBcv5xyiErcbefX2OMtReP/10svTu/B2Q8UdnsOdbaSiGtkemhPbhLYIQ+njzw+A
-	 hsrWUkvTbhiJBtbnWtNbB3rfxA+7XJCXISRPyWaXOkPBQGOEtRrhWvf5Fk00bYx/rYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102459;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=dDx8AqQR7Bt04x47N4Mn7I+5GyazYzKkWgOX6VGjETw=;
+	b=QaJHppa9ArV0cvJB0VgtEJYTWAMBW2t2m4T1a0GknKqj/cL4oulzqe5jXHnp6ugOjJKb
+	 FMxLmzwhmZAbO0qe2PxAopJefjz8RHb6Q8rDOlp0pRKQ8IsvBd4USEl9uvHEH4YRT6Jji
+	 iK+k09Gty41q5hqXu2M4XkdfrdKdgLojRyr+kEo2X/Ji6yn8nY/Rket6YtiI0yox4N/0R
+	 w82lWOWI9QtBmH+ilw1H0iAC1SarYtPAgCAY/5jImA5Ww4ulSv7VvkJQbYIiOlhY+0HKK
+	 z/LHiTW0dUHrVbDmTb/tnsLXdP8Mv+wePdYvfQOi1/FXASQcmSDBCqxHE9A5nmDqAxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TxnE6HkS;
-	arc=none smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jE63xTYV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8965D60A3807
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8965D60A3807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470D760A2611
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TxnE6HkS
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b488586facso376211a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:01:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793102463; x=1793707263; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QkhiNlgHYQNRxwIcJQi3AnXhCExu73DNr0s2jcVWxCE=;
-        b=TxnE6HkSm/cAlbvKMme5D5UwKuEoIsGqzBXQWe5BAeNxcrBBNg3gamuWAv0zjMcLp1
-         C25hq3LrHYFU7tBgWoYYbL1/P0S9KUNsVtF0hg1a0OOU2jZIn8saECLD7IkiUXMlJN82
-         WvNgK1t3oR86E1EYtHaxka1TEwGZ4httlFXNNltQuZsezGrafGFnBSQyiDodQO6bUdfj
-         b1vp2wkO5/9lJD3sscinQljbsYNe6ungHs08+hEjEJKthJWfYFGe3o+46U1GT2iWmDpL
-         hlfj2KgoT3xH6dEYYLtlRyIZ+Byip2Os+8Za5NAkoBFigQDL0lGDkAxCGySfcD2ZF3O9
-         YgVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102463; x=1793707263;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QkhiNlgHYQNRxwIcJQi3AnXhCExu73DNr0s2jcVWxCE=;
-        b=j1puojZx8joyhRqtTTXQQTB+oT792Ac3K2GRQ8aixdq0RA7ZAN6TwOEkQZ3P1U9Nh5
-         dsUzs0RHS9uWS4Y0O5hBlmLHfSmcuRZzUtlWYoH+HX8Lmrdj7yMdyVhe6kU9qgweclVj
-         sAEUuaFz+JTFKgfKWS8pUCICjBdAiLZXkU/v82PZEcPUqPnUGtyIyP3hjJUIt3MaLUAh
-         G0QUXL7Pl1umBvk9dcpBB8nz4FX1/yuYNiGIU8XTF4PUT1g23nPQbxWW99spjr8dKg4b
-         nmjYOBi3uEttY+8IKmKA+s6x4tuG0Wn0fCnGua5lCprUSYnHaJ96zCgEI4YNv9PXTBC9
-         jClQ==
-X-Forwarded-Encrypted: i=1; AKwUvBynmbpzcJA7vSOdtJTDc3DABNhFsr0NbsE0qoCXZBaQGktOyN38SS5kXlDQKdeyBhJn/OXmw2/+IZFol38=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJjIpr9/zBr05SevprymvuZkV5CqmsZhCCMcHGmRxxIp4dCgyo
-	xe25faOCME8Kmcl9mh/f1GdotYh888thVKjcNaZQuwvA/EsiDsTlsTKx
-X-Gm-Gg: AYBFou3DqjP3SmMAQef7/hk4ERRAm41/wXvsCHcURnbCzXncKdaLSZTdIlGHA6O3B4b
-	ZVUJMuy1z9ik0greZOAzf2fLsrZj9J8pRu4VHj/WiqihoQoiRTwzN7J1KZKRUAC4hcjBD9ZiT8f
-	lVbRYil8a1T1/7V2jlwTirM1HyZVYcQAU9AY1pNWtq7bSFmlLBmW8UXDl9Hw+rhH1giO0Srujh+
-	ZNsQPCFYzefL3rMHjAcZxZG2PoqjMSvppHROMkn7EQARwcLeSMFklv0SD5dLbkHddNQNhT6ihqu
-	oUvCS8NT9/ErVTBdgPppy1xWgVIzT/S4UKr6zxAuMhaXxu0wRCcj7avuMw39gKLjfw4MdwnrZ6w
-	tx1jIwx/qi+VvV9T+tXseSl0kOvdfSfyaynQAQ4yhXeDI5S3BmgrJpIK9YIFbaRJ/8/jegReaJN
-	b2YfPDW142DH0/oRM+RmsMq7OaxkAAb0DhqksWZF5e6+iMkJkCl1k8R7DiIernePuJZKt3/7osR
-	6xiN6MS5lrcf46k+/U3XoHoFSM88KyT6wQCaJ2wjHF7CfEvU3ZZeu0ewKkc1A==
-X-Received: by 2002:a05:6402:b04:b0:6b4:1037:2b6b with SMTP id 4fb4d7f45d1cf-6b44311e24bmr7137730a12.45.1793102462588;
-        Tue, 27 Oct 2026 05:01:02 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b44598480dsm4717844a12.24.2026.10.27.05.00.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:01:00 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Abdulrasaq Lawani <abdulrasaqolawani@gmail.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Animesh Agarwal <animeshagarwal28@gmail.com>
-Cc: patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH v1 5/7] ASoC: dt-bindings: wlf,wm8994: Update #sound-dai-cells property
-Date: Tue, 27 Oct 2026 14:00:17 +0200
-Message-ID: <20261027120019.93611-6-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027120019.93611-1-clamor95@gmail.com>
-References: <20261027120019.93611-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jE63xTYV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCCC71F031E2;
+	Tue, 27 Oct 2026 12:00:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793102459;
+	bh=dDx8AqQR7Bt04x47N4Mn7I+5GyazYzKkWgOX6VGjETw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jE63xTYVQ0bibITRR3idWdLNB/lPlEiAJf2NmaLSuVI/gJQQ7RO3OaHmOhMV6Ojr9
+	 sk8vTmAIHS4gaGSFXAxR37yAk4nzk0JEu+2xnTi/HIq70PLfKWGKpNDldKREmEhRvl
+	 1ZSpXqOV5Hb4InOQA8omnK75bsNKJWDlGhlwP2t2OTWWZzx681syLUz2Lfcl/aZS1n
+	 fhjBHMJ7ELsOHVqCBge7nsM70rbeBgt341a9KIjObMyPz4g6SAcQ03VaiJcrcPiQy6
+	 8MrfVO+qbUvtdtGKgEIF5Rgcw5d0i6a94lmNt3WuWxkuFVyBL6j4H8RpBHRm4WwFtp
+	 mti1GaNrDEpJw==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8FE7B198004A;
+	Tue, 27 Oct 2026 08:00:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Tue, 27 Oct 2026 08:00:56 -0400
+X-ME-Sender: <xms:c5Lgaq4ZQ8PwRI6i8KZZ_1a6MgmY4_VesoUflYDHSL2klFgmKl_XCQ>
+    <xme:c5LgamPZbqnQcO4ydCIVaMh5FlnCPCvs4Nls_1hUAQsz_hXgDP0mUHpd4gMun1l23
+    aoqEGdpHPflsvBWWkmRFVvFZ46y-dJJbw_0Kv-2xFMTptN0dANIn10Mew>
+X-ME-Received: <xmr:c5LgaoOocCkfxbkL7h0hX7WHNWFKHnO7qeuY6KqD6MnKFqfV-K3nEGTnJCk>
+X-ME-Proxy-Cause: dmFkZTGHFpKX1jiTMwU/zLbcEjLtIgjP4no/7v6bzBUeW+iOChjTDC5KyxGRFFAGyYBVcq
+    qDgTGrfkugTguLv1RZoJPJRr9TFt84gWeCibTTWFwj5ZCc1ZWzs9CxSp62O2K2EwuxAUbo
+    t1k0grfABMn2r699FuJ54BYDMKqUIzytxfVuu3Pv+ozDzSzCSbs5qNndCkNU8ysF6dywu0
+    7ir0xiOJauMuW0PI3TTom1GP5lzHCkiVdVm/wbI7Mh2bsHmfdZ9qiz7UnzJbshS7dD3SAj
+    FJF6UHO5XlbXu5vOXahQzNWbxOY0K/r58pyyCQ3L4G2o9SOXGGn43GlSykDAch+nsvX3Jt
+    kwyErHX2W4JyRwVIzJrBweuq3ibwyyf2rh1I+q3aOExNytzviQrhW9tHhAHTjgEs2FOURH
+    rBIVgNuQydHIqHVoC79wNa139/ZhZTxS6pcjs+hIpekPuC9KsYpMHb/cFYYQuk5K21Qwy8
+    3YhELuibEcG+sx0aoxBsRrokS/KwVE6xjGZogYNnN+xMSSCGdpZDTR9Cuf4eyPO37dhHq8
+    OV5xIrviy1SDa5VuIRXn3oO5irYRxiD2Xv2saxgkM+CAuuMc4HOZC/3S6lBOA90KJVMONR
+    zYaeVC0vzVxJIy4ALo/WOBQtU9hUDJA4knUKijzmUApI95YbTeE1XV2EUwXg
+X-ME-Proxy: <xmx:c5LgahXesNhO5LwQW3G7qm95Acm7DvWrFEvwCsldGMnrrnzg_a7VAg>
+    <xmx:c5LgaguovOSbfLSwNhnV63uBaNcmTlSppEy4UeEzkU4qaWdWxRGC4Q>
+    <xmx:c5LgaiaB71F57mviESnuAAsfdKVaXCoeB32JzcLcKb4i2u1NqwWZKw>
+    <xmx:c5Lgaj40Dq6YSJHHAAbcrvdPML-1M5LVAPFoVg5PjhrMRqLJ0OFesg>
+    <xmx:c5Lgajpo3RXifYMNLmrNAeFLHwirY6SjVQCuJnsbZNyiU49MdBxhHSSP>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 08:00:49 -0400 (EDT)
+Date: Tue, 27 Oct 2026 12:00:47 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
+	Matthew Wilcox <willy@infradead.org>, Usama Arif <usamaarif642@gmail.com>, 
+	Frank van der Linden <fvdl@google.com>, Oscar Salvador <osalvador@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@suse.cz>, 
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>, 
+	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Paul Walmsley <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+Message-ID: <auCKv_omLGRc6wv2@thinkstation>
+References: <20260227194302.274384-1-kas@kernel.org>
+ <20260227194302.274384-14-kas@kernel.org>
+ <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
+ <at_f43oDv73y-t7O@thinkstation>
+ <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,28 +102,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
 
-The Wolfson Microelectronics WM8994 codec provides three DAI cells.
+On Tue, Oct 27, 2026 at 12:00:28PM +0100, Peter Zijlstra wrote:
+> On Tue, Oct 27, 2026 at 12:37:13AM +0100, David Hildenbrand (Arm) wrote:
+> > On 10/27/26 00:25, Kiryl Shutsemau wrote:
+> > > On Mon, Oct 26, 2026 at 06:45:48PM +0100, David Hildenbrand (Arm) wrote:
+> > >> On 2/27/26 20:42, Kiryl Shutsemau (Meta) wrote:
+> > >>> From: Kiryl Shutsemau <kas@kernel.org>
+> > >>>
+> > >>> With fake head pages eliminated in the previous commit, remove the
+> > >>> supporting infrastructure:
+> > >>>
+> > >>>   - page_fixed_fake_head(): no longer needed to detect fake heads;
+> > >>>   - page_is_fake_head(): no longer needed;
+> > >>>   - page_count_writable(): no longer needed for RCU protection;
+> > >>>   - RCU read_lock in page_ref_add_unless(): no longer needed;
+> > >>
+> > >> I have an AI report that removing RCU read-lock was wrong.
+> > > 
+> > > Ughh. Yes, it is a real bug.
+> > > 
+> > > My reasoning in the commit message was wrong. Nothing stops a
+> > > speculative get from writing to one after the remap. On x86 even a
+> > > failing cmpxchg faults there.
+> > > 
+> > > The fix I have in mind is to let the atomic fault.
+> > > 
+> > > If the update faults, the struct page is a read-only HVO tail with a
+> > > zero refcount, so the get just fails. An exception table entry on the
+> > > cmpxchg handles it. No RCU on either side, and the fast path stays the
+> > > same lock cmpxchg loop.
+> > > 
+> > > Only x86, riscv and loongarch have HVO. Below is x86 only, to show the
+> > > idea; riscv and loongarch need the same primitive in their LL/SC
+> > > fetch_add_unless().
+> > > 
+> > > Lightly tested on x86 by hitting a real HVO tail page.
+> > > 
+> > > Does it look sane?
+> > 
+> > I'm sure x86 folks will have an opinion :) . Let me CC them whether something
+> > like that would be acceptable.
+> 
+> This looks quite terrible, doubly so because I have no idea what its
+> trying to fix. Please try and justify this insanity.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- Documentation/devicetree/bindings/sound/wlf,wm8994.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Fair enough. Here's some context.
 
-diff --git a/Documentation/devicetree/bindings/sound/wlf,wm8994.yaml b/Documentation/devicetree/bindings/sound/wlf,wm8994.yaml
-index 0db04a90ac6b3..39bf1af7c3ab8 100644
---- a/Documentation/devicetree/bindings/sound/wlf,wm8994.yaml
-+++ b/Documentation/devicetree/bindings/sound/wlf,wm8994.yaml
-@@ -69,7 +69,7 @@ properties:
-   SPKVDD2-supply: true
- 
-   '#sound-dai-cells':
--    const: 0
-+    const: 1
- 
-   wlf,gpio-cfg:
-     $ref: /schemas/types.yaml#/definitions/uint32-array
+HVO (HugeTLB Vmemmap Optimization) frees most of the memmap of a hugetlb
+folio by remapping the struct pages after the first vmemmap page to a
+shared page, mapped read-only.
+
+Every lockless get of a page reference (e.g. page cache lookup, PFN
+scanners) relies on page_ref_add_unless_zero(), which is
+atomic_add_unless(&page->_refcount, nr, 0).
+
+The page can be freed and reused between finding it and the get; the
+zero refcount is what makes the get fail. The race:
+
+  lockless get                        other CPU
+  c = atomic_read(&page->_refcount)
+  c != 0
+                                      page freed
+                                      page allocated as a hugetlb tail
+                                      HVO remaps it read-only
+  try_cmpxchg(&page->_refcount, &c, c + nr)
+    -> write fault on read-only vmemmap
+
+The refcount is zero by then and the compare fails, but LOCK CMPXCHG
+writes anyway.
+
+Before v7.1, HVO mapped the tail vmemmap pages to the head vmemmap page
+of the same folio. The first struct page in each of them read as the
+head, with PG_head and the head's refcount: a fake head. A get on a fake
+head of a folio in use always tried the write, not only in a race, so
+page_ref_add_unless() checked for fake heads before the atomic.
+
+Back then, the race above was closed by bd225530a4c7: rcu_read_lock()
+around the read and the cmpxchg, and synchronize_rcu() in HVO before the
+remap. The refcounts are already zero by then, so the get either
+finishes its cmpxchg before the remap or reads zero and bails.
+
+Since v7.1, tails encode the head as a mask instead of a pointer, so
+tails of the same order are identical and HVO maps them to one page of
+real tails, shared by the zone. Fake heads are gone, and every read-only
+struct page is a tail with a zero refcount. The race is not gone, but
+32c440d67e6c and 01b1d0ffb6f7 dropped the RCU on both sides anyway, on
+the wrong belief that it was only there for fake heads. That is what
+David reported.
+
+One fix is to put the RCU back. It works, but it means rcu_read_lock()
+around every get that goes through page_ref_add_unless_zero(), GUP-fast
+included, and synchronize_rcu() on hugetlb allocation and freeing,
+including surplus allocation at fault time. So I am exploring other
+options.
+
+The fixup is one of them. With the new layout, a fault on that CMPXCHG
+can only be a write to an HVO tail, so the refcount is zero and the get
+fails, and the fault only happens in the window above. With GCC the loop
+compiles to the same code as before; clang adds a SETE/TEST per call
+site.
+
+Writing this, I just realized that we have another option -- map the
+shared tail page writable. A failing LOCK CMPXCHG writes back the value
+it read, and the get never changes a zero refcount, so the race becomes
+harmless. The cost is the protection: the page is shared by every
+hugetlb folio of that order in the zone, so a stray write to any tail
+silently corrupts all of them instead of oopsing.
+
+
+And yes, I know, HVO is an ugly hack, like most of hugetlb. But it
+works, and it gives back about 16MB of memmap for every 1GB hugetlb
+page.
+
 -- 
-2.53.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
