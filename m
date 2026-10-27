@@ -1,94 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119486;
-	b=NRLQwY+g63uX0apEEbfyFEmYJOrzEu44ZC/9e8tUJa+ITvMENfU1aMZkfJ1Oe7h9PK6H
-	 SPxCPmbVy1rVxF4d+eL/AR12bVLxLWpJ7hEVakFFcacnDkS0sK5K1AWL3vZeI0dsCX0MU
-	 kTuAoB2TZAUjphtRm5QcStApKofD5RPek/YHU1pIC89bViuutIr0KwNbDncg1ogO9Ya3J
-	 O238UbNJ2wsk+m3AU2tvEyQMic3isLFbbKcgCVS9y7uEinqSWnC7Ud1xtZUEhdzpbvTzE
-	 w8VKA8se87tUBiD/f6GpH7uSDiBRjY87Mt7CWkojmfua1l8dAjEjVUvC5eWsC0WfQPA==
+	t=1793119535;
+	b=IufDODw5+lpTHbCVZD0fDpdqzSs016pPKkrGgUkEbEmg1py4y0gHFXNdKpRc9YFIEz1N
+	 Uvc3Je4wFIh+utNOJEBl9OX3HaGhiEhJDxqvhZMktqwBg0hL/3e+FahA1ns9de+15zIxl
+	 7Iw/r1bEQ/jjNQDwmGNNHPGYp+rM+Q3DgHXMNb0109L+sbmmMH3XRLzlobCnageRYzDg8
+	 y6n6Tsjh2hVFL+NZNAPWsErvE0UVPIPoBJnIg0k4N0q3S2wYBPn8e/+eQHVh8Apb8ZRky
+	 gP89a2RkmBVKknm+Ysk0M2MSvYBkSkODhgwsTdHwM65wi8wifXnSC5qqYOy5Myu1Liw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119486;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=jR3pF5DlIFSpLhSY083BaZUgI2YoO9j0dr5wABPC09c=;
-	b=OjUpbTxTTU5PZP9Jbq56CM94jNx0t2oBzNiYH+c/w8CwlOYy3ttSo8pGHfHEO3IdhSeI
-	 nuC+6cXFXRAGVpHIprmD9laKsHqfmJri1j3+OwnO7lVviYmvAaTj9aBkqJksjaEqzMA1F
-	 bk/M2CWkkcXVG/EZvWIlCH9wiA63VUYsjrFbnO9Qt1FyXVQOrL/6+1+Eh3isWI6gRUmpD
-	 HqeXc0jtdFNt8zxtMN9Ta/c+bcJPqcukvQQS2CNq3vS3fY48JdEoHzG82x77x5pX4+v46
-	 VxrlUIolPsX0vlLQ4/Mlvv+dggSrXKuex/GgNPc/sotK7YkwqYqLcamTNEQ4DfTVl6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119535;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PGsZM7u08kBDzsq3JsRau31sMD5eNroObYlAR6vvhvc=;
+	b=ihpA8vyI1ovWJLtdEnRQcgKSPW8pvObW/Kg145ktYNpFnR4j3UpAFI3Q67H4S29jqK29
+	 CD8s4e+A8/yi6iqMUWAvxX0vF3k4u3Kal6Jj6iadUv02swhgomEobgBgOqQjw+Qbzo7qV
+	 o3I4Q8HzFJmNAgH7xAf1AdrovAtlDCNFANngJNeVu6CxctN8UoHTH7GimIh0tqfMNwkbz
+	 ERwbgR0fIDgz7cmuWcQJvgKPYRzpSqTKMg6ZkdlpAEV9S6RbpH8UrS+Q6OJ/fm+pC0HE5
+	 BWKrQoSgXpnQQ3sY310r/6C/89H4czT/x516Ju0kW6U85VXMmn9o3M1j/ld0sSg6/Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fqxo1a9W;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeGTj+fy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F4D7606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F4D7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF4E606A31A;
+	Tue, 27 Oct 2026 16:45:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fqxo1a9W
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6d68de53053so97374eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793119483; x=1793724283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jR3pF5DlIFSpLhSY083BaZUgI2YoO9j0dr5wABPC09c=;
-        b=fqxo1a9WYTLm35LUzESPRP1phpUhVNHIyzUzG02eCj5qTk6apRaLImxXPPUdv+zK2t
-         hYC0yi0zhA/wvFcpeQCUbmHe7iAHO/5t9c5kUz36vqCt/j6RtUsaql4IGIOQNZ1hoyT7
-         8O4nVtMD3dywGwWeiCKv5fP+gM8iyjOOpqznM3/dF1OHw6EKrQX1ZtNAfyCGPNdHu5Sh
-         Cfhd0zl7ycSOQbXEgdglCTShIcwn3T50gT5e3HVTE7KiU59cYr0lFEioaVCI2NYSusI6
-         ErvgFgmVs3bPkQ9PQAU42mkc6HtBcLLtA6EucepiP+FV+K2rqnes0F2OVnZqCf6tYSlW
-         8ufg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119483; x=1793724283;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jR3pF5DlIFSpLhSY083BaZUgI2YoO9j0dr5wABPC09c=;
-        b=ghtxzTFz5zU6XetqJNNltMOcGYhOe1Q67tCehp/+1/laI50cQGsJyEJvR8mrX7aVf0
-         S+xF+z+pddFjcBLnFFujarItpj8yBXbL2qU/HOpHMdbdVuXNWiznb526daYqBI7ycqDF
-         ckOih9LBZst/88Z6qYEWRDQG0pvyJ1uo4d/rP4+esVR7IC7TOrg/buuukB8wUVjTN2aw
-         j2Nh7pNMwylWrmUmC47od6VWqImwVzExgJYRLWLw7+4zWTQF6J76o+3/nYzylV8LkFMB
-         3rH21WPqxj0U23OxPn7fS4czebl3Yf2hiZUOFQgDz48ZfAp27tEE9PAysPLYZGaq5QMa
-         A2lA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmGmlTy0Hh8/rsxMLdD9xs/qdmoO3Hm8sLUbOKGVl7PCjPmfKFv0xEVb3UfSvNlAE9zhgEYkJ6DwhBPbA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLG/dG6R0rLNx5C4pNf56P8IS9FzORD53uCvVL1TvI1opOM0tfv
-	MRDkpg+5iRMoklCyiD+LkvRkDKjGqg2YPOzIZavk5i4vLhCwfpp/E8oNCnuhKoXqoRKkC8MYxhj
-	Ytk0ys3k=
-X-Gm-Gg: AYBFou15suZCbFNuzGjGu02y+LHRHFp2Fw1JXJaZUqnqeDfJozSbolvjuYH4RwvT7/e
-	uWJ0hqk2APhOjtj0yvj1bIBvtxhcVf6rPQ4J1Rd8T7f2mzHgMPkt+S/DWS3MUeUMwy4e1EqhsRj
-	osnhyeqm+vu2yC060EM+LPLc0TSOiZcnkFzfNKAUPrlm+Uf2xiH4ncTCTJXqir4SdHogCRnZZ3p
-	6StusDTUl4JTqLKCxjxP5kCfjmy32BtkeZQB193zfOmjPZTgd3WuPry+HC9BDj6aRtEKCaeFmS1
-	SgrnCmsF+BVsjKzpS/HZV3ijHa2Sm4tqdH3D+QXxX4pbMF7sljngvO7+9g5yUfdKWmoR2mctLH7
-	P7Eo18VRZ4G930wyLPC2IgzaPA8zcOiTzkjDiNaX/bjplB+7O/mseWmk78r0gd/zHzNmke79ncc
-	jwZQco/jeThIxVXB5lLP8/fpd+C967fPWbDfKmM/BPsOw3yb7JEperd4suWuSbksd6yJQDQyujg
-	zKS5Bjt4+G/w/i6kSNbk3mHnRozf8BqONbdktB6sFJtHbr+8l8adsyFpiVe7i0y0bacZmyScApt
-	W2lAgX605mmadADybQqUyZV3gb4CSIyFJHHF
-X-Received: by 2002:a05:6820:1629:b0:6b6:87cf:d1dc with SMTP id 006d021491bc7-70ba0dcd59cmr5722664eaf.24.1793119483372;
-        Tue, 27 Oct 2026 09:44:43 -0700 (PDT)
-Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70bfa90c943sm7618088eaf.3.2026.10.27.09.44.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:44:42 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Daan De Meyer <daan@amutable.com>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261027-b4-io-uring-connect-eagain-v1-1-f4e3aaaa49ee@amutable.com>
-References: <20261027-b4-io-uring-connect-eagain-v1-1-f4e3aaaa49ee@amutable.com>
-Subject: Re: [PATCH] io_uring/net: don't retry a non-blocking connect()
- that fails with -EAGAIN
-Message-Id: <179311948242.964136.2262085324990415486.b4-ty@b4>
-Date: Tue, 27 Oct 2026 10:44:42 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeGTj+fy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C01B51F01825;
+	Tue, 27 Oct 2026 16:45:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793119534;
+	bh=PGsZM7u08kBDzsq3JsRau31sMD5eNroObYlAR6vvhvc=;
+	h=From:Subject:Date:To:Cc;
+	b=aeGTj+fyDl4hV/f5XtV27vuCzdz+p6/moVu6zPnO5SslTX7EvASDhIlPoJN6FyfAh
+	 YxLEOLGdIevDAD9flchLImGUDOf/frCgvaoBCNy/r4nk5nN251Yc9EymOlIWkQqGxC
+	 72yxVG8k8hxfdul7jkH8yqgevzo+C58al1nn2ylQEtVbam9dFRiJ4L+iweEqfa7sXH
+	 iu/15qRrwX7+Z3Z2wyVwt98OS+izrcLN48Uyu5rtEu6HqATBYrmWpRrLfYSk4c/nPv
+	 OSl4/NW5MnjXLJ9RNXRrj9F/CksUSRm5Q7nX9ZUNYZEBibzCpRz/zMaNR8iEnuBrhF
+	 QxCgqt5TmqRwA==
+From: Jeff Layton <jlayton@kernel.org>
+Subject: [PATCH 0/6] nfsd: add new export options for controlling
+ read/write iomode
+Date: Tue, 27 Oct 2026 12:45:23 -0400
+Message-Id: <20261027-export-iomode-v1-0-262ed932a036@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,30 +56,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBMcI9GuEi0qp5pFGRohiHdPW
+ r7F/xkiBaYIQ5Mh0MuR/VWBbQPrMV87CXbVoKTSKLETlG4fHsH+9I4ELr0m64w1CqE2d6CN0/8
+ bp1I+haqgyl8AAAA=
+X-Change-ID: 20261013-export-iomode-1b56e9d89821
+To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Trond Myklebust <trondmy@kernel.org>, 
+ Anna Schumaker <anna@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Mike Snitzer <snitzer@kernel.org>, 
+ Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Cc: Steve Dickson <steved@redhat.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2474; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=BqM1sCZZyL9Y1KM+SrCA16ZGFxzt0cs/vuqpxotswZk=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq4NUqw4XsvML0QysKFUNy1jr5ilH2gCvGydELq
+ 79euJX3S8SJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauDVKgAKCRAADmhBGVaC
+ FSq/D/9ahPYNnHFC04PHIlvDgTI/gL3psd3jVQXtCsAYkauGUU27tIYoA0zqPUM+5AkeFxWsBYf
+ HZNWNKNHgQyQnzHzEpLw9XAncVxpLmu16fSXGDy0IDuht5HlVjvEJHyrmSSTVlA9Nh81G/FVQef
+ RGA1Y84RZG2eiV7Jwam7OEeWg1o7/bXgfPg8Aw23rmV0ERgA8wRDPScyGhB1McGOug3mRVj0Pes
+ igi28376ACw29mYBMtikYd4pK38VegPQB6VBXtfEdj/sz0DQ1H6HL9LuitMDjuTBg30LZZctGtM
+ 9n1i0EgGAwCJrliScNLP8wrGAPICfMTnE6rbekjI2K8bm9UCTLHsLKcGmZVRjcoaB1jTgs+QXLM
+ JObVhEHV+B8CyMeBO0I6UaE3FhoM4CIMRvOCZh8EFEFL+USfkAO6IGJ108C7NFZJfTqZw6RRyDG
+ 8poGt0DB96xuydpPc1hMz+HEfJUrY79TAaTjDpOUDkU9t6cGaZylZgA7sanFbRXgfThX5irEKBx
+ BL8wHwgWL2sbMQEXihJsJhCAynnUq+pZ6yiR3ARCHUEe7senxKgx8oaw8e21Z4vNiNivyK+ywj0
+ CCQZTzT/auHeHBU1emZ1FWT8aro9M4ZZR0h4qh6lp8c7KpTD9Wx4aKiDHYU3s7X1O+SBPXMqzJ3
+ XcNPE6u4Y04Y5YA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
+When we originally added support for the dontcache and direct iomodes to
+nfsd, we added global debugfs switches to control them. That was fine for
+experimentation but the goal was always to move these controls to
+something more permanent.
 
-On Tue, 27 Oct 2026 16:09:37 +0100, Daan De Meyer wrote:
-> IORING_OP_CONNECT on an O_NONBLOCK AF_UNIX stream socket retries a
-> connect that fails with -EAGAIN because the listener's backlog is full.
-> Polling the client socket doesn't help: an unconnected stream socket
-> reports EPOLLOUT and EPOLLHUP right away, before the backlog drains. So
-> io_uring retries the connect until the apoll retry limit is hit, then
-> punts the request to io-wq. With a full backlog, io_connect() runs 128
-> times in the submitting task and once more in a new io-wq worker. That
-> worker stays in the task's thread group, so a later
-> unshare(CLONE_NEWUSER) fails with -EINVAL.
-> 
-> [...]
+This patch series adds a new set of riomode= and wiomode= export
+options. With this, we can set the read and write iomode on a per-export
+basis to either buffered, direct or dontcache.
 
-Applied, thanks!
+The debugfs knobs stick around and govern the default iomode when it's
+not set on the export. Eventually these controls should also be moved to
+something more permanent (or maybe just be removed), but I've left that
+as a future change.
 
-[1/1] io_uring/net: don't retry a non-blocking connect() that fails with -EAGAIN
-      commit: 71537ed811107c514c0342e98902d489d6d2b7cd
+The last patch adds new documentation that attempts to give the admin
+some guidance on choosing r/wiomode settings.
+
+A companion nfs-utils patchset will follow that adds support for these
+options to exportfs/mountd, and adds a new script to help users choose
+iomode settings.
+
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+Jeff Layton (6):
+      NFSD: Add per-export read/write I/O mode settings
+      NFSD: Apply per-export I/O modes to READ and WRITE
+      NFSD: Document per-export riomode= and wiomode= options
+      NFSD: Keep per-export statistics across export cache updates
+      NFSD: Count the storage reads of each export's READs
+      NFSD: Document how to choose an IO mode
+
+ Documentation/filesystems/nfs/nfsd-io-modes.rst | 194 +++++++++++++++++
+ Documentation/netlink/specs/nfsd.yaml           |  24 +++
+ fs/nfsd/debugfs.c                               |   6 +-
+ fs/nfsd/export.c                                | 268 +++++++++++++++++++++---
+ fs/nfsd/export.h                                |  19 ++
+ fs/nfsd/netlink.c                               |   4 +-
+ fs/nfsd/netlink.h                               |   2 +-
+ fs/nfsd/netns.h                                 |   6 +
+ fs/nfsd/nfs4xdr.c                               |   6 +-
+ fs/nfsd/nfsd.h                                  |  17 +-
+ fs/nfsd/stats.h                                 |  33 +++
+ fs/nfsd/vfs.c                                   |  59 +++++-
+ fs/nfsd/vfs.h                                   |   2 +
+ include/uapi/linux/nfsd_netlink.h               |  12 ++
+ 14 files changed, 599 insertions(+), 53 deletions(-)
+---
+base-commit: fa65fd6d503d4e965ae27b1a75969e097569390a
+change-id: 20261013-export-iomode-1b56e9d89821
 
 Best regards,
 -- 
-Jens Axboe
-
-
+Jeff Layton <jlayton@kernel.org>
 
