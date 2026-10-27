@@ -1,49 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793140207;
-	b=29VkV8Hu5wRnk+Vf3J3Y4j9laNZV8jqGNQ7WJvoVq51NUJuF3qHFHOmwq0NIpESAqvo0
-	 s1xOK0jdXvgp65turkV4vLtfKU+2RvG4VBdb4P+/DsdzFCeDdWBKNJhkazpYyLai7h6z9
-	 JRZcgvdbEW/nIS7FjculQ+dwbtxZhLLthxlbQ7jE0jVAIMPeBES3lylsT28GMIug0uAh0
-	 sRxRZxh5Uqc5FDjjElZqQmgxhbtre2u1yPwSJzBemKgIRe55NeWTBZ5dJ6kYilVPlG13P
-	 t+6h7f3OAGig8/sc4ryi2Fp4HQOqYQavPbVolhWidxxgyZYzhzpMUNZyn52HMcF861Q==
+	t=1793140246;
+	b=QcLU84eWtwCsPQRXE7PSMshiIIQnrMJnwhlRDPey0NtoZR3G2t8SkKY2c0cIJq/nuMXX
+	 unYi9VLMdnhp5cao9v3TbCHOuDcflBNnYUBPRzvbpfh2lVgHkdmcUnsZzAqUADZ7lRldH
+	 QhHgYxGiK0JXj8BdH9UHQyXqXEiNXD7Dn2QdEU/DWy0gC/9QiYxcvCIEFybe5IKiaoJVe
+	 kjptG4EtPo+14QDI2WyLRg+HfMTadYz8xQFmaGhR1xqI5hIiMiuZQ32rp4qvn6EqSR9SO
+	 ABcwOHIL0TnkphN/qXceCbvh6IEu6AbUbM0B/VOK+P7b1ZWCHTQwWYZ0O2U2D0lQ/iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793140207;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=xuq66sDnBhsAplEkzYm7QcixWPor8L5zRdirUDF98Vs=;
-	b=OBe8pbelmCuzZG8PSYQ7+yfR5iqYDOvZVLGkr3W6Qnn8xhi7tTuqg5I2B3h9Ytg/CED6
-	 zQELUwq6pI0NOW/RkTBfNu+YozKzunNL8RghwScJ3NrpmQKRJFBFl1ELfd3zszSgCwcl9
-	 0HAojI0xdpNJiB7IE01D1qfsGTm4xYJqkmFPMVGcN6QxvHvIhz+/WSZe8AQGNv3SJqmhM
-	 SZyC3cnmdesINxnH2aNWkQOkRrvvoYDLsg+yrTWY9M9oD4BX5iwFym3QeYzakf88Px7iC
-	 lsAM/J06wxEbtXwJOMrcJH4nuDfvcSy4o3ru2k/dvn3o9TFfB6r10ixjZ6NmAXz5Ssg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140246;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=lXjWY4taTu4hJv4bATl5d396acZLb9e/6END/2fvrmk=;
+	b=H/m94T0sYWN3KpV1JqGarJQ0K3CPQwMz/UQV/3OsBGpkzHHYrcdI+SFEU76uDPhrszHC
+	 mHIvZ8giQGrrQp2cUWhhAKyElyBkrHp+Z257RK1uex1jXtJXIUhUaJU6+JoY+avzJVm7x
+	 KrQcK4ffHWKURRc+P+xV46RtKb/BUZusRfRz+WV/9F5LUkm0AOZOiwvOYq8pHQ6dOh8KU
+	 9hC1OKYTSfdWpEv3rZddY00tuVMOpmX0zWy/8aMACwXxgTJi6lvXXC3B2GRfM0qYRzVdo
+	 AGdg8KEcwoQnwd4tVLxmY3Oq7Re1Sz0Fnq2WypODGEFcm45Yv6DWYUVybNSEYBkrxRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2xcgAJs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Im/yoa3O";
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A095606A31E;
-	Tue, 27 Oct 2026 22:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75942606A33A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:30:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75942606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N2xcgAJs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8F321F01829;
-	Tue, 27 Oct 2026 22:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793140207;
-	bh=xuq66sDnBhsAplEkzYm7QcixWPor8L5zRdirUDF98Vs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=N2xcgAJsVvjA2GHoiyQcvdzZae2VtjCmB4UvxqHSPhnRgRBOwbvmrlS8vSBjyimZN
-	 K7ObJX/nInju5WgC+Ku08Ga/uyeu5S4ODHA5/PWHUrfU/tb5TECyrzIC6GTPiv2Nx0
-	 0tnRq4OXP0DP2V2ULVsqAinECK5qDmannYVKExh8nFCI9OsvKOS260KSt4pUIAZvMH
-	 kP0dsojOAXad0PIdPBtwa6oif4UdvTnq52MtwFxvxmnslByR4qEFo/s1w2K4BcFffk
-	 Q/+cziWsGEY9LAPRYrpgD+meGk5FbFF6QabkkTsc5VajyhrUkOsxHBGpQeN/zCfX7A
-	 uqC7yFlb7UVGA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id DC5943AA940C;
-	Tue, 27 Oct 2026 22:30:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Im/yoa3O
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ad840053c7so299331a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:30:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793140246; x=1793745046; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lXjWY4taTu4hJv4bATl5d396acZLb9e/6END/2fvrmk=;
+        b=Im/yoa3OlRfL/DkC21L/U7lpLIbVNakCyVQ1NEUJ6dNMP9Dd73MRwFb7JpRqUrMWXR
+         okemdh72fE0WSiT47MG60utj6t3wyGsLxPlGXgaawTLsx7eO+uBb0Mif6MKOmVtlhzjk
+         OdOgnKK6wZGcyKxHAAhEZmFmq8F7iqNTzBq6s7JEtRYgACU50ZR/vgOfV1ru1La/WWBv
+         1aB4Q2b7noa/VJ4J+cyD6l84xs8JE8su/5Ao2rEUK75cKDyeJuveG1K/I7/Zp96uo0sS
+         YXbEUfXwERMKJ09aPS2vnmj/tucv+T/JcEzodw6ZH5gSHotr5W9g6AkpFR+8/RhFIC0w
+         wasA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793140246; x=1793745046;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lXjWY4taTu4hJv4bATl5d396acZLb9e/6END/2fvrmk=;
+        b=Yq9GJCrk76JMRlDVSG6VIjhpO4bXr6NjN1ka+Sq8nd/oNisjZ2WhAoZpaTSYas7qgY
+         2+krMFBErFPrSzAqLLYLtR4flPaB5x3yh7dw+Ye3BPIEwzfkvhcbolt43suZEkGN716J
+         MYVpIcsJuXLaevXA3jquwD0iCs4xVeALDr9LyVWk7wx+eR+zupiuZbqaT+dNturhfm8a
+         INh94bNb3Qpe+V9VM95m8l8hFO/dOYhL8TksiBQjw8FotWd+9ZTS3Q1KZr3M3KXPmLfY
+         AV+7qkBsrYn6zbxrOEdBuaQvKJh/7rQ+42B3fBLPEXNWzKbZb/P2C0hKgTb47TgUaz0l
+         V1AQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwhRJGkEdPyYm3mrSIXTYxHQVzSGrPKQSVBGOJyU/ObY4eM3icpn1kC8C9oySs5jVNHABnghOUQ//4o9M0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK35jwxQtsdjwHKyxRRuXJsjCa6jnI6SYsXYE7aLbYGq2SnDGO+
+	QjToQk9CBFpOdddt1UMOZAgxD8So62b8QY6SLtxEuO47qcATxWocYWtevTufN0bN1Tif7JlgzTA
+	7kTL7Xg==
+X-Received: from pjbkb13.prod.google.com ([2002:a17:90a:e7cd:b0:3ab:d5d:f278])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:a09:b0:3ad:a270:a623
+ with SMTP id 98e67ed59e1d1-3ae57e35220mr239679a91.4.1793140245550; Tue, 27
+ Oct 2026 15:30:45 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 27 Oct 2026 15:30:38 -0700
+In-Reply-To: <20261027223038.1566931-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,49 +79,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: microchip: fdma: fix DCB corruption under
- sustained load
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179314020569.360855.3209955034452568131.git-patchwork-notify@kernel.org>
-Date: Tue, 27 Oct 2026 22:30:05 +0000
-References: 
- <20261026-microchip-fdma-dcb-corruption-v1-1-36dab6caca07@microchip.com>
-In-Reply-To: 
- <20261026-microchip-fdma-dcb-corruption-v1-1-36dab6caca07@microchip.com>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: Steen.Hegelund@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horatiu.vultur@microchip.com,
- jensemil.schulzostergaard@microchip.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+References: <20261027223038.1566931-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261027223038.1566931-4-seanjc@google.com>
+Subject: [PATCH v3 3/3] KVM: x86: Consolidate invocations of kvm_x86_ops.load_eoi_exitmap()
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>, 
+	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Rework KVM's handling of EOI exit bitmap updates to consolidate the calls
+to vendor code so that it's easier to see that the Hyper-V path is doing
+the exact same thing, just with extra input to account for the SynIC
+vectors.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+No functional change intended.
 
-On Mon, 26 Oct 2026 14:47:05 +0100 you wrote:
-> __fdma_dcb_add() prepares a DCB and links it into a channel's chain by
-> writing its address to the NEXT_PTR of the current last DCB. The FDMA
-> may be processing the chain while this happens.
-> 
-> Before this patch, the link is written before the new DCB's own nextptr
-> and info fields, so the FDMA can follow it to a DCB that hasn't been fully
-> prepared yet. Under sustained load this stalls the FDMA.
-> 
-> [...]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/x86.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-Here is the summary with links:
-  - [net] net: microchip: fdma: fix DCB corruption under sustained load
-    https://git.kernel.org/netdev/net/c/573a6d4c7a21
-
-You are awesome, thank you!
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 0028d57e964a..483dac323c8e 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -8047,6 +8047,9 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_inc_or_dec_irq_window_inhibit);
+ 
+ static void vcpu_scan_ioapic(struct kvm_vcpu *vcpu)
+ {
++	unsigned long *eoi_exit_bitmap = vcpu->arch.ioapic_handled_vectors;
++	DECLARE_BITMAP(__eoi_exit_bitmap, 256) __maybe_unused;
++
+ 	if (!kvm_apic_present(vcpu))
+ 		return;
+ 
+@@ -8064,17 +8067,14 @@ static void vcpu_scan_ioapic(struct kvm_vcpu *vcpu)
+ 
+ #ifdef CONFIG_KVM_HYPERV
+ 	if (to_hv_vcpu(vcpu)) {
+-		u64 eoi_exit_bitmap[4];
+-
+-		bitmap_or((ulong *)eoi_exit_bitmap,
++		bitmap_or(__eoi_exit_bitmap,
+ 			  vcpu->arch.ioapic_handled_vectors,
+ 			  to_hv_synic(vcpu)->vec_bitmap, 256);
+-		kvm_x86_call(load_eoi_exitmap)(vcpu, eoi_exit_bitmap);
+-		return;
++
++		eoi_exit_bitmap = __eoi_exit_bitmap;
+ 	}
+ #endif
+-	kvm_x86_call(load_eoi_exitmap)(
+-		vcpu, (u64 *)vcpu->arch.ioapic_handled_vectors);
++	kvm_x86_call(load_eoi_exitmap)(vcpu, (u64 *)eoi_exit_bitmap);
+ }
+ 
+ void kvm_arch_guest_memory_reclaimed(struct kvm *kvm)
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.56.0.307.g5fe7bd680c-goog
 
