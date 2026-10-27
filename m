@@ -1,76 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095730;
-	b=naVTzR56NiWrgcgsWfy7GzLQdONppIqrEQ4LHpI8WtjhHPnPrna6hICI2cztoEQh1aQa
-	 B6WZyIBcd5FZAuiy9fxPu+CjzzAn1zSjsD8ltzSwpr35xjjL1OWNJntLU1vndNikMWGP5
-	 QLjvaqYEFyxsg7JhobqMoL6Mqd05/zfjmESBP7g8XE2nMVrsqF1nz+oZJoiGbl1X7Gsns
-	 u9De32zlhmcjUWEvYoOjn8xj2ys/he5SlpvdpsJHKaJBc/0altl6hJwM82dXNPl1S613m
-	 D5e/hVlZwb7/4l2FrQbeKojEoRejyNqWeiZl0vQJTss73QZ19cO88PdGZF4GDVognVQ==
+	t=1793095740;
+	b=TowVwlzT4OjJINJqUD+Gn2u51q8xaGe+8uzUzPxEKEjQy2zuETEWfhYWRQ1PK0lpK1b2
+	 EPX02hEn4uOcp5GLa7ytgJJpiUrX0SuHiMM+nq88AJUF4jgVVG+rZXnorXHZc2mPtxD+d
+	 9SZ2WtIpVOfy5tCvKBSLNJzfigwvDFi3xIjtsscuhlLo8JxqdclFk30Gbl/mSDWrNUepE
+	 6QpV9IK/OecoiSod7nYn2PNK+M/RU6w1McUazw9Zf6IeelDyPpQldq680X5W5bUNgApn3
+	 HIL8B0z/3R+FsrNFTE2m8PfoFPLzpUWOIcPB7nEbm3oX593h0xE+YmZBDUPYHxB7kcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095730;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=bUnhuLDccQ2EJOKypGWrM8Na+oST5CF+rR3blOJC0dM=;
-	b=md5HvwkTvJuUBGJnd5IWKBMUiafyS2aA0NnlFLm3de0CZrA+jJdh97u8xRCPoWSV1Id6
-	 N+18rAh4X+gcrvRB1AG88acz+CcKqgCn32cctY5hGZ41IH1A5tynWYzGlYp0D907VIltf
-	 wOL90QEfl3jWY1WJvLzp9Hsolz+ftP43TwpduyiAciBrDaU6tjMXKI3jXzS83+3PXgTcL
-	 0cq5YGrcpRIRHfCgGBVCgde9ViO8IKOmU4vuid2BshtIE9VqdjPEhxMYgZcy35xX5W/2J
-	 +EIHSwUF0V843zrK3R5TF49omumEZJ7gLjZb45p2+4ud3tQX95D9vdDTe4vBIKLv+Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095740;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=qiaO6NvHT131FFl120scy8yJd6FUUFlCG1Hv9v54ahE=;
+	b=y9bSdBHj/6kLqvwctfZ4SnSUNbDhMM+/C2OxRwZFpEI6EFg3WC2e0CAMLkRoqv/tRsGo
+	 AD45YR/lrnBaY1LshbR0RO7O0DWBeUbHZKxj2bpqaY6wK96tzqueUiHId4RwPuhtjcC+a
+	 WOZZH8wn68wqA3XFRphJq83wLZRwVz8RIHBP2+IDLE9SL6tULEpZw08ne1Cjx5+FWbl3R
+	 KDecdEhJiGMx3Odc+TElKMK5oR/HnBmnTfR8XElibypgs+1lolLKc4EA2VVvVP03+H2DK
+	 vflYtTRubzDP6JtEwXp+O2L6Cb70kN/xi1UNTokTEa17c1vTZeDfxk6KroXMTvCPLwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QxI3udWS;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=NGCBUMdX;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A356606A31A;
-	Tue, 27 Oct 2026 10:08:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A356606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26514606A31E;
+	Tue, 27 Oct 2026 10:08:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26514606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QxI3udWS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793095730; x=1824631730;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=PXVjKOq9yXVKq7T2TesWWrVTVsVG13MhgXN7J4bwxTo=;
-  b=QxI3udWS47FTWcDlNw3kq8XywKSHHIQJASgzCm3yKn/4EH7q9kqEadQ6
-   8R0/t8V4IPtJwGHgZPsw0OTnlk1HfBtw/bMChSY0STMhXnoWvtG+yG8M+
-   jFEIw+gUwnkkChNz767mZsbAvvjL8rxK/pNQcsgoCGRfwK2jjNmosErLX
-   lZ3q/5GNM46QD8iQ/4OKQaDjTljOFcMnbUfblD05ljuhkMD4KiJbCkQ57
-   s5VrbqYVlFzUFL3SysGWiIiwYB7U2QPRyRN9W8OjT0I490tqL1g6VtmFH
-   okz3qf9ZSVdyoKebBqg26T934KcvCfuJJIbPo30oYHkwn8zCDViyMWDSa
-   A==;
-X-CSE-ConnectionGUID: PwRxvxjYSjKEJP+Gi4xQBg==
-X-CSE-MsgGUID: +/mSYiSuRs6v2Pt+U7WhgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1681566"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1681566"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:08:50 -0700
-X-CSE-ConnectionGUID: XK82nDKkSaWg+fq96OACqg==
-X-CSE-MsgGUID: OT4HTNkUSOCG+Tb0+tEfXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4587848"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:08:46 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 27 Oct 2026 12:08:43 +0200 (EET)
-To: chipang_kao <prozac2734@gmail.com>
-cc: Hans de Goede <hansg@kernel.org>, W_Armin@gmx.de, corentin.chary@gmail.com, 
-    luke@ljones.dev, denis.benato@linux.dev, scardracs@disroot.org, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to
- wmi/asus
-In-Reply-To: <20261016063427.664738-1-chipang_kao@asus.com>
-Message-ID: <4c78b25c-0873-d6a9-2672-67eacff3c29a@linux.intel.com>
-References: <41d6bd7a-e4ea-4077-87e3-e60102ebfef3@kernel.org> <20261016063427.664738-1-chipang_kao@asus.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=NGCBUMdX
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=qiaO6NvHT131FFl120scy8yJd6FUUFlCG1Hv9v54ahE=; b=NGCBUMdXdJFVTJj/z7nivuoX+x
+	CSbKmBIGQqxpLcFazgufw9fMYp0JyrILLrWQDML7QuHtBndH792b+RdtE3kRq9V6oT2HgvEso/rad
+	JYDY8nBxqwqzCP5uDMP88K/QyIf1xMX38sEUkKKWpEpcHPOe1ZYVEoaIoyM4RxKwd+rXOdDhKw9JB
+	w5W3VXGbtLBDiS3xEhiiLGnyvycGD/C8FQOgfy+JyKc+Oh0fVP6DNAKuwICnx9RGFlU+M28hW+hE7
+	CU48hgn6IuCXWODpk2UPqQtPHcKrWwzqOso/g5h3RX/7JsDBEIWEGbm6yW/c0q/k5lFCQBzEl60Ng
+	ITd03XIA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLe6m-0000000CuBU-48NO;
+	Tue, 27 Oct 2026 10:08:45 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 08E3A300DB9; Tue, 27 Oct 2026 11:08:44 +0100 (CET)
+Date: Tue, 27 Oct 2026 11:08:43 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: Ingo Molnar <mingo@redhat.com>, Kees Cook <kees@kernel.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Ard Biesheuvel <ardb@kernel.org>, Will Deacon <will@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH 1/3] sched/core: Skip the shadow stack end check when SCS
+ is disabled
+Message-ID: <20261027100843.GA2668564@noisy.programming.kicks-ass.net>
+References: <cover.1793082868.git.chris@chrisdown.name>
+ <0e607d3aa7c2c4cc1b5b8ba7b0e25ebdb55726af.1793082868.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,37 +86,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0e607d3aa7c2c4cc1b5b8ba7b0e25ebdb55726af.1793082868.git.chris@chrisdown.name>
 
-On Fri, 16 Oct 2026, chipang_kao wrote:
-
-> Hi Armin, Hans, and all,
+On Tue, Oct 27, 2026 at 02:36:09PM +0800, Chris Down wrote:
+> With CONFIG_DYNAMIC_SCS, shadow call stacks are only used when the boot
+> CPU lacks pointer authentication. scs_release() already checks
+> scs_is_enabled() before it looks at the shadow stack since commit
+> 9beccca09840 ("scs: add support for dynamic shadow call stacks"), but
+> schedule_debug() does not.
 > 
-> I tried moving the ASUS-related platform drivers from
-> drivers/platform/x86 to a dedicated drivers/platform/asus/
-> directory. Most drivers compile successfully after this
-> restructuring, except for asus-armoury.c, which depends on
-> firmware_attributes_class currently defined in
-> drivers/platform/x86/firmware_attributes_class.c.
+> With CONFIG_SCHED_STACK_END_CHECK=y it therefore checks init_task's
+> unused shadow stack on every context switch. That is harmless right now,
+> but the check is redundant and costs a load from an unrelated cache line
+> in __schedule().
 > 
-> I found that Sean Rhodes has submitted a similar change to
-> move the firmware attributes class:
-> https://lore.kernel.org/lkml/ar0DNFlI7MEA8zp2@tzungbi-laptop/
+> So, let's guard on scs_is_enabled(). It is a static branch, and it folds
+> to true when CONFIG_DYNAMIC_SCS is not set.
 > 
-> The patch has been applied to the Chrome Platform tree's
-> for-firmware-next branch, but I haven't found a corresponding
-> pull request to Linus' tree.
+> Signed-off-by: Chris Down <chris@chrisdown.name>
+> ---
+>  kernel/sched/core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index d7c3b43158de..fc269fd10192 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -6152,7 +6152,7 @@ static inline void schedule_debug(struct task_struct *prev, bool preempt)
+>  	if (task_stack_end_corrupted(prev))
+>  		panic("corrupted stack end detected inside scheduler\n");
+>  
+> -	if (task_scs_end_corrupted(prev))
+> +	if (scs_is_enabled() && task_scs_end_corrupted(prev))
+>  		panic("corrupted shadow stack detected inside scheduler\n");
 
-As per the the usual process, PRs for branches containing new 
-features/refactors are only made during merge window (i.e., around now).
-
-> Is this change expected to be sent to mainline for an
-> upcoming merge window?
-
-It is now in Linus' tree.
-
-I'll try to get platform drivers PR done today as well.
-
--- 
- i.
-
+How about you push that scs_is_enabled() into task_scs_end_corrupted(),
+this makes less noise here, and also keeps the next patch saner, no?
