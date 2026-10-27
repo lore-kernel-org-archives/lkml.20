@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094000;
-	b=AXkqHY7FNaZQ3geX+PmkNtOgDd1wP5ouZC40rwCisEnh+bfzYLfUkcYdRIQFIC5P/eWw
-	 xaM/sZpDypJ6jL2wkZiDNyn9IK6yfii/eNHVQGB+S/usURwoen0LObRFn3SdERLOepYKL
-	 Z0gJFvwvVTej8j9WBPczE38gSEsMWD7eLR85j5je03hCHJSqsDFW4klGf2//BjqhNDDNW
-	 3Qg7SJ/2bja7OGOpc7AHFOGrgGNQxu8GKy1jglpWQe2fo7s3x3RnlEbwz2eEXHFVK7IjO
-	 +wd4MtJyFiQHQGk6twTm6JKq1johPFx22JTP26k5m28iSxt5QC/5f91KHCBBL3r++kA==
+	t=1793094007;
+	b=I65Kh2Jpdv3r++t9KFXTIoKcQGa6VgH07nRfYA3yLKiah3R2KZyO0xkUoqqZmczqIt5e
+	 ELBrqARBX4B556MO+lIlA85L3UwM8xoEVUUk6wheMDAUeUdYg+jQ4lpe4XC1sCEoaTxRY
+	 c6ItguCENDfo/Z3sOPD8KKH5lj1E/f3fDU59MkAZOljX6u1jAUFGuGw+yS6BJ07m5iZcs
+	 wHXblSqCpiSVCivyTfy5XNTJlx5lhElIzwBdEquieAhMo3Fn0sS1c3UTStw3Gk5C5LtM3
+	 xb5E8sxZGm5Zu2nHcX25hD0VWt/OwnGnbD6rWbAAokz6c5k3qsZ0KeZ0eUbJMOcUkJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094000;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=+yoKdouCrd5jVAwfdWhplQhgtCfQb1PR8MjroevTOms=;
-	b=V4O9t2TKHJRaD1cWFMNL7maiEhRQtR99daSwpcQ5wSEh+GCkf6zjwG3VkiINkLQ4sDzq
-	 Zv/XgF/Sqi90bG5BI1PGTJtm0bWrnWHPQE3wrD6Rx7KErRvhlKFUAkM7p0d2n5lKMRKyT
-	 exKpYWX1ejK+vYAzF/kQf/dGOFfzmvwHYxpvw7whWX53XYl2yDONW6nmjAAsZPqHHjyF1
-	 R96rZrD4L9xyNEdPuZHQGP0FIyrw26NTrtnIKbp4fQQMNsBF2dGYO8ens1cF6ADfu+kL3
-	 NOadA1XgFeyeo1hSA+FPXH8zh4ryZnipCsabkjukluvVs+CYGND3opZEwQnCJDVEjTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094007;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=Epcnjo8vKqnZr0lewtC8oalUp2ngZLe2GtkS1cOfs9E=;
+	b=G6Ic8V4jT8Brvd9OxXwSLwq5dbUJ27qifo2wpmEKn6wfXS5e0q+fqeexRN4CTwXPAJ1V
+	 IuYnMMrWiuOrQNVVhSAmIFnDNKUR1mdLi2sM3xQcwkWUlbM5S5ToVSMQx9zlz1Ti0Zqph
+	 SiO8njpMOFYcWHddT51OEujAr0QPVvpSzNrg7BZC16PLCA1oAMD1nrJKAfJPYov1aaWfJ
+	 SRHjvSA3AV7OIPNuPzrMQcUbwMQ54QD5dCLp7gTupADrGxpSHfzXbINYLspM3gG9Pr0XG
+	 aIgVoPvRv7VlqiPFp4L6gj43+76y7yLVxXmF1EbqXxY9VGIhCqty1xbteZyTkFYuq4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H57+FXjl;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z+4CJoRA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D224606A322;
-	Tue, 27 Oct 2026 09:39:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D224606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60698606A338;
+	Tue, 27 Oct 2026 09:40:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H57+FXjl
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 1904B1A12CB;
-	Tue, 27 Oct 2026 09:39:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DC1F7603BD;
-	Tue, 27 Oct 2026 09:39:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 99AB510329099;
-	Tue, 27 Oct 2026 10:39:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793093996; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=+yoKdouCrd5jVAwfdWhplQhgtCfQb1PR8MjroevTOms=;
-	b=H57+FXjlVGuaDMNzPh1Z4GwL0D2uWJ34G0dQL+vkmDGuhXB4NfJT/X3cL2baHxLKjmXIAP
-	fzfw/2RrkopsGHoq5j18p+7E8PfrRrd0w01OLzZ73lnTjvSoio4osN3s33Px68wB3XoT43
-	y416VNNQg6CPnXpKJWas998G7EPrgphaYZE6M1raeMqWuhtcinhIvVGIlKZBdTv1Zcoq+p
-	vBUw6iwr3J9/AWWm7SZK4vsouG4KPaMvCmn/jNs8xcPEAHAtB8bj1CR3jG8FlkOu7PbCLC
-	qsGvjC3ZI30BotwyEf+tsjtAAgNQ8Ys39r2H2Gn5sZp+rtgVfoIEmHq1u4UGGw==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Tue, 27 Oct 2026 10:39:24 +0100
-Subject: [PATCH v2 2/4] regulator: Support regulators where the voltage
- selector spans two registers
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z+4CJoRA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7BE41F031E3;
+	Tue, 27 Oct 2026 09:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793094006;
+	bh=Epcnjo8vKqnZr0lewtC8oalUp2ngZLe2GtkS1cOfs9E=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Z+4CJoRArW20/wge02oHP4DJww1ImpnrN8aXt5D30ehl6yBxihnU1Gz2cvViwuazi
+	 6AuBYTUYs3kq8wqiFpjarHUe9tlcgvEsutz2IHr1kiG5EJSZjzlosVOTTrcZm9bZze
+	 lj6PqV9Wfa0ZoRej7sF8C006gIlku8oF85DjlD0JEk54LUGA+9dCyUyenTLuBE+ag/
+	 pfuK7kEErOYiyX2HgdHe7WdZMwOi8TWAhKTbwEsZXl3NVyZX2UzkCklZnfbqROW8iZ
+	 oY8wXilV+DfrB41EKorTqpnOne0zXj6qG57g1K9wKL1eRuhl7FPxSSIFs00AY8i+ip
+	 E1w/mMatLIJwQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE71C3AA8FF8;
+	Tue, 27 Oct 2026 09:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,232 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-paul-lm51772-v2-2-b2a767e34722@bootlin.com>
-References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
-In-Reply-To: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793093986; l=6586;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=h9ganQLZkIz8s2+z96dcJeCDzA1lTe1BnL18lVGSgzs=;
- b=4l6bhShMqsdwyIJD/v+xRYWrgszy3/hMhHmbrDULklexi20eiwHLpzXjGGYu4MDSTuwEVIsHr
- rOn55/HPvfaAYKHUE7cldRane6MqkhbEVegbVJTsHu9GBoNQFQ+/ebR
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: tun: hold napi_mutex when deleting NAPI in
+ tun_detach_all()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179309400557.3688860.951211168435363811.git-patchwork-notify@kernel.org>
+Date: Tue, 27 Oct 2026 09:40:05 +0000
+References: <179268538303.70821.16548460883330758972@gmail.com>
+In-Reply-To: <179268538303.70821.16548460883330758972@gmail.com>
+To: Cheng Yongkang <teel4res@gmail.com>
+Cc: willemdebruijn.kernel@gmail.com, jasowangio@gmail.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, peterpenkov96@gmail.com
 
-Some devices uses 8-bit registers to store the voltage selector across
-two registers: one for the least significant bits and one for the most
-significant bits.
+Hello:
 
-Introduce vsel_reg_oversize to support voltage selectors that span two
-registers. Write the selector in bulk across both registers using
-little-endian encoding.
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Assume that future hardware will require at most one additional register
-to store the voltage selector, and that only a device with 8-bit
-register will require such flag.
+On Thu, 22 Oct 2026 08:26:48 -0700 you wrote:
+> With IFF_NAPI_FRAGS, tun_get_user() takes tfile->napi_mutex, gets the
+> skb from napi_get_frags() and copies the user data into it before it
+> enters the RCU read-side section around napi_gro_frags().
+> 
+> tun_detach_all() waits with synchronize_net() and then calls
+> tun_napi_del() without napi_mutex.  netif_napi_del() frees napi->skb
+> through napi_free_frags().  A writer that is still copying has not yet
+> entered its RCU section, so synchronize_net() does not wait for it, and
+> deleting the device frees the skb while the writer is using it:
+> 
+> [...]
 
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
- drivers/regulator/helpers.c      | 87 +++++++++++++++++++++++++++++++++-------
- include/linux/regulator/driver.h |  2 +
- 2 files changed, 74 insertions(+), 15 deletions(-)
+Here is the summary with links:
+  - [net] net: tun: hold napi_mutex when deleting NAPI in tun_detach_all()
+    https://git.kernel.org/netdev/net/c/6c799b4998c8
 
-diff --git a/drivers/regulator/helpers.c b/drivers/regulator/helpers.c
-index 0def82eb8b46..d4b53803ae12 100644
---- a/drivers/regulator/helpers.c
-+++ b/drivers/regulator/helpers.c
-@@ -118,6 +118,35 @@ static int regulator_range_selector_to_index(struct regulator_dev *rdev,
- 	return -EINVAL;
- }
- 
-+static int get_voltage_sel_reg(struct regulator_dev *rdev, unsigned int *sel)
-+{
-+	unsigned int val;
-+	__le16 buf;
-+	int ret;
-+
-+	if (rdev->desc->vsel_reg_oversize) {
-+		if (regmap_get_val_bytes(rdev->regmap) != 1)
-+			return -EINVAL;
-+
-+		ret = regmap_bulk_read(rdev->regmap, rdev->desc->vsel_reg, &buf, 2);
-+		if (ret != 0)
-+			return ret;
-+
-+		val = le16_to_cpu(buf);
-+	} else {
-+		ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
-+		if (ret != 0)
-+			return ret;
-+	}
-+
-+	val &= rdev->desc->vsel_mask;
-+	val >>= ffs(rdev->desc->vsel_mask) - 1;
-+
-+	*sel = val;
-+
-+	return 0;
-+}
-+
- /**
-  * regulator_get_voltage_sel_pickable_regmap - pickable range get_voltage_sel
-  *
-@@ -140,7 +169,7 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
- 	if (!r)
- 		return -EINVAL;
- 
--	ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
-+	ret = get_voltage_sel_reg(rdev, &val);
- 	if (ret != 0)
- 		return ret;
- 
-@@ -148,9 +177,6 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
- 	if (ret != 0)
- 		return ret;
- 
--	val &= rdev->desc->vsel_mask;
--	val >>= ffs(rdev->desc->vsel_mask) - 1;
--
- 	range = regulator_range_selector_to_index(rdev, r_val);
- 	if (range < 0)
- 		return -EINVAL;
-@@ -161,6 +187,29 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
- }
- EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_pickable_regmap);
- 
-+static int set_oversize_voltage_sel(struct regulator_dev *rdev,
-+				    unsigned int sel)
-+{
-+	unsigned int mask = rdev->desc->vsel_mask;
-+	__le16 buf;
-+	u16 val;
-+	int ret;
-+
-+	if (regmap_get_val_bytes(rdev->regmap) != 1)
-+		return -EINVAL;
-+
-+	ret = regmap_bulk_read(rdev->regmap, rdev->desc->vsel_reg, &buf, 2);
-+	if (ret)
-+		return ret;
-+
-+	val = le16_to_cpu(buf);
-+	val = (val & ~mask) | (sel & mask);
-+
-+	buf = cpu_to_le16(val);
-+
-+	return regmap_bulk_write(rdev->regmap, rdev->desc->vsel_reg, &buf, 2);
-+}
-+
- static int write_separate_vsel_and_range(struct regulator_dev *rdev,
- 					 unsigned int sel, unsigned int range)
- {
-@@ -173,15 +222,17 @@ static int write_separate_vsel_and_range(struct regulator_dev *rdev,
- 	if (ret)
- 		return ret;
- 
-+	if (rdev->desc->vsel_reg_oversize)
-+		return set_oversize_voltage_sel(rdev, sel);
-+
- 	/*
- 	 * Some PMICs treat the vsel_reg same as apply-bit. Force it to be
- 	 * written if the range changed, even if the old selector was same as
- 	 * the new one
- 	 */
- 	if (rdev->desc->range_applied_by_vsel && range_updated)
--		return regmap_write_bits(rdev->regmap,
--					rdev->desc->vsel_reg,
--					rdev->desc->vsel_mask, sel);
-+		return regmap_write_bits(rdev->regmap, rdev->desc->vsel_reg,
-+					 rdev->desc->vsel_mask, sel);
- 
- 	return regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
- 				  rdev->desc->vsel_mask, sel);
-@@ -225,12 +276,16 @@ int regulator_set_voltage_sel_pickable_regmap(struct regulator_dev *rdev,
- 	range = rdev->desc->linear_range_selectors_bitfield[i];
- 	range <<= ffs(rdev->desc->vsel_range_mask) - 1;
- 
--	if (rdev->desc->vsel_reg == rdev->desc->vsel_range_reg)
-+	if (rdev->desc->vsel_reg == rdev->desc->vsel_range_reg) {
-+		if (rdev->desc->vsel_reg_oversize)
-+			return -EINVAL;
-+
- 		ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
- 					 rdev->desc->vsel_range_mask |
- 					 rdev->desc->vsel_mask, sel | range);
--	else
-+	} else {
- 		ret = write_separate_vsel_and_range(rdev, sel, range);
-+	}
- 
- 	if (ret)
- 		return ret;
-@@ -257,17 +312,15 @@ int regulator_get_voltage_sel_regmap(struct regulator_dev *rdev)
- 	unsigned int val;
- 	int ret;
- 
--	ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
-+	ret = get_voltage_sel_reg(rdev, &val);
- 	if (ret != 0)
- 		return ret;
- 
--	val &= rdev->desc->vsel_mask;
--	val >>= ffs(rdev->desc->vsel_mask) - 1;
--
- 	return val;
- }
- EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_regmap);
- 
-+
- /**
-  * regulator_set_voltage_sel_regmap - standard set_voltage_sel for regmap users
-  *
-@@ -284,8 +337,12 @@ int regulator_set_voltage_sel_regmap(struct regulator_dev *rdev, unsigned sel)
- 
- 	sel <<= ffs(rdev->desc->vsel_mask) - 1;
- 
--	ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
--				  rdev->desc->vsel_mask, sel);
-+	if (rdev->desc->vsel_reg_oversize)
-+		ret = set_oversize_voltage_sel(rdev, sel);
-+	else
-+		ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
-+					 rdev->desc->vsel_mask, sel);
-+
- 	if (ret)
- 		return ret;
- 
-diff --git a/include/linux/regulator/driver.h b/include/linux/regulator/driver.h
-index 55cc519103ed..8a0f3aebdade 100644
---- a/include/linux/regulator/driver.h
-+++ b/include/linux/regulator/driver.h
-@@ -312,6 +312,7 @@ enum regulator_type {
-  * @range_applied_by_vsel: A flag to indicate that changes to vsel_range_reg
-  *			   are only effective after vsel_reg is written
-  * @vsel_reg: Register for selector when using ``regulator_map_*_voltage_*``
-+ * @vsel_reg_oversize: Indicates that the vsel_reg spans on two registers
-  * @vsel_mask: Mask for register bitfield used for selector
-  * @vsel_step: Specify the resolution of selector stepping when setting
-  *	       voltage. If 0, then no stepping is done (requested selector is
-@@ -405,6 +406,7 @@ struct regulator_desc {
- 	unsigned int vsel_range_mask;
- 	bool range_applied_by_vsel;
- 	unsigned int vsel_reg;
-+	bool vsel_reg_oversize;
- 	unsigned int vsel_mask;
- 	unsigned int vsel_step;
- 	unsigned int csel_reg;
-
+You are awesome, thank you!
 -- 
-2.56.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
