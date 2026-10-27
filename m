@@ -1,68 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793137158;
-	b=h0aB7coxzakjqtWVfKyvf52UCtg9aj7L8LeKHxXHIdafEvR+gWLKH1VAYBlXKY4BVof7
-	 bk8lmkAsdenExIWPWDEhantGLdUrxLS6YICWOqTHH+/pJVouNIp3OteaINVoy9G4wk8PE
-	 CD/1raqCqMQrxkK0l1NFaaDPXpmF9yqsvMptfQrJkf3hhXPKiVms2DAHGoRFzkd4hizzC
-	 HKxuKeByHv384BuqIGZM7qXLlzs8Pon0J4sFykhRsBtnpxNI5YOtV2pdh9eSNc1sSOoJN
-	 5VubECjsYQ3m9Tg9Kmz/EvI1pASAFgbit2f8AVVZGp/unFK0cwzPXrqQf0lHfFARY7A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793137158;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=j5221omMActoQkDHF4RaC0GAmHgj+tP1MLFSio0coJk=;
-	b=eGbuPpLeyWlzpHpwFY+BhU3oU1FEpOv7XUQZmuxM2kDtCBxX2PajgEkDfsDfiC54623/
-	 wVA3EgrWsqqWYfQ1F8MRBiuCWVzH0UJfdkezQwpK98YDGxmt0K9Y9Jx9TJq5+VyKTN4bm
-	 bggezPGw0vI0dtt0R1nwYU2pyjLqi5B8OVychROBrv0/tv1J6YRhVMup1CjZJjKwe59gn
-	 75Zybna3NLybmjOS7J87yl3I+G2VAdNRu4J020ouBUkIXMeL3DuQBe5ToOwM+KIWmdA4c
-	 1y6N4efeLQL0+th7b1yXX9Pg3Ca0vbt97n+/fXx0v/R7yWND3G+VvjsGPwxvoOIE/lg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NwaEJJmF;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.37
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793137177;
+	b=0mS+8CPJGU/STcrPYT+nkGC161poqQSQ8EIvFiUjp2lfcYRSsnC+0O9yB5RGoa3kj/nW
+	 LN9PMb3p3sNOHGMH94Ewmc3fvD4PCseAnI+x9ml/oE6ecg9YvU9DTjpXFcyAgk8rHt5NW
+	 PkdB+bvYhcvpaEBPAbNUEX4I/xVOML0WcYARXPDvQc7Sc1iQad3BQ8S4I99S+o/th7y71
+	 pGu58fYhEZ5krwt/R27ZakvPBccZNYd02qcC3eMVsaF1d2y8UkYBG2eRnfMUNfKG3chjL
+	 UkLaMsH3C0WAfSo7PzPwERwdfPK2pZXeMm8bB0NOWRrxMCOL1nLPamjmHDMf+wODZ9w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793137177;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=by0WSEq1pKv4CYxHbkdCM7Yq9Uxx1VgyJqzrAXN1xUQ=;
+	b=u3rA4tYgADj0x9dh4czJK2tXTv4vF9/iFuAP88DWYQNmhDyiU7MB0VLj6asJna7BN5ht
+	 6Td0sz5PWgsgN35+OAqkh3OwDd1Jshk7xu8Ml1ELQT7MTYee1Bnycv8ZGBFjkUjNy6AGx
+	 Wr3vCGnNra1bEoj7Oaj1aCGx1GXGx2KUZaasRWR9f2EdfMt5Uql0AMZBfcrESjUydcyE1
+	 NjVfwXD1tawr2oHW6IWs9XBZrFWD9qwMOakLecYg6KUKK2IuaYEJsKFSgEaLN9KkXBn/Y
+	 Hu1g7STk7PLOuQpcNM41t8sijf60WFvdbm56oNateXWlf84rMi87WeI5FE7TBbraMAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1uuYwXWQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.37
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012037.outbound.protection.outlook.com [52.101.48.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF6C606A31A;
-	Tue, 27 Oct 2026 21:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CF6C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E17D606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:39:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E17D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=NwaEJJmF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793137158; x=1824673158;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=P3oWki5m/mrnhxYk4sKgWwU2lL7VHJaW83IqKWGyeZ8=;
-  b=NwaEJJmFosqo/zkGFhz01KFbGzrE/6aQwxPLmnm6BllRl8No9Iy5H10F
-   lOPnQLjtP+X9Bb1ew0iVOClmvjfppEVwAE4b6BJaHXdHwxLL6u/hfauqr
-   IDThu7sgpXxtDIAXrnu6olGgiYFyW5tdkSVC04oLDcCW/jjcHfXyRdvon
-   axw1QXMplMuAOZeteSfa4oMyexS6+jnax/6ns31xlHbae4aFOTsZYXyOl
-   cO7mAYwDPGRd58XiIO25p8LIbOB2lQobwp6tzKdM/Fv/BgbX/5Fswcfjp
-   gWNW7A4+zNav2PlbMku5JrfV4z1bdKLRikRnL6A6NNfa7Li+SHLpb3ebg
-   Q==;
-X-CSE-ConnectionGUID: iKHRHyCTQASHDxfWuyxOpw==
-X-CSE-MsgGUID: Ecx7FvysSjGLM+GDhv1CKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1728479"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1728479"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 14:39:17 -0700
-X-CSE-ConnectionGUID: O8xsiCs+QVCwPruINTCAAg==
-X-CSE-MsgGUID: cVpPdMFAQ2C3Gc3y+/WugQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4755535"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 14:39:16 -0700
-Message-ID: <8bb51068-461d-4eba-8e4c-0adf35a80839@intel.com>
-Date: Tue, 27 Oct 2026 16:39:16 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1uuYwXWQ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sGM/JU8cFoFkTWFK+gCcvlzKYnGKfNNrx6hzaKwIfoZKmDvEsV1UQzTEiqE3Kzgh6Ps9DKz8/5qRMzd1zzMhiVlxBJZouiL+0B4lKN9F9bEkQ1GGUiZuvR/LfHcz5H4UDfE0wG1d0UgDHxNRdUDF7I6sFVnpNkF6Z4M9bgbIrNv3P5qXTCouV/WW97yYgScgOS4l9IIi8kxnKJ5b8M6naTQs1yK6Wnxx5/Lyc4UcOeXwGWImFp12F28u6DPD9UrssXXSJHPN3GSGbdTfs92XnEBSrEVeO8GN9ltKddcqskqmMwYViw5bYX6i7s+HBZ13tDnZSSGIF6NV+N1RAe868g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=by0WSEq1pKv4CYxHbkdCM7Yq9Uxx1VgyJqzrAXN1xUQ=;
+ b=eZvGnw3QgXXMSEDqw8v+HkdOXpFDm4E8SCiZdAO6TYNbhFzrT5yBkErO/JiVyACT8yDhB1YHuwvausycEufEKzYu845oJnV1wwdB2JbLiwFvyTNT/CTZeWCjHG3cwVl99pexUe9qbsDYnbne8yNgokkTxRqWQXtrx2r8Sewc89UM76YI8vWSuM649nSfhzx4zz2flu4f/IoV77bRkg4USW5vMEE3sj5nq3/tdonYLyRSLeu2UNxbgk8dob79KH8ESE8im3OQbx4Ucg/cPiwauTaHQY0/sefDO+dyAji4PKc0gf7AHTPhPebiGvLRJ09IfsvQP4e/fjpjytJaI2TaAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=by0WSEq1pKv4CYxHbkdCM7Yq9Uxx1VgyJqzrAXN1xUQ=;
+ b=1uuYwXWQI4ej2eafti4JBxJfSCuLwuL9mZq6pLqFiRI/dcAfkzO9JlJbedF/sb3vM3PyAb8Rk1DyXuXeWYuCBHjVGPibMLkF4S3cmp0dSKQm5SEWkLF7EWxGKdmOkGX5zIYOJs9e11fF0VfntYeZffdSiI2lctRvCZ0bQFZ22pw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by SJ0PR12MB8165.namprd12.prod.outlook.com (2603:10b6:a03:4e4::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 21:39:33 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 21:39:33 +0000
+Message-ID: <24f05c8b-96ab-454b-abf4-ae28ccecb809@amd.com>
+Date: Tue, 27 Oct 2026 16:39:30 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
+ non-infoframe sinks
+Content-Language: en-US
+To: Paul Menzel <pmenzel@molgen.mpg.de>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Wentao Liang <vulab@iscas.ac.cn>, Alex Hung <alex.hung@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
+ <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
+ <75709eb7-6ff8-44ce-9f0c-84ff47c6ba22@molgen.mpg.de>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <75709eb7-6ff8-44ce-9f0c-84ff47c6ba22@molgen.mpg.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR04CA0004.namprd04.prod.outlook.com
+ (2603:10b6:806:f2::9) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,99 +105,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 09/12] perf/x86: Add INTEL_TD_METRIC_FIELD_{BITS,MASK}
- constants
-To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20260918193937.569414-1-zide.chen@intel.com>
- <20260918193937.569414-10-zide.chen@intel.com>
- <b73ffa7d-29ce-44b3-be1c-88068fc2f443@linux.intel.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <b73ffa7d-29ce-44b3-be1c-88068fc2f443@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SJ0PR12MB8165:EE_
+X-MS-Office365-Filtering-Correlation-Id: d633315a-3eba-4086-6c4b-08df3472c9d8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|18002099003|6133799003|22082099003|261026121527099003|261021123027099003|10067099003|56012099006|5023799004|4143699003|11063799006|261009223027099003|261021121427099003|261022105027099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	vWnXLH994hm5gHBvI0RzR5NoyqjI62KS7cfSkg7Ctv3shauP0DFb4TnZripFScSPZtEseP19FzgCaQkO8Ma98mcwAYLxJIfYFj7mDVEHsJzGIpoz6CWSeuDfNalxOIcSXEkXyqNETS3ZdLQ+GcNQaeyyy9BlPq824dh5MQeMZAJgzTgXmBMJzcCaoxrSd82EDHmVxtN0MFLNGJnNgFFiZTqYL9m+CsjiuBT0yKrcGChTr7xCphugb14zkGdy5UrBx5PUjRXD/PHYuqGrE3Inq8F8R4K8UJZAwCTH25ycvG9LE5QpwjdHcYjWrTS+x0uWQf2uSuTrkY6/2S5I4j7yliZ7bZks9seRxaYvM+66Y+uKtrUmonbzltK0rLGr0FUXWbeqnN7mHUcXIIvKKB104kqSQOvyo1skYtuF7StfEz3lByJDXzUbxLid27oiRTLjFBzkSvH4bPF9oH51zUtCbKvxKg1z19THdVpvaUiMUMsksrPzIUiagkqobwZJpVQx+kfS6clyG0pyoYDIPz0neJEEBvy3eRqBNThnF/fw8XfTaWMu00GmPFBTd+cnhNIP8GycRq5fHb0wiJACRwdOwZ6ij0hDEznLznmoFqUkNBk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(6133799003)(22082099003)(261026121527099003)(261021123027099003)(10067099003)(56012099006)(5023799004)(4143699003)(11063799006)(261009223027099003)(261021121427099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SkJUeHc3VEJRelc5Wmw4cXpib2J4QkJmT04rdGd3SS9aZURNUnJGSnFpemhz?=
+ =?utf-8?B?OU5IQ1FKQzBRK2J2eGYxYUhiZEZtMldIc25QSHFHYlRTV2xDRmkvTFBhLzhm?=
+ =?utf-8?B?U0xTc1VDc3JHOHB5eUNndWYrR1cxUi8wSnRBYVVZYk1yVmZsVVZmYmpRVFlJ?=
+ =?utf-8?B?SFJHYkhEZmh2QUU4Uy9jZE5xcE1uNDI5MStudGs1SHRLZmpSd0x4dFZ1UGVY?=
+ =?utf-8?B?MTJuUFRUVEFteHhnRm95VGdWRnMzQTFGRnhsYmFiTUJ1bWJ1OUlqODR4QndY?=
+ =?utf-8?B?MElqYUFzQVZiRi9pVFFiVUtPeWVpYlNHQzZMR1lxWjZRMmxZT01ISUtoOFpo?=
+ =?utf-8?B?MklpRUxKRjhIb0JjRCsrblZUQUxBVGl1MitFbkpsS0pXekR2Q2RBUCs0R0du?=
+ =?utf-8?B?V2hOMUJpK2FLcWk5Y3ZuK3dSMFZhdUQzZjk1ZkdtUnorZ0plME92VFVRckY3?=
+ =?utf-8?B?KzdVVi9nbVZ5ZUl6ODVVWWMvZlpVY01ObTIxUURzQk5kM2ZyQm9lZXB2NVRq?=
+ =?utf-8?B?ZnowVjdvN2VGUkJWVDZmamZMc1hITmpJMEhIbWl2VFp1MHJnWWhVSERiaWdo?=
+ =?utf-8?B?M1F1cm90RjJRdWo2S0l3M1BuWlh6bG1HeDhRaWV3TVZUVjR3amQxTDBMd083?=
+ =?utf-8?B?azVLZ25xWUY5RFNQSnJycC9hY294ek9HcW9WcXMvUnVwUEw2ZThjSTlBTkx1?=
+ =?utf-8?B?SUpCYkMxR09HL3FXM2IwR3dEM29wSTRIOGljUXZvNnN5OHgySnRjOFphNVZZ?=
+ =?utf-8?B?dGVLTzJpS0xBMW5NSXp0UjRnVlZ0S0NvUEt6WmlkUHhKMElIekdNcHVCY2c5?=
+ =?utf-8?B?cWZwQktZZjk5enBRanZFbC81WWJWdS8ycHdTWlhqdU4zQmZXWUZMK2tQSXAx?=
+ =?utf-8?B?Y0E2N0VTajlZMUQza2JwQmhxK245Q3EyNGxOazBFUmRKTklLUHhsQ3lmeldw?=
+ =?utf-8?B?SUlQdk5ZZmFiYURpUXF1M1VCVnQ4dmFnSGN4R2xVNzB5YWphWk1IdzEzRCsv?=
+ =?utf-8?B?SDFuaTE4WDdma09uQ0ZoQlhPRGtnNG9tbXhhQUdwZFZTUUVaYzV3eHl2Nnpt?=
+ =?utf-8?B?K1BBUjkrZzJ2TGFETlJMU2JNeXhCd2xPbFoyY3lheUJMcjA0dTJGZjVLSDRD?=
+ =?utf-8?B?NFU3Y3JUY2xNWlhnWExhekNPcm5GNkxmYXMwVUw1d3FwNFFzbFFtV1hzdGJO?=
+ =?utf-8?B?enVkSzdXZmplV1RsWGlEUHVJSWdZOVZ5NHpsckFSVGVkczFnK3lMK1ZwYXNm?=
+ =?utf-8?B?YkVibTdUN0hRT3pFM0pRQ1RMSXNzV3VJby9xZENWRG5nUER6NFNXTVFmalNy?=
+ =?utf-8?B?NHc2WHphZDU0QlNwVVIxUnEvRDJ5Z0hzTFdHVDZQTkhvaGI5UEdFRU5Ya1Yw?=
+ =?utf-8?B?Wjl5MkgrY29Fc2M5V08ranlGSjg0cXNZRmhEQ2FYNWVmM3pycTloNkczMUZR?=
+ =?utf-8?B?ZFNwc0c4dG5NRU5BV3UzcHZGR0JCbW5mcTZMVFNHZ1RQM3FjUVAvOVRnV1lu?=
+ =?utf-8?B?S2ZvMlhMRjRMU2xhQlVCYmZRZ0VrOGkvRnlxSG9qWXN0eHpNSitVcTUvRE5x?=
+ =?utf-8?B?L0k2SFRuLzhnOTFuaHFjRnZMMlRyRWNqNUErcFl1Uk1SaHR3eTNmc1BCdDlM?=
+ =?utf-8?B?QmJ1djlwc21CKzQ3ZmROVE12QWwyZWJqeXNaM3g0R2E5U3IrMmp5UDI5akFV?=
+ =?utf-8?B?RXE5Nkx3TnpwcytmcXNwMkZTdGR2R1dZeWV5UDNlNXZzaEZ0N0o1L3RzRlpa?=
+ =?utf-8?B?U1JSaFppZDgwTkZkNmYwQ1RESDN6cHRvcnpZU2JnUEZTWVBRWkV2UDZ2N0Vk?=
+ =?utf-8?B?RGl0dkFlRTZWVkR5OGJ5b3BxTnEwclQ1VVF4WnNyR3oyNU51ZjArNGY1ekRS?=
+ =?utf-8?B?QUYyZkxIbm9hb1hSY2VUOFpyRHl4THhPNnkwM0ZLZ0ZLVEh5SUZwdVJEdUJG?=
+ =?utf-8?B?OUlmRzRDYm1QcVVLVWZYQzhtSTJ2Z3ZUTmNYWE8wL2Exc1pWanB3WXpWV1NC?=
+ =?utf-8?B?c3RjOHdnL0grNkRoamQxejF1M2o2czNpSk1RT2h5MUpuS3cyTGhkN3ExMVBC?=
+ =?utf-8?B?RjRBVk1XQy90Qlo3TFIyMWhGUVd1ZlV3YzduYkNyQko2Y3NDb2F4TGtSbVhj?=
+ =?utf-8?B?YlpXUU9scXV3ZzBuYVRwZWJYbkx3dmhla0JDTTJrVTlrWFY5ZWhBSGFmUlVK?=
+ =?utf-8?B?ekUzR213bS9TVy9tems3WUtlT1FYL1hqN3M3QkR0OXhNZ0hwbk83VUZZdkJI?=
+ =?utf-8?B?cGZ0Y0hBSmh2NTVRMk5lQ3ErVW5KOVdPdndNeXJYY3ZtdjZXU2xHSVkvamUw?=
+ =?utf-8?B?dVE3ODE3R3B2MVd5Njd4ak1iQTQyeDJ2c2QyWENKZzJ3YU54OUlVUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d633315a-3eba-4086-6c4b-08df3472c9d8
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 21:39:32.9443
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TkB/4eXE+EvP2+hx4Ud0psQOcOqT2oISATcmwBu0DTKGZ1tP3ywzQkjD/SI39+EMmxg3L8OlapRU+bR8xKhURA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8165
 
 
 
-On 9/21/2026 2:01 AM, Mi, Dapeng wrote:
+On 10/27/26 16:32, Paul Menzel wrote:
+> Dear Mario,
 > 
-> On 9/19/2026 3:39 AM, Zide Chen wrote:
->> Replace the hard coded field width (8) and the equivalent 0xff mask
->> used for PERF_METRICS MSR field access with named constants
->> INTEL_TD_METRIC_FIELD_{BITS,MASK}.
+> 
+> Thank you for you reply.
+> 
+> Am 27.10.26 um 21:48 schrieb Mario Limonciello:
 >>
->> INTEL_TD_METRIC_FIELD_BITS will be used by a subsequent KVM patch to
->> validat reserved bits in the PERF_METRICS MSR.
 >>
->> No functional change intended.
+>> On 10/27/26 13:54, Paul Menzel wrote:
+>>> With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
+>>> on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
+>>>
+>>>      amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on 
+>>> connector HDMI-A-1: -22
+>>>
+>>> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
+>>> vendor infoframe setup function") started to log the return value of
+>>> drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
+>>> being non-NULL, the helper only fails with -EINVAL, if the sink does
+>>> not support HDMI infoframes, that means, if
+>>> `connector->display_info.has_hdmi_infoframe` is false, and its
+>>> kernel-doc says, that this error can be safely ignored.
+>>> drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
+>>> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
+>>> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
+>>> HDMI_Video_present, triggers the warning, although nothing failed.
+>>>
+>>> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
+>>> seven bytes (source physical address, Supports_AI, and a maximum TMDS
+>>> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
+>>> the EDID has no HF-SCDB:
+>>>
+>>>      67 03 0c 00 10 00 80 32
+>>>
+>>> Only warn, if the sink supports HDMI infoframes. The infoframe setup
+>>> itself is unchanged.
+>>>
+>>> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and 
+>>> vendor infoframe setup function")
+>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
+>>> ---
+>>>
+>>> Notes:
+>>>
+>>> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
+>>> commit message.
+>>>
+>>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
+>>>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> […]
+> 
+>> The actual change looks reasonable to me.  But a few things about your 
+>> commit message you'll need to change.
 >>
->> Signed-off-by: Zide Chen <zide.chen@intel.com>
->> Cc: Peter Zijlstra <peterz@infradead.org>
->> ---
->> v9: new patch.
->> ---
->>  arch/x86/events/intel/core.c      | 8 +++++---
->>  arch/x86/include/asm/perf_event.h | 4 ++++
->>  2 files changed, 9 insertions(+), 3 deletions(-)
->>
->> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
->> index cc13164d948f..cbc9a179f2e5 100644
->> --- a/arch/x86/events/intel/core.c
->> +++ b/arch/x86/events/intel/core.c
->> @@ -3159,6 +3159,7 @@ DEFINE_STATIC_CALL(intel_pmu_set_topdown_event_period, x86_perf_event_set_period
->>  
->>  static inline u64 icl_get_metrics_event_value(u64 metric, u64 slots, int idx)
->>  {
->> +	int shift = (idx - INTEL_PMC_IDX_METRIC_BASE) * INTEL_TD_METRIC_FIELD_BITS;
->>  	u32 val;
->>  
->>  	/*
->> @@ -3166,8 +3167,8 @@ static inline u64 icl_get_metrics_event_value(u64 metric, u64 slots, int idx)
->>  	 * summing up to 0xff.
->>  	 * slots-in-metric = (Metric / 0xff) * slots
->>  	 */
->> -	val = (metric >> ((idx - INTEL_PMC_IDX_METRIC_BASE) * 8)) & 0xff;
->> -	return  mul_u64_u32_div(slots, val, 0xff);
->> +	val = (metric >> shift) & INTEL_TD_METRIC_FIELD_MASK;
->> +	return mul_u64_u32_div(slots, val, INTEL_TD_METRIC_FIELD_MASK);
->>  }
->>  
->>  static u64 icl_get_topdown_value(struct perf_event *event,
->> @@ -4742,7 +4743,8 @@ static int core_pmu_hw_config(struct perf_event *event)
->>  }
->>  
->>  #define INTEL_TD_METRIC_AVAILABLE_MAX	(INTEL_TD_METRIC_RETIRING + \
->> -					 ((x86_pmu.num_topdown_events - 1) << 8))
->> +					 ((x86_pmu.num_topdown_events - 1) << \
->> +					  INTEL_TD_METRIC_FIELD_BITS))
+>> 1) You are missing a S-o-b [1]
 > 
-> Sashiko comments,
+> Sorry, overlooked.
 > 
-> "
+>> 2) Disclosing LLM should currently be done by
+>> "Assisted-by: LLM" [2]
 > 
-> Is it safe to replace the UMASK shift here with the hardware MSR metric
-> field width?
-> The original << 8 was used to shift the metric ID into the UMASK field
-> (bits 8-15) of the software perf event configuration (attr.config).
-> INTEL_TD_METRIC_FIELD_BITS represents the hardware width of metrics within
-> the PERF_METRICS MSR.
-> When evaluated in is_available_metric_event() during perf_event_open(), this
-> currently functions because both values are 8. However, conflating a software
-> API layout offset with a hardware register field width could cause this macro
-> to calculate an invalid configuration mask if the MSR field width changes in
-> future hardware.
+> Since commit 1e035297ffdadf (docs: remove Assisted-by references) it 
+> seems to be deprecated:
 > 
-> "
+> $ scripts/checkpatch.pl 0001-drm-amd-display-Don-t-warn-about-vendor- 
+> infoframe-fo.patch
+> […]
+> WARNING: Non-standard signature: Assisted-by:
+> #35:
+> Assisted-by: LLM
 > 
-> It looks reasonable, we either don't change this, or define a macro to
-> represent the UMASK shift. Thanks.
-
-Yes, I can revert this change.
+> ERROR: Unrecognized email address: 'LLM'
+> #35:
+> Assisted-by: LLM
+> 
+> I wanted to send v3 with the tag added, but would refrain from it now, 
+> if that’s alright with you.
+> 
+> 
+Yeah; just send an updated version with your own SoB then.
