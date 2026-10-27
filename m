@@ -1,102 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.38
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139590;
-	b=Pt10R1lTFXZeIfUGp0mNenzpIV3Ok9d3a7+dWW9GvvEtdY56YTeegjUxPDCtGV5Xd4HX
-	 pZeIgtYrPNMMEDqHdNl3K1wOyMDTUOGS3LnzKtdzvIg+tP4zOliWsU/V0IvNWgzWS4U1X
-	 bJMjE+TGVHJev0fAlEG/ZUTwGn2pEOZzByoaKq09xmgCkt/TBAvrzloUQAQDep5XLmpyZ
-	 nbCf34n4p/c9lEUWUj8jaRl0LStY7Yl3OWAMUkjb4Rhk+FQ4OYwQMzDKvlrhoHv/xinlv
-	 iPY4/o+ac7qNripXym7NPRExNHj1ni0jtnJaKWdMpI8Z4W6PrUhXuQVngkCZOSXggag==
+	t=1793139677;
+	b=jiVtCFEZ7le8NOcgSMLdWxW7gH8QbH9PBDGzPC+Uvsef8AtMye6PpvX/dIOOx/VIfaGu
+	 lBz+leXUEnHbw+VyVqM2upqNHY9NC1Duf9hD4GdryNkIhbAif/irfBGMmbZGKJ7yTFz4S
+	 OmoG97ttyoz8R6lrD1rdsFwx9N17VzhAdQcYLgE2Nz12Of/5SD/ARGkdJxFJrmjV9DbYm
+	 uB5r2Mk1E7aArDi5mItuTPybfNjXgG8mF2aDJnOA6GA9UGXpQP3P4yGt6L+zH2gbrDYLx
+	 y/71q79BgplHIJaHqp7lBjpK/SUTacYhFh8S18gxjpZn4M9VAeoSicCQP0327VMWtQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139590;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=IRLDp0EVirBnKgldSRz7ToSM81j0nsSsdeqUHhLddpw=;
-	b=L/2KQqv0AO6qXK3oiHn8xydfJsqa1AofO1vR4Av/4WUqu5YbxTrsYKofACLW4wtU4U2n
-	 qfS0AaWDVcB7EWBi2dBALN+kn8srJ3y7Qkw0T57tv9x0iTc+w03y3gEAoX9nIRv0C136l
-	 iOnE5PA73yzLsGeknyOUUTYYGYzTZzbQLO3KxA6FDeVxwTJk20RzDrc2z/pQ9rQBAk8Nu
-	 SdIKZ7SKaRFIX7vAtsVkUoboIISqooQGUSeHsmPIh+aRxuaetYb1iBb8TgbCqcWOaHRQC
-	 xgue8VVVkfzps0Ek9HSa6JWa9KUNFvq1eWsBNLN5YBhhUaK/gZkHMg7fi5c8JJowMUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139677;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=2bDTmkmhM4XZVFBip7SpaJb7mMVIkHIwjC2jt+jxj28=;
+	b=f+ZUenK6DAyBWuGE2wqR18xwDBGaMTxYA1Ed9PdW81w+9fyoNix9tjbi/1RaDlQKl26u
+	 FURfSGQ85OKgixU38pUuc1ZnRxxs++Zbd48DNMeIdyEUFe2LvQpAbB3Uhfh8AHinnNIeG
+	 VnwV8ANlY4rF+MNSVem/nmJlXRN0yKIcA5Bn5133OUrcGIu1hiVlQgVdUrLmUbk1Qg8kB
+	 UUpQtjNu7LPuSlwyd+ijqhb+mk3WuNemHEm5ZDVTO5rdQKdqAznM07GW990DNFRA2nCoQ
+	 DHEAulOqNVUiN1nxw0cuuqI6ueyRaG6XUBMkIbt1yZqKgjM8EDvUKcvoV79SB2TTb3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EBtL6odW;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=rbox.co;
+	spf=pass smtp.mailfrom=rbox.co;
+	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=m96n+t1k;
+	arc=none smtp.remote-ip=185.226.149.38
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFA4606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EFA4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C93606A31E;
+	Tue, 27 Oct 2026 22:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C93606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EBtL6odW
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9f6a16afcso11585ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:19:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793139590; x=1793744390; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IRLDp0EVirBnKgldSRz7ToSM81j0nsSsdeqUHhLddpw=;
-        b=EBtL6odWMCe+QCB93joyAdLE1zgBz6odJ1vA2JkGD0MMU8wvojnhHVDZsbnW42cvLm
-         A0/x8O8w7vJlJYyrce7vVAI9nnOE0o94rdL9axowgl3P0EBe3DsQIz7ej95wxt3ayehm
-         a2de3zDb+KP19diFct3Te1wtL+OJo53h+lSUEqlMu/iGduB4Yvcd24A0P6SrfN8fFZNw
-         Z3tdSNJjLCtI6y+nClSwYoY/x6pZvZl0gFWd1k1pNng2lqNdBKjsH1JrBSsZm6yM7SJ0
-         RBCig/HDk7g6tF+lgvuskAx9d4XQQe62lrbGrN7fhdLNkJPAGi+yxw5BJjs0w0kO2Bke
-         3k7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793139590; x=1793744390;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IRLDp0EVirBnKgldSRz7ToSM81j0nsSsdeqUHhLddpw=;
-        b=Evp1BSOTR9sE5mY+RYlXEiMWmt1Sqb6dIDYYpNbujLXpErr1pwZAoPnfuSKQ+Pugck
-         lwawgFFOHJwTsdUSEo2XocGPIaxA4Skc0W78ox5Du8gvUQ4/PpDhEULd2uPadu9nghio
-         dcfZA3riolsLxaoEEL+/h4CBX2mtE4yjv2mf6oaq69i2LKXyhKj84I9jDz7GObZ7gUYo
-         fKO6/dAk7WBTW0jwNQdY4vrC27hOPPoT4IjZMCmoHqqmhJvfWC4rdlzHP5w5hgq4dpgR
-         SRMuWb3rJna6deQjAtRfeMqjoGTiKxp5FioAvU8wZpOVX5UDbLGKLcX4hFtXXYHzUb9z
-         STGg==
-X-Forwarded-Encrypted: i=1; AKwUvBzoRQAK1qjLgYJAI9X57Zn4oSlOtthgCJTw6HJs+dSx0AQm+QNeS3a9XhVoQi8spO8TY9m9o+SfMTxYZIY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlp6ru1Jw/UA1ozrgDoAFUsJ144kH7fApcSzc9CrXvDIjVBaYJ
-	dx43fbW6Ip5mAr4Bq/SRAj5yZWsGFXU4Uk2CwAVp5uNiprNnDCTzY8a2vpRsW0qeLg==
-X-Gm-Gg: AYBFou1MhEWt7T1OnOgcdAQWQRg3YPya///NWYerSlH87EbGj1Isda1M9e711xwcraz
-	MciDECn2dJ4eePXA5H6OI1MxDmKgcvd+ipJg1T/zSRnDxFSo1NuwcOnkryvWYdBhpNfrZJt9n9x
-	2llIjVGKge2XeJbh9/hN3idBMPv3Je+gcxqIYXpyjgJBOhmFogBQ5vo4YGYRG0dB1ONEgly+fEk
-	xmIIu/93+WxSDkCpLPenVwNNvHmOjljtUzQaTHw+bfwHzCMqhtKAwQUou5Zv33SBVtiZrlzpxoE
-	4kOUf6cXfEkibr11Gfb/cuufTFEpo1lVHirk6cVyMybw0K1LARwWlIo17G5G9NWnuQB/aLrilAa
-	lXjfFyD/vso6er6HCfHjeBCBLQyYk4pOk6HmpYI2jbQkC+z625POaZN1vGSMxVuZHyXGMNdHoFH
-	N+01WEyny0A5VdkRQ15GPlqyvqcD1Sy2/Gh5qBWwa74RdDt6O/Ao4kqm9qfbyFF+PU9p65xdVoi
-	FrXf4Ka5dYsG8KVHgJrNDP51kSWMnyXdSDETFWsH+9BcpG8zh5mg7gCxua+2Uc8bsRqZ1/yDnEl
-	C67QyrZswYb+Usc4x6A7+C/BonDUz+ygxrBjk0xYGjECV9aIfg==
-X-Received: by 2002:a17:902:dac7:b0:2e9:8c2b:979f with SMTP id d9443c01a7336-2eb018f7c12mr1057445ad.8.1793139589374;
-        Tue, 27 Oct 2026 15:19:49 -0700 (PDT)
-Received: from google.com (163.1.145.34.bc.googleusercontent.com. [34.145.1.163])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a48c2d3sm152945a91.5.2026.10.27.15.19.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 15:19:48 -0700 (PDT)
-Date: Tue, 27 Oct 2026 22:19:43 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	David Matlack <dmatlack@google.com>, Lu Baolu <baolu.lu@linux.intel.com>, 
-	Pranjal Shrivastava <praan@google.com>
-Subject: Re: [RFC PATCH 3/3] iommu/arm-smmu-v3: Add support for hitless
- replace of S1 domains
-Message-ID: <auEf3eH6QoiM-f80@google.com>
-References: <20260925011308.3381953-1-skhawaja@google.com>
- <20260925011308.3381953-4-skhawaja@google.com>
- <3d1eb92f-3447-49f0-a210-fd4fa015304b@arm.com>
- <20261023134900.GB3977851@ziepe.ca>
- <d4570e2d-5b92-4f05-a8b3-34d5d5b299bd@arm.com>
- <20261023142909.GG3977851@ziepe.ca>
+	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=m96n+t1k
+Received: from mailtransmit03.runbox ([10.9.9.163] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1xLpXP-00C4Qw-RT; Tue, 27 Oct 2026 23:20:59 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
+	bh=2bDTmkmhM4XZVFBip7SpaJb7mMVIkHIwjC2jt+jxj28=; b=m96n+t1ks2ArQW8Et067ICkF9y
+	+f6nD6xtIxt3iyU/6q6NYckT0m5a9vH4Y9vPvsdVY0ATKu3sp7uXc6hZ9HoWrQkHk1pzBiwSjKRWh
+	G/SXa7TqahNnFKiX5XUIm+7tRqkDCOLpW5aYrmfUJ7xd3U79BS87tSxHMG0Y0XUN5Tq6GGi/YA+5I
+	63XFPcOIE+Wf4M18rl1ZztBFYYSsTE52H8BhCsihrlYfqrD/9KzsFieuf/GH9S4Bqzgz6w50TtW9S
+	UVZ+iK759aw59aYLwDX2v5AWUKu09h4BcBM2qK8xgEkpIhUNPN6iGlhFaa6bN20OVvnPGuKVcSLJK
+	wfMu2Biw==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+	by mailtransmit03.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1xLpXJ-0005Kd-9f; Tue, 27 Oct 2026 23:20:53 +0100
+Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xLpX7-00DiYf-Ls;
+	Tue, 27 Oct 2026 23:20:41 +0100
+Message-ID: <03ce1d61-edc2-4999-8506-64e79961b378@rbox.co>
+Date: Tue, 27 Oct 2026 23:20:35 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,53 +66,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261023142909.GG3977851@ziepe.ca>
+User-Agent: Mozilla Thunderbird
+From: Michal Luczaj <mhal@rbox.co>
+Subject: Re: [PATCH bpf-next 2/3] bpf, sockmap: Restrict iter-context sockmap
+ updates to iter/sockmap
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Lorenz Bauer <lmb@cloudflare.com>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+ Jakub Sitnicki <jakub@cloudflare.com>
+References: <20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co>
+ <20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co>
+ <DM6O08VBRY20.1PFUYACCZ38JL@gmail.com>
+ <a9ba4549-4bae-4516-85ef-ee38f13551cd@rbox.co>
+ <DM92JCFA4X4U.30MTDH0KCPTJ@gmail.com>
+ <0bcebb4f-4b36-4f8e-a3cd-1eb0455081a8@rbox.co>
+Content-Language: pl-PL, en-GB
+In-Reply-To: <0bcebb4f-4b36-4f8e-a3cd-1eb0455081a8@rbox.co>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 11:29:09AM -0300, Jason Gunthorpe wrote:
->On Fri, Oct 23, 2026 at 03:04:23PM +0100, Robin Murphy wrote:
->> On 23/10/2026 2:49 pm, Jason Gunthorpe wrote:
->> > On Fri, Oct 23, 2026 at 02:43:28PM +0100, Robin Murphy wrote:
->> > > > @@ -3664,8 +3726,8 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev,
->> > > >    		struct arm_smmu_cd target_cd;
->> > > >    		arm_smmu_make_s1_cd(&target_cd, master, smmu_domain);
->> > > > -		arm_smmu_write_cd_entry(master, IOMMU_NO_PASID, cdptr,
->> > > > -					&target_cd);
->> > > > +		arm_smmu_replace_cd_entry(master, IOMMU_NO_PASID, cdptr,
->> > > > +					  &target_cd);
->> > >
->> > > No, we cannot blindly do this for arbitrary ->attach_dev calls - the
->> > > majority of S1->S1 transitions are going to be moving back and forth between
->> > > the default domain and user domains, where there is zero expectation, let
->> > > alone guarantee, that the translations would be equivalent and thus not
->> > > liable to lead to TLB conflict aborts or amalgamation hell.
->> >
->> > Heh, yeah this probably only works properly with BBML2 or something so
->> > the temporary ASID doesn't explode.
+On 10/21/26 13:12, Michal Luczaj wrote:
+> On 10/19/26 21:40, Alexei Starovoitov wrote:
+>> On Mon, Oct 19, 2026 at 08:20 AM Michal Luczaj <mhal@rbox.co> wrote:
+>>> On 10/17/26 01:52, Alexei Starovoitov wrote:
+>>>> unix_state_lock() in bpf_iter_unix_seq_show() was added only for
+>>>> unix_stream_bpf_update_proto() called from the iter prog.
+>>>> iter/unix cannot get there anymore.
+>>>> can we drop it ? can be a follow up...
+>>>
+>>> So we don't care about having a stable socket state while iterating? Which
+>>> is the case for iter/sockmap, but is unlike iter/{tcp,udp}.
 >>
->> This is fundamental VMSA behaviour - see R_FVQCK in the Arm ARM. BBML only
->> applies to the one specific case of identical VA->PA translations with
->> identical attributes _only_ differing in the leaf level at which they are
->> described.
+>> Not sure. Is there a value?
+> 
+> Isn't it (currently) necessary for iter/{unix,sockmap} dgram peer
+> disappearing on connect(AF_UNSPEC)?
+> 
+> But, if I understand correctly, the removal of plain PTR_TO_BTF_ID will
+> make pointers like `peer` inaccessible to helpers. And we just accept progs
+> have to deal with potentially stale data, e.g. the value of sk_shutdown.
+> 
+>>>> Should we restrict it to ctx->sk somehow?
+>>>
+>>> I recall a discussion about having BPF helpers accept only trusted
+>>> pointers:
+>>> https://lore.kernel.org/bpf/CAADnVQK_93g_KkNFYXSr8ZvA1fYh4hoFRJCJFPS-zs4ox0HhAA@mail.gmail.com/
+>>> Restricting only iter/unix seems better?
+>>
+>> we just discussed at bpf sync meeting that it's time to
+>> finally remove plain PTR_TO_BTF_ID.
+>> Otherwise we keep hitting this bug everywhere.
+>>
+>> in the meantime can we do it for this one arg ?
+>> Mark ctx->sk as PTR_TRUSTED in sock_map_iter_reg
+>> like iter/tcp and iter/udp do ?
+> 
+> Ah, sure. So the same bit for unix_reg_info left for later?
+> 
+> I've noticed commit 7cc639dc45c5 ("bpf: Don't take an extension for an
+> iterator program") got merged. Should I post v2 with the env->prog->type
+> check dropped or you guys don't want to restrict iters anymore?
 
-Thinking about this more, in case of a conflict, what is the expected
-behaviour? Does it result in a DMA fault for the affected IOVA, or is it
-a catastrophic event for the SMMU itself, affecting other devices and
-the whole system?
->
->Sigh, I thought ARM got past that 'tlb conflicts catch fire'.
->
->So, yeah we need a flag that says "I pinky swear these are identical
->translations". And it has to be a kernel only flag since we can't let
->userspace trigger this.
+Thread stalled and I'm not sure how/if to proceed.
+As for PTR_TRUSTED in sock_map_iter_reg I'm waiting for bpf-next to open.
 
-Agreed, this should only be requestable through a kernel-only flag.
- From the live update side, we would set it only when replacing the
-restored (preserved) domain with the new one, where the translations are
-identical by construction, including the page sizes used.
->
->Jason
-
-Thanks,
-Sami
+thanks,
+Michal
