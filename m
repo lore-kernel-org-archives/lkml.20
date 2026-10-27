@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793093025;
-	b=zlDfcsul1Bid/y/7cXMSg/9p0Pqw+4Njtd6+C9wYzs8H/YYMPdociJi9r9BW7JjRTPjJ
-	 ggZImebZ5klZvRXNF/8gGLOBLFmt5FR0TEkYBqFGnRZ0T5DTbkHB7n3cONukt9Szv3xKh
-	 P+OUHflVlXA24CUEpo1iWBk7yg6HOkNuvgMr43OpHpsqc9HO9vnV6qFzwfMSFwSVPIwmn
-	 OBtzPujhgdXTMK8Jp3m/5e/KtQta2w4JCDaV9bPxmifKFvbBvid272yoWEBHjKv4GHtqe
-	 IzGYl/Id7Luxk/TkV2GwfyO7iUpyxEEj7g5LxlIy2Px1snTxF+zPeBraSvVhWnWaxYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093025;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=1jACJZEOy9s3Wl+8/QWDpBdu4SymQx/EotUdFAbYztU=;
-	b=eBhzp3uF7zb48nMpmFp0a/pywCzf29eWKNRnbkof3gq0yGsJqD93gWX8l0KDKGFm7Ijb
-	 kXp4YBZuXU34WmSSKssEmGYVtEsnuF0QCONvD9CHQoaU5yt9s/dCJf3AEEXxQsoOIA7fs
-	 ThfbPlc6BD46YYU2ojrIXm2oVP/qgIKzGhpj7NOj+hrxFfYh8X0LTZiqJKtZJjR3m8w7S
-	 bol+h1/0fI2O5uKrUlth18+XQZGnlvYGR++k1zDe67wcGgcyeNNSbA8/njaYaF5iaYzmz
-	 UNXlqzCa8pJbf4wZYMKd4f62IaQqlTYXXI245sl4lEJG/mGep1wyW6CT7F1JlbUfSAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gs1hjsad;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD94606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:23:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD94606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793093043;
+	b=QH6QvqF9P4iG9E97sJg2ryo6d5y/g3oNidEIZPTO3FuaDGpHe4iqmn0iFbp6lEzGOS7D
+	 BKU7KK6NesDTpTebleHKI0pxwfCMA7Bvij7viMx5fsdPXoDz5BCeqZrN7gjlUzwfMeLTH
+	 ALruNaESuGNtDOVRjJjiw0qPITmgm88vtEIPUxx7GkXdmXO80zmiUhEE/J2wUj9jXkvhc
+	 KjVGUq3PIe1mtFhlOvoW8QDQnQryQ0QC4G3XkUzzaCrHtak/ziV0UIfU8RCFfnzBMOnt+
+	 iQcitU4LGFwToEPxryW+RX4n77R8G/mxEFTC9lJJTewYtsPq+gJbDkHNfzVLm2y0jPw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093043;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WLkKoU5R3LHdPira5kz28Ro+cd4O9pFbGAyyb+5Mdx8=;
+	b=jNDGuXqEGnei/a8ZEMfVb6fsRWl2wm7qNMkGfn+ZA2qbE58988Ymefo0h/7PntIR8v7I
+	 jrIEbPv8JCtiK5PspAah/VaxsmFT30OJJgOtGO6hqJ677JhsqAiRdEmSGYVeCY9IprvxP
+	 vOynDxu0qwa6ojQunlYD8maztvSAoYgq6b6WAzBdjpiTQfWocRJxNccZsyNcWI8eBhViQ
+	 /v8bVRs+EVdh2izaMBLy1LmUjNgyKQFK6sG93Q3y0CJIR5Fp4SGUpKhl0nsSNDHsz7hZG
+	 5RJsqf3NbnM/JJ5F/OqZiPh+XhCYqSoRSSEnQwBLMaW6BRW5LFNDy+9fcPTmwtMphvg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="Jk/gTw+A";
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C935606A31B;
+	Tue, 27 Oct 2026 09:23:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C935606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gs1hjsad
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso1501794b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:23:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793093025; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dyJ6XXZIA6pFe3SWWR1/+Lm0VR+ebwLd2zx/FAi2zrJlB/RfM8+BsQq7qkpXxeQPuF
-         Q5sVZBUWcIbza0W10Hd/EpTcCgN2mV/mpOeWK5O9LWdrIg45NVbeFg/cfsQHaoWXqoam
-         vRz7K/DW7v1DdRdbu8SFNB2GfT69fKLZTW4ZqrvMMSvsvZiMA8sDEWRzRfWKH8Ehi+HO
-         vquJjfCVLv9KVNHWa7TgKIEpF6Z6SB3n6ZR4qbkg175zRuUamhvKR9z6oeeVRnoI1w+Y
-         EgUdvS+rkCpUuxn2llvoNY7p4djvc7S0qRuatqka3piWywqPJerWtGKE+F8PNA9B2Kc+
-         VfYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=1jACJZEOy9s3Wl+8/QWDpBdu4SymQx/EotUdFAbYztU=;
-        fh=k3ikjkS7mNA6ns2jkS9DmssLSfLXzVrHqtD2aRhN7oo=;
-        b=QoErhP1sqbcz7tBKrBMkrj3cozbnZ73ulXi1Yx6qIeh52YonbkbGJQFjYq2aalcQ4Q
-         Yhkl/MJl4O+96MJXFRcWnX3TC3/NboFf/DaYpEB6q5sdw5KNQW129rlXKYMpopiy699L
-         ubnAfX/yFRytEQKlumIDmAg9oBTiPLAw+NQ4n6NlubIWjP9/7mKHVXaGl4RvAY0WNW8N
-         OEXOHLCEoXHkCu2FrrCAN9BdcPnVhPuQP7x6DmNkiTnzb6P50DbPDHkh7Hsj0dNgGRc5
-         K9xY87Os7b5uNDcwQIjT94+eV8Yo3DrdOF7WnV0oTq7bR9TnKnQ4v6p3R+C3+LiAUNf3
-         NWFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Jk/gTw+A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793093025; x=1793697825; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1jACJZEOy9s3Wl+8/QWDpBdu4SymQx/EotUdFAbYztU=;
-        b=Gs1hjsadhhTrOMc6iSu4+8C6/UqhNf5aVe2ySfU5CC8jEZy6gmQOa2Gj97TPqyElEx
-         436p7r643883lPt4v8gBeVwOqtS3e+w2OLMGYQ7fDpyGD7toTgXSF0E8THZkxLoJh/3E
-         ciiEMBSNlWoqtRxIVYIrDetzHzvn1vahQQ8kKzjixIbmOLzI2tbWIF4zUMgAS87XAkiG
-         qhqUEFOcbLLI6O4nYuNvVJd/+0q3SgtXjI3NU77jD7XegOnXr9ZeEitVxOOVgDIpcVTg
-         9d3XkRg+pP1X5G/+6o+6uKIKHreniXuaBRGteaCuC7aMkjBb2v1tr6bVjqlrs/290nRW
-         4wdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793093025; x=1793697825;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1jACJZEOy9s3Wl+8/QWDpBdu4SymQx/EotUdFAbYztU=;
-        b=wB+n3IWy3DSeHKYq1GLbFm5qIB0Fm5a3jmrJxLVzByG6FWC6Bek1MA+CkpuAr3Pg4T
-         z9+wY7tcspNK+5rfDB20LO4NypnTvZkDm/bwzmnDY00fYnbn/K/v/KoyF1Xzngi7ZChU
-         o5iJ4h5jrigp7hPrDcUAqcgrBS23f0mY7LktDBiFWOflELcaYDfcYGh6iBeZc4CwINuz
-         R+wl4jK6PYYM+AKDtfRVYRT555yWNvUGF1Og34ilm5lWlc0cv0LPrQAU80VbndZu+wEq
-         eX9modjpB17gNsU5Ycg08GRMaliWQ98bZcWjwua0FuD7pledAVzJlJAYAnIRrxqCkB0Z
-         6pCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzC9/Ln1FBNppg2Ek33IbOOBc4cLUlf2L3r43td3Qh+b/0pe7oKaPaqcia2VOXxE0mrZbfN553/g0+MX3k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHt6f9x3wnS7BZiGjbyL+TkImT2LR15PKcuhKHi1SVL04nV9/8
-	rqMiPM3cg6rOgresZZg8C3yslyam2ud8Fmx6nWbvNIjTbfDNSOibi81wEXIFudbP1aJK/fN4cFc
-	XOsLJ/8ZDnqzV4zFVkirzNV+UxyVR9eU=
-X-Gm-Gg: AYBFou1hcCKrwOqHvb92sy44qbdgXGMwhsFQ64gxBkIs6xptW3+vNcPVBbfm8wUmMjI
-	jT3o5v+TMT3yvEuEwpjrsdV7en5OAHjjQ3S+9OkMnNskWT8wvISvJqtaVOlfYJDGDzbY1NwbtKk
-	vTBVVpNbRrH25sedtTKweZk9TCp/Z2KhWF85+hx/M/kOUAsBzGUWiD9JjeTDnCGosi8apgyqneE
-	5IkkFq1NqKcbMxHD5iuKZOqtVzoljkyeTK5G9OcrlOOqSHAP4YhsKXke7PpgBDxzugVLuLtGJxf
-	C8dC2hNkYxhZRBOHKEdjLzrFcLJe/RlkBsHBoK7AEEZNitUG+iEFsttHigKIhBflOjxjwYenTo9
-	xaZcs4+OAVp753mruFcTIFZXstD20va8OjqWm5Atn3gifZlDehL8LyjlX06EWbSyIVc3M+886V1
-	hT
-X-Received: by 2002:a05:6a21:880a:b0:3e2:7e0c:134f with SMTP id
- adf61e73a8af0-3e7af80effcmr5634590637.3.1793093024830; Tue, 27 Oct 2026
- 02:23:44 -0700 (PDT)
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=Jk/gTw+AggaLGn34N0TM+Z3flUE5p1of/k7MgVKx54CMXvo0624mznfQlbo6YZ5CjDxy1nmAwZK56
+	 JMeAquVV7wBg6luWM9PyRkVSZw6W1rbfxUX7Vl8h1b+WjBsBMftVRFOrWgyUr1BtpI2AttQ0DL6s5p
+	 8TEzamIcu9jgTf6U=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ae06dad3db-32e69;
+	Tue, 27 Oct 2026 17:23:57 +0800 (CST)
+X-RM-TRANSID:2ee16ae06dad3db-32e69
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHA-W6400298 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ae06dabdee-0e531;
+	Tue, 27 Oct 2026 17:23:57 +0800 (CST)
+X-RM-TRANSID:2ee46ae06dabdee-0e531
+From: Tang Bin <tangbin@cmss.chinamobile.com>
+To: gregkh@linuxfoundation.org
+Cc: stern@rowland.harvard.edu,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tangbin@cmss.chinamobile.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] USB: ohci-spear: check clk_prepare_enable in probe
+Date: Tue, 27 Oct 2026 17:23:54 +0800
+Message-ID: <20261027092354.1761-1-tangbin@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.52.0.windows.1
+In-Reply-To: <2026102645-dinginess-vowed-0d5c@gregkh>
+References: <2026102645-dinginess-vowed-0d5c@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,34 +72,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-b4-m9e-ext-sensors-v1-0-644d389b2de1@demangeot.net> <20261026-b4-m9e-ext-sensors-v1-3-644d389b2de1@demangeot.net>
-In-Reply-To: <20261026-b4-m9e-ext-sensors-v1-3-644d389b2de1@demangeot.net>
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
-Date: Tue, 27 Oct 2026 10:23:33 +0100
-X-Gm-Features: AclHuK8-pbrEOhB7S4T7aoKC56lROm_LkCCEjp9fGZ_EnNBKx3YVsCLkjoXmb1g
-Message-ID: <CAB95QAQaogxV6KO5kpv9RBpzhhmH_N3Dvvy=nqWHOG6qAQB_aw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] hwmon: (asus-ec-sensors) add water temperatures for
- MAXIMUS IX EXTREME
-To: remy@demangeot.net
-Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi,
+spear_ohci_hcd_drv_probe() ignored the return of
+clk_prepare_enable(sohci_p->clk). On failure usb_add_hcd() runs unclocked
+and the error path clk_disable_unprepare() would unbalance the count. Check
+the return and bail to err_put_hcd on failure.
 
-On Mon, 26 Oct 2026 at 09:57, Remy Demangeot via B4 Relay
-<devnull+remy.demangeot.net@kernel.org> wrote:
->
-> From: Remy Demangeot <remy@demangeot.net>
->
-> The MAXIMUS IX EXTREME has a second EC (firmware ID "RGE2-Z270-0109"),
-> not handled by the ACPI EC driver, at I/O ports 0x68 (data) and 0x6c
-> (command/status). It uses the standard EC protocol (0x80 read, 0x81
-> write) and the same bank register (0xff).
+Fixes: 1cc6ac59ffaa ("USB: OHCI: make ohci-spear a separate driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+---
+Changes in v2:
+- Added Cc: stable@vger.kernel.org as suggested by Greg KH.
+- Found by code inspection comparing with ehci-spear.c (which already has this fix).
+- Compile-tested only, no physical hardware available.
 
-I'm not fond of re-implementing EC access logic in this driver. I
-believe the ec.c driver needs to be changed to allow us to simply
-create another acpi_ec structure to operate the second EC.
+ drivers/usb/host/ohci-spear.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Cheers,
-Eugene
+diff --git a/drivers/usb/host/ohci-spear.c b/drivers/usb/host/ohci-spear.c
+index 5aeabb051..9d93b3f86 100644
+--- a/drivers/usb/host/ohci-spear.c
++++ b/drivers/usb/host/ohci-spear.c
+@@ -80,7 +80,9 @@ static int spear_ohci_hcd_drv_probe(struct platform_device *pdev)
+ 	sohci_p = to_spear_ohci(hcd);
+ 	sohci_p->clk = usbh_clk;
+ 
+-	clk_prepare_enable(sohci_p->clk);
++	retval = clk_prepare_enable(sohci_p->clk);
++	if (retval)
++		goto err_put_hcd;
+ 
+ 	retval = usb_add_hcd(hcd, irq, 0);
+ 	if (retval == 0) {
+-- 
+2.52.0.windows.1
+
+
+
