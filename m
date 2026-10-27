@@ -1,84 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106791;
-	b=J0H5aRZaViHj7ifnGdEGr/iZpxFApvt/pua9P88pkLSJGxCIfhs7HmC9UftJO2Rycd2K
-	 HvoIKI0oA2KdwtiHyWo+2Z8I84nWtV/+ckCwsolQzhLtsjWhgmdYd0OzlMuVlbDAqyK5Z
-	 ISDcnAkGm2BI/ZcsA+DoJkSb2oJwQ9zt7wiiy36ZFh71A4SDHSZ5Ujf94mYb3q5mUKPL/
-	 AvOH19IDI7NEhK99X46CYS95vBIbReYLbJ+pdahgL+E+14KQYW7K+qX7X9TanoQbgA4+g
-	 Zal1jp0JVXTxwrjoUEpPv1abQ2VnajTyL9wlpnaDQORhUYQinkODj1iL6wuFww+f4Nw==
+	t=1793106872;
+	b=M2405PLEfkWMsGB5vXOKCxkEovBdkgGNdMyNTklBKUhsJBN3k+g97+R9TQOOZFRQb4Wh
+	 T3ZMXUDQwyuZv6LbhL9cS9+Os72XakWispOw6aYfQGVLDaRtsxFCNRNSHC0o0Ja7Ta822
+	 OrVH4YvoxiQY6xGXGIAl5xZW+ruVZKBxYH6wSUBKLq/Dpc7axNWBV81vRDCO8WFJoDfV9
+	 b1yJrmEz77ejKc5YgHgEFirRrPvG0NDqWSAbFRh1sbwGtqGo16DCLqyoVFwTeGKphqxhT
+	 /7fE2HH7jarGn8M+huezszOTCxLtjRyogFafYkwPhOiV+DXhKEmibyxr6uIG91e96CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106791;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=NLb4nDnDa6CheKrcmNiCI0BRgJPIlEmNmuOLfa1pfGM=;
-	b=ro/c+0Okv7V6RUhirc+JSEMoaIiRxymqkoL/lTERjQOMNoiztZRS6oFpMcPOfDIKM6tf
-	 OcatJ2FXw6GqxK/57Z/odorFb+CJhRz52ADlJCPFzKs9pz6p7rZP12t2TeOOQ+e/mQUVp
-	 CVg/pAeRDo6zRkMRcNrg7ynSPPO4zFGkArRxVUxZrsaSpQx9YBZJpAFfTHxNMjcX/0Kmo
-	 8prvrz6/TiSOC9cKElXGMG0QrjuQlUbTWmWGN7MUgUuqHy0SqYzOVWquRAmEBgau/f81i
-	 7QT8BHkiKo5h8ImwxifC5a40/NSe0uYw0C76J66+rQ2GIIY6bU1WPCPEwcOj45f2KUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106872;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=TcOL6ipNcctSomEyqgwFYm+J+StqaPe/l3cry1c9MJ0=;
+	b=XmkCveUDhT1Mce3L5QjyhDSt+y5DRXx7ErBvXavV0VYKc9G+WvnrFskYOM9zRVUJG4lQ
+	 jARig5szUQfi0lOjomPREUJclqJVzOPjoEdUNKELIb0gz3DGrcNHw4wFfZgfNzq6xz9qT
+	 HUjPIMA4BcJl8gXHvXiHpwl75y/lRwVAKN6oBl1Q9D3IyJAIAXy6cTRpcSKWfLzFQvq6P
+	 BXhCGZ8XU6ePRmD6mg1rdtNE++C6lnm9MccWF0/DZvNmNgIaKlspDThia3S/FGtK6s31D
+	 lBLbJeKeCdqHVGyKbD+KaFOM/v819nybX7BoH9vTQcyrsIXeOLp0cq3SaYrjBiSPJrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GdQnafCf;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.134
+Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1346606A32D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:13:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1346606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GdQnafCf
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36a17a332ecso569589eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:13:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793106790; x=1793711590; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NLb4nDnDa6CheKrcmNiCI0BRgJPIlEmNmuOLfa1pfGM=;
-        b=GdQnafCfs4JjE1bf5swyZn+lUdfkEWIe19XaOfaI/jr6nZJrRlM6EDaidtXyggEWzn
-         z6mqlIb+cs/xO51JFD+8ZiFR2wAQvf8Dlrvh7feSj/iyZtu5rSvjsX1g3WFw354kr6BK
-         4DcL4gBDT+Er/iQ5G3sLJbNJeWLJYv8+4YD5JrZiUDT9c1qaWkCG5dWJp10g1rfT4x6R
-         E2ncrHWrcjzOo+gNaB82xl0fyCHWwBzbmGDop1K2JWsasCX25ZRdaDtihYxiOYWIjtSi
-         Oo0KW0aKkdsirAuAo4RnGtiqb7evofLpBW4k3c4W+XIT7MgRamX9jVfkGGbLyvFVfEgc
-         8Qpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793106790; x=1793711590;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NLb4nDnDa6CheKrcmNiCI0BRgJPIlEmNmuOLfa1pfGM=;
-        b=irYTywd4XcZ8odwwwSU/JvBWmrCM8SygTu6o8gGnJMoGzlVXcuKFB8wDoPgPB9BLGB
-         JiH1HTiDe6H2XkUwp2cqgHTlpyXsxp7oHFEx5Q+AUmz6+OKoa9T60CaIkEYWYl8O932j
-         VefMxkctv7UwkioxNMPmGC2O4/tQZq+DQgCRrYYfArUa6I0db7Oi8m69VTaAfQNn61Ax
-         +Cf9DbvR7vs7rBD2V3BDyiZs4knsWCeh1qej/lJkOXUbMcZm+FtPfxeNBXYmFOAJ+W8f
-         XASLWYh9+C0gkBtTElZabbuwtW4VIdY0BrzyjJmiFn36rqjzi4auYJD++N6buTUp8CDV
-         MDcg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+5IhrkzCcmeHbNHOeZuC8i8FU8Z+y/DM7oI+IWLpamxejGozMX8cYFmf7Pr93/M+SkoB47dztM+zH/pQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6P5Ll8MC3UbZEkkwPwPe8K4BS+2Yb3VYrA/Exc5QfcQe+7EiV
-	FlNlsRT4J+xPU1694hVBimC6bZ1/TEILQWuJFaOeMWsk7R0fC3m8kUAs
-X-Gm-Gg: AYBFou0+Rhm3haSKbwQO7PFHBrjo/tO5VZFXR+v6kphwR5jCDHZNFZCJzDQenZXWE8u
-	ey3RzDIF+28cLH20XHP+NxjO6VyrwdCEjzRnSQqmTkwbZILR2d+GlQocb2gRl+O04uTP2DY7XvP
-	Kr0NtwRKha7Odx1twn/TQMMAU3JmdQDraztdgkHH/2ZWCF5bRq25dE23yvkTOEHa9LlqOdbPXGh
-	Jbt5qPDoM2O5IIIJ8+bIQIyTHXf32jy6t63cnR5Sj8gEfjxEkCXK+eJJkOam4+aLXXxwYUM7/l/
-	vu0126vNvKHEUDXnbIpaWJBk10Crigp6K5HHueALeGPyFgvcQwqF0ZbKdNjB5A4eJ3SBJgKFDOx
-	q7flxh6eJGayVUWhPiu3+Ri4q6iXE9naFGgtKD6D/nhq/y1y1VnDqaLO2Go+txfsituzvSlXTaF
-	oUZIG0XalAvNjiPZzJGgseoywuBUgNRNe/YNDWKgw6jqr/uhDGSCzUukaUWRfQoQ1yht0jA1W9L
-	eCms1AQSePTB2QcDIGXqFF00uxyE3dFpve1ZblNdas88WCwFYvNDx7iSzuwac/iIii8WKAJfYK0
-	ke+QUyvEBp1j1hHloQ==
-X-Received: by 2002:a05:693c:88c1:10b0:367:5e31:ce29 with SMTP id 5a478bee46e88-369e84fe37emr14011879eec.20.1793106789881;
-        Tue, 27 Oct 2026 06:13:09 -0700 (PDT)
-Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a002a486csm19339403eec.22.2026.10.27.06.13.04
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 27 Oct 2026 06:13:09 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33062606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:14:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33062606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=m3gTecYYwq2jZUjUle1w7O+ULuPN4Q/r80sxuGVnYTA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793106864; v=1; x=1793711664;
+ b=ajjRSYjHFYuNa/S1FAovfJgvU9eBuzz0cefMPjG3K5sLx+1eCR6qnER3QIEnWCDqS1CKx99k
+ reeKOqTgSWJDgBMTs9yAQu1VwaENazBo9/Te9qKh6T8ezL3THGkbiwnTOa8owwaqTKpduTvZ3kO
+ xmKoEt6jNwmhfg0YcmtOCC/Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 1793c71c60f3bc72;
+	Tue, 27 Oct 2026 13:14:23 +0000
+X-Mizu-Trace-ID: 1793c71c60f3bc72
+X-Migadu-Flow: FLOW_OUT
 Content-Type: text/plain;
 	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -90,64 +55,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
- configured MTU, not the learned PMTU"
-From: Esko Mobius <echoowall@gmail.com>
-In-Reply-To: <CAL4Wiip=TkP2hmOFR-1Y-CU4rYHY_q=TBDhK6RmTj9UEMQ95Gw@mail.gmail.com>
-Date: Tue, 27 Oct 2026 21:12:52 +0800
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
- netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>,
- Shuah Khan <shuah@kernel.org>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- regressions@lists.linux.dev,
- linux-kselftest@vger.kernel.org,
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <auCZFckDfBMrlfxV@thinkstation>
+Date: Tue, 27 Oct 2026 21:13:58 +0800
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Usama Arif <usamaarif642@gmail.com>,
+ Frank van der Linden <fvdl@google.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Mike Rapoport <rppt@kernel.org>,
+ Vlastimil Babka <vbabka@suse.cz>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Zi Yan <ziy@nvidia.com>,
+ Baoquan He <bhe@redhat.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ WANG Xuerui <kernel@xen0n.name>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ kernel-team@meta.com,
+ linux-mm@kvack.org,
  linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Message-Id: <D438C59D-09D4-4008-9240-18DA0ABBDCEA@gmail.com>
-References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
- <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
- <e25fd292-5391-41fc-a324-0ec260828415@linux.dev>
- <CAL4Wiip=TkP2hmOFR-1Y-CU4rYHY_q=TBDhK6RmTj9UEMQ95Gw@mail.gmail.com>
-To: Eric Dumazet <edumazet@kernel.org>
+ linux-doc@vger.kernel.org,
+ loongarch@lists.linux.dev,
+ linux-riscv@lists.infradead.org,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <070DDE5C-2183-4A8B-AC2D-891CAE15E581@linux.dev>
+References: <20260227194302.274384-1-kas@kernel.org>
+ <20260227194302.274384-14-kas@kernel.org>
+ <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
+ <at_f43oDv73y-t7O@thinkstation>
+ <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
+ <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
+ <auCZFckDfBMrlfxV@thinkstation>
+To: Kiryl Shutsemau <kas@kernel.org>
 X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 10/27/26 1:45 PM, Jiayuan Chen wrote:
-> This precondition does all the work. The server only learns the PMTU
-> when it sends a full-size segment itself. [...]
->
-> Please re-run the 6.12.107 case without seeding the PMTU.
 
-You are right. Without seeding, 6.12.107 stalls the same way:
 
-  kernel        PMTU seeded   SYN-ACK MSS   1 MB upload
-  6.12.107      no            1460          stalls
-  6.12.107      yes (ping)    1416          OK
+> On Oct 27, 2026, at 20:31, Kiryl Shutsemau <kas@kernel.org> wrote:
+>=20
+> On Tue, Oct 27, 2026 at 01:05:58PM +0100, David Hildenbrand (Arm) =
+wrote:
+>>> Writing this, I just realized that we have another option -- map the
+>>> shared tail page writable. A failing LOCK CMPXCHG writes back the =
+value
+>>> it read, and the get never changes a zero refcount, so the race =
+becomes
+>>> harmless. The cost is the protection: the page is shared by every
+>>> hugetlb folio of that order in the zone, so a stray write to any =
+tail
+>>> silently corrupts all of them instead of oopsing.
+>>=20
+>> Right. Without HVO we would just corrupt pages in the single folio =
+(which is
+>> also not nice).
+>>=20
+>> I'm also questioning whether we need this RO protection all the time =
+active.
+>=20
+> What do you have in mind? RO only under a debug option, or switching =
+the
+> tail page to RO some time after the remap?
 
-My reproducer took a shortcut there. What it should have modelled is
-our production setup, which is the masquerading relay you describe:
-the clients share the relay's address, so ordinary downloads by other
-clients keep the server's PMTU entry fresh. Modelling that directly,
-with no artificial seeding (cliA downloads 1 MB, then cliB, behind a
-firewall dropping frag-needed, uploads 1 MB through the same relay):
+I don't think enabling RO only on debug kernels is a good choice.
 
-  kernel        SYN-ACK MSS to cliB   cliB upload
-  6.12.107      1416                  OK
-  6.12.111      1460                  stalls
+Within ByteDance, we once successfully caught memory failures using RO =
+(because
+we backported HVO, but some missing commits in memory failure caused =
+write
+operations on tail pages to persist). These operations triggered invalid =
+writes
+to shared tail pages.
 
-So I agree it was never a designed mechanism, it is the side effect
-Eric describes. We have since added MSS clamping on our relays.
-
-If it helps, I can send a v2 that describes the masquerading case
-instead of the seeded one in the changelog. And I am happy to test
-the net-next follow-up on this setup.
+Under the old HVO schema, this invalid write only corrupted one folio, =
+but under
+the new schema, it corrupts all HVOed folios. Therefore, I personally =
+believe
+that for the new schema, the value of RO is even greater.
 
 Thanks,
-Esko
+Muchun
+
+>=20
+> If it is the delay, a grace period alone does not close the race. We
+> would need rcu_read_lock() back around the get, and then it is the old
+> scheme with the wait taken off the allocation path.
+>=20
+> --=20
+>  Kiryl Shutsemau / Kirill A. Shutemov
 
