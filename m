@@ -1,100 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793138062;
-	b=inRs+7N2bFOYywGnQ84e5BzjGfcMFHa0SJMN20G9Z3s9pi5kZ7oTKCmWxgO6u8bwYYGT
-	 8w4W0cBvZPhQXoThJUZsbwoIjz7QebY3Tr0O0uChNx29cMz4PZ/91oS2WmO7bqibrINy6
-	 dxW/AJTWxgH2VkAQV97gMHIzErc/+1HVZ+ky64SpWkLAa9EfZr3IvndMK6qqioB/5o4iH
-	 D5LBwo7ZFEUPdHQznp1C86GNjz3mit0ln3EH3QHRw43ctNtgFNYBKbcgXZSrpyl/RghmC
-	 IP1Ka0flSUdv93r9fAjQdQTxdUfyLdT3ZUW2XyPIp6Dcj+wJKNPcvvOhaOzIkUAOt/g==
+	t=1793138072;
+	b=e+UEfFIhsrcLIzMvIEn3BrQL0BNrqHQm9A+AqKRUOCIFS98kgGhqPwGbJLfQZ8rqqzt8
+	 XPN6fgGJX+Oeu4yUXIKjB107Ibn2Uhm2vWCf0AVv9+T3htYIyAzWRBcDZesAGbXyDFxVw
+	 3xtdqKLlGop8bTPEVzD3XNyQsUINjz2jNidNFAroocb0ly+n+YJl6+2uQMYFLNtjV6dia
+	 EquiVCFJ3E2YRe9LN7W6N6mt1+MMTVvFkLUsNjF6LXPGwTwdlFpDz32US9lhMrUpCi+B2
+	 DdaXQteSo65Jg6qGrrq+P4TFhboAR6SL/tkH3h3aualYRqTrvTjGrXSFSZ2FbqqU22w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793138062;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EF5wU7SnLkB3Z7MFnGG8YsbHorP52SZH7LAJX4UAF2Q=;
-	b=WHmBPc7+afEnCngIEh7tfFmNb6cSS0oN5aLIWJ49HUQEMCg6dzomWQiIecxL7dPmqq6T
-	 a4vJXYe3wHX0wSVvz/ETHFoM09tiwIvVvsX2/uXe4T4gpZ9KL7BMMYhtK5vMSQ2GGZc2i
-	 fChLLD3Y33y7RtSZYYUwWCJG1c/DdXGoei7PkUH3qg+kZ2SmSnMEa3RtdP1eqQUPFwQRt
-	 WI8y0tKbjG2Q4/eQ7ZMsyXkvtJq/ROlI5cHS4M1p6gl+lMSIvxCs2GMv4Qvv7YTEibvO0
-	 hfc/0X/UQJZDmXviwmkVJDzQTnCuYyZh7JaRUUQEL+eS8FqsddA3rlrIq/ckZCVCM1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793138072;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=bCCkBw+sgGKMHO3jZN/+vOo9DzF5rZyDIUC1lptCGuY=;
+	b=1LTOfvuldNei+qPndbFtQTN7PD9zFdFsoxxaFaJl/7WgIRLhmZVsazRD0QRiu6MpRqeJ
+	 OZmXkwydJYt+wkko6P8BztfLLKb1kfRvUIpjL7gVciJdHN01Riegz+FQ9BY64LsMLvRtZ
+	 FXsKRFr1HYptuPuiil74d5mCLpUYmaNKT+k0YFn+rMLt+OQ/hksZnENUiGeJF5hjjxCNE
+	 cnt8AZpfLcn9tKwxQw6TGI4Jf0XXzWS8V3jxzmvdQMpvoE5Rfz9la8tAs1NlxRTQDWjC3
+	 +B290VaeB+07OyE6JiXsEM+z8Q5XOYH9qMPEzVYp+LgUITrVhjMrc703hdcKqDEOYjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m8adbuBz;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=OzRtD8Nh;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B34B9606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:54:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B34B9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C69606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:54:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C69606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m8adbuBz
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48afbd2c386so199854f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:54:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793138060; x=1793742860; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EF5wU7SnLkB3Z7MFnGG8YsbHorP52SZH7LAJX4UAF2Q=;
-        b=m8adbuBzOgK4r0QFNkLUTl6069rJPOpQJVDZnYSMLCMYY3YGgOut4Ijs6oUuje6DGK
-         xdc2u7a6xuG3E+r0Y4cf+3D/71o38BnN9hDZJyivOTCIwfC6SrfUext6bHxYMuLP7GrL
-         pnsoI6rqnWC1E994RF5qq5DKB0UMsV+zS57d4eAESaq7eq+YMvFpTqtcaMdrUEHNAUcr
-         yyhF4d251NaGb9EcSyPsEKsUrE4rc4TjowrI9r0ZADK4XtMdOHC6XzRy76I73gJCgUIS
-         aW134zdH9H8DUyhADMr7GB9VzRe39TygFInPJNe7HDIHxMAgJ9yOkbV5Avr+U5qwLpqm
-         8toA==
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=OzRtD8Nh
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id F09533FE37
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:54:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1793138070;
+	bh=bCCkBw+sgGKMHO3jZN/+vOo9DzF5rZyDIUC1lptCGuY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=OzRtD8Nhv+0dcM/Hora+CjAxGpFapOJWISlw5KbRVHKLf4ALrHVCAKdiWjGW9v8F+
+	 tSwf8q1jACfKZE8uDLtSxbEWIxsIN1F6L318ZX6YWgirv2GGfNFdNTfUsmBBCBemz+
+	 UZ85TWS/a8Lr+Oky5PYe7arEb8vdCoLb79jN9Q36z9Fuu7vOJwBnjHqx2HweWn+Kao
+	 eV9hLCs/rgrqEg6vvnlj5NmPa+WckrBpq/ILKpJemc4q2xUIHpVWJTu3VPKVkETJAu
+	 Xe6R9/+2X862opY+41RTQjM8/5T1tUdIM4y014ZVW6pY0iGs3d1ZIAFPPmuYscQeSY
+	 5Ih8k3mu+F1IPqVU63YB6xbkl6G/lYSBO17a73DMYlS8Kq+qMTrrtr6CPnyzckncJ/
+	 7ZoM7eZegIfdr6PFdZVTFVAwlhk7UGVD2DsojyvibWXLGpDOZjc0Xtn6YpRfv6stEZ
+	 5rzQNnij+ItAs5InAqwJbXAJN84zHPJrFZwC9F4PIyMnWvd6QZstl979/iYz6Xk7Jf
+	 CzmzNd+aYOeesSEsrbScdzBxifoYfutNKLjLF0fOBLsRDI40TJUhpgGEreBTEK9d8S
+	 +CqIQlc2CVfii4hCO66rd1jAowl9NCJlbRruaZDv/NsIiidlingXPAMHSLay/WNiTN
+	 ViWBA/hVUXtqswEglnwrp9ks=
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-67694007c9cso694151d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:54:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793138060; x=1793742860;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EF5wU7SnLkB3Z7MFnGG8YsbHorP52SZH7LAJX4UAF2Q=;
-        b=xuXGI4cfverfstaFBK7MUoeptvs6yY1qxDxffLh2h0u6l/3kaq/7vurBSEh9swwT/4
-         AsQoI7UKRs6b8V2YssmxuHZ2Gb1tw7y+Sa2kgjzJEwyjM3QhtkD7HLB2kR2Kjd3F7N1A
-         CfRENpA0kEMhA/hiLsq7dDsW9Ek+YJy1G5pFXnmNBst4Ut6EJScSnd7FrAJyT1Tmq/dL
-         oZJK+4qs/Kdb52CN/Yf/cNsUswLFEgRFul4D/MNKks5Igu7lmAGBxHYrDG1SDwVzSsnU
-         aJ2g0xhsRlTGvPARHOQ8NONXhvnHKQiPRaId0yE7ZLEF8HARyzd3zk9nkypdtkh4rthU
-         OkxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8hnPM1p+ShZ1qTixAdDA5vB7hhFo9/G6d/hTttBwmxNNpMP1tLxfLOKEXwquzV5aQCFdsBu9qpSQB+lI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTEW/dyvJ0zOCAH4sn/p9rQa9YUjfsVOwv+QLnnDM/ogZcotn8
-	olOtgQ43QzWjOACrO/2oteVogpX0tKrtGDuGg/YroK8wLTdOGIGdvI0nr1eXt1ZJ6i8=
-X-Gm-Gg: AYBFou1xAUxkQcOA9asjYeSGCONWLH2H3qLvF1KdSG8dQgMZNLYzK+deM9dyH8ftvY/
-	wThTCRc5jGB6d//cqTHP0Kn208epb19QUROD5cOrxEzVSqiNJT+C7JUCTIMiNApgkdSkJ9ain0I
-	KaqgqrFe5ZP5nhCGOEhkslaJQ+yQ4UaQY8Jryd4H9WmlaZc/RguXvFPFgdeiPePNOao7nIBhYMt
-	JoH4MTGxjdHMGQTljLzZjjfO2iYCNxqF/zw8SmnqvOTSaiQ2FeE2+k4FX8wDkRs5Ikgsb9YUo3Y
-	zktzraoKI/dQkg9hDUGk4jp1XuYH8K7914xcC0rquFF5zZrQFxgbeLDUBtOCTixcBf2bLWs4+7M
-	dochWPBkzNLqjvdmKiXaSch9mCVojd6phQGBGdCxQfpaVqFXm9RTawdPCeCE+qgbXe2hO+2d7gq
-	IxWIBQaBHCMFkyDoQomAMPUX1UCtyI6h1of6e+78NbqDctJLTgMCc9lbby1UG70vBrs99TvA7B9
-	urTcvynPZDj0oP2DdoHUi5JKOzkBjqiKETRdbKpS6Ca95S6Ad/W1U3k
-X-Received: by 2002:adf:f784:0:b0:48b:677:f80d with SMTP id ffacd0b85a97d-48e5d5c8686mr1199161f8f.26.1793138059897;
-        Tue, 27 Oct 2026 14:54:19 -0700 (PDT)
-Received: from thinkpad ([2a00:1370:81ac:50e7:d3c8:c903:5898:874a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3da7sm26333532f8f.20.2026.10.27.14.54.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 14:54:19 -0700 (PDT)
-From: Andrey Zakharov <dedemorow@gmail.com>
-To: x86@kernel.org
-Cc: Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	hpa@zytor.com,
-	Peter Zijlstra <peterz@infradead.org>,
-	Kees Cook <kees@kernel.org>,
-	Brian Gerst <brgerst@gmail.com>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andrey Zakharov <dedemorow@gmail.com>
-Subject: [PATCH] x86/entry/32: Harden return-to-user
-Date: Wed, 28 Oct 2026 00:52:51 +0300
-Message-ID: <20261027215251.15275-1-dedemorow@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1793138069; x=1793742869;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:from:content-language:references:cc:to:subject:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bCCkBw+sgGKMHO3jZN/+vOo9DzF5rZyDIUC1lptCGuY=;
+        b=DgbrS9JODpSLH35UzuRRF6GV+twHgQiIKwcrO+tmemdbGT0FbO45hZjsyKj6gFadyT
+         xHGaJwXzgElP91MqFS0F9vbeL8LILTj7MV2sDImKape3gD0HEAUpH4JoNdbyZhDGnSTn
+         3tppMD1u6AQsa9SVXTDgtYBAO9uys0lb4uXy96bbCnTWcMmPRwtyXM+V1k+qIcmWFB9V
+         46kii1JuPFXpCslLy9xze8YsicjmJXa4KvE8e6YHrdY0umSy1SRmTt4QN0h6357SuEl6
+         UumZ/6iJkoa93OROqfYGG/2EPsjO5PhYakVnE8Ueh1KnLemKHFxKMJozsgrhIUKw1YpX
+         fG7A==
+X-Forwarded-Encrypted: i=1; AKwUvBxJJ5IGdBAXz7eyn+jbr9/xxmPYKvAch4UIsypEDNopvMEvfjN6+XiTi0YH11CBcmbLYB55kf4K6wOc9Po=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgpvVakC0Nmhv8H5ktO7W4C6IiMby9cmMZgjN7hqlDbXPabVv0
+	mf1tohm7uO+qlQtznm6DYtgTHtCwSBLbznyxwKexhuMBTar5m/hmB8iyQXRnBiOqtXoUl6tKTBZ
+	4Miafuq8v4zytpAkK/OJ2ffSelv5M+zLvuEnKSqSfVxEsHtA/Y2HencTv5ztNaQ5fHcjGoRoK8b
+	pvBIL+HQ==
+X-Gm-Gg: AYBFou0YrNvsKXksE59Wx1T8YdyhCSevHxEbPQN/WDGiz8gwnz9U6fx3MXa7FMOz2Hy
+	LeRkg23MFFz4rbqnVOeUyGMbaehmTEPkezGOOQzXyJe+WHw6iXdgIit1o74KEoV6F6zLqQ5/Ypd
+	Tb2aLcSVbON40saIHcudS0pJE2Nh65nlmJVowMlg6NugfmWa596IHwLoumG+L3whuK2OwkhlnyN
+	WaIEroIir8oo7ufSQhFWlddZCkLd0IrbirQU7aLyGCyjiQInUNFXPERKqtalAfC3N07YdCXlGPC
+	y5VmXJbjJ8UEfJXH38dvOooKHrA/fP2IGvgX5cmqnjyEiC6b+wypltvjb/sdECPEVRSvWjVo4ZH
+	jKTLzgm2Ipe01xMxXezjzEubIrFuWCvstWAh3H9FSwxfiJQ8/c/gXWeKJ
+X-Received: by 2002:a53:c712:0:b0:675:47ba:21a4 with SMTP id 956f58d0204a3-67a7bd3e821mr594840d50.47.1793138068757;
+        Tue, 27 Oct 2026 14:54:28 -0700 (PDT)
+X-Received: by 2002:a53:c712:0:b0:675:47ba:21a4 with SMTP id 956f58d0204a3-67a7bd3e821mr594831d50.47.1793138068457;
+        Tue, 27 Oct 2026 14:54:28 -0700 (PDT)
+Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
+        by smtp.googlemail.com with ESMTPSA id 956f58d0204a3-67a7a0c31f1sm766291d50.11.2026.10.27.14.54.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 14:54:27 -0700 (PDT)
+Message-ID: <1fd1c075-96f7-402f-abb1-0444c8df08fb@canonical.com>
+Date: Tue, 27 Oct 2026 14:54:26 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,65 +102,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH security v1] apparmor: fix a use-after-free in
+ aa_lookupn_ns()
+To: Binbin Deng <18983559317@163.com>, georgia.garcia@canonical.com,
+ paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com
+Cc: ryan.lee@canonical.com, cengiz.can@canonical.com,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260923054623.247634-1-18983559317@163.com>
+Content-Language: en-US
+From: John Johansen <john.johansen@canonical.com>
+Autocrypt: addr=john.johansen@canonical.com; keydata=
+ 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 lT9Q
+Organization: Canonical
+In-Reply-To: <20260923054623.247634-1-18983559317@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Commit 1e4d3001f59f ("x86/entry: Harden return-to-user") made the
-check that the IRET frame returns to user mode unconditional on
-x86-64. The 32-bit entry code has no equivalent: restore_all_switch_stack
-executes IRET with whatever CS is in the frame. The exception return
-path tests CS to choose between returning to the kernel and to user
-mode, but the system call return paths (int $0x80, the SYSENTER
-fallback and ret_from_fork) do not test it before reaching
-restore_all_switch_stack.
+On 9/22/26 22:46, Binbin Deng wrote:
+> aa_lookupn_ns() takes a reference on the namespace it finds with
+> aa_get_ns(),which is kref_get() on the reference count that the
+> namespace is released through, without checking whether the namespace
+> is still in use.  A concurrent removal of a ":"-prefixed namespace
+> looks the same namespace up and only then takes the parent lock to
+> remove it, so the last reference can be dropped between the lookup and
+> the aa_get_ns() call: the reference count then reports the increment on
+> a zero count and the kernel classifies the following use of the object
+> as a use-after-free.  A user with CAP_MAC_ADMIN can trigger this by
+> writing a ":<name>" removal and a ":<name>/<profile>" removal to
+> /sys/kernel/security/apparmor/.remove concurrently.
+> 
+> refcount_t: addition on 0; use-after-free.
+> WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xc0/0xe0, CPU#6
+> Call Trace:
+>   <TASK>
+>   aa_lookupn_ns+0xa9/0xc0
+>   aa_remove_profiles+0x4fb/0x730
+>   ? __kvmalloc_node_noprof+0x219/0x5c0
+>   ? __pfx_aa_remove_profiles+0x10/0x10
+>   ? aa_loaddata_alloc+0x65/0x1f0
+>   ? _copy_from_user+0x2d/0x80
+>   ? aa_loaddata_alloc+0x111/0x1f0
+>   profile_remove+0x2ee/0x4a0
+>   vfs_write+0x21e/0xcf0
+>   ? rcu_core+0x29c/0x1740
+>   ? timerqueue_linked_add+0x1f4/0x3d0
+>   ? __pfx_vfs_write+0x10/0x10
+>   ? mutex_lock+0x81/0xe0
+>   ? __pfx_mutex_lock+0x10/0x10
+>   ? __pfx_rcu_core+0x10/0x10
+>   ? __pfx_hrtimer_update_next_event+0x10/0x10
+>   ? mutex_unlock+0x7b/0xd0
+>   ? fdget_pos+0x24d/0x4b0
+>   ksys_write+0xf7/0x1c0
+>   ? __pfx_ksys_write+0x10/0x10
+>   ? restore_fpregs_from_fpstate+0x37/0xc0
+>   do_syscall_64+0xf9/0x540
+>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>   </TASK>
+> 
+> Fix by rejecting a namespace whose reference count.
+> 
+> Fixes: 3664268f19ea0 ("apparmor: add namespace lookup fns()")
+> Signed-off-by: Binbin Deng <18983559317@163.com>
 
-Add an unconditional check to restore_all_switch_stack, after the
-registers are restored. It requires that CS in the IRET frame has a
-user RPL, or that EFLAGS.VM is set for vm86, and traps with UD2
-otherwise. It is placed before CLEAR_CPU_BUFFERS so that the buffer
-clearing stays directly in front of the IRET. The exception return
-path to the kernel jumps straight to .Lirq_return and does not go
-through the new check.
+I have pulled this into the apparmor tree
 
-Testing: built i386_defconfig plus CONFIG_X86_LEGACY_VM86=y with
-gcc 16.2.1; the build reported no warnings. Booted it under
-QEMU (TCG, -cpu max) with a minimal initramfs running the
-entry_from_vm86, sigreturn, single_step_syscall and syscall_nt
-selftests. The results match the unpatched kernel, ignoring the FLAGS
-values printed by entry_from_vm86, which also differ between two runs
-of the unpatched kernel. entry_from_vm86 reports a UMIP failure on both
-kernels. As negative controls, making the RPL test always fail kills
-init with UD2 at the first return to user space, and removing the
-EFLAGS.VM exception makes entry_from_vm86 hit the UD2.
-
-Not tested: real hardware, performance, the NMI and double fault exits,
-builds with PTI enabled, and builds with CONFIG_X86_LEGACY_VM86
-disabled.
-
-Link: https://github.com/KSPP/linux/issues/41
-Signed-off-by: Andrey Zakharov <dedemorow@gmail.com>
----
- arch/x86/entry/entry_32.S | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/x86/entry/entry_32.S b/arch/x86/entry/entry_32.S
-index 92c0b4a94e0a..69f754e5657c 100644
---- a/arch/x86/entry/entry_32.S
-+++ b/arch/x86/entry/entry_32.S
-@@ -952,6 +952,14 @@ restore_all_switch_stack:
- 
- 	/* Restore user state */
- 	RESTORE_REGS pop=4			# skip orig_eax/error_code
-+
-+	/* Assert that the IRET frame returns to user mode or vm86. */
-+	testb	$USER_SEGMENT_RPL_MASK, 4(%esp)
-+	jnz	.Lreturn_to_user_ok
-+	testl	$X86_EFLAGS_VM, 8(%esp)
-+	jnz	.Lreturn_to_user_ok
-+	ud2
-+.Lreturn_to_user_ok:
- 	CLEAR_CPU_BUFFERS
- .Lirq_return:
- 	/*
--- 
-2.56.0
+> ---
+>   security/apparmor/include/policy_ns.h | 16 ++++++++++++++++
+>   security/apparmor/policy_ns.c         |  2 +-
+>   2 files changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/security/apparmor/include/policy_ns.h b/security/apparmor/include/policy_ns.h
+> index cc6e84151812..4f8359875476 100644
+> --- a/security/apparmor/include/policy_ns.h
+> +++ b/security/apparmor/include/policy_ns.h
+> @@ -117,6 +117,22 @@ static inline struct aa_ns *aa_get_ns(struct aa_ns *ns)
+>   	return ns;
+>   }
+>   
+> +/**
+> + * aa_get_ns_not0 - increment references count on @ns found via lookup
+> + * @ns: namespace to increment reference count of (MAYBE NULL)
+> + *
+> + * Returns: pointer to @ns, if @ns is NULL returns NULL,
+> + *          NULL if @ns is being freed
+> + * Requires: @ns must be held with valid refcount when called
+> + */
+> +static inline struct aa_ns *aa_get_ns_not0(struct aa_ns *ns)
+> +{
+> +	if (ns && aa_get_profile_not0(ns->unconfined))
+> +		return ns;
+> +
+> +	return NULL;
+> +}
+> +
+>   /**
+>    * aa_put_ns - decrement refcount on @ns
+>    * @ns: namespace to put reference of
+> diff --git a/security/apparmor/policy_ns.c b/security/apparmor/policy_ns.c
+> index 5a907a875d8f..ae9168c1a85e 100644
+> --- a/security/apparmor/policy_ns.c
+> +++ b/security/apparmor/policy_ns.c
+> @@ -207,7 +207,7 @@ struct aa_ns *aa_lookupn_ns(struct aa_ns *view, const char *name, size_t n)
+>   	struct aa_ns *ns = NULL;
+>   
+>   	rcu_read_lock();
+> -	ns = aa_get_ns(__aa_lookupn_ns(view, name, n));
+> +	ns = aa_get_ns_not0(__aa_lookupn_ns(view, name, n));
+>   	rcu_read_unlock();
+>   
+>   	return ns;
 
