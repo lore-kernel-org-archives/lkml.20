@@ -1,72 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793124486;
-	b=cyj7zJV0U1dPGnv5IUdjcCvNuQ3A88kBDE5WNahMZ5l0b7cTcsoWYrqxjg4Lcw1vVZou
-	 2wdbND4Q5jPDV6Rcqo9olzrAmyUil0csRNI9oHgytOD6jZK+sQ+BWp6kEY2R1QnaNNaN5
-	 SUjqK5Ag0o+X+q+Jw38dpoYsptYJBao0qN/CBlIZDNYYIN8hiqWV2iRBmmmou0DYBQuM6
-	 gUZhXvaIDQuZ9wqArTLz1UcLxZT5++x6LWPSB7KxiR+tifSno4Q8y5h5Jg1hcD+Un8ORW
-	 cUBB1ouCICCXRe4FKiLsAzViAjPBqlmhywLLCI00HnFwiYokKRpTBVm3zVcdljjiM4g==
+	t=1793124490;
+	b=TnclxWmgxv9g3zTjQ3dP+ga+3P9aDYPhzR1ojNdIZfjXmulB5X//dF6Xb1LDo989CRCk
+	 ZmP2i/cmQrhyuYWfMQw47gFlb3C0gT+HciBrzYRLJievHIdQXxfb/86HBQIvSXQOpymHq
+	 hgLtx7HqCm+fyAEa7gxZu8imB4awZ64HptexOXlne9ckX9S0ytret2mCtvJvgwQMuRf3M
+	 ekXwmR2jYcJ05qLD2Aq8XkRxyZbOIhR9Ion5MauT4XDbyg/dBkW3tJ24FOR3OrSsDoMgB
+	 ITOFXC/HsfyN0Qji2L8C8n957iZLDE9UCq8GX1NGw92DHkt902YP2mZmwcHjwRdkL4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124486;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=YvMmlbSBEAfPJmfj4jHcpwrF8L1GJRuNQP61xROBbd0=;
-	b=m1w+yimpHw1bilk78p6IZCYn2Qi7wB/ycwxZO848/j2wJbWW+Wr3deq1NNHiqr6o1srv
-	 JSKmYdtS8pvyDWsa8uynA4RIXoLq5xyhV5Qr2OE4Obbmua91ghyS+crYKHrPBZQzFZZXw
-	 C+Avcjkv3I5j2FfJ0xGphGBW9j6Z6n/hrzNLeOM+N3L81OHLR18+MxLqQZaWIaGZkpVSh
-	 /2IyPd2MJjJpri3YT7XRxgC8G5P7vwfQxAY+3xO9A2d81OABoarGqmXqiN6k/4T23Xtpr
-	 ljkTqXJ1AmTQt1srrqGjsKpg4HZlt8a7U/tK3P0v6jRHXkIykLM1rviyf7gr99lYATg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793124490;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=g4TannF1eLfeNwWOP3+/v54bMaOT4jX2MRK7osTgbCM=;
+	b=hhRkVOnaPRDqotMg9MksNWHZl8mhARbeAz4YirL7rYAvkPzyNZFyeFMhZ2c7VupYElAV
+	 XoTdxhT1HUZv4SRzM/wby16pcspWfbyJAnA2hGbg0lCPVco1YqpP3om2lR9okNgwTTz07
+	 l3hiRvbMKn4jI0B+c/QvgS3SNGCiaYR04dUi8d5/8Cdrhli66KblAlH98o7957ptFRrbl
+	 FWRSqkjpTRPMUZvOx4X6R4mOQrcy7p0zSeuSR1LEfRXISXDA/2VQE793ibQhHID0dDtFD
+	 uGZLHqWof5uzkDQnFNtSYuMJEADZvSuriKKDTDZznU8HvMe3ixWr05jVBbFNCjtjk7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=KofaQf93;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=WDaCFBDr;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C01606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:08:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C01606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hW+Be0W6;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB143606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB143606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=KofaQf93;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=WDaCFBDr
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793124483;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YvMmlbSBEAfPJmfj4jHcpwrF8L1GJRuNQP61xROBbd0=;
-	b=KofaQf936dgJpy78aclAaJRRHbMNimeZraaZvvctS8D2xjFyokv2h1pWcZKBdWHfHwdbrU
-	Qlr/kB0q5JZPUkYymdpmySYEkaZVVHjWZV1WjN+FJbGcomfr6TwAT5dA78WwNbjkycBpic
-	7Rkqcst7p9hrzURgi8okqiFV8vMv8DgKQr7shoZcgltS+scG710CB53XFJ11A+uJZsBx6d
-	7mhlsSmXUKgoGZOI3AwmihUIvJeeIpApnbf22LebbdD711lIc9F5F5OzO82CaEPj9cT3cJ
-	ZdgyQTjnOapBHS0FbdW3ylzjFUAPdbCXChYv9WsuenF/nkOdVq7W3leNebaSng==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793124483;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YvMmlbSBEAfPJmfj4jHcpwrF8L1GJRuNQP61xROBbd0=;
-	b=WDaCFBDrds32NzN3exnQ1+muuhffGOOcmkn4AtvWw/RbRlT8UFXPz7/IO0mO357FjQoe6J
-	zRHjaR6Mf7yD+cDw==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Chris
- Down <chris@chrisdown.name>, Naveen Kumar Chaudhary
- <naveen.osdev@gmail.com>, linux-kernel@vger.kernel.org, Petr Mladek
- <pmladek@suse.com>
-Subject: Re: [PATCH v5 06/16] printk: Check that index is not defined when a
- console is preferred via devname
-In-Reply-To: <20260929120546.328616-7-pmladek@suse.com>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-7-pmladek@suse.com>
-Date: Tue, 27 Oct 2026 19:14:03 +0106
-Message-ID: <87se1r2f0c.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hW+Be0W6
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE3EF1476;
+	Tue, 27 Oct 2026 11:08:04 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A542F3F59E;
+	Tue, 27 Oct 2026 11:08:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793124488; bh=GJjpafRmXrBNftY9I+AgaiRHA6ss3HwiCBHesSN7LD0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hW+Be0W6NXrcMYYQ3+3I9+gACfnYWRCyv01ElXqPeGGfs0FuVcY6xqW+565uoZ2NP
+	 G0OPRqaRNin/8/hg4m3LI5LrA9UfhKidMNh1VnNA+zgLnes2/PDgbiSc4VZlmJdjWl
+	 QCrpdoGOFjjjd+r75w+4BXDhpWKcYGF7D05FclwU=
+Date: Tue, 27 Oct 2026 18:08:05 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>, Yeoreum Yun <yeoreum.yun@arm.com>,
+	coresight@lists.linaro.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 1/9] coresight: cpu-debug: Fix PM usage counter leak in
+ debug_enable_func()
+Message-ID: <20261027180805.GA9176@e132581.arm.com>
+References: <20261027-james-cs-sashiko-easy-fixes-1-v1-0-db43c4668644@linaro.org>
+ <20261027-james-cs-sashiko-easy-fixes-1-v1-1-db43c4668644@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,44 +63,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-james-cs-sashiko-easy-fixes-1-v1-1-db43c4668644@linaro.org>
 
-On 2026-09-29, Petr Mladek <pmladek@suse.com> wrote:
-> The current code makes sure that a valid index is defined when a console
-> is preferred via a name.
->
-> On the contrary, the index must not be defined when the console is
-> defined via a devname. The index will be defined later when the device
-> matches and gets registered.
->
-> Enforce the 2nd rule. Make the checks symmetric in the code.
-> Do not ignore the errors quietly.
->
-> Signed-off-by: Petr Mladek <pmladek@suse.com>
+On Tue, Oct 27, 2026 at 02:55:47PM +0000, James Clark wrote:
+> pm_runtime_get_sync() increments the usage counter even when it fails,
+> but the failing CPU isn't added to the rollback mask, so its reference
+> is never dropped. Use pm_runtime_resume_and_get() which drops the
+> reference itself on failure.
+> 
+> Fixes: 2227b7c74634 ("coresight: add support for CPU debug module")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-2ff60e6d-33ac-4a69-9c62-63eb482f1913
+> Signed-off-by: James Clark <james.clark@linaro.org>
 
-Reviewed-by: John Ogness <john.ogness@linutronix.de>
+This duplicates with:
+https://lore.kernel.org/linux-arm-kernel/20260911-b4-coresight-runtime-pm-failures-v1-1-acdf49756e11@qti.qualcomm.com/#r
 
-Minor nit below.
+I'd prefer to pick up that patch, as it has fixed all drivers in the
+CoreSight directory.
 
-> ---
->  kernel/printk/printk.c | 23 +++++++++++++----------
->  1 file changed, 13 insertions(+), 10 deletions(-)
->
-> diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
-> index 0199c918ef03..b8c348e305eb 100644
-> --- a/kernel/printk/printk.c
-> +++ b/kernel/printk/printk.c
-> @@ -2559,7 +2559,7 @@ asmlinkage __visible void early_printk(const char *fmt, ...)
->   * it updates some global variables which are used to make the right decisions
->   * in register_console(). Finally, it enforces some rules:
->   *
-> - *   1. Either @name OR @devname are allowed. [*]
-> + *   1. Either @name and valid @idx OR @devname and @idx=-1 are allowed.
->   *
->   *  [*] A valid @name and @idx will get assigned for a devname later when
->   *	@devname matches during the device initialization, see
-
-You drop the [*] from rule #1. I think this was unintentional,
-considering you later add a [**] for rule #4.
-
-John
+Thanks,
+Leo
