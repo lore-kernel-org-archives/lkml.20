@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119540;
-	b=dUn1KzpCeWFkaojguuxdWC1TAJ6B94urB0jAgKlrf/XAUZaaVPkf826x8FX7ZvE7jojb
-	 2EO4YHYFJvKGoks0qumpGLJZBWCVa0Aob71TXKgRgOVtiKGCjw8Vf0QFKvX5308UNnCBu
-	 BVRcqj5Ge6mhGOYcJgHXk6JUC9hHFncN2sKYIB/qQAu5NCdSEIWq/C8D7rLAh2ltn6aBZ
-	 SFmBCr/tYjUtJ2om17rDDcX2IzUkEwkInceodOYyt+w+Kj8VpL2e9o4aIWVlbreCh0An2
-	 56Xq5pCgphWgcB4fe34PuLFcnpZBgrmsdYCjxX2KCLCbJNqPvbw3Yp9T89yo4+HRqSw==
+	t=1793119542;
+	b=afhJn6pChK5QQ4v2y0NZN2ri67Stp5soaD7iPRl26LYDECfVY+q/VApIrpgf1TtZAnSF
+	 VkE5WkQ+W+h8uJSp3w2t4GfxpALcApHyh9iq0ntCkbOJw4vQNQGbb7ptaxaNxvxkgrUCr
+	 66ymaOqa+14akkmZoctzdrVVG8yiA2sw406hSjWrLVjXky++zPeDVYWdX8AbbWzpnNRqp
+	 P5iBmXJbvct68PhiafO0U+k2GXOz65FCwfcdy63js1AnZLWHO57L2dgm0yFygA9lXN5h7
+	 PCTGVFVPFfNryXOaOa+wyx/4NDmgeiVEmZzbVaKp3hlKCeQukYSAK6axg2vZ0huR0BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119540;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=GB8C8xwzyc/IL+AqJ93PS/uMKHHeD77qm1hgNww9A+k=;
-	b=0Js66aggM0uwcW+zk30OTdnmzX6lmX8kq6Ya0o9mKU09lqsrzr6dxvqanWnP2g1T4JiZ
-	 bNfFof28v+Ohtl0OmAn/3SFWUlBMDMMpHHQx1Pc90ncHBZP6OZI67zZKcGTGBL9iL40f2
-	 0BKFLgsZh1um33PC8npMLAXYjmuuOe6h/tClZEmXHRtX7gzGbl0N48sAMwmJ5a5zPYqPP
-	 HSohluRb62IO2gYQKn8xgPOOnddvkuOALGgjN0+lY+Y5J/RSXSZukIT6YzrPwe6Wm2oma
-	 llVlK1ucJLEvCXwKuK/mgVr/JOzdawG6C80NQr2QGXAYMgF9trZo4dJQevi3ZOpdyqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119542;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=uzYeYiHrkcESUMf2Bad0aFg730ZfeR2cikrxrYtPo2s=;
+	b=PSs4uu6/ThhMMmWu3t1sbXx9Iwi4uWflQuGB4PwokVrV8tThfZmlxf0yqhE4Ym+erobR
+	 Be/gNV4EZ/vfLD6m/feVfSb1UYsAMVPUGBYd7vqZpNsaW+8b/yeKJbi/EAzJTC39Zhb+w
+	 XJdP8Qtm7MREaoa/e8zoxDDgwKMCcaCQxKxE0+eVL0AE0lXrzuZMobVcTH/mRpMS6bJOi
+	 FJDIAVAyx+26PnAKYKCc30yZuSYzoPYjQdBcePnHzR2QdcV6e1JEJlUOXtVZetPb1JX7Z
+	 fBlkf3HZ1dnTI4sFSH9nUmI0eUar/FixCbLj7B0DLDrNGICxKRGvXmf8fyYK2nH17ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mEukjEnx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954D860A2603;
-	Tue, 27 Oct 2026 16:45:40 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UGpMc23Z;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A165F606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A165F606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mEukjEnx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 858E81F031E1;
-	Tue, 27 Oct 2026 16:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793119540;
-	bh=GB8C8xwzyc/IL+AqJ93PS/uMKHHeD77qm1hgNww9A+k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=mEukjEnxYMltTz1wAC8RoSbvvJie3CcwmSWnfZnPavnqROGsmE2q0cCiB6Ll/4XSm
-	 7yCyJqmm2hWSriYFGkXIXK0QrssyEbYrurzcOXa9ioMs468MJL8cNxwzT785XPuO/U
-	 a0iEzb11/sdnxUkYTLXPStjLFCT3XeiBU6gDgTvaCVgx8gQLKO/6FfrCVOhHcqX5KS
-	 cTtzfFlTqVjxECcefA8XQf42YiuwjHASAxFoSlJeRpyhcSTyjwx37ggJDUSRpShW+n
-	 jYQREKeKaDFY+A6hmVM5/SxXVEsYENLVXyfAeodNbzCHaX3R6Wgxln5pI6/vfIYQMH
-	 qrTkmhEMc55vg==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 27 Oct 2026 12:45:26 -0400
-Subject: [PATCH 3/6] NFSD: Document per-export riomode= and wiomode=
- options
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UGpMc23Z
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5161B15A1;
+	Tue, 27 Oct 2026 09:45:32 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EE2993F59E;
+	Tue, 27 Oct 2026 09:45:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793119535; bh=rnhwTZUYMyNC6LhGd7EvjwdU5unqPfJSXAia5nseGlY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UGpMc23ZVSkzbfErHN7Z6gjPhpk5iz/QK3wltY10jtOZwCRtPdr/HxKYmEsipfcbB
+	 CNjzr+i4WdRJeAIOwgWPDEAbVJg91iMEk0swBau4nbXuczwWhyUkvFKk3uwBKwEl8m
+	 kLp4KuoApUVM5xVs7KKu3F5Bf4L/7bOOfc7gQrfk=
+Date: Tue, 27 Oct 2026 16:45:27 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Yureka Lilian <yureka@cyberchaos.dev>,
+	Marc Zyngier <maz@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: idreg-override: Detect trailing "--" in
+ __parse_cmdline()
+Message-ID: <auDVJ0tuVyvGGh95@arm.com>
+References: <20261015161054.357595-3-blum@kernel.org>
+ <auCVj80cR8LILhXB@arm.com>
+ <auC6CbIclUCJK094@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,87 +66,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-export-iomode-v1-3-262ed932a036@kernel.org>
-References: <20261027-export-iomode-v1-0-262ed932a036@kernel.org>
-In-Reply-To: <20261027-export-iomode-v1-0-262ed932a036@kernel.org>
-To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>, Trond Myklebust <trondmy@kernel.org>, 
- Anna Schumaker <anna@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Mike Snitzer <snitzer@kernel.org>, 
- Donald Hunter <donald.hunter@gmail.com>, Jakub Kicinski <kuba@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: Steve Dickson <steved@redhat.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1817; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=tID4IlMuFhv5yZcgOANZ4uc88Bl+HXEK9e9IOMUPHv4=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq4NUr5gZE1rmlenWxSejnj76cZJIYlfvQgIIUU
- uamQ+rnZfiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauDVKwAKCRAADmhBGVaC
- FXHCD/sHz2MdswliBO2lFn2K+F8f6SxCuRrCMpsmCLSwMPx+8B998ElmkKyBUMDZq424ga4b0Wm
- VwKnGp5WnXa4mudKwQZE43NniGX+DgpGTVIhjeruha0L21rnqz82ffy7JrGd7bsj4zBfdD4yEZl
- NmWbD7EfYoSvYwZZ7lyHyQxGDLC3vWo45uQK14r/Y/lVFtrDhlA9SXJv5+iP0pBMZ+mgtgq8lyp
- diK/CMLAiKYjLFohF7ql9YSMSZ3K/+HEkSLMusSqy1T+KHZlD5My2cAuD+4BFqR3fNvbHipLTMk
- /ZwRW0nT552accSs0CbvEv4EJLREBlLwqGGGTUDYQNF5mCQr+Ez5LsqTNijn4YQvjrRd7T3ff2p
- sxqT1yeUB9g63QM2Z+ZV4FvY0sPv0YisA/K0Pm5N/zJRM5v5K8dEnXBkKPj2p8s/jfQ2IVXMace
- D/MDajG6CI8Re4SjgaQIol5DblNRxrHPJGFJZUBljixOyLr/gwZfwCOEj5l6eiVR2xBkl8unpac
- 6TNLnqI9wstOH8yJ9ehDHS/doHBpQUaAU69Yo0AKC8y35c97x1CirUahXADLpZTtF4ICVgxc0YR
- 5Jo1II0WaCj62RA3MNNavNZ8JG4/SddckuPek4Issjnz9ozBtpRLCGMQGrmR1IWk/Diworj2ABW
- mhQbOPrvkBND8Jw==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auC6CbIclUCJK094@kernel.org>
 
-Describe the new export options and their precedence over the global
-debugfs knobs.
+On Tue, Oct 27, 2026 at 03:49:45PM +0100, Thorsten Blum wrote:
+> On Tue, Oct 27, 2026 at 12:14:07PM +0000, Catalin Marinas wrote:
+> > On Thu, Oct 15, 2026 at 06:10:54PM +0200, Thorsten Blum wrote:
+> > > __parse_cmdline() detects "--" only if it is followed by whitespace.
+> > > However, at the end of the command line, it converts the dashes to
+> > > underscores and tries to match "__" as an option.
+> > > 
+> > > Detect trailing "--" directly instead of converting it to "__".
+> > > 
+> > > Fixes: dc3f5aae0638 ("arm64: idreg-override: Avoid parameq() and parameqn()")
+> > > Signed-off-by: Thorsten Blum <blum@kernel.org>
+> > > ---
+> > >  arch/arm64/kernel/pi/idreg-override.c | 5 +++--
+> > >  1 file changed, 3 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/arch/arm64/kernel/pi/idreg-override.c b/arch/arm64/kernel/pi/idreg-override.c
+> > > index acaf56234973..38aa28d19650 100644
+> > > --- a/arch/arm64/kernel/pi/idreg-override.c
+> > > +++ b/arch/arm64/kernel/pi/idreg-override.c
+> > > @@ -352,8 +352,9 @@ static __init void __parse_cmdline(const char *cmdline, bool parse_aliases)
+> > >  
+> > >  		cmdline = skip_spaces(cmdline);
+> > >  
+> > > -		/* terminate on "--" appearing on the command line by itself */
+> > > -		if (cmdline[0] == '-' && cmdline[1] == '-' && isspace(cmdline[2]))
+> > > +		/* Stop at "--" appearing as a separate argument. */
+> > > +		if (cmdline[0] == '-' && cmdline[1] == '-' &&
+> > > +		    (!cmdline[2] || isspace(cmdline[2])))
+> > >  			return;
+> > 
+> > I guess that's more of a cleanup. Does it actually fix anything to
+> > deserve a Fixes tag? We skip an unnecessary lookup for "__" but there's
+> > no functional difference.
+> 
+> Yes, it's a cleanup.
+> 
+> Functionally, the behavior is equivalent because it also happened to
+> work before. However, commit dc3f5aae0638 removed the explicit detection
+> of a trailing "--", so I added the Fixes tag mostly for provenance.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- Documentation/filesystems/nfs/nfsd-io-modes.rst | 26 +++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+Makes sense. We might make it a comment when applying rather than a
+dedicated Fixes tag.
 
-diff --git a/Documentation/filesystems/nfs/nfsd-io-modes.rst b/Documentation/filesystems/nfs/nfsd-io-modes.rst
-index f06fa1b9d406..6b29275e9128 100644
---- a/Documentation/filesystems/nfs/nfsd-io-modes.rst
-+++ b/Documentation/filesystems/nfs/nfsd-io-modes.rst
-@@ -41,6 +41,32 @@ corresponding IO operation's debugfs interface, e.g.::
- If you experiment with NFSD's IO modes on a recent kernel and have
- interesting results, please report them to linux-nfs@vger.kernel.org
- 
-+NFSD PER-EXPORT IO MODES
-+========================
-+
-+In addition to the global debugfs knobs above, the IO mode may be set
-+independently for each export via the ``riomode=`` and ``wiomode=``
-+export options, e.g.::
-+
-+  /srv/data  client(ro,riomode=direct,wiomode=dontcache)
-+
-+Each option accepts one of ``buffered``, ``dontcache``, or ``direct``,
-+with the same meanings as the corresponding debugfs values.
-+
-+An export without an explicit ``riomode=`` (or ``wiomode=``) setting
-+follows the global ``io_cache_read`` (or ``io_cache_write``) knob, so
-+the effective default for both reads and writes remains buffered IO.
-+An explicit per-export setting pins that export's IO mode regardless
-+of the global knob.
-+
-+As with the global setting, a read IO mode of ``dontcache`` or
-+``direct`` disables the use of splice for reads via that export.
-+
-+The per-export settings are reported in
-+/proc/net/rpc/nfsd.export/content, e.g.::
-+
-+  /srv/data  client(...,riomode=direct,wiomode=dontcache)
-+
- NFSD DONTCACHE
- ==============
- 
-
--- 
-2.56.0
-
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
