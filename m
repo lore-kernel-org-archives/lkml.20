@@ -1,96 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.24
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793117336;
-	b=CR5uJAcVEwX+Ldu1e38LCMST1K9n65YHhcnyBZoTC2t41OFcio97n9jnnygsTtJVAyKW
-	 GMUhZvqTr4Id4ucykxXsQbn3r/sg+vDdb2nly59JdmvGkYSogXjuRkQaEScxXm6c157CA
-	 6hgTEoRYgyqhjDhDVSx32gnjOS0XG1ueu0UaOLDK7r2DWZd7EaCd4IDRb5F5jvniIsQq5
-	 xX9Rfe+T1elluVq9r0lRnAeX1n/aFHdAWCJRVdkZHWAFPuAC58pcMED/hNiGnAqFFUcSR
-	 MjE/AUeqZca6kEuqzdiK+yU9bn50QSKsMVoHwUIit/Wa2GkMu7wbwjiN+aVmJlvN53A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117336;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=5RyGDwcytJ8hJxrKJSsI9XtTSq7oItT+Ghi8cEKkFnk=;
-	b=NnnuizMZ6JD2EdlqbGyunL7hAyXom38olwtRcc/g6fiq8/0j4dXpVjfmDyqNh0HgQH33
-	 YcuaDY4D9cJq0SMUBYle0940AjRD1q7bsF/xY/k29Xip1oUu9gHBMnPThsMlhOYqP3AYU
-	 8wNr0j1iEao+d6ySHM5KupjtRSpJV674eJ6EdzuOz3MMxdITGcxDftj6EevBr6/FFvA+8
-	 kjdbSSXBDLh1axqeOGaqIoIBw4n08UdPJbRhcQIMpPH0HPIw4LxlpxP30MVNCoJALGBDu
-	 2VgC23XBkdZU3lh8YIwF+93oHHVILltJJtG1pn2JzUnV+pPKSBLrytbN9vmUvxORepg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ptYl4mH0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.24
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010024.outbound.protection.outlook.com [52.101.84.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793117384;
+	b=Wwoer+YuvKEhgw76JiFN+JaFDWnYgi7r2UPbFfhPtq+jIMPrAkwYoS/R6+peQE/bEzha
+	 JhAaxWzDh0MNoPO8u1OVLJsrCLwO1Qss15vQPKI6A+Oxry6szgkPSbT0BAzZh+ahwwqVo
+	 1SXQJIO8xo4qZKi4uaB6e5FxNj9Q1y3F0gY9RE/sv5Pgxb4wG9b2RSJWuMdgSeYaCyjr3
+	 aKeFvE3KdkxGnypfBqWX0Np9XjycPbe2C6SzbEJYIHdbgLiBbQy9q+urSnQvrIrpG04Ix
+	 z6EQeCbuDEhYiTL/A4fqoh+pauKi9i1FFXyFTzSuCJEPXE9PfkzlPDdmTuqWyPBZagg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117384;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F7MfSmi7LGkAGNTKP+HCokKKfli5Fxkmhrsr+9i23Cw=;
+	b=YEAWP09U8TZ6hiucqxGv7amv77YzyClVQf1VyYya9QPEqQ6gXdxHXdCxHxDsytj0b2cf
+	 kCaeBpF+mwTZXr8ag8uzKrrGPtDRhHc0Nv/S8CZGsEtvR34mfD+KNUInMZdmqnAJ48FuA
+	 0MhebL7sV0RVJJMLHzc8EKFtMaiVl5dPJRwITAjDFcofEfnGHs7L6bDCl61yao2gEVrHP
+	 zJMk7HwJoc1hzRuhMNfwcNlt6n4FLI6q6FCsTpkcfseDQgBfzTwNFY82wdfDiCbaiFgG9
+	 TtuKE489B2xako/VsX9Xq+ovUq6z6covPZdWII3+EltuCUc6Ir5Xg9eb0zxhGGpu0vQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jWoWUIUh;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAD3606A31B;
-	Tue, 27 Oct 2026 16:08:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EAD3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14491606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:09:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14491606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ptYl4mH0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tUsnrc4TpzE925659OCWGgbYhKVkQmCxsVTfEZFT4UKCnTA4dfu6x3UVQaTM3oc4LowHOCoOL/0iZDTIS6yHJvnhIFwEhM8QcQhFNw8U7ml4TwTs8/6V+sVSesetscMLqcdJH4fXGpcivQmM/zHu1I2h2+Hdzyd24WmSIUITk9M2L5NGgW1AtTePsy9wX29wGIsB++19UEUAsVUCePXbw85HAcIci+JOMrHakWbXkl8ROkw/2i4fVpr7u8iVBvgSrQatapHc8hODTWv/RYhAh1Q95YVciJz3h1pcBcmfI7ZJHoU+aZ9OLOrE3Gyo9rB6frhyxSTfPqOsoemd/n4qRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5RyGDwcytJ8hJxrKJSsI9XtTSq7oItT+Ghi8cEKkFnk=;
- b=yCBtuAGdeWov1xSfM2J4LtkfRGfHgNcfC6/C376R7ljMkYazujOELpRvovmh0ggLr4YqqyjpAiCYjjX+ZchB8UoO7kvaaG4bo20Vs8OdbXZnEtMdZdAvNir2IK9tgzJ9D9o1cdv2D9brddlg4EZEtvV0gAHd4ohUfz9UA+uCNjHdgzeURV22OCIDMDOdMnX0PDmrI/fySdQS9Z+q9B/+Q8ycett78bhyvpRJMqtOtXQiE3c4iwts/fpqKodf/WwxengC1Yrh1EMN67g/hUuYj6W8spNNFWIPgDAMqxRUjNJ3BufYf/O+4l64z3Y/KxH6XUXVdAiRsLQP7Kb5Giovzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5RyGDwcytJ8hJxrKJSsI9XtTSq7oItT+Ghi8cEKkFnk=;
- b=ptYl4mH0sSoInDkKquKC5Il4F92j6o+02DrdRpjgZv8Qw5iSqEdc0lNruuFHDYCoA1knJ8Or32v0a2CdeyAzD7opTpEDCGojlsBxk/iv2YNo+BQisKpgcvLkSHuLmOGZpnczJ1uqEoGI0qY8XL9s5xSge6mIXqcBtj8CryEN3U8psqkOLkoj1fRX2wZg8dui2pJm1Qyo7ahJBD4bHQf1Wlhy3hXrTaLWn8IUhejJ6InvirUVXbQLjqekvhiT2DAm1uNwDk6Q0Y8/9Rd3Eehkhdo/eHpQYlpckt8kay8GfXtjIG1I1f8a3XC+zk97HdctR3mRtiCwA7DQxAOFiR7GGw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU2PR04MB8533.eurprd04.prod.outlook.com (2603:10a6:10:2d4::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 16:08:53 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 16:08:53 +0000
-Date: Tue, 27 Oct 2026 12:08:45 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: sun6i: constrain descriptor addresses through
- the DMA mask
-Message-ID: <auDMjWOLY0g9jTb6@lizhi-Precision-Tower-5810>
-References: <20261021-submit-sun6i-dma-descriptor-mask-v1-v1-1-76e72bd52e57@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-submit-sun6i-dma-descriptor-mask-v1-v1-1-76e72bd52e57@gmail.com>
-X-ClientProxiedBy: PH7P222CA0026.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::29) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jWoWUIUh
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdab9e9761cso66632a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:09:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793117383; x=1793722183; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F7MfSmi7LGkAGNTKP+HCokKKfli5Fxkmhrsr+9i23Cw=;
+        b=jWoWUIUhluJ5/zhLFnDW7EEs67rqKoBGAZrblgFrXT+iH+sc8bnXg8fb7M2ngVdcNb
+         W+Rf7N9FMknzboiB5wVHzBknoQHifVip8G8zkT817BDjDlQ84dchbqNv/IjI/bNRU41E
+         keHkVlaC4CtIMJibUtkeq3CuhJ1Fv43nwxcNlzn5ss6UxJ3Fox1AK8SPE21diz1w464T
+         2OmDYyz152vQ/9y8s1k35VEKS8QjnV+TddT8FaJ7TPark1LeRc51MuQTWMZlJqH0RtzN
+         fjBzBvZXG/mUsCZZAE90UaseEphnD71lWgmXeTv3xH2tWG9BroYI7OqEJu+IgllGLx4i
+         BOxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793117383; x=1793722183;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F7MfSmi7LGkAGNTKP+HCokKKfli5Fxkmhrsr+9i23Cw=;
+        b=edt4uFA1Vo5d3vX5Gd91PbrnijFC63Y4gca/TWGwBUa3DZWRh78/HENCyYgFIUvzjj
+         PWUfqUT0PKE5dbXxXXSRJIBNHkxygPsfaYOUBCO+ANu8fFLYH9zPQwVkubSLUQaunmEK
+         ltP6yG7UafSFH9ahdMW3m/NNx32AWj4TT9EZocDHRgBv69hkNKQOBnZZYzAOjDEfMECz
+         R1xJjwYA2Cl5qctKETkCoGwnAw43VJeGGAl5SXuThvmH5R8+b0LgKoy9ZQpDWsBHRWCA
+         tUszj3jVTij0Exi8eOu3GVvRLOkUOXLg9/i0fkm7arJNhbYOdZGqpsi70eIRh64F+5WN
+         LmBA==
+X-Gm-Message-State: AFq9FYJH6sRsS6Ln1oNOUxjCIi7+cUUiUZWRErUVHI34HPs/kMCAQ3Tg
+	nVqnAYe7WGncM0vwEvSQyaiVXVYekGnaYAuwSZShD1cln4b3M8eH8COG
+X-Gm-Gg: AYBFou0enABSblGhYnpoYlY8RgvOf2eXTv+Cv1m6w4O2Fho18SpGZwdnByxiMTUhAuc
+	vdo5kvC+bMn4iwuNC30Bl78oARXeqpC21aKUe8p0L/N3Jc6jU/FegNctI2RpmibSoaMEGuDBAot
+	JSOj1eR1mDv3hiv3gY9WShoBzv8D9VCnd1h11T+BHyF1Yqktul2uH9MCzE8g2ttSwL7lTvSj6KQ
+	qsc8rI4yIScH1N9j+mcomB4sFLpssQO7tfdqjc3fNZGaepFfMfmB5GTl6dzd0eDdfvbePIEdKPu
+	/syADfkXfTHsL37SUqFXV4WmoEZyM/kERwt36JEpmCHF4i2W6q6+ESVW2RgUi6AxfgK+rV+ClZ9
+	t1FQeVhF1wfpllhQKzfp5FuupOHLMYqntd1bWDIKnOCPjePIxQlgB5QeR+bYbeTgISnrrS2kI41
+	R1aio//II8gk8ODMNYqxaAxDVoZJGNEnfrDoeHZmx5jab0uk8atGuc89yV2PrMVzrvQAex+4lW2
+	vRj3dJhWfgbjqlpIZTSKBQzH6BzaGHBpsXF35MP3KFCqZwiDsk3WA3sgLcRTZVFjeOqKs0A8jPA
+	j3IKZ5A6ZvZXGufZDizhdmjwOQMi/OKy2LbhoI0IE2PmRfJ7Wmv3cyiYZaFsvHLrqPMg
+X-Received: by 2002:a17:90b:1812:b0:3aa:fdad:7d6e with SMTP id 98e67ed59e1d1-3adeac04979mr8897529a91.10.1793117383159;
+        Tue, 27 Oct 2026 09:09:43 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4066cf2dsm4283089a91.16.2026.10.27.09.09.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 09:09:42 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	shikemeng@huaweicloud.com,
+	kasong@tencent.com,
+	linjh22s@gmail.com,
+	kunwu.chan@linux.dev,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	tglx@kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [RFC PATCH v3 10/18] mm/swap: add priority queue for swap device allocation
+Date: Wed, 28 Oct 2026 00:08:56 +0800
+Message-ID: <b1580bf6460962c02d3c7ebf786583f200db491b.1793106426.git.lianux.mm@gmail.com>
+In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
+References: <cover.1793106426.git.lianux.mm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,76 +108,808 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU2PR04MB8533:EE_
-X-MS-Office365-Filtering-Correlation-Id: b8683704-cd4f-46c3-4583-08df344498aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|19092799006|366016|1800799024|261026140227099003|11063799006|56012099006|261026121527099003|261021121427099003|261022105027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	hd37qCOUyfPRHSGQJyJCAN4vs1Hc84bul8UKUq0xfF+k31a1nLrb9p1iNkx4+Fan5MeAUmf5wapz43h/zveQN3l+v40AMXW81DqYIUc566x8q7vWS47VwRNACN6bJfgL7HDIlpoe7+3juGmJzQnodqIXMa817MQ4uoCnW8TK+o99ZHqxmd2hX4Ro6ry8u1GLYhJHKsyGlWUEvLhEurZAkPsvGTTPmgaVn/ZdyptQP1bk0ZJhUZtvPL6Ij7LU53vMjWTUIxRLp9jqWIG1+YpeC5W33JAOdTWFPxnfDn0B9aLue3ng43RbBXY07eM9HhZRrqiiNbHQht/CEsIgAbbGw+uHcUUEnLEZswrpQIdu0bQBBzJcHqku5+EOZwZC5pIKeYFqLxvenwLWhcPS+zyh6lZF+iIPkIuMdCWVyj0IT0BsN+zijeMDBuldo57J5iNXeu1t1kaSaO8j6O0bs8xuwnk66lq6lST8gLk86dbtyEwCTpPnwacQegRKpJcB2DNzDHZ1iUM4Eh2Ml5H0rv9bLJQMPIj/IrsUDjb7QhFwQ08DEqfRDQqlAxZbpEBzCFFOObYeRCc0glWeaNd6Mb/Gqr8KEG0H8HPQ0pAP1UrXub9Nxvw1qT2u6pX8DsRzFoFksMcJBOSUQG7e7cUt38Tkt6bs028M1tIsPnz41LLPiv0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(366016)(1800799024)(261026140227099003)(11063799006)(56012099006)(261026121527099003)(261021121427099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fEk+EZrT1JXmCan5Ct71NmLoFFIuNdEcE9a5LNyCh3SuXcX3iGcO0SpJbM2T?=
- =?us-ascii?Q?/OMjofNwmJH2RbGTyfRf8V3TPox0qKmqHAJWnDLqOKDHRWajKR8EmaBaV1bt?=
- =?us-ascii?Q?cljTSKLgbRYkfL6glVXkwAxh9aLgLzwArJASamNnDmEoOOGREs38cwTJ3gBL?=
- =?us-ascii?Q?2FvRvdN2BF/z1dQ1x8bzyraLE67ZNZVZIfKP05KsVqE9cCl8Ican1Q0RjHPU?=
- =?us-ascii?Q?XfVYy5/I1kOs9HqUiM6298+hlquIW9vvvC2S/U5jZz/0/bc6/7mBOSyYseeV?=
- =?us-ascii?Q?RYpgSwCTtaHVnoufWYcCOHXKCmb95b9eCTQClXIivRuhfViTG/zjb84vVjqS?=
- =?us-ascii?Q?d/3sH5dlOmy8j+0qmaAbe8OPnJTmipTpV8sac/l8rcciI5OfbpaBggcTr4s+?=
- =?us-ascii?Q?C7jsisYyYghVtRQN1+6034S6CMZea2FFhUwYh2kYqbzCbnKKM8dFs3+rB0Kc?=
- =?us-ascii?Q?wgfnQhbBDyALKmBPQyHwJIub+BwIoWiEiWGszQidJrIFWW/BZs396wYJJOfP?=
- =?us-ascii?Q?3JDb5zPPv3JBUPhkpnltl/DUDnNEF2DA7XXUaE+6lPYbSLtJpugu+ro2nZ0R?=
- =?us-ascii?Q?ZYwvCWDxAcOtrsabzeQb87Ye3GRQ2JiB60b5bjbPBudD/9MwU1dno9NXK+wn?=
- =?us-ascii?Q?uqBtT6xv+cIwEMPXQZQ8KBgrmMUCfGWUMk/4dAcHHgoxQcjGKGpH1q14iKgy?=
- =?us-ascii?Q?7u7RpiO7v5KjizTrAjjONeTR6Y09TAXluukMnwxL0+oeZ7fFL+lia+BpGayY?=
- =?us-ascii?Q?hMWcAdaiPdOkKz6EDnHs6N9/UGj5GBelv5w9wa72KpJDMHE/Ma4EA2fyZe/h?=
- =?us-ascii?Q?8TYh3+u+paBSdfWkJNzsdq2WchMIrohBJ/dDUJ+5u8vyzz4X6p/8sjZ2Nwjp?=
- =?us-ascii?Q?h96drOcep/XJyAc4zMr9oNq/oZabDQXrUCkHeFGePTz7tU5QKPruYsHUd7ud?=
- =?us-ascii?Q?PxvkSscBBJn/+HNS6U/swSMKZcVFTrMSXPFjieOr3J+v6HY9qZniptzv36r5?=
- =?us-ascii?Q?D50gzT+2qDAZM0cedF5cwtxS7ksTWYJ7QsBS2xO77wl6SFtreyj5x9w3Tq7S?=
- =?us-ascii?Q?qCFBLrWgSdhu1+J2zFOKxn5WBDxSZRwMpFyquh3jwfGOebBVodu90IgQC/Ue?=
- =?us-ascii?Q?K0P9buWQoMO0mYC/hoI0I68+oiPVmMhZKUdJF8ldOU/m6SS862mx5qwd1eAP?=
- =?us-ascii?Q?44Xv216yKzRkqt4wtj59LndvLCHdnPPSWtbuLEcpUr5HONjYJUJrvg8szrt7?=
- =?us-ascii?Q?unwtms3gEMOqufNx6qi7IQU1cZpxrhgpM6B3+n1E9QVifA7VotuU9sv3iKYZ?=
- =?us-ascii?Q?f5uWLGS37C4BbwK7DNIZ3LNe7q/C5Ul3oQhAP92T24n4GGgfKR/4OadB8K/h?=
- =?us-ascii?Q?P3nglG4RG9GOx1o32Bk9Pl5QBADI5MZPebPqpJdVaGnRrZspmZCKTQAuAmlX?=
- =?us-ascii?Q?aN9G0BuFVj7NiDviKyJcLYsMk5eY5M1+2vxkUpg0MPvDHAHRKvJ9VZcygPC9?=
- =?us-ascii?Q?YbdRmKMfSunMoyX3p7+vefu6jfhKdDYRDQ+jWAXNoVUUtTR6UKS6bhHK9ECP?=
- =?us-ascii?Q?5HiEZWGF4yvGu0p+IQDcte91NAx3mjKW61FtrbdJqW5T3wZNIcFFc4LSC7BD?=
- =?us-ascii?Q?S5CSHVQ3qy0Jzkg8f3NyP+9hBNMo4DyyQWdDXNoLBvlRmRdLcEntVZVpqChZ?=
- =?us-ascii?Q?g/igfopk/4KZsXgPDK6HI5/BYOjfLDpTauKWb/ZYmTOFxAYCrPziRTMrbFoN?=
- =?us-ascii?Q?vFPGdxZIxH3eqbhT9+ZSRXPDXKZz60Hw4x8d2wdeXfcxFfpNu3Dn?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8683704-cd4f-46c3-4583-08df344498aa
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 16:08:53.4337
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IamZJ49PzINjXaRlirkLRJZ4+j59/+e1nCHflEUYjRSpPdc6YC0Y65m/k2wEIy1X9MnHu+qys9BNrBy/SFSE5H1K0FdEY15Wv5CMVHgU3OyEhvExA0LvmG35Qj/uydVm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8533
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 03:11:29PM -0600, James Hilliard wrote:
-> Descriptor allocations pass GFP_DMA32 to dma_pool_alloc(). The DMA API
-> chooses the memory zone from the device address mask, rather than accepting
-> zone-selection flags from the driver. These flags can also reach the pool
-> metadata allocation and trigger a slab allocator warning, as observed on
-> H616 when preparing the first UART receive-DMA chain.
->
-> Set a 32-bit coherent DMA mask before creating the descriptor pool and
-> remove GFP_DMA32 from its allocations. The driver does not encode the
-> extra descriptor-address bits supported by some variants, so descriptor
-> links must remain below 4 GiB. Keep the streaming mask unchanged for
-> variants with wider source and destination addresses.
->
-> Fixes: ec31c5c59492 ("dmaengine: sun6i: Add support for 34-bit physical addresses")
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
+From: Kairui Song <kasong@tencent.com>
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Swap device selection rotates swap_avail_head with plist_requeue(),
+serializing cluster transitions on swap_avail_lock. Separate selection
+from device-local cluster allocation with same-priority device rings
+ordered from highest priority to lowest.
+
+Keep membership and sizes stable under swapon_rwsem during each
+allocation walk. Full or disabled devices remain as masked pointers.
+Serialize tag writers with swap_queue_update_lock and use READ_ONCE()
+and WRITE_ONCE() for complete tagged-pointer accesses.
+
+Each CPU has a starting offset and base-page quota per ring. A task-local
+cursor snapshots its starting device so retries visit every peer once,
+even if another task changes the shared reader. Disable migration across
+the sleepable walk. Large folios retry same-priority peers before asking
+the caller to split instead of falling through after one fragmented
+device.
+
+Prepare reader storage with GFP_NOIO outside the topology writer, then
+recheck priority and required length before publication. Transfer the
+prepared storage only on successful installation; otherwise free it
+after unlocking. Keep per-CPU backing allocation outside the writer's
+noreclaim scope because it filters caller GFP flags. Constrain small
+queue/ring allocations with a scoped noreclaim context and
+__GFP_NOMEMALLOC, restoring context before cleanup. Deletion keeps reader
+storage until replacement or an empty queue, avoiding shrinking backing
+allocations beneath the writer.
+
+These boundaries prevent queue updates from reclaiming into a swap
+allocation that would acquire a reader behind the same writer. The
+cluster metadata fallback also avoids direct reclaim while the walk
+retains its outer reader. These recursive paths were identified by
+source inspection rather than reproduced hangs.
+
+Publish swap_file, the live reference, queue membership and SWP_WRITEOK
+under the same writer. Mask the off-list flag from the old in-use counter
+before its full-device comparison so concurrent freeing/refilling keeps
+availability state consistent.
+
+Keep the old available plist in parallel while migrating its remaining
+consumers.
+
+Link: https://lore.kernel.org/20260714-swap-pcp-priq-v1-9-de9b164ed419@tencent.com
+Link: https://lore.kernel.org/alZ7UBXweuuOX4qz@yjaykim-PowerEdge-T330
+Link: https://lore.kernel.org/77d6da3d-10af-49a1-a356-72aa8b462e85@gmail.com
+Signed-off-by: Kairui Song <kasong@tencent.com>
+Co-developed-by: Lian Wang <lianux.mm@gmail.com>
+Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+---
+ include/linux/swap.h |   5 +-
+ mm/swapfile.c        | 581 ++++++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 519 insertions(+), 67 deletions(-)
+
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 1a1ed9d11ad0..9357a9065f37 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -195,8 +195,9 @@ struct swap_extent {
+  * - SWP_USED: Protected by swapon_rwsem. Indicates the device is inuse. Once
+  *   set, won't be cleared unless all reference to this device is freed and
+  *   swapoff finished.
+- * - SWP_WRITEOK: Protected by both swapon_rwsem and swap_avail_lock, clearing
+- *   this flag also waits for all current cluster lock users to exit so
++ * - SWP_WRITEOK: Protected by both swapon_rwsem and swap_queue_update_lock.
++ *   Clearing this flag is followed by waiting for all current cluster lock
++ *   users to exit, so
+  *   checking this flag while holding any of these locks ensures the device
+  *   is safe to use at the moment. Note: clearing this flag doesn't affect
+  *   pending IO or async requests, it only prevents further entry allocation
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 68bed5023299..2065e566b7a3 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -55,6 +55,7 @@ static bool folio_swapcache_freeable(struct folio *folio);
+ static void move_cluster(struct swap_info_struct *si,
+ 			 struct swap_cluster_info *ci, struct list_head *list,
+ 			 enum swap_cluster_flags new_flags);
++static bool get_swap_device_info(struct swap_info_struct *si);
+ 
+ /*
+  * Serializes swapon/swapoff (writers) and protects the swap_info
+@@ -160,18 +161,437 @@ static struct swap_info_struct *swap_entry_to_info(swp_entry_t entry)
+ 	return swap_type_to_info(swp_type(entry));
+ }
+ 
++/*
++ * All available swap_info_structs are grouped by priority rings, the rings
++ * are ordered in a queue by priority (higher prio value = higher priority).
++ * The allocator iterates and rotates devices within each priority ring.
++ * When all devices in a ring are iterated, it goes to the next lower
++ * priority ring.
++ */
++struct swap_prio_ring {
++	int prio;
++	unsigned int size;
++	struct swap_info_struct *dev[] __counted_by(size);
++};
++
++/*
++ * The ring is protected by swapon_rwsem so updating it is costly. To make
++ * the allocator and other users skip full devices faster, the lowest bit of
++ * a device pointer is used to mark it disabled (temporarily unavailable).
++ * This relies on the natural alignment of struct swap_info_struct.
++ */
++#define SWAP_DEVICE_MASKED_SHIFT	0
++#define SWAP_DEVICE_MASKED_BIT		BIT(SWAP_DEVICE_MASKED_SHIFT)
++static_assert(__alignof__(struct swap_info_struct) >= 2);
++
++/*
++ * Serializes queue content mutations and keeps SWAP_USAGE_OFFLIST_BIT
++ * consistent with the masked state of each device pointer.
++ */
++static DEFINE_SPINLOCK(swap_queue_update_lock);
++
++/*
++ * Swap queue is protected by both swap_queue_update_lock and swapon_rwsem.
++ * Only swapon/swapoff will take the write lock, and modify the queue length
++ * or any ring's length. swap_queue_update_lock protects the content so
++ * devices can be masked easily without taking the writelock, which is heavy.
++ */
++static struct swap_prio_ring **swap_queue;
++static unsigned int swap_queue_len;
++
++/*
++ * Each CPU has its read iterator, so the queue itself will remain read
++ * only and the CPU side reader rotates by iterating the devices
++ * periodically using the counter.
++ */
++#define SWAP_ROUND_ROBIN_QUOTA SWAPFILE_CLUSTER
++struct swap_ring_iterator {
++	int offset;
++	long rr_counter;
++};
++
++struct swap_queue_reader {
++	local_lock_t lock;
++	struct swap_ring_iterator ri[];
++};
++
++struct swap_queue_cursor {
++	bool valid;
++	bool ring_only;
++	unsigned int ring_idx;
++	unsigned int offset;
++};
++
++static __percpu struct swap_queue_reader *swap_queue_readers;
++
++static inline bool swap_device_masked(struct swap_info_struct *si)
++{
++	return (unsigned long)si & SWAP_DEVICE_MASKED_BIT;
++}
++
++static inline struct swap_info_struct *swap_device_mask_ptr(struct swap_info_struct *si)
++{
++	return (struct swap_info_struct *)((unsigned long)si |
++					   SWAP_DEVICE_MASKED_BIT);
++}
++
++static inline struct swap_info_struct *swap_device_unmask_ptr(struct swap_info_struct *si)
++{
++	return (struct swap_info_struct *)((unsigned long)si & ~SWAP_DEVICE_MASKED_BIT);
++}
++
++static struct swap_queue_reader __percpu *swap_queue_prealloc_readers(int nr_rings, gfp_t gfp)
++{
++	struct swap_queue_reader __percpu *readers;
++
++	if (!nr_rings)
++		return NULL;
++
++	readers = __alloc_percpu_gfp(struct_size(readers, ri, nr_rings),
++				     __alignof__(*readers), gfp);
++	return readers;
++}
++
++static bool swap_queue_needs_readers(int prio)
++{
++	unsigned int i;
++
++	lockdep_assert_held_write(&swapon_rwsem);
++	for (i = 0; i < swap_queue_len; i++) {
++		if (swap_queue[i]->prio == prio)
++			return false;
++	}
++
++	return true;
++}
++
++/*
++ * Return with swapon_rwsem held for writing, or unlocked on allocation failure.
++ * Per-CPU backing allocations may reclaim, so prepare them before publishing
++ * the device and outside the topology lock and our noreclaim scope. Keep NOIO
++ * because the swapon caller still holds the swapfile's inode lock.
++ */
++static int swap_queue_lock_for_add(int prio,
++				   struct swap_queue_reader __percpu **readers,
++				   unsigned int *nr_readers)
++{
++	*readers = NULL;
++	*nr_readers = 0;
++	for (;;) {
++		percpu_down_write(&swapon_rwsem);
++		if (!swap_queue_needs_readers(prio) ||
++		    *nr_readers > swap_queue_len)
++			return 0;
++
++		*nr_readers = swap_queue_len + 1;
++		percpu_up_write(&swapon_rwsem);
++		free_percpu(*readers);
++		*readers = swap_queue_prealloc_readers(*nr_readers, GFP_NOIO);
++		if (!*readers)
++			return -ENOMEM;
++	}
++}
++
++static void swap_queue_reset_readers(void)
++{
++	int ring_idx, cpu;
++	struct swap_prio_ring *ring;
++
++	lockdep_assert_held_write(&swapon_rwsem);
++	/* A new topology starts a fresh, distributed rotation on every CPU. */
++	for_each_possible_cpu(cpu) {
++		for (ring_idx = 0; ring_idx < swap_queue_len; ring_idx++) {
++			ring = swap_queue[ring_idx];
++			per_cpu_ptr(swap_queue_readers, cpu)->ri[ring_idx].offset =
++				    cpu % ring->size;
++			per_cpu_ptr(swap_queue_readers, cpu)->ri[ring_idx].rr_counter =
++				    SWAP_ROUND_ROBIN_QUOTA;
++		}
++	}
++}
++
++static void swap_queue_install_readers(struct swap_queue_reader __percpu *readers)
++{
++	int cpu;
++
++	lockdep_assert_held_write(&swapon_rwsem);
++	free_percpu(swap_queue_readers);
++	swap_queue_readers = readers;
++	if (!readers)
++		return;
++
++	for_each_possible_cpu(cpu)
++		local_lock_init(&per_cpu_ptr(readers, cpu)->lock);
++	swap_queue_reset_readers();
++}
++
++static struct swap_info_struct *swap_queue_get_device(long nr_alloc, int nr_iter,
++						      struct swap_queue_cursor *cursor)
++{
++	bool rotate = false;
++	struct swap_info_struct *si;
++	struct swap_ring_iterator *ri;
++	struct swap_prio_ring *ring;
++	unsigned int dev_idx, queue_idx;
++
++	if (!swap_queue_len)
++		return ERR_PTR(-ENOENT);
++
++	queue_idx = 0;
++	while (nr_iter >= swap_queue[queue_idx]->size) {
++		nr_iter -= swap_queue[queue_idx]->size;
++		if (++queue_idx >= swap_queue_len)
++			return ERR_PTR(cursor->ring_only ? -E2BIG : -ENOENT);
++	}
++	if (cursor->ring_only && cursor->ring_idx != queue_idx)
++		return ERR_PTR(-E2BIG);
++
++	ring = swap_queue[queue_idx];
++	local_lock(&swap_queue_readers->lock);
++	ri = this_cpu_ptr(&swap_queue_readers->ri[queue_idx]);
++	/*
++	 * Snapshot the starting offset for this allocation's walk. The shared
++	 * iterator can move between retries, but the cursor must visit every
++	 * device in the ring exactly once before falling through.
++	 */
++	if (!cursor->valid || cursor->ring_idx != queue_idx) {
++		cursor->valid = true;
++		cursor->ring_idx = queue_idx;
++		if (ri->rr_counter < nr_alloc)
++			rotate = true;
++		else if (ri->offset >= ring->size)
++			rotate = true;
++		if (rotate) {
++			ri->offset++;
++			ri->offset %= ring->size;
++			ri->rr_counter = SWAP_ROUND_ROBIN_QUOTA;
++		}
++		cursor->offset = ri->offset;
++	}
++
++	dev_idx = (cursor->offset + nr_iter) % ring->size;
++	if (nr_iter) {
++		ri->offset = dev_idx;
++		ri->rr_counter = SWAP_ROUND_ROBIN_QUOTA;
++	}
++	ri->rr_counter -= nr_alloc;
++	si = READ_ONCE(ring->dev[dev_idx]);
++	local_unlock(&swap_queue_readers->lock);
++
++	if (swap_device_masked(si))
++		return ERR_PTR(-EBUSY);
++
++	si = swap_device_unmask_ptr(si);
++	return si;
++}
++
++static bool swap_queue_find(struct swap_info_struct *si,
++			    unsigned int *ring_idx, unsigned int *dev_idx)
++{
++	unsigned int i, j;
++	struct swap_prio_ring *ring;
++
++	lockdep_assert(lockdep_is_held(&swapon_rwsem) ||
++		       lockdep_is_held(&swap_queue_update_lock));
++
++	for (i = 0; i < swap_queue_len; i++) {
++		ring = swap_queue[i];
++		if (ring->prio != si->prio)
++			continue;
++		for (j = 0; j < ring->size; j++) {
++			if (swap_device_unmask_ptr(READ_ONCE(ring->dev[j])) != si)
++				continue;
++			*ring_idx = i;
++			*dev_idx = j;
++			return true;
++		}
++	}
++	return false;
++}
++
++static void swap_queue_mask(struct swap_info_struct *si)
++{
++	unsigned int ring_idx, dev_idx;
++
++	lockdep_assert_held(&swap_queue_update_lock);
++	if (swap_queue_find(si, &ring_idx, &dev_idx))
++		WRITE_ONCE(swap_queue[ring_idx]->dev[dev_idx],
++			   swap_device_mask_ptr(si));
++}
++
++static void swap_queue_unmask(struct swap_info_struct *si)
++{
++	unsigned int ring_idx, dev_idx;
++
++	lockdep_assert_held(&swap_queue_update_lock);
++	if (swap_queue_find(si, &ring_idx, &dev_idx))
++		WRITE_ONCE(swap_queue[ring_idx]->dev[dev_idx], si);
++}
++
++/* Prepared readers remain caller-owned unless installed successfully. */
++static int swap_queue_add(struct swap_info_struct *si,
++			  struct swap_queue_reader __percpu **readers,
++			  unsigned int nr_readers)
++{
++	struct swap_prio_ring **new_queue = NULL, **old_queue = NULL;
++	struct swap_prio_ring *ring, *new_ring = NULL, *old_ring = NULL;
++	int prio = si->prio;
++	int i, pos, err = -ENOMEM;
++	unsigned int noreclaim_flag;
++	gfp_t gfp;
++
++	/* A writer must not reclaim into another swap allocation. */
++	gfp = GFP_NOIO | __GFP_HIGH | __GFP_NOMEMALLOC;
++	lockdep_assert_held_write(&swapon_rwsem);
++	noreclaim_flag = memalloc_noreclaim_save();
++
++	for (pos = 0; pos < swap_queue_len; pos++) {
++		if (swap_queue[pos]->prio == prio)
++			goto add_to_ring;
++		if (swap_queue[pos]->prio < prio)
++			break;
++	}
++
++	/* No ring at this priority: insert a new one at pos. */
++	if (!*readers || nr_readers <= swap_queue_len)
++		goto failed;
++	new_queue = kmalloc_array(swap_queue_len + 1, sizeof(*swap_queue), gfp);
++	if (!new_queue)
++		goto failed;
++	new_ring = kmalloc(struct_size(new_ring, dev, 1), gfp);
++	if (!new_ring)
++		goto failed;
++	if (!get_swap_device_info(si))
++		goto failed;
++
++	new_ring->prio = prio;
++	new_ring->size = 1;
++	new_ring->dev[0] = si;
++	for (i = 0; i < pos; i++)
++		new_queue[i] = swap_queue[i];
++	new_queue[pos] = new_ring;
++	for (i = pos; i < swap_queue_len; i++)
++		new_queue[i + 1] = swap_queue[i];
++
++	spin_lock(&swap_queue_update_lock);
++	old_queue = swap_queue;
++	swap_queue = new_queue;
++	swap_queue_len++;
++	spin_unlock(&swap_queue_update_lock);
++	memalloc_noreclaim_restore(noreclaim_flag);
++	kfree(old_queue);
++
++	swap_queue_install_readers(*readers);
++	*readers = NULL;
++	return 0;
++
++add_to_ring:
++	ring = swap_queue[pos];
++	new_ring = kmalloc(struct_size(ring, dev, ring->size + 1), gfp);
++	if (!new_ring)
++		goto failed;
++	if (!get_swap_device_info(si))
++		goto failed;
++	spin_lock(&swap_queue_update_lock);
++	memcpy(new_ring, ring, struct_size(ring, dev, ring->size));
++	new_ring->size++;
++	new_ring->dev[new_ring->size - 1] = si;
++	old_ring = swap_queue[pos];
++	swap_queue[pos] = new_ring;
++	spin_unlock(&swap_queue_update_lock);
++	memalloc_noreclaim_restore(noreclaim_flag);
++	kfree(old_ring);
++	return 0;
++
++failed:
++	memalloc_noreclaim_restore(noreclaim_flag);
++	kfree(new_queue);
++	kfree(new_ring);
++	return err;
++}
++
++static void swap_queue_del(struct swap_info_struct *si)
++{
++	gfp_t gfp;
++	unsigned int noreclaim_flag;
++	unsigned int ring_idx, dev_idx;
++	struct swap_prio_ring *ring, *new_ring = NULL, *old_ring = NULL;
++	struct swap_prio_ring **new_queue = NULL, **old_queue = NULL;
++
++	lockdep_assert_held_write(&swapon_rwsem);
++	if (!swap_queue_find(si, &ring_idx, &dev_idx)) {
++		WARN_ON(1);
++		return;
++	}
++
++	/*
++	 * Shrinking the small topology arrays is optional. Keep reader storage
++	 * until a new priority is inserted or the queue is empty: per-CPU
++	 * allocation must not run under this writer's noreclaim scope, which
++	 * can grant backing pages reserve access.
++	 */
++	gfp = GFP_NOIO | __GFP_HIGH | __GFP_NOMEMALLOC;
++	noreclaim_flag = memalloc_noreclaim_save();
++	ring = swap_queue[ring_idx];
++	if (ring->size > 1)
++		new_ring = kmalloc(struct_size(ring, dev, ring->size - 1), gfp);
++	if (ring->size == 1 && swap_queue_len > 1) {
++		new_queue = kmalloc(sizeof(*swap_queue) *
++				    (swap_queue_len - 1), gfp);
++	}
++	memalloc_noreclaim_restore(noreclaim_flag);
++
++	spin_lock(&swap_queue_update_lock);
++	if (ring->size > 1) {
++		/* Shift trailing devices left to fill the gap. */
++		while (++dev_idx < ring->size)
++			ring->dev[dev_idx - 1] =
++				ring->dev[dev_idx];
++		ring->size--;
++		if (new_ring) {
++			memcpy(new_ring, ring,
++			       struct_size(ring, dev, ring->size));
++			old_ring = ring;
++			swap_queue[ring_idx] = new_ring;
++		}
++	} else {
++		/* Last device in this ring: remove the ring. */
++		old_ring = ring;
++		swap_queue_len--;
++		while (++ring_idx <= swap_queue_len)
++			swap_queue[ring_idx - 1] =
++				swap_queue[ring_idx];
++		if (new_queue) {
++			memcpy(new_queue, swap_queue,
++			       sizeof(*swap_queue) * swap_queue_len);
++			old_queue = swap_queue;
++			swap_queue = new_queue;
++		} else if (!swap_queue_len) {
++			old_queue = swap_queue;
++			swap_queue = NULL;
++		}
++		if (!swap_queue_len)
++			swap_queue_install_readers(NULL);
++	}
++	spin_unlock(&swap_queue_update_lock);
++
++	kfree(old_ring);
++	kfree(old_queue);
++	put_swap_device(si);
++}
++
+ /*
+  * Use the second highest bit of inuse_pages counter as the indicator
+- * if one swap device is on the available plist, so the atomic can
++ * if one swap device is unavailable for allocation, so the atomic can
+  * still be updated arithmetically while having special data embedded.
+  *
+  * inuse_pages counter is the only thing indicating if a device should
+- * be on avail_lists or not (except swapon / swapoff). By embedding the
+- * off-list bit in the atomic counter, updates no longer need any lock
+- * to check the list status.
++ * be in the available queue or not (except swapon / swapoff). By
++ * embedding the off-list bit in the atomic counter, updates no longer
++ * need any lock to check the list status.
+  *
+- * This bit will be set if the device is not on the plist and not
+- * usable, will be cleared if the device is on the plist.
++ * This bit will be set if the device is not in the available queue
++ * and not usable, will be cleared if the device is in the queue.
+  */
+ #define SWAP_USAGE_OFFLIST_BIT (1UL << (BITS_PER_TYPE(atomic_long_t) - 2))
+ #define SWAP_USAGE_COUNTER_MASK (~SWAP_USAGE_OFFLIST_BIT)
+@@ -570,11 +990,11 @@ swap_cluster_populate(struct swap_info_struct *si,
+ 		return ci;
+ 
+ 	/*
+-	 * Drop the device and cluster locks before retrying. Metadata allocation
+-	 * must not recurse into swap allocation through direct reclaim: callers
+-	 * can retain outer synchronization across cluster population. Restrict
+-	 * this request instead of granting the task PF_MEMALLOC, which could
+-	 * give allocator hooks and failure cleanup reserve access.
++	 * Retry with the local and cluster locks dropped. The allocator can
++	 * still hold swapon_rwsem for reading: direct reclaim could enter
++	 * swap allocation again while a writer is waiting for this reader.
++	 * Restrict this request instead of granting the task PF_MEMALLOC,
++	 * which could give allocator hooks and failure cleanup reserve access.
+ 	 */
+ 	spin_unlock(&ci->lock);
+ 	if (si->flags & SWP_SOLIDSTATE)
+@@ -1233,6 +1653,7 @@ static void del_from_avail_list(struct swap_info_struct *si, bool swapoff)
+ 	unsigned long pages;
+ 
+ 	spin_lock(&swap_avail_lock);
++	spin_lock(&swap_queue_update_lock);
+ 
+ 	/*
+ 	 * Force remove it only for swapoff. Else, take it off-list only if
+@@ -1250,9 +1671,10 @@ static void del_from_avail_list(struct swap_info_struct *si, bool swapoff)
+ 		atomic_long_or(SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
+ 	}
+ 
++	swap_queue_mask(si);
+ 	plist_del(&si->avail_list, &swap_avail_head);
+-
+ skip:
++	spin_unlock(&swap_queue_update_lock);
+ 	spin_unlock(&swap_avail_lock);
+ }
+ 
+@@ -1263,12 +1685,12 @@ static void add_to_avail_list(struct swap_info_struct *si)
+ 	unsigned long pages;
+ 
+ 	spin_lock(&swap_avail_lock);
++	spin_lock(&swap_queue_update_lock);
+ 
+ 	/*
+-	 * Add the device to the avail list if SWP_WRITEOK is set and
+-	 * SWAP_USAGE_OFFLIST_BIT is still set. Swapoff clears
+-	 * SWP_WRITEOK first, so the device won't be re-added after
+-	 * swapoff starts unless swap_device_enable resurrects it.
++	 * Mark the device as avail if SWP_WRITEOK is set. Swapoff clears
++	 * SWP_WRITEOK first, so check that first so the device won't be
++	 * re-added after swapoff started.
+ 	 */
+ 	if (!(si->flags & SWP_WRITEOK))
+ 		goto skip;
+@@ -1279,21 +1701,23 @@ static void add_to_avail_list(struct swap_info_struct *si)
+ 	val = atomic_long_fetch_and_relaxed(~SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
+ 
+ 	/*
+-	 * When device is full and device is on the plist, only one updater will
+-	 * see (inuse_pages == si->pages) and will call del_from_avail_list. If
+-	 * that updater happen to be here, just skip adding.
++	 * When device is full and marked as available, one reader will see
++	 * (inuse_pages == si->pages) and should mark it as unavailable and
++	 * set SWAP_USAGE_OFFLIST_BIT. If that updater happens to be here, just
++	 * skip the rest.
+ 	 */
+ 	pages = si->pages;
+-	if (val == pages) {
++	if ((val & SWAP_USAGE_COUNTER_MASK) == pages) {
+ 		/* Just like the cmpxchg in del_from_avail_list */
+ 		if (atomic_long_try_cmpxchg(&si->inuse_pages, &pages,
+ 					    pages | SWAP_USAGE_OFFLIST_BIT))
+ 			goto skip;
+ 	}
+ 
++	swap_queue_unmask(si);
+ 	plist_add(&si->avail_list, &swap_avail_head);
+-
+ skip:
++	spin_unlock(&swap_queue_update_lock);
+ 	spin_unlock(&swap_avail_lock);
+ }
+ 
+@@ -1310,7 +1734,7 @@ static void swap_device_inuse_add(struct swap_info_struct *si,
+ 
+ 	/*
+ 	 * If device is full, and SWAP_USAGE_OFFLIST_BIT is not set,
+-	 * remove it from the plist.
++	 * mark it unavailable.
+ 	 */
+ 	inuse_pages = atomic_long_add_return_relaxed(nr_entries, &si->inuse_pages);
+ 	if (unlikely(inuse_pages == si->pages)) {
+@@ -1352,7 +1776,7 @@ static void swap_device_inuse_sub(struct swap_info_struct *si, unsigned long off
+ 
+ 	/*
+ 	 * If device is not full, and SWAP_USAGE_OFFLIST_BIT is set,
+-	 * add it back to the plist.
++	 * add it back to the available queue.
+ 	 */
+ 	inuse_pages = atomic_long_sub_return_relaxed(nr_entries, &si->inuse_pages);
+ 	if (unlikely(inuse_pages & SWAP_USAGE_OFFLIST_BIT))
+@@ -1375,41 +1799,44 @@ static bool get_swap_device_info(struct swap_info_struct *si)
+ 	return true;
+ }
+ 
+-/* Rotate the device and switch to a new cluster */
+-static void swap_alloc_entry(struct folio *folio)
++static int swap_alloc_entry(struct folio *folio)
+ {
+-	struct swap_info_struct *si, *next;
++	struct swap_queue_cursor cursor = {};
++	long nr_pages = folio_nr_pages(folio);
++	struct swap_info_struct *si;
++	int nr_iter, ret;
+ 
+-	spin_lock(&swap_avail_lock);
+-start_over:
+-	plist_for_each_entry_safe(si, next, &swap_avail_head, avail_list) {
+-		/* Rotate the device and switch to a new cluster */
+-		plist_requeue(&si->avail_list, &swap_avail_head);
+-		spin_unlock(&swap_avail_lock);
+-		if (get_swap_device_info(si)) {
+-			cluster_alloc_swap_entry(si, folio);
+-			put_swap_device(si);
+-			if (folio_test_swapcache(folio))
+-				return;
+-			if (folio_test_large(folio))
+-				return;
++	percpu_down_read(&swapon_rwsem);
++	migrate_disable();
++	for (nr_iter = 0;; nr_iter++) {
++		si = swap_queue_get_device(nr_pages, nr_iter, &cursor);
++		if (IS_ERR(si)) {
++			ret = PTR_ERR(si);
++			if (ret == -EBUSY)
++				continue;
++			break;
++		}
++		cluster_alloc_swap_entry(si, folio);
++
++		if (folio_test_swapcache(folio)) {
++			ret = 0;
++			break;
+ 		}
+ 
+-		spin_lock(&swap_avail_lock);
+ 		/*
+-		 * if we got here, it's likely that si was almost full before,
+-		 * multiple callers probably all tried to get a page from the
+-		 * same si and it filled up before we could get one; or, the si
+-		 * filled up between us dropping swap_avail_lock.
+-		 * Since we dropped the swap_avail_lock, the swap_avail_list
+-		 * may have been modified; so if next is still in the
+-		 * swap_avail_head list then try it, otherwise start over if we
+-		 * have not gotten any slots.
++		 * For large allocations, try every device at the same priority,
++		 * but ask the caller to split instead of falling back to a lower
++		 * priority ring.
+ 		 */
+-		if (plist_node_empty(&next->avail_list))
+-			goto start_over;
++		if (folio_test_large(folio)) {
++			cursor.ring_only = true;
++			continue;
++		}
+ 	}
+-	spin_unlock(&swap_avail_lock);
++
++	migrate_enable();
++	percpu_up_read(&swapon_rwsem);
++	return ret;
+ }
+ 
+ /*
+@@ -3026,16 +3453,16 @@ static int setup_swap_extents(struct swap_info_struct *sis,
+ }
+ 
+ /*
+- * Mark a fully initialized swap device writable and expose it to the
+- * allocator. The caller must have resurrected its percpu ref first.
++ * Mark a fully initialized swap device writable and expose it to the allocator.
++ * The caller must have resurrected its percpu ref before entering this helper.
+  */
+ static void __swap_device_enable(struct swap_info_struct *si)
+ {
+ 	lockdep_assert_held_write(&swapon_rwsem);
+-	spin_lock(&swap_avail_lock);
+-	si->flags |= SWP_WRITEOK;
+-	spin_unlock(&swap_avail_lock);
+ 
++	spin_lock(&swap_queue_update_lock);
++	si->flags |= SWP_WRITEOK;
++	spin_unlock(&swap_queue_update_lock);
+ 	atomic_long_add(si->pages, &nr_swap_pages);
+ 	total_swap_pages += si->pages;
+ 	plist_add(&si->list, &swap_active_head);
+@@ -3082,10 +3509,9 @@ static int swap_device_disable(struct address_space *mapping,
+ 	}
+ 	vm_unacct_memory(si->pages);
+ 
+-	spin_lock(&swap_avail_lock);
++	spin_lock(&swap_queue_update_lock);
+ 	si->flags &= ~SWP_WRITEOK;
+-	spin_unlock(&swap_avail_lock);
+-
++	spin_unlock(&swap_queue_update_lock);
+ 	plist_del(&si->list, &swap_active_head);
+ 	total_swap_pages -= si->pages;
+ 	atomic_long_sub(si->pages, &nr_swap_pages);
+@@ -3169,6 +3595,11 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 		return err;
+ 	}
+ 
++	percpu_down_write(&swapon_rwsem);
++	swap_queue_del(p);
++	percpu_ref_kill(&p->users);
++	percpu_up_write(&swapon_rwsem);
++
+ 	/*
+ 	 * Wait for swap operations protected by get/put_swap_device()
+ 	 * to complete.  Because of synchronize_rcu() here, all swap
+@@ -3177,7 +3608,6 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 	 * prevent folio_test_swapcache() and the following swap cache
+ 	 * operations from racing with swapoff.
+ 	 */
+-	percpu_ref_kill(&p->users);
+ 	synchronize_rcu();
+ 	wait_for_completion(&p->comp);
+ 
+@@ -3643,6 +4073,8 @@ err:
+ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ {
+ 	struct swap_info_struct *si;
++	struct swap_queue_reader __percpu *readers;
++	unsigned int nr_readers;
+ 	struct file *swap_file = NULL;
+ 	struct address_space *mapping;
+ 	struct dentry *dentry;
+@@ -3829,14 +4261,33 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
+ 	si->prio = prio;
+ 	si->list.prio = -si->prio;
+ 	si->avail_list.prio = -si->prio;
+-	/* Publish the file, live reference and writable state together. */
+-	percpu_down_write(&swapon_rwsem);
+-	si->swap_file = swap_file;
+ 
+-	/* Make the reference live before exposing the writable device. */
++	/*
++	 * Publish swap_file before making the percpu ref live, then add the device
++	 * to the queue and make it writable under the same write-side lock. This
++	 * keeps lockless ref users and /proc/swaps from observing partial state.
++	 */
++	error = swap_queue_lock_for_add(prio, &readers, &nr_readers);
++	if (error) {
++		inode->i_flags &= ~S_SWAPFILE;
++		goto free_swap_zswap;
++	}
++	si->swap_file = swap_file;
+ 	percpu_ref_resurrect(&si->users);
+-	__swap_device_enable(si);
++	error = swap_queue_add(si, &readers, nr_readers);
++	if (error) {
++		si->swap_file = NULL;
++		percpu_ref_kill(&si->users);
++	} else {
++		__swap_device_enable(si);
++	}
+ 	percpu_up_write(&swapon_rwsem);
++	free_percpu(readers);
++	if (error) {
++		wait_for_completion(&si->comp);
++		inode->i_flags &= ~S_SWAPFILE;
++		goto free_swap_zswap;
++	}
+ 
+ 	pr_info("Adding %uk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
+ 		K(si->pages), name->name, si->prio, nr_extents,
