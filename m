@@ -1,129 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793106980;
-	b=FceADSj3VxIEj4nhTc6YSbxra7YYZ9MP8eFUimCv4stSsuHLB20sOjp8O2jYh7Ijht98
-	 Xf0xRV88LlqY3/5NZlbZws6j734UCjRUTMXRSUO/QV86Fh8uF7yBM6OICRb1vk/KvtwxS
-	 O7cVIu+zdPmRXaXzaFSLf1neDA2JCzemXlLkOZ0Lz2OA2nMkT2T1IiMovIFbXlfa6BRGR
-	 ZeSFSoKb0LjEUQpeV7mqy0bAmp9sCzN7722OK194V58FZYPH2gOu+EGshLN9p1WdoMuxm
-	 pjTeiPy3b8eT5ROX8za2vzlBLIK3vj2ovF3onlfgXHW3G0nP8khORQ6Eu4hhlvh2xUg==
+	t=1793106989;
+	b=d+SKD2F2C8dWz/BH1TnKvMLPsYGrZYJ/3vBpl1zXgakO3Tqoe2TdhIUHIh/9AYTGa2mk
+	 sHKuXrf49wCV3veNEJ8gyf3+aL6EqknEw0GiMqnOHmWNTArgg21aU3ECmYRWnDU3w/tgg
+	 mpYhoygiL8xW8b5dMVf5Tiv2fuwpm1Sm/pqDePKu44wxtuuL5QX32n/QNW6kLk+zBDbHn
+	 rjSgIPiVsS/KXbZQ74mO878BUnFGRQOzQe5nvKuGItUvN3iHJhUUenipeQGVMGYmFqK/t
+	 4elJLO39XBPkWTur03dpzXcyAB+enwTZwEzreFV/dAiBgJgTWiJtBGP+rEtP9SIQU4Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106980;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106989;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4QpxqvOximLZ2nALPoSuAYx/SSuI12rZw9hrif0qDTM=;
-	b=J226PmT3noNMBig8YaVr6HepXT2P8LN6GAAXFivFII/xwdnu46YR0YCm6zkVikL1B9qY
-	 qOewi6al1X7rI95ZnpkpmDVBInmO14cY/lMEJCyGIbGK4MZTPSQSs90o0Yd7t6bS3o6kE
-	 0H8crb6Gf3DY2EoVI/VndJHzoRQKDE59a/6WRa6zgETyiHyp/x57LAgOGiU/4jKEH20jV
-	 2txVY7HpkTp7w+pcorjeXoOlovNNWw4NG23vEnmGQjnDqyqrOsKUqv6+f4QQJfMBU1PhV
-	 y8UQkwtjMnvuuypmGK2y8a0le+5rBw8tgXwU7mnPvjTW6OtHklMD31BqD9qjKHOk0dA==
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=G0/R4qOeV34mhh+r+kRBcgH2lrSIxGk2zS7HWrtL1xE=;
+	b=U/IMQ6QbqTe/pQY8a/TVRsXyt+h7820HNoCmx8iIBBPOh7L6iLHpQXZkNNQRbwydmnD7
+	 OE+DnidCoWvtzcCeUnWkycVY41RJMFFe7HOMgZqmiZwdAsP510ta/JFHqedYKWzl+FOE5
+	 bG8raoW+k+NNSXA5OOeLEygroJUJvSGv5oro2c+CHf2RxeqYzw1Aknc4cgNqb3EAdABZH
+	 1pY1/c5OVnZAl9HH7Bs29NUETZ57cjcw37LvRPoSz30WMQ5pWOPUT9VJTjVwNzyZWUHKR
+	 3UgThCCzC/4QNjknuvb2YOrRNmyZb3u2CTIO1IuGUz+7htsFTuyVkTbFsL3PEuQ9FIA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b="Tiw3W/jZ";
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=KA48lq5p;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JjQomqj9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.20
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BA2606A32D;
-	Tue, 27 Oct 2026 13:16:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49BA2606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED82606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ED82606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Tiw3W/jZ;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=KA48lq5p
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69RBCxdS3385585;
-	Tue, 27 Oct 2026 08:15:38 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=4QpxqvOximLZ2nALPoSuAYx/SSuI12rZw9hrif0qD
-	TM=; b=Tiw3W/jZvVUUJd1CWfJVZs0xtoL7VzFhPiFC5iFSaWNy1Xoyhx6pGvf1m
-	6OZ82C0S7k8eTt4kcMrJy388P9ElvaYbeclqa5ZB77Lw6UUgHKPBJGLaCcz/ql4y
-	pV5jwyXl+LaqcMOkhnOHPBsN6w2x9N1SZ1Y6J3ci6ifIBADf8N0HXE53Pg3RpFBJ
-	mozarXPvvLhw34THy9F9lLlhP7RtVW0tR0FEphCxHQOWHbvtFZZyaJIna5mUUZHA
-	Vc8WURaLpiaWZiH2se0I/Ridj3sUhvDHqym1TrNFi+y+IHdOt08FqB1uMLQ9M7Wp
-	H8ufjIYrolvHrDC6GET27rBIQDVNw==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012039.outbound.protection.outlook.com [52.101.53.39])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4hjtvxgk9n-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 08:15:37 -0500 (CDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JjQomqj9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gG/wSpbH6W9mq3DWt4bO8mb2iG61ZoJmeuOB3gE3ACufd3BiGjCAzCCJ82RXcbiZmXSNy8SAUl2+41aZq2qOTt05ZGS+vO5gRwijSdaU3UMT0dLVrL7iwUOfrQrT00rWrq7lDLxlqp/HiXN134fVzX1Pm/xb80KiYgE0PDv/M2ITbGHJFHlUchuVeeJSK6JqQyfeeceIyaL5GadI0Ful2iodcYH4i6Nwtewb5VTX07P1xEQdtC4oQRieQ7UbClfoURgkWl0YRo+EqDN2Ab6yBllBjkG59YAHwJpWmhUcHaiu58vVNhFevb5lq7Gm1ydOa3kFBfYPbRp0doAUMmBY+A==
+ b=hyTahnugnOnegtFGOcrIhKim7BBhmDTg1bsUfyYUunBogDUvsrVw2eVSiZA62QSWeFbbe5k6L/q1gotDJZsIg11GG48ADFexhZ0rSaX8Tvx+ri03cKofub0NjTVWdEuX8jmIeEI6tjDBg0gw6RDtBV8U2a9qZk12HSfMz+JplK55scHIm8l8fxzxuNIAhMAfmuVfSfV+9RJ3PrdvYTpXyMK1Ct80hikB2BLCteZtaHDR1M1yrqDXTz5UskNuLwNnU3PQwzyJimUwTqDaswHNr+WLGjv43SWmnONBEciVWVkRXxjm8BCM26+HZ9oVxEyDfYbQcecDWfM3bdDcYqPhLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4QpxqvOximLZ2nALPoSuAYx/SSuI12rZw9hrif0qDTM=;
- b=g+Xm5z9W7K+0UusJrYsqDZvZqtJ5PGRZ+fkH2Kqxwo3Jabuoyz5zUwvS1fIIXNwlg3WB1WGA2l1l8xTt3kpPM4EBP5K4SY4UKPdwpmKFGqJB4au8Q2iMRhh2Syx7dVfOaJpokEEZdcoBzPw1C/vzVMiplgl3UW5K8uxTIMsbYkvPXJytmPMiruvmgvgg/C2e+cv6JdAgTJBD1lPF1s1zTH4YX5I9vHZYgTLrHtF3Gm6j18HlvloRcs7D0sWETN777BjRb5wj99GSvt2Osm/HNYD1/Paxm9YGkjZoXE1QUM8+CvIDQaS14BCv2lnQV0u0iLomgHGhVvQ2nq22JXDtPA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=debian.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ bh=G0/R4qOeV34mhh+r+kRBcgH2lrSIxGk2zS7HWrtL1xE=;
+ b=tXjQKNo5/uLdOx70MIt8M9h146YVkDF8PihrwA/K09ScIf0MuFQ5Bt1sv8zZ294JK1RQk7c/MbfBAok259YPPTMSpT6AdjDwMqzPVpoiMJVu0LmlIZIzld8W3TudctAHACfLi+Jmfac0lAtIBcWJt1bLk2+xG1hjsLMveEdemWwFDj6KxF4hyu4t1hJCQsXHf7Ja97VrDAj7b/ehw7b/fYmK6tEgXDGaSusn83ki4ofIPth/p+IlnB+MkSTYY5vnVYxv7spLOT8+kIM+8BTQm7Mf5SucHuPrLWq9IsVvSHeLewZVuGAiojlYyU+yTa0KqWd/MO4Qq8vlEZv7zm67AA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4QpxqvOximLZ2nALPoSuAYx/SSuI12rZw9hrif0qDTM=;
- b=KA48lq5pgNeCfQ1fZDQ6U85y5qU0hGL2qp8xZF87JKrR1FZsBwdZ5IRWFRLLWf1VUGg6j/q8kc3laGC15/ByP2cvTwbXHOKHSWzK8lGD5hD2fhHcK3QyrxYi8YjrZSY6XmWUjVNXruyjqWkIcFYCjLtEDYx85b04SbKYOzwS0l8=
-Received: from CH5P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::12)
- by SN4PR10MB5542.namprd10.prod.outlook.com (2603:10b6:806:1e9::18) with
+ bh=G0/R4qOeV34mhh+r+kRBcgH2lrSIxGk2zS7HWrtL1xE=;
+ b=JjQomqj91i64R2UoDEizJ35kLha9/GdatibND1V6lQHJjQNeO3Z6Ijh/6NsedV9CZ7OXjbIDGMCe84oedU4QOHUSy8emRntOC9jCvy+/cSL816RAniLZsaENJQt1AFk6yzAOPjUcyKbjpTtyhqtpYQnkddxUGFRU0V8t3TSiVX4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by SA3PR12MB626779.namprd12.prod.outlook.com (2603:10b6:806:590::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 13:15:33 +0000
-Received: from MN1PEPF000793FA.namprd05.prod.outlook.com
- (2603:10b6:610:1ef:cafe::86) by CH5P220CA0008.outlook.office365.com
- (2603:10b6:610:1ef::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Tue,
- 27 Oct 2026 13:15:32 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- MN1PEPF000793FA.mail.protection.outlook.com (10.167.249.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 13:15:31 +0000
-Received: from DFLE205.ent.ti.com (10.64.6.63) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 08:15:01 -0500
-Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE205.ent.ti.com
- (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 08:15:01 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE213.ent.ti.com
- (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 27 Oct 2026 08:15:01 -0500
-Received: from [10.24.51.24] (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69RDEsWk1966258;
-	Tue, 27 Oct 2026 08:14:55 -0500
-Message-ID: <f308e372-255b-41d8-9225-959750950780@ti.com>
-Date: Tue, 27 Oct 2026 18:44:54 +0530
+ 2026 13:16:26 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 13:16:26 +0000
+Message-ID: <6f79a3e2-5510-4018-aabd-45fcdf5dcbb3@amd.com>
+Date: Tue, 27 Oct 2026 08:16:22 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/amdgpu: reserve 64M stolen memory for Apple 5K
+ iMac
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Richard Lane <richardlanedev@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <a826b32d-597a-4c01-8b30-218cbca8627a@gmail.com>
+ <e0573e72-dcc1-4ff2-8cf2-53aefde912cb@amd.com>
+ <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <CADnq5_M8f2Hgs06n9EXUaihGsr6YEm6G4YFVQmPfQbGU08XkBg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0156.namprd03.prod.outlook.com
+ (2603:10b6:208:32f::29) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,109 +104,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
-To: Mark Brown <broonie@debian.org>
-CC: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mika Westerberg <mika.westerberg@linux.intel.com>,
-        Nirujogi Pratap
-	<pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
-        Andy Shevchenko
-	<andriy.shevchenko@linux.intel.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-        "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
-        David Airlie <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
-        <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <vigneshr@ti.com>, <nm@ti.com>,
-        <u-kumar1@ti.com>, <lianfeng.ouyang@starfivetech.com>,
-        <Ritwick.Sharma@arm.com>, <intel-xe@lists.freedesktop.org>,
-        <dri-devel@lists.freedesktop.org>, "Breno
- Leitao" <leitao@debian.org>
-References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
- <0bf04f71-cec7-453f-af5a-d121277eb51e@sirena.org.uk>
- <40844e94-c9d8-430b-90b0-66032e66060f@ti.com> <atc5KhqlzczEhQ-z@sirena.co.uk>
-Content-Language: en-US
-From: Aniket Limaye <a-limaye@ti.com>
-In-Reply-To: <atc5KhqlzczEhQ-z@sirena.co.uk>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF000793FA:EE_|SN4PR10MB5542:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1209d3cf-2068-4afe-2780-08df342c60d8
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SA3PR12MB626779:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d79dd9a-a74b-442c-e340-08df342c812c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|82310400026|36860700016|1800799024|23010399003|22082099003|18002099003|56012099006|4143699003|10067099003|261009223027099003|261026121527099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|261026140227099003|11063799006|4143699003|56012099006|261026121527099003|261021121427099003|261022105027099003|261022075727099003|261021123027099003|261009223027099003|10067099003|3023799007|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	wKY1h52GaFxQy6JTEws6Ry9+zBr6QlgyP/k1ixQ1wed9xpZOWup01hxojTUjox9DSwOsn0lOOHqWIz6EwKrbIOM2BI6zFfjCsIHvojLq4JRjMF+b5EAlUVQ5qv/XIA1NNXhh4LIv9RjZzsfaDdgPdPsBJUHKITSBm9BZH6SwPOWLNGQCgV5S9xPSuz0FcZAW4vgoYvJoYSAsQciI2v4PKtIe/ENzQ9Bg48CP1/MucRZHD4kGR/KSpP8wADaTLitMSHGqvR9axil1QTJnOeQsjtbyMUajKScUobgsgRmMFTWLd/p2wDbXywClMn+N5GVewF+Nxk2FehoQw0zVFMNhfA21L5vsYUsltRGvq3UWHd0RE9JX1KL5zSt8FwD7JseHpP1o7LhRRGLm5U6464ndsj3UORLL++l8OzPHEEuTRwGD+oAEG3c1AIgsUNE+c2fiwXnca+8th0L9SwLeLbqUANQxYMZLwIvpn0V+FcTPkI2Zk7DoadbRE/+Paysd+oIFOBz7nt+DxYJqqTj1/cSurKu0aHxcaqYlY3ni6pGp84ItTbrCXy/2hu9/+sSEhsA6CO5qsOTx+GilS4YzwEQy8i/WvY6vRpVrs6bOstYAC+aqz14ilzD0q39a4YuCOSiFcq1cxN9/jKobTFGjUeoicA==
+	se1QyKKV9uYG7hSQ77wzPMRwdREHW3KyE6NccMBem7bIBiKD5NiaNJAVtauzqniqcYVkPOrUmMnUKzdHB/xfWs095O0Sh1Nzw7duvkNFBUJJU27VB1d9srKv4wl5Y3pfSwVPlb1aiauqvMcZw+j3matJbdc4oz10dFgTKaNdUX2XnkCHDhaJTrIoC4oyektJQlThkNwxXWVHKt3VqGMDTOLoXMpFuV7OGoaplgewnE/XcGXdSZ1VYUBkhHMmLx72ctd5jXrly8wGV4d5MZtmSWoOo+GHKVvAuQEgKyzvO7ds41mOhL83pbdIAsxEF1xi7Mli8ZYoxsmpdQ8EoDMQVxNC/851ytfeHOBFxPIplNEr798OMwwMT7tcSJOIHAd/fjmUnA4cpY3/1fN71eYpY6SWgN9Pq4RTKWT8Tou25NLf7Ap5rUWLTZWQX0rjvCM6ZJgRjV0ySIhIm/P5Gzp7Natr8+kQ/X//EItMbZzfDIJGe6ybup8ZD3moZo+pnwvCeFHQ7NYsGT6NgUODh9goErPeSrwyQfHRgBhpPr6lDD/N0HlZ7qm/lJuAaqi4BcRPLQ8NO3/ytggL1noFcicI9EDB/jjO5wjcNUD/Ex6hgz9ngT9uNHQ9EuXQCO9pfRlcloEs4csDGCNZATEvY8weUN3HC+H6cLxT0d+lLGsbjjw=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(36860700016)(1800799024)(23010399003)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261026140227099003)(11063799006)(4143699003)(56012099006)(261026121527099003)(261021121427099003)(261022105027099003)(261022075727099003)(261021123027099003)(261009223027099003)(10067099003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	yqkeJT7XUFdwyIzBuLC311fdsCRFJPIYUB3aDi1g4SEDAD7UbALR2c+23EEj5gpOISC9g9l0wtmKbrh2Fg52PIfF+UYdENflUneKNrAxSaWtL4ryrVPyA4FTXimzTATMk+kRi4OCdTw4uxCNFBm/4qwiETJKDjnOmYDqpF3kQIU1CQvbYMREtFalu/t6EUXc+jcmSephNQyON+TfIcVgvhiCChcj9VIkjmCr2RpV4qyHQ8czYlBn9jyFAs6Psd8OKdySDi2t6lwk+Lu94SDlv/VkWfeL467aUGxEw1bYbPcHgMx8GNMwr6auIZNm3XSa9rGywrKeOVLojUITFmCb7T/IrZbYXKEAadbSC97DjWrSTMta8L89Stn3263bAgPm3zkTYGBIikHmg2WXF4vRmTLfpg1WnDyVviWyI/uDFkrVCojvioOXNoX7/y5s262H
-X-Exchange-RoutingPolicyChecked:
-	NG/IT8mFyTwH5m9k1Eh+LeBQMJ2Km6mFIy0c9lXDtQwvyfiQvXO1GfNRMa0WnpW7/X1v6KsiRrF1fkDsXj8UnnSvaYeR4p8tvWDLVTMxTiAQ+68djcuYCVLUO9qiOI2vOlx+dVAOezAo95XRe1Khc77vDvDKAY5/5vTbqyHvGjPL08EzEcRrBvkvHgJ2/BncxPxNn0iCEjhuIVuK1YupInnJzA6TdjQomGjPV+FEkGtOrVa/uXm51qKs0AtnK9mligNq1eotKhLbmT7VLUtdETFY34l+xBXQCP3hiFaxDGVQSLCuE5LEDCZcjyIvvbwFOrKsj2hAsPhRMimfCaQuLQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:15:31.6682
+	=?utf-8?B?OXl3L2lkNjA2TXNNeXFEMmhwNWl4Vk4vUGxtSy9uamRZcndhR0hjb0JHZUR6?=
+ =?utf-8?B?STBJZ0lCKzV1WEUzSzJyV2xOOWk0dFFSTHRkc2l4b1QzV2FaVmZMcjZpTXl0?=
+ =?utf-8?B?WGFSMmRpRWtDVDdmZjh4VEIvSEdjY3RMeDlraHpVSHJCM0xMSS92UWowd2Vq?=
+ =?utf-8?B?UVpZUXZWTGhScloxQXJvODB5UGtEM2hPa3h6eUVRdUJBemFIa291emlHR3V0?=
+ =?utf-8?B?KzBJQVVhY1B3Mm1HQWJxbk9tVHdHcTdWQ2hHa0tOSGZtWWpCdzFMcEhVUmFy?=
+ =?utf-8?B?NTJCbDZnVHFjM2FlUk5Eei93Ry8zUlhIRTllSkY5emRIV1dOT08xT3FNeHRj?=
+ =?utf-8?B?RUo5U1dTVmR5U3RERVZ4ekVPaXdOMzdDc2RVTHZReTkyUFJ5SjYvWWg2dU1J?=
+ =?utf-8?B?YTdrN2dMdGdieEVGYTRKZDg3NHUzL1pBa1hJbkhKQ3dJTHBDam5oMy9aMmgw?=
+ =?utf-8?B?SjhaTVlIMUs0T3JwcldtdC9WYXBZdnJUOTZrZzVGcmIrV09ucGlzRjVXUG9s?=
+ =?utf-8?B?VjlnSjMwVVJQLytUY3BFMWZWYmN3VlF0bmw5ZVQ1MWdTZ1hzVitPdnc2a2Ny?=
+ =?utf-8?B?endkS3I1ZldscjJ5MElGNm0vMm4yNVlwUFVBLzJaZjk4WEp1bUIvbnpxSjVF?=
+ =?utf-8?B?czBFNVJaSFZTbktvRlV5S1MzMWxFU0R2R0JiVmJDYXZCUjlvaVRoMTFHak5t?=
+ =?utf-8?B?UEpXV1FoUFV3bExuK2YwZUdSZnAwMzRsL0F1Uy9aRzcwajRYVVpGMGVFUm85?=
+ =?utf-8?B?SlVuazFhYnBJdnRxaUgzU3d3L292bUVhUzF4ZkZpOEFaM0pYajZYZVcwMDlT?=
+ =?utf-8?B?OHA0Y0ZxRXhNLzk5Q2JKWjN2RDZFTnd2cHFnYndIc0VhVCt6amcwcDdBOVE5?=
+ =?utf-8?B?K0hGejYyUDB0aWtIUmkwUE9TM3Q5cnc0NStRRmQ0K1ZjMit0U0VmcjFrMDFL?=
+ =?utf-8?B?WWp4TzNMU3BaaGhEQWlsS3dqa21EUGJGQUhaTWhUaVh5NXB3WERDdXBSOWdy?=
+ =?utf-8?B?VFExc0hjU2hEcUNTNkxEMSt3bTl6T0VNN29wNGMvV29wMGw2Wk5TNkhFdThV?=
+ =?utf-8?B?Y3Vhb1d1b1lXaStwZkFSd2xDaU9PVnNyUGlUaVo4V2F2REptV2lBcHFKK1RD?=
+ =?utf-8?B?OFNlZndQYTUwaWQ0WkRibjBBU2pVVlU5bHBXeHZ3aXhuMytpZ3REaEgxSmJ6?=
+ =?utf-8?B?U0ZOcW1NN0FnaFlLZkVPS3dSaWpmR0ROVXFqRlNtOGsxYndEOTJydUI2MGhh?=
+ =?utf-8?B?VEtuektRb3VmR0dmUWFibTRDM3U1MEFCdjlsTW5ORm9CZTg2VHcvY3lJemVX?=
+ =?utf-8?B?UysxZDNWdHB6dWtZdjVobUJtSld5bmdjeHc1SG5FUjBpbXdOOUlUZ0Nob2sy?=
+ =?utf-8?B?d2VKcDhqMTU3a0Z0d09XZWdzcTI2bE00M1VhcU8vcG9sQUYvY0FBZWVIL09W?=
+ =?utf-8?B?WUxiMmNhTlZ0UkdQL0Q4czZ4RHhYdmpqVFIxK2xDUVRZZ2VTVU45NVV0SHFa?=
+ =?utf-8?B?WnlOV1pKenh2Z0NiT0VTeFk4ZDNEdVRIb05KdWR4TmZnSjBXUnFrUzdaVjNZ?=
+ =?utf-8?B?MVB3aVZVb0Qrak1KaWJybGxlMnBSc3hvZHdtR3p6RXEyRmtVeUx6SFZTOGds?=
+ =?utf-8?B?TDBWTEl2VTVuVC9DYUNsTk9oMlF1Y1JaSmxUNEpCVU9JTXpRSExOVGxKTTI4?=
+ =?utf-8?B?cXl4L2RwcFBJT3JQcFdNYzhGeGtGUzRoWVJLU2pOc2prREozaStLcXBEMkFQ?=
+ =?utf-8?B?T2k5RnZQQUF6aHBxaXVmK2hWaG9kYVBzYTB3d1VHSHRWMEkvbTBKRm9ZZ0Ja?=
+ =?utf-8?B?RVRZcXhxQVRLV2Z1RlVieEVuUlR6d1RtVTF0cTNlMDNGSXQyMVdMZVNhVU1U?=
+ =?utf-8?B?NkNOZm1PSUsyKzdOVWsyYlA4MTdKUlF5U28wMnRGOE9SaTNWM1lXaEhLZ0NS?=
+ =?utf-8?B?NytZa1d0c0ZLZm40Zzdmc1p2VmJsRkwvUDc2eC9NT2pVaUFPRkEzMU1uNXdv?=
+ =?utf-8?B?b3RsREhlWkZqbUNCYm4zcGl1WFc0K0NzQlRCUWkwNlhtUjZicjlnN1VIUFBF?=
+ =?utf-8?B?eDBOTC8rVE1ocEZpNXI1R0xFWElhWmR4MWpEVFJJK1gwQWRBUVdjVU1KeWEx?=
+ =?utf-8?B?SStjdnNuNWRySEdReW1KMXVaVVBPOWJJM2p0ZHJVdXRwVE5pUmcyVXdkbDdK?=
+ =?utf-8?B?cW9wZVpUYnVuVkhmRXlJcWZiUzRDemwvWXc3T1RzOUE1SG4wSUNyR1lQZ1Ix?=
+ =?utf-8?B?eXNPYXRWUFFCSE9UZGRvNG5NTGhzWlRKMXUvaDRWeGdzNXl0eXppS2lXRnhh?=
+ =?utf-8?B?dExWOGJYZDJxSVZMdmsyR1d0a2E1aUFXaU50RVB5THVTbnlPdkwyUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d79dd9a-a74b-442c-e340-08df342c812c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:16:26.1952
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1209d3cf-2068-4afe-2780-08df342c60d8
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF000793FA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR10MB5542
-X-Proofpoint-ORIG-GUID: KuULCDGDRS_y1lfY0_B4ezHz-IbC7TzT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1MiBTYWx0ZWRfX+ozeNoyNZJC4
- xzFSeuXFx3e/VeAH5olJ6o0HaRUgmwVp9+/3TnHFqGHOqfingqMCmLkLW47XJ42N/bkLKPjrNCA
- MGmixhwA76hTxNQHOhGFmwye9izjIl8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1MiBTYWx0ZWRfXz3HJbryiK1TB
- 31WgqnCOvmWAOGCwsnr9V+t28EAdl5eW5p0lrbzIj9I3sLg24gIB82bE3Ybxkn/L3FkhOAn45tS
- b8BgJ2s0LRhgV+9ZPEJwvWquN48wt82qlX13dkv+gaHIVFfVDlOl4GCGDumhRkqXWxhuxFBrilM
- waCjVwMXk++vzCK8kokCTtBG3Pf9MV0ekBJHHj8fYHRypBlQGnk5pJSOpbXPSVMkpURBUg/VDX9
- AaLe4Z56T8zY531n4iSlHA1s+2uyxLNSYLt2ef//F4FGmChbJigXKOToH6t0HmYNGkRacG3e2Ge
- pX6wizpET4chfA6heiETcxuyufb7g3B0Nv8x18e3NEupCcSKUu8WkDfxBCWgzE/KHysgyQE/7XT
- NBgT8j8M2PpXUxipExfeJ4ifbtnNlB4Jq7bM3VWwdagADzK+RTwTJ9Bd4Ax4cJoHsI/kIi12CN5
- eRidWx4yOlDB00tbpnw==
-X-Proofpoint-GUID: KuULCDGDRS_y1lfY0_B4ezHz-IbC7TzT
-X-Authority-Analysis: v=2.4 cv=dOwzC+Zb c=1 sm=1 tr=0 ts=6ae0a3f9 cx=c_pps
- a=xAd66yR1laZozgwquCAwlw==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=0_J5SqPAhB7wamf-v7UA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 suspectscore=0 impostorscore=0 adultscore=0
- clxscore=1011 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270052
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EuYPVUtdFGraG8rxaflGWHKt1icrPEJIAgroDLnGx2RAj/EoWyw4BF4SHr25LMo8yfsS1JKdIfX/T374OAD92Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB626779
 
 
 
-On 20/10/26 15:19, Mark Brown wrote:
-> On Thu, Oct 15, 2026 at 12:21:20PM +0530, Aniket Limaye wrote:
+On 10/27/26 07:57, Alex Deucher wrote:
+> On Tue, Oct 27, 2026 at 8:21 AM Christian König
+> <christian.koenig@amd.com> wrote:
+>>
+>> On 10/26/26 23:46, Richard Lane wrote:
+>>> Apple 27" 5K iMacs report a single 2560x2880 tile (28.125 MiB) in
+>>> VIEWPORT_SIZE while scanning out up to 64 MiB across the relocated EFI
+>>> framebuffer.
+>>>
+>>> Override the stolen VGA memory allocation size to 64 MiB when matching
+>>> PCI_VENDOR_ID_APPLE with a 2560x2880x4 viewport size to prevent
+>>> framebuffer corruption during boot handover.
+>>
+>> Hacks like those are usually a big no-go.
+>>
+>> Why is that framebuffer handling not working with DC out of the box?
 > 
->> I am planning to send next version in a few days... aligned with Andy's
->> suggestion for a separate driver. Would like to get your reviews once I do?
->> Let me know if you had something else in mind.
+> The GMC IP code reserves the memory used by the display hardware from
+> the pre-OS console.  The gmc get_vbios_fb_size() callback looks to see
+> what display viewport was set by the pre-OS environment.  If the Macs
+> need a workaround, that's where it should go.  Since these displays
+> require multiple display pipes, my guess is you need to double the
+> allocation in that case since the current code just checks the first
+> pipe.
+
+
+Could this also be a logic error in that callback?  Would it be worth 
+double checking all the register values in that callback for this system?
+
+I know for example there are a few different IP specific implementations 
+in gmc_v9_0_get_vbios_fb_size().
+
 > 
-> That sounds great - I'll look out for your patches.
+> Alex
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 10 +++++++++-
+>>>   1 file changed, 9 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> index 4204c3c750a8..8b196fbfa724 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+>>> @@ -1232,7 +1232,15 @@ void amdgpu_gmc_init_vga_resv_regions(struct amdgpu_device *adev)
+>>>          } else {
+>>>                  size = amdgpu_gmc_get_vbios_fb_size(adev);
+>>>
+>>> -               if (adev->mman.keep_stolen_vga_memory)
+>>> +               /*
+>>> +                * Apple 5K iMacs report one 2560x2880 tile in VIEWPORT_SIZE
+>>> +                * while scanning out up to 64M across the relocated EFI
+>>> +                * framebuffer.
+>>> +                */
+>>> +               if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
+>>> +                   size == (2560 * 2880 * 4))
+>>> +                       size = 64U * 1024 * 1024;
+>>> +               else if (adev->mman.keep_stolen_vga_memory)
+>>>                          size = max(size, (unsigned)AMDGPU_VBIOS_VGA_ALLOCATION);
+>>>          }
+>>>
+>>> --
+>>> 2.55.0
+>>
 
-Andy, Mark,
-
-I have sent a v4 as a separate driver [0].
-
-[0]: 
-https://lore.kernel.org/all/20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com/
-
-Thanks,
-Aniket
