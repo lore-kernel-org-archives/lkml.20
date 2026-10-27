@@ -1,68 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099936;
-	b=lGKgSV8MVKAR96U6HTYFF3TxY7oZFlnovkjjgEsOLcZamSav5mChqbTwq2kH3bTNl51X
-	 UWCFjpyIVGdZqTlDc+nX6WTQslDyQEN0lrvKSg7Gt7ojcpo+YOA1/pNOXI344NMLqgHIl
-	 GhT1/BJu0isCCdBNKvFGcf82eiT+xpF2rwfmY5lhADbjXmWx4jGtfaukEiGf5b4Fn/GVr
-	 274I4k2tVf2VBA5lQudUZPKFL/Bs0yO5uC/rLAM+4NxtYZRxODzMbj9DOChgh9djZ7vRm
-	 7uh/mpWSW34Rc/Gw63HFAF6d3JGDjNR9FNiNxXAIA+firRNVLvOqYfYju2fJDCnlosA==
+	t=1793099964;
+	b=vxCr9NqL/p8oAvHbDX/e+FYzgqdM94KwxyiZf7QgE2elWuLWTB9ayLGa5fYswrVENBIY
+	 fhwYJKF4HJv1ezrZzB2/ipJCsn6Fsi3RwwFckapmVwLJ17Bi7PmTeRgNYDuI6WylRbKkv
+	 YqQqCS8TUGbvR0XtFVx1+Bvfoo0F7da+XmE8CsMuX89Toiinc8oUq157Od5YOmWrCXoQV
+	 snCTO3G8gBmAIO5I9VwIJam5q37WVCml3poXfZ6QhfmGCVcdkmZWjajLQsgEPt1Urj69N
+	 9vkpphknm/t4Yb1p1XTrG9e7ehRACxOy1A9+xOgR2RA2sYXtQatIZoeermqu9WG2naQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099936;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=SHLKyJlQ92ycclVRVclHzYt7AhLEu/8J5eYn5vce5kI=;
-	b=lqVRwinDfbkDCuDHU9VceNTeVQphH1EMOGwzixxA2EMG8cJnFGS7c5RcZKxqnGncyVU8
-	 488fH1+fhRodiFwrLAC8xm7rqfR83VK7NQJa4bdwakB0HP8HPtr/QJ1Hu7y66YIwOkV2r
-	 F7HccqrViMxEFPvjFsGAL1K/Jz+y5Z4VuxWB8V/Y4dAuI+40zR/kaBWdPp7dh/pSZREqc
-	 2Bd0fspYsYTNBY1NB7PnSYKOZ/n0l1SD3IHGoPs+mSUE2GIiKbp+QM6HgUc2YvWau/USV
-	 1JKZafY0i9UgFUs9nuJKPanllmdp6qDsVJqpGbjUKH80CvkAnhQ8/amZ/a1zV57cvYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099964;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=yTRHCeu3BKYroz2AU7wSXWEvSolHHGJHDuQoOz2ibCI=;
+	b=KwslPGjCiQU5WGILms9J0mdZE7SdTgGnhelGFAP1mgTKYWdyjcNOIeW4UBPOvMJJJzU5
+	 sMLoH7oQHisFCyDITvu9bgBRBZWzVij/53dzyp11+JSPCD959EqusUeTlSj+MLm7T+ZCz
+	 D+eu5FS9G5LRdHukW1gtMuFlEp7mF3TqYJwvV4OgNndncd7juLcbd8Dh0auaV+W+5WcV5
+	 iSGyjNueVQQFf8cTwoGR3nf6y+Gtnr/uVFGkx/hG+HbvdTZOJ6xY95M5/NyACd76ujs9U
+	 mBNKpH4iRaGub94LeYJDIZzoCdkv6SsBAvrV2SdHJVHHCqYhcgEqEKzJbDHzbspxWFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ijmtIpiD;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U4S7CHgZ;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD274606A31A;
-	Tue, 27 Oct 2026 11:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD274606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2992C606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2992C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ijmtIpiD
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=SHLKyJlQ92ycclVRVclHzYt7AhLEu/8J5eYn5vce5kI=;
-	b=ijmtIpiDqGjAg+LyC4KtjTcqPEfytqF3S8pSW81KfNo/73c6OSQ+umrfumunmcizZaVSKkein
-	ECUjBwpEvNk409dyr1Pf309w/eDSEK5rCEr7ZQN1M/CRKF3IG/XxdjH4oafKDdxf33H+PwgWcna
-	Vi7kFdG0/jk70YncXV8qvUI=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jDSfm0dc8zLlXn;
-	Tue, 27 Oct 2026 19:18:40 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id EE4B940578;
-	Tue, 27 Oct 2026 19:18:45 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 27 Oct 2026 19:18:44 +0800
-Subject: Re: [PATCH] mtd: ubi: nvmem: Fix device_node leak in ubi_nvmem_add()
-To: Vishal Satle <vishalsatleit24@gmail.com>, Richard Weinberger
-	<richard@nod.at>, Daniel Golle <daniel@makrotopia.org>, Miquel Raynal
-	<miquel.raynal@bootlin.com>, Vignesh Raghavendra <vigneshr@ti.com>
-CC: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20261027091507.130294-1-vishalsatleit24@gmail.com>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <67bc8e42-c4e9-bfbd-f451-1ef5b492a084@huawei.com>
-Date: Tue, 27 Oct 2026 19:18:43 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U4S7CHgZ
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so3269832a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:19:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793099963; x=1793704763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yTRHCeu3BKYroz2AU7wSXWEvSolHHGJHDuQoOz2ibCI=;
+        b=U4S7CHgZ6OWC/w6R060JJBgH2S6foSewfrysgfKhq17JvFS9ly0/sFOKyCSSmaE0qG
+         pXuI36Fx9WDwmDDwid0JCsGOzxgUhJkk9ExbPBsLLpaHbd73sqbNENkByXL3OcC2f6/e
+         RtK5EG12GHv/VLyiEAQEEM65dbjbYOI0/Utk8tIr/JMa9dwj4A0oCflIKm5dzMhrYWGr
+         WGcRGj+OaZsyOwwOsZuzFnM33Z3zN17LJTYC0N7LKGfrJzxwwHuO0VVa6WupFXF5B3qJ
+         c2uH5rP5t6X+zyHP/qJDHpJZxngMppC48ipyFcmvk/kTiDwNX5ahT3lRDvuPPQK83gvC
+         kzkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793099963; x=1793704763;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yTRHCeu3BKYroz2AU7wSXWEvSolHHGJHDuQoOz2ibCI=;
+        b=XIiK1ArYY6jAgcbt6ezZJr5IFuSrEkYSBkrnZwbxE4i1rYJOkIGGnXa79++mCVU/Qm
+         xSN12zdcUT/g5vmTTe+66NyxspR5mem/EbV5StCTtkIEdnR9o9FthghjGO32eXfncGIp
+         1pmhK4qSFZtm8E2tvYSx8iCmGPd/PpM91e+AvjhzybnfrMhAzjLIRmvZ3330Hq+B5eFy
+         FGoWviAgVynK4gkLsBYKqwfxbDBzOoRbMYG803dAo1AFm0XHONUMJKJMOEewkKGct6lH
+         +BK4mp7FTnMaHuwtkslSR2jcwRvK1ECgzamUQsHgK8pvrJ5Q9jDEHHhCc3VO8ulYx3Va
+         CQkA==
+X-Gm-Message-State: AFq9FYIP456n+W1MUbTk+R7k60rGV7TMHtMQByouKfV4Mt1Qp4vmxjyP
+	QXt2ew+iYO7iCw8ckdsrAREmCirwxKR05ploomho/QO1yjq3Jrqeaifo
+X-Gm-Gg: AYBFou1zTPRzZISgYY4B4VyLfirTN1BuftWL4qbBPnQ5E3G6657UElwNkNO08yBLr7B
+	uXJqGE5geUdZbK9CIAi2aVwbHD2WEwkTcA3ROAImpLCvg6GHBglsl7lJxxDCZyrcakpr8wfe4A7
+	b+fBhMrKfaFYeKaxJosM8fFRcJDdcwvh+6w3W0aGsb3KzpRK44DEraD7YnVDEhDPWq+ttOigVgF
+	juXDhB6ZJKmy9aVyXl2Jhm2jGCqPD+ieI4pQQSozfxfLpzqhZi83RmCEdkv89Vyz/ym+zStOpgk
+	lcE1OUI4DZR6CF8f8koxmbl7TzSg+L5JdF2hBb6RKD36ZKeh4B4+e0MGLF5jpvZH6xooauwUs65
+	S5TuWVB2nchPJ+eG+2vHjBaL55kJz9kwu4VPzm/gGlmTfhuKr9MGHZdjwX4yYG8sTTdGttcpClj
+	fwZThDNJOX921n9xToJSt/5ETF+hQe/JRSOZ8ZhJF6js5JDDfQjCiHh6eTRXYVa4Fzb7RcingbW
+	ayN4sWm2IKWtYq/+O6TCz44CNeRdPidIVReH7EYSlR9Is/xaPyt7VcJAPLc
+X-Received: by 2002:a17:90b:5744:b0:3ab:be66:ddbe with SMTP id 98e67ed59e1d1-3adead577e9mr8214590a91.28.1793099963392;
+        Tue, 27 Oct 2026 04:19:23 -0700 (PDT)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae406519fesm3435051a91.12.2026.10.27.04.19.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:19:22 -0700 (PDT)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: james.morse@arm.com,
+	ben.horgan@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com,
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: [PATCH] arm_mpam: Free error_dev_id when destroying an MSC
+Date: Tue, 27 Oct 2026 19:19:14 +0800
+Message-Id: <20261027111914.850854-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,59 +95,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261027091507.130294-1-vishalsatleit24@gmail.com>
-Content-Type: text/plain; charset="gbk"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-ÔÚ 2026/10/27 17:15, Vishal Satle Ð´µÀ:
-> ubi_nvmem_add() calls of_get_child_by_name() to verify that the UBI
-> volume device node contains an "nvmem-layout" subnode.
-> of_get_child_by_name() returns a pointer to the child device_node
-> with its reference count incremented.
-> 
-> Because the returned pointer was only evaluated as a boolean condition
-> and not retained or put, the reference count of the "nvmem-layout" node
-> was leaked whenever an NVMEM-enabled UBI volume was registered.
-> 
-> Assign the child node to a local variable and release it with
-> of_node_put() once existence has been validated.
-> 
-> Fixes: 34a5d8525b6a ("mtd: ubi: add NVMEM support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishal Satle <vishalsatleit24@gmail.com>
-> ---
->   drivers/mtd/ubi/nvmem.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+error_dev_id is allocated with alloc_percpu() when the MSC has a
+per-CPU error interrupt, but is never freed. free_percpu_irq() only
+releases the irqaction, not the percpu allocation. The msc structure
+itself is devm managed, so the leak survives its devm_kfree().
 
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> 
-> diff --git a/drivers/mtd/ubi/nvmem.c b/drivers/mtd/ubi/nvmem.c
-> index 2dade9727..15737d511 100644
-> --- a/drivers/mtd/ubi/nvmem.c
-> +++ b/drivers/mtd/ubi/nvmem.c
-> @@ -61,6 +61,7 @@ static int ubi_nvmem_reg_read(void *priv, unsigned int from,
->   static int ubi_nvmem_add(struct ubi_volume_info *vi)
->   {
->   	struct device_node *np = dev_of_node(vi->dev);
-> +	struct device_node *layout;
->   	struct nvmem_config config = {};
->   	struct ubi_nvmem *unv;
->   	int ret;
-> @@ -68,9 +69,12 @@ static int ubi_nvmem_add(struct ubi_volume_info *vi)
->   	if (!np)
->   		return 0;
->   
-> -	if (!of_get_child_by_name(np, "nvmem-layout"))
-> +	layout = of_get_child_by_name(np, "nvmem-layout");
-> +	if (!layout)
->   		return 0;
->   
-> +	of_node_put(layout);
-> +
->   	if (WARN_ON_ONCE(vi->usable_leb_size <= 0) ||
->   	    WARN_ON_ONCE(vi->size <= 0))
->   		return -EINVAL;
-> 
+free_percpu() accepts NULL, so MSCs without a PPI error interrupt
+are unaffected.
+
+Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
+---
+ drivers/resctrl/mpam_devices.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 48adc49b833c..bff0b5da0fe6 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -2423,6 +2423,7 @@ static void mpam_msc_destroy(struct mpam_msc *msc)
+ 	list_del_rcu(&msc->all_msc_list);
+ 	synchronize_srcu(&mpam_srcu);
+ 	mpam_pcc_chan_put(msc->pcc_chan);
++	free_percpu(msc->error_dev_id);
+ 	platform_set_drvdata(pdev, NULL);
+ 
+ 	add_to_garbage(msc);
+-- 
+2.34.1
 
