@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793093710;
-	b=Z1VnQIbiWFMTaRK684yA5wjmirVUSTqS7uxGTVi/2jDqxUb4YM2NznqLiSsO+CX10JCu
-	 FA4mhLZ+BEaTCRilpF3wWMLAIEXWlxK2Jb/d4m6+19EplRb8V+jTmddb1mcl08L5URUQ7
-	 zWlUBKHaF412qsfmW6geF5BifCsgaLzpOghbpaulWlmH80IiR9fIlqwldP4mOS9cw3NWL
-	 +Q6JokwC3pUkyUsWFw3DLZFTXEqxkBv0mVGxSKZVnji8l+bcPQlNbUqOVOkiahofKQh8V
-	 S5MQFxcmyzsGEdMrdmlxYssZy+EP1vhRsakD0wIgKH0vg5mQ7C2blI36wcy/RgpIM+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093710;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=99Quot76Ew1Xga+Y6JjFMpEKhii0fTwKrTpcfefLdIc=;
-	b=u8hp+2IBaePJfCyeeDG+c3RNa4TR6oZKT/pxRGvua24b4d8v/UOmCVKDVkrPbQHwq+u6
-	 LkOPBcufnOtsBQ2UowGVtj4PGYJbPKekBQu5zuWcLVdi8xNtQBXkHKiYhT7R+vxyNpeRB
-	 Cmer2RUYn1pyVQKMfRomBXxzH4OKOBLHL6LqZeEpNFoDksc9VohpaN+zdx0qUcxX0kBbk
-	 SgQ3uHiqF4nVjEHCorgz9Z/DjVghxb7SN3ynVh+xnaQqsTfX1mGcj5vzr0yl+nxt6UkAL
-	 UT4gSnjOb18ea6X/DP0E5sZlzSL8Fi+8fJVHR8hu7C9tYk1vaH6LRq9RHrzOZkjcOoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Zq85cipr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793093721;
+	b=hq7voQbp2sTdvgGskFMX9NsD38mP7OincrfrTPe5RkKAHIX3Z9QRDmMLat1NbGNJ/fOs
+	 Rgg/IzJmJqECBh/D9Rrcad8FGxQhCzoy/hh7dPR7D0TTdzh2DrNtubRSsx+6+oOHNXF/y
+	 pGX3YCbLe2IUMwiohVCvNBOWl42KHoNny+IB6N6vj1CYI03nYiX1dlI4GkzLsC149oYNj
+	 gxW84kQ6UTfT24MX3s+4BCsrTCc2J3i4UcxX7vmPgmThl/KX+G3d+kBcS8VexRw7zJF5+
+	 OMQJCssLyP7Pul1SYN2FPEogHUF11DuuTE81ODkD+rjO2bkIi3jqb2rMi/pR3Ub9pog==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093721;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8cClHpn4QcRtRIEg08pjD1RQp0MconW84frXjCAs5kI=;
+	b=0F4ECdT705H9+nP4RpETB+I7iNKNaoBAxm/Iu0JmGlJIMdESWVfsBhbR4fchbaZTj9qw
+	 rLW4Oqg1QzM7ASNmk7FTx1/rVn4sBIunav4X5KE386JE6GlrHmdmw7hyDR1xL9tjEnQM9
+	 Rjk9Fp5qcjOIz+1VCwIxw4brN7d1hpbz1O82z0FWYf2zwxMBnrqeNVMyLxIikxKQkFTf5
+	 gKexmEPwr1T1ecfA5QA3B5k/ere+dqrtRcUEHmGzAQwl+AJNrkkFKQq3WVt/XKd0IlbC9
+	 klXFVaclglnobBfhmCtrcwyyGPQxaMmXZ2S2Mwfd19j8FJW6AnFW+CY7DuSXdxvUskQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oLSdHlm4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1A2606A31B;
-	Tue, 27 Oct 2026 09:35:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB1A2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A752C606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:35:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Zq85cipr
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CA39F2022D8;
-	Tue, 27 Oct 2026 10:35:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793093706;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=99Quot76Ew1Xga+Y6JjFMpEKhii0fTwKrTpcfefLdIc=;
-	b=Zq85ciprUiBzG8awWpiriexHzGFwlu3KviMpkLQndFmDiByT8P0n07dEuQeRH3+H0V3N6G
-	JaIQ50YBT3zjoRNhgOsxg3Z/M7Kw0P4I8bCkviAF51ZqsQ7HEoY+ddXQv78XNTjGYHFiG8
-	a8uxXpCQTZ4UCaC+TLahNPTmVlWU6BuVz/7yKXfjyt/GTy1mE8wv+W3vxjGfq8/FFU/zHI
-	07xNEsiWFx4aLW+p8xcqs1vHOvRGg7it1g5bfgCbSdfCoorEcReQxljOGVZnDQuAzVMJNP
-	S/GA4y9aHsqLQXMa/uAp/l6EjHmljFkgeNDJKxaLIT80HTPnlFNol7AJMDNM/A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793093706; a=rsa-sha256;
-	cv=none;
-	b=JtIaUZ0IwpCGq8Q7PIpl2oVGHj5zeqIC9ItIaqKjcPfHuZ/h/uaK4oaVWv2fWIwD2Y3Q3u
-	3Zkw+epEPWg8DxmxVST4Ox1P3WPIlBV1yA09IIsdhLwbjXJoCy7AhOXOnVI6kI+Amsyj77
-	hNzQgAoktS659GGWtnrt/j86wZuDDafQgsVQu+4rC8L+RG2ON5tY16uPHffSoMiG/L6LbJ
-	rbvCsiJSQRckmwU15Y+hlMmM5tLWppOpAR34go+rGAuxXnke6eDTT14KHBCgvvuUw668NB
-	j9BLhKzQ6CjKfM66Jh5qEMWZisxWBbleu9vFgufzdUff6zhx/JFfZLOF8ntmdw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793093706;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=99Quot76Ew1Xga+Y6JjFMpEKhii0fTwKrTpcfefLdIc=;
-	b=MJg8GDPiTLlhRPniUvOMasJ8bqJUm8m/Pa64GL2YPLlEtO6f+Jl4TTbCMe3VzTGhHqgb1P
-	G8lmE11AAwmUx7Cc2tXgsaybOJpB3XbF4GJ5t5drb0+N0vQ31XC2Es6v01UcH0s6Vjc8/T
-	/ksKtWgNqMPGEuB/tMw5vAYa9r3hvcyQGGTk6B30dvsaWXGHLRwmisaD2BNzEJRuA931vt
-	Xx3X42nL1UOjpXYX8j96VdddzzHiMMnEvgHm0Ac9CbOfUDx09qR2jFe5hJcayBjQLKutxS
-	MWfFdxfwjIxIVK26D2yz8kmeox5+xec4TPHTdCbaPk5YpUpjJ6DnGOIxNht2aw==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xLdaE-001PRs-2M;
-	Tue, 27 Oct 2026 10:35:06 +0100
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 386F35D7AF0;
-	Tue, 27 Oct 2026 09:35:06 +0000 (UTC)
-Date: Tue, 27 Oct 2026 10:35:05 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Ciprian Costea <ciprianmarian.costea@oss.nxp.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Kurt Van Dijck <dev.kurt@vandijck-laurijssen.be>, 
-	linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>
-Subject: Re: [PATCH v5 3/3] can: gs_usb: check can_rx_offload_add_manual()
- return value
-Message-ID: <20261027-arboreal-screeching-flamingo-0bb914-mkl@pengutronix.de>
-References: <20260907104942.17089-1-ciprianmarian.costea@oss.nxp.com>
- <20260907104942.17089-4-ciprianmarian.costea@oss.nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oLSdHlm4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D47A1F031E0;
+	Tue, 27 Oct 2026 09:35:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793093720;
+	bh=8cClHpn4QcRtRIEg08pjD1RQp0MconW84frXjCAs5kI=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=oLSdHlm41Z7IPbn9DzDXOCfqPTOuEQJRBonriYWllIN4wDWohCFP42PQLIVnoAYgf
+	 rWSXzkGeevOfBL9Ko8Rjf3ex7iVnag8HpStv0ojTWa2Y/E5nh62ZzAwEAxRcaBRXTZ
+	 zJUmrokbHVqAspfpWbyLcHQDjocmmxOJfvX83K5UAn7QK+6CSEY+mIspwt9K0Q6l/O
+	 KkjUSfd7ypTJvxgjONrpoi9eJ++pjuzW9frq2xV9Yw5LU3urF/I/6Y8JWZgIKa7DrH
+	 Lr2UcX3UkQDfoclU58dDwWFLuew9grdZTWdrIW9mgKk2BNgQ+ZQIeFbnOzdGt1v5cj
+	 AKpGM8Bm+DY3g==
+Message-ID: <8c731d5a-d000-4faf-a5d2-76f7c17d82ec@kernel.org>
+Date: Tue, 27 Oct 2026 17:35:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,56 +51,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="idthn2kgmfdskzon"
-Content-Disposition: inline
-In-Reply-To: <20260907104942.17089-4-ciprianmarian.costea@oss.nxp.com>
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Juan Yescas <jyescas@google.com>, Daeho Jeong <daehojeong@google.com>,
+ Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
+ David Hildenbrand <David.Hildenbrand@arm.com>, linux-kernel@vger.kernel.org,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v7 07/15] f2fs: prepare mmap write faults for large folios
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261026033745.784107-1-nzzhao.sigma@gmail.com>
+ <20261026033745.784107-8-nzzhao.sigma@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261026033745.784107-8-nzzhao.sigma@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 10/26/26 11:37, Nanzhe Zhao wrote:
+> From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> 
+> Now write protect `mmap` also need to support large folio,
+> Change `f2fs_vm_page_mkwrite` to achieve that.
+> 
+> Note it currently marks the whole large folio dirty
+> to avoid data loss which causes write amplification.
+> Further optimization is welcome.
+> 
+> The folio_zero_segment() in mkwrite is extended to zero the
+> post-EOF part of the faulted folio for both order-0 and large
+> folios, so the f2fs_zero_post_eof_page() call that was added
+> to cover the removed shortcut is no longer needed.
+> 
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>  fs/f2fs/f2fs.h |  4 +++
+>  fs/f2fs/file.c | 96 ++++++++++++++++++++++++++++++++------------------
+>  2 files changed, 65 insertions(+), 35 deletions(-)
+> 
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index b89664e28a92..915ca72cf276 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4492,6 +4492,10 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+>  				enum iostat_type io_type,
+>  				int compr_blocks, bool allow_balance);
+>  bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index);
+> +struct f2fs_folio_state *f2fs_ffs_find_or_alloc(struct folio *folio);
+> +void f2fs_ffs_mark_subrange_dirty(struct folio *folio, size_t offset, size_t len);
+> +bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
+> +					    size_t len);
+>  void f2fs_write_failed(struct inode *inode, loff_t to);
+>  void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length);
+>  bool f2fs_release_folio(struct folio *folio, gfp_t wait);
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index 85b4f1a2ff0d..808b72d3d78a 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -118,14 +118,48 @@ static vm_fault_t f2fs_filemap_fault(struct vm_fault *vmf)
+>  	return ret;
+>  }
+>  
+> +static int f2fs_get_block_mkwrite(struct inode *inode, struct folio *folio,
+> +				  pgoff_t index, bool need_alloc)
+> +{
+> +	struct dnode_of_data dn;
+> +	int err;
+> +
+> +	set_new_dnode(&dn, inode, NULL, NULL, 0);
+> +	if (need_alloc) {
+> +		err = f2fs_get_block_locked(&dn, index);
+> +	} else {
+> +		err = f2fs_get_dnode_of_data(&dn, index, LOOKUP_NODE);
+> +		f2fs_put_dnode(&dn);
+> +		if (f2fs_is_pinned_file(inode) &&
+> +		    !__is_valid_data_blkaddr(dn.data_blkaddr))
+> +			err = -EIO;
+> +	}
+> +
+> +	if (err)
+> +		return err;
+> +
+> +	f2fs_folio_wait_writeback(folio, false, true);
+> +
+> +	/* wait for GCed page writeback via META_MAPPING */
+> +	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+> +
+> +	return 0;
+> +}
+> +
+>  static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>  {
+>  	struct folio *folio = page_folio(vmf->page);
+>  	struct inode *inode = file_inode(vmf->vma->vm_file);
+>  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+> -	struct dnode_of_data dn;
+>  	bool need_alloc = !f2fs_is_pinned_file(inode);
+> +	pgoff_t pidx = folio->index + folio_page_idx(folio, vmf->page);
+> +	loff_t pos = (loff_t)pidx << PAGE_SHIFT;
+>  	loff_t isize;
+> +	loff_t folio_start;
+> +	loff_t valid_end;
+> +	size_t dirty_len;
+> +	size_t subpage_off;
+> +	pgoff_t i, nr;
+>  	int err = 0;
+>  	vm_fault_t ret;
+>  
+> @@ -162,7 +196,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>  
+>  #ifdef CONFIG_F2FS_FS_COMPRESSION
+>  	if (f2fs_compressed_file(inode)) {
+> -		int ret = f2fs_is_compressed_cluster(inode, folio->index);
+> +		int ret = f2fs_is_compressed_cluster(inode, pidx);
+>  
+>  		if (ret < 0) {
+>  			err = ret;
+> @@ -180,11 +214,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>  
+>  	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
+>  
+> -	err = f2fs_zero_post_eof_page(inode,
+> -		(folio->index + 1) << PAGE_SHIFT, true, false);
+> -	if (err)
+> -		goto out_pagefault;
+> -
+>  	file_update_time(vmf->vma->vm_file);
+>  	filemap_invalidate_lock_shared(inode->i_mapping);
+>  
+> @@ -200,62 +229,59 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+>  	}
+>  
+>  	folio_lock(folio);
 
---idthn2kgmfdskzon
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 3/3] can: gs_usb: check can_rx_offload_add_manual()
- return value
-MIME-Version: 1.0
+It needs to add below check to avoid racing w/ COLLAPSE_RANGE or INSERT_RANGE ->
+f2fs_invalidate_folio()? there is no ffs in large folio after folio_lock().
 
-On 07.09.2026 12:49:42, Ciprian Costea wrote:
-> From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
->
-> gs_make_candev() ignores the return value of can_rx_offload_add_manual().
-> Once can_rx_offload's skb_irq_queue is made per-CPU, that call allocates a
-> per-CPU queue and can fail with -ENOMEM, leaving offload->skb_irq_queue =
-=3D=3D
-> NULL.
->
-> Check the return value and exit via the existing free_candev() on error
-> path.
->
-> Fixes: 24bc41b45583 ("can: gs_usb: convert to NAPI/rx-offload to avoid Oo=
-O reception")
-> Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-
-Added this patch to gs_usb fixes series.
+    if (folio_test_large(folio) && !folio_test_uptodate(folio)) {
+        folio_unlock(folio);
+        err = -EFAULT;          /* VM_FAULT_NOPAGE, refault */
+        goto out_sem;
+    }
 
 Thanks,
-Marc
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+> -	/*
+> -	 * A concurrent buffered write can extend isize, so we store isize in a
+> -	 * local variable to let the zeroing offset match the EOF check below.
+> -	 */
+>  	isize = i_size_read(inode);
+> +	folio_start = folio_pos(folio);
+> +	subpage_off = offset_in_folio(folio, pos);
+> +	valid_end = min_t(loff_t, folio_start + folio_size(folio), isize);
+> +	dirty_len = valid_end - folio_start;
+>  
+>  	if (unlikely(folio->mapping != inode->i_mapping ||
+> -			folio_pos(folio) > isize ||
+> -			!folio_test_uptodate(folio))) {
+> +			pos >= isize ||
+> +			!f2fs_ffs_test_blk_uptodate(folio,
+> +			folio->index + (subpage_off >> PAGE_SHIFT)))) {
+>  		folio_unlock(folio);
+>  		err = -EFAULT;
+>  		goto out_sem;
+>  	}
+>  
+> -	set_new_dnode(&dn, inode, NULL, NULL, 0);
+> -	if (need_alloc) {
+> -		/* block allocation */
+> -		err = f2fs_get_block_locked(&dn, folio->index);
+> -	} else {
+> -		err = f2fs_get_dnode_of_data(&dn, folio->index, LOOKUP_NODE);
+> -		f2fs_put_dnode(&dn);
+> -		if (f2fs_is_pinned_file(inode) &&
+> -		    !__is_valid_data_blkaddr(dn.data_blkaddr))
+> -			err = -EIO;
+> -	}
+> -
+> -	if (err) {
+> +	if (folio_test_large(folio) && !f2fs_ffs_find_or_alloc(folio)) {
+>  		folio_unlock(folio);
+> +		err = -ENOMEM;
+>  		goto out_sem;
+>  	}
+>  
+> -	f2fs_folio_wait_writeback(folio, false, true);
+> +	nr = DIV_ROUND_UP(dirty_len, PAGE_SIZE);
+>  
+> -	/* wait for GCed page writeback via generic cache */
+> -	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+> +	for (i = 0; i < nr; i++) {
+> +		err = f2fs_get_block_mkwrite(inode, folio, folio->index + i,
+> +					     need_alloc);
+> +		if (err) {
+> +			folio_unlock(folio);
+> +			goto out_sem;
+> +		}
+> +	}
+>  
+>  	/* page is wholly or partially inside EOF */
+> -	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
+> -		loff_t offset;
+> +	if (folio_start + folio_size(folio) > isize) {
+> +		size_t offset = offset_in_folio(folio, isize);
+>  
+> -		offset = isize & ~PAGE_MASK;
+>  		folio_zero_segment(folio, offset, folio_size(folio));
+>  	}
+> +
+> +	if (folio_test_large(folio))
+> +		f2fs_ffs_mark_subrange_dirty(folio, 0, dirty_len);
+>  	folio_mark_dirty(folio);
+>  
+> -	f2fs_update_iostat(sbi, inode, APP_MAPPED_IO, F2FS_BLKSIZE(sbi));
+> +	f2fs_update_iostat(sbi, inode, APP_MAPPED_IO, dirty_len);
+>  	f2fs_update_time(sbi, REQ_TIME);
+>  
+>  out_sem:
+>  	filemap_invalidate_unlock_shared(inode->i_mapping);
+> -out_pagefault:
+>  	sb_end_pagefault(inode->i_sb);
+>  out:
+>  	ret = vmf_fs_error(err);
+>  
+> -	trace_f2fs_vm_page_mkwrite(inode, folio->index, vmf->vma->vm_flags, ret);
+> +	trace_f2fs_vm_page_mkwrite(inode, pidx, vmf->vma->vm_flags, ret);
+>  	return ret;
+>  }
+>  
 
---idthn2kgmfdskzon
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCauBwRwAKCRDMOmT6rpmt
-0gFAAQC0c7UT/+oEEwTK/YSBqia18aUuFU+AP3rZEWHn9gCMlgEAlDTFrIn7dn3a
-RrcB2+klkNhtjso7OM1K6eEGANr/nw8=
-=YQo3
------END PGP SIGNATURE-----
-
---idthn2kgmfdskzon--
