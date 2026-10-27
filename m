@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793064351;
-	b=snQ/6dgfWLbnKVpzVUUJR1S4V/sGXL7TPeHZXy3iaUhNQYZL22JjmVEJhxmOkYW0WRe3
-	 OL0Ra94N0ZbzmfOqzeI4p9UZW+dcU0t4YXzqPwdP5+C6Tm4/4gL6fXlmTgC+TAkbL4Jr6
-	 hMY3M8oe+j+Cw6OoYnT5TPvvIglBjd0A4hp8Sk7dyDMjufvXLY5+IIupUDM1kA/rEtww3
-	 pTnCgROxjwgRAs4uBflhem6X16B9/vhPUgsVpuW7RITxoZVOGlOzDbllwwdGCRxOs3EPq
-	 WHNLBNNT9F8HfXoSFawT74KUi00Al7MjlMLL8uSKKUwg+xdxf0heEHccDYkz8QRY9TA==
+	t=1793064359;
+	b=HmB3imBETzMHs+OszZTy0e7kHLSitnOW7CBKqXS/vFpNiVkWgrHACNaeQT3BBT8ioWCF
+	 kfBCe7KMi1y1dGE+TXIj4exUnp6gIz7mSGSs8hDwc+xvBbZkYVbd6XtuTKobZXtqY05Ti
+	 b6hmSghv5uYCW9Vbjf80G9DEzJUCoZEiwvi4/Y8PyAfJDDsDH7Vw/c7S+Ynuy/vFf4mZm
+	 Tfq6hHNlVWKf8qHlMgS0Oyznyxm8dhS5jzkWBk8Mwl6RJc1gIzFrFr3XBo2V7jaiUGQ3F
+	 k06EZaQA8RzqvTprsE9m5IVvwZnteRWxKX9ofSXCEQzLfylZZ93kOtJcfPqdLco8lww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793064351;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Y+DIHcrA443uqX7QES2ZcgrJrcUrUUQxo223RqYtOdc=;
-	b=q2J4aUt6J+8AXcvvqpl3YFJ+M1lT2FA4YVJpKUB0aW98thdVDtZ9SKWR3juBhnuWakOe
-	 WqlHlzrdvafEhz3zJAk1xLvCBQ92mGibc0oULdY+5a7cqCjvVQK5oVUgtzYV2nqBZ8AsI
-	 XQcsyv1gfTPPdu+u1XgJK12Lp6zMAdM2FJDqcbw8IEY3q/yDTbYpyfpjwVZVHXn67moex
-	 UoF2h0WO+mYTvHiBKtVw/xFqXYY34Ytn0arSafLEdtUFVkC0CIeUoYKgL+6ehYBedo3SC
-	 jXAtvQhhQBlmh4pnEzrbS47krsdXFDH4oQdH2VyUlPn1QIX9RUw7ShG4OHP9uisYd6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793064359;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=e8x+Yp1b8Kxu6l3y8Cyq5giM+y9Uzg1iDoLxMoSR7RA=;
+	b=oulQDFEC1o4xe+VKOo80HsAjpdA441a5/QJ7e8sAHS8UnJ9QNLMiQ3Zgf6aHThJr4mLz
+	 6/jBTDMfZEjBV2ajhycTgU2ZmUrmEEd0sPb1AAdfMaG74aF36dj5wp4sibUZNTiMmSOAu
+	 5ShInhzYDUA8EuBM2w+mQTD4Wl0Dbdr7VAgxOBChoKcgA18RzwhAJtyQvvLI3J4Z0dy0b
+	 RFIgClREdTqZbCOBXeUq11h9KI/D5NqXD7di+busR7NpurZUG4FwaKhkYqmA5NjaJsRwO
+	 NEihjIdYZgqsVpPEP5kFC40YCHRVbp6uwMYO/HcLwsNluaYxxHVfOSADUEy27eOY/sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L53lhoCx;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E809A606A31A;
-	Tue, 27 Oct 2026 01:25:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E809A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L53lhoCx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793064351; x=1824600351;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=1W0qQOp9dlvhFLQgWLSpC14yTIgst1Lk70JE9hOkfO0=;
-  b=L53lhoCxCvJanlIjEpE/6Dp9npkN103lLRTtG+JySOpcoMOgBCsktCaN
-   imlKGhC5v3ZTYiaddOaWn8TkaMxdegrxmPu4qtYC1fQCCScajiaFyahjW
-   +o7TS2oQCNmGQ+oGYTcLYggOiEOD53TxcHOph32TVex7P+JtOrGiRnpQp
-   alXLONnxVEnLnCkNOX/iKh5QnqISDFoxvQorFwI72U2xvGMrn4TkouohL
-   j4UQ0GeBLsuVcMfPyl5tW8DGPq1mySQGlGumDVtHCO5GUbP052cKlNUYx
-   /yJHTGkCYqWFU6JESu4Syn/5u+76azHitGMf9rb48fEedMEvGu7qyPPgz
-   w==;
-X-CSE-ConnectionGUID: Ey5msoRsRW6DdEcDgbXx8A==
-X-CSE-MsgGUID: NPhX6EtZTK+64IVIaDUaFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1760137"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1760137"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 18:25:50 -0700
-X-CSE-ConnectionGUID: 499ixse/RBiiw5XlyzZDTQ==
-X-CSE-MsgGUID: 1iitD3rJT+2NzPxwk+903g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4422631"
-Received: from unknown (HELO [10.238.2.205]) ([10.238.2.205])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 18:25:44 -0700
-Message-ID: <153dd0db-32d8-4ec9-ab8d-2368a790ac55@linux.intel.com>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C79C606A31D;
+	Tue, 27 Oct 2026 01:25:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C79C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=e8x+Yp1b8K
+	xu6l3y8Cyq5giM+y9Uzg1iDoLxMoSR7RA=; b=Fdq/Tvv/aaiQUlvLwMCr5gu9cN
+	c+RTBMmaRF/9+7GjCV5qHoeHFkiWihOG1fSIkW/B5PHAurcfyRvv+6VeOMjYJeyA
+	EpjpEVOGAkt1wfV8135eDTJACSDXPEYlf+A/QGpuCmbF6Mn8/knRTtx27525qers
+	zpShgkUium/i8ekBg=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkA2WwGX_d9qJ5LsAA--.52315S2;
+	Tue, 27 Oct 2026 09:25:44 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v3] media: dvb-core: prevent frontend thread resurrection after unregister
 Date: Tue, 27 Oct 2026 09:25:42 +0800
+Message-Id: <20261027012542.5029-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,80 +58,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 02/28] KVM: VMX: Initialize VM entry/exit FRED
- controls in vmcs_config
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
- <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
- Shivansh Dhiman <shivansh.dhiman@amd.com>,
- David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
- Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
- David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-References: <20260911213659.2025974-1-sohil.mehta@intel.com>
- <20260911213659.2025974-3-sohil.mehta@intel.com>
- <acc168cc-e021-43dc-8846-ed1b2d69facb@linux.intel.com>
- <a0f99d8b-b67d-42f3-b76b-90187a0bea5d@intel.com>
- <5af354c7-9bbb-4ff2-b450-c08cc5b46304@intel.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <5af354c7-9bbb-4ff2-b450-c08cc5b46304@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkA2WwGX_d9qJ5LsAA--.52315S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXr4Utw1xKFW8ZFW5Aw4kXrb_yoWrAw45pF
+	Z3JFyjkFWDKw1xCr1vy3ZrXFn0q3W8ZayUG347G3y5Gr1rGFWIgry5t34DXwnxArZ3Jr4q
+	qan7Kry8Ca9rAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+	rcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr
+	0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbcTm3UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2rfbNM95AABsK
 
+A use-after-free read in dvb_frontend_thread() was observed when a DVB USB
+device was disconnected concurrently with userspace opening and closing the
+frontend device node:
 
+  BUG: KASAN: slab-use-after-free in dvb_frontend_thread+0x1380/0x1620
+  Read of size 8 at addr ffff888008dd4320
+  Comm: kdvb-ad-0-fe-0 Not tainted 7.1.2-dirty #81
+  dvb_frontend_should_wakeup drivers/media/dvb-core/dvb_frontend.c:641
+  dvb_frontend_thread drivers/media/dvb-core/dvb_frontend.c:682
 
-On 10/26/2026 1:00 PM, Sohil Mehta wrote:
-> On 10/22/2026 8:10 PM, Sohil Mehta wrote:
-> 
->> I couldn't find any precedent for this. I don't have a strong preference
->> here. Is it worth making future-proof?
-> 
-> 
-> I did a bit of digging. The current entry in the table is the result of
-> Sean's preference provided early on in the FRED series. See
-> 
-> https://lore.kernel.org/all/Z739wdGmk4ZuWJ8v@google.com/
-> https://lore.kernel.org/all/ZUz3cPmnqSq7Lol9@google.com/
-> 
-> IIUC, we want the FRED entry/exit controls to be consistent without
-> depending on the ordering.
-> 
-> The current vmx_check_entry_exit_pairs() doesn't cover the FRED case (a
-> single entry bit mapping to two exit bits). So, the updated check would
-> cover this scenario.
+  Allocated by the frontend attach path:
+   cinergyt2_fe_attach+0x... (drivers/media/usb/dvb-usb/cinergyT2-fe.c:271)
 
-OK, thanks for the info!
+  Freed by the final frontend release:
+   dvb_frontend_put+0x... (drivers/media/dvb-core/dvb_frontend.c)
+   dvb_frontend_release+0x... (drivers/media/dvb-core/dvb_frontend.c:2934)
 
-> 
->> if (!(entry_controls & n_ctrl) == !(exit_controls & x_ctrl) &&
->>     !(entry_controls & n_ctrl) == ((exit_controls & x_ctrl) != x_ctrl))
->> 		continue;
->>
-> 
-> 
-> 1st line: the entry control is set if and only if *any* exit bit is set.
-> 2nd line: the entry control is set if and only if *all* exit bits are
-> set (which is specific to FRED for now).
-> 
-> Also, to make it easier to read, planning to reformat it as:
-> 
-> struct {
-> 	u32 entry_control;
-> 	u64 exit_control;
-> } const vmcs_entry_exit2_pairs[] = {
-> 	{ VM_ENTRY_LOAD_IA32_FRED, SECONDARY_VM_EXIT_SAVE_IA32_FRED |
-> 				   SECONDARY_VM_EXIT_LOAD_IA32_FRED },
-> };
-> 
-> Please let me know if you disagree with the approach.
+dvb_unregister_frontend() stops the frontend kthread and only then removes
+the dvb device node.  dvb_frontend_open() does not hold frontend_mutex, so
+an open that is already past the DVB_FE_DEVICE_REMOVED check can call
+dvb_frontend_start() after dvb_frontend_stop() has returned and spawn a new
+kthread.  The frontend kthread does not hold a reference on the frontend
+object, so once the last file descriptor is closed the final
+dvb_frontend_put() frees the frontend state while that kthread is still
+running, which is the use-after-free reported above.
 
-It looks good to me.
+Remove the device node first.  dvb_device_open() invokes the frontend open
+handler while holding minor_rwsem for reading, and dvb_remove_device()
+takes the same lock for writing and clears the minor, so once it has
+returned no open can reach dvb_frontend_start() any more.  The kthread that
+follows is then the last one, and dvb_frontend_stop() waits for it.
+
+No change to the fe->exit state machine is needed.  The thread that is
+stopped through kthread_stop() records DVB_FE_DEVICE_REMOVED before it
+releases fepriv->sem, which is what keeps concurrent ioctl() callers on
+already open descriptors away from the driver, and DVB_FE_DEVICE_REMOVED
+keeps the meaning drivers rely on, such as skipping hardware access on a
+device that is no longer there.
+
+Fixes: 1f862a68df24 ("[media] dvb_frontend: move kref to struct dvb_frontend")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+Changes since v2:
+ - remove the device node before the frontend thread is stopped and
+   drop the fe->exit changes: unregistering the node takes
+   minor_rwsem for writing, so no open can restart the kthread after
+   dvb_frontend_stop().  Leaving the exit state machine alone also
+   keeps concurrent ioctl() callers, driver power-down on normal
+   unload and the DVB_FE_DEVICE_REMOVED semantics as they were.
+
+Changes since v1:
+ - do not mark the frontend removed in dvb_unregister_frontend();
+   the ordering alone closes the race, and an unconditional
+   DVB_FE_DEVICE_REMOVED broke hardware power-down on normal driver
+   unload.
+
+ drivers/media/dvb-core/dvb_frontend.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index d082b6c57c76..22d2e0112b74 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -3076,8 +3076,15 @@ int dvb_unregister_frontend(struct dvb_frontend *fe)
+ 	dev_dbg(fe->dvb->device, "%s:\n", __func__);
+ 
+ 	mutex_lock(&frontend_mutex);
+-	dvb_frontend_stop(fe);
++	/*
++	 * Remove the device node before stopping the thread: dvb_device_open()
++	 * calls dvb_frontend_open() while holding minor_rwsem for reading and
++	 * dvb_remove_device() takes it for writing, so once this returns no
++	 * open can reach dvb_frontend_start() and spawn a kthread that
++	 * dvb_frontend_stop() below would no longer stop.
++	 */
+ 	dvb_remove_device(fepriv->dvbdev);
++	dvb_frontend_stop(fe);
+ 
+ 	/* fe is invalid now */
+ 	mutex_unlock(&frontend_mutex);
+-- 
+2.34.1
+
