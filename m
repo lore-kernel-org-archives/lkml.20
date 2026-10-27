@@ -1,82 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122483;
-	b=R8n/okdhOrZamoisvHHNLCfTfCDaHEGzF+NEuEmyhiyOJPNJTFVQyvHIWF9RyH9LKZ8W
-	 nJk2rCGMJyY8CWC79O06bzuZqBri7ruhz05hICXZXegz8d2cKR0xHsts+YGqqwVVUJTN4
-	 6J2erC/IJQ9gNL9ZmpKIk+R+7s2caBlE6rL2ekU97pPa30cisvo3wh4/pTy0cQAtgh58m
-	 pGvRlu7/heMXCYKMtvEHBe6xTTFJedQCQf7+o2oT8S4wPBWj+QuJUmKb9hhznHpYT+jP5
-	 iU95gtafbsKzJKvFVvsmqqRExVNEWVKbMxVwb2Oa/LSZGIz0XJubHLN0hU/msd6AmpA==
+	t=1793122566;
+	b=DMcr8iYet6+PlOqLwrXphU5mTs/87iMMXDYd3wVYF5i5iVBNYQrIqLBrkYMWZoZrEi2F
+	 TB2gTiOhE+dyEZvJ090BzewSQAxTUM0x5jLdZ1i1bVFfNAHChE23R49HuEkKODRgp7OOT
+	 O5Yk0c6G5RRKyp7qh1V1KyUCZGT6xOehiSacTeq4t7x3jnd+SdAiQW/kpbMPw2WW/UTev
+	 UyeYsmPvvYIL7ski64sUiCnR92/yuqEaJYUb73vVRAJwFoOC5lak1OiZ3sw1VNcew9K8M
+	 iynUzbOzhKtuAEMAEhMQbwBcH/7/0/L4x4PSagKLgeCa/RMjAa98tnCyslh9p50dGdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122483;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=RL5nAvV+62owIFVIs+XCXqF5Edzj/Uv6upiJT9ueV3s=;
-	b=SzGN3X4UgNEPPqptUgOU+JWgDvz2PqmnN4VocKJQybtvfL38tA5NqfH3nd3MPbIXQJ0c
-	 9/N1LAYk9AZPB4VPLZVXMrcomMo/9ajzUGQ5Z07IyopWqKsfACkInxOjsYCSQPzcI/L3s
-	 p6h7et9npvqKvzXp7a07Qo8yl+dkpRgA1h/Zdqtv0JIYxq85vZAauEGRpY9aqGpFuAqkl
-	 6Cqy3FOB9xPxrUSU0EJ8CAXJNMAeABpq9PT/P3/ha6Ri+q/lTmr0YSSD4blkanzeZr45b
-	 Xk3oHb8Rn7/283zHLrJl1g4OiaxaGhJoue6BFWiMyw8ywiyWOHaRCa+ZjGITjkTWIeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122566;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=7tn+ocp8Z0Pv5iXA3uYeoDAMsUVuEMuroDimQAuxM4E=;
+	b=gmmljRsQK0Slb/QirERl10pNkFcra4HIEYAcaWnHhx6tESyGZ6rHoicjawT1Cz8YRzau
+	 7VdIzWef5HUMsxwmpGrOrdjsRC8b8jKtBMKgJeSlbaL1T80byZfE61qQHtlq6SmHowqRm
+	 1LctMRDXJLsrGmEPcWqxqFhWQqq+ljf70x526oM0GGsPYv1lTEESij/LH4J1032zWzPkG
+	 ninzNppSyOMIFlvoJYFk232zUJ2UHILTf+ZNl/lZy/LtdSBZVRoyW38aFPIPtryatd9bL
+	 wFp/7t91Ebs+HVnpoPVOe2LDIgqCdarrOLHr64o28hrYxQ5+jb/dtkuojolv3emDKVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BlnQYmCb;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJm2d3nw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D55606A31D;
-	Tue, 27 Oct 2026 17:34:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59D55606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3A6606A31A;
+	Tue, 27 Oct 2026 17:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BlnQYmCb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793122483; x=1824658483;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=kHLgkjlOKnC8Pk7wCo/Q2uvtQuBN+6AxFVEym4B5Dw0=;
-  b=BlnQYmCbfz+0ZNpEQY5bq0nd1aIV8iiKNZe4XigsCBDLA77LPI4YBNs0
-   UwJ1IKL47dM8F6lLOkWnr0sY7wLHfMMhuG8nC6tHeZuAKNxzLNSgH4ddU
-   YePj4HTUFEopL5oASD6v4dwONy1d7bJEFGpOiW70ZGqRV9m81iJsDdM/7
-   IaRlKi2kM679JeMTv/50EwHGKZXBxJ35brTGp/glW6ZMwjIVnMd1Fxxne
-   UqMoT0lEgTWw1po/Stdpeb8kh0F6wC1K6kVNEPFGxqouhloDkbfer/1CW
-   B6Xt5BAOSBP7xI5ELgRhNK7kjnNc/GPP2QbXIVOJlLGpXxfTu4bbLpzbx
-   A==;
-X-CSE-ConnectionGUID: 2aXUUHMgSIOjxzlrpoFYsA==
-X-CSE-MsgGUID: FXn0Bi46R1G4tjOTrXfr1A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1853195"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1853195"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:34:42 -0700
-X-CSE-ConnectionGUID: F+jlp1g6T7qTOQGsG/2uaQ==
-X-CSE-MsgGUID: gRX4KuODSuWNhzK92qbOcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4968617"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:34:40 -0700
-Date: Tue, 27 Oct 2026 19:34:37 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/5] media: atomisp: queue: move circbuf types and
- helpers to queue_comm.h
-Message-ID: <auDgrXiArqLC99Vb@ashevche-desk.local>
-References: <20261027120341.2305533-1-vladurares@gmail.com>
- <20261027120341.2305533-5-vladurares@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eJm2d3nw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B631A1F01825;
+	Tue, 27 Oct 2026 17:35:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793122565;
+	bh=7tn+ocp8Z0Pv5iXA3uYeoDAMsUVuEMuroDimQAuxM4E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eJm2d3nwlX8eIZXNWqaL2i7CW0VVze0Ad0V2NfYtR9MZ4ZxW46fjMgelwFfLUWZZU
+	 BlysjogYaO4f3rgGGm2l/ebR0XluuHEktbFWLIU8+is917srBP28ecO0+KYfPN/mJx
+	 7nQ+0rCZT2mhfguFnz6gZjpDp4II2jvMq0/RsEMm8IKCDPTT9vEa2YN2v/ZPyUaWwY
+	 ZFMQ06hyEE+vQLY4DIETxwrfrYq6ZnVczkd5qFpDUQyPxE12D0XQRKEyhamRbNjIhm
+	 ZRIEOOZXjl49VJCFM9/rMjbdII6KcaorWO9rqGMznNIOOWHwbdjG9fKQdUfkgxbH+X
+	 ZigaJgbrPET8A==
+Message-ID: <fcb7b786-53e5-49bb-8505-63eb8bb4e836@kernel.org>
+Date: Tue, 27 Oct 2026 18:35:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,35 +51,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027120341.2305533-5-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] mm: allow freezing mappings
+To: Pratyush Yadav <pratyush@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Pasha Tatashin
+ <pasha.tatashin@soleen.com>, Mike Rapoport <rppt@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, kexec@lists.infradead.org
+References: <20261027173031.763213-1-pratyush@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261027173031.763213-1-pratyush@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 12:03:39PM +0000, Rareș-Mihai Vladu wrote:
-> The remote queue code only needs the circbuf descriptor and element
-> layouts plus five small descriptor helpers from the circbuf library.
-> Move them into ia_css_queue_comm.h and include that header instead of
-> the circbuf ones.
+On 10/27/26 18:30, Pratyush Yadav wrote:
+> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 > 
-> The descriptor and element layouts are shared with the SP firmware and
-> are moved unchanged, including their static_asserts.
-> 
-> While at it, drop the OP___assert() NULL checks from the moved helpers,
-> as every caller passes the address of a local variable, and convert the
-> moved code to the kernel u8/u32 types and the usual function
-> declaration style.
+> Hi,
 
-Yep, good one
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Hi,
 
-Next step (after this series lands) is to move from this implementation of
-the circular buffer to kFIFO or circbuf from kernel APIs.
+we're in the merge windows and focused on fixing things (apparently all of the
+kernel). This is not the right time to discuss new changes.
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Cheers,
 
-
+David
