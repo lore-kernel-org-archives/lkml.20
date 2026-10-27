@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793107603;
-	b=PGWVQlpH6jdkZzS/mD//7ItlyImqwTRXj06+h1w93dBxCwJIujvfUpJrNl3givhjxgkf
-	 FSwZZLq1PW6JrRNCk5+EKk0HBO5BElo9ZU28T8h1Dbd5suwMicMeAg3lt3sgMN9lOyE4B
-	 jghvr+JbEMsQIAwMabZABfLRDKWa+VIlwUjlJu9Flobyf2wmFkS2wCA6I3V0Rw1rjduUB
-	 DpnTtwIniypKSaMoKE8eT5oQHjlQw16nFXwkR5Z5Q2jtpzVvU5nZ2Ns5Unxeht4ymTcVQ
-	 KPilR6umWhwjavewGSSSqR4+a9YhhWkZQileWfaOAmcJ1m38q9OcP3P+R5GgkJzMIqw==
+	t=1793107606;
+	b=VhtCrCYJJOstVKDwT67XHcX+qdW9IgtxwUtSL5o3EbF9hptOVJ0sPJ8RjsZUPm9AjDvG
+	 JEUpr15WqIHwDnAZERyv4QCl9wbdNQtBhUObgUJv712ac+laSPza6CViqXcpArhifff1V
+	 BCs+GtWXUUq6FxT8l9EVY4rz4ooKCwb7+6wCVfisvLFiVfqHFddDuC6OXd/E8tDGz1+q5
+	 U4et7Jlu7gq1TtB7O+uqLbhgDdrB5MiA/rfeO/CDadH62O7DgSVRMufhVybASA2sjnnHk
+	 Lq1QMOxE1k/OICdWXuBBxWF9c9bgurXiBarpOuhphrtznoSfYDNZ9kScc/TlUUnLqNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107606;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
-	b=ZK/1+n5FOpLIxU40Iblg+J8tuIxcRX4DRQDod8mwT3McGcJHvVRzybEY85JDtfd9Jtro
-	 unO0hfaHG/B6nJNnMr9FHofB9vuK2RhcDXrueqUtZgL3t24WgyBlpyoaCU8R/GPXDccdU
-	 uMWspPTjIlq8ftG6vUJTV72338W1pQ8AgIAXJR8CYnCv5BEnJ/EOuPWo0DwdN6TMWDlSp
-	 fUPIQm0S5sV2wXb0P9Dy98YhiRw/+pi2ee8AVW/fD/9G4PUu0iFOmvrwUV/TOTmupTt1w
-	 AG2yRRZVXyqkPy5DHjgBElErcBr9hOODG4W/lT0iTEv/o+atNJISlLwTRrwb0azF9Ow==
+	bh=UrOpUypNxtaw7z9tGQB7pFWtoYjkYD4SVEoMwlkiYcQ=;
+	b=nG0jqTU0Ug5fKxQ8VVMEIytKDgzIH7lAHjEJXEg3tu+SS6PC3hghK8WnJTNHUAtJ3A3m
+	 7K122Pa5LxgrJIMHfUVjW8yIalPulcIYlmYw/UpPHOWt+GtLwJHTetAdIm3cM/RotORxe
+	 CoZgU6+UBRgff60CsYhLvgH5m5q7r6Yy45SkisxN3lmBo2TPy0gQ8a+LkCKyGkHie3sgE
+	 2GJzS9K+fAxPe/qtp5vuzbTRFNABMn0KhDj5vzv4gZWeOgPmpbGsUAxt2n/hm/DCiMko/
+	 cgrm7uLxj1waTnHgD7RrUWko5V/pRe8wVCyr+YRv3S9eg4duBTpKZDXYv0NsM9Gcjsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OK9TotMC;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YxGGQope;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A55606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A55606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4974F606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:26:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4974F606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OK9TotMC
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-14388db1a6bso125645c88.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:26:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YxGGQope
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-34c522572bfso536674eec.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:26:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793107601; x=1793712401; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793107605; x=1793712405; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
-        b=OK9TotMCE05Hedid5XG0LVl7FLYqe8ZH8kprcIB7UdfEYJGARO7MopLEC7hlhuiUfd
-         0d6/N8qFuGmAzBQRrKU/QKdtNKmfzLWoc7TOJ1fWJbsHwMcE02GuvHGkgRs+tvs2LhAK
-         Hkrscyu0EGwegZHJhqwGb5RZn3lLam/DERk2NF4dffTs1dBg9gA9oh6rd93RghAtjSv+
-         /Cks4H01uITera+4iEjCUQJF0lp+IW9yYuPyVdLYFpY2B2Kb8yvkVPUvXjgfgjIobD2e
-         7D87S+QCzblGbPBx3qiGf49thDvLaKhj2MfyrFjcWsPwMUaJYG+nSaS3Y1zV3APa0dHQ
-         QsCg==
+        bh=UrOpUypNxtaw7z9tGQB7pFWtoYjkYD4SVEoMwlkiYcQ=;
+        b=YxGGQope3XmIOEeVNsI496jKnBqjPaygkcrOvLN9Gqhp5LWOQQENnmApcZMEfWG2Uc
+         RD4meG/tdn9e+IKPZ/jqmx4kBLGjLrpuhgFZ/tvwo3OP8EBnU6+EdErQCS/J5In4ZP/B
+         knqGhBRgRSiLn5zIBa9Wx2sIjAh5g3eizE/U2FOQEmDNdwsrlXZDaDsWSriBDI9Dcdjx
+         VcakTfZkyoNYPuq+R1QlfrY01iBmJ7wS/LvBT7Ga6GSKcjXisFPUa3DOoL3nF6dooDQ8
+         Whgp+/yWcTbeE7sfrFXlI3hEKUrA1oJIzppsXDggB/ND2XzWlZyiQCAcbV0APCAU7mgH
+         L35Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793107601; x=1793712401;
+        d=1e100.net; s=20260707; t=1793107605; x=1793712405;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UaQii/2KLE61POICHXTv/XcYptcQvuPmNYxjzl0fZKI=;
-        b=pIqs+Zfm1EEl6Rhb39lmkqNVX9/qevS9uABlcNZ7dzyBySfDnU1+j+mMxJ2XqZwyrv
-         ADm592RlBzemJYHXDos0olOtFVni/wYwZl5yA+7FL7tzU3yq4zTbS15JJ/+7UJFNHzJA
-         6wLjobe95VmoRRUbh7EhwiOCZtGNn5qe57LOgk5sQVX5+4E9bsJA2opKBJDuFxxBFWOF
-         N+XqVp17LATDU3T2Dn4iaiXNTGzzyLbaIdEqEO47Ibu/3x71vbJpoJqFJNY/fU32jz6C
-         tloJ4Tfvhv5Ex2OomKUfQtyxcO+bFwZaaW4pWi3ZNTEdUGD3+z0HiFmsn5Jd+wjcg9PU
-         ggqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxr+EYv+9PxnbOvw5CygWXeD6PM8RZlBgTOKjJa2Mc9twaxsJj65jO5mlAPZFEKJ+kBjwV2vczwm7hsjDQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIJ0b7FIWAUxZWDmASDSj+9EvIKtamXA4nEOMFXb1fjXerDMBV
-	qzJ90mfa0MIOnI+/TzoeTdnXbuCqNmKZxqCYypBz3+xD0/nEeS0R4pk/
-X-Gm-Gg: AYBFou38dJaMiUgJPWYKHPwV7oNb8sYKkfLUmggCzgr6WYc01bix6o4TRG69Nm6iyti
-	W+J+WKcrkB7Tu8PHUGP5M0VbLXg+gnHNLESobL4BySmknFqRlKF7ONIuSnNs9butJiKemyB6xos
-	sgLjrLFQLQHH4JdQsbyXXWWpRzQCiV9SJxvYRw/Ht9716JQerDKgPe43wE7xU4vJjXSNwUp84dG
-	wV1ZggUTcHlk5WknOk/k7KO/QRywpm/vZiXOd/G4M4KE4WPD4TfWj7arT6aGcq6cZkBlWQEp9sB
-	1vveR4T/jBRjDtycb8Qvq69gD4tGkHiYp7SYIY3jt9Rx3lPm91Bd0fA0wfFRREVK22npuRZVGTM
-	bk2L9o+H4gNR84EiIrKNh5KgSpUeroRJ2ANrjXRO4sFDgX/mfPzVELb4fROXMGn3nViNfE+qdeA
-	8vPzLkD9sXxKG26wPoAXKkkRYZQ+j/helmFhxRMBA7MwnRymhLsTFoIUe7TGOI5bmlhzPNbeSO8
-	QtDI4FrZMz0Oazs1mBrlr44PZuKl+TQLbRKAcbj0ZDEpiQ+rt7Fj4rIj+15l0jnQ560N16qLxyS
-	QTtJ6YtuZeunCZcIuUPBo6ZDj2xzQYYSuP+XIvmIrJT5fkC1cTYY1V7jphgwWVWLsxwtvo/qSc8
-	gCVU6o2k7pvObLf9v1ewmNjKTAusHSKpmMbcv1cbMBqeFyQ==
-X-Received: by 2002:a05:7022:264b:b0:165:be2f:c56e with SMTP id a92af1059eb24-199376df85bmr20204030c88.2.1793107601105;
-        Tue, 27 Oct 2026 06:26:41 -0700 (PDT)
+        bh=UrOpUypNxtaw7z9tGQB7pFWtoYjkYD4SVEoMwlkiYcQ=;
+        b=lv8NKD17i+mXYGcv1CjP5UfR5DTABEe8/DSE1Kz5z5BqP971dFOugUcMQHqwXgQfPK
+         0FhV8Bkaa5mvp+uvuRi2aVUxorV/MDi6XTsOMHd38k+Ez/pg/7J4nqN5xSt8utioMXFT
+         DKQu1b9dyKVoc3S97eLxusVp8fM1mI30XFbbD5Vc4wezErZdbgJBnzTjyOPeJd6Mj2+p
+         +aPnmDoDoppI97L2lInImEyQbX0YqLA1SEMMioJT5tioPociD5w4V3CFzWiJdJdiUDTj
+         rcZ5xqpJUWoSUQcl0wXNkBFGFRsMzTTQMJkMhueUrAO5GNopGImpyg4FpyHgg4CehCLz
+         u9KA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZOkJa922EuZzsmYtKotUB54DycMks/uJeHL+262WEkDfgWKKsGEt33m2oCQsx0zgT58GJSTYqP6bAlcY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7BiWf/P/H0bxTBE7rxcRJjnw+RpAdxw+d/f9xSvB8blcNC/D3
+	whBV+xa1N2mLq1cu3WAfYaa/WUBUgTeOPvGY1MZ3c50/zsb0zIPGvUqW
+X-Gm-Gg: AYBFou1OTSIymXHliYORKPLwdvpGwjqNA96u32JXjwVsiz9KSaLEbgZ/AWWxs/1Jvqa
+	7Xr5doGp1Sz4Va4ANznUKQ5s8H2jRH1GibQkEhxS44WhqYd4z/zjzvGDgSmg2RJk45wN0ar6jBI
+	yt0Dg7C5mu9qW7Dg9xebxXIhp8sjvgTUSmE0hQol88tX3U/4wE7nS6a/0oypyAY6Pe8BE1rekoe
+	35XzbJMHeC+TrVomt9uyjrsDMDe0yYrJaVaq9WjGTJ9BAsxHnB42lAejpt5M0VQF2DuagV7gy6V
+	uOzz6LJgcmCW7QPxOUCcQHqG2D/bofXDdO091+7XIWd5ZzJtPkaM4viFnylDVDQGMvtFNiaG0DY
+	MVqRqekeavDpy+knjkzvHvauU9WKIjsVJA+cxpEt3b1BPLHaTHPl5t5pUmMoyiJ2pjHimWZmnJy
+	+zKR1YL4G2B3DxxLu0/znrQcxWeqHzms0uMN2du+QCsLX02UJbS+3uxF612kShpTF9v6vs2xyxQ
+	9lQGxgvEMM35yoVM7+nFS2VqMX1/EmxVlgwmDRlKp4+CVk9QWlsmMJc8w8hjBTCQpgetQKsPlxE
+	bYegIzPX08JTpAGCH8YwBNMBciLKJPArIePRPhhVfY+7dYicIbcMjxD3ewjVrGuPvr/d6nW1WUD
+	ia4DWUYmAsrIMjEz6OD9qGpQzfzLBye9+nOgBReiMjfrqUA==
+X-Received: by 2002:a05:693c:8646:20b0:368:5521:612f with SMTP id 5a478bee46e88-369e81cebffmr26854868eec.0.1793107605360;
+        Tue, 27 Oct 2026 06:26:45 -0700 (PDT)
 Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm30235977c88.8.2026.10.27.06.26.38
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a064510b0sm18478013eec.2.2026.10.27.06.26.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 06:26:40 -0700 (PDT)
+        Tue, 27 Oct 2026 06:26:44 -0700 (PDT)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: dmanresa@gmail.com
 Cc: linux-media@vger.kernel.org,
@@ -88,14 +88,13 @@ Cc: linux-media@vger.kernel.org,
 	dan.scally@ideasonboard.com,
 	hansg@kernel.org,
 	andriy.shevchenko@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
-Date: Tue, 27 Oct 2026 22:26:37 +0900
-Message-ID: <20261027132637.540222-1-antoine.pichot@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
+Date: Tue, 27 Oct 2026 22:26:41 +0900
+Message-ID: <20261027132641.540323-1-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
-References: <20261026111032.88355-1-antoine.pichot@gmail.com> <20261026111032.88355-2-antoine.pichot@gmail.com> <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
+In-Reply-To: <6ae07c62.e52dcaf0.293af3.e647@mx.google.com>
+References: <20261026111032.88355-1-antoine.pichot@gmail.com> <6ae07c62.e52dcaf0.293af3.e647@mx.google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,87 +108,34 @@ Content-Transfer-Encoding: 8bit
 
 Hi,
 
-On Tue, Oct 27, 2026 at 03:26:45AM -0700, D. Manresa wrote:
-> Applying the patch makes this machine worse, though, and since it carries
-> Cc: stable I think that is worth resolving before it goes in.
+On Tue, Oct 27, 2026 at 03:26:42AM -0700, D. Manresa wrote:
+> Tested-by: D. Manresa <dmanresa@gmail.com> # Surface Pro 7+, IPU6 (8086:9a19); patches 2-6 only
 
-Agreed, and thank you for the measurements.
+Thank you for the thorough test. v2 carries the tag on 2, 4 and 5.
+Patch 6 changed after Andy's review (the span computation rewritten,
+same result), so I will carry it there too unless you object. Patch 3
+is replaced by a conversion to the sub-device active state, as Sakari
+asked.
 
-The patch selects the 319.2 MHz PLL table, which the index bug has kept
-unused on IPU machines since it was added in 2022. That table runs the
-PLL oscillator (the VCO of figure 2-12 in the OV7251 datasheet, rev
-2.12) out of range: it multiplies before it divides, so the oscillator
-sits at 19.2 x 133 = 2553.6 MHz before the divide by 4 brings it down
-to 638.4 MHz, and table 2-11 allows 300 to 800 MHz. The 240 MHz table
-divides by 3 first and stays at 480 MHz. The datasheet is public at
-https://dlscorp.com/wp-content/uploads/2019/02/ov7750_ov7251_csp3_rev1f_ds_2.12.pdf
+> That CID is not added by this series -- it comes from 5be4154f6255
+> ("media: v4l: ctrls: add a control for enabling strobe output"), which
+> landed after v6.19. Since 6/7 uses v4l2_ctrl_new_std() it needs the
+> v4l2-ctrls-defs.c entries too, not just the uapi define, or the control is
+> never created. Worth a word in the cover letter for anyone testing on a
+> stable tree.
 
-The Windows driver on the Surface Book 2 uses both orders. Its Windows
-Hello mode divides by 4 first, which keeps the oscillator at 638.4 MHz
-for the same 638.4 Mbps, and writes 0x1f to 0x4837, the MIPI pixel
-clock period register. Its two 640x480 modes keep the mainline order,
-with the MIPI divider at 0x01 and 0x4837 at 0x19.
+The v2 cover letter will say so: 6/7 needs the strobe control from
+kernel 7.0 and is not for stable.
 
-On my Surface Book 2 (IPU3, kernel 7.2) I ran three 150-frame captures
-at 30 fps with each of these, the last four with the series applied:
+> 4/7: camera_orientation reads Front and camera_sensor_rotation 0, both
+> read-only, consistent with the _PLD here.
 
-  the 240 MHz table (unpatched)
-  the mainline 319.2 MHz table
-  the Windows Hello divider order
-  the Windows Hello divider order + 0x4837 = 0x1f
-  the mainline table + mipi_div = 0x01 (what you tried)
+On the Book 2 the firmware reports 0 but the picture comes out turned by
+90 degrees, which 7/7 corrects for that model. Could you please check
+whether the frames are upright on the Pro 7+ and, if not, tell me which
+way they turn? 7/7 can then carry the Pro 7+ as well.
 
-All gave 0 dropped buffers and 0 CSI-2 error lines, so the divider swap
-is only a hypothesis for your machine.
-
-> One hypothesis tried and failed, so you do not repeat it: the out-of-tree
-> Surface driver notes that the vendor runs the 319.2 MHz PLL with the MIPI
-> divider at 0x01 rather than 0x05. Building this patch with mipi_div
-> changed to 0x01 in the 19_2_mhz_319_2_mhz entry was worse, not better --
-> 3 frames in about four minutes. So the divider alone is not the missing
-> piece. The vendor path also uses VTS 522, which I did not try.
-
-The datasheet decodes both as "divide by 1" (0x30b5[2:0]: 2 is /2, 4 is
-/4, anything else /1). A frame length (VTS) of 522 belongs to the
-Windows driver's 640x480 modes at about 99 fps, so it is no alternative
-at 30 fps.
-
-> So either ipu-bridge's advertised link frequency is wrong for this SKU,
-> or mainline's 319.2 MHz PLL entry needs more than the index fix to be
-> usable. I have the machine for a few more days and can run whatever would
-> help decide which.
-
-Could you please try the two patches below, the first alone and then
-both, with your 150-frame measurement? They are on
-https://github.com/antoine79/surface-ir-camera/tree/test/pll1-vco under
-kernel/patches-test/, for git am on top of 1/7.
-
-The first swaps the two dividers of the 319.2 MHz table:
-
-  -  .pre_div = 0x01,
-  +  .pre_div = 0x04,
-     .mult = 0x85,
-  -  .div = 0x04,
-  +  .div = 0x01,
-
-The second also writes 0x1f instead of 0x19 to 0x4837 in the three mode
-tables.
-
-If the swap helps, v2 puts the PLL table fix before the index fix, both
-Cc: stable. If it does not, the question moves to the Pro 7+ receiver:
-ipu-bridge asks for 319.2 MHz on both machines, and the Windows driver
-programs 638.4 Mbps on the Book 2. Your unpatched numbers point the same
-way: at 480 Mbps, three runs logged thousands of error lines and your
-568-frame run logged none, with the same timing per line. Could you
-please also run 2/7 without 1/7 at 60 and 90 fps? That shows whether the
-error count follows the number of frame starts.
-
-After 1/7, pixel_rate reads 63840000, but the pixel array runs at 48 MHz
-whatever the link frequency; v2 fixes that in a separate patch. My
-319.2 MHz captures above ran at 30.0 fps, which is 48e6 / (928 pixels
-per line x 1724 lines); 63.84 MHz would give 39.9 fps. 63.84 MHz is the
-CSI-2 bus rate, not what V4L2_CID_PIXEL_RATE reports
-(Documentation/driver-api/media/tx-rx.rst).
+The link question continues on the 1/7 thread.
 
 Thanks,
 Antoine
