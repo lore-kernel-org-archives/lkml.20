@@ -1,96 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117655;
-	b=K6pEYsqG95Xuyed5qFt+8FQphcMtkhPKBVGBwiLr1oED6Cx7J/mde9PB5ShtEkVW1/e2
-	 RW9VOcVA1nZxWZ+l2SfwSzreHH9AYBAM3PveuvMVtQs9Yl7WRnEJQUzHX9i2PuCqpi4U8
-	 52cz1fT7UxyePe4/5mdUikIPpBMuKxN004ymFBZo+tdu4D/qXig7U2WrM/qVl/+SAwlYg
-	 Abx244RhZTp3kWFus1ObkC1X3WLWdNoBnXKIv0SHeH/WmMQFGSnBAQPb5k7ubA2oobGkV
-	 knTrM5KtzrbXvnlZzZid1551jAHP8QFUThbpqPFev9Lr4YpO/4lXlvz7AV7KAbsOTaA==
+	t=1793117683;
+	b=LheSN55x7s0XG+Av9mE7EVD+QD1UkVA9KSwiVZwHzKaTOU67fl3yzMr2Ih5+xGar3t1T
+	 6UOnx0LIGi24W/IAGLYKF7HBmKFG/lTQjk4taG3bhmqjkbqpgV14uitu800HQYi0gNNfU
+	 QMoeCNQaIG1ojiECed5Mi/kFZZrXMIKj4JwAKqMcZyF3Q3q9UwfYw5Zre9yPtAOgiK9y/
+	 /xqw8eszoi4zKquDzL4+a+KB4bX4FmsuNppFPlydK1/RARR1rrdXj/XQR0d6sccMwvfJ3
+	 /7VNnIdLufFUNHyyT6317TWnPHoeCVIJ9fFD5RqIaV/+QXeVluNsO5pbYzrzkhR4EsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117655;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Qu1OlUuaRDFlDngoDiRhq4xzHcO7QBQYm5qjE67JrgY=;
-	b=Q2qVZSoKXLbdvzcwKJSAFYQeV4h9G4WE9G/joNcHZKiXS62gce3KUDpSDJL18FGHKY5z
-	 jqZX/GMgFPntXscFNU47UB39rDLp5UpoNIVXOO6o6OY7yBpYlBH4Gvu0MUBxX2lY04amy
-	 ESpV8O1FTcqq+hiAmOAhGmb+ciNjWclVfkcYjnDkukf1a+bqIhy/TDq45vsWG/CEqtQWa
-	 L3wdNAZLN3nytd8/UelIHjP1aJk0FyeWdNjxZ8VL0cMzzRcUUxKOlhYfIk6TCm9+oW95Z
-	 FJx3DH/GJ/TKzUL6AjxoJFzxIBK3DceHxy3DpVfLqrIa5dqa/0p93S7R+Wu8CPbnDhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117683;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Mh1RMsnqXeQn3jeCo8IP85tEqAtoIfacyuqQryaWR/c=;
+	b=3QFcxhinh4yCfWA8rws8Mt29hSButyS6Hv/hu4Mw40QgpKDzylCXNKhaMxiAQxsp5skF
+	 brUR/qUofGDIK9OKQon13OD3BQ0CQW1hYGQtgFM/sKsVml5PZ5LKD3839LIN4CSf/0Ke6
+	 KCG5Ocaq8BOFSQRUeUr3v4HA+Ww6lE1YT5cgBcKKrcU0mlc0ywxpCIG0yBHL+QyCRkEl5
+	 V/GvrcNcXOHsnX+YjClqR5I7yuWAPnf0WpdoKBUioluMDoaeVHqulMEHEzc3u5f9T5bCd
+	 k0nmIZL88hv/VTizDSgGaC8YnF0O0nUgoqmrm2KonCA29tU3K9NJEEM5FUi4r6Nqj+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WY4e46D7;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xP0JVMPP;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319ED606A31F;
-	Tue, 27 Oct 2026 16:14:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 319ED606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB93D606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:14:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB93D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WY4e46D7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793117655; x=1824653655;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3/EeG6Un8Ew9yYVEz+bcUHgerwRj3Ogob05Pvjxv/B0=;
-  b=WY4e46D79qkOCa3TMpxItc6joXI7RdecUNmCdA4PDoUtijwRZL87erfD
-   tqjny3CR2Srr4M2nQPs3yUiWtqJmvFpnvCqbIOJ1ZMcWlYKS1YFmsqb9m
-   3FYWAdt5vaaoEB3lqzbd7n/Vb6V0vfePlAds2n5tEE6XjwZ4wxxnqa9Na
-   5xphWlnFYA/CW9Y/f+eRmb41pXoqVoF7wloIBvxHUJYUtEKpyZF0cp1zY
-   W+74rfqDtwl04p7H8Gfx8q/R6UZ55DECAadaKFiEMe5mmAmJn8Pw0THVP
-   w2pf3IgnKO1HOsoERnpdDJqXmh1lNuHnSDlkBEr5ey6S2bZSyZ6C+Fym1
-   A==;
-X-CSE-ConnectionGUID: DWjN7UjLTbyC00kkTwxYdA==
-X-CSE-MsgGUID: 9juSnbZKSgOEfQxp/8yFRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1707016"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1707016"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 09:14:14 -0700
-X-CSE-ConnectionGUID: TS+4d6eWTfqTWtJrLJF+jg==
-X-CSE-MsgGUID: o5OAIKV8QymUal4vL+gcqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4545393"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 09:14:08 -0700
-Date: Tue, 27 Oct 2026 18:14:05 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Alex Lanzano <lanzano.alex@gmail.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Benson Leung <bleung@chromium.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Guenter Roeck <groeck@chromium.org>,
-	Jagath Jog J <jagathjog1996@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Jinseob Kim <kimjinseob88@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Remi Buisson <remi.buisson@tdk.com>,
-	chrome-platform@lists.linux.dev, linux-amlogic@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Marco Elver <elver@google.com>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: Re: [PATCH v4 9/9] iio: enable context analysis for all drivers
-Message-ID: <auDNzWMPy0VQcazt@ashevche-desk.local>
-References: <20261027124954.110697-1-zoone.rupert@gmail.com>
- <20261027124954.110697-10-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xP0JVMPP
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso58960a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:14:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793117682; x=1793722482; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mh1RMsnqXeQn3jeCo8IP85tEqAtoIfacyuqQryaWR/c=;
+        b=xP0JVMPP6bOu0/DSCVmAsgcluWlYDPXi+fPvRnabo2azGAQ77IYaotXd/L4k8D8Uk8
+         QxFlROSdIKAfprywf40DcaLDd3jA/iKIMTmB+FuIp1DnZuBgLIPrSDOPhsnBMD4NoFTJ
+         pNw8vGcsxBVgdepL1SEBMBWRLBVl2Wh/Z1dV4//vTMgKn7ZMd4/ABiHz1a2HWXrORWCq
+         hCmmouBIpdjQ2u/9TLQmUZ0ZFwBqsfV85Qc5BWKARFsTYHVygnyC80C8lhwHF/l6Lp/u
+         8qRwRcSO8F6OJSNuGlJGwGcdMrGegi6TV4XfWhbYfrKB0zSFWExY49p1Cwr3i9eYdDWe
+         LY0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793117682; x=1793722482;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mh1RMsnqXeQn3jeCo8IP85tEqAtoIfacyuqQryaWR/c=;
+        b=DFDUk47gWuHt6JGMlVc0cotpdYha3nA7P+LYTTuWLE9clVdP7MvMFuU51T/y9Ge1id
+         YBQRc61iB6gAtKSW7HS70B6PoLrTu+Ld0BcRrBvKexKBFUX2+W0iIKe32xqqKyHGJVlm
+         PEI/oN/ehubteprMW8R0aQhSRwnuYMO+cHiGFPkEcdhrredVma8cEKd9tFawYtiXrFff
+         ZfDB0XiPejcx8wZIB7cwS5fHlyQNS4WyLJWfQAzkQmHlvv7ARCyweVrNQaUq+dxwZa9i
+         BK60xmcKi82ZxTs6p5Xk2tpKl9v2KyZgWbKKWMJfbh7M4JTT+5Cyl6Un09dS+UjDvFjc
+         XEWQ==
+X-Gm-Message-State: AFq9FYLEpbKrfsqq+fi2ROBuVXSTsqujy7tJubB8oGbo6UoWEoELMd5a
+	hpc6gmAd+eOx4H9W6t7+9o0uIteyBZL/xYVZ5aMnUaU81E/MRjwBYYuD
+X-Gm-Gg: AYBFou0sZ4PXAuwcjg6HmOU2sNmWan7S+i3q4C6N541DyOjVNQFeLLcpi3NLnncKGbh
+	5P0IUeA0tdxn0XqXoMEEjHxItBQixEn5zgh/6HntfxGKvG17yRB5BXfusTnDQRJGegE1Z0kvHeQ
+	emDSiE/4DFci6CwmBlYazCZ1isuu9evGGg9oTT74enm0ZxESFkMPnS8UPPF48fw8bzaZP8z+RdR
+	3nYB3+jKOq69B4+gtpwloB/55SbOwwbfW6JobliI3kP0yO7l0baXM65es67x6JLbSdG31SME0pU
+	8pEvlaBqqKhgmAISW59StMnm0Jgn/4qhSZowClw4jFLDQoXi4g0+eIfcDOhj4fmDxoo7veUe5k/
+	61LiS3f6/uQeA7KZxBHbIPRcSh7l2G7NcqiHqQEYMzHwFquZy0KhWPe3phVb5tZooUNZIobRPSe
+	XyVJQ2UR6pUL9oKm3YksMwXUmK0iQ0wD/1XqqXVIx2AAMdySUp3IgkVfIfr6TvZ4Cafxu+hXrPx
+	Y+oMaAnZ9fK8X7ibVvUVlOKPW6aR5swiPCddLpEtPiNsmFFtLZiGcDYoQrRaRRVOeJE15KlpvkL
+	7vfPhyHZpZFNSRUxr8Oish49FZ6eI2fySh/J4QAygQ61tnIrunYN/zq45crasz0n82g+Vw==
+X-Received: by 2002:a05:6a21:1bc7:b0:3e2:9025:5c50 with SMTP id adf61e73a8af0-3e7bfa34054mr7840427637.24.1793117682133;
+        Tue, 27 Oct 2026 09:14:42 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cccbf9a3sm2976375a12.24.2026.10.27.09.14.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 09:14:41 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	shikemeng@huaweicloud.com,
+	kasong@tencent.com,
+	linjh22s@gmail.com,
+	kunwu.chan@linux.dev,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	tglx@kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [RFC PATCH v3 18/18] mm/swap: redistribute queue readers after membership changes
+Date: Wed, 28 Oct 2026 00:14:14 +0800
+Message-ID: <fdfe5fac0d5b73f5b93424070bfcc8290d1c7902.1793106426.git.lianux.mm@gmail.com>
+In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
+References: <cover.1793106426.git.lianux.mm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,28 +108,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027124954.110697-10-zoone.rupert@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 02:49:54PM +0200, Rupesh Majhi wrote:
-> All of drivers/iio now builds without context analysis warnings, so
-> enable it in every Makefile that builds objects, replacing the entry
-> for dps310 alone.
+Adding a device to an existing priority ring reuses the per-CPU reader
+storage. A ring that previously contained one device can therefore keep
+every CPU at the old common starting offset after peers are added.
+Deleting devices or rings can likewise leave offsets and quotas that
+describe the previous membership.
 
-...
+Reset the valid per-CPU ring offsets and quotas after peer insertion and
+every nonempty deletion. Run the initialization helper under the topology
+writer, which excludes allocation walks, without allocating new reader
+storage or adding selector hot-path work.
 
-> +++ b/drivers/iio/Makefile
+Use cpu-id modulo placement for a fresh best-effort rotation across all
+valid rings. This does not move existing slots or guarantee strict balance
+for every active CPU subset. Mask and availability transitions do not
+trigger the topology reset.
 
-> +CONTEXT_ANALYSIS := y
+Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+---
+ mm/swapfile.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Can we reduce the churn to only adding it here and do some magic to propagate
-this recursively, please? I truly believe it's feasible to achieve.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 9e90f815f99c..d659afb574b3 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -496,6 +496,7 @@ add_to_ring:
+ 	spin_unlock(&swap_queue_update_lock);
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+ 	kfree(old_ring);
++	swap_queue_reset_readers();
+ 	return 0;
+ 
+ failed:
+@@ -568,6 +569,8 @@ static void swap_queue_del(struct swap_info_struct *si)
+ 			swap_queue_install_readers(NULL, 0);
+ 	}
+ 	spin_unlock(&swap_queue_update_lock);
++	if (swap_queue_len)
++		swap_queue_reset_readers();
+ 
+ 	kfree(old_ring);
+ 	kfree(old_queue);
