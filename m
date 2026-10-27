@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104438;
-	b=PP0MrCZxgrxCyz0Zw6nijf98rZZH5fwXLT0929rGaLedpPIQJ1VphqoRJYFvZnDmvlUF
-	 P0Z/vYXfUUA1nnSwX5iXqciYzNOVwYxQuREW0qS/CX9LRzJZCfSA47PE4Ovr8SfW1Q4he
-	 lrh2cF0fkZpSXCYhhJknl/BHal+9HTQdk+rEX2ETMFiZAZF8Jq9ZDn1COWsoSzctxR6Dt
-	 mbMB5dV7ZQmWMBvGFcEjNT34aG7XCgi3ckQwNOiZbkyZrFzMqZaJMbmBbjA8pxymXtoOI
-	 baHjQYwB/rvVpv/co15/2bN6worQeyat8TM1yR1YTp30s4WHYWGwMEdHY8DmF/zV6Gw==
+	t=1793104456;
+	b=SRQjqEsBk6I7qrTYYNfXy9ogA4ztyQZJAnPmiJVU/Tl9EyKdg3VrHSNuhm5SgnxnaIH5
+	 pgldVdiaK7eFvsnPVFCOntIh0vUsYQqxftdr10Z96loyomkqzMOFdE9rwacSGNP6ygak0
+	 9/SkKc0ZUk0tKMOkMlWUCi04m4jIyvENdfxQTYJ4xqw64e9hPtB0L4JLn30v2xgqu924L
+	 gWtniH4cN51FUthT+WBQwkJqzMaPIzlzWW/SX7PHlMW96E2Bn8wKKAjRGkmMVvgEGBr6M
+	 TJ07gjpva+omx4yGR9pK70P+75t7VUAfKt4GMUHcicIiwfdfH7i8Sp/vkV3nbTMwTtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104438;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=/LIwi1HI6or2lffhXmb5nx7x8QsMdBgyQvDtC3Qx7hI=;
-	b=xwrKDvVpBLRF/tz2WPRQrvBMHopMJATSDsqmC21G94TQCsRgVFYhALh/EFpQAWqVBlaW
-	 ME89C06EWQQAFjIcW+oV25Wpb/zqtmXJ4sJa6l2wyKCB2h9oCv3cbD5Zjuet4AHlVV3aB
-	 vfKsk6fpM9MyDGoDqLkhxfLaC4sIER+kdIADLk8jpEw6yuP8gC3Q6WZJGM4fvJRP2NTPh
-	 UOD7Ny5Af4dRLpGnqb6dNDdgcDY4s/S3v7gEDKfE1S4CBQsFpoVCgiKxz6rakvbM2vWWC
-	 Fg3lXUXQV5wES8YhhvtCm+vVALtRw0Ko0RZVtqtg3ByqMxnshYU5RHhpPUIDh0YNAMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104456;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=uNS2L2iMcOC4fIL5rjAO/7Q+oRPwueCBxvTT1iYaWfQ=;
+	b=3j7NN+XPDKYYNFkdCjenZgtMDA68Xc6LBuzE8SDbrrlQ/bj0BMhmenpIEwplcFki5fnl
+	 i5wcZsqcN+Fa8fSW2PMpeaTrGvKTdcoTlrIqvNjugBoXfDcgEw5l86MiL3pUU/1BHl/5y
+	 QUuoe3tQA9PySPQcj36DmW/F/2lsKV0iZoy7Rq1Avi07Y5j3uIXK1y9K95xVTd3GHCbOo
+	 uq+1EtHJcW/6ArsAw4vdV7924wXFgKuKCimjhRUro9De52WQWL+YtfRHjrtVDvwK7TzyS
+	 CDX53bCP/Mh0DO2EgNsNRsZoCNZ4G2/xkjDzCG/oGReBma2XEHxshch2OYGxAQOpbkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=JtnOwapk;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11783606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:33:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11783606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cc89e86e9eso5840639b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:33:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793104437; x=1793709237;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/LIwi1HI6or2lffhXmb5nx7x8QsMdBgyQvDtC3Qx7hI=;
-        b=sqlVqLzwSSnytfXT9oPIeFfx4dsIiHYXIQ435r9Tk3Tl7jDjHuMNYQ6RvZJjMOfN80
-         IvVYke/qvvVYh+Ure3QJK+svOk3GGFBjQejePkGrRKgeV8lMnryP7ATI52LUI1J6hCvb
-         4JZ37h3NpfqIZ7px5FpfNZErCb57tvkZngnLCEYKkJTgkpFE+FK6LvkWKA+yFRNWa7Db
-         B/Hk4bEE60x/YhsZykMc3r8eSooRGZWdf7HygKH2OOFHMr+6EiX2sYByYR1lVPce8t1G
-         ng/6uE5kMoZ/9C7DXezWymATXuQe6w9WTb80KFfthOQ657/jffgu6GrZg8Cp7QJ61tN0
-         Amxw==
-X-Forwarded-Encrypted: i=1; AKwUvBySTz5/7w7NK7lVhg8stbVH2N+iEQusqxAD6YOZ6OHQle5adxyMiNPDoWdfD2S6lHoZgR3n0SOKG553bb8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrbB2qhl4Y1z9IDLZEWhYsaX62dJFCKw+bRnU1cEmjAYpIOpuL
-	0Sf0VtjHROuxpLJvyySsA31fsHuZxAJORQBI0EArvBtoeDFjoVrXt24eHZg4JjHlbUQuBxq/I36
-	4LgptNtLYdCBGmzKuKJDoHvBGhiW75zItBsG6hJkuNOTNpJWcaD7Y+BctB/c=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53FD606A31B;
+	Tue, 27 Oct 2026 12:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C53FD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=JtnOwapk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=uNS2L2iMcOC4fIL5rjAO/7Q+oRPwueCBxvTT1iYaWfQ=; b=JtnOwapkIsOlSiyUSlZyh6cLaG
+	/VAvWk6wCuoGnUETa+XAr8pm/tUWPxsvxHqebStP9cpYAEVNiIO8IRSvRKkYGzWOnB3Yt5WYA7iX7
+	8iw1/DwO/cSkLh5VWQyx/TVVLrDRSOyBx9D3aV/Yw95N6ag6+OElf+ZgLNZADytLLCFMkZq4/9vgR
+	FMwT8/nAwQ6EdlqWl+VZWuq0QZ6Ztus7t4CNCwAGso0g9fPqNP/5hKVFe0jp+Ag42JuT2iv8Dsvot
+	zbBlP++l5O068pHS60pB0AfPP26/nr8y/w1Nky1fFuBabarsColjBKLAaOP+dlDaP0AGK7QImTPcI
+	9mNc5a2g==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xLgN8-001SUN-2W;
+	Tue, 27 Oct 2026 12:33:46 +0000
+Date: Tue, 27 Oct 2026 05:33:41 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Christoph Hellwig <hch@lst.de>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Sagi Grimberg <sagi@grimberg.me>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, Keith Busch <kbusch@kernel.org>, 
+	Logan Gunthorpe <logang@deltatee.com>, "Martin K . Petersen" <mkp@kernel.org>, 
+	Lee Duncan <lduncan@suse.com>, Hannes Reinecke <hare@suse.com>, 
+	Nicholas Bellinger <nab@linux-iscsi.org>, linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
+	target-devel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH v7 1/4] fs: configfs: add helpers for opening
+ non-configfs paths
+Message-ID: <auCZ-EdCKGup3a-W@gmail.com>
+References: <20260927082011.638723-1-runyu.xiao@seu.edu.cn>
+ <20260927082011.638723-2-runyu.xiao@seu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,48 +74,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:180d:b0:539:4d53:170b with SMTP id
- 5614622812f47-55c002412dcmr7087748b6e.17.1793104437009; Tue, 27 Oct 2026
- 05:33:57 -0700 (PDT)
-Date: Tue, 27 Oct 2026 05:33:56 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae09a34.f0fe5aea.79aa1.0092.GAE@google.com>
-Subject: [syzbot] Monthly nfc report (Oct 2026)
-From: syzbot <syzbot+liste730699f000a7bb75adf@syzkaller.appspotmail.com>
-To: david@ixit.cz, linux-kernel@vger.kernel.org, oe-linux-nfc@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927082011.638723-2-runyu.xiao@seu.edu.cn>
+X-Debian-User: leitao
 
-Hello nfc maintainers/developers,
+On Sun, Sep 27, 2026 at 04:20:08PM +0800, Runyu Xiao wrote:
+> Configfs store callbacks hold frag_sem while they run.  Reopening a path
+> that resolves to configfs from such a callback can acquire the same
+> non-recursive semaphore again.
+> 
+> Add configfs_file_open() for configured pathnames and configfs_open_root()
+> for paths relative to a resolved root.  Reject configfs roots before using
+> file_open_root() so the normal open checks remain in place.
+> 
+> Assisted-by: LLM Codex
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-This is a 31-day syzbot report for the nfc subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/nfc
-
-During the period, 2 new issues were detected and 0 were fixed.
-In total, 13 issues are still open and 34 have already been fixed.
-There is also 1 low-priority issue.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 347     Yes   WARNING in port100_send_cmd_async/usb_submit_urb (3)
-                  https://syzkaller.appspot.com/bug?extid=89f5f8143d8e62af2b61
-<2> 9       Yes   INFO: task hung in port100_get_command_type_mask (4)
-                  https://syzkaller.appspot.com/bug?extid=3decf7252f8521fa80ff
-<3> 6       Yes   INFO: task hung in pn533_usb_probe
-                  https://syzkaller.appspot.com/bug?extid=8996fbe184c5b84f89d4
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Acked-by: Breno Leitao <leitao@debian.or>
