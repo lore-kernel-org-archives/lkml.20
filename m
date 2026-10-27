@@ -1,96 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793096099;
-	b=JNZKECNUSfhWum0nitwiDyMpehhiEvs7URZNm9PjfHx71eHQQ9AyHhkhXggFl5qzl6dt
-	 RqJFNVHa40FiVu3F9PYVV6/Z807+i3z72v1c/qN7Nlql1ArEtT/BMI08PUFWWz085Kq4a
-	 LdIo92lsDJjtfbyhsvhq/GF5g1EFHNAUPKlQOsGCiBB+7Pi7UUD+DsW8eMRgMFFB3bGxh
-	 9lgaBJNr7ONd+aN19jqNDUWXLOXGAE4Lvr3bfV1YjP9QzTCyPgX9P4lwZCjOu0oltYTl3
-	 1dpikrqeiM3BvQyBiwrk/BliAbxBrOXQryJDvIkxTN6tUbhklamJywgEahRdpggcW4w==
+	b=eYui8yD8G0yRPQdhEVNtQdCdwrZAEX4uGZK3PYgP7W3n1sqm53W84JoPzl9RXtBATnQF
+	 S7XK7H7/In4CvsFtzfGMeiU9xpUaO8K8sFkZq5PjUcVn1Vtitq9ag4VeDqeLZ1x2iVUWa
+	 v/8QH2LoNwuwWtOeOhY3hAahvdU9dfwr/4r3ISd9iupfFUYYvTreB6D2BmPeT2NqWKTF8
+	 F5oU8r4vSUr9dFdvSZWVgPDB+7TFhioiRBl/rhJa5oSF7IyNxcWAtQvrdak3Miy10VysM
+	 je1Ad15em3KJRDAdZQfCfRsCjNvGNtnF4YVp+hKyl5VyDFrXq7vyz0RcTpU19MpNYOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793096099;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
-	b=bnRIxn1PGmlfKrNrUrxDbL/vHAxxkyhCgNTaD7IEq/4ko9NXr73RuW8nGKqQNXtYNuqq
-	 SKeCvzbRWW7kUVnQmqZdZzJL7BWNxEjf6dA4LAyKASIMRNW7YJ3cZqko90LrPIhSoAu/o
-	 kGmrKEWAkVLJCxN9F4m5bVrf8Jxvpog4BmZc97gciaMku+hVmiImRGq4x9uPaRvfyhcMx
-	 KzN59zc6fNY6m4JfJXhrMXTFM+f3o7GaN4UHa3Mh5+W3clG0hOcYGlVDuqIaXcfSWIRiY
-	 c/zsVCERV83D+7wcNa0hFi3O+lTnscrhwJQoiP/LldhHeLaKKZpVX+qxy+EdIGjh/yQ==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=s13tSiff6fcPsfGnZQ/kV4hOjYGqsIat17pRr1AVdyQ=;
+	b=3JUl0SXxu5Z1BfxGhHENylT+eeJ5WIbu14tocPVgibVS4+1KmaNdguekOuBU/zVgmoza
+	 7/bFR3+gLRyvXivPTEo8mNCslA9GiT8BG0li4csEnr3F6bsKG3miCO/Ft8goiBr6617BT
+	 slm/p35T+8xZRMoY/CYmaSu5+X2uM++5UkpXK0X/+vqOlkzXo8GQMjj+MA1ov4CDKuQEM
+	 Qu+NjCxMEtxjMr/nbnWLltFsAcNDD56FlfPoYTO8GQ7dFbkYqg7AZzKSXyrc/3jGLhwV1
+	 wzglM3ISANNJcXigFQB43D0LThTj1atNFWAk4Gm8nrimlrZxdk/HchXmMsMj2QuA+MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DJ4JD5oP;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kMc6wTVi;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E80606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E80606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC18F606A324;
+	Tue, 27 Oct 2026 10:14:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC18F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DJ4JD5oP
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3adf5f6833cso1761371a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:14:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793096098; x=1793700898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
-        b=DJ4JD5oPh4znSBd5MjH0yzKd9gZovBRDtmMqJCWZvSOefnbAZfhLhhNHc5gd0SmNG9
-         1rbBOqy8Fa3j2AadB2ypYyAARvg22x17Fj28rsbfO7bKc3HbXh5Xb5xnYp4/5C8dUYD1
-         4zNaypqM6Cdb3DVInc7lzDt4YnfziCx01A5mso4wyDXYiNRjy1G07I0gCNEz9zC4qh1z
-         aZeZcPR/P6iiIg/CgPDcgVLxg1Zh3NhoImzJPHoZ8ZuedH0WLpHHZXHcJdiW4rYWBEPZ
-         0MdWU1bKeb80IPFNPrlymToLeHzbqp+yrNd8Jn4+HvpHcMi9jMhJVekxg/ZdwoHxZegV
-         WmMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793096098; x=1793700898;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kXnEM/aIQaVbmZP7KIZddh/r+yaXnXz850o6sIwpdkQ=;
-        b=tjSK6jczvbm2oisUT7jmv/OORSw034ypqsbFnSlmsl9ihxipLaLqUO9IUGcb+Y/jCq
-         m/o1ThpWLN3WSw+fcUz5MB02WbxCtMIv05VNspzZttGeXsNYKN2sU5fqyL9O1XSN7xey
-         0VSHlQotmz9t3F3kB+w0qgXgkF4vENKAh4/kAr3peSzMC+Cr4NZH+CDwBlsa8BnseRIT
-         jImiPToG7AMwZ/Th5h2+6QubHdHMBfkRy0E+aPv8hRc6nkUwcxlNLs+WzgFVzHvE1f6r
-         xzX18mebJfY0+k4OvGwx+1NNaVhgODxEOTSgVx/HH/BjfDXjDAYdD91TCNzWx2he6MwC
-         +PMw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8o/Gx0kbT5LpewCxQTCpFYGRw3iQjBgxLismrCUgHYZiBbMejADy7tGaxuIqSavDQb+W0JSTbWH2d9fk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuvD2a4TsI7rnT4sl1kNqHKburYnr6pnQTYFtmfnbbuWueI5O0
-	4oHyPFDO/8aPk4IGH8wgvN44+EkuM49u4Zuh80o/kJtxKGdQQc6SEDxA
-X-Gm-Gg: AYBFou2Ni6TVvJGcyk12YDp1OqyakdjRbPa/JXBBIPdhzduHFG9BJiaiNfQZ2QkWiZK
-	szNXXnQBX8pr/6sgeh1ctlKfH/TGDqeQvDNQALsWSYJ5FKvMwGPjxgdYahBfDl6j/u3YYxCFRxs
-	6zOVHfXrTxILHBzX6IzXXHWFdhVGVZvBXt7hB1ZFCQGLi6ocEh73tgMWQ1lU7xRqMfwcE+wwl1q
-	i2+2EmWpImZ7xyLK5aHDoFYEcVUwO+Bb0bfPxuMAeNOUbYLmF1mXQcf2e1cbbBe4zqxP11H9k+o
-	73KiEyEUtGDjdu84wdX9UzgrYx57Q/yGc5+3UukvWjiBK0Um5+ssO+QBcm0phXnMmsqY2Ou8Ng9
-	dYjQXvNogSzLZWx+ox0btYxoE167I3yeN5cNVwf+K2Buoaiki/+3LKd1IN5AGHPE8m3ZHgnvoKE
-	aH2c/M+joVVAf9u5iydeU7d1WOZq+G+2H7gHQ2FENs2nUgdsNaHB/vqo2lQwnFQJ6NB2TzLLIOi
-	UKyvzB9WFZr+3/Y6X4YxHfbPn4A0XEZ5ln2YxW9GBSSiXxr0Tg=
-X-Received: by 2002:a17:90b:2e8c:b0:3ac:8897:7b9f with SMTP id 98e67ed59e1d1-3adeae77a16mr7444135a91.43.1793096097910;
-        Tue, 27 Oct 2026 03:14:57 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404274b2sm3188284a91.5.2026.10.27.03.14.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:14:57 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v4] ocfs2/dlm: serialize migration MLE cleanup on failure
-Date: Tue, 27 Oct 2026 18:14:49 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0038-v9-659f247ea980d5f3fbeb@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kMc6wTVi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793096099; x=1824632099;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=s13tSiff6fcPsfGnZQ/kV4hOjYGqsIat17pRr1AVdyQ=;
+  b=kMc6wTVitpWizvB0mUe6cemWbvv4BNkZhd+yrhhdNdCBnCXdyRUsFvb0
+   UWRLi+Ndiv2Aaslx1qQXHKxLSc2hE5Ersg6C34pXGTHTT4bShejoa//WW
+   1a81ubNB/xjhGP1BgZPIi4or5+Naw3hAyOOZ9Hj9ZudS3RX0t7i+FITKl
+   MdBk1roWbzlmhFQnllF8GEi76tzVAliUrtSdfRD1Qd4L/hPPwz15FrE8M
+   zE9DqYTeO+ZQ5bzYcNjO2fHlydzojJ9xqmF7iCwx2RzvxhziAK0157bJe
+   dKrRX1KdLpThojFMoupxeqSVTvp0agI3LGOhfLXLtMOEENYuyolI5Gjhh
+   g==;
+X-CSE-ConnectionGUID: PMMLogEJTl2y7naF30MKeg==
+X-CSE-MsgGUID: V1MIN0maQ4KXyfyYVQuQjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1799327"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1799327"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:14:58 -0700
+X-CSE-ConnectionGUID: x4ttERJOQu2IwdVN1yETUw==
+X-CSE-MsgGUID: Vg6kYgviTHKas9yd051bPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4547564"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:14:56 -0700
+Message-ID: <b8693216-9d8b-427e-9657-1b1a52cf08e7@linux.intel.com>
+Date: Tue, 27 Oct 2026 18:14:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,259 +72,440 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: perf: perf_pmu_register() publishes sysfs attrs before per-CPU
+ contexts exist -> NULL/poisoned cpc deref in
+ perf_event_mux_interval_ms_store()
+To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>, peterz@infradead.org,
+ mingo@redhat.com, acme@kernel.org, namhyung@kernel.org
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <de936c3.1476b.1a162c34cec.Coremail.xuhx@hust.edu.cn>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <de936c3.1476b.1a162c34cec.Coremail.xuhx@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A migration MLE has a base reference for the mastering answer and an
-in-use reference held by dlm_migrate_lockres(). The finishing assertion
-consumes the base reference, but migration failure drops it again
-without checking whether the assertion already consumed it.
 
-The target queues its migration worker before it acknowledges the
-ALL_DONE packet, so its finishing assertion can be handled while the
-sender still waits for the status. If the connection fails before the
-status arrives, dlm_send_one_lockres() returns an error for a migration
-that the target has already completed:
+On 10/22/2026 4:38 PM, 徐晗翔 wrote:
+> perf_pmu_register() makes <pmu>/perf_event_mux_interval_ms writable
+> before the per-CPU PMU contexts are allocated and initialized, so a
+> concurrent write to that attribute dereferences a NULL or a published
+> -but-uninitialized cpc: a kernel oops writing to absolute address 0xf0
+> in task context, or a NULL+0xc deref on the target CPU in hardirq
+> context ending in "Fatal exception in interrupt" -- both verified
+> deterministically on mainline 7.3 and reached naturally by an ordinary
+> userspace write loop without any instrumentation.
+>
+>
+> The store side (perf_event_mux_interval_ms_store(),
+> kernel/events/core.c:12615) fetches cpc and writes through it with no
+> readiness/NULL check, while the register side publishes the sysfs
+> attributes first (pmu_dev_alloc() at core.c:12865) and installs the
+> per-CPU contexts afterwards (alloc_percpu at 12870; cpc pointer
+> published at 12877, its hrtimer initialized only at 12879 by
+> __perf_mux_hrtimer_init()). The registrant holds pmus_lock; sysfs
+> callbacks take no lock in common with it, so a root writer (default
+> attribute mode) racing a runtime PMU registration lands inside the
+> window. Verified on mainline 7.3 with KASAN: controlled-window
+> evidence pins both faulting instructions exactly, and a natural
+> write-hammer hits the window within ~0.6 s. The same publication
+> window also has a purely functional consequence (persistent
+> interval-configuration divergence) described at the end.
+>
+>
+> The detailed description:
+>
+>
+> * Test environment / affected version
+>
+> Linux version 7.3.0 (gcc 13.3.0, GNU ld 2.42) #1 SMP PREEMPT_DYNAMIC
+> -- vanilla mainline 7.3 release tarball (kernel.org, unmodified),
+> rebuilt with CONFIG_KASAN_GENERIC=y, CONFIG_KASAN_OUTLINE=y,
+> CONFIG_KASAN_VMALLOC=y, CONFIG_PERF_EVENTS=y, CONFIG_MODULES=y,
+> CONFIG_HZ_1000=y, booted in QEMU/KVM on x86_64 (4 and 64 vCPU
+> guests). The publication order and the store code are identical in
+> 7.1.5 (function-level diff); line numbers below are from 7.3.
+>
+>
+> * Mechanism
+>
+> perf_pmu_register() publishes first and initializes later:
+>
+>
+> if (pmu_bus_running && !pmu->dev) {
+> ret = pmu_dev_alloc(pmu); /* core.c:12865:
+> device_add() makes the
+> attribute group live */
+> ...
+> }
+> pmu->cpu_pmu_context = alloc_percpu(...); /* core.c:12870 */
+> for_each_possible_cpu(cpu) {
+> cpc = kmalloc_node(...); /* per-CPU allocs */
+> *per_cpu_ptr(pmu->cpu_pmu_context, cpu) = cpc; /* :12877 */
+> __perf_init_event_pmu_context(&cpc->epc, pmu);
+> __perf_mux_hrtimer_init(cpc, cpu); /* :12879 */
+> }
+>
+>
+> and the store path has no readiness check:
+>
+>
+> for_each_online_cpu(cpu) {
+> struct perf_cpu_pmu_context *cpc;
+> cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu); /* :12640 */
+> cpc->hrtimer_interval = ns_to_ktime(...); /* :12641 */
+> cpu_function_call(cpu, perf_mux_hrtimer_restart_ipi, cpc);
+> /* :12643 */
+> }
+>
+>
+> Two windows follow:
+>
+>
+> - Window A (array published, slots still NULL; register thread is in
+> the per-CPU kmalloc_node loop): the write faults at :12641 with a
+> NULL cpc. In the 7.3 build the store does
+> "mov %r14, 0xf0(%rsi)" with rsi==0 -- a write to absolute address
+> 0xf0.
+>
+> - Window B (cpc pointer already published at :12877, but
+> __perf_mux_hrtimer_init() at :12879 has not run yet, so the
+> embedded hrtimer is all-zero): the write itself succeeds and the
+> IPI at :12643 executes perf_mux_hrtimer_restart() ->
+> hrtimer_forward_now() -> hrtimer_cb_get_time() on the remote CPU,
+> which reads timer->base->clockid with timer->base == NULL (offset
+> 0xc) in hardirq context.
+>
+>
+> pmu_dev_is_visible() (core.c:12709) does not mask the interval
+> attribute, and there is no lock common to the registrant (pmus_lock)
+> and the sysfs callback.
+>
+>
+> * Controlled-window evidence (deterministic, both fault forms)
+>
+>
+> Stalling the registering thread briefly (kprobe on the first per-CPU
+> cpc allocation for window A, on the first hrtimer_setup call for
+> window B; a 400 ms stall, writer runs during it) produces exactly
+> the predicted faults, nothing else:
+>
+>
+> Window A:
+> BUG: kernel NULL pointer dereference, address: 00000000000000f0
+> #PF: supervisor write access in kernel mode
+> RIP: 0010:perf_event_mux_interval_ms_store+0x18a/0x250
+> (Code: ... <4d> 89 be f0 00 00 00 ... /* mov %r14,0xf0(%rsi) */)
+>
+>
+> Window B:
+> BUG: kernel NULL pointer dereference, address: 00000000000000c
+> CPU: 0 ... Comm: swapper/0
+> RIP: 0010:hrtimer_cb_get_time+0x1e/0x70
+> __flush_smp_call_function_queue
+> remote_function
+> perf_mux_hrtimer_restart
+> hrtimer_cb_get_time
+> Kernel panic - not syncing: Fatal exception in interrupt
+>
+>
+> The kprobe module used for the stalls is available on request; it is
+> only a controlled-window amplifier and is NOT needed to hit the bug
+> naturally (next section).
 
-  Old-master sender                  Finishing assertion
-  -----------------                  -------------------
-  publish MLE; take in-use reference
-  send ALL_DONE; wait for status
-                                     take lookup reference
-                                     unlink MLE
-                                     put lookup and base references
-  send returns a connection error
-  put base reference again; free MLE
-  put in-use reference; access freed MLE
+It looks a real issue. I suppose the changes below would fix the issue. The
+changes only pass the building, not validated yet.
 
-dlm_assert_master_handler() holds dlm->spinlock from the MLE lookup to
-the final puts, and it takes dlm->master_lock around the unlink and the
-puts. Decide under the same locks: if the MLE is already unhashed, the
-assertion consumed the base reference, so drop only the sender's in-use
-reference. Otherwise unlink it before consuming the base reference so a
-later assertion no longer finds it.
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 7cdd02dba4f1..e088c31534bc 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -12831,6 +12831,9 @@ perf_event_mux_interval_ms_store(struct device *dev,
+        if (timer == pmu->hrtimer_interval_ms)
+                return count;
 
-An assertion that got there first has also made the target the owner
-and cleared DLM_LOCK_RES_MIGRATING. Treating the attempt as failed at
-that point would leave the lockres owned by the target while this node
-still holds the other nodes' locks and refmap bits, so it could neither
-be purged nor migrated again. Finish our side as a completed migration
-does instead: drop those locks under res->spinlock if the target still
-owns the lockres, and recalculate its usage.
-
-Use the same cleanup for the pre-send failure, the send failure and the
-target-death failure paths. The sender's in-use reference keeps the MLE
-alive until its final put outside the nested locks. Successful
-migration retains its existing in-use-only put.
-
-A target that has died cannot assert after the sender has seen its
-death. The o2net node-down callback runs before the DLM one; it
-disconnects the node and flushes the workqueue that runs the message
-handlers, so an assertion already received has been handled by the time
-the DLM removes the node from the domain map. A node that leaves the
-domain cleanly sends its exit message only after its assertions have
-been answered.
-
-Two windows of the hand-over itself are left as they are: the handler
-switches the owner and the sender drops the other nodes' locks moments
-later, and an assertion from a live target that arrives after the
-sender has given up still meets the owner check in the handler. Waiting
-for the target before giving up would only stretch the first window
-into the time in which recovery of the target can observe it.
-
-KASAN report, only the relevant frames are kept:
-
-BUG: KASAN: slab-use-after-free in dlm_put_mle_inuse+0xce/0xe0
-Read of size 8 at addr ffff8881190e3c20 by task umount/593
-
-Call Trace:
- <TASK>
- dlm_put_mle_inuse+0xce/0xe0
- dlm_migrate_lockres+0x16af/0x20d0
- dlm_empty_lockres+0x60a/0xbd0
- dlm_unregister_domain+0x53b/0x11d0
- o2cb_cluster_disconnect+0xa5/0x110
- ocfs2_cluster_disconnect+0x73/0xc0
- ocfs2_dlm_shutdown+0x311/0x440
- ocfs2_dismount_volume+0x696/0x940
- generic_shutdown_super+0x15f/0x490
- kill_block_super+0x40/0xa0
- deactivate_locked_super+0xae/0x120
- deactivate_super+0xa2/0xc0
- cleanup_mnt+0x217/0x450
- task_work_run+0x144/0x230
- </TASK>
-
-Allocated by task 593:
- kmem_cache_alloc_noprof+0x20b/0x5c0
- dlm_migrate_lockres+0x20e/0x20d0
- dlm_empty_lockres+0x60a/0xbd0
- dlm_unregister_domain+0x53b/0x11d0
- o2cb_cluster_disconnect+0xa5/0x110
- ocfs2_cluster_disconnect+0x73/0xc0
- ocfs2_dlm_shutdown+0x311/0x440
- ocfs2_dismount_volume+0x696/0x940
-
-Freed by task 593:
- kmem_cache_free+0x242/0x580
- __dlm_put_mle+0x4b2/0x660
- dlm_migrate_lockres+0x1690/0x20d0
- dlm_empty_lockres+0x60a/0xbd0
- dlm_unregister_domain+0x53b/0x11d0
- o2cb_cluster_disconnect+0xa5/0x110
- ocfs2_cluster_disconnect+0x73/0xc0
- ocfs2_dlm_shutdown+0x311/0x440
-
-The buggy address belongs to the object at ffff8881190e3c00
- which belongs to the cache o2dlm_mle of size 480
-The buggy address is located 32 bytes inside of
- freed 480-byte region [ffff8881190e3c00, ffff8881190e3de0)
-
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Changes in v4:
-- Drop the v3 hand-over in dlm_assert_master_handler(): removing the other
-  nodes' locks there races with dlm_send_one_lockres() still walking the
-  lock lists when the last message was sent from inside the loop. The sender
-  drops the locks as before, right away when the assertion got there first
-  (Sashiko review).
-- Drop the v2 wait for the target's death before the MLE is dropped; it
-  stretched the half handed-over window that recovery of the target can
-  observe. The failure paths decide right away as before (Sashiko review).
-- Drop the v3 domain map check on finishing assertions. The o2net node-down
-  callback runs before the DLM one and flushes the message handlers, so an
-  assertion from the target is always handled before the node leaves the
-  domain map and the late assertion from a dead target asked about in the
-  Sashiko review cannot occur.
-
-Changes in v3:
-- Hand the lockres over in one res->spinlock section:
-  dlm_assert_master_handler() drops the other nodes' locks and refmap bits
-  together with the owner switch, and the sender only does the same if the
-  handler has not reached that point; the failed-but-asserted paths just
-  recalculate usage. This removes the window in which recovery of the target
-  saw a lockres it owned with other nodes' locks still attached (Sashiko
-  review).
-- Ignore a finishing assert from a node that is no longer in the domain map,
-  so a late assert from a dead target cannot hand the lockres over after
-  recovery has cleaned it up (Sashiko review).
-
-Changes in v2:
-- Complete the migration instead of failing it when the finishing assert has
-  already switched the owner, so the lockres is not left owned by the target
-  with the other nodes' locks still held here (Sashiko review).
-- On a connection error from the send, wait for the target's death before
-  the MLE is dropped, so a late assert finds the MLE instead of hitting the
-  handler's check (Sashiko review).
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v5-5e414ac0c701d2ccd4b3@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v6-44416f9847751914bacc@gmail.com
-Link to v3: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0038-v7-7a0bd8f07ba98784f6b7@gmail.com
-
- fs/ocfs2/dlm/dlmmaster.c | 70 ++++++++++++++++++++++++++++++++++------
- 1 file changed, 61 insertions(+), 9 deletions(-)
-
-diff --git a/fs/ocfs2/dlm/dlmmaster.c b/fs/ocfs2/dlm/dlmmaster.c
-index 612969867ff9..ea48c013f7fb 100644
---- a/fs/ocfs2/dlm/dlmmaster.c
-+++ b/fs/ocfs2/dlm/dlmmaster.c
-@@ -2525,6 +2525,52 @@ static int dlm_is_lockres_migratable(struct dlm_ctxt *dlm,
-  */
- 
- 
-+/*
-+ * Drop the sender's references on a migration MLE after the attempt has
-+ * failed. The finishing assert from the target may already have unlinked
-+ * the MLE and consumed its base reference; decide under the locks the
-+ * assert handler holds, and only drop the base reference while the MLE is
-+ * still hashed. Returns true when the assert got there first: the target
-+ * has become the master, so the caller must complete the migration.
-+ */
-+static bool dlm_put_migration_mle(struct dlm_ctxt *dlm,
-+				  struct dlm_master_list_entry *mle)
-+{
-+	bool asserted;
++       if (!pmu->cpu_pmu_context)
++               return -ENODEV;
 +
-+	spin_lock(&dlm->spinlock);
-+	spin_lock(&dlm->master_lock);
-+	__dlm_mle_detach_hb_events(dlm, mle);
-+	asserted = hlist_unhashed(&mle->master_hash_node);
-+	if (!asserted) {
-+		__dlm_unlink_mle(dlm, mle);
-+		__dlm_put_mle(mle);
-+	}
-+	spin_unlock(&dlm->master_lock);
-+	spin_unlock(&dlm->spinlock);
+        mutex_lock(&mux_interval_mutex);
+        pmu->hrtimer_interval_ms = timer;
+
+@@ -13062,12 +13065,6 @@ int perf_pmu_register(struct pmu *_pmu, const char
+*name, int type)
+        pmu->type = pmu_type.id;
+        atomic_set(&pmu->exclusive_cnt, 0);
+
+-       if (pmu_bus_running && !pmu->dev) {
+-               int ret = pmu_dev_alloc(pmu);
+-               if (ret)
+-                       return ret;
+-       }
+-
+        pmu->cpu_pmu_context = alloc_percpu(struct perf_cpu_pmu_context *);
+        if (!pmu->cpu_pmu_context)
+                return -ENOMEM;
+@@ -13086,6 +13083,12 @@ int perf_pmu_register(struct pmu *_pmu, const char
+*name, int type)
+                __perf_mux_hrtimer_init(cpc, cpu);
+        }
+
++       if (pmu_bus_running && !pmu->dev) {
++               int ret = pmu_dev_alloc(pmu);
++               if (ret)
++                       return ret;
++       }
 +
-+	dlm_put_mle_inuse(mle);
-+	return asserted;
-+}
-+
-+/*
-+ * The finishing assert got there first: it switched the owner to the
-+ * target and cleared DLM_LOCK_RES_MIGRATING. Drop the other nodes' locks
-+ * as a completed migration does, unless recovery has taken the lockres
-+ * over since, and let the usage be recalculated.
-+ */
-+static void dlm_migrate_lockres_asserted(struct dlm_ctxt *dlm,
-+					 struct dlm_lock_resource *res,
-+					 u8 target)
-+{
-+	spin_lock(&res->spinlock);
-+	if (res->owner == target)
-+		dlm_remove_nonlocal_locks(dlm, res);
-+	spin_unlock(&res->spinlock);
-+
-+	dlm_lockres_calc_usage(dlm, res);
-+}
-+
- static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 			       struct dlm_lock_resource *res, u8 target)
- {
-@@ -2609,9 +2655,10 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 
- 	if (ret < 0) {
- 		if (mle_added) {
--			dlm_mle_detach_hb_events(dlm, mle);
--			dlm_put_mle(mle);
--			dlm_put_mle_inuse(mle);
-+			if (dlm_put_migration_mle(dlm, mle)) {
-+				dlm_migrate_lockres_asserted(dlm, res, target);
-+				ret = 0;
-+			}
- 		} else if (mle) {
- 			kmem_cache_free(dlm_mle_cache, mle);
- 			mle = NULL;
-@@ -2640,9 +2687,11 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 		mlog(0, "migration to node %u failed with %d\n",
- 		     target, ret);
- 		/* migration failed, detach and clean up mle */
--		dlm_mle_detach_hb_events(dlm, mle);
--		dlm_put_mle(mle);
--		dlm_put_mle_inuse(mle);
-+		if (dlm_put_migration_mle(dlm, mle)) {
-+			dlm_migrate_lockres_asserted(dlm, res, target);
-+			ret = 0;
-+			goto leave;
-+		}
- 		spin_lock(&res->spinlock);
- 		res->state &= ~DLM_LOCK_RES_MIGRATING;
- 		wake = 1;
-@@ -2686,9 +2735,12 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
- 				     res->lockname.name, target);
- 				ret = -EINVAL;
- 				/* migration failed, detach and clean up mle */
--				dlm_mle_detach_hb_events(dlm, mle);
--				dlm_put_mle(mle);
--				dlm_put_mle_inuse(mle);
-+				if (dlm_put_migration_mle(dlm, mle)) {
-+					dlm_migrate_lockres_asserted(dlm, res,
-+								     target);
-+					ret = 0;
-+					goto leave;
-+				}
- 				spin_lock(&res->spinlock);
- 				res->state &= ~DLM_LOCK_RES_MIGRATING;
- 				wake = 1;
+        if (!pmu->start_txn) {
+                if (pmu->pmu_enable) {
+                        /*
+
+
+
+>
+>
+> * Natural reachability (no instrumentation)
+>
+>
+> A minimal PMU driver registered/unregistered in a loop through the
+> exported perf core API (same lifecycle as an unloadable PMU module
+> or an Intel uncore PCI rebind), while userspace runs a tight loop
+> writing the attribute as soon as it appears (alternating values, so
+> every write passes the same-value fast path). On a 64-vCPU KASAN
+> VM (7.3) the first slab-use-after-free appears ~0.6 s after the
+> hammer starts (94 reports within the run; the writes that land late
+> in the window successfully arm cpc->hrtimer and are then freed by
+> the unregister of the same round -- that use-after-free in
+> perf_pmu_free() is a separate defect I am reporting in its own
+> mail). A fault dump in the same run shows the writer's path
+> stopping exactly at perf_event_mux_interval_ms_store+0x18a, the
+> same instruction as the controlled window-A witness. On 7.1.5 the
+> same uninstrumented hammer also faulted naturally inside the store
+> (dangling percpu array read at store+0x149).
+>
+>
+> * Reproducer
+>
+> Module source inlined at the end of this mail; usage:
+>
+> # build against the kernel under test
+> make -C <kernel-build-dir> M=$PWD modules
+>
+> # in the guest (root):
+> insmod r4_repro.ko
+> # terminal A: writer hammer
+> while :; do
+> F=/sys/bus/event_source/devices/r4pmu/perf_event_mux_interval_ms
+> [ -e $F ] && { echo 100 > $F 2>/dev/null; echo 200 > $F 2>/dev/null; }
+> done
+> # terminal B:
+> echo "regloop 400" > /sys/module/r4_repro/parameters/action
+>
+>
+> Triggering requires a runtime PMU registration (unloadable PMU
+> driver, uncore PCI rebind on matching hardware) plus a root writer
+> (attribute mode 0644); the window is the registration interval
+> (device_add done -> last cpc timer initialized), sub-millisecond to
+> milliseconds per round, trivially hit by a write loop.
+>
+>
+> * Additional symptom of the same window (functional, no memory fault)
+>
+>
+> If the store lands between __perf_mux_hrtimer_init()'s "is the
+> field unset" read and its default assignment (the default is
+> PERF_CPU_HRTIMER = 1000/HZ; the assignment writes
+> pmu->hrtimer_interval_ms), the PMU ends up with
+> pmu->hrtimer_interval_ms == default while every cpc actually runs
+> the user's value -- and because the store's same-value fast path
+> returns early on an equal value, writing the field value back is a
+> permanent no-op: the divergence cannot be repaired by re-writing
+> the same number. Same fix point (normalize defaults before
+> publication), so reported here rather than separately.
+>
+>
+> Thanks for taking a look.
+>
+> Regards,
+> Hanxiang Xu
+> xuhx@hust.edu.cn
+>
+> ------------------------------------------------------------------------
+> reproducer: r4_repro.c (build with: make -C <kernel-build-dir> M=$PWD
+> modules; requires CONFIG_PERF_EVENTS=y and CONFIG_MODULES=y)
+> ------------------------------------------------------------------------
+> // SPDX-License-Identifier: GPL-2.0
+> /*
+> * r4_repro.c - minimal reproducer for the premature-sysfs-publication
+> * NULL dereference in perf_event_mux_interval_ms_store()
+> * (kernel/events/core.c).
+> *
+> * perf_pmu_register() publishes the PMU device and its sysfs attributes
+> * (pmu_dev_alloc() -> device_add()) *before* allocating and installing the
+> * per-CPU perf_cpu_pmu_context array and initializing each cpc's hrtimer.
+> * A concurrent root write to perf_event_mux_interval_ms during that window
+> * reaches:
+> *
+> * cpc = *per_cpu_ptr(pmu->cpu_pmu_context, cpu);
+> * cpc->hrtimer_interval = ...; <- NULL cpc => write to 0xf0
+> *
+> * or, one window later (cpc published, timer not yet initialized), the
+> * restart IPI runs perf_mux_hrtimer_restart() on a zeroed hrtimer and
+> * dereferences timer->base == NULL in hrtimer_forward_now().
+> *
+> * Usage (from userspace):
+> *
+> * insmod r4_repro.ko
+> * # terminal A: writer hammer on the freshly (re)created sysfs node
+> * while :; do
+> * for F in /sys/bus/event_source/devices/r4pmu/perf_event_mux_interval_ms; do
+> * [ -e $F ] && { echo 100 > $F 2>/dev/null; echo 200 > $F 2>/dev/null; }
+> * done
+> * done
+> * # terminal B: registration churn through the exported perf core API
+> * echo "regloop 400" > /sys/module/r4_repro/parameters/action
+> *
+> * Alternating values bypass the same-value fast path so every open of the
+> * node performs a full store. On a KASAN kernel, a write landing inside
+> * the window produces an immediate NULL-pointer oops in
+> * perf_event_mux_interval_ms_store() (write fault at address 0xf0), or an
+> * IRQ-context panic via perf_mux_hrtimer_restart() -> hrtimer_cb_get_time()
+> * (NULL+0xc). Writes landing in a later part of the window succeed in
+> * arming cpc->hrtimer and will surface as use-after-free reports when the
+> * same registration round unregisters again (that is the related
+> * perf_pmu_free() defect; see the report text).
+> *
+> * No kernel source modification: everything goes through the
+> * EXPORT_SYMBOL_GPL perf core API, exactly like a real unloadable PMU
+> * provider driver (e.g. Intel uncore PCI drivers via bind/unbind).
+> */
+> #define pr_fmt(fmt) "R4REPRO: " fmt
+> #include <linux/module.h>
+> #include <linux/kernel.h>
+> #include <linux/kthread.h>
+> #include <linux/sched.h>
+> #include <linux/delay.h>
+> #include <linux/workqueue.h>
+> #include <linux/perf_event.h>
+> #include <linux/err.h>
+> #include <linux/string.h>
+> static struct pmu test_pmu;
+> static int my_registered;
+> static int test_type = -1;
+> static unsigned long stat_reg_ok, stat_reg_fail, stat_unreg_ok, stat_unreg_fail;
+> static int repro_event_init(struct perf_event *event)
+> {
+> if (event->attr.type != test_type)
+> return -ENOENT;
+> return 0;
+> }
+> static void repro_pmu_reset(void)
+> {
+> static const struct pmu tmpl = {
+> .task_ctx_nr = perf_invalid_context,
+> .module = THIS_MODULE,
+> .capabilities = PERF_PMU_CAP_NO_INTERRUPT |
+> PERF_PMU_CAP_NO_EXCLUDE,
+> .event_init = repro_event_init,
+> };
+> test_pmu = tmpl;
+> }
+> static int do_register(void)
+> {
+> int ret;
+> repro_pmu_reset();
+> ret = perf_pmu_register(&test_pmu, "r4pmu", -1);
+> if (ret) {
+> stat_reg_fail++;
+> my_registered = 0;
+> } else {
+> stat_reg_ok++;
+> my_registered = 1;
+> test_type = test_pmu.type;
+> }
+> return ret;
+> }
+> static int do_unregister(void)
+> {
+> int ret = -EINVAL;
+> if (my_registered)
+> ret = perf_pmu_unregister(&test_pmu);
+> if (ret) {
+> stat_unreg_fail++;
+> } else {
+> stat_unreg_ok++;
+> my_registered = 0;
+> }
+> return ret;
+> }
+> static char action_cmd[64];
+> static void action_workfn(struct work_struct *w)
+> {
+> char cmd[64];
+> char *p, *cp;
+> long n = 0;
+> strscpy(cmd, strstrip(action_cmd), sizeof(cmd));
+> cp = cmd;
+> p = strsep(&cp, " ");
+> if (cp && cp[0])
+> if (kstrtol(cp, 0, &n))
+> n = 0;
+> if (!strcmp(p, "register")) {
+> pr_info("register rc=%d type=%d\n", do_register(), test_type);
+> } else if (!strcmp(p, "unregister")) {
+> pr_info("unregister rc=%d\n", do_unregister());
+> } else if (!strcmp(p, "regloop") && n > 0) {
+> long i;
+> for (i = 0; i < n; i++) {
+> if (my_registered)
+> do_unregister();
+> do_register();
+> usleep_range(0, 50);
+> }
+> pr_info("REGLOOP_DONE n=%ld reg_ok=%lu reg_fail=%lu unreg_ok=%lu unreg_fail=%lu\n",
+> n, stat_reg_ok, stat_reg_fail, stat_unreg_ok,
+> stat_unreg_fail);
+> } else if (!strcmp(p, "status")) {
+> pr_info("status registered=%d type=%d reg_ok=%lu reg_fail=%lu unreg_ok=%lu unreg_fail=%lu\n",
+> my_registered, test_type, stat_reg_ok, stat_reg_fail,
+> stat_unreg_ok, stat_unreg_fail);
+> } else {
+> pr_info("unknown action '%s'\n", p);
+> }
+> pr_info("ACTION_COMPLETE\n");
+> }
+> static DECLARE_WORK(action_work, action_workfn);
+> static int action_set(const char *val, const struct kernel_param *kp)
+> {
+> int ret = param_set_copystring(val, kp);
+> if (ret == 0)
+> schedule_work(&action_work);
+> return ret;
+> }
+> static const struct kernel_param_ops action_ops = {
+> .set = action_set,
+> .get = param_get_string,
+> };
+> static struct kparam_string action_param = {
+> .maxlen = sizeof(action_cmd),
+> .string = action_cmd,
+> };
+> module_param_cb(action, &action_ops, &action_param, 0200);
+> MODULE_PARM_DESC(action, "register|unregister|regloop N|status");
+> static int __init r4_repro_init(void)
+> {
+> repro_pmu_reset();
+> pr_info("loaded; start the userspace writer hammer, then run regloop\n");
+> return 0;
+> }
+> static void __exit r4_repro_exit(void)
+> {
+> cancel_work_sync(&action_work);
+> if (my_registered)
+> do_unregister();
+> pr_info("unloaded\n");
+> }
+> module_init(r4_repro_init);
+> module_exit(r4_repro_exit);
+> MODULE_LICENSE("GPL");
+> MODULE_DESCRIPTION("Minimal reproducer: premature sysfs publication NULL deref in perf_event_mux_interval_ms_store()");
