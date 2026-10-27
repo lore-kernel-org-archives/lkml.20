@@ -1,61 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093766;
-	b=UVubq+IXG10QhUXN2SZIDBCNO6gFXctnZKv1Y9YfiGVmOxd8NZHyyOlwxjcS3HeX4PQF
-	 2al/YZ/krKwjhXIGfSFZwAjaF794YnSZaic7JMIWCTAJYdAulssCzC37SGpih/DAzejXc
-	 o+ZejpD4VWtafdojmBsZuRO4kji5JaSFUFB9dPbH5+QeSAXzYKrV+Q94KFJDkvvSHO4Bs
-	 Gr/JhKMPJbS2vY42/BCciAvGHdXMJAPeL6gYN9su2VI8yut6I/+JAdm9QmWXFtn72BgeJ
-	 5PM8z5zlNfgSEAGQTDpA2bZ6z9KugjuKoKYHCiBU+pUgMugXEYl7xQOaDGyMYgW5Ezg==
+	t=1793093780;
+	b=aM53CdwJgxmE2OzTpizfYW+yMNsB59K1Rte+upqSSe0oa/5JWv5qhcbGRU4h82Xuekv5
+	 uyFjpHuiwzDCzd4AfIavcRhPhWbh0U1J+JT76qirBVPxURWP68BeQY3dpF4kQ0UF8iIsd
+	 FOud+ul91eu9zpk98kUEUOv9Ot2wkt1NetmnPPiUvlB0RfPG3Q3nziyBCxSpVp8qVHGo1
+	 AVtGbponDuZRRpGgHxAd8NTytdNU4g4Ggd7sycKjEQwRCNNI8XUrHAnLse23MfLxybV4t
+	 5cK31VswJlxj9W6URBQRoi4bY3FqnDbm6c56q9SGkeGN/vpjrpRoiKWogYx8I6ruaOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093766;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=eChYoPgAoD06rBVRMqY7u08BQIP93TXsZv72QlEi7AQ=;
-	b=IbhO5uZOZfffA4r3NmXTyWud17tuaQQKoJIM6gER4PmOYDOgeSl6jBxVKPqT9Poh8kEb
-	 uxu/6BmG3TRfJdoivhxSkWj4B5eV7ivlv13zhGj4MIQFi+70Jw3ZNpBQYK1iQeAluzFJP
-	 CXUbzT7RABIM+ZNVGb/PzY2P55dt0x9TgKX4wmhzFcoZCcq0uxjk93/xwu1cIt6COn3RU
-	 kUeJO0jx79+aKXl5CNm1Jbm64c69G6Vq38v1AmzPkrt/IEqqJT3HykfiIviRTWFOA972H
-	 htCu3clGB5lDh5BKXrv8XU8d0RwxOBwsUf4e5A6KYFq9Fn2kWcrlodRkMBOAQkhEI7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093780;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Dplzi2jZF0nyquCM7rHIi1KSd7Abrm4kSHyoRVVxXRA=;
+	b=sGD7rD3OkqMZlVW0YTU2iBrb7ZVQBkmy9FkbNo//fcg+lDJbb5Nz361MPGvQJuNW+beL
+	 Fr53vJB/oHhz10hsKMPf2L5znBaXm1AdwXCeen6U1DeyKOEvA6UAwpRuve+rt+OPEs+BF
+	 4S9+UAR0YzixPX7jhXWzey9SSoEAUA84JkwIhr2I4xW8v4SxFrmd5FIYgy8/3ueb1yW0d
+	 Xdh01rQ9suUdiF0pBYDax56tejY68rVFgR+KxK+cj+cKqhQUZFUG9u86KRHlYxaEWi1tC
+	 jsuNfoc1CbMoCnxjXOiCFM6GgFERX1IK6drrd4ISC8Nid33/cQ1kqHxhURPIyAGIsig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDWkYks2;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Aj/lYZAN";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70D860A2602
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:36:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C70D860A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC937606A31A;
+	Tue, 27 Oct 2026 09:36:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDWkYks2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=eC
-	hYoPgAoD06rBVRMqY7u08BQIP93TXsZv72QlEi7AQ=; b=NDWkYks2gL8r038Z8r
-	tB9sJGQIePv6PMo2uRlA9/XkAYRQWebub5TtOmKrq8/Qmabdz61P/xaL0n0Tv6yK
-	loZPWTcBiN5x5pRUw5rUT5p769m+qJqwMMUfFllhhVak5m2WSKDmD+95U39p+NTQ
-	8IcHr+GGN++fSDawGDuJbAKoc=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD33xFVcOBqdMGFDQ--.18497S5;
-	Tue, 27 Oct 2026 17:35:20 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Xuewen Wang <wangxuewen@kylinos.cn>,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1 3/5] ntfs: initialize packed EA size when creating hard links
-Date: Tue, 27 Oct 2026 17:35:13 +0800
-Message-ID: <20261027093515.344799-4-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261027093515.344799-1-liubaolin12138@163.com>
-References: <20261027093515.344799-1-liubaolin12138@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aj/lYZAN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 539271F01825;
+	Tue, 27 Oct 2026 09:36:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793093779;
+	bh=Dplzi2jZF0nyquCM7rHIi1KSd7Abrm4kSHyoRVVxXRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Aj/lYZAN94E+6oT9IogJZDY05+cE2hW1lTqN2T63l9yDpAGpWcsfyg1/t3Mup8w30
+	 wJjK3nV1p6T1ggPDeD/x5scfRxApF9EkOpoFvra2dF1dLjxxEvI4+iQjc/xtIbu+dr
+	 5kPrz9bMduX6FgzsCDjVqlOXmucjsI92g8Ehw5Z9jJKVA6sDxbkBQj5STdbeoMp7qt
+	 2caDa5n3rjWAjXs0iIlQmsdE4PISikdcKPzWaAk2MThAmkzgeALKqWVro8pFRGh8Qt
+	 ZkbmWMND8JyQKudyxAK2deV7K7NfXYveO387oxAbggPHn1s+t7c5nUHzlWrZXUzADs
+	 hBTXght82atfA==
+Date: Tue, 27 Oct 2026 10:36:16 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, ryan_chen@aspeedtech.com, 
+	billy_tsai@aspeedtech.com, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, 
+	andrew@lunn.ch
+Subject: Re: [PATCH v9 1/2] dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+Message-ID: <20261027-savvy-powerful-seahorse-cc1079@quoll>
+References: <20261027034911.99482-1-prasanth.padarthi10@gmail.com>
+ <20261027034911.99482-2-prasanth.padarthi10@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,64 +60,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33xFVcOBqdMGFDQ--.18497S5
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar4xtF1DAFyrKF1xWF18AFb_yoW8Cw4kpF
-	Z3KFyfKa17Jryakas3trW2va1Sv3yfCF1UGrsIgr12y3ZYq3Z0ga48KFyYv3s3trW8u34j
-	qr45t3y7Wry5Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jLXocUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hgFz2rgcFi-2gAA3-
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027034911.99482-2-prasanth.padarthi10@gmail.com>
 
-From: Xuewen Wang <wangxuewen@kylinos.cn>
+On Tue, Oct 27, 2026 at 09:19:10AM +0530, Prasanth Kumar Padarthi wrote:
+> Document the ASRock Rack B650D4U BMC, which uses an ASPEED AST2600.
+> 
+> Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+> index b7e70868e..3e6133e2b 100644
+> --- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+> +++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
+> @@ -79,6 +79,7 @@ properties:
+>            - enum:
+>                - ampere,mtjefferson-bmc
+>                - ampere,mtmitchell-bmc
+> +              - asrock,b650d4u-bmc
 
-A new hard link has a zero packed EA size in its FILE_NAME even when
-the source file already has extended attributes.
+That's v9, so where is the changelog? I see in cover letter only v8, no
+links to lore disucssions, either.
 
-For files with EAs and no reparse point, read EA_INFORMATION and check
-its attribute length before adding the name. Copy its ea_length into
-the new FILE_NAME's packed_ea_size. Skip this assignment for reparse
-points, where the same storage holds the reparse-point tag.
+What happened here with previous versions and reviews? And why is this
+placed in non-alphabetical order?
 
-Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
----
-Tested with the complete five-patch series in QEMU. Published an
-O_TMPFILE after inheriting an access ACL and setting a 12000-byte EA.
-Offline ntfsinfo inspection confirms that the FILE_NAME attribute in
-the file's MFT record has the same packed EA length as EA_INFORMATION
-(12134 bytes). The 12000-byte EA contents also match after cache eviction,
-remount and a fresh boot.
+>                - aspeed,ast2600-evb
 
- fs/ntfs/namei.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
-
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 4442e1d..b26fd9c 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -1316,6 +1316,24 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 	fn->last_access_time = utc2ntfs(inode_get_atime(vi));
- 	memcpy(fn->file_name, name, name_len * sizeof(__le16));
- 
-+	if (NInoHasEA(ni) && !(ni->flags & FILE_ATTR_REPARSE_POINT)) {
-+		struct ea_information *info;
-+		s64 size;
-+
-+		info = ntfs_attr_readall(ni, AT_EA_INFORMATION, AT_UNNAMED, 0, &size);
-+		if (IS_ERR(info)) {
-+			err = PTR_ERR(info);
-+			goto err_out;
-+		}
-+		if (size != sizeof(*info))
-+			err = -EUCLEAN;
-+		else
-+			fn->type.ea.packed_ea_size = info->ea_length;
-+		kvfree(info);
-+		if (err)
-+			goto err_out;
-+	}
-+
- 	/* Add FILE_NAME attribute to index. */
- 	err = ntfs_index_add_filename(dir_ni, fn, MK_MREF(ni->mft_no,
- 					le16_to_cpu(ni_mrec->sequence_number)));
+Best regards,
+Krzysztof
 
