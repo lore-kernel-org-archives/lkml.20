@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793083371;
-	b=z0JRE+2jrPd6z8lgHvf5qJrBJqF1fw3v5t0cEwD0vDGMNIFNsQ3yefprVRnIWjTzVDbY
-	 RzYZDatSv/a8t9YBf8xS2goVL6yWjfiKtSIk5Uk1X6d6i5tE6elGxEl9YEO8jMDzf8ZIz
-	 c9yBwzSDBFXlZsQWMWcdhbqJZ28uOfQACJoN9em0i9vslnvjxaseR98bLkFxWfso1IT0P
-	 KCXMFJVh40ntQwAbABLC1Ek/60AUPh4uo886KZpKrgywPoV6o+rQ5KGutq6DWK1mRvZ1Y
-	 yGVYB9cpxNtq3dmGltWIZR4mscxbk0N8UQyGjIIamh1fThfT7zQBSLCc/Utaf7Nk/VA==
+	t=1793083413;
+	b=hOmpYCf/O7xFHJSy5VelOrRvd4OhDztHZGgH8zJX7AzS325pLenvyb+HqfifTmIc03Ei
+	 3JOcSQaPOknPvhyuLtWJqf8k8+LCl3iZgPj+N09LlMACsjAoDq8wty4vMU7gNGHZdZYUw
+	 JK0OjWo8EEIg/4rNw0NoGXC8WhqAjYKY01jNqylS5EyB/JtGqwO0l/52YK6jvIQKLvydy
+	 kGN1kUucvR4LPjP71e7m7icqzj0403h1mvngXQYOweVUGkQhk0cz+nHXiBvzETsKorKhO
+	 fiGs6mazMEZgjAn+pmd2HUxEJFmx+TLKrfTTwzWDmo+KdNKPjzq8DbQAZQCtThje5Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083371;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083413;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=pRiCUUjLhGU4QryeqhGvx/oq8Ldr8tbhEqJVg4ZBW9A=;
-	b=USVtVZxutF7QH87PsnFk1Zc4aySnb4T6bUseyMIWINzCohBhMzLTXNQyRNBaNijd8QkJ
-	 63aFZKl6ro+0JlZG976xgc0rHHHkcBNvc6puVo8TI7NRiVzNZiF5tzRbMuOjciQ08dgx9
-	 +wvJ2RVA3H5aXsT62JMLuMvWrCUvuTd4l0Gk6/y+/WQy4pFfgJF4pmbyTcCP7b1KA5yjV
-	 hHwb0XfLABKy1e9j6gf6/jvxGREY5l0u+Np2vuRy1CgfwQsiY560Tp/PkfAdjm5RmgBoN
-	 bEURk+E4mwQeqfPn+KtkfFG52hhszOtH68toSOzIgSLeCzDDGSTsCSihy5G5gJMK0Ag==
+	bh=1rV7sJ5OuvWmQzcl5Y+LhIg6Y4llgh/mlRpgtM99hK0=;
+	b=E51Idrpn7JFPPU1gKAOm2E8lu5mw9YGR+PVFgDRMyzSGgT3F9wFR2/oRk8W6rOYExkDW
+	 k+/6D78AlDI8HdfgAGKAoBEvkY9/YiytZqwFEt7dxA6Ae+fpuvJibiwCLJZYYFwGK8+ZC
+	 VzWSRiLOxCAeBKgt8AocPfeakUNolwSoSuTVeO4JmXrESHd2DJdTTM9+5AC89qZl/kM24
+	 A1VcRPKE4vTbj8ch9CfM0ZAyNgLnLNvK0RC0sdsO4GGoJRrqyDRp1a7LK4octGp+YqxHS
+	 K6y8T4F6x3JuD0N99wePv67mL4thYHE4gQjgyW+3YvQPftBjzuPWDfkShIiAHstSRzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcQd5Rgx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeyLHW12;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3722606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:42:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EDAC606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcQd5Rgx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69BBD1F031E0
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:42:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeyLHW12
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07C021F031E9
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:43:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793083370;
-	bh=pRiCUUjLhGU4QryeqhGvx/oq8Ldr8tbhEqJVg4ZBW9A=;
+	s=k20260515; t=1793083413;
+	bh=1rV7sJ5OuvWmQzcl5Y+LhIg6Y4llgh/mlRpgtM99hK0=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RcQd5Rgx2hQVnLWed84Onq61jdm8RewlmVFnETkOabWqsAIYlP3t6v4NDguMWicf4
-	 XIoPv6Q/N2BjvVqNIdr0SJ4Q3tJrBxXi68L/8eqMPN8VxsDzTXBEyTU8ubCCCsPGAY
-	 cNzztg1U8597P0XqYS9yQ72n9R4sE77DtrOwpuyGA2TEC1rjOR8Pp7Et4MSElyd3Yo
-	 tGLt6gc98IH3gRI9dGsPCN0m2TxrII9PhM37Jmv7c8jshDscyh2A2II6jxlrQTgG8k
-	 8AYM3VgfN69mc04S0LIOcwWoYgPM8M20Ej+ABvrkFormUoOgBdW3LhTe4V7jY1wlgD
-	 FRQ4Oro1Oi57g==
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-704597ef1d8so1688556eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:42:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByU985/E5dKis4m6P9B1kdpPNNDu81RRDg7kOgTmq5EnODNDGVExFLJgSmF6NKJ/adfA7d1DUUkEJ+u6V0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILACQIw7LDFpHUnhUwS3YWCZlQJf6PUQiOuaTR58ouPL3KlENc
-	PSr5sFpgZo5R0qtKB+3TX5OrKrwGjrJ+Dy0cZuEzRCrtnHDDQUO9oBi5nsj6nTnqGAF58S3YJOJ
-	UiOpXrMGzBGWYtIlzPoUFSNNz4un1Eog=
-X-Received: by 2002:a05:6870:c22b:b0:48f:e25e:e202 with SMTP id
- 586e51a60fabf-4a83f5b8983mr5062981fac.61.1793083369809; Mon, 26 Oct 2026
- 23:42:49 -0700 (PDT)
+	b=oeyLHW12ZBVJE6WwsG5A6uwis/ZOX7lxJXy+K6wLdbIGwF5dWUB7rRaEIA2sOn484
+	 KEbamJPaydrLoq1Vo0IljG+Srs4rgLh9IaAnlw+HVuHY+mZXRMVsXdp3zfmn8Kb112
+	 5mifVnj/u5mFKtH47GvCltgVRGPlXKvHccHv5zRgknF6rxSgxUIdYgJ3jJ+NPWp4aP
+	 fs7r2yLCNDTnTn72pKo6w41h8TUnttVlWG57bPK6kHWwk1zruD4Gy5SW1BDZWws8aw
+	 QuE+d7omHnJ64LXfWtKiZOm4e8pfJ2lvjvygxhS6zK5Wx9SePtpSZAjFEgZpBtZTu6
+	 9NccuSBZLvfkw==
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-53ec92375d2so1703653b6e.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:43:32 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw7Qi0+jLDA87PnoBGOAlXB1dMeYrWDoFPoqQs+heCkmBlUuL3KkDdD/z0F6R4UvTG73enkcl4Gug0InRg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLu1RxQD7Uf2Z1sr+/T4olXkj9pqfMdVs8/Feo7HBx5CVLmc0K1
+	64MUXkT38jWGVrDgS6gtwe52Y9PS7ruhg6J1y3ig5kd3df3eLL26w4+JQe3QzNSdGMqn2SngbdR
+	DlzoC4FuA5a0htrQjPd6alAFwT2EQJAc=
+X-Received: by 2002:a05:6808:220a:b0:4ed:7045:d3bc with SMTP id
+ 5614622812f47-55c002d9ed3mr5982970b6e.32.1793083412383; Mon, 26 Oct 2026
+ 23:43:32 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,14 +59,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026091549.605810-1-p@1g4.org> <20261026091549.605810-2-p@1g4.org>
-In-Reply-To: <20261026091549.605810-2-p@1g4.org>
+References: <20261026091549.605810-1-p@1g4.org> <20261026091549.605810-3-p@1g4.org>
+In-Reply-To: <20261026091549.605810-3-p@1g4.org>
 From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 27 Oct 2026 07:42:39 +0100
-X-Gmail-Original-Message-ID: <CAL4WiioPvWBTb7uq2ny=AApqoDst6fFr6pVYDjw+LfP9UB9q2Q@mail.gmail.com>
-X-Gm-Features: AclHuK95zom0Wqqrue6m7-lKPoAo3R_113cwV3WAYgHulj4dz6QgUcVJPRpgglw
-Message-ID: <CAL4WiioPvWBTb7uq2ny=AApqoDst6fFr6pVYDjw+LfP9UB9q2Q@mail.gmail.com>
-Subject: Re: [PATCH net 2/3] igc: prepare TSO and checksum offloads before TX timestamps
+Date: Tue, 27 Oct 2026 07:43:21 +0100
+X-Gmail-Original-Message-ID: <CAL4WiiredhAG-x2Ls8moMLprzOt2Ua0E-eDSXk7Che0QHQ3E0g@mail.gmail.com>
+X-Gm-Features: AclHuK8M6VbpWDO_HbzkaGdWK1HEj-x4xPb3ExTmDRcyeOQYYZiLPbtFqH9A-VI
+Message-ID: <CAL4WiiredhAG-x2Ls8moMLprzOt2Ua0E-eDSXk7Che0QHQ3E0g@mail.gmail.com>
+Subject: Re: [PATCH net 3/3] igb: prepare TSO and checksum offloads before TX timestamps
 To: Paul Moses <p@1g4.org>
 Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, 
 	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
@@ -80,25 +80,26 @@ Content-Transfer-Encoding: quoted-printable
 
 Le lun. 26 oct. 2026 =C3=A0 10:16, Paul Moses <p@1g4.org> a =C3=A9crit :
 >
-> igc_request_tx_tstamp() takes an extra skb reference before transmit
-> preparation. For GSO packets, igc_tso() calls skb_cow_head(), which can
-> reach pskb_expand_head() with a shared skb when the header is cloned.
-> Commit c7d8bc3dd511 ("net: skbuff: don't BUG() on bad arguments to
-> pskb_expand_head()") replaced the BUG_ON() with -EINVAL, causing TSO
-> preparation to fail and the packet to be dropped.
+> igb_xmit_frame_ring() takes an extra skb reference for TX timestamping
+> before transmit preparation. For GSO packets, igb_tso() calls
+> skb_cow_head(), which can reach pskb_expand_head() with a shared skb
+> when the header is cloned. Commit c7d8bc3dd511 ("net: skbuff: don't BUG()
+> on bad arguments to pskb_expand_head()") replaced the BUG_ON() with
+> -EINVAL, causing TSO preparation to fail and the packet to be dropped.
 >
-> For non-GSO packets with CHECKSUM_PARTIAL, igc_tx_csum() falls back to
+> For non-GSO packets with CHECKSUM_PARTIAL, igb_tx_csum() falls back to
 > skb_checksum_help() for unsupported checksum offsets. This can also
-> reach pskb_expand_head() through skb_ensure_writable(). igc_tx_csum()
+> reach pskb_expand_head() through skb_ensure_writable(). igb_tx_csum()
 > ignores the error, allowing transmission to continue without completing
 > the checksum.
 >
-> Move TSO and checksum preparation before TX timestamp reservation so
-> the extra skb reference cannot interfere with either operation.
+> Move TSO and checksum preparation before taking the timestamp reference.
+> Add the timestamp bit to first->tx_flags without overwriting the offload
+> flags.
 >
-> Fixes: 2c344ae24501 ("igc: Add support for TX timestamping")
-> Fixes: f38b782dccab ("igc: Add support for TSO")
+> Fixes: 1f6e8178d685 ("igb: Prevent dropped Tx timestamps via work items a=
+nd interrupts.")
+> Fixes: 6e033700887b ("igb: Add support for generic Tx checksums")
 > Signed-off-by: Paul Moses <p@1g4.org>
-> ---
 
 Reviewed-by: Eric Dumazet <edumazet@kernel.org>
