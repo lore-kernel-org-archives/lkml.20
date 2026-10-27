@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793120245;
-	b=WCK+no4mUzCOwL8ruBij/Kxr/1FQTKBee+ItH8HbHd5D+oR/BCabjPWkHMokBnOsswe9
-	 VMz/ZiS97KVpCwusb8/Wki1Xe/irA6PrdiqKY3Dj14oHeXTeLCb2PauIVu6DyVb8PwLGg
-	 zC2bi70pPfqvzMMcij7VeH1DnKZHUSTFATh3e3capG1OpBqrYpflO1/CnAwO0Wpvj0gcm
-	 ijjWTaHobMGwwr+vGxHFDkA99wBf/XmPRsT/uWuRrDtQWHD2Wp92/MOjNZ3yo9QlC8iuH
-	 sFj/mKXGLpQsZGNFNbr3elBG/wvZn186WIPUfNZWBMMzX0ne5GW4dixU1UGZzRDwU8g==
+	t=1793120298;
+	b=ejACqJe1MGJbwN6msH3HIFFHKOjqtoayQhVw178sQN2p52dDaHc6nfDwnURLmx3T09dh
+	 4JRpLJQasF9mDOJGJlHPsLCYPSmvj/DjSIw+tBsVsQYRFb8sH/Q7Tv3KeUz2zJB7auhOY
+	 8xZvob10DhgCrb5wdvMCExin/rOWo+4RO1s4BXrMfvM+VavzFdi6C0VWrsnrLmptLgxl9
+	 UEFfe7nHEEKGVlyUQTlllzSwlIHfUzA+7s4r+jUnzueUh1B4SOa1kfMUZL3YEP54yd3zG
+	 dwBjwPCl89q0p43UibAbu5tfaCB1ll9dwvmlN4WD7V71MWXP67De9KgIOPafJLdh6zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793120245;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DfwYy0M+qVECWL1TzkqzBLLNn3NYK+vrlrVjMqGDA2w=;
-	b=A3K8Poa1k+iA4utqr35V45/eCMdz8P6uBbeO/RNaZE+HyMbWVZRjmO4q2MkHzcrnx8Ap
-	 87+zj+eYvqNv2jfybc+rhowQvdOkGv8jV3dirGgSiI8hiOPceEtiW3gSNOKFR8ZkXbocZ
-	 syCeEywTybCjPry5gAwX615BhIwE6fTyE2KvEtON0MLFrQfNQtdExRXHdhfK0Nuft0Q21
-	 Jn3CvFmg2e1jfAd6+XN+0dSSsphKRulStmKsK2VA8p2oHdJk+IeA/L5LfWNbsCoLHoiIP
-	 9rpvBUbB3EiwH//IDpV21yqn4OuQGAfb4kBQdNX0pM3y8fKQ8xuaDqqJsQJrHcTsJcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793120298;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Lines:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=4HZrdyTUt9cxjGyieqbvhXg5TOQ8ZDNN4OBh3cV/DXc=;
+	b=Q838MlADcnWIgLsFiaFHy838Irogbi0vO2q4qfYIF8SXe+lhjh6JJ59I4TWBG7HnJNFh
+	 z0pbbkpY9+L8uW86rmC/nZg8KDP45wNJfP5AklRHl7jRKUABYCPKR4gis0sq2B3x/DD/K
+	 Jex3tXqTEZrl4Byms0BRsUdT7SSHB0gIhCmPQZ05WOXTFD7BeLaQ76y3bhSXsTI6MLTfK
+	 D28fCf0C20JW995peK++LKYw0iUTx5I7RrCIHUNshN0rTBh6cX3qGpDY68QFo0NjnKsdE
+	 CgJaWXdtovxF+cVGaH/WG0sKiTCCQr0BWsp+dOTWepwREqKP8MPgDQbIesqo/dcySTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFHnEIca;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zkWoRe5F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215DF606A31E;
-	Tue, 27 Oct 2026 16:57:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3B2606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:58:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFHnEIca
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843C71F01828;
-	Tue, 27 Oct 2026 16:57:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793120244;
-	bh=DfwYy0M+qVECWL1TzkqzBLLNn3NYK+vrlrVjMqGDA2w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lFHnEIcagsWWX97e17JRKkvqwfmSVVM0ksCWmW6cqQ4YdS1QBeh/wnxWBgopmNJTH
-	 vaevCmx7bk1tb9G3e60v5W7fl5A+ezSdLm5nC7XJnVcdxHiTA3jrxMtQzTOXAxxl1X
-	 Z5w31LUKFl7N8oRp9nXOHLNan3WWnwVHZpfF3QAWlEY8/XMffNxFDFFfG9TUHs9A55
-	 oPAreXuUpIICWl///6EpsHPk5j5KS1tFow8bc7c/5o+FGssynSE66clm/IeuJs/3D0
-	 Wzl46jZNz+v0Lgj/9RNFox5rQD9hUPUGsRJSqbqABVNHoiaK15tUBwo55vZ0JESTsd
-	 NbpHdEME1bq1Q==
-Date: Tue, 27 Oct 2026 16:57:20 +0000
-From: Simon Horman <horms@kernel.org>
-To: Yige Jiang <yigejiang86@gmail.com>
-Cc: netdev@vger.kernel.org, Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Ma Ke <make24@iscas.ac.cn>
-Subject: Re: [PATCH net] net: lpc_eth: release the PHY device node reference
-Message-ID: <20261027165720.GO257209@horms.kernel.org>
-References: <rc-review-20261022-ai13-13-8a866c920a94@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zkWoRe5F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5848D1F01825;
+	Tue, 27 Oct 2026 16:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793120297;
+	bh=4HZrdyTUt9cxjGyieqbvhXg5TOQ8ZDNN4OBh3cV/DXc=;
+	h=From:To:Cc:Subject:Date;
+	b=zkWoRe5FZVmU7dx6LbLRCbGGOyRfjD01P4W8Wn8ZLVlayR4IfMjUQYMFYzvodBv4n
+	 5XhI2CbY9NjdJ0AN34V8wBgkHBP0ESxRUeu+9URVPCOaOLkOhfVVvYljBGoo3btDfw
+	 L5LbxqWoipqNuIa3QY11wNTuR6PcWJ4WwUosFL5g=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: bryan-bt.tan@broadcom.com,
+	vishnu.dasa@broadcom.com
+Cc: linux-kernel@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH] misc: vmw_vmci: wait for callbacks in event unsubscribe
+Date: Tue, 27 Oct 2026 17:58:16 +0100
+Message-ID: <2026102715-escapable-quaintly-8530@gregkh>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,53 +59,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <rc-review-20261022-ai13-13-8a866c920a94@gmail.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2419; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=LPauz0w2+p6bvgXBZb4pMyv0u0Bm3jVO/zNVX2zLaN4=; b=owGbwMvMwCRo6H6F97bub03G02pJDFkPbqjXKfwv3qSkKj+pdM/b0y/W9QdbC2qFN0m9Pum2J IDBZNr9jlgWBkEmBlkxRZYv23iO7q84pOhlaHsaZg4rE8gQBi5OAZjIzFcMC84mixqfcn2QwcrC z/1kXWn+jfIvHgzzPUp/lVfs93xTfPamrn71I4HSnX2KAA==
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 11:59:55PM +0800, Yige Jiang wrote:
-> lpc_eth_drv_probe() obtains a reference to phy-handle and stores it in
-> pldat->phy_node for lpc_mii_probe(). Neither PHY lookup nor connecting
-> the PHY consumes that node reference. The probe error paths and driver
-> removal discard the stored pointer without releasing the reference.
-> 
-> Put the node at err_out_dma_unmap, which is reached by both failure
-> paths after the phandle lookup, and on remove after unregistering the
-> network device and MII bus. Both puts run before free_netdev(), since
-> pldat is stored in the netdev private area. Earlier probe failures do
-> not pass the new error-path put.
-> 
-> The PHY device reference discussed in the linked review is a different
-> reference. This patch only fixes the node reference, which was also
-> mentioned in that discussion; it does not repeat the proposed PHY
-> device cleanup.
-> 
-> LLM assistance was used for static ownership analysis and drafting of
-> this change and its changelog. The review traced get/put pairs, error
-> paths and teardown ordering. No runtime reproducer or hardware test
-> is available.
-> 
-> Fixes: 3503bf024b3e ("net: lpc_eth: parse phy nodes from device tree")
-> Link: https://patchwork.kernel.org/patch/14502432/
-> Assisted-by: LLM
-> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
-> ---
-> Based on net/main (305deb54c6c2).
-> Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
-> Both allyesconfig and allmodconfig completed kernel and module builds
-> on the unmodified baseline and with this patch. Unchanged objects were
-> reused for the patched builds. No new warnings were found compared
-> with the baseline, and the changed driver produced no warnings.
-> Both configurations used CONFIG_WERROR=n and DEBUG_INFO_NONE=y;
-> W=1 diagnostics remained enabled. CONFIG_LPC_ENET was y and m,
-> respectively. The unmodified WERROR=y baseline reproduces the earlier
-> arm64 syscall-table override-init failure.
-> No LPC32xx hardware, runtime or fault-injection test was performed.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Given the absence of run-time testing,
-I'm unsure if this is net or net-next material.
+event_deliver() calls the callbacks of the subscribers inside an RCU read
+side critical section. vmci_event_unsubscribe() used to call
+synchronize_rcu() before it freed the subscription. This did more than
+to protect the struct vmci_subscription: when the function returned, no
+callback was running any more, and its callers rely on that.
 
-But I agree this change is correct.
+vmci_transport_free_resources() unsubscribes from
+VMCI_EVENT_QP_PEER_DETACH and frees the struct vmci_transport, which is
+the callback data, a few lines later:
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+  CPU0                                CPU1
+  event_deliver()
+    rcu_read_lock()
+    vmci_transport_peer_detach_cb()
+                                      vmci_event_unsubscribe()
+                                        list_del_rcu(&s->node)
+                                        kvfree_rcu_mightsleep(s)
+                                      kfree(transport)
+      spin_lock_bh(&trans->lock)
+
+The event is sent when the peer of the queue pair detaches, so the other
+end of a vsock connection chooses the time. vmci_transport_exit() and
+vmci_guest_remove_device() unsubscribe callbacks which are gone with
+their module.
+
+kvfree_rcu_mightsleep() only waits for a grace period if it cannot
+allocate memory. Bring the synchronize_rcu() back. The cleanup work of
+the vmci transport now waits for one grace period per socket again.
+
+Fixes: 6da3f33770e0 ("misc: vmw_vmci: Switch to kvfree_rcu() API")
+Cc: stable <stable@kernel.org>
+Cc: Bryan Tan <bryan-bt.tan@broadcom.com>
+Cc: Vishnu Dasa <vishnu.dasa@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/misc/vmw_vmci/vmci_event.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/misc/vmw_vmci/vmci_event.c b/drivers/misc/vmw_vmci/vmci_event.c
+index c3ef3b98c432..57d3a63678ac 100644
+--- a/drivers/misc/vmw_vmci/vmci_event.c
++++ b/drivers/misc/vmw_vmci/vmci_event.c
+@@ -213,7 +213,12 @@ int vmci_event_unsubscribe(u32 sub_id)
+ 	if (!s)
+ 		return VMCI_ERROR_NOT_FOUND;
+ 
+-	kvfree_rcu_mightsleep(s);
++	/*
++	 * Wait for event_deliver(): the caller is going to free what the
++	 * callback works on.
++	 */
++	synchronize_rcu();
++	kfree(s);
+ 
+ 	return VMCI_SUCCESS;
+ }
+-- 
+2.56.0
 
