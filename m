@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139194;
-	b=PSJOebXKhy5OGfWCzDPzH+4ZM9WFB5vDTpM8SV/4ZARltfqzhHTzAslSPHLn2xfH5/cb
-	 71/waaNXeLqne1I8R2yjfoNyv+Ugz6jH6wLfdxFrg2Mf00xeF9pd+sNOIYssZXErHV06N
-	 3L32xdRPAkB640kJ7vt/4NtZwnc7Jq3Gg+T7rIlMqF6EYcpsiE6cFrCdRg3BxxMNpSXjx
-	 150sjuSt4kh6H6jaLnEdqoidQ6IjjZjBRj/AQpdtMuVyXR/auOtzbuCbm+pTyq239i+jn
-	 ugg9KT/Fi5ijTftm8G55iSyuzteW9rUfAxh26xgl58kzlRgoaSTHh5trjl7SNyBh1zg==
+	t=1793139365;
+	b=WDABH7KJVaOXBHuLqc3f0yP+vZ5K+L63CSbRqfnmwD9SUgvlB82kb3BKza3AVCi2fiiR
+	 Qm1NGB6hw0wUlsFut/UnRcqxOpFgYuwxOliHEplvVPz+hXRATeKTS9P+uHUp/dn73q6Cn
+	 zgbtgvGWw0UnhGOHOlgIzeo4jPTzu7in/PL/OrD+YZ9XONva94upOZtQEmsmuyhEcncx/
+	 KtLW4EjtL3GT8lNxz+xEck7AFMlZOIW4uMatJmOz2xIiC2H+lzTK/VDAaASf2pYVcoVRd
+	 F5FpI5n36TtqGeS+37+cV+aIp8BLel9Tb/w5ioqnAjFnhZdOwNDkq7KP5QVRxktcy+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139194;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SF/2BCZg0521GRG2+QySkfLq2PA18MozDs+RfXA8UmI=;
-	b=xdE1Ib7FWixaxzFpyCzj/8iZgYvKG2iXKEOmcgYBrULXL/Okh40UyCYk74SQgYRJ4IcM
-	 L00eks1ssij56rESvKRD7qYT5ky04K4b4R4Jt9BopLBjVB8PJrt/bICeiG0uUBo06H7Nv
-	 1w7DEoYlw8v2HD0U0RxCAn4mAKZjis5V/7Efb7+mqRn5Q/6tpf94FY/zzBrRM4UhWKLpi
-	 ZTbcsCoR4P5CAqoL5Z/ksNL5nVcFvULRGyR84VPnn2x1oVvz0TC+9xbSUt2nwpSraSXWB
-	 Ca2R7hWVAEbzq5pBgurwipzb0Yqo9gk4q/OR6Ez6wULXqNrPfw2E3Mu4SA/jbcakymw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139365;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=oNNEJ1079Ljh6sqrLe23wXQkibP4O9nyZNB8CGZgGC0=;
+	b=CIXwjkdGRrctNfmfSesTzUn0GHrJ+mJFEdYIkODyJmslhSE/klYC7E/c8zddzo1j5HII
+	 x4Ch86jogB6pgu/AKfbsGV66MCoKlY/YU3OrHtLZrH4iDfqReIpFuglCWIWa+MSXlWg03
+	 7jipRYb3z5pHS9WpK/HSUTxLWh1syP168ANCikmGfyxqHlMSmNBhW2Paz7OeprxbyBu/4
+	 0CWmXKpx56lq5yrYpbN+LMQGt3IDnBjLvnN8yxRACKIdB3Jkb8+YUUOz6PsgmoBh6uQ5G
+	 LQkeco50OSVBuE1VG6ZLxSYDC4B5z27kSNrQlonuvq5Z/mc8XUTLV3ez+kRi1m7QyJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0szYlizp;
-	arc=none smtp.remote-ip=209.85.208.181
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X8/nw6YP";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F687606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:13:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F687606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BD4606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0szYlizp
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a9841363b5so2686451fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:13:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793139193; x=1793743993; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SF/2BCZg0521GRG2+QySkfLq2PA18MozDs+RfXA8UmI=;
-        b=0szYlizpuqRBOChI8ZqX81upTdzV1Ljy6famKg5P0YB8f7/En7yQYA665tspTNTqMx
-         Dh+GL+hrzs+mXZNSNHl+MbYnrPy9uoZPkNmC6cMYtsYD5hyd7MsOkFM94K1efULYpVFk
-         1mhsKXBN7p4fTy0d2irwNQLwltMB8cnF/sNYo9O0/dPEBwz0wXO4XI/mjvYpz6rX72H2
-         lb554H3rV2uSGnCQcYXYkPMhYOZJMQ9fprlryA171FgXyGybSh+8bPXA+MiEHwc+R7+A
-         /y9wHKIpzGiqoV9GyoQRA+ZNqOuQyz3vM2dnKMdrDlCnNnVYstL9aFxyv/XNNuU6Gk5l
-         XB7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793139193; x=1793743993;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SF/2BCZg0521GRG2+QySkfLq2PA18MozDs+RfXA8UmI=;
-        b=yqNASbmZtWx+hieGBeKZ7GLycXu2vmKgGLLeBNIiH9ZFCbdLuo6f0wDRDsxvntYa8F
-         nMsPCTxcj6SaA27AqJoRmOimYGvFUE1Ic/Vt/m66yCYQqMr36idle5vAOjpMK9XxpHgp
-         EjxH7emj54sw3FHVRYFW/60DfSBq4AFuawIUpK0/eEpvlROKta3nATZmsmAQmUCfjw30
-         +uRf3dGt0oOqsowiwFnLjs042RwQn9Fl+5XHYTtJ+LdMVP4zXARbl01gHgQrHgDOUqkt
-         HWmitkUG4MAINCp11an35gc9m2pOq5+xwhIqnOv3U2+z81Dm0umq3BIeQadq3q5U4F/1
-         4haQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9A+j9pxztSbfsJzbPMciNpHqjThVOFa/qNBR0fCHzsX5w8TAHzz9eIx/Onaa0w9IPLyunxcrGMU5c5LA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPlFWH9xrZZ3XOQWyd8RbG+8rG7VpzrU1Y3d1WLq8i5a6sF7QR
-	eYtJDvyL8UiXEY+i5MLkAs8IP5JIqoqN7VuR5Fy+k42/qLSXPMnXFO2I
-X-Gm-Gg: AYBFou29IwN6Tk1bvW5w0DBCvCb/nOITKQQqGlFuuRvOn3jkEwjczG/BAGucEeJbaoM
-	MeSEWGjdOyte0ZA0N3JrusiyPRWu2qVTMeW1pzT3eGpNxGkaFonzmwVvFuT3ewvsBYdGPrEFaRV
-	WZV3isGsyUpM+RC+LQgOlLbxODqs8G6hCVGseq9Lv9KhsoYogNGSxZ+UAxO2GmuWEHV00VLQuuz
-	75Nqv8cVDHBSsCUzLzOg3H02Wodgjr597sV7Jgymc/nVBn8EXmqTPiJYTXcvOFSgnAhNwIMCw9+
-	zYZMYQmzisAKUkr4Sc+vh8Q+G8ggfcGI7yUnKLdBYTRUfherHR283aVK3WSRb+BnFRuM0MGOCO1
-	Ud6D1hjRg1C9aF6Pv+9ui+1h6XsBba/zEzZBRiD8Ej7Jc++79xUuHvcCq/8mbAMCyZWvOsHDnAx
-	p/P8jwwPv+FPft9cK/dxH2DjgI1/UeQ8XULSLNC1h28QOROhUBNCUO12eyaDXHpb9pV1wkOlHxM
-	HfGMDu6LkA4azuEGvilmtrgqaze1ymKQMKCusGjvVZkDP1giD3/tXVqDVGrJOXnFQDB151/n2C5
-	y326RDZr5jo4s9dhI7kwFNxlfBJRXPdV6yuHx/bFLKTtcseJKJkz
-X-Received: by 2002:a05:6512:39d1:b0:5b7:f75a:ea68 with SMTP id 2adb3069b0e04-5bfcadc7276mr209189e87.35.1793139192453;
-        Tue, 27 Oct 2026 15:13:12 -0700 (PDT)
-Received: from localhost ([178.214.243.78])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac70993a57sm27289281fa.12.2026.10.27.15.13.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 15:13:10 -0700 (PDT)
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev,
-	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Subject: [PATCH] HID: apple: Map Fn+Esc to SysRq
-Date: Wed, 28 Oct 2026 03:13:01 +0500
-Message-ID: <20261027221301.296198-1-mikhail.v.gavrilov@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8/nw6YP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467681F031E1
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:16:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793139364;
+	bh=oNNEJ1079Ljh6sqrLe23wXQkibP4O9nyZNB8CGZgGC0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=X8/nw6YPwWtXN74p+b9J+zZ7EniDGi7qF4stigFjwU6eNdzbuCqR5uxT+S03B7PJ7
+	 /f9C2huJz2vgh4wpIYrBmeGQqpKJalDeq0RKTmw18u6cTeq989UHtGoxricYe25IiN
+	 kIMtEbLucUySw+i6UFgOu7Aj+BjHEgKdb4ep0a0l5B0OvND5cHYPXXUTm9TgYPbcw/
+	 PAL1ulsb00a0SEM4JvkFF8Y49qK0wSUVVgZLGv1jNxyA18rUtCcZ4Cq+6JBWHcgkKL
+	 7oQLloALLzZ6I9vx1qPIp3Y8AHt7+9Vq+/NMYdbjY0iQ9qhq7PdVpSfij6fxOXWJq8
+	 7t+PZyXtXgbNA==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso50609366b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:16:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxAfM/EXBd25rS+kwVds7/sjn9afH8EdcxrO+onHMQNXN2Ok1Q7hNvRyAbeo1htQnezmVw1qi23hKuSQ8Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIj51Bjrp2QxCaH7+g5O94VtEW5pbctYgeCZsznJYdYXirXG0Kv
+	jkL2SzQtjUyK1r6yAkpzDVJE0k0mCKaMpg8NlBoKcsVhMwIlyiu4n3SVOU6t0uAbKGboPdVv2p2
+	Ld6H+6DYptWve5JoxLNILchcFkeoYzLk=
+X-Received: by 2002:a17:907:72cd:b0:c26:19de:9126 with SMTP id
+ a640c23a62f3a-c49bdf7a5b4mr47056866b.25.1793139362885; Tue, 27 Oct 2026
+ 15:16:02 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,83 +59,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027091353.74642-1-dennylin0707@gmail.com>
+In-Reply-To: <20261027091353.74642-1-dennylin0707@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 28 Oct 2026 07:15:50 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9je5M1+FNbLfeVAmcqEnMJDcGnM68pa6nj-d+KKdXG3A@mail.gmail.com>
+X-Gm-Features: AclHuK9L5xX1s-zqxf291s938LbQACPBilvWoG-l11Gqv3TkZSzFpy-S9Ojb708
+Message-ID: <CAKYAXd9je5M1+FNbLfeVAmcqEnMJDcGnM68pa6nj-d+KKdXG3A@mail.gmail.com>
+Subject: Re: [PATCH] exfat: preserve creation times during rename
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: sj1557.seo@samsung.com, yuezhang.mo@sony.com, exfat@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	jlayton@kernel.org, jack@suse.cz
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Apple keyboards have no SysRq/Print Screen key, so nothing on them
-reports KEY_SYSRQ and the magic SysRq key cannot be used from them
-without a keymap change.
-
-The documented way for keyboards without SysRq is to remap another key
-to KEY_SYSRQ through the keymap (setkeycodes, EVIOCSKEYCODE, a udev
-hwdb entry). Compact Apple keyboards have no unused key for that, so
-the remap gives up a key. The free combinations are in the Fn layer,
-which the keymap cannot reach: it is indexed by scancode, and Fn does
-not change the scancode of the key pressed with it. Esc reports usage
-0x70029 with and without Fn, so a keymap entry cannot tell Fn+Esc from
-Esc.
-
-hid-apple already implements the Fn layer and uses it to provide PC
-keys that Apple keyboards lack: Fn+Backspace is Delete, Fn+Enter is
-Insert, and Fn+arrow keys are Page Up, Page Down, Home and End. Add
-SysRq to it as Fn+Esc, in the table used by the Magic Keyboard 2021 and
-2024 models. No table in hid-apple translates Esc, so today Fn+Esc is
-just a second Esc key.
-
-The new entry has no flags, so like Fn+Enter it is translated only
-while Fn is held, whether the top row defaults to media keys or to
-function keys. Fn+Esc then reports KEY_SYSRQ, and the magic SysRq key
-is Alt + Fn+Esc + command key.
-
-Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
----
-Tested on the internal keyboard of a MacBook Pro 16" (M1 Max) with the
-Fedora Asahi Remix 7.1.13 kernel, where hid-apple handles that keyboard
-with the same magic_keyboard_2021_and_2024_fn_keys table; the table is
-identical to the one in mainline. In evtest, Esc alone still reports
-KEY_ESC, and Fn+Esc reports KEY_SYSRQ on press and release, with the
-Esc scancode 0x70029. Alt + Fn+Esc + H prints the SysRq help to the
-kernel log. In mainline this table serves the Magic Keyboard 2021 and
-2024 models over USB and Bluetooth; that path has not been tested on
-hardware.
-
-Background: this came up on linux-input in 2007 for an Apple USB
-keyboard. A configurable SysRq keycode was proposed, and the advice was
-to remap a key of that keyboard to KEY_SYSRQ instead, so that SysRq
-keeps working with other keyboards [1]; that keyboard had a spare F13.
-A generic alternative SysRq key was proposed again in 2021 and was not
-merged; the objection was to adding a new SysRq key regardless of the
-keyboard [2]. This patch leaves the sysrq code alone and makes the
-keyboard itself report KEY_SYSRQ, on a Fn combination that has no other
-function; Apple's list of macOS Fn shortcuts has none with Esc either
-[3].
-
-The same entry could also go into the other Apple tables for keyboards
-with a physical Esc, for example older Magic Keyboards and the T2
-MacBook Pro models with a dedicated Esc key. I kept this patch to the
-table I could test.
-
-If this is accepted, I will follow up with a line in
-Documentation/admin-guide/sysrq.rst describing the combination.
-
-[1] https://lore.kernel.org/linux-input/d120d5000707160541k64c40d0dgf661226806fd98c8@mail.gmail.com/
-[2] https://lore.kernel.org/lkml/YYUxNaDG0DquQvke@kroah.com/T/
-[3] https://support.apple.com/en-us/102650
-
- drivers/hid/hid-apple.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
-index 5b32fb8c77f3..b37964451a43 100644
---- a/drivers/hid/hid-apple.c
-+++ b/drivers/hid/hid-apple.c
-@@ -173,6 +173,7 @@ static const struct apple_key_translation magic_keyboard_2015_fn_keys[] = {
- static const struct apple_key_translation magic_keyboard_2021_and_2024_fn_keys[] = {
- 	{ KEY_BACKSPACE, KEY_DELETE },
- 	{ KEY_ENTER,	KEY_INSERT },
-+	{ KEY_ESC,	KEY_SYSRQ },
- 	{ KEY_F1,	KEY_BRIGHTNESSDOWN, APPLE_FLAG_FKEY },
- 	{ KEY_F2,	KEY_BRIGHTNESSUP,   APPLE_FLAG_FKEY },
- 	{ KEY_F3,	KEY_SCALE,          APPLE_FLAG_FKEY },
--- 
-2.56.0
-
+On Tue, Oct 27, 2026 at 6:14=E2=80=AFPM Hungyu Lin <dennylin0707@gmail.com>=
+ wrote:
+>
+> exfat_rename() resets the destination parent directory's i_crtime after
+> every successful rename. A normal mv within that directory therefore
+> changes its STATX_BTIME, and the new creation time is also written to
+> disk. Moving a child does not recreate its parent directory.
+>
+> The function also resets i_crtime on an overwritten target inode. An
+> application holding an open file descriptor can observe its birth time
+> change even though it still refers to the same inode.
+>
+> Remove both creation-time updates. simple_rename_timestamp() already
+> updates the modification and change times required by rename, while
+> creation times should remain unchanged. Jeff Layton questioned these
+> updates during the timestamp accessor conversion, but they remain in
+> the current implementation.
+>
+> Fixes: 5f2aa075070c ("exfat: add inode operations")
+> Suggested-by: Jeff Layton <jlayton@kernel.org>
+> Link: https://lore.kernel.org/r/bb698e294b0d4dbbbad4b94048693360010b8010.=
+camel@kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Applied it to #dev.
+Thanks!
