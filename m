@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.39.254
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099910;
-	b=tmwpoFigOCYgLjhnTo4Tu0iLqGlwYIHFWnImoF4js+iQ7sCqWkciBfV1fB97xS+96MIM
-	 4ALJ2DiMzJoBrAAFHB9mxPvPfWIYEskhG838QRTIbbsrQZcrA5XHvk8GE6Mie4hd+bMy3
-	 MTzvEu4LAefEdVbOC+xOy8FbjlykcBUn6YXCdsaZnbk+01h9qq+kxCfIstTnM1kH2Fyo1
-	 S87TUiACK7uToZlTgP71PfXnLaQqjhOJ3KDK4SNL6LQIKjyo8ki2C5HHgi0UMSXhwCZOu
-	 eotnBr4VcCWetLqx0efJg7BJ+diV3BK7iNR0T2jKd8e+4/oFwttxL+VaF7LkAe8mUhw==
+	t=1793099921;
+	b=bCakyGIUMO1HTDixqeT7UNdO6bgPjcoWWK6rzgEu8Udc/1TilrbX7CcD67gL3ktrtVEs
+	 dV5OSwGGszWVPA6Aw/zbsgJ9DphupBghlFQpLFpCkYZBb6KjogD/VaoUPJ+Up92moYPyN
+	 DOFMZu5kHXfh3h3/5wo0hPEtUWVPGKWyVwZjBwzeEx/ufZXaWYNzErukhpS7RjLpzT28A
+	 L31oj3/Gd+ROY521Yr7em4qNOpvf1Ca6ptUuIYnW2Qd/9l1j8YNsmkjKtMAIFFBhPp0H/
+	 ag/1/n+6EccKPItUxJqPnPhR/wIlYnJB9+9I2bX6w5lMg7n+qygPNZj7QDDKSlkk7Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099910;
-	h=DMARC-Filter:DKIM-Signature:From:To:CC:Subject:Date:Message-ID:
-	 X-klartext:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=Vfd5Zd+m6HNfCiZ4UDrZ6b24cU1Wbos2NPOmkyVZCys=;
-	b=TwoIhvCy0P6LrIhzA2r/fXqeDhJv+CQdOMr5bLwN+BVu6BBnOPmIGrjwTDttGzCzRdWh
-	 pTTGjqmuqH6p1ke7vW4XnaxCS6miPdEoq5PHCYCGcrNZofGRk+7dNwFvP4Xq6EdJ8OBs4
-	 vIFB4uirCfp2sl1+ECiNP/SB6q0/9V6UOzKL+uZIrw1GOSYG6UT+MUvboIz3KVZkCqRp2
-	 cOMigAn+SABkqlGgiZaOrwtTtgvj5Ec0JuHsSIxZYGHrDU4tyZBAd7P+vowf+o6tVQFfl
-	 IhXmmfEodJaEPoFiR1pXe+UhcH+rhqkzLWCLDIJGDUGKhxs6Fbp7T7KXQ6+wC7P7iMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099921;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
+	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=s1Lh+ZL65LDPjuRmX1xQUXrTEhu0tNm90UHEZqUaCnQ=;
+	b=Urn9Kkg0VMXzhJJWxMPmNXwaT0vxSTBg93xvAaSjlPLT7oOHxvysl/V6Yp1NGLk7EqHC
+	 pMRxj8oq5PnXpmlZm4kM8ySz/v6hxVjju19wXuDwK8nSxq4xPUSbDqc9VEpGgYfbR+NoJ
+	 +Q9Q9rTMm4uyRWCaV6blbncfASXS1eRSYKvOWRa1INbKIUPePHfl8FXR1H3dciPkqmOS9
+	 q+R8lFfoK6ijdA1rdkgXt+9OE4qJ+sY4nhEvxOs8jeFKulY5LkXeCvwwVdiV377LgaOOg
+	 uftf4BwNvMuma7FYwB2rQQBOsIfgDXjcKckhGyK0F6d/AM4+IhreziNXKqMIOdX+uuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dh-electronics.com;
-	spf=pass smtp.mailfrom=dh-electronics.com;
-	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=W4XXs8+B;
-	arc=none smtp.remote-ip=188.68.39.254
-Received: from mx2.securetransport.de (mx2.securetransport.de [188.68.39.254])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D607606A31E;
-	Tue, 27 Oct 2026 11:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D607606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=W4XXs8+B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
-	s=dhelectronicscom; t=1793099857;
-	bh=Vfd5Zd+m6HNfCiZ4UDrZ6b24cU1Wbos2NPOmkyVZCys=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:From;
-	b=W4XXs8+BGcoaj6tHtxuj3wTH/EFcsnI6WENGz5on3tcr0FdkJErdfh8oiI5lTDQDr
-	 MifUHCrXsJ/DLIVjHClXiMQ0uGaBH9qJ8r+UNqGqiWYh80b4eMe+9QVqTqin7M0eSG
-	 z1TE/FBGQK4f3P+l3CYWp+WxiQOww0zYEUta0DMvKJ9xSokpCyuRQx1rTi8FnUNf2m
-	 siTRx0CicILpVAjTByYDe9nRblZxc/qDwAW6jksVV5Loc7x+/yJ18+DhtT3X+9VmG7
-	 nMrAoeOjMGEfIFd53zQQ4YVNP3LwmCeP7WgJieh8t/Yg5SLcisncyFjjHdDPDN4kZ0
-	 bvi0iP79I07eQ==
-From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-To: <linux-arm-kernel@lists.infradead.org>
-CC: Christoph Niedermaier <cniedermaier@dh-electronics.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@nabladev.com>,
-	<devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
-	<kernel@dh-electronics.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH V2 2/2] ARM: dts: imx6ull-dhcor-maveo-box: Correct PCB number
-Date: Tue, 27 Oct 2026 12:12:01 +0100
-Message-ID: <20261027111201.20936-2-cniedermaier@dh-electronics.com>
-X-klartext: yes
-In-Reply-To: <20261027111201.20936-1-cniedermaier@dh-electronics.com>
-References: <20261027111201.20936-1-cniedermaier@dh-electronics.com>
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.4
+Received: from out28-4.mail.aliyun.com (out28-4.mail.aliyun.com [115.124.28.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC177606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:18:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC177606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07438719|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0934866-0.000154431-0.906359;FP=3161518592240745554|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083032240;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.jqbo8fG_1793099909;
+Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.jqbo8fG_1793099909 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 19:18:30 +0800
+Subject: Re: [RFC PATCH 3/6] sched/fair: SMT sibling exclusion after
+ successful push
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
+References: <20261020083746.37068-1-likunyu@open-hieco.net>
+ <20261020083746.37068-4-likunyu@open-hieco.net>
+ <20261021123904.GI2823843@noisy.programming.kicks-ass.net>
+From: Li kunyu <likunyu@open-hieco.net>
+Message-ID: <2325dcd3-2940-701f-92ab-c2711c65c1cc@open-hieco.net>
+Date: Tue, 27 Oct 2026 19:18:30 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,46 +58,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+In-Reply-To: <20261021123904.GI2823843@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-The PCB number of the maveo box isn't 525. Change the
-number to the correct number, 625.
 
-Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
-Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
----
-Cc: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: kernel@dh-electronics.com
-Cc: linux-kernel@vger.kernel.org
----
-V2: - No changes
----
- arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-index 0b48de79c595..0f900e58d8a4 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-@@ -6,7 +6,7 @@
-  * DHCOM iMX6ULL variant:
-  * DHCR-iMX6ULL-C080-R051-SPI-WBT-I-01LG
-  * DHCOR PCB number: 578-200 or newer
-- * maveo box PCB number: 525-200 or newer
-+ * maveo box PCB number: 625-200 or newer
-  */
- 
- /dts-v1/;
+On 2026/10/21 20:39, Peter Zijlstra wrote:
+> On Tue, Oct 20, 2026 at 04:37:43PM +0800, Li kunyu wrote:
+> 
+>> @@ -13377,7 +13379,20 @@ static struct rq *sched_balance_find_src_rq(struct lb_env *env,
+>>  	struct sched_domain __maybe_unused *sd_tmp;
+>>  	unsigned int busiest_nr = 0;
+>>  	int __maybe_unused dst_llc;
+>> -	int i;
+>> +	int i, smt_cpu, dst_cpu = env->dst_cpu;
+>> +
+>> +	if (sched_feat(SMT_BUDDY_ASSIST) && env->is_smt_move_task) {
+>> +		/*
+>> +		 * Remove the SMT sibling CPU from the mask to avoid the
+>> +		 * extremely rare case of pulling tasks from it.
+> 
+> Your comment seems to think the SMT mask is only ever 2 cpus, we have a
+> ton of architectures where this is not true.
+> 
+>> +		 */
+>> +		for_each_cpu(smt_cpu, cpu_smt_mask(dst_cpu)) {
+>> +			if (smt_cpu == dst_cpu)
+>> +				continue;
+>> +
+>> +			cpumask_clear_cpu(smt_cpu, env->cpus);
+>> +		}
+> 
+> This is terrifyingly horrible. You're using a loop and atomic bit clear
+> to clear bits in a local cpumask.
+> 
+> 		cpumask_andnot(env->cpus, env->cpus, cpu_smt_mask(dst_cpu));
+> 		__cpumask_set_cpu(dst_cpu, env->cpus);
+> 
+
+I have rewritten the code. I moved the clearing of the CPU in the mask to before
+the traversal of the busiest scheduling group and adopted your clearing method.
+The new code is as follows:
+
+ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
+                        struct sched_domain *sd, enum cpu_idle_type idle,
+-                       int *continue_balancing)
++                       int *continue_balancing, bool is_smt_move_task)
+ {
+        int ld_moved, cur_ld_moved, active_balance = 0;
+        struct sched_domain *sd_parent = sd->parent;
+@@ -13784,6 +13784,7 @@ static int sched_balance_rq(int this_cpu, struct rq
+*this_rq,
+                .tasks          = LIST_HEAD_INIT(env.tasks),
+        };
+        bool need_unlock = false;
++       bool is_smt_clean_cpu = is_smt_move_task;
+
+        cpumask_and(cpus, sched_domain_span(sd), cpu_active_mask);
+
+@@ -13803,6 +13804,15 @@ static int sched_balance_rq(int this_cpu, struct rq
+*this_rq,
+                need_unlock = true;
+        }
+
++       /*
++        * Remove the SMT sibling CPU from the mask to avoid the extremely
++        * rare case of pulling tasks from it.
++        */
++       if (sched_feat(SMT_BUDDY_ASSIST) && is_smt_clean_cpu) {
++               cpumask_andnot(cpus, cpus, cpu_smt_mask(this_cpu));
++               is_smt_clean_cpu = false;
++       }
++
+        group = sched_balance_find_src_group(&env);
+        if (!group) {
+                schedstat_inc(sd->lb_nobusyg[idle]);
+
+
+
 -- 
-2.30.2
-
+thanks,
+kunyu
