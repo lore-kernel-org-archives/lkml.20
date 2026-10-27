@@ -1,69 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793127441;
-	b=uGAU+sSRweL+/1w6VYIXAn/TOMdm3WhzI6jANua5TbzjS3W6ScxJ7Xjy7HXSFCfU0tKZ
-	 tutOj/cfntDaeEpTRqwon9raDe+IGbYacLaWvQoFTEbbooB02pqVhktdPcYSUkdd5nv0A
-	 /HdaTFhBQMYDpI5T9dlZp3s90ow0sGyCpZeAorKvCUv+AyG071eIJBLsHgHQTruDxaQym
-	 nO4rlVzXvutTZMRqlbd8F+T0Szj5gurhpifJWWF3iYX11Pp8evaoLvs1tzfDuuFv4yUL0
-	 QDJA1MJgS3/SMCjCcGsBNO5WRNqPzvkgVJgycIL40Pk2z2cQdbDsXzeg2waBEuG7+9Q==
+	t=1793127504;
+	b=h6g/e2nN3J6qwTOXKiYeDl9VNPbvQpfPT6HYB6jYbZzFdygLZd/6GrivZyLRP+sjkUOI
+	 aPmiAu4Obfexkj5ZLbKD0YIjQj3ml73YdwZxdkH14kXBtN+Om9XFp2/tC52bXxKgrwi67
+	 TxEZwSpeKhJhKSrtaM9rIizd8Ik6YAt2iwdr0NfvYI1rOi2Vn54Lrns1QIzWLGbF2cUrt
+	 abjGV8JKEgzB3Eg3SUEB0aulvNZClcBXId3BtpG7BRaQLbSc4db8aasFA3tY2se8pE4p5
+	 F5CnrX3n2g1PbB8bBkaH5k0XMMSPWMtK5nQggpbSYsp2v2SBanxiYagV2GF7Jn25m5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793127441;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=RqMmeEuAURO9PC7K8VIbJDFKl16EvOusSLDd6yaNy/0=;
-	b=0vbMMFVlP8u1cGnf4Q4iNBj4x9pGoScXDrymZj0//MTGjuz5+8jmMxao6xgTMW4WTXho
-	 KW6OCy7PktWJxczqiqP/in8SBNLhAljc8Qbvf7/zDkg4q+29hFr24HlGHoy/Y0pDQQ69E
-	 FG8ydS3/jZyxQm+ec0cFT2MGVLvEXie+ukJ1XJeEjZBCBky/Cwwyq9xdW9H8e5MplPUfP
-	 nA8lJ9zSRSXNkwKWaMhc37OmP0AY++S30MF/h0ZS2PDzkGd+LfC23n2QmuM/mMiri8cOx
-	 Z0KK0IOVKRHCYUzxtqJ9k91F9qxsSv7ugc1OlOEuq9uASOGNhm+968Kb6jP9MmhlK2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793127504;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=u2yMh+u2ETflUov7pejt9JZNgRsva0yVABsIFHQ38bs=;
+	b=49oA42EZdJuwXQY2R+g+EqjFzL+OoUKu8HDEco2KZg2XIb1JPzaic8EHd+HfApVxLOUT
+	 8H6bEEyJeZ7gve5F5PbRDgMOYWlKm5y5d4zHlEavaEoqiPeHxowCZg+KZohZa76CMsj1o
+	 RhYcyMU6IPwDeEvmRP7QeLRA7rurpJhfWQEGyB12/Fxc8W5jCigv8hd38B/8RrBtPEYtQ
+	 YdbY5S/I7KuYK3qBycX6BlYQpDQroWEoROI9OAdMPDWDzhzzF91pMcuBMWRYbscD0ekE2
+	 /ZbwBQHShkPUsR0zcKIoatCagWbLUPfW7cUfPxTP20Ot29zf3zzhZXgmioaBr0kDPuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ety8LAqE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtjgAtYo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23D0606A31A;
-	Tue, 27 Oct 2026 18:57:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EE4606A31A;
+	Tue, 27 Oct 2026 18:58:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ety8LAqE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B21E1F01825;
-	Tue, 27 Oct 2026 18:57:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtjgAtYo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A591F01825;
+	Tue, 27 Oct 2026 18:58:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793127440;
-	bh=RqMmeEuAURO9PC7K8VIbJDFKl16EvOusSLDd6yaNy/0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ety8LAqEcAa967NA02YPHq3pDtDRLD25aw5Fy9U2Uu1l2e8ondDp5I2b5CNuuvZje
-	 dZInfatQjOo3p4phkJQfDjYrUhVwuLQUJTK24HoBlmE6ifgTLDsMxBU/bAePa9ehWr
-	 59FElkuNKod4lCB0avnEu+Csf5CO/qu9en60j7A9+UaJ6f9/bSIeYrJOxwVXv/whaj
-	 l9T2NHSBSGMvN/ZLxRm4ZFdi4rMemvsMnKRnOPJH903KA12IZ/+6ETOoIFiwzorqiV
-	 bQCT+9PetC7w4CU7EIywcjyR+YOYNw+SK0mrsJ/OOP4lg4fGsjrUfAqH0vrE2g6TdT
-	 cCTNJp96rHxqg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 77D171FB712B; Tue, 27 Oct 2026 18:57:17 +0000 (GMT)
-Date: Tue, 27 Oct 2026 18:57:17 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-Message-ID: <auD0DXpvKayLQJNy@sirena.org.uk>
-References: <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
- <20261021163242.GB325924@killaraus.ideasonboard.com>
- <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
- <20261026104056.GH15441@killaraus.ideasonboard.com>
- <CAMuHMdV7Mz0WgaNP_B8FG6OxLBqqnWwMqWJKNFBDkF2i=55fVQ@mail.gmail.com>
- <20261026145343.GC1001933@killaraus.ideasonboard.com>
- <CAMuHMdXdOAYifLgmeguqMwE4kkyJ8NDbA4niZkuEUMYBPxBBSw@mail.gmail.com>
- <20261026201905.GC2005298@killaraus.ideasonboard.com>
- <at-9VwE3BL_3OXNP@sirena.org.uk>
- <20261027123310.GB1829830@killaraus.ideasonboard.com>
+	s=k20260515; t=1793127503;
+	bh=u2yMh+u2ETflUov7pejt9JZNgRsva0yVABsIFHQ38bs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LtjgAtYoaRtsTjIRQpRSFAn3vOq6pDx2vhcZTQqOtPf5cITj/2/gIAVsm1hXQICOd
+	 mFgPQvsdJEZMRJs2CfxOLBRkUaQvZ7//pJZjXloL/kKBORvouD5SBH6+gonP0BFlkL
+	 61LAyBEB9ezEm4aGl2Jgnzyvo8hdwi73QG+tS4quWoNQNnf0zdC2jgieufGGCbzLuW
+	 wwWn7SyV0Uc/5dN9qNkBaFczItU6JLXWBVY41nPUT6+K9oEQJIYxi3UTc2DoFH981p
+	 asg/5U6ggQZjnZGzt7HXEYdvU9EVg8y4GlCcG3cE1u4mbLHDruUPxRn/n5k7i24ruo
+	 dGUYjq7RsK9QQ==
+Message-ID: <8a841fb1-8e71-40c6-91d4-3252a0a1a368@kernel.org>
+Date: Tue, 27 Oct 2026 19:58:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,48 +51,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PeFWeuB8IhHv6OUB"
-Content-Disposition: inline
-In-Reply-To: <20261027123310.GB1829830@killaraus.ideasonboard.com>
-X-Cookie: Whoever dies with the most toys wins.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
+ alloc_contig_range
+To: Zi Yan <ziy@nvidia.com>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org,
+ kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org,
+ surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
+ hannes@cmpxchg.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
+ ljs@kernel.org, liam@infradead.org, rppt@kernel.org, osalvador@suse.de,
+ muchun.song@linux.dev, iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com,
+ stable@vger.kernel.org
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <20261027042204.3741307-5-gourry@gourry.net>
+ <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
+ <179310997463.2232644.3260379218896917308.b4-reply@b4>
+ <6f5aaf2b-894c-4306-a0b2-e56f815d0a89@kernel.org>
+ <A4D82AB8-F33A-465C-AE69-933B746E4885@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <A4D82AB8-F33A-465C-AE69-933B746E4885@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 10/27/26 19:53, Zi Yan wrote:
+> On 27 Oct 2026, at 10:13, David Hildenbrand (Arm) wrote:
+> 
+>> On 10/27/26 15:06, Gregory Price (Meta) wrote:
+>>>
+>>> Yeah, this is going to happen more.
+>>>
+>>> I've been sitting in these patches for over a month while they soaked on
+>>> hardware getting performance tests.
+>>
+>> I mean this fix here is really just independent and shouldn't wait that long :)
+>>
+>>>
+>>> Maybe worth a private tree we can rebase on regularly for these kinds of
+>>> un-vetted/posted fixes to see what's coming?
+>>
+>> Maybe. But if it's just us core people we can just talk on IRC etc (like Zi did
+>> two days ago when he was about to post something that I already had on my queue).
+> 
+> One idea is that maybe Sashiko is able to identify patches fixing
+> the same issue and does some grouping or tagging on the website.
+> Or send an email about it with a lore link.
 
---PeFWeuB8IhHv6OUB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I think that's too late. For us core devs we just need to sync on "has someone
+already a fix for that or is it worth cleaning the AI shite up and sending it out".
 
-On Tue, Oct 27, 2026 at 02:33:10PM +0200, Laurent Pinchart wrote:
-> On Mon, Oct 26, 2026 at 08:51:35PM +0000, Mark Brown wrote:
+-- 
+Cheers,
 
-> > This isn't insurmountable, you can cherry pick the
-> > changes over to a clean branch or something, but there's new failure
-> > modes introduced by being explicit about the commit (the number of times
-> > I've had to unwind a series apply in b4 because it paid attention to an
-> > unsuitable sender specified base...).
-
-> I've seen that too. So far it has bothered me less than not having base
-> information. With an unsuitable base I can apply the patches ignoring
-> the base, while with missing base I have to ask the submitter. The
-> latter interrupts review. Your mileage may vary though, depending on how
-> often you hit either case.
-
-Some of it is a consequence of how I handle these situations - if I
-can't work out how to apply the patch against something I'm likely to
-apply the patch to I'll just ask the submitter to rebase before I get
-terribly far into things, if I get as far as pulling the patch in before
-I notice b4 used a weird base (usually picked up from the submitter) and
-I didn't override it then that's pretty cumbersome to unwind.
-
---PeFWeuB8IhHv6OUB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCauD0CgAKCRAv73Ows9A4
-iaDKAQDIAEH03940sQ4djk54qH3DuSYiPFU18cab4RMX2YVPGwD9ExVKvoZ3d1QW
-sek5YtqiFy0Db7uBC5mhDvNlc3XXAA8=
-=BGxh
------END PGP SIGNATURE-----
-
---PeFWeuB8IhHv6OUB--
+David
