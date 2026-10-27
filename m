@@ -1,98 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793138072;
-	b=e+UEfFIhsrcLIzMvIEn3BrQL0BNrqHQm9A+AqKRUOCIFS98kgGhqPwGbJLfQZ8rqqzt8
-	 XPN6fgGJX+Oeu4yUXIKjB107Ibn2Uhm2vWCf0AVv9+T3htYIyAzWRBcDZesAGbXyDFxVw
-	 3xtdqKLlGop8bTPEVzD3XNyQsUINjz2jNidNFAroocb0ly+n+YJl6+2uQMYFLNtjV6dia
-	 EquiVCFJ3E2YRe9LN7W6N6mt1+MMTVvFkLUsNjF6LXPGwTwdlFpDz32US9lhMrUpCi+B2
-	 DdaXQteSo65Jg6qGrrq+P4TFhboAR6SL/tkH3h3aualYRqTrvTjGrXSFSZ2FbqqU22w==
+	t=1793138235;
+	b=sav31mUe7EkY7NNZuVWb4pUDqzRyu3LqdhIBERt2BYsApk79fEIqqwKMX54ZOl1rQlmL
+	 pDgIrLJqexT0MgjN74evgKCag7pFabNMIJVDpUq0PXtrYUEjp+KtHqdtcgB+Tkna4l+bd
+	 S9RlO1tghDWHJXmKFbscS9Yo4gRpnqcXsgv+1BpfFho/0GtM9nEaBh+bImVpwUbUVxQca
+	 IXqb/zk1VXoZZKw2v+yD8lOlNYRGPKyd6lblz26NpmyN4khO9vGZa2xCYi7vE16Y45SUw
+	 HV2r6LIH41eHXGn44mgUaBpbOEVlawMl3WAitm2jwx4ASUi5VLTCtEYSY2ZBzSsWbog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793138072;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:
-	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=bCCkBw+sgGKMHO3jZN/+vOo9DzF5rZyDIUC1lptCGuY=;
-	b=1LTOfvuldNei+qPndbFtQTN7PD9zFdFsoxxaFaJl/7WgIRLhmZVsazRD0QRiu6MpRqeJ
-	 OZmXkwydJYt+wkko6P8BztfLLKb1kfRvUIpjL7gVciJdHN01Riegz+FQ9BY64LsMLvRtZ
-	 FXsKRFr1HYptuPuiil74d5mCLpUYmaNKT+k0YFn+rMLt+OQ/hksZnENUiGeJF5hjjxCNE
-	 cnt8AZpfLcn9tKwxQw6TGI4Jf0XXzWS8V3jxzmvdQMpvoE5Rfz9la8tAs1NlxRTQDWjC3
-	 +B290VaeB+07OyE6JiXsEM+z8Q5XOYH9qMPEzVYp+LgUITrVhjMrc703hdcKqDEOYjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793138235;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=INM4lTecUqg3+ORjH8the43AegIL5wVO95lrhujQQt0=;
+	b=u7eMVoRRSfnhFW1Pka28mFCrlNLr9GlXY4d4jB1dU7rIa/KAYvDgqXRu3rGJyhHSYEdn
+	 VVLPpKzWHfz/JLb9+d45k9ncNjNwCw6WnAfKno2vDB7R7UmAYHbRofdZDL2Y5lCGJ95pe
+	 PzxeY0/gzMepORpyc9pnZKNgPrXdAvyNPvouxHi37QBSC0oIVhH0/g19+f3WpUSFQsLi+
+	 ITNvY0Vdv4cDwYUnJFOWm+ZBbHECiChYwOvJPJwNFSLAOrfGx/VIc5MkNxHcl3uOdQJuZ
+	 /TrLTtwcyFBb0ZhvA+7pX8fKWIfhfV8exBQktmT+kL3lIkpSJHfaealY7R4gISQNizA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=canonical.com;
-	spf=pass smtp.mailfrom=canonical.com;
-	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=OzRtD8Nh;
-	arc=none smtp.remote-ip=185.125.188.122
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OPWEDSwI;
+	arc=none smtp.remote-ip=209.85.218.69
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C69606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:54:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C69606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE98606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:57:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FE98606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=OzRtD8Nh
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id F09533FE37
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:54:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1793138070;
-	bh=bCCkBw+sgGKMHO3jZN/+vOo9DzF5rZyDIUC1lptCGuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=OzRtD8Nhv+0dcM/Hora+CjAxGpFapOJWISlw5KbRVHKLf4ALrHVCAKdiWjGW9v8F+
-	 tSwf8q1jACfKZE8uDLtSxbEWIxsIN1F6L318ZX6YWgirv2GGfNFdNTfUsmBBCBemz+
-	 UZ85TWS/a8Lr+Oky5PYe7arEb8vdCoLb79jN9Q36z9Fuu7vOJwBnjHqx2HweWn+Kao
-	 eV9hLCs/rgrqEg6vvnlj5NmPa+WckrBpq/ILKpJemc4q2xUIHpVWJTu3VPKVkETJAu
-	 Xe6R9/+2X862opY+41RTQjM8/5T1tUdIM4y014ZVW6pY0iGs3d1ZIAFPPmuYscQeSY
-	 5Ih8k3mu+F1IPqVU63YB6xbkl6G/lYSBO17a73DMYlS8Kq+qMTrrtr6CPnyzckncJ/
-	 7ZoM7eZegIfdr6PFdZVTFVAwlhk7UGVD2DsojyvibWXLGpDOZjc0Xtn6YpRfv6stEZ
-	 5rzQNnij+ItAs5InAqwJbXAJN84zHPJrFZwC9F4PIyMnWvd6QZstl979/iYz6Xk7Jf
-	 CzmzNd+aYOeesSEsrbScdzBxifoYfutNKLjLF0fOBLsRDI40TJUhpgGEreBTEK9d8S
-	 +CqIQlc2CVfii4hCO66rd1jAowl9NCJlbRruaZDv/NsIiidlingXPAMHSLay/WNiTN
-	 ViWBA/hVUXtqswEglnwrp9ks=
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-67694007c9cso694151d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:54:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793138069; x=1793742869;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OPWEDSwI
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c4322d31021so24506466b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:57:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793138234; x=1793743034; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=bCCkBw+sgGKMHO3jZN/+vOo9DzF5rZyDIUC1lptCGuY=;
-        b=DgbrS9JODpSLH35UzuRRF6GV+twHgQiIKwcrO+tmemdbGT0FbO45hZjsyKj6gFadyT
-         xHGaJwXzgElP91MqFS0F9vbeL8LILTj7MV2sDImKape3gD0HEAUpH4JoNdbyZhDGnSTn
-         3tppMD1u6AQsa9SVXTDgtYBAO9uys0lb4uXy96bbCnTWcMmPRwtyXM+V1k+qIcmWFB9V
-         46kii1JuPFXpCslLy9xze8YsicjmJXa4KvE8e6YHrdY0umSy1SRmTt4QN0h6357SuEl6
-         UumZ/6iJkoa93OROqfYGG/2EPsjO5PhYakVnE8Ueh1KnLemKHFxKMJozsgrhIUKw1YpX
-         fG7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxJJ5IGdBAXz7eyn+jbr9/xxmPYKvAch4UIsypEDNopvMEvfjN6+XiTi0YH11CBcmbLYB55kf4K6wOc9Po=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgpvVakC0Nmhv8H5ktO7W4C6IiMby9cmMZgjN7hqlDbXPabVv0
-	mf1tohm7uO+qlQtznm6DYtgTHtCwSBLbznyxwKexhuMBTar5m/hmB8iyQXRnBiOqtXoUl6tKTBZ
-	4Miafuq8v4zytpAkK/OJ2ffSelv5M+zLvuEnKSqSfVxEsHtA/Y2HencTv5ztNaQ5fHcjGoRoK8b
-	pvBIL+HQ==
-X-Gm-Gg: AYBFou0YrNvsKXksE59Wx1T8YdyhCSevHxEbPQN/WDGiz8gwnz9U6fx3MXa7FMOz2Hy
-	LeRkg23MFFz4rbqnVOeUyGMbaehmTEPkezGOOQzXyJe+WHw6iXdgIit1o74KEoV6F6zLqQ5/Ypd
-	Tb2aLcSVbON40saIHcudS0pJE2Nh65nlmJVowMlg6NugfmWa596IHwLoumG+L3whuK2OwkhlnyN
-	WaIEroIir8oo7ufSQhFWlddZCkLd0IrbirQU7aLyGCyjiQInUNFXPERKqtalAfC3N07YdCXlGPC
-	y5VmXJbjJ8UEfJXH38dvOooKHrA/fP2IGvgX5cmqnjyEiC6b+wypltvjb/sdECPEVRSvWjVo4ZH
-	jKTLzgm2Ipe01xMxXezjzEubIrFuWCvstWAh3H9FSwxfiJQ8/c/gXWeKJ
-X-Received: by 2002:a53:c712:0:b0:675:47ba:21a4 with SMTP id 956f58d0204a3-67a7bd3e821mr594840d50.47.1793138068757;
-        Tue, 27 Oct 2026 14:54:28 -0700 (PDT)
-X-Received: by 2002:a53:c712:0:b0:675:47ba:21a4 with SMTP id 956f58d0204a3-67a7bd3e821mr594831d50.47.1793138068457;
-        Tue, 27 Oct 2026 14:54:28 -0700 (PDT)
-Received: from [172.21.9.52] (host-209-35-187-178.broadbandcancun.mx. [209.35.187.178])
-        by smtp.googlemail.com with ESMTPSA id 956f58d0204a3-67a7a0c31f1sm766291d50.11.2026.10.27.14.54.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 14:54:27 -0700 (PDT)
-Message-ID: <1fd1c075-96f7-402f-abb1-0444c8df08fb@canonical.com>
-Date: Tue, 27 Oct 2026 14:54:26 -0700
+        bh=INM4lTecUqg3+ORjH8the43AegIL5wVO95lrhujQQt0=;
+        b=OPWEDSwIo94pXLNO7GW/VvvkNuKk0SOrCfnZY0B/EfJRSZFt3yRUKQdtap3RO9t18G
+         gPXjPUOIHNRuI2FjW09NqBXtrOSt7f/4cyudF3x4bLlN2/HAwhei2OL2EcjINeYqu9gb
+         IazTAO2vXpCk7hvTKw9Y5IXKBI3iU+yr9fxuCEIVguCmjjlRNqiWQ9LFgRFj1H08bEWG
+         d6hrc6x/i91RkLClItqq/7iujjrBU3jMZrr8WnrXHi5+dbp9qMGhduV4OwhCyp0vYagU
+         x4T3Cj4M1jRIwwMnMhJpTmy0M24PI0EbSb3g6DPVJYGz3tp1JD7Ko7fjAX5KFs4tub12
+         lElQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793138234; x=1793743034;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=INM4lTecUqg3+ORjH8the43AegIL5wVO95lrhujQQt0=;
+        b=NnQRhMtV/iUvPNIGREmTPtrGV0EjDSzv9IRP5HMNdnL+/cvFX7/SRyxjoT9e6KUnP0
+         /tekq11/JqLO9IVR/TUzc1HvA7HGh2Yten60a7NXn1lpj+qqCNQgO0Mr4ZPSgaYuNI8c
+         U2A3lU9IaE+210l2TCmtNrLwNo2hrw9Dh8nGPj+pnAk+jlHbpnT0OzTkbV38AFpM6VSq
+         j4tjVuxZqBmsMCINEW9WnhqJSZbej2bI6pS8N/KGr+WOT+pfSBHUua7PqhKiHC8ttc1Q
+         WGcALN+KhOAkJ08UEvzU/JD3bv1TB59cn++T+q5OwIEX1rcUhI3yrzqEJ4uICJQpESFO
+         /cww==
+X-Forwarded-Encrypted: i=1; AKwUvByoBR/e+yiLPs0vhbHxBB9Wr8L44xN9yxgTr+rKd0b+AWJb6y+9CDaturA8/6fF7rjxxdlto0qJr3jKQZc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUAiPY2Z/mj2aaWk+sriiG/YnW9qvYy7+1KDklLYWYAcD3bHjb
+	41R8kcyO6xl/gtpO6wav3HoVgtig2Ox/qniKW7fMjVpNRlsAtetHIEwT1mmrys7BrL8sga0zydR
+	4et56bfp9V0gfDBxcNA==
+X-Received: from ejkh2.prod.google.com ([2002:a17:906:7182:b0:c46:743f:a4b9])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:e84b:b0:c2e:3a72:ffbd with SMTP id a640c23a62f3a-c49bdf71b7bmr44517166b.41.1793138233642;
+ Tue, 27 Oct 2026 14:57:13 -0700 (PDT)
+Date: Tue, 27 Oct 2026 21:57:12 +0000
+In-Reply-To: <CALzav=dYKAP7pKfoPtz32X1cT_tH4LN0X47_jTO8_HOCT4Pi=w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,157 +79,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH security v1] apparmor: fix a use-after-free in
- aa_lookupn_ns()
-To: Binbin Deng <18983559317@163.com>, georgia.garcia@canonical.com,
- paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com
-Cc: ryan.lee@canonical.com, cengiz.can@canonical.com,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260923054623.247634-1-18983559317@163.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <20260923054623.247634-1-18983559317@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-4-tarunsahu@google.com>
+ <atlQ_Er0Ig7CCSxv@google.com> <CALzav=f00C4yOAseNunW8GgQTDUGWT927Qy=TLm-3-J0TEDH8Q@mail.gmail.com>
+ <9huzzew0el59.fsf@tarunix.c.googlers.com> <at_CncIPYCxOVkLo@google.com>
+ <auDT5MjXYq3lcQjE@google.com> <CALzav=dYKAP7pKfoPtz32X1cT_tH4LN0X47_jTO8_HOCT4Pi=w@mail.gmail.com>
+Message-ID: <9huztsm6958n.fsf@tarunix.c.googlers.com>
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+From: tarunsahu@google.com
+To: David Matlack <dmatlack@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com, 
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org, 
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
+	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/22/26 22:46, Binbin Deng wrote:
-> aa_lookupn_ns() takes a reference on the namespace it finds with
-> aa_get_ns(),which is kref_get() on the reference count that the
-> namespace is released through, without checking whether the namespace
-> is still in use.  A concurrent removal of a ":"-prefixed namespace
-> looks the same namespace up and only then takes the parent lock to
-> remove it, so the last reference can be dropped between the lookup and
-> the aa_get_ns() call: the reference count then reports the increment on
-> a zero count and the kernel classifies the following use of the object
-> as a use-after-free.  A user with CAP_MAC_ADMIN can trigger this by
-> writing a ":<name>" removal and a ":<name>/<profile>" removal to
-> /sys/kernel/security/apparmor/.remove concurrently.
-> 
-> refcount_t: addition on 0; use-after-free.
-> WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xc0/0xe0, CPU#6
-> Call Trace:
->   <TASK>
->   aa_lookupn_ns+0xa9/0xc0
->   aa_remove_profiles+0x4fb/0x730
->   ? __kvmalloc_node_noprof+0x219/0x5c0
->   ? __pfx_aa_remove_profiles+0x10/0x10
->   ? aa_loaddata_alloc+0x65/0x1f0
->   ? _copy_from_user+0x2d/0x80
->   ? aa_loaddata_alloc+0x111/0x1f0
->   profile_remove+0x2ee/0x4a0
->   vfs_write+0x21e/0xcf0
->   ? rcu_core+0x29c/0x1740
->   ? timerqueue_linked_add+0x1f4/0x3d0
->   ? __pfx_vfs_write+0x10/0x10
->   ? mutex_lock+0x81/0xe0
->   ? __pfx_mutex_lock+0x10/0x10
->   ? __pfx_rcu_core+0x10/0x10
->   ? __pfx_hrtimer_update_next_event+0x10/0x10
->   ? mutex_unlock+0x7b/0xd0
->   ? fdget_pos+0x24d/0x4b0
->   ksys_write+0xf7/0x1c0
->   ? __pfx_ksys_write+0x10/0x10
->   ? restore_fpregs_from_fpstate+0x37/0xc0
->   do_syscall_64+0xf9/0x540
->   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   </TASK>
-> 
-> Fix by rejecting a namespace whose reference count.
-> 
-> Fixes: 3664268f19ea0 ("apparmor: add namespace lookup fns()")
-> Signed-off-by: Binbin Deng <18983559317@163.com>
+David Matlack <dmatlack@google.com> writes:
 
-I have pulled this into the apparmor tree
+> On Tue, Oct 27, 2026 at 9:40=E2=80=AFAM Pasha Tatashin
+> <pasha.tatashin@soleen.com> wrote:
+>>
+>> On 10-26 21:14, David Matlack wrote:
+>> > On 2026-10-26 11:50 AM, tarunsahu@google.com wrote:
+>> > > Right, Required bit should be source kernel payload property to tell
+>> > > target kernel that the payload must be handled to correctly deserial=
+ize
+>> > > the data. It should be source kernel (userspace) responsiblity to ma=
+ke
+>> > > sure it understand the target kernel before doing liveupdate.
+>> > >
+>> > > Saying this, During deserialization, target kernel's required bit is=
+ not
+>> > > necessary. So I propose the following truth table.
+>> > >
+>> > > Source hdr  Target supported[i]  Action
+>> > > ----------  -------------------  ----------------------------------
+>> > > 00          0 or 1               Accept: feature absent in payload
+>> > > 01          0                    Accept: ignore the feature data
+>> > > 01          1                    Accept: use the feature data
+>> > > 11          0                    Reject: -EOPNOTSUPP
+>> > > 11          1                    Accept: use the feature data
+>> > > 10          0 or 1               Reject: -EINVAL (invalid encoding)
+>> >
+>> > Yes, this matches what I had in mind for the semantics.
+>> >
+>> > To be explicit: the source kernel should set the bits for each Live
+>> > Update based on what is actually preserved, rather than generating the
+>> > header from a static per-kernel array. E.g. memfd would only mark a
+>> > feature present for memfds that actually use it. That's what allows
+>> > rollback to an older kernel as long as nothing being preserved depends
+>> > on the new feature.
+>> >
+>> > But looking at this again, I think the required bit is redundant. Whet=
+her
+>> > a feature can be safely ignored is a property of the feature itself, n=
+ot
+>> > of any particular file. Every file that has a feature present will hav=
+e
+>> > the same required bit for it. The only thing that actually varies per
+>> > file is whether the feature is present.
+>> >
+>> > The required bit still has to be conveyed to the target somehow, since
+>> > the kernel that needs it is the one that doesn't know about the featur=
+e.
+>> > But it can be conveyed by the feature's number rather than an extra bi=
+t:
+>> > split the flag space into required features and optional features, and
+>> > assign each feature to one of them when it is defined. This is similar
+>> > to the required_flags and optional_flags approach in struct pci_ser [1=
+].
+>> >
+>> > Keeping the same header shape as discussed with Pasha:
+>> >
+>> > struct kho_ser_hdr {
+>> >     __u32 size;           /* Size of header + payload in bytes */
+>> >     __u16 nr_required;    /* Number of required feature bits */
+>> >     __u16 nr_optional;    /* Number of optional feature bits */
+>> >     __u64 flags[];        /* Required bits, followed by optional bits =
+*/
+>> > };
+>> >
+>> > Required feature N is bit N of flags[], and optional feature N is bit
+>> > nr_required + N (using nr_required from the incoming header). The leng=
+th
+>> > of flags[] is DIV_ROUND_UP(nr_required + nr_optional, 64). Both spaces
+>> > are numbered contiguously, so there are no gaps, and up to 64 features
+>> > still fit in a 16-byte header.
+>> >
+>> > Each bit just means the feature is present, so the truth table becomes=
+:
+>> >
+>> > Source bit       Target supports  Action
+>> > ---------------  ---------------  ------------------------------
+>> > Not set          -                Accept: feature absent
+>> > Optional set     No               Accept: ignore the feature data
+>> > Optional set     Yes              Accept: use the feature data
+>> > Required set     No               Reject: -EOPNOTSUPP
+>> > Required set     Yes              Accept: use the feature data
+>> >
+>>
+>> I like this proposal. I bet most features are going to be either
+>> optional or required, and even if we ever have a magical
+>> sometimes-optional feature, it can have its own required flag. So, no
+>> need to pay double the cost on every flag.
+>>
+>> Just need to make sure that optional features always start from 0, in
+>> their own enum, so the offset can be computed correctly in the incoming
+>> kernel.
+>
+> Right. Instead of having a single 32-bit feature space where every
+> feature can either be optional or required, we have 2 16-bit feature
+> spaces, one for required features and one for optional features. Both
+> feature spaces span from 0 to 2^16-1, and then are packed into
+> flags[].
 
-> ---
->   security/apparmor/include/policy_ns.h | 16 ++++++++++++++++
->   security/apparmor/policy_ns.c         |  2 +-
->   2 files changed, 17 insertions(+), 1 deletion(-)
-> 
-> diff --git a/security/apparmor/include/policy_ns.h b/security/apparmor/include/policy_ns.h
-> index cc6e84151812..4f8359875476 100644
-> --- a/security/apparmor/include/policy_ns.h
-> +++ b/security/apparmor/include/policy_ns.h
-> @@ -117,6 +117,22 @@ static inline struct aa_ns *aa_get_ns(struct aa_ns *ns)
->   	return ns;
->   }
->   
-> +/**
-> + * aa_get_ns_not0 - increment references count on @ns found via lookup
-> + * @ns: namespace to increment reference count of (MAYBE NULL)
-> + *
-> + * Returns: pointer to @ns, if @ns is NULL returns NULL,
-> + *          NULL if @ns is being freed
-> + * Requires: @ns must be held with valid refcount when called
-> + */
-> +static inline struct aa_ns *aa_get_ns_not0(struct aa_ns *ns)
-> +{
-> +	if (ns && aa_get_profile_not0(ns->unconfined))
-> +		return ns;
-> +
-> +	return NULL;
-> +}
-> +
->   /**
->    * aa_put_ns - decrement refcount on @ns
->    * @ns: namespace to put reference of
-> diff --git a/security/apparmor/policy_ns.c b/security/apparmor/policy_ns.c
-> index 5a907a875d8f..ae9168c1a85e 100644
-> --- a/security/apparmor/policy_ns.c
-> +++ b/security/apparmor/policy_ns.c
-> @@ -207,7 +207,7 @@ struct aa_ns *aa_lookupn_ns(struct aa_ns *view, const char *name, size_t n)
->   	struct aa_ns *ns = NULL;
->   
->   	rcu_read_lock();
-> -	ns = aa_get_ns(__aa_lookupn_ns(view, name, n));
-> +	ns = aa_get_ns_not0(__aa_lookupn_ns(view, name, n));
->   	rcu_read_unlock();
->   
->   	return ns;
 
+Okay sounds good. I will send the next version soon. Also I belive the
+design is decided, So I will drop the RFC tag also.
+
+~Tarun
