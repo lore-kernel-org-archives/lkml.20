@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139141;
-	b=jILFaD3GSgrHos7Lg6hHR1iPNZgbgCxvj2eLjy2Co/iq8eJGLtsiZwBSuK+e2iw0sYX+
-	 t+OfL3Zybxmy0vHv9fsZoMpiUzuWvwRtLXk6Kz944Xe6cBtsz2VKhhVJ4UYPgv2tO9Kq2
-	 Z0SkXEpkLS1Pxwk/59F0GXkbs3WR3ED0DaaFMgfO1h7Ua3W8mftFx67MtyAkLXlWyCt2e
-	 mPAJ5aqLmpAPCQCFwn7MLhvwW6zxgtvt9lhBe3Gcay05WpHjHPdEMfTDfDUgIAMu70hfl
-	 joNJJObnKFpKSb/n5bgeLI7joAh/wfUEO5QiPaYqouVcW0ulEHO43vlIPRwlL2prGmg==
+	t=1793139146;
+	b=R71zGQYr1/vpBkB4vZnPTiF8sSzR68O7O7nrepyZOCZP9nTNrU0Ju0ti4vql96XBH7Mv
+	 RObjam6l19sBz9oEUdBl8pDp8wsFuDn9vtaht8kqOrndl6oJF8WtYOGsQnyGMzSctQ5DG
+	 6KaSdFMvwhV5C98E7/lnZWvficcNxptLBWArnXl3cHDjPqldvBZGasEiEeHzZSA+lfVTi
+	 dUSDsQ00km1FVbXW27auPDVrxYn2Q4snA8F3xgrJuwwSwJm8mI3JhWtFA+R/4bA9TBuzs
+	 DuCF+BbxlQGJFAIhzQGN7B2G5ufJvOTG7wIaI48IZ4MwTparR7QyHgqHaLj7X4bF6uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139141;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139146;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
 	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
 	 To:Cc:Content-Type;
-	bh=EI446rcjrN0x44kbFFvKS4UWEA1sDeBtgZ/wnLAywEQ=;
-	b=dLOp7ULKj+/Ez2HZVMZBJvVzoNPUEgK48QWJVKHDlV5Ibiyi2jqtPa/CZKrPzuomq+r9
-	 +Z0nzaVhlTqQBeKk0KtjJo917X9jMiLBv+B+HsExIjYGNN923VAeNIyuZHmGJl6BDsdq4
-	 KmLF5nZEM1sDgguykRG1Y/ujeLay+PUL3U+J28llljjNHrIvoonJf4LH9LqR0FTimUmTu
-	 vKULG7XSU5ypxRuYud9YrNt4el/yxITHal3a6alspwmsTydWVywG+LhbMNqJGxv/RhLfy
-	 OMLqxIOz7v4aADqEMMxeEbtf91nvl5/m2zG9RmO9Uwc4fLYn+GJ0DD+BCZNAbPAZyMA==
+	bh=46E3EGLnWSLxFlTim02Ohjypmi0q8zDH6vLR5FUSx5Q=;
+	b=wzlak1t0MLrLR99v4LkeIjUyKCQE4UKAIcjumHX10i78p/ge4Xmh5gEW+V4nCeVbOhfs
+	 yHWegeKh1YVKUUU6kxB0QOqTE9H4BfeHG51i12CHZzp0GSiouVm1kmNPDjldPeafMbL3r
+	 sK6v0vuuUtix6Z9H+odxanUp+ySu2LK3ioXf2wDY99ysCOfBKixWmG4CYyynsAjPNwi1p
+	 z7oCrfaUiThAhQC0aeouQagK+c1J9ULgsZ7DH3Y6a+nSShCcnkc5gwlIEg2SlmX+ZIvxF
+	 5Ya2Si02unRBM88p0dpqrpGNbWYL/RVcrGkFdeByM5mzH0qAu1tACtftP9RNEP0hAQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AW3lw8ir;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FEiUD6Nm;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD5360A263C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:12:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BD5360A263C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A1660A2602
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22A1660A2602
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AW3lw8ir
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ea0fe07201so1664455ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:12:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=FEiUD6Nm
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cdae10aebfdso154356a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793139141; x=1793743941; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793139137; x=1793743937; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=EI446rcjrN0x44kbFFvKS4UWEA1sDeBtgZ/wnLAywEQ=;
-        b=AW3lw8irvpQz1EVNO8y6ShweTTX/lFmzpHv/V3/DNtPpSDXF5/ewearHPBZhdtaDzh
-         6UdXWCH7E0smNjLM3fBbRIHL0MqbvaMpPpX/eHvLBpOqBOrA11yfQUmt8Qq4yej/4ZNL
-         Z4mxiuBgHIrf3RI7O6umg/+bXLQ0tO7dU2OtxpjalkMh9hEw07eJivrPhCdXxVAy4yh7
-         Kk+lRgXUiaO5O0WpL30UYYgCRges0W52tQBy+BoHyF5mWgx7D9YzlwX0h4o4UP3noawF
-         vJEoEiCU2mnP9FSSw9v29mQoowB3MWgR/nrArkJ/ugoNn4QOb0EZUUSYG8BcXIPT8ya1
-         T2ZA==
+        bh=46E3EGLnWSLxFlTim02Ohjypmi0q8zDH6vLR5FUSx5Q=;
+        b=FEiUD6NmA4q7Lj9g0qrqngYzU8vV5soYbosUJyfiZMiWBd/dw+maunFfwuqyTSvW03
+         nTkzlAmArJ09UypObCpx7NnIewwkl/iDuRIp5s6MKhUm+UbmgqANvqdL7P1s2PEUY2sg
+         nBnOPxkB5EvpAprFdIsBAgrCLpmVhdoqk6oASVXHjd3vE3lXJLTd0BU9t+Wrv+dDX1ja
+         7KoeKi/6tMbmP0PiaIp9+N2Dlz3XxneGfxFyp7qZy4RHDein73of4VYgbxF0RPJnjikX
+         QhOCk/q3apHeK2iQ1RjrmTcErsw2YXZckmV1LqGKQHAM4qiVkCWs5xHBMW3PphB2OjOb
+         OX+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793139141; x=1793743941;
+        d=1e100.net; s=20260707; t=1793139137; x=1793743937;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EI446rcjrN0x44kbFFvKS4UWEA1sDeBtgZ/wnLAywEQ=;
-        b=QvbN4JfLDcmJWiGbwlJLIRounx6DgvwGK8yDPLPLLtuKjGAD0df0Ptx288VpKLnI2W
-         jFozLZnTESIJFfBHEpLTZlIlcXy8vFqoNU1CbzDTVbz351kroQYKfk4CXVlG8fURVc4o
-         xtApB2ba4VoUmzrk9zMrE1cgBToIuZbwNiDwTiVMv743hSZ0x7lMhTs9VLki1sSHHjea
-         7AJXa1FSk+9FFOWW1UpjzxmDnFnqv48NacYuT5KpSTK0X9xjl8vFoQwtEPeW9QjFyYF3
-         F4SQ5EzJHEiwI7IeWGt/viwpW/3+JjrXDvucGJjob1gdADxsfW+E3l3Ya7CQg9cUABFh
-         Aecg==
-X-Forwarded-Encrypted: i=1; AKwUvBzw3/iqkM3TMhzzV8lJwKQxAYffCIL7nDCtQubw9hVcGq/AiSWcFuiznzn8YEzhF+CWiBWlrQpykQTrbKM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvFn1MxbhS+WQdEEQzavPaWja6EuBnIb26/9LtVpTR2lxKccem
-	AoLD6MPZKfvaHmkw/pAng4Rtz6Hbz9/LFn9tZ8O+SwUImZ3Fs6YAzPIkMDmdiurNTRmbL/JF3SQ
-	/8s96Ow==
-X-Received: from plnl5.prod.google.com ([2002:a17:902:fd85:b0:2e8:774e:e582])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:f54c:b0:2e9:a090:dd80
- with SMTP id d9443c01a7336-2eb0048632bmr5982595ad.22.1793139140855; Tue, 27
- Oct 2026 15:12:20 -0700 (PDT)
+        bh=46E3EGLnWSLxFlTim02Ohjypmi0q8zDH6vLR5FUSx5Q=;
+        b=tSmCdJqz0x5U0wureMm8cISX4CzPSjuw8HO6s/38+vNdJd05Tn+/rVSA7TAVoySrAC
+         DeKyofEgzY0J0/X0CDhlPrMcC/lXu7ryNjgANYscRZ5RYr+CiHVlTSCPa/wmM2P0LFmQ
+         mEH0em7pd5NMqO+tBBX9/xgiR0uMUHJBlSBfllKL8cVlqkfK9ql+jXmf6WPom+uBAlRR
+         k1SNrh3hTLvIOF14z8nAAPJwgcKYBRFT8zRMLPW7BkUvHnomkVxDMLVI++rnIhfF6z2t
+         964+ez+SBnke/Fqb1i3c3XULyNNJvAWAu4XgAW0YdlOCnKiZTxfbsEQMf8+NauotPHtA
+         AjYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzvi7NVur2r6gudNvplfBZCsW6n5cFoROgHesPF5NWL+maKcCM2EvX+qHdSsMlJRO1MOGz5wBS5zoKKUFg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLh8+z+Y60z0ouNEhOFui2ohwKS0Nism+ghUAOlx51zdh9OvAqW
+	RFnrD8cA2Vm3qCvIcdhvfarwy+TKtZgLSwARTcTMv71hpgWPcr6ZvXzUVxkHwIYWKZzepdVp9sX
+	4wK7sug==
+X-Received: from pjbsv6.prod.google.com ([2002:a17:90b:5386:b0:3ab:334f:21ca])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3c0c:b0:3a2:bb9f:f87d
+ with SMTP id 98e67ed59e1d1-3ae580d22admr196697a91.21.1793139137381; Tue, 27
+ Oct 2026 15:12:17 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 27 Oct 2026 15:12:01 -0700
+Date: Tue, 27 Oct 2026 15:11:58 -0700
 In-Reply-To: <20261027221209.1560865-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,8 +82,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261027221209.1560865-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027221209.1560865-9-seanjc@google.com>
-Subject: [PATCH v3 08/15] KVM: WARN and reject guest-based uaccess if VM is dying
+Message-ID: <20261027221209.1560865-6-seanjc@google.com>
+Subject: [PATCH v3 05/15] KVM: Disallow setting memslots when the VM is being destroyed
 From: Sean Christopherson <seanjc@google.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
 	Paolo Bonzini <pbonzini@redhat.com>
@@ -92,30 +92,34 @@ Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger
 	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-WARN and reject user accesses to guest memory if the associated VM is dying
-even if the current address space happens to be the correct address space.
-Accessing guest memory after the last reference to the VM has been put may
-be "fine" from a safety perspective, but it's still a KVM bug.
+Now that KVM doesn't delete KVM-internal memslots as an unnecessary side
+effect during VM destruction, WARN and reject any attempt to set memslots
+after the VM's refcount has hit 0.  There's obviously no need to CREATE,
+MOVE, or do a FLAGS_ONLY update when a VM is being destroyed, and there
+should be no reason for arch code to manually DELETE a memslot: once KVM
+KVM unregisters its mmu_notifier and does the final kvm_flush_shadow_all(),
+there absolutely must not be any outstanding references to memslots.  I.e.
+if arch code "needs" to manually DELETE a memslot, then it's already buggy.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- include/linux/kvm_host.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ virt/kvm/kvm_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index f3f59bdf7e18..ba8ea62b7304 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -1355,7 +1355,8 @@ int kvm_gfn_to_hva_cache_init(struct kvm *kvm, struct gfn_to_hva_cache *ghc,
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 218456372b11..e7c89861632a 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2041,6 +2041,9 @@ static int kvm_set_memory_region(struct kvm *kvm,
  
- static __always_inline __must_check bool kvm_can_do_uaccess(struct kvm *kvm)
- {
--	return !WARN_ON_ONCE(current->mm != kvm->mm);
-+	return !WARN_ON_ONCE(current->mm != kvm->mm ||
-+			     !refcount_read(&kvm->users_count));
- }
+ 	lockdep_assert_held(&kvm->slots_lock);
  
- #define BUILD_KVM_COPY_USER_WRAPPER(fn, to_user, from_user)				\
++	if (WARN_ON_ONCE(!refcount_read(&kvm->users_count)))
++		return -EIO;
++
+ 	r = check_memory_region_flags(kvm, mem);
+ 	if (r)
+ 		return r;
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
