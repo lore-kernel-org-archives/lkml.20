@@ -1,98 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793103219;
-	b=y0Hisog8+QjVAuY5oajugaVsOb+GdyFYKRQcWsvhOpmrbtYMVZJ0dB3DdRRrEkZbk652
-	 ZepEUk688zSY6IqwHp12TiAkqpC6ODBjDjxzhrZkzeY547PJbfDvMvW3EgmfuX6LKIDqI
-	 TiFZWYZi+p8s1NW42XpaGCopBNviCg34C4FwumqjBOaM3QGJy4DBJXCFtZ4hXaNjC+MXh
-	 jT9ZOfoa4crSaFEA2ZSYmS6z5bOG14TqrkerTgqVmBneFUtSeiLMa6s0NrhYV6jR0wli1
-	 DMDxzmfoAye+3TM7Xu9YnMWcxjrA84sxY4YotJyDj8ae44+nIWXJ9NTaLERcvQf/YyA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103219;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=r2L6E59qTdisc1FOreb2xY3EGbt5Y6r+FkrSD2mXuLI=;
-	b=jEIbWr/P/QZZaGe+RqozQ7kcyRdObUjy7AO9Huw6t+EadRlivICGFOs/YORr6/FcqJrw
-	 jzcuf4+Qq7tlE2jPixaPpmkvlwaVXqG/BrstauXOSnBjOEEAQIGfCSCOWCw1Vlak/lwXb
-	 UzQd2CUUbFQ85b6hCsJ5FlQZbwoIdlSujhfMUHe3wqlm734BcX5GGsZG58SsBHa4dPmBZ
-	 hZfX0xq7AcajzqlCWLESikc7r5PZDsHdBvw2As73Lx1TjAiqUPuDekZPiX/NN6x94SW9h
-	 eCWQocxyHLsA+HPZE7qz8USfXtfoCnMEZqwIoMIPD0rVUI80rD1msmp9NYNPiHhTuZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LyaDovdU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.47
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010047.outbound.protection.outlook.com [52.101.84.47])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793103211;
+	b=3WefEbiV5LQv3v5rYB5/FOvRPE/uKWHfbxiwfzUCE8+5MGNDoK9jZyn56BX8nb198mD5
+	 0brhXb3weHVucMVdhGEaMGkczYcP7gvJ6GZjRtbSNacnCETZJNOMoc8TfFwoQ9D0QzPXI
+	 q8G3799Pf5MJC4IxvHfrsRsrZ9lhZ5KcuPIcohXIT6PrgkZIcyafCR5pxbr5CeNC1rlhC
+	 LzNgMaxMg3Xk+I3VzrAmTI2s+UmAa6QkgtJo8rmOjX0TlL+Zz4rgnFbWPnGChuZ5YcrdY
+	 qqwAs6CxTZA3vhAqn7nKuuArGD4rMDQMhjjBAhJv0kuGCdsITN6MyT12S6j2kUiED5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103211;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
+	b=wE1OXiMNYDq756Aa3fx01IKUARzucyrak+zHVJ6L2PvsWr3pGifhPlBHGQ+hF0lu2XVs
+	 fAKMio5yzKh1U9bCfcy52E6o9cfY75pY6Rw5tzfJDTUiZ/lKXJrb2HN+2Mc8JSpfCKHFQ
+	 YWGUtF1Fl1Aik3M5/FEdB6/Y+J8NCYyqEiQ0WfSEDyG2tes7CKLcabZukFSomsOFeGJQv
+	 YUDHoWdh22xkRjRj/4DXfznZ/6UuJMEUD18Sez8mtMa3a4pE4uBW+Q0/G1zuY1Row4UHE
+	 amNuh3CpHAEVnNVplrVT+9gqPoTvOxg8t+t+3YYkwI6Se374Z2ISCuJYWIu8JECMBWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Jdtkfbrg;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=b4H3Zn2N;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96E260A260D;
-	Tue, 27 Oct 2026 12:13:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C96E260A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A67160A380A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:13:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A67160A380A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=LyaDovdU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sco05yAk+s+G3gRbDJ22pDWVDCQBdV273mIMW6plv4v5RMsKvm3TLYTTuVVeUpIUB2YXX1tmm5LhLcCj1I+se16M/trSil7IZmMPpqjZ4xBy59t2eo1oKbCneNo/D+mOXBNB3p/0w3btm6r8tj0ofFqHlnRvn6PUkamCCg5USdoi2guR2SPiHBvAigmbPwXpFXbes+ycmquBY1edvn8o4ZMgT0f9CZ/tA8PGFgG5NzEPgoRqu7gC7y4YZgpwWsgNBnrAObPOsc6eX4irUF8cjuBClM1gy+0yvgd0X5sWeAWsA+AO3royj3KCnfy8PT2fFThxZgbdjhbaCEn5rEA8Qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r2L6E59qTdisc1FOreb2xY3EGbt5Y6r+FkrSD2mXuLI=;
- b=bryRokzxPWDkRgtBhWOYXULg1b7eBCKxo2KuRAhNkZx0WYESPUmKRbTHeQFcMxPJkBpgMDO59ZoG34fqyq8oo1RONdF6L3rlcAJ0o1b/Au7URcUVvJsQ1mT+oxNkU6LYRy8rl1cCxmtYBjz45KLPlELxlkHS1rKsRkkeZpXxANwL7+iCWPlOm3LlWUrG4XuceP/+TpbeB+LmenqI4ZcgjRFFUV7ffkjOUuNRdrPcbUzIRkyV3enOkCDjrSbU00kTWgonff2zI72NEXm5aFrJuuGMZkhQ95KwfAOByjMbgnNtSgSGps1lKVdHiBBl+TMPNziVWU4/KhqWN+stvSvMlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r2L6E59qTdisc1FOreb2xY3EGbt5Y6r+FkrSD2mXuLI=;
- b=LyaDovdUtg/cF7QS+hFcajafyp3PRfv8cc19ebuHpDkpSfmBbY2tuO2ol6tzi0nHXYm864Zr7vi0mawd5tyGacESIiDQ4dAKFU5Ca2JN6RLeqbBgEaY2uC/RrkH0Ba6fyb0dua98aPK+jwDhswZobSelfcuHmD6QnP4AL77GKcWCqNDzXrqR3UCqTCiiLn17SFE3GjaF16PE/PztQM7UNysdeDI7DwaF5AO+kNCdK/RCAA1M8eUa5bmv7JuLmKFjzsuALXsjt85O8hvtKxAExpaKK/0b9jd4YwGggaSTaj3zghh/wJ4kW2ZExeISBGZzSOcldUtfS+7+aCBh4Z2otA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by DBAPR04MB7462.eurprd04.prod.outlook.com (2603:10a6:10:1a0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 12:13:36 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 12:13:35 +0000
-From: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Date: Tue, 27 Oct 2026 20:09:35 +0800
-Subject: [PATCH v7 08/12] gpio: mxc: use devres functions to simplify probe
- code
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-gpio-mxc-cleanup-v7-4-v7-8-7b602d70c149@nxp.com>
-References: <20261027-gpio-mxc-cleanup-v7-4-v7-0-7b602d70c149@nxp.com>
-In-Reply-To: <20261027-gpio-mxc-cleanup-v7-4-v7-0-7b602d70c149@nxp.com>
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Peng Fan <peng.fan@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SI1PR02CA0030.apcprd02.prod.outlook.com
- (2603:1096:4:1f4::8) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Jdtkfbrg;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=b4H3Zn2N
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793103209;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
+	b=JdtkfbrgCGLwl3Gty2ipvEKU9/LDKoP3Qw9jKYDCasCa0us0OBIBEePN1xStY3MHg5tztd
+	u9qh8FRQIyUo4s8gt0Gmnp9bCT/gWp76ecNrBC9eRBtZ6/S2gQN2b50lO2F23SygVAF2si
+	29bGuH94KYtDnQ2axKKXWDUoWFLy7kc=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-550-Yxq7EgslMMyR5SebS_Zhug-1; Tue, 27 Oct 2026 08:13:28 -0400
+X-MC-Unique: Yxq7EgslMMyR5SebS_Zhug-1
+X-Mimecast-MFC-AGG-ID: Yxq7EgslMMyR5SebS_Zhug_1793103207
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a20e41008cso28159965e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:13:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793103207; x=1793708007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
+        b=b4H3Zn2NqCXi1TzCWwVZtbcJLilvzGtuX5Ae7E2k3ErGVM7dOd+nMiBdMDSNFelp0C
+         Wql16KwtnUVjx9H2ruY8ZlXpvxUYs0l8bl0gxQFymagtHBUCDym1JqBqWnaQiDCY3WFT
+         FkNIdYM4xt7pRjVV0WXMU+jAagnw0TcyXXcagC6YcuZ7JHem48Mod9XT1XVGtr/3FtLc
+         VQbqtc7WkXyjcTHf5hWQJZhEs9JuticAKj4uksVNVNpYVRFp+7Nq6AOQFxFN+XI2u17u
+         S2WU0CxHDRnkRL9/vEPynUPnhwXDN+md9v3z5RTm/T3m0KtawYMK5ovBlL4H78fo5oWn
+         MnDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793103207; x=1793708007;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
+        b=R67RmSSk3ss56mYoqn9pnUy4E8Su0cjDbMDKQlrUIup8cKWGYwE0yCln1Ji/wuVpq7
+         F1rqPh0mRtz64JwUAx6hrIk6MOoCLQ837pVCWvCWyX3DIin3nYUEZRmuFoPOpZBMzFBb
+         DSZhwGNlt6MbH0qsSKQeJpjPbctf4/sJvWMP/XjIpn8rMSqikScVNJCWwA372q8hyn/Y
+         I3diEW3ib2Ow99n4IDAoGRm7qg9PmxXWO3XS/EGepAEyLVtRfaOSrXOo1lWm813y+b/o
+         gfZjhF35pSCGTL7Mr5W5le1v4OqJ986EepcSLyvw4OYCES4ip1WmB7vd+w+Jp3NySoNG
+         wUYg==
+X-Forwarded-Encrypted: i=1; AKwUvBydAIW3fEEGWHTSZ59Ql+puJFX6AqRqh7g+ogOFdQUFpqYcibtajPBZEd8WhxqC6MvY3o3OO1WUxB9z0Bk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoNCWv4ahqZjEql+N9Glhag2LcFE6vMYvdITo4j9VJ6688x3j4
+	ZMPfwycCqFfjI//CLSTBecLKnwifJ/Zf/ya6m6JPmxl4QmSDvN0JpAA2D5ek5BsNDAKTWIV779s
+	uEdwNUXml11hPFZHIwMH4b5I0OpUpUKZGUyekoTbTy883mP+izkXt/ClVoXrW/wAwig==
+X-Gm-Gg: AYBFou0mz+nA9GFrQ0Eaj8iTcJ5zvhpFhrvtNDMDaUuECnVqmflplKuTYjAqdwg1daL
+	LH6e8Rz29rDK+mTVwnXezlATNLYhQvzWMnIg1/eMZ7aQsRvjTHxPfVwxJ5irPB+NaeVDBbkRqPf
+	KSB3gCUKHaiu3jkseKoCwQXDHFz8Ji4WEYf8UigNMYuqXOrfU9GOCj4ThnTFEy9pNyMkmqi4Ij6
+	r6Hppv2fgjD0mCbeKZTU/tv/gKS6E1Jq3T3C3MLjkuJpWYyQvpVWwGYa4PWUhV7LFcCs/JjDkl7
+	SbSTDUkCpFyeNLhHYvAux2HGg20QTil90v/XAf8KiQrDPfWlMIuuvp/XT9ihZw9o0OgkmP6YuBu
+	aPypIJDmDyL43TeY5hyLet7OxoTsKknDSL9pTWlqKpKLtLoe6wVZpN0LjCVnWZNK0wEGibPUYpA
+	==
+X-Received: by 2002:a05:600c:3b93:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4a35acb0791mr198799825e9.28.1793103207049;
+        Tue, 27 Oct 2026 05:13:27 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b93:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4a35acb0791mr198799275e9.28.1793103206632;
+        Tue, 27 Oct 2026 05:13:26 -0700 (PDT)
+Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bae01sm324835885e9.7.2026.10.27.05.13.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 05:13:25 -0700 (PDT)
+Message-ID: <8c000566-a792-4777-8148-6da137537f7c@redhat.com>
+Date: Tue, 27 Oct 2026 13:13:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,173 +112,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DBAPR04MB7462:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3efd7cc8-112a-4745-81bd-08df3423b9cd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|376014|1800799024|23010399003|261026140227099003|11063799006|261026121527099003|261021123027099003|261021121427099003|261009221227099003|261009223027099003|56012099006|261022105027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	N2uJllSJmWkPOgMyYv6kIW2lQp2I2AcVJ1hv6SfHdD1YhJjECcIlrmLpMxk2dyKnd+71qpV8A8ipn9j6yEE5pj8WF/QJRYtMpmzeN9UrpqebiqgBLtiS4IzyiSLbyMZR2Jjiss0o/ce6NvurLCWrBhe/dP+lLVzbbfJzC6M1GiKqALD2qzxipSI7GDLf4LY6KFxesTpyuP/F0nVWU7lEdHMvcnL9J8GWPBOLEWoNPm5TE9L5vWIPOdLVQwiPsjscb0kVeaQ50GHW10oaXH9rXldB0tI2EgUBB8e0I0dkxhgQAR18PIBjXB0qkc2wBlKNALWlddxt5sos7ruDcnL5+qCjkyVNy+nStThAfGM2u6Wmcx4gbTsKcpAvsrndG3GIY+exDIEauPStbvIcztLb9YsFsOzD3U2RswR1S061ONkk+WGpMUgkBpGZBOUmA/+SUpN7Vfew1DS0G83yr/yo0kQISSL3PrbhytLxe27Kg49NKDe+8WyIafucsvd575ogBGzQE/x8I0gANf7B1eYL4jR8TYXB6gpujarEdv1/iuhPdHYOD2JihQnkUqLXAbHIID7HqIK/PEzy0OXli1pyLeewy/mC001XweTN88lb5s0LbS4jVHhN2ha9GvJQyDqGNGW+ItfTTVX+2Mk59nuF4vEbpETVeucaqD/mwjIrGS8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(376014)(1800799024)(23010399003)(261026140227099003)(11063799006)(261026121527099003)(261021123027099003)(261021121427099003)(261009221227099003)(261009223027099003)(56012099006)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bnNybjM4L1JYN3Y5Q1haYWlBQS9IWUtObmU2aGFpZTZnRyt2WTVUQWZhclJC?=
- =?utf-8?B?WkkwYlJUT0VJZmttUllKWEtwMjJ5c0syTWJQSXhKMVVHMVlORSsvMzNJMThS?=
- =?utf-8?B?eEhES3E5cGZ6c0RVcHBMbk5KbWNIN3dJZ1dnT1pCRjI2aVJ6L0xzVjlhdUVl?=
- =?utf-8?B?VTNoSnRnTzJEaWdSdlltc0hDMjRDbGh2ZXp0MlZEVXhlYk5MdzJ2aVJ5MW1U?=
- =?utf-8?B?dmk0Q0tBNm9WSndybXhIdW9ZcmdhY3NldGZyVTQ0OGcrUFRNSVRXTWpac1px?=
- =?utf-8?B?SjJmTjJCeTZLVjhBcW0yd0ZjdnBndUVjMExzekVHWHl0OW93UVRma1pEZUND?=
- =?utf-8?B?RWpBOHZ0Mmt0OFlzL0lWVWI4aGg2d0JYZmJMMmFOVnhxazcybjlnVmtHQmRL?=
- =?utf-8?B?MVcyN3F6YVEvTFYxTXYxRHMxMEFudVZKWmVvaElhcUYyMDc4VE04am5scmd1?=
- =?utf-8?B?TG0vd29LL1dHZEFRcSsrKy9uc1dUdngxNVIxcHV4V3BEWGR2VlphOWgvRmtw?=
- =?utf-8?B?SmV5M0ZmN1NDcVRqd0IxRDJXVVpsWGVMaGZGY0w4Q3FBcDU5bkVuMXBDc2ph?=
- =?utf-8?B?NGluazZYb205Z05IVHhQd0dkSnpFVFUyb0xuTlNlTm12aUV4cS94SnJWaFh5?=
- =?utf-8?B?YjBDL1NtbVQyd3BNSjhXYWlZMmhaK3BuUW1NZ0FqbjNTMjJKM0JpSjc3MHJp?=
- =?utf-8?B?dG13YndpMkFRRjFIenNDc3E4T3UzR2Nla0ZDVlBURGxzUnBLRE1mY1FLb0RS?=
- =?utf-8?B?Zk5NZnQ5bldDLzNmckhWeTd4MjBwSEMrUTBLczVIQm50MUFubGxLQkxKbGVq?=
- =?utf-8?B?L2tpR2tNVFNpOTVWaHBzeEtmNk1PbVIrb1JTQVlXQ3liKzIxS0NHdStrOHpj?=
- =?utf-8?B?MHc1LzNXQ3ZDTksxbU1HYXdMRXRRaVBxNEVxRXdvam1Da1JkamE3RDJpalJn?=
- =?utf-8?B?V0lUZVJaS1N2WUlORmdGRjBHdDZMSFFSajVoUmNzYzd2ellqSlF2enhTYTFv?=
- =?utf-8?B?dnhkeGlxQlByb3N2R01jbXBPWDFYU2d3ak5RbTdpcDNxMm5qTWxqWityTWht?=
- =?utf-8?B?MGFVUmxRK0RjMVBwV2lZYXorUEpOcncyVHlxTVFhWVM3WVV0N3hoUmR0cENh?=
- =?utf-8?B?TGhqekUyK3FLejQ0cms3elVqcEFnTU5ZMGZUelpOZ2t1VmoxWDJIR0hnZmxU?=
- =?utf-8?B?eXp5K01nZWhPbFMySXE5QURmUndLOHRYSkRnTHJmdmZ0Nkp6R3ZSTWc5VGFZ?=
- =?utf-8?B?QUFkd0JOdmZXZnE2NGhoTzgxYXBYZFE0cEJDTlM5UkpiWFpMeStrNGxzYVdV?=
- =?utf-8?B?d2JQaW9ZaTJkN2FmaUJxUGpJMElhNklYY2xZdHdIejF0cCtsMVllMC9jODNv?=
- =?utf-8?B?TW1iT28zMGFkc1hTeUJaTElwZmZtWGxHcVQ3c2J6Vnh6NzUvVWVUdkxuVExs?=
- =?utf-8?B?aDUxV2szZDZUNFltWmoxeE43Vk5BUWZYOTA2M1h2bXY3REFkVXRjZnZuSmdE?=
- =?utf-8?B?YjF0MHlPMGFjcXVYUXNBU0F2am51czdUcGZUdklYeGpja09UT0ZHd2FDYXYz?=
- =?utf-8?B?cTV6ZFFLdVlha04rMWFjSmt2bFdyaUZwek1idUp6bHIrendSTUQ3d29OeUo0?=
- =?utf-8?B?Q2FwdldVLzYvZ0p4SDBCeHUwTzcrVnUwc2hKajEvc3FsSTBHZ2VrQ3gyb2U3?=
- =?utf-8?B?VlJMTnJrUnlkdE14eTBKWElWSmFtb1pQQWdTU2lFVExXMUFDQkRJak1XeUJU?=
- =?utf-8?B?SldXQTFSWXhZNEtaWW4xK3JENHZsL2d2TjYwUmNnSEV6eUczN2Jib2YrTDhB?=
- =?utf-8?B?TGlaQTBOQnNjS0xjb1ducy82RFMyRm5zY1JFamtvUmdQUVlqbFRiemRRbU1F?=
- =?utf-8?B?Y3ZUckc1dnNrVytJOU9wZEt6MlZ4aW5ic3JsQmthR2RnTjhBUXd1Tlh3MmlS?=
- =?utf-8?B?ckh0UzFIdDQ5eWdESWQxNVo3R2J3cmdGMmRNakdnQllvcUVsRGd1amwxZER1?=
- =?utf-8?B?Yjl0OSt4UHkzNUVCTnpHb0JXbHlXSjJweWVnTEU1cFVlNjE5bithUVJjZWRx?=
- =?utf-8?B?RFppTkZrQURoQ1ppQWw4Q0JLSXg2UDRLclIvV1NRM2V4c3h6OVNlSU56Mk1D?=
- =?utf-8?B?NjgxS2twTnllY2l1NHpkcDhiOFY5SlRLeW0wdjZiaDdVQWNlSXdQdzBFSjlk?=
- =?utf-8?B?dUxXa2Z3MUc5US9qWjJRbHRqK0Y4TTJPa0pPTUlIaGJhMEQwYlVuSGlmUzRm?=
- =?utf-8?B?bEVYYzlUd3pHYlh5dFBRaGVjL3lUQU9ITEo5blR0dDROMy82bm5qeDNMZnlk?=
- =?utf-8?B?Z25iYVNacWVmR1ArekhPaEs0R3BaeUV6NzFmblFkQ3R3NVpyV092b0E0Yks3?=
- =?utf-8?Q?QNE2/JfyVDMZz49EjtmYgJ7OlYsEwTL1Yjd4E?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3efd7cc8-112a-4745-81bd-08df3423b9cd
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 12:13:35.6805
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 98X53H1Pahuo++nf49keAC3Qx4JD8qP5plvm/G6BOxrzqpxMkiWerlRygwcPjFnADfXsPExXvQchlphkpiemv/u9zIpKOozXrg+xSQhlQr3vlp9V9g1kBEP7lSgQgGPQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7462
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] gtp: Require 'CAP_NET_ADMIN' when joining the gtp
+ multicast group
+To: Anil Kaushik <anilkaushikwireless@gmail.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Harald Welte <laforge@gnumonks.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
+ Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+ osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261023073738.2436362-1-anilkaushikwireless@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261023073738.2436362-1-anilkaushikwireless@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Peng Fan <peng.fan@nxp.com>
+On 10/23/26 09:37, Anil Kaushik wrote:
+> The gtp generic netlink family sends notifications on its "gtp"
+> multicast group when a PDP context is added or deleted, and for GTP-U
+> echo responses. They carry the same attributes as a GETPDP reply: the
+> MS and peer addresses, and the TEIDs, or the TID and the flow label.
+> 
+> GETPDP requires CAP_NET_ADMIN, but generic netlink lets any user join a
+> multicast group by default, so an unprivileged user in the network
+> namespace of the gtp device can read all of this. Found by code
+> inspection.
+> 
+> Fix by marking the group with GENL_MCAST_CAP_NET_ADMIN, like the psample
+> "packets" group. Only users with CAP_NET_ADMIN in the user namespace
+> owning the network namespace can then join it.
+> 
+> This is still weaker than the check on GETPDP, which needs
+> CAP_NET_ADMIN in the initial user namespace: in a network namespace
+> owned by another user namespace, its root can join the group, but not
+> use GETPDP. Genetlink has no multicast group flag for the initial user
+> namespace, and ioam6 pairs its ops and its group the same way. This fix
+> blocks the unprivileged users.
+> 
+> Tested by joining the group as root, as root without CAP_NET_ADMIN, and
+> as an unprivileged user:
+Please additionally update Documentation/netlink/specs/gtp.yaml accordingly.
 
-Replace irq_domain_create_legacy() with devm_irq_domain_instantiate()
-and convert the remaining manually-unwound IRQ resources in probe to
-devres management.
-
-The runtime PM cleanup guard from the previous commit disables runtime PM
-and drops the probe reference on these error returns.
-
-With every allocation after the PM block now devm-managed, the
-out_irqdomain_remove and out_bgio labels are no longer needed.
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
----
- drivers/gpio/gpio-mxc.c | 37 ++++++++++++++++++-------------------
- 1 file changed, 18 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
-index 68857730b5e3..eeb7d36e6b44 100644
---- a/drivers/gpio/gpio-mxc.c
-+++ b/drivers/gpio/gpio-mxc.c
-@@ -465,6 +465,7 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 	struct gpio_generic_chip_config config = { };
- 	struct device_node *np = pdev->dev.of_node;
- 	struct device *dev = &pdev->dev;
-+	struct irq_domain_info d_info;
- 	struct mxc_gpio_port *port;
- 	int irq_count;
- 	int irq_base;
-@@ -531,7 +532,7 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 
- 	err = gpio_generic_chip_init(&port->gen_gc, &config);
- 	if (err)
--		goto out_bgio;
-+		return err;
- 
- 	port->gen_gc.gc.request = mxc_gpio_request;
- 	port->gen_gc.gc.free = mxc_gpio_free;
-@@ -546,24 +547,28 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 		port->gen_gc.gc.base = -1;
- 
- 	irq_base = devm_irq_alloc_descs(dev, -1, 0, 32, numa_node_id());
--	if (irq_base < 0) {
--		err = irq_base;
--		goto out_bgio;
--	}
-+	if (irq_base < 0)
-+		return irq_base;
-+
-+	d_info = (struct irq_domain_info) {
-+		.fwnode		= dev_fwnode(dev),
-+		.size		= 32,
-+		.hwirq_max	= 32,
-+		.virq_base	= irq_base,
-+		.ops		= &irq_domain_simple_ops,
-+		.dev		= dev,
-+	};
- 
--	port->domain = irq_domain_create_legacy(dev_fwnode(dev), 32, irq_base, 0,
--						&irq_domain_simple_ops, NULL);
--	if (!port->domain) {
--		err = -ENODEV;
--		goto out_bgio;
--	}
-+	port->domain = devm_irq_domain_instantiate(dev, &d_info);
-+	if (IS_ERR(port->domain))
-+		return PTR_ERR(port->domain);
- 
- 	irq_domain_set_pm_device(port->domain, dev);
- 
- 	/* gpio-mxc can be a generic irq chip */
- 	err = mxc_gpio_init_gc(port, irq_base);
- 	if (err < 0)
--		goto out_irqdomain_remove;
-+		return err;
- 
- 	/*
- 	 * Register the GPIO chip last: devm_gpiochip_add_data() makes the
-@@ -572,7 +577,7 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 	 */
- 	err = devm_gpiochip_add_data(dev, &port->gen_gc.gc, port);
- 	if (err)
--		goto out_irqdomain_remove;
-+		return err;
- 
- 	list_add_tail(&port->node, &mxc_gpio_ports);
- 
-@@ -584,12 +589,6 @@ static int mxc_gpio_probe(struct platform_device *pdev)
- 	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
--
--out_irqdomain_remove:
--	irq_domain_remove(port->domain);
--out_bgio:
--	dev_info(dev, "%s failed with errno %d\n", __func__, err);
--	return err;
- }
- 
- static void mxc_gpio_save_regs(struct mxc_gpio_port *port)
-
--- 
-2.51.0
+/P
 
