@@ -1,84 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116177;
-	b=CW9tHX03iR5xTWD9yYdc7410qYEDbCb7a0oID/0mIjZVzMv5tyFF8xUqfpuc1FmHCUyz
-	 SPPZu1w5+C90eM+OgUOZn1VHzeKfCoGzc/bHslLtZZFLs6byHQa5cZeTO8fBmtrnur+Sa
-	 YyQsKgGpZKit9RZm5JY7fMFQhnRtZNdRAKfXOyOd9O22xzSADe+OdtfVzFiTBBBFwJGeF
-	 HbFeBueUiNCjUhWxx7IC5n9AoThEks4bBjJzw+t7J7UdqvwbAeC7FNC0r7Wh4dpifX03v
-	 Sesa2mLF11zK9Rh9UWN9xOP6OrYRWAlm1LW4UuPxf6wr1Seq2KI3YmXvSUpVvbSdciQ==
+	t=1793116198;
+	b=h2S4TuAjEJGSYgw6uzeGnUalIYZBSmy+MEkIqxW37sEYsdncoyyGBrrB5JOMhATsaJCg
+	 GMZwfRluxsoTvaGylDJwSqm6JXKDOZe3NEiaaIFCG9VJs5U89zK9LkydEtXnK98pi9jx4
+	 zGlElfQzGoLR3f4cS+wchPpGohkfWgpoAWIDR4PaI55W6H8EGhmKoFCEvmvOxkijHPZt0
+	 kd6VG2hl8VTsjG0HlSMD5L9CGx3JVyTNiveyUE//yN47xJ6fzNtmsAKIbY/ehptxSGhrm
+	 Iohi7Gt+fphlKmxuJumwNZp0F4qXBxPxEkxqIMJXWdJdwJGYiobMs7c858VMf8VuANQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116198;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=1KBHB8+qa4NlnLyGzz+b6HJfV/xmDramajBB5F7wR4s=;
-	b=NMMoqPSv0/iS7QW3+em+8LqyoLN8XHwX4ZRIyzXrbyPvb/HTi+ezQaj8UnDySa7/0IBL
-	 fsZ8iA4GP7PX0t+qWKDvGcxgIfogNa/y8YLu/UZo4yCHo9yx0Bbkf9mxJw47w3sODcqUH
-	 W62SMyRtWhwLGHNceOcalIUt/9L0T/UFf8Csp7IcO5fd683LURpRyH8xOC09XBjIlGXXD
-	 lfrT66grMdSXoavDX2BzAo9HffEvviQcD9D267nhFsHb6D4eCABBOdLIoc3M7pT63e6fI
-	 chps/D6ZEiTJZCO4KBimTxIczeby/6N7baiKcpA6+0VHRbsqZbSOrwamDRThQPLkPDg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vMJhlpSMWK3+HIJ++d06DQtbz1b9MhuB921he62vO+U=;
+	b=axynn4qBf9GSlxVqb7751KF/x4XFqBD3kp3dTyeK7sfZgMzESC1MXZ2c2G8YJP6y3xAt
+	 NlRnhO7CMQYaboty6PYXP27CfQWoy6ZcAWQnXRYTJ7Hw4sYQR+q4DjUSm1OBmsauyijf6
+	 A8p3lcUn285POE5g6SiO6oLLV3658xNqMjB8GpUqMkU6BrepYifQOIBE4wnIgwnWvSc23
+	 IDw07A+k6t7WdNkpz5o7ZivMvurggvLcXn+BUZnCEhhEmZNWONZOkc1lr5OF2FEWKy6r/
+	 LUchZxRTBeMb419K4M5WYhuoKDq+tzthjMWGmvqY3vTr9idTQPObvVuGmYNLgG/B+jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TZ7opDRA;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=piCrpRbs;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0514F606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0514F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D942F606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:49:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D942F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TZ7opDRA
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5363c8de563so1092291cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:49:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=piCrpRbs
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso2496220f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:49:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793116176; x=1793720976; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1KBHB8+qa4NlnLyGzz+b6HJfV/xmDramajBB5F7wR4s=;
-        b=TZ7opDRAxn4wTrOy1fwRQPp9v34MOTbHLGoONT2tM1soAOn/rIkDZ8/+ZZ9R0KOb/7
-         PN19QyA3D2tXcltt8/6aZMDGteSPR/MYIxaK08sL7MJ2stAkP3mMMWMC3JRtVoPr66Zj
-         u2DVJpR7m5RR4G0bcKy1mFOLHnqjzoeusG8cZVOipTXd72nx11qjlhQPr5bz/CXrfhQm
-         FxdYgabYpdaJF+nYMuiaNoT2IvmcF43MxYfyqfc+XU5uDLfERb8EeqtwdDGNWxFOHiVc
-         F7R+KnO9W+T+NdxU4kKJG3hSi5PP+ah2YqJp78xvPzxlrMapEc2uZQZ/S3Ygj79TcDNa
-         6+Ng==
+        d=gmail.com; s=20260707; t=1793116196; x=1793720996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vMJhlpSMWK3+HIJ++d06DQtbz1b9MhuB921he62vO+U=;
+        b=piCrpRbs7+jHCF6Cge4xVgL0NXaHfOjc305H8Q7mncuu7VVJEiCLj5qXI6XFcVc3R4
+         rYjKNr8Wqmwh9OtwvCD4c3qIS3fRMyUOTn9J7j82Khwpu27hG5V/iu+ARjqjVzOzssFS
+         lgyh9HkQhCeKsCXTaH6K63ZrTHK3qnAmUotE+ZDEYzfa1MlFcdmcl8KSC7gaU5hIEy3d
+         3xSj1l208n7ITdlkO70MnmB2NejUT0LMbd2EImDaP9lwZpLR5SfK5Asd6gZ/abL4bAy+
+         Zb4esjEUdZ3Texded7eZdMgVHPiikwBIqa9l6+b2oA1kfmB5NNpaOdK1UPQRCpWvGBZT
+         CLYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793116176; x=1793720976;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1KBHB8+qa4NlnLyGzz+b6HJfV/xmDramajBB5F7wR4s=;
-        b=Kc6VXIUHOm4UXevEjLcMSlfuILtSIXnDHebHw8xMLiuDu8cru6EcZ02EBdDBqtSjic
-         Ne+H78XQePsQ9vtzg7suQG1p7+AZkPpq19eQgnKVo6S0Sj5oR+mOhg2ZFWFT/JSmz1c9
-         w6wTeorFjXnP+9CBaUpde+RqTMwJyU6hKs8tz+Vts/nQtQXvIMrAy9SMpn9tmRwvkFTk
-         AAbztYeiND4aRtP/7/ztH9l5IRk8vp05DPRL6l9tIVJ6CcYvdjgI4iCiS6p9at6krurU
-         s21RrTo/lqQXmLl2a0jJjyIk+H+PoytUo1L2z4YlfsKpilsQgxJk2LNW0MxZ8y3OOTcv
-         +VYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzH3zTrFaH1/fS5CTdASwe6fgKXQ/rF5AfoeEO0h/EwW78KArRh5auVmz6fIFnC1FrPUirKmspA6GLJFyo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLD+lEEDzXoq7dlAppWsFtZIoLAYjq8L7rT+jMmaF367z3eDoOG
-	YH3RrlwHBLg4Nq6GRdAsZVV4mbWcvdWEahwd2LJKd9oLkdx02ewgH6gsh0GcHNPguIY=
-X-Gm-Gg: AYBFou323P8CXkfb5gd8cWtuz+xQ1l5AjTEkqeEnhR2btryYevp2jLuzsKoGDDPF2Un
-	6SMctRK1wJTnPfkx0GIvYhlDKPhQ1tnm62nkSvJZlQD1j7lmxmopbOL3V+xrW9bbF+m6fmhX/S2
-	ivnhlQiBjsuC2efP94DWN5Z1hNm59AFr7EOXLDAjiFUeXAYUdY3RWvC5zC7ksb/zLXlWMgPA20I
-	JHe4iBJR3VPhhnq/j6fCNzDDYJXjEozrIDbOPw7NAiuxWyMjA8MOBmHKj4GcDYW0SM//vRwD30z
-	k9ZoQKWkL6g5GFu00MiEIAP898AsWbvlbWEtMZsb+I/z2MOSyKhwmfM+1HFLfVCsMvX83dTLctx
-	TyBwc6DX/G2OtPr2FdyXnjl+4ZlqzCdGUmG4X/tRKvwuWwnLDD9MbAsOBmL8BeAirVUjORrQkea
-	J3+ssgJAW1VjY92GV0xMJfDItU1AuycuRzgpqpTiPLDf88jaRXCZOnXsEjmweefCtyW8orjRTvM
-	eJAcYFPPM1yDQ8Qf8IMXqJRwaJ9dWC1P6HP7Q2aMShdyir8bitluCo4cq+Z6zKfD2OM6gn8DzzQ
-	jq/O1pji/nUm25Q4yn/KPOKJyaU=
-X-Received: by 2002:ac8:5709:0:b0:535:1368:4582 with SMTP id d75a77b69052e-5383b572fa6mr173122891cf.46.1793116175615;
-        Tue, 27 Oct 2026 08:49:35 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47ce49d9sm106169096d6.45.2026.10.27.08.49.34
+        d=1e100.net; s=20260707; t=1793116196; x=1793720996;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vMJhlpSMWK3+HIJ++d06DQtbz1b9MhuB921he62vO+U=;
+        b=fUvHmNtjJGuOS8pzecxpTTu0K08cn/y+viIfvUTIBkVHmJzHvJQ0uZ186pQtD0fFLz
+         BQteuh68ZXzMYfDYB+qru2wtB2oZhF7s+kVxoItG7yM6FzIITyKyOU6OqiRMf+mL8Jfi
+         rzPSmJATxf2jufBfMuozY2v34/xDdEXBfHP1tjIe7UlnlVvLNMmstO0vsWcnnBCs5ODl
+         gaZkNZySSTs2oYneyeEOsURQgtnFBHeVKhYBFfp4gV5yD28hq1PovZTGbRNkoQZSWze8
+         QDKIRApPMKb0LIqEfor9RdMv9RIPBf/u+DtsXznZ5YiwyRgXHZWwGtGLrzJt0vKLeC/i
+         Jy1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxw6n4MoCHnQdnxmUTszR7QigNsS4onz6tnVaahe0mzSIsqzX3SeqOf7kyTqevkM1dfB9jMeQvuobUMuiw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM1up17/P9kEJB5q5fLXtTCVEWxGz3zTPCMprVKoBB1BJSKS9+
+	S3hnyfmsYo+24zrTOGTQXrgwebKBV2MJ3em5OlWJzGuD0tF4Va6SIYpM
+X-Gm-Gg: AYBFou1xA9YzXRLKv7kJyOVvNMyCXvKtLx1ADBs05wMggNFYJ6ZNdTBig2OPp8KbYXx
+	mOrQrYz074U84/R1yoQOC68qNukNSFpQtv7P5SrppjC9Fny/ZD3dU+sGhJ1if9K3sRD0cjg+QB7
+	RyNms/jGSPO9YDYNa0gDYQJIKj+OY5AM4EqeMKkOD9JCYT7yopmihsITbAzrP2/np3KRuRnE3zH
+	dxw7K/ZuDYaot2cwreJapesT/Q8ECb8Y/FeSt2ohWZO42RJsR423foQwya1w1AaTzjz6HSYcKiO
+	e52SF5k23yyZz0OgNwBay/a3LDJQqTHWUMlfDLhtt1Pde+9XOnA8pc04If++menkMQHv5fT+KVC
+	e75fCsL1mxhRME0XAv7aTUbewuEtmO80UA2wFcQcysf/gudwU/MUuDyMY4JOlnnDnudfx9/4SQD
+	8CEjDVTKIdnbopnM4S3ATA4q/+0BD32xrue2cRGN0i79KmTBNDmINrpE3l9myB07wD1OU0V4/8C
+	j787fWj8npl89Zf0aUDYv3i/+ZM2UJdTz3Pw2V8BedJiX0wY4juxbFfTBrXf/k37JiBK/R4
+X-Received: by 2002:a05:600c:3e8c:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4a35acab6cdmr176493125e9.28.1793116196133;
+        Tue, 27 Oct 2026 08:49:56 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:5434:54a3:4661:4f45])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a5822a7sm286673925e9.11.2026.10.27.08.49.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:49:34 -0700 (PDT)
+        Tue, 27 Oct 2026 08:49:55 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Jon Mason <jdmason@kudzu.us>
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Koichiro Den <den@valinux.co.jp>,
+	Frank Li <Frank.Li@nxp.com>,
+	ntb@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] NTB: epf: propagate memory window command errors
+Date: Tue, 27 Oct 2026 17:49:53 +0200
+Message-ID: <20261027154952.250683-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,186 +98,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/6] mm: fix pfn walker races with memory offline
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
- kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org, 
- surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
- hannes@cmpxchg.org, ziy@nvidia.com, linmiaohe@huawei.com, 
- nao.horiguchi@gmail.com, ljs@kernel.org, liam@infradead.org, 
- rppt@kernel.org, osalvador@suse.de, muchun.song@linux.dev, 
- iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com
-In-Reply-To: <1c61eeb7-5fad-46e5-9643-e99050b9042d@kernel.org>
-References: <20261027042204.3741307-1-gourry@gourry.net>
- <01d7d54d-0047-4eb6-a1d2-5b3f113f26cf@kernel.org>
- <179310071902.664110.12994053710961856591.b4-reply@b4>
- <9051ac3d-60b9-4ed2-b781-b7191898bc83@kernel.org>
- <179310895201.1491991.14362391061932133491.b4-reply@b4>
- <1c61eeb7-5fad-46e5-9643-e99050b9042d@kernel.org>
-Date: Tue, 27 Oct 2026 11:49:33 -0400
-Message-Id: <179311617372.2530325.90240880272181996.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-27 15:25 +0100, David Hildenbrand (Arm) wrote:
-> On 10/27/26 14:49, Gregory Price (Meta) wrote:
-> > 
-> > while these are ai-generated, I'm not posting untested, unreviewed
-> > schlopp for the sake of getting patches upstream.
-> 
-> Appreciated.
-> 
-> For this long-standing considered low-priority thing in particular it is
-> reasonable to go back in time, see how often it was raised (quite often by me)
-> and how often it was actually reported (I found one case).
-> 
-> Then discuss the high level design in more than a single sentence :)
-> 
-> Discuss why we are not using it for other pfn_to_online_page() users, how it
-> interacts with zone->contig etc etc.
-> 
-> There really isn't a lot on the design in the cover letter.
->
+ntb_epf_mw_set_trans() and ntb_epf_mw_clear_trans() discard the result
+of ntb_epf_send_command() and return success even when the endpoint
+reports a command failure or fails to respond. This prevents NTB
+clients from detecting a failed memory window operation.
 
-Fair, there's a mix of design vs firefighting tension going on here.
+Return the command status from both callbacks. Preserve the existing
+teardown error diagnostic.
 
-I'm trying to get out ahead of a rapidly evolving scaling issue before
-it becomes big.  But I will admit it's sometimes hard to even figure
-out what questions to ask without posting the wrong patches first.
+Fixes: 812ce2f8d14e ("NTB: Add support for EPF PCI Non-Transparent Bridge")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/ntb/hw/epf/ntb_hw_epf.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-(Cunningham's law :P)
+diff --git a/drivers/ntb/hw/epf/ntb_hw_epf.c b/drivers/ntb/hw/epf/ntb_hw_epf.c
+index c47607d4f8a7f..dd10c30bdbec4 100644
+--- a/drivers/ntb/hw/epf/ntb_hw_epf.c
++++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
+@@ -498,18 +498,16 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
+ 	writel(upper_32_bits(addr), ndev->ctrl_reg + NTB_EPF_UPPER_ADDR);
+ 	writel(lower_32_bits(size), ndev->ctrl_reg + NTB_EPF_LOWER_SIZE);
+ 	writel(upper_32_bits(size), ndev->ctrl_reg + NTB_EPF_UPPER_SIZE);
+-	ntb_epf_send_command(ndev, CMD_CONFIGURE_MW, idx);
+-
+-	return 0;
++	return ntb_epf_send_command(ndev, CMD_CONFIGURE_MW, idx);
+ }
+ 
+ static int ntb_epf_mw_clear_trans(struct ntb_dev *ntb, int pidx, int idx)
+ {
+ 	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
+ 	struct device *dev = ndev->dev;
+-	int ret = 0;
++	int ret;
+ 
+-	ntb_epf_send_command(ndev, CMD_TEARDOWN_MW, idx);
++	ret = ntb_epf_send_command(ndev, CMD_TEARDOWN_MW, idx);
+ 	if (ret)
+ 		dev_err(dev, "Failed to teardown memory window\n");
+ 
 
-> > Some of these don't show up as crashes but instead as hung offline
-> > attempts (GFP_KERNEL landing on movable).  That shows up as our
-> > hypervisor just failing to overcommit / guests hanging.
-> > 
-> > The compaction/alloc_contig bug is one I've seen in production.
-> 
-> Right, but I suspect that's "[PATCH 4/6] mm/page_alloc: don't undo another
-> isolation in alloc_contig_range" which is *not at all* related to "mm: fix pfn
-> walker races with memory offline".
->
-
-Ehhh... i'd argue it's the same shape.  But i'll concede some of these
-could be pulled out ahead as you've said elsewhere.
-
-> > skippable side note on virtio-balloon/mem:
-> > 
-> > I have some improvements to virtio-balloon and virtio-mem that allow for
-> > handoff from balloon directly to mem for hot-unplug without having to
-> > drop the balloon, but I haven't posted those (and we don't run those in
-> > production, so this is not the nexus of crashes).
-> 
-> Do you mean free-page reporting or actual balloon inflation/deflation paired
-> with virtio-mem. I hope not the latter, because that is just disgusting.
-> 
-
-Actual balloon inflation/deflation.  It is disgusting, but it's
-effective.  Right now we use hotplug at boot to minimize the size of
-cold machines to avoid thundering herd issues, and then add it when
-they actually get allocated for work.
-
-At runtime we use ballooning to reduce a VM to its actual RSS based
-on PSI feedback (see: that virtio stats extension i sent you some while
-ago), but would like to use hotplug to give the host a defense against
-a storm of deflate_on_oom scenarios across a large number of guests.
-
-Basically using PSI stats we can make guests do somewhat aggressive
-proactive reclaim on without having to build any new tooling, and
-while being able to back-off aggressively.
-
-Free-page reporting is also on by default, but this only helps you if
-your guests are being extra nice about things.
-
-(spoiler: they're not! they're greedly little imps! :D)
-
-My experiments made balloon prefer to try to reclaim movable regions
-in contiguous blocks, and then just hand that contiguous block off to
-virtio-mem for offline without having to drop the balloon.
-
-tl;dr: This seems effective and works quite well.
-
-I've become a little confused as to why virtio balloon and mem are
-separate entities when they could work together this way.
-
-Haven't had the time to read up on the development history.
-
-> > 
-> > Agreed.  Although I fear the structural fix for this will have uglier
-> > performance issue than we think.  Then again, maybe it doesn't matter
-> > (if you're doing a PFN walk, then you're likely already doing something
-> > stupidly expensive).
-> 
-> Which areas are you mostly concerned about and from which piece do you expect
-> the overhead?
-> 
-
-largely the zonelist iteration - which looking back through history 
-has already been "optimized" multiple times, only for those things
-to introduce more bugs :\.
-
-The zonelist races seem more ammenable to RCU solutions than the pfn
-walks.  I'm not sure how to safely quiesce every possible PFN walker
-without atomics in their fast path.
-
-> For "broader" things that are not just a simple pfn_to_online_page() user, we
-> could also have memory online/offline sync in more efficient ways using the
-> memory notifier.
-> 
-> It's also tricky, but maybe for zone->contig + compaction the better solution?
-> 
-
-This seems reasonable, I was trying not to schlopp you with a half-baked
-architectural fix and instead use the available tools.
-
-But maybe we should chat (after the window).
-
-I'll try to be on IRC more often.
-
-> > On performance:
-> > 
-> > I've been hammering this with will-it-scale and a bunch of workload
-> > tests on a variety of hosts and have not seen any obvious regressions
-> > outside of powerpc (which i can't test directly, but SRCU-fast requires
-> > atomics for powerpc from what i can tell - so it will eat overhead
-> > without a fallback... if there is actually any hotplug ppc hardware out
-> > there to care about?)
-> 
-> So the big problem is the overhead on the read side for srcu?
->
-
-Yes - but specifically this affects PowerPC because it:
- - has NMI
- - does NOT have NMI-safe per-CPU operations
- - supports memory hotplug
- - uses atomics for SRCU-fast
-
-So using SRCU fast in these contexts is not cheap.
-
-For what I could measure in QEMU, the atomics on PPC seem like they
-could be significant (15-20% overhead) in microbenchmarks.
-
-Hard to say what that turns into on real hardware.
-
-I implemented a fallback solution for those architectures to just not
-free the zonelists in this case.  They have to iterate the dead zones,
-but it's a much less overhead comparatively (<1%, but measurable).
-
-For everyone else SRCU-fast is imperceptible overhead.
-
-> If we can find something else to suspend compaction, we could maybe switch to
-> rcu for the remaining cases.
-> 
-
-Is long-term compaction suspension even safe? I had to make COMPACTION a
-requirement for N_MEMORY_USER_NUMA in order to not generate spurious
-failures due to fragmentation.
-
-~Gregory
-
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-~Gregory
+2.43.0
 
