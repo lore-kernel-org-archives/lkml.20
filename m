@@ -1,97 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793110470;
-	b=bAYXsqFeVEnnMEYE+2GmRn+nNOy3qrg73DpTno/CjCIGZGv4vrQYp1pOL8Tr1HzWPBQF
-	 iY6yrICiQSpbI7Czdz1Wyg8JE02svrQQ5J7+ulNQjd8Q6opVm41LfhCGKpTG3Kr9RO/De
-	 lnPaRpNuXRMK4xxhfjrJOpkpAkNAz5UqvK0xORznAC27cLGsWW+R5BgPvwUa0Pzwj0bFV
-	 C1sS1jo5WZfUMVPBLsMBZCAMll0/UI+C79QMH9WnBYfYe8WYfqY1zwd/8xPkeAAyJW2vo
-	 p3EshzamLKqi6JUTVIA6zfDjnWamZuLAL+2vey8yM829EQDZAmM+VQ3N0iarOYc5D/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110470;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dusm5IG5lvbGIAYoWTrr0Wl3tC0rJ3hUUsS5Lou2YuM=;
-	b=hsqzv+GG6pzWn0YKl+FOmJxaEpl5Q/weurVhkdRewey5pLZKuDI8LEickYojH8aMG3+y
-	 xf7hiID+e+Q4NxNlyy5A7Y7Z0te34lAsQqjpQkL3da2uR/dpR5iB69TzDacFC+by9m0pC
-	 63wKQdAWig3/qt2l45GaJx4rQ+LXTWZCvRznnVuy68LsF1cIO1pwbjwrBbxRp+hr0y4Is
-	 ZUGCRSG3iHs0qr4TqB36xLAKwBj+ZpzeqmOs7viAjI1MRdNqFmUXeI0Ah9jaVuGaedF7h
-	 92F9H/iAqPqrfYpE0CCj/mo2T4T3KvIHbGW/cZJkK5/oAhZ5D88xmxn3t150HjzK1OQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ti6iT7rL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.16
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011016.outbound.protection.outlook.com [52.101.65.16])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793110477;
+	b=eP+8nPwa1rIai7tp8MosFdxjDNs5/sMEHkNKSgQ9GhDDl5FkwxTuRT8kbwUig9fVJFHZ
+	 I+L/GOkGkE3yL9L/AIgBM1njW+VX8GwWEY0nqAixiNEZDrKkH9OMm/u5fGvgqrDtWP0nK
+	 xQg9FjKd6MiqGfIVL+4A+non7k3mV+OjaSotGluN590QYutmqb76J13aoAndQoVSiFlDT
+	 TuCuKwnxCJep42ZbFNZ10BBs70Qpz7pKmSyZW7ijYxt7uROSJ58A/TphFF5gKxch2A9be
+	 l81rYlvbMqEWNtLWIndNf8YPccRWclFDYFkJ+o4q5aRFHAWbQtc4Ut97rPUkN86EfXw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110477;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=tqkXPKxnOpu4GJB1w2Qf2g/GEkrQ0JawCqjyURpRlxs=;
+	b=S1RXsaEmhrBbnUkNIta8/r9YWciSt+6OLXcq4y2NhW3SyBCt9gWrojCsfuhqTJ2HVRsU
+	 JziriawpJ+XxiaE1jHYepPYJl6C5+UJazmoUP/DV1/iKe0aAmNrv6cY5wEaRn/7FLMwQZ
+	 Sxsm5dbQJG/wb1CFjkiEw2iqYJy/JhXbIDUZKjOA//+z8U9WPCDjxjNdV5IV/sSvbU1KC
+	 lIKbMVqnTfoF5Me1K0avjP6zKWFoBzC+zBWi5oNtkhwsR6Uby9nPaL/4oTLoOzDPJr0wH
+	 0V+wiVyILViT+iEJRyY494wQZf5VwEzzCbhmzohXqry2SgbF1aOBnfA5bJjpAWuN4GA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PFjSssoQ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fey9dxf1;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A892606A31E;
-	Tue, 27 Oct 2026 14:14:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A892606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590D8606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:14:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 590D8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Ti6iT7rL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tUv4p/UyDwjpvVARL36f9bphzQitEzIaeMKlC+VQEx3yGv1bjfU6gTCoMmq0iW75O0sP58jUEhsskZZbEsLgS82V2uMILCca7i14v7wYfdWAlyG93wtctH5I0LO9wZU5yUgG10RRwas48dv6LSHS6NxzHnK6p01gzYklIhmU+bFhTMPVfVcvFI/ZuxmyikDpaycxWIXBYqflw7yeU1646FozsE1CWfiCg9fPsqdlbSOYnVZ5oJfoVKY3B9wAm95ewN/EWq/XXXe+5gxbUs8G2+Acgq6OPPEi1+XbGCmSqdJQsOkQHHUjqxteke2TF+zyi/0llIdACoeIQrCm03IsGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dusm5IG5lvbGIAYoWTrr0Wl3tC0rJ3hUUsS5Lou2YuM=;
- b=qnHBCP/svQeQ2w8PUSQSBcg30vK7AzGq/tjGz6hxHQmAbMcroJ0AB5/9Ghsm/Dpg8+Dd2qh8ykjeLhZAZoyrnuSqBwnKYfA388MCr+7/ohRY0jK/urUKKD2dptT05vH9tEqMdOI4q5QG5Vg9lQCn+uph2LR+DOWCEyH4LI6/Dp0JP36bWsy+2PIqp6URO6Gh8koPDul7aWUKfpvSO9qh+EnVhXQGMK9BuyorV88D3GCFvcBbAihWRaRzzwrClHztMqiTQkGOqfblKYWbEth/asPugBdWqcgG20ihkEmnOzifuEPtgTi9yV24MZ7GbLP1Sm1rY2IVN6uEfks7Jkmcrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dusm5IG5lvbGIAYoWTrr0Wl3tC0rJ3hUUsS5Lou2YuM=;
- b=Ti6iT7rLzpsEMuOArtYP/SDYorhXxEUuMgrVhdAGBlB8LJvF3XXOAst99IVnDg4Etz2W4nrGE2j6UvFFay6zzPWTaIRGqXsl+3mtAQA9VeUReFXJD+ERmI3RXV01H/D+FtSPGq6x1uy8Xod0Qgg2RcbpEFl7+YnmAljCvTy2ZrcGaIRwEpgOVhkulfnfYQYFrSDXbKbaEmZNiAW96iNlNM8YDaex520LISPrq+6nQtBVvVtGePKTQZ0yEj6/NZAz162B45OkKQiiO8c5uZGNAwBYI0uIbH72oeKnYn//f8dGeCOvkqVbzx0W7yiSz6U1qgW43CXp21UJiX4rFWrZwg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAWPR04MB11673.eurprd04.prod.outlook.com (2603:10a6:102:512::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 14:14:27 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 14:14:20 +0000
-Date: Tue, 27 Oct 2026 09:14:11 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v7 12/12] MAINTAINERS: Add an entry for gpio-mxc
-Message-ID: <auCxs-ADoIE63d-J@SMW015318>
-References: <20261027-gpio-mxc-cleanup-v7-4-v7-0-7b602d70c149@nxp.com>
- <20261027-gpio-mxc-cleanup-v7-4-v7-12-7b602d70c149@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-gpio-mxc-cleanup-v7-4-v7-12-7b602d70c149@nxp.com>
-X-ClientProxiedBy: PH3PEPF000040A6.namprd05.prod.outlook.com
- (2603:10b6:518:1::55) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PFjSssoQ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Fey9dxf1
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDoPMu2397365
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:14:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=tqkXPKxnOpu4GJB1w2Qf2g/GEkrQ0JawCqj
+	yURpRlxs=; b=PFjSssoQqD0UryMhOWF+iBsdbEBHGwBEkX3x1QO4xf8QI8OACVl
+	xx55BLIdOn8kbjILzl1IEnMiGqFHsJI4xQl2E9vlW/4BRxPYK6Ab1Y/Ff/fLinna
+	wpX3GyaUnCnBnngHJSAcVgqRmO0IIjcfKTZc/Ed9hmcCmz7CTedie6bkM/znNT2A
+	vlRK6KUJKnqlOsvJL0J1ln45OC+zcwn4YqjZYkTiYnBl/GEnWscJKfW1+r9p1sb6
+	sYawKN0livILIR/0EhunFozcKibHeU4QzamTZ2RtmYY8GwJbFABLzofYiIPXqQFP
+	ng+3YQZcvZRMcnO3HCmXNGUee+6uQI4ss0w==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjst1gysp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:14:35 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd633da24f8so5109483a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:14:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793110475; x=1793715275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tqkXPKxnOpu4GJB1w2Qf2g/GEkrQ0JawCqjyURpRlxs=;
+        b=Fey9dxf18SCpnwPKvHH43AgDAaEMa51v8lD3B7L+04IUUfQ+EDEVPrsENXefl6/RRl
+         hkx/o7sdbYgwJh+Ctek0UDKmHTHtVSYgSadLYwq+pHplKBcqkj5i0mJ86YQY7M5i+YdA
+         1tLbWs+lHYM/JU5Oli+QL2eCBtMDuXXZa2k/P9zk9WaM+bwLX32LmwNZOx1DMynFvERr
+         K5ngr1G1eqb++37pEoKyoTR1ItMaeXLF0X2pqRYvAqkMD+xjVevBXsjTrfQ3QfLPDqEB
+         pakINprUwOK+OgIWDdcWASkLDoOLksYnIvW/kSoQJ6LWn4Y6lzUj3zLoeyJ7B8I1VC4z
+         P4xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793110475; x=1793715275;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tqkXPKxnOpu4GJB1w2Qf2g/GEkrQ0JawCqjyURpRlxs=;
+        b=h4h8kdCU9TGssCRKpI2pT1QODJoIaaSkbfyaMcdxLkJfmLaxtt79Tno6XagnbZNsIj
+         Lsk0l5cAHCP0osjJmRi4p9nF4+r41U4K1rDkFTCcF7XIQGVgJOcfcAuzCrssfNZOBJxw
+         7J2aC8C6OsY/wx1mBTA8/j14bsw+E7Q551RBUe/w49IzajeItRcTORT34d8IzyQWv3k5
+         bBQhy0p1g8qUDIqSD2RVELM94HvraYUJNok3EvmAE/x75B4G6v4+kIk4qr8GPNPZ1AGT
+         qPhPhsf6gq79HIUroHQ4tn4NjP3yuWGkoIjhSQY9pXFEBLYLLxIyK5SaT6H0OCTduI8z
+         OSMA==
+X-Forwarded-Encrypted: i=1; AKwUvByb2cRASAg+5Y4TYEbz3CEGG/MKBFacLlfCt1bcitH175046NXy5V/mV8lnHH2NX0gGgTmQFwOb0ig2Lqc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJSOxV1IQoy02SbDmPDAvDHVsAGGKfyFgn+Vb/2nbfokf16zBs
+	gNPB5JAk8yBtepH3m/rxZ+EtUqS68Ifj6T0AHJ3tfz3ljTy+rDOeqdpvRR2Smclw9nDAupog29y
+	KIh5TMV0xCupB7ATomtcTYIDp6TQzQiSmEaWazEsZUEr5oii5rBiZwAIsYWNP4gBziPI=
+X-Gm-Gg: AYBFou3zAkwBixWl3BLSqceSwXfushPFJDQgsHFWHycxlZosA2l8Uzg6wfRaCvcZZgp
+	64fUTDc7+u7FftchNJ0ibmNhfZmyRHPOGes4ypjSyZEj8mlCH2ku7sabC/D4t0cIC6hMDBLQuGq
+	Omc47yAyILgHgdR+mBUi0uU+4UHwVMjmrJGdlGpDR7Hz+FPpWljIH7kggd8ytGuZyEMVYHj556k
+	/23u54M2kVFhPBfCLEA4luiH4ojDHIS8ss3USIey8q+CfPTG8+2Ll9FIDAgEdeR37szRWNd+o4Y
+	PqdNCEXBb1FY9G/5YnJhqpvJ/6F4yZE0gmM4BJWVawjQEU1spFVV8654A8C7gX3QgiYLEM4fwMr
+	UkbvwA+cRxLqq0kBId1ZbDbavo9liRAoZFjcYRvzDYg0cR5Z2p41wDXw+5bgyAs0DDDc7T/odHf
+	Hz3smMOcisiQ33nppj6fik+Q==
+X-Received: by 2002:a05:6300:49c:b0:3dd:a197:edf4 with SMTP id adf61e73a8af0-3e7cd669907mr6998666637.67.1793110474805;
+        Tue, 27 Oct 2026 07:14:34 -0700 (PDT)
+X-Received: by 2002:a05:6300:49c:b0:3dd:a197:edf4 with SMTP id adf61e73a8af0-3e7cd669907mr6998619637.67.1793110474061;
+        Tue, 27 Oct 2026 07:14:34 -0700 (PDT)
+Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cccbaaa9sm2883071a12.23.2026.10.27.07.14.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 07:14:33 -0700 (PDT)
+From: Rob Clark <robin.clark@oss.qualcomm.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Bart Van Assche <bvanassche@acm.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] drm/msm/gem: Add some cleanup.h
+Date: Tue, 27 Oct 2026 07:14:29 -0700
+Message-ID: <20261027141430.20258-1-robin.clark@oss.qualcomm.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,95 +126,300 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAWPR04MB11673:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25aca49f-19f3-4899-7539-08df343497c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|19092799006|261009223027099003|261021121427099003|261022105027099003|10067099003|56012099006|261026140227099003|6133799003|18002099003|22082099003|261026121527099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	NxvUVQKHKrpVvp8eV96xx2CNKz/OpsWIO0XXIto8BUMlMiesRQd5RQS/xMezBQAWvWoPjdSvOM0c0EU+w1MZFJj9I85wDGwFuYaPJ5AKaKXQByTFFCdchH8daH1s2s6SnpLckhRUtPT1cNVYUjjXs3litHp+RBJtvZVSdwG6x7cxnV+bAPFvniRq3tjmFpMAgFkK+AlJ2SsE5fo6ZEwc0zTUK/BEvkVEldV6JsslgBIqj4rJb6bP01dWC6KAgOLcW8P2VIg/hPaw5RQMmB3oSpbY/UjDYp3Lfaw2jyZyvB+wiTRBURW4mTRr5U5md8RrafeMeUTtYnZ6qjNuyytsFwJrrWbweVaDOOA2FS0GlLD27j/QRExr2dh0hwprHa9hkdA/Biw+S6a1S5Rdm47usX8Ic38MqZFb0N+3kiFzdDSZX1mDKkUrCQialNmKLWIx/Ww6KfVp8nlkKO46krObgNugkVeO5sdak3BIzERVa79OgsQpSdE5XerxxuiSwOIjerWOe7gKJc20Dt5pW+9+FoA7Cf1yWjP8YzYL9ttxsuL9mpzLtZljMtZx7j7Z1QBdnKqS24YR2HaYKiB4lUlBPCDprkDQAn9GHID/CP1TgXNLajDYafvYsnAhZJBiHIdH3P0jxcuJzlaH4vlq27lwz995a6BVZqwPphQJYgumjdM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(19092799006)(261009223027099003)(261021121427099003)(261022105027099003)(10067099003)(56012099006)(261026140227099003)(6133799003)(18002099003)(22082099003)(261026121527099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?BQvtsvNnxZgdJwMeTFPpWQ29dD4OaSjuwhDYeeAXuG1+Rbjsh0+Lk3/epRJp?=
- =?us-ascii?Q?NsbtUeCEhXNXaFIKPDBi8FdZ3xxX/0awgagPU27J6eXNm5K8QHu6eVnR8PvB?=
- =?us-ascii?Q?YfIEC6aTZS5/iBq/ZEdhCWeweAuRNtqrE3nPSyBdDt0jZZI+L4yC7/tf+4nm?=
- =?us-ascii?Q?hvgaHv6fMNRTpXe6sO+Yu4lBrWhL0Yjd6lMwfXlRqEq92yAELeSbPTjeHpZg?=
- =?us-ascii?Q?eF/e2V9IOOXMp6Q4CUbdOrYLH9o5Pu5QOS7G0MHccQ+IRzwgW0KTxDIe3tA1?=
- =?us-ascii?Q?mpL1vWJHtc8zpLWg7s4INixjJ/sYu5fIRZoV8c7o9O7C11Djwo3x2w34vkX3?=
- =?us-ascii?Q?VIKeHOWOps5PtIT2QQLFueUYsAH6yBdwc4QWy2BrkvVQYvwrb95YWJWqK//E?=
- =?us-ascii?Q?A3NTlp5/NuPkMJrLEazy4uMu+hCYllbnp9kqpZgzXQly9z6DzkGwHjW8YsBV?=
- =?us-ascii?Q?OxPCbrKJUzt7BRD5OglK1ROSi0rANlEaTvMMIF8XjOWq2vSyA8AF2xq1Noge?=
- =?us-ascii?Q?f9o84eJk366t14UfCJT+Dt7493A5Km77c+i41GfoP71I0k19ZAWXq+CW401H?=
- =?us-ascii?Q?OCdbQEh1GSS1uwsHtjmejojLp2FiLIrFwEYPJ64mjbvCSLhyWMTnfhrlgVXh?=
- =?us-ascii?Q?o9jyxEBdZKJqXehSZGxXP+PDEiKEPnlOou/KXgmb9cLHLwdJ1ek4Lj5gd1Ee?=
- =?us-ascii?Q?bI3Y2xgyvqkBA5QijniuTYfraAMsY5NOPa5Q9QYyTanA7tIVFk5/ihXWQVqp?=
- =?us-ascii?Q?ceKcSCEJDzcB9SD3ftjgy0qrJg9cS70oBUMjIrUKfOw5nfFs97U2XW7fATXK?=
- =?us-ascii?Q?+i8HsZUylXR6+3142bByzWIYcxOIrEN4XsR3pvjs8Gt9aHbCYQW5+HFzcrFt?=
- =?us-ascii?Q?cwNQjj7aqMvtK/iQ5eBlINEEqQdecWGa5NmJN1fR3nE/dYtqZKfGdbLK4BN9?=
- =?us-ascii?Q?9IAmbLCLqQCkSpppq7cEG4R5AIKAr1WzouIPa5bAyV6aUZAfnNF3xboeI+i1?=
- =?us-ascii?Q?d3vfpr0Le6D1nqmNIDNY8WznFIC0CJWT5o+WFLGptjtOEULP38BOvkNoyHyc?=
- =?us-ascii?Q?6pvjWBVqfYN2GPVmfyO1bdiHxC9dEVJS6ke4qdWVnZn+bDUD5BZ0NRzsn4x4?=
- =?us-ascii?Q?iJfmxcC5CddyiDNfx+awb5MNYugWnSEjWC6sE9ro2GTJT0sIiQ1hr/Hizfuz?=
- =?us-ascii?Q?gKU13ANNMEh2uM4+ZahqpDPEZmmBZmlnweiC/hGePn/g0hrlP3uMb0kzSAaM?=
- =?us-ascii?Q?mo+FYpODpgh+8ITonpyvxQMtCHtJwZDuvEPdnDWRGHiMqNO2cQGPtE+AxSIa?=
- =?us-ascii?Q?hsliGVP+M4CpCGSe8uHV5+MmrWKH4z5fiPPGI2mbImkSaLRzgfOAl1I/PfnA?=
- =?us-ascii?Q?/fRPzE74Flf9xuqUSE7q1LukV3YBIJWzMQ5crPdh1QiR+t5/iRMQGy424Qmd?=
- =?us-ascii?Q?aEl2lgMzRueLmDa74HLakfYiFJQr27p4vgEY1UoIevMm12pUmu2hNcmEETE7?=
- =?us-ascii?Q?+PNmChUKYU6TJtQBGU0yEoi8uGNBi3Hiw0N7snST7Rr6quon/F0nI+jSNi6b?=
- =?us-ascii?Q?I7KHwnnmlv0lPE9Yql1PmX4kWTSyeiHD98nExIDvVTMmku9IG8KzmVfq8iry?=
- =?us-ascii?Q?P5M50HjIReLW4G+kdM9Y8sjrwIsCaHxHm16SN74Wv+fmcVKwGpbUjyqi2FP+?=
- =?us-ascii?Q?WDOlJR17gCxYTsLZqsjaWmTYybBq/NvAXdsx3qsgrsY9rqD7dZ9AfXDscX16?=
- =?us-ascii?Q?TMtQOONLII2Sg0JVeFQ2zvBkrJq515/umCWswgsa/7iiY/rQiUP/?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25aca49f-19f3-4899-7539-08df343497c4
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:14:20.1113
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eAJRHKh4WShbdPvjmCGXgidFP0HfSHaROockQ3zCWBWZwS86Ak+rcvXB9HmpV9jhLQilD9anAdkhy5Eq5TN1dwyCDxpghKdLw+ESrC041SHURFe8qw6IbSKomGE9J5ca
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB11673
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=HJ1WhYtv c=1 sm=1 tr=0 ts=6ae0b1cb cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=e5mUnYsNAAAA:8
+ a=EUspDBNiAAAA:8 a=R9CL6gCY_nRhBqBy_5QA:9 a=_Vgx9l1VpLgwpw_dHYaR:22
+ a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-ORIG-GUID: zS7H_XpR1VcgAaNsuxE71AyEO7YNxzU_
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1NiBTYWx0ZWRfXxAej8Hi0B3AX
+ i6qa5NH3e18pvm1/pBgdtJTdOzTvQkkVji0yknyunjes/pIUhgXcL0UvsxwOlY3DtOfy2xkRvTZ
+ GYb/7MMGYwiYy6RZrub1JT5GRGV115o=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1NiBTYWx0ZWRfX8VF29q9BmQvA
+ NJs9Lyg6sh0CEnUuSGXUxgZeiA0qImUYe2ArGZlYjywkN9v2TgNr3PdJ2YpZ1FeoW6e967wLHEF
+ soLMWvkbwqGiATvSvxjuQlbnyr04RoD8ibWZp/6FvHbod6/XqvkYOtPbeY0eLIFYmVbs0A/gFRq
+ 4BJqvyXvaxC+9PW4HItE42fn5SbLkO2GT2iv31/k7PCuPEovC6W1uiDuHzRgHCT9MM1I71ryYgK
+ pySsDlD9JSddP4C8WzYc/iZkitfkVfWVfb0uW5iuyovfvJrJK50dBYUVx/Wx5ojd4tDta7Uv4TY
+ 4aY/mQKXVpcCyoC0m0ty1R/zPhjyHNUM9TmthL6arCfJGH0qEU2NpKfCCfPB5d37G1tl8Jqtog9
+ pu1FOrwNxfLTJu9NzkXkxuJRGxItMliAu7vs6xmSQ5OaeAKh8l9QJ2v8sOxrI4MtFb4gDdYun6z
+ DUfV+UNeYXNvZhBWXgg==
+X-Proofpoint-GUID: zS7H_XpR1VcgAaNsuxE71AyEO7YNxzU_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 spamscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270056
 
-On Tue, Oct 27, 2026 at 08:09:39PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Add myself as gpio-mxc maintainer
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
+Convert (most of) the msm_gem_lock() and friends over to scope based
+cleanup.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Other than fixing a lock leak in msm_ioctl_gem_info_set_metadata() there
+should be no functional change.
 
->  MAINTAINERS | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fcff12847485..a7aa9a587496 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -10738,6 +10738,14 @@ F:	drivers/perf/fsl_imx8_ddr_perf.c
->  F:	drivers/perf/fsl_imx9_ddr_perf.c
->  F:	tools/perf/pmu-events/arch/arm64/freescale/
->
-> +FREESCALE IMX GPIO DRIVER
-> +M:	Peng Fan <peng.fan@nxp.com>
-> +L:	linux-gpio@vger.kernel.org
-> +L:	imx@lists.linux.dev
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/gpio/fsl-imx-gpio.yaml
-> +F:	drivers/gpio/gpio-mxc.c
-> +
->  FREESCALE IMX I2C DRIVER
->  M:	Oleksij Rempel <o.rempel@pengutronix.de>
->  R:	Pengutronix Kernel Team <kernel@pengutronix.de>
->
-> --
-> 2.51.0
->
->
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+Rebased onto: https://patchwork.freedesktop.org/series/176884/
+
+ drivers/gpu/drm/msm/Makefile         |  2 ++
+ drivers/gpu/drm/msm/msm_drv.c        | 40 +++++++++------------------
+ drivers/gpu/drm/msm/msm_gem.c        | 41 +++++++---------------------
+ drivers/gpu/drm/msm/msm_gem.h        |  3 ++
+ drivers/gpu/drm/msm/msm_gem_submit.c |  6 ++--
+ drivers/gpu/drm/msm/msm_gpu.c        |  3 +-
+ 6 files changed, 32 insertions(+), 63 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index b5d64ee7eb74..042fd8fd3f57 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -254,3 +254,5 @@ $(addprefix $(obj)/,$(msm-y)): $(addprefix $(obj)/,$(ADRENO_HEADERS))
+ $(addprefix $(obj)/,$(msm-display-y)): $(addprefix $(obj)/,$(DISPLAY_HEADERS))
+ 
+ targets += $(ADRENO_HEADERS) $(DISPLAY_HEADERS) $(ADRENO_PERFCNTRS)
++
++CONTEXT_ANALYSIS_msm.o := y
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 7ab808322be6..4b2798efd9da 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -550,7 +550,6 @@ static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
+ {
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+ 	void *new_metadata;
+-	void *buf;
+ 	int ret;
+ 
+ 	/* Impose a moderate upper bound on metadata size: */
+@@ -559,32 +558,25 @@ static int msm_ioctl_gem_info_set_metadata(struct drm_gem_object *obj,
+ 	}
+ 
+ 	/* Use a temporary buf to keep copy_from_user() outside of gem obj lock: */
+-	buf = memdup_user(metadata, metadata_size);
++	void *buf __free(kfree) = memdup_user(metadata, metadata_size);
+ 	if (IS_ERR(buf))
+ 		return PTR_ERR(buf);
+ 
+-	ret = msm_gem_lock_interruptible(obj);
+-	if (ret)
+-		goto out;
++	ACQUIRE(gem_lock_intr, lock)(obj);
++	if ((ret = ACQUIRE_ERR(gem_lock_intr, &lock)))
++		return ret;
+ 
+ 	new_metadata =
+ 		krealloc(msm_obj->metadata, metadata_size, GFP_KERNEL);
+ 	if (!new_metadata) {
+-		ret = -ENOMEM;
+-		goto unlock;
++		return -ENOMEM;
+ 	}
+ 
+ 	msm_obj->metadata = new_metadata;
+ 	msm_obj->metadata_size = metadata_size;
+ 	memcpy(msm_obj->metadata, buf, metadata_size);
+ 
+-unlock:
+-	msm_gem_unlock(obj);
+-
+-out:
+-	kfree(buf);
+-
+-	return ret;
++	return 0;
+ }
+ 
+ static int msm_ioctl_gem_info_get_metadata(struct drm_gem_object *obj,
+@@ -608,26 +600,20 @@ static int msm_ioctl_gem_info_get_metadata(struct drm_gem_object *obj,
+ 		return 0;
+ 	}
+ 
+-	ret = msm_gem_lock_interruptible(obj);
+-	if (ret)
+-		return ret;
+-
+-	/* Avoid copy_to_user() under gem obj lock: */
+-	len = msm_obj->metadata_size;
+-	buf = kmemdup(msm_obj->metadata, len, GFP_KERNEL);
+-
+-	if (!buf) {
+-		msm_gem_unlock(obj);
+-		return -ENOMEM;
++	scoped_cond_guard (gem_lock_intr, return -EINTR, obj) {
++		/* Avoid copy_to_user() under gem obj lock by making a copy: */
++		len = msm_obj->metadata_size;
++		buf = kmemdup(msm_obj->metadata, len, GFP_KERNEL);
++		if (!buf)
++			return -ENOMEM;
+ 	}
+ 
+-	msm_gem_unlock(obj);
+-
+ 	if (*metadata_size < len) {
+ 		ret = -ETOOSMALL;
+ 	} else if (copy_to_user(metadata, buf, len)) {
+ 		ret = -EFAULT;
+ 	} else {
++		ret = 0;
+ 		*metadata_size = len;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index 72e3cd8bb1e7..9abcc7beb268 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -376,8 +376,6 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
+ 	struct page **pages;
+ 	unsigned long pfn;
+ 	pgoff_t pgoff;
+-	int err;
+-	vm_fault_t ret;
+ 
+ 	if (drm_WARN_ON_ONCE(obj->dev, drm_gem_is_imported(obj)))
+ 		return VM_FAULT_SIGBUS;
+@@ -386,22 +384,19 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
+ 	 * vm_ops.open/drm_gem_mmap_obj and close get and put
+ 	 * a reference on obj. So, we dont need to hold one here.
+ 	 */
+-	err = msm_gem_lock_interruptible(obj);
+-	if (err) {
+-		ret = VM_FAULT_NOPAGE;
+-		goto out;
++	ACQUIRE(gem_lock_intr, lock)(obj);
++	if (ACQUIRE_ERR(gem_lock_intr, &lock)) {
++		return VM_FAULT_NOPAGE;
+ 	}
+ 
+ 	if (GEM_WARN_ON(msm_obj->madv != MSM_MADV_WILLNEED)) {
+-		msm_gem_unlock(obj);
+ 		return VM_FAULT_SIGBUS;
+ 	}
+ 
+ 	/* make sure we have pages attached now */
+ 	pages = get_pages(obj);
+ 	if (IS_ERR(pages)) {
+-		ret = vmf_error(PTR_ERR(pages));
+-		goto out_unlock;
++		return vmf_error(PTR_ERR(pages));
+ 	}
+ 
+ 	/* We don't use vmf->pgoff since that has the fake offset: */
+@@ -412,12 +407,7 @@ static vm_fault_t msm_gem_fault(struct vm_fault *vmf)
+ 	VERB("Inserting %p pfn %lx, pa %lx", (void *)vmf->address,
+ 			pfn, pfn << PAGE_SHIFT);
+ 
+-	ret = vmf_insert_pfn(vma, vmf->address, pfn);
+-
+-out_unlock:
+-	msm_gem_unlock(obj);
+-out:
+-	return ret;
++	return vmf_insert_pfn(vma, vmf->address, pfn);
+ }
+ 
+ 
+@@ -803,13 +793,8 @@ void *msm_gem_get_vaddr_locked(struct drm_gem_object *obj)
+ 
+ void *msm_gem_get_vaddr(struct drm_gem_object *obj)
+ {
+-	void *ret;
+-
+-	msm_gem_lock(obj);
+-	ret = msm_gem_get_vaddr_locked(obj);
+-	msm_gem_unlock(obj);
+-
+-	return ret;
++	guard(gem_lock)(obj);
++	return msm_gem_get_vaddr_locked(obj);
+ }
+ 
+ /*
+@@ -836,9 +821,8 @@ void msm_gem_put_vaddr_locked(struct drm_gem_object *obj)
+ 
+ void msm_gem_put_vaddr(struct drm_gem_object *obj)
+ {
+-	msm_gem_lock(obj);
++	guard(gem_lock)(obj);
+ 	msm_gem_put_vaddr_locked(obj);
+-	msm_gem_unlock(obj);
+ }
+ 
+ /* Update madvise status, returns true if not purged, else
+@@ -849,9 +833,8 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
+ 	struct drm_device *dev = obj->dev;
+ 	struct msm_gem_object *msm_obj = to_msm_bo(obj);
+ 
+-	msm_gem_lock(obj);
+-
+-	mutex_lock(&dev->gem_lru_mutex);
++	guard(gem_lock)(obj);
++	guard(mutex)(&dev->gem_lru_mutex);
+ 
+ 	if (msm_obj->madv != __MSM_MADV_PURGED)
+ 		msm_obj->madv = madv;
+@@ -863,10 +846,6 @@ int msm_gem_madvise(struct drm_gem_object *obj, unsigned madv)
+ 	 */
+ 	update_lru_locked(obj);
+ 
+-	mutex_unlock(&dev->gem_lru_mutex);
+-
+-	msm_gem_unlock(obj);
+-
+ 	return (madv != __MSM_MADV_PURGED);
+ }
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index d8ec696d89d7..bd7968232d73 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -347,6 +347,9 @@ msm_gem_unlock(struct drm_gem_object *obj)
+ 	dma_resv_unlock(obj->resv);
+ }
+ 
++DEFINE_LOCK_GUARD_1(gem_lock, struct drm_gem_object, msm_gem_lock(_T->lock), msm_gem_unlock(_T->lock));
++DEFINE_LOCK_GUARD_1_COND(gem_lock, _intr, msm_gem_lock_interruptible(_T->lock), _RET == 0);
++
+ /**
+  * msm_gem_lock_vm_and_obj() - Helper to lock an obj + VM
+  * @exec: the exec context helper which will be initalized
+diff --git a/drivers/gpu/drm/msm/msm_gem_submit.c b/drivers/gpu/drm/msm/msm_gem_submit.c
+index 5862db05297a..ff6cf39587c9 100644
+--- a/drivers/gpu/drm/msm/msm_gem_submit.c
++++ b/drivers/gpu/drm/msm/msm_gem_submit.c
+@@ -536,9 +536,9 @@ void msm_submit_retire(struct msm_gem_submit *submit)
+ 		struct drm_gem_object *obj = submit->bos[i].obj;
+ 		struct drm_gpuvm_bo *vm_bo = submit->bos[i].vm_bo;
+ 
+-		msm_gem_lock(obj);
+-		drm_gpuvm_bo_put(vm_bo);
+-		msm_gem_unlock(obj);
++		scoped_guard (gem_lock, obj)
++			drm_gpuvm_bo_put(vm_bo);
++
+ 		drm_gem_object_put(obj);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 0c2c35636251..fb07803f5aba 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -308,10 +308,9 @@ static void crashstate_get_bos(struct msm_gpu_state *state, struct msm_gem_submi
+ 			struct drm_gem_object *obj = submit->bos[i].obj;
+ 			bool dump = rd_full || (submit->bos[i].flags & MSM_SUBMIT_BO_DUMP);
+ 
+-			msm_gem_lock(obj);
++			guard(gem_lock)(obj);
+ 			msm_gpu_crashstate_get_bo(state, obj, submit->bos[i].iova,
+ 						  dump, 0, obj->size);
+-			msm_gem_unlock(obj);
+ 		}
+ 	}
+ }
+-- 
+2.56.0
+
