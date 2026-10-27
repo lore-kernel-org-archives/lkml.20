@@ -1,135 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793110753;
-	b=Bg1KGZ4cYT/+LPsSS57vJOq4V5VScrRaKLhdZkRJFdu2CbMkDh2m4jlZoMPjEbMzQCyt
-	 5teYL0bZGGtL/4GtK0r0za5G1w3t9NmOewShnGGL0TwYWb9IA4dpDd5bfCnUyCZRYYbu+
-	 fYoJAEpRtO/i6TWgoK40koQVKnVDfplWz/HEZNIKa0l+KcqOjuHqJ68FofB4mOTja0bhH
-	 vMxy1tYgOi9IfBXZ7mlp+RU/0b5bcqqHS5qTWFld+cFwx7F4td+TgpZC/gqjhhLADvO0D
-	 WbikrH3FCqWrhJhFbe2dfZhZt8RUj680jQxPG3QD0lxgtESc6Au93cFepVfqM7ur+qg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110753;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=7jjmns7/OYP2v5VBkRQ88E+lFI5dmG1iw1Xx3FMiVcE=;
-	b=16pxihnL2jejD+/QkTYGw19Pqzxdu7iaCNj592G9M92xcR4YyJqwQgetK/+nBn+9jBMO
-	 /AdlMftKTMaO+b/aDP+6S+JCAgjItK5f/84NcvqQe7B0llItY6YYNrIvd6SUJyroBDv1m
-	 KuTYStHg+uRm2xFEOxoPB5aUm90jZRp1yTQyg3f/t2wAfAvbo9Ywm6Gd15aZRLY4EWupJ
-	 9Pc05L1tpp+wKXBIg4DsRFsP0OTV+F1V5cTlXbGjr1PFHLo+urJWLBS2IZ7SabAjvBAXD
-	 /wjLru1OiHmfzTlHkUXBO6LrvMZX9sX70lqZAXU8heK2QzReSz2YHcne7NgDRzzIHZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ghCp1Yum;
-	arc=fail smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793110786;
+	b=g0sjwbz4bPF+QJZ6z8VZ3PFceBY/7kqecBXCQ+XckDpU5Fg6u8KCO+noZQwMw+UHw7FX
+	 qsKiAlntRQRvC+P5l6InPJjeF2X9XbfLPrceik8qhK1zD59FTFj6xmDoxtDw8XaJvFQ3+
+	 BDHydTCZ2daclv09sHPmXavkQDjkGDx1tNf2PqYefAgumQQBneTnmgdNt8BIWq3knVhVj
+	 TzDquPANQcG+uGi8zLYBlf250d0Q3SZkTxDCTITmhroCLTyo7bfTYhZ59EsNVIle/Bbjw
+	 mg4BAjGfh2Xp3T6CQOTkjCq00gAN3fPrLrLtHrEQoB+Z0xQJuNBkBId6dWESN+yeZxw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110786;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=Xxb2C5AQj0rr/VWvQ2QcIPd2Z1Ta2Cke0WrVR0vejOw=;
+	b=MEFhLl3ytlLXQ6My8yioG07Jj8xWIZX18XXK9talnC7lGPHbW4h8D1E0kYUKv/HsWU70
+	 zutWlL/W9YYZVryfg7a0Jue2BZdSFklYHq0xyMgdcCtfhKHkSaH6KYzwtWoVJiHzxdKcx
+	 ExhXYWk/VvkYMjO6kGhHbSiRzQxjmNaA11/ciLCfi6wH2svNyv0OYRnK463aPzlK8aGvr
+	 ujO8mOQWDBukASIL4sFnjRnXc5vnKsoHFIwPBrJKEsfTrq3Q/oOrBCi3rhceCazqp/c/W
+	 ZPe7I/2za3g4gzYRb2O1YSRQfd17rz7QLwmeEptm7oaRuH9evty6qwUzQQ4a8EEdcsQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10D0606A31A;
-	Tue, 27 Oct 2026 14:19:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10D0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ghCp1Yum
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793110751; x=1824646751;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=zte+tiE9b6lIH0wG5m2Ng0N2MOnOdGTfzNeqtR097bA=;
-  b=ghCp1YumensxtgsXxcyoXNnzIYiipnuFaZzEh7lvIuSTLgsYti7Lth8L
-   JcnRxfw7Fa+v918D1bWj+xYZZP0f2vNnFdjlSjkb1KXotq00rEPYY3TnX
-   HiJLtKq+Lf9N/r8DCzbBjWbloGP/lzcsBSZf1DPDzOb29yR5sqCaJA4zG
-   GBIfPzkHHfj6FbrGOwo6OLakP6R2F3DAX0l31SZC2CtPCMJRJRLnJYDz5
-   Rgu3EIBap/TueN8HyzsrIJyriO14ptdqLrp2tR931pfnsVNewxv71pxQy
-   D6tePFan5kZgw8XXXFUjMVMC07UO8GMrAgf5SV9VGwTWfaldR9CA6Ecnw
-   Q==;
-X-CSE-ConnectionGUID: bVQrPOAwSFe8J79O/CzAcw==
-X-CSE-MsgGUID: 8+XFGa9ySVKQAq1fxbcnlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1833357"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1833357"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 07:19:04 -0700
-X-CSE-ConnectionGUID: 7iChTUBxTpmSQ3fWXBcXBw==
-X-CSE-MsgGUID: lfgFJnmSQyyraT36i/raog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4634791"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 07:19:04 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 07:19:03 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Tue, 27 Oct 2026 07:19:03 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.44) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 27 Oct 2026 07:19:03 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YP/3VKPLwk7qwpnL5H+uJfbACSWHO/T1qByfV1oDMg99dgOCo8jei21Fvk1bnd2gYtNLk3O0UaJHA9XlaHGfr2LCCzL5nG2bDQNPzhz0bK888qgGcnqw8RcvNqbl97bevCkamw0i7IN+6btHfYzkq2e0y0uQpyZJqzmzZ1TxsnzJl5UeQdUKzoNhIXcE9fP8XkEkyBYV9cIEUopOVDQGWtpP3RTbPBb6U+Rtqg8OaYLV/pd4kyzIgvtLdATix87/3X3jPwYjNS9f5rqgYo2LvRXj6tq9iY0Tn/rSmfgm8K80SMbl/DFkuPdAtqihmSee7y0aOarIMQRSviBQvok1aA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7jjmns7/OYP2v5VBkRQ88E+lFI5dmG1iw1Xx3FMiVcE=;
- b=kXAJ2hjQOUryBFdXQBZufqMblEo23nIZKq98DEztzg4p0T1ehERIuvBpq5oYA1myKwEelZbHBYTiuvTXn4SXj+uqNqZ1ZyfzFZTbI76TjYu9vQSe8artR+ChZG+jfVPB19ZeF/DHI3EK3vPX6msL5QjpKai59wKgn8jvS9UUQxqRJNGdDLW7xp5sanNxCnsk0GxgrU+IXA7G4yND8dXcHhBQbdFwY10i4RLEDG12BDNU81Bk1MibR2+1RpVIiRjGvPjeYuPmApkfGLR/sa0zjvUTaCxSgXfZ71hDzUzwduWhwTevWB0DBmtOnK8HpsM8FMuqsCzKS9W/kj0hNCQnrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com (2603:10b6:208:485::21)
- by FT1PR11MB129532.namprd11.prod.outlook.com (2603:10b6:170:3b::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 14:18:55 +0000
-Received: from IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d]) by IA0PR11MB8380.namprd11.prod.outlook.com
- ([fe80::ea8e:eec4:f8d3:f95d%5]) with mapi id 15.21.0546.012; Tue, 27 Oct 2026
- 14:18:53 +0000
-Date: Tue, 27 Oct 2026 22:18:41 +0800
-From: Chao Gao <chao.gao@intel.com>
-To: Dave Hansen <dave.hansen@intel.com>
-CC: Paolo Bonzini <pbonzini@redhat.com>, Yang Weijiang
-	<weijiang.yang@intel.com>, "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
-	Maxim Levitsky <mlevitsk@redhat.com>, John Allen <john.allen@amd.com>, LKML
-	<linux-kernel@vger.kernel.org>, <peterz@infradead.org>,
-	<kvm@vger.kernel.org>, <binbin.wu@linux.intel.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Thomas Gleixner <tglx@linutronix.de>, "Bae,
- Chang Seok" <chang.seok.bae@intel.com>, "Mehta, Sohil"
-	<sohil.mehta@intel.com>
-Subject: Re: Kernel Shadow Stacks Versus XFEATURE_MASK_GUEST_SUPERVISOR
-Message-ID: <auCyweUI3oWPN1V2@intel.com>
-References: <2f0560df-69fc-4fc1-81fa-447e289ec2df@intel.com>
- <bd608c7c-676a-4b65-97dd-626d0e8a5514@redhat.com>
- <5c74f231-46a7-4f37-8fcd-bff84842a923@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <5c74f231-46a7-4f37-8fcd-bff84842a923@intel.com>
-X-ClientProxiedBy: SI2PR02CA0012.apcprd02.prod.outlook.com
- (2603:1096:4:194::7) To IA0PR11MB8380.namprd11.prod.outlook.com
- (2603:10b6:208:485::21)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3333D606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3333D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dc57e2a3f2so6734574b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:19:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793110785; x=1793715585;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xxb2C5AQj0rr/VWvQ2QcIPd2Z1Ta2Cke0WrVR0vejOw=;
+        b=F2Wg57wbL+n1SA3xhB9Zb98SFlusDcGDmEiLyNtDRAfogJuMP+nim/xfr/wZ7/su1f
+         yuBGNzdbzdKSIph2c6UJjebh7KRKM78pGyRo+9c4cN9oTJ4A94HUix+QNoeauVMYwyUf
+         no13ozOjYsf4ASlY3ff1vmRYPEkDTakVSoe/4WCYDr+AJHmy+6iDW5tzQvW+sIubW10j
+         PUTgbQiiKtqgbK0/RetNgqUzmyP+9Q7pItGeuat4lgQK8KsUpDJ84fc6eob9VXMTOoD4
+         lvDGIcfTeCk36wypfOpQEC5XNX22n355KXNVwsqd8DsbA/ZQeAIN9qW7Lq+VZDO76aqV
+         ftXg==
+X-Forwarded-Encrypted: i=1; AKwUvBzeOpsWun/EDvAlgQvhYq4IcINWu5JwK6ucFSFbX8EinJmgXFSWcOydXTH93A6f2MunOz1kViENJ7ed1KA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLx3K1yaca7uIRwUYwOHIdG+M7VDdQFns9+t7K4UUNASXPtaTfI
+	xu5yo9zDrfrrOOdybrpjiOOXAraujiHt7KaDoKvaHE0rmIaQKh29bo4h7UQJ2M59sgbZO/fchI/
+	EuDGLty1iidW/ZnVCKhlHo22n/jjIhf9qzs/3vsz1R9khIVJIga/j1xEI5/U=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -139,115 +58,361 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR11MB8380:EE_|FT1PR11MB129532:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbbc138f-0f7e-4ed5-f455-08df34353a5b
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|18002099003|10067099003|22082099003|261026140227099003|56012099006|261009223027099003|11063799006|4143699003|261022105027099003|261009221227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info: 3ooSYXTANb8hrDccuh1oHNRFmfcbU+N/+t/niX31LYECfQDX7TArv0Dfd9GRyEq9xWWLVUEXBruV10zzdrv/YLCZpKc0+ph8KUpuaoOsvB3ATJ7znyY47n3kDIN/p88smIz/M6OXeGrPla7sg3PmoCPhGRuiUa/UJtoGy9ac9kMS5rQaW6TScOtM/dufEZ+beNf8sX0gSqrvZSPK3Dqt+o+5kAn6cIHwV+pJn4w8D0azOpjmqt9B9vgUX71ADiPWypfFrCkDInC3WjzCHv8axfp9JRBpv2h14+7LEIsbiGBULNtQR8v2Vpx0wEkphBG4F92V7cHDTT/8Qc701q8ZdYCnyDiqXDhqJeFqgFs5QKbmfIhwRVa55Jx02C0W08aIpOWrRRaftpW35AuCynWMbRnWZbOk1B7tkMB1LrKRX3t8tUv4bTQDeDagi8fC5DFuVv13Zs/3tBlH3pIbtHL4wml0SgHI2JK6olGC/ROiug/DwIXQxIWVWIWn/PXpi101zMs2jEmtuc+oaxVQLSTorcOqnjZN7maka97J7PTNVIv+2Ionz89qhz0TMsONiMGVdajfhLWyxmqg8dryos8BM8hIih6yeJvZwdKCtL59mBJ2eYtclPMy1jX+Mzlw0g/I
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB8380.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(18002099003)(10067099003)(22082099003)(261026140227099003)(56012099006)(261009223027099003)(11063799006)(4143699003)(261022105027099003)(261009221227099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?D2V1LABlVrjQgyzUyl77cEBOhYVzxGKgWNvjv/cQEPK4LRhNd1XUU4eD/G3t?=
- =?us-ascii?Q?aWa8HgvFSioIKqZilkieCARbZ0dGFKPlVoWd1zdKbTIl40UxUctGpFEzaEUq?=
- =?us-ascii?Q?71Mvf/Bz44fLNER+VdpmsmrUBg3hbhQku0mBpS2RHdev2eFXDQneg1FxsK6l?=
- =?us-ascii?Q?hob5gbrfAYep/KxFpZ27d618cH9Zg1QkvA433yy/47ZZZPlZmH23a+wxLiwh?=
- =?us-ascii?Q?WOl0RgzwGKSIMEjdV5zVQaE+1sWLmB6XoXz2F7aj+xW7WfQF+sGhRGZ0L6hT?=
- =?us-ascii?Q?fPfg6ozIZo4NuF0nhrThJXE6xeKzjH7x80whFCQ120kBoLcwNTaEbIdczz+/?=
- =?us-ascii?Q?eCaaWDrnvTzVDaDrXCvFuNOYKPsW0rn4PNCVws9R6U5BNAbhMHUygR1V8kE6?=
- =?us-ascii?Q?Dj5cqvbFjJtaehquaTr2kkp5tUQ1oLOBhtUwjcyc/2osXF5vfFhuyhpisg8q?=
- =?us-ascii?Q?Mr2MmvPdmHF4Wl6Um6eQ+HN83Rf9OVXFS0zftkjxULq3Gt6fvI2USanGmEWV?=
- =?us-ascii?Q?NQncNFRxDcGqU4n3nXUTypcM6dVmWTIU6sWCSsTkeEIfIA2uizFxqs4gIXvf?=
- =?us-ascii?Q?hsDNpuKmbxI5Umm3BG4o8U1vbKd62wue2JMcIcMudISmQ0N4qUh1gbpw1SnN?=
- =?us-ascii?Q?3glqDVhcGzwnQJNcGvoHAWuijQndgfs6P4ZmRja96qKzM5b8md+XWwecDkGV?=
- =?us-ascii?Q?PSCWIrrtzQqjawxldwJ70/p9UmxRbbZzGURcfrPi67pKqlxi2nMsjuZ+MqMO?=
- =?us-ascii?Q?lhx9r3Q/1Ieb2/F+Nu3QwVj9nQTkLCVr1es3f5Oap1ZR5D39mvF7wxK7flVi?=
- =?us-ascii?Q?DS5Bw+Bo4ePfETO9VJCbSzz6lj3DK+eMS4mArWJqDORQ+LcOwsEgY49W+VAg?=
- =?us-ascii?Q?jzEw/g0I8njkWgnyBkaYgrCrFOWy3Cy7eQ55+F83ysRNRg7mxmiiFrHzt0xI?=
- =?us-ascii?Q?Mf++CdpwIbsjQLWW+NIKNAqILRPbIlc/UxkJhk9fo+N8Qp2HrSO9jwkX1ysy?=
- =?us-ascii?Q?rlvtEDfHI64n+w4wzCYGNZSlqsGSgN6elRKrWZ63hzrU2Pl6FvtmSwL5B+FS?=
- =?us-ascii?Q?oyDsIpD4biJLMTywpwt+kYGE/ivU8AYDw1HuxbqZdPbOkSoa7YAqcx94NvWH?=
- =?us-ascii?Q?WNMUZkjGiEcOGUxZn5AbmVVVRY7iobUl47U/TM/9NtQ3Ii3YvrCZt4lmT2D0?=
- =?us-ascii?Q?TNf8VhwfZlrIeX4VkvhAp99DBqSuxjjoI8tBCMMcftfG8pSEbS29QmDmByWG?=
- =?us-ascii?Q?a7FPsKnifeD9Y76DXGaAFMewBBr7+8N6yWr/EmglYA3O0oFAR5sJXXSa9W8m?=
- =?us-ascii?Q?Lk5dCbtVqFxHdgxumBjKz8yEVj7g/YE8/YOjcDE28NX+pRmu7jc4mlH1GGCh?=
- =?us-ascii?Q?DUnhntINuQVnisM+IwctkKBNpoW25U7Uz9ib+FasofVG2viDHOmLZhZPut4n?=
- =?us-ascii?Q?x/4CtrT9x6LC+p+M940rVKxy5wOlQjtd6LT0a7arhGToxv1BMXlMbuRVELhl?=
- =?us-ascii?Q?xiiga2VszlUUQMGjH50Uvh231gONJKiyr1nVYLiN6K2+mDkeNUxpjs3JlQLF?=
- =?us-ascii?Q?9W1jPADh0f+y9gTKuP2okpJocEUzYlpYkkFkPbZnjZmSLNVR1EvYHmtaAGB1?=
- =?us-ascii?Q?wg1Fvy6okou95/Vk/y735fOKq8kfI0kW4zgu29fq1kyfL3meUUBZcbixSsiT?=
- =?us-ascii?Q?4rl4fzAsDo/ARpw0XdSM/hLL4iI9NDfefW9d/7lid0ZZc7KyGBcCMcjx+IJt?=
- =?us-ascii?Q?bCZl/cRAjw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: Qr5ZFiaJPlEkAQxMFIO53fMGLmdhYj89RZVjcxNatm4XC8WRSsw8UQl+M7zCwSeidsv0ic6c24GM5TU1T70yQjiByT48qWJhL0aHu3C0Lzph3TJeI4mXJt5xX4fdULAHpLqsjzVkUqemnB1Cfayo7KSzjln9OO92Yz8SD9luarq0xGs+dkD75CMFmD+hnOm3ABpcrYqmtdPMXUvoVGqEiOwBtnM0BOxBMLXIQSUhWssFg7QXDS6knu43s7O6IRNbFUjr03p+RcSgjN84r1r4mSa/iDKSSNTBMCloRmfjNOE/qi5JUVArvIufztNp4dmXzmHSV3V8u780yuSEbrEtOw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbbc138f-0f7e-4ed5-f455-08df34353a5b
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB8380.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:18:53.0484
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3MGB8TzxP6CJN9BlqrZcOBTdOTk/rKh2Hj7iXP7xEOwNGjweo3UuMU2bNcUBsGTz6JMoPM4/tImsdmYmblawWA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR11MB129532
-X-OriginatorOrg: intel.com
+X-Received: by 2002:a05:6808:1b08:b0:4f6:a430:1822 with SMTP id
+ 5614622812f47-55bfff6a71fmr6397452b6e.7.1793110785123; Tue, 27 Oct 2026
+ 07:19:45 -0700 (PDT)
+Date: Tue, 27 Oct 2026 07:19:45 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae0b301.6200f071.51519.0f5c.GAE@google.com>
+Subject: [syzbot] [driver-core?] possible deadlock in device_register (2)
+From: syzbot <syzbot+a246ab421a728c78b4ad@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
->> Can you replace fpu_kernel_cfg.max_features with some fpstate->xyz
->> (sorry too late to think it through :)) that has CET_KERNEL for the
->> guest FPU and not for the regular one?
->
->Sure I can give that a shot.
->
->There's one minor issue in that we need to init dynamic features which
->_aren't_ in fpstate->xfeatures when context switching. There's a little
->note about this in restore_fpregs_from_fpstate().
->
->I think what you're getting at is that we need _something_ to say that
->KVM fpstates should muck with XFEATURE_CET_KERNEL and task fpstates
->should not, even though the task ones have space for XFEATURE_CET_KERNEL.
->
->That's certainly doable.
+Hello,
 
-Sounds like you are talking about something like this, which Sean
-suggested in [1]:
+syzbot found the following issue on:
 
-diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
-index 1015af1ae562..8e7599e3b923 100644
---- a/arch/x86/kernel/fpu/core.c
-+++ b/arch/x86/kernel/fpu/core.c
-@@ -167,6 +167,16 @@ void restore_fpregs_from_fpstate(struct fpstate *fpstate, u64 mask)
-                 */
-                xfd_update_state(fpstate);
- 
-+               /*
-+                * Leave supervisor CET state as-is when loading host state
-+                * (kernel or userspace).  Supervisor CET state is managed via
-+                * XSTATE for KVM guests, but the host never consumes said
-+                * state (doesn't support supervisor shadow stacks), i.e. it's
-+                * safe to keep guest state loaded into hardware.
-+                */
-+               if (!fpstate->is_guest)
-+                       mask &= ~XFEATURE_MASK_CET_KERNEL;
-+
+HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=17ba5fc9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=6602d83d2f34eb80
+dashboard link: https://syzkaller.appspot.com/bug?extid=a246ab421a728c78b4ad
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10b04a95580000
 
-We first looked at enabling CET_KERNEL for all tasks, and that version
-included this optimization so that restoring a non-KVM fpstate doesn't
-touch CET_KERNEL.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a246ab421a728c78b4ad@syzkaller.appspotmail.com
 
-We then switched to the guest-only approach to avoid allocating CET_KERNEL
-space in non-KVM fpstates. The optimization could still be applied on top
-of that, but it was dropped after its benefit was questioned off-list:
+block nbd0: reconnected socket
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor796/5066 is trying to acquire lock:
+ffff800089aea6a0 (fs_reclaim){+.+.}-{0:0}, at: might_alloc include/linux/sched/mm.h:316 [inline]
+ffff800089aea6a0 (fs_reclaim){+.+.}-{0:0}, at: slab_pre_alloc_hook mm/slub.c:4636 [inline]
+ffff800089aea6a0 (fs_reclaim){+.+.}-{0:0}, at: slab_alloc_node mm/slub.c:4974 [inline]
+ffff800089aea6a0 (fs_reclaim){+.+.}-{0:0}, at: kmem_cache_alloc_node_noprof+0x64/0x604 mm/slub.c:5068
 
-"""
-1. It hacks in an optimization with conditionals around the edges,
-instead of integrating with the way the rest of the FPU works.
-2. There is no proven benefit of this narrow optimization and x86
-maintainers are already skeptical.
-"""
+but task is already holding lock:
+ffff80008ae5fb20 (uevent_sock_mutex){+.+.}-{4:4}, at: uevent_net_broadcast_untagged lib/kobject_uevent.c:317 [inline]
+ffff80008ae5fb20 (uevent_sock_mutex){+.+.}-{4:4}, at: kobject_uevent_net_broadcast+0x24c/0x53c lib/kobject_uevent.c:410
 
-This optimization can be added back if it benefits kernel shadow stacks.
-But os_xrstor_supervisor() and os_xrstor_safe() would need the same
-handling.
+which lock already depends on the new lock.
 
-[1]: https://lore.kernel.org/all/ZM1jV3UPL0AMpVDI@google.com/
 
+the existing dependency chain (in reverse order) is:
+
+-> #7 (uevent_sock_mutex){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x164/0x1078 kernel/locking/mutex.c:821
+       mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+       uevent_net_broadcast_untagged lib/kobject_uevent.c:317 [inline]
+       kobject_uevent_net_broadcast+0x24c/0x53c lib/kobject_uevent.c:410
+       kobject_uevent_env+0x518/0x944 lib/kobject_uevent.c:611
+       kobject_uevent+0x2c/0x3c lib/kobject_uevent.c:659
+       device_add+0x4d0/0x9e0 drivers/base/core.c:3742
+       device_register+0x28/0x38 drivers/base/core.c:3858
+       register_cpu+0x28c/0x57c drivers/base/cpu.c:431
+       arch_register_cpu+0x160/0x224 arch/arm64/kernel/smp.c:535
+       acpi_processor_hotadd_init drivers/acpi/acpi_processor.c:248 [inline]
+       acpi_processor_get_info drivers/acpi/acpi_processor.c:370 [inline]
+       acpi_processor_add+0x8f0/0x13f0 drivers/acpi/acpi_processor.c:441
+       acpi_scan_attach_handler drivers/acpi/scan.c:2325 [inline]
+       acpi_bus_attach+0x398/0x778 drivers/acpi/scan.c:2374
+       acpi_dev_for_one_check+0xa0/0xb4 drivers/acpi/bus.c:1172
+       device_for_each_child+0xf4/0x184 drivers/base/core.c:4105
+       acpi_dev_for_each_child+0x98/0xe4 drivers/acpi/bus.c:1184
+       acpi_bus_attach+0x540/0x778 drivers/acpi/scan.c:2390
+       acpi_dev_for_one_check+0xa0/0xb4 drivers/acpi/bus.c:1172
+       device_for_each_child+0xf4/0x184 drivers/base/core.c:4105
+       acpi_dev_for_each_child+0x98/0xe4 drivers/acpi/bus.c:1184
+       acpi_bus_attach+0x540/0x778 drivers/acpi/scan.c:2390
+       acpi_bus_scan+0x104/0x310 drivers/acpi/scan.c:2740
+       acpi_scan_init+0x168/0x3cc drivers/acpi/scan.c:2866
+       acpi_init+0x15c/0x1f4 drivers/acpi/bus.c:1499
+       do_one_initcall+0x274/0x9f8 init/main.c:1362
+       do_initcall_level+0x12c/0x1c4 init/main.c:1424
+       do_initcalls+0x70/0xd0 init/main.c:1440
+       do_basic_setup+0x7c/0x90 init/main.c:1460
+       kernel_init_freeable+0x258/0x398 init/main.c:1675
+       kernel_init+0x28/0x1e0 init/main.c:1565
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #6 (cpu_hotplug_lock){++++}-{0:0}:
+       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+       percpu_down_read include/linux/percpu-rwsem.h:77 [inline]
+       cpus_read_lock+0x54/0x1c8 kernel/cpu.c:490
+       static_key_slow_inc+0x1c/0x40 kernel/jump_label.c:190
+       sk_set_memalloc+0x6c/0xa0 net/core/sock.c:307
+       nbd_genl_reconnect_sock_cb+0x32c/0x72c drivers/block/nbd.c:1377
+       nbd_genl_foreach_sock+0x204/0x3c8 drivers/block/nbd.c:2152
+       nbd_genl_reconfigure+0x714/0x9e8 drivers/block/nbd.c:2477
+       genl_family_rcv_msg_doit+0x1e4/0x2d4 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x43c/0x620 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x238/0x414 net/netlink/af_netlink.c:2575
+       genl_rcv+0x38/0x50 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
+       netlink_unicast+0x600/0x7f8 net/netlink/af_netlink.c:1364
+       netlink_sendmsg+0x648/0x948 net/netlink/af_netlink.c:1919
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg+0xc8/0x17c net/socket.c:815
+       __sys_sendto+0x250/0x328 net/socket.c:2281
+       __do_sys_sendto net/socket.c:2288 [inline]
+       __se_sys_sendto net/socket.c:2284 [inline]
+       __arm64_sys_sendto+0xec/0x10c net/socket.c:2284
+       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+       invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+       el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+       do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+       el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+       el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+
+-> #5 (&nsock->tx_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x164/0x1078 kernel/locking/mutex.c:821
+       mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
+       nbd_queue_rq+0x1f4/0xbac drivers/block/nbd.c:1207
+       blk_mq_dispatch_rq_list+0x3d4/0x13a8 block/blk-mq.c:2130
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xa48/0x10e8 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xa8/0x158 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x154/0x2e4 block/blk-mq.c:2545
+       process_one_work kernel/workqueue.c:3396 [inline]
+       process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+       worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+       kthread+0x304/0x3d4 kernel/kthread.c:436
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #4 (&cmd->lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x164/0x1078 kernel/locking/mutex.c:821
+       mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+       nbd_queue_rq+0xb0/0xbac drivers/block/nbd.c:1199
+       blk_mq_dispatch_rq_list+0x3d4/0x13a8 block/blk-mq.c:2130
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xa48/0x10e8 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xa8/0x158 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x154/0x2e4 block/blk-mq.c:2545
+       process_one_work kernel/workqueue.c:3396 [inline]
+       process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3479
+       worker_thread+0x798/0xbd0 kernel/workqueue.c:3560
+       kthread+0x304/0x3d4 kernel/kthread.c:436
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #3 (set->srcu){.+.+}-{0:0}:
+       srcu_lock_sync include/linux/srcu.h:210 [inline]
+       __synchronize_srcu+0xc8/0x268 kernel/rcu/srcutree.c:1462
+       synchronize_srcu+0x280/0x2e0 kernel/rcu/srcutree.c:-1
+       blk_mq_wait_quiesce_done+0x88/0xac block/blk-mq.c:284
+       blk_mq_quiesce_queue+0x70/0x8c block/blk-mq.c:304
+       elevator_switch+0x128/0x38c block/elevator.c:576
+       elevator_change+0x204/0x35c block/elevator.c:681
+       elevator_set_default+0x190/0x2b0 block/elevator.c:754
+       blk_register_queue+0x304/0x3dc block/blk-sysfs.c:992
+       __add_disk+0x5c8/0xbdc block/genhd.c:531
+       add_disk_fwnode+0xd4/0x340 block/genhd.c:600
+       device_add_disk+0x38/0x4c block/genhd.c:630
+       add_disk include/linux/blkdev.h:798 [inline]
+       nbd_dev_add+0x594/0x884 drivers/block/nbd.c:2026
+       nbd_init+0x174/0x19c drivers/block/nbd.c:2743
+       do_one_initcall+0x274/0x9f8 init/main.c:1362
+       do_initcall_level+0x12c/0x1c4 init/main.c:1424
+       do_initcalls+0x70/0xd0 init/main.c:1440
+       do_basic_setup+0x7c/0x90 init/main.c:1460
+       kernel_init_freeable+0x258/0x398 init/main.c:1675
+       kernel_init+0x28/0x1e0 init/main.c:1565
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #2 (&q->elevator_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x164/0x1078 kernel/locking/mutex.c:821
+       mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+       elevator_change+0x188/0x35c block/elevator.c:679
+       elevator_set_none+0xa8/0x13c block/elevator.c:769
+       blk_mq_elv_switch_none block/blk-mq.c:5113 [inline]
+       __blk_mq_update_nr_hw_queues block/blk-mq.c:5158 [inline]
+       blk_mq_update_nr_hw_queues+0x4c4/0x11e0 block/blk-mq.c:5223
+       nbd_start_device+0x15c/0xa44 drivers/block/nbd.c:1530
+       nbd_genl_connect+0xde4/0x12b0 drivers/block/nbd.c:2310
+       genl_family_rcv_msg_doit+0x1e4/0x2d4 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x43c/0x620 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x238/0x414 net/netlink/af_netlink.c:2575
+       genl_rcv+0x38/0x50 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1338 [inline]
+       netlink_unicast+0x600/0x7f8 net/netlink/af_netlink.c:1364
+       netlink_sendmsg+0x648/0x948 net/netlink/af_netlink.c:1919
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg+0xc8/0x17c net/socket.c:815
+       __sys_sendto+0x250/0x328 net/socket.c:2281
+       __do_sys_sendto net/socket.c:2288 [inline]
+       __se_sys_sendto net/socket.c:2284 [inline]
+       __arm64_sys_sendto+0xec/0x10c net/socket.c:2284
+       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+       invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+       el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+       do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+       el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+       el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+
+-> #1 (&q->q_usage_counter(io)#33){++++}-{0:0}:
+       blk_alloc_queue+0x488/0x590 block/blk-core.c:504
+       blk_mq_alloc_queue+0x148/0x284 block/blk-mq.c:4431
+       __blk_mq_alloc_disk+0x38/0x10c block/blk-mq.c:4478
+       nbd_dev_add+0x3d0/0x884 drivers/block/nbd.c:1996
+       nbd_init+0x174/0x19c drivers/block/nbd.c:2743
+       do_one_initcall+0x274/0x9f8 init/main.c:1362
+       do_initcall_level+0x12c/0x1c4 init/main.c:1424
+       do_initcalls+0x70/0xd0 init/main.c:1440
+       do_basic_setup+0x7c/0x90 init/main.c:1460
+       kernel_init_freeable+0x258/0x398 init/main.c:1675
+       kernel_init+0x28/0x1e0 init/main.c:1565
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #0 (fs_reclaim){+.+.}-{0:0}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1660/0x2b08 kernel/locking/lockdep.c:5288
+       lock_acquire+0x13c/0x320 kernel/locking/lockdep.c:5942
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0x90/0x110 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4636 [inline]
+       slab_alloc_node mm/slub.c:4974 [inline]
+       kmem_cache_alloc_node_noprof+0x64/0x604 mm/slub.c:5068
+       kmalloc_reserve+0xc4/0x214 net/core/skbuff.c:615
+       __alloc_skb+0x230/0x610 net/core/skbuff.c:715
+       alloc_skb include/linux/skbuff.h:1384 [inline]
+       alloc_uevent_skb+0x78/0x1ec lib/kobject_uevent.c:289
+       uevent_net_broadcast_untagged lib/kobject_uevent.c:326 [inline]
+       kobject_uevent_net_broadcast+0x2d4/0x53c lib/kobject_uevent.c:410
+       kobject_uevent_env+0x518/0x944 lib/kobject_uevent.c:611
+       kobject_synth_uevent+0x25c/0x730 lib/kobject_uevent.c:207
+       uevent_store+0x34/0x84 drivers/base/core.c:2847
+       dev_attr_store+0x6c/0x90 drivers/base/core.c:2509
+       sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x51c/0xa0c fs/read_write.c:687
+       ksys_write+0x12c/0x228 fs/read_write.c:739
+       __do_sys_write fs/read_write.c:750 [inline]
+       __se_sys_write fs/read_write.c:747 [inline]
+       __arm64_sys_write+0x84/0x98 fs/read_write.c:747
+       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+       invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+       el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+       do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+       el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+       el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+
+other info that might help us debug this:
+
+Chain exists of:
+  fs_reclaim --> cpu_hotplug_lock --> uevent_sock_mutex
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(uevent_sock_mutex);
+                               lock(cpu_hotplug_lock);
+                               lock(uevent_sock_mutex);
+  lock(fs_reclaim);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor796/5066: 5, last CPU#1:
+ #0: ffff0000d2c57270 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x100/0x144 fs/file.c:1259
+ #1: ffff0000d0736460 (sb_writers#6){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2756 [inline]
+ #1: ffff0000d0736460 (sb_writers#6){.+.+}-{0:0}, at: vfs_write+0x248/0xa0c fs/read_write.c:683
+ #2: ffff0000d1ef6c80 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1b0/0x3b8 fs/kernfs/file.c:336
+ #3: ffff0000c76cd2d8 (kn->active#4){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #3: ffff0000c76cd2d8 (kn->active#4){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x1f0/0x3b8 fs/kernfs/file.c:337
+ #4: ffff80008ae5fb20 (uevent_sock_mutex){+.+.}-{4:4}, at: uevent_net_broadcast_untagged lib/kobject_uevent.c:317 [inline]
+ #4: ffff80008ae5fb20 (uevent_sock_mutex){+.+.}-{4:4}, at: kobject_uevent_net_broadcast+0x24c/0x53c lib/kobject_uevent.c:410
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 5066 Comm: syz-executor796 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/23/2026
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ print_circular_bug+0x328/0x330 kernel/locking/lockdep.c:2087
+ check_noncircular+0x158/0x174 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1660/0x2b08 kernel/locking/lockdep.c:5288
+ lock_acquire+0x13c/0x320 kernel/locking/lockdep.c:5942
+ __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+ fs_reclaim_acquire+0x90/0x110 mm/page_alloc.c:4389
+ might_alloc include/linux/sched/mm.h:316 [inline]
+ slab_pre_alloc_hook mm/slub.c:4636 [inline]
+ slab_alloc_node mm/slub.c:4974 [inline]
+ kmem_cache_alloc_node_noprof+0x64/0x604 mm/slub.c:5068
+ kmalloc_reserve+0xc4/0x214 net/core/skbuff.c:615
+ __alloc_skb+0x230/0x610 net/core/skbuff.c:715
+ alloc_skb include/linux/skbuff.h:1384 [inline]
+ alloc_uevent_skb+0x78/0x1ec lib/kobject_uevent.c:289
+ uevent_net_broadcast_untagged lib/kobject_uevent.c:326 [inline]
+ kobject_uevent_net_broadcast+0x2d4/0x53c lib/kobject_uevent.c:410
+ kobject_uevent_env+0x518/0x944 lib/kobject_uevent.c:611
+ kobject_synth_uevent+0x25c/0x730 lib/kobject_uevent.c:207
+ uevent_store+0x34/0x84 drivers/base/core.c:2847
+ dev_attr_store+0x6c/0x90 drivers/base/core.c:2509
+ sysfs_kf_write+0xe0/0x108 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x260/0x3b8 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x51c/0xa0c fs/read_write.c:687
+ ksys_write+0x12c/0x228 fs/read_write.c:739
+ __do_sys_write fs/read_write.c:750 [inline]
+ __se_sys_write fs/read_write.c:747 [inline]
+ __arm64_sys_write+0x84/0x98 fs/read_write.c:747
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
