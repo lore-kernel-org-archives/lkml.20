@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099266;
-	b=R7gdkc3U3V9x8l7r/kh8/4+NKA2SP60dwhGEGb+D6zWCx0CO34QenkENLo76QAAz2l83
-	 H3J2c0p92PC2hanUGwoEL05lgXHixf4Ugk9DxPti/FfQFtqY0pORG7R3BEc5HV0IHCrKI
-	 YEyh3n+q73bgcWpw0bLICr12NqkOOxje4uemTVKmCUfAGVD0UTRo/01Jd41qQYoKbh1ww
-	 ZUH2ZvVeQwtRq/jG8YgAb6hOaRKGW/7yC/sOrFLOcw97pmYuyj755ZwivsZ8sHi72tV5v
-	 wihk1zCwwe/pZE6DVca3ef27DRjW8vyfZ2teZftlhEYZSwg/jXMw3uvq+O+9urxxT0g==
+	t=1793099262;
+	b=VM95deYVIJ57wo1RX+Fcdin4DSb9Ko0Pay3dwpt+4r6+SSnInz6gMlH1IUwpcz+pFrCp
+	 uCeb4opJJBXgofQ8QsAu9Z2DaliAf5pEP22FMBBR5svzLI7gWYLGL1poI5cLTr8BV7W4F
+	 7/driv3Z1MxhuNqAU84I9T3QpKyMErdRelrnOQG2kZ/64RwX8LoyQVhDV0sMiisNiyPH7
+	 k9hynW08fSXLtTDwlqEFTU4vWDdR9AaqlbNoTQLe7KZysljwgwwzQly+ZSP/6FiVD2/W0
+	 9ryJMIldRQ50cmrv5IPKgfLjHd5JJ93DlbyeVDtkI8aiTIQp97I1kybjrXnFh4tbwyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099266;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099262;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=hX1IybcwZHfg8HPSk/LvucEct9x9S7mtJroF/uWcHrU=;
-	b=Dgqs4uKCr89IJchMedscac/OeIJu0H3jbaSEXzV7MGHqVhkiSf7Q9HbSstMLIeGUCT1W
-	 3l0Xq4ww8v2A7AVkQkxvFY2ipondZojlmADWVQrYjIBvXlhwG55s/Eiz6yJ8VmxxzI9+o
-	 6pxfN8FsVarZsMGV/orx130Wfl7TqILE9QBiwwTjIorjHEuySLxNZRCZhjw69aYRDWYww
-	 CjlwAwmL89fYgRfa35DbPLJ9OTM66vTiYrdKKw/7xppV4CeH+ven0fqWGjz1r5W/tQ/K0
-	 GNauhLzZq9FuO8kZKsvz1yEbStKKkClodOa3YgtE5N4J0KmrFJ1iVFHpLtIn9PBKjoA==
+	bh=buI4Qt5MRZnNlVCTP2wVHcR3KhDDKPgLvdZ/HR1zU3I=;
+	b=W+zVaZrztdTVZrfkCfSol/jbJ7I9+MiwdAsJSfVse5q8HJK1lJsc8H3Oopgs1YRdRfNO
+	 gcuo2sweaEonQZaMiEa8gyDkAtel4nKTHcopQoD2jpfO0aBfr3r9Jd1vPigZXvDHJhx8W
+	 at+cauT2PeFTgO+7nn2/dhcoApQ3frAD9s9Y85NPPWvfmlvaH0bj5+Uq/JIYENblp1/O2
+	 IQ7l68bQWe/BVtXxGCHZMLJ50BhL3ujfUIqrBj//aTn1s0E4Mhm7ID7wp6eQcD/XlXoTq
+	 bS2Gl5RvivIhTC7ux6KeNMw/ZTr4FvnnLzprUgGcWMABPKr5NWtfi957ZTKveMUKiOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Wsv1AXXs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FrqZA0mS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF31A60A5BC6;
-	Tue, 27 Oct 2026 11:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944F3606E7ED;
+	Tue, 27 Oct 2026 11:07:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Wsv1AXXs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 964111F031E6;
-	Tue, 27 Oct 2026 11:07:44 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FrqZA0mS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C478F1F01829;
+	Tue, 27 Oct 2026 11:07:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793099265;
-	bh=hX1IybcwZHfg8HPSk/LvucEct9x9S7mtJroF/uWcHrU=;
+	s=korg; t=1793099262;
+	bh=buI4Qt5MRZnNlVCTP2wVHcR3KhDDKPgLvdZ/HR1zU3I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Wsv1AXXseyHMZl5E5X/yPCRZltrp8LXJtZ8jZuPl7h3O1ribCFumGvrG8ubLuYl/y
-	 dzD3C8ShUjvB7/jBYT+dId4Ht29WGDxrJrNv4zEX1CsVaPi3yjhTJ+zY7eX2wzJAsF
-	 4akoasC3Y2ByiGKfN40yjE3cSfxE/YUEET/2r+XA=
+	b=FrqZA0mSpVqMgc6aD9WYenjHG2XSHA/FbVzzTQs1cXLK7Uc/fi3Jrc3Mcu7B3swQn
+	 iOHIzAaxk4faWR8CL7Dbr3931wFRuefKuVIttNnYAiRn6RdHCQ7UI2SMu0FLgKIUjW
+	 rs4JHBH2D3Pj3QqI7UJhVFHURZYkf0F/Jbx5ph+w=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 12:06:49 +0100
-Subject: [PATCH 23/24] serial: st-asc: don't report a wakeup to a closed
- tty
+Date: Tue, 27 Oct 2026 12:06:48 +0100
+Subject: [PATCH 22/24] serial: samsung: put the previous baud clock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,7 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-tty-llm-v1-23-99b0202ae546@linuxfoundation.org>
+Message-Id: <20261027-tty-llm-v1-22-99b0202ae546@linuxfoundation.org>
 References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
 In-Reply-To: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
 To: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
@@ -85,59 +84,63 @@ Cc: Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
  linux-serial@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1765;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1784;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=4xNWd1JLA0hRtkumnNAjSS6aWUNc6ojMfMTy5+lpRjQ=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPWvevnnDhfhP7lkaR/0ul5t3OfFJx93/bxQ+J5oZr9
- j41/XUzpSOWhUGQiUFWTJHlyzaeo/srDil6GdqehpnDygQyhIGLUwAm8iaWYcEm1c6Gff6hJcJT
- uHesfWFutnuySD7DgmOHkxcsFRA237HwicPhJcvmtPxn4gcA
+ bh=/Wl84anFlTJD4CUqKP0cvUvUxS9O+Z37Q+o6ZWRmBdU=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPWvcHLN1XoiShLubLweMTol4TJMO53ifQ31H/Yv+zh
+ KD9Bic7YlkYBJkYZMUUWb5s4zm6v+KQopeh7WmYOaxMIEMYuDgFYCI/PzPMFfLYtjYySeGEe8tv
+ 20r9m88nff63kGHBJTuuP43nzxl2K0mse2FuZVxS2/YBAA==
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-If its interrupt is a wakeup source, asc_receive_chars() reports the
-characters which arrive as a wakeup event of tport->tty->dev.  That
-pointer is only set while the port is open.  The port of a console is
-not shut down by the last close, so its interrupt handler goes on
-running without a tty.  If the system is then woken up by a character on
-the console, the handler dereferences a NULL pointer.
+s3c24xx_serial_getclk() returns the best baud clock with the reference
+which clk_get() has taken.  s3c24xx_serial_set_termios() stores it in
+ourport->baudclk and disables the clock which was there before, but does
+not put it.
 
-Take a reference to the tty, and leave the event out if there is none.
+clk_get() hands out a new handle on every call, so the new clock never
+equals the old one, and every call of ->set_termios() leaks a handle: a
+struct clk and a copy of the connection name.  Whoever has the port open
+can repeat that at will with tcsetattr().
 
-Fixes: c4b058560762 ("serial:st-asc: Add ST ASC driver.")
+Put the old clock when it is replaced, and the new one in case it is not
+stored.
+
+Fixes: 5f5a7a5578c5 ("serial: samsung: switch to clkdev based clock lookup")
 Cc: stable <stable@kernel.org>
-Cc: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
 Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>
+Cc: Kukjin Kim <kgene.kim@samsung.com>
+Cc: Thomas Abraham <thomas.abraham@linaro.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/st-asc.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/tty/serial/samsung_tty.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/tty/serial/st-asc.c b/drivers/tty/serial/st-asc.c
-index 6ed9a327702b..006874598b6c 100644
---- a/drivers/tty/serial/st-asc.c
-+++ b/drivers/tty/serial/st-asc.c
-@@ -262,8 +262,15 @@ static void asc_receive_chars(struct uart_port *port)
- 	if (mode == ASC_CTL_MODE_8BIT || mode == ASC_CTL_MODE_8BIT_PAR)
- 		ignore_pe = true;
+diff --git a/drivers/tty/serial/samsung_tty.c b/drivers/tty/serial/samsung_tty.c
+index c9a870a8d155..f437f7363fd3 100644
+--- a/drivers/tty/serial/samsung_tty.c
++++ b/drivers/tty/serial/samsung_tty.c
+@@ -1501,11 +1501,14 @@ static void s3c24xx_serial_set_termios(struct uart_port *port,
  
--	if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
--		pm_wakeup_event(tport->tty->dev, 0);
-+	if (irqd_is_wakeup_set(irq_get_irq_data(port->irq))) {
-+		struct tty_struct *tty = tty_port_tty_get(tport);
-+
-+		/* A console goes on receiving after the last close */
-+		if (tty) {
-+			pm_wakeup_event(tty->dev, 0);
-+			tty_kref_put(tty);
-+		}
-+	}
+ 		if (!IS_ERR(ourport->baudclk)) {
+ 			clk_disable_unprepare(ourport->baudclk);
++			clk_put(ourport->baudclk);
+ 			ourport->baudclk = ERR_PTR(-EINVAL);
+ 		}
  
- 	while ((status = asc_in(port, ASC_STA)) & ASC_STA_RBF) {
- 		c = asc_in(port, ASC_RXBUF) | ASC_RXBUF_DUMMY_RX;
+ 		ourport->baudclk = clk;
+ 		ourport->baudclk_rate = clk ? clk_get_rate(clk) : 0;
++	} else {
++		clk_put(clk);
+ 	}
+ 
+ 	if (ourport->info->has_divslot) {
 
 -- 
 2.56.0
