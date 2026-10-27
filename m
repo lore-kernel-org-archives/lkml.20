@@ -1,73 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793091041;
-	b=jvJLwLKSQUM24gWDaGgXahHnUWTSzXYmf17qAK5AuBhFVZTCQoOKJB1afqrerxN0apl4
-	 U1xckaFZiHHOj+lU8CfKvzDrtbOD36nmpWVtTwmbJmpf1v3fqdAwYnd7JgsX/uW1Y+9Au
-	 NZwCR9JzmdkhqSAo0NjgnLq80DhzRIbgd8JqhuEOiWMoZ/JSKoCaXPGgq0CfLbTvXeIMy
-	 W6moR/o/8/BBmxdjoggqYntUfC1MYwDsUTzXyhXimCVijnDAhljyjybCEBv5fcApIb2lY
-	 9UXx75/3VO4RsGAeo3OvjCtLX3rSw9KJOxyMmoCWYKHmxV2KaLHwPnY4TEDEl0rtWLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091041;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=FLj38MVz5n0Sq7sa0yZGgLRLbZd6FbVVIQAz21Dvemo=;
-	b=5sO4/0RmbYWn02dfv6TJN2PR20UxUMjyY/ACZEvVqzYA+aUCTENI7Tv5ZH4s96kplSKS
-	 iuP3u7MZXmRO9PTUwSlOOVBH4Ag4/bQhTSnCI4H5yZdOqGXjbiM/elAJrPgLLMIILKSjs
-	 MJIptO38Wt8Y3JCBkNEdUwDUhqCD3GPoDhc+knM/iOiZ+KWR2IHK2jRsM+nKRyQSwBUBP
-	 kAnAWfgYpwU7F6DCbE10SgVpHbGhUqaOxgTxA1Y4ANYd3MmCTM/FNAwy0MZgkBxMdlR6d
-	 bXrlWlLPwunNsDhn5eOD5UobkBma4xRKOYbcIDY984Er2tKwSpmaMEMntHLPdGsmHKw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=yiyuzhou.io;
-	spf=pass smtp.mailfrom=yiyuzhou.io;
-	dkim=pass header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.a=rsa-sha256 header.s=zmail header.b=GLrwHEUg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.15
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793091064;
+	b=yDi1ojsMeFKHPkdBRhTsUTGjCrSwVSW1CjUBCH/EAFrMKFsmRxFDqdXuCVov/6M+rJLA
+	 avfbu8C/Nd58Ra+vu0DE+VA32mlWbPksRjnfh3m4wgRDVw/S2CthtTrq4Y7UEwqdOQ0hA
+	 8GxGDrOQ0yOkwREC8SQvfCG9ytxBSpexhdH3M9zkXKO8h5GCHVHuw8aUzRJQ4AvTMxBf1
+	 Cm9RmwHYH8HTt61FIyfnAM8RFICOvu/MygRueHxx8I2jGSPTsVsuweRJW545eGva63fb6
+	 VgCAoi/J9KovmI7tdgC358ur+GQD/R4tvms2B2Y8t/K3vPBr/Vo4fGc/F3Al9Qg6dLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091064;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lc0U5Ze+hBCT9T6cAf8QTcqfqTu5UwDLhLRH+Lp9NjM=;
+	b=Wv7VLU0jsU37N1Ad0nMmAe33BnXlftjEV6ZHJMHZiaWG3cfFut2wIRXG822YFUBOhyZu
+	 t84DMwvaQPbZZ2VhjNJUzyvVfLEIcVofcOPAdPCJ96oOKrSXMDZkV+pfL4585NHkT0P/O
+	 UjYUUyhEaQziwlPYuORgcrP91qLXsXrYmEssU034zGR6p+ZcPKb2jXCeQLoFhLjX/QOCm
+	 YD2US+zOGjmI9J/jIV+nbvUtxlYG7x5EyHY4+UIokkKGF5ogGdcux5FhN7wAJ7Lw9MaHF
+	 4bEHHJaVQk4oVBPQAdV47XcMfPnL7ZECRmtRrcI6Kv+cJbQdlZKDDibDmydXga9l2fA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cLX5cty9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406DF606A31A;
-	Tue, 27 Oct 2026 08:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406DF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=yiyuzhou.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yiyuzhou.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FC3606A327;
+	Tue, 27 Oct 2026 08:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yiyuzhou.io header.i=yiyu@yiyuzhou.io header.a=rsa-sha256 header.s=zmail header.b=GLrwHEUg
-ARC-Seal: i=1; a=rsa-sha256; t=1793091022; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=mNIgdz7R3r11ZTdxDrF1Q4UNAj/msS2HRtozDlQJSSJt2JF1XeqM5R3fqe0egEeBge134OZnCYIg8nLeYTjBrIyrWpgDerO8KX4+9i6OZz6wwjqMlnXNtJr1NaKqTI2E+9loBXl7++S392yzKQ7pBXj8ls4Kp6GdmM2wOzfU0do=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793091022; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=FLj38MVz5n0Sq7sa0yZGgLRLbZd6FbVVIQAz21Dvemo=; 
-	b=c87bfdFCXjb5gR2PsR8BOdmGMCaRupck5ZtE3sA4AZNsUmOk1gsAmiusRhEybBQBEIabaYyPd4h6NRcc0y0CFw8iWSdKprFUoQyoNUAezXwJ5+XXP8lyXsdTbGQGnk65eEUcvgNQatPnQNiMuypGV+Ae/YtLyIebVoxBC9xNx1M=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=yiyuzhou.io;
-	spf=pass  smtp.mailfrom=yiyu@yiyuzhou.io;
-	dmarc=pass header.from=<yiyu@yiyuzhou.io>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793091022;
-	s=zmail; d=yiyuzhou.io; i=yiyu@yiyuzhou.io;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=FLj38MVz5n0Sq7sa0yZGgLRLbZd6FbVVIQAz21Dvemo=;
-	b=GLrwHEUgbTUGf6R/WLG13CeYhpiA8658UGY7+Mi/ec1jW9yV6uc50Vo2O++5AsfZ
-	UaR36wdvJskpkykrqtlAesO4tjCQFM6QBWRfOkR3pWeU9jtZeBVBfNQqmN4YgZMkFUN
-	Kg8nwZd6TvDxG02N3QWPliO6jWALXgPbAKC/5gEM=
-Received: by smtp.zohomail.com with SMTPS id 1793091020208282.5273528004707;
-	Tue, 27 Oct 2026 01:50:20 -0700 (PDT)
-From: Yiyu Zhou <yiyu@yiyuzhou.io>
-To: mathias.nyman@intel.com,
-	gregkh@linuxfoundation.org
-Cc: Yiyu Zhou <yiyu@yiyuzhou.io>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	michal.pecio@gmail.com,
-	regressions@lists.linux.dev,
-	Dennis Wissel <dennis@dsine.de>
-Subject: [PATCH] xhci: keep ep0 blocked after disconnect until Address Device reloads it
-Date: Tue, 27 Oct 2026 01:48:42 -0700
-Message-ID: <20261027084845.1588204-1-yiyu@yiyuzhou.io>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <qLQr_bD2TzCrwVMFdRe7Wg@dsine.de>
-References: <qLQr_bD2TzCrwVMFdRe7Wg@dsine.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cLX5cty9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 370ED1F01825;
+	Tue, 27 Oct 2026 08:50:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793091064;
+	bh=lc0U5Ze+hBCT9T6cAf8QTcqfqTu5UwDLhLRH+Lp9NjM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cLX5cty9Fes4nyGOhdTXTwUi4CjHh2d6Exjv+rOUNmJ1hOpq301ah/59VYJa3KAfa
+	 0JAFnIYv5q6uCZJiWZ7/JnzC3pOPhPL5VdEq05fzYEQAfU8x5PjoaLGCbo4oJkSshy
+	 aEyuswfa3kOJCEFW345rfcWjsyhvaijqqaHgik6uB7QOrxdB7sJV1oJ6I3Q0c1V+Ry
+	 Cf3Ekq4j3MW2BWPpctWVOXD4r4MRy4tI0wpG7A71nGLVk4q5d74j9EcT8h6eyujZ5T
+	 xnvfCFG95f/Qz4H2P0ATu2ppTZylFpdC3r3f636dunxIG7AvtZ7dC6rCzDfglAN4g9
+	 pK7u8ZerdMAkQ==
+Date: Tue, 27 Oct 2026 08:50:46 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 28/46] mm/mmu_notifier: set ->mm only after mmgrab()
+Message-ID: <auBl3iJyp0RQ-tEA@gremlin>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,97 +83,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-28-6f74bec9a5bb@kernel.org>
 
-After a root port disconnect or link error, xhci_handle_halted_endpoint()
-sets EP_DROP_PENDING instead of resetting the endpoint, and gives back
-its TDs.  Their TRBs stay on the ring, and the endpoint's dequeue
-pointer still points at the halted TD.
+On Tue, Oct 27, 2026 at 12:17:48AM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+>
+> Radeon uses a non-NULL notifier->mm to decide whether to call
+> mmu_interval_notifier_remove() when freeing a buffer object.
+> __mmu_interval_notifier_insert() sets ->mm before validating the range,
+> so a wrapping userptr range can leave ->mm set after insertion fails.
+> Cleanup then tries to remove an unregistered notifier for which no mm
+> reference was acquired.
+>
+> Set ->mm only after mmgrab(), once insertion can no longer fail. While
+> we could fix radeon's code instead, setting ->mm on success only makes
+> the code more robust.
+>
+> Fix generated by an LLM and sent by Chris Mason in private.
+>
+> Fixes: 3506ff69c3ec ("drm/radeon: use mmu_interval_notifier_insert")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-If the device comes back before hub_wq handles the disconnect, a driver
-may reset it on the same slot.  usbhid does this after 1 s of
-interrupt-in errors.  xhci_discover_or_reset_device() then clears
-EP_DROP_PENDING on every endpoint.  The other endpoints are disabled by
-Reset Device and get new rings, but ep0 keeps its ring and dequeue
-pointer.  For USB 2 devices, usbcore by default sends a 64 byte
-GET_DESCRIPTOR before SET_ADDRESS, and so before Address Device reloads
-the ep0 context.  That request is queued behind the stale TRBs.  With a
-Keychron M5 the reset stalled for 11 s, and the xHC then ran the old
-TDs ("Event dma ... for ep 0 ... not part of TD"), writing into buffers
-of URBs that had already been given back.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Keep EP_DROP_PENDING set on ep0 through Reset Device, and clear it when
-an Address Device command succeeds.  That command loads the ep0 context
-from the input context, whose dequeue pointer is our enqueue pointer, so
-the xHC skips the stale TRBs.  Until then, ep0 requests fail with
--ENODEV.  If Address Device comes first, as for SuperSpeed devices, the
-device recovers in place.  Otherwise the reset fails quickly, and
-usbcore re-enumerates the device on a new slot, as after a real
-disconnect.  The same applies when Reset Device fails because the slot
-was never addressed: the next enumeration attempt uses a new slot
-instead of the stale ring.
+> ---
+>  mm/mmu_notifier.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+> index 2e20f88e162d7..a7bae5de5fedc 100644
+> --- a/mm/mmu_notifier.c
+> +++ b/mm/mmu_notifier.c
+> @@ -947,7 +947,6 @@ static int __mmu_interval_notifier_insert(
+>  	struct mmu_notifier_subscriptions *subscriptions, unsigned long start,
+>  	unsigned long length, const struct mmu_interval_notifier_ops *ops)
+>  {
+> -	interval_sub->mm = mm;
+>  	interval_sub->ops = ops;
+>  	RB_CLEAR_NODE(&interval_sub->interval_tree.rb);
+>  	interval_sub->interval_tree.start = start;
+> @@ -964,8 +963,12 @@ static int __mmu_interval_notifier_insert(
+>  	if (WARN_ON(atomic_read(&mm->mm_users) <= 0))
+>  		return -EINVAL;
+>
+> -	/* pairs with mmdrop in mmu_interval_notifier_remove() */
+> +	/*
+> +	 * Pairs with mmdrop in mmu_interval_notifier_remove(). Drivers take a
+> +	 * non-NULL ->mm for "registered", so set it only with the reference.
+> +	 */
+>  	mmgrab(mm);
+> +	interval_sub->mm = mm;
+>
+>  	/*
+>  	 * If some invalidate_range_start/end region is going on in parallel
+>
+> --
+> 2.43.0
+>
 
-Fixes: 042aad8d0db6 ("xhci: prevent endpoint recovery after roothub disconnect")
-Fixes: 7e0ef4332ed9 ("xhci: avoid xHC endpoint changes after disconnect or link error.")
-Reported-by: Dennis Wissel <dennis@dsine.de>
-Closes: https://lore.kernel.org/linux-usb/4MjB9K-2SoiA85WbI9iEig@dsine.de/
-Tested-by: Dennis Wissel <dennis@dsine.de>
-Signed-off-by: Yiyu Zhou <yiyu@yiyuzhou.io>
----
-This is the RFC from the regression thread [1], unchanged apart from
-Dennis's Tested-by.  It applies on top of 1f36cc9fa949 ("xhci: give
-back all TDs when skipping endpoint reset after disconnect") in
-for-usb-linus and depends on it: without that patch, ep0 requests are
-not rejected while EP_DROP_PENDING is set, so they would wait for their
-timeouts.  7.3 needs both, so they should probably go to stable
-together.
-
-I used an LLM to trace the code and draft the patch.
-
-[1] https://lore.kernel.org/linux-usb/20261026203944.2235991-1-yiyu@yiyuzhou.io/
-
- drivers/usb/host/xhci.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-index fa3012bf4c0f..15f4ee4aa2c3 100644
---- a/drivers/usb/host/xhci.c
-+++ b/drivers/usb/host/xhci.c
-@@ -4091,7 +4091,13 @@ static int xhci_discover_or_reset_device(struct usb_hcd *hcd,
- 	ret = 0;
- 
- command_cleanup:
--	for (i = 0; i < EP_CTX_PER_DEV; i++)
-+	/*
-+	 * Reset Device leaves the ep0 ring and dequeue pointer as they were.
-+	 * After a disconnect or link error, ep0 may still point at TRBs of TDs
-+	 * that were given back, so keep it blocked until Address Device
-+	 * reloads its context.
-+	 */
-+	for (i = 1; i < EP_CTX_PER_DEV; i++)
- 		virt_dev->eps[i].ep_state &= ~EP_DROP_PENDING;
- 
- 	xhci_free_command(xhci, reset_device_cmd);
-@@ -4463,6 +4469,16 @@ static int xhci_setup_device(struct usb_hcd *hcd, struct usb_device *udev,
- 	}
- 	if (ret)
- 		goto out;
-+
-+	/*
-+	 * Address Device loaded the ep0 context from the input context, so
-+	 * the xHC now starts at our enqueue pointer, past any TRBs of TDs
-+	 * given back after a disconnect or link error.  Unblock ep0.
-+	 */
-+	spin_lock_irqsave(&xhci->lock, flags);
-+	virt_dev->eps[0].ep_state &= ~EP_DROP_PENDING;
-+	spin_unlock_irqrestore(&xhci->lock, flags);
-+
- 	temp_64 = xhci_read_64(xhci, &xhci->op_regs->dcbaa_ptr);
- 	xhci_dbg_trace(xhci, trace_xhci_dbg_address,
- 			"Op regs DCBAA ptr = %#016llx", temp_64);
-
-base-commit: 1f36cc9fa9496189e95fe5762cde8a74e0cd9d68
--- 
-2.55.0
-
+--
+Cheers, Lorenzo
