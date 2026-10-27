@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793107210;
-	b=BCq6eI763GzzGCdteCTEWnip0yqGJJfYDTsgmwyq14h7X8/QPulXdzw1YLrISOE91TeO
-	 DEoX20Lvi6Dj41jFPy0YaDI7YmBU6L7pqp698nt5yJP7f/kmj8JSCuSKu3laqGa6oe9it
-	 VzAug2oTPNnugdzlHdFmwfJba/mYYMxcS5ohlo5KCeGvM0jLnJOHpU/i18Qem5lXAC6RY
-	 IMZLkcu2TkzhmTZBACF7+JbIQ+BI4sZRE6z7QwWX7HT/8EuCWVTPWzhbC3MW3uSDEUdJM
-	 vnEOu0I0cK6zx8U2Oj++nqig2G+XYNA08FMJ2IqvbA3FFT8NZ4P9V1/aCdtKdgqZv2Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793107210;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793107267;
+	b=Etqv/tMPAamOZvChSjTappkxvVUOsZ/bMhLF+c2oFtwDbFtT/wr3z5Dct7r/ssQ96PEp
+	 nZrv9A6L8Tq+dqAhVdtpPy5CU8jLJcLCdjUToKesBR49eBlMeJylG7H+7a2p+bmyKnJLe
+	 sV0ieVLhHRRLTUltVFqpHPLpHK8FHoo2lMpdV62Qx2CZgJr9SVDCysEm2m8DlcYOQqtHo
+	 ggUaLc20p2YwNxTyTD++W/H8q7NdCiGRdUSrQXlt1gSkKmwY21v1gRpaNrEH6aondy596
+	 kPQUYhi3Rgivyjmw2xmgqZ0WDrXTJHkD6a1xYdxXs1PisriI+EwarJjfuvgq6vdC4eQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793107267;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=b4XlHG69rykZdY7UFDMMd4dGaLAt8RQaxs8vJ62P5ng=;
-	b=QoQ7fUuDi3IdYESHBjjvQE2O1rs3KOvbIS0W8jR4uZoL8l1MqSudKOG7VWCH86DEfo6u
-	 SHnlg0H8Hr3Ei4jwO+Sqkc8w2PcNuHfk7BR8DK3L5OjcZtiTt73cWRHxHCA8bI7f+MuCu
-	 rXbS1I+Wwl/NJ4d94EWe3IvXVrqJw4S4lOAfL8qVHje7vNhGzVArxJkY0IQwVhRZOl3T6
-	 vexCHbopAVB4kOkRUgUxC+ooySyEfcFQZSpIwRHz5Wptq/RgrG/xVCYwVqMnz5Q0Y4DYJ
-	 p2WmKVtApb/pZfJWzzEQCTri8ZuJfeiMZJgTRDj2IVkrES2mYygpff8m1u1tJGcRIIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PI+wWLA/0HjZUtFhvg6XuCK4doWx6E1ESuzMR7f3jIc=;
+	b=XB78hgzy2Kq5p1A9EHDuJ6Puz4qibBXbysVxMySmKD+w4YBX5FCFhnGlJVw0L04KzeVK
+	 qDFBFRsxSJZ9LnSYXh/h6RvQ3ATQMm4AL7l3DKzgOSymPmWUG5dZ16KCq5Yca/Hrp/WA+
+	 YeEiAdFTboXKCpAzf0/CLj1HAZEhVDKedQm19b5ZQi70Yw3b3M67N6w/5WIpEtqxvSK9t
+	 rYMVrcYHzzTigFl2WrDFMI4BRUOHcKqUwHxx/0dhkNIvqKNcBSrguiOP19jdEax1yJuWz
+	 3DGgR+Y7UzYOADx+v2qs0ymlKRq+SuVK/AEiR/i096FF2cnJBFTtbW7lUv6suZLCIeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KwmXxI7Q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BaocJlYI;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B46D606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:20:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B46D606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59ED6606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:21:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59ED6606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KwmXxI7Q
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a10095f3aso134123eec.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:20:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793107209; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U7DMug8eo+WseposPe+O0JArsD4PGTZI5HUPD642oQtcSSx3cDvVYnmUObDAd6vSUj
-         gzW1NHWl2u5T0X6lXJgu3TEVNGkgAGvk7YlJ9eTCBNGcv3thOcRjyicmOwLftRZ/K918
-         NOj1eudEQV0iG+VXc+Sr+CRafftJ4HyJVs6dKauQHqdMBnVqWZigQYEOH706PGVuokzF
-         Ei4Ql+kBI8VVSYd6frvloQ9U1c5iiOyCl7mVdxH7A5xM7z7cOtRxgrF4e7x/ex7l7NfD
-         ojwfr904iKkAW9e7Fe32vm5gfDMh3xkdDwazlQcYhMYAnHtrds+yzaMfmXY+A2QUe1GJ
-         OYZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=b4XlHG69rykZdY7UFDMMd4dGaLAt8RQaxs8vJ62P5ng=;
-        fh=dMj2Is3ku/CVmj4OIwKiB3brceETsJGqmS1BAebpENY=;
-        b=CVpPAyNJVYOfwMplJXPfyRv8Miuvup4epXCFPxdMyaiuDb/l1OM0Uy6UEKYpaj+JlW
-         EtfMBFbyT27ON2vy6iL2C2zVIZCwgc0DUewLqnHgGwzkuU9W4VVYXJEj8ifWTyty8I9N
-         TQ88RSGmz4bgR8c7NapHBXmGyL/cI2oZA1iQwdFVCjdhJujHGBDsYnt/2d5rT6Gj98IS
-         GCorom8n4NPcI34SC4FyIOASULvHXW/H73qtxj3MwNsNq3fgAkA7o7SxLeu3bD1W6pWA
-         tviZ1dlNW95ihu83B6E1IqD8t0bwLqSny2+KSSCbQDTLew1huQW6bXtomJPDTUt7P8LD
-         MsKQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BaocJlYI
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so728600f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:21:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793107209; x=1793712009; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b4XlHG69rykZdY7UFDMMd4dGaLAt8RQaxs8vJ62P5ng=;
-        b=KwmXxI7QR3rV0LwEuF7BShBsVedgcPi8hai8PBobx3gkqKirVpQcBTCe4X9ZHRjS8t
-         M14IQzNGZsu4ZztRoW39NVUxZXvcM5bs7xFhcfttkxagYdJMJG2NmsNxEqs/yqY7YQc/
-         ImZwrvRUFoNCML37bPj7ZRCT2eT6g/M0tRhDr3GbRwirXSjVr3Kr9Ia5BU98BgeZ2SkG
-         epPhWGp0UIHP0ktg328MhtG183M5XggsEaNwijx6cOirBfhy9UAS2wyTCzeBzE5pCmsR
-         RPjhQWPw/SH1q+rzEVMGeKdQfE5nMr/gDetewjQmFhLg1zBP+icxHKGYp81oc3aKNDiH
-         YnLw==
+        d=gmail.com; s=20251104; t=1793107265; x=1793712065; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PI+wWLA/0HjZUtFhvg6XuCK4doWx6E1ESuzMR7f3jIc=;
+        b=BaocJlYIeF9ZRARkR6ynrd1QOKCYuOoWf8Gmuj5lAirRTwZ/eNoavKffyeFkQOXEbn
+         hnbWy06wYprxhR5eRWJj+3J4WLMrasebSSKDvta/v6OUc5EtOQh+MdAVhoKDFn0/huCI
+         psmahx1QMZNaUENbHNdu2rXzI9ScnC/siCSyMgv4rWMPnhD9NQKyyOya202b8rXzT2rI
+         rSASWoT6IInbMppZikFWQ1h1V1MeDR9f9K/mV33dwP/K0YdPLY5AW1uPb5Ccn6NOzjsd
+         rDfWfK8fgsyvggXjBrlCh+MtP6teDoFBRqrCgcV+M2/10Z8cRpnGXUU9mZfV2FWZiSDE
+         puuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793107209; x=1793712009;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b4XlHG69rykZdY7UFDMMd4dGaLAt8RQaxs8vJ62P5ng=;
-        b=ymNnP9ujdNquDAXt4zJ6gOiMgh2M3/iHRsz99NmjmilmBAc6K8lrZnSlXZdTZFEngQ
-         KGp7efrNKkVgfsAKOy9halbV9Z+qpv+f3cspVbZzTa9uwWr5fMPsNRa+PVBAgIJqf5qA
-         tBqghHlWQ2Wkns1tOa2VlUYqYlfnNNcqbe8nI/xsVAwF4zMcKrg64ZyHqUcFUhQ1q1Ur
-         FoIUqudMmGegy7qrsgZnnE2/GFVdAsCUuJ172vf3gt4RO96O6I1VdDTS/b7ozlhuzfeS
-         syzW+PAGa/daagb17gIgtPL5aHv0uVEUCI9g8uBwQIZxzuTfejJEtgQHc5atuHSqwjYA
-         oI1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwCgnxGjt3CHh2vFk6eBGSk56K64nSkDAFSDpglrx54qLGboOT723c+NZCHjzeK5Js/6em138yGO9qV6Fo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6vCW5Ax7O13dQ91PWVhe6HqkfU5+nWcFLw0DrTFTQoes8z6Gh
-	zHcFykDGqkefETVG+EEX5zFfMtuWVvtdP/V+IVeIcQXvC2lXPMVcVjH/L9rgQCbgo861iS3EVgX
-	hnZb4cA1auy9KPlQRQuvHeGIo6pUPNHs=
-X-Gm-Gg: AYBFou1sFaRmW98R1meTY025/CqgFqppzvmDfWaejaUW9bdRN2RQ6n9IeGj/gYVj1W9
-	JNRN07rGK5uBdIUePbNctRMmuc4Pwpd8NdGARHeKAg913kHbwf7dnEpx1msjEXGLHXzEwekTmz/
-	UWiYUb1V3LxmuEPLuTfCnQQhdNwvVR9znMnsbaTOVqom9keYXLHp2Hgk9lpKWOY25+/a7xA/Pi4
-	uZo9pTOfiZlu9m2XdNyWMtGmi9woeU/EVaKr2NdaigigPPfpwi348PgC3B8q6LBm26K8P+f4fwy
-	SFqoeYmXeBw0WNbdugnbthA1Ki7ZBUjRynNYKLmW1Gp2N6NVo0WFdsnxijcwKYLJ7OxdzD7EXg2
-	obCzcWeHmBCjYg1+xNy1Pf2HlAQ3XpKYIIZjtN/5XK1GyltilhBaj8icNKG2LcuKq2tE/rGRHuM
-	dhxLe5E2lnv+oUSIRg/YAJoqFRbVTL+OJ0PT44DpTJ28wpPWZMprKfaoaqUXvHu0Qg/4tu3zYzi
-	3uuwXp5jJV0ap6IaxwJ2wBPDYJQG1bu6lCX
-X-Received: by 2002:a05:693c:8817:10b0:36a:143d:98db with SMTP id
- 5a478bee46e88-36a143d9df6mr3896465eec.1.1793107209313; Tue, 27 Oct 2026
- 06:20:09 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793107265; x=1793712065;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PI+wWLA/0HjZUtFhvg6XuCK4doWx6E1ESuzMR7f3jIc=;
+        b=z0u7+R9xKTbZ0LmnDGRUwf3pT9Z2Uubl+I+a8qKsfi1LxDdQNuBmNWOJTIf/0ttXFh
+         eKJoKNqLhWrKOXwLkeXGcwdCIM/+2QeHrbWe/kq6vEwCcN0BzhvGCEY50TUcgHAVsP0k
+         2R5OxVZYK3/Lp3leFx/QOnGbPMXHXvykcGOAfAIG/lb88t0ItFNREyclXEY6oPz+w7PR
+         KZyTLe8K7bt6s6TXVvYk7CjOW44Fj+bmsl+iPczXlzfzhMokBqshq3qYl7FRSy5Oo8BR
+         xqvaidNYUnnJ9A+dfhci7a9g9eqD9fIaNnDWSPk7UGIgksydUQZ2M5AbjPAsQidltMLh
+         rL0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy83u6zlRfoyVoF7VCzBfbgatyrcveWsoFR7RoXnzk0c1QhANqsJhMy5gN9fgCwIy0y3lPxHj5FtqT/CqQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfIJE4DbqYqVUWyWL17qtA7jAISKJY3beEAIJdv8ce83wpfkbN
+	yEYjXgyKX7kf0HBYqeW8oY5lUZENiWK00bcDTskL1Vv9BtKlXYQYZiRH
+X-Gm-Gg: AYBFou2Fl0k/UuXjBbDI4wBGmoLi8ohmxkidOCHW2WT38MASFIoVHCuOOzzQJJUSNbu
+	buqw5OapZ0Vnk48p6pDnfhVGRpw/InTlraJFTC/F6C4yrfQL6PINdJmgTSE+lTxhcfF3JQ7WTPh
+	VE8R8us//0/K2X5GQ4yCnCUfD6MPyRx+yf/U23EgW/E/ItWjUrTRDNorJ1/dh7jFiMXOoJQvQL/
+	VXvmukzdvHAFCLUwIOkFteORkEXata6PpOUQm8lvF08FEgdSfE97jmUzwoZKLVWwAwaajeptt1V
+	W85Lb7qNqigfTJgtJLSXqP1Iq6dK6RuhaIv8d+j3WdSuhJZ7oPtKHvMsnsA3PhZP0pL3tQAE1Qc
+	XfgKLoG8SNjxAIF/cIKjdexykbPbRexczkUx5KgQjGT1hnIukTJOPtq0iLWjOtIbJa0I437G3Rs
+	cUpN6A4/OcCHyXw5USBMP2G9Z1VDR7ZsRj64VRlWy8YRrOmV0YZgRhEt17+2fwkp4AOFP5JwWdz
+	B9ltRm3u+JGQJWliT7DXpyZ7fPuRkgkBelGTu3jz6nmrZoUihK35yc9F8jhQfPwW5CEzvY2fZef
+	rudbYGK7ZWtom1koUXwqj48JkL9Gsw==
+X-Received: by 2002:a05:600c:3c98:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a7c1c845a2mr58333335e9.16.1793107264222;
+        Tue, 27 Oct 2026 06:21:04 -0700 (PDT)
+Received: from SMW032656.wbi.nxp.com ([128.77.115.158])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a08dcbfsm177568315e9.2.2026.10.27.06.21.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:21:02 -0700 (PDT)
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	elena.popa@nxp.com,
+	cosmin.stoica@nxp.com
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: imx95-navq: add USB1/USB2 nodes
+Date: Tue, 27 Oct 2026 15:16:30 +0200
+Message-ID: <20261027131630.575-1-laurentiumihalcea111@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,47 +104,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928011123.450800-1-alistair.francis@wdc.com>
- <20260928011123.450800-11-alistair.francis@wdc.com> <DM4NT7TFX4X9.1GFI128LI5ZQ4@nvidia.com>
- <CAKmqyKNEup=x+bwmPD_8x0s4ssPkqFnQtSGqJ_82z9oDP=A6cA@mail.gmail.com>
- <DM58HRC3DHSS.1YC0E53ZXANT4@nvidia.com> <CAKmqyKPwirjmeBQvXgheY8Lh-M-RRq5pdbv=5mB4duhw9aCbGA@mail.gmail.com>
-In-Reply-To: <CAKmqyKPwirjmeBQvXgheY8Lh-M-RRq5pdbv=5mB4duhw9aCbGA@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 27 Oct 2026 14:19:55 +0100
-X-Gm-Features: AclHuK8O_cUPC_NV8nLehaHvClvws6tvszHDrs0qLddmTGSO7twgLKCazt9sU5Q
-Message-ID: <CANiq72n=eqh6W+iNWPdM+rrc+HujtZVRtVg=JB03OMS8rc5hiQ@mail.gmail.com>
-Subject: Re: [PATCH v4 10/22] lib: rspdm: Initial commit of Rust SPDM
-To: Alistair Francis <alistair23@gmail.com>, Andreas Hindborg <a.hindborg@kernel.org>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, lukas@wunner.de, linux-cxl@vger.kernel.org, 
-	akpm@linux-foundation.org, Jonathan.Cameron@huawei.com, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	jic23@kernel.org, bhelgaas@google.com, alistair@alistair23.me, 
-	djbw@kernel.org, linux-pci@vger.kernel.org, wilfred.mallawa@wdc.com, 
-	gregkh@linuxfoundation.org, alex.gaynor@gmail.com, aliceryhl@google.com, 
-	benno.lossin@proton.me, boqun.feng@gmail.com, bjorn3_gh@protonmail.com, 
-	tmgross@umich.edu, gary@garyguo.net, ojeda@kernel.org, 
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 5:19=E2=80=AFAM Alistair Francis <alistair23@gmail.=
-com> wrote:
->
-> That was kind of the goal with `SpdmState`. The issue is all of the
-> drivers calling this (PCIe, NVMe, SATA and SCSI) are C drivers and
-> won't be Rust for the foreseeable future. So there aren't any Rust
-> users.
->
-> I have improved things a lot with v5, let me know if you still want a
-> Rust API. It just feels a bit silly to add one that will probably
-> never be used.
+From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-I mean, it is true that we don't want dead code, but in general we
-would also want more Rust callers in the future -- so I guess it
-depends on that "probably" you mention, i.e. how likely it is. So
-could you please elaborate? i.e. why is it that you don't expect
-future Rust callers? Would the NVMe Rust driver want to use this
-eventually if merged? (Cc'ing Andreas)
+Add and enable the DT nodes for USB1 and USB2.
 
-Cheers,
-Miguel
+Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+---
+v1 -> v2:
+
+* change USB2 DR mode to OTG to match TypeC connector configuration. The
+controller should actually support the software-based host <-> device
+switch.
+
+---
+ arch/arm64/boot/dts/freescale/imx95-navq.dts | 121 +++++++++++++++++++
+ 1 file changed, 121 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx95-navq.dts b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+index 7860c113e9e0..b668c752905b 100644
+--- a/arch/arm64/boot/dts/freescale/imx95-navq.dts
++++ b/arch/arm64/boot/dts/freescale/imx95-navq.dts
+@@ -5,6 +5,8 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/usb/pd.h>
++
+ #include "imx95.dtsi"
+ 
+ / {
+@@ -80,6 +82,72 @@ i2c3_gpio_expander_21: gpio-expander@21 {
+ 		pinctrl-0 = <&pinctrl_i2c3_gpio_expander_21>;
+ 		pinctrl-names = "default";
+ 	};
++
++	ptn5110_usb3: tcpc@50 {
++		compatible = "nxp,ptn5110", "tcpci";
++		reg = <0x50>;
++		interrupt-parent = <&gpio4>;
++		/* USB_PTN5110_ALERT_B - shared IRQ line with tcpc@51 */
++		interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-0 = <&pinctrl_typec>;
++		pinctrl-names = "default";
++
++		/* no SINK circuit (EN_SINK1 tied to TP32) */
++		connector {
++			compatible = "usb-c-connector";
++			label = "USB1 3.0 Type C";
++			data-role = "dual";
++			power-role = "source";
++			self-powered;
++			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					typec1_con_hs: endpoint {
++						remote-endpoint = <&usb3_data_hs>;
++					};
++				};
++
++				port@1 {
++					reg = <1>;
++
++					typec1_con_ss: endpoint {
++						remote-endpoint = <&usb3_data_ss>;
++					};
++				};
++			};
++		};
++	};
++
++	ptn5110_usb2: tcpc@51 {
++		compatible = "nxp,ptn5110", "tcpci";
++		reg = <0x51>;
++		interrupt-parent = <&gpio4>;
++		interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-0 = <&pinctrl_typec>;
++		pinctrl-names = "default";
++
++		/* no SINK circuit (EN_SINK1 tied to TP30) */
++		connector {
++			compatible = "usb-c-connector";
++			label = "USB2 2.0 Type C";
++			data-role = "dual";
++			power-role = "source";
++			self-powered;
++			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
++
++			port {
++				typec2_con_hs: endpoint {
++					remote-endpoint = <&usb2_data_hs>;
++				};
++			};
++		};
++	};
+ };
+ 
+ &lpuart1 {
+@@ -145,6 +213,10 @@ pinctrl_reg_usdhc2_vmmc: regusdhc2vmmcgrp {
+ 		fsl,pins = <IMX95_PAD_SD2_RESET_B__GPIO3_IO_BIT7			0x31e>;
+ 	};
+ 
++	pinctrl_typec: typecgrp {
++		fsl,pins = <IMX95_PAD_ENET2_RD1__GPIO4_IO_BIT25				0x31e>;
++	};
++
+ 	pinctrl_uart1: uart1grp {
+ 		bootph-pre-ram;
+ 		fsl,pins = <IMX95_PAD_UART1_RXD__AONMIX_TOP_LPUART1_RX			0x31e>,
+@@ -198,6 +270,55 @@ pinctrl_usdhc2: usdhc2grp {
+ 	};
+ };
+ 
++&usb2 {
++	disable-over-current;
++	dr_mode = "otg";
++	usb-role-switch;
++
++	status = "okay";
++
++	port {
++		usb2_data_hs: endpoint {
++			remote-endpoint = <&typec2_con_hs>;
++		};
++	};
++};
++
++&usb3_dwc3 {
++	adp-disable;
++	dr_mode = "otg";
++	hnp-disable;
++	srp-disable;
++	usb-role-switch;
++	snps,dis-u1-entry-quirk;
++	snps,dis-u2-entry-quirk;
++
++	status = "okay";
++
++	port {
++		usb3_data_hs: endpoint {
++			remote-endpoint = <&typec1_con_hs>;
++		};
++	};
++};
++
++&usb3_phy {
++	orientation-switch;
++	fsl,phy-pcs-tx-deemph-3p5db-attenuation-db = <17>;
++	fsl,phy-pcs-tx-swing-full-percent = <100>;
++	fsl,phy-tx-preemp-amp-tune-microamp = <600>;
++	fsl,phy-tx-vboost-level-microvolt = <1156>;
++	fsl,phy-tx-vref-tune-percent = <100>;
++
++	status = "okay";
++
++	port {
++		usb3_data_ss: endpoint {
++			remote-endpoint = <&typec1_con_ss>;
++		};
++	};
++};
++
+ &usdhc1 {
+ 	bootph-pre-ram;
+ 	bus-width = <8>;
+-- 
+2.53.0
+
