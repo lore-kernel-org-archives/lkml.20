@@ -1,86 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098882;
-	b=QLwCWvmdasmoWHpkhXXojqtMlBlneMs+3QNMmK32fJYGf4PbYmHqvZ50T6xhP/+YLMt8
-	 I3W4QV7k7j/A+MOU7cdZw79gmVGRwSgTPW6MnxlWglkJhSpORb9kqgOkkxgxTYn2J7brP
-	 nXb6ridjBfuI3IUOnUgpJjsmrcp5ZJG6FGLdP064wCUiqFglF1iO91v5UgzFpZ/WdirT2
-	 bp9b/tus/5tc8HyquQopRCJx7T26Ge7uXHhrUZQ37cfAYliZ5UUItHEihPGgTsZKqZYCN
-	 5LHZ3gRa+PEHiimrbF3DBgGZijk2eeVX+1BLn5kSB+valiY75aDj1TnycT5BgadufHw==
+	t=1793098906;
+	b=uQU0pI4LLz+PLnJPjVDXSw0dAReJVcrZ/NDXQqhSa2m9s0VPeyPic6LKVAIghEXS2FgI
+	 Upfst7qFUG0QVu8YtPujn/jVKnOi0Mpu3tMUbOjLBApPgPJRbj7O0Zn5CffXTvt0bTP2y
+	 R1GPdbPxhnHGnA1Uz/bAZddgsB1EXteX74hwCmpo7u97kraQQQd2sZw7ifhSmo/EHVFrN
+	 aOJnlxgVzPBp9HGoAv02vCMoHnuQfHFXYp1rDN+Lm9GSvmADAU21jCE2o8xxuDmFisSTu
+	 FC0m86YA+If5tec9btuy5Z3lpADfvMvlCbUL7bEb0JzNWKjW6N/NB3Z5mi4vsnLMX9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098882;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=54xr3+4KV4okVrxl0DqqbNmnBRKO2e1Wm+dMoQ9wAIM=;
-	b=Nc2vriIiGhTMXSKLnD9fYMF9c/ztd9WV2KFUVkCmkYxNGUblilHh2f97IysQqXpzUayk
-	 XKAy0oq/mz8vxTDcCZCxlX5/K3WRF5B8XnRymYw/ysXWL0pP3/d+DOGENOw2v4IrWjAfR
-	 flP3lbZ/NVW7j9upMQLvTRVDnCUBXNoaZ7OYPfKfW3imkOHUxY/jZPUtO25+Hkf+tIl72
-	 SJuYcZ1J58M6ci8Dmf6wxaXnILOaEEtiK73FjTdfXV30IglmZlQDQIRXygA5xMp3m1lrB
-	 v3FrbE/yDrduLEsm5fO+Oc4vdjEukqbs7DCLCChm6a3ZrElnNf63AzQTjex7/DS3T2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098906;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Fsla96GJDZgpbBbLI0F7GwJBHuZuy+RtHn6YyA2Pqg4=;
+	b=CET6J3H+abjCwftFfBVX638cL/1chDONpZy5OeelLFNyPCTdbwYCFlWzhgZf9ARBDDb5
+	 1d6Rshc3mYwh2tjJNWr9RpW9sk6FW0AwgTnL2xucatuybvG/NcwEhbSGUca3GHGpKfFid
+	 offQBcCWL5Mlsjcd+6YbQ+ats40k59Z7qu+S/ij05IwLpUDIo9HB6bqquHLPF1Th1SgyB
+	 49QlyHefCb9ps79o35zJm7Q3+O8DMabRNq32/UJEda+8TdmoSabAQzR9AppF5XyqvhMcI
+	 IVTzkGfLjC+krEnVSipt2MQ7OZxkE41yS5xhaQ3VCJp+hrcCoHRgluzy9lHRzqGh9+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZYelWIfR;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9zqbCpz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5B3606A31B;
-	Tue, 27 Oct 2026 11:01:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F5B3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CEF3606A31B;
+	Tue, 27 Oct 2026 11:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZYelWIfR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793098883; x=1824634883;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=i5DzzxlouoH9Sr8L5QKk2m0+K6t0SjdBY5att4ix7IM=;
-  b=ZYelWIfRZWr0MwJAqtWmP4G5KywZGqB+fOthXlheiPoPgZIXa/7R7Vka
-   /NaTvmNgE0/kxET1AH6RBuenp8HsBaxPdYtBubXp5VGTe/+gyuXQqtmDd
-   +FfvQ6/L1DIWDFXNiz6nW7OemVz+o/E5zDb1UnZSBQ8mhDU0/FPGVr8HF
-   JsYW2M7k/+pQ144DrSmrPD55QuY8k+hVCuyN8fwO4TW8cYqqVTkPqINy8
-   KdExoAZBmY5QJwSsbeVlxnLNVrXQoDJyDscM7iRSsN5pEJ7AxQ3UYmdMS
-   W60vjL6JL1hCFl8IUE0x/QkJcuAmU5ruJqhQBGQJ34yZO0fekMeB5/CTC
-   A==;
-X-CSE-ConnectionGUID: jAf/gOpbRtO5smctMWi8KA==
-X-CSE-MsgGUID: wyMrlxLAS5CQhSqSyQVpSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1825804"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1825804"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:01:22 -0700
-X-CSE-ConnectionGUID: RsXthhwqStGOpC7Ydn1rug==
-X-CSE-MsgGUID: tIz5YvfnR5+c67EV0Lyj+w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4598550"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.2])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 04:01:20 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id B32F6121CEC;
-	Tue, 27 Oct 2026 13:01:22 +0200 (EET)
-Date: Tue, 27 Oct 2026 13:01:22 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Hans de Goede <hansg@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH v4 13/23] gpio: Use named initializers for
- auxiliary_device_id arrays
-Message-ID: <auCEgktEEKpnKWUx@kekkonen.localdomain>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
- <ec269df979b1e0a7df04a20eb19505c332679428.1793097104.git.u.kleine-koenig@baylibre.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9zqbCpz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822C31F01828;
+	Tue, 27 Oct 2026 11:01:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793098906;
+	bh=Fsla96GJDZgpbBbLI0F7GwJBHuZuy+RtHn6YyA2Pqg4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g9zqbCpzE449qSwJ5mBwjwoFWJVIAqIBeY1ypOKL+ctSEXm0PW3l8pTSthbh31Q8U
+	 E5jPUW8eYhvT/A26UEvgvjQGzDL0VO3xZ1rtBD8zrUgsTrVihabJWgKL9dZ8gamGdC
+	 t5OcDR9GXLvaLbMOSiF9TwrP5sFtjH+dl2XQpba1FrlYLpTY7mqv1aoAS1eULp3gkv
+	 74tx0aDaJrlVWAYWpKEc2hZdRMgJBMpGdJduC/AbF5W80RwoWyA6R1bzJerb+PXLD/
+	 y8Pz/sMmC2vg61BvDNDxST7GfeAxV1gFelmQOwThW9RKdG73AKhujvrbgdvGUYzbRF
+	 U0tJOWmjuAlkQ==
+Date: Tue, 27 Oct 2026 11:01:40 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Li Jinyue <jinyue.li@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org, 
+	jannh@google.com, pfalcato@suse.de, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vma: reset the VMA iterator when merging a new range
+ fails
+Message-ID: <auB2uBW-EWvfNgzZ@gremlin>
+References: <20261025093921.1011927-1-jinyue.li@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,32 +58,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ec269df979b1e0a7df04a20eb19505c332679428.1793097104.git.u.kleine-koenig@baylibre.com>
+In-Reply-To: <20261025093921.1011927-1-jinyue.li@linux.alibaba.com>
 
-Hi Uwe,
+On Sun, Oct 25, 2026 at 09:39:21AM +0000, Li Jinyue wrote:
+> When the new range can be merged with prev, vma_merge_new_range() moves
+> the VMA iterator back to prev with vma_prev() before calling
+> vma_expand(). If vma_expand() then fails, NULL is returned with the
+> iterator still covering prev. __mmap_region() falls back to
+> __mmap_new_vma(), whose vma_iter_config() requires the iterator to
+> already contain the new address and warns:
+>
+>   WARNING: ./include/linux/maple_tree.h:796 at __mmap_region+0x1a04/0x2398
+>   ...
+>    __mmap_region+0x1a04/0x2398
+>    mmap_region+0x304/0x466
+>    do_mmap+0xe7c/0x162c
+>    vm_mmap_pgoff+0x1e8/0x362
+>    ksys_mmap_pgoff+0x76/0x402
+>
+> This is easy to hit with fault injection when the new range sits
+> between an unfaulted prev and a faulted next, so that dup_anon_vma()
+> has to run and fails on allocation before the iterator is
+> reconfigured.
+>
+> mmap_region() used to reposition the iterator itself in this case, but
+> that was lost when it was converted to vma_merge_new_range(). Restore
+> it in vma_merge_new_range(), and only when the iterator was moved, so
+> that the common no-merge path is unchanged.
+>
+> Found by syzkaller.
+>
+> Fixes: cacded5e42b9 ("mm: avoid using vma_merge() for new VMAs")
+> Link: https://lore.kernel.org/linux-mm/CAGfhM4AaEygReogOAmkmu5UfRYwoBXAMdLMBi4jbakNONbpsMw@mail.gmail.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
 
-On Tue, Oct 27, 2026 at 11:48:50AM +0100, Uwe Kleine-König (The Capable Hub) wrote:
-> While being less compact, using named initializers allows to more easily
-> see which members of the structs are assigned which value without having
-> to lookup the declaration of the struct. And it's also more robust
-> against changes to the struct definition.
-> 
-> The mentioned robustness is relevant for a planned change to struct
-> auxiliary_device_id that replaces .driver_data by an anonymous union
-> (though none of these drivers uses .driver_data, so this patch isn't
-> strictly necessary for the plan, but still ok for consistency).
-> 
-> This patch doesn't modify the compiled arrays, only their representation
-> in source form benefits.
-> 
-> Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+Thanks for the report, I'd rather solve this a different way, so will send
+a patch with a Reported-by: and Closes: to this one.
 
-Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com> # gpio-usbio, gpio-ljca
-
--- 
-Regards,
-
-Sakari Ailus
+--
+Cheers, Lorenzo
