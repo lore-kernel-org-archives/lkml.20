@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793134275;
-	b=WJn1pG8TfE9ADkM3wiJcgg9KtFVBnvWBN4P815d1+x44GACbvraPHE8+2OKMaL5x32nr
-	 lKqHVeqheG8rgo0W8EJv55W/+tOd09vQP36Eov3L30Yl0sR7bQRn0QQgSTZu4VZJrlmQf
-	 fFcuuZjKysLXN7xO65pTMAGJWpdrd/oYSXG1nJsncbMHCNzC3HblZulKI1z2e0lZxsWtx
-	 WBxlndg4dc0bwQQQq187vxGmCZRX7k6w8X30sLic+rmyc6svW5KOsHZBZWUyqlT3LJYQB
-	 /nBH19u44pOQns2xOGviVqfVoXj0u2n68HmBj9vg8PYkKfHmgxSRdfc1sWwXgy+pKMQ==
+	t=1793134367;
+	b=Pby3hQ1DFtyZ9tp9X2wimTGRyjjDHkKTXmr6wIzJzK2BoAeALlKIpV130JPrNeHf1TcJ
+	 Shdc1KBLvBrudye+3y/FMY4T+teG8WDuJulQ7YBhEdxrbRlAQmv9L2cFjJCu1A/mFKDNm
+	 3kwO66lB7G6QMaWtWvWvyjLJn41f/5VPm6jfZHrP6UfVeplnHuu42EP2Qf3YghbVQeKeG
+	 QvjWD/P7gOAVKh99oe2drOophsxSm9UtZfhP6h6MvOTl/5n9buur+fGQ2F6VJlcg5p60M
+	 3o/opbMeFbmLPcqvmbk4kLYvDeIqdXHWzGOfJJ37fCQUXB3OEUx9I3HwNjrqq1pQWEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793134275;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=CSLm47a7FT6NjfnxYmf/lBzZ+ptNygyn0ERsa1f7ok4=;
-	b=KMbM7l2aroNWA9z8EOpUC5OpitsrEV1hM6s31KjeYanrgLdMBI7OJRQmbXTQJIB/BPSl
-	 OXm7SRYvExvNgMnalENp/555SUVBhwrE7sV4r4kakG01hUXw8vmUd0oB9EfSvZc6RMQjw
-	 nxuMeZWTcZWWc+06SajowJm5IuhNwvo27SPcRMiTGYPz6bxma0I6V9C7fRtMBuuqxooZF
-	 /6ZeOk3bQ0HrjoX4F0cahZV3A7u0G/7w5TRcke2y22pgk96gFd2DUgB2afBKVts6ihqrk
-	 wPCc34LJAHsht8T+Let7kLPMpfyggkAB74dcIB0/P7IHS+LsKWs/rro8V1mhzQUyTBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793134367;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
+	b=yWNLdOnIjYoc4soXmUDckU+echZW17p5YYq+GSO0mczxx0DHnsVlcZOdHfARRM0Afm+H
+	 LvjOpK/+Er01ZJbeo6WKVQqBm6nyDf1g8dkXuFG4WirPBoNnfDBheXMBYKqpUND7dfYMX
+	 mlW7D9mFD9Nn0GixKVpJJAHNyGEMjvxGz2Nhl8J5Jaex6rwPJjZHNSRQoarLKCMQj8vjc
+	 rd0Fcboq8FhsiK29S6kLFjDKGMBxNLy1mSHQufnrgoFCa946a/DG82/TE9ZQFHM4fG2sk
+	 Mfn1KjzyVOeRxAr+qG1BqQEq6HibIyQdxwfFr/s1BiFXVGkEkvI1btqp3ARtoz2cPiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IutB40zm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HlSdKImz;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4465F606A31A;
-	Tue, 27 Oct 2026 20:51:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32F1606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:52:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A32F1606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IutB40zm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703AD1F01825;
-	Tue, 27 Oct 2026 20:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793134274;
-	bh=CSLm47a7FT6NjfnxYmf/lBzZ+ptNygyn0ERsa1f7ok4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IutB40zmBKNxx4M3pZNrzksYDpGtSz4o9lVe5YiPqvjlw/+8B2o1ONubnP6N4ozC9
-	 gnxLLJkWCtIaXcepa4/frGNd5mrtK4ttXP5mR6OZCMCGJa6FDRAdlNhNQE0RlNIc/H
-	 mjFMr3Ejx5T7sMcQmnHyUEJNq2JdgQ/p76LSGXb5lFzYvKzC82OU6mUup76APkFQZz
-	 yrMsNnK3WIbqfUk8bVvacmE+/UL1UDBQb7UNkadB0Dy+Z9PtBFJrc84N7KvrWzoTVy
-	 Vfps1n/0cV2H05QJaZ1KQS6sCGwa/6Ed/mNCmYkbEX/pxKBKLXy97xJ3xDn8KiVAMo
-	 H/F+lVMdKTzAg==
-Message-ID: <271e8930-471e-4685-bed7-756748cb1baf@kernel.org>
-Date: Tue, 27 Oct 2026 13:51:14 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HlSdKImz
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ae2b7e1e17so188088a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:52:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793134366; x=1793739166; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
+        b=HlSdKImzgk2WYlBDUrX54M9HeRYTZ1bWEqP3eecZml5jDi+o3r/1CVeSCrqOsN73cX
+         uljc8zWNVW4z6CdvOkNgflBltbJ+Cj7ZZFWeoC1dl0U6pUat3okGPtO/K4CtLxHv78MT
+         hCI05ESMJDIuZPaUx0FGRDs5ikhkt6rSUR0DsRVLwQgivSQGa02wzeoOxw/qQ3m8PFCf
+         KrMkCNZscnGz3+4208YcWJ6ga63Fa30abhgnzrAaSXkPtzew3pROSDwpR0bk62jTEVZS
+         JtvVNBeSGjF2xFiRKVU58Foa5xhJS8atjbLcaX229j3AQVrDeWLYYDSXC6RhjARsgE0D
+         0t+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793134366; x=1793739166;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ypEzL1gFHlTg5t/NkvImMIT1oSedLsVHIjJyUl+/edo=;
+        b=sZg4mw6fX4uwx90if/ui1hCDCuFXHD8XzqIqdtuzqisZ39LJ0AMuTKiRvkhw+oz/xI
+         tbKjmpdPlOKOgPAlZWZvNcefb1JD7Qv4A7V/lgfiF3ZbKKqNjnU0B9wjjZsPStrPQyrD
+         KKhH9r2mH/olOkeZAWzdl/tc/T015/RJO8Xvzkp1jkK8X6LS4L+qerESu3oTmo+Dstnn
+         YehaPv8qScwajEV2BnEru8aBdhcTxqxlg/0L4gQ42yDgZRRtpbk3GRMugZsh7nCHvIsP
+         Z1HM+m1sZF4EeR4y4h3u4s8n+cCzDW+WPmu1IrEoJbM4oytgE7EivpmdtN0epPrzCEY+
+         yz+A==
+X-Forwarded-Encrypted: i=1; AKwUvBw+cRA9j7SCg7KGYWwe2DpAwIK5uU49vhNHQ8Gf852fuZGdYLgXs6vhXfdaSsRyknOylseUBRDsDZCVe6U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmiQ87sBr1WbRrMN333zV1Cunofg4Teek3LtLgJDC0oQRpy78e
+	EosonRYaba4/8/b5h6Rq1/2dQ+pdBzOVq+exqjJ5U6KO82EdvT4MSokp
+X-Gm-Gg: AYBFou0z8M/JA4GO9QX6rLc/4qK5gSnd5mE7Wy0W4F6NUielNH6dS9iFGwine8ouk/s
+	WmjU0bU6xSwb/+Qz7Nqg5UkmRxUJFvsC5Rdbn3LpknTUS7FOzLmfKyVb/Xw4md9VhvPQBkHhFqE
+	bkc6nGsJSwDKNgz+6Zuj5rMClRXjAmFw6AjbSc0STlWCxPrMz40lybwzBP+0s6qTAElyLJdA5+7
+	IXnjGEzhK5N/cs0O3thy41hZSfpMm4LtDkEPTINKFEC3TViSP6ZurovjDlogFj/E+ndcIGC9pri
+	atwUZFaR+eMq8uM7njmUP5lJcEqvRjA5yRLvpk92y7KjyorDxjRzPQ16N746H9aKQW1mcCo5gkp
+	DhDw8LMhFjSw2aFaphpzx3R0NdTXGrbmHtMH/hdGq5agtd16VXjLVs9v2E+ITOw5lP3hUk0TA3w
+	qYde4g7zpZ3NxgwhvO7Xo/wrb9uYS4V3ly++Ej3EClL+iv/lj/F6t7FZA4pT6difNwaan18Ohxy
+	CJSZaTb7A+e5sARlsLIDGyFq2Y/JGsljsaaW6QVwJxcZik1Q6jKTupvjfkgVRlzKLAGhd8XjknV
+	K7OUaaGkO6/MjhxB78EmnI4BcdRHkHK5xfj9IME6lsR9CJexDYmudg==
+X-Received: by 2002:a17:90b:2543:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-3ae581b5095mr169710a91.18.1793134366005;
+        Tue, 27 Oct 2026 13:52:46 -0700 (PDT)
+Received: from debian.lan ([121.101.131.247])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57bc67bbsm372192a91.3.2026.10.27.13.52.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 13:52:45 -0700 (PDT)
+From: Amir Hanip <killdeath104@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Amir Hanip <killdeath104@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Document Xiaomi Poco M3
+Date: Wed, 28 Oct 2026 03:51:45 +0700
+Message-ID: <20261027205146.16384-2-killdeath104@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261027205146.16384-1-killdeath104@gmail.com>
+References: <20261027205146.16384-1-killdeath104@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,70 +104,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
-To: Manuel Huber <manuelh@nvidia.com>, David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>,
- Andrew Halaney <andrew@amutable.com>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- "linux-security-module@vger.kernel.org"
- <linux-security-module@vger.kernel.org>,
- "keyrings@vger.kernel.org" <keyrings@vger.kernel.org>,
- "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
- <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
- <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org>
- <DM4PR12MB6136C6E1BE1E6D675AFFF0EDDE602@DM4PR12MB6136.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Fan Wu <wufan@kernel.org>
-In-Reply-To: <DM4PR12MB6136C6E1BE1E6D675AFFF0EDDE602@DM4PR12MB6136.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/27/2026 1:12 PM, Manuel Huber wrote:
-> On Mon, Oct 19, 2026 at 04:15:57PM -0700, Fan Wu wrote:
->> I would prefer a Kconfig CONFIG_SECURITY_IPE_KEYRING default to N instead,
->> like the fsverity keyring. In the kconfig you can also describe in which
->> cases should this option be turned on.
-> 
-> Thanks to everyone for the discussion. Some of the points raised are
-> actionable, but two review questions still seem to be open:
-> 
-> 1. Whether to use CONFIG_SECURITY_IPE_KEYRING or the 'per-boot
->    provisioning' pattern with a kernel command-line parameter
-> 2. Whether IPE should accept any irreversible keyring restriction or
->    specifically mandate restrict_link_reject.
-> 
-> I want to remain completely neutral here because I am only a potential
-> first-time contributor, and because the scenario I elaborated on can be
-> realized with either resolution. Fan, would you prefer that I:
-> 
-> a. move forward with a non-RFC v2 incorporating your initial
->    suggestions;
-> b. revise the suggestions given the subsequent discussion; or
-> c. wait for more input before making a decision?
-> 
-> Apologies if this follow-up causes unnecessary churn and turnovers. If
-> the thread remains quiet, I will proceed with (a).
+Add compatible for Xiaomi Poco M3 codename citrus, which is
+based on Snapdragon 662 (SM6115) SoC.
 
-I would prefer using a Kconfig option to enable the keyring itself. If
-you want a kernel command-line parameter, please gate it behind a
-separate Kconfig option and document the detailed scenario for how you
-intend to use it.
+Signed-off-by: Amir Hanip <killdeath104@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The same applies to the keyring restriction check.
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 121ca557c..8d2e4f0e3 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1068,6 +1068,7 @@ properties:
+       - items:
+           - enum:
+               - fxtec,pro1x
++              - xiaomi,citrus
+               - xiaomi,lemon
+           - const: qcom,sm6115
+ 
+-- 
+2.47.3
 
-I also suggest adding a dedicated threat model discussion in your next
-version. The proposed model drifts significantly from IPE's current
-threat model, where the root of trust comes from the kernel image or
-firmware, and please also address the kexec interaction that Luca
-pointed out.
-
-Fan
