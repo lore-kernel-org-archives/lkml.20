@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793132539;
-	b=Cta1Sq0KSxsIwvxOY70zLeDDTgqt+rvoRiUK15GuEsqJTej96NFy9XAD2imkXCf5taUX
-	 kSXfVEUIPhLEPfd2378clRMMfr7qpCgOqoujCiIido6dO/eumhRe+xIVPv46ePUXtqeKJ
-	 eNkJSmvYwtJZAdrUwbY6g2ivoGXnQHKoyiTXq12vrYCLcXtX6+2NETZgWnQdvb3RKm6m5
-	 gt1iB4umih5RM/3fbwjmDeAznophii4UqTkAgHBm8hg88QGfYm85wVyOpdIwgk8/j53/y
-	 5g31Ql9KC9sJHWh4GeCRYk9RH97mZbEv6beSsIKgl2LUs4pkVnwVGJxKKIfHZQ8kONA==
+	t=1793132547;
+	b=ERpVZByHo+x4F+ELUC0O3S0JQ8fk/rFNFUn1FPWHunXjHDeYeuzAXozUEMpwDvPfQNoq
+	 cLVKtCS2w4qG+P4LPHPXkxqgzUBgrJmevzrV9OnTwpuAnxIHHv1vQ8G0SnIkNiAVBiTgR
+	 du6Konrc7uv2pDIfu9oYS8aFlWwm3KDSsfLsvMBCcVbvdaQ9yLbRzMCdemO8Xy08acY9B
+	 Mkbm9bYPOfhZlM2GbdYZem0Ls8eqYljGGk6Hf0Xh0BBVTq7o3YW1NoyyCj6bsu9gHo2BG
+	 GnsrPj/2Wvwgqz/T9HSeVPj9tmBt8Bo/b8UjlYjnKOMKJoePRu29fxCUbXIiw1npqfw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132547;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pAbzIfs3ymgyt6UeBjNwybzpsbVvnSgiP8ksXvEvp7s=;
-	b=KPhF6U7dZV5xreEzOPBTPhA/AbYANRmw/spkQZ0UTa2PG+QaCg6tH1Q/QJG8bIqoj9nW
-	 HEuLe06o3K+ZirI82b8anlU5hfYZls312G4ncrn9M05tfW1BJzcmesal5VVQzdmgZLoY4
-	 UPRXZWiZeCJpWJ3h25tR82bpOnthLAer7qEUhiuwXyNNAFpuX5Fdy7spr7cD0CoQMSvTM
-	 BCkkaVSdgBpb+I2VYb72X/RjoMHnlbXU8nTOeOk/0RfjSMr7rSU/tepKFfDXtGNoyS4Hx
-	 jy4sCEzzX3zZtbKTOec4j0FRml6Pb3ZnzO+S/c+YR9RmY0oSmvXpa0D2vtAuZKKFsSQ==
+	bh=kQSBrg6yOlwspnVAcsRMU/rYkDBXix5lXkFpX6iFG6I=;
+	b=pZh31v7E0p0R5eyIfD8JtQGkhjy1GT1oXcpgxqRivznB4+PU5xaPft7LFun2U8qM3YCc
+	 TbFCvq/RU71KBIWzo3+XKFZTpQ+q33Z8+NuX8SUXTXURfeS/9f/KwT0245+bxQeD7Dea+
+	 r1Uc3qWL494QannIUhlvmHoikcXYdDWKw/6tCh+DhpYc8+T5zHpZoLMVViGDr0qB8qPoj
+	 9VtINcnq2UrB1gcutvFRt81x/YUrHRLtpcmZ4zI2mXzILE7+tLcE1XYJ59AfcZW3pUNg7
+	 P/X7piW51x1EpFZx7DdGenvJf6GwxOehcb13uydJjLptD5i9jUrJI5UagJKGBfNRfQw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGZZxAAX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UMzhJaYj;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A39560A3817;
-	Tue, 27 Oct 2026 20:22:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0F960A2607;
+	Tue, 27 Oct 2026 20:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lGZZxAAX
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UMzhJaYj
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793132539;
-	b=meb7mlC+tYvO+fsQnAbH4CevMrGRIltA83YAQrrlwfAPn4tmBsDXPxSWz+IdnAiYbPku
-	 XteTFMG+fWm0CCu9vV7N0Ve0lZCH4ENUqkN6WWGcphB3Eg0sCBoE8gPrJabJTjqa4BhOp
-	 Nl4XyEsKSoYRx5a8os0V2HcUPR0mTKdEUVwNkjWnQWGfgJha4CBHZjo/p5KM40BtBFtN7
-	 nkSIu6V+2K+cgMV6DLKpsUU/lDlucotuePlSdX4T3EYjVeYVCuEiwyS3gvklzP3y8Vzdu
-	 wK354G9uLhkY+e3vKywSN/zMD/p2nXbXi+E9aUcWqOSlNC2be53SvVPx9fauO+iOOzQ==
+	t=1793132546;
+	b=UfTuEVsTC3rasLLhCrgapWO91nGhArI1Y8dCl30lC+Qp8tqH6PKfXIZwXLtMQH4zZszX
+	 wJ10PxAKDq8mTksJIhC/RJoS4McY2QuRHhkFKhDVqf/OMPBFwIzb1zqMyIeH43K1Pksed
+	 C9nwqSX7386cm/HYar35onzWzH0yym5MiuCN5b6xYvDphVE6AtGK0D2CAGl7k8tw9EURB
+	 W7eHXsDMf/BdeunupxjHtCle6i2DI5Y/M3S8W0FdmM8POXxramrFzA+uaxqe3uEq5BFsV
+	 M+mhhtTA6ehuZG37ebQMMmKnhUnjFO8im8JfrCjySYDAaZeTrKVcFJLborcIItOgdtg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793132539;
+	c=relaxed/relaxed; t=1793132546;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=pAbzIfs3ymgyt6UeBjNwybzpsbVvnSgiP8ksXvEvp7s=;
-	b=h0TxgOD3b08Wzfx572e8Tsqw5bW2w9ejwxPI2lCr8agses1hSrJf4q5eo4AxDA5YyzTp
-	 GTMizCc2FLkW9QS3hzuKj83ZMFuf/MZnzV6myofKgB9181srwIS/s/aHAOn4tWL/Gi49o
-	 5ariV3Ia0p0eDyfzX3mTOlS8FEvsL+BWJ9T649MHMYyOzPlShnJLCrR+l78ZxhDIJYYG2
-	 0aSkz1ziFPpxxSH9PGlBaVK3Fb2ogaQIkO25z1r0PkD+oaBKKJe0vPMfzy8J1qsYi0JJV
-	 uS1XVE5BidTtCASbArsE5CANN5VkSfTUP68+DoG2FX9nXemiH+ab1Z0fSJwV+36Ct7A==
+	bh=kQSBrg6yOlwspnVAcsRMU/rYkDBXix5lXkFpX6iFG6I=;
+	b=hl3q8Adq7MpMgocE6fnhWlz+8UrW0ZQCzolRFz7oXRddZjRAuysiK7fm/cM9jeN22dME
+	 HdlulvQcWq/M5EMbYbGiR5Mjwl3Kjz7qjlJrt6noH4dG5nAx4CMbhU010cfp3Jaa832Cp
+	 IGM9eow9YtTWEFVaP+Bsw6hYKvXxglPRrWFnSnHJWt0PtB6VcSXN2X7Qj8vODcV1uFrxK
+	 kluSFBZ9NrZtdxbClMkARbwjEq4Ib7EjOG68jTmUospZT5enN9js2jjlx1c+UleLmFOnU
+	 tLlk0vJNzm7p0FJnyZAZzIZkXdH6VZJX1f2il1WBvQla//tYNscJCw22U8bxoSYQD5Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 51BDC1F031E5;
-	Tue, 27 Oct 2026 20:22:13 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6397A1F031F1;
+	Tue, 27 Oct 2026 20:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793132539;
-	bh=pAbzIfs3ymgyt6UeBjNwybzpsbVvnSgiP8ksXvEvp7s=;
+	s=k20260515; t=1793132546;
+	bh=kQSBrg6yOlwspnVAcsRMU/rYkDBXix5lXkFpX6iFG6I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=lGZZxAAXEaSYgW1Zf+OecAfycWk7Kiz5Cc7JwBsZzAnNIVSut6Zqd+J8d7zpM91TI
-	 tj7SFc3qiTmlY5pIksxqSGG9vhhkMo3codnQe10vOsbJkEi/mclcgxhl181D1p6hbx
-	 11zMJbzi1KIca6nKF950Oya8XWvVO4SZ2O8kEuA//PYmV4vjcFLuLDVkpU22HyYEPq
-	 Q9I4TkYMQ4OKfdKxa49mZg3YJlmC9CkZQZV2ZWAVzh78NYB+FH0q5IHLLj53RXijFE
-	 QUS+hQKLzbZvA6jpCnW0RcmmecHZOHJ3Qm/P1dSH/Bk+jIi/c3gqjtAZyfuMfo3sDT
-	 n18Rj4ZXN9I+g==
+	b=UMzhJaYjbewebNBQN/3bpKxVLqSbhhoOm+zfCa0bf2e0nFsRpojwYSHxNDT+rJfBJ
+	 HkNOdAt6auO3OCt2ZeQBNJZLpqEpXKM8yoMt6e7SWbUsdvYSL/bBiUGVf/QZJy6OWb
+	 uvOOLTZicAWiB6ya06seBUcb3k1MXnIiGJeqfYz+AhhYWLx+pRjiGuojQdfVnYUwPL
+	 RI/agIgUZ2vriehWpTQilsilpOpmb0tPCyRjHtKQu5VG97nUixSlRjfHEQ1zUdrkBZ
+	 bhHPtvofte/eZffK185NXfsYRZcu1EzCrnY9V8640b+NMtmHKr3o8PYqUSwcXadkIP
+	 j7sUIwXRNG5gg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1A4C24521D;
+	by lkml.kernel.org (Postfix) with ESMTP id 7E4E445239;
 	Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 14:22:11 -0600
-Subject: [PATCH v13 11/39] dyndbg: drop NUM_TYPE_ARGS
+Date: Tue, 27 Oct 2026 14:22:18 -0600
+Subject: [PATCH v13 18/39] dyndbg: reduce class param storage to u32
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-dd-cmap-part2-clean-v13-11-9267923be612@gmail.com>
+Message-Id: <20261027-dd-cmap-part2-clean-v13-18-9267923be612@gmail.com>
 References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -110,14 +110,13 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
  linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
+ Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=1542;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=9166;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=4fUQ6VDuWM6S7NYu7bhh+z3cfhN2DdlYIxp8VPxliP4=;
- b=WGx/gQ/TRPx53OR2rejypIgr1c5iw+X7Bv8tapAH0PrZsCEWZloxnH2slTGJFcWeIptJ2You6
- FpBG8tL053xBbOSnnJ3nKlK2QKmeTLo7AlGnFP6+Ebm2jCc8jt6SpcX
+ bh=sL0rv0s8Xap2onhbgpfA/xiuEoB+JlAstbDdnM7/3ZU=;
+ b=DUl1huaKy2eKwTU4+lU6zhaCxMtO7IeRpUO9V1sD+XdeUDXL4yvHfj1eH1g6/cTrkNTS4/APN
+ CP2ChKeTwEaB+ol2H1iVnp8uike27d+VVxYfSWJexaqlp2noDzukamS
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -128,48 +127,244 @@ Content-Transfer-Encoding: 7bit
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-ARRAY_SIZE almost works here, since array decl is complete.
-But define it locally, named __DDEBUG_ARRAY_SIZE, to avoid
-include conflicts with  boot/<something> on some arch.
+Currently, `struct ddebug_class_param` uses pointers to `unsigned
+long` values which store the state of `bits` and `lvl`, so it changes
+sizes depending upon the architecture.  Make it always u32 for
+consistency.
 
-no functional change
+The bits field references __drm_debug, which was unsigned int, before
+commit f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+changed it to unsigned long.  This patch changes it back.
+
+That enlargement was a thinko; although modules can have up to 63
+classes, and *could* have put all those classes in a single classmap,
+the reason for it is to support multiple classmaps (with
+non-overlapping class-id ranges).
+
+32 bits is a practical limit for a class-param's usability since all
+classes are set together with a single write of a hex value; 16 would
+be a realistic limit, drm.debug has ~12 classes.
+
+  #> echo 0x0fff > /sys/module/drm/parameters/debug
+
+Several followon patches add a number of compile-time validations,
+including a num-classes <=32 check.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-v7: actually use macro
-v5: drop include, it causes redefined probs in /boot/* for some arch.
-v2: include linux/array_size.h, correct commit subject, review after sob
----
- include/linux/dynamic_debug.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+v8: add a <32 limit to prevent undefined shifts on 32 bit number
+v5: u32 for all arches
+v4: undo change struct ddebug_class_param to _ddebug_class_param
 
+v3:
+fix undefd behavior when classmaps is all 64 bits.
+change module_param_named( type-arg from ulong to ullong)
+change struct ddebug_class_param to _ddebug_class_param
+
+in drivers/gpu/drm/drm_print.{c,h}
+api change later
+
+v2:
+
+patch was "make bits & lvl same size"
+but that size was unsigned long, only 32 bits on i386 etc
+use u64 for all bits, and %llu %llx
+
+u64-fix
+
+u64-drm-dbg
+---
+ drivers/gpu/drm/drm_print.c   |  4 ++--
+ include/drm/drm_print.h       |  2 +-
+ include/linux/dynamic_debug.h |  4 ++--
+ lib/dynamic_debug.c           | 37 ++++++++++++++++++++-----------------
+ lib/test_dynamic_debug.c      |  2 +-
+ 5 files changed, 26 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index 86cef1a37678..794417c62097 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -40,7 +40,7 @@
+  * __drm_debug: Enable debug output.
+  * Bitmask of DRM_UT_x. See include/drm/drm_print.h for details.
+  */
+-unsigned long __drm_debug;
++u32 __drm_debug;
+ EXPORT_SYMBOL(__drm_debug);
+ 
+ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug category.\n"
+@@ -56,7 +56,7 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
+ "\t\tBit 9 (0x200) will enable DRMRES messages (managed resources code)");
+ 
+ #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
+-module_param_named(debug, __drm_debug, ulong, 0600);
++module_param_named(debug, __drm_debug, uint, 0600);
+ #else
+ /* classnames must match vals of enum drm_debug_category */
+ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index 2adc5ac688e1..50b3ba0ae76d 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -39,7 +39,7 @@ struct drm_device;
+ struct seq_file;
+ 
+ /* Do *not* use outside of drm_print.[ch]! */
+-extern unsigned long __drm_debug;
++extern u32 __drm_debug;
+ 
+ /**
+  * DOC: print
 diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 9607121c3072..baf5c0853f45 100644
+index 9cd262a3fcba..36b7d341076d 100644
 --- a/include/linux/dynamic_debug.h
 +++ b/include/linux/dynamic_debug.h
-@@ -8,6 +8,8 @@
+@@ -94,8 +94,8 @@ struct _ddebug_info {
  
- #include <linux/build_bug.h>
- 
-+#define __DDEBUG_ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
-+
- /*
-  * An instance of this structure is created in a special
-  * ELF section at every dynamic debug callsite.  At runtime,
-@@ -122,11 +124,9 @@ struct ddebug_class_param {
- 		.mod_name = KBUILD_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
- 		.class_names = _var##_classnames,			\
-+		.length = __DDEBUG_ARRAY_SIZE(_var##_classnames),	\
+ struct ddebug_class_param {
+ 	union {
+-		unsigned long *bits;
+-		unsigned int *lvl;
++		u32 *bits;
++		u32 *lvl;
+ 	};
+ 	char flags[8];
+ 	const struct ddebug_class_map *map;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 84a311fac657..72bfbec0ac02 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -586,6 +586,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
+ 		pr_err("query parse failed\n");
+ 		return -EINVAL;
  	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
++
+ 	/* actually go and implement the change */
+ 	nfound = ddebug_change(&query, &modifiers);
+ 	v3pr_info_dq(&query, nfound ? "applied" : "no-match");
+@@ -636,8 +637,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
  
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
+ /* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     const unsigned long *new_bits,
+-				     const unsigned long old_bits,
++				     const u32 *new_bits, const u32 old_bits,
+ 				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+@@ -647,24 +647,27 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int bi, ct;
+ 
+ 	if (*new_bits != old_bits)
+-		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++		v2pr_info("apply bitmap: 0x%x to: 0x%x for %s\n", *new_bits,
+ 			  old_bits, query_modname ?: "'*'");
+ 
+-	for (bi = 0; bi < map->length; bi++) {
+-		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
++	for (bi = 0; bi < map->length && bi < 32; bi++) {
++		bool new_b = !!(*new_bits & BIT(bi));
++		bool old_b = !!(old_bits & BIT(bi));
++
++		if (new_b == old_b)
+ 			continue;
+ 
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+-			 test_bit(bi, new_bits) ? '+' : '-', dcp->flags);
++			 new_b ? '+' : '-', dcp->flags);
+ 
+ 		ct = ddebug_exec_queries(query, query_modname);
+ 		matches += ct;
+ 
+-		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
++		v2pr_info("bit_%d: %d matches on class: %s -> 0x%x\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+ 	if (*new_bits != old_bits)
+-		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
++		v2pr_info("applied bitmap: 0x%x to: 0x%x for %s\n", *new_bits,
+ 			  old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
+@@ -673,7 +676,7 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ /* stub to later conditionally add "$module." prefix where not already done */
+ #define KP_NAME(kp)	kp->name
+ 
+-#define CLASSMAP_BITMASK(width) ((1UL << (width)) - 1)
++#define CLASSMAP_BITMASK(width) ((width) >= 32 ? ~0U : (1U << (width)) - 1)
+ 
+ /*
+  * param-setter helper to validate numeric input, clamp its value by
+@@ -685,10 +688,10 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ {
+ 	const struct ddebug_class_param *dcp = kp->arg;
+ 	const struct ddebug_class_map *map = dcp->map;
+-	unsigned long inrep, new_bits, old_bits, old_val;
++	u32 inrep, new_bits, old_bits, old_val;
+ 	int rc, totct = 0;
+ 
+-	rc = kstrtoul(instr, 0, &inrep);
++	rc = kstrtou32(instr, 0, &inrep);
+ 	if (rc) {
+ 		int len = strcspn(instr, "\n");
+ 
+@@ -701,26 +704,26 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+ 		/* expect bits. mask and warn if too many */
+ 		if (inrep & ~CLASSMAP_BITMASK(map->length)) {
+-			pr_warn("%s: input: 0x%lx exceeds mask: 0x%lx, masking\n",
++			pr_warn("%s: input: 0x%x exceeds mask: 0x%x, masking\n",
+ 				KP_NAME(kp), inrep, CLASSMAP_BITMASK(map->length));
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+ 		old_val = READ_ONCE(*dcp->bits);
+-		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
++		v2pr_info("bits:0x%x > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
+ 		totct += ddebug_apply_class_bitmap(dcp, &inrep, old_val, mod_name);
+ 		WRITE_ONCE(*dcp->bits, inrep);
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+ 		/* input is bitpos, of highest verbosity to be enabled */
+ 		if (inrep > map->length) {
+-			pr_warn("%s: level:%ld exceeds max:%d, clamping\n",
++			pr_warn("%s: level:%u exceeds max:%d, clamping\n",
+ 				KP_NAME(kp), inrep, map->length);
+ 			inrep = map->length;
+ 		}
+ 		old_val = READ_ONCE(*dcp->lvl);
+ 		old_bits = CLASSMAP_BITMASK(old_val);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+-		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
++		v2pr_info("lvl:%u bits:0x%x > %s\n", inrep, new_bits, KP_NAME(kp));
+ 		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
+ 		WRITE_ONCE(*dcp->lvl, inrep);
+ 		break;
+@@ -766,9 +769,9 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
+ 
+ 	switch (map->map_type) {
+ 	case DD_CLASS_TYPE_DISJOINT_BITS:
+-		return scnprintf(buffer, PAGE_SIZE, "0x%lx\n", *dcp->bits);
++		return scnprintf(buffer, PAGE_SIZE, "0x%x\n", *dcp->bits);
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+-		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
++		return scnprintf(buffer, PAGE_SIZE, "%u\n", *dcp->lvl);
+ 	default:
+ 		return -1;
+ 	}
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index 74d183ebf3e0..9e8e028461ad 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -40,7 +40,7 @@ module_param_cb(do_prints, &param_ops_do_prints, NULL, 0600);
+  * - tie together sysname, mapname, bitsname, flagsname
+  */
+ #define DD_SYS_WRAP(_model, _flags)					\
+-	static unsigned long bits_##_model;				\
++	static u32 bits_##_model;					\
+ 	static struct ddebug_class_param _flags##_model = {		\
+ 		.bits = &bits_##_model,					\
+ 		.flags = #_flags,					\
 
 -- 
 2.56.0
