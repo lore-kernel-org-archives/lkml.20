@@ -1,83 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793072074;
-	b=yUSZWs0kWyyqRfO1a0sr1m7941+0U3qAObayUGJw0tWEn1av3pnsDHHI6oVvFydGul0E
-	 M5YzYe6Img5B05zWt9+KOdVK4GURyiHC1NoQQzGkQ1ohywn6W2QK335+sdqHWDapb18Ls
-	 WxBOtPN88zeFGN1t2hRaPQ3rp4M/cpaZPcaCBlkPa1tWt76G3znZEkP9ey7x5asXUi2l0
-	 uRML2LBS+j1YYwYIAjTJWdop4Uw5yk4y0YAk4XbkqC5kawIpWYp7DnYPmfePgYkbEYXXZ
-	 azE8AR877XQou6bVknqO9kaVNUk4SVf9ZtRmjECvTi99R6R3my0yt+4TEuSt63uZ9GQ==
+	t=1793072075;
+	b=hSl27dvK3WRTB2bB4foFgL/tEREAa7ijbjzMhNPTNSdAneZH89jxivMMKZMRu0m6kO6N
+	 x4udS97moHUkbIMPxRjHGJ1w8FQ/9K/dVkI6CRcbzS8AvisRy17MogdKFk1V/6Mw61DuO
+	 EMq1EZY9gyi7f/5u2ELzxl4/x3RniG7KSMNO10fG7H/JZyDZs6gQt8C6BdRn8YhspTxym
+	 50PALQeMETwRDvnWCDOGpAmrlW1yjGewE4dtm5ICqkALpknsTX8n90irQL8aw3iNdq0zD
+	 ZHfMMn4Zi8gto/RMmokEeW+80Z92VE8Lsqr2/4wrJmbI5WUMuJoFOrZxiwOj3u2ynkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793072074;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793072075;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=JJLvmVV2iFndDkwChBmGVao/pICrf/b8G6/BBv8WQzs=;
-	b=hIfBLrXA76HgaU/bdXca1/rDbdmYwMJY09wncEtR3YnzfLa4x8+EgkMmraRIXuqD6btK
-	 sqDF2gHbPV6CMFH8P4Eq+SdKOk9oFsmrxwrjFw6CIwCAjaRwXNB0q4qkDuCrFjit0geO6
-	 SMfoC9Q4nHmC7SUGTP4PnSDWVhsyGkmUeghoSjl6yWWEU4OVZI6DyAjuFOUXgr056H66w
-	 aHmAbfaEsPnFKSHGXyN7Kv9cz2GLXFCERoyhmCD5pdEY1W9x45HgkR1Pak0ZEDtAuznLO
-	 +O++i0NY2sSzWRc/Mu+zJFLX3NkhB4xFwk6jLh3INn442p9wSSqa4PIrl2GHlUv3z7Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=waUlW0e7gDgmzI+AA1aqVFppIW+pExWUzgSe1N9AwE0=;
+	b=tp5gPUJFtwAypwPmElPy8BCO5blpBKoH33rJc6udAMtv21SSb/jmBss1Hj1FvaYPQuwL
+	 +1DjDs/rm5ziukTBRRFhm18Pdo03820M48+8uEeFc7XlCk4pRt9yBsXLFPnpEwiVBJIe5
+	 1Hg9q1hu+qx0bSlHMslmspgOW4FVP5hfhpY2KsIoz13oIIaCbbr0HrJnMufz622DKwCJT
+	 xIv1wMRT71cgoyv8aaIl1hBe82fPwaCW6huprmt+VNvtMm6BvZ3XpM4eQN3G60dTQLoIL
+	 +kdmYImV1COJ1oCk7geuYFsLJiG1cTknWTUjafvl+1wL+mZZ0/kIidRxpdckjC9N9AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PrPhYdj4;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=psEq8aAO;
+	arc=none smtp.remote-ip=74.125.229.139
+Received: from mail-dl2-f11.google.com (mail-dl2-f11.google.com [74.125.229.139])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D946C606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:34:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D946C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFF8606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:34:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEFF8606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=PrPhYdj4
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c169ae1cb26so78220766b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:34:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=psEq8aAO
+Received: by mail-dl2-f11.google.com with SMTP id a92af1059eb24-149f2b3f25dso1068364c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:34:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793072071; x=1793676871; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JJLvmVV2iFndDkwChBmGVao/pICrf/b8G6/BBv8WQzs=;
-        b=PrPhYdj4lsl6WY1eRcIYnVNPzLWRrynHcUVj9I5xsoprzRZAeOt6ayDDiUc/trGUDU
-         zEEtUvahpwB3yfKrXVSGtn1hq0c5++9cTKlzb4K/mtZ/zEv0TH4Zg99KXDJ6dOs2oshB
-         yFYwXMyC++79nRfPELlLKzOVJtcZEkNU0o3Xlqfv3VUoiVDmgy5KolN5DO/PO8U61iqf
-         qbx+2TKjQL21JW1lRhafU6DB6bMJdJgrDtJvkKE8E1cIupVnc0ERW7WH6J78ESjGgh+m
-         bOFvg+UcxByPQ0Z60FqDar+JfOxEjjKQlAudE0UvBAO84v60l1P9/uoWoeogBgdVcpi4
-         WtEA==
+        d=gmail.com; s=20251104; t=1793072074; x=1793676874; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=waUlW0e7gDgmzI+AA1aqVFppIW+pExWUzgSe1N9AwE0=;
+        b=psEq8aAOyXfGJ0hGmlqCLt55ggfY7SQsTu1QJ97BBrttIeuh7p1PR5bfeHqTeZTPMZ
+         aserXw0meG33UyK7L2eAoWV/Okiw/W6S+qckn+RAG0vN6v7636xT/TjzcjOvBNDTFaJ3
+         jb05W7VBzaqKzMeCMiGfRBfFAI1QZILSiQgc4xKZQHedeqnNH77qbnGuQPRuIGLkMC4G
+         LX4/STPhgraMIGbaPrLoVOEEz3p16K93wtfqeY1Vb1TFQytDbmA7hlOX5IjFU+Dsos3/
+         VWecE1TRrA4JyZfftdljCO0UGGdd1Sj5CQFiYEWazJfUyO3XW0NUhNC2ue++kXSn4civ
+         nuDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793072071; x=1793676871;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JJLvmVV2iFndDkwChBmGVao/pICrf/b8G6/BBv8WQzs=;
-        b=Iqp9fIKm2Oj10nDl1a8zZXrsCrJLyoS0ZJGvZcwmhaQzjYpIQbZP/KCynyQMBbZ7ij
-         QPnzB/OPClVFt2bAfXNAdeLoS73eo2e/CQFT8eUuCR2k8/t4PF+j/O6Q/Cpd7VtOPWap
-         nQ+rJF5Nz+rs7+M1ENJXPau3vUUl0GHC1JzX1AMRUMdpuznKm8Umwc/JXEY6wxBX5n01
-         uEt7HZ817TaNCZEXm62C5Yb2Dok6Gkd+7Lwz3eWilxrJFxuamU7AgqhIq3Pd1ZusAJrl
-         E9SWkDFMPHf7AyHc2H6Ao6S4rO0A/N6yfh2ydrdrPpNtZGx/r7DzTiCwctNpg3b387e3
-         oKfg==
-X-Forwarded-Encrypted: i=1; AKwUvByH6aMRZDFjx+cRXJQRfUYvWwXXHUhGEJGhRF4xfZCNTynznhrr9MzqJmThbv8IfEWZMdO3qrmOot/ENDA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCCKkMIqfEtf7iak8xV4MFrT6nIxTmj4hVJgJTDyW/A/JN09jt
-	17m8a3rHI2I9/4tCII/VRSuoQgj25P4AX91fKxbG+m69lEHC2XOpA0o/aDUBqNUNyvU=
-X-Gm-Gg: AYBFou2BaMTG3kfSkMU0Kaj+forKm+xShNtv6LJLOFHqc0UeHez2B99EHZ+4wfOtxYV
-	FmUB3JodFlX79JWpU4xFq+AdvMIxxrV7sYQXOLnxzcoYEC0k7KJHr00hAPX9PB+TMOXp3OLxaFD
-	ALbmtBL8QiXEWFfyL9yQczlgBHpJRlyZNvCdste+m+GCPzX1Ir4Tz2+rK3tuP6x5wi7IBG+MKVS
-	CarCMaiuvFpWKmzsXvOp8ZDFUfDv/nBVRxSj71Q8kmK1otgpMW4YLh7nuKcsUk/0YoFqSZt9/DL
-	Q2d/71N5GK0wEt9XEZCyb6Whj4/DdvqrwDPmtYLU3NnKaqF/ApKTGfqEWbEhto2vjU9WsCuqBPh
-	iZPIzA7q8OsCoGwaBeadTRikKXSAhu1Ii4TingpWcTSeyYxrGfcgsLc2Zd+NRBuBYe6Vv/g1L4/
-	Ik0LOLu9+Ax24Q/Sy+Y5R4FotRJqt5BLpzWGhh/d1A7TP7CEnzxqbt94X3lwE5P79cMVTJB0xYG
-	JYVpy2/bB4VNmlqQVW4HBLu5d0ipW3ModlAt5ds5OLaGA==
-X-Received: by 2002:a17:907:9303:b0:c46:7de7:e41d with SMTP id a640c23a62f3a-c49a7417cabmr116191366b.18.1793072071043;
-        Mon, 26 Oct 2026 20:34:31 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:9::])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd52435asm380825966b.36.2026.10.26.20.34.29
+        d=1e100.net; s=20260707; t=1793072074; x=1793676874;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=waUlW0e7gDgmzI+AA1aqVFppIW+pExWUzgSe1N9AwE0=;
+        b=AW0Q+ZgcpQ10SRs6Pl0IHta0GickWh41OUGNx4IoGmpU3TShRvrLhn+1q5Yd1qk++4
+         h19yC2fAhPRYL5XC4lk6Qlidz1u4yFm42bQVxxRj5xrub4Z8H85f4jXxnwnkZVjWE+zU
+         mqLQ6YgYJBt6rXNPupxkwK3vAKEBVsoRNf8KL23ODupIn8TdbVBANFcwtZuYFK0eT+Nk
+         LYaMJjbzPl1Rcj18xUXIkk3MGoGVCNOgg4n4nKyzze5uzj9gHs8aiu+b2e+8p2WzkChs
+         2nm/21dL2RbNFJOHa8KKxAo8QwYj9GZfyws9nrwD/kkwm8FQQc6i3nEzaPgy03A8I87l
+         ypsA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZA2mJatosuy5XVKV8QomyuTmzs6ljRbBO8A5LZhHxkgHuO7+5lDIsiut63c9EcbE2OV2kbcnkjztCW+I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOqKiBOHbu8jFW0WLLGEpBKZjpJNBeBEIhJBDhOwHi7uiY7NsZ
+	90ZKaIas+zYxg/yDzUzW3ngDwkSDdgy/pyFMuxlpCz/JgnGvYWBBcggh
+X-Gm-Gg: AYBFou0xemwAaXSuzfj7hY0BwDgHMelEZN/RvRgePJ02ULVtE3oGTC/JmpWrN6tlWl1
+	kaw7iNTAdvqDpOOnY/MWIfalks6J/hkNwa+dbEECXPK0Sx3UbftB1aS/POCRtkbbDIXzOxpaSUK
+	jMesEQ6P8J94jL8Fwq+n9z+wCqJezSKoRBYxhW/2dlJcTS2PIhxrZWuAd4c9it/B1JMwl53y45M
+	EFDMHHb2TSR0aNt8pHM4a8+4fM4uybV8o4NieM9BXxfuApkeki1uh/Cu93wvWlMXYcCvWtzqdv6
+	QvSN/XxmfX6Ofq6Jls6vUu0pY//W9CWsvnNHG2kmb+b9gXdN8BiKwXW4bZx81koUgWupuRm6SNb
+	MEy4i1iatcXVzHN8vTq6fEWrNlbg/y5EYgVHOtr3zAGFWcQBfyZI+M1QG+kvU/xmCOe062yvE8u
+	P7r7GDh2ScJhVf1nFt8Yao4ynEm1JKZ/wfsCPTNlaZxUtLxIYMBYvLCF3/7TYvwy4RzPsPJXL4a
+	SpzjOxYmsbBXLWgfc4AH9eO57orJDxbADVDw5q7N8rANgfCCYtrDTpLEnMfAz1MPyz04AXUTd8F
+	c5zve/HvZ7uinGTTILEen9GBx8oxLmUGVprcrg==
+X-Received: by 2002:a05:701b:428a:20b0:192:fd91:c567 with SMTP id a92af1059eb24-19935906f80mr13498312c88.11.1793072073779;
+        Mon, 26 Oct 2026 20:34:33 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec50bcsm54876624eec.23.2026.10.26.20.34.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:34:29 -0700 (PDT)
+        Mon, 26 Oct 2026 20:34:33 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yaoyiqi3@huawei.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] fbcon: Avoid cancel_delayed_work_sync() in atomic context
+Date: Tue, 27 Oct 2026 11:34:22 +0800
+Message-ID: <20261027033422.585328-1-yyaqia@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,279 +99,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 04/46] mm/memfd: make f_pos accesses atomic
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-4-6f74bec9a5bb@kernel.org>
-Date: Mon, 26 Oct 2026 20:34:28 -0700
-Message-Id: <179307206859.1171062.6841971971647864368.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-27 00:17 +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Commit 9c225f2655e3 ("vfs: atomic f_pos accesses as per POSIX") made
-> read(), write() and lseek() on a shared open file description of a regular
-> file serialize on ->f_pos_lock.  The flag that asks for it,
-> FMODE_ATOMIC_POS, is set in do_dentry_open().  A memfd is a regular file
-> too, but its struct file comes from alloc_file_pseudo() and never passes
-> through do_dentry_open(), so it does not get the flag:
-> 
-... snip ...
-> 
-> Fixes: 9183df25fe7b ("shm: add memfd_create() syscall")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: minor description tweaks ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+fbcon_cursor() can be reached from the console printing path, which runs
+in atomic context. When the VT software cursor is enabled
+(vc_cursor_type & CUR_SW), it calls fbcon_del_cursor_work(), which uses
+cancel_delayed_work_sync() and therefore may sleep.
 
-This one arguably should have at least a trivial selftest.
+With CONFIG_DEBUG_ATOMIC_SLEEP enabled, the following is reported:
 
-Test attatched
--- >8 --
-From: Gregory Price <gourry@gourry.net>
-Subject: [PATCH] selftests/memfd: test shared file position atomicity
+  BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
+  in_atomic(): 1, irqs_disabled(): 1, non_block: 0
+  ...
+  __cancel_work_sync
+  fbcon_del_cursor_work
+  fbcon_cursor
+  hide_cursor
+  vt_console_print
+  console_unlock
+  ...
 
-Without FMODE_ATOMIC_POS, concurrent reads or writes on a shared memfd
-can use the same file position. Two writers can overwrite each other's
-records:
+Make the default helper safe: fbcon_del_cursor_work() only stops
+blinking, using cancel_delayed_work(), which is allowed in any context.
+Every "stop blinking" call site keeps using it, including fbcon_cursor().
+Only fbcon_release(), which is about to free @par and must ensure that no
+callback is still using it, calls the separate
+fbcon_del_cursor_work_sync(). New call sites therefore get the safe
+variant by default.
 
-    CPU 1                         CPU 2
-    pos = file->f_pos
-                                  pos = file->f_pos
-    write a record at pos
-                                  write a record at pos
-    file->f_pos = pos + size
-                                  file->f_pos = pos + size
+cancel_delayed_work() does not wait for a running callback, and
+fb_flashcursor() re-arms itself, so also move the requeue into the
+console_lock section. fbcon_del_cursor_work() callers hold
+console_lock, which serializes them with the requeue and keeps the
+non-synchronizing cancel effective.
 
-Add separate shared-read and shared-write tests using the kselftest
-harness. Check the final offset, file size and exactly-once record delivery
-rather than requiring a particular interleaving.
-
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Fixes: 3b0fb6ab25dd ("fbcon: Use delayed work for cursor")
+Cc: stable@vger.kernel.org
+Assisted-by: Opencode:deepseek-v4.1-flash
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
 ---
- tools/testing/selftests/memfd/.gitignore  |   1 +
- tools/testing/selftests/memfd/Makefile    |   3 +-
- tools/testing/selftests/memfd/memfd_pos.c | 136 ++++++++++++++++++++++
- 3 files changed, 139 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/memfd/memfd_pos.c
+ drivers/video/fbdev/core/fbcon.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/memfd/.gitignore b/tools/testing/selftests/memfd/.gitignore
-index dd9a051f608e2..574ab97ebd982 100644
---- a/tools/testing/selftests/memfd/.gitignore
-+++ b/tools/testing/selftests/memfd/.gitignore
-@@ -2,4 +2,5 @@
- fuse_mnt
- fuse_test
- memfd_test
-+memfd_pos
- memfd-test-file
-diff --git a/tools/testing/selftests/memfd/Makefile b/tools/testing/selftests/memfd/Makefile
-index 163b6f68631c4..67a95c34541cd 100644
---- a/tools/testing/selftests/memfd/Makefile
-+++ b/tools/testing/selftests/memfd/Makefile
-@@ -2,7 +2,7 @@
- CFLAGS += -D_FILE_OFFSET_BITS=64
- CFLAGS += $(KHDR_INCLUDES)
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 94abbb5ac766..917ce9d641a1 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -422,10 +422,14 @@ static void fb_flashcursor(struct work_struct *work)
+ 	par->bitops->cursor(vc, info, enable,
+ 			    get_fg_color(vc, info, c),
+ 			    get_bg_color(vc, info, c));
+-	console_unlock();
  
--TEST_GEN_PROGS := memfd_test
-+TEST_GEN_PROGS := memfd_test memfd_pos
- TEST_PROGS := run_fuse_test.sh run_hugetlbfs_test.sh
- TEST_GEN_FILES := fuse_test fuse_mnt
++	/*
++	 * Re-arm under console_lock so that a concurrent
++	 * fbcon_del_cursor_work() cannot race with this requeue.
++	 */
+ 	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
+ 			   par->cur_blink_jiffies);
++	console_unlock();
+ }
  
-@@ -22,6 +22,7 @@ include ../lib.mk
+ static void fbcon_add_cursor_work(struct fb_info *info)
+@@ -437,10 +441,30 @@ static void fbcon_add_cursor_work(struct fb_info *info)
+ 				   par->cur_blink_jiffies);
+ }
  
- $(OUTPUT)/fuse_mnt: LDLIBS += $(VAR_LDLIBS)
++/*
++ * Stop the cursor blink.
++ *
++ * Does not wait for a callback that is already running, so it is safe to
++ * call from any context.
++ *
++ * console_lock serializes this with the requeue in fb_flashcursor();
++ * otherwise a running callback could re-arm the work.
++ */
+ static void fbcon_del_cursor_work(struct fb_info *info)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
  
-+$(OUTPUT)/memfd_pos: LDLIBS += -pthread
- $(OUTPUT)/memfd_test: memfd_test.c common.c
- $(OUTPUT)/fuse_test: fuse_test.c common.c
++	cancel_delayed_work(&par->cursor_work);
++}
++
++/*
++ * Stop the cursor blink and wait for a running callback to finish before
++ * @par is freed.  May sleep, only for teardown paths.
++ */
++static void fbcon_del_cursor_work_sync(struct fb_info *info)
++{
++	struct fbcon_par *par = info->fbcon_par;
++
+ 	cancel_delayed_work_sync(&par->cursor_work);
+ }
  
-diff --git a/tools/testing/selftests/memfd/memfd_pos.c b/tools/testing/selftests/memfd/memfd_pos.c
-new file mode 100644
-index 0000000000000..5f3749d13f561
---- /dev/null
-+++ b/tools/testing/selftests/memfd/memfd_pos.c
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#define _GNU_SOURCE
-+#include <errno.h>
-+#include <pthread.h>
-+#include <stdatomic.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <sys/mman.h>
-+#include <sys/stat.h>
-+#include <unistd.h>
-+
-+#include "../kselftest_harness.h"
-+
-+#define THREADS 4
-+#define RECORDS 16384
-+#define TOTAL (THREADS * RECORDS)
-+
-+struct worker {
-+	int fd;
-+	unsigned int id;
-+	bool reading;
-+	pthread_barrier_t *barrier;
-+	atomic_uint *seen;
-+	int error;
-+};
-+
-+static void *transfer(void *arg)
-+{
-+	struct worker *w = arg;
-+	unsigned int i;
-+
-+	pthread_barrier_wait(w->barrier);
-+	for (i = 0; i < RECORDS; i++) {
-+		uint32_t value = w->id * RECORDS + i;
-+		ssize_t n;
-+
-+		do {
-+			n = w->reading ? read(w->fd, &value, sizeof(value)) :
-+				write(w->fd, &value, sizeof(value));
-+		} while (n < 0 && errno == EINTR);
-+		if (n != sizeof(value) || value >= TOTAL) {
-+			w->error = 1;
-+			break;
-+		}
-+		if (w->reading)
-+			atomic_fetch_add(&w->seen[value], 1);
-+	}
-+	return NULL;
-+}
-+
-+FIXTURE(memfd_pos) {
-+	int fd;
-+	atomic_uint *seen;
-+};
-+
-+FIXTURE_SETUP(memfd_pos)
-+{
-+	self->fd = memfd_create("position", MFD_CLOEXEC);
-+	if (self->fd < 0 && errno == ENOSYS)
-+		SKIP(return, "memfd_create unavailable");
-+	ASSERT_GE(self->fd, 0);
-+	self->seen = calloc(TOTAL, sizeof(*self->seen));
-+	ASSERT_NE(self->seen, NULL);
-+	for (unsigned int i = 0; i < TOTAL; i++)
-+		atomic_init(&self->seen[i], 0);
-+}
-+
-+FIXTURE_TEARDOWN(memfd_pos)
-+{
-+	close(self->fd);
-+	free(self->seen);
-+}
-+
-+static int run_workers(int fd, bool reading, atomic_uint *seen)
-+{
-+	pthread_barrier_t barrier;
-+	pthread_t threads[THREADS];
-+	struct worker workers[THREADS];
-+	int ret = 0;
-+	unsigned int i;
-+
-+	if (pthread_barrier_init(&barrier, NULL, THREADS))
-+		return 1;
-+	for (i = 0; i < THREADS; i++) {
-+		workers[i] = (struct worker) {
-+			.fd = fd, .id = i, .reading = reading,
-+			.barrier = &barrier, .seen = seen,
-+		};
-+		/* The harness isolates this test in a child; abort on setup failure. */
-+		if (pthread_create(&threads[i], NULL, transfer, &workers[i]))
-+			abort();
-+	}
-+	for (i = 0; i < THREADS; i++) {
-+		if (pthread_join(threads[i], NULL) || workers[i].error)
-+			ret = 1;
-+	}
-+	pthread_barrier_destroy(&barrier);
-+	return ret;
-+}
-+
-+/* Concurrent writes sharing an open file description must not overlap. */
-+TEST_F(memfd_pos, shared_write)
-+{
-+	struct stat st;
-+	uint32_t value;
-+	unsigned int i;
-+
-+	ASSERT_EQ(run_workers(self->fd, false, self->seen), 0);
-+	ASSERT_EQ(fstat(self->fd, &st), 0);
-+	ASSERT_EQ(st.st_size, (off_t)(TOTAL * sizeof(value)));
-+	ASSERT_EQ(lseek(self->fd, 0, SEEK_CUR), st.st_size);
-+	ASSERT_EQ(lseek(self->fd, 0, SEEK_SET), 0);
-+	for (i = 0; i < TOTAL; i++) {
-+		ASSERT_EQ(read(self->fd, &value, sizeof(value)), sizeof(value));
-+		ASSERT_LT(value, TOTAL);
-+		atomic_fetch_add(&self->seen[value], 1);
-+	}
-+	for (i = 0; i < TOTAL; i++)
-+		ASSERT_EQ(atomic_load(&self->seen[i]), 1);
-+}
-+
-+/* Concurrent reads must consume every record exactly once. */
-+TEST_F(memfd_pos, shared_read)
-+{
-+	uint32_t i;
-+
-+	for (i = 0; i < TOTAL; i++)
-+		ASSERT_EQ(write(self->fd, &i, sizeof(i)), sizeof(i));
-+	ASSERT_EQ(lseek(self->fd, 0, SEEK_SET), 0);
-+	ASSERT_EQ(run_workers(self->fd, true, self->seen), 0);
-+	ASSERT_EQ(lseek(self->fd, 0, SEEK_CUR), (off_t)(TOTAL * sizeof(i)));
-+	for (i = 0; i < TOTAL; i++)
-+		ASSERT_EQ(atomic_load(&self->seen[i]), 1);
-+}
-+
-+TEST_HARNESS_MAIN
-
+@@ -765,7 +789,7 @@ static void fbcon_release(struct fb_info *info)
+ 	if (info->fbcon_par) {
+ 		struct fbcon_par *par = info->fbcon_par;
+ 
+-		fbcon_del_cursor_work(info);
++		fbcon_del_cursor_work_sync(info);
+ 		kfree(par->cursor_state.mask);
+ 		kfree(par->cursor_data);
+ 		kfree(par->cursor_src);
 -- 
-Gregory Price <gourry@gourry.net>
+2.56.0
+
