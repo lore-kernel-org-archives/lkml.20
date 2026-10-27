@@ -1,63 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092747;
-	b=grfx+LCugneZiFivawUzIpK5ekT+8G5IRx7K1mVDE36GeEgW3TDhYNhN2JsUutbcpHK/
-	 UEmErFFKHBn4Q48qtllt7XpuDX3TuRnFHFoe+pmLaKRFiB6oAjFmMzdtbeuZQThYKvYvD
-	 rMjj5xAsX9oezs4Xhg/P77WxZxn/vF543PZl4lrPF4VHg5fyFBsNE8aAWKAOrYQZ24rNI
-	 hPCkrwHhArBdbmVXSIcqUPK5LVQN/B7Wr5OR/pBS5i4L09pS/kOVr8mmivaVZKGMpW16B
-	 VfcgXIf5e83ZUXrIg00sqlNbSP6h9jCTGsKTfU5ESxkQPPoqv1imrrBjsHJrajGbi6w==
+	t=1793092751;
+	b=XKlXDnE8+G8X3ViTn6lxssHOnP0vRtOiUM8DXYkGV/B6YcJQhCtDxPcXJRIS8PLu6PqK
+	 w4f0tWAaJhn10penVmU3O2FzNDhlImX68CckRm6kAXLFN+Am0Fep7Jn5MypsVkRu2D+oE
+	 r9x/fhZYgNybI+KLuPRmVsfkTusmKb67xD+jxxYKDce1Ygj8xC4uJVLXvp10Lkv9NkOSZ
+	 bNmVA4tm0TsEZgj4KFO91/HInh6idIc/oJEydfhpJBWzFouZaTuHSxziyVU0zrbBbCb4G
+	 qcg5hep/Sb3az5T8TYdMi+xASQSeFqSxhjh4HZU1Le1XqSn62ylAhQ8ixH1WM7vLrRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092747;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=w51d3Ey+37TwEHPT+bpsc9olaubKgaBtRO6hacL921I=;
-	b=ZaW4eWHuFfugRZ53FzzB1efciXlo3BrWHonPfRLnaamHFg1q86rH8aWNWRWbmG8SBs7k
-	 cMhVagL0ZItAj9BbP2TFb1s+Al3KhelkHPLKqS0ZrNfmrCXzMrq5/5GA2efe/IbSCLS1C
-	 L3In9H8dSKgfIGDaLBiPw4mWfq3rNb61obaZGjoRaZCEOD21NMZsyRkeCzB7jHgqUSH/M
-	 +cvfwH6Qz18vKIbBlz/eY4pwEUkPWAtMGACEpXpyxpO5NgDHYkR3YW+RV+ITgVRIbrcJ5
-	 tFVZnM7BKfP+LyuT6pehKFdio8y3iYganqzlG8xHSeHeUIXXS3LYpCHfPyAd+pfIspQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092751;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=0caqeUvhoyd73MwX92KLCVLJ4OlRT1yAOV5WgVoUV7g=;
+	b=aSfWk8aLoBb8+8W1w4j88YiOBzsygUUGIqalOTkpMWIR6BaMaj69mbJZoeQX98ll4cTg
+	 wZQwjdJPezmW7JL9xTXMbf52P9gvde7mBmcWWHRevAfa31v4kmf0c43ohQbp90SLF7b8b
+	 2+z/Q8TtHaSPZAe3O4TanHzIvSawWr85yHhi4fYyf4OZkIEbuupDtJ/0zA7qdx+My7UH5
+	 /n9bIL10HHQ3f0oiH+AEsBejtHUiumdHpiF1DxiNUZLiB/Z7DHpVc1gUzEQpntwVh4B04
+	 4HkAdKs61j4P08LiRM0AmmYi8E01B0YKPeC77WF9ehw/XHkf9x/IBLUKuxt15WIXaoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=OnQmH4+W;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vX34J1gO;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AC9606A31B;
-	Tue, 27 Oct 2026 09:19:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8AC9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEEB606A31B;
+	Tue, 27 Oct 2026 09:19:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEEB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=OnQmH4+W
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=w51d3Ey+37TwEHPT+bpsc9olaubKgaBtRO6hacL921I=; t=1793092746; x=1794302346; 
-	b=OnQmH4+WofNc7T5cfXGPfnpnGdoiPaw6+ebyeTZM+ltnbWX7BGznmzD5PUSq6+4IzEtVg03qQoT
-	YF4cuA0x0lZJwEjiFbrCsg8Hd03tqFi2oIbANFYnUImX08XeSUNPQ6W0PvlyI/xuoUX4xowSW5vfy
-	Ztkrsw+SaMT+YxiuWLIR0unq5u1Wd/sky2x0roC2W6z7q7THWvsY6blp2c4VCO4JVELnJDWLkyWlO
-	w/hCV9AlHPf+9O/+Gc4JdBdrrHEAm8tqLzgtEFpOyh5tpmNuSCu3u1Gm03xYzKyvbPmuZT5iIVXiE
-	bLc/zMPZldQuO35CDq5D+TX9pAhoYSbUQIMw==;
-Date: Tue, 27 Oct 2026 10:18:52 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, Alistair
- Francis <alistair@alistair23.me>, linux-hwmon@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/7] regulator: sy7636a: report the temperature
-Message-ID: <20261027101852.39b9031a@kemnade.info>
-In-Reply-To: <CAAxh=jsKe95EsKnTypXtfTxGhYCMO1E7U=hWb3y6DBpgoiOVUw@mail.gmail.com>
-References: <20261026003918.155321-1-pmazzini@gmail.com>
-	<20261026003918.155321-6-pmazzini@gmail.com>
-	<f68279bc-20f1-41a9-ba5c-92b974785cd8@roeck-us.net>
-	<20261027002635.6b831c0b@kemnade.info>
-	<CAAxh=jsKe95EsKnTypXtfTxGhYCMO1E7U=hWb3y6DBpgoiOVUw@mail.gmail.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=vX34J1gO
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=0caqeUvhoyd73MwX92KLCVLJ4OlRT1yAOV5WgVoUV7g=; b=vX34J1gO9ozZgfa3Jw58sG6Q+3
+	rL5VazSTDov9tbeKxe5PA3CQUSHnZqzZeQ3Z3AtBzt6EmOKlClFYDTW8zvKaHR40I8j8pdQv+h+JH
+	zIjXw+P9x4btEh/HukiBfONb1qlhaw2lrGPOCV0fQA3BurEFLksbLS+TmmK/atmIDGQiU2/1nrqn+
+	Njm+nTNYFJqbaNwxB3HFNQ15E8tki3Vks3ih5gOk12nPuqBflB50qAhXLlKfxzb1P8QqLJ2XPaVgq
+	Iu7hzpy2cSeRVc7JQ4eKXuuG/h97dZkdZFRYTeKcPWaYoL1a78tb7YgHUSWM0q0QnAXFIPwz7YwA0
+	j1VhnP7Q==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xLdKf-001M1U-0y;
+	Tue, 27 Oct 2026 09:19:02 +0000
+Date: Tue, 27 Oct 2026 02:18:55 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Gustavo Luiz Duarte <gustavold@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Stephen Hemminger <stephen@networkplumber.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 3/3] netconsole: recheck device registration after
+ waiting for carrier
+Message-ID: <auBrysA0RUkVlTOA@gmail.com>
+References: <20261021-netcons-fixes-v4-0-3857120c6340@gmail.com>
+ <20261021-netcons-fixes-v4-3-3857120c6340@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,42 +70,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-netcons-fixes-v4-3-3857120c6340@gmail.com>
+X-Debian-User: leitao
 
-On Tue, 27 Oct 2026 07:32:14 +0000
-Pablo Mazzini <pmazzini@gmail.com> wrote:
+On Wed, Oct 21, 2026 at 03:19:07PM +0100, Gustavo Luiz Duarte wrote:
+> netcons_netpoll_setup() drops RTNL while it waits for carrier when the
+> device is not yet up. If the device is unregistered in that window, the
+> NETDEV_UNREGISTER notifier runs before np->dev is set and has nothing
+> to match.
+> 
+> We might then end up setting up netpoll on a device that is being
+> unregistered while holding a reference to it, stalling
+> unregister_netdevice() in netdev_wait_allrefs_any().
+> 
+> Add a check to confirm the device is still registered once we retake
+> RTNL. Release the device reference and return -ENODEV otherwise.
+> 
+> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012-netcons-fixes-v3-1-1aac85ed7665@gmail.com
+> Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+> ---
+>  drivers/net/netconsole.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+> index be7eb632ee42..bd36ebd334aa 100644
+> --- a/drivers/net/netconsole.c
+> +++ b/drivers/net/netconsole.c
+> @@ -534,6 +534,16 @@ static int netcons_netpoll_setup(struct netconsole_target *nt)
+>  		rtnl_unlock();
+>  		netcons_wait_carrier(np, ndev);
+>  		rtnl_lock();
+> +
+> +		/* Check that ndev hasn't been unregistered when we released
+> +		 * the RTNL above.
+> +		 */
+> +		if (ndev->reg_state != NETREG_REGISTERED) {
+> +			np_err(np, "%s was unregistered while waiting for carrier, aborting\n",
+> +			       netcons_egress_dev(np, buf, sizeof(buf)));
+> +			err = -ENODEV;
+> +			goto put;
+> +		}
+>  	}
 
-> Hi Guenter, Andreas,
->=20
-> On Mon, Oct 26, 2026 at 07:35:24AM -0700, Guenter Roeck wrote:
-> > This is going the wrong way. The correct solution would be to convert
-> > the hwmon driver to an auxiliary driver. =20
->=20
-> Understood. In v2 the hwmon driver stays in drivers/hwmon and becomes an
-> auxiliary driver of the regulator, which binds the I2C device directly.
->=20
-But that is a cleanup action, which is at least a separate patch (maybe
-replacing and exending your patch 6). So the other patches can go into
-their separate trees.
+I think there is a better way to do it, inside netcons_wait_carrier().
 
-> On Tue, 27 Oct 2026 00:26:35 +0100, Andreas Kemnade wrote:
-> > But it introduces another race condition.
-> > The temperature might be read too early.
-> > 1ms delay should suffice.
-> >
-> > The  SY7636A_OPERATION_MODE_CRL_ONOFF flag might be reset before
-> > reading the temperature. If that register does not reset to zero
-> > but just keeps the temperature last read, then we have no problem. =20
->=20
-> Good points. For v2 I read power good (0x07) and the temperature (0x08)
-> in one I2C transfer, and return -ENODATA unless power good is set, so no
-> locking is needed.
->=20
-=46rom the data sheet we can ensure that power good occurs guaranteed after
-the first sampling, so this approach is fine for the most common
-use case. It reduces the time window with readable temperature
-a bit more than needed, but that should not matter.
+netcons_wait_carrier() loops waiting for the carrier, and exit if in
+time_after(). I think it will be cleaner to exit there.
 
-Regards,
-Andreas
+then netcons_wait_carrier() would return a bool, and you goto 'put' in
+both case (ndev->reg_state != NETREG_REGISTERED) or in the
+time_after() exit.
+
+Wouldn't it be better?
+
+Thanks for the fixes,
+--breno
