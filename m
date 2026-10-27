@@ -1,88 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793126611;
-	b=qDPZVpstUxAUBI2qTmJsOSa28c7S5mcVsxH2MbvUy3UhrEBH67HGzV7gLRfyRkHMz5Ve
-	 yYLxJcr56OwCotuE5MU9mz7zV1fk2efBxwFwVzdKADT8KDCni+dV4eEcIhIlLJfQHM7Tv
-	 blkfaQFHE0tCDu25L1/yM4F1me/9pclABSMKnddgd6z/q969TsjDuwbcd+6phHUWlKf56
-	 hVZz/BaDW6yx9vo/lcwuLXdX3wzSgjJEietZhBR/xbrvR7ilEdj9uNWYW71In8fdFVlz/
-	 uWnmm8qaH0HEgeoHzX8ZJGNNpJvKyQWgBLZZnHeBil/CQPiBgUclUbfjD1PM0qtpkOA==
+	t=1793126620;
+	b=xlV5GJ+oIf1OUBjnLrmND//uPmNZrGHj7l+xcEMoXHupEFwBEhX/JiTmxzlmPFtONY9a
+	 3X8pazfyc0l77ueHbD/06uSMDULJartCHLdFwUFGf71EOjHodc1EYrUFY6yCUduyezNjT
+	 kowfhx/RdrsOHUfLJ1H2/uWxM/ygXULxOhB/HjaGWY/JNuom4pcMQT0971jGxoy3zbAX6
+	 3P5f1SSS2IjoQ8pfYPPLiYVLn4jel4HYFA51lvZTeCO3sW9+HqZi8wGDaJ4RZ8WDaDXIO
+	 EuUXJpM3bO9uvpSGkRV2cS5B8fGoVPOK5cdhllcLE+8YK/PY25fpbyZqsch9bNTFE7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793126611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793126620;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=/3tibRvQ76ExQ0W3ZkBRUL/Y1H2AP4fK7D1nRgB0KTM=;
-	b=jYd2gU9Kv9g+WW8JiH+dgRYNSn+nWOCWl8GxpmpkofOH0FeBtRdoZ3no3eaSOHL4SWtP
-	 98QwRbwF0v+W6PZbWousDEVCkqQ49TzbfSghFYX40AGyZbh19yKjC3YyDlmh53EqBZL2G
-	 XpE6h2dQvl4bz12dzR3iZ4KqE4C5W+uCQffJ8sMCpnzGfDhTemm/0eAay0qSyFICn8ZrZ
-	 0Iv9fLADUpI3eoytsEmqkdOHikfwnGnsWpnbZGXB2IhkNOEnA4P71p7vz1sNg0fkqm4Hl
-	 L02wDL9vYNgWet8JIbqA8bWOzLIdrQ5E89fuTJfkSKbfazXyF5OpyT2yDSfFL0OX0CA==
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=ETa6PEiQPvx4Sm9llFa3xDCORaPT2KrvUrXEonwMbCs=;
+	b=GyiyKFrpq8Smm1s+HCkmm2zeUP5iAJ5SS6jRRGHafnluqHcGXHX61BuDmYoEfKo8aZdX
+	 S3gnYKe/xSKFdDFornJ81vtXo7agAoVSOyNxD3hYr7y2SCNF/9mdjP5Tln+SIbeAj7GM3
+	 YpbJdgpMl1SLqhVCKq01dE5JMTWWsU2rNLosBsMbwGMJOvH6boRlfJ8snwuP9XiYVI8C0
+	 EIKv7yp2d7wZjYtem5NICBbep17FYuXHMbVP48VDufbpAXFhSHj+yyXkR0iaqY1V7A2P3
+	 7xAKSMr4CJCZ6u29mXrSERTU/eJsUC/KzTyM14sPeuNLjrzQuNoOdSXuKgONRL1wtPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b="aL/2Qb2A";
-	arc=none smtp.remote-ip=209.85.219.54
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oD4jcY1c;
+	arc=none smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5D0606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:43:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F5D0606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0430606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:43:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0430606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=aL/2Qb2A
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91c67992ce5so1818746d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:43:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oD4jcY1c
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-84e513874f8so114017a34.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:43:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793126610; x=1793731410; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/3tibRvQ76ExQ0W3ZkBRUL/Y1H2AP4fK7D1nRgB0KTM=;
-        b=aL/2Qb2A6wIg62sataJ4dhl7YCi8CuF/ywKK2ZkdAMm/4r+vwoyJNNQgWpuMhAe5Hu
-         DOoKVXejH35OXH31pDusY1ns6/OsrpceBFGvQsT8fySizIjyxjJiyKP3MW4xslN8ckcw
-         sEqavfAF8QVq8cnobdZLdkGDdscMHzgbUlcbAKWDFrjZ62LvAS9RDfmo9Q4sUyhnQO76
-         VfccEHnwoU+9Czq+7TFzm5UBcdGf+VvrQRdtcjKVeD1CMV752Y/EJZ5y8IRWMkT7p5rj
-         hC0TjbjuIIqEqX0sMCEnkaBA5dSaAt2pRP8jUvi5RESHrom6vO0akDM9Yd3ph49smflz
-         BLVQ==
+        d=gmail.com; s=20260707; t=1793126619; x=1793731419; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ETa6PEiQPvx4Sm9llFa3xDCORaPT2KrvUrXEonwMbCs=;
+        b=oD4jcY1ckBrn+CHRQVBS4t7Gqd7I3QR1HDTTSxzsfsCSxcWeyJQThuiiRWuYZ4Fge4
+         6hldgR44OA9FSOV+KLpiLU3F2F3r7GcerlTxGQaozu+0P3YB2/AmtvR8xJEd+SRU0er1
+         NJ/F0wbZrHse2TmHLy3S6Su/JuOGAC6+zvDSOw2aemAmXLMvc3Qe3MjzfgTS3e292ybr
+         nG8k9a2OtoVVGLohrW1vZWMs8k5ud+6L9TuhyQtsfPZtcEBPgAlPONovF3UV2vk9dkLY
+         Eph1ZHn3cV2DKozFt5a76nNT6OiqerhHlwyPTU35ZgNydHsTDEnNHtAiHwDG/5d1acGP
+         cD4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793126610; x=1793731410;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/3tibRvQ76ExQ0W3ZkBRUL/Y1H2AP4fK7D1nRgB0KTM=;
-        b=ljHmc1OZ+yo8d9e9+N2SM0o7cRvUes3/huOIXMegCyOP8bEtb/o9re0Qat9SXNbkce
-         RoX9KfPPnWL6IGwBFD60QyyyCgTMzjwuxcfsRI64L0FggYVdl1JE6kXGkrQoGIkqmA97
-         p1PhRI7pIyijkLKBR4s/m8dODTWe0kC9PZ0x9ITI5nknGERTcep12ZF00dnLWj+K6r4A
-         H0GttcHQwu5yfVck7nD3Y9ZbbXzVY2EMid0xbbdSlYb+PTRGhFCVgyS7uzDel/rR1dn8
-         Hm8S3hwmIiBEJUmD0uv8/6qRnUnoVbVjVyKTPwC/EGAFNlLtX0oaiUDRm1O92r7btw7R
-         NLQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxEfvvoGH3VeoYdIyh3uJc4vmh2BT3zNGWFlY3aKMP4PLZZ7QG8IljxmIVLJi+9VJrBLrRNZaLUlUPe1g4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQ4Mw8LVaO29c6m7lqlZbRAk+uDlIfyRlB9yTOqOIL9yKsOqBN
-	PYx9kqg97PDbdLkzYvYrbI8NAhoCGAsWMuM2Ey3ienuF9UxdX/b+E9lQBkKQuQhxip+nGmwTfEP
-	uL4E/
-X-Gm-Gg: AYBFou3/Seux+/9LiPcwuvP8EsuNNLEYzbLeiqIfPei88ktH9BNFpIqwDF152O4cd7x
-	qcUfwDqerbLtwHvPyNEULf9/kR7IY167O2X7+6WojhZjrqdqStoo+vhVYBgvrvIeI47JpAlavUR
-	wTOPRqMlqg+cuxsZXTbrJpUF37OsajNJxpfkfx7cx+x9kZoDIdc1YvsI7qUutZ56JRMxPROONOK
-	/GMd83+vACNtyiBopzph8eeAGcPYfZvFxV9+yT75RRd9qZ9y5rYNMJBfEKYIVDjVz43XCmCsQgc
-	Yx2AKtknNs9kRKR22K3TckEmHA//cpR5zH2lnqqCnb4fRgWSFPDn5Os8LRZTBROHpYrBCtkXV3u
-	cjA22X4iDqzWPZTx4PZvUU6I/u48FYU8r/UXGit5YihSBVr8CiH3SEgeTyqx6x8kxo47Pk8THDD
-	vu+2iLVij60WFjbGTMN34ZXnKW2f1QuUebDUOf/WMhFIylVggZtKvEzxAdVbaKK4peqXPWcyjW3
-	VyZXQZCXWuTJ7TA9qNbJJis+TzaupB07HEmrj8aK7Iyf4uG/Vjq+RgOj5GZYXtH18OFVxSK4Rbl
-	9zKnM6rjEvGR6P8cPj4WZ0ht6VXcBFZFIwQJMNulLslLI8U=
-X-Received: by 2002:a05:6214:4198:b0:91b:5d3a:5106 with SMTP id 6a1803df08f44-91c48e86a0amr179280536d6.52.1793126609742;
-        Tue, 27 Oct 2026 11:43:29 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.253])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c6e20ba4fsm31819396d6.14.2026.10.27.11.43.28
+        d=1e100.net; s=20260707; t=1793126619; x=1793731419;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ETa6PEiQPvx4Sm9llFa3xDCORaPT2KrvUrXEonwMbCs=;
+        b=OOlfxDnuQVMKaDyQqLW0NEXcIcI/U24Rbxa3m+q9qQdNsMXs3qNRE2Ro+CujxrGOuR
+         aT+KKwuOMrO2F4la9TeT3PLJ2YuQDP+GxfoiKJ3PMmtfA10NwI5EayP/S4jQL8YWpFVV
+         aDqe6eowgKl3cFW2XPSaaq3DM7drZge24u4twvf2JCItTuK8GwnAc0b+pxYXsb6qGuh2
+         FnFSUWqxEag3GwMElQhokN9loFAs9z78R7NMFCJlrCczk0SdtMDAkajexsLziYXpX8Js
+         cxYF0eb/yya6bCIYPBP3syaVqmgvpK8txv5wjIkRinudyj+pZ3JoKCvGMdJQaWHEQqGy
+         wAww==
+X-Forwarded-Encrypted: i=1; AKwUvBx28/NkA79LwmmR+FDEwo5Sle6oQu6Uo5ku55A/2mBnzcMe7sLLdog3u/AvX7AMqQc3ET7pqBEU6y6oJCg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEXGoeZC09NTaVOMqZXnvO25LWneMlaL5jG8GgA2Xn4Rrtkqp7
+	CJ9YKrffjnFVbfZ3mKmkW7dLyR+hhEk/mlVCnwP3slLgQ+zskXbXC3NS
+X-Gm-Gg: AYBFou0PgPoji7bXxYTPtU9umqEB0Gl0twwlBxoZlkI31XzPUuuEGYFNmLUXQSMghTU
+	QLKbKvZa3QCYEkn8mX+MFMxRiqSSe7+ObRelKabADmrREN1nUDxRfE3+WKkqMigSGqyLnBOiPoE
+	Z46R/knvM2qm5+ZoMshERPRjEoTwJW4kyCAEUSpy7skRAtt+k6wIk5GB0ITFfXA4U9qkzfmUMSz
+	7D1/tV9yImDxi0ZkHeSOWReBMHxLoAW4IQOITIfB1bjxw7Ay7z9RAqdSa+iIFdTkL+zRQQuJaHT
+	cACW347K4TT55H57MSn2LyHUsvDQlxDJbc7cbCNrblM3FiJvL2mJkZHxD2V0ZlT6VBx2pHu3Ooi
+	X2VoP1tk186jGMH8LH4vA+tq9S+vDZafO5lmY3yy+uho3d3Ku5A+786SMTsEmpVnBy3dfFl5JX/
+	oPuAbO9Mzsal6MJCz+2Cz7Yf0bFDfhDjcQXryK/0YUz2IWbvBuY3brtu7um8Z7/eLInDjyBlqTe
+	GvdhGT0TBq35uvlbGrQFWnFglZGojA44EVqkiYaigVqaAwBUVROTdusdYaOyeqeWc7kz6ForyzQ
+	YDs1lraWU/U82qHVvaWKCbhIe/wTEjDKx4pOeloajKJs3LefGzO+KpZlukXuN0hKa/n9CeNj3b3
+	hFeSZj5lC+hgm0qCUwLGN+dW4dHvzwRVg2qOv05Xe1sewyB7m3wHmlG5rWXvcqqOCXc82rk//ju
+	gcKtI=
+X-Received: by 2002:a05:6830:230f:b0:814:57a9:4243 with SMTP id 46e09a7af769-85abdb098e0mr329067a34.17.1793126618937;
+        Tue, 27 Oct 2026 11:43:38 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fb074fb6sm12488338a34.12.2026.10.27.11.43.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 11:43:29 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 27 Oct 2026 18:43:14 +0000
-Subject: [PATCH] ext2: only flush DIRSYNC directories on every change
+        Tue, 27 Oct 2026 11:43:38 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 27 Oct 2026 12:22:27 -0600
+Subject: [PATCH v3 2/2] dmaengine: mediatek: uart: synchronize completion
+ callbacks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,72 +96,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-b4-ext2-dirsync-v1-1-3dcd012d518d@toxicpanda.com>
-X-B4-Tracking: v=1; b=H4sIAMHw4GoC/03MMQ7CMAyF4atUnrFIolAQV0EMsWuoGQKKCyqqe
- ncSWBg/y+9fwKSoGBy7BYq81PSeK/ymAx5TvgrqUA3Bhd67sEeKKPMUcNBi78x46Dn56PwuEkN
- dPYpcdP4WT+ef7Uk34all2gclE6SSMo/t1Lj9T8K6fgAPV658lwAAAA==
-X-Change-ID: 20261027-b4-ext2-dirsync-86ca140154bc
-To: Jan Kara <jack@suse.com>
-Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>
+Message-Id: <20261027-submit-mtk-uart-dma-synchronize-v1-v3-2-aad7a6b3c62e@gmail.com>
+References: <20261027-submit-mtk-uart-dma-synchronize-v1-v3-0-aad7a6b3c62e@gmail.com>
+In-Reply-To: <20261027-submit-mtk-uart-dma-synchronize-v1-v3-0-aad7a6b3c62e@gmail.com>
+To: Sean Wang <sean.wang@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
+ Frank Li <Frank.Li@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Basavaraj Natikar <Basavaraj.Natikar@amd.com>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Zhou Wang <wangzhou1@hisilicon.com>, Longfang Liu <liulongfang@huawei.com>, 
+ Andy Shevchenko <andy@kernel.org>, Keguang Zhang <keguang.zhang@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Taichi Sugaya <sugaya.taichi@socionext.com>, 
+ Takao Orito <orito.takao@socionext.com>, 
+ =?utf-8?q?Am=C3=A9lie_Delaunay?= <amelie.delaunay@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>, Jon Hunter <jonathanh@nvidia.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, Frank Li <Frank.li@oss.nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793126607; l=1707;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=+K3FWhF6zDMGz/BBYD/9H90CCViXMrrzDaS65J+qi7Q=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QBPzjtD6VIdsn/SXpO6bRWXb/ppKa0VePG+69S+DwXUp6u+Lkjsi6IoVmuGN1N2uwOUijesbDuS
- IeNJ5pTVCCAc=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Every change of an ext2 directory is written to disk before the system call
-returns, whether the directory is DIRSYNC or not: its pages with
-filemap_write_and_wait() and its inode with sync_inode_metadata().
+Terminating a UART APDMA channel waits for its interrupt handler, but
+completion callbacks run in the virt-dma tasklet. A callback already
+removed from desc_completed can still be running after termination
+returns. With no device_synchronize hook, dmaengine_synchronize() does
+not wait for that callback either.
 
-Writes which reach the device for 2000 files, and 200 directories, in a
-directory without DIRSYNC, with the flusher turned off:
+Use vchan_dma_synchronize() as the UART APDMA device_synchronize callback
+so clients can wait for completion callbacks before reusing callback
+state or freeing DMA buffers. Keep the callback wait separate from
+device_terminate_all so it can run without locks acquired by the callback.
 
-            create   rename   unlink   mkdir
-    before    4000     8000     4000     800
-    after        0        0        0       0
-
-In a directory with chattr +D the numbers are those of "before", before and
-after.
-
-commit bc943f4872a7 ("ext2: Don't flush page immediately for DIRSYNC
-directories") moved the flush from ext2_commit_chunk() to the new
-ext2_handle_dirsync().  The IS_DIRSYNC() check which was around it didn't
-move along.
-
-Fix by putting the check into ext2_handle_dirsync().
-
-Fixes: bc943f4872a7 ("ext2: Don't flush page immediately for DIRSYNC directories")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Fixes: 9135408c3ace ("dmaengine: mediatek: Add MediaTek UART APDMA support")
+Suggested-by: Frank Li <Frank.li@oss.nxp.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-I ran into this while testing an overlayfs series with ext2 as the upper
-file system. Directory entries were always on disk after a crash, also
-the ones nobody had synced.
----
- fs/ext2/dir.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/dma/mediatek/mtk-uart-apdma.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
-index e17bbc7598c1..5de32c221a83 100644
---- a/fs/ext2/dir.c
-+++ b/fs/ext2/dir.c
-@@ -442,6 +442,9 @@ static int ext2_handle_dirsync(struct inode *dir)
- {
- 	int err;
- 
-+	if (!IS_DIRSYNC(dir))
-+		return 0;
-+
- 	err = filemap_write_and_wait(dir->i_mapping);
- 	if (!err)
- 		err = sync_inode_metadata(dir, 1);
+diff --git a/drivers/dma/mediatek/mtk-uart-apdma.c b/drivers/dma/mediatek/mtk-uart-apdma.c
+index f74e9a328588..6bc4f20d8b06 100644
+--- a/drivers/dma/mediatek/mtk-uart-apdma.c
++++ b/drivers/dma/mediatek/mtk-uart-apdma.c
+@@ -514,6 +514,7 @@ static int mtk_uart_apdma_probe(struct platform_device *pdev)
+ 	mtkd->ddev.device_config = mtk_uart_apdma_slave_config;
+ 	mtkd->ddev.device_pause = mtk_uart_apdma_device_pause;
+ 	mtkd->ddev.device_terminate_all = mtk_uart_apdma_terminate_all;
++	mtkd->ddev.device_synchronize = vchan_dma_synchronize;
+ 	mtkd->ddev.src_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE);
+ 	mtkd->ddev.dst_addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE);
+ 	mtkd->ddev.directions = BIT(DMA_DEV_TO_MEM) | BIT(DMA_MEM_TO_DEV);
 
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261027-b4-ext2-dirsync-86ca140154bc
+-- 
+2.53.0
 
