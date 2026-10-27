@@ -1,61 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111167;
-	b=5tx28PMCcNlFtNzUoMuRMxhh0HEX/4tR6DzMvdtqhUz/2ohxZqw72EzS597hDmlQGvY1
-	 LczUIkt1aLV/Q9SY3Jbz9Fuaz7+h8hBXRg6xsHbLoTb+o1xp9U8PiFwypL3WSha87MgsB
-	 sQ2AvR+vIRq/pHQdOT8FwlfP0G9HLvdHouH8hpgzf+FGJ8q79OpS5Zg55TWH3AwQCAWWi
-	 FPozWxgGkPvVjSUYzOZbGx6Y+1OWM3wcOLrm3o0p+1dk/R3b/B6hoxnmGw9NRBPqcm0M8
-	 dHkMtALumX5alSmE2IqeOlPdGNxP6yDPKMXirmRti33vkngjf2sY61la0dt44dsxTLg==
+	t=1793111191;
+	b=wzAL89A9LgCogw7M6LKo+SQw4cP23jzAoudnBWOI/HOvwqVpPQdR9KBqellpIz1xMiQv
+	 dlapUkWvCeWjbVHNE49obWlKM1CjnJRnrlJjpYktSMmoLiJUH3akmVAiMD0RIcLJC0yVD
+	 tsTBr/GD8XH750ncDYAHWJ8tvpvzD+yTMzNpwCoQ0d2DB+ByHr0lqdC67fPjJxXm1kFBA
+	 1BSkcdtsI3B/7yE42IicvwRSrzr5efTr8Cd0tFfc38s7yEJA06wU1THXga+VR7tyvvWkZ
+	 Sg6TadWaY5hFVHCWzELSkFwx4W17w2MurOXVZvr43O1QNcwdz8iAtq7/hgDRw5j1fkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111167;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=z27crQTjHzX0wxvWS41zGiz/0QWCCGhHzWTW1/KXN7I=;
-	b=cR3uCIzqy2uC5DbgbDnMT4x/SwQnPH6ngM3BVoDofTTcY5mNgNoriCfCxQtj9BAOxHSf
-	 7D+HRft9aSZgHQ5ViUlOmtrte/WVuwjElNkPt5N9D6E3V6lfIYs6u5CJcZ6fYVI8kbLBs
-	 NkL6Q4+SBe2uR12R7HNMlJuscG+XB20NKPhjH2Mh8F+jqtUQjWhKSVUSJLXggLsPzO4sD
-	 XRQTtRsKbKsr39nSjRJI2GTy7+ooBXECid1qkzI/gjSKOtmsT7UOkRzgCu89AoRtWAA7M
-	 xWZda/o/0UroVvMKl9bqWw2WBc0l7adH222gZWiFLkiZoC1Sv8WKYADC1xzTkaVfDJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111191;
+	h=Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-Cookie;
+	bh=g0aOtKUPLRZHMhOqPkbeQ2GsTlYesN+QsGZQTYzsAhE=;
+	b=q1LtNvZfFvTASJSB1WJ6L0m3zvICHrWxzwYOR7kowGvZC8nCWAgaSV+2u0u7mVt5Jo9u
+	 ZhP8v/fcKnoRxeyOh6eoiZ60i7eJ5Q7h41Af9+mABxlohqVekdw7JJggSCLeVkBPwdgHg
+	 ycOB7I85q4Gac3ITj5ApZSLKPmC4kXORm5lWJ+rUjbR1UwNc4O3pTx/ww5SvXNucCvIio
+	 9Yth2r/Pq6sxEoNhsVKeCBGgqOeIGlFyClPVQ2dwoV+XfC6xJbGpOJ9Lr5P45NlqmrX98
+	 ZxC+gj0x+8EK6mHBsx2OCsvH8wXfoABjSwTspaXj4W/m9z5ddoXPShB1mg2EAW7wpxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMtpTDrF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BD3606A31A;
-	Tue, 27 Oct 2026 14:26:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMtpTDrF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5896A1F01825;
-	Tue, 27 Oct 2026 14:26:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793111166;
-	bh=z27crQTjHzX0wxvWS41zGiz/0QWCCGhHzWTW1/KXN7I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JMtpTDrF7fiu7lDnMsUp94Cm+JN1Fy3FyhF04TMzNSoaY3KCMum3ks0k+Z8LNcD1+
-	 LytnrXmA0L6MKn1657mK5HoWy+CeAHoIuVcict2nwF+WSUNB/1hEwuz1BwtTU6EOo9
-	 U4b5LoIsFZBBtrGpFMo/8dYLjeMEbcY2DGWANS34JtaU9hhXNbXHXhliMU6ghaGFtx
-	 fRwNuUm1l508qzA3qxRkfekH6d5IHKKdfrVapJg8ZQ/Jt4HQcsX8Z0n/qXJENzBPnR
-	 Qbky46Y0NvH+kZTCVozpfldbogvBRwhkDkCA9Zw8NJeHhOqh95K1BxP1teF8yHore6
-	 Aq5IpExvqeVFQ==
-Date: Tue, 27 Oct 2026 14:26:01 +0000
-From: Simon Horman <horms@kernel.org>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>,
-	Boris Pismenny <borisp@nvidia.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net/mlx5e: macsec: free SC lookup entries after an
- RCU grace period
-Message-ID: <20261027142601.GM257209@horms.kernel.org>
-References: <179285888829.90275.17386097105525068016@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086A2606A31B;
+	Tue, 27 Oct 2026 14:26:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784161F01825;
+	Tue, 27 Oct 2026 14:26:26 +0000 (UTC)
+Date: Tue, 27 Oct 2026 14:26:23 +0000
+From: Mark Brown <broonie@debian.org>
+To: Aniket Limaye <a-limaye@ti.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
+	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
+	Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
+Message-ID: <c6cd214a-e7ad-436a-b562-5effaff927f6@sirena.org.uk>
+References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+ <0bf04f71-cec7-453f-af5a-d121277eb51e@sirena.org.uk>
+ <40844e94-c9d8-430b-90b0-66032e66060f@ti.com>
+ <atc5KhqlzczEhQ-z@sirena.co.uk>
+ <f308e372-255b-41d8-9225-959750950780@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,104 +60,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JhUl+OvBjkhu9TF/"
+Content-Disposition: inline
+In-Reply-To: <f308e372-255b-41d8-9225-959750950780@ti.com>
+X-Cookie: You will be surrounded by luxury.
+
+
+--JhUl+OvBjkhu9TF/
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <179285888829.90275.17386097105525068016@gmail.com>
 
-On Sat, Oct 24, 2026 at 01:21:28PM -0300, Joas Antonio dos Santos wrote:
-> macsec_del_rxsc_ctx() removes rx_sc->sc_xarray_element from
-> macsec->sc_xarray with xa_erase() and frees it with kfree() right away.
-> mlx5e_macsec_offload_handle_rx_skb() looks the element up with
-> xa_load() under rcu_read_lock() and then dereferences ->rx_sc, so an RX
-> completion that loaded the element just before xa_erase() reads freed
-> memory. rx_sc itself is already freed with kfree_rcu_mightsleep(); only
-> the element pointing to it was missed.
-> 
-> macsec_fs_id_del() has the same problem on the TX side: it removes
-> fs_id_found from the SCI rhashtable and frees it with kfree(), while
-> mlx5e_macsec_handle_tx_skb() and mlx5e_macsec_tx_build_eseg() read it
-> through mlx5_macsec_fs_get_fs_id_from_hashtable(), which uses
-> rhashtable_lookup() under rcu_read_lock().
-> 
-> Free both with kvfree_rcu_mightsleep(). Both run in process context
-> from the macsec offload ops, outside any spinlock, so sleeping is fine.
-> 
-> The sc_xarray_element issue was pointed out during review of
-> "net/mlx5e: macsec: fix use-after-free of metadata_dst on RX SC delete"
-> and left for a follow-up; this is that follow-up.
-> 
-> Fixes: b7c9400cbc48 ("net/mlx5e: Implement MACsec Rx data path using MACsec skb_metadata_dst")
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
-> ---
-> Testing: compile-tested only (arm64, W=1, CONFIG_MLX5_MACSEC=y, no new
-> warnings). I do not have MACsec-capable ConnectX hardware, so this was
-> not run on a real device and I have no reproducer against the driver
-> itself. The free-while-reader-holds-RCU pattern was reproduced with a
-> standalone test module under KASAN (slab-use-after-free on kmalloc-16),
-> and the same module showed no reports after switching to
-> kvfree_rcu_mightsleep().
-> 
->  drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c | 2 +-
->  drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c   | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> index 38a3415ac..fb9126f6b 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-> @@ -839,7 +839,7 @@ static void macsec_del_rxsc_ctx(struct mlx5e_macsec *macsec, struct mlx5e_macsec
->  	list_del_rcu(&rx_sc->rx_sc_list_element);
->  	xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
->  	dst_release(&rx_sc->md_dst->dst);
-> -	kfree(rx_sc->sc_xarray_element);
-> +	kvfree_rcu_mightsleep(rx_sc->sc_xarray_element);
->  	kfree_rcu_mightsleep(rx_sc);
->  }
->  
+On Tue, Oct 27, 2026 at 06:44:54PM +0530, Aniket Limaye wrote:
 
-Hi Joas,
+> I have sent a v4 as a separate driver [0].
 
-This patch does not apply because the problem in macsec_del_rxsc_ctx() has
-already been addressed by ad17ad50b8dc ("net: mlx5e: Fix use-after-free of
-the MACsec xarray entry on RX SC deletion") using kfree_rcu.
+> [0]: https://lore.kernel.org/all/20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com/
 
-I would suggest taking that approach in macsec_fs_id_del() too
-unless there is a reason to use mightsleep.
+Thanks, I'm taking a look now - please feel free to just CC me on
+further postings.
 
-Quoting the documentation of kfree_rcu_mightsleep():
+--JhUl+OvBjkhu9TF/
+Content-Type: application/pgp-signature; name="signature.asc"
 
-/**
- * kfree_rcu_mightsleep() - kfree an object after a grace period.
- * @ptr: pointer to kfree for single-argument invocations.
- *
- * When it comes to head-less variant, only one argument
- * is passed and that is just a pointer which has to be
- * freed after a grace period. Therefore the semantic is
- *
- *     kfree_rcu_mightsleep(ptr);
- *
- * where @ptr is the pointer to be freed by kvfree().
- *
- * Please note, head-less way of freeing is permitted to
- * use from a context that has to follow might_sleep()
- * annotation. Otherwise, please switch and embed the
- * rcu_head structure within the type of @ptr.
- */
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
-> index efc516749..910fafe40 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/macsec_fs.c
-> @@ -684,7 +684,7 @@ static void macsec_fs_id_del(struct list_head *macsec_devices_list, u32 fs_id,
->  
->  	xa_erase(fs_id_xa, fs_id);
->  
-> -	kfree(fs_id_found);
-> +	kvfree_rcu_mightsleep(fs_id_found);
->  
->  	if (macsec_fs_is_macsec_device_empty(macsec_device)) {
->  		list_del(&macsec_device->macsec_devices_list_entry);
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrgtI8ACgkQJNaLcl1U
+h9B5qwgAgXP3DXULMG5ni/vnZNu62OReCPp1K5I5Aj7kvDLw6Gx/sg/okzKTsHKd
+zf45r+fwAKieOJqHCB+LCH2UocFHs5WM4xbfCjdGX6koM5s4ocAxr8zS8W9Hkas1
+49hGwyEUm+j9vdN3/FusrbuotrlE14Vas9W+xdp2NcbNYskWiPskzHR50VWsRyyd
+XSp5BIws/iZK+KxVIWwvnynNGUcHnzRxhzWQBwqgNKXAHjo4hEYXh/ljwX3RP0b+
+ho7fQy2uC2cCXJ40azpd1MQLif50tAQblm6sorYZdgXv0ogPDnT5TPajHCseGgcj
+INF6dzBZkvdke6PntU9E0KmxhASXIQ==
+=SXNI
+-----END PGP SIGNATURE-----
 
--- 
-pw-bot: changes-requested
+--JhUl+OvBjkhu9TF/--
