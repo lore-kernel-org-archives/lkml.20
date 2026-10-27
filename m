@@ -1,111 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793074942;
-	b=0ns0ywml64oYAoaLxR/AUksg3XvP++x84a0xLoW+mYQvznvbKQZiLw7SGU+Gfe3fV6zM
-	 lRONRWAs/cfQTEmfyYDap9HFVy7fQ9elVqjP4JMB7BiTYMDmocKz1Cwd13f59ewqkms69
-	 IdzDYH11alDrekFBxR5r0LbSxwsvXRjf3B3VRB5XiqElQb6iqtQU+rCm9NVALjnyIBfcL
-	 vjbWRvA+TeNy6JlTRRKN61Fk2VGHEKYdq97CwOB9heEJxsb18OdD1+Ez/FGt0ydxbABZl
-	 nGW0KbJ2GavWvttMXSYZFehZB/jTBB1p8waXx4yPS5cxj85T6gTPVtNZJ+sv0rt8o/w==
+	t=1793074957;
+	b=e6Ium5HyQU9IwL6Qfu89HlA07S7VqV4tspk/d/eM5Hqr+UrvkAgfuLIoS/Uf5G9zS1nO
+	 Mp0gp9JJp61m7Py82k99ap+xgg0xBE7k7Re2i5xmG6m2guxlDZ89MYQUEqqn7s+PlASSP
+	 gfh8HbWq98vnjjDCY92t6UfFo9napr1+EevUDlydYx8IH3XgktKGogIoAOinBYCl4ZMZD
+	 hNjntvxk0aXd+595+KlkM3eNwDsofEoJScZthgfA5OerlqIHL9n/Q8ks6+cs3NCCijLil
+	 KtLx8nWlTmgj2F8g4qNKzgliqCNK6PH6skbPiqKHkntO80t0SGlcfQpRsKQX65ZuLkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793074942;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793074957;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=JYR0kjWyeHwovzI94J0HLudxjoqlHJ5bLaQ4w5OVpbo=;
-	b=WzJZ/Si8vxBbVC8hUoI9yITHzLB/dnc0nxP2BO+trXF0mLfeLC3RAnScP0noGnN+VIhj
-	 YxpNtB11s35qI4oPc0S1WFHMxqam5m6z0dmAc++sRjiWxT2oYOzuksV3NSzaUArQkOWHD
-	 c8Bg3WPK+Y89NUj7ztf5Cos5bQRio+qM5DS4L6PIeLiwnBhfKbks4qw0QC5hrMSy9pBXH
-	 4AzQYRC6obzFsQqfllHScky/cE+FOcyxds1YfFTBOqebVlUh2GJjZ7xPtVTAXRAAn7Waj
-	 m0vt5xd7yyVuOaTuWUkXT6ILYtAhGmlgUVEfgVzzg3Buw3x8AKDfMciICrdz+cSNXTA==
+	bh=83nafzbkV5Ank6Et04/R6CJDCI1/AnYfnAhSh3P32qs=;
+	b=kPJUPoC9ToBq4YTLEM9lzK+sqkowTIsWrlf6WxEJYgSqeM4rWWyrawFwRsbxSKF1B6UH
+	 rVETkLJgV0H/EsNTkB20FR4KaIbQ5MW+H4upBhaqHxOuU/ISFR330i3GnG47He6+j6VFX
+	 uJ6HDdTvoYwhOsFW0PwdmxNrSV84Q1wAHLkf3oxRLfhh/yCEHIAIoka85K04dA+bHoEDY
+	 GumYC5szdOsZUi+mi+8mt/WiuCk5shx5d/OcUk6UOV8QkPbFzxEgQNv7oJVscxVhKBYxu
+	 1WIuTzigoWsgE+vs3ISXHNmns57S2hN2+sPvJESdVtOwQtckI1MT0sGNrFtafBAct3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="t9nVPwt/";
-	arc=none smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+wGxFL6;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A03606A334
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61A03606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A57B606A33B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:22:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A57B606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=t9nVPwt/
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e515769d3so354670485a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:22:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a+wGxFL6
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15dd124bbe7so1807371c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 21:22:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793074941; x=1793679741; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JYR0kjWyeHwovzI94J0HLudxjoqlHJ5bLaQ4w5OVpbo=;
-        b=t9nVPwt/dYQcOhPQS9n24nTChJsxSN6cnfVwH7VORn5e/1tN0OohhOYyoPSTzhVh9c
-         8w54DfO+Kj7vgoDjZszWvwaBIT29XXoYZpMNwfgrvrENL/WS4NBq/wSBTsi0TneRUM8I
-         pXHaQlCJMA2PuZiUW4vQOhgnGee0R2znYuLTaofci15uG05KDQHIJSCDHX/r0BMxeALZ
-         0PLGvmfrL3+PrSRs4p+xuj1Pza1lX0FomNOVMgT6NMXA8ncUBfkQOr6BI2b860oSI5l2
-         mGPHXsST2Y5nIAPt/b1zjnQZQFR3RLGfIdUUito4NWTRgDv50W+wIKmmNnWdECne5w+k
-         jTzA==
+        d=gmail.com; s=20251104; t=1793074956; x=1793679756; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=83nafzbkV5Ank6Et04/R6CJDCI1/AnYfnAhSh3P32qs=;
+        b=a+wGxFL6vPz0tnG4aLstR1Sq26EWr6OeWwfyyR+B3s7EKRImOBqVKYneGshHE7hBdI
+         WiO7OzK5q5e4hRb4/Ial5PuRZTJ02iTEAfp8oop8fbUybD+nR06tcM88nxUijMNcgNW+
+         NHthwmyQAopd3MzfgS69Mr24HMK8TLvNScZ79aLjrdNVhIJzq1/zRUvZgZ1EO6ULC8fi
+         D6pjKXER7cE5+FHbx34Ajlc4RU8Bd3+I8/UrG72742qxHu3vUTanKK9Z98vO0O+685ce
+         tiacj5nY/KAWZFMvFY4Cc8jLvsKh/EzGsVGLzCO3c/qfstw3nGh4VoH9zt9F5+HKgNTE
+         aCog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793074941; x=1793679741;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JYR0kjWyeHwovzI94J0HLudxjoqlHJ5bLaQ4w5OVpbo=;
-        b=TfYkGo1KtjEzSO/MSlG4sK6EyIkHhIm0G6Ft875QWcuhy/mCHEkMV1BoMEcM5NAaFD
-         XdVTBnIKRpHLlowm/eDgFosJb0gJzfLlJTfdkU/UVHyrFJKKkg8rkxe3s7BUJqd34afY
-         EY/S/Z98X+oxMLuHAy+sj8F5ztBmxN1Vs+mf7li06pF41iB8Lcs4C6foniMMacA41auS
-         j9/huEOEpdbK322V8XdeqoRxsBfMe0QLCFS+j/ZALgyP7xUY1KlRNiHmEUaKRyUJGnog
-         9woJlnEdRT1KpyeweYMoAO72fwHaKyyk9GZLQMIUdVi3FJAIXykuo3JN7BEonYxMhMUM
-         gDjQ==
-X-Gm-Message-State: AFq9FYLg4pyIX9B75pAN7PQ7d9KnGHCEdqqaa9OFPc8Uwd+lzS30rhnM
-	9H603P58CDtgriT0SMh2VIc2WrogpA8K9pUG/FUdi49+e0uFWsthIrXMQ4W+ugdLSf0=
-X-Gm-Gg: AYBFou3ktVKOnn85d0kfLPKYzaDpL7WQZcPiFgjSDicK4qTniMhf8JQb5NgPDOZ29ef
-	1YaMWP/8mluRGBsZ7ZTVBlP3+QJ35/J9tYC1MOjZ9lSiJjp8Nc1na7rVVIY3qQmzex80I4qpLmh
-	ZM1wr6HyX7cOoTMO5PLQt/rVcTatVRz6luahTjxqKn3SjgNplEt5S41JLmGMeS7UUIPEOIOUSS/
-	7xm24391I9GuHBZfZcL/+Ehi5WED+Bp1/o+6slBLZJELF1wkq7ob8LVqWAWrAeKAd4eniwAaGsT
-	RMyp4gDCIpaOeH3+dCYYJBS4fHIV8KdorGplG0+XWv2yTht5GXFyk15bzGg0v74n6G8LMcUlUXF
-	V/oY4iP9V/03XQtGNBtk+PPESvCWLscvQ8CuM3MhE+f7pI9/AYkN4s+TXCGPU1X0vU1SInwQ7Rk
-	XGmpMBDH8go7AM+Jkqkf3NJjzaBr0FyPgMCxYzfJ0mwtJOhaAfHKp1vNsz15C8AVgAZ8Tb4zE73
-	8RPyn3ZSjHSPN8Qe5VeDzVrXlLzF3X92RWhIc4lPcEbfpK1h3owplSaqVSZ3qQGLWYejQphR6ml
-	P7gG3zUYRsskfUsT0xfi13prtJdzEoA4El58YCIsgQ==
-X-Received: by 2002:a05:620a:440b:b0:93f:6375:aa97 with SMTP id af79cd13be357-940ef9df9damr1400486085a.83.1793074941325;
-        Mon, 26 Oct 2026 21:22:21 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47bd01cdsm91139676d6.7.2026.10.26.21.22.19
+        d=1e100.net; s=20260707; t=1793074956; x=1793679756;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=83nafzbkV5Ank6Et04/R6CJDCI1/AnYfnAhSh3P32qs=;
+        b=U4WR4WjQKW/kO5qOJ9QMgm/65O6cSkQ3+GQEzo2+r0ngFux9wQwKTgB0QToAjWgglX
+         3D+PyQFSjStQrfSSfQEkTvT6FbV6bXCoQCPy0+mrsuYxQtHe6ew8d+PZSanAnMYu1PQV
+         qHyvzMm5+DkNU4+tM2dg6zQ86YOmJs25jolF3MkihLAjFNaSWB16880ztlcHGlk2lXIa
+         NmhYaHe1TxTHi0qL6J21Nt7WCaj454WdhbpQDwcrcjwMF0JaDIFUCv/HefCC78sI7nRS
+         4b1e1WyCd+TUctvgfLeA/A15Vi6w32VauRZsl+A/4IZx/1XacIHvnJfeyr3zAt3VguGT
+         xcrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwacOvUgNaU1cTj4k/tTt8R4LURUs3gaz7ghMb5muaCtAUhLOYV1P+s+nzqs/cd/Vs36xWMXk8lrsgga2k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJs1ASYk0XpsS3DhryG1jK6cIu2/HuL9ZuTSiG6tEBVCOodqjtE
+	FgwJuYbqRLan+W5eNro2CWovT+H9AWBZzs3gT3fGbnRswA0H/BdBKrSU70iO8lMg/wo=
+X-Gm-Gg: AYBFou0kRPWmvK5UWQv+Xxqt1FOBke04F3y6bAbedyKad6OR5FA/I9mCmOBLgWaZCIz
+	6jVQOkmzGh1SVER1buzfhETEwZaahoHGoncwt1yRFBu39/UNuV+pa4/vTTChe5mJ/QYjEry6jpw
+	gfjbFY+I01X5Uhg1YfPWYG16HRzYFFhsTN3/lVG2uWdH6derki7pOOFpCNLWDrOf0tfS0iQ7rmd
+	G64+dvXyIOt5XTpV1V21/2lOZpXaQrZWXAxekeGDnA3CUJ71gg9ok72igSngqoMCZGTGaszq44x
+	Ae9kQWP1qDDBwpYygT61FINyxy4IC5CfgaQPzhxmO5U5E68JkikG8UOJuNIsLwUNDm0ZivcSELP
+	7D3975PRp5sskVWGTm+TqOLVJZamDErkBYy/IT7hUVdbPWi5HGwlylhgkDatlDn0INSfeZy2wwz
+	X607KGGifas7Z0FjnvQhsIu7dZctVer8sHpHgrjFT4sZ1mFMr3geV418cImXTnQGeKZwO3LztHv
+	5ImXVbdqviJpNSFph89ut4i4/un5PLpZixtOaNIxxuPdIaperRFfwgHaPcXHL6RumojQxKDUO+U
+	2W3JYhLHCpbZw4GBWe1eImxO1uRcjbzQnsVGsyO/amxbMf53kR2fC14l7pAx0uc5
+X-Received: by 2002:a05:701b:458e:10b0:195:c6c2:c6b with SMTP id a92af1059eb24-19937abc802mr11936974c88.35.1793074956099;
+        Mon, 26 Oct 2026 21:22:36 -0700 (PDT)
+Received: from m.tailc35649.ts.net ([2401:4900:1c0f:90b7:e702:7c19:441a:f9a5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1989ff2ee5asm26568725c88.8.2026.10.26.21.22.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 21:22:19 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	osalvador@suse.de,
-	muchun.song@linux.dev,
-	iamjoonsoo.kim@lge.com,
-	anshuman.khandual@arm.com,
-	stable@vger.kernel.org
-Subject: [PATCH 3/6] mm/memory-failure: keep the page online while handling it
-Date: Tue, 27 Oct 2026 00:22:01 -0400
-Message-ID: <20261027042204.3741307-4-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027042204.3741307-1-gourry@gourry.net>
-References: <20261027042204.3741307-1-gourry@gourry.net>
+        Mon, 26 Oct 2026 21:22:35 -0700 (PDT)
+From: Mrigendra Chaubey <mrigendra.chaubey@gmail.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] arm64: dts: ti: k3-j722s-evm: Enable HDMI display
+Date: Tue, 27 Oct 2026 09:52:31 +0530
+Message-ID: <20261027042231.499107-1-mrigendra.chaubey@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,157 +96,250 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-memory_failure(), soft_offline_page() and unpoison_memory() check that a
-pfn is online, then sleep on mf_mutex before using its page.  If the
-block goes offline meanwhile, a DEBUG_VM kernel faults on the poisoned
-memmap, and removal frees it on any kernel:
+From: Jayesh Choudhary <j-choudhary@ti.com>
 
-  CPU 1 (soft_offline_page)           CPU 2 (offline_pages)
-  pfn_to_online_page()
-    page is online
-  mutex_lock(&mf_mutex)
-                                      offline_mem_sections()
-                                      remove_pfn_range_from_zone()
-                                        page_init_poison()
-  get_hwpoison_page()
-    zone_pcp_disable(page_zone(page))
-      zone of a poisoned page
+The EVM drives its HDMI port from DSS1 VP0 over DPI through a SiI9022
+bridge on MAIN I2C1. The bridge reset, its interrupt and the DDC/HPD
+level-shifter enable are lines of a TCA6416 expander on the same bus.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc000000069e: 0000 [#1] SMP KASAN
-  RIP: 0010:__zone_set_pageset_high_and_batch+0x89/0x270
-   zone_pcp_disable+0x28/0x40
-   get_hwpoison_page+0xc2/0x1160
-   soft_offline_page.part.0+0xe7/0xbf0
+Add the expander, the bridge, the HDMI connector and the DPI pinmux,
+and enable DSS1 with VP0 clocked directly from the HDMI PLL.
 
-memory_failure() faults the same way.  unpoison_memory() does not fault,
-but it clears flags on the poisoned page and returns success.
+Keep the bridge out of reset using a GPIO hog rather than reset-gpios:
+after a reset pulse the SiI9022 NAKs its first I2C transfer, so the 
+sii902x probe fails with -EREMOTEIO.
 
-Hold get_online_mems() from before the online check to the last use of
-the page.  soft_offline_page() took it only around get_hwpoison_page();
-it now takes it once, earlier.
-
-With a kprobe parking each entry point across the offline, base faults,
-or for unpoison_memory() succeeds, in 3 of 3 runs each.  With this patch
-all 9 runs wait and fail with -EIO or -ENXIO, and lockdep stays clean
-over offline/online cycles mixed with error injection.
-
-Fixes: 96c804a6ae8c ("mm/memory-failure.c: don't access uninitialized memmaps in memory_failure()")
-Fixes: feec24a6139d ("mm, soft-offline: convert parameter to pfn")
-Fixes: d613f53c83ec ("mm/memory-failure: fix VM_BUG_ON_PAGE(PagePoisoned(page)) when unpoison memory")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
+Signed-off-by: Yashas D <y-d@ti.com>
+[mrigendra.chaubey: squashed ti-linux-6.18.y commits 65b8b66908be and
+ 589e383cef77; carried over the DSS1 ports node and dss1_pins_default
+ from the AM62P DSS series; dropped the unused OLDI reset hog,
+ EXTPCLKIN pin and bridge audio properties; added bus-width and
+ documented the reset hog. Tested on J722SXH01EVM.]
+Signed-off-by: Mrigendra Chaubey <mrigendra.chaubey@gmail.com>
 ---
- mm/memory-failure.c | 31 ++++++++++++++++++++++---------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+Depends on patches 4, 5 and 14 of the AM62P display series v3:
+https://lore.kernel.org/all/20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com/
 
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index 0c96eb5119976..cdae2a1988bb8 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -2394,6 +2394,8 @@ int memory_failure(unsigned long pfn, int flags)
- 	if (!sysctl_memory_failure_recovery)
- 		panic("Memory failure on page %lx", pfn);
+Also depends on patches 1-3, reposted as patches 1-3 of:
+https://lore.kernel.org/all/20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com/
+
+Tested on J722SXH01EVM with Linux v6.18.58 and an HDMI display
+connected; sii902x and tidss probed successfully. Builds and passes
+dtbs_check on next-20261026 with the prerequisite patches applied.
+
+ arch/arm64/boot/dts/ti/k3-j722s-evm.dts | 172 ++++++++++++++++++++++++
+ 1 file changed, 172 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+index c6486cf5a0..90c5151f52 100644
+--- a/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
++++ b/arch/arm64/boot/dts/ti/k3-j722s-evm.dts
+@@ -220,6 +220,18 @@ transceiver2: can-phy2 {
+ 		standby-gpios = <&exp1 17 GPIO_ACTIVE_HIGH>;
+ 	};
  
-+	/* Keep the page online from the check below until we are done */
-+	get_online_mems();
- 	mutex_lock(&mf_mutex);
- 
- 	if (!(flags & MF_SW_SIMULATED))
-@@ -2608,11 +2610,13 @@ int memory_failure(unsigned long pfn, int flags)
- identify_page_state:
- 	res = identify_page_state(pfn, p, page_flags);
- 	mutex_unlock(&mf_mutex);
-+	put_online_mems();
- 	return res;
- unlock_page:
- 	folio_unlock(folio);
- unlock_mutex:
- 	mutex_unlock(&mf_mutex);
-+	put_online_mems();
- 	return res;
- }
- EXPORT_SYMBOL_GPL(memory_failure);
-@@ -2742,9 +2746,12 @@ int unpoison_memory(unsigned long pfn)
- 	static DEFINE_RATELIMIT_STATE(unpoison_rs, DEFAULT_RATELIMIT_INTERVAL,
- 					DEFAULT_RATELIMIT_BURST);
- 
-+	get_online_mems();
- 	p = pfn_to_online_page(pfn);
--	if (!p)
-+	if (!p) {
-+		put_online_mems();
- 		return -EIO;
-+	}
- 	folio = page_folio(p);
- 
- 	mutex_lock(&mf_mutex);
-@@ -2833,6 +2840,7 @@ int unpoison_memory(unsigned long pfn)
- 		unpoison_pr_info("%#lx: software-unpoisoned page\n",
- 				 page_to_pfn(p), &unpoison_rs);
- 	}
-+	put_online_mems();
- 	return ret;
- }
- EXPORT_SYMBOL(unpoison_memory);
-@@ -2974,38 +2982,42 @@ int soft_offline_page(unsigned long pfn, int flags)
- 		return -ENXIO;
- 	}
- 
-+	if (!sysctl_enable_soft_offline) {
-+		pr_info_once("disabled by /proc/sys/vm/enable_soft_offline\n");
-+		put_ref_page(pfn, flags);
-+		return -EOPNOTSUPP;
-+	}
++	hdmi0: connector-hdmi {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "a";
 +
-+	/* Keep the page online from the check below until we are done */
-+	get_online_mems();
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&sii9022_out>;
++			};
++		};
++	};
 +
- 	/* Only online pages can be soft-offlined (esp., not ZONE_DEVICE). */
- 	page = pfn_to_online_page(pfn);
- 	if (!page) {
-+		put_online_mems();
- 		put_ref_page(pfn, flags);
- 		return -EIO;
- 	}
+ 	csi01_mux: mux-controller-0 {
+ 		compatible = "gpio-mux";
+ 		#mux-state-cells = <1>;
+@@ -260,6 +272,14 @@ J722S_IOPAD(0x01e4, PIN_INPUT_PULLUP, 0) /* (B22) I2C0_SDA */
+ 		bootph-all;
+ 	};
  
--	if (!sysctl_enable_soft_offline) {
--		pr_info_once("disabled by /proc/sys/vm/enable_soft_offline\n");
--		put_ref_page(pfn, flags);
--		return -EOPNOTSUPP;
--	}
--
- 	mutex_lock(&mf_mutex);
++	main_i2c1_pins_default: main-i2c1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x01e8, PIN_INPUT_PULLUP, 0) /* (C24) I2C1_SCL */
++			J722S_IOPAD(0x01ec, PIN_INPUT_PULLUP, 0) /* (A22) I2C1_SDA */
++		>;
++		bootph-all;
++	};
++
+ 	main_i2c2_pins_default: main-i2c2-default-pins {
+ 		pinctrl-single,pins = <
+ 			J722S_IOPAD(0x00b0, PIN_INPUT_PULLUP, 1) /* (P22) GPMC0_CSn2.I2C2_SCL */
+@@ -366,6 +386,45 @@ J722S_IOPAD(0x030, PIN_INPUT, 7) /* (K23) GPIO0_12 */
+ 		>;
+ 	};
  
- 	if (PageHWPoison(page)) {
- 		pr_info("%#lx: page already poisoned\n", pfn);
- 		put_ref_page(pfn, flags);
- 		mutex_unlock(&mf_mutex);
-+		put_online_mems();
- 		return 0;
- 	}
++	main_gpio0_ioexp_intr_pins_default: main-gpio0-ioexp-intr-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x0110, PIN_INPUT, 7) /* (G27) MMC2_DAT1.GPIO0_67 */
++		>;
++	};
++
++	dss1_pins_default: dss1-default-pins {
++		pinctrl-single,pins = <
++			J722S_IOPAD(0x0100, PIN_OUTPUT, 0) /* (AB23) VOUT0_VSYNC */
++			J722S_IOPAD(0x00f8, PIN_OUTPUT, 0) /* (AB24) VOUT0_HSYNC */
++			J722S_IOPAD(0x0104, PIN_OUTPUT, 0) /* (AC26) VOUT0_PCLK */
++			J722S_IOPAD(0x00fc, PIN_OUTPUT, 0) /* (AC27) VOUT0_DE */
++			J722S_IOPAD(0x00b8, PIN_OUTPUT, 0) /* (W27) VOUT0_DATA0 */
++			J722S_IOPAD(0x00bc, PIN_OUTPUT, 0) /* (W25) VOUT0_DATA1 */
++			J722S_IOPAD(0x00c0, PIN_OUTPUT, 0) /* (W24) VOUT0_DATA2 */
++			J722S_IOPAD(0x00c4, PIN_OUTPUT, 0) /* (W23) VOUT0_DATA3 */
++			J722S_IOPAD(0x00c8, PIN_OUTPUT, 0) /* (W22) VOUT0_DATA4 */
++			J722S_IOPAD(0x00cc, PIN_OUTPUT, 0) /* (W21) VOUT0_DATA5 */
++			J722S_IOPAD(0x00d0, PIN_OUTPUT, 0) /* (Y26) VOUT0_DATA6 */
++			J722S_IOPAD(0x00d4, PIN_OUTPUT, 0) /* (Y27) VOUT0_DATA7 */
++			J722S_IOPAD(0x00d8, PIN_OUTPUT, 0) /* (AA24) VOUT0_DATA8 */
++			J722S_IOPAD(0x00dc, PIN_OUTPUT, 0) /* (AA27) VOUT0_DATA9 */
++			J722S_IOPAD(0x00e0, PIN_OUTPUT, 0) /* (AA25) VOUT0_DATA10 */
++			J722S_IOPAD(0x00e4, PIN_OUTPUT, 0) /* (AB25) VOUT0_DATA11 */
++			J722S_IOPAD(0x00e8, PIN_OUTPUT, 0) /* (AA23) VOUT0_DATA12 */
++			J722S_IOPAD(0x00ec, PIN_OUTPUT, 0) /* (AA22) VOUT0_DATA13 */
++			J722S_IOPAD(0x00f0, PIN_OUTPUT, 0) /* (AB26) VOUT0_DATA14 */
++			J722S_IOPAD(0x00f4, PIN_OUTPUT, 0) /* (AB27) VOUT0_DATA15 */
++			J722S_IOPAD(0x005c, PIN_OUTPUT, 1) /* (U27) GPMC0_AD8.VOUT0_DATA16 */
++			J722S_IOPAD(0x0060, PIN_OUTPUT, 1) /* (U26) GPMC0_AD9.VOUT0_DATA17 */
++			J722S_IOPAD(0x0064, PIN_OUTPUT, 1) /* (V27) GPMC0_AD10.VOUT0_DATA18 */
++			J722S_IOPAD(0x0068, PIN_OUTPUT, 1) /* (V25) GPMC0_AD11.VOUT0_DATA19 */
++			J722S_IOPAD(0x006c, PIN_OUTPUT, 1) /* (V26) GPMC0_AD12.VOUT0_DATA20 */
++			J722S_IOPAD(0x0070, PIN_OUTPUT, 1) /* (V24) GPMC0_AD13.VOUT0_DATA21 */
++			J722S_IOPAD(0x0074, PIN_OUTPUT, 1) /* (V22) GPMC0_AD14.VOUT0_DATA22 */
++			J722S_IOPAD(0x0078, PIN_OUTPUT, 1) /* (V23) GPMC0_AD15.VOUT0_DATA23 */
++		>;
++	};
++
+ };
  
- retry:
--	get_online_mems();
- 	ret = get_hwpoison_page(page, flags | MF_SOFT_OFFLINE);
--	put_online_mems();
+ &cpsw3g {
+@@ -627,6 +686,84 @@ tlv320aic3106: audio-codec@1b {
+ 	};
+ };
  
- 	if (hwpoison_filter(page)) {
- 		if (ret > 0)
- 			put_page(page);
++&main_i2c1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&main_i2c1_pins_default>;
++	clock-frequency = <100000>;
++	status = "okay";
++
++	exp2: gpio@20 {
++		compatible = "ti,tca6416";
++		reg = <0x20>;
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio-line-names = "DSI_Mux_SEL_2", "GPIO_eDP_ENABLE",
++				  "DP0_PWR_SW_EN", "GPIO_OLDI_RSTn",
++				  "GPIO_HDMI_RSTn", "HDMI_LS_OE",
++				  "", "",
++				  "DSI_GPIO0", "DSI_GPIO1",
++				  "DSI_EDID", "IO_eDP_IRQ",
++				  "OLDI_INT#", "HDMI_INTn",
++				  "", "";
++		interrupt-parent = <&main_gpio0>;
++		interrupts = <67 IRQ_TYPE_EDGE_FALLING>;
++		interrupt-controller;
++		#interrupt-cells = <2>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&main_gpio0_ioexp_intr_pins_default>;
++		bootph-all;
++
++		p04-hog {
++			/*
++			 * P04 - GPIO_HDMI_RSTn: keep the SiI9022 out of reset. Not
++			 * reset-gpios: after a reset pulse the bridge NAKs its first
++			 * I2C transfer, which fails the sii902x probe with -EREMOTEIO.
++			 */
++			gpio-hog;
++			gpios = <4 GPIO_ACTIVE_LOW>;
++			output-low;
++			line-name = "GPIO_HDMI_RSTn";
++		};
++
++		p05-hog {
++			/* P05 - HDMI_LS_OE: enable the DDC/HPD level shifter */
++			gpio-hog;
++			gpios = <5 GPIO_ACTIVE_HIGH>;
++			output-high;
++			line-name = "HDMI_LS_OE";
++		};
++	};
++
++	sii9022: bridge-hdmi@3b {
++		compatible = "sil,sii9022";
++		reg = <0x3b>;
++		interrupt-parent = <&exp2>;
++		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				sii9022_in: endpoint {
++					bus-width = <24>;
++					remote-endpoint = <&dss1_dpi0_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				sii9022_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++				};
++			};
++		};
++	};
++};
++
+ &main_i2c2 {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+@@ -844,4 +981,39 @@ &mcu_i2c0 {
+ 	status = "okay";
+ };
  
- 		mutex_unlock(&mf_mutex);
-+		put_online_mems();
- 		return -EOPNOTSUPP;
- 	}
- 
-@@ -3023,6 +3035,7 @@ int soft_offline_page(unsigned long pfn, int flags)
- 	}
- 
- 	mutex_unlock(&mf_mutex);
-+	put_online_mems();
- 
- 	return ret;
- }
++&dss1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&dss1_pins_default>;
++
++	/*
++	 * VP0 ("vp1" clock) drives DPI, not OLDI: take its pixel clock directly
++	 * instead of through the SoC default OLDI /7 divider.
++	 */
++	clocks = <&k3_clks 232 8>,
++		 <&k3_clks 232 0>,
++		 <&k3_clks 232 4>;
++
++	assigned-clocks = <&k3_clks 241 0>,	/* DSS1-VP0 */
++			  <&k3_clks 240 0>,	/* DSS1-VP1 */
++			  <&k3_clks 245 0>;	/* DPI Output */
++	assigned-clock-parents = <&k3_clks 241 2>,	/* PLL 17 HDMI */
++				 <&k3_clks 240 1>,	/* PLL 18 DSI */
++				 <&k3_clks 245 2>;	/* DSS1-DPI0 */
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		/* DSS1-VP0: DPI -> SiI9022 -> HDMI */
++		port@0 {
++			reg = <0>;
++
++			dss1_dpi0_out: endpoint {
++				remote-endpoint = <&sii9022_in>;
++			};
++		};
++	};
++};
++
+ #include "k3-j722s-ti-ipc-firmware.dtsi"
 -- 
-2.53.0-Meta
+2.43.0
 
