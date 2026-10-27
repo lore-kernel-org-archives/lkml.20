@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793131731;
-	b=VfJuW2fDJ36cd5/PhP47v0nphxiJrObGdMN5Mg5Cq1rUorlV0FW/7Oz+Lljmxg8IWQQa
-	 Mrz8QP8PJw3rsZZYxjd40KIm8F9iA6jyw2NbkK5sRXZMu5tIApn6vgGYv4k3b4qhJ9WWE
-	 i37RiRCYvyHcc7luq29uEt55VAoFKrn72fyWOQadW0Q+zr+57br0xHMaDpUCsmzdSJMdH
-	 Hj71LVGmmjQa+fhsZW+Jg0rvVtE8+MvGv622DkRTZxqL+pv6uYGm0IQ6O4ORaI0Bp9scS
-	 8LPinY5a/ndS5+eU/UhkFHe/VEIhSKnG41ZbNyKz3w4S70JGS+G5ceBHy1ulCHECYMg==
+	t=1793131742;
+	b=raU0w3DnwjrJ5QDxeMXnM5eMR5GGEa9k5aeRcQge8jyMmkU8rW9qHB1t14kIzTtcpVo4
+	 84TMTlqC4zcuzHXKF14u9rvlt7tT7VQdwVk5zfQP4H5NkE6siMtOJj6RZdSAioZ1VBtqZ
+	 BQCFdpmI+jcda2uWoaLa6ZjFdns1op7HgytQnF1gRKsdbOUbgb9m7+/UR23jPGz604f9O
+	 DEoWpdjuuTgN1oGz9QWN+28R0r5Ikuy7qKJlKekPxlEjIW6TJSGdnfkMKNDD6Aova8kw3
+	 uKRyhfZWdiVKTCTLcAxAEua2RJPF5xh7jCiECrMVGwLfjtcW9n6JbSoPbGEgdrRTL7A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793131731;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793131742;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/mHTzY5Ons10P2yx+EMererndbZ2K+UGy2iG7swLLJ8=;
-	b=uHMBpgQ3//COjXPmDAwgUNSXns7W6Gq2p1yx0i42PF9WWXhmUSZGBF7E2XpZfp/Lq3Zh
-	 Dvj446sy6IsEj8AhZXslgblIOwKfl4xVIix2BCiFEpSld8za6gFvHBWkqbo1l8PRdAHN3
-	 QzeHC2utZP064CTLtM2wAcuMhdarmskGR0vNQ/HO181hMUBHsl9FOsOwnFV91ipBwYd1o
-	 Ybxu+sWocXqT0xQtgsE2+EqoBfkFrF78vMy3lbaw8n1Or6hm6u9A8964fPJ88qcm+OSTt
-	 5hUnQ1MLtpAklA7UeR2zReXCbNwqkGF20MnIlTO8ZyjyYWIwwtWMWIFxDvKDfkLItiw==
+	bh=VeEh0rShVYt/Qe12CelPAOWD3oT/iB75neohsnBaq7s=;
+	b=DCt8AoeG6nIMuf5cgldqLDWx1mWoJKq5/QoA3huk2wUdTWQmAaLH5O5uXYejXta+/sgq
+	 eVdvEsVrn7EAM3Nlpr9jv3umDs+cNaQ24VbaQerTItQw6BRoB8CdFRFUiGndmTZQ6PLkM
+	 pxQSE+aygUk42wFHvEsswe/saH8oceiMi/glHjfYRwGVR/UGn2syxeAkB6A5rWnm7k8p7
+	 FsdmyiL44xhtNtUz70PwBMU2oZoXhmcUO3FUhClfQVa/69ZelMhipAX7HuEfvv7GyK9Pa
+	 oKcQSg3q/JXTqBiFPZcNEm4o5XYIKR9OPNP/oIuOC1cFh+D/AzvtiUNTDHiUrvgCTDw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OiAyQVOk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzCpyyCq;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F95606A31A;
-	Tue, 27 Oct 2026 20:08:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970BE606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:09:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OiAyQVOk
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OzCpyyCq
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793131730;
-	b=RBGksrlD3FmQvkQaQZjOjRKAZ2/UrOHDVZiUoJKXbIGjwsmwIJ5CHGnQxRVpUySNhxAP
-	 PIcFSP1LzdWi9UxSTICLfbzdSUqUoi0kCCtcNEj11W0M4hMRVwVUGQnHB2Y6XqrpVA+9x
-	 msSCQQ9hwZOw7RW+e0MZf6GBRRE18Wj3FkZ21TSO1vrVcqM80mGJD8d3CotK9nm4RMyLN
-	 UNRgPqDFQ1faibtpemouk2S2Eh1S80WAdQ12lWuQXCyxWuDyefuZkaz3pNFRaygdBMzUm
-	 FLOsDm6GCyuc2XYbxO7B8tcXGHZu5EN2gI5AsvXL0g7zs5b78+0dl2mg4fpE7qZrJvw==
+	t=1793131742;
+	b=IC5yHianAWAZ9MGWEEhNM9xP1tRw7BStTU9jsR3w2hH3xkWw+gblW0DXLgH5XeRuEHH2
+	 LTTQt+s6HX4lVOz3+JNJLFtJXfJdnHpZ9cT9Z85piqobSqqAOSYDX0GEmvP9dfkLGlsNc
+	 PGsjO/ecJOCQke1192SE011XY0r9idRwGa5VcD1PtDFw9z4U4AfAKI1h82aAmz19RiT+y
+	 /jszid0Xl4ySw67NPS7ahypEHS2U5/jTJGI/aVBgLv4Sviw6AzV7/P3KUoCRo3dkBkAPH
+	 gS1sthkYeSB1g+qfmHgYBv1StsxsB/b2MEI25NsHmzkSDuzltXVYjaYqDLVms+dWAnw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793131730;
+	c=relaxed/relaxed; t=1793131742;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/mHTzY5Ons10P2yx+EMererndbZ2K+UGy2iG7swLLJ8=;
-	b=mB2EAIvvRqWDwHRtWd1hmrSllDp6b7n5dECNgz6zn2S7aJvdZk6vSZKy9+d1z0ELZnL+
-	 UbXzmxo4xlBdq3+1Gd0F+rWNiNwOghW9qlSeXEVshpTMDKkqX/o+g0aJz2kd/TWXIULxY
-	 hfx1QWiKYTSQBTcbYImHpyLeos97b3C0JUn8mp7Wg9E+JU0deJlkgIF3CRgn5m474GKAr
-	 1iHEnTfaICLUN6u2UbAgyKXMzLZUNk2sSV39AlgmjsGjZbWFs5AJJbSDUk+hw2GQKMqQW
-	 XScjFg04kZAzca9sXJbfbFCBiS25S36Jeirk3QhCAxmElscq5kW/G//kzpQ9IFjPhVg==
+	bh=VeEh0rShVYt/Qe12CelPAOWD3oT/iB75neohsnBaq7s=;
+	b=Y0+e768HBov75oGpO7EEdWwp7eL4t0a4/kPM67gNNWeFvFP+Ji5VQSUvAhNzl0ZkJnJY
+	 GrbRvhR/m4BFVJ3FWlicelYncy9yYzcvQdoyxAW8Vv1LCo1TJxxQYEBXnSQFSCJTOdK42
+	 fJRqf8cYma6SzpiEXxIrJLExScRbeXszbbZKpnfKnwimynjLEP1YeH9C1tScTYyFmT18q
+	 8rNpn2RBPwu40l19z1l25XBGB6p0BpIx9gfNTcUtpzzVCj3UFIE800rNrKqRyfrw+ZEhO
+	 1jivXrfECaOUSCYZPicPeMIYtmrFGiI5HVnrMpwi6IQWgQuAglGqpi+rljgoayHu5Wg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 44F7B1F01825;
-	Tue, 27 Oct 2026 20:08:50 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 095DE1F01825;
+	Tue, 27 Oct 2026 20:09:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793131730;
-	bh=/mHTzY5Ons10P2yx+EMererndbZ2K+UGy2iG7swLLJ8=;
+	s=k20260515; t=1793131742;
+	bh=VeEh0rShVYt/Qe12CelPAOWD3oT/iB75neohsnBaq7s=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OiAyQVOkLCCq9kk+tFVsn4imSjzbp1fplAMIAnJrIsH8IhH2EF0ja0MFt5eBRBb9G
-	 SDj7Ok45L6qpCqLweNS+ySendxyEyEIbyPHdX8WxpVRtU/yk6AA2TLZIdJFpox2WLn
-	 Cw0lXIc+8YZas5sc93u+zu5Gbo1Ryuoxll7XUDQ+leYQkHsTcjJ1UBZJ6GLQWY4/KF
-	 1GPOrpqffe4zrqQsWlIx0etIp5Y0bdAGmqgJ9y0nJm0XNJgjmJODCToQ2umphe+B/H
-	 Wvcit4yLMfYCSMu5u/vpaZgDUn3c1EFJu2gHlzp42naz6BIfGIXN95sYRTDWSZk1Gg
-	 9VwMLUaPMQ6Iw==
+	b=OzCpyyCq+cGaRUmp3UUPoXn333kGLmmkp/w8rhfiLT8F2+s+FMDMzIUauf/5MK8in
+	 ctWPWjxIRlTOBwsm8yKx31KdSs2RMrJH703ESHd5A3CnurdYUiWJUZfnUS/aiXRkdM
+	 YD68/6La9O1GZ4iqg9JE44wzoIe+Tu2MrAW9+sCMVE1maJ3GCEXzNP+VjEEmd6s8Hr
+	 tgV9/z+gIeZN1wiHJiR7J6GZX1n6XoPt7CffvktAeBxpxqpip6/8UR4Va7xt8ln9Pv
+	 YZhp9Dcj8Fd8mBZ52a/cbSj+55BRNP/nOE/RrwUmhW0oxWJOFfZ9h13uqlbBYsaTqN
+	 QDYEdW33YJVhg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 946E4451DD;
-	Tue, 27 Oct 2026 20:08:49 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 8AFEC451B4;
+	Tue, 27 Oct 2026 20:09:01 +0000 (UTC)
 From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 27 Oct 2026 16:08:49 -0400
-Subject: [PATCH] fs: annotate data race in get_nr_inodes()
+Date: Tue, 27 Oct 2026 16:09:01 -0400
+Subject: [PATCH] mm: annotate lockless accesses to vm_committed_as_batch
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,21 +83,21 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-kcsan-inode-v1-1-1ef0eb871f2c@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDWpohJXEYtqB0NS0kEk4u6K5
- Vv8fwFjIGSokwsCHsS0+IgsTcCOxg8oyEWDkkpnUlVitmy8IL84FMaVWklduDLvIRZrwJ7O79a
- 0v3nvJrTbu4D7fgBSSeuJbwAAAA==
-X-Change-ID: 20261027-kcsan-inode-ad562064d53f
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, Mani Tofigh <mt4022@columbia.edu>
+Message-Id: <20261027-kcsan-mm-v1-1-66757485b917@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNz3ezk4sQ83dxc3WQDQ3NLE1NTS1NLSyWg8oKi1LTMCrBR0bEQfnF
+ pUlZqcglIv1JtLQCK5KvgbAAAAA==
+X-Change-ID: 20261027-kcsan-mm-c01794559599
+To: Mike Rapoport <rppt@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, tz2294@columbia.edu, 
+ Mani Tofigh <mt4022@columbia.edu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793131729; l=1338;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793131741; l=2109;
  i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=RilFwEuG5mfa59o4kBWEQvpFFOo3It83HXyNfvM2YrM=;
- b=Ti0XKvyXUR4c9cFr6dRTkQZpL8+CKuInzahtgyklAh0OzNzygLqhQf2XBwxBBk6byk6QhRx4Y
- k8raP+nEciCAs2J/zhHdg+HrqiMd7dtXchK4ZPvnP/wL8IW74E4NRX7
+ bh=j7Mc9C4QlmCwhmnKNi4h7TqTqfjBLIBQjYqiZTNCEhg=;
+ b=0Hqd2fa5iviDcBvKgRDs91aLAznIPOLYpILVxsb/Gu5CvLIwOieETU/yf+NKTPQfPHczGDeQK
+ J9UjE21rqSfBHoTSVWFwm69tJ00PEmDUjslAk2LRNLpDoBJ9Upa1Mc5
 X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
  pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
 X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
@@ -108,45 +108,64 @@ Content-Transfer-Encoding: 7bit
 
 From: Mani Tofigh <mt4022@columbia.edu>
 
-get_nr_inodes() sums the per-CPU inode counts without a lock, and the
-result is only an estimate, so it's harmless if one of them changes
-during the sum.  Wrap the reads in data_race() to mark this.
+vm_committed_as_batch is read without a lock, and it's only a hint for
+how often the per-CPU counts get folded, so racing with an update is
+harmless.  Annotate the accesses.
 
-  [   11.857490] BUG: KCSAN: data-race in get_nr_inodes+0x9f/0xf0
+  [    0.953509] BUG: KCSAN: data-race in __vm_enough_memory / mm_compute_batch
 
-  [   11.857568] race at unknown origin, with read to 0xff1100002b6281e8 of 8 bytes by task 106 on cpu 1:
-  [   11.857621]  get_nr_inodes+0x9f/0xf0
-  [   11.857675]  get_nr_dirty_inodes+0x1d/0x110
-  [   11.857748]  writeback_inodes_sb+0x3d/0x60
+  [    0.953645] write to 0xffffffff825165d8 of 4 bytes by task 1 on cpu 0:
+  [    0.953692]  mm_compute_batch+0xc2/0x120
+  [    0.953781]  mm_compute_batch_init+0x1c/0x20
   ...
 
-  [   11.870052] value changed: 0x00000000000000b3 -> 0x00000000000000b5
+  [    0.954325] read to 0xffffffff825165d8 of 4 bytes by task 41 on cpu 1:
+  [    0.954373]  __vm_enough_memory+0x24/0x2b0
+  [    0.954444]  shmem_inode_acct_blocks+0x1b3/0x230
+  ...
+
+  [    0.955288] value changed: 0x00000020 -> 0x00005003
 
 Found with KCSAN while fuzzing under a deterministic hypervisor that's
 currently under development.
 
 Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
- fs/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/mman.h | 3 ++-
+ mm/mm_init.c         | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index 1cb6293b237a..ee4366264c36 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -79,7 +79,7 @@ static long get_nr_inodes(void)
- 	int i;
- 	long sum = 0;
- 	for_each_possible_cpu(i)
--		sum += per_cpu(nr_inodes, i);
-+		sum += data_race(per_cpu(nr_inodes, i));
- 	return sum < 0 ? 0 : sum;
+diff --git a/include/linux/mman.h b/include/linux/mman.h
+index 389521594c69..66e6c9c335b5 100644
+--- a/include/linux/mman.h
++++ b/include/linux/mman.h
+@@ -75,7 +75,8 @@ unsigned long vm_memory_committed(void);
+ 
+ static inline void vm_acct_memory(long pages)
+ {
+-	percpu_counter_add_batch(&vm_committed_as, pages, vm_committed_as_batch);
++	percpu_counter_add_batch(&vm_committed_as, pages,
++				 data_race(vm_committed_as_batch));
  }
  
+ static inline void vm_unacct_memory(long pages)
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index 41a27860d2f6..81f360db0787 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -211,7 +211,7 @@ void mm_compute_batch(int overcommit_policy)
+ 	else
+ 		memsized_batch = min_t(u64, ram_pages/nr/4, INT_MAX);
+ 
+-	vm_committed_as_batch = max_t(s32, memsized_batch, batch);
++	WRITE_ONCE(vm_committed_as_batch, max_t(s32, memsized_batch, batch));
+ }
+ 
+ static int __meminit mm_compute_batch_notifier(struct notifier_block *self,
 
 ---
 base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261027-kcsan-inode-ad562064d53f
+change-id: 20261027-kcsan-mm-c01794559599
 
 Best regards,
 --  
