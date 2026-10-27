@@ -1,63 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.98.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102724;
-	b=N0Da7HXEbWdReV7GBse9T3d4jFzIhHrEhl76sixz43H5/NNHeSWcUSCZZ+90KDLXWcxc
-	 AU6Djw2Mle7kSuQDqWI46VkSWZUlzIoLEzWnp38FF97HHlnhBCoA0cfz2dwWUw1cq/8ri
-	 EdGPhFUJywjTSSPfJp6ADaMUZnhlYXhuXbkxX5DQ5aGxmuaUT8ft0b48pHu59pXsSa7Nu
-	 q7jfadLfh9dB7D8NWXOZ/EouqRretBzU4XJNY9d/gPTc5KXmtUZWk9S8ki1010uc3+abS
-	 QRla+BC/NUC+YtuSeFFXQbtppcEt26YIzuWHtlvuyqgHNwDumnxzX345xyKsA1RQQzQ==
+	t=1793102742;
+	b=tRIGxD1PXKSweldBB8AptkkmtP7Cy+48cbhzFhUWZkpfiE1ZHU5X9pJK44w9wWBAablz
+	 vd2tvGeYWqb3OiBWBN+Yl4vWHhtNtibTc+uJRu9V3rS86Y5o0LXtO8uhxpTFmV1q+nDEH
+	 MmxDwj5S6Hems8ayeAg/f9Moe2ku4dF3CWPrgGeqFVM3YZniMc/MPu0mcnFtVDtf0PHfB
+	 Yig+U1Vr/wm2POLjjeP0ZHWd5sY43o4jJRVrPeN0VZx0+pSNthHRcmQ4Hqhfv3grv9FWr
+	 9C66/p5W30Gq6NwXQcWkzkyvsl2d84zd/zSqRrXmwblRLTxrPSd3nK/MA1k6uSRPMvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102724;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=NqEHCLFHg/YZTrdCvxEaQojESD0wlarw6wA9b0nhmXo=;
-	b=uvwFJ+sdSptngG+iqDT7k4Wz8LICv3ChLlqzCFB+aI2ATkGmqE9aUUwS8uGRf7JrWvEH
-	 3CB9AQ7f7jydEoVHxAS8N0mFHnGMbsTQzul09IDyc8U/AhebdROspqWRlloDDxjT3lmIB
-	 kTe9q6REHGCF2x4Jg52k/Dp5GYVvGOvmwanjfVUcUh6kNsjv0CiXAxBNmNyPwOK0ESyZA
-	 mTS1fIv37pO9K3erJUSf6SwaD7F3y5cQ6xViR1IaSQubkXXluAVBxMyzCzBjJfIQZsF/P
-	 ad2YOZRRSji19pzeyZL1uMo0l32fR2bTZ4FJGAqrFL1KZH6KJeza9cTJwhbwMM2B8OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102742;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=3wIeXYtcLGzGld3TeXFZLlcoOMDnhGa5Jpo/RU+mucs=;
+	b=nvxhnj4SiPj/vaCPwUisQ8Qrfv0NN5jjVfDNiigFb1rWUZek7UMGlF7GonIx5FPLgHqK
+	 929HB3yq8VGunRNru3cd7A7Gy43XGqV+cC5RaQJVuYhU0iRg9Bx+7LPtIroadS44dp/6P
+	 S3Xc2Ka2rHvx1u5+OBFseXfFABXvAgBmpB2fpyXnl9rJib/XoZkUkTffDl3GIlDdT1VkW
+	 d+CGs+5eDfcJ6AyFyEcTorIdvVM4S+0vYufSwXHMIGO0H1vo1pc20SK22pF5BiTF8SVHR
+	 jK9tePq60sdmUx474uzY68ekRb+ysng0H/lKUPv8V5P+bRBobZ/0ZxD1A79EbrIfOOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=k2qznDTg;
-	arc=none smtp.remote-ip=144.76.98.110
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [144.76.98.110])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=u2AY2i9m;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Fx+Hyk8Z;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E5C4606C968
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:05:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E5C4606C968
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42631606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42631606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=k2qznDTg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1793102721; bh=NqEHCLFHg/YZTrdCvxEaQojESD0wlarw6wA9b0nhmXo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=k2qznDTgR+igebwJ3O+83zIrI5mskGhXIkn2iXvsScqJHDpiEHA7ojCrHAGNpfISa
-	 2oS0cU76c2tESFYzNoi513gFlITWhkoAGqCPeliWyH9wS6i8rA7QbMpGTabTwhPujO
-	 j3ccE/ivDtZG8kSC/gQoZcebx947RmSxVCvJogo68VAICXCI2BJT32TuS9WxnhV1xV
-	 ahpdTGh2add4qUgVsCLUdLjAF9Ac7Zewcj87YAGBINj3L7/KElplV20yAVgcK8swcK
-	 G5igrYDqvuVVYExDzKT+0bFR+oqT+dxxA5gnmhdv/B2e0rduTXysy4VTuQ/PDCZXYr
-	 ZnTn1NnYNo+VA==
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id 052261271E3
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:05:21 +0000 (UTC)
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6b19e291cc6so3595003eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:05:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz0WWtOlAkOPY6HVzAdGmB9+d7bTrA8WJoTczmLK7+B5PY9RUtHkIK5Cfjwx1Usl0W4TxEKv/4wDkwgYKQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTP6FrJYQDcxa4BkqnLbSSxcUOp1Rgjacz8k+KJI0TJ2tdN2S8
-	sEZFGGpHpYiTCopaC1qhx/tsSDuofKoqJJTStVXAvmLSJ49Tfd0Fa3CLeVP4YD9Na/uqgmkVmQ0
-	JNPmUAkD6y3QYx6kbcJ0tny45/JPrnw==
-X-Received: by 2002:a05:6820:610:b0:703:c2a2:cc9a with SMTP id
- 006d021491bc7-70ba0b5adf0mr5430261eaf.9.1793102719530; Tue, 27 Oct 2026
- 05:05:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=u2AY2i9m;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Fx+Hyk8Z
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793102734;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3wIeXYtcLGzGld3TeXFZLlcoOMDnhGa5Jpo/RU+mucs=;
+	b=u2AY2i9mzv2WKZh5EvTjuGBJc4o69bqYX8nUKyfF8fxxeLHdJBli4v/oZ+otsYjCPNaxN5
+	fCvAzze8l+R04vnbR/MWkWSiXoeZ5ixFegOsxlXnPbYhwALreB/2nIHy4sP0q7+aGwTjW/
+	SMGChB7KHlgD9YVlD3p7l9w3byY7TBLSGwzJCPMwnOBvfhVB+VxI3Z7HZtRWEADSDp/9F0
+	lGb4r86rrQdMESHvow/VmT+ibYuVlBMucunVEAPNxA/UaRt+9tR9r1EZNt2woCUpF01gAa
+	Ufq7oerjf7ua2y02xbRVgJ5eJEdWMGG7Az6/uyK31sW+zIeJlvusnfZA5Tg1Eg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793102734;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3wIeXYtcLGzGld3TeXFZLlcoOMDnhGa5Jpo/RU+mucs=;
+	b=Fx+Hyk8ZljGVLlDy36hw7gXFHMVLbLG3Rc7kuw+i4+1dxyD2zKJ5F3euLY0/utfvR918gl
+	9A5RnZBt/h1l9iCg==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Chris
+ Down <chris@chrisdown.name>, Naveen Kumar Chaudhary
+ <naveen.osdev@gmail.com>, linux-kernel@vger.kernel.org, Petr Mladek
+ <pmladek@suse.com>
+Subject: Re: [PATCH v5 04/16] printk: Separate code for adding/updating
+ preferred console metadata
+In-Reply-To: <20260929120546.328616-5-pmladek@suse.com>
+References: <20260929120546.328616-1-pmladek@suse.com>
+ <20260929120546.328616-5-pmladek@suse.com>
+Date: Tue, 27 Oct 2026 13:11:33 +0106
+Message-ID: <87cxsv4acy.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,68 +76,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023232813.2983368-1-rojer@rojer.me> <20261023232813.2983368-3-rojer@rojer.me>
- <4e8bbb32-e062-40fe-8ee4-363e83a68f2b@rock-chips.com> <46a26683-9d8e-451b-bc98-505b1c13b09f@rock-chips.com>
- <202610261435018282601@rock-chips.com> <CABFmFwr0JozEeaDd4KErDzh+DWjkjkVRo6z61OxHG6BE=L_hKg@mail.gmail.com>
- <6e59ac7e-0186-477d-8166-083dd2987aa4@linux.dev>
-In-Reply-To: <6e59ac7e-0186-477d-8166-083dd2987aa4@linux.dev>
-From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
-Date: Tue, 27 Oct 2026 14:05:07 +0200
-X-Gmail-Original-Message-ID: <CABFmFwr9uGBNF1YkqWYp1L95wM+vjn7NXVahc7rjEmWeqNEX0g@mail.gmail.com>
-X-Gm-Features: AclHuK-ZfGNpknDt8OEgvtqYY6LHLRznlRDEFz1uyBQ7dOxZ50hJpqapR4Kv1uM
-Message-ID: <CABFmFwr9uGBNF1YkqWYp1L95wM+vjn7NXVahc7rjEmWeqNEX0g@mail.gmail.com>
-Subject: Re: [PATCH 2/2] mmc: core: sdio: skip CMD11 if signalling is already 1.8V
-To: Shawn Lin <shawn.lin@linux.dev>
-Cc: "llj@rock-chips.com" <llj@rock-chips.com>, =?UTF-8?B?5p6X5rab77yI57O757uf77yJ?= <shawn.lin@rock-chips.com>, 
-	Ulf Hansson <ulfh@kernel.org>, linux-mmc <linux-mmc@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, Jensen Huang <jensenhuang@friendlyarm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-Hi Shawn,
+On 2026-09-29, Petr Mladek <pmladek@suse.com> wrote:
+> The logic for adding or updating a preferred console is currently
+> duplicated within __add_preferred_console(), making the code difficult
+> to follow and prone to consistency issues.
+>
+> Split the code for adding or updating entries to avoid code duplication.
+> Make it clear what operations are done only for new entries.
+>
+> Use this opportunity and replace an int with an unsigned int for
+> iterating over the preferred_consoles array.
+>
+> It is a preparation step before adding more consistency checks.
+> No intended functional changes.
+>
+> Signed-off-by: Petr Mladek <pmladek@suse.com>
 
-agreed, will send a v2 with all the updates
+Reviewed-by: John Ogness <john.ogness@linutronix.de>
 
+Some minor comments below...
 
+> diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+> index c3e50f19a32b..174aee533a53 100644
+> --- a/kernel/printk/printk.c
+> +++ b/kernel/printk/printk.c
+> @@ -2577,35 +2584,56 @@ static int __add_preferred_console(const char *name, const short idx,
+>  	if (name && idx < 0)
+>  		return -EINVAL;
+>  
+> +	if (!pc->name[0] && !pc->devname[0])
+> +		is_new_entry = true;
+> +
+> +	if (is_new_entry) {
+> +		if (devname)
+> +			strscpy(pc->devname, devname);
+> +		if (name)
+> +			strscpy(pc->name, name);
+> +		pc->index = idx;
+> +	}
+> +
+>  	/*
+> -	 *	See if this tty is not yet registered, and
+> -	 *	if we have a slot free.
+> +	 * Historically, the preferred options are stored only by the first
+> +	 * caller who prefers the particular console.
+>  	 */
+> +	if (is_new_entry) {
+> +		pc->options = options;
+> +		braille_set_options(pc, brl_options);
+> +	}
+> +
+> +	if (!brl_options)
+> +		preferred_dev_console = i;
+> +
+> +	if (user_specified) {
 
-On Tue, 27 Oct 2026 at 13:53, Shawn Lin <shawn.lin@linux.dev> wrote:
->
-> Hi Deomid
->
-> =E5=9C=A8 2026/10/27 =E6=98=9F=E6=9C=9F=E4=BA=8C 19:00, Deomid "rojer" Ry=
-abkov =E5=86=99=E9=81=93:
-> > On Mon, 26 Oct 2026 at 08:35, llj@rock-chips.com <llj@rock-chips.com> w=
-rote:
-> >> With this patch, swt6621s can skip CMD11 and successfully
-> >> enable UHS mode.
-> >>
-> >> Tested-by: Longjian Lin <llj@rock-chips.com>
-> >
-> > thanks for testing, Longjian! so in your case it's even worse: without
-> > the patch doesn't come up at all. good to know that now it does.
-> > note that your reply didn't reach the list (vger drops HTML-only
-> > mail). i'm quoting it here for but if you can, please re-send it in
-> > plain text again, with full context.
-> >
-> > Shawn, thanks for the reviews! you're right about the soft-reset vs
-> > power cycle: card is soft-reset, not power-cycled.
->
-> Just to mention that vqmmc is optional, so if not vqmmc-supply in DT,
-> the voltage is hardwired to 1.8V, then this patch doesn't help.
->
-> I'm inclined to add vqmmc dependency to the commit msg of this patch as
-> well. What's your opinion?
->
->
-> >
-> > Ulf, if there are no other comments, please s/power-cycle the
-> > card/reset the card/ in 1/2 when applying. sounds like we're
-> > converging on 2a, so the alt patch can be dropped. or, if you prefer a
-> > single cleaned up patch set, please let me know.
-> >
->
+Here you drop the comments:
 
+	/*
+	 * @pc console was defined by the user on the command line.
+	 * Do not clear when added twice also by SPCR or the device tree.
+	 */
 
---
-Deomid "rojer" Ryabkov
-rojer@rojer.me
+> +		pc->user_specified = true;
+
+And here you drop the comments:
+
+	/* At least one console defined by the user on the command line. */
+
+> +		console_set_on_cmdline = 1;
+> +	}
+
+The comments seem useful to help track all this. I do not see this
+information preserved anywhere by the end of your series. But you have a
+better understanding of the big picture. If you think the comments are
+insignificant and/or misleading, I am fine with you dropping them.
+
+John
