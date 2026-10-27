@@ -1,87 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098838;
-	b=25QkpL3bke45SPSnwHu4UNRMp9v4jh6GtjyvqFfw3gbvAYVcf1rCxLv8xvb0vEsWEfdV
-	 E+HCffd+aQFtRaQHL0HgdYUZv+4duCxbcgIrI+KXfGZkkg9LjtciQzWcWTN1ZyNK3c4Vv
-	 TsZs3HCqCTLRnzKkV67ZS+R0ft2radtoHyDHN04WeyplTRKVyFz5/x9GyW6FYtK7m3Sl1
-	 kdaXkwR3Mqs0XNp8U6WrsawwBoqAQkVEhaQXTF+7nTMvPaXk/5IWcVndpjZ6FiRDkJpGY
-	 aseuQ2toND2vD09c5fG/1OFMz7tgd2W4ONOQ2h5eKAQKQSzwqRL+XeKwtejVlvTohdA==
+	t=1793098853;
+	b=5PeYonApzV5SvB5+arssAvTCR1vznOx6zqEoL+RqaWO9uE7xLMUmu2r98X6EP3zZ/6JN
+	 SVfXb3UwoVXOmGXbjjdZu07aVEknxeRq+W2iUY9FmEGkQpLlhQoppxsRyvXnUqcXCAEWE
+	 IW7hdXzPHcpXP478GLIY0Cdfkqbvuun8kmjwH/PDeTwXOWRMtjfo6Esj+VLD0pqYZSkS+
+	 enpFFXOGBr1aEk06IYF4MSj51uvA2tDuvaedXF/8ahmHeZO9+zusUmBvi77m1a+7amY8b
+	 TiJD7c8vc0qA9up6f0KH7Exs3FMK/1cDHvwrxhiNtdWKTcRSxPfN34CBjT6ijLBn9vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098838;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098853;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=PY8D/fV9b7AqgT0EI/4JhIhUH5cTst9C5yyqz6dyWcI=;
-	b=FJ5lVGPMyPpqzJ4VfbWA1sNSHDBrLSGusQ1mtHDA4p1KL+cknzILH9f3f4lodkr8hm8i
-	 9pre5RPX/ImAGLa41OZ3KtOWfTjtt4ysizP7Lh25yshw77qFP6ZbOlkjKaqN7Vgxc7RVl
-	 tgjIz+U3EDCyktWQ33SPfHGll9RiI9gAP17jYTf2cIFvZcyAWhqCjXDxjtbuMI7aaE1EV
-	 vgFRHobLIWRR4vSyB5C6pOPaKTSR3m7SdChKOlLIv4eS67A48CcQdbkdWrZHchAwVDf5s
-	 TEX7d81dze7Vv78kiOqhwgn6CFWbKY23llLVqutcH6UckTlXJl/irMSHOjfhsaWq4WA==
+	bh=iYbvF08NWfCm8zT3/Z6YZVWDxLXQALtM59UBUKduNM8=;
+	b=aNU8Fizn6BRLmQitNKFu+gD2B6WUDb8qJb866SPb8yC6kY0fy5eyLeQYRQDi07ZxNfAh
+	 +Mp7PewUh2Zayzypq6XtJeZUIT+3jvKKVKpMMMf8nzWZc6fcx5z3gjXlMAuzslVp2N5aR
+	 z1/hLPJTRrMKCtpUOgKFcGYEMa/5t2wSZR2cQ258zuhc5mpgHAMRDCi6C7+15hffwasDc
+	 zoE2aq/29Aaaz0ml6FYwBakpFLeOO4ClLboI6RSqpXesaEpwjUi1peJY6Tc1g76zlLk+7
+	 jLemATagO+5hksR2Lu+3jDlnQ4HpY10k3Eb9NEgsvAT77iBRNgMnJjL5Nz/qAvOATgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="j/gP54Cg";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi70ByI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A56606A31A;
-	Tue, 27 Oct 2026 11:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35A56606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04DC606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:00:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=j/gP54Cg
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=PY8D/fV9b7AqgT0EI/4JhIhUH5cTst9C5yyqz6dyWcI=; b=j/gP54CgEygcRs8TL7TFvQfxWQ
-	QB9ho1aAa6pbib22ag4zbg5BRriOpt2zZs83XAJwUPSgNaowMPL5MrMYLZE17R2FRrOuUU67wGvyn
-	frXJXGOkpFQtpqntmkojch5r3MxT/xenCCROmA0AXajsGCHv+ALUG6EIcXGPrlesZEMPJIeqKnbfE
-	rKvXYdKMNv+x5Z6BYaPELqdU7BzYZRkZ5deQd1qdsznL11vi4AygDS+oQFBwhi/A3ahPkOr9uwb+p
-	9G6x0t3n2GNcA77LGfOfaYX6DwJAayTuO2uLN1Qgb3Y8jBl55D+3Hvmoe8AGLAqDoX/sDmwhAQv6E
-	+Vb690fg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLeuq-0000000D62N-2Dy5;
-	Tue, 27 Oct 2026 11:00:28 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 1CBB6300DB9; Tue, 27 Oct 2026 12:00:28 +0100 (CET)
-Date: Tue, 27 Oct 2026 12:00:28 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Matthew Wilcox <willy@infradead.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Frank van der Linden <fvdl@google.com>,
-	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	kernel-team@meta.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-Message-ID: <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
-References: <20260227194302.274384-1-kas@kernel.org>
- <20260227194302.274384-14-kas@kernel.org>
- <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
- <at_f43oDv73y-t7O@thinkstation>
- <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXi70ByI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A967D1F031E3;
+	Tue, 27 Oct 2026 11:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793098852;
+	bh=iYbvF08NWfCm8zT3/Z6YZVWDxLXQALtM59UBUKduNM8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MXi70ByIYNx77IpBcMisOiA+9HTw5hMBbP5PnuL7cKbARfcX2YXFB3C0Nb8UcfqNa
+	 W7Py7K5dxU+H/LWwf90HvhPlYti70w25ed3Bp0XXEM8yFJBsr4Jae0JcwB/LPddQBj
+	 wbowNiyNG+uQUPwXlzw25efd1WcYa5K8q9TIwEwEjBufCI3hm8x35zsP5yMFHCjTNw
+	 Fr+cX9g11qAge5j4vG2+CaxU+wLE5q0RxEbrRC3L0X1UUh32Yz8DPU0bfxHKZXbr42
+	 cKcoCYG4Q+EvbNRoEihL7XrPdCrZ1C4s5HXW6eSRescu4f3xtYyjY8jB9a1Ud29OET
+	 K3vcGXk5udPLA==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A87A5198003A;
+	Tue, 27 Oct 2026 07:00:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 27 Oct 2026 07:00:50 -0400
+X-ME-Sender: <xms:X4Tgak2R7XlAMxcuTmHRzIr7ez5GNzfvlc70VSppEbBPNEMAWKFcOg>
+    <xme:X4TgavBMDxN8HAJYhYhfI8m4xF2uNV9ZSAzubmbB7aMp-_f92eJf20VVeRqptRDxU
+    Cpa1N0lq_PxcAeagHDkZn-OkAixEYe-lWIifrOcDWbMx7lWKGKNDBQ>
+X-ME-Received: <xmr:X4TgaoeA5PmS20bEiK9t_Jq2sJ-hY3OIDNV6rg_RAdKVzRC1nvYEofvM2TA>
+X-ME-Proxy-Cause: dmFkZTEH5HcaTFB4/RSeaBPIM8m/gt3cZoCwfpNH3mXXlPR7GLTQw5jDkbvPewCqEOsVW5
+    cFwyaWOhWKFVYwv12P22aj+aNYkue0yC9RBewdQlwm3Lh3/GIwjOvZCoQCwESE22iMt+rh
+    K9T29xYowPMV6PoNNSwNRKOg9HnvGZjwlpo4yoYgKeM1P/BKABmzBZ2MncxxCS+Kn+QHVD
+    dBW5I7Wpc5cjpsBHe18buzhlkBhbz+2tFZ1iv8sxotsh1H/xAtJfGKxmlZfoe23OAa8Bts
+    +IUtsL4HURjwW3AnXk/HWNPAfrdT63zSAgtUeGNTW/U4jjGTdLpDA0lfnnJ6EyT9m//LeO
+    F8OOJyjMwigGTLKPuE7tOzr4pBjRYCkn+ZhJJVjYQsYV47lnK3smN4lP1ypn0oDOxLSTnK
+    dPobhxLCH5U+tXuBHS6r5KDsKTNQ9vOglz8aLeDlDh+ixB+GcC+6nYH7w50tei2rn9NTNP
+    Um/BNOVL0QXu4E7SuGkf7ITb+dUbtQu3iJGcyFePnaTVSEFCMidZ1SSdQ8j4rfcf30IVjk
+    cP93VEA6C2iukCpvePyZh7cMyIaxgTcJE+S0LkMyoAaHh16JtGDqUNiygiYlF3PYfSzH6C
+    fyz/477qLwuIohL8Qp5Laa6y1CXUQBE0IPhVmjljA5bwOUsAMyfu2nqb0nFw
+X-ME-Proxy: <xmx:X4TgaixYAJ0pnTaK9IF77X7UAhfUDhUA_P2PfnAlXTSilca0kERg9g>
+    <xmx:X4Tgagm35jXAkw7DgzpwTcMJnAvzrFpPkF5Lsc7HdPrVpJphW6zocA>
+    <xmx:X4TgajBizeJZjVL1GncyI3tnBYYKXr8HvhpRPyMqcMzn57rmeMFKog>
+    <xmx:X4TgalcEF7WkatxqDIh4WEP5_y-l9lknxMulooU9hr75sog7f05sHw>
+    <xmx:X4TgahogeNgFVcLmxeBz7YDbAUm6oVdAwlYmbmuIFIUe4VLDYP2oguiy>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 07:00:46 -0400 (EDT)
+Date: Tue, 27 Oct 2026 11:00:45 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Dev Jain <dev.jain@arm.com>
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <auCDnqJc7fsBpUW2@thinkstation>
+References: <20261014202936.GC371161@cmpxchg.org>
+ <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
+ <atDMN5MoGrwJNpAj@thinkstation>
+ <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
+ <atiCG2iPrHwDznSZ@thinkstation>
+ <d2b8edf0-39ab-4a44-bd0d-58230dee2fad@arm.com>
+ <ats7oFM-fsYdUS8y@thinkstation>
+ <attOFXch_TchIfEv@thinkstation>
+ <atty0n4UzTfI46eN@thinkstation>
+ <0757f1b0-9af6-417c-a4cb-eff0b05ba277@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,192 +102,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+In-Reply-To: <0757f1b0-9af6-417c-a4cb-eff0b05ba277@arm.com>
 
-On Tue, Oct 27, 2026 at 12:37:13AM +0100, David Hildenbrand (Arm) wrote:
-> On 10/27/26 00:25, Kiryl Shutsemau wrote:
-> > On Mon, Oct 26, 2026 at 06:45:48PM +0100, David Hildenbrand (Arm) wrote:
-> >> On 2/27/26 20:42, Kiryl Shutsemau (Meta) wrote:
-> >>> From: Kiryl Shutsemau <kas@kernel.org>
-> >>>
-> >>> With fake head pages eliminated in the previous commit, remove the
-> >>> supporting infrastructure:
-> >>>
-> >>>   - page_fixed_fake_head(): no longer needed to detect fake heads;
-> >>>   - page_is_fake_head(): no longer needed;
-> >>>   - page_count_writable(): no longer needed for RCU protection;
-> >>>   - RCU read_lock in page_ref_add_unless(): no longer needed;
-> >>
-> >> I have an AI report that removing RCU read-lock was wrong.
-> > 
-> > Ughh. Yes, it is a real bug.
-> > 
-> > My reasoning in the commit message was wrong. Nothing stops a
-> > speculative get from writing to one after the remap. On x86 even a
-> > failing cmpxchg faults there.
-> > 
-> > The fix I have in mind is to let the atomic fault.
-> > 
-> > If the update faults, the struct page is a read-only HVO tail with a
-> > zero refcount, so the get just fails. An exception table entry on the
-> > cmpxchg handles it. No RCU on either side, and the fast path stays the
-> > same lock cmpxchg loop.
-> > 
-> > Only x86, riscv and loongarch have HVO. Below is x86 only, to show the
-> > idea; riscv and loongarch need the same primitive in their LL/SC
-> > fetch_add_unless().
-> > 
-> > Lightly tested on x86 by hitting a real HVO tail page.
-> > 
-> > Does it look sane?
+On Tue, Oct 27, 2026 at 12:42:12PM +0530, Dev Jain wrote:
 > 
-> I'm sure x86 folks will have an opinion :) . Let me CC them whether something
-> like that would be acceptable.
+> 
+> On 23/10/26 8:16 pm, Kiryl Shutsemau wrote:
+> > On Fri, Oct 23, 2026 at 01:12:02PM +0100, Kiryl Shutsemau wrote:
+> >> The diff below replaces the previous one. It needs cleanup and splitting
+> >> before it goes upstream.
+> > 
+> > Proper patchset:
+> > 
+> > https://git.kernel.org/pub/scm/linux/kernel/git/kas/linux.git page_alloc/nofrag-watermark-v1
+> > 
+> 
+> Thanks! I applied the 3 commits on top and the results improved a lot. Your patches
+> make sense to me.
 
-This looks quite terrible, doubly so because I have no idea what its
-trying to fix. Please try and justify this insanity.
+Thanks for testing.
 
-> > 
-> > I can prepare a proper patchset if looks reasonable.
-> > 
-> > diff --git a/arch/x86/include/asm/atomic.h b/arch/x86/include/asm/atomic.h
-> > index 75743f1dfd4e..5252b1382ed0 100644
-> > --- a/arch/x86/include/asm/atomic.h
-> > +++ b/arch/x86/include/asm/atomic.h
-> > @@ -108,6 +108,25 @@ static __always_inline bool arch_atomic_try_cmpxchg(atomic_t *v, int *old, int n
-> >  }
-> >  #define arch_atomic_try_cmpxchg arch_atomic_try_cmpxchg
-> >  
-> > +/*
-> > + * arch_atomic_fetch_add_unless_nofault() is arch_atomic_fetch_add_unless(),
-> > + * except that a fault on the access jumps to @label instead of oopsing.  It
-> > + * works in any context, including with IRQs disabled.
-> > + */
-> > +#define arch_atomic_fetch_add_unless_nofault(_v, _a, _u, label)	\
-> > +({									\
-> > +	atomic_t *__v = (_v);						\
-> > +	int __a = (_a), __u = (_u);					\
-> > +	int __c = arch_atomic_read(__v);				\
-> > +									\
-> > +	do {								\
-> > +		if (unlikely(__c == __u))				\
-> > +			break;						\
-> > +	} while (!__try_cmpxchg_nofault(&__v->counter, &__c,		\
-> > +					__c + __a, label));		\
-> > +	__c;								\
-> > +})
-> > +
-> >  static __always_inline int arch_atomic_xchg(atomic_t *v, int new)
-> >  {
-> >  	return arch_xchg(&v->counter, new);
-> > diff --git a/arch/x86/include/asm/cmpxchg.h b/arch/x86/include/asm/cmpxchg.h
-> > index a88b06f1c35e..685aab3edd3f 100644
-> > --- a/arch/x86/include/asm/cmpxchg.h
-> > +++ b/arch/x86/include/asm/cmpxchg.h
-> > @@ -232,6 +232,63 @@ extern void __add_wrong_size(void)
-> >  #define arch_try_cmpxchg_local(ptr, pold, new)				\
-> >  	__try_cmpxchg_local((ptr), (pold), (new), sizeof(*(ptr)))
-> >  
-> > +/*
-> > + * __try_cmpxchg_nofault() is arch_try_cmpxchg() on a 4-byte kernel variable,
-> > + * except that a fault on the access jumps to @label instead of oopsing.
-> > + */
-> > +#ifdef CONFIG_CC_HAS_ASM_GOTO_TIED_OUTPUT
-> > +#define __try_cmpxchg_nofault(_ptr, _pold, _new, label)		\
-> > +({									\
-> > +	bool success;							\
-> > +	__typeof__(_ptr) _old = (__typeof__(_ptr))(_pold);		\
-> > +	__typeof__(*(_ptr)) __old = *_old;				\
-> > +	__typeof__(*(_ptr)) __new = (_new);				\
-> > +									\
-> > +	if (sizeof(*(_ptr)) != 4)					\
-> > +		__cmpxchg_wrong_size();					\
-> > +	asm_goto_output("\n"						\
-> > +			"1: " LOCK_PREFIX "cmpxchgl %[new], %[ptr]\n"	\
-> > +			_ASM_EXTABLE(1b, %l[label])			\
-> > +			: "=@ccz" (success),				\
-> > +			  [ptr] "+m" (*(_ptr)),				\
-> > +			  [old] "+a" (__old)				\
-> > +			: [new] "r" (__new)				\
-> > +			: "memory"					\
-> > +			: label);					\
-> > +	if (unlikely(!success))						\
-> > +		*_old = __old;						\
-> > +	likely(success);						\
-> > +})
-> > +#else
-> > +#define __try_cmpxchg_nofault(_ptr, _pold, _new, label)		\
-> > +({									\
-> > +	int __err = 0;							\
-> > +	bool success;							\
-> > +	__typeof__(_ptr) _old = (__typeof__(_ptr))(_pold);		\
-> > +	__typeof__(*(_ptr)) __old = *_old;				\
-> > +	__typeof__(*(_ptr)) __new = (_new);				\
-> > +									\
-> > +	if (sizeof(*(_ptr)) != 4)					\
-> > +		__cmpxchg_wrong_size();					\
-> > +	asm volatile("\n"						\
-> > +		     "1: " LOCK_PREFIX "cmpxchgl %[new], %[ptr]\n"	\
-> > +		     "2:\n"						\
-> > +		     _ASM_EXTABLE_TYPE_REG(1b, 2b, EX_TYPE_EFAULT_REG,	\
-> > +					   %[errout])			\
-> > +		     : "=@ccz" (success),				\
-> > +		       [errout] "+r" (__err),				\
-> > +		       [ptr] "+m" (*(_ptr)),				\
-> > +		       [old] "+a" (__old)				\
-> > +		     : [new] "r" (__new)				\
-> > +		     : "memory");					\
-> > +	if (unlikely(__err))						\
-> > +		goto label;						\
-> > +	if (unlikely(!success))						\
-> > +		*_old = __old;						\
-> > +	likely(success);						\
-> > +})
-> > +#endif
-> > +
-> >  /*
-> >   * xadd() adds "inc" to "*ptr" and atomically returns the previous
-> >   * value of "*ptr".
-> > diff --git a/include/linux/page_ref.h b/include/linux/page_ref.h
-> > index 9f5c75d06f76..82a2fc445ce6 100644
-> > --- a/include/linux/page_ref.h
-> > +++ b/include/linux/page_ref.h
-> > @@ -246,9 +246,31 @@ static inline int folio_ref_dec_return(struct folio *folio)
-> >  	return page_ref_dec_return(&folio->page);
-> >  }
-> >  
-> > +#ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
-> > +/*
-> > + * HVO maps the tail struct pages of a hugetlb folio read-only.  A speculative
-> > + * caller can read a non-zero refcount, then the page gets freed, becomes a
-> > + * tail page of a hugetlb folio and is remapped before the update.  The
-> > + * atomic then faults.  A read-only struct page is a hugetlb tail page with a
-> > + * zero refcount, so the fault means no reference can be taken.
-> > + */
-> > +static __always_inline bool __page_ref_add_unless_zero(atomic_t *v, int nr)
-> > +{
-> > +	instrument_atomic_read_write(v, sizeof(*v));
-> > +	return arch_atomic_fetch_add_unless_nofault(v, nr, 0, fault) != 0;
-> > +fault:
-> > +	return false;
-> > +}
-> > +#else
-> > +static __always_inline bool __page_ref_add_unless_zero(atomic_t *v, int nr)
-> > +{
-> > +	return atomic_add_unless(v, nr, 0);
-> > +}
-> > +#endif
-> > +
-> >  static inline bool page_ref_add_unless_zero(struct page *page, int nr)
-> >  {
-> > -	bool ret = atomic_add_unless(&page->_refcount, nr, 0);
-> > +	bool ret = __page_ref_add_unless_zero(&page->_refcount, nr);
-> >  
-> >  	if (page_ref_tracepoint_active(page_ref_mod_unless))
-> >  		__page_ref_mod_unless(page, nr, ret);
-> 
-> 
-> -- 
-> Cheers,
-> 
-> David
+Can I use your Tested-by?
+
+> But still, I see more compact_stalls and a worse compaction success:fail ratio. The
+> limitation must be by definition I believe: we still won't be able to use 64K blocks
+> from non-movable pageblocks.
+
+Right, that is by design.
+
+defrag_mode keeps the free space in unmovable and reclaimable blocks for
+those allocations, so they don't spill into movable blocks. Your 64K
+faults never take it.
+
+The price is that defrag_mode needs more free memory for the same
+workload. In return, the system does not fragment over time: huge page
+availability stays steady instead of decaying under load.
+
+The benchmark runs right at the edge: it fills 99% of MemAvailable and
+then faults another 20% in 64K. defrag_mode=0 takes the 64K chunks it
+finds in non-movable blocks without compacting. defrag_mode=1 has to
+build them inside movable blocks, and with memory full there is little
+free space there. So more compaction, and more of it fails.
+
+The 64K fault count ends up close anyway: 20.1k vs 20.7k in my runs.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
