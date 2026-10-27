@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115187;
-	b=f6/yiMufx49jGhtdz77nkC4wt8gk3P4qgk+cU+XYYpwbOiyCFEadW0VI21qbUxnFqV+s
-	 6DRKEq3Nwf+DIBb/82afrg/UmojRVV4Em9+eINoxOqJgQHjZ5nzEbYlvu9NVfBcDdpTiM
-	 wZokautKSQ7LdSAZ77AphQHo04KQOtdShtFD/Rj6QyEdcNAvW045Z5CZhx72/YUuCN7OL
-	 yyDdOG2xkHP3j6nWCzVkq4J9NTOK7r0Qao2dKsnjLxB3o/TCiX7+FfEbL1G98lN66mVbd
-	 Qoyc1tanO8GeoVmNFj09QBTeKd4NU61rtVwKUQHXicZly+Df0n1Vw7IGsHvKmw9eQQw==
+	t=1793115199;
+	b=dcVn9d0WTYRv9oKJOw+05s6oUUoQ/Xvu8BsMCS2qLAe9UOgMcLIzJYvtZDQZiqbkXnnF
+	 PFwJnjJz4H0fF6k1I4gqo+Tazx+VJWT9Ig0zeedjjoqNmh2WMihuyxLFp114YKsutvPrW
+	 C1ZFBO/zsxAdhPCR3tIYqpKGz33fsxwoOtij4UQO55qGSxCOSUX9snIPZYz64fLXxYrzR
+	 IkWhkv0g5+FQC1p35j7hgoReIDmMAU4ZRyUXnThb/yVRIgTQgyfdrEp7cWIbu5MPMSeq/
+	 n3TWSS7IbUmTAix3N8UNx5ve7aamC5xKAP3X2tAXcCJTYS9s2Gec9SQ7ZOQMOvvxMZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115199;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
 	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=XKRRX0UlJKTHSTcaSuA0OGQu5CFc5V39WwUGCnioMvA=;
-	b=JQM7LHpOZCPjFrfqe59QNm82e7GcycAdCcG37W/9V5dyln80957TcBmHDggp8T+p8G97
-	 ThvQ1DVziJ8OI7nbnfjfeRFp3V6YVePNJPGoHEE0/5pAAbypo5gUEfIUhFlrkG3epw0b5
-	 VqtE5RjH39h0lk1EiKyMzSXvlNOeKJ0czBdHuBe65MefSinv22wn54LwuvyD3oaXOi2Mf
-	 G8gAqojh/gDEyxpoMWUUMzQ4HriOg2DK0xoluZBnDsjJOINxpCSmMf5UJGbmbbILoB+0u
-	 VisqR7PsMiZJIoj9qFhXGYWjkxpqj1H7lf1i07yBA46Xig4iD1okSNijpm5fINCcBsA==
+	bh=gPD1ABBQcztKO8PBjP5v5TM9by07PPxSalzCUZ2Eenk=;
+	b=b9MphFiISxWhRYp17SSocrzv16VZtHWYCnVZw7Nd4u0TH/EHuug+FdWtNyPOXcn4jKsY
+	 MtwASDfVGtgdIjg/kVk+iZJglLeCM1bU8RV0WXCC9IJ9qHxFzXDn09xadWnpuVAQaPM+F
+	 RhtPU2RtLy1XQ3Od5z3aP3/8lKntjlUFoubI5WbcqEd2ZPCuXXI2/HJRvqOlALILJo6fN
+	 Ff8eg8JMxVqTfAYrFLUpVsvyHb0lI4JZ2gj0mce0fdgA38etzz4ILF2qyDk6xU6MkJAkx
+	 cOdCkXlt6SbFRVxvlB0u2D/EN4IGSnAQs5tid7F+wIwgKXkT8b6Gymty4X8bHeccPnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYClCjbh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us75GCkv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C907C606A31A;
-	Tue, 27 Oct 2026 15:33:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BBC606A31A;
+	Tue, 27 Oct 2026 15:33:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYClCjbh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49311F01828;
-	Tue, 27 Oct 2026 15:33:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us75GCkv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CC91F01825;
+	Tue, 27 Oct 2026 15:33:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115186;
-	bh=XKRRX0UlJKTHSTcaSuA0OGQu5CFc5V39WwUGCnioMvA=;
+	s=k20260515; t=1793115198;
+	bh=gPD1ABBQcztKO8PBjP5v5TM9by07PPxSalzCUZ2Eenk=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=UYClCjbhDrs5QslV0n60kvRt5gg29L5ZXOmX0+j18kyZkP1LIzc0ynOoxAjOrz7Hz
-	 VItysBmrZnLu8i06oVtEu1xiaIFMWqXhsIzPXlkPmO7CrBSGHRpLTrdMUrdzkwN5pN
-	 OCH5SqaIKpHvuK5bsrRxY7OE0o6OurfqgAX5VTpOnuFVTTqNP3IqTR/LmkVtt5gwy0
-	 rP/qBDtwHnHuhKcDZ/Zm8nvajBYqIqf4liPy9MuF19BMqT9ufjB4ADUnYRo+jql81X
-	 lA8JkmqeS0bjdHhkgFdiVZ3LwO0yCOLpMkUl+0c2Sb22xPAX8OAEw2Fo6HemDKkZC6
-	 EsIrXNVr6nNXQ==
-Message-ID: <f342a5e4-82b3-4044-85a3-10cad08595e4@kernel.org>
-Date: Tue, 27 Oct 2026 16:33:01 +0100
+	b=Us75GCkvM+XfumAWXE7OQbdIyGcWJ/fyun3o5nCU53I/iNxgrsswY3py5WMqx0o9U
+	 SzMUR1EYca4QrE33A1DUxl0ThsGvuTxoF5B8W2u+Brs1qR78GPFdgcZhReXj1RjTGn
+	 h5ZsV7r/dSEvdHWUVneROo8K8qmbyzayynrgVUcMJtQKJKWJdNBsjlI2OSWCn5WBkQ
+	 PREyQGxMPYy6ynA9ZgQSDF9Ksx2shynj7Rj/HYyDJqNzz+9LT6PQnGUhNbkmcubuBZ
+	 TRbS9+5juTensNbBSjP0qnXyoHMFOYHWpEh/iEXYqPu93bWFeYm+SspCEykJnN52MP
+	 m+umDh7Q1USYw==
+Message-ID: <00b63b4f-053c-40cf-82db-21a86fc485c6@kernel.org>
+Date: Tue, 27 Oct 2026 16:33:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,17 +53,18 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Lee Jones <lee@kernel.org>, Mark Brown
- <broonie@opensource.wolfsonmicro.com>, Samuel Ortiz <sameo@linux.intel.com>,
- Peter Ujfalusi <peter.ujfalusi@ti.com>, linux-omap@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261027032609.119226-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend
+ beyond SDIO
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -108,36 +109,22 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261027032609.119226-1-lgs201920130244@gmail.com>
+In-Reply-To: <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 04:26, Guangshuo Li wrote:
-> twl6040_remove() currently removes the regmap IRQ chip before
-> removing the MFD child devices. This destroys the IRQ mappings
-> before the child drivers can release their interrupt handlers.
+On 27/10/2026 15:40, Ulf Hansson wrote:
+> From: Kamal Dasu <kamal.dasu@broadcom.com>
 > 
-> The parent driver also registers READY and thermal interrupt
-> handlers using devm_request_threaded_irq(). These handlers are
-> normally released by device-managed cleanup after remove returns,
-> when the corresponding IRQ descriptors have already been removed.
+> keep-power-in-suspend is currently documented as SDIO-only, but the
+> requirement it describes -- preserving card power across a
+> suspend/resume cycle -- applies just as well to any card type. Drop
+> the SDIO-only restriction so eMMC and SD platforms can use it too.
 > 
-> Consequently, free_irq() cannot find the IRQ descriptors and the
-> allocated struct irqaction objects are not freed. The associated
-> IRQ threads also cannot be stopped through the normal cleanup path.
-> 
-> The probe error paths have a similar issue, as they destroy the IRQ
-> chip before the device-managed IRQ handlers are released.
-> 
-> Remove the MFD child devices first, then explicitly free the
-> parent's READY and thermal IRQ handlers using devm_free_irq()
-> before removing the regmap IRQ chip.
-> 
-> Also update the probe error paths to release successfully requested
-> IRQs before destroying their mappings.
-> 
+> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-More of postings by bot ignoring any feedback.
+Incomplete DCO.
 
 Best regards,
 Krzysztof
