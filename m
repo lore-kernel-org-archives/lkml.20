@@ -1,78 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793090779;
-	b=XPQhFHlb0Y6QpyBOfOj8kabUnvWeV0IeXpX0EG/9o51T8LHPHgn53TEpgI96+3ewz9rA
-	 O1/II7qXwhznsesx2oT0mFE+/NUvlYtNFcVXiJRuwA4vfJhjZubvDEqxPntNlY25VUAP1
-	 ZFkC9SI/SJi/huy3MkGhDc6SwPmvmr+XQbIRtkOMeKn0OuCjNPvpWJca4Jea1HYMPFRdp
-	 DnAjHS76PVb5FECsKjKDRUuoofrKhbk6NaHtNiYxYdQv23J+rXGYYLvBqaKswKvRIQ9LF
-	 4Xz/peTUvf7tMXKOQ/6fgGJ0JH1m2yYG1q6lzFPjkVDzlWKkElQw3l6BHEdbALf1Zug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090779;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=POBWiouFjcVL/0AJQbsFRft/KQzJa80eb9xN5M5sEJ8=;
-	b=w3b2c++++xlSfMYs22XHMxHu9ckeA/Oh2tObwNTjjfrKn35IHPPeG1n5mBqglHoPYmVn
-	 b3b1eERZsCr2/QeNb6y+y0QwlnUheOAWHE8LqvJljnWw0KKQ/wUSoPu+4l3y9pQhW2CAY
-	 yfptO7vaDcInqB917neIIbjUh+OBQtjHBoqaWFdClLUT6OFM3rHa2C8h2z7jE4kLhOpu0
-	 Q3wqZhZ37FrXfJOTWp0ffgWcdPCd9QpBGelgpw95E/1Fy4POBumsR/7vnPGbeKCVDZN9P
-	 NZadIdaHe8R7Rhet2qMRl5Ko8FFS0AwK8AFTyzX1SGiNe2rROzt7C0EHQk6lyKvzyog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5ZchX38;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55E4606A32E;
-	Tue, 27 Oct 2026 08:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5ZchX38
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793090777;
-	b=oFaJh324rkAcE3eQsql5hBOUJVe51R+8iEGztZjUfwurILLyLRf9DelLj5uMRkkAhrh5
-	 JfnOnnPU78dSdV8GYIfM+MlYu9AYFUDONfaRA5UhVoEtdVlMpPwPYxTdypiWh11tQzD8x
-	 V+pV+JEP1+OFoWFbbiqPx+T3lArTjgSfjmswOFz1OCy5IE/h7Him+ZOOlOzzkom4ZzhiU
-	 hNUBqNlMkEKDLxx1gQMnorHSEE1PbOSV2mCfq91K/nz2PT6BdZQT2NdBW4eB1xxEBHV4l
-	 AlDd1QbGFIXu5m7daEubwNB3mMTYI7avEgCDmzSwDdYwhCp4OjV3iJ5fX8nAJxjQmNQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793090777;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=POBWiouFjcVL/0AJQbsFRft/KQzJa80eb9xN5M5sEJ8=;
-	b=ktDSftT1n1zchHjZy0IX3hClJ86hy4+hTionTCrQgRW7q9PpOA7Z3B6wcqG4eoKiO/kH
-	 ldnK4bjjfXc2lsjhHh3RH5W+WER+3Exczyc08jj6bEjKgPNiM7oagipYilHA/9GLNE5NQ
-	 /Gzr67oRZUw2mPUm3qdQdwA4q5+GDq1lGDj1VkwGg2D4rxjJrdMTt4QDxz24Bp5rq3Bu8
-	 0ZTJVEHbpNKUc4zXI6n769ESoMkbyQ7RreL3CJbN0Ga+COZMFNqN20XF4b5k3IIUyd6JG
-	 QQ+Ba8Y7zKAVNyC2/AOY2sDdAaD2dglXNRMBmeO9Zuqe6lW1a1wa2J/jDoNHkZvDbDw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793090791;
+	b=NdES6fZYt6Z/fbSSFWCUfplqg4Vjn3/qUxt0NAF4BQi9bdYBshaOjNath8ln3QGlfyIS
+	 msxBiSdxmS8UCUrGm1ILvpFV5zsuAn167qHOo3kEy3EXunXTbjMGymd9AgO3GopzFkOdA
+	 02XTlrzb6u94w4ju8KNSTkj2ZYP2/YTCAJ2ZD/VSA11RzDdkEdoQMRr4vqB9W6gNzUhT/
+	 IGg/t+WqvZLK6ixpSY4DeRTxnBRPizwLUnRppX1ADpc3Y6HyMAPmEXrjuzXvCVlMVk9i9
+	 eacJyKTmmAhIXjGJ2KXd6e8mNSM5j+8yfH+y4pcd2EeEz7JS/40DLPC+2G33KN9B0pQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090791;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=tPrgG4LYa4RwzB+7UHvOcyaMahs7B5UXpFYu5OPR8nI=;
+	b=4qJATw14OoZ/+C60i6kmg6eihw3g2XYkbmpYjtFnjms6XQhdQPoHtNl2togr1WMgLDoo
+	 bf9HIYItlgYMR36Gq9uCvkDH3MO61DldfFepOelOiVc3WXL//wFJBGAD58jgVRjPQYj/v
+	 ZjDOZQ8572wZThmwL5G4MN3QA49KFfJcE7+munlgw9XMtpb6pf2fx79HB4OKwSv08ieIf
+	 ZYiVHIHAK91/pXwYx2z0VFSEnRasm2Lnm2m+324aQbNZcLkiv1VoE02d29C5z99+voc2f
+	 Gno1tsfWbaVxJuvcEoF+QJjJy7hdCvtV7zgpcIdqXYAVe8j7sQWA8xWcWu/RKby2ilw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CE1A41F01829;
-	Tue, 27 Oct 2026 08:46:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793090777;
-	bh=POBWiouFjcVL/0AJQbsFRft/KQzJa80eb9xN5M5sEJ8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=W5ZchX38po3lOGVUegKZZxmylL48xPKsRMfC08ksahq/NWISW9MwBmaixJ7j3TaH+
-	 MR6Lv1n1W2X4aKf5OaXa3v7wUWnasZDwFVulLV76921aR+YX8dsCAlJUPwUHb0yeSI
-	 orGK7wsFmtxufeSnKI8OiNYOUu3EE5vbMfoo4Xnb+1daEuOPGWG+SD7ELHO/F67Exq
-	 ntn5qqKM2BkEuje+cUQRMNP8hiyTe8KKl9sXNvwhHZA8SClk0+AzJOlNu/tRVdS6mz
-	 tY3u3oaGzCT4IHdJWPPBR1diftedPqj/N1C4rti1xPx0NrMjN+9+AvWmnoDoENQK6p
-	 3bbZ3UB5GTUVA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4F2C945051;
-	Tue, 27 Oct 2026 08:46:15 +0000 (UTC)
-From: Chen Linxuan via B4 Relay <devnull+me.black-desk.cn@kernel.org>
-Date: Tue, 27 Oct 2026 16:46:08 +0800
-Subject: [PATCH v4 2/3] pidfd: Use scoped cleanup for task access
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD46D60A261B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:46:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD46D60A261B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4db3db8687fso6513181b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:46:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793090790; x=1793695590;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tPrgG4LYa4RwzB+7UHvOcyaMahs7B5UXpFYu5OPR8nI=;
+        b=VEuzjha3EQ4wiqG2E99QQgeF7JeJviYofhYGjA+vfmryureBG3sGGZXDvlpl4FIgjZ
+         JG+wSJN+4Q0iN4yhMaiHz9qhetrrV/zzvmGLMleRsbRBju4Xz1byZeyPcGho9vD1D1tX
+         6Itgefpqq/6P7jzRvoG3TLfUp9lahZB8kbwqHFRRHC9u98/ae5WebvbJLLM7LJaU6QbY
+         f/nMK/uY2QQdMiuLS/nSzG0nPWKXuzM0aO7Ef2s+OHHLExC2Vos+r+WtaqvcqmoU8bEQ
+         Dn6KcFQHDIAOCochX4hK21FLvUaTqMqEuVTBgv8ixgaSfSiI5BUk4C83exDOoQuhCxRU
+         nufw==
+X-Forwarded-Encrypted: i=1; AKwUvBz49BmpjPtCJrvFOK9GDsTrQhj/fi4Wr8h0ASa2C9t0ThqW66r+9Ou+FuKycJw9367KiqJu4kpxMSyX2D0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLbBadAVXrOLqSMhu0me/p0+Zd+34wCeDPDViVEabGT5msKRyd
+	YKggqKPH2twDaREGD1p7gjijT1vK0USDXNHyONb2HwUirURCGERZdTmPg0FZcX7JECnGWyWDbYf
+	MIa5tu3nRpbq5u00KSrtrEHcmm65dkMi9KB/64CCRbXMXjVunrXRlneqeQrk=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,239 +58,276 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-pidfd-get-paths-v4-2-e2a6a47e3c95@black-desk.cn>
-References: <20261027-pidfd-get-paths-v4-0-e2a6a47e3c95@black-desk.cn>
-In-Reply-To: <20261027-pidfd-get-paths-v4-0-e2a6a47e3c95@black-desk.cn>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- John Johansen <john.johansen@canonical.com>, 
- Georgia Garcia <georgia.garcia@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, apparmor@lists.ubuntu.com, 
- linux-security-module@vger.kernel.org, Chen Linxuan <me@black-desk.cn>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5558; i=me@black-desk.cn;
- s=20260831; h=from:subject:message-id;
- bh=gzvhhroq0taD08thWsIYRMrkzi7RjkED7WAzCrTTY6w=;
- b=owEBbQKS/ZANAwAKAXYe5hQ5ma6LAcsmYgBq4GTTq1AmHKjZusegR8P9nHHjSCtmnug2b+9aT
- 8eLvb5V5DiJAjMEAAEKAB0WIQTO1VElAk6xdvy0ZVp2HuYUOZmuiwUCauBk0wAKCRB2HuYUOZmu
- iyQDEADYHTpHnbirutXyO9Pkof4XYcj5t298WGhEVy4YGe7vV5nqUzyfb+BecJlkF4qJQ3gJoz5
- WnQmiPN8f3Uum7LESzs46kXOug+XwjrNXO2F4Cagh1bgG0SbPjW8eZLw3f9biM13wIdkoQUvp40
- qzkmBG4Wv9tzr7HSSTM9+TtitKrtudsTWAHsXwGUI5xv9WydDy6yHx8F4G5PEEY5TknFvLRjeGt
- CjJLCRwCIAEtmU82BHf21o0YAcEbbE4KpGxSHsYn9r+HcZhX0wGS3nNxtvAHx9CTi020ouly0Cz
- 5sqmkwSFs5Al8RhrCv4Kq85ebXJLReL9NsNmv7q4djiO4dWQgjtVVzGMuEAj+V3Gq4MvTY87tTV
- eHD+ZOpkX667rGpcgz62DTtmwe6liJkzfD/p4bLJ3YGKJncL0ewUJucNywO0HNk0/UQw3EffzOj
- XPhL0c25g4ANeGcsXGYi83e/AOqPUrxoVtbO3btzTHiHF2W/F6VqHgkgw9TUoS9BmgtOWBy3Oi0
- QN75hPbuhgnPiuzQRRSA8genBLRNcBjhQzjsur/4t/DGJ7MQW0yQEB9fWjqS/BlbIlvj6YB1nr+
- 3ZY8KL9PdVzdAWtWdbTFlMlyao+AvlSOrcI+FA4T4zk4leohVDGLobJlOSkXkyD5ZWpN8AauioW
- X5oFQRRe8B4OM5Q==
-X-Developer-Key: i=me@black-desk.cn; a=openpgp;
- fpr=D818ACDD385CAE92D4BAC01A6269794D24791D21
-X-Endpoint-Received: by B4 Relay for me@black-desk.cn/20260831 with
- auth_id=991
-X-Original-From: Chen Linxuan <me@black-desk.cn>
-Reply-To: me@black-desk.cn
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:1984:b0:4c4:a240:9c3a with SMTP id
+ 5614622812f47-55bfff99492mr7204509b6e.4.1793090789979; Tue, 27 Oct 2026
+ 01:46:29 -0700 (PDT)
+Date: Tue, 27 Oct 2026 01:46:29 -0700
+In-Reply-To: <20261026213626.301480-1-aurelien@hackers.camp>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae064e5.768774f5.3237ab.0015.GAE@google.com>
+Subject: [syzbot ci] Re: buffer: warn when a buffer is attached to a second mmb
+From: syzbot ci <syzbot+ci5d1c09e093f34f60@syzkaller.appspotmail.com>
+To: aurelien.desbrieres@gmail.com, aurelien@hackers.camp, brauner@kernel.org, 
+	jack@suse.cz, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	viro@zeniv.linux.org.uk, willy@infradead.org
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Chen Linxuan <me@black-desk.cn>
+syzbot ci has tested the following series
 
-Split namespace acquisition from namespace fd creation and represent a
-privileged target task as a scoped class that owns both the task
-reference and exec_update_lock. Use the class for namespace lookups so
-ptrace access checks and task state reads remain tied to the same exec
-critical section, while open_namespace() stays outside the lock.
+[v1] buffer: warn when a buffer is attached to a second mmb
+https://lore.kernel.org/all/20261026213626.301480-1-aurelien@hackers.camp
+* [PATCH] buffer: warn when a buffer is attached to a second mmb
 
-Carry the pid namespace visibility check into the helper so that all
-users of the class enforce it.
+and found the following issues:
+* WARNING in __ext4_handle_dirty_metadata
+* WARNING in fat_add_entries
+* WARNING in fat_alloc_new_dir
+* WARNING in fat_remove_entries
 
-Signed-off-by: Chen Linxuan <me@black-desk.cn>
+Full report is available here:
+https://ci.syzbot.org/series/2d872051-106e-44e2-912e-9f5ffc88fe5f
+
+***
+
+WARNING in __ext4_handle_dirty_metadata
+
+tree:      linux-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
+base:      2c3ba1f1cb416b81d617b92a24a4bcaa48d574e3
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/0103f224-dbc7-46e0-b595-6b58abedf2a1/config
+syz repro: https://ci.syzbot.org/findings/e505c7df-1483-4020-9400-461d434eaf84/syz_repro
+
+------------[ cut here ]------------
+cur && cur != mmb
+WARNING: fs/buffer.c:639 at mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639, CPU#1: syz.2.20/5867
+Modules linked in:
+CPU: 1 UID: 0 PID: 5867 Comm: syz.2.20 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639
+Code: af d7 ff 4d 89 65 00 eb 05 e8 42 c7 66 ff 4c 89 ff 48 83 c4 08 5b 41 5c 41 5d 41 5e 41 5f 5d e9 0c d6 8a 09 e8 27 c7 66 ff 90 <0f> 0b 90 e9 39 fe ff ff 66 66 66 66 66 2e 0f 1f 84 00 00 00 00 00
+RSP: 0018:ffffc900030bf238 EFLAGS: 00010293
+RAX: ffffffff82615d19 RBX: ffff8881bd1af460 RCX: ffff88816f9a9e00
+RDX: 0000000000000000 RSI: ffff888165b29280 RDI: ffff8881bd1af460
+RBP: dffffc0000000000 R08: ffff8881bd1af467 R09: 1ffff11037a35e8c
+R10: dffffc0000000000 R11: ffffed1037a35e8d R12: ffff8881bd1af4b0
+R13: ffff8881bd347348 R14: ffff888165b29280 R15: 1ffff11037a35e96
+FS:  00007fa2891f26c0(0000) GS:ffff8882a7cbb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f2e2cbf40e8 CR3: 000000016e66c000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ __ext4_handle_dirty_metadata+0x2f5/0xa00 fs/ext4/ext4_jbd2.c:418
+ ext4_xattr_block_set+0x24dd/0x29a0 fs/ext4/xattr.c:2107
+ ext4_xattr_set_handle+0xed9/0x15f0 fs/ext4/xattr.c:2461
+ ext4_xattr_set+0x257/0x340 fs/ext4/xattr.c:2563
+ __vfs_setxattr+0x442/0x480 fs/xattr.c:223
+ __vfs_setxattr_noperm+0x12a/0x660 fs/xattr.c:257
+ vfs_setxattr+0x163/0x360 fs/xattr.c:344
+ ovl_do_setxattr fs/overlayfs/overlayfs.h:328 [inline]
+ ovl_setxattr fs/overlayfs/overlayfs.h:340 [inline]
+ ovl_check_setxattr+0x15a/0x320 fs/overlayfs/util.c:898
+ ovl_set_opaque_xerr fs/overlayfs/dir.c:276 [inline]
+ ovl_set_opaque fs/overlayfs/dir.c:290 [inline]
+ ovl_create_upper fs/overlayfs/dir.c:383 [inline]
+ ovl_create_handle_whiteouts+0xb9c/0x13d0 fs/overlayfs/dir.c:643
+ ovl_create_or_link+0x14d/0x270 fs/overlayfs/dir.c:685
+ ovl_create_object+0x29d/0x3b0 fs/overlayfs/dir.c:722
+ ovl_mkdir+0x34/0x50 fs/overlayfs/dir.c:742
+ vfs_mkdir+0x40c/0x620 fs/namei.c:5420
+ filename_mkdirat+0x285/0x510 fs/namei.c:5453
+ __do_sys_mkdirat fs/namei.c:5474 [inline]
+ __se_sys_mkdirat+0x35/0x150 fs/namei.c:5471
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fa28839f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fa2891f2028 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
+RAX: ffffffffffffffda RBX: 00007fa288626090 RCX: 00007fa28839f559
+RDX: 00000000000001c0 RSI: 0000200000000400 RDI: ffffffffffffff9c
+RBP: 00007fa288436b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fa288626128 R14: 00007fa288626090 R15: 00007ffd68374848
+ </TASK>
+
+
+***
+
+WARNING in fat_add_entries
+
+tree:      linux-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
+base:      2c3ba1f1cb416b81d617b92a24a4bcaa48d574e3
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/0103f224-dbc7-46e0-b595-6b58abedf2a1/config
+syz repro: https://ci.syzbot.org/findings/39f0a1b2-b9af-4d73-a1fc-ce1cd04779b5/syz_repro
+
+FAT-fs (loop2): Invalid FSINFO signature: 0x41615252, 0x80417272 (sector = 1)
+------------[ cut here ]------------
+cur && cur != mmb
+WARNING: fs/buffer.c:639 at mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639, CPU#0: syz.2.19/5813
+Modules linked in:
+CPU: 0 UID: 0 PID: 5813 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639
+Code: af d7 ff 4d 89 65 00 eb 05 e8 42 c7 66 ff 4c 89 ff 48 83 c4 08 5b 41 5c 41 5d 41 5e 41 5f 5d e9 0c d6 8a 09 e8 27 c7 66 ff 90 <0f> 0b 90 e9 39 fe ff ff 66 66 66 66 66 2e 0f 1f 84 00 00 00 00 00
+RSP: 0018:ffffc9000404f660 EFLAGS: 00010293
+RAX: ffffffff82615d19 RBX: ffff88811c3c0a80 RCX: ffff888113c71e00
+RDX: 0000000000000000 RSI: ffff88811bd3b3b8 RDI: ffff88811c3c0a80
+RBP: dffffc0000000000 R08: ffffffff0000ffff R09: ffffffffffffffff
+R10: 0000fc000f003000 R11: 65006c0069006641 R12: ffff88811c3c0ad0
+R13: dffffc0000000000 R14: ffff88811bd3b3b8 R15: 1ffff1102387815a
+FS:  00007f0b764146c0(0000) GS:ffff88818c4bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 000000010ebc0000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ fat_add_entries+0xc9a/0x2320 fs/fat/dir.c:1410
+ vfat_add_entry+0x2dd3/0x3570 fs/fat/namei_vfat.c:675
+ vfat_mkdir+0x16c/0x300 fs/fat/namei_vfat.c:866
+ vfs_mkdir+0x40c/0x620 fs/namei.c:5420
+ filename_mkdirat+0x285/0x510 fs/namei.c:5453
+ __do_sys_mkdirat fs/namei.c:5474 [inline]
+ __se_sys_mkdirat+0x35/0x150 fs/namei.c:5471
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f0b7559e3c7
+Code: 00 66 90 48 89 f2 b9 00 01 00 00 48 89 fe bf 9c ff ff ff e9 db f7 ff ff 66 2e 0f 1f 84 00 00 00 00 00 90 b8 02 01 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f0b76413e58 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
+RAX: ffffffffffffffda RBX: 00007f0b76413ee0 RCX: 00007f0b7559e3c7
+RDX: 00000000000001ff RSI: 00002000000000c0 RDI: 00000000ffffff9c
+RBP: 0000000000000000 R08: 0000200000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00002000000000c0
+R13: 00007f0b76413ea0 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+
+
+***
+
+WARNING in fat_alloc_new_dir
+
+tree:      linux-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
+base:      2c3ba1f1cb416b81d617b92a24a4bcaa48d574e3
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/0103f224-dbc7-46e0-b595-6b58abedf2a1/config
+syz repro: https://ci.syzbot.org/findings/ac218fc3-8274-46ed-ad15-c9645108042b/syz_repro
+
+FAT-fs (loop2): utf8 is not a recommended IO charset for FAT filesystems, filesystem will be case sensitive!
+FAT-fs (loop2): Invalid FSINFO signature: 0x41615252, 0x80417272 (sector = 1)
+------------[ cut here ]------------
+cur && cur != mmb
+WARNING: fs/buffer.c:639 at mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639, CPU#0: syz.2.19/5804
+Modules linked in:
+CPU: 0 UID: 0 PID: 5804 Comm: syz.2.19 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639
+Code: af d7 ff 4d 89 65 00 eb 05 e8 42 c7 66 ff 4c 89 ff 48 83 c4 08 5b 41 5c 41 5d 41 5e 41 5f 5d e9 0c d6 8a 09 e8 27 c7 66 ff 90 <0f> 0b 90 e9 39 fe ff ff 66 66 66 66 66 2e 0f 1f 84 00 00 00 00 00
+RSP: 0018:ffffc900037bfac0 EFLAGS: 00010293
+RAX: ffffffff82615d19 RBX: ffff888022008000 RCX: ffff888113ad3c00
+RDX: 0000000000000000 RSI: ffff8880222733b8 RDI: ffff888022008000
+RBP: dffffc0000000000 R08: ffff888022008007 R09: 1ffff11004401000
+R10: dffffc0000000000 R11: ffffed1004401001 R12: ffff888022008050
+R13: f8f8f8f8f1f1f1f1 R14: ffff8880222733b8 R15: 1ffff1100440100a
+FS:  00007fde7c2926c0(0000) GS:ffff88818c4bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 0000000022c3e000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ fat_alloc_new_dir+0x7c5/0xb90 fs/fat/dir.c:1223
+ vfat_mkdir+0x13a/0x300 fs/fat/namei_vfat.c:861
+ vfs_mkdir+0x40c/0x620 fs/namei.c:5420
+ filename_mkdirat+0x285/0x510 fs/namei.c:5453
+ __do_sys_mkdirat fs/namei.c:5474 [inline]
+ __se_sys_mkdirat+0x35/0x150 fs/namei.c:5471
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fde7b39f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fde7c292028 EFLAGS: 00000246 ORIG_RAX: 0000000000000102
+RAX: ffffffffffffffda RBX: 00007fde7b625fa0 RCX: 00007fde7b39f559
+RDX: 0000000000000040 RSI: 0000200000000100 RDI: ffffffffffffff9c
+RBP: 00007fde7b436b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fde7b626038 R14: 00007fde7b625fa0 R15: 00007ffee0058de8
+ </TASK>
+
+
+***
+
+WARNING in fat_remove_entries
+
+tree:      linux-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
+base:      2c3ba1f1cb416b81d617b92a24a4bcaa48d574e3
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/0103f224-dbc7-46e0-b595-6b58abedf2a1/config
+syz repro: https://ci.syzbot.org/findings/09b74141-73df-447f-b681-310eb6bbab31/syz_repro
+
+------------[ cut here ]------------
+cur && cur != mmb
+WARNING: fs/buffer.c:639 at mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639, CPU#0: syz-executor/5735
+Modules linked in:
+CPU: 0 UID: 0 PID: 5735 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+RIP: 0010:mmb_mark_buffer_dirty+0x21a/0x230 fs/buffer.c:639
+Code: af d7 ff 4d 89 65 00 eb 05 e8 42 c7 66 ff 4c 89 ff 48 83 c4 08 5b 41 5c 41 5d 41 5e 41 5f 5d e9 0c d6 8a 09 e8 27 c7 66 ff 90 <0f> 0b 90 e9 39 fe ff ff 66 66 66 66 66 2e 0f 1f 84 00 00 00 00 00
+RSP: 0018:ffffc9000385fb98 EFLAGS: 00010293
+RAX: ffffffff82615d19 RBX: ffff8881130f0ee0 RCX: ffff888177e8bc00
+RDX: 0000000000000000 RSI: ffff8881188ead68 RDI: ffff8881130f0ee0
+RBP: dffffc0000000000 R08: ffffffff917a837f R09: 1ffffffff22f506f
+R10: dffffc0000000000 R11: fffffbfff22f5070 R12: ffff8881130f0f30
+R13: ffff8881188ead01 R14: ffff8881188ead68 R15: 1ffff1102261e1e6
+FS:  0000555564cc8500(0000) GS:ffff88818c4bb000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fff31a07d40 CR3: 00000001768a8000 CR4: 00000000000006f0
+Call Trace:
+ <TASK>
+ fat_remove_entries+0x196/0x470 fs/fat/dir.c:1090
+ vfat_unlink+0x283/0x330 fs/fat/namei_vfat.c:836
+ vfs_unlink+0x27b/0x6d0 fs/namei.c:5659
+ filename_unlinkat+0x3cd/0x610 fs/namei.c:5729
+ __do_sys_unlink fs/namei.c:5764 [inline]
+ __se_sys_unlink+0x2e/0x140 fs/namei.c:5761
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb725d9e647
+Code: 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 b8 57 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8
+RSP: 002b:00007fff31a08398 EFLAGS: 00000206 ORIG_RAX: 0000000000000057
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fb725d9e647
+RDX: 00007fff31a083c0 RSI: 00007fff31a08450 RDI: 00007fff31a08450
+RBP: 00007fff31a08450 R08: 00007fff31a09450 R09: 00000000ffffffff
+R10: 0000000000000100 R11: 0000000000000206 R12: 00007fff31a09540
+R13: 00007fb725e35f63 R14: 00000000000114de R15: 00007fff31a0b700
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
 ---
- fs/pidfs.c | 120 +++++++++++++++++++++++++++++++++++++------------------------
- 1 file changed, 74 insertions(+), 46 deletions(-)
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/fs/pidfs.c b/fs/pidfs.c
-index cfb93c4ccf23..b70ec50f64da 100644
---- a/fs/pidfs.c
-+++ b/fs/pidfs.c
-@@ -527,70 +527,76 @@ static bool pidfs_ioctl_valid(unsigned int cmd)
- 	return false;
- }
- 
--static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-+static inline void pidfd_put_task_locked(struct task_struct *task)
- {
--	struct task_struct *task __free(put_task) = NULL;
--	struct nsproxy *nsp __free(put_nsproxy) = NULL;
--	struct ns_common *ns_common = NULL;
--	int error;
--
--	if (!pidfs_ioctl_valid(cmd))
--		return -ENOIOCTLCMD;
--
--	if (cmd == FS_IOC_GETVERSION) {
--		if (!arg)
--			return -EINVAL;
--
--		__u32 __user *argp = (__u32 __user *)arg;
--		return put_user(file_inode(file)->i_generation, argp);
-+	if (!IS_ERR_OR_NULL(task)) {
-+		up_read(&task->signal->exec_update_lock);
-+		put_task_struct(task);
- 	}
-+}
- 
--	/* Extensible IOCTL that does not open namespace FDs, take a shortcut */
--	if (_IOC_NR(cmd) == _IOC_NR(PIDFD_GET_INFO))
--		return pidfd_info(file, cmd, arg);
-+/*
-+ * Return @pid's task with @task's exec_update_lock held, or -EREMOTE if the
-+ * task is not visible in the caller's pid namespace. The ptrace check and
-+ * the callers' task state lookup must be performed while the lock is held
-+ * so that they cannot race with a concurrent execve().
-+ */
-+static struct task_struct *pidfd_get_task_locked(struct pid *pid,
-+						 unsigned long arg)
-+{
-+	struct task_struct *task __free(put_task) =
-+		get_pid_task(pid, PIDTYPE_PID);
-+	int error;
- 
--	task = get_pid_task(pidfd_pid(file), PIDTYPE_PID);
- 	if (!task)
--		return -ESRCH;
-+		return ERR_PTR(-ESRCH);
- 
- 	if (arg)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	/*
- 	 * Require the target to be visible in the caller's pid namespace
- 	 * for operations that grant access to its resources, mirroring
- 	 * procfs and PIDFD_GET_INFO.
- 	 */
--	if (!pid_in_current_pidns(pidfd_pid(file)))
--		return -EREMOTE;
-+	if (!pid_in_current_pidns(pid))
-+		return ERR_PTR(-EREMOTE);
- 
--	/*
--	 * We're trying to open a file descriptor to the namespace so perform a
--	 * filesystem cred ptrace check. Hold @task's exec_update_lock for the
--	 * duration of the ptrace check and the namespace lookup so that the
--	 * credentials used for the access decision match those of @task at the
--	 * time its namespace is read, preventing a concurrent execve() from
--	 * swapping the task's credentials in between the check and the use. We
--	 * mirror nsfs behavior.
--	 */
- 	error = down_read_killable(&task->signal->exec_update_lock);
- 	if (error)
--		return error;
-+		return ERR_PTR(error);
- 
- 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
--		error = -EACCES;
--		goto out_unlock;
-+		up_read(&task->signal->exec_update_lock);
-+		return ERR_PTR(-EACCES);
- 	}
- 
-+	return_ptr(task);
-+}
-+
-+DEFINE_CLASS(pidfd_task_locked, struct task_struct *,
-+	     pidfd_put_task_locked(_T),
-+	     pidfd_get_task_locked(pid, arg),
-+	     struct pid *pid, unsigned long arg)
-+
-+static struct ns_common *pidfd_get_namespace(struct pid *pid,
-+					     unsigned int cmd,
-+					     unsigned long arg)
-+{
-+	struct nsproxy *nsp __free(put_nsproxy) = NULL;
-+	struct ns_common *ns_common = NULL;
-+
-+	CLASS(pidfd_task_locked, task)(pid, arg);
-+	if (IS_ERR(task))
-+		return ERR_CAST(task);
-+
- 	scoped_guard(task_lock, task) {
- 		nsp = task->nsproxy;
- 		if (nsp)
- 			get_nsproxy(nsp);
- 	}
--	if (!nsp) {
--		error = -ESRCH; /* just pretend it didn't exist */
--		goto out_unlock;
--	}
-+	if (!nsp)
-+		return ERR_PTR(-ESRCH); /* just pretend it didn't exist */
- 
- 	switch (cmd) {
- 	/* Namespaces that hang of nsproxy. */
-@@ -672,16 +678,38 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- #endif
- 		break;
- 	default:
--		error = -ENOIOCTLCMD;
-+		return ERR_PTR(-ENOIOCTLCMD);
- 	}
- 
--	if (!error && !ns_common)
--		error = -EOPNOTSUPP;
-+	if (!ns_common)
-+		return ERR_PTR(-EOPNOTSUPP);
- 
--out_unlock:
--	up_read(&task->signal->exec_update_lock);
--	if (error)
--		return error;
-+	return ns_common;
-+}
-+
-+static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
-+{
-+	struct ns_common *ns_common = NULL;
-+
-+	if (!pidfs_ioctl_valid(cmd))
-+		return -ENOIOCTLCMD;
-+
-+	if (cmd == FS_IOC_GETVERSION) {
-+		if (!arg)
-+			return -EINVAL;
-+
-+		__u32 __user *argp = (__u32 __user *)arg;
-+
-+		return put_user(file_inode(file)->i_generation, argp);
-+	}
-+
-+	/* Extensible IOCTL that does not open namespace FDs, take a shortcut */
-+	if (_IOC_NR(cmd) == _IOC_NR(PIDFD_GET_INFO))
-+		return pidfd_info(file, cmd, arg);
-+
-+	ns_common = pidfd_get_namespace(pidfd_pid(file), cmd, arg);
-+	if (IS_ERR(ns_common))
-+		return PTR_ERR(ns_common);
- 
- 	/* open_namespace() unconditionally consumes the reference */
- 	return open_namespace(ns_common);
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
 
--- 
-2.56.0
-
-
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
