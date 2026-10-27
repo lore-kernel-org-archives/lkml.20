@@ -1,89 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095757;
-	b=Ed9tpwzN8m/kDIbX4lNAouSlQMgQVluW607YRt1wdFnf5266N05D7+YpVRxjlVFYQ1G5
-	 +lOCKg91mZif7/DfwMwY+cw9tNFFiHc77upbsLWywRtMH1oi7RGoKo94LkkBjzQWMVYvO
-	 lAvNQrhgSDf7rXrzLokXxu9uqoFBK1KDYH7TsOzW/trv1HuThUkvwb9LE2T5aNJR8CwPp
-	 xpvhlcStwFMOmZaIYtT8d5UKZJXxfaI950VxIpx5nXu01HYTygPbnWpCRFX4hZLStQRVL
-	 dFd8w75iXg8MRX1UQ3H7H/TiSwsCOeMrOko46rgJ3A3Fuk6NrqdLZZGG8Fqqo9CIHMw==
+	t=1793095794;
+	b=zhUdxgC785mmQaQaAJs0atuBAkboTCQXo+otaATfklWGz6q4rCBhjh/XuaStMJ4MsLXq
+	 KsMxkmZjQHOHf8IOeDWjlFEAXHX4Z9VyljsLaNW5B7xlH32Q+FCyuyd0mgrteGoSNwvX4
+	 1Cv2VXokumg2h7uYe4asU6dV2Kkg0pkOKl0XF4UpQDh0rJ10DwjuuypzYidqxDXBr7lwM
+	 4Zhn6JliKiK4sOEX8xk/lKglcHq1efZdZZRz1Z1ycOBiMhL3aj+JojxZqM+JkCFNOWy/A
+	 AHu2eRq7OKuN9Dhnr086qyUk8YKp0CqdQVTc2fKt3AGL2gowz0N5Q6fpmUmq1+GLT0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095757;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095794;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XlCCWPrEFK3RXddfXN6QH3zLg0Y/vHPMqyByA8OlxLg=;
-	b=b28OgO0n0crkxJJHW+OG9TlnaEJBZoNEfaJxuO0s9C6cGxDmu0gWDF5X3YXvFPQGdoyv
-	 3Ki8gZxmf8wnq5M+6Vka6hUlc39BZmESORIX+Wr7OOYnqmqK4TiZp2PFmagk4SHDsgNxb
-	 mJd5yVR20gXIW6jciqxkEqq3sdCOEB5KTdCBAdwVowdHt/zhhi1g1JTlJf1ein0VTcKOF
-	 eEm+pbN6zn1nkj+nMxMmAy23lQgPXqrIrib+Y3j2gyQxK870zA/684/SOO088m04UhlfC
-	 GOUw3IqLwDqYDJ8cdoz31oIv6uhAdqNdf/8H02HAKam3bcMRKDtQKpyGg7Sa6JmcFhg==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=h8ENibmIFki4VGKF3LZNT00zbW3vGGJjBzXkJFPQYIM=;
+	b=3ATqsNBG+JlasYIGQTTNPdW+QrPDNKaGhGqo//HSbLq0EweyzMlCmQbxYUUfTu9mKZ2B
+	 ihjhHcLRpgN19WwarlO4GnQz+lstqD4T1goJFvU3GxoKxGvoex4Qck37pGSR9tt7SmOiq
+	 L13quvLLYV81RHbRTGLh0Yg+gF9T7aZOnCYOlqsfb2Ko5+dtTyuqhvdaBaqWGREfSNo0p
+	 413IM8k6mF25WAxrgVefgHVN3RwbBLDqZY+Rq0tsjBoETmQ2XMZWriSzuxNYOCtC+sho9
+	 QEN46aOBz3YEkUoQxjWbU2yEfnGGWaKF3bgfk5X48BFvbQ9n6XNysT5ishN4Xb4T2rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Tb/P+VBs";
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C2tho6SN;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CC3606A31E;
-	Tue, 27 Oct 2026 10:09:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36CC3606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F32606A31A;
+	Tue, 27 Oct 2026 10:09:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F32606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tb/P+VBs
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=C2tho6SN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793095757; x=1824631757;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=jeV6wtKK2ekUAK9tJVtT+fAgjBdc7aMzHqV8Q44/Umk=;
-  b=Tb/P+VBsKVPbXkpbZ0fYtzzc0E2673LMTzoGTnXVixM/5KTd+0/u/bve
-   TnOiEuoYSheADqNUKD4jbpnqVUjG0/K3062Fl+qt8c90jplZqIgAhirc+
-   vZXQF8AvAKcme1fMSdjyNL2XlG21gtF2KYQsTDbKd+VebmFfegy1fgHwk
-   jt8k/v62QMwy8kFo8PW5I66OL5BIYSG+fpDJUsyBbPnXWCHR1vkJ1rW09
-   rYmeFyL25klk/KslgPUUR73vvQ7sfSLkKZZxSWtnAvRK6BVCcAj+t81rA
-   R3XDJ5ubsSJc91iRQx+gapCnHS/glCMgYSj/DkweRISjIhM430VJwzm7e
-   g==;
-X-CSE-ConnectionGUID: 7YuZVZDHSB+nrqyWMAfs9A==
-X-CSE-MsgGUID: v3wZqJC4QGOpCONbVdgMuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1667362"
+  t=1793095794; x=1824631794;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=TPETQnYxAC5OM2l73sWPjeuHD6cHSvfGUmQvfnhKiBM=;
+  b=C2tho6SNKSiTStD1F8UBPdofFndb+Giw/RZKqJ/ysUrKolwmtwaYbPex
+   s5AHouO8nq+ibR7zvB+i4QuSKgmd8KfPb2py92cUTqB+g/iguGtq/z+q2
+   PnQG8hKmhiUd+CXQfq/wE4b+bY/txyi6ya68jAr4nqGsrnFxMCWcm1U6Y
+   zreOTnpNp16sl69ou6jV26yNRpPndiFcydSM3lREfzlw9qOhLIyD6DObF
+   BGxErPPAaZqMY692wQIb/vv38u0if+o7nWYcPahgortD5ZkqQi/mlVzBK
+   l4ZhSPT9C9r63ya1ECWiOVUsS5j09NOWN17eZFYtuuj6dIsIQuWcJza8S
+   Q==;
+X-CSE-ConnectionGUID: LaI+6miyRnqfXWESTKctyQ==
+X-CSE-MsgGUID: JFL5ldnIRlye1abG7gP0XQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1681718"
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1667362"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:09:17 -0700
-X-CSE-ConnectionGUID: VX+fSFlNRFGhu30zQY5FmA==
-X-CSE-MsgGUID: ge2Xt8SbR/CfDPX0/AJhkA==
+   d="scan'208";a="1681718"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:09:53 -0700
+X-CSE-ConnectionGUID: NVNl+TBZTOawIM0zJbkXOQ==
+X-CSE-MsgGUID: OvyN5Zy4RWyzHsCHPAWS8Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="6255212"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.2])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:09:14 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 455FE121CEC;
-	Tue, 27 Oct 2026 12:09:17 +0200 (EET)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xLe7I-0000000H0VP-2hdz;
-	Tue, 27 Oct 2026 12:09:16 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Hans Verkuil <hans@jjverkuil.nl>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: [PATCH 1/1] =?UTF-8?q?Revert=20"media:=20Don't=20hide=20I=C2=B2C?= =?UTF-8?q?=20or=20SPI=20drivers=20by=20default"?=
-Date: Tue, 27 Oct 2026 12:09:16 +0200
-Message-ID: <20261027100916.4053512-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
-References: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+   d="scan'208";a="4898247"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 27 Oct 2026 03:09:50 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xLe7n-00000000X6K-1nkB;
+	Tue, 27 Oct 2026 10:09:47 +0000
+Date: Tue, 27 Oct 2026 18:09:12 +0800
+From: kernel test robot <lkp@intel.com>
+To: Heiko Carstens <hca@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 4/4] s390/maccess: Remove spinlock from
+ __s390_kernel_write()
+Message-ID: <202610271725.YBK6zlkf-lkp@intel.com>
+References: <20261026120329.1792436-5-hca@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,127 +88,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026120329.1792436-5-hca@linux.ibm.com>
 
-This reverts commit 3bf8c26a085c7b00dbec67a919b93fa8b7ad70e0.
+Hi Heiko,
 
-In order to avoid exposing fairly rarely needed drivers to ordinary users,
-revert this patch. People needing these drivers will need to enable
-CONFIG_EXPERT until we have a better solution for this.
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/media/i2c/Kconfig | 11 ++++++++++-
- drivers/media/spi/Kconfig |  4 ++++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+[auto build test ERROR on s390/features]
+[also build test ERROR on trace/for-next bpf-next/master bpf/master linus/master v7.3 next-20261026]
+[cannot apply to bpf-next/net]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 7de2d095c969..11c30252540e 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -1042,12 +1042,14 @@ endmenu
- # V4L2 I2C drivers that aren't related with Camera support
- #
- 
--comment "audio, video and radio I2C drivers"
-+comment "audio, video and radio I2C drivers auto-selected by 'Autoselect ancillary drivers'"
-+	depends on MEDIA_HIDE_ANCILLARY_SUBDRV
- #
- # Encoder / Decoder module configuration
- #
- 
- menu "Audio decoders, processors and mixers"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_CS3308
- 	tristate "Cirrus Logic CS3308 audio ADC"
-@@ -1210,6 +1212,7 @@ config VIDEO_WM8775
- endmenu
- 
- menu "RDS decoders"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_SAA6588
- 	tristate "SAA6588 Radio Chip RDS decoder support"
-@@ -1226,6 +1229,7 @@ config VIDEO_SAA6588
- endmenu
- 
- menu "Video decoders"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_ADV7180
- 	tristate "Analog Devices ADV7180 decoder"
-@@ -1585,6 +1589,7 @@ source "drivers/media/i2c/cx25840/Kconfig"
- endmenu
- 
- menu "Video encoders"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_ADV7170
- 	tristate "Analog Devices ADV7170 video encoder"
-@@ -1683,6 +1688,7 @@ config VIDEO_THS8200
- endmenu
- 
- menu "Video improvement chips"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_UPD64031A
- 	tristate "NEC Electronics uPD64031A Ghost Reduction"
-@@ -1711,6 +1717,7 @@ config VIDEO_UPD64083
- endmenu
- 
- menu "Audio/Video compression chips"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config VIDEO_SAA6752HS
- 	tristate "Philips SAA6752HS MPEG-2 Audio/Video Encoder"
-@@ -1726,6 +1733,7 @@ config VIDEO_SAA6752HS
- endmenu
- 
- menu "SDR tuner chips"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- config SDR_MAX2175
- 	tristate "Maxim 2175 RF to Bits tuner"
-@@ -1742,6 +1750,7 @@ config SDR_MAX2175
- endmenu
- 
- menu "Miscellaneous helper chips"
-+	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
- 
- source "drivers/media/i2c/cvs/Kconfig"
- 
-diff --git a/drivers/media/spi/Kconfig b/drivers/media/spi/Kconfig
-index da3e225d420d..4656afae5bb4 100644
---- a/drivers/media/spi/Kconfig
-+++ b/drivers/media/spi/Kconfig
-@@ -1,11 +1,15 @@
- # SPDX-License-Identifier: GPL-2.0-only
- if VIDEO_DEV && SPI
- 
-+comment "SPI I2C drivers auto-selected by 'Autoselect ancillary drivers'"
-+	depends on MEDIA_HIDE_ANCILLARY_SUBDRV && SPI
-+
- menu "Media SPI Adapters"
- 
- config CXD2880_SPI_DRV
- 	tristate "Sony CXD2880 SPI support"
- 	depends on DVB_CORE && SPI
-+	default m if !MEDIA_SUBDRV_AUTOSELECT
- 	help
- 	  Choose if you would like to have SPI interface support for Sony CXD2880.
- 
+url:    https://github.com/intel-lab-lkp/linux/commits/Heiko-Carstens/s390-jump_label-Serialize-text-patching-with-text_mutex/20261026-130326
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/s390/linux.git features
+patch link:    https://lore.kernel.org/r/20261026120329.1792436-5-hca%40linux.ibm.com
+patch subject: [PATCH 4/4] s390/maccess: Remove spinlock from __s390_kernel_write()
+config: s390-allnoconfig (https://download.01.org/0day-ci/archive/20261027/202610271725.YBK6zlkf-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 186e70f4e6a1521991d2340d3d49b23b1beff11f)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261027/202610271725.YBK6zlkf-lkp@intel.com/reproduce)
 
-base-commit: f39567cc92272f987c056d8c92f7c93f3fdf53ef
-prerequisite-patch-id: a907c42a90ccc410e6fffdee8c9300233a5cd4be
-prerequisite-patch-id: 82ecd20999da94a7472cd1061a0fdf8cffbac325
-prerequisite-patch-id: 7d09c7afa4c3d4109642db3fd8435b21605854c6
-prerequisite-patch-id: f9e361e419752c2c3b2d845b535e33407c7544f6
-prerequisite-patch-id: 48a068cfdcbf7d53806dd8ff9e48f5de529fc67c
-prerequisite-patch-id: ba262f258d655a87b99432ebce1e579594a16950
-prerequisite-patch-id: 64c1f90be9a61ce4b6ee3988606ab0a24e630d42
-prerequisite-patch-id: 69ddc210ad98238341ef358dfddb0a42f20b9ea0
--- 
-2.47.3
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610271725.YBK6zlkf-lkp@intel.com/
 
+All errors (new ones prefixed by >>):
+
+   In file included from arch/s390/mm/maccess.c:9:
+>> include/linux/text-patching.h:10:9: error: call to undeclared library function 'memcpy' with type 'void *(void *, const void *, __size_t)' (aka 'void *(void *, const void *, unsigned long)'); ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      10 |         return memcpy(dst, src, len);
+         |                ^
+   include/linux/text-patching.h:10:9: note: include the header <string.h> or explicitly provide a declaration for 'memcpy'
+   In file included from arch/s390/mm/maccess.c:15:
+   In file included from include/linux/cpu.h:17:
+   In file included from include/linux/node.h:18:
+   In file included from include/linux/device.h:32:
+   In file included from include/linux/device/driver.h:21:
+   In file included from include/linux/module.h:20:
+   In file included from include/linux/elf.h:6:
+   In file included from arch/s390/include/asm/elf.h:173:
+   In file included from arch/s390/include/asm/mmu_context.h:11:
+   In file included from arch/s390/include/asm/pgalloc.h:18:
+   In file included from include/linux/mm.h:36:
+   In file included from include/linux/rcuwait.h:6:
+   In file included from include/linux/sched/signal.h:7:
+   include/linux/signal.h:98:11: warning: array index 3 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
+      98 |                 return (set->sig[3] | set->sig[2] |
+         |                         ^        ~
+   arch/s390/include/asm/signal.h:22:9: note: array 'sig' declared here
+      22 |         unsigned long sig[_NSIG_WORDS];
+         |         ^
+   In file included from arch/s390/mm/maccess.c:15:
+   In file included from include/linux/cpu.h:17:
+   In file included from include/linux/node.h:18:
+   In file included from include/linux/device.h:32:
+   In file included from include/linux/device/driver.h:21:
+   In file included from include/linux/module.h:20:
+   In file included from include/linux/elf.h:6:
+   In file included from arch/s390/include/asm/elf.h:173:
+   In file included from arch/s390/include/asm/mmu_context.h:11:
+   In file included from arch/s390/include/asm/pgalloc.h:18:
+   In file included from include/linux/mm.h:36:
+   In file included from include/linux/rcuwait.h:6:
+   In file included from include/linux/sched/signal.h:7:
+   include/linux/signal.h:98:25: warning: array index 2 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
+      98 |                 return (set->sig[3] | set->sig[2] |
+         |                                       ^        ~
+   arch/s390/include/asm/signal.h:22:9: note: array 'sig' declared here
+      22 |         unsigned long sig[_NSIG_WORDS];
+         |         ^
+   In file included from arch/s390/mm/maccess.c:15:
+   In file included from include/linux/cpu.h:17:
+   In file included from include/linux/node.h:18:
+   In file included from include/linux/device.h:32:
+   In file included from include/linux/device/driver.h:21:
+   In file included from include/linux/module.h:20:
+   In file included from include/linux/elf.h:6:
+   In file included from arch/s390/include/asm/elf.h:173:
+   In file included from arch/s390/include/asm/mmu_context.h:11:
+   In file included from arch/s390/include/asm/pgalloc.h:18:
+   In file included from include/linux/mm.h:36:
+   In file included from include/linux/rcuwait.h:6:
+   In file included from include/linux/sched/signal.h:7:
+   include/linux/signal.h:99:4: warning: array index 1 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
+      99 |                         set->sig[1] | set->sig[0]) == 0;
+         |                         ^        ~
+   arch/s390/include/asm/signal.h:22:9: note: array 'sig' declared here
+      22 |         unsigned long sig[_NSIG_WORDS];
+         |         ^
+   In file included from arch/s390/mm/maccess.c:15:
+   In file included from include/linux/cpu.h:17:
+   In file included from include/linux/node.h:18:
+   In file included from include/linux/device.h:32:
+   In file included from include/linux/device/driver.h:21:
+   In file included from include/linux/module.h:20:
+   In file included from include/linux/elf.h:6:
+   In file included from arch/s390/include/asm/elf.h:173:
+   In file included from arch/s390/include/asm/mmu_context.h:11:
+   In file included from arch/s390/include/asm/pgalloc.h:18:
+   In file included from include/linux/mm.h:36:
+   In file included from include/linux/rcuwait.h:6:
+   In file included from include/linux/sched/signal.h:7:
+   include/linux/signal.h:101:11: warning: array index 1 is past the end of the array (that has type 'unsigned long[1]') [-Warray-bounds]
+     101 |                 return (set->sig[1] | set->sig[0]) == 0;
+         |                         ^        ~
+   arch/s390/include/asm/signal.h:22:9: note: array 'sig' declared here
+      22 |         unsigned long sig[_NSIG_WORDS];
+         |         ^
+   In file included from arch/s390/mm/maccess.c:15:
+   In file included from include/linux/cpu.h:17:
+   In file included from include/linux/node.h:18:
+   In file included from include/linux/device.h:32:
+   In file included from include/linux/device/driver.h:21:
+   In file included from include/linux/module.h:20:
+   In file included from include/linux/elf.h:6:
+   In file included from arch/s390/include/asm/elf.h:173:
+   In file included from arch/s390/include/asm/mmu_context.h:11:
+   In file included from arch/s390/include/asm/pgalloc.h:18:
+   In file included from include/linux/mm.h:36:
+   In file included from include/linux/rcuwait.h:6:
+   In file included from include/linux/sched/signal.h:7:
+   include/linux/signal.h:114:11: warning: array index 3 is past the end of the array (that has type 'const unsigned long[1]') [-Warray-bounds]
+     114 |                 return  (set1->sig[3] == set2->sig[3]) &&
+         |                          ^         ~
+   arch/s390/include/asm/signal.h:22:9: note: array 'sig' declared here
+      22 |         unsigned long sig[_NSIG_WORDS];
+         |         ^
+   In file included from arch/s390/mm/maccess.c:15:
+   In file included from include/linux/cpu.h:17:
+
+
+vim +10 include/linux/text-patching.h
+
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23   6) 
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23   7) #ifndef text_poke_copy
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23   8) static inline void *text_poke_copy(void *dst, const void *src, size_t len)
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23   9) {
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23 @10) 	return memcpy(dst, src, len);
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23  11) }
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23  12) #define text_poke_copy text_poke_copy
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23  13) #endif
+0c3beacf681ec8 Mike Rapoport (Microsoft  2024-10-23  14) 
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
