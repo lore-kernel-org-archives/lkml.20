@@ -1,111 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102513;
-	b=E6VdkA8rTStYlX3/n0XG04U9ABO9Gd0WhQT3YNLy5vjbz+5S+t8lBoDN/EA7RxB905/u
-	 yDTMiYuOP9H6A5J5X/0NnVZGRalbVEb5hMRuM01PxyFgEIOrSwlN7kN6Kkd4+qOu0riCd
-	 WSb8NpDwUnZpd3eah78SbtFe2rRvQkZ7OucFhdEbtROZApOOL7rpeIYZFOmdgcv/f+4Sl
-	 8UxlpDVFbwV9UqZsRUx4w6I1tSaj85e4ZukkI0aEFsbV3IlO4GAGurucozMWuhUX8dc0F
-	 /Mu2P/Fc15RfrRtg5HY34+VpgcGFOxTT7oqyi1NqNVLe5BYAWeTQHjjp3N0bev/l6UA==
+	t=1793102514;
+	b=xprTDIQCPgm7+29Kkoa/MrsOMW33tqrXHrLc4Sblpe99NNfs4jWlfDLfMRKHGQsiCM3/
+	 Hz5HMfuSMCNPHAZuAZY1O8KA3DNV3nP/o11yuUQFvbKX7QxUGpLB66/v83Q3jgbflTGpI
+	 2bwUUV0x+230Unx4Z1u55w81Wbd3LXF6Sh/rkAcilu22wc8Ss1chjxFx1m/omtqWTLLCH
+	 zgb8oLhnMwl/V8VAMgIDwQk/BlUHLISxpd9y/55vI3Uru9YbVRyA8yCdaGU1PZ6/XzNuW
+	 1xFd40sZlvGI81YoAPALtXGdzK7+mh9qPeaK/fJE2irOYu8e1dhJcJXOFD8QfSoeTDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102513;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IBwMcjhkH/5qWAjY7BlvDB/LeARpzZamJYtBa1MZy4Q=;
-	b=Sgd67bH20UKLVlRnBKImoOn6l5Y+iTw4EKWnvlAygsHU+Twc3+/L8Y/blxfSTHAP+58H
-	 xLVCBNcpAwtRNjEtkgNfscWEAjPUzwIRtiHFhH012nblZ7TtQBMHimf58wBiD/Hutf31v
-	 QwK8Zv3YibV5GCk+gOwNiwi9YolY9cC3wcub8GakLmtSaDPUsBfelhOMCScsa+mFWhSj9
-	 JB/utEunyhUGyeQ5ruEO1bIhfTmr5B3ENhLCsnligyBxphw6bWrVXVkdnqc7ibXTk20SW
-	 NDQkH60KHXTf69KrugGv0CJ7YbpFXcqBkIntdTYIfLvFEnLaZ3XjpwllFC/o41RudJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102514;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=PpqCaReoXiYonrOXHNsdcBrA4jEmkFZT2sQJk8Qpqsg=;
+	b=fCMY3Qn9EVu3KBXlCnAGZdOonW5ItV/cWJ/eDAi25HUABVIiOWDIDtvidYw4IjfFm75D
+	 ndveaCNmMng9amHTfNydfYizM9flpXVWcgIEr4ASnKiKvBySwXlgLYDAuLRWq4wb9/stI
+	 ik5GUqGSLfAqt50w2KxuqqdOa+8Q2IwPUsFayFnNgY+HcOWyqx/lwJQlQ4tok4bz3MjyZ
+	 GnUQTXk8eryJJ98CYpe+wwKC9suhe3BG4pwW5eh+5IKX0KhhLGMwDX2hct7fUUyIYDOc8
+	 t5LLmMFs7ZRhSM6X32KQGAjNw8cUV5iH/6vsdwQ7KU1wqOo3M1CUi3aPkIl8P4pWZOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fuCwDgS3;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="dVUA9O/i";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LgUdjWW2;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6ED660A5BFD
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6ED660A5BFD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0DE60A6F64;
+	Tue, 27 Oct 2026 12:01:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE0DE60A6F64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fuCwDgS3;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dVUA9O/i
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe8MZ3026355
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:01:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IBwMcjhkH/5qWAjY7BlvDB/LeARpzZamJYtBa1MZy4Q=; b=fuCwDgS3MX4ohcug
-	9wXn6nsWRS1Qh/HY5RtkDsdEQ7ZuXeQwR7MTEIEEkyuNqil2HNhFRsPCgd6gNP1E
-	t79WD/wYrG4XP/cQpbi6IZ2wxrOSOauxfFdYWuELFNSpeMC2iwkCaJLM/piq+ogJ
-	lRLH2kr84Hb73IFgB5J+ih6X10c3xU/Q6AwZzMmDdWXROcVe/OSuxCPWQbdpzRAA
-	dwf2wlK//8cx8mDjYeVJvO0SpxBPG9k8Fp7HUr2HDuFn8vjiQrtpZ82qoStNsQWu
-	pLL8IzXV7guE/B4e97dcDgEc98/T0gGz5O8TnK24Td+e2ozHuGvswILC9p2mq2Q7
-	f3ntzQ==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjh91ab29-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:01:51 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-77f133855b9so190625137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:01:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793102511; x=1793707311; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IBwMcjhkH/5qWAjY7BlvDB/LeARpzZamJYtBa1MZy4Q=;
-        b=dVUA9O/iOB1WXY7qibUkLc0BXGuALjQiOUYlrQjJ7k4Rha0Ur32tT9hQlVbbDBT8SC
-         0nKDRrsuxB9XYxUNSOOXIthprCusGvEq0S+MKotdBMIS8dYtzN5f6q5IPQ6oByoJJ/pX
-         dvhSwHSp3TWdBSGVWTi2b+lMMttQEVb38ilx+1aH/UFW07a1vA+M0u5nIQcOvWUKrhI5
-         SUi+fe0xUmE1pIBdUfRHfbFk17mojnsxxTnTcz7CZToTFYyRhmP2taAJqpUfL0rybXD6
-         Ck1iVNXl/Y/NEZhZHHLscqd98DuRQzLpZRD2fGJe59toOFQDm6epQ41nIKATUd+7rqeh
-         mjNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793102511; x=1793707311;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IBwMcjhkH/5qWAjY7BlvDB/LeARpzZamJYtBa1MZy4Q=;
-        b=TGpIovekSz7KBqYRMzJQGyC6Bv4z6pfWUG3wXaT+0vaGA+pHaCid2n7bNOihLdo/LC
-         012oOjTxp5Rn04Tk9IMmJ4xvfmBs+yN01G3Dxk0NbFNc/kMKPtTP8yUZLFzAldCU86fE
-         8l7SrLuI0DkU7sMDMRWIbvxrr0e7lzs9rUlD1dNE9alBL4mUmoK6LkEbPk1cC0asrGGN
-         h0lASQ7rXx88CqueCg2YFhO4dj6PmXFccLEt1nA+uSHoqcFUkd0pKaVYBSxAiKJzacJc
-         IuuKqjIb4Bl2UpfW0K92nsNtqOAf6bCkOiIjrvcX3oH9UkamH78SAz+GpospXFBmP27k
-         8OCA==
-X-Forwarded-Encrypted: i=1; AKwUvBypoXwvR7VY6Gjqc7GvuzUxcH60+A/LBXyaRbpt49+CXjpen/BO4g9qMhS/Fwfh7C45yPqJny8DmUg9OrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSDCTcWRB3AtCCXaetIcukDmFA0D4KQ/45Q+d832kDsTzM0JFr
-	t0VfEw/uuqLn6JrDZ/L2vXmaYMfcG42unpdzEyuoWlP+hmr/ni0SFqx8mKHq6tlyaicYFrFnY0L
-	FjcytwBbch3myzHQgdiqfKMIegyH8lt6lBgAmT2UQOAUVEqsLQI1KmOReEGietgLHDBE=
-X-Gm-Gg: AYBFou3auR/814GTNlASH71eK41zxPJ2BaN9r8BHZ5+myJ5QM+jtfSWpNAZ1uw1gBaa
-	XHNWSfyDyvPu5RnAvguxmeiWmnxIDvdyncvM3cVc4fpmSrhC+P6vuT5Wzfvq45p3O8XAMKADCZj
-	5sguED77E7m89KHQcCkO6A+WAegVQd8H+oJem/49rJ+3R74WxxciYMTyvMg1jW9JFjLB+/iTSt6
-	QOkPUkeoTGBjm6tRXwW/W/ymRwL9ZCbp5uI+SMqdQRToKKbIcn2+w2Ren405iFAunmZEe2QIm7p
-	rzKtIQi5LbyQUWbk7H68hTzSiYUOwz/bv3hJjTf5hyx3ttY8SqPYXdIZqF8urHHUZ0SPVZMosBn
-	cv+wyrfsh5+F6WhrMd3VnZA==
-X-Received: by 2002:a05:6122:e006:10b0:5ea:e196:2742 with SMTP id 71dfb90a1353d-5ec232d4fe2mr3522000e0c.4.1793102510379;
-        Tue, 27 Oct 2026 05:01:50 -0700 (PDT)
-X-Received: by 2002:a05:6122:e006:10b0:5ea:e196:2742 with SMTP id 71dfb90a1353d-5ec232d4fe2mr3521917e0c.4.1793102509679;
-        Tue, 27 Oct 2026 05:01:49 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e89cesm445373366b.13.2026.10.27.05.01.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 05:01:48 -0700 (PDT)
-Message-ID: <1dfd5e01-d701-4a59-9b10-062fd59e25bb@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 13:01:46 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LgUdjWW2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793102514; x=1824638514;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=xtt4YsT9ZPy9O6YkSBviTjv1G0dD2klmXmaqyNznP+A=;
+  b=LgUdjWW2vB5V0U8dKLRWm3lU1c375riqVU/TsB0YJR6JYt1pkYSzfNNL
+   GLgSApxILFVd/6fRWNEzb0Ag9Vnqp2vZA4qclOAvT+WbSsni7e57mxWqy
+   FJbfUzOmGeXVEldB9AcEYgbjv+F6nyM4JfmjHIPM5x7NTa+f5rjO/+aTr
+   5oJMBWQ/tHKVyN2g33Jht7KFK7+g9jXcpm/BF07y1s8ZCLms0AN1BiMBg
+   EEPqhMWz9YFIOUqLaVjZ35drgE//P6YEEkcfeBOrRMZyJ+uYT2bB+2td7
+   ToRDaIpZUqk91r3AhsNHorDaIhpFGl+JCQMv6cTAr4M/XG+KAM6iuDKzu
+   Q==;
+X-CSE-ConnectionGUID: +IsCUtJGS9uaSfX5sna11w==
+X-CSE-MsgGUID: cN4l3KA3RMWN79aRNgvlnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1801579"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1801579"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:01:53 -0700
+X-CSE-ConnectionGUID: Ntby6jSXQ8GyCEFkcBAcTQ==
+X-CSE-MsgGUID: q5ZTIPQWSIWeq8q0z+yU0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6370961"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 05:01:49 -0700
+Message-ID: <741bfe7c-5d21-4c6b-98c0-95b01a2a21f3@intel.com>
+Date: Tue, 27 Oct 2026 20:01:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,67 +73,91 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: nord-rrd: Enable eDP0/1 display
- output
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
-        Nabige Aala <nabige.aala@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260920091930.2215803-1-shengchao.guo@oss.qualcomm.com>
- <20260920091930.2215803-4-shengchao.guo@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] KVM: TDX: Set SIGNIFCANT_INDEX flag as appropriate
+ when filling CPUID entries
+To: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev,
+ Binbin Wu <binbin.wu@linux.intel.com>, Changyuan Lyu
+ <changyuanl@google.com>, Sashiko <sashiko-bot@kernel.org>
+References: <20261022210134.612848-1-seanjc@google.com>
+ <20261022210134.612848-3-seanjc@google.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260920091930.2215803-4-shengchao.guo@oss.qualcomm.com>
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20261022210134.612848-3-seanjc@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: v2y9ZkgYTOOQveFc3blgsc5GpRhXyeAc
-X-Proofpoint-GUID: v2y9ZkgYTOOQveFc3blgsc5GpRhXyeAc
-X-Authority-Analysis: v=2.4 cv=TuxzFzXh c=1 sm=1 tr=0 ts=6ae092af cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=wx-G1DhjD7h3rq9mWzQA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX8ePDXApaSD6e
- MwEZkBddM/tMFSYzvUkO8OLiRTka0ek6baL2rCU+NCCPF4pwlEVBLWHUeZj+H13gyjeRltPIj2l
- DXMWzM67tUr29W4YYuWmtGG77iwjBifNK3HWiry3yDBFA+D3HFkDT+QJp2bfCJw4W8WCYNVyd2w
- E9NIKFAt0BLqT48sR0bIwPzMxnXiDRKKLhEbO6Xmb0kItjrj3n7WD/qnKfaOREdvGmhLQCRJbtx
- s8cUzkCwFbJNGbJ3C624viiZ0bRmsJo/2ulbSQfHfnjQMqAbhPTmWQ0UFZZlePcY4XqDMzVceT+
- Jx1QNIAJxXp1J6QREaKJejvx40gAHNRBYfDzfXHq5tGGL/BidrtpTRsAgFFfAJKLkQHbo1qrF2c
- Fys0x1GbHGbdsam8SYEuKJ3FoZQwIS/sh18vz5Z2tF9USRFeIW8D4Rg01dQtOpXdyoloGhQkcsP
- rKGGtV1DjcCpWiTe6Mw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX5PXLKXRTI0vf
- kaRst2gIS8MEZA+XNFpaD5NkpTKVBmZic+A4rkee0wZz8WXhlhF5liRwPaGSl9h/8Y4BcHByydw
- WafaxpBOZ4pPaE1WeRDs1g9PfhVdVZA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270047
 
-On 9/20/26 11:19 AM, Shawn Guo wrote:
-> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+On 10/23/2026 5:01 AM, Sean Christopherson wrote:
+> From: Changyuan Lyu <changyuanl@google.com>
 > 
-> Enable the MDSS, DP0/1 controllers and eDP0/1 PHYs on the Nord RRD
-> board and describe the eDP0/1 connector, its 4 data lanes and supported
-> link frequencies.
+> Set the KVM_CPUID_FLAG_SIGNIFCANT_INDEX flag in the kvm_cpuid_entry2
+> structures returned by KVM_TDX_CAPABILITIES if the CPUID is indexed,
+> otherwise KVM could confuse userspace and induce a configuration error.
+> This also ensures consistency with the CPUID entries returned by
+> KVM_GET_SUPPORTED_CPUID.
 > 
-> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> WARN if KVM and the TDX Module don't align on which functions have
+> significant indices, e.g. to help ensure the kernel is updated when the
+> TDX Module learns about new CPUID leaves, and vice versa.
+> 
+> Opportunistically add a comment to call out that zeroing the index when it
+> isn't significant is ABI that userspace relies on, e.g. QEMU looks for '0'
+> instead of checking KVM_CPUID_FLAG_SIGNIFCANT_INDEX.
+> 
+> Fixes: 61bb28279623 ("KVM: TDX: Get system-wide info about TDX module on initialization")
+> Cc: stable@vger.kernel.org
+> Cc: Binbin Wu <binbin.wu@linux.intel.com>
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Changyuan Lyu <changyuanl@google.com>
+> [sean: keep the WARN, don't key off KVM_TDX_CPUID_NO_SUBLEAF, add comment]
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 > ---
+>  arch/x86/kvm/vmx/tdx.c | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> index 271c2f94b8dd..37d088f6f7a8 100644
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+> @@ -2,6 +2,7 @@
+>  #include <linux/cleanup.h>
+>  #include <linux/cpu.h>
+>  #include <asm/cpufeature.h>
+> +#include <asm/cpuid/api.h>
+>  #include <asm/fpu/xcr.h>
+>  #include <linux/misc_cgroup.h>
+>  #include <linux/mmu_context.h>
+> @@ -163,12 +164,23 @@ static void td_init_cpuid_entry2(struct kvm_cpuid_entry2 *entry, unsigned char i
+>  
+>  	entry->function = (u32)td_conf->cpuid_config_leaves[idx];
+>  	entry->index = td_conf->cpuid_config_leaves[idx] >> 32;
+> +	entry->flags = 0;
+>  	entry->eax = (u32)td_conf->cpuid_config_values[idx][0];
+>  	entry->ebx = td_conf->cpuid_config_values[idx][0] >> 32;
+>  	entry->ecx = (u32)td_conf->cpuid_config_values[idx][1];
+>  	entry->edx = td_conf->cpuid_config_values[idx][1] >> 32;
+>  
+> -	if (entry->index == KVM_TDX_CPUID_NO_SUBLEAF)
+> +	WARN_ON_ONCE(cpuid_function_is_indexed(entry->function) !=
+> +		     (entry->index != KVM_TDX_CPUID_NO_SUBLEAF));
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+I think the WARN_ON_ONCE() is very likely to be triggered in the future when
+people run old kernel with new TDX modules.
 
-Konrad
+> +	/*
+> +	 * Explicitly zero the index when it's not significant, even though it
+> +	 * _should_ be meaningless.  Userspace relies on the index being zero
+> +	 * (the ABI was inherited from KVM_GET_SUPPORTED_CPUID).
+> +	 */
+> +	if (cpuid_function_is_indexed(entry->function))
+> +		entry->flags |= KVM_CPUID_FLAG_SIGNIFCANT_INDEX;
+> +	else
+>  		entry->index = 0;
+>  
+>  	/*
+
