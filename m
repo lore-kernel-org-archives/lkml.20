@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793063552;
-	b=zqvrLVeqMG0NWqqShY6pYX2QPJ3Xwn6OnsY1GLm0AUVVpqCaEQteu03DhAa8w5HWj8x1
-	 uS9a6Wk4aymRgvPsq2dt5SsfREoS9RbYtb1HqOJuvdjPZ3qw0EtR5hnyQRvDI35bj+2DU
-	 2NCRro1nqLXE8NLGPtj8jXytYamu9Ohfqp15uWDon8dgCC7MKUKrq2T29zZe0NNrC2kaz
-	 hZGbbqpKed4XWuNJKFsPoTiEr61o/h51Wu1ygm5nXRijqpRpZbCnqJ/fL8I83YrmcvQ+c
-	 Q652gnqEmluML50lKkZBs3Pj9TVApGsP4976om1+zoE+u/wEleQmZTbnZNqjKf9AFIg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793063552;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=+bPn0ocWqbaD9RySURiCm2ZhdZQ5PclNXcJ9a3ESUkU=;
-	b=RuBB3wkRsIHQ+fvxOd4K7/5dy7BJ24n+fxFYHeHD9JhrtaxL3ruKH1Mj2M4dzVkDqdRm
-	 u8vVB2+lMSuu/Xh/Nto3B9PtKrFrvWL2b1QKKXx20VfUpyCE1ZkFY6Ly6sgl4trdLac51
-	 DF4Vv/ZlszjrxTxDw0J+S+tBu9Jbdhg09W/J8d+pBYMys91RHk8jRMhRe/KwgQEhFzENX
-	 bdM0xEWnhmRzqd9PYUVNjNecsHjER8BgXjByZ2aMtB41HuWRah2t6ql1yWWo5gtATw2sC
-	 mAg317Rs2S9O+/nVuwZA4m/QLXJ1Y9paSp+6p1v20GYHr7BlDT6d3Wfg0lNEh4o5A1Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TDudzL6u;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793063675;
+	b=srI/zEPe4w2qof+BJ3JzO9MwljOqxjbWwAyud9GiK8YCeSODa/NH7JnHYix16A9V3R2O
+	 0PCDlLTa2lpM+kgQGru2URhB7IMMWWoRj7KLnziDFDybgCQ7a98mWuEwrH4c2SyqoVP1F
+	 yR5S5bi9N1m7tcgrFIAE0xzE1b7gjEo1RKku1IeItMi9xQiCK+pyRKPURL/hCDIMzw5JG
+	 m2cGB8Zfmc3gY2pL4IDkVPEsgjMYqagdB2KNeodEamUfXu2Z1dTEooHFcUZW4h3th58fD
+	 5WN81OfPIsut2qj6Bbonoa8OwpMs+U8sqMU0yMyS/pcsqNSnI51UsbgxgYW9EgFBqbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793063675;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jMsIChqulb9GIa12+hHaFUFMvoztx3aWdNCiyNkirSY=;
+	b=EhDM3yCyqqy/tfz2DuPyfvP/Ok8K/D/7PmCIzpFyPhLIs4FpvragQOLH2BR/e50d0lK+
+	 003WaY1YfNAdQa3jiMLAPbz0O+8JAZH8WapzdkGBReMyBpS+DkD5uNeEpwHxVStedE4Hp
+	 DaFYb7z1otTqtdX31HCEepOB0O0uEkLEmOYX82Kmg5K/dJ3mAU1iPj+XCbDb6/HC4JHpe
+	 BNpth4Gve0S9rn4kHxJvKeDNKLWAbfZMPWJw/rTJz9LURvT45N1HJyP8MIz633PEWZvpN
+	 hAowQtYF3xUJWZfa+pD1vXDl1I0bMkAcnhMt6S3Kp0BHijgvVIrvDhRMMrhUtGySjVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6NzlCru;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E48606A31A;
+	Tue, 27 Oct 2026 01:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6NzlCru
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793063674;
+	b=2lvkoI2Ca4K9NUvIrOg2rwO8ECQc871sdIYAKT4dhUKREp4IiKh46JeMyda99QI/FxCA
+	 de2gLciFEgoI4v/LoR4a0vNUGVNbR2+oIGoMCsL6wON6ai7hOQtslUTApjhQ3faHja8tB
+	 HwTCujXo/st8ApUo0ohOrDyDF89+nVKQwfk8uPSYaQi8CrlxN0lmxS55gCwFBADZL+58C
+	 3h0PGl05Uip0hxnYeJdRabIwke1DcSb93Vn+Hex4MYY9UA5mFWPdOYnAtU1AGMMLLck7H
+	 efypvKOGaAYmcbjyZah0prZejeQkcNkhXCCz3NPnvlrHp1dcHncczeUI/CuPXPmLrIQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793063674;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jMsIChqulb9GIa12+hHaFUFMvoztx3aWdNCiyNkirSY=;
+	b=N/l948Eu5re927ZqPEI0jr0nIBUqsxt4WR7iwtvy8IAjyRPUk8jTcKCLqfPUapfERapL
+	 pquNs+4yIYjngWGFAYuWSQxpfISaxJzlz/ajDJqZLw53HQIH7d9Odu6KJoKC0ydDBKvGv
+	 QI/3loWWD4ZFyrNAc/5K4b4o8ksK587vszQ+fvLYWeV3jAzq4NooH8U6V4nEQiLmiU0s6
+	 1tj0JiLsmUiYzP+RolpPkcIV1/F5rlBPlZni+T+VSKeNGeWIFiIYzU3OR2jVaECdDvYu4
+	 Ozi0UmBQEdYSQYEBDvTubXFSvYlzdEuKUaODq3MymdPLhRjA95zkgTOmj1RXBmwlmRw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23503606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23503606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TDudzL6u
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+bPn0ocWqbaD9RySURiCm2ZhdZQ5PclNXcJ9a3ESUkU=;
-	b=TDudzL6uUHYc2/3JUMSVAxqWxtSliJQJEh8JXqNqlED9NUEglJYPOYjEhRzKtPnSSMG5nKHBn
-	P9IrZvQ1dK0Vq8MpmmciRADKm+dl4+fc2gEn9S9fG0EY1uWt8B0z7EfgcSxQeZR5Gs9Y/9p3jX9
-	0yz0hHYusoOWfLh5tovbFZM=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jDCC41DP3zRhQq;
-	Tue, 27 Oct 2026 09:12:16 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id E0E4F4058E;
-	Tue, 27 Oct 2026 09:12:23 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 09:12:23 +0800
-Message-ID: <1a4baea3-9741-4144-b12f-d4d85ad5bc31@huawei.com>
-Date: Tue, 27 Oct 2026 09:12:22 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id 555851F01825;
+	Tue, 27 Oct 2026 01:14:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793063674;
+	bh=jMsIChqulb9GIa12+hHaFUFMvoztx3aWdNCiyNkirSY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=f6NzlCru5qtpXU6hmCipRQvJVJbjV5FRpqOmMzMJuX9z6Yev8tjfomVnt7rvRZa3t
+	 vgmBcThL4TP0meisMHFil8HdzbmnKBa56AevKMor5AuawGimZPwTZfwnztfM6HrsxU
+	 ce8FyrqLNx1FNAL75lScl/CHdNVQhfuMFTrpCq750SWU69UzWSCnvzHclUbK0IRksq
+	 BLffqw2KZegYS/NE9sqpFfYpw9TYDHVQTPeVFK9ha2V/g74YyX8A5GSSJPzdkbsiLK
+	 Z+HP2jMjrIVJfqihuSNS+t/GtJm6fXedUFkqX1QwgkWd16/3wpJspxP0wrfv9Kj5xD
+	 w/k3ogWadFmrQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A5DCF44F22;
+	Tue, 27 Oct 2026 01:14:33 +0000 (UTC)
+From: Haipeng Lin via B4 Relay <devnull+jimmie.lin.gmail.com@kernel.org>
+Date: Mon, 26 Oct 2026 21:13:02 -0400
+Subject: [PATCH v2] drm/panel-edp: disable the backlight at probe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,203 +82,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 05/10] arm_mpam: resctrl: Give the monitoring
- domain its own structure
-To: Reinette Chatre <reinette.chatre@intel.com>, <ben.horgan@arm.com>,
-	<james.morse@arm.com>, <Dave.Martin@arm.com>, <fenghuay@nvidia.com>
-CC: <tony.luck@intel.com>, <yu.c.chen@intel.com>, <babu.moger@amd.com>,
-	<fustini@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
-References: <cover.1792443633.git.reinette.chatre@intel.com>
- <2238eab97cc66852d0d0d1a5c6ff191c03ce9e0d.1792443633.git.reinette.chatre@intel.com>
- <52fdd67b-49b6-44b6-8eaa-17b29fd92947@huawei.com>
- <f288691b-6064-456e-89fc-2c4b2e6712b6@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <f288691b-6064-456e-89fc-2c4b2e6712b6@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261026-sp11-bl-upstream-1-v2-1-efc84396adf1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQqDMBBFryKz7pRMWkLtqvcoLhIz0QGjklhpE
+ e/e1AN08+F9+O9vkDkJZ7hXGyReJcs0FtCnCtrejh2j+MKglTak9BXzTIRuwNecl8Q2IiEbQ8a
+ amzdBQRnOiYO8D+mzKdxLXqb0OT5W+rV/dSuV8JfaBRtqG1z76KKV4dxOEZp937+Ogc2WtAAAA
+ A==
+X-Change-ID: 20261024-sp11-bl-upstream-1-e6616a68d6f0
+To: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Linus Walleij <linusw@kernel.org>, Sam Ravnborg <sam@ravnborg.org>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Dale Whinham <daleyo@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ aarch64-laptops@lists.linaro.org, Haipeng Lin <jimmie.lin@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793063673; l=4890;
+ i=jimmie.lin@gmail.com; s=20261011; h=from:subject:message-id;
+ bh=Wc0k3oO67F3S7EDiEGmSzJEvwEL5CUGbgzDoGXTLcs8=;
+ b=+lS75aoCJDPrdFiEZL0w7xUoK2eON3nABsbxAPsz28j9zI94XDgBJQdLexqdioijrzqv2Zoxc
+ 8PH2eb3pR4aCab9gRf5IECpOmd6qj4Mb0NEo5JskcYdo1h4E3egOfbO
+X-Developer-Key: i=jimmie.lin@gmail.com; a=ed25519;
+ pk=3KDRF1RQ/9A7ZUVTdRVEZnVrGltdmq1bRocsOYeXezI=
+X-Endpoint-Received: by B4 Relay for jimmie.lin@gmail.com/20261011 with
+ auth_id=1164
+X-Original-From: Haipeng Lin <jimmie.lin@gmail.com>
+Reply-To: jimmie.lin@gmail.com
+Content-Transfer-Encoding: 7bit
 
+From: Haipeng Lin <jimmie.lin@gmail.com>
 
+pwm-backlight can preserve the enabled state left by firmware to
+support a seamless display handoff. However, panel-edp does not support
+such a handoff. When probing a generic eDP panel, it powers the panel
+on to read its EDID. If display pipeline binding takes longer than the
+runtime-PM autosuspend delay, the panel is then powered off while the
+backlight remains enabled.
 
-在 2026/10/27 0:55, Reinette Chatre 写道:
-> Hi Jinjie,
-> 
-> On 10/26/26 5:14 AM, Jinjie Ruan wrote:
->> 在 2026/10/20 6:07, Reinette Chatre 写道:
-> 
-> ...
-> 
->>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
->>> index 246560247a28..ce5519635c51 100644
->>> --- a/drivers/resctrl/mpam_resctrl.c
->>> +++ b/drivers/resctrl/mpam_resctrl.c
-> 
-> ...
-> 
->>> @@ -542,7 +542,7 @@ int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
->>>  			   enum resctrl_event_id eventid, u64 *val)
->>>  {
->>>  	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
->>> -	struct mpam_resctrl_dom *l3_dom;
->>> +	struct mpam_resctrl_mon_dom *l3_dom;
->>>  	struct mpam_component *mon_comp;
->>>  
->>>  	if (!mpam_is_enabled())
->>> @@ -551,7 +551,7 @@ int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
->>>  	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
->>>  		return -EINVAL;
->>>  
->>> -	l3_dom = container_of(d, struct mpam_resctrl_dom, resctrl_mon_dom);
->>> +	l3_dom = container_of(d, struct mpam_resctrl_mon_dom, resctrl_mon_dom);
->>>  	mon_comp = l3_dom->mon_comp[eventid];
->>
->> Maybe following code could be extracted into a helper
->>
->> 553 >-------if (!mpam_is_enabled())
->>  554 >------->-------return -EINVAL;
->>  555
->>  556 >-------if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
->>  557 >------->-------return -EINVAL;
->>  558
->>  559 >-------l3_dom = container_of(d, struct mpam_resctrl_dom,
->> resctrl_mon_dom);
->>  560 >-------mon_comp = l3_dom->mon_comp[eventid];
->>
-> 
-> Below shows an example of such helper created (for convenience) on top of this
-> series. Only compile tested. Is this what you had in mind? If it looks ok I will
-> rebase to the beginning of this series as a new preparatory patch since it refactors
-> code adjacent to this series.
+On the Surface Pro 11 LCD (LGD0779), leaving BL_EN high across this
+power cycle appears to leave the backlight controller in an incorrect
+state: brightness is pinned near maximum with a greatly reduced
+dimming range. Subsequent brightness changes update the PWM duty, but
+do not restore it to normal. Cycling the backlight off and on at
+unchanged brightness restores the full range.
 
-Right. It looks fine to me. resctrl_arch_rmid_read() seems a little
-different.
+The first drm_panel_enable() does not recover from this because
+pwm-backlight still considers itself enabled and leaves BL_EN high.
 
-> 
-> ---8<---
->  drivers/resctrl/mpam_resctrl.c | 62 ++++++++++++++++++++++------------
->  1 file changed, 41 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 61fbde9c0960..d75954f8a0ad 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -7,6 +7,7 @@
->  #include <linux/cacheinfo.h>
->  #include <linux/cpu.h>
->  #include <linux/cpumask.h>
-> +#include <linux/err.h>
->  #include <linux/errno.h>
->  #include <linux/limits.h>
->  #include <linux/list.h>
-> @@ -536,26 +537,51 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
->  				 closid, rmid, val);
->  }
->  
-> -/* MBWU counters when in ABMC mode */
-> -int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
-> -			   u32 closid, u32 rmid, int mon_idx,
-> -			   enum resctrl_event_id eventid, u64 *val)
-> +/**
-> + * find_mbwu_mon_comp() - Find the component counting @eventid in a domain
-> + * @d:		The monitoring domain to search.
-> + * @eventid:	The event to find the counting component for.
-> + *
-> + * The counters reached through this component are the monitors MPAM
-> + * pre-allocated for bandwidth counting. Cache occupancy is not counted by
-> + * those monitors, it is read on demand via resctrl_arch_rmid_read().
-> + *
-> + * Return: the component counting @eventid in @d, or an error pointer when
-> + * MPAM is disabled, when @eventid is cache occupancy, or when no class was
-> + * picked to count @eventid.
-> + */
-> +static struct mpam_component *find_mbwu_mon_comp(struct rdt_l3_mon_domain *d,
-> +						 enum resctrl_event_id eventid)
->  {
-> -	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
->  	struct mpam_resctrl_mon_dom *l3_dom;
-> -	struct mpam_component *mon_comp;
-> +	struct mpam_resctrl_mon *mon;
->  
->  	if (!mpam_is_enabled())
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->  
-> +	mon = &mpam_resctrl_counters[eventid];
->  	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
-> -		return -EINVAL;
-> +		return ERR_PTR(-EINVAL);
->  
->  	l3_dom = container_of(d, struct mpam_resctrl_mon_dom, resctrl_mon_dom);
-> -	mon_comp = l3_dom->mon_comp[eventid];
->  
-> -	return read_mon_cdp_safe(mon, mon_comp, mpam_feat_msmon_mbwu,
-> -				 USE_PRE_ALLOCATED, closid, rmid, val);
-> +	return l3_dom->mon_comp[eventid];
-> +}
-> +
-> +/* MBWU counters when in ABMC mode */
-> +int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_domain *d,
-> +			   u32 closid, u32 rmid, int mon_idx,
-> +			   enum resctrl_event_id eventid, u64 *val)
-> +{
-> +	struct mpam_component *mon_comp;
-> +
-> +	mon_comp = find_mbwu_mon_comp(d, eventid);
-> +	if (IS_ERR(mon_comp))
-> +		return PTR_ERR(mon_comp);
-> +
-> +	return read_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
-> +				 mpam_feat_msmon_mbwu, USE_PRE_ALLOCATED,
-> +				 closid, rmid, val);
->  }
->  
->  static void __reset_mon(struct mpam_resctrl_mon *mon, struct mpam_component *mon_comp,
-> @@ -598,20 +624,14 @@ void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_domain *d
->  			     u32 closid, u32 rmid, int cntr_id,
->  			     enum resctrl_event_id eventid)
->  {
-> -	struct mpam_resctrl_mon *mon = &mpam_resctrl_counters[eventid];
-> -	struct mpam_resctrl_mon_dom *l3_dom;
->  	struct mpam_component *mon_comp;
->  
-> -	if (!mpam_is_enabled())
-> -		return;
-> -
-> -	if (eventid == QOS_L3_OCCUP_EVENT_ID || !mon->class)
-> +	mon_comp = find_mbwu_mon_comp(d, eventid);
-> +	if (IS_ERR(mon_comp))
->  		return;
->  
-> -	l3_dom = container_of(d, struct mpam_resctrl_mon_dom, resctrl_mon_dom);
-> -	mon_comp = l3_dom->mon_comp[eventid];
-> -
-> -	reset_mon_cdp_safe(mon, mon_comp, USE_PRE_ALLOCATED, closid, rmid);
-> +	reset_mon_cdp_safe(&mpam_resctrl_counters[eventid], mon_comp,
-> +			   USE_PRE_ALLOCATED, closid, rmid);
->  }
->  
->  /*
-> ---8<--- 
-> 
->>> @@ -1770,11 +1723,97 @@ mpam_resctrl_get_domain_from_cpu(int cpu, struct mpam_resctrl_res *res)
->>>  			return dom;
->>>  	}
->>>  
->>> -	if (r->rid != RDT_RESOURCE_L3)
->>> -		return NULL;
->>> +	return NULL;
->>
->> LGTM
->> Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>
-> Thank you very much.
-> 
-> Reinette
+Disable the backlight at probe, after acquiring it and before enabling
+runtime PM. This clears the firmware's enabled state so the DRM panel
+core turns the backlight on after panel power and video are ready at
+the first modeset.
 
--- 
+This also turns off the firmware display at probe on systems where it
+previously remained lit until the first modeset.
+
+Verified on the Surface Pro 11 LCD by delaying display pipeline bind
+past the autosuspend timeout. BL_EN now drops at probe, before panel
+runtime autosuspend, and brightness control works at the first modeset.
+
+Fixes: 5540cf8f3e8d ("drm/panel-edp: Implement generic "edp-panel"s probed by EDID")
+Link: https://github.com/dwhinham/archiso-aarch64-sp11/issues/41
+Suggested-by: Douglas Anderson <dianders@chromium.org>
+Assisted-by: LLM
+Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
+---
+Can reproduce on an installed system on Surface Pro 11 LCD (X1P-64-100,
+LGD0779 LCD) by booting with modprobe.blacklist=phy_qcom_qmp_combo then
+loading that module manually after ~20s. This delays DPU component bind
+past the panel's runtime autosuspend timeout.
+
+A/B tested against the same v7.2 tree:
+
+- Unpatched: panel VDD off 3.5s..20.5s while BL_EN stays high.
+After the first modeset brightness is pinned near max brightness with
+a "collapsed" dimming range. sysfs brightness writes still reprogram
+the PMIC LPG. One bl_power off/on cycle at unchanged brightness 
+restores the full range.
+
+- Patched v2: patch provides the same full brightness range on boot
+(stalled or not) as the v1 patch. BL_EN drops at panel-edp probe,
+~1s before VDD cut, rises ~0.5s after panel power at the first modeset.
+
+Tracing and functional testing on the SP11 shows unchanged sequencing
+for fast boots (without artificial delay), DPMS off/on, and system
+suspend/resume.
+
+Panels with shared/always-on supplies and no panel enable GPIO
+may continue displaying the firmware framebuffer during the
+runtime suspend before first modeset. With this change panel-edp
+disables the backlight obtained through the backlight phandle at probe.
+The DRM panel core enables the backlight again at the first modeset.
+I have not tested this configuration.
+
+Testing on other panel-edp systems particularly with pwm-backlight,
+would be appreciated.
+---
+Changes in v2:
+- Disables the backlight once at probe instead of
+  in panel_edp_suspend() following Doug Anderson's suggestion.
+- Only disable the backlight obtained through the backlight phandle.
+  The driver's AUX backlight setup is untouched.
+- Link to v1: https://lore.kernel.org/r/20261024-sp11-bl-upstream-1-v1-1-d39bfaf9afbc@gmail.com
+---
+ drivers/gpu/drm/panel/panel-edp.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 94bc54c3833a..d019f4165674 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -21,6 +21,7 @@
+  * DEALINGS IN THE SOFTWARE.
+  */
+ 
++#include <linux/backlight.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
+@@ -918,6 +919,16 @@ static int panel_edp_probe(struct device *dev, const struct panel_desc *desc,
+ 	if (err)
+ 		return err;
+ 
++	/*
++	 * Backlight drivers may preserve the state left by firmware,
++	 * but panel-edp does not support seamless handoff.
++	 * Runtime PM may power off the panel before the first modeset,
++	 * leaving the backlight on.
++	 * Disable it here so the DRM panel core enables it in the correct
++	 * order at the first modeset.
++	 */
++	backlight_disable(panel->base.backlight);
++
+ 	/*
+ 	 * We use runtime PM for prepare / unprepare since those power the panel
+ 	 * on and off and those can be very slow operations. This is important
+
+---
+base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
+change-id: 20261024-sp11-bl-upstream-1-e6616a68d6f0
+
 Best regards,
-Jinjie
+-- 
+Haipeng Lin <jimmie.lin@gmail.com>
+
 
