@@ -1,56 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793109814;
-	b=NRllWJYTg2p6yo+GlIqHurx8jocNIqdMksrKFBx+JfY4F/X1Za/qBZyTU7XlsrqGvC6o
-	 wCrF3nHbHARvmyldL2P9W4S/4sUmvx10fj4sjehX6hYxnP1/A/Uevk2Bcgna+x13P4OD3
-	 xxeP4WiNJ9UNq9ozZKJtG8Ckllkyd6o44ZNxoxZg4WKKaX4HdkL1w2gnDj06w7DVv6/i0
-	 FHurX1HD4iNZmUDP99gH+QcX1AnLeiLQ4/pb8unfLYQUS9PZVI5zzYnkf06pNXHAdWtD/
-	 GGzlXLimkv/6KDt8Ta/s9zpW6JF2p3JnclUPdFJWVBxy7N23jOvFDztxzNqyvRRNxnw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793109814;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/a5Q8lUWBEd/9wSdAV9zhg3EG5K6dH/Wqad5vDppMa8=;
-	b=a2pSHoBgUPObB/rwpCtaHDH2nNIudmVf3rM+kQJ8lzvuD4+sDHEmb8rBunG2Ybodcw4x
-	 fO0JDJH4XaG0v6xOi1HUFP1TGqiAD/gLqZgkgac4syilWV9S0mc/O3bAj95FVJF0Zz2Wa
-	 yPgVjQgpcCjSB35FuRvsXh6jUZNd+qyyWZs0GdL/Q/evpm32pm36fr2BM+XJolS+uvaKM
-	 B58QqpU95IULBt/7kkJck+FBA8fzXMrEJJ/4ApKvtL8OZlie6XN/X6nIL+1AA8y/RgsEA
-	 iqU6C5vXWfEgiFbtDtGfHi0UskP6p8K/tGT2LFQtNQPrVBhB0vxSWIOBs5MFZ6YPfLQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYEBO1zL;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793109845;
+	b=MPaPDv1wkmaYZP8bf2LYQzMyreeTgI399+RDsNui4C8pdDKvcFhm8ALTjx+kTT2A7OJU
+	 BqBcSDEr+uDp6I/P0db5z90md8RZxGrIWi7971LOMHYbzAYVbSZZDVTGVpRo0t+c6ws72
+	 0UoufBaiHw+81f7BZSVO1IiO1iv0wNd8oGkgN0uLjNNgvyPqwfh6NCmcyMuz8C0OsW9PP
+	 8+SrVWcl5ykPQuwZjCRYO2StPgOS+ol1qkDa59OgoOaMFqx+ndt4RABcCGxArt0aDlQre
+	 3SG9yo4dCkyqAPSkJJtRO1Lq6Q/2GrVprWMf4uD0I1zKjfGn3D2XIdeOUuW/7lSDfjA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109845;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=PbJrwzyUK0pW3BmVe/ZETXHMHaNg37K20YRVtMW8l/4=;
+	b=UkEfgIe7gI8e9UHapx5ILO7+eIgD1HsY/VxKP7vdZdiaBWbzRlBFcCK6WW0nPSHibVle
+	 PcYRu0X9GmT3tEFWCGiBHoGosYTzlr9JLPCzMcsWA6MFnnerVbbxk49Lrkjh5nLWez8Fu
+	 0n1G+UrXTr1FAh0L2ceyYjU2jWlmShLFj8WeVY97dhEMZl7cUV/rbRLAzp4txkcRiKtf2
+	 /V5o4ut2wwveudKPD4VQYY14H/Yw49s5e9BdKnDWH+B4gPZyg2wfsCDm2q9H8ncYB0ucm
+	 odZEZfDVVZRDn6BLuFFCeaoPQKlz1hDBMKh+oUIonR7t5hiKOHXzGhcr3eNRjVUiBqg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpPrBUvE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F4F606A31A;
-	Tue, 27 Oct 2026 14:03:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1E5606A322;
+	Tue, 27 Oct 2026 14:04:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYEBO1zL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8232B1F01828;
-	Tue, 27 Oct 2026 14:03:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpPrBUvE
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793109844;
+	b=q/D+njv2AxlG18Szs1VErOz04jfRRRJQfwbTLtYAOyPdIiEO9Fi/AFKZf6AazkN5SwPL
+	 O8XgevTMpkijuuQAal83xTGIxSd52fZBhPI1hz5uT8ku+SJ2hskeJepQOVxI2vyW/Z9Pf
+	 yp3ffVAzbIxt302l9zzOe3TyZI1VB5zlMbFiVDf7MHVm6qcQc1vQVPm1/QdsyBdJGhpnw
+	 DSLBe2bhPJ5bsQPrp3b1FtPqhuFxLgl3+cpnpLIQ28H94wsxyS4iNM7XTAe0R0+TJe47v
+	 meGB4HoTxcDshbaQ9bads7sgv8QaXsk+J5PADI46eURXM/akKKxKH+6+N9ugDEKujfg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793109844;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=PbJrwzyUK0pW3BmVe/ZETXHMHaNg37K20YRVtMW8l/4=;
+	b=GHTT9bD1nPwaAurCjMudOzwbOjQVEr3lo3pL4koUo1krP1+OjmgI+m7hDwKKO3OLcYmW
+	 MveNOzC1Ruwa6EpMT7UlRj5a+S2BaVRuta9gFq8u+dL1CPIKq6brmisTcF5wgmx5NV14i
+	 SCo5cFLWDKnvcMncZW9T/jSEPNGkKZPQsd+/o3nOoxpS/FTNsm1lfWBG/dD0u+XIryDlH
+	 HcpKWJxwFlM0Qzjz0OkUg6AfJJJst1som9s7l2iae0mer7VX0b22Cw1VfhBe+dCF1azNM
+	 CsCDN56mFBoCcNUSG14d31K+7I40F/DJQzkpXlz3FGAZMGNoEzjHeKkK/KEmdCtZ/rA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E5D2C1F031E0;
+	Tue, 27 Oct 2026 14:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793109813;
-	bh=/a5Q8lUWBEd/9wSdAV9zhg3EG5K6dH/Wqad5vDppMa8=;
-	h=From:To:Cc:Subject:Date;
-	b=SYEBO1zL5ZF15BWDdDdN9iXWFFoy1Sphreo+ZkNHF0l425741/n5Gb2MeJn3i375B
-	 fO92W96b28BGlLA984Qh8udrJLq1+m5PiZ8qwelstttw8SYWUTVmKug7i8WOeQuEVZ
-	 PZdkc/bN+b8Umaf7FTY+DKuebUcMl0/OzMDVAZDnHYKSqOAcNjtmUdsW6lw0UXFGM9
-	 oJT82COi1DLQ6YPvPVcS9XFrKDKvJB4GDCABA/sqbhviFXMv9gFlwOtK7jJtVBWLxt
-	 KM5jDL+YEgGIJ9vb23zF+XFFZdrCdetFSh9zcAvPd2u30z8QTUveaPkPOnATvO+hXQ
-	 m6zZyyIsOG0eQ==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 6.12.y v3] mm/damon/core: error damos_commit_quota_goal() for zero target_value
-Date: Tue, 27 Oct 2026 07:03:25 -0700
-Message-ID: <20261027140326.153338-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=k20260515; t=1793109844;
+	bh=PbJrwzyUK0pW3BmVe/ZETXHMHaNg37K20YRVtMW8l/4=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=OpPrBUvE0wHpCTvBBIBWzgdIi5dsupihMH02xrzrHHFqv2UeeVylQedSAcfeggLEe
+	 G9wpREw32vQHQP5c9RAMqlawnOX8wZHw2ZKwcV75u3miaJLf85lhAx8KfCpluptFL9
+	 DK55mzZ/iJnJeYTMaJtVo0Kw1ipkF6i1JkO1md0Yyk+nQj/Aw5BWN8lVScvqKoHzuq
+	 BRemGtctHzr1jrIoiYrNAtV8N1zvCGo5ZzNaGuu6kAfmxVXzhJh5Zr0cCerjDS5IPi
+	 0JrqBdNX6ueImP61kZe2FN/E8SBqagUFw+OhbSSlQw2kKN4KySfNAR8stmYDydJZV/
+	 Q+o8S1FHOHYwA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3D89D4510A;
+	Tue, 27 Oct 2026 14:04:03 +0000 (UTC)
+From: Jhonata Poma-Hansen via B4 Relay <devnull+jhonata.poma.gmail.com@kernel.org>
+Subject: [PATCH net v2 0/2] netlink: fix a dump livelock with a
+ notification queued
+Date: Tue, 27 Oct 2026 15:04:00 +0100
+Message-Id: <20261027-netlink-dump-livelock-v2-0-c4bb05352a33@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,168 +84,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFCv4GoC/4WNQQ6CMBREr0L+2hraIqAr72FY1PKBL6UlFBoN4
+ e4WPIDLmbx5s4LHidDDLVlhwkCenI1BnBLQnbItMqpjBpGKnKdCMouzIduzehlGZiigcbpnWEr
+ dcNlci0JB3I4TNvQ+vA+IE6h+pV+eL9Tzbtyxjvzsps/xHvgB/zkKnKUsK0rBM5XLSy3u7aDIn
+ LUboNq27QtWzWty0QAAAA==
+X-Change-ID: 20261023-netlink-dump-livelock-e83cf13f977a
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Jhonata Poma-Hansen <jhonata.poma@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2041;
+ i=jhonata.poma@gmail.com; h=from:subject:message-id;
+ bh=dyqos+YZiGmpIof18fo47Wd6gwZ5wp6SPtEj3CzE5a0=;
+ b=owGbwMvMwCX21S6Y7aK9oS7jabUkhqwH64PYTj4Le+I0Kzus1qYz6/xRntUi/1eUnck3+yGeq
+ pBYYlzUUcrCIMbFICumyOJz9nEPt+LHHf8f7rgMM4eVCWQIAxenAEzk/BpGhklR7/M+J/vouVrp
+ 1YQUd2zg///CziE568YvZ8mkuZ7Vdgz/1EIv7hCNzhM7semvuN+rf4t2hCcuULxU9MbJvWJ2Za4
+ eLwA=
+X-Developer-Key: i=jhonata.poma@gmail.com; a=openpgp;
+ fpr=4CCDE38C0B21F1B8FFE1B8D3F53E5306D13F312D
+X-Endpoint-Received: by B4 Relay for jhonata.poma@gmail.com/default with
+ auth_id=1288
+X-Original-From: Jhonata Poma-Hansen <jhonata.poma@gmail.com>
+Reply-To: jhonata.poma@gmail.com
 
-Patch series "mm/damon: move zero damos quota target_value handling to the
-core layer".
+A netlink dump that starts while a notification is still charged to a
+socket with a small receive buffer fails with ENOBUFS, and every retry
+from recvmsg() fails the same way. A reader that peeks before reading,
+as libnl does, never consumes the message at the head of the queue and
+spins forever. I hit this with "iw dev wlan0 scan" on an arm64 board.
 
-Having zero DAMOS quota target value can cause division by zero.  DAMON
-API callers are checking the target value parameters to avoid that.  It is
-easy to make mistakes in some of the multiple API callers.  Move that to
-the core layer.
+Patch 1 goes back to checking sk_rcvbuf before charging the dump skb,
+as before commit ae8f160e7eb2. Patch 2 adds a selftest; it fails
+without patch 1 and is skipped without the privileges to create a
+netns.
 
-Patch 1 adds the corner case handling into the core layer DAMON parameters
-validation logic.  Patches 2 and 3 remove no more needed DAMON API callers
-side handling of the corner case in DAMON_LRU_SORT and DMON_SAMPLIE_MTIER,
-respectively.
-
-This patch (of 3):
-
-If a DAMOS scheme has a damos_quota_goal of zero target_value,
-damos_quota_goal() could trigger division-by-zero error.  Hence each DAMON
-API callers should do the zero target_value validation.  It is easy to
-make mistakes.  Actually such bugs in DAMON_LRU_SORT and
-DAMON_SAMPLE_MTIER were found and fixed [1].
-
-It is better to handle the corner case only once in the core layer,
-instead of multiple places in all DAMON API callers.  One straightforward
-option is using an alternative denominator for the corner case in the
-damos_quota_goal().  However, the zero target_value is meaningless.  In
-this case, the quota goal is always evaluated as achieved or
-over-achieved.  The quota will only keep being reduced.
-
-Simply avoid using zero target_value by adding a check in the core layer
-DAMOS quota goal parameters validation/commit path,
-damos_commit_quota_goal().  Update it to return an error in the case.
-Also update its caller to propagate the error.
-
-Notes for stable kernel porting.  The upstream commit doesn't have
-Fixes: and therefore not ported to stable kernels.  It turned out it
-fixes commit 8b549a4fd3c5 ("mm/damon/sysfs-schemes: commit damos quota
-goals user input to DAMOS") which was merged into v6.8.  The user impact
-is a race condition that can result in divide-by-zero.  Hence backport.
-Reproducing the issue requires sysfs write permission, certain DAMON ABI
-usages that are supposed to be uncommon, and a rare race timing, though.
-The issue was discovered [2] by Sashiko as a part [3] of its bug report.
-
-Also, the upstream commit on this stable kernel can fix the issue for
-parameters commit paths but DAMON start path.  That's because DAMON
-start path does not invoke damon_commit_quota_goals().  To fix the path
-with minimum change, add a new small validation of quota goal target
-value before damon_start() call.
-
-[2] https://sashiko.dev/#/bug/linux-7f814c9a-986f-4103-a55a-ef9537dcf62b
-[3] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
-
-Link: https://lore.kernel.org/20260903010722.94244-1-sj@kernel.org
-Link: https://lore.kernel.org/20260903010722.94244-2-sj@kernel.org
-Link: https://lore.kernel.org/20260803134034.15217-1-sj@kernel.org [1]
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-(cherry picked from commit 610c4438fb66e06d9e693c0ad3b2c1be54c0d61f)
-Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Changes from RFC v2
-- RFC v2: https://lore.kernel.org/20261026135555.149244-1-sj@kernel.org
-- Put target pid reference count in damon_start() path -EINVAL case.
-Changes from RFC
-- RFC: https://lore.kernel.org/20261025182326.178326-1-sj@kernel.org
-- Fix a typo and macro expansion build error for quota goal iteration.
-- Destroy ctx in the before-damon_start() error path.
+Changes in v2:
+- Patch 1: check sk_rcvbuf before charging instead of retrying with
+  the minimum skb size, which could still be rejected (Sashiko), and
+  refuse a skb that would take sk_rmem_alloc past INT_MAX.
+- Patch 1: say how the bug was found and how the fix was tested.
+- Patch 2: use SO_RCVBUF 2048, which also fails with v1, check the
+  NLMSG_DONE status and that a link was dumped, and skip without
+  privileges (Sashiko).
+- Link to v1: https://patch.msgid.link/20261023-netlink-dump-livelock-v1-0-478214a635d2@gmail.com
 
- mm/damon/core.c  | 18 +++++++++++++-----
- mm/damon/sysfs.c | 19 +++++++++++++++++++
- 2 files changed, 32 insertions(+), 5 deletions(-)
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Simon Horman <horms@kernel.org>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+To: Shuah Khan <shuah@kernel.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 81d44e41de210..ed32855c16ed8 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -698,14 +698,17 @@ static struct damos_quota_goal *damos_nth_quota_goal(
- 	return NULL;
- }
- 
--static void damos_commit_quota_goal(
-+static int damos_commit_quota_goal(
- 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
- {
-+	if (!src->target_value)
-+		return  -EINVAL;
- 	dst->metric = src->metric;
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
- 	/* keep last_psi_total as is, since it will be updated in next cycle */
-+	return 0;
- }
- 
- /**
-@@ -723,18 +726,23 @@ static void damos_commit_quota_goal(
- int damos_commit_quota_goals(struct damos_quota *dst, struct damos_quota *src)
- {
- 	struct damos_quota_goal *dst_goal, *next, *src_goal, *new_goal;
--	int i = 0, j = 0;
-+	int i = 0, j = 0, err;
- 
- 	damos_for_each_quota_goal_safe(dst_goal, next, dst) {
- 		src_goal = damos_nth_quota_goal(i++, src);
--		if (src_goal)
--			damos_commit_quota_goal(dst_goal, src_goal);
--		else
-+		if (src_goal) {
-+			err = damos_commit_quota_goal(dst_goal, src_goal);
-+			if (err)
-+				return err;
-+		} else {
- 			damos_destroy_quota_goal(dst_goal);
-+		}
- 	}
- 	damos_for_each_quota_goal_safe(src_goal, next, src) {
- 		if (j++ < i)
- 			continue;
-+		if (!src_goal->target_value)
-+			return -EINVAL;
- 		new_goal = damos_new_quota_goal(
- 				src_goal->metric, src_goal->target_value);
- 		if (!new_goal)
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 5aa23c6545cb8..ad9fa8a86c9ef 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -1497,6 +1497,20 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 	return ctx;
- }
- 
-+static bool damon_sysfs_valid_start_ctx(struct damon_ctx *ctx)
-+{
-+	struct damos *s;
-+	struct damos_quota_goal *g;
-+
-+	damon_for_each_scheme(s, ctx) {
-+		damos_for_each_quota_goal(g, (&s->quota)) {
-+			if (!g->target_value)
-+				return false;
-+		}
-+	}
-+	return true;
-+}
-+
- static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- {
- 	struct damon_ctx *ctx;
-@@ -1517,6 +1531,11 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 	ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0]);
- 	if (IS_ERR(ctx))
- 		return PTR_ERR(ctx);
-+	if (!damon_sysfs_valid_start_ctx(ctx)) {
-+		damon_sysfs_destroy_targets(ctx);
-+		damon_destroy_ctx(ctx);
-+		return -EINVAL;
-+	}
- 	err = damon_start(&ctx, 1, false);
- 	if (err) {
- 		damon_destroy_ctx(ctx);
+---
+Jhonata Poma-Hansen (2):
+      netlink: check sk_rcvbuf before charging the dump skb
+      selftests: net: netlink-dumps: start a dump with a notification queued
 
-base-commit: 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
--- 
-2.47.3
+ net/netlink/af_netlink.c                    |   6 +-
+ tools/testing/selftests/net/netlink-dumps.c | 102 ++++++++++++++++++++++++++++
+ 2 files changed, 107 insertions(+), 1 deletion(-)
+---
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+change-id: 20261023-netlink-dump-livelock-e83cf13f977a
+
+Best regards,
+--  
+Jhonata Poma-Hansen <jhonata.poma@gmail.com>
+
+
