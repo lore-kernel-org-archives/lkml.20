@@ -1,104 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117055;
-	b=bphkL+10oPgFx9eBYO6KjbIFGflHJO2o0GenW9SNFhG4KiGCEqTmqLVv3uA9zxJ29eve
-	 DmvL4sI9zdQRprn6xEIvDmJYdbNgrGE88d97Gw/RYbaNILljdtDWOMyTvKkcNjBblg/u8
-	 4yNQzok6vI9zUsNzkxNUyVZJwkTp60+6ZR7I41jeB/m+klYj7EKVDhxR3Vi9rLk67YxWS
-	 y8Hl1zHkeV3xYWeA3FdbcQwNU+SvlY1sjC9VfoxbZhMx97qGzoxzye1mLGVqSwQKP8jjq
-	 H6CnQqtKotNkaxEVszbKF34dMgg1AIG2pD73vD2RqAnpJ448PVsbs20QJ18r0IZuI5w==
+	t=1793117083;
+	b=Igw6zBkkTA9VoIaNncwZKjL5J0JrBzI8YXBnJq8zD2wemQg3ePhvdtdY0+6lNqzU1LMG
+	 O0BgVkJLGzoApPwPT3zVRI9lF3HpgAgNbbTJCyFybigzsvPyrKhJ9c0K6ixwDYzsCAabi
+	 y0z08lSVEEaastUeO/oPjvVnGjZTcavPeyu6psIGA3at4bgBCPygPlO1V+V3Q2inE0BUi
+	 JpaeT2tjcLMHD/TEewO+D9/3EEAJZGwdXHlRSJ5dKXlt+1eSpjqN8TVTcOgdnqXu9smR6
+	 s00leOM9BZjoVlv/z2cL+yqzQrVwwBTMs2THKgnBeysb7Dg9L+FGjyVS2x+giXXw3ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117055;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5d5oBiDNym+XgxzH0b6C3qDhntNhLNghMGNMGMVJJaQ=;
-	b=iG6QFZEAoE0HudlNZj3NSHTppO6dTszbzhqtBJ+GbK5AvRjB1gzcWJmHzViWTG/YpYep
-	 qDxn6rcu8HujsDEtp+/pFtF5nJD3HWwi1KWLaNWNDCDFKk2ayRRE5o4bm8WOw1KsPx7/g
-	 6NJJ6ZG8sbbUA7OcRJl7axIfx8/xo8QAJymApQBSm9RNqVICJwmgh8rByY2Z61000OR6m
-	 K23xz7HXiXN5F9sv9TGGYQ7UOmpvueOu7iRWSq/9FJkY/jf+gvTo/ijMpCy+FSF4aSfGB
-	 AWlIgI3zXFXzMjPJ3iYgEtJLhvwh14k6kOlKFY0xopLO7DN31qpeDs2XYFRnpOjqEkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117083;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YQ5YzK9S3F3vopcd3+xEFSFvk7QGHqKHI08GekIrR0k=;
+	b=AQWJgRi34YKExYo/k/ls4VQQ6yVVqqcybJzpzRXmQ6tFGY1tMJaSuJsRtex13TsbWm69
+	 xaYEHI0fW+CSVnuNSA2tRWKRcY3kcsVcCnXdGvnoCgBJjOD1VC1iPWlRP9kR7re/SUG6Y
+	 umS38oZr1smagLNBM16+Tno7nLXsEPsljnQWZR8opYRbwJspcxvjyvOBFsXxlWRTqvs8j
+	 vh4nvmdXOUxJH9YfrPOFzqtBXCWjKjJMlCnn4wbB0EMZr+DlayOCySVVxYtvSTwikfL3O
+	 gFUIxhKNfLKs4KUuycyofN8GXlXaqgA7yusD5BWyX6kWCoLW0LQKEfYA7R55B9oolXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=garMCfw5;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="OX/drPN7";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE970606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:04:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE970606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87299606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:04:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=garMCfw5
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso42567a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:04:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793117054; x=1793721854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5d5oBiDNym+XgxzH0b6C3qDhntNhLNghMGNMGMVJJaQ=;
-        b=garMCfw5pnI4iP8KIN59/ZxLf51UboH/1T4Stm+yj7le2DTh6DAsrzwhHPWrHa4sDY
-         3bVHg86ty1uBiv1gXgW0sTS6maWRt3Tv9N446cCye4NeKcK8prb09govAUiHng6ogVZ9
-         TA/hFebIbSn8HEae4L0SCJUn2EqPHlQkc99UTQsQz7c9VTqMyVl4IWGYvgp6uhjVEGYJ
-         fbPwzC4gPGIo9w++1ljsoIkkZsU6VpBkFkDoT9jU5t99J6ubNfPn1OsX5yuoTmc4Onu2
-         Gg+G9QE46RZMGqJCPE+g9p9Qk88Ol/fTcQG5xmWPW/XPOCzGsb9dJWbD6tkZSy3hCUGe
-         dQKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793117054; x=1793721854;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5d5oBiDNym+XgxzH0b6C3qDhntNhLNghMGNMGMVJJaQ=;
-        b=vw+w+MIMCuCnX395ZvKpo1oXA5JqNpI6z6O5H6iaPqRDO4R/Ns/6UVTSSeVddfWlgF
-         s77E3ZsUWwQJk0HhSzhGJXNy0Gf7Z4JYL+Tnhz4qv13c/rTPpRKGU3WPPpf8gt3M68L0
-         rw9P5ddl0KUxk09jpNG9k5owbkRatvRT9SfwGBrZyQl6Aiusg9UEJqNR3845HeNgACvl
-         cvE5ijpeZYMmGD5Pc1FngokutHDkwHcR4jdhtKGWQqVr1x90YHpq+Vp4uZvAdQ3Dd94B
-         Fd2lgfR4caNT4ICLrgsEuB2TqH04Aws+aTrARp9jgtuACIaqBP2q/Bq6bs3zyPdix7Yg
-         rtDg==
-X-Gm-Message-State: AFq9FYLnMq+8x7aIHpzM+JZ8WFufQO8UP40VQZBfQxBVrEsQoYa2bV0W
-	qrKvHEOz1/114tk+k7Vo7XUYgC/02wm+2PxZHvBPnFXQtaZxsW0/BGR0
-X-Gm-Gg: AYBFou3qfFUwrCVVDwePi5WR7NzT8E+759NcpnQvc+tsVlSge854gPEniqEWPf1Hjb5
-	sc/jwf9J6F6lQUQ7uljItEclAwIRzwbyZwTrO0smG+YZ1rjpLAMCSgWgihClupitWk7JBX6bzhx
-	UFMmyT+WMTvoyvk5NtGdJTPuks28RwQ88bBDj2TXhSbQ6hCpY+2/YYog0sLRBdkjpOjLJrlUoUM
-	k/l5i6+2lBPtCoOftBbpJAJ3QbHTtGBCgSo4eBGuUXDqg2/4iyqrwFHWLZMCiVJeKB254SdM+XK
-	yH//znifkwE5MzGG/t64uceX/sNraCHzNp15SkrqA2kCT1ACfkVdu2zrTr1pCfmDaKKwYIvayq1
-	sl0u1LUv7qLsupiuu5T6+zxKvM4dSoiYmUSxlU4IND/66dalfmSJ3S0t5AsXeTiZLgzdtNaHyHo
-	b3SU02SDQfZlxb7xwbceKAy38+yVglO+b+4uXlWZWwujI4h/0U3mwXiUR2rnT2NQBTu6Cylfoc3
-	K75hw9jBZ0g/6rJqxTvh/8Nffk91xrzx86DGBENA2RxComZEbrJcB/lv1aTCnboe6gZmUHBxkMp
-	0l7cV0W5eTpeD4WfiWQ=
-X-Received: by 2002:a17:90b:4cd1:b0:3a8:1943:cb7a with SMTP id 98e67ed59e1d1-3adead44808mr7894909a91.18.1793117053971;
-        Tue, 27 Oct 2026 09:04:13 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb1e37esm8365129a91.4.2026.10.27.09.04.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 09:04:13 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	nphamcs@gmail.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	shikemeng@huaweicloud.com,
-	kasong@tencent.com,
-	linjh22s@gmail.com,
-	kunwu.chan@linux.dev,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	tglx@kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [RFC PATCH v3 02/18] mm/swap: slightly cleanup the code for hibernation error handling
-Date: Wed, 28 Oct 2026 00:03:47 +0800
-Message-ID: <098f63eaf6b12c7340d39cbfbff22678cdfbcb92.1793106426.git.lianux.mm@gmail.com>
-In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
-References: <cover.1793106426.git.lianux.mm@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OX/drPN7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A725D1F01825;
+	Tue, 27 Oct 2026 16:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793117083;
+	bh=YQ5YzK9S3F3vopcd3+xEFSFvk7QGHqKHI08GekIrR0k=;
+	h=From:Subject:Date:To:Cc;
+	b=OX/drPN7HlQ9Uit/6rGTX/QYS15LWnyLoKYOZTgHmEmqcyf/HHXLYPkDFwnk/mC6k
+	 Na2ZP1e2/Rj14easJefVCmWg1bkEgi92TxW5dXR6EQLskAD/IA2z2+mX6hiHGYbxZ1
+	 SQX67u4suXmD8sETbbAfbNhZHQTODKsFk3xDeUb0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 0/9] w1: a bunch of llm-found fixes
+Date: Tue, 27 Oct 2026 17:04:33 +0100
+Message-Id: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,109 +50,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrB1IQlHwKtKFTiZ1RK1kqhYkd
+ ze2y4/H+09QjsIKTXFC5F1U3kuGLQugoVtejOKzwRlXWeNqnKYZ8xJxFiU8LBKZEB7Bd7V3kG9
+ r5CDfX7J9/q1bPzJ97g6kdAEsAZqgdAAAAA==
+X-Change-ID: 20261027-llm-char-misc-w1-cc0ff4fda7d2
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1687;
+ i=gregkh@linuxfoundation.org; h=from:subject:message-id;
+ bh=YPpx9CFhYOlgSKUGxZJb7UAqna/NEsIdN4fmKeJirsQ=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPTk/jydLlXDRFmEe7P96puPO9OVPedW+9+o2M777se
+ msq+2dLRywLgyATg6yYIsuXbTxH91ccUvQytD0NM4eVCWQIAxenAEwkxYZhwaIPTtkSlyKKm6/d
+ VevbJ2nHucXcimGepUNBfF7fZ7lJbcfNfdaUs0Zrm/MBAA==
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-From: Kairui Song <kasong@tencent.com>
+Here's a series of some small llm-found fixes that have been sent to me
+recently.  Most of them are just minor bugfixes and locking cleanups,
+but they are good to have from what I can tell.
 
-Restructure the error paths in pin_hibernation_swap_type() using a
-goto out pattern to avoid repeated spin_unlock() calls and simplify
-the return flow.  Also simplify unpin_hibernation_swap_type() by
-making the si NULL check inline, and clean up find_first_swap() to
-avoid an early return inside the loop.
+Submitting them here to get a solid Sashiko run.  If they seem sane, and
+you want me to take these directly through my char-misc tree I can do
+that now, or I can gladly wait for you to resend them if you wish to do
+that instead.
 
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- mm/swapfile.c | 39 +++++++++++++++++----------------------
- 1 file changed, 17 insertions(+), 22 deletions(-)
+Josef Bacik (9):
+      w1: use the bus mutex for the "rw" file
+      w1: remove the master's files before taking its locks
+      w1: ds2482: set the strong pull-up with its byte
+      w1: ds28e04: use the bus mutex to talk on the bus
+      w1: ds2805: use the bus mutex to talk on the bus
+      w1: netlink: drop the slave after the bus is unlocked
+      w1: don't hold list_mutex while a slave is torn down
+      w1: w1_therm: lock the list of slaves for the bulk read
+      w1: w1_therm: leave the slaves of other families alone
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 7acb33cd8b71..cf8c0999655c 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -2279,21 +2279,18 @@ static int __find_hibernation_swap_type(dev_t device, sector_t offset)
-  */
- int pin_hibernation_swap_type(dev_t device, sector_t offset)
- {
--	int type;
-+	int ret;
- 	struct swap_info_struct *si;
- 
- 	spin_lock(&swap_lock);
-+	ret = __find_hibernation_swap_type(device, offset);
-+	if (ret < 0)
-+		goto out;
- 
--	type = __find_hibernation_swap_type(device, offset);
--	if (type < 0) {
--		spin_unlock(&swap_lock);
--		return type;
--	}
--
--	si = swap_type_to_info(type);
-+	si = swap_type_to_info(ret);
- 	if (WARN_ON_ONCE(!si)) {
--		spin_unlock(&swap_lock);
--		return -ENODEV;
-+		ret = -ENODEV;
-+		goto out;
- 	}
- 
- 	/*
-@@ -2302,14 +2299,15 @@ int pin_hibernation_swap_type(dev_t device, sector_t offset)
- 	 * the same session.
- 	 */
- 	if (WARN_ON_ONCE(si->flags & SWP_HIBERNATION)) {
--		spin_unlock(&swap_lock);
--		return -EBUSY;
-+		ret = -EBUSY;
-+		goto out;
- 	}
- 
- 	si->flags |= SWP_HIBERNATION;
- 
-+out:
- 	spin_unlock(&swap_lock);
--	return type;
-+	return ret;
- }
- 
- /**
-@@ -2389,11 +2387,8 @@ void unpin_hibernation_swap_type(int type)
- 
- 	spin_lock(&swap_lock);
- 	si = swap_type_to_info(type);
--	if (!si) {
--		spin_unlock(&swap_lock);
--		return;
--	}
--	si->flags &= ~SWP_HIBERNATION;
-+	if (si)
-+		si->flags &= ~SWP_HIBERNATION;
- 	spin_unlock(&swap_lock);
- }
- 
-@@ -2428,7 +2423,7 @@ int find_hibernation_swap_type(dev_t device, sector_t offset)
- 
- int find_first_swap(dev_t *device)
- {
--	int type;
-+	int type, ret = -ENODEV;
- 
- 	spin_lock(&swap_lock);
- 	for (type = 0; type < nr_swapfiles; type++) {
-@@ -2437,11 +2432,11 @@ int find_first_swap(dev_t *device)
- 		if (!(sis->flags & SWP_WRITEOK))
- 			continue;
- 		*device = sis->bdev->bd_dev;
--		spin_unlock(&swap_lock);
--		return type;
-+		ret = type;
-+		break;
- 	}
- 	spin_unlock(&swap_lock);
--	return -ENODEV;
-+	return ret;
- }
- 
- /*
+ drivers/w1/masters/ds2482.c    | 36 +++++++++++++++++++--------------
+ drivers/w1/slaves/w1_ds2805.c  |  8 ++++----
+ drivers/w1/slaves/w1_ds28e04.c | 18 ++++++++---------
+ drivers/w1/slaves/w1_therm.c   | 45 +++++++++++++++++++++++++++++-------------
+ drivers/w1/w1.c                | 21 +++++++++++++-------
+ drivers/w1/w1_int.c            |  8 +++++++-
+ drivers/w1/w1_netlink.c        |  8 +++++---
+ 7 files changed, 91 insertions(+), 53 deletions(-)
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261027-llm-char-misc-w1-cc0ff4fda7d2
+
+Best regards,
+--  
+Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
