@@ -1,104 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100748;
-	b=w99q10xueTHVZaoVqcMoC1KumIKI68y5qRpjsSVQTi3vu/DjV7tqwXW/gjd9xGeBVYzI
-	 lFToJqVVlNN9Mj4LnaUgy4ZgjtNje/EIzrsJhP7SlKap8nLHWkkvgzULdd8mQlEaVmL94
-	 TqdzIOkezrUbHvx0DygF4yLaskmKy/7PsGLXWAdcunx58XmORcj/HJBbSL6rWVMVT6jEu
-	 ta04ou7gtZkJnvmKZYK+vdpxh6UoCvxShREOgAPuH0byThShu+NmoFMe/Yi30onkGSvBI
-	 5Lp1EAHtOPZKvr2zW1sN4MqU/qAhOWJIAYiz0MAcIOCumG6Dh5miabdnkQ7hhLO0Csw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100748;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ux6eP3t7VSI3568gsE1O/iNxHFS4IfT8BFncNf1IQgc=;
-	b=0yRos5x4GS9QnGFjNrfNk7uU9Ci4NtAywQ3ct5ZObZqdytgcDa/Oem3oRoQG/gb9xfdD
-	 gfip9TXfmXs8dMMdhrHx1nk7U4Ga1eReLU/ToM11Nht7zYAw/P9++x1r896t3UCYBOJlu
-	 IWE2HZdf43eDSx6OeWvcsGUasgUKhrCkRKiEPNH6jhnv1c+IX+TeYEf+gT5NYFt/WjQ8p
-	 eWvC7qxvxwHwp0mH/XJ+DhfUoCIEcKpR9OOeyfQpj5Tuu5jYmmMIR6C2PE+r+1MUuN3Ae
-	 UVupNYg6Nt/wQs4Ws7oVStgDeynA2q+cF3VEsSf2SGjdR2/gyv29DiGd5N8eEfvp2pw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U6KSHSSi;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793100743;
+	b=2T/77sPllX1hMgCgLlOEXLsmQE38V/BjuS70umVSq5IsZEA3LfT1iQYH8EmMbU0ExuJK
+	 xVf9T1EIMs8cAqPZX8kcTmpE/SzMwCP0+dK+rWRBDbAMY4DjwtD9gmJJsbvG8vJ82Kmpt
+	 ZS3B3oJjgmbss0ovp2i8fnJ5pOlMCfaqQNTmZrID0TPfoeSE6vs6k07K39PYXGlZMTtFe
+	 6jWYYcB8piPAVSe2XzcjM3kQsZor/koKTtRfxopxLqUn8DidBz9sq2kmERyySthxtpeIF
+	 8bI4sTUh5n+2SF2ojPfgnzzat7/KbdbPUYwYnBTMpvNebQm0/tjxm23/GDE3zRDnDiA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100743;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
+	 References:In-Reply-To:To:CC:X-Mailer:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6OI=;
+	b=C+6FHZm4XyISZbbcWKedgW44clLJEdtnoBRYltgu/DQAhiplJi7RgyAW8fVGE1VjGssK
+	 YYMXmkkDlX1+/C6gs6wAkzjQ9FhgsLbJEftlKYZbnFqpxcIfytKRW2BtG1MsisPO7mbrL
+	 Skaxk2rvbSt2cpFrcEq/JJ0iW/AL/Yz0ojuY/kLeAh9uDke4YGKYbL884tNTm4Vek/txd
+	 9iLyRmi5gL+//NrS5tNvErUzFsajn7gItGNPZFzleFTgXjz9uR72a6pQat/wVVb/aHO7d
+	 NZ9oy4mysvbRFiSHGPHKs1EdzYldAnnJo1MHzMx/A1gqCQqbM2kfEku88f9lEd0AxdA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Wt9JXQWM;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=VI0aVh5q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F243E606A331
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F243E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF4F606A33D;
+	Tue, 27 Oct 2026 11:32:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EF4F606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U6KSHSSi
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc758830601so2471749a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:32:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Wt9JXQWM;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=VI0aVh5q
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69RBCx293385590;
+	Tue, 27 Oct 2026 06:32:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6
+	OI=; b=Wt9JXQWMF+ib813o76h/o42x0cawL5w1YxCpyFw0Lh7vjYiIYu3HUzPof
+	atkpQ/AMVIbk4YP2UgYzboVA+50n+AibUyULDdS6fCtC21IOW7MxW2xPDFf4M6TT
+	lT0ZIZ0R0rajiciLZ2jA6bv+YDHWY/BLBJvgkd8mn2e3WZy3rGSMdFdDr/jGlwhA
+	C00U1nyhl63o/sQ8bxtZuo5My6zHlSaWNl4aRteiv9UtvqTcvxumY/a6yyttgB5t
+	lzvL7ke6sylr5X2IKB3ctrMoWeUPuhgsMSzFD3up2X2zwww8NYZU21BMe/MWTCy8
+	6drUrpVSvHUmQQdJx5phGhge1kA1A==
+Received: from ph8pr06cu001.outbound.protection.outlook.com (mail-westus3azon11012039.outbound.protection.outlook.com [40.107.209.39])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4hjtvxg3bf-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 06:32:10 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RlR//QuUPPYgErk9pdQBRsf+IUjpqH8wAz7N/BlUxXO5UxAYaXNXiV4t8zdIxUfAUsH6La4brwPt9LWgfKeHtjjnm0fqGFgsdiBn8crpQEr3qg64DhECEMubydAk1ZGiGvrqRnb74uKAzYpbUFrpBAJFSS4bvIlxrn2xLH0tq7iNTf0xrGkxiOw13gJhGb7/71Hw6nJsmZXdX1vy7neYakXkxURCgBGKZaw7VgrlmRrmCqOSKfxNN4grbr/O+EpIze85u0vfa5g0jDAbisM7ge4CCLcU/HerbB4zQr19fm56Tg1IFGxJrtwSV47N7ooUb1wamCG2zEZTbivtgaTJAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6OI=;
+ b=hSRPAxCay6TKUQxQZJKJHsNWsKb1vElkUNYsNs8SIYwUL2EmPldtWJRnyPdWAv5XzTXku2j36P5KLi6iteVIBwbd3p5T17lg8uEb/AUDFhNaZQFaw7+jIFzBip81+/Ukfxdej07fuX7AS99byH8/15DlBLNH9zeBiOebLiGQUDL84WzVwRV23xUeyYPjbMw/OcS7V3kyfDLs7y8DeOdJ4ZTCMy88l0b937YPnCU/Gl3yLJRc8se0oWo139A1DjW+m+V1xJzMEMdyyxXCM2z6sZiPF5H2N2BKuhPUfozqmYQ078XI7lsuXzHbObMfTQyX3/XvD8ghbPHGtFNQ93lirA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793100745; x=1793705545; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ux6eP3t7VSI3568gsE1O/iNxHFS4IfT8BFncNf1IQgc=;
-        b=U6KSHSSip4zkLKFFlpAl3z2WrjeJks57vL77EThgap7ECCmqqmQbBOrhQGOV9zAybc
-         mtlcyHqLRiHNnrF4DqTbo49LMdWYyhbM2XAWe30WRdDO0PjL8YmC2neq51kxfV4BJmk7
-         ogLN6acnwpsqAXfPtYFGzkjYPpq1t9fulcDIKDYmfgYPpZrsMiNF8QAF4VP6NfxkMOS+
-         MgHAz7uuCDuheEIQw7UqgXDMPciT8PJDh2zOIyTrEA7dSTgJTTqJZST+5ow9SLzkfhrz
-         Jxl9a4c85dj5C7Tv2/hVIUV7mtW7e4GcbB37Ht23d9wTcA9PeRB5pdigHgiAaD2l6j/2
-         +vcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793100745; x=1793705545;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ux6eP3t7VSI3568gsE1O/iNxHFS4IfT8BFncNf1IQgc=;
-        b=wy9jOsX9KmgqmBoTdVKcniriI7zrJS0qwk7XGpoJgpA1kT8nxjlmt55k7rqVlseovo
-         v6IeeMoyqHRYGcBdcj52rFxyt5NO/6eHWYQK3hy+/GFxj0Y9ehBXtF2rnXiSJMayoU6q
-         oUlqtHSZzB0AOqqxvsCDyWYv3RU+4vH8FrLKKX93y4080H0V7S5kn8D7UpMUUX1oY/0L
-         gVhMuNGpOwAmWKxs3dIbFLIbKTLOTK6ZkZTJNHLKvE3Ru/3K1zpUe0meO6rJ2Y350SWp
-         1o143dunSPRk2+N2wg+8EvZc8tyv5v3gI7sfyIAIxqQQ58vZXgvVNph/9epKBKpp7xva
-         1r4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzy3oId2V7CcYoEc526jLWE/qi6Te3Txq8S6gJEQ295OqkKrEY20zb59SP872y1593x+V9KMCXA8AKw6XU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpTZWolD8EWlpIHNDRecalUvumPWGdoq+lwrHpLyAurylDdzdp
-	xxLAKVll8DYeD/R6t8/gtMOYcNFBDEVqib5KE13yn7sEDRTTt1qSXl8E
-X-Gm-Gg: AYBFou0vSGK5Cxl6Mfcx/FiLeZruPvMjweleyAW86Jg4JdRRTbRUMg4sHzLFQIzvJVn
-	elbg1SvGsVFJVZYpti5Gqat0goWDlSHfRZs/ha13fS7KCv0v1St8UoaZ7Gfc7ssnvOTZIt3ps7z
-	SFNV8gtxbdsZdPmQgPAYKMvhZpfaHO/UNlvK4wbXr8oA/jBPVwHDRM1pOFXc6Bcv3OqAzRhxr0t
-	subVpqM2s79Grj23tej/BwemyG0FaV/9FVs4rHknEDfaaw1YGxDbACH/tjhlppfWNCpiT5LAPLy
-	l3NNkn4459zS0czgspQDI8HESW+qcaU1Ucgt2kj0XjJJGpxJmYSvilASMdJsFlOJPiFkUVKybWx
-	gGer4fpZajYZoKXT9T6kMpflUVimN5ukgUmtr7lRtjoRCAvppVywIkGYkHEiQnAw2qQo6ojh7Go
-	wtu2KP0gGri0RyKyoJDxpRZ3nBwhi7TaarVy8ebrfPbrY0Dzk00y5YhLA/iwwEKwYeuHqzsExye
-	HrvItxVveXK2hu1tahNOp15D23eiDaxx9yVyuGt37YbJHAYaf0bBq5dh9+8+/b3r4Er/luMNg45
-	0NsoapQ3xHd3pDt8idg1uYsEzbUNXtpRrS37nBgGFq7yLVIENVOSCisxw3K7F9RCuwIAryYNRXE
-	=
-X-Received: by 2002:a17:90b:440d:b0:3ac:bc3d:6fe5 with SMTP id 98e67ed59e1d1-3ade9b2f1bcmr8265326a91.7.1793100744175;
-        Tue, 27 Oct 2026 04:32:24 -0700 (PDT)
-Received: from cachyos (2a01cb0c82caf900a186612f304bfea5.ipv6.abo.wanadoo.fr. [2a01:cb0c:82ca:f900:a186:612f:304b:fea5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4041fafcsm4523962a91.0.2026.10.27.04.32.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 04:32:23 -0700 (PDT)
-From: =?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-usb@vger.kernel.org,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	=?UTF-8?q?Isma=C3=AFl=20Bahloul?= <i.bahloul01@gmail.com>,
-	David Fredman <davfre@gmail.com>
-Subject: [PATCH v7 1/8] ALSA: usb: add RME Babyface Pro driver core (probe, PCM stream)
-Date: Tue, 27 Oct 2026 12:31:32 +0100
-Message-ID: <20261027113140.134257-2-i.bahloul01@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027113140.134257-1-i.bahloul01@gmail.com>
-References: <20261027113140.134257-1-i.bahloul01@gmail.com>
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5sKrFo0almOAgVfjQrFbiR7fF0bHyQAGhl3e1nPZ6OI=;
+ b=VI0aVh5q7T23NFTBsn42RVCxm5N275UpDA8rWb9px63FqHIU6JQsgFCs6eJpeue8RQM/zMHnY4SiaG85zihqUJ5VGUme+zPSKv2T6WjlNIJ2DwtV+8WF34jNIvXY85AiTmmI1fctblMOqRcfXUZ2//rgUbWxjtCmef/IvhcZyFg=
+Received: from CH0PR03CA0093.namprd03.prod.outlook.com (2603:10b6:610:cd::8)
+ by DS7PR10MB7321.namprd10.prod.outlook.com (2603:10b6:8:e5::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 11:32:04 +0000
+Received: from CH3PEPF00024580.namprd04.prod.outlook.com
+ (2603:10b6:610:cd:cafe::1) by CH0PR03CA0093.outlook.office365.com
+ (2603:10b6:610:cd::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
+ 27 Oct 2026 11:32:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CH3PEPF00024580.mail.protection.outlook.com (10.167.252.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 11:32:02 +0000
+Received: from DFLE206.ent.ti.com (10.64.6.64) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
+ 2026 06:31:20 -0500
+Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
+ 2026 06:31:20 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 27 Oct 2026 06:31:20 -0500
+Received: from psdkl-workstation0.dhcp.ti.com (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69RBVAHT1817461;
+	Tue, 27 Oct 2026 06:31:17 -0500
+From: Aniket Limaye <a-limaye@ti.com>
+Date: Tue, 27 Oct 2026 17:00:36 +0530
+Subject: [PATCH v4 2/2] i2c: Add Synopsys Advanced I2C (DWC_i2c) driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,1883 +133,1490 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261027-tda54-upstream-i2c-v4-2-ebeeaf87d181@ti.com>
+References: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
+In-Reply-To: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>
+CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Aniket Limaye <a-limaye@ti.com>,
+        <lianfeng.ouyang@starfivetech.com>
+X-Mailer: b4 0.14.3
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00024580:EE_|DS7PR10MB7321:EE_
+X-MS-Office365-Filtering-Correlation-Id: be04997f-6352-4444-701b-08df341debf1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|6133799003|18002099003|22082099003|261026140227099003|261026130827099003|3023799007|13003099007|56012099006|5023799004|261021123027099003|10067099003|261021121427099003|261021130227099003|261009223327099003|261009220027099003|261022113327099003|261022115727099003|261009221227099003|261022105027099003|261021135927099003|261009221727099003|261022075727099003|261009223027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	5wiKMWKWhd+QYPB+8qZIbAjzIyg7/ZbeXGaAwnxLfQNKmlZrGJ8mat0Ip+pRqsknT0c02IQGGjMX+yxvvbsiOGiaK0e7gJgj3M6p7hS9wcm1L4zlId6ly7qyp6h5iPo5SUEaXJCZwNPjZ6co19wlUbXddxAZYjfucdtHYvr7WZYm9sfem7UaewpxKdUYh2wCsk0qYFzH0tyKUnI6bF4IUaRJ6aOaRbSTz73P/lOzYy7aMFEFDH2LIojaN/Wc75mw0MloZzNYHN2vW0xEee+7V/5sqeBH5DJSt2JeAMjcB4Yoa7l9oJRnMWrv2y201aN1GSAJL7ORA3+eDpPo1uKCO1aRNG6VsK43m+cCSMISlDKGlkl3zqBwDcmt+NW5DYPChkhKAVztruI8o1hlo7PSZFDD6Kh2sPMbfIqhpjTwlobzTW3tKuZ3idFz3ktxLxXkXhYPG/5ilNd532SXS8+FP7KxyHj024xPTjKvzoGxUGEzUJq6JV2foYo6Myp6/aKFqHvbznSma0oYy04FaurNX5ehwe9gAsvTuN3rMCN5SZqEHrKntEndT3qU84Dc+LtcokKyx3QDji6S0b/QF7aMViOo7ypjwVcqeflM4s+HxqC13oZFbI0Sv5fIGcykvSLooW3NYafo0jpdjg6zmufRHA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(6133799003)(18002099003)(22082099003)(261026140227099003)(261026130827099003)(3023799007)(13003099007)(56012099006)(5023799004)(261021123027099003)(10067099003)(261021121427099003)(261021130227099003)(261009223327099003)(261009220027099003)(261022113327099003)(261022115727099003)(261009221227099003)(261022105027099003)(261021135927099003)(261009221727099003)(261022075727099003)(261009223027099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	F2P3sg3T3MiYj3S5x8JxTS22VKYSFUvkZZ7P47qSzWCAKOdGkv5VXMgHE8eI8SrJMga9pHmqnvVukyik5qjLWLOO5VzfIz9CxIAh171A0izWorKDqhBHb0zo3+7oEixvwYv8VKxyqHtxoE20Lexm1tzSOple93oIaFANXvwzL7XazK/y39C+U+zZUKpqzRbWw0h6xYDglG9NZqFQqFZLqx7BcP8UZG8ppTsNnKmeSxzSDjgHRUmG83jdkHBqYTP39dp/mMnCmqEL5O0tISX6r2hjWlg6ZJa1OQbK4bc/JqrVaEhBgyN1mqIE59ED6gdcrJT1xaTOOMv/arqO2rJ0Af3GLLOnACcu8EW+HIQZsljf7Ma0Tr/VuGeGQwOLvVefd0n3npeqmhwZeTFXje5HwrxmVxyrMHHk5OgpZ5iAy8+Wn8hZaYdHInHWtYCiPezn
+X-Exchange-RoutingPolicyChecked:
+	bM1dzYLF0whNQ+jhdLu3cBZaRKiQvzBOJSvh47DUVNuPr6FL4v4ZQsd20Pl/JcGXjhZPVVYiTS9WmkiFMbTvjQT4RKRPDY9EnlMHUVYomRP2ffkUcRbjFo5hRDBSKiBnb3J65EE1W1r1zFsvHupd+dewJEuv2pigHfODVZBx/PsklsuSobFQr+Q/HOQOIkWFH+YA8/bC4eP4rWI8AWdVvrLumBOFRBy4mFT6K4d2z49vqXXJSUavYKp64Sh54Ahf2aHLZw/qZfRuTw5rkz+eVb2se0l3sVy/jzGVi8I0RcumiQxmauF8T9CeHNVmctxBMlQHZWLhvAzsuFLXLCPLJw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:32:02.6091
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: be04997f-6352-4444-701b-08df341debf1
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00024580.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB7321
+X-Proofpoint-ORIG-GUID: lRJ4fkV1X88ZXaa94eanyxRUiD0APT1W
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX/N4fvdotKMTf
+ 9T+4xSMLusQc+ia69qrf3mxhUTJSjVCelzWDacHrhPM+CgVpp9x++rMrJvQbYlPWOpAc+hHRYFT
+ X0T2fUFQ/ho9GcvdvHYDoIrnxxFe4Lk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX73+huRtrXpme
+ 9DqrQJe6z5qtGyATYcifNf1G8Mvr71qtvu35GgsrQTrOhhpztzOlxuDit3Hrfrwty0QtpDgwLwV
+ Z3yF5/VXHLc+P7bw2vvf4vEKGmULC5BUCBJYItABzEkljTautJGj3Kw0TQFnR8KS942MGmFyYt1
+ 8AviUnSht1OZb2YxzSh6TNp8DiGiXcI5VQwpH5u7F54X8ztp2giDKKy/wefypHKAf8xKeJxKRPs
+ R4IrUHKRJ2dAWGay7T7WB7pk8EKY1omlhcHLfaHjt+KgJfzaKWWoF5pceHNm4mL0lbaPc0i6LMU
+ okS+O/805O9qw9M/+Y9yhirUcvtuKo+0kMyR1nnPGetBxPLY/OkvZXftykghLLk3pSWlnjOyYw2
+ pCkzzJ1+l+ZEOkef5WTY179SP09oXvp3+TvHIDU7dQVnVW/1LkDJnB+5XPRemABGqy+GcZFwBuN
+ zNO+zVo3D2KUr45UPvw==
+X-Proofpoint-GUID: lRJ4fkV1X88ZXaa94eanyxRUiD0APT1W
+X-Authority-Analysis: v=2.4 cv=dOwzC+Zb c=1 sm=1 tr=0 ts=6ae08bba cx=c_pps
+ a=c8ROGaHEYT5V2SXoku0acA==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=WsEqZR2ZYLAr1KTuRVEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 suspectscore=0 impostorscore=0 adultscore=0
+ clxscore=1011 priorityscore=1501 bulkscore=0 lowpriorityscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270045
 
-The RME Babyface Pro and Babyface Pro FS have a proprietary USB mode
-(VID 0x2a39, PID 0x3fc0), the one RME's own drivers use.  Its PCM
-stream runs on the interrupt endpoints of interface 5, which
-snd-usb-audio has no path for, so this is a standalone driver in the
-style of snd-usb-caiaq.
+Add a new platform driver for the Synopsys Advanced I2C (DWC_i2c),
+controller mode only.
 
-This first patch covers the card lifecycle and the PCM stream only.
-Probe runs the device's cold-start init; the full-duplex stream runs on
-interrupt URBs submitted in IN/OUT pairs, since the device only
-advances the stream while both directions have a URB pending.
+The register offsets are defined with respect to header registers for
+each block. These header registers are discovered at runtime by walking
+the block header chain.
 
-The sample rate is the family register (request 0x10, index 0x0030:
-the 32k/44.1k/48k family) with SET_INTERFACE(5, alt) selecting the
-x1/x2/x4 speed on top of it; the 0x1B DDS quad is varispeed, a ratio
-applied on top of the family rate.  Both directions share one clock,
-so while another application has the other direction set up it is
-offered that rate alone, and a period no shorter than the running
-session's, rather than retuning the device under its stream; the
-application that holds both directions may change the rate or the
-buffer size itself, as a DAW does from its settings, and the direction
-it left running stops with an xrun and is set up again.
+Signed-off-by: Aniket Limaye <a-limaye@ti.com>
 
-A stream session lives from the first prepare to the last hw_free:
-hw_params counts a substream, prepare starts the session if it is
-down, trigger START/STOP only decides whether the URB handlers move
-that substream's audio (the URBs keep running, carrying silence), and
-an xrun restart keeps the session.  A session start sends what the RME
-Windows driver sends - the rate write, the trigger pair, the URBs and
-the arm - and first waits until 50 ms have passed since the previous
-session stopped: a session triggered within about 15 ms of the last one
-comes up with the outputs silent.  After three consecutive bad URBs the
-handlers stop resubmitting and the substreams get an xrun.
-
-The size of the URBs follows the period the application asks for, so
-the latency follows its buffer instead of a fixed queue: hw_params
-splits the period into the fewest URBs of at most frames_per_urb frames
-(256 by default), each a whole number of the device's IN packets and
-not below urb_frames_min (32), and keeps two periods in flight, at most
-nurbs (8).  The three are load-time limits.
-
-The URB handlers copy to and from the ring the core allocates and take
-the application's position from the shared control page, so the ring
-is offered for mmap access as well, which JACK needs.  runtime->delay
-reports the audio queued in the URBs and, per speed, the fixed delay
-of the converters and of the device, so that an application that uses
-ALSA directly can line up what it records.
-
-The playback handler copies the ring as it is and moves the pointer on
-by the whole URB, as a DMA engine would; whether the application has
-written every frame is the PCM core's business, whose xrun check and
-stop threshold handle an underrun.  Clamping the copy to the frames the
-application had written kept the pointer still for an application that
-runs the stream free, which is how dmix drives the hardware PCM, so
-dmix played silence.
-
-Capture exposes the device's twelve input words in the device's own
-order, one channel per word: AN1-4, AS1/2, then ADAT3-8.  AS1/2 is the
-first optical pair, so it carries ADAT 1/2 when the input receives
-ADAT and S/PDIF when it receives S/PDIF; the other six are named
-ADAT3-8 for that reason.  At 96/192 kHz the frame has 10/8 words and
-the channels past them read zero.
-
-USB autosuspend is disabled.
-
-Co-developed-by: David Fredman <davfre@gmail.com>
-Signed-off-by: David Fredman <davfre@gmail.com>
-Signed-off-by: Ismaïl Bahloul <i.bahloul01@gmail.com>
 ---
- MAINTAINERS                         |    6 +
- sound/usb/Kconfig                   |   17 +
- sound/usb/Makefile                  |    2 +-
- sound/usb/babyfacepro/Makefile      |    4 +
- sound/usb/babyfacepro/babyfacepro.c | 1530 +++++++++++++++++++++++++++
- sound/usb/babyfacepro/babyfacepro.h |  187 ++++
- 6 files changed, 1745 insertions(+), 1 deletion(-)
- create mode 100644 sound/usb/babyfacepro/Makefile
- create mode 100644 sound/usb/babyfacepro/babyfacepro.c
- create mode 100644 sound/usb/babyfacepro/babyfacepro.h
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fcff12847..378f528c6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24246,6 +24246,12 @@ F:	include/dt-bindings/power/thead,th1520-power.h
- F:	include/dt-bindings/reset/thead,th1520-reset.h
- F:	include/linux/firmware/thead/thead,th1520-aon.h
+Changes in v4:
+- Drop the approach of extending the existing i2c-designware-* driver
+  with a MODEL_TI_TDA54 variant. Instead, add a new standalone driver
+  (i2c-dwc-adv.c) and a new binding (snps,dwc-adv-i2c.yaml), since
+  DWC_i2c is not register compatible with DW_apb_i2c. (Andy Shevchenko)
+- Drop the snps,tx-fifo-depth/snps,rx-fifo-depth DT properties from
+  the new binding; FIFO depth is now tied to the compatible string via
+  driver match data instead. (Conor Dooley)
+- Link to v3: https://lore.kernel.org/all/20260925-tda54-upstream-i2c-v3-2-544d74e992ff@ti.com/
+
+Changes in v3:
+- Revert to special handling for the max_register in regmap for
+  MODEL_AMD_NAVI_GPU instead of unconditionally including
+  AMD_UCSI_INTR_REG in the legal regmap range.
+- Link to v2: https://lore.kernel.org/all/20260925-tda54-upstream-i2c-v2-2-261785e58493@ti.com/
+
+Changes in v2:
+- Move the Reg ID -> Offset mapping inside the regmap functions such
+  that existing calls to reg_read/write are unaltered. This does change
+  the reg_read()/reg_write() functions to take reg IDs as input rather
+  than their physical offsets, which also requires updates to the
+  xe_i2c.c driver to handle the same mapping.
+- Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-2-b0b9f77be18b@ti.com/
+---
+ drivers/i2c/busses/Kconfig       |   11 +
+ drivers/i2c/busses/Makefile      |    1 +
+ drivers/i2c/busses/i2c-dwc-adv.c | 1333 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 1345 insertions(+)
+
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index 275aaa7f3583..ea91221638e8 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -649,6 +649,17 @@ config I2C_DIGICOLOR
+ 	  This driver can also be built as a module.  If so, the module
+ 	  will be called i2c-digicolor.
  
-+RME BABYFACE PRO DRIVER (PROPRIETARY MODE)
-+M:	Ismaïl Bahloul <i.bahloul01@gmail.com>
-+L:	linux-sound@vger.kernel.org
-+S:	Maintained
-+F:	sound/usb/babyfacepro/
-+
- RNBD BLOCK DRIVERS
- M:	Md. Haris Iqbal <haris.iqbal@ionos.com>
- M:	Jack Wang <jinpu.wang@ionos.com>
-diff --git a/sound/usb/Kconfig b/sound/usb/Kconfig
-index b4588915e..51772412a 100644
---- a/sound/usb/Kconfig
-+++ b/sound/usb/Kconfig
-@@ -204,6 +204,23 @@ config SND_USB_AUDIO_QMI
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called snd-usb-audio-qmi.
- 
-+config SND_USB_BABYFACE_PRO
-+	tristate "RME Babyface Pro / Pro FS (proprietary mode)"
-+	select SND_PCM
++config I2C_DWC_ADV
++	tristate "Synopsys Advanced I2C (DWC_i2c) driver"
++	depends on ARCH_K3 || COMPILE_TEST
 +	help
-+	  Say Y here to include support for the RME Babyface Pro and
-+	  Babyface Pro FS in their proprietary mode (VID 0x2a39,
-+	  PID 0x3fc0).  The two models share the same USB IDs and
-+	  descriptors and are handled identically.
++	  If you say yes to this option, support will be included for the
++	  Synopsys Advanced I2C controller (DWC_i2c) driver. Only controller
++	  mode is supported.
 +
-+	  The proprietary mode streams PCM over interrupt endpoints
-+	  (interface 5, ep 0x01/0x82) instead of the class-compliant
-+	  isochronous path handled by snd-usb-audio, so this driver is
-+	  standalone (snd-usb-caiaq-style interrupt streaming).
++	  This driver can also be built as a module.  If so, the module
++	  will be called i2c-dwc-adv.
 +
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called snd-usb-babyface-pro.
-+
- source "sound/usb/line6/Kconfig"
- 
- endif	# SND_USB
-diff --git a/sound/usb/Makefile b/sound/usb/Makefile
-index 2e842dcc7..5a5ef7d88 100644
---- a/sound/usb/Makefile
-+++ b/sound/usb/Makefile
-@@ -36,5 +36,5 @@ obj-$(CONFIG_SND_USB_UA101) += snd-usbmidi-lib.o
- obj-$(CONFIG_SND_USB_USX2Y) += snd-usbmidi-lib.o
- obj-$(CONFIG_SND_USB_US122L) += snd-usbmidi-lib.o
- 
--obj-$(CONFIG_SND) += misc/ usx2y/ caiaq/ 6fire/ hiface/ bcd2000/ qcom/
-+obj-$(CONFIG_SND) += misc/ usx2y/ caiaq/ 6fire/ hiface/ bcd2000/ qcom/ babyfacepro/
- obj-$(CONFIG_SND_USB_LINE6)	+= line6/
-diff --git a/sound/usb/babyfacepro/Makefile b/sound/usb/babyfacepro/Makefile
+ config I2C_EG20T
+ 	tristate "Intel EG20T PCH/LAPIS Semicon IOH(ML7213/ML7223/ML7831) I2C"
+ 	depends on PCI && (X86_32 || MIPS || COMPILE_TEST)
+diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
+index e5440de0fe14..bf710baa9c11 100644
+--- a/drivers/i2c/busses/Makefile
++++ b/drivers/i2c/busses/Makefile
+@@ -62,6 +62,7 @@ obj-$(CONFIG_I2C_DESIGNWARE_AMDISP) += i2c-designware-amdisp.o
+ obj-$(CONFIG_I2C_DESIGNWARE_PCI)			+= i2c-designware-pci.o
+ i2c-designware-pci-y					:= i2c-designware-pcidrv.o
+ obj-$(CONFIG_I2C_DIGICOLOR)	+= i2c-digicolor.o
++obj-$(CONFIG_I2C_DWC_ADV)	+= i2c-dwc-adv.o
+ obj-$(CONFIG_I2C_EG20T)		+= i2c-eg20t.o
+ obj-$(CONFIG_I2C_EMEV2)		+= i2c-emev2.o
+ obj-$(CONFIG_I2C_EXYNOS5)	+= i2c-exynos5.o
+diff --git a/drivers/i2c/busses/i2c-dwc-adv.c b/drivers/i2c/busses/i2c-dwc-adv.c
 new file mode 100644
-index 000000000..5adc6d474
+index 000000000000..1c5b7b154bed
 --- /dev/null
-+++ b/sound/usb/babyfacepro/Makefile
-@@ -0,0 +1,4 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+snd-usb-babyface-pro-y := babyfacepro.o
-+
-+obj-$(CONFIG_SND_USB_BABYFACE_PRO) += snd-usb-babyface-pro.o
-diff --git a/sound/usb/babyfacepro/babyfacepro.c b/sound/usb/babyfacepro/babyfacepro.c
-new file mode 100644
-index 000000000..81a371462
---- /dev/null
-+++ b/sound/usb/babyfacepro/babyfacepro.c
-@@ -0,0 +1,1530 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/drivers/i2c/busses/i2c-dwc-adv.c
+@@ -0,0 +1,1333 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
-+ * RME Babyface Pro / Pro FS - proprietary-mode USB audio driver
++ * Synopsys Advanced I2C (DWC_i2c) controller driver
 + *
-+ * Core driver: USB vendor requests + cold init, interrupt-URB PCM
-+ * streaming, and the card lifecycle (probe/disconnect/module entry).
++ * Based on the Synopsys DesignWare I2C adapter driver (i2c-designware-*),
++ * which is based on the TI DAVINCI I2C adapter driver.
 + *
-+ * See babyfacepro.h for the shared device state and register map.
++ * Copyright (C) 2006 Texas Instruments.
++ * Copyright (C) 2007 MontaVista Software Inc.
++ * Copyright (C) 2009 Provigent Ltd.
++ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
 + */
++
++#include <linux/array_size.h>
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/completion.h>
 +#include <linux/delay.h>
++#include <linux/err.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/math.h>
 +#include <linux/math64.h>
++#include <linux/minmax.h>
++#include <linux/mod_devicetable.h>
 +#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/rcupdate.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include <linux/unaligned.h>
-+#include <linux/usb.h>
-+#include <linux/workqueue.h>
-+#include <sound/core.h>
-+#include <sound/initval.h>
-+#include <sound/pcm.h>
++#include <linux/pinctrl/consumer.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/property.h>
++#include <linux/reset.h>
++#include <linux/units.h>
 +
-+#include "babyfacepro.h"
++#define DWC_ADV_I2C_OP_ENABLE			0x04
++#define DWC_ADV_I2C_OP_I2C_CAPABILITIES		0x10
++#define DWC_ADV_I2C_OP_I2C_CAPABILITIES_LOADING_400	BIT(3)
++#define DWC_ADV_I2C_OP_I2C_BLOCK_OFFSET		0x14
 +
-+/* rate = family_base << (alt - 1): three rate families (32k / 44.1k /
-+ * 48k), three interface speeds.  Measured on hardware, all nine rates,
-+ * through the family register alone (2026-09-16).
-+ *
-+ * 64 kHz is the 32 kHz family at x2, not a 64 kHz base at x1.  Both clock
-+ * 64 kHz at pitch 0, but a 64 kHz base on alt 1 needs 64000 x 56 B =
-+ * 3584 kB/s, which is exactly alt 1's 448-byte packet ceiling: any
-+ * positive varispeed then runs off the end of the bus, and the device
-+ * delivers the mirrored rate instead (asked +5 %, got -5 %).  At x2 the
-+ * frame is 40 B, so the same 64 kHz costs 2560 kB/s against a 5120 kB/s
-+ * ceiling.  Same reasoning puts 128 kHz on alt 3 rather than alt 2.
-+ */
-+static const struct bf_rate bf_rates[] = {
-+	{  32000, BF_ALT_1, 56,  8 },
-+	{  44100, BF_ALT_1, 56,  8 },
-+	{  48000, BF_ALT_1, 56,  8 },
-+	{  64000, BF_ALT_2, 40, 16 },
-+	{  88200, BF_ALT_2, 40, 16 },
-+	{  96000, BF_ALT_2, 40, 16 },
-+	{ 128000, BF_ALT_3, 32, 32 },
-+	{ 176400, BF_ALT_3, 32, 32 },
-+	{ 192000, BF_ALT_3, 32, 32 },
++#define DWC_ADV_I2C_HEADER_ID			GENMASK(7, 0)
++#define DWC_ADV_I2C_HEADER_LENGTH		GENMASK(23, 8)
++#define DWC_ADV_I2C_HEADER_ID_CORE		0xa1
++#define DWC_ADV_I2C_HEADER_ID_TIMING		0xa2
++#define DWC_ADV_I2C_HEADER_ID_FIFO		0xa3
++#define DWC_ADV_I2C_HEADER_ID_INTR_DEBUG	0xa4
++#define DWC_ADV_I2C_HEADER_ID_HWID		0xa5
++
++#define DWC_ADV_I2C_CORE_CON			0x04
++#define DWC_ADV_I2C_CORE_TAR			0x08
++
++#define DWC_ADV_I2C_TIMING_HCNT			0x08
++#define DWC_ADV_I2C_TIMING_LCNT			0x0c
++#define DWC_ADV_I2C_TIMING_HS_HCNT		0x10
++#define DWC_ADV_I2C_TIMING_HS_LCNT		0x14
++#define DWC_ADV_I2C_TIMING_SDA_HOLD		0x18
++
++#define DWC_ADV_I2C_FIFO_DATA_CMD		0x04
++#define DWC_ADV_I2C_FIFO_RX_TL			0x08
++#define DWC_ADV_I2C_FIFO_TX_TL			0x0c
++
++#define DWC_ADV_I2C_INTR_INTR_STAT		0x04
++#define DWC_ADV_I2C_INTR_INTR_MASK		0x08
++#define DWC_ADV_I2C_INTR_RAW_INTR_STAT		0x0c
++#define DWC_ADV_I2C_INTR_CLR_INTR		0x10
++#define DWC_ADV_I2C_INTR_ENABLE_STATUS		0x14
++#define DWC_ADV_I2C_INTR_TX_ABRT_SOURCE		0x18
++#define DWC_ADV_I2C_INTR_STATUS			0x1c
++#define DWC_ADV_I2C_INTR_TXFLR			0x20
++#define DWC_ADV_I2C_INTR_RXFLR			0x24
++
++#define DWC_ADV_I2C_HWID_COMP_TYPE		0x0c
++#define DWC_ADV_I2C_COMP_TYPE_VALUE		0x44570140
++
++#define DWC_ADV_I2C_CON_CONTROLLER		BIT(0)
++#define DWC_ADV_I2C_CON_SPEED_MASK		GENMASK(5, 4)
++#define DWC_ADV_I2C_CON_SPEED_STD		BIT(4)
++#define DWC_ADV_I2C_CON_SPEED_FAST		BIT(5)
++#define DWC_ADV_I2C_CON_SPEED_HIGH		(BIT(4) | BIT(5))
++#define DWC_ADV_I2C_CON_10BITADDR_CTRLR		BIT(9)
++
++#define DWC_ADV_I2C_TAR_10BITADDR_CTRLR		BIT(12)
++
++#define DWC_ADV_I2C_DATA_CMD_DAT		GENMASK(7, 0)
++#define DWC_ADV_I2C_DATA_CMD_READ		BIT(8)
++#define DWC_ADV_I2C_DATA_CMD_STOP		BIT(9)
++#define DWC_ADV_I2C_DATA_CMD_RESTART		BIT(10)
++
++#define DWC_ADV_I2C_INTR_RX_UNDER		BIT(0)
++#define DWC_ADV_I2C_INTR_RX_OVER		BIT(1)
++#define DWC_ADV_I2C_INTR_RX_FULL		BIT(2)
++#define DWC_ADV_I2C_INTR_TX_OVER		BIT(3)
++#define DWC_ADV_I2C_INTR_TX_EMPTY		BIT(4)
++#define DWC_ADV_I2C_INTR_RD_REQ			BIT(5)
++#define DWC_ADV_I2C_INTR_TX_ABRT		BIT(6)
++#define DWC_ADV_I2C_INTR_RX_DONE		BIT(7)
++#define DWC_ADV_I2C_INTR_ACTIVITY		BIT(8)
++#define DWC_ADV_I2C_INTR_STOP_DET		BIT(9)
++#define DWC_ADV_I2C_INTR_START_DET		BIT(10)
++#define DWC_ADV_I2C_INTR_GEN_CALL		BIT(11)
++#define DWC_ADV_I2C_INTR_CTRLR_ON_HOLD		BIT(13)
++
++#define DWC_ADV_I2C_INTR_CLR_ALL		BIT(0)
++#define DWC_ADV_I2C_INTR_CLR_RX_UNDER		BIT(1)
++#define DWC_ADV_I2C_INTR_CLR_RX_OVER		BIT(2)
++#define DWC_ADV_I2C_INTR_CLR_TX_OVER		BIT(3)
++#define DWC_ADV_I2C_INTR_CLR_RD_REQ		BIT(4)
++#define DWC_ADV_I2C_INTR_CLR_TX_ABRT		BIT(5)
++#define DWC_ADV_I2C_INTR_CLR_RX_DONE		BIT(6)
++#define DWC_ADV_I2C_INTR_CLR_ACTIVITY		BIT(7)
++#define DWC_ADV_I2C_INTR_CLR_STOP_DET		BIT(8)
++#define DWC_ADV_I2C_INTR_CLR_START_DET		BIT(9)
++#define DWC_ADV_I2C_INTR_CLR_GEN_CALL		BIT(10)
++
++#define DWC_ADV_I2C_CTRLR_INTR_MASK \
++	(DWC_ADV_I2C_INTR_RX_FULL | DWC_ADV_I2C_INTR_TX_ABRT | \
++	 DWC_ADV_I2C_INTR_STOP_DET | DWC_ADV_I2C_INTR_TX_EMPTY)
++
++#define DWC_ADV_I2C_ENABLE_ENABLE		BIT(0)
++#define DWC_ADV_I2C_ENABLE_ABORT		BIT(1)
++
++#define DWC_ADV_I2C_STATUS_ACTIVITY		BIT(0)
++#define DWC_ADV_I2C_STATUS_CTRLR_ACTIVITY	BIT(5)
++#define DWC_ADV_I2C_STATUS_CTRLR_HOLD_TX_FIFO_EMPTY BIT(7)
++
++enum dwc_adv_i2c_abrt_bit {
++	DWC_ADV_I2C_ABRT_7B_ADDR_NOACK = 0,
++	DWC_ADV_I2C_ABRT_10ADDR1_NOACK = 1,
++	DWC_ADV_I2C_ABRT_10ADDR2_NOACK = 2,
++	DWC_ADV_I2C_ABRT_TXDATA_NOACK = 3,
++	DWC_ADV_I2C_ABRT_GCALL_NOACK = 4,
++	DWC_ADV_I2C_ABRT_GCALL_READ = 5,
++	DWC_ADV_I2C_ABRT_HS_ACKDET = 6,
++	DWC_ADV_I2C_ABRT_SBYTE_ACKDET = 7,
++	DWC_ADV_I2C_ABRT_CTRLR_DIS = 11,
++	DWC_ADV_I2C_ARB_LOST = 12,
++	DWC_ADV_I2C_ABRT_USER_TRMNT = 16,
++	DWC_ADV_I2C_ABRT_SDA_STUCK_AT_LOW = 17,
 +};
 +
-+static const unsigned int bf_rate_list[ARRAY_SIZE(bf_rates)] = {
-+	32000, 44100, 48000, 64000, 88200,
-+	96000, 128000, 176400, 192000,
++#define TX_ABRT_7B_ADDR_NOACK	BIT(DWC_ADV_I2C_ABRT_7B_ADDR_NOACK)
++#define TX_ABRT_10ADDR1_NOACK	BIT(DWC_ADV_I2C_ABRT_10ADDR1_NOACK)
++#define TX_ABRT_10ADDR2_NOACK	BIT(DWC_ADV_I2C_ABRT_10ADDR2_NOACK)
++#define TX_ABRT_TXDATA_NOACK	BIT(DWC_ADV_I2C_ABRT_TXDATA_NOACK)
++#define TX_ABRT_GCALL_NOACK	BIT(DWC_ADV_I2C_ABRT_GCALL_NOACK)
++#define TX_ABRT_GCALL_READ	BIT(DWC_ADV_I2C_ABRT_GCALL_READ)
++#define TX_ARB_LOST		BIT(DWC_ADV_I2C_ARB_LOST)
++#define TX_ABRT_USER_TRMNT	BIT(DWC_ADV_I2C_ABRT_USER_TRMNT)
++#define TX_ABRT_NOACK \
++	(TX_ABRT_7B_ADDR_NOACK | \
++	 TX_ABRT_10ADDR1_NOACK | \
++	 TX_ABRT_10ADDR2_NOACK | \
++	 TX_ABRT_TXDATA_NOACK | \
++	 TX_ABRT_GCALL_NOACK)
++
++#define DWC_ADV_I2C_STATUS_SW_ACTIVE		BIT(0)
++#define DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS	BIT(1)
++#define DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS	BIT(2)
++#define DWC_ADV_I2C_STATUS_SW_MASK		GENMASK(2, 0)
++
++#define DWC_ADV_I2C_ABORT_POLL_US		10
++#define DWC_ADV_I2C_ABORT_TIMEOUT_US		100
++#define DWC_ADV_I2C_DISABLE_POLL_US		250
++#define DWC_ADV_I2C_DISABLE_TIMEOUT_US		25000
++
++#define DWC_ADV_I2C_XFER_TIMEOUT_MS		1000
++#define DWC_ADV_I2C_AUTOSUSPEND_DELAY_MS	1000
++
++static const char * const dwc_adv_i2c_abort_sources[] = {
++	[DWC_ADV_I2C_ABRT_7B_ADDR_NOACK] =
++		"target address not acknowledged",
++	[DWC_ADV_I2C_ABRT_10ADDR1_NOACK] =
++		"10-bit first address byte not acknowledged",
++	[DWC_ADV_I2C_ABRT_10ADDR2_NOACK] =
++		"10-bit second address byte not acknowledged",
++	[DWC_ADV_I2C_ABRT_TXDATA_NOACK] =
++		"data not acknowledged",
++	[DWC_ADV_I2C_ABRT_GCALL_NOACK] =
++		"general call not acknowledged",
++	[DWC_ADV_I2C_ABRT_GCALL_READ] =
++		"general call read",
++	[DWC_ADV_I2C_ABRT_HS_ACKDET] =
++		"high speed controller code acknowledged",
++	[DWC_ADV_I2C_ABRT_SBYTE_ACKDET] =
++		"start byte acknowledged",
++	[DWC_ADV_I2C_ABRT_CTRLR_DIS] =
++		"disabled while active",
++	[DWC_ADV_I2C_ARB_LOST] =
++		"arbitration lost",
++	[DWC_ADV_I2C_ABRT_USER_TRMNT] =
++		"terminated by user request",
++	[DWC_ADV_I2C_ABRT_SDA_STUCK_AT_LOW] =
++		"SDA stuck at low",
 +};
 +
-+const struct snd_pcm_hw_constraint_list bf_rates_constraint = {
-+	.count = ARRAY_SIZE(bf_rate_list),
-+	.list = bf_rate_list,
-+	.mask = 0,
++struct dwc_adv_i2c_regs {
++	u32 enable;
++	u32 con;
++	u32 tar;
++	u32 ss_fs_hcnt;
++	u32 ss_fs_lcnt;
++	u32 hs_hcnt;
++	u32 hs_lcnt;
++	u32 sda_hold;
++	u32 data_cmd;
++	u32 rx_tl;
++	u32 tx_tl;
++	u32 intr_stat;
++	u32 intr_mask;
++	u32 raw_intr_stat;
++	u32 clr_intr;
++	u32 enable_status;
++	u32 tx_abrt_source;
++	u32 status;
++	u32 txflr;
++	u32 rxflr;
 +};
 +
-+const struct bf_rate *bf_rate_lookup(unsigned int rate)
-+{
-+	int i;
++struct dwc_adv_i2c_dev {
++	struct device *dev;
++	void __iomem *base;
++	struct clk *clk;
++	struct clk *pclk;
++	struct reset_control *rst;
++	struct i2c_adapter adap;
++	struct completion cmd_complete;
++	struct i2c_bus_recovery_info rinfo;
 +
-+	for (i = 0; i < ARRAY_SIZE(bf_rates); i++)
-+		if (bf_rates[i].rate == rate)
-+			return &bf_rates[i];
-+	return NULL;
++	struct dwc_adv_i2c_regs regs;
++	u32 tx_fifo_depth;
++	u32 rx_fifo_depth;
++
++	struct i2c_timings timings;
++	bool hs_loading_400pf;
++	u32 sda_hold_time;
++
++	u32 ctrlr_cfg;
++	u32 ss_hcnt;
++	u32 ss_lcnt;
++	u32 fs_hcnt;
++	u32 fs_lcnt;
++	u32 hs_hcnt;
++	u32 hs_lcnt;
++
++	struct i2c_msg *msgs;
++	int msgs_num;
++	int msg_write_idx;
++	int msg_read_idx;
++	int msg_err;
++	int cmd_err;
++	unsigned int status;
++	unsigned int abort_source;
++	int rx_outstanding;
++	bool need_restart;
++
++	u8 *tx_buf;
++	size_t tx_buf_len;
++	u8 *rx_buf;
++	size_t rx_buf_len;
++};
++
++struct dwc_adv_i2c_match_data {
++	u32 tx_fifo_depth;
++	u32 rx_fifo_depth;
++};
++
++static const struct dwc_adv_i2c_match_data tda54_i2c_match_data = {
++	.tx_fifo_depth = 32,
++	.rx_fifo_depth = 32,
++};
++
++static inline u32 dwc_adv_reg_read(struct dwc_adv_i2c_dev *dev, u32 offset)
++{
++	return readl(dev->base + offset);
 +}
 +
-+unsigned int bf_rate_family(const struct bf_rate *r)
++static inline void dwc_adv_reg_write(struct dwc_adv_i2c_dev *dev, u32 offset, u32 val)
 +{
-+	switch (r->rate >> (r->alt - 1)) {
-+	case 32000:
-+		return 0;
-+	case 44100:
-+		return 1;
-+	default:
-+		return 2;
++	writel(val, dev->base + offset);
++}
++
++static int dwc_adv_i2c_next_header(struct dwc_adv_i2c_dev *dev, u32 hdr_offset,
++				   u32 expected_id, u32 *next_offset)
++{
++	u32 hdr = dwc_adv_reg_read(dev, hdr_offset);
++	u32 id = FIELD_GET(DWC_ADV_I2C_HEADER_ID, hdr);
++	u32 length_words = FIELD_GET(DWC_ADV_I2C_HEADER_LENGTH, hdr);
++
++	if (id != expected_id) {
++		return dev_err_probe(dev->dev, -ENODEV,
++				     "header at offset 0x%x has ID 0x%x, expected 0x%x\n",
++				     hdr_offset, id, expected_id);
 +	}
-+}
 +
-+/* Timeout for every vendor control transfer (ms). */
-+#define BF_CTL_TIMEOUT		1000
-+
-+int bf_vendor_write(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx)
-+{
-+	return usb_control_msg_send(chip->dev, 0, req,
-+				    USB_DIR_OUT | USB_TYPE_VENDOR |
-+				    USB_RECIP_DEVICE,
-+				    val, idx, NULL, 0, BF_CTL_TIMEOUT, GFP_KERNEL);
-+}
-+
-+int bf_vendor_read(struct snd_usb_babyface *chip, u8 req, u16 idx, u8 *buf)
-+{
-+	return usb_control_msg_recv(chip->dev, 0, req,
-+				    USB_DIR_IN | USB_TYPE_VENDOR |
-+				    USB_RECIP_DEVICE,
-+				    0, idx, buf, 4, BF_CTL_TIMEOUT, GFP_KERNEL);
-+}
-+
-+/* Sends the BF_REG_KEEPALIVE_SETTINGS word (PROTOCOL.md: "keepalive
-+ * 0x10 0x05CF wVal = host settings-state register" - a single shared
-+ * word, not independent per-setting writes).  The clock source is
-+ * Internal.
-+ */
-+int bf_settings_write(struct snd_usb_babyface *chip)
-+{
-+	return bf_vendor_write(chip, BF_REQ_KEEPALIVE, BF_SETTINGS_CLOCK_INTERNAL,
-+			       BF_REG_KEEPALIVE_SETTINGS);
-+}
-+
-+/* Set the sample rate: the family register.  The firmware derives its
-+ * own DDS word from it; SET_INTERFACE(5, alt) (done in hw_params) is the
-+ * x1/x2/x4 speed.  This is exactly what the RME Windows driver sends on
-+ * a rate change (USBPcap, 2026-09-14, all fourteen changes): the family,
-+ * then the settings word, nothing else.  Measured on this driver's
-+ * target hardware for all nine rates with no quad in play (2026-09-16),
-+ * and to -1 ppm at 44.1 kHz against an NTP-disciplined clock.
-+ *
-+ * An earlier version of this branch had this register and measured it as
-+ * dead.  It was not: bf_cold_init()'s 0x0021 -> 0x05ff write is this
-+ * same register (0x05ff = 0x05cf | 0x0030) hardcoded to the 48 kHz
-+ * family, and it followed the write.  See bf_cold_init().
-+ */
-+int bf_clock_write(struct snd_usb_babyface *chip)
-+{
-+	const struct bf_rate *r = bf_rate_lookup(chip->rate);
-+	int ret;
-+
-+	if (!r)
-+		return -EINVAL;
-+	ret = bf_vendor_write(chip, BF_REQ_KEEPALIVE,
-+			      bf_rate_family(r) << 4, BF_REG_RATE_FAMILY);
-+	if (ret < 0)
-+		return ret;
-+	return bf_settings_write(chip);
-+}
-+
-+/* Varispeed: the 0x1B DDS quad.  It is a pitch RATIO applied on top of
-+ * the family rate, not a clock, so it carries no base rate and is the
-+ * same four words at every sample rate (measured 2026-09-16: a 48 kHz
-+ * quad over the 44.1 kHz family gives 44.1 kHz; the same quad at +5 %
-+ * gives 46305).  It is sticky: the device keeps the last ratio across
-+ * family writes, so pitch 0 must send the x1.0 quad rather than nothing.
-+ *
-+ * Only bank 2 is read on the Babyface Pro (one bank at a time swapped
-+ * between two quads: only bank 2 moved the clock).  It is the ratio's
-+ * period as a 24-bit word, 1.0 = 2^14 x 25 MHz / 48000 = 8533333.33, and
-+ * the firmware's constant is exact: sent exact it measures -1 ppm, sent
-+ * as RME's own Q16-truncated word (0x8234d3) it measures +14 ppm.  So
-+ * bank 2 is computed exactly.  Banks 0, 1 and 3 are sent as the RME
-+ * host software computes them - bank 0 the x1.0 period 12800000 scaled
-+ * by the pitch, banks 1 and 3 that value times fixed Q16 constants
-+ * (0xb9c2, 0xa3d7), truncated - so that a unit which reads a different
-+ * bank (the FS is not measured) sees exactly what Windows gives it.
-+ * Together this reproduces the cold-plug capture's quad at pitch 0 in
-+ * banks 0, 1 and 3, and improves on it in bank 2.
-+ *
-+ * Every quad must be followed by the settings keepalive or it does not
-+ * apply.  pitch is in 0.1 % steps, -50..50.
-+ */
-+int bf_pitch_write(struct snd_usb_babyface *chip, int pitch)
-+{
-+	const u64 num0 = 12800000ULL * 1000;		/* bank 0: 12800000 / (1 + p) */
-+	const u64 num2 = 409600000000000ULL;		/* bank 2: 4.096e11 * 1000 */
-+	u32 den0 = 1000 + pitch;
-+	u32 den2 = 48000 * den0;
-+	u64 b0 = div_u64(num0 + den0 / 2, den0);
-+	u64 b[4];
-+	int k, ret;
-+
-+	b[0] = b0;
-+	b[1] = (b0 * 47554) >> 16;
-+	b[2] = div_u64(num2 + den2 / 2, den2);
-+	b[3] = (b0 * 41943) >> 16;
-+
-+	for (k = 0; k < 4; k++) {
-+		ret = bf_vendor_write(chip, BF_REQ_DDS, (b[k] >> 8) & 0xffff,
-+				      ((b[k] & 0xff) << 8) | k);
-+		if (ret < 0)
-+			return ret;
++	if (!length_words) {
++		return dev_err_probe(dev->dev, -ENODEV,
++				     "zero length header at offset 0x%x\n", hdr_offset);
 +	}
-+	return bf_settings_write(chip);
-+}
 +
-+/* The cold-start init (cap_coldplug.pcap), verbatim from the user-space
-+ * reference (protocol::streaming_init).  Run at probe, where the
-+ * device state is unknown; a session start does not need it (see
-+ * babyface_stream_start()).
-+ */
-+int bf_cold_init(struct snd_usb_babyface *chip)
-+{
-+	const struct bf_rate *r;
-+	int ret, i;
++	if (next_offset)
++		*next_offset = hdr_offset + length_words * 4;
 +
-+	for (i = 0; i <= 0x3d; i++) {
-+		if (i == 0x1e || i == 0x1f)
-+			continue;
-+		ret = bf_vendor_write(chip, BF_REQ_REG_CLEAR, 0x0000, i);
-+		if (ret < 0)
-+			return ret;
-+	}
-+	/* The varispeed quad, where the coldplug capture sends its x1.0
-+	 * quad.  At pitch 0 banks 0, 1 and 3 match the capture; bank 2 is
-+	 * the exact ratio (see bf_pitch_write).
-+	 */
-+	ret = bf_pitch_write(chip, chip->pitch);
-+	if (ret < 0)
-+		return ret;
-+	/* 0x1C status - the hardware-validated reference (protocol::
-+	 * streaming_init) sends it as an OUT write; Windows reads it.
-+	 * Both are tolerated; match the validated path.
-+	 */
-+	ret = bf_vendor_write(chip, BF_REQ_STATUS_2, 0x0000, 0x0000);
-+	if (ret < 0)
-+		return ret;
-+	/* The settings word and the family register in one write (0x05ff =
-+	 * 0x05cf | 0x0030).  The coldplug capture hardcodes 0x0021 here:
-+	 * family 48 kHz, clock internal.  Sent for the rate actually in use,
-+	 * this IS the rate write; hardcoded, it was the thing that reset every
-+	 * earlier family write to 48 kHz.
-+	 */
-+	r = bf_rate_lookup(chip->rate);
-+	if (!r)
-+		return -EINVAL;
-+	ret = bf_vendor_write(chip, BF_REQ_KEEPALIVE,
-+			      (bf_rate_family(r) << 4) | BF_SETTINGS_CLOCK_INTERNAL,
-+			      BF_REG_KEEPALIVE_INIT);
-+	if (ret < 0)
-+		return ret;
-+	/* 0x17 wIdx=0x0000 does NOT touch the preamp state (0x003F). */
-+	ret = bf_vendor_write(chip, BF_REQ_PREAMP, 0x000c, 0x0000);
-+	if (ret < 0)
-+		return ret;
-+	ret = bf_vendor_write(chip, BF_REQ_PREAMP_COMMIT, 0x0000, 0x0000);
-+	if (ret < 0)
-+		return ret;
-+	for (i = 0; i < 2; i++) {
-+		ret = bf_vendor_write(chip, BF_REQ_KEEPALIVE, 0x0000, 0x3000);
-+		if (ret < 0)
-+			return ret;
-+	}
-+	for (i = 0; i < 3; i++) {
-+		ret = bf_vendor_write(chip, BF_REQ_KEEPALIVE, 0x0800, 0x0800);
-+		if (ret < 0)
-+			return ret;
-+	}
 +	return 0;
 +}
 +
-+static bool babyface_capture_copy(struct snd_usb_babyface *chip,
-+				  struct snd_pcm_substream *subs,
-+				  const u8 *data, unsigned int frames)
-+{
-+	struct snd_pcm_runtime *rt = subs->runtime;
-+	unsigned int buf_frames = rt->buffer_size;
-+	unsigned int words = chip->frame_bytes / 4;
-+	unsigned int chans = rt->channels;
-+	unsigned int pos, f, i;
-+	unsigned long new_period;
-+	bool crossed = false;
-+	u8 *dst;
-+
-+	spin_lock(&chip->lock);
-+	pos = chip->hw_ptr[SNDRV_PCM_STREAM_CAPTURE] % buf_frames;
-+	for (f = 0; f < frames; f++) {
-+		const __le32 *w = (const __le32 *)(data + f * chip->frame_bytes);
-+
-+		dst = rt->dma_area + frames_to_bytes(rt, pos);
-+		for (i = 0; i < chans; i++) {
-+			/* The frame carries the device's own order: AN1-4,
-+			 * AS1/2, then ADAT3-8 (AS1/2 is the first optical
-+			 * pair, so it is ADAT 1/2 when the input receives
-+			 * ADAT and S/PDIF when it receives S/PDIF).  The
-+			 * PCM follows it one-to-one, so a channel is word i
-+			 * and the device order is what an application sees.
-+			 * Confirmed live on 2026-10-17 with the device's own
-+			 * loopback: a tone on the AS1/2 output bus appeared
-+			 * on words 4/5.  At 96/192 kHz the frame has fewer
-+			 * words (10/8); the channels past them read as zero.
-+			 */
-+			s32 s = 0;
-+
-+			if (i < words) {
-+				/* 24-bit sample in bits 31-8 of the 32-bit word;
-+				 * S32_LE with 24 msbits, so copy the word as-is.
-+				 */
-+				s = (s32)le32_to_cpu(w[i]);
-+			}
-+			put_unaligned_le32((u32)s, dst + i * 4);
-+		}
-+		pos++;
-+		if (pos >= buf_frames)
-+			pos = 0;
-+	}
-+	chip->hw_ptr[SNDRV_PCM_STREAM_CAPTURE] += frames;
-+	new_period = chip->hw_ptr[SNDRV_PCM_STREAM_CAPTURE] / rt->period_size;
-+	if (new_period != chip->prev_period[SNDRV_PCM_STREAM_CAPTURE]) {
-+		chip->prev_period[SNDRV_PCM_STREAM_CAPTURE] = new_period;
-+		crossed = true;
-+	}
-+	spin_unlock(&chip->lock);
-+
-+	return crossed;
-+}
-+
-+static bool babyface_playback_copy(struct snd_usb_babyface *chip,
-+				   struct snd_pcm_substream *subs,
-+				   u8 *data, unsigned int frames)
-+{
-+	struct snd_pcm_runtime *rt = subs->runtime;
-+	unsigned int buf_frames = rt->buffer_size;
-+	unsigned int words = chip->frame_bytes / 4;
-+	unsigned int chans = rt->channels;
-+	unsigned int pos, f, i;
-+	unsigned long new_period;
-+	bool crossed = false;
-+	const u8 *src;
-+
-+	spin_lock(&chip->lock);
-+	/* Copy the ring as it is and move the pointer on by the whole URB,
-+	 * as a DMA engine reading the buffer would: the device plays every
-+	 * frame of the URB.  Whether the application has written them is
-+	 * the PCM core's business.  It stops the stream on an underrun when
-+	 * the pointer passes appl_ptr, and an application that lets the
-+	 * stream run free (a stop threshold at the boundary, as dmix sets
-+	 * on the hardware PCM it opens) relies on the pointer moving with
-+	 * the device.
-+	 */
-+	pos = chip->hw_ptr[SNDRV_PCM_STREAM_PLAYBACK] % buf_frames;
-+	for (f = 0; f < frames; f++) {
-+		__le32 *w = (__le32 *)(data + f * chip->frame_bytes);
-+
-+		src = rt->dma_area + frames_to_bytes(rt, pos);
-+		/* App ch n feeds the device word n (PB1-6 = words 0-11);
-+		 * words 12/13 stay zero.  At 96/192 kHz the frame is
-+		 * shorter - the extra app channels are dropped.
-+		 */
-+		for (i = 0; i < chans && i < words; i++) {
-+			u32 s = get_unaligned_le32(src + i * 4);
-+
-+			/* S32_LE msbits=24: the app's 24 valid bits are already
-+			 * left-justified (bits 31-8) - copy the word as-is.
-+			 */
-+			w[i] = cpu_to_le32(s);
-+		}
-+		for (; i < words; i++)
-+			w[i] = 0;
-+		pos++;
-+		if (pos >= buf_frames)
-+			pos = 0;
-+	}
-+	chip->hw_ptr[SNDRV_PCM_STREAM_PLAYBACK] += frames;
-+	new_period = chip->hw_ptr[SNDRV_PCM_STREAM_PLAYBACK] / rt->period_size;
-+	if (new_period != chip->prev_period[SNDRV_PCM_STREAM_PLAYBACK]) {
-+		chip->prev_period[SNDRV_PCM_STREAM_PLAYBACK] = new_period;
-+		crossed = true;
-+	}
-+	spin_unlock(&chip->lock);
-+
-+	return crossed;
-+}
-+
-+/* Count a bad URB.  Once BF_URB_ERR_STOP of them are in a row, queue
-+ * stream_work to stop the session and return true: the URB must not be
-+ * resubmitted.  Some host controllers fail a URB on a broken endpoint
-+ * at once, without waiting for the bus, and a handler that resubmits
-+ * regardless can then spin in interrupt context until the work runs.
++/*
++ * Register offsets are relative to per-block header registers. Walk the
++ * header chain to find each block, starting from the core block offset.
 + */
-+static bool babyface_urb_error(struct snd_usb_babyface *chip)
++static int dwc_adv_i2c_discover_regs(struct dwc_adv_i2c_dev *dev)
 +{
-+	if (atomic_inc_return(&chip->urb_err) < BF_URB_ERR_STOP)
++	struct dwc_adv_i2c_regs *regs = &dev->regs;
++	u32 core_header, timing_header, fifo_header, intr_header, hwid_header;
++	u32 caps, comp_type;
++	int ret;
++
++	regs->enable = DWC_ADV_I2C_OP_ENABLE;
++	caps = dwc_adv_reg_read(dev, DWC_ADV_I2C_OP_I2C_CAPABILITIES);
++	dev->hs_loading_400pf = caps & DWC_ADV_I2C_OP_I2C_CAPABILITIES_LOADING_400;
++	core_header = dwc_adv_reg_read(dev, DWC_ADV_I2C_OP_I2C_BLOCK_OFFSET);
++	if (!core_header)
++		return dev_err_probe(dev->dev, -ENODEV, "no I2C block offset\n");
++
++	regs->con = core_header + DWC_ADV_I2C_CORE_CON;
++	regs->tar = core_header + DWC_ADV_I2C_CORE_TAR;
++
++	ret = dwc_adv_i2c_next_header(dev, core_header,
++				      DWC_ADV_I2C_HEADER_ID_CORE, &timing_header);
++	if (ret)
++		return ret;
++
++	regs->ss_fs_hcnt = timing_header + DWC_ADV_I2C_TIMING_HCNT;
++	regs->ss_fs_lcnt = timing_header + DWC_ADV_I2C_TIMING_LCNT;
++	regs->hs_hcnt = timing_header + DWC_ADV_I2C_TIMING_HS_HCNT;
++	regs->hs_lcnt = timing_header + DWC_ADV_I2C_TIMING_HS_LCNT;
++	regs->sda_hold = timing_header + DWC_ADV_I2C_TIMING_SDA_HOLD;
++
++	ret = dwc_adv_i2c_next_header(dev, timing_header,
++				      DWC_ADV_I2C_HEADER_ID_TIMING, &fifo_header);
++	if (ret)
++		return ret;
++
++	regs->data_cmd = fifo_header + DWC_ADV_I2C_FIFO_DATA_CMD;
++	regs->rx_tl = fifo_header + DWC_ADV_I2C_FIFO_RX_TL;
++	regs->tx_tl = fifo_header + DWC_ADV_I2C_FIFO_TX_TL;
++
++	ret = dwc_adv_i2c_next_header(dev, fifo_header,
++				      DWC_ADV_I2C_HEADER_ID_FIFO, &intr_header);
++	if (ret)
++		return ret;
++
++	regs->intr_stat = intr_header + DWC_ADV_I2C_INTR_INTR_STAT;
++	regs->intr_mask = intr_header + DWC_ADV_I2C_INTR_INTR_MASK;
++	regs->raw_intr_stat = intr_header + DWC_ADV_I2C_INTR_RAW_INTR_STAT;
++	regs->clr_intr = intr_header + DWC_ADV_I2C_INTR_CLR_INTR;
++	regs->enable_status = intr_header + DWC_ADV_I2C_INTR_ENABLE_STATUS;
++	regs->tx_abrt_source = intr_header + DWC_ADV_I2C_INTR_TX_ABRT_SOURCE;
++	regs->status = intr_header + DWC_ADV_I2C_INTR_STATUS;
++	regs->txflr = intr_header + DWC_ADV_I2C_INTR_TXFLR;
++	regs->rxflr = intr_header + DWC_ADV_I2C_INTR_RXFLR;
++
++	ret = dwc_adv_i2c_next_header(dev, intr_header,
++				      DWC_ADV_I2C_HEADER_ID_INTR_DEBUG, &hwid_header);
++	if (ret)
++		return ret;
++
++	ret = dwc_adv_i2c_next_header(dev, hwid_header,
++				      DWC_ADV_I2C_HEADER_ID_HWID, NULL);
++	if (ret)
++		return ret;
++
++	comp_type = dwc_adv_reg_read(dev, hwid_header + DWC_ADV_I2C_HWID_COMP_TYPE);
++	if (comp_type != DWC_ADV_I2C_COMP_TYPE_VALUE)
++		return dev_err_probe(dev->dev, -ENODEV,
++				     "unknown Synopsys component type: 0x%08x\n",
++				     comp_type);
++
++	return 0;
++}
++
++static void dwc_adv_i2c_ack_intr(struct dwc_adv_i2c_dev *dev, u32 clr_bit)
++{
++	dwc_adv_reg_write(dev, dev->regs.clr_intr, clr_bit);
++}
++
++static u32 dwc_adv_i2c_scl_hcnt(u32 ic_clk, u32 tsymbol, u32 tf, int offset)
++{
++	return DIV_ROUND_CLOSEST_ULL((u64)ic_clk * (tsymbol + tf), MICRO) - 3 + offset;
++}
++
++static u32 dwc_adv_i2c_scl_lcnt(u32 ic_clk, u32 tlow, u32 tf, int offset)
++{
++	return DIV_ROUND_CLOSEST_ULL((u64)ic_clk * (tlow + tf), MICRO) - 1 + offset;
++}
++
++static void dwc_adv_i2c_set_timings(struct dwc_adv_i2c_dev *dev)
++{
++	struct i2c_timings *t = &dev->timings;
++	u32 ic_clk = clk_get_rate(dev->clk) / 1000;
++	u32 sda_falling_time = t->sda_fall_ns ?: 300;
++	u32 scl_falling_time = t->scl_fall_ns ?: 300;
++	u32 t_high, t_low;
++
++	dev->ss_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, 4000, sda_falling_time, 0);
++	dev->ss_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, 4700, scl_falling_time, 0);
++
++	if (t->bus_freq_hz == I2C_MAX_FAST_MODE_PLUS_FREQ) {
++		dev->fs_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, 260, sda_falling_time, 0);
++		dev->fs_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, 500, scl_falling_time, 0);
++	} else {
++		dev->fs_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, 600, sda_falling_time, 0);
++		dev->fs_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, 1300, scl_falling_time, 0);
++	}
++
++	if (dev->hs_loading_400pf) {
++		t_high = 120;
++		t_low = 320;
++	} else {
++		t_high = 60;
++		t_low = 160;
++	}
++	dev->hs_hcnt = dwc_adv_i2c_scl_hcnt(ic_clk, t_high, sda_falling_time, 0);
++	dev->hs_lcnt = dwc_adv_i2c_scl_lcnt(ic_clk, t_low, scl_falling_time, 0);
++}
++
++static void dwc_adv_i2c_write_timings(struct dwc_adv_i2c_dev *dev)
++{
++	u32 speed = dev->ctrlr_cfg & DWC_ADV_I2C_CON_SPEED_MASK;
++
++	if (speed == DWC_ADV_I2C_CON_SPEED_HIGH) {
++		dwc_adv_reg_write(dev, dev->regs.hs_hcnt, dev->hs_hcnt);
++		dwc_adv_reg_write(dev, dev->regs.hs_lcnt, dev->hs_lcnt);
++		dwc_adv_reg_write(dev, dev->regs.ss_fs_hcnt, dev->fs_hcnt);
++		dwc_adv_reg_write(dev, dev->regs.ss_fs_lcnt, dev->fs_lcnt);
++	} else if (speed == DWC_ADV_I2C_CON_SPEED_STD) {
++		dwc_adv_reg_write(dev, dev->regs.ss_fs_hcnt, dev->ss_hcnt);
++		dwc_adv_reg_write(dev, dev->regs.ss_fs_lcnt, dev->ss_lcnt);
++	} else {
++		dwc_adv_reg_write(dev, dev->regs.ss_fs_hcnt, dev->fs_hcnt);
++		dwc_adv_reg_write(dev, dev->regs.ss_fs_lcnt, dev->fs_lcnt);
++	}
++}
++
++static void __dwc_adv_i2c_enable(struct dwc_adv_i2c_dev *dev)
++{
++	dev->status |= DWC_ADV_I2C_STATUS_SW_ACTIVE;
++	dwc_adv_reg_write(dev, dev->regs.enable, DWC_ADV_I2C_ENABLE_ENABLE);
++}
++
++static void __dwc_adv_i2c_disable_nowait(struct dwc_adv_i2c_dev *dev)
++{
++	u32 enable = dwc_adv_reg_read(dev, dev->regs.enable);
++
++	dwc_adv_reg_write(dev, dev->regs.enable, enable & ~DWC_ADV_I2C_ENABLE_ENABLE);
++	dev->status &= ~DWC_ADV_I2C_STATUS_SW_ACTIVE;
++}
++
++static u32 dwc_adv_i2c_try_disable(struct dwc_adv_i2c_dev *dev)
++{
++	__dwc_adv_i2c_disable_nowait(dev);
++
++	return dwc_adv_reg_read(dev, dev->regs.enable_status);
++}
++
++/*
++ * If the controller is holding the bus with an empty TX FIFO, terminate the
++ * transfer first. IC_ENABLE.TERMINATE is only honoured while ENABLE is set.
++ */
++static void __dwc_adv_i2c_disable(struct dwc_adv_i2c_dev *dev)
++{
++	u32 raw_intr_stat = dwc_adv_reg_read(dev, dev->regs.raw_intr_stat);
++	u32 ic_status = dwc_adv_reg_read(dev, dev->regs.status);
++	u32 enable = dwc_adv_reg_read(dev, dev->regs.enable);
++	bool abort_needed = (raw_intr_stat & DWC_ADV_I2C_INTR_CTRLR_ON_HOLD) ||
++			     (ic_status & DWC_ADV_I2C_STATUS_CTRLR_HOLD_TX_FIFO_EMPTY);
++	u32 status;
++	int ret;
++
++	if (abort_needed) {
++		if (!(enable & DWC_ADV_I2C_ENABLE_ENABLE)) {
++			dwc_adv_reg_write(dev, dev->regs.enable, DWC_ADV_I2C_ENABLE_ENABLE);
++			/* Let ENABLE take effect: 10 signaling periods */
++			fsleep(DIV_ROUND_CLOSEST_ULL(10 * MICRO, dev->timings.bus_freq_hz));
++			enable |= DWC_ADV_I2C_ENABLE_ENABLE;
++		}
++		dwc_adv_reg_write(dev, dev->regs.enable, enable | DWC_ADV_I2C_ENABLE_ABORT);
++
++		ret = readl_poll_timeout(dev->base + dev->regs.enable, enable,
++					 !(enable & DWC_ADV_I2C_ENABLE_ABORT),
++					 DWC_ADV_I2C_ABORT_POLL_US,
++					 DWC_ADV_I2C_ABORT_TIMEOUT_US);
++		if (ret)
++			dev_err(dev->dev, "timeout while trying to abort current transfer\n");
++	}
++
++	ret = read_poll_timeout(dwc_adv_i2c_try_disable, status,
++				!(status & DWC_ADV_I2C_ENABLE_ENABLE),
++				DWC_ADV_I2C_DISABLE_POLL_US,
++				DWC_ADV_I2C_DISABLE_TIMEOUT_US, false, dev);
++	if (ret)
++		dev_warn(dev->dev, "timeout in disabling adapter\n");
++}
++
++static void dwc_adv_i2c_init(struct dwc_adv_i2c_dev *dev)
++{
++	__dwc_adv_i2c_disable(dev);
++
++	dwc_adv_i2c_write_timings(dev);
++
++	if (dev->sda_hold_time)
++		dwc_adv_reg_write(dev, dev->regs.sda_hold, dev->sda_hold_time);
++
++	dwc_adv_reg_write(dev, dev->regs.tx_tl, dev->tx_fifo_depth / 2);
++	dwc_adv_reg_write(dev, dev->regs.rx_tl, 0);
++	dwc_adv_reg_write(dev, dev->regs.con, dev->ctrlr_cfg);
++}
++
++static int dwc_adv_i2c_wait_bus_not_busy(struct dwc_adv_i2c_dev *dev)
++{
++	u32 status;
++	int ret;
++
++	ret = readl_poll_timeout(dev->base + dev->regs.status, status,
++				 !(status & DWC_ADV_I2C_STATUS_ACTIVITY),
++				 1000, 20000);
++	if (ret) {
++		dev_warn(dev->dev, "timeout waiting for bus ready\n");
++		i2c_recover_bus(&dev->adap);
++
++		status = dwc_adv_reg_read(dev, dev->regs.status);
++		if (!(status & DWC_ADV_I2C_STATUS_ACTIVITY))
++			ret = 0;
++	}
++
++	return ret;
++}
++
++/*
++ * Wait for the controller to go idle once the transfer has completed (STOP_DET
++ * or TX_ABRT), so that disabling it does not cut the transfer short.
++ * Return: true if it is still active after the timeout.
++ */
++static bool dwc_adv_i2c_is_controller_active(struct dwc_adv_i2c_dev *dev)
++{
++	u32 status;
++
++	status = dwc_adv_reg_read(dev, dev->regs.status);
++	if (!(status & DWC_ADV_I2C_STATUS_CTRLR_ACTIVITY))
 +		return false;
-+	schedule_work(&chip->stream_work);
++
++	return readl_poll_timeout(dev->base + dev->regs.status, status,
++				  !(status & DWC_ADV_I2C_STATUS_CTRLR_ACTIVITY),
++				  1100, 20000) != 0;
++}
++
++static void dwc_adv_i2c_xfer_init(struct dwc_adv_i2c_dev *dev)
++{
++	struct i2c_msg *msg = &dev->msgs[dev->msg_write_idx];
++	u32 con;
++
++	__dwc_adv_i2c_disable(dev);
++
++	/* If the target address is ten bit address, enable 10BITADDR */
++	con = dev->ctrlr_cfg;
++	if (msg->flags & I2C_M_TEN)
++		con |= DWC_ADV_I2C_CON_10BITADDR_CTRLR;
++	else
++		con &= ~DWC_ADV_I2C_CON_10BITADDR_CTRLR;
++	dwc_adv_reg_write(dev, dev->regs.con, con);
++
++	/*
++	 * With IC_DYNAMIC_TAR_UPDATE the 10-bit addressing mode is controlled
++	 * by IC_TAR bit 12 and the IC_CTRL bit is read-only. This cannot be
++	 * detected from the registers, so always set it.
++	 */
++	dwc_adv_reg_write(dev, dev->regs.tar, msg->addr |
++			   ((msg->flags & I2C_M_TEN) ? DWC_ADV_I2C_TAR_10BITADDR_CTRLR : 0));
++
++	/*
++	 * Enforce disabled interrupts: IC_INTR_MASK resets with TX_EMPTY
++	 * unmasked, which would fire as soon as the controller is enabled.
++	 */
++	dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
++
++	/* Enable the adapter, then clear and enable interrupts */
++	__dwc_adv_i2c_enable(dev);
++	dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_ALL);
++	dwc_adv_reg_write(dev, dev->regs.intr_mask, DWC_ADV_I2C_CTRLR_INTR_MASK);
++}
++
++/*
++ * Initiate (and continue) low level controller read/write transaction.
++ * This function is only called from dwc_adv_i2c_isr(), and pumps i2c_msg
++ * messages into the TX FIFO. Even if the size of i2c_msg data is longer
++ * than the TX FIFO, it handles everything.
++ */
++static void dwc_adv_i2c_xfer_msg(struct dwc_adv_i2c_dev *dev)
++{
++	struct i2c_msg *msgs = dev->msgs;
++	u32 intr_mask = DWC_ADV_I2C_CTRLR_INTR_MASK;
++	int tx_limit, rx_limit;
++	u32 buf_len = dev->tx_buf_len;
++	u8 *buf = dev->tx_buf;
++	u32 cmd;
++	int rx_tl;
++
++	for (; dev->msg_write_idx < dev->msgs_num; dev->msg_write_idx++) {
++		u32 flags = msgs[dev->msg_write_idx].flags;
++
++		if (!(dev->status & DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS)) {
++			buf = msgs[dev->msg_write_idx].buf;
++			buf_len = msgs[dev->msg_write_idx].len;
++		}
++
++		tx_limit = dev->tx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.txflr);
++		rx_limit = dev->rx_fifo_depth - dwc_adv_reg_read(dev, dev->regs.rxflr);
++
++		while (buf_len > 0 && tx_limit > 0 && rx_limit > 0) {
++			cmd = 0;
++
++			/*
++			 * The bus is held while the TX FIFO is empty unless
++			 * STOP is requested in IC_DATA_CMD, so always set it
++			 * on the last byte of the last message.
++			 *
++			 * i2c-core always sets the buffer length of
++			 * I2C_FUNC_SMBUS_BLOCK_DATA to 1. The length will be
++			 * adjusted when receiving the first byte. Thus we
++			 * can't stop the transaction here.
++			 */
++			if (dev->msg_write_idx == dev->msgs_num - 1 &&
++			    buf_len == 1 && !(flags & I2C_M_RECV_LEN))
++				cmd |= DWC_ADV_I2C_DATA_CMD_STOP;
++
++			/*
++			 * A RESTART is only issued automatically when the
++			 * direction changes. Request it explicitly at the
++			 * start of each following message.
++			 */
++			if (dev->need_restart) {
++				cmd |= DWC_ADV_I2C_DATA_CMD_RESTART;
++				dev->need_restart = false;
++			}
++
++			if (msgs[dev->msg_write_idx].flags & I2C_M_RD) {
++				/* Avoid rx buffer overrun */
++				if (dev->rx_outstanding >= dev->rx_fifo_depth)
++					break;
++				dwc_adv_reg_write(dev, dev->regs.data_cmd,
++						  cmd | DWC_ADV_I2C_DATA_CMD_READ);
++				rx_limit--;
++				dev->rx_outstanding++;
++			} else {
++				dwc_adv_reg_write(dev, dev->regs.data_cmd, cmd | *buf++);
++			}
++			tx_limit--;
++			buf_len--;
++		}
++
++		dev->tx_buf = buf;
++		dev->tx_buf_len = buf_len;
++
++		/*
++		 * Because we don't know the buffer length in the
++		 * I2C_FUNC_SMBUS_BLOCK_DATA case, we can't stop the
++		 * transaction here. Also disable the TX_EMPTY IRQ while
++		 * waiting for the data length byte to avoid a flood of
++		 * bogus interrupts.
++		 */
++		if (flags & I2C_M_RECV_LEN) {
++			dev->status |= DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
++			intr_mask &= ~DWC_ADV_I2C_INTR_TX_EMPTY;
++			break;
++		}
++
++		if (buf_len > 0) {
++			dev->status |= DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
++			break;
++		}
++		dev->status &= ~DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS;
++		dev->need_restart = true;
++	}
++
++	/*
++	 * If i2c_msg index search is completed, we don't need TX_EMPTY
++	 * interrupt any more.
++	 */
++	if (dev->msg_write_idx == dev->msgs_num)
++		intr_mask &= ~DWC_ADV_I2C_INTR_TX_EMPTY;
++
++	if (dev->msg_err)
++		intr_mask = 0;
++
++	/*
++	 * Size the RX FIFO threshold to the reads already queued, so the
++	 * controller raises one RX_FULL for the whole burst instead of one per
++	 * received byte. While messages remain to be queued, cap it so RX_FULL
++	 * still arrives in time to drain the FIFO and let the next TX_EMPTY
++	 * queue the rest.
++	 */
++	rx_tl = dev->rx_outstanding;
++	if (dev->msg_write_idx < dev->msgs_num)
++		rx_tl = min_t(int, rx_tl, dev->rx_fifo_depth / 2);
++	dwc_adv_reg_write(dev, dev->regs.rx_tl, rx_tl ? rx_tl - 1 : 0);
++
++	dwc_adv_reg_write(dev, dev->regs.intr_mask, intr_mask);
++}
++
++static u8 dwc_adv_i2c_recv_len(struct dwc_adv_i2c_dev *dev, u8 len)
++{
++	struct i2c_msg *msgs = dev->msgs;
++	u32 flags = msgs[dev->msg_read_idx].flags;
++	u32 intr_mask;
++
++	/*
++	 * Adjust the buffer length and mask the flag
++	 * after receiving the first byte.
++	 */
++	len += (flags & I2C_CLIENT_PEC) ? 2 : 1;
++	dev->tx_buf_len = len - min_t(int, len, dev->rx_outstanding);
++	msgs[dev->msg_read_idx].len = len;
++	msgs[dev->msg_read_idx].flags &= ~I2C_M_RECV_LEN;
++
++	/*
++	 * Received buffer length, re-enable TX_EMPTY interrupt
++	 * to resume the SMBus transaction.
++	 */
++	intr_mask = dwc_adv_reg_read(dev, dev->regs.intr_mask);
++	intr_mask |= DWC_ADV_I2C_INTR_TX_EMPTY;
++	dwc_adv_reg_write(dev, dev->regs.intr_mask, intr_mask);
++
++	return len;
++}
++
++static void dwc_adv_i2c_read(struct dwc_adv_i2c_dev *dev)
++{
++	struct i2c_msg *msgs = dev->msgs;
++	int rx_valid;
++
++	for (; dev->msg_read_idx < dev->msgs_num; dev->msg_read_idx++) {
++		u32 len;
++		u8 *buf;
++
++		if (!(msgs[dev->msg_read_idx].flags & I2C_M_RD))
++			continue;
++
++		if (!(dev->status & DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS)) {
++			len = msgs[dev->msg_read_idx].len;
++			buf = msgs[dev->msg_read_idx].buf;
++		} else {
++			len = dev->rx_buf_len;
++			buf = dev->rx_buf;
++		}
++
++		rx_valid = dwc_adv_reg_read(dev, dev->regs.rxflr);
++
++		for (; len > 0 && rx_valid > 0; len--, rx_valid--) {
++			u32 data = dwc_adv_reg_read(dev, dev->regs.data_cmd) &
++				   DWC_ADV_I2C_DATA_CMD_DAT;
++
++			if (msgs[dev->msg_read_idx].flags & I2C_M_RECV_LEN) {
++				/*
++				 * STOP is only set after receiving the block
++				 * data response length. When that length is
++				 * invalid, read one more byte with STOP set to
++				 * complete the transaction.
++				 */
++				if (!data || data > I2C_SMBUS_BLOCK_MAX)
++					data = 1;
++
++				len = dwc_adv_i2c_recv_len(dev, data);
++			}
++			*buf++ = data;
++			dev->rx_outstanding--;
++		}
++
++		if (len > 0) {
++			dev->status |= DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS;
++			dev->rx_buf_len = len;
++			dev->rx_buf = buf;
++			return;
++		}
++		dev->status &= ~DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS;
++	}
++}
++
++/*
++ * Clear the sources individually: IC_CLR_INTR could clear interrupts raised
++ * between reading IC_INTR_STAT and the clear. The abort source is saved
++ * before TX_ABRT is cleared, as clearing also resets IC_TX_TRMNT_SOURCE.
++ */
++static u32 dwc_adv_i2c_read_clear_intrbits(struct dwc_adv_i2c_dev *dev)
++{
++	u32 stat = dwc_adv_reg_read(dev, dev->regs.intr_stat);
++
++	if (stat & DWC_ADV_I2C_INTR_RX_UNDER)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_UNDER);
++	if (stat & DWC_ADV_I2C_INTR_RX_OVER)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_OVER);
++	if (stat & DWC_ADV_I2C_INTR_TX_OVER)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_TX_OVER);
++	if (stat & DWC_ADV_I2C_INTR_RD_REQ)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RD_REQ);
++	if (stat & DWC_ADV_I2C_INTR_TX_ABRT) {
++		dev->abort_source = dwc_adv_reg_read(dev, dev->regs.tx_abrt_source);
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_TX_ABRT);
++	}
++	if (stat & DWC_ADV_I2C_INTR_RX_DONE)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_RX_DONE);
++	if (stat & DWC_ADV_I2C_INTR_ACTIVITY)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_ACTIVITY);
++	if (stat & DWC_ADV_I2C_INTR_STOP_DET &&
++	    (dev->rx_outstanding == 0 || (stat & DWC_ADV_I2C_INTR_RX_FULL)))
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_STOP_DET);
++	if (stat & DWC_ADV_I2C_INTR_START_DET)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_START_DET);
++	if (stat & DWC_ADV_I2C_INTR_GEN_CALL)
++		dwc_adv_i2c_ack_intr(dev, DWC_ADV_I2C_INTR_CLR_GEN_CALL);
++
++	return stat;
++}
++
++static void dwc_adv_i2c_process_transfer(struct dwc_adv_i2c_dev *dev, u32 stat)
++{
++	if (stat & DWC_ADV_I2C_INTR_TX_ABRT) {
++		/* TX_ABRT flushes the TX/RX FIFOs, nothing left to process */
++		dev->cmd_err |= DWC_ADV_I2C_INTR_TX_ABRT;
++		dev->status &= ~DWC_ADV_I2C_STATUS_SW_MASK;
++		dev->rx_outstanding = 0;
++		dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
++		goto tx_aborted;
++	}
++
++	if (stat & DWC_ADV_I2C_INTR_RX_FULL)
++		dwc_adv_i2c_read(dev);
++
++	if (stat & DWC_ADV_I2C_INTR_TX_EMPTY)
++		dwc_adv_i2c_xfer_msg(dev);
++
++	/* A STOP in the middle of a read or write is an error */
++	if ((stat & DWC_ADV_I2C_INTR_STOP_DET) &&
++	    (dev->status & (DWC_ADV_I2C_STATUS_SW_WRITE_IN_PROGRESS |
++			     DWC_ADV_I2C_STATUS_SW_READ_IN_PROGRESS))) {
++		dev_err(dev->dev, "spurious STOP, status 0x%x\n", dev->status);
++		dev->rx_outstanding = 0;
++		dev->msg_err = -EIO;
++	}
++
++tx_aborted:
++	if (((stat & (DWC_ADV_I2C_INTR_TX_ABRT | DWC_ADV_I2C_INTR_STOP_DET)) ||
++	     dev->msg_err) && dev->rx_outstanding == 0)
++		complete(&dev->cmd_complete);
++}
++
++static irqreturn_t dwc_adv_i2c_handle_irq(struct dwc_adv_i2c_dev *dev)
++{
++	u32 enabled, stat;
++
++	enabled = dwc_adv_reg_read(dev, dev->regs.enable);
++	stat = dwc_adv_reg_read(dev, dev->regs.raw_intr_stat);
++
++	if (!enabled || !(stat & ~DWC_ADV_I2C_INTR_ACTIVITY))
++		return IRQ_NONE;
++
++	if (stat == GENMASK(31, 0))
++		return IRQ_NONE;
++
++	stat = dwc_adv_i2c_read_clear_intrbits(dev);
++
++	if (!(dev->status & DWC_ADV_I2C_STATUS_SW_ACTIVE)) {
++		dwc_adv_reg_write(dev, dev->regs.intr_mask, 0);
++		return IRQ_HANDLED;
++	}
++
++	dwc_adv_i2c_process_transfer(dev, stat);
++
++	return IRQ_HANDLED;
++}
++
++static irqreturn_t dwc_adv_i2c_isr(int irq, void *dev_id)
++{
++	struct dwc_adv_i2c_dev *dev = dev_id;
++	irqreturn_t ret;
++	int pm;
++
++	pm = pm_runtime_get_if_active(dev->dev);
++	if (!pm)
++		return IRQ_NONE;
++
++	ret = dwc_adv_i2c_handle_irq(dev);
++
++	if (pm > 0)
++		pm_runtime_put_autosuspend(dev->dev);
++
++	return ret;
++}
++
++static int dwc_adv_i2c_handle_tx_abort(struct dwc_adv_i2c_dev *dev)
++{
++	u32 abort_source = dev->abort_source;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(dwc_adv_i2c_abort_sources); i++) {
++		if (!(abort_source & BIT(i)) || !dwc_adv_i2c_abort_sources[i])
++			continue;
++		if (BIT(i) & (TX_ABRT_NOACK | TX_ABRT_USER_TRMNT))
++			dev_dbg(dev->dev, "%s\n", dwc_adv_i2c_abort_sources[i]);
++		else
++			dev_err(dev->dev, "%s\n", dwc_adv_i2c_abort_sources[i]);
++	}
++
++	if (abort_source & TX_ABRT_NOACK)
++		return -EREMOTEIO;
++	if (abort_source & TX_ARB_LOST)
++		return -EAGAIN;
++	if (abort_source & TX_ABRT_GCALL_READ)
++		return -EINVAL;
++
++	return -EIO;
++}
++
++static bool dwc_adv_i2c_msg_is_valid(struct dwc_adv_i2c_dev *dev,
++				     struct i2c_msg *msgs, int idx)
++{
++	if (idx == 0)
++		return true;
++
++	if (msgs[idx - 1].addr != msgs[idx].addr) {
++		dev_err(dev->dev, "invalid target address\n");
++		return false;
++	}
++
 +	return true;
 +}
 +
-+/* A good URB ends a run of errors - unless the run has already reached
-+ * BF_URB_ERR_STOP.  The URBs that got it there were not resubmitted, so
-+ * the count has to stand until stream_work has seen it; clearing it
-+ * here would leave the session running on fewer and fewer URBs.
-+ */
-+static void babyface_urb_ok(struct snd_usb_babyface *chip)
++static int dwc_adv_i2c_xfer_one_part(struct dwc_adv_i2c_dev *dev)
 +{
-+	int err = atomic_read(&chip->urb_err);
-+
-+	while (err && err < BF_URB_ERR_STOP &&
-+	       !atomic_try_cmpxchg(&chip->urb_err, &err, 0))
-+		;
-+}
-+
-+/* An OUT URB that is not resubmitted leaves the queue. */
-+static void bf_out_lost(struct snd_usb_babyface *chip)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&chip->lock, flags);
-+	if (chip->out_inflight)
-+		chip->out_inflight--;
-+	spin_unlock_irqrestore(&chip->lock, flags);
-+}
-+
-+static void babyface_complete_in(struct urb *urb)
-+{
-+	struct snd_usb_babyface *chip = urb->context;
-+	struct snd_pcm_substream *subs;
-+	unsigned long flags;
-+	unsigned int frames;
-+	bool crossed = false;
 +	int ret;
 +
-+	if (urb->status < 0) {
-+		if (urb->status == -ESHUTDOWN || urb->status == -ENOENT ||
-+		    urb->status == -ECONNRESET || urb->status == -ENODEV)
-+			return;		/* killed, or the device is gone */
-+		dev_dbg_ratelimited(&chip->dev->dev, "IN urb status %d\n",
-+				    urb->status);
-+		if (babyface_urb_error(chip))
-+			return;
-+		goto resubmit;
-+	}
-+	babyface_urb_ok(chip);
-+	spin_lock_irqsave(&chip->lock, flags);
-+	chip->in_done = ktime_get();
-+	spin_unlock_irqrestore(&chip->lock, flags);
++	reinit_completion(&dev->cmd_complete);
++	dev->cmd_err = 0;
++	dev->msg_write_idx = 0;
++	dev->msg_read_idx = 0;
++	dev->msg_err = 0;
++	dev->status = 0;
++	dev->abort_source = 0;
++	dev->rx_outstanding = 0;
++	dev->need_restart = false;
 +
-+	/* The session outlives a substream that is closed while the other
-+	 * direction still runs: close() waits out this RCU section.
-+	 */
-+	rcu_read_lock();
-+	subs = rcu_dereference(chip->subs[SNDRV_PCM_STREAM_CAPTURE]);
-+	if (subs) {
-+		snd_pcm_stream_lock_irqsave(subs, flags);
-+		if (snd_pcm_running(subs)) {
-+			frames = urb->actual_length / chip->frame_bytes;
-+			if (frames)
-+				crossed = babyface_capture_copy(chip, subs,
-+								urb->transfer_buffer,
-+								frames);
-+		}
-+		snd_pcm_stream_unlock_irqrestore(subs, flags);
-+		if (crossed)
-+			snd_pcm_period_elapsed(subs);
++	ret = dwc_adv_i2c_wait_bus_not_busy(dev);
++	if (ret)
++		return ret;
++
++	dwc_adv_i2c_xfer_init(dev);
++
++	if (!wait_for_completion_timeout(&dev->cmd_complete, dev->adap.timeout)) {
++		dev_err(dev->dev, "controller timed out\n");
++		i2c_recover_bus(&dev->adap);
++		dwc_adv_i2c_init(dev);
++		return -ETIMEDOUT;
 +	}
-+	rcu_read_unlock();
-+resubmit:
-+	/* The session is being stopped: babyface_stream_kill() clears
-+	 * ->streaming before it kills the URBs.  A resubmit now would only
-+	 * fail against the kill and be counted as a stream error.
-+	 */
-+	if (!READ_ONCE(chip->streaming))
-+		return;
-+	ret = usb_submit_urb(urb, GFP_ATOMIC);
-+	if (ret < 0) {
-+		dev_err_ratelimited(&chip->dev->dev,
-+				    "IN resubmit failed: %d\n", ret);
-+		babyface_urb_error(chip);
++
++	if (dwc_adv_i2c_is_controller_active(dev)) {
++		/*
++		 * If the controller is still active after the timeout, attempt a
++		 * bus recovery to clear any potentially locked state.
++		 */
++		dev_err(dev->dev, "controller active after xfer, recovering\n");
++		i2c_recover_bus(&dev->adap);
++		dwc_adv_i2c_init(dev);
++	} else {
++		/*
++		 * Disable the controller before returning, so that late
++		 * interrupts do not race with the following transfer.
++		 */
++		__dwc_adv_i2c_disable_nowait(dev);
 +	}
++
++	if (dev->msg_err)
++		return dev->msg_err;
++
++	if (!dev->cmd_err && !dev->status)
++		return 0;
++
++	if (dev->cmd_err & DWC_ADV_I2C_INTR_TX_ABRT)
++		return dwc_adv_i2c_handle_tx_abort(dev);
++
++	if (dev->status)
++		dev_err(dev->dev, "transfer terminated early, status 0x%x\n", dev->status);
++
++	return -EIO;
 +}
 +
-+static void babyface_complete_out(struct urb *urb)
++static int dwc_adv_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
 +{
-+	struct snd_usb_babyface *chip = urb->context;
-+	struct snd_pcm_substream *subs;
-+	unsigned long flags;
-+	unsigned int frames;
-+	bool crossed = false;
-+	bool fed = false;
-+	int ret;
++	struct dwc_adv_i2c_dev *dev = i2c_get_adapdata(adap);
++	int ret, idx, start = 0;
 +
-+	if (urb->status < 0) {
-+		if (urb->status == -ESHUTDOWN || urb->status == -ENOENT ||
-+		    urb->status == -ECONNRESET || urb->status == -ENODEV)
-+			return;		/* killed, or the device is gone */
-+		dev_dbg_ratelimited(&chip->dev->dev, "OUT urb status %d\n",
-+				    urb->status);
-+		if (babyface_urb_error(chip)) {
-+			bf_out_lost(chip);
-+			return;
-+		}
-+		goto resubmit;
-+	}
-+	babyface_urb_ok(chip);
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev->dev, pm);
++	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
++		return -ENXIO;
 +
-+	rcu_read_lock();
-+	subs = rcu_dereference(chip->subs[SNDRV_PCM_STREAM_PLAYBACK]);
-+	if (subs) {
-+		snd_pcm_stream_lock_irqsave(subs, flags);
-+		if (snd_pcm_running(subs)) {
-+			frames = urb->transfer_buffer_length / chip->frame_bytes;
-+			crossed = babyface_playback_copy(chip, subs,
-+							 urb->transfer_buffer, frames);
-+			fed = true;
-+		}
-+		snd_pcm_stream_unlock_irqrestore(subs, flags);
-+		if (crossed)
-+			snd_pcm_period_elapsed(subs);
-+	}
-+	rcu_read_unlock();
-+	/* Nothing playing (no substream, or one that is set up but stopped,
-+	 * e.g. between an xrun and the restart): send silence, not the
-+	 * audio this URB carried last time round.
-+	 */
-+	if (!fed)
-+		memset(urb->transfer_buffer, 0, urb->transfer_buffer_length);
-+resubmit:
-+	/* The session is being stopped: babyface_stream_kill() clears
-+	 * ->streaming before it kills the URBs.  A resubmit now would only
-+	 * fail against the kill and be counted as a stream error.
-+	 */
-+	if (!READ_ONCE(chip->streaming))
-+		return;
-+	ret = usb_submit_urb(urb, GFP_ATOMIC);
-+	if (ret < 0) {
-+		dev_err_ratelimited(&chip->dev->dev,
-+				    "OUT resubmit failed: %d\n", ret);
-+		bf_out_lost(chip);
-+		babyface_urb_error(chip);
-+	}
-+}
++	for (idx = 0; idx < num; idx++) {
++		if (!dwc_adv_i2c_msg_is_valid(dev, &msgs[start], idx - start))
++			return -EINVAL;
 +
-+void babyface_stream_kill(struct snd_usb_babyface *chip)
-+{
-+	int i;
-+
-+	/* Clear the flag before the kills, not after.  The completion
-+	 * handlers test it before resubmitting, so a URB that completes
-+	 * while this loop runs retires instead of resubmitting into its
-+	 * own kill, which fails with -EPERM and counts towards
-+	 * stream_work.
-+	 */
-+	WRITE_ONCE(chip->streaming, false);
-+	for (i = 0; i < chip->nurbs; i++) {
-+		usb_kill_urb(chip->urbs_in[i]);
-+		usb_kill_urb(chip->urbs_out[i]);
-+	}
-+	chip->stream_stopped = ktime_get();
-+}
-+
-+/* Stop both PCM substreams (if running) so apps blocked in read/write
-+ * wake with a clean error: XRUN for a recoverable stream error, or
-+ * DISCONNECTED when the card is going away.
-+ *
-+ * Call this after babyface_stream_kill(), not before: trigger START tests
-+ * ->streaming under the stream lock taken here, so with the flag already
-+ * clear a START either fails with -EPIPE or has finished and is stopped
-+ * below.  The other way round it can slip in between and leave a substream
-+ * running on a session that is gone.
-+ */
-+void babyface_pcm_stop_both(struct snd_usb_babyface *chip, snd_pcm_state_t state)
-+{
-+	unsigned long flags;
-+	int s;
-+
-+	/* close() waits out this RCU section, as for the URB handlers. */
-+	rcu_read_lock();
-+	for (s = 0; s < 2; s++) {
-+		struct snd_pcm_substream *subs = rcu_dereference(chip->subs[s]);
-+
-+		if (!subs)
++		if (!(msgs[idx].flags & I2C_M_STOP) && idx != num - 1)
 +			continue;
-+		snd_pcm_stream_lock_irqsave(subs, flags);
-+		if (snd_pcm_running(subs))
-+			snd_pcm_stop(subs, state);
-+		snd_pcm_stream_unlock_irqrestore(subs, flags);
++
++		dev->msgs = &msgs[start];
++		dev->msgs_num = idx - start + 1;
++
++		ret = dwc_adv_i2c_xfer_one_part(dev);
++		if (ret)
++			return ret;
++
++		start = idx + 1;
 +	}
-+	rcu_read_unlock();
++
++	return num;
 +}
 +
-+/* Stream model (big picture):
-+ *
-+ * The device has one USB session, shared by both directions.  Its
-+ * lifetime follows the substreams' setup, not their triggers - the
-+ * same pattern as the FireWire audio drivers:
-+ *
-+ *  - hw_params counts a substream as a user of the session;
-+ *  - prepare starts the session if it is not running: the rate write
-+ *    and the session trigger pair, then the interrupt URBs (nurbs in
-+ *    each direction) are submitted and the session is armed;
-+ *  - trigger START/STOP only decides whether the URB handlers move that
-+ *    substream's audio.  The URBs keep running either way, carrying
-+ *    silence while nothing plays;
-+ *  - hw_free drops the user, and the last one stops the session.
-+ *
-+ * A sound server restarts its streams with prepare + START after every
-+ * xrun.  That must not restart the session: PipeWire does not ride
-+ * through it, and an already connected client stays silent afterwards.
-+ */
-+
-+/* Start the session.  Caller holds chip->mutex. */
-+static int babyface_stream_start(struct snd_usb_babyface *chip)
++static u32 dwc_adv_i2c_func(struct i2c_adapter *adap)
 +{
-+	unsigned int urbsize = chip->frame_bytes * chip->urb_frames;
-+	s64 since;
-+	int i, ret;
-+
-+	/* A session triggered right after the previous one stopped starts
-+	 * with the outputs silent: give the device BF_SESSION_GAP_MS.
-+	 * Only a stop followed at once by a new setup waits (an application
-+	 * restarting, a probe opening the device repeatedly).
-+	 */
-+	since = ktime_ms_delta(ktime_get(), chip->stream_stopped);
-+	if (since < BF_SESSION_GAP_MS)
-+		msleep(BF_SESSION_GAP_MS - since);
-+
-+	/* A session start is what the RME Windows driver sends
-+	 * (cap_audio): the trigger pair, the URBs, the arm.  The device
-+	 * keeps its mixer state between sessions, so nothing is cleared
-+	 * or re-applied here; the cold init runs at probe only.  The rate
-+	 * is written first: hw_params only re-points the speed multiplier.
-+	 */
-+	ret = bf_clock_write(chip);
-+	if (ret < 0)
-+		goto err;
-+
-+	/* Stream trigger pair (cap_audio): 0x10 0x8000 + 0x1D. */
-+	ret = bf_vendor_write(chip, BF_REQ_KEEPALIVE, 0x0000, 0x8000);
-+	if (ret < 0)
-+		goto err;
-+	ret = bf_vendor_write(chip, BF_REQ_SESSION_START, 0x0000, 0x0000);
-+	if (ret < 0)
-+		goto err;
-+
-+	for (i = 0; i < chip->urbs_active; i++) {
-+		/* Do not replay data from the previous stream/format. */
-+		memset(chip->buf_out[i], 0, urbsize);
-+		usb_fill_int_urb(chip->urbs_in[i], chip->dev,
-+				 usb_rcvintpipe(chip->dev, BF_EP_IN),
-+				 chip->buf_in[i], urbsize,
-+				 babyface_complete_in, chip, 1);
-+		usb_fill_int_urb(chip->urbs_out[i], chip->dev,
-+				 usb_sndintpipe(chip->dev, BF_EP_OUT),
-+				 chip->buf_out[i], urbsize,
-+				 babyface_complete_out, chip, 1);
-+		/* The buffers come from usb_alloc_coherent(), so
-+		 * they are already DMA-mapped: hand the HCD the
-+		 * mapping instead of letting it map them again.
-+		 * Without this, usb_hcd_map_urb_for_dma() calls
-+		 * dma_map_single() on a coherent allocation, which
-+		 * fails with -EAGAIN on any host where that
-+		 * allocation is a vmap (IOMMU-backed dma-iommu,
-+		 * e.g. amd_iommu in its default translated mode).
-+		 */
-+		chip->urbs_in[i]->transfer_dma = chip->dma_in[i];
-+		chip->urbs_in[i]->transfer_flags |=
-+			URB_NO_TRANSFER_DMA_MAP;
-+		chip->urbs_out[i]->transfer_dma = chip->dma_out[i];
-+		chip->urbs_out[i]->transfer_flags |=
-+			URB_NO_TRANSFER_DMA_MAP;
-+	}
-+	/* A count left over from the previous session would stop this one
-+	 * as soon as a URB errors, or through a stream_work still queued.
-+	 */
-+	atomic_set(&chip->urb_err, 0);
-+	/* Mark the session live before the first URB goes out, not once the
-+	 * state is restored: the URBs complete while the vendor writes below
-+	 * are still running, and ->streaming is what says the session is
-+	 * theirs to keep going.  The error path clears it again.
-+	 */
-+	WRITE_ONCE(chip->streaming, true);
-+	for (i = 0; i < chip->urbs_active; i++) {
-+		ret = usb_submit_urb(chip->urbs_in[i], GFP_KERNEL);
-+		if (ret < 0)
-+			goto err;
-+		ret = usb_submit_urb(chip->urbs_out[i], GFP_KERNEL);
-+		if (ret < 0)
-+			goto err;
-+	}
-+	spin_lock_irq(&chip->lock);
-+	chip->out_inflight = chip->urbs_active;
-+	spin_unlock_irq(&chip->lock);
-+	/* Session arm (cap_audio frame 5829, after the URBs). */
-+	ret = bf_vendor_write(chip, BF_REQ_SESSION_ARM, 0x0000, 0xc000);
-+	if (ret < 0)
-+		goto err;
-+
-+	dev_dbg(&chip->dev->dev, "stream started (%u frames/URB, %u URBs)\n",
-+		chip->urb_frames, chip->urbs_active);
-+	return 0;
-+
-+err:
-+	dev_err_ratelimited(&chip->dev->dev, "failed to start stream: %d\n",
-+			    ret);
-+	babyface_stream_kill(chip);
-+	return ret;
++	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_BYTE | I2C_FUNC_SMBUS_BYTE_DATA |
++	       I2C_FUNC_SMBUS_WORD_DATA | I2C_FUNC_SMBUS_BLOCK_DATA |
++	       I2C_FUNC_SMBUS_I2C_BLOCK | I2C_FUNC_10BIT_ADDR | I2C_FUNC_PROTOCOL_MANGLING;
 +}
 +
-+/* Persistent URB errors (bad link, device wedged): stop the session and
-+ * wake the apps with -EPIPE.  Their recovery (prepare + START) starts a
-+ * new session from a clean slate.  Runs in process context because
-+ * killing the URBs sleeps.
-+ */
-+void babyface_stream_work(struct work_struct *work)
-+{
-+	struct snd_usb_babyface *chip =
-+		container_of(work, struct snd_usb_babyface, stream_work);
-+
-+	mutex_lock(&chip->mutex);
-+	if (!chip->shutdown &&
-+	    atomic_read(&chip->urb_err) >= BF_URB_ERR_STOP) {
-+		dev_err(&chip->dev->dev,
-+			"stream error: %d consecutive bad URBs, stopping (apps re-arm)\n",
-+			BF_URB_ERR_STOP);
-+		if (chip->streaming)
-+			babyface_stream_kill(chip);
-+		babyface_pcm_stop_both(chip, SNDRV_PCM_STATE_XRUN);
-+		atomic_set(&chip->urb_err, 0);
-+	}
-+	mutex_unlock(&chip->mutex);
-+}
-+
-+static const struct snd_pcm_hardware babyface_pcm_hw = {
-+	/* The URB handlers copy to and from the vmalloc'ed ring the core
-+	 * allocates (rt->dma_area), and read appl_ptr from the control page,
-+	 * so the ring can be mapped by the application as well - which JACK
-+	 * and other mmap-only clients need.
-+	 */
-+	.info = SNDRV_PCM_INFO_MMAP |
-+		SNDRV_PCM_INFO_MMAP_VALID |
-+		SNDRV_PCM_INFO_INTERLEAVED |
-+		SNDRV_PCM_INFO_BLOCK_TRANSFER,
-+	.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+	.rate_min = 32000,
-+	.rate_max = 192000,
-+	.channels_min = 2,
-+	.channels_max = 12,
-+	.buffer_bytes_max = 1 << 20,
-+	.period_bytes_max = 1 << 18,
-+	.periods_min = 2,
-+	.periods_max = 16,
++static const struct i2c_algorithm dwc_adv_i2c_algo = {
++	.xfer = dwc_adv_i2c_xfer,
++	.functionality = dwc_adv_i2c_func,
 +};
 +
-+/* The period of the direction that set the session up, in whole URBs:
-+ * half the URBs in flight, rounded up.  The other direction's period may
-+ * not be shorter.  Caller holds chip->mutex.
-+ */
-+static unsigned int bf_session_period(struct snd_usb_babyface *chip)
++static const struct i2c_adapter_quirks dwc_adv_i2c_quirks = {
++	.flags = I2C_AQ_NO_ZERO_LEN,
++};
++
++static int dwc_adv_i2c_prepare_clk(struct dwc_adv_i2c_dev *dev, bool prepare)
 +{
-+	return chip->urb_frames * DIV_ROUND_UP(chip->urbs_active, 2);
-+}
-+
-+static int urb_split;
-+
-+/* Does this session split its period into two URBs?  Then the queue is
-+ * three URBs, one and a half periods, instead of four URBs, two periods:
-+ * the round trip is half a period shorter for each of playback and
-+ * capture's share of it (64 frames at a 128 period, 128 at 256).  Auto
-+ * does it for the periods that were soaked for 10 minutes without an
-+ * xrun (128 and 256 frames at 48 kHz, 12 channels, mmap, real-time
-+ * priority), and for other rates only while a URB lasts at least 1.33 ms,
-+ * the length of those.  Below that the URB is already near its floor.
-+ */
-+static bool bf_split_period(const struct bf_rate *r, unsigned int period)
-+{
-+	if (urb_split == 1)
-+		return false;
-+	if (urb_split > 1)
-+		return true;
-+	return period >= 128 && period <= 256 &&
-+	       (period / 2) * 750 >= r->rate;
-+}
-+
-+/* The URB size for a session, chosen from the period the application
-+ * asked for, as snd-usb-audio sizes its playback URBs: split the period
-+ * into the fewest URBs of at most frames_per_urb, and make each a whole
-+ * number of the device's IN packets (8/16/32 frames at alt 1/2/3; a URB
-+ * that ends inside a packet gets -EOVERFLOW), but not below
-+ * urb_frames_min.  A URB never exceeds the period, so a completion
-+ * crosses at most one period boundary.  Returns 0 if the rate's packet
-+ * does not fit.
-+ */
-+static unsigned int bf_urb_frames(struct snd_usb_babyface *chip,
-+				  const struct bf_rate *r,
-+				  unsigned int period)
-+{
-+	unsigned int pkt = r->min_fpu;
-+	unsigned int hi = rounddown(chip->frames_per_urb, pkt);
-+	unsigned int lo = roundup(max(chip->urb_frames_min, pkt), pkt);
-+	unsigned int urb;
-+
-+	if (!hi || lo > hi || period < pkt)
-+		return 0;
-+	urb = rounddown(period / DIV_ROUND_UP(period, hi), pkt);
-+	if (bf_split_period(r, period))
-+		urb = rounddown(urb / 2, pkt);
-+	urb = clamp(urb, lo, hi);
-+	return urb <= period ? urb : 0;
-+}
-+
-+/* Does ANOTHER application hold the clock through the other direction?
-+ * The session lives from the first prepare to the last hw_free, so a
-+ * substream that is set up but not running - between an xrun and the
-+ * sound server's restart, say - still owns the rate it negotiated.  Not
-+ * "is it open": a client that has the device open but has not called
-+ * hw_params must still be able to pick the rate.
-+ *
-+ * The application that set the other direction up may change the rate
-+ * itself, as snd-hdspm allows for the process that holds both
-+ * directions: a DAW switches rate from its own settings without closing
-+ * the device.  Processes, not threads, since an application may open
-+ * playback and capture from different threads.
-+ *
-+ * Caller holds chip->mutex, which is what stream_setup[] and owner[] are
-+ * updated under.
-+ */
-+static bool bf_other_holds_clock(struct snd_usb_babyface *chip,
-+				 struct snd_pcm_substream *subs)
-+{
-+	int other = !subs->stream;
-+
-+	return chip->stream_setup[other] &&
-+	       chip->owner[other] != chip->owner[subs->stream];
-+}
-+
-+/* While another application holds the clock, offer its rate alone.  A
-+ * rule, not a constraint set in open(): it is evaluated each time the
-+ * application asks, so it follows the other direction being set up and
-+ * released, and who set it up.
-+ */
-+static int bf_hw_rule_rate(struct snd_pcm_hw_params *params,
-+			   struct snd_pcm_hw_rule *rule)
-+{
-+	struct snd_pcm_substream *subs = rule->private;
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	struct snd_interval t = { .integer = 1 };
-+	bool held;
-+
-+	mutex_lock(&chip->mutex);
-+	held = bf_other_holds_clock(chip, subs);
-+	t.min = chip->rate;
-+	t.max = chip->rate;
-+	mutex_unlock(&chip->mutex);
-+	if (!held)
-+		return 0;
-+	return snd_interval_refine(hw_param_interval(params,
-+				   SNDRV_PCM_HW_PARAM_RATE), &t);
-+}
-+
-+/* While another application holds the session, a period must span its
-+ * URBs: at least the session's period, in whole URBs.  A rule for the
-+ * same reason as the rate.
-+ */
-+static int bf_hw_rule_period(struct snd_pcm_hw_params *params,
-+			     struct snd_pcm_hw_rule *rule)
-+{
-+	struct snd_pcm_substream *subs = rule->private;
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	struct snd_interval t = { .integer = 1, .max = UINT_MAX };
-+	bool held;
-+
-+	mutex_lock(&chip->mutex);
-+	held = bf_other_holds_clock(chip, subs);
-+	t.min = bf_session_period(chip);
-+	mutex_unlock(&chip->mutex);
-+	if (!held)
-+		return 0;
-+	return snd_interval_refine(hw_param_interval(params,
-+				   SNDRV_PCM_HW_PARAM_PERIOD_SIZE), &t);
-+}
-+
-+static int babyface_pcm_open(struct snd_pcm_substream *subs)
-+{
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	struct snd_pcm_runtime *rt = subs->runtime;
-+	unsigned long flags;
 +	int ret;
 +
-+	rt->hw = babyface_pcm_hw;
-+	ret = snd_pcm_hw_constraint_list(rt, 0, SNDRV_PCM_HW_PARAM_RATE,
-+					 &bf_rates_constraint);
-+	if (ret < 0)
-+		return ret;
-+	/* The stream is 24-bit audio in a 32-bit container, left-justified
-+	 * (the device word carries the sample in bits 31-8).  Declare the
-+	 * valid-bit width so user-space knows to ignore the low 8 bits.
-+	 */
-+	ret = snd_pcm_hw_constraint_msbits(rt, 0, 32, 24);
-+	if (ret < 0)
-+		return ret;
-+	/* A period must span at least one URB, so a completion crosses at
-+	 * most one period boundary.  The URB size follows the period down to
-+	 * urb_frames_min; while another application holds the session, its
-+	 * period (in whole URBs) is the floor.  Constrain in frames (not
-+	 * bytes) so the minimum period does not balloon at low channel
-+	 * counts.
-+	 */
-+	ret = snd_pcm_hw_constraint_minmax(rt, SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
-+					   chip->urb_frames_min, 1 << 18);
-+	if (ret < 0)
-+		return ret;
-+	ret = snd_pcm_hw_rule_add(rt, 0, SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
-+				  bf_hw_rule_period, subs,
-+				  SNDRV_PCM_HW_PARAM_PERIOD_SIZE, -1);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Both directions share one clock, so while another application's
-+	 * audio is set up the rate belongs to it.  Offer that rate alone: a
-+	 * client arriving later then negotiates down to it, and the sound
-+	 * server resamples, rather than the device changing rate underneath
-+	 * a running stream.  Advertising the rate rather than failing in
-+	 * hw_params() is what keeps a PipeWire sink alive - it picks the rate
-+	 * on offer instead of asking for one that has to be refused.
-+	 *
-+	 * This is what the vendor drivers do.  RME's settings panel greys the
-+	 * sample rate out during record/playback, and their manual is explicit
-+	 * that all active ASIO clients share one rate, with WDM (or CoreAudio)
-+	 * doing any conversion - never the driver.
-+	 */
-+	mutex_lock(&chip->mutex);
-+	chip->owner[subs->stream] = task_tgid_nr(current);
-+	mutex_unlock(&chip->mutex);
-+	ret = snd_pcm_hw_rule_add(rt, 0, SNDRV_PCM_HW_PARAM_RATE,
-+				  bf_hw_rule_rate, subs,
-+				  SNDRV_PCM_HW_PARAM_RATE, -1);
-+	if (ret < 0)
-+		return ret;
-+
-+	spin_lock_irqsave(&chip->lock, flags);
-+	rcu_assign_pointer(chip->subs[subs->stream], subs);
-+	spin_unlock_irqrestore(&chip->lock, flags);
-+	return 0;
-+}
-+
-+static int babyface_pcm_close(struct snd_pcm_substream *subs)
-+{
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	unsigned long flags;
-+
-+	flush_work(&chip->stream_work);
-+	mutex_lock(&chip->mutex);
-+	chip->owner[subs->stream] = 0;
-+	mutex_unlock(&chip->mutex);
-+	spin_lock_irqsave(&chip->lock, flags);
-+	RCU_INIT_POINTER(chip->subs[subs->stream], NULL);
-+	spin_unlock_irqrestore(&chip->lock, flags);
-+	/* The session keeps running while the other direction is set up,
-+	 * so a URB handler may still hold this substream: wait for it
-+	 * before the core frees the runtime.
-+	 */
-+	synchronize_rcu();
-+	return 0;
-+}
-+
-+static int babyface_pcm_hw_params(struct snd_pcm_substream *subs,
-+				  struct snd_pcm_hw_params *params)
-+{
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	const struct bf_rate *r;
-+	unsigned int urb, n;
-+	bool new_rate = false;
-+	int ret = 0;
-+
-+	r = bf_rate_lookup(params_rate(params));
-+	if (!r)
-+		return -EINVAL;
-+
-+	/* The stream URBs must be at least one alt packet wide: the device
-+	 * delivers its IN data in alt-sized packets (448/640/1024 B for
-+	 * alt 1/2/3), and a smaller URB buffer makes the host controller
-+	 * discard the transfer with -EOVERFLOW (babble) - seen at
-+	 * 176.4/192 kHz with frames_per_urb below 32.  Return a clean
-+	 * error instead of a silently dead capture stream.
-+	 */
-+	urb = bf_urb_frames(chip, r, params_period_size(params));
-+	if (!urb) {
-+		dev_err(&chip->dev->dev,
-+			"rate %u Hz, period %u: no URB size fits (packet %u frames, URBs %u..%u)\n",
-+			r->rate, params_period_size(params), r->min_fpu,
-+			chip->urb_frames_min, chip->frames_per_urb);
-+		return -EINVAL;
++	if (!prepare) {
++		clk_disable_unprepare(dev->clk);
++		clk_disable_unprepare(dev->pclk);
++		return 0;
 +	}
 +
-+	mutex_lock(&chip->mutex);
-+	/* disconnect() has let go of the interface: do not re-point it. */
-+	if (chip->shutdown) {
-+		ret = -ENODEV;
-+		goto out;
-+	}
-+	if (r->rate != chip->rate) {
-+		/* The rule in open() normally means no other application
-+		 * asks for a rate other than the running one.  It can still
-+		 * happen when the other direction was set up between this
-+		 * one's refine and its hw_params.  Refuse rather than retune
-+		 * - the alternative is a running stream silently changing
-+		 * pitch, with no error and no xrun, because a negotiated rate
-+		 * is never revised for a live substream.
-+		 */
-+		if (bf_other_holds_clock(chip, subs)) {
-+			dev_dbg(&chip->dev->dev,
-+				"rate %u Hz refused: %u Hz stream set up\n",
-+				r->rate, chip->rate);
-+			ret = -EBUSY;
-+			goto out;
-+		}
-+		/* Nothing else holds the clock.  Stop the session and
-+		 * re-point the bandwidth class; prepare starts a new session
-+		 * at the new rate.  If this application's other direction is
-+		 * still running, stop it with an xrun rather than let it
-+		 * change pitch; prepare() then refuses it until it is set up
-+		 * again at the new rate.
-+		 */
-+		if (chip->streaming) {
-+			babyface_stream_kill(chip);
-+			babyface_pcm_stop_both(chip, SNDRV_PCM_STATE_XRUN);
-+		}
-+		ret = usb_set_interface(chip->dev, BF_IFACE, r->alt);
-+		if (ret < 0)
-+			goto out;
-+		chip->rate = r->rate;
-+		new_rate = true;
-+		chip->alt = r->alt;
-+		chip->frame_bytes = r->frame_bytes;
-+		dev_dbg(&chip->dev->dev, "rate %u Hz (alt %u)\n",
-+			chip->rate, chip->alt);
-+	}
-+	/* The first direction to be set up chooses the URB size and count
-+	 * from its period; the other one then needs a period at least as
-+	 * long, in whole URBs.  Another application must fit the session
-+	 * (open()'s rule offers no shorter period).  The application that
-+	 * holds it chooses again when it sets up the direction that chose,
-+	 * as a DAW changing its buffer does, when the other direction no
-+	 * longer fits, or when the rate changed (the URBs are whole packets
-+	 * of the rate).  A new size needs a new session: stop this one, and
-+	 * prepare starts the next.
-+	 */
-+	if (bf_other_holds_clock(chip, subs)) {
-+		if (params_period_size(params) < bf_session_period(chip)) {
-+			ret = -EBUSY;
-+			goto out;
-+		}
-+	} else if (new_rate || !chip->stream_setup[!subs->stream] ||
-+		   chip->session_dir == subs->stream ||
-+		   params_period_size(params) < bf_session_period(chip)) {
-+		/* URBs in flight for two periods, in whole URBs, and no more:
-+		 * the queue is latency.  Not the whole buffer - the other
-+		 * direction may be set up later with a smaller one, and it
-+		 * shares this queue.  Every buffer holds at least two periods,
-+		 * and the other direction's period is at least this one (in
-+		 * whole URBs, see bf_session_period()), so neither direction
-+		 * gets more queued than its own buffer.
-+		 */
-+		n = 2 * (params_period_size(params) / urb);
-+		if (bf_split_period(r, params_period_size(params)))
-+			n--;
-+		n = clamp_t(unsigned int, n, 2, chip->nurbs);
-+		if (urb != chip->urb_frames || n != chip->urbs_active) {
-+			/* This application's other direction may still
-+			 * run: stop it with an xrun, prepare() refuses it
-+			 * until it fits the new session.
-+			 */
-+			if (chip->streaming) {
-+				babyface_stream_kill(chip);
-+				babyface_pcm_stop_both(chip,
-+						       SNDRV_PCM_STATE_XRUN);
-+			}
-+			chip->urb_frames = urb;
-+			chip->urbs_active = n;
-+			dev_dbg(&chip->dev->dev,
-+				"URBs: %u x %u frames for period %u, buffer %u\n",
-+				n, urb, params_period_size(params),
-+				params_buffer_size(params));
-+		}
-+		chip->session_dir = subs->stream;
-+	}
-+	/* hw_params can repeat without an hw_free in between: count the
-+	 * substream once.
-+	 */
-+	if (!chip->stream_setup[subs->stream]) {
-+		chip->stream_setup[subs->stream] = true;
-+		chip->stream_users++;
-+	}
-+out:
-+	mutex_unlock(&chip->mutex);
++	ret = clk_prepare_enable(dev->pclk);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(dev->clk);
++	if (ret)
++		clk_disable_unprepare(dev->pclk);
++
 +	return ret;
 +}
 +
-+/* The last substream to be released stops the session. */
-+static int babyface_pcm_hw_free(struct snd_pcm_substream *subs)
++static void dwc_adv_i2c_prepare_recovery(struct i2c_adapter *adap)
 +{
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
++	struct dwc_adv_i2c_dev *dev = i2c_get_adapdata(adap);
 +
-+	mutex_lock(&chip->mutex);
-+	if (chip->stream_setup[subs->stream]) {
-+		chip->stream_setup[subs->stream] = false;
-+		if (--chip->stream_users == 0 && chip->streaming) {
-+			babyface_stream_kill(chip);
-+			dev_dbg(&chip->dev->dev, "stream stopped\n");
-+		}
++	__dwc_adv_i2c_disable(dev);
++	reset_control_assert(dev->rst);
++	dwc_adv_i2c_prepare_clk(dev, false);
++}
++
++static void dwc_adv_i2c_unprepare_recovery(struct i2c_adapter *adap)
++{
++	struct dwc_adv_i2c_dev *dev = i2c_get_adapdata(adap);
++	int ret;
++
++	ret = dwc_adv_i2c_prepare_clk(dev, true);
++	if (ret) {
++		dev_err(dev->dev, "failed to enable clock for recovery: %d\n", ret);
++		reset_control_deassert(dev->rst);
++		return;
 +	}
-+	mutex_unlock(&chip->mutex);
++
++	reset_control_deassert(dev->rst);
++	dwc_adv_i2c_init(dev);
++}
++
++static int dwc_adv_i2c_init_recovery_info(struct dwc_adv_i2c_dev *dev)
++{
++	struct i2c_bus_recovery_info *rinfo = &dev->rinfo;
++
++	rinfo->scl_gpiod = devm_gpiod_get_optional(dev->dev, "scl", GPIOD_OUT_HIGH);
++	if (IS_ERR_OR_NULL(rinfo->scl_gpiod))
++		return PTR_ERR_OR_ZERO(rinfo->scl_gpiod);
++
++	rinfo->sda_gpiod = devm_gpiod_get_optional(dev->dev, "sda", GPIOD_IN);
++	if (IS_ERR(rinfo->sda_gpiod))
++		return PTR_ERR(rinfo->sda_gpiod);
++
++	rinfo->pinctrl = devm_pinctrl_get(dev->dev);
++	if (IS_ERR(rinfo->pinctrl)) {
++		if (PTR_ERR(rinfo->pinctrl) == -EPROBE_DEFER)
++			return -EPROBE_DEFER;
++		rinfo->pinctrl = NULL;
++	}
++
++	rinfo->recover_bus = i2c_generic_scl_recovery;
++	rinfo->prepare_recovery = dwc_adv_i2c_prepare_recovery;
++	rinfo->unprepare_recovery = dwc_adv_i2c_unprepare_recovery;
++	dev->adap.bus_recovery_info = rinfo;
++
 +	return 0;
 +}
 +
-+/* Start the session unless it already runs - after an xrun the app
-+ * prepares again and this is a no-op for the hardware.
-+ */
-+static int babyface_pcm_prepare(struct snd_pcm_substream *subs)
++static void dwc_adv_i2c_configure_controller(struct dwc_adv_i2c_dev *dev)
 +{
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	unsigned long flags;
-+	int ret = 0;
++	dev->ctrlr_cfg = DWC_ADV_I2C_CON_CONTROLLER;
 +
-+	mutex_lock(&chip->mutex);
-+	if (chip->shutdown)
-+		ret = -ENODEV;
-+	else if (subs->runtime->rate != chip->rate ||
-+		 subs->runtime->period_size < bf_session_period(chip))
-+		/* The other direction changed the rate or the URBs since
-+		 * this one was set up: it has to be set up again.
-+		 */
-+		ret = -EINVAL;
-+	else if (!chip->streaming)
-+		ret = babyface_stream_start(chip);
-+	mutex_unlock(&chip->mutex);
-+	if (ret < 0)
++	switch (dev->timings.bus_freq_hz) {
++	case I2C_MAX_STANDARD_MODE_FREQ:
++		dev->ctrlr_cfg |= DWC_ADV_I2C_CON_SPEED_STD;
++		break;
++	case I2C_MAX_HIGH_SPEED_MODE_FREQ:
++		dev->ctrlr_cfg |= DWC_ADV_I2C_CON_SPEED_HIGH;
++		break;
++	default:
++		dev->ctrlr_cfg |= DWC_ADV_I2C_CON_SPEED_FAST;
++		break;
++	}
++}
++
++static int dwc_adv_i2c_parse_fw(struct dwc_adv_i2c_dev *dev)
++{
++	struct device *device = dev->dev;
++
++	i2c_parse_fw_timings(device, &dev->timings, false);
++	if (!dev->timings.bus_freq_hz)
++		dev->timings.bus_freq_hz = I2C_MAX_FAST_MODE_FREQ;
++
++	switch (dev->timings.bus_freq_hz) {
++	case I2C_MAX_STANDARD_MODE_FREQ:
++	case I2C_MAX_FAST_MODE_FREQ:
++	case I2C_MAX_FAST_MODE_PLUS_FREQ:
++	case I2C_MAX_HIGH_SPEED_MODE_FREQ:
++		break;
++	default:
++		return dev_err_probe(device, -EINVAL, "invalid clock-frequency %u\n",
++				     dev->timings.bus_freq_hz);
++	}
++
++	return 0;
++}
++
++static int dwc_adv_i2c_runtime_suspend(struct device *device)
++{
++	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
++
++	__dwc_adv_i2c_disable(dev);
++	dwc_adv_i2c_prepare_clk(dev, false);
++
++	return 0;
++}
++
++static int dwc_adv_i2c_runtime_resume(struct device *device)
++{
++	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
++	int ret;
++
++	ret = dwc_adv_i2c_prepare_clk(dev, true);
++	if (ret)
 +		return ret;
 +
-+	spin_lock_irqsave(&chip->lock, flags);
-+	chip->hw_ptr[subs->stream] = 0;
-+	chip->prev_period[subs->stream] = 0;
-+	spin_unlock_irqrestore(&chip->lock, flags);
++	dwc_adv_i2c_init(dev);
++
 +	return 0;
 +}
 +
-+static int babyface_pcm_trigger(struct snd_pcm_substream *subs, int cmd)
++static int dwc_adv_i2c_suspend(struct device *device)
 +{
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	unsigned long flags;
++	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
 +
-+	switch (cmd) {
-+	/* The session runs from prepare to hw_free; START and STOP only
-+	 * decide whether the URB handlers move this substream's audio.
-+	 */
-+	case SNDRV_PCM_TRIGGER_START:
-+		/* A URB error may have stopped the session since prepare. */
-+		if (!READ_ONCE(chip->streaming))
-+			return -EPIPE;
-+		spin_lock_irqsave(&chip->lock, flags);
-+		chip->hw_ptr[subs->stream] = 0;
-+		chip->prev_period[subs->stream] = 0;
-+		spin_unlock_irqrestore(&chip->lock, flags);
-+		return 0;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		return 0;
-+	}
-+	return -EINVAL;
++	i2c_mark_adapter_suspended(&dev->adap);
++
++	return pm_runtime_force_suspend(device);
 +}
 +
-+/* The audio between hw_ptr and the converters, for runtime->delay.
-+ * hw_ptr moves a URB at a time: playback when a URB is refilled, capture
-+ * when one completes.  A refilled OUT URB goes to the back of the queue,
-+ * so the next frame the application writes waits behind the URBs in
-+ * flight, whatever they carry.
-+ *
-+ * Both directions take their time from the last IN completion, the
-+ * point where the device has finished a URB's worth of recording.  By
-+ * then it has also played one of the OUT URBs still counted in flight;
-+ * that URB's completion only says its data reached the device.  Since
-+ * the IN completion, the device has recorded, and played, the time
-+ * elapsed, measured with ktime and never more than one URB.
-+ * snd-usb-audio estimates it from the USB frame counter, which counts
-+ * in 1 ms steps, longer than a 32-frame URB at 48 kHz.  With one time
-+ * reference the estimate cancels in the sum of the two delays, the
-+ * round trip an application compensates a recording with.
-+ *
-+ * On top of that queue each direction adds a fixed delay inside the
-+ * device, per speed, in frames at the stream rate.  The values are what
-+ * RME's Windows driver reports for its ASIO buffer on a 2015 Babyface
-+ * Pro, which RTL Utility measured to within one frame.  Playback is
-+ * 8 + 32 x the speed: the device's OUT buffer and the DA converter,
-+ * the same on the FS.  Capture is lowered by 7 frames to the FS, whose
-+ * AD converter is 5 samples against 12 on the 2015 model, since the
-+ * two share VID:PID and bcdDevice.  So the 2015 model is reported a
-+ * little short, and neither model too long.  Caller holds chip->lock.
-+ */
-+static const struct {
-+	u8 playback;
-+	u8 capture;
-+} bf_device_delay[] = {
-+	[BF_ALT_1] = { 40, 16 },
-+	[BF_ALT_2] = { 72, 24 },
-+	[BF_ALT_3] = { 136, 38 },
++static int dwc_adv_i2c_resume(struct device *device)
++{
++	struct dwc_adv_i2c_dev *dev = dev_get_drvdata(device);
++	int ret;
++
++	ret = pm_runtime_force_resume(device);
++	if (ret)
++		return ret;
++
++	i2c_mark_adapter_resumed(&dev->adap);
++
++	return 0;
++}
++
++static const struct dev_pm_ops dwc_adv_i2c_pm_ops = {
++	LATE_SYSTEM_SLEEP_PM_OPS(dwc_adv_i2c_suspend, dwc_adv_i2c_resume)
++	RUNTIME_PM_OPS(dwc_adv_i2c_runtime_suspend, dwc_adv_i2c_runtime_resume, NULL)
 +};
 +
-+static snd_pcm_uframes_t bf_delay(struct snd_usb_babyface *chip,
-+				  struct snd_pcm_substream *subs)
++static void dwc_adv_i2c_pm_teardown(void *data)
 +{
-+	s64 ns = ktime_to_ns(ktime_sub(ktime_get(), chip->in_done));
-+	unsigned int urb = chip->urb_frames;
-+	unsigned int moved;
++	struct dwc_adv_i2c_dev *dev = data;
++	int ret;
 +
-+	moved = ns > 0 ? min_t(u64, div_u64((u64)ns * subs->runtime->rate,
-+					    NSEC_PER_SEC), urb) : 0;
-+	if (subs->stream == SNDRV_PCM_STREAM_CAPTURE)
-+		return moved + bf_device_delay[chip->alt].capture;
-+	if (chip->out_inflight < 2)
-+		return 0;
-+	return (chip->out_inflight - 1) * urb - moved +
-+	       bf_device_delay[chip->alt].playback;
++	ret = pm_runtime_resume_and_get(dev->dev);
++	if (!ret)
++		__dwc_adv_i2c_disable(dev);
++	pm_runtime_dont_use_autosuspend(dev->dev);
++	if (!ret)
++		pm_runtime_put_noidle(dev->dev);
++	pm_runtime_disable(dev->dev);
 +}
 +
-+static snd_pcm_uframes_t babyface_pcm_pointer(struct snd_pcm_substream *subs)
++static int dwc_adv_i2c_probe(struct platform_device *pdev)
 +{
-+	struct snd_usb_babyface *chip = snd_pcm_substream_chip(subs);
-+	unsigned long flags;
-+	snd_pcm_uframes_t pos;
++	struct device *device = &pdev->dev;
++	const struct dwc_adv_i2c_match_data *match_data;
++	struct dwc_adv_i2c_dev *dev;
++	int irq, ret;
 +
-+	spin_lock_irqsave(&chip->lock, flags);
-+	pos = chip->hw_ptr[subs->stream] % subs->runtime->buffer_size;
-+	subs->runtime->delay = bf_delay(chip, subs);
-+	spin_unlock_irqrestore(&chip->lock, flags);
-+	return pos;
-+}
-+
-+static const struct snd_pcm_ops babyface_pcm_ops = {
-+	.open = babyface_pcm_open,
-+	.close = babyface_pcm_close,
-+	.ioctl = snd_pcm_lib_ioctl,
-+	.hw_params = babyface_pcm_hw_params,
-+	.hw_free = babyface_pcm_hw_free,
-+	.prepare = babyface_pcm_prepare,
-+	.trigger = babyface_pcm_trigger,
-+	.pointer = babyface_pcm_pointer,
-+};
-+
-+static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;
-+static char *id[SNDRV_CARDS] = SNDRV_DEFAULT_STR;
-+static int frames_per_urb = BF_FRAMES_PER_URB_DEFAULT;
-+static int urb_frames_min = 32;
-+static int nurbs = BF_NURBS_DEFAULT;
-+
-+module_param_array(index, int, NULL, 0444);
-+MODULE_PARM_DESC(index, "Index value for the Babyface Pro sound card.");
-+module_param_array(id, charp, NULL, 0444);
-+MODULE_PARM_DESC(id, "ID string for the Babyface Pro sound card.");
-+module_param(frames_per_urb, int, 0444);
-+MODULE_PARM_DESC(frames_per_urb, "Largest URB in audio frames, 8..1024 (256 = default); the period chooses the size below it.");
-+module_param(urb_frames_min, int, 0444);
-+MODULE_PARM_DESC(urb_frames_min, "Smallest URB in audio frames, 8..1024 (32 = default, 16 = low-latency floor).");
-+module_param(nurbs, int, 0444);
-+MODULE_PARM_DESC(nurbs, "Most URBs in flight per direction, 2..16 (8 = default).");
-+
-+static void babyface_private_free(struct snd_card *card)
-+{
-+	struct snd_usb_babyface *chip = card->private_data;
-+	unsigned int urbsize;
-+	int i;
-+
-+	if (!chip)
-+		return;
-+
-+	/* The URB arrays are NULL when the probe failed before allocating
-+	 * them (snd_card_free runs private_free on any probe error).
-+	 */
-+	if (chip->urbs_in) {
-+		urbsize = BF_WORDS_PER_FRAME * sizeof(u32) * chip->frames_per_urb;
-+		for (i = 0; i < chip->nurbs; i++) {
-+			if (chip->urbs_in[i]) {
-+				usb_kill_urb(chip->urbs_in[i]);
-+				usb_free_urb(chip->urbs_in[i]);
-+			}
-+			if (chip->urbs_out && chip->urbs_out[i]) {
-+				usb_kill_urb(chip->urbs_out[i]);
-+				usb_free_urb(chip->urbs_out[i]);
-+			}
-+			/* probe() allocates the six arrays separately and can
-+			 * fail between them, so each may be NULL here - this runs
-+			 * on the probe error path via snd_card_free().
-+			 */
-+			if (chip->buf_in && chip->dma_in)
-+				usb_free_coherent(chip->dev, urbsize,
-+						  chip->buf_in[i], chip->dma_in[i]);
-+			if (chip->buf_out && chip->dma_out)
-+				usb_free_coherent(chip->dev, urbsize,
-+						  chip->buf_out[i], chip->dma_out[i]);
-+		}
-+	}
-+	kfree(chip->urbs_in);
-+	kfree(chip->urbs_out);
-+	kfree(chip->buf_in);
-+	kfree(chip->buf_out);
-+	kfree(chip->dma_in);
-+	kfree(chip->dma_out);
-+	usb_put_dev(chip->dev);
-+}
-+
-+static int babyface_probe(struct usb_interface *intf,
-+			  const struct usb_device_id *usb_id)
-+{
-+	struct usb_device *dev = interface_to_usbdev(intf);
-+	struct snd_usb_babyface *chip;
-+	struct snd_card *card;
-+	struct snd_pcm *pcm;
-+	unsigned int urbsize;
-+	int i, err;
-+
-+	if (intf->cur_altsetting->desc.bInterfaceNumber != BF_IFACE) {
-+		/* Only the proprietary audio interface is ours; the MIDI
-+		 * (standard class) and bulk interfaces stay unclaimed so
-+		 * snd-usb-audio can take the MIDI one.
-+		 */
++	match_data = device_get_match_data(device);
++	if (!match_data)
 +		return -ENODEV;
-+	}
 +
-+	err = snd_card_new(&intf->dev, index[0], id[0], THIS_MODULE,
-+			   sizeof(*chip), &card);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "snd_card_new failed: %d\n", err);
-+		return err;
-+	}
-+	chip = card->private_data;
-+	chip->card = card;
++	dev = devm_kzalloc(device, sizeof(*dev), GFP_KERNEL);
++	if (!dev)
++		return -ENOMEM;
 +
-+	chip->dev = usb_get_dev(dev);
-+	/* USB autosuspend is untested: nothing in this driver holds a PM
-+	 * reference while streaming, so an autosuspend request could race
-+	 * a live stream.  Disable it explicitly rather than ship an
-+	 * untested code path - full autosuspend support (correct
-+	 * autopm_get/put pairing around the stream) is a deliberate
-+	 * follow-up, not an oversight.
-+	 */
-+	usb_disable_autosuspend(chip->dev);
-+	chip->iface = intf;
-+	chip->nurbs = clamp(nurbs, 2, 16);
-+	chip->frames_per_urb = clamp(frames_per_urb, 8, 1024) & ~7;
-+	chip->urb_frames_min = min_t(unsigned int,
-+				     clamp(urb_frames_min, 8, 1024) & ~7,
-+				     chip->frames_per_urb);
-+	chip->urb_frames = chip->frames_per_urb;
-+	chip->urbs_active = chip->nurbs;
-+	chip->rate = 48000;
-+	chip->alt = BF_ALT_1;
-+	chip->frame_bytes = 56;
-+	mutex_init(&chip->mutex);
-+	spin_lock_init(&chip->lock);
-+	atomic_set(&chip->urb_err, 0);
-+	INIT_WORK(&chip->stream_work, babyface_stream_work);
-+	chip->card->private_free = babyface_private_free;
++	dev->dev = device;
++	dev->tx_fifo_depth = match_data->tx_fifo_depth;
++	dev->rx_fifo_depth = match_data->rx_fifo_depth;
 +
-+	/* Model-neutral on purpose.  The FS and the original (2015)
-+	 * Babyface Pro share VID:PID 2a39:3fc0, report the same bcdDevice
-+	 * and the same iProduct shape, and neither says "FS" anywhere, so
-+	 * there is nothing to tell them apart at probe time - and the
-+	 * driver is reported to work unmodified on both.  card->driver in
-+	 * particular is what alsa-lib configs and UCM profiles match on,
-+	 * so it has to be right before this reaches a released kernel.
-+	 */
-+	strscpy(chip->card->driver, "BabyfacePro",
-+		sizeof(chip->card->driver));
-+	strscpy(chip->card->shortname, "Babyface Pro",
-+		sizeof(chip->card->shortname));
-+	snprintf(chip->card->longname, sizeof(chip->card->longname),
-+		 "RME Babyface Pro (proprietary mode) at %s",
-+		 dev_name(&dev->dev));
++	dev->base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(dev->base))
++		return PTR_ERR(dev->base);
 +
-+	/* If the id was not passed as a module option, derive it from the
-+	 * shortname with the whitespace removed, the way snd-usb-caiaq
-+	 * does.  Letting the core derive it instead yields the last word
-+	 * of the shortname ("Pro"), which is no use as an hw: name.
-+	 */
-+	if (*chip->card->id == '\0') {
-+		char cid[sizeof(chip->card->id)];
-+		const char *c;
-+		size_t len;
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
 +
-+		memset(cid, 0, sizeof(cid));
-+		for (c = chip->card->shortname, len = 0;
-+		     *c && len < sizeof(cid) - 1; c++)
-+			if (*c != ' ')
-+				cid[len++] = *c;
-+		snd_card_set_id(chip->card, cid);
-+	}
-+	strscpy(chip->card->mixername, "Babyface Pro",
-+		sizeof(chip->card->mixername));
++	dev->rst = devm_reset_control_get_optional_exclusive_deasserted(device, NULL);
++	if (IS_ERR(dev->rst))
++		return dev_err_probe(device, PTR_ERR(dev->rst), "failed to get reset\n");
 +
-+	/* alt 1 = the default 48-kHz bandwidth class. */
-+	err = usb_set_interface(dev, BF_IFACE, BF_ALT_1);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "usb_set_interface failed: %d\n", err);
-+		goto error;
-+	}
++	ret = dwc_adv_i2c_parse_fw(dev);
++	if (ret)
++		return ret;
 +
-+	err = bf_cold_init(chip);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "cold init failed: %d\n", err);
-+		goto error;
-+	}
++	dwc_adv_i2c_configure_controller(dev);
 +
-+	/* Keep the allocation size independent of the active USB mode. */
-+	urbsize = BF_WORDS_PER_FRAME * sizeof(u32) * chip->frames_per_urb;
-+	chip->urbs_in = kcalloc(chip->nurbs, sizeof(*chip->urbs_in), GFP_KERNEL);
-+	chip->urbs_out = kcalloc(chip->nurbs, sizeof(*chip->urbs_out), GFP_KERNEL);
-+	chip->buf_in = kcalloc(chip->nurbs, sizeof(*chip->buf_in), GFP_KERNEL);
-+	chip->buf_out = kcalloc(chip->nurbs, sizeof(*chip->buf_out), GFP_KERNEL);
-+	chip->dma_in = kcalloc(chip->nurbs, sizeof(*chip->dma_in), GFP_KERNEL);
-+	chip->dma_out = kcalloc(chip->nurbs, sizeof(*chip->dma_out), GFP_KERNEL);
-+	if (!chip->urbs_in || !chip->urbs_out || !chip->buf_in ||
-+	    !chip->buf_out || !chip->dma_in || !chip->dma_out)
-+		goto error;
++	dev->pclk = devm_clk_get_enabled(device, "pclk");
++	if (IS_ERR(dev->pclk))
++		return dev_err_probe(device, PTR_ERR(dev->pclk), "failed to get pclk\n");
 +
-+	for (i = 0; i < chip->nurbs; i++) {
-+		chip->urbs_in[i] = usb_alloc_urb(0, GFP_KERNEL);
-+		chip->urbs_out[i] = usb_alloc_urb(0, GFP_KERNEL);
-+		chip->buf_in[i] = usb_alloc_coherent(dev, urbsize, GFP_KERNEL,
-+						     &chip->dma_in[i]);
-+		chip->buf_out[i] = usb_alloc_coherent(dev, urbsize, GFP_KERNEL,
-+						      &chip->dma_out[i]);
-+		if (!chip->urbs_in[i] || !chip->urbs_out[i] ||
-+		    !chip->buf_in[i] || !chip->buf_out[i])
-+			goto error;
-+	}
++	dev->clk = devm_clk_get_enabled(device, "ref");
++	if (IS_ERR(dev->clk))
++		return dev_err_probe(device, PTR_ERR(dev->clk), "failed to get ref clock\n");
 +
-+	err = snd_pcm_new(chip->card, "Babyface Pro", 0, 1, 1, &pcm);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "snd_pcm_new failed: %d\n", err);
-+		goto error;
-+	}
-+	pcm->private_data = chip;
-+	strscpy(pcm->name, "Babyface Pro", sizeof(pcm->name));
-+	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &babyface_pcm_ops);
-+	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &babyface_pcm_ops);
++	ret = dwc_adv_i2c_discover_regs(dev);
++	if (ret)
++		return ret;
 +
-+	/* The PCM buffer is host-side (the URB callbacks copy in/out of
-+	 * it); vmalloc is the standard choice for that.
-+	 */
-+	err = snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
-+					     NULL, 0, 1 << 20);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "buffer allocation failed: %d\n", err);
-+		goto error;
-+	}
++	if (dev->timings.sda_hold_ns)
++		dev->sda_hold_time =
++			DIV_S64_ROUND_CLOSEST((s64)clk_get_rate(dev->clk) / 1000 *
++					      dev->timings.sda_hold_ns, MICRO);
 +
-+	err = snd_card_register(chip->card);
-+	if (err < 0) {
-+		dev_err(&intf->dev, "snd_card_register failed: %d\n", err);
-+		goto error;
-+	}
++	dwc_adv_i2c_set_timings(dev);
 +
-+	usb_set_intfdata(intf, chip);
-+	dev_info(&intf->dev,
-+		 "Babyface Pro: card %i, %u frames/URB, %u URBs/direction\n",
-+		 chip->card->number, chip->frames_per_urb, chip->nurbs);
-+	return 0;
++	init_completion(&dev->cmd_complete);
 +
-+error:
-+	usb_set_intfdata(intf, NULL);
-+	/* Balance the probe()-time usb_disable_autosuspend(): disconnect()
-+	 * is never called for a failed probe, so the disable would leak and
-+	 * leave autosuspend off on this usb_device until a physical unplug.
-+	 */
-+	usb_enable_autosuspend(chip->dev);
-+	snd_card_free(chip->card);
-+	return err;
++	platform_set_drvdata(pdev, dev);
++
++	ret = devm_request_irq(device, irq, dwc_adv_i2c_isr, 0, dev_name(device), dev);
++	if (ret)
++		return dev_err_probe(device, ret, "failed to request irq %d\n", irq);
++
++	ret = dwc_adv_i2c_init_recovery_info(dev);
++	if (ret)
++		return dev_err_probe(device, ret, "failed to init bus recovery\n");
++
++	i2c_set_adapdata(&dev->adap, dev);
++	dev->adap.owner = THIS_MODULE;
++	strscpy(dev->adap.name, "Synopsys Advanced I2C adapter",
++		sizeof(dev->adap.name));
++	dev->adap.algo = &dwc_adv_i2c_algo;
++	dev->adap.quirks = &dwc_adv_i2c_quirks;
++	dev->adap.dev.parent = device;
++	dev->adap.timeout = msecs_to_jiffies(DWC_ADV_I2C_XFER_TIMEOUT_MS);
++	dev->adap.retries = 3;
++	device_set_node(&dev->adap.dev, dev_fwnode(device));
++
++	dwc_adv_i2c_init(dev);
++
++	pm_runtime_set_autosuspend_delay(device, DWC_ADV_I2C_AUTOSUSPEND_DELAY_MS);
++	pm_runtime_use_autosuspend(device);
++	ret = pm_runtime_set_active(device);
++	if (ret)
++		return dev_err_probe(device, ret, "failed to set runtime PM active\n");
++
++	pm_runtime_enable(device);
++
++	ret = devm_add_action_or_reset(device, dwc_adv_i2c_pm_teardown, dev);
++	if (ret)
++		return ret;
++
++	return devm_i2c_add_adapter(device, &dev->adap);
 +}
 +
-+static void babyface_disconnect(struct usb_interface *intf)
-+{
-+	struct snd_usb_babyface *chip = usb_get_intfdata(intf);
-+
-+	if (!chip)
-+		return;
-+
-+	/* Idempotence guard: a disconnect can race a re-probe (usbfs
-+	 * detach/re-attach) - tear the card down exactly once.
-+	 */
-+	usb_set_intfdata(intf, NULL);
-+	if (chip->shutdown)
-+		return;
-+
-+	chip->shutdown = true;
-+	/* Kill the session before cancelling the work: the URB handlers
-+	 * queue it, and an unplug is exactly when they see errors.  Taking
-+	 * the mutex also waits out a prepare that was already past its
-+	 * ->shutdown check.
-+	 */
-+	mutex_lock(&chip->mutex);
-+	if (chip->streaming)
-+		babyface_stream_kill(chip);
-+	mutex_unlock(&chip->mutex);
-+	cancel_work_sync(&chip->stream_work);
-+	/* Balance the probe()-time usb_disable_autosuspend(): the usb_device
-+	 * outlives this interface claim (a usbfs detach re-probes without
-+	 * the physical device ever disconnecting), so leaving autosuspend
-+	 * disabled here would wrongly affect whatever claims the device next.
-+	 */
-+	usb_enable_autosuspend(chip->dev);
-+	/* Wake apps blocked in read/write: the card is going away. */
-+	dev_info(&chip->dev->dev, "disconnect: stopping PCM substreams\n");
-+	babyface_pcm_stop_both(chip, SNDRV_PCM_STATE_DISCONNECTED);
-+
-+	snd_card_disconnect(chip->card);
-+	/* NEVER snd_card_free() here: it blocks until the last user
-+	 * closes the card, and an open client (e.g. PipeWire) deadlocks
-+	 * the disconnect (seen live: pipewire stuck in snd_card_free,
-+	 * D state).  free_when_closed frees on the last close.
-+	 */
-+	snd_card_free_when_closed(chip->card);
-+}
-+
-+static const struct usb_device_id babyface_ids[] = {
-+	{ USB_DEVICE(USB_VENDOR_RME, USB_PRODUCT_BABYFACE_PRO_FS) },
++static const struct of_device_id dwc_adv_i2c_of_match[] = {
++	{ .compatible = "ti,tda54-i2c", .data = &tda54_i2c_match_data },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(usb, babyface_ids);
++MODULE_DEVICE_TABLE(of, dwc_adv_i2c_of_match);
 +
-+static struct usb_driver babyface_driver = {
-+	.name = "snd-usb-babyface-pro",
-+	.probe = babyface_probe,
-+	.disconnect = babyface_disconnect,
-+	.id_table = babyface_ids,
++static struct platform_driver dwc_adv_i2c_driver = {
++	.probe = dwc_adv_i2c_probe,
++	.driver = {
++		.name = "i2c-dwc-adv",
++		.of_match_table = dwc_adv_i2c_of_match,
++		.pm = pm_ptr(&dwc_adv_i2c_pm_ops),
++	},
 +};
++module_platform_driver(dwc_adv_i2c_driver);
 +
-+static int __init babyface_init(void)
-+{
-+	return usb_register(&babyface_driver);
-+}
-+
-+static void __exit babyface_exit(void)
-+{
-+	usb_deregister(&babyface_driver);
-+}
-+
-+module_init(babyface_init);
-+module_exit(babyface_exit);
-+
-+MODULE_AUTHOR("Ismaïl Bahloul <i.bahloul01@gmail.com>");
-+MODULE_DESCRIPTION("RME Babyface Pro / Pro FS (proprietary mode) USB audio driver");
++MODULE_AUTHOR("Aniket Limaye <a-limaye@ti.com>");
++MODULE_DESCRIPTION("Synopsys Advanced I2C (DWC_i2c) driver");
 +MODULE_LICENSE("GPL");
-diff --git a/sound/usb/babyfacepro/babyfacepro.h b/sound/usb/babyfacepro/babyfacepro.h
-new file mode 100644
-index 000000000..93ef4c3a1
---- /dev/null
-+++ b/sound/usb/babyfacepro/babyfacepro.h
-@@ -0,0 +1,187 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * RME Babyface Pro / Pro FS - proprietary-mode USB audio driver
-+ *
-+ * The Babyface Pro (and Pro FS) present two personalities on the USB
-+ * bus: a class-compliant one (handled by snd-usb-audio) and a
-+ * proprietary one (VID 0x2a39 / PID 0x3fc0) whose PCM stream runs on
-+ * INTERRUPT endpoints (interface 5, ep 0x01 OUT / 0x82 IN).
-+ * Isochronous transfers are rejected there with EINVAL, and
-+ * snd-usb-audio has no interrupt-PCM path, so this driver is
-+ * standalone (snd-usb-caiaq-style interrupt streaming) instead of an
-+ * snd-usb-audio quirk.
-+ *
-+ * babyfacepro.c holds the card lifecycle and the PCM stream.
-+ *
-+ * The protocol (vendor requests + 14x32-bit frame layout) was
-+ * reverse-engineered from Windows captures and validated on hardware -
-+ * tools/usbdump/PROTOCOL.md in the driver's development repository is
-+ * the authoritative reference.
-+ *
-+ * Stream notes (hardware-validated 2026-08):
-+ *   - The URB size follows the application's period, and enough URBs
-+ *     stay in flight to cover two periods (bf_urb_frames(), hw_params):
-+ *     between urb_frames_min and frames_per_urb, at most nurbs URBs.
-+ *     A URB must be a whole number of alt packets - the device delivers IN
-+ *     data in alt-sized packets (448/640/1024 B, 8/16/32 frames for
-+ *     alt 1/2/3), and smaller URBs get -EOVERFLOW (babble).
-+ *   - Measured with fixed URBs, sweep 256->128->64->32->16
-+ *     (<= 128 kHz): with nurbs=8 the period floor is 32 frames
-+ *     (0.67 ms @ 48 kHz) without glitches;
-+ *     nurbs=16 drops it to 16 frames (0.33 ms).  Soaks (5-15 min,
-+ *     2026-08-25) refine this: period 32 is the zero-glitch floor
-+ *     (0 xruns both directions); period 16 is rock-solid on playback
-+ *     but the capture side drops ~1 buffer per 7 s (0.67 ms each -
-+ *     any scheduler hiccup overruns a 0.33 ms ring) - fine for
-+ *     monitoring, not for clean recording.
-+ *   - The device only advances the stream while BOTH endpoints have a
-+ *     pending URB - IN and OUT are always submitted as a pair.
-+ *   - SET_INTERFACE(5, alt) selects single/double/quad speed and USB
-+ *     packet capacity; the BASE rate is the family register (request
-+ *     0x10, index 0x0030: 32k / 44.1k / 48k family), from which the
-+ *     firmware derives its own DDS word.  Three families times three
-+ *     speeds give all nine rates.  The 0x1B DDS quad is varispeed: a
-+ *     pitch RATIO applied on top of the family rate, sticky until
-+ *     rewritten, with the 48 kHz cold-plug quad meaning x1.0.  See
-+ *     bf_clock_write / bf_pitch_write.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/unaligned.h>
-+#include <linux/usb.h>
-+#include <linux/workqueue.h>
-+#include <sound/core.h>
-+#include <sound/initval.h>
-+#include <sound/pcm.h>
-+
-+#define USB_VENDOR_RME			0x2a39
-+#define USB_PRODUCT_BABYFACE_PRO_FS	0x3fc0
-+
-+/* The proprietary audio interface (interface 5, interrupt endpoints). */
-+#define BF_IFACE			5
-+#define BF_EP_OUT			0x01
-+#define BF_EP_IN			0x82
-+
-+#define BF_ALT_1			1	/* x1: 32/44.1/48 kHz, 448-B packets */
-+#define BF_ALT_2			2	/* x2: 64/88.2/96 kHz, 640-B packets */
-+#define BF_ALT_3			3	/* x4: 128/176.4/192 kHz, 1024-B packets */
-+
-+/* Upper limits of the stream geometry: the largest URB and the most
-+ * URBs in flight.  The application's period and buffer choose the
-+ * values actually used below these; both are module params.
-+ */
-+#define BF_FRAMES_PER_URB_DEFAULT	256
-+#define BF_NURBS_DEFAULT		8
-+
-+#define BF_WORDS_PER_FRAME		14	/* 14 x 32-bit words per frame */
-+
-+/* Consecutive URB errors (CRC/babble/protocol or a failed resubmit)
-+ * before the stream is stopped and the apps get a clean -EPIPE.
-+ */
-+#define BF_URB_ERR_STOP			3
-+
-+/* Minimum time from the end of one stream session to the next session
-+ * trigger.  A session triggered within about 15 ms of the previous one's
-+ * URBs stopping comes up with the outputs silent (measured on the
-+ * hardware); this leaves a margin.
-+ */
-+#define BF_SESSION_GAP_MS		50
-+
-+/* Vendor requests (bmRequestType 0x40, value in wValue, no data phase). */
-+#define BF_REQ_KEEPALIVE		0x10	/* settings word / stream trigger */
-+#define BF_REQ_REG_CLEAR		0x16	/* cold-init register clear */
-+#define BF_REQ_PREAMP			0x17	/* 48V/PAD state + readback */
-+#define BF_REQ_DDS			0x1b	/* clock quads */
-+#define BF_REQ_STATUS_2			0x1c	/* read 4 B */
-+#define BF_REQ_SESSION_START		0x1d
-+#define BF_REQ_SESSION_ARM		0x14
-+#define BF_REQ_PREAMP_COMMIT		0x21	/* commit after 0x17 */
-+
-+#define BF_REG_RATE_FAMILY		0x0030	/* family << 4 (bReq 0x10) */
-+/* 0x05ff = 0x05cf | 0x0030: the settings word and the family register
-+ * written together (measured 2026-09-16: bits 4-5 of the value land in
-+ * the family register).  The cold-plug capture writes 0x0021 here, i.e.
-+ * family 48 kHz + clock internal - which is why replaying it after a
-+ * family write used to reset the rate to 48 kHz.
-+ */
-+#define BF_REG_KEEPALIVE_INIT		0x05ff
-+#define BF_REG_KEEPALIVE_SETTINGS	0x05cf
-+
-+/* Host settings-state word carried by the BF_REG_KEEPALIVE_SETTINGS
-+ * keepalive (PROTOCOL.md "keepalive 0x10 0x05CF wVal = host settings-
-+ * state register", hardware-verified 2026-08-22/23).
-+ */
-+#define BF_SETTINGS_CLOCK_INTERNAL	0x0001
-+
-+struct snd_usb_babyface {
-+	struct snd_card *card;
-+	struct usb_device *dev;
-+	struct usb_interface *iface;
-+
-+	struct mutex mutex;		/* controls + stream geometry */
-+	spinlock_t lock;		/* hw_ptr / subs */
-+
-+	/* stream */
-+	struct urb **urbs_in;
-+	struct urb **urbs_out;
-+	void **buf_in;
-+	void **buf_out;
-+	dma_addr_t *dma_in;
-+	dma_addr_t *dma_out;
-+	unsigned int nurbs;
-+	unsigned int frames_per_urb;	/* URB buffer size: the largest URB */
-+	unsigned int urb_frames_min;	/* smallest URB a period may choose */
-+	unsigned int urb_frames;	/* this session's URB size */
-+	unsigned int urbs_active;	/* this session's URBs in flight */
-+	int session_dir;		/* the direction that chose them */
-+	unsigned int frame_bytes;	/* 56/40/32 for alt 1/2/3 */
-+	unsigned int rate;
-+	unsigned int alt;
-+	int pitch;			/* varispeed in 0.1% (-500..+500) */
-+	int stream_users;		/* substreams set up (hw_params..hw_free) */
-+	bool stream_setup[2];		/* per direction, counted in stream_users */
-+	pid_t owner[2];			/* per direction: tgid that opened it */
-+	bool streaming;			/* URBs actually in flight */
-+	ktime_t stream_stopped;		/* when the last session's URBs stopped */
-+	bool shutdown;
-+	atomic_t urb_err;		/* consecutive bad URBs (stops the stream) */
-+	struct work_struct stream_work;
-+
-+	/* Set in open() and cleared in close() under ->lock.  The URB
-+	 * handlers and babyface_pcm_stop_both() read it under
-+	 * rcu_read_lock(); close() waits them out with synchronize_rcu().
-+	 */
-+	struct snd_pcm_substream __rcu *subs[2];
-+	unsigned long hw_ptr[2];
-+	unsigned long prev_period[2];
-+	/* For runtime->delay: when the last IN URB completed, and the OUT
-+	 * URBs in flight.  Under ->lock.
-+	 */
-+	ktime_t in_done;
-+	unsigned int out_inflight;
-+};
-+
-+struct bf_rate {
-+	unsigned int rate;
-+	unsigned int alt;
-+	unsigned int frame_bytes;
-+	unsigned int min_fpu;	/* frames/URB floor = one alt packet (448/640/1024 B) */
-+};
-+
-+/* babyfacepro.c */
-+const struct bf_rate *bf_rate_lookup(unsigned int rate);
-+/* The family register value for a rate: 0 / 1 / 2 for the 32k / 44.1k /
-+ * 48k family (rate >> (alt - 1)).
-+ */
-+unsigned int bf_rate_family(const struct bf_rate *r);
-+int bf_vendor_write(struct snd_usb_babyface *chip, u8 req, u16 val, u16 idx);
-+int bf_vendor_read(struct snd_usb_babyface *chip, u8 req, u16 idx, u8 *buf);
-+int bf_settings_write(struct snd_usb_babyface *chip);
-+int bf_clock_write(struct snd_usb_babyface *chip);
-+int bf_pitch_write(struct snd_usb_babyface *chip, int pitch);
-+int bf_cold_init(struct snd_usb_babyface *chip);
-+void babyface_stream_kill(struct snd_usb_babyface *chip);
-+void babyface_pcm_stop_both(struct snd_usb_babyface *chip, snd_pcm_state_t state);
-+void babyface_stream_work(struct work_struct *work);
-+extern const struct snd_pcm_hw_constraint_list bf_rates_constraint;
+
 -- 
-2.56.0
+2.53.0
 
