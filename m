@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793125550;
-	b=JtBfgdudDwvhycIgHPCR3pRTYRcNwNwxdXoZt4Q4H0o2OiInzPfAXGTgNHD//FjBPdy7
-	 8ugQaBWf6qnkVb/1aZJMOhPzrL2JlL5erNpIGkkuioorBIpXThflxvwc1IbDHs8uRAdfQ
-	 kcIGM863Mw4r96F6k72a5KXk4kwmGEQXW0hsll+wtfUSorHRB/wNyBZAQaYy9raMbpkjw
-	 h7X8O5or95yKq8EPFFDzvByhY3FeTdOKkwTA82q5l66R0bjdhnpYY8BnRT3q69RhRW6qZ
-	 F0klQt1BmIcU2hbEV8tk8psr3U5GwQ3bU85+qNu+FhYRHf9zigabcjZlFbYc9FE0ynA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793125550;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=yYVnZVngw4wIyvUedHrp/RCi4DEk87r28LIRWXpCLH0=;
-	b=IGpo/a6CPh/DR9yf8XxmpBZcEfpCm40TihHImYcr4RFz/5uokfXraiJYVJV3Jrx2gA2L
-	 Fi60fXv6TExp/XP/FdYqn1LJ4L29xP/eDKW0L80bmtQE4PDw22F4WTMr1MKVrQ/I0p5F8
-	 vT1SMqly5mLZiGOIxhrCs4nXEu7eKnO/wzs2M8WxyyF52pzZAbRys40FBe4zLFMqNdGf5
-	 CmCMYi1U79OTFmStlZl4oCrvI1AycyDnjLV16/UKVyS3Sfzel3gSGWGeOumH0WTRhZZd6
-	 F51GztGowooNZqi+tmEhsXXNDKpztIELv/5T9zAassRANiw0ziWCI+N4hcv7L3PTtSg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bCe0DApS;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793125630;
+	b=EmZKhlj2CvjNpxe+eIblZcx+RBW8IVkf/zIiP36wUDQJEvpK/BP4M3Ppn4kKqbssJFFY
+	 TCHyTMVywV+vWUHordDA5AMiN7HHoRfk5twHi8G0yV5YhFuySwPr/CjOXEzsN7BsktZUY
+	 EJMph3/Mz1+ihMFQdnfcs8frAw82jGaoN+1iYBKh99m5Ojsc7MvMx5fND2ldNK3NrWyhg
+	 YR19h1ce3pbJuA7cPt+CQA1NdxXISp6Ak6lR/JrxSX5fw9lAyYcRPZ+7ptXmr5BktsyT5
+	 I1mtE0SxiDLLll754I/LP7d1SZf+C0+7DxTNftT5OC5SOt5fa+HtHkNhV3ThRXlmzsQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125630;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Vw76Aew22t/uqoyjfMPtUUfN6vLBI7u4FwkWnSbrmwo=;
+	b=KD8uJYCnXmonyXwUSombOLe/2AEmxSAuVaa4rcQ/ofsxTcgFXK1CYHlJTQWhgn1bb1xa
+	 uH8U+mYWgSE1JyCxjHMLKKqBCgkDm5XWrPNRmGok/xtiMsWMHYnYSSaWZK+c7hBi46Uo6
+	 VmBCU0nwE14MLTw6e+0vxmZ1tXzM5FO8M7MdTyVwDhdz11w1Qw3Dgz3Mh2JsdtgSTQhWH
+	 OlG47zVS+sw4T3YVp36P1t+LtK1H9l6tnTQyShe0vqCIJXZAA4RrUaLQX3yZ6vWn91H5L
+	 xeZWK8fZ0XPzEzDBVDq1R3WrMDWiuMBFvFrpaaPDh2IiMGI6MhRYt52Kz3nKQCdsZ/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OqLwd0Ub;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.43
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CC3606A31D;
-	Tue, 27 Oct 2026 18:25:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17CC3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7F1606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:27:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B7F1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bCe0DApS
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261027182540euoutp01808e2a0784b22e974d6c8ffe88c8195c~idi3U5q2O1070810708euoutp01J;
-	Tue, 27 Oct 2026 18:25:40 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261027182540euoutp01808e2a0784b22e974d6c8ffe88c8195c~idi3U5q2O1070810708euoutp01J
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793125540;
-	bh=yYVnZVngw4wIyvUedHrp/RCi4DEk87r28LIRWXpCLH0=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=bCe0DApSTMa5hEEGgVvneqzfJYakD7qrG9r1rRA787dJcmFkxZeM041kJvQzf1sWi
-	 mFAb6eOSUU0Yw/Y6KAUriZpeXdgumQlCNkdGsLLdF/sfW7mYHnWBx2d7wOenrOEkLR
-	 zJJaDP1dZxSCFavYWwIcrbMKnu0ZvjvRL33YUuUE=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261027182539eucas1p2af97fa5bad6b7de6ca761cb86172737b~idi2gJHhp1120011200eucas1p2b;
-	Tue, 27 Oct 2026 18:25:39 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261027182538eusmtip2789b0e5587293524b9c364f453c89396~idi03PmTX1528615286eusmtip2f;
-	Tue, 27 Oct 2026 18:25:38 +0000 (GMT)
-Message-ID: <5fec923f-36bb-4dcc-bf3a-13be3eaa8f83@samsung.com>
-Date: Tue, 27 Oct 2026 19:25:37 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OqLwd0Ub
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7cc18f754f1so9879137.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:27:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793125629; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UwnIoDhmhsbNp4z1mzNcWH/DvU50WlUXHzUmMrJEk5bHhirO8pRCdHwTG85M5EyRqw
+         9vFgFuNGIoHAhcYY86A7ruQ0qVvUxeHIxV79hpyzmCaG+c26yW7NKna+G4UCO9u+jdKE
+         Od3Nxe6u9GgjlaTImUtVk7NCqTKvxcFl4qPOP0eU3TYWlCEGrKHj07fM+rzoIx16BJux
+         NlXeWcdMSiw0YJAd1/hTRtmxcNMXs9DawUx8IGDH5YwYD9MewHi5sMd+BX5vg0qlA+pK
+         M5ZDznwnsO13shhAmbHUMqq4GhsFUZQ18MJI5dj/huHgBdD3Vt7guTko7t8O4oBvcAFU
+         oxZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Vw76Aew22t/uqoyjfMPtUUfN6vLBI7u4FwkWnSbrmwo=;
+        fh=+NNPrnH4R4jvV//69lKWZJQgrPwdpFgoK8j90qXC6gU=;
+        b=PsAET3vPCf70HrVazCtlrPnLhKUKuLtTcnQCBeG5I3q6iMRUj8zIjISfaTkXPPAyG0
+         ot7J5WumBN6LaXxi44Gk3+AVCmBg3p0dzzjghIULvMq2Uxi/1FGIdRUEU/sjvaXbO15E
+         UcAOOi6rTfVfc2igNSoHweXzCc0rpnf3ZmfOfSV/BLajj+91wbRhLL+oBs2VdAtwQSg0
+         q54QOm2ktgBkhaWTUopmFgT2Nqlsj/f38eQ/5ogcNMzf9EfMS4LEmwqOyaSZnYNOvMXd
+         hYKbo+Elj3xPmyLmN8bEyLyK9B6dG4ZByPW1TjuLdQitsE2ob7qxs8SuR9lXzZHvA4cm
+         5XXw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793125629; x=1793730429; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vw76Aew22t/uqoyjfMPtUUfN6vLBI7u4FwkWnSbrmwo=;
+        b=OqLwd0Ub+2zMc3ZoAtk2bb/o7ReS7nwHS/79T/RlyfUFR2r3oY2lWHSLhiL0I/VZ48
+         oyQf8Ll9K3pDJ5j+buQpKS0+O3uxaeNOW838t1fEaPZlZweKGaR+qnbSBTt8rn2RQkZ0
+         eXtKMYrISQCwyi64BerKK2DHhGgj82bcBH1lCJnk4yNw/vO5QFK2Zy4SVAtLtBySXPae
+         Pkl2ccMwxewbcD53dL/P1ruzvpSMwPe9O6A+ZXhWBxQoShwX1UrVqYurAxmum4tyO0PL
+         zN3XB/AAn8oA5N42VfoIrJ9hYOWLytpAg8F60WuXl21F8HrATo7PxjX/e2cihcs60/+b
+         Mxsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793125629; x=1793730429;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vw76Aew22t/uqoyjfMPtUUfN6vLBI7u4FwkWnSbrmwo=;
+        b=EPCcoedu+FOhwh5vRt7dOET1Lbiif+6qdujntArlkRIlyqhzK6cHBmPbfi6LW3yvQd
+         Br1tbsOFWcSceDGN6CzwzJScxTQSeC/ZH4twyNzQ3s9NEm+0nPV9L4JEX4XvWdQ2HHyf
+         UWdFR+9w7TiavuwuCAKis7N586Ly3yilbCWmYWG2W8tmz43sGwBuv8BAxFLafG1Ws5Ox
+         YexMdyg1q4OuYATwUc49tXZTSLKIGrxHynhxLxtupGzf1Jd3OEJbkYj1PIo0LS+sz+6F
+         jDKK/X+8fG58ZtKfZPq/OGM98jw6zXDZr1q7bygPH88uiZ0q2HKW3GCREbdMcmzFBCfQ
+         eGFw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+Ub7mHI0B2I4Tm3UqN9ras/jDxxRHIPcIdP0yx1y5E3YelxPmWozwUcq6kutvFk5zDWtoWk5Qc9JlU30=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGdioJL32syDq+uaRa8HxEUbt3KvrbNmSp+gaKjr92vW1spRf0
+	FH1hPe5RxDeFt3zfgT/ShLyhRnj0LW0L6ogUMgOI00sBAIdxmRSpS/LF+5zS2ddSgjic/2CybKp
+	4WlQZ4WRoSa+/6zRl1pvkIpFxJVE7HJ4=
+X-Gm-Gg: AYBFou0YxVAFo2UFdSbMqfUntOYOy2QW+haJqeMrUsFzpV5rsPNh1xfQ4CKEWfI8yYx
+	iK+teKecWLTIdrI84UyicfSsODEWOQYfWajy8/xnNyQZzsYyHmV/ROMmxwcIqy5GMzbQ5pAvPs3
+	yRAYG4XbJ6AwyHzWyFyaDGR2iSiDMcFK85VcpbpBrKC6ot4ufidEtlCnHnHZrjLfB5lBHrebYDP
+	lJLnQZSTfWCe0wF4bbOze/jzf7XEtQ5m3LPZPofiN/xPziBvJ0/qCeQ/oD35Uk87fo18RVJ1gtf
+	OaHAISxsXRUC+hVF4a1Z4TmlueV6hDHLw2E9fF1wuZBN8iboctd2zXOmO4dgS0vIHVjP3dshJml
+	HYHGsIAyrplF+BX2Dy7a+S/bX4Sso+OAjSIcnbe+ScUPrevc/SH7+gf7uxWwOSIq8hgHa9yqxtw
+	bb3PawM5PPLxND6UiPX1xp2Dk=
+X-Received: by 2002:a67:f28e:0:b0:7c8:3b8c:82ae with SMTP id
+ ada2fe7eead31-7d03a4e9c8emr64081137.2.1793125629415; Tue, 27 Oct 2026
+ 11:27:09 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,169 +105,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 19/20] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss
-	<rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
-	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
-	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
-	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
-	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
-	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
-	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
-	Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	mfd@lists.linux.dev, linux-clk@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>,
-	Graham Markall <hello@big-grey.co.uk>, Chaoyi Chen
-	<chaoyi.chen@rock-chips.com>, Joshua Peisach <jpeisach@ubuntu.com>,
-	=?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <b5eb69f3f41a98b5a98694435df25a632babf05a.camel@iscas.ac.cn>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261027182539eucas1p2af97fa5bad6b7de6ca761cb86172737b
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260915153248eucas1p27d8d2c9fa536bbd951e0102b04416dad
-X-EPHeader: CA
-X-CMS-RootMailID: 20260915153248eucas1p27d8d2c9fa536bbd951e0102b04416dad
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
-	<CGME20260915153248eucas1p27d8d2c9fa536bbd951e0102b04416dad@eucas1p2.samsung.com>
-	<20260915-jh7110-clean-send-v4-19-f0e4fd6f2cc8@samsung.com>
-	<b5eb69f3f41a98b5a98694435df25a632babf05a.camel@iscas.ac.cn>
+References: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
+In-Reply-To: <3ff4ef96-9c59-4e8d-a0da-92a1ac6f5ba1@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 27 Oct 2026 14:26:56 -0400
+X-Gm-Features: AclHuK_aiFzsLGIkoZq8NQtZC7JMp_ex6BpnMJZTO84Fyg8IpU6xOsXcoFUrrY4
+Message-ID: <CADnq5_Nn7+baU=Rdaa8QzOCo64H=ch9HeDaEwtmbQwW0kP00nQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amd/display: report synced Apple 5K tiles to
+ PowerPlay for MCLK switch
+To: Richard Lane <richardlanedev@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+	Rodrigo Siqueira <siqueira@igalia.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 9/29/26 17:06, Icenowy Zheng wrote:
-> 在 2026-09-15二的 17:32 +0200，Michal Wilczynski写道：
->> Activate the display subsystem by describing the video output
->> subsystem,
->> which the documentation calls dom_vout_top, as a bus node covering
->> the
->> whole 0x29400000 region, with dc8200, the HDMI block, the video
->> output
->> system controller and voutcrg as its children.
->>
->> The subsystem node owns the resources its children share: the NoC
->> display
->> bus clock and reset that gate access to every register in the region,
->> and
->> the PD_VOUT power domain. Modelling it this way keeps a shared gate
->> owned
->> by the block that shares it rather than by whichever consumer happens
->> to
->> probe first, and lets dc8200 inherit dma-noncoherent for framebuffer
->> DMA
->> from the bus it sits on.
->>
->> The monolithic hdmi node is in turn modelled as a container with
->> hdmi_phy
->> and hdmi_controller children. This lets the PHY (clock provider,
->> depending only on xin24m) and the controller (clock consumer) probe
->> independently, breaking the circular clock dependency with voutcrg.
->>
->> voutcrg consumes the pixel clock from the &hdmi_phy node instead of
->> the
->> old fixed-clock, and dc8200 gets its pixel clocks from voutcrg's
->> MUXes.
->> The old, incorrect hdmitx0-pixel-clock fixed-clock node is removed.
->>
->> The HDMI controller gets a phandle to the video output system
->> controller,
->> which holds the mux selecting the DC8200 output that drives the HDMI
->> transmitter.
->>
->> CMA is enlarged and constrained to memory the display controller can
->> address, because the default pool is too small for its framebuffers.
->>
->> Co-developed-by: Dominique Belhachemi <db@domibel.de>
->> Signed-off-by: Dominique Belhachemi <db@domibel.de>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> 
-> ```
-> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-> ```
-> 
-> But,
-> 
->> ---
->>  arch/riscv/boot/dts/starfive/jh7110-common.dtsi | 121
->> +++++++++++++++++++++++-
->>  arch/riscv/boot/dts/starfive/jh7110.dtsi        | 105
->> ++++++++++++++++----
->>  2 files changed, 203 insertions(+), 23 deletions(-)
->>
->> diff --git a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> index
->> a7a1c09a2c9075711f3a214a49618911fdc7b421..a4c3daf712a63b177f744e8c613
->> 416d22e0c9dbd 100644
->> --- a/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> +++ b/arch/riscv/boot/dts/starfive/jh7110-common.dtsi
->> @@ -33,6 +33,27 @@ memory@40000000 {
->>  		bootph-pre-ram;
->>  	};
->>  
->> +	reserved-memory {
->> +		#address-cells = <2>;
->> +		#size-cells = <2>;
->> +		ranges;
->> +
->> +		/*
->> +		 * The display controller allocates its framebuffers
->> from CMA,
->> +		 * and the default pool is too small for them. Keep
->> the pool
->> +		 * inside the range the controller can address; it
->> fits in the
->> +		 * memory every VisionFive 2 variant has.
->> +		 */
->> +		linux,cma {
->> +			compatible = "shared-dma-pool";
->> +			reusable;
->> +			size = <0x0 0x20000000>;
->> +			alignment = <0x0 0x1000>;
->> +			alloc-ranges = <0x0 0x70000000 0x0
->> 0x20000000>;
->> +			linux,cma-default;
->> +		};
->> +	};
->> +
-> 
-> I don't know whether constraining the CMA pool in the DT is a good
-> idea.
-> 
-> Thanks,
-> Icenowy
+On Tue, Oct 27, 2026 at 5:41=E2=80=AFAM Richard Lane <richardlanedev@gmail.=
+com> wrote:
 >
+> When driving both 2560x2880 tiles of an Apple 5K iMac panel, Display
+> Core's program_timing_sync() already aligns both CRTCs in hardware
+> during dc_commit_streams() because the two streams share identical
+> timings.
+>
+> However, on DCE < 12 (iMac15,1 through Polaris-based iMac19,1), Display
+> Core leaves pp_display_cfg.all_displays_in_sync unset. Because PowerPlay
+> is not informed that the two streams have synchronized vertical blanking
+> intervals, SMU7 prevents MCLK switching at idle or causes modeset
+> underflows.
+>
+> Report all_displays_in_sync =3D true to PowerPlay after committing both
+> tiled streams so SMU7 knows the tiles blank simultaneously and can
+> safely downclock MCLK at idle.
+>
+> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 548f975c7324..384a81371f80 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4788,6 +4788,19 @@ static void amdgpu_dm_commit_streams(struct drm_at=
+omic_commit *state,
+>         mutex_lock(&dm->dc_lock);
+>         dc_exit_ips_for_hw_access(dm->dc);
+>         WARN_ON(!dc_commit_streams(dm->dc, &params));
+> +       /*
+> +        * DCE < 12 leaves all_displays_in_sync unset; report synchronize=
+d
+> +        * Apple 5K tiles to PowerPlay after commit so SMU7 can downclock=
+ MCLK
+> +        * at idle without modeset underflows.
+> +        */
+> +       if (params.stream_count =3D=3D 2 &&
+> +           params.streams[0]->link->tiled_peer =3D=3D params.streams[1]-=
+>link) {
 
-So I've tested the version without alloc-ranges and some of the modetest
-runs failed especially the higher resolutions. It seems this is because
-without alloc-ranges __reserved_mem_alloc_size() allocates top down with
-MEMBLOCK_ALLOC_ANYWHERE so the pool lands above 4 GB, which the DC8200
-cannot reach - vs_dc.c sets a 32-bit DMA mask.
+This should be made generic for any combination of displays with
+identical timings.
 
-25 of the 42 advertised modes failed with "failed to create dumb buffer:
-Cannot allocate memory" - every 4K and 1080p mode, down to 1360x768.
-Only 1280x800 and below survive.
+Alex
 
-So the range seems to be a hardware limit which is why I think it
-belongs in the DT. I'd like to keep it in v6.
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
-
+> +               struct dm_pp_display_configuration *pp_cfg =3D
+> +                       &dm->dc->current_state->pp_display_cfg;
+> +
+> +               pp_cfg->all_displays_in_sync =3D true;
+> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_cfg);
+> +       }
+>
+>         bool frl_stream_found =3D false;
+>
+> --
+> 2.55.0
