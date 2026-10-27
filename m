@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793078837;
-	b=V/tTSvUkaxsDkf5UEKf25jnchQhA7BLkyjlFXduoseq1dVpiGpm1uiLNSH9xBO83i53M
-	 tHhGTe5/+tQfS0Z1fXqr43DScNeeOox9KHgz2M/JBoWVmFilBRJMB/nXIHx2Kew7RrRRQ
-	 0ZBTo6+Y+Py+tPdLtfCNQX/3u3lb6YyXZ48XrSWLWvELXcr5BykDdZi5/hAXs/OK4xc33
-	 F6JpvgWg6h2CLFke4kRVvnET+j6FrSnQrHor6YCayi7WELTZE2h1J3+9MYtnFIiD+cgxW
-	 QrpePfH30fIkWuRQBxM5IjXVVqpxzc6gTe6L2g26MdIFRFT0cf6XEznNXwuRdsXksPg==
+	t=1793078845;
+	b=BjHooVYp97szIlgZGtUoyDTAYfzquDq/ImLVhAXOG/sKAF70EfWr3F4A9fyUP9ua9OB0
+	 xVDXvjIuDDUT5ZVtdj5xPoQ8bz8IJkfUx4jg+cmOjWqiKkJ5hQ1C8k5Iu+jS6uuuhenjH
+	 C7GtayJxtWkIdEOhcdu4uqDNWDTkaqxlgC76su9I2HBLKB0L4I7pQ23rv/CuLKipKTRBE
+	 VN1Nb9NP+ldtlfW0/kVZvskg52JcL3vClr/D3FLk6LzpjpW0/gKqaFK6uTX0115SRK1SS
+	 DMLz9eRRFyjWWTR5jBF5gujv/BenfazzHu0qNr2POxqCkXjIjF89OKshLuSo81fPCxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078837;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793078845;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=QTs7gKFmtIFwCAR5rB1B8td2s4rX/b0JRH7aNSQh2EE=;
-	b=JP+mNJyZZ2DV+1ULr4F9wqdaSOszOJmdUnxvrwJaiNXDRSFgfd0aMk4vQqShIigeoYIu
-	 pEJ6X6ZKevzOIQj6ozPoQiLOutRr2sdX2iuRMSCl9pp8EOAISnAbtCFAdnk9qBTxL6kTl
-	 amFydz5tiOAtBL/x2sAWxsTDi5UoRtwrCCpdIIwoeeiVQlDZRIq4/t3h38vKaFspdS6nm
-	 Px65oZJarukmSDEZgGxNVx1ShldjVlB5Gl0Fpog7A4iHKjyfIkgqo17auf+uYOd+UxBNK
-	 6tyVSUtNN6sdnsAhhrJ4Xc1RlnGeTj4LDmkhrMfDOJJwaVDltP22z9v+0DkPQpQXZoQ==
+	bh=FqVJ1gPKY5+BJSRRLjzl6HJHWWh1tOBfq4LLwLS3vcE=;
+	b=k8Hce17lC+YRXxehHrzpdHkseQANMiHGgHzapIgl1Xn9oZAKS24A3t3zw37tvLwC0aEP
+	 hUDmLfh98jB7YPtTfDze1O+vCMODKoOJm7jeDPjUphIhSFJAehYAnUg9PI0+3QPzG0hNL
+	 V2XI3Oq9CE2yKjOQ8fvHd8t/U/gePcEr7M+f95OLsYf4oCGP4thwhzp/qZUOTVWlBCHp9
+	 RlNQY+UfeKzlzTI4BrkFtKvTo3UeRWrOnvMqxHMZdfwJZzEI+hXoJ0W3CaqS2LQZMUL9l
+	 eOzMTxdyGCYoJWHvyL3w3WYKBrcya4HagoMq7kRRk24KgViXCNYElTDTzra/RF/LSLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IWceS3fA;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VIK6jd24;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9FA606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:27:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA9FA606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D47606A320
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:27:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54D47606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IWceS3fA
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9ae391a05so4125815ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:27:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VIK6jd24
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso24318405ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:27:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793078836; x=1793683636; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793078845; x=1793683645; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QTs7gKFmtIFwCAR5rB1B8td2s4rX/b0JRH7aNSQh2EE=;
-        b=IWceS3fAKEp+tC6hvjD/aIYnQ7OV9NwaYByOUwJwxSnNzuYo6UREQpDmIed1sm/RqJ
-         Q2ueUB4qLs8VhaKwcQuSneQvEMNbY4ULuefI/ch7rGRjP7DdRi2f2lqzNffO6fNxJfTk
-         YNftD3NpRUYbjPgMgfJ6sqSES2bWSTIpS3gcG5NplvMBb/FAlqpeSb7jGn5DrmEtk0FB
-         /a6Ya2J85ocnIyoNN6p90Ytbmnbh8FIHHW2UHOEQxg5aWfAGJawQtVQ8JZs8Ri3aOJSC
-         l+hLCp3pS7X4EE0/iQGsqzcza0i4zma674+XwLH8W1e85lPmGpxy+6EJ8GcI5gH64I/g
-         WRTQ==
+        bh=FqVJ1gPKY5+BJSRRLjzl6HJHWWh1tOBfq4LLwLS3vcE=;
+        b=VIK6jd24+Jt16Oaqz82qAbmkkoomQuXEW4xp/hAQ6qm0k7JbJCbyQa6ZWFGInyi/Rk
+         Ps68DHx+hzCu1P7Rbkzfeu+4F7na+DKs6ZthYaJ3uxEyp+1hOxiUGUwrTz1iW781Q2Wz
+         lD4pswPzvmG42OQziyej5Cdtec4AAw8HezqwuCHDo6FH+xUm/tVa7v5zS7anBc+Rk0fv
+         oCrglDsJeh0a0xIDpFykSMS7qhYMVS5TVT2it1Vz/w38AeS1K9ypYz8AHmALHuBONQsf
+         VKr50Bp8wLyHji5fJ1jm7LM05ZnOfednb/crjglhv0wRAGlIp+Vp6kntHbtIvQxV2UvJ
+         JTSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793078836; x=1793683636;
+        d=1e100.net; s=20260707; t=1793078845; x=1793683645;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QTs7gKFmtIFwCAR5rB1B8td2s4rX/b0JRH7aNSQh2EE=;
-        b=Huc8P9mFi5u2Extuxo5I6tP2M+1/sVgytTYBBSGW0j8IHrJ4wKSSxIDNh1cup+EsRH
-         liiNDFKQNqFZReo2nyMjCqj1TK4tYS81+UzXP88ezV0bzBXgsyRnFYs43MHQ8GuWMV6D
-         pmv6BLGbFC1U4iRA+8zZXcH/OVHJgsAM0enu9EG+yCxkHvEum7clH65UMJpewCYKOqd2
-         4sL48NcIl5e4iJsJYM5YorIK3PYQGTt5Ex617w8WNQR8a2XOdAp5FJ5KXQ0hRZKw3d74
-         KiH/6DoCt0z/8AzG0a3mt1SijSVu7ovYIaWZic2xes2YippUJ6kNYecF5Dr7jQIZEIM0
-         mQ7Q==
-X-Forwarded-Encrypted: i=1; AKwUvByyLObyZgHtFLdeEodkjZ56KI+4VhdlOSx0ldmbSXC9gtCHBFmqvKV49DXvlCNdntnH71EswFkCVzfl5Is=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWy2u8AI5XSEmLB23zkuY4uZK3E2FRw5rm24XGWsCXDmLWcUPC
-	EZ3ljhRRLwAMIF78CZoOkmFHodNVxLAu7UU5QmrS9VpdKajwAYF2+eHZ
-X-Gm-Gg: AYBFou3yVu1dDfLfhR9yrhozvhkbcYyJEL/WY8IqZUCE1MIvqge6oo43upQRm/saSBt
-	3cPca2LMp96D1A8JFbzqIjIJ33OYP3GDbzGTpbALID2a98L7OSg2Dt+ItgJ42a4rk+k3P3SXsE3
-	EUHFAlcGyq1tsi0HwkUq8V7r+hHVGmbzLbk5amOV97mfVhBQcNkFhSxjRv3HpjuRFf6U2F4OEq4
-	XBU2A6wIOfEFhYPZplF+L3gxv9YhC7j8zyGd4L8aGvNWRsSC41q6cXCMfN3Fn9WtbkRqdRmehXt
-	RdoABgtjIVA4SlIqtCdg1DG9KOC3BTiRc1uN+Fi4cK1FB9nufA95pu2JUfC9rSCLbALtNhRHZYM
-	NbmAysC+TVDm9/IRXjhTVuBaVz94hhICkkvJbYpsWsf2Q8SpYFvrx3YFzq8HSB/34PEfAUGay2t
-	MLUsFwQK1JoUt4UkAJMUJ8LBxw6rBav4Jo4+B+11PsC1bViChqOj2I1A6uJc/A0k230PvZbMZxH
-	hfriLUBHm9xAjSyv5WbAVpGMxistP+Fe+EwZXVFkbSKcoAaTEs8ra9zVdM0pNFljZjkps/99g==
-X-Received: by 2002:a17:902:fc4b:b0:2df:98a1:d0a7 with SMTP id d9443c01a7336-2eae40298aemr9769035ad.33.1793078836128;
-        Mon, 26 Oct 2026 22:27:16 -0700 (PDT)
+        bh=FqVJ1gPKY5+BJSRRLjzl6HJHWWh1tOBfq4LLwLS3vcE=;
+        b=SWc02boGSc5JxNb0dwVbPMcOeWW/Q73sp6ccyXs4cdqIJ3AOC178Hm3n1kipnkBWT8
+         KC+oMrgwkncIFTERF2LtV3GBbS3iYNVvFsCand7zwUKs/5sujeIZbMDkhrK0hz/ejVBE
+         f0gAScd/1mk/0C99X4xqIDIprW5ojqptFej4h02cf4xKxsopLRc/reJPRt86z0Hmq2oR
+         0IE5dJcJs2JiNriydO40jHX0uU7UDUThJZxxMBPIgeUIWcyH5hHwZBuqO6Yva54APMgt
+         x1xtCFFo8GcYOw53fShGfjlzV5dAMIxmttnb7/FxJJIvhTOMuH4P8nWR3q94NXAOD6gT
+         ifbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZarNi2oP2mQHKqGtmuUO0K/DlJ2Er4cG6AQIPHyd9QTYD7n4nw4b2NrgXxhVthCiZUd9+aJ2ng0u1gKU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImUIbO6Cv6inoLpgXUeM7IVB5apUtFOG8oUX9FMr8LxL5HnHHW
+	SERlEGDWOLHrAl8iMqDmBkF8IAq2yTj+Bn+D8wCaUqfVtdAnphcYUlbv
+X-Gm-Gg: AYBFou2F5ThWY06ziVj4oCuJIsOWeKleg2oH8s0Pev4oNRCSaX9fKEZArLBMG2eFFoa
+	V5nLpL7XlTXc+Yxij2z8r7DGQ2mGEzo3X3LgEzgKUb+1NaBZw+9kNIhs1TWi4yFMkaTtxVBBhIJ
+	h4hUcmQiRdKwdY5mlK7nQXXVTC6ApP5ss4FB0n1KpB1yAzE07gj0ec5mEG1MX4PnwHRcwYx+UlC
+	EEvofa5rQtjs1KBJpy+Ph63LcqRiD5nDDKK2sl+E8zXN8MOCxzDYwjUZ+3LxoR/gWLfJxG6951p
+	76JMD3H77+ybw+nV0Qw5PzmN+th/5dVIFuzkUToBMeGLOWP/m0RyzJqCLbE66SVQzb3HQpyrIPp
+	YZg9dyTxSJlFVR3xFk9W5VEQgG5Ja3R40Wkl5fS/K9EYjU4aWupnlcA1QeT1U1qaf3sXO4t4JhR
+	xpYQUKPgTQWLdCxb5pAGkkbxpfA7AEc2MPXUlCYGgIkDsIs1OpeyJ4UlQhhvNXVSoq5Lr1G25cE
+	68EbhxaLcKp01e3SSaBE92HSrB1ZAwfgFjbk+mewjr/4pHe19mLsQ+3fsvCcWSwqNqvUTqNOg==
+X-Received: by 2002:a17:903:19c7:b0:2e9:7ff5:5459 with SMTP id d9443c01a7336-2ea9c6c3337mr76173565ad.15.1793078844630;
+        Mon, 26 Oct 2026 22:27:24 -0700 (PDT)
 Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.27.08
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.27.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:27:15 -0700 (PDT)
+        Mon, 26 Oct 2026 22:27:23 -0700 (PDT)
 From: alistair23@gmail.com
 X-Google-Original-From: alistair.francis@wdc.com
 To: akpm@linux-foundation.org,
@@ -100,11 +100,11 @@ Cc: ojeda@kernel.org,
 	gary@garyguo.net,
 	tmgross@umich.edu,
 	alex.gaynor@gmail.com,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Subject: [PATCH v5 12/23] PCI/CMA: Add a PCI TSM CMA driver using SPDM
-Date: Tue, 27 Oct 2026 15:25:25 +1000
-Message-ID: <20261027052536.1722081-13-alistair.francis@wdc.com>
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH v5 13/23] PCI/CMA: Validate Subject Alternative Name in certificates
+Date: Tue, 27 Oct 2026 15:25:26 +1000
+Message-ID: <20261027052536.1722081-14-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027052536.1722081-1-alistair.francis@wdc.com>
 References: <20261027052536.1722081-1-alistair.francis@wdc.com>
@@ -119,281 +119,321 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alistair Francis <alistair.francis@wdc.com>
+From: Lukas Wunner <lukas@wunner.de>
 
-Component Measurement and Authentication (CMA, PCIe r6.2 sec 6.31)
-allows for measurement and authentication of PCIe devices.  It is
-based on the Security Protocol and Data Model specification (SPDM,
-https://www.dmtf.org/dsp/DSP0274).
+PCIe r6.1 sec 6.31.3 stipulates requirements for Leaf Certificates
+presented by devices, in particular the presence of a Subject Alternative
+Name which encodes the Vendor ID, Device ID, Device Serial Number, etc.
 
-CMA-SPDM in turn forms the basis for Integrity and Data Encryption
-(IDE, PCIe r6.2 sec 6.33) because the key material used by IDE is
-transmitted over a CMA-SPDM session.
+This prevents a mismatch between the device identity in Config Space and
+the certificate.  A device cannot misappropriate a certificate from a
+different device without also spoofing Config Space.  As a corollary,
+it cannot dupe an arbitrary driver into binding to it.  Only drivers
+which bind to the device identity in the Subject Alternative Name work
+(PCIe r6.1 sec 6.31 "Implementation Note: Overview of Threat Model").
 
-As a first step, add support for authentication via a CMA TSM driver.
+The Subject Alternative Name is signed, hence constitutes a signed copy
+of a Config Space portion.  It's the same concept as web certificates
+which contain a set of domain names in the Subject Alternative Name for
+identity verification.
 
-This was previously discusd here:
-http://lore.kernel.org/69976d7d39c60_2f4a1009@dwillia2-mobl4.notmuch
+Parse the Subject Alternative Name using a small ASN.1 module and
+validate its contents.  The theory of operation is explained in a
+comment at the top of the newly inserted code.
 
-By utilising a TSM driver we get a lot of the TSM driver probe policies
-"for free". Currently there is no mechanism to provide evidence to
-userspace, as the TSM system doesn't support that at the moment. That
-can be added later when support by TSM.
+This functionality is introduced in a separate commit on top of basic
+CMA-SPDM support to split the code into digestible, reviewable chunks.
 
-Credits: Jonathan wrote the original proof-of-concept for a CMA implementation.
-Lukas reworked that for upstream. Wilfred contributed fixes for issues
-discovered during testing. Alistair reworked it as a TSM driver.
+The CMA OID added here is taken from the official OID Repository
+(it's not documented in the PCIe Base Spec):
+https://oid-rep.orange-labs.fr/get/2.23.147
 
-Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Co-developed-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
-Signed-off-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
-Co-developed-by: Lukas Wunner <lukas@wunner.de>
+Side notes:
+
+* PCIe r6.2 removes the spec language on the Subject Alternative Name.
+  It still "requires the leaf certificate to include the information
+  typically used by system software for device driver binding", but no
+  longer specifies how that information is encoded into the certificate.
+
+  According to the editor of the PCIe Base Spec and the author of the
+  CMA 1.1 ECN (which caused this change), FPGA cards which mutate their
+  device identity at runtime (due to a firmware update) were thought as
+  unable to satisfy the previous spec language.  The Protocol Working
+  Group could not agree on a better solution and therefore dropped the
+  spec language entirely.  They acknowledge that the requirement is now
+  under-spec'd.  Because products already exist which adhere to the
+  Subject Alternative Name requirement per PCIe r6.1 sec 6.31.3, they
+  recommended to "push through" and use it as the de facto standard.
+
+  The FPGA concerns are easily overcome by reauthenticating the device
+  after a firmware update, either via sysfs or pci_cma_reauthenticate()
+  (added by a subsequent commit).
+
+* PCIe r6.1 sec 6.31.3 strongly recommends to verify that "the
+  information provided in the Subject Alternative Name entry is signed
+  by the vendor indicated by the Vendor ID."  In other words, the root
+  certificate on pci_cma_keyring which signs the device's certificate
+  chain must have been created for a particular Vendor ID.
+
+  Unfortunately the spec neglects to define how the Vendor ID shall be
+  encoded into the root certificate.  So the recommendation cannot be
+  implemented at this point and it is thus possible that a vendor signs
+  device certificates of a different vendor.
+
+* Instead of a Subject Alternative Name, Leaf Certificates may include
+  "a Reference Integrity Manifest, e.g., see Trusted Computing Group" or
+  "a pointer to a location where such a Reference Integrity Manifest can
+  be obtained" (PCIe r6.1 sec 6.31.3).
+
+  A Reference Integrity Manifest contains "golden" measurements which
+  can be compared to actual measurements retrieved from a device.
+  It serves a different purpose than the Subject Alternative Name,
+  hence it is unclear why the spec says only either of them is necessary.
+  It is also unclear how a Reference Integrity Manifest shall be encoded
+  into a certificate.
+
+  Hence ignore the Reference Integrity Manifest requirement.
+
 Signed-off-by: Lukas Wunner <lukas@wunner.de>
+Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> # except ASN.1
+[ Changed by AF:
+ - Fixup a few issues caught by Sashiko
+]
 Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
 ---
- MAINTAINERS             |   1 +
- drivers/pci/Kconfig     |  14 ++++
- drivers/pci/Makefile    |   2 +
- drivers/pci/cma.c       | 150 ++++++++++++++++++++++++++++++++++++++++
- drivers/pci/doe.c       |   3 -
- include/linux/pci-doe.h |   4 ++
- 6 files changed, 171 insertions(+), 3 deletions(-)
- create mode 100644 drivers/pci/cma.c
+ drivers/pci/Makefile         |   5 +-
+ drivers/pci/cma.asn1         |  41 ++++++++++++
+ drivers/pci/cma.c            | 123 ++++++++++++++++++++++++++++++++++-
+ include/linux/oid_registry.h |   3 +
+ 4 files changed, 170 insertions(+), 2 deletions(-)
+ create mode 100644 drivers/pci/cma.asn1
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 783da0b234541..5140ed5cc108b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25299,6 +25299,7 @@ L:	linux-cxl@vger.kernel.org
- L:	linux-pci@vger.kernel.org
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/devsec/spdm.git
-+F:	drivers/pci/cma.c
- F:	include/linux/spdm.h
- F:	lib/rspdm/
- 
-diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-index 0c7408509ba24..0862ef69aa3fd 100644
---- a/drivers/pci/Kconfig
-+++ b/drivers/pci/Kconfig
-@@ -124,6 +124,20 @@ config PCI_ATS
- config PCI_IDE
- 	bool
- 
-+config PCI_CMA
-+	bool "Component Measurement and Authentication (CMA-SPDM)"
-+	depends on RSPDM
-+	select CRYPTO_ECDSA
-+	select CRYPTO_RSA
-+	select CRYPTO_SHA256
-+	select CRYPTO_SHA512
-+	select PCI_DOE
-+	select PCI_TSM
-+	help
-+	  Authenticate devices on enumeration per PCIe r6.2 sec 6.31.
-+	  A PCI DOE mailbox is used as transport for DMTF SPDM based
-+	  authentication, measurement and secure channel establishment.
-+
- config PCI_TSM
- 	bool "PCI TSM: Device security protocol support"
- 	select PCI_IDE
 diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
-index 41ebc3b9a5182..16abfd0e17e19 100644
+index 16abfd0e17e19..882cbb1083646 100644
 --- a/drivers/pci/Makefile
 +++ b/drivers/pci/Makefile
-@@ -41,6 +41,8 @@ obj-$(CONFIG_PCI_NPEM)		+= npem.o
+@@ -41,7 +41,10 @@ obj-$(CONFIG_PCI_NPEM)		+= npem.o
  obj-$(CONFIG_PCIE_TPH)		+= tph.o
  obj-$(CONFIG_CARDBUS)		+= setup-cardbus.o
  
-+obj-$(CONFIG_PCI_CMA)		+= cma.o
-+
+-obj-$(CONFIG_PCI_CMA)		+= cma.o
++obj-$(CONFIG_PCI_CMA)		+= pci-cma.o
++pci-cma-y			:= cma.o cma.asn1.o
++$(obj)/cma.o:			$(obj)/cma.asn1.h
++$(obj)/cma.asn1.o:		$(obj)/cma.asn1.c $(obj)/cma.asn1.h
+ 
  # Endpoint library must be initialized before its users
  obj-$(CONFIG_PCI_ENDPOINT)	+= endpoint/
- 
-diff --git a/drivers/pci/cma.c b/drivers/pci/cma.c
+diff --git a/drivers/pci/cma.asn1 b/drivers/pci/cma.asn1
 new file mode 100644
-index 0000000000000..6b52b129574ec
+index 0000000000000..da41421d40856
 --- /dev/null
++++ b/drivers/pci/cma.asn1
+@@ -0,0 +1,41 @@
++-- SPDX-License-Identifier: BSD-3-Clause
++--
++-- Component Measurement and Authentication (CMA-SPDM, PCIe r6.1 sec 6.31.3)
++-- X.509 Subject Alternative Name (RFC 5280 sec 4.2.1.6)
++--
++-- Copyright (C) 2008 IETF Trust and the persons identified as authors
++-- of the code
++--
++-- https://www.rfc-editor.org/rfc/rfc5280#section-4.2.1.6
++--
++-- The ASN.1 module in RFC 5280 appendix A.1 uses EXPLICIT TAGS whereas the one
++-- in appendix A.2 uses IMPLICIT TAGS.  The kernel's simplified asn1_compiler.c
++-- always uses EXPLICIT TAGS, hence this ASN.1 module differs from RFC 5280 in
++-- that it adds IMPLICIT to definitions from appendix A.2 (such as GeneralName)
++-- and omits EXPLICIT in those definitions.
++
++SubjectAltName ::= GeneralNames
++
++GeneralNames ::= SEQUENCE OF GeneralName
++
++GeneralName ::= CHOICE {
++	otherName			[0] IMPLICIT OtherName,
++	rfc822Name			[1] IMPLICIT IA5String,
++	dNSName				[2] IMPLICIT IA5String,
++	x400Address			[3] ANY,
++	directoryName			[4] ANY,
++	ediPartyName			[5] IMPLICIT EDIPartyName,
++	uniformResourceIdentifier	[6] IMPLICIT IA5String,
++	iPAddress			[7] IMPLICIT OCTET STRING,
++	registeredID			[8] IMPLICIT OBJECT IDENTIFIER
++	}
++
++OtherName ::= SEQUENCE {
++	type-id			OBJECT IDENTIFIER ({ pci_cma_note_oid }),
++	value			[0] ANY ({ pci_cma_note_san })
++	}
++
++EDIPartyName ::= SEQUENCE {
++	nameAssigner		[0] ANY OPTIONAL,
++	partyName		[1] ANY
++	}
+diff --git a/drivers/pci/cma.c b/drivers/pci/cma.c
+index 6b52b129574ec..6e4eb3b921131 100644
+--- a/drivers/pci/cma.c
 +++ b/drivers/pci/cma.c
-@@ -0,0 +1,150 @@
-+// SPDX-License-Identifier: GPL-2.0
+@@ -12,6 +12,9 @@
+ #define dev_fmt(fmt) "CMA: " fmt
+ 
+ #include <linux/err.h>
++#include <keys/x509-parser.h>
++#include <linux/asn1_decoder.h>
++#include <linux/oid_registry.h>
+ #include <linux/pci.h>
+ #include <linux/pci-doe.h>
+ #include <linux/pci-tsm.h>
+@@ -20,8 +23,126 @@
+ #include <linux/spdm.h>
+ #include <linux/tsm.h>
+ 
++#include "cma.asn1.h"
+ #include "pci.h"
+ 
 +/*
-+ * Component Measurement and Authentication (CMA-SPDM, PCIe r6.2 sec 6.31)
++ * The spdm_requester.c library calls pci_cma_validate() to check requirements
++ * for Leaf Certificates per PCIe r6.1 sec 6.31.3.
 + *
-+ * Copyright (C) 2021 Huawei
-+ *     Jonathan Cameron <Jonathan.Cameron@huawei.com>
-+ * Copyright (C) 2022-24 Intel Corporation
-+ * Copyright (C) 2026 Western Digital
-+ * 	Alistair Francis <alistair.francis@wdc.com>
++ * pci_cma_validate() parses the Subject Alternative Name using the ASN.1
++ * module cma.asn1, which calls pci_cma_note_oid() and pci_cma_note_san()
++ * to compare an OtherName against the expected name.
++ *
++ * The expected name is constructed beforehand by pci_cma_construct_san().
++ *
++ * PCIe r6.2 drops the Subject Alternative Name spec language, even though
++ * it continues to require "the leaf certificate to include the information
++ * typically used by system software for device driver binding".  Use the
++ * Subject Alternative Name per PCIe r6.1 for lack of a replacement and
++ * because it is the de facto standard among existing products.
 + */
++#define CMA_NAME_MAX sizeof("Vendor=1234:Device=1234:CC=123456:"	  \
++			    "REV=12:SSVID=1234:SSID=1234:1234567890123456")
 +
-+#define dev_fmt(fmt) "CMA: " fmt
-+
-+#include <linux/err.h>
-+#include <linux/pci.h>
-+#include <linux/pci-doe.h>
-+#include <linux/pci-tsm.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/slab.h>
-+#include <linux/spdm.h>
-+#include <linux/tsm.h>
-+
-+#include "pci.h"
-+
-+static int pci_doe_transport(void *priv, struct device *dev,
-+			     const void *request, size_t request_sz,
-+			     void *response, size_t response_sz)
-+{
-+	struct pci_doe_mb *doe = priv;
-+
-+	return pci_doe(doe, PCI_VENDOR_ID_PCI_SIG, PCI_DOE_FEATURE_CMA,
-+		       request, request_sz, response, response_sz);
-+}
-+
-+struct pci_cma_tsm {
-+	struct pci_tsm_host host;
-+	struct spdm_state *spdm;
++struct pci_cma_x509_context {
++	struct pci_dev *pdev;
++	u8 slot;
++	enum OID last_oid;
++	char expected_name[CMA_NAME_MAX];
++	unsigned int expected_len;
++	unsigned int found:1;
 +};
 +
-+static struct pci_cma_tsm *cma_tsm_from_tsm(struct pci_tsm *tsm)
++int pci_cma_note_oid(void *context, size_t hdrlen, unsigned char tag,
++		     const void *value, size_t vlen)
 +{
-+	struct pci_tsm_host *host = container_of(tsm, struct pci_tsm_host, base_tsm);
++	struct pci_cma_x509_context *ctx = context;
 +
-+	return container_of(host, struct pci_cma_tsm, host);
-+}
++	ctx->last_oid = look_up_OID(value, vlen);
 +
-+static struct pci_tsm *pci_cma_tsm_probe(struct tsm_dev *tsm_dev,
-+					 struct pci_dev *pdev)
-+{
-+	struct pci_cma_tsm *cma;
-+	int rc;
-+
-+	if (!pdev->doe_cma)
-+		return NULL;
-+
-+	cma = kzalloc(sizeof(*cma), GFP_KERNEL);
-+	if (!cma)
-+		return NULL;
-+
-+	rc = pci_tsm_host_constructor(pdev, &cma->host, tsm_dev);
-+	if (rc) {
-+		kfree(cma);
-+		return NULL;
-+	}
-+
-+	cma->spdm = spdm_create(&pdev->dev, pci_doe_transport, cma->host.doe_mb,
-+				PCI_DOE_MAX_PAYLOAD, NULL);
-+	if (!cma->spdm) {
-+		pci_tsm_host_destructor(&cma->host);
-+		kfree(cma);
-+		return NULL;
-+	}
-+
-+	return &cma->host.base_tsm;
-+}
-+
-+static void pci_cma_tsm_remove(struct pci_tsm *tsm)
-+{
-+	struct pci_cma_tsm *cma = cma_tsm_from_tsm(tsm);
-+
-+	spdm_destroy(cma->spdm);
-+	pci_tsm_host_destructor(&cma->host);
-+	kfree(cma);
-+}
-+
-+static int pci_cma_tsm_connect(struct pci_dev *pdev)
-+{
-+	struct pci_cma_tsm *cma = cma_tsm_from_tsm(pdev->tsm);
-+
-+	/*
-+	 * The DOE mailbox lives in the device's config space, so the device
-+	 * must be runtime-resumed for the duration of the SPDM exchange.
-+	 */
-+	PM_RUNTIME_ACQUIRE(&pdev->dev, pm);
-+	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
-+		return -ENXIO;
-+
-+	return spdm_authenticate(cma->spdm);
-+}
-+
-+static void pci_cma_tsm_disconnect(struct pci_dev *pdev)
-+{
-+	/* SPDM state is freed in pci_cma_tsm_remove() */
-+}
-+
-+static struct pci_tdi *pci_cma_tsm_bind(struct pci_dev *pdev,
-+					struct kvm *kvm, u32 tdi_id)
-+{
-+	return ERR_PTR(-EOPNOTSUPP);
-+}
-+
-+static void pci_cma_tsm_unbind(struct pci_tdi *tdi)
-+{
-+}
-+
-+static ssize_t pci_cma_tsm_guest_req(struct pci_tdi *tdi,
-+				     enum pci_tsm_req_scope scope,
-+				     sockptr_t req_in, size_t in_len,
-+				     sockptr_t req_out, size_t out_len,
-+				     u64 *tsm_code)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static const struct pci_tsm_ops pci_cma_tsm_ops = {
-+	.link_ops = {
-+		.probe		= pci_cma_tsm_probe,
-+		.remove		= pci_cma_tsm_remove,
-+		.connect	= pci_cma_tsm_connect,
-+		.disconnect	= pci_cma_tsm_disconnect,
-+		.bind		= pci_cma_tsm_bind,
-+		.unbind		= pci_cma_tsm_unbind,
-+		.guest_req	= pci_cma_tsm_guest_req,
-+	},
-+};
-+
-+static struct tsm_dev *pci_cma_tsm_dev;
-+
-+static int __init pci_cma_tsm_init(void)
-+{
-+	struct tsm_dev *tsm_dev;
-+
-+	tsm_dev = tsm_register(NULL, &pci_cma_tsm_ops);
-+	if (IS_ERR(tsm_dev))
-+		return PTR_ERR(tsm_dev);
-+
-+	pci_cma_tsm_dev = tsm_dev;
 +	return 0;
 +}
-+late_initcall(pci_cma_tsm_init);
-diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
-index 365634fb0df7a..5f79307e0f087 100644
---- a/drivers/pci/doe.c
-+++ b/drivers/pci/doe.c
-@@ -31,9 +31,6 @@
- #define PCI_DOE_FLAG_CANCEL	0
- #define PCI_DOE_FLAG_DEAD	1
- 
--/* Max data object length is 2^18 dwords */
--#define PCI_DOE_MAX_LENGTH	(1 << 18)
--
- /**
-  * struct pci_doe_mb - State for a single DOE mailbox
-  *
-diff --git a/include/linux/pci-doe.h b/include/linux/pci-doe.h
-index bd4346a7c4e75..7540396336def 100644
---- a/include/linux/pci-doe.h
-+++ b/include/linux/pci-doe.h
-@@ -19,6 +19,10 @@ struct pci_doe_mb;
- #define PCI_DOE_FEATURE_CMA 1
- #define PCI_DOE_FEATURE_SSESSION 2
- 
-+/* Max data object length is 2^18 dwords (including 2 dwords for header) */
-+#define PCI_DOE_MAX_LENGTH	(1 << 18)
-+#define PCI_DOE_MAX_PAYLOAD	((PCI_DOE_MAX_LENGTH - 2) * sizeof(u32))
 +
- struct pci_doe_mb *pci_find_doe_mailbox(struct pci_dev *pdev, u16 vendor,
- 					u8 type);
++int pci_cma_note_san(void *context, size_t hdrlen, unsigned char tag,
++		     const void *value, size_t vlen)
++{
++	struct pci_cma_x509_context *ctx = context;
++
++	/* These aren't the drOIDs we're looking for. */
++	if (ctx->last_oid != OID_CMA)
++		return 0;
++
++	if (tag != ASN1_UTF8STR ||
++	    vlen != ctx->expected_len ||
++	    memcmp(value, ctx->expected_name, vlen) != 0) {
++		pci_err(ctx->pdev, "Leaf certificate of slot %u "
++			"has invalid Subject Alternative Name\n", ctx->slot);
++		return -EINVAL;
++	}
++
++	ctx->found = true;
++
++	return 0;
++}
++
++static unsigned int pci_cma_construct_san(struct pci_dev *pdev, char *name)
++{
++	unsigned int len;
++	u64 serial;
++
++	len = scnprintf(name, CMA_NAME_MAX,
++			"Vendor=%04hx:Device=%04hx:CC=%06x:REV=%02hhx",
++			pdev->vendor, pdev->device, pdev->class, pdev->revision);
++
++	if (pdev->hdr_type == PCI_HEADER_TYPE_NORMAL)
++		len += scnprintf(name + len, CMA_NAME_MAX - len,
++				 ":SSVID=%04hx:SSID=%04hx",
++				 pdev->subsystem_vendor, pdev->subsystem_device);
++
++	serial = pci_get_dsn(pdev);
++	if (serial)
++		len += scnprintf(name + len, CMA_NAME_MAX - len,
++				 ":%016llx", serial);
++
++	return len;
++}
++
++static int pci_cma_validate(struct device *dev, u8 slot,
++			    struct x509_certificate *leaf_cert)
++{
++	struct pci_dev *pdev = to_pci_dev(dev);
++	struct pci_cma_x509_context ctx;
++	int ret;
++
++	if (!leaf_cert->raw_san) {
++		pci_err(pdev, "Leaf certificate of slot %u "
++			"has no Subject Alternative Name\n", slot);
++		return -EINVAL;
++	}
++
++	ctx.pdev = pdev;
++	ctx.slot = slot;
++	ctx.found = false;
++	ctx.expected_len = pci_cma_construct_san(pdev, ctx.expected_name);
++
++	ret = asn1_ber_decoder(&cma_decoder, &ctx, leaf_cert->raw_san,
++			       leaf_cert->raw_san_size);
++	if (ret == -EBADMSG || ret == -EMSGSIZE)
++		pci_err(pdev, "Leaf certificate of slot %u "
++			"has malformed Subject Alternative Name\n", slot);
++	if (ret < 0)
++		return ret;
++
++	if (!ctx.found) {
++		pci_err(pdev, "Leaf certificate of slot %u "
++			"has no OtherName with CMA OID\n", slot);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static int pci_doe_transport(void *priv, struct device *dev,
+ 			     const void *request, size_t request_sz,
+ 			     void *response, size_t response_sz)
+@@ -64,7 +185,7 @@ static struct pci_tsm *pci_cma_tsm_probe(struct tsm_dev *tsm_dev,
+ 	}
+ 
+ 	cma->spdm = spdm_create(&pdev->dev, pci_doe_transport, cma->host.doe_mb,
+-				PCI_DOE_MAX_PAYLOAD, NULL);
++				PCI_DOE_MAX_PAYLOAD, pci_cma_validate);
+ 	if (!cma->spdm) {
+ 		pci_tsm_host_destructor(&cma->host);
+ 		kfree(cma);
+diff --git a/include/linux/oid_registry.h b/include/linux/oid_registry.h
+index ebce402854de4..113f4e802ec40 100644
+--- a/include/linux/oid_registry.h
++++ b/include/linux/oid_registry.h
+@@ -150,6 +150,9 @@ enum OID {
+ 	OID_id_ml_dsa_65,			/* 2.16.840.1.101.3.4.3.18 */
+ 	OID_id_ml_dsa_87,			/* 2.16.840.1.101.3.4.3.19 */
+ 
++	/* PCI */
++	OID_CMA,			/* 2.23.147 */
++
+ 	OID__NR
+ };
  
 -- 
 2.56.0
