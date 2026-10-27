@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103433;
-	b=qnIgAjBO0TmzuA7tiJpiu5j/bgvntFxdemJgLA94xwomRaxaKBylrkdky8jeuk9HYgyR
-	 6lQM4JQSkYYZ2AOE7kYd6l5g9ekYM7KKc2uAaWZZp4z5ojHa4OHt8s/joupDF8w+9IFqM
-	 C10wtc5zZAjCk5rLibxD1OAVIKIQ9Lz+UMwOihaqEGUys1jo5jRNi/YOQS6Na7LIbfzfw
-	 Nf87CS3N/niUKl9bzORp/6JQWi5RfCcvlW7dynL3K6mc+CQXQVLmI1/cDkzgSBZjavttf
-	 Z/BEqifwUcDgW8Kyeg6G3U7DhhQH95AJQ8a6p27Iw2V7cThRpOLW3/N373s7CEYX6OA==
+	t=1793103439;
+	b=5fk14wivDvn9qyAjmJ3wgSW9KQi9iHVU80yXfedJ/GU940R4MpOEKXr5+VCxvd0CPTGG
+	 U8qxCDiTd7UnHbzTcOU7RCODo+o4j1YhEDpunU2qSEzY2VE+nu5xRAI6TuXIh1jjtzetZ
+	 Bohq4228Hu9SSIK09Tw7TTCo7bbWS+cMNINrXv4wonO479K8RChRnng2Te84kQzVBukMl
+	 M1b/ftc3z0Re1hPjT/aorATRfyVJal9cYzytdwYG4bbWzfZ++uujMCZpEs/VPfINFpghK
+	 cbE9uUBPfVrRxEr5nqQRpvl9STYNVMqFJ97OL5WlMUhpT1p8Np5Iwl2H5oz5nJ/Of9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103433;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=zhLcwSooW/Zl3/4kxoQ1C8DWBsgBlBQ47JW1CBaiEPo=;
-	b=S8FEnqC/r7FmEgYeQQyYQpF7o4QekuMsRKWP+f7/HLYwdljHWHo1+/LOGseuRfQ9/2az
-	 QyIHm3ILTYazx0GmW5dKCe4T3KMD9xv90vS3+pgq9vOaFRj8Q3htMzkk0nMi3Ax5UNG82
-	 KpvnAozUzsoKo0za/ry9sKSQ2X5ZolpAtS525SBGaW6UVT58U2HSMOhJsrYLN+Mx3BuOa
-	 eK+AoDbRr24+ImmzDVUMnvoigQvVXiXifFsCE5u4TOJ7GPrILXx/IUH8nGn0luqtZ+gHi
-	 Wfdz65UFjr2G6/BjE+/APXTX8sHlOh1J97GcjAgmHDCkyIUaREGLZdhXAHji7NbCjwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103439;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
+	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
+	 Content-Type;
+	bh=OWa46KzbFqZ91wj51JOTyCuFGEpI3WQbD14F/DuR36M=;
+	b=eIPFh2xELednV8VxTJVj6CoSQHrf0gKFVy9XYprgU9oADsBC7TG7ytHhhcyXgMo2NhS0
+	 Vy9b4PnELZueQhbAKc7e2Z9Isaenpk3pmyWYoZ586iAtgpq9Je68UsL62GhMczhSzZUmg
+	 yBhJHeNJZzjog2Gndq6IJjUGVSInjGj3qBaTp33hJD22Tt5UbidxsWiwJOIe4cJ7J1GC6
+	 df2eo+cXPNTCTHvGvFQKbvW5qjzfH5iHlaKrHTh3o4MLAKZlJBsZXSxEtQAvjbgREqKox
+	 BVz5UReJCw/hc7Dkoq5fwzYWozfu/6yHahrRel2ZN/RaQ+QOcTmWMtv4KW0DL8+3jug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3ncMLtN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ssi.bg;
+	spf=pass smtp.mailfrom=ssi.bg;
+	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=ROeBQYV4;
+	arc=none smtp.remote-ip=193.238.174.39
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6416606A9C9;
-	Tue, 27 Oct 2026 12:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F784606A320;
+	Tue, 27 Oct 2026 12:17:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F784606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S3ncMLtN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81A7A1F031E1;
-	Tue, 27 Oct 2026 12:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793103432;
-	bh=zhLcwSooW/Zl3/4kxoQ1C8DWBsgBlBQ47JW1CBaiEPo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=S3ncMLtNu4FMHy2PpFAjdjOCUSrJb2RF3maO6lPfRtSaOva6SVFNNs7XKxenyjyp0
-	 YeB6odigs4l6WHBhzKULdaiTUSAeUGwV+PTsT8084GG1oOLNVRHoK9cEFWfBXAqXAg
-	 Ri0kqjOCbZ0uXwBH4hm856pkXOr+182RePhWqNvEHykUzLLQYU1aFFiCj8h21kG9fi
-	 H6B5b/yfFbdvfcLvHJsrRE0HYlgtTcXc7lvV18GynSnGDtHd0+3xmbrEjI83dqBbJ3
-	 tPC8zXnO6v1M5RlKUS4UJ3txp515dtBJzFN7jWNfLyi4liejTBtjejQxQK5mv6jv/A
-	 wU7IzFb1e/pKw==
-Subject: Re: [PATCH net 3/3] igb: prepare TSO and checksum offloads before TX
- timestamps
-From: netdev-bot+sashiko@kernel.org
-To: p@1g4.org
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- aleksandr.loktionov@intel.com, chwee.lin.choong@intel.com,
- faizal.abdul.rahim@linux.intel.com, horms@kernel.org,
- vinicius.gomes@intel.com, sasha.neftin@intel.com, matthew.vick@intel.com,
- aduyck@mirantis.com
-Date: Tue, 27 Oct 2026 12:17:11 +0000
-Message-ID: <179310343105.3134.12907560938189136535@kernel.org>
-In-Reply-To: <20261026091549.605810-3-p@1g4.org>
-References: <20261026091549.605810-3-p@1g4.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=ROeBQYV4
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 7F9A6225BB;
+	Tue, 27 Oct 2026 14:17:08 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=OWa46KzbFqZ91wj51JOTyCuFGEpI3WQbD14F/DuR36M=; b=ROeBQYV47Enn
+	bmiLvmbBrSCW3//IQtUQM1bfV7vhHM9zC0hrDLQPGO/bDEqUmvpDFb/qAlKk4Jdq
+	bYV/qQ0rRaskyOJeTrM/S1WJcAR/HnNkqn1MoBMRqAfqamHI6eR34TjuK2XlzsSb
+	b1eKUoYfhbKPtwBadf/JInROwo/jGz1y0YeCbEtpSJ/0PmSFBdAYgSG6nYB/ibXV
+	4N6srhYAc0u8KJuyHa0aZvG6sUOwoqI1Hgs7c57YJ7dwXfYOqgO+MEb1hsNhZ7g6
+	MBfnTItNKRWkNXwnYeQk10PTedi+2DIhMr/EeVtVJbReM2zp3JjBHskvs84XYhxV
+	lir/Tj8jaQWp0J71A92lR0no8Om665Dn6qP9JwX+71TKCZ888QIERImctqDRjocC
+	qbW/7bAoznMYlsFGtmSnmuL6FJq9V8NpZFCPGdwFC6DFd0DZF2Qo05fS+bl5cj9v
+	2e0FKKQUWLUkx9Atz6hHLr14eNJFVOBNxTbODS1OfLrztAQtZkiH66XZmzCjVyAR
+	pnQ+OQYu/T7tbVuqKaBr2huQTKcBPaVTQoU3kT8ZZ2HvbcjoB3RzVTndEnehnkvE
+	aO/c6pWNyT7HHHwYY/7kUVQYTwXkrPhnR28qtmf+UeevqoCHOsFDs5fJUhi+eFyQ
+	wTKjLHWU/xtJCVWsEt4SMy7kJy5uZew=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Tue, 27 Oct 2026 14:17:08 +0200 (EET)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 20E3C60211;
+	Tue, 27 Oct 2026 14:17:08 +0200 (EET)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69RCGweS045526;
+	Tue, 27 Oct 2026 14:16:59 +0200
+Date: Tue, 27 Oct 2026 14:16:58 +0200 (EET)
+From: Julian Anastasov <ja@ssi.bg>
+To: Star Chang <starchang@google.com>
+cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, horms@kernel.org, johannes@sipsolutions.net,
+        johannes.berg@intel.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
+ unicast ARP/IP in L2 BMC
+In-Reply-To: <20261027015619.1745984-1-starchang@google.com>
+Message-ID: <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg>
+References: <20261026150539.1357037-1-starchang@google.com> <20261027015619.1745984-1-starchang@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,254 +81,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 (1) · Medium: 1 (2) · Low: 1
+	Hello,
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On Tue, 27 Oct 2026, Star Chang wrote:
 
-- [Medium] igb_tx_csum() still ignores the return value of
-  skb_checksum_help() (igb_main.c:6170, `default:…
-- [Low] The commit message says the bug's effect is a dropped packet (TSO
-  path) or an incomplete checksum (csum path), because commit…
+> Wi-Fi 802.11 to 802.3 frame translation allows attackers to inject
+> unicast L3 packets or ARP payloads inside GTK-encrypted L2 broadcast
+> and multicast (BMC) frames (the "Hole-196" vulnerability).
+> 
+> While the `drop_unicast_in_l2_multicast` sysctl was introduced to drop
+> unicast IPv4/IPv6 packets received over L2 BMC, it had several gaps:
+> 
+> 1. ARP packets were not checked in `net/ipv4/arp.c`, allowing attackers
+>    to perform ARP poisoning via L2 BMC frames (`group-arp-unicast`).
+> 2. Enforcement lacked DHCP client (UDP port 68) exemption, which could
+>    discard legitimate DHCP server responses sent via L2 broadcast.
+> 3. Dropped packets were silently discarded without warnings or MIB stats.
+> 
+> The issue was identified via manual code inspection and protocol security
+> analysis of cross-station frame injection in 802.11 shared-key (GTK)
+> networks. In laboratory testing, crafted 802.11 broadcast frames containing
+> unicast ARP payloads (e.g. ARPOP_REQUEST / ARPOP_REPLY with tha set to a
+> victim's unicast MAC) bypassed the existing sysctl, poisoning the victim's
+> ARP cache. Furthermore, per RFC 2131 inspection, unconditionally dropping
+> L2 broadcast frames carrying unicast IP addresses discards standard DHCP
+> server responses (DHCPOFFER/DHCPACK) destined for UDP port 68 during lease
+> negotiation.
+> 
+> Enhance `drop_unicast_in_l2_multicast` sysctl enforcement:
+> - Extend sysctl checks to `net/ipv4/arp.c` (`arp_process()`) to drop
+>   unsolicited ARP Replies and ARP Requests with a non-zero unicast
+>   Target Hardware Address (tha) received over L2 BMC.
+> - Exempt Gratuitous ARP (GARP) and RFC 5227 Address Announcements
+>   (`sip == tip`) from L2 BMC unicast drop logic so they defer to the
+>   `DROP_GRATUITOUS_ARP` sysctl, preserving VRRP/HSRP router failover.
+> - Exempt non-fragmented DHCP client traffic (UDP dest port 68) in
+>   `net/ipv4/ip_input.c` and safely reload `ip_hdr(skb)` after
+>   `pskb_may_pull()` to prevent dangling pointer access.
+> - Log rate-limited warnings (`net_warn_ratelimited`) and increment MIB
+>   error counters (`IPSTATS_MIB_INHDRERRORS`) for dropped frames.
+> 
+> Fixes: 12b74dfadb5a ("ipv4: add option to drop unicast encapsulated in L2 multicast")
+> Fixes: abbc30436d39 ("ipv6: add option to drop unicast encapsulated in L2 multicast")
+> Signed-off-by: Star Chang <starchang@google.com>
+> ---
+> v3 -> v4:
+>   - Fix broken newline syntax in net_warn_ratelimited() string literal
+>     in net/ipv4/ip_input.c that caused build failures across 32-bit,
+>     allmodconfig, and clang CI builds.
+>   - CC Julian Anastasov (ja@ssi.bg) per netdev-bot blamed author check.
+> v2 -> v3:
+>   - Add Fixes: tags for commits 12b74dfadb5a and abbc30436d39.
+>   - Reformat lines in net/ipv4/ip_input.c to adhere strictly to the 80-column limit.
+>   - CC maintainers Ido Schimmel and Simon Horman per netdev bot check.
+> v1 -> v2:
+>   - Clarified discovery method and triggering context per netdev-bot feedback.
+> 
+> diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
+> index d409f606aec0..ad23db2e2f59 100644
+> --- a/net/ipv4/arp.c
+> +++ b/net/ipv4/arp.c
+> @@ -791,6 +791,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
+>  	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
+>  		goto out_free_skb;
+>  
+> +/*
+> + * Hole-196 defense for ARP:
+> + * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
+> + * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
+> + * that specify a non-zero unicast Target Hardware Address (tha).
+> + *
+> + * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
+> + * require (sip == tip) and tha matching sha (tha == sha). Only valid
+> + * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
+> + */
+> +	if ((skb->pkt_type == PACKET_BROADCAST ||
+> +	     skb->pkt_type == PACKET_MULTICAST) &&
+> +	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+> +		bool is_valid_garp = (sip == tip) && tha &&
+> +				     !memcmp(tha, sha, dev->addr_len);
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  ixgbe_xmit_frame_ring() has the same ordering bug this series fixes in…
-- [Medium] This problem wasn't introduced by this patch, but on the
-  igb_tx_map() failure path, cleanup_tx_tstamp in igb_xmit_frame_ring()…
-- [Medium] This problem wasn't introduced by this patch, but the
-  cleanup_tx_tstamp path in igb_xmit_frame_ring() calls…
+	I'm not sure how much from the Sashiko review is addressed:
+
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002082336.608201-1-starchang%40google.com
+
+	But matching sha and tha for requests is wrong.
+
+From RFC 826:
+
+===
+The target hardware address is included for completeness and
+network monitoring.  It has no meaning in the request form, since
+it is this number that the machine is requesting.  Its meaning in
+the reply form is the address of the machine making the request.
+===
+
+	tha is used only for monitoring. Linux copies sha from
+requests into tha field in the reply. It does not use the tha
+to update the cached entry, instead sha is used for this.
+
+	From RFC 2002, section 4.6, about Gratuitous ARP:
+
+===
+When using an ARP Reply packet, the
+Target Hardware Address is also set to the link-layer address to
+which this cache entry should be updated (this field is not used
+in an ARP Request packet).
+===
+
+	It means to store the sender address there too. But as we
+see nobody updates cache from tha, only from sha. But there are
+GARP implementations that store broadcast address in tha when
+sending broadcast GARP reply, may be because the packet is intended
+to ALL, not just to simulate a reply packet addressed to the sender.
+
+	So, I'm not sure why arp_is_garp() requires tha and
+sha to match for GARP reply. It is too restrictive for no good
+reason. We can safely ingore tha in arp_process. Let the packet
+capture tools to check it, for monitoring purposes. There we can
+see in tha to which hosts the packet was sent.
+
+	As for the ARP broadcasts, we already have "arp_accept"
+sysctl that prevents new entries to be added to cache. Can it
+help for your ARP tests?
+
+> +
+> +		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
+> +			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
+> +					     dev->name);
+> +			goto out_free_skb;
+> +		}
+> +		if (dev->addr_len == ETH_ALEN && tha &&
+> +		    is_valid_ether_addr(tha) && !is_valid_garp) {
+> +			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
+> +					     dev->name);
+> +			goto out_free_skb;
+> +		}
+> +	}
+
+Regards
 
 --
+Julian Anastasov <ja@ssi.bg>
 
-igb: prepare TSO and checksum offloads before TX timestamps
-
-This patch moves the VLAN flag setup, igb_tso() and igb_tx_csum() in
-igb_xmit_frame_ring() ahead of the skb_get() taken for hardware TX
-timestamping. Offload preparation therefore no longer runs on a shared skb.
-The timestamp flag is then ORed into first->tx_flags so the offload flags
-are kept.
-
-> igb_xmit_frame_ring() takes an extra skb reference for TX timestamping
-> before transmit preparation. For GSO packets, igb_tso() calls
-> skb_cow_head(), which can reach pskb_expand_head() with a shared skb
-> when the header is cloned. Commit c7d8bc3dd511 ("net: skbuff: don't BUG()
-> on bad arguments to pskb_expand_head()") replaced the BUG_ON() with
-> -EINVAL, causing TSO preparation to fail and the packet to be dropped.
-
-[Severity: Low]
-Does this description match the tree this patch applies to?
-
-Commit c7d8bc3dd511 doesn't appear to be an ancestor of this patch.
-pskb_expand_head() here still has:
-
-net/core/skbuff.c:pskb_expand_head() {
-    ...
-	BUG_ON(skb_shared(skb));
-    ...
-}
-
-The same is true for the stable kernels the Fixes: tags point at.
-
-So before this patch, both paths described in the message would hit BUG().
-They would not drop the packet or skip the checksum:
-
-igb_xmit_frame_ring() /* skb_get() */
-  igb_tso()->skb_cow_head()->__skb_cow()->pskb_expand_head()
-
-igb_xmit_frame_ring() /* skb_get() */
-  igb_tx_csum()->skb_checksum_help()->skb_ensure_writable()
-    ->pskb_expand_head()
-
-The code change looks right. Could the message say that the effect is a
-BUG()? Once hardware TX timestamping is enabled, an SO_TIMESTAMPING sender
-can trigger it.
-
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index d4a897a8c82c6..04c0053dbaae8 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -6559,6 +6559,21 @@ netdev_tx_t igb_xmit_frame_ring(struct sk_buff *skb,
->  	first->bytecount = skb->len;
->  	first->gso_segs = 1;
->  
-> +	if (skb_vlan_tag_present(skb)) {
-> +		tx_flags |= IGB_TX_FLAGS_VLAN;
-> +		tx_flags |= (skb_vlan_tag_get(skb) << IGB_TX_FLAGS_VLAN_SHIFT);
-> +	}
-> +
-> +	/* record initial flags and protocol */
-> +	first->tx_flags = tx_flags;
-> +	first->protocol = protocol;
-> +
-> +	tso = igb_tso(tx_ring, first, &hdr_len);
-> +	if (tso < 0)
-> +		goto out_drop;
-> +	else if (!tso)
-> +		igb_tx_csum(tx_ring, first);
-
-[Severity: Medium]
-The commit message says igb_tx_csum() ignores the error from
-skb_checksum_help(). This patch removes the shared skb trigger, but can
-that ignored error still happen?
-
-igb_tx_csum() still does:
-
-	default:
-		skb_checksum_help(skb);
-		goto csum_failed;
-
-igb advertises NETIF_F_HW_CSUM. A non-GSO CHECKSUM_PARTIAL skb with an
-unusual csum_offset therefore ends up here, for example one sent through
-AF_PACKET or tun with a vnet_hdr.
-
-skb_checksum_help() can still return early without writing the checksum or
-setting CHECKSUM_NONE:
-
-skb_checksum_help()
-  skb_ensure_writable()
-    pskb_expand_head(skb, 0, 0, GFP_ATOMIC)  /* -ENOMEM, cloned header */
-
-The other early returns are a __skb_linearize() failure, the -EINVAL
-headlen offset checks, and !skb_frags_readable().
-
-On failure igb_tx_csum() jumps to csum_failed. Because igb_tx_csum() returns
-void, igb_xmit_frame_ring() cannot drop the packet. igb_tx_map() then sends
-a frame whose L4 checksum field holds only the pseudo-header partial sum.
-
-Could igb_tx_csum() return an error so the caller can goto out_drop? That
-would match how an igb_tso() failure is handled here, and what
-validate_xmit_skb() does when skb_checksum_help() fails.
-
-> +
->  	if (unlikely(skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP)) {
->  		struct igb_adapter *adapter = netdev_priv(tx_ring->netdev);
->  
-> @@ -6567,6 +6582,7 @@ netdev_tx_t igb_xmit_frame_ring(struct sk_buff *skb,
->  					   &adapter->state)) {
->  			skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
->  			tx_flags |= IGB_TX_FLAGS_TSTAMP;
-> +			first->tx_flags |= IGB_TX_FLAGS_TSTAMP;
->  
->  			adapter->ptp_tx_skb = skb_get(skb);
->  			adapter->ptp_tx_start = jiffies;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does ixgbe_xmit_frame_ring()
-have the same ordering problem that this series fixes in igb and igc?
-
-drivers/net/ethernet/intel/ixgbe/ixgbe_main.c:ixgbe_xmit_frame_ring() {
-    ...
-			adapter->ptp_tx_skb = skb_get(skb);
-			adapter->ptp_tx_start = jiffies;
-			schedule_work(&adapter->ptp_tx_work);
-    ...
-			if (skb_cow_head(skb, 0))
-				goto out_drop;
-    ...
-	tso = ixgbe_tso(tx_ring, first, &hdr_len, &ipsec_tx);
-	if (tso < 0)
-		goto out_drop;
-	else if (!tso)
-		ixgbe_tx_csum(tx_ring, first, &ipsec_tx);
-    ...
-}
-
-After skb_get(), three paths can call pskb_expand_head() on the now shared
-skb when its header is cloned:
-
-  the DCB software VLAN skb_cow_head()
-  ixgbe_tso()->skb_cow_head()->__skb_cow()
-  ixgbe_tx_csum()->skb_checksum_help()->skb_ensure_writable()
-
-In this tree that hits BUG_ON(skb_shared(skb)) in pskb_expand_head(). Once
-c7d8bc3dd511 is applied, it becomes a dropped TSO packet or an ignored
-checksum failure instead.
-
-The series doesn't touch ixgbe. Should ixgbe get the same reordering?
-
-[ ... ]
-
-> @@ -6577,21 +6593,6 @@ netdev_tx_t igb_xmit_frame_ring(struct sk_buff *skb,
-
-[ ... ]
-
->  	if (igb_tx_map(tx_ring, first, hdr_len))
->  		goto cleanup_tx_tstamp;
-
-[Severity: Medium]
-This is a pre-existing issue, but on 82576 can the cleanup_tx_tstamp path
-race with igb_ptp_tx_work()?
-
-igb_xmit_frame_ring() {
-    ...
-cleanup_tx_tstamp:
-	if (unlikely(tx_flags & IGB_TX_FLAGS_TSTAMP)) {
-		...
-		dev_kfree_skb_any(adapter->ptp_tx_skb);
-		adapter->ptp_tx_skb = NULL;
-		if (adapter->hw.mac.type == e1000_82576)
-			cancel_work_sync(&adapter->ptp_tx_work);
-    ...
-}
-
-The skb is freed before the work is synchronized. igb_ptp_tx_work() checks
-and uses the same pointer without a lock:
-
-igb_ptp_tx_work() {
-	if (!adapter->ptp_tx_skb)
-		return;
-
-	if (time_is_before_jiffies(adapter->ptp_tx_start +
-				   IGB_PTP_TX_TIMEOUT)) {
-		dev_kfree_skb_any(adapter->ptp_tx_skb);
-    ...
-	tsynctxctl = rd32(E1000_TSYNCTXCTL);
-	if (tsynctxctl & E1000_TSYNCTXCTL_VALID)
-		igb_ptp_tx_hwtstamp(adapter);
-    ...
-}
-
-igb_ptp_tx_hwtstamp() copies adapter->ptp_tx_skb and later calls
-skb_tstamp_tx() and dev_kfree_skb_any() on that copy.
-
-The work can be running on another CPU, either scheduled by
-igb_tsync_interrupt() on E1000_TSICR_TXTS or rescheduled by itself. If it
-passes the NULL check before the xmit CPU frees the skb, could it use or
-free an skb that has already been freed?
-
-To hit this, the worker would need a stale TSYNCTXCTL_VALID bit or a stale
-ptp_tx_start, so it may be hard to trigger. The code comes from commit
-74344e32fcc0. This patch makes it harder to reach, because igb_tso()
-failures now return before IGB_TX_FLAGS_TSTAMP is set.
-
-[Severity: Medium]
-This is also pre-existing and not introduced by this patch, but is
-cancel_work_sync() safe to call in this path?
-
-igb_xmit_frame_ring() runs as ndo_start_xmit. BH is disabled under
-rcu_read_lock_bh(), and the txq _xmit_lock is held. ptp_tx_work is a regular
-work item, so __cancel_work_sync() calls might_sleep(). It can also block in
-__flush_work() if the work is running.
-
-With CONFIG_DEBUG_ATOMIC_SLEEP, each igb_tx_map() DMA mapping failure on a
-timestamped 82576 packet would print a "sleeping function called from
-invalid context" splat.
-
-If the work is running at that moment, the xmit path would really sleep in
-atomic context. That can happen because igb_ptp_tx_hwtstamp() clears
-__IGB_PTP_TX_IN_PROGRESS before it calls skb_tstamp_tx(). A new timestamp
-request can then start while the previous worker is still running.
-
-After this patch, only an igb_tx_map() failure reaches this path. This code
-also comes from commit 74344e32fcc0.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026091549.605810-1-p%401g4.org
