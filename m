@@ -1,113 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793124250;
-	b=fSRA8FyTsuQmO6zSMYN3ImOTWZhZKtekz16671siVy5mLHWAJqt4qVosYskW4PfH9AuV
-	 ldMwqNJC5iZwSw7Lj5dEnyRm2nvZNHh8uQQ9ymOu2CHHNyyOpmrB2WAodRG2LVXXw7YFN
-	 9aw+Irjr14HVW2SH0S7Kk3lvUliuB7Kd7S9aX3r3ncJyeeiixx19Zf1Ooq3N0LY4tmitE
-	 74jQsDFJxqjbhZ8I6Os8V6GTrq6XTOnxeCcEi0ACmCegPOS7ftdJX1wqkDEu+mO5We02Q
-	 q4vIzL3kepbUJolxSnDiYpqQo/3aryiuJaq08hsWk50528HNt+vI/rdct1M/a8HE5sA==
+	t=1793124303;
+	b=VTPMoAKONOlsxPb6yNTYfRXaRRO6D6bGiakbQ3RR/OySelHxciua3gy2BHR5aTBcXDK0
+	 HH9Q97ao0mz1j4lcbdaP4KzIMB/+JxWvwOaQEcfC3ifcY/8IHnRtxzTOwe4Uwm1sl2Lv0
+	 Rw553xGPV0J6vCOcsqk+xbq2TV8fOxVaMnXUnBkDvMqLfWdUPMojpYmNwGFCa3RgmAvuN
+	 cBDLSDowM3IV8dbtKkfyVguBS0cDqUF/aIYUyqRdm8/mY0IBIXe5FjtTJKbrIU50b7x8X
+	 B7IwLZiLixGneEvlxCY7iVYRvM1GtNuJLwmTt4MiKsUIOWg+TZBg69/01rR0eKZJ/LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124250;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793124303;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CbwQln0osS5Ody02EmE3zfTJ+96bXVyWs9ItOG40Y20=;
-	b=pR1R+y4mw7yiiHqDxMEsLZ+gUn8Uciwwst/7d+asqpRXnrC8+RK0TEd0cuh+l/6wzt1Q
-	 I/6wdRWSLeOSxyCGRp9PG70zqOIPM5wYCeNbtXnR8Uxa/OBWCLjShPIq/N+JtlLiXkoPd
-	 j478P1x2VuXp2oyVaOuao45git5hNKM3/n8otQSd1dKvoBfAjoCaPqp7wMFUxfDmW6NuL
-	 dsDjF79FvSnQr+IGHqbOck9sl4rB/gLQ5Wrfk1NbkrlKUGusvVWf1xCHeWyCkyh2mANyY
-	 9gk8/nwcdbgI8w0WUg/fohyFrqY+CKsxlE7Zf2FjeJ0o/VUo0ORjo7m0OnlLBCfcWYQ==
+	 Content-Transfer-Encoding;
+	bh=7UP+K2CIKJLiob8ybXferq92NXaHOd6XKBVJ1ps1v90=;
+	b=d64otfKxw3IVSYu6lhNs+LGtiaD5LfhRB80arJaSoWeQ+8Cd7BioXeBcQNAyBPnvt5/+
+	 p/KaIU57n5HTuqGIYwbIzdN8Kr+rwd/4XNAtwNcoruhEqvj5aXheU4Pv5e5pSb7WreqFN
+	 BQYQpfD1zdbyU0ZN8HpDef2+88iwK9vJ8nEfiMK1w+QolOVsTWOhK5r+WBMv/ngN/Kwq4
+	 2PhGquYo8U7KOpX0aUAcFuR8ONup+0LkPb2bSg4cqZ/fc6xSj2i0LiMq01zvzgdZB62FK
+	 mkL24vn1jtPNXi1gSIKu8Son1uncLKNXVkgKgrtTNl1ZbvuMi+kI9f65Dy8K937mkYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=HWMW+LuC;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=MkOva+DP;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MtzztlPx;
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E24F606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:04:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E24F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA8D606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:05:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DA8D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=HWMW+LuC;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=MkOva+DP
-Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RHh6fP1276249
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:04:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=CbwQ
-	ln0osS5Ody02EmE3zfTJ+96bXVyWs9ItOG40Y20=; b=HWMW+LuCz6utW8S/VyIJ
-	rHuo4CHhRhfcBnkgT2it5oCdt4YIlLKc6jaoFTG6NBRm9OQx8/Gj8cgBC4Do0iWk
-	mAEHeGX4ZEQrgjmx5BHUqwprw2uw/fxZQF3p+JzRElcb76yXcKt4GQvOnFFzOajv
-	msygurYhvvDfEXZY1Y1OFRcS/MQ3DzxL1Zn7WjVKu/boL2iCknUIbvotLMEHVOFn
-	8z9EcTAubn7A/+OQElkqnT0CU8euYHGKsuMyJovfBE9MpfZ4akkMjYw62aGpHRD7
-	9NYu/mzCxLPH6caGTchbWrsAFJNSQvq09+77FlRkr73QTb2lnAcZCq5a3XUaooGA
-	UQ==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hjqe5vwty-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:04:03 -0400 (EDT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c7bf2d734so1594056d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:04:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=MtzztlPx
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-81b54d0cb17so170272a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793124242; x=1793729042; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793124301; x=1793729101; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CbwQln0osS5Ody02EmE3zfTJ+96bXVyWs9ItOG40Y20=;
-        b=MkOva+DPKFBicQaIHSSly2JfoMAicHAbd7jFFZ2jAPfMZSSAxwOfcC3CPShO84ijPq
-         ZECGGl73Kz7/09FPj4HtrAatZ8+T45RQt+M4cGZiieC2QJbgruC3B154GGVXb7OAzN+0
-         2UhtrH2K//SHtIBzgQwch7+1xSTuSdd3XBXrSOFftUuUdhA49+eAWmetIwHQ/lmQkNU1
-         eDgkpiPJIa7m+mdnAJUQCGKhtaBLbGtQoh5/+RjGZf2sev+2X2y5UVI9n1Ip2H0WcVvt
-         DLiMDqjdZzodxrWp70M2mYAtjmKnXIkOjZKPebpETepX3BO/HR7B5Mv3SiADMWH9paOp
-         KEYA==
+        bh=7UP+K2CIKJLiob8ybXferq92NXaHOd6XKBVJ1ps1v90=;
+        b=MtzztlPxpena3EAfVqgyAz88Sbp07laf8cENHY2dlnwAIB4CXoWS12FazlnNBex/tB
+         iCNwPM95GEYjfQBTshm+Z0lMaK2s/XjIJ9so7jUUZY6aYhjJjayogqs3VsJtgAkEKX2V
+         XFVzXswLlVbP6h+8BPLz6m5k9eAJQjJtcu+fR3pLOMsb2siVFUlVgoQjG/bxKXYigN2v
+         D6FbCsaERrJVP2rvU9WLanVHBoBuxh8QLnFqYPs/SKkPr9g+4B3JPCh5lzHApDsS9j+8
+         oAYgcA34G67mS3A9ov1j6Yh4G1bU0sCMht0+OOC/mwIYWrBwNEjjGzzrp2o2wwFjW+pB
+         EVVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793124242; x=1793729042;
+        d=1e100.net; s=20260707; t=1793124301; x=1793729101;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CbwQln0osS5Ody02EmE3zfTJ+96bXVyWs9ItOG40Y20=;
-        b=oppkKdRcb1BiZOKMnZsdsATOSKopS8lZ7oh9snlSYEsf29ocoMEr2BMKuIZgfaVud/
-         WLg+BcK48FVAYWwomxoZeCHaa/azSGYlb2mK7xWOgrfxsCfjmAz9oDzCMRqyokQqP2sZ
-         YIuUrsOnj+Sg7x6Cpk/E89fTkBAN3G1mGkott1tmvdEZucwawCVywNa8hTlgUi8/CE1A
-         giVyq39NRAEV9Gfu8jSBTdfDzqGHxzd6uhi7lYjEvW41QP6WX3qeINM+vGqeyjo6H/oh
-         m5YREztSAQlQFaY8/DgJkpGvbbkreztyn+K+e1Xr/TIte0foVlOa81A/lF04UoKr/148
-         pPEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytUQ0P0GQRYsrEv5Wexdpc9ZeTTjQwSUbh1yYDo9lOVSSsD/BJksoSJ+8/FktJ5IM2SWJO4ykH+cZoycc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNoXdOfTwXo47dc3XPPjBGmCEmssFtFDxcZwYIH2Y+mQVlgTzX
-	91Jnrm+uGdJM3KquZ7BYWlnC1VlWRUQQW2ag+dr5Sl7pDV5CZSq6qwvPGGgNV1/bUHWt/pQHXix
-	ohjury/8rG60aeDxXcQ/kXrBg2m5TedJZXp5UViVCn1lbySsEnP2GjRKGBDEGrg==
-X-Gm-Gg: AYBFou0nIkp/+HwhXunLgm/AEWVPiXCLd3txUbGbJtxCncSQpxJ5c1iqINOMyR6YzB4
-	ebj3nOLFE5z1ey7ETTcTKL78tm/T+Xe9X0nYbiEwCbq5IdRE+jbsDVxEpzjgyWepTyjFTYPPVxd
-	v5TRhvoTo6WjkRev9I2EnJ9gUlnf9EK+D6QFcl9ZY7SX9aMZ56jQ3uvQQvZMgBanNe2jHkEziDF
-	EgLjVt1Ua1TMQqrO/la4q89SIf4N24lhSGr4o3TMSO3iaDZUFtqiC1xDRErhDOW9mAlTZ90pZib
-	MZn8AbJKBDXNdoOVYT1XXFVdNLCHmO/9IFrWdbKw9Ri810fU9Rbu6ZoYK4n63ipwxeB39Dhh5IC
-	SqMFACLz0XiAAKfrogXWrBBBilvhOZBx4S9Cp5bKzqv7ckETFhNAwcCqq/8ThOKizMGTinyjP0i
-	LQC2SKlLrvlnRkmx6tMPr4U7XiJHoXgkPx8ZhKkJGz2i3Z2AKbRDbIzm+a2V5TPuz9HcxO/H1Jy
-	IunbhBf0zQCZ90=
-X-Received: by 2002:a05:620a:2a06:b0:93e:c12c:9dd2 with SMTP id af79cd13be357-940ef9ed966mr1547495585a.82.1793124242358;
-        Tue, 27 Oct 2026 11:04:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:2a06:b0:93e:c12c:9dd2 with SMTP id af79cd13be357-940ef9ed966mr1547486985a.82.1793124241704;
-        Tue, 27 Oct 2026 11:04:01 -0700 (PDT)
-Received: from [10.206.51.58] ([129.236.225.183])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0a94a5csm1037624685a.41.2026.10.27.11.03.58
+        bh=7UP+K2CIKJLiob8ybXferq92NXaHOd6XKBVJ1ps1v90=;
+        b=JFFKIIiD4paQ5RJwSDCFE054qPDWmffU4V0CXuSv5FvuvwGWrfcyudI6RufLxgxMsY
+         nYSHDYDxq1rhR7VMiEBq9eSWx/W6gobrJuZ1kRzoQvw2IIMJp9++MOMNmE6aIY1eqkzu
+         SlreYyxSN70uTfQkUx9xbGQcskI00zzpBBJyVpooJ9C2tKauCcXmrAzQQemK1r5N5Brn
+         EX0KzLP/cNwJ3WsWig0IS76UeGg2GSNePbP5/HI2Nr5k0zbSzoLpFC6y5dHvrU+tq3Y5
+         RaGIH6nUq33KcKoECLu1z7iwVc5ewQNhwdlxrXqjgNvZUT0OxB6h8IeflV0isq57lzBC
+         PgGg==
+X-Forwarded-Encrypted: i=1; AKwUvBzHBP02CWbI3shmIXM/IlkgSPclTPVv6CrgDiWoyRJm8oumbbWCVTWcCk4KYjHS5kMcmRHahybquaYthNk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZrHs842EMyRztVPVUYnbvEYAGvU1BVePrmFp4+IRG8rLMz2dL
+	rKnLbfWKcR+4hQg2Jzok+PkhU9tdFK6NWYj3XVN4aWMKwCbswlOqjWw3gIQ5z9Le1N8=
+X-Gm-Gg: AYBFou0TuEcZUqKgc8jhDmviGy/56xyrrpLCuM4nbF0rOgCpFs33TFrTRhqX+kvmuet
+	tAB5QJbGO25wZdVtMWBl/rDmQ4UhFzoKjdOpK0zclUARCKecJ2yfWeFp/b9CsGErqpiknj+XAbY
+	saBk5tKt1UdklZ9Xv2BAnM6K1DTs279u8XGBPQT7JIeIWNGZQooFfRNgz4p3U3Mh1v2Xv8KZPza
+	E+j8HglyqP1BZwYs6NFgeQwVGgkdq2FNnY6w4peIvgOyPpwebalBnoLtoma3n+SQ6/6BYLWysTi
+	5Jxa88fr4ugw/Zl6gcin2jdBTmt1xO/ubz5FfaZ+WkL3hkmDajhARKWLCa8QMwX6c8N8/a6d4c1
+	UDBKIoZKTnsUcJ1Ntcw0YC3tauxobzykIs4lMu1cnnUTQSxueinZKrlWMHNOYG5vQH2TxYcD/FH
+	w0+SYvPBSulSb230hHw1kPCw2kwlgff3wDM6wtZzgxsFdGS0RCaE7+7zodNO6LZoTFDZ7QPBwVk
+	Ir4/xkv3QxMIlzb62AIafvshQ8Ya0t34V4It2C0DF/FbUMFWwjgkq0uVWQhh3cTVI1UhFX2M5CO
+	5R8UjgFYPK3uJ56zGD389D5w8bPlkhWBr2yUB/yCMoMjnb6ktI0XG23cRQ==
+X-Received: by 2002:a05:6830:2b22:b0:84c:85e8:f922 with SMTP id 46e09a7af769-85abe8bb899mr253687a34.26.1793124301049;
+        Tue, 27 Oct 2026 11:05:01 -0700 (PDT)
+Received: from [192.168.2.38] ([96.43.243.2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-850fc005bd7sm11949803a34.24.2026.10.27.11.05.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 11:04:00 -0700 (PDT)
-Message-ID: <208738b1-35df-458c-9955-e2e5318fd2c7@columbia.edu>
-Date: Tue, 27 Oct 2026 14:03:58 -0400
+        Tue, 27 Oct 2026 11:05:00 -0700 (PDT)
+Message-ID: <b50196b6-cc04-4d3e-965a-28c4f75ef263@kernel.dk>
+Date: Tue, 27 Oct 2026 12:04:59 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,114 +93,55 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/46] mm/huge_memory: fix list corruption when
- deferred_split_scan() races with deferred_split_folio()
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-        Johannes Weiner <hannes@cmpxchg.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
-        Shakeel Butt <shakeel.butt@linux.dev>,
-        Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Barry Song <baohua@kernel.org>,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-        Baoquan He <baoquan.he@linux.dev>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
-        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-        Hugh Dickins <hughd@google.com>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        Pratyush Yadav <pratyush@kernel.org>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
-        Lance Yang <lance.yang@linux.dev>, Rik van Riel <riel@surriel.com>,
-        Harry Yoo <harry@kernel.org>, Alistair Popple <apopple@nvidia.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>,
-        Matthew Brost <matthew.brost@intel.com>,
-        John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-        Will Deacon <will@kernel.org>,
-        "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-        Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
-        Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
-        Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
-        Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
-        Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
-        Gregory Price <gourry@gourry.net>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
-        Ying Huang <ying.huang@linux.alibaba.com>,
-        Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
-        linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
-        linux-cxl@vger.kernel.org, stable@vger.kernel.org,
-        Josef Bacik <josef@toxicpanda.com>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-10-6f74bec9a5bb@kernel.org>
- <auCw2-_yjh1_RjiO@cmpxchg.org>
- <5d431bf7-8813-4e2c-a40d-b45d4ff39a5b@kernel.org>
+Subject: Re: [REGRESSION] io_uring: final close can hang on a stopped
+ submitter
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: io-uring@vger.kernel.org, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261027043521.99446-1-kmehltretter@gmail.com>
 Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <5d431bf7-8813-4e2c-a40d-b45d4ff39a5b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261027043521.99446-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: DzBUE-I34SUdoYh-WFFnp9PYz5m0rbY5
-X-Authority-Analysis: v=2.4 cv=Xt9vqlF9 c=1 sm=1 tr=0 ts=6ae0e793 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=TdXXog4ttPu8yHJGq4T0ug==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
- a=VwQbUJbxAAAA:8 a=pJWPUViXIfCbsMganCcA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22 a=zY0JdQc1-4EAyPf5TuXT:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA3MSBTYWx0ZWRfXx2ZpnP7DHh9w
- 2exT1+JDVzYv6Aye5EEgzztVsyOlDHTAZw09ajKphZCIgCVWbi9EyksLwK6ZSJ+rf04oFiSuOag
- Y6a+T7IBQMfL5aLfvtMNXhH2a1JavTNy+WhcUh32ZETTBLZZsTtR
-X-Proofpoint-GUID: DzBUE-I34SUdoYh-WFFnp9PYz5m0rbY5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA3MSBTYWx0ZWRfXwKX2TrRNP5F6
- 0LDPH20wUSSWzhdCkEGFEb9wqkc/YVngvuPVnftB7USYvbcipqXoeolV9jBNaQk3YuP/EBPGMWG
- zBcY7GaWUUdKnbgrSw+tNAMGhUm7E68prffmaqLNHsRmFttsNbU8DLwV3PiY4MoAfOQvRrtrK4f
- 3JtDXtjDn2ddCa3l6CwgtD+YeE9RJSqJ1zHcSAj9egRu/0AiJ7aDUJPeBCCHU2Nn+2Gw3BzRYQu
- xjuzobVimvgJccCueABy4FuaI5AUqt8CiYov0vzG3xci9l+aEEBikEASnTH+gYT4PH18/m1ImE4
- 8NImZaVMna3MuI+pD8Wt0KD5SmSM2lG7F7lMkwwvUDChOjFzvNwaE7UCXluDtTGPx0tG5jkF1cM
- lMLbwL7MeADLTovJA3Zi5Sfqqeio01RHBF8vkb1ka14/WBetcIhwyYw0OufKJCjoa4VIVt6nwy+
- umE/J0UchR85mdd37sg==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11948
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=10 malwarescore=0 adultscore=0 suspectscore=0 spamscore=0
- priorityscore=1501 impostorscore=10 phishscore=0 clxscore=1015
- lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270071
 
-
-
-On 10/27/26 11:15 AM, David Hildenbrand (Arm) wrote:
-> While I have your attention: This variant works, a different proposal used
+On 10/26/26 10:35 PM, Karl Mehltretter wrote:
+> Commit 13d3783a55b7 ("io_uring: wait for in-flight requests on ring
+> release") can make the final close of a shared ring wait for task_work
+> owned by a stopped submitter. The close does not return until that task
+> resumes.
 > 
-> list_del_init_careful()
+> An LLM helped with the review and reproducer.
 > 
-> instead. However, that is documented to require list_empty_careful().
+> #regzbot introduced: 13d3783a55b758a9fa05b67835afa7e216476c61
 > 
-> Do you think it's worth looking into?
+> Last good: v7.3, c03c1a14507dfaf8b856c2608f9ac216021fc222
+> Tested bad: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+>             (master as of 2026-10-27)
 > 
+> The reproducer uses a default ring and three processes:
 > 
-> https://lore.kernel.org/all/20261026-thpsplit-careful-v1-1-d357d70fd6f4@columbia.edu/
+>   1. Submitter B creates the ring and submits POLL_ADD on an empty pipe.
+>   2. B forks closer A. A inherits the ring fd but starts without an
+>      io_uring task context.
+>   3. A unmaps the ring but keeps its fd. B drops its fd and mappings,
+>      then stops itself with SIGSTOP.
+>   4. After confirming that B is stopped, controller P tells A to close
+>      the final ring fd.
+>   5. P resumes B after two seconds so the test can finish.
+> 
+> B keeps both pipe ends open and remains alive until close returns. This
+> excludes pipe HUP and process exit as completion sources.
 
-In this case the careful variant is fine without
-list_empty_careful() since it writes ->prev first
-and then ->next with smp_store_release(), and
-__list_lru_add() only writes to the entry after it
-sees -> next == entry so it can't race with the ->prev
-write anymore.
+This is working as intended. With the change, close() waits for
+requests still in flight, as otherwise they keep files pinned after
+the ring is gone. If you SIGSTOP a task, then that task can't run
+the required work to complete it. A fatal signal will still kill
+it.
 
-But your version also covers the PG_partially_mapped
-race your comment mentions, which mine doesn't, so
-it's the more complete fix anyway.
+Unsurprisingly, sending SIGSTOP to something may prevent it from
+doing work...
 
-Thanks,
-Mani
+-- 
+Jens Axboe
 
