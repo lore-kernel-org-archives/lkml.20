@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793141290;
-	b=5cAEfGFQlA5ySBPsaRFfJ1UVhKWyKIFPhaBxSNIbu0C+a67zoZHmKv51X8Bob3MF+BGV
-	 Lqqb5Ox73w7TB3XnL5+Qk8s9FvFoxp5vjgysKGfYbjEt12l7UkimHL+JkLJMPxVcMERN1
-	 pHlWV3ChC2bbRZQub6+oaGbQKn650+rp+ZFylQF+DE1Sj/Evwdo4BxhFLU9OMLx4/ed9F
-	 E4M4Mj/fYr/RjtH2WG3tb2KcNz8FK9KRp8wUkoyvx19p86yHLOv8ybM/XzL85U33GVtPn
-	 koPfi9rCD1/ixCSnG352+jNt2EQlGvvkrYh79h2uGlEorXojLrWQ5oq5pQ6kimKfy5g==
+	t=1793141327;
+	b=TAuawFGc7TehfAOM/Sy2ju4eazitmJb2Riteq7DEMbD9pfXDrUx+KeAenlr8cAWlf3ld
+	 cFbpVRtrfZED3Qf7+UWd/QkuCF2DAGZQHtYuy7ER3YZEg9OEwvim72hxwQJUn87meHj1V
+	 Q7tjrjEfOd8VyFomHoc8v91eg7dBMClyW2Y/PJ7CgVXusXktCERQG7oZuOEk2hT+oyw55
+	 nOgOeNKUtErOKBw9482j6mHX8/y5PzaBpANsa2Vw97uYj+RVNgupsy0L6R4j1Hg+7mnim
+	 1bYhkOhLyp9oP4sF/T3ABpJteWsyakGyEclTBPdmLwLKBnaKUZcBYkr86lJhJRfGzTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793141290;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PpKy7i455kq8X8Z/yAP0URWjwihBWOIlXzAYuU2cxns=;
-	b=peDL/pgOjmuGsyAwN5hpikJ07U63gs5pJ7U27peQfINqono4ZHYeGPNSKG7rcDoUrrLW
-	 SF+EhOK8Of0DP2QnBcgrCE09mESxZ8BzXC94lC2/9rc37/PT6hKI1W19bKQZD8g9mAONK
-	 ALo5CQedtN9DJ7S1yTg8jL9Gg16bA7PaHvJ6XgYzaZJBRThI+WjbcvIqV6KqXl3dsUxUx
-	 ZKGe77ldMMn07fxHsin+PWyUYsDSU2UXgX9F+EJhV4JVwM31R5OoVq04mzy6/cmrwIcIe
-	 +WaeqG9c6ECQim3LmszvRuv9pCK9UFCSUKl4JUY0vv5i2UkS+nQhd7wK6irvZTpcuqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793141327;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=AHSuLsmPArajERs48+ezcL7wF6flNWrV+Ftvie2M+AE=;
+	b=qgUvb0tsww59eo6hxb/Qkalf+TIccHikBeFAVBc+GGw0kl4YcfImCBF9wYUvcqfqsQ8U
+	 UkKlDD/funLa5VmxzL0FiDLiEqbn1u8+9PY0iJwII6Acd0xOiu2sLY5svB7c/0R8P7hK7
+	 S3pGdR19/xtMFzC612uxXoRZf8VBQNj3wzQutQIJUFNpvyBUs8qZ6a0Ss006HyflTu0iG
+	 Pd+OrTiZAgf/AxXZpvwB1T/Acgv+sUTRIR+hA/K9iqAcBpt9W9TP9zMjV1gnLpqxgv1Zz
+	 Qd+QlxCA1pLV38MYE/z6QxFI0XTedshN0Ta9JNAx2K9/yhZ3FEUALnVZ9FS0k18+Yrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=htplDUYZ;
-	arc=none smtp.remote-ip=109.224.244.18
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhC60JpT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201CA606A31E;
-	Tue, 27 Oct 2026 22:48:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 201CA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782A0606A31A;
+	Tue, 27 Oct 2026 22:48:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=htplDUYZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793141285; x=1793400485;
-	bh=PpKy7i455kq8X8Z/yAP0URWjwihBWOIlXzAYuU2cxns=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=htplDUYZLXP+d/4jSZHlOaWJpD1RWTNmAAdO6hrUO2GDeFKhmvABLVblM7gdTHt2F
-	 9Amfdm0bnZJMnyUFjHoT7fv3c0RqubEjNXviqBG1cFmDVF7FNJkZJBQ/SwRFl3Edag
-	 h73jwzqSqDckXOz/ogg8jial0CZYTFqQLWb6J6fNMP31xMu/vpEOtQFenRmw+hsQgN
-	 3QeuSq/Jk9N89qCxv7bv5SGSZth0qspO6bjs06tVbyeQOZAiCHHD1xr0GuAEYv/rvP
-	 lWah+mBiky6fZqG2kz9XnQ1vXN9vxXcI9Q2EOCWz4rfH/i0K78oluOOknmwVxgDZZA
-	 FT05CPUcPLH4Q==
-Date: Tue, 27 Oct 2026 22:48:02 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-serial@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] serial: qcom-geni: Set the serial engine up again after hibernation
-Message-ID: <20261027224800.86418-1-birk.skyum@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: b7fb55564b6cb7b44c2b5d7bc9115818957fc008
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhC60JpT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4FA51F01825;
+	Tue, 27 Oct 2026 22:48:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793141326;
+	bh=AHSuLsmPArajERs48+ezcL7wF6flNWrV+Ftvie2M+AE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dhC60JpTQ+oyZSm0MAOoe9dWr/rdcXLsL8YCCC08ksZJXA8ZobswopoigV/5/zCJf
+	 NrizJI+GJKnBXg/DTfZXtA2Os+LJZaoCUc+7bHq6OQ8VZS86lN+2VPuhTbeqiMC9/G
+	 dgUDj9Nu2K2O60Wwg8Uzz5EvRFAAP23vk/pASRzL9b94zqYntH1UQcw98V6oF8CMwr
+	 fkmu+90ymqfWSeiu5lf3f9nUqeQzDpG+P7LNsajg8LG6/2fz0I3zoZJN3QxpyDEB5R
+	 DpUqO9ZN9MzkN8rf+k6Ka0mYtagfrfrkEowkd+vT3EiCuWc+sHRMxXSMMsdF0xZrHD
+	 TBY7q8xzKh96g==
+Subject:
+ Re: [PATCH] net: dsa: b53: Enable IGMP and MLD control packet CPU copies
+From: netdev-bot+sashiko@kernel.org
+To: florian.fainelli@broadcom.com
+Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, vivien.didelot@gmail.com, linux-kernel@vger.kernel.org
+Date: Tue, 27 Oct 2026 22:48:45 +0000
+Message-ID: <179314132517.3134.14168811742216365656@kernel.org>
+In-Reply-To: <20261026172453.3152951-1-florian.fainelli@broadcom.com>
+References: <20261026172453.3152951-1-florian.fainelli@broadcom.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,106 +63,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-A hibernation image is restored after a power cycle, which resets every
-serial engine. The kernel that loads the image only sets up the engines
-it uses itself, and on laptops the Bluetooth UART is opened from the
-root file system, so that kernel never touches it.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The restored kernel still has port->setup set from before, so the
-startup in uart_resume_port() skips qcom_geni_serial_port_setup() and
-the port runs on an engine whose FIFOs, packing and transfer mode were
-never configured. On a Lenovo Yoga Slim 7x (X1E80100) the WCN7850's
-Bluetooth controller then never comes back: every setup attempt of
-hci_qca's error recovery ends in "command 0xfc00 tx timeout" and
-"Reading QCA version information failed (-110)".
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Clear port->setup in a restore callback of its own, so the next startup
-sets the engine up again. Leave console ports alone: the kernel that
-loads the image sets up its console when it registers it, and setting
-the engine up again in qcom_geni_serial_startup() would run without the
-port lock while the console may be writing. The other system sleep
-callbacks are unchanged.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Birk Skyum <birk.skyum@pm.me>
----
-Changes in v2:
-- Leave console ports alone. Clearing port->setup on one made the next
-  startup run qcom_geni_serial_port_setup() without the port lock,
-  which can race with console output (Sashiko).
-- v1: https://lore.kernel.org/all/20261027203136.95971-1-birk.skyum@pm.me/
+- [High] The new IGMP/MLD CPU-copy setup in b53_enable_mcast_snooping()
+  (drivers/net/dsa/b53/b53_common.c) is static and has one caller,…
 
-The change from v1 only affects console ports, which this laptop does
-not have, so the v1 test still applies. It ran on 7.3 with the other
-hibernation fixes for this laptop that are in review (pinctrl, PCI,
-smp2p and hci_qca, linked in v1), on one build with a switch for this
-change, each a real hibernation with a power-off from a fresh boot:
+--
 
-  without   restored after 112 s, Bluetooth never comes back
-  with      restored after 89 s, hci_qca's recovery sets the controller
-            up about 18 s after the restore and a scan finds devices
+net: dsa: b53: Enable IGMP and MLD control packet CPU copies
 
-A console that the kernel loading the image did not set up stays as
-broken as it is without this patch. Setting one up under the port lock
-before uart_resume_port() would be a separate change, and this laptop
-has no serial console to test it on.
+This commit enables the IGMP and MLD high-level protocol classifiers in
+B53_HL_PRTC_CTRL, so control packets get copied to the CPU even when a
+multicast ARL entry matches. This lets the bridge keep learning listeners
+after the first MDB entry has been offloaded. BCM5395 uses a 16-bit layout,
+BCM531xx/5301x/58xx use a 32-bit layout, and older chips are left alone.
 
-Built with W=3D1 and sparse on tty-next with hibernation on, with
-hibernation off, and without system sleep.
+> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+> index 0880310c9ce3f..54844cfadf019 100644
+> --- a/drivers/net/dsa/b53/b53_common.c
+> +++ b/drivers/net/dsa/b53/b53_common.c
+> @@ -836,6 +836,52 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
+>  }
+>  EXPORT_SYMBOL(b53_brcm_hdr_setup);
+>  
+> +static int b53_enable_mcast_snooping(struct b53_device *dev)
+> +{
 
- drivers/tty/serial/qcom_geni_serial.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+[ ... ]
 
-diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qco=
-m_geni_serial.c
-index bfdc155c1..5a3bf51a3 100644
---- a/drivers/tty/serial/qcom_geni_serial.c
-+++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -2131,6 +2131,22 @@ static int qcom_geni_serial_resume(struct device *de=
-v)
- =09return ret;
- }
-=20
-+/*
-+ * A hibernation image is restored after a power cycle, which reset the se=
-rial
-+ * engine. The kernel that loaded the image only set up the engines it use=
-d
-+ * itself, so set this one up again when the port starts. A console is lef=
-t as
-+ * it is, since setting it up at startup would race with console output.
-+ */
-+static int qcom_geni_serial_restore(struct device *dev)
-+{
-+=09struct qcom_geni_serial_port *port =3D dev_get_drvdata(dev);
-+
-+=09if (!uart_console(&port->uport))
-+=09=09port->setup =3D false;
-+
-+=09return qcom_geni_serial_resume(dev);
-+}
-+
- #if IS_ENABLED(CONFIG_SERIAL_QCOM_GENI_CONSOLE)
- static const struct qcom_geni_device_data qcom_geni_console_data =3D {
- =09.console =3D true,
-@@ -2168,7 +2184,12 @@ static const struct qcom_geni_device_data sa8255p_qc=
-om_geni_uart_data =3D {
- static const struct dev_pm_ops qcom_geni_serial_pm_ops =3D {
- =09SET_RUNTIME_PM_OPS(qcom_geni_serial_runtime_suspend,
- =09=09=09   qcom_geni_serial_runtime_resume, NULL)
--=09SYSTEM_SLEEP_PM_OPS(qcom_geni_serial_suspend, qcom_geni_serial_resume)
-+=09.suspend =3D pm_sleep_ptr(qcom_geni_serial_suspend),
-+=09.resume =3D pm_sleep_ptr(qcom_geni_serial_resume),
-+=09.freeze =3D pm_sleep_ptr(qcom_geni_serial_suspend),
-+=09.thaw =3D pm_sleep_ptr(qcom_geni_serial_resume),
-+=09.poweroff =3D pm_sleep_ptr(qcom_geni_serial_suspend),
-+=09.restore =3D pm_sleep_ptr(qcom_geni_serial_restore),
- };
-=20
- static void qcom_geni_serial_sys_shutdown(struct platform_device *pdev)
---=20
-2.56.0
+> +	/* Older switches use different IGMP controls, not HL_PRTC_CTRL. */
+> +	if (!is531x5(dev) && !is5301x(dev) && !is58xx(dev))
+> +		return 0;
 
+[ ... ]
 
+> @@ -1334,6 +1380,10 @@ static int b53_setup(struct dsa_switch *ds)
+>  			b53_disable_port(ds, port);
+>  	}
+>  
+> +	ret = b53_enable_mcast_snooping(dev);
+> +	if (ret)
+> +		return ret;
+> +
+>  	return b53_setup_devlink_resources(ds);
+>  }
+
+[Severity: High]
+Does this fix reach the Starfighter 2 switches (BCM7445, BCM7278, BCM4908)?
+
+b53_enable_mcast_snooping() is static, and its only caller is b53_setup().
+bcm_sf2_sw_probe() sets the chip id and then swaps in its own ops:
+
+drivers/net/dsa/bcm_sf2.c:bcm_sf2_sw_probe() {
+    ...
+	pdata->chip_id = priv->type;
+    ...
+	ds->ops = &bcm_sf2_ops;
+    ...
+}
+
+bcm_sf2_ops sets .setup to bcm_sf2_sw_setup(), so b53_setup() never runs
+on these chips. bcm_sf2_sw_setup() does not program B53_HL_PRTC_CTRL:
+
+drivers/net/dsa/bcm_sf2.c:bcm_sf2_sw_setup() {
+    ...
+	b53_configure_vlan(ds);
+	bcm_sf2_enable_acb(ds);
+
+	return b53_setup_devlink_resources(ds);
+}
+
+bcm_sf2_ops still has this entry:
+
+	.port_mdb_add		= b53_mdb_add,
+
+So multicast ARL entries still get installed on SF2. After the first
+listener's entry exists, the original problem looks unchanged there: later
+IGMPv2/MLDv1 reports sent to the group MAC follow the ARL entry and never
+reach the bridge.
+
+The resume path, bcm_sf2_sw_resume() calling ds->ops->setup(), has the same
+gap.
+
+The is58xx() part of the gate above matches BCM7445_DEVICE_ID and
+BCM7278_DEVICE_ID, but devices with those IDs never reach this function. Is
+that check dead code? The commit message also says this covers the "newer
+integrated RoboSwitch families".
+
+Should the helper be exported and also called from bcm_sf2_sw_setup()?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026172453.3152951-1-florian.fainelli%40broadcom.com
