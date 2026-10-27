@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793081517;
-	b=1wdNgBSzc3cPqeElkloc0d8B3VPMe6usB7CIsJvmgBlYgOqRCDvIGTU4ZI3B8tOLuHmC
-	 79VXKYnSpIvRVKEzCSzO1PKpyzmYZroYBqthQ4UFzWcKD3cHO5GMbm6u9QlHO1BT2wsAn
-	 TDT/IvtAr5k6hdxa5uL//HtyMYkIBBk/b2aPWC7b42tELtHBMpaVPWZ4ExMd/gSUGzJR7
-	 KvUFG5CG3Gai+y1fzGXxo8QW4vRD7yvyOPV8XQR4Vis+08VtEEYETGBqX7oE4HRzSDjTB
-	 S/tE64BRzUSToA9KYMcH20DscotrUXYoFCO/MPaB0FVOmWmF1bZj0Onr3dZ3s3/paLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793081517;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=5kexO3pKrSjTVZIyhdyvFipC0HG64+yg4PyPnNe0Gpo=;
-	b=hTzCRND3oC+AXKa5eABPfd3JRGyPX1W9lj2qeTNrMQic0CtTy4oVKJQPpPSsq6Ct3oz5
-	 Bw0cHizzveGjXlVyy5GNlr5BHj+GfknuIJKfItRsB1DlnDpnF2mbrIwNT/IhAyCx2T0HV
-	 F3JTG8brGf2XbdmNi0S0+bdBoAG/yHp/rAty7KtuYuzms6im9Bm6afNf1VHoB+PsMLuQA
-	 1ZbdF3LiWAaPiOgn1i5WXwXdU/qdzzHetxS6xXO33c1bUge0WzOJghD1gE1QRgyvxhPTi
-	 bL88EFXcT5xG9o9Zh0aaXw4FnGnUOTcJZkK6qvYHpFZWkJ24bOrd+8pfjao7qJApk9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="DWU/hmmm";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793081556;
+	b=GiB5Ni2goqiqzlE6eGre4r0zQp1RCUUV4ehjRG0d0pqIim6MWdYjFxMGexvHNE6FVOga
+	 6A33ZYwULAmTlzmRm7eTz+c3JDyerOnQDYPov2ymfTJSESvS5yqKXW4G5P+2aHsBU9GuL
+	 zwT4fwlQbeHM/MqlzU1PiSVxJq3YREX+kL2S7wpj96eagNExiB/UZdsoDiqFI6FayVM+G
+	 rBiRVpcXoYFtDov2nqN3crqyz5jM9ozV0q5/AbSFqVrnB/PEmvLOIfr0vz011gindGC9X
+	 7BR9z29ohfdlHUnRElCIydBqcGC9WnBI9BPcfT3KIxkuJ4F92qyVCmZo1EiP/d4jDWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793081556;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=18bTafx5rbYmEZkRXuHhVkle3ipOmjLex2FtC4poVSw=;
+	b=OaBWYDApwsk0E9upx6CVeri5LeCzlh4dECJSGrJPyNNBlLzZc8FUYnmsOChEEmhu5VJC
+	 MKy9RMwDktJvZ1deTN8hnrDpjNl48d+HMm+PVyuXx++9JziJ1x/HDgjenxrv0tZrAsoMQ
+	 H7DG5f4RjZr+HWnnncBg+kBzxdU3ySPdlU0tBMSyPud1RL+yvOzftD525HMrIlyvS0psh
+	 ASTeR9klNgvxXG/YAKtynkPH2Klbrz8o/K8k+dhT54RD0UAeBZqmrA3qHWnFLoOYF1Yru
+	 ziA8LcYrkEDl4XLenpXGF0EWAsr/yt9o3RGNIQQu11MUQZo+7PX1vOwSLG/d8yfRtdw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KXYcUj66;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.41
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011041.outbound.protection.outlook.com [52.101.52.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0EF606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA0EF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2997B606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:12:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2997B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DWU/hmmm
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5348aaba5so2473395e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:11:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793081515; x=1793686315; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5kexO3pKrSjTVZIyhdyvFipC0HG64+yg4PyPnNe0Gpo=;
-        b=DWU/hmmmuoFd7O9Kpk9bjQLgmeOkGwYwyujd4FQviu9gF6WxYfl8Pskm/k89Xy8XzH
-         T3A7x2UZP31TrBNBBgiYCm04W2FXY2oDmwyGwL8U2KeHcmMUmADkkkFG/HsQqJTyuhLG
-         bpT2jrQjlvk2cJFElGGwLW2701TggW9Ex0ABQsi0bLsx4MnN+Jw4yop3aZbAVZ27NgxG
-         VBmwS/+b/hk94hXIJ3cdZBFmLU6KMnVtBMhYVkfst1lfR/0cIP91hpBTXFMjm8BvG+zU
-         bN2RCXZ8XnTjl+XGAWh4d+CZ9qB023s+CQ3M7yZlrZWdBtotrjdDicwZC1s7VGnLAzQg
-         kY7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793081515; x=1793686315;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5kexO3pKrSjTVZIyhdyvFipC0HG64+yg4PyPnNe0Gpo=;
-        b=TaOtvUG7a5S6OS7GXChVTtiKElK/b136CaLhpRScrLjYY7x/9IsID/P7iZgw3yS/z8
-         UjxusEtDQmXl7qHDnyEjp0ZJvoAdNzmjOaEChLKuEV5mlcSjTPo8eNTk46JeM2DkPDhk
-         +rfD/GcQH9IKcIsa8VH6jtCDJNDKlVt4Jiw18x5DU+KfU59UHSUXD1tfrTJ0oo+wwqBC
-         QarIwuVZbZUj/8X4qDchtM/iHp1/aDZ6ZXyg35cnRjWrmZ/YLat2O3E1b47IW2f0Fm5o
-         xjskrgGGJwmU3yGubCJ17hiVskXlHW+G7TKXidUvjwyyhLshAbXGIVlFNuNIAt7qbhzV
-         enWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzV2Lh1xVX5bIi/OE2bfnrPWZLcfgOlU8W7zYYwV1Xosmmn9tJfi7XRdIn3DJNIfK6/B9mxUPKjVpaigsA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrfoLZQqOZRPu2o2MOCE7W49a2ATRw6/ARQcC/G0ifhnQaL5fl
-	KFbn89wOY2X4srmpr9ehWswZ8xOeZI/xB+2SUlgojMXPZJ7U5NUiBb/l
-X-Gm-Gg: AYBFou3i5hbxgW9zdCRvyp1yU7BX4jlyHAuNLSRBwu6PAY5obnbdL65xrzLhn0eOjQu
-	QuU882ibVu5A4qc6MgXXyoaFSktl6xhSfJR65hHLKljWoWCZItVon7mrVTkBu5KtHZ4ET2o+tZr
-	0S163AmMyxsfOjBY0mJoNfX+kZ0wfQMCDEponxUWu1/qyf2oQE0yKK8gDWpLC7bUA2o1tsB2fiB
-	Ibuic43MkVskGGtwY5fDfH4/Tey9zoLctfRsHtc2Ld2JtPVbG/pTuHMqPoUUvuW7nsxSHtpEkJb
-	esDsABXh+zvEDY7BtuSkofjTgraUSyeaxMECXAOSZGZlFkB7GEayqDM07JCLlchtKeDvsneiPvL
-	s4ozBLZICJ6eiqXDj35clJVvtDI+vStCVPprBak5tBA0JePG8g5+1jSCeD/OvKSVi/rHxKp1Z1z
-	bIlckySPsZEq5BQ0AiYfXy4aq3kV7nFBuBVC8UF9EiPHmi66ctKtCF5tITlzN8jtnFn3seQdvhc
-	uDd4B3ubKDsO7H5YDNQd24nbfB77p8MU+SXBRr49WJrufkYRZR26VFx9p2iVtw0asWJVEaA3YX8
-	SA==
-X-Received: by 2002:a5d:4245:0:b0:48d:f4e6:7b2 with SMTP id ffacd0b85a97d-48e3eb8705bmr11155500f8f.3.1793081515036;
-        Mon, 26 Oct 2026 23:11:55 -0700 (PDT)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f36asm20915252f8f.1.2026.10.26.23.11.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 23:11:54 -0700 (PDT)
-Date: Tue, 27 Oct 2026 09:11:51 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: albin_yang@163.com, albinwyang@tencent.com, bsegall@google.com, 
-	chen.yu@linux.dev, dietmar.eggemann@arm.com, juri.lelli@redhat.com, 
-	linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@redhat.com, peterz@infradead.org, 
-	rostedt@goodmis.org, vincent.guittot@linaro.org, vschneid@redhat.com
-Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated
- blocked donors
-Message-ID: <auA7AQ_S9iwPHr4d@scheduler.schedules>
-References: <72a6eb77-0461-477b-a0e9-c06a486e3e0e@amd.com>
- <20261026133831.4111227-1-albin_yang@163.com>
- <36f12b2f-9fc8-46e9-8312-536c918722f1@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KXYcUj66
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I1syounYGRu+4o4LYU7b5kw5iu8NVwc3KUoHXpI5qlfP6C0gzAukQeM+SfbIczORFTouaM3t9gb99p6anc7ZDN7bWu+tmLoycOcdIzNiP8wkxlxuu9FS+/3eMFlYf+KycHl0zrXbz1pKj6epfgq6Ie7e7EQGuWhtjn5KMPPNRxyP4ViTGROjXCbftUEJWPTwtrFSlYVdKB8Hda2iyY+YCzTHTsWj4oc6Htj4oeqU4FiK7T8e/Wa80jSUYNb6FMoW5mL8l5cRoytahFCZQqxd5Ss5JkRt4wxI+yWjunBFooopGwjBL1D1dBcA89yy1QroPT9UdFdEJwXteH0pJd/jrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=18bTafx5rbYmEZkRXuHhVkle3ipOmjLex2FtC4poVSw=;
+ b=MYq9riUo8EM6KauM8FCOmgf35tkp+QZXEXJ0hr35vHntZYujkgq20o3ALODX3T8o+dC5/2x1jjPJOXAsojYWyQLut3sAiFXPbag12Sq0AMFufW+licRA+Yg32gECK0GEWzjImiETUpwxMWEwZtnjNXQvwDHyv/BZy+AUudsBuNb+tV0fqwf8f52cX+myWfnKc16X2TmCT/ldHKbM2rn+SGHyvfMTY0AY8Ehw4iPWHGHsJ/SVEB4RDjockXNmhpjyvn0IfYjmqbJOrhYVB70+x23xBSIaArPKoxmfrbIr0L7IY01xfKZ07XrYMLU1Kdl9EAYS+95qzToTfYhxYq3grQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=18bTafx5rbYmEZkRXuHhVkle3ipOmjLex2FtC4poVSw=;
+ b=KXYcUj66N7iXP8JS5weu060jpw2S8Sg+oVT36ZLClgCFkBeXCh1gB9WH3kaZD/U9GyAPUrJu+kwM4JlmzK4vlPlasIHlinQlt/TDHXXWWOosc9SKAdpDuQ939A/dlt4LukKrXv1nNG7FTEX1M1aFJ1Hb8fBrMdNO+BrRHvmkai4=
+Received: from SJ0PR03CA0068.namprd03.prod.outlook.com (2603:10b6:a03:331::13)
+ by DM6PR12MB4417.namprd12.prod.outlook.com (2603:10b6:5:2a4::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 06:12:31 +0000
+Received: from SJ1PEPF0000231D.namprd03.prod.outlook.com
+ (2603:10b6:a03:331:cafe::a4) by SJ0PR03CA0068.outlook.office365.com
+ (2603:10b6:a03:331::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue,
+ 27 Oct 2026 06:12:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF0000231D.mail.protection.outlook.com (10.167.242.234) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 06:12:30 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 01:12:29 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 01:12:29 -0500
+Received: from [10.136.43.232] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 27 Oct 2026 01:12:23 -0500
+Message-ID: <cf3e5585-128e-4ee3-9352-afbddbfd50c1@amd.com>
+Date: Tue, 27 Oct 2026 11:42:22 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,152 +105,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <36f12b2f-9fc8-46e9-8312-536c918722f1@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] sched_ext: Add a kfunc to read a task's preferred
+ NUMA node
+To: Andrea Righi <arighi@nvidia.com>, Tejun Heo <tj@kernel.org>, David Vernet
+	<void@manifault.com>, Changwoo Min <changwoo@igalia.com>
+CC: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
+ Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+	"Vladimir Vdovin" <deliran@verdict.gg>, Gregory Price <gourry@gourry.net>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>, Christian
+ Loehle <christian.loehle@arm.com>, Balbir Singh <balbirs@nvidia.com>, Lee
+ Trager <ltrager@nvidia.com>, <sched-ext@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+References: <20261027041536.3317971-1-arighi@nvidia.com>
+ <20261027041536.3317971-6-arighi@nvidia.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20261027041536.3317971-6-arighi@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231D:EE_|DM6PR12MB4417:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1237160e-fe77-4f19-d06b-08df33f1487a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|23010399003|1800799024|261026121527099003|4143699003|5023799004|11063799006|56012099006|261021121427099003|261022075727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	jyG4o8rgwMwbjXTnMwiP+nxAka/bvJ7M2eDAkQg+GRbHEAiLmJz1aUTp6xOIGqAEPsxwpzmzV9a8vMtUxD8sKDCvnEb1gNm/+bVNPk4WaFhAVLb7tdzSlnplSjLAZfGxlPgYQ5+YLSh3IZkOdcuKSNhgxkpS6J3Z/Ws3YjdIYJeQeIR8GWesaTPC+DO3RYXQEsHpQUfY106riz0hLXqMhhMACohEmPwdVABd9d4yU5dM08HHocjZzG3qCYdJvOVI4pp68UBHPVRhLs9JZ4hh5y4dZpWV5qT4okY4/DK1iGThEKdP3qm6aawL+4SkRTMHxRtW+9fIr4OYR3Fzgodc9oRSZPHQP5IV6thw+RxX/+h9RM9gaMkH18xzz8rq6pMhgPg9niBAVC2rNtLgqZs/jiVBAVTUX0BWbtVCQ7FMEXRuoOAiUyssMiOn78DaQhYfwUHpPIgz/BHwk7NAL9u6f5hLyjkOGcN+qUP5AhuNseW9rPgqeDRDkU/84EBy/BqU+v789kGWy6Jkd9BB5OQG9Xe/JWZEZMuf/sS8gystCQQo5IjjEVDTc4D25le4Po8/LeMFlfTYxZwQMNRtyPljgA7idSNI2VPXW6Uu7wbzgxQE0vhWCl8cI3ml3YeC3AdEdw1KaSPR3xSaD89IGhLMbW62xlWaAxhldPOBlaV0OSJ3MAufoHlU573u3kPiMx4v
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(261026121527099003)(4143699003)(5023799004)(11063799006)(56012099006)(261021121427099003)(261022075727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Da7DhH7onSfjvLvidxNzCYNtrEJpTyFjC4TZeJ8Xm+mdmMGP/tyubhHkm9raShc6aLBO03sxrStQP1p+jNitX6VFFWuJBRrieJFUz1EalXdp4ERl7zLAalA2XCFpqfVOPQNJnXJQSVG4IiLexYMXuFHL0VGxC/S7qJg6V5DS9TIO4rxPKy7gdxQ2LcNzNgOCVrAGdY8sGW9ItnRouT0VjRn4E1EBzpLIk8zmGHwWi6t4yGyD9PhOPOoLnddiNkQpg3Rn4MMp87v7KdpMFKHu59xxWeRUcgOjZcAPXiHryu2tjE0JKiEtDP9IPX1svOe/YLQE50BsSgd7F6/bv7DlS9BdNZdHEuOeoXjj/lMxJ6/KgzsUGTMHcQj+zLjUrJM9jakkhr9Rip3X70WV6TgqwBWlz08E8oynPqszd/vfI4AMCSK9KCi0dICU9ZS4rWaO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 06:12:30.4788
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1237160e-fe77-4f19-d06b-08df33f1487a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231D.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4417
 
-On Tue, Oct 27, 2026 at 09:41:51AM +0530, K Prateek Nayak wrote:
-> Hello Wei,
-> 
-> On 10/26/2026 7:08 PM, albin_yang@163.com wrote:
-> > Hi Prateek,
-> > 
-> > Thanks - using is_blocked as the single indicator is certainly cleaner than
-> > piling up exceptions.
-> > 
-> > I rebuilt your diff so it applies cleanly and gave it a run. I'm afraid it
-> > does not work as-is in my testing
-> 
-> Thank you for testing the changes!
-> 
-> > two problems:
-> > 
-> > 1) sched_info_depart() now calls __sched_info_dequeue(), which no longer has
-> >    the "if (!last_queued) return;" guard. A blocking task has last_queued == 0
-> >    (sched_info_arrive() cleared it at switch-in), so delta becomes
-> >    rq_clock(rq) - 0, i.e. the whole uptime:
-> > 
-> >      cross-cpu: blocked 169.80 ms, run_delay delta 169047.52 ms
-> >      same-cpu:  blocked 168.70 ms, run_delay delta 185515.00 ms
-> > 
-> >    The control is affected too, so this is not proxy specific.
-> 
-> Ah! That is an oversight. I didn't realise arrive clears the last_queued
-> and yes, doing it unconditionally will account the full uptime.
-> 
-> > 
-> > 2) sched_info_enqueue() now arms only when t->is_blocked, leaving ordinary
-> >    runnable tasks with no counter at all - my sanity check went from +39 ms to
-> >    0.00 ms in every iteration, including the control. I do not think either
-> >    polarity works: is_blocked is still set during the real wakeup enqueue
-> >    (delayed sleeper: inside ttwu_runnable()'s is_blocked branch; donor: cleared
-> >    only later by ttwu_do_wakeup()). So it can gate the charge side, but the
-> >    arming side needs something already cleared at wakeup - task_is_blocked() or
-> >    sched_delayed.
-> 
-> Ack! I forgot task migrations. So based on a better look, all we have to
-> do i start accounting when the task becomes runnable again (p->is_blocked
-> is cleared) and don't account any time when the task is "on_rq" while
-> being blocked (p->is_blocked && p->on_rq).
-> 
-> > 
-> > The delayed reproducer shows 0, but that is easy to misread: it measures only a
-> > delta, and the bogus depart charge lands before the window. Its absolute
-> > run_delay is polluted too. (The 0.00 ms sanity figure is from the proxy
-> > reproducer, which carries that check.)
-> > 
-> > For reference, !sched_delayed && !task_is_blocked() gives 0.01 ms on the proxy
-> > case with the sanity check intact (+39 ms), and 0/20 on the delayed reproducer.
-> > 
-> > Happy to retest whatever you come up with.
-> 
-> So all things considered, I think the following should work unless I'm
-> terribly mistaken yet again :-) I've left my reasoning as comments:
-> 
-> diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
-> index ebe0a7765f98..c4c624deb25b 100644
-> --- a/kernel/sched/stats.h
-> +++ b/kernel/sched/stats.h
-> @@ -239,6 +239,15 @@ static inline void psi_account_irqtime(struct rq *rq, struct task_struct *curr,
->  static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
->  {
->  	unsigned long long delta = 0;
-> +	/*
-> +	 * If a task is blocked (blocked donor, delayed dequeue task),
-> +	 * do not account the queued time as runnable. A task that is
-> +	 * blocking would have already cleared the "last_queued"
-> +	 * indicator from sched_info_arrive() when it got a chance to
-> +	 * run on the CPU.
-> +	 */
-> +	if (t->is_blocked)
-> +		t->sched_info.last_queued = 0;
->  
->  	if (!t->sched_info.last_queued)
->  		return;
-> @@ -290,7 +299,23 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
->   */
->  static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
->  {
-> -	if (!t->sched_info.last_queued)
-> +	/*
-> +	 * "t->is_blocked" is only cleared after the enqueue is done and
-> +	 * the task is woken up. If the task is blocked, update the
-> +	 * "last_queued" timestamp to that of last enqueue - if the task
-> +	 * is still blocked while it leaves the runqueue, this timestamp
-> +	 * is ignored and is cleared at sched_info_dequeue().
-> +	 *
-> +	 * To transition a task back to blocked after wakeup, it has to
-> +	 * run on the CPU and naturally reach a safe preemption point.
-> +	 * sched_info_arrive() will do the correct wait time accounting
-> +	 * based on the last "last_queued".
-> +	 *
-> +	 * Any movement of task after being marked not blocked will be
-> +	 * correctly captured as queued time at enqueue + dequeue
-> +	 * boundaries when "t->is_blocked" cleared.
-> +	 */
-> +	if (!t->sched_info.last_queued || t->is_blocked)
->  		t->sched_info.last_queued = rq_clock(rq);
->  }
->  
-> ---
-> 
-> That "t->is_blocked" check in sched_info_enqueue() may not be
-> necessary either but I've left it in there for now since I did my
-> quick testing with it.
+Hello Andrea,
 
+On 10/27/2026 9:43 AM, Andrea Righi wrote:
+> +__bpf_kfunc s32 scx_bpf_task_numa_nid(const struct task_struct *p)
+> +{
+> +#ifdef CONFIG_NUMA_BALANCING
+> +	if (task_on_scx(p)) {
+> +		struct scx_sched *sch;
+> +
+> +		guard(rcu)();
+> +		sch = scx_task_sched_rcu(p);
+> +		if (!sch || !SCX_HAS_OP(sch, set_numa_node))
+> +			return NUMA_NO_NODE;
+> +	}
+> +
+> +	return READ_ONCE(p->numa_preferred_nid);
 
-Hi Prateek,
+Would the ext scheduler need the raw numa_preferred_nid when
+sched_numa_balancing is disabled?
 
-IMO too doing this with is_blocked would be cleaner.
+It may just be pointing to some stale value if NUMA balancing
+was disabled at runtime right?
 
-But I think this not works on a case where a donor is in a different CPU
-from its owner, like:
+> +#else
+> +	return NUMA_NO_NODE;
+> +#endif
+> +}
+> +
+>  /**
+>   * scx_bpf_locked_rq - Return the rq currently locked by SCX
+>   * @aux: implicit BPF argument to access bpf_prog_aux hidden from BPF progs
+> @@ -11836,6 +11877,7 @@ BTF_ID_FLAGS(func, scx_bpf_put_cpumask, KF_RELEASE)
+>  BTF_ID_FLAGS(func, scx_bpf_task_running, KF_RCU)
 
-A holds the mutex M in CPU0, B is the waiter and its on CPU1.
+On a tangential note, scx_bpf_task_running() just does a
+rcu_access_pointer() (resolves to a READ_ONCE()) and doesn't take a
+rcu_read_lock() so does it really need KF_RCU?
 
-proxy_migrate_task() gets B to CPU0.
-After that, A suddenly wants to goto CPU1. And it goes.
-Now B goes back to its home CPU next to A.
+>  BTF_ID_FLAGS(func, scx_bpf_task_cpu, KF_RCU)
+>  BTF_ID_FLAGS(func, scx_bpf_task_cid, KF_RCU)
+> +BTF_ID_FLAGS(func, scx_bpf_task_numa_nid, KF_RCU)
+>  BTF_ID_FLAGS(func, scx_bpf_locked_rq, KF_IMPLICIT_ARGS | KF_RET_NULL)
+>  BTF_ID_FLAGS(func, scx_bpf_cpu_curr, KF_IMPLICIT_ARGS | KF_RET_NULL | KF_RCU_PROTECTED)
+>  BTF_ID_FLAGS(func, scx_bpf_cid_curr, KF_IMPLICIT_ARGS | KF_RET_NULL | KF_RCU_PROTECTED)
 
-Now in here, timer starts.
+-- 
+Thanks and Regards,
+Prateek
 
-And suddenly A drops the mutex. Now B is not is_blocked.
-
-Because B is back to its home CPU, there is no dequeue.
-Even if there was B is not is_blocked so timer wouldn't be reset.
-
-Normally we need to add the time that task waited for itself.
-But in this case we add the time task waited for its mutex + for itself.
-
-Or am I missssssing something?
-
-
-> 
-> -- 
-> Thanks and Regards,
-> Prateek
-> 
-
-Thanks,
-
-Kayra
