@@ -1,52 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122369;
-	b=YaXRykatL0Q0rqWK7oma4pyuUU2BKlI0Arvg+igbZzu7pyXHdNB0LUv4ALUG1kkzq64Q
-	 mfTbHsCMFVnSVtXIV+n3fflz/dv+VUtHzIUMMN1mt6fvj00GAiR/xGkYS6qn0fQXNfONT
-	 kMkJuvXBWsspq1K89Pz77jhOOiDYjoaWXQOPkuynm/6uXLkoN78SGGCpkLu+Zc5gl/hHs
-	 kLQjylBeKlQbArgul0AfTbMHyIXcG68E3AH9C8YyYzX9fjvKuPiJWyrAK3HTeoNKpDwaV
-	 ZEOXtzFZPPg5Lf8PGRy9LOEHS39a+7CoyVefFOSDliG2UqTX1J5jLe677B9wu7irqwQ==
+	t=1793122429;
+	b=VZA9hUtMEo0vaM+SxHo4OiFIok+zdJtMceeTWGvdbljAMGm3ejlbMgDJLSLwOWIEao3z
+	 xtx2RObEpnQ77pGL6+IYUO8dUf5TU5Roc1J7M8jsBFpvGu/5RZvr22iuW56QHz+49Aq1w
+	 xnDD+PmE9Xb3ZHbCSEFB79/FzO6IbY3qnQKSEI0idPkwy54KmfmJWZD+n6BBBxkTHRkTu
+	 cEez15/8pdMyRDli4ZX1pqjD3QbTrO7oP0fZHxmz7q6I/X97/fRDE+mPVniTOrgC0JGaf
+	 sxq1iWU13h2cpkiMaZH+OgsA2oieGDd2sUsyDXQ61zQu0LfNQx4XKnv40XGhlcRVJDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122369;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=6Xd2ly1e8z0I0jLbX7WVjieXV2n1cRhJ5Aee9Uv3YD0=;
-	b=JOK3G60AEJzG2z4UoWi17p3g8msE6kFsTF+9x0yMaxaCHHOOhwarM7JTq5iesB/ECh1b
-	 JMZx3pUDCi5FunGfk4kvqCUmF1M75SWPixsFxsKxvpuB0WWG8VOjKrjT9C2oTKrdQgZ17
-	 Y4r8WNO4dc4RPATVbOkde1aF6WThp4fIN6Ldimq7Sn37m+gPJQEKeBZTRvFI28UMdPMJH
-	 6LPaLfHhrt4NfUNCccv7s0czs1fQ7YU3dcWGWyRzfmbKHagke8qy4ZaxEz0ONuoZc6tR1
-	 wDEi3SBy3G01DXyjGxwH2qJmYgsigO2aekA/1YCmKHfjm89fqh7l4kQs9pFa3Hqnqag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Glhm1d7B/bXe7XSf6a+44KZYpto2vUedcbuSuK5V4mM=;
+	b=Ak+mDvid3gombu0A+69rk0Nyo6ewcfj0/I50ROAa9MW43dKMjKhsZdtVF0HVnfpAmccX
+	 nxcGM12ShOquxuaz/X9VGJX/hph9CvGtC45TowWxnFRAWB/b+fnyfKlWccRIEPt/qZAiR
+	 K9+VZwWtrke6XYzlQa1xcxSgdFU6CF2SQYzUk4p7BgC2fGInpBMEDMcX7hr8P5hdShGOh
+	 DsIpaYcrs5TovpbWP2zzCVGKJOm9NJUuddwCCi1/bRQt3vATOJhYDeFQhS0jB3xezzXGK
+	 HeKjBDUOZy8FHQ6G2WxPHIvqflA8OXdTcYtmks39qqad1JWcQ8QZyQn8/oox9U/+W1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXn51sg+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lRoyxfdN;
+	arc=none smtp.remote-ip=209.85.214.174
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E43606A31F;
-	Tue, 27 Oct 2026 17:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC612606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:33:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC612606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXn51sg+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5CE1F01829;
-	Tue, 27 Oct 2026 17:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793122368;
-	bh=6Xd2ly1e8z0I0jLbX7WVjieXV2n1cRhJ5Aee9Uv3YD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MXn51sg+AdbRulkJpvXCM/YdzW38DZeqJ+b3DEnSEWYiRvlL7h+4kchhcZBe3A/6g
-	 2kDK5ZtkQJigr4YLMOsQmjFN/QTdXEoe+wC0wo0e9jJiPg98deDonwrHPbO0WD6EnG
-	 zStTZJmh4/PueAXTE+kzxb/ycurer22YUmQLjwC+fMYQmoLyqWvgSYF+0Wt2XT0SaZ
-	 Sj0F1d9Z1a4YGx+nwddgGQAm1zHQRw9vn7AnMboUWpbj1qWGMN+N1Caj/VclHTK3Ga
-	 GyHQduAJ+zgbVTdQiZdORIkckQOgtbizLlXXoVntyRIePg/UePOj+N0DeiM+01Az7F
-	 pi7RsoT68GY3w==
-Date: Tue, 27 Oct 2026 18:32:44 +0100
-From: Carlos Maiolino <cem@kernel.org>
-To: =?utf-8?B?6ZOu?= <fengaojigui88@gmail.com>
-Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] xfs: undersized log triggers assertion in xfs_log_mount()
-Message-ID: <auDbrRoBQaxWnsE9@cronus.toxiclabs.cc>
-References: <CAO-4RZ25PZ5BM+83Vk8t5NUY3ksLGz5nzONrncipu2_MZhFSsg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lRoyxfdN
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e8b20a899fso289435ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:33:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793122428; x=1793727228; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Glhm1d7B/bXe7XSf6a+44KZYpto2vUedcbuSuK5V4mM=;
+        b=lRoyxfdNn7TBbP5x6TkgUA1F7eeRXPKnXT1QlAmfv319FSidtbjLhWioxe8BN35NPv
+         5CSrJlJ93V1JDi5SBSg9vII16gE5atOuOaJp/X1n8PzfJRT4rX09Hu03abW16KTq2Tso
+         LOX18fnGf1mUsiRbGH76ZxdSiOjX7qvx2t0MZ4H8lVLi8X1xHIIZKPsEdnDKUqP0eRld
+         bY84x9/GyfLKtsTV5dSA4qUST2NjSALnJWHYGNGQnIWfj1c+cknq3N39Ow554X0OB4Hh
+         Crmdst4DaE0kvergmO7udhiKzur5U8aL6zagImA1qVJCOLmfPD8cmcjxmm2w+eXd4Eax
+         Q89g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793122428; x=1793727228;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Glhm1d7B/bXe7XSf6a+44KZYpto2vUedcbuSuK5V4mM=;
+        b=oUddOySTrgUMLPxqZ4zXIEUZZkhBJ7EEVbWIxp5jl0j1wq3whzUezpsIJl5HL6in3b
+         Z7aFfLsJibJG5qlRnYe9b5Bu5V+SnIvngeRvYSAzZIISl+0kC7coHD4foyEoj/sB1zlS
+         WIlYljNd5eLsY1xkAlZQ7+eithcXYmJasBPWdpuW+zIM+B6rY42iBjHh3D2NhwEEyigH
+         eVfDGzNxeaXLLqDQjh9BCIagsDR0Y15Gkfo6yL0Z+E44MmBLw2/9tHhUMJJoccPSTEk8
+         cu/4bT8CEzZ385HdsqOrjpyE5GUvTcQyKuUYbXPZgUHMFkYWjwqUSlaK7FBAGbxLlh8r
+         bVwA==
+X-Forwarded-Encrypted: i=1; AKwUvByjB21wx3AJN0f8KuKGFH9SNmSKro8Y1lgTZn0F147rN0Yjnv634br9wubCwDhhHBDW5ysiLIAUw6LdTzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLISI32zrpKYybYjSMNbDgPkuxTeDga2Jjh74B6ROknW1DMNylB
+	vqlgKVn1I+DkT5R2Et7zr1SQURhuU3vNnz5ov0rDevU6EtB6bLsNwa50cggcXu9p/A==
+X-Gm-Gg: AYBFou1+ZE36C15NmKzhTPka40hsEM9xEDKruLxtfNsaOSetyg+MwHv02P5wHiIj/y5
+	BITXZbtDnkmWrhjD6BH8Y/LO4CPsHn4J5KxnfQUZ9IIRR/PufpUshsKPGgwIELpFSMOB+jIE9E3
+	MQIjooPtbSdkm4ThJY/ABpZodwAqFfCkvlsn14s1HvJveeJ3TM7oKfLVmnbG0FDEJfeElJu5C4t
+	XUewpm/KEAX8rIOGWFtttzBJAfxXe8KEwdmk5jGsWT7r0tt5oR0fDxnpHnoWelszHQDXF5O+n9f
+	kUIsPVTFELz69FwmoTMkeahmZ9xtdX3xO4F3Mck9mkqgUMoLL06RIqGQdZtz32lMtXMfpH5Izx3
+	Q8bLeZLSZrBzUOrhgliI7be8tCapLfnk75SR2Lppc/C/dzaGX306TWEyChfLw6vgpGdleOwuCan
+	EDURA4fvWz2a1BLiEoX+BBteOoA7Yv+d7h5B6Pw3U6ysxDePERAkFPSx/rAr0GuQz529V5VTGtF
+	dWpm9N0HY5+634VFKpdqWHCdccjqLtndkjfVO2eo4u33/qI5FZkzms79GmvDEHUcZc2SrCQx2Wg
+	nI77x2qc95FHUmKlG4su9UQ6av7kIgfEuhEQvTiUgG6jhTr91j7wsZ5hvKOisPMbDw==
+X-Received: by 2002:a17:903:3d0d:b0:2e9:5507:b52e with SMTP id d9443c01a7336-2eb005a6905mr454945ad.50.1793122427469;
+        Tue, 27 Oct 2026 10:33:47 -0700 (PDT)
+Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bddae0sm12585675ad.35.2026.10.27.10.33.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 10:33:44 -0700 (PDT)
+Date: Tue, 27 Oct 2026 17:33:41 +0000
+From: David Matlack <dmatlack@google.com>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: tarunsahu@google.com, Andrew Morton <akpm@linux-foundation.org>,
+	joro@8bytes.org, Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com,
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org,
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com,
+	will@kernel.org, Alexander Graf <graf@amazon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
+	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+Message-ID: <auDgdUb3y_ricEq9@google.com>
+References: <atl7peoVHdP5hz7z@google.com>
+ <CA+CK2bBFXnJA1kddbLKGq0DAHDgjYhsTSQQay-xeX7jJC1V_UQ@mail.gmail.com>
+ <CALzav=e=ho2gVrn+7KpZ3ZyasvH2u15-pC-RSRSS7KcMfKqUJQ@mail.gmail.com>
+ <CA+CK2bAJo8dnTOyKMgnnMnk-SCXbTsv+JCLEOWkjyj-wqtEkHg@mail.gmail.com>
+ <atpNFEFIlqAoYIwH@google.com>
+ <CA+CK2bB2C3Am5ssRuzYpfiU7_vB81vxMGc19HQLq7N=_7YrbTg@mail.gmail.com>
+ <attmFVIFU_mS0Y7p@google.com>
+ <CA+CK2bDXDWbww_d3sD6OZqpo37V1a3t76_ubbrXLQS=9DB3dWA@mail.gmail.com>
+ <at-8vkVpN2SF3XgB@google.com>
+ <auDPd6tjzACQVszf@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,55 +117,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAO-4RZ25PZ5BM+83Vk8t5NUY3ksLGz5nzONrncipu2_MZhFSsg@mail.gmail.com>
+In-Reply-To: <auDPd6tjzACQVszf@google.com>
 
-On Wed, Oct 28, 2026 at 01:00:54AM +0800, 铮 wrote:
-> Hi Carlos,
+On 2026-10-27 12:21 PM, Pasha Tatashin wrote:
+
+> My main requirement is that DECLARE_KHO_SER() in include/linux/kho/abi/ 
+> must be enforced by the compiler rather than being just a bare 
+> static_assert() that someone could forget to add. Since kho/abi/ headers 
+> contain both versioned structs and unversioned sub-structs, it must be 
+> mandatory to declare versioned structs in kho/abi/ with their 
+> static_assert size check before the kho_ser_*() helpers can be used on 
+> them.
 > 
-> Executing the stored syzkaller testcases on Linux 7.3.0 ultimately triggers
-> an assertion in xfs_log_mount():
+> So, how about adding enum names like this, that are going to be required 
+> in accessor functions later:
 > 
->   XFS (loop0): AAIEEE! Log failed size checks. Abort!
->   XFS: Assertion failed: 0, file: fs/xfs/xfs_log.c, line: 597
->   kernel BUG at fs/xfs/xfs_message.c:102!
->   ...
->   xfs_log_mount+0x4e3/0x590
->   xfs_mountfs+0x10b9/0x2270
->   xfs_fs_fill_super+0x15cc/0x20b0
->   ...
->   Kernel panic - not syncing: Fatal exception
+> #define DECLARE_KHO_SER(name, payload_size, nr_feats)             \
+>     static_assert(sizeof(struct name) == (payload_size),          \
+>                   "struct " #name " size mismatch");              \
+>     enum {                                                        \
+>         __KHO_SER_SIZE_##name = (payload_size),                   \
+>         __KHO_SER_NR_FEATS_##name = (nr_feats),                   \
+>     }
+
+Sounds good. Since you're also on board with splitting required
+and optional features [1], this would take both counts:
+
+#define DECLARE_KHO_SER(name, payload_size, nr_required, nr_optional) \
+    static_assert(sizeof(struct name) == (payload_size),              \
+                  "struct " #name " size mismatch");                  \
+    enum {                                                            \
+        __KHO_SER_SIZE_##name = (payload_size),                       \
+        __KHO_SER_NR_REQUIRED_##name = (nr_required),                 \
+        __KHO_SER_NR_OPTIONAL_##name = (nr_optional),                 \
+    }
+
+  DECLARE_KHO_SER(memfd_luo_ser, 16, MEMFD_LUO_NR_REQUIRED, MEMFD_LUO_NR_OPTIONAL);
+
+The incoming path can also use __KHO_SER_NR_OPTIONAL_##name to validate
+the incoming header only contains required features that it knows how to
+handle:
+
+#define kho_ser_validate(hdr, name) \
+    __kho_ser_validate(hdr, __KHO_SER_NR_REQUIRED_##name)
+
+> > Plus helpers that allocate and initialize the header and return the
+> > payload as a typed pointer. Both the outgoing and incoming paths find
+> > the payload the same way, by computing its offset from the header,
+> > rather than through a struct with a fixed payload offset:
+> > 
+> >   /* outgoing */
+> >   hdr = kho_ser_alloc(luo_memfd_ser, LUO_MEMFD_NR_FEATS);
+> >   ser = kho_ser_payload(hdr, luo_memfd_ser);
+> > 
+> >   /* incoming */
+> >   hdr = phys_to_virt(args->serialized_data);
+> >   ser = kho_ser_payload(hdr, luo_memfd_ser);
 > 
-> The log size check reports 516 blocks, below the required minimum of
-> 636 blocks.
+> These would become, where without enum, the init would fail:
 > 
-> Is this an expected assertion with my XFS debug configuration, or should
-> this malformed image be rejected without triggering a kernel BUG?
+> #define kho_ser_init(buf, name)                                     \
+>       __kho_ser_init(buf, __KHO_SER_SIZE_##name,                    \
+>                           __KHO_SER_NR_FEATS_##name)
+> 
+> And payload can also check the existance of DECLARE_KHO_SER, using 
+> (expr1, expr2):
+> 
+> #define kho_ser_payload(hdr, name)                                  \
+>       ((void)__KHO_SER_SIZE_##name,                                 \
+>        (struct name *)__kho_ser_payload(hdr))
+> 
+> We can also add an optional kho_ser_alloc(name) to allocate, init, and 
+> preserve.
 
-You have bug_on_assert set on your system, so yes, this is intended. If
-you don't want to panic() the machine there, you need to disable it on
-sysfs, but...
-
-> Questions
-> ---------
-> - Is triggering a fatal assertion for an undersized V5 log intentional
->   with CONFIG_XFS_DEBUG=y and CONFIG_XFS_ASSERT_FATAL=y, or should this
->   case return -EINVAL without triggering a BUG?
-
-The config you have enable explicitly says asserts are fatal. I'm not
-sure if I misunderstood you or you misunderstood the configuration
-option.
-
-
-> - If a diagnostic dump would help, what state should be printed before the
->   assertion so the malformed image/log geometry can be identified?
-
-You are running a kernel configured with debug configuration that are
-meant to crash the system when some issue is found. Those are
-configuration settings used for development and debug purposes, not to
-use on a production or semi-production system.
-
-Cheers,
-Carlos
++1
