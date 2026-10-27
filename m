@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115199;
-	b=dcVn9d0WTYRv9oKJOw+05s6oUUoQ/Xvu8BsMCS2qLAe9UOgMcLIzJYvtZDQZiqbkXnnF
-	 PFwJnjJz4H0fF6k1I4gqo+Tazx+VJWT9Ig0zeedjjoqNmh2WMihuyxLFp114YKsutvPrW
-	 C1ZFBO/zsxAdhPCR3tIYqpKGz33fsxwoOtij4UQO55qGSxCOSUX9snIPZYz64fLXxYrzR
-	 IkWhkv0g5+FQC1p35j7hgoReIDmMAU4ZRyUXnThb/yVRIgTQgyfdrEp7cWIbu5MPMSeq/
-	 n3TWSS7IbUmTAix3N8UNx5ve7aamC5xKAP3X2tAXcCJTYS9s2Gec9SQ7ZOQMOvvxMZA==
+	t=1793115191;
+	b=gbAS1Fhk0ksKffYD9kcspG5cTC4pVWmZDZPFg7daEXfnxSZiQ1XioC+GhXDqmT2QtvGF
+	 ROYDDsJUwcJkDmN8HFdB4zrWDGuV0mQNfUByJzcy7IMwu3z30CeQY6KokoQJqAG/tdtiQ
+	 AZuEtNUkHsCdodHrPqXD4odu2TtBV7XkHDiiBmqhmQaJQbL6OQYBsZIKR4A7pJOyar6/9
+	 fiQUHSy49ZJTPMy10zIsRbKe8G43xhbTl4JOabZd3POLhmsRcqm+bO1xQYPrQil/cEvib
+	 EQo0pqPorEP05iMNEbn8c9FnmAFRV7HG6N63Jv+q17xYCI2Z6wvEX1LiqsRhRn8PAHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115191;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
 	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=gPD1ABBQcztKO8PBjP5v5TM9by07PPxSalzCUZ2Eenk=;
-	b=b9MphFiISxWhRYp17SSocrzv16VZtHWYCnVZw7Nd4u0TH/EHuug+FdWtNyPOXcn4jKsY
-	 MtwASDfVGtgdIjg/kVk+iZJglLeCM1bU8RV0WXCC9IJ9qHxFzXDn09xadWnpuVAQaPM+F
-	 RhtPU2RtLy1XQ3Od5z3aP3/8lKntjlUFoubI5WbcqEd2ZPCuXXI2/HJRvqOlALILJo6fN
-	 Ff8eg8JMxVqTfAYrFLUpVsvyHb0lI4JZ2gj0mce0fdgA38etzz4ILF2qyDk6xU6MkJAkx
-	 cOdCkXlt6SbFRVxvlB0u2D/EN4IGSnAQs5tid7F+wIwgKXkT8b6Gymty4X8bHeccPnw==
+	bh=XOOh+ULPr07EH3JwMHJLcn39ZNkIL073krbF4dkQm4o=;
+	b=Mjz4McVgqOgqGGbcMsUxv0XaGPxT0uNNI30WLr7gJu4TVfwcw1FwMCr24QgixR1SavWy
+	 6yZq6x7ADv6op1Bic0AhjdhLBsSoimDwfV45F5a8ArNbYEMc6Jxw03S/BxjxUupfXit2W
+	 RHMpGr+azjXL9j2e0sbHr0hSchRTKAy9zJrK36A88fP5vXf/NMR9Tuf4q668Qd0frvNXA
+	 6xRr5N9v91+y4hyfVnMwCcLGEUdJqUk+KA1JrPB2KbomOI4Xct4q/VEtyOencSniso1YR
+	 XwLygeyl7oX1V3DvhuwNT1ajuXjeGMHYglGvp1FTqygHc0n4DB1ZkpUd/+3e08LI7/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us75GCkv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjR1n3En;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BBC606A31A;
-	Tue, 27 Oct 2026 15:33:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC91F606A31E;
+	Tue, 27 Oct 2026 15:33:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Us75GCkv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6CC91F01825;
-	Tue, 27 Oct 2026 15:33:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GjR1n3En
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462F41F01828;
+	Tue, 27 Oct 2026 15:33:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115198;
-	bh=gPD1ABBQcztKO8PBjP5v5TM9by07PPxSalzCUZ2Eenk=;
+	s=k20260515; t=1793115190;
+	bh=XOOh+ULPr07EH3JwMHJLcn39ZNkIL073krbF4dkQm4o=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=Us75GCkvM+XfumAWXE7OQbdIyGcWJ/fyun3o5nCU53I/iNxgrsswY3py5WMqx0o9U
-	 SzMUR1EYca4QrE33A1DUxl0ThsGvuTxoF5B8W2u+Brs1qR78GPFdgcZhReXj1RjTGn
-	 h5ZsV7r/dSEvdHWUVneROo8K8qmbyzayynrgVUcMJtQKJKWJdNBsjlI2OSWCn5WBkQ
-	 PREyQGxMPYy6ynA9ZgQSDF9Ksx2shynj7Rj/HYyDJqNzz+9LT6PQnGUhNbkmcubuBZ
-	 TRbS9+5juTensNbBSjP0qnXyoHMFOYHWpEh/iEXYqPu93bWFeYm+SspCEykJnN52MP
-	 m+umDh7Q1USYw==
-Message-ID: <00b63b4f-053c-40cf-82db-21a86fc485c6@kernel.org>
-Date: Tue, 27 Oct 2026 16:33:15 +0100
+	b=GjR1n3EnMf4ak9lIFuA4X13+QrowxkshNVZpHhBG+FgMOI/FthJAxNAJiHZUIy5gj
+	 4XHjoNEZ+wxFe7XfWpYpRnP4ixWsGbATxF/3YQJ9Ak1pL5dehCuVnRBzIDoloTfb0v
+	 41V9+kbKYU7icifv508cW7HoH1e4+F0cmE8Egyu+uc8Dd6XAnsT1fE61K8+MIeLW34
+	 nwx6DZ5idef7BIL6K1OcNUH7xRI5j8MGxNpNGMZPii298rgdBRXoXsGLnVbt/s26XO
+	 SUWwK2aW3mR180DlvdsYAMNy0ZaO7DEYJJlC4Be7gKatpbvAg6r2kmpdBxgu459rPN
+	 PdaAzVeFNCMEw==
+Message-ID: <908cb70d-bfe8-4d01-b64e-44ffcfe259bd@kernel.org>
+Date: Tue, 27 Oct 2026 16:33:07 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,18 +53,15 @@ Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v10 1/6] dt-bindings: mmc: Extend keep-power-in-suspend
- beyond SDIO
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
- Ulf Hansson <ulfh@kernel.org>
-Cc: Adrian Hunter <adrian.hunter@intel.com>,
- Kamal Dasu <kamal.dasu@broadcom.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
- <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com>
+Subject: Re: [PATCH] platform/x86: acer-wmi: fix UAF after accelerometer
+ registration failure
+To: Guangshuo Li <lgs201920130244@gmail.com>, "Lee, Chun-Yi" <jlee@suse.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Matthew Garrett <mjg@redhat.com>, Marek Vasut <marex@denx.de>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261026111103.4158855-1-lgs201920130244@gmail.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -109,22 +106,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261027144051.249211-2-ulf.hansson@oss.qualcomm.com>
+In-Reply-To: <20261026111103.4158855-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 15:40, Ulf Hansson wrote:
-> From: Kamal Dasu <kamal.dasu@broadcom.com>
+On 26/10/2026 12:11, Guangshuo Li wrote:
+> When input_register_device() fails in acer_wmi_accel_setup(), the error
+> path frees acer_wmi_accel_dev but leaves the global pointer non-NULL.
 > 
-> keep-power-in-suspend is currently documented as SDIO-only, but the
-> requirement it describes -- preserving card power across a
-> suspend/resume cycle -- applies just as well to any card type. Drop
-> the SDIO-only restriction so eMMC and SD platforms can use it too.
+> Since acer_wmi_init() ignores the accelerometer setup failure and
+> continues initialization, a later driver removal or initialization
+> failure can call input_unregister_device() on the dangling pointer,
+> resulting in a use-after-free.
 > 
-> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Set acer_wmi_accel_dev to NULL after freeing it so that the cleanup
+> paths do not attempt to unregister the already-freed input device.
+> 
+> This issue was found by our static analysis tool under development.
+> 
+> Fixes: 1eb3fe1d3b6b ("ACER: Add support for accelerometer sensor")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
 
-Incomplete DCO.
+So you just keep ignoring and ignoring our feedback. It's just bot, so
+little point to discuss with bot.
 
 Best regards,
 Krzysztof
