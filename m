@@ -1,155 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.56
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793080509;
-	b=kizrpN1cNMTjnBXb3awIqAj3cdRSdGxu9xHqYMHEf288FeFHRsEdO45uWSFm/jPjnWbu
-	 4TIxgmWRDGUZnY4Y1+1HSm2c/qlSMPtbnv6JXpeQNYhQWGYdePbhk22HzdpiSW/Ua5Bv7
-	 nZBmR8bg7GsolI66kj/2klLZXuTChceoRrOktuvBh+5OHrQG+zoeKTVYzBFUdh4nkMHgW
-	 HCLHRiGIh6GGqpRpTVXbVPfmQZECc3R5aVs4gWYmUoNnskAQ8UIVQ2AXX4K5lys7VkPJo
-	 5pH1FY7O63pAhXFBLj8Fgc73s4JfFSgGBOeYfCfV39sbGdMsUVzLUdjnjcElg6bVZLA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793080509;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=334TRyvFrA9jLIb951BudRQWLkM28Ec7w6L89rqqMvU=;
-	b=hgb2xCeUz4eE2mTn8JY3khYKLcyY1B2HDfsl2MU3j4r9rtL3BP1AN4TecqP8eAxduykW
-	 j/Nee1eEYFIfcgCqEFd1BX8vNvG9mRbgFQOaCiVyJk9yXgai5zmWjPJmptoYtf8g4kQN7
-	 nupOQS3YxQaCWnIHGgg+0ot29ecSlzvE2OqrN6tLfDPnx7gqIudQLpSonskGAhIRi44LI
-	 swGwf65e9BQrVsL2Jtio+DYGN2nzS0XJdh7yorbTxEBK0X7ibySVCmORDtBNqGIRKm0Q4
-	 OBz+eTRCON8lRc656sdSO/eP3u88M6fTBl+oUQHjzKZRZahsphZxHZRaQRNQ9g5+5pg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jabil.com;
-	spf=pass smtp.mailfrom=jabil.com;
-	dkim=pass header.d=jabil.com header.i=@jabil.com header.a=rsa-sha256 header.s=selector1 header.b=uW3EJHn+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.56
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.153
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793080591;
+	b=d/zasHkK7HDEqADDic5OInqhiy5EJgtXG/vFbx50fDSiXHUVa1AGtUQIo1rYUqwfnS+D
+	 tRzXcEvwYItudXEiwkFavuKUnj23JgILQ/oWRLMjWLtr26h1OCNh0l8ArTCV9GBGZn3+N
+	 pSCvJqv9BVsHhiz4BTaZ+rF902U/ttBJVBPmfY7byPs2a447mCthkQ9sqi1PRjmYRVorV
+	 s9pDWKVJDf8Q/AaYVzJD9+rLuaAl0id6DSsaFk5+LgUOA4ZuHPL5I5bypTkPo3srVKjDR
+	 9JhyNUcBDpcTlEtbBUAChQ7/C8q7zS8qJ66onrZdPZJq9tE7bKtqg3uwgho8W0NBNHw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793080591;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=txYCjJfs5j4XwLL4ieXlwJE0ytwCERxwgKbZ/g1qp7A=;
+	b=O+gTtwidqU1miZBVGey0vjua/YKPIAUR94yek7oBeXww5RlYxmy+f73Q6iQX/HTOIBY1
+	 xepZNwwsraeEqmAD46iNj1mbMtv9+sU7rXJMZ++xkq9cwcWErpK+KF51umKi4g/c2FnTB
+	 RsRZjqppbiCNq8zKeJMrRYgASb8pylPCSggf3jFfhOrFY8ziNYWxe592MxJTq8GPwvTZW
+	 1ZKDLCsiHSASnXxk960+dZAzLtaIgZ6tvP4EHEWWjXsj57e7sRYmEkvRYqUpwNxqkj9mT
+	 jN4iRQ/tmSDHv0tEGIzfzfNjfdzoISnkcTPi/+qPdMxKSs5/LTfkuVaXl3mgByEaApg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u5aksF5q;
+	arc=none smtp.remote-ip=95.215.58.153
+Received: from mta1.migadu.com (out-153.mta1.migadu.com [95.215.58.153])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C6A606A31A;
-	Tue, 27 Oct 2026 05:55:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37C6A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jabil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jabil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17BB606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F17BB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jabil.com header.i=@jabil.com header.a=rsa-sha256 header.s=selector1 header.b=uW3EJHn+
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KYi23cMAlQj/AZfoxgFSpcK8FHxjg00Urv23zyJGO66/s9Qc0tMX+IFDNH6PI2VEW8flCRgQnIJZpB41iEbixwd57DdEmxqiGH0Cwl92+LSTL1YWzRzcZlXOn5Z3v9eSPRbzfxVIa8RHrWFaTFK9tt/NCG9QZ2WPZL5/urNyrBHF264u0ld9VWOX+XS5cF0K9ae2ZuZjBkJVaaNI3bzWlz7C8eldX8XJNPqTfeuzs3b4oLr1ltXpaU0Bpn7B5DjywIJI/CBnHt/b67HmW0u7U4aNz8OchSvmfhOa/h3vou1W2OH1dMox72bWINTBeX2sLwsZgSUyzcg0Czpob4pVYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=334TRyvFrA9jLIb951BudRQWLkM28Ec7w6L89rqqMvU=;
- b=B3i/zOAdcmlgsIabgZrIP3ht/fo0zISb9nSvlWTP8g0Yl32jtvpMcsxZ3/xVbVFb8wqGcBe4eTGevqjcTm4tPI8ChPzT7ybr3yqS8z87xm2KUDAjjA/v3qN5i1YppACJioR/0WOYTdfXSNepJByp8mbQ3SPzp6o0gOB8y7TfI/IAfuWXBGyiNmRUaZLWph9yaRgrIkJi66kuP+Bk1wineDS+xZwmITC5hVXZ0FC6iFffnIT1GQY2Jmxc0wONgxtovONsIW0KfmtOTvdwJOZazAG70sO+NVnqZ2SptyESrHDNt7wtFnHxAd0u8AUdyCqwHcRA1m/iezFoZHE62JIc+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=jabil.com; dmarc=pass action=none header.from=jabil.com;
- dkim=pass header.d=jabil.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=334TRyvFrA9jLIb951BudRQWLkM28Ec7w6L89rqqMvU=;
- b=uW3EJHn+DlquZHg9d1FjMIlYCvhMJlYBkFsse1Zcp4J5yK1OoMcqZtQc+dRNzdPHfslkLcMFH4+zKcWUtJw3EvSbYXZIjZ0XshtKedjV7e2C9YVppxHNbfYGHJ3PnYa1cWGeumlTWzgZZuXTok3IL6gDlwkt8UyfA/DD2WHFkzzRQEQDtA9RqlDibG1hCrex6LcyKwyqH3LoM3dA9ALJgnuynTESYaYuuF/NERM2CiIlr0fEoNCGaF96UTccAE0nnRTAH9J9wL69UqFeSKDpYxCU3fQytGO3pFtPv2YE+B0lVcPmRdGll453RqENs/UoxwQcv3yrtn6TkblN4+Xoig==
-Received: from DM8PR02MB8087.namprd02.prod.outlook.com (2603:10b6:8:1b::11) by
- IA0PR02MB9855.namprd02.prod.outlook.com (2603:10b6:208:491::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 05:55:07 +0000
-Received: from DM8PR02MB8087.namprd02.prod.outlook.com
- ([fe80::6e40:b3cf:7280:6497]) by DM8PR02MB8087.namprd02.prod.outlook.com
- ([fe80::6e40:b3cf:7280:6497%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 05:55:07 +0000
-From: Kenny Hsieh <kenny_hsieh@jabil.com>
-To: "netdev-bot+sinfo@kernel.org" <netdev-bot+sinfo@kernel.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Jeremy Kerr
-	<jk@codeconstruct.com.au>, Matt Johnston <matt@codeconstruct.com.au>, Andrew
- Lunn <andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v2] mctp i2c: fix double free of midev on netdev
- register failure
-Thread-Topic: [PATCH net v2] mctp i2c: fix double free of midev on netdev
- register failure
-Thread-Index: AQHdZdVCHj7bYODww0an4KePwzs6t7cQ4AEAgAADeDA=
-Date: Tue, 27 Oct 2026 05:55:06 +0000
-Message-ID:
- <DM8PR02MB80871A5074EA3DF67603D9868E602@DM8PR02MB8087.namprd02.prod.outlook.com>
-References: <20261027053715.1623087-1-kenny_hsieh@jabil.com>
- <179307969867.3327.8394430717039407023@kernel.org>
-In-Reply-To: <179307969867.3327.8394430717039407023@kernel.org>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=jabil.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR02MB8087:EE_|IA0PR02MB9855:EE_
-x-ms-office365-filtering-correlation-id: 3a766f89-e2f2-491e-cc22-08df33eeda7a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|261026121527099003|38070700021|11063799006|4143699003|56012099006|261022105027099003|10067099003|22082099003|18002099003|261026140227099003;
-x-microsoft-antispam-message-info:
- 8auO2Kkn197OVMxRNTG6lGEL6JAqKUH/bb9Sh19mvWmAKR5gwmSWX0QREJ3PyoED8JqYSJL1LRo9OZsY7rQtXOejF6mnQzZUvjZfelA9Yhj/HHgbvMpGQbblNyB2BBQh/E6CivIuOUmPK03nvpgFQY/XDaoXIXUvpkZIJxuAQ8pVyLwM2MnDcu7ENrawhgP165kRCn883yTMRul7LMJPMXrTe7fRjKNVMQ/UcZ0P7ANqqpHMBaeEuAyiWd0N0j/tS6uM9Bv6AQOMw83rCpFZv8laFb14Y1kLTeO7A5LbMI0NWNfsYb8NhZ9veP3GZchLAOyWwgBdUqcwO4KKqkxpBli3fUTfeoMdqaNM1iHc6nJuKnzgUuLUzGb+s6buDt7/qK+6x5hu5R9HbQ/rKcoIxK2o1nH1ss/Cs6opCVH7OC5GqfYrXxeywCR9G/+MzU+2DIbdBQxYSGSwyKv38wwT8g+a+i0ck5zVNsVambp5v6L9CYL1x62ACS023nGMa17JFHgsz0dvOoCWwMXrm2JCcZXZROeb15v/GbKRFetTqNFuYOkA8ZBFUwIqNugLU5PRH8TIGRwO/Z8/iZUXjtpmBKPx5WfFW9GtLtcxzN8w1yUoM+yGUnxfcY3QDIZovBziGlp6MpAyPOFD+uwrqLm0SosBtgNqoEE8bkZPfO8U8mMTi3JK4EPtRWdwalZU3HCHyO8WXl8QF3eKigzN+UsLegOuy/fInV4KBPB4UX+WaAY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR02MB8087.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(261026121527099003)(38070700021)(11063799006)(4143699003)(56012099006)(261022105027099003)(10067099003)(22082099003)(18002099003)(261026140227099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Vlg0MzRPMnZWQ01MSUprM2xRWnhBUzVuVFZjRm9VdnFLM1grNFlWbFV3cWlQ?=
- =?utf-8?B?SDlOSitDc2Q1c3BaVENjcDF1MmJEVFZUL3F3a0Z4djFyS3FwSDAyYmF4d25k?=
- =?utf-8?B?REpzNTAyUkM5NlUvaStIN2dTZ2srNno5RXhEVXBTbUN1ais0aGptMmxZMHhY?=
- =?utf-8?B?MUF2ZWVJUkw2RmtvMWRUNW4vR0tZWXRER3ZPZHRYWHE3ZDdPL2s0NGRCeGhv?=
- =?utf-8?B?MGV6encxNk1GR21TelFnUkxpbDE0djJXdHFFUHlHT2FTMDYyNnhrUHNqVDRx?=
- =?utf-8?B?YkZxeUJQb1A3UWVlZmhKYWhBUGpNdVltY1drYWxYeWt2TTZpaVh6ZTNGcndX?=
- =?utf-8?B?UFNzWTBtOVNoNXp2RXRLVVR3Qmx6emVIemRWdWZSU1AvVTArTmwyMm03SHk5?=
- =?utf-8?B?c0xyczlJMHNEZHNER3BQWUlyQWdMVEdheGpENkhaK2RNdzhBL1RuR3JNSE5q?=
- =?utf-8?B?aGlBV0FWUXpzWjFlUjNaZndFWjN2UjI2cWduRkNFVTZsRXdQMkN0ajRzQ0Jw?=
- =?utf-8?B?ZVFRaEx3Si83MkVzMU9VeUNLQ2V1Uk5vL1RwdjM3MTlJL2wvNTF5VzA0a1lZ?=
- =?utf-8?B?VWQ4Uk9vUkV4TzFOLzg4SFM5ZGJZd3hVSlJPMytleEJKYnJqYVJNYzlmYm9R?=
- =?utf-8?B?ekc3OWZpWU9naXMwNzNTYnV1eGNUUTRyM0NNeDg2SHQvcVYrWE9rblJlMkhF?=
- =?utf-8?B?aFZDNWNodTBYck5JeW5ZOFA1SExqQ3Z3UDlJUm1saEt0YVdUeFhPVzFPUGRW?=
- =?utf-8?B?eHd6ZlFPZnVMR0VpOHFzV3N3N3Y0cGNibWo5RytPQWVoNVlqTnBzN1k4Q3g1?=
- =?utf-8?B?M2s3QnBOTms4bzJMNzdza3NWWTRDa2JMT01kb0FMa1pQME9PRWJjSThRWUxu?=
- =?utf-8?B?V0I3aHJZSGsrZUxLWUV2UTU4WHdRNUtJT2JqNEdWMW9ScXVwK2xGL1p0YWdX?=
- =?utf-8?B?TTR2b1k5eUZsUHpZTEw0c1d5cCtLMG1WMnB2U2pzMUVHQjQwbEdoUUxJbGZn?=
- =?utf-8?B?aGE0MHBUVFZQakhqRDdtUVN2cm16eHhialZSTVNzdzd2WTRhdktvY1hVT3pv?=
- =?utf-8?B?SDl2VUJ1dFRnMFJ6dm5YUXVJRnZWZ1psU0htbjkzSzlyRnJ6eUtZN2c0RUdq?=
- =?utf-8?B?SlFRdkpIVTVhc1JtN1BOOFRkKzZvdi83NWkxY1JVS0FTS29qeWVXN2xYVVdX?=
- =?utf-8?B?SyszQjkyQm5TRlRkWVliYW9EZ0hZamV2RjlsM25Rd1htNTBhV0hJY1NTWCt2?=
- =?utf-8?B?UzYrRHdiWEh2ZDE0L1JlOTdMYWNhMklVQUw2QWlnWjgvVTNBZFUweTFmZWtE?=
- =?utf-8?B?SUt4UXpiN3kzaWhmQUEzU1J3d3d0TER1K2NGTHJWVm1xQXcwM2JyYWU2NnJi?=
- =?utf-8?B?OHV3elZYNnVrSTRuVmRDWkVnMnlyK3N6RHk2TGxmeE9oN041Z2YyN2VnbmIy?=
- =?utf-8?B?a2JPQUt0aTJFUG1qQ1prcG9YaFlMRnVXTk9YLzN5U2lRSXp6TGw2RnE0Yk9p?=
- =?utf-8?B?U1FsRTNjMWUrTTBnK3d3OVhnSEJrYmlVb0Z1SzhEWGVoeGVTdTFvOFgxdE1w?=
- =?utf-8?B?MWlFTXRLMEhGcDhoUk1JRTZzQXo3aEJGam0vb0Zmc0I0Z290amVjQUM0K0U5?=
- =?utf-8?B?Q3pTbWhMeC9uV21sNW5GQUliM0FFcDV6aUpUSFpKQUR6aVlyYmRSNGN0Zkh2?=
- =?utf-8?B?eDBWQ29VMFlhY1JWdFVhKy8xeXd0TXc5MElDYWxVd3RTQUN0Qm9hTmV0N2kw?=
- =?utf-8?B?NGNmcmJwN0YxQlE0VVdsbmYveVE2bVY4UjlPdmt5ZWNnTy9MaklMTUZ1NStN?=
- =?utf-8?B?Q0dYbVNGeGYrbzViS3plQlNBU1lUbEZqK21OaFNINCtLNWJGbmRvaFpIalFJ?=
- =?utf-8?B?WVRSR2sxOEJ6VVdXOWhzcU5KczNqcENVWVVjQVhkRHZGcnlPWGFVcDBnejNy?=
- =?utf-8?B?eGNwSEs1bHM4MXdhbEZoZURaQTR3UHpsUEQzUEJNNmZ3MWhicy9sUThVRndM?=
- =?utf-8?B?V0tpRnZNY2hnN2N4MmZtbDMxSEl5UFp6SDE3bUVlTGhVR280NSs1cEhQOE1m?=
- =?utf-8?B?Um9Yc3hIUDJNL3Qxa29uNzBxTmFZUG9Vc0xNc2pHVk1lTXBvUTN6UlhKSGdu?=
- =?utf-8?B?Q3ZzVFAvM2F6d1hicjBQOTdqcm80QTlhZGdPWFRNaEVjRGNmT1lFV05TWFFt?=
- =?utf-8?B?eU9HWlpsMldMamlqSVp2Q1U3b1pIWVFKWjlobW9iTXB3WXp3ejI1NEg4OUpo?=
- =?utf-8?B?QWNGY0lOOU1hY1Nld1YvNTNWejBScGl3QjBZU0JqbWc1c3hZd2locWVUYXNK?=
- =?utf-8?B?YkZGODdFK2ZNWXBhcFJibFc2bUo5SDJ2WGk2a2tyRi8vakJRSUZEdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=u5aksF5q
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wlCicRN9cuHjOxPs8rS9lWuBJyi1Vu+zv5R/KmTZ9js=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793080587; v=1; x=1793685387;
+ b=u5aksF5qU7gQwliBFQaT7bDkZ9Dy5qhnKedeLxpLIq3hjwxiDQJX7SBByXpO61oYz5m39B4Z
+ w1VzCXSGHsFhcHUZ1BZ6zwHlzqsKDC9DvH7Wx/o5HBSaINBZvKJYIHtMvasEn6Ak52Jq+SlBATk
+ JxFMIEl0xvMAGKK+Typh6xM8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b5e50496e140431c;
+	Tue, 27 Oct 2026 05:56:26 +0000
+X-Mizu-Trace-ID: b5e50496e140431c
+X-Migadu-Flow: FLOW_OUT
+From: haoran.jiang@linux.dev
+To: chenhuacai@kernel.org
+Cc: loongarch@lists.linux.dev,
+	kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	kernel@xen0n.name,
+	Haoran Jiang <jianghaoran@kylinos.cn>
+Subject: [PATCH v2] LoongArch: add KASAN_VMALLOC support
+Date: Tue, 27 Oct 2026 13:55:45 +0800
+Message-Id: <20261027055545.381445-1-haoran.jiang@linux.dev>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -159,20 +66,410 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: jabil.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR02MB8087.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a766f89-e2f2-491e-cc22-08df33eeda7a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2026 05:55:07.0242
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5TtH6btcqtrCQAyXDjC/AG8bjki1FH1gTxDC5gs4uSjFmdvRv3qwiw/xaKF2xcPe3QoL0nJU1iajaRXY8ltgGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR02MB9855
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-VGhlIGRvdWJsZSBmcmVlIGlzIGZyb20gY29kZSBpbnNwZWN0aW9uLiANClNhc2hpa28gZmxhZ2dl
-ZCBpdCB3aGlsZSByZXZpZXdpbmcgYW5vdGhlciBtY3RwLWkyYyBwYXRjaCwgYW5kIEkgY2hlY2tl
-ZCBpdCBhZ2FpbnN0IHRoZSByZWdpc3Rlcl9uZXRkZXZpY2UoKSBlcnJvciBwYXRocy4gDQpUaGUg
-bGF0ZSBmYWlsdXJlcyBuZWVkIGFuIGludGVybmFsIGFsbG9jYXRpb24gb3Igbm90aWZpZXIgZXJy
-b3IsIHNvIEkgaGF2ZW4ndCBoaXQgaXQgb24gaGFyZHdhcmUuDQo=
+From: Haoran Jiang <jianghaoran@kylinos.cn>
+
+For the page table of the VMALLOC and MODULES
+shadow regions, only partial page table needs
+to be established, allowing the complete page
+table entries to be populated on demand during use.
+
+---
+1,Add shallow parameter to kasan_pgd/p4d/pud/pmd/pte_populate,
+page tables are established for the modules and vmalloc regions,
+but the page tables are not fully populated; the complete page
+tables are established automatically when vmalloc is used.
+If the address is pgd-aligned, the page table is established
+down to the pgd level; if it is pud-aligned, it is established
+down to the pud level, and so on. While establishing the
+/pgd/pud/pmd/pte levels, the page table entries must be initialized
+to none. For example, a pmd entry of none is an invalid_pte_table.
+Only in this way can the correct page tables be established at
+use time. At the same time, boundary issues must be considered.
+For example, mem_to_shadow(MALLOC_END) and mem_to_shadow(vmemmap)
+are in the same pte, and the region [mem_to_shadow(vmemmap), mem_to_shadow(VMEMMAP_END)]
+needs to be mapped to page 0. To avoid affecting the mem_to_shadow(vmemmap) region,
+only the pte entries for [mem_to_shadow(MALLOC_END) & PMD_MASK, mem_to_shadow(MALLOC_END)]
+need to be initialized to none. The remaining pte entries are left as they are.
+
+2,The removal of kasan_populate_early_shadow(mem_to_shadow((void *)VMALLOC_START),
+mem_to_shadow((void *)KFENCE_AREA_END)) achieves the same effect as
+kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_NO_NODE, true);
+ both map this region to a shared zero page. (KASAN_SHADOW_START, KASAN_SHADOW_END)
+already covers (mem_to_shadow((void *)VMALLOC_START), mem_to_shadow((void *)KFENCE_AREA_END)).
+Other architectures such as arm64/riscv need kasan_populate_early_shadow
+because clear_shadow(KASAN_SHADOW_START, KASAN_SHADOW_END) is performed before
+ kasan_populate_early_shadow, so the reserved region must be mapped to the zero
+page again. On LoongArch, however, the entire shadow space is first mapped to
+page 0 via kasan_pgd_populate, and then page tables are established for the
+required regions, which is simpler and clearer.
+
+3,pgd_none/p4d_none/pmd_none/pte_none were added to the definitions of
+__pgd_none/__p4d_none/__pud_none/__pmd_none/__pte_none respectively
+because kasan_populate_early_vm_area_shadow requires them.
+kasan_populate_early_vm_area_shadow establishes complete KASAN shadow
+page table mappings for the early vmalloc regions before vmalloc_init.
+At this point, complete page tables need to be established, but
+kasan_populate_early_vm_area_shadow is called after kasan_shallow_populate,
+at which time only incomplete page tables have been established for the
+vmalloc region.The condition for a page table entry to be none requires the
+pgd_none/p4d_none/pmd_none/pte_none checks. Only by correctly determining
+whether an entry is none can the complete page tables be established properly.
+
+Test：
+
+https://git.kernel.org/pub/scm/linux/kernel/git/chenhuacai/linux-loongson.git
+
+CONFIG_KUNIT=y
+
+CONFIG_KASAN_KUNIT_TEST=m
+
+Add `kunit.enable=1 kasan_multi_shot` to the cmdline.
+
+Test with 3-level 16K pages and 4-level 4K pages respectively.
+
+before this patch:
+
+...
+
+[  502.760009]     ok 68 vmalloc_oob # SKIP Test requires CONFIG_KASAN_VMALLOC=y
+
+...
+
+[  504.016000] # kasan: pass:49 fail:0 skip:26 total:75
+[  504.016092] # Totals: pass:49 fail:0 skip:26 total:75
+[  504.016171] ok 1 kasan
+
+after this patch:
+
+...
+
+[  531.630760]     ok 68 vmalloc_oob
+
+...
+
+[  532.891057] # kasan: pass:50 fail:0 skip:25 total:75
+[  532.891142] # Totals: pass:50 fail:0 skip:25 total:75
+[  532.891219] ok 1 kasan
+
+V2:
+
+1, Add a shallow parameter to kasan_pgd/p4d/pud/pmd/pte_populate to create incomplete page tables.
+
+2，select HAVE_ARCH_KASAN_VMALLOC -> select HAVE_ARCH_KASAN_VMALLOC if 64BIT.
+
+Signed-off-by: Haoran Jiang <jianghaoran@kylinos.cn>
+
+---
+ arch/loongarch/Kconfig         |   2 +
+ arch/loongarch/mm/kasan_init.c | 132 ++++++++++++++++++++++++---------
+ 2 files changed, 101 insertions(+), 33 deletions(-)
+
+diff --git a/arch/loongarch/Kconfig b/arch/loongarch/Kconfig
+index 2067d1f2ad7a..9cdb80ee58a1 100644
+--- a/arch/loongarch/Kconfig
++++ b/arch/loongarch/Kconfig
+@@ -119,6 +119,7 @@ config LOONGARCH
+ 	select HAVE_ARCH_JUMP_LABEL
+ 	select HAVE_ARCH_JUMP_LABEL_RELATIVE
+ 	select HAVE_ARCH_KASAN if 64BIT
++	select HAVE_ARCH_KASAN_VMALLOC if 64BIT
+ 	select HAVE_ARCH_KFENCE if 64BIT
+ 	select HAVE_ARCH_KGDB if PERF_EVENTS
+ 	select HAVE_ARCH_KSTACK_ERASE
+@@ -187,6 +188,7 @@ config LOONGARCH
+ 	select HOTPLUG_SMT if HOTPLUG_CPU
+ 	select IRQ_FORCED_THREADING
+ 	select IRQ_LOONGARCH_CPU
++	select KASAN_VMALLOC if KASAN
+ 	select LOCK_MM_AND_FIND_VMA
+ 	select MMU_GATHER_MERGE_VMAS if MMU
+ 	select MMU_GATHER_RCU_TABLE_FREE
+diff --git a/arch/loongarch/mm/kasan_init.c b/arch/loongarch/mm/kasan_init.c
+index 92ca0ba86406..08fbdc9aafb4 100644
+--- a/arch/loongarch/mm/kasan_init.c
++++ b/arch/loongarch/mm/kasan_init.c
+@@ -17,28 +17,28 @@ static pgd_t kasan_pg_dir[PTRS_PER_PGD] __initdata __aligned(PAGE_SIZE);
+ #define __pgd_none(early, pgd) (0)
+ #else
+ #define __pgd_none(early, pgd) (early ? (pgd_val(pgd) == 0) : \
+-(__pa(pgd_val(pgd)) == (unsigned long)__pa(kasan_early_shadow_p4d)))
++((__pa(pgd_val(pgd)) == (unsigned long)__pa(kasan_early_shadow_p4d)) || pgd_none(pgd)))
+ #endif
+ 
+ #ifdef __PAGETABLE_PUD_FOLDED
+ #define __p4d_none(early, p4d) (0)
+ #else
+ #define __p4d_none(early, p4d) (early ? (p4d_val(p4d) == 0) : \
+-(__pa(p4d_val(p4d)) == (unsigned long)__pa(kasan_early_shadow_pud)))
++((__pa(p4d_val(p4d)) == (unsigned long)__pa(kasan_early_shadow_pud)) || p4d_none(p4d)))
+ #endif
+ 
+ #ifdef __PAGETABLE_PMD_FOLDED
+ #define __pud_none(early, pud) (0)
+ #else
+ #define __pud_none(early, pud) (early ? (pud_val(pud) == 0) : \
+-(__pa(pud_val(pud)) == (unsigned long)__pa(kasan_early_shadow_pmd)))
++((__pa(pud_val(pud)) == (unsigned long)__pa(kasan_early_shadow_pmd)) || pud_none(pud)))
+ #endif
+ 
+ #define __pmd_none(early, pmd) (early ? (pmd_val(pmd) == 0) : \
+-(__pa(pmd_val(pmd)) == (unsigned long)__pa(kasan_early_shadow_pte)))
++((__pa(pmd_val(pmd)) == (unsigned long)__pa(kasan_early_shadow_pte)) || pmd_none(pmd)))
+ 
+ #define __pte_none(early, pte) (early ? pte_none(pte) : \
+-((pte_val(pte) & _PFN_MASK) == (unsigned long)__pa(kasan_early_shadow_page)))
++(((pte_val(pte) & _PFN_MASK) == (unsigned long)__pa(kasan_early_shadow_page)) || pte_none(pte)))
+ 
+ static void *mem_to_shadow(const void *addr)
+ {
+@@ -117,52 +117,78 @@ static phys_addr_t __init kasan_alloc_zeroed_page(int node)
+ 	return __pa(p);
+ }
+ 
+-static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node, bool early)
++static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr,
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	if (__pmd_none(early, pmdp_get(pmdp))) {
+ 		phys_addr_t pte_phys = early ?
+ 				__pa_symbol(kasan_early_shadow_pte) : kasan_alloc_zeroed_page(node);
+ 		if (!early)
+ 			memcpy(__va(pte_phys), kasan_early_shadow_pte, sizeof(kasan_early_shadow_pte));
++
++		if (IS_ALIGNED(addr, PMD_SIZE) && end - addr >= PMD_SIZE && shallow)
++			kernel_pte_init(__va(pte_phys));
++
+ 		pmd_populate_kernel(NULL, pmdp, (pte_t *)__va(pte_phys));
+ 	}
+ 
+ 	return pte_offset_kernel(pmdp, addr);
+ }
+ 
+-static pmd_t *__init kasan_pmd_offset(pud_t *pudp, unsigned long addr, int node, bool early)
++static pmd_t *__init kasan_pmd_offset(pud_t *pudp, unsigned long addr,
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	if (__pud_none(early, pudp_get(pudp))) {
+ 		phys_addr_t pmd_phys = early ?
+ 				__pa_symbol(kasan_early_shadow_pmd) : kasan_alloc_zeroed_page(node);
+ 		if (!early)
+ 			memcpy(__va(pmd_phys), kasan_early_shadow_pmd, sizeof(kasan_early_shadow_pmd));
++
++		if (IS_ALIGNED(addr, PUD_SIZE) && end - addr >= PUD_SIZE && shallow) {
++#ifndef __PAGETABLE_PMD_FOLDED
++			pmd_init(__va(pmd_phys));
++#endif
++		}
++
+ 		pud_populate(&init_mm, pudp, (pmd_t *)__va(pmd_phys));
+ 	}
+ 
+ 	return pmd_offset(pudp, addr);
+ }
+ 
+-static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node, bool early)
++static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr,
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	if (__p4d_none(early, p4dp_get(p4dp))) {
+ 		phys_addr_t pud_phys = early ?
+ 			__pa_symbol(kasan_early_shadow_pud) : kasan_alloc_zeroed_page(node);
+ 		if (!early)
+ 			memcpy(__va(pud_phys), kasan_early_shadow_pud, sizeof(kasan_early_shadow_pud));
++
++		if (IS_ALIGNED(addr, P4D_SIZE) && end - addr >= P4D_SIZE && shallow) {
++#ifndef __PAGETABLE_PUD_FOLDED
++			pud_init(__va(pud_phys));
++#endif
++		}
++
+ 		p4d_populate(&init_mm, p4dp, (pud_t *)__va(pud_phys));
+ 	}
+ 
+ 	return pud_offset(p4dp, addr);
+ }
+ 
+-static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node, bool early)
++static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr,
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	if (__pgd_none(early, pgdp_get(pgdp))) {
+ 		phys_addr_t p4d_phys = early ?
+ 			__pa_symbol(kasan_early_shadow_p4d) : kasan_alloc_zeroed_page(node);
++
+ 		if (!early)
+ 			memcpy(__va(p4d_phys), kasan_early_shadow_p4d, sizeof(kasan_early_shadow_p4d));
++
++		if (IS_ALIGNED(addr, PGDIR_SIZE) && end - addr >= PGDIR_SIZE && shallow)
++			pgd_init(__va(p4d_phys));
+ 		pgd_populate(&init_mm, pgdp, (p4d_t *)__va(p4d_phys));
+ 	}
+ 
+@@ -170,58 +196,77 @@ static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
+ }
+ 
+ static void __init kasan_pte_populate(pmd_t *pmdp, unsigned long addr,
+-				      unsigned long end, int node, bool early)
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	unsigned long next;
+-	pte_t *ptep = kasan_pte_offset(pmdp, addr, node, early);
++	pte_t *ptep = kasan_pte_offset(pmdp, addr, end, node, early, shallow);
++
++	if (pte_none(ptep_get(ptep)) && shallow)
++		return;
++
+ 
+ 	do {
+-		phys_addr_t page_phys = early ?
++		if (shallow) {
++			next = addr + PAGE_SIZE;
++			if (__pte_none(early, ptep_get(ptep)))
++				pte_clear(&init_mm, addr, ptep);
++		} else {
++			phys_addr_t page_phys = early ?
+ 					__pa_symbol(kasan_early_shadow_page)
+ 					      : kasan_alloc_zeroed_page(node);
+-		next = addr + PAGE_SIZE;
+-		set_pte(ptep, pfn_pte(__phys_to_pfn(page_phys), PAGE_KERNEL));
++			next = addr + PAGE_SIZE;
++			set_pte(ptep, pfn_pte(__phys_to_pfn(page_phys), PAGE_KERNEL));
++		}
+ 	} while (ptep++, addr = next, addr != end && __pte_none(early, ptep_get(ptep)));
+ }
+ 
+ static void __init kasan_pmd_populate(pud_t *pudp, unsigned long addr,
+-				      unsigned long end, int node, bool early)
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	unsigned long next;
+-	pmd_t *pmdp = kasan_pmd_offset(pudp, addr, node, early);
++	pmd_t *pmdp = kasan_pmd_offset(pudp, addr, end, node, early, shallow);
++
++	if (pmd_none(pmdp_get(pmdp)) && shallow)
++		return;
+ 
+ 	do {
+ 		next = pmd_addr_end(addr, end);
+-		kasan_pte_populate(pmdp, addr, next, node, early);
++		kasan_pte_populate(pmdp, addr, next, node, early, shallow);
+ 	} while (pmdp++, addr = next, addr != end && __pmd_none(early, pmdp_get(pmdp)));
+ }
+ 
+ static void __init kasan_pud_populate(p4d_t *p4dp, unsigned long addr,
+-					    unsigned long end, int node, bool early)
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	unsigned long next;
+-	pud_t *pudp = kasan_pud_offset(p4dp, addr, node, early);
++	pud_t *pudp = kasan_pud_offset(p4dp, addr, end, node, early, shallow);
++
++	if (pud_none(pudp_get(pudp)) && shallow)
++		return;
+ 
+ 	do {
+ 		next = pud_addr_end(addr, end);
+-		kasan_pmd_populate(pudp, addr, next, node, early);
++		kasan_pmd_populate(pudp, addr, next, node, early, shallow);
+ 	} while (pudp++, addr = next, addr != end && __pud_none(early, READ_ONCE(*pudp)));
+ }
+ 
+ static void __init kasan_p4d_populate(pgd_t *pgdp, unsigned long addr,
+-					    unsigned long end, int node, bool early)
++					unsigned long end, int node, bool early, bool shallow)
+ {
+ 	unsigned long next;
+-	p4d_t *p4dp = kasan_p4d_offset(pgdp, addr, node, early);
++	p4d_t *p4dp = kasan_p4d_offset(pgdp, addr, end, node, early, shallow);
++
++	if (p4d_none(p4dp_get(p4dp)) && shallow)
++		return;
+ 
+ 	do {
+ 		next = p4d_addr_end(addr, end);
+-		kasan_pud_populate(p4dp, addr, next, node, early);
++		kasan_pud_populate(p4dp, addr, next, node, early, shallow);
+ 	} while (p4dp++, addr = next, addr != end && __p4d_none(early, READ_ONCE(*p4dp)));
+ }
+ 
+ static void __init kasan_pgd_populate(unsigned long addr, unsigned long end,
+-				      int node, bool early)
++					int node, bool early, bool shallow)
+ {
+ 	unsigned long next;
+ 	pgd_t *pgdp;
+@@ -230,7 +275,7 @@ static void __init kasan_pgd_populate(unsigned long addr, unsigned long end,
+ 
+ 	do {
+ 		next = pgd_addr_end(addr, end);
+-		kasan_p4d_populate(pgdp, addr, next, node, early);
++		kasan_p4d_populate(pgdp, addr, next, node, early, shallow);
+ 	} while (pgdp++, addr = next, addr != end);
+ 
+ }
+@@ -239,9 +284,34 @@ static void __init kasan_pgd_populate(unsigned long addr, unsigned long end,
+ static void __init kasan_map_populate(unsigned long start, unsigned long end,
+ 				      int node)
+ {
+-	kasan_pgd_populate(start & PAGE_MASK, PAGE_ALIGN(end), node, false);
++	kasan_pgd_populate(start & PAGE_MASK, PAGE_ALIGN(end), node, false, false);
+ }
+ 
++
++static void __init kasan_shallow_populate(unsigned long start, unsigned long end, int node)
++{
++
++	kasan_pgd_populate(start & PAGE_MASK, PAGE_ALIGN(end), node, false, true);
++
++}
++
++#ifdef CONFIG_KASAN_VMALLOC
++void __init kasan_populate_early_vm_area_shadow(void *start, unsigned long size)
++{
++	unsigned long shadow_start, shadow_end;
++
++	if (!is_vmalloc_or_module_addr(start))
++		return;
++
++	shadow_start = (unsigned long)mem_to_shadow(start);
++	shadow_start = ALIGN_DOWN(shadow_start, PAGE_SIZE);
++	shadow_end = (unsigned long)mem_to_shadow(start + size);
++	shadow_end = ALIGN(shadow_end, PAGE_SIZE);
++
++	kasan_map_populate(shadow_start, shadow_end, NUMA_NO_NODE);
++}
++#endif
++
+ asmlinkage void __init kasan_early_init(void)
+ {
+ 	BUILD_BUG_ON(!IS_ALIGNED(KASAN_SHADOW_START, PGDIR_SIZE));
+@@ -295,10 +365,7 @@ void __init kasan_init(void)
+ 	clear_pgds(KASAN_SHADOW_START, KASAN_SHADOW_END);
+ 
+ 	/* Maps everything to a single page of zeroes */
+-	kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_NO_NODE, true);
+-
+-	kasan_populate_early_shadow(mem_to_shadow((void *)VMALLOC_START),
+-					mem_to_shadow((void *)KFENCE_AREA_END));
++	kasan_pgd_populate(KASAN_SHADOW_START, KASAN_SHADOW_END, NUMA_NO_NODE, true, false);
+ 
+ 	/* Populate the linear mapping */
+ 	for_each_mem_range(i, &pa_start, &pa_end) {
+@@ -309,9 +376,8 @@ void __init kasan_init(void)
+ 			(unsigned long)mem_to_shadow(end), NUMA_NO_NODE);
+ 	}
+ 
+-	/* Populate modules mapping */
+-	kasan_map_populate((unsigned long)mem_to_shadow((void *)MODULES_VADDR),
+-		(unsigned long)mem_to_shadow((void *)MODULES_END), NUMA_NO_NODE);
++	kasan_shallow_populate((unsigned long)mem_to_shadow((void *)MODULES_VADDR),
++			(unsigned long)mem_to_shadow((void *)VMALLOC_END), NUMA_NO_NODE);
+ 	/*
+ 	 * KAsan may reuse the contents of kasan_early_shadow_pte directly, so we
+ 	 * should make sure that it maps the zero page read-only.
+-- 
+2.43.0
+
