@@ -1,98 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.134
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793113490;
-	b=Va0AdFP0lR420fHDJwYYkNdljzhzzAmN+WC3rkdvAsNd5u/puatguNtUWIaX0DGGVsgQ
-	 Nzlzw+/+hWD940gDF9taKUBwYqmV7YEZ7AHFBcpO4bL2K4jKADbOSXhpixHOa+9S+FHi9
-	 yVUvlORZvV/KuioLWZsgGc238VjRoIb85mztPTwEgjkXqr60sATOthaWi/EzkVD3uqT9C
-	 HzdkAEBf70hNTxL/HZm5roWvr9/FaaxIUWo/h0Y5TSQkKISlNaZ03lGKsNTNzHu6JmmlE
-	 bN3Cdqss4ERS16fB6XSqsymsxhIJOMClF0q9nWftZuLBkpA8XT5hesMQl+pfXed/5Rw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113490;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=idHmBdkYB+pGsb4ciFoRZd8OmfSYmN5C47UdDtDs8Ag=;
-	b=KAp+5XPDHoNdS/4K1/apgbOkTVx2ruNGosz1nyK5YOSouYaQyx7XkfUgT8uaGTC6NKTc
-	 MaJ7kt51oNswN6739o46ezf2eGGImlZVvjQzUUBGQiR1OINI/YUImaH7+aj9a5kzKUgDa
-	 Ga2WOHnlmzeVZT9bV99PPJxunZiWKjzqtPWql48AO5RYXm7cz8YzrZ1YWQ2X7eXGb4SP8
-	 d6zpqRpq3FjIvM8z+GLuvyjCv6Ghu3eNnB0l5JMxA9Vn3fhj3MbLY3GYGXTZhw0xNxoZh
-	 nztpeuTxcEICh0BN4ixX5o3GP2q1RpSCh0lA08MVNIbVQkfJdeYeBpiA1sHhAE03lbg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPJeWiS1;
-	arc=none smtp.remote-ip=74.125.231.134
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.29
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793113510;
+	b=rWkNfZtRZj4NueguHJGPWY4j15oC0vhRZd9T9W6R7sM/UnqU3sgDSpU4iV4ziMMOgQRU
+	 PjXXazteuj9C8VAX1KlWn+ghefP6EeG3W73VGojCDqqCxvfX1WiADdmH+TZn5QzOfjuKN
+	 RA1oD4InCGhlOjRJJLDvu8QzqsN3t5DgW71VBgS/KsyVy0xAYWD5LoU40rimnbAIxxdzW
+	 4u9AtNmwzvWoCfNYJBnaz61HaLlDKzFaKEEdAFXzgH+m3h0OQkIQ8jrBRQYgc3ryEnI5t
+	 akOju2hFJQiNsJNTZ5HkC0k8cBXzMyV0kj03ARnbrokUFuFjjq0PMnpNQTTLYgukcpA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113510;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=EFUBP9r0uhJUC2NosuOfxHervV9PZkCLshZWrOKwAKc=;
+	b=Abj8bLMK3MAs41lF4tKfxJLkHv1evcrLhQGUVgh/qdleXHU/+q+u3xA2DsbY6xb+JZ/C
+	 SiGH+c8fVx6lLLWm02PR6NxuhPCZCyB6kZOYFyZtoGFULRwh+TBqV/9Lbfu2uD+XIVqIx
+	 sKo5cdYtQndsYaEVG6qlgWm6n38LikV7Bm3thhSFkP/hZIZL+1o/eI/qXHJFAYFyHf/5f
+	 aCT+qLrubmNQZrZlTexVnzpBRWS9lkVHj2Bo+ptmKlwv2FGbA/3YTiFddyYpJs2HWkwln
+	 8cgGv/xQdF9yEuQ/AA2kSZrtYkeZSvZuniehwSgQmYS5k+n8/TyVH59lXip66TZQ6jg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QhA6qn3+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.29
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011029.outbound.protection.outlook.com [52.101.52.29])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4706606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4706606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64762606A33B;
+	Tue, 27 Oct 2026 15:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64762606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPJeWiS1
-Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6ddf6877d33so273eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:04:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793113489; x=1793718289; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=idHmBdkYB+pGsb4ciFoRZd8OmfSYmN5C47UdDtDs8Ag=;
-        b=wPJeWiS1MqHh+MC1Qy4nsxftqxqYus959w86RlVdZQnsO5f5oh1Py4MCQS/18WhtEd
-         0MyW9N/02eePu25tCo/xRE/CKd78CcLihtAzPuMGwG5GTLd2t5bpA3h11IW/lPy3mIok
-         AqBcOAXdYKTnTQkFd6jmRfHcFBFnAYfyz1gl6d0E7WYXm5n/xunyXalOQ6FYQS98UWnO
-         aT0ZHLIpjdUJyZiH1YGBU6YQqFiS+j1LkfpeG9eec/AXG4PX0J0CTwIFJOdgCHcRozvm
-         eoHb0vjgdD4ez2rpVTE4jYD1L0OJhJeHM8XY5ixHC5hFR/zlYMlD8GO7fImsjk/R69ez
-         bONA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793113489; x=1793718289;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=idHmBdkYB+pGsb4ciFoRZd8OmfSYmN5C47UdDtDs8Ag=;
-        b=Tv86eU4E2E8XPu+ZSuQWo1zbouBUvxtWVvECiRQGaH5rEA9MitU5kkakisvwdLLAFO
-         /O9zWj5HE9ixtuFzoxBcYuLnAbi0apn9hX1FefjetzP0MWsr8397aUHGtyjI0DiZPHkA
-         tbJ5M1InhAPi114GfCQ0g7vX/jyAiZz5AXK5T5cWBznDVJgLLtU6GswS8wO9vTlMutOf
-         9sEdsmzl9i+I+/ViWxzFrTqLDJ4DMtBSEd5c074/kCX6cqcyQr51ILx2zwesM9LGram8
-         P4LOD70d02qm9RG2ge9UGQ81OfR+PszsRrV6YB+TVwryKDtHzUYU5VnBrwm0stag9unj
-         4d6Q==
-X-Forwarded-Encrypted: i=1; AKwUvByUG/S2KOJOIORBgfXyLDy4xNQUlT1n5DB1WWDbGXOwq+ncLnVudK6bLNjBelKxq0CTOs1io1sRhV8bRV0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+BiCBh/PinnvCcZNZjxSuSuwSc402U36no21tofLdxqxScOYN
-	Ri7MIVIs87z23YWoSZRie2K+h8TZkP0SWPQFug24ZcQK0vxYwI8EmN5I
-X-Gm-Gg: AYBFou2S29BbfOqs6jAmXFqrmFqGkJU4i3En6XHfsay5886rFDmGxlCCZS4i31bi9T3
-	QzLbu93uyOMC/6XLOLWBTiTDeujBrn9uAPM+TpGjYmIBQsdiZu0eWjt6mFZqC/GaK+PQc4Rnijd
-	XMtySxwoRAy2gnt8oRmzKDv0UvtTY4p6JnMJdKjH80zpcvYsbIQtv9rSRzxIpf9Q+2LWd9rYU5G
-	yCeyUfdmmlXpx6RvKsbuAuwOjbnQHyBPlBL1bDGf0VE1wmpxUbmFYnTTIOjKDblfp3Qhyr/glVW
-	yNGe0IBXHeQFrzSrjDQQCc/9KHU3T8w7mnn0Kki4YlhpB6H6T7WklINJ9VuDo/c25Fj4yl/5LPL
-	qZ8TR5ASHex0lK/+ppmV3/Dzn36h0qc/OtcT/6WlcRy9mCfMTF1g+RG10UGnyc1YYpg+EJe8Vv7
-	SD1DoObPE7JXrDAY7DoNRapkUebKi0w68EvFGysKm3Ab5O/r2YuzgrjHCf+wSlzh86+3d36KzE4
-	qNz8MGFE1Du4YLDXCRnit7GU0ev7+KxEY0qX2nI2oJmVNo2gZDQa4eGZXt/YBZiaMsoiBBOTM+H
-	Hhjn63DWd83KwKrB+A==
-X-Received: by 2002:a05:6820:1625:b0:6b4:117e:545 with SMTP id 006d021491bc7-71269638a81mr1504369eaf.13.1793113488681;
-        Tue, 27 Oct 2026 08:04:48 -0700 (PDT)
-Received: from localhost.localdomain ([14.22.11.180])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71278c864b0sm2824416eaf.9.2026.10.27.08.04.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:04:47 -0700 (PDT)
-From: Henry Martin <bsdhenrymartin@gmail.com>
-To: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>
-Cc: linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org,
-	Henry Martin <bsdhenrymartin@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] cifs: fix UAF read of server->hostname in cifs_get_spnego_key()
-Date: Tue, 27 Oct 2026 23:04:38 +0800
-Message-ID: <20261027150438.943354-1-bsdhenrymartin@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QhA6qn3+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kqS6m6nJJD7mEDM3o5+NrmKbrPrPfGiE4ZpN8XTipIygzLDbqbPvzQFHe69kMkxEPaokg8uc3CrP44wwzJ4LFaPgz+W7wnCuf4oTwRxgxdTSZh6jUz/grjWbzaVI+k7WC5KTXWH0n4SzE5camDoFqWtzQuGXlRstkQST85sQpR9I+gZRiUWseqWX28rch4EVNkegFoE0bSXahDHu/w6vrMSUN5ZHZrjc2LTv1W6w24PcOTq0tIqKxnA/cshFGOfxGGH+0zT4A4QyYY07rxgvijIMReW4fcxGMe3s07qO3RBXuZdxvA5gDP2gYpc2DJro9FBykPCEs2nPs/0nN3kuNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EFUBP9r0uhJUC2NosuOfxHervV9PZkCLshZWrOKwAKc=;
+ b=urhniBjyWFo40uXYvm/3rv5IPXanMd83sS8iKHQtljOO30nlGUALPWRFLw6A2xdrsrGK3UA2AkYQ/80LAjwWSmkSJwJ3JF9pm49zXT3Q5rLNjdrNa09np5QvBDygRKcRS1rqeQNBwfObTpZ7PP0Qr9GNnV2wp2hb2XfA+xy9z98tEuuWxSImMpODAUfjUv24RHW4/glxXrnHhn6f9pPkaWOV5Vk3aixrfUcUqR1O9RTXYyAc22A5oVcScUJLRfVvJ+ekHjBX5rq+aJ3fwm20Y3NOBCI2rCR+6h+7eXsOxwpxrvW95YVJ0RVCkFASaOfZcNLW8p4NvVMD0DvPkqsZ/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=microchip.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EFUBP9r0uhJUC2NosuOfxHervV9PZkCLshZWrOKwAKc=;
+ b=QhA6qn3+flj/hEeQjWEhQVl4e6cJ9v/e5Of56y61bFi8XzcmXrORZuiZEzkdFJG0IwPIvme0XsyOPYJkRcLwvX80bZIJ5D4Gc463BhBy4dBBq5Fz/m2D4BbObEcdM2XD/MpkqHXI6vbV+S7i8MrUHLNB42nB4bYAb0j05QKQ/x33CmqI72JKtsJf4rSEsk9sW5bnBYzwXkEHTGwPZ0ijNpm7E6Z9wM1NaM9Ur2+uCEx3m4gDqbegKf1BRIM1zquI8feDqz/lg9ulgYWNs3TFyMzu5p+IBqvdttRKRzj7h8zd0k4SC67se+AgxQ7V5eCETM3Rsv8LrCP/VU5lDth3kQ==
+Received: from BN0PR04CA0018.namprd04.prod.outlook.com (2603:10b6:408:ee::23)
+ by CH8PR12MB9839.namprd12.prod.outlook.com (2603:10b6:610:274::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 15:03:02 +0000
+Received: from BN7PEPF000000A2.namprd04.prod.outlook.com
+ (2603:10b6:408:ee:cafe::ad) by BN0PR04CA0018.outlook.office365.com
+ (2603:10b6:408:ee::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Tue,
+ 27 Oct 2026 15:03:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN7PEPF000000A2.mail.protection.outlook.com (10.167.248.154) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 15:03:02 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 27 Oct
+ 2026 08:02:27 -0700
+Received: from vdi.nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 27 Oct
+ 2026 08:02:24 -0700
+From: Chris Babroski <cbabroski@nvidia.com>
+To: <woojung.huh@microchip.com>
+CC: <Bryan.Whitehead@microchip.com>, <Raju.Lakkaraju@microchip.com>,
+	<UNGLinuxDriver@microchip.com>, <andrew+netdev@lunn.ch>,
+	<cbabroski@nvidia.com>, <davem@davemloft.net>, <davthompson@nvidia.com>,
+	<edumazet@kernel.org>, <kuba@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux@armlinux.org.uk>, <maxime.chevallier@bootlin.com>, <nb@tipi-net.de>,
+	<netdev@vger.kernel.org>, <pabeni@redhat.com>, <richardcochran@gmail.com>
+Subject: RE: [PATCH net-next v1 1/5] net: lan743x: reset DMA channels that fail to stop
+Date: Tue, 27 Oct 2026 11:02:14 -0400
+Message-ID: <20261027150214.565776-1-cbabroski@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <BN7PR11MB283662722179019676EFA167E7642@BN7PR11MB2836.namprd11.prod.outlook.com>
+References: <BN7PR11MB283662722179019676EFA167E7642@BN7PR11MB2836.namprd11.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,59 +116,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A2:EE_|CH8PR12MB9839:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb85af38-4231-4bd4-750f-08df343b65c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|36860700016|23010399003|82310400026|261026140227099003|11063799006|56012099006|261009223027099003|261021135927099003|261022075727099003|10067099003|261022105027099003|22082099003|18002099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	53EuBdx2lFnp1omW+au5F7YDytVkaRbxyw7iRqsBaamvnMklcnfqHdUby6qx5rll2jtZg+pg5dDc2Fb3+zzVfuG8qNWKFiiTnXO6mMTPWfrwu0KVDqcrU/iCjX4aALHg0qvVpcY6mMBZtqJQDlhPKm5Z12FsjdMJ774PfIO9xUYfsrmNzplD3y5Zxje0Nd/4ARwrdT2t1qBk6TrDfqe0JD3XsUdCCgz2Mw4BiaQLfXb5ufCEYhBuenak007np/BM21IqpfKeQrDJ17KSvhgxvLgBzSVNiwTRPCJFJE1gaQCy7A7/thjKhUeHuPoPNKYUNAn7Ee6wSI4C+pUxbql4V3RwCsjFvZxVDnM3fVia+d1+5Tuq3Ni8nXbQGISp3g5xvKiIaWdh3ERc5rBTHgBxrNn7Sa7Qzftwc9+CT1ZAU2Nv06+MmhVbDfl5Q3qi99/EXyH0JHn++dD5Zx6b+RYOTRH8bH9LCxB8amfEyVNhnRQkdAJG20/9Yo/3OpFnPpOdQeGxVtvsFgxcJyaRWi5NGS6m+EOGAaVo3mRz9bsO6NCplPCn7Kk5fQFaUZ+hwSL0NJH6S7qvp7oFgPcKMYM2lrqSUOWCCUy6762nBVo7Ijee/fNYQ+Z8Rx0yNA0foCE9seSEk+b6gj4iQ8Moa6FNnUI6Rd4Y65vyOPmzwAosprM4jcSHC7BftW77lGE0ySanMHjwc2sxPkWCsOskIHj2FA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(23010399003)(82310400026)(261026140227099003)(11063799006)(56012099006)(261009223027099003)(261021135927099003)(261022075727099003)(10067099003)(261022105027099003)(22082099003)(18002099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	642WUIpMtXuMKFI6cGIeTRj0n5I5IUc9gsztNqMawvWvHvSJLlI0zks8HvJ8YtFEJH7fWWh/w6Rfz3cUY4rf6InNeXvLtEjq6XCCoj3O/6Ut2taZPJIdLHN8FFJX20YWckCUnag4rNj1cYekg+ot9m7hiilDCDri43XVG6LyKFXxzAkDjtiMfy/QnyXLvNwejlXfEwchUnXpQkICXBLM3eUVAjzTvdSPEsb5NB5lryWEqUlpDygoFQtYy7T9EE3uQz/q0dcSsExyJVipc6/7kSci2Yla2W7SCaW/6QOELGHLAEJHlmibJfObaL93AlchOyfWg24NcrMzxPz7Wy7gm1vETION3He4N/ZWt9C5XgcvfbEKkgsDyo896WxdxizD84IGlkPJs7TK7yMJBJOGGlmqimN+9feRVdVDuN6aRuDIpffVI76T0F4IIkFi0B3O
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 15:03:02.3315
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb85af38-4231-4bd4-750f-08df343b65c8
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000A2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9839
 
-cifs_get_spnego_key() reads server->hostname without holding
-server->srv_lock (fs/smb/client/cifs_spnego.c):
+Hi Woojung and Nicolai,
 
-    const char *hostname = server->hostname;
-    ...
-    desc_len = ... + strlen(hostname) + ...
-    ...
-    dp += sprintf(dp, "ver=0x%x;host=%s;", ..., hostname);
+> Recommended way of setting TX_SWR_x is after stopping and flushing FCT
+> to avoid in-flight frames during TX DMA reset.
+> 
+> lan743x_dmac_tx_reset() is already called lan743x_tx_open() with
+> proper sequence of initializing FCT at lan743x_netdev_open().
+> 
+> lan743x_reset_work() in the patch 4/5 is doing lan743x_netdev_close(),
+> ... and lan743x_netdev_open(), I think no additional
+> lan743x_dmac_tx_reset() may be needed at failure of
+> lan743x_dmac_tx_wait_till_stopped() in lan743x_tx_close().
+> 
+> Hi Chris,
+> Did you see calling lan743x_dmac_tx_reset() at lan743x_tx_close() is a
+> necessary step in addition to lan743x_dmac_tx_reset() at
+> lan743x_tx_open() when lockup happened?
 
-while the DFS failover path frees and replaces the hostname under
-srv_lock (__reconnect_target_locked(), fs/smb/client/connect.c):
+Thanks for clarifying the reset flow. I did not see that it is
+unnecessary, but is it an issue to leave the DMAC in a started state on
+close if the descriptor ring was freed even though the FIFO is disabled
+after?
 
-    spin_lock(&server->srv_lock);
-    kfree(server->hostname);
-    server->hostname = hostname;
-    spin_unlock(&server->srv_lock);
+I can remove the call to lan743x_dmac_tx_reset() in lan743x_tx_close().
+It sounds like changing the order of lan743x_tx_close() to disable FIFO
+beforehand could also work, but that feels out of scope for this patch
+series.
 
-The read side runs on the kerberos auth path without the lock, so the
-strlen() and the sprintf() can race with the free.
+I also noticed in lan743x_rx_close() the FIFO is already disabled before
+checking DMAC channel state. This means we can leave the call to
+lan743x_dmac_rx_reset() inside lan743x_rx_close() or I can remove it as
+well if you prefer.
 
-Take a stable copy of the hostname under srv_lock at function entry,
-before any use.
-
-This issue was discovered by Tencent CodeBuddy Security.
-
-Fixes: 93d5cb517db3 ("cifs: Add support for failover in cifs_reconnect()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
----
- fs/smb/client/cifs_spnego.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/fs/smb/client/cifs_spnego.c b/fs/smb/client/cifs_spnego.c
-index 44c4072756804..488ddf6df138d 100644
---- a/fs/smb/client/cifs_spnego.c
-+++ b/fs/smb/client/cifs_spnego.c
-@@ -105,7 +105,15 @@ cifs_get_spnego_key(struct cifs_ses *sesInfo,
- 	char *description, *dp;
- 	size_t desc_len;
- 	struct key *spnego_key;
--	const char *hostname = server->hostname;
-+	char hostname[CIFS_NI_MAXHOST + 1];
-+
-+	/* hostname is replaced under srv_lock by the DFS failover path
-+	 * (kfree + new assignment); take a stable copy while holding the
-+	 * lock so strlen()/sprintf() below cannot race with the free.
-+	 */
-+	spin_lock(&server->srv_lock);
-+	strscpy(hostname, server->hostname, sizeof(hostname));
-+	spin_unlock(&server->srv_lock);
- 
- 	/* length of fields (with semicolons): ver=0xyz ip4=ipaddress
- 	   host=hostname sec=mechanism uid=0xFF user=username */
--- 
-2.43.7
+Thanks,
+Chris
