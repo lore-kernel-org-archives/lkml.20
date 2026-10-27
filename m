@@ -1,79 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793060530;
-	b=4Gc6Xw2OE0RQp9T+jODx5Zw+ZTsIdakks/lpWdFpgB8NmVPmL/v8bB1y9UdBzBgaHYOh
-	 LZzGJu4ggiWgxTm1wHdml7PYmHN23mSb1wpIZvr9N/PG97ZBXFxzF6YbibBMlI3vmF0f9
-	 uj4RGgSWDdzsJK5Io6BxFonq7Lfk1YDHtivYu+T6e7peKN3MyIkrsEOwofyIULhgnyd+P
-	 C3sLI698ZN3SED45c5TOljAAdYKa0pU7S9AnJdj9UqeFFjGX/tmSELYnbHq5hWqZX4jwE
-	 owCSIny+7tCqdM9FlWJfbl5/AeIMGehEYik++g2AjbE+gJz8gXXD7OZy+wCkKA+vVnw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793060530;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dj9hHvxNkjYtSpXBGFtHGe77J7NemQ/gBsneJ2zk6X0=;
-	b=pYXtMNaN8dhlKuBNwm46bcKcitJhWCh6TwkEoqSTw7es0/We2w+mdZmxmNpe5vt3w1LD
-	 lFLComRRh9WSeLMm4tqy/FZDelpDVcxsulM9F4HegNj2HyxLQ7/GwF8A5hCY/fKJpy9aE
-	 N7rj2cFbWN4vWn8GI3VJCvzt1Sa38sZs4eieWva1W7WGC4AdAqxfa+eajpGOslM/o4gsK
-	 LADMxOtUxSU5GAFzBKyU29ILA4p8xAKDUGT5CUdSaTAyRznFMXQO50HHx15GU9w+/ay7K
-	 u1U4N4ZGJwa+MfleS9U+40lIcoulpMfMcrjl7E+3KJZvdlRMy9FxHY1WaSMeMNxeLlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQuEHoOJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20094606A31B;
-	Tue, 27 Oct 2026 00:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQuEHoOJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793060529;
-	b=pmXLRoKJk4Kcxsjch1bsOP3li4OGc2B6mEUbuujizWc7Z/bI00ISOMRZh/+q0iQqVyyA
-	 vxByluNHRT7+0cUIknvAVJV4vky0Navu4MdPeIViS5QZ0cdfVJxu+hUrC6lK11RVZg91A
-	 00jSFfnDwSQFrLnVUfSS89PUDQR+tVuMCz5mJ0vcdXw1CVGXg8INXLFvdxjmHHkEnzkqa
-	 dxS3VUxBamA/UBaDDaxdvPEAbxMOXhNYHhwK4c338l8dfbT6mqTov06ruJFzCdGo1LOEY
-	 GWaOnHuCfsnEvcJbMlv1Vmn0V9LVA/iM7YXZV1D1aT6/Blx+fwX6UFVU7xA93glR1ZA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793060529;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dj9hHvxNkjYtSpXBGFtHGe77J7NemQ/gBsneJ2zk6X0=;
-	b=r2zGGJngxToUVKuCrn+e1WUoQRqtjoopoYnqgqBBrKmesG1P+WTN688GFJ3y+V48bany
-	 +MGdEPXZnyOtLzcJNYBTB3Valeom2wiow8ZVEeyzCuM6SHTgzg60GRVf3ol8GedhKpd/7
-	 5uqTz03t7uEPccVp1qdLFstz+EVzXDtPQR6QFI2jwyv215jC25n//mlFV1PTFerhgy0Li
-	 gxPcK8Fy6+Ci+JwR5FPuuDQ1y1pT1D5XOGZWd0XmAphroqstllQ7gxog6Dyc5FVme/ywp
-	 4kOJMSMK6QL0lFTHVydnOw4Pm8uIw0a/gZcHDUkVImqAPL9/Mpqyit9kG/gMuf6sAOg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793060546;
+	b=WTq4x7C07xvJN4+naEMKAEuDK5d9QIRC/+nLddcHDlTaxe8xCc25W72+CLKkB5ykJ/HE
+	 fmQnxbNFycrds7jmYd20fnY8eGOtjslDBHJzGvAxNEIGwVhsCQRWK7Xgc4XBl00VLkX6j
+	 2eQQJuVX3IOWzk0JA8W1iQzAmL2fAwUgUMRIDQcfus7leouKMQ7GgLYyTaTYODXeR8vGq
+	 bYRbi0oYoAn+hIm8WTV0R41vawr0V/vfPEdvesxzAVJCizWuWs0ji1QOPxwOv1+Os3Jc/
+	 GJspmkYlkA/6u3y4Sq2RFQ9u/GnxZ2EDJbw/8PXIoQa2qt85jKSEuGQXrXlpwp3pU2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793060546;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1qBZmfgPT2INlHLC5uDOw8q+VbmsUhEO4KbGb0W1nwg=;
+	b=5jviMDKpdOLwMQSNwliJJSL7/W25bqJrt3JyFUOvBsjP1t+6ZTlMetoOJgK3TD51+xMb
+	 o/stBoXC7EOsqQ4fjeZrK6KL7/fdyK/R3jFDtMieDA9ZKIuy8BOlEXw/dNbHtME0hCwsv
+	 HzT3itjCD6yGqMGDx9WElq/tcOdF2Qn1bA+yhOCwcOkgxp5uTH2a0HFenCqe1ccVnaMyD
+	 xq6trfvoj1F5mPK435CDKxm0tWPGzyOz3ozwlfWQHmG0jY/zzfXc4OnnKjYAWHS4f8l1Y
+	 OsZHPtQGXqexIp/octZNDSM/vgqMv3y13thsOsoC3gBhrw0NoUGNiGuqUO7xvYIKrZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RqVRwstE;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1072B1F01825;
-	Tue, 27 Oct 2026 00:22:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793060529;
-	bh=dj9hHvxNkjYtSpXBGFtHGe77J7NemQ/gBsneJ2zk6X0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=EQuEHoOJrBTqeJZYoBji7j6QC5XEFymna965i+o404L2Qb2A9oRxyfQ+W51PF1vTi
-	 Y3QAyGUfxAXO/4eKghKFs9fPdXDji9Or3cpplzhg5EV+UjhQ6QVUVSHed6gICpFuPQ
-	 eibpUHDjT+rWrvJ7ClIvd2Y2qOffRu/wIwhFMGGJp45J3dcmSPOTM8nY2lhFLLyeZC
-	 RX8k6DowEEpv3Rdbu71Hw8olMtQS3v3tg38HhRQ/rDq03NKlKjMdcXjtBhuwudN8X/
-	 ngEVQcJxgoRZALvX4wkMThPvtZCwtQC09E7OAtwCzAawmR6ZQkKWJiKpqDDKvpnTvl
-	 tExzOMUqh1YWg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9485F44EFB;
-	Tue, 27 Oct 2026 00:22:08 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Mon, 26 Oct 2026 20:22:08 -0400
-Subject: [PATCH] mm/huge_memory: fix deferred split list corruption on
- partial unmap
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47ED1606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47ED1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RqVRwstE
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-181516de561so280161c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:22:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793060544; x=1793665344; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1qBZmfgPT2INlHLC5uDOw8q+VbmsUhEO4KbGb0W1nwg=;
+        b=RqVRwstEk0IAtB01732EcshaanpMY5DypEHX5WxS7yKbFTV8unwaPj7JU2c6j+Kz9S
+         sxMWWcScesjf6lZxo4chZlxpVFqI/t+OpJ4Dsx8s4ar4RN/9Fq5owjyN5hnWrZZ+Ht9w
+         dIQdya0CG3PvNK965IBtrFGG433MIrZh6+W57OYG59ZiQMxSE/Flzj7uM0wP7mRBg9gA
+         EKLLqiTeEzAIW7BxeL1nPIfEEAfMlFLyRXDT6CsYt4FsBOV7BW3IbeV2vCvMNdhh9mmO
+         dwA2I9YAUo6r6XkpMHbg3lpJdKP3U1ab+Yw6useqOybgE4aUUFcIMXuCuXboTAQBhFvs
+         XB8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793060544; x=1793665344;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1qBZmfgPT2INlHLC5uDOw8q+VbmsUhEO4KbGb0W1nwg=;
+        b=biqZhts5LWsPKFpabt870x4mti/J8yTcS8pQpjBYAHkIEJHQSazAgjnoud89WX4EQ2
+         cHd8jh69KqfZJnbFu3HXP/E7nR7pbzj5r9TwiwTOvOXnsDdKyXiK1wtSPH4lIla+q0Ji
+         PFrrw++0Mijzc3pTcI6yp/4YtnjKKkUarBX2UYjkrVb1wxKbt0GEY4CdWAWfBeg1pnk8
+         zM6ROF5+Jz2Ax56zBlSsQoFno0G2j49K9nIMKOaVq0R1eY8dF0ezZJEvz7UIxCk2g5w7
+         XgwvDy4du2Q2exQIgwGt+kkGtveXW2EA4vtg8TN6oAK4uwH2b7MEjjG2p8VaW3dBkSIc
+         yI6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwQII2SvaIq5LybxkCmQFQexUV4cLfR5ZTHlYnhpKcdzYlO49gy0qjR0z7vylpeI3y7PuKCQyFXoiEKm/g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBz4dwyg/Mr3byR/iwHtWQV6KQuD4Z+8tAgszVYPs/PpwY+t2j
+	0EpsJHjoKcGumr1XZOfkFt7MRUpk31DuF4lpD8yryMW/KXG1Q/CS5acP
+X-Gm-Gg: AYBFou31ZDnX/guXB3xtDk6OuQi+oXO1mmQjyfbm1V9YaST88SgZ78wqW9owAFBa08w
+	Yy3h+gWg+zpoFn6zTmn+wmqzSy2m+X+E8ULJKlPTTeLDKGY8Y5YvYMXTUjfImgYC//60SrOBscv
+	jyIB2H0wT4GKTcHGURR+pB1Nf+TaTGCiIoODr2c6F7mfdt3WQpHEe+ZyCr17oMBEnOAdJDjyJKo
+	dSMATH+fNKdK5RqteEaIVp1eeicK3llfmbN9BBF+4LvTwGoBNtXMzcIIe9wkwgtMEf38pnQd5xM
+	x8XEWE8Im1NWJXpRXRvbiTcX+5iVE0VCJ9JMaCxZPinWD+3/WhQD98hqjnrLguzbqyZqWKSWs9U
+	2BgFzL6MKOQCjxNQMMEeHNWN8mF11yC2lr0uOgL4XnSpQSvYtCwl1zESe0EdvgJ8IKjZZXRAiNx
+	t6CiOK+eY50g08gpIdufkwaedBXJ6vSa5ixJQuymcentreubCMNKc0daHM/1i20r3zGgr29D96T
+	oCpT8ImxWfjRaz+x9Viu894X3l7ICbj9wTk/p74kk+rgJNVbIqZNntRlXlQKVkBKt94FcyU55I6
+	Qi2JKEuKbS5egTeLGU2FkzrSES8m
+X-Received: by 2002:a05:701b:240e:b0:182:d0a8:d1a9 with SMTP id a92af1059eb24-1a3bde8faaamr1245749c88.0.1793060544072;
+        Mon, 26 Oct 2026 17:22:24 -0700 (PDT)
+Received: from localhost ([103.204.210.88])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a21bc6cbsm27529598c88.16.2026.10.26.17.22.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 17:22:23 -0700 (PDT)
+From: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+To: error27@gmail.com,
+	dan.carpenter@oracle.com,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+Subject: [PATCH] media: atomisp: Fix memory leak in atomisp_alloc_dis_coef_buf
+Date: Tue, 27 Oct 2026 00:19:40 +0000
+Message-ID: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,122 +100,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261026-thpsplit-careful-v1-1-d357d70fd6f4@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM3QpAQBBGX0Vzbcuun+RV5II1GIltZ0nJuxtcf
- Bfnq3MuYPSEDFV0gceDmLZVQMcR2KldR1TUC4NJTKFlKkyO3UJB2dbjsC8q6U1m0zQ3pUYQzcl
- N55esm59572a04e3AfT9m52FudAAAAA==
-X-Change-ID: 20261026-thpsplit-careful-0d24c335281e
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793060528; l=3512;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=pha4OdGyQ4NhPNP6DwAJZ4oCpNywbxpPmtNX7GrzxYg=;
- b=7VLNDgQ+nZmJUOOibAGbpRr7p9F168Ou6+p4nEc/G93b4pqw8pWPnPlMgvVFQTGz6iyrewo/L
- 4GdrnZhQHbvD4bFiU5sRRUQ/3dA35CBBwyWMP1eXYox+kR2PP+Myazg
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+Free the allocated dvs2_coeff memory if ia_css_dvs2_statistics_allocate
 
-When a THP is partially unmapped while the deferred split shrinker is
-scanning it, the deferred split list can end up corrupted.  With
-CONFIG_DEBUG_LIST, freeing the folio later reports:
+fails to prevent a memory leak in the error path.
 
-  [  523.871401] list_del corruption. prev->next should be ffd40000005e0090, but was ffd4000000500090. (prev=ffd40000005e0090)
-  [  523.871412] WARNING: lib/list_debug.c:62 at __list_del_entry_valid_or_report+0x177/0x220, CPU#0: thpsplit/63
-  ...
-  [  523.900715] Call Trace:
-  [  523.901753]  __list_lru_del+0x5f/0x220
-  [  523.902588]  __folio_unqueue_deferred_split+0x238/0x520
-  ...
-
-Without CONFIG_DEBUG_LIST, the list is left pointing at the folio
-after it has been freed.
-
-Since commit fafaeceb89a5 ("mm: switch deferred split shrinker to
-list_lru"), deferred_split_scan() moves the folios it scans onto a
-private list under the list_lru lock, drops the lock, and then removes
-each folio from that list with list_del_init(), which sets
-entry->next = entry and then entry->prev = entry.  Another task may
-in the meantime partially unmap the same folio and call
-deferred_split_folio(), which queues it only if list_empty() reports
-it as not queued, and list_empty() reads only entry->next.  If that
-happens between the two stores, the folio is queued again, and the
-store to entry->prev that follows breaks the new link:
-
-  Task A (shrinker)                     Task B (partial unmap)
-  -----------------                     ----------------------
-  list_del_init(entry)
-    entry->next = entry
-                                        deferred_split_folio()
-                                          list_empty(entry) is true
-                                          list_add_tail(entry)
-    entry->prev = entry
-    /* overwrites the prev link that
-       list_add_tail() just set */
-
-Use list_del_init_careful() instead.  It sets entry->prev first and
-then entry->next with smp_store_release(), so once list_empty() sees
-the entry as empty, the shrinker has finished writing to it.
-
-The reproducer repeatedly faults in THPs and partially unmaps them
-while the deferred split shrinker, run through
-/proc/sys/vm/drop_caches on the same CPU, is scanning them.  This bug
-was found and replayed using a deterministic hypervisor currently
-under development, but the non-deterministic C reproducer can
-typically trigger it in the 10-500s time range.  With the fix, nothing
-is triggered after 1800 seconds.
-
-Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
 ---
-Reproducer: https://github.com/manitofigh/thpsplit-repro/blob/main/thpsplit.c
----
- mm/huge_memory.c | 6 +++++-
+ drivers/staging/media/atomisp/pci/atomisp_compat_css20.c | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 1e5d68acf62a..f4f7d757a310 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4668,7 +4668,11 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
- 		bool did_split = false;
- 		bool underused = false;
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+index eacd7ee5c050..48196a358ad9 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+@@ -1373,8 +1373,12 @@ int atomisp_alloc_dis_coef_buf(struct atomisp_sub_device *asd)
+ 	/* DIS projections. */
+ 	asd->params.dis_proj_data_valid = false;
+ 	asd->params.dvs_stat = ia_css_dvs2_statistics_allocate(dvs_grid);
+-	if (!asd->params.dvs_stat)
++	if (!asd->params.dvs_stat) {
++		ia_css_dvs2_coefficients_free(asd->params.css_param.dvs2_coeff);
++		asd->params.css_param.dvs2_coeff = NULL;
+ 		return -ENOMEM;
++	}
++
  
--		list_del_init(&folio->_deferred_list);
-+		/*
-+		 * deferred_split_folio() may queue the folio again as soon as
-+		 * list_empty() in __list_lru_add() sees it empty.
-+		 */
-+		list_del_init_careful(&folio->_deferred_list);
- 
- 		if (!folio_test_partially_mapped(folio)) {
- 			/*
-
----
-base-commit: e9011a65d78258901ba123c5f522bef26d29902f
-change-id: 20261026-thpsplit-careful-0d24c335281e
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+ 	asd->params.dvs_hor_proj_bytes =
+ 	    dvs_grid->aligned_height * dvs_grid->aligned_width *
+-- 
+2.53.0
 
