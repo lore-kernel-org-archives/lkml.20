@@ -1,106 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119236;
-	b=NANA3+w/ATsqFHSspr1jn/ii+FDNukKCfp7bL3Om93HvduYuyGP5zhD/0r99mKMdWPO1
-	 aiFM2ruQPlr6xBiJ7+irtpJkoNbNmunRII8Pt3JeaVYoGi3jySr4MExINhDjgRAwU6w5Q
-	 Lb+MTrZtzCNcjbpc97LOmXmO85aeRzMS/xN1zRkVIQS7v0MCxqhtIXURGvJdIVAVjy3lF
-	 RZLNR02eB8cc3aaPVr5x6ZW4eNbJhKy8QMH/K4a26eOBKBo6ej30OjlLusiKwVD3atixU
-	 JdDWIM4LBzmH8Dg3hrC6A6XUNwv9v8LdtMUwGOqorQdiWK7Dn2Ns0UBiUJcv/FF235w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119236;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793119247;
+	b=LHfh16/5Hub76o2uFC+39x08j36D4Rude4FPNPmrKWbi5uTQblnViuT5iPktavkh4UB/
+	 D1C+rpuWWyDggOYD++FG6Eq+0+NZqUX86oFIqqcFb6XcyVdc6d12dCP4aawcLeWt2TRyY
+	 u9AQog17kKGy0z+fJ3m2Z1HaOhRWdA6Wbtcyq4R7E++Y/1ZzMwIorUrmd5Q7Pb+VGSKme
+	 V1BpIpqq4MybiaEjIT8PID2p4MjNfxq7a3/OyXjJo16hGOft8zfZrbkNsp5HKnl+w6Orj
+	 X/MhJdAs9Op/z71dz+GTNtXERK98yy4qxW2LNQp1g/GmLXswD21Yq1qYCaD+AKRJA4A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119247;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=0vGOrY3CisGPc8VMRVO//aXg6OQh93vx7xg6bEqOVs4=;
-	b=lXKHh/WnHiOdnjkNA/VNVxVInKkgmdRbRnIKWJ7NEZAzSL1EmcRzrUxXr2kaXH76x4JP
-	 hwcYrlcu84fAmS1wOvJBrzjzIghGKDaSICsqP2FC4vtN+iJU/Ufefti2cW1vfdGvLxLo9
-	 MkOfapYvzaVrNEhgclSbPl7DdFjJc5eUTU60cW2otf6tpOwTFWaVHM1KBvHTpCC2TF8DI
-	 dRSyVUMVfl3ptnmSGrCowTEGJlrtidwdDY2xeRsN/aiETCCGIeyqRvU1Nl33PNZoLh4Nf
-	 UrXbTLSLWee9ajlI9Fsk3NBrxMv0rLi7oUGa7g22ZzqQfvEn+7CFp/R1ExOMSUVReoQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=B9pgIkEN;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
+	b=3hfW4iFU6VkKaRPGVqfImEhz9UVdRSgsCQN6iKouTCVFaFs5DQTxUW1NgmJqbIgDJGSp
+	 iOXlaQcsb7JqFrH5fLRNDS1SFfKHIVKZLGtNKSzyWfwzryGZEpA4MrV2XfKTwEBcz0qAT
+	 /G9AMJgxzRMvgiIeYcvPGmqMnlX3QTZuLZpPj9gcyWbze/h7geP2AbqQCWyJmXumXDlk5
+	 a+S03ZeaJEhhqOVMCpYpY36/VCMogfRMikw4wPvjKrxUTZTVN7jI9B9dq03V3/L5a2KGU
+	 NYPSJSWJI0OpTKbANcuX/q3IZarN5myMMqm9wrLJMzWBeqLgxNNiQ2uye6HamhvPHeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihnwKcxC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BE2606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:40:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2BE2606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19E8606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B19E8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=B9pgIkEN
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so95884a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:40:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihnwKcxC
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b05bf699easo41480297b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:40:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793119246; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TUC75Hp+W9sZ3WYJkEmREDLNSTw50kDqdeJqUHGsz8pjEYlxJn5TRdhSdvUfC90nVN
+         huRVmJ2bJRuUcDzCUQh1Lg5r1j/+rEj2ZjJBirHExcCFB5MTIQKU2xwln6+drgLgY0rC
+         Sx2ZHVsxaLcpyXjjCkJjCkX4l0dzna61tq+pLc7jdidMOctf7LjgMKMz4QF5Ppv1okv4
+         ptd4Tq0lSh3hwztYZi3coitGQ/WF1UqhRJP3VrvO4OVPNXTqxuqZEIB6N4aq8TuYz3o6
+         Za/cufoe9m0aqhDI4M2Kt0+YzkQxYhmu9OMNA6Xii5RoTmFtWWj8vtc2sHzZeh0DT9ou
+         uJpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
+        fh=oeN0Usw+UafQ4nnOtEuXybZObh/vZ2Hk7NhTGwP0JYI=;
+        b=Ay9mjIGoHJBD3yWIChOWjxsE6KEXflE3sxBm3rQYgQoacO2W59erWDiGrqXwtwwpE5
+         BX0ZrBltTyZBjzqI6bbDUhFb2YpsUvaMVB3swDEctDSkPWBwjUMoSsm6Rwi7MFTHK7Hq
+         b9NM6o3OeDwTZkKgawSgvd034QvelKxHX60Zmw3qFT9FoNsDhaNfsaeaT2JCKpmkwQT1
+         ofDzCIh3KLiQ5YYj1frOrIKexEnQiahkmkB1ifKlVFThjdphyQi8AXrTlLv7kesKpKjH
+         T6mExVWfPEpAdk6bo+MKqy4MZvOk5SQQ09OnNdcQ5arXF2jNyV8DwkyyY4yUS68bOiz9
+         81hA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793119235; x=1793724035; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=0vGOrY3CisGPc8VMRVO//aXg6OQh93vx7xg6bEqOVs4=;
-        b=B9pgIkENP1nZt32P35HL6R0QxS18tatDUdKB8+Mex6frfRryvJ9HnZJ7yNzfYATxhk
-         mTrYNth1sJ7pCfjLGBXbFdbG3yuaxupUx6NbUaEWi/y1Uy1q26SBQQf/tSjOD1IJGvsz
-         l/pr3UYOepZQugq4IDXYNoHxly1ZnTRA2eYRk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119235; x=1793724035;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793119246; x=1793724046; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0vGOrY3CisGPc8VMRVO//aXg6OQh93vx7xg6bEqOVs4=;
-        b=SyY4W399i75HiB6n2VlgXI5haFyCOfc0AnpesJRRN08co9kxHqg/xxUMyuYe/VFVZj
-         aHOpD6IhwD0tehbi9RJY/KpNTGeJxPmb3MKUaSPqaHSulERFfg7+pV6udbnVvVfuq3f3
-         ZTne4igEIYRo7VGm5rPC0Kx4ZhoBGNyX6UAVBM/QABdbZ3EAnYKz6dSpnLmutxAJRUYU
-         RJACTWv5VMkuELN1df6HlTZGqV6GbuJP75Y03NBIkyy+nthhERjGdmbgzxZ5kqgGhfBx
-         TfE3oLiC8cYqvpxKPnqqul4m35g6aKu0X/Kfmt/akpEI9k1aNVECZv90xIfng0VWb5Rk
-         F9ow==
-X-Forwarded-Encrypted: i=1; AKwUvBzE6qIfUweVtMdn3hG2Yn2DwnQlu5S6tVYHbiH0Bcw4YjaZWlo6lkMf7u/9aRGyu5Zd6HxVea6sH7MtgYY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrc7emhhzbYhKyOdndf2MAX4I9baShjh8KTg4omX9Ss8SYGuUp
-	xvH+NEo8uALE7C6qAZJUACtJvYpMXADxjVD1584a8kLlAt/c6esC0LsmAC5k7PLSbVA=
-X-Gm-Gg: AYBFou06CtTr8YG+v3gCLlFuJZkvANDo7+d8ukb/fGsUTVdYRTSuq7VHgRVB+M7F/Jp
-	AvXeL00vS/i+vTUOOyEiYpuzXK5CpJr8B0akDdTmcLKVKsMhA98GnJRjODMGbNdFlfo0S4vUQUF
-	AYSEg2GEPzs8K5rdRtR9eSoUjpbOIVBq0HF5w5IwZOGgdw/gjDrctMNmFWryrnrNuwUWZR9I8TL
-	V3IXN43o54muRPz0sMDjacd/2eOmsvQAL4jeRMmJyRK7/XiWTVuap2pAalLRycrvLmjLw+oiVYx
-	lBNpN8VtAuSOXTSWJlGm3LMPtyj0lwrZkYT+/EqtPzQR6ix1iIg6x6H/Z9MdacVo2wmYtsfF6M2
-	BGq3xYvyFPlFgYHCV1XR+OnIX6Oa1/f901PModF5uJs1gDI3P8Hfs2FM24fSfar4L+U6g0f/8ao
-	pFVtGqkTlWVB9K93xknSSyLnj/MmstR0FRtiziXrhTVzVQHv/ck5vQCxNjJZIhuGw4H2K7hY/h3
-	6MyJUcNLv8NcE0NXl4GT0zzN0t+Pz8/CNrFJFyoWIZojX8be6JTKeGNF22CvydFpl3eoGCQVXWG
-	+hUkOgb9sy7sTmJMbZgO6yb14fF48ZtrgF2bUpqtu8fVU2OV94LwgOP4dDDPc3mevx1+YhtB5pH
-	UUL9OkCAlqH90MIj3ps838NGMyQVbTSIOZmMzqq+zFNYQ8lxTGYgOK3HVms3GLlTkMVMU8fEcpw
-	==
-X-Received: by 2002:a17:90b:528a:b0:3a4:b061:2765 with SMTP id 98e67ed59e1d1-3adead57da9mr8291010a91.15.1793119235223;
-        Tue, 27 Oct 2026 09:40:35 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4066d631sm4569992a91.17.2026.10.27.09.40.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:40:34 -0700 (PDT)
-Date: Wed, 28 Oct 2026 00:40:32 +0800
-From: Chris Down <chris@chrisdown.name>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>,
-	Jeff Xu <jeffxu@chromium.org>, Andrey Vagin <avagin@gmail.com>,
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
-	linux-hardening@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 3/3] selftests/mseal_system_mappings: Test vdso unmap and
- remap
-Message-ID: <auDUAN9xAQRQhnCo@chrisdown.name>
-References: <cover.1793094611.git.chris@chrisdown.name>
- <621847973ba2ec49d0a58e0261da35a9f3a97eda.1793094611.git.chris@chrisdown.name>
- <auC7_5XYr31fimvL@gremlin>
+        bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
+        b=ihnwKcxCTJLEgMsjfIVumhb6S0IfEmdzQwZEYEoTXBg7l0yUs2viibcjKq+iTQidF7
+         O8BcOsQKRMPh7AN3jfl0F2oF53nmB+3HME49sCtOa+NCR0k5I/pOikZg5PMEAHF1m5MB
+         DsCDOtERRjqVO7qZcevvzlSuJm/9UMMioLJ0KaULaLQz73rO6imX9JcHOV9Kl6pzy2RA
+         vwgi5QTkqwNg+tR1HhAf3J5jZH4PXC0cjj9FxDdmzqllqgoik6ahJ+uvCoP+kNlazJwQ
+         43GMbCFUXNmWl7PDNmflZTBVJ0V0UCzZnEa7ewGeG8IsKFI4VvRs3TA3PDS38FpaVmBp
+         Cf/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793119246; x=1793724046;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
+        b=KOBO6nUc/uU7Y8Zx9rGJEErrQze0BKcpn+KrhbG5o7LLYg4HBwp1qQdYcTIs7KJd7b
+         NFxz3ncDQzEVnvRmGKFj5+wEUog8OW4jnafN3bBFXufU8ap9WvBSVmDsBcdyhe+5RSdO
+         65u/CTY/gcCnRebdxY8u8YX7o5Nof8aOo4sVUlUOLDSMip+GLREDnHsfTm0GIPOhfvco
+         GHMuTuMQ4jXnMTBn3qDf9cHlMRpVtUnoL67q7YalQQEsXPzY7eFHoYlo+Z3ayVOQIjJP
+         3MNbJ5iufBNC/nRt0EvZZraBys/wXz1Sr2R0THo5Urqi96I3OskHrAdct1JoDtT1/KfS
+         lS+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzGpfs3y0Q1pK2Q0GFJtuDQKbq12O9Ymu2Ohc6UDb8QaGGnEuFeB5PV4R8ULbhKF6Lpb+TGqiGqtCp1Bt4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIIGKhE3OxqfkymQAgZLmwJLYnFmlFhTbPxvTkri/QIvQRUAni
+	9/I0NSJ0rVrGb/y9agGPH9om7NFJaJuEJ1MzFpDvdB8LhyfD8Z8zBl4HgsUJTXeSby0OjT7r/W7
+	9UEZ05k6avEkD9a7M/grDr2CwMpzHicQ=
+X-Gm-Gg: AYBFou0yvauF2fbVqJa+eEpLIk9umiVBHjwQZayKYOOXUd80pL7Q5J/YZaXt2/N/I8w
+	zJsiiDBYAalxK3Q9aM391TBzSnOkRA0rVuixhBWpn74KiLEiYifPNAR4+4o9wlx40Dhoqax1Rr1
+	qye0wKwq06aAtYexGGGjCfJPSP6fR9tf3s/1lKZKQ2YMOuw6u0qhuRql+P6PO21xC4ngc+NcHze
+	BpQSzmOpLhM+lppHtGd05IdMxryvTdYR3g3XpiVOs2xJsMI/dsRFZunsJqUcUqst70HQixeCiF0
+	uv4OGCCyRe+4pEJz/+KyFPTv71uSW5a+Yy7ssP6QefmLigR1V5OGhlHW/xgcy4jhvN6v6VGMaBk
+	XOPFYca7aalpRiXLu2AG+jOKQrw3SpFUsKwNV
+X-Received: by 2002:a05:690e:21c9:b0:678:151:5218 with SMTP id
+ 956f58d0204a3-67a7bd81c3cmr32130d50.110.1793119245748; Tue, 27 Oct 2026
+ 09:40:45 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,100 +103,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <auC7_5XYr31fimvL@gremlin>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+References: <20261027032609.119226-1-lgs201920130244@gmail.com> <179310015976.2808517.13064510476219400398@kernel.org>
+In-Reply-To: <179310015976.2808517.13064510476219400398@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 28 Oct 2026 00:40:33 +0800
+X-Gm-Features: AclHuK8AK6dZaz6wgjS33W_jF3KCjGoJH6NgyB5biX1dQWpffjnyXhNOXiRNnyU
+Message-ID: <CANUHTR8Ypwpm+Qqmk-fob1=e040rRH5QGTs7gN6MWRKQYyOdCw@mail.gmail.com>
+Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
+To: Lee Jones <lee@kernel.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Mark Brown <broonie@opensource.wolfsonmicro.com>, 
+	Samuel Ortiz <sameo@linux.intel.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>, 
+	linux-omap@vger.kernel.org, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Lorenzo Stoakes (ARM) writes:
->Sorry, in mm we require commit messages. Even for tests :)
+Hi Lee,
 
-Sure thing, I'll add one.
-
->On Tue, Oct 27, 2026 at 07:43:25PM +0800, Chris Down wrote:
->> Signed-off-by: Chris Down <chris@chrisdown.name>
->> ---
->>  .../mseal_system_mappings/sysmap_is_sealed.c  | 92 +++++++++++++++++++
->>  1 file changed, 92 insertions(+)
->>
->> diff --git a/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c b/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c
->> index ea75ad537620..83b4fadfbfe7 100644
->> --- a/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c
->> +++ b/tools/testing/selftests/mseal_system_mappings/sysmap_is_sealed.c
+On Wed, 28 Oct 2026 at 00:26, Lee Jones <lee@kernel.org> wrote:
 >
->Why on earth does 'mseal_system_mappings' have its own directory...??
+> On Tue, 27 Oct 2026, Guangshuo Li wrote:
 >
->Ugh I don't know how I let this stuff go on the original series :/
+> > twl6040_remove() currently removes the regmap IRQ chip before
+> > removing the MFD child devices. This destroys the IRQ mappings
+> > before the child drivers can release their interrupt handlers.
+> >
+> > The parent driver also registers READY and thermal interrupt
+> > handlers using devm_request_threaded_irq(). These handlers are
+> > normally released by device-managed cleanup after remove returns,
+> > when the corresponding IRQ descriptors have already been removed.
+> >
+> > Consequently, free_irq() cannot find the IRQ descriptors and the
+> > allocated struct irqaction objects are not freed. The associated
+> > IRQ threads also cannot be stopped through the normal cleanup path.
+> >
+> > The probe error paths have a similar issue, as they destroy the IRQ
+> > chip before the device-managed IRQ handlers are released.
+> >
+> > Remove the MFD child devices first, then explicitly free the
+> > parent's READY and thermal IRQ handlers using devm_free_irq()
+> > before removing the regmap IRQ chip.
+> >
+> > Also update the probe error paths to release successfully requested
+> > IRQs before destroying their mappings.
+> >
+> > This issue was found by our static analysis tool under development.
+> >
+> > Fixes: ab7edb149c75 ("mfd: twl6040: Convert to use regmap_irq")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> >  drivers/mfd/twl6040.c | 13 +++++++++----
+> >  1 file changed, 9 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/mfd/twl6040.c b/drivers/mfd/twl6040.c
+> > index 562a0f939f6e..7b05d21cd17d 100644
+> > --- a/drivers/mfd/twl6040.c
+> > +++ b/drivers/mfd/twl6040.c
+> > @@ -745,7 +745,7 @@ static int twl6040_probe(struct i2c_client *client)
+> >                                       "twl6040_irq_th", twl6040);
+> >       if (ret) {
+> >               dev_err(twl6040->dev, "Thermal IRQ request failed: %d\n", ret);
+> > -             goto readyirq_err;
+> > +             goto thirq_err;
+> >       }
+> >
+> >       /*
+> > @@ -791,10 +791,14 @@ static int twl6040_probe(struct i2c_client *client)
+> >       ret = mfd_add_devices(&client->dev, -1, twl6040->cells, children,
+> >                             NULL, 0, NULL);
+> >       if (ret)
+> > -             goto readyirq_err;
+> > +             goto mfd_err;
+> >
+> >       return 0;
+> >
+> > +mfd_err:
+> > +     devm_free_irq(twl6040->dev, twl6040->irq_th, twl6040);
+> > +thirq_err:
+> > +     devm_free_irq(twl6040->dev, twl6040->irq_ready, twl6040);
+> >  readyirq_err:
+> >       regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
+> >  gpio_err:
+> > @@ -809,9 +813,10 @@ static void twl6040_remove(struct i2c_client *client)
+> >       if (twl6040->power_count)
+> >               twl6040_power(twl6040, 0);
+> >
+> > -     regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
+> > -
+> >       mfd_remove_devices(&client->dev);
+> > +     devm_free_irq(twl6040->dev, twl6040->irq_th, twl6040);
+> > +     devm_free_irq(twl6040->dev, twl6040->irq_ready, twl6040);
+> > +     regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
 >
->Please, for the love of all that's sacred, move these tests over to
->tools/selftests/mm/. This is an mm feature, for our sins...
+> Why not use more devm_*() handlers?
 >
->You can do the move as a prerequisite patch in the series.
-
-Will do, I'll make the move the first patch.
-
->(And, again, I really do insist on your change doing some cleanup here as
-> well rather than extending this stuff.)
-
-Yep, see my reply to 1/3.
-
->> @@ -10,6 +10,7 @@
->>  #include <unistd.h>
->>  #include <string.h>
->>  #include <stdbool.h>
->> +#include <sys/mman.h>
->>  #include <sys/utsname.h>
->>  #include <zlib.h>
->>
->> @@ -232,4 +233,95 @@ TEST_F(basic, check_sealed)
->>  	EXPECT_EQ(expected, sealed);
->>  };
->>
->> +static bool find_vdso(unsigned long *start, unsigned long *end)
->> +{
->> +	char line[MAX_LINE_LEN];
->> +	bool found = false;
->> +	FILE *maps;
->> +
->> +	maps = fopen("/proc/self/maps", "r");
->> +	if (!maps)
->> +		return false;
->> +
->> +	while (fgets(line, sizeof(line), maps)) {
->> +		if (strstr(line, "[vdso]") &&
->> +		    sscanf(line, "%lx-%lx", start, end) == 2) {
->> +			found = true;
->> +			break;
->> +		}
->> +	}
->> +
->> +	fclose(maps);
->> +	return found;
->> +}
+> devm_regmap_add_irq_chip()
 >
->There's shared code for this kind of thing, please don't duplicate a
->/proc/self/maps thing if unnecessary. Also there's a nicer ioctl interface for
->all this.
+> devm_free* eeks me out.  The point of devm_*() is that it's managed.
 >
->See vm_utils.[ch].
-
-Oh thank you! I will use that.
-
->I mean arguably this is an mremap test that belongs with mremap? I guess
->debatable...
-
-Hmm, I'd lean towards keeping it with the sysmap test, since it's really 
-testing that the seal is enforced on these mappings rather than anything about 
-mremap() itself, but I don't feel strongly if you insist, just let me know.
-
->This all just seems like work that should have been done in the past when this
->feature was proposed, and doesn't depend on your changes at all AFAICT? Maybe I
->missed it though.
+> >       regulator_bulk_disable(TWL6040_NUM_SUPPLIES, twl6040->supplies);
+> >  }
+> > --
+> > 2.43.0
+> >
 >
->Valuable in itself, but probably worth sending separately as a result? Otherwise
->it's a little disconnected from the actual change you're making.
+> --
+> Lee Jones
 
-Yeah, it doesn't depend on it. I can send it separately on top of the move if 
-you like, I just don't like touching things without tests where possible.
+Thanks for your suggestion. I'll look into using devm_*() APIs in v2.
 
-Thanks for the review!
+Would you prefer that I submit the twl6040 and hi655x-pmic fixes as a
+single patch series in v2, or separately?
+
+Best regards,
+Guangshuo Li
