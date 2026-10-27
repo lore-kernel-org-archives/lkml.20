@@ -1,47 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094667;
-	b=zP7bSVS5N7SRDj9eNL2xE4t6TmKRH8cyAKAWh2nzvvBW0XgUPejWE99YBtoDoPfYbNi7
-	 P0NwsXCoHnkPFAmPSMmeWzZfeb7frOiD2q8YHmC3vuS0JVv+u4XxRSQizsmXRyttIWlOm
-	 U4SRt1oTu6GhiwxdLAl2pocZlNBk9WyJN9vTApXTVNCHuI/tcEZZuL9B0k+Aea1UdGSFG
-	 HGJecLJGhGiZ6EKzyhJXJ48iCE2AqGBxt7K+9l+fO4+yyWykyBIANWPJ6NcbvxgRaMSF7
-	 mRrF1QCICP20fBqglnyfu7mm84pAJbkI57DHmfPFn1V6AjIqq3cWVe6cqCfe2AWxF7Q==
+	t=1793094673;
+	b=TCEUy9aLPMdnX1H+np79zaNtO6S8GxOx6t7W7Mm5wauOuSbTOApJ8jf3Fh38wWaWMQJu
+	 o5DdCkUiyR2xwd7WjRg5hnNWw6uz1mTTykA34I2iXil3FywdSTGRRMJeNmOqGkl14oFfx
+	 0UK69s5Fu2juT6U7QsrQRup1vNA1aYbnfkeFEU2xQAgj4jZLfGgw2n82gL9D2cFrLKzjZ
+	 C85nJLp3BGw5Pk2m797RG4jWcWD7kT5XJ4NlIAfOKkN/ZC4sdrr7+Oc0jiK+B6mZEfmIG
+	 gvfxFiCMLfXDA+We8JDS/DYwN7NGm92SDUYyoDSf/5QZhx2i2U3qnNDh8B7a5QEHutw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094667;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094673;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=8zDkY5o07vRgj7ONjSOhjy/y9De5lk+M63GI9HGYSpM=;
-	b=FPYO2/SF68sLAOj9+3SUHpZ2IrxCnuzQH8ttXVt7Ort8/pQ3hYau8p4wZG9vedi6767q
-	 zi/Y07olXk1ixjH+u0aMG6d9+dMrvDeHO0/sVoB3N7LRmDC9NrBh5WAYpM9AIS6BChkND
-	 IQe1Btz8j3lifACaGV3nkLJl0y1HfOc7uf7b+1UowzNnTO9xPrhVudtJgvl7oguoDAtTP
-	 e2F/9LejuDFT+NhBKrcC4Hf/WzAor0yZwz5KvYj8ab4VN+qt1Qa/EnOjI+YoLcwyECGR3
-	 sTfq7AkAtSxGTMceRceEAL/vhH9+N7mPgPnHw+N1DBC5MCZwEHb3zQb4Wk+reVdFwsw==
+	bh=/Iui7zPu8QJA3RmxnGQty59dKNObjBKm8upySczrz4Q=;
+	b=owKQLobapMNkuRz8IZQHv3D7ah1YdwNOZD6wU8dLOU+QUwNtrIqJpecn0a9RNHvudIjc
+	 CWvDbxnS2eWCirGMhUNUtzvYUBvrHfwNWLU15y69Co+ckHuRY+aGFmiS4hcII+vkQcZCA
+	 ig7f8Ks7OqKJllAzNvOY9ePfBKfPuiN+cAg5PClxERxo4PLPfq05CG5GqfDje0QIrEwEz
+	 UozoCqxIkeZ381I2GDz4wM0gpYVetWmcezZUK86mn00/SCpJGVD9NrvWicTHcli+mAqH5
+	 PNJGESl9juKjdTaKbpLpzdGbEMcjfAwtYe0JAhpm8fwn1mBD4wOl6OjkL7PaswRzfPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ExPbIF3/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VioNUpK/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE65606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:51:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06C5606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:51:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExPbIF3/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5241F031EF;
-	Tue, 27 Oct 2026 09:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VioNUpK/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D04E1F031EF
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793094666;
-	bh=8zDkY5o07vRgj7ONjSOhjy/y9De5lk+M63GI9HGYSpM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ExPbIF3/QgmyOpemsHOD0lOeZ/59J7ewh8pOXutB20lBVYY4W4lZSAcoQyIPY1bGx
-	 dUimDUTDPPtt83v1afbJycwVDKQGww5cP3aofRd/IwXMjzr/3fIVJq9U27IKgXsCfg
-	 Lz2nKWbFWvA9+KxdBDOIyi0pnPCtNE4d0lDXRJTAHHrZ9QjvKr/cQvexpJxrHyS5AN
-	 916tZERFYOz9bgRP9rJ+/+uNo7m3xRtAKnLoJTROm951I7O3NRbGrlhdyVOAJohUmh
-	 upYM6MSGwKABZVMBA1CmXczakiVqMvKnMqeCyvLRTbZasGW5VwFlUd7uP8nXfFbVlF
-	 T2rIZVCs/OM4A==
-Message-ID: <81ee2c92-f342-4f7f-aacd-d9558e67a980@kernel.org>
-Date: Tue, 27 Oct 2026 10:33:22 +0100
+	s=k20260515; t=1793094672;
+	bh=/Iui7zPu8QJA3RmxnGQty59dKNObjBKm8upySczrz4Q=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VioNUpK/J5UmltJNCQOJ2haIDjRswQMIRtBqtnld16byc5fxifBNY4w4YWQTjHMri
+	 +GF3mlNLA5eaRmBa0lvBIsV2dZiuBelvPsS6sXuzamJSGXhjbQDW9HHhKTf0aZ94pw
+	 j6VogmSO7ejmBVuSn9vgFBYyhWROuVtMNcjw4awLErISZ1dHnbc6UIQ9TboT2SJZp2
+	 sLeMb8Sy5ST3GHrP7C0sgXUpG/CocjpzW74HnAsW0YPspjOSRqO1jlOcSyhtOx9dxT
+	 oNNAjKQw2nwO+u8yqDN1+CXgtO/nUvuLa39wFTRKte22kmqqwQ/aaOpsdQbO1tg+lI
+	 bpZRecEwIgNfw==
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-677dbe051d4so3402448d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:51:12 -0700 (PDT)
+X-Gm-Message-State: AFq9FYJGp1npOxnpmr2ok2sT1PNa64ltApHEK/zOQlxI4oJ/mQYEdDrX
+	lRDKXiM8jEyt3mVTSgh3hKZpJrfP6HEodusgbAphi2FmccG+LYyHvROUyDRr+MGRhY6YRHrOhJH
+	BPOfQ3DwCDuLUUrE/Puo2n4RD0w8nKJI=
+X-Received: by 2002:a05:690e:b82:b0:66d:28d7:c33b with SMTP id
+ 956f58d0204a3-67a6c56e468mr1319238d50.40.1793094671748; Tue, 27 Oct 2026
+ 02:51:11 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,305 +58,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] mm: memory: fix truncation removing mapped folios
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org
-Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
- pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <d7f009c90b11ded86654885b5ebcb8c9308fa31a.1793067441.git.baolin.wang@linux.alibaba.com>
- <2ba579e8-06fb-41f5-9eb2-f02b2aabe29b@kernel.org>
- <87e32afd-75de-4407-8f0c-fb70b40d5eca@linux.alibaba.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <87e32afd-75de-4407-8f0c-fb70b40d5eca@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261027054740.1148201-1-chizhiling@163.com>
+In-Reply-To: <20261027054740.1148201-1-chizhiling@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 27 Oct 2026 18:50:57 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-W3xJqhcCdGmPvfmdVjsd5Y4BtUq3rDAwLHPodFMaP_g@mail.gmail.com>
+X-Gm-Features: AclHuK_akNj_NgVMQhdJeP82brdHyOSpzi_QEGSFy-4Pi_aOTIgOVcfj-Zrgaxc
+Message-ID: <CAKYAXd-W3xJqhcCdGmPvfmdVjsd5Y4BtUq3rDAwLHPodFMaP_g@mail.gmail.com>
+Subject: Re: [PATCH v2] exfat: drain dirty pages after forced shutdown
+To: Chi Zhiling <chizhiling@163.com>
+Cc: linux-kernel@vger.kernel.org, exfat@lists.linux.dev, 
+	Sungjong Seo <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>, 
+	Chi Zhiling <chizhiling@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/27/26 10:03, Baolin Wang wrote:
-> 
-> 
-> On 10/27/26 5:00 PM, David Hildenbrand (Arm) wrote:
->> On 10/27/26 03:19, Baolin Wang wrote:
->>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
->>> truncating them on production:
->>> "
->>> BUG: Bad page cache in process ...  pfn:...
->>> page dumped because: still mapped when deleted
->>> "
->>>
->>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
->>> branch, and I got the following crash info. From the dump message, we can
->>> see that truncate_inode_folio() is really trying to remove mapped folios,
->>> which is incorrect.
->>>
->>> "
->>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
->>> index:0x3880 pfn:0x191647
->>> [  189.171995] memcg:ffff0000cc073d40
->>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
->>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
->>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
->>> .......
->>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
->>> [  189.172026] ------------[ cut here ]------------
->>> [  189.172027] kernel BUG at mm/filemap.c:155!
->>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
->>> .......
->>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
->>> 7.3.0-rc4+ #277 PREEMPT(lazy)
->>> .......
->>> [  189.183986] Call trace:
->>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
->>> [  189.184391]  __filemap_remove_folio+0x34/0x160
->>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
->>> [  189.184859]  truncate_inode_folio+0x34/0x58
->>> [  189.185087]  shmem_undo_range+0x220/0x658
->>> [  189.185308]  shmem_fallocate+0x2f0/0x470
->>> [  189.185527]  vfs_fallocate+0x128/0x328
->>> ......
->>> [  189.187078]  el0t_64_sync+0x184/0x188
->>> "
->>>
->>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
->>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
->>> MADV_DONTNEED synchronously releases the pagetable page before calling
->>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
->>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
->>> as non-zero. A possible race scenario is as follows:
->>>
->>> CPU 0                           CPU 1
->>> shmem_fallocate                 madvise_dontneed_single_vma
->>>    unmap_mapping_range            .......
->>>    ......
->>>    (filemap_map_pages() remap folios)
->>>                   zap_pte_range
->>>    truncate_inode_folio            zap_empty_pte_table(pmd clear)
->>>      unmap_mapping_folio
->>>      ......
->>>        zap_pmd_range (saw pmd none, skip)
->>>
->>>    filemap_remove_folio
->>>      BUG_ON(folio_mapped)
->>>                                      tlb_flush_rmaps(remove rmaps)
->>>
->>> To fix this issue, we should move the pmd clear operation (via
->>> zap_empty_pte_table())
->>> to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
->>> concurrent zapping, so that when we find a pmd_none() while unmapping a folio
->>> without holding the PTL, the folio's mappings are guaranteed to have been
->>> removed via tlb_flush_rmaps().
->>>
->>> [1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
->>> Reported-by: Ayush Ranjan <ayushr@modal.com>
->>> Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
->>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
->>> madvise(MADV_DONTNEED)")
->>> Acked-by: Qi Zheng <qi.zheng@linux.dev>
->>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>> ---
->>> Changes from v4:
->>>   - Put the pmd_none() check in the 'else if' branch (per David).
->>> Changes from v3:
->>>   - Collect review tags from Qi, Pedro and Lorenzo. Thanks.
->>>   - Update the related comments per Lorenzo.
->>> Changes from v2:
->>>   - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per
->>> David).
->>> Changes from v1:
->>>   - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
->>> ---
->>>   mm/internal.h | 10 ++++++----
->>>   mm/memory.c   | 30 +++++++++++++++---------------
->>>   2 files changed, 21 insertions(+), 19 deletions(-)
->>>
->>> diff --git a/mm/internal.h b/mm/internal.h
->>> index b1b0f29d2216..ffb8eaec90e3 100644
->>> --- a/mm/internal.h
->>> +++ b/mm/internal.h
->>> @@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct
->>> unmap_desc *desc);
->>>   void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
->>>     /**
->>> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
->>> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
->>>    * @mm: The mm_struct.
->>>    * @pmdp: Pointer to the pmd that was found to be pmd_none().
->>>    *
->>>    * When we find a pmd_none() while unmapping a folio without holding the PTL,
->>> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
->>> - * indicate that it's unmapped. Skipping the PMD without synchronization could
->>> - * make folio unmapping code assume that unmapping failed.
->>> + * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
->>> + * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
->>> + * for the table have been removed, but nothing orders the pmd_none() read
->>> + * against later mapcount reads. Skipping the PMD without synchronization
->>> + * could make folio unmapping code assume that unmapping failed.
->>>    *
->>>    * Wait for concurrent zapping to complete by grabbing the PTL.
->>>    */
->>> diff --git a/mm/memory.c b/mm/memory.c
->>> index e911e63ba1ed..d9c54549b85b 100644
->>> --- a/mm/memory.c
->>> +++ b/mm/memory.c
->>> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather
->>> *tlb,
->>>           }
->>>       } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
->>>   +    add_mm_rss_vec(mm, rss);
->>> +    lazy_mmu_mode_disable();
->>> +
->>> +    /* Do the actual TLB flush before dropping ptl */
->>> +    if (force_flush) {
->>> +        tlb_flush_mmu_tlbonly(tlb);
->>> +        tlb_flush_rmaps(tlb, vma);
->>> +    }
->>> +
->>>       /*
->>>        * Fast path: try to hold the pmd lock and unmap the PTE page.
->>>        *
->>> @@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct mmu_gather
->>> *tlb,
->>>        * to hold the pmd lock failed, then we need to recheck all pte entries
->>>        * to ensure they are still none, thereby preventing the pte entries
->>>        * from being repopulated by another thread.
->>> +     *
->>> +     * Clear the PMD after the rmaps for the table have been removed, in case
->>> +     * an incorrect mapcount is observed after unmapping the folio.
->>>        */
->>>       if (can_reclaim_pt && direct_reclaim && addr == end)
->>>           direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
->>> -
->>> -    add_mm_rss_vec(mm, rss);
->>> -    lazy_mmu_mode_disable();
->>> -
->>> -    /* Do the actual TLB flush before dropping ptl */
->>> -    if (force_flush) {
->>> -        tlb_flush_mmu_tlbonly(tlb);
->>> -        tlb_flush_rmaps(tlb, vma);
->>> -    }
->>>       pte_unmap_unlock(start_pte, ptl);
->>>         /*
->>> @@ -2102,12 +2105,9 @@ static inline unsigned long zap_pmd_range(struct
->>> mmu_gather *tlb,
->>>                   continue;
->>>               }
->>>               /* fall through */
->>> -        } else if (details && details->single_folio &&
->>> -               folio_test_pmd_mappable(details->single_folio) &&
->>> -               next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
->>> -            sync_with_folio_pmd_zap(tlb->mm, pmd);
->>> -        }
->>> -        if (pmd_none(*pmd)) {
->>> +        } else if (pmd_none(*pmd)) {
->>> +            if (details && details->single_folio)
->>> +                sync_with_folio_pmd_zap(tlb->mm, pmd);
->>>               addr = next;
->>>               continue;
->>>           }
->>
->>
->>
->> } else if (pmd_none(*pmd) && details && details->single_folio)) {
->>     sync_with_folio_pmd_zap(tlb->mm, pmd);
->> }
->>
->> if (pmd_none(*pmd) {
->>     addr = next;
->>     continue;
->> }
->>
->>
->> Minimal change required, no?
-> 
-> No, keeping two pmd_none() checks cannot fix the race, as I replied before. [1]
-> 
-
-Best to wait to submit new versions if there are open discussions? Because now
-we have the same discussion in two places.
-
-I think you're right about the race, the issue is that we check for
-pmd_is_huge(), not pmd_present() which confused me.
-
-Clearest to me would be to not drop the second pmd_none() check but move it
-where it belongs: if splitting zapped the PMD.
-
-@@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_range(struct
-mmu_gather *tlb,
-                                addr = next;
-                                continue;
-                        }
-+                       /* We already synchronized with concurrent zapping. */
-+                       if (pmd_none(*pmd)) {
-+                               addr = next;
-+                               continue;
-+                       }
-                        /* fall through */
--               } else if (details && details->single_folio &&
--                          folio_test_pmd_mappable(details->single_folio) &&
--                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
--                       sync_with_folio_pmd_zap(tlb->mm, pmd);
--               }
--               if (pmd_none(*pmd)) {
-+               } else if (pmd_none(*pmd)) {
-+                       if (details && details->single_folio)
-+                               sync_with_folio_pmd_zap(tlb->mm, pmd);
-                        addr = next;
-                        continue;
-                }
-
-Removing the "if (pmd_none(*pmd)) {" in your variant is what confused me,
-because it looks like we no longer happen the case where we zapped the PMD
-ourselves.
-
--- 
-Cheers,
-
-David
+On Tue, Oct 27, 2026 at 2:47=E2=80=AFPM Chi Zhiling <chizhiling@163.com> wr=
+ote:
+>
+> From: Chi Zhiling <chizhiling@kylinos.cn>
+>
+> A forced shutdown sets EXFAT_FLAGS_SHUTDOWN, after which
+> exfat_writepages() returns -EIO.  Pages dirtied before the shutdown can
+> then never be written back, so a writer throttled in
+> balance_dirty_pages() while extending valid_size sleeps forever.
+>
+> Stuck stack:
+>   balance_dirty_pages+0x4f0/0xb40
+>   exfat_prepare_valid_range+0x43/0x140
+>   exfat_file_write_iter+0x413/0x520
+>   iter_file_splice_write+0x32d/0x5a0
+>   direct_splice_actor+0x51/0x270
+>   splice_direct_to_actor+0xf5/0x270
+>   do_splice_direct+0x76/0xc0
+>   vfs_copy_file_range+0x244/0x710
+>   __do_sys_copy_file_range+0xe6/0x240
+>   do_syscall_64+0x106/0x5f0
+>   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>
+> Do not reject writeback up front.  Reject it per folio from
+> ->writeback_range() instead: iomap then ends writeback and clears the
+> dirty state without issuing I/O, which lets the dirty limits drain and
+> unblocks the writer.
+>
+> Write syscalls and page faults are still rejected in
+> exfat_file_write_iter() and exfat_page_mkwrite().  A write that is
+> already in progress may continue to dirty folios; writeback retires
+> them without I/O as described above.
+>
+> Fixes: f761fcdd289d0 ("exfat: Implement sops->shutdown and ioctl")
+> Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
+Applied it to #dev.
+Thanks!
