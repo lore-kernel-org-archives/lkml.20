@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094915;
-	b=c9v0KUa52RrZmxERioxZKo4HEdJm1wexopHSqM17LJCV8MORqc798WqgTeHPP8LKMfWO
-	 HeKY5dBX5XzHL5t+CMm4E+G0Vj392vdZF8JZa2WuqzqtlbE8ZCDLfdDu+SuNw21o+NElR
-	 n8+cyrZEWRNg8Wu7ShCUTznYT6myOLuH9haoCqBg5ZEYhr3XS50WVj+LyMttvfNP+y8Xl
-	 RVE4S30KomjLYvGMHYitlDfVWGCdVpIjwKC1xd+OOAyyJ2GdtX2HPmHpUCNjbbtT8dcA6
-	 CLjQrQ8yuYrTeq/raltFrXm3YWIhx5TCC1AYRen9en2KFB7K/nW7+tPYJqDrNIwkPhg==
+	t=1793094930;
+	b=yopsbTdDGAvas47IMVTTQD4zb0RqSvZJ/hQh6Tng/NJzX6zqkii+6AVooQud/N1U6bKm
+	 IdS93BK0X0rK55UcygxY8E/1dPJoG+OppL1F5fQWZQSRbgTLq2uz/5avXQI20eJSB7G2H
+	 4sc2EWQQpmhaI/TmojvYVTtvBj4+S6Ts0/ZKBeOBT/c6FmsM9sQShhQ6fi7Bp4vz3LZ8E
+	 2XkYW4TY/9OwXLZj1LfV44/W37zos/NfVVxZJTnVbQgFDkMG0M4SB65Xwh3Aga9HS4g2F
+	 M0RqjcyPPyyNd/8HStkAVpFXujHmf3SNK7xnCf+qdBrIz0+Sg2noO/EbTRDhfLpmKjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094915;
-	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7XFJ7wvqPCgNFFCKH1RgMpmXMwr2z/TBkHELQDADOQg=;
-	b=mEOu2m7n3aArdMF14kyDaxvS7vCbOGC+QbZrmCsCeowdKifbT6/pG0PynvMlHlWD/3jL
-	 R7dx2QW5Pxrh6SJAr10rmtNpb436cJnJMZvfhaCdQyViSyWjO3L4FUREuyV3iN/Ym6tk4
-	 7yvoEV+UAkgYM8aRFe46Y81AGtU2ysihvpDiFzyTEW0xl/q3HY3ml/tD4n32t0VO+weBr
-	 +j7NqsRzBZNMN/l6eNBR8Fu2aly9Wj1la7HGuGDOIkhiw/+IeJ24U7211+QnkLllVLQub
-	 EDMmkbfhEB5HtXaUKPnJLLDNiK0tcRrOMmBMtLpgR3QelU/0ki+aa1UWcrmZ4XKTZoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793094930;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Gq4Dew7AOEXeJiD0yyOgJBKqXm1njeggbkIEMuUJOlU=;
+	b=f83tfQ1y+gpv7NFxE8r9CwkC6tYd1JZWJd/2GblbvvXFshUY3lcHSHTzYj7n6nw0ymp7
+	 9HBqM2ulLx0eOUeWTdEjLmvXPYpz1ZKQ6S+uRRM93PV5AOvUJDw/gLnEGH5u89F3OT+nM
+	 2qEopvftO2tNknEHFW4aIC1cd5JerTSSR2MYKU4Q1weIwK2MBbFIey8LIgVAn4x45ZFvJ
+	 rifUWa0up030FgeBfX/XuC9exN3PhuP2oaogYmG+JoUnJogYHg9ifxo/DuK5cwVsSJ9ut
+	 1ldBlTAisPyRBaNXuGvxtIpX/cyTJAidDdrRzp6XO4p2K44T17Zn+iEdl2TdVEB+WRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDB8jj6C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B3B606A31B;
-	Tue, 27 Oct 2026 09:55:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31B3B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>, Jamal Hadi Salim
- <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Jonas =?utf-8?Q?K=C3=B6ppeler?=
- <j.koeppeler@tu-berlin.de>, Shubhang
- Kaushik <shubhang@os.amperecomputing.com>, "Christoph Lameter (Ampere)"
- <cl@gentwo.org>
-Cc: cake@lists.bufferbloat.net, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Subject: Re: [PATCH v2] net/sched: sch_cake: skip redundant cake_mq rate
- updates
-In-Reply-To: <20261026-net_sched_sch_cake-v2-1-cb1d4e6ed990@gentwo.org>
-References: <20261026-net_sched_sch_cake-v2-1-cb1d4e6ed990@gentwo.org>
-Date: Tue, 27 Oct 2026 10:55:03 +0100
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <8733trpix4.fsf@toke.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCFC606A31A;
+	Tue, 27 Oct 2026 09:55:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDB8jj6C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99431F01828;
+	Tue, 27 Oct 2026 09:55:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793094929;
+	bh=Gq4Dew7AOEXeJiD0yyOgJBKqXm1njeggbkIEMuUJOlU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hDB8jj6CU/U6aKsWQehhHrpC18ldQlA1cCqGxirLKarRTPmzm0Dqot2AaqOIsRfJZ
+	 IoF2ONn0zZ7CTn6z8qbfKTzEyi6U1HH4PZkSFreo9ThowzHDhRzMvKgWLmwm4L7WDK
+	 HM/mre8dDlPH5orFwTJzhCZAGnMFht5ijBRMWRchdPnYIlgFHyVM8GTC6CxKXBrCOS
+	 5IxyaX2N1ZCpTBVezrnJGQmiAyK774fCvEZRxgt2QjZaG954Skd69iXoFRDFnAwLyV
+	 x6KcoSQaej2hEg+FFU4NjTRsX88pOEdeDFS7ugjSeJylzWcTNn8yKUOxukXy1QolGE
+	 u/1my15e+7pKA==
+Date: Tue, 27 Oct 2026 10:55:25 +0100
+From: Andi Shyti <andi.shyti@kernel.org>
+To: "Dustin L. Howett" <dustin@howett.net>
+Cc: Till Harbaum <till@harbaum.org>, Whinis <whinis@whinis.com>, 
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c-tiny-usb: add support for the Oops Electronics SFP
+ Media Buddy
+Message-ID: <at_f_xNsyM3IyUo1@zenone.zhora.eu>
+References: <20261017-i2c-oops-electronics-v1-1-ce960f8f1b7a@howett.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,56 +59,73 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261017-i2c-oops-electronics-v1-1-ce960f8f1b7a@howett.net>
 
-"Shubhang Kaushik (Ampere)" <sh@gentwo.org> writes:
+Hi Dustin,
 
-> cake_mq periodically counts active child qdiscs in cake_dequeue() and
-> derives an effective per-child shaper rate. cake_dequeue() currently
-> reconfigures every tin after each scan, even when that effective rate
-> is unchanged.
->
-> The dequeue-time call chain is:
->
->   cake_dequeue()
->     -> cake_configure_rates(..., true)
->       -> cake_config_*()
->         -> cake_set_rate()
->
-> With rate_adjust=3Dtrue, cake_set_rate() only refreshes rate-derived
-> state. Tin 0 records the unscaled rate argument in every supported
-> CAKE tin mode, so its installed rate identifies whether this call chain
-> would change any state.
->
-> Skip the reconfiguration when the effective rate is already installed,
-> while continuing to update the activity-sampling timestamp and
-> active-queue statistic.
->
-> Fixes: 1bddd758bac2 ("net/sched: sch_cake: share shaper state across sub-=
-instances of cake_mq")
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+On Sat, Oct 17, 2026 at 12:56:04PM -0500, Dustin L. Howett wrote:
+> The Oops Electronics "SFP Media Buddy" is an open-source USB device that
+> provides i2c access, among other things, to a SFP+ network module.
+> 
+> It exposes a vendor protocol which is compatible with the i2c-tiny-usb
+> kernel module. Due to a bug in prior firmware versions, that protocol
+> can only be used with devices reporting bcdDevice >= 0x0101[^2].
+> 
+> [^1]: https://oopselectronics.com/product/SFPB and
+>       https://gitlab.whinis.com/oops-electronics/sfp-media-buddy
+> 
+> [^2]: Devices without the fix will crash and drop off the bus when this
+>       module is loaded, which prevents them from being updated.
+> 
 > ---
-> Tested on an 80-core SMP, non-SMT Ampere Altra system (aarch64)
-> The test used a 32-TX-queue veth pair, with cake_mq
-> bandwidth 2gbit on the transmit side and the peer in a network
-> namespace. The workload was:
->
->   iperf3 -c 198.18.0.2 -P 32 -t 30
->
-> Validation against mainline commit a32e63a613aa80, the patched kernel
-> reduced cake_configure_rates() calls by 99.99% (2,477,627 to 206) and
-> aggregate helper time by 99.986% (3.477 s to 0.498 ms), while retaining
-> approximately 1.91 Gbit/s aggregate throughput (baseline:
-> 1.91-1.92 Gbit/s). A separate per-child trace observed no
-> same-effective-rate calls on the patched kernel (@unchanged: 0).
-> Changing cake_mq bandwidth from 2Gbit to 1Gbit and back invoked
-> cake_configure_rates() 64 times, matching all 32 child CAKE qdiscs
-> updated for each of the two control-plane changes.
->
-> Changes in v2:
->   - Drop READ_ONCE() as suggested by Jonas K=C3=B6ppeler.
->
-> Link to v1: https://lore.kernel.org/r/20261025-net_sched_sch_cake-v1-1-51=
-65c924a590@gentwo.org
+> Signed-off-by: Dustin L. Howett <dustin@howett.net>
 
-Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@toke.dk>
+the tags shouldn't be placed under the '---' otherwise won't
+appear in the commit log.
+
+> ---
+>  drivers/i2c/busses/i2c-tiny-usb.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/i2c/busses/i2c-tiny-usb.c b/drivers/i2c/busses/i2c-tiny-usb.c
+> index 73355a56aabf..92a2633a028e 100644
+> --- a/drivers/i2c/busses/i2c-tiny-usb.c
+> +++ b/drivers/i2c/busses/i2c-tiny-usb.c
+> @@ -162,6 +162,15 @@ static const struct i2c_algorithm usb_algorithm = {
+>  static const struct usb_device_id i2c_tiny_usb_table[] = {
+>  	{ USB_DEVICE(0x0403, 0xc631) },   /* FTDI */
+>  	{ USB_DEVICE(0x1c40, 0x0534) },   /* EZPrototypes */
+> +	{
+> +		/* OopsElectronics SFP Media Buddy v1.01+ */
+> +		.match_flags = USB_DEVICE_ID_MATCH_VENDOR |
+> +			USB_DEVICE_ID_MATCH_PRODUCT | USB_DEVICE_ID_MATCH_DEV_LO,
+> +		.idVendor = 0xc2f9,
+> +		.idProduct = 0x0004,
+> +		.bcdDevice_lo = 0x0101
+
+I would also use:
+
+		.bInterfaceClass = USB_CLASS_VENDOR_SPEC,
+
+so that i2c-tiny-usb cannot claim the device’s HID interface
+(check the i2c_tiny_usb_probe() function).
+
+Thanks,
+Andi
+
+> +	},
+> +
+>  	{ }                               /* Terminating entry */
+>  };
+>  
+> 
+> ---
+> base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+> change-id: 20261017-i2c-oops-electronics-5dd3659782da
+> 
+> Best regards,
+> --  
+> Dustin L. Howett <dustin@howett.net>
+> 
