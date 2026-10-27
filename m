@@ -1,54 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118547;
-	b=V9CuEg2HS2k8tQMRAPF/zJSdSgeTxMYoHzR01BMilS/Bqey4rVp/bzajNyObWqSMRxGi
-	 8OfTpkZ7ScM4GgkucB8uEbtG6Wf1pC6et3l/fZat54TAJmZVkHyBToOm4zixtBfq4fvt9
-	 Zg2WRwGj4NgZ9sdohScBIkvg8lkQJd8aSMkRmUizN8khuu1FwuAH3OfE1mFzp0JKEOSWR
-	 Puwj9eiUTllroY/m6F5UhvZT8/+Ri0RRjsTrHShNfhhfGRQ/+v6FzJwEDke4bsTN6Nlmx
-	 eGLUL3TkwujKgGXg79dAt/JRdVHW2uNYPypUKi7vHXTuaFAx47Zi3FSkc7rpj3yOEdg==
+	t=1793118574;
+	b=Pg9pRwBWZ/yKVCnYAK3Ln+YrQ6h2HuiwtcZfAJIos4L3htXx5vaI2J4PN3jw0azYLx4r
+	 zwlV1Gu/aT/Qf6es6xRd0vFjNADQEjKLHN0rdWO8bazpXvVhtTgGIhrZQfuf/xUgeh7B0
+	 R+RvIYI206l3PW0OvNCLyU3LjeTgIamBZadDy5vNC2qY5bVNy9EvcXSpdxlf18Olsamc3
+	 M4nq+DrnrdqhlOXl8EC0+5hTvpGDMO2m+ZGZdqZYiLs+JMJK29DEBr99cI2TjkKFwWdF/
+	 piQeoPKDGif9XbmUVDf6UkN7gkJ+Im06mLbZ3Sflfy9J1MapP5aG8NmYqdwdQBLOo/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118547;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Lines:X-Developer-Signature:X-Developer-Key:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=N7DaWZuwNR7U+Isl9V7dlYE6u1f8J3FLeM/+jDGgvHg=;
-	b=soAd363+jWRetv18byUzR2B11XKA00A8pFekDd7CtBzlFLh3uKVJ/RngHlui7tx88HKo
-	 j7ulbLtnyk7RjpTl3JXyKKjHXJPYqe+W67KRWouVH4NUPfPB212fQCPhmzD/DuEQMd3KO
-	 cDMXgwt1pSYfCD84rn5SR9DWizHWudA6RWsbt4W17o8hjhWZKWHkmrtAtbFDQGuamZ53l
-	 412Tr9ei6DIA8rJi7ZVmJmQIKo7NEbfEd5RVgSyFriDRcX6wkeP4URcbAQdwUn4QbmyDG
-	 N6VQz9pZAgxfwLI4paO94cGORV0gVBVo9XU4XTn3dUT21XlzQ7nzUaSC0nYZK6SO1Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118574;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kAcnFFHoGCaLIkdfu6vQlgxivqnlgRGe6B2VS1ojrEM=;
+	b=39fsP0O5OClAF5qPLhbDDAr/OmBo+56QG+5FHfgeUQ4vwjePrWTF/KgYsLUqMi0pKGrU
+	 oW9Y9F1Qajggy/ZhrXuhANpCbzA5FYTyhMBNir/3n397Nctk70sH7PTHIbq/XlEWy6prg
+	 5pzfC6tYKwq/KIzg+yeN6+qzfRzBjDP2ddHnBQ4vgmAWr5troopSVIMw/yi4MWcSOKTR2
+	 SvYYIC5mJYxa5z5GjVYS7sZSNIXv20vxRmJJxBwvf6gMXwxIdN2n5RiPuFwWxiN5NFsK+
+	 tjXyGKMzIIoE9ft+IMOiBL4gdHYPeFCPV9na4SiNbBkR7frVwJ3IbSZHQGGnu+chqgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zlR7V3o6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bbsz9qDk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D12606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:29:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2751B606A31B;
+	Tue, 27 Oct 2026 16:29:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zlR7V3o6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47EAF1F01825;
-	Tue, 27 Oct 2026 16:29:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793118546;
-	bh=N7DaWZuwNR7U+Isl9V7dlYE6u1f8J3FLeM/+jDGgvHg=;
-	h=From:To:Cc:Subject:Date;
-	b=zlR7V3o6ST6I+yYgrjjINv8QcoI42uoE8ZAjXsntDZKkJhSvI+66U4p0pJvVXP2L3
-	 DqT6VOevjsV+bj+CFRSVx+gud1XFoTNKP+wZsOoFZ5NdYNvfHqkjrI/aKf2HmHoskD
-	 0+ibRCLmIbB+LxLVovbRlcoH6XcneFI67bd/sReM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: dpenkler@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>,
-	=?UTF-8?q?Dominik=20Karol=20Pi=C4=85tkowski?= <dominik.karol.piatkowski@protonmail.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH] gpib: tnt4882: set iobase for the ISA and PCMCIA boards
-Date: Tue, 27 Oct 2026 17:29:03 +0100
-Message-ID: <2026102704-deletion-handcart-ee29@gregkh>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bbsz9qDk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F061F01828;
+	Tue, 27 Oct 2026 16:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793118573;
+	bh=kAcnFFHoGCaLIkdfu6vQlgxivqnlgRGe6B2VS1ojrEM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bbsz9qDkyDs8H77dSEWFVVoSrMeEk+WXm5r3OPWiNyeYoBpxmsOCn5CmGtRqVetHo
+	 mcFkRLPNplY4m3ig1H1ERqm+PaSGY5Qy91L8YocM14s/zdxHBU39CJJs+LR0NjqRUy
+	 HYaZ+qVnsrkUB90AOxXitaTHRIDzbW2nZQKAt2axcvSGr90/Ecy4aiZxxfFFZPczPN
+	 a6bkSOpR33GdMYXlejOZDAznosukKn1HJsw8fzq1fezE3Gnm3ptrKyXX0qKJZIsYvz
+	 +AJX6Eljxg3TrZYEEkkyIT2+mZGLlRxnvv9SjcB2Q0e4+EvEqvROnMfyR4IutR6Tvb
+	 hVXHbkO+pwc3A==
+Date: Tue, 27 Oct 2026 16:29:21 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Barry Song <baohua@kernel.org>, Hongru Zhang <zhanghongru06@gmail.com>, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	surenb@google.com, david@kernel.org, liam@infradead.org, mhocko@suse.com, 
+	rppt@kernel.org, shakeel.butt@linux.dev, vbabka@kernel.org, zhaonanzhe@xiaomi.com, 
+	linux@armlinux.org.uk, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+	linux-arm-kernel@lists.infradead.org, chenhuacai@kernel.org, kernel@xen0n.name, 
+	loongarch@lists.linux.dev, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
+	chleroy@kernel.org, linuxppc-dev@lists.ozlabs.org, pjw@kernel.org, 
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+	linux-riscv@lists.infradead.org, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com, 
+	hca@linux.ibm.com, gor@linux.ibm.com, borntraeger@linux.ibm.com, 
+	svens@linux.ibm.com, linux-s390@vger.kernel.org, dave.hansen@linux.intel.com, 
+	luto@kernel.org, peterz@infradead.org, tglx@kernel.org, mingo@redhat.com, 
+	bp@alien8.de, x86@kernel.org, hpa@zytor.com, 
+	Hongru Zhang <zhanghongru@xiaomi.com>
+Subject: Re: [PATCH v6] mm: retry page faults once under the per-VMA lock
+Message-ID: <auDRAEofBdqZy36y@gremlin>
+References: <20260911025613.1220845-1-zhanghongru@xiaomi.com>
+ <arFYRAa-i7CIwmHL@gremlin>
+ <arF-E3Nsw9ZliH0t@casper.infradead.org>
+ <arI_w2wTfA00Mgy9@gremlin>
+ <armexcXDiG8ryZd6@casper.infradead.org>
+ <CAGsJ_4xuFi7K+crAcFQ998SxXS0xPM6QeA34JV+6+Sy005rXLg@mail.gmail.com>
+ <ar7MsOb6IJLt4eLo@casper.infradead.org>
+ <ar-o1TrOMGrrcxLX@gremlin>
+ <ataDTEZIKOYtwhUF@casper.infradead.org>
+ <auDGPs8jzC-90-_y@gremlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,111 +78,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4261; i=gregkh@linuxfoundation.org; h=from:subject:message-id; bh=vKdSMGihiwz2ohQazYZkhKrk5K35JnKtJ86qkNU92Bo=; b=owGbwMvMwCRo6H6F97bub03G02pJDFkPLgacNj3x6NjUtbflLz1KXLLL9pZIRY7I20s8UpN2V WjffXN8UkcsC4MgE4OsmCLLl208R/dXHFL0MrQ9DTOHlQlkCAMXpwBM5LktwzwtRQl2jVzeT4wH C1leya9bZhivV8+w4GbOY+mPvgsqN5R01iXb75DjYnoTCQA=
-X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp; fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auDGPs8jzC-90-_y@gremlin>
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Tue, Oct 27, 2026 at 04:26:39PM +0000, Lorenzo Stoakes (ARM) wrote:
+>
+> Thread A (Parent)          | Thread B (Parent)       | Thread C (Parent)
+> ---------------------------|-------------------------|----------------------
+> < Fork >                   |                         | < has TLB entry >
+> copy_present_ptes()        | < no TLB entry >        |
+>   wrprotect parent page X  |                         |
+>   -> 2 mappings, refs      | *ptr = x                |
+>                            | < Page fault >          |
+>                            | do_wp_page()            |
+>                            |   < shared, so CoW >    |
+>                            |   wp_page_copy()        |
+>                            |     copy X -> new pg N  |
+>                            |                         | *ptr = x;
+>                            |                         | [ OOPS! stale TLB,
+>                            |                         |   lands in X not N ]
+>                            |     ptep_clear_flush()  |
+>                            |       < TLB flush >     |
+>                            |     parent PTE -> N     |
+>                            |     [ X now child-only ]|
+>                            |                         | ASSERT(*ptr == x);
+> flush_tlb_mm(oldmm)        |                         | // fails! N lacks x
+>   < far too late >         |                         |
+>
 
-The fix for the address space mixup split nec7210_priv.iobase, which was
-used for port numbers and for __iomem cookies alike, into iobase and
-mmiobase. In ni_isa_attach_common() and ni_pcmcia_attach() the result of
-ioport_map() now goes to mmiobase, as it should, but nothing assigns iobase
-any more. It stays 0, and three users still rely on it:
+Sigh, I drew this entirely manually, then had the LLM overlords 'correct' it,
+but it also made it less clear :).
 
- - Both functions install nec7210_locking_ioport_read_byte() and
-   nec7210_locking_ioport_write_byte() as the register accessors of the
-   nec7210 library. They do inb() and outb() on iobase + register, that is
-   on ports 0x00 to 0x0e, which belong to the first DMA controller.
- - Both detach functions call release_region() only if iobase is set. The
-   region is never released, so the board cannot be put online a second
-   time: request_region() fails with -EBUSY until the next boot.
- - Both detach functions reset the board only if iobase is set.
+Thread C ends up writing to what-becomes-the-child-page X, whereas the parent
+ends up with page N after CoW.
 
-Store the port number. The reset uses mmiobase as well, so make it depend
-on that one, and do it in ni_pcmcia_detach() before the interrupt is freed
-and the ports are unmapped, as ni_isa_detach() does. The PCMCIA variant
-requests the whole I/O window of the card but releases a fixed 32 bytes:
-remember the size.
+So a thread in the parent writes to a page of ordinary memory and then it
+disappears under them, and the child ends up with corruption in their page.
 
-Fixes: baf8855c9160 ("staging: gpib: fix address space mixup")
-Cc: stable <stable@kernel.org>
-Cc: Dave Penkler <dpenkler@gmail.com>
-Cc: "Dominik Karol Piątkowski" <dominik.karol.piatkowski@protonmail.com>
-Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpib/tnt4882/tnt4882_gpib.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpib/tnt4882/tnt4882_gpib.c b/drivers/gpib/tnt4882/tnt4882_gpib.c
-index 3cd13f637ed4..3f30812866ca 100644
---- a/drivers/gpib/tnt4882/tnt4882_gpib.c
-+++ b/drivers/gpib/tnt4882/tnt4882_gpib.c
-@@ -46,6 +46,7 @@ struct tnt4882_priv {
- 	struct mite_struct *mite;
- 	struct pnp_dev *pnp_dev;
- 	unsigned int irq;
-+	unsigned int iosize;	// size of the PCMCIA I/O window
- 	unsigned short imr0_bits;
- 	unsigned short imr3_bits;
- 	unsigned short auxg_bits;	// bits written to auxiliary register G
-@@ -1066,6 +1067,7 @@ static int ni_isa_attach_common(struct gpib_board *board, const struct gpib_boar
- 	// allocate ioports
- 	if (!request_region(iobase, atgpib_iosize, "atgpib"))
- 		return -EBUSY;
-+	nec_priv->iobase = iobase;
- 
- 	nec_priv->mmiobase = ioport_map(iobase, atgpib_iosize);
- 	if (!nec_priv->mmiobase)
-@@ -1106,7 +1108,7 @@ static void ni_isa_detach(struct gpib_board *board)
- 
- 	if (tnt_priv) {
- 		nec_priv = &tnt_priv->nec7210_priv;
--		if (nec_priv->iobase)
-+		if (nec_priv->mmiobase)
- 			tnt4882_board_reset(tnt_priv, board);
- 		if (tnt_priv->irq)
- 			free_irq(tnt_priv->irq, board);
-@@ -1708,8 +1710,6 @@ static void __exit exit_ni_gpib_cs(void)
- 	pcmcia_unregister_driver(&ni_gpib_cs_driver);
- }
- 
--static const int pcmcia_gpib_iosize = 32;
--
- static int ni_pcmcia_attach(struct gpib_board *board, const struct gpib_board_config *config)
- {
- 	struct local_info_t *info;
-@@ -1740,6 +1740,8 @@ static int ni_pcmcia_attach(struct gpib_board *board, const struct gpib_board_co
- 	if (!request_region(curr_dev->resource[0]->start, resource_size(curr_dev->resource[0]),
- 			    DRV_NAME))
- 		return -ENOMEM;
-+	nec_priv->iobase = curr_dev->resource[0]->start;
-+	tnt_priv->iosize = resource_size(curr_dev->resource[0]);
- 
- 	nec_priv->mmiobase = ioport_map(curr_dev->resource[0]->start,
- 					resource_size(curr_dev->resource[0]));
-@@ -1766,14 +1768,14 @@ static void ni_pcmcia_detach(struct gpib_board *board)
- 
- 	if (tnt_priv) {
- 		nec_priv = &tnt_priv->nec7210_priv;
-+		if (nec_priv->mmiobase)
-+			tnt4882_board_reset(tnt_priv, board);
- 		if (tnt_priv->irq)
- 			free_irq(tnt_priv->irq, board);
- 		if (nec_priv->mmiobase)
- 			ioport_unmap(nec_priv->mmiobase);
--		if (nec_priv->iobase) {
--			tnt4882_board_reset(tnt_priv, board);
--			release_region(nec_priv->iobase, pcmcia_gpib_iosize);
--		}
-+		if (nec_priv->iobase)
-+			release_region(nec_priv->iobase, tnt_priv->iosize);
- 	}
- 	tnt4882_free_private(board);
- }
--- 
-2.56.0
-
+--
+Cheers, Lorenzo
