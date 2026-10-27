@@ -1,96 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069450;
-	b=I81R76gQTZyLrxwZBHTUkyrgeUrWcaKP0emPaDnisFcw64qPv9TxkOZYbP/UcP74G/+d
-	 z4EXCl8Vf07JQHjIaA7mgINqUfzmh8eqVb52EEbykgyAmua4oHR4pR/qKtDO0yCJ9pPfX
-	 OSvrj44P/7/HQF3GVkxR7VhI2LbAZsleOmi556TKw704ymqwy1mPlelQfAm69hy+n6xHK
-	 3m9r7UERhYPv6JKGAVGUeFwV115FVIZQ1FB7u2JhFnChc58ZuDrEnNL6h2a4pqPllguN+
-	 NfojJgSl98NY3vpU8szJ4qSzOET+yG8pGqZjschudiA+BCNQcJACqXBi6Ywtd9PPxDA==
+	t=1793069446;
+	b=ktx+jpUXbpzQKzgD+SYdb9BX1//i/EQCODrx25c8zZ5RIrFxTdKX0RnmXoTjHXrVxtfR
+	 2NUIa23ZKT72PNntBweFAazjQJhA94En12wPDzhGnvum7syUVQzhisHOQL++ykEOG0FmV
+	 xWfW+B+aNeynoAUwqU7RkpqlEeglYfNMJ6gfKj7QzRlotfYyYip7wASfeRZvhF+5tV0vJ
+	 rq2RL9AqMALHRCgylsTXKKgiDPafJwuw+kLSVNOMweVv36T+13BOkgy1Mb0rBJ7dMgJNu
+	 Lm11cZEybCGV93b66c9syC1dk8i3p41AWtkyUm+IUEJWUD1NmLnnCf8pCX9dlOVo7wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069450;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 To:Cc:Message-ID:From:Date:Subject;
-	bh=nwvxhmnXB6t4sgo6hu9V2Jlf4bT2M5vvxO5O0RwI+MM=;
-	b=pGrJw7BGK+lBnEIopkrFtUkYIENIQMzc5fJOGGa8uB1m25s9iJjgj2ivihQ6EzxwcHNb
-	 1C3RGNEAp/9g8f07GcIA5JA1sieGJH154WJs8uzRaFIR9t65xE8+u2kWAphU7e/uW2jCz
-	 nt+8/CTj/8MWyFjJhWeLebt4kpt4o5pH7dq2EbOoaesHo9gWk0F6Ww0c9v+Tl/U5ZvFh0
-	 /l8/bU+7fK52LawZMLHoD6k0z+ZGl/XMhOYgbFrXWxbMPzGuAqxeBDwjoP+sJWSnZC6y4
-	 bJoOmBTfLxv0bJ8Z0kTy7muxtez3SXWhGewPKRhX+pMKSM2npUp0GxXFUAstWRCyThg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069446;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=yp5lwm6B1KcrGTQodF+hkNMZvE12OPY0D+ZFleJb6Vo=;
+	b=cVwfSbcZABCQCTkikKD1Sjw94eBbHoXleBosy+LKLSWPWPDaB2aVWeDb2tPR8K9oW1xG
+	 SoVu+nQ9e+IyMNxWe6m+LYYMbm0xxKBocl6PehSgFXnV69oROlyt9FK0eF4t62qboYBDz
+	 5WxwYSl25C0O96C79CGjGYjqmxO1IJgZU6+rjlAUzNvUeGVIi6XX2JC0eVhmDuEtpmxZD
+	 eGhAUmoekVfUaYo0bp+RVcsS/eX91fbvHuPnUelXyaNY0DJiC8qbrwIlABB5cDwIsRswa
+	 Z8iTyVZaCU1ziYcb78mIUpgvQ7+f2gkosz005kRfYRMLqMQi2jUIwTGg+2urF84oQlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bfTRANj6;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C675606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:50:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C675606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bfTRANj6
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2eac4936dfdso2763485ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:50:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793069449; x=1793674249; darn=vger.kernel.org;
-        h=subject:date:from:message-id:cc:to:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nwvxhmnXB6t4sgo6hu9V2Jlf4bT2M5vvxO5O0RwI+MM=;
-        b=bfTRANj6MbwQULdQ/ELfwUljfXfPF8SOj74o0/ikT58ngSyLiWLJCgpz36j17otTIb
-         puw0wo5N/YLuHpBEMG4a9tq2+25ZSfzf4FapWuKNLJyYT3HUIVzZN1p986Fy+psduqwE
-         GcX0KN7Se2+tqr6iK+Zv5VV1eUpVz1nCEmHYGA8wtCxN6GROdZIp9a6oL7kv6ZePjBIj
-         j5eCeiDKAx2+15qcwGZjOjQEjRNYLy8IEKEJAAX9nrDG7UT/HhQfm/zQJSNPYUBsH1LJ
-         HJ4n1uZ+9yedKykBVShDiJlJTr9e76nj9SanFVKQiY4BWfIk1MEW/13/545aNRJH95Kc
-         zSiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069449; x=1793674249;
-        h=subject:date:from:message-id:cc:to:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nwvxhmnXB6t4sgo6hu9V2Jlf4bT2M5vvxO5O0RwI+MM=;
-        b=xssb6AYE06wskzFFMeeLy0C8mrcq8Vtr2QvR4hTJRRPWB5HBe6Dli80ejC/SvLNgFF
-         438aoICKcEsH71eRhYWqZCPVKsoQcphsmgofkLi7wLy98CZ2RJxxk5JyFLWSWW5QrSUQ
-         IkpPjiSLRqgvd95yVrgtAgVnd67QgHu9YEQNLdBgbkdBCxh2MMaUW3y6olXCA7m7CtH9
-         UjWx3rDUC5imPqZk/Iq0ddFSnCxMZFymTA0AM9Sn8sOpkhAofKKONfBAOBwmlGnMvfHT
-         UhAXQl6SHMlW+LlGgGU8Uqk35RyX4DOXuYWvP/qstPB1Lwn1t/ZnYy9v5zNRHZfFhjf7
-         DCgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzIBCYvdicchHe7T1vpkFlDT+MjBvTuBxEKqlHwYLtlSg8kzELngCmnWqbCmEzR4f6fBYi8jdFeNPcSU94=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJtLRLtTQMsNvNdZB5Xuz7UJ5+QJLtwGZxzIQLEamk5m5hJG3vN
-	ogLj2U0j8peiwGxYofEPNS14WC89wkGd09bWJXRpI68aP2mZrfE7O95Y
-X-Gm-Gg: AYBFou33D75rD6cvrJT+8t0SmYOT8LEHfh6P19qV9XyIgCGlulSwz4Fs9f9DG8Sx2Yw
-	G1hNtc626b3c3Zh0KfLOkOReUMszl0LrNiPjKDwFw9V2zh9livdiirPG+MZyUcXYO4Eq2D35SAN
-	2qfJYt5h/8bjyqZrexhE7qGuaIEwAKpo4O6QUqfOoEb9a2AHhOkQEgyjhSf0SQMjBl7xA/A/Xsg
-	lMRMfAJ2NvVBPk4EwO5iemB083LewB4mnlHZ2mbH9l54NKqWIRvrqSBY8khs5gB6rlbBzqA7UxH
-	uEQ+GlH+NEzOHTmhTVCeNKnBYNM08M8sfy7nIZ7iA5uhLjJTJEqCEQSHgXtCHo/G0YOEEFyaVGh
-	m9nlIEE/L1uhHHyXrPwJJUdfInpPsmWjeDXHqlie9/8oH96y4+dCwZwhnOmL6N9v04nKzMTcrtU
-	YtY6viDBnbrw30eEPSx7plmf0G/SL9gSKRAJIea+0QFbBW+97CxGzmWAX0AEsyei3OlYyu/yxpW
-	ZQTmLI+IZb+m8M5B0vHtv4M3Y27FhD3C0CdiHlV6GBA3zSTwZEo0tSK20hbRlkFFF6a2ZuqW8zr
-	E4M9Jr94DZicT95LMy86xv0=
-X-Received: by 2002:a17:903:3248:b0:2e9:5714:607a with SMTP id d9443c01a7336-2ea9c59c232mr115870105ad.2.1793069448537;
-        Mon, 26 Oct 2026 19:50:48 -0700 (PDT)
-Received: from msg ([188.253.120.77])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ca09casm2243615ad.67.2026.10.26.19.50.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 19:50:47 -0700 (PDT)
-To: netdev@vger.kernel.org
-Cc: steffen.klassert@secunet.com,
-	chopps@labn.net,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	linux-kernel@vger.kernel.org
-Message-ID: <20261027105031.19928-1-q.h.hack.winter@gmail.com>
-From: Qihang <q.h.hack.winter@gmail.com>
-Date: Tue, 27 Oct 2026 10:08:47 +0800
-Subject: [PATCH net v7 0/3] xfrm: fix vti tunnel device use-after-free across async crypto resumption
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 760A2606A31E;
+	Tue, 27 Oct 2026 02:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 760A2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8Bx79KDEeBqJa4ZAA--.9661S3;
+	Tue, 27 Oct 2026 10:50:43 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJAxlMyAEeBqJogwAA--.8723S2;
+	Tue, 27 Oct 2026 10:50:42 +0800 (CST)
+Message-ID: <bf429747-eaea-47d5-a341-f74251321d09@loongson.cn>
+Date: Tue, 27 Oct 2026 10:47:55 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,111 +44,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-
-This replaces the earlier vti/vti6 series and the reference-transfer
-rework.
-
-vti_input() and vti6_input_proto() cache the tunnel pointer in the skb
-control buffer without taking a reference. With async crypto, the
-receive callback runs from crypto completion and may run after the
-tunnel device has been torn down, causing a use-after-free when the
-callback dereferences the cached tunnel.
-
-The input hook takes a reference on the tunnel device when caching the
-tunnel. A successful receive callback leaves the cached tunnel in place;
-xfrm_input() releases the reference on every exit, including after
-delivery and on drop paths. The error callback only updates the error
-counters, so the common drop path releases the tunnel reference after
-the skb has been freed. IPTFS, which can free or consume the outer skb
-itself, releases the reference through xfrm_input_drop() or
-xfrm_input_consume().
-
-Patch 3 relies on the first two patches: the receive callback must run
-before the async skb->dev reference is dropped, and the address family
-must be available on the early invalid-state drop path.
-
-The issue was found by source audit of the VTI input path (LLM-assisted
-review): the tunnel pointer cached in the skb control buffer is
-dereferenced by the receive callback, which with async crypto can run
-after the device has been torn down, and nothing keeps the device alive
-across that window.  It was confirmed with a KASAN reproducer on arm64
-(async ESP; deleting the VTI device inside the crypto window gives
-"slab-use-after-free in vti_rcv_cb").
-
-Changes since v6:
-- patch 1 also drops the skb->dev reference that is held across an async
-  resumption only after gro_cells_receive() in the decaps success exit;
-  that exit still used skb->dev after the reference was dropped (found
-  by the netdev AI review).
-- patch 3 now carries a Fixes: tag for the pre-existing IPTFS leak that
-  the queued-skb drop also fixes, and the description mentions it.
-
-Changes since v5:
-- cover letter only: record how the issue was found.
-
-Changes since v4:
-- IPTFS: when an inner packet fails validation, __input_process_payload()
-  can reach the drop path before the inner packets queued for delivery
-  are sent. Drop those queued packets as well so the outer skb's tunnel
-  device reference is not leaked (found by the Sashiko review of v4 3/3).
-
-Changes since v3:
-- the cached pointer is always a tunnel; the address family selects its
-  type, and a non-NULL tunnel slot denotes one held device reference
-- xfrm_input() takes the tunnel device out of the skb before
-  gro_cells_receive()/transport_finish(), which may consume the skb
-- the device reference is dropped only after the skb has been freed,
-  including on error paths
-- IPTFS passes the state's address family explicitly instead of
-  inferring it from the secpath; consumed skbs keep consume_skb()
-  semantics and drop paths keep their skb drop reason
-- drop the xfrmi changes: it re-looks up the interface and does not
-  participate in the reference transfer
-- merge the reference and IPTFS changes into one patch so the series
-  remains bisectable
-- the gro_cells NAPI window is pre-existing and is documented, not
-  changed
-
-Runtime testing (aarch64 QEMU; KASAN for UAF detection):
-- VTI async success and error: RTM_DELLINK completes without a KASAN
-  report; the unfixed tree reports slab-use-after-free in vti_rcv_cb.
-- Async resume with the SA deleted during the crypto window: the
-  reference is released and the device is removed; with patch 2
-  reverted, xfrm_input_take_tunnel_dev() warns and
-  unregister_netdevice() waits for vti0.
-- IPTFS outer-skb free: RTM_DELLINK completes; with the
-  !first_skb xfrm_input_drop() reverted to kfree_skb(), the reference
-  leaks and unregister_netdevice() waits for vti0.
-- IPTFS aggregated payload with a valid first inner packet followed by
-  an inner packet with an invalid IPv4 header length: RTM_DELLINK
-  completes; without the sublist drain, the tunnel device reference
-  leaks and unregister_netdevice() waits for vti0 (Usage count = 2).
-
-The IPTFS timer/reorder/state-teardown paths are covered by code audit,
-not by dedicated runtime triggers.
-
-Previous versions:
-  https://lore.kernel.org/netdev/20261022032129.16118-1-q.h.hack.winter@gmail.com/ (v6)
-  https://lore.kernel.org/netdev/20261019153247.89957-1-q.h.hack.winter@gmail.com/ (v5)
-  https://lore.kernel.org/netdev/20261018090638.55686-1-q.h.hack.winter@gmail.com/ (v4)
-  https://lore.kernel.org/netdev/20261013074610.17808-1-q.h.hack.winter@gmail.com/ (v2)
-  https://lore.kernel.org/netdev/20260930090813.73901-1-q.h.hack.winter@gmail.com/ (v1)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 19/28] mfd: loongson-se: Prevent out-of-bounds engine
+ access in se_irq_handler()
+To: Lee Jones <lee@kernel.org>
+Cc: stable@vger.kernel.org, Yinggang Gu <guyinggang@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-19-lee@kernel.org>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-19-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxlMyAEeBqJogwAA--.8723S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7uw1DCrWDGF48Cr45AFy8tFc_yoW5Jr1DpF
+	WDCa4jyr4qkF47Cw1ayF98Kw13W3y7Jr9rCFZFgr4UZan7tw1xGr1jkFy3Grs8urWkJFWI
+	vF98Wrs5uFW8XabCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyKb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU27PEDUUUU
 
 
-Qihang (3):
-  xfrm: use skb->dev before dropping the reference held across async
-  xfrm: set the address family before the early invalid-state drop
-  xfrm: hold the tunnel device reference across the input path
+在 2026/10/21 20:09, Lee Jones 写道:
+> loongson_se_probe() enables all 32 interrupt bits via SE_INT_ALL
+> (0xffffffff), and se_irq_handler() uses the set bit index from the
+> 32-bit status register directly to index se->engines, which only holds
+> SE_ENGINE_MAX (16) entries.  Any interrupt bit asserted at index 16 or
+> above triggers an out-of-bounds access on se->engines.
+>
+> Restrict SE_INT_ALL to GENMASK(SE_ENGINE_MAX - 1, 0) and bounds-check
+> the bit index against SE_ENGINE_MAX before completing the engine in
+> se_irq_handler().
+>
+> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+> Closes: https://sashiko.dev/#/bug/linux-bc962408-5c42-40af-8111-a8463a05ccdf
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
- net/ipv4/ip_vti.c      |  3 ++
- net/ipv6/ip6_vti.c     |  2 ++
- net/ipv6/xfrm6_input.c |  3 ++
- net/xfrm/xfrm_inout.h  |  4 +++
- net/xfrm/xfrm_input.c  | 72 +++++++++++++++++++++++++++++++++++++++----
- net/xfrm/xfrm_iptfs.c  | 42 ++++++++++++++++++++++--------
- 6 files changed, 106 insertions(+), 20 deletions(-)
+Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
--- 
-2.54.0 (Apple Git-157)
+Thanks for fixing this!
 
+
+Best Regards,
+
+Qunqin.
+
+> ---
+>  drivers/mfd/loongson-se.c       | 3 ++-
+>  include/linux/mfd/loongson-se.h | 7 ++++---
+>  2 files changed, 6 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
+> index 187ebbed0422..10af13c3b7cc 100644
+> --- a/drivers/mfd/loongson-se.c
+> +++ b/drivers/mfd/loongson-se.c
+> @@ -158,7 +158,8 @@ static irqreturn_t se_irq_handler(int irq, void *dev_id)
+>  	/* For engines */
+>  	while (int_status) {
+>  		id = __ffs(int_status);
+> -		complete(&se->engines[id].completion);
+> +		if (id < SE_ENGINE_MAX)
+> +			complete(&se->engines[id].completion);
+>  		int_status &= ~BIT(id);
+>  		writel(BIT(id), se->base + SE_S2LINT_CL);
+>  	}
+> diff --git a/include/linux/mfd/loongson-se.h b/include/linux/mfd/loongson-se.h
+> index 07afa0c2524d..2d0a8b1e5c9e 100644
+> --- a/include/linux/mfd/loongson-se.h
+> +++ b/include/linux/mfd/loongson-se.h
+> @@ -4,6 +4,8 @@
+>  #ifndef __MFD_LOONGSON_SE_H__
+>  #define __MFD_LOONGSON_SE_H__
+>  
+> +#include <linux/bits.h>
+> +
+>  #define LOONGSON_ENGINE_CMD_TIMEOUT_US	10000
+>  #define SE_SEND_CMD_REG			0x0
+>  #define SE_SEND_CMD_REG_LEN		0x8
+> @@ -18,10 +20,9 @@
+>  #define SE_L2SINT_STAT			0x98
+>  #define SE_L2SINT_SET			0xa0
+>  
+> -#define SE_INT_ALL			0xffffffff
+> -#define SE_INT_CONTROLLER		BIT(0)
+> -
+>  #define SE_ENGINE_MAX			16
+> +#define SE_INT_ALL			GENMASK(SE_ENGINE_MAX - 1, 0)
+> +#define SE_INT_CONTROLLER		BIT(0)
+>  #define SE_ENGINE_RNG			1
+>  #define SE_CMD_RNG			0x100
+>  
 
