@@ -1,110 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086711;
-	b=CgRMlY4uY4mibs0iQxCopTJzqazxu+EMEmCYZbh8McysUf0qRJm0phQCGH46qa40bLNj
-	 AWcPcMJBcGwPgcQ+zv1rMXPTpfR+qchJrFGIi7oS+9FHCoSfkkTpKtJ4SsZ0xs7H26Fb1
-	 4riNhNILGW1EjA2fS0LPqewOXMLjQ27rxlZ1F4klvYkUNGDNQ+z9WOYzcNBX/wA8yMz2Q
-	 yUt7LmjRDkl1ljqXnThXXgz8MpsTbWftE+5E8QE5H1gyXAMdfB5tceCnFDKE+wFVlHD+t
-	 J5NqjaBgVfAdUkG03o5O3F5U9pv69STKa8hOingk4s1bKctvDcPm2dRCx7kctvu2UqQ==
+	t=1793086811;
+	b=swbNtN+m4l7fiI/1gQY1aY62Q8GVMXcLgx6pPjHSRshugQcpQtdmI6caAMS5QTyz1UAw
+	 vV3vqGSUDpy7KLfdRpVY76XKUSrYWVZEvc27FO93bm28x4bugFu2XAiLY+rYgE4sNZPPR
+	 hup1zyhiWtVb0OzUW0ziun2c2L2qMHxPeLGxErFuib8aZg+29zQF9toZ2xu+GqNRo8m0Q
+	 TQ520CtLRgo7zNbL8Pkm5HhDCqZQ9300/uZ3TUzqTZrSbgJD3POU8d1KRSajy2GIJWVWE
+	 xCzaiyRFIY+XbjxJvL7CSuFefFpiDDqcuVpFBHd3CGJZONbtlrg0Q6w8R4zEofzrUqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086711;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=JLs/MuVAir29RzCv6U4V5WqIO3KGcInyBz7SPGgxlT4=;
-	b=HeEI/tcLjspgrbo49lPsz2ehU5LgXRQfkZX8uaxilsQIErnMr0SYgyCpALAwt/vgHCt3
-	 ENmFTDdIU48TfJMyWWsxXaOe+yVjhiqiVt+J7bz2CRALjRdLLN89dIu6o3GcfeswfOS/+
-	 y0GPSuK5GPO5Yzdavn3W4FadmDtFf5vKgHODMLIgVG5MTLpGFd4RoPLy2PJIVNqQO5lsd
-	 NpA2hVMal1Do1qxAGP52tEJC3f/jLqcNS4M6H6DdOfAK/wLO9YV/SNWkuSeWIcXNYOLvA
-	 /M7uQfkT5XufobJnijW/Wh8sSTNTa6GXQZXuBY6HC4XZ1S90fjCUHaoFTzRCAGsajmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086811;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=zhzRbOY+f2fkhfI8wKvgdJCyZcEUpeNqMO1bmo1gL0Y=;
+	b=K9Tzn2BMV5P7ihWtLr7oEeV8v6Okq3DmfZO6ed7sQIhfkHaHNQKll8vMFirOI+PPPPBj
+	 GIjOLFtuSZJnWT5TrWTs5TxAMdhkmbjwwN53ylP/iwPrWBqgAVnAFWFL2FV5MVQ6cmRHS
+	 440xAENVVV14szybBVCnc2mF4FknguyiSQvnxLEIPvj9/ipq62ltZheetYBKemBtHNbup
+	 cvIw/w1h+TFqGVkM7IMiT+Fw2BHu1WBYkYGuc1QQgEaDHm3KntosuvEnvaoO4ewrJ7ud2
+	 wdzZyH89dW0RXEu1yalHywC6rNmxXhNanWyLkJm4RYN3hay/ECB/ixclkFBpmiz+KaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AkKdBDII;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="53V36o/g";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fx89WmOB;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dcyGWjJc;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPs8ehIB;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35BD606A31B;
-	Tue, 27 Oct 2026 07:38:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D35BD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFAF606A31A;
+	Tue, 27 Oct 2026 07:40:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFAF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AkKdBDII;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=53V36o/g;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=fx89WmOB;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=dcyGWjJc
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EE3451F445;
-	Tue, 27 Oct 2026 07:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793086709; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JLs/MuVAir29RzCv6U4V5WqIO3KGcInyBz7SPGgxlT4=;
-	b=AkKdBDIIHlo8hO4yAZ2zzsK0rRLfTHA/SUA2vNIWWgsMv1yWgjS58jExwHeu4DyZon1M3z
-	zZwgI6wX5T+9ML1HiKZ2HF1oBqaOwdCUFF7+4Dg5lbN4cD3JTgdOa9Wqmc/YDy5qefL1TO
-	abARPFaFd+hpTQbU7070Sk0QMntgGaU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793086709;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JLs/MuVAir29RzCv6U4V5WqIO3KGcInyBz7SPGgxlT4=;
-	b=53V36o/gEVCfotj3p+0D2Oo0s81hlc7o+Hr4T6ED2RRfZOMcUu9C2xivKnhFprAMqOgUo+
-	TmYJDeGRjMY4CTBw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=fx89WmOB;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=dcyGWjJc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793086708; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JLs/MuVAir29RzCv6U4V5WqIO3KGcInyBz7SPGgxlT4=;
-	b=fx89WmOBzX8ytsiG20BSc8RXJiPwjdifX/JWOn8QzIG+v4vMT9NTVh4zxfJpDPbyl91gjU
-	uotgb5txV40N0O1lQ0tC3fSGILHu3u3yTRXUug99XMNtmYqmpmslQ2MRwyty5iXW6yVc7t
-	Y7fDHV5VgGA0R3qVeWxr+27lUQMNY5k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793086708;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JLs/MuVAir29RzCv6U4V5WqIO3KGcInyBz7SPGgxlT4=;
-	b=dcyGWjJcgXPDo8+xR8USNE81WYlcptKjX5MLzZPDiz1CfPHtwgBkmldr6kE6IEALOaWgW9
-	1DhI7lNzExMqnYAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9DC4713319;
-	Tue, 27 Oct 2026 07:38:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id VvXtHPRU4GolXQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 27 Oct 2026 07:38:28 +0000
-Date: Tue, 27 Oct 2026 08:38:26 +0100
-Message-ID: <87pkwv385p.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Stjepan Poljak <stjepan.poljak@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: reset a MIDI device whose input is stuck
-In-Reply-To: <20261026125751.1700779-1-stjepan.poljak@gmail.com>
-References: <20261026125751.1700779-1-stjepan.poljak@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nPs8ehIB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793086809; x=1824622809;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VOrxgR1L2PkAfv7reE/vBjtMkl1xSbA981UX2w0vwKM=;
+  b=nPs8ehIB4AeZ0M6vKCh7dkreqSksv0tvhZiTHNIHfO2W6eY7wXmwKLZ5
+   k04N2YBEK8OfaD2BudbMBLzIgCRXtokYnjoPznXWjtMJomJF/VWcacDWQ
+   fUbdA3lQmaT43wfZbOnXx76QgEOP65hytf1CSp4wiSgBaT4lpyNW9dpH+
+   KshxV0mk74HFAwcX7SmnvGy5Yb8GI9uOUXR0k5CDtNmVrma9mj01vvrWn
+   7jKXiKmulyAGFd349no+OEmyZrOhSh4ZSPOB3tAeR6R0CbOg7L5Z1y7Hp
+   tQBm8J8j6GJ0b/O2+2DqMzePaasNK+LuqieNTc8EEaGeFlsVOEEE3bUte
+   w==;
+X-CSE-ConnectionGUID: XkPr2EXzTPOAqbsznK9hww==
+X-CSE-MsgGUID: F3CWHr5zSUqI0az6dp3a/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1689915"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1689915"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:40:09 -0700
+X-CSE-ConnectionGUID: hUQzUt6LTd2GxtwR6NNHmg==
+X-CSE-MsgGUID: wU/CpHueSe2bzmMIPEj2qw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4865936"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:40:07 -0700
+Date: Tue, 27 Oct 2026 09:40:04 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Marius Cristea <marius.cristea@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	tristan@talencesecurity.com
+Subject: Re: [PATCH] iio: adc: pac1934: validate ACPI _DSM return type and
+ bounds
+Message-ID: <auBVVIuIPhZZf9OH@ashevche-desk.local>
+References: <20261026230910.2569782-1-tristan@talencesecurity.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,101 +82,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-11.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -11.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: EE3451F445
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026230910.2569782-1-tristan@talencesecurity.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 26 Oct 2026 13:57:51 +0100,
-Stjepan Poljak wrote:
+On Mon, Oct 26, 2026 at 11:09:10PM +0000, Tristan Madani wrote:
+> pac1934_acpi_parse_channel_config() calls acpi_evaluate_dsm() four
+> times to read channel configuration but does not validate the returned
+> object type or array bounds:
 > 
-> Switching a bus-powered USB keyboard off and on can be too quick for the
-> hub to report a disconnect. The device comes back unconfigured at the old
-> address, and its input endpoint then fails forever:
+>   1. No check that the returned object is ACPI_TYPE_PACKAGE.  If
+>      firmware returns a different type, accessing rez->package.count
+>      and rez->package.elements on a non-package object produces
+>      unpredictable values.
 > 
->   - with -EPIPE, which snd_usbmidi_urb_error() logs and treats as
->     "continue", so the URBs are resubmitted at once and the log fills
->     with "urb status -32" every few milliseconds;
->   - or with -EPROTO/-ETIME/-EILSEQ, retried silently every 100 ms.
+>   2. The loop bounds use rez->package.count directly without capping
+>      to PAC1934_MAX_NUM_CHANNELS (4).  A package with more elements
+>      than expected causes writes past the fixed-size labels[],
+>      shunts[], and active_channels[] arrays.
 > 
-> Either way the rawmidi device stays, reads never fail and no data ever
-> arrives, so the instrument goes silent until the cable is replugged.
+>   3. The bipolar and sample rate DSM calls access elements[0] without
+>      verifying package.count >= 1.
 > 
-> Retry a stalled input endpoint through the error timer like the other
-> errors, and when input stalls, or keeps failing for 2 s with no
-> successful URB, queue a USB reset. snd-usb-audio has no pre_reset or
-> post_reset, so the reset unbinds and re-probes the card, and userspace
-> sees an ordinary unplug and replug. A real unplug normally reaches
-> disconnect() long before 2 s. If the host misses that as well, as
-> dwc_otg does behind a hub, the input stalls and the reset finds no
-> device, which ends in the same disconnect.
-> 
-> The queued reset is dropped without a word if usb_lock_device_for_reset()
-> fails (e.g. -EBUSY when the device lock is held for over a second), so
-> while input keeps failing, queue another one every 2 s.
-> 
-> Output endpoints are left as they are.
-> 
-> Tested on a Raspberry Pi 3B+ (dwc_otg, Raspberry Pi 6.12.61 kernel) with
-> a Nektar Impact LX49+ (2467:2015) behind the on-board hub. Without this
-> patch, switching the keyboard off and on left it silent, with "urb
-> status -32" logged every few milliseconds. With it, each off/on cycle
-> logged a single "MIDI input not recovering (urb status -32), resetting
-> device", and the keyboard was re-enumerated and playing again 2.8-4.0 s
-> later, including two cycles 9 s apart. Left switched off for 3 minutes,
-> it was reset, disconnected cleanly and enumerated normally when switched
-> back on. Unplugging the cable went the same way: the input stalled, the
-> reset found no device and disconnected it, and plugging it back in
-> enumerated it normally. No warnings while playing normally over about
-> three hours.
-> 
-> Also tested on x86_64 (xHCI, 7.0 kernel): there the host sees both the
-> off/on cycle and an unplug as ordinary disconnects, so no reset is
-> queued and input resumes after re-enumeration as before.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Stjepan Poljak <stjepan.poljak@gmail.com>
+> Add ACPI_TYPE_PACKAGE validation after each acpi_evaluate_dsm() call,
+> cap loop iterations to PAC1934_MAX_NUM_CHANNELS, and verify package
+> count >= 1 before accessing elements[0].
 
-This doesn't look like a problem to be worked around in the USB audio
-driver side, but better to be addressed in the USB core, IMO.
+...
 
-Please try that, or ask USB guys.  If they find this should be rather
-fixed in that way, I can reconsider and review again.
+>  	rez = acpi_evaluate_dsm(handle, &guid, 0, PAC1934_ACPI_GET_NAMES_AND_MOHMS_VALS, NULL);
+>  	if (!rez)
+>  		return -EINVAL;
+> +	if (rez->type != ACPI_TYPE_PACKAGE) {
+> +		ACPI_FREE(rez);
+> +		return -EINVAL;
+> +	}
+
+So, what's wrong with acpi_evaluate_dsm_typed()?
+Ditto for other cases below.
+
+...
+
+> -	for (i = 0; i < rez->package.count; i += 2) {
+> +	for (i = 0; i + 1 < rez->package.count &&
+> +	     i / 2 < PAC1934_MAX_NUM_CHANNELS; i += 2) {
+
+This is ugly and inefficient. Why can't you just check count to be even number?
+Or choose the limit in the loop making it an even number?
+
+	for (i = 0; i < (rez->package.count & ~1); i += 2) {
+
+>  		idx = i / 2;
+>  		info->labels[idx] =
+>  			devm_kmemdup(dev, rez->package.elements[i].string.pointer,
+
+>  	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-thanks,
-
-Takashi
