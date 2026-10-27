@@ -1,80 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122747;
-	b=eId7tSY17mXQmN5imH84KSFevBcD8AFizVc5myZZgCtj8k5O5burBDgouvHGiuQKhC8N
-	 bsMzR3YnKK+9zzI/fC30K4sxWr4r7o9njCjaYyleJCMlcDKpYcmjd3sMObrdn0mTT14CE
-	 iM+K4bbCj+a7J/FLXrJquj3hon3XpenHorUBqnxno0TkxQ0vkvB5LN1mYQdIXC7CmcCT0
-	 7oJBki+FaLUa9hRA+98k2I+LbO83jA/JYI4Ni/qpuxdPxabX9YeyXncQio3OjAnu7Tth+
-	 GxxHbjizAPk7mex59E+pJF1z42poGRT6r9STc4r08XP9/00MXU1W1iODNP91Kk3p5Kw==
+	t=1793122752;
+	b=Tx3C2izaeXcB4NHoJaPV+4waY6QAq4JjVvKNxKOLm8wXy4srY3/8MnmS5H25m0oz7o0P
+	 UCHjQXlcE0eKlW0U+cYHgSqY+zUBU7kbmgFaPYLKr4iHhVFQuiNt2nDz002m3SBKzfWBA
+	 SolGu1ZNGcNcw1sOuTc5jF4fFfVhE2yMorYWDSKQEGOun8xulmBHtXUcCgDesCOXuvmY2
+	 /tmwUEA4csZbaaORZCF/q8tCMobXUy6iLBf3xo5kmCdpo1zoVjw0gb+aXz/HLQsgZOScb
+	 t2GHGC8j7Lc8kiPEmFT7IzNlXwZRbpIGXwGSaCqfKdDMEuU79LBqgvQFGIDhLN+1/kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122747;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=GMLoZqn9hUz7CF6Vy6FF9tNhZQTvAeSqJAal3eoYO48=;
-	b=BvwSe76GytdX6c6mchfAcaEzW0exlJKpwEqThV6h07fq9suaXkUsqVY53bGLXPwZ7ynq
-	 8BF8IONBo+MpnvtHXx4pasCfH9yMof46zW9L4JdBxNRARA3MFODkj7P3/KHPnbi7GPon2
-	 U8FcDX66GhcXIFzBO/lqNK+tvKk7AgTuzCD0IrkHW/q7v/E8/WARHH2hn+4X1DZtCUFOk
-	 kz4UQA5Yqc7B2DuTjk9ehnFDFpaaQaGOBzeY2flAjr+TlhiU11hkg/b3+zj14qgLz7BVC
-	 +ZXRs//4/SepDwq302U7/iQqiqeZvwpESa0kDrGSAeJM7eWUujEh35YLbcYIzGfDAjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122752;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=WUtlurldtyh2Gl6SE0CuNHXZeHbjZI6olhVhsnMbdzo=;
+	b=0NNK808e7dtqq6u9ZfrzpH6+J4Jk2kHXhpEi1T6Sb6qOIcvPgfYrq8WXkIvp+yFitQCH
+	 uL1CnCmD/Jee/eF6I0RYME4o84yl9N3LSMIYkakPcD7/lbOzRovzZ2nAkN1RAOW/6Zzrl
+	 ulZS/uTXOrPNed0Xs8OgyRxVbpSEe/3P39UFhFXaK1HsJbrMktG2f0dHyRNYpwScZ86E9
+	 Bh+2/Dnj2/sI3PXPItEYnAZCpzw+XuylIIcWFcZ9xHK+HrZ8/i6Ldd/16fe2Z+h/uUZTH
+	 u5ZiXy0CYInRNGtOg6attEeBCpEG0U4lJL4ZfYCr1xHTi3vaQjW+D9gspzlgoo7Y00w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqyexwYF;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=NKPZ4B3b;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F2A606A321;
-	Tue, 27 Oct 2026 17:39:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08F2A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AA7606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:39:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51AA7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqyexwYF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793122746; x=1824658746;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+MxEiuBZ/L0ubNP9ZUsiWv6JkZZH6q8NBc49BPiB3FQ=;
-  b=cqyexwYF5u2DX9SPcyWciTroJ2F8wPeHV9ejTYhfKbZtQpn/o+xHfZrL
-   P20S/HM/NcIupEeGpkHnoqp73x+EdWLs2x+BR6nORjgf3rfslILnsZ2ot
-   tirInmbTbaim93jNRVQ/luR3BuHfB0KtMcj8QQVrHDwP7Q3TVi6z9627y
-   ci+5cP7kr1ACN967b6emwUaoFkprkbbjw4fg5c5uEOnXcRJWRSp60HaNA
-   fw/g8moWKOw+SIxGCNjZ/KyGQQNKkBXIiokk2YRhD/WiaXHTW4PRoh1pF
-   Twy+VaP9ajfMS51jQInpCnT/rLdsKmO7vphdH2u0jUUeB8WGKhpgnS9Vg
-   g==;
-X-CSE-ConnectionGUID: 4w02iSAWRYSSurM3O17Ugw==
-X-CSE-MsgGUID: 3RT8oe5ySPmLIJ5YFBGTjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1718084"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1718084"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:39:05 -0700
-X-CSE-ConnectionGUID: QWVD5rq2SAmBbkxIBx4vRg==
-X-CSE-MsgGUID: mL7lmYsUSTaE4Fxi9cNa8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="6474352"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:39:03 -0700
-Date: Tue, 27 Oct 2026 19:39:00 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/5] media: atomisp: remove the circbuf library
-Message-ID: <auDhtEFGht8PQnET@ashevche-desk.local>
-References: <20261027120341.2305533-1-vladurares@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=NKPZ4B3b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=WUtlurldtyh2Gl6SE0CuNHXZeHbjZI6olhVhsnMbdzo=; b=NKPZ4B3bfZ6bPnwTKtEo1a0KYD
+	m/fgtcmnE/gqFmhCaD7fDPw3Rj6P4+l5eUWsTz3ICLLIDmfMnSJhdvsXEJfUL2YDFXVL8Vd3MJYVM
+	P2rctsCpyOXJNJJQuipn+N1sDpOne1/Y3NaH47/iXUrI5K/3Q4EfdO2XzSFnEF9DmwGTHO8duN9kB
+	tvtjnMsEGewYcbippD6kjYaPe+5XWPrP5+rpy+2J3CHjGWQAsowTbvpLEdX1ReJD8ulSXqxXrRM7W
+	JViIPG1nmkyS+qesuGwEml3PMRrf2ED3YbD5KzFj5U5hWLjRFxWLA7kII6JHw/38NgPmVr1t/xr8O
+	VtrWemCA==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xLl8Y-001cyi-1c;
+	Tue, 27 Oct 2026 17:39:02 +0000
+Date: Tue, 27 Oct 2026 10:38:58 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Marco Crivellari <marco.crivellari@suse.com>, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH wq/for-7.4 v3 2/3] workqueue: Keep the limits of both
+ max_active domains current
+Message-ID: <auDPB-9VRzF76Fcn@gmail.com>
+References: <20261009-wq_final-v3-0-eb0b095b9de3@debian.org>
+ <20261009-wq_final-v3-2-eb0b095b9de3@debian.org>
+ <654ec35be0b19332d2e605d69ed57910@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,49 +69,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027120341.2305533-1-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <654ec35be0b19332d2e605d69ed57910@kernel.org>
+X-Debian-User: leitao
 
-On Tue, Oct 27, 2026 at 12:03:35PM +0000, Rareș-Mihai Vladu wrote:
-> Thanks to Andy for suggesting, in review of my earlier typedef
-> patch [1], that I look at converting the custom circbuf code to
-> circ_buf or kfifo, and for reviewing the previous versions.
-> 
-> While looking into it, I found that the circbuf API is only used by
-> the local queue path, and ia_css_queue_local_init() has no callers,
-> so as far as I can tell that path is unused. The remote queues only
-> need the descriptor and element layout shared with the SP firmware
-> and a few small helpers.
-> 
-> So this series first moves the remote queue handling into helpers,
-> then removes the unused local path together with the queue type that
-> no longer seems to serve a purpose, moves the few remaining pieces
-> into ia_css_queue_comm.h and drops base/circbuf/. I may well be
-> missing something, so please let me know if a different approach
-> would be better and I will rework it.
-> 
-> checkpatch warns about new typedefs in patch 4 and about MAINTAINERS
-> in patch 5. The typedefs are only moved from ia_css_circbuf_comm.h,
-> which patch 5 deletes, and MAINTAINERS has no entries for the removed
-> files.
+Hello Tejun,
 
-Almost there! The few minor amendments to the patch 2 and I think we
-good to go, I believe next version will be final for this part of job.
+On Fri, Oct 16, 2026 at 07:21:06AM -1000, Tejun Heo wrote:
+> On Fri, Oct 09, 2026 at 05:18:35AM -0700, Breno Leitao wrote:
+> > Given that we are introducing a new PERCPU affinity scope which will be
+> > able to do CM, we want to keep both values set, so, the transition from
+> > scopes would be able to succeed. This cannot be done under the flip, given
+> > this is RCU protected. See discussion at [1]
+>
+> "CM" and "the flip" aren't defined, and concurrency management doesn't
+> come into this patch. The limits are WRITE_ONCE()/READ_ONCE() fields, not
+> RCU-protected. Maybe say directly that a later scope switch should land on
+> a sensible limit, so each setter derives the other domain?
 
-> Compile-tested only.
-> 
-> This supersedes the typedef patch [1].
+Right, the RCU part was about the pwq table being swapped one CPU at a
+time, not about the limits, and it doesn't belong in this patch. I will
+reword it as you suggest.
 
-And thanks for doing this! This is the real cleanup series from people who
-want to learn while doing something against staging. I will point others
-in the future to this success story.
+> > Use the scale function suggested by Tejun in [1].
+>
+> The mapping is only in the cover letter, which doesn't land in git. Maybe
+> spell out the conversions here?
 
--- 
-With Best Regards,
-Andy Shevchenko
+Ack, the U/L/P/N block moves into the changelog.
 
+> N is sampled only when a setter runs. Narrowing the cpumask afterwards
+> through apply_workqueue_attrs() or sysfs redistributes max_active across
+> the nodes but leaves percpu_max_active alone. max_active 256 on 64 CPUs
+> gives percpu_max_active 8, and it stays 8 after narrowing to 4 CPUs where
+> 64 would match. Nothing reads it yet. Should apply_wqattrs_commit()
+> rederive it too?
 
+I think so. N is meant to match the CPUs wq_update_node_max_active()
+spreads max_active over, and apply_wqattrs_commit() is what changes that
+mask.
+
+For v4 I am moving the conversion into a helper that derives the saved
+limits of the other domain from the backend's own, as you suggested on
+3/3. The two setters, apply_wqattrs_commit() and
+workqueue_init_topology() call it, followed by wq_adjust_max_active().
+apply_wqattrs_commit() also runs at creation, so wq_init_max_active()
+only needs to set the backend's own limits. Hotplug keeps the saved
+values, as you suggested on v1.
+
+apply_wqattrs_commit() runs on scope changes too, which is harmless
+today: a scope change doesn't change N, and the helper always derives
+from the domain of the backend the workqueue was created on. Once the
+PERCPU scope can switch backends, it has to keep deriving from the
+domain the user set. Otherwise switching back and forth ratchets the
+limit up: max_active 256 on 64 CPUs gives percpu_max_active 8, which
+scales back to 512.
+
+> > +static int wq_user_max_active(struct workqueue_struct *wq)
+> > +{
+> > +	if (wq->flags & WQ_UNBOUND)
+> > +		return READ_ONCE(wq->saved_max_active);
+> > +
+> > +	return READ_ONCE(wq->saved_percpu_max_active);
+> > +}
+>
+> The reads are marked but the setters write these fields with plain
+> stores. Maybe pair them with WRITE_ONCE()?
+
+Ack!
+
+> > -	if (!from_cancel && (wq->saved_max_active == 1 || wq->rescuer))
+> > +	if (!from_cancel && (wq_user_max_active(wq) == 1 || wq->rescuer))
+>
+> The description doesn't explain this and the max_active_show() change.
+> For a percpu workqueue, saved_max_active now holds the derived unbound
+> limit, so these readers switch to the backend's own limit. Maybe add a
+> sentence?
+
+Ack!
+
+> > +	if (!installed_pwq(wq, -1))
+> > +		return wq_nr_online_cpus(wq_unbound_cpumask);
+>
+> This tests for a percpu workqueue indirectly. Percpu workqueues never get
+> a dfl_pwq (apply_wqattrs_prepare() skips it for WQ_PERCPU), and unbound
+> ones always have one by the time a setter runs. Maybe test WQ_UNBOUND
+> directly?
+
+Ack!
+
+> > +	 * Which domain a pwq honours follows its pool, see
+> > +	 * pwq_tryinc_nr_active(). Keeping both current means a pwq is never
+> > +	 * metered against a limit nobody set.
+>
+> Today a pwq's pool always matches its workqueue's backend, so this
+> describes the future PERCPU scope. Maybe state the contract instead, that
+> both are kept current so that a pwq on either kind of pool has a valid
+> limit?
+
+Ack, I will take your wording.
+
+Thanks for the review,
+--breno
