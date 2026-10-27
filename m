@@ -1,65 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112642;
-	b=auJfZ5ceuyYDHRcqDkcSXOZn3KZqYLRNskWqlxqZF/fF+XFumRHtlYu8jfBpR4tS0e12
-	 prkHvSE4YDhP72BA3IxpmTCKUR8gTM7NAnLoBc8mDdX3iaXDFtQmKzQVpjmJ6utpUljkc
-	 oI3mdbx4bQhW1f1g5Musyud2JlzU3NBFgij0oXAHT+taAjUsrzIhwPOLgwJJxrAq9W3P/
-	 UwLp6oLczZEZdz5m31EWeu5jN6gxACoKy0mlPLzlkxd/MV3XFk3hWSviCFuBh3u2J11WF
-	 ooxqVE1N1gO+gi7S3WqbZRrdK+uYMdbJzXpc/JSsrRFCXIiaRNHzfDzR/feMJpVUc9w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112642;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID;
-	bh=o1dJZFs9c5KPrg9FcLGTKeVgc8n83BCpUxJ0UGGUvvk=;
-	b=cu50cqwFyl1Z5qVBAd7PxyoEAtMKcrEVLH8+PWT1DFTbEn8LPD++TkXFUhmj42v88qXi
-	 yJxV0+DeeJXdn83ljZ76umrPxEKDv4XgzPALD2WdvKEGnn4v6YtlQd99cqUHtXvOWACDv
-	 ciLlglTXU9WG1Bp5h8fKgAiTtUqyYXwQLbpvh7s8fl9pRX//vR+DEg9EXSaZ3vD0qcivC
-	 RGLLse87INpba5BAAHiIftPVbYTlnX3bA3a5Xz8J1ZN2wBKCuxxZkWeq39LFu1Ow36xXp
-	 9Qld6NUBk+pkrIf/E1DeuGRayIm368vey2BaOxtBUoPqcSsTFk3tHtoJ56BpAAE1zig==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=KK1KI0xY;
-	arc=none smtp.remote-ip=185.132.180.163
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793112686;
+	b=XVgvjew+eH46kFD4re32kHJ2rITUmVUyvhZqwmkVjpR8rOWdSGqTp6rLjJD0yf72NOm4
+	 YgHeqxm1muFEL2U4T0R/XQN2G4TIzh37AVqBwZIOJR6G9RyHXG+3Uplbwl/9XthT3g161
+	 ERQ2CWZ+0TP0CwLj4nAEqYLsHeEoYRSosrAxXmBAYR3BCtBiUlq4mITDK/67Qk7ivoSDh
+	 vbS4VWKPmaEbiLWN8Tb3QZ9/kgi0DD90XDa3iGecDSuGFWbSMlwOqENA2P4Molp8TQ28U
+	 YEiwOfR+tvTl5MmjFwG3IIMAJ/8jZowLShq4n2C1/Zjja33LersvQ4Fo5Kjf8L9UfnQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112686;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Q5eafELa+V5NFx6iTzvVAm3Sz+wK15BmvIlXPQ4Fwxk=;
+	b=45a51u/9nwyJ9+M80mrWa/G46XkA+h+TC+xQcENM0d/kvCY1B35rUfuipQtG17ueXLYe
+	 61voKD0N7G9a8YrwTeiaLz3VW2HLct3Pxz4Pxqpnipz5x3i8gppAsqwZUy4u9KqWlv3eR
+	 kVYHloiM/aLLeBiLiGaYTMxmApS54lJQ/FcrtXECHVaFEDJt3LD0KJOQfEZcDz33kDaMf
+	 ZV4YUXXJHECQGA5wAxiQ7MhZJ/lZRxMQ8VrEvBnl50NNYyxoVneFeJlQL8EHs2+Ux4wVj
+	 fLqjB+95mfflDGdtvmbVOLQeKCN36Rz9lTrbuCClMHzY9B1m6Ru/QhCbThgDxajAZqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OM77Vlqe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5A6E606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5A6E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF1C606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:51:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DF1C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=KK1KI0xY
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDmqoJ1769897;
-	Tue, 27 Oct 2026 14:50:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=o1dJZFs9c5KPrg9FcLGTKeV
-	gc8n83BCpUxJ0UGGUvvk=; b=KK1KI0xYRzC2a15CHabv7KPxNb723RDxaJBHQtF
-	2nToq0qot+buA3Eqn07efIyJRv3fNO2+qz+mLYReC33/Ap3TYVtkEsxdDCBMsNus
-	GEt62eSj/FP8IdfW1VSIF48bwcmInTtdrfJprBWEQOlCWRI2E/3OQxOYDOtroDPx
-	dCXfRJsxb09h9hSQsBlb5PmWuh/A7sISK0BVSXJdlg7v7SxbCtAE9dbTPvx4G6Ew
-	53MB9bZVALfd+aS4wO+TDSROMH4k6G4IkFW7tMWAIzhZnbCUtUyqeiDA7OC1jQKt
-	DnUlaQoUTd0hmVWk8HJNEUhqaim8o/w8DrpD0SAEIUxKeMA==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hgmrtjpb6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 14:50:08 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.128.158) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 27 Oct
- 2026 14:50:04 +0000
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Tue, 27 Oct 2026 20:18:48 +0530
-Subject: [PATCH v3] drm/imagination: Support for querying Firmware
- information
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OM77Vlqe
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e9cf928dc9so5292855ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:51:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793112685; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g14vQiV3aqCBqPOxwVXuLwMaOFufX1C/6dHjnWfY83VM+upcoqLqasIslL3kV7il9g
+         /wgRBUtOXYAZNaytWk2Fhn5FpOHH/vFc0bB/gykCEQHnvZzm2P3uAQeSMDvo6w156ykp
+         Aa1tN8S0uvuAhlFP/BxpdG386jQTRZIg/GQWYUfNHp1QLcyDp4+RA5wfPH2kgN0k169k
+         SBiVxO/Rd+ARZbAxXyyBU4xaKksDz+gU3zdgAdjrJHAPxSw1gK2CJaBN5t54ramJSGH5
+         WWCUbTPq7lXOV8mK+STLP5FHEdAjbaUPaHVhyxBcEdRgBcyqmhclgK1at8snp2CoHpB7
+         u+Qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q5eafELa+V5NFx6iTzvVAm3Sz+wK15BmvIlXPQ4Fwxk=;
+        fh=DGVYpuSZ/s7Uok0INVXGe85PG1Y8mIF7oEou9CFkm78=;
+        b=Jr4kVtX/xFF3om6rp2aoQ9+Cjwnk8l1V/pvj/VViE1ZQJCdiC6h2R4LzGdByk7WdcH
+         8utt9813YdM/lPTpMxcWxASEDeWzOmteD4T2I9SJaw/mpJyYLwlb+XKQWNi5vQ4XW36a
+         J2lHdaK4Lb9kwfPDlSRk9rZZJm3IRJpJuj19D9IhVI8UsmXIXBpn1ZkKKHIEoWLrjumz
+         0bDqL/+KpMqq154yJRlMhUTEbTvkXohLA2bWt2ugJo02smyvTZxlDRtVEHsQkL26v3ze
+         hwt08xuJOiFqCyGrturzmAk4lSr+WjbXDmaY1fGoAn2KwYEPW7CbKCEXwh6QHs5C6JqG
+         MYwQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793112685; x=1793717485; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q5eafELa+V5NFx6iTzvVAm3Sz+wK15BmvIlXPQ4Fwxk=;
+        b=OM77VlqeaLDJbeHc1wTvMpQ5uJlGgx+UKCRieoIpT/RZGh6kjMcfwmK71tb17qUZos
+         V3Kdwphtb8h9kvHVp34dV601tdOKDg+UkTBMA4WlgoL5Zh+S4zYmPbxDiex1dcWeipID
+         efk0gVX1naCf31RADDYg1V99MOCzQ2s9DAIBjLNiI+wPUw41SWKfiMh9MLy7ThDCfalv
+         4VMhH/mFew+YnDt0YHpzG8ik9GYcabJl0pCm3bZBIHhP8qxSD6zR4UvdNgFh11le7n1D
+         CPwRkx1tGNSrZ5DQd7NkyqIojHsCWZlz/ZiELelsHuwcPjbhHAzrU05KTNWXHOxIAr5B
+         aNVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793112685; x=1793717485;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q5eafELa+V5NFx6iTzvVAm3Sz+wK15BmvIlXPQ4Fwxk=;
+        b=LndFHYFPyKINK05inRyq2KQO52621wnTmL3DPIPkjtiFkGpgUwBOTEIShz7QZIzBBX
+         JNDVasi/bymSjrappNdjfdFs2XGkyqTRiImAwo7d+bpQhwnaluN+nUZgjtQWK9c3Y/Zi
+         C35rUL3wxarbXfQfhhUG9DJBaUiZciJyDmav0DbLfq71cVwaoOKjURKZpM/2MO4jeSA3
+         bbZuU0658QE2Xm8LnC6N0kNo0ufgnLf81U6qUAzSP0JX9+AG1scvW6D9XkL3jueoh8ju
+         x/56hZrGVaPnXTUL0vvWqbleQuLxysRE9TFsbktalA0hYVQc2KYHgK22lZMgGpVmv7Qb
+         PinA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgV/XVUbcQq6giaxmEwN5VO0hcXtqyLTh++2sx2LVo7do9lCh4J3j3HD1aWdmRUBdpQjOyk3eH+7ByMHs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYNWGTjZzhlUUUo2s/hJIZTLhTQbbBU01tlTGh2UlDhFyQEDaG
+	cC+zbTh8tL3mHtbRDtpQIvpdQNFWhxvy86j70b5p2UkAYrX4RH0+jJm0Lhay3YKcYuwvynA5Xc5
+	FDNeLoSAK3/bbnATwyTC2syG5+WNJBED8ilSk3yTs
+X-Gm-Gg: AYBFou0OHDvbVJpUufefCWeR0OMtEqpm6q2zJiWY1g/yc17QCCeXj9z62V7xg5CCe5G
+	zAS2OJQRCZLAPkuC5kDbe56sSKBLAhizkoyYLVg8jv+bSy/NyUxApca5SexjuYnxhdorvm6ZTIq
+	KLfaJR+hFDQjEe1GMKNU62/4tcB6RQnW09x8OTqhzh+v1m1ksTSoSMk6ppQv91lI4ZMBeh3u89C
+	9v1/qmFy2aoQJnct4S8xXJ5rRXDjlYPK3aXPnUe51WLt+Rhm6dvY/Rc7C3nD9vvn+vYy8ZO8HCX
+	033DhAGGgVTKDcsHDxC6lbwPeY/aJw/C1TN1m+lH7Fni5ZLuc2FzfyLqC78iyZmCaBfK5NaN17v
+	9AzIV8L+UCsjO0WxKeVFGkXEoLiLi6Q2Bq3Tp8ev4FrnWv77qOze6EzBJqX3iIZj/0+1jS/c=
+X-Received: by 2002:a17:902:d486:b0:2e5:1069:fc11 with SMTP id
+ d9443c01a7336-2eae394f120mr17433805ad.1.1793112684688; Tue, 27 Oct 2026
+ 07:51:24 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,251 +104,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261027-fwversion-v3-1-f363de59205b@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAM+54GoC/3WMzQ7CIBAGX6XZsxigpRVPvofxAHRp99CfQIOap
- u8u7c1ED3uYzTezQsRAGOFarBAwUaRpzFCeCnC9GTtk1GYGyWUt8jH/TBj2FdPKXKTRwmvfQN7
- PAT29jtb9kbmnuEzhfaST2L+/KkkwwUpsReNqZX3lbjR0C7qzmwbYM0n+VWVWreVSOV0aXpkvd
- du2D4BP+N3eAAAA
-X-Change-ID: 20261026-fwversion-95a82a91f9f7
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Frank Binns <frank.binns@imgtec.com>,
-        "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard
-	<mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Brajesh Gupta <brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6317;
- i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
- bh=lL9VMhVrfU0AcCILH01ccZHbPxRB7y0otXn3NwQU8cI=;
- b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBq4LocWeurLiJ8bMRK1iZoMJbxeQiRDxl0e+w2O
- mzs4cCUIYaJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCauC6HAAKCRDQJndZfgLx
- cLX8D/0S5PybX0CcoMySyOG3AOVNxw606BkyXJdwrlo+Rw+JxuFrEZGefE279UrGBkBW+cWpsG6
- NQuemJsaZEBLdiLUeZe5s6bF5PJfYV96MnmqrMoDmO1dnRimEodZge0wXpo2rnp/PhO0RybufHH
- cGi2EVaATNNTpxu7JWOwxoAzsZapzxstT5bHN9PxQM1OIDpyZuIMAmLnF6tLL+ZW+izPQmykVDQ
- 9CnDsG25G4y3+JU1bAES0kkqpg35kd46dGgtn6hgQrG9U6cw/E7URflNTvgHx3/5lLi+4fu2yrV
- ZIlslUZvwzQfAz0thZw4K9kqpDhllo64l/pv9KAYwz9fjfMJXVOZdT9Igj15CTLYSyURcaJDNmt
- 0C3y+u08+Zi/LvKXRCldQ1rRCLjqYgF1zm/ABSmsqqWqA4/o3iCRyaAcXWdkiMBDD2BWJ+60USY
- 77ifPSFrB7YabqjQlj5GUZFUe+byWw/JssouTA9EX/h9N5yvBeLo7aiEqUZkXLX+4Wmtrvounp/
- bKE96VgWvUrFc4Zb2/RRnmT873B0iJ9YgToSi9mdXFU85ES3aJWwSRN7buMdmwigsUL60nrvllx
- aJdmwtOifFqH6K7MuNlRBU/NibWX2a8UZeTfJ0KBzexfYdclTvjQMBBUMqlEIs1n6OvYyhLF6Eh
- EApShRZZ2jVmO6A==
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
- fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
-X-Proofpoint-ORIG-GUID: KuQYRl4Buu6GVnQBRDpSaj-PGkHQ2yYa
-X-Authority-Analysis: v=2.4 cv=NZdzRGD4 c=1 sm=1 tr=0 ts=6ae0ba20 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=x1VBDH5lXswA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=VwQbUJbxAAAA:8 a=r_1tXGB3AAAA:8 a=bC-a23v3AAAA:8 a=QyXUC8HyAAAA:8
- a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=7UFbgRoScb10X7_jHdcA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22 a=FO4_E8m0qiDe52t0p3_H:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1OCBTYWx0ZWRfX4rrtj8e5Qbbb
- mqFcHIt5Xyrt692GQKYro2g5dKyjrFQplVTuImjuuutfU8JS+VxOjnNMHml2NNkl5f/XcDL439s
- W99KA4vWvntIJDWtoeHif2ZD3sw5TMU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1OCBTYWx0ZWRfX5u4Kk54IjFgC
- /emCvnPEo7bALeYimRf5DZD1qY1tlv/OJv8a9lBdHR0K97XCJBlDhxpXxwTMZT30+v/n+1jjHIw
- KEE2K6oARHr4dMQyPXTbLBTNFi4ehDapB7Rd1ngcyeDu7sCCjahcaqpfshB4HGh0bIBcyEL0321
- DyCV1asJ0La1Y6a5ppjY4UqbIUZQS9ai88EpLvPSxA7e0uR8cVLu0R0T8EuE11/ANG/gWYBTm+m
- bOkXRhtFzAXy1k1vlTjsSm8x3Pi7auC5x9RUFtX/gHcX0uV2Gz2QHJd/EZv7FjmojhzdHufFY4i
- nRLUxA6kBdUOFd8TyDOitFY+G7fuYgFvlz8R+5DTfBwgjtcjYk5Nl7Nyb8EruLUg9F8urhSDPW2
- OTvhpaptDzmD50x+Br2LHup7MjIB6HJFuETshGH7OzZfycihli9qHKrJVrMQwBYm86ilWnHCoXT
- Qg3FQqHYeASxvyPWYKA==
-X-Proofpoint-GUID: KuQYRl4Buu6GVnQBRDpSaj-PGkHQ2yYa
+References: <20261023204706.3112215-2-hramamurthy@google.com> <179306532408.3134.10931264635310564601@kernel.org>
+In-Reply-To: <179306532408.3134.10931264635310564601@kernel.org>
+From: Pin-yen Lin <treapking@google.com>
+Date: Tue, 27 Oct 2026 22:51:13 +0800
+X-Gm-Features: AclHuK9vxM65h254x3YFJdPadOGD3SBm7SMj5eLYuC8AhxOhfVDhb-RpEDerspY
+Message-ID: <CAHwYsiqa2WWNHeSUij+g5fAFQJc_AXcKCA0sfCHU8isaJQ=+Qg@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/4] gve: Fix race between stats query and queue reconfig
+To: netdev-bot+sashiko@kernel.org
+Cc: hramamurthy@google.com, netdev@vger.kernel.org, joshwash@google.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, jordanrhee@google.com, willemb@google.com, 
+	przemyslaw.kitszel@intel.com, nktgrg@google.com, maolson@google.com, 
+	jacob.e.keller@intel.com, pkaligineedi@google.com, yangchun@google.com, 
+	patricion@google.com, awogbemila@google.com, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a new subtype DRM_PVR_DEV_QUERY_FW_INFO_GET under
-DRM_IOCTL_PVR_DEV_QUERY to query Firmware information. This allows the
-userspace to detect any bug fixes and features present in the Firmware
-and take appropriate action.
-Currently it supports querying major and minor version of the Firmware.
+On Tue, Oct 27, 2026 at 9:42=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1 (1)
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The commit message describes the bug wrongly and the Fixes tag
+>   points at the wrong commit.
+> - [Low] Baseline decision: not valid for the final state of the series.
+>
+> Pre-existing issues:
+> - [Low] Baseline decision: not valid for the final state of the series.
+>
+> --
+>
+> gve: Fix race between stats query and queue reconfig
+>
+> This commit adds a stats_lock spinlock to struct gve_priv. The lock is
+> taken in the stats readers (ndo_get_stats64, the report stats worker and
+> the per-queue qstats callbacks) and around the priv->tx/priv->rx updates
+> in gve_queues_start() and gve_queues_mem_remove(). The qstats callbacks
+> also return early when the queue arrays are NULL.
+>
+> > Fix a concurrency bug where network statistics queries race with queue
+> > reconfiguration or interface teardown, causing a Use-After-Free (UAF) o=
+r
+> > NULL pointer dereference.
+>
+> [ ... ]
+>
+> > This issue was discovered and actually triggered by the
+> > drivers/net/stats.py selftest. When an interface was brought down,
+> > querying per-queue statistics via Netlink caused a kernel NULL pointer
+> > dereference in gve_get_rx_queue_stats():
+>
+> [ ... ]
+>
+> > Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
+>
+> [Severity: Medium]
+> Is the crash in this trace a race?
+>
+> gve sets dev->queue_mgmt_ops, so netdev_need_ops_lock() returns true.
+> netdev_nl_qstats_get_dumpit() takes the instance lock through
+> netdev_get_by_index_lock_ops_compat() and
+> for_each_netdev_lock_ops_compat_scoped(). The struct netdev_stat_ops
+> comment in include/net/netdev_queues.h says:
+>
+>   Ops are called under the instance lock if netdev_need_ops_lock()
+>   returns true, otherwise under rtnl_lock.
+>
+> Every caller of gve_queues_mem_remove() also holds the instance lock:
+> gve_close() via ndo_stop, gve_adjust_config() via ethtool and XDP, and
+> gve_handle_reset()/suspend/shutdown via netdev_lock(). So the qstats
+> callbacks can't overlap with teardown.
+>
+> The trace looks like a NULL dereference that happens every time instead.
+> netdev_nl_stats_by_netdev() sums the queues even when the device is down:
+>
+>         netdev_stat_queue_sum(netdev, 0, netdev->real_num_rx_queues, &rx_=
+sum,
+>                               0, netdev->real_num_tx_queues, &tx_sum);
+>
+> and gve_get_rx_queue_stats() then computed &priv->rx[idx] with priv->rx
+> set to NULL. The new NULL check fixes that. The spinlock in the qstats
+> callbacks makes no difference on this path.
+>
+> The lockless readers that do race with gve_queues_mem_remove() are:
+>
+>   gve_get_stats(): ndo_get_stats64, reached under RCU only from
+>   /proc/net/dev via dev_seq_printf_stats()->dev_get_stats()
+>
+>   gve_handle_report_stats(): runs from gve_wq
 
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+This patch fixes both the consistent NULL dereference (as shown in the
+trace) and the race between stats query and queue reconfig. The
+spinlock in per-queue stats callbacks is just to make sure everyone
+who reads priv->rx / priv->tx takes stats_lock. We will update the
+wording in v4.
+>
+> The priv->rx check-then-use in gve_get_stats() dates back to
+> f5cedc84a30d ("gve: Add transmit and receive support") from 2019, which
+> predates 2e5e0932dff5.
+>
+> Should the Fixes tag point at the older commit? Stable trees without
+> qstats won't otherwise pick up the ndo_get_stats64 use-after-free fix.
+> Also, could the commit message keep the qstats NULL dereference separate
+> from the ndo_get_stats64 and report stats race?
+
+The Fixes tag will be updated to commit f5cedc84a30d in v4.
+>
+> > diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethern=
+et/google/gve/gve.h
+> > index b7ce6e8632db6..104468c2c07f8 100644
+> > --- a/drivers/net/ethernet/google/gve/gve.h
+> > +++ b/drivers/net/ethernet/google/gve/gve.h
+> > @@ -957,6 +957,8 @@ struct gve_priv {
+> >       struct workqueue_struct *gve_wq;
+> >       struct work_struct service_task;
+> >       struct work_struct stats_report_task;
+> > +     /* Synchronizes stats accesses and queue teardown */
+> > +     spinlock_t stats_lock;
+>
+> [Severity: Low]
+> Does this lock cover every place that rewrites priv->rx[idx] in place?
+> gve_rx_queue_stop() still copies the ring out and clears it without
+> taking stats_lock:
+>
+> drivers/net/ethernet/google/gve/gve_main.c:gve_rx_queue_stop() {
+>     ...
+>         gve_per_q_mem =3D (struct gve_rx_ring *)per_q_mem;
+>         *gve_per_q_mem =3D priv->rx[idx];
+>         memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
+>         return 0;
+> }
+>
+> gve_get_stats() (from /proc/net/dev under RCU) and
+> gve_handle_report_stats() (from gve_wq) hold only stats_lock. During a
+> single-queue restart they can read a partly zeroed ring, including the
+> statss seqcount. The result is briefly torn or zeroed rx counters. It is
+> not a use-after-free, because the priv->rx array is still allocated.
+>
+> The next patch in the series, "gve: Fix backward stats when interface
+> goes down or configuration is adjusted", moves this copy and memset under
+> spin_lock_bh(&priv->stats_lock).
+>
+> After that patch, two writes in gve_rx_queue_start() still happen without
+> the lock: the struct copy priv->rx[idx] =3D *gve_per_q_mem and the
+> abort-path memset. Both only replace zero counters with zero counters.
+> The incoming ring is either freshly allocated (memset(rx, 0, sizeof(*rx))
+> in gve_rx_alloc_ring_dqo()/gve_rx_alloc_ring_gqi()) or the old ring,
+> whose counters gve_rx_queue_stop() zeroes. Readers would not see wrong
+> values, but KCSAN could still report the race.
+
+Patch 2 already moves gve_rx_queue_stop() writes under the lock. We
+will add stats_lock to protect the two writes in gve_rx_queue_start(),
+even though the readers would not see wrong values.
+>
+> >       unsigned long service_task_flags;
+> >       unsigned long state_flags;
+> >
+> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
+thernet/google/gve/gve_main.c
+> > index 2437cd8ba6331..26fdd22644f4d 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_main.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
+>
+> [ ... ]
+>
+> > @@ -2786,9 +2796,15 @@ static void gve_get_rx_queue_stats(struct net_de=
+vice *dev, int idx,
+> >                                  struct netdev_queue_stats_rx *rx_stats=
+)
+> >  {
+> >       struct gve_priv *priv =3D netdev_priv(dev);
+> > -     struct gve_rx_ring *rx =3D &priv->rx[idx];
+> > +     struct gve_rx_ring *rx;
+> >       unsigned int start;
+> >
+> > +     spin_lock_bh(&priv->stats_lock);
+> > +     if (!priv->rx)
+> > +             goto unlock;
+> > +
+> > +     rx =3D &priv->rx[idx];
+> > +
+>
+> [ ... ]
+>
+> >  static void gve_get_tx_queue_stats(struct net_device *dev, int idx,
+> >                                  struct netdev_queue_stats_tx *tx_stats=
+)
+> >  {
+> >       struct gve_priv *priv =3D netdev_priv(dev);
+> > -     struct gve_tx_ring *tx =3D &priv->tx[idx];
+> > +     struct gve_tx_ring *tx;
+> >       unsigned int start;
+> >
+> > +     spin_lock_bh(&priv->stats_lock);
+> > +     if (!priv->tx)
+> > +             goto unlock;
+> > +
+> > +     tx =3D &priv->tx[idx];
+> > +
+>
+> [ ... ]
+>
+> > +
+> > +unlock:
+> > +     spin_unlock_bh(&priv->stats_lock);
+> >  }
+> >
+> >  static void gve_get_base_stats(struct net_device *dev,
+>
+> [Severity: Low]
+> This is a pre-existing issue and was not introduced by this patch. With
+> the early returns above, device-level qstats now drop to zero after
+> ifdown, because gve_get_base_stats() still hardcodes zeros:
+>
+> static void gve_get_base_stats(struct net_device *dev,
+>                                struct netdev_queue_stats_rx *rx,
+>                                struct netdev_queue_stats_tx *tx)
+> {
+>         rx->packets =3D 0;
+>         rx->bytes =3D 0;
+>         rx->alloc_fail =3D 0;
+>
+>         tx->packets =3D 0;
+>         tx->bytes =3D 0;
+> }
+>
+> Once gve_queues_mem_remove() sets priv->rx and priv->tx to NULL, the
+> per-queue callbacks add nothing, so the totals equal the zero base. That
+> goes against the get_base_stats contract in include/net/netdev_queues.h.
+> It would also fail the "went backwards" check in check_down() in
+> tools/testing/selftests/drivers/net/stats.py on this commit.
+>
+> The next patch in the series, "gve: Fix backward stats when interface
+> goes down or configuration is adjusted", fixes this. It accumulates ring
+> stats into base_net_stats and base_ring_err_stats under stats_lock in
+> gve_queues_mem_remove() and gve_rx_queue_stop(), and gve_get_base_stats()
+> then reports those accumulators.
+
+This is fixed by patch 2 in this series.
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261023204706.3112215-1-hramamurthy%40google.com
+
+Regards,
+Pin-yen
+
 ---
-Changes in v3:
-- Add missed check for padding field added in v2.
-- Link to v2: https://lore.kernel.org/r/20261026-fwversion-v2-1-bb025c93a04a@imgtec.com
 
-Changes in v2:
-- Add padding field to align new FW query struct to 64-bit.
-- Link to v1: https://patch.msgid.link/20261026-fwversion-v1-1-3ed17c65bf4c@imgtec.com
-
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/imagination/pvr_drv.c |  5 +++++
- drivers/gpu/drm/imagination/pvr_drv.h |  4 +++-
- drivers/gpu/drm/imagination/pvr_fw.c  | 31 +++++++++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_fw.h  |  3 +++
- include/uapi/drm/pvr_drm.h            | 21 +++++++++++++++++++++
- 5 files changed, 63 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274f..2d522a8e46ad 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -6,6 +6,7 @@
- #include "pvr_device.h"
- #include "pvr_drv.h"
- #include "pvr_free_list.h"
-+#include "pvr_fw.h"
- #include "pvr_gem.h"
- #include "pvr_hwrt.h"
- #include "pvr_job.h"
-@@ -658,6 +659,10 @@ pvr_ioctl_dev_query(struct drm_device *drm_dev, void *raw_args,
- 	case DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET:
- 		ret = pvr_static_data_areas_get(pvr_dev, args);
- 		break;
-+
-+	case DRM_PVR_DEV_QUERY_FW_INFO_GET:
-+		ret = pvr_fw_info_get(pvr_dev, args);
-+		break;
- 	}
- 
- 	drm_dev_exit(idx);
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
-index 7fa147312dd1..4e058a6fdd5c 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.h
-+++ b/drivers/gpu/drm/imagination/pvr_drv.h
-@@ -13,9 +13,10 @@
- /*
-  * Driver interface version:
-  *  - 1.0: Initial interface
-+ *  - 1.1: Add DRM_PVR_DEV_QUERY_FW_INFO_GET query
-  */
- #define PVR_DRIVER_MAJOR 1
--#define PVR_DRIVER_MINOR 0
-+#define PVR_DRIVER_MINOR 1
- #define PVR_DRIVER_PATCHLEVEL 0
- 
- int pvr_get_uobj(u64 usr_ptr, u32 usr_size, u32 min_size, u32 obj_size, void *out);
-@@ -68,6 +69,7 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_heap_info, heaps) \
- 	PVR_UOBJ_DECL(struct drm_pvr_static_data_area, offset) \
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_static_data_areas, static_data_areas) \
-+	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
- 	)
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index c6c77b152342..34093d29baa0 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -4,6 +4,7 @@
- #include "pvr_ccb.h"
- #include "pvr_device.h"
- #include "pvr_device_info.h"
-+#include "pvr_drv.h"
- #include "pvr_fw.h"
- #include "pvr_fw_info.h"
- #include "pvr_fw_startstop.h"
-@@ -1496,3 +1497,33 @@ pvr_fw_hard_reset(struct pvr_device *pvr_dev)
- 
- 	return 0;
- }
-+
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev,
-+		struct drm_pvr_ioctl_dev_query_args *args)
-+{
-+	struct drm_pvr_dev_query_fw_info fw_info = {0};
-+	int err;
-+
-+	if (!args->pointer) {
-+		args->size = sizeof(struct drm_pvr_dev_query_fw_info);
-+		return 0;
-+	}
-+
-+	err = PVR_UOBJ_GET(fw_info, args->size, args->pointer);
-+	if (err < 0)
-+		return err;
-+	if (fw_info._padding_4)
-+		return -EINVAL;
-+
-+	fw_info.major_version = pvr_dev->fw_version.major;
-+	fw_info.minor_version = pvr_dev->fw_version.minor;
-+
-+	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
-+	if (err < 0)
-+		return err;
-+
-+	if (args->size > sizeof(fw_info))
-+		args->size = sizeof(fw_info);
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 4b25291135b6..7e18f3e7d4be 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -496,4 +496,7 @@ int
- pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
- 				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
- 
-+int
-+pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
-+
- #endif /* PVR_FW_H */
-diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index ccf6c2112468..1179c1e7d92d 100644
---- a/include/uapi/drm/pvr_drm.h
-+++ b/include/uapi/drm/pvr_drm.h
-@@ -434,6 +434,21 @@ struct drm_pvr_dev_query_static_data_areas {
- 	struct drm_pvr_obj_array static_data_areas;
- };
- 
-+/**
-+ * struct drm_pvr_dev_query_fw_info - Container used to fetch information
-+ * about the GPU Firmware like its version.
-+ */
-+struct drm_pvr_dev_query_fw_info {
-+	/** @major_version: Major version of the Firmware. */
-+	__u16 major_version;
-+
-+	/** @minor_version: Minor version of the Firmware. */
-+	__u16 minor_version;
-+
-+	/** @_padding_4: Reserved. This field must be zeroed. */
-+	__u32 _padding_4;
-+};
-+
- /**
-  * enum drm_pvr_dev_query - For use with &drm_pvr_ioctl_dev_query_args.type to
-  * indicate the type of the receiving container.
-@@ -476,6 +491,12 @@ enum drm_pvr_dev_query {
- 	 * a pointer to &struct drm_pvr_dev_query_static_data_areas.
- 	 */
- 	DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET,
-+
-+	/**
-+	 * @DRM_PVR_DEV_QUERY_FW_INFO_GET: The dev query args contain
-+	 * a pointer to &struct drm_pvr_dev_query_fw_info.
-+	 */
-+	DRM_PVR_DEV_QUERY_FW_INFO_GET,
- };
- 
- /**
-
----
-base-commit: a8fe4e162ba8212b7e51fdb024b37800f36b496c
-change-id: 20261026-fwversion-95a82a91f9f7
-
-Best regards,
---  
-Brajesh Gupta <brajesh.gupta@imgtec.com>
-
+pw-bot: cr
