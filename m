@@ -1,90 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793063210;
-	b=idHadcrT/wy0z9K3fto5INVWNX90CXSCPrhh1FeeUg2T/qGyQLMgO4VTirvmY1UY3H/5
-	 wZFhoByTtgs96kIQB1b93eECcRYDriiv1nNHAaJ0KJyY/1MEInFWCTyPaPgdUUn6WdHzR
-	 /0WbPPuIR0gUBG1U0jSD303oYulFiQ8N6o/YB3+IQM4S2zPInJOg/PZ1aODut6lZ/jZP+
-	 eKizVuMfmI9cNURfXawvOSxhza3lETxEXHbeQZ5n22BEFukY0xCKdPjR32Bda09g4cYFS
-	 P+fDD/sRPZdDS0BoejdRHyC4qFWY2bS4BHhskob1+Zz0Pf3ImJvPFrTr5k9Pd+FMczg==
+	t=1793063234;
+	b=z7aUfC6fjQeE7zA1Ua6GxmLnlq8mlImNVsq0lw50FuYshnVQrMOYIhaP+eaYVo4lTQMl
+	 NM1DWArcLPjhM9pcJCDbuIRH9bFM57pgsyMI3g+YU0kZMOzThS+aOax7ezjX/fhqWhGaG
+	 VNcRVN9GpXG+FmPltPFKpdIvC7VJlLdzSNCPwkGpdQNTWv0Nzfm5eym6I0K05mqA/qDe2
+	 k7hb8en9SyDaZqLlpXK7carc1rvw8/9P9OWGStYEAcINDqh1xmiKTMrgWBncEJuvJYUK0
+	 ahT5pZ+DniG85zUpUOPQ54/8ia7n5IENWQASPqyntuviuxy5cb1EVaSN8eVOkpb/4yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793063210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793063234;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aJI0hb4/E//vLxc2EVc1E27ZXseuwybs0SN1EQUknec=;
-	b=UPC3kkNJfL9dvhOg0SfbxYVKFwdy43gDkdOgQOreF7uhPqWxyYXfQQGcQb16ZZ/RfvG9
-	 F/VYbuqKVCl/uzsUg8N9QWQi2Eeb8IsCOQa9sfCKKs+Uz7ZE1txJrrmScUHJCyyj5hMM0
-	 pKqNX+Dnjx9GKen0vXCUQ68R3wxbDRjmZboOO06mLbQfrIh69Y7xCY1WGY3oGOO3Rp0Vk
-	 C+KFrwUZ73lHsWS7pel1hAWyluoM7j3wYJdRY3U/svSBCVWhkGhWrY1ptV7PnoRLjTbZ0
-	 NvRzAZ7QVBIyPA0wAuN/HR2z+GqiStewVTaO0uX9kzNReeL0WJlJBDCO5D7ynbSWniA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=vBhaO6Es9PKt4idPNg62EPh8XgJdwaGm+jmpwXvFRC8=;
+	b=TW9d/4ME8iulp9J+gp2xZzHPPh7bGzKDU07LgRnSsbfBxpPrvHeW4yDOghG0QKSkMxqG
+	 pxUWyaBFDsb7MbRXJMHcUMpkvbiaafX2wYktHo7qcklYQJqwpf6lWnCEQaWLhwgSYfeAN
+	 yGlInurEhhgbEASEMqecg6VHMQoqW29Q/aMKvu7TVB9SD0+AtJv3tUt7Yvyh5LfUogVCj
+	 z+4zG5Gngzb/zwcr9bROLs08J73hH61MI7V/uIXjht/pVDXgAFJlkEzkNRB2DUv8ja5JV
+	 FIutzBnXCvf7LG1XUi1Ah6aIF++xhGYTb7etbP7gDfX63Dag/BTIQwvMP0gkAE8QQcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LTXvgnV0;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PVYnLtwm;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F34C606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:06:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F34C606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD57606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:07:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD57606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LTXvgnV0
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c46822eefb6so471224666b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:06:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PVYnLtwm
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-35d0be18c71so579771eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 18:07:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793063209; x=1793668009; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aJI0hb4/E//vLxc2EVc1E27ZXseuwybs0SN1EQUknec=;
-        b=LTXvgnV0kKaKCac/NWTDNj/xLVRA12SXR8oBYGVw7hB46ZT57gB4fZwYtR5nCCblkS
-         peP+RjAszOk0dm1T6N+uNlAtD5zw0eE2lahff023hj5G//C919I++TvXOZ3DarXuZCiY
-         CdA2bEl2sIvMMKXBmf+rpvs6JbfEPu5km1R+tIVnkFUnKRVdcKmH+9TFh7Z3Gp5SZGks
-         0xu37F04qrnh8fsQxonydlDd+TPd3e3MYXPMIg4lN2SvnxV9ntsb1E0EcMW00ZocSO6d
-         tuaikwD10/VduwJNndzh735UGS98Jmu+qk9VwbMuzMXhmtJEuPN81j0LyK1pZmjCEjSj
-         z4kw==
+        d=gmail.com; s=20251104; t=1793063233; x=1793668033; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vBhaO6Es9PKt4idPNg62EPh8XgJdwaGm+jmpwXvFRC8=;
+        b=PVYnLtwm70tT95O4Uv7YMB8Et9uODxOHNv+T6a3NrEqKIDvU4e5NW/3X1s/nZW/eR1
+         miRhvrwaPJy7I+3t/q9nz3y5ghFBQXE35M1yzkRI/SlelyVbU6s8eDoPEE4VX6YYskfY
+         eebLieAqnTfWJBwzDQxr77P1M+U1A/gM6Re54SHmAi2WUA/yBgRCHtkgLeZw8Nh11/Eq
+         6rbUJo0nKwH7PjFGdf2H9601QL5yOKS1Dprb5s0qOo834w2oy4EO86MunCM5F6caTmNK
+         HcoLVCojp3gvIwrCmy9u1ZnKNEBeCkTGnQQfVYsirAe3vyrl8uvhwYFS4rA7AwlRC3Zw
+         1+8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793063209; x=1793668009;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aJI0hb4/E//vLxc2EVc1E27ZXseuwybs0SN1EQUknec=;
-        b=0azqHXiXMoAhJwW7085LToneHWHTuaFPXp5RFDWSbZluCSiAxKsjrB4AT0wApL37Ak
-         1zpYaSvpb9W5H/g410AxVwI7feel2gNAAA+3H/zz3TI3ujZHqj8y34MiN41ieMfC3/E4
-         bplM49bSxRpteq2Dh/UeMplLcOVcSJVZcUY2h1ot5SeAAN4Qp82M+hZ58ZqwFmLX/oom
-         jgtYCb9R1yUmSBPK3da0aLMpPsuovNcsteu4h+0lJdKpH8oKgOPEmNAWCEjQX6aoyc5S
-         ZxeiLemW8jSWtxRRE+zT5IjYLS+syW7a3MCX8ezI+OBgkAi5+x6kxyVTN9OJsNCC5ivd
-         vwvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZPbhdvSqm8GMoi1yuSEu2CDrhDGeWmbNncZT7AYh8Vffki/w1m07jXOz/6y0JsZiSW+sLQzJZZ9tbtqw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpWtlFXhr2XUzV+g0taF02oF4O1y1CBJm8xc/3duEXXtjiEVxW
-	D9tvNrxIwHaG2Ibtroyr/DixQDcyL/ut58HTi53UpPiBRqMCc1b7doHT
-X-Gm-Gg: AYBFou3iAR8sznCDpRo4UGE1wt5J7XVOFgH1ZtlG6b2EQ1pQ77jakRSSe+PLeK9tbL1
-	HhEoIeqhEZj3WTUAOqJt/8rtPcfFVHNViuZyTmIiQPMwTEY+PFeCxUmxjRPANpW010/RgJwPNPM
-	TRlNVGycsg0aF+7zu8JdtsyrPFSFgJpLtZn8xRSjDcG3OLlzUUudcGWhDu5yBjhMSSt5AQEdYh8
-	/r0zxMBK7jxofYYUIIop55PZOgHijQnRB/zGU7j9vsl2X7WNyBNXafCmLg9CcTv3UdCCiif2ObN
-	lx77O7UiCQYwVyb7IJcIycWqUe0RCbVKcqmqFJADGjkg5QoMxznwNtQUDW57A+1FaHjktVCbvSg
-	y3GalkH2Sj74RJu/tsEHo5SX/hmhvt5S6DMCMgOffU2x6DhP0CMw6trSISKBQwvzuk+lBgXIOw8
-	rQH2bWVK1H3pKFNb7zbvg6y9Ie5QGIJpGpS7s0xsLW3HQ5YFh39owgl7pfsummsDaSBX32Z+nK6
-	fLYIJiqUapFMws5F0zs/Tiqi5CJ55Ve7YR9yYLpsMGmK1Ea6xnhXy7pse6VDw2OdrSAqsAV2R1w
-	YeD9qgpS9EPdJ6WhygAL7W9/lbFQx/ex79pdZ+pC4uWgrynGnzBpA9QxQeS1HrT2QpKokKuxjwq
-	h4Ij1O6ND/ddmc1/ofUxjLUNKqkgzuf6w3NNndEQ2dTL+NtiZjrT6ttuTR4HKQ+KJkHjhdnT+Hh
-	04l77YCLXizWdyhK8=
-X-Received: by 2002:a17:907:160b:b0:c46:6a50:40b7 with SMTP id a640c23a62f3a-c46bdd690d3mr894395066b.10.1793063208643;
-        Mon, 26 Oct 2026 18:06:48 -0700 (PDT)
-Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e7c94sm373434066b.27.2026.10.26.18.06.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 18:06:48 -0700 (PDT)
-Message-ID: <7c8d96bf-368d-4272-8cd1-94740a2e4a84@gmail.com>
-Date: Tue, 27 Oct 2026 02:06:47 +0100
+        d=1e100.net; s=20260707; t=1793063233; x=1793668033;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vBhaO6Es9PKt4idPNg62EPh8XgJdwaGm+jmpwXvFRC8=;
+        b=Ji/8ZOdEy8xV2ey4LIvYR4+j+NPevY8bPh202bVI2U8KXtS5rB++rW3lDXsB+Wd//V
+         +xSowIfmolAVCV/gg1mbgUCDq/l39Sin6oKF9Ovu9YIYusRH8jP8+bM9UUQca5E9kBcA
+         C20zqQELdJBo/kW1kXBsXTxsXZLlupj/Nzpydygn7lv3/pzn3X49Z/eeojFPX4LxW6uj
+         43RHjoWLCW2FOU9YHZQbEqHZUV7/Eovj0391jbTMaxIkN0beafP6BCBzBr23Bf211TOs
+         rooqtxI3N4JbeEwnth0vou+/dvsH3sc8uiAs+REVi1jEzxKDiYLnexdRW5L1EY5ztf37
+         jf+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxApwYdGFBFmicxo6Gr2fQ356aM78p3t1S/q6eJazR4mgNCM0pRqE6L5B4Vjf0tlsxI5d2Jb65iqbdzB2g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/xy/fJCf5oAhp1aXmBqWaWlG8Z2XX6e1Q9DH9NoVZX2TR1LWS
+	2tQNdcAoGjPqpg4N5f8C5SXUdaMJIrzubq+Aqf4W/XMYRw00QTsnIusd
+X-Gm-Gg: AYBFou20EEKlMSLsj89UuVuT6MIWVZE8r574MoQRn2zZtfNP83ZP0f2CWcdwyCo7NPb
+	j2MoM0sDaVOFFTNumPvliOe5f80LRTMIdWkwjDWzTp9o87bW2i4KfCQCAncJDpEaNHPcYcsmxSV
+	YwADo33VsnbcRfXU3YAtvgcf19vIBpYfRyBmmDPkB3wQeM0+QxAkgNtmljOonGtA1Y7IFhLdtjj
+	LCJ8LAR+rcCJKGvMmqbLyB7TI+hBC0xRETwCPPW3Z8dBJrpUDIfasXx5AqQAdMSdSKax3zFg/lq
+	pD0DpoxWlpLZWHBzVVyBznY7CgwVAznhx0hQB+hRT4ynPHTtJ2aGS+I+mswLzC5hBAgAyscCBge
+	EkIosSoFI+bxjtRc1B1bxQqU6dhHcUdbtBmrpxQCAPZZ+ygLhgIomqVu0cIeLOwZ1ivSWR3YK3z
+	DICp4uXM4JvnJQK9usJbpDFgmAPvRy5waghbTkZ4wMpaMtWuIqz48cDwHLF1rNHjLomiZ8Iptkq
+	W6VL0a1ZyesokA0+Z+WmhFtBmZw7w471pLu4uUt2LcsFmoNOBo8toOQ3qFLNnE/7MECk/A4oQTK
+	NkPnoKnsmTAcBpRdYSgX9EE=
+X-Received: by 2002:a05:7023:c013:b0:17a:a3d4:8b17 with SMTP id a92af1059eb24-1a3c485419amr1593552c88.12.1793063232714;
+        Mon, 26 Oct 2026 18:07:12 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:2dc1:2e1d:6b4d:5a9a])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d59f90sm27239759c88.3.2026.10.26.18.07.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 18:07:12 -0700 (PDT)
+Date: Mon, 26 Oct 2026 18:07:08 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Russell King <linux@armlinux.org.uk>, Mark Brown <broonie@kernel.org>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@bgdev.pl>, mfd@lists.linux.dev, linux-samsung-soc@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 0/4] ARM: s3c: crag6410: Convert to software nodes and
+ properties
+Message-ID: <at_45tVmsWaYAv7W@google.com>
+References: <20261024-samsung-kp-v4-0-e21253295e68@gmail.com>
+ <a6df6043-9f0d-4b03-8efc-d3e47a82f096@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,43 +103,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] kernfs, autofs: fix pipe lock cycles through sysfs
- stores
-To: Ian Kent <raven@themaw.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tejun Heo <tj@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Jan Kara <jack@suse.cz>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- driver-core@lists.linux.dev, autofs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
-References: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
- <cover.1792577179.git.krystianmkaniewski@gmail.com>
- <dc65c28e408d6b64d4b13b7ad30e5fe70ddaa441.camel@themaw.net>
- <4f56c93a9fc5fee152364974773df0a319c84af9.camel@themaw.net>
-Content-Language: en-US
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-In-Reply-To: <4f56c93a9fc5fee152364974773df0a319c84af9.camel@themaw.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a6df6043-9f0d-4b03-8efc-d3e47a82f096@app.fastmail.com>
 
-One additional detail I missed in my previous reply. I reproduced the
-warning on the unmodified kernel at commit:
+On Mon, Oct 26, 2026 at 02:51:16PM +0100, Arnd Bergmann wrote:
+> On Sun, Oct 25, 2026, at 06:03, Dmitry Torokhov wrote:
+> > Hi,
+> >
+> > This series converts the Cragganmore 6410 board to generic software nodes
+> > and device properties, allowing the removal of legacy GPIO lookup tables.
+> >
+> > We add software node propagation support to the wm831x MFD core to route
+> > DVS GPIOs to the PMIC regulator, and convert the peripherals on the
+> > Cragganmore board (PMIC DVS GPIO, basic-mmio-gpio, LEDs, WM1250, and SPI0)
+> > from legacy GPIO lookup tables to software nodes and properties. This
+> > eliminates the legacy GPIO lookup tables on the board and fixes incorrect
+> > GPIO chip names from previous conversions.
+> >
+> > Hopefully Krzysztof can finish merging the series through the soc tree
+> > once Lee acks the MFD part.
+> 
+> Hi Dmitry,
+> 
+> This all looks good to me,
+> 
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> 
+> I'm a bit unsure about how this fits into your wider plan, i.e. why it
+> is helpful to replace the lookup tables with device properties in
+> this file:
+> Are you working towards eliminating all gpio lookup tables from
+> the ~50 files currently defining them, or is there an immediate
+> benefit to doing this one in particular even without the others?
 
-        93f51579e7df248780214094418f205253383cc5
+Yes, I would like to eventually remove the lookup tables and rely only
+on software nodes. How quickly I can do that is a big question, but
+I'll try ;)
 
-Exact kernel version:
+> 
+> Do you plan to also eliminate the uses of the legacy gpio
+> interfaces in mach-s3c, e.g. the hardcoded numbers
+> in {pca953x,wm831x}_platform_data, crag6410_lcd_power_set(),
+> crag6410_machine_init(), or the pin config in
+> s3c64xx_i2s_cfg_gpio()?
 
-        7.3.0-rc4-g93f51579e7df #1
+Let me take a look.
 
-I ran it under QEMU TCG using the configuration supplied by syzbot.
-Both the unmodified C reproducer and the original syz reproducer
-reported the same lockdep cycle.
+Thanks.
 
-Thanks,
-Krystian
+-- 
+Dmitry
