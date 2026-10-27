@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101153;
-	b=WYrn2xVL3vp5Yleo6wREGsyhJ4hVgxKEqqZkvhXJEx2HixFSBC/JaI8+7OZLZsVlO0P1
-	 iBGJb5EpUgHDwU4pKvGaA6kmgVmBpJvpMNyBxs506fQ4V0aJxMUDdSXf3L2iw9wnX07UN
-	 2HUwbtzv0bYbWTr3a/BlDOi1TxUT0xbmYfSJJyykWEBZczPQJuQJkrrM44QL5vWhaqzUG
-	 4CXjcAkUi0729T/73ivPu5G13Q6QNwm82DFlSG191cQcQkfu/NO6tDK0aiBH3De4Eg//M
-	 +LNM3QC0uN5vwzIR2TbQypIKStVu7BmIxSqve7F3Pf1Z6iVMmTyX3OGjAcw39li94pQ==
+	t=1793101182;
+	b=rOxxxRgT/taADI0c9Vfmi427nacqpDSx0iGiT3gnp+bSS0qcwt3IZe/1zoFwdDK0JCM1
+	 CDlF1sK8zOUuYlqbknL5fIHsY+0s57fnAF66/QFF1mNX2g77ZNim+jqk74+PCUBtXLrw2
+	 70LgAiYVRUu3G88Gqjw5XrmBPmu/LO3ZVx/uvGVb+7cdR1Y4+Hj9LOe/lRhwyYOb37vqC
+	 FOSzM0ax7eDM3GisddKGexlVwA0uiRIdZlauAM1djUHu1dkh3GcASqkjzcK/QfagrEIMX
+	 JCvCGnscEp9uK6bQ5hRFVcCiqu2mLzu4BksBntblJAEKW6ZCG+U251OMD/ROxS2GI2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101153;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=eSoejBy4BiH08FSMPiqiQwZp6ozqcsl7f9UKEi2EenQ=;
-	b=jHjV+C64HuailbzUisMpG3orEPY+Q6AOBkQ3rkdp/7n8FWrYoV4a0k+Q8/vIlGnCa1kP
-	 xnAYKgM95hSO6RqGnWQXOwWFJm6zJt9ecg6z44d/OQUIbv86NoTg1aJyaJmSCUozXwT6k
-	 Gn9N7WGwkX5Fn4sQNdzHa87+wweCKR00BmCbHDpK91VnSbV8Wz5CQ9H9O1xTS5Wg8KVNV
-	 GvKUYZMGDegmkXBhBJFOtfN1AUazes+H+hdDUkIVbnkLhPZwptfo4jg516UZurSevK+Y1
-	 rzb79EpSEkr81SteyyraaIVJW4h7raARF2saVh5CeV5ZwC1kmNA9htNfmsD+WoMqrBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101182;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oV46N3CfdHC5MLPkBRfLAChH7RVI3AL9U6J+h7PJVDA=;
+	b=EFkQFw5MBRGmUbGYjBwTkdcnRDsNnFVREdO2QRExiOIl3g7UgPw3tLm/BjMla5sP3AWp
+	 4fpR9WHoibUwuL324kAG8HUStbSeszqdEnVAhUDSt+MR2zrC0JvHyNleFNzH2H+9CeyMG
+	 jKUK2UNXxC2j+Dy+HX0kqS7SC9P/xIVKkMR1QHbSeht1CoFmlkoVysG7QaMY+aTDW0bx6
+	 XM41qZbo3jpmkL2DOamzjLTeHFzJF37rWHaWCLRRyQfVTV1UeIEclXOqEuHGQv5eULNaN
+	 lJbqRYIlP9nFAiuygrNEoDGNpMBdpJkQmgHpkOPPRQBXpyrlKtnuaIWRUZlFMTnk9Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IYh5nymZ;
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KeXDCfsO;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DFF26072E4E;
-	Tue, 27 Oct 2026 11:39:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DFF26072E4E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18B9606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C18B9606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=IYh5nymZ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=eSoejBy4BiH08FSMPiqiQwZp6ozqcsl7f9UKEi2EenQ=;
-	b=IYh5nymZoyJZsxq530x+d7JtOvWC7CZVnW65/y6dNVStjCZU93b2+ZzLdYzxMrsxIJ7GBMbiM
-	olU2KeJ9+tVHMer2BN2nlR56XishTWGTfbhNEi7ObodayqrzhGbpUQNAj0giT7B4ynjMp6rahMd
-	3SBKUCy3WxU/vXcPVaJH28I=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jDT6D0yKtz1K9B9;
-	Tue, 27 Oct 2026 19:39:00 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id DFA9B40572;
-	Tue, 27 Oct 2026 19:39:07 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 27 Oct 2026 19:39:02 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
-	<jmorris@namei.org>, <serge@hallyn.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>, <utilityemal77@gmail.com>,
-	<caixinchen1@huawei.com>
-CC: <ast@kernel.org>, <daniel@iogearbox.net>, <andrii@kernel.org>,
-	<eddyz87@gmail.com>, <memxor@gmail.com>, <martin.lau@linux.dev>,
-	<song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
-	<emil@etsalapatis.com>, <ihor.solodrai@linux.dev>, <rdunlap@infradead.org>,
-	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <dakr@kernel.org>,
-	<johan@kernel.org>, <dlemoal@kernel.org>, <hch@lst.de>, <axboe@kernel.dk>,
-	<viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
-	<dhowells@redhat.com>, <code@tyhicks.com>, <linkinjeon@kernel.org>,
-	<sj1557.seo@samsung.com>, <yuezhang.mo@sony.com>,
-	<hirofumi@mail.parknet.co.jp>, <cel@kernel.org>, <jlayton@kernel.org>,
-	<neil@brown.name>, <okorniev@redhat.com>, <Dai.Ngo@oracle.com>,
-	<tom@talpey.com>, <hyc.lee@gmail.com>, <miklos@szeredi.hu>,
-	<amir73il@gmail.com>, <senozhatsky@chromium.org>,
-	<chenxiaosong@chenxiaosong.com>, <dsterba@suse.com>, <mason@kernel.org>,
-	<kpsingh@kernel.org>, <matt@bobrowski.net>, <rostedt@goodmis.org>,
-	<mhiramat@kernel.org>, <mathieu.desnoyers@efficios.com>,
-	<john.johansen@canonical.com>, <georgia.garcia@canonical.com>,
-	<zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<stephen.smalley.work@gmail.com>, <omosnacek@gmail.com>,
-	<casey@schaufler-ca.com>, <takedakn@nttdata.co.jp>,
-	<penguin-kernel@I-love.SAKURA.ne.jp>, <xiujianfeng@huawei.com>,
-	<nanx95726@gmail.com>, <djwong@kernel.org>, <lujialin4@huawei.com>,
-	<bpf@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
-	<driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
-	<linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
-	<netfs@lists.linux.dev>, <ecryptfs@vger.kernel.org>, <exfat@lists.linux.dev>,
-	<linux-nfs@vger.kernel.org>, <ntfs@lists.linux.dev>,
-	<linux-unionfs@vger.kernel.org>, <linux-cifs@vger.kernel.org>,
-	<linux-trace-kernel@vger.kernel.org>, <apparmor@lists.ubuntu.com>,
-	<linux-integrity@vger.kernel.org>, <selinux@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>
-Subject: [PATCH v3 -next 13/18] LSM: rename the inode fileattr hooks to path_file_* hooks
-Date: Tue, 27 Oct 2026 20:11:46 +0800
-Message-ID: <20261027121151.1887650-14-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
-In-Reply-To: <20261027121151.1887650-1-caixinchen1@huawei.com>
-References: <20261027121151.1887650-1-caixinchen1@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KeXDCfsO
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40f29667e6so645435466b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:39:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793101180; x=1793705980; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oV46N3CfdHC5MLPkBRfLAChH7RVI3AL9U6J+h7PJVDA=;
+        b=KeXDCfsOQB9V3BjhrzMps0ArP1yx5y2Gwbra/ohxrTzGZVBk9+IOZtOhxJN0QsF+pl
+         tv4C5hi3H8oWQR3Qk8mIYsPb8LG9rIAqkAHSEQrAvXOjajJMb56/eAESaZtn50H5Ijso
+         9i27AoP5HthaMttzeUSWS114zz94yqQfOxho2CIFCJOwtfIsn6VIa3R9knGr9/F9QqNB
+         X7jfOKXTfWZA2ls8667pfS/7hOIpz1U0BV1e2f+qiArju5M2D7kvWtT8dpt+Fn7l7LU2
+         CNxG/x1AxLx8ymg86ZYHC3dyC4o4FuknMlYJNw4/h73JwdWXZJGnKcxyx/cYNihtpKC8
+         tAYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793101180; x=1793705980;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oV46N3CfdHC5MLPkBRfLAChH7RVI3AL9U6J+h7PJVDA=;
+        b=Ts66jW7WZJRaQxtMCpxShZGju/5Hp/b2cNyoPRqmbFDS7t62HOM/QA3UawuZmi0AUJ
+         IdhJXk0hb4UlmKsmTR4utORKmPkxoAgx8gn5vByMVFzdYc3MLghQnT1+OWLiC7mAotjp
+         5gm9kqUufiWlKcMternAr9/GrgYEMUlwVFD3AuvQMIU5G4FQkzCukbiGmcw7f3XLd+L1
+         ipEPSv7ALGF+hfh+XGrhGVD68XjKLT9vL/FF+33EBCz/psuneDhrtZNgxbr2/xMLxB03
+         OeRcF0tWO2mGeJR86HJo79Y1/oKWD68pTi6z3PCByJ/Fv1Qum4dPFOSBgbujFjJxxRMk
+         a6Qg==
+X-Forwarded-Encrypted: i=1; AKwUvBzcjqJbz/NqA2PtrUPiaIeMt46OR1pqcchUluZjy0CJVWg2VKAQT+f1lGo5ZYyhi8FgBZ1Ewa9y/zPKPH4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIY8dZ5WqiIs9KeRdefXzjOcioZe1Ms9/+ao0JPmuS4XVIPZQw5
+	y+39fbwYvHBn9XjuzT3WUsH3oYVbalx2dYnMcedquSGLfKZBO7mC2lxsMLXv9g==
+X-Gm-Gg: AYBFou3tuAC5GEb93ii99cRGebBcOEauQeRlkHk8CrVQb0WZe78BvAQMXoa6084HVej
+	r9sj9DNBX7L2lVVFQGkKEMTW0PmTwdNabJc+M5SKqtk5+rVwK57fEGbtdUoGHaCFUU+7Gwyj/cv
+	U+hi5XnsQk3lTN8MqywJ6K/lpDbBoIvsiV2HT8gIc1VEhqsemacSYw+Xaauxx7sEoui0yNlNgWf
+	8RqAeBpeEw+1AYp84Wblm2gMup170pv+drZMP8MbE5ug1jaUepNvJ3ooPzqeL4jPVuDA+XARTIo
+	KP75to/S1tzzUZ94aEomV+ERKifbsKxjRoOOxsqc7LusexYuKAiA0fOQTdS/hsPzuLHE0VscvoM
+	vEykSVtlFoRQg4rs57MrJo+0GFwTK3KQLiw5a+RVhXrFZAiNie0bI3fRkHLg5luz4GES8QU9YYT
+	P0e7ZOG42F/curjVYUpAOoWRhXIU6GazYOOHv2I8ycs/bovYL+5s6NLMuKXevZooCY8GxdVzrxP
+	dkgb/4jAgLR5uKovG3irSTsPb5eRyTLVeHMHvyHpSKcylvXOZ9to9TOsn3GXpDU4TpR8WTYDzC2
+	uhDscFwfXucej2LTL7fNyxA=
+X-Received: by 2002:a17:907:720f:b0:c31:91f9:60b7 with SMTP id a640c23a62f3a-c46bdde4566mr1027757166b.34.1793101180078;
+        Tue, 27 Oct 2026 04:39:40 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7abf6asm430272466b.81.2026.10.27.04.39.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:39:39 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] ASoC: codecs: Add support for Fortemedia FM34NE DSP
+Date: Tue, 27 Oct 2026 13:39:26 +0200
+Message-ID: <20261027113929.65102-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,191 +102,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Transfer-Encoding: 8bit
 
-The inode_file_getattr and inode_file_setattr hooks receive a struct
-path, so rename them to path_file_getattr and path_file_setattr to
-follow the path_* naming convention used for the other hooks that
-take a struct path (path_chmod, path_chown, ...).  Rename the
-security_inode_file_getattr() and security_inode_file_setattr()
-inline wrappers and the SELinux implementations
-accordingly.
+The Fortemedia FM34NE is digital sound processing chip used for
+active noise suppression mainly on ASUS Transformers.
 
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
 ---
- fs/file_attr.c                |  4 ++--
- include/linux/lsm_hook_defs.h |  4 ++--
- include/linux/security.h      | 20 ++++++++++----------
- security/security.c           | 16 ++++++++--------
- security/selinux/hooks.c      | 16 ++++++++--------
- 5 files changed, 30 insertions(+), 30 deletions(-)
+Changes in v2:
+- remove ports from schema
+- schema moved to dsp
+- add return value check in fm34ne_dsp_set_config()
+- dropped unused headers
 
-diff --git a/fs/file_attr.c b/fs/file_attr.c
-index 08b4cdbef9ff..093cb05ae3c4 100644
---- a/fs/file_attr.c
-+++ b/fs/file_attr.c
-@@ -112,7 +112,7 @@ int vfs_fileattr_get(const struct path *path, struct file_kattr *fa,
- {
- 	int error;
- 
--	error = security_inode_file_getattr(path, fa, file);
-+	error = security_path_file_getattr(path, fa, file);
- 	if (error)
- 		return error;
- 
-@@ -315,7 +315,7 @@ static int do_vfs_fileattr_set(const struct path *const path,
- 		 * user-facing path.
- 		 */
- 		if (path) {
--			err = security_inode_file_setattr(path, fa, file);
-+			err = security_path_file_setattr(path, fa, file);
- 			if (err)
- 				goto out;
- 		}
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 7602a3074375..683c4d7a8024 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -169,9 +169,9 @@ LSM_HOOK(int, 0, path_removexattr, const struct mnt_idmap *idmap,
- 	 const struct path *path, const char *name, struct file *file)
- LSM_HOOK(void, LSM_RET_VOID, inode_post_removexattr, struct dentry *dentry,
- 	 const char *name)
--LSM_HOOK(int, 0, inode_file_setattr, const struct path *path,
-+LSM_HOOK(int, 0, path_file_setattr, const struct path *path,
- 	 struct file_kattr *fa, struct file *file)
--LSM_HOOK(int, 0, inode_file_getattr, const struct path *path,
-+LSM_HOOK(int, 0, path_file_getattr, const struct path *path,
- 	 struct file_kattr *fa, struct file *file)
- LSM_HOOK(int, 0, path_set_acl, const struct mnt_idmap *idmap,
- 	 const struct path *path, const char *acl_name,
-diff --git a/include/linux/security.h b/include/linux/security.h
-index 305b92c0494c..edba134db8f6 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -464,10 +464,10 @@ int security_path_removexattr(const struct mnt_idmap *idmap,
- 			      const struct path *path, const char *name,
- 			      struct file *file);
- void security_inode_post_removexattr(struct dentry *dentry, const char *name);
--int security_inode_file_setattr(const struct path *path,
--				struct file_kattr *fa, struct file *file);
--int security_inode_file_getattr(const struct path *path,
--				struct file_kattr *fa, struct file *file);
-+int security_path_file_setattr(const struct path *path,
-+			       struct file_kattr *fa, struct file *file);
-+int security_path_file_getattr(const struct path *path,
-+			       struct file_kattr *fa, struct file *file);
- int security_inode_need_killpriv(struct dentry *dentry);
- int security_inode_killpriv(const struct mnt_idmap *idmap, struct dentry *dentry);
- int security_inode_getsecurity(const struct mnt_idmap *idmap,
-@@ -1093,16 +1093,16 @@ static inline void security_inode_post_removexattr(struct dentry *dentry,
- 						   const char *name)
- { }
- 
--static inline int security_inode_file_setattr(const struct path *path,
--					      struct file_kattr *fa,
--					      struct file *file)
-+static inline int security_path_file_setattr(const struct path *path,
-+					     struct file_kattr *fa,
-+					     struct file *file)
- {
- 	return 0;
- }
- 
--static inline int security_inode_file_getattr(const struct path *path,
--					      struct file_kattr *fa,
--					      struct file *file)
-+static inline int security_path_file_getattr(const struct path *path,
-+					     struct file_kattr *fa,
-+					     struct file *file)
- {
- 	return 0;
- }
-diff --git a/security/security.c b/security/security.c
-index 13778c83fd3a..919763c61994 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -2180,7 +2180,7 @@ void security_inode_post_removexattr(struct dentry *dentry, const char *name)
- }
- 
- /**
-- * security_inode_file_setattr() - check if setting fsxattr is allowed
-+ * security_path_file_setattr() - check if setting fsxattr is allowed
-  * @path: file to set filesystem extended attributes on (the VFS makes no
-  *        guarantees with regard to @path->mnt)
-  * @fa: extended attributes to set on the inode
-@@ -2191,14 +2191,14 @@ void security_inode_post_removexattr(struct dentry *dentry, const char *name)
-  *
-  * Return: Returns 0 if permission is granted.
-  */
--int security_inode_file_setattr(const struct path *path,
--				struct file_kattr *fa, struct file *file)
-+int security_path_file_setattr(const struct path *path,
-+			       struct file_kattr *fa, struct file *file)
- {
--	return call_int_hook(inode_file_setattr, path, fa, file);
-+	return call_int_hook(path_file_setattr, path, fa, file);
- }
- 
- /**
-- * security_inode_file_getattr() - check if retrieving fsxattr is allowed
-+ * security_path_file_getattr() - check if retrieving fsxattr is allowed
-  * @path: file to retrieve filesystem extended attributes from (the VFS makes no
-  *        guarantees with regard to @path->mnt)
-  * @fa: extended attributes to get
-@@ -2209,10 +2209,10 @@ int security_inode_file_setattr(const struct path *path,
-  *
-  * Return: Returns 0 if permission is granted.
-  */
--int security_inode_file_getattr(const struct path *path,
--				struct file_kattr *fa, struct file *file)
-+int security_path_file_getattr(const struct path *path,
-+			       struct file_kattr *fa, struct file *file)
- {
--	return call_int_hook(inode_file_getattr, path, fa, file);
-+	return call_int_hook(path_file_getattr, path, fa, file);
- }
- 
- /**
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index e0aaaee537d1..8bafa530806e 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -3572,16 +3572,16 @@ static int selinux_path_removexattr(const struct mnt_idmap *idmap,
- 	return -EACCES;
- }
- 
--static int selinux_inode_file_setattr(const struct path *path,
--				      struct file_kattr *fa,
--				      struct file *file)
-+static int selinux_path_file_setattr(const struct path *path,
-+				     struct file_kattr *fa,
-+				     struct file *file)
- {
- 	return dentry_has_perm(current_cred(), path->dentry, FILE__SETATTR);
- }
- 
--static int selinux_inode_file_getattr(const struct path *path,
--				      struct file_kattr *fa,
--				      struct file *file)
-+static int selinux_path_file_getattr(const struct path *path,
-+				     struct file_kattr *fa,
-+				     struct file *file)
- {
- 	return dentry_has_perm(current_cred(), path->dentry, FILE__GETATTR);
- }
-@@ -7743,8 +7743,8 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(path_getxattr, selinux_path_getxattr),
- 	LSM_HOOK_INIT(path_listxattr, selinux_path_listxattr),
- 	LSM_HOOK_INIT(path_removexattr, selinux_path_removexattr),
--	LSM_HOOK_INIT(inode_file_getattr, selinux_inode_file_getattr),
--	LSM_HOOK_INIT(inode_file_setattr, selinux_inode_file_setattr),
-+	LSM_HOOK_INIT(path_file_getattr, selinux_path_file_getattr),
-+	LSM_HOOK_INIT(path_file_setattr, selinux_path_file_setattr),
- 	LSM_HOOK_INIT(path_set_acl, selinux_path_set_acl),
- 	LSM_HOOK_INIT(path_get_acl, selinux_path_get_acl),
- 	LSM_HOOK_INIT(path_remove_acl, selinux_path_remove_acl),
+Changes in v3:
+- fix port reference
+- request reset gpio asserted
+- incorporate fm34ne_dsp_reset() into fm34ne_dsp_enable_hw()
+- add reset asserting to fm34ne_dsp_disable_hw()
+- moved bypass gpio deassertion before return in fm34ne_dsp_set_config()
+---
+
+Svyatoslav Ryhel (2):
+  ASoC: dt-bindings: Document FM34NE DSP
+  ASoC: codecs: Add support for Fortemedia FM34NE DSP
+
+ .../bindings/dsp/asus,tf201-dsp.yaml          |   74 ++
+ sound/soc/codecs/Kconfig                      |   12 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/fm34ne-dsp.c                 |  386 ++++++
+ sound/soc/codecs/fm34ne-dsp.h                 | 1030 +++++++++++++++++
+ 5 files changed, 1504 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+ create mode 100644 sound/soc/codecs/fm34ne-dsp.c
+ create mode 100644 sound/soc/codecs/fm34ne-dsp.h
+
 -- 
-2.18.0.huawei.25
+2.53.0
 
