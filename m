@@ -1,111 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090811;
-	b=HAlw2vZsL/DOfo90ZfwtxTlorFr4fSu6yBCkGmgmMq2heaUzXyMT1iVXnz5qSqHPQNSE
-	 QFeTVv3d99TaIprblrSw1EZNeufpJ4zVXXLHEz4vs0pZ4qATVcLW0lK8SOCwW51Cvg4YW
-	 +hgqeLbyukzZKIcItcuWx4dDEJuP0+Zfmu5GU6ykDR6xpOwkR8uvDfCsqlfIM/2XnDKpS
-	 CDlI8N3bPEbWwxo45c6QPRiZqemDjKsQGTm68aaL/cfTwbrDRkIXvaU1XaJNix558YxD+
-	 UGOvl5T+VE7tppJbR3udRvLIOHRywx1VDPyiVFO6oBEwwvuYqyBvvkmbTupOwMXAx/Q==
+	t=1793090884;
+	b=uOxgEM0q/exIFbXLf+HbPyYRheHN8tb7umhyuLo4sRL8NtLrxkwBc9b/CrU8S7EfpTSS
+	 R8/JQyeFSbM7hLHeQgfzXJsU+CdeLFtHwuVNT1vv02BiA6Fz/KeiOtkJaaC5giwpjOZ7L
+	 WvI3exGn/7LpFepEB80X1QLhiCOnL0stRN5nB4D07rQJUDlbSD8WnKv4FyUSbZ8cMbfCS
+	 gjDuwcQTw7tp/atUo/Grq8ZoLBkJaz1gyzUN211NqpmEfC8XiXYB5FJ4S2k52BiwHyJoc
+	 V2QqooTcRHwdTSrI7t/SlKxFJZOQTTT4U20a2XsSMrS7a4AzBRic5zUKeR7ejel/o0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090811;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ypDb7Fx0jCCgb71eZZNRxztqQABOHADboWn0F4UJcmI=;
-	b=MOcNpb7zGjuQQl1varls2Kk71N3rnCQMgVvmoHqzoPlXcTE3oWwbMV1J7X8CaWBA8QpN
-	 wvFydjv4GfO4RO5O5m7PfMSkfYAFr/c18ZLMCQkwtta7hRYdJeFgiyCml8uQCWobFvMcb
-	 Qb1McMS5MRAom4V/Y7w3y//ZgBzrtpcZxZp4T2+8uLhybjeh2RdvgOw9eY6Bk20xFo7KK
-	 qE0mS/26ZbLLSY9O96eVyJWI7rM8HxtGMF/+xCREX6C63xIpDAAbAKX/1VJg6GMu3nTTt
-	 lTYt3uKQ9Pblla1boUh3WvkzIsbqoXZElU68p54l+e73m+q1kL7zEGo9Oeut3u/agfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090884;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:To:Cc:
+	 References:From:Content-Language:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=iYhHDjJRr+xqN1H/R/LCOfBwAItVWeWnf6KB9UCfWMw=;
+	b=omgBdKOTjhDnYJdpOnujGqyF74v+0c4Z5o5CfHB0EZvxlopzR1lzRkf1blELu53/OYHu
+	 Plq41aLWOFgAnup9Ri7Zq11VR+TojA6nZK6pPObPJhKpHm6tUSYSbPQV6ZfcxICcZ4pid
+	 nOkxKPV7KWKfKYyb4/nufFtnuR3EZfRB6YCkIQCtxP+jZC0Qq8PbfaQzoGbAxDugkDvYf
+	 JdKI1ZwR+PlZm1QO6AgCG4I4cQKAadZffrSMoJP1PYOknzuop9uKjtqCv9brUM9skzeoi
+	 vh4uG9eBCGi/f37wxbsbGgg+PGHV9dqbm5PLT3yk5eBef5LKCkJ/eI+80uC6OhG/W1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KTdhWAjt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a0OjA57I;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=6wind.com;
+	spf=pass smtp.mailfrom=6wind.com;
+	dkim=pass header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=BeSQUFLf;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88D7606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:46:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E88D7606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97E4606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:48:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A97E4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KTdhWAjt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=a0OjA57I
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R8g5751672121
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:46:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ypDb7Fx0jCCgb71eZZNRxztqQABOHADboWn0F4UJcmI=; b=KTdhWAjt5rkg4prv
-	4SfvThM8b7bcb4GpC7SEFdioLLTO4J+0qVaNZ0+oIo4JAshlHyRDAjX4OPaMIJqL
-	ggEOxJIVB7E5aZpcHjVAFj+bdb/rCpBZ+36HkLuR099m5id0pgfR06BNcAWTslL+
-	sdkk1feYqlv7e216X9PVM4Sv2aezzxnPkyDEjGuk1sXJePEF1R6wfTakMoWchKhZ
-	PvqQVJGtdWFLIfh9/LMGp4ZPkkQgURZxqJrUuNa0aVLJyGsSitZKCPR3/P+DcHJn
-	mDRGaH6zeIWqUzX9T66gldRC0nesnkDTFLjFVbagjzWuuj4zgASp84AU9VxpndTk
-	bxzppg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjfavsy33-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:46:48 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3adeba76cadso2123618a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:46:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=BeSQUFLf
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b127f1cc8so485490f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:48:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793090805; x=1793695605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ypDb7Fx0jCCgb71eZZNRxztqQABOHADboWn0F4UJcmI=;
-        b=a0OjA57ICx4pRQJNOLTfymaINATwDTSwuJ/m0RuwXUt6PdfurrAI0tAw1Ndectyhnt
-         MY1ix/xsZZQffMt6FC/ZqZal+wJvcoCjqj6sIKMi99Gm2AacGWCLqQC/W7mtNBjDy+7n
-         b12cDKSpE95MpfDQCRqp1SvXVYpWEtNriiSEslAMBaO9gQfODmDVtGxzkH5poVKBqVnz
-         Xd64icvYCXPKqRMDTyaFIffzV66/Px3EW+617f/s0dqvVF9+dpKJ2IWyNyMnchyEbQ3/
-         ZhXgYve0855BzNkNI1tfwtb32xkdoLw01lBTUe+QKikcPS4N+qE6M3tbWGdnlYiW8Hjc
-         uX+A==
+        d=6wind.com; s=google; t=1793090882; x=1793695682; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iYhHDjJRr+xqN1H/R/LCOfBwAItVWeWnf6KB9UCfWMw=;
+        b=BeSQUFLfFpWE3/3/tLdSkrkJ49Z9pYNYkIl61PWJuJj/fRnG9z7nD8o9RY0T3bnD0y
+         4+HJMHBgtudzPyAZVBfNe2ptvTzwiNVKsLsh2bvjWsC5N/AOE9Be7ImHyFJE2aIHsK4U
+         WLdpFY3MtPJQEYbCD2VUB9RNOjntYoGPLP2tmZlwbPrMo7UHaehd3VSZ3u344CasmVky
+         mBV9OspWzB7jTxU1Q11GKBRKi5N/8VTt5aKf6m3HO8+Rg6E4BY5rPfkaIOLZ3hJxDb1z
+         oCM0ClEz+zl9KTMlLf/Cr/X7Qw5hwJjsRGRjNU0JZahu8w/HssH0NW2gyAsSsbXdDJp8
+         yU0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793090805; x=1793695605;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ypDb7Fx0jCCgb71eZZNRxztqQABOHADboWn0F4UJcmI=;
-        b=oYqVA3YBTf6vA/9HJGK/x6+B5ZSbKXFA1MiH3//gHQCNrSfu67bunXte5jzMhQSljP
-         ouEyR5NS4OZ+VROnp/fMkdoysgxIsYfMnCnySKyRU5Nf/yShKpEi2GrKs9utooaHMsPo
-         gcL13oCVFlp3+UL9uxSrfF6/Hou338esRtDKY2Zb1miUgjD/RkT4vfxXfa2LG6QghH19
-         mACpkjeM9DT6cYWnqjC40tRF4pGX1eTBbc26gaTyL209eZNKZsi5Vf+7LFNlOF5U92mC
-         2+BFU82nEU3CPTOU0uD5VQRZmdozai7N8EnCJLItGpQx5PcLmoibacsGL2uDzZ9GrsXm
-         AmjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwvjmcpA89Ey8skCjQcD/rbhNJEO2I+w54dBuUzKutp0AQFJUO8QcDZX1/yvzXqfconqk1J3aLKfW0ufNc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5RXVTAm9C/rN78WnueA7RMCBG4zAGzMth3Gsq8TyzgdjF+rHq
-	83zV6JPwfmhVAb2bNdXVv7woTQWhDHtuNte0Q0M6HSzg316bF/ugcHgwg5pqeFOmJ6U66Da65ft
-	kLbAgAdZ4ycryM7AGm/5htQsnzIn88DmIYqIhSxQXm6LwnsZ4yinShP7V2aqM1urO0VE=
-X-Gm-Gg: AYBFou3vKnogmqZ/SJJvLPyygCxNkq9jhShn+/n1xqBxCQnlvCB1f1S+HX7s5oLk8KQ
-	iKk+8bVdwchEgi3+Ltinma89gv18Vt/AqFTkCnRi/bzWmzsfBxjHzzMEY36AeYhQbyLWkeohnF4
-	7GiGniNWZ/HVuHv13EDXiga04FiyGR+vGS3FdG00E+mYAvl8KZXFwXAiIeSoOqqZlHx9FQmP1dA
-	eNmzUq1WUcE4i6jku8WDzszhVUIkYR9VFJPxqft20suObCr1n3AMovlQPFxsLPpd8TIIVyA9aMe
-	DaKO7E1+6hf1TxZ9uM/bAO1BJS9Oeiup/QPqHKgeG+NBcAzcdmE9vQGS+TuZcLGCISBiyrz6fr5
-	6L7mrStgEmQzJFbLrLMpCL5DKF1tn5GRI
-X-Received: by 2002:a17:90b:4a84:b0:3ac:ad90:7090 with SMTP id 98e67ed59e1d1-3adeb15557amr7792371a91.67.1793090804763;
-        Tue, 27 Oct 2026 01:46:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a84:b0:3ac:ad90:7090 with SMTP id 98e67ed59e1d1-3adeb15557amr7792353a91.67.1793090804116;
-        Tue, 27 Oct 2026 01:46:44 -0700 (PDT)
-Received: from [10.219.49.187] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404429a8sm2824282a91.8.2026.10.27.01.46.39
+        d=1e100.net; s=20260707; t=1793090882; x=1793695682;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iYhHDjJRr+xqN1H/R/LCOfBwAItVWeWnf6KB9UCfWMw=;
+        b=1Bx/SfT6FjzgY21UZ8IwWIQDrewtrELL5ic1zeLbsPVRn08trgQ/gNwOCUWazSfYue
+         0eVKLOYx20O/EMRg3Ley8LKxpOHPcVr3cg+03pqfgmUKKiUtamkzpyQAexVPXQwfScYj
+         pJOCgvzvSL2ENAYkNjT8yTlgJxxMvCcXonRr4Rp+1ZNZH/xIgh1D2+HBSo1wfnFfhxMr
+         w+JXZ+/MIfaLEQim03KiYHNI+PJLKYwUFYmxoCjDMyrlb2+n/kVUk/VINx4a25W/lNav
+         kYSCOwrdOTBtwK/EI3L7ehKj/6Htw36QX7pvwVJpRfKxS5qhIMRp9cW+6g5Z4fb1oxFv
+         OmtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzreOo/SQ+O0xWJjvJCDcx9aYwkdRegbxmNrE+l5TcBViJVtnWncTnjqakvxOV4dldck2bnRkOOJQb0RQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKflix400YlPQ39GanPTLDJ3sErjocDTUzcNIa/cqE7jOqWaBll
+	ja6GfJxwaIxBhW07owdatecWVXA5zaPPpZjFVbEKF2s/9jiCxQTTLZ/CkO2ssQLQ0Og=
+X-Gm-Gg: AYBFou2izJwXtkd4mg5ZeEfKDNf4i3T6OGzEGMviZZa6ANeK56pMYHINurbWBuwKxMG
+	RwhZPDeGu7Y7vP2T2Ksse4RSK7HflDcYe/29ha7C/B1mL64ZNArtfUqrreWGbp2XF3dJxFBDuOI
+	w48RtIH0k1DhZ6J1c9GC7A0EC5UwS9Gw0EIBbbi6+OrHRnYIsZX9g2zHNwhmp5005oT3kHezbPG
+	ngEKZwZcqRoaQSfoyyDAKdl4gU+1rr8MAQggOfJZsuM7ay9YtKo0BZ9dO+kOg0CJHrWbhpu7KJq
+	4sDuVC6lVFwQwrXwoo0cwKunFaSYNfjrn6zzAPOQtRR0bKW1ceHrY0VES6Eze7FfAGG0YUvPN4+
+	A5XRFvTzdgBDUMV5ScTyy8lLtXKR68WPQSrPSOCngIEWwr75CyrrpMWWhrOp9FbSooAOwE+hH8j
+	S857Kemq+yss15eSN8fDj15NH+erwHhwDa6b/5fjJNHXNRNHvBqKbBvAKGLdpQuH2IjG7r9wCye
+	yjKWEeOnTtO7OQGoENwVebJrqiG8K/EfMgZ+Jt7ZbI70Fh/JucGfo47q0iPatuN9mmVIxtUjsWA
+	vAt/G3UghmuaRP/AbPLzduJS5p47b1ZgyX9tEK2M+qBFV7z7uHP9cA==
+X-Received: by 2002:a05:6000:40c7:b0:48a:f5c5:d067 with SMTP id ffacd0b85a97d-48e3eb36376mr20214446f8f.2.1793090881972;
+        Tue, 27 Oct 2026 01:48:01 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3a1csm21700112f8f.16.2026.10.27.01.48.01
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 01:46:43 -0700 (PDT)
-Message-ID: <2936b4ec-3203-4137-9d29-7f95f22186d8@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 14:16:37 +0530
+        Tue, 27 Oct 2026 01:48:01 -0700 (PDT)
+Message-ID: <89f607a9-c353-4a32-9362-1a5017b580ab@6wind.com>
+Date: Tue, 27 Oct 2026 09:48:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,115 +93,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ASoC: qcom: audioreach: support multichannel PCM
- formats
-To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        shengchao.guo@oss.qualcomm.com, mohammad.rafi.shaik@oss.qualcomm.com,
-        bartosz.golaszewski@oss.qualcomm.com, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261026082534.986449-1-zhangfei.gao@oss.qualcomm.com>
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net v2] gtp: Require 'CAP_NET_ADMIN' when joining the gtp
+ multicast group
+To: Anil Kaushik <anilkaushikwireless@gmail.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Harald Welte <laforge@gnumonks.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Simon Horman <horms@kernel.org>, osmocom-net-gprs@lists.osmocom.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261023073738.2436362-1-anilkaushikwireless@gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 Content-Language: en-US
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-In-Reply-To: <20261026082534.986449-1-zhangfei.gao@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Kbb6hSexPFCWKyvKQVmyesMmLu8Gduzz
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzNCBTYWx0ZWRfXy6RurGzQ2+xi
- fnT2fwhds3ctc7Eip0kYV5iC11Dzsrsq+MtIcoo0/vUqfHNkUkTqnHKdGo4hGQn/jua5PcMfTq2
- Evkx68VK9uwY/SxQV+SmhN8aI5w6H5s=
-X-Authority-Analysis: v=2.4 cv=EIeTQFZC c=1 sm=1 tr=0 ts=6ae064f8 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=npAxPzOB_l-6x8PHPlgA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: Kbb6hSexPFCWKyvKQVmyesMmLu8Gduzz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzNCBTYWx0ZWRfXyoURc+CP4lL+
- bN60YfapT+wJvxvqVlFhnL2f6ShqT8to5RLXtBdAph81274R7o57yVTsQkQvVzLYhyT9xcwIOS8
- cyHuj1v+qLVlhg8n+iAoLs3JkXQzuunaD1B6NzmK3UQkS1HpRjwbTvlAx7w8XRcQxSr6S5FkM0B
- Ob1kyTd3Tan9CzAdI6dwTadVkzMo060pQUv9ww2zR5Dyreg4PfjmIgxAeWur6cIKVdIr99eNNXJ
- 13FNlkGa2bwxFSG3zjAui1yntZbCOs7f4Lynj6Yc1GEaBbPv2y6zIUl3d8AIkMYMO19UkJmFL08
- d+9Ha9DnVO45idfzZtriY5n8jRSR23wnzH8URcFF1Yv41ZkgR1aVUtY1KzdlSuFakuTbacBVgDi
- mX504v6rP6Oeh+Awaz7J6YfVooVg13EolTM479EDr2eR5PmoUnFbVMiNNYZPoxWPjJbgWCKqOjj
- XSulS769yaTYaUhqUyQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 suspectscore=0 spamscore=0 phishscore=0
- bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270034
+Organization: 6WIND
+In-Reply-To: <20261023073738.2436362-1-anilkaushikwireless@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
->   #define DRV_NAME "q6apm-dai"
->   #define POS_BUFFER_BYTES	4096
-> @@ -344,7 +345,10 @@ static int q6apm_dai_prepare(struct snd_soc_component *component,
->   	cfg.num_channels = runtime->channels;
->   	cfg.bit_width = prtd->bits_per_sample;
->   	cfg.fmt = SND_AUDIOCODEC_PCM;
-> -	audioreach_set_default_channel_mapping(cfg.channel_map, runtime->channels);
-> +	ret = q6dsp_map_channels(cfg.channel_map, runtime->channels);
-> +	if (ret)
-> +		return ret;
-> +
->   	if (prtd->state) {
->   		/* clear the previous setup if any  */
->   		q6apm_graph_stop(prtd->graph);
-> @@ -1007,8 +1011,10 @@ static int q6apm_dai_compr_set_params(struct snd_soc_component *component,
->   		cfg.num_channels = 2;
->   		cfg.bit_width = prtd->bits_per_sample;
->   		cfg.fmt = codec->id;
-> -		audioreach_set_default_channel_mapping(cfg.channel_map,
-> -						       cfg.num_channels);
-> +		ret = q6dsp_map_channels(cfg.channel_map, cfg.num_channels);
-|
-|
-|q6dsp_map_channels()| changes the mono mapping from |PCM_CHANNEL_FL| to 
-|PCM_CHANNEL_FC| and does not handle 7 channels. Have these cases been 
-checked and confirmed to be supported as expected for AudioReach ?
 
-Thanks,
-Prasad
 
-> +		if (ret)
-> +			return ret;
-> +
->   		memcpy(&cfg.codec, codec, sizeof(*codec));
->   
->   		ret = q6apm_graph_media_format_shmem(prtd->graph, &cfg);
-> diff --git a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> index 83f2711bceea..fcc0267d3657 100644
-> --- a/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> +++ b/sound/soc/qcom/qdsp6/q6apm-lpass-dais.c
-> @@ -147,7 +147,9 @@ static int q6hdmi_hw_params(struct snd_pcm_substream *substream,
->   	cfg->bit_width = params_width(params);
->   	cfg->sample_rate = params_rate(params);
->   	cfg->num_channels = channels;
-> -	audioreach_set_default_channel_mapping(cfg->channel_map, channels);
-> +	ret = q6dsp_map_channels(cfg->channel_map, channels);
-> +	if (ret)
-> +		return ret;
->   
->   	switch (dai->id) {
->   	case DISPLAY_PORT_RX_0:
-> @@ -173,11 +175,14 @@ static int q6dma_hw_params(struct snd_pcm_substream *substream,
->   	struct q6apm_lpass_dai_data *dai_data = dev_get_drvdata(dai->dev);
->   	struct audioreach_module_config *cfg = &dai_data->module_config[dai->id];
->   	int channels = hw_param_interval_c(params, SNDRV_PCM_HW_PARAM_CHANNELS)->max;
-> +	int ret;
->   
->   	cfg->bit_width = params_width(params);
->   	cfg->sample_rate = params_rate(params);
->   	cfg->num_channels = channels;
-> -	audioreach_set_default_channel_mapping(cfg->channel_map, channels);
-> +	ret = q6dsp_map_channels(cfg->channel_map, channels);
-> +	if (ret)
-> +		return ret;
->   
->   	return 0;
->   }
+Le 23/10/2026 à 09:37, Anil Kaushik a écrit :
+> The gtp generic netlink family sends notifications on its "gtp"
+> multicast group when a PDP context is added or deleted, and for GTP-U
+> echo responses. They carry the same attributes as a GETPDP reply: the
+> MS and peer addresses, and the TEIDs, or the TID and the flow label.
+> 
+> GETPDP requires CAP_NET_ADMIN, but generic netlink lets any user join a
+> multicast group by default, so an unprivileged user in the network
+> namespace of the gtp device can read all of this. Found by code
+> inspection.
+> 
+> Fix by marking the group with GENL_MCAST_CAP_NET_ADMIN, like the psample
+> "packets" group. Only users with CAP_NET_ADMIN in the user namespace
+> owning the network namespace can then join it.
+> 
+> This is still weaker than the check on GETPDP, which needs
+> CAP_NET_ADMIN in the initial user namespace: in a network namespace
+> owned by another user namespace, its root can join the group, but not
+> use GETPDP. Genetlink has no multicast group flag for the initial user
+> namespace, and ioam6 pairs its ops and its group the same way. This fix
+> blocks the unprivileged users.
+> 
+> Tested by joining the group as root, as root without CAP_NET_ADMIN, and
+> as an unprivileged user:
+> 
+> Before:
+>   root: joined
+>   root without CAP_NET_ADMIN: joined
+>   nobody: joined
+> 
+> After:
+>   root: joined
+>   root without CAP_NET_ADMIN: EPERM
+>   nobody: EPERM
+> 
+> Fixes: 50aba46c234e ("gtp: add notification mechanism")
+> Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
+
+Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
