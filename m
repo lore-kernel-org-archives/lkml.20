@@ -1,77 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.27
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098155;
-	b=trL+iQ89u2MfzkTCnQETUuWfeoc16t/A0HFQnYQarrZeXmdqPdumgoJIn31qPU/muMC7
-	 dQy/MwLhH8ADGj9WVCxaoBk47QvGXdflJyUL6GuV3hTA4HBsxGQM+Dextf3Iyj58enVKu
-	 beJXSM+AJb2pzkjlOESr6vDK4oP+3Sp9VWSQ4AXnWwSidYufWp1kAQ8dqsK7R8Lkb059J
-	 Dm8BuWbIa/E8D2DJcLfQFP/JXqUZcAftxT98NslQmJ3ESe5/ZYcp6q5eep1hIp2V0at8O
-	 OilDp3nu+wzcW8+vaxZ3sZXduJHWhRLvEvDAMReY0Rg/S1LyoRN/x0GDx7P4jEnZIgw==
+	t=1793098169;
+	b=ziuki+NTk7pFrc10KGs2S9WczSMH4wpMxnACm/1u5iKb9QxaSxF7FNcxSpzONem72Oem
+	 sL+JjUIDJhazx5Av8Q4FEbMLVMkjH6D/hCwNNt6JMmTKKTYQDHSW8asp+A3yefLsS+XO6
+	 HwPDHuY4GAc7c61WOABs51zUpUO2oL57kkUkVW1hzYt59+2QCwPrqU3FTLCzUMS7w86/i
+	 Rbo2icpLBO4vPDqCDLRX35HxP5Tk/U8utqkLH2o2XDSb0+P1xN7bQHu1nY7Bd8EV6kEuT
+	 zEyjyj15ieHaZrGi1Wn9bUjCxUXGkX4Q64n3jvWRpKZGflIIomznNq1kUO7np2uia/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098155;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zPGzAkjhF9jYNNS0TSlj8VzbvpVXh28Fd+7heFECekw=;
-	b=bOr1CRKdl5NBmQBn8kv5uvJctnFXGoV0FVVNxZpuzZfgAtR7Ps0mC7+aSIHy3bWf+0nI
-	 wgGEt2g5L0lmM+duUGSoS8thM8yHupOeHeUVeVdwvQqi7uO5qRPD3wsTZ7TFh9ri6t9SS
-	 AxSmQqO990OPFQCawiAdS3CvwcwFNjDen60KcImvqIhG70ThBsrjejtE16zmoDSXgv2o1
-	 u6e0m152k4adJuqgqqBTZxO8KsAly0JCyREe6+GNzYJ9HIqWDHxfeto07UI01zWnXwp53
-	 ingI6YzM5yS2ZlC6+WutkxeluHw1zlQLH3N1CvAdfoqiskNNwDiKt9rLb3INLlknTYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098169;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hP/wufYrzFLIuJAB9Y1+6Fe9O2Um3BU+tPM/w5XHFXA=;
+	b=NRl7bXO+hQ3MgWW3B/gJmwi/l+OksNCMDxEfEBp2QcWtxHAL1DD5SH+dK6absNgZRu4o
+	 Jkm/U9kGD3bX07E/mnDtFg9pr/bAssYTZi7l3dpxWPhbsK1x7gjrbjU32MXqA+U4Gxc+P
+	 ronScyo7ikfSOSd09qUzhTTJE+/uElK7FmlZR1N/PUSlaA+vbCicFa3ibtIXledhm4oFe
+	 mq1dE2uy3UY29B/iVy8TFS+lmT3hVULjFmXqRn8rcXE1C/bA5jwFVZyAdU0MQaEw/Ji50
+	 H6Q5I6da5MQ0Ffrz9+FhK7c6UsoJ32Zg+GW6ivlu/xv5sH55PJWyce+HVOajkqYna9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=I2oxQpPy;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="ur/xEiLp";
+	arc=none smtp.remote-ip=91.218.175.27
+Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C72A7606A31F;
-	Tue, 27 Oct 2026 10:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C72A7606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8D9606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:49:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C8D9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=I2oxQpPy
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zPGzAkjhF9jYNNS0TSlj8VzbvpVXh28Fd+7heFECekw=; b=I2oxQpPyjn9P8NRLi76d3V3cY0
-	FniO8gJXqdDhaYn1+X26JdmAezcJPIUOWApGbz2ePbNYSvm/bHlv90fH9vB+2BR/gIen5/DohuaKw
-	fyYMhXl9DuIEakbK/RZkzNp/PlppGTACYtns0qiarILtV0I6foFYOeJD96NVCfd0gIGik2Kv667gP
-	HGyGFWo0kJWMnwDCAeK3XqNsmAfL5YalvrU9DQ8XtT8Qxf+6wpyYeCT37fHT3KksUHHXm5pB/b6nS
-	OBlk5sqaKwakVNaoO2qfPNn9rkvW1yqekEU7Up7MF8jlkk6ZpdVqudFPv8IQqht7j7tf4TlEkcoIr
-	TP6suoWA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLejn-0000000D3WM-022z;
-	Tue, 27 Oct 2026 10:49:03 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id DB463300DB9; Tue, 27 Oct 2026 11:49:01 +0100 (CET)
-Date: Tue, 27 Oct 2026 11:49:01 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/6] sched_ext: Report preferred NUMA nodes through
- ops.set_numa_node()
-Message-ID: <20261027104901.GD2668564@noisy.programming.kicks-ass.net>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
- <20261027041536.3317971-5-arighi@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ur/xEiLp
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+jgyQbXsrKaLn9nkl/YpTRZhwiLrtYdg6s8W7kdR5tM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793098167; v=1; x=1793702967;
+ b=ur/xEiLp9WuEEAWfqQKLr95rRnCdEtm3ytBCE+JN2/8kdP4me4QQddfMJfK8CmaE/ks4q1Eh
+ SelV97I7o3DLfSwZh3QLiffTEyw+Rc6B3gJl55N/9N78DUp2Sda/pVgYuWuMiSf3XOY8rG2gh6r
+ qs3Pd3DaKBC5q6dlsw897D8A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b499b9d68ef21faa;
+	Tue, 27 Oct 2026 10:49:26 +0000
+X-Mizu-Trace-ID: b499b9d68ef21faa
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	stable@vger.kernel.org,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Maoyi Xie <maoyi.xie@ntu.edu.sg>,
+	Daniel J Blueman <daniel@quora.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+	Wyatt Feng <bronzed_45_vested@icloud.com>,
+	Yung Chih Su <yuuchihsu@gmail.com>,
+	Flavio Leitner <fbl@redhat.com>,
+	Hannes Frederic Sowa <hannes@stressinduktion.org>,
+	Petr Mladek <pmladek@suse.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 4/5] ipv4: restrict igmp_qrv to 255
+Date: Tue, 27 Oct 2026 18:45:32 +0800
+Message-ID: <20261027104701.296240-5-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027104701.296240-1-jiayuan.chen@linux.dev>
+References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,48 +94,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027041536.3317971-5-arighi@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 05:13:33AM +0100, Andrea Righi wrote:
+net.ipv4.igmp_qrv only has a lower bound, but ip_mc_reset() stores it
+into the u8 in_device::mr_qrv, and the IGMPv3 retransmit counters filled
+from it (crcount, sf_crcount) are u8 as well. Anything above 255
+silently wraps. With 256, mr_qrv becomes 0, every
+"in_dev->mr_qrv ?: sysctl_igmp_qrv" falls back to 256, which truncates
+to 0 again in crcount, and igmpv3_send_cr() never puts the state change
+records for the group into a report. The older version querier present
+timeout (mr_qrv * mr_qi + mr_qri) also collapses to just mr_qri.
 
-> @@ -4528,6 +4543,15 @@ static void __scx_enable_task(struct scx_sched *sch, struct task_struct *p)
->  
->  	if (SCX_HAS_OP(sch, set_weight))
->  		SCX_CALL_OP_TASK(sch, set_weight, rq, p, p->scx.weight);
-> +
-> +	if (SCX_HAS_OP(sch, set_numa_node)) {
-> +		s32 nid = NUMA_NO_NODE;
-> +
-> +#ifdef CONFIG_NUMA_BALANCING
-> +		nid = p->numa_preferred_nid;
-> +#endif
-> +		SCX_CALL_OP_TASK(sch, set_numa_node, rq, p, nid);
-> +	}
->  }
->  
->  void scx_enable_task(struct scx_sched *sch, struct task_struct *p)
-> @@ -4834,6 +4858,20 @@ void sched_ext_dead(struct task_struct *p)
->  	}
->  }
->  
-> +#ifdef CONFIG_NUMA_BALANCING
-> +static void numa_node_changed_scx(struct rq *rq, struct task_struct *p, int nid)
-> +{
-> +	struct scx_sched *sch = scx_task_sched(p);
-> +
-> +	if (task_dead_and_done(p) ||
-> +	    scx_get_task_state(p) != SCX_TASK_ENABLED)
-> +		return;
-> +
-> +	if (SCX_HAS_OP(sch, set_numa_node))
-> +		SCX_CALL_OP_TASK(sch, set_numa_node, rq, p, nid);
-> +}
-> +#endif
+Make the sysctl a u8 like mr_qrv and switch to proc_dou8vec_minmax(),
+which rejects anything above 255, and document it.
 
-I dont get this; why are you calling set_numa_mode() on enable? The
-signal was sched_setnuma(), but now you're doing more.
+Fixes: a9fe8e29945d ("ipv4: implement igmp_qrv sysctl to tune igmp robustness variable")
+Cc: stable@vger.kernel.org
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+For AI review: drivers/net/amt.c writing sysctl_igmp_qrv into the 3-bit
+qrv wire fields is pre-existing and out of scope for this patch.
 
-Should not the existing enable method check p->numa_preferred_nid rather
-than injecting this weird extra call?
+v2: switched to u8 and proc_dou8vec_minmax(), as suggested by Kuniyuki
+Iwashima.
+---
+ Documentation/networking/ip-sysctl.rst                        | 2 ++
+ Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst | 2 +-
+ include/net/netns/ipv4.h                                      | 2 +-
+ net/ipv4/sysctl_net_ipv4.c                                    | 4 ++--
+ 4 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
+index 71f334f27004e..9e282fb046904 100644
+--- a/Documentation/networking/ip-sysctl.rst
++++ b/Documentation/networking/ip-sysctl.rst
+@@ -1906,6 +1906,8 @@ igmp_qrv - INTEGER
+ 
+ 	Minimum: 1 (as specified by RFC6636 4.5)
+ 
++	Maximum: 255
++
+ force_igmp_version - INTEGER
+ 	- 0 - (default) No enforcement of a IGMP version, IGMPv1/v2 fallback
+ 	  allowed. Will back to IGMPv3 mode again if all IGMPv1/v2 Querier
+diff --git a/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst b/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst
+index 3dc03bff739e4..2833ce6cba1d4 100644
+--- a/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst
++++ b/Documentation/networking/net_cachelines/netns_ipv4_sysctl.rst
+@@ -143,9 +143,9 @@ int                             sysctl_udp_rmem_min
+ u8                              sysctl_fib_notify_on_flag_change
+ u8                              sysctl_udp_l3mdev_accept
+ u8                              sysctl_igmp_llm_reports
++u8                              sysctl_igmp_qrv
+ int                             sysctl_igmp_max_memberships
+ int                             sysctl_igmp_max_msf
+-int                             sysctl_igmp_qrv
+ struct_ping_group_range         ping_group_range
+ atomic_t                        dev_addr_genid
+ unsigned_int                    sysctl_udp_child_hash_entries
+diff --git a/include/net/netns/ipv4.h b/include/net/netns/ipv4.h
+index cb7f8bf15671c..3efbc7f4b4f7d 100644
+--- a/include/net/netns/ipv4.h
++++ b/include/net/netns/ipv4.h
+@@ -258,9 +258,9 @@ struct netns_ipv4 {
+ #endif
+ 
+ 	u8 sysctl_igmp_llm_reports;
++	u8 sysctl_igmp_qrv;
+ 	int sysctl_igmp_max_memberships;
+ 	int sysctl_igmp_max_msf;
+-	int sysctl_igmp_qrv;
+ 
+ 	struct ping_group_range ping_group_range;
+ 	u16			ping_port_rover;
+diff --git a/net/ipv4/sysctl_net_ipv4.c b/net/ipv4/sysctl_net_ipv4.c
+index e3760daa34706..09f7fc6771456 100644
+--- a/net/ipv4/sysctl_net_ipv4.c
++++ b/net/ipv4/sysctl_net_ipv4.c
+@@ -975,9 +975,9 @@ static const struct ctl_table ipv4_net_table[] = {
+ 	{
+ 		.procname	= "igmp_qrv",
+ 		.data		= &init_net.ipv4.sysctl_igmp_qrv,
+-		.maxlen		= sizeof(int),
++		.maxlen		= sizeof(u8),
+ 		.mode		= 0644,
+-		.proc_handler	= proc_dointvec_minmax,
++		.proc_handler	= proc_dou8vec_minmax,
+ 		.extra1		= SYSCTL_ONE
+ 	},
+ #endif
+-- 
+2.43.0
+
