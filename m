@@ -1,123 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793081044;
-	b=JwoJYQVc/MIc7peo1q//91aZUF/D41MgCbGWCGEgXTMCXiB1BtlbwcrmM/R8TllBVeK4
-	 8s474zf8ipmOG/jg6rce0oUe82HhiIwiEBVhHoA63SP+WfdTGYSpHaL9mObRfmvr4AOx+
-	 mqlKttuGaurrQPM4U0VhlIutxegaFGH9Y0jlDuJ9gfV2kqWDWTe2ukWT8CfR5Zhzf0xKs
-	 OWncWdoRMVCuRn6CYBS6iCvsWituljzlF/KRviLTZ4mWMaBQk1dr5LkfTbby3dHRod3tD
-	 WYrVyZMGov3zvlcO1YW0RMwA1DwAloXMovJRKVpRAMEGhjvhTCV96nBTMwppzuNTUeQ==
+	t=1793081067;
+	b=5pfKrNO+otkws1VX0i0RjUR/g7tHW15E9PjDdaggc/wNEMH/qf1ATksYhX6pB6m9mT5f
+	 i2WjEVYF2Mh4BNRaEcBZvW0UhMNWwK2owfW0iKSci4wCMQXw44DDSUIiiUKiVpsy8I0bA
+	 C9yWPjDnZD6tfz5rB90nBavYllzHqoeSGF0qxeGhrwtIR/Fkgd3wgjtMqD1oeOzfd9FXC
+	 O+ngJHVLIjPy/3E+Ha677XXwqMvli+8Yowejv7Grll88hT9In71wvsX9/u/B/cSnTTAQX
+	 FtEy/RnYl2yegzh33NDeR0n2ziJeMWkeEe8m41zIdZuTUiiI8Ee/KmCo4A9GBVBqaDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793081044;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=t4OoGf5gHVzRGe+YIjw2VuUWKRz8U6K0v5JtauIuYFg=;
-	b=xpteSiR8ddH6DqxW8TwNYyma44XifdrFZ4yqVpxp+huvA71TsoU2007/UJWMos8nBERk
-	 G7q67vWpI3RVcQaOSKli9KX6rx9PLqjveeRp5Xy327bF6Nr2UsRt2qDmhQL8j2KDtyp1Y
-	 11O/CGfBG5wYbIX7efB1m2ZBkW3jW5XhVfF81kTuExs9uzaldwMPZDLZUIat03CkOCrb7
-	 zvxDEFAJi+s4beEfABkla1xiD7IDFlRH3F/9e52oQ5LISA55TqAF3Oeiu19dVfioNq0Pf
-	 8cOTrFAHyqNAO1bID6wq3QmtrXJPC3MeQXnV89fdfYWfFEnqnncehx9Ykcz2YHv2mBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793081067;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:X-B4-Tracking:X-Change-ID:To:CC:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=lzN5XJ860NKTs7Y9KOhshhR1v5kpoeRKW05jjjJkiZ8=;
+	b=NyYX9QYgQALZf777AHgji3NwXjdFEb7BtJeSFJFETCIA2pdZ9UMAhlcYXN353kCEbGhl
+	 GBcbi5s+9NOTgtczt3inNUii4GdRZS60sXOozrn7rvkyC2j3D4Sibu73h693GZJhCIJJr
+	 QHgab/tDvxtLnGw/1p3oUTfRZyCDuvIPHR5RadmYujngjhXAvghZKbyEg5krNY+4eMvef
+	 n6Af8EqIRD7b29dq+6l+HvwYhKtr/W78s4bh1tThgWc9B6yEIeFZ7I2p38EY1ffXK3lXV
+	 UwTlyfJBiEWKeqRCzu4BXCH+aian5jRNfy6c1/Xlvz5CQeMQfjXLeu1cuXRxcBBJXYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=pBmbRuK+;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IlFiGdCd;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=JUaSaZBy;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB87606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:04:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFB87606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B25606A31A;
+	Tue, 27 Oct 2026 06:04:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7B25606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=pBmbRuK+;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=IlFiGdCd
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.phl.internal (Postfix) with ESMTP id 0B5FF138035D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:04:03 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 27 Oct 2026 02:04:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1793081042; x=1793088242; bh=t4OoGf5gHV
-	zRGe+YIjw2VuUWKRz8U6K0v5JtauIuYFg=; b=pBmbRuK+RpEV9BFZTEEED1+xQn
-	QxhzwuWaStp0492F1sZlJfdb5JrjYSCV+2NYVAHtlzBHez2rPZGHA5hVzwPIReU0
-	PBLDTVnFMvFnxG1AZV9TRR631wBSiqcqUraFNCcatQe9H7+KVdS43vEmJH/IjCmZ
-	segcD9NSUwmMGgDgk0RzIRq1Us9+nZTxJ0pFEN1sxF7h3bL+Bw1xd8n/uaYXPqT9
-	omVT04BOGkvrKu/VnhPQ53HphPOrrlfa05snlpXQQp269jbsx/ijs+qitlvwPu6v
-	F2n5RJVA4zJ0ZAEuGcZEt+cqQuYI7ADvrfw/g+X2wZ5uWhG6ftAzAbq5zRbg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793081042; x=1793088242; bh=t4OoGf5gHVzRGe+YIjw2VuUWKRz8U6K0v5J
-	tauIuYFg=; b=IlFiGdCdCTlmZWowaWNwwI5su5BcJsv/nw1U199AnPalMMXClCC
-	JvQIFOWvHlwMeYSvzJeOZZNcO6ZOGMDS25kTmYL800KodK7FH7fXwEuIT+uX4V7U
-	rVAQJ1AI5ksxoeIKCUgIxYxR8UJl8LQcz+oKvB4Es9pUur6G/j4u+wGDaQ1FW4kf
-	EiGZ3QNVlV2cyobajY0wEQB0cShOsgRHkbLUcui1oCyGlZ1g69kIaweh5EMX1/31
-	GdcCyGXRf59NPD098Nf3wePdwDKNi7p632hU9F/LXKuawSkV58au96Lo6rjtFo5f
-	AGh6URukYmKewPtpVJ3Nkg5aikN4j5BEOeQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793081042; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:DK6kRAXk2cOr/nq2xw+riQ3TzWmyyUv2pwR9Fagis5scJ9M
-	Tvfc9hJMWA5r1ZEL6GQSwXWsPyALd0M6laOJn/+UP+Sl9nA36OAB++ck5br3QGkz
-	KawnJv88b93LKiRTnFqS3RT0OK/90+IrnyOScgavPVMqs1OokDgpGQYAsezLP7oT
-	mv6mnnkM7ByHwdsLctgjPNo2SxY0rk9nsUxNHJZMh1+uPSWhs2PC4JwNMzoNa2o6
-	PPAiycK8pOe2Y55kKRj7FSCU5YXEKpYMGl12pZwtcwxKQvNTjZAo4hDjMKqpLLs8
-	MqQxV5ugnTXpLPymmRCn12sZyydkTFDoL+K5ftw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:zoLwu0ba4hLP136iUKXuQNMXsdfdA3aYEIrrMD0JcHQ=:0fCBaab8hkFDDaJ/Ih1bLvqwAABT2NnP0tQ4AAZGSwY=;
-X-ME-Sender: <xms:0j7gampYv-Qepawltb_5zxAQ7r1uchBwfZZimwmO733hKQn8Cbz_mQ>
-    <xme:0j7gamToaNKCO405c8j4qnNn8oDC9GcI-bmt-9T68gkY2hk1SFn2qmEzyCKYevmlZ
-    B57DUNMtjkDDojoSiv0dO8sbVIz2ttKdhs0T9HRTjl-WiQEqg>
-X-ME-Received: <xmr:0j7gavSvZjItNm52khlx_AHH4858akhyDGWcKxwdSjhzRE-p8KbOwE2JDov5Gs8y6phc24nFABEsjebIymvUVEGZBPD73h9Tp26QQ698qbc>
-X-ME-Proxy-Cause: dmFkZTFX46FHV+PvV6KGDcfkleNK34N2X9H1Al5LrxAe53ONFm9S0IjeeWDzhKxG8Shv+2
-    2Sn379VUd+VqaQMqSNIr0RXE0+SOVRfM/Gx63Qebrl2PemtKwduXbWRECrBTGBGfJrULBQ
-    YffivZZeuaqa6DZI7pcpaDtiOVdw5kIrTCL6r+s1lX0EQtvi5KXdkVtZXgpLmiCeQhkyo5
-    0RBDkNxGhRvHg45S2izMhkaFcV0863KLldUCedNcqH3+jgrZBCN9SeN2y6dCFRcMN42C1t
-    u00FOS5PhnGCWh3LVzWtg7Y9UnqD1Eeh27e8Hg6l3YKmlHNF7H1Kh+vihbmSX9fAbHYDo0
-    vqvwH4vETUN8Zr4DxgJ4QOvXhjERnzK77P9A+IdCgjx+wiWLtKkc6LZFFD5Bs6Z1sqZuVz
-    ckKV1E0wb9arx8YX8MtEsQsRkZeuM118FdGNbvrDBaRqe0x0rhL+VYYeX+8ZFBGdMjUawJ
-    tKIyqkzcz7czfyfY6rW9sNJyuz8PObfbf9f+DG/Wm/50xB7NDGRNqMS0hrstNZ3Z4TQGvn
-    In1zUasPgunc5Wwdo3htDug2OGygn9eWE+LyMfxwElu7DqFy//jpxmpCS/DqHVPA/Mtm6Q
-    rFKbHh41mZeRGHIV2EfmG7gi/NY8DRdJ/daoTWFCIqbRlpCr+MY0uSnnyS8A
-X-ME-Proxy: <xmx:0j7gasXJz0oNMX2i5_bjE9RmmTYq1qyKsyja06RKL9Hq3lr_R_tPSQ>
-    <xmx:0j7gak2DVi_NcPVHQg6hlEYpymXWNP0b7tuqiwndvmNWu3vC3cUm_g>
-    <xmx:0j7gaj8JGrWmpkvDmF71-9Qhk9DLNlB9oR-l6Rg1izzFGDRuZ_9BHw>
-    <xmx:0j7gaqeapAAVpdYV6w0VCFpM8W2Hnjk4hM-u81q3-PiIB6n2GiqYyg>
-    <xmx:0j7gahODWA6oPkTa3xcC561pcBpZh3fFk_WjMo6To3dGYrlK1o2PazpU>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 02:04:01 -0400 (EDT)
-Date: Tue, 27 Oct 2026 07:04:00 +0100
-From: Greg KH <greg@kroah.com>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Christian Lamparter <chunkeey@googlemail.com>,
-	Stanislaw Gruszka <stf_xl@wp.pl>, Ivo van Doorn <ivdoorn@gmail.com>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Kees Cook <kees@kernel.org>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	tristan@talencesecurity.com
-Subject: Re: [PATCH v2 wireless 0/3] wifi: replace open-coded IE searches
- with cfg80211_find_ie()
-Message-ID: <2026102756-geometric-swept-9e61@gregkh>
-References: <20261026223153.2087218-1-tristan@talencesecurity.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=JUaSaZBy
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69R63dzO6708309, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793081019; bh=lzN5XJ860NKTs7Y9KOhshhR1v5kpoeRKW05jjjJkiZ8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-ID:To:CC;
+	b=JUaSaZByKGVKnr3dEEZqOic6HPNw3OlOqKG+lwbypCsolUn955CWSBuZBFFqGyUbn
+	 wS+Q18coBALqcNwfQFIAdyOHaEHWaHWMYOI5NyEgT0K+yz84cyOshPqBD+k5SfzRya
+	 vA0XulLfoZm0lsaioXJP5O0np08jvF2HaYUvQgf3seYxWv6SOcUYT3i+Gh0zUyWLw3
+	 UxmgX8OTp5Tp8PQaKvLG+w1Z4X6/O0BPfa9InPMBACmwvpznBCG25BTJIuyfuiqvaf
+	 LvlQWQ4yortJZXoOqg1glJueaskkt2tm3wKoKMESpEX99NVdVH6gtNVey6n0pe1/C2
+	 Q6VHIy6zoGClA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69R63dzO6708309
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 27 Oct 2026 14:03:39 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 27 Oct 2026 14:03:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 27 Oct 2026 14:03:33 +0800
+Received: from sw-server.localdomain (172.24.54.4) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server id
+ 15.2.2562.49 via Frontend Transport; Tue, 27 Oct 2026 14:03:33 +0800
+From: Oder Chiou <oder_chiou@realtek.com>
+Date: Tue, 27 Oct 2026 14:02:47 +0800
+Subject: [PATCH] ASoC: rt721: Remove invalid register defaults
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,43 +72,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026223153.2087218-1-tristan@talencesecurity.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261027-rt721fix-v1-1-42cd4b1711d2@realtek.com>
+X-B4-Tracking: v=1; b=H4sIAIY+4GoC/yXMwQqAIBAE0F+JPSfkHjT6leiQttV2sFCLQPz3r
+ I5vmJkEgTxTgK5K4OniwLsrkHUFdh3dQoKnYsAGlWxQCx81yplvMSO2ymjTTmih1A9PJf6u+uF
+ 3OM1GNr57yPkBzu0EQ2wAAAA=
+X-Change-ID: 20261027-rt721fix-f2286b7b8d2c
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<flove@realtek.com>, <shumingf@realtek.com>, <derek.fang@realtek.com>,
+	<egor@crazyrussian.pro>, <jack.yu@realtek.com>, Oder Chiou
+	<oder_chiou@realtek.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793081013; l=2776;
+ i=oder_chiou@realtek.com; s=20260924; h=from:subject:message-id;
+ bh=z120Az4uzqTBtJeVj2+FuENE9VvGaJgqUlUfuB+E30Y=;
+ b=3V6LEP2ESLaseaiCTtg70cDKGFAcHqC+1uwrbgljr5OZJZklqP+GVK256kDLKII3NW3XruNx5
+ vJFV/pRx+b5CZLEldhn0plR8q+8Ndn7oo2+uq8IzKps+s3dGPLzI2r2
+X-Developer-Key: i=oder_chiou@realtek.com; a=ed25519;
+ pk=kxHXyDR720aeJLqtY0EdHompRip+/kDrmfMzKLqz+7k=
 
-On Mon, Oct 26, 2026 at 10:31:52PM +0000, Tristan Madani wrote:
-> Three wireless drivers (carl9170, rt2x00, p54) each hand-roll their own
-> TIM IE search function.  Replace them with cfg80211_find_ie(), which
-> already provides a correct and well-tested IE search.
-> 
-> Changes in v2:
->   - Replace the entire open-coded functions with cfg80211_find_ie()
->     instead of only tightening the loop condition, per Johannes Berg.
->   - Add pre-subtraction length guards in p54 to prevent unsigned
->     underflow on truncated beacon frames.
-> 
-> Tristan Madani (3):
->   wifi: carl9170: replace open-coded IE search with cfg80211_find_ie()
->   wifi: rt2x00: replace open-coded IE search with cfg80211_find_ie()
->   wifi: p54: replace open-coded IE search with cfg80211_find_ie()
-> 
->  drivers/net/wireless/ath/carl9170/rx.c        | 27 ++++-------------
->  drivers/net/wireless/intersil/p54/lmac.h      |  3 --
->  drivers/net/wireless/intersil/p54/main.c      | 30 +++++--------------
->  drivers/net/wireless/intersil/p54/txrx.c      | 12 ++++++--
->  .../net/wireless/ralink/rt2x00/rt2x00dev.c    | 30 +++++--------------
->  5 files changed, 29 insertions(+), 73 deletions(-)
-> 
-> -- 
-> 2.47.3
-> 
-> 
+Egor Poderiagin reported runtime resume failures caused by rejected
+writes during regcache_sync().
 
-<formletter>
+Remove the PDE23 REQ_POWER_STATE default and the defaults for the
+volatile MBQ registers 0x2000046 and 0x6100006. Also remove 0x2000046
+from the MBQ readable and volatile register lists.
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+This allows cache sync to complete without suppressing sync errors.
 
-</formletter>
+Thanks to Egor Poderiagin for the detailed report and testing of the
+default removals.
+
+Closes:
+https://lore.kernel.org/linux-sound/8a12a2d9-1b56-4e00-8ccc-cf31325f8366@crazyrussian.pro/
+
+Fixes: 7a0886826308 ("ASoC: codecs: rt721-sdca-sdw: Propagate regcache_sync() errors")
+Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
+---
+ sound/soc/codecs/rt721-sdca-sdw.c | 2 --
+ sound/soc/codecs/rt721-sdca-sdw.h | 4 ----
+ 2 files changed, 6 deletions(-)
+
+diff --git a/sound/soc/codecs/rt721-sdca-sdw.c b/sound/soc/codecs/rt721-sdca-sdw.c
+index fc34a0537d5f..0c78799793bd 100644
+--- a/sound/soc/codecs/rt721-sdca-sdw.c
++++ b/sound/soc/codecs/rt721-sdca-sdw.c
+@@ -92,7 +92,6 @@ static bool rt721_sdca_mbq_readable_register(struct device *dev, unsigned int re
+ 	case 0x2000026:
+ 	case 0x200002c:
+ 	case 0x200003c:
+-	case 0x2000046:
+ 	case 0x5810000:
+ 	case 0x5810033:
+ 	case 0x5810036:
+@@ -174,7 +173,6 @@ static bool rt721_sdca_mbq_volatile_register(struct device *dev, unsigned int re
+ 	case 0x2000026:
+ 	case 0x200002c:
+ 	case 0x2000030:
+-	case 0x2000046:
+ 	case 0x2000067:
+ 	case 0x2000084:
+ 	case 0x2000086:
+diff --git a/sound/soc/codecs/rt721-sdca-sdw.h b/sound/soc/codecs/rt721-sdca-sdw.h
+index fe04a3726334..eb093992759c 100644
+--- a/sound/soc/codecs/rt721-sdca-sdw.h
++++ b/sound/soc/codecs/rt721-sdca-sdw.h
+@@ -63,8 +63,6 @@ static const struct reg_default rt721_sdca_reg_defaults[] = {
+ 		RT721_SDCA_CTL_FU_MUTE, CH_L), 0x01 },
+ 	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT_USER_FU06,
+ 		RT721_SDCA_CTL_FU_MUTE, CH_R), 0x01 },
+-	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT_PDE23,
+-		RT721_SDCA_CTL_REQ_POWER_STATE, 0), 0x03 },
+ 	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT_PDE23,
+ 		RT721_SDCA_CTL_FU_MUTE, CH_01), 0x01 },
+ 	{ SDW_SDCA_CTL(FUNC_NUM_AMP, RT721_SDCA_ENT_PDE23,
+@@ -91,13 +89,11 @@ static const struct reg_default rt721_sdca_mbq_defaults[] = {
+ 	{ 0x2000003, 0x0000 },
+ 	{ 0x2000013, 0x8001 },
+ 	{ 0x200003c, 0x0000 },
+-	{ 0x2000046, 0x3400 },
+ 	{ 0x5b10017, 0x1b07 },
+ 	{ 0x5f00044, 0x6040 },
+ 	{ 0x5f00045, 0x3333 },
+ 	{ 0x5f00048, 0x0000 },
+ 	{ 0x6100005, 0x0005 },
+-	{ 0x6100006, 0x0000 },
+ 	{ 0x6100007, 0x0007 },
+ 	{ 0x610000d, 0x0051 },
+ 	{ 0x6100010, 0x0180 },
+
+---
+base-commit: f77c0553a0d526c733e61dfd916c300b6bb032fb
+change-id: 20261027-rt721fix-f2286b7b8d2c
+
+Best regards,
+--  
+Oder Chiou <oder_chiou@realtek.com>
+
