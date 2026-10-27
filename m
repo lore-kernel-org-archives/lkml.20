@@ -1,56 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793082380;
-	b=jefogaAs9OToKoqP5b2mMsDWQ6P+809PERm2VeY7xj4+NdwLVYqaO3zK7gBj1UR4CWZJ
-	 U6ufllAbXX4OwZDiWfsKXyzZeQ6c33wZ7BXMQriekYUvk93h9SFWX2MPRYBFYURuXmhU5
-	 HCB1GOrr89Al2l1JsfAbaxL1mRoOuh5L3pOf9SIeECtk6qkAOlJkX+iQFBkJS97iFJfFI
-	 uBJ8IWwzUObrTFZfen3m9+cg6Hi6dlhUtDdb1CGLLF9VoLwe0DS1Ntl30oUjgY4zHsqN5
-	 kZsuRCuKHTvDSW5XM8TNCzLjj5ONpHI1nN3pREbACoZqQn2V+/2p7e8o6D/eTIsV7yw==
+	t=1793082371;
+	b=HF9or2ZEQ+80gyFeMUYwxy2TY7K5Wy04plZUyK3TIQip8VswtC08+gs4RVAQ62iMNOy2
+	 IU6RGMYCxq+xQxo67Bdjw+gneEBlT+XZ5VQuGbHMEHiPh61aMR+mZKEUseuZ8mXMr3yq/
+	 mreZEAsFrX7jknCi4mefNjzyP08xqOgHGgomYN5f9GjSkAwBJUQEKujajXZlBGkWx1g9C
+	 P3600SCTYsKDs7QpudwkFZ2kwX3L55bV6MDickYpVGokDsNuHWWN5MNfo1u/QxBZVbL0z
+	 k57h5tfgRROd9jst1vRbudX0Mm2n97mdWUY1/JxE4CTITpZLL3VoNW+sm4JjGS5GcBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793082380;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=V9ApAIzeT+M/XO21y1Qv5W9e8U1mznozVnK/qq4x5Q0=;
-	b=KQMGdBC9ZSzJ50NoGVr7gH4gJnnWBfL9ByeUBHrhsYuy7MgeMlFVwN6SituBbsN5FE38
-	 L74zYz3m9MN1PbPg7QHMDEG+ZcchlEHhyk3rVBaOEtjGEh91t8rNJFtPpMJlX2llqI8oh
-	 gTUu323EQNFkqndza905QWOuYPYOTArHGrhbrDleZX3Lb2DM4p8YAdcnVMCrcTBDSljf4
-	 I7ClCDb+eOMSp3k51JZGYS7xuGusVJ0frQLHMZa8GrfEcnQU+WGKw7CsesNRGkZ0VqfxY
-	 edClfY1LqxeOFzxJlwNv7ifOPnAw6bVKauC5eCDPLSFn+3KxpayrmTeeqlxKfKApRwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793082371;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FNh04yRIP0CE19slce4i4RIxfhIIH5488gtyMIknFlY=;
+	b=3fgfdyRaa3F01oC7npHxE3ByBXP1cNTOX7ZF8cmQO6QdAU2y7t9VSA/2U9/mlzBvXWfw
+	 7l+EUyI6aY8uAS7MgGnGzYDOMh+doXFJOhD9AyJE7HjFokg4ark9byn3Ix27pt79ZA0Co
+	 fHshht97b5Qax9MpAEFRySVNvlfvhfkW0MyHO2Spmf5GfMHmQgW86wIGTLdUwEZCWUOlX
+	 iD5Zx47Jz2uM/X8zLP8qgZBjk3aXebHajslBwxPKyuRVRX8/qAmCyBFfBN6poqKP2DwDv
+	 mNyIe3lSh+piNIeFD3kx8KvvHsFXGc7tDW8r6367B/OKLct9YSiIogBsE2xfAOvRq2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDAFmca7;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Tr1UmgNz;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91617606A320;
-	Tue, 27 Oct 2026 06:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91617606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E4C606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:26:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2E4C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDAFmca7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=V9
-	ApAIzeT+M/XO21y1Qv5W9e8U1mznozVnK/qq4x5Q0=; b=jDAFmca7cnW3+Z5ITV
-	pvcqXp66Nk3FMD+ePqJFCXoY9if4twOkyHCVlxlMxVcELxeLqb8Zum1o6GQUbyo7
-	opsrP4KmVhQmEg3UilQ5n22MpOUrmvWoPToTjEj0nBCxF014ycQxJALsx361NcOc
-	z66rVe/9ZLWfUg17dq8my6paA=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v77+Q+BqYq0mCw--.52012S2;
-	Tue, 27 Oct 2026 14:26:06 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2] regulator: core: flush deferred disables before suspend
-Date: Tue, 27 Oct 2026 14:26:05 +0800
-Message-Id: <20261027062605.2233921-1-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Tr1UmgNz
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8fe8e343fso22109475ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:26:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1793082370; x=1793687170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FNh04yRIP0CE19slce4i4RIxfhIIH5488gtyMIknFlY=;
+        b=Tr1UmgNzIFhIsCU53Vk9vUO8r4O1V3ENts7ePvhxZMYpyYaVBPcya6VHQ5OYtx7VHr
+         P4lxvBf6YbylTIa3oPLxR0/Gs7jJbEPlMLNcLoEcq+nd81Jeknp7hvVR8A0WpbQSDoGu
+         2k6NdFQyFhQ2Urb/59gH9YO/f5I9EI+9W9wxTqwSEka+Y03BLaxQADiw79HgPY2N+uYf
+         6fuZ9ntD0FklhKVg0BrQ4npz8f370IPwre0uUlF+LSDfxzflTtW+2pVTtXOsGhpVrxVH
+         iICHBwq69gKP6QOxlon5RpqIuNWIL5S0lJ4L71vdSfDeERINYyP9IjJcruFd1694tCaF
+         dLdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793082370; x=1793687170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FNh04yRIP0CE19slce4i4RIxfhIIH5488gtyMIknFlY=;
+        b=Xa8OlxA5cXHlhI14mGNUCex0ICYEWm+iTkiO/TnX6o+/pbJ7SNzSUmiCmWbm8AcQmq
+         deGFkvYpnN4W5KC453dl036Q0aN8KaH7NmDxzpmUWxVkyyDJinw5NichVqh91Nty4TUT
+         /9v/sUcLaN9EkkTstxAmgHsmlyy1whjJTsO7cBF6LzWj4s5qCB30PVVmTPdn8//loMqs
+         JeggeqmOsRvjXd+P16Lj/PVePO0HFfKvFiSAvDDJ+SgD17hpUl8E06RuXJUZDVMmtA9W
+         x50bTeGia375mmhDPXy/00tXEXU4bOcr2Drr3/SkaC3ASONtBzelc/lf+oPhjpLq4+sw
+         zdYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxS1oFDMq0aL2sYvRGPoChRgOSxCdR0tFON5IAotfJa7GbTt9HXEH84+2l6uy5tedqM+sNELv5GKGQKn0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeU05crb0wjm5u9E1Y3Cb86PpDJozi+8pvKPUPElPj8FJyeILY
+	s0VpXfWVwA8wArBUXOHuGhKZOg8Z5Hoi6RXDOTKPCJWnL23xIHLQ79CPC1pSXGcDXsg=
+X-Gm-Gg: AYBFou0PWJweYVQcdbvTxfGlU8vbh61WMgMA7OITpcN/LbglgJOprQLtRVMTgrqGkiF
+	W/zwZWQTUu2i87PUGghntq4oAxfD/IRrw0fO/l5wkNkQCR/ZjwBVtpxxMS83lSC5HGa4gVrKJkt
+	ntplpsUf6TWUds7FnCLBvr++3vfHXAkuyhfrhGpviCx/1Lj/k45S3rU/7eDrT82/m8Oh1lcguWM
+	pVicR3afPxkUNYxEPxb5HzLkJAgV9GWv48cst+pW1g6tjZ2W3P/GdJ1sSrmA/BMfipE7hk9cw4T
+	kxavxhaXzeqnEz5e+g7Lb+SuHUXIJ6Q0lj5FTufslS23t4cXbosvMMn+VIVK3f2DNoMjHoqexYu
+	VRg9hsM8qbXINs2wISvm/8z63vv7/5uWIi23EPEo4GDTqe+COehIv8kEidWtDAmocnzuZtITvNM
+	QBzuwiPALKm4gcxGN6UWrU5mItZX3YOjdAqMKKI0qXZKUchSG2JpxdqWFT6c6hd4jz24K5OdP45
+	4CysrFYaYREgWyLySD9OARxiuJuTT1N3GK7ClqtR4u3neLSLDR68fmaGrFdWYbsWiWvYTwXv/yB
+	8//jZqkeMq+TyuNYpHbQ5+46YZSP8yAvx+MPrZjIQAHEYijggQ==
+X-Received: by 2002:a17:903:26cc:b0:2dd:c0ff:e727 with SMTP id d9443c01a7336-2ea9c913694mr67964825ad.57.1793082370138;
+        Mon, 26 Oct 2026 23:26:10 -0700 (PDT)
+Received: from n37-012-226.byted.org ([115.190.40.15])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b79ce2sm4079055ad.21.2026.10.26.23.26.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 23:26:09 -0700 (PDT)
+From: Qingwei Hu <qingwei.hu@bytedance.com>
+To: Anup Patel <anup@brainfault.org>
+Cc: Atish Patra <atish.patra@linux.dev>,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Qingwei Hu <qingwei.hu@bytedance.com>
+Subject: [PATCH] RISC-V: KVM: Validate PMU counter info using available counters
+Date: Tue, 27 Oct 2026 14:26:02 +0800
+Message-Id: <20261027062602.323691-1-qingwei.hu@bytedance.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,113 +99,34 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v77+Q+BqYq0mCw--.52012S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF1DJF45Zr48Jw4UJr4ktFb_yoWrJF17pr
-	W5XrZayr48uFyIva1Ykr47t3WYqr4kt397Zr97K3y3C3W3JF1xJF4vyry5ZF1kArykJwnF
-	yrWDAw4kC3WUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UNvttUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8ADjHmrgRAA7cQAA3J
 
-regulator_disable_deferred() can leave hardware access pending while the
-system enters suspend. Allowing that work to run during device suspend can
-access a regulator after its backing bus has been suspended.
+COUNTER_GET_INFO validates the counter index using the pmc[] storage
+capacity rather than the number of counters advertised by NUM_COUNTERS.
+When fewer counters are available, a guest can query an index outside
+the advertised range and receive success.
 
-Moving deferred disables to a freezable workqueue is not sufficient.
-DAPM uses deferred disables while suspending audio devices, and work queued
-after the workqueue is frozen would leave the supply enabled until resume.
+Validate the index using kvm_pmu_num_counters(), matching the counter
+initialization and read paths.
 
-Mark the regulator core as suspending in the PM prepare phase. Flush each
-regulator's pending disable work before device suspend starts. Process new
-deferred-disable requests synchronously until PM completes. Synchronize
-the transition with the regulator lock so a request racing with prepare
-is either flushed or handled synchronously.
-
-Fixes: da07ecd93b19 ("regulator: Implement deferred disable support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: 8f0153ecd3bf ("RISC-V: KVM: Add skeleton support for perf")
+Signed-off-by: Qingwei Hu <qingwei.hu@bytedance.com>
 ---
-Changes in v2:
-- Flush pending disables during PM prepare instead of freezing the work.
-- Process new deferred disables synchronously until PM completes.
-- Synchronize requests racing with PM prepare using the regulator lock.
+ arch/riscv/kvm/vcpu_pmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Link to v1: https://lore.kernel.org/all/20261016100522.2582557-2-yaojiale02@163.com/
----
- drivers/regulator/core.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 14422cfe80e2..160c588fbdd3 100644
---- a/drivers/regulator/core.c
-+++ b/drivers/regulator/core.c
-@@ -44,6 +44,7 @@ static LIST_HEAD(regulator_ena_gpio_list);
- static LIST_HEAD(regulator_supply_alias_list);
- static LIST_HEAD(regulator_coupler_list);
- static bool has_full_constraints;
-+static bool regulator_suspending;
- 
- static const struct bus_type regulator_bus;
- 
-@@ -3463,10 +3464,15 @@ int regulator_disable_deferred(struct regulator *regulator, int ms)
+diff --git a/arch/riscv/kvm/vcpu_pmu.c b/arch/riscv/kvm/vcpu_pmu.c
+index e095d1ff439f..ea788619091a 100644
+--- a/arch/riscv/kvm/vcpu_pmu.c
++++ b/arch/riscv/kvm/vcpu_pmu.c
+@@ -560,7 +560,7 @@ int kvm_riscv_vcpu_pmu_ctr_info(struct kvm_vcpu *vcpu, unsigned long cidx,
  {
- 	struct regulator_dev *rdev = regulator->rdev;
+ 	struct kvm_pmu *kvpmu = vcpu_to_pmu(vcpu);
  
--	if (!ms)
-+	if (!ms || READ_ONCE(regulator_suspending))
- 		return regulator_disable(regulator);
- 
- 	regulator_lock(rdev);
-+	if (unlikely(READ_ONCE(regulator_suspending))) {
-+		regulator_unlock(rdev);
-+		return regulator_disable(regulator);
-+	}
-+
- 	regulator->deferred_disables++;
- 	mod_delayed_work(system_power_efficient_wq, &rdev->disable_work,
- 			 msecs_to_jiffies(ms));
-@@ -6327,6 +6333,24 @@ void regulator_unregister(struct regulator_dev *rdev)
- EXPORT_SYMBOL_GPL(regulator_unregister);
- 
- #ifdef CONFIG_SUSPEND
-+static int regulator_prepare(struct device *dev)
-+{
-+	struct regulator_dev *rdev = dev_to_rdev(dev);
-+
-+	regulator_lock(rdev);
-+	WRITE_ONCE(regulator_suspending, true);
-+	regulator_unlock(rdev);
-+
-+	flush_delayed_work(&rdev->disable_work);
-+
-+	return 0;
-+}
-+
-+static void regulator_complete(struct device *dev)
-+{
-+	WRITE_ONCE(regulator_suspending, false);
-+}
-+
- /**
-  * regulator_suspend - prepare regulators for system wide suspend
-  * @dev: ``&struct device`` pointer that is passed to _regulator_suspend()
-@@ -6380,6 +6404,8 @@ static int regulator_resume(struct device *dev)
- }
- #else /* !CONFIG_SUSPEND */
- 
-+#define regulator_prepare	NULL
-+#define regulator_complete	NULL
- #define regulator_suspend	NULL
- #define regulator_resume	NULL
- 
-@@ -6387,6 +6413,8 @@ static int regulator_resume(struct device *dev)
- 
- #ifdef CONFIG_PM
- static const struct dev_pm_ops __maybe_unused regulator_pm_ops = {
-+	.prepare	= regulator_prepare,
-+	.complete	= regulator_complete,
- 	.suspend	= regulator_suspend,
- 	.resume		= regulator_resume,
- };
+-	if (cidx >= RISCV_KVM_MAX_COUNTERS || cidx == 1) {
++	if (cidx >= kvm_pmu_num_counters(kvpmu) || cidx == 1) {
+ 		retdata->err_val = SBI_ERR_INVALID_PARAM;
+ 		return 0;
+ 	}
 -- 
-2.34.1
+2.39.5
 
