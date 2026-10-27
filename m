@@ -1,59 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793133277;
-	b=Z6gRPWQwT3T7NkmprmVMTgKNvSUeSIrrvkgFfwtdwKozVyoGOtLN0hhFLoIO7ZvfHECP
-	 QJrO9wytC8CPB9WxOw9jKQ+tQ0vo7libi3rt1sZbZ/aeh2e9arxArTqXIHgjbReic+YGF
-	 nGXy4RPJVyCVak/e4jZRXHEsJf7Wxj2BRCTx2bNBoU8twgP2HeFkg29IO78RIRR1qFr4n
-	 ww3s01ziHBGnlhyOGKpJU1M7YLv7H4Fs3AYuLXylogslHIb+hjVVVxXE4nQqWqiyUelZB
-	 /VyTHeCcrq2o7Sb3fZr4QCsrm9/uZ1NtS5fwbyfq5mGBP9aUV+Q7lYh+oCLUy9SdUWg==
+	t=1793133285;
+	b=NkFnNyrbxrGKtfIKJQ3ulyeS+4or1G8hW7CqWEzaBIVQEfZgepbwyKxi2YQ9Fyu0Mn3v
+	 zoodOeSktOxmGi3YoZXh8mX3bpV7vCSRkkWL6zR7cON2egx1wVAFMi8FM+r7j/iy7LT4X
+	 2QCrIeSkZH+fIE9/43NhE/tSa6Zum3dUkNIqsuO8eK3dQ5EutonEMItcZg8LjLUAPb6tC
+	 mMmKd+5A6iGLDLtvuXTdLZ7CLPKPYxu0i6V55QF+U/ByWM+olKSSpsVzOAj+d0OyIYGLZ
+	 ZC3t1ScXdpiz3GWJ0UDloaz6KIRKaqt+KqOLZ5MQT2tXGbNU7aF1e8kc1oxAFaUH72g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793133277;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=qyzQ7xnx+8HWZMHa2Kc/8JqcbawNuI9hs09DU//OnEc=;
-	b=gRcn6r81MUBOcPnfEVqvDDzsvGmQeJxqUQKn1w0hfTGmQWWVwnFy/CzTtvlbeRFFl0oz
-	 dx8hUu3pTbL/SSV6MkVjzDxMbxq2abVvB1v59Sbw/lBbwLdrxJP5ZTyswGuqQcw9jRePf
-	 Dj6VGfldNgq6iCGWAfrEHXGd7tRDo+risqAY/AF9GhJg+soBgLiLNXKSocewSzEza2U7s
-	 aryeXyjGr6yL00w3pwhJbLNcmLfRznhRDq405Jxwz0cN8cac1DnZ9v8B6OtySA46Aq+sV
-	 sgeMcNh70ZitkxUnPjy5x8BjXJ0dcC//X0Qbf3uUbZg1pk7FdB7aMpNcqlbKKO5TDUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133285;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=hNorLwJ99xn/nj+HoxN7hSYWomO5ulu5BX6aWSRIr7k=;
+	b=Ojzr0M2ov32Z4OLy8dTwVEUKllWCY9NuYvDDn4gYowZY/sAb1BRKT8jdYDwXB1v8ZUx9
+	 /sYrnX54LDe/0AJq+G5UHEMPVG0qV34Jw5QvUx6wxHORsQ471oFwTAqR97Hs6tIIiffCX
+	 f6q40bjBBHj40ipv+FJWep7sqPbx4Rvw0ZsuuhZT6XyyMGZKCoaGLIQxoFmWGONcpJTGr
+	 BGR9gSlFaMoRMQgcdFPDGOd0o8TTmIhMK0TladIjDfT3A1BhGwGMKsPSgYclG57Kq9tL5
+	 j588mOGvveaf9zywpbpK3irbB5kWpidNL6BeEXg6CakMMnfmcltpDafixc7EyfTCLwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfDwDK75;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1mOwNnX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F66C606A31F;
-	Tue, 27 Oct 2026 20:34:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 08E8B606A329;
+	Tue, 27 Oct 2026 20:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfDwDK75
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B506C1F01825;
-	Tue, 27 Oct 2026 20:34:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1mOwNnX
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1F4551F01828;
+	Tue, 27 Oct 2026 20:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793133276;
-	bh=qyzQ7xnx+8HWZMHa2Kc/8JqcbawNuI9hs09DU//OnEc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=AfDwDK75H7j1zEWctOfHgX8baXztg1/8X8YT5hNEGFTKOsVGAsAwsWo3yLjJnW/Pf
-	 GyGuSnXxOsXClZZPi2nYiRYeXjRZTHWllBSN2wNMm4krJAeEaOPtgx2bx8iD/4ubuX
-	 tQmi/pqiBBzluXj/IaK7jlcXSt1mwa/K4bH+X2tDJbv4H2mm4mVvn5ZMMRtN3gH48T
-	 xix/fdVMRB5W/f2UiBqnz8T2/8zIceza97h477GdRyL9xhhb6HKTvGd9yh42wzJ6oU
-	 pnycqeerxqiZoXCNVnmTQY0SU0BF/ARB3gyELiqVFuPA7USpZN+5tdlVoJJnXYJVeu
-	 5yyoXFnSK2UzA==
-Subject: Re: [PATCH net v2] net: sched: prevent scheduling deactivated qdiscs
-From: netdev-bot+sashiko@kernel.org
-To: david.lee@trailofbits.com
-Cc: vinicius.gomes@intel.com, kuba@kernel.org, jhs@mojatatu.com,
- jiri@resnulli.us, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com,
- horms@kernel.org, kylebot@openai.com, dominik.czarnota@trailofbits.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 27 Oct 2026 20:34:35 +0000
-Message-ID: <179313327525.3134.15618266937324300579@kernel.org>
-In-Reply-To: <20261023194712.package1-20-v2-david.lee@trailofbits.com>
-References: <20261023194712.package1-20-v2-david.lee@trailofbits.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793133284;
+	bh=hNorLwJ99xn/nj+HoxN7hSYWomO5ulu5BX6aWSRIr7k=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=l1mOwNnXbRuFY5GEB/rt/mPJDXGuhByASg+4tnSY28A50UldbCmySCYB0IaJZhnjf
+	 XtwwjwFI2/AfT6cmdijuZ2MfPY1CoGkJzbg23De9NYzx2c9sf5JAwmCbt4m4tN2BxH
+	 7JCd9srMUFxFg06aaF8iedfVVtb0ftpCgJplyBBfJlNt8pnTUOChnY6OcfUyxixZmD
+	 /8Ha/DXOKOiFy/rBtSv+fHAc/A8rjCdjTANdlKA352750S84kIp94/XHXufztcVkxM
+	 k6s58VM/3JnphSKkpCAMawfVZ2S+ELXhxGCcXtQQzVRy0K49FdcXzNpRPnt1g36eEy
+	 sNKOKL2972m6A==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,153 +49,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] vDSO, kbuild: Provide vDSO debug variants at runtime
+From: Nicolas Schier <nsc@kernel.org>
+To: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nam Cao <namcao@linutronix.de>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20260708-vdso-sysfs-v1-1-fcd93385006d@linutronix.de>
+References: <20260708-vdso-sysfs-v1-1-fcd93385006d@linutronix.de>
+Date: Tue, 27 Oct 2026 21:22:44 +0100
+Message-Id: <179313256476.2881498.3865128683953782646.b4-reply@b4>
+X-Mailer: b4 0.17-dev-1f2f7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1517; i=nsc@kernel.org;
+ s=20250924; h=from:subject:message-id;
+ bh=xW30oCJ+te/Q2Tkeg2ur/hJ1H5BjBROEgOw5NAxp/aI=;
+ b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBq4QgVJYezIf4OVYbIFrlN/LRrzXGNBAp884z48
+ Yv9tHTUoRGJAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCauEIFQAKCRAHUgpwFiYS
+ aRtdD/9/IV+5o4mA+iHU1C33WMrxoTs9Do+sbHgAGViM0LJ2N4S+i8zvbUl//3LRj1bV6MgtYNW
+ DayZ4DFPlYtgD4KmmdKg9of1vmRv3Fu0PkBS8FCVi56+zpx9n8Kp87nL6fS4iilXGrvl6joLE0r
+ rWQXoazVD89Eov/NJP3sa052xb5o924P5orsMeN1ZHqA9tDL2R2PLihFTOt3vpprXttvE1g/NBz
+ 4+TnPJYA8w98UuUqQeSv2/pOc7YpBfepBFzqvAMJRPpPAvpgodNl3+vxh6uoSSOG33pUF+Xdzpm
+ oIXsek9+ZhXScKoVKONfHcGwLPmA6O2oAhzwl3qMS2qL6/+LCzrwksp8V0KpOuUQLRIuj9g22Mf
+ pkpXcpGDS/TCHgnVlNSJ29HjOkcALiuOHyZn3ZOtPxAdhkiJTxNcW9xP/PwJ5gzC5VRLajMd9jd
+ B2ge7hNEzqf87PalBkwsJQ1O47jmtkUpTnvfPvDbkeH5nqJGeSOAL0VnKYSKqstp+n2FnShwVUC
+ pou2eVHBLTOefZM0s2mwN4J7OR6DCiuu02iKtfOLb3rzbp3UkhwxvbTXOs9tC7/ZuilT1LqNGFx
+ cPJP/8m6g7hp1xlBcRWWknLMw3IUouIrT4KD/AXW9vieLL9voCB0TDyByAXioye4WbeRbFSfcqX
+ uqqEfsiELJUl2Hw==
+X-Developer-Key: i=nsc@kernel.org; a=openpgp;
+ fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 2026-07-08 15:56 +0200, Thomas Weißschuh wrote:
+> Finding the debug version of the vDSO is not trivial as there is no common
+> scheme where it is placed. That's especially problematic for CI testing.
+> 
+> The vDSO futex unlock mechanism requires for testing to have access to the
+> inner labels of the unlock assembly, which are only accessible via the
+> debug so.
+> 
+> Also for general debugging purposes it's convenient to have access to the
+> debug vDSO at a well defined place.
+> 
+> The files are placed in /sys/kernel/vdso_debug.tar.xz. They use the
+> regular 'make vdso_install' layout, including build-id symlinks to find
+> the correct file for each process.
+> 
+> The design is kept close to the ones of the similar IKCONFIG and IKHEADERS.
+> 
+> On x86 the x32 vDSO is derived from the x86_64 one, necessitating an
+> explicit dependency to avoid errors due to concurrent builds.
+> 
+> Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> Link: https://lore.kernel.org/lkml/20260602090536.045586688@kernel.org/
+> Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+> ---
+>  Makefile            | 33 ++++++++++++++++++++++++++++++++-
+>  arch/x86/Makefile   |  3 +++
+>  init/Kconfig        | 10 ++++++++++
+>  kernel/Makefile     |  1 +
+>  kernel/vdso_debug.c | 43 +++++++++++++++++++++++++++++++++++++++++++
+>  5 files changed, 89 insertions(+), 1 deletion(-)
+> 
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The patch does not cover the IFF_UP-but-no-carrier case.
-
---
-
-net: sched: prevent scheduling deactivated qdiscs
-
-This patch makes __netif_schedule() return early for qdiscs that have
-__QDISC_STATE_DEACTIVATED set. The goal is to stop a late TAPRIO
-advance_timer callback from scheduling a qdisc after some_qdisc_is_busy()
-has reported it idle. It also makes transition_one_qdisc() reschedule
-nonempty queues on reactivation.
-
-Link: https://lore.kernel.org/netdev/20260805102514.740834-1-david.lee@trailofbits.com/
-
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index 1a09e78691180..bcd2d5197d5b7 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -3478,6 +3478,9 @@ static void __netif_reschedule(struct Qdisc *q)
->  
->  void __netif_schedule(struct Qdisc *q)
->  {
-> +	if (unlikely(test_bit(__QDISC_STATE_DEACTIVATED, &q->state)))
-> +		return;
-> +
-
-[Severity: High]
-Does this guard cover the case where the device is IFF_UP but the carrier
-is off?
-
-Only qdisc_deactivate() sets the DEACTIVATED bit, and
-dev_deactivate_queue() calls it only on dev_queue->qdisc:
-
-net/sched/sch_generic.c:dev_deactivate_queue() {
-    ...
-	qdisc = rtnl_dereference(dev_queue->qdisc);
-	if (qdisc) {
-		if (qdisc->enqueue)
-			*sync_needed = true;
-		qdisc_deactivate(qdisc);
-		rcu_assign_pointer(dev_queue->qdisc, &noop_qdisc);
-	}
-}
-
-With the carrier off, dev_activate() returns before it reaches
-transition_one_qdisc():
-
-net/sched/sch_generic.c:dev_activate() {
-    ...
-	if (!netif_carrier_ok(dev))
-		/* Delay activation until next carrier-on event */
-		return;
-    ...
-}
-
-So dev_queue->qdisc stays &noop_qdisc. Because noop_qdisc is
-TCQ_F_BUILTIN, qdisc_deactivate() does nothing to it. The TAPRIO in
-qdisc_sleeping never gets the bit, and qdisc_alloc() does not set it
-either.
-
-Here is a possible sequence, for example on a multiqueue veth whose peer
-is down, or a multiqueue TAP with no reader:
-
-1. tc qdisc add ... root taprio (software mode). taprio_change() calls
-   taprio_start_sched(), which arms advance_timer. taprio_attach() puts
-   the taprio in each qdisc_sleeping, and dev_activate() returns early.
-
-2. tc qdisc del/replace root. qdisc_graft() calls
-   dev_deactivate(dev, false). Only noop_qdisc is flagged.
-   dev_reset_queue() is skipped because reset_needed is false, and
-   some_qdisc_is_busy() returns. advance_timer is still armed.
-
-3. On another CPU:
-
-   advance_sched()
-     __netif_schedule(sch)    <- DEACTIVATED is clear, SCHED gets set
-   net_tx_action()
-     clear_bit(__QDISC_STATE_SCHED, &q->state)
-     qdisc_run()
-       taprio_dequeue()
-         taprio_dequeue_from_txq()
-           child = q->qdiscs[txq]
-
-4. Meanwhile, on CPU0:
-
-   notify_and_destroy()
-     qdisc_put()
-       __qdisc_destroy()
-         qdisc_reset()        <- taprio_reset(), without the root lock
-         taprio_destroy()
-           hrtimer_cancel(&q->advance_timer)
-           qdisc_synchronize(sch)
-           kfree(q->qdiscs)
-           q->qdiscs = NULL
-
-qdisc_synchronize() waits only for SCHED to clear. It does not wait for a
-qdisc_run() that has already started, and net_tx_action() clears SCHED
-before it calls qdisc_run().
-
-Can taprio_dequeue_from_txq() then read the freed q->qdiscs array and call
-child->ops->peek() through the pointer it loaded? And if it runs after
-q->qdiscs = NULL, does it hit a NULL dereference instead?
-
-The skb double-ownership in the commit message is probably not possible
-here. Enqueues go to noop_qdisc, so the child queues are empty. It is
-still the same race, though: TAPRIO gets scheduled after the busy check.
-
-Before 47e8dbb6e763, graft-time dev_deactivate() always ran
-dev_reset_queue() on qdisc_sleeping. That reached taprio_reset() and
-hrtimer_cancel() before some_qdisc_is_busy(), whatever the carrier state.
-
-Would it make sense to stop or neutralize the TAPRIO advance_timer for the
-sleeping qdisc during graft deactivation? For example, the timer could be
-cancelled before the busy wait, or qdisc_sleeping could be flagged as well
-as dev_queue->qdisc.
-
-This next part is a pre-existing issue, not one introduced by this patch.
-If the device is not IFF_UP, qdisc_graft() skips dev_deactivate()
-entirely:
-
-net/sched/sch_api.c:qdisc_graft() {
-    ...
-		if (dev->flags & IFF_UP)
-			dev_deactivate(dev, false);
-    ...
-}
-
-So a taprio created on a down interface can still be scheduled by its own
-timer while it is being destroyed.
-
->  	/* If q->defer_list is not empty, at least one thread is
->  	 * in __dev_xmit_skb() before llist_del_all(&q->defer_list).
->  	 * This thread will attempt to run the queue.
-
-[ ... ]
+This seems to have fallen through the cracks; shall it be considered for
+kbuild-7.5?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261023194712.package1-20-v2-david.lee%40trailofbits.com
+Nicolas
+
