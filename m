@@ -1,85 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114496;
-	b=aaTOx6pXBzinvxHhlp2BBYsL2rYVNSuUffsbCIrqPgDnOgrqBIt6EZHg/MbGMk+8xmr+
-	 ug/nbKC8kcP3cBVSPYDlj+N+a0v2mI2fxqNjilJwtCK6fpBTHbB/HbBoZr7rcjdspm0lP
-	 m66/kmdgEtlAhk5qPWSZWAOPXtGIZpmDxCs6HDFSyOvWEHgGhmuoCmeIlOfongbncgoZV
-	 qKPb8KuOK3CD2lJh3UbejCT3MZNs/0sPWoY0NjOyOfXeY2ZIOTl8imAECgB5HTDwl0bZs
-	 WbBLNMkAwm6vAaeySEho+imgT5rWg25Q8UfxtzUUdqzZHPCuPR2aA+Vz8czCofhx1tQ==
+	t=1793114509;
+	b=T+wBmcPuojcmVT8sZUQtumBBymCsQop75pbGS9OEHZZP29k5zZgTfJDPdRux8xskubjb
+	 /V9ea69SLsqzwH4JUtzsMO7lm8x+S19YiUYRX8TEWUb1HFY1Qp33en6FRze+MQ5KTpOKm
+	 9OjH1mmE0Qm8ySVPYGo2RMHpNRbv7wPtqoyylx2lIEkHzN+JCfq79TGhHLIcOSshOgQYs
+	 5AEqq+IUfuHpCvNGHItArQ6yKiy8bL4Grze0fZfUHJ99LeCVMSrJ/G1bxpWALhv8QGVHf
+	 MoDkdYNrp/gn4fyIesAEztuy4CguDvswFtnOuQWappJcNtNDgZlkuntWoN6KVKM6/5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114496;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:References:In-Reply-To;
-	bh=A/FO+PXUBDG5O94y5lMD0CzRnK3vjDG2tM9yXo+wpAI=;
-	b=DEIeom7JvU4p9thXMGof0KjEMx/yPWULRsY1rfKMBcIeiLCyXDKmvYK3SDZAFI39We4v
-	 4AvWaGseCv+ig+BWTq/7cl1i5cmaUqeo4MabhCCzwdI4FnHNGxM2ybiEnb9+bwT67Km7M
-	 aTFPJUrb/EuATlIwFpHqibARiCzf8KsQUoVP7RXh8YzAEG92LpBAk1jtNRdjqQAP/4CyR
-	 lqMkkGq3egZ+MQxoimimbARTybVjmzS+RWhtEbCCgH2mXEB5EOJksxHGjsCb58LVyVoGF
-	 UtB3KUOWrlbvGGXpsgTbaLabLxFLr9cpi0fhiUMqLpFCNMIO3RmLHHRnWLcLDHWKbwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114509;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lg7ricNjsihrhZdu+HxttW8s2muYiAp/wLN4SAfTLNg=;
+	b=oCA7rnAZtH7a43RozHnwJ3a8hMWhV1egnY8/46TuqXu5WR8pbTuyE02AW48L4ulAO2UD
+	 Mw7mcVAdtfjOS35PB67tEz00ciMJv2w0CVLxbdla06s+pB3gyRDRoO/WjhjAGoSLMeXWe
+	 zBMm9V3cEzXlMkhQ76opD+j9/iqLB/eYMs6FclrrHAEHDPQ14o7zXklLi8b8Y048g9CJr
+	 8MThl66NiAxUGLcPkcWS5Cf5/9ZdZj4FMNTdmLbg55lDOAt2hgI7v/eVisypB9UNI3QwD
+	 dFRq8nTajbYxZyR+2T6dQ8BwT0Mb8ed7dEN6X8TldlUOa4lmNv8d9c5CdtgEKUdRNNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Mycwa3Lj;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b="lJ/+Gir7";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=C52S9hHA;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D9F606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:21:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96D9F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD16D606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:21:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD16D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Mycwa3Lj
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso41959a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:21:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793114494; x=1793719294; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:message-id:date:content-type
-         :content-transfer-encoding:mime-version:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A/FO+PXUBDG5O94y5lMD0CzRnK3vjDG2tM9yXo+wpAI=;
-        b=Mycwa3Ljz3PMgTATSXkD/0igHVvL5QzqIzwVGRON1FfP4vtsAaxBwW4R2GJjRa9PmT
-         p8YpXPLssxVlFE+0z9QXDHSOQGvdYFIZjbDa/ZOKYVpIBNZn5XZGH8Tf4RBXz00iGc5R
-         7B+zvlRG9QZYfPyHkjVJh2tSstM60xE64Ma0I2ftMAlhoZUdw+1119D2OeMjMd5gdFyW
-         CUa660yqsHdT9ZNAcmDi0370RIjt7/+fCy3cJ0muReqWsjOBP21UTbrE1fZBU4/uyPmi
-         EtLWPXgehhd0gYNn+wvuGoA1fUubpLUo7vaUXB8RhQ9HxHVnZUWkRgaX4dmEycR88M3P
-         Aexw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793114494; x=1793719294;
-        h=in-reply-to:references:subject:cc:to:message-id:date:content-type
-         :content-transfer-encoding:mime-version:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A/FO+PXUBDG5O94y5lMD0CzRnK3vjDG2tM9yXo+wpAI=;
-        b=rFCjCNpX8wJxMYGopoZ1Uqu5Ze+PSdLgc2bBPIAlAluwTk2e3awcDlFrBZJvRf//Zi
-         6Hn9ugXzC+BnfI2DfZpY1RAZyVbz2q90rttzRb5XDUvRo2tIidwZjZkTBX75l3BL5NrF
-         vik1V3LjDUUBT0mhiaD6jbK0OY6T8+NQP+bitjeotr8jPA3g7xAvy8cPXd2/MY1q8Kyi
-         zX66a+LHYWqAhBtDRCXaNss8BaJ3jVSo3VgRYvN79/CeFyiAVz5m1Kf5XvMbJS/sdsmH
-         myroTurmSfOoPazY3tSmgrwGl0LgM2P0200j2GBWsGaJOLocPTevcCO2+zz7JQfxL2EW
-         7WxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQvzM+jVM0Mi3GJL79PjRYCP64S0ISj0wZCTsZroFTAxDMvfilmsAK2JJGmUiZ3EiBBoq+NTce959HQbY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOlxDoQfbQsiKHHCxInYRNZ98V7iQwVI9x6H7DxkNkI5fc7VFU
-	IzJNZGTYs8uCPOLuwlSjkTdr7kl8fFBdtK1rfO6Igxcl66t8wO1UjXiKvQjLfJpBajc=
-X-Gm-Gg: AYBFou2XO/Iu5GiwpqraXzTuudz20nl5GZTnkMksF6UsDWmpCSxxA5z8Vh8JVtg0PoU
-	1tuNJVE2nQy3qqote2Ac26WUr1KEG88gWUo3T5f1Wk0v3fD7/Ig12WD4WGRAeM1Ga57mTw4u8Qd
-	ZriPi0v+aTqiVRm32TsC77aUAJxhjF0e5lPEdqLoNLh9H0Zbk4X57W+0ObJKuRKXmU+ylidtg8H
-	dPsqD9fZk2aEcgBuaCbSvzuPNwIo5TCz5oy07emK3dgo3mSbPtdXrmSafeC2EIB/lUBaQ/EwXet
-	mLXZgnXpvJp6UuYGfZA4OcGKSRWP1hcqm05mzVLV+vfHoNH9ZC4kgptOya/aPSZI3w3ltDz1phG
-	rvzSMbUYxcEwzFbuylFOxHila8LRSRSlkzhzEMgniAtZTGUHnvR3D+P5ym3IUt+lRGOY7YkG/QN
-	HYBwCsnIWumt0nzH5WDprq+crLsgOvbnS4W70kjZ7p0u1bYXiOQhnri6qQNKzw+Ohe0cwk9/UJi
-	gPKeAWRSTjN7M0hNGGVD3jLiN65LbKQCYrMD02tNvHTIwNowmGtQlWq
-X-Received: by 2002:a17:907:97c8:b0:c2a:cf73:63fe with SMTP id a640c23a62f3a-c46bdac62famr1094811566b.6.1793114493665;
-        Tue, 27 Oct 2026 08:21:33 -0700 (PDT)
-Received: from localhost ([2a01:11:8f11:bb70:17d2:d825:e2b8:2e8f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb902sm24538097f8f.24.2026.10.27.08.21.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 08:21:33 -0700 (PDT)
-From: Rui Miguel Silva <rui.silva@linaro.org>
-X-Google-Original-From: "Rui Miguel Silva" <rui.silva@linaro.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=lJ/+Gir7;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=C52S9hHA
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id E6E71EC00D1
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:21:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Tue, 27 Oct 2026 11:21:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm2; t=1793114507; x=1793200907; bh=lg7ricNjsihrhZdu+Hxtt
+	W8s2muYiAp/wLN4SAfTLNg=; b=lJ/+Gir7oE8spvleM7UyqsOssQS3/ZhHpEg8n
+	lJcUV7sd5Eb/jGVAVln3MysdQVskl/KaTrqKsiTM1jRX+h+mkplHxsE2WrfvUWE/
+	8UuMNmE5rYIU4o8GQ7dxrC9EabUtH0kNivj5XorEEspQeUvOhFCslscu5Z/e1e3D
+	NulyW9b4VqT8pE0clVDLUOejLYHZO07gvQE5lDLN5wbFSzhwcFuWk6OicbhUkPUp
+	2H2om7fApJ0bZGMNHby1WDugnYNVoj9woPhZo2cbDPYHR/0grZMPdz54Hq5nE25b
+	SG9K5vSatV7mPlK6kYuFgsrw9510YgV17BUbzyskc6UlrM5QA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793114507; x=1793200907; bh=lg7ricNjsihrhZdu+HxttW8s2muYiAp/wLN
+	4SAfTLNg=; b=C52S9hHArXVKC3ikcey4YPI6fhFNTUghaN2JlpnCYRPVN+vhJhX
+	7GJ7tgjMiZwjTg8lnJqmjpUVZaqBmjucRm0aWjdH4hXIxzUd0KgoomDmswIUOWXH
+	urHKEli8c6jq2KvB5jI8naMFvPJGELOlgeAluix8yNxvxD2BNkqKmhGC+khRLIM0
+	SvY8B25USlu/Ba/FVcYj+yvN8SyzMzi5eXgRUTc9C24mtbKXq7k6412wnjHYF/yL
+	nl71BtXTT0Iddwa4V5xyBe4EfjRjQVtkZMpw+/HivdvDFpkqbWCSzXRl52FNUJEr
+	NKiHW/nQcb13SWSts9HbpJJ4rBFm/Jlj1+g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793114507; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:ZBju/QiWfGE3QDzbMCHUDQlMDGhH+aveCtOvRAs9zijK9Uv
+	GB7XN4voqSRxze9g8px8D8UwIq6hHQLYIGcbR8QMJoyKbNe/1ixMkhaFxGMU/nqL
+	rD++N/d7QajtFB5DQUQTutsgNQPEzGLb+gnMLRfuwmfcib/+hKVB7Zp786e5Aa0a
+	/u8boRtTZOafaU74lwp+f/4FBFSP6TIHdR11PVHqfzo9A3HlPPy6cuVZ3ZaKR/ks
+	ZB5Wyy1GEgsKfXbw3Yow2/K8J3QovUBgarTF6aJxON8+XVTvi3xaxNC1oAq9o4hb
+	SaWbWb0bPabYiGef16eCjkfOW544ARCBdrhY/DQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:Agl46WJE4hi5pPDRHQ0YdL2pYKz8tOWD0csprg9fNQc=:cq4xNvG/sxAkb1hgRNOLhxsnj/T+nWg/hbu6JRtCDOk=;
+X-ME-Sender: <xms:i8HgaoaMFIWwCTpvCuH1-HsOcjQsSkQVLWDlirsMtlPk4PlPFzuQjw>
+    <xme:i8Hgaj3vKfE8-S2sRWUs49VQuDVXITfIGJfoa4jb7FZNYkyWFtU3MGAVpgBhaHeZ2
+    nR-6JF5-RyHBPDlx_Kp_55PTYYcKlybw9rpOt6BoAp4Lmr1UVTtUlA>
+X-ME-Received: <xmr:i8HgajqnDpfD71jYb80b4fQwoiPR-fNlcl_nN7pjOACYqwcj3i1kW7a1SM6tX03U>
+X-ME-Proxy-Cause: dmFkZTEY0hqEvExQfHV6cxC6UqEohEli4kd2Rib2z7xPHr2/LMCPhaUHUtfYW+lU0I5Aww
+    oGYAZHMf5OP3Kdg+v+8iRaFN5Prw7oD+g8XPM1iLULMnB6pnfbUcJydyuHzmEhR4gnWpBQ
+    TptWhK1Nz7NXUxt7QXtM+aCADuc3Z8EoopnWPtOjFpDE0vgV1ZXUX3AHGqiCLtt3lMkjd6
+    fWhK0iO+w/nonSyaIZNKsN6AJ/AVv0C6NztSQhfns45jsZ4yglShdnYkapCqzGfXbintj0
+    Zi6N1XgD3kMQj8FnpNh4kXhho88xNbl6ku4fcVBJXrl2BqFNrUTfPA2GveE5pel0YtPQlr
+    U5ONpcz6J8qenKgNdsP9q1RMhX5H5Awy6MKn8eIo2M52Lq+Ez8JK2EYfiBZbu/stqJG/9v
+    49uSTU8ieycaJUKPNyndIo5wgwPYRZHSEGz45CIEbOcEsur6gLc3ucHVZm2EGObJKBBk8O
+    jpUFlQsf0+nPWpuiBXp1pIjlXBB6BtN8JbNsfQdJz8gKQOkA61y49jRfAvI8qqjHKM2FB6
+    hvIwHLu7LX1odEpshUB+z2Du73kXiWcrJkAlitqO5aJf4AYdvzg8J666A+5zOt1oALeVaS
+    L92DEPAlPq4BLHwGmvQnZzJqn4d6d9hszq8i4GF9Vns9RuQRlL1C9Pl1iV/Q
+X-ME-Proxy: <xmx:i8HgaqM2v2ig7TLJ9iUqKF35p62DGk6Tzhu23ubnGJVcFRnzOYPfxw>
+    <xmx:i8HgakruapBVITfEaseHTbCzmdHQUFY-74xYJ9P4lhwHhDpBnhUT5w>
+    <xmx:i8HgatvySpjBkvyFbu4zh7_MQNgl7mNU-8KoaYKHL6qcl2INNc7Uzg>
+    <xmx:i8Hgaj0BHFawMkW8rOqH49qhx4zLzaHjdtxi_Fqx8KKQ7_CSap_M9A>
+    <xmx:i8HgahzKxmRPbor3Jlhd-TiIvyxm3I4HG7hAaHA5akX8HqiPhD2pLYAw>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 11:21:46 -0400 (EDT)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Steve French <stfrench@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: fix session reference leak on compounded SESSION_SETUP
+Date: Tue, 27 Oct 2026 10:21:35 -0500
+Message-ID: <20261027152135.138259-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,98 +126,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 27 Oct 2026 15:21:32 +0000
-Message-Id: <DMFQ1DZZPBFX.1XLHN38PX92AF@linaro.com>
-To: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- <linux-usb@vger.kernel.org>
-Cc: "Alan Stern" <stern@rowland.harvard.edu>,
- <linux-kernel@vger.kernel.org>, "Josef Bacik" <josef@toxicpanda.com>,
- "stable" <stable@kernel.org>, "Rui Miguel Silva" <rui.silva@linaro.org>
-Subject: Re: [PATCH 18/19] usb: isp1760: wait for the TT clear in
- endpoint_disable
-References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
- <20261027-llm-usb-v1-18-b9751ddb9c7c@linuxfoundation.org>
-In-Reply-To: <20261027-llm-usb-v1-18-b9751ddb9c7c@linuxfoundation.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,,
+A compound request can place SESSION_SETUP after another command. That
+earlier command leaves a reference to its session in work->sess.
+smb2_sess_setup() then overwrites work->sess with the session it looks up
+or creates, and the dispatcher later puts work->sess only once. The
+inherited reference is never dropped. That leaks the session, together
+with its setup connection and socket, and every repeat of the compound
+leaks another.
 
-On Tue Oct 27, 2026 at 2:57 PM WET, Greg Kroah-Hartman wrote:
+  unreferenced object (size 512):
+    __kmalloc_cache_noprof+0x32c/0x3a0
+    ksmbd_smb2_session_create+0xf6/0x9c0 [ksmbd]
+    smb2_sess_setup+0xda4/0x6280 [ksmbd]
+    handle_ksmbd_work+0x88c/0x1cb0 [ksmbd]
 
-> From: Josef Bacik <josef@toxicpanda.com>
->
-> The driver sets qh->tt_buffer_dirty and calls usb_hub_clear_tt_buffer()
-> when a transfer to a full or low speed device fails or is unlinked while
-> it is running. The hub driver stores urb->ep in its list and
-> hub_tt_work() hands it back to isp1760_clear_tt_buffer_complete() after
-> the CLEAR_TT_BUFFER request to the hub.
->
-> Nothing keeps the endpoint until then. isp1760_endpoint_disable() frees
-> the QH at once. If the device is unplugged, the unlink of a running URB
-> queues such a request, and usb_disconnect() goes on to free the
-> usb_device and its configurations, which hold the struct
-> usb_host_endpoint. The callback then reads ep->hcpriv from freed memory
-> and, if it is not NULL, writes to whatever it points to. A change of the
-> configuration or altsetting only frees the QH, under a callback which
-> has loaded ep->hcpriv without the lock.
->
-> The HCD has to wait, like ehci_endpoint_disable(),
-> xhci_endpoint_disable() and fotg210_endpoint_disable() do. hub_tt_work()
-> calls the callback for every entry, also if the request failed, and
-> hub_quiesce() flushes the work, so the wait ends.
->
-> Fixes: 74ad60292bf0 ("usb/isp1760: Clear TT buffer on interrupted low & f=
-ull speed transfers")
-> Cc: stable <stable@kernel.org>
-> Cc: Rui Miguel Silva <rui.silva@linaro.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Save the inherited session on entry. After the request has been
+processed, release it once, but only when smb2_sess_setup() has replaced
+work->sess with its own session or cleared it. Do this after
+ksmbd_conn_unlock() so the put does not run under srv_mutex. An error path
+may instead leave the inherited session in work->sess. Keep it there, so
+the dispatcher still puts it and the error response is still signed or
+encrypted with it as before.
 
-Yup, LGTM, thanks.
+Fixes: 7aa8804c0b67 ("ksmbd: fix user-after-free from session log off")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
 
-Acked-by: Rui Miguel Silva <rui.silva@linaro.org>
+Notes:
+    The bug needs a compound in which SESSION_SETUP follows another
+    command, for example TREE_CONNECT then SESSION_SETUP. When the later
+    SESSION_SETUP replaces or clears work->sess, the inherited session
+    reference is leaked. The earlier command only needs an established
+    session, not a privileged one, so on a share that maps unknown users
+    to guest this is reachable without credentials. A guest SESSION_SETUP
+    reaches a usable session, and the compounded SESSION_SETUP that leaks
+    need not itself authenticate.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance (code review and kmemleak
+    reproduction).
+    
+    Tested on ksmbd-for-next 714f27729121 under KASAN and kmemleak. A
+    compound [TREE_CONNECT] + [SESSION_SETUP] repeated on fresh connections
+    leaks ksmbd_session objects (traced to ksmbd_smb2_session_create()
+    through smb2_sess_setup()) without the patch and none with it. KASAN
+    stays quiet. The four reference-balance scenarios (new-session
+    replace, failed lookup, same-session reacquire, and a forced
+    ksmbd_session_register() failure) each leave no leaked session with
+    the patch applied. The register failure was forced with a temporary
+    hook that is not part of this patch.
 
-Cheers,
-   Rui
-> ---
->  drivers/usb/isp1760/isp1760-hcd.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-> diff --git a/drivers/usb/isp1760/isp1760-hcd.c b/drivers/usb/isp1760/isp1=
-760-hcd.c
-> index 6c52c6f59d69..3cbf5fe3ed34 100644
-> --- a/drivers/usb/isp1760/isp1760-hcd.c
-> +++ b/drivers/usb/isp1760/isp1760-hcd.c
-> @@ -2071,12 +2071,23 @@ static void isp1760_endpoint_disable(struct usb_h=
-cd *hcd,
->  	struct isp1760_qh *qh, *qh_iter;
->  	int i;
-> =20
-> +rescan:
->  	spin_lock_irqsave(&priv->lock, spinflags);
-> =20
->  	qh =3D ep->hcpriv;
->  	if (!qh)
->  		goto out;
-> =20
-> +	/*
-> +	 * The hub driver still has a pointer to the endpoint. Wait until it
-> +	 * has called isp1760_clear_tt_buffer_complete().
-> +	 */
-> +	if (qh->tt_buffer_dirty) {
-> +		spin_unlock_irqrestore(&priv->lock, spinflags);
-> +		schedule_timeout_uninterruptible(1);
-> +		goto rescan;
-> +	}
-> +
->  	WARN_ON(!list_empty(&qh->qtd_list));
-> =20
->  	for (i =3D 0; i < QH_END; i++)
->
-> --=20
-> 2.56.0
+ fs/smb/server/smb2pdu.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b306bc6e21ee..a21ee045848c 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2563,6 +2563,8 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	struct smb2_sess_setup_req *req;
+ 	struct smb2_sess_setup_rsp *rsp;
+ 	struct ksmbd_session *sess = NULL;
++	struct ksmbd_session *prev_sess = work->sess;
++	bool installed = false;
+ 	struct negotiate_message *negblob;
+ 	unsigned int negblob_len, negblob_off;
+ 	u64 previous_session_id = 0;
+@@ -2679,6 +2681,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 			int sign_ret;
+ 
+ 			work->sess = sess;
++			installed = true;
+ 			if (sess->dialect >= SMB30_PROT_ID)
+ 				sign_ret = smb3_check_sign_req(work);
+ 			else
+@@ -2731,6 +2734,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 		conn->binding = false;
+ 	}
+ 	work->sess = sess;
++	installed = true;
+ 
+ 	negblob_off = le16_to_cpu(req->SecurityBufferOffset);
+ 	negblob_len = le16_to_cpu(req->SecurityBufferLength);
+@@ -2928,6 +2932,14 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	}
+ 
+ 	ksmbd_conn_unlock(conn);
++
++	/*
++	 * Later in a compound, work->sess holds the reference that an
++	 * earlier command took. Drop it once this request has installed
++	 * its own session there or cleared it.
++	 */
++	if (prev_sess && (installed || !work->sess))
++		ksmbd_user_session_put(prev_sess);
+ 	return rc;
+ }
+ 
 
+base-commit: 714f27729121d59f103ca4dad7b0c2d1c125cd71
+-- 
+2.47.3
 
