@@ -1,63 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.98.110
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139047;
-	b=zC2xot5wLvh9jS1hDxfWn0MqW7KCv36LU+Cdl40LcYLySsGfbW2sEK3PV6fmcZ/7wb3u
-	 ALfuOP/fqrtH/Ne5aS3Ad+c36ohoZThbswh/ogFJr8RHJ3aiw9+QtxrJRg5HyC38XXVEE
-	 FEAQZXbdIERFESAMwTiau2u194PJEmRUiVdC0FBxjm8vWOwlELRLeP1KjNbhbnKoZIhF7
-	 liLPKtlf9/9CLDXR2x2dE77l/zqA1tD/yjvp3b5jqosO8iqHp9lPofGBXIkt0Q6HouAVL
-	 sH7K+gNRwFiLaSEHkIGHrvFPiJstFSD+maAX8xSmuzziqTKjHUtw0CN6QFUhf+Coxpg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139047;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wzA/VJ9i+i6DJvVJgSV/qqezvPTQqdtwC5bPnK70sno=;
-	b=yyjd7zUOREKM635Z87eLVYU7Qd8Mqqny3q/+YvGXLJjDFYcSJb+n4hmA3rFKC0o25/Mc
-	 hRSv9tw7nd6lCqm32SVahxzTlm4LcB/NHn4IFh3LiBNfUdc12gj8d4NQc5u9i5waAj8RV
-	 /MPfxa/vP8Ksq/Pkyt2EK9FHAu/IPSTxAmRDxXdMwcIHmzdrpuTYi13Y8GlT5Ja9lcdvv
-	 o5qUGo8NlIjRkGInY8Dr6zIjhQaI5YrZq84CcZlSuFH/f5PjCSjPD5xjcaeU1xtCRlHvO
-	 lyF1n2HChRG6FHZ1WCjTAHd51ea8Rp5EvWWyLIH7vMCcbdUKKC4oJRT0aZH37Evukew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=DHD9ZAWd;
-	arc=none smtp.remote-ip=144.76.98.110
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [144.76.98.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793139055;
+	b=OLdcnTcw8J3MEKB5y3bjhOAAIW4w+SL8aJy7TpAvKDE/ypf8WfBLcu5lfASYB1Xt66JK
+	 1bzOL5b8uMWrHSu0oToffRwS90wwi3AqcaRTV1meGh9wIQ40FgGw+Hkdqu72hZ6lkjX9p
+	 06aWVb9/MfTp0bRQ8gRhSlygLp/FxM8NUiD8E38YBfBA7ijlQOsuuDbDKAkzipwlAnbS/
+	 RTDJvIFCk8CvBiFzJkDZi1EMQkhzh9b1sBn+yK52D0rLpebT6ktjapx08gYsNI2Nqn8AQ
+	 Ao4DXbc9tTxkaxO5kE5AT/dX18d+3Sc+s3Ij0WkLdE6o07KkE9To9dSu92opUrmvsJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139055;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
+	b=VtclTA4up0BBpThwkXRG05oB0YU4sMxo0d7F0s5K0yn8jpqQhRAwi27zdPCD98YAAqku
+	 tV/fXWdt1GxbZbuWpsYlNzjNdM8z9u43s2N7qiqE4a+awU5paPws5v65vsHg3R1j11Jgx
+	 bFJGPtr/Xp8AZTPVTodbpa55IuyZB9lAQhhheQMSG/g76xWYTCW9X+JlNxmUPlEXBuHFu
+	 IzMVniEqR9jREgy0ptURd8HFjp37fly6mMEn86LbcX08ISrSsbP0/Z899nAv579QS+1pV
+	 ZRQjiU0YMQE6mh3XD1mhhyb7stO1PraA9ed9xL9dMT1tyXBGYxLvsj0vpAO0upxzegA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jAjiZRED;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D94606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4D94606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEBF606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAEBF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=DHD9ZAWd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1793139044; bh=y6y5Y1QJ5LEzAXEEvEIOfN3dlwUpLEs6mRHVPK5l9wg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=DHD9ZAWdlMQrJGsXgSieQctSZjGbLjRTJGVuKaqNRfbMCMG3hh7BaG3ujAOt5CEfy
-	 6Yx+Uavjq6OBz6FGstPmMHXQAewNBlpl8KZRtPYX2IMICMnNneZaUJ3AyshZe7hinu
-	 d+X1rVLIuWlG9SGFnyA+f1vcXMVyPz03vzAACuI91HjDAyA3yiPF2mHNvbObd0zwHT
-	 iCZhx4XCyAGYgQqNvmOXXwKpvdKRzH3lRDb1OGldppCMx6+LLtygtUdGt1EybQAl1t
-	 QnQG1aMA27CxJ48y4mDJ4b1jZg/O9HR5Dj972fCsNGj3jwEZtEEOnsbJJj/73HalDD
-	 EC55j9EgERK3Q==
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id 7E62212012B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:10:44 +0000 (UTC)
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6fe4372c5f3so284160eaf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:10:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz8nXi5b+GKb/r1pYkYrNXTf36lKnXeBoe/gGu4yPiiefv84WKLuPLg+LKuGwN/wt4hHkOZuHuzz9KRxTE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgiEvLOPge3Tw4F1floM8vw64TshxKOQmL1f9hDSAhag3ZiNhL
-	6rD/EpQoKXHL4cheHFx01of1BicVgiAwNwZRXD6GGPBx59eTeTEvauLnbNetItlE2BHxKyvrBDQ
-	7A4LwH2E+faf+EcDX4dJ3XMpHZ/qLQA==
-X-Received: by 2002:a05:6820:1c88:b0:70a:c89b:d12d with SMTP id
- 006d021491bc7-713eaf5ad71mr348646eaf.11.1793139043070; Tue, 27 Oct 2026
- 15:10:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jAjiZRED
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-533202fe429so120021cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:10:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793139054; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BS/sjtIuTzMgNZN1/rYFo/P5juiwfQfjQUZKWsDIioA8Kl/yHWAz1O++3EHyVYIOO9
+         LurD5ATS3pu4cWxYc4MSfBHsU39lrPN2FAAubTxq6bJYngSac6cADj8FyzsqJ881maIa
+         OBLovZ1Z3yWAHLfz2qdTMt65FeMczdChZONxfQp99wOv/0G1WIqS//X6whcGhvirGQv8
+         Y3GDKYsCX4c5+kFVxp8lPmfshSv3uZYYBzeVVsFQpumwWnHsJAy1/8zbkCMJ7THqJrCw
+         5EmDx7GdLQHMgnpnHcmBCDxGwWMARx7eWni0ao7+GH7E73ESUFxs/8t6Z0g1GkDobn7r
+         VEDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
+        fh=oaJVTUd+YfGXchRGimiCPJKOTPpr+cw78XhjQvtY46w=;
+        b=Ot6HfKsKk1PiXA3fyr7v/tkqfwgV9m9JqaxW2jXJlqGBZcCkvllb9KBmSvuwf9grwo
+         JELcamIq2pDqeqr8ncx5Eh1qkq5oj6sEaOPlVNF0q0iEUBBQeqXpSW2+ngjpw6HOCu2y
+         0aXVmE0186pqlQsCt5+RPcIuXJCqZK6gXw0D2FJuDUJqGS3nlh5T0T6m7DznnQR0b0BN
+         wlkCmSTCihiv/Hg7fs417uU6AUUsG2858WIl3F8/CIWAT5PAOGCALT7LstemRSaF3ez8
+         D86Dda122h7ZhTBiyISc6A0iYP8d8o3lhGq9YojuNHJDu3O4PYBxLsK6DGt87EF/Ng/+
+         xS/w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793139054; x=1793743854; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
+        b=jAjiZRED4efHabS65rAPJo/JB9He1qV3QYfnymMDEINWid1rQWxsT1/bUsDQHQfBpw
+         I/pnK4NXhoQvGY91ujGjj7c5Fz+Cxnx8GaTX+XCY+4KKNSncRH4NBlUHoebXzv/qgvh+
+         mA93VUuqFUacnyKn4JRJISNONV9vElwrvIVZF+jKT8VrUfGwbPPK+74mvdghqIrn7pZH
+         mBJj3DEX7eEIdDhYH0HNhN7InqXX6rICLIu0gimCWKwPeFYamMM/bwZjv+HDU5Hw90YR
+         F/cEjs5VHg9u2VJhedCGDhqstPBJmCl3jBOoph/S6h9qDvcwlKY5aMqVka/44qGT8SP/
+         hRfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793139054; x=1793743854;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Kzu17wwU+EWIvmHfTgSENg2N8EVI1/OmRvpKpjPBKGc=;
+        b=rqxjG0odeK+PhVgS7YPDSQ/hQdCbsv+FF4wy9BvLbNbmISAXxYsDKtQrRUmxSzp5jO
+         +gPExBhuPf2us762uVm+sq2RrfvAZpaeXsbGojZmFlyv2IBhtQVyqeZ30qZtqULjIV8G
+         OIer7bnb1BkDecrjx3E/6KFjIS6/creQuO55BxINiA9Q92J4CHG5EYnC4wm+1sOEGXZs
+         gemmQT75399wClBKOhOn7Ss9Pzikm52BbBhQWKOpeUcXnU4HBWeLaLPQnjPtWIDNiMo4
+         GvtH6rdbbd9sVMrGs8gq1MWi75TemNbqVmpqOktlyXvReZWQmbiH0H/laE+YJOvaCEte
+         qd7w==
+X-Forwarded-Encrypted: i=1; AKwUvBxW9XmeJVvtCcS8e7+LWflGFqQMp4WkmnOpXrXHk8r310heA95W+63OYa3RU58Bf9a9H8c1IxMdcEVmiR8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9R4Lb3rZe27t1iKbd2ZCCWruXZwUGSg1wp8BrVvEd3EY8gxGJ
+	DSAzCHwj8SP42gF9owDhzv5AwadpnJK5PvYlwRozZm4IH+wEFqbMrvlHKm7/En67sUwDvmMD84x
+	GNJPdJM8N+SNaifOywXLiWi0Rh0OAhHShkRlWF7Ex
+X-Gm-Gg: AYBFou1rBh7TxXv6xw+5xmK3WR8iydvaO8D0PuBfT/OWjNt1oIKyn9EwEHeP/F5HZox
+	ni9AYmXSgCHG2+ZR/i6BtclJHninIhWl/58PtQc5s3ud9MQ3UK8GoKOjjxku3hIq+SX1DUUuvAc
+	fsk7qI99m9LAOkk5ctuedv0MvpujWf6VGPfWYdvii9tm5SXpfP2Zu3JHNF8Bj2NP0MwS/NUAbIr
+	D/OHfxftGasUJJEp6NYU4aCdNBrqLfJcH1mm5LhOC65GWGDpbUKCt/InHp5VlyAyJAeAI1NIRU+
+	/SUBqOTV+0Q+etW00dca3Jz3DCAzPxH12+WBrDnbfeSoD9XG7SanemcRCpqWTNEymBZLI99n4/w
+	CC9Vv5KXXiJNZvAxKG6r68e0GGqHvLq6XMG5vbLA4OATtlLyiLtdYJ/Emn4HIRd3qqw==
+X-Received: by 2002:a05:622a:514d:b0:530:e00f:7768 with SMTP id
+ d75a77b69052e-53fbb9967ddmr6974561cf.0.1793139052820; Tue, 27 Oct 2026
+ 15:10:52 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,150 +104,367 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023235959.2988087-1-rojer@rojer.me> <20261023235959.2988087-3-rojer@rojer.me>
- <38baaf87-4d5c-48bc-a11f-a5b6c04c20a8@rock-chips.com>
-In-Reply-To: <38baaf87-4d5c-48bc-a11f-a5b6c04c20a8@rock-chips.com>
-From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
-Date: Wed, 28 Oct 2026 00:10:31 +0200
-X-Gmail-Original-Message-ID: <CABFmFwrWL1sej-=xCK-opxn3B9VVy=TaCyRQU43sw=6PY7bcmQ@mail.gmail.com>
-X-Gm-Features: AclHuK9ygSoBB9eZyXuz1KFNk_TaXqdwq3xhUt4O0wFduajwOmgNHGsigYcfU5Q
-Message-ID: <CABFmFwrWL1sej-=xCK-opxn3B9VVy=TaCyRQU43sw=6PY7bcmQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi R2S Plus
-To: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Sergey Bostandzhyan <jin@mediatomb.cc>, 
-	Jensen Huang <jensenhuang@friendlyarm.com>
+References: <20261027203115.2647914-1-ctshao@google.com>
+In-Reply-To: <20261027203115.2647914-1-ctshao@google.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 27 Oct 2026 15:10:41 -0700
+X-Gm-Features: AclHuK_rK__J_E1C_pyQp14ySl_0Aj2dtJg2u9thGouZYItwxYB4DJ7le9mBwoU
+Message-ID: <CAP-5=fUF4QFU=f=m29HX3JAn+Sn_K6V6hwcSymGJ3Lehe4ybZw@mail.gmail.com>
+Subject: Re: [PATCH v6] perf stat: Include PMU name and split uncore events
+ per PMU in metric-only JSON output
+To: Chun-Tse Shao <ctshao@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Shawn,
+On Tue, Oct 27, 2026 at 1:31=E2=80=AFPM Chun-Tse Shao <ctshao@google.com> w=
+rote:
+>
+> When running `perf stat` with `-A` (--no-aggr) and `--metric-only` in
+> JSON output mode (`-j`), `perf stat` evaluates metric expressions
+> across all matching PMUs (including uncore PMUs like `uncore_iio_0`,
+> `uncore_iio_1`, etc.).
+>
+> However, `perf stat` previously formatted JSON output by printing only
+> "cpu" : "<id>" and grouping all metric values on a single line per CPU
+> without identifying which PMU instance evaluated each metric. As a
+> result, when an uncore event spans multiple PMU boxes, `perf stat`
+> printed repeated, ambiguous metric keys without PMU names.
+>
+> Fix this by:
+> 1. Including "pmu" : "<pmu_name>" in print_aggr_id_json when evsel->pmu
+>    is a non-core or hybrid PMU in AGGR_NONE mode (-A). Tool events are
+>    not labeled as they don't belong to a hardware PMU instance.
+> 2. Starting a new JSON metric line in AGGR_NONE mode (-A) whenever the
+>    PMU name changes, so that a line only has metrics from the PMU it is
+>    labeled with.
+> 3. Opening a metric line only for events that have a metric, as other
+>    events print nothing in metric-only mode. This avoids spurious lines
+>    like {"cpu" : "0", "pmu" : "tool"} for events like user_time, while
+>    metrics on tool events, like tma_info_system_time (duration_time),
+>    are still printed with the line prefix.
+> 4. Updating perf_json_output_lint.py to recognize the new "pmu" key in
+>    the JSON test suite.
+>
+> Before the fix:
+>   $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
+>   {"interval" : 1.001017947, "cpu" : "0", "MB/s  iio_bandwidth_read" : "0=
+.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "22.5=
+", "MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.2", =
+"MB/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB=
+/s  iio_bandwidth_read" : "0.0", "MB/s  iio_bandwidth_read" : "0.0", "MB/s =
+ iio_bandwidth_read" : "0.0"}
+>
+> There is no way to determine which uncore device generated the metrics.
+>
+> After:
+>   $ perf stat -M iio_bandwidth_read -a -A --metric-only -j -I 1000
+>   {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_0", "MB/s  =
+iio_bandwidth_read" : "0.0"}
+>   {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_1", "MB/s  =
+iio_bandwidth_read" : "0.1"}
+>   {"interval" : 1.000314908, "cpu" : "0", "pmu" : "uncore_iio_11", "MB/s =
+ iio_bandwidth_read" : "0.0"}
+>   ...
+>   {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_0", "MB/s =
+ iio_bandwidth_read" : "0.0"}
+>   {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_1", "MB/s =
+ iio_bandwidth_read" : "0.0"}
+>   {"interval" : 1.000314908, "cpu" : "56", "pmu" : "uncore_iio_11", "MB/s=
+  iio_bandwidth_read" : "0.0"}
+>
+> Assisted-by: Gemini:gemini-3.1-pro-preview
+> Signed-off-by: Chun-Tse Shao <ctshao@google.com>
+> ---
+> v6:
+>   - Open metric lines for events that have a metric instead of skipping
+>     tool events, so metrics on tool events (e.g. tma_info_system_time)
+>     keep the line prefix and are terminated properly. (Sashiko)
+>   - Split JSON lines only when the shown PMU name changes. Tool event
+>     metrics are no longer mislabeled with an uncore PMU name, and the
+>     STD and CSV output are no longer split.
+>   - Rebase onto the latest perf-tools-next.
+> v5: lore.kernel.org/20260811230518.3360-2-ctshao@google.com
+>   - Fix perf test "perf stat JSON output linter" failure.
+> v4: lore.kernel.org/20260804210659.112192-1-ctshao@google.com
+>   - Fix the line splitting issue, causing spurious empty {"pmu": "tool"}
+>     objects and order-dependent PMU mislabeling.
+> v3: lore.kernel.org/20260729170416.41904-1-ctshao@google.com
+>   - Add before the fix output.
+> v2: lore.kernel.org/20260715203055.2981363-1-ctshao@google.com
+>   - Fix print_metric_begin() initialization in print_no_aggr_metric()
+>     to ensure tool events always open lines cleanly.
+>
+>  .../tests/shell/lib/perf_json_output_lint.py  |  5 +-
+>  tools/perf/util/stat-display.c                | 74 ++++++++++++++++---
+>  2 files changed, 66 insertions(+), 13 deletions(-)
+>
+> diff --git a/tools/perf/tests/shell/lib/perf_json_output_lint.py b/tools/=
+perf/tests/shell/lib/perf_json_output_lint.py
+> index 8cde22ac9d97..982be893bd69 100644
+> --- a/tools/perf/tests/shell/lib/perf_json_output_lint.py
+> +++ b/tools/perf/tests/shell/lib/perf_json_output_lint.py
+> @@ -65,6 +65,7 @@ def check_json_output(expected_count):
+>        'metricgroup': lambda x: True,
+>        'node': lambda x: True,
+>        'pcnt-running': isfloat,
+> +      'pmu': lambda x: True,
+>        'socket': lambda x: True,
+>        'thread': lambda x: True,
+>        'unit': lambda x: True,
+> @@ -99,8 +100,10 @@ def check_json_output(expected_count):
+>  try:
+>    if args.no_args or args.system_wide or args.event:
+>      expected_items =3D [5, 7]
+> -  elif args.interval or args.per_thread or args.system_wide_no_aggr:
+> +  elif args.interval or args.per_thread:
+>      expected_items =3D [6, 8]
+> +  elif args.system_wide_no_aggr:
+> +    expected_items =3D [6, 7, 8, 9]
+>    elif args.per_core or args.per_socket or args.per_node or args.per_die=
+ or args.per_cluster or args.per_cache:
+>      expected_items =3D [7, 9]
+>    elif args.metric_only:
+> diff --git a/tools/perf/util/stat-display.c b/tools/perf/util/stat-displa=
+y.c
+> index b337cc23f413..9f1d74019d1e 100644
+> --- a/tools/perf/util/stat-display.c
+> +++ b/tools/perf/util/stat-display.c
+> @@ -1,6 +1,7 @@
+>  #include <stdlib.h>
+>  #include <stdio.h>
+>  #include <inttypes.h>
+> +#include <string.h>
+>  #include <linux/string.h>
+>  #include <linux/time64.h>
+>  #include <math.h>
+> @@ -23,6 +24,7 @@
+>  #include "pmu.h"
+>  #include "pmus.h"
+>  #include "tool_pmu.h"
+> +#include "metricgroup.h"
+>
+>  #define CNTR_NOT_SUPPORTED     "<not supported>"
+>  #define CNTR_NOT_COUNTED       "<not counted>"
+> @@ -361,9 +363,33 @@ static void print_aggr_id_csv(struct perf_stat_confi=
+g *config,
+>         }
+>  }
+>
+> +/*
+> + * In no-aggregation mode, JSON output includes the PMU name of non-core=
+ and
+> + * hybrid events so that events and metrics from different PMU instances=
+, like
+> + * uncore_iio_0 and uncore_iio_1, can be told apart. Tool events don't b=
+elong
+> + * to a hardware PMU instance and so are not labeled.
+> + */
+> +static const char *json_pmu_name(const struct evsel *evsel)
+> +{
+> +       if (!evsel || !evsel->pmu || evsel__is_tool(evsel))
+> +               return NULL;
+> +       if (evsel->pmu->is_core && !evsel__is_hybrid(evsel))
+> +               return NULL;
+> +       return evsel->pmu->name;
+> +}
+> +
+> +static bool json_pmu_name_changed(const char *name, const char *prev)
+> +{
+> +       if (!name || !prev)
+> +               return name !=3D prev;
+> +       return strcmp(name, prev) !=3D 0;
+> +}
+> +
+>  static void print_aggr_id_json(struct perf_stat_config *config, struct o=
+utstate *os,
+>                                struct evsel *evsel, struct aggr_cpu_id id=
+, int aggr_nr)
+>  {
+> +       const char *pmu_name;
+> +
+>         switch (config->aggr_mode) {
+>         case AGGR_CORE:
+>                 json_out(os, "\"core\" : \"S%d-D%d-C%d\", \"counters\" : =
+%d",
+> @@ -397,6 +423,9 @@ static void print_aggr_id_json(struct perf_stat_confi=
+g *config, struct outstate
+>                         json_out(os, "\"cpu\" : \"%d\"",
+>                                 id.cpu.cpu);
+>                 }
+> +               pmu_name =3D json_pmu_name(evsel);
+> +               if (pmu_name)
+> +                       json_out(os, "\"pmu\" : \"%s\"", pmu_name);
+>                 break;
+>         case AGGR_THREAD:
+>                 json_out(os, "\"thread\" : \"%s-%d\"",
+> @@ -1012,11 +1041,12 @@ static void print_counter_aggrdata(struct perf_st=
+at_config *config,
+>
+>  static void print_metric_begin(struct perf_stat_config *config,
+>                                struct evlist *evlist,
+> -                              struct outstate *os, int aggr_idx)
+> +                              struct outstate *os, int aggr_idx,
+> +                              struct evsel *counter)
+>  {
+>         struct perf_stat_aggr *aggr;
+>         struct aggr_cpu_id id;
+> -       struct evsel *evsel;
+> +       struct evsel *evsel =3D counter ?: evlist__first(evlist);
 
-agreed, it makes no sense here. will drop in v2, holding on for
-feedback on patch 1.
+This seems a bit random, what if there are two metrics? Will they have
+the same evsel?
 
-On Tue, 27 Oct 2026 at 15:58, Shawn Lin <shawn.lin@rock-chips.com> wrote:
 >
-> Hi Deomid
->
-> =E5=9C=A8 2026/10/24 =E6=98=9F=E6=9C=9F=E5=85=AD 7:59, Deomid rojer Ryabk=
-ov =E5=86=99=E9=81=93:
-> > The NanoPi R2S Plus has an M.2 E-key slot wired to the sdmmc_ext
-> > controller in 4-bit SDIO mode, where FriendlyElec fit an optional
-> > Fn-Link 6222B-SRC (Realtek RTL8822CS) module:
-> >
-> >    - SDIO signalling at a fixed 1.8V (VCC_18)
-> >    - WIFI_REG_ON on GPIO3_B0, 32kHz sleep clock from the RK805 CLKOUT2
-> >
-> > Enable the controller and add the power sequence. The SDIO pins need
-> > 8mA drive strength for SDR104 tuning to succeed, as in the vendor
-> > device tree [1]; with the SoC default of 4mA no sample phase works.
-> >
-> > On boards without the module the controller gives up after about 0.2s
-> > ("mmc2: Failed to initialize a non-removable card"); nothing else is
-> > affected.
-> >
-> > With the mmc core change for the module's CMD11 handling at a fixed
-> > 1.8V [2], the module is tuned to SDR104 at 150 MHz and works with the
-> > rtw88_8822cs driver; without it, it runs in high-speed mode at 50 MHz.
-> >
-> > [1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835b=
-ba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev=
-24.dts#L144-L172
-> > [2] https://lore.kernel.org/linux-mmc/20261023232813.2983368-1-rojer@ro=
-jer.me/
-> > Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
-> > ---
-> >   .../dts/rockchip/rk3328-nanopi-r2s-plus.dts   | 56 ++++++++++++++++++=
-+
-> >   1 file changed, 56 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/=
-arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> > index 6ba4a74cb1f..db19a18ae45 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-> > @@ -17,6 +17,15 @@ / {
-> >       aliases {
-> >               mmc1 =3D &emmc;
-> >       };
-> > +
-> > +     sdio_pwrseq: sdio-pwrseq {
-> > +             compatible =3D "mmc-pwrseq-simple";
-> > +             clocks =3D <&rk805 1>;
-> > +             clock-names =3D "ext_clock";
-> > +             pinctrl-names =3D "default";
-> > +             pinctrl-0 =3D <&wifi_reg_on_h>;
-> > +             reset-gpios =3D <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
-> > +     };
-> >   };
-> >
-> >   &emmc {
-> > @@ -34,3 +43,50 @@ &io_domains {
-> >       vccio4-supply =3D <&vcc_io_33>;
-> >       vccio6-supply =3D <&vcc_18>;
-> >   };
-> > +
-> > +&pinctrl {
-> > +     wifi {
-> > +             wifi_reg_on_h: wifi-reg-on-h {
-> > +                     rockchip,pins =3D <3 RK_PB0 RK_FUNC_GPIO &pcfg_pu=
-ll_none>;
-> > +             };
-> > +     };
-> > +};
-> > +
-> > +/*
-> > + * SDR104 tuning fails with the default 4mA drive strength, use 8mA li=
-ke the
-> > + * vendor device tree.
-> > + */
-> > +&sdmmc0ext_bus4 {
-> > +     rockchip,pins =3D
-> > +             <3 RK_PA4 3 &pcfg_pull_up_8ma>,
-> > +             <3 RK_PA5 3 &pcfg_pull_up_8ma>,
-> > +             <3 RK_PA6 3 &pcfg_pull_up_8ma>,
-> > +             <3 RK_PA7 3 &pcfg_pull_up_8ma>;
-> > +};
-> > +
-> > +&sdmmc0ext_clk {
-> > +     rockchip,pins =3D <3 RK_PA2 3 &pcfg_pull_none_8ma>;
-> > +};
-> > +
-> > +&sdmmc0ext_cmd {
-> > +     rockchip,pins =3D <3 RK_PA0 3 &pcfg_pull_up_8ma>;
-> > +};
-> > +
-> > +/* Optional M.2 E-key SDIO Wi-Fi module (Fn-Link 6222B-SRC, RTL8822CS)=
- */
-> > +&sdmmc_ext {
-> > +     bus-width =3D <4>;
-> > +     cap-sd-highspeed;
-> > +     cap-sdio-irq;
-> > +     disable-wp;
->
-> Drop disable-wp.
->
-> Otherwise,
->
-> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
->
-> > +     keep-power-in-suspend;
-> > +     mmc-pwrseq =3D <&sdio_pwrseq>;
-> > +     no-mmc;
-> > +     no-sd;
-> > +     non-removable;
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&sdmmc0ext_clk &sdmmc0ext_cmd &sdmmc0ext_bus4>;
-> > +     sd-uhs-sdr104;
-> > +     vmmc-supply =3D <&vcc_io_33>;
-> > +     vqmmc-supply =3D <&vcc_18>;
-> > +     status =3D "okay";
-> > +};
->
+>         os->first =3D true;
+>         if (!config->metric_only)
+> @@ -1031,7 +1061,6 @@ static void print_metric_begin(struct perf_stat_con=
+fig *config,
+>                 else
+>                         fprintf(config->output, "%s", os->timestamp);
+>         }
+> -       evsel =3D evlist__first(evlist);
+>         id =3D config->aggr_map->map[aggr_idx];
+>         aggr =3D &evsel->stats->aggr[aggr_idx];
+>         aggr_printout(config, os, evsel, id, aggr->nr);
+> @@ -1069,7 +1098,7 @@ static void print_aggr(struct perf_stat_config *con=
+fig,
+>          * Without each counter has its own line.
+>          */
+>         cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
+> -               print_metric_begin(config, evlist, os, aggr_idx);
+> +               print_metric_begin(config, evlist, os, aggr_idx, NULL);
 
+Please name arguments that are constants.  Pass evlist__first here?
 
---=20
-Deomid "rojer" Ryabkov
-rojer@rojer.me
+>
+>                 evlist__for_each_entry(evlist, counter) {
+>                         print_counter_aggrdata(config, counter, aggr_idx,=
+ os);
+> @@ -1095,7 +1124,7 @@ static void print_aggr_cgroup(struct perf_stat_conf=
+ig *config,
+>                 os->cgrp =3D evsel->cgrp;
+>
+>                 cpu_aggr_map__for_each_idx(aggr_idx, config->aggr_map) {
+> -                       print_metric_begin(config, evlist, os, aggr_idx);
+> +                       print_metric_begin(config, evlist, os, aggr_idx, =
+NULL);
+
+Use evsel here?
+
+>
+>                         evlist__for_each_entry(evlist, counter) {
+>                                 if (counter->cgrp !=3D os->cgrp)
+> @@ -1131,7 +1160,8 @@ static void print_no_aggr_metric(struct perf_stat_c=
+onfig *config,
+>
+>         perf_cpu_map__for_each_cpu(cpu, all_idx, evlist__core(evlist)->us=
+er_requested_cpus) {
+>                 struct evsel *counter;
+> -               bool first =3D true;
+> +               const char *line_pmu =3D NULL;
+> +               bool line_open =3D false;
+>
+>                 evlist__for_each_entry(evlist, counter) {
+>                         u64 ena, run, val;
+> @@ -1146,12 +1176,32 @@ static void print_no_aggr_metric(struct perf_stat=
+_config *config,
+>                                 if (config->aggr_map->map[aggr_idx].cpu.c=
+pu =3D=3D cpu.cpu)
+>                                         break;
+>                         }
+> +                       if (aggr_idx >=3D config->aggr_map->nr)
+> +                               continue;
+>
+>                         os->evsel =3D counter;
+>                         os->id =3D aggr_cpu_id__cpu(cpu, /*data=3D*/NULL)=
+;
+> -                       if (first) {
+> -                               print_metric_begin(config, evlist, os, ag=
+gr_idx);
+> -                               first =3D false;
+> +
+> +                       /*
+> +                        * Only events with a metric print something in m=
+etric-only
+> +                        * mode, so let them open the line. For JSON, sta=
+rt a new
+> +                        * line when the PMU name changes so that a line =
+only has
+> +                        * metrics from the PMU it is labeled with.
+> +                        */
+> +                       if (config->iostat_run ||
+> +                           metricgroup__lookup(evlist__metric_events(evl=
+ist), counter, false)) {
+> +                               const char *pmu_name =3D json_pmu_name(co=
+unter);
+> +
+> +                               if (line_open && config->json_output &&
+> +                                   json_pmu_name_changed(pmu_name, line_=
+pmu)) {
+> +                                       print_metric_end(config, os);
+> +                                       line_open =3D false;
+> +                               }
+> +                               if (!line_open) {
+> +                                       print_metric_begin(config, evlist=
+, os, aggr_idx, counter);
+> +                                       line_pmu =3D pmu_name;
+> +                                       line_open =3D true;
+> +                               }
+>                         }
+>                         val =3D ps->aggr[aggr_idx].counts.val;
+>                         ena =3D ps->aggr[aggr_idx].counts.ena;
+> @@ -1160,7 +1210,7 @@ static void print_no_aggr_metric(struct perf_stat_c=
+onfig *config,
+>                         uval =3D val * counter->scale;
+>                         printout(config, os, uval, run, ena, 1.0, aggr_id=
+x);
+>                 }
+> -               if (!first)
+> +               if (line_open)
+>                         print_metric_end(config, os);
+>         }
+>  }
+> @@ -1523,7 +1573,7 @@ static void print_cgroup_counter(struct perf_stat_c=
+onfig *config, struct evlist
+>                                 print_metric_end(config, os);
+>
+>                         os->cgrp =3D counter->cgrp;
+> -                       print_metric_begin(config, evlist, os, /*aggr_idx=
+=3D*/0);
+> +                       print_metric_begin(config, evlist, os, /*aggr_idx=
+=3D*/0, NULL);
+
+In this case, would passing counter be more obvious? The function will
+turn this into evlist__first(evlist) but there's no guarantee the
+event comes first.
+
+>                 }
+>
+>                 print_counter(config, counter, os);
+> @@ -1573,7 +1623,7 @@ void evlist__print_counters(struct evlist *evlist, =
+struct perf_stat_config *conf
+>                 } else if (config->cgroup_list) {
+>                         print_cgroup_counter(config, evlist, &os);
+>                 } else {
+> -                       print_metric_begin(config, evlist, &os, /*aggr_id=
+x=3D*/0);
+> +                       print_metric_begin(config, evlist, &os, /*aggr_id=
+x=3D*/0, NULL);
+
+Maybe pass evlist__first here?
+
+Thanks,
+Ian
+
+>                         evlist__for_each_entry(evlist, counter) {
+>                                 print_counter(config, counter, &os);
+>                         }
+> --
+> 2.56.0.317.g454f8302e1-goog
+>
