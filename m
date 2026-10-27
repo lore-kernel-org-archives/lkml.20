@@ -1,49 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106271;
-	b=3jkTfsXnEH07USqlWhYXW0pwGDKEVvw70u0WIJozZr/4FXxGMjCKTUDoNaG2iZ1Eeis7
-	 j49c56nWF1dm/gn8aOYvFOOjzlJnK4ojKVEa1/mIPnE8Pt0HP5mURF28hfSqLkhJzsmOS
-	 OjUXQJ/f8H20Ggw2jE/nsw9b461Bi0yikSoFQO0eRIe9YhqhNdG0HQ0VO3SQpiOuvWfJf
-	 jJg1lJoBLwvadVRATL6+aZlm95GK9K+9aiW8XOO0vB8lyd9UxpvTLMV1xjlPhxqMBY/os
-	 PF04TEJAfvx080MAUHOl0Jaq3NE8mXhLArlg9lcUecibFrF4BA7tXCTKxSalMZNDShw==
+	t=1793106282;
+	b=G8psgmuykC9a8wUU4laa/kFlggoNza4IzrkTYMwY/qTVrO3dz5fyjQpp8w8aR5JIEcaf
+	 OGnoP41CXWTKepqewYyQL2OEF79t4Rtao7rZHaeFIkp0Yk0/7+21/v0ZEdIIUQ1a+GBsK
+	 pDRpAG17vCstAn9IHeY1lw03J8v3d2k60qgfBA8najBIraFo6zF1AnvXH+f6iLLWegkKL
+	 umK1FOtzDWRPPiwKUTt4Kb8B30/gviZM72ZFKE0rUhMAfDZ7/h+CrgOkudohoNwX3BbeL
+	 Fv4aJNTq+lk0WHoiYbJ9i92EvmtCeX4Hfi7q+keJHq6SI8Ajew2xOqFVFmSOkqZveVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106271;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=gC/pRsYim10huITDmGzR2CXBohnwZSkq49YKoF5hze4=;
-	b=HJjFYU+zHgqJ1z3T5T1DEyAuSTFktr5etVLwdzbaghNTZUb8UOBQBBnpYNPi2FWG9mpj
-	 n3ePOqRjPnfQ+6bpsRD+K71gNLHhcDwNkB0F2xXmjPDhFHBQU/229GOTkeMuCinswLlUC
-	 ZkRRgTmK4PAU4xstemGNZbtjl5vByX9B2hS7sqjzZdwHJt4RNZWGyXwTAac4NXBlHzKZq
-	 EULAT0+wO80KrSjQrFFRVkpTsMUfVb56zbGjwn/o9O2l13Xz9k4/A/RsnlIvjaDV/DQD0
-	 Zt7cdnDujB7Wrhx1+7r5wI7mW2g3po+rL8xZRx6wE9ToVD+iKifEUG4FBpmlXDHQ8zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106282;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=T5v5cRepOrsBtlr314Avjpusrkb5y4iwoU07gbK7WHQ=;
+	b=E4+Re/pT+uDBmtTLUa07iFuo306BkGfaJnS+GZg8iBxAV7wXnr6DmP2haZ6ONIYO5dt0
+	 fZY+WcHBb5eCrN9K9od3SdWXt939lyaT+VZHdbmY26IN17GDV+esG5a0iTScxhYLAkgFG
+	 HFm+UHqLT8gyeXqigHqSlyxAL0qHRyp3pofBjumNQREiNdaeyv9jq5fJu6LJBtt3L17lf
+	 p3ERkmNqyP2SErC96Q4NTW8LE3YSWi61uF7nqFhd1rec9LlA5BJB1Yq9vuqb6G9ou8hPX
+	 NEfCvlP4NXRt7ibIKC9VYtVAnz2UTBvRYVgF/gX6slsVxsQpF71MTpPvNIyayuVXdgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=S0As18FZ;
-	arc=none smtp.remote-ip=115.124.30.101
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkarBh22;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4BC606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:04:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B4BC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E84606A322;
+	Tue, 27 Oct 2026 13:04:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=S0As18FZ
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793106261; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=gC/pRsYim10huITDmGzR2CXBohnwZSkq49YKoF5hze4=;
-	b=S0As18FZ/hCrwCz6Nf0dMAPNwprg+Y16WkKFBHkpkumUDtRAOgfqQXmUQoTAognKIFplYW9Ll//nrsdApBd+cpW9p2OzA2Ao3/mrE4A6vjOnCWTAyZrX0V8oDSodrITirf6g6r3kwo8/Vt4TYVaQANfjzapEYCkAucXYt5lpldo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R761e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XDdo7mv_1793106258;
-Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDdo7mv_1793106258 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 21:04:19 +0800
-Message-ID: <2890601a-e842-4321-94e9-673df94c97a3@linux.alibaba.com>
-Date: Tue, 27 Oct 2026 21:04:17 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AkarBh22
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB94F1F01828;
+	Tue, 27 Oct 2026 13:04:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793106276;
+	bh=T5v5cRepOrsBtlr314Avjpusrkb5y4iwoU07gbK7WHQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=AkarBh22x4+jVEY7agkIPV8RfXkGZDIb0Y4ylixEHIv+R/GiP56wB1jYdxsk//gnc
+	 47FfnMlhIP6wFqaCi8HXhlesPeiFi4W9n5Lm2pb/Z0vIwgauFCD7hEANoPvdTCSKOO
+	 UYAAN9u4/CzepyWqdA49RZI8xwO3FKyn6eYI13mQE+9yfwHIwmtIYC2YyFmQBmYlIx
+	 a8mh7nOL3b1NI4HnYM4u6tp0unx2t7ef85Tg/O2g+5V4GKclkz+O7xG6HXjvoSoFw4
+	 0hGI5IJ8nqgH6eN+GbEUkYJLbhWcQxFFbivAgMppibCqMIcr5xhDn3+grwlKAtMAck
+	 v/APXrY4m2oqQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 27 Oct 2026 14:03:14 +0100
+Subject: [PATCH v2 09/14] mm/shmem: rescan after nonuniform folio splitting
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,73 +52,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] mm: memory: fix truncation removing mapped folios
-To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
-Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
- pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <d7f009c90b11ded86654885b5ebcb8c9308fa31a.1793067441.git.baolin.wang@linux.alibaba.com>
- <2ba579e8-06fb-41f5-9eb2-f02b2aabe29b@kernel.org>
- <87e32afd-75de-4407-8f0c-fb70b40d5eca@linux.alibaba.com>
- <81ee2c92-f342-4f7f-aacd-d9558e67a980@kernel.org>
- <de0b41fb-4ae2-46a5-afe0-c021134ebba0@linux.alibaba.com>
- <4880d4ff-8486-4e22-9923-bd4f2407b1cb@kernel.org>
- <f41d0720-ca14-4aa3-a2e4-3ba2de3280d0@linux.alibaba.com>
- <3c73fe54-68d8-41f3-8f9f-06c4a1891e01@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <3c73fe54-68d8-41f3-8f9f-06c4a1891e01@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-fixes_shmem-v2-9-86a00952acb9@kernel.org>
+References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
+In-Reply-To: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2025; i=david@kernel.org;
+ h=from:subject:message-id; bh=JlceDwOL/xhFvttSFqMpneZSe3wIGnOX8j/++/Na1FI=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBTcmJntoTir8Vu6yep283/MMWavN1qorLMRfTr9y
+ s6PzpwsHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExkdgbDH46tZVpFNvtOM4dz
+ idqXsYuZ/ftZ7HpKu8z7N5vQek8fEYY/fLpMDT8PdNo9ufF+VuyOPnOXojKu+6xRexmqPYzKpRe
+ yAwA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
+The final scan in shmem_undo_range() restarts after a successful split
+only if the original folio is no longer large. A nonuniform split can
+leave that folio large, so the scan skips the newly created folios.
+Hole punching then leaves pages within the hole allocated even though
+they could be discarded.
 
+For example, a fault below the hole can allocate a 2 MiB folio after
+boundary handling. Punching a 1 MiB hole at offset 64 KiB splits the
+folio successfully but leaves the original folio at order 4. The scan
+continues past all 512 pages, leaving 2 MiB allocated instead of 1 MiB.
+The hole reads as zero, but the pages and their block charges remain.
 
-On 10/27/26 8:53 PM, David Hildenbrand (Arm) wrote:
-> On 10/27/26 13:50, Baolin Wang wrote:
->>
->>
->> On 10/27/26 6:55 PM, David Hildenbrand (Arm) wrote:
->>> On 10/27/26 11:35, Baolin Wang wrote:
->>>>
->>>>
->>>>
->>>> Sure.
->>>>
->>>>
->>>> IMHO, I'm not a big fan of adding two pmd_none() checks just to avoid an
->>>> uncommon concurrent sync.
->>>
->>> It's what we already had. We had to: one for handling pmd_none() directly and
->>> one for handling zapping while splitting (file THPs).
->>>
->>> We just managed to let the second also handle the final piece of the former.
->>>
->>> Anyhow, let's get this fixed.
->>>
->>> If you think the code is clearer your way (where I disagree)
->>
->> Fair enough. Though I have a different taste, I'd still like to make the
->> maintainer happy.
-> 
-> Don't worry, it's hard to make me unhappy :)
-> 
-> (just a bit overloaded right now)
-> 
->> I'll send out v6 tomorrow following your suggestion.
->>
-> 
-> That looks good. 
+Fixes: 7460b470a131 ("mm/truncate: use folio_split() in truncate operation")
+Cc: stable@vger.kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/shmem.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-Thanks.
+diff --git a/mm/shmem.c b/mm/shmem.c
+index e6532c9b0cbdf..d7cc45d7077a5 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1478,18 +1478,12 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 				} else if (truncate_inode_partial_folio(folio,
+ 						lstart, lend, NULL, NULL)) {
+ 					/*
+-					 * If we split a page, reset the loop so
+-					 * that we pick up the new sub pages.
+-					 * Otherwise the THP was entirely
+-					 * dropped or the target range was
+-					 * zeroed, so just continue the loop as
+-					 * is.
++					 * The folio was split. Retry the scan
++					 * to find the split folios.
+ 					 */
+-					if (!folio_test_large(folio)) {
+-						folio_unlock(folio);
+-						index = start;
+-						break;
+-					}
++					folio_unlock(folio);
++					index = start;
++					break;
+ 				} else if (folio->mapping) {
+ 					/*
+ 					 * Splitting failed, but the part in the
 
-> Are you planning on following up with the memory barrier
-> optimization for smaller folios?
+-- 
+2.43.0
 
-If I can find some time, though I have quite a few pending TODOs now :). 
-I don't think this is urgent, so if no one else picks it up, I'll add it 
-to my TODO list.
-
-> I hope below doesn't end up in some performance degradation.
-
-This is not a common case, so I think it's fine.
