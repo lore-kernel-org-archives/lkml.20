@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069820;
-	b=wmg8LRc4BbQWG17IGTc28SfaOUlfJ7nfonCp0Uq1zVpUEqpUirJzseM1iBh1ALHWVrUe
-	 Eb6L2OPvkFuFEfd4MKVkmZX1N7muyrr+cuxTbN99xGiYLFwhO+lNAHPFyQgP7WO7oZbRC
-	 cJUPo4IkuXeSgu3qTeYetRdfS5RskFoKgpO2H+xtLPKCtDoTA93clgK6Bkz+r9gllQZVJ
-	 jmWoE3HSuqxK2suK/QuznM9pGtnb+CWdfJh/E7DvNXaTgSYIz3ac4Awqsz3zC0oD+WObq
-	 TIMYQE6Fw5iQ3iK5JPmC3YCcJsQo+bMKPQiAyNZjlFha9rey8SJ1IORRx4TgsmcgK3A==
+	t=1793069823;
+	b=0o3cW0rDBZ9qVkBf4/gakK1Wmpi7m4Xq2chatBIvmsmo3b0TlfvGEJWk1CWxsvYV859y
+	 MstQBc4V0X48qZ5bjIGxLbCL2xOX3iIPrgoLgA6knzb5H+bjLgWeaj41fD5MJ7GmbMOS3
+	 skZyEKOUFOss2jh2CESWUKw9U+1/7LASXze23hww8gaXc3rdKHWwLWPsfokhSr/mD+CfS
+	 2p2ibeozosM2YH1d5ozSA/EPtD8l/4eo9YGHWryGkB7nGgF2uzdcYA1lZn8kqD9phpbgW
+	 nmUo0GMrAdVN016OO4hGwZ7a5Axrfs7odNZLSxZBCr22FnqEersRH1FESBM6DkjYUIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069820;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069823;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=j+w6uCJntt3i4Wr5zbmAS2QfetxR0x7f970do0XgFlo=;
-	b=LAedJ9JGus2OYgyLuhoku0b14sZ4hwnRj2vPI4QmqVMP+FMd3nRNnyukdiaXsR2aPrZU
-	 464YoT601dC/+Av4OiVIZjopG4y/kVr2wnQ5CabvfLGMvTD57vANsyKfc6QQp/ItYC1l6
-	 GfzBKz5AIYqMd5a8gwGygClrCWbUGU1Oioz+AkG1DFOuY7zazsRHtguUfJIhVncFjS1cH
-	 Dlct9TWUVEQxxXXaNDspcd8JOcItvmIIQLRvYwHdzMP/6VrxJDiknygzx9UKe2oMCVWIa
-	 mDXNtxO9uGjLDhKFT56GCAq6+xRnUeLs7HZC8wE98pC/avMxdjIjhlDUKPVdQ6VdI1g==
+	bh=0dhD+kOKqUQOH4NXaqpvq7snu+OHZ+U62/aV76eABXw=;
+	b=5q0UW6ePvCcGgelOGit2CtI2XuAx+kqdGRjIHzMp+KNjkeDDx2CfWAMXnj8jjmcrz/Fm
+	 Li83zmpTypERnfbyoGDQ44S0JxJdUIEBFxD2KHDhuTqj8VsEJm39bJTXXEBk+FfuFRdMo
+	 d3KZSVnP+w9YHkGsXIUG34OXArLjkX5uhhTUPrIh8WHSnpvu4MHYTKgm4eCNpmkB/J3E/
+	 pQyfIhwQANVufDZY5NEC8akxle7Bmg4mJtz6QvMYuXfTCOrLdMl5O3rwxOaxBfa54WYTH
+	 p1Gi4sFCmIeymsMZT46vs8J9Pz8RcX0Ra+PEFByCb27f2f93Rn/Y0dpS+n1qf+4AEyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uNMzfIBd;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QfCQutLR;
 	arc=none smtp.remote-ip=209.85.167.199
 Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A6160A3808
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A6160A3808
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDD7606A331
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:57:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CDD7606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=uNMzfIBd
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c734afb8deso5325517b6e.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QfCQutLR
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c467e19391so6589666b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:57:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793069819; x=1793674619; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1793069822; x=1793674622; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j+w6uCJntt3i4Wr5zbmAS2QfetxR0x7f970do0XgFlo=;
-        b=uNMzfIBdZgy1KN8bFNHYHiLLIV46Yma9kQMtlPcXXX7T7zwVL/i/+ib96FOmt5+WL3
-         n1BuyeykqhM2dDAsutuCqTP+qaiftM6tMCYKdeJxOT/dhgZwRud9ipglpmeLiyTc2X1K
-         trU8END+WQoLb46jffScMCnl6ZaLswuyFEfQ0qimov7DpefFYqEY4EM3GQ9FGU+z13w2
-         5WY6rE8qRK944Oq/DAzAyWIAnyog/b7XYFMymQ3u0W56oB/57ya5y9/wV0rmw651EsJU
-         VRu7dz10YDkmjpEPcQtLIH7lbGZBUZ2HxvVB2BMakZ1BxsJMI14d2hx6PFe3ifCr5r38
-         SYzg==
+        bh=0dhD+kOKqUQOH4NXaqpvq7snu+OHZ+U62/aV76eABXw=;
+        b=QfCQutLRkxyQpHquEma0pWnTbXmhRvvI7CyxjB/pz34eXXHwYUDs1JKtjQW9SvB9xB
+         b3+SxllXAlSfzL5YYRwltunB8yMfrAz/XzPXktGbT2UQtSP4W9W08Kup66nqCp5OwZGv
+         u9xZeyLv3b8vAKPTLC0tdYBugX74ZVezQV2CDdPAL6q33wzXLIFbv9N2Tk0L8jJZDoVP
+         Ei32C2l9cCJMvkUxyHZbldWyMEzlj4cpieumH9lFVnXoZ1YMut7WLsg99VYzmoZphMth
+         vnzm9EpXe80AqEdFyTpAmid1dIK8PzjugxcAHAcW8U+269ScfCcM+6+SvMMDz595eKh5
+         RKsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069819; x=1793674619;
+        d=1e100.net; s=20260707; t=1793069822; x=1793674622;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=j+w6uCJntt3i4Wr5zbmAS2QfetxR0x7f970do0XgFlo=;
-        b=EzJQVSGDyy9clT3uZviftccWCXzCqbsii/dKMbVUP0sp0u63FCP8bjzhkYhxYHIIl6
-         H+m9VdF65Sw+Z05cfGMBI+ZF24u4PnDjJQg5kWOb3sxNefN2WLFhWKqta7cvOV/+qW8H
-         pL1AhOyp9m7k1uSq/IVyHyBEZ9y3dU2BcOnitmzhC9uJjJ+s53at/xT4ukuP0VZUif7r
-         hvly4INi7HL6KT4d7InRchlNwPBA/nIidIOppAalV20t3I/zCn/1dRStqAyIDt5R3b9E
-         Vifkns3SA2/ke6p3e6+2oyfsJ7q41jL+BnxNPtc7cnT/Z23UNq8PqWblYXkD7GPVTvZA
-         AABg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpGZfT8ShrHP+JdSrjOc5nMih2wc9RKTtjdRsoP91nKHsifpgHhpuK3dRSRUiTnljbpcAOzoi6Ju/kzmo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqmTCn065I4mF/QgB4eYgOBeunuYsAV8JQ2f63pNFmcG+O5V0M
-	SJTXNn/hsZc/fhzVlCoxduDHZVPar2QlaC8XrMyv0XIXLSIzx00NRwFMC4FzuS1IQn6sRz8119U
-	Cm7yJaTFk/4qWRIE+KTzHWiUirbo40DIN3Q==
-X-Received: from ioo6-n2.prod.google.com ([2002:a05:6602:8646:20b0:9c7:5a22:a4be])
+        bh=0dhD+kOKqUQOH4NXaqpvq7snu+OHZ+U62/aV76eABXw=;
+        b=Es0Bk/R5xiBQbZM1WxgzC7NXILs63oQP9RSYdJb7uvOcBkDWXfPuFAXT6564VO7obM
+         GKly2ReREp3YzbJDoltOOMmP4xfPgc7LIbytZ4RRjWblstnmqNmSViCw8KV7XoHe42eQ
+         M2T+/Yfs3ZD2nFilJfJkoFB2D5UDv4sFVo7hq1U59Ery/nhTsObeo22WPs7UI9BjHI3f
+         KPzsPAqKWeCziDtIrwyBVJ9GqwJcmQCNESnbLTEnnbYvq4ClaVl52BqGnE1npOau+xII
+         R7+C21l3+O+1LjQXLmYwTVWSVkSMcVfUejtgLmTy+iQLPGSIJaWN/w1u5Jv3t3ITCq7u
+         Bdhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwem3JdCpudAdWrwzexEgF2xRB0FdlZfcVtWFce11S+6vgdtzPm7F2XtHkwGGlcDsRerjDT7dbMBjVkvZA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2gXml7Rnw0GynpslrtGa43U9GJPDptbWWb86O16ZzFCVDmqkl
+	IaybwhJj6daSy2FmtxCZ1b9aDoeCKHwtCuqNFXvRV60oFAdzkFyoo9qau3w54nNRVJzYZ/HD2MM
+	hPiLvKX60TnxbuNfFUxfKD9lg1xF3tYjLog==
+X-Received: from jacnq31-n1.prod.google.com ([2002:a05:6638:e21f:10b0:61c:8e68:e95d])
  (user=kevinloughlin job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:1b2b:b0:4f4:73a9:f853 with SMTP id 5614622812f47-55bfff91bbdmr5294378b6e.1.1793069818445;
- Mon, 26 Oct 2026 19:56:58 -0700 (PDT)
-Date: Tue, 27 Oct 2026 02:56:14 +0000
+ 2002:a05:6808:c1c4:b0:4c7:7ce5:a32a with SMTP id 5614622812f47-55bfff7e470mr5562520b6e.4.1793069821819;
+ Mon, 26 Oct 2026 19:57:01 -0700 (PDT)
+Date: Tue, 27 Oct 2026 02:56:16 +0000
 In-Reply-To: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027025616.1632690-12-kevinloughlin@google.com>
-Subject: [PATCH 11/13] virtio_balloon: unaccept free reporting ranges
+Message-ID: <20261027025616.1632690-14-kevinloughlin@google.com>
+Subject: [PATCH 13/13] virtio_balloon: enforce ACCESS_PLATFORM in CoCo
 From: Kevin Loughlin <kevinloughlin@google.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@kernel.org>, Jason Wang <jasowangio@gmail.com>, 
 	"=?UTF-8?q?Eugenio=20P=C3=A9rez?=" <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
@@ -104,69 +104,88 @@ Cc: virtualization@lists.linux.dev, linux-coco@lists.linux.dev,
 	David Skidmore <davidskidmore@google.com>, Kevin Loughlin <kevinloughlin@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-In confidential computing guests with dynamic unaccepted memory
-transitions, configure the free page reporting order to
-unaccepted_memory_order(). Invoke mark_memory_unaccepted() on each
-scatterlist range in virtballoon_free_page_report() before adding the
-scatterlist to reporting_vq and kicking the host.
+In confidential computing environments (CC_ATTR_GUEST_MEM_ENCRYPT),
+virtio devices require VIRTIO_F_ACCESS_PLATFORM to negotiate restricted
+memory access and DMA bounce buffering for virtqueue rings and
+metadata buffers.
 
-Unaccepting the pages prior to virtqueue_add_inbuf() and virtqueue_kick()
-guarantees that the guest finishes PVALIDATE(validate=false) before the
-host VMM can observe the reporting request in the virtqueue ring and
-punch a hole in guest_memfd, eliminating any race where the guest
-re-allocates and re-accepts a page before a deferred host hole-punch
-executes.
+Currently, virtballoon_validate() unconditionally clears
+VIRTIO_F_ACCESS_PLATFORM, causing virtio_features_ok() to reject probing
+the balloon device (-ENODEV) when restricted memory access is active.
+
+Preserve VIRTIO_F_ACCESS_PLATFORM in virtballoon_validate() when
+CC_ATTR_GUEST_MEM_ENCRYPT is active, clear VIRTIO_BALLOON_F_FREE_PAGE_HINT
+in CoCo since free_page_vq maps MAX_PAGE_ORDER blocks through standard DMA
+ops without unaccepting them. Reject probing (-ENODEV) on CoCo
+platforms where balloon page state transitions are unsupported.
 
 Signed-off-by: Kevin Loughlin <kevinloughlin@google.com>
 ---
- drivers/virtio/virtio_balloon.c | 26 ++++++++++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/virtio/virtio_balloon.c | 36 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index d162c162b496..e10bd792ef7c 100644
+index 217431e75751..ae011636c07f 100644
 --- a/drivers/virtio/virtio_balloon.c
 +++ b/drivers/virtio/virtio_balloon.c
-@@ -213,7 +213,26 @@ static int virtballoon_free_page_report(struct page_reporting_dev_info *pr_dev_i
- 	struct virtio_balloon *vb =
- 		container_of(pr_dev_info, struct virtio_balloon, pr_dev_info);
- 	struct virtqueue *vq = vb->reporting_vq;
--	unsigned int unused, err;
-+	unsigned int unused;
-+	int err;
-+
-+	if (virtballoon_cc_needs_state_transition()) {
-+		unsigned long unit_size = PAGE_SIZE << unaccepted_memory_order();
-+		struct scatterlist *sgl;
-+		unsigned int i;
-+
-+		for_each_sg(sg, sgl, nents, i) {
-+			if (WARN_ON_ONCE(!IS_ALIGNED(sg_phys(sgl), unit_size) ||
-+					 !IS_ALIGNED(sgl->length, unit_size)))
-+				return -EINVAL;
-+		}
-+		for_each_sg(sg, sgl, nents, i) {
-+			err = mark_memory_unaccepted(sg_phys(sgl), sgl->length);
-+			if (err)
-+				return err;
-+			cond_resched();
-+		}
-+	}
- 
- 	/* We should always be able to add these buffers to an empty queue. */
- 	err = virtqueue_add_inbuf(vq, sg, nents, vb, GFP_NOWAIT);
-@@ -1142,8 +1161,11 @@ static int virtballoon_probe(struct virtio_device *vdev)
- 		 * host's base page size. However, it needs more work to report
- 		 * that value. The hard-coded order would be fine currently.
- 		 */
-+		if (virtballoon_cc_needs_state_transition())
-+			vb->pr_dev_info.order = unaccepted_memory_order();
- #if defined(CONFIG_ARM64) && defined(CONFIG_ARM64_64K_PAGES)
--		vb->pr_dev_info.order = 5;
-+		else
-+			vb->pr_dev_info.order = 5;
+@@ -1311,6 +1311,14 @@ static int virtballoon_restore(struct virtio_device *vdev)
+ }
  #endif
  
- 		vb->pr_dev_info.capacity = capacity;
++static bool virtballoon_cc_supported(void)
++{
++	if (cc_platform_has(CC_ATTR_GUEST_SEV_SNP))
++		return has_unaccepted_memory();
++
++	return cc_platform_has(CC_ATTR_GUEST_STATE_ENCRYPT);
++}
++
+ static int virtballoon_validate(struct virtio_device *vdev)
+ {
+ 	/*
+@@ -1318,7 +1326,17 @@ static int virtballoon_validate(struct virtio_device *vdev)
+ 	 * initialized. If we cannot do that then we should disable
+ 	 * page reporting as it could potentially change the contents
+ 	 * of our free pages.
++	 *
++	 * In encrypted guests without unaccepted memory (e.g. SEV-ES), the
++	 * hypervisor cannot populate discarded pages with guest-encrypted
++	 * poison/zero values and the guest does not re-initialize reported
++	 * pages on return. Clear VIRTIO_BALLOON_F_PAGE_POISON so reporting
++	 * is disabled when init_on_free or page_poison is active.
+ 	 */
++	if (cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT) &&
++	    !has_unaccepted_memory())
++		__virtio_clear_bit(vdev, VIRTIO_BALLOON_F_PAGE_POISON);
++
+ 	if (!want_init_on_free() && !page_poisoning_enabled_static())
+ 		__virtio_clear_bit(vdev, VIRTIO_BALLOON_F_PAGE_POISON);
+ 	else if (!virtio_has_feature(vdev, VIRTIO_BALLOON_F_PAGE_POISON))
+@@ -1329,7 +1347,23 @@ static int virtballoon_validate(struct virtio_device *vdev)
+ 	 * virtqueue_add during page reporting.
+ 	 */
+ 	__virtio_clear_bit(vdev, VIRTIO_RING_F_INDIRECT_DESC);
+-	__virtio_clear_bit(vdev, VIRTIO_F_ACCESS_PLATFORM);
++
++	/*
++	 * The balloon bypasses the DMA API for page addresses and cannot
++	 * support a physical or virtual IOMMU on non-CoCo guests. In CoCo
++	 * guests, VIRTIO_F_ACCESS_PLATFORM is required for bounce-buffering
++	 * virtqueue rings and metadata. Disable free page hinting in CoCo
++	 * guests as free_page_vq maps MAX_PAGE_ORDER blocks through standard
++	 * DMA ops, and reject probing on CoCo platforms where balloon page
++	 * state transitions are not supported.
++	 */
++	if (!cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) {
++		__virtio_clear_bit(vdev, VIRTIO_F_ACCESS_PLATFORM);
++	} else {
++		if (!virtballoon_cc_supported())
++			return -ENODEV;
++		__virtio_clear_bit(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT);
++	}
+ 	return 0;
+ }
+ 
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
