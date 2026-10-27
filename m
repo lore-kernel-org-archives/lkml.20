@@ -1,47 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793130651;
-	b=g3wfnXHJ619gZK8bLpvOVdDI2UD4sPgtjnnUydrDkdtZBFY8wJh2SDpvnJfTjxxwK2ne
-	 IadBqnzlFUoQR92zakt6TJp0OjoAFbILW4R/2Qr67sCYXal0jSBCheGdQZY504TzVOul0
-	 1p4023WYmHhvLT2PkLdMlmf8coSZyzKLO4b1S2Y002ZDYHnQ1cErmA9522GzFabVlGTTD
-	 hiHp5qsO8OoyOfYQa8ue1yfZj+I52797WERo58FzMqZq2FXBTGW7vfqwvWXmroOsFAMVr
-	 K4+jafhmf5bfQcdgg7FrNQVvCL2mrJCD2lpEoSIWe1w8SZ5aCJxQZJhJakBKxxwlDHw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793130651;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KvwhyTRyeiEfh+XmO19jNdxyQZ1p+B2iui3w4B1s3ow=;
-	b=EuSShhf5HMSg8j6UeDXMJiKQGFdxUXkuHmyWhT8oT+dJswJBnP3M35gZF3cnHreFk61o
-	 m2ywjdztIAFCbOLhe3A6pvZz/0x17Q7XQ0MvEeJfqckvOL/CtQJ8JCLDW8qanw2fge8w1
-	 P/aeSnqktLYsPsnmjy5DwtsK/tmJAUCuyzF8QTvFFPqlzdJ8cZR7ATQURWWbHykaT1JWm
-	 cwuT8Mhc0jlbU4m6kcfu+eZ5/ETgiH3L4RUnKE7iOSsAyLYtuX4F8P7Z7w3cdCVFJ5Wki
-	 oemB19rxluqXd/DYNMszuwIYXKVma6FTHVXsUZedzl9XF54zffhzyVDUFLa2ZW8PFTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxJ0OFAW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793130756;
+	b=RJHaLaRyvDi4n01MjnGGHavvspNacZ7hL5YX+3zHKDqPW0kVxnRg6AeUBD+F8ZD3W9jN
+	 8GjaLMH31A+AVqqK0WNVidARRH+p0i6EIyF3F0m1OQApoFZpHVrkkano3lrTiKE0KMaSp
+	 1oBt+furCoKhMIjjN/BdZRQG016cIrEQy2jQVUAQcLNo3zWsahozqsDMMfWDqJ2lk1LQn
+	 d7BNEc4Nvtxwf/dFUk1Si+TAhC77GQ0ofFv//dS9g7cP6MIocd+ci2dY9aePQQqSCN5B9
+	 dA6xmV2oSchdHjkxrYuoqsDc5DpqyQF3mIzvya1CTqazjwjCf4/0VI2mfehoTD16ELw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793130756;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Fj/41kyXVmvwyfVHkwSaPVRS80w5kPMmhzaFEoYT/ZQ=;
+	b=XYXYog7HhF4Vha8xXJJdas5Wd3F8hxvChsvQWVC8/kqR69n+Q3rJjyk9EqFmzVQXcORU
+	 S95CDgYbpe3S5+ErJ3liT9NdiJ9cSodoSa5JOzzPKQAKSWWyYwGGqTMkuPxIQGGF7GqHj
+	 Qbp3n9B6CQ3DLQ0kytvUn2gFrYkyfjKX7k1ajODaHi7dOpamvPxRWBH2dGP17kZkKoLgI
+	 kwmELriOtet1+dKd3wjPH9gc8k1aMlp5QMpHKmrcrYe41fZkA6CyMljx+IiLKhDDZyhPD
+	 qLCjlZfDnKYoeANGMXZksYnmQZVY6+P0IefUpbfDikEfEamsxSbTDzodQq0OKrEkp5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ETmjCydf;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JSAEve40;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FAD606A31A;
-	Tue, 27 Oct 2026 19:50:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7D6606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:52:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C7D6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxJ0OFAW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD0351F01825;
-	Tue, 27 Oct 2026 19:50:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793130651;
-	bh=KvwhyTRyeiEfh+XmO19jNdxyQZ1p+B2iui3w4B1s3ow=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=GxJ0OFAWVcoTVNBUGk/+220FuH71LHppdTDKU7TdLZB3YK/rBEdexDetOUkFVFgMp
-	 jrHZ1MkjAa7krzEOxdcHU6fkRakzvF+60ChCMzeaaKq90HzYrtYo2vFFaw/s3AREDB
-	 3JsjIYIrVj8ykbX5OQtPyEmgVGI5tbxABQLy4ha3yeNFjRgUwVzT7x2sM7wOuIAMa/
-	 ItMrQBUYAsorr7kwcg73+dTDAQSNhVL+IWcGqIhbrb9OgtEwO09ljE6Sin+nBjTDU+
-	 hvhvauiyjWlecLlWYxxQf4x7JaarJtdXh4pAqnaFDlO/mkzgxdtE4QEOoO+X+mTlma
-	 6KBPve2Og2c7g==
-Message-ID: <465cb935-2648-458b-9cfc-9b7fd5dc53c5@kernel.org>
-Date: Tue, 27 Oct 2026 20:50:42 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ETmjCydf;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=JSAEve40
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793130755;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Fj/41kyXVmvwyfVHkwSaPVRS80w5kPMmhzaFEoYT/ZQ=;
+	b=ETmjCydfvdyy4pExGJNgjkBvNuhyLJZOVH8E5bZYJBaJW1y3Yax9kXwIeqFo+EyUQATyVP
+	Ib+iasVEfsZ08YYADq1xbiZVI5c57jDYwjFB60N+9GlgLIODqgW3SyjIBJD7WlujTomRhj
+	u1a+F3HRlqnN2g9+h7ohpwxPxNHi4Iw=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-633-oSwmd0clN3egaH4mQN-jaQ-1; Tue, 27 Oct 2026 15:52:33 -0400
+X-MC-Unique: oSwmd0clN3egaH4mQN-jaQ-1
+X-Mimecast-MFC-AGG-ID: oSwmd0clN3egaH4mQN-jaQ_1793130752
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a35db2d6b3so1383365e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:52:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793130752; cv=none;
+        d=google.com; s=arc-20260327;
+        b=spjHGprakHj55Dh3HWDK53rcXP31i1LIlBq4CkFen5b/DFG6GdxK2D9ea2YlVMp/zH
+         iNkhLvEpGJhcu6EiseN97xFIwSg/tf4kS3pa2YWn60s4sa8mVdfGlf6rRkaBE5CqqpMK
+         q7qlQkB9CiiYWnjQ0rcmGcHQTVUKZ6XBqFDyrJyPUinQNVymWDucKxVrvqrCKSsKmkAV
+         nJOlPyary2WSut7n6b2zEpyFLlRBndT3qgHfxMrWSKmypVadD4psuv4Kcl5vnQERvzrR
+         gWJD9ZM5STHTrzt5wcoOcPYjAj9QRu6Wma0IKIztQ3jXRGDVSQfHCDhcN7OeXZHwUgjF
+         xuHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Fj/41kyXVmvwyfVHkwSaPVRS80w5kPMmhzaFEoYT/ZQ=;
+        fh=SHgn8Tmzfkw3NcSpFx2BmurDq/1pqRYcCyFXhVQaQJk=;
+        b=oArOlAiqdbyjpaFlKSAvG4atcW1TQRkhePcdym57KqYdsbzaC7r7P5YhPdgpnVNHb1
+         nkvcq8mt81cHlmwo0Inv7h3mqM5+a9e/b3f1ubLcQKD4TJLVsZA16L/hPDL4mS5uI7CO
+         jHvaajR6mUMBL266zXRuGpEcRq7Tdvjy2r8QT2QAM0Ed51qTnaUFL/B1+DFSrSuFcAnI
+         RRnFPtQL5K9Wd6dJGcoyzQ5QSLJmqn2QZXu5JUdmO2hZnV53jgssc+T+Us+biLSUpN7/
+         pCYX144IZrA/6yBcCssMTHPSM8LqVSkDw+quhZe0Q/mFSRE5HcPnHPQbKNQ8MZ8RtofK
+         LlRg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793130752; x=1793735552; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Fj/41kyXVmvwyfVHkwSaPVRS80w5kPMmhzaFEoYT/ZQ=;
+        b=JSAEve40tNCp1OgkTx0p1aGYMZkVty/Vg64c2AEuuH3IJ9A/9QT8zqfNTU3f21iXzZ
+         ID510KAP3nk+La3t/D4e6X1LsLIyvHxlmvdoTAmExm1vSrmO1yHt+s4JF7RASdFul0LV
+         cgjbZUJq3Ag5h9l8ZDo8f4GUA/McJ6FWVkXFA6Ehdvot5V7fCEdrqV1FhPcsNPVs3TST
+         hgtAguQOdUVYw9wWj+UDsRYZbTW2HafsfkuyQJX8QATmLoQtU1jol6DYKfpjlyGV258w
+         D5cblVPYMx/lcqsafE3jZQuODADCUijq4PFi3fRXgAg8bcGkqxk5IEs8gvuAFKbZAwEn
+         8T8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793130752; x=1793735552;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fj/41kyXVmvwyfVHkwSaPVRS80w5kPMmhzaFEoYT/ZQ=;
+        b=LCajy3gwd5tc/ZJ+nTXkpS95OR88DMZC4OwGt8oGApcO9jvqOfSUg4RpQ0dfM9cadi
+         EcbKkVhXV9KTtXpRcVULhSUVcIURbrU81KOcM/4a84VPF5eEYvBDEAwf8dkd+VLocLST
+         gU1W1Ll7L4h9Z3RQnIChwvisokHIz3NcvMaQ3qsVY7P5lpVXfGX2mw423W9Hx6AoXL0O
+         Nvs0ZDLlKfjFxcGQcmsIFlNKB3GBZz9kJxNMAdhVfA5AUXlO0EjbeaqTtBb/U/Eb+qoo
+         8KNLtSVtcEwyMJBqt6dMY36zfwA+zfEEt2y+CzDbRHfZL0deX/7xTI12jBdozpw5sQDD
+         sv3w==
+X-Gm-Message-State: AFq9FYL+CqX9B9gAXyRkguUZ3z8rx6U8QisrIFimXP1lYn9/azb13aFf
+	JDcg0u9LNijLuG/5iE8Hz9NA/tJD+4TtxuRO4ZbiGFsa9SeltZ2v4vGPaLqLa9qT/NZa3ZPy08U
+	ZX+s2G4QAQg/AooRNeCSTVc1TDsHNteWP7ly8AOVHFOIisB3EgcD2I2jpfYwFA5gTbz456qeC/I
+	f8i6H3COa8+3nQrmfeuNKhelcgU2n3pwzhtFDUwmHm
+X-Gm-Gg: AYBFou3PZZvbZtAwjV1ZYLa7+4G9vh1B6m4fJmViqUaCq5f8EuV79keCJFTimCzXAni
+	rkGMLZNUZRWMFqpFY7zS9X77ULsrVbpDRZrjLNEBcNcoBuyCwwhC0usZdZtGi9H8NPEkJFW6Fns
+	Wp+lgYX9mfAMWHTruB4q/y6fAt44b2ftaTqqsSjyuV8t9pzdBW2/34yBg4VBI8Thl2vTDCq9of0
+	vjgqQMtls1OEYQnpA==
+X-Received: by 2002:a05:600c:c16b:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4a7b30425cbmr77123915e9.22.1793130752216;
+        Tue, 27 Oct 2026 12:52:32 -0700 (PDT)
+X-Received: by 2002:a05:600c:c16b:b0:4a7:b304:253e with SMTP id
+ 5b1f17b1804b1-4a7b30425cbmr77123575e9.22.1793130751844; Tue, 27 Oct 2026
+ 12:52:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,86 +123,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: display: Add the Ingenic X1600 LCD
- controller
-To: Paul Cercueil <paul@crapouillou.net>,
- Olivier Louvignes <olivier@mgcrea.io>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Neil Armstrong <neil.armstrong@linaro.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jessica Zhang <jesszhan0024@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "H . Nikolaus Schaller" <hns@goldelico.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261025191640.13592-1-olivier@mgcrea.io>
- <20261025191640.13592-3-olivier@mgcrea.io>
- <20261027-hospitable-apricot-scallop-166448@quoll>
- <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <270ef5220fdd5ec3e0b88ba5c4ce044992fca41a.camel@crapouillou.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260930063919.608911-1-himanshu.chauhan@oss.qualcomm.com> <20260930063919.608911-8-himanshu.chauhan@oss.qualcomm.com>
+In-Reply-To: <20260930063919.608911-8-himanshu.chauhan@oss.qualcomm.com>
+From: Jesse Taube <jtaubepe@redhat.com>
+Date: Tue, 27 Oct 2026 15:52:20 -0400
+X-Gm-Features: AclHuK8-hXL_DfAWcv7wadq_C65si-Ml2WAgbzPdgrocvKidGZ5VkAc-qEqFxfA
+Message-ID: <CADRr4bctCf-7xBER1G2vqtQm2Nda+h222UzYShMQXw+rtBwPzA@mail.gmail.com>
+Subject: Re: [PATCH v7 7/8] perf tests: add noinline to __test_function
+To: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-perf-users@vger.kernel.org, peterz@infradead.org, mingo@redhat.com, 
+	alex@ghiti.fr, aou@eecs.berkeley.edu, palmer@dabbelt.com, pjw@kernel.org, 
+	qingfang.deng@linux.dev, shuah@kernel.org, thecharlesjenkins@gmail.com, 
+	cp0613@linux.alibaba.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 27/10/2026 20:04, Paul Cercueil wrote:
->>> +
->>> +  port:
->>> +    $ref: /schemas/graph.yaml#/properties/port
->>> +    description: The output, to the panel or bridge.
->>
->> No port for IPU?
-> 
-> No IPU on the X1600 - the display IP is completely different there
-> (hence the new binding).
+On Wed, Sep 30, 2026 at 2:40=E2=80=AFAM Himanshu Chauhan
+<himanshu.chauhan@oss.qualcomm.com> wrote:
+>
+> In the breakpoint signal handler test, a breakpoint is set on
+> __test_function. Compiler may optimize and inline __test_function.
+> This causes failure in the test.
+>
+> Add noinline to __test_function so that it is not inlined.
+>
+> Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Reviewed-by: Jesse Taube <jtaubepe@redhat.com>
 
-But even if it is different, don't you need to represent the datapath?
-Your LCD controller does not need IPU?
+I would resend this to the perf list and not in a patch set as it is a
+separate fix.
 
-Best regards,
-Krzysztof
+There is also another fix to data_breakpoint.c=E2=80=8E that i have been
+meaning to send here:
+https://github.com/Mr-Bossman/linux/commit/db4faa52a66f6b7265cd397a2d44d7d3=
+8c3fdfb7
+
+Thanks,
+Jesse Taube
+> ---
+>  tools/perf/tests/bp_signal.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/perf/tests/bp_signal.c b/tools/perf/tests/bp_signal.c
+> index f580ba7486b1..cc4a27224884 100644
+> --- a/tools/perf/tests/bp_signal.c
+> +++ b/tools/perf/tests/bp_signal.c
+> @@ -54,7 +54,7 @@ asm (
+>         "ret\n"
+>         ".popsection\n");
+>  #else
+> -static void __test_function(volatile long *ptr)
+> +static noinline void __test_function(volatile long *ptr)
+>  {
+>         *ptr =3D 0x1234;
+>  }
+> --
+> 2.43.0
+>
+
