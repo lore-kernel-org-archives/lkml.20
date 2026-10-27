@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121710;
-	b=brzVXt6wktJn95dhd6qZePKKPrLkmynYxELSWrd2352yAa6gVhQPgkl2OkUeaLRdhH85
-	 YU91N0ZVRbqIMbe9IzXetoJHxoyIjxIQXJ3huYNRYNi1TpvJX+B8kgfBaQhDco76F+Cvj
-	 LFGUc3MIL76znCOXT2pPNMszjEYtuhjUs9fiIwNilZo+HY6sE+1PDt975FQOaWvlVS6O7
-	 3ZL/OQpfE4pG7XX86kIHTyIWVKSys8/snSauZHnlY33Aogoeb4SQSNvvulXU4YjLG0IE+
-	 B0VjY0t79WTEeuzmG/WXppu0mZzJm66HCC724Hw1MMYeS7NT+VcK44HXTA7jATcEVMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121710;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793121728;
+	b=K1XlBMjcYYdFWxSrufjWSln9n2RO0qmsMCKt/JsvJRP63X+JIMEYIM5LXWWpaosmQXPK
+	 WOFG/kQdy1z1rradZcBJqw1mmqWzX6TKroo0efVpdHEd7olBGZ2kOzBQaB0o6Ma9hk2mI
+	 ef9R8gfnksXfvsxrfyVy2EYxHYucIv8DpyqCUon6cvOLjWTLYHZFNp506GccamslCVWcv
+	 gXp+1GwvTWr8oNkCufqwq9s337qElWFOaAOtTN9YMeplZ4r8FNpQNIS4YiAbr7shqwVNW
+	 YBU9L4LIqh6tKxVvAo+NFHXGLm/PQHe+0D5zG9ha3cVEvCaL/iTM9C3IwOY2XvkpUNQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121728;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4NjwcCRUit4k9bfPnEwrZTpteoTnUrUFgb+iE1jnD40=;
-	b=xmh4FUuHZXqhTqbMzD0DGfUsd55+DNOdYHAUWGgTroffXWrbpeb1KjSU7kUzRBxUqj8O
-	 Ky8iccMFvGUWzjea9KLHo1Jx2SoQBGdKa1oCv/ybYa06LqbBMRO9dGbs9Sm2dYQiAcJN8
-	 JYNT04JACAygO9hsEZYbCkxd1DiHRmmGL32rgLFesmXdwClBmMiz3ETpulDW0gg5wNDdr
-	 yiWveXEvTiwBaP/ErNijF9ObzItxNgXlSQH28Q/dm5nWp9wGutgiCZMn57VvoMJb5t0v8
-	 x7EKbFgwrw/E13AoI5JFnQP/TT8Ufl6KGGd4V2Y/jv9Mkt/eHmgE49NH8B0LLcP/c9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GVv2Hcjq;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
+	b=MgqLceDx10K7Dx2/nnapZW3uCb2YcNLAR5MZ1Cm19FzLvkxRrYZDaflpnM7NRR7MbPbT
+	 JTMX214eBhbF/ySW2L8s+wH7BRE3Cyi1XNM9ayVNL2h48mpfD+pMhwsNw9JcmvEmTSxVs
+	 YB8GIAi5Souq4KlPizMVClB9c8vQ78aFrrQfbhe1B812IGxa5DWLETdE3uwOGAdqw4T8n
+	 LINS9la/OGdpNSYsXvpmNVF8GhGp2vq/atQgtgt3OuroK811qXRZm2lG5d5Z+AH1z9MBC
+	 wY+IZyAP2DcyP3w4VtoOwpBBlI6TjbBzoShlXEGQBPkxEoyKM+3YbHrlxjQbNxn6VYw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C41cqylo;
+	arc=fail smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF30606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DF30606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A0E606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:22:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A0E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GVv2Hcjq
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a1947498bso222088eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:21:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C41cqylo
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-156cbe59524so35698c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:22:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793121727; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aGrQpJwzcqmzo90EWI/49w3FNTwezQt/EwD3BEidzPyBQEMXKeBC2NC3+EcOPRSPmd
+         NXUzIXkl5cQJwoZee8wXS50sCa5dk9Cq17uyFHFlarLWsNA1vWL5SgSaLtQw92BI9MkK
+         +b72xSlfkhabV9XUtSG+act0aBi/wnyAU/kTpv0keMhnI+q55PIOKBF7vEfXwkSbtKjI
+         GCOkuXC33/nqefUTd/iUUrKZyY+HVf4/GQK+0aS8R4L7fzrZJ8pNkNW/JbSHTaVpqH3w
+         oNCfCNj2XHHaJ5EQG4BNDdlaLnF/xqx+GiPHw5Z5BhCXfcL3Mwykjg0XqNDZiNxPKjrb
+         PSxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
+        fh=/RL+0gvE7dxx07EVml/kTS8zFX7GrvRAVz3pZKIMYMg=;
+        b=MvypGbdH7ETiNINROnMwNMcyX5+FgFQnmX3FBOYXLH2S0TL6cOCr0VA8XfK2akA6y5
+         QdR1p5vcsV4xW61k42Xat+fHgA9o0nfyqfgnkANA+ty3+xaSRYGuyncE1N97G1WAWdMn
+         QcvEKtf2ZJbjdtOq6oyp6oXxiYlzKjuu1iPE22wVAIwU/30b2RlikPsyquYtI/N+5/de
+         VQeXX2xel1XaiyEgiw1KrHM4Dkpj2xdRH0C7RmLs2UM0CYRndQK4mO1OGSxfnLQctBNL
+         pm7/191PaNoVHr0vmhCWWQ/AIXDoqv5/mF0AFVUAMm28rf7Sl172Y+JnLjG7jPmNDp7R
+         FNwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793121709; x=1793726509; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4NjwcCRUit4k9bfPnEwrZTpteoTnUrUFgb+iE1jnD40=;
-        b=GVv2HcjqVBxs6XsdK+tGsX6dQUvPiAlRmb8qceFfQD0is/IFu00DFUwLT9RgIbxM13
-         2BDQcke+E/Iumo7jQ0YGoagH7oWG85o8Pj9E93dx/qJFNU6Y6uS7Cz7+CtvTMDmjWaXG
-         oOlGYp4BRu/zHAKhxHMKrQjrFlQeUJXHTwayCgJXhq5GRCDFB6QAomPn4c0P3Pbf708L
-         CL4phI6IW+vDqVTrIWAtfOVhaPWVRM9+JKTqeiXHArqdJ8Xpe3qlDrCtan9YUwxOpJhV
-         mkaEvI66t7CyR+gsQOMfjqLBlvNECXPo0ncPO5vF+93NBPyj3g1mv62GYR9+mKUSWIuh
-         mUcQ==
+        d=google.com; s=20260707; t=1793121727; x=1793726527; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
+        b=C41cqyloeS/h5Vtwj4fa7MIjm2aLukQaJNMjA01Wn+JGGCcQqxaMEk4qtaeGLTgF11
+         +xXojI6iydcNCHCInBDP9VQyo1hJAFD3dr6yQmpBM6HUXazAlicytsDrwlamPA50lS4I
+         ot5PvMH/HWpuW8LsxGwuM5M0OIfhb6YxMmvO1BL7uALyaS3FIvEjHjPJFzKMoA1yF8FI
+         hrNTtVklmnbX0GKT3t5upCjaEu9RMl7g31Ii5f+e1EuriC9yJOvccQQtUIHojQFDkmTh
+         oSuMUeEQcN3ZJUIM7OREyaxa56yxzKExGn54vpm7A5KxV62XI0nsE+2SOQIxafVeXPuA
+         1IkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793121709; x=1793726509;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4NjwcCRUit4k9bfPnEwrZTpteoTnUrUFgb+iE1jnD40=;
-        b=vFShfxDS5jQHUYweYYkmlyReCiD8ICRdQ3J5mPm4o6AuZukOf9gDjf3Lzq2W5tptQg
-         PxWwUdlTbfV9IqxJ7nKp2if7KchrfuGJsuVQz1gJwyfYvF9+HKiuAaGW2NLlDM0Cwogv
-         NQEbAGgYNQF/HFifN2z9zOfRIi8Ue63XWWkLiVNHgEsrk2BnkLl+aQCuAkJMpmvi3Eul
-         ORwC7XPV3/mBvyx8eTRFqtlsgoASw38mqRHKDDkpL9Nhy0WNaudPhrrvmFqDvqvDNoAm
-         pmJK5gsg23x3z0J1aOboHsEgmTjhBTMT1UT4SRGAavsJObx95Ohhn+ygnBBrya1BaPB9
-         sJrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxKc+H6VV4LJTXFD2sdq1JKofTsN0spOdgs3dS5sXRDlf/97bAOOvyhsZ1qcEgueFJTZlSzL47m8G3wdxo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNnl1KMIad/nbAwvT3xLVgXjz6WLEebZJRRpZvlUpMABnbpbkZ
-	kE1ScFw9ReIxoXxi0g1FHcMTYJ/KSId4Yi0RzOmP7YgGS7avh2iq2xb/
-X-Gm-Gg: AYBFou1Lshb3R8F86/wCoTtLQFygveFLT4Btjm1LHWI3DtS8cA9gO06aCisIjPW1dIw
-	Me6D1dNJ04cfgnL2jznBx6fqshrxsIJGsZCnYBnIgL/glFfkpHvbGObhhGKoek2P0VHLPjnr3/V
-	cu7xBuEGQY/Q6ySleFW6GUUKG/yEsvRyQB2dkbRU3iQmlWygVHPYpHGD1JgtptUIdxLx0opRX7d
-	IsnWBEggOsIQp7Fsj1MO7R+PNShBWc5yQM+111VrqJqFL10FUcWrSPSqryDWVS74g+VQpTv4Zx7
-	ggMz9Tsro9eKAyB62tD7Wk4DCGmi6Yh22qmvz5Scb++K/VuEadh5xaPO3wzH6rgSHdxpcCQA3sc
-	DqMEJmDSXc5dCXQjMNDOnFsVh3NU2SrqBPGH2BAW3fEciOABkj2OCvjVbJKJLLg8QPthTFnkWrB
-	qBHqd18v+uUyLR5wwhXAO4UGwt5K8z3H/NJNwxjsbHD7n/JdyKKI1o+5jxLp2+VNPWKlAPaN/78
-	Y3REkPIU5rMNYQX+pBklQNMqE6TfLYBxzcoyzY05xQs19lHNqYedreYS7KBxbaBu+RxFNirpUTu
-	T6WP3m89PKIB9gvKTLA=
-X-Received: by 2002:a05:7300:f587:b0:366:c497:610c with SMTP id 5a478bee46e88-36a204276a6mr78399eec.33.1793121709042;
-        Tue, 27 Oct 2026 10:21:49 -0700 (PDT)
-Received: from inhnjlux1020.ls.ege.ds ([49.204.164.42])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm59948763eec.25.2026.10.27.10.21.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 10:21:48 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: andrew@lunn.ch,
-	gregory.clement@bootlin.com,
-	sebastian.hesselbarth@gmail.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	lee@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH v4 2/2] ARM: dts: kirkwood: Rename netxbig LED child nodes to led-*
-Date: Tue, 27 Oct 2026 22:50:52 +0530
-Message-Id: <20261027172052.129283-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1793121727; x=1793726527;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sCMHExecnr7EVku3xKOnADgdNnCumi8ICt8RRfPLFyc=;
+        b=Iv8axTUma56rbmoYILMUVij3NfPmEQXXVsFliZeyvN+HIYELvZim/bzdaUblM1kUND
+         YPHvaX3I8mIKv0LyVMe7hgLGPJfxPibdx2XuEK934vyPrLZVlxzm7Rz9tJBhhdLvYq0y
+         uXDqRsZhq0ySFVkd3ES9722aEp3uCEzIBgvsVgXpIlFYCdyxT1+euHsNqa0BGxCeyJg9
+         2aII8ZtQgZAbrLp8a1I6Rxh6yVUzLW9OdHwB14DDZihT+4hTHkaqaxmMQKcruLzLpDV4
+         ImWkTyug8bpHTSL+DeKFA2laei2Tk5w/E3cNl41edM85WjUaR2kdHT/7LSRD6TSUfmhi
+         QarA==
+X-Forwarded-Encrypted: i=1; AKwUvByCNS/qTetWOoSc2MQqz8yBe19MIEl4objmFTuUa8YVLyH+RlXvOz0PeP8Zo7d5EwZDAOyAyDzzZ6Tvs9c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLcx3txAW7sti1GQFvP/KY53wXLs3ANHup9qh091FAFTVRN59H
+	c4cVeY4YtG8kRUeDFNQzEddDdEc86FLiIOExRFyEusWSm/uBW8ltIu+EuiBs/LuPUpVDg5PScdW
+	tz8ZG7/BxdvoUsCeI2HylIgLnt01+SLboD4n4Ku6y
+X-Gm-Gg: AYBFou1qgkHAcl4lFdeJEiAvAmj5oOTHZPdVLS4qeDsoRf72DT/xd8d1X0vJxBAoQ+N
+	2s2zw6g4YIlWfLeuez4jOhJviFFhouD989AGJy8kLgOAFLfdP8XcbDp3xbViIurrHOJNNazBZqv
+	3GIUuz8pmL/lPGbIny+ZhVzvC8CCx0ZH2RgkZFfl7WgyRk8uk6MLP/n+mS0Te0JHRUOfecWwnJ1
+	d0BvfumCTlMz1L0u2m+rrvC7r68HrEbH3pehzYJ397wCySs14LAdlhCLGC8IQLus0+xrzCcvBZX
+	Me/NVtL8tB6VV3Nnz+UU8Q/O38htQK4F03ZyijyWFK4tSJ1h4cIyqWk711I5Ern00dwEN4muuH/
+	Y9lPSguKs/aR6hq4L+W5ot9fzmNon7+pRfLaDGe6OUkdK2awswy1IGdXOk/Rnkl4fNDm1wFODNB
+	Vp9JoPax7i5sc=
+X-Received: by 2002:a05:701b:2311:b0:16a:8ffd:4977 with SMTP id
+ a92af1059eb24-199363a356emr13049111c88.17.1793121726447; Tue, 27 Oct 2026
+ 10:22:06 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,149 +104,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027124954.110697-1-zoone.rupert@gmail.com>
+ <20261027124954.110697-10-zoone.rupert@gmail.com> <auDNzWMPy0VQcazt@ashevche-desk.local>
+In-Reply-To: <auDNzWMPy0VQcazt@ashevche-desk.local>
+From: Marco Elver <elver@google.com>
+Date: Tue, 27 Oct 2026 18:21:29 +0100
+X-Gm-Features: AclHuK8orvmEUb-f7W0Au_t0jJZW6yeRJKoPRMRQ-D7ejg8oB9UAKvhykKBG7IM
+Message-ID: <CANpmjNNNw3Ont87-Uqo_j4YrPbamHLue=EAMkc+B66Q_yywQ9A@mail.gmail.com>
+Subject: Re: [PATCH v4 9/9] iio: enable context analysis for all drivers
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Rupesh Majhi <zoone.rupert@gmail.com>, Alex Lanzano <lanzano.alex@gmail.com>, 
+	Andy Shevchenko <andy@kernel.org>, Benson Leung <bleung@chromium.org>, 
+	David Lechner <dlechner@baylibre.com>, Guenter Roeck <groeck@chromium.org>, 
+	Jagath Jog J <jagathjog1996@gmail.com>, Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+	Jinseob Kim <kimjinseob88@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+	Kevin Hilman <khilman@baylibre.com>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Matti Vaittinen <mazziesaccount@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Remi Buisson <remi.buisson@tdk.com>, chrome-platform@lists.linux.dev, 
+	linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bart Van Assche <bvanassche@acm.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Rename the LED child nodes in kirkwood-netxbig.dtsi and
-kirkwood-net5big.dts from descriptive names (e.g. blue-power, red-sata0)
-to generic led-* names to match the new YAML binding schema.
+On Tue, 27 Oct 2026 at 17:14, Andy Shevchenko
+<andriy.shevchenko@intel.com> wrote:
+>
+> On Tue, Oct 27, 2026 at 02:49:54PM +0200, Rupesh Majhi wrote:
+> > All of drivers/iio now builds without context analysis warnings, so
+> > enable it in every Makefile that builds objects, replacing the entry
+> > for dps310 alone.
+>
+> ...
+>
+> > +++ b/drivers/iio/Makefile
+>
+> > +CONTEXT_ANALYSIS := y
+>
+> Can we reduce the churn to only adding it here and do some magic to propagate
+> this recursively, please? I truly believe it's feasible to achieve.
 
-Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
-Fixes: 59cf91cf87ab ("dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610270710.aWUm0pbv-lkp@intel.com/
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
- arch/arm/boot/dts/marvell/kirkwood-net5big.dts  | 14 +++++++-------
- arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi | 14 +++++++-------
- 2 files changed, 14 insertions(+), 14 deletions(-)
+Should be:
 
-diff --git a/arch/arm/boot/dts/marvell/kirkwood-net5big.dts b/arch/arm/boot/dts/marvell/kirkwood-net5big.dts
-index 2497ad26b5b6..49deeb40f4e2 100644
---- a/arch/arm/boot/dts/marvell/kirkwood-net5big.dts
-+++ b/arch/arm/boot/dts/marvell/kirkwood-net5big.dts
-@@ -85,8 +85,8 @@ g762_clk: g762-oscillator {
- 		};
- 	};
- 
--	netxbig-leds {
--		blue-sata2 {
-+	leds {
-+		led-0 {
- 			label = "netxbig:blue:sata2";
- 			mode-addr = <5>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -96,7 +96,7 @@ NETXBIG_LED_SATA 1
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		red-sata2 {
-+		led-1 {
- 			label = "netxbig:red:sata2";
- 			mode-addr = <5>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -105,7 +105,7 @@ NETXBIG_LED_ON 2
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		blue-sata3 {
-+		led-2 {
- 			label = "netxbig:blue:sata3";
- 			mode-addr = <6>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -115,7 +115,7 @@ NETXBIG_LED_SATA 1
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		red-sata3 {
-+		led-3 {
- 			label = "netxbig:red:sata3";
- 			mode-addr = <6>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -124,7 +124,7 @@ NETXBIG_LED_ON 2
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		blue-sata4 {
-+		led-4 {
- 			label = "netxbig:blue:sata4";
- 			mode-addr = <7>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -134,7 +134,7 @@ NETXBIG_LED_SATA 1
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		red-sata4 {
-+		led-5 {
- 			label = "netxbig:red:sata4";
- 			mode-addr = <7>;
- 			mode-val = <NETXBIG_LED_OFF 0
-diff --git a/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi b/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
-index d4edf2727388..23e8e8b4597d 100644
---- a/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
-+++ b/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
-@@ -115,7 +115,7 @@ &gpio1 13 GPIO_ACTIVE_HIGH
- 		enable-gpio = <&gpio0 29 GPIO_ACTIVE_HIGH>;
- 	};
- 
--	netxbig-leds {
-+	leds {
- 		compatible = "lacie,netxbig-leds";
- 
- 		gpio-ext = <&netxbig_gpio_ext>;
-@@ -123,7 +123,7 @@ netxbig-leds {
- 		timers = <NETXBIG_LED_TIMER1 500 500
- 			  NETXBIG_LED_TIMER2 500 1000>;
- 
--		blue-power {
-+		led-0 {
- 			label = "netxbig:blue:power";
- 			mode-addr = <0>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -133,7 +133,7 @@ NETXBIG_LED_TIMER1 3
- 			bright-addr = <1>;
- 			max-brightness = <7>;
- 		};
--		red-power {
-+		led-1 {
- 			label = "netxbig:red:power";
- 			mode-addr = <0>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -142,7 +142,7 @@ NETXBIG_LED_ON 2
- 			bright-addr = <1>;
- 			max-brightness = <7>;
- 		};
--		blue-sata0 {
-+		led-2 {
- 			label = "netxbig:blue:sata0";
- 			mode-addr = <3>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -152,7 +152,7 @@ NETXBIG_LED_SATA 1
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		red-sata0 {
-+		led-3 {
- 			label = "netxbig:red:sata0";
- 			mode-addr = <3>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -161,7 +161,7 @@ NETXBIG_LED_ON 2
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		blue-sata1 {
-+		led-4 {
- 			label = "netxbig:blue:sata1";
- 			mode-addr = <4>;
- 			mode-val = <NETXBIG_LED_OFF 0
-@@ -171,7 +171,7 @@ NETXBIG_LED_SATA 1
- 			bright-addr = <2>;
- 			max-brightness = <7>;
- 		};
--		red-sata1 {
-+		led-5 {
- 			label = "netxbig:red:sata1";
- 			mode-addr = <4>;
- 			mode-val = <NETXBIG_LED_OFF 0
--- 
-2.34.1
-
+subdir-ccflags-y += $(CFLAGS_CONTEXT_ANALYSIS)
