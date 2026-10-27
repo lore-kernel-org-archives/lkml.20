@@ -1,57 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117112;
-	b=e6qAIY+lDIWMuAKdhVs8bVOhRQy1lruHV0dEprN3RK7QmpZEzA4kSFvbn9t204H2G/XP
-	 lYwqOVL0jBikHjm4JUyXcapz6B4nHYmHEgTYz1cuwW1yKndqjZLrWaNcWFl15CWy70ABN
-	 4g83mLmdIztHugcJH159Z4yPsIgNZMBtr5ZBzW2faw5vNyE1F/ZQvvrFH+ECtyE59o2e7
-	 BUK8MHv99Q4/NhI8RF50YxEfdxMYzRonlcIHgPHMuZ9TsBZK9NFbF5Jn5xzZAyh1fSgZl
-	 m43KY9Yw6aOdzxhPlwLT404RCNva6uMnkLD7c+idSFaB7ZYIJHkeUbbrXwdi2MzYntw==
+	t=1793117130;
+	b=XrxCH+oU9KtatjOgTHsMRlqpmKQLvbozXmQD5cDPF27fZya68JStfqljHPuvZdid0jcy
+	 iUvlmn1JvOZVY5Or3Qr5nRxWiQQ9yl14E6nKg0wr+uucyJu+j3G4Czc66DBfUfoU6cO+F
+	 nuRGTVED6F+NH+eELyyRXktwBNgw2WybPNMJGZCqvzUGUqekR0v7h4PukQapdezI9vCWz
+	 0riY/OIsPAijHsVcKmslS1fbSUX4ai++hkfZTY+qnGAxKe/MlsvANhjNJYQUadkKcXvP+
+	 Ii/qLyW2igj5lGYSKaNjm455+r0aXxiilvmKyYWPHzzTYRd9sEOhAKBecrhBsAkuLcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117112;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117130;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=nH+VUOwPiLWELl3Tmh6lF2sEqX8N/UojmX/Q6srT+o0=;
-	b=vNfeUbm9NYuOoWK+ib8w0WSX0oaho6SddOgah7r4Gh9wyyh5yWa9zfzyG2im5II9DYIi
-	 gLAbpJN6POgg5Z8yNwTpVxOOFFtvTZFB/CLWi0S27LWcv51d+QVai2BFY4s9egi1zrQpC
-	 mp+4c8OtMJR06jVuXSlR7VqNcEIXLHQQul2gxs9y/+XT9Lexg/bDMHZC92L/4xQBA3LA4
-	 uK7ll8zrJWjXF48dapGu8QxGJOHVYEtRDfIB4XMvXjQFJVmqJ9b9bCcAQR8TDiapjL0Fj
-	 gDwgIx2iJhokwNlE+Ywwb7Pc55iogMIeRFwgJVQcvIstvGgrRvawvyGp22fFLjO24/A==
+	bh=znwq9KG/l2CzOedJVktIS5u20w/kYRWrngVGRcQMqdI=;
+	b=Wj4FczkUv1UCVOYGroWUf+Zbwr8Y2ndfZYgmicOMWi1d+dFdmGReBIkPd5xg/J1yuUBG
+	 UAhU0oRNzsOldhVVzDb7Miv2nTNCu1GhXfwCa1hilF+KKjNbNDvg+TESVxwqOtGAuNq8S
+	 uRmgVK7jUjCkc0hMyMus7yYTE2jkBoi2nPqA7MB1vYqKeCkKuF+R3w3LlVA89Tkzs4BOZ
+	 ISjMZLm1XCJkupwiK89KrKuzCZ9YTlfeBdxJf0tqFFmeAzxty5fX/IrXVal82cVkL1e9U
+	 XYKd5GW+SxUX61z8JfC0/qL9vtgSvjCn0gVCYF+B86chJJnJeD+FRCZo+F8rd+bBNOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mlTxIFuS;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5447E60A2616;
-	Tue, 27 Oct 2026 16:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5447E60A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793117104; x=1793376304;
-	bh=nH+VUOwPiLWELl3Tmh6lF2sEqX8N/UojmX/Q6srT+o0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=tmpzVkCVtFh8fUl4Zw3KkD/B61mnXrSGU3g1xMp8Bi6peJUc9iZhhdrWzm+Pu4SM3
-	 6Kw2lLpVlKLplc5a3WYkYIPp7N1YSo/ImoZzlt649QL6OEsTYG7Jx+t/2wbTP1Y0OS
-	 n96sS8bSVk1JKuQTneyTNREkq85X+qYRgg/HljvhJ0MxvuunFvDDtsjaH1CP1EuRYL
-	 1qvbLOWo8AAh00ALfFOfQbx7jCZk5KjcVc8gvFlg+BvZRjMipTzxLNRxPN+ZdWBBww
-	 v4VlrJfG4pY3hLL6VBc9b+OW/Ib9byNfSneONKg7/btwAX788g06UD9pkJrb1FEbxE
-	 cmo5RSTfjHc6w==
-Date: Tue, 27 Oct 2026 16:04:55 +0000
-To: netdev-bot+sashiko@kernel.org
-From: Paul Moses <p@1g4.org>
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com, chwee.lin.choong@intel.com, faizal.abdul.rahim@linux.intel.com, horms@kernel.org, vinicius.gomes@intel.com, sasha.neftin@intel.com, matthew.vick@intel.com, aduyck@mirantis.com
-Subject: Re: [PATCH net 3/3] igb: prepare TSO and checksum offloads before TX timestamps
-Message-ID: <i3Glqm96F2TwAGa6takMMBWz5Fe0r5gw23k57lIUGuQSqsiCFRrzCutLPLR09oErj81K8M1EocaXjYXMH0omemFq_0aqO9HSat904_5_c0k=@1g4.org>
-In-Reply-To: <179310343105.3134.12907560938189136535@kernel.org>
-References: <20261026091549.605810-3-p@1g4.org> <179310343105.3134.12907560938189136535@kernel.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 5577dc02ccf452cd87aa75f780246daa3d7ea01b
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B4E606A31D;
+	Tue, 27 Oct 2026 16:05:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1B4E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=mlTxIFuS
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 35F05493;
+	Tue, 27 Oct 2026 17:03:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793116995;
+	bh=pbXoieiNF/gtZjfmWjqIF4b0//1+leDv9Tw4jjv2icA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mlTxIFuSmDKAyLhJHu8w4sWqvENLd6lyex5pzrRJUyF8YgYAXOV6r4j4e1fyAVqz7
+	 KXP75fxMvsomoH6FIA8wz37M5QH22MgBuYObYtBHKzdrZVDvrsbPdY/ylhz5rxjIVx
+	 cxi8+Cvg3XxMu65SgrZXR7xOIlx7q2saKis7W4Xo=
+Message-ID: <80fe2c30-bcb8-49b1-aca3-d5b7ec69a5c3@ideasonboard.com>
+Date: Tue, 27 Oct 2026 16:05:24 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,33 +54,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
+To: Antoine Pichot <antoine.pichot@gmail.com>, linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org, djrscally@gmail.com,
+ hansg@kernel.org, andriy.shevchenko@linux.intel.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261026111032.88355-1-antoine.pichot@gmail.com>
+ <20261026111032.88355-2-antoine.pichot@gmail.com>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20261026111032.88355-2-antoine.pichot@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> [Severity: Low]
-> Does this description match the tree this patch applies to?
+Hi Antoine
 
-It needs to be clear that it is affected by that commit.
+On 26/10/2026 11:10, Antoine Pichot wrote:
+> ov7251_check_hwcfg() stores i, the index into the firmware's
+> link_frequencies array, in link_freq_idx, which the driver then uses to
+> index its own link_freq[], pixel_rates[] and pll1[] tables. The matching
+> driver entry is j. Store j.
+> 
+> Observed on a Surface Book 2, where ipu-bridge lists one link frequency,
+> 319.2 MHz, which is link_freq[1]: V4L2_CID_LINK_FREQ reads 240000000,
+> and the pixel rate and PLL registers are off the same way.
+> 
+> Fixes: cc125aaa5a78 ("media: i2c: Provide ov7251_check_hwcfg()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+> ---
 
-> - [Medium] igb_tx_csum() still ignores the return value of
->   skb_checksum_help() (igb_main.c:6170, `default:=E2=80=A6
+Thanks for the patch, this is right:
 
-out of scope
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 
-> - [High] This problem wasn't introduced by this patch, but
->   ixgbe_xmit_frame_ring() has the same ordering bug this series fixes in=
-=E2=80=A6
-
-fixed
-
-> - [Medium] This problem wasn't introduced by this patch, but on the
->   igb_tx_map() failure path, cleanup_tx_tstamp in igb_xmit_frame_ring()=
-=E2=80=A6
-> - [Medium] This problem wasn't introduced by this patch, but the
->   cleanup_tx_tstamp path in igb_xmit_frame_ring() calls=E2=80=A6
-
-out of scope
-
-No plans for immediate followups, anyone/everyone feel free.
-
+>   drivers/media/i2c/ov7251.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+> index fce6344b51..1413f1856e 100644
+> --- a/drivers/media/i2c/ov7251.c
+> +++ b/drivers/media/i2c/ov7251.c
+> @@ -1523,7 +1523,7 @@ static int ov7251_check_hwcfg(struct ov7251 *ov7251)
+>   		goto out_free_bus_cfg;
+>   	}
+>   
+> -	ov7251->link_freq_idx = i;
+> +	ov7251->link_freq_idx = j;
+>   
+>   out_free_bus_cfg:
+>   	v4l2_fwnode_endpoint_free(&bus_cfg);
 
