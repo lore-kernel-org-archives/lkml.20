@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105504;
-	b=DGHOYSu+j9B4PrX42xgTbXpoZQkfwUn3TBqEClRUTSVcKzBuJ0wbJz6UTUi5z2odQd7R
-	 i3nRS25t0EZ2AzpjNcTedIvAV6TDbVSI44pREAuHbe2I/jnfRB0JMt+lTSImCmgecArrp
-	 17134WmdCleGTbRs9x6PjhiuwOb3PE7CBa121B2ei1rzsmf5XF7ZuuOWMi0IWtsUEnKjx
-	 lyRI1rH+IdeywG2vcUAa06UZewfypBkmPsJkfkB73JSHLflhGit5tJxmZGB0TxvVLDw7g
-	 wthkTjCZs6SulFRjhDfVu8hO4mF+87OyzHNjcy7FPu5fAj1wrSq/ENJ6K5HQoCgby/w==
+	t=1793105536;
+	b=zp2RjtJlNSZkLYKlmf37nL2he5wnXREWaeSK+thQEEZGc8pwWMiAIKZw08n/4JknqTEu
+	 ZdN0l09DkPP36OA1ZV9z5uir9QzmCMJgJHyX6cwb8sOW50CsQqiBn9P2jUmuF3lhuYwa3
+	 wlmRbnd8Xa3otPLw/pMmTlGsAaSE5pFgqf0BG4a9/D3V2i/z2q6GalVovTkGS1wWSy9ni
+	 ZeSIa+2R6pbErgeBbcvTWG4ctMUUMJLIIj8bwwv563PUWsoqSZSoxk9ICgxO337iyd/ff
+	 TkMKtKqYOXwpXy8ue2Uxll/gw8IVymAfG7vzFNsduCfBVwt9t0GXg6RfwSe9Kk0MOgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105504;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=efDeR2XSeCkmXonnhL9f+/EjSqJf0lpR8aMZHhXLKgY=;
-	b=qN4leMQQlSs89pI0AL8hpgFcYoyVAMBigvXCNGYMecuGZyZ4MVG8wc094E6ht6UAFoUh
-	 phPQkcfX1TsTndb0tBG45ZB7u1SvVavzyIPfV7pj8N/AA+3DLDz1VYVSKETWxP3VNI+aN
-	 f7h30Vzy46g2syYWQVOGuuia6AosArnjEY1hJXPrO3bHuqBAXiT8ecMUZfwIo6q0rJzx6
-	 nxlNLnnq8MdqtmCy33D2Dkqt+/s8iUsoU/U8B3zEZfr3EsTk3Pgf39MZZ6laAHf2dIVo9
-	 an6PYdholuaVaOKTHcrnTII/JLIdKwsK9k+Vk4KzG/nuRtQpSBCB2UJ78tFmH794z8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105536;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=TG52W8e2RYtjGPTZeIzpkudV29Okj7bliXK0rKtc2f4=;
+	b=gBnKNfwgeBTRL05EiSo1wyS9Ky1T1Wkz8XLjpSdTn7ph5Cqfl0hGjvJZn1aSoVlVeCMU
+	 ZwWv4K5ID7gI5kOtJZdOxFiDWrZ/4HOI56aVX5dsOL0lMj6yTisD5aml9Cjv3xlHrFexR
+	 VhObceji04W3nTjRK7MZnZb9shZk4n8u6jzSk/76KBCPvQb95TPtGgb5PXStRQJEsQJL8
+	 ciQhIpGlEbrZtrkrPmSqJFXobzMF1bi2cH0oL3oJIiM+HYofk33PwrWgkI8kVZ/8QnCl9
+	 Gt4gcmcpVvjIJfWzHm1WY244HzKMmc/xSCxOxftWOcbuUkVL0kPJvDouJZTUsMqKQYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hRMKpeKJ;
-	arc=none smtp.remote-ip=95.215.58.36
-Received: from mta1.migadu.com (out-36.mta1.migadu.com [95.215.58.36])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEC4606A329
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:51:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFEC4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=hRMKpeKJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SeVru1AGpGZ8MBrHreB8ar7ikkMNlrnuspWoqBYx4Rg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793105500; v=1; x=1793710300;
- b=hRMKpeKJkOB5EUYHKNhIKOzH+nw/ZLtbw1aWkCVo8AQh+uyWKGCbcfT8d+QsXQGf8pRSq1+5
- 872Rj3vY0rtOFNHXOQsI4fHypVAQvPQbjqj0MxUCS351btpj+6wvdlTuqbDOnFtHxfPJQKzQ4MN
- ouPqPjpV2X2iMMwVJGaIS2Ww=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3e7d0284ffbc10b2;
-	Tue, 27 Oct 2026 12:51:40 +0000
-X-Mizu-Trace-ID: 3e7d0284ffbc10b2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d6a083c4-2946-4a91-8e54-be28c50c816f@linux.dev>
-Date: Tue, 27 Oct 2026 20:51:33 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1D6606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D1D6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
+Received: from escalante.csail.mit.edu ([128.52.128.198])
+	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xLgew-00BINw-9J;
+	Tue, 27 Oct 2026 08:52:10 -0400
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>,
+	Andy Chiu <tchiu@tenstorrent.com>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: [PATCH v1] riscv: uaccess: Report partial progress when the word copy faults
+Date: Tue, 27 Oct 2026 08:52:09 -0400
+Message-ID: <20261027125210.843589-1-nickolai@csail.mit.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,123 +56,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, cgroups@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/cgroup: Don't count cgroup.threads in
- test_cgcore_proc_migration
-To: Sasha Levin <sashal@kernel.org>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-References: <20261024140933.315221-1-sashal@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261024140933.315221-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+write(2) from a buffer whose last 40 readable bytes are followed by an
+unmapped page spins in generic_perform_write(), holding the inode lock,
+until the task is killed, instead of returning 40; read(2) into such a
+buffer fails with -EFAULT.
 
-在 2026/10/24 22:09, Sasha Levin 写道:
-> test_cgcore_proc_migration() moves a process with 13 extra threads to
-> cg_dst and checks that they all moved by counting the lines of
-> cg_dst/cgroup.threads.
-> 
-> test_stress.sh runs test_core while enabling and disabling cpuset in the
-> root cgroup.subtree_control in a loop. Each change moves every task in
-> the hierarchy to a new css_set. Reading cgroup.threads walks the
-> cgroup's css_sets without holding cgroup_mutex, so when such a change
-> lands in the middle of the read, threads that were already listed from
-> the old css_set are listed again from the new one. The test then fails
-> with "not ok 8 test_cgcore_proc_migration" although the migration
-> worked.
-> 
-> Running the test's steps 40000 times in a 2 CPU KVM guest with the
-> cpuset changes going on, 5 reads listed the 14 threads two or three
-> times over (up to 36 lines), and a second read right after gave 14.
-> Without the cpuset changes it did not happen in 40000 runs. With
-> test_stress.sh, the test failed in 2 of 150 runs.
-> 
-> Check the cgroup of each thread of the process in /proc instead, which
-> other migrations can't affect.
-> 
+The unrolled word copy does eight loads before its eight stores, and
+the shift copy loads one word ahead of its store, but their fixups
+count everything from the first destination byte not stored as not
+copied. So a fault in the first block reports that nothing was copied
+although some bytes could be, which uaccess.h does not allow;
+generic_perform_write() then retries forever, as
+fault_in_iov_iter_readable() succeeds for the readable bytes.
 
-Reproduced on next-20261023 under test_stress-style interference
-(pinned to 2 vCPUs): without the patch the test failed once in 17161
-runs, and reading cgroup.threads in a loop under the same churn showed
-duplicated threads, up to 38 lines. With the patch, no failures in
-18578 runs.
+Make those fixups finish the copy a byte at a time from the first byte
+not stored; the byte copy's fixup then returns the exact count.
 
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
-Tested-by: Tao Cui <cuitao@kylinos.cn>
+Reproduced on riscv64 under QEMU with write(2) to tmpfs and ramfs; the
+patched kernel returns 40.
 
-Thanks,
-Tao
+Fixes: 4b05b993900d ("riscv: uaccess: Return the number of bytes effectively not copied")
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+---
 
-> Fixes: 1a99fcc035fb ("selftests: cgroup: Run test_core under interfering stress")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  tools/testing/selftests/cgroup/test_core.c | 36 +++++++++++++++++++++-
->  1 file changed, 35 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/cgroup/test_core.c b/tools/testing/selftests/cgroup/test_core.c
-> index 20d2b63774c37..53592bf309fac 100644
-> --- a/tools/testing/selftests/cgroup/test_core.c
-> +++ b/tools/testing/selftests/cgroup/test_core.c
-> @@ -9,6 +9,7 @@
->  #include <sys/stat.h>
->  #include <sys/wait.h>
->  #include <unistd.h>
-> +#include <dirent.h>
->  #include <fcntl.h>
->  #include <sched.h>
->  #include <stdio.h>
-> @@ -567,6 +568,39 @@ static void *dummy_thread_fn(void *arg)
->  	return (void *)(size_t)pause();
->  }
->  
-> +/*
-> + * Count the threads of the current process, or return -1 if any of them
-> + * is not in @cgroup. Unlike reading cgroup.threads, this is not affected
-> + * by other migrations happening at the same time.
-> + */
-> +static int count_threads_in_cgroup(const char *root, const char *cgroup)
-> +{
-> +	char line[PATH_MAX];
-> +	struct dirent *de;
-> +	int cnt = 0;
-> +	DIR *dir;
-> +
-> +	snprintf(line, sizeof(line), CG_PATH_FORMAT, cgroup + strlen(root));
-> +
-> +	dir = opendir("/proc/self/task");
-> +	if (!dir)
-> +		return -1;
-> +
-> +	while ((de = readdir(dir))) {
-> +		if (de->d_name[0] == '.')
-> +			continue;
-> +
-> +		if (proc_read_strstr(atoi(de->d_name), false, "cgroup", line)) {
-> +			cnt = -1;
-> +			break;
-> +		}
-> +		cnt++;
-> +	}
-> +
-> +	closedir(dir);
-> +	return cnt;
-> +}
-> +
->  /*
->   * Test threadgroup migration.
->   * All threads of a process are migrated together.
-> @@ -597,7 +631,7 @@ static int test_cgcore_proc_migration(const char *root)
->  	}
->  
->  	cg_enter_current(dst);
-> -	if (cg_read_lc(dst, CG_THREADS_FILE) != n_threads + 1)
-> +	if (count_threads_in_cgroup(root, dst) != n_threads + 1)
->  		goto cleanup;
->  
->  	ret = KSFT_PASS;
+Notes:
+    This patch was prepared with the help of an AI tool.
+    
+    The scalar copy also runs when the vector copy is in use: for copies
+    below riscv_v_usercopy_threshold and for the rest of a vector copy that
+    faulted. Under QEMU -cpu max a 4096-byte write(2) from the buffer below
+    hangs as well.
+    
+    Reproducer (riscv64, no privileges; the directory is on ramfs or tmpfs):
+    
+      gcc -O2 -o uaccess-progress uaccess-progress.c && ./uaccess-progress /tmp
+    
+    Before (mainline d135ab453a74, defconfig, QEMU -cpu max):
+    "read:  -1 (expected 40)", then the write spins in the kernel until the
+    alarm kills it ("Alarm clock"). After: "read:  40 (expected 40)" and
+    "write: 40 (expected 40)".
+    
+      /*
+       * read(2) and write(2) of 100 bytes from a buffer with 40 bytes before an
+       * unmapped page: both must return 40.
+       * Usage: uaccess-progress <dir on ramfs or tmpfs>
+       */
+      #include <fcntl.h>
+      #include <stdio.h>
+      #include <string.h>
+      #include <sys/mman.h>
+      #include <unistd.h>
+    
+      int main(int argc, char **argv)
+      {
+      	long pg = sysconf(_SC_PAGESIZE);
+      	char path[256], *p;
+      	ssize_t r;
+      	int fd;
+    
+      	snprintf(path, sizeof(path), "%s/uaccess-progress", argc > 1 ? argv[1] : "/tmp");
+      	p = mmap(NULL, 2 * pg, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+      	if (p == MAP_FAILED || munmap(p + pg, pg))
+      		return 1;
+      	memset(p, 'x', pg);
+      	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0600);
+      	if (fd < 0 || pwrite(fd, p, pg, 0) != pg)
+      		return 1;
+    
+      	r = pread(fd, p + pg - 40, 100, 0);
+      	printf("read:  %zd (expected 40)\n", r);
+      	fflush(stdout);
+    
+      	alarm(5);	/* the unpatched kernel never returns: "Alarm clock" */
+      	r = pwrite(fd, p + pg - 40, 100, pg);
+      	printf("write: %zd (expected 40)\n", r);
+      	return 0;
+      }
+
+ arch/riscv/lib/uaccess.S | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
+
+diff --git a/arch/riscv/lib/uaccess.S b/arch/riscv/lib/uaccess.S
+index cf8586a937de8..99886ab86802e 100644
+--- a/arch/riscv/lib/uaccess.S
++++ b/arch/riscv/lib/uaccess.S
+@@ -88,9 +88,9 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
+ 	beq	a0, t1, .Lskip_align_dst
+ 1:
+ 	/* a5 - one byte for copying data */
+-	fixup lb      a5, 0(a1), 10f
++	fixup lb      a5, 0(a1), 11f
+ 	addi	a1, a1, 1	/* src */
+-	fixup sb      a5, 0(a0), 10f
++	fixup sb      a5, 0(a0), 11f
+ 	addi	a0, a0, 1	/* dst */
+ 	bltu	a0, t1, 1b	/* t1 - start of aligned dst */
+ 
+@@ -169,7 +169,7 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
+ 	sub	t4, a5, t3
+ 
+ 	/* Load the first word to combine with second word */
+-	fixup REG_L   a5, 0(a1), 10f
++	fixup REG_L   a5, 0(a1), 12f
+ 
+ 3:
+ 	/* Main shifting copy
+@@ -181,11 +181,11 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
+ 
+ 	/* At least one iteration will be executed */
+ 	srl	a4, a5, t3
+-	fixup REG_L   a5, SZREG(a1), 10f
++	fixup REG_L   a5, SZREG(a1), 12f
+ 	addi	a1, a1, SZREG
+ 	sll	a2, a5, t4
+ 	or	a2, a2, a4
+-	fixup REG_S   a2, 0(a0), 10f
++	fixup REG_S   a2, 0(a0), 13f
+ 	addi	a0, a0, SZREG
+ 	bltu	a0, t1, 3b
+ 
+@@ -203,16 +203,31 @@ SYM_FUNC_START(fallback_scalar_usercopy_sum_enabled)
+ 	 */
+ 	bgeu	a0, t0, .Lout_copy_user  /* check if end of copy */
+ 4:
+-	fixup lb      a5, 0(a1), 10f
++	fixup lb      a5, 0(a1), 11f
+ 	addi	a1, a1, 1	/* src */
+-	fixup sb      a5, 0(a0), 10f
++	fixup sb      a5, 0(a0), 11f
+ 	addi	a0, a0, 1	/* dst */
+ 	bltu	a0, t0, 4b	/* t0 - end of dst */
+ 
+ .Lout_copy_user:
+ 	li	a0, 0
+ 	ret
++
++	/*
++	 * A fault in the word or shift copy: redo the rest a byte at a time
++	 * from the first dst byte not stored, so that every byte before the
++	 * faulting one is copied and counted.
++	 */
++#if !defined(CONFIG_HAVE_EFFICIENT_UNALIGNED_ACCESS)
++13:	/* shift copy store: a1 is already one word ahead */
++	addi	a1, a1, -SZREG
++12:	/* shift copy load: the src of a0 is a1 + a3 */
++	add	a1, a1, a3
++#endif
+ 10:
++	mv	t0, t5
++	j	.Lbyte_copy_tail
++11:
+ 	sub a0, t5, a0
+ 	ret
+ SYM_FUNC_END(fallback_scalar_usercopy_sum_enabled)
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.53.0
 
