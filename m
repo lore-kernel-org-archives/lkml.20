@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793112069;
-	b=DgswCvh/9Q5pgjhaY2krVyxadpAUGRLRcAIZmgdx/6Up7tb6iJ5UWTj/dj6PNisg28mH
-	 UZoNQAE2Nm6cVQY96vlLXiX1JS7MhEYws9syZ94yLqZrZgFa+UZJzBBT24HYuxELcdR/Q
-	 ZF8fNjiY1i5pvaZwaFlvCcJ/Lv3fSqZlzUG7S4MlJ67K31JRsE8VQTLPza5aiu1xj/k0Q
-	 dYiJ+u0ILvLWYKLHJ7bpB0T3Aovny2YjnOQWjIwTYZU9QQ8zuNDTXv4plmFSYqYpSBpd2
-	 A84oeWNIJ6S7mBgFUmYLFOAijjiQwSauXkCt1ESrqWi6q4PdN79teJQ0ZRVn3BzUnzw==
+	t=1793112055;
+	b=BZ08VnsVEgBHdUice50N5Ny8vaJRlmIzm4pMThWMNGsAKHR7IOCVoeOG67pfvYessZc5
+	 441LbxZfMei3259kAX9WxyzofzJ6rLTVS7HyP6lBONc/6K+nasMms1KozRACOq5MpSRPY
+	 Ih0z8aNMFFX38E60eu1s0wn6siuztkTCffqvkVfGYazotzQXiJ2KRQSdg3elptQ7+MKJy
+	 toSpf4ObvWIXWatmf8JmTMzI1p/0OLfiTYKpHHxvu0cYEvN5AqqemYgkRjWuTurdCURye
+	 b1ww6589PSTOcETR4I3lhUTs/xvDY5MMW/Yz1FnkNrVWot1f2HHQ496kgNcQFfvFxow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793112069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793112055;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=cFM+g1SiyPDumjwZqbBa+enhuUcW8n1bsZiLDhvDE10=;
-	b=JCzCZnVI7hqu85C9ZIaHJknpgXf8pYjhTpvJ6Q/dVoXqlypkpUIzFGhOX0Rm3SxdDIkj
-	 gBGZu3kzLyrh77/Q3J8qfHSJkG0QMAmBsFtekHBg0frl2hW3xjT8nyREKt8pQ9ip5S7Zk
-	 22CeXTvP8GjdpuXRTJOPGg8RTpF3n8ASUKs7RIfdZWgOtPYmNqhq1AtZ/ROZgYbD+rydE
-	 V9S8PBpVGNj7STJIvbpg3x3HNQl599Fa/8iMHjmy1bKHQ9iA3GLA1rmJLLvHXnAvxuU24
-	 bBjOI7YQ+l21RpqySf5cdop0fRU2yzHa2WPXu9UCCW0R0h7H0oHpQYdYS9Ts1YaohwQ==
+	bh=tWV+n38NPmzuNbkdGpvOIpv6BLZP2NlcEarfp1bLPOA=;
+	b=lmvqLHq9mGsxqwey34OpjC3J90euFnviz+sh1cM/sh03LxDL6iLWu+u8r1RkI2bFsp7p
+	 Ssxr8+IA0lNyKcl4YcjPmXFlI2oLDjLNOyX17a9QyJvk7dgKJXgsGQB4U/p+d3Fq+qQ/L
+	 Tb+BptCXmh8JB7YRPXnEMIKtFHo0o/2TIA4rfiMkAVk06n/IS4KE0s6goZPn8mCVvlBGd
+	 o5HEjQKKKA7q/kNDkLgY97HO+aHgd807hhLnSCgSHiTmmJ9EzZuc+Qp3kgF9qoY9OSVOA
+	 e8SEthO9KPbWHkJAfkJQcYjQMoJMliUjXiFmyhjE/3qFqgkBO7FdoqZDnziUNiYkstA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lPOyHBlK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EwK9gHRG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993FA60A3807;
-	Tue, 27 Oct 2026 14:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19A5606A31D;
+	Tue, 27 Oct 2026 14:40:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lPOyHBlK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5B11F031E9;
-	Tue, 27 Oct 2026 14:41:08 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EwK9gHRG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56B71F01828;
+	Tue, 27 Oct 2026 14:40:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793112069;
-	bh=cFM+g1SiyPDumjwZqbBa+enhuUcW8n1bsZiLDhvDE10=;
+	s=korg; t=1793112055;
+	bh=tWV+n38NPmzuNbkdGpvOIpv6BLZP2NlcEarfp1bLPOA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lPOyHBlK98vaZ16+KAWlGToYkVzDHDTe7njGwNW1F7so3RuMuTW7mlEtRuvFqzblz
-	 Z43udJZot2cV9YXBV+A/NzgANH3cMZIm0U+5g+cNwh6yH9wwE+gEpt1tKCqWlBkuwq
-	 ecqavdiEO8Jn4JuybeLFcf2DWluxhyRi8sgYzwUQ=
+	b=EwK9gHRGz8nFHC3Gu/DiKQhN0hvgggInZWtzW1RnsWdPwOkcqbmVBxtYN92D/Be2B
+	 n/o5qB7TcvgMBHi2xLf/yTzKZ8EBsxbyt15sibdQzVrgD5mO1JHbNNmpnpY5ehjtMN
+	 u/6f/r+Y6HEkbAWh5a9CWQ8rrerw/P/xTS49Ox/g=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 15:40:49 +0100
-Subject: [PATCH 6/7] usb: storage: shuttle_usbat: fix READ CD divide by
- zero
+Date: Tue, 27 Oct 2026 15:40:44 +0100
+Subject: [PATCH 1/7] usb: storage: ene_ub6250: fail MS init on card errors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,7 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-llm-usb-storage-v1-6-d1655e94ed10@linuxfoundation.org>
+Message-Id: <20261027-llm-usb-storage-v1-1-d1655e94ed10@linuxfoundation.org>
 References: <20261027-llm-usb-storage-v1-0-d1655e94ed10@linuxfoundation.org>
 In-Reply-To: <20261027-llm-usb-storage-v1-0-d1655e94ed10@linuxfoundation.org>
 To: Alan Stern <stern@rowland.harvard.edu>, 
@@ -62,56 +61,62 @@ Cc: Josef Bacik <josef@toxicpanda.com>, Greg Kroah-Hartman <gregkh@suse.de>,
  linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1590;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2092;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=6gMRfuTxgw3LkZ5DJDio+vffqefSa7yvQeuF7YQGea8=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPtn+e1qOzqqhb/cViva+qhRe+F/RkSbUeZX5YcyDhZ
- f3vvCPXOmJZGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAiWrsZFkziWPxh9bVmub05
- hbZiT0rbjPT6JjDMFbsq9C/EJvj9E5eiy15Bk6at09TcDAA=
+ bh=oN5hI8pmZBRHVu9pggij26+NO2nPSqoodzFsZ4g2NeU=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPtn9SZHnC3P95W1fNX2P/9DXi26Yt5BO+dvCW7MckU
+ 5UtxlPYO2JYGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAizNoMMy5vPKFcOivr/OQJ
+ 6bxv925RVFmwgGHBwT267pbt15y3zDfdpWEwS/3U0UUMAA==
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-A READ CD command of 64KiB or more with a zero transfer length, which
-any user who can open the CD device node may send with SG_IO, oopses
-the kernel with a divide error on an HP 8200e CD-RW behind a USBAT
-bridge.
+Inserting a Memory Stick that has no usable boot block, for example a
+blank or damaged card, into an ENE UB6250 reader oopses the kernel with
+a divide error on the first READ(10).
 
-usbat_hp8200e_handle_read10() splits large reads into chunks of whole
-sectors and, for READ CD, derives the sector size from the transfer
-length taken from the CDB:
+ene_ms_init() ignores the return value of ms_card_init().  When
+ms_card_init() finds no boot block it returns MS_STATUS_ERROR after
+ms_lib_free_allocatedarea() has cleared the card geometry and freed the
+logical maps, but MS_Status keeps the MS_Ready bit the reader reported,
+so ene_transport() goes on to dispatch commands to ms_scsi_irp().  The
+first READ(10) from the partition scan then reaches ms_scsi_read():
 
-    srb->transfersize = scsi_bufflen(srb)/len;
+    logblk  = (u16)(bn / info->MS_Lib.PagesPerBlock);
 
-Nothing guarantees that this length is non-zero.  The code right after
-it already falls back to a 2048-byte guess when transfersize is 0.
+with PagesPerBlock == 0.  With a non-zero PagesPerBlock the same path
+would dereference the freed (NULL) Log2PhyMap instead.
 
 The bug was found by code inspection and has not been reproduced.
 
-Fix by only dividing by a non-zero transfer length and otherwise
-leaving transfersize at 0 so that the existing fallback applies.
+Fix by clearing MS_Ready and returning USB_STOR_TRANSPORT_ERROR from
+ene_ms_init() when ms_card_init() fails, as is already done when the
+reader reports that the card is not ready.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 33842cedfc33 ("Staging: Merge ENE UB6250 MS card codes from keucr to drivers/usb/storage/ene_ub6250.c")
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/storage/shuttle_usbat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/usb/storage/ene_ub6250.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
-index 7e5424268c73..a1b64b10bbe0 100644
---- a/drivers/usb/storage/shuttle_usbat.c
-+++ b/drivers/usb/storage/shuttle_usbat.c
-@@ -1325,7 +1325,7 @@ static int usbat_hp8200e_handle_read10(struct us_data *us,
- 		len <<= 16;
- 		len |= data[7+7];
- 		usb_stor_dbg(us, "GPCMD_READ_CD: len %d\n", len);
--		srb->transfersize = scsi_bufflen(srb)/len;
-+		srb->transfersize = len ? scsi_bufflen(srb) / len : 0;
- 	}
- 
- 	if (!srb->transfersize)  {
+diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
+index a9358e04ab4b..49276ac79402 100644
+--- a/drivers/usb/storage/ene_ub6250.c
++++ b/drivers/usb/storage/ene_ub6250.c
+@@ -2110,8 +2110,9 @@ static int ene_ms_init(struct us_data *us)
+ 			MSP_BlockSize      = (bbuf[6] << 8) | bbuf[7];
+ 			MSP_UserAreaBlocks = (bbuf[10] << 8) | bbuf[11];
+ 			info->MSP_TotalBlock = MSP_BlockSize * MSP_UserAreaBlocks;
+-		} else {
+-			ms_card_init(us); /* Card is MS (to ms.c)*/
++		} else if (ms_card_init(us)) { /* Card is MS (to ms.c)*/
++			info->MS_Status &= ~MS_Ready;
++			return USB_STOR_TRANSPORT_ERROR;
+ 		}
+ 		usb_stor_dbg(us, "MS Init Code OK !!\n");
+ 	} else {
 
 -- 
 2.56.0
