@@ -1,53 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108466;
-	b=gXvjLtyCWowm0ME3/wZBM8c8Di6zFlI53H/Uab4jmwfr5fHfCcWHEqdk4oMmauqfHeyd
-	 F0k/b/udePLQi6EZhMXKGFtn2msmSQrA0lLJnBHqo8Xl94A/VnexBGjc2EMAhjLuELRZl
-	 IDf87yEtvzR3aZKxVoj4YjF6ahDJKuKdaMhGco04HYAXjWuNUaw9fIQ5v26bIpJkvcMje
-	 HfxzLxhqm75yGiAUtsitLZHyHg6akpoeK6uQpd9TNWgEDIXiJu3CZPjk0KXjAqiO31aml
-	 qNHs1Wg+beydtw6qUUNZY26//ZMFymrqwR2d9HpmRfZlcw/dbOSula8zwmcGlQGEDXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108466;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=+WVZITERpseEXuowlMAn428SGHSH6F/I+jxSn1rzuHw=;
-	b=x7p5OTdAobZ3vHO0tpE+2mf5hrZsAC9/6x8CYQTlD7xPabnjLgpHTtO59Lkz26dPRYw6
-	 GRsQBNOC4/2aJ0bKjc77Eebqz2gFuv26O12xIkx18Kn/q7rwxxVg88xPQk5DVDGxisJT2
-	 duxJoz5Y2vAmouf3FifnvQ2Fas9o/cgrXNNg8nseKzmm9C6m8GErHmAX7Tpoa8ss1mByL
-	 gwQeiBNrB725HRT+LAKcuobqLgvNm+RXInNFqqlRMUlrhIvWwZhhmBAxVAJ6P+qLVo5ok
-	 9trDP9/I+6J7vkR6U7XF6e8RTb9WlXqtjMo6wYziJm/sq9tGUShpIRLApEgxWpph6+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793108465;
+	b=5AMc3u9rxH1QCawQ7xUQK6qn6U0RjBAmqT61ZQtg2dKSfo7IGg97MixJNjMtYlk7WJ0L
+	 lWTjGZu9eHnjFz6QLKlrk9luOic8Q82CNGpw8tjSW/bRVxV+ZG7RKf8Kw9HLwQIVYAIBJ
+	 lOMrtRoENuo5QmSmMWVH7x4jF2/Rm76JHs7+QAmLPVSRwzfX6zbYkHn6ro4MSMvURR7IJ
+	 WOw+iNNrOsDgHexhNhM47hUod511/QatvC926hONML1x3tg0plpqBkucaVWpjUtEb0xqf
+	 LGop0l0asOHRVTRkzQwmeuLaxTpzC1zuE7SsPbOanJ4pwtvQdvz8XJ/3tV/R/WWGuuA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108465;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=z4ABcYleVZ28FUVIT2S2CoaW9f5LYg5R5g8UmHS0U84=;
+	b=kEHxyrNST8JSEmzPwb7UB77nGwdk86Jz+C9twde9BWLlMbo8o9rLsEpOh/5g5mgZoQXO
+	 pkJUHXEJzJiMvC+B8y2EUrLsfGURlp45wziegrpti04Bj35Y8Mzoquyvc1H2s3aRPf/Sz
+	 0f5MfaTwIGZT6SL43d/V8xFzye5PjP5pKqSGwr9i6ekSyYV9TonWZdEDe7APl8Wc+e+sG
+	 lTuyHUvK+fYEatkc+taiwlfoI77uv6mM73Q1fzLr2P88WVkbIdfn5Di/Wv2AdIXBULTdw
+	 XE3BacvoEmHKECnqgQPP8ldR97U1FQZRhnMCAyndsunRtl3Vt6Ab324CtvHami/XbdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Hd6NLDMi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.58
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012058.outbound.protection.outlook.com [40.107.200.58])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE95F606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:41:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE95F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-55bf11583d9so1398072b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:41:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793108465; x=1793713265;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+WVZITERpseEXuowlMAn428SGHSH6F/I+jxSn1rzuHw=;
-        b=rr6SwXbUfIG/vYMXrYB9b4ixm/bbStjVnk6+f7P0Un4w9kl8c0VEDjs6Ym5E+qn2BW
-         7keubr3jeIOGsdt02pgfjGad3DJd3KixnwdKLIlwYlK9aIMS7pzCWCsPnYPZtQ9AHrJR
-         6u34vLDgD8zM69HECAr1T364kNDNcOf95Xvesux41VllqpNXRc9bL0LpV2aTui8VD9tv
-         kbgG3kJ7zvI5PJX3MbIYFuMILp5iOM+z2iuNRLK4BX1BC94x2LE5H2e9WyR5RXauTyXC
-         ndxHdg4DWGJAFRjUVMjWPhl5+ej85A6pCBeHTYw/b2yJydJOrmniS3BQS1uXTLtLfTKU
-         jH/g==
-X-Gm-Message-State: AFq9FYKO1jojzYnq6arHBkNOlPwStIIRnrcqLV9cW7c89fU+8qYFHkSH
-	hwVD6poRHLokaXmLXjJ8rO+5Ekq6ZQ8ZS5M6tDi+hc5S5DPfuWfnv5UPTFXFFAPEgv+ZZcieDyn
-	j+q7uWZtTtcINQABqD9iDvYhy8WoOG2s4ZVtKnX+2dm2t7kCqmGAwmoc53K8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364C3606A31D;
+	Tue, 27 Oct 2026 13:41:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 364C3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Hd6NLDMi
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hZNszL7pT9nQ18wquLryzSgRd4NHmn88kD5P847OMTudiqM7rRf57F799XkxQew7uL2dlerPSR1aOblOsvO5FsIeWMKtAvmM6HJy2mP/2ZZJHa9t1bqfznP/BtaNUVKtrQoR0s05zdN4Cd8vwmmXv8LVXBvMfp6I3oZDo3VgBxE0bgJFhQze40ORmmHD1AIXvMR0w+upVvOjvpYNcK1E3D6x7+o4ety4Iw4+NjC8/vah4/D7sgxobWxrMnhWu8On1ipLNrGtJxOFfZoljIB64gsywSLSYovhuS0g5YOrHNg8yBxx36HU2t7r+wh3cniaQhGLJfwzmS2GK4j73Y/d5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z4ABcYleVZ28FUVIT2S2CoaW9f5LYg5R5g8UmHS0U84=;
+ b=hqkxUYHZD1URS8tjw2rvnMwotCuEYgO09zZFJb1z3MZ0H5O6jYNwl5uL9xJUDj53SnBfEMj22JUmdQnejWqGSAzovKHWyT8uv/DP0O2TTnELeIel9X3e21Z+X/zBpUhrp0zBW79A4onRaOMWUf2giKGGT8TwafaMSIy9qbMzvOdhq/odasQET76DM+V3giZc5NtV5Y3Jj7IhNBXL9jjnrGSRagGiwJS8rd1wcEp7BbGOUX0AgO1GEP7zc7lmcH8RdqiLkBLy6JGxvWnIUNUXWNVRXDj8hfLkqnYolLyRVmFKYK4yDG1e0VO35qkBjwRQLP2bzWwcUmocX/Gja+4NOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z4ABcYleVZ28FUVIT2S2CoaW9f5LYg5R5g8UmHS0U84=;
+ b=Hd6NLDMiCzxZ26PHUPqfAa6knYxmSfJjnY3Nlin1SnW+hEKIik6XhBwTsFakbMLWhje3xvvC032olqpA71bezVKP/SAReJXk3LL3pA3b1qy++vdp8Nhxf0HEn0nuY1KmY6IgKZWwccydHKclPPr/Bn8sgM4buHCL8an9El1zAHo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB8177.namprd12.prod.outlook.com (2603:10b6:510:2b4::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 13:41:02 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 13:41:01 +0000
+Message-ID: <54e6cd9f-57ca-402f-93b6-27fe2b15b29c@amd.com>
+Date: Tue, 27 Oct 2026 14:40:56 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: amdgpu_fence: remove ops->release()
+To: Philipp Stanner <phasta@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jesse Zhang <jesse.zhang@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Kexin Sun <kexinsun@smail.nju.edu.cn>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20261027133727.748652-2-phasta@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261027133727.748652-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR03CA0008.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,26 +102,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2391:b0:4a4:989:bb1f with SMTP id
- 5614622812f47-55f6c503dd6mr1320663b6e.9.1793108464779; Tue, 27 Oct 2026
- 06:41:04 -0700 (PDT)
-Date: Tue, 27 Oct 2026 06:41:04 -0700
-In-Reply-To: <6ae09413.985912ea.1e5798.00c1.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae0a9f0.768774f5.3237ab.0018.GAE@google.com>
-Subject: Forwarded: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
- d135ab453a7400a34930bdda1ef4bdc8acfac80e
-From: syzbot <syzbot+64197f7577a09686ffdb@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB8177:EE_
+X-MS-Office365-Filtering-Correlation-Id: e92440ec-1431-4dcc-a660-08df342ff09d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|261009223027099003|10067099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|56012099006|261026121527099003|6133799003|22082099003|18002099003|5023799004|921020|261026140227099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	unpNOvasnT7j8sh+J+3n+0AtCm3ZmyfluYlnuyxGgR0VzLCWmysCct59q2oigwUOTWjQNW+KilbVkOLYiQS93g1Jmxei+Ojg1FKVChFLnxyQcxWAupZgy2E+ah5yiwnbelPPDai6mJnzj+WAiA1CnZkf19m0Fg1dave/Y/tEepCSNdMIfUNSnOwrzNUjaTq+6e57KY/H2JY28syQQQs1vEU29Q0p0SXRYRVXMtYpOs3AyYwcjzAE3TP0n5goyDtQxSUGHz06+Tb/PNrtDqyTajxiOPWGG+HxzkDqBib+z+e0QErn7Jzzb8BneLqO7hy8AhWdQAxDcf+p/kLX4LAz26/PZVqE784V40F1rP5ILiF+2p/uj5YPgbF5q9MKm88IMn9f8WvuHdnNSniUBwtOD270r3GaAOZ2L0KjLJPNDwzV7g1fHmo+JbCmQdlV6QAyyBf9ORkQPGvPlaNHsLPjycH2HkVAApmEAo1/eXXjB4wP05fWrQO+xauAyED0WYXfpuHsCq6q5hQ7WJPK+X5uVdmpzJ+zd+7YQp7DQbFUgTwH2qEM7Acfe5kdHID2AgYx1/YwT6qW5DWBCyw6BedLu/y5MOjhjfLrPiNCLUh0Wo6vmH+nEPd0TKo6/n4wMDfDuyLoPQbBP1mc3gUEGMGKsZzawm3uxplh4SGL1YRcBNJecQ/tek+OF69PxtoHQ/HeJFUZpliSPcj6cnPJX861xA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(261009223027099003)(10067099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(56012099006)(261026121527099003)(6133799003)(22082099003)(18002099003)(5023799004)(921020)(261026140227099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K0x3TmRQc3pBQ2VnM0ltdEgzVHVmWkNmRVVkL1F1alhXRmJOM05sZUd3S0My?=
+ =?utf-8?B?UjVYQS85SFVqTmhFa0tpbjhEdmpmT1U2RG03VUJhUStGbWZ6VlMzcnlwWFNo?=
+ =?utf-8?B?dHpEcWFVOXhyekJlUnFxVWZEekxYZXVBZmJvdDFJZzdjaGN1bitmWmdpSlZa?=
+ =?utf-8?B?R0JScEVpUE45c2RxUFRVREpwU0tKN1RDRmZ2NHg2YTE5WXNxcmE4bUF5bzh1?=
+ =?utf-8?B?aWdwdnRTMjBDWE9aWThjVGFablFJbS92WlZWTUVLL0hYazFJd1N2d1lyNDAr?=
+ =?utf-8?B?U3RCVExUUTFyWDdhNG0xbEdUeXI5OHRFQmg2amNkM2phNzRRMnlHQjB3NXV0?=
+ =?utf-8?B?R1JZaXFHSE8yVjdNWXJFTDBuOFVra2E3cEtFcTlEd3FoVnJLclp5ckZzMEto?=
+ =?utf-8?B?cnBKZDJSTy8zcU83TmtPYkl0Rjc1Z242aTJBWWFwck5TZjFKelhVdUpMekJn?=
+ =?utf-8?B?T3hEMTZwZjIrZjhjYXRkSnZCazN3L3ViNUhGMGYvcDBQRjN6VWxTWFA1b1JS?=
+ =?utf-8?B?b1c3TnhNeENGTGJEejZPazQ5MjdIbHp2SzRhdVVzRVBvMHY5UU1WVXhKUjRx?=
+ =?utf-8?B?cWZ0b0ovSDNMQzJrbEd0NGtRd2MrNjNaS0RsbUxBSkg3NElMMkZPNU1yRGVv?=
+ =?utf-8?B?WGpXMDNiV3RjclVpTlFFaHp4NEc4am1KcEpIMW1yak5oQzNKMlFHT2VGTm44?=
+ =?utf-8?B?WExTcng5ZE1PNjBFcFNNQWFBb01mSGo1dmNpVWtnbTB0R2xqaTI4OCtJSlkw?=
+ =?utf-8?B?aDFTUVFwRFArS2VqRzhCa2N6SUxMUmQwNkVWSVFPQUdKSk1zSjdKZzNWajRQ?=
+ =?utf-8?B?R2JHMmRjd0t6bDZZcEJ5Y3RhaVkybU5PMisvSkd0Rm10ZUd0QWMvKzlUREtt?=
+ =?utf-8?B?NVRjL2NScjFHRERLSEVzODJuZEpwMjFPazJ1VFA2MkpZeWJSV2x6WGI2UE1N?=
+ =?utf-8?B?RllTVGd2NUZwZE9yUktPZEZBQVBwME1hVnNPdWNmUnNFTFJ5R0FLd0VzRDBG?=
+ =?utf-8?B?cWgwcHhFSHdpbE5uTFZFbnBYMUdBYmQwTGZLdmVzbUh3YXhMNDhHZVhnMGU0?=
+ =?utf-8?B?ZFRyRWkybWl1bndOUENlVmFOdjFWTjVlWHA4cWRzK2RIOFFDTkdoZXkvbVlZ?=
+ =?utf-8?B?U1htUk5DMW1FV0J6cDZvSmFrNjFKZ2VoSmRMdzJnWkxFRFVkYzdtYndweXRx?=
+ =?utf-8?B?NnZORGxNUkhkdTBNVVREUzczWkxBMGptYUpUNDk5NzZISWpVVjZVTW1acUlt?=
+ =?utf-8?B?T0VMMkVURFp4UTY5WFlwUHFybmNnTC9KTFY5SFgzeWtlWWVhV2Z5eWJ4MEZz?=
+ =?utf-8?B?VCthZUY0WkZQeGU1alI4VlMzT3FWd29uQm1SckRCaks4L1NpMFB2VGE4eTB1?=
+ =?utf-8?B?SmdLVDhlUnlpZy92QVZwMUlUWDNkeit3c2pWNzIxYlBQS2dsRW1xR2k2R2xB?=
+ =?utf-8?B?Q1NSWldkbmYzSy9nWjA1QVFoa1hLNFZUWnNwVXhqOXZ6SXBQZHpVUE9HYXB1?=
+ =?utf-8?B?QUtaTm1kV2xJSFN3T1hBc1NQbmdreHhEZ2RNblBSZ3lYY0VwR0FoRFg1MjdJ?=
+ =?utf-8?B?MDBTL2IwdXF5R0EyUHhhc3JNUkdQMENHa01WOGFXTnJxcER0eVNkWFB5VmdY?=
+ =?utf-8?B?MXFrMVRZZk50S2Jma0dhMDhSZUNQYzRLQzNZaGF5Y1l0OHdHdDFneEVkMEdL?=
+ =?utf-8?B?UXZLeTZscUVWSGVqSkRxRzdFUlpLaytnc3h2VFkrdXlzcDV6cHdEQXN5YlpF?=
+ =?utf-8?B?c3lTY2RHNDIyQjhaS2R4c2tsUHh3VnVzbjBzNWNDbkFnOHN0Q3EzUzVXckRK?=
+ =?utf-8?B?NWpwajdscVJsaDJCMUhROWloRFRSdlFOb3gvRFVnTXFDVTJJZWx1RmdPQlFw?=
+ =?utf-8?B?dmwxcVp5VUI5T2xKUDBXN2s5YUJmTnpQZUo4RmlrcWJyVXJWeEFrY1dCUW96?=
+ =?utf-8?B?aDFyam5VMlRLNUpSTGtiNnZQOW41eFB2KzRoU1orenBwQUVCQ1Y0Z1dOTDdl?=
+ =?utf-8?B?UEYvWU1Nc01jd1B3eElBTXJCMjF2M092WXd5aTEwakJTUzNQS01CNUY4OWc4?=
+ =?utf-8?B?cG1nWDhCSEFxT3dkdGdldjNaeHVMSXlvTTROa2pzSEhoMENIbjdiVGUzdUpX?=
+ =?utf-8?B?SEFTZVE4eXF0M3NrZDNyOFJOanNMZmtvK1NUamlyYWdhTWVWb0NacmtKZzVB?=
+ =?utf-8?B?a0dqaCsxOGs0VkVqeUJTMWQ1NGlERk0yWXNvbTRub2pQaHA5UnNkRjZYVlJ2?=
+ =?utf-8?B?dTFrcC9aNW1jaUR4V2JNcmIyY0FrWjBvVENSNC90K0dQU09QczdQb3FOSE9H?=
+ =?utf-8?Q?1ZhSdygz5wv59bLij8?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e92440ec-1431-4dcc-a660-08df342ff09d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:41:01.6698
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: It3xL5LV+QYvFB9qiFyjgmp7qWYGKQmGoFiIHJpTPo2zPSe6B7JQM/LvkN3BcpT3
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8177
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On 10/27/26 14:37, Philipp Stanner wrote:
+> amdgpu's fence implements the deprecated fence_ops->release() callback
+> which prevents the driver from ever unloading robustly.
+> 
+> amdgpu's implementation merely uses a call_rcu() that performs a kfree()
+> on the fence - this functionality is already centrally implemented by
+> the dma_fence backend.
+> 
+> The dma_fence backend invokes a kfree_rcu() on the dma_fence, which is
+> fine since this is always the first member of a struct amdgpu_fence.
+> Thus, amdgpu's implementation is redundant.
+> 
+> Remove fence_ops->release().
+> 
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-***
+I have exactly the same patch in my pipeline as well.
 
-Subject: #syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git d135ab453a7400a34930bdda1ef4bdc8acfac80e
-Author: dmantipov@yandex.ru
+Reviewed-by: Christian König <christian.koenig@amd.com>
 
-#syz test https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> ---
+> Just saw that this should be unnecessary? Don't have a setup for amdgpu
+> testing right now, so please take a close look, just compile-tested.
+> 
+> P.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 29 -----------------------
+>  1 file changed, 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> index 3043ad041bb4..3f8b2571d74a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> @@ -892,39 +892,10 @@ static bool amdgpu_fence_enable_signaling(struct dma_fence *f)
+>  	return true;
+>  }
+>  
+> -/**
+> - * amdgpu_fence_free - free up the fence memory
+> - *
+> - * @rcu: RCU callback head
+> - *
+> - * Free up the fence memory after the RCU grace period.
+> - */
+> -static void amdgpu_fence_free(struct rcu_head *rcu)
+> -{
+> -	struct dma_fence *f = container_of(rcu, struct dma_fence, rcu);
+> -
+> -	/* free fence_slab if it's separated fence*/
+> -	kfree(to_amdgpu_fence(f));
+> -}
+> -
+> -/**
+> - * amdgpu_fence_release - callback that fence can be freed
+> - *
+> - * @f: fence
+> - *
+> - * This function is called when the reference count becomes zero.
+> - * It just RCU schedules freeing up the fence.
+> - */
+> -static void amdgpu_fence_release(struct dma_fence *f)
+> -{
+> -	call_rcu(&f->rcu, amdgpu_fence_free);
+> -}
+> -
+>  static const struct dma_fence_ops amdgpu_fence_ops = {
+>  	.get_driver_name = amdgpu_fence_get_driver_name,
+>  	.get_timeline_name = amdgpu_fence_get_timeline_name,
+>  	.enable_signaling = amdgpu_fence_enable_signaling,
+> -	.release = amdgpu_fence_release,
+>  };
+>  
+>  /*
+> 
+> base-commit: 731ba09867520c047c7de53f92e384808e0b638e
+
