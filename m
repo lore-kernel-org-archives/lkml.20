@@ -1,87 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793111852;
-	b=mpSLMC9Idkfs+De2vKmudos31/5fZn4VWdU4EWTKFF2Sr4h4k1ty4wXly5cl4cKLZV1b
-	 PhUTmKSR2u1qduFFDdY9Z/rJtJJyVs2W+kPg6N7G1mkdwpdxq2KUnhrV7AlbfgcSOKBbp
-	 t2FRp9IbvUqs4+Dhhb/HS/EcMSDA1vpto0BA0k22TWCp9VPjG+zzoLRL8l4S2KwXplfR/
-	 CKbfUq+h30CBUvz2ty/OjfFbDzuAahnyk7FmopxY6kpkpDOjXNR6umMxtlhnkF8aWOsAv
-	 OzlIihiY701NwNufHcseitMZuZhLb8ChNZZy0pgtU0obCj/zbioYZ5i7CHELEwqyCAQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111852;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793111939;
+	b=EtAcKCjW1ifFe9hPf26+Wy4Q8TfHVSHHWN+/KlIQrqkgIiOVj3MMqCrnsh0C4785OQTd
+	 BvDwMcN9ibmrnPE56oEEYTgIRixwrCTUneK1h5mPgXsYNXfn9E6FkpjEh2yuh85wDFnzX
+	 10V7pUGWI4Skz1YhsYQd9LkTOZsr7ycRletjyKCk4WNXBWDCp4+a72FxufpPwNvNsj1qb
+	 S119LyDIaZmAOYlVaIVgvcf3z9aw2R/TtkM86RDsnP/uD8jnI8xf9x2L47di/DFk4E5ao
+	 yu2lXSyCzKlSmUTgZdy8XR8eLM/YUjRqNWVsZl5BJ9PCzkmblCG9RX93U6m9xg5fnhA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111939;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NMImbodtkJkJh1MOcuRbaVEWTAwXNEwUi7aWVqU7WBI=;
-	b=DMI/x/N+oYWmvlgQG628YQ8Lzg8mT4ygY3C7KxPf0eSC66A5eEgSP18XRGk1c0SsAm63
-	 sz7qxFK20B9OylEglUUyHmon/eab5XWodngwX9xpzpod9/3jYHL4wUTpPpWt3zwIO9gAB
-	 hHTF7q+rDToi2joLMtpg5+6Lo9qpSuoyxA8rBubsn7ZNSss3vIKJkmN5R0VmErZI2Y6SS
-	 5lDu8kvI0oumHSjb5Hq9Kmpvgs7QcXN4Qms22RvFRwgQ56qGidkHvSjou+3s/0UL8feZF
-	 VFNWQaTQjaPMggXnpED3anzh/hAp3zXzJLUenpCaLRq6Z0TjvCOv9KpcKbSHA9VYxrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyKQb0iy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	bh=4Ltbz60b+IHvyoCek9XEc1bssVVFscuvuXVkPxdZ7Yw=;
+	b=0v8fT6oREtiSGn8TtNJVS/yhnBTS5uLWcO3Nihpr7XyCd+QpGlPwlC6IhuSigBd69V5J
+	 TErNXPk2xXeXBi1KWsUy2y0x0x+k+tXBPlb9L/4dSSsSIqx46QbpkvlJ0JOYmr7mpFSvt
+	 Cxs9cMZKGjhjvigXCpWeEOosg3tsIVlvq1bxq0bV2fIVDoAZ+UWPubMXhHlzDn5quneig
+	 K2PJwddXS/kNN4hJSfZ6ldXdgLx2oASnFBA3BYZNJDfbcV6mFP+krrey+jtQE+xJQlr28
+	 /S7yo7VlyOowK/f2gwQsZNdzsFOS1DDngkOOhNwPrnWGtFI8BmRYYtErZ55md76CnCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DBPs7ajY;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A953C606A31D;
-	Tue, 27 Oct 2026 14:37:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0A6606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:38:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E0A6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyKQb0iy
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793111851;
-	b=AwXOdctHJXQ/oUR1JXMSuBVdwuyrK2qzpGNTK17R1AgtLDL4NXDiHesd8L8ELp1GeeFC
-	 FZ2/rHc4CbKxWXJzvgL6y3Cb9ftk6uD+iSsRbfVJqKIkk6wXz1MkagjXcsPijuDnYVBAp
-	 IwmLsy78Fz/NMooplVi3TnXst26xLEiaeGFHPvoVIfgW9Fs/O0FbhzPbgQ/WlP8A1ms6f
-	 jQZEtFaGsLAOyfSjprJeqWrLb6IYPq70wSd6tjQ8kCfg1CATNIU9NNX+jrm0j2y6pExdK
-	 MigPHD15XT4FfXb0B25QvL4jbJI1cdUUdRnJQZfra4gobRELpAX2wHtDpaskq/Fps4w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793111851;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NMImbodtkJkJh1MOcuRbaVEWTAwXNEwUi7aWVqU7WBI=;
-	b=ELFbFwnYAnYXDERa7iyf0OCK708//rYBUAJIm9/BkpDriNmOs9N0gDAQEVTIvLN50ECE
-	 1L7TzzUMjf82dMN3oygrPDXuMBiHejesfZ8jZTekaBz0PfWuCpyVtv6uI9waqGUQwyzp6
-	 FM7aaTpjWs7XF3NWo1Th/dvGp+Jz5ZwM6MnO8nMARWyK+k9eDzgtHYHWFLvky487/3tld
-	 v7+TfZRR2mMv2OBWGrqXsmWdSL5e72xLDuvWiO+42nE+FfnLmwDjjM+kjipacVP3yfRGx
-	 U/nEz/qktU/7+rxjH6bWxNQuAiUP4D8+bqH1XRipn36enl+ne1oMqLOOtxOc9SAH0QQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 3E5571F01829;
-	Tue, 27 Oct 2026 14:37:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793111851;
-	bh=NMImbodtkJkJh1MOcuRbaVEWTAwXNEwUi7aWVqU7WBI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=IyKQb0iyKSDfYMT0RltEAcUJLHPltJvuIiCZgOhJ++6cje0ODzwRSHnk6Lj5/bK+g
-	 +kV7CET6neNfrhn62LzWB0eZaxoQN2Dldn6bZAHhCu/674KufhHGBSvwFq8bF1kxRG
-	 nyDHAKv2acO9vdHRBi36hZPZH3IZdnsSQ2blpriwMv8kKwwC/LoCCtunogEmeu+aGX
-	 jQoWiugunmV2TgbVrdYysEJbXH4upWzT2yRSALOf0z2nSebI9rROxCpG53lszpVJwa
-	 M4/aTSZ+J4C0TFXfoh5KyExCIxs6Thb5SabTMXXeYL+7LOaH2jHtq3SWO7rmuWrMVU
-	 0cy+xrV6AS+Jw==
-Date: Tue, 27 Oct 2026 15:37:13 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>, Jonathan Cameron
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
- =?ISO-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pwm@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: adc: add ltc2387 driver
-Message-ID: <20261027153713.000066ce@kernel.org>
-In-Reply-To: <20261027134409.76824-3-Nicolae-daniel.Deaconescu@analog.com>
-References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
-	<20261027134409.76824-3-Nicolae-daniel.Deaconescu@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DBPs7ajY
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso721332f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:38:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793111938; x=1793716738; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Ltbz60b+IHvyoCek9XEc1bssVVFscuvuXVkPxdZ7Yw=;
+        b=DBPs7ajYm++LSNGtV/1lJbK9KACWDdjd/H0//J5qmRVq//bULWBYP6ZkAS1EBZr46p
+         dejtR1DDCrqEdbDX+FtL13P34SDd12km84ilKQpX2rdWIz6t8UQ9v1AUlW4clv0puLjE
+         O6faV8Uq4m/w+VPx0qcsyytFyAWfX9/XFPDwwWB2UuO8aJiqiiNjmJkunbm4eZ6XY+84
+         1WWUFVycHgMoubIzapAJ1fuO+jLchIXXZ1ApfN5JLXRMN0D3iPIaTUwLAHFQgQgLJd8F
+         WZ/6dDyzhenBMPJXm4KHl/rQhKU4DjgGUjn4Xi2YG/CtuP7f9zbMkCNbWpyQvuMwczz7
+         wB3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793111938; x=1793716738;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Ltbz60b+IHvyoCek9XEc1bssVVFscuvuXVkPxdZ7Yw=;
+        b=JCRpFXHoWp+LiZHStE+OyNlJd+/ha1pV2gI5w2oCrXifU3Q+IlIh/w58/Dhd00FWc3
+         WNml32OqyyYbF/I8uZcHD7wCVuyzbelpYjvxAhWGYkNGvVrJ4XBEqeXjMx65FG/gtCAM
+         64XbZ756K+218iN04PTqz26PG6JqqPEm2w2uz5O60q/wQ6xZcsvSU0RSnzVf0jx0EqoO
+         MmjhBC+/R9OypzYJOqz1J3YytYf8rArsj2zT/Bb/20hU2a/n3Y11duRbOKHZpZO+/hUv
+         swi71RXs7X/VPYryWJSlXGKDATKr6iTL4/js36kScfMYWr4WXP9gk7BZNUkS3L1YBntl
+         DUmw==
+X-Forwarded-Encrypted: i=1; AKwUvByGj0RkpQWkCJZPy6rq217uJCnyhHwNL11RZywhgpPHhiGrzJRH1iWusIwoDgBvvoAcm1QkrWfHDtWtC7U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5mOkxWosScDv/n3WDUoqQPHxlpLz4k9xW37h0qN+J68FuAci7
+	uxZ0Dw8fuPTeGXye190fROtsvSgGvXREv7m2s40ZguVeE4n9bUP1dVmd
+X-Gm-Gg: AYBFou03v6ChI6FOTYeqGkFh8/H4BO7riiIbfBMRFbGGtEusMhZpbXG1TnM5IG/B12d
+	U3hWfNSlHx9IHdes2bVyDhOrkFphsIhK0DkY0/KcVrPU2owHcuxDAQL9g/KsmXq8ugMvf2b3whC
+	B+P5Dqxwe8c9iMQWqWXBVlUVGIvpsOno0OPvw5BZo8SVuyVQ5eTZRAt1ccT1/vLhjy2iBE5+DGK
+	y1EDgrMqlet8NnQUdL4XI3EQUJiPM3EjuIlYU7/qcLnh4BkxSEigcJlQTPZ06fh/r5ZgZH3j5CY
+	KIMcAFUKyj0wbLwl0soNWzDIVVDPH+Rqaxr+bHJ24MCeBXJOUYexSYrgIhRM73Vf3pWdQHvpqsx
+	9EI4cdyAtrAsFs+oB1Weje5KXvNuEt9OddA9EY3QdKnhJHw6H4P8gqYToeD+enxNufivxXYo6Ci
+	PVSl0Rc7kGhOzCukqqSOs4mQnsVP10U8FAfuWJ7tMGvs/Q90Jy3TZMq3LaS69Ab3BFo1BeV09Ka
+	bnij5ti45pztof7dDf8pMHsWcXawxxkvnEFyBT3R4YmTzXn2Z1cC7WKolhJK5pYG9vhS/DQG2Sb
+	Czt1SenvN2Q=
+X-Received: by 2002:a05:600c:3d08:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4a7bfec49damr64723785e9.4.1793111937376;
+        Tue, 27 Oct 2026 07:38:57 -0700 (PDT)
+Received: from gandalf.magpie-herring.ts.net ([90.251.75.96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ae28sm279495975e9.2.2026.10.27.07.38.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 07:38:56 -0700 (PDT)
+From: Zak <zakbrightonknight@gmail.com>
+To: linux-pm@vger.kernel.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: Len Brown <lenb@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	Zak Brighton Knight <zakbrightonknight@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume without HWP
+Date: Tue, 27 Oct 2026 14:37:25 +0000
+Message-ID: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,483 +99,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 15:44:09 +0200
-Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com> wrote:
+From: Zak Brighton Knight <zakbrightonknight@gmail.com>
 
-> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
->=20
-> Add a driver for the LTC2387-16/18 and the ADAQ23875/23876/23878.
+On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
+the CPUs stop using turbo after every suspend to RAM when intel_pstate
+is in passive mode with the performance governor: they stay at the
+2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
+policy limits change or the system is rebooted.
 
-Hi, some comments from me. Additionally, please check out what
-Sashiko says:
+During resume, the firmware sets each CPU's P-state request register,
+MSR_IA32_PERF_CTL, to the base ratio (28), and the kernel never writes
+the requested turbo ratio (38) again.  Without hardware-managed
+P-states (HWP), intel_pstate caches the last P-state it wrote and
+skips writes that would not change it.  In passive mode the cpufreq
+core also skips requests for the frequency it believes is already set
+(policy->cur), because intel_cpufreq sets CPUFREQ_NEED_UPDATE_LIMITS
+only with HWP.  Neither cached value is updated across suspend and
+resume, so as long as the governor keeps requesting the same P-state,
+as the performance governor always does, the register is never
+rewritten.  Governors that change the request often, such as
+schedutil, mostly hide the problem.
 
-https://sashiko.dev/#/patchset/20261027134409.76824-1-Nicolae-daniel.Deacon=
-escu%40analog.com
+Fix this by writing the cached P-state back to the register in
+intel_pstate_resume() when HWP is not used, as is already done for
+the HWP request when it is.
 
+The problem was found and root-caused, and this patch was drafted, with
+the help of an AI coding assistant (Claude, by Anthropic) during a
+performance review of the machine described above.
 
-> The driver generates CNV and the gated data clock with two PWM
-> channels, timed against the reference clock to meet t_FIRSTCLK, and
-> gets sample data through the IIO backend framework from the AXI ADC
-> core. It supports one-lane and two-lane output and reports the
-> sampling frequency the PWMs produce after rounding to whole reference
-> clock cycles. in_voltage_scale is referred to the analog input, so on
-> the ADAQ parts it is divided by the front-end gain.
->=20
-> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
-> Co-developed-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@ana=
-log.com>
-> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analo=
-g.com>
-> Assisted-by: Claude:claude-opus-5-5
+Fixes: 001c76f05b01 ("cpufreq: intel_pstate: Generic governors support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+---
+Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
+with v7.3 plus this patch and a temporary module parameter, not part
+of this patch, to turn the fix off.  intel_pstate.c is the same in
+v7.3 and in the base commit below.
 
-Drop this tag, it has been deprecated.
+Each row is one suspend to RAM and resume (rtcwake -m mem -s 25).
+"Request" is the P-state read back from PERF_CTL on all eight CPUs
+5 and 17 seconds after resume; "clock" is the measured speed of a
+single-threaded busy loop.  Before every suspend, all CPUs requested
+38 and the clock was about 3.8 GHz.
 
-> diff --git a/drivers/iio/adc/ltc2387.c b/drivers/iio/adc/ltc2387.c
-> new file mode 100644
-> index 000000000000..c236b99baa4a
-> --- /dev/null
-> +++ b/drivers/iio/adc/ltc2387.c
-> @@ -0,0 +1,482 @@
-> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause)
-> +/*
-> + * Linear Technology LTC2387 ADC driver
-> + *
-> + * Copyright 2022 - 2026 Analog Devices Inc.
-> + */
-> +
-> +#include <linux/clk.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/iio/backend.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/sysfs.h>
+  mode     governor     fix  request after resume  clock
+  passive  performance  on   38 on all CPUs        3.8 GHz
+  passive  performance  off  28 on all CPUs        2.8 GHz
+  active   performance  off  38 on all CPUs        3.8 GHz
+  active   performance  on   38 on all CPUs        3.8 GHz
 
-Better to have the iio specific headers separately after the generic
-linux headers.
+The passive-mode failure was also reproduced twice on Fedora's 7.2.11
+kernel.  In active mode the request was back at 38 after resume even
+without the fix, so on this machine the fix only makes a difference in
+passive mode, the default without HWP.
 
-> +#include <linux/kernel.h>
+Not tested: systems with HWP (their code path is unchanged, only
+restructured), other machines and firmware, and suspend-to-idle.  The
+patch adds no warnings with W=1; sparse was not run.  The tests were
+scripted and run by the same AI assistant.
 
-No, do not use this header for new drivers. Use the IWYU principle when
-deciding what to include.
+ drivers/cpufreq/intel_pstate.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/property.h>
-> +#include <linux/pwm.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/mod_devicetable.h>
+diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
+index 17158cb..53db91a 100644
+--- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -1371,6 +1371,7 @@ static void set_power_ctl_ee_state(bool input)
+ }
+ 
+ static void intel_pstate_hwp_enable(struct cpudata *cpudata);
++static void intel_pstate_set_pstate(struct cpudata *cpu, int pstate);
+ 
+ static void intel_pstate_hwp_reenable(struct cpudata *cpu)
+ {
+@@ -1404,11 +1405,20 @@ static int intel_pstate_resume(struct cpufreq_policy *policy)
+ 	else if (power_ctl_ee_state == POWER_CTL_EE_DISABLE)
+ 		set_power_ctl_ee_state(false);
+ 
+-	if (cpu->suspended && hwp_active) {
++	if (cpu->suspended) {
+ 		mutex_lock(&intel_pstate_limits_lock);
+ 
+-		/* Re-enable HWP, because "online" has not done that. */
+-		intel_pstate_hwp_reenable(cpu);
++		if (hwp_active) {
++			/* Re-enable HWP, because "online" has not done that. */
++			intel_pstate_hwp_reenable(cpu);
++		} else {
++			/*
++			 * PERF_CTL may have been changed by the platform
++			 * firmware, but it is only written when the requested
++			 * P-state changes, so restore it explicitly.
++			 */
++			intel_pstate_set_pstate(cpu, cpu->pstate.current_pstate);
++		}
+ 
+ 		mutex_unlock(&intel_pstate_limits_lock);
+ 	}
 
-Drop this header, it's included by platform_device.h
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.56.0
 
-+ you're missing additional headers, e.g. types.h
-
-> +
-> +#define LTC2387_VREF		4096
-> +#define LTC2387_T_CNVH		8
-> +
-> +/*
-> + * Minimal value for t_{FIRSTCLK} according to
-> + * https://www.analog.com/media/en/technical-documentation/data-sheets/2=
-38718fa.pdf
-> + * is 65 ns. Add some slack because there is some rounding involved in t=
-he PWM
-> + * driver. With the PWM driver rounding to the nearest possible value, t=
-argeting
-> + * 70 ns works for input clk rates >=3D 100 MHz.
-> + */
-> +#define LTC2387_T_FIRSTCLK_NS	70
-> +
-> +#define KHz 1000
-
-We have units.h for this.
-
-> +#define MHz (1000 * KHz)
-> +
-> +#define LTC2378_MULTIPLE_CHAN(_idx, _storagebits, _realbits, _shift)	\
-> +	{								\
-> +		.type =3D IIO_VOLTAGE,					\
-> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),\
-> +		.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),\
-> +		.indexed =3D 1,						\
-> +		.channel =3D _idx,					\
-> +		.scan_index =3D _idx,					\
-> +		.scan_type =3D {						\
-> +			.sign =3D 's',					\
-> +			.storagebits =3D _storagebits,			\
-> +			.realbits =3D _realbits,				\
-> +			.shift =3D _shift,				\
-> +		},							\
-> +	}
-> +
-
-...
-
-> +struct ltc2387_dev {
-> +	const struct ltc2387_info *device_info;
-> +	enum ltc2387_lane_modes lane_mode;
-> +	unsigned long ref_clk_rate;
-> +	struct iio_backend *back;
-> +	struct pwm_device *clk_gate;
-> +	struct regulator *vref;
-> +	struct pwm_device *cnv;
-> +	struct clk *ref_clk;
-> +
-> +	unsigned int vref_mv;
-
-_mV
-
-> +	u32 sampling_freq;
-> +	u32 gain_milli;
-> +};
-> +
-> +static int ltc2387_set_sampling_freq(struct ltc2387_dev *ltc, int freq)
-> +{
-> +	unsigned long long ref_clk_period_ns;
-> +	struct pwm_waveform clk_gate_wf =3D { }, cnv_wf =3D { };
-
-Reverse xmas tree please.
-
-> +	unsigned long long period_cycles;
-> +	int ret, clk_en_time;
-> +	u32 rem;
-> +
-> +	if (freq <=3D 0 || freq > ltc->ref_clk_rate)
-> +		return -EINVAL;
-> +
-> +	ref_clk_period_ns =3D DIV_ROUND_UP(NSEC_PER_SEC, ltc->ref_clk_rate);
-> +
-> +	cnv_wf.duty_length_ns =3D ref_clk_period_ns;
-> +
-> +	/*
-> +	 * The goal here is that the PWM is configured with a minimal period not
-> +	 * less than 1 / freq (with freq measured in Hz).
-> +	 *
-> +	 * When a period P (measured in ns) is passed to pwm_apply_state(), the
-> +	 * actually implemented period is:
-> +	 *
-> +	 *      round_down(P * R / NSEC_PER_SEC) / R
-> +	 *
-> +	 * (measured in s) with R =3D ltc->ref_clk_rate. So we have:
-> +	 *
-> +	 *        round_down(P * R / NSEC_PER_SEC) / R =E2=89=A5 1 / freq
-> +	 *      =E2=9F=BA round_down(P * R / NSEC_PER_SEC) =E2=89=A5 R / freq
-
-Ehhh, not really sure about these non-standard characters in the comments.
-Had to check lore to see what this renders to. Wouldn't it be easier to use
-a trigraph <=3D>? Same for the digraph stuff you have.
-
-> +	 *
-> +	 * With the LHS being integer this is equivalent to:
-> +	 *
-> +	 *        round_down(P * R / NSEC_PER_SEC) =E2=89=A5 round_up(R / freq)
-> +	 *      =E2=9F=BA P * R / NSEC_PER_SEC =E2=89=A5 round_up(R / freq)
-> +	 *      =E2=9F=BA P =E2=89=A5 round_up(R / freq) * NSEC_PER_SEC / R
-> +	 */
-> +
-> +	cnv_wf.period_length_ns =3D
-> +		div_u64_rem((u64)DIV_ROUND_UP(ltc->ref_clk_rate, freq) * NSEC_PER_SEC,
-> +			    ltc->ref_clk_rate, &rem);
-> +	if (rem)
-> +		cnv_wf.period_length_ns +=3D 1;
-> +
-> +	/* Gate the active period of the clock (see page 10-13 for both LTC's) =
-*/
-> +	if (ltc->lane_mode =3D=3D TWO_LANES)
-> +		clk_en_time =3D DIV_ROUND_UP_ULL(ltc->device_info->resolution, 4);
-> +	else
-> +		clk_en_time =3D DIV_ROUND_UP_ULL(ltc->device_info->resolution, 2);
-> +
-> +	clk_gate_wf.duty_length_ns =3D ref_clk_period_ns * clk_en_time;
-> +	clk_gate_wf.duty_offset_ns =3D LTC2387_T_FIRSTCLK_NS;
-> +
-> +	if (cnv_wf.period_length_ns < clk_gate_wf.duty_length_ns)
-> +		cnv_wf.period_length_ns =3D clk_gate_wf.duty_length_ns + ref_clk_perio=
-d_ns;
-> +
-> +	clk_gate_wf.period_length_ns =3D cnv_wf.period_length_ns;
-> +
-> +	if (clk_gate_wf.duty_offset_ns >=3D clk_gate_wf.period_length_ns)
-> +		div64_u64_rem(clk_gate_wf.duty_offset_ns,
-> +			      clk_gate_wf.period_length_ns,
-> +			      &clk_gate_wf.duty_offset_ns);
-> +
-> +	ret =3D pwm_set_waveform_might_sleep(ltc->cnv, &cnv_wf, false);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret =3D pwm_set_waveform_might_sleep(ltc->clk_gate, &clk_gate_wf, false=
-);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	period_cycles =3D mul_u64_u32_div(cnv_wf.period_length_ns,
-> +					ltc->ref_clk_rate, NSEC_PER_SEC);
-> +	if (!period_cycles)
-> +		return -EINVAL;
-> +
-> +	ltc->sampling_freq =3D DIV_ROUND_CLOSEST_ULL(ltc->ref_clk_rate,
-> +						   period_cycles);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ltc2387_setup(struct iio_dev *indio_dev)
-> +{
-> +	struct ltc2387_dev *ltc =3D iio_priv(indio_dev);
-> +	struct device *dev =3D indio_dev->dev.parent;
-> +
-> +	if (device_property_present(dev, "adi,use-two-lanes"))
-> +		ltc->lane_mode =3D TWO_LANES;
-> +
-> +	return ltc2387_set_sampling_freq(ltc, 15 * MHz);
-> +}
-> +
-> +static int ltc2387_read_raw(struct iio_dev *indio_dev,
-> +			    const struct iio_chan_spec *chan,
-> +			    int *val, int *val2, long info)
-> +{
-> +	struct ltc2387_dev *ltc =3D iio_priv(indio_dev);
-> +
-> +	switch (info) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*val =3D ltc->sampling_freq;
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/* Referred to the SMA input, so divided by the front-end gain. */
-> +		*val =3D ltc->vref_mv * 2 * 1000;
-
-vref_mv * 2 * MILLI;
-
-> +		*val2 =3D ltc->gain_milli << chan->scan_type.realbits;
-> +		return IIO_VAL_FRACTIONAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int ltc2387_write_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int val, int val2, long info)
-> +{
-> +	struct ltc2387_dev *ltc =3D iio_priv(indio_dev);
-> +
-
-Probably add a mutex here to protect writing, ideally in guard() form.
-
-> +	switch (info) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		return ltc2387_set_sampling_freq(ltc, val);
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static void ltc2387_pwm_disable(void *data)
-> +{
-> +	pwm_disable(data);
-> +}
-> +
-> +static void ltc2387_regulator_disable(void *data)
-> +{
-> +	regulator_disable(data);
-> +}
-> +
-> +static void ltc2387_clk_disable(void *data)
-> +{
-> +	clk_disable_unprepare(data);
-> +}
-> +
-> +static const struct iio_info ltc2387_info =3D {
-> +	.read_raw =3D ltc2387_read_raw,
-> +	.write_raw =3D ltc2387_write_raw,
-> +};
-> +
-> +static const struct of_device_id ltc2387_of_match[] =3D {
-> +	{
-> +		.compatible =3D "lltc,ltc2387-16",
-> +		.data =3D &ltc2387_infos[ID_LTC2387_16]
-> +	}, {
-> +		.compatible =3D "lltc,ltc2387-16-x4",
-> +		.data =3D &ltc2387_infos[ID_LTC2387_16_X4]
-> +	}, {
-> +		.compatible =3D "lltc,ltc2387-18",
-> +		.data =3D &ltc2387_infos[ID_LTC2387_18]
-> +	}, {
-> +		.compatible =3D "lltc,ltc2387-18-x4",
-> +		.data =3D &ltc2387_infos[ID_LTC2387_18_X4]
-> +	}, {
-> +		.compatible =3D "adi,adaq23875",
-> +		.data =3D &ltc2387_infos[ID_ADAQ23875]
-> +	}, {
-> +		.compatible =3D "adi,adaq23876",
-> +		.data =3D &ltc2387_infos[ID_ADAQ23876]
-> +	}, {
-> +		.compatible =3D "adi,adaq23878",
-> +		.data =3D &ltc2387_infos[ID_ADAQ23878]
-> +	},
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, ltc2387_of_match);
-
-Have the device tables after the probe() function.
-
-> +
-> +static int ltc2387_probe(struct platform_device *pdev)
-> +{
-> +	struct iio_dev			*indio_dev;
-> +	struct ltc2387_dev		*ltc;
-> +	int				ret;
-
-Maybe unify the style you define variables? (aligned vs. non-aligned).
-
-> +
-> +	indio_dev =3D devm_iio_device_alloc(&pdev->dev, sizeof(*ltc));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	ltc =3D iio_priv(indio_dev);
-> +
-> +	ltc->vref =3D devm_regulator_get_optional(&pdev->dev, "vref");
-> +	if (!IS_ERR(ltc->vref)) {
-> +		ret =3D regulator_enable(ltc->vref);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "Can't enable vref regulator\n");
-
-dev_err_probe() instead of dev_err()
-
-> +			return ret;
-> +		}
-> +		ret =3D regulator_get_voltage(ltc->vref);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		ltc->vref_mv =3D ret / 1000;
-
-ret / (MICRO / MILLI)
-
-> +		ret =3D devm_add_action_or_reset(&pdev->dev,
-> +					       ltc2387_regulator_disable,
-> +					       ltc->vref);
-> +		if (ret)
-> +			return ret;
-> +	} else {
-> +		if (PTR_ERR(ltc->vref) !=3D -ENODEV)
-> +			return PTR_ERR(ltc->vref);
-> +
-> +		ltc->vref_mv =3D LTC2387_VREF; /* Internal vref is used */
-> +	}
-> +
-> +	ltc->ref_clk =3D devm_clk_get(&pdev->dev, NULL);
-> +	if (IS_ERR(ltc->ref_clk))
-> +		return PTR_ERR(ltc->ref_clk);
-> +
-> +	ret =3D clk_prepare_enable(ltc->ref_clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D devm_add_action_or_reset(&pdev->dev, ltc2387_clk_disable,
-> +				       ltc->ref_clk);
-> +	if (ret)
-> +		return ret;
-
-+ blank line.
-
-> +	ltc->ref_clk_rate =3D clk_get_rate(ltc->ref_clk);
-> +
-> +	ltc->clk_gate =3D devm_pwm_get(&pdev->dev, "clk_gate");
-> +	if (IS_ERR(ltc->clk_gate))
-> +		return PTR_ERR(ltc->clk_gate);
-> +
-> +	ret =3D devm_add_action_or_reset(&pdev->dev, ltc2387_pwm_disable,
-> +				       ltc->clk_gate);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ltc->cnv =3D devm_pwm_get(&pdev->dev, "cnv");
-> +	if (IS_ERR(ltc->cnv))
-> +		return PTR_ERR(ltc->cnv);
-> +
-> +	ret =3D devm_add_action_or_reset(&pdev->dev, ltc2387_pwm_disable,
-> +				       ltc->cnv);
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	ltc->device_info =3D device_get_match_data(&pdev->dev);
-> +	if (!ltc->device_info)
-> +		return -EINVAL;
-
-return -ENODATA;
-
-> +
-> +	ltc->gain_milli =3D ltc->device_info->default_gain_milli;
-> +	device_property_read_u32(&pdev->dev, "adi,gain-milli", &ltc->gain_milli=
-);
-> +	if (!ltc->gain_milli)
-> +		return dev_err_probe(&pdev->dev, -EINVAL,
-> +				     "adi,gain-milli must be nonzero\n");
-> +
-> +	indio_dev->channels =3D ltc->device_info->channels;
-> +	indio_dev->num_channels =3D ltc->device_info->num_channels;
-> +	indio_dev->dev.parent =3D &pdev->dev;
-> +	indio_dev->name =3D ltc->device_info->name;
-> +	indio_dev->info =3D &ltc2387_info;
-> +
-> +	ltc->back =3D devm_iio_backend_get(&pdev->dev, NULL);
-> +	if (IS_ERR(ltc->back))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(ltc->back),
-> +				     "failed to get IIO backend\n");
-> +
-> +	ret =3D devm_iio_backend_request_buffer(&pdev->dev, ltc->back, indio_de=
-v);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D devm_iio_backend_enable(&pdev->dev, ltc->back);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* axi_ltc2387 has a single capture channel carrying every scan element=
-. */
-> +	ret =3D iio_backend_chan_enable(ltc->back, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ltc2387_setup(indio_dev);
-> +	if (ret < 0) {
-> +		dev_err(&pdev->dev, "\nltc2387 setup failed\n");
-
-Why the additional \n at the beginning.
-> +		return ret;
-> +	}
-> +
-> +	return devm_iio_device_register(&pdev->dev, indio_dev);
-> +}
-> +
-> +static struct platform_driver ltc2387_driver =3D {
-> +	.probe          =3D ltc2387_probe,
-> +	.driver         =3D {
-> +		.name   =3D "ltc2387",
-> +		.of_match_table =3D ltc2387_of_match,
-> +	},
-> +};
-> +module_platform_driver(ltc2387_driver);
-> +
-> +MODULE_AUTHOR("Sergiu Cuciurean <sergiu.cuciurean@analog.com>");
-> +MODULE_DESCRIPTION("Linear Technology LTC2387 ADC");
-
-The description should be the same as what's in the Kconfig tristate entry.
-
-> +MODULE_LICENSE("Dual BSD/GPL");
-> +MODULE_IMPORT_NS("IIO_BACKEND");
-
-
-
---=20
-Kind regards,
-Joshua Crofts
