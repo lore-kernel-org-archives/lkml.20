@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.99
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793134948;
-	b=DOGuC+S5cIegMUnYLHWAEG91bne7aHhyYxUWyR0yl/Li2yuCVHo5t66EcUxhS9h+rtZ/
-	 6iv16lPmlVztC9AVIBGDD6mMPcqYDoBhOpjW6r5JMawXj7HmPaXZe8I37yfjTniiYq/6q
-	 UT4uoJz7qFWhdi01ZNIcxyiMTs3KYClZpiGr7QcMYVhdQDK9KI8wPQGS/r9I8mPEHGdvC
-	 nAOemcE+rqeLbiSBgjrjj1UMeITZEcCj1vPd5luHbFFIF0ispH0i5kdvQIPVV14AhRaNG
-	 NkKHqrrQCnpwMGDSGLauxBRJiu2DB1ueIp2AZtybDIkh/oFyppbG/p+STJ5C4TdQgQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793134948;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=0gdBK2a/7BtrvxXUlX9He8n64shVCDBHPI0R3YZSOO8=;
-	b=WQ+/3F9rWefVt7PiygCYt9Z/kD913kLbHPlsb8r+9DTgo7d9qkVB9wG1dEVbpgprJbS4
-	 0wucca7u9OOSkBRz9ofantEn1Dp3A9nfYP5qBxcj925UMQ6rW3eKgW68eBIVvw6f9Bxh4
-	 X6IQpO4Xtp7ZgFBBLWmOesQwTHC4Blv5Sxv7XH6sNp7tYbqMfRogM0LTelzG9QHg2kxXa
-	 Uk2hK14xR5rKQc3r4yEvFuT/lIDgjjPX6r+JCscjc68JJjjI0wkU3T05XfECrPZzdUrMm
-	 2fXnFJk87aDM/In7TUg27DdbHF8NeEBWoZAuSVODN3OFCTk/JEPDFm7HtAoidE0FeUg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RPvtGViX;
-	arc=none smtp.remote-ip=79.135.106.99
-Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793135058;
+	b=so7IgHGvi11r4cplm08Wz2lxVXE8HNLUdv2svufcpJiFm2A739eC+tpQ5+gTIBk8lNRq
+	 Ax7peoKveDPbYMdO5QOesv4QOY7bG36WD0+tVNRjzUGNexM6xONfKPzc0K+QhS3EaJ7RQ
+	 rnU2tiD+8kThVEaxYmSr1os+GK4/Mp9yehdOo2sx1XSP2i7Dz+Sv7BpOJHEi87U72jJQ5
+	 L9w+GV5veoGsNn883mQT0unnxUtB5wmKkyPzfhoEwRedwa/n0uN1g96Gz5+KTMT6Hkznz
+	 3l+VBDQ1rqXrOZK94JFdoofgG5NfbwpTAiP3D+dJk7KFaF8Z6wbb5eqPqmNkp53aUGw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135058;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=gjv3DTrc8QOFN8oOgd0X4+2of6rdF6Ayu9jM95Hlmwg=;
+	b=zWdCN1QUnOUUKI6cbp4QqiYgHEstGkr5ozOw/k6J7g+6fuYqgKXU1BQlRbkh+Nw4rvC0
+	 3tFsQ27ijaEzGOt2h4ZznD7aqEbfP/Ezh9muqJ04TeQt48G0e+GZZnEVwVvwMRiyeZCR6
+	 5vZ+mrxZZWXp39uI7vBmYVMvxAh2YuHXt6YheiOO9BAJfC0GSMzhKv8ZygJMQaAmONgZ2
+	 e7pd0NnAclrdN9QY2KMFQvEH9kCUNRro+sMPbBUEr1Q3T5ZYstlp4cmDTqLWwfkDQ2eyu
+	 py2ZBtv5u18Vl8OFN9VoEj83FV55W2GGJhlxZUN7pNSdwtPZtdIthTPWzPjZNWGMc1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pxj2C2lm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.3
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013003.outbound.protection.outlook.com [40.93.196.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA6B606A31A;
-	Tue, 27 Oct 2026 21:02:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACA6B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC65606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:04:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEC65606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=RPvtGViX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793134944; x=1793394144;
-	bh=0gdBK2a/7BtrvxXUlX9He8n64shVCDBHPI0R3YZSOO8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=RPvtGViX8DtOI+cYibDYRy7LwnkDbu8zH1jzLEv9eW8+BP0fHvfB4+MkW/x7UxS2J
-	 dzER/G6vV7gCCK3TFaFCiuR04uvdpoIh0uQkl4yLM/t1zkehwDOQwXjsBN3Q1XeO9N
-	 c3VFwUSEc0XmqrnZd4Vv3KvF8/JNCxePthUV5MFS48HYFmRTZzIH3WnQiZr3zccZ6d
-	 hzBYwCs5bqVRt5DKj7qKynQ7BvfBb0WVED7vph2zIkwghsuNdQ6CECjjdXPcOLtrmy
-	 BlWFBr8Bx8/H8KUgUQT8NRlFK1PPxWBAWk+taXftlZ/diT6g/c3/iKj6H7QT6uQmj4
-	 rrrHzr3ZcXPMQ==
-Date: Tue, 27 Oct 2026 21:02:16 +0000
-To: Steven Rostedt <rostedt@goodmis.org>, "kees@kernel.org" <kees@kernel.org>, "brauner@kernel.org" <brauner@kernel.org>
-From: BoxStrikesTeam <BoxStrikesTeam@proton.me>
-Cc: "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>, "jack@suse.cz" <jack@suse.cz>, "mhiramat@kernel.org" <mhiramat@kernel.org>, "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>, "jkoolstra@xs4all.nl" <jkoolstra@xs4all.nl>, "farid.m.zakaria@gmail.com" <farid.m.zakaria@gmail.com>, "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>
-Subject: Ynt: Re: [RFC PATCH] binfmt_misc: add binfmt_misc_select tracepoint
-Message-ID: <Z3h154GvGuNo0lQQgNCwWxpvOkPCUZblnFrYRF1R9dx3Lqyh7mG96XAdo4GDq2Sy-wjlmqcQKcgmosaapO4gy82voeR2rAerZh9u2LmCEiA=@proton.me>
-In-Reply-To: <20261026162846.23686159@gandalf.local.home>
-References: <cmtfuzYFZMj7WozUoEjFs3RxYWe9UgdY5rK3ZGT7CPwO1mpemvEwNhG4v5ucoKBgUHMqFa7kSzOvLjFcVcxAybfmKdURZ4h-qoKX1lHXlAA=@proton.me> <20261026162846.23686159@gandalf.local.home>
-Feedback-ID: 205449183:user:proton
-X-Pm-Message-ID: 9f98da1da7a4f9aead59ee0aee5c9d5707e0cf2b
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pxj2C2lm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fjoO4fhhktZilcXq0lVLcXUFefRDtkIgnd+1Upq9VVTRdSPyYhiSa2fTjEVX6U3Ye34Iy2WLAXLRDqTh6n+YvyLe6DSQ/vN9aLhZZGOn6E+wu1F2uC1avJ1U/+Eahx3KbOP+Guaed+DOBghZ5wJY4q+2HCRa2EuSOvzo0D40iJGJqNjOtLIBTPa+SSLZS3FH3G2qN52Tdc4+I1bpdfd1F2SOrqzmBYIAJIZ9kYD9fh+VoWHj8/AnzfF31q+UY+8puEmRvdsUf9iwaX9+ltcbQGSr2jx3yhMkX2UuM8fiNTIDL+N8b+WPlkWlQphacTt3EpaCJKC59K+zchbP44Sf1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gjv3DTrc8QOFN8oOgd0X4+2of6rdF6Ayu9jM95Hlmwg=;
+ b=JOlVkOYN6YPhcfvYfhkJgdncO+1z16PDdYthmce8duvj4qqkN4PTHGWauMYN1cTcoEVyrXggQ6+OHxGglj4ZAehwzmyIiQ+eovOwWfNKZnBwVn6PkyNkupo0vQsHTTmgRsGcua5B5aCGz02h7nw0DLVDf1nfJxk3aEIkh521MULrDPC6Cx3W/mBnRKniXtVdBp4VUMDnU6Z+tdI9oTuIAYr5VED3gVW7vwhj5YDEOcIAHaaGRODp13Zs7nXeBe9pQcDOlI4WptHi0nKs4YLYLu1lfAgcv4jQuth0sUwV/NAMDjebOOp8mQBEIga4b5OfQp+05LW/40SCOUX2/9qMrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gjv3DTrc8QOFN8oOgd0X4+2of6rdF6Ayu9jM95Hlmwg=;
+ b=pxj2C2lmbfqRV11YmFThbJipbIG+fLqaI0pk2H2B3VufP3vdT082+F0cu9xu/cOZYaD22dJm/5myYwjDyXWpPKEXa/BbCuHZTmb+JJ1X4xIvXFWEQCimC2p0cG0itqD5YN+RlINwnVoUs6ExMzbp0f6VfTdopf0TJ4y4+77Io6NAe908owjtjtL9x9izNg/lSO1ME1+uq8ykgGwyPaVTGpwJOyfJMX9C5yirVHduKfkGU0kKwwhFhX7p9M7ud/pW4g7I2CkYhhxxc3si136kK3/fW7Cy1ELlqt78jJqLcS76uN1u1M3m2xx9jGu/yJgTA/LCbDjo3UCcBP35bZBgyA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by IA4PR12MB243497.namprd12.prod.outlook.com (2603:10b6:207:12b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 21:04:14 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 21:04:14 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Mike Rapoport <rppt@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 7/9] mm: page_isolation: do not take slab pages for free
+Date: Tue, 27 Oct 2026 17:04:11 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <6793C31C-09FA-47A9-81DE-9897A86B2029@nvidia.com>
+In-Reply-To: <20261027-pgalloc-ai-hotfixes-v1-7-9c7d1aca801e@kernel.org>
+References: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
+ <20261027-pgalloc-ai-hotfixes-v1-7-9c7d1aca801e@kernel.org>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: CH5P223CA0003.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:610:1f3::19) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,180 +103,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA4PR12MB243497:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e3145a4-420b-4292-fc98-08df346ddb08
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|4143699003|56012099006|11063799006|261021121427099003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ywwBSkcvUZe8zHFIiaQajaZVcCKLu8ksqHMaCgELE/myjPEjlJbzgk3pg30cOrH4MgXZLDEiEvzWHbWwXWu4j6eMt/fEfohUkiYT+poeA1uRVOcpN64qe+wBqIbqDy9wXkRudQSylDkd4r8ewFPhN+nr4VpHDDcD5uPJw19zoIGyoNZaAWsCFGLgMP82eP+uSuTPicuqavpesa5yLRkLs4+xB99pUWP06H4H33aTQiWRT1SCjVjoENOWNYZYzt6B02Me0Ht8uglvvD1xiT7hspc+F92bKYVZNpH2w/hwMXKGhOBNTyJjN/tHE5eN/kjb/TicmhLchO0GQHPStbBeUFtaSyMAJ+0zayE8CtyTgJz1GS8gRtm1GpKHlBNWfxtnIHiV/KYLWfeqrGO52kVj8g42LFADSYsk2dSMW9+OMZ5qhT/we8YgHHjpaxvSfv8xok6MCBlHVIP/GInt1Uw0DkeUx79FPnhW+JuMmQPiwg0CTWV6zJ6hbmMtJWEqddNnTW2+tqy+/wNzqQJN6sVSNXETJmI0unzAnTF8KhS40HZ/IQ0F0bbIFyLCsLiaZlLCc2+MSmpBS342/yk37cn/oobUJz0CODeJPx3B43m1jBCPZbrFoEP8pWz+qw3bDjRz6HDowmfStW752kPqZ26nmQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(4143699003)(56012099006)(11063799006)(261021121427099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?UFekqPQN61E6yJzgouYe+kuFrPnYQvkdVTPZCpXCVyKKlON5CEMbCtODjzx9?=
+ =?us-ascii?Q?NeXpll/pyLr8d5pjRzqyxfQgVVn15GOUQY2JV3p0YA0zYBKR+GgwFfs10Fw4?=
+ =?us-ascii?Q?5E1EVOSle1lBsyAcrTfoM8Vo4BqEv/q0IGcSs/lM+38wFgQiSnH+Y1Jkbtj4?=
+ =?us-ascii?Q?ovqMlGriiDeJ9gdRdhxKbLmvlB4V5eEkx0ZNSmHctQc3VI1B6cRKNhbOdaha?=
+ =?us-ascii?Q?s6BUU/RsGoM7jdy9IQo+70w2VkdoiJhSbBu0uLqA/35+XKtvJgoSxQ2kNJXB?=
+ =?us-ascii?Q?VIDPSQtiE3naCrEsPNRq/XT2mi7gW9ByULemVFFviBvGrtFTDXIhyAMRBpAS?=
+ =?us-ascii?Q?MQeds70t0emkQ6hcjrSp1dqnMinKNCSO/YIRAepzOL0hjmmsn+1Jr6idc+rL?=
+ =?us-ascii?Q?HtaiGPxzCzf8UsQKK7S19C3m11iFPak8vEn111LS1ntzbXl3Q3gDbFhtim60?=
+ =?us-ascii?Q?5Nkr7Z3vuqs1uQOx5sujTeX1fscahWn7qTiMiQrkfYPU2ApnqPMneFlYHPQC?=
+ =?us-ascii?Q?pCQQHkTWPcobgipdwIlFzyM7CWY5JiKM/uA5cohvMxVfTKz5lSO9Uv0lLZm+?=
+ =?us-ascii?Q?Uc+IqUDjecxZkj8up5bpB0Ixj4e9hePBwugi1e+wMZFUXhtVsRezeTGVaJSz?=
+ =?us-ascii?Q?MEQrnPzAbpL7emizM9XXlToii8wmHCVbhrh9EZzzjrj1iwobtBmJl6FH4qnW?=
+ =?us-ascii?Q?f+tzyc5VaN+lTwDdFuGDl1NP8JuVIcPlDZYWan0uPEsgAJfVpUVnj38EqXIH?=
+ =?us-ascii?Q?lTIQ7Q0QbCqqpGh98MmQ24B1Q2lIVji5M9k0yx8nLYrl/dyqG/uAB1EhOEXS?=
+ =?us-ascii?Q?5s1nwT0DovtcfZdH6swe1m7jBZgY/kBmEo3ywWPh2sc2iQwlARgQsfinJmTt?=
+ =?us-ascii?Q?kobhCAemC+xKGbRbmuHwyGoPV7QOt2ewt0DqYKf/5NcK9yjufp8M4gYbaowv?=
+ =?us-ascii?Q?4bafgrIQWDvHQGV35MbAh6teewHEs8LxZd6cRCrJPcJVSkR50PuzSv6ZckWW?=
+ =?us-ascii?Q?AnPUO8/yHMzkblHio45xUYWdD9FNr0XMBSUEy/jnKqSvDCngqqkJ6ErDgG3c?=
+ =?us-ascii?Q?suijl4lVdF9aei1Vd3sGzeKpgvJth0un1uqbVa6j5qxkZw58LkqqVtXHfT42?=
+ =?us-ascii?Q?sTDli581aKs0qyz9RFTT7LH42bk/2s4Ns9NKccTUCXzOy6IoXl35YK7udr1L?=
+ =?us-ascii?Q?gWcOUmuAFftPRldJPlUxCl7f+iOqjdzAsvtpnwDcufDr0yLE4a+whM9o58aG?=
+ =?us-ascii?Q?D8OFD+VqeWq1VADkRxLQ4MkmFRaB+fI7tqJ1SvXwWbMSt5jp1Ne3P8ePDLk8?=
+ =?us-ascii?Q?RvRPlmSiQ70oTADlc3XaA8H5Ht15JWw/zoJHWd/BzUfRrAzP9Pr4+IN4sqDD?=
+ =?us-ascii?Q?PCaa1lDEhqx2bnczgDeMYK1TFXRxOKafNJnfwDCBUkiGE6JFx8buR2I3c7Kl?=
+ =?us-ascii?Q?xXVPHMQGK07xpQs7suMa0POnQA0k6HsMfrzZMw46Mcwly1FUsrtlIEj9GOJ9?=
+ =?us-ascii?Q?i0OY7y34AhM1jODwp3V6a6pRIOhwzuYStmD/W0jgqhdwJVkrmchLHBHC4Rz2?=
+ =?us-ascii?Q?0VfiJ9koknPodSvtZM1xTeKxmsQjux9AALRTuT2Vjn9yDPoah/eEgTEYV2o9?=
+ =?us-ascii?Q?52Y/vPyeh4meZijx/HNTCqJQg5hKX/CnAu/qmhvsbFFjhjPCXBGzHF+P/ZPM?=
+ =?us-ascii?Q?yUOtdLnDRykaKbLxjahHQ8egoIEAOeVej21TAXsBkf8XLq/ZLEE2DspNxiKE?=
+ =?us-ascii?Q?5f59A7feIA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e3145a4-420b-4292-fc98-08df346ddb08
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 21:04:14.2381
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gcodl7Lqe/lcHydCtW7teKQeBPFvlc7d3N0HiD+p34XoD+yqNQAuWnlDi99QCzmz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB243497
 
-Thank you! Steve, for your suggestions.
+On 27 Oct 2026, at 11:46, Vlastimil Babka (SUSE) wrote:
 
-I=E2=80=99ll take a look at the suggested fixes for the patch tomorrow. The=
- main issue I ran into was that Proton Mail=E2=80=99s SMTP submission setup=
- requires a paid plan, which caused me quite a bit of trouble. That=
-=E2=80=99s why I=E2=80=99ve included the patch as an attachment for now.
+> From: Josef Bacik <josef@toxicpanda.com>
+>
+> page_is_unmovable() regards a page with a reference count of zero as free
+> or about to be freed. Since slab allocates frozen pages, they will
+> be wrongly considered to be freed if order 0 (higher-order compound
+> pages are caught earlier).
+>
+> If such slabs are the only unmovable pages of a memory block, memory
+> offlining now isolates the block, this can lead to offline_pages()
+> looping without progress.
+>
+> Thus detect the slab pages as removable to return -EBUSY, as would
+> happen before commit 9aec2fb0fd5e ("slab: allocate frozen pages").
+>
+> Fixes: 9aec2fb0fd5e ("slab: allocate frozen pages")
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
+>  mm/memory_hotplug.c | 7 +++++++
+>  mm/page_isolation.c | 7 +++++++
+>  2 files changed, 14 insertions(+)
+>
+LGTM.
 
-It seems that Yandex Mail doesn=E2=80=99t have the same limitation. Once I=
-=E2=80=99ve prepared version 2 of the patch, I=E2=80=99ll send it to you us=
-ing Yandex Mail.
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Thanks again for your help and suggestions!
-
-
-
-Proton Mail g=C3=BCvenli e-posta ile g=C3=B6nderildi.
-
-Steven Rostedt <rostedt@goodmis.org>, 26 Ekim 2026 Pazartesi saat 23:28 tar=
-ihinde =C5=9Funu yazd=C4=B1:
-
->=20
-> You shouldn't attach patches but inline them. Yeah, I know a lot of email
-> clients can't handle that. But claws-mail can! (and it can also reply to
-> attachments like they were inlined ;-) ).
->=20
-> I'll let others comment on whether or not this patch is needed, but I'll
-> comment on the tracing side of things.
->=20
->=20
-> On Mon, 26 Oct 2026 20:17:26 +0000
-> BoxStrikesTeam <BoxStrikesTeam@proton.me> wrote:
->=20
-> > From: Eneshan Erdo=C4=9Fan Karaca <BoxStrikesTeam@proton.me>
-> > Subject: [RFC PATCH] binfmt_misc: add binfmt_misc_select tracepoint
-> >
-> > A binfmt_misc entry can select an interpreter for an exec.  With a BPF
-> > 'B' handler, that selection can be made by a BPF struct_ops program.
-> > The kernel commits the decision in bprm->interp and bprm->flags, but it
-> > does not emit an event at the selection point.
-> >
-> > Existing observers have to reconstruct the decision from
-> > /proc/PID/exe, AT_EXECFD, AT_FLAGS, or /proc/PID/maps.  These sources
-> > are mode-dependent: a transparent dispatch still reports the original
-> > binary in /proc/PID/exe, and a short-lived process can exit before the
-> > observer reads it.  A classic dispatch reports the interpreter, but
-> > not which handler selected it or which invocation flags were used.
-> >
-> > Add a tracepoint after the interpreter and the invocation flags are
-> > selected.  It reports the binary filename, the selected interpreter,
-> > the handler name (for BPF handlers), the invocation flags, and the
-> > pid.  The flags are masked with MISC_FMT_INVOCATION_FLAGS so that
-> > static entry state does not leak into the event.
-> >
-> > The tracepoint is observability only; it does not change exec
-> > behavior.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Eneshan Erdo=C4=9Fan Karaca <BoxStrikesTeam@proton.me>
-> > ---
-> >
-> > This is an RFC.  A small PoC and short A/B results are available for
-> > context; they are not needed to review the patch.
-> >
-> >  fs/binfmt_misc.c                  |  8 ++++++++
-> >  include/trace/events/binfmt_misc.h | 52 ++++++++++++++++++++++++++++++=
-++++++++
-> >  2 files changed, 60 insertions(+)
-> >
-> > diff --git a/fs/binfmt_misc.c b/fs/binfmt_misc.c
-> > --- a/fs/binfmt_misc.c
-> > +++ b/fs/binfmt_misc.c
-> > @@ -41,6 +41,9 @@
-> >
-> >  #include "internal.h"
-> >
-> > +#define CREATE_TRACE_POINTS
-> > +#include <trace/events/binfmt_misc.h>
-> > +
-> >  /* Entry status and match type bit numbers. */
-> >  enum binfmt_misc_entry_bits {
-> >  =09MISC_FMT_ENABLED_BIT=09=3D 0,
-> > @@ -644,6 +647,11 @@
-> >
-> >  =09flags =3D entry_invocation_flags(fmt, bprm);
-> >
-> > +=09trace_binfmt_misc_select(bprm, interpreter,
-> > +=09=09=09=09 test_bit(MISC_FMT_BPF_BIT, &fmt->flags) ?
-> > +=09=09=09=09 fmt->bpf_ops->name : "",
-> > +=09=09=09=09 flags & MISC_FMT_INVOCATION_FLAGS);
->=20
-> Logic like the above should be done in the trace event itself. Not in the
-> code path. That is, pass in fmt and flags.
->=20
-> > +
-> >  =09/* No argv is built for a staged argument to land in. */
-> >  =09if ((flags & (MISC_FMT_LOADER | MISC_FMT_TRANSPARENT)) &&
-> >  =09    bprm->bpf_interp_arg)
-> >
-> > diff --git a/include/trace/events/binfmt_misc.h b/include/trace/events/=
-binfmt_misc.h
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/include/trace/events/binfmt_misc.h
-> > @@ -0,0 +1,52 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * Tracepoint for binfmt_misc binary type handler dispatch.
-> > + *
-> > + * Fires once for every exec a binfmt_misc entry matches, after the
-> > + * interpreter and the invocation flags have been selected. Unlike
-> > + * sched_process_exec (which reports bprm->filename) and /proc/PID/exe
-> > + * (which a transparent dispatch sets to the binary), this reports the
-> > + * interpreter that actually runs, so observers can see through a
-> > + * transparent dispatch.
-> > + */
-> > +#undef TRACE_SYSTEM
-> > +#define TRACE_SYSTEM binfmt_misc
-> > +
-> > +#if !defined(_TRACE_BINFMT_MISC_H) || defined(TRACE_HEADER_MULTI_READ)
-> > +#define _TRACE_BINFMT_MISC_H
-> > +
-> > +#include <linux/tracepoint.h>
-> > +#include <linux/binfmts.h>
-> > +
-> > +TRACE_EVENT(binfmt_misc_select,
-> > +
-> > +=09TP_PROTO(struct linux_binprm *bprm, const char *interp,
-> > +=09=09 const char *handler, unsigned long flags),
-> > +
-> > +=09TP_ARGS(bprm, interp, handler, flags),
-> > +
-> > +=09TP_STRUCT__entry(
-> > +=09=09__string(filename,=09bprm->filename)
-> > +=09=09__string(interp,=09interp)
-> > +=09=09__string(handler,=09handler)
->=20
-> Then here you would have:
->=20
-> =09=09__string(handler, test_bit(MISC_FMT_BPF_BIT, &fmt->flags) ?
-> =09=09=09=09 fmt->bpf_ops->name : "")
->=20
->=20
-> > +=09=09__field(unsigned long,=09flags)
-> > +=09=09__field(pid_t,=09=09pid)
-> > +=09),
-> > +
-> > +=09TP_fast_assign(
-> > +=09=09__assign_str(filename);
-> > +=09=09__assign_str(interp);
-> > +=09=09__assign_str(handler);
-> > +=09=09__entry->flags =3D flags;
->=20
-> and here:
->=20
-> =09=09__entry->flags =3D flags & MISC_FMT_INVOCATION_FLAGS;
->=20
-> -- Steve
->=20
->=20
-> > +=09=09__entry->pid =3D current->pid;
-> > +=09),
-> > +
-> > +=09TP_printk("pid=3D%d filename=3D%s interp=3D%s handler=3D%s flags=3D=
-%#lx",
-> > +=09=09  __entry->pid, __get_str(filename), __get_str(interp),
-> > +=09=09  __get_str(handler), __entry->flags)
-> > +);
-> > +
-> > +#endif /* _TRACE_BINFMT_MISC_H */
-> > +
-> > +/* This part must be outside protection */
-> > +#include <trace/define_trace.h>
->=20
-> 
+Best Regards,
+Yan, Zi
