@@ -1,100 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793119866;
-	b=4c5NKfCrP1czzB3buwXMn1X1JN90HbuVyCCjgg8aJ9e4kDDjiceya9D5SJAkyp1hpe4s
-	 YZwx2HYSIfcWwzEfurZPmMhmMYXfOjBSbXr76wYBFuGPPxW3w5Y/JdgmJ0VMksJ3tRICx
-	 8hTvGcOZqW+DPlJYU7qqiEkaKVZBi0iXtmx2Hwprd8oCt6iMVgk4kgjZTz1w73ys8rX5V
-	 q2BACsA253mkMJBr5/1esvTDCwc0QPGygw5jIw0qXNu4eP+Dq8+PaOScMP5IS6pAkUa1x
-	 UlQ9XU4YHHPXjpT315e4BkPQXTVGRlJJ31DY2QuUwbSDJp0a5oiDDE95iPJm2Bb9xYQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119866;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793119896;
+	b=1uQDzSnD7aTK403O+i+C4bDFqd1z2gYbRjh/h6Vzl+oY+6Gy+Sdq/T7oxTdteMZG/7S7
+	 2ZIJxeiFBj5gqFIchWoQKQfXjbJiPY9W1Aby7GDgqllJzXRnERwq0wyL4/hdRGnblGLqU
+	 M/fUBrjIWsvISuqKHfMEBcAXUsxaH/4EmUamLD6g+z2LDmRL3t0M9Ayq7wJnmjoasbpqj
+	 d1JA81O5X/VLZ3eT4NchmV0rqA2Zid1I2pzPte6R+tBL4s1fHdtjYgXfaho8vg793N+ff
+	 fb9XdjVlr6waOnqRFHtW0PbJZWWNGou7Uth9Qqcqj5kFkwyyoTcy5YYBkrCQQ9Zu5Ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119896;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
-	b=A5rWeiyScUUFAk3IxihfFsj1CBeMZyB1y0n3MfN/gle2m9HUsIBEVINu9LlPd9BNrUs+
-	 5pypanfL9zIi8JGuVw/ZHYGeOi4F+dpqQdPIpMucPdgNMd8Lc5r2GYJuNBcc/TgWIYC7r
-	 jfkQKbCfVqhpaFz2jb2rBs2Um4m7t3mDRf6ZWHpJEIt4eZ6vBq1QOfTUCntoG60dp3Sm8
-	 O8kaiC70L4dz1GDyf32hHmBlt/YToUR08z6rPm/ufKOINVaQQRbk8UY6iFAEGk6k7s2iX
-	 KtG/e1BdnsFf1fKUM5Mud3NeU42BSjpS0lyb4d64HahnAjtAG2RZ6BjVDpe9zIqWuZA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=f2AcRrWv;
-	arc=fail smtp.remote-ip=209.85.160.50
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=aAVYI7hzWz0Ro36eEs5zq4Y7AqRKeB23+7GHTzj26rY=;
+	b=1BPrY+i9eH7tRaV9bsnV4ccGm1hUFuBoNhIbRmT7SH1piTAbOjr+TEcsQ+YXdGEzGbEO
+	 lTQXjMAq0jerC+uO8sgBMccVc71i6bRRHyaVuileXgPA4Oc/zdJb4BRtEGarOKiLj3hnr
+	 E+hrs4ASG7qDspNHbX75WMtZlndlJGNChWVA6xD28TiSnki6hpKZ23OrpdVNYCk8JNYrk
+	 DOGIQKr+4Z8kDG2bZXgH9DemzKONJuvVl97H3LQAX9Ab/hoS0sjA0HvR48mTgBnZ3ejlL
+	 J2o0gP69sr2GWaZPCSLboWmvL24yHqCpJKzJnjP2r/R4NIvQg+d8WUDfmqoqOnxe4cw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=simpleble.org;
+	spf=pass smtp.mailfrom=californiaopensource.com;
+	dkim=pass header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=ln0SPSKU;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2ABC606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:51:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2ABC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94190606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94190606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simpleble.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=californiaopensource.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=f2AcRrWv
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-48e94879f02so53946fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:51:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793119865; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qWfP84kzLWtik15IwyMeYl3j0SEBcisCVdVvcjur0YnpEM0RPDJ5E+Du8/nu23V8iE
-         IOrfAt+OFLBBhLx9MOvuMLxyGh77UdYaCHokRG7ITd8+w9v9xDZIZV/d6cOEEtwJEHDE
-         nOLZ4x+oZkqJ2pP+Qdp36qaAgfduI90y7ym52cgNB5I3UE5esLMlWxwUIu3yRV2EJURm
-         u08sLt4qJ4D23FA/5MK4sx8AOlS1+31QmTntk0LWzgKXbox50dLPCTgoQ+5IGGFMxBBl
-         c7p66dopc5O580yddufRXY4JKJErWGj0VEnwE5ZHi/wuToL5mQF90rD7tmzLpvZ5JbxO
-         +9Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
-        fh=6fMzLahO9jMP23/xKvz9EjF7Lvzd7nJzXyjixiMbjZs=;
-        b=jD6lSdTwXBhY5nY/glQmgaqfvYu8V7bGxjalQ7K3EV+myf/SVFHGqc0ygA+8j0SHVJ
-         63PaUmy9L0suY5K1WD1Srt/oBsZETruLjg5OlJrWvDyns1J3uQKdcrcTLrvTbALGEEzc
-         DekRcglCtGr+sChMaiDUN0exh4RktaAC8dnZWPVN2IE8+Xa16nqy/qVg5dGcvhNKSKsg
-         HyiBV6uHYcTHc6KhNDhulNa4LaFcVdKRPkoYzIQIWw2G5IU8u5sFkVBOBr1jumDZ8nc9
-         DCqbq+THstj+0p5JAWbatgqMKnHU5OfEReky7fSH2qeCeUEdRfImowaBCWDk3kpNrCIG
-         1Bcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=ln0SPSKU
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36661f953e4so98652eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:51:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793119865; x=1793724665; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
-        b=f2AcRrWv5oi1ivQNNe9pviZGHpfiK1uiUFT8pQSXULYzdF+YGe/NCMqF+VONT4YcMy
-         USUN9cHI8CB25BG4MuVk9Uo+sUb5OqCFcD+CwWgJorVgGmS41UzAfoMStWXY2Mw0ved+
-         YtxBLBoUx3LFFlM5gBvrjrGIFDDRp9GncBafYJPjQ5ySeLnXd8n9GtT16YFUqEcm4R5m
-         tToxLd3MkjgAnM+DdQWCi9UkKuuGdGK9WkIWxE9cy9LuB8WtAC/q/QssIgtrXvskHXT8
-         MbFY3h/OXGffCL1rDyKIQbbd2cB+SdtloBYfaQEjvYEf2UHUEs4IqjYERIFuVvj3RJB+
-         svpA==
+        d=simpleble.org; s=google; t=1793119895; x=1793724695; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aAVYI7hzWz0Ro36eEs5zq4Y7AqRKeB23+7GHTzj26rY=;
+        b=ln0SPSKUgrarXzwNmH9xP9RtnX3Xmam1Y+XCMj1HIYO6IxoKRHEXJQZU5FWaP0SGSF
+         1Ouh/C6WipUr8cOUnmIXKFJzGMwZ7FIvfoGWQHEw/dPYqyVIJrGhnb+oTDlEGQH6xrno
+         HMAkD1UKct1cVcvH2UHVC9IVWRJ04zUN1DlEB3lAQdQAP5WD7UpNDpPd+IWH6sgIRbhv
+         GdviVtB4uvjxAlV04LinAZDtZFk+yVj1SnDeWegziMSA5ELrvxAuxKt2S8yUUCUXfosm
+         pEzxJv5QvvmyEjTSbiuLn3bVR30oIvja+KMrkZogNcWY476xvq29eAKh2+tyAeOISAfK
+         aKWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119865; x=1793724665;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
-        b=TUwtIbrCnf+s1MTixGHzbhdEH6PRIylho8nFMidqm4iyfqVEfM2prH+yLwvlWtsHxC
-         XRq7nVBUfEblxBlDrMNn9AWiQ1Naa50YLR4ZviXFQVPSQn1DZU74tzXszIoeuHx8r6eD
-         zNkjp90GwuJyUf3u0+tOFWwqmsH6+i4EFwDj2dyODHi2PXm1nTgTfZ/xCoT+3LVcopBk
-         gv4j8vWUP7gUlTBnNjR1CtNQAW9YA5qE86HDXF7dkWPqk4t4/nV1RBBpRthry7tK/woQ
-         w/Pk6cILpavaaXtHTG25ijg6/gJ3EcIxQwAOe/tFoxWXcCua2h+qFwRrRmBsfogYZ9Sj
-         Mahw==
-X-Forwarded-Encrypted: i=1; AKwUvBycZPUok+3jUBSjdWecp6uY5fJRjp0cTdcXcZ+tw8wkVlyRChKIgSSNciTW3g/DJLEd9vLCPh7ppSN+5/0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDxyu/lnYod+iaRZLPBqzrUZEbsqitb2OZhvi67oAGKr5j5/5y
-	mr5cD42BWkZ20mnnoK/1ub37HJnYhBGyXAALxaskzg1a4c8wJsHdxxK0/YtZ//QLHOFEm14ckrS
-	rP5hrlGUfkAxqWYcnWfcTOny7C1f7gz+zF/TGvoHbHw==
-X-Gm-Gg: AYBFou23bO6yX5LAi7eAwHeIi5LUNYlVC1b7W6+VszwfZ2gz4OLFWUC3Wox2JNJ4D3G
-	DTb8BQYNC/G5iTuKj1UlzSkOaC3qoYcftnXtYC1BH965wM+dSmxvf67tOntqm3QLr/drhOeXbRX
-	APjmmrQ9h7jaxFFYqCKTnD3APqNL4ryXi7mAnAmywbXw4hmF3bVcx7C5GLDCLt5NAHYzROP+FjQ
-	TJOYscnPK6K70k84n1xm0ygQlkEzY70EcdCJQ6a8DvyHYuUHHKPtVwpKOCdGlxXgvz3vckbdgzF
-	qWxEloCWE7X7/vXncLMJcxuUhiDBZhB7JYfGgxNhyneXFg074QQQv7dQ+6cHDUfbn+DyLwKS/od
-	CU8hcdUrw7xV15Kl5k+s8PHIRgzSPUGWpsJxj4wp0sgd+N6I9lNXaIavC0T+unmVQ5OsffRGuO6
-	8xCs/P64bO0KS3CQi0l1v+z6YnMYMd7KoQd9H+BQVdvFOYoazFM289qQ==
-X-Received: by 2002:a05:6870:d889:b0:46a:c217:c56d with SMTP id
- 586e51a60fabf-4a8bb1737f0mr98260fac.2.1793119864501; Tue, 27 Oct 2026
- 09:51:04 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793119895; x=1793724695;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aAVYI7hzWz0Ro36eEs5zq4Y7AqRKeB23+7GHTzj26rY=;
+        b=jGJdR8taeywEayknev0Gwo1asr2dGc9g9Ol0djwzUxZA7dIHxnDdT/4t/+kyiCLgLZ
+         GEkvTloc+imzfKMIqVYAXhUrvlM8/+isq5+SqTJ3DFLpxrpLR/jWVd/g9enGHKHCHHXX
+         3DAa36lGXvZMHJsq+zzZDclASHZ1RNHXQHSvoJ/ET1XjgdfACGDHHmGXLOTV6SxHiweX
+         5670GE3Sj28OSccIpbFTBUqnfV65zJuuWuZQVG13wsjc72/6ibQggTu1Ai6G4F3iantd
+         aNqYNdGmo3YsaDGIdj4PWcLFyO4/nmGxULqVKgHqzj07GaGE4Gau4F8lnY2zolfrMrn8
+         WvMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxIMjmScwJqRuE9ZMxvYdfN+JDto+fs2YBc2X7Z0x3ngJaj0KZw0GlMWB3275vzxGvqGnyUD3vlO25lbk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHlD6dnZYKByXPrV+r7R3L20Dsw/nSbjz5Eg3DZJerUa6AvOHx
+	y3jMLVYtAPIblAxs3LCMBJtOm46TbC3IYZatELRJAlFfP81KwX58+R57J2JMntWcwidE2CJDU8r
+	nJ4IUxI9jfw==
+X-Gm-Gg: AYBFou10tF6DAKeVLx4HOVw79DosW+r4rIeqf8+uID5OnmZbb6r8mEAHBBugL0NjAt0
+	8hV3JXdpmt9qADh54R5ABJ8YsUslZa6JyUdU7ih/uAPr60Zj6XfcFtgJfeKRBqODpBRMqmp3TkY
+	PA6stIXK29N4bSsbfJw5ULoJnh+zqN+KYbl0hOJ10Ax5F0djJs9RXRrsZid4DDGqF7r3t1+E9XU
+	i59yitUP5BhLPasE1fDBdk+/d0gNnL/A/GgTkyLaBv8wKunDIxfWt7vCdgtRxQvGn4pPG+rjxO8
+	CY/an8w/EjtekMEBr04YjTWMG1516q+EtwkkbEQ4KtxuIMIiqFEa4n3+fsBbZdE7YpJM1nqm2Ki
+	l8/TypN3Hv8pEEDRoYyFukr5XX2ByCpy3qHedF8jG46uECUi9FPVEXiJRojDN9EUqsYYrMJJ23l
+	k06KQkZKjZGzW8Dd2VOM/cSnD8koB1QNvQjhaPzPPalETgfU7KXXu61Obu35RPkTWsG14P8wB/c
+	lYCu2U4AEMGul7EH7yJqNZPJJiDH6Qm19eWMWdvljj7Fucn6r63ippXzH7s80XYr9+Wsjuc8c6H
+	qy/TSNsDNaMA4uQht6FhzuTxyghF+fbkxsO0Ti0xfInu1Qak0bi3vpJoPOxAJcihAeCoWBLp/Jr
+	35bpGOfXPb8Z6K715FUmx5A==
+X-Received: by 2002:a05:7301:6f09:b0:35d:eafd:5737 with SMTP id 5a478bee46e88-369e84e382dmr14261708eec.22.1793119894351;
+        Tue, 27 Oct 2026 09:51:34 -0700 (PDT)
+Received: from localhost.localdomain ([147.185.47.151])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7e73sm35314092eec.20.2026.10.27.09.51.32
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 09:51:33 -0700 (PDT)
+From: Kevin Dewald <kevin@simpleble.org>
+To: linux-bluetooth@vger.kernel.org
+Cc: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Kevin Dewald <kevin@simpleble.org>
+Subject: [PATCH] Bluetooth: MGMT: Fix discovery stuck after a failed Stop Discovery
+Date: Tue, 27 Oct 2026 09:51:29 -0700
+Message-ID: <20261027165130.74821-1-kevin@simpleble.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,151 +98,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026111032.88355-1-antoine.pichot@gmail.com>
- <20261026111032.88355-2-antoine.pichot@gmail.com> <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
-In-Reply-To: <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 27 Oct 2026 16:50:48 +0000
-X-Gm-Features: AclHuK-6apCrsSW-JKKLxfQ64Ax9KsC9jd8-Haw-R9qIe3JqmapOTsN1wSNV7Ks
-Message-ID: <CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com>
-Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: antoine.pichot@gmail.com, linux-media@vger.kernel.org, 
-	sakari.ailus@linux.intel.com, mchehab@kernel.org, djrscally@gmail.com, 
-	dan.scally@ideasonboard.com, hansg@kernel.org, 
-	andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Antoine and D. Manresa
+Stop Discovery moves the discovery to DISCOVERY_STOPPING, and
+stop_discovery_complete() only moves it on to DISCOVERY_STOPPED when
+stopping succeeded. When it fails, for example because LE Set Scan
+Enable times out, nothing else moves the discovery out of
+DISCOVERY_STOPPING, as the LE scan timeout was cancelled before the
+scan was disabled. Until the controller is powered off, every Start
+Discovery then fails with Busy, and hci_update_passive_scan_sync()
+skips background scanning, so devices set to auto-connect are not
+connected anymore.
 
-On Tue, 27 Oct 2026 at 10:27, D. Manresa <dmanresa@gmail.com> wrote:
->
-> On Mon, Oct 26, 2026 at 08:10:26PM +0900, Antoine Pichot wrote:
-> > Observed on a Surface Book 2, where ipu-bridge lists one link frequency,
-> > 319.2 MHz, which is link_freq[1]: V4L2_CID_LINK_FREQ reads 240000000,
-> > and the pixel rate and PLL registers are off the same way.
+Move the discovery to DISCOVERY_STOPPED also when stopping it failed,
+as start_discovery_complete() does when starting fails. This sends
+Discovering (disabled), and the passive scan update disables the scan
+again if it is still enabled.
 
-I'll agree that the link frequency isn't abided by, and your patch
-does fix that. However testing on a DT based system (Raspberry Pi)
-with a 24MHz extclk I'm also seeing issues.
+Fixes: 0e05bba6f6f8 ("Bluetooth: Update stop_discovery to use HCI request")
+Assisted-by: Claude:claude-opus-5.5
+---
+Reproduced in test-runner with a new mgmt-tester case, "Stop Discovery -
+Scan Disable Failed 1", in which the emulator answers LE Set Scan Enable
+(disable) with Unspecified Error: without this patch no Discovering
+(disabled) event is sent, the scan is left enabled and Start Discovery
+fails with Busy one second later (3 of 3 runs); with it the scan is
+disabled again and Start Discovery succeeds (3 of 3). Freezing the
+emulated controller while bluetoothd stops discovering gives the same
+result through the HCI command timeout. The other kernel testers pass as
+before. Only tested with the emulator, not with real controllers. I can
+send the mgmt-tester case to BlueZ if you want it.
 
-I'm working with the datasheet from
-https://static6.arrow.com/aropdfconversion/dedba0a4f2b52e9b6587341a0e31cd115a2c3a46/ov7750_ov7251_csp3_rev1f_ds_2.12.pdf
+hci_pause_discovery_sync() has the same pattern on suspend, which I have
+not reproduced.
 
-As I read it, the pixelrate is configured via PLL2. Those settings are
-identical between the 2 link frequencies, so the pixel rate should be
-48000000 in both cases. Without that I was getting 75fps from
-libcamera when I asked for 100fps. 100 * 480 / 638.4 = 75.1fps.
-The settings for PLL2 with a 24MHz extclk exactly follow the sample
-PLL configuration in table 2.10 of the datasheet. For 24MHz the
-multiplier is 0x28 / 40dec vs 0x32 / 50dec for 19.2MHz, resulting in
-the same rate.
+ net/bluetooth/mgmt.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-The settings for PLL1 seem to be all over the shop if the datasheet is correct.
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index 3cb4f9ece8..06595175d9 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -6322,8 +6322,11 @@ static void stop_discovery_complete(struct hci_dev *hdev, void *data, int err)
+ 			  cmd->param, 1);
+ 	mgmt_pending_free(cmd);
+ 
+-	if (!err)
+-		hci_discovery_set_state(hdev, DISCOVERY_STOPPED);
++	/* Leave DISCOVERY_STOPPING also when stopping failed, since nothing
++	 * else moves the discovery out of it: Start Discovery would keep
++	 * failing with Busy and passive scanning would not be resumed.
++	 */
++	hci_discovery_set_state(hdev, DISCOVERY_STOPPED);
+ }
+ 
+ static int stop_discovery_sync(struct hci_dev *hdev, void *data)
 
-With a 24MHz extclk and measuring with an oscilloscope, the "240MHz
-link freq" actually runs at 400MHz. The "319.2MHz link frequency" runs
-at 454MHz.
-If I follow the datasheet, then the 240MHz mode does fall out at 400MHz
-For the 319.2MHz mode I reckon that the VCO is well out of spec -
-2.128GHz when the limit is 800MHz.
+base-commit: 47d4d9f67e92d56ef3965f2727f9c98a5a611368
+-- 
+2.53.0
 
-The numbers for the 19.2MHz modes look sane in their ratios, but I
-can't test them.
-The 240MHz link freq does a prediv of 3, multiply by 75, and divider
-of 1, which keeps things in range, and 19.2 / 3 * 75 / 1 = 480MPix/s,
-or 240MHz.
-The 319.2MHz link frequency uses a prediv of 1 and multiply by 0x85 /
-133 gives a VCO frequency of 2.55GHz, when again the limit is 800MHz.
-That then gets divided by 4 afterwards for a supposed result of
-638.4MPix/s or 319.2MHz.
-
-@D. Manresa it'd be worth trying using a prediv instead of (post)div:
-static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_319_2_mhz = {
-    .pre_div = 0x04,
-    .mult = 0x85,
-    .div = 0x01,
-    .pix_div = 0x0a,
-    .mipi_div = 0x05,
-};
-
-So I'll agree the patch is correct, but it'll show up other failures
-that were currently masked. I'm not fussed about the 24MHz mode, but
-it sounds like there are devices using the 19.2MHz / 319.2MHz mode.
-
-(I've also noted that the driver allows V4L2_CID_VBLANK to go down to
-1, when 40 or below seem to give corrupt images for me. Implementing
-set_frame_interval for a raw sensor is also wrong, particularly when
-V4L2_CID_VBLANK is also implemented. I'll see if I can find some time
-to patch it up).
-
-Hope that helps.
-  Dave
-
-> The diagnosis holds on a Surface Pro 7+ (IPU6 Tiger Lake, 8086:9a19).
-> ipu-bridge gives this machine the same single frequency as yours:
->
->   IPU_SENSOR_CONFIG("INT347E", 1, 319200000)
->
-> and unpatched, the sensor reports
->
->   link_frequency ... value=0 (240000000)
->   pixel_rate ... value=48000000
->
-> exactly the mismatch you describe.
->
-> Applying the patch makes this machine worse, though, and since it carries
-> Cc: stable I think that is worth resolving before it goes in.
->
-> The fix does not only correct a reported value: it reprograms the PLL and
-> moves the link from 480 to 638.4 Mbps.
->
->                      unpatched v6.19     + this patch
->   link_frequency     0 (240000000)       1 (319200000)
->   pixel_rate         48000000            63840000
->   PLL1 0x30b1/b3/b4  0x01 / 0x4b / 0x03  0x04 / 0x85 / 0x01
->
-> The IPU6 receiver here does not hold that link. 150-frame captures of the
-> 640x480 30 fps mode, counting dropped buffers from v4l2-ctl and csi2-5
-> error lines from dmesg (including the "callbacks suppressed" lines):
->
->   unpatched  run 1  dropped 23   csi2 errors ~7216
->   unpatched  run 2  dropped 23   csi2 errors 13277
->   unpatched  run 3  dropped 13   csi2 errors 4722
->   patched    run 1  dropped 106  csi2 errors 120788
->   patched    run 3  stalled: 50 frames, then none for 60 s
->
-> The errors are DPHY fatal error, SOT sync error, inter-frame short/long
-> packet discarded and frame sync error. The frames that do arrive look
-> normal, so this is the link and not the image.
->
-> Two things to be honest about. This unit is not a clean baseline: even
-> unpatched, mainline already logs thousands of CSI-2 errors per run at
-> 30 fps, and the out-of-tree Surface driver sidesteps the whole area with
-> a vts_boost parameter -- at its production VTS of 3448, 15 fps, I measure
-> zero CSI-2 errors. And the sample is small: three runs each, one unit.
-> What makes me report it anyway is that the one-line difference was
-> consistent in every run, that it introduced hard stalls I never saw
-> unpatched, and that going back to a build with only that line reverted
-> gave 568 consecutive frames with zero CSI-2 errors.
->
-> One hypothesis tried and failed, so you do not repeat it: the out-of-tree
-> Surface driver notes that the vendor runs the 319.2 MHz PLL with the MIPI
-> divider at 0x01 rather than 0x05. Building this patch with mipi_div
-> changed to 0x01 in the 19_2_mhz_319_2_mhz entry was worse, not better --
-> 3 frames in about four minutes. So the divider alone is not the missing
-> piece. The vendor path also uses VTS 522, which I did not try.
->
-> So either ipu-bridge's advertised link frequency is wrong for this SKU,
-> or mainline's 319.2 MHz PLL entry needs more than the index fix to be
-> usable. I have the machine for a few more days and can run whatever would
-> help decide which.
->
-> The rest of the series tests well here; I have replied to the cover letter
-> with that.
->
-> D. Manresa
->
-> (Written with AI assistance, directed and reviewed by me.)
->
