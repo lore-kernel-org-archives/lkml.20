@@ -1,104 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116331;
-	b=ymB0igTMReyzpTzDiZ1YsCIjGmOy93aabEKA1VENEyrvEpxGqoxs0h3sxZCReixRmMFd
-	 BSSGgCPff5ZOrIWEG/9yg/zixIf7WuXEWNjMsaCWATkRVrY8Mc3aBxRX2HAAUfbSSSq6L
-	 GmTBYYyRZQqoLpAbs/RUklkQBjXly/ELJSt76Acs5s2wIbl+rNOWLkPjK6t7RlfGeIQcT
-	 sdUJzq+Etr37PE1G275P2B0ZhXbMmstGkSGdnvTo54vuY/4sNVwJLE1XbeETEIVc+/vFa
-	 zr6LPpoqZUKLmFOnaGMZyC/smmnJltZ/Deup5C1YfVT6Vz2wbm1xPeF8ik+oNa+r7dQ==
+	t=1793116332;
+	b=FolJUGf3Yfj/uY00aiawAiH7U3K4CstfCZcKsFp5wRtEv6DA+CgIytuL08SZqJbJcBks
+	 YWff6l9Ej2brLPf34TlE+96Q+lt90pmYyWyFYajb6le+k1j1Dhmd5HfB8o/jLNsBWULZB
+	 ga+6Fdi6rO6w+iSxiVPfs10FEpA88rmzq1lGBXOCbSE+LcdWEuecFJN3eX5B4sWP6D8Iw
+	 2cxbtqB0DWcmku6suGUAjwLcJOCNbf/N8t4CqmTrgYvhKwY33pWCsdMyriVhJ1QsvyY+v
+	 fCDhs+kzrEGYQgO24UudcRN/SlNJmIFXbCTXd/nw5vB1XZho6h/FDRioRGDE/8TOW0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116331;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=pfnNDHItpoX/YzmzrmP5ur9HWzidKs0fEqz613nLINk=;
-	b=T1M3RuiTDxhJnZlgD6RE0dzTEqaCZDTquYH+6/tK/WSNJUMN201Mj3unARKX7kA/gFQx
-	 QwiUKDc47Tew9PEA7IGjCSJNcnG8Qy2HK5DS4U3zMm5dEj9JZ1YEAYD/hvNqeFDb7HiJL
-	 NY3A2FsS8FWnhWDN3urxg0Rfnhfd94GnnoOWACzB83+NaW/YMn5isv9C0b3U6IMjRYmdq
-	 d+NkaDn8YXJKknclci4xYGn2rIZSnno+j64fJVWZFK6MOpdDu5HDehkcEfLQR5633faUn
-	 B8QXQxfVhBerrzToptDIyld2u24szWoFs28nlN2rScRckTsv8ga/MAN50ZH/+4WeCwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116332;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=jKpLRHkmcKldCCW4L2cmLxefzvN2OhCXfoHGwpR3yvA=;
+	b=vGuXHgYEgUjIK6DuDLMFHG7/rqOfcEs4DX6UR4ASbYEpLvyHjMN8wJ9EDBM+09t5e1uh
+	 ZNk7odsi1Yle377hQA7dGO8kQ7j4l3W6CNdDlIDXocPhYa5jTtRxgDzI4NqbQxFpdyN2w
+	 cYsExPiNDJwA5N4wJYMgMVKtk3ePVGB2RDaZBd7odyc86Swl+aSaBV/eY+DOJubVkVBdP
+	 zXOGOJs+h4Cd4TE4P6hGSHAlKvkHS7bHkhiViFDjq6UVCYbmrqV3zoni4iWAanERvpby+
+	 wSElagJ1NFbFOvqaNJpgmFiT5S1dgVfl0GDcBB3JlTjqvHfNvFSu4xaaxw/No/rELLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YJ7nJavW;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBBC606FC9E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209F7606A31F;
 	Tue, 27 Oct 2026 15:52:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BBBC606FC9E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YJ7nJavW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793116331; x=1824652331;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AXbOS6yicrYkW6cWp25t1MxUM3pBn1J5M+NgEEWNqCw=;
-  b=YJ7nJavW8lP2jJTrJMdE5h3N5bN9PMus75VN/vEzc4WA0hZWpKk72KCi
-   1CARSZAWhKteVuUWkVKtwGs5G4Aa7oxSqYpXmmiZGJD4X0CMfE8UPIgXy
-   OH6D6FDql7Y53J/RV4m2RJrS+2pTKRtB4xRD0rt+XEq5odKvZxK19j0R4
-   OIfr5xgrJnRZcbocxCFc8iHKtoozIM0vZu3LnnnRgqgeNhnHV7WpjCs9t
-   mfovoqBHNiK1ochiXVeCCsfdDL9cpWhdJta1MSi5VSREq41kepyw90XkY
-   R9ZgQ0oTGTYiF2zLG3UEOrvTEZiRRyPSlbkCTs2tZpzKHzqUp2uiJzuoP
-   w==;
-X-CSE-ConnectionGUID: 5ntgXMZxR/GXAt7U+DFoHA==
-X-CSE-MsgGUID: /kGhKfscRpyEEgBs6Bv+PQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1727155"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1727155"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:52:10 -0700
-X-CSE-ConnectionGUID: Pu1kC4IwQKaeNIkpOo8VgQ==
-X-CSE-MsgGUID: Px9sDWm1Qfu/HxUyZgAGpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="4697457"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 08:52:01 -0700
-Date: Tue, 27 Oct 2026 17:51:59 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>,
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Peter Hurley <peter@hurleysoftware.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Crescent Hsieh <crescentcy.hsieh@moxa.com>,
-	Frank Li <Frank.Li@nxp.com>, Sherry Sun <sherry.sun@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Olof Johansson <olof@lixom.net>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Robert Baldyga <r.baldyga@samsung.com>,
-	Thomas Abraham <thomas.abraham@linaro.org>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Andy Shevchenko <andy.shevchenko@gmail.com>,
-	Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>,
-	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, stable <stable@kernel.org>
-Subject: Re: [PATCH 23/24] serial: st-asc: don't report a wakeup to a closed
- tty
-Message-ID: <auDIn8NbW5vKLSQX@ashevche-desk.local>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
- <20261027-tty-llm-v1-23-99b0202ae546@linuxfoundation.org>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 209F7606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jDZkB6YD4z8Xrrc;
+	Tue, 27 Oct 2026 23:52:02 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl1.zte.com.cn with SMTP id 69RFpsud015645;
+	Tue, 27 Oct 2026 23:51:54 +0800 (+08)
+	(envelope-from hu.shengming@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 27 Oct 2026 23:51:58 +0800 (CST)
+X-Zmail-TransId: 2afc6ae0c89e36d-542b0
+X-Mailer: Zmail v1.0
+Message-ID: <20261027235158456IYooqMRrdlV-tMROKicoN@zte.com.cn>
+In-Reply-To: <2026102719473296875zO7s1T904dguHCkN5vy@zte.com.cn>
+References: 2026102719473296875zO7s1T904dguHCkN5vy@zte.com.cn
+Date: Tue, 27 Oct 2026 23:51:58 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,43 +58,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-tty-llm-v1-23-99b0202ae546@linuxfoundation.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+From: <hu.shengming@zte.com.cn>
+To: <lv.yating@zte.com.cn>
+Cc: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
+        <namhyung@kernel.org>, <mark.rutland@arm.com>,
+        <alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
+        <irogers@google.com>, <adrian.hunter@intel.com>,
+        <james.clark@linaro.org>, <linux-perf-users@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <liu.qingtao2@zte.com.cn>,
+        <he.yilin@zte.com.cn>, <zhang.cheng35@zte.com.cn>,
+        <ye.zhihao1@zte.com.cn>, <shen.lin1@zte.com.cn>,
+        <dai.hualiang@zte.com.cn>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gcGVyZiBtYWNoaW5lOiBGaXggTlVMTCBkZXJlZiBpbiB0aHJlYWRfX3Jlc29sdmVfY2FsbGNoYWluX3NhbXBsZSgp?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 69RFpsud015645
+X-TLS: YES
+X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Tue, 27 Oct 2026 23:52:02 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE0C8A2.001/4jDZkB6YD4z8Xrrc
 
-On Tue, Oct 27, 2026 at 12:06:49PM +0100, Greg Kroah-Hartman wrote:
+lv.yating@zte.com.cn wrote:
+
+> From: lvyating <lv.yating@zte.com.cn>
 > 
-> If its interrupt is a wakeup source, asc_receive_chars() reports the
-> characters which arrive as a wakeup event of tport->tty->dev.  That
-> pointer is only set while the port is open.  The port of a console is
-> not shut down by the last close, so its interrupt handler goes on
-> running without a tty.  If the system is then woken up by a character on
-> the console, the handler dereferences a NULL pointer.
+> When recording with -j stack, resolve_lbr_callchain_sample() can
+> dereference a NULL 'chain' pointer while resolving the branch
+> stack.
 > 
-> Take a reference to the tty, and leave the event out if there is none.
+> $ perf record -j stack -e branches:u uname
+> perf: Segmentation fault
+> 
+> Fix it by checking 'chain' for NULL before dereferencing it.
+> 
+> Fixes: 29be60c93d2d ("perf build-id: Mark DSO in sample callchains")
+> Signed-off-by: lvyating <lv.yating@zte.com.cn>
+> Cc: stable@vger.kernel.org
 
-...
+LGTM!
+Reviewed-by: Shengming Hu <hu.shengming@zte.com.cn>
 
-> -	if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
-> -		pm_wakeup_event(tport->tty->dev, 0);
-> +	if (irqd_is_wakeup_set(irq_get_irq_data(port->irq))) {
-> +		struct tty_struct *tty = tty_port_tty_get(tport);
-> +
-> +		/* A console goes on receiving after the last close */
-> +		if (tty) {
-> +			pm_wakeup_event(tty->dev, 0);
-> +			tty_kref_put(tty);
-> +		}
-> +	}
-
-I believe I saw already something like this. Taking into consideration that can
-be a helper for all who wants the same functionality.
-
--- 
+--
 With Best Regards,
-Andy Shevchenko
+Shengming
 
-
+> ---
+> tools/perf/util/machine.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+> index f86b3b7df742..10a88c070814 100644
+> --- a/tools/perf/util/machine.c
+> +++ b/tools/perf/util/machine.c
+> @@ -2858,7 +2858,7 @@ static int thread__resolve_callchain_sample(struct thread *thread,
+> if (chain)
+> chain_nr = chain->nr;
+> 
+> - if (evsel__has_branch_callstack(evsel)) {
+> + if (chain && evsel__has_branch_callstack(evsel)) {
+> struct perf_env *env = evsel__env(evsel);
+> 
+> err = resolve_lbr_callchain_sample(thread, cursor, sample, parent,
+> --
+> 2.27.0
