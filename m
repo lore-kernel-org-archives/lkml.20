@@ -1,44 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.79
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104617;
-	b=ghqR7C4BUhJlNb89txTcB/27gZtUAVZqnUXaiXdgt1Zv8lybxS9sWMWj5WqaNvN6QcTE
-	 hWQKnc8WtcjqzEB7yzrimlygwkYtyv1+UL+wtHxEF5wUqabsl+PDhgWs8d0XHdQF4RSa5
-	 q1+DGDBAgEAfdItnYbjsblqi31j8UG81TgnpY26qs7k1evejSXDIdyer6KYos4UPzeLn0
-	 ulQjZl6YIdkRF4Yedano4Z5T2oP6z8AzHsuJ+Y0fhCQ0FOM224tjysPl6y4iTtiME1YRM
-	 G0clLWx1pzANo+laeittdLSP5W9m8SzO2yJb7PwOlI98zgwc4c9M03lEDbzhwyBYCBg==
+	t=1793104628;
+	b=YoLdhX7OGhX3+L2OE52RJd+EW4KTXWciPCmlIkxUyloNqxgq4FM92hBch0dmNwCOoAtD
+	 365zBiia627+ZyhG0nG3UxNYvDUF4QkWNJD8mCE9MRpY0Lh05B5TyYFJhbHXYalQoPeC5
+	 kO55lSqxNODaozdvsC+Pn35iYVq5MxeACi8w07j//dseZps9H7nATW+Eu58i3coRX3A6C
+	 IxJc+hHMUjKkDY7BvihSAwtplfTNtHwQdHvUu3NhOqcgdVlM7bI/PgXtdDyEYJR3AL9Nh
+	 q0dyUvILqy95Dhwoqnp/PKWc8S83SJOkxM31JfIH2VS4PYT+bPPDt+daqzw63HzGJbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104617;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=CiGmRdlkoViId5TfscHFKflRSN2mgmPjTQiT6qBmjg0=;
-	b=v2x/U1iQc40N7GJeqlQMyjk3mrUf5bwAO4gaqKoLInJAUIPHU4s65bYovOUz1eNfxTQB
-	 QrX6ogAH8LwCEQuGEfEgWFuWq+oZy6EhyDful4rHqLXqooFxVQ5e5HXjW3/Qwul8X0PVk
-	 eMZIhwkzQthBNnMai48Ed7kAZ2L76x5yIN1Tt+9fGCq49cOKRNPDlgvts+6DqML63JUK3
-	 Sii3H2RI87OxI2GcMYf733iHc1Go2OkaD4pfEg3SjbaQ+ndTB3pDfN2nZNjTaJ9vPLqD7
-	 Cmo3LgBtfPFZ2id6o+iD8KZG4Bu06mIYwmO5tg7p+YzsEd9QpURx3Vy9qRE089astGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104628;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=gAUuhtdA5WV/bRzLwbiy3hGt9hgQIFf9+QgGnDmBpGo=;
+	b=AMuOReWkUP4NsIE7OlgPvL7dTJr0u+flrpeoX59gRQ1NRea83M9R2iZ9N+SF134it/ew
+	 aqrkjNJCCZgZhqpv0gjO4EDnPyPrSp4fm/c/X+w6pAvb2KKOQvdvzpEhe7OcAuu+P3luF
+	 3hYRi4W3oBBRH9bqEXBNBEPyreNQ3ROEf3axGaY3y+jhapYn4CZ/XlIlmEq81n5GrfuMI
+	 GlJVpCxaU2a+tWfnuVoqX584a+QRLyLVp1oBJdPMVbHeaVYRAU3ie0kaToCChDjzVFlm7
+	 0H4qwAUwQ8mXFGEDoM3S+T1U3A81IWzLk3KkG32QsMIcpMoQF6fv6n0gaaY8gL0Ncxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=JcY10bMX;
-	arc=none smtp.remote-ip=154.81.10.79
-Received: from mail-m1079.netease.com (mail-m1079.netease.com [154.81.10.79])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GgHx3DNi;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A00606A31B;
-	Tue, 27 Oct 2026 12:36:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A00606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1F5606A334
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A1F5606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=JcY10bMX
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 528682039;
-	Tue, 27 Oct 2026 20:36:42 +0800 (GMT+08:00)
-Message-ID: <311338f7-ae03-47b9-96fe-1ec2b2851c7b@rock-chips.com>
-Date: Tue, 27 Oct 2026 20:36:41 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GgHx3DNi
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5iM511504078;
+	Tue, 27 Oct 2026 12:35:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=gAUuht
+	dA5WV/bRzLwbiy3hGt9hgQIFf9+QgGnDmBpGo=; b=GgHx3DNiVhwmZX1lqtX3wV
+	X3WAIjAqX8EvvefNqVMgUpX9pQU1l4AdYh82OeDsRT3H/dg9WJD1GIt6jo6JyR4K
+	EoySi4OVgwYc1zk4d9VIgPBgpmn0yxKYQ1OctDPQw93wH3KjgVq7XH2FdOgbAH2l
+	AeZygedYwmqkuNeqVjGaqc+6gmmT+exdrnGNgg/04JjqwbukNxROvZIZGdGuKzvS
+	BZQm6k9YNK9pFFXg406xQKGC1l48ujO7xqWQPwe9Cv5OS2vkoLPWpgtpJ7whwSC6
+	xqKmaBmwX76VnYSQyridC8n4CHyiR9wto3M7d8ziXfezNiJNZn6Ej8x14FShdXjg
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmd6yabq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 12:35:29 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAvUkK3997011;
+	Tue, 27 Oct 2026 12:35:28 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hjtnn8aaj-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 12:35:28 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69RCZQdi4719182
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 27 Oct 2026 12:35:27 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8B24658063;
+	Tue, 27 Oct 2026 12:35:26 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D4D1358059;
+	Tue, 27 Oct 2026 12:35:20 +0000 (GMT)
+Received: from [9.43.47.205] (unknown [9.43.47.205])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue, 27 Oct 2026 12:35:20 +0000 (GMT)
+Message-ID: <96fdef03-624d-4de0-bfa8-12bdb552272d@linux.ibm.com>
+Date: Tue, 27 Oct 2026 18:05:19 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,60 +87,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, imx@lists.linux.dev,
- linuxppc-dev@lists.ozlabs.org, linux-amlogic@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-tegra@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 06/16] PCI: dwc: rockchip: Use cached PCIe capability
- offset
-To: Hans Zhang <18255117159@163.com>, bhelgaas@google.com,
- lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
- jingoohan1@gmail.com
-References: <20261027122827.2725643-1-18255117159@163.com>
- <20261027122827.2725643-7-18255117159@163.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261027122827.2725643-7-18255117159@163.com>
+Subject: Re: [PATCH] powerpc/syscall: Return the preset value of skipped
+ syscalls
+To: Renzo Davoli <renzo@cs.unibo.it>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Davide Berardi
+ <berardi.dav@gmail.com>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        =?UTF-8?Q?Michal_Such=C3=A1nek?=
+ <msuchanek@suse.de>,
+        Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
+        "Dmitry V . Levin" <ldv@strace.io>,
+        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+        Andrew Morton <akpm@linux-foundation.org>
+References: <20261018151539.440213-1-renzo@cs.unibo.it>
+ <49f43f66-f516-413a-9842-bf6d8cef5fb1@linux.ibm.com>
+ <atujOWJNfMZPVD0q@cs.unibo.it>
+Content-Language: en-US
+From: samir <samir@linux.ibm.com>
+In-Reply-To: <atujOWJNfMZPVD0q@cs.unibo.it>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa17d5ce66c03a4kunm8cbf4897570f
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGktJVk9ISU0eTR5CHUIeHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=JcY10bMX5VWFSTKD/G7A+Y8NZJqvgD8AMt+1D9jMkiqr+9Jj2ehRz18pkYtHT8ZunL5eUiWUhHwAdDix7KG3Iz5rowwLyFwISqEK7Ufpz8TkQo2jzcOTYLFdc41EbsaxeluNB0tsf/s/ByM6UAVG153ph24+T3bO3XlJYxZOroY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=CiGmRdlkoViId5TfscHFKflRSN2mgmPjTQiT6qBmjg0=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=ZYOIpcVA c=1 sm=1 tr=0 ts=6ae09a91 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=pO4xbdBIu-7luVm97lQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0OCBTYWx0ZWRfX3e/j/RJ72D6e
+ ICIMLag0VlEE07E3h8HqvlUK5nwLt6zGOkY2L9Sz5qxZYUjeDaHhxN1H/jhscYnz+56c+n5rxNc
+ MO+ZKpdv2Eqe/rbYGrAO7dFjJh4OTwkzJJuxDHE+U3jyIAAbTS5i/Eu9+r3L6E7q9B20KldsfiP
+ ZfDRTf4iBl40nfh1tQvvUxsRlC2mHvwSXdT7IcPuW39LrCpbSthv7jOPv1zAAl9QuvQmjEGKTWr
+ TEF/Vay57MGHcuOYaRUBDC2YYYxOzjYBF37Z7PnDVM8zk1UGdeAN83gV6cst4LlXzWtrQMUB9Z4
+ In+jqPWaQOIuBxU+TNdtHYK5RK7sJr0t3lDimX3z8doaYp1Y1fOIvvixI4WalVweZZ17MtPjprF
+ EqTRIwRo7AYRFfy76kH3TmM/L3sjyixzr43FFTh9EDtresWn+kViJgexYvU8TeHqYDLNW9kZXM3
+ bTO6BITaHUxE0JKeIWQ==
+X-Proofpoint-GUID: LP9ey2gZsnnDQJUXCgdDxIxMMULFPPSm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0OCBTYWx0ZWRfX/G5ZWtzJzEH2
+ /2v/wD7osR2b6E/NJJ0rbyDmfIoVz5qXOxdsoT2rn0Z21SBvvqWnI4VxL3A/ecZ0Vi3QwSSEXqG
+ xIB5tJwGRsdXjUtw4ngzfAx+ueeGdM8=
+X-Proofpoint-ORIG-GUID: KlFWnw3E6Eucx9uCCYMqsxIpT4C2fZbV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1015
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270048
 
-在 2026/10/27 星期二 20:28, Hans Zhang 写道:
-> rockchip_pcie_enable_l0s() is called from rockchip_pcie_host_init(),
-> i.e. from the .init callback, which runs after the controller clocks and
-> resets have been enabled. Replace the capability search with
-> dw_pcie_get_pcie_cap(), which reads and caches the offset at this very
-> point.
-> 
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+On 23/10/26 11:41 pm, Renzo Davoli wrote:
+> On Fri, Oct 23, 2026 at 02:28:09PM +0530, samir wrote:
+>> Hi Renzo,
+>>
+>>
+>> I tried applying the patches to the latest upstream kernel (master branch),
+>> but the patch fails to apply with the following errors:
+>>
+>> error: patch failed: arch/powerpc/include/asm/syscall.h:98
+>> error: arch/powerpc/include/asm/syscall.h: patch does not apply
+>> error: patch failed: arch/powerpc/kernel/syscall.c:18
+>> error: arch/powerpc/kernel/syscall.c: patch does not apply
+>>
+>> The latest commit on the master branch:
+>> commit 734bef548a96e8774d6eef5dfa2026c6edc4e80b
+>> (HEAD -> master, origin/master, origin/HEAD)
+>>
+>>
+>> Could you please take a look and suggest how to resolve these conflicts?
+>> Does the patch need to be rebased against the latest upstream kernel?
+>>
+>> Thanks for your help.
+>>
+>> Best regards,
+>> Samir
+> fixed in v2:
+> https://lore.kernel.org/lkml/20261023180735.853655-1-renzo@cs.unibo.it/
+>
+> Best Regards,
+> 		 renzo
+Hi Renzo,
 
-> Signed-off-by: Hans Zhang <18255117159@163.com>
-> ---
->   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> index af26a07c0c9e..753606193855 100644
-> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> @@ -373,7 +373,7 @@ static void rockchip_pcie_enable_l0s(struct dw_pcie *pci)
->   	u32 cap, lnkcap;
->   
->   	/* Enable L0S capability for all SoCs */
-> -	cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
-> +	cap = dw_pcie_get_pcie_cap(pci);
->   	if (cap) {
->   		lnkcap = dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCAP);
->   		lnkcap |= PCI_EXP_LNKCAP_ASPM_L0S;
+Thank you for sharing the v2 patch.
+I was able to apply the patch cleanly on the latest kernel branch 
+without any issues.
 
+Thanks again!
+
+Regards,
+Samir
