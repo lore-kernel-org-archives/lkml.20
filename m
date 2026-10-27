@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093745;
-	b=qjaOs3RUIly2ekTYhWaxAIp9RnIn4z2QfgtBilUXlSZbWyjpdwqZxjz/vDOCQUFYu2MK
-	 xenBaMMDY0twXSOZHsneJyW2/NXwyEKTnfNZWc9Xtd0y+jzq7XYIvsenXoCiNwHGf4GO9
-	 25QqOAbmA0WuuShfnFr9Wg9IFG5VOBpQwqZJuV5Q5Eya0dphFAeFXlv3j/MzAmmeTsHJ9
-	 qkmm1LG90of9FFdUCSUvGhk1IfpcQSy59VKEslYizT3DYXvA401WScO5o30kJxqxFCWMk
-	 xWLiC/8fkJLMHCJ1lArKNBlKaRLkbvovqwxLGujwd2g1sKIlhFT71CNk5o+xqwKq2Kg==
+	t=1793093743;
+	b=m70u+oFQ+5WnztVbMQxtItsBaQZZil+1zDpGYaY0EElSWJVNQiMLPS6493L1gQ0MVZMf
+	 YjqWlboIL0gg+YZCwadV/15xCMr7zpKe2CLDrH8JKcDI5kxQs3+fjaubA/qq6fXg9xaU8
+	 l/LPLrveEqqg5OYYUP7ldI5o/0F0jf1nNCYW7vCyzVO0fMkSfBMpeSQE9pXDs8yT0r+ee
+	 6airdBw+3PtXrCtAO8IB76BtGL5v2DzUGeVxHKFMgv7PTnju5kTXMU56DtIwcgfE/PDmq
+	 1STrfBqQsUyGZPSONIJa6SyJraOglMH4XnE1mGlqzM8wI5D6xJ5vI0Qm2OUEjjupN/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093743;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=BQSqnrhB0wqKJzkCSZ4Q3xGBVoAa0KEuXEDWeoLBoVo=;
-	b=jlVEJAJgX54IuWYv9kfa6Qoo/BdQGQY8k7Uraiqnq1PUs/7Rnnogu/JnHGVAvY+t8hgn
-	 jls7Lo7hKnjrBufMVldCmsUNfS6Y1t4fVYMlpJM66I9/p1hJbBiWXt6XL8YkiFUrNdU63
-	 FQciN25ToMc62FcCpWuJrpV45V420bi9smZg6E5b3pa04Rt/WhEvxf3SzXrq62k9t8tXT
-	 GwaN+W7/7fHIiDo1lALFQrNds8S0LF9KYWCXUw0v32bFXmN/DDv//G3BkvAlOa6r85L5/
-	 opAFqrMVK9lWKIVmPxtwsFCKdOEgEdJJPrTcZiiLZaV+19TuSk96U/WEgr130Rlqq0g==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=lPdRcKjHxkKTRhDMzjbMQbkH1Y7BdzgdFX+1uhRYEJE=;
+	b=wKXvUEOBtjrg8tesVsWJhac7wITNkFh+EOAm9pn5/xu0mn9mRSQ90IZH1hIxKlU9lAi7
+	 zMRinkucZowxhHXrv2k9y3283lPdunGyet4I9NFRPcVst4+2E0glMJ8tZmg30PwmwYNNx
+	 Y45gvVJqm8z0Ra4ywOA3x0kdZDOZBMfjVH10i5CiX7opMM5txynSV7nY1rJL3vrqi8u3P
+	 LN7zQ6Lq54Y7ZkAMjLjd00hTfj3JAcXy3c24vQrAOI/i+hiAsLubbOULwpl/lTCAIF6te
+	 BxomCVkXLIqljUAXGn70HkSTCfcJtmxkqJ8Kl7KZY1WyD+ygCZIovo37jPvsuUOsYPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DqQBXtJZ;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Fk3bMv/D";
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A1D606A330
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44A1D606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D5E606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:35:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71D5E606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DqQBXtJZ
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Fk3bMv/D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=BQ
-	SqnrhB0wqKJzkCSZ4Q3xGBVoAa0KEuXEDWeoLBoVo=; b=DqQBXtJZaU3VMiRMf/
-	rVVh6kXc72IPVU0X/FitO9tljBnfd0sxOwv4To/s/DFqGtclFwxGSqyaFTwqnExj
-	q40YsecOSpKERz0YESpk84TGvZE7pmGcaFSdl6TG2jJqvDxD+EMBwiSNz27pv39t
-	Wh/AaoEkywyPZbKpwNiFRLbYQ=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lP
+	dRcKjHxkKTRhDMzjbMQbkH1Y7BdzgdFX+1uhRYEJE=; b=Fk3bMv/DZvLXWlR5+i
+	44ak2152VXXtCiRjoaW0IHK+hfsKFa8Bf8d2k6Tmr1SRFNJDPVoOGczyKVCEXj1G
+	MhbNDqljlmj1Sx6Bt+WB+oDahlXNH3WCfZkR/beAqz1Ew7cn8hm9VMpkKNlw7gaX
+	gy4XxrEz08nu26WzEV2giAgnY=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD33xFVcOBqdMGFDQ--.18497S2;
-	Tue, 27 Oct 2026 17:35:18 +0800 (CST)
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD33xFVcOBqdMGFDQ--.18497S7;
+	Tue, 27 Oct 2026 17:35:21 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
 Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v1 0/5] ntfs: support O_TMPFILE
-Date: Tue, 27 Oct 2026 17:35:10 +0800
-Message-ID: <20261027093515.344799-1-liubaolin12138@163.com>
+Subject: [PATCH v1 5/5] ntfs: support O_TMPFILE
+Date: Tue, 27 Oct 2026 17:35:15 +0800
+Message-ID: <20261027093515.344799-6-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261027093515.344799-1-liubaolin12138@163.com>
+References: <20261027093515.344799-1-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,81 +65,205 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD33xFVcOBqdMGFDQ--.18497S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXr4DJw47tFyDtFyDWFWfZrb_yoW5Cw17pF
-	Z3XrySg3ZrK34xu3s3Zw47Jr1S9a1rGr47Jw15WryUJw1ktFnYva13KF15Ja4xJF93Xw4j
-	qr4qqa47GrZ8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UQyCAUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RYEzmrgcFZKSAAA3b
+X-CM-TRANSID:_____wD33xFVcOBqdMGFDQ--.18497S7
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtr43Ar17Ar1rWFW5uFW7Arb_yoWxZF1xpF
+	sxWryfGws7Jry2g392ka1UZr4Sga1xCF4UXrWxW3W3A3Wqqw1FgF1ftFy5uF1fKrWrArWq
+	qF1UG34UWryUZ37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjjgxUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RkFz2rgcFlK0AAA3D
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-Hi all,
+Allow regular files to be created without a FILE_NAME attribute or
+a directory index entry. Keep their on-disk link count at zero and use
+d_tmpfile() to attach the inode to the anonymous dentry. Clear the base
+inode's in-memory link count before initializing EAs so that attribute
+inodes inherit zero links and can be evicted rather than pinning an
+unpublished file in cache.
 
-This series adds O_TMPFILE support to fs/ntfs. Applications can prepare a
-regular file's contents and metadata without exposing a directory entry,
-then publish the file with linkat(). Unpublished files are reclaimed when
-their last reference is released. O_EXCL prevents publication.
+Allow the first hard link of a zero-link inode only when the VFS marks
+it I_LINKABLE. Existing deletion checks remain in place, and the VFS
+controls O_EXCL and clears I_LINKABLE after publication. Reuse the
+zero-link eviction path for unpublished files.
 
-O_TMPFILE reuses the existing inode creation, EA update and hard-link
-paths. The first four patches fix existing bugs in those paths, so that
-anonymous files can inherit ACLs, prepare metadata and be published
-correctly:
+Document the interface and the named-stream restriction before
+publication.
 
-  1. ACLs must be initialized after allocating the MFT record. Otherwise,
-     an inherited ACL can appear correct in memory but disappear after
-     inode eviction. Anonymous creation uses the same initialization
-     path as ordinary file creation.
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+Tested the complete five-patch series in QEMU (x86-64, four CPUs, NTFS
+debug and lockdep enabled) on disposable NTFS images. Checked anonymous
+creation, last-reference cleanup, O_EXCL, linkat publication and failed
+publication retry, ACLs, nonresident EAs, prepared timestamps, direct I/O,
+mmap, fallocate, truncation, permissions and idmapped mounts. Named-stream
+writes were rejected before publication; stream writes, reads and removal
+worked after publication.
 
-  2. Publication through linkat() must preserve the file's atime and
-     mtime. The existing hard-link path resets both; the fix updates only
-     the required timestamps and marks the affected inodes dirty.
+Verified published file contents, a 12000-byte EA, mode and explicitly set
+atime/mtime after cache eviction, read-only and read-write remounts,
+unmount/mount and a fresh boot. The inherited access ACL remained readable
+in those checks.
 
-  3. Files may already have ACLs or other EAs before publication. The
-     hard-link path currently leaves the new FILE_NAME's packed EA size
-     at zero. Initialize it from EA_INFORMATION when adding the link.
+Created 400 files using four worker threads, including 100 publications.
+Also checked concurrent publication of the same inode, competing target
+names, last-unlink races and ENOSPC followed by space reuse. Injected
+ENOSPC at five sites in creation, publication and final-open paths and
+checked the failure behavior. Offline inspection found the recorded base
+MFT records' in-use flags and MFT bitmap bits clear after cleanup.
 
-  4. Attribute inodes initialized while the base file has zero links
-     also have zero links. They are evicted at the final iput(), discarding
-     dirty pages from nonresident EA writes. Synchronous nonresident
-     writes keep a successful EA update readable after that cache is dropped.
+ Documentation/filesystems/ntfs.rst | 15 +++++++++
+ fs/ntfs/namei.c                    | 54 ++++++++++++++++++++++++++----
+ 2 files changed, 63 insertions(+), 6 deletions(-)
 
-These bugs also affect ordinary creation, hard links and open-unlinked
-files. Keeping the fixes separate allows independent review and use
-without O_TMPFILE. Patch 5 builds on them to add anonymous creation,
-VFS-controlled publication and documentation.
-
-Named-stream ioctls can create or open streams after publication, but
-not while the temporary file remains unpublished.
-
-Tested this five-patch series in QEMU with four CPUs, NTFS debug and
-lockdep. Tests cover creation, publication, permissions, idmapped mounts,
-direct I/O, mmap, allocation, concurrent publication and ENOSPC. Checks
-after cache eviction/remount/reboot covered file contents, EA values,
-access ACL readability, mode and explicitly set atime/mtime. Injected
-ENOSPC at five creation/publication/open sites and checked failure
-behavior and release of the recorded base MFT records. Ordinary file
-operations were also exercised. Individual patch notes describe the tests.
-
-Based on ntfs-next commit e845077350df3862c733ed10a950d49ef4d64b0c.
-
-Thanks,
-Baolin
-
-Baolin Liu (2):
-  ntfs: initialize inherited ACLs after allocating the MFT record
-  ntfs: support O_TMPFILE
-
-Xuewen Wang (3):
-  ntfs: preserve timestamps when creating hard links
-  ntfs: initialize packed EA size when creating hard links
-  ntfs: write unlinked file attributes before dropping their cache
-
- Documentation/filesystems/ntfs.rst |  15 ++++
- fs/ntfs/inode.c                    |   8 ++
- fs/ntfs/namei.c                    | 123 ++++++++++++++++++++++++-----
- 3 files changed, 126 insertions(+), 20 deletions(-)
-
-
-base-commit: e845077350df3862c733ed10a950d49ef4d64b0c
+diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
+index 699e91f..a0acc01 100644
+--- a/Documentation/filesystems/ntfs.rst
++++ b/Documentation/filesystems/ntfs.rst
+@@ -10,6 +10,7 @@ The Linux NTFS filesystem driver
+    - Overview
+    - Utilities support
+    - Linux file attributes
++   - Temporary files
+    - Supported mount options
+ 
+ 
+@@ -58,6 +59,20 @@ These Linux flags are enforced by Linux. Storing them in an NTFS EA does
+ not make Windows enforce immutable, append-only or nodump semantics.
+ 
+ 
++Temporary files
++===============
++
++The driver supports ``O_TMPFILE`` for regular files. The file has no
++directory entry until it is linked with linkat(2); ``O_EXCL`` prevents
++this publication. Ownership and mode follow normal file creation rules.
++With ACLs enabled, the file's access ACL is derived from the creation
++directory's default ACL. Unpublished files are reclaimed when their last
++reference is released.
++
++Named stream ioctls cannot create or open streams on an unpublished
++temporary file. They can be used after the file has been linked.
++
++
+ Supported mount options
+ =======================
+ 
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index b26fd9c..4f58b80 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -489,9 +489,11 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
+ 	simple_inode_init_ts(vi);
+ 	ni->i_crtime = inode_get_ctime(vi);
+ 
+-	inode_set_mtime_to_ts(dir, ni->i_crtime);
+-	inode_set_ctime_to_ts(dir, ni->i_crtime);
+-	mark_inode_dirty(dir);
++	if (name) {
++		inode_set_mtime_to_ts(dir, ni->i_crtime);
++		inode_set_ctime_to_ts(dir, ni->i_crtime);
++		mark_inode_dirty(dir);
++	}
+ 
+ 	err = ntfs_mft_record_alloc(dir_ni->vol, mode, &ni, NULL,
+ 			&ni_mrec, -1);
+@@ -513,6 +515,10 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
+ 	inode_set_iversion(vi, 1);
+ 	insert_inode_hash(vi);
+ 
++	/* Attribute inodes must not pin an unpublished file in cache. */
++	if (!name)
++		clear_nlink(vi);
++
+ 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+ 	mutex_lock_nested(&dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
+ 	if (NInoBeingDeleted(dir_ni)) {
+@@ -658,6 +664,12 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
+ 	if (err)
+ 		goto err_out;
+ 
++	if (!name) {
++		ni_mrec->link_count = 0;
++		mark_mft_record_dirty(ni);
++		goto done;
++	}
++
+ 	/* Create FILE_NAME attribute. */
+ 	fn_len = sizeof(struct file_name_attr) + name_len * sizeof(__le16);
+ 	fn = kzalloc(fn_len, GFP_NOFS);
+@@ -709,12 +721,13 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
+ 		goto err_out;
+ 	}
+ 
++	ni->flags = fn->file_attributes |
++		    (ni->flags & FILE_ATTRIBUTE_RECALL_ON_OPEN);
++done:
+ 	unmap_mft_record(ni);
+ 	mutex_unlock(&dir_ni->mrec_lock);
+ 	mutex_unlock(&ni->mrec_lock);
+ 
+-	ni->flags = fn->file_attributes |
+-		    (ni->flags & FILE_ATTRIBUTE_RECALL_ON_OPEN);
+ 	/* Set the sequence number. */
+ 	vi->i_generation = ni->seq_no;
+ 	set_nlink(vi, 1);
+@@ -782,6 +795,8 @@ err_out:
+ 	mutex_unlock(&dir_ni->mrec_lock);
+ 	mutex_unlock(&ni->mrec_lock);
+ 
++	/* The MFT record has already been freed above. */
++	set_nlink(vi, 1);
+ 	if (rollback_ea_vi)
+ 		iput(rollback_ea_vi);
+ 	if (rollback_eai_vi)
+@@ -856,6 +871,31 @@ out_free_stream_names:
+ 	return 0;
+ }
+ 
++static int ntfs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
++			struct file *file, umode_t mode)
++{
++	struct ntfs_volume *vol = NTFS_SB(dir->i_sb);
++	struct ntfs_inode *ni;
++	struct inode *inode;
++	int err;
++
++	if (NVolShutdown(vol))
++		return -EIO;
++
++	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	if (err)
++		return err;
++
++	ni = __ntfs_create(idmap, dir, NULL, 0, mode, 0, NULL, 0);
++	if (IS_ERR(ni))
++		return PTR_ERR(ni);
++
++	inode = VFS_I(ni);
++	d_tmpfile(file, inode);
++	unlock_new_inode(inode);
++	return finish_open_simple(file, 0);
++}
++
+ static int ntfs_check_unlinkable_dir(struct ntfs_attr_search_ctx *ctx, struct file_name_attr *fn)
+ {
+ 	int link_count;
+@@ -1270,7 +1310,8 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+ 		goto err_out;
+ 	}
+ 
+-	if (le16_to_cpu(ni_mrec->link_count) == 0) {
++	if (!ni_mrec->link_count &&
++	    !(inode_state_read_once(vi) & I_LINKABLE)) {
+ 		err = -ENOENT;
+ 		goto err_out;
+ 	}
+@@ -1703,6 +1744,7 @@ out:
+ const struct inode_operations ntfs_dir_inode_ops = {
+ 	.lookup		= ntfs_lookup,	/* VFS: Lookup directory. */
+ 	.create		= ntfs_create,
++	.tmpfile	= ntfs_tmpfile,
+ 	.unlink		= ntfs_unlink,
+ 	.mkdir		= ntfs_mkdir,
+ 	.rmdir		= ntfs_rmdir,
 
