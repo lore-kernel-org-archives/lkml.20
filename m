@@ -1,78 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793104137;
-	b=zjg6xOTLjlUHfIjx332bbAOF+3LraboWcW3c28vp5uEbI0cre7dybyE9lEwRDZS6jAEq
-	 oMXTwkrbbMzAoQZtSnA6GvkqJ6lkDbxzHRPNR+EWRQ1SOkZya+r8XFX5ITAjtO5Y/YYnP
-	 HdugKHlqCFGEQ+ontHqjU5dZwTJW4ygBAgr6xGGSdAY9Ro6SEnDtE6KwvipPkky9AEVWO
-	 8inQl5XrIxfxJIXEqPneF7EbEEiV51v7z8JVi5f6TR4vkgj6Gp2lXjEfvr7RXX5hqa3Kw
-	 vYn9vuAz9Npyx4yc/CA5Q11RIWm9mHPP0kJcRtbIV14LC3CB5YYCsAGAbHWpaQjY7Eg==
+	b=ikXVMIWk778dwHj5Dpp3u2U1zKjJ0L6EgSBkzHwZEW2LmZwc+NmRHwv3RMOVlKYoIEqu
+	 +t0UrqfD0MT/HP8fECA3OCxRUw6NzVFgvZ8ry2m7QGlsnFYOVjKl0vjtI0RUu1x1Dejpg
+	 abB0SgRp+FIfCjzDGZNkxqOkCNTta7nW9yukakVvtJP4JzT6AbOQjPvnwvK/xkG9Q35nJ
+	 gD2d6Zf6J+VjP0wGzNNo2kj80F5mFf2ZrOLBrQUR+ckT17ve5elCzBIpBR4jFZctMlEOi
+	 rGk5wFqdSigFdxdda8Z+wKzguK3b8yoISR8bobL+8unyp2pE2aCQw/8S6JcqScO4RRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793104137;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=WOyAdyJ3VwLj6BYWXKFaYpPKWtpHPNj/CyN5SfKZYo0=;
-	b=iH4hNGryUNs1NA1C2iLBe8FE89zaDVl6ybuq6jzPLZ7iBllrTCvhzt/gn4SnF+Wp0e39
-	 l2UzWn/qduwmyG71fZE4u5xONzR2XA9I73On43ZQ7yO3SFMQXZ2GiwMCoT0nsgB6cDikx
-	 pkZAIiFkmtI7PEJH6YOMXzuMSGhrBjoIIbttxS2ZD1p7vGifBV7+5rXKK/HYv3BcfFAmu
-	 d1xhNW5Jooh2/KIlfkrnHkvZvE6TZt3x02GCM5cqkkq5S9PDCPKj3t6bCTsBKku8/4VG/
-	 mXAjzaELJo9M/ymATjgWtPDUPs5YKp4qjrdnhnX1N/3rguONQoxjSXQNJOrRTfz7omQ==
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=AEbQPUbB9L5csU3Qby0gIRmmzxEcw2PR2rmehpt0UgQ=;
+	b=d3H88bXezmOjTeaA0weKScYZSeJ7HqPDW5dm8wkacj034AqB5QwwgOZYMTVWNAAY48fV
+	 21LjOkYClBHOOhszOaMFCoPZ+MpKFPWx8cpZr8BjUH0nQUwFcGcEQyJSnrNbFF+ttta5g
+	 BN1+xtmOOSInNDkWgn8HYTSoaW3icm+6fm2npj73nana44VS1kPw9MVNlBOz+Op3QBSrP
+	 UgIFrvulxfa+paTtvnphOCcb+ylToQ7yV6Qz0tpG5jwNOfV1m9MmUA0XNWFGbDiykV/RP
+	 X6HE/XDQr7JL6SZk6k78GS2pGHK6+fHAZEGEC7OTosnL05QeKEHifCwF1cUI+5ufkcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Lu3mH0uE;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=kylinsec.com.cn;
+	spf=pass smtp.mailfrom=kylinsec.com.cn;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A49E606A337
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:28:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A49E606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Lu3mH0uE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793104135;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WOyAdyJ3VwLj6BYWXKFaYpPKWtpHPNj/CyN5SfKZYo0=;
-	b=Lu3mH0uE2NXfv4aS5OhfPDZR1+of9pdtLnSI5OJYfkAEWAvOTjz6GGHJP6qN5eY4TSzg1Q
-	y9HLNNRxyHlz4VItGmJ2l1x6yRBHugCeyGaqH89qN/7ptgss10cO8iWb1n/x4tMYx7BeTj
-	VUXiuLdipv3eeq660kANephHoBSVgLE=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-668-8NxQxAqJM0-ZHjEXoNMkvQ-1; Tue,
- 27 Oct 2026 08:28:46 -0400
-X-MC-Unique: 8NxQxAqJM0-ZHjEXoNMkvQ-1
-X-Mimecast-MFC-AGG-ID: 8NxQxAqJM0-ZHjEXoNMkvQ_1793104124
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 911D51800864;
-	Tue, 27 Oct 2026 12:28:44 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 79BC930002CB;
-	Tue, 27 Oct 2026 12:28:43 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: mkp@kernel.org
-Cc: linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	bvanassche@acm.org,
-	michael.christie@oracle.com,
-	mlombard@redhat.com,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675FD60A2601;
+	Tue, 27 Oct 2026 12:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 675FD60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
+X-QQ-mid: zesmtpgz5t1793104105t0d6b75a0
+X-QQ-Originating-IP: ssmT0s5kl5UsItt6FKmeg+RWndKvUK6VSSrNsFFxkyA=
+Received: from arch ( [175.0.204.93])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 27 Oct 2026 20:28:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 4551890927755228024
+From: Luo Qiu <luoqiu@kylinsec.com.cn>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 1/4] scsi: target: Do not re-enable interrupts in compare_and_write_post()
-Date: Tue, 27 Oct 2026 08:28:34 -0400
-Message-ID: <20261027122837.2148074-2-loberman@redhat.com>
-In-Reply-To: <20261027122837.2148074-1-loberman@redhat.com>
-References: <20261027122837.2148074-1-loberman@redhat.com>
+Subject: [PATCH] fs: fix typo in do_open() comment
+Date: Tue, 27 Oct 2026 20:26:47 +0800
+Message-ID: <A977B5B944F3C7C3+20261027122647.1837472-1-luoqiu@kylinsec.com.cn>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,61 +58,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M5znx2hx04lbtqUiS/Sx8GgjzU7o1/j825AvUCi+6ZovQ15oqGJIKa84
+	FrZj3rX6zIbO2sCzIQUyPqbOoNDcQGq8iiEzoQ+U1LB7YOMguTNpa4keRAfRzECfdi2fc8c
+	/32tDGqjur1QiErHgZ0miLjffWDy0lC9a6WQj/mw1Xjje1A7knKxSuB/NsfKvhYeKtyUy58
+	LQwwlO3Gdrni/Xx8VRvGwDeFh9fFLzmMI9wohO7BC352tf+G4G9ti2l/KBNKmp29oeqNsAF
+	i85/w12+NHrCWoT4ybtfiASgh7n9sr/vEy35aPfQmtTJ/9+mtEO3PfOc8SAWJ8yzRZ+nRyH
+	HZBbwW+ihlb+Mu36NOTKpeS73aQSuKDcWMK+pQRjWiMDcls4Gdj9Z7NcUoAGMSS63wCEiPW
+	gVvZ7Qsapld4npST8vfDiJkHGbCnkh1VpM5M8W8L2+zphSqinj50uleS4Hj/VAJWOVIN4XN
+	nbA4fn3+Bb9/kFaamwRDFJOolqg8yqNqp0yuy3pzbdu55cJuRqEjlJBhk0ArVhltSRA4p+6
+	PlwznofbYiyBQVzqDyiWTKyMsTHCRP1o5K8WhFYwUGuEKdcSfJeWXaPfEKHVImmKrFi3CHh
+	A2sfBjgjXIR1oUCNgc9PB1mUqbdqXmnUZPLT3tQTIkgCLX+z+7Q+ipvhSFOOnm6S6+YUl1e
+	rjd0R2pWetm0hJeET1OKibwXKjPfSsps9ENtcGM2KaKvr/r5I1Sap58CBJs/nszh+oT7mDt
+	KOrKSEpy5deBSFfbJ7Rlec6WOhTWhSz3fBWSpTpCZUa5iu1cFe+ez4Y+ZDY2gVarpcVz/c8
+	Lc3kmwdJh76CPemEnosrvhvyxcep6LDQhWoSs7y6vpJIZYIRayIuzGIkveeLTVMsJrCW5jc
+	XdiOr9ztQAhaKDMwvFj5h3Gco9bvfr7MkmfmHAJMp2iXGbAxy9r8vJykDyqN73b8AtWj6zi
+	gwiX/3J+bI+WSQIoAIBRfOMEFZZa/e1rirL03FpyAerFV5RBPZcdY67TVc5asFdxFaedEsJ
+	ZThUmpjNEV3vtX14gKzcJMipfz5QU=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-target_complete_cmd() may be called by a backend driver from interrupt
-context, as the comment above target_complete_cmd_with_sense() says. For a
-command that has been aborted it calls target_cmd_interrupted(), which
-invokes cmd->transport_complete_callback(). Once the WRITE phase of a
-COMPARE AND WRITE has been set up that callback is
-compare_and_write_post(), which takes t_state_lock with spin_lock_irq()
-and drops it with spin_unlock_irq(), unconditionally enabling interrupts
-in a caller that had them disabled.
+Fix "acess" -> "access"
 
-Use spin_lock_irqsave() / spin_unlock_irqrestore() instead.
+Fixes: 161ce1e692d0 ("fs: avoid spurious dentry ref/unref cycle on open")
 
-compare_and_write_callback() has the same pattern, but its
-spin_lock_irq() is on the path taken after a successful compare, which is
-reached only from target_complete_ok_work() in process context; the
-success == false path returns long before it. It is left alone.
-
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
+Signed-off-by: Luo Qiu <luoqiu@kylinsec.com.cn>
 ---
+ fs/namei.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Notes:
-    Pre-existing, and not needed by the rest of the series, but
-    compare_and_write_post() is modified by patch 2 and the mismatch between
-    its spin_lock_irq() and the spin_lock_irqsave() a few lines below would be
-    confusing to leave in place.
-    
-    No Fixes: tag -- the pattern predates target_cmd_interrupted().
-
- drivers/target/target_core_sbc.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/target/target_core_sbc.c b/drivers/target/target_core_sbc.c
-index 21f5cb8..8c52e1e 100644
---- a/drivers/target/target_core_sbc.c
-+++ b/drivers/target/target_core_sbc.c
-@@ -352,15 +352,16 @@ static sense_reason_t compare_and_write_post(struct se_cmd *cmd, bool success,
- {
- 	struct se_device *dev = cmd->se_dev;
- 	sense_reason_t ret = TCM_NO_SENSE;
-+	unsigned long flags;
- 
--	spin_lock_irq(&cmd->t_state_lock);
-+	spin_lock_irqsave(&cmd->t_state_lock, flags);
- 	if (success) {
- 		*post_ret = 1;
- 
- 		if (cmd->scsi_status == SAM_STAT_CHECK_CONDITION)
- 			ret = TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
- 	}
--	spin_unlock_irq(&cmd->t_state_lock);
-+	spin_unlock_irqrestore(&cmd->t_state_lock, flags);
- 
- 	/*
- 	 * Unlock ->caw_sem originally obtained during sbc_compare_and_write()
+diff --git a/fs/namei.c b/fs/namei.c
+index 96c65940391a..9bf97d5ce37e 100644
+--- a/fs/namei.c
++++ b/fs/namei.c
+@@ -4835,7 +4835,7 @@ static int do_open(struct nameidata *nd,
+ 		/*
+ 		 * A dedicated reference is needed because after the call to
+ 		 * vfs_open_consume() we no longer own the reference in nd->path.mnt
+-		 * while we need to undo write acess below.
++		 * while we need to undo write access below.
+ 		 */
+ 		mnt = mntget(nd->path.mnt);
+ 		do_truncate = true;
 -- 
-2.43.0
+2.56.0
 
