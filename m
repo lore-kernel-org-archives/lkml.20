@@ -1,93 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121455;
-	b=oLtXv5aTDHYxJ1fLCgsiIJF2mAgswt1vq0jdqyKSqZvyYv3wxT1DpMyrxvio8wgz3OAG
-	 2BqKKosqVblN+YndsLaoRBaO3q0/s/KHDH7ANj/uHG2NvXOP/lMVsG4DV8kuQjEH64fyZ
-	 9xxjTi0qjBE/SsFCP2ZZWjDF/XE3VW46BG635NhvGzlZFGYd0H/o3xlUmvx1hq5jMZA8e
-	 mxMF5nFTqhCwXi7/gxJ3c4MWbDiPJJ/lGEKhQDZDLLGWqzTInh6Q8mqztWHxlgWsOxuS1
-	 dCEPv+tGjUM5VNuZKBeKMiod379zEOZBvQjrP1MfvjLqETFiztX/IBR4yKT4p3zaCww==
+	t=1793121487;
+	b=OPM6zqhkbEcTJQfVto0tgOg/o4kHIQbyCvUt4e8bQmEDeeJ3W47yB4TyWuCAvEZ6AaNV
+	 yRLx7pBXTQreOpp/X63ktUn5yN6wckXdDg8R/NKunFYjrSfW1sHwHrINvPPscuIPrfLjJ
+	 NWDd/6630+t7QZaPDNtY6lKLMCTKkcEUMQhU8jeGFXQGDNHXU5Ln3VnoJ2gK6IjcDKrLr
+	 i5lwPRxGn2JaJ1Vp39pPy1oHg1qz/OZQdLdYiTX6mx0cgP8AXC1ah0bHHWUhTookXLoaC
+	 ZHwkETwwiKGZnVHVIItr8mbNTzn7oeQN97ChAt7SFYgZYn+w2iL3g64KtnSPiwOMbZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121455;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121487;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=uikZsMnz/NyOMgTmLiqZoj1Ur6F2M6OswVzpjhz9zcE=;
-	b=LI1LD+kMnJFzJ6XgW+PhO0gFuhywMknijpiE6vSKmiwOwBkEIuMRnkdNHd7bstyvN+GB
-	 jJPjHEflKAi+MnbyjqYToiQ634bnN+XgKOCLTNoaMZEX69rrybppJsdxtgMA0/hxH/Q1H
-	 SP5l+bo9H653jaJLEw/Z9Rsvh3EswDLgbeqVJPPLdTrJWgJ3glmoBUf/tWhRpwFYBIeJM
-	 eVmnYtagbgpeWvpbaiwZWByoLEaF9Liu9yEmP6lagtrNQF0dWJQT6yw+OK/YoORnLDYuV
-	 QRWUyWvhqo99pHogOkryoRvVmHwjFLNibsRSc6t+9odkFLETHqUBZSkO7aam0AgxVMQ==
+	bh=DSKe54xygzfIMrfbOu4GT1R3mhAh4FYjH40dbhhZJR4=;
+	b=Qp7mZEGf1ufm9V4AxQj+LhZ99ac/K36BYvWemQiy1xVnMRdu+PSQOoNPzxH7RYmR/wwy
+	 OcEQcuUIvglGWsmuQD3rKfkpfRcTHcvSL6rf383OypoprBS17ZGexfmFC4+pNxjZTHKUb
+	 Obf1/gwYV+M8AX0moedc6VD6dgT+O41N918/oXPIH5bhgFoPJJEJESoimxkrPfhNs0ozw
+	 7u64C/VHrvUg5mEHkWEak/YcymvBi3AL5msIoAH75m8Ze5zekDe+QTr05jBPeAS3kIX0W
+	 /5DrU4eAIBxy6H5JmaaLEIJ3M4U2/QGU1MmpZgVcCyP+RNp8ANwMJigd+l48P5TOOuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRmAjFG+;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGGB3j2Z;
+	arc=none smtp.remote-ip=74.125.229.6
+Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483EF606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:17:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483EF606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D386606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:18:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D386606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xRmAjFG+
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso541445e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:17:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mGGB3j2Z
+Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537f63c9e6so14711eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:18:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793121453; x=1793726253; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793121486; x=1793726286; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uikZsMnz/NyOMgTmLiqZoj1Ur6F2M6OswVzpjhz9zcE=;
-        b=xRmAjFG+bILbgyfefWrvhgWMZgcumqS35Pk34iwPunQgRuY4BuW8Yml86p+O0sVgWD
-         4IBCFWmrDYhnmj0wmiOZFQTuS5Hc/GPwaBHK3PeG/O5AyUW7EOAhjztGcKxKnoUWxb8d
-         6/muSzVTrIOXGyVEh7PzXGnV5ho6+FYjsfh1s3nMQ+NlLibwaT4+ac0zYKL6M1wcbWIF
-         kIQeIaEyrNZcMPNl3WNCcmb5jenTRWYKVXeCER++kcSB6Tuhe8LrjP+mZAlOP7cg04fM
-         8uoU6YoOs1CqwRM+a/yMjv+6t1wVjmSi1auUQDoAeJ81712QGwvXGKY5TgKNthpEJz4P
-         Odag==
+        bh=DSKe54xygzfIMrfbOu4GT1R3mhAh4FYjH40dbhhZJR4=;
+        b=mGGB3j2ZIadP8z8Hwh6RICPXuMfZfmRcsplKh/yK+ZftcWrX4Za+IElKLC5YLM1KFi
+         BkUx/Yn37fk8HqGzHrgucBP6uaDlbYMeRffN/m2sWWANNFz7jHS6b1ZKyypGSFc/JRST
+         WAdzH7zMtZOLRh4fUCwLEJCwwPuo5Pgd2j+bPQXEcvi4R7ivtpRx759pRALbqZw3xmrJ
+         osD+DpjrxX37tkTwa2YW4bAi03zOC8Yf+zACV6E4WAHh9n6TJwTO7OyexEycr9V2F+B7
+         mehgcjVU+XmW/6lN/eBIgeKNuJka32239vCkNMT90aQasQBGWUFl2VMUt/jybRE8cO9q
+         87gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793121453; x=1793726253;
+        d=1e100.net; s=20260707; t=1793121486; x=1793726286;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uikZsMnz/NyOMgTmLiqZoj1Ur6F2M6OswVzpjhz9zcE=;
-        b=ksxIQCzwICxZ0gVm8EYazIFhg/TIZxHl3BPLTKdp1DsvfpZweKXRVA7T5vdIqxOs1K
-         asVMgpmOVa7EVMj94R7oYCxWIVjgSQ2beK6u+fSsqAuYkjBWERND30lzB/EfYqlneixI
-         vfgH2vaVpcXOXJ8NZe/PkDk0m+zB++XwbKtHbijN6y/pi6ad0KVBfOJ3panlmmMbGUYx
-         TjvHYOhxvxvEcraVqAM2viV3Kmy83C+phVUoqaO/s0HVkK7rKANXdCVV8Xj2WNQorYhp
-         3xL5vEdq3sts3qixFIHhQqb9bCMZyyrITQnjhSQ/mPgE/2lGE0Koq2s78s8G6Svua+Du
-         GdLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxSgHlkEiS2+/h3OH7vV8EDPGPRGgS+Qu4zQnsqU0hxqAeBE17uih85HSj6RGhAvmEavyPSjGkTREdoQjM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLaDWibcz8S2p7VZqWxxfphUZ6/omq4LmYme/ziNikuZo+SIKL
-	pOdNjLJM5eZ2AklfkJzucdjhnShJyl6mRmwQepPUTFZvlkWYPFVM1ZMN
-X-Gm-Gg: AYBFou3Xj9tl7htGyX/CbHg1jrkywgbJaHDfWjLoFLVBuYWHmLkkpJRyhbZr57fpxbY
-	t580ET1dt2znza0fq6wx9ICDgi79Txua4yUwYeb8IrjpbJeqZZ+1LBKP5IVK9tl5TjbkvFzCRyn
-	9an8Ta3Yg1xJgxttMME4t/DU5+09v0AtpfAcvdOMmQDY3S3JyhaNIYiuS/0aORwiRXgRlggS2wh
-	fF7+3kvYTEEi2gL6BpRUTH1Q/UUDqZDd/aOYrpaxUPHOSJdhl7VVf1yCnPtkFJ5UPMQ2MC+ysqb
-	IV8ENLDf9WhKNlG4cGSfxgvMLyGgMkLo32hQucrKsXpByodE/tIIr2aU4EKjGWqXIaZF61sjH2j
-	QRD47oCtc60iNnsW95YAB57+Ho1aWQbcsp4rlYr1Z3a2FgXdgH4ajQTW6/PWzS9+1tGr/UP51k9
-	EHUYdJw03SjlTVciqEsFjLvFZ0qx06YOGzXmWEI/k7015Aic3171xyO/MkHdftrdWog2wj+qNho
-	j1qVwV5JXQwh0OXBzgvIRDtI2tKTCcKh9QFejt8j4DZSvXEtsrE8DzaV9p6BzlEjZ89Hc4+0NUn
-	W5Mvmr+tgvsFGpv08w==
-X-Received: by 2002:a05:600c:3f06:b0:4a1:7e77:c382 with SMTP id 5b1f17b1804b1-4a35ac99b9dmr190327005e9.5.1793121453233;
-        Tue, 27 Oct 2026 10:17:33 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4778:c500:7887:1744:66c7:cbb9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a930c5b6b5sm3015175e9.12.2026.10.27.10.17.31
+        bh=DSKe54xygzfIMrfbOu4GT1R3mhAh4FYjH40dbhhZJR4=;
+        b=2zeUodsHKB4pWpkol/oUD6OoKX4MWTwoDZ9g5+KsjZFhTGAqdhttTCvJ9w68rdIiYQ
+         sU9SepsCRrPGSB0fIgPxfuc7+n2BQ0oJiPTRBwXS4CPytwB/Eg0isnAVxr7pxHorcqoj
+         TOnKjO+pBBjMff3Ive65UzpRbumBxWCeWpkML/fcnaFmpZXSxBv7/nt2Qhkx/cosSN7E
+         h65e4ob3AK0QhTTgB2h93PJSomJIGFUVxks99npR0GY/DKJCNCudaceE4T95ENswAfYL
+         WKyNcDa1NRQ/d/qpY9bd0oO8SXTJP0Pb9VldRvdTVOPb9a9CNYHY0KbDcRa63+livbLT
+         Kewg==
+X-Forwarded-Encrypted: i=1; AKwUvBxARwEWZkaUnX3/D/A1rs3sp9jbRWpGdE23LGzR7Vk60Ho9Or0XMIql+Q5vKudyfMw/PeLlSFK1UjfJYuM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWBxhQYe5ag7QnINdE2AJdYy2UAoMN3W0UWD0WPPKPEyS8aPgi
+	dADmgbzBuBtIB9YokJ/YgevvIBMr1qmNN/5XLXxF0t+cv7dxyYjCX8r5VrYZCJUB
+X-Gm-Gg: AYBFou1Z2QdbfWmAPBfkqKDc/VUQ7bYAVeuZn25Lbogt/Kbi8bmdHyap0QRDgBKNwPd
+	B79PE1ZxUuqkBGg8b4DRX+nxO1sA2Ena6BQr32989s9o5UhUEfgIW39aE98l7vkEXs8yOp4uTpA
+	bcaxBG2CgUc/uGPGYOsAOnfNV4ZqSlz51mKJ+g9H6aHVtI8Wn/lYAcqXJyu1u6nqNsJFLqs8HUb
+	PQJ5vljS+S3buFP/6gRe8IdrJAMI2ycJaXovNHmwk91W0RnkY05kZ6ngsRtivF/eTmMpnV6Wc2a
+	olB/A856vJitbU7q6iDk0+WoeB9hPOMa1jd1dA5a+CUCJbntSM9EGKFwdkqYE1ySfJjtZkb3OuB
+	dEk3jGiHiPkNiRbhkOxzsgiQzi6+p1WLavHVr0oeSAaxW4mTkdKhnnGpHThpzgLt7evEaF5onab
+	915K8UZQAsJcAiHFmVaMRO6ZDFHM5E3Jfn3D8mcL4LHHmsyvQJ1xIRLe+2rzaTtlfflRF4nCftV
+	mWK4G9oTM/U8OEZkb4rwwr2kVms7k+PjT7/XtDuRmaiBDIFlsWJq2F1ODJkJ1+VK0iaNja8UmVS
+	ec3LBDM=
+X-Received: by 2002:a05:7301:5401:b0:36a:1c46:2766 with SMTP id 5a478bee46e88-36a1ff47835mr206467eec.3.1793121485643;
+        Tue, 27 Oct 2026 10:18:05 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369f4164886sm29167152eec.7.2026.10.27.10.18.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 10:17:32 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Jonathan Derrick <jonathan.derrick@linux.dev>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Rafael Antognolli <Rafael.Antognolli@intel.com>,
-	Scott Bauer <scott.bauer@intel.com>,
-	linux-block@vger.kernel.org,
+        Tue, 27 Oct 2026 10:18:05 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: hughd@google.com
+Cc: baolin.wang@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] block: sed-opal: reject invalid method status tokens
-Date: Tue, 27 Oct 2026 19:17:30 +0200
-Message-ID: <20261027171729.331186-2-thnkslprpt@gmail.com>
+	dennylin0707@gmail.com
+Subject: [PATCH] shmem: skip empty unmap ranges when punching holes
+Date: Tue, 27 Oct 2026 17:17:53 +0000
+Message-ID: <20261027171753.1485-1-dennylin0707@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,43 +99,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-response_status() uses response_get_u64() to read the method
-status. The helper returns zero for an invalid type or unsupported
-atom width, so malformed responses can be reported as successful.
-Values such as 256 also become zero when truncated to u8.
+When a hole ends within the first page, shmem_fallocate() calculates
+unmap_end as -1. Casting it to u64 makes the range check succeed even
+though the hole contains no complete pages.
 
-Validate the status token before returning its value. Report
-DTAERROR_NO_METHOD_STATUS for invalid tokens while preserving valid
-status values and the end-session special case.
+For example, punching one byte at offset zero calls unmap_mapping_range()
+with a zero length, which means unmap to the end of the file. The file
+contents are preserved outside the hole, but unrelated mappings are
+removed and must fault back in. This can be reproduced with fallocate -p
+-o 0 -l 1 on a mapped tmpfs file.
 
-Fixes: 455a7b238cd6 ("block: Add Sed-opal library")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Compare the exclusive rounded end against the rounded start to skip
+empty ranges. Keep the unsigned comparison so rounding the start near
+the maximum file offset continues to be handled correctly.
+
+Fixes: 83e4fa9c16e4 ("tmpfs: support fallocate FALLOC_FL_PUNCH_HOLE")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- block/sed-opal.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ mm/shmem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/block/sed-opal.c b/block/sed-opal.c
-index 79b290d9458a9..1eb68ce33647b 100644
---- a/block/sed-opal.c
-+++ b/block/sed-opal.c
-@@ -1167,7 +1167,14 @@ static u8 response_status(const struct parsed_resp *resp)
- 	if (!response_token_matches(tok, OPAL_ENDLIST))
- 		return DTAERROR_NO_METHOD_STATUS;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index d97fc32e7c94..08d5336c27a0 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -3864,7 +3864,7 @@ static long shmem_fallocate(struct file *file, int mode, loff_t offset,
+ 		WRITE_ONCE(inode->i_private, &shmem_falloc);
+ 		spin_unlock(&inode->i_lock);
  
--	return response_get_u64(resp, resp->num - 4);
-+	tok = response_get_token(resp, resp->num - 4);
-+	if (IS_ERR(tok) || tok->type != OPAL_DTA_TOKENID_UINT ||
-+	    (tok->width != OPAL_WIDTH_TINY &&
-+	     tok->width != OPAL_WIDTH_SHORT) ||
-+	    tok->stored.u > U8_MAX)
-+		return DTAERROR_NO_METHOD_STATUS;
-+
-+	return tok->stored.u;
- }
- 
- /* Parses and checks for errors */
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-		if ((u64)unmap_end > (u64)unmap_start)
++		if ((u64)(unmap_end + 1) > (u64)unmap_start)
+ 			unmap_mapping_range(mapping, unmap_start,
+ 					    1 + unmap_end - unmap_start, 0);
+ 		shmem_truncate_range(inode, offset, offset + len - 1);
 -- 
 2.43.0
 
