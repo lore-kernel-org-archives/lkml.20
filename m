@@ -1,78 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102165;
-	b=lbWcnF0fF4R98ENFubeDtlqonvKOO/W9ssyE7Sg68xoa2BVI6XXeEo0eLygXz+b8LWsk
-	 Wa891YpnaIv8js8uOGtxB1/IAiCaWwuRIQ2Y1kRcZsKcAd54O2JDfyGfPOx+LRwjecVhd
-	 dMCADkRrjVclJ8Ho8tTt3OlKrw7kjYiMAaP6xYMdwQRzf2W9gJXvenHjlSprkL0HWXfOM
-	 VVNvGedz3ECEjtfrW6yHaYB+NkqgJsd7O222DS+vmyIXxTjWT4eQGB4XU3/fF9AGwQIqp
-	 8yGvMFgn4ioiscy2PLnZ3iWK2jHr95zqSQNgY50F8qyPyOH3IHOwKMgSY6IOot8yQfw==
+	t=1793102166;
+	b=4lmLAsPorfE2v6tr+OvkvrPVsdvEwHp1iJcKwUjb+sZ4zIraiuWqD6IXi5p8gV2HveIu
+	 nnIgm+wLWi5rzZNjQW/cNBieMs7nqFPW3sPwtCZC7cdpIzcIQaaq6DmnMlJeqClbBiTlP
+	 wmIpf7vHDhPmOF9R3Z4MVLZOVmPvJGC/gdKijLiVrNX+V1FhSY1slT29O/CTMD5t6GLGx
+	 r6I9WLJRYft26I21TXU1e8DOJvb+dyg8ZLidl4N/0Q6Md4BKhs+/wcYZ/kpvpfpVdwKvU
+	 vxRrDSt7RYCMOY1mJULNiElAi8melDgY/heDTf0P7a/613nx1UR8NeSdmn5/XUBDcVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102165;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=l8DQLQcXXChdw8BNf5nleHOTswysdszObtZfOfnh2QE=;
-	b=CZGTDm9yk32zRW1hdzYQIfRNfyo+5Mis+xNPAn44Q6waQTCHASI7wursj1mkKOaGiHbW
-	 pCiQV1SZDjO1ZyUF0QVoQNsa47qyIjtlvQXTueytm8A013JfDHY6q7qqU5t4loZs4FaG7
-	 dq+Mkk+eQrCbS7xdEXTryQ/vfMEpMvE0shPg9h/nCYq01/Qo/sMnPJp7mT1gxkxk3ZgKy
-	 IBmAJEdooNxu8qasGqIyQfZyemMm2sUc86jI9QO8D7tQ5s6UFcpa0Xkrm/MyTi7+lBo0Z
-	 YmvkGsA7K3j0Idfebg8isPwh0IhA5jUDI1rci+de2woGWwtoZa53IrbdnuMMZ9PdaOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102166;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
+	b=GSn3iN5ECqa1540WscCFWt88GcFSEaWD+DkErXrjmMnJSqFTV4KVESaKQySNvnwiiXVi
+	 JETLBu0351GmDc2zMH47KXfV50CraNHSenNtRnSiZomOld+NUzOlNMnurpHDiD6isUlcI
+	 Oqa0hZqDp2E2tzTVsX9ayyP9C/OABQ3ymrM396A80USWamR6D0HkhiME6L34A6Av7kQvR
+	 hAeDmdPVVd/KRRa7oowvuU6jIjdC1V/gGlVqmaKwddqYeSRG8yzYiDQx81QLmOK/2f80E
+	 aFYYyNGdGSglPyACb7e8Du8G4rxjq4GJcs9nVzOIs67DEAdKc/5IPQHqHEsNL72jgog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=DWbbIRWF;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBFF606A31A;
-	Tue, 27 Oct 2026 11:56:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CBFF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931C8606A31F;
+	Tue, 27 Oct 2026 11:56:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 931C8606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=DWbbIRWF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=l8DQLQcXXChdw8BNf5nleHOTswysdszObtZfOfnh2QE=; b=DWbbIRWFUzvB7N+LuyeaAWtKhK
-	SHrET7nN/q1mtpxtFwMELWMCBGMld5wu8jkWTWX8icikvYhhSOjfoRZ8Zn4rpPSFsy3HXfHqO5Z6x
-	S7eKXZ0EW9h/j1yqPIgwbDn/kHrnYr16yMjAcdmOYPDCPYWIEJR/36aQPNtom8OrBtWIcZed5vWzJ
-	AKC0ExQNqK382rhFMVSvyRLy0yI14tk3T8F7NxHTzwFAGLLcIg81ArLhbuKy5e+UGaxY1Dbrxi+p3
-	xtdJodR7Ps9hf2QtVCTLuAmocKlDIBzCtl7PwGRBLJK/0YqkxiNSSOENhXlI1IEwpRQ8VBkqVg0C3
-	n8meoByQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLfmZ-0000000EtUm-2QP0;
-	Tue, 27 Oct 2026 11:55:59 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 7ECC0300DB9; Tue, 27 Oct 2026 12:55:58 +0100 (CET)
-Date: Tue, 27 Oct 2026 12:55:58 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET v2 sched_ext/for-7.5] sched_ext: Add NUMA balancing
- support
-Message-ID: <20261027115558.GL2668564@noisy.programming.kicks-ass.net>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
- <20261027105209.GF2668564@noisy.programming.kicks-ass.net>
- <auCNSY0fCBu9uIDB@gpd4>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RDYbBM5W;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Om4iQt9Y
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id ADF7C1F74D;
+	Tue, 27 Oct 2026 11:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793102163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
+	b=RDYbBM5WGI30gQrB819E2bvezVUH3VQfKEceXHyp1epw0WJgt18L6vV024u88ni42lbkm9
+	G8HkngkwennDbJjEygM1PD1T7jcro/zcTwBie2G8AHnRAJLWJfnRd5S7nTizj1fIo+y94g
+	n1EE/NoTGTEP8vKQ4Vo9C4nOhIgF4Og=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793102163;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
+	b=Om4iQt9Yxxrqzb8auQ/4iHgxAUDW3rYMstr+szFfrnmbHUWwYBPZwsXGa1/TW6qQDP6LLK
+	b8lNM8e7jTaqLfBQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793102163; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
+	b=RDYbBM5WGI30gQrB819E2bvezVUH3VQfKEceXHyp1epw0WJgt18L6vV024u88ni42lbkm9
+	G8HkngkwennDbJjEygM1PD1T7jcro/zcTwBie2G8AHnRAJLWJfnRd5S7nTizj1fIo+y94g
+	n1EE/NoTGTEP8vKQ4Vo9C4nOhIgF4Og=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793102163;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zrmpS+1ekB0Z2PHSHdRQQMGpqeQuw5eBW0k8NA/r2uI=;
+	b=Om4iQt9Yxxrqzb8auQ/4iHgxAUDW3rYMstr+szFfrnmbHUWwYBPZwsXGa1/TW6qQDP6LLK
+	b8lNM8e7jTaqLfBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EC2101321C;
+	Tue, 27 Oct 2026 11:56:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id e7lhLlGR4GohaQAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Tue, 27 Oct 2026 11:56:01 +0000
+Message-ID: <5fd819c3-9c6e-4273-a340-4ca190573cd7@suse.de>
+Date: Tue, 27 Oct 2026 12:54:48 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,45 +106,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auCNSY0fCBu9uIDB@gpd4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2 2/5] ipv4: fix shift-out-of-bounds in
+ ip_rt_send_redirect()
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>,
+ Joel Granados <joel.granados@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn
+ <willemb@google.com>, Maoyi Xie <maoyi.xie@ntu.edu.sg>,
+ Daniel J Blueman <daniel@quora.org>, Jiri Wiesner <jwiesner@suse.de>,
+ Gerd Rausch <gerd.rausch@oracle.com>, Oleg Nesterov <oleg@redhat.com>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Wyatt Feng <bronzed_45_vested@icloud.com>, Yung Chih Su
+ <yuuchihsu@gmail.com>, Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, Petr Mladek <pmladek@suse.com>,
+ "Paul E. McKenney" <paulmck@kernel.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
+ <20261027104701.296240-3-jiayuan.chen@linux.dev>
+Content-Language: en-US
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+In-Reply-To: <20261027104701.296240-3-jiayuan.chen@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	RCPT_COUNT_TWELVE(0.00)[32];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,icloud.com];
+	R_RATELIMIT(0.00)[to_ip_from(RLrr9ek4ud4f4qwi71m7motjzt)];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,kernel.org,redhat.com,lwn.net,linuxfoundation.org,infradead.org,nvidia.com,suse.com,google.com,ntu.edu.sg,quora.org,suse.de,oracle.com,nokia-bell-labs.com,icloud.com,gmail.com,stressinduktion.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo,linux.dev:email]
+X-Spam-Score: -13.29
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Tue, Oct 27, 2026 at 12:38:49PM +0100, Andrea Righi wrote:
-> On Tue, Oct 27, 2026 at 11:52:09AM +0100, Peter Zijlstra wrote:
-> > On Tue, Oct 27, 2026 at 05:13:29AM +0100, Andrea Righi wrote:
-> > 
-> > > Ideally the ultimate goal is to give BPF schedulers both controls that
-> > > NUMA balancing combines: moving a task to the node where its memory is
-> > > and moving the memory a task uses to the node where the task runs. This
-> > > series provides the first: with the preferred node available, a
-> > > scheduler can decide where to run the task. A second series, to follow
-> > > once this one lands, will provide the second: a kfunc that lets a
-> > > scheduler request the node a task's memory should migrate to.
-> > 
-> > Fair has no real control over the memory migration part either; why
-> > would you want to give BPF that?
+On 10/27/26 11:45 AM, Jiayuan Chen wrote:
+> ip_rt_redirect_number is the max number of ICMP Redirects we send to one
+> endpoint; once we hit it we stop. Before that, ip_rt_redirect_load gives
+> the redirects an exponential backoff:
 > 
-> Yeah, that's a fair point and the wording in the cover letter is a bit
-> too vague.
+> 	if (peer->n_redirects == 0 ||
+> 	    time_after(jiffies,
+> 		       (peer->rate_last +
+> 			(ip_rt_redirect_load << peer->n_redirects)))) {
 > 
-> The use case behind the second part is accelerator/device locality,
-> discussed at LPC in the sched_ext MC [1]: with multi-GPU systems the
-> heaviest user of a task's host memory is often the device, which NUMA
-> balancing can't see, since hinting faults only track CPU accesses. So
-> memory follows the CPU even when it should stay close to the device, and
-> today the only option is to pin everything with numactl and/or disable
-> NUMA balancing.
+> n_redirects grows until it reaches ip_rt_redirect_number, and both
+> redirect_number and redirect_load are plain proc_dointvec sysctls with
+> no upper bound. Set redirect_number past 32 and n_redirects climbs past
+> 31, so "ip_rt_redirect_load << peer->n_redirects" shifts a 32-bit int by
+>> = 32 bits, which is UB:
 > 
-> But that needs to be discussed separately: as Gregory pointed out at
-> LPC, NUMA balancing needs some cleanups first, and the right interface
-> may not be BPF-specific at all (e.g., extending the home node concept of
-> set_mempolicy_home_node() to NUMA balancing, or a device-aware hint in
-> mm that both fair and ext could use, or something else).
+>    UBSAN: shift-out-of-bounds in net/ipv4/route.c:949:6
+>    shift exponent 32 is too large for 32-bit type 'int'
+>    CPU: 1 UID: 0 PID: 1845 Comm: ping Not tainted 7.3.0-rc7+ #364 PREEMPT
+>    Call Trace:
+>     <IRQ>
+>     dump_stack_lvl+0xc1/0xf0
+>     dump_stack+0x10/0x20
+>     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>     ip_rt_send_redirect.cold+0x2c/0x146
+>     ip_forward+0x1ddc/0x2430
+>     ip_rcv+0x2b1/0x320
+>     __netif_receive_skb_one_core+0x16b/0x1c0
+>     __netif_receive_skb+0x21/0x150
+>     process_backlog+0x37e/0x1200
+>     __napi_poll.constprop.0+0xa5/0x5e0
+>     net_rx_action+0x4c0/0xf70
 > 
-> The first step for now is to, at least, allow sched_ext to see the
-> preferred node computed by NUMA balancing, which is what this series
-> does.
+> Bounding redirect_number instead is not an option: 0 disables redirects
+> and -1 removes the cap. Compute the backoff in u64 with the shift count
+> capped at 31, which cannot overflow once ip_rt_redirect_load is
+> non-negative, and clamp the result to MAX_JIFFY_OFFSET: on 32-bit a
+> backoff of 2^31 or more is read by time_after() as already expired. This
+> keeps redirect_number as the limit on how many ICMP redirects are sent,
+> and the shift can no longer go out of bounds.
+> 
+> redirect_load on the other hand gets a lower bound of 0. A negative
+> backoff never meant anything, the old code only happened to treat it as
+> no backoff, and once converted to u64 it would turn into the maximum
+> backoff instead.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Right, I think that came up at OSPM as well; regular numa balancing
-would want this as well. This really should not be a bpf thing.
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+
+Thanks!
