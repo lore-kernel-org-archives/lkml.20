@@ -1,108 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122373;
-	b=L0lh7cfmGgH71TH35lD+drZsg8Qdg1weyFF67VjC/gJ7nzXjJGWyivWbPGQlsaBexQ6m
-	 9SZ9VOPXk5f5B0HJVOHfnpil4iEZGVcknnGg8/ckHHV/j42UUo68hIRgv1RthLal3MS7D
-	 EYgelwfez/kBGouiKz2bhfCH2gdhGG+TdYILeP82rn+tc3BZ6y7hDGpArGM6HZLCcqool
-	 YVgStLHquTaIegUKHu/SAW8xp1oI3kC5T3Tp2IwGmkuiWA7/xRjoe+hj5E8FNi7PapjYE
-	 08rzCVbdurIJsx2Ioy1RLNUrVRFJX5RLjG/ApjfRS7pcWR3A+TIkEGWkf6jo1uJIIlA==
+	t=1793122369;
+	b=YaXRykatL0Q0rqWK7oma4pyuUU2BKlI0Arvg+igbZzu7pyXHdNB0LUv4ALUG1kkzq64Q
+	 mfTbHsCMFVnSVtXIV+n3fflz/dv+VUtHzIUMMN1mt6fvj00GAiR/xGkYS6qn0fQXNfONT
+	 kMkJuvXBWsspq1K89Pz77jhOOiDYjoaWXQOPkuynm/6uXLkoN78SGGCpkLu+Zc5gl/hHs
+	 kLQjylBeKlQbArgul0AfTbMHyIXcG68E3AH9C8YyYzX9fjvKuPiJWyrAK3HTeoNKpDwaV
+	 ZEOXtzFZPPg5Lf8PGRy9LOEHS39a+7CoyVefFOSDliG2UqTX1J5jLe677B9wu7irqwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122373;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122369;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
 	 Content-Transfer-Encoding:In-Reply-To;
-	bh=T7vpIX2c6I0fdln2Veyf9JYdJ3RICzbnThdpI2zJVAY=;
-	b=DzaMN3VsMTyCgfm3hyQfSXNuhcjWrCuLV9D0QkQqN55lEfaXuT/LzU5NTwFEQpqvfass
-	 irNlJTqFd2bzmC+cWMyQAEAlRW8NZg/pxl3UEH1IiFYCXNBsoxNOBlKXUPiXCRP7JUt1g
-	 QXUs5cATuslHh0azfM/slTTqQdrLiUnR99NpgBg9So1TVBgd9Dgq6NIsAqUQM2Fdut7Gm
-	 cUwVSHDXFt7KISZ7FbwMOGU5VHh7s59mFxZaKQDMAalTNnYGQMojZpqOnzIrSJkQyDmoI
-	 bwL5G+bDsNChcun2YKx0wYOxgcXAgVGx4EP0Zh0bV8qHyXSH//VQ6o1Qn/M8vn61mhA==
+	bh=6Xd2ly1e8z0I0jLbX7WVjieXV2n1cRhJ5Aee9Uv3YD0=;
+	b=JOK3G60AEJzG2z4UoWi17p3g8msE6kFsTF+9x0yMaxaCHHOOhwarM7JTq5iesB/ECh1b
+	 JMZx3pUDCi5FunGfk4kvqCUmF1M75SWPixsFxsKxvpuB0WWG8VOjKrjT9C2oTKrdQgZ17
+	 Y4r8WNO4dc4RPATVbOkde1aF6WThp4fIN6Ldimq7Sn37m+gPJQEKeBZTRvFI28UMdPMJH
+	 6LPaLfHhrt4NfUNCccv7s0czs1fQ7YU3dcWGWyRzfmbKHagke8qy4ZaxEz0ONuoZc6tR1
+	 wDEi3SBy3G01DXyjGxwH2qJmYgsigO2aekA/1YCmKHfjm89fqh7l4kQs9pFa3Hqnqag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXn51sg+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CBB606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:32:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25CBB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso797795e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:32:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793122366; x=1793727166; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T7vpIX2c6I0fdln2Veyf9JYdJ3RICzbnThdpI2zJVAY=;
-        b=IERQJ8SKVi7acDhRQssNKz1tac/IbKaQ1f3zM2O6OFxp7pR62BajqEQCEG9JaHuJ0M
-         nQcwhrNTXW9RxyhteLIPA9LNKH3J8QG6lRhv0OL4TUC+apZBNfnCpD+BF0HWr/VmHLKj
-         QLLQFq36t5Dn2Lbi3bALdp6V6iWGR0HV+f1uumVypHlLGv2yedaXHJ1JnI/oj9ZLGnjq
-         QVjST8/BTNTCaXMtA8cSAV1xFORYJbiv1UzZNmsysoTn46/NG8HHUwfmp1BBp1TrWO6S
-         RsL0VSK+XetFWxWIQrF+txjov/HPcyrMrdiw0sWqufM1K3ER+n4eY4ikpmfRoDWv53YC
-         TSLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793122366; x=1793727166;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:date
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=T7vpIX2c6I0fdln2Veyf9JYdJ3RICzbnThdpI2zJVAY=;
-        b=LWiIqwo30Xc0eA2w5kqsVVdowBFb8e7YGgjod95dCUHBqJG8U/W9BXI+QD/Lmd1SCn
-         eGGJiG/2wktJ9XGbgapr88LqhrqUXerL1d2ezTvhmWESg3aBpSCXeFJANxYPjqaJxrKq
-         GS+dukzE/JxA3ezo6EllH9LFczetZEGL1OrPVm1EwxtWcSdH2udtYq3aic0CDP+UCUvV
-         nL6uM2cV3/wi6ZUMBuUZ8Cfn0fkT0XXxgN/oz7o72KQI/VC9/3Tr9dHh7jhorvWvoa20
-         L5gQELv5N6anhtb1MA3OCUSBRF4OxjCAw9VX0MWHagHJaliXV1xxmFkVrhMK5s5RtcsL
-         eKHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwDPVpGVvdqohhovrEeugMGf/04T0b4h+AH4OV+2VraeaNNym3Y5FGlRYbTlsUE4xp8DdMBgxDe62yxfbg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3JqISy2matOKO8jCRepDeGu+zk4v53AQeqTqk1yInrvRxRzNH
-	xGFHoOd+rCXTkW+zpwId4kexrw7Jd7nKFyd1HXmsmvK6VTrqyLxJ1dztRyWcmppKcm8=
-X-Gm-Gg: AYBFou1k6Iz3UuNWq92FvHUkHG1Vc71qFOm/w2RljNEiApmEsmTPjBhM//70Tzsn73i
-	spTnrR3IIQC9NF/CIZ4qi9UzqAo0sqeS/SDs/4FRdSdZj+OU6RGEC1u/qbQaS2ZTYOw28SX+GwT
-	2nI1GTbZMybCkHdAyVsBEh+K/mse5QPIqeylUdVGif5+l+IHIWqxBb/Xjo8QQ9gMb+lWOs+0DkC
-	ymE4whabE0ISSrrTbqBUw8tDv+cwyBk6s3sOz58CJI0IuFuAggVrE/Fl+DFKfgqbp5CRqKRKghB
-	tiWwdJaXyMRQCAwAxSOWZdMHmyjbHwjqQMNPAle+QKX+MJv0jn83TvBn1VWlkjXOgvC+/bm4Oit
-	RMyPxTuSMj7FBfM/b6NWiwEkoXGKvFcdMQF5qFySwsyW8+U+9xVjmBIm8ZIwMQ1gXENAuAFLEJ9
-	mri75MhX4ijjd+NF0lGp8LJKEkj4LRjionykhukjR+n3aZexp8C2w4gtQz7fA5WWkGz6/Q8Lkvz
-	UButZfe9AA4SabxVq2EIJvPFgrMDZGwxOGYiSW98u5xpYm75cMAQ2g=
-X-Received: by 2002:a05:600c:4ece:b0:4a1:fbd2:f689 with SMTP id 5b1f17b1804b1-4a35ac9d100mr198532065e9.7.1793122366508;
-        Tue, 27 Oct 2026 10:32:46 -0700 (PDT)
-Received: from localhost ([82.192.120.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a92b881f90sm5173585e9.11.2026.10.27.10.32.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 10:32:45 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Tue, 27 Oct 2026 18:36:37 +0100
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Gregor Herburger <gregor.herburger@linutronix.de>,
-	Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
-	Gary Guo <gary@garyguo.net>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH RFC 3/4] hwmon: Add driver for Raspberry Pi RP1 fan
- tachometer
-Message-ID: <auDhJbMOQ-qAeBBs@apocalypse>
-References: <cover.1792748690.git.andrea.porta@suse.com>
- <0d2249a66732bfce38a2260bee08cd1ba4097e51.1792748690.git.andrea.porta@suse.com>
- <auDRHk8eaYife2zH@monoceros>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E43606A31F;
+	Tue, 27 Oct 2026 17:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXn51sg+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5CE1F01829;
+	Tue, 27 Oct 2026 17:32:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793122368;
+	bh=6Xd2ly1e8z0I0jLbX7WVjieXV2n1cRhJ5Aee9Uv3YD0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MXn51sg+AdbRulkJpvXCM/YdzW38DZeqJ+b3DEnSEWYiRvlL7h+4kchhcZBe3A/6g
+	 2kDK5ZtkQJigr4YLMOsQmjFN/QTdXEoe+wC0wo0e9jJiPg98deDonwrHPbO0WD6EnG
+	 zStTZJmh4/PueAXTE+kzxb/ycurer22YUmQLjwC+fMYQmoLyqWvgSYF+0Wt2XT0SaZ
+	 Sj0F1d9Z1a4YGx+nwddgGQAm1zHQRw9vn7AnMboUWpbj1qWGMN+N1Caj/VclHTK3Ga
+	 GyHQduAJ+zgbVTdQiZdORIkckQOgtbizLlXXoVntyRIePg/UePOj+N0DeiM+01Az7F
+	 pi7RsoT68GY3w==
+Date: Tue, 27 Oct 2026 18:32:44 +0100
+From: Carlos Maiolino <cem@kernel.org>
+To: =?utf-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] xfs: undersized log triggers assertion in xfs_log_mount()
+Message-ID: <auDbrRoBQaxWnsE9@cronus.toxiclabs.cc>
+References: <CAO-4RZ25PZ5BM+83Vk8t5NUY3ksLGz5nzONrncipu2_MZhFSsg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,44 +56,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <auDRHk8eaYife2zH@monoceros>
+In-Reply-To: <CAO-4RZ25PZ5BM+83Vk8t5NUY3ksLGz5nzONrncipu2_MZhFSsg@mail.gmail.com>
 
-Hi Uwe,
-
-On 17:32 Tue 27 Oct     , Uwe Kleine-König wrote:
-> Hello,
+On Wed, Oct 28, 2026 at 01:00:54AM +0800, é“® wrote:
+> Hi Carlos,
 > 
-> On Fri, Oct 23, 2026 at 12:15:56PM +0200, Andrea della Porta wrote:
-> > Add a hardware monitoring driver to support the fan tachometer on the
-> > Raspberry Pi RP1 southbridge, found on the Raspberry Pi 5.
-> > 
-> > The RP1 PWM controller block contains specific MMIO registers that hold
-> > the current fan speed in RPM. These registers are periodically updated by
-> > the RP1 internal firmware based on the tachometer pulses.
-> > 
-> > Since the Linux PWM subsystem does not currently offer a framework for
-> > exposing integrated hardware tachometer readings, this driver is
-> > implemented as a standalone hwmon device. It parses the
-> > 'raspberrypi,pwm-tachometer' DT property to find the supplier PWM device,
-> > establishes a device link to ensure proper lifecycle management, and uses
-> > RP1-specific PWM functions to retrieve the RPM values.
+> Executing the stored syzkaller testcases on Linux 7.3.0 ultimately triggers
+> an assertion in xfs_log_mount():
 > 
-> I wonder if the tachometer readout should be a counter driver? That
-> would allow this driver to not be specific to the RP1 hardware.
-
-I suspect the counter driver won't work with userspace daemons (e.g.
-fancontrol) which use hwmon as an interface.
-OTOH this driver is indeed specific to the RP1 driver: the fan rpm are
-read from the same registers range and hw of teh PWM controller.
-
-Regards,
-Andrea 
-
+>   XFS (loop0): AAIEEE! Log failed size checks. Abort!
+>   XFS: Assertion failed: 0, file: fs/xfs/xfs_log.c, line: 597
+>   kernel BUG at fs/xfs/xfs_message.c:102!
+>   ...
+>   xfs_log_mount+0x4e3/0x590
+>   xfs_mountfs+0x10b9/0x2270
+>   xfs_fs_fill_super+0x15cc/0x20b0
+>   ...
+>   Kernel panic - not syncing: Fatal exception
 > 
-> Best regards
-> Uwe
+> The log size check reports 516 blocks, below the required minimum of
+> 636 blocks.
+> 
+> Is this an expected assertion with my XFS debug configuration, or should
+> this malformed image be rejected without triggering a kernel BUG?
+
+You have bug_on_assert set on your system, so yes, this is intended. If
+you don't want to panic() the machine there, you need to disable it on
+sysfs, but...
+
+> Questions
+> ---------
+> - Is triggering a fatal assertion for an undersized V5 log intentional
+>   with CONFIG_XFS_DEBUG=y and CONFIG_XFS_ASSERT_FATAL=y, or should this
+>   case return -EINVAL without triggering a BUG?
+
+The config you have enable explicitly says asserts are fatal. I'm not
+sure if I misunderstood you or you misunderstood the configuration
+option.
 
 
+> - If a diagnostic dump would help, what state should be printed before the
+>   assertion so the malformed image/log geometry can be identified?
+
+You are running a kernel configured with debug configuration that are
+meant to crash the system when some issue is found. Those are
+configuration settings used for development and debug purposes, not to
+use on a production or semi-production system.
+
+Cheers,
+Carlos
