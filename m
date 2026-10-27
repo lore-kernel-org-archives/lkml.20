@@ -1,123 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114509;
-	b=T+wBmcPuojcmVT8sZUQtumBBymCsQop75pbGS9OEHZZP29k5zZgTfJDPdRux8xskubjb
-	 /V9ea69SLsqzwH4JUtzsMO7lm8x+S19YiUYRX8TEWUb1HFY1Qp33en6FRze+MQ5KTpOKm
-	 9OjH1mmE0Qm8ySVPYGo2RMHpNRbv7wPtqoyylx2lIEkHzN+JCfq79TGhHLIcOSshOgQYs
-	 5AEqq+IUfuHpCvNGHItArQ6yKiy8bL4Grze0fZfUHJ99LeCVMSrJ/G1bxpWALhv8QGVHf
-	 MoDkdYNrp/gn4fyIesAEztuy4CguDvswFtnOuQWappJcNtNDgZlkuntWoN6KVKM6/5A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114509;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lg7ricNjsihrhZdu+HxttW8s2muYiAp/wLN4SAfTLNg=;
-	b=oCA7rnAZtH7a43RozHnwJ3a8hMWhV1egnY8/46TuqXu5WR8pbTuyE02AW48L4ulAO2UD
-	 Mw7mcVAdtfjOS35PB67tEz00ciMJv2w0CVLxbdla06s+pB3gyRDRoO/WjhjAGoSLMeXWe
-	 zBMm9V3cEzXlMkhQ76opD+j9/iqLB/eYMs6FclrrHAEHDPQ14o7zXklLi8b8Y048g9CJr
-	 8MThl66NiAxUGLcPkcWS5Cf5/9ZdZj4FMNTdmLbg55lDOAt2hgI7v/eVisypB9UNI3QwD
-	 dFRq8nTajbYxZyR+2T6dQ8BwT0Mb8ed7dEN6X8TldlUOa4lmNv8d9c5CdtgEKUdRNNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b="lJ/+Gir7";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=C52S9hHA;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.217.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793114549;
+	b=Pjca4Emjg82FoNMs/x06V8+Jv2nFLSIr54YBgWW1nVwXO34QE4ppV5pR7h2nAEgZdzJ/
+	 B82oEhXYjcgNJJa6sTt53eICh/53bFJkBiBfTIJ9Y8qSaPgGlxZOowQi4YEenbfwzxWHq
+	 IFafAYGHR+HUBuBlZKFuBZfWwkucMOC8ueRuNe7gxASrLmsc1NyoCxQ5V2O3/UtUlgLkg
+	 RA6H3Fu9fNwQKJAvikbkm611vN4yoKpxca32UPePxAZ0LEJgJaWqneo5NGiowIjf6E5+r
+	 d4lc2HTZWdl/0agT8QEeWyrk34vTNfJoiRNnCRjsq4GaROGqjsepWgq4dzQ5I9cUGSA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114549;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
+	b=LTWzCBDX1jfKI9ny7qqwYMNq6yTWR15olqFZ1ctrlnoecfdHJPIalUPrtGVCi6ZgqN85
+	 g2HL0rs3h1J16hrvI9OdIv2L736Qg7eCUXr4noQ72mCurQYQSXQ5HOdOCFRh1xYFMFV0R
+	 O+X7teu1EIB2OunmARHz1oSYSGEpSOxTwJp2CxWM/gFXrpgkub2EsxgZTCtWTfkx7Hb9N
+	 8t0c0QAzyiLANAU13hAAwMn0Ml306fB/LTKInPHugdN6/ATJX4quIsm5fAOeVvlUcydhY
+	 SLMNLa4+0O+9y7epqBMTcKPfg9WZpzNnhdTGffCS78Tiu3zV9c7aUPRwW16Q7oXfXsQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rSdHnOiB;
+	arc=fail smtp.remote-ip=209.85.217.54
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD16D606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:21:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD16D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D905606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:22:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D905606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=lJ/+Gir7;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=C52S9hHA
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id E6E71EC00D1
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:21:47 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Tue, 27 Oct 2026 11:21:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1793114507; x=1793200907; bh=lg7ricNjsihrhZdu+Hxtt
-	W8s2muYiAp/wLN4SAfTLNg=; b=lJ/+Gir7oE8spvleM7UyqsOssQS3/ZhHpEg8n
-	lJcUV7sd5Eb/jGVAVln3MysdQVskl/KaTrqKsiTM1jRX+h+mkplHxsE2WrfvUWE/
-	8UuMNmE5rYIU4o8GQ7dxrC9EabUtH0kNivj5XorEEspQeUvOhFCslscu5Z/e1e3D
-	NulyW9b4VqT8pE0clVDLUOejLYHZO07gvQE5lDLN5wbFSzhwcFuWk6OicbhUkPUp
-	2H2om7fApJ0bZGMNHby1WDugnYNVoj9woPhZo2cbDPYHR/0grZMPdz54Hq5nE25b
-	SG9K5vSatV7mPlK6kYuFgsrw9510YgV17BUbzyskc6UlrM5QA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793114507; x=1793200907; bh=lg7ricNjsihrhZdu+HxttW8s2muYiAp/wLN
-	4SAfTLNg=; b=C52S9hHArXVKC3ikcey4YPI6fhFNTUghaN2JlpnCYRPVN+vhJhX
-	7GJ7tgjMiZwjTg8lnJqmjpUVZaqBmjucRm0aWjdH4hXIxzUd0KgoomDmswIUOWXH
-	urHKEli8c6jq2KvB5jI8naMFvPJGELOlgeAluix8yNxvxD2BNkqKmhGC+khRLIM0
-	SvY8B25USlu/Ba/FVcYj+yvN8SyzMzi5eXgRUTc9C24mtbKXq7k6412wnjHYF/yL
-	nl71BtXTT0Iddwa4V5xyBe4EfjRjQVtkZMpw+/HivdvDFpkqbWCSzXRl52FNUJEr
-	NKiHW/nQcb13SWSts9HbpJJ4rBFm/Jlj1+g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793114507; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:ZBju/QiWfGE3QDzbMCHUDQlMDGhH+aveCtOvRAs9zijK9Uv
-	GB7XN4voqSRxze9g8px8D8UwIq6hHQLYIGcbR8QMJoyKbNe/1ixMkhaFxGMU/nqL
-	rD++N/d7QajtFB5DQUQTutsgNQPEzGLb+gnMLRfuwmfcib/+hKVB7Zp786e5Aa0a
-	/u8boRtTZOafaU74lwp+f/4FBFSP6TIHdR11PVHqfzo9A3HlPPy6cuVZ3ZaKR/ks
-	ZB5Wyy1GEgsKfXbw3Yow2/K8J3QovUBgarTF6aJxON8+XVTvi3xaxNC1oAq9o4hb
-	SaWbWb0bPabYiGef16eCjkfOW544ARCBdrhY/DQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:Agl46WJE4hi5pPDRHQ0YdL2pYKz8tOWD0csprg9fNQc=:cq4xNvG/sxAkb1hgRNOLhxsnj/T+nWg/hbu6JRtCDOk=;
-X-ME-Sender: <xms:i8HgaoaMFIWwCTpvCuH1-HsOcjQsSkQVLWDlirsMtlPk4PlPFzuQjw>
-    <xme:i8Hgaj3vKfE8-S2sRWUs49VQuDVXITfIGJfoa4jb7FZNYkyWFtU3MGAVpgBhaHeZ2
-    nR-6JF5-RyHBPDlx_Kp_55PTYYcKlybw9rpOt6BoAp4Lmr1UVTtUlA>
-X-ME-Received: <xmr:i8HgajqnDpfD71jYb80b4fQwoiPR-fNlcl_nN7pjOACYqwcj3i1kW7a1SM6tX03U>
-X-ME-Proxy-Cause: dmFkZTEY0hqEvExQfHV6cxC6UqEohEli4kd2Rib2z7xPHr2/LMCPhaUHUtfYW+lU0I5Aww
-    oGYAZHMf5OP3Kdg+v+8iRaFN5Prw7oD+g8XPM1iLULMnB6pnfbUcJydyuHzmEhR4gnWpBQ
-    TptWhK1Nz7NXUxt7QXtM+aCADuc3Z8EoopnWPtOjFpDE0vgV1ZXUX3AHGqiCLtt3lMkjd6
-    fWhK0iO+w/nonSyaIZNKsN6AJ/AVv0C6NztSQhfns45jsZ4yglShdnYkapCqzGfXbintj0
-    Zi6N1XgD3kMQj8FnpNh4kXhho88xNbl6ku4fcVBJXrl2BqFNrUTfPA2GveE5pel0YtPQlr
-    U5ONpcz6J8qenKgNdsP9q1RMhX5H5Awy6MKn8eIo2M52Lq+Ez8JK2EYfiBZbu/stqJG/9v
-    49uSTU8ieycaJUKPNyndIo5wgwPYRZHSEGz45CIEbOcEsur6gLc3ucHVZm2EGObJKBBk8O
-    jpUFlQsf0+nPWpuiBXp1pIjlXBB6BtN8JbNsfQdJz8gKQOkA61y49jRfAvI8qqjHKM2FB6
-    hvIwHLu7LX1odEpshUB+z2Du73kXiWcrJkAlitqO5aJf4AYdvzg8J666A+5zOt1oALeVaS
-    L92DEPAlPq4BLHwGmvQnZzJqn4d6d9hszq8i4GF9Vns9RuQRlL1C9Pl1iV/Q
-X-ME-Proxy: <xmx:i8HgaqM2v2ig7TLJ9iUqKF35p62DGk6Tzhu23ubnGJVcFRnzOYPfxw>
-    <xmx:i8HgakruapBVITfEaseHTbCzmdHQUFY-74xYJ9P4lhwHhDpBnhUT5w>
-    <xmx:i8HgatvySpjBkvyFbu4zh7_MQNgl7mNU-8KoaYKHL6qcl2INNc7Uzg>
-    <xmx:i8Hgaj0BHFawMkW8rOqH49qhx4zLzaHjdtxi_Fqx8KKQ7_CSap_M9A>
-    <xmx:i8HgahzKxmRPbor3Jlhd-TiIvyxm3I4HG7hAaHA5akX8HqiPhD2pLYAw>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 11:21:46 -0400 (EDT)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Steve French <stfrench@microsoft.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fix session reference leak on compounded SESSION_SETUP
-Date: Tue, 27 Oct 2026 10:21:35 -0500
-Message-ID: <20261027152135.138259-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rSdHnOiB
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc074a653cso201827137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:22:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793114548; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YyhLZTsz2OfGMO/yk/1u1nFOpoDoOfg7lkdgcBpMhl8JYOuve2X7HZtZi6Buh3ZRSz
+         PwUQtkQhYUBMG98hxsiKeIPNEC5SjqIi8FD3+1rJ8fWEccWOs9bjlPxAyvJqaMqlQa8b
+         LO1eaYj11gAuEuFet9nOqSEWer8V/FavzlCFYSHuRHvlkXCnjcOBs3ECyqIN/vVNYmTr
+         +h+7dsuUC7jDeVd20u8Jwjc9hrTYg9RQXo7sykHd+R/Ztw/QFo+E4iFq63Jf7ENUQGU3
+         l+Plkrg5r5jH01UJgLLAONiKBcR8lBfpHX78XqGdyRCP9mDDvsya1Lm0HrwZJobvtRlZ
+         qV9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
+        fh=xHIJI7aRhF4We7+3UZYNjpyrv/My5qWMoR7U+iH8M6g=;
+        b=FhBs+pPgA6nYGlxGdafW5VJiz6/H7HQ2blkACBiFBY2H4XvOzwXeQJp7TlC/2fmlc/
+         z9axckE3o/21ABedo9njiPy4q01/ZcQGKStTTabCf0BZUXLjAhVtCoACcSEnynNI7uiN
+         yh8ei0d9t6c4q7CoyQPHc1LwWn2Nrj7yxzf3YXZWO7JFGbgx+VAV2Ar2J8rsuTiYvMNw
+         SvRtSWrK98XuJ7Lqp/9rI75RlIy48fmI8xI0YBgLguBnwfNnMEalTAutKY5CJER9QXhy
+         /Z/77nPA+KYRTNnWEl+2QnlkKLy+7RFbPU8I40Cj0rfwbNnOqF8eDbPLGSULKMqplPxO
+         WZmQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793114548; x=1793719348; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
+        b=rSdHnOiBHVDYoVQv5OsAPIJexs9GauRvr0qVYof54fNCMwrl2UeCsib7ZA3sPyHzg7
+         EUmx2RJjAbgsE7vXgiJhaOeAN8ixi10oX9AR609nY7NabtRAsHdKeis97W1Pwf1YPgzi
+         5tX3vTUeOHHd2H2V2LkSbI6f2HrGpB2I6Nz6V0T2nOgmMjzr8H4zdbr4FyI3Y5FdGSFY
+         60h6IyWEhdSrI79pmztL47iXi7Bwyeqxp1Jxpoa/DTyRSO+JsTWk36Lg0C5INS1td/5r
+         Sh/M9+SFnW/UAHqQXXcd58WcS634RkaxyeXMAFAlMKlEiHV+cEWctVBs+lZ/tbx0Qnao
+         4nkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793114548; x=1793719348;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0gy1GbYoTDZfjLk4adPcTo+vL8RJLAqdM+FNRZN+GPw=;
+        b=QNtLG8hhUw+EKSKh7XoKMuKEXOIlWyJsHY6l1Kbq2f03/PwUzUwJJQwAOLlN4pKmfY
+         xRehouFvlt+Go0i80sBdTgV62Q2rq7+PlDaJPdcypSPnMsL5YWuFJim1OHdK9o634r2o
+         6RVYtLFL7KrFhOCDx087MEmTHXy17AfP6B6IfM73wnnDLyd0JUyaSOl18eug8x04a7hP
+         sbKnSClsgK78jVdVtrUV4K0qAt10mQJzp+llWVqgIKGpfTqfhBvbpXlrWqNVqB8LfoKC
+         88R5pskEYjZsnAIRfhvCUQeOnf0+e1NDR4TLMnnlbvHvEzI5NiJH/4ODUBZDdmwvLZbe
+         HmlA==
+X-Forwarded-Encrypted: i=1; AKwUvByG0DVJPMpaEjsHKa9gvJShGjbsmNe5Xbysenae2N4yuuq9cbF+xswytQy8RZIJ9JezlDD3mUF8Z1CQWnI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJELDDfVhp6qABbna8+vhRJZ9nvUPhVUWhWn3w+YRfLOEB9sgCs
+	hn1uT9dNqTO1AeA8jHjvkBpEH+tgLHrNbCiZYiamug/KqvtS1VloA3+8kZTRSjxW79pPwuSwcSh
+	0bf7l2OOBuyFbep39bKZZjcH7KlNm0aA=
+X-Gm-Gg: AYBFou13BnQaXVqTGYS4dGszdNtLaKABaDnGucVJmeSxX5SbEwOFyGYePmSWXgPxI5p
+	/cI6qpGTtuZlkw9xjY17m24M7apB1c6CegVhm4V7W46pPHE1UpXtlh33TLPjsizt6IOcvPFKYM/
+	Nft8vH42+0zyGrG45foZmIOc7tX8zC6G+sPpI1apebJ9ZJM0szxoVyU43GZhQcJPphtRrjg4c+F
+	pdZKpJOzSPdiQtVOkqadAu6QvMlVmlsfVOjLVQALjkx87n69w9YO1BWY2u9TrZEFu7r33r4uno2
+	tEqFOw9ARRQWeGW5EmyWCkV6PxLD6TqvcFrn8472l7FfQK5ITLlnd8G1u3cYxH+8THFWOvWpB9i
+	T3AZoCDjKmFW9YHNEolbLRf9V6JYKZpJuxMgNOPGA2P7UC+PyjXR3ZCkRfJcoay00beDNN17oHl
+	v7f54DCi2+zcktt9fE4gBQf2E=
+X-Received: by 2002:a05:6102:3250:10b0:7cc:174b:f7ca with SMTP id
+ ada2fe7eead31-7ce5c6ba0dfmr4003174137.0.1793114548478; Tue, 27 Oct 2026
+ 08:22:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,109 +105,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CADnq5_O2tEUHOcbiKL8c4UHpy3AmOWtmM7A8o3jP2qLwkx2jUQ@mail.gmail.com>
+ <20261027082913.8002-1-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261027082913.8002-1-atharvatiwarilinuxdev@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 27 Oct 2026 11:22:15 -0400
+X-Gm-Features: AclHuK-Adz3pXhRznVuw9H0EI3Am4aff3rHKztB_BB4zRj3ojyCoORRQiP8JW0I
+Message-ID: <CADnq5_PYSbB-Ges6vVgNcR4ZjYH4TxLZeAShifdV9uuH8swQzA@mail.gmail.com>
+Subject: Re: [PATCH 10/13] drm/amdgpu: Catch register access while GMUX keeps
+ the GPU off
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, 
+	amd-gfx@lists.freedesktop.org, bhelgaas@google.com, bp@alien8.de, 
+	christian.koenig@amd.com, dave.hansen@linux.intel.com, dev@deq.rocks, 
+	dri-devel@lists.freedesktop.org, hansg@kernel.org, harry.wentland@amd.com, 
+	hpa@zytor.com, ilpo.jarvinen@linux.intel.com, kenneth.feng@amd.com, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, mingo@redhat.com, 
+	platform-driver-x86@vger.kernel.org, simona@ffwll.ch, siqueira@igalia.com, 
+	sunpeng.li@amd.com, tglx@kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A compound request can place SESSION_SETUP after another command. That
-earlier command leaves a reference to its session in work->sess.
-smb2_sess_setup() then overwrites work->sess with the session it looks up
-or creates, and the dispatcher later puts work->sess only once. The
-inherited reference is never dropped. That leaks the session, together
-with its setup connection and socket, and every repeat of the compound
-leaks another.
+On Tue, Oct 27, 2026 at 4:29=E2=80=AFAM Atharva Tiwari
+<atharvatiwarilinuxdev@gmail.com> wrote:
+>
+> > You can drop this.  Nothing about this is GMUX specific.
+>
+> I agree, but there needs to be another variable. Using pm_runtime_suspend=
+ed
+> or using any other pm function will not work, as amdgpu_pmops_runtime_res=
+ume
+> also requires hardware access and even though hardware is accessable by t=
+hen
+> pm core will show that its runtime suspended.
+>
 
-  unreferenced object (size 512):
-    __kmalloc_cache_noprof+0x32c/0x3a0
-    ksmbd_smb2_session_create+0xf6/0x9c0 [ksmbd]
-    smb2_sess_setup+0xda4/0x6280 [ksmbd]
-    handle_ksmbd_work+0x88c/0x1cb0 [ksmbd]
+I guess the runpm code doesn't update the status until after
+resume/suspend?  If so, call it something like runpm_active.
 
-Save the inherited session on entry. After the request has been
-processed, release it once, but only when smb2_sess_setup() has replaced
-work->sess with its own session or cleared it. Do this after
-ksmbd_conn_unlock() so the put does not run under srv_mutex. An error path
-may instead leave the inherited session in work->sess. Keep it there, so
-the dispatcher still puts it and the error response is still signed or
-encrypted with it as before.
-
-Fixes: 7aa8804c0b67 ("ksmbd: fix user-after-free from session log off")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
-
-Notes:
-    The bug needs a compound in which SESSION_SETUP follows another
-    command, for example TREE_CONNECT then SESSION_SETUP. When the later
-    SESSION_SETUP replaces or clears work->sess, the inherited session
-    reference is leaked. The earlier command only needs an established
-    session, not a privileged one, so on a share that maps unknown users
-    to guest this is reachable without credentials. A guest SESSION_SETUP
-    reaches a usable session, and the compounded SESSION_SETUP that leaks
-    need not itself authenticate.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance (code review and kmemleak
-    reproduction).
-    
-    Tested on ksmbd-for-next 714f27729121 under KASAN and kmemleak. A
-    compound [TREE_CONNECT] + [SESSION_SETUP] repeated on fresh connections
-    leaks ksmbd_session objects (traced to ksmbd_smb2_session_create()
-    through smb2_sess_setup()) without the patch and none with it. KASAN
-    stays quiet. The four reference-balance scenarios (new-session
-    replace, failed lookup, same-session reacquire, and a forced
-    ksmbd_session_register() failure) each leave no leaked session with
-    the patch applied. The register failure was forced with a temporary
-    hook that is not part of this patch.
-
- fs/smb/server/smb2pdu.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index b306bc6e21ee..a21ee045848c 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2563,6 +2563,8 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 	struct smb2_sess_setup_req *req;
- 	struct smb2_sess_setup_rsp *rsp;
- 	struct ksmbd_session *sess = NULL;
-+	struct ksmbd_session *prev_sess = work->sess;
-+	bool installed = false;
- 	struct negotiate_message *negblob;
- 	unsigned int negblob_len, negblob_off;
- 	u64 previous_session_id = 0;
-@@ -2679,6 +2681,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 			int sign_ret;
- 
- 			work->sess = sess;
-+			installed = true;
- 			if (sess->dialect >= SMB30_PROT_ID)
- 				sign_ret = smb3_check_sign_req(work);
- 			else
-@@ -2731,6 +2734,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 		conn->binding = false;
- 	}
- 	work->sess = sess;
-+	installed = true;
- 
- 	negblob_off = le16_to_cpu(req->SecurityBufferOffset);
- 	negblob_len = le16_to_cpu(req->SecurityBufferLength);
-@@ -2928,6 +2932,14 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 	}
- 
- 	ksmbd_conn_unlock(conn);
-+
-+	/*
-+	 * Later in a compound, work->sess holds the reference that an
-+	 * earlier command took. Drop it once this request has installed
-+	 * its own session there or cleared it.
-+	 */
-+	if (prev_sess && (installed || !work->sess))
-+		ksmbd_user_session_put(prev_sess);
- 	return rc;
- }
- 
-
-base-commit: 714f27729121d59f103ca4dad7b0c2d1c125cd71
--- 
-2.47.3
-
+Alex
