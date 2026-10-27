@@ -1,86 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084924;
-	b=W0lkC7yoxMA64gQXdxUVglVWDH5q7Z7coo3S9UvH7OReM6Js80U+bC3Eb/WIc3L7HP32
-	 gzPC6nIOr8PTOiwA7gfTW/Hv4Dfavuzlx5mtaPiYhAEtzq1u7YchbaEBusoSrMeOYD3f0
-	 RxQ6+iLMFpt0r07+TVi6rt6Doospet70NwIdXZNqek1td3wzl3pWfQEouNqhGiV45JRly
-	 nQxbMMEe7nZH1N7SA1lsutHaft6hMPnKWESWKyRXokYVrutd8mXl7fFNeiBI5ZoU+clgT
-	 tRNFETfLFrmb9zSMQTlKlzot5XfLd8UK7kmv8BoUXQfYmOv/Cq03eby4XhkykbuMAbQ==
+	t=1793085000;
+	b=GH2EVf2LfDbhvA119u35Ze7+rem9StaJ3CE/1sMtqS8u0RftANdBCovqezpm0BJdIZ3H
+	 V+YWVus1iE3Q6dI0NCwHDc01pOEerPqtMBzZ25FkOHAUs6c0wxFp4zzhOZ7DCPsV+LcJ9
+	 zKZl2Ug0E1f1ALhgeDkBmv6T64BnCF8ni1RJbBcifaYQrHoSu4w5njvuLYCgLN6DFFy0g
+	 1xNV34+pvIXsXTci1AQ1e74aG6j9GPhDKwCbrdPhjk+SrM8n9xUHSQk/7nT8q8IIHwcRg
+	 G0m3PsgY+4FkeomLZD/0+3tSx3QPp3N9rVAOQD08928Sf4GmnnICKYoz0LWx0Or4Wkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084924;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085000;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=6zazjVTQz3Lc+/QZ9WoAd0ReZCneFGPIxm+AtvJf/J4=;
-	b=Ri8mTyKOGbAnBfMLpeH6jcteoc9BhQ40wjYCHyviCrxk2sMP/GdOv4mNz+e7AzYlsDS2
-	 zTBb/d/eiUbyj2wjXL8JrMnDfUG1ml7d24PPxl0bMXBQxlA8AN44xMrDCgD/sDmfLnnS3
-	 EXCER9RLgga4/8Q41CwFtq+LGjAa+IFd7vuLNnSp8BWwzWqxgu5uGPnvyLH3Pj1Vd6d5p
-	 cwIexK4RGhmkUjRWTZtLFP/nmR0Q4jXpzsSfNHhCGK/Dvw1WgxT1t6ijbL7jEm7ALLkZg
-	 a6r5ixBp/RMB7x+jTJYr3MoUb7sur78hv6r7LaFaqjq4CcNbTjDlTMVZz5kTh5rWg0Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C2zQrivhWq2xS7rGadMgkWdZZAgjXLYRNp3PSXeLbqM=;
+	b=GaqQOo1ErwNzk6mrTaPq06MfFreiTFDu0xDSZGnaClOXV1HobY8RqqAdFHqIRmotR41F
+	 jeupnOD5B/LzINDCzTX7/J2fVwNdK2CgCQFOQJlBknQXo+u5d+cWoyReac7gATW6ZqxZ0
+	 E+02Phl/SpKzva6CTACJrhvyfZvQhT0+259kfXom0v0teVXawhElgHLZX7zfmJyfDyyTR
+	 wOix64sDCTiedpSl1PfAJe6Ema2Xm6fncq+QI6drlae8RS25Kl1EWUC4Hq2ECXDoCG+3v
+	 TeX+oXhxyJKJ5GFVd/lx/xQDYxaFcuzyk8X1bGU3emfnlOuV4hxV1ySLm4Q7zNPSVsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AdLINEE9;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=egN0oQ5f;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988F6606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:08:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 988F6606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021FB606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:09:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 021FB606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AdLINEE9
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3adc4590de4so2587777a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:08:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=egN0oQ5f
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-881269371acso307271b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:09:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793084923; x=1793689723; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6zazjVTQz3Lc+/QZ9WoAd0ReZCneFGPIxm+AtvJf/J4=;
-        b=AdLINEE9Xgb7dNR1swD4xNFfCwJlS7Byu/htEqNWINHagScw1+K+Em34GSDuOmP9yz
-         ZihG0AtYGAemaE5lGfAhfTaFgzlIBvNwwN8HsiHQ/hQXH8i0tFls5Z5pZAgSAMgOYgXD
-         gLo7ssEfGW051qHJYkQEzSIVSiLTiLop8v4pvOrw5mprIYAgtWWqZ0o8HQyrk0thsej3
-         nDIIiRMCc8tyCsmRCM0qqWIOaxKh5Ejv2jxi4jsQCIE5quU0n3nb9UihefYhjwNKSN9L
-         FiF3ngKZUrLk+dZhhM+4zOKkXkH1S14OLPJTWeiE36tZ5cpjGmXwfx3gWpzHamR6sLHT
-         C1qw==
+        d=gmail.com; s=20251104; t=1793084999; x=1793689799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C2zQrivhWq2xS7rGadMgkWdZZAgjXLYRNp3PSXeLbqM=;
+        b=egN0oQ5f3P4k9liFx0lazyZgm7QoUXhnN/1UbwQhc+0aUl7uD79Np68WD90AhuU7Pf
+         ikWfRnV7+O/2d+wKRCzBf6BKAWUUTHKGig5HfJ8cPK39I7o6N3XuBe35K4/aJfUNOEZL
+         jwxsV5kIZXUR/kiYDRA/jDloF8DEMX58jSyvA6qeOSL7EvqFFhtT9Peen1r6vJ/3UL+Y
+         kkV/vPr6bg/s9/7k85fLoUc0xoPQYQNk5gwV2kg6XmonQfeeqkJByXDBRxeCiyJb/+Hj
+         VkDzzEW9bisy4ZhVujcu5X/Colswjr1HrQuzEX4ZdoqY8TaCgBhIIgAXeosZFYBDG/aC
+         Xhtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793084923; x=1793689723;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793084999; x=1793689799;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6zazjVTQz3Lc+/QZ9WoAd0ReZCneFGPIxm+AtvJf/J4=;
-        b=Duoj9vU5hqmDCa6RwUEbZR0DMngYRuaYtCTxG5qnTigwTB97W6uX1wJ14AJ6GYvi1/
-         SlrgKird1mcQJwo2YKT4H2i2YdCa5QtgO7Clj++1C8saTQfG/NvKdtCHYyxyPGq9dncj
-         eENqNad9xngHorNYGsCQdzY4iGMX4FdJdTAblLymZihO4QnxtltyGWwMk4WRxh3a/R2s
-         yvnjb+U6VTv+vuAD4E7Rb3fWOygdgQdhuJfsYStZMElAYk2BmF4bYBsUEpLMEzGeigQM
-         Rz9T2KCspjwLPXmipML/D1figKGMLRxYkv22yHjdJWhgaKIrwjeVj3tjzo3jI36FhCRY
-         iiUw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6ypXnbjAKZHwx3k0JH+enh/dfzqfpGkMCNxPI36avOYfEOVwvDHdZCxZoDNXIbOiS8Md5njX2yBP2Wxs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKm6ocQJPuioKUYgd+GEtld7+VaInOmXjvS7zKLVT5kmz8ykiF2
-	k4fYv/negxJbFeatsUyaArDgwjpsv4bVxkxSSiNMqLgAdrx3WMgsOOzOYubVA1o=
-X-Gm-Gg: AYBFou0U7J5oYcU4eOUW1bUa7MYMnXI+Lfk0dPv655Lo0dj2GetnQ2vXwsg7loQTp9U
-	2ptoLJ7pH/Cr+iPtRm/sv+AYhUoNCFoBMYoifAmuhoV0MlyxbC+/TNl+B3fGHh58ebS9bQUDmVt
-	qIrT22fgiOwcz7AeeV+ppbe0iHIXagYnYQu3SYZx1fAnC4Nfw+TNxY7MrChU3b8QFwY9cdt/P4B
-	yoaSEvG9dgse00CqbNlHjgGDrPuNIWQcaYe3ZXTm5OWoo8B5UISxIfQ9OHyaY49Tsg09M3w6Xpe
-	0rdQpC2uvvkB+p7wO1KYhlmdtgQqtUJNcM/WaYA1432xznDZQTMBhNpa2wzaJNETPSpESX4mcF+
-	e5WMPfB5MiqyAlTy+UDv/+sKWMeMAyH4oo335shnJIYVU/oQ26Cvq5bLz2SR1GeeqA/5Ywo5d/h
-	2Iu5zcKQnsDF+cBfqSY4PB5cVpntZiXBzLVCwVVJbf7i7Ob1gBbXh18/l8XQWbLnIEHV5tJKg6C
-	wx+nLfRCt097TBaJ3jljGqUFBKKuB7FDm3cGdUSfhnuajq4BwbTrd3yTRvtFbdJOz94jXKJowkQ
-	GzOO14LMudW6P8tKGkm6f+1m0LqwQOHCEDc=
-X-Received: by 2002:a17:90b:3941:b0:3ac:eeb:e0ed with SMTP id 98e67ed59e1d1-3adead5e324mr7265729a91.36.1793084922903;
-        Tue, 27 Oct 2026 00:08:42 -0700 (PDT)
-Received: from [10.1.1.198] ([71.212.222.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae401bf352sm2540119a91.0.2026.10.27.00.08.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 00:08:42 -0700 (PDT)
-Message-ID: <4934834b-41ab-4663-b031-d04d736e9fe8@gmail.com>
-Date: Tue, 27 Oct 2026 00:08:41 -0700
+        bh=C2zQrivhWq2xS7rGadMgkWdZZAgjXLYRNp3PSXeLbqM=;
+        b=qw7XaeyIZpa44DA9IU8KZ4ZpSH2eFd42895Zet/d0fT3BJ+UHJ/EXTnL8jsdXiY5/y
+         M+NUHJn85+XmDHV0OrTIVouYRHfbQonWU+Ssjj5xIEvAPzH9bZueaJj2P2BscYG9UJAd
+         VtE2xmJGxSEmIA+2ZPpcOyowOYnrez9BfJun2cMOFZbJMQs5AJt3Qxd+3E4xuhmQnREv
+         uAGz1KYJdQo564GrTRajpw4roSDiIdQ90wAcF8JSTxJeMKZs+UoyrLPobtyxq8GMGFIh
+         A7fnX9ehuF0kSlBofTo7Bt+QjpYku89s8OTbIbWpQmV+831KuMx9zFDqv5bAdtnqEGsT
+         hl8A==
+X-Forwarded-Encrypted: i=1; AKwUvByNfRGsyUxtzi/TFxglV9qQmuMiogLIpdTmuphn/9WKIQ9ao1BIH/2v73DkrxoYh/xtH1vfQtZBaIZLol0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLZWH8h3RbNi7mIT/Z9Af8cQQJkRkearJf5XLzhQSIeb5zCtEhM
+	b/OZc5dm8GfuemqTpu2hb6IjyFcLhrUCerONlQYXdhS3fRFHXq2g0dkg
+X-Gm-Gg: AYBFou2NmUHh3f7AOQ23V5QAEpTGxHMFB0FaOnhvuLS5wcHX/NF2IWrc6aKEZPm/tWB
+	lQy07RcAuSjt6KQ2DM0dh59VxiiyxrurhkWqKkZABvAS/UcgF7BSKjNNc9PJ+4yWbIWvOsgBM6p
+	kqNxtiLHkfP4ZAtVt1cOrpvI7O5FEZetbKC3YkkzJdsvd89PLlBAJrs6WYElnoy72X9Gf4/MWOm
+	nPeD7UrNmmnnz/gT3TGLvPKYq/t8sEr76PZkwcxPVts2M2+5sydaaRFKw8wRx9NWAoigBpvi14L
+	XRuDE1yNPrMhu4F14IkGy9OISfcu58WpPBnsmgDWaqONz+mdiKu+mm3C11DuZztwCguYqk1ipBr
+	Ju6p/RdDZ49NV2mucPkjX2EOcVFIEop88b5af4We4YZKFgWUcRkWZPaQuYDrBFvdM3M07BQbEqF
+	ZVJAuLeQOb3IVRuRj9zmjqn6r8WNqWLNBfw1+vn40rCwDXgMUcsJP0Uui6RHqnHgdv6qPU19Nc5
+	XLftc6B+v5PdaTJBCnPqqaDjgIHqmyOq3hwTa0Onk/VPnotuNP8JH/Ja1ubusR8iGqsTZNjIQ==
+X-Received: by 2002:a05:6a20:e290:b0:3e2:9b9e:7efb with SMTP id adf61e73a8af0-3e8eaea247fmr1321044637.50.1793084998943;
+        Tue, 27 Oct 2026 00:09:58 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.37])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc21274sm2277512a12.8.2026.10.27.00.09.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 00:09:58 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: jiangshanlai@gmail.com,
+	paulmck@kernel.org,
+	josh@joshtriplett.org,
+	work@onurozkan.dev,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	boqun@kernel.org,
+	urezki@gmail.com
+Cc: rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	qiang.zhang@linux.dev,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH v2 00/10] rcu: Improve callback diagnostics and validation
+Date: Tue, 27 Oct 2026 15:09:13 +0800
+Message-ID: <20261027070923.3054462-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,37 +105,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: phy: qcom: qmp-combo: Glymur USB Gen2 fails on one port (chip rev
- 2.0)
-From: Burke Cates <burke.cates@gmail.com>
-To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
- Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>, linux-phy@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <5b31ea48-7918-4f0b-b012-6915b384b922@gmail.com>
-Content-Language: en-US
-In-Reply-To: <5b31ea48-7918-4f0b-b012-6915b384b922@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26/10/2026 23:40, Burke Cates wrote:
-> These tests used v7.3-rc5 with out-of-tree Glymur platform/board
-> patches, including DP PHY support. They were not on an unmodified
-> mainline kernel.
+Hi,
 
-The end of my message was cut off when I pasted it. It should have
-continued:
+This series improves callback diagnostics and validation across RCU,
+SRCU, and RCU Tasks.
 
-AI coding assistants helped with the bring-up and this report. The
-logs and test results above are from the recorded hardware tests.
+Patches 1-3 record callback registration stacks for KASAN in Tree
+SRCU, Tiny SRCU, and Tiny RCU.  KASAN prints the recorded auxiliary
+stack when reporting a use-after-free.
 
-Thanks,
-Burke
+Patches 4-6 add rcu_head alignment and NULL callback-function checks.
+
+Patches 7-10 detect duplicate callback enqueue attempts before
+queueing, using the RCU head debug-object mechanism.  A duplicate
+registration is rejected at entry and __ratelimit() controls the
+diagnostic output group (pr_err, mem_dump_obj, dump_stack).
+Detection requires CONFIG_DEBUG_OBJECTS_RCU_HEAD.
+
+Changes since v1:
+- Patches 7-9: __ratelimit() + dump_stack() instead of hard-coded limit
+- Patch 10 (new): same change for Tree RCU's rcu_do_enqueue()
+- Patch 9: fixed log format to avoid pseudo-function names
+- Tags: Reviewed-by (4-6), Suggested-by (7-10)
+- v1: https://lore.kernel.org/all/20261023101841.2910719-1-kunwu.chan@gmail.com/
+
+
+Testing:
+  rcutorture with KASAN (SRCU-N, SRCU-P, SRCU-T, SRCU-U, TINY01,
+  TINY02, TREE03, 3min each): all exitcode 0.
+
+  KASAN aux stack (QEMU, CONFIG_KASAN_GENERIC=y):
+    Last potentially related work creation:
+     kasan_save_stack+0x33/0x60
+     kasan_record_aux_stack+0x8c/0xa0
+     call_srcu+0xb2/0x390
+
+  Duplicate enqueue (QEMU, CONFIG_DEBUG_OBJECTS_RCU_HEAD=y):
+    call_srcu(): Duplicate call_srcu() CB ... ->cb
+    dump_stack_lvl+0x47/0x60
+    call_rcu_tasks_generic(): Duplicate CB for RCU Tasks, ... ->cb
+    dump_stack_lvl+0x47/0x60
+    rcu_do_enqueue(): Double-freed CB ... ->cb  slab kmalloc-16 ...
+
+
+Kunwu Chan (10):
+  srcu: Record callback registration stack for KASAN
+  srcutiny: Record callback registration stack for KASAN
+  rcu: Record callback registration stack for Tiny RCU
+  srcu: Validate callback arguments
+  rcu: Validate callback arguments in Tiny RCU
+  rcu-tasks: Validate callback arguments
+  srcu: Detect duplicate callback enqueue at registration
+  srcutiny: Detect duplicate callback enqueue
+  rcu-tasks: Detect duplicate callback enqueue
+  rcu: Improve duplicate callback diagnostics
+
+ kernel/rcu/srcutiny.c | 34 ++++++++++++++++++++++++++++++++++
+ kernel/rcu/srcutree.c | 36 ++++++++++++++++++++++++++++++------
+ kernel/rcu/tasks.h    | 27 +++++++++++++++++++++++++++
+ kernel/rcu/tiny.c     | 11 +++++++++++
+ kernel/rcu/tree.c     |  9 +++++++--
+ 5 files changed, 109 insertions(+), 8 deletions(-)
+
+
+base-commit: 940793b926aa94bf65ec404043050888e3053188
+-- 
+2.43.0
+
