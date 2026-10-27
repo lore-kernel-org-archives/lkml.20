@@ -1,75 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793067294;
-	b=hOUslbhBeyceUt/GtZWwwPO9Tp0Txa0fQZFlNr0oLjxtdVGD/T+BIXjXGFnDY8/qOdUd
-	 ZIUF5IZtiA/i+TvyNiTRTHD8wzKoS8DhJRr9+bS018TubQtiR+cF0FIjPs9cp1Z3ixEsu
-	 SyCAh0gnf/3QDxxQE8kq+DpXzS1TL0XZK+br1Kfk5ciuMF+vv89IvFolC92eS9XBqOBTV
-	 16LLXJluCYD5hwZ0SHjLzK2TqEQvXKz34LG2NEBFLkd64B5GwsvGLe5ozBpnHcb0EYFms
-	 BLN7MfL4QoJp1JtKYnhw5Qs3YtCq8nCOk0TQLUnBOArEtGFdn3QhirPZEO7oCqZI0pw==
+	t=1793067298;
+	b=4Z/lMc7GSBRieG47lZwgYIK1sxWurYjY/6I4CQHvRe99qHOwqMu8E5W2lcOw2ivJjcTv
+	 E4OypS9CKYb0ABSm4dyJZ6eqHkJhRzcRIJLE4pGP0QUsA9j+lOUljXVghb7nJYfiHTeai
+	 I45kwPXkCSdFNbRo4KCW9/9dSCsqW7Le/FD5SjgvjW9XmYF3fxWk5qpQhTnSnBga3Rosa
+	 9iWmlMwORuWFkkWvdKtuQsrozRUDzWjujWDWVtyrcKjEA5xFEPlJkVmAOkyjIo/hTcIrC
+	 tKNIEo5UZ9CFC7AD8BGelXZg0dg46tGAeaVhjUfEv4K/VZoZwrbDBA3Npif3gC07/Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793067294;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ROfiEfk295+SItu3RnjH0m+IhVQ1UPEgGDJHSeo7Yss=;
-	b=B1frahjf7rKhd9HqZmUMGLAFdz7Rvsu2FUck7YFLlxQX4OsjfZpasSodML8a0XXbzB/X
-	 P3pX/R79hBAwXZA1/LkuiBTxGCxpeFEF1a6Idx7fwje3EuaqRPDFAIXqxKJeD0/fQ1lJv
-	 VcsSMPUcPhH7tgr1KFQueqbIEX6ukBAgAZ+I00xXD6BfFoAQ13OKNCJUXHA+iWy+DUeoE
-	 oVgEPap3hZ3oBtFZnK00HmH0AFIyrIX6iHV6n+LxTVODZKWKY70dPsg+cxlQqBxUGSspz
-	 gGMqh95HH715PpEE+bjCZsNJn9sNou9eTT3JEd/jLNEBhfG2EBrk3XOC11kyztVal3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793067298;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=r/ih1FRvfSOmfO7QDbPciyZaWLHsTj9/8O4QuQ4T6pU=;
+	b=GVKaLzapUxWvbWhZOrvSqWWgOq1nr1698QICmyub6HVuX1i1rSCcybbmsETAxSI++G5T
+	 zx6MK8diGbpYbSpntL5QvhByQNGSXOJ+4xUgDkJ5rEo6NROXtr+BZmPE3M6JN3tIHArX/
+	 l3bSBdHE9IA0wGG2H7fBJI5CJND5cYRtCKOYi/aLJJH7NpwYNAOuCQpWO1EHNAeLv/dDe
+	 ED7x7XOKdT/ZzEG6FiDjdhMAPHp2ItRjnpypSkHxCfL1XR11SG48kH4BIcToCBZBLljfz
+	 baIudVdsjdB8in86ZE3rB3ONU9IGcH4Lqm7jxTvj6pZ6JUOfyCEmhjc4yvJLk9Y1NhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EpyG1g7z;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LBKrDqA+;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDF7606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:14:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CDF7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C50E606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:14:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C50E606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EpyG1g7z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793067293; x=1824603293;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   in-reply-to;
-  bh=5lA/7pKtWck7vCkOArCrpRySsoQA1+UgX9wXJWD4Lx4=;
-  b=EpyG1g7ztj1JmYpZNTASU/kTboryMQ98gF+Z5hclvEinvzxywW/rGlDj
-   3v3fF/fMhdyo4XjWIqWmCENOl4SS5LsjfPoBLGDcLAV5ZLznsWN/ics1w
-   yb40YAIT/Q9Ehpf4QsL63B0vVpFEElhL4TQ7diunH5/SNebWF+P0j4Dl2
-   ukP/Dm8ngvOOIM+ETGvW4K/fjy+SMLLOnIOTeMCMkW7WBGWheGJfvARmF
-   R+12ur2pzoLo5i+e8XXw/9YDlAJyzdWsmdpzmCO/bysTF0qt6WjYUBsrI
-   Jyrh2mSSN+lluDMlC7JXzmNDXwSq3rzmYlV4G0jjxRd0Y3J+VAh6kvb87
-   A==;
-X-CSE-ConnectionGUID: 1Z2pSekYQ4+N6MaN3kKnCQ==
-X-CSE-MsgGUID: OKY/vCmiRZWeIN6rJDSCRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1766394"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1766394"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:14:52 -0700
-X-CSE-ConnectionGUID: BBkXL+RGRbmu52r90EePmw==
-X-CSE-MsgGUID: 2uWGC/EqS3CQ29R2mdsaXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4370330"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:14:50 -0700
-Date: Tue, 27 Oct 2026 10:14:46 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Haoran Wang <haoranwangsec@gmail.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com,
-	linux-f2fs-devel@lists.sourceforge.net, ltp@lists.linux.it,
-	jaegeuk@kernel.org, chao@kernel.org, linux-kernel@vger.kernel.org,
-	haoranwangsec@gmail.com, yi1.lai@intel.com
-Subject: Re: [PATCH] f2fs: verify inode data-block ownership at mount
-Message-ID: <202610262143.a92547a9-lkp@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LBKrDqA+
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261027021454epoutp0416c8501fe23ba6492c7beb91a12dd089~iQTQuKfzf1545915459epoutp04K
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:14:54 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261027021454epoutp0416c8501fe23ba6492c7beb91a12dd089~iQTQuKfzf1545915459epoutp04K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793067294;
+	bh=r/ih1FRvfSOmfO7QDbPciyZaWLHsTj9/8O4QuQ4T6pU=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=LBKrDqA+Bt5IVXuwI1IcW8kNbSc8vQbrTc6GqNEGsM7CVMUxWuMyKhQ9DRdPRUpVw
+	 tHdh0KrbGigc/m9KEEyZW+tfUXTxbaLflO5SyXAwkZ6HKq+P+702cZxARokaQg/J+4
+	 YywJQhpGc4iY96kitz5Xd2IV6fXfhewGcoPsoYk0=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261027021453epcas2p28f51b1d20d1019d8cbbfad208984efd1~iQTQWG61U3121731217epcas2p2H;
+	Tue, 27 Oct 2026 02:14:53 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.204]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jDDbK1kgCz3hhT7; Tue, 27 Oct
+	2026 02:14:53 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa~iQTPbqUs11825818258epcas2p1N;
+	Tue, 27 Oct 2026 02:14:52 +0000 (GMT)
+Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261027021452epsmtip2b378fe92584083c91083387acfbb1a46~iQTPWge012996629966epsmtip2r;
+	Tue, 27 Oct 2026 02:14:52 +0000 (GMT)
+From: HOYOUNG SEO <hy50.seo@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
+	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
+Cc: HOYOUNG SEO <hy50.seo@samsung.com>
+Subject: [PATCH v5] scsi: ufs: Change the error check sequence for auto
+ hibern8
+Date: Tue, 27 Oct 2026 11:10:37 +0900
+Message-Id: <20261027021037.3398180-1-hy50.seo@samsung.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,49 +80,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6ad2359d.0083e9c2.97e0f.79de@mx.google.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa
+References: <CGME20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa@epcas2p1.samsung.com>
 
+Auto-hibern8 enter and exit are performed by the host controller without
+a UIC command, and the auto-hibern8 idle timer only runs while no UIC
+command is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is
+therefore usually reported while hba->active_uic_cmd is NULL.
 
-Hello,
+Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
+easier to analyze"), ufshcd_uic_cmd_compl() returns early when
+hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
+called. Such auto-hibern8 errors are no longer recorded in hba->errors,
+so ufshcd_check_errors() is not called for them and the error handler is
+not scheduled.
 
-kernel test robot noticed "last_state.incomplete/bootup failure" on:
+Check for auto-hibern8 errors before checking for an active UIC command,
+as was done before that commit, but keep returning early when there is
+no active UIC command so that a NULL cmd is never dereferenced. Only
+report the missing UIC command if no auto-hibern8 error was found.
 
-commit: 612a9db3132785844663564c15691d5feac8a259 ("[PATCH] f2fs: verify inode data-block ownership at mount")
-url: https://github.com/intel-lab-lkp/linux/commits/Haoran-Wang/f2fs-verify-inode-data-block-ownership-at-mount/20261016-223258
-base: v7.3-rc7
-patch link: https://lore.kernel.org/all/6ad2359d.0083e9c2.97e0f.79de@mx.google.com/
-patch subject: [PATCH] f2fs: verify inode data-block ownership at mount
+Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier to analyze")
 
-in testcase: ltp
-version: ltp-x86_64-af1ad307f-1_20261024 with following parameters:
+Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
+---
+Changes in v5:
+ - Fix the unmatched brace in ufshcd_uic_cmd_compl() that broke the build
+   in v4 (Stanley Jhu, Sashiko, kernel test robot).
+ - Use a local bool for the ufshcd_is_auto_hibern8_error() result instead
+   of testing hba->errors (Bart Van Assche).
+ - Move the Signed-off-by above the "---" line and Cc stable.
+ - Link to all previous versions.
 
-	disk: 1HDD
-	fs: f2fs
-	test: ltp-aiodio.part2-02
+Changes in v4:
+ - Changed patch version
 
+Changes in v3:
+ - Check auto-hibern8 errors before the NULL check again, so that errors
+   reported while a non-hibernate UIC command is active are still
+   detected (Sashiko review).
+ - Return early when no UIC command is active instead of falling
+   through, to avoid dereferencing a NULL cmd (Sashiko review).
+ - Add Fixes tag, reword subject and commit message.
 
-config: x86_64-rhel-9.4-ltp
-compiler: gcc-14
-test machine: 4 threads 1 sockets Intel(R) Core(TM) i3-3220 CPU @ 3.30GHz (Ivy Bridge) with 8G memory
+Changes in v2:
+ - Check UFSHCD_UIC_HIBERN8_MASK for auto-hibern8 only when cmd is NULL.
 
-(please refer to attached dmesg/kmsg for entire log/backtrace)
+v1: https://lore.kernel.org/linux-scsi/20261021051951.1687479-1-hy50.seo@samsung.com/
+v2: https://lore.kernel.org/linux-scsi/20261022074249.3098100-1-hy50.seo@samsung.com/
+v3: https://lore.kernel.org/linux-scsi/20261026051851.1845934-1-hy50.seo@samsung.com/
+v4: https://lore.kernel.org/linux-scsi/20261026052632.1848929-1-hy50.seo@samsung.com/
 
-[  +3.766884] [    T594] mount: /fs/sda1: fsconfig() failed: Structure needs cleaning.
+ drivers/ufs/core/ufshcd.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202610262143.a92547a9-lkp@intel.com
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261026/202610262143.a92547a9-lkp@intel.com
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index d085d394858f..c08278a2e43e 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5939,18 +5939,26 @@ static irqreturn_t ufshcd_uic_cmd_compl(struct ufs_hba *hba, u32 intr_status)
+ {
+ 	irqreturn_t retval = IRQ_NONE;
+ 	struct uic_command *cmd;
++	bool ah8_err;
+ 
+ 	guard(spinlock_irqsave)(&hba->host->host_lock);
++
++	/*
++	 * Auto-hibern8 is performed without a UIC command, so check for
++	 * auto-hibern8 errors before checking for an active UIC command.
++	 */
++	ah8_err = ufshcd_is_auto_hibern8_error(hba, intr_status);
++	if (ah8_err)
++		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
++
+ 	cmd = hba->active_uic_cmd;
+ 	if (!cmd) {
+-		dev_err(hba->dev,
+-			"No active UIC command. Maybe a timeout occurred?\n");
++		if (!ah8_err)
++			dev_err(hba->dev,
++				"No active UIC command. Maybe a timeout occurred?\n");
+ 		return retval;
+ 	}
+ 
+-	if (ufshcd_is_auto_hibern8_error(hba, intr_status))
+-		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
+-
+ 	if (intr_status & UIC_COMMAND_COMPL) {
+ 		/*
+ 		 * Store the UIC command result in the lowest byte of
+-- 
+2.34.1
 
