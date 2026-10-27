@@ -1,92 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103816;
-	b=KDzEpHz2jkD2TwmMJRAxGiia5lGFtDWGIqcLhvj5FKWeeIdKn82i3dMlA2P6KGR6bFYA
-	 p0MHoR6Ffe/JMoeGXbsMIanLIfGNCaWo4y6lV2zNEtdb8ERPTI9x2ECHZN7txQV1AvvWM
-	 RcdgdkhgvTRk9CRxLOEPZnnOcOs3d1Cn5w36moi716l9VBSyxGwcKyCuLukkYOqzEsxFg
-	 7mpcnavCU82kAQtFghUBVOu8I2KHbz0zrVBk/RHpS/WvdbHTIDPDkcnIBHQUxoGrcKQ/y
-	 BlunK+exZ4wyj1WcCEILLiwOD5ay4Ireg81UsaX9NDS5vihKvAVP8+sbY5gsE8o+y0w==
+	t=1793103837;
+	b=1uzj61T5sZwyg4yOlvAD9nMrEkHVhKfsLad/hed55SHwVJ5bGcjMYuw/iDnulPsHaZyd
+	 IT687dBe8MBHMrmgYibQV757qkV9oG7yj9gt6xgwu+2bSh6jQrN0PJ3TjBz045HuFgcaW
+	 zUFvqwLDsXKXdzHc6AndOoYYKcf3Ixrpjlv1EVatgZSyDPzVqp6by3jnMaceiAmWQi9KR
+	 0o4gbZsyj/6OtX168blxEvTDgTW+/Z8dOKN6WWCX7HF+URXRv642Q7cloxSHj+PdahVuS
+	 KPBNhKAl3Q9guvLq7wGJbtPxHNoFaOVQXXq0Y/dqIINdMbhECh2iCBKIKYzOR9I1evw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103816;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=sYqvNFORyvDOQZXc7kZrBRIQxzHNGGA8imPy97/ddqQ=;
-	b=aE1SwJyqcc79j+IZ3nYaLLpgN/lGN5Gpj8XFrc3zXbEjo1U/IxhY38HwzcSAsgJYHaPA
-	 RbEITi6DvE6S286s02xqciq/spA4QUsC1RJ+e6v6XuPtambuvZMcGR+blCsghvlYm/MW3
-	 3mCBxLTeMNHVXPA+ygxtcsaUM09sVf/YGN+tiytJYdTcwB5pOZG2yQz8X8+x9bzD0laHR
-	 vs1gaHNQFEMcScxxqPBm9FMNr1GXl2QSipvDN+ejH+HnMt9pFh9deKjBAx4gMNOmlM8gu
-	 Pw8JeE+CB8qxuX8lbnlNfYXj/HKKS2ReyW9m373ylzxzhBy8gA6G8HfNty4I0Iek+IA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103837;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=3kyGnW26vs2sjKHmtrbQE7xnzfHT8gYFA7CSDPKdefg=;
+	b=wiExJ0mO3x//m+aymB9q9PrII/xvaWXjhREr0LKqfj+sPpNZyIXGm/KwqpnKScp+kX8U
+	 suBz/EsWj+QGU4XArJknqvrElr+g0/hgu1Xyzlpkr1nNPMl13x9hd9qrwRq66w7jXDbZk
+	 rxgsU8C3BjYVSCAxap8fI/wFkFHzH8PJW/GKujOdOAdv93zRzwicZrWh/77Ygl9fg/QY/
+	 w2JS0y5URXTKHBkd4z/fllQCRRtxqJnQneYYEyVlY49Y+ZJx/UCtZzH5O82c2YUXTxVL2
+	 ClEVBHbHb0RAmcJdPwXOJy2hoaC6QgudUaBndZ8UvSGABGtEy3WL3lr2aPkyUfNvo/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=DnjjdCRR;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=jQIi4Uwx;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5CF606A320;
-	Tue, 27 Oct 2026 12:23:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F5CF606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5A360A2613;
+	Tue, 27 Oct 2026 12:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C5A360A2613
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=DnjjdCRR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793103810;
-	bh=P3E5JJo9apThsCrIhdY5xdcWa1BI+V6kQr+vHn2p5qM=;
-	h=From:To:Cc:Subject:Date:From;
-	b=DnjjdCRRmoprcy4jQCQtG7mESis82J6RBtAkK/OAVm4NKRr/AS7xllFmProxGSUIL
-	 GCf6pc4qlM9+i55rZ7uUbTWh00QTBtTJn8IKuzEcDUXdoqG/rKDANlpQ7H+AWyCWQn
-	 H9az5BZ6kyupil/an5Si5LDa5YQLQIsxqNfNSnJXqh3knGUbArP5v12hDXRdO7MkA/
-	 S9FysrJhRWBGgLQw2j9mn9ICjGaBiYbepc2Eyhy3GdSJJklIHh7ODQ/xObPUP8/H9p
-	 lGaafs0WzMZNHc4IhF/mc+lxtq0F5yOvW28bgEYHSc6GEzbw4d1mwKbSu0ehl9axEa
-	 f5ncQEBlACRKw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 035A225E57;
-	Tue, 27 Oct 2026 15:23:30 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Tue, 27 Oct 2026 15:23:26 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.50.125])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jDTdn3vy6z2w2F;
-	Tue, 27 Oct 2026 15:02:53 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Chris Mason <clm@meta.com>,
-	Chuck Lever <cel@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	Dai Ngo <Dai.Ngo@oracle.com>,
-	Tom Talpey <tom@talpey.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-nfs@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10 v2 0/2] xprtrdma: Fix bcall rep leak and unbounded peek
-Date: Tue, 27 Oct 2026 15:01:36 +0300
-Message-ID: <20261027120143.1596-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=jQIi4Uwx
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5DE7C4BB;
+	Tue, 27 Oct 2026 13:21:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793103696;
+	bh=zzDxincjtQ0aOBbrKV1WXfzsyTRV3EKgzJBcWliMlFQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jQIi4UwxmafaCWDVk4w/Ja6XrQqBxhlYfv/qJi7MXjagGTW4cqH3JlXuamGdB+xCs
+	 oE7TB5Qb29+ejleWG7eUYv5bzsb5ayNXa5PqekoaHY2ERMw2qEuQfBaejKxpgr3AC3
+	 eMGOtq0NBCSpuly4jWAWbw67eQDV5tVD0C30ab3w=
+Date: Tue, 27 Oct 2026 14:23:46 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261027122346.GA2133989@killaraus.ideasonboard.com>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <CAL_JsqLA2F0oB=7LsoxZe-=AboOJu7FotpMACNsuV==jGWB8nw@mail.gmail.com>
+ <CAMuHMdX22CEnzQr8MuVftdVK23=ZpGoomGQuM-H8pw=x-Fsi-A@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,50 +71,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/27 11:50:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 132 0.3.132 b92628ca234da971a1a6d61b32804bb3075f0fd2, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, lore.kernel.org:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207024 [Oct 27 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/27 10:49:00 #28748526
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/27 11:50:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+In-Reply-To: <CAMuHMdX22CEnzQr8MuVftdVK23=ZpGoomGQuM-H8pw=x-Fsi-A@mail.gmail.com>
 
-This is a backport of the fix for CVE-2026-72466 to 5.10.y.
+On Tue, Oct 27, 2026 at 09:10:33AM +0100, Geert Uytterhoeven wrote:
+> On Mon, 26 Oct 2026 at 21:12, Rob Herring wrote:
+> > On Wed, Oct 21, 2026 at 6:55 AM Krzysztof Kozlowski wrote:
+> > > On 21/10/2026 08:49, Eric Biggers wrote:
+> > > > On Wed, Oct 21, 2026 at 08:41:47AM +0200, Krzysztof Kozlowski wrote:
+> > > >> On 21/10/2026 08:39, Eric Biggers wrote:
+> > > >>> On Wed, Oct 21, 2026 at 08:26:28AM +0200, Krzysztof Kozlowski wrote:
+> > > >>>> On 20/10/2026 23:22, Eric Biggers wrote:
+> > > >>>>> -Make sure that base commit is in an official maintainer/mainline tree
+> > > >>>>> -and not in some internal, accessible only to you tree - otherwise it
+> > > >>>>> -would be worthless.
+> > > >>>>> +    If ``git format-patch`` with ``--base=auto`` (or
+> > > >>>>> +    ``format.useAutoBase=true``) can't detect a base commit, e.g. due to
+> > > >>>>> +    the current branch having no upstream tracking branch, it exits with
+> > > >>>>> +    an error. In such cases, pass an explicit base commit to ``--base``
+> > > >>>>> +    instead. This is also needed if git detects the wrong base commit,
+> > > >>>>> +    such as when the upstream branch has local, unpublished commits.
+> > > >>>>> +
+> > > >>>>> +The base commit must be in a well-known public tree, such as the
+> > > >>>>> +subsystem development branch the patch is targeting. See
+> > > >>>>> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linux-next
+> > > >>>>> +can also be acceptable bases, depending on the subsystem.
+> > > >>>>
+> > > >>>> I disagree, that's pointlessly too hard requirement.
+> > > >>>>
+> > > >>>> For many of my contributions base is obvious and not needed to be
+> > > >>>> explicitly defined. For all the patches I accept, answer is the same -
+> > > >>>> base is either obvious or if not and patch does not apply, then the base
+> > > >>>> does not matter.
+> > > >>>>
+> > > >>>> Requiring it is just bureaucracy without actual benefit.
+> > > >>>>
+> > > >>>> The only benefit would be if maintainer COULD change its base to apply
+> > > >>>> some patch with odd base... but this cannot happen. Maintainer base is
+> > > >>>> fixed - it's the HEAD of his development branch for given category of
+> > > >>>> commits (e.g. DTS branch for SoC maintainers).
+> > > >>>
+> > > >>> There are many use cases for applying patches besides the final patch
+> > > >>> acceptance, such as review (by anyone, not just a maintainer), testing,
+> > > >>> CI systems, etc.
+> > > >>>
+> > > >>> HEAD of a branch is of course not fixed, and changes every time a patch
+> > > >>> gets applied.  That's especially relevant when wanting to check out an
+> > > >>> old patch for any reason.  Trying to guess a base commit based on the
+> > > >>> date and patch subject is a waste of time.
+> > > >>
+> > > >> All these tools should just work on top of linux-next. Requiring people
+> > > >> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" is
+> > > >> pointless. I understand that base is helping, but helping and requiring
+> > > >> an obvious information just do not go together.
+> > > >>
+> > > >> So again: base has ZERO meaning to the maintainer process. It has
+> > > >> meaning to tools, so fix the tools to work on known and obvious trees.
+> > > >
+> > > > So what is your proposed algorithm to apply an arbitrary patch when
+> > >
+> > > Already provided that, so to recap:
+> > >
+> > > > there's no base-commit?  Including any historical patch (from
+> > > > months/years ago), patches with dependencies, etc.
+> > >
+> > > Dependency is something else, but for every other patch:
+> > > 1. For testing/CI: you apply on top of next
+> > > 2. Every other case the maintainer knows where to apply it, because it
+> > > is his HEAD of next-branch.
+> > >
+> > > I am repeating myself, but I really had no single problem of lack of
+> > > knowledge where to apply a patch as a maintainer or reviewer of some
+> > > subsystem, thus maybe I do not understand the actual problem you are
+> > > experiencing.
+> >
+> > Look at our DT PW. There are numerous patches that don't apply and
+> > then we silently don't test them at all. Here's one example[1] (3
+> 
+> That's a false positive, as the first two patches (the ones that really
+> matter for you as DT maintainer) do apply to yesterday's linux-next ;-)
+> 
+> > actually as the whole series doesn't apply). The more base-commit
+> 
+> There are indeed patches in that series that cannot be applied, which
+> is explained in the cover letter.
+> 
+> The problem boils down to how to present work that touches multiple
+> target trees, and where some parts depend on other work that is
+> not yet finished. Do you post it as single series, so people get an
+> overview? Do you split it in multiple small series (which may still
+> have interdependencies), so everybody looses context?
 
-Patch 2 does not apply to 5.10 on its own: rpcrdma_is_bcall() there
-still has the out_short label that commit 84dff5eb86ce ("rpcrdma: Fix
-comments about reverse-direction operation") replaced with a direct
-return in v5.12. Patch 1 takes that commit as a prerequisite. Apart
-from comment rewording it only drops the pr_warn() on the short call
-path, and with it in place patch 2 applies as is.
+There's no one-size-fits-them-all solution to this problem. What I want
+in those cases is information provided by the person posting the patches
+about the dependencies and where to find them. I think there's value in
+specifying that information in a machine-parseable way.
 
-Changes in v2:
-- take 84dff5eb86ce as a prerequisite instead of removing the
-  out_short label as part of the fix itself
-
-v1: https://lore.kernel.org/all/20261022115004.1615-1-mdmitrichenko@astralinux.ru/
-
-Chris Mason (1):
-  xprtrdma: Fix bcall rep leak and unbounded peek
-
-Chuck Lever (1):
-  rpcrdma: Fix comments about reverse-direction operation
-
- net/sunrpc/xprtrdma/backchannel.c          | 4 ++--
- net/sunrpc/xprtrdma/rpc_rdma.c             | 8 +++-----
- net/sunrpc/xprtrdma/svc_rdma_backchannel.c | 4 ++--
- net/sunrpc/xprtrdma/xprt_rdma.h            | 6 +++---
- 4 files changed, 10 insertions(+), 12 deletions(-)
+> > [1] https://patchwork.kernel.org/project/devicetree/patch/8b2c7719c301a445891fc6c5309456327ec8a94c.1793026273.git.geert+renesas@glider.be/
 
 -- 
-2.43.0
+Regards,
 
+Laurent Pinchart
