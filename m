@@ -1,90 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.32.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793113068;
-	b=mtVKfmgBT4kc95XhIcvSFiaJUD4/o1bHXXWmqVUhmrqkXsL/H3l9PL0Gyxn7jmZrtjTQ
-	 xsoXIYZW0m9gpYyjef5FSGGPWNR81gRFeARtikC+P7cN6LhMITPVVedzYqL2GpZab4De5
-	 yk6ItU5Ia0x8KwjNP2L9vLBZ2yIno8jDHduYaoJife+oebwq6dWd+lwwRU460I81qCVB9
-	 7d9mLdJtZsPXIGz2MT2qjVWcCNoz0mzI9ZuS0QyQWj2EVZVvO90SG7w4GptSNLVF52gAh
-	 /lLzREnbyFtpoRuSG61yE2J+gu4+QjH9nsAMjfOMVq2qolQXaMiFNqogB0nyE509JQg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113068;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 X-ClientProxiedBy:X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SLBlob-MailProps:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9pXTygOOkKd/VSGD3kbuZ094eVfrWiWgiZ5xe3jXHiI=;
-	b=eAz+bBqwXIOMEQKKF1c7Q6dMfaEjf+IvXVYLqdl1TgG8oAPeD9NiPe0LZFeJTQ2vmz6x
-	 UQ/LJ949NmvcxwnVCgeVHRqT/JjE48GL/7xv75MAmnqrm2Ah2Mj9SfyWkwiuVOHFpGWi0
-	 dvs13spEPtBUrKGM7igltzYGccb/ozLDRxIwlGsKsR93rP1QllOladTvDHhhnP303jFkV
-	 qJB9QYFUsXWW4J2rFUpBhaSB+kDGBYR6xu7rOm1kpgmmjhlMA6uQRRAulJyeCCGyM96oI
-	 RsFLTQVANBm3ll1VKTvukTEFyoQyrmfWfbqWohgjHdMpBckvUcVcjFsa3Y4TnJoLPGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hotmail.com;
-	spf=pass smtp.mailfrom=hotmail.com;
-	dkim=pass header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=FhPllI39;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.32.30
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazolkn19011030.outbound.protection.outlook.com [52.103.32.30])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793113088;
+	b=CmBQPFEJwALgrOisk3WAT2ScBYzyq4Do3tYy9aJXNw0pbIckedOuGeWAMxSd0qU740KU
+	 QQDhQpe4IVn5r5OIv7uygh46CUoMXiV1HzU+ITGAKrpLu2TV3rubwN7ixqCE7Y92qGmNO
+	 U64oCUuOQkfL0Fr7Xsaw5AePb+kpCMOSHqccekhHrSiII8+ldZeoAjfoZKbMVpm66uNvh
+	 zateBC4TcyE7iTuCfJGPavmcxO3G2LX4aR5eRcIZ79kj8+9sJJtvce+mqKNlG8caOI5IF
+	 Eu7qU6l9W9CzBV1pWCR2XRfzw1NjNqJlRnnbmycbkewbg8qj/ejHpqXMYjkS5zlUiEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113088;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=hbVDAqAH5BIfkt3XmVUNw9u3eWOVL5cRWPUBvL5vb54=;
+	b=G8/Mrnt2l6JYUsAh+taUn7uznWDSIW2FuNW9tIQN1abtCK1JwxZK4WDau91yiDyW6H3K
+	 e5JngDYn1vM9aG5RptS8n2nVnJrL7zzCss1gMSe5JBRzimXkPq7y2MR9b7IArgQ7dZf3Z
+	 qE7lL3F/UvpmrHeX+kY8W/q0eI1VGY3knUz1I+IzyCRPwdNtZzS21nprp0vHrzehR3vnV
+	 j5H9P9uarmgV0VA16f39UOnQkVLP5HWTFQPGq5Wy4QE4DovGuTgdgYZn24i0oc1w5LpUH
+	 ARRHFPVpUn7jmnrZ6kjObWU5/+l7tSma/ojfqnBcIQN9DjlTxR5H2h4KDHwnuE4TzlQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="s/jknA07";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33D9606A31A;
-	Tue, 27 Oct 2026 14:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C33D9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAC0606A326;
+	Tue, 27 Oct 2026 14:58:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=FhPllI39
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wtm068B7aS47zxH2OWDqrN0hfH1177DF9FEhq1u85T/PBO7jibKXrHTdXt+PqXT27jnkJ/GruFGU4OuctpF4GgH6hM6Ym9pWIFxgAWsUhT+++Cz4Orqkl6GfU1pmpazpfIecNCYNoTmuXOBJ/520tdh9DvJFnsEvgQM+R8XWLvs/XDtk0dpEWSGx9j7xgucl2lb/JxUlUlcngoqIQ7NB9g2dZgcMKglgp/t6r6wYy2XWeq7vHJ+RO9IAh5WE+3F07t6RJke2x1I8TK4D/OwuLy1FspdvBWOQFDaUzFhMqa3e6pH/vCQ/RTYDMuua5pjRtSqi04zjjeZaZd8s8WjbvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9pXTygOOkKd/VSGD3kbuZ094eVfrWiWgiZ5xe3jXHiI=;
- b=q0v6g2gfjSBSvRF/VX66Jtz8KBUWGjAzAKe7xlob0AZUvhrRjFfyxh21oE+4Wek7yaMGpvwSb7Ge+KGAxRbtwTzTtiWcvN7/JDV7PKDyg6/U7GY3d+GyBNGq0T8DO2xcorNGm6IQ2Kdin99AevYY/CA+VtQBRxDczLX44e6UkD4SnGW1n05F84WZrEcaRLv3tSXMW/RYFtgxRgAncPlJu2PKQXftHxJs7fnr/3jX5lecqB3jmo5WSOEGYJKlnRIYoPWhg2WCCuvpA1EZ9IEq0SzmnO7GaMTonc4QuZm3hJtafmddmOsMLYVhst+Jcn8ot3Zmu5L3G0jrOx6C4Kf/jA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9pXTygOOkKd/VSGD3kbuZ094eVfrWiWgiZ5xe3jXHiI=;
- b=FhPllI39p91uf9hdQNjjobzlqFo8JcUsyHHEBp5UMlEu4n/IqOV6zBB8wRDqju6PLTzng31SMa+JVGDc4GJJk80fK21fBKWP9gHb0YJdRR/4FyxuPvRzAetKa5L63sHAgNahAuBEOemhMDYwlQEXAa5W18jrjzzDWkRGiDiGKaZZxY/SH40gNzCHXfU9n+hIiI2XHDCv9KrMNFptNPa1jrUiKwz+IqD3ZamV4isvTDlHaYfmTszEST0LxB787pJlKFcSgOw8Z76pyoaANm3YucEuAl76ytnq/SeG4imPfLkZjhykSvrf5UR6L1wiNaBNxylzoc0OKrXx6yGvx4Hr/A==
-Received: from DB7PR07MB4953.eurprd07.prod.outlook.com (2603:10a6:10:62::29)
- by AS5PR07MB10545.eurprd07.prod.outlook.com (2603:10a6:20b:6c9::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 14:57:45 +0000
-Received: from DB7PR07MB4953.eurprd07.prod.outlook.com
- ([fe80::4520:e35d:c473:a246]) by DB7PR07MB4953.eurprd07.prod.outlook.com
- ([fe80::4520:e35d:c473:a246%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 14:57:45 +0000
-Message-ID:
- <DB7PR07MB495331F74581DA6CA9E18958A2602@DB7PR07MB4953.eurprd07.prod.outlook.com>
-Subject: lenovo-ymc: SW_TABLET_MODE switch registered but no events emitted
- on ThinkBook 14 2-in-1 G6 IPL (type 22AR)
-From: Pedro Miguel Vieira <pedro_vieira_pq@hotmail.com>
-To: soyer@irl.hu
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 27 Oct 2026 14:57:38 +0000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
-X-ClientProxiedBy: BLAPR05CA0042.namprd05.prod.outlook.com
- (2603:10b6:208:335::22) To DB7PR07MB4953.eurprd07.prod.outlook.com
- (2603:10a6:10:62::29)
-X-Microsoft-Original-Message-ID:
- <19c882c1e8c300ca02ba0d42d453bcbe68f91e32.camel@hotmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s/jknA07
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D7F01F01828;
+	Tue, 27 Oct 2026 14:58:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793113087;
+	bh=hbVDAqAH5BIfkt3XmVUNw9u3eWOVL5cRWPUBvL5vb54=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=s/jknA07pmKlHwYjHMVSEDPgCcTQbvm+50jNgmwQypLS5kvQhSpUeHZESB0MwdPoO
+	 zZMK7aKkAg/CwatnxYtPgbqj9/0ut1UMJhuFQB/SBJ5szsHwyan4Lq9Zx65Ube4oy9
+	 itkcSlmCdmyQyDw6rEIduzKxJ2QNdjQ9SbhWXa9w=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Tue, 27 Oct 2026 15:57:45 +0100
+Subject: [PATCH 05/19] usb: cdns3: switch the role unlocked on resume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,167 +49,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB7PR07MB4953:EE_|AS5PR07MB10545:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15d59037-0db1-432e-40ac-08df343aa6fe
-X-MS-Exchange-SLBlob-MailProps:
-	vuaKsetfIZn9IFDOZRHBr3PkJ6iE+FIkHpUkQGHikdweu28f4fhastbAoAPIq2nOkB/JJz1Y7nC0lnILHUi/1zPTVKER2aD+hgtJGU6I91JDLL7W8zW5TPz0Qkl5Zbp/9qF2sW1YZlA5bNXwcFl5FWJB1OKf6i6cnGWjEEs81H5mmD/lyqxlNqq53Pqf/uTiujyfr0l/tlxvbYbjho+Mons6l5/edqKajlqXo7/ngw90UMQWcM9ZCeXyXn9TEQ1w0OOLueYqIWRb46WeGY/BEMq0GJw914HhX+T/gMzaHUTOf51pgrpSkOk7sc0iNZYIcJlPg8OEg9gm4PceMlhdOiOlbVRDFFHI0A0Jif0iMZXtW17sqtQ6uIcBMBGvx/3D31HzpiM08tf1QqDpryXnzE9RNlevEE4Hrl4GaUWdPveEG+aeu/8JjdFRSexoT50heF/oE1pucvDnmnrZgUVeOctZeZfpleEm2kkWpZN5tADINWHEoqL/ETqdt7/CDGMM7KtYxOdRDq7EAO26t+7npu1Yg6cID4QFNSG4BKDrhbkNqwNpNozNw1rwVMnmXsP5biGf2MlBGpP4hZ/cWgEQwR6wmg+I6/iUTOBTzujmsmsOja+awUneOENiQThs0RNDXFgM6CyqkBx1Olw0i+F8PNFs1fqwOVfozzUqy4qCYESqle8lLURHup96O2kYdhT8GL6m9z/mGK1wRLT/qunh9ySALAzoyeGcFC6UockSnAtCva5jvy6KBbVhxdIttpFaDshpJGPJ+9M6QR/UNZTZ9FINdU2meca+oOFC5J4kv5SH8lrGCfbSg3E9/hKIDbJ8
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|10092599007|8060799015|24021099003|12121999013|19110799012|4140399003|25010399006|20031999006|41001999006|23021999003|5072599009|39105399006|24071999003|15080799012|6090799003|25031999004|37011999003|5062599005|40105399003|20061999003|30101999006|440099028|26104999009|3412199025;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Um9RRjdQSnc0KzJveCtQSVdXK2VTbjRIU3VQR0VEWUdCajZYL0RDNTJuNFNY?=
- =?utf-8?B?cnkveko3d1cwa2RxTlVuRVlFQzZQelpHM1kzSU9KcU1sWHR3ekRHWTNUaEhO?=
- =?utf-8?B?YS84WGZPYWZCd0EyR1Y4N3ZDYmppK2JDcEpuZDg3d2poRjYvdkR4REM1TXh6?=
- =?utf-8?B?THRITFRtblZWN2gwMjRvL25hL3VJMnVTU0NHWThsR3VGUXVkK29NUExILzUz?=
- =?utf-8?B?cmQ1cHV3MHVhQ2k3Q1NaeTdWR2RhMHUrWXVUQnViZEdxNEJ2d3Zsa1lQSENq?=
- =?utf-8?B?eVdDV2o2QUl5ZzVtNU9YaWViZXFtU2pGTncwNE1NQkFKclFDeUdFTVlSdytR?=
- =?utf-8?B?RElZK1F3cEVneEs0Qm5WYnBaM2VoejdBV2xGd1MrTEZOcTBVV3ZFbXl6SEZI?=
- =?utf-8?B?ZzJpYlpIR2VpdWh0bUpoOWRvUG5wSjY5czVYdFpZd2lOVXUyTjlpQ3lQWHJq?=
- =?utf-8?B?alo0RmZlK0JvMXo0NFZLRHNnbGNaaHlIRTA1cjVIcHJqcFpKL3VrQmFwS01I?=
- =?utf-8?B?M0VvRitIL0VHRFlGb24yWVRtRUJ5d3d6a2hKOUtCdDFBTkRESVorUnllNTY0?=
- =?utf-8?B?eFVTb3dMZy9vQm1jN2J4cEk1Sk5DYmN2UFp4ZWg4NTNwdWF2U3FPLy9Ka0NN?=
- =?utf-8?B?VGp3SWJVbEd4TE1JQ1VoTjN3VUQrTWlaeFdNRC8yV3JXamNYRnVHSHQ5alh0?=
- =?utf-8?B?OU5QY3VIL0VoSWxOUllUVmtXaUNvQ1IvNmhXRjcxcEJySVBvK2g5Z0ZvNjJq?=
- =?utf-8?B?RWRhVzQ1N2VidEFLZUdKTGlCLzErcE1OQ21ES3FnS3lHeUo4cVQ2UVJsU3Uz?=
- =?utf-8?B?Sm9ZVGFPNFIrckdjdXNVVlVZdTNhV1NBQjFkb3E2d081eVJFSnYwUW90NXhV?=
- =?utf-8?B?dmtxQkJydEtxTGJ5QzZlQ1UweVhtTTYzeURMSFVqdjdNREF0eDZiWGUzYzBJ?=
- =?utf-8?B?alpZUnJ4TzNMcTZKRGQwUUYyNVVhUGMzOVJ3bWNLd0xlTlBxeWsvRFpReTVx?=
- =?utf-8?B?UkVIMlQzdzhwdTZMRW05TG9YSzEyTGV3MlhXZ3FKTXhQOVRaaVRJZEk5aFY2?=
- =?utf-8?B?Wm5STldFZ1VVQXlrdjdBeWxMbGR4TnJyYU1Sd2VHbHhXdDZSdFMwSzZGSWRi?=
- =?utf-8?B?Zm55SEFWekdiYmt3b3BjVG9WeU1mcUVZc2p4V2I1eFdqTjNFNEdKMVp5ZGNr?=
- =?utf-8?B?Vk1ZUnVHNU9MWkd3ZS8zQnlxNlYxaDBOTzNybDBYQWEzOXNvd1E1cHM0dTBy?=
- =?utf-8?B?Y2tTYXpKMG4zRjhLbm4rME1MaTlDWExSclVuSFVtNWUwL1p4bUxKQ0JwNTlI?=
- =?utf-8?B?cFNiWFlNN0xXSEx0NnNpYTA0bzV2MFlFK3JoTTY1YlJKZURocUw3dHFhd3cy?=
- =?utf-8?B?ZXAxRHI2SlFLYSs1bERLL3ZBLzNzVGdwOG5Qc2hSQ1VKbGFEdzk4Yk84a2VS?=
- =?utf-8?B?NWZKVVVMWnpJMzFxUkFnUUJSOGhIYXdLRjB4QWN4ZUtnbThKUFhoREhWQlNJ?=
- =?utf-8?B?RytycWRTM2JxaFZRR2JkUENySFhiUnFRQURrOCttazkrRGkvMjhESGdVVnc3?=
- =?utf-8?B?Q1JIcDU3cFhZODU1REtaRk1MZGdFbDk3QTVVRmxHVWN2M2FCdXlWYldqajVV?=
- =?utf-8?B?dzRaNkM5UVRNaFJRU0JKZS9FK215cXhaT0I3eThkZ01qUmk5blNaeHd3MitM?=
- =?utf-8?B?TUo3N0dwdExFNnZJMFlSRVJDOFRMUWs2RjFkUDJNVk1Na3Y0RnlrakN3PT0=?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RjRIcThOZjg2YTBUdXZ1a255ZTVMVHlyNGRNbXJTRlhBM2FOZTAwZjdvSlhk?=
- =?utf-8?B?YVVJc3duQmpYdnk4NXJrSGFUSnNQdUw1WmQvQjUvWTUyM1BYQjREbkpMRVF4?=
- =?utf-8?B?aXlFbWtndWc0b25HSHVUbmtWRkZLYnc5ellCZzE2dTVSY3A1SUxDd290Mlc2?=
- =?utf-8?B?a01sTTc0cUlySGs3Rk0rY1ZacGtGWEFYZG1ObGs5NGIyd09OMDBXWW54U0Fv?=
- =?utf-8?B?NDVZYmtlT1d0ak1hbDJiRW1Mc0RXS0cyYUN4REswcHFEb2RUWEluOTE3b08z?=
- =?utf-8?B?dnVlOU9tVkNyUVhSbU9aQm92REV5NTJUd1h1Q1VDV2xQOTlxLzJHOGpseEtC?=
- =?utf-8?B?aEVWdGN6c2VZeStSNTkxNEhOWm96RXh0VkttOGp1TUV0NDRDd2F4dUpzUGhn?=
- =?utf-8?B?TVBIZHhYQytNc1grSjQzU2Jtc0JYWnlKeTRZbEFTREtYY0xhbE8zL29zT2xx?=
- =?utf-8?B?N0tTWjZRY2dtK2NFU3QyTUFaWW9DY05jMXlJejNmTkFtZ2liaWJqUi9NOEE1?=
- =?utf-8?B?Qy9rTXNQVWxpdjdxY2piNnlhdXQ4U284dHdkTkRvTW1DMmd4ZEErUm5uWmdK?=
- =?utf-8?B?R3JVRjJYck1ZaGVkVGlPRll0R2l2ZkNLYmE4VnpDTjBPNExHaGJkdVo3NVhN?=
- =?utf-8?B?N0VEeUxnQUgyUUFRRTV4clBwZ00vZnBqSkZVbC9XZTN0TXVTcDJyNnp3TlVB?=
- =?utf-8?B?SkNXcUJ1MnBDekMzb1NQL0NHWis1ZlUzaDExcnZ6L0FSQWdYNDBCRXRlR3hY?=
- =?utf-8?B?bmk3Q2JoNk5Qc2c4SitHMnpnRjhKY0RVOE51NkNiMEZrODFCVVI5REdBR3FQ?=
- =?utf-8?B?S253WW5ZVWpsaHdyaDhMeTlIaDNuS0FpTTZyZDIvZjM2U2UyWUxSc2FOenVu?=
- =?utf-8?B?Yy9pYzE3anRrNTBWbFhRUXQ5WkcvN2lob0lYdUZiMUZSckN1RUFWOEEvVUx1?=
- =?utf-8?B?MVdpWjZ2UWFoaDVUdjFZTnk3cGRYS0VkOHREbUZuMWRHOXF6dHN2MEJOYnE5?=
- =?utf-8?B?em1pclBVWWEzdWJDU3JrL0haTVFaMm9aMVJPQWFMd3RhZzdXQUZVV21GUEFr?=
- =?utf-8?B?ZnREVlNPODdnUkthd25MT051YmcwZlNNY3JuNnE4aW12WXB3RytGaTNXTito?=
- =?utf-8?B?ZG5tR1dKZGJ3aUExRGs4RFhwdjlwK0IwVjJYd2l4S3IycUpieHIvaSs4bGJY?=
- =?utf-8?B?c0xFRklaWEszK1lOM1YzZ0NxaE9jMEJIVWxTMWZDOGo0Wkt2R1F3eDNLWUZ6?=
- =?utf-8?B?bXF5eHdOWkFlWWQ5eC9jUndaTG5zRE5QNHlaS2ZHZUQ1aU51emFvK3lQbFBC?=
- =?utf-8?B?ajN2TnZpbnZpc2FGaXg3TDhta0dPRC9NNFB1aFBBMFpQQlIydTRRUGNQZXJ0?=
- =?utf-8?B?MkoweVQ2amtNaElWODFRTHByZG9UalhRZVV2c1JZalM2V3d5L3IvRnpIUzBh?=
- =?utf-8?B?NFg0eUtIRkZiNnRNbWh2Y2xtT3FhQjFJZlRNaDE2Rkk4YjdjZGVoWnZOVTRS?=
- =?utf-8?B?YVc2ZmIrMmNoYy9CWmxSM09oeVpGWWZsQ0hDY3drZ1NoUWtCK3ZRbko1cWYx?=
- =?utf-8?B?TVpCeWw4MmNLMWF6YjZRZHR1eXZoTUZsY01RZnhNMVk1ZGllaFh2K0lZUzNj?=
- =?utf-8?B?c3d4Y29CUHQwRlc4TjFkRmN3aWt0enV0aDBuZjc0a1k5cGw5c0xpNzhsYlky?=
- =?utf-8?B?YlppOHZaV0djajZnTWo4VFlMc0lFQTV5eU5DelFQQjZTaEQ2NE1HdEczY3ZJ?=
- =?utf-8?B?enY1bUZNZDhJNnkyMVVpOUtHcERmbzd1b0tsSUdxdnA1OHFGclFJV29RRElH?=
- =?utf-8?B?VHVFUmgzVGNlYzBabXpZSDdIT2RpV3RMMmNGQVVWRTF3bFlESnRUQWVXSG1P?=
- =?utf-8?B?SEMvTmZZSUNoU2pVcVJZbmg0aVBYUzNoTnlsVWp4L3hxQ0E9PQ==?=
-X-OriginatorOrg: sct-15-20-9343-9-msonline-outlook-edc25.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15d59037-0db1-432e-40ac-08df343aa6fe
-X-MS-Exchange-CrossTenant-AuthSource: DB7PR07MB4953.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:57:44.8423
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR07MB10545
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-llm-usb-v1-5-b9751ddb9c7c@linuxfoundation.org>
+References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+In-Reply-To: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+To: linux-usb@vger.kernel.org
+Cc: Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Josef Bacik <josef@toxicpanda.com>, stable <stable@kernel.org>, 
+ Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>, 
+ Roger Quadros <rogerq@kernel.org>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5590;
+ i=gregkh@linuxfoundation.org; h=from:subject:message-id;
+ bh=JYups8GYFEQxWoi3FJTuayxHWMk1rqu1mgUEBsWcPEE=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPdr+T2xiamHiqa6Lx3L9PHz/PEf0W3lmZLy3CEPzk+
+ 7pVWzR5O2JZGASZGGTFFFm+bOM5ur/ikKKXoe1pmDmsTCBDGLg4BWAiJ9QY5nDW+RqdPGlktDUj
+ 696J69ez7/mtD2FYsP6GX8W5r7Pn/vz0zlAq37K8waotHwA=
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-Summary
-  -------
-  On a Lenovo ThinkBook 14 2-in-1 G6 IPL, the lenovo-ymc driver binds
-and
-  registers an input switch "Lenovo Yoga Tablet Mode Control switch"
-that
-  advertises SW_TABLET_MODE, but physically folding the device into
-tablet mode
-  (and back) produces no SW_TABLET_MODE events. As a result GNOME never
-  auto-disables the internal keyboard/touchpad in tablet mode, causing
-ghost
-  key presses and cursor jumps while held as a tablet.
- =20
-  Hardware
-  --------
-  Vendor/Model : LENOVO ThinkBook 14 2-in-1 G6 IPL
-  DMI product  : 22AR
-  Board        : LNVNB161216
-  BIOS         : U1CN09WW (2026-05-12)
-  Chassis type : 31 (convertible)
- =20
-  Software
-  --------
-  Distro  : Fedora 44
-  Kernel  : 7.2.11-200.fc44.x86_64 (also present/affected: 7.2.12-
-200.fc44)
-  Desktop : GNOME Shell 50.6, Wayland
- =20
-  Driver
-  ------
-  Module    : lenovo-ymc (drivers/platform/x86/lenovo/lenovo-ymc.ko)
-  WMI GUID  : 06129D99-6083-4164-81AD-F092F9D773A6
-  Maintainer: Gergo Koteles <soyer@irl.hu>
- =20
-  Evidence
-  --------
-  1) Switch registers the SW_TABLET_MODE capability:
-     /sys/class/input/input44/capabilities/sw =3D 0x2  (SW_TABLET_MODE
-bit set)
- =20
-  2) evtest shows the capability but NO events when folding to/from
-tablet mode
-     (folded the hinge several times; "Testing ..." stayed empty until
-Ctrl+C):
- =20
-     $ sudo evtest /dev/input/event18
-     Input device name: "Lenovo Yoga Tablet Mode Control switch"
-     Supported events:
-       Event type 0 (EV_SYN)
-       Event type 5 (EV_SW)
-         Event code 1 (SW_TABLET_MODE) state 0
-     Testing ... (interrupt to exit)
-     ^C
-     (no SW_TABLET_MODE events emitted while folding)
- =20
-  3) dmesg shows lenovo-ymc binding cleanly (no errors), creating the
-device via
-     WMI GUID 06129D99-6083-4164-81AD-F092F9D773A6.
- =20
-  Expected: folding emits SW_TABLET_MODE=3D1, unfolding emits
-SW_TABLET_MODE=3D0;
-            GNOME then auto-inhibits the internal keyboard/touchpad.
-  Actual:   no events ever emitted; switch stuck at state 0 regardless
-of hinge
-            position; internal keyboard/touchpad stay active in tablet
-mode.
- =20
-  Note: the machine is a convertible (chassis type 31), so it passes
-the
-  "only bind on convertible DMI chassis-type" check; binding is not the
-problem.
-  The YMC WMI query/notification path does not report tablet-mode state
-changes
-  on this model. Likely needs model/variant support (or a YMC WMI
-method/quirk)
-  for the ThinkBook 14 2-in-1 G6 IPL (type 22AR, board LNVNB161216).
- =20
-  Happy to test patches and provide an acpidump / WMI method dumps on
-request;
-  this is my daily-driver machine.
+From: Josef Bacik <josef@toxicpanda.com>
+
+cdns3_controller_resume() calls cdns_resume() with cdns->lock held and
+interrupts off.  If the controller has lost its power during suspend and
+the role which the ID and VBUS inputs ask for is not the current one any
+more, cdns_resume() calls cdns_hw_role_switch().  That stops one role
+and starts another, which takes a mutex, allocates memory with
+GFP_KERNEL, requests interrupts and registers or unregisters the xHCI
+platform device or the UDC:
+
+  BUG: sleeping function called from invalid context
+
+To get there, change the cable of a dual role port without a role switch
+device while the system is asleep, on a SoC which powers the controller
+down.
+
+Move the switch to a function of its own, cdns_resume_role(), which is
+called before the lock is taken.  What remains of cdns_resume() is still
+called with the lock held, and skipped if the role has been switched or
+the switch has failed, as before.
+
+cdns_hw_role_switch() also calls pm_runtime_get_sync() for the
+controller.  That cannot work from its own runtime resume callback, where
+it would wait for itself, so the role is only switched on system resume
+now.  After a runtime resume the old role is resumed, like after a
+suspend without loss of power.
+
+Fixes: 2cf2581cd229 ("usb: cdns3: add power lost support for system resume")
+Cc: stable <stable@kernel.org>
+Cc: Peter Chen <peter.chen@kernel.org>
+Cc: Pawel Laszczak <pawell@cadence.com>
+Cc: Roger Quadros <rogerq@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/usb/cdns3/cdns3-plat.c |  8 ++++--
+ drivers/usb/cdns3/core.c       | 55 ++++++++++++++++++++++++++----------------
+ drivers/usb/cdns3/core.h       |  3 +++
+ 3 files changed, 43 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/usb/cdns3/cdns3-plat.c b/drivers/usb/cdns3/cdns3-plat.c
+index e3f32c3e9535..674625cdd4d4 100644
+--- a/drivers/usb/cdns3/cdns3-plat.c
++++ b/drivers/usb/cdns3/cdns3-plat.c
+@@ -268,7 +268,7 @@ static int cdns3_controller_suspend(struct device *dev, pm_message_t msg)
+ static int cdns3_controller_resume(struct device *dev, pm_message_t msg)
+ {
+ 	struct cdns *cdns = dev_get_drvdata(dev);
+-	int ret;
++	int ret, role_changed;
+ 	unsigned long flags;
+ 
+ 	if (!cdns->in_lpm)
+@@ -292,8 +292,12 @@ static int cdns3_controller_resume(struct device *dev, pm_message_t msg)
+ 
+ 	cdns3_set_platform_suspend(cdns->dev, false, false);
+ 
++	/* It resumes the device, which cannot be done from runtime resume */
++	role_changed = PMSG_IS_AUTO(msg) ? 0 : cdns_resume_role(cdns);
++
+ 	spin_lock_irqsave(&cdns->lock, flags);
+-	cdns_resume(cdns);
++	if (!role_changed)
++		cdns_resume(cdns);
+ 	cdns->in_lpm = false;
+ 	spin_unlock_irqrestore(&cdns->lock, flags);
+ 	cdns_set_active(cdns, !PMSG_IS_AUTO(msg));
+diff --git a/drivers/usb/cdns3/core.c b/drivers/usb/cdns3/core.c
+index 87122fb5bdb8..3b2b8f231a92 100644
+--- a/drivers/usb/cdns3/core.c
++++ b/drivers/usb/cdns3/core.c
+@@ -504,36 +504,49 @@ int cdns_suspend(struct cdns *cdns)
+ }
+ EXPORT_SYMBOL_GPL(cdns_suspend);
+ 
++/**
++ * cdns_resume_role - switch the role if it has changed while the power was off
++ * @cdns: controller
++ *
++ * Stopping and starting a role sleeps, so this has to be called before
++ * cdns->lock is taken for cdns_resume().
++ *
++ * Returns 1 if the role has been switched: it has been started from scratch
++ * and must not be resumed. 0 if there was nothing to do, negative errno if the
++ * switch has failed.
++ */
++int cdns_resume_role(struct cdns *cdns)
++{
++	int ret;
++
++	if (cdns->role_sw || !cdns_power_is_lost(cdns))
++		return 0;
++
++	if (cdns_hw_role_state_machine(cdns) == cdns->role)
++		return 0;
++
++	ret = cdns_hw_role_switch(cdns);
++
++	return ret ? ret : 1;
++}
++EXPORT_SYMBOL_GPL(cdns_resume_role);
++
+ int cdns_resume(struct cdns *cdns)
+ {
+ 	bool power_lost = cdns_power_is_lost(cdns);
+-	enum usb_role real_role;
+-	bool role_changed = false;
+ 	int ret = 0;
+ 
+ 	if (power_lost) {
+-		if (!cdns->role_sw) {
+-			real_role = cdns_hw_role_state_machine(cdns);
+-			if (real_role != cdns->role) {
+-				ret = cdns_hw_role_switch(cdns);
+-				if (ret)
+-					return ret;
+-				role_changed = true;
+-			}
+-		}
++		if (cdns->role == USB_ROLE_HOST)
++			ret = cdns_drd_host_on(cdns);
++		else if (cdns->role == USB_ROLE_DEVICE)
++			ret = cdns_drd_gadget_on(cdns);
+ 
+-		if (!role_changed) {
+-			if (cdns->role == USB_ROLE_HOST)
+-				ret = cdns_drd_host_on(cdns);
+-			else if (cdns->role == USB_ROLE_DEVICE)
+-				ret = cdns_drd_gadget_on(cdns);
+-
+-			if (ret)
+-				return ret;
+-		}
++		if (ret)
++			return ret;
+ 	}
+ 
+-	if (!role_changed && cdns->roles[cdns->role]->resume)
++	if (cdns->roles[cdns->role]->resume)
+ 		cdns->roles[cdns->role]->resume(cdns, power_lost);
+ 
+ 	return 0;
+diff --git a/drivers/usb/cdns3/core.h b/drivers/usb/cdns3/core.h
+index 8c492fda924c..cfc3be9ddf9e 100644
+--- a/drivers/usb/cdns3/core.h
++++ b/drivers/usb/cdns3/core.h
+@@ -136,10 +136,13 @@ int cdns_remove(struct cdns *cdns);
+ int cdns_core_init_role(struct cdns *cdns);
+ 
+ #ifdef CONFIG_PM_SLEEP
++int cdns_resume_role(struct cdns *cdns);
+ int cdns_resume(struct cdns *cdns);
+ int cdns_suspend(struct cdns *cdns);
+ void cdns_set_active(struct cdns *cdns, u8 set_active);
+ #else /* CONFIG_PM_SLEEP */
++static inline int cdns_resume_role(struct cdns *cdns)
++{ return 0; }
+ static inline int cdns_resume(struct cdns *cdns)
+ { return 0; }
+ static inline void cdns_set_active(struct cdns *cdns, u8 set_active) { }
+
+-- 
+2.56.0
+
