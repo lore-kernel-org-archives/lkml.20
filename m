@@ -1,189 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793093835;
-	b=X8+/3aE4FgMTXIqzkd8EMSb8NWskrROu/W4aBXtzKhEO1cIWJsKG/QQH+djm85w2gWTV
-	 uZeeyd/5d1UfMx9pOz7M3bSPm+h7Fu3GMujkexDS03h14+N6JU2I4SbK9jcQ5xHa5u9Tu
-	 nJhZVgvmeGnHSFSI0S1fLECRN7zG//syM5YR6NE3nwx2ngBZIpEIjS2X0Pj8JfSMZjre6
-	 WYEZSbTiwbefczQy1N7yuhEJgbiQybVWZIE0MZ+4qLllivZ2BfS8Jei79sKVtrACCgU9l
-	 4MeMyp7XeotZV+z4nfmIvvs7XdE6KPNyKOQfottI5ntCR6GukkaMELdwETCNFtARL1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093835;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 X-MS-Has-Attach:X-MS-TNEF-Correlator:x-ms-publictraffictype:
-	 x-ms-traffictypediagnostic:x-ms-office365-filtering-correlation-id:
-	 x-ld-processed:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=zxxYPUPZxX8Yh50FvqwhZYjRK2rUEheMiDcyKlv1g40=;
-	b=rbRe6oMHwp9+Nen3/xhC0RUxsbhHEXW6aMsV9sU72msBXjrxLZkc5AknmSGMNMPTOEmb
-	 Dbl9I+3JKD4svPT41ZWpEur6vchanE3x/ubZFlJ0Bxk2VhVCk05M9/zLCBOZQkj04+fIC
-	 OHZYXW4bfuthxDBur1h/A4YgNYw6x+bbnqRkWW67RMrRs1ZHbsL8C4lJYuvelW4Jgt8eX
-	 cx74uV7XGLqlbU6hhExWV+TkJhuVBxIBXvuWJ7oyo9MgvjBvjnUBacXdzOPR1/KWmx4k9
-	 RDr4+HgqZY3+RNrf7vsvSX23ujwxKuOnSo1osBhmFLh498uz1JC/v14YqmHvhB9Jdew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=bnyM3MAn;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=gMT8RJQ5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.139.77
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com [148.163.139.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793093847;
+	b=ti/97pTahAhBlBiTdNUSRFhn+uulikCExBVPGqXaXNxz+5aE6wLULBSWTa68+DAAZBQ/
+	 +P/cNHn5pIeJZnKeEXQoy8M7bSWyHtrYlzX/CsKBmcC01+HfzfHaDJvgqFbe4OqrQXmHL
+	 j7pe/vKjmjoHOeluviSzQhxYHqolucyqNLLELS+TdQPm0EPa2F2KkBEWZ2nXlnDdVHxft
+	 E8K2NnnUMzGLmw3MvuSS+CWgJEWC1P7yyow/Gx7b+hGPzHU04xRZ0MU8PSs+rCcvceMxa
+	 EhVV7TzWUCiRTNHZEc0ec+BXFX02HeZgxM143eFAuPanx3Ze0R32w0J2fJup1qGC4Tw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093847;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rRT0J22n/N7hiscjNeBkmmDKgobum7zejo29ezEzj1k=;
+	b=eK9hUpxEhZsOqPquAmP+dRrCfRoRQ2eNdl+/BLIMsisWitQhKiOwt6soaZLN4T8dvpl2
+	 MW9avFzgyOwnox5g+UVNEec48pmEtYjOvBiuWyz0OC6I5/twbsvaIsARaVLPD1j9VX/7G
+	 q3SkSODjGJS2x5aOp4qWYn88nqYiFcPQujuKQ81oyDX188RzCaqLN5gzolRIMoAKLmbv8
+	 BF95RSiDaeieAFk1orxy65geXmIKcmE6+JKEJZyPUrW+sF5+McMwMDX67e3KZz1hizeSW
+	 LQ4OhMgr7Y/pRRMXlVv5qN+2JdewiqlRfUrov140B/LJsDgEEXkGaQ5orjEyP0/6RDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mti8LYXz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D606C606A31A;
-	Tue, 27 Oct 2026 09:37:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D606C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A562E606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:37:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=bnyM3MAn;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=gMT8RJQ5
-Received: from pps.filterd (m0375854.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R8poI12145756;
-	Tue, 27 Oct 2026 05:36:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=zxxYPUPZxX8Yh50FvqwhZYjRK2rUEheMiDcyKlv1g40=; b=bnyM3MA
-	nFDO51nJRse54He8syFLFKN85AxkuXOF0GAyYgg1j5p7khaYj+yMrnfZ1eNCb21A
-	hhZsmC7i2N3oALby8uCxa2g3DtWvlbSB2cL4ngPXiyS6TSvQnjuQANtnWmvA8btv
-	9g7TxfNuSEUcsL0iBpJ2v/sdIbYFhWJj0XsJYzmyxFxsE902HGqW4Zp/mR0yCbko
-	YF6RSFcsANvPkNink1DNi2irXZ7mkgH02jpPtUFzowQn6q43+V1+2QfsoiWuk5pX
-	vEl6qvH3F8528XIkhPYqEJUG683qJT4slGCK+FSZjXEAYay4LtZ6DXEZ3lVWr2KX
-	0ctLrrZQ440xuaw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=zxxYP
-	UPZxX8Yh50FvqwhZYjRK2rUEheMiDcyKlv1g40=; b=gMT8RJQ5FMJvQAMv1c+ZZ
-	ZvOU1ayi20+PXIWZqVEpjng6SCuFtJt1nyVlnWt83Y3R7K6Ijrs/rRTHUKtiBemL
-	vF3tUriR8+Ziq2nyOaOv/Uc5rO3P0e0VzrFoJPMXO2uDgyuwTTaY61+af5rJYjGE
-	bgUsEKFlKYDDrnYuxFQVQZn1BSwnoVbP+A8Kv7jTVh7qee2rEMuxcJZR05RxWe+J
-	L5twydqos4gxELrs7yXmn4GCkrP4dD5mlRfgikbUSv8nrm6J5bUTR91Wx+gtr5nm
-	wa2Lz/jGDDbIhGCdLAQ7MuSZrnGX+uDGHjmP+mi+AfBlDLFn5sFIy0NPC2uh66Bj
-	g==
-Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11011041.outbound.protection.outlook.com [52.101.52.41])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4hjjb5t62j-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 05:36:49 -0400 (EDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mn605lOSShKsF9iyVLYhrgFWOOZf4mwfYSoF8lzmrxI9i+m6AzoPE6lae2H4EAKjMYKeaU7jGuMMPmAnG9tHPfW/faX5hr/IdX8FUT/i7y/0ilWk62gxLP4Tb9yi82qguvAR7+nM+gllRk2gWrKKles+socmUlSw0QJPFEGDSdl1UA7+UyZ2EWaRQtD064G/Fpa4fCczpnlbVG0BBu/OYVuCh6HMIgFUk7meoROctwnq5tJx+cVy+IN0TgLSXNJ3RTBYr5YZYSniJYIDx9RGSKjWhhR9wd/FnY6Wyv3AhXLxulWoP8CDki4coQCI93JvS02vp2Df4mu29eid9FG7Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zxxYPUPZxX8Yh50FvqwhZYjRK2rUEheMiDcyKlv1g40=;
- b=ur9t/37bMEN7x9z3BD81vkJwHW4Q4sfz6rXov4gIWZ5+GP2jp1Qpgd4hcVZltXWdlVHyKHTbGlEbrfIoRajA+kCYmpJwDc+D4UTpmRjf6/dKkTD88TksdKVfXZLme7Nw7FxFA4oWbPJOg8DLXbAW8Uti6OJuOJ116dXDs7NMYCFvYlHYEIPf4/umwRLU5m4iqgCQjiset232AqtSJgqJxIgkbQApC7rGw7mzMJWcbGfrtopoEUx4WIYoYLUcw3r2CwDlnZ1Vdkl0WGLlFVbcKkuvZP0zOSxZe7utJ+L4JMjPb8qIAx2biRSLn2MsJgMmWof/kaM0VSkw6OWxj2yqYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from LV9PR03MB8414.namprd03.prod.outlook.com (2603:10b6:408:367::23)
- by LV3PR03MB7335.namprd03.prod.outlook.com (2603:10b6:408:198::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 09:36:47 +0000
-Received: from LV9PR03MB8414.namprd03.prod.outlook.com
- ([fe80::d661:7c16:d052:cc81]) by LV9PR03MB8414.namprd03.prod.outlook.com
- ([fe80::d661:7c16:d052:cc81%4]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 09:36:47 +0000
-From: "Sabau, Radu bogdan" <radu.sabau@analog.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-        Radu Sabau via B4 Relay
-	<devnull+radu.sabau.analog.com@kernel.org>
-CC: Lars-Peter Clausen <lars@metafoo.de>,
-        "Hennerich, Michael"
-	<Michael.Hennerich@analog.com>,
-        "Sa, Nuno" <Nuno.Sa@analog.com>,
-        David
- Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>,
-        Alexandru
- Ardelean <alexandru.ardelean@analog.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        linux
-	<linux@analog.com>
-Subject: RE: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
- buffered/triggered capture
-Thread-Topic: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
- buffered/triggered capture
-Thread-Index: AQHdYtEldoriJAPt/kCdLx93Gi7oJrcO9tAAgAIqHCA=
-Date: Tue, 27 Oct 2026 09:36:47 +0000
-Message-ID:
- <LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
-References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
-	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
- <20261026000910.328f6cd8@jic23-hlaptop>
-In-Reply-To: <20261026000910.328f6cd8@jic23-hlaptop>
-Accept-Language: en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=analog.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV9PR03MB8414:EE_|LV3PR03MB7335:EE_
-x-ms-office365-filtering-correlation-id: 478b2482-f0c3-404c-3715-08df340dd240
-x-ld-processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|366016|23010399003|376014|1800799024|6133799003|261026121527099003|18002099003|22082099003|11063799006|261026135527099003|56012099006|261022113327099003|4143699003|261021121427099003|10067099003|261022115727099003|261021123027099003|261021135927099003|261021133027099003|261022105027099003|261022075727099003|261021130227099003|261009223027099003|261026140227099003|38070700021|261026130827099003;
-x-microsoft-antispam-message-info:
- yQEsb59BNfoXM1aLkw02gW615o9GXcKYRqIQNPIjgdsq8YwZQx49oM6tRjmF0sGSN4VeYQfVMMb8QIHCszYTMc6NT34ZroFSevDUBC57R73/FqKhLyV00WcmDTR8U7SrQinmDmG08+MmCqYR3vAPBqbPw1N5nzc1OM1FMy1XCaymjUdhOmdaRorqUO0bZyoAB2qtZ8j8mGw5u3FKunk5q0h0veAuaHLqek68zGq5x3R46+pGNLfC1oUUyc74raXBLj0w3BdI7dd9wH//PmUfoYpltcajYGl941lIZtsPLM53EZhDuVAmRBAS2wbR4uSq8oyW4bvxI39LYKN/fT7XuqqqcTNpgfIg6wLrW0RMPc9v1S1AlbONaAN/lA+vdHH8xgbnBhMwzGJYuQQb/Hx9067F9+Y5FzBZqrQpjwLK347myFuBHxfkDPyhj6QQCQj6AyJP4KsWjfcP4ftBwjF/hGgQftKxaHd0ZwCtVNPH/3Dymc0Nknto1CVhyq1WkwWQe8NiYHymSIuWkSxdxgBta1yobYnIiUbC14FGHfXTDkrxYxtWSz1bC5Ohy+j8w8Om6SkB1bKu8lOHeS9qzoZ3SPXnLGI5kxzAO3lPEjqhXnY1shOZsTLXpvEETyQPdxhHbnJ3u/EwxfQG9uSQl5Lh1OvFLu6pcwc0cq4GAv5HyFE=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV9PR03MB8414.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(23010399003)(376014)(1800799024)(6133799003)(261026121527099003)(18002099003)(22082099003)(11063799006)(261026135527099003)(56012099006)(261022113327099003)(4143699003)(261021121427099003)(10067099003)(261022115727099003)(261021123027099003)(261021135927099003)(261021133027099003)(261022105027099003)(261022075727099003)(261021130227099003)(261009223027099003)(261026140227099003)(38070700021)(261026130827099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?uyiSSwHEiBi+WrtjeBOxtXm00MXLnQb4ZinyvXgGJzYvTwB6E/h1p5sr0876?=
- =?us-ascii?Q?ZbmV5c4OXgtLKuaCXbhiZ/ESasEG/ZNWhNA5XgE94tqARuvidFFOQz2pcdRo?=
- =?us-ascii?Q?LrevZGzo+EO8KoxVyH9p14k68CBW0seF4hCyGA3hv3358690946d6qmkZjvZ?=
- =?us-ascii?Q?rnBfncxAEdQix4LxqZ17U7zzEP3tWb3loKbePbIVljjWX7ZctHZl0CXrk1zw?=
- =?us-ascii?Q?3NZtkdTJ8Bm7SgVIZlW4g68RJxUBVx+2gBn5/G2ddEa3U/I1FwvqhvtU1u5T?=
- =?us-ascii?Q?5GoT9kqvoqmhQw/rASp50uFozxml9aYFNpXRJu7YKqZMiL4rK9MJkFXQHyT2?=
- =?us-ascii?Q?Lhl6Xp+2Z8x2tzXDqMIB72TlsIClf7EF22lOkykv8DaFIB1tRx68qCdZqVcR?=
- =?us-ascii?Q?kjK8yVK/cP2hr2IIM60Ron5RVjXTX53W1fQC6t7xTYlS4u1Ci5x5RhBQcpxP?=
- =?us-ascii?Q?ny5ZcZE3gogz/+ZBADyEmdvYld6ew7auebBWmQagk7LW284g/AkWbOpOdiHS?=
- =?us-ascii?Q?0vQY+TvOoAUJ7feJsMi134ZHbMNDJo4Pf0Bs4uLpEh8AQTCe+OXzLm4bpeEx?=
- =?us-ascii?Q?bGBhnGBbwcr5OYpcDwnJMz9MfG/8uhxzJIdFn5wqIDLRf9xY6rusrgPsGQeZ?=
- =?us-ascii?Q?EYii3Suv9w1gqsu7vQVRZknPKnr2qBb4JygvhkNExI3Ydmt9Hm8dCg+fq3bj?=
- =?us-ascii?Q?xyeZI9XVappZqA7fBQAjKPhuhIBElcd0P5sHUYZ6hhqOkORvKgcWnKUEMJSx?=
- =?us-ascii?Q?T/dY2UOX3j34I1V/EimvtwvLMaZb7XLBjXVekgDpOmfJJpxHpzZczpaynWEE?=
- =?us-ascii?Q?Db9WGBPmZ0/7AS8zHYBypZKtGTWsSF1d1CQt/mS9VACo0l1k3yFbkPoLXDBz?=
- =?us-ascii?Q?i/PU5NOFfxoP/QKooUX3GmSdNRkTY66uxzmQpEd9kNXy3JhrZRPQfmKRgwLQ?=
- =?us-ascii?Q?Moeuv2UrI8OEUXcltZ8ljw60XJePtb1R3Q8T0pBsQMst42BIoPrL9+NGCVu6?=
- =?us-ascii?Q?lLvn2jXRKpPdbc03dv8UmznyH9t0Ch3rN8tmmihEK4m7ZZERtKraG+EZ3o2S?=
- =?us-ascii?Q?/5gTSEOfxGLfE8HD6mY2QxEKnVepUkxblKHn9fquGWYHw9eELB+MRGyjGP61?=
- =?us-ascii?Q?w17BPQynxpXMQ1yB/jsTTOAybahnNvKJls3vK+44djzTuMr5a9zIqnkeMSuD?=
- =?us-ascii?Q?F8Gu2QS9U0ep7ceX9KnfQevrCd1nqvnraOeS9qj3MW6oVRnvZh1UiKvatk23?=
- =?us-ascii?Q?fJBvMR5yBMPivNqysgMQQoVYyCyFwklzCa2mpugEcgnFBdqGsExCvCzZTqZa?=
- =?us-ascii?Q?NEz3gt532pfObb7I3OuAflOG9qbLZNMXrZ45/dm74CsbUjeCHAZ1M+TBfFo/?=
- =?us-ascii?Q?ib9g8LMrsrTogrBdKEt+Qty7RTLLbeFDCF/L6xgLz6OPlpo9IASnirQjqNPB?=
- =?us-ascii?Q?73CN7qjxHfG1sWaKPIhX2oaaUa3rO05RjYLSv3XFqoQL5KFjQi+cltvW5IS2?=
- =?us-ascii?Q?2fPRgnNLVCODSmHxxPM+4BdZSG/edU9a9/goNdrO/3RMPS4eYNwSl3mBbYK3?=
- =?us-ascii?Q?U5kchR/QZKzKbdUddZQ0/OdvnXp+G0Lwkc9i/CxbDrCIJJIVvKJ0D8XCE5gz?=
- =?us-ascii?Q?1HPMGMsUW4Eo2es6I1gRl2rBnTelxBHclGWPsbst1Ws3OwGu4aEBAXDeGc+Y?=
- =?us-ascii?Q?mratC0TfneMH5lNtURZ72UF+oytN8uyLpucOBFa9O7Q2LrnL?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mti8LYXz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC6D1F031E0;
+	Tue, 27 Oct 2026 09:37:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793093846;
+	bh=rRT0J22n/N7hiscjNeBkmmDKgobum7zejo29ezEzj1k=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=mti8LYXzCh6nQLM6k5FKv1x5AZkHUtXB4BzzTMv4G8Lln3tWav/5TevtDarN/wXY7
+	 3vSgVgCBQHQYjcbsue692y1ia2Xc+KLG7T/uOVVs+P4eaGXYaj5F8Dcq52BANOjn4K
+	 zj8hZcE4lggnXpDabN2W6KIzfwujamckpyuhvnfvKW8jB4dd8rLW4HLVHMLiiB9XPv
+	 3xqD9vguJ4iNT/3NTl0UKqWHkSytzxHWnaA0Ix0tvrlidt5CUr61pH+7mwkwLXxOMI
+	 9HSoBOuU06v+mvbBNy9m4zKqUfXN1A3ZX78Oyvqu/D4Hu/nV2bqf/iG0aBX5r6SsWs
+	 DZhN77/TofpiA==
+Message-ID: <0e93d246-ba73-4e8a-af95-328c22570339@kernel.org>
+Date: Tue, 27 Oct 2026 17:37:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -193,106 +51,387 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	X59O+JiKPomjGf0B5QsI3c7mNKDrFOD74MtwTHOlfgSB94+hpayQzin1DDnlgDVd0loYjcYBm+5Vct29beJgsdBKyqmWRFC09/OtmivIspTxmh4Q564ABYlWTA2euqLzsaZYCMiUBHcthF5edhcKEVQFK3Q1EeGU946xYCT/rCpy+Kz2L6lYZG6mHw2fmln9kGrlJmnT022aH7cc/m08p1RkHGi/2IepBZ/xDc0W8FGaVtssoLGXJl4J4hmgJo5TcqSX+ODOeDwQHLR1gtb97gx1yXuEI+qni7HNTilTS/jk0mQ4F+b/WxM1ELPhmiU5j3+TU3EEzVztf4bdKGBn6w==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV9PR03MB8414.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 478b2482-f0c3-404c-3715-08df340dd240
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Oct 2026 09:36:47.6354
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KBzyxOxPH2vJIwTw+rYyZUasHwKE2hIunUcqC7aovgP5TUSjizNSWdiWyBnxspbVvP6NU/emhafG1DfZfOrfUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR03MB7335
-X-Proofpoint-ORIG-GUID: y_y02hYBJ-Mo_l4i8Mu4YGH-tfVJGD7H
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzOCBTYWx0ZWRfXyoe3/+ZDlFuN
- 9imJwoB3bLqcwLkYa6Hymxump+ASliPEfyWlyqM1kb8zRC5b9AwGer8UySrpzhetwF7+ilEeR07
- ewRceBl2WwpdMq7FXpAMIBSoLhUORHqOoKYyv3CEKRXrRBni8I0m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzOCBTYWx0ZWRfX3JCMYH5PSgy/
- BvcUFoPOxztz9Q4gAoluevRegS+Z/a1VW9dX4aFeHsccWF3zbOF7ukScOEQ5X/cV5heWYEXtXlC
- 24VYDKz6IELyV3JeBrhwYLxaoDU+83lpOUe1CcE7FAZQTck9HtPTwQ3HW77pwpPkr+fCilTQWgD
- QO5QWVaUO+tdOom0+m2kWkWdFLI7tn5LVDTVLFuk7YbH3DHhFMkmql7aFyaXiDpzYZuYh5fhY6H
- JE5pZzEnDkiwJobL405cYYCJv1AZnHa03o/LPbSZQTANCPygtd3CyzAfoVZihSK9ITsscMVrcfE
- 5um65B28GPkC4qLILR9/95Oe7vaQoc5eGB+BPGCa9TQaRgX+NdTA3X9w7WwxuBA/YQI8K2qEN9Z
- OuiG36m07UoXoq52sjt/SIkbWt+5MCtqPSZXgI2J9UadJZwDWJ7PxJAjzrmCtU1EVn5MM+I3BYs
- N7AkgtQR0Hi9lAeq5UA==
-X-Authority-Analysis: v=2.4 cv=Vqu2kO2n c=1 sm=1 tr=0 ts=6ae070b1 cx=c_pps
- a=0/xasGIuH+87ciDr1HSmcQ==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=iZSIUCweCk2Oy3QsdGPA:22 a=uherdBYGAAAA:8 a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8
- a=pUIHVlswj0nfBI9awL0A:9 a=CjuIK1q_8ugA:10 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: y_y02hYBJ-Mo_l4i8Mu4YGH-tfVJGD7H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 bulkscore=0 spamscore=0 suspectscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270038
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
+ Juan Yescas <jyescas@google.com>, Daeho Jeong <daehojeong@google.com>,
+ Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
+ David Hildenbrand <David.Hildenbrand@arm.com>, linux-kernel@vger.kernel.org,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [PATCH v7 08/15] f2fs: make GC migration large-folio aware
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
+ linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
+References: <20261026033745.784107-1-nzzhao.sigma@gmail.com>
+ <20261026033745.784107-9-nzzhao.sigma@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261026033745.784107-9-nzzhao.sigma@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: Jonathan Cameron <jic23@kernel.org>
-> Sent: Monday, October 26, 2026 2:09 AM
+On 10/26/26 11:37, Nanzhe Zhao wrote:
+> From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> 
+> GC can operate on a 4K block that is cached inside a large folio.
+> The data lookup helpers therefore need to test and update uptodate
+> state for the addressed subpage instead of rejecting large folios or
+> treating the whole folio as the target block.
+> 
+> Let f2fs_get_read_data_folio() and f2fs_get_lock_data_folio() to use
+> subpage uptodate state. Submit single-block reads at the requested
+> folio offset and zero only the addressed 4K range for NEW_ADDR.
+> 
+> Also update `move_data_page` to mark, clear, and restore dirty
+> state for the target subpage, and submit write I/O with the subpage
+> offset recorded in f2fs_io_info.
+> 
+> The write_pages_pending reference is taken by f2fs_do_write_data_page()
+> and dropped from its common error path, so a block that is truncated
+> concurrently no longer leaks the counter.
+> 
+> Reported-by: kernel test robot <yi1.lai@intel.com>
+> Closes: https://lore.kernel.org/oe-lkp/202610081027.b13dcf10-lkp@intel.com
+> Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> ---
+>  fs/f2fs/data.c    | 70 +++++++++++++++++++++++++++++++++--------------
+>  fs/f2fs/f2fs.h    |  1 +
+>  fs/f2fs/gc.c      | 28 +++++++++++++++----
+>  fs/f2fs/segment.c |  2 +-
+>  4 files changed, 75 insertions(+), 26 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index d027c949823b..b3ada22cb0cb 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -1679,20 +1679,16 @@ struct folio *f2fs_get_read_data_folio(struct inode *inode, pgoff_t index,
+>  	struct dnode_of_data dn;
+>  	struct folio *folio;
+>  	int err;
+> -retry:
+> +
+>  	folio = f2fs_grab_cache_folio(mapping, index, for_write);
+>  	if (IS_ERR(folio))
+>  		return folio;
+>  
+>  	if (folio_test_large(folio)) {
+> -		pgoff_t folio_index = mapping_align_index(mapping, index);
+> -		unsigned long nr_pages = folio_nr_pages(folio);
+> -
+> -		f2fs_folio_put(folio, true);
+> -		invalidate_inode_pages2_range(mapping, folio_index,
+> -				folio_index + nr_pages - 1);
+> -		f2fs_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
+> -		goto retry;
+> +		if (!f2fs_ffs_find_or_alloc(folio)) {
+> +			err = -ENOMEM;
+> +			goto put_err;
+> +		}
+>  	}
+>  
+>  	if (f2fs_lookup_read_extent_cache_block(inode, index,
+> @@ -1728,7 +1724,7 @@ struct folio *f2fs_get_read_data_folio(struct inode *inode, pgoff_t index,
+>  		goto put_err;
+>  	}
+>  got_it:
+> -	if (folio_test_uptodate(folio)) {
+> +	if (f2fs_ffs_test_blk_uptodate(folio, index)) {
+>  		folio_unlock(folio);
+>  		return folio;
+>  	}
+> @@ -1741,9 +1737,11 @@ struct folio *f2fs_get_read_data_folio(struct inode *inode, pgoff_t index,
+>  	 * f2fs_init_inode_metadata.
+>  	 */
+>  	if (dn.data_blkaddr == NEW_ADDR) {
+> -		folio_zero_segment(folio, 0, folio_size(folio));
+> -		if (!folio_test_uptodate(folio))
+> -			folio_mark_uptodate(folio);
+> +		size_t offset = offset_in_folio(folio,
+> +						(loff_t)index << PAGE_SHIFT);
+> +
+> +		folio_zero_segment(folio, offset, offset + PAGE_SIZE);
+> +		f2fs_ffs_mark_subrange_uptodate(folio, offset, PAGE_SIZE);
+>  		folio_unlock(folio);
+>  		return folio;
+>  	}
+> @@ -1803,7 +1801,6 @@ struct folio *f2fs_get_lock_data_folio(struct inode *inode, pgoff_t index,
+>  
+>  	/* wait for read completion */
+>  	folio_lock(folio);
+> -
+>  	if (unlikely(folio->mapping != mapping)) {
+>  		f2fs_folio_put(folio, true);
+>  		return ERR_PTR(-EIO);
+> @@ -1812,7 +1809,7 @@ struct folio *f2fs_get_lock_data_folio(struct inode *inode, pgoff_t index,
+>  	/*
+>  	 * ffs can be released while the folio was unlocked above.  Rebuild it
+>  	 * for a fully uptodate folio; a partially uptodate one cannot be
+> -	 * rebuilt and will fail the uptodate check below.
+> +	 * rebuilt and will fail the subpage check below.
+>  	 */
+>  	if (folio_test_large(folio) && !f2fs_folio_has_ffs(folio)) {
+>  		if (!f2fs_ffs_find_or_alloc(folio)) {
+> @@ -1821,7 +1818,7 @@ struct folio *f2fs_get_lock_data_folio(struct inode *inode, pgoff_t index,
+>  		}
+>  	}
+>  
+> -	if (unlikely(!folio_test_uptodate(folio))) {
+> +	if (unlikely(!f2fs_ffs_test_blk_uptodate(folio, index))) {
+>  		f2fs_folio_put(folio, true);
+>  		return ERR_PTR(-EIO);
+>  	}
+> @@ -2970,6 +2967,22 @@ static void f2fs_ffs_mark_subrange_uptodate(struct folio *folio, size_t offset,
+>  		folio_mark_uptodate(folio);
+>  }
+>  
+> +bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index)
+> +{
+> +	struct f2fs_folio_state *ffs;
+> +	unsigned int idx, nr_subpages;
+> +
+> +	f2fs_bug_on(F2FS_F_SB(folio), !folio_contains(folio, index));
+> +
+> +	if (!f2fs_folio_has_ffs(folio))
+> +		return folio_test_dirty(folio);
+> +
+> +	ffs = (struct f2fs_folio_state *)folio->private;
+> +	nr_subpages = folio_nr_pages(folio);
+> +	idx = index - folio->index;
+> +	return test_bit(nr_subpages + idx, ffs->state);
+> +}
+> +
+>  static unsigned int __ffs_mark_subrange_dirty(struct folio *folio,
+>  			struct f2fs_folio_state *ffs, size_t offset, size_t len)
+>  {
+> @@ -3063,7 +3076,6 @@ bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
+>  
+>  	return dirty;
+>  }
+> -
+>  static unsigned int ffs_next_dirty_subpage(struct f2fs_folio_state *ffs,
+>  			const struct folio *folio, unsigned int start,
+>  			unsigned int end)
+> @@ -3561,7 +3573,7 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
+>  		return true;
+>  
+>  	if (fio) {
+> -		if (page_private_gcing(fio->page))
+> +		if (folio_test_f2fs_gcing(fio->folio))
+>  			return true;
+>  		if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED) &&
+>  			f2fs_is_checkpointed_data(sbi, fio->old_blkaddr)))
+> @@ -3587,8 +3599,11 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  	struct dnode_of_data dn;
+>  	struct node_info ni;
+>  	struct f2fs_lock_context lc;
+> +	struct f2fs_folio_state *ffs;
+>  	bool ipu_force = false;
+>  	bool atomic_commit;
+> +	bool pending_added = false;
+> +	bool submitted = false;
+>  	int err = 0;
+>  
+>  	/* Use COW inode to make dnode_of_data for atomic write */
+> @@ -3617,8 +3632,11 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  		return -EINVAL;
+>  
+>  	/* Deadlock due to between page->lock and f2fs_lock_op */
+> -	if (fio->need_lock == LOCK_REQ && !f2fs_trylock_op(fio->sbi, &lc))
+> +	if (fio->need_lock == LOCK_REQ && !f2fs_trylock_op(fio->sbi, &lc)) {
+> +		if (!f2fs_ffs_has_dirty_subpage(folio))
+> +			folio_clear_f2fs_gcing(folio);
+>  		return -EAGAIN;
+> +	}
+>  
+>  	err = f2fs_get_dnode_of_data(&dn, F2FS_FIO_LBLK(fio),
+>  				     LOOKUP_NODE);
+> @@ -3630,7 +3648,6 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  	/* This page is already truncated */
+>  	if (fio->old_blkaddr == NULL_ADDR) {
+>  		folio_clear_uptodate(folio);
+> -		folio_clear_f2fs_gcing(folio);
+>  		goto out_writepage;
+>  	}
+>  got_it:
+> @@ -3680,6 +3697,11 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  	fio->version = ni.version;
+>  
+>  	__folio_start_writeback(folio, folio_test_dirty(folio));
+> +	if (f2fs_folio_has_ffs(folio)) {
+> +		ffs = (struct f2fs_folio_state *)folio->private;
+> +		atomic_inc(&ffs->write_pages_pending);
+> +		pending_added = true;
+> +	}
+>  
+>  	if (fio->compr_blocks && fio->old_blkaddr == COMPRESS_ADDR)
+>  		f2fs_i_compr_blocks_update(inode, fio->compr_blocks - 1, false);
+> @@ -3694,6 +3716,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  		err = -EIO;
+>  		goto out_writepage;
+>  	}
+> +	submitted = true;
+>  	set_inode_flag(inode, FI_APPEND_WRITE);
+>  	if (atomic_commit)
+>  		folio_clear_f2fs_atomic(folio);
+> @@ -3702,6 +3725,13 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+>  out:
+>  	if (fio->need_lock == LOCK_REQ)
+>  		f2fs_unlock_op(fio->sbi, &lc);
+> +	if (!submitted) {
+> +		if (pending_added) {
+> +			f2fs_ffs_put_write_pending(folio, 1);
+> +		} else if (!f2fs_ffs_has_dirty_subpage(folio)) {
+> +			folio_clear_f2fs_gcing(folio);
 
-...
+If f2fs_trylock_op() failed:
 
-> > +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
-> > +				       u8 *fifo_data, s64 timestamp)
-> > +{
-> > +	struct adis16607 *st =3D iio_priv(indio_dev);
-> > +	u16 msw, lsw;
-> > +	s32 val24;
-> > +	int bit, offset =3D 0;
-> > +
-> > +	memset(st->data, 0, sizeof(st->data));
-> > +
-> > +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev-
-> >masklength) {
-> iio_for_each_active_channel()
->=20
-> As sashiko notes, masklength is private.
->=20
-> There are a load of places we need to update to stop accessing these
-> directly but please don't add another one.
->=20
-> It's on my list to throw some LLM tokens ago once I get out from
-> under review backlog.
->=20
-> https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261023-
-> adis16607-v4-0-
-> a4d541ebfd13*40analog.com__;IyU!!A3Ni8CS0y2Y!9cguUuIwYMdnmBcoNR
-> ye0_U99KUnJt04T6XlSnvS-9rxh5-8Y2fQXC39Mxsw3erc_JwvyFp3ssecZg$
-> Check everything else reported.
->=20
-> FWIW there are also some nasty race conditions around active_scan_mask
-> being available when the buffer is being torn down. You might
-> want to close those off by claiming buffered mode to prevent
-> such a transition.
->=20
+	if (fio->need_lock == LOCK_RETRY) {
+		if (!f2fs_trylock_op(fio->sbi, &lc)) {
+			err = -EAGAIN;
+			goto out_writepage;
+		}
+		fio->need_lock = LOCK_REQ;
+	}
 
-Agreed, I'll switch to iio_for_each_active_channel() and I'll go through th=
-e
-rest of the Sashiko findings for v5.
+For order-0 folio, we may loss gcing flag becuase f2fs_ffs_has_dirty_subpage()
+return false?
 
-On the active_scan_mask races, I'd like to check which path you mean.
-In this driver the only reader of the mask is the trigger handler
-(fifo_push_sample()), which runs as the pollfunc.
-As far as I can tell, iio_trigger_detach_poll_func()'s free_irq() waits for=
- it
-to finish before iio_disable_buffers() frees the mask, so I couldn't find a
-window where the handler sees a stale or NULL mask today.
-Even so, I'd like to close this off for good, so that a later change to the
-driver or to adislib can't introduce the race.
+Two migration issues:
 
-Claiming buffer mode inside the handler looks like it would deadlock
-against iio_disable_buffers(), which holds mlock while waiting for the
-handler in free_irq().
+In f2fs_migrate_blocks() and f2fs_defragment_range(), we missed to mark subpage dirty?
 
-Would snapshotting the active-channel layout in update_scan_mode()
-(called before the pollfunc is attached) and having the handler read
-only that copy be an acceptable way to close it?
+			folio = f2fs_get_lock_data_folio(inode, blkidx, true);
+			if (IS_ERR(folio)) {
+				f2fs_up_write(&sbi->pin_sem);
+				ret = PTR_ERR(folio);
+				goto done;
+			}
+
+			folio_mark_dirty(folio);
+			f2fs_folio_put(folio, true);
+
+> +		}
+> +	}
+>  	return err;
+>  }
+>  
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 915ca72cf276..1b63dd961f15 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4493,6 +4493,7 @@ int f2fs_write_single_data_page(struct folio *folio, int *submitted,
+>  				int compr_blocks, bool allow_balance);
+>  bool f2fs_ffs_test_blk_uptodate(const struct folio *folio, pgoff_t index);
+>  struct f2fs_folio_state *f2fs_ffs_find_or_alloc(struct folio *folio);
+> +bool f2fs_ffs_test_blk_dirty(const struct folio *folio, pgoff_t index);
+>  void f2fs_ffs_mark_subrange_dirty(struct folio *folio, size_t offset, size_t len);
+>  bool f2fs_ffs_clear_subrange_dirty_and_test(struct folio *folio, size_t offset,
+>  					    size_t len);
+> diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+> index c66ca03d0d5a..c3e01f6811b4 100644
+> --- a/fs/f2fs/gc.c
+> +++ b/fs/f2fs/gc.c
+> @@ -1520,12 +1520,19 @@ static int move_data_page(struct inode *inode, block_t bidx, int gc_type,
+>  						unsigned int segno, int off)
+>  {
+>  	struct folio *folio;
+> +	size_t foff = 0;
+> +	bool large = false;
+>  	int err = 0;
+>  
+>  	folio = f2fs_get_lock_data_folio(inode, bidx, true);
+>  	if (IS_ERR(folio))
+>  		return PTR_ERR(folio);
+>  
+> +	if (f2fs_folio_has_ffs(folio)) {
+> +		large = true;
+> +		foff = offset_in_folio(folio, (loff_t)bidx << PAGE_SHIFT);
+> +	}
+> +
+>  	if (!check_valid_map(F2FS_I_SB(inode), segno, off)) {
+>  		err = -ENOENT;
+>  		goto out;
+> @@ -1540,6 +1547,8 @@ static int move_data_page(struct inode *inode, block_t bidx, int gc_type,
+>  			err = -EAGAIN;
+>  			goto out;
+>  		}
+> +		if (large)
+> +			f2fs_ffs_mark_subrange_dirty(folio, foff, PAGE_SIZE);
+>  		folio_mark_dirty(folio);
+>  		folio_set_f2fs_gcing(folio);
+>  	} else {
+> @@ -1558,28 +1567,37 @@ static int move_data_page(struct inode *inode, block_t bidx, int gc_type,
+>  			.need_lock = LOCK_REQ,
+>  			.io_type = FS_GC_DATA_IO,
+>  		};
+> -		bool is_dirty = folio_test_dirty(folio);
+> +		bool is_dirty = f2fs_ffs_test_blk_dirty(folio, bidx);
+>  
+>  retry:
+>  		f2fs_folio_wait_writeback(folio, true, true);
+>  
+> +		if (large)
+> +			f2fs_ffs_mark_subrange_dirty(folio, foff, PAGE_SIZE);
+>  		folio_mark_dirty(folio);
+>  		if (folio_clear_dirty_for_io(folio)) {
+> -			inode_dec_dirty_block(inode);
+> -			f2fs_remove_dirty_inode(inode);
+> +			if (!large) {
+> +				inode_dec_dirty_block(inode);
+> +				f2fs_remove_dirty_inode(inode);
+> +			} else if (f2fs_ffs_clear_subrange_dirty_and_test(folio,
+> +							foff, PAGE_SIZE)) {
+> +				folio_mark_dirty(folio);
+> +			}
+>  		}
+>  
+>  		folio_set_f2fs_gcing(folio);
+>  
+>  		err = f2fs_do_write_data_page(&fio);
+
+Another race issue my local bots report, please take a look:
+
+  Where:  move_data_page()  (gc.c:1564–1601) and the generic  writeback_iter()  used by  f2fs_write_cache_folios() .
+
+  The cycle:
+
+  1. FG_GC writes one subpage. Its bio waits in  write_io[DATA][COLD]  until  do_garbage_collect()  submits it later.
+  2. If another subpage is still dirty, the folio is left both dirty and under writeback and is then unlocked.
+  3. A writer doing fsync, sync or checkpoint calls  writeback_get_folio()  →  folio_prepare_writeback() . It locks the folio and sleeps in the generic  folio_wait_writeback() , which does not flush f2fs's merged bio.
+  4. GC moves on to the next block of the same folio and blocks on  folio_lock . The bio is never submitted.
+
+  Reachable today? Yes, on immutable large folios: BG_GC dirties subpage A, FG_GC migrates subpage B, and an fsync runs at the same time.
+
+  Fix: in  move_data_page() , when  large && folio_test_dirty(folio)  after the write, call  f2fs_submit_merged_write_cond(sbi, NULL, folio, 0, DATA)  before unlocking. Optionally do the same in  f2fs_write_cache_folios()   out:  when it redirties a folio that is under writeback.
+
+Thanks,
+
+>  		if (err) {
+> -			folio_clear_f2fs_gcing(folio);
+>  			if (err == -ENOMEM) {
+>  				memalloc_retry_wait(GFP_NOFS);
+>  				goto retry;
+>  			}
+> -			if (is_dirty)
+> +			if (is_dirty) {
+> +				if (large)
+> +					f2fs_ffs_mark_subrange_dirty(folio, foff, PAGE_SIZE);
+>  				folio_mark_dirty(folio);
+> +			}
+>  		}
+>  	}
+>  out:
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index cbb65e0343c8..e017a5f2a67f 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -3863,7 +3863,7 @@ static int __get_segment_type_6(struct f2fs_io_info *fio)
+>  		if (is_inode_flag_set(inode, FI_ALIGNED_WRITE))
+>  			return CURSEG_COLD_DATA_PINNED;
+>  
+> -		if (page_private_gcing(fio->page)) {
+> +		if (folio_test_f2fs_gcing(fio->folio)) {
+>  			if (fio->sbi->am.atgc_enabled &&
+>  				(fio->io_type == FS_DATA_IO) &&
+>  				(fio->sbi->gc_mode != GC_URGENT_HIGH) &&
 
