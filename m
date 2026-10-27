@@ -1,85 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=144.76.98.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139008;
-	b=z7iJtjDMw8ZgUJ51x/X/I7Ub6tvwwE4tK7SuixUTd2T7tkrtbrCSunS/PG7zuYGK3h4O
-	 Yv3lMEwu88qxU2NkBIPayc0x2PjcCWJz4/RQ9wbSwSdrZwyQjMPYHb59kp+gZoIS2T5jg
-	 g1A0Ls55VhIRcqHZHnpjlDyAS/u21q8fSQxDVpTOodSeSw5DojIL9ptEDyRolt1xOsVfX
-	 iL7kl4HZTYktbobwo9CBX5ZoDfWbBc/1hSmlCl4gE6mlh2UnRa2VGTqfu9uqTaxIXON+h
-	 kIXvdg7l/e09e3Rz6IBo6ziA6iyhK/FTkisWDAhANxj7LiNu7CnthRXFcq1Z+3u+KbA==
+	t=1793139047;
+	b=zC2xot5wLvh9jS1hDxfWn0MqW7KCv36LU+Cdl40LcYLySsGfbW2sEK3PV6fmcZ/7wb3u
+	 ALfuOP/fqrtH/Ne5aS3Ad+c36ohoZThbswh/ogFJr8RHJ3aiw9+QtxrJRg5HyC38XXVEE
+	 FEAQZXbdIERFESAMwTiau2u194PJEmRUiVdC0FBxjm8vWOwlELRLeP1KjNbhbnKoZIhF7
+	 liLPKtlf9/9CLDXR2x2dE77l/zqA1tD/yjvp3b5jqosO8iqHp9lPofGBXIkt0Q6HouAVL
+	 sH7K+gNRwFiLaSEHkIGHrvFPiJstFSD+maAX8xSmuzziqTKjHUtw0CN6QFUhf+Coxpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139008;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=fT+qwxtE+A6GcMts/RFwLqPXWbldRP/ojd/gLikqx/o=;
-	b=SMCuKadZJRIBJMGnxgfGAQXgG5cDxHBEKH03DP1pX4nCJwyDVjAM1YkWk9r4ychTJbER
-	 54ext6SlxIHEcVRY9t2kdHS0akTu3ccIh2iFKFwoPpvqdrpWNJWovX044LXmrnQI4vApY
-	 qvYqisAGIKZgBxi47Wd7gCXLGdbKnCWndH6YYqJC08Es3+2gSDklLwCy9eNHu8EWJ1YO7
-	 qh12MAapGWi5h5hKVo9KMmVgleFo6iT+ST+LOmVqV3lE0CRS0g8W5z3y3ojpqQaDYEspO
-	 /M/p/cCg1+Iz4NGwVhpNRPf3vNVFFgP8JohzWHDm73anPamM3sldQQi4igzYrcrBynA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793139047;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wzA/VJ9i+i6DJvVJgSV/qqezvPTQqdtwC5bPnK70sno=;
+	b=yyjd7zUOREKM635Z87eLVYU7Qd8Mqqny3q/+YvGXLJjDFYcSJb+n4hmA3rFKC0o25/Mc
+	 hRSv9tw7nd6lCqm32SVahxzTlm4LcB/NHn4IFh3LiBNfUdc12gj8d4NQc5u9i5waAj8RV
+	 /MPfxa/vP8Ksq/Pkyt2EK9FHAu/IPSTxAmRDxXdMwcIHmzdrpuTYi13Y8GlT5Ja9lcdvv
+	 o5qUGo8NlIjRkGInY8Dr6zIjhQaI5YrZq84CcZlSuFH/f5PjCSjPD5xjcaeU1xtCRlHvO
+	 lyF1n2HChRG6FHZ1WCjTAHd51ea8Rp5EvWWyLIH7vMCcbdUKKC4oJRT0aZH37Evukew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK1fsW+2;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=rojer.me;
+	spf=pass smtp.mailfrom=rojer.me;
+	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=DHD9ZAWd;
+	arc=none smtp.remote-ip=144.76.98.110
+Received: from mail1.rojer.cloud (mail1.rojer.cloud [144.76.98.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643D4606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:10:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 643D4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D94606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:10:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4D94606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eK1fsW+2
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso3389225e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:10:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793139007; x=1793743807; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fT+qwxtE+A6GcMts/RFwLqPXWbldRP/ojd/gLikqx/o=;
-        b=eK1fsW+2JB+u32dztweW6UknefzXls1ygcl5CLm71Z1p1xr/SQRcK5omOGQRHtcZJe
-         AvVkVl/9LOOkxYmhd1abAw2Mm8vOOTgZ1UWGFMO1pLl/MMTaF3XSy260n4/HfsRGpiBy
-         JIpLGwoHQExszH0S+epY/KMiGEzSp37mYCQBpt9wYUat2ouWFbcsd5vgCRBiXuhzzqBT
-         biomUCwj+SKLC4EhQNWqweICVG5qf43GhQQux8yfd9xRoCGPP2Xr8toiG51npBY3etq+
-         zio8FAXRXAeRCiTxpt8NE+qiM7HLaqPjKUhzzFd8rnjlQKjHX04C3xjFWXiBKXVIV8vN
-         XQow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793139007; x=1793743807;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fT+qwxtE+A6GcMts/RFwLqPXWbldRP/ojd/gLikqx/o=;
-        b=ZY84sQaFSyEQeiWGvhn6zmCzazBvAdKmO64077sSIY5mPmbk1YX7SypVwxuDNY5pWV
-         AAmrFpBU4DCIGb70Fr26O/KygwzdyTbOFJgj1s4lkRSglY1YpYIObnw3ad+uQS1gmXG+
-         UWVKmkB+RPDbEBeAh1rxLYlzcYwQu4pVHsFQhkEgxTXvCVJGerUyet007BPN4koadTxh
-         oy3SioIrHN5J6jvSG0m8VytygbDXIc0vJK7t4SmMTVbpAX4gVNAK3Q7qYArm/wHM0aH9
-         d7zlrTK4hWVOCoyno/jmVbEcA+4ReQ9wv77CDxetH75CtBv5bJMZh6XdhPjvaJ3k4iKQ
-         1lOw==
-X-Gm-Message-State: AFq9FYJAU6VDHxypR538noCtdd1Eh8O6t4hQjh2mzPbDAk37JQgvQC1O
-	UKstR3aeFoH3V7Nxj+tsXdWFS5gchBSY3L/QJ4zrBbw1xGvZF/7XuECN
-X-Gm-Gg: AYBFou1TOe4Ja5HSpCWl2pBncV8EWgUkr4rfLE3IoU+0m/Qj/o+8GSeW9XxLbev4G+0
-	GPWSreW/dcYJRPiylkts+RJYeQh8TzY0S+C9GNmXOY3W6HFGaIpZm53+J8pM0JQKoqSbJeOvNUd
-	yGq6/E5d25NnyvkWyCS8H9Ae3V6Xg4NaIAp1MG0whdKagwmDdfnVERqiSwggUBNSvYfaFfwhJsQ
-	sM9t7FKR0QjNp3c+6GcRlCPKqrYgkIWmbpZpJ+gmeLkqgO9qkoeF1BYqEyycnFTzw5qthYwp2Mo
-	Hdi65d7rNQSESIsgvp/YgR6lQxxFrYYKvyl+fTv6rPQMAMkW0uqzslYqVc3WDHrbBmXFw2booXo
-	/LvN5tktPk3/912Ywv4dEQe+LhgnpMF0O2BlZH3+NWPpdwGxvS8cDBltQ8XlVjksJc80P0eMldQ
-	RxZd8VXGkZQo29xEkQswYmftDy0889qzYnknyNmqgsMGvuTknRGzA037NayWbH9BI+nt3JRuj31
-	wi/P6fNXGceW+xtsaw7SOG/Y1jdkWHMciOqiGvecOo33ybAK0hf
-X-Received: by 2002:a05:600c:8b05:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4a967202925mr5734215e9.19.1793139006789;
-        Tue, 27 Oct 2026 15:10:06 -0700 (PDT)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3555sm24526363f8f.42.2026.10.27.15.10.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 15:10:05 -0700 (PDT)
-Message-ID: <968e7fce-a027-4c4e-8a3f-79ddf0b2ba9d@gmail.com>
-Date: Tue, 27 Oct 2026 23:10:04 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=DHD9ZAWd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
+	t=1793139044; bh=y6y5Y1QJ5LEzAXEEvEIOfN3dlwUpLEs6mRHVPK5l9wg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=DHD9ZAWdlMQrJGsXgSieQctSZjGbLjRTJGVuKaqNRfbMCMG3hh7BaG3ujAOt5CEfy
+	 6Yx+Uavjq6OBz6FGstPmMHXQAewNBlpl8KZRtPYX2IMICMnNneZaUJ3AyshZe7hinu
+	 d+X1rVLIuWlG9SGFnyA+f1vcXMVyPz03vzAACuI91HjDAyA3yiPF2mHNvbObd0zwHT
+	 iCZhx4XCyAGYgQqNvmOXXwKpvdKRzH3lRDb1OGldppCMx6+LLtygtUdGt1EybQAl1t
+	 QnQG1aMA27CxJ48y4mDJ4b1jZg/O9HR5Dj972fCsNGj3jwEZtEEOnsbJJj/73HalDD
+	 EC55j9EgERK3Q==
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail1.rojer.cloud (Postfix) with ESMTPSA id 7E62212012B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:10:44 +0000 (UTC)
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6fe4372c5f3so284160eaf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:10:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz8nXi5b+GKb/r1pYkYrNXTf36lKnXeBoe/gGu4yPiiefv84WKLuPLg+LKuGwN/wt4hHkOZuHuzz9KRxTE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgiEvLOPge3Tw4F1floM8vw64TshxKOQmL1f9hDSAhag3ZiNhL
+	6rD/EpQoKXHL4cheHFx01of1BicVgiAwNwZRXD6GGPBx59eTeTEvauLnbNetItlE2BHxKyvrBDQ
+	7A4LwH2E+faf+EcDX4dJ3XMpHZ/qLQA==
+X-Received: by 2002:a05:6820:1c88:b0:70a:c89b:d12d with SMTP id
+ 006d021491bc7-713eaf5ad71mr348646eaf.11.1793139043070; Tue, 27 Oct 2026
+ 15:10:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,40 +67,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fs/proc/task_mmu: fix missed VMAs when reading
- /proc/PID/maps and friends
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Suren Baghdasaryan <surenb@google.com>, Shakeel Butt
- <shakeel.butt@linux.dev>, SJ Park <sj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org,
- "David Hildenbrand (Arm)" <david@kernel.org>
-References: <20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261023235959.2988087-1-rojer@rojer.me> <20261023235959.2988087-3-rojer@rojer.me>
+ <38baaf87-4d5c-48bc-a11f-a5b6c04c20a8@rock-chips.com>
+In-Reply-To: <38baaf87-4d5c-48bc-a11f-a5b6c04c20a8@rock-chips.com>
+From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
+Date: Wed, 28 Oct 2026 00:10:31 +0200
+X-Gmail-Original-Message-ID: <CABFmFwrWL1sej-=xCK-opxn3B9VVy=TaCyRQU43sw=6PY7bcmQ@mail.gmail.com>
+X-Gm-Features: AclHuK9ygSoBB9eZyXuz1KFNk_TaXqdwq3xhUt4O0wFduajwOmgNHGsigYcfU5Q
+Message-ID: <CABFmFwrWL1sej-=xCK-opxn3B9VVy=TaCyRQU43sw=6PY7bcmQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi R2S Plus
+To: Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Sergey Bostandzhyan <jin@mediatomb.cc>, 
+	Jensen Huang <jensenhuang@friendlyarm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/27/26 3:08 PM, Lorenzo Stoakes (ARM) wrote:
+Hi Shawn,
 
-[snip]
+agreed, it makes no sense here. will drop in v2, holding on for
+feedback on patch 1.
 
-> +	if (from_addr < vma->vm_start &&
-> +	    vma_rcu_iter_may_have_skipped(rvmi, from_addr, vma->vm_start - 1))
-> +		goto fallback_unlock;
+On Tue, 27 Oct 2026 at 15:58, Shawn Lin <shawn.lin@rock-chips.com> wrote:
+>
+> Hi Deomid
+>
+> =E5=9C=A8 2026/10/24 =E6=98=9F=E6=9C=9F=E5=85=AD 7:59, Deomid rojer Ryabk=
+ov =E5=86=99=E9=81=93:
+> > The NanoPi R2S Plus has an M.2 E-key slot wired to the sdmmc_ext
+> > controller in 4-bit SDIO mode, where FriendlyElec fit an optional
+> > Fn-Link 6222B-SRC (Realtek RTL8822CS) module:
+> >
+> >    - SDIO signalling at a fixed 1.8V (VCC_18)
+> >    - WIFI_REG_ON on GPIO3_B0, 32kHz sleep clock from the RK805 CLKOUT2
+> >
+> > Enable the controller and add the power sequence. The SDIO pins need
+> > 8mA drive strength for SDR104 tuning to succeed, as in the vendor
+> > device tree [1]; with the SoC default of 4mA no sample phase works.
+> >
+> > On boards without the module the controller gives up after about 0.2s
+> > ("mmc2: Failed to initialize a non-removable card"); nothing else is
+> > affected.
+> >
+> > With the mmc core change for the module's CMD11 handling at a fixed
+> > 1.8V [2], the module is tuned to SDR104 at 150 MHz and works with the
+> > rtw88_8822cs driver; without it, it runs in high-speed mode at 50 MHz.
+> >
+> > [1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835b=
+ba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev=
+24.dts#L144-L172
+> > [2] https://lore.kernel.org/linux-mmc/20261023232813.2983368-1-rojer@ro=
+jer.me/
+> > Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
+> > ---
+> >   .../dts/rockchip/rk3328-nanopi-r2s-plus.dts   | 56 ++++++++++++++++++=
++
+> >   1 file changed, 56 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/=
+arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
+> > index 6ba4a74cb1f..db19a18ae45 100644
+> > --- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
+> > +++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
+> > @@ -17,6 +17,15 @@ / {
+> >       aliases {
+> >               mmc1 =3D &emmc;
+> >       };
+> > +
+> > +     sdio_pwrseq: sdio-pwrseq {
+> > +             compatible =3D "mmc-pwrseq-simple";
+> > +             clocks =3D <&rk805 1>;
+> > +             clock-names =3D "ext_clock";
+> > +             pinctrl-names =3D "default";
+> > +             pinctrl-0 =3D <&wifi_reg_on_h>;
+> > +             reset-gpios =3D <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
+> > +     };
+> >   };
+> >
+> >   &emmc {
+> > @@ -34,3 +43,50 @@ &io_domains {
+> >       vccio4-supply =3D <&vcc_io_33>;
+> >       vccio6-supply =3D <&vcc_18>;
+> >   };
+> > +
+> > +&pinctrl {
+> > +     wifi {
+> > +             wifi_reg_on_h: wifi-reg-on-h {
+> > +                     rockchip,pins =3D <3 RK_PB0 RK_FUNC_GPIO &pcfg_pu=
+ll_none>;
+> > +             };
+> > +     };
+> > +};
+> > +
+> > +/*
+> > + * SDR104 tuning fails with the default 4mA drive strength, use 8mA li=
+ke the
+> > + * vendor device tree.
+> > + */
+> > +&sdmmc0ext_bus4 {
+> > +     rockchip,pins =3D
+> > +             <3 RK_PA4 3 &pcfg_pull_up_8ma>,
+> > +             <3 RK_PA5 3 &pcfg_pull_up_8ma>,
+> > +             <3 RK_PA6 3 &pcfg_pull_up_8ma>,
+> > +             <3 RK_PA7 3 &pcfg_pull_up_8ma>;
+> > +};
+> > +
+> > +&sdmmc0ext_clk {
+> > +     rockchip,pins =3D <3 RK_PA2 3 &pcfg_pull_none_8ma>;
+> > +};
+> > +
+> > +&sdmmc0ext_cmd {
+> > +     rockchip,pins =3D <3 RK_PA0 3 &pcfg_pull_up_8ma>;
+> > +};
+> > +
+> > +/* Optional M.2 E-key SDIO Wi-Fi module (Fn-Link 6222B-SRC, RTL8822CS)=
+ */
+> > +&sdmmc_ext {
+> > +     bus-width =3D <4>;
+> > +     cap-sd-highspeed;
+> > +     cap-sdio-irq;
+> > +     disable-wp;
+>
+> Drop disable-wp.
+>
+> Otherwise,
+>
+> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+>
+> > +     keep-power-in-suspend;
+> > +     mmc-pwrseq =3D <&sdio_pwrseq>;
+> > +     no-mmc;
+> > +     no-sd;
+> > +     non-removable;
+> > +     pinctrl-names =3D "default";
+> > +     pinctrl-0 =3D <&sdmmc0ext_clk &sdmmc0ext_cmd &sdmmc0ext_bus4>;
+> > +     sd-uhs-sdr104;
+> > +     vmmc-supply =3D <&vcc_io_33>;
+> > +     vqmmc-supply =3D <&vcc_18>;
+> > +     status =3D "okay";
+> > +};
+>
 
-the helpers make this a lot easier to follow than v1 :)
 
-I re-tested v2 on x86_64 in qemu with KASAN, as in v1. So, this LGTM:
-
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-
--- 
-cheers,
-jose a. p-a
+--=20
+Deomid "rojer" Ryabkov
+rojer@rojer.me
