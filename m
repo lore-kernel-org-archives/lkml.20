@@ -1,111 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.67
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793077275;
-	b=ZoOvmq1s7vPkLY5jXL7Q+S4SD63lLCVcirE2WoXZAgR2Yy3rjP4PYsDkb6DbI4zcngMM
-	 EQcXjPZiCleW9kTf51xxck6i0iOI1IRwyhiThDt+l4okPEafHI5yERK/CDiVAI4I+CYTa
-	 aPNhzl6KMJTExuhNp9vXjhspxs/JB/GvCYffYJGflANy+7nZ3ihaG+wJ9145111CxHctv
-	 A2+dpCXmFvXPy1xTk3qORP0xehuWH6cHHYHxKw8D/SMLUpIZuQ6H21+ZF2GjIdsqeetY+
-	 XT8V7k602juGfCJnYnZeOzAaJ+7ISK096pce2+ZL5FBw5U/1Zqjd99k05ep6UUxDoQQ==
+	t=1793077350;
+	b=Aa8UIY7VW0uOV4G9bsCI/J1ghEOKGvacKNi/cLy9FSRj3Z5dHLpQekZUhPjA5Ed1g+GB
+	 w1TAq0BBjwPWjIJD498mhO6xNGP74GCiCW+PI+UkMSZz3EvwKKxN3LHSBTs78RVc5vVtW
+	 wuLew5pABKEP1W7vIElrivQqjr6S9tGHbTfWrUKl7LgwQY96ul5/JNVMFlsVZnXibfjnk
+	 WsfzKgafONOdlRqGyV6NOH97ZZkM1w9YnWoGD3wb9Fxd7HAvKnUKdp+NPhBWEk/uEyu7R
+	 hkVrqWrj84/SsLfPjkBTCbdLLWtXsG8jBLkQwkNTwDcLPxdijiDRhq+V2X9GGOiMPHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793077275;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=CNVazNkHHRfKjH0wJMdsqtIhNk3xkQdWkKNi3Ii+PBo=;
-	b=W2mXUN707k82AUH2QHGYdoxy5hmYqTLN8TGONbTU2+V7oi/EpSWlxYXn17e7WUUwRY28
-	 ugSJ9n6rxYO1kij5t8opwdahErTO4WIq6wXB7ss+/TeGrUCFSG6g05TnO5WbA/zq7sdpN
-	 e08Im58uWLR+BKDED1mvw5rFHFumFNvLJTxrx+KGIOl6xXrS3IaaOyBTqh7nemcpE8kU3
-	 TDLaU8rwiKQLoiTOdKEFSLn9/gp0ScedP3Cd6vyaB+Uze3gbxSqKk2hYfdWmsJ1KajLjd
-	 VhCNci3i1/xKhR5zkHnQya+H3m0G01Wa+TUC/0isZivZRY59pk9tkvAix4t5XVG6J/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793077350;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
+	b=T/67yXHOyQqRisQ3qF4REFfrNXFq16xIDfrBXTbeC8namv5Z4M2ZsVoUEjtA9NoOf8+x
+	 iELzbZpQTfs1jTFwJ9DVAyeGKGL0AUh7Yjx2j0PHvyVeelrUo2e/NFgbQAvHdO25/yYwY
+	 32kb3R6S7ufia6FYVkkuLYAUmECAJEITPxF1a7Wzps6Dr4Wt5zIriecSiXUOTM++pYAT5
+	 kmy0QXXBrMuErOmw3loqWpokbt0R2LaFQK773S12niYgRoup7nqv1gSOfzDqLRbg0oM0r
+	 kATTv/IJrfWqpvq6ZjjW+zTRj93DYYvhvb2G7FhwjqLbBTf4KxWBgZDwzpc+DgHRvIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e7D1ZRG+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UTgGJxnc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c5XSdy4z;
+	arc=none smtp.remote-ip=74.125.82.67
+Received: from mail-dl1-f67.google.com (mail-dl1-f67.google.com [74.125.82.67])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E1C606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:01:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38E1C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DF5606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26DF5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=e7D1ZRG+;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UTgGJxnc
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R2G5gw4156282
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:01:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CNVazNkHHRfKjH0wJMdsqtIhNk3xkQdWkKNi3Ii+PBo=; b=e7D1ZRG+pPsHx+ak
-	8nq/yggaKNcYmzTdzKHtDn8VvTWqlVWZK3Q8YaYnrbFtUnXtsVURq7yqeLHbIGrk
-	dJIbP77yGJ7dhDHXkoWfoSdEZ+u8jUTw6qTHo8eqsc6N7TPZtTUrxDrOi0OhQDnq
-	p3KRhdbl1AdmmXTWD3YiJc71aGPxBq5cqKL7M3sT4RceUDC/Rl+hjRoKe9x3OH0B
-	mrhL8rySkmj8WdBjEv6DutyRLOrNYPgfmH9sNuOLARhw0PPwok96vq2BwkBLedeA
-	hreYCGwIZyjZS0jogoPMGgUBEjmf5Efzl8a76Z7824sIarfoiiZShW4myq0IJlLs
-	Cf1Q1g==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj3u641mj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:01:13 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a073778890so2774350b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:01:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=c5XSdy4z
+Received: by mail-dl1-f67.google.com with SMTP id a92af1059eb24-1438d9363fbso601578c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:02:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793077273; x=1793682073; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CNVazNkHHRfKjH0wJMdsqtIhNk3xkQdWkKNi3Ii+PBo=;
-        b=UTgGJxnctTPKkdhrbF3T0geupgfNhUrb958yzPquP4CBrPxOUoEayU7HZB8urs0MJU
-         644dHYevdjKJ5iHur/X1fnGsaHbeO23MsfPHCrjLLYbYcPEDldAGJYD22vEHF4D3I1IY
-         MOsvTeeE3IX0+LJyfQJ1e45GiUE6B5OnT7AeplEenmY+0EnH6QTYTyb5g7cXOTvh6Jp8
-         ZHBsJzb0ovdDqYFoO3a9AiyIRwfEuFKTL5HvB3wn/inm7wcSbpbUAdfih2bQRMD2/8c3
-         Qeh6a4D2p3z1ssunrU2TTpHJCV4Qk25yPRkidehibLKFeO2QDWI4nGCrXSJQImFgy2xO
-         /vsw==
+        d=gmail.com; s=20251104; t=1793077349; x=1793682149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
+        b=c5XSdy4ztScAIiHgbPzGCVSJIwwkHGig0lgK23rWrPwg2l/EKPeyBzJ4Gk4qh1LNAI
+         MqpDU3M93ZSDM+ZfHyQTNPLIYH7LKE6PTt6HVbeNcuEYx91FkUq3yXneMCsmRLiYZyhk
+         COvqB26ApyfjUcwF4LFaatMeEEo8DskjXHgjAbZ1c4pF2HSwBqpsYIherHx/ZA5Qpyto
+         59XFgop9BtU2vW5DsMfa4F4kmX/QOuT6surKOluEPqHhb6F7/B/AaksXrGCW/u/Lfzmg
+         pONuPLkyFV2rhOkOmDTHeBv1j29LBBawuHyOHuKvN8USegNEiNFStaFRuMu8BYEzFllU
+         cipQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793077273; x=1793682073;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793077349; x=1793682149;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CNVazNkHHRfKjH0wJMdsqtIhNk3xkQdWkKNi3Ii+PBo=;
-        b=TRhYxlMD34cgAdIIJ4qnRXDD6kQlfrUb5JWGN0cI0/dbvvGG8zmIxKH7VGpQk6dpuN
-         hYIR3ULo+/j5H5T15+rLH2l3Tfv2Fe+y9zhLf8yusZ8/w/VSScAQSEWx1gHh1Gi+ULjk
-         UKB/S/2ncOAHA42KtsxcALsNmF5l8h2vLjg8wHt/FZVICfHxoc5D3WaRct8sgQHWGiZ6
-         agmsOAGLYS4IwXzwpiCCcujOnqM8mmZ1PlCiDHrOF7dXskYahjNPU3q7WkOKZTW9ICWs
-         KXu07L93NexYy1eGX2smCL47h9vkkBk5mBFRL3WQZZpeVvW5103qa/ZNOjPJSoptFbgQ
-         XCCg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9GwRFzTK/wxSwRBAbZJ3Ih8ZwwdezwIHZBNpNJIpnRat1e5zs2Wz1qwXvidtBdgcxgYYfAXQhNyIaTdE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7NNnBjo6P9J1PR2IUF5v8KBJmPHxsmEIY7zRqplhl3qGmyWr6
-	su58xLWOJxehZCkVM2Tyy42fQGNdk3Cxd0COlAC4UsYlwuVhN+AOeL3jabsB8NsO+cQpuOi2l0r
-	nN5+yiGmHcNlwkpOlU51qiqh6nLynpZ/rCooCA2D380z87Ut2Pf3kSPRSd95rlydiCRY=
-X-Gm-Gg: AYBFou0OZaSXYYQa5GYQ9uLoMkkHownh7+2klMOeko0kqAaaVYvi6hDZEpfNLJ0lyaS
-	UGFd8SOkgRsIjAw/pvydayuT5fWH+sUyLXhYJl2qRMrVDdxv0TtvVoPP+1LfevUyoI4kZ8jQAsi
-	C9BJHILT8lMC7zjFGYF9qxYqETw0d/hoqoAB3Mhe8QONUhKqnCepMGsHWj8ZrG6gNETy65y+tKa
-	jOaMQIaQjFipGEulhbKtnSFoNNZ5pwmD/ATvcygkkByvA2N27wiEU4oXCzx0Bvp9Y26i6b1fMYW
-	+2HasHy+UOguQBRBUdaVlc1zSL0tWoEchw6IT+OvgZ6x4adMzHV9qDeWCe952TPY7r8SrAv4wjK
-	xoHKMneVJBrwPMA1L44ufKdAXS3mr
-X-Received: by 2002:a05:6a00:3a1c:b0:899:465d:c8ef with SMTP id d2e1a72fcca58-8a367a36a4cmr6659100b3a.14.1793077272482;
-        Mon, 26 Oct 2026 22:01:12 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3a1c:b0:899:465d:c8ef with SMTP id d2e1a72fcca58-8a367a36a4cmr6659079b3a.14.1793077271734;
-        Mon, 26 Oct 2026 22:01:11 -0700 (PDT)
-Received: from [10.217.219.145] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36bf0f4dcsm1841090b3a.44.2026.10.26.22.01.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 22:01:11 -0700 (PDT)
-Message-ID: <19ad3b05-bec5-4376-9f90-b233d1e1b2c4@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 10:31:06 +0530
+        bh=yzZEC/TrZrxGucG9Xp1MOjisRqHlcLyLSCjwMz8NQVc=;
+        b=vlh5ioyFC7vO7IPV6nxDZJwYC6mmWHdXErV8d4Ze3w6xZ4gIaW7Wnh++/NJV7rOV0j
+         Q8tCf73syaxUJMHN4KowNjGDcD667W2UG+oXBuM6qvy8B2Vg9f0U07CAPmkFyTr0j5YQ
+         AGR2ekwmSSHig2sSO9ggg36WfbiOCus+XaCbiIyPCyDHAFewMzr1La2JyBA6cl0nUAAP
+         HW+CZROBq1C+VkQxtlTDVhBNlg2+vLAq1daH0FG+pymbeclY/waysqLJu784Yx1qZdeR
+         tOCsFT/CrGSnDbEP370jpOBAmX9AotkyNtRUEMj4qP/J2TxL7hQeL7rRBhQbawE6D6uk
+         jxtg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7H62IgCxxN/g1SE8NkL03/fv71v0+tQETUzSOPJBx+f+9k4AehbqaC47Auq6k/WKAtPXcQz0s2M16cSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAN0joZ0gU5z3aH+lLzQwkjxQmz2Zaxx8ZSbEX2RG+IltXllPK
+	Rxg5zllWmGLQ2WnPyMPA0S/9raCgy1lMLwqR2kayyajViEHedHGJVi+C
+X-Gm-Gg: AYBFou3Tgpc3p0bLvRobF6jyzjde4kGLwk78Ev0gp98c2rSrlm1OhrkLvPO0Arsl5dK
+	lEZkCP1dfa6bUspggMzu9JpEJxV7xinFirlGyAdgBK5rLJEVmn7jVSlQvuhHf/autigaBLEAkPJ
+	AIrJaXE76wRMCKvTKUdpGLs1sipC85sOTA7cg9BnnGt+QS4s8KWGScn2bjDp64ECEtSTZtApPgK
+	Y84HMoi1rDgj9eEwlAdcsBlBcDrhiHjkcEqatybC2VWOqjxBFz4VZRjjGEs7VWsbTLIfG/eu7EW
+	J+YWnyJ/xtk6V5YNe4gHXXXF2+/Mzsr8fEg/soJ3jogk5YCwqjwEUNWJ/9mq+FCfPqWAIQ/KhZg
+	qTjWFosi6o74tKkI0CweYfWR8GRryKu03SLujPoggTcLu6f8/V9OboNGz0NpLo6yYJexeVO4Gie
+	6njddltnX3BmsX5OEdzvIME+cPIF4OKkZE7/V+VppGlI6DUTo1nzMeshbW6in9uuMSJQAPAwVDi
+	LYgkpI5wzkEmlH8MnJhJEQSvzH2yRD0DiVRrCeaoFsRwg0kJDHP0TBNVO3BvsVTL2u8UdDWd4cO
+	kAMF/bxWtandZKqo
+X-Received: by 2002:a05:701b:4505:10b0:15b:1959:15e0 with SMTP id a92af1059eb24-1a3c76669abmr2075046c88.4.1793077348863;
+        Mon, 26 Oct 2026 22:02:28 -0700 (PDT)
+Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a020df20sm35374587c88.6.2026.10.26.22.02.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 22:02:28 -0700 (PDT)
+From: Yao Yiqi <yyaqia@gmail.com>
+To: deller@gmx.de,
+	tzimmermann@suse.de,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	yaoyiqi3@huawei.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] fbcon: Avoid cancel_delayed_work_sync() in atomic context
+Date: Tue, 27 Oct 2026 13:02:15 +0800
+Message-ID: <20261027050215.612762-1-yyaqia@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,202 +99,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: dwc3: qcom: Restore UTMI PIPE clock on resume
-To: Filippo Falezza <effeffe99@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-References: <20261027-dwc3-utmi-resume-v1-1-ca9f0aa65783@gmail.com>
-Content-Language: en-US
-From: Prashanth K <prashanth.k@oss.qualcomm.com>
-In-Reply-To: <20261027-dwc3-utmi-resume-v1-1-ca9f0aa65783@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: r2-SLtPnas9_AyGsDgGwecbTULNt08Pj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAxOSBTYWx0ZWRfX5piffFLURwb+
- 3OYOZuuTKRTJf67xhIYdqWJKLSh609PZvdFmD6bKKUEO9aJk9uSmAnaTvjLIENogbKnU/GyOLLx
- sPde7/+OFo2YCGTZAPPjJ8GvXsqm55ou6Du5IqVB67kIQKBaxs4Zax7ZzNwRUu7kM0uR0bo/p2T
- lyd2lu2Rjxtbnq/MIZjSiuzBj12T5+pEsl5RHToOXivbo0LQTQpyaQCuQsh5+k9Onhm7ZOs6oHn
- +ntu1/k741cObrlZN6FaE9bI1WbE3/rzxx3lyCOrcNNdZbYBOp8ZZ0wzsVOaHffq7SSMEeheTyG
- WRP5YTgv9mkYORaxFxZtyDKUnb/I8AmD72RZ9mpQ47UJw6RHIg4Eg8pQrjDlAAy3gGeWK+KEKgt
- iOuXH9dpYdOCsez+eTgqil9VYc8D4h4VdSMZ9DKirs2H9oU6ubMOR88hJFrB5IFioC4vBZf2kat
- 45ys8qTKjroY+BmX9Nw==
-X-Proofpoint-ORIG-GUID: r2-SLtPnas9_AyGsDgGwecbTULNt08Pj
-X-Authority-Analysis: v=2.4 cv=K823jCWI c=1 sm=1 tr=0 ts=6ae03019 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=pGLkceISAAAA:8 a=Fk9T1Wms1UAi6vkAl3UA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAxOSBTYWx0ZWRfX9CH1HaIDNZyN
- sNtEcUmVbhzPjrVOxk9O5iuM0NbmhHh1WzuAiIBXgIb4OXeRhYDqfeoI11diWmN8KftI83pfNba
- JRXHP3e8fZ1YaWbfi24azgTRYWHweQg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 clxscore=1015 impostorscore=0
- lowpriorityscore=0 malwarescore=0 suspectscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270019
+Content-Transfer-Encoding: 8bit
 
+From: Yao Yiqi <yaoyiqi3@huawei.com>
 
+fbcon_cursor() can be reached from the console printing path, which runs
+in atomic context. When the VT software cursor is enabled
+(vc_cursor_type & CUR_SW), it calls fbcon_del_cursor_work(), which uses
+cancel_delayed_work_sync() and therefore may sleep.
 
-On 10/27/2026 6:51 AM, Filippo Falezza wrote:
-> Boards whose controller has no SuperSpeed PHY set
-> qcom,select-utmi-as-pipe-clk, and the glue then programs QSCRATCH
-> GENERAL_CFG so that the core's PIPE clock domain runs from the UTMI
-> clock. This is only done at probe.
-> 
-> When the SoC reaches its deepest state in suspend-to-idle (CX power
-> collapse), the QSCRATCH registers lose their contents. On resume the
-> core is reinitialised with its PIPE domain unclocked, and the gadget
-> does not come back:
-> 
->   dwc3-qcom a600000.usb: failed to enable ep0out
-> 
-> The link stays down until the driver is unbound and bound again.
-> 
-> Remember the property at probe and select the UTMI clock again in
-> dwc3_qcom_resume(), after the clocks and interconnect paths are enabled
-> and before the core is resumed. Move dwc3_qcom_select_utmi_clk() up so
-> that it is defined before its new caller.
-> 
-> Fixes: a4333c3a6ba9 ("usb: dwc3: Add Qualcomm DWC3 glue driver")
-> Signed-off-by: Filippo Falezza <effeffe99@gmail.com>
-> ---
-> Hello there,
-> 
-> this fixes USB peripheral mode after suspend on a Motorola Moto G 5G
-> Plus (SM7250), a phone with a USB 2.0-only port that I'm bringing up on
-> mainline. Its controller needs qcom,select-utmi-as-pipe-clk. The first
-> s2idle that reached CX power collapse broke the gadget: "failed to
-> enable ep0out" on resume, and USB networking stayed down until I
-> rebound dwc3-qcom by hand. Rebinding works because probe programs
-> GENERAL_CFG again, which is what this patch does in the resume path.
-> 
-> With the patch, the gadget (NCM plus ACM) reconnects after s2idle, and
-> the SSH session over the cable that I use for testing survives
-> suspend; the phone has run with it on linux-next since 11 October.
-> The other boards that use
-> qcom,select-utmi-as-pipe-clk should benefit as well, but I have only
-> tested this one, in peripheral mode. The legacy glue driver
-> (dwc3-qcom-legacy.c) has the same probe-only programming; I left it
-> alone because I can't test it.
-> 
-> The patch is on top of usb-linus (6b4b543fa187) and builds with W=1 for
-> arm64.
-> 
-> I wrote this patch and drafted this note with the help of an AI coding
-> assistant (Claude Code). The testing above is on the phone.
-> 
+With CONFIG_DEBUG_ATOMIC_SLEEP enabled, the following is reported:
 
-The patch looks good to me, did you test this with host mode and RT
-suspend/resume?
+  BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
+  in_atomic(): 1, irqs_disabled(): 1, non_block: 0
+  ...
+  __cancel_work_sync
+  fbcon_del_cursor_work
+  fbcon_cursor
+  hide_cursor
+  vt_console_print
+  console_unlock
+  ...
 
-> Thanks,
-> Filippo
-> ---
->  drivers/usb/dwc3/dwc3-qcom.c | 45 +++++++++++++++++++++++++++-----------------
->  1 file changed, 28 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index ac68b4218b56..6334ca7ba30f 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
-> @@ -81,6 +81,7 @@ struct dwc3_qcom {
->  	enum usb_dr_mode	mode;
->  	bool			is_suspended;
->  	bool			pm_suspended;
-> +	bool			utmi_as_pipe_clk;
->  	struct icc_path		*icc_path_ddr;
->  	struct icc_path		*icc_path_apps;
->  
-> @@ -335,6 +336,23 @@ static void dwc3_qcom_enable_interrupts(struct dwc3_qcom *qcom)
->  		dwc3_qcom_enable_port_interrupts(&qcom->ports[i]);
->  }
->  
-> +static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom)
-> +{
-> +	/* Configure dwc3 to use UTMI clock as PIPE clock not present */
-> +	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-> +			  PIPE_UTMI_CLK_DIS);
-> +
-> +	usleep_range(100, 1000);
-> +
-> +	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-> +			  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
-> +
-> +	usleep_range(100, 1000);
-> +
-> +	dwc3_qcom_clrbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-> +			  PIPE_UTMI_CLK_DIS);
-> +}
-> +
->  static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
->  {
->  	u32 val;
-> @@ -388,6 +406,15 @@ static int dwc3_qcom_resume(struct dwc3_qcom *qcom, bool wakeup)
->  	if (ret)
->  		dev_warn(qcom->dev, "failed to enable interconnect: %d\n", ret);
->  
-> +	/*
-> +	 * The QSCRATCH registers lose their state when the controller's power
-> +	 * domain is collapsed during system suspend: select the UTMI clock
-> +	 * for the PIPE domain again, or the core can't run without a PIPE
-> +	 * clock ("failed to enable ep0out").
-> +	 */
-> +	if (qcom->utmi_as_pipe_clk)
-> +		dwc3_qcom_select_utmi_clk(qcom);
-> +
->  	/* Clear existing events from PHY related to L2 in/out */
->  	for (i = 0; i < qcom->num_ports; i++) {
->  		dwc3_qcom_setbits(qcom->qscratch_base,
-> @@ -419,23 +446,6 @@ static irqreturn_t qcom_dwc3_resume_irq(int irq, void *data)
->  	return IRQ_HANDLED;
->  }
->  
-> -static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom)
-> -{
-> -	/* Configure dwc3 to use UTMI clock as PIPE clock not present */
-> -	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-> -			  PIPE_UTMI_CLK_DIS);
-> -
-> -	usleep_range(100, 1000);
-> -
-> -	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-> -			  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
-> -
-> -	usleep_range(100, 1000);
-> -
-> -	dwc3_qcom_clrbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
-> -			  PIPE_UTMI_CLK_DIS);
-> -}
-> -
->  static int dwc3_qcom_request_irq(struct dwc3_qcom *qcom, int irq,
->  				 const char *name)
->  {
-> @@ -680,6 +690,7 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
->  	 */
->  	ignore_pipe_clk = device_property_read_bool(dev,
->  				"qcom,select-utmi-as-pipe-clk");
+Make the default helper safe: fbcon_del_cursor_work() only stops
+blinking, using cancel_delayed_work(), which is allowed in any context.
+Every "stop blinking" call site keeps using it, including fbcon_cursor().
+Only fbcon_release(), which is about to free @par and must ensure that no
+callback is still using it, calls the separate
+fbcon_del_cursor_work_sync(). New call sites therefore get the safe
+variant by default.
 
-Minor nit, You can use directly qcom->utmi_as_pipe_clk instead of
-ignore_pipe_clk.
+cancel_delayed_work() does not wait for a callback that is already
+running. Since fb_flashcursor() re-arms itself, a callback that has
+already been dequeued by process_one_work() can queue the work again
+after fbcon_del_cursor_work() returns. Add a cursor_blink_on flag to
+struct fbcon_par: fbcon_add_cursor_work() sets it, fbcon_del_cursor_work()
+clears it, and fb_flashcursor() checks it after taking console_lock and
+returns without drawing or re-arming once blinking has been stopped.
+Keep the requeue inside the console_lock section so that the flag check
+and the requeue are not split by a concurrent stop.
 
-> +	qcom->utmi_as_pipe_clk = ignore_pipe_clk;
->  	if (ignore_pipe_clk)
->  		dwc3_qcom_select_utmi_clk(qcom);
->  
-> 
-> ---
-> base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
-> change-id: 20261027-dwc3-utmi-resume-5ff551b1ed1d
-> 
-> Best regards,
-> --  
-> Filippo Falezza <effeffe99@gmail.com>
+Fixes: 3b0fb6ab25dd ("fbcon: Use delayed work for cursor")
+Cc: stable@vger.kernel.org
+Assisted-by: Opencode:deepseek-v4.1-flash
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+---
+
+Changes in v3:
+- Add cursor_blink_on to struct fbcon_par so a callback that has already
+  been dequeued by process_one_work() cannot re-arm the work after
+  fbcon_del_cursor_work() has stopped blinking.
+- Keep the requeue inside console_lock so the flag check and the requeue
+  are atomic with the stop.
+
+Changes in v2:
+- Reworked per review (sashiko-AI): do not guess the context with
+  in_interrupt()/irqs_disabled().  fbcon_del_cursor_work() is now
+  non-synchronizing by default and therefore safe from any context;
+  fbcon_del_cursor_work_sync() is added for fbcon_release(), the only
+  path that frees @par and needs to drain the work.
+- Move the requeue in fb_flashcursor() under console_lock so a running
+  callback cannot re-arm the work after the non-synchronizing cancel.
+
+ drivers/video/fbdev/core/fbcon.c | 41 +++++++++++++++++++++++++++-----
+ drivers/video/fbdev/core/fbcon.h |  1 +
+ 2 files changed, 36 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 94abbb5ac766..0847dcf18416 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -410,7 +410,8 @@ static void fb_flashcursor(struct work_struct *work)
+ 	if (par->currcon != -1)
+ 		vc = vc_cons[par->currcon].d;
+ 
+-	if (!vc || !con_is_visible(vc) ||
++	if (!par->cursor_blink_on ||
++	    !vc || !con_is_visible(vc) ||
+ 	    fbcon_info_from_console(vc->vc_num) != info ||
+ 	    vc->vc_deccm != 1) {
+ 		console_unlock();
+@@ -422,25 +423,53 @@ static void fb_flashcursor(struct work_struct *work)
+ 	par->bitops->cursor(vc, info, enable,
+ 			    get_fg_color(vc, info, c),
+ 			    get_bg_color(vc, info, c));
+-	console_unlock();
+ 
++	/*
++	 * Re-arm under console_lock so that a concurrent
++	 * fbcon_del_cursor_work() cannot race with this requeue.
++	 */
+ 	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
+ 			   par->cur_blink_jiffies);
++	console_unlock();
+ }
+ 
+ static void fbcon_add_cursor_work(struct fb_info *info)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 
+-	if (fbcon_cursor_blink)
+-		queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
+-				   par->cur_blink_jiffies);
++	if (!fbcon_cursor_blink)
++		return;
++
++	par->cursor_blink_on = true;
++	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
++			   par->cur_blink_jiffies);
+ }
+ 
++/*
++ * Stop the cursor blink.
++ *
++ * Does not wait for a callback that is already running, so it is safe to
++ * call from any context.
++ *
++ * console_lock serializes this with the requeue in fb_flashcursor();
++ * otherwise a running callback could re-arm the work.
++ */
+ static void fbcon_del_cursor_work(struct fb_info *info)
+ {
+ 	struct fbcon_par *par = info->fbcon_par;
+ 
++	par->cursor_blink_on = false;
++	cancel_delayed_work(&par->cursor_work);
++}
++
++/*
++ * Stop the cursor blink and wait for a running callback to finish before
++ * @par is freed.  May sleep, only for teardown paths.
++ */
++static void fbcon_del_cursor_work_sync(struct fb_info *info)
++{
++	struct fbcon_par *par = info->fbcon_par;
++
+ 	cancel_delayed_work_sync(&par->cursor_work);
+ }
+ 
+@@ -765,7 +794,7 @@ static void fbcon_release(struct fb_info *info)
+ 	if (info->fbcon_par) {
+ 		struct fbcon_par *par = info->fbcon_par;
+ 
+-		fbcon_del_cursor_work(info);
++		fbcon_del_cursor_work_sync(info);
+ 		kfree(par->cursor_state.mask);
+ 		kfree(par->cursor_data);
+ 		kfree(par->cursor_src);
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index d93a89877d04..6a2f7f6e5a8c 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -97,6 +97,7 @@ struct fbcon_par {
+ 	int    blank_state;
+ 	int    graphics;
+ 	bool   initialized;
++	bool   cursor_blink_on;
+ 	int    rotate;
+ 	char  *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+-- 
+2.56.0
 
