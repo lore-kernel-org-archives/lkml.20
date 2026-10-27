@@ -1,97 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069212;
-	b=3NpOqsWCU0H1zSqWQo33PFlJSA37hlK1urQ95Zc9bjSDu4hXDpRq7zdFLCf9sR3VS5iH
-	 Pci2QqEGSDWbUa47aXEWr4InHzImQB3c8TpSQTJQw32e4MK7tWVVqN8aAdsOfjKO5zk4u
-	 c8Y9MZYHJoWHQrS4lFLfXbyT2eReeAMznd7oOFYjtYsIWMYBbujqN8LjwzbwJEq2dswCW
-	 E4/mn9ox6gQGqVGPnrz5rg+SPGQnq7N++TIlVijCc+rTF9pHWDRPv0V74ed/Um7w2R65c
-	 h7l3SY2c2Wg9D4umVJ8FUvnKf5PughijXUTDArnO3mS9G/STseY+mWNZxNGo4lXxKAA==
+	t=1793069211;
+	b=Fe9X9qHsllKTdxEvshEnBbY2hT50nkFZkgpalRTn0Wqv6PpsA6s5ZGCn5P2XyEp7PBY4
+	 LRQLNw3Dl6e5kI3i246IbRIm1sYX9CAwP8V6IkN25KbgsMg5TssImtKEEyQRC6M5A+YYw
+	 U/VQi9m5wBPZWWioy0+LzZ6krRaqyvRdJXhZcT8H3OgWAzFxiRVYRZPdf5s2zqwS14Eyb
+	 TuBZyIB+DmHKNYJjGuXT9B8F3gDC/aHeITmye4lzpvSgdY6aZx+FTh168wq95CizCB+Hy
+	 LhzPemEb64oSEQT4BxDR/XQomKCmQcsFdKN+3B97yAyxzzCjOsnEt6+UlxO5yZvuByg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069212;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=coxZgKrnJnZEH72/LrsRIXDbgDxnkuCnDoogWLb7pp8=;
-	b=3uUYSddnNXPntSBN9aEc/LOrgkIevXPJlqKlIT5FJ1B+Q6i4sRKQtYUU+LZwEyv0jLYn
-	 uOYMJSoN23GgMcoaPex1BzzgI8RbIP4SOEZGhnL9fHKnQnbK6NhNY5Gd9ZiU4IJUF+pwA
-	 kQ2soOmhyVnqwOgg+15wPaFkfoz0IaCEnY9oK8KEJMCA2EnhVkkLNdy6GM3Ze27cYu3Dk
-	 Jrq23R+viUfneWXIOkZFCYj5d74FocggIQMPQZ0R5Ht4i84Q40Jg6+7GbFXNOf4JqU6QE
-	 +HVFER44TKlhN4ilgkE8Dms6czh9bBS9+a4azrG/cIopigomGyOKkB6auyXKZOkc1HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069211;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=tJccXRA73KxCPHa334RsjIMd6gOUDXrizq4EVOM7j+0=;
+	b=oFBG2W7n/UwAoHtvJHGwIlCyFkyBkt46uBPcu7Hgpo4cRNALDWoWN0ZS4rCB+EWsyK4L
+	 oLw++u1M4K7oCjFdA4DsBgffeP/2mLYQWEpKmKsEaoeeYYzJ1juGvLZGdGg4DRaLaXW/N
+	 JjRIvlESg0l22XSZBcW1l70cVI1/NmCsdOymk3fhvcEKkHYUA/3M6tXdHfna3YZa8+c22
+	 fpOAdmTGknKirCvBZ0DvqweM9TDjOXMUJMJf+R/Lq7aaYomlDoY670kr4qyEh70w9Cno7
+	 Gcc65cW77T974nNefzPj8QmiumC1w3cAzuRbj1nQ4/yP5GJUt76AfZVc2Y8EolaPssw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=PoGEn+ZS;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3963606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3963606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=PoGEn+ZS
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36661f953e4so6782818eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:46:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1793069210; x=1793674010; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=coxZgKrnJnZEH72/LrsRIXDbgDxnkuCnDoogWLb7pp8=;
-        b=PoGEn+ZSZSHDcDU74OOAemtouk8b4YJ9w2+w1DghVB1lN/xfW4sEfZhlHJXZJWBraK
-         VA1IN5HWxRLkwkoy+HKDS5QhtB4txJqBv38G+pSv5t4WWR1TdrjGxDSG0RlJHI6vvxvi
-         DJmUWCYMYTIkrgNCaZFXgNigmDIgxagI6n8ruIP5k5qoLyp6tEPqKUXnJPr64E7cY6aF
-         QlEgLmadeZLMq2DceW3moY/ZWuJk/TVxUfEK5dbSvwoqLtUba/DSoEm+wFCVDM3CPJ90
-         0V48qIdp/en3GSZVyKTmjzgb4PFDLIGrc5r8mPET2kkFxGOwj2qRQ6ZW96Tj3UK5mTa2
-         bQsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069210; x=1793674010;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=coxZgKrnJnZEH72/LrsRIXDbgDxnkuCnDoogWLb7pp8=;
-        b=gm1ply6zP/rBJ511uFNRNwq5f7nFJCDUYTwa1Z1HGUxr16Bpkvixa0wYqE+ppVWEhd
-         3KOWs3ZGAgTGYos+56OASbJ7JxVgYFsKepurDBFzd9AObhzI04ifnb+FEDoIGGr0ZG+B
-         dw7joP2iD41hY8ZFanEM3YeLm/SSXRtQDqizM+CkaknV8gwJwFJt7RsNycVu0me0/XVZ
-         iQOSSvMzgsfIba5BYOflWz7VS9sAO9ebVxwi4xuLEPN4PvYjXA43ulwvr9BP4cD0XBO/
-         p8aIHrr5j1hAkEVr6vtI3zGJnWknjq3OCiTlyejyjn0x6zDmX6D1aQu35P7/fOqdRZoI
-         P3LQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzUNlpNkjjCEffrKMG+KPbiqdBQgynLWfTKjrclnIG1m7jWO4JygiNPDbdURklScXPPI1APiYg+zpJM9lI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK4gcVpetYAzNxZuiTTB0caUDh9cb/DKeq/o5s052qn//x3mdm
-	Rm3TYXiQ5tGRoO9rrT9kxyN818GhMuisVJa4KPlwXTyXksTPQCFcWRUVUQ3hdsYHSShWEgM7Vqx
-	fj1rB9Q==
-X-Gm-Gg: AYBFou27mNV0m3QiLlaIRpvc2L8OsFqLi3bw/jbkYbZyURjSepsTZpj6HUTt7+smBO3
-	3aHYbSCps3WglhTyXrPVxw9CdRwV1cuZ96C3hT1SPyxJ0Zea+lcsa5RvsBwOfvQip4U0WjSOaG1
-	xZbQOptC5yzmq/qWW4e7pBHnmqf8rofPxYk3grBlfe5Od4yI6Mf9vyWlsxwESohGsNz3Utyn1j5
-	g19fzn+MxqyvXfticIvwqdZbhj6gKfDLvjlyKCubn/PbB0ZUPjdOxh0I6AzqstnKZ2u2ff9giz5
-	PCNdTqxJDiLknARcLu+W/cMFV9/mZTP5dGbB/OM/Kr4l0tpXZDy1Q3NT85VqPKB4ihoKhh2BovJ
-	pC5VcRUfRC3723iSvOJA5PppXiqanEyQmRkERlnXhTv9fUJ6s2qtuAl9FplmKfLcBbwzZUyZU2a
-	+snLhusLNsEQx4AIyddMzepXT7ri9fCXxEXdaotDFkvQb7Rk9pinh+1qmN77vAzaJJ4W+O8piJW
-	SweXLuxkdl7+ko7UvLjYFP5EF0u1/NiNgqzRarDWbk9UwaFkf71Nse8kv/+IRPv8H1hqF3FTsH9
-	ZcK3HmOArd7zDID5IpEunc1MB9eYFHo=
-X-Received: by 2002:a05:7301:1694:b0:368:da6c:4fb6 with SMTP id 5a478bee46e88-369e84ba936mr17506180eec.18.1793069209838;
-        Mon, 26 Oct 2026 19:46:49 -0700 (PDT)
-Received: from prasad-b546768-0.sjc.aristanetworks.com ([74.123.28.12])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8d8a690sm28967702eec.12.2026.10.26.19.46.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:46:49 -0700 (PDT)
-From: Prasad Koya <prasad@arista.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	prasad@arista.com
-Subject: [PATCH net] macvlan: fix allmulti reference counting in passthru mode
-Date: Mon, 26 Oct 2026 19:46:35 -0700
-Message-ID: <20261027024635.366900-1-prasad@arista.com>
-X-Mailer: git-send-email 2.51.0
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60843606A31D;
+	Tue, 27 Oct 2026 02:46:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60843606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.102])
+	by gateway (Coremail) with SMTP id _____8Cx_9KXEOBqy60ZAA--.9213S3;
+	Tue, 27 Oct 2026 10:46:47 +0800 (CST)
+Received: from [127.0.0.1] (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJAx2c2UEOBqy4cwAA--.36117S2;
+	Tue, 27 Oct 2026 10:46:46 +0800 (CST)
+Message-ID: <33132214-21cc-4ea8-9eb4-022ecd0659c4@loongson.cn>
+Date: Tue, 27 Oct 2026 10:43:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,86 +45,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/28] mfd: loongson-se: Zero-allocate driver data and
+ initialise engine completions in probe
+To: Lee Jones <lee@kernel.org>
+Cc: Yinggang Gu <guyinggang@loongson.cn>, Huacai Chen
+ <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-18-lee@kernel.org>
+Content-Language: en-US
+From: Qunqin Zhao <zhaoqunqin@loongson.cn>
+In-Reply-To: <20261021121245.3111563-18-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx2c2UEOBqy4cwAA--.36117S2
+X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7CrW7tr43WF48Wr4fZrWrJFc_yoW8tr13pr
+	sxua4jkr45tr409an8JryUuFyY934ftrW7Ca9xtw40yr1DJ3s2gFy5KFyUWFWDArWDGF12
+	qFykKa1rua1FkrcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUyCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j83kZUUUUU=
 
-Enabling allmulticast on a down passthru macvlan, bringing it up,
-then toggling allmulticast off and on can underflow the lower device's
-allmulti reference count.
 
-macvlan_change_rx_flags() only propagates IFF_ALLMULTI changes while
-the macvlan is up. However, the passthru path in macvlan_open() skips
-taking an allmulti reference when IFF_ALLMULTI is already set.
-Clearing allmulticast after opening the device therefore decrements
-a reference that was never taken. With no other allmulti users, the
-unsigned counter wraps from zero to UINT_MAX. The next increment
-fails with -EOVERFLOW and reports "allmulti touches roof".
+在 2026/10/21 20:09, Lee Jones 写道:
+> loongson_se_probe() allocates struct loongson_se using devm_kmalloc(),
+> leaving the se->engines array uninitialised until child MFD drivers
+> later invoke loongson_se_init_engine().  Meanwhile, hardware interrupts
+> are unmasked and se_irq_handler() is registered during probe.  Any
+> engine interrupt arriving before loongson_se_init_engine() runs causes
+> se_irq_handler() to call complete() on an uninitialised completion
+> structure.
+>
+> Allocate struct loongson_se with devm_kzalloc() and initialise all
+> engine completion structures in loongson_se_probe() before registering
+> interrupt handlers.
+>
+> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+> Closes: https://sashiko.dev/#/bug/linux-ad9310d7-13b2-4a4a-ad7d-78a4c612c78c
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-Signed-off-by: Prasad Koya <prasad@arista.com>
----
-Reproducer:
+Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
 
-  #!/bin/bash
-  set -euo pipefail
+Thanks for fixing this!
 
-  ns=allmulti-test
-  host=am-veth0
-  peer=am-veth1
-  mv=am-mv0
 
-  cleanup()
-  {
-      ip netns del "$ns" 2>/dev/null || true
-  }
-  trap cleanup EXIT
+Best Regards,
 
-  ip netns add "$ns"
-  ip link add "$host" type veth peer name "$peer"
-  ip link set "$peer" netns "$ns"
+Qunqin.
 
-  ip link set "$host" up
-  ip -n "$ns" link set lo up
-  ip -n "$ns" link set "$peer" up
-
-  ip -n "$ns" link add link "$peer" name "$mv" type macvlan mode passthru
-
-  ip -n "$ns" link set dev "$mv" allmulticast on
-  ip -n "$ns" link set dev "$mv" up
-  ip -n "$ns" link set dev "$mv" allmulticast off
-  ip -n "$ns" link set dev "$mv" allmulticast on
-
- drivers/net/macvlan.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-index afad90b9222a..e20d587453d1 100644
---- a/drivers/net/macvlan.c
-+++ b/drivers/net/macvlan.c
-@@ -643,6 +643,14 @@ static int macvlan_open(struct net_device *dev)
- 			if (err < 0)
- 				goto out;
- 		}
-+		if (dev->flags & IFF_ALLMULTI) {
-+			err = dev_set_allmulti(lowerdev, 1);
-+			if (err < 0) {
-+				if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
-+					dev_set_promiscuity(lowerdev, -1);
-+				goto out;
-+			}
-+		}
- 		goto hash_add;
- 	}
- 
-@@ -713,6 +721,8 @@ static int macvlan_stop(struct net_device *dev)
- 	dev_mc_unsync(lowerdev, dev);
- 
- 	if (macvlan_passthru(vlan->port)) {
-+		if (dev->flags & IFF_ALLMULTI)
-+			dev_set_allmulti(lowerdev, -1);
- 		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
- 			dev_set_promiscuity(lowerdev, -1);
- 		goto hash_del;
-
-base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
--- 
-2.43.0
+> ---
+>  drivers/mfd/loongson-se.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
+> index 9b531e62fb85..187ebbed0422 100644
+> --- a/drivers/mfd/loongson-se.c
+> +++ b/drivers/mfd/loongson-se.c
+> @@ -106,7 +106,6 @@ struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
+>  
+>  	engine->se = se;
+>  	engine->id = id;
+> -	init_completion(&engine->completion);
+>  
+>  	/* Divide DMA memory equally among all engines */
+>  	engine->buffer_size = se->dmam_size / SE_ENGINE_MAX;
+> @@ -199,12 +198,14 @@ static int loongson_se_probe(struct platform_device *pdev)
+>  	int nr_irq, irq, err, i;
+>  	dma_addr_t paddr;
+>  
+> -	se = devm_kmalloc(dev, sizeof(*se), GFP_KERNEL);
+> +	se = devm_kzalloc(dev, sizeof(*se), GFP_KERNEL);
+>  	if (!se)
+>  		return -ENOMEM;
+>  
+>  	dev_set_drvdata(dev, se);
+>  	init_completion(&se->cmd_completion);
+> +	for (i = 0; i < SE_ENGINE_MAX; i++)
+> +		init_completion(&se->engines[i].completion);
+>  	spin_lock_init(&se->dev_lock);
+>  	mutex_init(&se->engine_init_lock);
+>  
 
