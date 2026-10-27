@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108556;
-	b=m5jZncln/rIpWDggAfZURD9u6/tw1NAZgsYtaLBcq2QvyB3d9UwtGzrgApzmsyjLHxnr
-	 jOIUpNdIEBiNjl4Zfp5DeD1J0jfjerYP8W52DGmfswH93LGq0iS2nN0kJrfGWDY0YGb2/
-	 UDuiJ/K7QnWymXqXApphYQEEsnbKG4euaLCRFuGDkG+nHhkMjebFVwwtppST8UhUdwpNd
-	 Bqh/atxh6174IeIGQ6/tdstdv4dw/napEjWibQy48/R9eocxefEe7amADFa41KCV7mBSb
-	 t4lL2R6mzVBjf4GyDW1rO1AnMkbE636K7OcLkFeDen4t5VU/C6dlcKaZTDXd80++l8g==
+	t=1793108578;
+	b=NjliNRCCYA5EFtj/GdHai4lCf/47TNspaaBLZkasqEVfe4n6iwuOaCT8w3LzZg4CMYeI
+	 1+kVEIobpmVPnhAZSBhe4QhdLmY6z+QYyvEOdETPPA4VPz5J61pfqg8d3l4v90DkvMi2/
+	 iazt4sQTf9Cb0Epf8M/JfjIu510dwGdGvbPWdMgyFVAZ67VVPiaB3/xqr1TzozgxOj8Da
+	 bxQ94KFofVqD5VUsvuRW1d1Fm6idYke/HBA6cizryWqeu2vw8Wz32GuGr7Tt/SR1pwFBg
+	 c5ssYMD8fqYiDurEW5xyxb+o0YdMI1eQqgAT7hWX3sIZqXmx0RdohaOhe+9tOxqJHig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108556;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VOv2hj4TqzHbEep3nPGzgUbHv1sJOMyDv++GUr8JGyk=;
-	b=kv+0UgUu2EtSzLXmiTqeIlf6Y7RmUuUuojH9cD0LlRSWuuwTXWJfoFo6ohVXZci33Bra
-	 UVXOL+frupCS4KjkSWRxxGZfwlZwygQzjdhTZ2hai2dPTIhFcGj/4QdX6kPBVvhRiHnsS
-	 KFUzoSWzYD+mt178Sbjm+a7EHh98PgXtHa78IbuJVCq7vGv+Lo70ZZUswlW0t/bANFr09
-	 W3JcmurosjhqKpnCnjoU1KRVojQcVnkekAHQrRQfeuEETrRq1Zmp3uyjxuYoEN2Z1CqEY
-	 DXvY7BxWq9CM2KaXb4Do8LFGmx9Xvj8Qot9Un9nVvsOrMKnF0xhqv3wgvfTaKL3fIIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108578;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0+f6IJooHiQbF9wAyC4ax/+y1Gmk+/E4quNL5EJAkoQ=;
+	b=UmsMlh+nwZ61GDhMYH5tDmC77xyLkgoNSmn73Jz9c6+D6xoSk5K8KVm5M3ffnzrXfUkH
+	 qRYa5jhX2qV7gGqOk7kXI4GPkUKzpMg3jLZ1P4eLE3KmUx4yIK3R8NY5sN7JLF52tdfmW
+	 oVULAciIcbbi8e/n4QZzHyh/yqPbh9uLIJ6tQJs9nXdsSBCxRmdBZL0nMbS0/v3Gqdqdk
+	 PzixwuRYqzOFsG23GIHRLtRsqITw5HLCMBO/eTMH93QbO7QEzgyPtXZT3/oeJ2D83TfmN
+	 i3bSX9dWEo/Ds35452efVH1tYvAnr+A4O6c/8qXoq9OacafDiM72u3RYBd4BVXH6wZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J0BqDMIu;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O/cT7rN4";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED6E606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:42:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED6E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8429E606A31B;
+	Tue, 27 Oct 2026 13:42:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=J0BqDMIu
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so746429f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:42:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793108554; x=1793713354; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VOv2hj4TqzHbEep3nPGzgUbHv1sJOMyDv++GUr8JGyk=;
-        b=J0BqDMIuKcGFkQ15hjMJuYOaQ6ujmXm/YHH4R7te1jWudJwMM+XoDkHU4ivM6hUrAj
-         59XjzhHlXReepZQW0FuHb4x6Qx7EZWq9vqz46S65NOR1Jt6yfiUiTmdBPD8VoREJv34s
-         aSz/A+RnG2yhgVSWN/2+8BbethaO5y7B9KsYLXL6Wz7HIntCc9GGts/y9XP2wXgVr5cv
-         J0//Qsa5+OByrVqqN87/F3uGlxfdtT1QAWlisIIxhXgLQsFpGp86fUk6GwFURKMJSToo
-         hLIRXsRm/t3eeapb3MP/P+FjNCkGEIony60OEhwsSHDIklqM3ew5Bjn4Ybe0AQ9uBCSH
-         Y9kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793108554; x=1793713354;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VOv2hj4TqzHbEep3nPGzgUbHv1sJOMyDv++GUr8JGyk=;
-        b=Mgh3c/aZSvnLl6yCD9c9xNPmyFhz5845Mb5uK3xde8PtRg7oka7y+IZv3EX8G6UhFi
-         pRSe70MyAlIaRyjoV4H54y3GNpnEzj8aWgoVjMs6C/KjCmiUgtQxGyeI5oVBBQWG4yhF
-         f6yrrs9BJZ37Rqh/s4lvcLhPeIUC2jl70c/dUAngH2iBD2XQsdPbwpg9agoJC5X6L8M8
-         /5qEwjVjxhk96cIzw597CCCREoYbxBNqz+Ofn1PDYucVvoZxUJkLSSWFhTt+zFhxVySB
-         jCqWxWwWc7gSq5/8qGbljKQMd5o6fqFir7VvyjJ1CyF6NtVBxi2MG3Fl0pKUuXaMMTu3
-         PR9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy1RiYBHPUwT2AMD5OQ6im1CTjIp2m9xwoVFKPZbA/JGGG8bD3+5OEiA1YaGyrKtrb3Vi3VEq3mN21F2D4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwWPuClj/0oG5PR++cayP2jZuMCY+TCnyVOdME1/qSze8kA6I/
-	a/jfl2lBv3ssY2BH9JotBVVzO5z0aujQVR+rlYWfSSVXCo6+KK12H2PT
-X-Gm-Gg: AYBFou1qpX9k3I5VH/bDUclyPNYS+vTxjeBWAj2vD/7pSMFm8p0CTa0Qv589ZYxzvcW
-	O4w95TgJIcGeJArFJF+Yd+CMvV2SPhnBJ3xdgCQqCE8Axc+NbSMMBIpz950FEo5T83dyBg6J3Ko
-	FDShVfNkIny4Z2wi22/mkPDlfTQgcGVTjMBjQuhXuQ3uKRHnivaewopROfswI8rQMtI6K/r8spM
-	Q/AUy4CWjJGgPxPYH2CY+RfukCDumCvq71xOF5ZtJ9ZAgA6v0Ck2GecCkawRSAYc4GWcH9fMLd4
-	HQS48qBQhyNNkgOlulKYll2vIiK9ppjrOCm96V6THq4SWneQbivVRRoB1z1o59K+kR80vz4Oy99
-	8QIwAbRREeNYSgNQW7aLGrXpBbSKuLPFblJAfS9XBi2SDRlg3E5YNwiVNWsykTTGMasmX7G4K9h
-	IBE3VJFIkn3EYc9jEOTEEZmSVAzke5K+1oKZZVZ5vaHw0IuPwFN9WGPZp740ZqzGEew9hQlbR3+
-	4f4cF3Mnqv4B8wiBfA6eozT85+8G2MEa3K5UG2aUTOipzCBRoWJyLSpZFyaiiZRiLSPebRKotcJ
-	UxQObJAIC2S6raT1
-X-Received: by 2002:a05:600c:3c98:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a7c1c845a2mr60104605e9.16.1793108554418;
-        Tue, 27 Oct 2026 06:42:34 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm696126435e9.1.2026.10.27.06.42.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 06:42:34 -0700 (PDT)
-Date: Tue, 27 Oct 2026 13:42:33 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Claudiu
- Beznea <claudiu.beznea@tuxon.dev>, Nicolas Ferre
- <nicolas.ferre@microchip.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, linux-pwm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] pwm: atmel: Fix arithmetic overflows for long
- periods
-Message-ID: <20261027134233.3f1e030a@pumpkin>
-In-Reply-To: <20261027022755.52912-1-kmehltretter@gmail.com>
-References: <20261016161221.16553-1-kmehltretter@gmail.com>
-	<20261027022755.52912-1-kmehltretter@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O/cT7rN4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234691F01825;
+	Tue, 27 Oct 2026 13:42:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793108578;
+	bh=0+f6IJooHiQbF9wAyC4ax/+y1Gmk+/E4quNL5EJAkoQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O/cT7rN4J4QJA9+qKjooI/EO5er0turCIeVkTDeBg9nmgtchbI+fpxO9S6+r+oBWY
+	 LwmatZaw1QbMHP8ScOJ6R+l2fGSrhmt7f6UUvC43uiHkIJGDGGCW0OQjZcEIUQEPa2
+	 w142oOqbY6kYvnslUnzMN4PB88SswCTWpes66yGol6fQLmBbkQaxbQK69GdBHy5hRV
+	 glBMz2eRymovbjCzKL0DCgcuiVWEYF4wIngi0eCG9PplngO81D5jwjFqaadaqIhz3C
+	 3l+I0Do+I4H43SEQfhyQdeFO3NHr7grqnLgvsjGY/hUxovAgKOJx9ptbOi6w43lJzE
+	 qaE/Jiu8PIH2w==
+Message-ID: <38491041-d167-4ea1-8813-e75bd11cd10f@kernel.org>
+Date: Tue, 27 Oct 2026 14:42:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,201 +51,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/46] mm/memfd: check for real shmem inodes before
+ accessing shmem state
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-3-6f74bec9a5bb@kernel.org>
+ <auBdPOKXJpE-lX8d@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <auBdPOKXJpE-lX8d@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Tue, 27 Oct 2026 03:27:55 +0100
-Karl Mehltretter <kmehltretter@gmail.com> wrote:
+On 10/27/26 09:13, Mike Rapoport wrote:
+> On Tue, Oct 27, 2026 at 12:17:23AM +0100, David Hildenbrand (Arm) wrote:
+>> shmem_file() only checks a file's backing mapping. That mapping can belong
+>> to another file, as with a Coda file backed by a tmpfs container after
+>> mmap(). It does not establish that file_inode(file) is a shmem inode.
+>>
+>> Seal handling and memfd preservation use this check before accessing
+>> shmem inode state, so they can access an inode of the wrong type.
+>>
+>> Add file_inode_is_shmem() to check the inode's file operations in both
+>> paths. This identifies regular shmem inodes, including those used by
+>> memfds and ordinary tmpfs files, independently of wrapper file operations.
+>>
+>> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+>> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Chris Mason <mason@kernel.org>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> 
+> With a small nit below
+> 
+>> ---
+>>  include/linux/shmem_fs.h | 6 ++++++
+>>  mm/memfd.c               | 8 +++++---
+>>  mm/memfd_luo.c           | 2 +-
+>>  mm/shmem.c               | 5 +++++
+>>  4 files changed, 17 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+>> index a7c7a96a7cbf9..2ceca7993e4f5 100644
+>> --- a/include/linux/shmem_fs.h
+>> +++ b/include/linux/shmem_fs.h
+>> @@ -117,8 +117,14 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+>>  		unsigned long len, unsigned long pgoff, unsigned long flags);
+>>  extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+>>  #ifdef CONFIG_SHMEM
+>> +bool file_inode_is_shmem(const struct inode *inode);
+> 
+> Do we really need the file_ prefix in this name?
 
-> atmel_pwm_calculate_cprd_and_pres() first multiplies the requested
-> period by the clock rate in a u64 and only then divides by
-> NSEC_PER_SEC. The product can overflow even when the quotient and the
-> resulting hardware configuration are representable.
->=20
-> For example, at 12 MHz a 1600 s period has 19.2 billion clock cycles
-> and fits with prescaler 3, but the intermediate product exceeds U64_MAX.
-> It wraps and the driver programs a period of about 62.8 s instead. This
-> remains broken after changing fls() to fls64(). The duty-cycle
-> calculation has the same overflow.
->=20
-> Use mul_u64_u64_div_u64() for both conversions and use fls64() when
-> deriving the prescaler. The multiply/divide result cannot overflow if
-> the clock rate is at most NSEC_PER_SEC, so hold the clock rate exclusive
-> and validate it at probe time.
->=20
-> The reverse conversion in atmel_pwm_get_state() can overflow too: it
-> multiplies CPRD or CDTY by NSEC_PER_SEC and then shifts the u64 by the
-> prescaler. Convert the scaled clock ticks with the overflow-safe,
-> round-up helper instead. Explicitly saturate values that cannot be
-> represented by the u64 nanosecond API, rather than relying on the
-> architecture-specific helper's quotient-overflow behaviour.
+Good point, I intuitively added it. Can drop.
 
-Personally I think mul_u64_u64_div_u64() should return ~0ull on both
-overflow and divide by zero.
-While a valid result, any code that expects it can pretty certainly
-also get 'a bit more' so including ~0ull in the 'overflow' values
-doesn't really do any harm.
-But someone insisted on in faulting - even though there has been
-a patch to x86-64 to recover from the fault.
+Thanks!
 
->=20
-> Fixes: a9d887dc1c60 ("pwm: Convert period and duty cycle to u64")
-> Cc: stable@vger.kernel.org
-> Reported-by: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org>
-> Link: https://lore.kernel.org/r/atnHHaOwTkI78_tc@monoceros
-> Suggested-by: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> Changes in v3:
-> - Use mul_u64_u64_div_u64() for the period conversion as suggested by
->   Uwe, and for the analogous duty-cycle conversion.
-> - Fix the corresponding overflow in the get_state() conversion and
->   explicitly saturate results that cannot be represented in nanoseconds.
-> - Hold the clock rate exclusive and validate the rate bound required by
->   the arithmetic.
-> - Rebase onto v7.3-rc7.
->=20
-> Testing:
-> - Built an ARM zImage with clang 22.1.8 and W=3D1.
-> - Passed 14 host boundary tests, 53 oracle-checked SAM9X75 QEMU boots,
->   and all 20 PWM device-model qtests.
-> - Passed 89/89 checks on a physical SAM9X75, including overflow cases.
->   A 69.175-second period measured 69.210 seconds between interrupts; no
->   kernel errors were found.
->=20
->  drivers/pwm/pwm-atmel.c | 46 +++++++++++++++++++++++++++++------------
->  1 file changed, 33 insertions(+), 13 deletions(-)
->=20
-> diff --git a/drivers/pwm/pwm-atmel.c b/drivers/pwm/pwm-atmel.c
-> index 86918523d8..db7a14c66a 100644
-> --- a/drivers/pwm/pwm-atmel.c
-> +++ b/drivers/pwm/pwm-atmel.c
-> @@ -23,6 +23,7 @@
->  #include <linux/delay.h>
->  #include <linux/err.h>
->  #include <linux/io.h>
-> +#include <linux/math64.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> @@ -183,19 +184,18 @@ static int atmel_pwm_calculate_cprd_and_pres(struct=
- pwm_chip *chip,
->  					     unsigned long *cprd, u32 *pres)
->  {
->  	struct atmel_pwm_chip *atmel_pwm =3D to_atmel_pwm_chip(chip);
-> -	unsigned long long cycles =3D state->period;
-> +	unsigned long long cycles;
->  	int shift;
-> =20
->  	/* Calculate the period cycles and prescale value */
-> -	cycles *=3D clkrate;
-> -	do_div(cycles, NSEC_PER_SEC);
-> +	cycles =3D mul_u64_u64_div_u64(state->period, clkrate, NSEC_PER_SEC);
-> =20
->  	/*
->  	 * The register for the period length is cfg.period_bits bits wide.
->  	 * So for each bit the number of clock cycles is wider divide the input
->  	 * clock frequency by two using pres and shift cprd accordingly.
->  	 */
-> -	shift =3D fls(cycles) - atmel_pwm->data->cfg.period_bits;
-> +	shift =3D fls64(cycles) - atmel_pwm->data->cfg.period_bits;
-> =20
->  	if (shift > PWM_MAX_PRES) {
->  		dev_err(pwmchip_parent(chip), "pres exceeds the maximum value\n");
-> @@ -218,12 +218,23 @@ static void atmel_pwm_calculate_cdty(const struct p=
-wm_state *state,
->  {
->  	unsigned long long cycles =3D state->duty_cycle;
-> =20
-> -	cycles *=3D clkrate;
-> -	do_div(cycles, NSEC_PER_SEC);
-> +	cycles =3D mul_u64_u64_div_u64(cycles, clkrate, NSEC_PER_SEC);
->  	cycles >>=3D pres;
-> +
->  	*cdty =3D cprd - cycles;
->  }
-> =20
-> +static u64 atmel_pwm_ticks_to_ns(u64 ticks, unsigned long rate)
-> +{
-> +	u64 max_ticks;
-> +
-> +	max_ticks =3D mul_u64_u64_div_u64(U64_MAX, rate, NSEC_PER_SEC);
-> +	if (ticks > max_ticks)
-> +		return U64_MAX;
-
-I'm not sure how often this is called, but it might be worth caching
-max_ticks during the probe.
-(and maybe even the clock rate itself - I doubt it can change.)
+-- 
+Cheers,
 
 David
-
-> +
-> +	return mul_u64_u64_div_u64_roundup(ticks, NSEC_PER_SEC, rate);
-> +}
-> +
->  static void atmel_pwm_update_cdty(struct pwm_chip *chip, struct pwm_devi=
-ce *pwm,
->  				  unsigned long cdty)
->  {
-> @@ -352,24 +363,22 @@ static int atmel_pwm_get_state(struct pwm_chip *chi=
-p, struct pwm_device *pwm,
->  	if (sr & (1 << pwm->hwpwm)) {
->  		unsigned long rate =3D clk_get_rate(atmel_pwm->clk);
->  		u32 cdty, cprd, pres;
-> -		u64 tmp;
-> +		u64 ticks;
-> =20
->  		pres =3D cmr & PWM_CMR_CPRE_MSK;
-> =20
->  		cprd =3D atmel_pwm_ch_readl(atmel_pwm, pwm->hwpwm,
->  					  atmel_pwm->data->regs.period);
-> -		tmp =3D (u64)cprd * NSEC_PER_SEC;
-> -		tmp <<=3D pres;
-> -		state->period =3D DIV64_U64_ROUND_UP(tmp, rate);
-> +		ticks =3D (u64)cprd << pres;
-> +		state->period =3D atmel_pwm_ticks_to_ns(ticks, rate);
-> =20
->  		/* Wait for an updated duty_cycle queued in hardware */
->  		atmel_pwm_wait_nonpending(atmel_pwm, pwm->hwpwm);
-> =20
->  		cdty =3D atmel_pwm_ch_readl(atmel_pwm, pwm->hwpwm,
->  					  atmel_pwm->data->regs.duty);
-> -		tmp =3D (u64)(cprd - cdty) * NSEC_PER_SEC;
-> -		tmp <<=3D pres;
-> -		state->duty_cycle =3D DIV64_U64_ROUND_UP(tmp, rate);
-> +		ticks =3D (u64)(cprd - cdty) << pres;
-> +		state->duty_cycle =3D atmel_pwm_ticks_to_ns(ticks, rate);
-> =20
->  		state->enabled =3D true;
->  	} else {
-> @@ -487,6 +496,7 @@ static int atmel_pwm_probe(struct platform_device *pd=
-ev)
->  {
->  	struct atmel_pwm_chip *atmel_pwm;
->  	struct pwm_chip *chip;
-> +	unsigned long rate;
->  	int ret;
-> =20
->  	chip =3D devm_pwmchip_alloc(&pdev->dev, 4, sizeof(*atmel_pwm));
-> @@ -507,6 +517,16 @@ static int atmel_pwm_probe(struct platform_device *p=
-dev)
->  		return dev_err_probe(&pdev->dev, PTR_ERR(atmel_pwm->clk),
->  				     "failed to get prepared PWM clock\n");
-> =20
-> +	ret =3D devm_clk_rate_exclusive_get(&pdev->dev, atmel_pwm->clk);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to get exclusive PWM clock rate\n");
-> +
-> +	rate =3D clk_get_rate(atmel_pwm->clk);
-> +	if (!rate || rate > NSEC_PER_SEC)
-> +		return dev_err_probe(&pdev->dev, -EINVAL,
-> +				     "invalid PWM clock rate %lu Hz\n", rate);
-> +
->  	chip->ops =3D &atmel_pwm_ops;
-> =20
->  	ret =3D atmel_pwm_enable_clk_if_on(chip, true);
->=20
-> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-
