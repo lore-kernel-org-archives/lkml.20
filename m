@@ -1,74 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.235
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793114451;
-	b=VbmHdBa9H3i4cuFV8OdUaR7hx16X86hr7qcJRWuysXJOnHN2fxnb8ptJjqmKREXRlB7i
-	 fCtRUVuNp1uNCsgwAJ/b3jSgFRbApDYb0Ke3o2kHoLKtQ/r7wdv2v5RoYoX42VgBTGQUU
-	 4JGkR7n9Zb2v80kYqit1jazHyVxTaSUB1kRD/5M5ODxI4JSij+OISpwvE8WolIX9A1MNH
-	 jD0aujKtsK5Tpkn81gfwK6JGuR3VtVZ0XKN80ngkKSSmcJEKMo+OxXshr0A7NFG7DtLv8
-	 VapffOryuzTvji9R+PPAbTxMZpSUp17diWj1Kcb8BmvDkwk5rzm6JI0+9f/6VbpKepQ==
+	t=1793114466;
+	b=ZiyCWgd0J2axVOsgUgdwVFAnnF+kw5diP6khpSkAaKxM+t1PAkmrlcO2bxjWMhLRNf4q
+	 wp4QLmiXTvoiWx3BjzKkaCKqVB3otdtivLFHbzE7dTGCiEX6o3FjWaF3tcduZxL1gUbaS
+	 ZBgm2/ZMcNdnYrgRt43IvDjV390jkJeLPHaBMx/YZyRM98ub6Fpqtn+XiTBGLNlEXz9lI
+	 4D9CwFya71kn7fyztrCkCYsUO8Ld7cdc1TbkllJhrZW75WHlSuV/YZLttrdyMnnXbzME6
+	 eXQh11+QOALW1X/IDCaFFl65la4hVUQIcCMo8K8fj92aYEKLuzI8qyJW6Gymuke/AhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114451;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ZkYfvMiNj5nFXaNlm1Casddrca6W3x4oVBLV9EhyGUg=;
-	b=lIU1Dlre2iVNFCfJxZcIxi4XNmun2QCSd5EZSvDDDDUDI9pQG6habVFXXRaSLvGIVs3v
-	 EMTy0j3oJ1FvAHPu6dBSUoyK2KgsD+eNxtS02LzocriutEsgoaEO5aquuHgO9HQRRT5VG
-	 JsZKOn0mCJ+QFf0pzVOLusARY6BUl7NB8XXuAKmz2qgHJkWGYRk7SRgYbu/G7TM+upBjc
-	 tPeIpGr88z35j9eGoPoeFf/zt0Xbrbg+F5LbUizZCR21OJPDA7E46Li0r+544Qc8ieUVl
-	 smxWp+GM5e7Dsov2bz5R0waZb1/fJpun09xbAAahS7QzV6xwhqGFRfrA9m8TYEoNs2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793114466;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=W6YIh/Gc0yCi5BDeh+MtSftokqchrGdjjgj9FnTKEnw=;
+	b=Cj2y9BDUrlOm5R6TwR7eKrOzQqHX+pbj9Hsu1Z+Npb63wVI6bTyYbJ3X2txjiJoer+Gz
+	 KO81+Ixgg0SYtpr5SEAgOAaUnkE3z9lYJX7SgVkiClLbRgQPsHCXfOsKJrBsDs6uF8Iq2
+	 X4+Bj7fvPYegiROzC4sPXdn0kUPOqI0yQQ5K1GWNhm8Q7QRGpowOvbIsgAXd3fE9BhAjn
+	 pHNSd9DhkbjEfJkgSodYYeInClYsZp+WHe7J7PZc8lNfZECqDtT3Zsl7yhynlU23Tw+55
+	 37cwYT5U+xRlKNAviGPx8N1xhbZcvjmnfxWAaYfdsZMtrT7ffGUwaGCKSNub14T6Oug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="W8UQh/Cg";
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C1XhmBdB;
+	arc=none smtp.remote-ip=91.218.175.235
+Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF15606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:20:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF15606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6CB606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:21:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB6CB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W8UQh/Cg
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab7f1efe5dso8012a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:20:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793114450; x=1793719250; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZkYfvMiNj5nFXaNlm1Casddrca6W3x4oVBLV9EhyGUg=;
-        b=W8UQh/CghaUzKHwg/SKpr85qFcqtEzggJnbL7hCRFlcvsxV8zZZ3gWgcD8d/sd8BC4
-         mRTG7H/GSJaL0gPs4qW3LQlGNqChCN4PhlNgZ78ZCXV0oTvSc+0k/OcICZ3gbofPszlR
-         mRnvPA2rW67qUVlkkTYeH7emFB2FmSQ/krzIvo2y+xMrOYtpYo7ZKV4IWLppKZzV3Ty0
-         qDuQixtU2NpSBlSyv3UYVBsXxFqVzdIgWfSKQ5AJBLCa7XCGn7Q2HYAbZkJnXDRUBDFd
-         n1nurNSHakQfz0VTWrCZNZ0SYIsPtf9qjzifQ4ohhg0pDx25t/WBGM7QqDvCpdXkZSsq
-         n8oQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793114450; x=1793719250;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZkYfvMiNj5nFXaNlm1Casddrca6W3x4oVBLV9EhyGUg=;
-        b=FiJfMch+w09lXKWxsyI4VD2wBJi1TLUzMm5KFsq3JIEOPHIMZybbBlNzylkoDL/mT7
-         /OyRYbe2sTIUQM8EmjsVAd2zhBGPR/sl8b813aK54d6ufn3+eiRzMgTrva8GNS5Y2i74
-         Hfi1qN/niILkPu8DU58C4CjZXj89LKHC/DEJumSul5CK5P2TLf5ocr3N73YN5cGCHwoj
-         8xmTsKZ802CNSnLbXjwmlrOXNYhTgJu1XnwQnC5k1tjfW0MtRvS3qeo+QMnfrK8hT4It
-         z/g/MK4yho6B2g4qqZK9e2QnXdyBizRTFha43kO489IT5pwD7vZfmPBSdmO9cw4iBwDO
-         4b1A==
-X-Forwarded-Encrypted: i=1; AKwUvBw/efmmFyotd+v6Db0WooqEjI7Zay08AGM2alGcFykdiZb8CNLszBSIFCSg20OTl0gGA6QC3EezvSIsPuk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYbIzMILVV/nZ884f18ef8Kc2Qfe1vXHcRaztrPfpZQtJxKCiE
-	lqbiJ6gqUePuPVIFMvlrXyKTf7NwMgkyZ2kcTqKyoIwCu023cfww/k8g2E/Y2AhUAKgekot7IOk
-	9wkRwjw==
-X-Received: from pjbev9.prod.google.com ([2002:a17:90a:eac9:b0:3ac:5201:5db9])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:55cd:b0:3ac:9e76:aa97
- with SMTP id 98e67ed59e1d1-3adea1a76b8mr8072837a91.6.1793114450139; Tue, 27
- Oct 2026 08:20:50 -0700 (PDT)
-Date: Tue, 27 Oct 2026 08:20:49 -0700
-In-Reply-To: <20261022040047.GDatmKb9L_fwqBGQ0_@fat_crate.local>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=C1XhmBdB
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0TlkYeKrfeawIngsI3ug0HiDUp/gJwAA57+wIvoITDU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793114463; v=1; x=1793719263;
+ b=C1XhmBdBVkRsvrNktkfe41NLUvz4sosrYWcjrG1OFB3YUrTAm9IUB7vcgmHoKiD8a9ny3aKB
+ k9ZHHRppA5v9oh5vDFF28qREz/W6q5J4vpm1Rlbi8gMWBvBr9xGuMxRnuo3KsUvX70HYDeoW8Kr
+ QnfipvFt0ETou4S+j7Uv/IyA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0a2887dac71c64c3;
+	Tue, 27 Oct 2026 15:21:03 +0000
+X-Mizu-Trace-ID: 0a2887dac71c64c3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d106e4f5-7702-4bc4-ba69-765e2050a28f@linux.dev>
+Date: Tue, 27 Oct 2026 23:20:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,59 +57,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022040047.GDatmKb9L_fwqBGQ0_@fat_crate.local>
-Message-ID: <auDBUQQ9Ympsobkh@google.com>
-Subject: Re: [RFC PATCH] x86/cpu: Change AMD uarch detection
-From: Sean Christopherson <seanjc@google.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: x86-ML <x86@kernel.org>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@linux.dev, Adrian Hunter <adrian.hunter@intel.com>,
+ Kamal Dasu <kamal.dasu@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 6/6] mmc: core: Add support for resetting an eMMC at
+ system resume
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>, linux-mmc@vger.kernel.org,
+ Ulf Hansson <ulfh@kernel.org>
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <20261027144051.249211-7-ulf.hansson@oss.qualcomm.com>
+From: Shawn Lin <shawn.lin@linux.dev>
+In-Reply-To: <20261027144051.249211-7-ulf.hansson@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026, Borislav Petkov wrote:
-> Hi,
+在 2026/10/27 星期二 22:40, Ulf Hansson 写道:
+> The DT property reset-card-at-resume specifies that we need to make a reset
+> of an eMMC card at system resume, assuming it also has stayed powered on
+> during system suspend.
 > 
-> I have been wondering how to improve that Zen uarch detection and handling and
-> be able to do range checks of uarches, i.e., "this code needs to run on Zen
-> microarchitectures 3 to 5". And I asked AI.
+> To implement support for this, let's start by parsing for the new DT
+> property and set the new bit MMC_CAP2_RESET_AT_RESUME if it's found. Based
+> on the property, we must also set MMC_PM_KEEP_POWER in the pm_flags for the
+> host, to keep the eMMC powered on during system suspend.
 > 
-> It gave me a lot of blurb but the basic idea is good so I went and did it. See
-> below.
+> Finally, to manage the actual reset during system resume, let's extend
+> mmc_resume() to support the needed behaviour.
 > 
-> It boots in a VM, I'm not even trying to cause the cat to catch fire by
-> booting on a real machine but that will happen soon too.
+
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+
+> Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+> ---
+>   drivers/mmc/core/host.c  | 10 ++++++++++
+>   drivers/mmc/core/mmc.c   |  5 +++++
+>   include/linux/mmc/host.h |  1 +
+>   3 files changed, 16 insertions(+)
 > 
-> The thing can easily be extended to pre-Zen but that is not really needed, I'd
-> say.
-> 
-> X86_FEATURE_ZEN to mark all Zens remains, that will be a future patch. Perhaps
-> something as simple as:
-> 
-> 	if (boot_cpu_data.x86_uarch)
-> 
-> but I have to move Hygon off of that usage. We'll see. Small steps.
+> diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
+> index 8e9e61839198..e3daf4026cba 100644
+> --- a/drivers/mmc/core/host.c
+> +++ b/drivers/mmc/core/host.c
+> @@ -48,6 +48,14 @@ static int mmc_host_class_prepare(struct device *dev)
+>   	if (host->bus_ops->pre_suspend)
+>   		return host->bus_ops->pre_suspend(host);
+>   
+> +	/*
+> +	 * If it's required to make a reset of the card at system resume, this
+> +	 * indirectly also means that we must keep the card powered on during
+> +	 * system suspend.
+> +	 */
+> +	if (host->caps2 & MMC_CAP2_RESET_AT_RESUME)
+> +		return mmc_set_host_pm_flags(host, MMC_PM_KEEP_POWER);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -375,6 +383,8 @@ int mmc_of_parse(struct mmc_host *host)
+>   		host->pm_caps |= MMC_PM_KEEP_POWER;
+>   	if (device_property_read_bool(dev, "wakeup-source"))
+>   		host->pm_caps |= MMC_PM_WAKE_SDIO_IRQ;
+> +	if (device_property_read_bool(dev, "reset-card-at-resume"))
+> +		host->caps2 |= MMC_CAP2_RESET_AT_RESUME;
+>   	if (device_property_read_bool(dev, "mmc-ddr-3_3v"))
+>   		host->caps |= MMC_CAP_3_3V_DDR;
+>   	if (device_property_read_bool(dev, "mmc-ddr-1_8v"))
+> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
+> index d4bf0f25bd74..908d5cad304b 100644
+> --- a/drivers/mmc/core/mmc.c
+> +++ b/drivers/mmc/core/mmc.c
+> @@ -2315,6 +2315,11 @@ static int mmc_resume(struct mmc_host *host)
+>   	}
+>   
+>   	pm_runtime_enable(&host->card->dev);
+> +
+> +	if (mmc_card_keep_power(host) &&
+> +	    host->caps2 & MMC_CAP2_RESET_AT_RESUME)
+> +		_mmc_hw_reset(host);
+> +
+>   	host->pm_flags &= ~MMC_PM_KEEP_POWER;
+>   	return 0;
+>   }
+> diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
+> index 032c018650e0..552873da7987 100644
+> --- a/include/linux/mmc/host.h
+> +++ b/include/linux/mmc/host.h
+> @@ -430,6 +430,7 @@ struct mmc_host {
+>   	u32			caps2;		/* More host capabilities */
+>   
+>   #define MMC_CAP2_BOOTPART_NOACC	(1 << 0)	/* Boot partition no access */
+> +#define MMC_CAP2_RESET_AT_RESUME (1 << 1)	/* Reset the card at system resume */
+>   #define MMC_CAP2_FULL_PWR_CYCLE	(1 << 2)	/* Can do full power cycle */
+>   #define MMC_CAP2_FULL_PWR_CYCLE_IN_SUSPEND (1 << 3) /* Can do full power cycle in suspend */
+>   #define MMC_CAP2_HS200_1_8V_SDR	(1 << 5)        /* can support */
 
-This is better than X86_FEATURE_ZENx, as I always found the lack of inclusivity,
-e.g. ZEN4 not lighting up ZEN3, to be confusing/surprising.
-
-But why invent another scheme?  What stops AMD from implementing precise macros
-as arch/x86/include/asm/intel-family.h does?  Providing range-based checks would
-"just" require more macros, no?  E.g. couldn't we do
-
-	if (AMD_ZEN4_OR_LATER(boot_cpu_data.x86_vfm))
-		return amd_zen4_perfmon_event_map[hw_event];
-
-	if (AMD_ZEN2_OR_LATER(boot_cpu_data.x86_vfm))
-		return amd_zen2_perfmon_event_map[hw_event];
-
-	if (AMD_ZEN1_OR_LATER(boot_cpu_data.x86_vfm))
-		return amd_zen1_perfmon_event_map[hw_event];
-
-
-and
-
-	if (AMD_ZEN3(boot_cpu_data.x86_vfm) ||
-	    AMD_ZEN4(boot_cpu_data.x86_vfm)) {
-		...
-
-	}
