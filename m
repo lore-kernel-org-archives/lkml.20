@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793095013;
-	b=ATC8OV19q8nlcx7ZtkNgM12cgbuJbpyzDoPTghHY+vy+Q1LWLVCDcUje6pieT1mtMfiC
-	 EExLZWWGV/kT4VC/bqSeFMeWOsE6IKOS+/2oCLf62ygnCaTSeR/I64EMMn/unEIeGpFva
-	 08qMEAHcjAiqbWAfbcJHsQqa8CpDFSHe+ElNXtpLMj5Ldeymm3JrGO+6Q8ypsBuoVChBW
-	 7NZ1NWM+klpEVu5IFXYjXVpC6UgMXkFQ3CwDhMLdni9cPDePiWmBxoC+czIheBWkCkefp
-	 8oJ267NEK8lbS6nxATdLuzT3MPovlIJDfHg6Ziv2i19GhaNgHHut62Pw8ltK3Ge1JDw==
+	t=1793095076;
+	b=NcG3jEw+bQaaQy2Of1GJNDOdWX+GZfZ4+x9QN1iwJUKHfDLd5j68n+KRzu3p7BDPdEu2
+	 kpudRPV9R9XN5W4554Lv4N4IgDC51uE126D0or9FDXaDMDpdKKxmAu3iMxtfH+AZ3XKYK
+	 UmxkMVpVkLvL6IjNxYResOxt9WMtRMf5ANBYFYfd12Dx5xRoyh8RvaLx6mSOKM3HA4VgF
+	 0aRZ7K1l2pcmprV3Fs3Mi3fq16KGgCpuTbZZT7sPqi1jaoPj1cxAo/1duv80Zd7yQt8Gw
+	 BV8qXfYPP3hsgGtqHG6i+Bpw9SAyWe2wAaiDKOs7xs8QIpcJD8vF85EZrmcteY6DdIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793095013;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GP5oharGv0apk4U72jFVlwAbHHN87kFMPLSACqzLjUs=;
-	b=c5cs8JWqmG4Ivl4hp2YaARabynYjou7GG4ZpdOS5yA0EuQCoH5A/Mg1rWAe6Y5WoPlQJ
-	 /F9x6kuVyLxjrBwZIGowoUAm1O6NwPIU9qcfT/g8FRdm5qpd/b/9ikDTvgQtmqZhcBNEJ
-	 jSEjijvdog/ZfgddENzSd5wiSxMiZ1g6wywpI20JixYp8gEv+qIzG2Qu9ekECv86cazXF
-	 +CZEALlMQGfbuva/R3JEs09+gCF+EmqiGCReA+A9m+e+ezWH/yCSKuVc/F1mcM/PqykQn
-	 l6yIWwUNYutBy3efc/tQfxyekOPlKOiLu0smep4KY89gWfyKff1teZ5oO7hW9mqqaQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095076;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=tvnnOsuEJh+9qWsal560ddDhJSVSWiJqoAV1l87bBbY=;
+	b=W6qwWF/mvWdzcQG1fIitUjyYUGUseC/mVGFTFELv+81iWjl9u69wVlkVHqxAvyb83bqA
+	 eFef8pnI0bGg/kCwiKECn9fR95TaOSSlpQ92VSorVt2NvhzBB7kku8rrfBgsruynZ/N7M
+	 3Ogvvmp0c/NVyNgfWyASQy1WQs4QwU+UtN0iUydt0uY4rViHhHMzX5i71wGRE35DBGv0L
+	 Pn12tOtZ4YFVDDSaH4W97T+3R2iW+C55HQei97KMB05Yzj+pFQRynNOXM93EMVf3De+K0
+	 5zA4nW2qy9lVJ2D7U/4tc//vngsNLxVseqoyOQksfPZ6NMz+zXl1D1MPRj9Bc37BU3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NT1znik9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AXnRr0px;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6773606A31A;
-	Tue, 27 Oct 2026 09:56:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E19D606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:57:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E19D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NT1znik9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1791F01825;
-	Tue, 27 Oct 2026 09:56:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793095012;
-	bh=GP5oharGv0apk4U72jFVlwAbHHN87kFMPLSACqzLjUs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NT1znik9uR+3gc3Tt3ZFxzdRSRBStmc3sLNfoepUakyw+eIZeOE1KrHR+tVHWUxYt
-	 noAz+K62TqwcKkFrDmnLeeMiv3sKZtc19JKRLql6TM/QtA06HkHJhL3JM7aikHo/76
-	 dcB1qRsVBsu24P7qgMKVEqJZFBpLEFp9k/rbhFqtxfraBT7OhZ3aXBwQmsqhc0qCl/
-	 2ck0cMkgJa6qxc/PPp2ctQfcHG7a+jBEm79C+T1dJPV/OJZIaZlLKViM/1WLTGHcWG
-	 StF0ItbyTTis5VD6Y7i1xChzfTMmo2Oig5gvA715s2a8tdrlLBUaI3y62ALm8LBZzj
-	 I+kzJhs3fATIQ==
-Message-ID: <7b993a3e-d2b4-417b-90a3-a41d1f454cda@kernel.org>
-Date: Tue, 27 Oct 2026 10:56:44 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AXnRr0px
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso25535725e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:57:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793095074; x=1793699874; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tvnnOsuEJh+9qWsal560ddDhJSVSWiJqoAV1l87bBbY=;
+        b=AXnRr0pxorGKcUCb+fIIVWGGiSGiaU88f4f9ivk4rME+YX9tekzoVxOp1EJQqbntco
+         MYuTLVQldMdXiWTRLRJVjQ9Mll+pEme9mt/77Y+ow3BtI2N3mkriek0uVeb3HtNbYkdm
+         p+Nla3e1kAKMGcPlAU3mlnzoEotcDEGxVXC4WFFsZWw1EHaXfdRSBkOr68vUJu58akAx
+         GrvBFdcSZ+KNrRMuJiKYj9VPbbaFvj12dxLzR6lC7ozYcKn5+dZcifzQBQ1LkX28wwcc
+         tOhzoMUihtFvwraC1tAgNfSUUvynZM+/ZE41cvLrS4Z/Nh67+UjDyxezG7In0f3gRzSJ
+         +T3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793095074; x=1793699874;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tvnnOsuEJh+9qWsal560ddDhJSVSWiJqoAV1l87bBbY=;
+        b=F+oBXIS2chw/kjFxvn1M/zAvVJUgEw2p9oHa3J01CyOXUkJitmVWnpY6BDGivNvCeD
+         /yom1rasZoSwWIJylX0z4qlEV3/vJV5U1yTb5aSK52+uf0n3d84A47FVHLB6Qu7b2qjE
+         N1uERDidZH8SsDDG6ORcvexS9Cn3VGvmXqtSyV4CyO0MfaPcxegpMhGLR4ktW/yh3bZM
+         7mGnKVPDGSLyF1TDIu2XFBzyn2JyilRIS3HDoXtL5myz5OluVsRlO0+OsY1mQ88TbN2S
+         //42/j8npilLXcuWrgFFV8fGe65U8bCIZwhe6gAEqVbAT7D+CuZbWmtVIxmWKTQXQaKM
+         mdRA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgJS8yrtZw7vdr5xNyYZpTg8mCsGZIiP91WT97DFVHQ2h5fvQyi4YrPV7RSHr0Hp+1u4NiPFNs+DLSWjc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEcJQW9JFnjy5o9A+AnkZOls4TTnV3NvvkhZgZEcRgqtwoQ4MX
+	Fzbl2m7EUXYbh6d/rshViHQy0Gwc46iiL40gbgvIa6hkgx+eJeXa7UIq
+X-Gm-Gg: AYBFou2ihmk+4gxAbFOikKcxLRgoR90hnI5odUiC1zN4B3anisvfn4hLUJmbZrGW0Qj
+	hcnGJRa12RrmuvBqIdpzgECD1GfxyyXW0C+3F/E+Rish3YqINLOkTL86iwxsSBD3ndqqbv0HjAX
+	K0GuOA+QnkK3Yerdlsg9kvfdI5wCcWwq4zp147GW5PRKNPzv/4ZWhjzjh26OQ0gZn1XBO72Xey1
+	tK4EiLDMwk9Xh5cdmXReoHP5tTyRQbGyEcXH22a2lsVwIGPDYZG7hI1oNZvOhL55R2F6rTGOkpm
+	+ss4raUlHrkm6iGzaGVVo0ovJzhekkQl+39SNqEWVJOmhWZ+BmGb1Cz+JM+U8tfugaVB3gaP51O
+	fes9n8t9H0zOAUU7WtXVaMdFnRuDTMCiWu5ZP9SBjxKMsMvyjDC2x2HgR011Ct37p2At4qtHRNJ
+	dEvHgjQU0YeDQMr+L1xetS1Flg3UeakGoRFb/G0hkDJmLQX72yNXBn+8RNTWDHclBuatIPTllgX
+	todIAgE62HdvDkKiL1ZnHYgS+alJhPtcKIJ9EvYbqxSxjSSs8NdqDGiWehUiV4xFo2hr0nZwYV7
+	QzqMohlM5g==
+X-Received: by 2002:a05:600c:354d:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4a7df4a114emr36411145e9.2.1793095074209;
+        Tue, 27 Oct 2026 02:57:54 -0700 (PDT)
+Received: from the-kernel (79-139-145-200.dynamic.spd-mgts.ru. [79.139.145.200])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a5ea0df763sm174243605e9.3.2026.10.27.02.57.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 02:57:53 -0700 (PDT)
+From: =?UTF-8?q?=C3=84ngsblomsterskymningen=20Zefir=20M=C3=A5nskens=C3=A5kerh=C3=B6jden=20Zetterstrand?= <angsblommansken@gmail.com>
+To: dmitry.baryshkov@oss.qualcomm.com
+Cc: djakov@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C3=84ngsblomsterskymningen=20Zefir=20M=C3=A5nskens=C3=A5k?= =?UTF-8?q?erh=C3=B6jden=20Zetterstrand?= <angsblommansken@gmail.com>
+Subject: [PATCH] interconnect: qcom: Use semantic names for BCM bandwidth fields
+Date: Tue, 27 Oct 2026 12:57:36 +0300
+Message-ID: <20261027095736.94878-1-angsblommansken@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,92 +98,872 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
-To: Jianfeng Liu <liujianfeng1994@gmail.com>
-Cc: HystericalDragons@proton.me, amadeus@jmu.edu.cn, conor+dt@kernel.org,
- devicetree@vger.kernel.org, heiko@sntech.de, hrushirajg23@gmail.com,
- krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- macromorgan@hotmail.com, michael.opdenacker@rootcommit.com, naoki@radxa.com,
- robh@kernel.org
-References: <20261027-angelic-caribou-of-wonder-02ccc8@quoll>
- <20261027085634.380872-1-liujianfeng1994@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027085634.380872-1-liujianfeng1994@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/10/2026 09:56, Jianfeng Liu wrote:
-> Hi Krzysztof,
-> 
-> On 2026-10-27  7:48 UTC, Krzysztof wrote:
->> Maybe just install the DTB under new name if they are identical?
-> 
-> Thanks for the suggestion.
-> 
-> Installing the existing CoolPi 4B DTB under a different filename would
-> solve the DTB naming issue, but the model and compatible properties would
-> still identify the device as a CoolPi 4B.
-> 
-> This is my main concern. Users running Linux on a Sige7s would still see
-> "RK3588S CoolPi 4 Model B" in /proc/device-tree/model, even though they
-> purchased an ArmSoM Sige7s.
-> 
-> I agree that we should avoid duplicating the hardware description, since
-> the boards are identical. However, I think preserving the correct board
-> identity in the device tree is useful, especially for a product that is
-> still being manufactured and will receive ongoing upstream support.
-> 
-> Would it be acceptable to share the entire hardware description while
-> keeping separate model and compatible properties for the two boards?
+Rename qcom_icc_bcm members vote_x, vote_y, and vote_scale to avg_bw, peak_bw, and bw_scale, respectively.
 
-Yes, just be sure to capture this in commit msg and maybe Sige7s DTS
-comments.
+vote_x and vote_y are legacy names inherited from the low-level BCM vote encoding. They describe X and Y rather than the actual values, which represent average and peak bandwidth. At the command encoding level, X and Y make sense. In the data structure, they make readers remember an implementation detail that the code can name directly.
 
-Best regards,
-Krzysztof
+These names also match struct icc_node in <linux/interconnect.h>, which already uses avg_bw and peak_bw for the same bandwidth dimensions. Keeping the same terminology across the core API and the Qualcomm provider is preferable to maintaining a second naming scheme for the same concepts.
+
+Sure, we could keep the vote_ prefix and use vote_avg_bw and vote_peak_bw. Both names would be valid. But qcom_icc_bcm already provides the voting context, so what exactly would that extra prefix explain? We would essentially say "vote" twice without making either bandwidth component any clearer.
+
+Rename vote_scale to bw_scale as well.
+
+Keep vote_x and vote_y unchanged in the TCS command interface, where they describe the hardware-level encoding rather than the BCM data structure.
+
+Signed-off-by: Ängsblomsterskymningen Zefir Månskensåkerhöjden Zetterstrand <angsblommansken@gmail.com>
+---
+ drivers/interconnect/qcom/bcm-voter.c | 58 +++++++++++++--------------
+ drivers/interconnect/qcom/eliza.c     |  4 +-
+ drivers/interconnect/qcom/glymur.c    |  6 +--
+ drivers/interconnect/qcom/hawi.c      | 10 ++---
+ drivers/interconnect/qcom/icc-rpmh.c  | 38 +++++++++---------
+ drivers/interconnect/qcom/icc-rpmh.h  | 14 +++----
+ drivers/interconnect/qcom/kaanapali.c | 10 ++---
+ drivers/interconnect/qcom/kuno.c      |  2 +-
+ drivers/interconnect/qcom/maili.c     | 12 +++---
+ drivers/interconnect/qcom/milos.c     |  4 +-
+ drivers/interconnect/qcom/nord.c      |  8 ++--
+ drivers/interconnect/qcom/qcs615.c    |  2 +-
+ drivers/interconnect/qcom/qcs8300.c   |  6 +--
+ drivers/interconnect/qcom/sa8775p.c   |  6 +--
+ drivers/interconnect/qcom/sar2130p.c  |  4 +-
+ drivers/interconnect/qcom/sc7280.c    |  4 +-
+ drivers/interconnect/qcom/sc8280xp.c  |  6 +--
+ drivers/interconnect/qcom/sdx75.c     |  2 +-
+ drivers/interconnect/qcom/sm8450.c    |  6 +--
+ drivers/interconnect/qcom/sm8550.c    |  6 +--
+ drivers/interconnect/qcom/sm8650.c    |  6 +--
+ drivers/interconnect/qcom/sm8750.c    |  6 +--
+ drivers/interconnect/qcom/x1e80100.c  |  6 +--
+ 23 files changed, 113 insertions(+), 113 deletions(-)
+
+diff --git a/drivers/interconnect/qcom/bcm-voter.c b/drivers/interconnect/qcom/bcm-voter.c
+index 0880a287b0c0..6cb426656a63 100644
+--- a/drivers/interconnect/qcom/bcm-voter.c
++++ b/drivers/interconnect/qcom/bcm-voter.c
+@@ -54,26 +54,26 @@ static void bcm_aggregate_mask(struct qcom_icc_bcm *bcm)
+ 	int bucket, i;
+ 
+ 	for (bucket = 0; bucket < QCOM_ICC_NUM_BUCKETS; bucket++) {
+-		bcm->vote_x[bucket] = 0;
+-		bcm->vote_y[bucket] = 0;
++		bcm->avg_bw[bucket] = 0;
++		bcm->peak_bw[bucket] = 0;
+ 
+ 		for (i = 0; i < bcm->num_nodes; i++) {
+ 			node = bcm->nodes[i];
+ 
+ 			/* If any vote in this bucket exists, keep the BCM enabled */
+ 			if (node->sum_avg[bucket] || node->max_peak[bucket]) {
+-				bcm->vote_x[bucket] = 0;
+-				bcm->vote_y[bucket] = bcm->enable_mask;
++				bcm->avg_bw[bucket] = 0;
++				bcm->peak_bw[bucket] = bcm->enable_mask;
+ 				break;
+ 			}
+ 		}
+ 	}
+ 
+ 	if (bcm->keepalive) {
+-		bcm->vote_x[QCOM_ICC_BUCKET_AMC] = bcm->enable_mask;
+-		bcm->vote_x[QCOM_ICC_BUCKET_WAKE] = bcm->enable_mask;
+-		bcm->vote_y[QCOM_ICC_BUCKET_AMC] = bcm->enable_mask;
+-		bcm->vote_y[QCOM_ICC_BUCKET_WAKE] = bcm->enable_mask;
++		bcm->avg_bw[QCOM_ICC_BUCKET_AMC] = bcm->enable_mask;
++		bcm->avg_bw[QCOM_ICC_BUCKET_WAKE] = bcm->enable_mask;
++		bcm->peak_bw[QCOM_ICC_BUCKET_AMC] = bcm->enable_mask;
++		bcm->peak_bw[QCOM_ICC_BUCKET_WAKE] = bcm->enable_mask;
+ 	}
+ }
+ 
+@@ -97,19 +97,19 @@ static void bcm_aggregate(struct qcom_icc_bcm *bcm)
+ 			agg_peak[bucket] = max(agg_peak[bucket], temp);
+ 		}
+ 
+-		temp = agg_avg[bucket] * bcm->vote_scale;
+-		bcm->vote_x[bucket] = qcom_bw_div(temp, le32_to_cpu(bcm->aux_data.unit));
++		temp = agg_avg[bucket] * bcm->bw_scale;
++		bcm->avg_bw[bucket] = qcom_bw_div(temp, le32_to_cpu(bcm->aux_data.unit));
+ 
+-		temp = agg_peak[bucket] * bcm->vote_scale;
+-		bcm->vote_y[bucket] = qcom_bw_div(temp, le32_to_cpu(bcm->aux_data.unit));
++		temp = agg_peak[bucket] * bcm->bw_scale;
++		bcm->peak_bw[bucket] = qcom_bw_div(temp, le32_to_cpu(bcm->aux_data.unit));
+ 	}
+ 
+-	if (bcm->keepalive && bcm->vote_x[QCOM_ICC_BUCKET_AMC] == 0 &&
+-	    bcm->vote_y[QCOM_ICC_BUCKET_AMC] == 0) {
+-		bcm->vote_x[QCOM_ICC_BUCKET_AMC] = 1;
+-		bcm->vote_x[QCOM_ICC_BUCKET_WAKE] = 1;
+-		bcm->vote_y[QCOM_ICC_BUCKET_AMC] = 1;
+-		bcm->vote_y[QCOM_ICC_BUCKET_WAKE] = 1;
++	if (bcm->keepalive && bcm->avg_bw[QCOM_ICC_BUCKET_AMC] == 0 &&
++	    bcm->peak_bw[QCOM_ICC_BUCKET_AMC] == 0) {
++		bcm->avg_bw[QCOM_ICC_BUCKET_AMC] = 1;
++		bcm->avg_bw[QCOM_ICC_BUCKET_WAKE] = 1;
++		bcm->peak_bw[QCOM_ICC_BUCKET_AMC] = 1;
++		bcm->peak_bw[QCOM_ICC_BUCKET_WAKE] = 1;
+ 	}
+ }
+ 
+@@ -164,8 +164,8 @@ static void tcs_list_gen(struct bcm_voter *voter, int bucket,
+ 
+ 		wait = commit && (voter->tcs_wait & BIT(bucket));
+ 
+-		tcs_cmd_gen(&tcs_list[idx], bcm->vote_x[bucket],
+-			    bcm->vote_y[bucket], bcm->addr, commit, wait);
++		tcs_cmd_gen(&tcs_list[idx], bcm->avg_bw[bucket],
++			    bcm->peak_bw[bucket], bcm->addr, commit, wait);
+ 		idx++;
+ 		n[batch]++;
+ 		/*
+@@ -260,7 +260,7 @@ void qcom_icc_bcm_get_bw(struct bcm_voter *voter,
+ {
+ 	struct tcs_cmd cmd = { .addr = bcm->addr };
+ 	int ret, i;
+-	u64 x, y;
++	u64 avg_bw, peak_bw;
+ 
+ 	mutex_lock(&voter->lock);
+ 
+@@ -270,13 +270,13 @@ void qcom_icc_bcm_get_bw(struct bcm_voter *voter,
+ 		goto out;
+ 	}
+ 
+-	x = FIELD_GET(BCM_TCS_CMD_VOTE_X_MASK, cmd.data);
+-	y = FIELD_GET(BCM_TCS_CMD_VOTE_Y_MASK, cmd.data);
++	avg_bw = FIELD_GET(BCM_TCS_CMD_VOTE_X_MASK, cmd.data);
++	peak_bw = FIELD_GET(BCM_TCS_CMD_VOTE_Y_MASK, cmd.data);
+ 
+ 	/* For boot-up, fill the AMC vote in all buckets */
+ 	for (i = 0; i < QCOM_ICC_NUM_BUCKETS; i++) {
+-		bcm->vote_x[i] = x;
+-		bcm->vote_y[i] = y;
++		bcm->avg_bw[i] = avg_bw;
++		bcm->peak_bw[i] = peak_bw;
+ 	}
+ 
+ out:
+@@ -351,10 +351,10 @@ int qcom_icc_bcm_voter_commit(struct bcm_voter *voter)
+ 		 * requirements change as the execution environment transitions
+ 		 * between different power states.
+ 		 */
+-		if (bcm->vote_x[QCOM_ICC_BUCKET_WAKE] !=
+-		    bcm->vote_x[QCOM_ICC_BUCKET_SLEEP] ||
+-		    bcm->vote_y[QCOM_ICC_BUCKET_WAKE] !=
+-		    bcm->vote_y[QCOM_ICC_BUCKET_SLEEP])
++		if (bcm->avg_bw[QCOM_ICC_BUCKET_WAKE] !=
++		    bcm->avg_bw[QCOM_ICC_BUCKET_SLEEP] ||
++		    bcm->peak_bw[QCOM_ICC_BUCKET_WAKE] !=
++		    bcm->peak_bw[QCOM_ICC_BUCKET_SLEEP])
+ 			list_add_tail(&bcm->list, &voter->commit_list);
+ 		else
+ 			list_del_init(&bcm->ws_list);
+diff --git a/drivers/interconnect/qcom/eliza.c b/drivers/interconnect/qcom/eliza.c
+index ad03adef79ba..367e337e23c6 100644
+--- a/drivers/interconnect/qcom/eliza.c
++++ b/drivers/interconnect/qcom/eliza.c
+@@ -1187,7 +1187,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+@@ -1195,7 +1195,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+diff --git a/drivers/interconnect/qcom/glymur.c b/drivers/interconnect/qcom/glymur.c
+index 9b9ed99ef242..f41cce8ed57a 100644
+--- a/drivers/interconnect/qcom/glymur.c
++++ b/drivers/interconnect/qcom/glymur.c
+@@ -1764,7 +1764,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+@@ -1772,7 +1772,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+@@ -1780,7 +1780,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+diff --git a/drivers/interconnect/qcom/hawi.c b/drivers/interconnect/qcom/hawi.c
+index 6ece9828c62d..fed118a3be12 100644
+--- a/drivers/interconnect/qcom/hawi.c
++++ b/drivers/interconnect/qcom/hawi.c
+@@ -1441,7 +1441,7 @@ static struct qcom_icc_bcm bcm_qpc0 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1449,7 +1449,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+@@ -1457,7 +1457,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+@@ -1465,7 +1465,7 @@ static struct qcom_icc_bcm bcm_qup2 = {
+ static struct qcom_icc_bcm bcm_qup3 = {
+ 	.name = "QUP3",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup3_core_slave },
+ };
+@@ -1473,7 +1473,7 @@ static struct qcom_icc_bcm bcm_qup3 = {
+ static struct qcom_icc_bcm bcm_qup4 = {
+ 	.name = "QUP4",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup4_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
+index 4a2a746a4e59..a05b1f534f56 100644
+--- a/drivers/interconnect/qcom/icc-rpmh.c
++++ b/drivers/interconnect/qcom/icc-rpmh.c
+@@ -141,7 +141,7 @@ static int qcom_icc_get_bw(struct icc_node *node, u32 *avg, u32 *peak)
+ 	struct qcom_icc_node *qn = node->data;
+ 	u32 avg_max = 0;
+ 	u32 peak_max = 0;
+-	u64 x, y;
++	u64 avg_bw, peak_bw;
+ 	int i;
+ 
+ 	if (!qn->num_bcms) {
+@@ -155,32 +155,32 @@ static int qcom_icc_get_bw(struct icc_node *node, u32 *avg, u32 *peak)
+ 		struct qcom_icc_bcm *bcm = qn->bcms[i];
+ 
+ 		/* Use AMC vote for boot-up */
+-		x = bcm->vote_x[QCOM_ICC_BUCKET_AMC];
+-		y = bcm->vote_y[QCOM_ICC_BUCKET_AMC];
++		avg_bw = bcm->avg_bw[QCOM_ICC_BUCKET_AMC];
++		peak_bw = bcm->peak_bw[QCOM_ICC_BUCKET_AMC];
+ 
+ 		/* Consider enable mask and convert to INT_MAX */
+ 		if (bcm->enable_mask) {
+-			if (x & bcm->enable_mask)
++			if (avg_bw & bcm->enable_mask)
+ 				avg_max = INT_MAX;
+-			if (y & bcm->enable_mask)
++			if (peak_bw & bcm->enable_mask)
+ 				peak_max = INT_MAX;
+ 		} else {
+-			if (x) {
+-				x *= le32_to_cpu(bcm->aux_data.unit);
+-				do_div(x, bcm->vote_scale);
+-				x *= qn->buswidth * qn->channels;
+-				do_div(x, le16_to_cpu(bcm->aux_data.width));
++			if (avg_bw) {
++				avg_bw *= le32_to_cpu(bcm->aux_data.unit);
++				do_div(avg_bw, bcm->bw_scale);
++				avg_bw *= qn->buswidth * qn->channels;
++				do_div(avg_bw, le16_to_cpu(bcm->aux_data.width));
+ 
+-				avg_max = max(avg_max, x);
++				avg_max = max(avg_max, avg_bw);
+ 			}
+ 
+-			if (y) {
+-				y *= le32_to_cpu(bcm->aux_data.unit);
+-				do_div(y, bcm->vote_scale);
+-				y *= qn->buswidth;
+-				do_div(y, le16_to_cpu(bcm->aux_data.width));
++			if (peak_bw) {
++				peak_bw *= le32_to_cpu(bcm->aux_data.unit);
++				do_div(peak_bw, bcm->bw_scale);
++				peak_bw *= qn->buswidth;
++				do_div(peak_bw, le16_to_cpu(bcm->aux_data.width));
+ 
+-				peak_max = max(peak_max, y);
++				peak_max = max(peak_max, peak_bw);
+ 			}
+ 		}
+ 	}
+@@ -232,8 +232,8 @@ int qcom_icc_bcm_init(struct qcom_icc_bcm *bcm, struct device *dev)
+ 	INIT_LIST_HEAD(&bcm->list);
+ 	INIT_LIST_HEAD(&bcm->ws_list);
+ 
+-	if (!bcm->vote_scale)
+-		bcm->vote_scale = 1000;
++	if (!bcm->bw_scale)
++		bcm->bw_scale = 1000;
+ 
+ 	/* Link Qnodes to their respective BCMs */
+ 	for (i = 0; i < bcm->num_nodes; i++) {
+diff --git a/drivers/interconnect/qcom/icc-rpmh.h b/drivers/interconnect/qcom/icc-rpmh.h
+index 09d8791402dc..b55db9f21edd 100644
+--- a/drivers/interconnect/qcom/icc-rpmh.h
++++ b/drivers/interconnect/qcom/icc-rpmh.h
+@@ -112,10 +112,10 @@ struct qcom_icc_node {
+  * @name: the bcm node name used to fetch BCM data from command db
+  * @type: latency or bandwidth bcm
+  * @addr: address offsets used when voting to RPMH
+- * @vote_x: aggregated threshold values, represents sum_bw when @type is bw bcm
+- * @vote_y: aggregated threshold values, represents peak_bw when @type is bw bcm
+- * @vote_scale: scaling factor for vote_x and vote_y
+- * @enable_mask: optional mask to send as vote instead of vote_x/vote_y
++ * @avg_bw: aggregate representing sum of average bandwidth for bandwidth BCMs
++ * @peak_bw: aggregate representing peak bandwidth for bandwidth BCMs
++ * @bw_scale: bandwidth scaling factor for @avg_bw and @peak_bw
++ * @enable_mask: optional mask voted instead of @avg_bw/@peak_bw
+  * @dirty: flag used to indicate whether the bcm needs to be committed
+  * @keepalive: flag used to indicate whether a keepalive is required
+  * @aux_data: auxiliary data used when calculating threshold values and
+@@ -129,9 +129,9 @@ struct qcom_icc_bcm {
+ 	const char *name;
+ 	u32 type;
+ 	u32 addr;
+-	u64 vote_x[QCOM_ICC_NUM_BUCKETS];
+-	u64 vote_y[QCOM_ICC_NUM_BUCKETS];
+-	u64 vote_scale;
++	u64 avg_bw[QCOM_ICC_NUM_BUCKETS];
++	u64 peak_bw[QCOM_ICC_NUM_BUCKETS];
++	u64 bw_scale;
+ 	u32 enable_mask;
+ 	bool dirty;
+ 	bool keepalive;
+diff --git a/drivers/interconnect/qcom/kaanapali.c b/drivers/interconnect/qcom/kaanapali.c
+index d6e7327bfd7f..a7cc365d24bd 100644
+--- a/drivers/interconnect/qcom/kaanapali.c
++++ b/drivers/interconnect/qcom/kaanapali.c
+@@ -1320,7 +1320,7 @@ static struct qcom_icc_bcm bcm_qpc0 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1328,7 +1328,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+@@ -1336,7 +1336,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+@@ -1344,7 +1344,7 @@ static struct qcom_icc_bcm bcm_qup2 = {
+ static struct qcom_icc_bcm bcm_qup3 = {
+ 	.name = "QUP3",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup3_core_slave },
+ };
+@@ -1352,7 +1352,7 @@ static struct qcom_icc_bcm bcm_qup3 = {
+ static struct qcom_icc_bcm bcm_qup4 = {
+ 	.name = "QUP4",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup4_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/kuno.c b/drivers/interconnect/qcom/kuno.c
+index 546622cf8cea..018a055938cc 100644
+--- a/drivers/interconnect/qcom/kuno.c
++++ b/drivers/interconnect/qcom/kuno.c
+@@ -708,7 +708,7 @@ static struct qcom_icc_bcm bcm_mc0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/maili.c b/drivers/interconnect/qcom/maili.c
+index e5eed7f998f9..c5325d7cb7f1 100644
+--- a/drivers/interconnect/qcom/maili.c
++++ b/drivers/interconnect/qcom/maili.c
+@@ -1488,7 +1488,7 @@ static struct qcom_icc_bcm bcm_qpc0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+@@ -1496,7 +1496,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+@@ -1504,7 +1504,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+@@ -1512,7 +1512,7 @@ static struct qcom_icc_bcm bcm_qup2 = {
+ 
+ static struct qcom_icc_bcm bcm_qup3 = {
+ 	.name = "QUP3",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup3_core_slave },
+@@ -1520,7 +1520,7 @@ static struct qcom_icc_bcm bcm_qup3 = {
+ 
+ static struct qcom_icc_bcm bcm_qup4 = {
+ 	.name = "QUP4",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup4_core_slave },
+@@ -1528,7 +1528,7 @@ static struct qcom_icc_bcm bcm_qup4 = {
+ 
+ static struct qcom_icc_bcm bcm_qup5 = {
+ 	.name = "QUP5",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup5_core_slave },
+diff --git a/drivers/interconnect/qcom/milos.c b/drivers/interconnect/qcom/milos.c
+index 8b5b5ee53e3b..3f520a1d856e 100644
+--- a/drivers/interconnect/qcom/milos.c
++++ b/drivers/interconnect/qcom/milos.c
+@@ -1438,7 +1438,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1446,7 +1446,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/nord.c b/drivers/interconnect/qcom/nord.c
+index b3ca5675e7c8..40e469fe5294 100644
+--- a/drivers/interconnect/qcom/nord.c
++++ b/drivers/interconnect/qcom/nord.c
+@@ -1949,7 +1949,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+@@ -1957,7 +1957,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+@@ -1965,7 +1965,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+@@ -1973,7 +1973,7 @@ static struct qcom_icc_bcm bcm_qup2 = {
+ 
+ static struct qcom_icc_bcm bcm_qup3 = {
+ 	.name = "QUP3",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup3_core_slave },
+diff --git a/drivers/interconnect/qcom/qcs615.c b/drivers/interconnect/qcom/qcs615.c
+index 017a6017421f..f7743d1d95e3 100644
+--- a/drivers/interconnect/qcom/qcs615.c
++++ b/drivers/interconnect/qcom/qcs615.c
+@@ -1277,7 +1277,7 @@ static struct qcom_icc_bcm bcm_mm3 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 2,
+ 	.nodes = { &qhm_qup0, &qhm_qup1 },
+ };
+diff --git a/drivers/interconnect/qcom/qcs8300.c b/drivers/interconnect/qcom/qcs8300.c
+index ebf167182572..14ca3493d413 100644
+--- a/drivers/interconnect/qcom/qcs8300.c
++++ b/drivers/interconnect/qcom/qcs8300.c
+@@ -1780,7 +1780,7 @@ static struct qcom_icc_bcm bcm_pci0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+@@ -1788,7 +1788,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+@@ -1796,7 +1796,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ 
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.keepalive = true,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup3_core_slave },
+diff --git a/drivers/interconnect/qcom/sa8775p.c b/drivers/interconnect/qcom/sa8775p.c
+index 998a22d9d46d..00a8da66eb02 100644
+--- a/drivers/interconnect/qcom/sa8775p.c
++++ b/drivers/interconnect/qcom/sa8775p.c
+@@ -2073,21 +2073,21 @@ static struct qcom_icc_bcm bcm_pci0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+ 
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 2,
+ 	.nodes = { &qup2_core_slave, &qup3_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sar2130p.c b/drivers/interconnect/qcom/sar2130p.c
+index 34cb3fc1f995..a0b3975714e7 100644
+--- a/drivers/interconnect/qcom/sar2130p.c
++++ b/drivers/interconnect/qcom/sar2130p.c
+@@ -1395,7 +1395,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1403,7 +1403,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sc7280.c b/drivers/interconnect/qcom/sc7280.c
+index da21db2bdb7f..29accc1544f2 100644
+--- a/drivers/interconnect/qcom/sc7280.c
++++ b/drivers/interconnect/qcom/sc7280.c
+@@ -1494,14 +1494,14 @@ static struct qcom_icc_bcm bcm_mm5 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sc8280xp.c b/drivers/interconnect/qcom/sc8280xp.c
+index 15e284fcd89a..67d1876b46d9 100644
+--- a/drivers/interconnect/qcom/sc8280xp.c
++++ b/drivers/interconnect/qcom/sc8280xp.c
+@@ -2147,21 +2147,21 @@ static struct qcom_icc_bcm bcm_pci0 = {
+ 
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+ 
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+ 
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sdx75.c b/drivers/interconnect/qcom/sdx75.c
+index 5cfccc6cfd1b..241991c32e25 100644
+--- a/drivers/interconnect/qcom/sdx75.c
++++ b/drivers/interconnect/qcom/sdx75.c
+@@ -776,7 +776,7 @@ static struct qcom_icc_bcm bcm_mc0 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sm8450.c b/drivers/interconnect/qcom/sm8450.c
+index 54c860b16eb0..6a282b789622 100644
+--- a/drivers/interconnect/qcom/sm8450.c
++++ b/drivers/interconnect/qcom/sm8450.c
+@@ -1357,7 +1357,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1365,7 +1365,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+@@ -1373,7 +1373,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sm8550.c b/drivers/interconnect/qcom/sm8550.c
+index 535097eab537..d77ea9cfa74f 100644
+--- a/drivers/interconnect/qcom/sm8550.c
++++ b/drivers/interconnect/qcom/sm8550.c
+@@ -1153,7 +1153,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1161,7 +1161,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+@@ -1169,7 +1169,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sm8650.c b/drivers/interconnect/qcom/sm8650.c
+index 1967475b9132..6c7ee15a50a2 100644
+--- a/drivers/interconnect/qcom/sm8650.c
++++ b/drivers/interconnect/qcom/sm8650.c
+@@ -1517,7 +1517,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1525,7 +1525,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+@@ -1533,7 +1533,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/sm8750.c b/drivers/interconnect/qcom/sm8750.c
+index 1486c0b8f4c1..a1ac4bc40967 100644
+--- a/drivers/interconnect/qcom/sm8750.c
++++ b/drivers/interconnect/qcom/sm8750.c
+@@ -1111,7 +1111,7 @@ static struct qcom_icc_bcm bcm_mm1 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1119,7 +1119,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+@@ -1127,7 +1127,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+diff --git a/drivers/interconnect/qcom/x1e80100.c b/drivers/interconnect/qcom/x1e80100.c
+index 2ba2823c7860..c3e037b2cd43 100644
+--- a/drivers/interconnect/qcom/x1e80100.c
++++ b/drivers/interconnect/qcom/x1e80100.c
+@@ -1390,7 +1390,7 @@ static struct qcom_icc_bcm bcm_pc0 = {
+ static struct qcom_icc_bcm bcm_qup0 = {
+ 	.name = "QUP0",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup0_core_slave },
+ };
+@@ -1398,7 +1398,7 @@ static struct qcom_icc_bcm bcm_qup0 = {
+ static struct qcom_icc_bcm bcm_qup1 = {
+ 	.name = "QUP1",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup1_core_slave },
+ };
+@@ -1406,7 +1406,7 @@ static struct qcom_icc_bcm bcm_qup1 = {
+ static struct qcom_icc_bcm bcm_qup2 = {
+ 	.name = "QUP2",
+ 	.keepalive = true,
+-	.vote_scale = 1,
++	.bw_scale = 1,
+ 	.num_nodes = 1,
+ 	.nodes = { &qup2_core_slave },
+ };
+-- 
+2.56.0
+
