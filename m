@@ -1,63 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101179;
-	b=n2WGrvLLLokaKvIHcI7AyBmr6R4OYFJ58xUgb6wLEq4Hq5SnWQvnasgja9R+Dkp3wT4g
-	 CqKa519itrMwQIJ74G8Ku/UXcVhHML4AwTi1SVGIj5Hp8n6AxfFWie4ZDvpI7JOqWHnqN
-	 IHPNC6R97tnIGvkk/y8FvBOtSFYnQj5FfWQKqokaRv4jDicB2Li+/zoGuiiiFTXo8rTNj
-	 V2KcExAwhfEycedGASs24t79CmW6XN741xbtCkXyCPTxl5Bz+xdJI7RNoeUBzG15RaDPC
-	 vRrgoAQpbKUXBM7s3WJnoJb+PnPAfFhJ83Lx158XQN/nL+xKNfhi5UXygDueKU7aHKQ==
+	t=1793101183;
+	b=hHisM07ZCrO4BYtCQ4DOvM6mgf3Z1wx1a9dC2XACfTDuvHt5U0ZWTr6p0sbNA1X1CjQg
+	 mLeLvkIdRH4SnlLKUJ6SyWuPWqZu2E1XWhimzULk1UqIFl43KIXfq0lUbsslhpLHWChb1
+	 QZB20qnLKBF6+39afns34WEtv6ACYasI2uZQU29ZUwiSLixgNQA4fey8tTUDxlAhwsf/2
+	 6fcQoJ64zpvEfxbIdpuyzb7iq5fH8AuGirMOcBBQIH6MWG9KCqKIlzl3fhf+GT3kN7bT4
+	 IhC2GGO+6E94viWqZhyN4hJ8USma4IatfaSKKNQpnvVF/5BTDXHsgyzgB0GY9vwLr7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101179;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=ESrymycrercx4WKj26TQ7uSZll8hEJb6wB1OeQMp6h4=;
-	b=kWykNqz1HrjlWjPFWRRFNLCp9yWEkKSH1CkdL0a1rph9AYeKFNqDWqX/MRAovmG2w09W
-	 s1eQ3xZgpSlfK5Ds6C58wS3WoxOGX0WtPhg9BaY5XB9Dg0NkRI9pJasOQP9r+VjCmi9am
-	 5g7ek7heMfkMlxzUVTYfUKGBWu1CprIW2dDRMsdp6xlSlYSbRarkiBT7jm2ut/UAecY8S
-	 U18k35x5OE7NPhImTWWGvIN9Y96nEDKN3n0e3k25CGwt9eLYPb/q15/tTRSOq0gCUyI3b
-	 TanaSRb7OSEsUmj2J5HyiiV4cxQ2z1hUVvIpB48JYqzBEBzyMgTDBy58jdqMrzjLXtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101183;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=2Tz2Y++B7a7rKvRoX+4cYNKQyDY5thruOl2DK8uaPEY=;
+	b=av8lZr4F5ESaDUlkdO19sS6LQzmRx7IJJiLOQy1763UGVz7SQqsPcXJZZ1oxrwzZWGSK
+	 NHAs01KS6c67EXf+OsRuJOEfv41+BBmwZPqg81TRBVnL/A7LTWjlGHv78etfWjqh8Bm8f
+	 OZzVGWABd3yylN9cDUIu9Dn5dvZ0MpybOsP0hHPXhsI1oJhb8XTUq8fTOYfDnldvNWo5V
+	 WlHrMolEDoPO0BX3BkVUFC6tAh2XnuFYMCRp1CbPOsySITIH9PDkAph6FRJQ/kUBRtfIW
+	 cKXR4/pdBvfQsakL1YnY5I5NVrDOGv30OqoqOYVNS9FIkDOxEClyIAM4CHH4L0eyfXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2rTnLxW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jKHD8slx;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0AD8606B5C2;
-	Tue, 27 Oct 2026 11:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F1D606AED3
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21F1D606AED3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2rTnLxW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9CE1F01441;
-	Tue, 27 Oct 2026 11:39:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793101179;
-	bh=ESrymycrercx4WKj26TQ7uSZll8hEJb6wB1OeQMp6h4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=D2rTnLxWreQ1s1Y6cgPUBRVLtKP6JYx2+VP+nxQNv+ttH/zBqn6TRNVrO4BgtCVmL
-	 tkg1nK8xAeznPqS1pqWXKBdCmXnVNlXseqTH6utPH5M3go51Ab8vCls9tgNQypRLPT
-	 bIviSrxGui+cdC/lk9EIeY2IxjBOiictbxdSipI424d3eF6UBpy+V2XX9B6tc0lXrz
-	 XTg9vRkaUYk6UdP0vFlQ+cVUv0Ay4+xGKUwMbzbCGkxiUxrXMs57YTGeadLfbaKX8W
-	 KbTgJOUwIHpiVSrLU0vn4AlDNEq5PydPRKq/ewB/gg07hexkpbVxQxbebkogkvq7YB
-	 G556og/lLTaog==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Rob Herring <robh@kernel.org>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- bcm-kernel-feedback-list@broadcom.com, 
- Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>
-In-Reply-To: <20260923180703.3901185-1-fuad.tabba@linux.dev>
-References: <20260923180703.3901185-1-fuad.tabba@linux.dev>
-Subject: Re: [PATCH v2] PCI: iproc: Use __free(device_node) in
- iproc_pcie_msi_enable()
-Message-Id: <179310116074.5889.9680127168162481618.b4-ty@b4>
-Date: Tue, 27 Oct 2026 17:09:20 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jKHD8slx
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c43373ae89aso609992166b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:39:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793101181; x=1793705981; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2Tz2Y++B7a7rKvRoX+4cYNKQyDY5thruOl2DK8uaPEY=;
+        b=jKHD8slxvdEgGMIPpyIp1f3/cw5FGjJQx2IA3ge/1E6WkyBl1FZShR1uzjyX8h99zd
+         d5o+Jk3wO4AzB67PRZ1SIEFznVW8CmRVa6w9VgjbRZ4xG0xWrtoxGUMf+58b51/wKAvu
+         nRuyAbPHkMnS4v6kTNDBV8ps7DHjBXgvvcEOAGEtAPbeuzD5ZmX3B7pC7U0GO7hE6i5P
+         kWEMTog2wx51xwicF1ifAEJu5PkDeKhpcgvHNBieLqWVjXpEptC8GScCyClnXjHzyr/t
+         suP7Npfl4hrOA6om3v6lJ08lc1C2R1tZeJbWJLFo3ez5eyeQkEcZ6LLjgegDgA1uXl9I
+         6BeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793101181; x=1793705981;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2Tz2Y++B7a7rKvRoX+4cYNKQyDY5thruOl2DK8uaPEY=;
+        b=zJ2g32nYa3TZ4bTINBSYTPBUU8gaxeP5ZFYAH33IjTsrBm5xaT+hFt/EJHVJYxMotm
+         TSRBqL3xVPURJf+RumW13xqKXFoRUiXvMu0SQl7kv6bHSeI+YjZ2chqnZ2UA62xSVbi9
+         DaIURKbVSfmtjdwimeW3Kf/jM9YJYUoYZqcGfkWUAoGLOXiqwQZBw5NYCfGmI7LyUmog
+         vq2Ytxo5bPs//HDjLJbPTkxmF2i3yVzKAJvgPFuATcZR+hy6MBjmwH5+imvucE/Qoe/t
+         4ShUi0iUzhjnSlKqZHxFjS1AQWRqnOZ6tI/01v+rjPIM2BBYDLzmRaYRTCt782PjQ5Gy
+         qJ6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzDPP88DStmgsJ+oaKMFbPfrHcGbzwnvnNsZXUrs6C8CgP/t1gE6biw2n7YmL2DNYYprgSuiE/RwmtHRkE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLicYvszqV7BfoFEKP7kvan25LxILpBhSv7WFDE/6dHmog6MLgK
+	gx2Hgewh9buu1zclOUKbFOSfw5Pxx+xKo5WhjEg9jkZql0tpLMCmgZMqXzD0zg==
+X-Gm-Gg: AYBFou25GqtBjDdIN1up/MjCxhFmBdfnCvnsiXw6VDOsZLZ/TJMAUOmqP6YUwtd5Gcy
+	7TXAfeH7uSws0Q9AMzXF2GC9H1UKWbKeSwW+GjxcJxj3rxX/BvVsUQziFUH7g9UXor+BxUsl0VJ
+	dVhNJ+vSpkaPtK9oHP7wNWbdQa+hxTjwoBwZd5hECtMPlSlBhFmsQGtruIZeb29JakLacYASqwr
+	ISkk+Gc8/rCKiuUwMC6bf8OtJiiOC/vuKNNcydmgb9ufGLWM7afw/J6OsZMfn6SOnL64oNEnxCw
+	cyIHjeoNAW/GWs5NJ65lNkLphFKSnHJbKLy6fq2hRg5Tqgi3SD4zu+KjpVNBbFsSoWHE3UERqUL
+	q9s5A2LIPJ+Kc7pXNT6E2HhdJ+15Ok07nGGM5DXRx5ZvwKuwtpSL+U8w4f9SvHQj9ek9AST2AdT
+	E6dIjI6fewB3Hh06Nz0Dyh2PSP/06eJUgbPYGB6QjqB5uAu2nrGF0aCrR7PTe4A0voxaLn5I25l
+	OJCp7Y3P0gaI9G+f9yKd5YNufQ8SP3x1lBgxQP70bVEM0v1blwBxCYjDGlAC6Tzuo6100fKC+Cb
+	Yw==
+X-Received: by 2002:a17:906:f585:b0:c46:88ef:2e46 with SMTP id a640c23a62f3a-c46bdac306bmr909348466b.1.1793101181423;
+        Tue, 27 Oct 2026 04:39:41 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7abf6asm430272466b.81.2026.10.27.04.39.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:39:40 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/2] ASoC: dt-bindings: Document FM34NE DSP
+Date: Tue, 27 Oct 2026 13:39:27 +0200
+Message-ID: <20261027113929.65102-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027113929.65102-1-clamor95@gmail.com>
+References: <20261027113929.65102-1-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,33 +106,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=345;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=AMfRuaK4nK36sJGSTedCARE9MAMDElaKKgH32J7UJkw=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4I1wvm+ljiS61ncvUtkHNTAGJfy2y5saSepTU
- j4SfktlDWKJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauCNcAAKCRBVnxHm/pHO
- 9Qw/CACCDBzEYt25olPXuF1nIV7tYt36WXS35jOKneSXhrBxNZEaoCMUM5CXDWPx1H3r46uryS1
- eoVjDr7BOHqL9+d8miPMDYgRti1HfbHkQA0jLKfe8cQos4nvIdD7VNtAsb50YxNo59pgAYegLnn
- eliaQ4hh0jgJaBIVkluiHBfGnagZ+SWaMdUIijc1e9lUhtwRbj8lrKrr37BhKDbDm0dju5fouk4
- 90/9hG4dWN/QA5uz4Imf94X7J/2ZN/aegkyWQ9+3bwm+9//IBe4huQcvbHXnpyOepBQOl1Q2t/g
- Qu3wsWVc+XFuB1Xyg5l1zh0IecZFFe83lujk9jJwKebC4TJ6
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
 
+Document the FM34NE DSP based voice processor used in the ASUS Transformer
+devices.
 
-On Wed, 23 Sep 2026 19:07:03 +0100, Fuad Tabba wrote:
-> PCI: iproc: Use __free(device_node) in iproc_pcie_msi_enable()
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ .../bindings/dsp/asus,tf201-dsp.yaml          | 74 +++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
 
-Applied, thanks!
-
-[1/1] PCI: iproc: Use __free(device_node) in iproc_pcie_msi_enable()
-      commit: f27468551f99d80c1f08be5194e9e520beb23908
-
-Best regards,
+diff --git a/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml b/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+new file mode 100644
+index 0000000000000..8b39089c99a9d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/dsp/asus,tf201-dsp.yaml
+@@ -0,0 +1,74 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/dsp/asus,tf201-dsp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Fortemedia FM34NE based voice processor
++
++description:
++  Fortemedia FM34NE is a hardware voice processor (DSP — Digital Signal
++  Processor) designed by Fortemedia. It specializes in real-time audio
++  processing, focusing on noise suppression and echo cancellation.
++
++maintainers:
++  - Svyatoslav Ryhel <clamor95@gmail.com>
++
++properties:
++  compatible:
++    enum:
++      - asus,sl101-dsp
++      - asus,tf101-dsp
++      - asus,tf201-dsp
++      - asus,tf300t-dsp
++      - asus,tf700t-dsp
++      - pegatron,chagall-dsp
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Master clock to the DSP
++
++  reset-gpios:
++    maxItems: 1
++
++  bypass-gpios:
++    maxItems: 1
++    description: Signal that switches DSP into programming mode.
++
++  vdd-supply: true
++
++  port:
++    $ref: /schemas/sound/audio-graph-port.yaml#
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - bypass-gpios
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        dsp@60 {
++            compatible = "asus,tf201-dsp";
++            reg = <0x60>;
++
++            clocks = <&fm34ne_clk>;
++
++            bypass-gpios = <&gpio 222 GPIO_ACTIVE_HIGH>;
++            reset-gpios = <&gpio 115 GPIO_ACTIVE_LOW>;
++
++            vdd-supply = <&vdd_1v8_dsp>;
++        };
++    };
++...
 -- 
-மணிவண்ணன் சதாசிவம்
-
+2.53.0
 
