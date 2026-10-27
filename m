@@ -1,103 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793133169;
-	b=Ou4mvmr/PKubciznoMHM3asHQMFEWMR0T0dCZN+Fp0s2ft0P2C2I6BahMhhEEyWzz7gu
-	 om0VC1m60GWW6LdpRRGVtkbGmjE2ov2ZNpct/t8vCovG+8Qev1gwsEFOMa3FgzL0HrZZW
-	 QuSh/uFXI/vpIQVLm8P13vSvmiJ7HJqwkqOCGaHPOdGwOcvslFbha3Ro9bNcN1CRISKmc
-	 NMntLUZ36kh1TGhL5aWxj6IWLnZc/2EvGoO2tGe0UDvLmvWxeC/tJ0U7xMz5oklC0CZxn
-	 YwhDeA9+nYx1MIj1wh5DsSae/hQMui0WHlrKk3SCGO1da0qOUVam6hVNi9i+wZxRiTA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793133169;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LMuYjFnWMNmoc6RHBldTHC8xKlMJvZBOmRoafWgGzpo=;
-	b=MCeb4meOqWCk77+41Ynbwyt/yMKWOwJBOD3johAggEuHHJm8D+kRKQ+WN0PUDbGjkvy6
-	 fdu3uO7Tek0ziks8g6pZxv1QrVxw0zhPJCbokKYS69qIR2C1T2IW3yAAUE0vtteZspqTB
-	 5MnBNvbzopd/U+SOWt2MEBUNJEwI+/Y36HL9uKHtlf/7NeXzGuOQSdymkVAM6tN38WEo3
-	 gjk2LGLo/vxHriSQGvMw0Hy28Kfcj9bWL/2WRn//p6fGMZ0OpRAY99Mu12igZBZCG7DsI
-	 qcmyJlXTMvc12evXhE21oupFZ8s+H4zapzc5q2Qr/oj+k8I8aRYLSOhnuzObrFLmE2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TiTie2ga;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.16
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010016.outbound.protection.outlook.com [52.101.69.16])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793133193;
+	b=jxznUddpN93eu+Au4gWOpqwI24Mx5/snmnU0kwuE/dF94PUYs1LyNDqTNaR4DVZpgx90
+	 k6avawKCFAgtS3xk4Eja2vwWNnbGm52oQxBK1sK5U2lMKz5JWe6+1E5RfJ7SB8Z4agjwf
+	 1csXffVqnIKO6iuvIih0P/KOrvKCVdpNquJyaWbSvWq2TthAo/y5BZV5E7STDU+6Y4ht8
+	 irnwmXAMUeRFllN1rgEnZkcRFmvdvnv0gTcJYzmdr7bJpq1+OCsc3vKuWD5FiIDfCeN7O
+	 XWFXZ3yFdSfKVX69gNEp4Vtaev4ibDMf1jByiO1+lVIonIXcWJ1z34VzTdUxCsOLbdw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133193;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2FqCr0vtvC5ycn1qRHHA8CslBTsR5N+niQDKzSUxH7I=;
+	b=UyziU9SSzg6jhprRAvAzJ8xBSb3xmVgmpLldYcXBQIC9ZqEFJr9IG702wL5Cf4EDjM+P
+	 UCVgj7ZrSVr4OCbe0NU5dJ16AYQ7U38WQ6sIA59TmU0zSVorcdcEFaWkIQujPvaM2PwOm
+	 qZ61HlbgeUSYmzIUgXAlSA9OMa6Ez6ux7pCZqTwbaeXVdgkQKW7t9CjEfhpntYHGaqwX8
+	 oGZhF8uqyHjR0xe0FgE37QgpvSaJegxcLIZkWcXAyC79Arpi2Fql3Q/oDcF8TZrjNoJLH
+	 Mj0LYoaHb+SWI69lSPa803n4/T4MWGraBhaksr2lZ2cBHosyp1+hRBAD2BxQMGL613w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcpRYrvO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A25606A31E;
-	Tue, 27 Oct 2026 20:32:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87A25606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23653606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:33:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=TiTie2ga
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G6r0IOn0A7x1ZSwp4EM8SEtgvjzuZy887LVKSx6FJ9HmSe7RPP5VpKrKpAXvOfnzlHFf92gjCw9EfWF5XX/vr/oTmjw0+sS37zYZFKUK3K9V6sJaWjkf78kNCxtrak88z2ouR5K4QHR6rFvVnbKI3/On+eG0QbH3zKR0dqMrYv0b9Vd6Mrx3sPv/5Evoa2WiYYHmbXqBh2S6da1lXgYgo6gO/p2eBJwd8n3VfPyLHZ9tr20pObxxSxCYhm051k2Td4sn/BlSw8dZLsolVTLbErigHLNX7ybcWzxpA7afR5U3yNX45DRVLd9SplV/rBnTJOaQk88KAJ5YrLokRUoiyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LMuYjFnWMNmoc6RHBldTHC8xKlMJvZBOmRoafWgGzpo=;
- b=heu4PlKorBMpi43lC4mPXlpVC1gfrvZy7ScQ3HSmS3XIDDtOXJaX5QcCyYkNAoyjgbF9ol/Gr4qEIPgZxsp+Dmvzeyrm4xe7Sc0dAzHY3OH+l8aLfGd7rQESTJ1cJkdtroouQGqRne6OM7PT2qZ86boeSbj/et4dCHwoCvFiZBnKmoH9dJHmi+KQiatW8F4kSSWeqVB6bkwe+b+9bX50Fbj1pH7Hs6HVNVUlfvF+Ki0SVMO1IIa8/Sz+8+2/Ndrg37HEiS/1sBdsquKlVoxVXur3UiRDailUXrMG2eAKtgNjzZkgula+Q1cYK9N5lp5KAoxcmC3PRLgkm5zg41yBgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LMuYjFnWMNmoc6RHBldTHC8xKlMJvZBOmRoafWgGzpo=;
- b=TiTie2gaHY1vFos0lwLpTY/hcryClDU3cEAmhf+jQuqLF0M9/Pwd1JDcISV8U2zHZFcaxMyZMVA4uGGaEYg2EyoUBAYyIgvLlAzqfD2dgJwR72J9SzhZPAtf1gUZspRNvXne84n4fjAn3FjYa2Z9lHG/GN+5b/7uaYUeAvlw0c0hxsTqEev9tSrW54UIJc1MHzwebU+d5qHRm3MimofAi+N5fiM+coczm0b8KDik5nXOgWFHkSHYpnaCvrcvqlHu3IfMbAI/8ww2biyv3R+2MGwjOBQjJJrC0oqC2Yn3o9m+/4WeDBH9eXx8U6LUXtJZdxdwqhCkpGddpDc6N29nGQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAXPR04MB8408.eurprd04.prod.outlook.com (2603:10a6:102:1c9::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 20:32:45 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 20:32:44 +0000
-From: Frank.Li@oss.nxp.com
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Stefano Radaelli <stefano.radaelli21@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: Re: [PATCH v1 0/4] arm64: dts: Mark Variscite i.MX9 I2C recovery GPIOs as open drain
-Date: Tue, 27 Oct 2026 16:32:36 -0400
-Message-ID: <179313310504.293806.5904009332348433520.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792326585.git.stefano.r@variscite.com>
-References: <cover.1792326585.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS7P220CA0100.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25d::8)
- To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcpRYrvO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F01E1F01828
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:33:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793133192;
+	bh=2FqCr0vtvC5ycn1qRHHA8CslBTsR5N+niQDKzSUxH7I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WcpRYrvOVG1aJ37ezXi3++Z7WlV+yaXEVRPzmcezPwocvQFKIp8H+GG5uUjI++Nlp
+	 NjnzdunOl/mEpIb5AwgBuMsZMpkeIueQD8yZp6XdNwiyRW38+OnH4/3KoywxcXW3Mn
+	 6bqAldWChKWaIfMMrT7oJlx7eHqLAgD1mkazaQsOL1kEtij9qKNY8BxNLGFeT9p1xy
+	 Kd4w+7+y+Xd9tBjEx/ZnGpjL3yLRzYwBcuvvN5iGzMFJS4BgSfwljz3+nYCNmn/W5B
+	 rFaqIuCzTrCwV+DiYUF6+ta7KlyrNke+cH96rNeAHYeSGtfDcyGlbug1b92+xUyHlM
+	 mj+CiLPCSWh3Q==
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so358567e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:33:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx9hoklsOE5DcnKvoMLWfgfZNa8WajsdlJKyui4dMO9ncM8WPaUWRXvpYnjzRY8+Ff0oVm5r8l+khPbPzY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeJRtdnISWnYlRzjQS2qyUAfWKotE0ltuolm6gS0lm7M1nem9S
+	Wly16NpuIcZh5xN/ZgufcvHT/IHn3iooKLbRKjy7apLBYmau/OpPa5OY6KycGMuZsm8FN7Efpf5
+	bDoSL7I0HrF60k0hSWkIHySQ6iRzmHVI=
+X-Received: by 2002:a05:6512:3090:b0:5be:5b2c:4a1f with SMTP id
+ 2adb3069b0e04-5bfcad78817mr180065e87.10.1793133190799; Tue, 27 Oct 2026
+ 13:33:10 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,97 +59,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8408:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6beb6ae-d0b5-46c8-95b5-08df346974fa
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|7416014|376014|366016|19092799006|23010399003|1800799024|261009223027099003|261022105027099003|261021121427099003|10067099003|56012099006|6133799003|22082099003|18002099003|11063799006|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
- FGfLNdCUA63dyPiqjQ+cbnGyquzknoCNM4b+uhrjO/7GtZypRcIDpU3+jBkPfRtjZRQl2UjghdF+HXgwvqBIlivLK2KZL6R2cWkCXXuWnsql4eAk8OYqP2ASmuyNG21tOJ6jZb5LkJmMoZrpUyysTCpArqk+eHGknGCSVp/e75z9r4BDd5hkz4pFIuPSKaOtc8yKHnkCg5wuh5mxYHOwz6EOtMcrTrGeNiUwh48yb7GKxUaHLAGrAGilRma7iP2DIyuP4vWq0xaTcU/PgiOPBJwXxLr/w1N/cA5UbtOYzZgb1RjdC+y3aDVl95J2ozpz5ul9Hs+BYovtbbMCbnSy8dXx3cQ6IOgBlWy7WZbwpSpD/5PZQHEHpVBDlXwDaT1s7IGmBgzMe0QSWDc79wMBiSGvQTuP6Eh2ln9GAwGXQ7KazEoHsSsQqpVqHdkzlI0i9GCnCBZllPOEucM5Fc5Bba0wbC+29jPO3/cMXSqbsxcZ0VdHXwptIZqRykvaKJS3gcbG6XV1nlMze1kOk4CdrRhIAiJTLPMTsUks+27LQ+IbyOrQc3N0qUxurHeaDY6SLyABSwbBugKPZkQaF++Em71ywEFxupdlawOdeFCNOpSewaLISre3hjsqHwLAyGF6ePxSWBK8QRc0ABjt/94XXBSRyxx5RhDhnmHGTCMnScA=
-X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(23010399003)(1800799024)(261009223027099003)(261022105027099003)(261021121427099003)(10067099003)(56012099006)(6133799003)(22082099003)(18002099003)(11063799006)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?UHJlSzVUMUFZN3RNZzNzRkkxcVd3U0lHeGdPZk5jUVRQN2FaQW5xcDJ5OTdK?=
- =?utf-8?B?TGNuOVpOVCt2a2ZNZHp1VVNOYkVPOG0vOHZaa1JWWXRKSjloYXhpNEUxZmNq?=
- =?utf-8?B?bXFNNGJ5UzBRZXRTU3ZTMFM1bkFDZkpqdk5sWVRkTUQ1YlpxRExhQ0RoMWxJ?=
- =?utf-8?B?TUZaWmU1WXp5MUsxUW5NSG9pVTJoSy9YckZMcFRRbTlBYk9QYk80YVVRZjFt?=
- =?utf-8?B?eDU5SngrVGtoZmNrYzQyYUNxV041NzV4bWsrL2Nab3lLeWdvNXZSWVB3OGFB?=
- =?utf-8?B?djEwSjFKa2VqRldlSk5FOThGSFBzWVBpUWUwcngyMmRpd0xxcHZmMG1McTBi?=
- =?utf-8?B?dUtIVXVYSExhUUxzRkViTzFQcEJWVEhCK3hWZEY2ekhyUFFyUGpGdTJFV2p6?=
- =?utf-8?B?UWpuR3VNQSt6OVp4bUdxTWdLZTBtd0o5UWhPV1BlTGc1NFFNLzJtanU2T0Zs?=
- =?utf-8?B?QzRuK2hOVGJ2MG9mdGtFcVNYVnpjaDZhR0lXWk5JTTdNMFZnaTBFTVRqUmZB?=
- =?utf-8?B?VjZzVnRQRkh3dFAzSXRnNG9DRzNoQzFCditiZ01CT0dERCs1T0J2VUJsbWNH?=
- =?utf-8?B?WWR4MEhHa3ZaOHY3eUR5bms5dkp1dVNEa2h4eTVuL2pnMkJCdjNoYXk1aDBh?=
- =?utf-8?B?MUxGdzZkOE95cWs0RlNyaG16YlJtRUd3ekUxSHJuR2dFOEpXRjZZaW1TQXhp?=
- =?utf-8?B?L0ovVFJjMHZMOVFaZkhEaitWWk8wSGJERUZUQ01ySGE4cWh0QUlNKzNCeE85?=
- =?utf-8?B?QTVzaTl6VHR3QzU5UHdWUER0bGd3MkNtNzkyazlYdk9INFFMWEFmVkd6Tms0?=
- =?utf-8?B?NHZ0QmNpRnJqV3dZaGZlYUVoZ2VUaGJXc2oxTU45dDZKQVVIeUV4cVZvYUhx?=
- =?utf-8?B?VXgxRkkrUDQ5VkVua1djM0VsSzQ0b1RjelBWMHl2ZnZNWkEwcEEzcFBLcWZI?=
- =?utf-8?B?NE5nWWtVWU9LRUlVelNPU0tkMTN5b0ZCVmUvOTZFdGlGK0dBWXZuZGRvZ2JK?=
- =?utf-8?B?YmVTeWFpS0p6NGVEMm91R2hQZlZBS3NRYUlyOFNoVG5kOWk2UStUQzAvcWpJ?=
- =?utf-8?B?bHRVbXpKOEo1SldGYkdzZ3JqbllqbFB3dHFQV21UMHVrSkcvdFdMdzdQZFMv?=
- =?utf-8?B?ZzZVRDA3WW1vTE5wMzFzeW0vRmQxWUoyM2VjZVB5aitGNzZVR3p2bEI0WnN2?=
- =?utf-8?B?czBGNXBoUkdDQWlZcTVCelIvNlZZM2k4aGNmTm1POTNLbzdMOUcyNjNFT3Np?=
- =?utf-8?B?blB2N21UbFNLNTRLSXlFdXNZTVVJQ2ovODArbGw2cE5nS1dnQStaL2VicEo0?=
- =?utf-8?B?eG1DWXhnZkcyc1RONjJiNjBVQi9RODBzdUFqVGdETjFGWllhWDhjdGZwcFpM?=
- =?utf-8?B?Q1VEaVBsenhhWll5cHNRMGNJZTV1TW01a0labG0rU0tKNVBpTWkzL21CZXdw?=
- =?utf-8?B?OG9LL3JFSHB3aEJMTkFMUHRMLzV1MlhnRE5pUmRzbzRnd0xLSVlCWHFKbW5H?=
- =?utf-8?B?N3hMbmwwNzZ3aGNDS0plVHF5a09pYmFqNXdXZkhCdzZ3VG9NRnBnc0JuTnUx?=
- =?utf-8?B?cFRXUWVtQ0FxTkxCUDk4OFhRY3lUSzNyVHdpaHJrM1RyYXoyayt3cm9NRFlS?=
- =?utf-8?B?VVZ6bXlqTFh6TEI0Zmh4aW1rMndiZ1I4TlE1bUhwcmJraWlIaURCa0Z4MENw?=
- =?utf-8?B?MjloYjFLcGNMN0J5dnJUanRpZzhHVWsyMWF6QkhXUjFOTG1XZkdRbHF4Uy9v?=
- =?utf-8?B?Q2VsMzhwU3ZuTWZzdWhHSmlldFpjZS9RaWlYVHZQaTJrYXB3Um1FdmpnUVV6?=
- =?utf-8?B?VDM2OWRiVnRKU0xZZU9kMW1TMVRjZzFrRXR3Wmhmb1IxZWlONXM4NnZRYnN2?=
- =?utf-8?B?eVVNd3pHczN0akdmLzVjdjFEdnlNdFZtUlZUaDEwVTNXc3YweG55VmVVc28r?=
- =?utf-8?B?VnhlODJ4ZkhzeklkM2VrZjRhcVhtQjdSWTZudDgvQ2dITDFjRmh5UHdxTU94?=
- =?utf-8?B?VFpPQmtsVWt4SStqMzlYQjdBR090bm1nWnU5SWZIeXFram9QaktWMnJCaUxG?=
- =?utf-8?B?aFd5ODgxZG11RDhSSU5PZGczMU9KYUVjY2ZIU0VNOVRINkp6SmNkMWliOCtp?=
- =?utf-8?B?UDN5a0JxTEJNU3hobkR3NXZvVG03VHQ4L0lmeFJyZkNDbzZ0cnZYd2xGRXhH?=
- =?utf-8?B?K2hYaWsyRWprc3dSeWMyM2tNMkdsZTYwVDhGT3B4bjQyZDFoRjM5OGtkYWQ3?=
- =?utf-8?B?QzJtaGc2RGlvVnVvM3l1S1VzR2NuN2RSaGlaYXF4QTkwWExnN0tCbll2UW5n?=
- =?utf-8?B?OVZRakR0NTdnby8xcXd3S1lBZENlTlhGMDVpZjZ6UkxLL0ZwYzYyUHFVVFhr?=
- =?utf-8?Q?V3iHOETdOG97i6oksswDQZY2sKWH6IkrRZg/h?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6beb6ae-d0b5-46c8-95b5-08df346974fa
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 20:32:44.9437
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rNPStT+Vf68AaipxG+bZSdbWhejl/rKgbw4DoIJBPxS4UToZm0trEtAPwbDu9ATPttUxI3rG9EwSBhkD8PbJX9J0axy/3UiscrwLNlB5lAzHtaJBuW7hZjlECb4jkriQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8408
+References: <20261027143725.3763827-1-zakbrightonknight@gmail.com> <001101dd6631$6167dbd0$24379370$@telus.net>
+In-Reply-To: <001101dd6631$6167dbd0$24379370$@telus.net>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 27 Oct 2026 21:32:57 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
+X-Gm-Features: AclHuK9Y_aC0Z6Lw00AFtAqmLqdfvn5xP7iTM98AIvXgIjtr9f-bXfHMUUyvUFE
+Message-ID: <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
+Subject: Re: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume
+ without HWP
+To: Doug Smythies <dsmythies@telus.net>, Zak <zakbrightonknight@gmail.com>
+Cc: linux-pm@vger.kernel.org, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
-
-
-On Sun, 18 Oct 2026 14:32:23 +0200, Stefano Radaelli wrote:
-> The I2C recovery GPIOs on VAR-SOM-MX91 and VAR-SOM-MX93, including their
-> Symphony carrier boards, are missing the open-drain flag.
+On Tue, Oct 27, 2026 at 5:36=E2=80=AFPM Doug Smythies <dsmythies@telus.net>=
+ wrote:
 >
-> This series adds GPIO_OPEN_DRAIN to the SCL and SDA GPIO specifiers to
-> match the I2C bus requirements and avoid the warning emitted when the
-> I2C core enforces open-drain operation on SCL.
+> On 2026.10.27 07:37 Zak Brighton Knight wrote:
 >
-> [...]
+> > From: Zak Brighton Knight <zakbrightonknight@gmail.com>
+> >
+> > On a ThinkPad T520 with an i7-3840QM (Ivy Bridge) running coreboot,
+> > the CPUs stop using turbo after every suspend to RAM when intel_pstate
+> > is in passive mode with the performance governor: they stay at the
+> > 2.8 GHz base frequency instead of boosting up to 3.8 GHz, until the
+> > policy limits change or the system is rebooted.
+> >
+> > During resume, the firmware sets each CPU's P-state request register,
+> > MSR_IA32_PERF_CTL, to the base ratio (28), and the kernel never writes
+> > the requested turbo ratio (38) again.
 
-Applied to imx/dt64-intend, will see in linux-next after v7.4-rc1,
-thanks!
+Well, not quite.
 
-[1/4] arm64: dts: imx91-var-som: Mark I2C recovery GPIOs as open drain
-      commit: 54f91a7c5523e651d5b5c77b5b369a5d627fcbe0
-[2/4] arm64: dts: imx91-var-som-symphony: Mark I2C recovery GPIOs as open drain
-      commit: 28db8e4df0f3401a6092427b8103a120ba94ac5c
-[3/4] arm64: dts: imx93-var-som: Mark I2C recovery GPIOs as open drain
-      commit: 990c890685ff00e03b85d6224cf97c6e0a94684f
-[4/4] arm64: dts: imx93-var-som-symphony: Mark I2C recovery GPIOs as open drain
-      commit: 0d8e8629b13aecf3467ab0c77e457f037f4be1cf
+If this is suspend-to-RAM, all CPUs except for CPU0 are taken offline
+during suspend and brought back online during resume.
 
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+So what happens is that cpufreq_suspend() runs first and calls
+intel_pstate_suspend() for each CPU.  Without HWP, this just sets the
+cpu->suspended flag.  In addition, in the passive mode,
+cpufreq_suspend() stops the governor for all CPUs (which does nothing
+for the performance governor).
+
+When CPU offline takes place subsequently, intel_pstate_cpu_offline()
+or intel_cpufreq_cpu_offline() is called for the CPU going offline.
+The former clears the util update hook and invokes the latter.  The
+latter sees the cpu->suspended flag set and bails out.
+
+During resume, CPU online takes place first (except for CPU0) and
+cpufreq_online() runs for each of the affected CPUs.  Each of the
+involved policies is inactive at that time, so cpufreq_policy_online()
+runs.  It invokes intel_pstate_cpu_online() which doesn't do anything
+interesting without HWP, and then cpufreq_init_policy() is called and
+it ends up calling cpufreq_set_policy().  That one calls either
+intel_pstate_set_policy(), in the active mode, or the governor
+->limits() callback that for the performance governor ends up calling
+intel_cpufreq_target(), in the passive mode.
+
+intel_pstate_set_policy() does the right thing and sets the P-state to
+the max in the "performance" case, but intel_cpufreq_target() doesn't
+update the PERF_CTL register if the new P-state value is equal to the
+cached one.  That only happens for the performance governor though.
+
+Subsequently, cpufreq_resume() runs.  It calls intel_pstate_resume()
+for all CPUs (that doesn't do anything interesting without HWP) and
+starts the governor for each of them in the passive mode, but that
+does nothing for the performance governor.
+
+This means a couple of things.
+
+First of all, the fix is not needed in the active mode for CPUs other
+than CPU0 because "online" takes care of them properly.  It may be
+needed for CPU0 in that case because its PERF_CTL is never updated
+throughout suspend-resume.  However, in the active mode, if the
+performance governor is used, it is actually fine to access
+pstate.current_pstate and call intel_pstate_set_pstate() without
+synchronization because the update util hook is not set in that case.
+If the powersave governor is used in the active mode, the update util
+hook would need to be cleared at suspend time and restored at resume
+time (modulo the possible offline and online in between).
+
+Second, in the passive mode the fix is generally needed, but it is
+safe to do in that case because the governor has been stopped during
+suspend and will be re-started only after calling
+intel_pstate_resume() (IOW, the needed synchronization is already
+there).
+
+> > Without hardware-managed
+> > P-states (HWP), intel_pstate caches the last P-state it wrote and
+> > skips writes that would not change it.  In passive mode the cpufreq
+> > core also skips requests for the frequency it believes is already set
+> > (policy->cur), because intel_cpufreq sets CPUFREQ_NEED_UPDATE_LIMITS
+> > only with HWP.  Neither cached value is updated across suspend and
+> > resume, so as long as the governor keeps requesting the same P-state,
+> > as the performance governor always does, the register is never
+> > rewritten.
+
+Not entirely the case as you can see from the above.
+
+> > Governors that change the request often, such as schedutil, mostly hide=
+ the problem.
+
+Well, the question is whether or not it makes sense to restore a
+pre-suspend value that's going to be overwritten immediately.  Maybe
+not.
+
+Since in the passive mode it is always safe to carry out that
+restoration, it is kind of straightforward to do it always then.  In
+the active mode though, it's probably better to just do it only in the
+"performance" case and only on CPU0 (that doesn't undergo "offline"
+and "online", but since it appears to work for you anyway, fixing the
+passive mode may be sufficient for now.
+
+I'll cut a patch for this unless someone beats me to it.
+
+> >
+> > Fix this by writing the cached P-state back to the register in
+> > intel_pstate_resume() when HWP is not used, as is already done for
+> > the HWP request when it is.
+> >
+> > The problem was found and root-caused, and this patch was drafted, with
+> > the help of an AI coding assistant (Claude, by Anthropic) during a
+> > performance review of the machine described above.
+> >
+> > Fixes: 001c76f05b01 ("cpufreq: intel_pstate: Generic governors support"=
+)
+
+I'm not sure about this.  Maybe some other change related to "offline"
+and "online" support.
+
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Zak Brighton Knight <zakbrightonknight@gmail.com>
+> > ---
+> > Tested on the T520 (i7-3840QM, no HWP, coreboot 24.08 with SeaBIOS)
+> > with v7.3 plus this patch and a temporary module parameter, not part
+> > of this patch, to turn the fix off.  intel_pstate.c is the same in
+> > v7.3 and in the base commit below.
+> >
+> > Each row is one suspend to RAM and resume (rtcwake -m mem -s 25).
+> > "Request" is the P-state read back from PERF_CTL on all eight CPUs
+> > 5 and 17 seconds after resume; "clock" is the measured speed of a
+> > single-threaded busy loop.  Before every suspend, all CPUs requested
+> > 38 and the clock was about 3.8 GHz.
+> >
+> >  mode     governor     fix  request after resume  clock
+> >  passive  performance  on   38 on all CPUs        3.8 GHz
+> >  passive  performance  off  28 on all CPUs        2.8 GHz
+> >  active   performance  off  38 on all CPUs        3.8 GHz
+
+Had the changelog been accurate, this would have been 28.
+
+> >  active   performance  on   38 on all CPUs        3.8 GHz
+> >
+> > The passive-mode failure was also reproduced twice on Fedora's 7.2.11
+> > kernel.  In active mode the request was back at 38 after resume even
+> > without the fix, so on this machine the fix only makes a difference in
+> > passive mode, the default without HWP.
+> >
+> > Not tested: systems with HWP (their code path is unchanged, only
+> > restructured), other machines and firmware, and suspend-to-idle.  The
+> > patch adds no warnings with W=3D1; sparse was not run.  The tests were
+> > scripted and run by the same AI assistant.
+> >
+> > drivers/cpufreq/intel_pstate.c | 16 +++++++++++++---
+> > 1 file changed, 13 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pst=
+ate.c
+> > index 17158cb..53db91a 100644
+> > --- a/drivers/cpufreq/intel_pstate.c
+> > +++ b/drivers/cpufreq/intel_pstate.c
+> > @@ -1371,6 +1371,7 @@ static void set_power_ctl_ee_state(bool input)
+> >  }
+> >
+> >  static void intel_pstate_hwp_enable(struct cpudata *cpudata);
+> > +static void intel_pstate_set_pstate(struct cpudata *cpu, int pstate);
+> >
+> >  static void intel_pstate_hwp_reenable(struct cpudata *cpu)
+> >  {
+> > @@ -1404,11 +1405,20 @@ static int intel_pstate_resume(struct cpufreq_p=
+olicy *policy)
+> >       else if (power_ctl_ee_state =3D=3D POWER_CTL_EE_DISABLE)
+> >               set_power_ctl_ee_state(false);
+> >
+> > -     if (cpu->suspended && hwp_active) {
+> > +     if (cpu->suspended) {
+> >               mutex_lock(&intel_pstate_limits_lock);
+> >
+> > -             /* Re-enable HWP, because "online" has not done that. */
+> > -             intel_pstate_hwp_reenable(cpu);
+> > +             if (hwp_active) {
+> > +                     /* Re-enable HWP, because "online" has not done t=
+hat. */
+> > +                     intel_pstate_hwp_reenable(cpu);
+> > +             } else {
+> > +                     /*
+> > +                      * PERF_CTL may have been changed by the platform
+> > +                      * firmware, but it is only written when the requ=
+ested
+> > +                      * P-state changes, so restore it explicitly.
+> > +                      */
+> > +                     intel_pstate_set_pstate(cpu, cpu->pstate.current_=
+pstate);
+> > +             }
+> >
+> >               mutex_unlock(&intel_pstate_limits_lock);
+> >       }
+> >
+> > base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> > --
+> > 2.56.0
+>
+> I confirm your findings and tested your proposed patch. It all worked fin=
+e.
+> I had not seen Rafaels's reply about a possible race condition until now.
+>
+> Test computer: i5-10600K, 6 cores, 12 CPUs, HWP disabled.
+
+Passive or active mode?
