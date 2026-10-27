@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793119247;
-	b=LHfh16/5Hub76o2uFC+39x08j36D4Rude4FPNPmrKWbi5uTQblnViuT5iPktavkh4UB/
-	 D1C+rpuWWyDggOYD++FG6Eq+0+NZqUX86oFIqqcFb6XcyVdc6d12dCP4aawcLeWt2TRyY
-	 u9AQog17kKGy0z+fJ3m2Z1HaOhRWdA6Wbtcyq4R7E++Y/1ZzMwIorUrmd5Q7Pb+VGSKme
-	 V1BpIpqq4MybiaEjIT8PID2p4MjNfxq7a3/OyXjJo16hGOft8zfZrbkNsp5HKnl+w6Orj
-	 X/MhJdAs9Op/z71dz+GTNtXERK98yy4qxW2LNQp1g/GmLXswD21Yq1qYCaD+AKRJA4A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119247;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
-	b=3hfW4iFU6VkKaRPGVqfImEhz9UVdRSgsCQN6iKouTCVFaFs5DQTxUW1NgmJqbIgDJGSp
-	 iOXlaQcsb7JqFrH5fLRNDS1SFfKHIVKZLGtNKSzyWfwzryGZEpA4MrV2XfKTwEBcz0qAT
-	 /G9AMJgxzRMvgiIeYcvPGmqMnlX3QTZuLZpPj9gcyWbze/h7geP2AbqQCWyJmXumXDlk5
-	 a+S03ZeaJEhhqOVMCpYpY36/VCMogfRMikw4wPvjKrxUTZTVN7jI9B9dq03V3/L5a2KGU
-	 NYPSJSWJI0OpTKbANcuX/q3IZarN5myMMqm9wrLJMzWBeqLgxNNiQ2uye6HamhvPHeQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihnwKcxC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793119265;
+	b=FRHm2JygwYcyYEy0VLDlwTTIQ1cmc1ln7EXFZOAmCehgYvN6Gd1vsVoELBWM/4tHlbEz
+	 rr1aHO8TN70XsmngtYlG/VGMq96/Bzv03BhW0dAvPgKbf/aJT0uT1+hNsftJEFgZfI8Iq
+	 wXT/c3ZYKv8UQ+3jpvt2xDYzbhOqs5yo+q5h2//H07BSaXj/opDrZjMYmQW8/2D2ZHCCH
+	 qBL9ZAicYTu0i9zOcNWbwx/zexNFzjB6iOCK3eHDeNsN4BKxnqAc19Ux+SSBf07oLAO3X
+	 JTvKOjBCQhljNBxkJF6EHL6HnDZw9QX0rTxAzFOVvovCOX+dex8dzd9hyejmhNawA6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119265;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=kPUc3KQAvHouFenG0FCj8Kc7EhekozjtsrCUYYp6YRY=;
+	b=EjPJeMati/MIoyITZMe5reHCKrROYnHBkIpT2w3U1k00IENX5GuYyv4w4UIGsiNFXMLD
+	 wbKBhCjbWwj1GdiWFeQlpO597u1KhXSORZHZRY/J4S2siaYMyWsmumx8MeXc9c+WtCkrt
+	 nRd1GjOpdtOtFlRF/KWfUucflPhBnsZBurDtoMzVXIeRut1rGc2cws4pY7rAM9cSU16HP
+	 CFkMYaMlBvtzdavSVhG8cFXpL3FA1+nzBP7RNeIFMWVkNXA+hjGZ3HQJIzo8FrRDuE1ra
+	 vwdN1bCjH547416sYlgkfFs7Yo64GNVfBLdBFWrHHIlQFIT4a5OWiNylHrHCNH81E6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19E8606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:40:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B19E8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ihnwKcxC
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b05bf699easo41480297b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:40:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793119246; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TUC75Hp+W9sZ3WYJkEmREDLNSTw50kDqdeJqUHGsz8pjEYlxJn5TRdhSdvUfC90nVN
-         huRVmJ2bJRuUcDzCUQh1Lg5r1j/+rEj2ZjJBirHExcCFB5MTIQKU2xwln6+drgLgY0rC
-         Sx2ZHVsxaLcpyXjjCkJjCkX4l0dzna61tq+pLc7jdidMOctf7LjgMKMz4QF5Ppv1okv4
-         ptd4Tq0lSh3hwztYZi3coitGQ/WF1UqhRJP3VrvO4OVPNXTqxuqZEIB6N4aq8TuYz3o6
-         Za/cufoe9m0aqhDI4M2Kt0+YzkQxYhmu9OMNA6Xii5RoTmFtWWj8vtc2sHzZeh0DT9ou
-         uJpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
-        fh=oeN0Usw+UafQ4nnOtEuXybZObh/vZ2Hk7NhTGwP0JYI=;
-        b=Ay9mjIGoHJBD3yWIChOWjxsE6KEXflE3sxBm3rQYgQoacO2W59erWDiGrqXwtwwpE5
-         BX0ZrBltTyZBjzqI6bbDUhFb2YpsUvaMVB3swDEctDSkPWBwjUMoSsm6Rwi7MFTHK7Hq
-         b9NM6o3OeDwTZkKgawSgvd034QvelKxHX60Zmw3qFT9FoNsDhaNfsaeaT2JCKpmkwQT1
-         ofDzCIh3KLiQ5YYj1frOrIKexEnQiahkmkB1ifKlVFThjdphyQi8AXrTlLv7kesKpKjH
-         T6mExVWfPEpAdk6bo+MKqy4MZvOk5SQQ09OnNdcQ5arXF2jNyV8DwkyyY4yUS68bOiz9
-         81hA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793119246; x=1793724046; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
-        b=ihnwKcxCTJLEgMsjfIVumhb6S0IfEmdzQwZEYEoTXBg7l0yUs2viibcjKq+iTQidF7
-         O8BcOsQKRMPh7AN3jfl0F2oF53nmB+3HME49sCtOa+NCR0k5I/pOikZg5PMEAHF1m5MB
-         DsCDOtERRjqVO7qZcevvzlSuJm/9UMMioLJ0KaULaLQz73rO6imX9JcHOV9Kl6pzy2RA
-         vwgi5QTkqwNg+tR1HhAf3J5jZH4PXC0cjj9FxDdmzqllqgoik6ahJ+uvCoP+kNlazJwQ
-         43GMbCFUXNmWl7PDNmflZTBVJ0V0UCzZnEa7ewGeG8IsKFI4VvRs3TA3PDS38FpaVmBp
-         Cf/Q==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2ED5606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:41:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2ED5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cbf700ddccso93355b6e.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:41:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119246; x=1793724046;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=G64J3My5E4LHAZytVY99BN0a3iynkD/Y4fMqy8a7CDc=;
-        b=KOBO6nUc/uU7Y8Zx9rGJEErrQze0BKcpn+KrhbG5o7LLYg4HBwp1qQdYcTIs7KJd7b
-         NFxz3ncDQzEVnvRmGKFj5+wEUog8OW4jnafN3bBFXufU8ap9WvBSVmDsBcdyhe+5RSdO
-         65u/CTY/gcCnRebdxY8u8YX7o5Nof8aOo4sVUlUOLDSMip+GLREDnHsfTm0GIPOhfvco
-         GHMuTuMQ4jXnMTBn3qDf9cHlMRpVtUnoL67q7YalQQEsXPzY7eFHoYlo+Z3ayVOQIjJP
-         3MNbJ5iufBNC/nRt0EvZZraBys/wXz1Sr2R0THo5Urqi96I3OskHrAdct1JoDtT1/KfS
-         lS+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzGpfs3y0Q1pK2Q0GFJtuDQKbq12O9Ymu2Ohc6UDb8QaGGnEuFeB5PV4R8ULbhKF6Lpb+TGqiGqtCp1Bt4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIIGKhE3OxqfkymQAgZLmwJLYnFmlFhTbPxvTkri/QIvQRUAni
-	9/I0NSJ0rVrGb/y9agGPH9om7NFJaJuEJ1MzFpDvdB8LhyfD8Z8zBl4HgsUJTXeSby0OjT7r/W7
-	9UEZ05k6avEkD9a7M/grDr2CwMpzHicQ=
-X-Gm-Gg: AYBFou0yvauF2fbVqJa+eEpLIk9umiVBHjwQZayKYOOXUd80pL7Q5J/YZaXt2/N/I8w
-	zJsiiDBYAalxK3Q9aM391TBzSnOkRA0rVuixhBWpn74KiLEiYifPNAR4+4o9wlx40Dhoqax1Rr1
-	qye0wKwq06aAtYexGGGjCfJPSP6fR9tf3s/1lKZKQ2YMOuw6u0qhuRql+P6PO21xC4ngc+NcHze
-	BpQSzmOpLhM+lppHtGd05IdMxryvTdYR3g3XpiVOs2xJsMI/dsRFZunsJqUcUqst70HQixeCiF0
-	uv4OGCCyRe+4pEJz/+KyFPTv71uSW5a+Yy7ssP6QefmLigR1V5OGhlHW/xgcy4jhvN6v6VGMaBk
-	XOPFYca7aalpRiXLu2AG+jOKQrw3SpFUsKwNV
-X-Received: by 2002:a05:690e:21c9:b0:678:151:5218 with SMTP id
- 956f58d0204a3-67a7bd81c3cmr32130d50.110.1793119245748; Tue, 27 Oct 2026
- 09:40:45 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793119264; x=1793724064;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kPUc3KQAvHouFenG0FCj8Kc7EhekozjtsrCUYYp6YRY=;
+        b=tPQcwJsmiz2gdGsEsZao7jJ1K3NA1/2LFs0HoMfcaAC83ntwBz5apMj2TPDuLVeHoo
+         6QdknJNZQm7NRqyoJNWhtv6AwtSBlkV8urAyPrKYhdBaSApRlEb4wX8yDmevwc90G1+A
+         rZWeMF66Of06FLzWWh1L3E5PAxXcCEIt5O+xHdnea4EHGrAyMw4oOLkbloQTIX/HqlwS
+         WdKP2Pg6ukVZRGBjY7TdXMgdUR6yJKda2jXh2eHPngw1AWaBPUBycHIdyoRrl1fu6bH0
+         W26VFK8xixAkDY7h+pd5DtRjgeHA4w49qn7HsurGgLX7nkVti/zChG9vu6/tdAfK0NZD
+         4Gsg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYS+3CI/7G3rE4P9Mk31O5z4L3ist8oZUDtrn5n7qJORA/XuvjcAdtUiNkDXhjvF91lyneEDYTCEeifMk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCkX2Sr7z4MWgPcafFZPwrEbZg/tbbpnHzeZT3h5gyp8PDjwoI
+	+lb6rM8KjqB7GylNxTQ35TzjGNYppMZmP3MTjlbLnMIz/oNP4o4YbhBC0Q1/Vra6FJCTzhi4I28
+	iiLyn7dyVWS0Sbd1Lo8ziH10uzOX9VFWZHEuNvlVHFrWDw/dEyCqIZB7YdrE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,119 +58,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027032609.119226-1-lgs201920130244@gmail.com> <179310015976.2808517.13064510476219400398@kernel.org>
-In-Reply-To: <179310015976.2808517.13064510476219400398@kernel.org>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 28 Oct 2026 00:40:33 +0800
-X-Gm-Features: AclHuK8AK6dZaz6wgjS33W_jF3KCjGoJH6NgyB5biX1dQWpffjnyXhNOXiRNnyU
-Message-ID: <CANUHTR8Ypwpm+Qqmk-fob1=e040rRH5QGTs7gN6MWRKQYyOdCw@mail.gmail.com>
-Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
-To: Lee Jones <lee@kernel.org>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Mark Brown <broonie@opensource.wolfsonmicro.com>, 
-	Samuel Ortiz <sameo@linux.intel.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>, 
-	linux-omap@vger.kernel.org, mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+X-Received: by 2002:a05:6808:11cb:b0:4f7:d324:bc5b with SMTP id
+ 5614622812f47-55c003f07a0mr6824533b6e.57.1793119263864; Tue, 27 Oct 2026
+ 09:41:03 -0700 (PDT)
+Date: Tue, 27 Oct 2026 09:41:03 -0700
+In-Reply-To: <179311142878.187144.14168935384418059345@kernel.org>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae0d41f.3a3d6196.2ecadf.0068.GAE@google.com>
+Subject: Re: [syzbot] [mm?] [usb?] WARNING in corrupted (4)
+From: syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com>
+To: harry@kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Lee,
+Hello,
 
-On Wed, 28 Oct 2026 at 00:26, Lee Jones <lee@kernel.org> wrote:
->
-> On Tue, 27 Oct 2026, Guangshuo Li wrote:
->
-> > twl6040_remove() currently removes the regmap IRQ chip before
-> > removing the MFD child devices. This destroys the IRQ mappings
-> > before the child drivers can release their interrupt handlers.
-> >
-> > The parent driver also registers READY and thermal interrupt
-> > handlers using devm_request_threaded_irq(). These handlers are
-> > normally released by device-managed cleanup after remove returns,
-> > when the corresponding IRQ descriptors have already been removed.
-> >
-> > Consequently, free_irq() cannot find the IRQ descriptors and the
-> > allocated struct irqaction objects are not freed. The associated
-> > IRQ threads also cannot be stopped through the normal cleanup path.
-> >
-> > The probe error paths have a similar issue, as they destroy the IRQ
-> > chip before the device-managed IRQ handlers are released.
-> >
-> > Remove the MFD child devices first, then explicitly free the
-> > parent's READY and thermal IRQ handlers using devm_free_irq()
-> > before removing the regmap IRQ chip.
-> >
-> > Also update the probe error paths to release successfully requested
-> > IRQs before destroying their mappings.
-> >
-> > This issue was found by our static analysis tool under development.
-> >
-> > Fixes: ab7edb149c75 ("mfd: twl6040: Convert to use regmap_irq")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/mfd/twl6040.c | 13 +++++++++----
-> >  1 file changed, 9 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/mfd/twl6040.c b/drivers/mfd/twl6040.c
-> > index 562a0f939f6e..7b05d21cd17d 100644
-> > --- a/drivers/mfd/twl6040.c
-> > +++ b/drivers/mfd/twl6040.c
-> > @@ -745,7 +745,7 @@ static int twl6040_probe(struct i2c_client *client)
-> >                                       "twl6040_irq_th", twl6040);
-> >       if (ret) {
-> >               dev_err(twl6040->dev, "Thermal IRQ request failed: %d\n", ret);
-> > -             goto readyirq_err;
-> > +             goto thirq_err;
-> >       }
-> >
-> >       /*
-> > @@ -791,10 +791,14 @@ static int twl6040_probe(struct i2c_client *client)
-> >       ret = mfd_add_devices(&client->dev, -1, twl6040->cells, children,
-> >                             NULL, 0, NULL);
-> >       if (ret)
-> > -             goto readyirq_err;
-> > +             goto mfd_err;
-> >
-> >       return 0;
-> >
-> > +mfd_err:
-> > +     devm_free_irq(twl6040->dev, twl6040->irq_th, twl6040);
-> > +thirq_err:
-> > +     devm_free_irq(twl6040->dev, twl6040->irq_ready, twl6040);
-> >  readyirq_err:
-> >       regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
-> >  gpio_err:
-> > @@ -809,9 +813,10 @@ static void twl6040_remove(struct i2c_client *client)
-> >       if (twl6040->power_count)
-> >               twl6040_power(twl6040, 0);
-> >
-> > -     regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
-> > -
-> >       mfd_remove_devices(&client->dev);
-> > +     devm_free_irq(twl6040->dev, twl6040->irq_th, twl6040);
-> > +     devm_free_irq(twl6040->dev, twl6040->irq_ready, twl6040);
-> > +     regmap_del_irq_chip(twl6040->irq, twl6040->irq_data);
->
-> Why not use more devm_*() handlers?
->
-> devm_regmap_add_irq_chip()
->
-> devm_free* eeks me out.  The point of devm_*() is that it's managed.
->
-> >       regulator_bulk_disable(TWL6040_NUM_SUPPLIES, twl6040->supplies);
-> >  }
-> > --
-> > 2.43.0
-> >
->
-> --
-> Lee Jones
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in enable_work
 
-Thanks for your suggestion. I'll look into using devm_*() APIs in v2.
+------------[ cut here ]------------
+workqueue: work disable count underflowed
+WARNING: kernel/workqueue.c:4691 at work_offqd_enable kernel/workqueue.c:4691 [inline], CPU#1: kworker/1:0/24
+WARNING: kernel/workqueue.c:4691 at enable_work+0x1c7/0x230 kernel/workqueue.c:4862, CPU#1: kworker/1:0/24
+Modules linked in:
+CPU: 1 UID: 0 PID: 24 Comm: kworker/1:0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:work_offqd_enable kernel/workqueue.c:4691 [inline]
+RIP: 0010:enable_work+0x1c7/0x230 kernel/workqueue.c:4862
+Code: af a8 39 00 4d 85 f6 75 48 e8 a5 a8 39 00 eb 47 e8 9e a8 39 00 90 0f 0b 90 e9 bc fe ff ff e8 90 a8 39 00 48 8d 3d 39 2e f0 0f <67> 48 0f b9 3a e9 d2 fe ff ff e8 7a a8 39 00 90 0f 0b 90 e9 1d ff
+RSP: 0018:ffffc900001e6ae8 EFLAGS: 00010093
+RAX: ffffffff818f4e50 RBX: 0000000000000000 RCX: ffff88801fa85dc0
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff917f7c90
+RBP: 0000000000000000 R08: ffff8880b853b803 R09: 1ffff110170a7700
+R10: dffffc0000000000 R11: ffffed10170a7701 R12: 1ffff1100ec47807
+R13: 0000000001800001 R14: ffff88807623c038 R15: 00000000ffffffb9
+FS:  0000000000000000(0000) GS:ffff888123b48000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ff21fa87440 CR3: 0000000075588000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __cancel_work_sync kernel/workqueue.c:4732 [inline]
+ cancel_work_sync+0xd9/0xf0 kernel/workqueue.c:4766
+ smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:182 [inline]
+ smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:344
+ smsusb_init_device drivers/media/usb/siano/smsusb.c:496 [inline]
+ smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:574
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	af                   	scas   %es:(%rdi),%eax
+   1:	a8 39                	test   $0x39,%al
+   3:	00 4d 85             	add    %cl,-0x7b(%rbp)
+   6:	f6 75 48             	divb   0x48(%rbp)
+   9:	e8 a5 a8 39 00       	call   0x39a8b3
+   e:	eb 47                	jmp    0x57
+  10:	e8 9e a8 39 00       	call   0x39a8b3
+  15:	90                   	nop
+  16:	0f 0b                	ud2
+  18:	90                   	nop
+  19:	e9 bc fe ff ff       	jmp    0xfffffeda
+  1e:	e8 90 a8 39 00       	call   0x39a8b3
+  23:	48 8d 3d 39 2e f0 0f 	lea    0xff02e39(%rip),%rdi        # 0xff02e63
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	e9 d2 fe ff ff       	jmp    0xffffff06
+  34:	e8 7a a8 39 00       	call   0x39a8b3
+  39:	90                   	nop
+  3a:	0f 0b                	ud2
+  3c:	90                   	nop
+  3d:	e9                   	.byte 0xe9
+  3e:	1d                   	.byte 0x1d
+  3f:	ff                   	.byte 0xff
 
-Would you prefer that I submit the twl6040 and hi655x-pmic fixes as a
-single patch series in v2, or separately?
 
-Best regards,
-Guangshuo Li
+Tested on:
+
+commit:         5b0764a5 Merge tag 'drm-next-2026-10-21' of https://gi..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=176c7d31580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=fd1433abd362f255
+dashboard link: https://syzkaller.appspot.com/bug?extid=9fe09db3795456e0b442
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: i386
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=175c482d580000
+
