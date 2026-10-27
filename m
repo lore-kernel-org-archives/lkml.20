@@ -1,79 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.56
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793097305;
-	b=LooPhtysJb5oqFrqJdv7ASCYUbhnlRVgjhp1DNhgFLstdlYcPREMa9RcGgtI3dHyRLLK
-	 5hNmZ70zbIuFZSy0Nktkob+WtTBNybf1vfzAnF6uJY9Y4TlTzuYQpKoPXjRNseOPg5LZ/
-	 qV3xM/uSgdIhdru6xiVMkx71oRLJSc3Q7Q0vB4o8uYgoWqW8nYvWnkig4hJ4UY5cJ8qzc
-	 5L6ZVXoWtdtW3F8Bah07xTnGLUKAZnaNV5ZtlOLRbzyEQwmp1J02GdAmDkxw2XaookPC6
-	 GDX/vg4ftx8R8qCBK5ZYJI8KIwlAtgvYh4/ENwx1EGIHUbW73JZaxzFeg0q8W/CxvyQ==
+	t=1793097307;
+	b=4GuVSZE/mX0Lja7f9q/MREWoLP7+gvQaiftZ4eOEYsXfxXYUXZtT7tAy/cQV/RQoqQD7
+	 AMkyKgXO5fu2H8SBSVp9lrEQNyx78w+6L9VP/dH/HmFv21W99Lo9xHVsDpxajtS6XsYVI
+	 oeXa8pMba0/wb3By5sef0Iy1c/1Hgk5eg+/JGn3REyVR5XesRh8Wn55EWewduGnZK2bXz
+	 fpbk+mApDcD6bJgyFfUvQF2HfMc1MqC3l4ungpHkFwwivdOGjJglvBRCuJKrPMdloGKhG
+	 CeqUG7B919TxO3fU/qZdJjygKtsZvH84pLiwLuEg/pr8opEAW8uo4BHzPKBpC6nNVtQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097305;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/hK/HeD74JlrBU8bMobw4ozyo8xVjYyuYPU+95BndyE=;
-	b=2ommctLqp2W01jtp5fk9DxBuago4RsiPDvbhbfcGl2dbygmmhq9lg/Zqc+xb28/yP9Fu
-	 WQngZgRBvPHKtgphe5rucxQJU872vpUHvBybo5eKf7m/0xDRWbzGnK5y7x8DT4bPPXY3N
-	 jaae7oZy2p4wEFVrRTMCxmP9X2jeiAIYXZmIWA1LmKI1Ms8JxEqNqLKkXRlw1tJcFfCEb
-	 GBkNXKNWNhUjy+BStsIYIpTuRpohvymCFL5/FQJE/yq1VCxxUCL42Gi+hVqWOuX5z6kSG
-	 wlg2s90Dk67/Bc9LoX1DPXG6+S0UQlgsqz8O+AKDDMZ1Y+ZIRGdD4e3stTeQ4Mu4xWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097307;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TnyJAKpbrzT6//5IDpQP6SqjuQWCpBYIFYB3Wu1DxuE=;
+	b=OkAbFN9fGcqqPSvoZ8tyR6inkCN4j0mu2HMbowdT7WNS5Oi7af4hGfxrggXanxUDC6eJ
+	 WZPFYyZtp55ApXhAg84wiCxvtOxd6fXOOFmLzpfpuozA8jZNn+i3VVVVgRIB4wIe1Y3NY
+	 dxVvi0xc40DLjiH9ROR6hChW7L58p437nLtarNX2j3YDKaffSfmbwlCXdJFxJZJ/zm8Cq
+	 ZImUyQPVhVcwG1sPmpxt1uK6ewy9FX0tw33NKcGrd6gN28M/kXtmsbsZoJHtIjDgTA9Q0
+	 QwXxeRygVuOqcxErBjatoESF7q+6mHJB87916Y+dp7UvCFsL7TLPnVgcXsc0/YubgPw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggWIhMEB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=renesas.com;
+	spf=pass smtp.mailfrom=renesas.com;
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b="GoEY8E/k";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.56
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011056.outbound.protection.outlook.com [52.101.125.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257DF606A31D;
-	Tue, 27 Oct 2026 10:35:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82904606A335;
+	Tue, 27 Oct 2026 10:35:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82904606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggWIhMEB
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793097304;
-	b=fhOiJqaV6Cz2a2GJrCjSL34IzRwK0rGk+ElAr97Xcn8L0a32rX1XG18yGBEH9w35VBmS
-	 lZQK+sgYKcW0EdMlmA8jgS1NNcy6AmsvpEcy7LUlOseSKy1s5zWZwvcOESGDhrtGEp4cB
-	 aql3iY4iwdiX00OZ1hCgZp0Pyis30Dlc0lrYaxzeLAUYdAHE8hOlujldzaTDIYRYfnZTF
-	 CmhdKAkpHuW8KKnw1jvWOnixCfV7qQH4L88aXcxenZNQbctU2p1g2Ay3HozRdoTYlwMDh
-	 RsUKDBSzSyhnQb2po6C6Ula/GC0qCPj6ytz+NOG+ittNpBkz+odaOeW4m744/zM0l9A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793097304;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/hK/HeD74JlrBU8bMobw4ozyo8xVjYyuYPU+95BndyE=;
-	b=FT8zVN1zk1gFzDPH7xNdBfXdMMcc3tKxzRuQp00ob/I1fH8hquaK51EB9AW+Jnh9amff
-	 VAemweTAO3akxQqIp1VxzYppbP0u9wc16JpxklxP8pOYjdv2gtJIANmaQQDqCrRHOlxpa
-	 x/TST8TuKsKk6kW9paQ2g1j0z+zsUbqi2y0yPHFt+1H1/3qWBvwKTipIgahhB/Gd+cpt/
-	 FEGCT5BF/wzHMLHoL2GzfnINjcGylL4iCVTtDX51+kvSVDFBcTzlWJ+hZdixeTm2UIkHa
-	 +jwXUEzwt/Ldh4jHJBsRYQJFrfJFFPA4nRU+mYjEVcMIJHtDU4RW/815mTlXLj6oNJw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2ADFF1F01825;
-	Tue, 27 Oct 2026 10:35:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097304;
-	bh=/hK/HeD74JlrBU8bMobw4ozyo8xVjYyuYPU+95BndyE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ggWIhMEBQsXgLuXLjyuujHHdv7z0IgSG2xHfWIc+L9behCPvLksuo4YXKnyXXy3aU
-	 cf3diZskVr8U1g8ISfrbeOBzr/NCIPDWiv6tvg9oo8OQynbe8MQwSJR1sy+I7hJy1J
-	 5Bs1EqpUF7YnzgUslU4mRt7Uo8lB/MSElzbdI21zaa906F/xCylXHSis+71JyNYo3x
-	 uUzOdpZSQffJulk6jlWi5wyj1j0o8iT1AaDw2d/oHq5fPJujQi3rdPLRe8n5U66QRD
-	 6CdfRfSihBzi5x+oj6BOgDsXxGANP6wD/pa/yzCrqtkkr+z6AurPmu5pzlEo1tR/Ky
-	 mjvBsl0kUl8mA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AF0B045089;
-	Tue, 27 Oct 2026 10:35:03 +0000 (UTC)
-From: Ihor Urazov via B4 Relay <devnull+z0rc3r.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 12:35:00 +0200
-Subject: [PATCH v2] usb: typec: ucsi: acpi: Assume UCSI 1.0 on HP ZBook 8
- G2i 14
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=GoEY8E/k
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=czkMOyDQmBweWAbpK58uvT6cArWZpS2aZqYUlfILojHlMZW3sJu6XYblrs5apdWDnYvYWloFHtJ+YVvSaxJyeje9aVN+Yv8r6TtshG46qsQFk5KlPfpZJljPjN18fbDueqRP9ofp5aYiBSQ3VDF1AA4nKWum9c8CpAULEtk0S9YpUqQsCpCS63nfBlmGxQ5xbFkf3ZWN+eE9ZZ+DpDuSPhYqcZ1xX0jRGddi06xLtt/dGvapmvbxvL6cgz+qsTsJW1nMYGCCbVd5c4ttfJsC+fMPk2QbMNYiVCrRxhdv9VTjDS2MMs+NXeewmHAtgtYTqavaeRSHz6GB2juH7313lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TnyJAKpbrzT6//5IDpQP6SqjuQWCpBYIFYB3Wu1DxuE=;
+ b=lGA/4vtNMBbC8nclirALuWqCe4f7cMMxiCc8MfHm1friIr1KGWjQfXYikMq4M0fRxbDH+12UDKbTCGA4SmNbLpfbM0JaKtIcRhFp5F4tVyySP15l4rFOiRETxfNc0q9WOFbdeMQ5i4RQSDsO5nn1zErH40fT6ntBb4aWzH4TzdBGBmdH+Gl828JqhmUzatMICbkfYHD1BLhsXtcf5vVWJEEbOCA81dUoq5IRCgW6bQABP8GF2oc6OBsr8vhm55WSJJ4F2+nN9knWTSyB/W8HbarC3h0yaYgAXmEIbkxp3F1CKkoCT5sEdhb8y63mlJP/RekdskgMBugJq1CQEsOx+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TnyJAKpbrzT6//5IDpQP6SqjuQWCpBYIFYB3Wu1DxuE=;
+ b=GoEY8E/kKC0ksQyNaJr/YWRZEgs41UUozt0r4Hq2R6NSeRZZ6tIlk0Joe9/IRo6DFRHfGljnugcafDAHJZVZMzk1cbH9tYF1pzgaeSBQJ5jzPayahXJuCEZbqbBOBuYlAN8fIMojeWlXVZEV0cjGbb0KryCLuhw8e1qhuNfpocM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
+ (2603:1096:405:1a1::11) by TY7PR01MB14856.jpnprd01.prod.outlook.com
+ (2603:1096:405:24f::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 10:35:03 +0000
+Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
+ ([fe80::1116:d56:8164:63b4]) by TYYPR01MB15118.jpnprd01.prod.outlook.com
+ ([fe80::1116:d56:8164:63b4%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 10:35:03 +0000
+Message-ID: <f4b8a714-dab8-45d4-b98f-717d010806de@renesas.com>
+Date: Tue, 27 Oct 2026 10:34:54 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: i3c: renesas,i3c: Document analog noise
+ filter control
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-i3c@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+References: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
+ <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-b7ad60cde650@renesas.com>
+ <ate-aNmqsyXCAIX8@lizhi-Precision-Tower-5810>
+ <64f604a7-7e70-4a0d-8164-28c5d7b1e509@renesas.com>
+ <at-5E3b_wKcnuJ9Z@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo.sx@renesas.com>
+In-Reply-To: <at-5E3b_wKcnuJ9Z@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MR1P264CA0214.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:56::12) To TYYPR01MB15118.jpnprd01.prod.outlook.com
+ (2603:1096:405:1a1::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,141 +110,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-ucsi-hp-zbook-8-g2i-v2-1-02a600e4f0a4@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NwQ6CMBBEf4Xs2TVtrSie/A/DAcoCq0JJC41K+
- HcL3j3M4SUz82bw5Jg8XJIZHAX2bPsIapeAaYu+IeQqMiihUhmDk/GM7YCf0toHnrFRjFrrtCh
- TOlKlIS4HRzW/ttdb/mM/lXcy43q1Nlr2o3XvTRvk2vtvCBIlZlIIRRnV4nS4Nl3Bz72xHeTLs
- nwBQeBu+8gAAAA=
-X-Change-ID: 20261026-ucsi-hp-zbook-8-g2i-4446ab6e5ed4
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Francesco Orro <ncesco@interstellar.eu>, 
- Huang Wei <huangwei@kylinos.cn>, Ihor Urazov <z0rc3r@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4023; i=z0rc3r@gmail.com;
- h=from:subject:message-id;
- bh=NlPCvrvQhtgItzt9zsdsYFiRx4ZowVkUcnfZuo3biYA=;
- b=owGbwMvMwCWmab25vPXFu0bG02pJDFkP6sIKDLW3xMdYFExSvVCrEH9SYOrxPTm1Dpkc0bX+r
- 9bqP/zSUcrCIMbFICumyNK/z4BXW8hUnOmLzRuYOaxMIEMYuDgFYCLPKhgZ5p7v37Wsanozl4il
- p+uM59orTF3WBQradSS/Plm52HYrM8Mf7kVvvj/Lj2WY1Tfn5QlHtvVLl2f67mE+bNkjK17WXf6
- MEwA=
-X-Developer-Key: i=z0rc3r@gmail.com; a=openpgp;
- fpr=F7D877ECBB274E704A31F3AC5D006BEB7252F7F2
-X-Endpoint-Received: by B4 Relay for z0rc3r@gmail.com/default with
- auth_id=1320
-X-Original-From: Ihor Urazov <z0rc3r@gmail.com>
-Reply-To: z0rc3r@gmail.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYYPR01MB15118:EE_|TY7PR01MB14856:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06ea123b-a45d-49a8-84cb-08df3415f5bb
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|261026140227099003|11063799006|4143699003|56012099006|261009223027099003|261021121427099003|261022105027099003|261022075727099003|261021123027099003|10067099003|22082099003|20046099003|261026121527099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	S2JQ+zmX7DLwqKfGanmwRlexMbrgZhSP0vJ9OGA6ozrAfn6l3Zd6/I6Tx2BqLKVSNzOcmS9GwyAEX9+pk6K5imZ4dvO6MoUKxPh05I/4Yaa4G/y6mgMs/OuxtdkxCcyhGxP+JtIdphSoS6hlhQHBZQHD3HPC3A/501CMqsYAcTUuPz9rgT9WTpICT2Hd5Hmznd6X2sFnxqo0jESj3EmMkAppXHFA6f3Yqv5nA1hfRlyIFlm8U/mNsqmx3L/5t7HgTTo2pD0nVMt6WbO9RLTc7XdWmgI3g3gyligo8ZM6fKFhujaapfBW1m4hDwFelftoHElq6Au2vbs8gj4VmvPodX5dDbIvwVwk2l50b51EOzGsJ/2QdNtYg1jCcR3toOJBKnJ9ig/zp6CZ6T29oIvF6AZUtKb0JZ/tAf6tD8pdVytdhx4V3kiKpQ2rBRIjNUKRrmbmJBTAnQLjUnxy4gd83DFViGNXy9QXwOXr3kwJ+OsCWkaF075QEGpA216vjfZLi4VBMWmMmQ/KRPbpv/yJFGT2q5eFL3gu1KIodKclsR408BVfsAscXPGRswP7qGj9x0KHS/5336oFu/1opAiXyO/f7aPU3G5csuZPKhuHwo2S01bNZ6Fit753ATeYljhjQSD7pc9XXdKqqVCzqm2xNmcHeLrR0NCIn0EwUe0PEyA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15118.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(261026140227099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261021123027099003)(10067099003)(22082099003)(20046099003)(261026121527099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aEk3NzJqN21FeHRZcUZQZ0VQdEtEQjllQ0dsYlhxMXlPODNPWWJ0SFNKQTl1?=
+ =?utf-8?B?RkhDZDgxWTlOcWxRVnp4KzRCQVpWdE5Zdk56NG81bks4REkrNTNHUGI3b2k2?=
+ =?utf-8?B?QjI2MnBEczIvcnkzZVJQWGQ1TEtoQy9CQ2hVWFI2dXI2dUlubFNCdlVvVStp?=
+ =?utf-8?B?ZlFWRkxzT3BIRVQvWTBzRDJYZWhFaHpnUGU1bUE4ajFzcUZYQTNUVVRtakRq?=
+ =?utf-8?B?bU82ZE0yM3ZEZ1NJb1N5dnc1YytyeHloRmJHS1lGbmQzNUx1dTAveXY0Szg0?=
+ =?utf-8?B?NHdaOHd4RkJCNUdaKy9NdlZoT3JUaThkVzdHT1Z3MWdsMjJpT0FSOERlQlZT?=
+ =?utf-8?B?Y2xhZXllSXVTMUdycmxCKzN4YmdpSGhKeTdFa0xqVDZVRzR3V1FJV1lNemR0?=
+ =?utf-8?B?T3h6eHdQYmxQdjBwRWE1Wkc5b1JybGdNV3hvd1RsT3d3aThOakZ0Rkg0UGZG?=
+ =?utf-8?B?YXJKRkdsdnV2VUlpT1JPbHMzYjJBN2JxN25ZL3RiUVpmRUhNbmhjMWRrci9T?=
+ =?utf-8?B?NjFBcFNOTFhVUmk1WDBNWEtuTm5URlVxeE4xNGsxTmRjMWFxbHJ6dXdJaWI5?=
+ =?utf-8?B?TEh3WVJORnVrSmt5WFhuYm1QNUZMYVRzdGhJbnhwa2hYZmZkejFpZWRvQnF3?=
+ =?utf-8?B?ZkIzdytRSmM2VFRFY1NGSk94Uzh4ZXU5WmxpK3R0WFZyREYzNkQrZTl5TVUr?=
+ =?utf-8?B?RndQaGpaU2xCbHZYVVYwVEJRb3FYa0Y3SUJQaGFSMXdtaWpEdWNFVGxESkRS?=
+ =?utf-8?B?dzZGUDJ2MVd6U1k5UmVPSCtMTUF3NkNNVWxaMFd1bUF2RUtkZ2RFSk5rKzdj?=
+ =?utf-8?B?UDJGeUVnL0owRDFrcFZlZHdJU3BiRHFCWVUvNHpUSEZ0OUlJaGpCcW11TE12?=
+ =?utf-8?B?c1RNbzlVRzBsUElMVUNZc2FTdzBUOHB2MENHQ29oZ1diSk5tOTlnOFY4S3dt?=
+ =?utf-8?B?djlxTkdrc0ZYdnhIclByWVFrSXk3TmlnNDBNM2hvb2ptUVVLTEg1U2pxQWJP?=
+ =?utf-8?B?Q1dDbm90WjQrZkVibGV0L1hhc3JEU0JBZllnQ3VWSFVqQ2ZCWFREMGwvYzFz?=
+ =?utf-8?B?TWpneFhHVVJ0MjRsbnNNd3ZJZkRSY3p5U002QWljKzluMlYzYWNQeFl5SHI4?=
+ =?utf-8?B?Y2JSRHM5QllLQVl4dW9ENmVFaVZSUS9QTm5zdGtrRjNGSk9uM3hrR1ZJWUEv?=
+ =?utf-8?B?RnJQZEUxL2ZEaC9JcWZMWENoY2FrT3FzRVNiRlY4UGtBWStvVGt3Q1I1bzJ6?=
+ =?utf-8?B?eDdPclVKcm9TQVJ6ZkFIVUE4V3ROVFRYWk4wckxlTStsNVlzTjRlRFQ2dWx6?=
+ =?utf-8?B?bmFJWDJabElCNithQW1KK1owUUZqSENDQWZUS3FkWVRqN0tXZjROSjBZOG9l?=
+ =?utf-8?B?TWZ2cWZsZ3NHTWNFVXFyRndheEJ4ZEVIU2QxNHZqVmxESHBFL0ltY1pJcExk?=
+ =?utf-8?B?NDJNb1diZEFzbi9qVWpLVWt6QllEMkhGOURQOFFmYXViQU4xQTY4QjRKdW4y?=
+ =?utf-8?B?UHovcFkrQTNsVnA5NytQYWpxdHRkS2ZUKzRhQnEwYU1RaEUrZ1p2SDVmRGRD?=
+ =?utf-8?B?Nm9TUDJiSmMyVVFoVGl5dmIxelpNS0VhWnpwWEFSM2dmVS95bTN1eGptL1Ir?=
+ =?utf-8?B?RWxwTHZYSWFTTHptVEVpZ3lLY1crdGtPSDl4elhiOFpTekNqalBiTlcxZXUr?=
+ =?utf-8?B?YXp0SnZ4dmQwK1VQRlhIa25qYWIwVzUxNTBFWE4yVFZSb2dTZnBmRWxZNjNC?=
+ =?utf-8?B?S295bzlXSENHTnp0UzZYS2kzVUJ2UFlJZkpXalcrSG1uL1V3ZUxTVlRzeXo2?=
+ =?utf-8?B?SDJyTUxYZUtURlpnU29qQTJaUHhhSGhXd3N4dWRqZDFxYzFCMkY5VVJxVVpC?=
+ =?utf-8?B?cGJDRENKOC82VTc4STdCR2h0amZTNC9PV0l6ZlhTOEZtZ2dsenhDYUtObjJR?=
+ =?utf-8?B?SHM5bTBZdFNsd2g4M0ExWFJBTUhsWVl0TWJTeW5TR0VneG9RZVMzMmtlS3Ey?=
+ =?utf-8?B?RDNlQXpET1lSam5Yc3lxZ3Z5UTNkd0w0Rzl6b1lzTzFWSlRVOUZLY253UTBt?=
+ =?utf-8?B?bkdTdllqcjRlcVBuN2h4M3BNYWI1RWRVcmhyR3doVkw5Z2dTMlpFQjFyZlVP?=
+ =?utf-8?B?TWtRM3V5TndHYzFZaUtUS2RmWDBBMHFMNE9IdTlZb1E1SkdvUU5iaHVibGxa?=
+ =?utf-8?B?cnpnWTFtZ2V6YlRtbEpQSi9OTDFrZHRnVkxILzZKeDNjL0hoOEd0aUZxVUFq?=
+ =?utf-8?B?ckI5ekt4cmVQcUlJL1JaZDZIZnVxZ2NWTUluQ2ZFTHZDZVFRdGg1U0VGQzFQ?=
+ =?utf-8?B?dFdaS2wrQUQwYmNtdXVYVlQrS20xSmduM3VWTUZ2R08vQ3FtUDQ4UT09?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06ea123b-a45d-49a8-84cb-08df3415f5bb
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15118.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 10:35:03.5039
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SzCByvPNy4f714ZXrU1PBDrqqq7YkqppkOMwz1pNiLJNLDhFSRVerk5WkFh9ldx+J87qHKsELQQn560tpMDYg9PJ1c7PJsgDHfTBSQieVUo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY7PR01MB14856
 
-From: Ihor Urazov <z0rc3r@gmail.com>
+On 10/26/2026 8:33 PM, Frank Li wrote:
+> On Mon, Oct 26, 2026 at 04:21:06PM +0000, Diogo Ivo wrote:
+>> Hi Frank,
+>>
+>> On 10/20/2026 8:18 PM, Frank Li wrote:
+>>> On Tue, Oct 20, 2026 at 10:36:26AM +0100, Diogo Ivo wrote:
+>>>> The analog noise filter for the input terminals (I3C_SDA, I3C_SCL) of
+>>>> the Renesas I3C controller is controlled through the SYS_I3C_CFG
+>>>> register of the system controller. Document the
+>>>> renesas,analog-noise-filter property, which references the system
+>>>> controller together with the offset of the SYS_I3C_CFG register and
+>>>> the state of the filter: 1 enables the filter and 0 bypasses it.
+>>>>
+>>>> The property is optional: device trees not providing it keep the
+>>>> filter at its reset value.
+>>>>
+>>>> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+>>>> ---
+>>>>    .../devicetree/bindings/i3c/renesas,i3c.yaml          | 19 +++++++++++++++++++
+>>>>    1 file changed, 19 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
+>>>> index 08fcea89a015..381807844351 100644
+>>>> --- a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
+>>>> +++ b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
+>>>> @@ -96,6 +96,25 @@ properties:
+>>>>          - const: presetn
+>>>>          - const: tresetn
+>>>>
+>>>> +  renesas,analog-noise-filter:
+>>>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+>>>
+>>> I don't like this syscon property, look like it is one kind pad propterty.
+>>> Is it possible model as pinctrl?
+>>
+>> On the RZ/G3L and RZ/G3S this filter is not controlled on the pin
+>> controller's address space but in the SYSC address space (hence the
+>> need for the sysc phandle).
+>>
+>> There are a few factors weighing against modeling this as pinctrl.
+>>
+>> The first is that the physical pads used by I3C are multiplexed between it
+>> and for example RIIC3, so we are not filtering the pad but the internal path
+>> of the I3C IP. The pinctrl does indeed have some controls for the pad's
+>> digital filters, that apply to whatever block is multiplexed to the pad.
+>>
+>> Besides this, even if it were moved to pinctrl we would still need the sysc
+>> reference, as the pfc driver would need a way to reference the sysc address
+>> space.
+> 
+> System allows multi pinctrl devices. your syscon can work as pinctrl provider
+> 
+> pinctrl-0 = <&your nomral pinctrl>, <&syscon i3c ... > ;
+> 
+> The key problem is if model is resonable. Syscon is simple, but have not
+> good abstract.
 
-The HP ZBook 8 G2i 14 (board 8ED9) exposes a working UCSI ACPI PPM, but
-its UCSI VERSION field reads zero until the first command completes.
-ucsi_register() rejects a zero version with -ENODEV, so no Type-C ports
-are registered.
+Doing this in pinctrl is feasible, especially since the pinctrl driver 
+on G3L already has a reference to syscon for clone channels. The 
+question really is if this is what makes the most sense, as again we are 
+not really controlling an external pin but something inside the IP
+block, so I'm still not fully convinced. Are there more opinions on this?
 
-The firmware's _DSM READ function (2) is a stub. The mailbox VERSION
-field is written only by the EC response handler, after a command
-completes, after which it reads 0x0100 (UCSI 1.0). The mailbox is
-48 bytes with 16-byte MESSAGE_IN/MESSAGE_OUT fields, the UCSI 1.x
-layout, and _DSM function 5 is not implemented.
-
-Add a DMI-specific read_version for this board that substitutes the
-version the firmware itself reports, UCSI 1.0, only when VERSION reads
-zero. A non-zero firmware version is used as is.
-
-The same firmware defect on the HP ZBook Fury G1i 16 was discussed in
-"[RFC PATCH] usb: typec: ucsi: acpi: bootstrap PPM on HP systems with
-empty _DSM func 2" [1]. The defect was reported to HP as case
-5166176673.
-
-Tested on an HP ZBook 8 G2i 14 with BIOS Y70 01.02.08, from a fresh
-boot where VERSION reads zero: three connectors register, the PD
-contract and alternate modes of a Thunderbolt dock are reported, and
-its DisplayPort output stays up across the PPM reset in ucsi_init().
-Dock unplug/replug and s2idle suspend/resume update the connector
-state without errors.
-
-Link: https://lore.kernel.org/linux-usb/f3M_fpjtt8FxDqGKcA84vqXmRbKzCBfpCrIK4-jCWvIscER51zkD8qD8FYpz75qZw51rMDRSkUyYlrBvLvdM8CGRY2l8TFVvr4MC1LdTzbc=@interstellar.eu/ [1]
-Fixes: bdc62f2bae8f ("usb: typec: ucsi: Simplified registration and I/O API")
-Cc: stable@vger.kernel.org
-Cc: Francesco Orro <ncesco@interstellar.eu>
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Huang Wei <huangwei@kylinos.cn>
-Signed-off-by: Ihor Urazov <z0rc3r@gmail.com>
----
-Changes in v2:
-- Point Fixes: at bdc62f2bae8f, which added the zero-version check (Huang Wei)
-- Add Reviewed-by tags
-- Link to v1: https://patch.msgid.link/20261026-ucsi-hp-zbook-8-g2i-v1-1-91002e9ef073@gmail.com
----
- drivers/usb/typec/ucsi/ucsi_acpi.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 5697ccc24ec3..2421a92ecb0e 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -148,6 +148,34 @@ static const struct ucsi_operations ucsi_acer_ops = {
- 	.async_control = ucsi_acpi_async_control
- };
- 
-+static int ucsi_hp_read_version(struct ucsi *ucsi, u16 *version)
-+{
-+	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
-+	int ret;
-+
-+	ret = ucsi_acpi_read_version(ucsi, version);
-+	if (ret)
-+		return ret;
-+
-+	/* Firmware fills in VERSION (1.0) only after the first command completes */
-+	if (!*version) {
-+		dev_warn(ua->dev, "UCSI version is zero, assuming 1.0\n");
-+		*version = UCSI_VERSION_1_0;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct ucsi_operations ucsi_hp_ops = {
-+	.read_version = ucsi_hp_read_version,
-+	.read_cci = ucsi_acpi_read_cci,
-+	.poll_cci = ucsi_acpi_poll_cci,
-+	.read_message_in = ucsi_acpi_read_message_in,
-+	.write_message_out = ucsi_acpi_write_message_out,
-+	.sync_control = ucsi_sync_control_common,
-+	.async_control = ucsi_acpi_async_control
-+};
-+
- static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
- 				  void *val, size_t len, void *msg_out,
- 				  size_t msg_out_size)
-@@ -196,6 +224,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
- 		},
- 		.driver_data = (void *)&ucsi_acer_ops,
- 	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8ED9"),
-+		},
-+		.driver_data = (void *)&ucsi_hp_ops,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
-
----
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-change-id: 20261026-ucsi-hp-zbook-8-g2i-4446ab6e5ed4
-
-Best regards,
---  
-Ihor Urazov <z0rc3r@gmail.com>
-
+Thanks,
+Diogo
+> Frank
+> 
+>>
+>> With this, I think that having a DT property is the best approach. However,
+>> the form of the property can be changed if you are against this particular
+>> one. For example, the register offset can be moved to platform_data in the
+>> I3C driver:
+>>
+>>   - renesas,analog-noise-filter = <&sysc 0/1> at the SoC level
+>>
+>> or I can also split it into two properties.
+>>
+>> What approach would work better here? Me I'm leaning towards having
+>> renesas,analog-digital-filter.
+>>
+>> Best regards,
+>> Diogo
+>>
+>>>
+>>> Frank
+>>>
+>>>> +    description:
+>>>> +      Analog noise filter for the I3C input signals (I3C_SDA, I3C_SCL),
+>>>> +      controlled through the SYS_I3C_CFG register of the system
+>>>> +      controller (SYSC). Three entries specifying the system controller,
+>>>> +      the offset of the SYS_I3C_CFG register and the state of the filter.
+>>>> +      If not present, the filter keeps its reset state.
+>>>> +    items:
+>>>> +      - items:
+>>>> +          - description: phandle to the system controller node
+>>>> +          - description: offset of the SYS_I3C_CFG register within the SYSC
+>>>> +          - enum: [0, 1]
+>>>> +            description: |
+>>>> +              state of the analog noise filter:
+>>>> +               - 1: enable the filter, performing noise reduction on the
+>>>> +                 I3C_SDA and I3C_SCL input signals
+>>>> +               - 0: bypass the filter
+>>>> +
+>>>>    required:
+>>>>      - compatible
+>>>>      - reg
+>>>>
+>>>> --
+>>>> 2.56.0
+>>>>
+>>
 
