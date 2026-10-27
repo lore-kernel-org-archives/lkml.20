@@ -1,82 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793110868;
-	b=yYl/YUioA/LnrpPGgUhGnAzfMKpk0ARbyA2q7Nb3BxEOsCIqDjPuWw5gbYBQyKohRP9P
-	 mw2MQK9QsNhrHchQuuqxGVws7evuO8Np6CjXmHWxD3im+LDIDM2iH1FnRYHyLv9zLntt5
-	 dZra/9Tq1Qf3SdE9MLx+DoJATns1jOiXQtFEZZSA/GJzeSmUek0Ugz4d5jlrv77LXmS6x
-	 fVi4BxcEq/F5ZwNpNQAlGAefFV/Fv9qO2FH1HRj/hrcfoGDS1BoaW+5VefhRg7gZL11rx
-	 vHA6bELfX5C0w3YxsdHjpa0sZl/Worxney9kSwE3fveBwTernLtdY70GET+sDCwjUnQ==
+	t=1793110997;
+	b=maViD3QmCPfKPRqFoHkR56YmAF5JrtonTtycXzKW7oodE7+oNpLe6r8tfpv4Ee0LasFG
+	 BXme2sBzYmvMpYF9UHTQFRY1Xf7lrtjp5FuDZupCh1pPINSXuqq0BMxqFqpbwgnK1tFna
+	 hofLzY5c22Aysn6XRFB+F491Z3eCL7OpA9hxNgJRIegP58//cFPB0TjtbZsn18TehrPoa
+	 fp2UYIWyCmPpKowr+VAmQehY/trybcrgaOll07zZ0CDXKcc+6S0RIQ+JxpIhtLVe2548c
+	 Xj9k660xGdY2VgS39GHsvNGMk1z47I4euOj/QDp6vPCwh8j0VTiXeFLj/YAL5p17ZuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110868;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=oUdS14YPt4BdJgef939ru4BfL0jVHRie6PnlhVGCr2Q=;
-	b=tyuZm9KlrH43Jk025mFd/P6BgnrUQdJ4RzQY02lYnatBaBJZNeXgl5cvCoRwqwRroDQ3
-	 x0gbGlBGLkk67hzp7X7Z+k5eCE+5nIgbWuB1ed2rzcnn3exSgCm8x2R/8riDR5Q4dgkNe
-	 32zlpPmYM4kVl9jTPd9QfYdHx5er00VIEQeerdOjCLtkz5QSGXG8xeUzIoekrKKCxeKWv
-	 /JIBIHacXTcuTiPeCMpRIJApGW9v0XB+j7RceKRv7Ahxfk9OVQuwRG70LuVpPlELoIdfu
-	 tVU+Xu4rU6sXevJczYHsQzTyLnYzomNHzoJ2co3bLK1ORiewVr/ypecbdMR5Fn8QZgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110997;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=MixBdKDrKWIaD4vR9pKSroN8iOV2wkRTMyRsaYekuV8=;
+	b=mOJAdsNxyv7sT9yRtpE6pQYVCI8VKpQNyxpu+jW3o3oiiqh8Ogr/crU7ZioGhn6XNhxy
+	 I8a0ejnmP8db/OOk50B+gjHMMpoVYrZxHsyfXTrfYnbg0J1WGOLLvw68XhC6XJm1/66fG
+	 TGaUvEn6XUY1p296juQQrfMtPeYyvup5i44QlD3RNajVf900S+R+RPUp/aYuQR+J9dZOF
+	 gxwBaRtoDGU4/O+mEMY1lACnxAFANgS/EumK47zV9d9WthvJS57sDtVeW6Sv6pdgVXbQx
+	 ACG5cfpOjixgKaIaOt7ZEWhSP7aTQOeEypMUhg975iTiXFVxqX7XiQekf8vadT50noA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IOB1Ba6R;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=lpg837bN;
+	arc=none smtp.remote-ip=209.85.221.176
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A60606A339;
-	Tue, 27 Oct 2026 14:21:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7A60606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D36606A325
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6D36606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IOB1Ba6R
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69REE8Be2676136;
-	Tue, 27 Oct 2026 14:20:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=oUdS14
-	YPt4BdJgef939ru4BfL0jVHRie6PnlhVGCr2Q=; b=IOB1Ba6RrozCu40G6UA/T0
-	nayyOs24IBFmux3Tfu468WO/1NOQRYwYVXbV2cJa+ccn8ASCylyaBl8wF6XigA/6
-	DDdMhYVna4wtWDJCZ6LhKUIfs09ZpHNDhguUEC4/22F3pS0mE8fdEfqSjYC0Nv+H
-	cVKmmhL3oU2HAi86bMiIrEjwTFx9VtBBTBptJ8T8nVrJbc2ORrZxQX0Zytq/T7H7
-	S+ZEqNGBE15TKTxqJDwFfiFOdm0jBRl50666BNstjC/8OoA2EKwGYpQxugkrOmUb
-	eSmcqd2tQD+ZC5r9/1pt0NtOEQZEe6SLh9JN24BycgPKtdIgi43sbiXgeBHWBGaA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmd6yvj4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 14:20:34 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69RDoilc053900;
-	Tue, 27 Oct 2026 14:20:33 GMT
-Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hjsu7rxdc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 14:20:33 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69REKWCE3081082
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 27 Oct 2026 14:20:32 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 208F75805D;
-	Tue, 27 Oct 2026 14:20:32 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8E36A58059;
-	Tue, 27 Oct 2026 14:20:26 +0000 (GMT)
-Received: from [9.43.47.205] (unknown [9.43.47.205])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue, 27 Oct 2026 14:20:26 +0000 (GMT)
-Message-ID: <dea34b37-5042-48eb-a2c1-dcad02c27ff1@linux.ibm.com>
-Date: Tue, 27 Oct 2026 19:50:24 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=lpg837bN
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5eafaeb8684so1490683e0c.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793110996; x=1793715796; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MixBdKDrKWIaD4vR9pKSroN8iOV2wkRTMyRsaYekuV8=;
+        b=lpg837bNIJsHJTuEVsqCG1OTSUyr7sKOSALrAZornbOQareP6pphXzI0xqcgRiUabz
+         h9rVo237nBkbSHhIU/obsUFhS6Z6BKjtHLSHpzyOwk7Eq4MWib8cYoutu9O1pOCMNkiy
+         5ynxg6LQRgOotRx4da++qpdn45QIEPEcviuziuIEYe0OWcjvq4RLKpFY89fh7UnhsjG5
+         f/AAE7M7MjuBbRID6jeZpwXF8VuNsaFDCrdeaK+ulCxZiK8NMpaUyVDLG3VvWVW/9DgW
+         ru6sSq7F7iseI508cluD42NOplgsplUEeyDz7ord9Lv2YIbWGTgosaoxEBrBTpBlKKrD
+         gU6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793110996; x=1793715796;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MixBdKDrKWIaD4vR9pKSroN8iOV2wkRTMyRsaYekuV8=;
+        b=UIrtih/Aze0QfZ7FgbMcsxAYZknON4w2nJkUBU1uy3vZoIC89Qheuu2fqH/i7WSXuA
+         ZxPrDqwk/CCfyZYAqAjJEymMe1HVBGV3BLYdioSI1+Gx8s3SWamHeutH/D9s8qEspiU4
+         TrGguaGcDiMPp+PS5Bf0hYYmtgV4LMzfVkE9Mjf/LoZeEb/gfAauCbjhkf5NhiRPP6xa
+         UBsZnX0z5GvVA7NpzvtKMVfO+yNAYPWSzWL2KA0sefe1QYdUfq0UcjwsT0i+6DBMqX2b
+         nXv2QIOLbSa2t8iU5Eu5hu+UfQsObNn9R0bbfPY0SCkK3OQhjbuEqzYVB7hq9L8pW38c
+         tjiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKyJf9eSYj8tlONFRLZ1t1dmEcY3o7Rz7vxoIifdX2hZWw2arvrcVPSI2vMcPL27Dc3oW7B5VYOYEa5wo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKArArQLBrEMtWVxrT2cpagbYE+hEooypd4cOET9dI2F92vYHl3
+	qHrhdntf9EYHXtc3i3Q4TefnoICozOThvXe+/46vFkaUxZuK/EveiQO+VcFfjktrbg4=
+X-Gm-Gg: AYBFou1GvS1fcYSRs4vX/EeXC6gMz4EcEBRGTY43ay0axtxj6ftTgwsLvejlpfMRIwz
+	PoY9T03bZFsdp/o3Yn8vpXzM3tg8IgCmO5imuCvARXdtUWyfsaJC8ECG29mHP+qui7QA+h6yEuU
+	guRErC07iM0eulac0Uhdi1NNrM2YLSk2pOeanu/UEMgVwiDMHKpkDnQXE3Klry1CHXiBoWZh4Ue
+	CJKqZiNgdXCpg7uHWrIHw9Xnm6/BcYwPi8l+zDLMM6Oh1qbBo2BUpCKBCNj4LC1IEtU2puXTcAe
+	WxTtdee3qHyrrylLyVpXnTjhfY7skEE81jKudJKbBHBHCMnAXn8EfnXVnQ2iNBf8r3pF7J7JQrm
+	RpuE147lzha1dDQBRz1IDR0V/Z8rtDwJKt9IM8w69zopsm/S/MIuHaSgD9xloz5vKbYCBgfwV2J
+	HAJ29gAz7q47nsSMr1pK7LpCTZqlkMfvsOqIdFiRoUoToH1RoRlOMvxG+qkGwuPv38mS6g+GU4L
+	op8OTUCgdas87+PGEIgzd79sC7O03FzSrCRiQnWJrSc/050jfqGobTeAqoB7URXdXmBWTK6
+X-Received: by 2002:a05:6122:1790:b0:5e7:e3f9:1322 with SMTP id 71dfb90a1353d-5ec23288d76mr3909423e0c.9.1793110995603;
+        Tue, 27 Oct 2026 07:23:15 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.252])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9912da2d9d1sm75077241.7.2026.10.27.07.23.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 07:23:15 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 27 Oct 2026 14:22:51 +0000
+Subject: [PATCH v8 3/6] userns: check the opener and the writer before
+ mapping uid 0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,227 +92,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] powerpc/syscall: Return the preset value of
- skipped syscalls
-To: Renzo Davoli <renzo@cs.unibo.it>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>
-Cc: Nicholas Piggin <npiggin@gmail.com>,
-        Christophe Leroy
- <chleroy@kernel.org>,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        =?UTF-8?Q?Michal_Such=C3=A1nek?= <msuchanek@suse.de>,
-        Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
-        "Dmitry V . Levin" <ldv@strace.io>,
-        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-        Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
-References: <20261023180735.853655-1-renzo@cs.unibo.it>
-Content-Language: en-US
-From: samir <samir@linux.ibm.com>
-In-Reply-To: <20261023180735.853655-1-renzo@cs.unibo.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=ZYOIpcVA c=1 sm=1 tr=0 ts=6ae0b332 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=eEX7pEfrkeBYrpkNWPQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA1NiBTYWx0ZWRfX+8czidmzCzAh
- 1MtXnVnGZSjwOWB+4JJ9pWGmMp0JMocffuEZ4iS31JMOx5tmRBBc3QtNaBkfTsVDIhChTogvO9n
- uoKiJ1NE6gGsNXNJlX04g2/ctk1tZoPKyOHBp4rkvFm026cgT7O6BwhhiK3XINgvpx9PgJSHjER
- LRGLCtUedntGNhdKc28xfVRkDU9q7WTyZCdBj45e23K2zzLCxO/GUlHmZpyMVhuDZTY54FKoqIz
- a9wUuXGgciaB8FouE424q0I4/Uf8RPVp1+yoR9XqdTGGkM1/OZUXMErNDTAnX4CNeafCDPbp5zi
- HncXEq0kqxe5FFYw5SMkhHKk0n230FWWjOVo1lls/T36eaeccKeSIhAt4XnrU/evj3Q1tk7LDSf
- +YuAEVAdsd/BJNxVJhxppEwKXe7y4AlWEY0bNVHN+psTJRBgY30vgpjo+b79g8cLGVpZd1pEeSe
- RGTdk+xC7ern0carQdg==
-X-Proofpoint-GUID: DwCJb8PrXwCdqs1qRQKqnQlkhPwgbIYU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA1NiBTYWx0ZWRfX3cqzXvjVE+6K
- /AFQOlRU67M2jbPA3d7r8b7tzeCLUHzMM71EM5FdPnF5sO5YWe5ES7olKsrxFY3vq+xP+T/2LuA
- Y6laH6tV53LfcPjaJ0PpEzi/PU7Rl0c=
-X-Proofpoint-ORIG-GUID: 4puvieYEX3Oig-MNcNG2MXV5dvxczR9-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 suspectscore=0 phishscore=0 clxscore=1011
- bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270056
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-b4-setfcap-userns-v8-3-2674adc63f3c@toxicpanda.com>
+References: <20261027-b4-setfcap-userns-v8-0-2674adc63f3c@toxicpanda.com>
+In-Reply-To: <20261027-b4-setfcap-userns-v8-0-2674adc63f3c@toxicpanda.com>
+To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
+ Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793110987; l=6694;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=Tq4QC700hpQ0XsVb6nesQjcXMRFBl8Nnhz0SoKNdw/Q=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QDnI6R4VZy9xB9YQWBhtA8maRIyE4iwcJt2G/vdLCu+bEMVbGxtZDjvHN7mZchCF2DqoX2Se+YM
+ NJf8JkgsCHwE=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
+verify_root_map() looks at the cred that opened the map file: it asks
+whether it has CAP_SETFCAP over the parent, or, for an opener inside the
+namespace, whether the creator had.  Two things are missing.
 
-On 23/10/26 11:37 pm, Renzo Davoli wrote:
-> When ptrace or seccomp skip a system call, the return value they set in
-> regs->gpr[3] gets lost or the tracer is affected, since two recent
-> changes:
->
-> 1. Commit 05c033db7e9a ("entry, treewide: Make
->     syscall_enter_from_user_mode[_work]() indicate syscall execution")
->     made system_call_exception() return syscall_get_error() for a skipped
->     system call.  syscall_get_error() is 0 for any non-error value, so a
->     success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
->     with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
->     replaced with 0.
->
-> 2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
->     seccomp and ptrace") made syscall_set_return_value() set
->     TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
->     the task passed in.  When the caller is a tracer, as in
->     PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
->     ends up on the tracer, and the next system call of the tracer is
->     silently not executed.  Setting it on the right task would not be
->     enough either: at a syscall-exit stop the flag would then skip the
->     next system call of the tracee.
->
-> TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
-> the generic entry code tells whether ptrace or seccomp skipped the
-> system call, and every in-kernel caller of syscall_set_return_value() on
-> the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
-> tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
-> calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
->
-> Remove the flag and return regs->gpr[3] for a skipped system call, as
-> done before the conversion to GENERIC_ENTRY.  The syscall exit path
-> already converts a negative error value to the "sc" ABI, and
-> syscall_set_return_value() keeps CR0.SO in sync for positive error
-> values.
->
-> Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
-> Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
-> Cc: Michal Suchánek <msuchanek@suse.de>
-> Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Cc: Thomas Gleixner <tglx@kernel.org>
-> Cc: stable@vger.kernel.org # v7.3
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
-> ---
-> How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
-> guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
-> (ppc_skip_repro.c, available on request) which
->
->   - sets the getpid() return value at a syscall-exit stop with
->     PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
->   - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
->     (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
->
->                                               v7.3-rc6      with this patch
->    tracer syscall after SET_SYSCALL_INFO      returns 0     correct
->    skipped syscall, success value, sc/scv     returns 0     correct
->    skipped syscall, error value, sc/scv       correct       correct
->    selftests/ptrace set_syscall_info test    FAIL          pass
->    selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
->
->    failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
->    sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
->    TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
->
-> (*) user_notification_wait_killable_after_reply (100000 notifications
->      with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
->      with and without this patch.
->
-> Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
-> pmac32_defconfig.
->
-> Changes in v2:
-> - Rebased on current mainline (734bef548a96), which now contains
->    commit 66236558dfac ("powerpc/syscall: Avoid atomic
->    test_and_clear_thread_flag on fast path").  That commit folded the
->    TIF_SYSCALL_RET check into the skip condition, so the v1 hunk in
->    system_call_exception() no longer applied.  The resulting code is the
->    same as with v1.
-> - Link to v1:
->    https://lore.kernel.org/lkml/20261018151539.440213-1-renzo@cs.unibo.it
->
->   arch/powerpc/include/asm/syscall.h     |  6 ------
->   arch/powerpc/include/asm/thread_info.h |  1 -
->   arch/powerpc/kernel/syscall.c          | 13 ++++++++-----
->   3 files changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
-> index 32be22b995cc..4b3c52ed6e9d 100644
-> --- a/arch/powerpc/include/asm/syscall.h
-> +++ b/arch/powerpc/include/asm/syscall.h
-> @@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
->   			regs->gpr[3] = val;
->   		}
->   	}
-> -	/*
-> -	 * Mark that a return value has been explicitly set by seccomp or
-> -	 * ptrace so that system_call_exception() can skip the syscall
-> -	 * unconditionally, even when the user requested syscall(-1).
-> -	 */
-> -	set_thread_flag(TIF_SYSCALL_RET);
->   }
->   
->   static inline void syscall_get_arguments(struct task_struct *task,
-> diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-> index 1e069a2e7ce8..0487e94d3416 100644
-> --- a/arch/powerpc/include/asm/thread_info.h
-> +++ b/arch/powerpc/include/asm/thread_info.h
-> @@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
->   #endif
->   #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
->   #define TIF_32BIT		20	/* 32 bit binary */
-> -#define TIF_SYSCALL_RET		21	/* syscall error value set */
->   
->   /* as above, but as bit values */
->   #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
-> diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-> index 8529827d697f..52ceff4ef41b 100644
-> --- a/arch/powerpc/kernel/syscall.c
-> +++ b/arch/powerpc/kernel/syscall.c
-> @@ -18,11 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
->   	long ret;
->   	syscall_fn f;
->   
-> -	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
-> -			test_thread_flag(TIF_SYSCALL_RET))) {
-> -		clear_thread_flag(TIF_SYSCALL_RET);
-> -		return syscall_get_error(current, regs);
-> -	}
-> +	/*
-> +	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
-> +	 * the return value they set (or the unmodified first argument, e.g.
-> +	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
-> +	 * the error encoding for the "sc" ABI.
-> +	 */
-> +	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
-> +		return regs->gpr[3];
->   
->   	if (unlikely(r0 >= NR_syscalls)) {
->   		if (unlikely(trap_is_unsupported_scv(regs))) {
-Hi Renzo,
+The writer isn't checked.  For every other privileged mapping
+new_idmap_permitted() wants the capability from the opener and from the
+task that calls write(), but a map that consists of the single line
+"0 0 1" takes the unprivileged branch, where only the opener's euid
+counts.  So an open uid_map file is a token for mapping uid 0:
 
-I have verified the patch against the latest upstream Linux kernel and 
-ran the PowerPC selftests. No issues were observed after applying the patch.
+  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
+  fd = open("/proc/<pid>/uid_map")
+  B gets fd by inheritance
+  or SCM_RIGHTS
+                                    write(fd, "0 0 1")
+                                      opener had CAP_SETFCAP -> allowed
 
-Test Results:
+And the check only happens for a map with an extent that starts at the
+parent's uid 0, and only asks for CAP_SETFCAP over the parent.  But the
+root user of an ancestor can be mapped into the parent at any uid, and
+the parent's own root user can be the root user of ancestors further up.
+A task without CAP_SETFCAP that unshared a namespace, which a privileged
+task then mapped "1000 0 1" for, can unshare again and map "0 1000 1":
+host uid 0 is uid 0 of the new namespace, and nothing was checked.
 
-  * Without the patch: The "ptrace-syscall" test from
-    "selftests/powerpc" fails.
-  * With the patch: The "ptrace-syscall" test passes successfully.
+Find every ancestor whose root user the new map contains, at whatever uid
+it has in the parent, and require that the opener and the writer both
+reach the topmost of them.  A task outside the namespace that is being
+mapped needs CAP_SETFCAP over the parent, reaching that far by
+cap_setfcap_level().  A task inside it needs CAP_SETFCAP there, and
+ns->setfcap_level has to reach that far: a task in the namespace that
+gave up CAP_SETFCAP would otherwise map uid 0 and get it back from
+execve().
 
+This only affects maps that contain the root user of the parent or of
+one of its ancestors.  A write by a task without CAP_SETFCAP to a file
+opened by one with it, and a map by a task whose CAP_SETFCAP stops short
+of the root user it passes on, now fail with -EPERM.
 
-Steps to Verify:
-1. Clone the latest upstream Linux kernel and apply the patch.
-2. Build the PowerPC selftests:
-"cd tools/testing/selftests/powerpc"
-"make -k"
+Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ kernel/user_namespace.c | 87 ++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 64 insertions(+), 23 deletions(-)
 
-Run the PowerPC selftests:
-"cd tools/testing/selftests"
-"make -C powerpc run_tests"
+diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+index 7bd3692c2f3e..db078dd6406a 100644
+--- a/kernel/user_namespace.c
++++ b/kernel/user_namespace.c
+@@ -881,15 +881,55 @@ VISIBLE_IF_KUNIT int uid_gid_map_sort(struct uid_gid_map *map)
+ }
+ EXPORT_SYMBOL_IF_KUNIT(uid_gid_map_sort);
+ 
++static bool map_has_id(struct uid_gid_map *map, u32 id)
++{
++	struct uid_gid_extent *extent;
++	int idx;
++
++	for (idx = 0; idx < map->nr_extents; idx++) {
++		if (map->nr_extents <= UID_GID_MAP_MAX_BASE_EXTENTS)
++			extent = &map->extent[idx];
++		else
++			extent = &map->forward[idx];
++		if (id >= extent->lower_first &&
++		    id - extent->lower_first < extent->count)
++			return true;
++	}
++
++	return false;
++}
++
++/*
++ * The lowest ->level among @parent and its ancestors whose root user @new_map
++ * maps, whatever uid that root user has in @parent; INT_MAX if there is none.
++ */
++static int map_root_level(struct user_namespace *parent,
++			  struct uid_gid_map *new_map)
++{
++	struct user_namespace *p;
++	int level = INT_MAX;
++	uid_t id;
++
++	for (p = parent; p; p = p->parent) {
++		id = from_kuid(parent, make_kuid(p, 0));
++		if (id != (uid_t)-1 && map_has_id(new_map, id))
++			level = p->level;
++	}
++
++	return level;
++}
++
+ /**
+  * verify_root_map() - check the uid 0 mapping
+  * @file: idmapping file
+  * @map_ns: user namespace of the target process
+  * @new_map: requested idmap
+  *
+- * If a process requests mapping parent uid 0 into the new ns, verify that the
+- * process writing the map had the CAP_SETFCAP capability as the target process
+- * will be able to write fscaps that are valid in ancestor user namespaces.
++ * If a process requests mapping the root user of the parent ns, or of one of
++ * its ancestors, into the new ns, verify that the process that opened the map
++ * file and the process writing the map had the CAP_SETFCAP capability as the
++ * target process will be able to write fscaps that are valid in ancestor user
++ * namespaces.
+  *
+  * Return: true if the mapping is allowed, false if not.
+  */
+@@ -897,42 +937,43 @@ static bool verify_root_map(const struct file *file,
+ 			    struct user_namespace *map_ns,
+ 			    struct uid_gid_map *new_map)
+ {
+-	int idx;
+ 	const struct user_namespace *file_ns = file->f_cred->user_ns;
+-	struct uid_gid_extent *extent0 = NULL;
+-
+-	for (idx = 0; idx < new_map->nr_extents; idx++) {
+-		if (new_map->nr_extents <= UID_GID_MAP_MAX_BASE_EXTENTS)
+-			extent0 = &new_map->extent[idx];
+-		else
+-			extent0 = &new_map->forward[idx];
+-		if (extent0->lower_first == 0)
+-			break;
+-
+-		extent0 = NULL;
+-	}
++	int level;
+ 
+-	if (!extent0)
++	level = map_root_level(map_ns->parent, new_map);
++	if (level == INT_MAX)
+ 		return true;
+ 
+ 	if (map_ns == file_ns) {
+ 		/* The process unshared its ns and is writing to its own
+ 		 * /proc/self/uid_map.  User already has full capabilites in
+-		 * the new namespace.  Verify that the parent had CAP_SETFCAP
+-		 * when it unshared.
++		 * the new namespace.  Verify that it still has CAP_SETFCAP
++		 * there, and that the parent had it when it unshared, as far up
++		 * as those root users go.
+ 		 * */
+-		if (file_ns->setfcap_level >= file_ns->level)
++		if (!file_ns_capable(file, map_ns, CAP_SETFCAP) ||
++		    file_ns->setfcap_level > level)
+ 			return false;
+ 	} else {
+ 		/* Process p1 is writing to uid_map of p2, who is in a child
+ 		 * user namespace to p1's.  Verify that the opener of the map
+ 		 * file has CAP_SETFCAP against the parent of the new map
+-		 * namespace */
+-		if (!file_ns_capable(file, map_ns->parent, CAP_SETFCAP))
++		 * namespace, and as far up as those root users go.
++		 */
++		if (!file_ns_capable(file, map_ns->parent, CAP_SETFCAP) ||
++		    !cred_setfcap_reaches(file->f_cred, map_ns->parent, level))
+ 			return false;
+ 	}
+ 
+-	return true;
++	/* The file may have been handed to someone else since it was opened,
++	 * so the same goes for the process that is doing the write.
++	 */
++	if (map_ns == current_user_ns())
++		return ns_capable(map_ns, CAP_SETFCAP) &&
++		       map_ns->setfcap_level <= level;
++
++	return ns_capable(map_ns->parent, CAP_SETFCAP) &&
++	       cred_setfcap_reaches(current_cred(), map_ns->parent, level);
+ }
+ 
+ /*
 
+-- 
+2.55.0
 
-The patch resolves the observed test failure.
-Thank you for the fix!
-
-Regards,
-Samir
