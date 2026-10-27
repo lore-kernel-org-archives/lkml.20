@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793132547;
-	b=LKUScnWqMyr/b1pFNFnU9oXnIba3NzhT8CuVqBveLk8cZs20Dy77SI2pRKAWqVbWQvX7
-	 JJMusepniPPuixYpkfbcFl4jqLh3z/ct/ozbMVknGLifZchGPXhKkTdn0vXHKqrYOPaco
-	 YkhRmTmrXJp2eD3XsJUMipLs+Y1dFtbtpJItacf8uMaEIDLOmU+b/lwqTfy4FqI+BdmfR
-	 0F1nUZ9dzow+u7bf9eE8ROUb51a7cLaU7eHuDXbzEKdlYvy81DW108dETQozmoadBKSQp
-	 +pgwL4TDT5hd6xHVyUaBS/E5wvLu5kDrO6/QNlrqpO7y/58URigvY7ip48WO9t7hseA==
+	t=1793132537;
+	b=IFizyEh0SlNj1uc6BCGJsYdfTbZENM0D8pOpNlHNF+ra6X/CXrOgdOr3kHNSZM1lY954
+	 vHCW+b1qQEnGZ8jeOOVbC05xyErI8yx9tpUpzEWJh3der9nV69JrFiJM8RYSGvVyK0WP2
+	 nVdGMC2DHHj0C6L1lxBS/eovzZ0ZtNwSm68RWoKIxbYLsabqGuhtSE8zPllgE63tV6sBJ
+	 cN7J60DHz3E77HaTzjzxP5SF+x9i5Sov0rIOos+As0ttdU8JQkrrv6o8xHF00m/8iJtmy
+	 8/zV1a5mL8x8Eyzs7eTB/U2ll3AojG+6oMRXqTmQDbT7fFF2smhbUhdWOMIBrM96TFQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132547;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132537;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MD3WemlNx8wDWgzNhjIwPFawd5UT5lSpHnkAmq2nUNY=;
-	b=B34weIgg8YCXuF9UKP6AEVaLGW0vu2cg4VO4a8V4RQ6NUlGUehinNrKibKf29O3LZEV2
-	 2isYoNKCwa0b+9h4RdN2nlxiJgbwc0DZ/R9ar7hGHrmt2QK/9RsioLfxHN4TxG2MtyckQ
-	 S86m37c8+W6sbZEM7COwOx1Rpi9s/MSTkWcmR4DS+TykFjIPtg9xHWf2JI9X2ZY2zNZZz
-	 LtJlgjnV1atihg2et1Z5pxeBDQjmCoMgPnGCwhjFpdcxgKk9eVWj0e6ILxBmM16eMc3JM
-	 58/mzyjWfdU15UC+qBMqD0ygXi3HihsU5tC7+Fxo3akpew21qUKeBo6dAwLW1rwHbxQ==
+	bh=VREWUN8AJAKPAW/PnLTB+3AyrdUA3Tp3MbNPAyF7VCQ=;
+	b=c0gztnA7sQ9M+EYfCU9l0Uo/aKFOXETFL1tKBoHqhe0Cdyy/5l9a87WyrWjNkzmjKrt1
+	 38TnKJnoCUGheMc6WULKO7eYo3Ag20db9Q2STpCesebRtGvb4gcS/rDpypYRgCSxWoovq
+	 RGgFdhTUFVxH18YjDrNEIxuPYfcfqJwYBBauuXAtMlu/OOV1obODWqLJmZVYHURxn7VMn
+	 scr4zwCjGa6wB1GjJ4JSe7I981JgVrKqs7iM7F4ptiIqwmyOza7xZCoGa1ZZVDWwxmsEP
+	 ALdryJo6tGoZMslHUN59D73bgQY/QSHmwIe8/f6+QBXEKhFw/NySf/dujOHd6YfuSVg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkhFz+xo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbJ2Gdtt;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA23560A6F4A;
-	Tue, 27 Oct 2026 20:22:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9246606A31D;
+	Tue, 27 Oct 2026 20:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LkhFz+xo
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbJ2Gdtt
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793132546;
-	b=IJKmio8d3wJMowlymUCcRPk57oEfXXnsgFllh0dd9tzHX/NorZGHAq2mLuKm9vuEnj3p
-	 C3UfTj6zYzb37paBvCE1deQbNrweqtGvYUg+y+YheD90OiVuJHyEj+7r2+7cpb9FMbHMU
-	 EVr2m9ia+cEjI9euj9jWRfYVTEbfoUa9nGX+X8WCZQ88yJ2zEaYCfcuVnBRgddIZKbDvJ
-	 KDcskNdj37qweBuHhMf+0npu9RAqT0N+AmSYnLBN/qrMqStHeJPuLOVjlLazRnx5TSRMq
-	 5c3lmc+SZRtPSS1vPY6nYjTt53JV/5QIBY2BCTxMB5Q2Ryov1UqepwSZecHy0gq2n2w==
+	t=1793132531;
+	b=Pa4IBJawAp1KbDVw9780Y4zlob+LaiB3nIB+fUJ9zAHZ3BPjugFbGWVI/HU5p8nMmGu/
+	 KW+arMEHuQl77mE5mslf8cFl0k6Ppe8ExBFLVOWmYbQlqSY/YBiPJOrPMZ8DOjiOHPbjF
+	 17SJrYY2xre30fDhr8mCrR7lWgSn3dqpAJfu+SV1FCviCdJXjhzINainFEfO9vOdkEpAb
+	 LY9I87zKvliGLpL0K1G/Vvic816wv2sIxNJQYXUBtUlJ1SVV3OQNaf4FyMTWinniChxry
+	 pkEYbjM1Cxy/xOLRqDY1pWd5OejuFG00S860us9xAcLJ6LePwu+47/rdcS+/Ni/382A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793132546;
+	c=relaxed/relaxed; t=1793132531;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MD3WemlNx8wDWgzNhjIwPFawd5UT5lSpHnkAmq2nUNY=;
-	b=KP2uLkTL5Mn1FPr8r9IiKn0SRyM4E0b5/OAQA7y30lheE+NNYm6yKNFfZgpoYp6YNTI3
-	 Y36SYrqzqQK44ssR5mD2naNAdFhjw8WjwwhP4D7qiacrGSLV7dYIZ4YFVsvHWtW/modOZ
-	 5ANLE7i9iv7u1ZAbhXFCQfEOWOIj+sJcoq/NzKJljfkNSxb9scsKe3aDApifJQwZ5iAtW
-	 EIXerTLqcZpan6MDKb8jGYa0Eaj6C5TbF48wvOthL5w858EJCruX081L8izh1TLRUE8ez
-	 EMTpHLCa8ld6RdPX70BjK81htQCOnZ3LLths3yqS1KAjcmkudLUDrhZl3czw1RxTg9A==
+	bh=VREWUN8AJAKPAW/PnLTB+3AyrdUA3Tp3MbNPAyF7VCQ=;
+	b=ve+9T4sywEgs6x7Zg3/vVL2iqtYyDlU+t1cpnX74vIUnMobGqoIgvC57hAXKrxbSQ22b
+	 IldyoAf/16x/RY3tk3Ke5hNZGKTI1fZQ9nB8KfBZUzW+4ORtbbFdRhEkNozXLZnITne7z
+	 g/ghLDXP2pClNRIt7pvt5F8pdCB3E5LvUpbyW76hwc7crAbRbTwLzKrcLs1PLC2kURqQc
+	 MwBla9Bkk8LgczWRAPKoYE0i1hzulUJ1CzDC3BYmZ4rhPqj8F8Wz7d7/3PdYy/PsFUAMR
+	 IoYhbR5fVARso8/oris1nn/IZE1DuaSbrqo1uSBmIPhoPFUcpVTvRBsv5MORGE+4iJg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E0C121F0136A;
-	Tue, 27 Oct 2026 20:22:19 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 319211F031E0;
+	Tue, 27 Oct 2026 20:22:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793132546;
-	bh=MD3WemlNx8wDWgzNhjIwPFawd5UT5lSpHnkAmq2nUNY=;
+	s=k20260515; t=1793132531;
+	bh=VREWUN8AJAKPAW/PnLTB+3AyrdUA3Tp3MbNPAyF7VCQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LkhFz+xoly7mxPoFNYiEVs8Ske78Jx6jlzfQ/WNRTwbuzmu0VmplQDEwVbIvOTwbo
-	 H4cYbn93vGekHQxWdRTBtwkvJE1ekDqwykRjYlr9p6JPPz3FEb0+x7YF6WiOgyVKOW
-	 c9TjdqNtgkhNKQQeDsu8JwGiBw8jTrTEM3qpCdONegzNVrs0jljO0ctsgD5oCSWlsB
-	 +ghGvkWA//E1yqFrhXuOnBYwZzEecxknKgpM+FS1OnoVCUOOFmpR5y9YUDbyESE667
-	 jRMQWpx70udqrsJ99JT9DRywBkBGBXlGYNyrCXOOXMrCEn4MCgafHjLX+Ddr+i9JHb
-	 RSAZxy8EHhzpw==
+	b=NbJ2Gdtt+lOeO1ifDsEbtpPS83ECI7A+LgmN9TKOTK7qhqulaa9D0RQh5TD/U15vQ
+	 9yDB9BuSIm9S/7WoSls6YiFiLkVYU5JhEjPiYUlJ+qOfxV+tUdhYAUOxMROo4ekd4P
+	 n0fb9qmnIWeJCXwAq5rDrPcRCY8vuEos5Fx/+M7SqvYjTWMg5SP+a9uE+XQb6uqkB7
+	 qWdwzw11MvgV2rknaALWlPNKvf7mEHS4wEdowklrf40IUFFnaAUlgt+1LuyAI1E4MU
+	 OS98PguGIad+NyQPJEFPna1WMSFS7Wy2EfDz3MSeIVpcN9w2SD9sHLGYGubazj6Ccr
+	 Wwd5hvMv6mjXA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 38EDE45274;
-	Tue, 27 Oct 2026 20:22:11 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 9E34A451F9;
+	Tue, 27 Oct 2026 20:22:09 +0000 (UTC)
 From: Jim Cromie via B4 Relay <devnull+jim.cromie.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 14:22:33 -0600
-Subject: [PATCH v13 33/39] dyndbg: add epilogue to dynamic_debug/control
- file
+Date: Tue, 27 Oct 2026 14:22:02 -0600
+Subject: [PATCH v13 02/39] vmlinux.lds.h: refactor BOUNDED_SECTION_* macros
+ into bounded_sections.lds.h
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-dd-cmap-part2-clean-v13-33-9267923be612@gmail.com>
+Message-Id: <20261027-dd-cmap-part2-clean-v13-2-9267923be612@gmail.com>
 References: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 In-Reply-To: <20261027-dd-cmap-part2-clean-v13-0-9267923be612@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -113,11 +113,11 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jason Baron <jbaron@redhat.com>, Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=2252;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132527; l=4249;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=GnB4si52gXR6L2+aPCSO9dyvxPaeMcaUtlggi3ubNhU=;
- b=ETZPNmW0juGHsMdzAOFLnSr7VbeUa75JKUrCV/Qur61K0h8bUwUfPHiNgNEn3UR6DK9B9RLs0
- VlVhImNeNy7CH7IjOWn2G2damVla20PPgJrl8ck+SdnE1y2IVVswcFj
+ bh=IfyJDb7+5IpRdexBxlsmGvn/hmtnbKQYugc2kC3D/aw=;
+ b=KHNS94dyrwfUat3rUowp1hXeRfJ9tQHVm49+4mt1JUQ+Ulw1bpwgpZJfujitxyqWgrTJ3hc8w
+ 5Efbg3SSImBCMnWdZv+nV2yl8DL4IQcndfox2Jen4LrML51uBm9g+Di
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Endpoint-Received: by B4 Relay for jim.cromie@gmail.com/20260203 with
@@ -128,80 +128,122 @@ Content-Transfer-Encoding: 7bit
 
 From: Jim Cromie <jim.cromie@gmail.com>
 
-Add an epilogue to the control-file, to allow display of statistics
-etc, without disturbing the header.
+Move BOUNDED_SECTION_* macros to a new helper file:
+include/asm-generic/bounded_sections.lds.h and include it back into
+vmlinux.lds.h.  This allows its reuse later to fix a failure to keep
+dyndbg sections in some circumstances.
 
-NB: epilogue lines should start with "#: " to distinguish them from
-lines describing pr_debugs (and from the header line).  No new lines
-are added here, only the place to do so.
+NOTES:
 
+These macros are only for use in vmlinux.lds.h, where the _start &
+_end symbols are needed.  Modules keep sections separate in ELF
+sections, with their boundaries known, so the _start and _end are not
+useful, and may confuse tools not expecting them.
+
+This patch ignores a checkpatch warning, because new file is covered
+by "GENERIC INCLUDE/ASM HEADER FILES" in MAINTAINERS
+
+CC: Arnd Bergmann <arnd@arndb.de>
+CC: linux-arch@vger.kernel.org
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v9:
-. update ddebug_proc_start() to return EPILOGUE_TOKEN when seeking directly to epilogue.
+v3: move include to top
 ---
- lib/dynamic_debug.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
+ include/asm-generic/bounded_sections.lds.h | 36 ++++++++++++++++++++++++++++++
+ include/asm-generic/vmlinux.lds.h          | 31 +------------------------
+ 2 files changed, 37 insertions(+), 30 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 82edec19c67e..5c87e92bbcdb 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1185,6 +1185,9 @@ static struct _ddebug *ddebug_iter_next(struct ddebug_iter *iter)
-  * read() call from userspace.  Takes the ddebug_lock and
-  * seeks the seq_file's iterator to the given position.
+diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
+new file mode 100644
+index 000000000000..8c29293ca7fb
+--- /dev/null
++++ b/include/asm-generic/bounded_sections.lds.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++#ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
++#define _ASM_GENERIC_BOUNDED_SECTIONS_H
++
++#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	_BEGIN_##_label_ = .;						\
++	KEEP(*(_sec_))							\
++	_END_##_label_ = .;
++
++#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	_label_##_BEGIN_ = .;						\
++	KEEP(*(_sec_))							\
++	_label_##_END_ = .;
++
++#define BOUNDED_SECTION_BY(_sec_, _label_)				\
++	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
++
++#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
++
++#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
++	_HDR_##_label_	= .;						\
++	KEEP(*(.gnu.linkonce.##_sec_))					\
++	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
++
++#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
++	_label_##_HDR_ = .;						\
++	KEEP(*(.gnu.linkonce.##_sec_))					\
++	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
++
++#define HEADERED_SECTION_BY(_sec_, _label_)				\
++	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
++
++#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
++
++#endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index b2988aa12f66..b4ece391f7b1 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -50,6 +50,7 @@
+  *               [__nosave_begin, __nosave_end] for the nosave data
   */
-+static char ddebug_epilogue_token;
-+#define EPILOGUE_TOKEN (&ddebug_epilogue_token)
-+
- static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
- {
- 	struct ddebug_iter *iter = m->private;
-@@ -1200,7 +1203,9 @@ static void *ddebug_proc_start(struct seq_file *m, loff_t *pos)
- 	dp = ddebug_iter_first(iter);
- 	while (dp != NULL && --n > 0)
- 		dp = ddebug_iter_next(iter);
--	return dp;
-+	if (dp)
-+		return dp;
-+	return n <= 1 ? EPILOGUE_TOKEN : NULL;
- }
  
- /*
-@@ -1213,12 +1218,20 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 	struct ddebug_iter *iter = m->private;
- 	struct _ddebug *dp;
++#include <asm-generic/bounded_sections.lds.h>
+ #include <asm-generic/codetag.lds.h>
  
-+	(*pos)++;
-+
-+	if (p == EPILOGUE_TOKEN)
-+		return NULL;
-+
- 	if (p == SEQ_START_TOKEN)
- 		dp = ddebug_iter_first(iter);
- 	else
- 		dp = ddebug_iter_next(iter);
--	++*pos;
--	return dp;
-+
-+	if (dp)
-+		return dp;
-+
-+	return EPILOGUE_TOKEN;
- }
+ #ifndef LOAD_OFFSET
+@@ -211,36 +212,6 @@
+ # endif
+ #endif
  
- static bool ddebug_class_map_in_range(const int class_id, const struct ddebug_class_map *map)
-@@ -1270,6 +1283,10 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 			 "# filename:lineno [module]function flags format\n");
- 		return 0;
- 	}
-+	if (p == EPILOGUE_TOKEN) {
-+		/* use this soon */
-+		return 0;
-+	}
- 
- 	seq_printf(m, "%s:%u [%s]%s =%s \"",
- 		   trim_prefix(dp->filename), dp->lineno,
+-#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
+-	_BEGIN_##_label_ = .;						\
+-	KEEP(*(_sec_))							\
+-	_END_##_label_ = .;
+-
+-#define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
+-	_label_##_BEGIN_ = .;						\
+-	KEEP(*(_sec_))							\
+-	_label_##_END_ = .;
+-
+-#define BOUNDED_SECTION_BY(_sec_, _label_)				\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
+-
+-#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_HDR_##_label_	= .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_label_##_HDR_ = .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_BY(_sec_, _label_)				\
+-	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
+-
+ #ifdef CONFIG_TRACE_BRANCH_PROFILING
+ #define LIKELY_PROFILE()						\
+ 	BOUNDED_SECTION_BY(_ftrace_annotated_branch, _annotated_branch_profile)
 
 -- 
 2.56.0
