@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793087356;
-	b=izcbkKxN2KkmOu4kUiLZBcIpVCqNRuBcUEI/EcCWJ8qtvDX+InGgt6FJQhtZF4oms0RC
-	 e7qY4eXeE4LjtTdM9xW0TYiwOqtzDKN8FlaHDLAQlVPqbBvlIFhkp7Lxk6CO3kVdFz1Vr
-	 nf21bA/d1m8tX3Hyn47ts2TFsP4m4TCXM/g1/Nk3uTQcV8Sgl4dslrmLInIqQNndOproP
-	 tql0OekyKKeJ2R0FBKn4+Jh59LLzV4eYcue3pCTFdhmgzAzPfEc5rS7lk/RoCZTeiwpm2
-	 nRIWxMQ3tNZDtffSrpNdUEYLJ1MpyB0qb9cSrs8y/Zk4Vf7QOVH5uoyFoZeW8zOO5XA==
+	t=1793087363;
+	b=Wk5lfCFw5VXPCceP0LH2VfbHsjcSjoRohQX1S48wOMwBNmwTHmmnubqEhbLcrjr9Xgxd
+	 ZOEQXCs3BhuOkm15KJu2RjKKj8/PTjNQq7C96dx5mmQnQ9Eyt+XaptECLlE7p9AdQdPAx
+	 U0YfObPWaKULODYQA3YIryT8MZrao7hm5LCDx099HOM/kR6hSe0R7M8YtBQimzfjZHZb0
+	 V5yVmkctFb4bCFB0Q+iYTodempIX/HnIwUPJq2SJobYZQuh3hXSsP47EFiGkRdaycEU8k
+	 eL9GD8Z2eZzNRTEXmfzP2Y1DXWABDMxZvswdyjZlrPDITaBLJaO1wU6NRbz3oArzZRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087356;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V2unCDaCesF7t0tCAr5s7QNJEM7FuHcgeX7X/YYseTs=;
-	b=L1xRioo1H0/zf7yaECpsLVZ49VPxPEJyCy4HlN7Bas4i13zupmyGd0Su4mGGCyDRfuVE
-	 bDUYwMIhUrNxDVGlYKV463vzN02rUXCj71Sc9Ta+BDPkr/M+JBnF07jK4Jy23JgJiKnRv
-	 3rrplOAcR0ujQTzyDyCtPNrqGMlnRdUXxUlIBifmDy9nB4Dgom3GZXRhMqb85hp5R5zQg
-	 HmtBr1goBN8jE8VNtaChhMWs04mLxx1vyyg2sswGa167tA+p+Oyh9RhvvVn+BguZg7+0a
-	 IUUrUPvUL6x8ZrPV+KRbQ80kUnZ3htY0/kra0bkQ5dZQyUAqe7fab5PDF0Jg2myrqnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793087363;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BXvgM0ct2zh3WME+RiKVmHD2v16ccD4fuepbOGcZJl8=;
+	b=ebvrbMWLklasGsQE1Wwkre8bE08O3zEOlNaHmgQtTccWp0Jaktb88a4S8IhJ15xUV0le
+	 ZRbh0fYiT6WewSVx+zajzY+MDTvhNG8RDbPnS5nYcpkbppZ1I5T8IArmTtf477+RLfB32
+	 v7ATW4yIGtSKOrn80YIFLx2l6CZzDrIRum2c8AL2VL55JW8LeLsd/7sf3KWnqfPt3SmCL
+	 SEyGVHohDNCggMrTUIe1S8PMMRnwDHDnolShzxdPLwbiJCDYedlQm+a+Ww90Wm4XuSx0g
+	 s9Jnml4UncfBKOsuf3c4dGLYk3QMHGfqPsDjxeGRLXCyDR+CgjL3d4pXuiTpwXQJ2hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBCmDAOO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=feoAmarh;
+	arc=none smtp.remote-ip=115.124.30.98
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A16E606A31D;
-	Tue, 27 Oct 2026 07:49:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD704606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:49:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD704606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBCmDAOO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB37C1F01825;
-	Tue, 27 Oct 2026 07:49:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793087356;
-	bh=V2unCDaCesF7t0tCAr5s7QNJEM7FuHcgeX7X/YYseTs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iBCmDAOO67sb0Djvtmfo2ldqbCyvm8yU4IKQCZ0pEs1bcqtdhkQpD1mqApsbC459t
-	 Q58V4/XW1cdGmDbFH97Gm8uafVK1fo+0D6kn+l+acHSMgmgXQXx9o6AORojhYEhZcs
-	 vuZyxZWH1WvaWypWG99Hsf3xZTTHHhONQp11BRuIlwuAstD5fk+fkhmBRr3NNbmOyo
-	 K3gEn/Eta5KdV54q8nZl+AmZgggSDdD/FBqHQKO/SKgaSUUz0AncpaMg6gSIELsNnY
-	 jSFY5keXFW5mbplvc03P6LxKCcbA8PAG0APF7xsG0qaUeumkdD82i73H8We1al44k1
-	 TFcNJKYZGUBHQ==
-Date: Tue, 27 Oct 2026 08:49:12 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aiden Isik <aidenisik@member.fsf.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: phy: samsung,usb3-drd-phy: Add
- Exynos5515 compatible
-Message-ID: <20261027-misty-artificial-nuthatch-9fd82b@quoll>
-References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
- <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=feoAmarh
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793087359; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=BXvgM0ct2zh3WME+RiKVmHD2v16ccD4fuepbOGcZJl8=;
+	b=feoAmarhOPv1XFa4+GR0GcXISwsTFdInNaACgajSG8stEUfbfu7ftXX57yOnOgl/viPGu+RqkDTCW2KPp6s7P3Pp3pFgawTmArQSgRRr10PP0NfSOqmyhyhNvQeHQyXjp2rl9xdnsJEFy2SSV5GSKPfRgjN67OuqD5b6jwCz7oQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R741e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=tongweilin@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XDd8d4h_1793087358;
+Received: from x31l07246.sqa.na131.tbsite.net(mailfrom:tongweilin@linux.alibaba.com fp:SMTPD_---0XDd8d4h_1793087358 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 15:49:19 +0800
+From: Weilin Tong <tongweilin@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Ryan Roberts <ryan.roberts@arm.com>
+Cc: David Hildenbrand <david@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] tools/mm/thpmaps: fix partial THP anon/file accounting
+Date: Tue, 27 Oct 2026 15:49:02 +0800
+Message-ID: <20261027074904.3328878-2-tongweilin@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20261027074904.3328878-1-tongweilin@linux.alibaba.com>
+References: <20261027074904.3328878-1-tongweilin@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,22 +64,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 05:46:36PM +0100, Aiden Isik wrote:
-> Add the compatible string for exynos5515-usbdrd-phy. This PHY is
-> compatible with the Exynos5420 PHY when running in High-Speed mode,
-> in that it uses two clocks, phy and ref, so document it as such.
-> 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
-> ---
->  Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+thp_parse() reduces index_end before looking up the type of the
+trailing partially mapped THP. The lookup then uses the preceding
+page, or anons[-1] if the THP starts at index zero, so its pages can
+be charged to the wrong anon/file counter.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Account the partial THP before reducing index_end.
 
-Best regards,
-Krzysztof
+Fixes: 2444172cfde4 ("tools/mm: add thpmaps script to dump THP usage info")
+Assisted-by: LLM
+Signed-off-by: Weilin Tong <tongweilin@linux.alibaba.com>
+---
+ tools/mm/thpmaps | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/mm/thpmaps b/tools/mm/thpmaps
+index 803e0318f2fe..d92aace005c1 100644
+--- a/tools/mm/thpmaps
++++ b/tools/mm/thpmaps
+@@ -263,8 +263,8 @@ def thp_parse(vma, kpageflags, ranges, indexes, vfns, pfns, anons, heads):
+             if flags & KPF_COMPOUND_TAIL:
+                 nr = index_end - int(folios[-1])
+                 folios = folios[:-1]
+-                index_end -= nr
+                 stats['anon' if anons[index_end - 1] else 'file']['partial'] += nr
++                index_end -= nr
+ 
+         # Account fully mapped THPs in the middle of the range.
+         if len(folios):
+-- 
+2.43.7
 
