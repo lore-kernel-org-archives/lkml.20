@@ -1,60 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118788;
-	b=DA3Qd5BY9R86bhG3ErqoMCrhwUcVtS+oeGl72udnvxscZxBmrU01i4Z/EfcFw92SnK06
-	 4pNoNISX2OqZAv6XMqWqRpjN3YTv9qty/qWHVD0RgyuNDnp2RqzoD5yNbCM6leGplI0kx
-	 R1+JhXY/xKthf75VSXDPYRGgfq4wmL3hgDrAtMzCRdACTpIqRFdCs5s8ct/sS19qirNm3
-	 9sGhcS1F0lFt7VCcvXOnry1oYjjXZ01lMZfKRbh5v5n5d1RHO9JAFalyTjyO8MVLIvFai
-	 YNj1qVBWTBweH7V9tKJovEqWwtuqF+/EMK6zhj9wjQDuJNhozbF+X/H3PjqUmfCfGPw==
+	t=1793118800;
+	b=Rkg+yeyteUVPIEK/a+MqVlA+Qy65rA+mLn0lLAth+tjZNmWaS6mDbfKJC2CTjX41pOO0
+	 WE3cwaSslt3bhXwG+/kG/HeQdjxj/zu44p/NRtdrPyX1V2Ce4lJIFitNjoh41deFBxTLq
+	 mj7YOBIi0F+k8zRE6GuXHRwLPfhmwvP98aIv98tAp+wwB9b8a+dkgQtEFkxqRRh1SJp8k
+	 N9ZjB/YW6m5tt79H+xxms0AyTnTazGhztTnfTlzWa+2j7ElXkgw3U2Vv4QnRokQXgTsHi
+	 7lftG+vjFRLb3pLU3dQNvM3/fXLBN4yeg4o9bweZMeTfqaf1tRCh1DSSO5UnF/mLgiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118788;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TbMT5lghyaS7KxQgJ+MM/CluoulGShAxSFb3s558JYY=;
-	b=S+zXjPNQMY+hFvV4hFN2Rq2NLv/znyFZa0bgR53A5Z4YCJqXFelP83Vlbd9+bF6ccUzg
-	 wM0dblqVEtZov4u76MsatX3dwEmfznzrwsonkcKAikUc1VL/H/qf+zMOp0aX+tMBXRzjo
-	 UPyzGp0w3NQEjiTe8vy7A9SgPS3gLboekWgPX8HdRJGCaJaHVNUxT2CIGtGgsU1q/DTQS
-	 EDAbWGnhqB8MwU1an97SypyuURL4lPCREtLi3JLpsBGfOmaH7a4PtlhipNkNHsCcJFiAE
-	 FazEUW679AWCrU7mekcXMUG/LXfKfwCA1WD5be/ZhZErfc/ey9L1DTO4GWFgY/kF+wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118800;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=oUH3PfCxcRjKPXYVmYqe+H03WTS0x76fQkCcrSzPc9U=;
+	b=yYK3AVHgpJ4RAg4vakLIOV/D6vN/qIq4GshECGVWplGHDkfmlWOyFyeYtsyO1N45YL/D
+	 5vUmtZCxEyVZJQaHNac3wbgB38Oq7OP77yFVsiEVVRaH+T2rKMZDewFtftwXZp2HLD4NJ
+	 nWk/wPtE/P7yi5u9cSm2ho8zp5v5JRxGgbFmla34LYr3TGm0kCSNcZnNLoZIVm9WJMcCM
+	 wgRSq92reKHs3DsTW2sF9LbuHbKQ6ZJdDsJZ9OdqRDS8tEUuyIShpb0l2+c299cwVbhjP
+	 8PiPLf7IKOwtsLw/O3OzSC6jyqV96OonRKOyo/AHfnhIkXxl52l9TVqux2vviSbne9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=obR0omlz;
-	arc=none smtp.remote-ip=185.70.43.96
-Received: from mail-4396.protonmail.ch (mail-4396.protonmail.ch [185.70.43.96])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DsX9oDVd;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7939B606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:33:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7939B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD622606A31F;
+	Tue, 27 Oct 2026 16:33:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD622606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=obR0omlz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793118785; x=1793377985;
-	bh=TbMT5lghyaS7KxQgJ+MM/CluoulGShAxSFb3s558JYY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=obR0omlz+RH9skUK/AijjQJ0MbxcBbLaq7bLBd+ZpUKNrs6DZIiO03GL5wtCPo4tU
-	 oxLSsRs6PHG8SP/+utakZfh3tB6mub8qUPGxwgV/IpqiRTGtsAFyWH/w6biugAASJL
-	 3oRf38MGoR6/+0DToGYWTq/JQckkQg99rkiqXbE+knIq5yKQxZmsMrcJ/PtYNi4whL
-	 mGSW+uToCK9TQO0TECEevVoO/rADbQ1Qm7wx4E7bXCKHanRLimHQngryr1pCy5hU5Z
-	 FS+z6Av0bvsU+H9mKg4N9ixa/kk3bNu4VLmVofYZWHIBWPZTiGMul+YrhgIkRBEgGD
-	 idF/xJ5XQGSQQ==
-Date: Tue, 27 Oct 2026 16:32:59 +0000
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-From: Paul Moses <p@1g4.org>
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] igc: return XSK frame copies on XDP_TX failure
-Message-ID: <R7FJ9H2Yqq7aJ5dcgVzcIZN-iI5qNsSVTCHlGTVoz9-HMbzAcMqJ6qCtNLlpjc6DATjNq67fgeC6paxLm4r5hBf4s85vmMOlLqB8MbAFTr0=@1g4.org>
-In-Reply-To: <auBehtniOJTRGfaD@boxer>
-References: <20261023141317.3904442-1-p@1g4.org> <at+yluh1NVm78gn6@boxer> <HTx28-b95D5R6LIxwQGHksxNXb6wWbEOp6IGCfRU51shEKudZgRxqFylE-Ngqd3ufeFJGlo5VccF1yXfAVeWQlqpNoSMp5oxS8tlJNxH4h0=@1g4.org> <auBehtniOJTRGfaD@boxer>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 31b7716a514270b0b4fbc73d35c670e646ea2b41
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DsX9oDVd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793118800; x=1824654800;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ahSNnKvQxghxBzFnaPlkwiogmqW5ZV/8vLRqpfwB0K8=;
+  b=DsX9oDVdYkBsMGxBP6+DrKEYlpMaF3sDVy2f02eDkNTdmUMu8WIxYw2z
+   sBdG3nTmgZgkIeZP417+mZyGAGetdm6shSa0VDMdmH7u+AtA77c0AN0oR
+   vvVRJNW+mSLMuk8L42lR9z2uTyusWBSEwuolG9GeWvt6Peed+Pb0yVC5p
+   V7D/Le6QmN3oDH9Q0AUnJWTlOGqPhSAg0k5KBaqlZ6CM6I85xO8dg7N14
+   h6RMAHCgQAuACtvLR9wblknV1eRTA8HkyBnJYjIep4td3yy4GMG+U1pmn
+   zutJXALamNrJj5w8usteYUL66eX3AfI5Yk5VZYgnjR0J+JwCWCtJEbErx
+   Q==;
+X-CSE-ConnectionGUID: 2C613jNSRriZKR5FAN3YHA==
+X-CSE-MsgGUID: ZrowVB4/SuqN/zpH07tuOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1931873"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1931873"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 09:33:19 -0700
+X-CSE-ConnectionGUID: YSY7vDFxRaaXZJzz1tijCA==
+X-CSE-MsgGUID: +2XfVK/VTV2/SIT0C/nwNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4541532"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 09:33:16 -0700
+Date: Tue, 27 Oct 2026 18:33:14 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nithishvelan M <mnithishvelan@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: iio: impedance-analyzer: ad5933: use
+ devm_mutex_init()
+Message-ID: <auDSSrRLqM5sg7ti@ashevche-desk.local>
+References: <20261027160829.1731-1-mnithishvelan@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,96 +84,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027160829.1731-1-mnithishvelan@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Oct 27, 2026 at 04:08:29PM +0000, Nithishvelan M wrote:
+> Replace mutex_init() with devm_mutex_init() in ad5933_probe() and
+> check its return value. The driver already uses devm_* helpers for its
+> other resources and has no remove() callback, so this ensures the
+> mutex is destroyed automatically on teardown when mutex debugging is
+> enabled.
+> 
+> No functional change intended. Compile-tested only.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-
-
-
-On Tuesday, October 27th, 2026 at 3:19 AM, Maciej Fijalkowski <maciej.fijal=
-kowski@intel.com> wrote:
-
-> On Mon, Oct 26, 2026 at 10:18:03PM +0000, Paul Moses wrote:
-> > On Monday, October 26th, 2026 at 3:07 PM, Maciej Fijalkowski <maciej.fi=
-jalkowski@intel.com> wrote:
-> >
-> > > On Fri, Oct 23, 2026 at 02:13:42PM +0000, Paul Moses wrote:
-> > > > Converting an XSK buffer to an XDP frame allocates a page and retur=
-ns
-> > > > the original buffer to its pool. If the TX ring is full or DMA mapp=
-ing
-> > > > fails, igc_xdp_xmit_back() returns an error without freeing the cop=
-y.
-> > > > The RX cleaner cannot release it, so the page leaks.
-> > > >
-> > > > Return the copied frame on TX failure. Save the RX memory type befo=
-re
-> > > > conversion so native frames remain RX-owned on failure.
-> > > >
-> > > > Fixes: fc9df2a0b520 ("igc: Enable RX via AF_XDP zero-copy")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Paul Moses <p@1g4.org>
-> > > > ---
-> > > > Tested on Intel I225-V with baseline and patched kernels. Physical
-> > > > pause-frame backpressure caused 46 leaked copies on the baseline.
-> > > > With the fix, all 72 rejected copies were returned once and freed,
-> > > > and all 192 copies were accounted for.
-> > > >
-> > > >  drivers/net/ethernet/intel/igc/igc_main.c | 5 +++++
-> > > >  1 file changed, 5 insertions(+)
-> > > >
-> > > > diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/ne=
-t/ethernet/intel/igc/igc_main.c
-> > > > index 1fb5f3cbe93c..39263fd04aa9 100644
-> > > > --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> > > > +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> > > > @@ -2487,6 +2487,7 @@ struct igc_ring *igc_get_tx_ring(struct igc_a=
-dapter *adapter, int cpu)
-> > > >
-> > > >  static int igc_xdp_xmit_back(struct igc_adapter *adapter, struct x=
-dp_buff *xdp)
-> > > >  {
-> > > > +=09enum xdp_mem_type mem_type =3D xdp->rxq->mem.type;
-> > >
-> > > small nit is we require a concept called RCT (reverse christmas tree)
-> > > which makes you to order variable declarations from longest line to
-> > > shortest.
-> > >
-> > > >  =09struct xdp_frame *xdpf =3D xdp_convert_buff_to_frame(xdp);
-> > > >  =09int cpu =3D smp_processor_id();
-> > > >  =09struct netdev_queue *nq;
-> > > > @@ -2504,6 +2505,10 @@ static int igc_xdp_xmit_back(struct igc_adap=
-ter *adapter, struct xdp_buff *xdp)
-> > > >  =09txq_trans_cond_update(nq);
-> > > >  =09res =3D igc_xdp_init_tx_descriptor(ring, xdpf);
-> > > >  =09__netif_tx_unlock(nq);
-> > > > +
-> > > > +=09if (res && mem_type =3D=3D MEM_TYPE_XSK_BUFF_POOL)
-> > > > +=09=09xdp_return_frame(xdpf);
-> > >
-> > > Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-> > >
-> > > > +
-> > > >  =09return res;
-> > > >  }
-> > > >
-> > > > --
-> > > > 2.56.GIT
-> > > >
-> > > >
-> > > >
-> > >
-> >
-> > Never know what to do in these cases, order matters here, so
-> > do I touch more lines to move the assignment down below?
->=20
-> =09struct xdp_frame *xdpf =3D xdp_convert_buff_to_frame(xdp);
-> +=09enum xdp_mem_type mem_type =3D xdp->rxq->mem.type;
-> =09int cpu =3D smp_processor_id();
-> =09struct netdev_queue *nq;
->=20
-> this would satisfy the RCT rule.
->=20
-
-Ok I'll send soon.
