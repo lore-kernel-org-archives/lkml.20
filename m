@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.222.82.137
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793121104;
-	b=wb8yrDTI5OhMioClDKS5BxjkZ8Z3ec2US1DjkvHtt1qPeMKsBIyc5l3GQM8SXDMDjBZV
-	 FLYNMMbSQjfVjrNIOFqNgthq4iqULGQfggx+gjt7MMfSIr/KwYqu3Q8rbmPkQmefvErgg
-	 2pLI+mPn5XhiXNbJX+zGSW91+f0ROQ3evFB/nIxSWvPQ5lkZdJZbYPgJ1t9uwlVCARxDC
-	 J9SB55RB9Wqx+0B3WyodATdpIFQT5LTdU7coxkeNqGq3NZSn3FUl4ymx+kkCqE3JVGZdY
-	 AuCM+gpFoDQBimlNHtGdcWsrezO25Tkh02x/fs7/9Hbv3+GuhXIko9NkduR3KEJgyGQ==
+	t=1793121187;
+	b=UXLpOzE2UR+efvlSXMlL/nggaQmmMGPdPwtfYijflE/VhQVq1eeRhhH1/Whk4Vp+BuiA
+	 9WLyDyqec1CZFUIpPwUw0d8ZZQWX9cu7xwadtX2Byul8W5P6tjf71vOQLuTaLXzQGG8Vs
+	 Q3y7dhGX5SpADf1SmR0KZxlKmRhHCbKKEh3L31fo7yD31S+joJqOYM5D9TJrywqDcVwZn
+	 BNowmgDg8xNkp7VqAiAUt0iKuArNdqDcCrF8av+QTOEmkYAi73sIC4kJThpKUGuDbEILg
+	 AcPGGNRN4ig2lceTjSiySt3SEBA7LqEqUBSeHMgRQ4wvGJ6sNxkS8HaO5ADceG2N7pQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121104;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121187;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-BESS-ID:
-	 X-BESS-VER:X-BESS-Apparent-Source-IP:X-BESS-Parts:
-	 X-BESS-Outbound-Spam-Score:X-BESS-Outbound-Spam-Report:
-	 X-BESS-Outbound-Spam-Status:X-BESS-BRTS-Status;
-	bh=cjKXH4087K4SHB01speMtySKB1IOgyNR+EwaYeFG200=;
-	b=xjagq2X94b0GK5dJ9I7Jkpchna/QJPXIhDLXvjD2vlLUb0fkuJ9R9UR2v5Sg5EClJXEI
-	 jW7Fy+4IZib2ZLKf0KUHsOTuODXuZGrRqA6SD2UBYuLbO8bKcJGX28FKe6hoJKK8jrTFk
-	 1YeRXX6R7uuG6ZEI3G8oPXnMsMJbQoMGb+sXaCZ8h4HHhRxH4+sCiPiZAqLC4LqU1+5Lp
-	 jUVBGjIVj0tu+Bzr6TE0svFwM4c70XyYZIRmGu6gt4qrYdodz0cn1ZYlrIedfsdaMWYSr
-	 Lvgd7B30rX4RPFt7/u3NsIuxeZ+5BpOvmXBV7lCdsLYHp1XuzvqbFpz70BI107a4rGw==
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TaNNJIVHt667UPiPfLgnrIYbE9y8io4IuGxm5lHmQVk=;
+	b=k3Hg7Fc/ZBBldmZRg9A5Ra9qqtQnOFSamaRwt4dpd52vuACOgPT4cxhRriomnsTrxytP
+	 VTrnv9CNW0Dv9psKjxiYmuGEK2eQuzM5wt0LqSuVyXGwVGJ4U9qxrWm76lJwHgb5C0HV4
+	 GPi2xrrLKmVWOMNxJOq4BSZu9KMuA1bXnxrqeztIXJ5O29qCU6DsMFJbvAxukScvpktnH
+	 FVGXO+bJO5+fQqzD57vj0PCRljbNfbGlLoUket0rNKwGqMstTWdFaNC6jK2rD8eVyEHkQ
+	 7zFE9f6qRkVlZSEkPQQnt4o1ERmxkx6fTUJHYb8MwsyOmmfC7DKQypKP1VGslp4yiIQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opengear.com;
-	spf=pass smtp.mailfrom=digi.com;
-	dkim=pass header.d=opengear.com header.i=@opengear.com header.a=rsa-sha256 header.s=selector1 header.b=YMqB1TWI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.222.82.137
-Received: from outbound-ip199b.ess.barracuda.com (outbound-ip199b.ess.barracuda.com [209.222.82.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mXGJc1T7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.7
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013007.outbound.protection.outlook.com [40.107.201.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791E7606A31A;
-	Tue, 27 Oct 2026 17:11:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 791E7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26931606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26931606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=opengear.com header.i=@opengear.com header.a=rsa-sha256 header.s=selector1 header.b=YMqB1TWI
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11020123.outbound.protection.outlook.com [40.93.198.123]) by mx-outbound23-160.us-east-2b.ess.aws.cudaops.com (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO); Tue, 27 Oct 2026 17:11:04 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=mXGJc1T7
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bUD4BAY52LRRRRXTxNMskbYNCKqHjJkYdcXVPWIT1CGByZ+TTXIp99A6Ks7OPFu5p8GxhKeQfHm0i23Wav9GYpXrQHS2qnVHEpVv8wVFfpeIycX2kCuqEe1k4xSoBxIApai1NtHQKwOViWMgazWMwBj/AyrVNAqtImXR29PJzae9kFJJb0Kw2qLp3KxkGZ8NL4n/NFe7Z9UzGW7ArG3APd7ohktE4TcDkf4XKFvEXHe3tXFwL4Rw/3J+wBzjpfLv/leTa793HoP14nF4LZFCk2tMLARZ2ejXCUhFuFl48U6e/t/xh+E8+XtUuDIyo2hhUuJM+BmE/hkepGMBwWZiUA==
+ b=u1LANGCBO7R9GqMAYFiyjuRv3LrC2hFREEY6irJAzGKIWj/XEGGEcuFytOiZIbrnfHT1xanl9/kTYU6/nUeHE2XtEHhzTDfPQYW1hqfXy7r9Whng3Mxkt/IfYMFX6iRAVf/DQ2oYRMF7xN9AdYOtwCJhdPmA8I/NDrfPSt8yV03mTBUj5pdJCLG6dbNrVVbS0ihbAgGi6SQIz9iF3yKlJTKEOBtxZJhKU0cAMp6HFh8dLQHBSgccPB+/ZJfTBMQm4XxUbmLmpgO7eyHbMVwZQuxSt931r7fj7fs1Pi/RM/mzfcjiFZhzAYtu9I699sv/KgMAAe9L5pIUuAZgp+wWVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cjKXH4087K4SHB01speMtySKB1IOgyNR+EwaYeFG200=;
- b=B4gaS2wmysjfEWj+nMb3wpLui7Hr4u34Wnf7PxokFc/9Wp+OiW3VX7OPihxvR68PwRk7p6NavhXEY0r9CmYnEnKYTp0g/aCX+iKAL2aKoXO3/h9Zk8cF+RgCZnB/18CQ/HhtEhu+ArgNjcGR5rX3502OPc/FOYkkqxed8revyg85B+ChIxstopehkTCDzdO26i5MImuEpvIYQFoLmuKMgADxuMF2b9YdFhiZaiwRx/OH4TcTAz/3WeJ4TnOXWNaAlfvlEZJsBSQD0CAf7Bmser2AyRxSUemr0iYhBSXhX8LAIMqUCEPUIUSyvKoIUw9+Q7U9X0vRCYq94i7Ai8Bzug==
+ bh=TaNNJIVHt667UPiPfLgnrIYbE9y8io4IuGxm5lHmQVk=;
+ b=wBTIdqnAsikRh4TMVzqNWk0hcVrSmf1aBsVQCycXJd44uy1uVj0U3GXtLyqfaN6jyxmJKwVkbEEK/8k37uLTAr7W6dOOTYlIKUbkZu3N5uJmXbLiHtIEIhjE4FGyl7xgGWTbiQMskd+fpYyKxY/A+haFR3JKM4VORItEKkFt88DPSnvbvVjTGEdRoq0SAWPKVmJNd2T9lSxc6qNMlbHeyibhnsR2b0GxMRgqgKyNNlvF2hgGi7A56VMWzqKxI7MBlWS2KYAOjdgDDoyzvA6f/RIoeRPpAo9pkqRyxyebP9Qbo35XuCgZCD3hXo1nqBGGBXO2ptUco1kFAKouChgA6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=digi.com; dmarc=pass action=none header.from=opengear.com;
- dkim=pass header.d=opengear.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opengear.com;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cjKXH4087K4SHB01speMtySKB1IOgyNR+EwaYeFG200=;
- b=YMqB1TWIZJhLxWJdTquDScuGReXLMfbTAq5jNN2odDTiBXDq10UuWmT0RoQVKibbpYr0QtsFteL3v7BJwL2v9v5bwbbej4HpmGqddKjQfK/yXmPhbOpseUi+1uIYQZe99gK2AKnVkePoiYx0k5fLmd3LCQ5JlM2rdleuab5M/tSXuTz5RrGa/h6Mp377qkOiunWGqJXKnD79DM0oD7c/6h92YmH4dKJYfVLVfpx6rzjawM4kheekeP+U9S/j7GPoFR9N2oAhkmVbhHA4TprH6wem42tC9EnQSbhxIqAD0uJGRPprYcRTJXhWD1dtgn7f98oaV2ZOPVYL11id7YzXxQ==
+ bh=TaNNJIVHt667UPiPfLgnrIYbE9y8io4IuGxm5lHmQVk=;
+ b=mXGJc1T7Irkn2cICWcRNB07/X0no6/48fHeufzGj5GakVLV+ODCGshBT2lrvQobhtAYm4F4KPirEJZZjttlOorcBUoIbgRSe8Kp46eeDsGiyD4XFbutdJOa/u2HIFyWf2dE2Z0v3a6BBGSArl8OXE0Qe1RJCis2yDdeQ76B4MO8=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=opengear.com;
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34) by BLAPR10MB5057.namprd10.prod.outlook.com
- (2603:10b6:208:30e::12) with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
+ by PH7PR12MB6667.namprd12.prod.outlook.com (2603:10b6:510:1a9::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 17:10:59 +0000
-Received: from MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017]) by MWHPR1001MB2095.namprd10.prod.outlook.com
- ([fe80::3933:62ac:2729:f017%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 17:10:59 +0000
-From: Peter Hunt <peter.hunt@opengear.com>
-To: netdev@vger.kernel.org,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Daniele Palmas <dnlplm@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Peter Hunt <peter.hunt@opengear.com>
-Subject: [PATCH net v2] net: wwan: mhi_wwan_ctrl: send a DTR drop before it can be coalesced
-Date: Tue, 27 Oct 2026 11:10:55 -0600
-Message-ID: <20261027171055.1796482-1-peter.hunt@opengear.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0171.namprd03.prod.outlook.com
- (2603:10b6:a03:338::26) To MWHPR1001MB2095.namprd10.prod.outlook.com
- (2603:10b6:301:32::34)
+ 2026 17:13:03 +0000
+Received: from PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
+ ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 17:13:03 +0000
+Message-ID: <471336a8-35eb-4830-9f75-071f5b98bae4@amd.com>
+Date: Tue, 27 Oct 2026 12:13:00 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] drm/amd/display: unlock secondary tile on Apple 5K
+ iMac panels
+Content-Language: en-US
+To: Richard Lane <richardlanedev@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <18b5101d-c05e-45c0-a880-457bb7b9d887@gmail.com>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <18b5101d-c05e-45c0-a880-457bb7b9d887@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SN7PR04CA0035.namprd04.prod.outlook.com
+ (2603:10b6:806:120::10) To PH7PR12MB9174.namprd12.prod.outlook.com
+ (2603:10b6:510:2ed::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,134 +102,330 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWHPR1001MB2095:EE_|BLAPR10MB5057:EE_
-X-MS-Office365-Filtering-Correlation-Id: 917434d6-92ca-4558-e5ee-08df344d4535
+X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|PH7PR12MB6667:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27c5135d-9b71-4630-d4d6-08df344d8f0a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|261026121527099003|18002099003|11063799006|261021121427099003|56012099006|10067099003|261021123027099003|261009223027099003|261022075727099003|261022105027099003|261026140227099003;
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|6133799003|261026121527099003|18002099003|22082099003|3023799007|56012099006|11063799006|261022105027099003|10067099003|261009223027099003|261022075727099003|261021123027099003|261026140227099003|261021121427099003;
 X-Microsoft-Antispam-Message-Info:
-	izd2/SYAr8Z2AtP6lGZvgqVKGWrLIfCR6US4HXBfqifPo3vIVGexN1ilZ8rOFx4fYsERw9KFfDOK4M0/LGIzP1s+v39vx6MiHzlaGcVj17fVWeHHYCt6NNb/0DvtSgxNvJqn6gbwjrHBwjri5RW+M1VXw/dU3UqrdiN846O6Riwre9UV/LujQLQHiVQhBjtDSIBvvRBcaxyGr4lum6ySR8NEg8DX2OXF5edZa0xcY1i5WEEHSqHNApCvKjRAi1C/zmNORvuuXhl0PZnrdyPSoniCFyELMq6/JWPHspMaLXfdqjadQxBIIRoDTFChGrX5+yXjB7GJKTklryeUqkqK2rHhwf1S2iVsTwzPwzC0lcRCYP25/ZCxS6n4XinCESsutkPbYKbBryPnACRo6c2NXBexqnYDZtQ47XmMsVQgGy/l4P/KVDcDWtrqIDUbXlhwwV1g8zx18h94wp8nVvo60FL1Ns9xPOWQYuoVThWv746ornfjuDW2Nd3Dblg7BovIosDX6Pfiat8ty+0JQaeuPelNoRRHut0UDg5jzbmDki2PozNb51nJHlzvJByNftRhIrGPeiYQXLtyUNyywh+3Uhj7td4+ZvEozKw5xwmBI7g=
+	Jkhg4xeXx+q+vncybVRDQntTtGWYCk6sSR75C/LNsniaKp7HsI/S0m4KIvc37KS4AyNSH/tv+HfMkWq8Re8jW7+4VFEPeY0qcU4eRVs9q7rQa/K00+aA7kmIeZDnB9hW6Y4DlHr9SU4WIdddgJw0P/bvlpD0z+aUr4PgYo9BBfqBMjS20TYvPDZGL8brYVzx6QQy1VvPa0zr/V2WNbJ3PqerjhtSgzzU4apOuX1ucaUG6Kai7nz2Gy8Rx3/8fRjeuAJ00G2axieQjmfW61GFEo7kCHw1lwaBlEoE4ibcZ2XCGXQksZaH8ewrQXKMLM6Bw3irihnmxJgd7qq0VNPJSn96JDZ/RlQEn2n6FeQfaUQbutQh5qle2OY01Li5bYQQZFnITn0Vi33iSSIlV2o2K+RUw0S4t9z2qzWj/aWvg4HlM0GWkurk/tIabyZYxQdzn2UivHCjyzFwicfpofbhYxR3SzfEs+TNOVHM9E1tJO3bnkl0n2Xf7i+1s/NOwJGHTWqj8iOgDb7nllB57RySK5HfMqgGSjp1XoHNlELqQnSf72LTdowugmuDhBeIRXbqMzE7K4XduEWCGB0eKxyxIaU1vbRHujOXa8OqoaIzg92iHPAcpgY2Ir3hZ88l3t+hZOPP9sXU/60opjIBJV/9NWpH4P7kUPWMA3HgKxCGTQA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR1001MB2095.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(261026121527099003)(18002099003)(11063799006)(261021121427099003)(56012099006)(10067099003)(261021123027099003)(261009223027099003)(261022075727099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(6133799003)(261026121527099003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(261022105027099003)(10067099003)(261009223027099003)(261022075727099003)(261021123027099003)(261026140227099003)(261021121427099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?74AWX12AI2/k2mMlu3X0KKztpixMTgrA/vsRRoQ6/YRNyeZ9t7MIZYXGPzDx?=
- =?us-ascii?Q?nr2JHjbLK45mJfYdq2C/9tpu7zHIxfl847tNlePAa1DbprWA+uyUM22fORt5?=
- =?us-ascii?Q?7dBXYzpMpf1NnGey36W/fFsHhvGTVNjURjwgBXAcZId4x+dFulSie2amLYg4?=
- =?us-ascii?Q?/f2wh08zd21f9mTBtytmUgxdWz2FxFhuGFAj7b4Cq85oc5V6z08jmKPV8wEx?=
- =?us-ascii?Q?hjo5KuvrRKKV1hOD6yLLWYROU/I2LHxQXHjTGUbXJZQGSYgK33sx94jzciHg?=
- =?us-ascii?Q?xSNslvrS/A/9+hnEZhyWloRsPuN4zBIYXSRSXpzslmVnc3MXAmiLUd/BmU4u?=
- =?us-ascii?Q?JZFgkArRAYQKxEs+DioQMX2j/i7+m4jeu4ToZMCFbTms1wgTvoK9u116rKe1?=
- =?us-ascii?Q?2WzBXjC50Qfi2/JzYtB2ezLA0rJYkxj5AZf4kAD/YnsGgXpFSYqdDrpEN7ml?=
- =?us-ascii?Q?odEP+LoSK3lvEbxV+Bx4equGKthhx9ZxleARKkDejL7XKhBE+1ZEJkzvMJuk?=
- =?us-ascii?Q?O63Nndp4iF9tfhFq730IMSY4ByzYG9FVEoDuSgBVjZpOf6QjXQoe8Hms3AX1?=
- =?us-ascii?Q?jvYsfwnTQ9Qw7Ow6/hBGj0rXF7yax2XK/Md2sfjLsp8DyjhZThEEBiyEnNf3?=
- =?us-ascii?Q?+FyT6HWrAIwv/dbojpIqHyoldsL6pw/Jn/vjLQGxAzQw8Y0Zm1l9YJ2trBhe?=
- =?us-ascii?Q?gztpmvWkdQTfKRUSYLohWHp9kc4SlV1CmZdRegfLRbS2ehmZ9P016dazoOZh?=
- =?us-ascii?Q?0ynDnnuTsddyQySXYKypyMCeTEutTSfiBgQykFeCXhfT5B/ZbrLhGER6XxMJ?=
- =?us-ascii?Q?0hTE6m/21YTs3eAXIdrqxvg7xRSwqFfty4YB7XlZsq7FNBoGdEoUol7/Ur9X?=
- =?us-ascii?Q?dFDSqb5s6YLTlZDBpjb+JUeaDwA2P3AYRIzoCHvYl+h8Wk5Q2d+SeH/1fYah?=
- =?us-ascii?Q?8EW3CEXS25+4DexuYdJxsohr3IUCG9ShGNXXCLP23ZRnNmPmxsu4yGDxyZYY?=
- =?us-ascii?Q?hnHMUDtodzfWVFuTydqt1mg3n0dhvJzgqC/nCfiTTmC34VTN0v6tOV2hDpoT?=
- =?us-ascii?Q?uDiNXSsaLUs+7WJucP1J7X53uQ/CsmRBHPEDkHjBs0u6FUJGBLH3nPbrlmwn?=
- =?us-ascii?Q?M/KqPdV12ID28jP/wJn/htc7E7XJIuCQW6+4UE/oBrEI6IR1cBx5YvihfSQu?=
- =?us-ascii?Q?av1iLnIwQPojIbqSBS8oJXIVBdyySwZx7y0jbNIDxktzn3d2RtQdCdu1Yhvc?=
- =?us-ascii?Q?HQjyQuWncrUnQjT2slyHeAxUxemeKH2ZNEfpqvrd/dplb0JiUxwEbmQvtqxq?=
- =?us-ascii?Q?CZKcj/NQkcwByxXtLnshxnVTxRayNP5f4ZKEiRHXlb+YqJ9V6K2q/Gux4M7L?=
- =?us-ascii?Q?6HDkyR4k+lgrhx5ffdlKw1ZER+VRMKybrcSJmvhYrSHLgcw7tkfg4P0pCgIT?=
- =?us-ascii?Q?fpo4PBlti/aq4xRpTWiENZU785qSYrotNfA96jg9KS0mtNWZOd2A+wxo8O1G?=
- =?us-ascii?Q?d/gk8Rk+I2xku3hjcFRJSo96j+UU7/qwrhmOBQL7iLYrQwWSiJmWJuCVhVqP?=
- =?us-ascii?Q?Ts67IaLHptw2PPATzpGv3xF1/UK4o2Mq+oLnYgYVUH/G9b3E7X9KNxIuaHbK?=
- =?us-ascii?Q?CHeXmCA4DyXZhHzz6kEYjqT3utwtgHZjmHRc0kUk+yoMtRKR8fdUW0Zo38Bo?=
- =?us-ascii?Q?ZNpW+ptvBe82A9coK4VUruK+7H7F2ODAdv/J/ox9di6A4sO9?=
-X-Exchange-RoutingPolicyChecked:
-	GLccxNfV2tBWJJA0a7eGruOF6FzUvNFUPDIIT3hJ34b7gAuXrNbdU2L96sIJUfoYnK6Avvn3O6Xf2+wPEsXDoIdCLwWQiB1d017YB2nJXYVbkDHeCrZUhiqkDzKxqMhEik4Hr9liI6ccs+X18OzsQgxnkRCAmbaRU7rpPI7B+qx4SOqZq2+XFzN4LFQu3LyBzz8mVicN0Dq4RLvbHtNWIO+F3dDGCxEntDBdSiUTGENbPuTAJ2mXVyz+mnXB1kRyESu8/FYAnWHComYt46BK7rIPDVVVQo8LeBksAhWKT8NWaJE2BKzT+OIJQgfStvl7ovhs7/FklMxuReyw6Ua7sw==
-X-OriginatorOrg: opengear.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 917434d6-92ca-4558-e5ee-08df344d4535
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2095.namprd10.prod.outlook.com
+	=?utf-8?B?MmhZWHFFVzlsUmRYYnM4NDBnVzhTWDMxU0NuSmh0R3p3c003VEhGTTQyWGFx?=
+ =?utf-8?B?Y01jMWlyTXJKVlhjRHNIUG5PZ3pJdHVlMFF1N29mWHZZY2JFMHJ5Zkg0aVph?=
+ =?utf-8?B?WkR3bno0SGNIczJtSy9xN00xeUhQVGhpK1dSeXJCdG1BUEJGclVTS0tFdEVt?=
+ =?utf-8?B?QWhmVTlncStFWlY5TmRmNXBpRGJWdlJka3poOUVCbzA4QUNyaGczaFBudkJr?=
+ =?utf-8?B?V2czWmFJVURGd04ycFAzVU1FOHhGbGdJTkhCNDd5cForUVUvTVc4VWZ5Q1N1?=
+ =?utf-8?B?aGFIaUl5N1ZLL0RNMDF4N3REOW1nNTJ0V21tRThSTlo1RjUzZzZYVGtCSlkr?=
+ =?utf-8?B?L3dQZFFFMkRGL0xsVnd5TkdES3BCVXBySnpxMWI4bmpqeFk2SE1nYmRmNFE3?=
+ =?utf-8?B?RTBXWEkyQ1VXTTlEZFJlck5LQ2o3cDJxYlZCSSt3a0ZwZVVMSDVNQzV6NGNC?=
+ =?utf-8?B?a0VZc3duR0lPMWJwWUxOazZoTzZ6Y2Y4OXRQR2F4MTdNZkRuWGhGVUw1b0dD?=
+ =?utf-8?B?c2pzWEsvTHR6VTZBUzVUSHBRRWZ0K3FnNGhpOStFbUdiWWE4S2tIYXR2Qmd4?=
+ =?utf-8?B?Q3dJb1dIWlRtQ2hmVGxuTDE2dnZLcEhmUXBPWnNmdi94WmdnbVdOUWc2bnNo?=
+ =?utf-8?B?L1JES01OU2pLeGFXMnFZR3V2QjZ4eGZqNDFUaWxOaEdlamRlcnNweFlySmlB?=
+ =?utf-8?B?U2o3Qm8zUkpMaTlDcmcrSUNWU1IvZlYxZmdRRUJjbzNzUjBxVkFoSmpBK2E3?=
+ =?utf-8?B?M21rT001VnFSd0IySlpwMklFaXMyRkc5VFIxZmNzVWNTRzlCWEhMS211Qmgx?=
+ =?utf-8?B?UHY4R25xZ0RnSnlpOTB4dXIwck5CN0hqTVR1Vit5WDJUeDkzbkZHbHhad0lB?=
+ =?utf-8?B?SkhWTmV5Nmw3cXVJR3ZGbWwvdktWbTJ5WXhSbHhhQlJQaWYzVUxzQnc2UUQz?=
+ =?utf-8?B?K04wZGF6STN0ZzQ4RWREMEszK1NRdWthd2l2YzNOcmUyQmxEcWVaeENoMUZa?=
+ =?utf-8?B?S3pUalFBVUN2eGtjL2s0L29ISHdhdktWQlBoZkRwUWloZzZzZGlPMGdMeUpz?=
+ =?utf-8?B?QTR3cVhGVnFEZjRtZFBvTC9RVnFPRVRiY0dQVjFRNkpjeVVDWVFHZDVURWoz?=
+ =?utf-8?B?TGxySVd3OWdUMndnekNmQVFuaFd6RDJsV005ZFlOazFQK1B2WUxBdWNsMGhW?=
+ =?utf-8?B?NlNXRC9HR2NkTkJGRjBndDZBYyt1NCtNVWxPYW9Cd0JqUE1VVGcvLzYwOTVQ?=
+ =?utf-8?B?RnNTcEh4YmV4MG1Oci9LVEM1bW5NRDhOb09WL3o3Vi8xQ042RVFHUWJ4dW5J?=
+ =?utf-8?B?YzRoSUJLQjloSVpKZUQ0UlhMQzNnNzAxbzNGS2RRcVNRTXdNcG1wMld4eUNL?=
+ =?utf-8?B?Smdia2Z6TG5GVFBtVnpGN2tLMnhDdmRlL3VqYTZZWkppTSs1b1d4L0ROWHpi?=
+ =?utf-8?B?dFczRHlYdWRESTE1UXhWVHF1Q2dPMHNwZDV6VXhHcTJOOFBoMWY2S1NEOXl5?=
+ =?utf-8?B?N21rZmF6b0ZaUGlTUG8zMjhaQUY4bWFmendENUtYSTJyTUg2aWxKWjlTTC90?=
+ =?utf-8?B?SVpJalhpUEQ1WEJtNmhicWJCZ09lVDN3QXBadnhYTnVCRWd2Nnd0bVJSeG5Z?=
+ =?utf-8?B?NmhmVTF2ZjVBR2JGTzJBR1BOZGd4MVVjUkd5Kzk0S2hRWE5DTi9LYmZMbWtN?=
+ =?utf-8?B?N0Vla1Fna2FEVnQ4bnZmdkx1UE9KQlI2MGVzUUhIakx4OE9EdDFURkNmaHpm?=
+ =?utf-8?B?OUE4c1plNlMvZkFOeGpCb01PRGdHK01sTUgvQlFteW9OQjdjS1U4c2ZQZXpB?=
+ =?utf-8?B?YlBhdnV3RmU0RCt2cmYxYWxRbGFBRVpYM28rc0VEN0trS1lta05oRW1EWnpk?=
+ =?utf-8?B?Y2hqeEZBelJWSk9uQnNYOWx1ZnhmQ0NRS3hOc1dqN1J4dnlzVlN3dEpkTzBC?=
+ =?utf-8?B?Y3BKb0lrZVVUTnRiZHl1cFBwdEszOWtLaENvZnNqeDEycGFwZE1ONlZvWlEz?=
+ =?utf-8?B?WnB3SE1CNklObUpFbEYvUXp5MC9YY0drS2szT0UvcGxnaXRiU1hHUlpWNUpv?=
+ =?utf-8?B?a3pyS3BXdDFoUk9mTUxYRlB0TWpGT0JCb1VqTjBwWE9ZWUFOcHhmdE01WVNC?=
+ =?utf-8?B?N3lKK244SktYZGFjVGlrQXREdStDaXQxVUxzNUVOa1UyZ0ErbXFNTi8zZE1w?=
+ =?utf-8?B?NjIxZGt0Yzc4TWJPREg0dWkveWtaRWpMWVJINHVSeTdwL3B1M2tGMmtSMnlY?=
+ =?utf-8?B?N2RLMzlQbWRiM2xmMkFJNTRmVFh4bjk0WGIrcnRNNi9rVnlqS09rSm44Snc1?=
+ =?utf-8?B?STUxYVRKZlc3VWRkRHFYZG0wdGVreUpvSEhIVXR3NFo4alU5NFNMQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27c5135d-9b71-4630-d4d6-08df344d8f0a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 17:10:58.9240
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 17:13:02.9227
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: abb4cdb7-1b7e-483e-a143-7ebfd1184b9e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oQqOJ2jPRiZCnk6HIks6ktjNLhGEhcV+B+BvpubBzhTS36CS8644i3PJACdfVwKi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB5057
-X-BESS-ID: 1793121064-106048-27997-7587-1
-X-BESS-VER: 2019.1_20260924.1519
-X-BESS-Apparent-Source-IP: 40.93.198.123
-X-BESS-Parts: H4sIAAAAAAACA4uuVkqtKFGyUioBkjpK+cVKVkamRmZAVgZQMCnV0iwtzdIkyd
-	DAwtjMItXYOM0wzSw5LdEg2dTc1NxYqTYWAGzb76tBAAAA
-X-BESS-Outbound-Spam-Score: 0.00
-X-BESS-Outbound-Spam-Report: Code version 3.2, rules version 3.2.2.277152 [from 
-	cloudscan21-16.us-east-2b.ess.aws.cudaops.com]
-	Rule breakdown below
-	 pts rule name              description
-	---- ---------------------- --------------------------------
-	0.00 BSF_BESS_OUTBOUND      META: BESS Outbound 
-X-BESS-Outbound-Spam-Status: SCORE=0.00 using account:ESS112744 scores of KILL_LEVEL=7.0 tests=BSF_BESS_OUTBOUND
-X-BESS-BRTS-Status:1
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1ALVOEl8K/Tk5B485z0tqmamVXQoc1fJQwlVG570dk2J9Kozkzca9HT3cyyj05EVdwXE5qeR40h3Ohb38j11Mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6667
 
-DTR/RTS changes are sent from a work item that only sends the latest
-state, so a drop followed quickly by a raise, for example TIOCMBIC then
-TIOCMBIS or a quick close and reopen, can reach the modem as just the
-raise. A drop matters on its own, a modem set to AT&D2 hangs up on it.
 
-Flush the work when DTR goes low so the drop is sent before ->dtr_rts()
-returns, and flush it in stop() so any pending state is sent before the
-channel is stopped. A drop that hits a full UL ring is still retried
-with whatever state is latest by then.
 
-Fixes: d509edf90bc6 ("net: wwan: mhi_wwan_ctrl: drive DTR/RTS via the IP_CTRL channel")
-Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Peter Hunt <peter.hunt@opengear.com>
----
-v2: Only handle the DTR drop, by flushing the work when DTR goes low,
-    and flush it in stop() as well (Loic Poulain). Drop the port list
-    and resend on a late IP_CTRL bind, which is only reachable by
-    unbinding and rebinding mhi_wwan_dtr through sysfs.
-v1: https://lore.kernel.org/all/20261023174113.2388353-1-peter.hunt@opengear.com/
+On 10/26/26 17:48, Richard Lane wrote:
+> Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
+> expose their internal 5120x2880 panel as a 2x1 tiled display over an eDP
+> root link and a secondary DP link. At boot, the panel TCON operates in
+> single-pipe mode and holds the secondary DP link's HPD line low until
+> unlocked via DPCD registers.
+> 
+> Enable native tiled detection and link training for DCE < 12 Apple 5K
+> panels:
+> - Pair the two internal dc_link instances during EDID quirk matching for
+>    DCE < 12 iMac15,1, iMac17,1, iMac18,3, and Polaris-based iMac19,1
+>    (identifying roles via connector_signal since panel IDs can flip
+>    across the two links after S3 wake). DCE >= 12 support for Vega-based
+>    iMac19,1, iMacPro1,1, and iMac20,x is documented as TODO.
+> - Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
+>    on the root eDP link when probing the secondary link.
+> - Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
+>    0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
+> - Prevent the secondary tile from entering DP_SET_POWER D3, which causes
+>    the TCON to drop HPD and stop responding to AUX transactions.
+> - Override the secondary tile's connector type to DRM_MODE_CONNECTOR_eDP
+>    so userspace compositors treat both tiles as a single built-in display.
+> - Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
+>    and DP_EDP_CONFIGURATION_SET (0x10A) in dm_suspend() so the TCON
+>    returns to single-pipe mode for the EFI boot screen across reboots.
+> 
+> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++++++++++++++
+>   .../display/amdgpu_dm/amdgpu_dm_connector.c   |  6 ++++
+>   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 34 +++++++++++++++++++
+>   drivers/gpu/drm/amd/display/dc/dc.h           | 12 +++++++
+>   .../drm/amd/display/dc/link/link_detection.c  | 14 +++++++-
+>   .../dc/link/protocols/link_dp_capability.c    |  7 ++++
+>   .../display/dc/link/protocols/link_dp_phy.c   |  8 +++++
+>   7 files changed, 111 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index bdabb4bf14da..548f975c7324 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1607,6 +1607,35 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
+>   }
+>   EXPORT_IF_KUNIT(dm_destroy_cached_state);
+>   
+> +/*
+> + * Unlatch Apple 5K panel tiles and reset DPCD state on suspend/shutdown.
+> + * This returns the TCON to single-pipe mode so the EFI boot logo is not
+> + * skewed on reboot.
+> + */
+> +static void amdgpu_dm_apple5k_unlatch(struct dc *dc)
+> +{
+> +	const u8 zeros[3] = { 0 };
+> +
+> +	for (int i = 0; i < dc->link_count; i++) {
+> +		struct dc_link *link = dc->links[i];
+> +
+> +		if (dc_link_is_apple_5k_secondary(link)) {
+> +			/*
+> +			 * Clear Boot Camp source table (0x310), eDP config
+> +			 * (0x10A), and secondary tile latch (0x4F1).
+> +			 */
+> +			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
+> +			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
+> +			core_link_write_dpcd(link, 0x4F1, zeros, 1);
+> +
+> +			/* Unlatch primary root tile */
+> +			core_link_write_dpcd(link->tiled_peer, 0x4F1, zeros, 1);
+> +
+> +			break;
+> +		}
+> +	}
+> +}
+> +
+>   static int dm_suspend(struct amdgpu_ip_block *ip_block)
+>   {
+>   	struct amdgpu_device *adev = ip_block->adev;
+> @@ -1674,6 +1703,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
+>   
+>   	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
+>   
+> +	amdgpu_dm_apple5k_unlatch(dm->dc);
+> +
+>   	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
+>   
+>   	if (dm->dc->caps.ips_support && adev->in_s0ix)
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index ded8e21897f1..27de7965f366 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -3460,6 +3460,12 @@ int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
+>   	}
+>   
+>   	connector_type = to_drm_connector_type(link->connector_signal, link->link_id.id);
+> +	/*
+> +	 * Override Apple 5K secondary tile to eDP so compositors treat it as
+> +	 * built-in.
+> +	 */
+> +	if (dc_link_is_apple_5k_secondary(link))
+> +		connector_type = DRM_MODE_CONNECTOR_eDP;
+>   
+>   	res = drm_connector_init_with_ddc(
+>   			dm->ddev,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index 9774ea33272d..db6ac803e14f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -97,6 +97,21 @@ STATIC_IFN_KUNIT u32 edid_extract_panel_id(struct edid *edid)
+>   }
+>   EXPORT_IF_KUNIT(edid_extract_panel_id);
+>   
+> +/*
+> + * Pairs the two internal hardware links driving the Apple 5K panel,
+> + * allowing the driver to synchronize both tiles as a single display.
+> + */
+> +static void dm_helpers_wire_tiled_peer(struct dc_link *link)
+> +{
+> +	u32 peer_index = link->link_index ^ 1;
+> +
+> +	if (link->ctx->dce_version < DCE_VERSION_12_0 &&
+> +	    peer_index < link->dc->link_count) {
+> +		link->tiled_peer = link->dc->links[peer_index];
+> +		link->tiled_peer->tiled_peer = link;
+> +	}
+> +}
+> +
+>   STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
+>   			      struct dc_edid_caps *edid_caps)
+>   {
+> @@ -173,6 +188,25 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
+>   		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
+>   		edid_caps->panel_patch.force_freesync_min_hz = 60;
+>   		break;
+> +	/*
+> +	 * Workaround for Apple 27" 5K iMacs which expose a 2x1 tiled internal
+> +	 * panel over an eDP root link and a secondary DP link. Wire the peer
+> +	 * links to latch and synchronize both tiles, using connector_signal
+> +	 * for role assignment as panel IDs can flip after wake.
+> +	 * IDs (Root/Tile): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
+> +	 * iMac18,3 (AE11/12), iMac19,1 (AE25/26); TODO (DCE >= 12): iMac19,1
+> +	 * Vega (AE25/26), iMacPro1,1 (AE1D/1E), iMac20,x (AE31/32).
+> +	 */
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
+> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
+> +		dm_helpers_wire_tiled_peer(link);
+> +		break;
+>   	default:
+>   		return;
+>   	}
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+> index f4fefa7c9ab8..498c11c0616f 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
+> @@ -2003,6 +2003,12 @@ struct dc_scratch_space {
+>   	bool skip_implict_edp_power_control;
+>   	bool forced_psr_active;
+>   	enum backlight_control_type backlight_control_type;
+> +
+> +	/*
+> +	 * Partner link for dual-tile Apple 5K panels, wired during EDID quirk
+> +	 * matching.
+> +	 */
+> +	struct dc_link *tiled_peer;
 
-Tested on a Sierra EM9291 (CM8100): back-to-back DTR drop+raise and
-close+reopen now always send the drop, bursts of 10,000 DTR changes,
-HUPCL, teardown and lock stress tests.
+This feels like it's re-inventing drm_connector's has_tile, and tile_group.
 
- drivers/net/wwan/mhi_wwan_ctrl.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+There is also a special "tile_is_single_monitor".
 
-diff --git a/drivers/net/wwan/mhi_wwan_ctrl.c b/drivers/net/wwan/mhi_wwan_ctrl.c
-index e3c207588956..772319927867 100644
---- a/drivers/net/wwan/mhi_wwan_ctrl.c
-+++ b/drivers/net/wwan/mhi_wwan_ctrl.c
-@@ -209,9 +209,17 @@ static void mhi_wwan_ctrl_dtr_work(struct work_struct *work)
- static void mhi_wwan_ctrl_dtr_rts(struct wwan_port *port, unsigned int mdmbits)
- {
- 	struct mhi_wwan_dev *mhiwwan = wwan_port_get_drvdata(port);
-+	bool drop = (READ_ONCE(mhiwwan->dtr_mdmbits) & TIOCM_DTR) &&
-+		    !(mdmbits & TIOCM_DTR);
- 
- 	WRITE_ONCE(mhiwwan->dtr_mdmbits, mdmbits);
- 	schedule_delayed_work(&mhiwwan->dtr_work, 0);
-+
-+	/* A DTR drop matters on its own, e.g. to hang up a modem set to AT&D2,
-+	 * so send it now rather than let a following raise coalesce it away
-+	 */
-+	if (drop)
-+		flush_delayed_work(&mhiwwan->dtr_work);
- }
- 
- static int mhi_wwan_ctrl_start(struct wwan_port *port)
-@@ -246,6 +254,9 @@ static void mhi_wwan_ctrl_stop(struct wwan_port *port)
- 
- 	cancel_work_sync(&mhiwwan->rx_refill);
- 
-+	/* Send any pending DTR/RTS state before the channel stops */
-+	flush_delayed_work(&mhiwwan->dtr_work);
-+
- 	mhi_unprepare_from_transfer(mhiwwan->mhi_dev);
- }
- 
--- 
-2.43.0
+Can you use those instead?
+
+>   };
+>   
+>   struct dc {
+> @@ -3172,6 +3178,12 @@ struct dc_sink {
+>   
+>   void dc_sink_retain(struct dc_sink *sink);
+>   void dc_sink_release(struct dc_sink *sink);
+> +/* Helper to identify secondary (DP) tile of the Apple 5K panel. */
+> +static inline bool dc_link_is_apple_5k_secondary(const struct dc_link *link)
+> +{
+> +	return link && link->tiled_peer &&
+> +	       link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT;
+> +}
+>   
+>   struct dc_sink_init_data {
+>   	enum signal_type sink_signal;
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> index b4546f93af0c..25662ed3e612 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
+> @@ -218,7 +218,8 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
+>   			 * we assume signal is DVI; it could be corrected
+>   			 * to HDMI after dongle detection
+>   			 */
+> -			if (!dm_helpers_is_dp_sink_present(link))
+> +			if (!dc_link_is_apple_5k_secondary(link) &&
+> +			    !dm_helpers_is_dp_sink_present(link))
+>   				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
+>   		}
+>   		break;
+> @@ -1625,6 +1626,17 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
+>   		}
+>   	}
+>   
+> +	/*
+> +	 * Internal tiled DP secondary reports HPD low until latched. Latch
+> +	 * the secondary tile via the root eDP link's DPCD (0x4F1) and force a
+> +	 * single-sink connection.
+> +	 */
+> +	if (*type == dc_connection_none &&
+> +	    dc_link_is_apple_5k_secondary(link)) {
+> +		core_link_write_dpcd(link->tiled_peer, 0x4F1, &(const uint8_t){1}, 1);
+> +		*type = dc_connection_single;
+> +	}
+> +
+>   	return true;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> index ad1a499b0d9d..15f223e48091 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+> @@ -1496,6 +1496,13 @@ void dpcd_set_source_specific_data(struct dc_link *link)
+>   				link->dc->vendor_signature.data.raw,
+>   				sizeof(link->dc->vendor_signature.data.raw));
+>   	}
+> +	/*
+> +	 * Write the 3-byte Boot Camp source table (0x310) required to unlock
+> +	 * the secondary tile.
+> +	 */
+> +	if (dc_link_is_apple_5k_secondary(link))
+> +		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
+> +				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
+>   }
+>   
+>   void dpcd_write_cable_id_to_dprx(struct dc_link *link)
+> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> index 49521ac4b0e8..abac117d0514 100644
+> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+> @@ -50,6 +50,14 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
+>   	if (link->sync_lt_in_progress)
+>   		return;
+>   
+> +	/*
+> +	 * Prevent Apple 5K secondary tile from entering D3 power-down.
+> +	 * Powering it off causes the TCON to drop HPD and stop responding to
+> +	 * AUX.
+> +	 */
+> +	if (!on && dc_link_is_apple_5k_secondary(link))
+> +		return;
+> +
+>   	core_link_write_dpcd(link, DP_SET_POWER, &state,
+>   						 sizeof(state));
+>   
 
