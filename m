@@ -1,106 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793068091;
-	b=oiqEU5V7e0y95lyGXLFfyBWZVHibyrnGrAmKBwRglZ6rhn9SgXPDYm2BA49oD2Vo3RNP
-	 fbePtTFEWv4Q443bjflnpsfnOAcWlREQkiYrGBiiaRtT1P/ysaGMyquWCOIn0plCD0nrB
-	 ISCBStAUYuqaoEXX4g598y09lRmJDV9KDsl6pRNgHWgD3e6Ckqx6MC8E5LUk8WTU449g6
-	 ipVvGHvHga658tg7cdEZg9UQcgm1sHO8qmW2QYuI2xYpaeacKcfVYDiyX4pXQDTeh8E3+
-	 1mrkz33qEqtPaUpq3RO2Ysj1w+HhfATfhwriDb44Mm4lBnApHWfwsekk124BgQfob8A==
+	t=1793068135;
+	b=SKx/VgYEO/xCFQVzBY71NqFH5FaHylAkNw24kAbX4wc/a2n+15jnOudVs9zwOUTFVWXg
+	 ug1+7+rUfhsKxvVMBPGTvrllWTaPZ2ZvEI7fUSSWHJY6JJib6qBfiCTTH1X2mXLshLOYZ
+	 IaY01daK4zos021KXWMojqWw+Y9EtrMnFVP72tDwBtagxN/+UD+EltF+L2Lx8a5q+kxGT
+	 lJEnetyalYvFIe5izxn1j6WnysK1QzJjg4vIgVdNDvWLj8yZzmpEzCHzN05FH+EyRNN4Z
+	 /ESjI1OGtxtC/w4wf7FVGydBCp0IgAga8QGNjmQtn6EmOPaoBeEtXJGLjAuZ7bKZ0ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793068091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793068135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/WcSLowB0b2pojOqzb24H45+MS/MsdePMGuj0DzePaw=;
-	b=OiuXEw9k8iqTBCyvn2FSHGhwEA+vgJLMV3Lv7gT+oSUx5tAgJ6k7SqoxH22Wfq2oh/ao
-	 /GibhzFgo74HYgQg7Ufp8KPp8uwtuVb9EMhz/I42D1Zj84DaPRd8iG5E+uikDAqKoMwNy
-	 ckmNk/kGxK47JjdJjmttzNF3ySEhhLNwyAfh7O+FFmh8QOBJyjOY27BdjD037LxDfXTdx
-	 8twiruF0y+GFFbRuxyfLC0cDh84GgAMVRagYB6f84TvFIl68DI7HMesIXZERlV0S3oLgN
-	 ECq4TAGhekP9gz5QdwlsIlLpvfwWQnBIApOrgR6nGidZP8s5X4Db5A+8WBMfhKbn0yw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0DKYkKim1zCQPtEbSstx8AMdlP0KYJRU77N3GxfZjCQ=;
+	b=QFRav+g/HZEqqgt5ouCf1t215S49s7Bs/ZyyBoZJOeB6xxmPw+KvHsXHwqbdh9b5n9Ze
+	 Vl1P8D8kDGYju76Tis0w6etOwlevlYJejXTaiOlJIfKQxkgeta7ixdKywFKJysHt4nLOY
+	 HJqMUFo/usX1mCOqubD+Y4ChBzEDy18m23G3sGUxlMiX24+BcuEGEnElYpTbsXfK4lRCK
+	 tEW8pyjl5n00CKNl6MBRJiUv0kEy3TZD453s7xg30R1BLpMAwcX9u0KvSND6oErxIgvdL
+	 jhz2kt8lVZzCROarrYyV4zUdrdcAXdf1RnmJPudeQYQkjTnDqsRfNmFy0SfEZwe8o1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FzL4qcf5;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Qh9HjegA;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 140C8606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:28:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 140C8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5374606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5374606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FzL4qcf5
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ad0c2e71ebso500608a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:28:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Qh9HjegA
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a01ea9e318so5171578b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:28:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793068090; x=1793672890; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/WcSLowB0b2pojOqzb24H45+MS/MsdePMGuj0DzePaw=;
-        b=FzL4qcf5NctPk7sLx8O3gWaS1C9SHXiT1ufLwisUE9VwvAaArWAm5S689nOyuHSoNt
-         Ezz153Uml7Pmd/ZPe6/R6zHuNlce9cGwOkZNh7JZDwpU6nNmG/DcS32glxJXs+BoLnzg
-         XDiWdDPIkUGznzfOvEGnNE4+dWQEKQgpcQahgCp+bwIJrgWsDY2nkZZDtaI8UOVicr94
-         NA3tVmG/EBTT/qKCRlIMgKfkB2D4N6o+8S0fvuyVTV6DbgLW8624hHPafYudfg3Dr9z2
-         ucGU0eD0Vi/f2OtKbyfD8B0dAMkPtJcc5lOcuLJ743eWUQu3WDUoiPvsiuUF/UPhc4tE
-         kwLA==
+        d=google.com; s=20251104; t=1793068134; x=1793672934; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0DKYkKim1zCQPtEbSstx8AMdlP0KYJRU77N3GxfZjCQ=;
+        b=Qh9HjegAyEtpn6PG1OPFrqSgqRSnAT+UgBbUz6YO/svCJETYoLjJh3Xbyh6i3MFnHo
+         0mT1hXeXE6AoQERRJDjzqP6egkXGq+qGL/pjaQpKzcjYf71ePPRxVT4Agph23mcdKRMe
+         hGwSatkqZjIz8eypALgUtTYx6MTXjWuJ6kNks3g+hL2FODNfeVDDDsChdJm47LfTVP7X
+         BE6C7QiHgucjS8AF3PCPSnkfeLnKR9A5a5oKMxfAD09nTrinGvadnqVPN7wD80lzAyJk
+         cdccKhOiORVJG4FjBCfmhllHamFSCPzAQoMJZVdRjkoPT+nqIdyV3D4Nv5LNNbL7XJ3/
+         c6Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793068090; x=1793672890;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/WcSLowB0b2pojOqzb24H45+MS/MsdePMGuj0DzePaw=;
-        b=ns0xwx4C3/548sItQb+MF2houjzprFaPPEVBFs5hwDlTg9t3Ybfw4QNFFl2/vMenqa
-         h7rzEBk83Fw2Sq6V6L8fqwcLgSe6W/4Q0BlebPymCcH7j5hpfUqSeRaer5GSad9B22q0
-         IHQbKtt+OYRoVrLanuJLkzlTWVM5UnJOt7kNtR7dmtVGhN2sN8JteiGd+fmL7QVC7Pwy
-         YHlE258BlSd6i4/cmRLjFei1HPK3GQHyQ+MFirxJIkBbkp/bVVbaguvzD39O8QUiWYk+
-         /BVP/jYudveHxxoH3Z5ay0tTil939u+ZwIzisLYTSzxKUM7M8IIwRuxemRzeFeCLPssT
-         /VyA==
-X-Forwarded-Encrypted: i=1; AKwUvBymv+3fHUBuaFfKiuI53eU6/Cpz/Hn+dz/6m1Bs2CIlPvsC1EW0MW0QsIp8yQw+C+h5T22ApX2IJO1N5SI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIPjRTIotsdQMVQpsjc21Zi30wCoTKK9Q9lIB2JYvlYjNlqBHD
-	uLeQ+furRVzGj5rp79h3WepunJnp5NEV4HWerGZYEwTIof2sXg3k3ZBc
-X-Gm-Gg: AYBFou0jRHRPpDBftS3Dc+De2ilOFuuYFm74fgrzG6TKsW5xnCx+WRVhAgDGwZJc1jC
-	qZw6COpLpR8dxzy0bLq0/b7n8jO4gl+VGzZURCS5NzGHia5DUeVx6aUXAva4z3MnHaM+LlUF6t2
-	71DBq25Hcf9VTDappvoI6imHZOFS5k81Iq4lY2oLvhcqod7mTmJl+Hnajt5e4RxZiGbab5Muw2m
-	Vic406aozXRdEFVSrDwP7bGYza/F+GzPCNe8v8HP/cvmHp/I2QmgasungjYSpO0opsAkYwREJrz
-	wBpZUIWIvZhotnETS+nEZkIsud4aM4BoqbTfuLriXn0YuGvZTnS5qNwotzK738fD3RHy+OGm+pP
-	Y0bffJsVUMWLm9Mrq3FnkEAcnsfDjWXcllhcgwqMao6d1httJ4qv7xWD50Nu9LosO0B/YsmpcZF
-	1jKepbCTjG+WsnqNsVCmk78G7OoiEZL26ChJFU845WFppNVc7/TbO1Vx0VpKsZzA3CpKYtZoNnw
-	YIOzCjD1XgH98ho/OLFNTkasKSvppEFEnlGlAGKMqken9ese446gDtH3mHi0cu6nVxpFvwirmLI
-	Vi4sfm+Tc7ORdF9ySDVxzqERXkoKIIJn
-X-Received: by 2002:a17:90b:3dd0:b0:3ad:a84b:df1e with SMTP id 98e67ed59e1d1-3adea1af8bfmr12128791a91.1.1793068090331;
-        Mon, 26 Oct 2026 19:28:10 -0700 (PDT)
-Received: from localhost.localdomain ([240e:36d:b08:2bc0::a60])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adeba38910sm6823109a91.1.2026.10.26.19.28.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:28:09 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: heiko@sntech.de
-Cc: HystericalDragons@proton.me,
-	amadeus@jmu.edu.cn,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	hrushirajg23@gmail.com,
-	krzk+dt@kernel.org,
-	krzk@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	liujianfeng1994@gmail.com,
-	macromorgan@hotmail.com,
-	michael.opdenacker@rootcommit.com,
-	naoki@radxa.com,
-	robh@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
-Date: Tue, 27 Oct 2026 10:28:01 +0800
-Message-ID: <20261027022801.377819-1-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <5520293.6fTUFtlzNn@phil>
-References: <5520293.6fTUFtlzNn@phil>
+        d=1e100.net; s=20260707; t=1793068134; x=1793672934;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0DKYkKim1zCQPtEbSstx8AMdlP0KYJRU77N3GxfZjCQ=;
+        b=0tE/IcyY+VCUS8mfKouHQMZzsTI75HiWNJOl/Xp/c1IquLVDHBd7Jf/CoMwYzLZhoo
+         kThaOErDAAwldMbPnes6zan3tB4sXH2q3ngpd4v8UjEDiYu2oRyPWzFfjmQgTyZHfaSJ
+         R7i8SFtPqR9QNP/HNsvuoPGwqN+Me1N9wuYuT381b8DRWZtFH1byvbOvkFNFC0ZqhjC6
+         WLtWKaSkHGy4TVvHYrDikFrudQY5rrurvnHNkbrZKznjRLN7dxJDi95R1O6GiFA8y3rJ
+         DF0Jo5BniKr5lK8yuUpQYiCNQ7di2d85g+8IKOvpE7e3u4Kkbimf25ZmqwvawWl4V3NC
+         Cyyw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpVLUq1jsx3PZpymzOsxmLm5sQwv+zvL1W/wQNlmwqMqcne3Bn4WB39LXgATG7oGmPhQhOiHtJvgZkboQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhDxmSul7obnywKiALvmBg+WGRl4XG4vXNdjeB4NGjtflTo7N9
+	gUifFcMne38ZVikgaiR1rQ3tfbzJ2zgJSIMOfwLUBoJRl4cOBPyO5Q5+G5nLP29tZfU9NsgGUpZ
+	tqQgKIA==
+X-Received: from pfak4.prod.google.com ([2002:aa7:92c4:0:b0:887:8dda:c9e4])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3f90:b0:3e2:8ca9:5c6c
+ with SMTP id adf61e73a8af0-3e7bfbd65f6mr5850646637.20.1793068133781; Mon, 26
+ Oct 2026 19:28:53 -0700 (PDT)
+Date: Tue, 27 Oct 2026 02:28:53 +0000
+In-Reply-To: <CAL4WiiqQ3cychvCccpNW+WOU2SYCfNt6L=wgPkNmfTLHLy605Q@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,50 +79,131 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261026032216.1145201-1-tavip@google.com> <20261026032216.1145201-2-tavip@google.com>
+ <CAL4WiiqQ3cychvCccpNW+WOU2SYCfNt6L=wgPkNmfTLHLy605Q@mail.gmail.com>
+Message-ID: <auALgSUuoYmfKSz3@google.com>
+Subject: Re: [PATCH net v4 1/2] tcp: clamp return value of tcp_wmem_schedule()
+ to non-negative
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: Octavian Purdila <tavip@google.com>, Eric Dumazet <edumazet@google.com>, 
+	Neal Cardwell <ncardwell@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Heiko,
+On Mon, 26 Oct 2026 13:06:56 +0100, Eric Dumazet wrote:
+> Le lun. 26 oct. 2026 =C3=A0 04:22, Octavian Purdila <tavip@google.com> a =
+=C3=A9crit :
+> >
+> > When sk_wmem_schedule(sk, copy) fails under TCP memory pressure and
+> > sk->sk_wmem_queued already reaches or exceeds sysctl_tcp_wmem[0],
+> > tcp_wmem_schedule() returns min(copy, sk->sk_forward_alloc).
+> >
+> > However, sk->sk_forward_alloc is a signed int that can transiently
+> > become negative when tcp_collapse() re-packs partially read or high
+> > payload-to-truesize SKBs in the receive queue and charges newly
+> > allocated SKBs via sk_mem_charge() before freeing the original SKB.
+> >
+> > If tcp_wmem_schedule() returns a negative value, tcp_sendmsg_locked()
+> > passes that negative copy length to skb_copy_to_page_nocache() ->
+> > copy_from_iter_full() -> check_copy_size(), where it is converted to an
+> > unsigned size_t > INT_MAX, triggering a WARN_ON_ONCE(bytes > INT_MAX)
+> > in production and returning -EFAULT instead of waiting for memory or
+> > returning -EAGAIN:
+> >
+> >   WARNING: CPU: 1 PID: 939331 at include/linux/thread_info.h:249 tcp_se=
+ndmsg+0x10c1/0x1530
+> >   Call Trace:
+> >    <TASK>
+> >    __sys_sendmsg+0x292/0x490
+> >    do_syscall_64+0x88/0x340
+> >    entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> >
+> > Clamp the return value of tcp_wmem_schedule() to [0, copy] so callers
+> > treat negative sk_forward_alloc as 0 available bytes.
+> >
+> > Fixes: 849b425cd091 ("tcp: fix possible freeze in tx path under memory =
+pressure")
+> > Assisted-by: LLM
+> > Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+> > Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+> > Signed-off-by: Octavian Purdila <tavip@google.com>
+> > ---
+> >  net/ipv4/tcp.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> > index 87ef6d5cbfeba..0e062fcd94a6c 100644
+> > --- a/net/ipv4/tcp.c
+> > +++ b/net/ipv4/tcp.c
+> > @@ -1037,7 +1037,7 @@ int tcp_wmem_schedule(struct sock *sk, int copy)
+> >         left =3D READ_ONCE(sock_net(sk)->ipv4.sysctl_tcp_wmem[0]) - sk-=
+>sk_wmem_queued;
+> >         if (left > 0)
+> >                 sk_forced_mem_schedule(sk, min(left, copy));
+> > -       return min(copy, sk->sk_forward_alloc);
+> > +       return clamp(sk->sk_forward_alloc, 0, copy);
+> >  }
+> >
+> >  void tcp_free_fastopen_req(struct tcp_sock *tp)
+>=20
+> I do wonder if the following fix could be better (no change in the fast p=
+ath)
 
-On 2026-10-26 11:43 UTC, Heiko Stuebner wrote:
->> I confirmed this with ArmSoM. They purchased the original CoolPi 4B
->> hardware design from CoolPi and confirmed that no hardware design
->> modifications were made for the Sige7s.
->> 
->> So the Sige7s uses the same hardware design as the CoolPi 4B, rather
->> than being independently designed.
->
->if it's the completely same board, just with a different print on
->the board, why does it need an empty devicetree. When it's completely
->unchanged, what's speaking against just re-using the original one?
+Exactly, this looks better too, we can avoid negative
+sk_forward_alloc and clamp().
 
-The existing CoolPi 4B DTB does work on the Sige7s, and I agree that there
-is no hardware difference requiring a separate device tree.
+The packetdrill will need to be adjusted as it triggers cgroup
+OOM with this approach, or we could defer the test to net-next too.
 
-My main reason for adding a separate DTS is to preserve the Sige7s board
-identity for long-term upstream support.
 
-The CoolPi 4B appears to be discontinued and is no longer readily available
-through the purchase channels listed on its official website
-(https://www.cool-pi.com/buy/). In contrast, ArmSoM is actively selling the
-Sige7s and has committed to producing it until at least January 2034.
-
-I'm also planning to add mainline U-Boot support for the Sige7s and
-integrate it with Stubble-based UEFI booting.
-
-While U-Boot could update the model and compatible properties before
-booting Linux, Stubble may replace the firmware-provided DTB with one
-bundled with the kernel. Having a Sige7s-specific DTB would preserve the
-correct board identity throughout this process without requiring additional
-distribution-specific modifications.
-
-This would also avoid confusing users who purchase a Sige7s but find their
-system identified as a CoolPi 4B.
-
-The shared dtsi ensures that we do not duplicate the hardware description,
-with the two board DTS files differing only in model and compatible.
-
-Would this be a reasonable justification for keeping a separate board DTS?
-
-Best regards,
-Jianfeng
+>=20
+> Before a complete fix in tcp_collapse() (in net-next)
+>=20
+>     tcp: do not let tcp_collapse() drive sk_forward_alloc negative
+>=20
+>     tcp_collapse() charges each newly allocated skb with skb_set_owner_r(=
+)
+>     before the skbs it replaces are freed, without scheduling memory firs=
+t.
+>=20
+>     Since sk_mem_uncharge() reclaims eagerly, sk->sk_forward_alloc has no
+>     cushion and can become negative. This can be durable when the collaps=
+ed
+>     skbs had a high payload/truesize ratio or were partially read, becaus=
+e
+>     the new skbs can have a bigger total truesize than the old ones.
+>=20
+>     A negative sk_forward_alloc then confuses tcp_wmem_schedule(), which
+>     can return a negative length to tcp_sendmsg_locked(), triggering
+>     a WARN_ON_ONCE(bytes > INT_MAX) in check_copy_size().
+>=20
+>     Call sk_forced_mem_schedule() before charging nskb.
+>=20
+>     Fixes: 4890b686f408 ("net: keep sk->sk_forward_alloc as small as poss=
+ible")
+>=20
+> diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+> index 1ddce9c4b7e8cf91bfd4f5361abec3925fe25046..e879bdfddf1abe2ced80b12ea=
+8a40c1f7c958708
+> 100644
+> --- a/net/ipv4/tcp_input.c
+> +++ b/net/ipv4/tcp_input.c
+> @@ -5847,6 +5847,10 @@ tcp_collapse(struct sock *sk, struct
+> sk_buff_head *list, struct rb_root *root,
+>                         __skb_queue_before(list, skb, nskb);
+>                 else
+>                         __skb_queue_tail(&tmp, nskb); /* defer rbtree
+> insertion */
+> +               /* nskb is charged before the skbs it replaces are freed.
+> +                * Make sure sk->sk_forward_alloc can not become negative=
+.
+> +                */
+> +               sk_forced_mem_schedule(sk, nskb->truesize);
+>                 skb_set_owner_r(nskb, sk);
+>                 mptcp_skb_ext_move(nskb, skb);
