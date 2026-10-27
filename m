@@ -1,78 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793091375;
-	b=q4QJT32fOK4KvIyaBK4Pnefa9apYQdMcNlqlOUE+7KE81Eoq9VgtEZfMHKt04LrGsNQ0
-	 qAXh/B0N0DJW4f6Js3pSnfnm+KjhpzexO1zaa6+3KVjTDKJ22d1Cd35iyvF1mUDWCostV
-	 Ix2BHqEyqmHj3wm57NraoxmPEDIfaZRxZNyyksKRcqhoVjLScKuhzsT31HR+N3lBgprsd
-	 s3sldvvsyjNsitE17uuHIJP2Rgmb9jM8attHLoQCzTcWAGP6t8+sFbrve6IkbrG+orPwD
-	 j4PA8WIB3T199j2W3X0Kh3pfmtUOVFk3D1iRfj/EgHIM9vszUxCzbU8fIVB1sFf+EMA==
+	t=1793091411;
+	b=m0kLPjifZ5tKBV5Lgj0b8X0LPqX8W9YiI5B+Yn8HGisv47V4Aw8R2Q9IaPTbfCs0FvYX
+	 vV4AB+iGgIVuv9eMhBFfCnm9y4I73ujeiWDUEFcgcWIElfAvsaHPz2qmYYrvGMrD6YJjd
+	 MYrkpeO08WI6GRYFvm94Sy3aUh+tNPulM7W6lc3RpGkfFYYLFyROHE3UD7mKD8egyA2KA
+	 3x8kdD5PY6tvczeuEh8xxw5leylDpTQPNl9czlpjkS6IwO6DX+sIJDNcdbhQmDS8inVf/
+	 ljxlsQFlknE43wr8b1QCwkBiStqCzn9uNVJHkhrnm1FGGDQ6C20wSxkskdRlyc5xF0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793091375;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LLjeyafLWq906e/KlV7udPCtdijPfLEIi8SSit6QWfU=;
-	b=AeU9fwTpEg/wmuzjbxNHyt98vC2NSkjMlLEFn4ygx/Ls1lvhEDaztczU9sLzWCObhtnv
-	 mex6qrsXwykaflzWc9jRj1OCtI86a5hoPjCeGYpXPHaKGFCqahSDSwFGeqVpnA2uyi+kt
-	 q4jPYmzc9OH6IueE8+3Ton/bDHSfepj4s8xHJ1jH295Y9xUu0Px3NJC9FLg58rdYMGySw
-	 hUx+WcXVChWg3pZQRVk39Benp+JVP3D/mewI/TLaCS3X4Pyb/rG2aP/3sxRi4G7XwdNXI
-	 7uou41YMdzFGbjgeyYtcVZiD6rHqZbajzGfVkl4EkGLKq7yqbP0KCCS/jWvabK6a5hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793091411;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=sOH1HE42SviJbPJezzX4tQBmmbjpayWa7pABk2ZxVhU=;
+	b=nWsDhshSRQDF4hePStmBT4UGNWuMQ4rwfBal5b0XPSIMNe6KscfgjLXHHauX/kxPaD/X
+	 jU04C3NaFZbZIuB8f2HYecWCBgle5TRGD4a1tsXM7uW/0fqXP5pgn4lS9D+adohPVJbIi
+	 +a72TGgOu8PYHkApdT429i4LLdpTAyMqEe89WpEayJM9aHX1bbKIOQBnD6/hzn0jT5KEt
+	 0TDf2oi/MGrzgGmnRBE+sSjv76WKiqzatRjbHl/NOyP3MDkEjQ82uU9sJv87kbGjYRNDr
+	 YJVvPf1UZDBBikv/g1GTVTlC1dAJCxZtfPQGYhiSGnzUlvYdJMw6dixxCu0rUYEGVag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBNUrHgp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gKD5i7DA;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B841606A31E;
-	Tue, 27 Oct 2026 08:56:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E377606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:56:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E377606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBNUrHgp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDEAE1F01828;
-	Tue, 27 Oct 2026 08:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793091375;
-	bh=LLjeyafLWq906e/KlV7udPCtdijPfLEIi8SSit6QWfU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EBNUrHgpyjuV+uDWfTfjiZjrVUSiaANjjrfsc3nkFZWTw82J+OqHpWvLIciRV9TNx
-	 2ZYRqlKawGk39ZaulprNCM2tNwh2zki3TsMiowIH13vcslKJA7833dN8riI4s3kDAM
-	 Q3qfXOkNFX5VxnUmiQtmg5QWQCqFP+dYzLxz19uSTgl5bash6cqoBqqOskiaRk2/C6
-	 RL8HDc2rNHtv0XIn1ejrOpB1M3CI9bhEBJhZRP1bllfI+FRzWtybU61jzIzwI0z0Od
-	 /meOw5AGq2fgtE0iXpBuP7zSuxszxjxhbNpF90J6AdO/j7okIvx+jpqUI1F2fZM2tZ
-	 5wOIAvJFgckew==
-Date: Tue, 27 Oct 2026 08:55:58 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Minchan Kim <minchan@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 44/46] mm/cma: don't release CMA pages still in use
-Message-ID: <auBmRQDzFPea5FeS@gremlin>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-44-6f74bec9a5bb@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gKD5i7DA
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2eac4936dfdso3273445ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:56:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793091410; x=1793696210; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sOH1HE42SviJbPJezzX4tQBmmbjpayWa7pABk2ZxVhU=;
+        b=gKD5i7DAr0WSmZ3uf3JtlbEqDMKJPGB3mi2KuhgnRxMQQzVOcCdZwUevcjpCf6vNa5
+         MHLE/2991Qk7m9S6cwCexspEE3Jit/3n1ABXJoFDdKxzUUJ/erjLHXv3wIHbqKzIopxt
+         l/tv3BJjR+oDiJEZyOXjYObNarFP3MFhgk+sN0XVIc9UEesuNHgi0oHlGe+YR9v0J/db
+         8Hb9G0pndHdfICWTNuzwtdhf0Zt/bI1h+HNNDNAJO+MiIq9NhgCzhJ24kjhrzqXnA8Z3
+         uxZxB4zU2I43pd4T5TjRoN59h1VbxwqKrTFsyqXsajuk6jyz1Lm2ovl5Ms69fYqtZ/d5
+         mOXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793091410; x=1793696210;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sOH1HE42SviJbPJezzX4tQBmmbjpayWa7pABk2ZxVhU=;
+        b=JYB4WfIiQujgHDYzMf3K1zhi3iV3Emb0uDvX/kixDZyzfkwwZ9eW8HeQfuRQWC7eq+
+         dlarg1g5to8Jdh4fdhLCXFfD4ymrkD9zibdxxxFYtnl9wTd+yKS+EyFGfIKtlswfXfWq
+         2GqadUwD8xV956L6YAZxcBa8+GZ0jMZ7PzVf04kfFVcsEVoGeuyZzwARxfzNmZYEQ1NA
+         TZeovOAGuVtnRqMElaJEdvwcW5JuZ92ZeYrXV+ID4OSJIihe5s8vcrNG0hZOqf65AbCf
+         BGM1Ps/TwhLXUfqRBRPXBhPDPY5CjcEOGUz6ZZ5vQK60K7pdmvsE9KZQBD0vWsnUOWxh
+         oxQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzTtOxMzgFBNFE1fAgNViz09hdXxRErGF90GtF7LnijMSPbTy7/pA0+IuAPsLpcOZoksWnVIxXec4Hu6Jk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLKcSzOPE5oNqZYsR8fJfXfKviU8aBOwYD+64MKWeb3AWNw5so
+	5E60HPzWYZnp5y7pdMeMvSOo/AtNz/vB40EHBtb/M9tSnH4c6U7lX7Ay
+X-Gm-Gg: AYBFou0hlsczc3XEuODnMAhhfbQNZbsWzogtI8JoS1RHquv9o5y7u0k38WM4dc8xKEb
+	OOel39CLmfUre30QQy75pM0UIH6Q/2Pk5EXHT4LSev40vecaeAqJXW12e93ZSia2fk70meua9wk
+	Jl7jeKFQ6uD15j0+8AZz/0r9mH88Lk+BrFLkLfNUaGDzNKolKn76YttrXSqZf5ryrEPX1V362Xw
+	0J4WX2ok0hVscla4qTFfwwuPusf1OHfu5zf7TOZFNhd7eVZKSXF8SKyJxmLAAGSLCAnJVtJeauJ
+	dNPU0JIS6szkcPWuyngSnwEyq+Qpwj8SrDs6ltq0Msc7rJ0yAvDDomo/295R5F/MuI2eZGTHq5o
+	A6Xu/RxsrUFiftK7lTjv1lLcNsNkEcOQptJwn2CSOGO/ZBO5Tpxo7n/3Vw8K73Se+bXVZuPMCZK
+	USX6+EH7FFp/L6Jcjl0c77T7JBHevP0TXP/Vmfwrn/rplDoDXyKElobyxSSDADcoY4kyBlJLvsw
+	otm3rm86qzkScD8R/FqCs33rmOexwzlOwQP+CVWZV471zyQLFB8wGHVLT/mMvriCsFAw6wxYDfN
+	LWURcQ==
+X-Received: by 2002:a17:902:f70b:b0:2e9:4175:306b with SMTP id d9443c01a7336-2ea9c08b095mr121636605ad.1.1793091410353;
+        Tue, 27 Oct 2026 01:56:50 -0700 (PDT)
+Received: from localhost.localdomain ([240e:36d:b08:2bc0::a60])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c91e1bsm5623875ad.59.2026.10.27.01.56.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 01:56:49 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: krzk@kernel.org
+Cc: HystericalDragons@proton.me,
+	amadeus@jmu.edu.cn,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	hrushirajg23@gmail.com,
+	krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	liujianfeng1994@gmail.com,
+	macromorgan@hotmail.com,
+	michael.opdenacker@rootcommit.com,
+	naoki@radxa.com,
+	robh@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
+Date: Tue, 27 Oct 2026 16:56:34 +0800
+Message-ID: <20261027085634.380872-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261027-angelic-caribou-of-wonder-02ccc8@quoll>
+References: <20261027-angelic-caribou-of-wonder-02ccc8@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,78 +110,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-fixes_core-v1-44-6f74bec9a5bb@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 12:18:04AM +0100, David Hildenbrand (Arm) wrote:
-> From: Rik van Riel <riel@surriel.com>
->
-> When a driver calls dma_free_contiguous() before quiescing DMA, the
-> page might still have a reference from the device.
-> put_page_testzero() there returns false, WARN fires, but the code proceeds
-> to free_contig_frozen_range() putting a live page onto buddy and clearing
-> the bitmap. A subsequent allocation can hand the same PFN to a new
-> owner while the original holder still references it.
->
-> A concurrent put_page() that drops the last reference between the
-> testzero loop and free_contig_frozen_range() can double-queue the page
-> via page->lru, corrupting buddy lists.
->
-> Avoid the corruption by not freeing a CMA region if any of the
-> pages inside are still in use.
->
-> Make it explicit in the warning that the driver allowed a leak.
->
-> While at it, use page_ref_freeze() to make the semantics clearer and
-> switch to pr_warn_ratelimited().
->
-> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rik van Riel <riel@surriel.com>
-> Link: https://patch.msgid.link/20260811132045.5f114772@fangorn
-> [ david: use page_ref_freeze() + pr_warn_ratelimited() ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Hi Krzysztof,
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On 2026-10-27  7:48 UTC, Krzysztof wrote:
+>Maybe just install the DTB under new name if they are identical?
 
-> ---
->  mm/cma.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
->
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a10ea37a261da..871f95c9ae9f0 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -1020,7 +1020,7 @@ bool cma_release(struct cma *cma, const struct page *pages,
->  		 unsigned long count)
->  {
->  	struct cma_memrange *cmr;
-> -	unsigned long ret = 0;
-> +	unsigned long leaked = 0;
->  	unsigned long i, pfn;
->
->  	cmr = find_cma_memrange(cma, pages, count);
-> @@ -1029,9 +1029,13 @@ bool cma_release(struct cma *cma, const struct page *pages,
->
->  	pfn = page_to_pfn(pages);
->  	for (i = 0; i < count; i++, pfn++)
-> -		ret += !put_page_testzero(pfn_to_page(pfn));
-> +		leaked += !page_ref_freeze(pfn_to_page(pfn), 1);
->
-> -	WARN(ret, "%lu pages are still in use!\n", ret);
-> +	if (leaked) {
-> +		pr_warn_ratelimited("%lu pages are still in use, not freeing CMA region!\n",
-> +				   leaked);
-> +		return true;
-> +	}
->
->  	__cma_release_frozen(cma, cmr, pages, count);
->
->
-> --
-> 2.43.0
->
+Thanks for the suggestion.
 
---
-Cheers, Lorenzo
+Installing the existing CoolPi 4B DTB under a different filename would
+solve the DTB naming issue, but the model and compatible properties would
+still identify the device as a CoolPi 4B.
+
+This is my main concern. Users running Linux on a Sige7s would still see
+"RK3588S CoolPi 4 Model B" in /proc/device-tree/model, even though they
+purchased an ArmSoM Sige7s.
+
+I agree that we should avoid duplicating the hardware description, since
+the boards are identical. However, I think preserving the correct board
+identity in the device tree is useful, especially for a product that is
+still being manufactured and will receive ongoing upstream support.
+
+Would it be acceptable to share the entire hardware description while
+keeping separate model and compatible properties for the two boards?
+
+Best regards,
+Jianfeng
