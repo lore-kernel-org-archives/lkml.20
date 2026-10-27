@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098334;
-	b=2rpdB4bPSKX8sK/D2rtue8r/SSOGkKKan0ADE/FRYD2OLpu1Nt9ySzASHWsKoDuxnIQ5
-	 juYtSgSR0EvQ0LpFXkuVs/8nAlTU7igA/Z6G4c+bogCea7jcV5MAWxvNMR9T6kjliCYXr
-	 7mHhKsHPFvnx9z/yQrNu377wwyAHcnaoM0tvrTtJu6AyzPD9MynT2gvyuuUoOY0EfIs/u
-	 fywfmaJwf3eUVEx+d7an+AdtRF/R8YkUKF9c8KMe++zkt0hlCd7KN1ck/A+9z+TMbFhUl
-	 HZwYnze8L9H4j4f7ulPhUUuvefU1axGMELDpwfRAqUXBQS4OLRjb+Y0CRcZS/1S6vVw==
+	t=1793098363;
+	b=fXAuAQg7qBhTbLkhBxl5OU40z8YORRICmpFNf4B8SfAf00dOrUdU2clDA5S0t+U7gDpi
+	 GbusLL8dWkPtTOms5iPrIP2V9E4X0NP3CGf4lFRi7u9YTJsJJNVTtF4fF8VaSGnrQCvz6
+	 pEAICe5lb/BxNBVWfXP3lvGX/A373lZCaV/FLUFOkc9d5UhLI+6mZSQbiKGqvDB6azSHm
+	 JOOMeIl9hIAmzAafcFoZXf3R/hq9KFNFMVAhFvtZND5nX7oUtZEUwTBagmfqBPnVppqHM
+	 SmQFpunpvJuMC26mVpcFXalGHLTGln1j9rw1Q2/WFOAjnTzoUFoldkSEtod30pF2xpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098334;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=2I2PxzgejSBuKf/QP6i6JXoYjXhDprFyLqswPdIpp/A=;
-	b=yDdHN7PSJAAQ8LckUR1GaPOaT4MLvbbhpscMQZxXi7ORHf6jQfrZszqzN56FYrcefhUX
-	 s/LOoJ4l22M7CJGrC7c0GC7xmPfd3CFW1geivb1F4DiHsflK1SIbihE93DQZ/+MSB/RYa
-	 NydrhaxCdK36DMIX/VKG+X3aJo6i2HCZ1gxUkn+VgiXKEk3hlH63mzGgV5ruB2nUt3zwm
-	 u0gwzLKxE3vHgBe0dz6KYgVxwPrI/HXQMfkZFYvOdUElzuyKrUQaeH6EvnqyfDmYR39b+
-	 Aozbrs4mUJComvSwrIKP/z9QCU7V+XUwOV02lCpfjZMMtAr/tW/xkWtpNubLpRZAlgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098363;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nb0Lf50bJgBV2CiWucdnoIYSpgrOvc7UWebGORq0ITo=;
+	b=Qm6nvCDKtKNj52MREOVPOELUceOQpq3e0i+oocpSczFPDYioEA4XCMTv0Wu+JOyj/uIS
+	 vOkj1aBDwt/dSFN68aHmrMMvd8rMxlx/p7EozDKEg3eo994Rd8D+fQF3QhoHTFGHZHD8f
+	 hH2ugghidrXVvBnlI+EjZMvIh9EsJtpOBQwW1AdqFzzBtatp+ORKO4mNbZUS0atekCAGR
+	 0itph/DmqUjzzPEev8h3aOyYG7aYh6N3X0Bf1BmgESHrCfs09qTzLwm5ShaIF4QXurfn1
+	 0fnDAZiv1c6cpPMfNDNXG7jgbYSAwlJxsf/LcWnSzQqVLM5ic7pGt/vK6DKepUtOyYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=fUZ4aDOL;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hO5a0BFI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AE7606A31A;
-	Tue, 27 Oct 2026 10:52:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62AE7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7CA606A335;
+	Tue, 27 Oct 2026 10:52:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=fUZ4aDOL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=2I2PxzgejSBuKf/QP6i6JXoYjXhDprFyLqswPdIpp/A=; b=fUZ4aDOLPU/eZA7p+R1NIaLw5K
-	91YLuAjmpANhsb3GbJrFc7wG4qeA1XXBDOTTJ075wQoeNxaeBx4RBPQMDws993PGIDQfhRleaiYua
-	+p64u0s24u6GQg6n10C3B6mXeusjIPRPBON5/y0OCoUHdRtaI1G/eABPa8w9oBSBj+Ws1U9vrN9nM
-	ySHOs3sgSg3dnQAfK5XSQ5HUJ+V1/S5a/WAQRFzyyWg+blVv6jABhzKB4k9S7UFi7OvI6WGiT/uTt
-	2q4J9uObE0+8O9gk7a+NovQV8L+lngak+UPtFBMU+tiR88idjKFOD8yDaRSGn+LUKy1DRff31G/mD
-	3tLMsFOw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLemo-0000000EkcQ-1GnM;
-	Tue, 27 Oct 2026 10:52:10 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 411F0300DB9; Tue, 27 Oct 2026 11:52:09 +0100 (CET)
-Date: Tue, 27 Oct 2026 11:52:09 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCHSET v2 sched_ext/for-7.5] sched_ext: Add NUMA balancing
- support
-Message-ID: <20261027105209.GF2668564@noisy.programming.kicks-ass.net>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hO5a0BFI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC7971F01200;
+	Tue, 27 Oct 2026 10:52:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793098362;
+	bh=nb0Lf50bJgBV2CiWucdnoIYSpgrOvc7UWebGORq0ITo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hO5a0BFILnam2QbREVi5eYsEJ2yGN9Fu8pd1BwNmJxgglAb0Kvy+s5dFQA8TUzzWo
+	 rVsCIrUJ4vBurRfdkj+TnguSgQxfIs95ppVRFzB4UQhx9Dri0WAxOXyGz+WidlFPBr
+	 whuQ7NkP/WPc7GrU/LRS+3+kGYyW+vhJEFEOHZUPp/p/uvBpj3C1gkijHHEaMP/WK2
+	 HlGLkEfbjeW5A4LH9wQtiiaRoTDinQ+tbsAIpWV4ocxjkhIho/p2+Kah4niflqGgGU
+	 ij7viDDpCf9BPdLJRckq8Z/tHj9EVwdqEYq996qNY3FOc0yylAdldh/xhNB7BuWAbr
+	 r1FHlA2p+JK7g==
+Date: Tue, 27 Oct 2026 11:52:39 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Cercueil <paul@crapouillou.net>, "H . Nikolaus Schaller" <hns@goldelico.com>, 
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] iio: adc: Add the Ingenic X1600 ADC
+Message-ID: <20261027-fractal-unbreakable-parrot-224dc2@quoll>
+References: <20261026083631.48406-1-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,19 +61,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027041536.3317971-1-arighi@nvidia.com>
+In-Reply-To: <20261026083631.48406-1-olivier@mgcrea.io>
 
-On Tue, Oct 27, 2026 at 05:13:29AM +0100, Andrea Righi wrote:
+On Mon, Oct 26, 2026 at 09:36:29AM +0100, Olivier Louvignes wrote:
+> A driver for the SAR ADC of the Ingenic X1600: four auxiliary channels,
+> 12 bits, one interrupt per channel. Tested on a HiBy R1, whose keys are on
+> channel 0 behind adc-keys.
+> 
+> By their programming manuals, the X1830 (3 channels, 10 bits) and the
+> X2000 (5 channels, 10 bits, one more data register) have the same
+> register layout, two results to a data register. As Jonathan said on v2,
+> the X1600 name stays, and supporting them now is welcome but not
+> required: I have neither to test on, so this version is X1600-only, and
+> a chip_info with the channel count and the resolution can add them
+> later. Nikolaus, if Letux has either at hand, adding them on top with a
+> test would be welcome.
+> 
+> Changes since v2:
+> - Cover letter (Andy, Joshua).
+> - MAINTAINERS: no list line; the binding's path in patch 1, the driver's
+>   in patch 2 (Joshua).
+> - Includes for what the driver uses, copyright line, MODULE_AUTHOR(),
+>   reverse xmas tree, open-coded return, no message after
+>   devm_request_irq(), a blank line (Joshua; Andy on the return).
+> - fsleep(2 * USEC_PER_MSEC) (Andy).
+> - The ADC clock divider is now even, as the X1600 programming manual
+>   has it; v2 wrote the divider minus one, as the vendor kernel does. The
+>   divider fields are named as in the manual, and the two clocks only
+>   repeated sampling uses stay at their reset values.
+> - The probe comment on staying powered up no longer names the keys
+>   (Jonathan).
+> 
+> v2: https://lore.kernel.org/all/20261024041357.34346-1-olivier@mgcrea.io/
 
-> Ideally the ultimate goal is to give BPF schedulers both controls that
-> NUMA balancing combines: moving a task to the node where its memory is
-> and moving the memory a task uses to the node where the task runs. This
-> series provides the first: with the preferred node available, a
-> scheduler can decide where to run the task. A second series, to follow
-> once this one lands, will provide the second: a kfunc that lets a
-> scheduler request the node a task's memory should migrate to.
+Please keep here complete changelog, so also v1 etc.
 
-Fair has no real control over the memory migration part either; why
-would you want to give BPF that?
+Best regards,
+Krzysztof
+
