@@ -1,115 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793089775;
-	b=RwkaErPXmCP9dpOK8nwrOJ9yqrpAqTz7Va/idlV/v3EuWykghyHOkwhD6tKiYp+rIb+R
-	 90D0Ke3N7kt6mrrCTiLjaLXW6MkILrHlueq5Rs+M3L940NIa0BZhWfuF6hw4KwmMg00Vt
-	 9UtSqvzaJtgPUcj8E4fEa+5YjDIdlEW/UfvWQ4sHeJd8wlDsG/vzOU3E+704U8akqAswK
-	 YUS/f+7xj40wXmp34vfnQtWq/DiOYeHYwlkU6JmY9E4O2SGZIwnzdc/ycMsKtrWaNlhNS
-	 dVdmKmGDxsMRygG+2E5yEK6ZqZf0Z6qglAaqEGbm4h+kr0KMpe/xIHABFAvxAghvAaw==
+	t=1793089795;
+	b=a3E6vnlBUaRYv5+v5XpfuiFUxHZ2XlqQg19VDzA2b3dk/7fpZdnHM50hF2SWHpXqhNek
+	 lUQrpMKeeN6rSOXtJ/jcJpGxGj1pgw6NToKQPbmDI2oA7l3kDIw2+1OCKKygGClpBfzN1
+	 Llsd9E5ZmGlRJ6EhUSfDSNQsDmCqdMOF6bm8yN+eHRmx5d7WObkjKK+XtA+J8ouTqCI7R
+	 y/dZ52qwmyHRl7ckbEpMQNHX6eSBX11wRmSz6SvfdG4HGvgAbI8nEUHAbzgMg04psGO41
+	 NVStrKrRgTnRFiEgeaXPUBk0KykEvSCxQQk6WIj4ajjT4fcnwS/tELPckFRHZ5JEFng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793089775;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MGzHH13ZWFaAze8jomr5kn6NEKQkF5IKK+VbX0oc3KM=;
-	b=uRIlsa5DOQbxw74X85670uJOUOQyHFp9htkW/OP+Tt8TfTpvrNgd7SM1MduO6ueK1Akg
-	 9GMeIQo06FxFOMbK9ewyca1C5BQp0QBn+5mHb005oH94zmPVyVHCbKKFsF+wGuOaEEWR5
-	 q7i9+VDch/GNotceIuwpbHUgvjo31tQc6oiaBD9AyyL8VJSZlT8vnD5P31hOw5uJCJ9vw
-	 zFRtdoUeW9Y861AYiUIB7WCbmePO5FBrWW6e9X90cNBqNp2KrPp6Nq1OYTjdcXYszxHIb
-	 rXxmFnpq4t7iq02UV3Qdr4QG7yLwxYUOJhzVSiiDVLbyxRIAvpYEotdic0K/VzJSl1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793089795;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=QFQbNPRL5qB+ZdzhYI0SHCIte+Ug/BskoqyTmeMBVJk=;
+	b=NH54K0g2BHdBVPNvSAQXuqP9VxRBMpTh0WFab5Xa3twmNsQ6yFiMcTWULW9Q4fQn6X93
+	 vrY8XOW7eHW8IAIfhtX+Bzk9bmKamygo9DkpDPso/XQuu+Ol7g4bdBu1+Hj1KMO+NujBq
+	 2BwcFkQWUofqMN0tL9rFPvZj55vWwb2Wo6rAVMTHJI/FjGX9SFNC3LKzsvXZ+k1wyXUSA
+	 fHmBlUVqOwY6zJTYo0iSW0kubUH3HWlkkJAW0q2nmDqfeLG4VYi5QbFGUZgRaqYw+9kDL
+	 pttQCC117LouiY3DnNuDaZJYeDWxCLMOl43qFCUkwTjJLmgkNGSnVbisie/ED3jBlVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UfpuVEy5;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tm2uQKiq;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00B9606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:29:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C00B9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF158606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:29:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF158606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UfpuVEy5
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-181516de561so537805c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:29:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793089774; x=1793694574; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MGzHH13ZWFaAze8jomr5kn6NEKQkF5IKK+VbX0oc3KM=;
-        b=UfpuVEy5veyu7vgwxb5ILNxC7fDxcHBEy9NAS0QZtpUfc9NKoNx9N92KGbm8ljPN5p
-         6B4ZWPtqtXoCo4As62q9vysEjY1yGXImUkkdvr0rrv649HBeJLo5zIj/BQoDNws3rYwV
-         kWGL6ZVM/cJN5Eyywyvsy2jQAwMqHdw4yV6r+xsST+4TLBkZTgU3GfFkJKgxumU3P8yQ
-         2pdteBDfSYWRmIyfHkgdGY5MX+fKQ4/LvsGuN5l9iYg7iy9N9jcf4iRqT/iyx7WVoroJ
-         ZRdJpYpMGgHIR7+pt8EMnM4UpfnFgcgwrJeHS7hUJaISQmYniNvrK4MZpzG6EYiiZxJ5
-         Ce+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793089774; x=1793694574;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MGzHH13ZWFaAze8jomr5kn6NEKQkF5IKK+VbX0oc3KM=;
-        b=srSOsxQHr2U1IKsEXhUS5arOBY6oJ874Yw9qqgWKYMtbnRDTCRZzPGKdtcxLhXGzAY
-         rUnPQ/DZoZWLo446zmfr3kKCbQNAnjaHq2Fo27XeamddMY7bbyM4qy7yn5jivUh0UfOv
-         DjUM1huFGaaUUMLefar2lJandydDKypm7eO+0WnkgylQprjyk6k1HJjB1ZyXrMC6UL41
-         NV4RXj/HOuzB+UCs4CcHYZGMTrjMyeaEGlIt/m4tk4IWNC67pWpptJRh27ywD7ZJVQIn
-         VDWIHnGhBlcjTMAczkFGYpH/ZTyKk60U50cD6r7DOl5mDuj1KUupxeHfgr45Mu2EYBXD
-         ixww==
-X-Forwarded-Encrypted: i=1; AKwUvBxYO/dRYEJncloP6lgX0cKg7QaUKtBQXYnFeSeKxuGsk08RXlMwOvCxMhQCQTX2L9HuQm7u7+sl77IgayQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJddJOjVXqOSXgo7CQ7ejDh7f21Vo2qOHo2AkDMuIkb9sXwL09
-	VTNox9rxVD9xGcnAFjeuQbXEkL+PhhrcxjsU+UOWJ+4nJW16tAm90AA=
-X-Gm-Gg: AYBFou3HwgyJ0NOJrVd17C7i32uYVQ585q2WLZ0V7f5+ikDEfz5izcg74eGRa0xFjIj
-	WWi8gDBmPv4CXAWL/drkreFAWdrgcqzjzqHlhTl+3vrMbwrwfwsDj3snYuKjamiKLzq/sGfZxtK
-	3YUoZ6cGL0GV435gOFKjgFYZXCqR10qzMrXFK88Sxabh3g1ieArS0Qyo91dGaA7yjFS6noz3j2j
-	sb5VzIogiO3QMiLnpL636EZ1RSwcz83cbpElC4jM87rlL19C1Pfa5qe0EdsH9FybQSI8ESFYdmr
-	tfZqxSba29kHfw9iZ8+KqBh5Jcc+2+oAvO/SVpvepiTnyjkCMyrpV0TG8+LD69MRKRtpQhWoqj9
-	Bhdk1wGd+Sj2hMUzWhOWOmK2bDkst8V/+ENiA7lmwcaD6GP1EXYO/xcpizpywpObqDYnPvQCx9+
-	rp0YYQ6byQkJfC7j+uD3K2J5LXCGw0W8iLk9rFJa9wnlywsVzpsa60Aro13ooirS64Xt/js+cnq
-	mgrFMDl7IU4jHhVPWcRmZjxH4mhS4u5MXHx+80PCc9LMdMbMeNYZ3W+GosOxP9I7qI2sV+5N6KV
-	SvSqd9yr6Vqd
-X-Received: by 2002:a05:7022:eb51:10b0:144:eb3f:563a with SMTP id a92af1059eb24-1a3c84c3867mr2805885c88.15.1793089773456;
-        Tue, 27 Oct 2026 01:29:33 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.26.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7b23sm43895151eec.19.2026.10.27.01.29.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 01:29:32 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: alexdeucher@gmail.com
-Cc: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	atharvatiwarilinuxdev@gmail.com,
-	bhelgaas@google.com,
-	bp@alien8.de,
-	christian.koenig@amd.com,
-	dave.hansen@linux.intel.com,
-	dev@deq.rocks,
-	dri-devel@lists.freedesktop.org,
-	hansg@kernel.org,
-	harry.wentland@amd.com,
-	hpa@zytor.com,
-	ilpo.jarvinen@linux.intel.com,
-	kenneth.feng@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	mingo@redhat.com,
-	platform-driver-x86@vger.kernel.org,
-	simona@ffwll.ch,
-	siqueira@igalia.com,
-	sunpeng.li@amd.com,
-	tglx@kernel.org,
-	x86@kernel.org
-Subject: Re: [PATCH 10/13] drm/amdgpu: Catch register access while GMUX keeps the GPU off
-Date: Tue, 27 Oct 2026 04:29:13 -0400
-Message-ID: <20261027082913.8002-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CADnq5_O2tEUHOcbiKL8c4UHpy3AmOWtmM7A8o3jP2qLwkx2jUQ@mail.gmail.com>
-References: <CADnq5_O2tEUHOcbiKL8c4UHpy3AmOWtmM7A8o3jP2qLwkx2jUQ@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tm2uQKiq
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=QFQbNPRL5qB+ZdzhYI0SHCIte+Ug/BskoqyTmeMBVJk=;
+	b=tm2uQKiq8I/V9kOmWIabdEQjfssc7+YdNZ8/QUkrEHBDF5iJTMfWe4ZpHN4sHwx/W5AbLCr4D
+	WRD06rwwCKxa6+NPfD+hICfvYRrJoX/2FECDzupJzIFWkOQh775Ja9GDPed2i96Hgrbm3hNgs6/
+	wodYY5sOibkKg0SJixnI+qw=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jDNvT6JJBzcbTJ;
+	Tue, 27 Oct 2026 16:29:25 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id C475340579;
+	Tue, 27 Oct 2026 16:29:37 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
+ 2026 16:29:36 +0800
+Message-ID: <b696f0f2-6ee8-4a8c-99f5-bf9836aff223@huawei.com>
+Date: Tue, 27 Oct 2026 16:29:36 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,12 +62,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] x86,fs/resctrl: Remove unnecessary non-linear MBA
+ configuration check
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<ben.horgan@arm.com>, <james.morse@arm.com>, <Dave.Martin@arm.com>,
+	<babu.moger@amd.com>, <bp@alien8.de>, <tglx@linutronix.de>,
+	<dave.hansen@linux.intel.com>
+CC: <x86@kernel.org>, <hpa@zytor.com>, <fustini@kernel.org>,
+	<fenghuay@nvidia.com>, <peternewman@google.com>, <yu.c.chen@intel.com>,
+	<linux-kernel@vger.kernel.org>, <patches@lists.linux.dev>
+References: <cover.1791406459.git.reinette.chatre@intel.com>
+ <54ee80a047388ed372f1e848eccbac930a9745be.1791406459.git.reinette.chatre@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <54ee80a047388ed372f1e848eccbac930a9745be.1791406459.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-> You can drop this.  Nothing about this is GMUX specific.
 
-I agree, but there needs to be another variable. Using pm_runtime_suspended
-or using any other pm function will not work, as amdgpu_pmops_runtime_resume
-also requires hardware access and even though hardware is accessable by then
-pm core will show that its runtime suspended.
+
+在 2026/10/8 5:06, Reinette Chatre 写道:
+> Writing a bandwidth value from user space is rejected if the MBA resource
+> has non-linear delay values while the architecture indicates (via
+> resctrl_membw::arch_needs_linear) it can only configure resources with
+> linear delay values. Intel indicates this for MBA while AMD and MPAM do not.
+> 
+> This check can never fail. No Intel SKU supports non-linear delay values,
+> and the placeholder for such support, rdt_get_mb_table(), is only called
+> during enumeration and always fails. A non-linear Intel MBA resource is
+> thus never marked as capable of allocation, and resctrl never exposes it
+> to user space or attempts to configure it. Every Intel MBA resource capable
+> of allocation has linear delay values, and AMD and MPAM never indicate a
+> need for them.
+> 
+> Fail enumeration of a non-linear Intel MBA resource directly to make clear
+> that it is not supported, and remove the check together with the
+> resctrl_membw::arch_needs_linear property it relies on.
+> 
+> Keep the informational message printed when such a system is encountered.
+> While moving it, reword it to no longer refer to the removed mapping table,
+> add the missing newline, and label the printed family value "family" instead
+> of "cpu".
+> 
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+> ---
+> Changes since RFC v1:
+> - Fix typo in changelog
+> 
+> Changes since RFC v2:
+> - Rework changelog.
+> - Group all r->membw assignments together.
+> 
+> Changes since v1:
+> - Keep (and fix) existing pr_info() message if a non-linear platform
+>   appears. (Chenyu)
+> - Rework changelog.
+> - Group rdt_resource::membw assignments together.
+> ---
+>  arch/x86/kernel/cpu/resctrl/core.c | 42 +++++++-----------------------
+>  fs/resctrl/ctrlmondata.c           |  8 ------
+>  include/linux/resctrl.h            |  2 --
+>  3 files changed, 10 insertions(+), 42 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
+> index f9677e52790e..f96f7cf255d0 100644
+> --- a/arch/x86/kernel/cpu/resctrl/core.c
+> +++ b/arch/x86/kernel/cpu/resctrl/core.c
+> @@ -181,27 +181,6 @@ static inline void cache_alloc_hsw_probe(void)
+>  	rdt_alloc_capable = true;
+>  }
+>  
+> -/*
+> - * rdt_get_mb_table() - get a mapping of bandwidth(b/w) percentage values
+> - * exposed to user interface and the h/w understandable delay values.
+> - *
+> - * The non-linear delay values have the granularity of power of two
+> - * and also the h/w does not guarantee a curve for configured delay
+> - * values vs. actual b/w enforced.
+> - * Hence we need a mapping that is pre calibrated so the user can
+> - * express the memory b/w as a percentage value.
+> - */
+> -static inline bool rdt_get_mb_table(struct rdt_resource *r)
+> -{
+> -	/*
+> -	 * There are no Intel SKUs as of now to support non-linear delay.
+> -	 */
+> -	pr_info("MBA b/w map not implemented for cpu:%d, model:%d",
+> -		boot_cpu_data.x86, boot_cpu_data.x86_model);
+> -
+> -	return false;
+> -}
+> -
+>  static __init bool __get_mem_config_intel(struct rdt_resource *r)
+>  {
+>  	struct rdt_hw_resource *hw_res = resctrl_to_arch_res(r);
+> @@ -212,18 +191,18 @@ static __init bool __get_mem_config_intel(struct rdt_resource *r)
+>  	cpuid_count(0x00000010, 3, &eax.full, &ebx, &ecx, &edx.full);
+>  	hw_res->num_closid = edx.split.cos_max + 1;
+>  	max_delay = eax.split.max_delay + 1;
+> -	r->membw.max_bw = MAX_MBA_BW;
+> -	r->membw.arch_needs_linear = true;
+> -	if (ecx & MBA_IS_LINEAR) {
+> -		r->membw.delay_linear = true;
+> -		r->membw.min_bw = MAX_MBA_BW - max_delay;
+> -		r->membw.bw_gran = MAX_MBA_BW - max_delay;
+> -	} else {
+> -		if (!rdt_get_mb_table(r))
+> -			return false;
+> -		r->membw.arch_needs_linear = false;
+> +
+> +	if (!(ecx & MBA_IS_LINEAR)) {
+> +		pr_info("Non-linear MBA delay values not supported for family:%d, model:%d\n",
+> +			boot_cpu_data.x86, boot_cpu_data.x86_model);
+> +		return false;
+>  	}
+
+Acked-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+>  
+> +	r->membw.delay_linear = true;
+> +	r->membw.max_bw = MAX_MBA_BW;
+> +	r->membw.min_bw = MAX_MBA_BW - max_delay;
+> +	r->membw.bw_gran = MAX_MBA_BW - max_delay;
+> +
+>  	if (boot_cpu_has(X86_FEATURE_PER_THREAD_MBA))
+>  		r->membw.throttle_mode = THREAD_THROTTLE_PER_THREAD;
+>  	else
+> @@ -255,7 +234,6 @@ static __init bool __rdt_get_mem_config_amd(struct rdt_resource *r)
+>  
+>  	/* AMD does not use delay */
+>  	r->membw.delay_linear = false;
+> -	r->membw.arch_needs_linear = false;
+>  
+>  	/*
+>  	 * AMD does not use memory delay throttle model to control
+> diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
+> index cafebdff70dc..4562072b8ba6 100644
+> --- a/fs/resctrl/ctrlmondata.c
+> +++ b/fs/resctrl/ctrlmondata.c
+> @@ -45,14 +45,6 @@ static bool bw_validate(char *buf, u32 *data, struct rdt_resource *r)
+>  	int ret;
+>  	u32 bw;
+>  
+> -	/*
+> -	 * Only linear delay values is supported for current Intel SKUs.
+> -	 */
+> -	if (!r->membw.delay_linear && r->membw.arch_needs_linear) {
+> -		rdt_last_cmd_puts("No support for non-linear MB domains\n");
+> -		return false;
+> -	}
+> -
+>  	ret = kstrtou32(buf, 10, &bw);
+>  	if (ret) {
+>  		rdt_last_cmd_printf("Invalid MB value %s\n", buf);
+> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+> index b63dc62690ca..66dc9813c888 100644
+> --- a/include/linux/resctrl.h
+> +++ b/include/linux/resctrl.h
+> @@ -249,7 +249,6 @@ enum membw_throttle_mode {
+>   * @max_bw:		Maximum memory bandwidth value, used as the reset value
+>   * @bw_gran:		Granularity at which the memory bandwidth is allocated
+>   * @delay_linear:	True if memory B/W delay is in linear scale
+> - * @arch_needs_linear:	True if we can't configure non-linear resources
+>   * @throttle_mode:	Bandwidth throttling mode when threads request
+>   *			different memory bandwidths
+>   * @mba_sc:		True if MBA software controller(mba_sc) is enabled
+> @@ -259,7 +258,6 @@ struct resctrl_membw {
+>  	u32				max_bw;
+>  	u32				bw_gran;
+>  	u32				delay_linear;
+> -	bool				arch_needs_linear;
+>  	enum membw_throttle_mode	throttle_mode;
+>  	bool				mba_sc;
+>  };
+
+-- 
+Best regards,
+Jinjie
 
