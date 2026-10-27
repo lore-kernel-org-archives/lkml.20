@@ -1,97 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.71
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793082719;
-	b=2K1Fwz3zuxShJlTCahf0b+Kc1GjNh2ZAhUXk722jMjT4SXxy6eRvgx+JW/XbmHmzAEEp
-	 ehuO4GH+IIhcQjm2ldpzvOs1DQ+s0sRxNbYWveb/WMm53pymiXC5ivJS6StrA4DO+Y5Wf
-	 pHbMEmfEhuNYXZkwlWwbUL89WtBfO/rFasg3Jp/4XYJvJ1dvZAHrM3kKx9mkXoDYOVXGG
-	 Jd0Iu0iH1gJHfx2vhEydveiyWk2XB2Ct4bPJcjlw2mBZ29AK+R+srV9VR2Hbvpiud9kyU
-	 zMARXYT/4RfaiFPlT/KxVggQVyQRPCxlwP10U/Mb7lpc6yw9UjaKDRHvm+XxilGDXiA==
+	t=1793082731;
+	b=mW1rLXQpcn5A+cunSBOY2/JtchK+kzUO3DcyllFzw293dt1X3VFdE6QqhmOdP2NzsgaP
+	 DwXFj8PuGKX39WI1Xu3mSvQH/7GRcVnMo+nhPdVwUAp1oZLVZ5KcQfcsnOCbjT3n2D2VK
+	 oXHwqf775/mEPCxBUWK/i0AzeFr1P1CZO7aApj8Nzcsx96tjdQjzt2NndvFoIYMQsmXSi
+	 au+O5YVABFwVc/hknHNKBQ0O2rhZFpAaKcV4zpw8kpmsm3SHwrsq7c7zRdI/HKZ8glcIR
+	 BdBTmLfoBECpB2Jeqh52WL6DY1HjcAnw0/6J45Y8dwZ3hqSd+bWu7t8HuqV6wFwOVqQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793082719;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8J72O3GnFEOh/ghiM8CnwfzgZe4C5szsa7q5uaNEYLk=;
-	b=I7qJhZSuI3EJcAkIDT9CnwDA0/PE6Y1JbbUHtXu4MbcjpTb9t4HXIupsk5FwKyS5ji+q
-	 4bx/Tdgxa6S83RNM6/4QsEi7WGx/hvyYFwkvYOtppo6yRj/hnZ6mAwhrrMFp9WuMd1qe9
-	 0nWorIhm/BdQtJzhA2DfTO8iwbc4aFpBVwtSHkb/XrB6GdQgvUfa7SHLHH1FD22Q4/FZ2
-	 KRVXuX7J4NK33Yh0xIA43kT3Xrwegim9CU18XXsgNeVuT1RbB6vXKissk1bUuCdwNVqJQ
-	 9ljixudMOlFQti2+2W1KvJLbPdMJDOIQw1CUXtRdkYqifkpMZ47TNzwTsLbAvHxIshw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793082731;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
+	 X-ZohoMailClient;
+	bh=Egai3x/F/sMJ/8jM65XynOMt9tUM5sKIeF7VYes9mmI=;
+	b=ydx7L13ISg+b0cKNBYaHqAQHU3MEAIYHsptpOt5mNRY2S2tBpBbRefxfc9u23QCmiVuh
+	 1KHr2wq5cdRGdCgWl+qRC7JeSKAm3PxCKSTUFLqj5j5CRt6yDh2Dxztxb17HG9hDhZND4
+	 Xwr9FoIGlsJwDgaMEw0YBljxaXlY0RQ6utx0T/IG4zEg1/VPh0ShLLLqzohCP8t90DaHG
+	 BCI9FTjanz819qpTzyEj/jEqv5D/eicL5IMRivDvzbw/OfRqHPZeaZugUtsFkLYLvmYtg
+	 SC4cUpZZi44b8UkyqsKf0oDHffgZSlKzvuov5ax8rcOf10z4x6JqiCmpECjaro3V6tQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SF6deb8Y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.71
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011071.outbound.protection.outlook.com [52.101.57.71])
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=GSiBFv1P;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.94
+Received: from sender5-pp-o94.zoho.com (sender5-pp-o94.zoho.com [165.173.182.94])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E5C5606A31A;
-	Tue, 27 Oct 2026 06:31:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E5C5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1173606A326;
+	Tue, 27 Oct 2026 06:32:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1173606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=SF6deb8Y
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KxFsf+Xgm5W4i48JhpcNwi/xzsO5K86jTjczcdgPKXXYjXSDbJun+bJwE03uzgfvVKmxQT/W5lICJPc4b15fDotGLJU/LYNuTLlzr0uygjivPz8D0WB9hcl7Yj+Up5UsMOx8w+IcVaBWlxd+p5xQ/Zmw146UeW1EDWdL7q5Vjzbs0YI+uXsOhzq3yvqIeeNrUaHKoDEw1nXNlURVNrfyY4LK9EN5X2E5NFZRuqknFRx+1+MuudxYgJ2qmT8eM/nxuGu80IP9LSsp8Rq8JCqTonDvWRFCf42RTeXHCMuRXFO4rjzyOFX8n8mHDupCV3yLbF45iOrEal2iFJbIK8d9RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8J72O3GnFEOh/ghiM8CnwfzgZe4C5szsa7q5uaNEYLk=;
- b=LaBuvopUS1NK5RMmzeR2m43PbFvRX0jhzIhzbxPI2PUKGAogzvSZtv13RYOHZwx/1GnOX0v8MSj2H8laBrlIb59J4inrf5ARopurS7Uaicm+TC8ZKKvb8Z/UEMCF5yKaL/Iy39DxEgdb3r/AWx58RO7CePd/ILiRT+vs+oGInpbNQ+el7x/SVmdqRhONHXLgufQDQGQblSAW9wnw+WadoEZCPvooIWvlCRtPajzH+Pn/lJIKwAiElf4mJ/TncpNwU0NFLBVnSXIrVkEJj46jBiPdWkVKXvqtpkk4c/ZMJ0p+fR8u0KXglqTSW1TuHOznA9dvCDpB4nrr/u4F61ECKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8J72O3GnFEOh/ghiM8CnwfzgZe4C5szsa7q5uaNEYLk=;
- b=SF6deb8Y3gH3CGQDe+VzR7F0WR8DmDE1Uq8/l/SDGZdqWlWxQ1Pq5opSkZWoMZb4gbTLZG9mIhcHoDqsAu62EqZzeCgPe3YXj4Q3gKZgLTphePJRV2mfOtK10fBqJiUkLpafLJBE+IooMBiA/KmIrJD0Xg1IF94NzK5TChAbHuI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH4PR12MB972801.namprd12.prod.outlook.com
- (2603:10b6:610:51e::17) by LV2PR12MB5917.namprd12.prod.outlook.com
- (2603:10b6:408:175::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 06:31:55 +0000
-Received: from CH4PR12MB972801.namprd12.prod.outlook.com
- ([fe80::d532:831c:2e30:a7f5]) by CH4PR12MB972801.namprd12.prod.outlook.com
- ([fe80::d532:831c:2e30:a7f5%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 06:31:53 +0000
-Message-ID: <57b8aa49-2b7b-4b2c-833d-893eff95134a@amd.com>
-Date: Tue, 27 Oct 2026 12:01:46 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: xilinx: formatter_pcm: Fix read-modify-write of
- AUD_CTRL in hw_params
-To: phucduc.bui@gmail.com, Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Mark Brown <broonie@kernel.org>, Michal Simek <michal.simek@amd.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Maruthi Srinivas Bayyavarapu <maruthi.srinivas.bayyavarapu@xilinx.com>,
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261023102818.523331-1-phucduc.bui@gmail.com>
-Content-Language: en-US
-From: "Gaddipati, Naveen Kumar" <naveenga@amd.com>
-In-Reply-To: <20261023102818.523331-1-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0079.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ad::6) To CH4PR12MB972801.namprd12.prod.outlook.com
- (2603:10b6:610:51e::17)
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=ming.li@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=GSiBFv1P
+ARC-Seal: i=1; a=rsa-sha256; t=1793082717; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jXuFPMEzh2ddB3+/mwTJYRv2A/TPU7+31BNVatYYOQmxmidxZKQ8m/24sFofrpG64CLslzJ9acFf5GwbFjhJxQwYXTIjkO2BrAVUJlwy2ihW+a7jof4cpatoMaZDXazYhfq+f47PpyT2BVSLpeGMaK8fYIa4O2ksC7TCgrC7CFE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793082717; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Egai3x/F/sMJ/8jM65XynOMt9tUM5sKIeF7VYes9mmI=; 
+	b=QlKin/mVgtey+2JlAtwnCZcoOkd6GvyPiOtPq1Lih9A2wKvEDXFTbj0jGT82TOIMXoWU+Qs8YG7EZ5eGK7160r50/fHttgHV13va9UBhksAdr8MfEcc/QyC5CbxDwx43mFvH9Dx2rLhBlYDiy66Iiv80Y9z9FgIREWFTEknjbew=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793082717;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=Egai3x/F/sMJ/8jM65XynOMt9tUM5sKIeF7VYes9mmI=;
+	b=GSiBFv1PCbv8zCyDopKRLBLW1duZxXZDoYuqqsim/jlcEAwSviAjYXLs41yq9cDj
+	yDOEkGYk6t2ki0vXM+dVADCKM/TdSDODe1lp0aIlUyJ9LjQxvWgfzWiNzp04sE6g3bM
+	j5cM8OBBaV05YnT8ubejjX6KtAMSdaaGtb6rVZ8I=
+Received: by smtp.zohomail.com with SMTPS id 1793082714953204.26967948806123;
+	Mon, 26 Oct 2026 23:31:54 -0700 (PDT)
+Message-ID: <339935ef-17d8-4467-80bc-3f1856f591b9@zohomail.com>
+Date: Tue, 27 Oct 2026 14:31:45 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,156 +65,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH4PR12MB972801:EE_|LV2PR12MB5917:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1d625e6-824b-4c41-22ae-08df33f3fd7f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|56012099006|11063799006|261009223027099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261026121527099003|261026140227099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Yy2iOdU3TmbwCy3+QSlqBtAqH0LT1l0IK1h9qzH0oAJpZWCKdTHC01pPVogTGfPxND9RBH84OaIH8/9w/86TDwXWPadQwMXmEtoUqqpvdUIVgvRoxv2gN9GQw6+OJdeqzgJYSDui4g/JeUJwL7sDEr3TKZtAsDSqXPm2VTrZ+kxQDjwRXABzsFlbAd2arx3jsY1/92sfgOUN9sF4M0Bjj2VwAN3SV0iDp22TZn3n+8x1tBtkdUKjkys1RS21VNhZ6vVSpHiLg7vhBCiOuKJTOC8lzTiwMgaDH3FLIPwg6lvwVvYEcWO7KgBwV0joBHl/ZTNwIfWZa8Gr30lvSQVYlwqJngHbbNX77u/5yqrPnPUoZlysmp2Mv7zK0u+cVWQpw1iQ8wes8e4ass7sAI+I6Qp07UYn9jDfHZ18iyASgQcW++xKZCgwH5OAY6VcDga68061OlxxCGXKWa0Pp2gYIyvWvI8rtXHXKx38dpAbA/qLtozeeSRD4xDS9HPe4bYLxz55lht67uvrxluMmLTzx5kJoQIIwY304Eof4iDQe3+40HyZgfgTu364ITYk8lDTEq51z80vsmEDxuHNs5ETMjtbxFTEhxkAwQUenshZT7UXK8D0kDQpF9XlSYAi8d7D0KH6eJWW47zJH1cl/gj4+ScaEJBEHRtFY+f4Ynmkb/s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH4PR12MB972801.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YVJUcmJsL29vR2IrblBQaEw3UVJKQ1Y5VFJIdWRWdVpodXdvMGRlTVdUdkNC?=
- =?utf-8?B?ZEo0TUw2L0pJM01mNmJxUmZXNG1oMHBlQk11U3VoaFFBNy9TQy9tdTR0cEl4?=
- =?utf-8?B?OEdwcVRwRmd3bGNNY2dDUmloM3JGdVJjNm1xYkVTZjY3MFBWUW1rUTFTKys5?=
- =?utf-8?B?Q1FNTzVMNU9QTmpBdmtNa20vVzlhSnhHZzJUMm4zNUxiQjhZSHBEUU1JVGNE?=
- =?utf-8?B?eGdldHBUV3pta21mMDM1bkJaazVURnlSZ2NnZFZ5cXZnRkMxVXhKUnR1ZkNG?=
- =?utf-8?B?Q3RpOTVwOGE2b2ZmSEVNWUdnTkVVaTVETENYNUhPMVZRUE9WMys5TVJCU084?=
- =?utf-8?B?TTAxOGJVc0dVMlgxSytWa3dqUkZVNkhBMnI4eTFmQVgydThsN2FaQjBJLzNE?=
- =?utf-8?B?MmliQUkyZ1ZHaVVBZTBmaHNOajA4eVJxUVZUcjdGdGRJcDJPZFA3SjJVNkZt?=
- =?utf-8?B?RW9WOUE4SEpqYTgwcVZoZGdiSnVnb212UnMxbE43L25nT3M2bFNab2pJZnVV?=
- =?utf-8?B?UkQrenFjUEdHeUl5NXljcEZ5dE1rZnN0dml5Mkxrdk9YeklNb1VnMGFjTExr?=
- =?utf-8?B?MC92djdyWWprcTJpYXd0akhWMEJpVm9YTmw1TlIrWFpiRXFaUzAxME5EZERl?=
- =?utf-8?B?NXZScE5tOENXK3BCakE3RUMxbEJDdTg5MGtIaG5mYUYrcTBONUVOK3BVRmpI?=
- =?utf-8?B?VEs0QTNkcUJZaEVNM3k3UVpNMG1FZG0yK2RqbkYrUDVQU1lDSDVlQWNYWGF1?=
- =?utf-8?B?aG84a1pINXloc1pNR2crai8vRjI5TGpROGFrNXRIQk5CUWo3VUZrVXdVSjg4?=
- =?utf-8?B?Tk9qS2p1MlRoNzZhZ00yQVF3WW1UMmVMRmFZVHR2RDFPMXhxMU9RRHJVNGFF?=
- =?utf-8?B?Zjl1THhsMDJzMWhZcFJaQzRBcmxFOUY2WktQV0EwNlRkV09QeFZYeE94anN4?=
- =?utf-8?B?cTJKVjBiRjdRQjZZQ3p5bU83UlAvcjhvTDFhcmZaRElpS2k4Tk9EVEIrL1Bv?=
- =?utf-8?B?Mk82cWFPYmFFenhBMjhzUlN0QkFiR0pCRUJ6ZzQyT3VOdVU2VHhrNkZYMzJK?=
- =?utf-8?B?VW1hTTM4ZGRRODhYRnJ4Q0U3ZzgwOExiM3d3eitYc09IZ3JmcWdSQ2QxWUFH?=
- =?utf-8?B?b0lHSnQ4ZDhVMTJkSlAydU1FME1aMVVsMExiUWZvcWhqOHMyeGFHNFZDSXdP?=
- =?utf-8?B?dEc5aHgzcFBwa01ocGcyNGIwNkc2bjFlUlVXTEpQNVdzVkM3UDBQYkRhWDA5?=
- =?utf-8?B?ZFBsY3ZPZ0l6bTZ6a1piM09sVzJvbkJRRXJsT3NKOTQrb3VLaUNSeEVuaGg3?=
- =?utf-8?B?OHZUVUhIZFpLTVZ5alk3M3hUUmJCMWFudFlmRlV4cWgzUnpveitkalRhSDZI?=
- =?utf-8?B?WGhBQ0d5L0FXL2hZVHhTZzkrb1VIdmZqRG1mUm9OaWsxVEh3WURoTEpxL0gx?=
- =?utf-8?B?K1pGOWh6MzRJSWVxMzhFU3Q3eXpwVnA1bk5CbjAxYzAxVHlqdFZZREhZNWMr?=
- =?utf-8?B?NW5CdmxJc1VnMDliTVdnbm8wbHMxalorZnNEc1pibXB1TVZuZVNlSGNUQXRo?=
- =?utf-8?B?dEFPR0NIMzdIdzVEOGoreDZNRTlvdHVCbTlVRDFzNWQrU2VtNUE4VHZ4ZE5s?=
- =?utf-8?B?azRMWjRaZmZMOUk4Rk81Y1QrMFJ2YU13a3BSM29rdFZHREF6bHdZK0kxeDI2?=
- =?utf-8?B?eGx3Ly9WQkc3MEIyUzVRbk1QRS9PSlEyV08waVB6K2taZ0dDNTJuWEExdDYy?=
- =?utf-8?B?bklxZ3RPRkZKblc5bzlQR1JpNW0zL3VZRGNDVUcwTzBEYUFXcDRlWTBSd1Y2?=
- =?utf-8?B?Rms4WkFsTDRxcjJBV1M2NStPS1dnaUp1RGtTY0cyTFNxTmUyNHhwdTRaOHhP?=
- =?utf-8?B?aTc0UEs3a3RWNzNlcUpycU5taG1nSFQxZUQ0VHAwRG1FcHdjeEFKQ1RQZVU3?=
- =?utf-8?B?bDJONzVUdHdFWHN6Q2o4eGF0SXVxR3lRNnRyUnh2VEppbHNBUWVKZ0ZpUEdt?=
- =?utf-8?B?bXFZWTlhMWZNRmxsb2I2RGlIaVVoM0JleXNmSDBkWFBWa2lVb1dtTnBjNkRR?=
- =?utf-8?B?N0pTWFVDb29yamtsODJCaGxOcVFFQkJSMXNjb2ZkaHZzazhoLzdZOHoxRklk?=
- =?utf-8?B?TGkycUc4czlYWnRyVXRLZ25FZzhIWEV3TjM2QkxHSUVMdDdGbFhDb0Jzck52?=
- =?utf-8?B?R2ZqWDQ0WGo5bklIbGhUOThRbGlMbC9weTV2N21ZbFZORDNDOHBMbnEvOTA5?=
- =?utf-8?B?ZFVKeExkK1R2eEtCQnN2c3dDTkpTNVE3RVRIU1lUWWlOVVlQSzI5dmFrRUtZ?=
- =?utf-8?B?dkw1OU9BU0xBYTV2L2F4OGxFaG5NcVIxdFBKZXlnSDJSM1VtMWFhQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1d625e6-824b-4c41-22ae-08df33f3fd7f
-X-MS-Exchange-CrossTenant-AuthSource: CH4PR12MB972801.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 06:31:53.6362
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O+RGMWGQR/piI1GDClsrX8oHKHMdUctYMfL3hf/7P9Xw89QlMlJU9VD5o1dxh9Q4WWSvAOFbOl9rEaqDqKeA7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5917
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 07/16] cxl: Share HDM decoder register unpacking
+To: Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
+ Jonathan Cameron <jic23@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20261011021422.3428136-1-smadhavan@nvidia.com>
+ <20261011021422.3428136-8-smadhavan@nvidia.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <20261011021422.3428136-8-smadhavan@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227f1712e42a7d8af411be461f1000072a9dacb306c184067b7a0b62b376af06e9c33af381a3bb525:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
 
-On 10/23/2026 3:58 PM, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> xlnx_formatter_pcm_hw_params() does a read-modify-write on XLNX_AUD_CTRL
-> but only ORs in the new data width and active channel values without
-> clearing the old ones. If hw_params is called more than once on an
-> open stream, these fields may retain bits from the previous configuration,
-> resulting in an incorrect sample width or channel count.
-> 
-> Clear both fields before writing the new values, and use FIELD_PREP() so
-> the values cannot spill into neighbouring bits.
-> 
-> Fixes: 6f6c3c36f091 ("ASoC: xlnx: add pcm formatter platform driver")
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+在 2026/10/11 10:14, Srirangan Madhavan 写道:
+> Factor common HDM register parsing into cxl_hdm_unpack_decoder().
+> Validate range and interleave parameters in locals before publishing the
+> decoder configuration, including enable and lock flags. Reject nonzero
+> ranges whose end overflows the address space while preserving the
+> zero-size range representation.
+>
+> Read switch target lists and endpoint DPA skip in their respective
+> branches of init_hdm_decoder().
+>
+> Preserve the decoder ID allocated by cxl_decoder_init() when publishing
+> the parsed configuration.
+>
+> Link: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=7d6ed7faf7d8e14abce8ae23902d5323738868d2
+> Suggested-by: Dave Jiang <dave.jiang@intel.com>
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+> Assisted-by: LLM
+Reviewed-by: Li Ming <ming.li@zohomail.com>
+Minor comments below.
 > ---
-> 
-> Compile-tested only.
-> 
-> The field masks follow the Control register layout in the Audio Formatter product guide (PG330).
-> https://docs.amd.com/r/en-US/pg330-audio-formatter/S2MM-Control-Register-0x10
-> 
->   sound/soc/xilinx/xlnx_formatter_pcm.c | 18 ++++++++++--------
->   1 file changed, 10 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/xilinx/xlnx_formatter_pcm.c b/sound/soc/xilinx/xlnx_formatter_pcm.c
-> index 304220d9aaf5..781508aef885 100644
-> --- a/sound/soc/xilinx/xlnx_formatter_pcm.c
-> +++ b/sound/soc/xilinx/xlnx_formatter_pcm.c
-> @@ -6,6 +6,7 @@
->   //
->   // Author: Maruthi Srinivas Bayyavarapu <maruthis@xilinx.com>
+>   drivers/cxl/core/core.h     |  3 ++
+>   drivers/cxl/core/hdm.c      | 54 +++++++++-------------------------
+>   drivers/cxl/core/hdm_regs.c | 58 +++++++++++++++++++++++++++++++++++++
+>   3 files changed, 74 insertions(+), 41 deletions(-)
+>
+> diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
+> index fb14b222f3ca..d69864b25656 100644
+> --- a/drivers/cxl/core/core.h
+> +++ b/drivers/cxl/core/core.h
+> @@ -147,6 +147,9 @@ void cxl_commit_start_switch(const struct cxl_decoder_config *config,
+>   			     u64 targets, void __iomem *hdm);
+>   int cxld_await_commit(void __iomem *hdm, int id);
 >   
-> +#include <linux/bitfield.h>
->   #include <linux/clk.h>
->   #include <linux/io.h>
->   #include <linux/module.h>
-> @@ -55,8 +56,8 @@
->   #define CFG_S2MM_XFER_SHIFT	29
->   #define CFG_S2MM_PKG_MASK	BIT(28)
+> +int cxl_hdm_unpack_decoder(struct cxl_decoder_config *config, int id,
+> +			   u32 ctrl, u64 base, u64 size);
+> +
+>   int cxl_memdev_init(void);
+>   void cxl_memdev_exit(void);
+>   void cxl_mbox_init(void);
+> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
+> index 47cf49bcd2e5..1a19078e6c6c 100644
+> --- a/drivers/cxl/core/hdm.c
+> +++ b/drivers/cxl/core/hdm.c
+> @@ -939,8 +939,8 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
+>   			    u64 *dpa_base, struct cxl_endpoint_dvsec_info *info)
+>   {
+>   	struct cxl_endpoint_decoder *cxled = NULL;
+> +	struct cxl_decoder_config config;
+>   	u64 size, base, skip, dpa_size, lo, hi;
+> -	bool committed;
+>   	u32 remainder;
+>   	int i, rc;
+>   	u32 ctrl;
+Should arrange these variables in a reverse xmas tree order.
+> @@ -960,35 +960,24 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
+>   	lo = readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(which));
+>   	hi = readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(which));
+>   	size = (hi << 32) + lo;
+> -	committed = !!(ctrl & CXL_HDM_DECODER0_CTRL_COMMITTED);
+> +	rc = cxl_hdm_unpack_decoder(&config, cxld->config.id, ctrl, base, size);
+> +	if (rc) {
+> +		dev_warn(&port->dev,
+> +			 "decoder%d.%d: Invalid decoder configuration (ctrl: %#x): %d\n",
+> +			 port->id, cxld->config.id, ctrl, rc);
+> +		return rc;
+> +	}
+> +
+>   	cxld->commit = cxl_decoder_commit;
+>   	cxld->reset = cxl_decoder_reset;
+> -
+> -	if (!committed)
+> -		size = 0;
+> -	if (base == U64_MAX || size == U64_MAX) {
+> -		dev_warn(&port->dev, "decoder%d.%d: Invalid resource range\n",
+> -			 port->id, cxld->config.id);
+> -		return -ENXIO;
+> -	}
+> +	cxld->config = config;
+> +	size = range_len(&cxld->config.hpa_range);
 >   
-> -#define AUD_CTRL_DATA_WIDTH_SHIFT	16
-> -#define AUD_CTRL_ACTIVE_CH_SHIFT	19
-> +#define AUD_CTRL_DATA_WIDTH_MASK	GENMASK(18, 16)
-> +#define AUD_CTRL_ACTIVE_CH_MASK		GENMASK(22, 19)
->   #define PERIOD_CFG_PERIODS_SHIFT	16
+>   	if (info)
+>   		cxled = to_cxl_endpoint_decoder(&cxld->dev);
+> -	cxld->config.hpa_range = (struct range) {
+> -		.start = base,
+> -		.end = base + size - 1,
+> -	};
 >   
->   #define PERIODS_MIN		2
-> @@ -506,28 +507,29 @@ static int xlnx_formatter_pcm_hw_params(struct snd_soc_component *component,
->   	writel(high, stream_data->mmio + XLNX_AUD_BUFF_ADDR_MSB);
->   
->   	val = readl(stream_data->mmio + XLNX_AUD_CTRL);
-> +	val &= ~(AUD_CTRL_DATA_WIDTH_MASK | AUD_CTRL_ACTIVE_CH_MASK);
->   	bits_per_sample = params_width(params);
->   	switch (bits_per_sample) {
->   	case 8:
-> -		val |= (BIT_DEPTH_8 << AUD_CTRL_DATA_WIDTH_SHIFT);
-> +		val |= FIELD_PREP(AUD_CTRL_DATA_WIDTH_MASK, BIT_DEPTH_8);
->   		break;
->   	case 16:
-> -		val |= (BIT_DEPTH_16 << AUD_CTRL_DATA_WIDTH_SHIFT);
-> +		val |= FIELD_PREP(AUD_CTRL_DATA_WIDTH_MASK, BIT_DEPTH_16);
->   		break;
->   	case 20:
-> -		val |= (BIT_DEPTH_20 << AUD_CTRL_DATA_WIDTH_SHIFT);
-> +		val |= FIELD_PREP(AUD_CTRL_DATA_WIDTH_MASK, BIT_DEPTH_20);
->   		break;
->   	case 24:
-> -		val |= (BIT_DEPTH_24 << AUD_CTRL_DATA_WIDTH_SHIFT);
-> +		val |= FIELD_PREP(AUD_CTRL_DATA_WIDTH_MASK, BIT_DEPTH_24);
->   		break;
->   	case 32:
-> -		val |= (BIT_DEPTH_32 << AUD_CTRL_DATA_WIDTH_SHIFT);
-> +		val |= FIELD_PREP(AUD_CTRL_DATA_WIDTH_MASK, BIT_DEPTH_32);
->   		break;
->   	default:
->   		return -EINVAL;
+>   	/* decoders are enabled if committed */
+> -	if (committed) {
+> -		cxld->config.flags |= CXL_DECODER_F_ENABLE;
+> -		if (ctrl & CXL_HDM_DECODER0_CTRL_LOCK)
+> -			cxld->config.flags |= CXL_DECODER_F_LOCK;
+> -		if (FIELD_GET(CXL_HDM_DECODER0_CTRL_HOSTONLY, ctrl))
+> -			cxld->config.target_type = CXL_DECODER_HOSTONLYMEM;
+> -		else
+> -			cxld->config.target_type = CXL_DECODER_DEVMEM;
+> -
+> +	if (cxld->config.flags & CXL_DECODER_F_ENABLE) {
+>   		guard(rwsem_write)(&cxl_rwsem.region);
+>   		if (cxld->config.id != cxl_num_decoders_committed(port)) {
+>   			dev_warn(&port->dev,
+> @@ -1022,23 +1011,6 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
+>   			writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(which));
+>   		}
+>   	}
+> -	rc = eiw_to_ways(FIELD_GET(CXL_HDM_DECODER0_CTRL_IW_MASK, ctrl),
+> -			  &cxld->config.interleave_ways);
+> -	if (rc) {
+> -		dev_warn(&port->dev,
+> -			 "decoder%d.%d: Invalid interleave ways (ctrl: %#x)\n",
+> -			 port->id, cxld->config.id, ctrl);
+> -		return rc;
+> -	}
+> -	rc = eig_to_granularity(FIELD_GET(CXL_HDM_DECODER0_CTRL_IG_MASK, ctrl),
+> -				 &cxld->config.interleave_granularity);
+> -	if (rc) {
+> -		dev_warn(&port->dev,
+> -			 "decoder%d.%d: Invalid interleave granularity (ctrl: %#x)\n",
+> -			 port->id, cxld->config.id, ctrl);
+> -		return rc;
+> -	}
+> -
+>   	dev_dbg(&port->dev, "decoder%d.%d: range: %#llx-%#llx iw: %d ig: %d\n",
+>   		port->id, cxld->config.id, cxld->config.hpa_range.start, cxld->config.hpa_range.end,
+>   		cxld->config.interleave_ways, cxld->config.interleave_granularity);
+> @@ -1053,7 +1025,7 @@ static int init_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld,
+>   		return 0;
 >   	}
 >   
-> -	val |= active_ch << AUD_CTRL_ACTIVE_CH_SHIFT;
-> +	val |= FIELD_PREP(AUD_CTRL_ACTIVE_CH_MASK, active_ch);
->   	writel(val, stream_data->mmio + XLNX_AUD_CTRL);
+> -	if (!committed)
+> +	if (!(cxld->config.flags & CXL_DECODER_F_ENABLE))
+>   		return 0;
 >   
->   	val = (params_periods(params) << PERIOD_CFG_PERIODS_SHIFT)
-
-Reviewed-by: Gaddipati, Naveen <naveen.gaddipati@amd.com>
-
-Thanks,
-Naveen
+>   	dpa_size = div_u64_rem(size, cxld->config.interleave_ways, &remainder);
+> diff --git a/drivers/cxl/core/hdm_regs.c b/drivers/cxl/core/hdm_regs.c
+> index 53d2f236e49c..b6ee4becde8d 100644
+> --- a/drivers/cxl/core/hdm_regs.c
+> +++ b/drivers/cxl/core/hdm_regs.c
+> @@ -116,3 +116,61 @@ void cxl_commit_start_switch(const struct cxl_decoder_config *config,
+>   	writel(ctrl, hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+>   }
+>   EXPORT_SYMBOL_FOR_MODULES(cxl_commit_start_switch, "cxl_core");
+> +
+> +int cxl_hdm_unpack_decoder(struct cxl_decoder_config *config, int id,
+> +			   u32 ctrl, u64 base, u64 size)
+> +{
+> +	bool committed = FIELD_GET(CXL_HDM_DECODER0_CTRL_COMMITTED, ctrl);
+> +	enum cxl_decoder_type target_type = 0;
+> +	int interleave_granularity;
+> +	int interleave_ways;
+> +	unsigned long flags = 0;
+> +	struct range hpa_range;
+> +	u64 end;
+> +	int rc;
+Same as above.
+> +
+> +	if (!committed)
+> +		size = 0;
+> +	if (base == U64_MAX || size == U64_MAX)
+> +		return -ENXIO;
+> +	if (size && check_add_overflow(base, size - 1, &end))
+> +		return -ENXIO;
+> +	if (!size)
+> +		end = base - 1;
+> +
+> +	hpa_range = (struct range) {
+> +		.start = base,
+> +		.end = end,
+> +	};
+> +
+> +	if (committed) {
+> +		flags |= CXL_DECODER_F_ENABLE;
+> +		if (ctrl & CXL_HDM_DECODER0_CTRL_LOCK)
+> +			flags |= CXL_DECODER_F_LOCK;
+> +		if (FIELD_GET(CXL_HDM_DECODER0_CTRL_HOSTONLY, ctrl))
+> +			target_type = CXL_DECODER_HOSTONLYMEM;
+> +		else
+> +			target_type = CXL_DECODER_DEVMEM;
+> +	}
+> +
+> +	rc = eiw_to_ways(FIELD_GET(CXL_HDM_DECODER0_CTRL_IW_MASK, ctrl),
+> +			 &interleave_ways);
+> +	if (rc)
+> +		return rc;
+> +	rc = eig_to_granularity(FIELD_GET(CXL_HDM_DECODER0_CTRL_IG_MASK, ctrl),
+> +				&interleave_granularity);
+> +	if (rc)
+> +		return rc;
+> +
+> +	*config = (struct cxl_decoder_config) {
+> +		.id = id,
+> +		.hpa_range = hpa_range,
+> +		.interleave_ways = interleave_ways,
+> +		.interleave_granularity = interleave_granularity,
+> +		.target_type = target_type,
+> +		.flags = flags,
+> +	};
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_FOR_MODULES(cxl_hdm_unpack_decoder, "cxl_core");
