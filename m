@@ -1,64 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=141.14.17.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793136782;
-	b=T2/fSv0PF3BEnf/Q1DN6lzWzHPGIs12V3HVWNL6g0FdO+2HN5rODvN9ecseR0wv9QrQ1
-	 pzogPGrY3WcG8JLBws1um5eco0K0LN9cPmeMnTpFdFff2vMKoy02DmGUkiHYJMXrHticR
-	 8/y9O7+Jqq2xuAsUAIYyg/p40L6Ud9QdO6Gl0Na5NxKRxeLYQd6h9ErTFJIZxjdN0LuD+
-	 vqsY9bCcBjvxMYoM1Gth8w5qZX98OiBXoYEWPX31pwheMrUu8KkIW5rg5t1vcFCOIMbu9
-	 O+FI7h2L04inf76cCwfi0LB4AoTkKtPqUh1wNcOApush39SOZ6yQAh6bR7GDBg7mLeg==
+	t=1793136792;
+	b=HqmGSaKEAsvvclKim1uuHzPr8JuH7Ledp0+Wp94ekTouUmvq2I6ux+oNa/DXeuqZ3NWG
+	 espZfbXjTHH4bTEO3wwBg8Jbm9HS+wxa0AnbL+3b/tKogfrjAMG7Yrm+tY07TLmkmnNK/
+	 xFmQ5DfF+Vbt9ApaIsVD6qSZKr2UtIDy71+5SJSCZTMRNPfRRwRUclFkI6LnjeBOVG+6V
+	 MJouRchuK5un9ug9s8RHQrzedYkLecQrjW5xwMhsyk2E2OivgY6QgD8r6/+4IR07xyDLd
+	 WWko3qilR4e7QTc9+8cfiuHA8E4wF9SU1bnfVw3LLmFLbgvmmSFL1nhnq1HBlbWOlbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793136782;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wllQShmR/JuCZFw5HFfsjOJ/1ZX6yyXsqzheMstswmQ=;
-	b=ed24d4fDyLx6vuvl58roVpZlfrERMmd5bVSrUD99rbh9wnE/obFXlNhT8qtctfPBMS5k
-	 cLacP8w3KPK5x8Dk9KTudt9T4nvvPl48o3K/EcIpSMHJ72/jBsinGjH2iDWjgYGibcbnM
-	 8aGlNG7Bqh30FsA8/zNmn/OSfL/jRy9ePMNcOI5BnbEMmlu089VmoZqfHA8gzBfcS6QuV
-	 Chtru08MrpB92gOPqRbTuds5/LTay7basCKUTQtQ/yZ2DItF9ATkZPCQfltU1P8x5SRJW
-	 KkijCVegCJpApGUIuZHAPp8P/dzQksQDT4NgGQHjwK8Z0KQ8qgWxUKznEFG8HEeVYsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793136792;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:DKIM-Signature;
+	bh=YprbfqYF/5IHF7LNRQfGp7VZBBSU82RcpHjz3gqg6n0=;
+	b=An4rNMknVrerftD9P1ky5Waz4ZJk8ASvsg+p+0qmRbLwfLPNJUdPoyGjPyk+WLrvQZbO
+	 ez8nZRnhqh+wvrAp5DWvgHKtgjJ4BlOigKkQu/QeqWPGhlisOKLnN3PRFN2OZdpdlnOXi
+	 c+YycnQ3/+agXgXc5tU+hM2Lba7CQWOrDY9Z0owtjxGppqI5VM9XpYN8I7e/bK/8KwmDv
+	 0Uq90G9dxolr0I4S9ALu2f9639xEZdkegrTnfO/VY95POQR6tQZPyvyEq9K5pEID0Wfwy
+	 mS9fRQdGGymmYFADDkzwAXBWL4coNN/EFZ0e7yMAiUc+KgI27AnLRolQqNtUkiE6ASw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kemnade.info;
-	spf=pass smtp.mailfrom=kemnade.info;
-	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Ra5YU8uh;
-	arc=none smtp.remote-ip=178.238.236.174
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	dmarc=pass header.from=molgen.mpg.de;
+	spf=pass smtp.mailfrom=molgen.mpg.de;
+	dkim=pass header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=cJliREQ1;
+	arc=none smtp.remote-ip=141.14.17.11
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFF5606A31D;
-	Tue, 27 Oct 2026 21:33:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AFF5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465AC606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:33:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 465AC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Ra5YU8uh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=wllQShmR/JuCZFw5HFfsjOJ/1ZX6yyXsqzheMstswmQ=; t=1793136782; x=1794346382; 
-	b=Ra5YU8uhT5uVyerFM1RFhRwKzJgAyR2o4jW/ms2nedvgAnIo+ObGSZWKoRxo3PblEoIJiDewHGI
-	YysKUJogGdZaB3x+sYTP0/e9c78p68UA4S1/V0eFoxryAKkPffXAfCSqHvNWqXW4lB4r2/VFN+nPY
-	qUGMhz8xeloZ7kbxIL8Jk05oMnGp+mzwV2g8aHaVVKDsX+OcYMtyP3Da25ht9Wvuwf+tDnZmudz3A
-	QWQ/NtxQbA4W0X6qHSzvdhdq8UKuPd84fbLN1RcbDQfVytQvQBJhdvHAoiLPCP1FaoKbYnIajB8aD
-	EczlOGWJPwQF/k5kbgg6T7ydcieHXsVIJCxQ==;
-Date: Tue, 27 Oct 2026 22:32:52 +0100
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>, Alistair
- Francis <alistair@alistair23.me>, linux-hwmon@vger.kernel.org,
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/7] regulator: sy7636a: report the temperature
-Message-ID: <20261027223252.044bb5b5@kemnade.info>
-In-Reply-To: <20261027101852.39b9031a@kemnade.info>
-References: <20261026003918.155321-1-pmazzini@gmail.com>
-	<20261026003918.155321-6-pmazzini@gmail.com>
-	<f68279bc-20f1-41a9-ba5c-92b974785cd8@roeck-us.net>
-	<20261027002635.6b831c0b@kemnade.info>
-	<CAAxh=jsKe95EsKnTypXtfTxGhYCMO1E7U=hWb3y6DBpgoiOVUw@mail.gmail.com>
-	<20261027101852.39b9031a@kemnade.info>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=cJliREQ1
+Received: from [192.168.2.228] (p5dc557da.dip0.t-ipconnect.de [93.197.87.218])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id B36174C442F7D2;
+	Tue, 27 Oct 2026 22:32:44 +0100 (CET)
+Message-ID: <75709eb7-6ff8-44ce-9f0c-84ff47c6ba22@molgen.mpg.de>
+Date: Tue, 27 Oct 2026 22:32:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,30 +51,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
+ non-infoframe sinks
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Wentao Liang <vulab@iscas.ac.cn>, Alex Hung <alex.hung@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
+ <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
+	t=1793136765; 
+	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
+	bh=YprbfqYF/5IHF7LNRQfGp7VZBBSU82RcpHjz3gqg6n0=; 
+	b=cJliREQ1/t9kRei5RaG7Rqav8PcSgbImQ+jzkSCpmYc4D0rkcZgCr/oQUk7i1uRQOssCZLmvuUTI
+	Rz9hI0ig4Ab7aFEilxaX7c5flmjuY5ydu+Fzjlr5BjA8hV+lm04pHq/0sYjDLyIY/hBsEBF5VJJ6u4
+	4YyxaSCfWsd8TbL/ZmiWCgd8E6ijdbIHDlMI72tFt/29H3W4yBmZKkyuONI+73mP6io/QywKn2ACUW
+	wWcp/TyjdWndQ+L1c4YrR/wd5vWvfYC/16G2f9X8cA2XhTyMJFfoow3bDGOIdEIFK24eMZS+DlrJ66
+	FlVpa3vCWc+8DNUclHEs9xKyT1TIoGtw==
 
-On Tue, 27 Oct 2026 10:18:52 +0100
-Andreas Kemnade <andreas@kemnade.info> wrote:
+Dear Mario,
 
-> On Tue, 27 Oct 2026 07:32:14 +0000
-> Pablo Mazzini <pmazzini@gmail.com> wrote:
+
+Thank you for you reply.
+
+Am 27.10.26 um 21:48 schrieb Mario Limonciello:
 > 
-> > Hi Guenter, Andreas,
-> > 
-> > On Mon, Oct 26, 2026 at 07:35:24AM -0700, Guenter Roeck wrote:  
-> > > This is going the wrong way. The correct solution would be to convert
-> > > the hwmon driver to an auxiliary driver.    
-> > 
-> > Understood. In v2 the hwmon driver stays in drivers/hwmon and becomes an
-> > auxiliary driver of the regulator, which binds the I2C device directly.
-> >   
-> But that is a cleanup action, which is at least a separate patch (maybe
-> replacing and exending your patch 6). So the other patches can go into
-> their separate trees.
 > 
-looked again, I was wrong here,  vin-supply should be enabled before
-i2c transfers, so we need the aux device approach.
+> On 10/27/26 13:54, Paul Menzel wrote:
+>> With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
+>> on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
+>>
+>>      amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on 
+>> connector HDMI-A-1: -22
+>>
+>> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
+>> vendor infoframe setup function") started to log the return value of
+>> drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
+>> being non-NULL, the helper only fails with -EINVAL, if the sink does
+>> not support HDMI infoframes, that means, if
+>> `connector->display_info.has_hdmi_infoframe` is false, and its
+>> kernel-doc says, that this error can be safely ignored.
+>> drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
+>> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
+>> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
+>> HDMI_Video_present, triggers the warning, although nothing failed.
+>>
+>> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
+>> seven bytes (source physical address, Supports_AI, and a maximum TMDS
+>> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
+>> the EDID has no HF-SCDB:
+>>
+>>      67 03 0c 00 10 00 80 32
+>>
+>> Only warn, if the sink supports HDMI infoframes. The infoframe setup
+>> itself is unchanged.
+>>
+>> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and 
+>> vendor infoframe setup function")
+>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
+>> ---
+>>
+>> Notes:
+>>
+>> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
+>> commit message.
+>>
+>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
 
-Regards,
-Andreas
+[…]
+
+> The actual change looks reasonable to me.  But a few things about your 
+> commit message you'll need to change.
+> 
+> 1) You are missing a S-o-b [1]
+
+Sorry, overlooked.
+
+> 2) Disclosing LLM should currently be done by
+> "Assisted-by: LLM" [2]
+
+Since commit 1e035297ffdadf (docs: remove Assisted-by references) it 
+seems to be deprecated:
+
+$ scripts/checkpatch.pl 
+0001-drm-amd-display-Don-t-warn-about-vendor-infoframe-fo.patch
+[…]
+WARNING: Non-standard signature: Assisted-by:
+#35:
+Assisted-by: LLM
+
+ERROR: Unrecognized email address: 'LLM'
+#35:
+Assisted-by: LLM
+
+I wanted to send v3 with the tag added, but would refrain from it now, 
+if that’s alright with you.
+
+
+Kind regards,
+
+Paul
+
+
+> https://docs.kernel.org/process/coding-assistants.html#signed-off-by- 
+> and-developer-certificate-of-origin [1]
+> https://docs.kernel.org/process/coding-assistants.html#attribution [2]
