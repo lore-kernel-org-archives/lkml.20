@@ -1,80 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793125033;
-	b=oNjDGwAYUjufgXvFqfZDOtk8ygR7JOJkqErv5xf9ugCrtTCgjVgxFACe3TpciUA4EPhk
-	 2pj4SAUl6XnAKVGjRyJ+e42O/hNrzVCvSYoRFrzyRl0pCm3lv1eAThowOmOjjQJypXSuc
-	 KH1RSOtlFNIoykUGS1/Jl3IaQ4XDR3xnfCbRwaF5gNHfPlfQ3sMZXYmPUWTRBxY0IJQLB
-	 wZ5BFcnNayl4WBnAl7XQFpAPNnFrVngiASH95VykkiTPdJR1bdEU4zDMI7B2L/f3l3g7I
-	 99QwHF4YgfBP/WOViJs8W1MLUbOPm8MFjXI1FrHg28xGMcoXzPPuJREtO3D40xE+jpw==
+	t=1793125070;
+	b=SKFFbUGfX7Hd+6PFIZeZjuNJLgiWp8SnI/1GVN5+JArngkDBZhlal5W5XPAFTAFCyD6E
+	 gKvZHbhRu9KWgqeyar81i/b8bzClGopHifMcfjgcWCjNw0AGGr2qtAcBgjdi3RGMSzrqf
+	 KGhAB5jk7xbQbXP51vthFT40jgViBjYlsD3GjPhjl5KDli0lyG7g8fbiZtlUgzIulv6BL
+	 OP+TuRxjTSfGkJdYuU8/kF0+4a3/ZcEJQcQi0KPSKyW7toN9rA2MuGzIcQtmqo7vOJMx3
+	 gGS5jNeemQydOJwSPXa/XMERxV1CGkQFqqlvfz2padcYZwLiylkVPZ+eseioPjur5UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793125033;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References;
-	bh=BQlG+dpy8YjBQ/Jf8HDAX4aO1LrQ0VKAd1X1FNGlEsc=;
-	b=ydZxHM1FTxOwNYGeKHuCcwOpP2FCqg1peeharRkys3ckSn4oRIJpFd8sM4rE9WMFAWMs
-	 hOFFNxn5Sf2D5Q5R6s+bzbabmL01o/RpN9Po6PeVyzCYiHDz4+v7Df3d7CXlBYAyb+i3K
-	 QwrlJYMwM17G96vc/+4ZQl2PyukcfMEKcrX+i01uKRrBwD8kQAxRkwztdf/YDdnN92/zZ
-	 M4yhfb+9KWDd36FWutp5kObQs8INneuewYT6jhR+GV5pKISabpDieQHwX/tDoyapb3NSj
-	 cVfUryrC9d9Prniftp89AEJNTLvFmsngl2RTUJFIEFhqXafVPi+XtfvIcfgudgDeVAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793125070;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=Iu845MHVDpV3DXDAPLIF2pBxbDGSh6irlf/SAmJ+xBY=;
+	b=ODLjnugPuJO5/9t1Xxpe1IF0CQ9MU0EV4XZVYS5Zwf+HzoirWwJ7N36Wb5QdVezYLVIg
+	 QT34i6SnuwHVxIy1dtfqiY+jaUFEMsLV5saXPiOPANW7+RDf3opGXlQtq/EltuAb/33Fa
+	 /6q9gIWEpUGXoFZpVyFqM01196Ld+REJkzKgM8pCatsbGfC6cZ/yr/Uw1z3Rxk42mvu6Y
+	 aZtrwimoX3E8zdd72I+Snak829xGcGeW4VEQA4FNQ1h1oiUAB5MmTf9KcVwv3sNFxGDpG
+	 lgIaf8ZdFl+VUbsbVMN2kx9u1bzkabeBV1yXyVWJJqnFhcVO2jqeT5ThpZ8zuE40P6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLPqgKVf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2CF606A31D;
-	Tue, 27 Oct 2026 18:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jLPqgKVf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6511F031E5;
-	Tue, 27 Oct 2026 18:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793125032;
-	bh=BQlG+dpy8YjBQ/Jf8HDAX4aO1LrQ0VKAd1X1FNGlEsc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jLPqgKVfOPVsDgLwoMZ16UseK8OHOo8JpJwNW/YVi0kw3fyQlEsd/UVg32FMZs3OW
-	 r4P5KEJCPIj/KOyDQJDreVJVPyrB9ZKlgbeWThq5yAcHYydcr3eWO39CsPMsWs4YzX
-	 ty8ec6TIzned9CARBFQmSPik48yQoBZn5DuK+GyZh73+m/oGiaCpMUsswuEpUy1+/B
-	 23Ww8KgzPaUGxYKedH2WJ6EK08iuAw/pGCySpsh73GwcFgXbpCs1fGhaD+DjqHzW4p
-	 yCNW05kom5Kf5o1qvD3E9oL7GPtzdiHaTHg/5xmtSzKc2wlh09rM45Nyjj1+dO0iMI
-	 u+HyATTnHHaaA==
-Date: Tue, 27 Oct 2026 08:17:11 -1000
-Message-ID: <769e80ffa618327ac03c13c4657e7229@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
- Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <shuah@kernel.org>,
- davem@davemloft.net, Jakub Kicinski <kuba@kernel.org>,
- Jesper Dangaard Brouer <hawk@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
- KP Singh <kpsingh@kernel.org>, Tao Chen <chen.dylane@linux.dev>,
- Mykyta Yatsenko <yatsenko@meta.com>, Leon Hwang <leon.hwang@linux.dev>,
- Anton Protopopov <a.s.protopopov@gmail.com>, Amery Hung <ameryhung@gmail.com>,
- Tobias Klauser <tklauser@distanz.ch>, Eyal Birger <eyal.birger@gmail.com>,
- Rong Tao <rongtao@cestc.cn>, Hao Luo <haoluo@google.com>,
- Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>,
- Jeff Xu <jeffxu@chromium.org>, mkoutny@suse.com, Jan Hendrik Farr <kernel@jfarr.cc>,
- Christian Brauner <brauner@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Brian Gerst <brgerst@gmail.com>, Masahiro Yamada <masahiroy@kernel.org>,
- Willem de Bruijn <willemb@google.com>, Jason Xing <kerneljasonxing@gmail.com>,
- Paul Chaignon <paul.chaignon@gmail.com>, Lance Yang <lance.yang@linux.dev>,
- Jiayuan Chen <jiayuan.chen@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Barry Song <baohua@kernel.org>,
- Geliang Tang <geliang@kernel.org>, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org, cgroups@vger.kernel.org, linux-mm@kvack.org,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Hui Zhu <zhuhui@kylinos.cn>
-Subject: Re: [RFC PATCH 0/2] memcg_ext: dynamic memory.low and memory.min protection
-In-Reply-To: <cover.1793086858.git.zhuhui@kylinos.cn>
-References: <cover.1793086858.git.zhuhui@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B98606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:17:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6B98606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a45b3f0bdfso250433b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:17:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793125068; x=1793729868;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Iu845MHVDpV3DXDAPLIF2pBxbDGSh6irlf/SAmJ+xBY=;
+        b=mMAbZ2LDfa5Xrv3jUmCnnsJ34+yFxOZIn6kexbdh6yRcooKQUgo7yFm0kpzgS+jOTt
+         KPVhy2ZwUd+HhNC9pYhytU8DMNUvnBZ6xfOmkWGtJj3WhgudLsgs73D+SC9LWWrzWGEF
+         VqLhP1UL3bJXU+/3YJSsUg0wk1FVUl72j7kqepXKhHRTAEh4GeY34ugVTnLTt2BmDfu7
+         wOueK3a3lsQJSxHjTc3NNrzAkBfQGmF5I8mlv0rQryPSor0JqWsOnLzI4j8w4m1lagNl
+         WBg6Xd3UJAca/1Id75h0SUg5LfakYu4bGv/Yu+ofauu6qE0s1T75klBULMVaeyjDIIRc
+         Vy6A==
+X-Gm-Message-State: AFq9FYLxRzEOJgkiADFVQhfX01qqQAGzuTUE3HjjxEXvJO3W/rUKw7fb
+	xKiii1ohVeeIwO2HAhKXt177UgXwvNe6r5QRLX97a77KWRHcaEN8jv43gsA1a9HPZl3wMgGv3CG
+	5g9mazcLviC1cjk7c79A105U5h/tv4naH6pkNCTqRR0T1QgisMifa0OyxRgM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,22 +56,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:509e:b0:4fb:a7f3:420d with SMTP id
+ 5614622812f47-55c0039048dmr8139497b6e.48.1793125068640; Tue, 27 Oct 2026
+ 11:17:48 -0700 (PDT)
+Date: Tue, 27 Oct 2026 11:17:48 -0700
+In-Reply-To: <6a682bf7.70955b6c.323240.0052.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae0eacc.f0fe5aea.79aa1.0099.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [acpica?] KASAN: use-after-free Read in acpi_ns_get_attached_object
+From: syzbot <syzbot+5725792ce6a9938d1b24@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello, Hui.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-On Tue, Oct 27, 2026 at 05:11:58PM +0800, Hui Zhu wrote:
-> Why it matters: memory.low and memory.min protect a cgroup by a fixed
-> threshold and have no idea whether it is using the memory.  A
-> high-priority cgroup that holds a large working set and then goes idle
-> keeps suppressing reclaim on its siblings, and that memory is wasted.
-> A policy program sees the real activity - page faults, charges - and
-> can grant or withdraw protection as it changes.
+***
 
-This doesn't justify the changes. Why can't the same be achieved by
-adjusting memory.low and memory.min from userspace? The arguments made
-so far are neither convincing nor proven.
+Subject: Re: [syzbot] [acpica?] KASAN: use-after-free Read in acpi_ns_get_attached_object
+Author: jeff@incrediblybased.co
 
-Thanks.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+master
 
---
-tejun
+Resending the same patch as an attachment; the inline copy in my
+previous mail had its diff header lines merged by the mail client.
