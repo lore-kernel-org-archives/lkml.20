@@ -1,55 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117030;
-	b=LNm0+RUaEbwDmY4jLXf4hCKaP/CepBU7J/l+kxRqcMzzjlh9NWCL1WsLEqOpzJltDH9G
-	 wGQUpPy6jYU5nmtPhQRXxdV4iEA85r8sq277xyhOGScYoeGbebFtncCGeQyH5yEt9x/Wf
-	 STE4ex6kf9ZrU1aYk+K78n+91ngX5GBqOGKX53IiZGGaS3Z+DwuSBtq87Qo8nxL9HZ71q
-	 bfEYYxF70X81A2wSaEVq+3rhjZzIHf5ecV3ZYQl3WQned4j+fuoJae/JSiWQgOvREi+br
-	 HanwkaE3ZcFZGOrwWV8yqzAuE3hc7dzJ29GusHbjT7XzuEYpf1+o402ObZROCMU6g+A==
+	t=1793117055;
+	b=bphkL+10oPgFx9eBYO6KjbIFGflHJO2o0GenW9SNFhG4KiGCEqTmqLVv3uA9zxJ29eve
+	 DmvL4sI9zdQRprn6xEIvDmJYdbNgrGE88d97Gw/RYbaNILljdtDWOMyTvKkcNjBblg/u8
+	 4yNQzok6vI9zUsNzkxNUyVZJwkTp60+6ZR7I41jeB/m+klYj7EKVDhxR3Vi9rLk67YxWS
+	 y8Hl1zHkeV3xYWeA3FdbcQwNU+SvlY1sjC9VfoxbZhMx97qGzoxzye1mLGVqSwQKP8jjq
+	 H6CnQqtKotNkaxEVszbKF34dMgg1AIG2pD73vD2RqAnpJ448PVsbs20QJ18r0IZuI5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117030;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FElAzo4KpvK9gPRiK91dueS67HHcq7pi49y7dNohM6k=;
-	b=xdfr2TCLdlSbHjfjDS/1BPNMRCsamX5swMHvqautfCKrX1zRmsROSvpUj4+Ss+dS8pQQ
-	 KkTv8n1oBkQNKZxpxLV6lI1QHrH6LN8cf5MCyaH93DPlOU3+f2tWCZ7CZrkFn4ph0JrDH
-	 sxt2XB83BXR2QQq3A/BNx5t5CPb1ezI3JqVSKT/S5zGCFja2cTvVp4kWC6cLzeAotFQGE
-	 cpKYLJguGhLKocBzlwkynM0/8CQHiy+P5ON+BRowJUvq8B/UTJgwHTDaDzm9HrijyHscf
-	 Cl6Te4GwAN/7BndNyg43sahdWbXRLStqL7g8Isg99UEKl3TfE19pQE2qG1dYPBfZbbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117055;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5d5oBiDNym+XgxzH0b6C3qDhntNhLNghMGNMGMVJJaQ=;
+	b=iG6QFZEAoE0HudlNZj3NSHTppO6dTszbzhqtBJ+GbK5AvRjB1gzcWJmHzViWTG/YpYep
+	 qDxn6rcu8HujsDEtp+/pFtF5nJD3HWwi1KWLaNWNDCDFKk2ayRRE5o4bm8WOw1KsPx7/g
+	 6NJJ6ZG8sbbUA7OcRJl7axIfx8/xo8QAJymApQBSm9RNqVICJwmgh8rByY2Z61000OR6m
+	 K23xz7HXiXN5F9sv9TGGYQ7UOmpvueOu7iRWSq/9FJkY/jf+gvTo/ijMpCy+FSF4aSfGB
+	 AWlIgI3zXFXzMjPJ3iYgEtJLhvwh14k6kOlKFY0xopLO7DN31qpeDs2XYFRnpOjqEkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIkhSw2g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=garMCfw5;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6D52606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE970606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:04:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE970606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fIkhSw2g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0DA1F01828
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:03:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793117029;
-	bh=FElAzo4KpvK9gPRiK91dueS67HHcq7pi49y7dNohM6k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fIkhSw2g91efxkWWEoRgl6XtY9xFfwrZ2ZeKsEzWrkdt42+TvuPmMJvtH7kk834W5
-	 SwQ1TCjF0O130o5fnDRRkDgQ9s1upXVmbfV25Jh5kG7By4dRscwF37IVZQWG/A2IDb
-	 4JOleWDkCNaKa/pdcDlKuy823YwHrA3pRZkFi6CebEIApCzGPPSsmmMsPhAvkRMRA0
-	 /+1OqD37Sh5Izt9HzMaHPFzKHOQaIGo0xESibHWW5ORB0uEHAYWyRL6M7oagFziAtY
-	 jQvGoOABRKimIFGB020MiPcRrP+O01JiMO4mn6oQVQn9AM8N0V3w2I+WOaJUbe3yav
-	 ZGyJL/jJLqEdg==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bfc2ae6e9dso88895e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:03:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByk1n/mGfhUojm8I+dDFfljS7LsPdDtQgn/XgjRGRxVfF60xSeLOUfEEUCPg/D3vy1gFuJv9DBa6AFtk3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbNjAgbYxwtIN9dpdtT3AuHNgTfpzwn3Zw8ckLgRTr4j3D2VQA
-	0hukqtiNiKmH4ioVrcc2ELEsq9vLoq9wkzPHESC7M2yQM9e4TJPw6lAF13N1FekxfSj7seE1csJ
-	t57Xl60gbYl1vVTygjfD29jxcHqlljlA=
-X-Received: by 2002:a05:6512:6c3:b0:5bc:e45b:becd with SMTP id
- 2adb3069b0e04-5bfb71bbb1fmr4029674e87.14.1793117028030; Tue, 27 Oct 2026
- 09:03:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=garMCfw5
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso42567a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:04:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793117054; x=1793721854; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5d5oBiDNym+XgxzH0b6C3qDhntNhLNghMGNMGMVJJaQ=;
+        b=garMCfw5pnI4iP8KIN59/ZxLf51UboH/1T4Stm+yj7le2DTh6DAsrzwhHPWrHa4sDY
+         3bVHg86ty1uBiv1gXgW0sTS6maWRt3Tv9N446cCye4NeKcK8prb09govAUiHng6ogVZ9
+         TA/hFebIbSn8HEae4L0SCJUn2EqPHlQkc99UTQsQz7c9VTqMyVl4IWGYvgp6uhjVEGYJ
+         fbPwzC4gPGIo9w++1ljsoIkkZsU6VpBkFkDoT9jU5t99J6ubNfPn1OsX5yuoTmc4Onu2
+         Gg+G9QE46RZMGqJCPE+g9p9Qk88Ol/fTcQG5xmWPW/XPOCzGsb9dJWbD6tkZSy3hCUGe
+         dQKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793117054; x=1793721854;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5d5oBiDNym+XgxzH0b6C3qDhntNhLNghMGNMGMVJJaQ=;
+        b=vw+w+MIMCuCnX395ZvKpo1oXA5JqNpI6z6O5H6iaPqRDO4R/Ns/6UVTSSeVddfWlgF
+         s77E3ZsUWwQJk0HhSzhGJXNy0Gf7Z4JYL+Tnhz4qv13c/rTPpRKGU3WPPpf8gt3M68L0
+         rw9P5ddl0KUxk09jpNG9k5owbkRatvRT9SfwGBrZyQl6Aiusg9UEJqNR3845HeNgACvl
+         cvE5ijpeZYMmGD5Pc1FngokutHDkwHcR4jdhtKGWQqVr1x90YHpq+Vp4uZvAdQ3Dd94B
+         Fd2lgfR4caNT4ICLrgsEuB2TqH04Aws+aTrARp9jgtuACIaqBP2q/Bq6bs3zyPdix7Yg
+         rtDg==
+X-Gm-Message-State: AFq9FYLnMq+8x7aIHpzM+JZ8WFufQO8UP40VQZBfQxBVrEsQoYa2bV0W
+	qrKvHEOz1/114tk+k7Vo7XUYgC/02wm+2PxZHvBPnFXQtaZxsW0/BGR0
+X-Gm-Gg: AYBFou3qfFUwrCVVDwePi5WR7NzT8E+759NcpnQvc+tsVlSge854gPEniqEWPf1Hjb5
+	sc/jwf9J6F6lQUQ7uljItEclAwIRzwbyZwTrO0smG+YZ1rjpLAMCSgWgihClupitWk7JBX6bzhx
+	UFMmyT+WMTvoyvk5NtGdJTPuks28RwQ88bBDj2TXhSbQ6hCpY+2/YYog0sLRBdkjpOjLJrlUoUM
+	k/l5i6+2lBPtCoOftBbpJAJ3QbHTtGBCgSo4eBGuUXDqg2/4iyqrwFHWLZMCiVJeKB254SdM+XK
+	yH//znifkwE5MzGG/t64uceX/sNraCHzNp15SkrqA2kCT1ACfkVdu2zrTr1pCfmDaKKwYIvayq1
+	sl0u1LUv7qLsupiuu5T6+zxKvM4dSoiYmUSxlU4IND/66dalfmSJ3S0t5AsXeTiZLgzdtNaHyHo
+	b3SU02SDQfZlxb7xwbceKAy38+yVglO+b+4uXlWZWwujI4h/0U3mwXiUR2rnT2NQBTu6Cylfoc3
+	K75hw9jBZ0g/6rJqxTvh/8Nffk91xrzx86DGBENA2RxComZEbrJcB/lv1aTCnboe6gZmUHBxkMp
+	0l7cV0W5eTpeD4WfiWQ=
+X-Received: by 2002:a17:90b:4cd1:b0:3a8:1943:cb7a with SMTP id 98e67ed59e1d1-3adead44808mr7894909a91.18.1793117053971;
+        Tue, 27 Oct 2026 09:04:13 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb1e37esm8365129a91.4.2026.10.27.09.04.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 09:04:13 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	shikemeng@huaweicloud.com,
+	kasong@tencent.com,
+	linjh22s@gmail.com,
+	kunwu.chan@linux.dev,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	tglx@kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [RFC PATCH v3 02/18] mm/swap: slightly cleanup the code for hibernation error handling
+Date: Wed, 28 Oct 2026 00:03:47 +0800
+Message-ID: <098f63eaf6b12c7340d39cbfbff22678cdfbcb92.1793106426.git.lianux.mm@gmail.com>
+In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
+References: <cover.1793106426.git.lianux.mm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,95 +108,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027122042.1444-1-crofts@kernel.org>
-In-Reply-To: <20261027122042.1444-1-crofts@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 27 Oct 2026 17:03:35 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hGcvdHKmBQncp2XrKTogXzU7XzJyHbZzSWcsKruTydUg@mail.gmail.com>
-X-Gm-Features: AclHuK9_dg389Om2i9Vfy4W7HAdwlfs1Yt1t_lVTjQWUL_gAAK-dR2CsDmMoC-c
-Message-ID: <CAJZ5v0hGcvdHKmBQncp2XrKTogXzU7XzJyHbZzSWcsKruTydUg@mail.gmail.com>
-Subject: Re: [PATCH] PM: runtime: clarify pm_runtime_use_autosuspend() undo mechanism
-To: Joshua Crofts <crofts@kernel.org>
-Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 1:21=E2=80=AFPM Joshua Crofts <crofts@kernel.org> w=
-rote:
->
-> Commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend()=
- on reinit()")
-> introduced a pm_runtime_dont_use_autosuspend() call that is executed auto=
-matically
-> on driver exit without making any changes to the kerneldocs.
->
-> Update the kerneldocs to clarify the current mechanism of
-> pm_runtime_use_autosuspend() cleanup on exit.
->
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-> ---
-> Hi, would it be possible for this patch to go in a fix PR before 7.4 is
-> released to prevent any confusion about the mechanism of
-> pm_runtime_use_autosuspend()? Thanks!
-> ---
->  Documentation/power/runtime_pm.rst | 10 +++++-----
->  include/linux/pm_runtime.h         |  6 +++---
->  2 files changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/Documentation/power/runtime_pm.rst b/Documentation/power/run=
-time_pm.rst
-> index e4407b687f8b..40a5c23d5259 100644
-> --- a/Documentation/power/runtime_pm.rst
-> +++ b/Documentation/power/runtime_pm.rst
-> @@ -425,11 +425,11 @@ but it also allows more flexibility in the handling=
- of devices during the
->  removal of their drivers.
->
->  Drivers in ->remove() callback should undo the runtime PM changes done
-> -in ->probe(). Usually this means calling pm_runtime_disable(),
-> -pm_runtime_dont_use_autosuspend() etc. Alternatively, drivers can use
-> -devm_pm_runtime_enable() during probe, which automatically takes care of
-> -calling pm_runtime_disable() and pm_runtime_dont_use_autosuspend() upon =
-driver
-> -detachment.
-> +in ->probe(). Usually this means calling pm_runtime_disable() etc.
-> +Alternatively, drivers can use devm_pm_runtime_enable() during probe, wh=
-ich
-> +automatically takes care of calling pm_runtime_disable() upon driver det=
-achment.
-> +Any pm_runtime_use_autosuspend() calls in a driver will be automatically=
- undone
-> +on driver exit.
->
->  The user space can effectively disallow the driver of the device to powe=
-r manage
->  it at run time by changing the value of its /sys/devices/.../power/contr=
-ol
-> diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-> index 322e3b17f987..ae68a9dc7fc5 100644
-> --- a/include/linux/pm_runtime.h
-> +++ b/include/linux/pm_runtime.h
-> @@ -855,9 +855,9 @@ static inline void pm_runtime_disable(struct device *=
-dev)
->   * requested (or "autosuspend" will be handled as direct runtime-suspend=
- for
->   * it).
->   *
-> - * NOTE: It's important to undo this with pm_runtime_dont_use_autosuspen=
-d()
-> - * at driver exit time unless your driver initially enabled pm_runtime
-> - * with devm_pm_runtime_enable() (which handles it for you).
-> + * NOTE: This is undone automatically with pm_runtime_dont_use_autosuspe=
-nd() on
-> + * driver exit regardless of whether a driver uses managed devm_* functi=
-ons or
-> + * not.
->   */
->  static inline void pm_runtime_use_autosuspend(struct device *dev)
->  {
->
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> --
+From: Kairui Song <kasong@tencent.com>
 
-Applied as 7.4-rc material, thanks!
+Restructure the error paths in pin_hibernation_swap_type() using a
+goto out pattern to avoid repeated spin_unlock() calls and simplify
+the return flow.  Also simplify unpin_hibernation_swap_type() by
+making the si NULL check inline, and clean up find_first_swap() to
+avoid an early return inside the loop.
+
+Signed-off-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+---
+ mm/swapfile.c | 39 +++++++++++++++++----------------------
+ 1 file changed, 17 insertions(+), 22 deletions(-)
+
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 7acb33cd8b71..cf8c0999655c 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -2279,21 +2279,18 @@ static int __find_hibernation_swap_type(dev_t device, sector_t offset)
+  */
+ int pin_hibernation_swap_type(dev_t device, sector_t offset)
+ {
+-	int type;
++	int ret;
+ 	struct swap_info_struct *si;
+ 
+ 	spin_lock(&swap_lock);
++	ret = __find_hibernation_swap_type(device, offset);
++	if (ret < 0)
++		goto out;
+ 
+-	type = __find_hibernation_swap_type(device, offset);
+-	if (type < 0) {
+-		spin_unlock(&swap_lock);
+-		return type;
+-	}
+-
+-	si = swap_type_to_info(type);
++	si = swap_type_to_info(ret);
+ 	if (WARN_ON_ONCE(!si)) {
+-		spin_unlock(&swap_lock);
+-		return -ENODEV;
++		ret = -ENODEV;
++		goto out;
+ 	}
+ 
+ 	/*
+@@ -2302,14 +2299,15 @@ int pin_hibernation_swap_type(dev_t device, sector_t offset)
+ 	 * the same session.
+ 	 */
+ 	if (WARN_ON_ONCE(si->flags & SWP_HIBERNATION)) {
+-		spin_unlock(&swap_lock);
+-		return -EBUSY;
++		ret = -EBUSY;
++		goto out;
+ 	}
+ 
+ 	si->flags |= SWP_HIBERNATION;
+ 
++out:
+ 	spin_unlock(&swap_lock);
+-	return type;
++	return ret;
+ }
+ 
+ /**
+@@ -2389,11 +2387,8 @@ void unpin_hibernation_swap_type(int type)
+ 
+ 	spin_lock(&swap_lock);
+ 	si = swap_type_to_info(type);
+-	if (!si) {
+-		spin_unlock(&swap_lock);
+-		return;
+-	}
+-	si->flags &= ~SWP_HIBERNATION;
++	if (si)
++		si->flags &= ~SWP_HIBERNATION;
+ 	spin_unlock(&swap_lock);
+ }
+ 
+@@ -2428,7 +2423,7 @@ int find_hibernation_swap_type(dev_t device, sector_t offset)
+ 
+ int find_first_swap(dev_t *device)
+ {
+-	int type;
++	int type, ret = -ENODEV;
+ 
+ 	spin_lock(&swap_lock);
+ 	for (type = 0; type < nr_swapfiles; type++) {
+@@ -2437,11 +2432,11 @@ int find_first_swap(dev_t *device)
+ 		if (!(sis->flags & SWP_WRITEOK))
+ 			continue;
+ 		*device = sis->bdev->bd_dev;
+-		spin_unlock(&swap_lock);
+-		return type;
++		ret = type;
++		break;
+ 	}
+ 	spin_unlock(&swap_lock);
+-	return -ENODEV;
++	return ret;
+ }
+ 
+ /*
