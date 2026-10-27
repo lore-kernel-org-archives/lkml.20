@@ -1,54 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090069;
-	b=Y4StLnZXsbFXsvyUNz7inA1axZF7dadw31XxhtjpD+LB1s2Hj9jiDCCVrjRqGaBv7nR6
-	 392SCWThYA5XAD08Z2Op7u1iqCMNpyxRRQhvtQE5nf4GWkY7W3LQpd8oWPZLCc62yPS1X
-	 ZO095EOZb3qvaJJXYfM4PA3XQAkX4NhqBLC2f1rX9HxsAtxqmhZlIA7V6wWMuVPovayht
-	 P89jiG/EG10HtJC3nvOTGzawKnFmhdgFFlGHb9bFMUL0dG3BfTeM6FimwZ8GyivqxNeLv
-	 FaAVQ5QSUmT+6/OfDmYrkmVl4dwFe5gJHbtVgpv8pOgWzNNAS9D3rQnPsIQhaXzkTBQ==
+	t=1793090073;
+	b=tolTPsNuUtkgc6JeiH0Yx8yijs780NzMJIzsIIKzuRdgKizYriXNL7FrNfaKrMIGtyhA
+	 2UUhsH6OWJEPHJVc6ANcpM3SDkz/MpiXo4+XylsXA6LGPXLd7o3XrlW8VcIqcTvMRlNop
+	 RIWGsLNEpzGGtew1wh1VEnNQhXZjR9yyE34jWEGv88nOBC9w5M6I9id7fmUWYw3aeHlxc
+	 vGeACXTb0OYZWDdvxv0Ev/0I5wGfZrP+CgE9imZrPyZh0ybNDpab7RZ9DYxJmJiU1hduk
+	 CL1dsUlgtRdkD63XrUepfpXB9mIZ8ThHewJSnwneabPRoYQ31izJ0XK1Bl6Zr6l3TPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090069;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=Tqtx97Mqlim2ETCdbAWzFT1K6COkig+THJDQuWiLO7A=;
-	b=L5YZY3CfQzlnN1bAWJf1x+TFThXMS+0jB0nPu/03RXcoiAuJUG6PiYU+BvYd6xwaY3g1
-	 g1p6gXhASE1bY2WOtROvfgGW2m737FqwC5tHhUy9d9aQ8H4D2dSxpxfb+mITotD9vOKUv
-	 dppHCVPPAJw5JMbjmS3kS/sDQzXQNboTbjZTv8GoI948J+uF6foVeXlJQ8o659rFHDhmq
-	 GbJzhZ17O84XqVXOO15yK2+Q2yzqVbVB1rYZtmgsBxLi0F+asfS/BKY+Xn4Rmg3Yok3dE
-	 iZl4rbXmCuH+p2fUrOwg7Ja5uHo7+WIkofkyc+saPRse8gYumQr9scqHGbi6PUy0XCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090073;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=4wrQkMaK+dW/8z6fl3qfa+S+gShoibCmJmmER0g7vrM=;
+	b=KLtkgryAwt2x62uN8VsK3O4lshm58pcML+VVCLxVrCbvnMAQ0dMrbYU+QA6qKqkV7WEr
+	 xv2SSZeXRj9a2FqdU46VFjZW3sq0JnwmaBOCZt3YzhsfBYEN6oN13kHfuO1ODJimbrJ4z
+	 TFf7RvwqKhnGcjluyOE+qGRCOpOMHvd8fjXu2kJw7V4WBQe1p5cf7QmfdkDyxCsYqEIaj
+	 pXHwHK88ahauRODltppRxlt61/tZZUINft68IvpHKZCRxY7RLc5jKOWsX8Gc7vCz4l0Pu
+	 I8EvP/F3JGZLLwOv6OC6tIufAMoAqmD8RxZRkMbdQwRTDVjc4iac7YOdhNC2pp4trUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kF5My7A2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WkZ3Opre;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CE1606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74CE1606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab260600easo1003488b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:34:29 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E41F606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E41F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kF5My7A2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WkZ3Opre
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R5ZJ0g3950119
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	4wrQkMaK+dW/8z6fl3qfa+S+gShoibCmJmmER0g7vrM=; b=kF5My7A2IRd6QUBi
+	LDTYgdiZ/J3U/lZ/GtNQZpoNmIiPeD/WZfJ2vEo+v5WVHLqxlGvePKQH8aOLYeB/
+	JNQ7aOJzzqefKSquofAmkbedrb5n2jlEQvZSxXa9tkajc+Ku2+BqMjz9IkEb/9tP
+	CjgoVSDwqgLw1/H/4j6gu45p5MUH/4XoiH4djvxfGAhaZ+txFJ6DRxcLm0wmE8Pz
+	Ii0eD6WaM92n9RQdEqhrgpBocvY90oLPn1OX5k0n/AzxtGukDq8xYvipujlZrbnw
+	F1Owy/Qb1vLiVqIARITwyXQvCI33laY3SizEWol549pAazrsgAN0gBvGIN67KjM0
+	eAWY5g==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjb54jvaq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:32 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-89e05d31e54so2661157b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:34:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793090072; x=1793694872; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4wrQkMaK+dW/8z6fl3qfa+S+gShoibCmJmmER0g7vrM=;
+        b=WkZ3OpreAQb8BVy4LA27hGCZAGNgGCGbi9Jl4i3eoSIA6QinNB6dw+zEiuvI7fNM3q
+         5O2LqR65CO1qNKs+POfMM+gzrAWr/4+HhI+uS0TchA2wGexh71gZLwm4uklTkuoD+xVx
+         /xNmU1n/tk9eJNUpftST7IGfm3BNLY0a/7qgMMS/T4WAPoBpBQLuNx2Bx9i/yPqC+NPP
+         t1zRBMmcgaj8VL9NkU0KzUCfvjDb/GVcM9R3XFgqbxf1Fn82nr9Wiwt+PZazKDshTpq2
+         qwo90GDjXXCDkbYkgD/J4UBnRvRl+cY7wifGAWBexIQfUEa4XAblu9MzZqcCVukmYq0e
+         MizA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793090068; x=1793694868;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Tqtx97Mqlim2ETCdbAWzFT1K6COkig+THJDQuWiLO7A=;
-        b=Mh+OHVEDqRd2YrEcOfcZWuKSg7w4Zuk5yy40IW6335mbp1jahy51kj6jkqn4atxoD/
-         iws/iKDzyZ+YHUQHfDpD8wCNLCvEO3gyR/M+UBmfLh9qqz9Zei6wIUVjj6vgg4VBDiAB
-         baZAjzKU7645JyAgaV6Mp3JpINDRTsBY59GmgfmHxQkT2Rpdu1NiIQr57o2+OZEGwny1
-         3hn/fAxRcOh71DAGISGhXF82P/++jygd5fX3jK0Vi0MUaU0rknVPTzd+yGTuRaZ/yFKL
-         0oEMj7j++24Ws5p988QupRwVRHdxoTJ1lippPQ979puo/lVu9oPP4s0Ln3Ev2Z+GpLHc
-         93sA==
-X-Forwarded-Encrypted: i=1; AKwUvBx4ijwMLA36mcNQHDUqyjK26hblylEnQf/Pe61pkEm1w1/dJ/lzlfA4FQgFZrR8eA+CBuRxC8KHHjrKdIc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9gS77uPbAajIb2auXJAwcVr4Y+lJV8XqbkP/QEWnscTWdr1B7
-	byCEqldZjH1xHF7Rfn3jVf0GwYOo7vIRFtMHADfGHTgZtQq4SjRohfEPmNSdqewuG6CJmM6wWJa
-	XV/qMVCaBfdTd7mg5587PP1KzMP2aZM6XAvoo0STdQ+ACXMtsk3wMv791b+w=
+        d=1e100.net; s=20260707; t=1793090072; x=1793694872;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4wrQkMaK+dW/8z6fl3qfa+S+gShoibCmJmmER0g7vrM=;
+        b=stWiKiWYtC1KxzueTIsKTyTCss5mGPZ8ebIHbOyI2Ycos8JxYb5Rf6ZLdjy5aDuEMA
+         5uj6d2D9rgbl7owwZEdrHCy2gh4TEM6xCbQ5jvmBf01Exq4Tda/o0M1YUQaDlsNTywkR
+         I2UcgbhgZdtL0i15SykeB2nE9ZIRzGCGzmllrWHLJSA6FjYzNarMRBtmuEBztrQkH0Y9
+         SHTxGsrEoXhKV0zHITPaesugZ1oNuna6vPxSlLG5VzHklE8mlJeCndC5fNe5uZhddFxs
+         bbBJSnEi6uRmsULjZ5gklJLLOaQ1Ssd0DiWpOYUQGRCoME89yeTArzYbbeDp4uRiMCrm
+         QedQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLI2J1wz4r4UsUmJHxqCMjL4Nkylor6+QJDhLrERsiYadeXwXn4kiLTZ2qeQyXZm4a9kzDRKeCvhRTgaM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKX20wa4shi51iwRfpJvZ5WfYzj7pt5L8fsAitDGoCwLkgJBbh5
+	RLy0KPDI7PfKWDaLypSVyQJBDs8xgfE5nUrUOENEQ8P2UilXlu+QASKusWA5BvM95h7SUml46c4
+	iuRSbGU4qdrFEalxv4lV20Q/j4ykHbPymVHhGmqCMMODRrbs9aqTfc7IYspq01FqjFfA=
+X-Gm-Gg: AYBFou1bbETZY/lQoeNNEzSz1dDKnUrZE7fjMfdNi6esjnAlmaGjbycNb92gcU730dw
+	IQ9ya7CLC8gF1ADI+rue2bDbCMfovj3offscVwrOZjhzw22bQzFVKDsLxVVDkA+idezlzc0bLiu
+	6NgNCiDEEUKmNdulRLRUTxxSz1RwvAdriepKMkwQ2g+oefj+GJl55R4hSo6V2N5vE+D+vipNge8
+	77paEK2+UdFCxhiGYfVfIdes2KLYhbeHjwc/6mv5oAwq0gnlzPvT1SAOAbcsYkTSbMYk9a0nMB2
+	QA65ugxJjEVdPUHgozCYHCav06blGg0U5RApWPr++4lkWhcHJrZuFB1kkulPr8pqCHTew08ggT1
+	Vu1rYNw+Y4jGzzUVpgeHkg8JGnERTb++nbIOoWwALGYjkJtLI7JP246dKJkdcx1FJQXVdIHLORw
+	==
+X-Received: by 2002:a05:6a00:1889:b0:89e:7bfa:f884 with SMTP id d2e1a72fcca58-8a367a3cf01mr7107763b3a.18.1793090071590;
+        Tue, 27 Oct 2026 01:34:31 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1889:b0:89e:7bfa:f884 with SMTP id d2e1a72fcca58-8a367a3cf01mr7107751b3a.18.1793090071132;
+        Tue, 27 Oct 2026 01:34:31 -0700 (PDT)
+Received: from [10.133.33.161] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a368d87afasm2119266b3a.7.2026.10.27.01.34.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 01:34:30 -0700 (PDT)
+Message-ID: <87eb6978-74fe-4ec6-b76a-b09210ceea7a@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 16:34:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,160 +114,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14d4:b0:4c2:e32c:1ee2 with SMTP id
- 5614622812f47-55f7ef3ce97mr958316b6e.22.1793090068498; Tue, 27 Oct 2026
- 01:34:28 -0700 (PDT)
-Date: Tue, 27 Oct 2026 01:34:28 -0700
-In-Reply-To: <20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae06214.6200f071.51519.0f44.GAE@google.com>
-Subject: [syzbot ci] Re: gs_usb: fixes
-From: syzbot ci <syzbot+ci0e4b58e5e6ed7fb1@syzkaller.appspotmail.com>
-To: eric@evenchick.com, kernel@pengutronix.de, linux-can@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mailhol@kernel.org, max@schneidersoft.net, 
-	mkl@pengutronix.de, pfink@christ-es.de, stable@vger.kernel.org, 
-	wg@grandegger.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-syzbot ci has tested the following series
-
-[v3] gs_usb: fixes
-https://lore.kernel.org/all/20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de
-* [PATCH v3 1/4] can: gs_usb: gs_can_start_xmit(): don't leak uninitialized memory over USB
-* [PATCH v3 2/4] can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
-* [PATCH v3 3/4] can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
-* [PATCH v3 4/4] can: gs_usb: gs_usb_receive_bulk_callback(): add missing call to can_rx_offload_irq_finish
-
-and found the following issue:
-general protection fault in can_rx_offload_del
-
-Full report is available here:
-https://ci.syzbot.org/series/0c1fc4c5-6a50-43da-a45c-fbc3a8685c3d
-
-***
-
-general protection fault in can_rx_offload_del
-
-tree:      axboe
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/axboe/linux.git
-base:      734bef548a96e8774d6eef5dfa2026c6edc4e80b
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/03f4b948-ccf7-4d18-8177-b9847267246c/config
-syz repro: https://ci.syzbot.org/findings/e4142ca3-3d98-40ef-95df-e6f3ad59fd4e/syz_repro
-
-gs_usb 1-1:0.0: Couldn't get bit timing const for channel 0 (-EPROTO)
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000005f: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x00000000000002f8-0x00000000000002ff]
-CPU: 1 UID: 0 PID: 5651 Comm: kworker/1:4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:__netif_napi_del include/linux/netdevice.h:3007 [inline]
-RIP: 0010:netif_napi_del include/linux/netdevice.h:3026 [inline]
-RIP: 0010:can_rx_offload_del+0x3c/0x1e0 drivers/net/can/dev/rx-offload.c:423
-Code: 48 89 fb 48 bd 00 00 00 00 00 fc ff df e8 9c 5f fc fa 4c 8d a3 d0 00 00 00 49 89 dd 4c 8d b3 00 01 00 00 4c 89 f3 48 c1 eb 03 <80> 3c 2b 00 74 08 4c 89 f7 e8 26 57 6d fb 41 bf 38 0e 00 00 49 8b
-RSP: 0018:ffffc90006a4eb30 EFLAGS: 00010206
-RAX: ffffffff86cbe694 RBX: 000000000000005f RCX: ffff8881ba5cbc00
-RDX: 0000000000000000 RSI: 000000000000009e RDI: 00000000000001f9
-RBP: dffffc0000000000 R08: ffffc90006a4e6c7 R09: 1ffff92000d49cd8
-R10: dffffc0000000000 R11: fffff52000d49cd9 R12: 00000000000002c9
-R13: 00000000000001f9 R14: 00000000000002f9 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff8882a7ca4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fd875c71220 CR3: 0000000115016000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- gs_destroy_candev drivers/net/can/usb/gs_usb.c:1510 [inline]
- gs_usb_probe+0x2201/0x2730 drivers/net/can/usb/gs_usb.c:1639
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:623
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
- hub_port_connect drivers/usb/core/hub.c:5585 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__netif_napi_del include/linux/netdevice.h:3007 [inline]
-RIP: 0010:netif_napi_del include/linux/netdevice.h:3026 [inline]
-RIP: 0010:can_rx_offload_del+0x3c/0x1e0 drivers/net/can/dev/rx-offload.c:423
-Code: 48 89 fb 48 bd 00 00 00 00 00 fc ff df e8 9c 5f fc fa 4c 8d a3 d0 00 00 00 49 89 dd 4c 8d b3 00 01 00 00 4c 89 f3 48 c1 eb 03 <80> 3c 2b 00 74 08 4c 89 f7 e8 26 57 6d fb 41 bf 38 0e 00 00 49 8b
-RSP: 0018:ffffc90006a4eb30 EFLAGS: 00010206
-RAX: ffffffff86cbe694 RBX: 000000000000005f RCX: ffff8881ba5cbc00
-RDX: 0000000000000000 RSI: 000000000000009e RDI: 00000000000001f9
-RBP: dffffc0000000000 R08: ffffc90006a4e6c7 R09: 1ffff92000d49cd8
-R10: dffffc0000000000 R11: fffff52000d49cd9 R12: 00000000000002c9
-R13: 00000000000001f9 R14: 00000000000002f9 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff8882a7ca4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f58953fcfe0 CR3: 000000000fb48000 CR4: 00000000000006f0
-----------------
-Code disassembly (best guess):
-   0:	48 89 fb             	mov    %rdi,%rbx
-   3:	48 bd 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbp
-   a:	fc ff df
-   d:	e8 9c 5f fc fa       	call   0xfafc5fae
-  12:	4c 8d a3 d0 00 00 00 	lea    0xd0(%rbx),%r12
-  19:	49 89 dd             	mov    %rbx,%r13
-  1c:	4c 8d b3 00 01 00 00 	lea    0x100(%rbx),%r14
-  23:	4c 89 f3             	mov    %r14,%rbx
-  26:	48 c1 eb 03          	shr    $0x3,%rbx
-* 2a:	80 3c 2b 00          	cmpb   $0x0,(%rbx,%rbp,1) <-- trapping instruction
-  2e:	74 08                	je     0x38
-  30:	4c 89 f7             	mov    %r14,%rdi
-  33:	e8 26 57 6d fb       	call   0xfb6d575e
-  38:	41 bf 38 0e 00 00    	mov    $0xe38,%r15d
-  3e:	49                   	rex.WB
-  3f:	8b                   	.byte 0x8b
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-current] wifi: ath12k: fix lost 5 GHz range by
+ tracking reg ranges per radio
+To: Ahmed Essam <mrmrmidoessam@gmail.com>, Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Shenghan Gao <gsh20040816@gmail.com>,
+        Aditya Kumar Singh <aditya.kumar.singh@oss.qualcomm.com>,
+        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+        stable@vger.kernel.org
+References: <bbd65b93-816b-427b-8abe-1d1fd1cf4e70@oss.qualcomm.com>
+ <20261027015919.277156-1-mrmrmidoessam@gmail.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261027015919.277156-1-mrmrmidoessam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDAzMyBTYWx0ZWRfX8r3zfNRUj/rc
+ YlL3gaw6jbUcbz8yKS+ppOOWbRUGinqOJmzqnVcG+VCpuTC0RcM3DOThWkyL97SMVG7cymwAjzU
+ prKxm+tDOwcegFiL2FwTSWTCAZMpj5Q=
+X-Authority-Analysis: v=2.4 cv=bsnZl0ai c=1 sm=1 tr=0 ts=6ae06218 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=JLF8xD7Yat_ry6Ihdo8A:9
+ a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-ORIG-GUID: KEQbnpSPNqQO2Uwdc7ayoRaS20FSCDYt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDAzMyBTYWx0ZWRfX9bCZZ87s9SXT
+ NG+hSx2wqBl+AF0azJTGWEwS7sg4Q8rePAX3l5/kriedIYH+TXCiIIsqKhVJJxjQ3tygUr2lHul
+ Yu9z5xAi0uivh7NWfjQdHZ63I9C4xMYbDcQE9hVQKzXTK9iLbpdwtBJcowgYh8x3i+95VUcqCfC
+ w1Q2Kl2SJhhrlzAYNVao7l7Myw//hqc6oUnDInwRhbLv27sh81cqv8OjY8Li/GFXBaoN6CzlJxc
+ BcXDxter5UxlCyJdK5EAajarJc7e6xqexyUTr8KdDDkSm6bBbFNHYvhn+3cEPRaQBod2T9YEqQp
+ oaY3+2RTGyu0l8tXKbtd/CpqtCrflbf3Qfx0REFFTV2Cq9oDNhQgjvhO+nYlhkBv7XX6844ZASm
+ YS5BTF4tD5M75sX04uC7GoyCuW+EJjJOGFSk/5sbORxfg1Dz0jS5mjR7JdZW6Oh4UKJriJMyzvt
+ ApeEzoU0jI4X2ngZLuA==
+X-Proofpoint-GUID: KEQbnpSPNqQO2Uwdc7ayoRaS20FSCDYt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 suspectscore=0 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270033
 
 
-***
 
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
+On 10/27/2026 9:59 AM, Ahmed Essam wrote:
+> ath12k_reg_build_regd() records the frequency span covered by the
+> received reg rules in ab->reg_freq_{2,5,6}ghz. Those fields live in
+> struct ath12k_base, but firmware sends WMI_REG_CHAN_LIST_CC_EXT per
+> radio, and ath12k_regd_update() uses them to compute the frequency
+> range of a single radio (ar->freq_range). This causes two problems.
+> 
+> First, ath12k_regd_update() cannot tell which bands a radio received
+> rules for, so it uses ar->supports_6ghz as a proxy: the 5 GHz range is
+> skipped for any radio that supports 6 GHz. That is only valid for
+> split-pdev devices. On single-pdev devices such as WCN7850 one radio
+> covers 2 GHz, 5 GHz and 6 GHz. When firmware switches to a country
+> without 6 GHz rules, for example after an 11d update to CN or EG,
+> ar->freq_range collapses to 2402-2482 MHz and
+> ath12k_reg_update_chan_list() drops every 5 GHz channel from the list
+> sent to firmware. From then on firmware no longer scans 5 GHz, a
+> 5 GHz-only scan request fails ("received scan start failure event"),
+> and 5 GHz networks disappear from scan results, typically shortly after
+> boot. They stay gone until the driver is reloaded or firmware moves to
+> a country that has 6 GHz rules.
+> 
+> Second, by code inspection, build_regd() resets all three per-device
+> ranges on every event, so on multi-radio devices an event for one radio
+> can wipe the range of another radio whose regd_update_work has not run
+> yet, silently dropping a band.
+> 
+> Move reg_freq_{2,5,6}ghz into struct ath12k_pdev and fill them for the
+> radio identified by reg_info->phy_id. In ath12k_regd_update(), include
+> a band only if this radio registered that band and received reg rules
+> for it, instead of guessing from ar->supports_6ghz. Checking the
+> registered band is needed because a radio can receive rules for bands
+> it does not operate on, e.g. the 6 GHz radio of a split-pdev device.
+> 
+> Also fix the reg_cap lookup for single-pdev devices: pdev->cap.band[]
+> is indexed by enum nl80211_band, but was indexed with the
+> WMI_HOST_WLAN_*_CAP bit flags, so the 2 GHz lookup used the 5 GHz
+> entry and the 5 GHz lookup used the unset 60 GHz entry. Refresh
+> reg_cap for the 6 GHz band as well, as is done for 2 GHz and 5 GHz.
+> 
+> With ATH12K_DBG_MAC enabled on WCN7850 and the firmware switching to
+> EG, the range before this change is:
+> 
+>   mac pdev 0 freq limit updated. New range 2402->2482 MHz
+> 
+> and after it:
+> 
+>   mac pdev 0 freq limit updated. New range 2402->2482 MHz
+>   mac pdev 0 freq limit updated. New range 2402->5330 MHz
+> 
+> Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+> 
+> Fixes: 657b0c72c4ad ("wifi: ath12k: Fix frequency range in driver")
+> Fixes: 13324cecbb2c ("wifi: ath12k: Update frequency range if reg rules changes")
+> Fixes: 0d777aa2ca77 ("wifi: ath12k: fix mac pdev frequency range update")
+> Cc: stable@vger.kernel.org
+> Reported-by: Shenghan Gao <gsh20040816@gmail.com>
+> Closes: https://lore.kernel.org/all/20260715065218.41232-1-gsh20040816@gmail.com/
+> Suggested-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+> Assisted-by: Claude:claude-opus-5-5 sparse
+> Signed-off-by: Ahmed Essam <mrmrmidoessam@gmail.com>
 
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+Ah, I have an almost-identical fix pending internal review, but I think yours is better.
+Thanks.
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
