@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793110429;
-	b=IU+HsOmhWMiinv5JvlUvOclkjv105sMgIoh0bQx7m/tuYM2eSK+6SRnW82MSf14Un1su
-	 iiP3ThkbC8oUe/NIVLFJIVg9ixH2drUBpYYUYsjhD1cFSH2c6rmyBqbonmccA/O+/m/7B
-	 UO8JS2YbKa23GptF9MCbmz5Pnr82ixp64axAMSKMNJ5T/Xru+VaAC78b1H0d+DxNv/9OX
-	 nkZ18gpWT7aIontllhrI2Eib4dhEVvlCaoPghvdbpNrLcInNss0zlk8ovYFE4mhrpHOJT
-	 raWJQHPKEqgWFn+cV7hMsQP/7a0wdgziDZO+mdOTl5bX1LBQ7RhKYBJ5kayBaZaknaw==
+	t=1793110455;
+	b=OhK/hkqihHnrzJ2o4zyFOqNH+9+/QVWjTPPp0TEdqlevx0AOAUrpAalKNf2ZypqMwpG1
+	 mg6JvLJSADKq11NpmiIxtLHqfPIbI80VUj45dk8tsWHpNsAywiY2o4yCCniUFia/YNonG
+	 9PKlXO6CusUEUU/2VsHST5EG8s0d+Rec6GF3Dt+0Cv5qM1FHSh1672XWOqK2bTvHxjpyY
+	 w8SJtFCLd1djpcl9fh8NNC4kAXD55Hs0DvVAjJEHFUlaSKvCO8Ij20+JrH6AdhyDoFNOg
+	 TSuT9I0811fnd9Nb4+VdYK/6fjUnehhFwvmVnYjCnD7FzKXupd9ij44qcm1obSXuh8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110429;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Smq8QLRfkjBN1obmOVmOeJFl6fXBs9WJMR4nvP90F6g=;
-	b=OVtV7DUutSMRFoprRaeus+kflEV7OdSabri8+Me/BX5l4f45gnUeYowdcwB3B0asEAAT
-	 ZHxWILi3ME1tCc4nfpyvhe1dHyJQYGYLxN/Lamuwbzkdc6J9RhGJ3FgGsWf5OnXrh3czP
-	 d26yYfIheBWB0lWlcyksgoJcqW6Kk+ZdTB6VleX71o1ViwBVkVFOlKmQecm8ig52O4ync
-	 dQFQO6OpHrRlNzi8tFINIQ8wPbdG/4R3R6XfZAC5W+w7n3z4+c6571oGagEA7GFZjBsM3
-	 I5hT5SwLCaNzGsVPowTc52LeFPB0QBi3oU2FxzsRFwmTOGioMGeF++X+6eP10r2GAHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110455;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ULtd9LbkaeiBjJrJ74ty1dyVfksSuVPpssfCtnxbGQs=;
+	b=Yv/WRrNA2LxtAK6iq86r8Er/wvuaeduIx2ax26Nb2qcEA4bZecnxGsJQ/J07PPlP+iRY
+	 LgC0QO6nPSNJ7BBeYt7MU7a/h0rT46A3uH49ZTgMeSvWZRywAdCunqVLetXwKYbYR7O73
+	 fkELAG6KR0pBVQch4+WN2ZpVrgah6F5/RjH2A5R/AmNLkm4iWkMwF2BbiUVYYZg5BSke+
+	 ipvS9/+icuJW3VQnoD6woggsOe8CZahv6e95Twx75nibtqxntO3r+63y19+eD2qQcgsDu
+	 z+0C8YcgiPaDFP7+Vu1N40OIEIbwEuGMrwXixGwLzSy4mgoO4xDy1RAWhFkw2JqYFfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYy1lsbi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nOHXFD9i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA5D606A31E;
-	Tue, 27 Oct 2026 14:13:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC68E606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:14:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYy1lsbi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E971F031E0;
-	Tue, 27 Oct 2026 14:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nOHXFD9i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B841F031E5
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:14:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793110428;
-	bh=Smq8QLRfkjBN1obmOVmOeJFl6fXBs9WJMR4nvP90F6g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dYy1lsbiYvg7GAPH7+g3JyCzJUoe2oGUGJRFEtAsjImqhsHKdo4N6djWKbkA9JZMN
-	 AH+B5K8qeFwE2L00i8BZxLpcpnlFpfuZoYV0TmIlmdPmpMYDslQ0c1o1r3h10zVEL6
-	 bm66SNK7NPVadUBQFq/64vHdKxKSVdp2YfuffXMgAwcrV2o41qYy4G59dxWPwKgIEl
-	 gHRWfvJht0JTe2qsHlhmi1sRp38Ec05zEFMYe7ZPDJYXVXsOxJqZEzNhIH8t7ac6ok
-	 dmWXjLYdt2M7krxZNWgwn8I3ug5/B+8iLFi8AU89KioGpxPKV7gC5Nf9CXQbznFlZt
-	 1mQj0C4Ytpv6A==
-Message-ID: <6f5aaf2b-894c-4306-a0b2-e56f815d0a89@kernel.org>
-Date: Tue, 27 Oct 2026 15:13:40 +0100
+	s=k20260515; t=1793110454;
+	bh=ULtd9LbkaeiBjJrJ74ty1dyVfksSuVPpssfCtnxbGQs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nOHXFD9io0Ru2PaYz+V6smtGs0WntNANVygH/FG21ay5l6eXVd/Fv0/Tv/05f5lHN
+	 ro4iu7gr3151Nom7znD+w9DtyJZyWfUd1ugqFnU4sroYLuBrr059kaYzOqg3LHyBNE
+	 Nq5slenfftrhf+jQMKg2z4tHzFnbsIy48BStIJ4xgz9ShxnCKOCF83cSRLUB1U0tDm
+	 g3peUTLWKcVDShNXN+mUP1xR1HMK/LuErofPe2xUAZAdWO0fFLSPuWwNBeF/MoBv5J
+	 AbW/DgyYr644yxz8kE3Ve5Rjs1Wa91W5XlLBIEfFPMWntO1C6QOqcmg7216oQhQAET
+	 L21vjkzNFgP8A==
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4a6fb4040cfso1228062fac.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:14:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz/t9n4cP/nKA4BWOTxoxrTiWSzxQMhp6TjGgiHMr1M31A4gG/55ZytZ+b2N16L8PjeZy2n23wI0bzWG7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhbOZUydnn5UReZRC4UC8pSVvIzt72Dm2WRO9Firq0HI3mgIwE
+	OK+oDgwHZZV8UbYxUSHlBKYS/Ph2gf4d8Wz2qd0GUAwtY80klPJRGuL0CE5x3tb+ZoGhKzefSdV
+	gmoBlzzJgTkVHET1X+hlGQq2uS/V6kQw=
+X-Received: by 2002:a05:6870:c69e:b0:49d:c8ab:967b with SMTP id
+ 586e51a60fabf-4a83f542697mr5910295fac.47.1793110453054; Tue, 27 Oct 2026
+ 07:14:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,97 +59,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
- alloc_contig_range
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-cxl@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org,
- vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
- brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com,
- linmiaohe@huawei.com, nao.horiguchi@gmail.com, ljs@kernel.org,
- liam@infradead.org, rppt@kernel.org, osalvador@suse.de,
- muchun.song@linux.dev, iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com,
- stable@vger.kernel.org
-References: <20261027042204.3741307-1-gourry@gourry.net>
- <20261027042204.3741307-5-gourry@gourry.net>
- <a4fc92b5-7d99-49f4-94ac-89fdee699042@kernel.org>
- <179310997463.2232644.3260379218896917308.b4-reply@b4>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <179310997463.2232644.3260379218896917308.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com> <20261026-drm-panel-funcs-v1-9-5e3070a3478f@oss.qualcomm.com>
+In-Reply-To: <20261026-drm-panel-funcs-v1-9-5e3070a3478f@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 27 Oct 2026 15:13:57 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=2zsU8xOQWURD7HFOiCYwCNwW9ece1=PoVci2qNM8Ykw@mail.gmail.com>
+X-Gm-Features: AclHuK8ruqZCGkf4O-7fY-Pys0rgaueWTZBuD-NGSUOyqWUpd7La4hdhioD434w
+Message-ID: <CAD++jL=2zsU8xOQWURD7HFOiCYwCNwW9ece1=PoVci2qNM8Ykw@mail.gmail.com>
+Subject: Re: [PATCH 09/35] drm/mcde: use drm_panel_bridge_add()
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Douglas Anderson <dianders@chromium.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jyri Sarha <jyri.sarha@iki.fi>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Sandy Huang <hjc@rock-chips.com>, 
+	=?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Alison Wang <alison.wang@nxp.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Yannick Fertre <yannick.fertre@foss.st.com>, 
+	Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+	Philippe Cornu <philippe.cornu@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
+	Javier Martinez Canillas <javierm@redhat.com>, Igor Reznichenko <igor@reznichenko.net>, 
+	Michael Walle <mwalle@kernel.org>, Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+	Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
+	=?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+	Purism Kernel Team <kernel@puri.sm>, Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
+	Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
+	Michael Trimarchi <michael@amarulasolutions.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Casey Connolly <casey.connolly@linaro.org>, Michael Tretter <m.tretter@pengutronix.de>, 
+	Cristian Cozzolino <cristian_ci@protonmail.com>, Junjie Cao <junjie.cao@linux.dev>, 
+	Ryan Brue <ryanbrue.dev@gmail.com>, Nickolay Goppen <setotau@mainlining.org>, 
+	Stefan Mavrodiev <stefan@olimex.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Robert Chiras <robert.chiras@nxp.com>, Alexander Koskovich <akoskovich@pm.me>, 
+	Markuss Broks <markuss.broks@gmail.com>, Artur Weber <aweber.kernel@gmail.com>, 
+	David Heidelberg <david@ixit.cz>, Dzmitry Sankouski <dsankouski@gmail.com>, 
+	Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/27/26 15:06, Gregory Price (Meta) wrote:
-> On 2026-10-27 14:37 +0100, David Hildenbrand (Arm) wrote:
->> On 10/27/26 05:22, Gregory Price (Meta) wrote:
->>
->> We have an existing AI fix for that as well already handled by Vlasta.
->>
->> I think we'll have to establish some model of "ask David first before posting"
->> because otherwise we just create duplicate work for everyone.
->>
-> 
-> Yeah, this is going to happen more.
-> 
-> I've been sitting in these patches for over a month while they soaked on
-> hardware getting performance tests.  
+On Mon, Oct 26, 2026 at 12:10=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
 
-I mean this fix here is really just independent and shouldn't wait that long :)
+> The connector type passed to drm_panel_bridge_add_typed() has been
+> ignored since commit b7797081ccfe ("drm/panel: embed a drm_bridge into
+> every drm_panel"), the bridge always has the type of the panel.
+>
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> 
-> Maybe worth a private tree we can rebase on regularly for these kinds of
-> un-vetted/posted fixes to see what's coming?
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Maybe. But if it's just us core people we can just talk on IRC etc (like Zi did
-two days ago when he was about to post something that I already had on my queue).
+Thanks for driving this patch series Dmitry!
 
--- 
-Cheers,
-
-David
+Yours,
+Linus Walleij
