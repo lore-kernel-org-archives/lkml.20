@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115855;
-	b=YJZGGqc2Ty866RubH8lOrBGrxxpj/qdNycKZehIHTZsPWKgbgMgswexr2sa7eVxw/1V8
-	 uGFjlPaLYi1c28S8w4S5lFtLzQqfePA6U3Mc6j1MfuHnx1dcSsbp+5leLYhZoKfDptij4
-	 b0K8ZkNYrPGiLhFnJRHiTxtaOLm6Tu0nTiFdvbaKFyP5xC0UlKtHzHqFCQRUcTS/W6zhe
-	 RCDLVkEsGlfnWrL0D059L2Y/jjqDWBYj3zQtQXQDC4mIMSMd4aPweciaaYlmgDSb+FP2Q
-	 0KzkjYYky8bXuaSp3PRh6tw4HhApi5NFfhZnuy3+jiB7EVpvqDWrr1d1syM96fYk+vQ==
+	t=1793115854;
+	b=wooqsxDh2+Prqj/6IFzP/iIKvHEgD23q8v33nxCIPG3J35J1khJnbn8Ymo1irxkXO3vq
+	 uzFvPLQZFg9PCargr0amCuFQQshM0uIXZEgeZRUbWGuvRqGd9L/CBEwtxMUxBg+ushKD7
+	 guMAqtOswMXlT9+YzeAdtFfT0QbaiJyw+93BXp4c0SDiIurCcSU4DToYfcWw4r3hEqYWb
+	 2J8EZtwfP2MlfFu8/h2NShF85naZDhB7elxtjzICQW0R0ixwEbnFo36VCeJbCbE7IyUat
+	 EEyZeJb38MQEO3PVQ2QHP7DtHoO4pzVR/OjDaI/1/wJ5fShTMIJY0NE4c6H9TJ/uqhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115854;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
-	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=EnDqdoBlLXNNsQWF1PTAQfygtIq8DiYIDOwKN0S5TYo=;
-	b=xbtJo5024VQYK1zULUca5HdA5IM6E8fsgnvb8t8qpBhR/zkLHTPAAfFaGuo44j6pSy/t
-	 s9AYzd6V7UINHSdhTZHUPGRaEaWxYgsJwd11YYI2BBWD2bOXQhQaPZtySQuKKu0ZyYZUy
-	 Ra3VkynqVr8KaThDcfGuuUVeU5eM53Ma0xo+MI880EG0VBUrcjh85uxMGBWxWpHkNstJ2
-	 KNYUBT/sIc/SVK8bfufh5TUeHkbKe/AwSoHnPEnxfyvWCtNWDajGwxeGtikb0VLRStzaH
-	 JhbrPENV8Uv2DyYTy3fKwt0ferhjim5J9kzrDfvz6+6d7jgjSyPRSNDkgdo7//9iIwQ==
+	 Cc:Subject;
+	bh=Gkqrjit9+J4CJctXBbr9aEQ6wG9MjsFcQbJJ6qRHxxM=;
+	b=JNyXMGXzHkTG7YfNES3i4SMbiF/Jq7pnTUv7vuyAe54dOISZthLtlK50dt2yqC99M0Nh
+	 y+rcujszbb9CXJY+Y16k2o2jUT0qUoKhqa6Ur3npQwSTRnPrsFsSL4xd4Gq4dU4//9SiA
+	 6IQrb1MQb6nZ1tTzbZyYk6n/5x0w3LBuPqxBAIFnHbRUYaQ7a6TAmJEPbo2Kf64Y0XwNG
+	 VbWdJB0/Jnq62f3SJc1nKFk+MlpXZTaaH51Ag8qKTtVl5kFX9OLugR6V+WZ2pPLfxMC9e
+	 5+9TKEj9V/bN1+4SohmD+ukI3im7XjXbRHJ3HGgEHEVtbmXYXQ4p5uoQANeNyJGAMsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRTNu4g7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgHnkTyo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1B9606A33F;
-	Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89F4606A31A;
+	Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRTNu4g7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 718051F031E3;
-	Tue, 27 Oct 2026 15:44:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgHnkTyo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7463C1F01825;
+	Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115854;
-	bh=EnDqdoBlLXNNsQWF1PTAQfygtIq8DiYIDOwKN0S5TYo=;
-	h=Date:From:To:Cc:Subject:References;
-	b=JRTNu4g77Y9W+naHrADfdMOHHQ9syVNyuM9xuMSXf3IuDIeWHdAFsn5XSf+e4kBfC
-	 a5hguQUVEWlTVw0jOJOcIAbOSLJw7XAY7O7x1NyvbIVcFZuf1iKx9xxR9haMcpnMQQ
-	 Dz22lwb0JIesfTJczu36lzaG8VJgEtG/H2KHPfJd5I7cEQcvF/DeTc2cm5LNOX5J6r
-	 vG+5VARedfxaW466FILJdpYspMDYinA+T/0PE3+gsmkoOYK53dL6lNixOTUKparNzU
-	 qBkZvBEN34T6qIx9SOwEasvcNuhC2ZH94OsnAE2mLKvDHnj+0gFDUd0U5dTRt76BYp
-	 Gjd2BmjfO8DFA==
+	s=k20260515; t=1793115853;
+	bh=Gkqrjit9+J4CJctXBbr9aEQ6wG9MjsFcQbJJ6qRHxxM=;
+	h=Date:From:To:Cc:Subject;
+	b=fgHnkTyo/8WH2NlGS3UEDZvLhFLuCcOEbT+Biv5UEH1BUma4S/V5vvpgD1O/LP0/b
+	 xbLkNjjzP/s+eC/0hWq+4g4uhHGrZB2n8vgSCfwSdJNG8i3IjVSFjTQaMtsjzxB7LC
+	 7gAy3GMidabLmrmgTj1mKC894dAMw43YvNchPD+EPbVs93iIEhrZy8UsU8qzMU2jgO
+	 9mneIY8c2mg6ULvLXhbXV4IcAib11uQClk0ZzkWc3/Oz3pCpMTcAg9kifHr9cIxLDP
+	 JQGfmBoAH8jakGVW3hwWb3nzcqjyfnPtGjxKzmddkD6u3roLx2eKrjl/efNEP+G2Gm
+	 DDCt6HBJe0EiQ==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xLjLR-000000078iW-3Joy;
-	Tue, 27 Oct 2026 11:44:13 -0400
-Message-ID: <20261027154413.617192888@kernel.org>
+	id 1xLjLQ-000000078eo-2Z1f;
+	Tue, 27 Oct 2026 11:44:12 -0400
+Message-ID: <20261027153658.703730257@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 27 Oct 2026 11:37:04 -0400
+Date: Tue, 27 Oct 2026 11:36:58 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
@@ -102,13 +102,14 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  bpf@vger.kernel.org,
  dev@openvswitch.org,
  dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org,
  linux-pm@vger.kernel.org,
  linux-scsi@vger.kernel.org,
  linux-sctp@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org,
  netdev@vger.kernel.org
-Subject: [PATCH 6/9] scsi: ufs: Use trace_call__##name() at guarded tracepoint call sites
-References: <20261027153658.703730257@kernel.org>
+Subject: [PATCH 0/9] tracing: Use trace_call__FOO() for tracepoints behind trace_FOO_enabled()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,104 +118,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 
-From: Vineeth Pillai <vineeth@bitbyteword.org>
+This is a rebase of patches Vineeth Pillai created back in May[1].
+This series fixes the "double static_branch" that Peter Zijlstra complained
+about. When there's some extra work that needs to be done specifically
+for a tracepoint, that work should be behind a trace_FOO_enabled() "if"
+statement so that the work is only done when the tracepoint FOO is enabled.
+The issue that Peter complained about is that both the trace_FOO_enabled()
+and the trace_FOO() use a static branch which has the nop/jmp switch.
+There's no reason to have the trace_FOO() use that if it is behind a
+trace_FOO_enabled() as that test has already been checked.
 
-Replace trace_foo() with the new trace_call__foo() at sites already
-guarded by trace_foo_enabled(), avoiding a redundant
-static_branch_unlikely() re-evaluation inside the tracepoint.
-trace_call__foo() calls the tracepoint callbacks directly without
-utilizing the static branch again.
+Vineeth created a trace_call__FOO() which calls the tracepoint logic
+directly without doing the static_branch. This is to only be used when
+the tracepoint is called behind a trace_FOO_enabled() check. That code[2]
+has been upstream since 7.1. Vineeth also sent out changes to update
+all trace_FOO() callers behind a trace_FOO_enabled() to use the new
+API. But not all maintainers took it nor gave an ack.
 
-Original v2 series:
-https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth@bitbyteword.org/
+This is a rebase of that work for the maintainers that did not ack nor
+take the patches. This is to give those maintainers another chance to do so.
+Maintainers may either take the patches or ACK them and I'll take it.
 
-Parts of the original v2 series have already been merged in mainline.
-This patch is being reposted as a follow-up cleanup for the remaining
-unmerged pieces.
+[1] https://lore.kernel.org/linux-trace-kernel/20260515135903.2238731-1-vineeth@bitbyteword.org/
+[2] 677a3d82b6407 ("tracepoint: Add trace_call__##name() API")
 
-Link: https://patch.msgid.link/20260515135946.2238888-1-vineeth@bitbyteword.org
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-Assisted-by: Claude:claude-sonnet-4-6
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- drivers/ufs/core/ufshcd.c | 31 ++++++++++++++++---------------
- 1 file changed, 16 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index cc75384c6502..7a169cf0093b 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -421,8 +421,8 @@ static void ufshcd_add_cmd_upiu_trace(struct ufs_hba *hba,
- 	else
- 		header = &lrb->ucd_rsp_ptr->header;
- 
--	trace_ufshcd_upiu(hba, str_t, header, &rq->sc.cdb,
--			  UFS_TSF_CDB);
-+	trace_call__ufshcd_upiu(hba, str_t, header, &rq->sc.cdb,
-+			       UFS_TSF_CDB);
- }
- 
- static void ufshcd_add_query_upiu_trace(struct ufs_hba *hba,
-@@ -432,8 +432,8 @@ static void ufshcd_add_query_upiu_trace(struct ufs_hba *hba,
- 	if (!trace_ufshcd_upiu_enabled())
- 		return;
- 
--	trace_ufshcd_upiu(hba, str_t, &rq_rsp->header,
--			  &rq_rsp->qr, UFS_TSF_OSF);
-+	trace_call__ufshcd_upiu(hba, str_t, &rq_rsp->header,
-+			       &rq_rsp->qr, UFS_TSF_OSF);
- }
- 
- static void ufshcd_add_tm_upiu_trace(struct ufs_hba *hba, unsigned int tag,
-@@ -445,15 +445,15 @@ static void ufshcd_add_tm_upiu_trace(struct ufs_hba *hba, unsigned int tag,
- 		return;
- 
- 	if (str_t == UFS_TM_SEND)
--		trace_ufshcd_upiu(hba, str_t,
--				  &descp->upiu_req.req_header,
--				  &descp->upiu_req.input_param1,
--				  UFS_TSF_TM_INPUT);
-+		trace_call__ufshcd_upiu(hba, str_t,
-+					&descp->upiu_req.req_header,
-+					&descp->upiu_req.input_param1,
-+					UFS_TSF_TM_INPUT);
- 	else
--		trace_ufshcd_upiu(hba, str_t,
--				  &descp->upiu_rsp.rsp_header,
--				  &descp->upiu_rsp.output_param1,
--				  UFS_TSF_TM_OUTPUT);
-+		trace_call__ufshcd_upiu(hba, str_t,
-+					&descp->upiu_rsp.rsp_header,
-+					&descp->upiu_rsp.output_param1,
-+					UFS_TSF_TM_OUTPUT);
- }
- 
- static void ufshcd_add_uic_command_trace(struct ufs_hba *hba,
-@@ -477,7 +477,7 @@ static void ufshcd_add_uic_command_trace(struct ufs_hba *hba,
- 		arg3 = ufshcd_readl(hba, REG_UIC_COMMAND_ARG_3);
- 	}
- 
--	trace_ufshcd_uic_command(hba, str_t, cmd, arg1, arg2, arg3);
-+	trace_call__ufshcd_uic_command(hba, str_t, cmd, arg1, arg2, arg3);
- }
- 
- static void ufshcd_add_command_trace(struct ufs_hba *hba, struct scsi_cmnd *cmd,
-@@ -526,8 +526,9 @@ static void ufshcd_add_command_trace(struct ufs_hba *hba, struct scsi_cmnd *cmd,
- 	} else {
- 		doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
- 	}
--	trace_ufshcd_command(cmd->device, hba, str_t, tag, doorbell, hwq_id,
--			     transfer_len, intr, lba, opcode, group_id);
-+	trace_call__ufshcd_command(cmd->device, hba, str_t, tag, doorbell,
-+				   hwq_id, transfer_len, intr, lba, opcode,
-+				   group_id);
- }
- 
- static void ufshcd_print_clk_freqs(struct ufs_hba *hba)
--- 
-2.53.0
+Vineeth Pillai (9):
+      net: Use trace_call__##name() at guarded tracepoint call sites
+      accel/habanalabs: Use trace_call__##name() at guarded tracepoint call sites
+      devfreq: Use trace_call__##name() at guarded tracepoint call sites
+      dma-buf: Use trace_call__##name() at guarded tracepoint call sites
+      drm: Use trace_call__##name() at guarded tracepoint call sites
+      scsi: ufs: Use trace_call__##name() at guarded tracepoint call sites
+      net: devlink: Use trace_call__##name() at guarded tracepoint call sites
+      kernel: time, trace: Use trace_call__##name() at guarded tracepoint call sites
+      x86: msr: Use trace_call__##name() at guarded tracepoint call sites
+
+----
+ arch/x86/lib/msr.c                        |  6 +++---
+ drivers/accel/habanalabs/common/device.c  |  9 +++++----
+ drivers/accel/habanalabs/common/mmu/mmu.c |  3 ++-
+ drivers/accel/habanalabs/common/pci/pci.c |  6 ++++--
+ drivers/devfreq/devfreq.c                 |  2 +-
+ drivers/dma-buf/dma-fence.c               |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ++--
+ drivers/gpu/drm/scheduler/sched_entity.c  |  5 +++--
+ drivers/ufs/core/ufshcd.c                 | 31 ++++++++++++++++---------------
+ kernel/time/tick-sched.c                  | 12 ++++++------
+ kernel/trace/trace_benchmark.c            |  2 +-
+ net/core/dev.c                            |  2 +-
+ net/core/xdp.c                            |  2 +-
+ net/devlink/trap.c                        |  2 +-
+ net/openvswitch/actions.c                 |  2 +-
+ net/openvswitch/datapath.c                |  2 +-
+ net/sctp/outqueue.c                       |  2 +-
+ net/tipc/node.c                           |  2 +-
+ 19 files changed, 52 insertions(+), 46 deletions(-)
