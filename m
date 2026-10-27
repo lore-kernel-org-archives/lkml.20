@@ -1,59 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117307;
-	b=g55nXfqXCXGjlL6YITK19US4XP31MCxAHhet6SoM7OawaH+EDxmLduLt531zCJwd0TCQ
-	 Y+oSbfZkIyhwZ1C9/WhjcCKlkUWSo3+5XYVnM6RXc/FNvhlLudQhCIbQadivvAyzs/aRF
-	 2MKFEnndj/67KamLsF/VHjPAcXJDcfJ4zIGPXpL4YkBQi03rEru1/n8/6wfPNNoUDtYs/
-	 mrsa4Dw+ycwv0LzzPJ88oE42tB2uPUKRT4R3ye8vX4F+eoSf6BOXff+cfqRBQNiyV606s
-	 +OhXJpjA5alu0Pn5fCWYnNJvZ0fGawTI4I/3rJSMmY8jaSkMAMmdm7bk74WEpFx2XJg==
+	t=1793117319;
+	b=4EHBvt0su0z0TvmRZdEMef+uN4qo6W26oxPjfIaSMzmeXUXIB9Iy3VRFfrkAhiUIcmdL
+	 NPhNtgMmLaEPagHF7WgyrCHD+e2zrku9lvbwGKcQ35k+bbDhIkzpBzeRttRCR0OgFENTD
+	 C1ybnAU1iLTUoXsBpDXaVmsU+kOjUorjKS2+RIU8NIthfzKakH51OUjRzrwcn8BAogvK0
+	 Y6dkrOCw2dIVv5TI4wrak+tk14TOaCaPFpPCA+4zQkBJh/eTNeA5BQwdyzgV8WHr2Hw6K
+	 eDcNIcNQZxpMiJgsF2EHWvvUPaH6ABSwxojlgMLF8qMT2DYYAQJanpwRyhK+0bWhVvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117307;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4MX40vMMhwSIHoMJnZpT+uK1BwJ4FDZXqJbJwtrNmj0=;
-	b=BMA49qimvqKIDeMKBVm/cn1xwfPca80zGKBRlSeD5SYbOjVW0dvc/oNwoAWMyg/gSfPc
-	 4G+yMiUxfQUQYYsh7H3mu9v2g8UH8+1i6zDttlBmPdFlN9+6qLJrMaEghe5xspL/yP9dP
-	 ct+EjaV+bTeDNH43bY9UUng5/NexaQECgctrOJ15PCHMZArgX7kugorUp4//jyR6cWqeY
-	 wgZZRYwNKPhLNPdFi4z/Tkhgq5lu0QFK8F2oVDtxziVgnt0YqZdQI4AnYh7fAtW8brD0z
-	 bPFtCwT5FzgzGSM6cTQ4/Ns1+cvsdiSsChA/R5Na8T7RB3rDTtWxxy5yyIJgHHXJZsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117319;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QVxxN3pOPGXBhWxV8G2yXfM8qxwN8twHCdwdAriEeWA=;
+	b=TDRh3xoOb0DmnxYShgfjrBswJ2U1IBJv+wS5tAtybiFsosESZQBrdx5mdEAsizHRMqRq
+	 ESIoEpOr5b0II/aZRh1HyzjKPIJ01N+JzPVckHrQySRSwHWCbERrMF9+b6RJQ3TCRz9BL
+	 qlZ09sUfXZS8Oo17+TCJubTnFWCz4RkbqKfdl8F0dUDZjJAyp/uEQ2DthQEQR59ghi65P
+	 3w78cutkmw76iyHX0VmWt3LgbGZCy5C9zDeFTJSDIzElJAl5cuDUj1ZcdCxklpyiepFvu
+	 qqer5HnnLbx0WA0ce85y8r/kwdRqnwuFXkiQ20vSlOEapcA9WAEjzrAlQd+T2aFYv5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJOQ4Ie7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kb13883k;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6FA606A31A;
-	Tue, 27 Oct 2026 16:08:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D443606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:08:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D443606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJOQ4Ie7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7811F01825;
-	Tue, 27 Oct 2026 16:08:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793117306;
-	bh=4MX40vMMhwSIHoMJnZpT+uK1BwJ4FDZXqJbJwtrNmj0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bJOQ4Ie75jztOfmmLJtR3Zr7sfWZTccT4f3F6H7QMypZ/Ed5q0hF2WzJZgNabVjGZ
-	 eDHxKLaQa4cCxSJN6CnJSwmQtAYe+YAROMgsCX5hyWKDGfet1YRv7o/PcbziDuyzy4
-	 o1LuIUObpKr2q2h4qYW486ZcsECR/lMVXBRXl4AC/WTJ+EuB+ZGShnTBBtdWcpsSgT
-	 K6WogJB4fsz5WN81jPNmqGkLNRXj57jMdCk07RN/yTaZDfg61LcTJ5HmnkdoZZt69C
-	 ZUsleMbuBFv5/0hDPpnXE7Fyruczg4OfN73Vp44wrr6l0FvbNLECErGsgO6JzYFjug
-	 oVRFOeN+MdolA==
-Date: Tue, 27 Oct 2026 16:08:17 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: bpf@vger.kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	eddyz87@gmail.com, memxor@gmail.com, oleg@redhat.com, peterz@infradead.org, 
-	mhiramat@kernel.org, jolsa@kernel.org, akpm@linux-foundation.org, liam@infradead.org, 
-	surenb@google.com, david@kernel.org, vbabka@kernel.org, jannh@google.com, 
-	hughd@google.com, kees@kernel.org, mingo@redhat.com, tglx@kernel.org, 
-	x86@kernel.org, linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next 7/9] fork: Let the new task point to its mm
- before uprobes can find it
-Message-ID: <auDGKwWWNuhuB3IE@gremlin>
-References: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
- <20261022015712.1297331-8-alexei.starovoitov@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kb13883k
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso53031a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:08:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793117318; x=1793722118; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QVxxN3pOPGXBhWxV8G2yXfM8qxwN8twHCdwdAriEeWA=;
+        b=Kb13883kzz3b/nlA3jPmO5F6TOoJ5sdAI4+Kyz6oWaIqdtlI0SrZ4rrLzyXSRoUbDY
+         yZyvnTXKWlsC6W+vH2tBgqzCsMOFe4uJZmMzdyZ2T2nub7IO4QNSnMMYyhTR0M+hNStO
+         bclFP5R7bqxrimOPOG1Qi8NwPigJtx/52D2Hx4xPz1f8DfV0/JldW85ESFz5Y9bXxeQy
+         Xyh3GBKr3s+N7LaD+G1UQfD3AuFW+nPeSEaNevzKME1srpC2yl5RKkxByTvB6Seee90z
+         jSeqC+uTxrfKXycCMgVGJjI2B9OA+Ve7LB3ENZie49gBzGcpfgN1r+r2v9JsqpuMYKgd
+         g/Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793117318; x=1793722118;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QVxxN3pOPGXBhWxV8G2yXfM8qxwN8twHCdwdAriEeWA=;
+        b=NFvjLTOhyGcIlYnlexMNYwuKiK7NCh1ZYbwXR315CdyhoUjRJeeEsgClG7e5+XX2Bz
+         MevGupimndStoRadiTh59qo5IzGjEcDOBsLgCg0Bqn4+I4dxD1VtXiB2msAq/uEuKRao
+         0GCTK2WxdrRzJvc782sEqrtwzDk15ZmX7dZRfYicxYLnnEYX+acAdxd6iXXOKq/oIBxU
+         DqNZ1nsqRzzygUQNjWd06UliHofqDdLH5Dp3SHMNMiO1/AOkFhTbGyKPlrwcPvcFktXY
+         7B5N7PHlYG9geyMxPPRjwwROwvQYYBl6fPSr4Oh1BIlc6vBPuYKIn/vK+OeqeoPRZV93
+         aduA==
+X-Gm-Message-State: AFq9FYJGNcXEMAYwKPiYvKbMJdw1PcAzErf98vxX1bHrhx1AaeYwY+Yk
+	SZgRlN9NQwifn8svCVpei1+Jr6Ty/zlVhdUUc9Q+DELg2l8HDBdlVwBD
+X-Gm-Gg: AYBFou2DU1QEP1oX3sVtzgdPc3Z+IKBIrSJ9wnYMan3gE9hHySl5duB6/Kiu7hx5+w8
+	nPN0KMwR2uoKTQJstw7MruP+dmJ9nxSxKrucII4jSVG+oixRpugKpPqlici1d2SEhRK/QSgR+Gw
+	ItANQ2+MDFR+KHzUU8HXw7oWebPNGaMqb/juBeCUabKDlCqXsdHTR9mab0+8k6pu4HZ3+3Vavmi
+	6mq0/7u6PRcqeV1Cljky2fgaYm7zRjfEF5n1N/YQNYGon5Ghwpa4jFhJ6EKCnTe/qp7YvARN7XU
+	oguvftKtUtXtrwc2h7eU3lOJX6xH6TcfMpINH5v5Gm33EYHFHxcaOm/+hG1dGdK8K5Ag92ZYGEw
+	G6v2e0JLc6jXzYHyL70QMqIBme1UDjrkLTCjuCc+L1dVnSAgjGj9Rz8TBAvdsd5rf299baI0G3/
+	L6JTp24wMzB3Iys2iC57uacJSgzsqhQBjT3CUy2YQs1vjsYi7aj/EbSfss8SOknbLLJpqYQZLHh
+	qKPlroNUhymIOaW0ahNnXaQdKd6KxTQAQJR59V3qEBHLk0XYfVdhjKnMoY1oIxJZKIoPb2gwbxG
+	l/gGsYnreT/oUB4JQNWPHUTjJD7j7QsIYcX5o00D
+X-Received: by 2002:a17:90b:4fd0:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3adeb10f4b9mr8694182a91.63.1793117318387;
+        Tue, 27 Oct 2026 09:08:38 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebaddd45sm8500624a91.2.2026.10.27.09.08.30
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 09:08:38 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	shikemeng@huaweicloud.com,
+	kasong@tencent.com,
+	linjh22s@gmail.com,
+	kunwu.chan@linux.dev,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	tglx@kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [RFC PATCH v3 09/18] mm/swap: avoid direct reclaim when populating swap cluster metadata
+Date: Wed, 28 Oct 2026 00:08:12 +0800
+Message-ID: <3dcf416531542280b8b01b2bc6bde6f1d094f105.1793106426.git.lianux.mm@gmail.com>
+In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
+References: <cover.1793106426.git.lianux.mm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,179 +108,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022015712.1297331-8-alexei.starovoitov@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 01:57:10AM +0000, Alexei Starovoitov wrote:
-> From: Alexei Starovoitov <ast@kernel.org>
->
-> uprobe_perf_filter() compares event->hw.target->mm with mm. The target of
-> an inherited event is the new task. copy_mm() sets tsk->mm after dup_mm()
-> returned, but register_for_each_vma() can find the new mm as soon as
-> dup_mmap() releases dup_mmap_sem. No task points to this mm yet, so
-> the filter says that nobody wants it.
->
-> The walk that removes the breakpoint, because another consumer of the same
-> uprobe goes away, sees !filter_chain() and removes it from the child.
-> Nobody installs it again, and the inherited event doesn't see this child.
->
-> It's an old bug with a short window. The previous patch releases
-> dup_mmap_sem before dup_userfaultfd_complete(), so with UFFD_EVENT_FORK
-> the window is as long as the monitor likes.
->
-> Set tsk->mm at the end of dup_mmap() before it releases dup_mmap_sem.
-> Not earlier. The new task can be reached via its perf events and from bpf
-> progs. They shouldn't find mm that is half copied. Clear tsk->mm when
-> dup_mm() fails after dup_mmap(). Do both under task_lock() like exec_mmap()
-> and exit_mm().
->
-> The tasks with such event fork, while another consumer of the same uprobe
-> comes and goes. 5 cpu VM, 90 sec and 7000 children per run. The number of
-> children that the inherited event didn't see:
->
->   without this series          11 to 24, 8 runs
->   patches 1, 2, 5, 6 only      23, 12, 21
->   this series                  0, 0, 0
->
-> With UFFD_EVENT_FORK monitor that reads the event after 5 sec the child
-> lost the breakpoint in 5 of 5 runs without this patch, and in 0 of 5 with.
->
-> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Swap cluster population is entered from swap allocation and may itself
+need memory for slot metadata. Its fallback drops the device and cluster
+locks before allocating with GFP_KERNEL, which can reenter swap
+allocation through direct reclaim.
 
-This feels like a 'fix in the wrong place' thing again really.
+Make this allocation boundary explicitly non-reclaiming so callers can
+retain outer synchronization without a recursive swap allocation.
+Clear __GFP_DIRECT_RECLAIM from the fallback request while retaining
+__GFP_HIGH and __GFP_NOMEMALLOC. The retry can still wake kswapd, but
+fails without direct reclaim when memory is unavailable.
 
-What would a fix in uprobe code look like?
+This can make metadata allocation fail earlier under memory pressure.
+Keep the existing isolated-cluster rollback and restrict this request
+without adding a task-wide PF_MEMALLOC scope.
 
-I don't love that core mm fork code is being changed to address uprobe
-problems in general.
+Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+---
+ mm/swapfile.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-> ---
->  kernel/fork.c |  9 ++++++++-
->  mm/internal.h |  3 ++-
->  mm/mmap.c     | 14 +++++++++++++-
->  mm/nommu.c    |  3 ++-
->  4 files changed, 25 insertions(+), 4 deletions(-)
->
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 8fd6be932afe..5a2f571b64b7 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -1539,7 +1539,7 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
->  	if (!mm_init(mm, tsk))
->  		goto fail_nomem;
->
-> -	err = dup_mmap(mm, oldmm);
-> +	err = dup_mmap(tsk, mm, oldmm);
->  	if (err)
->  		goto free_pt;
->
-> @@ -1552,6 +1552,13 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
->  	return mm;
->
->  free_pt:
-> +	/*
-> +	 * dup_mmap() has set it if it succeeded. get_task_mm() must not find
-> +	 * it after the mmput() below.
-> +	 */
-> +	task_lock(tsk);
-> +	tsk->mm = NULL;
-> +	task_unlock(tsk);
-
-It's not great to straddle some task stuff here, and some in
-dup_mmap(). Could it all just live in copy_mm(), where other task stuff is
-done?
-
-It seems like changes you did in the previous patch dictate a move here,
-but the fix that David mentions moves the mmap lock back to dup_mm() anyway
-so a rework should hopefully avoid all that :)
-
->  	/* don't put binfmt in mmput, we haven't got module yet */
->  	mm->binfmt = NULL;
->  	mm_init_owner(mm, NULL);
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 9e3be236f18c..70e40306d881 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1520,7 +1520,8 @@ int walk_page_range_debug(struct mm_struct *mm, unsigned long start,
->  			  pgd_t *pgd, void *private);
->
->  void dup_mm_exe_file(struct mm_struct *mm, struct mm_struct *oldmm);
-> -int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm);
-> +int dup_mmap(struct task_struct *tsk, struct mm_struct *mm,
-> +	     struct mm_struct *oldmm);
->
->  int remap_pfn_range_prepare(struct vm_area_desc *desc);
->  int remap_pfn_range_complete(struct vm_area_struct *vma,
-> diff --git a/mm/mmap.c b/mm/mmap.c
-> index 6ce654e33e3b..3167272a77ad 100644
-> --- a/mm/mmap.c
-> +++ b/mm/mmap.c
-> @@ -46,6 +46,7 @@
->  #include <linux/pkeys.h>
->  #include <linux/oom.h>
->  #include <linux/sched/mm.h>
-> +#include <linux/sched/task.h>
->  #include <linux/ksm.h>
->  #include <linux/memfd.h>
->
-> @@ -1705,7 +1706,8 @@ bool mmap_read_lock_maybe_expand(struct mm_struct *mm,
->  	return true;
->  }
->
-> -__latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
-> +__latent_entropy int dup_mmap(struct task_struct *tsk, struct mm_struct *mm,
-> +			      struct mm_struct *oldmm)
->  {
->  	struct vm_area_struct *mpnt, *tmp;
->  	int retval;
-> @@ -1897,6 +1899,16 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
->  	mmap_write_unlock(mm);
->  	flush_tlb_mm(oldmm);
->  	mmap_write_unlock(oldmm);
-> +	if (!retval) {
-> +		/*
-> +		 * As soon as dup_mmap_sem is released uprobes can find mm via
-> +		 * the rmap tree and ask the consumers if they want it. The
-> +		 * filter of an inherited perf event looks for mm in tsk->mm.
-> +		 */
-> +		task_lock(tsk);
-> +		tsk->mm = mm;
-> +		task_unlock(tsk);
-> +	}
-
-Yeah this isn't lovely, it feels like you're having mm logic handle
-uprobe's problems. I don't like the idea of changing the signature here and
-having core mm deal with the task stuff like this, and now it's being
-fiddled with over 3 separate functions.
-
-You should be doing this in the more generic fork code.
-
-Or, ideally, if you could find a solution that doesn't involve changing
-core fork code but rather modified uprobe to stop making what are,
-currently, seemingly broken or at least sub-optimal assumptions that'd be a
-lot better!
-
->  	uprobe_end_dup_mmap();
->  	if (!retval)
->  		dup_userfaultfd_complete(&uf);
-> diff --git a/mm/nommu.c b/mm/nommu.c
-> index 68b05565e15a..7529e03d3f2c 100644
-> --- a/mm/nommu.c
-> +++ b/mm/nommu.c
-> @@ -1885,7 +1885,8 @@ static int __meminit init_admin_reserve(void)
->  }
->  subsys_initcall(init_admin_reserve);
->
-> -int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
-> +int dup_mmap(struct task_struct *tsk, struct mm_struct *mm,
-> +	     struct mm_struct *oldmm)
->  {
->  	mmap_write_lock(oldmm);
->  	dup_mm_exe_file(mm, oldmm);
-> --
-> 2.55.0
->
-
---
-Cheers, Lorenzo
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 2035513d3c61..68bed5023299 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -545,13 +545,14 @@ static void swap_cluster_assert_empty(struct swap_cluster_info *ci,
+ }
+ 
+ /*
+- * Allocate swap table for one cluster. Attempt an atomic allocation first,
+- * then fallback to sleeping allocation.
++ * Allocate swap table for one cluster. Attempt allocation under the locks
++ * first, then retry with the locks dropped without entering direct reclaim.
+  */
+ static struct swap_cluster_info *
+ swap_cluster_populate(struct swap_info_struct *si,
+ 			 struct swap_cluster_info *ci)
+ {
++	gfp_t gfp;
+ 	int ret;
+ 
+ 	/*
+@@ -569,9 +570,11 @@ swap_cluster_populate(struct swap_info_struct *si,
+ 		return ci;
+ 
+ 	/*
+-	 * Try a sleep allocation. Each isolated free cluster may cause
+-	 * a sleep allocation, but there is a limited number of them, so
+-	 * the potential recursive allocation is limited.
++	 * Drop the device and cluster locks before retrying. Metadata allocation
++	 * must not recurse into swap allocation through direct reclaim: callers
++	 * can retain outer synchronization across cluster population. Restrict
++	 * this request instead of granting the task PF_MEMALLOC, which could
++	 * give allocator hooks and failure cleanup reserve access.
+ 	 */
+ 	spin_unlock(&ci->lock);
+ 	if (si->flags & SWP_SOLIDSTATE)
+@@ -579,8 +582,9 @@ swap_cluster_populate(struct swap_info_struct *si,
+ 	else
+ 		spin_unlock(&si->global_cluster->lock);
+ 
+-	ret = swap_cluster_alloc_table(ci, __GFP_HIGH | __GFP_NOMEMALLOC |
+-					   GFP_KERNEL);
++	gfp = (GFP_KERNEL | __GFP_HIGH | __GFP_NOMEMALLOC) &
++		~__GFP_DIRECT_RECLAIM;
++	ret = swap_cluster_alloc_table(ci, gfp);
+ 
+ 	/*
+ 	 * Back to atomic context. We might have migrated to a new CPU with a
+@@ -3095,9 +3099,8 @@ unlock:
+ 	del_from_avail_list(si, true);
+ 
+ 	/*
+-	 * The swap allocator doesn't take swapon_rwsem. Looping through every
+-	 * cluster lock after clearing SWP_WRITEOK ensures that allocators see
+-	 * the updated flag and that no allocation remains in flight.
++	 * Drain cluster-lock users after clearing SWP_WRITEOK, so swapoff
++	 * does not race with operations that started before the transition.
+ 	 */
+ 	for (offset = 0; offset < end; offset += SWAPFILE_CLUSTER) {
+ 		ci = swap_cluster_lock(si, offset);
