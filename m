@@ -1,100 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793137578;
-	b=f8qU4eZ2KO26Bfn77DByCtzGz4ZRHyeYuLc/HPwzrtsv58giueVERGB4LkQeA663mbjQ
-	 6GJG5642XpE9q/+OKbJfRQttTlWB+cExiWyEfMJTAIuj9lz9O5cz7ZpyT5rWlhycV6QKW
-	 QcpajX8+v4YEYOAuE8xV5ogxMh0fSnBEN25CpURBDn02bVCT/SdRf2Fk5VhBxTQyvY0Dx
-	 P3P4FroLzz/GZKz0ztIt1TrtClcSFrIteUYiQUyaUf5cb877afEi39Cv3+0xr8YckdOZd
-	 Tjggn5/jkVRJDGQi8krPvXaKrNTYyfNBaQ4edHptAdkaxyHeVjjvnM2S7tZwUk178qg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793137578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
-	b=atAei6KiaQOpZbNX9LiEU53QETddYAOLl1XW9ppR6JUReAJnQNzNhh6aaUBFc+6vdAzs
-	 Su8rgbAKNEQ+xLXPCvFdHEjEr+QEnfvqBoyXFqMOM++rnFn4mgbT+0LppBks239Un7x3B
-	 EBd723nPwgxzc9xTUNHU5rvRGwBHGN4340Gryo9MRfUDVsb96dth9wx5MASSs+Hpmhqeo
-	 NuuCIS3I5nI38omdNeaqlkeXY/GXSMNYlvp5BJHE1ZxZmI3Tmx7g8AlH5eVAz9tZpUJZo
-	 MoqINBTiYILXXlD/ByaFVrmiCyiDUzEUiTm1wc+8+VBjEgSTXlCP3YS7W4GYLni1HUw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Wbne8OHp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.122
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793137713;
+	b=5Dyf38TjiXmgch1DMrwhO9nCMWnxTiOO4GKaYo89FBsCttoIWjKr8oIpGR9bKEUEovvq
+	 EQb5NR6ROEyVcR31PcLLZf9ay8VFmXi6su1Uc3ZHETc6vVMYLw3EUUmaRhxnpo37W3rHI
+	 7BvCUSZOkGNKFS8Qc1Yyyl5lv4PEqxHKaLsCuoLj1Mfw6p+Qpfr4Ful3yoIM8V0HFzyMT
+	 0Dxa+iRRQOCtkSo/RU6s3WmbBaMdKmNTA5w+Z1PlKPp41H7+jQxYgwWLlydwXRXEgHRWn
+	 R7+iapmlM/cL82injTVcGXGiKpSc68TLSuGtextLHdRdn1udqwNqkjHfLfqmNjvTb3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793137713;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R5y3TC+OxgWb2k2zCyoTeuDSWBjSf0l8Xg0k9asjKQ8=;
+	b=0WpfHMrtERtiPDpI0Xrzzv399f36qR5l9l2FLVoliXaebe6l0bPTCoiHB9lO/PFGTBje
+	 o5sibhNa8CklNeZ1tixnL9/8fODd7++NNQsB09o2mUNynZ3WGCkI/S5I+HbwACL3S57qG
+	 WcoMehiEyt3LhxrvgzG6/hjPHnNZhGNRWQ7A7Qm1lYHagIfB852KNLgXujmtW2JGVKUmX
+	 U3xV4oN2PH6ddR5GzfuYvlu2oLV1NmmI40WIQyFF1iu1XWW4gRgxYe2FHE/zKOMxg7IbT
+	 2PjIUFc3ydqWbMWuwQTh+YyemKDGQp/tVCQLbcgmYWFwpK9GdASt4eX+uaQLCS9DxmQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=NsnIF6s2;
+	arc=none smtp.remote-ip=185.125.188.122
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA6AC606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:46:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA6AC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A39606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:48:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A39606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Wbne8OHp
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso628326a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:46:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793137571; cv=none;
-        d=google.com; s=arc-20260327;
-        b=feKz0MTXSYtTzcUSZ6MQwiNUb5fvXf5Jsvir5W5TWHlBME5noDJWJni9+eliHKgt7B
-         av7Zm6bYlbfzXyhusVCjveeF1+zMrt4vp1sRg7GRLJ9AUayTSnEZx45CPjvg1BF7TNSk
-         n4gnUl7uG9HsxyJBgTvJR8NzeUPUQggzCQruxBHjD/byAvsWdo95xH/ij6lG4+QHYyKd
-         eZh+GDUDPhWHVm5EYawz4DxhZmBlDFdHcYdr0tjzVyBPcs38DBE1cxC0asJZlC/Cg5pI
-         XgcgsEr0XQURgu7dnSjh4PpIeB89KLc1siOcx6ASzIOrR+eOGXeRQGdF6x/j/JDyiJdi
-         8dqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
-        fh=YjQXy+ioJ/t+6aRW76FLCzxwpKzMKDRafKAZUeoG7Hs=;
-        b=etMVLMQ5ZYhQzxfKRR1sNu+NMQhIKaprZnvpbnxVWy/jFUivklyRJZNrJITPda0yqs
-         rXO+ZAIz8hmtxcxt5OFVrHTw9C6RQ8rLnvO4ku5wTrA0ajAyKLTC8cwUJmYtvTYYPEhJ
-         kICioPBzqmBonf8olECz6iZVfKXqfJK0J5kRUPg64qr3k06iAvaWieeFw7gYU8uSxbiZ
-         ZzochDfZDUv4HuRinUVC6UXJP9g1iHko7aNiTiBXC3Gx47mZljvyP80J7wMpcAEO3FRx
-         0ZAKLFD5ZJMKmNi1QKhAYljcuvm7AHvcWqkENWKLTWfV6j2+eRJnqqGN+RhmQuo2qONA
-         WNlw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793137571; x=1793742371; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
-        b=Wbne8OHp5wFBPP5dxuR8+Kp5ZHrm8v80mBFme9V3XRymOzyPXT+ANjuS8mZtAutbOt
-         ODy1sui91Ycwohd+oEsUjL53uPSBpLjWgEgWbT0Ma2aK7Hvfe3g01z4xkvRH6s2A/fGZ
-         +Zbv9XzVpEdyJwXjAhRmHLJ3XY730+XSfkzgh8qi4omMFnsRCwCi2Puq9v4j/9LjCquY
-         7A7TovQ1C2rR2zd4geupuZI+05Cnugg1XhJ4MHSma5JAUcS+LWaaA2qCMueEuNn/BKvO
-         xSW9c+bot29ZINzBkQ0CD12vMG5F6NsY2dux4jMT3EVU1twWW7mORuqkOTF0o5JB3euK
-         EGbg==
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=NsnIF6s2
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 173963FEB0
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:48:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1793137710;
+	bh=R5y3TC+OxgWb2k2zCyoTeuDSWBjSf0l8Xg0k9asjKQ8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version;
+	b=NsnIF6s23mLz8NdigrB4LFVWsHXrAI2gv8c/0r4DaBDgi1/szzsT3mv4J1WQvsX7U
+	 zdzd/DmaabVx0WgdHBRtYbsUUXQfLEmyIpuGgKO5QETxu3kW2fIUwM5U7EAKh+CzyL
+	 Pp9eBfvo7+XiQGcCKx0ts23DJkfEFlO/G03UBIhkJasSzYcHH7IHNp5njCNmk+G+fX
+	 8D5ybftMkhFpOTqrB031ZTfloLSY5zbGBxPF3Pi4FrN6DTWkxAj/qZzzsg59AoaEST
+	 9SQcPFdyqRxu7i3MP42POw4BgRS9tkm1/JJA95eprKGqLI9+SH3EgE2aJ+83zzBQsH
+	 0BK2u573yl1ivql/6a50YiauLCYuvqU9yJpCciUGP6JfULI4OnQFcAEoLF8LQkShTJ
+	 C8pkCrsnxG0Ls3PJ67TagKG7PvFo6IabWsfM8+YMZ2fKbwt8i9URBHx+cOA+J+9wIB
+	 wjNDKJ+hHkZKc3fQAhVSzXiNzs1EkPR6BwsF+9hJgbaT19J/EoO76NQTPsQftvBV1S
+	 fue1T1CPnh3FP1giDmLPTaBIcypc/pNfudv+N/2IhOW/d7T1F9SgW+oVhU44HidGMJ
+	 +gSp4ue3iAgi/OMUiyJX881ZsA2MKWyhDgMtdfG/H//GT7I9gqPXcQFi3DcV1xLLUR
+	 +OW5JYCOTL41oZtLE0vGfUp4=
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ad94b96698so75844a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:48:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793137571; x=1793742371;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eVSNb0KQbTxZM+AQXhdYZUTzoSM560pyx9+jZ9Z1qdI=;
-        b=A7BmPIvW6UajVUQsBOPwgJz9FSr3cHYAnq9wmW36M36I3OEItIWVnhhDHElxwPBWjM
-         o3Q8SLKO+HXTuhdWFtvtd72KQQ/QSyMdC3MTuNImsB5wCWZ6k8xmF45Y4mxwlAv5Yj7b
-         tIco3wPE6h4hTUBplMEdOkKASky0OD0ixz9qZuRJQb/E8pJoqJLZiN+wJ40DkiVa8pUl
-         t3/AB0Tb+iH8+y3QsNJXzirSDla0UfBfxtrXtkTZT/rHP+ynsOJWeFL0Wg28x+VEpiJr
-         YP8LljSkRVJhAXc4AXfXbFd8YYDe1mOX115ULyvTKviTN4PHSfgc8D12T5kHaaIzGSva
-         yiAA==
-X-Forwarded-Encrypted: i=1; AKwUvBxBXjrcTkw6USF4yJMHIqWVR+uxBInsl9Jmi2OX0BND/7hbnDNy+TrukOEfR+iKuF9Y1IegeVAZeDl/btE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKExPeB3sPNdJpSh862nPEQ8VB/bGDiPmLjER/TKKuKOnWxYHsz
-	nMlse/IJvzzs90RGrnqYSpAH/dHVHJiOuDfp6k7k/I/ywXJk0JUPtsOZhgj02wg4OFbgXxnNlgI
-	lCB8gfXghQzsLo5QL27yieUjTZCn8oVRzsRp6RWXf
-X-Gm-Gg: AYBFou3i87qX6TbzJfJA/UUeAVK908n92/pd3sny+gYKoNra/b4bWxrKvZWvgko6Pjm
-	AxzwfUQhSGUPcEJdskPFrC3CiXQotTvfyaZhvb4vUiNQCrZxZb81sQWhmcdyBd5zGCAOr4Ns5yk
-	vo6+kQ/bN4ELJsnDC9yZNV+A/4sWAdFqTNWDmf8JM6O/JaWvdq7o6RVT8JaAK7+0Tgwa49Jtw2U
-	yUQ/cKF6QEZjvg37ScqNYpjV4Ly2CErx/KMKwgCENFmTcj2Z+T4nGB9DaBmtZvQzL723AoiXRGN
-	EvrsU3nIORc/s23xeISZjVMUeVe5XEm50SowYMLX6k6cQFpX52BZA7GvG2XOH6mMRjJheVMds3r
-	rdNBN0nUC0Z9QGy/R2LLGk1YdXIIWWLXeV7XQPFxzrE0z8Q+oFx2Qdb5/aIMXmPy8N3s=
-X-Received: by 2002:a17:906:794a:b0:c36:7579:fe6d with SMTP id
- a640c23a62f3a-c49bdf3769bmr41163366b.11.1793137570881; Tue, 27 Oct 2026
- 14:46:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793137708; x=1793742508;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R5y3TC+OxgWb2k2zCyoTeuDSWBjSf0l8Xg0k9asjKQ8=;
+        b=ULjz0fMnGZvajX5eQGaMD+l7pwqoBTR35sCKkopowZCw7FVddjbEnbBzizXDEoZdB9
+         2+X9DvfdSiNPRYdK5Nyrtr6eju5trgtYTO3Mm3XT6ZUtMTSmkiWW7rwxNQkEeHoxBSoy
+         o/rL+jG2g1jiPKABIWJ3h2UOrY17rQI0m8qQiZ5KMd0VeWZDVpf+eh35ABa/2W3nFaI3
+         c9kWYRplLbyeyGpPBkfc2rKRRe3NXD+ppnimnJMhz4ZRofhRdgRosk1r+Z/0YrUtPsEv
+         +keigiNXp5CQk0bkGsXz/XXjZxUyMu4CXMPPKyU5NY+hiQ05l6kX/yJ/TxhG0taX0JfO
+         gzdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz9+sk8Hy57/KwvHjSjT66lNADoQ/gxWGQJNIpA3k2mQsfFXW8ES0GPMkk5e6dR7lsejL4L8BRHP573da4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwkWEQYKmnqN2q4nWv3TXJ9Druxc7JoI6h5FQaC9GIx5urFaiB
+	KYgI+S7/xrmtb1DKzLQH5zsKVk3wiXOejp7UJSmn30ath84HRGtVPE5yWe2Hzh7wcKVhy4IGwUq
+	oH4Qjii4SYcuiq5oX5JAYfTPgMqB6TH/LNebAisD9t+g3J81wwkLP6b6XiKzuulIAE8TobcDzIc
+	IhFn2qGg==
+X-Gm-Gg: AYBFou3UB/opNc6nVKqIHVTi+Uiz4dL4zYDg/hJpsULlaCmsCA8XhtXXNDVt4lUASXx
+	VL/nwq2sU6D4nG6LZ9pRAgBVv2SXiMl3GZeR8xAJ/Bej+YzTYwTYLDoP7RicfTI7EG0t7ffjGSf
+	VwGktOa2rht+ZxJxzgutyacXYD36eDk/XSlrs3FpHeixIUkk/D1h2C/NoEpHi0DK1G4KaWJgLi0
+	SnrJ21Hgh6A7r6Iia2z5x8gUhkm8pRWv/vueDj8aaUGy3BMxHTUi+VZM5ulIwhnD1KwnWUNMKzi
+	WvbuLvnZVNNDd92SWA7GVZBfRv9DIVG87Pa6ha7Z8P+GAb1qhHs2fV8gTnsXB6EszX6Pkgv5tcd
+	BpLSieoAq11UNkpEVxAgl2w5E/PAq0lKq8dfrJ08coOJLp0dmpoNTi8ZQL9b+2nQ6cVkI1uvv91
+	RYMNh1IcAL9Yod+a4EOjNqP+ZXAdG9Q9wYDmDzHMZJSZ3A16S89hAIIVIj/qjY2WsI1PYGY84Ql
+	g4qPsANrrpPiV+o8iOisr94gsDEyh3k5dQE7Lq4Pw==
+X-Received: by 2002:a17:90b:6d0:b0:3a6:e1d1:e511 with SMTP id 98e67ed59e1d1-3ae581402edmr428979a91.4.1793137708598;
+        Tue, 27 Oct 2026 14:48:28 -0700 (PDT)
+X-Received: by 2002:a17:90b:6d0:b0:3a6:e1d1:e511 with SMTP id 98e67ed59e1d1-3ae581402edmr428960a91.4.1793137708192;
+        Tue, 27 Oct 2026 14:48:28 -0700 (PDT)
+Received: from an-XPS-15-9520.buildd (2001-b011-2008-445c-fcc4-d427-0dad-9764.dynamic-ip6.hinet.net. [2001:b011:2008:445c:fcc4:d427:dad:9764])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a9a5e73sm37741a91.10.2026.10.27.14.48.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 14:48:27 -0700 (PDT)
+From: ChunAn Wu <an.wu@canonical.com>
+To: Markus Probst <markus.probst@posteo.de>
+Cc: linux-serial@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	mpearson-lenovo@squebb.ca,
+	derekjohn.clark@gmail.com,
+	Julia Lawall <Julia.Lawall@inria.fr>,
+	Nicolas Palix <nicolas.palix@imag.fr>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	cocci@inria.fr,
+	linux-kbuild@vger.kernel.org
+Subject: Re: [PATCH v6 1/3] serdev: handle devices without an ACPI or device tree node
+Date: Wed, 28 Oct 2026 05:47:42 +0800
+Message-Id: <20261027214742.3624605-1-an.wu@canonical.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <75e6d86340073638d966acb85465c28e6a08ceda.camel@posteo.de>
+References: <cover.1792856688.git.an.wu@canonical.com> <263a607c3602f31a3f6fdd245e3c2008cdf97abd.1792856688.git.an.wu@canonical.com> <75e6d86340073638d966acb85465c28e6a08ceda.camel@posteo.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,59 +124,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023001603.560210-12-wusamuel@google.com> <90371d2279a5eb08966a82325922e1f15eb93560d4019f5c9020956cadb4120a@mail.kernel.org>
-In-Reply-To: <90371d2279a5eb08966a82325922e1f15eb93560d4019f5c9020956cadb4120a@mail.kernel.org>
-From: Samuel Wu <wusamuel@google.com>
-Date: Tue, 27 Oct 2026 14:45:59 -0700
-X-Gm-Features: AclHuK8QaCDsAbnjPaGufNN4kMFz5cqAaOc_WFmJQjgBqVdaEIaSp_a56eCEZoc
-Message-ID: <CAG2KctpuWLxdxB+LzrBO8eGsL2E0m_DphcG4cauB0cHuEDEoRw@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v2 4/6] libbpf: Resolve typeless ksyms via
- KALLSYMS_QUERY ioctl
-To: bot+bpf-ci@kernel.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, andrii@kernel.org, 
-	eddyz87@gmail.com, ihor.solodrai@linux.dev, ast@kernel.org, 
-	daniel@iogearbox.net, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org, 
-	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com, 
-	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com, 
-	justinstitt@google.com, kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev, martin.lau@kernel.org, 
-	mason@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 5:51=E2=80=AFPM <bot+bpf-ci@kernel.org> wrote:
+On Mon, 2026-10-26 at 13:59 +0000, Markus Probst wrote:
+> Reviewed-by: Markus Probst <markus.probst@posteo.de>
+>
+> You should add the maintainers for the modpost scripts to To/Cc.
+>
+> $ ./scripts/get_maintainer.pl scripts/coccinelle/misc/of_table.cocci
+> scripts/mod/file2alias.c scripts/mod/devicetable-offsets.c
+> include/linux/mod_devicetable.h
 
-[...]
+Hi Markus,
 
-> Would it work to fall back to libbpf_kallsyms_parse() for typeless extern=
-s
-> that are still unresolved after the ioctl pass?  That only costs extra ti=
-me
-> when a symbol is actually missing.  Alternatively, the kernel query could
-> match the .llvm. suffix for data symbols.  I did not find a fix for this =
-in
-> the rest of the series.
+Thank you for the reminder. Adding the Coccinelle and modpost
+maintainers to Cc now.
 
-Yes, for strong externs. In v3, if a strong extern returns -ENOENT,
-I'll fallback to /proc/kallsyms to scanning .llvm.<hash> suffix,
-keeping the same semantics as before.
-
-Weak misses must default to zero without falling back to a scan.
-Otherwise, all objects marked __weak would pay the full /proc/kallsyms
-scanning cost. This is a slight semantic change, as a weak symbol with
-a ThinLTO-renamed static now resolves to zero. However, this is the
-behavior of the light skeleton (gen_loader.c), so perhaps it's
-acceptable. I'll note this in the v3 commit message.
-
-[...]
-
-> Should the fallback cover any error other than -EADDRNOTAVAIL (and other
-> real lookup errors), or at least -EACCES as well, with a pr_warn() for th=
-e
-> errors that are not handled?
-
-I'll update v3 to log pr_warn() and return on open() failure or lookup
-errors. And then I think I should reset partial state and fall back to
-/proc/kallsyms on ENOTTY, EPERM, EACCES, and EOPNOTSUPP.
+BR
+    An
