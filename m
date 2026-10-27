@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105414;
-	b=sHGAZZDgP++2szUf7hQkFwXBaegTI/CrL7sfwV1JcyTclfcUicYsAc7Br2qTbcoE58rm
-	 RFOeEecxPziKeAgXKWPiVxdCkuZQsFkOA1IE/JzllIRAZ+1jE4bv5BXj2ZpsndzU5be7W
-	 nuPhmtiUHwMLRTfHvHrXVIU4HTXQco4PZBuohSljDbjDP7R2ocseunmXbSc0fbvRV7as7
-	 Z/nuq7b9ATW7HSrAUP4Rniw08hNPKeYIPnn0z75Wje0rbgJk7pH/2++FwvbKaryofocXk
-	 ifFHv02vqOVBzaAAOLoP/yQ1a8HOaVSx8BFlGZBkRYBtuLRRYunha+AJOICt9gdpKiA==
+	t=1793105408;
+	b=jCDGjqrO774v9SasBhjWjuA2U6IYJ4BdThSN80CA/ubTigfMx2LVzJk44lheo6wb5gLm
+	 5DyF+dt8nU5g0qWOFlLV1VLrrS4cKN6bb8W0F6IYnwjtvDiL5qZdr16drUQvmlefCQhHQ
+	 1YPuyDpfDsHn/3XyLLhxC7wWGv1wiGqtUiviPLsD4tv9vxnxm/nDlt+MQsRBJLsNaTVe0
+	 Kic2vh6bbL8wY5HcImjooA+E3TW1JHh1okMocCezj5B0WRV++bjH7wQDtWsLZWgsXCk0C
+	 G8pawLEe9n1kLFybT1vtaJZn4Lf7ZD9mFhccS2K2CRs68mWsmvACBIk55PxTRxe9N7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105408;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WGfqlzOlm/2Znl/FFRINE+v3482ibGM0kLPKp8gPRsI=;
-	b=n5+hHCrKMPk06ty7Yj6CfpY+RH43DbQ7kvYYcLamTFisyI1IRgwezpG7nlityngzi5hf
-	 MuVXN9akVkKbQyh7zutDv61Urc7NOvlw8zF9PjZGWO00T0mfly4l8qm6JBmxPMHIzrzwx
-	 4+hPfI1zKARpXn9z27DzNUcxMIJe8EvW/jcR5iK0Uu6mL9ZWsl7U5oqk/EUzhB2HGolMP
-	 VTLsmBJtmQ2dzQuu8sW9y9GOfFTHm9qiMhOH01JffADoxouuQCQnZiRzsxNhlVIMGnodc
-	 PTEiPS5MI/yyoDl1DWwqKV2bQK7EOynosCa/adTmaIXCq1Oo+BtbyKbdn5kIzdeu9PA==
+	bh=5maieUrV3gg0OvUYuumtngfF5Rbt74fkE8XBQYCal3Q=;
+	b=BGeEF9uS4S/Xwsv9eCU12rgLcrVdlVwtEa9UGf1OoP3125+e7V+2KrHEyWoLBd8ULeKd
+	 XHF0q18qCpG1XeZfXIJGHNElmmxAZF0Up9mQ5YiZY4Ttj3UuAP6YpJYRS0AC6nuJ09LaH
+	 yAgo1wvo9MAXjGRVZ3n3oHul8XvWJY6gt+CwMoNBkJyMDWwjm6rI012HRtXBy4721GdB+
+	 Inps9EzuEEKCmCJLCjsskwe8fQxwiTndhrML3bE2TQm/Cj5AzMS+T8A31lgHn2W+6L9eY
+	 mBG5OOUBymfVm48b53zvU4b6ndYduUR1JJ/iqjRe6iBJQ4N70aKCxnPq1PxPcA/+9Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="DsxI+c/j";
-	arc=none smtp.remote-ip=209.85.208.177
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hRl9iP1r;
+	arc=none smtp.remote-ip=209.85.167.54
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FEB60A263E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91FEB60A263E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD94660A2606
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:50:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD94660A2606
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DsxI+c/j
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3ab01c46697so34627501fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hRl9iP1r
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bb7c6980f1so1787129e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:50:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793105412; x=1793710212; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793105406; x=1793710206; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WGfqlzOlm/2Znl/FFRINE+v3482ibGM0kLPKp8gPRsI=;
-        b=DsxI+c/j5luKhz2DTcBC/EQ6eAMBNBTuZW+hO4kfZKURCgWmr3Au7SV5GFXeGmVRAE
-         nbHzTxFnYiNHhhO2kW0QYy4nPqr3/oGopTV8JGUbmk/PjK7PqFj7OSdmWeM+LcjO3gmm
-         SLtPDDEWAKurXoL1/ziObfD/MN3uHUPRlGM1TJvOQ9Mr0/W7+ehi+CMZViZDreqQ4Fxa
-         AngwzBstZf7sUg0krDqKTsYZHDFbaZKwO8zZr+q80GcYKj8QBWm50O7yqDEHAgVxdckq
-         WuPciy4/tslSjz0XftLlFYNl/hW2cl4ShpZGGmxd23QGhB24cvdvPjVTzDZiayoHTfLN
-         2ZRQ==
+        bh=5maieUrV3gg0OvUYuumtngfF5Rbt74fkE8XBQYCal3Q=;
+        b=hRl9iP1rX7Yescz/IkmbkH6cXyf/ED1aKA7Xz0y5VNBAW8maE8GgmBLi1Wh1HJz5Xq
+         zK07nv2LlnsuYPggwoPLVCpg9cILU7yxCYhUI8kfh//X0q4h84Uxy4WnAqOym2Z8oQ94
+         870cWd01UkCi1PlsYPmlcE4siKtHAmuIkZEvSG/jnBk6fQ5mVK2vhe27IgRTfeNsKKDl
+         YMuUVPSGHaTgX13h5g1TJatd7M9jShSpYRsgvpTcBOVfsiSGUtW2jk4UkN8GZ1buI9G5
+         uY4QIKF9bGFC6ba9VYdtJIgBxMjedCj7bDXcmJ1v/U2lGc93fGlda0Wo+SvL83E1oZsb
+         G2PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105412; x=1793710212;
+        d=1e100.net; s=20260707; t=1793105406; x=1793710206;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WGfqlzOlm/2Znl/FFRINE+v3482ibGM0kLPKp8gPRsI=;
-        b=g7EU2nxvQMQ+gQ21LyqHiGKSkwDiXN2i6pmfQjhV27jWoysHdjp4kREj4HmfPLsTU0
-         2ubTOnujAjLdiI/54wy28Dphc/W032SFVoBLe7OMf4n0aC4sw8QhvVpYDpYFZCWQumyI
-         mXQqAcSmJhbLLiWyH1RUz/RmlXlQOBjvO3QVLnrEXDutBNnaflViLhWWkq3Dz67IPUix
-         0e7Xr55MOlAsOyO/UPTFMULK9i3Hg4+f7HmBFmN9hY4BFJ7RYBQFEpGcGXshFZeqK5dm
-         JWV+Fu3Tm/UpB0i+dgjrDbTVlbdfyE15kblj4rLuWad+5l151+LkKY0/IBmP+WqzX4c3
-         r4HQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwSonfP+ydMu9RGGq6fED49+mc9hncpidEotGoT5j9z28y2resWEliIFTX7YUQsXyBr0+hj4rfQe2vLF5w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1sqvUaKRWX1YiH7DOmZMftIgPlGMZKu9nAVcCss67Xa4g/JrD
-	KaCw6zdPdy/YR4dliCcna0YQhM5unCHqmg7rJfzh2XVQN7P6Fbk41G1A
-X-Gm-Gg: AYBFou3mcGS6MhDDITwcYPsVOU7bNuBDjvLwLjEuhkCPEhKyvdqA2ue9OsUwQogzUf2
-	utmJ+ChXooESzFhiZUzmnRfBcBT7MChA6UsX8HMxg5f1kZuIkkfHWfqvJOzzASVzJuAiVXUQBo+
-	p4rs9e4I55EGkmVDxbIL0acwxAGmqOy0sbsJvPyEeDvNoN2zUfGy7CjkOXDcnT4wOtbjVz1vNOe
-	1kqGbteg/mVMJNHeyW1KCXhF/YavTvtqnHVFHqPmq0x0rYoEnKyKHQ60Aw72oqHKERNRx/AuE9/
-	9kHfVgnc/G+gv4tCon8xp2hPyeV1+5wyx7GQC/+l0STlya58XO04AwGRmDFJsfz/nl2g1eOl2dm
-	Zia7T2SLhs1f7/RnPqOKmG9loL+bNUK+MGFfYIFLe4dRC0sawvQzrilH/XqBv1LrX/SNfaGefnv
-	KD7NAD2FEI1BQmSO2yYvzphxf0bjV7d4+l5iIcOnY5GtrebuLOMRWwPqlV7al89/w4HRKIDfmbT
-	bEhCei9YDxsoSZlg0RFzjedT3HeCQYNSZ30prwYIzxYhG2bJiAK0WVbsrSVo77jrpIXLSbaUW+6
-	a7jJpMspQQ1vuMQY9V2CPvafTglvYAJh0nrvbdoLa+H4m+xDsOQGZZNa2YRHqWTg
-X-Received: by 2002:a05:6512:400f:b0:5bf:bed1:6ae2 with SMTP id 2adb3069b0e04-5bfbed16c19mr1876354e87.65.1793105411577;
-        Tue, 27 Oct 2026 05:50:11 -0700 (PDT)
+        bh=5maieUrV3gg0OvUYuumtngfF5Rbt74fkE8XBQYCal3Q=;
+        b=0X/eCwWzIIPkR/iDTqA25Abkk5Fw0R0TD27GLl7rDd8jWrMcLomaT+WWPlvUy2hi1N
+         UTOqCxHGVTkuXOKTn2H7ptmaLi3pkoLOOmOFqQgB682mDTQZ9rTEYceMmMm288F9LL5z
+         N9HK93mb2Wfp+N7A8CfWsDwwi3EpNmiw1zfHXRbCrGREQ/pfDxm2xktNHEOgxEkp0KRO
+         iwTPtxY0v5H8ENx29Rn2yhmaiSaMnNsLzBAP5r6oKBmZg4sDQ35Zt5upVY9QKCh4CdVs
+         8xrT61355ccVSj/9xqx4BsNKpW8VOHhDbIX/VOuU+homF8KXk/miTuOWabL25OFe1Yr/
+         h43g==
+X-Forwarded-Encrypted: i=1; AKwUvBzrsJ8dOmpR6n16O9HLRPbwLn37ldmbsB/qpmVIxr9zJRUT9kP6wDsJZgzZLxvSk8DDc6KQcyuAqRbN870=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImAYxBU3xjgUB1XseTVo8Lb3ASmj22YQBxeICYJ/GfBsrcVigO
+	FWIGN8QvB5WWevhggnlhBYTZ7S89bnmXm1XT0DW400rd6kRoRSSg7t89
+X-Gm-Gg: AYBFou1TZKWlcLqq9AA4R6vhpHVx4lNRqyF2GGt90qsj5cTXulDdpFq+1lgO3Q8L35/
+	cGS4hcrcNgHJMGP7S3w27CEB3enGNzO1VjKnZwIE5LaYPyxB0ifdvVXxmsqOVV25DuU1Y+aqCs6
+	WnA9b1ATnY/3FIdUN1DxQxI25/4gcEkDqBj+W3L5coD14KJ0bKr9/UgvcYhajdcMkyYd7cPRVD9
+	mAVbeppRhe981IoPYfxGwZuuW5glksWiGVtvgCokRz+E8MYZwOi+1Wf1m/v89E7ZIS70XjRWaF4
+	3Xj6x9atBL/TNidDSJJGy17JQcqbRUKBRJ5kuCXKTnjCYvq3b2aFbpk97RTCvqaNX19rejxived
+	Ol32vq5d0D5NtVbnhZpv314H+2gxwDRPnP5UWO6PsTew5CyKcCxYQ1OdogMu9Tg5kcdWIv6dWhD
+	M4dC/oKgmZArJC4bBnW8CSvYnzXW2nkB019/hEqb55r71DjZ1dZCerNYUNSVl518kg9iEUrY7js
+	S4b63xUtYOdMnO0mldt2ZFxEYP5oupiTT26nM1ANytInndv7w/RRLUsbM4hCP20/rB8eiw+biJ0
+	hfdK2BIN9qVeTxojHid67Hf7hexdLsDOCWhlZqgt+SaEjUqr0RejS2PJgmkCnyvr
+X-Received: by 2002:ac2:4c47:0:b0:5bc:b15d:beb9 with SMTP id 2adb3069b0e04-5bfb71c6b52mr3628166e87.29.1793105405831;
+        Tue, 27 Oct 2026 05:50:05 -0700 (PDT)
 Received: from yantra.. (nekmmqtcmoboczbkdcs-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:55c8:a52b:6ba2:979c])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7e7cb24sm2052803e87.25.2026.10.27.05.50.10
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7e7cb24sm2052803e87.25.2026.10.27.05.50.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 05:50:11 -0700 (PDT)
+        Tue, 27 Oct 2026 05:50:05 -0700 (PDT)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Alex Lanzano <lanzano.alex@gmail.com>,
 	Andy Shevchenko <andy@kernel.org>,
@@ -106,9 +106,9 @@ Cc: chrome-platform@lists.linux.dev,
 	Rupesh Majhi <zoone.rupert@gmail.com>,
 	Marco Elver <elver@google.com>,
 	Bart Van Assche <bvanassche@acm.org>
-Subject: [PATCH v4 9/9] iio: enable context analysis for all drivers
-Date: Tue, 27 Oct 2026 14:49:54 +0200
-Message-ID: <20261027124954.110697-10-zoone.rupert@gmail.com>
+Subject: [PATCH v4 3/9] iio: core: mark the mode lock helpers __context_unsafe
+Date: Tue, 27 Oct 2026 14:49:48 +0200
+Message-ID: <20261027124954.110697-4-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261027124954.110697-1-zoone.rupert@gmail.com>
 References: <20261027124954.110697-1-zoone.rupert@gmail.com>
@@ -123,704 +123,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-All of drivers/iio now builds without context analysis warnings, so
-enable it in every Makefile that builds objects, replacing the entry
-for dps310 alone.
+__iio_dev_mode_lock() and __iio_dev_mode_unlock() are declared to take
+and release indio_dev, a token for the mode lock, because the mutex
+itself is private to the core. Their bodies take and release the mutex
+instead, which context analysis reports once it is on for the core.
+Mark both definitions __context_unsafe().
 
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 ---
 Cc: Marco Elver <elver@google.com>
 Cc: Bart Van Assche <bvanassche@acm.org>
 
- drivers/iio/Makefile                        | 2 ++
- drivers/iio/accel/Makefile                  | 2 ++
- drivers/iio/adc/Makefile                    | 2 ++
- drivers/iio/addac/Makefile                  | 2 ++
- drivers/iio/afe/Makefile                    | 2 ++
- drivers/iio/amplifiers/Makefile             | 2 ++
- drivers/iio/buffer/Makefile                 | 2 ++
- drivers/iio/cdc/Makefile                    | 2 ++
- drivers/iio/chemical/Makefile               | 2 ++
- drivers/iio/common/cros_ec_sensors/Makefile | 2 ++
- drivers/iio/common/hid-sensors/Makefile     | 2 ++
- drivers/iio/common/inv_sensors/Makefile     | 2 ++
- drivers/iio/common/ms_sensors/Makefile      | 2 ++
- drivers/iio/common/scmi_sensors/Makefile    | 3 +++
- drivers/iio/common/ssp_sensors/Makefile     | 2 ++
- drivers/iio/common/st_sensors/Makefile      | 2 ++
- drivers/iio/dac/Makefile                    | 2 ++
- drivers/iio/dummy/Makefile                  | 2 ++
- drivers/iio/filter/Makefile                 | 2 ++
- drivers/iio/flow/Makefile                   | 2 ++
- drivers/iio/frequency/Makefile              | 2 ++
- drivers/iio/gyro/Makefile                   | 2 ++
- drivers/iio/health/Makefile                 | 2 ++
- drivers/iio/humidity/Makefile               | 2 ++
- drivers/iio/imu/Makefile                    | 2 ++
- drivers/iio/imu/bmi160/Makefile             | 3 +++
- drivers/iio/imu/bmi270/Makefile             | 3 +++
- drivers/iio/imu/bmi323/Makefile             | 3 +++
- drivers/iio/imu/bno055/Makefile             | 2 ++
- drivers/iio/imu/inv_icm42600/Makefile       | 2 ++
- drivers/iio/imu/inv_icm42607/Makefile       | 2 ++
- drivers/iio/imu/inv_icm45600/Makefile       | 2 ++
- drivers/iio/imu/inv_mpu6050/Makefile        | 2 ++
- drivers/iio/imu/smi330/Makefile             | 3 +++
- drivers/iio/imu/st_lsm6dsx/Makefile         | 3 +++
- drivers/iio/imu/st_lsm9ds0/Makefile         | 3 +++
- drivers/iio/light/Makefile                  | 2 ++
- drivers/iio/magnetometer/Makefile           | 2 ++
- drivers/iio/multiplexer/Makefile            | 2 ++
- drivers/iio/orientation/Makefile            | 2 ++
- drivers/iio/position/Makefile               | 2 ++
- drivers/iio/potentiometer/Makefile          | 2 ++
- drivers/iio/potentiostat/Makefile           | 2 ++
- drivers/iio/pressure/Makefile               | 2 +-
- drivers/iio/proximity/Makefile              | 2 ++
- drivers/iio/resolver/Makefile               | 2 ++
- drivers/iio/sensorhubs/osf/Makefile         | 2 ++
- drivers/iio/temperature/Makefile            | 2 ++
- drivers/iio/test/Makefile                   | 2 ++
- drivers/iio/trigger/Makefile                | 2 ++
- 50 files changed, 106 insertions(+), 1 deletion(-)
+ drivers/iio/industrialio-core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/iio/Makefile b/drivers/iio/Makefile
-index 4e1d930108de..7aead0b09cc6 100644
---- a/drivers/iio/Makefile
-+++ b/drivers/iio/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for the industrial I/O core.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO) += industrialio.o
- industrialio-y := industrialio-core.o industrialio-event.o inkern.o
- industrialio-$(CONFIG_IIO_BUFFER) += industrialio-buffer.o
-diff --git a/drivers/iio/accel/Makefile b/drivers/iio/accel/Makefile
-index fa440a859283..ec75ab67bd45 100644
---- a/drivers/iio/accel/Makefile
-+++ b/drivers/iio/accel/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O accelerometer drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ADIS16201) += adis16201.o
- obj-$(CONFIG_ADIS16209) += adis16209.o
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index d7bb4815df61..15ac57dc2054 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for IIO ADC drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO_ADC_HELPER) += industrialio-adc.o
- 
- # When adding new entries keep the list in alphabetical order
-diff --git a/drivers/iio/addac/Makefile b/drivers/iio/addac/Makefile
-index 577777276e43..ca0c5d341627 100644
---- a/drivers/iio/addac/Makefile
-+++ b/drivers/iio/addac/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O ADDAC drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AD74115) += ad74115.o
- obj-$(CONFIG_AD74413R) += ad74413r.o
-diff --git a/drivers/iio/afe/Makefile b/drivers/iio/afe/Makefile
-index 4c56c8edb2ba..453f1fc7f647 100644
---- a/drivers/iio/afe/Makefile
-+++ b/drivers/iio/afe/Makefile
-@@ -3,5 +3,7 @@
- # Makefile for industrial I/O Analog Front Ends (AFE)
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_IIO_RESCALE) += iio-rescale.o
-diff --git a/drivers/iio/amplifiers/Makefile b/drivers/iio/amplifiers/Makefile
-index 0a76443be1aa..d7c5036ba2df 100644
---- a/drivers/iio/amplifiers/Makefile
-+++ b/drivers/iio/amplifiers/Makefile
-@@ -3,6 +3,8 @@
- # Makefile iio/amplifiers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AD8366) += ad8366.o
- obj-$(CONFIG_ADA4250) += ada4250.o
-diff --git a/drivers/iio/buffer/Makefile b/drivers/iio/buffer/Makefile
-index 1403eb2f9409..bb068efa4c9d 100644
---- a/drivers/iio/buffer/Makefile
-+++ b/drivers/iio/buffer/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for the industrial I/O buffer implementations
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_IIO_BUFFER_CB) += industrialio-buffer-cb.o
- obj-$(CONFIG_IIO_BUFFER_DMA) += industrialio-buffer-dma.o
-diff --git a/drivers/iio/cdc/Makefile b/drivers/iio/cdc/Makefile
-index 41db756d8020..241263f7b512 100644
---- a/drivers/iio/cdc/Makefile
-+++ b/drivers/iio/cdc/Makefile
-@@ -3,5 +3,7 @@
- # Makefile for industrial I/O capacitance to digital converter (CDC) drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_AD7150) += ad7150.o
- obj-$(CONFIG_AD7746) += ad7746.o
-diff --git a/drivers/iio/chemical/Makefile b/drivers/iio/chemical/Makefile
-index 2287a00a6b75..0cffbad02234 100644
---- a/drivers/iio/chemical/Makefile
-+++ b/drivers/iio/chemical/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for IIO chemical sensors
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AOSONG_AGS02MA)	+= ags02ma.o
- obj-$(CONFIG_ATLAS_PH_SENSOR)	+= atlas-sensor.o
-diff --git a/drivers/iio/common/cros_ec_sensors/Makefile b/drivers/iio/common/cros_ec_sensors/Makefile
-index a7dfb5794cae..5c41c7e52d0c 100644
---- a/drivers/iio/common/cros_ec_sensors/Makefile
-+++ b/drivers/iio/common/cros_ec_sensors/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for sensors seen through the ChromeOS EC sensor hub.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- cros-ec-sensors-core-objs += cros_ec_sensors_core.o cros_ec_sensors_trace.o
- obj-$(CONFIG_IIO_CROS_EC_SENSORS_CORE) += cros-ec-sensors-core.o
- obj-$(CONFIG_IIO_CROS_EC_SENSORS) += cros_ec_sensors.o
-diff --git a/drivers/iio/common/hid-sensors/Makefile b/drivers/iio/common/hid-sensors/Makefile
-index 64b01a81fcb2..b90bcf40066a 100644
---- a/drivers/iio/common/hid-sensors/Makefile
-+++ b/drivers/iio/common/hid-sensors/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for the Hid sensor common modules.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_HID_SENSOR_IIO_COMMON) += hid-sensor-iio-common.o
- obj-$(CONFIG_HID_SENSOR_IIO_TRIGGER) += hid-sensor-trigger.o
- hid-sensor-iio-common-y := hid-sensor-attributes.o
-diff --git a/drivers/iio/common/inv_sensors/Makefile b/drivers/iio/common/inv_sensors/Makefile
-index dcf39f249112..a464dad84d68 100644
---- a/drivers/iio/common/inv_sensors/Makefile
-+++ b/drivers/iio/common/inv_sensors/Makefile
-@@ -3,4 +3,6 @@
- # Makefile for TDK-InvenSense sensors module.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO_INV_SENSORS_TIMESTAMP) += inv_sensors_timestamp.o
-diff --git a/drivers/iio/common/ms_sensors/Makefile b/drivers/iio/common/ms_sensors/Makefile
-index 028573b9b7e3..8f9b9a4556e8 100644
---- a/drivers/iio/common/ms_sensors/Makefile
-+++ b/drivers/iio/common/ms_sensors/Makefile
-@@ -3,4 +3,6 @@
- # Makefile for the Measurement Specialties sensor common modules.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO_MS_SENSORS_I2C) += ms_sensors_i2c.o
-diff --git a/drivers/iio/common/scmi_sensors/Makefile b/drivers/iio/common/scmi_sensors/Makefile
-index 645e0fce1a73..4c1421003d2d 100644
---- a/drivers/iio/common/scmi_sensors/Makefile
-+++ b/drivers/iio/common/scmi_sensors/Makefile
-@@ -2,4 +2,7 @@
- #
- # Makefile for the IIO over SCMI
- #
-+
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO_SCMI) += scmi_iio.o
-diff --git a/drivers/iio/common/ssp_sensors/Makefile b/drivers/iio/common/ssp_sensors/Makefile
-index ba831429b20a..caee484a0a23 100644
---- a/drivers/iio/common/ssp_sensors/Makefile
-+++ b/drivers/iio/common/ssp_sensors/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for SSP sensor drivers and commons.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- sensorhub-objs				:= ssp_dev.o ssp_spi.o
- obj-$(CONFIG_IIO_SSP_SENSORHUB)		+= sensorhub.o
- 
-diff --git a/drivers/iio/common/st_sensors/Makefile b/drivers/iio/common/st_sensors/Makefile
-index f7fb3b79b64c..089f6aca57b7 100644
---- a/drivers/iio/common/st_sensors/Makefile
-+++ b/drivers/iio/common/st_sensors/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for the STMicroelectronics sensor common modules.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO_ST_SENSORS_I2C) += st_sensors_i2c.o
- obj-$(CONFIG_IIO_ST_SENSORS_SPI) += st_sensors_spi.o
- obj-$(CONFIG_IIO_ST_SENSORS_CORE) += st_sensors.o
-diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
-index 2cd0fe23db9e..72da690354e5 100644
---- a/drivers/iio/dac/Makefile
-+++ b/drivers/iio/dac/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O DAC drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AD3530R) += ad3530r.o
- obj-$(CONFIG_AD3552R_HS) += ad3552r-hs.o
-diff --git a/drivers/iio/dummy/Makefile b/drivers/iio/dummy/Makefile
-index f14fe20f365c..aa3949ec2619 100644
---- a/drivers/iio/dummy/Makefile
-+++ b/drivers/iio/dummy/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for the IIO Dummy Driver
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO_SIMPLE_DUMMY) += iio_dummy.o
- iio_dummy-y := iio_simple_dummy.o
- iio_dummy-$(CONFIG_IIO_SIMPLE_DUMMY_EVENTS) += iio_simple_dummy_events.o
-diff --git a/drivers/iio/filter/Makefile b/drivers/iio/filter/Makefile
-index 55e228c0dd20..ec416d647755 100644
---- a/drivers/iio/filter/Makefile
-+++ b/drivers/iio/filter/Makefile
-@@ -3,5 +3,7 @@
- # Makefile for industrial I/O Filter drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ADMV8818) += admv8818.o
-diff --git a/drivers/iio/flow/Makefile b/drivers/iio/flow/Makefile
-index 3cf4ab95c69c..ce5e1df630a9 100644
---- a/drivers/iio/flow/Makefile
-+++ b/drivers/iio/flow/Makefile
-@@ -3,5 +3,7 @@
- # Makefile for industrial I/O flow sensor drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_SENSIRION_SLF3S) += slf3s.o
-diff --git a/drivers/iio/frequency/Makefile b/drivers/iio/frequency/Makefile
-index e3b1d36ed620..5f9900a4ebf3 100644
---- a/drivers/iio/frequency/Makefile
-+++ b/drivers/iio/frequency/Makefile
-@@ -3,6 +3,8 @@
- # Makefile iio/frequency
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AD9523) += ad9523.o
- obj-$(CONFIG_AD9910) += ad9910.o
-diff --git a/drivers/iio/gyro/Makefile b/drivers/iio/gyro/Makefile
-index 0319b397dc3f..1c2a020ffe6e 100644
---- a/drivers/iio/gyro/Makefile
-+++ b/drivers/iio/gyro/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O gyroscope sensor drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ADIS16080) += adis16080.o
- obj-$(CONFIG_ADIS16130) += adis16130.o
-diff --git a/drivers/iio/health/Makefile b/drivers/iio/health/Makefile
-index 910817112258..9100aa431585 100644
---- a/drivers/iio/health/Makefile
-+++ b/drivers/iio/health/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for IIO Health sensors
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- 
- obj-$(CONFIG_AFE4403)		+= afe4403.o
-diff --git a/drivers/iio/humidity/Makefile b/drivers/iio/humidity/Makefile
-index 34b3dc749466..1d736b306a8d 100644
---- a/drivers/iio/humidity/Makefile
-+++ b/drivers/iio/humidity/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for IIO humidity sensor drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_AM2315) += am2315.o
- obj-$(CONFIG_DHT11) += dht11.o
- obj-$(CONFIG_ENS210) += ens210.o
-diff --git a/drivers/iio/imu/Makefile b/drivers/iio/imu/Makefile
-index 3268dc2371ae..10383f75d288 100644
---- a/drivers/iio/imu/Makefile
-+++ b/drivers/iio/imu/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for Inertial Measurement Units
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ADIS16400) += adis16400.o
- obj-$(CONFIG_ADIS16460) += adis16460.o
-diff --git a/drivers/iio/imu/bmi160/Makefile b/drivers/iio/imu/bmi160/Makefile
-index fdcfeddf48d4..72ebe0409d92 100644
---- a/drivers/iio/imu/bmi160/Makefile
-+++ b/drivers/iio/imu/bmi160/Makefile
-@@ -2,6 +2,9 @@
- #
- # Makefile for Bosch BMI160 IMU
- #
-+
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_BMI160) += bmi160_core.o
- obj-$(CONFIG_BMI160_I2C) += bmi160_i2c.o
- obj-$(CONFIG_BMI160_SPI) += bmi160_spi.o
-diff --git a/drivers/iio/imu/bmi270/Makefile b/drivers/iio/imu/bmi270/Makefile
-index d96c96fc3d83..1dc327c96f8f 100644
---- a/drivers/iio/imu/bmi270/Makefile
-+++ b/drivers/iio/imu/bmi270/Makefile
-@@ -2,6 +2,9 @@
- #
- # Makefile for Bosch BMI270 IMU
- #
-+
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_BMI270) += bmi270_core.o
- obj-$(CONFIG_BMI270_I2C) += bmi270_i2c.o
- obj-$(CONFIG_BMI270_SPI) += bmi270_spi.o
-diff --git a/drivers/iio/imu/bmi323/Makefile b/drivers/iio/imu/bmi323/Makefile
-index a6a6dc0207c9..ef8fc4f8460c 100644
---- a/drivers/iio/imu/bmi323/Makefile
-+++ b/drivers/iio/imu/bmi323/Makefile
-@@ -2,6 +2,9 @@
- #
- # Makefile for Bosch BMI323 IMU
- #
-+
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_BMI323) += bmi323_core.o
- obj-$(CONFIG_BMI323_I2C) += bmi323_i2c.o
- obj-$(CONFIG_BMI323_SPI) += bmi323_spi.o
-diff --git a/drivers/iio/imu/bno055/Makefile b/drivers/iio/imu/bno055/Makefile
-index 98c624730dae..8ecf24be7954 100644
---- a/drivers/iio/imu/bno055/Makefile
-+++ b/drivers/iio/imu/bno055/Makefile
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_BOSCH_BNO055) += bno055.o
- obj-$(CONFIG_BOSCH_BNO055_SERIAL) += bno055_ser.o
- bno055_ser-y := bno055_ser_core.o
-diff --git a/drivers/iio/imu/inv_icm42600/Makefile b/drivers/iio/imu/inv_icm42600/Makefile
-index 0f49f6df3647..9b6ddbce713d 100644
---- a/drivers/iio/imu/inv_icm42600/Makefile
-+++ b/drivers/iio/imu/inv_icm42600/Makefile
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-or-later
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_INV_ICM42600) += inv-icm42600.o
- inv-icm42600-y += inv_icm42600_core.o
- inv-icm42600-y += inv_icm42600_gyro.o
-diff --git a/drivers/iio/imu/inv_icm42607/Makefile b/drivers/iio/imu/inv_icm42607/Makefile
-index 7b907e019601..4f19ebe08f88 100644
---- a/drivers/iio/imu/inv_icm42607/Makefile
-+++ b/drivers/iio/imu/inv_icm42607/Makefile
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-or-later
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_INV_ICM42607) += inv-icm42607.o
- inv-icm42607-y += inv_icm42607_core.o
- inv-icm42607-y += inv_icm42607_gyro.o
-diff --git a/drivers/iio/imu/inv_icm45600/Makefile b/drivers/iio/imu/inv_icm45600/Makefile
-index c98b8365b467..b5aaa00ba3b3 100644
---- a/drivers/iio/imu/inv_icm45600/Makefile
-+++ b/drivers/iio/imu/inv_icm45600/Makefile
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-or-later
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_INV_ICM45600) += inv-icm45600.o
- inv-icm45600-y += inv_icm45600_core.o
- inv-icm45600-y += inv_icm45600_buffer.o
-diff --git a/drivers/iio/imu/inv_mpu6050/Makefile b/drivers/iio/imu/inv_mpu6050/Makefile
-index c103441a906b..7c89414e1452 100644
---- a/drivers/iio/imu/inv_mpu6050/Makefile
-+++ b/drivers/iio/imu/inv_mpu6050/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for Invensense MPU6050 device.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_INV_MPU6050_IIO) += inv-mpu6050.o
- inv-mpu6050-y := inv_mpu_core.o inv_mpu_ring.o inv_mpu_trigger.o \
- 		 inv_mpu_aux.o inv_mpu_magn.o
-diff --git a/drivers/iio/imu/smi330/Makefile b/drivers/iio/imu/smi330/Makefile
-index c663dcb5a9f2..90e0977133e9 100644
---- a/drivers/iio/imu/smi330/Makefile
-+++ b/drivers/iio/imu/smi330/Makefile
-@@ -2,6 +2,9 @@
- #
- # Makefile for Bosch SMI330 IMU
- #
-+
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_SMI330) += smi330_core.o
- obj-$(CONFIG_SMI330_I2C) += smi330_i2c.o
- obj-$(CONFIG_SMI330_SPI) += smi330_spi.o
-diff --git a/drivers/iio/imu/st_lsm6dsx/Makefile b/drivers/iio/imu/st_lsm6dsx/Makefile
-index 19a488254de3..11b8ab9adac2 100644
---- a/drivers/iio/imu/st_lsm6dsx/Makefile
-+++ b/drivers/iio/imu/st_lsm6dsx/Makefile
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+CONTEXT_ANALYSIS := y
-+
- st_lsm6dsx-y := st_lsm6dsx_core.o st_lsm6dsx_buffer.o \
- 		st_lsm6dsx_shub.o st_lsm6dsx_fusion.o
- 
-diff --git a/drivers/iio/imu/st_lsm9ds0/Makefile b/drivers/iio/imu/st_lsm9ds0/Makefile
-index 488af523f648..6326718f7e25 100644
---- a/drivers/iio/imu/st_lsm9ds0/Makefile
-+++ b/drivers/iio/imu/st_lsm9ds0/Makefile
-@@ -1,4 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IIO_ST_LSM9DS0) += st_lsm9ds0.o
- st_lsm9ds0-y := st_lsm9ds0_core.o
- obj-$(CONFIG_IIO_ST_LSM9DS0_I2C) += st_lsm9ds0_i2c.o
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index 6672ed01a819..5db5ab99f63f 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for IIO Light sensors
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ACPI_ALS)		+= acpi-als.o
- obj-$(CONFIG_ADJD_S311)		+= adjd_s311.o
-diff --git a/drivers/iio/magnetometer/Makefile b/drivers/iio/magnetometer/Makefile
-index 8f2205975c1b..b85de8718ce4 100644
---- a/drivers/iio/magnetometer/Makefile
-+++ b/drivers/iio/magnetometer/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O Magnetometer sensor drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AF8133J)	+= af8133j.o
- obj-$(CONFIG_AK8974)	+= ak8974.o
-diff --git a/drivers/iio/multiplexer/Makefile b/drivers/iio/multiplexer/Makefile
-index f069ab781d95..7a2261b2f8b1 100644
---- a/drivers/iio/multiplexer/Makefile
-+++ b/drivers/iio/multiplexer/Makefile
-@@ -3,5 +3,7 @@
- # Makefile for industrial I/O multiplexer drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_IIO_MUX) += iio-mux.o
-diff --git a/drivers/iio/orientation/Makefile b/drivers/iio/orientation/Makefile
-index 7800ed293a9a..3bfa01d483da 100644
---- a/drivers/iio/orientation/Makefile
-+++ b/drivers/iio/orientation/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O Inclinometer sensor drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_HID_SENSOR_INCLINOMETER_3D) += hid-sensor-incl-3d.o
- obj-$(CONFIG_HID_SENSOR_DEVICE_ROTATION) += hid-sensor-rotation.o
-diff --git a/drivers/iio/position/Makefile b/drivers/iio/position/Makefile
-index d70902f2979d..0b61f33bbee8 100644
---- a/drivers/iio/position/Makefile
-+++ b/drivers/iio/position/Makefile
-@@ -2,6 +2,8 @@
- # Makefile for IIO linear and angular position sensors
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- 
- obj-$(CONFIG_HID_SENSOR_CUSTOM_INTEL_HINGE) += hid-sensor-custom-intel-hinge.o
-diff --git a/drivers/iio/potentiometer/Makefile b/drivers/iio/potentiometer/Makefile
-index d11fb739176c..5cf55d9501c0 100644
---- a/drivers/iio/potentiometer/Makefile
-+++ b/drivers/iio/potentiometer/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O potentiometer drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AD5110) += ad5110.o
- obj-$(CONFIG_AD5272) += ad5272.o
-diff --git a/drivers/iio/potentiostat/Makefile b/drivers/iio/potentiostat/Makefile
-index be78b46acbab..a3e5d78cf809 100644
---- a/drivers/iio/potentiostat/Makefile
-+++ b/drivers/iio/potentiostat/Makefile
-@@ -3,5 +3,7 @@
- # Makefile for industrial I/O potentiostat drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_LMP91000) += lmp91000.o
-diff --git a/drivers/iio/pressure/Makefile b/drivers/iio/pressure/Makefile
-index a3b57bdd5b3e..861f5622a44f 100644
---- a/drivers/iio/pressure/Makefile
-+++ b/drivers/iio/pressure/Makefile
-@@ -3,7 +3,7 @@
- # Makefile for industrial I/O pressure drivers
- #
- 
--CONTEXT_ANALYSIS_dps310.o := y
-+CONTEXT_ANALYSIS := y
- 
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_ABP060MG) += abp060mg.o
-diff --git a/drivers/iio/proximity/Makefile b/drivers/iio/proximity/Makefile
-index 8a65e42fbea0..88b19778252b 100644
---- a/drivers/iio/proximity/Makefile
-+++ b/drivers/iio/proximity/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for IIO proximity sensors
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- obj-$(CONFIG_AS3935)		+= as3935.o
- obj-$(CONFIG_CROS_EC_MKBP_PROXIMITY) += cros_ec_mkbp_proximity.o
-diff --git a/drivers/iio/resolver/Makefile b/drivers/iio/resolver/Makefile
-index 7f6c876c35ae..28aeef65fb6d 100644
---- a/drivers/iio/resolver/Makefile
-+++ b/drivers/iio/resolver/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for Resolver/Synchro drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_AD2S90) += ad2s90.o
- obj-$(CONFIG_AD2S1200) += ad2s1200.o
- obj-$(CONFIG_AD2S1210) += ad2s1210.o
-diff --git a/drivers/iio/sensorhubs/osf/Makefile b/drivers/iio/sensorhubs/osf/Makefile
-index b4e03b80cfa4..da98e9b27577 100644
---- a/drivers/iio/sensorhubs/osf/Makefile
-+++ b/drivers/iio/sensorhubs/osf/Makefile
-@@ -1,5 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_OPEN_SENSOR_FUSION) += open-sensor-fusion.o
- 
- open-sensor-fusion-y := osf_core.o osf_iio.o osf_protocol.o osf_serdev.o \
-diff --git a/drivers/iio/temperature/Makefile b/drivers/iio/temperature/Makefile
-index 0850bf691820..69a084f0a18a 100644
---- a/drivers/iio/temperature/Makefile
-+++ b/drivers/iio/temperature/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for industrial I/O temperature drivers
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- obj-$(CONFIG_IQS620AT_TEMP) += iqs620at-temp.o
- obj-$(CONFIG_LTC2983) += ltc2983.o
- obj-$(CONFIG_HID_SENSOR_TEMP) += hid-sensor-temperature.o
-diff --git a/drivers/iio/test/Makefile b/drivers/iio/test/Makefile
-index ba08afa7f3f2..a7222f878a94 100644
---- a/drivers/iio/test/Makefile
-+++ b/drivers/iio/test/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for the industrial I/O unit tests.
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # Keep in alphabetical order
- obj-$(CONFIG_IIO_CHANNEL_PREFIX_KUNIT_TEST) += iio-test-channel-prefix.o
- obj-$(CONFIG_IIO_RESCALE_KUNIT_TEST) += iio-test-rescale.o
-diff --git a/drivers/iio/trigger/Makefile b/drivers/iio/trigger/Makefile
-index fc1fd5661c94..6eb16f37df15 100644
---- a/drivers/iio/trigger/Makefile
-+++ b/drivers/iio/trigger/Makefile
-@@ -3,6 +3,8 @@
- # Makefile for triggers not associated with iio-devices
- #
- 
-+CONTEXT_ANALYSIS := y
-+
- # When adding new entries keep the list in alphabetical order
- 
- obj-$(CONFIG_IIO_HRTIMER_TRIGGER) += iio-trig-hrtimer.o
+diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
+index d73f2541375f..e9a5d1d905c1 100644
+--- a/drivers/iio/industrialio-core.c
++++ b/drivers/iio/industrialio-core.c
+@@ -2252,6 +2252,7 @@ EXPORT_SYMBOL_GPL(__devm_iio_device_register);
+  * iio_device_try_claim_buffer_mode() pairs or related helpers instead.
+  */
+ void __iio_dev_mode_lock(struct iio_dev *indio_dev)
++	__context_unsafe(/* returns with mlock held */)
+ {
+ 	mutex_lock(&to_iio_dev_opaque(indio_dev)->mlock);
+ }
+@@ -2262,6 +2263,7 @@ EXPORT_SYMBOL_GPL(__iio_dev_mode_lock);
+  * @indio_dev: the iio_dev associated with the device
+  */
+ void __iio_dev_mode_unlock(struct iio_dev *indio_dev)
++	__context_unsafe(/* releases mlock */)
+ {
+ 	mutex_unlock(&to_iio_dev_opaque(indio_dev)->mlock);
+ }
 -- 
 2.43.0
 
