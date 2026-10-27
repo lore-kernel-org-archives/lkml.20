@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097428;
-	b=DcRPOxi/SRiNlu4hX8nADYUtcg12+gen7eaWAOTQwKji15I6FETXTMlQ9Yb0lJkqFZF9
-	 GkSeboSsTPZgqChQSZntY8HbGi3SVGijMvvlaG477h8zshWa0vz0e8QWHrtZ6cvYsmr9s
-	 fSD8pwA0h/bBjVE0yImB/npEKVPEJolsG4LHAOVj02pCzVQPJGVqC2tVu/QBHVonh24qM
-	 /KKCl1DLYTOJRH131+9vfUfA1yWM/yAxjqtXRCixY54M82lmd9nya9+l/Mw3Za9zaeG7b
-	 fHiRZKQfZmXrA2fLOYh/s/yZxV7S6X/1DFuEzRNtfTDbr8TzZv9R0Oyc9mBjzkUrrmg==
+	t=1793097438;
+	b=NoxWhuYwklFBxRURCVUt0RLPptaV7zqt/aJQvzdDu2fFQ2Ca9BilIRS25/2Zn3ZkzmI9
+	 nbldX1awzz4Tn5iV7CycDLnJODj5ANlcxvkHfUz29nqNm9i4d9BdI+3bnOYBl0w+jEJGY
+	 aw6UEFEKlAwAW2ocYOWG8wtgNK+M5GUO275WIK21R+xgE7U6hy8tOU/XimW7plm5NY9OV
+	 /UHdMOqNWn4o8gWLtm47GXrbzY66/LhcUpUvANrQeXnuH/TxH6uheayIwFBUVKr1nhRUs
+	 0xeMgGhyzatfQgbq7btec/5u99gYhVnhrE9owhVKefymMJtwoOq+v5N9iEnnblYabLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097428;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097438;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=F3U/F5SLemlNyKQRB0guqkLTdXKOKLmVioIhX/xtkwM=;
-	b=HLFq/tgGCmC67XrZFrnHD/n2S3/fngOEItYaUt8gVLvttH/UaH/NEqNaWG0jCqapDN1c
-	 wQuTHlV5DcvGLfZTM/lHxgIIr+rcWPv12J41qpBEq95WuDFfCvsnhSkCeUK4ZVplReqs3
-	 wU08MOQDOukiNP7H8PgaaBtn6LRDJJQPxcPDYN20/gVGS2JhNqhyNHNAC8wAyMX/OAo6F
-	 ghKRv+MCaSjRGYPPElLLlAL3Jbkaklln9lgmageSEPcJJvJDVEJZp1md/j3NlvD4IxDOA
-	 idPmm/UjpSXapFKhZMf4D916r4Y8nhDp9uZUrAppXGxtETM6BnyPMihA5mISn3pdtdw==
+	bh=v3IV5GjyYHp40SH6f2bDGiVTh8la4nVL3KyO8OOxJS4=;
+	b=CQdSKq5qeB2t0Infc8acprZMiPhFd2DsiL9THd5/owJfVu3zIksXR6hgnKsKONWK1B97
+	 zNmJ0i77G3seAC/olTFiaaa0SV9laHmB4jJyG/7fBl9Y3dAxNPnL7vVi7QZZ7Y0fAETOg
+	 zmlWV1sBUy5NjhOdrIYDfg2Uln+0+xfTQmNgiLTg6roCk0xLJ9GVw9jlo3Nz5+BdLhIwU
+	 z7L0OG1IEc+SlZP0gOx1NvjThztYn6pkSjUqQAnbFJbBj5wv4UTyb5+LGea5BF/JsFV/o
+	 Gw9dIwUSJiY/rt7jY/7REO3xOFYd0s1M7t1B1GzlrfP2byYLOcLeSQOuz57aPdqMOaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J68CsTFB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKocDqCs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E56606A31D;
-	Tue, 27 Oct 2026 10:37:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562BF606A31A;
+	Tue, 27 Oct 2026 10:37:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J68CsTFB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CEA1F01825;
-	Tue, 27 Oct 2026 10:37:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QKocDqCs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F051F01828;
+	Tue, 27 Oct 2026 10:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793097427;
-	bh=F3U/F5SLemlNyKQRB0guqkLTdXKOKLmVioIhX/xtkwM=;
+	s=k20260515; t=1793097438;
+	bh=v3IV5GjyYHp40SH6f2bDGiVTh8la4nVL3KyO8OOxJS4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J68CsTFBkWyN1agzdN+nrfPes1CZ4milteoIpEp8Bb5V+VXF59oxL23sMUdi5Dnj5
-	 bT0YNVKGsS8K37g5lz5vIhRc+qhWM/6L3RhU7nMFzhVCCa0zWjx9njPbagaqNl7GY0
-	 w+HQpZpei1BrEGnGc4foNLANY6oHMAVAWOGUYD1kpIml3/THFBMnkpvGvIhvirzdX8
-	 e6uJW6CusdKpbP1aNBb17bTgVD1LFuTK/H1ggiuqFZBMZlgxk8l3AkInFaVJp/7hkQ
-	 HzN1EIJ8ARytEDmsQJKealQrWwuMxkZvsUuuxJg8gfaYG8QrAwenANzq4HD57iiKFw
-	 3KONlh1yBz6Gg==
+	b=QKocDqCsCLZJBZxgErLPtnUsqJS1Kb6+eexVeVjVFbOggi+oCPmYFHwQOXBEOYf4j
+	 7/VuiDHu6y4lX4UivJjq8bebJ0HCl26xcCLOhpqtMeY8lUb0Ef1xWMUmMfGoyTkUuC
+	 x9h/du+Q7teYYJMosYgr1/h2Qj69RwLab0pqhg/3d34ua8G/urBGUf6I2VBaaURiKr
+	 X8xxzSEoCcbbd1q7gWBdCfSTOlPE+/6cv7fnrOGHQmeqTQuaTOirrczTTC0lsACEoe
+	 41s9Ph45Dbwjko7uSSczcB3650BsyjtugSW7+uqrCtKBIbhgrJsTtch0RI/KJkz4sn
+	 owG6+fhx+zFhw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Thomas Bogendoerfer <tbogendoerfer@suse.de>,
-	Stanislaw Skowronek <skylark@unaligned.org>,
-	Joshua Kinard <linux@kumba.dev>,
-	Brent Casavant <bcasavan@sgi.com>,
-	Pat Gefre <pfg@sgi.com>,
-	Paul Burton <paulburton@kernel.org>,
+	Gyungoh Yoo <jack.yoo@maxim-ic.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Stephen Warren <swarren@nvidia.com>,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 09/27] mfd: ioc3: Request parent IRQ via request_irq() and free before domain removal
-Date: Tue, 27 Oct 2026 09:30:38 +0000
-Message-ID: <20261027093306.2812695-10-lee@kernel.org>
+Subject: [PATCH v2 11/27] mfd: max8907: Manage power-off handler via devm_register_sys_off_handler()
+Date: Tue, 27 Oct 2026 09:30:40 +0000
+Message-ID: <20261027093306.2812695-12-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
 In-Reply-To: <20261027093306.2812695-1-lee@kernel.org>
 References: <20261027093306.2812695-1-lee@kernel.org>
@@ -67,114 +64,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ioc3_irq_domain_setup() registers ioc3_irq_handler() as a chained
-interrupt handler using irq_set_chained_handler_and_data(), whilst
-ioc3_mfd_remove() and the ioc3_mfd_probe() error path attempt to tear it
-down with free_irq(ipd->domain_irq, (void *)ipd) after removing the IRQ
-domain.  Because chained handlers bypass the standard irqaction list,
-free_irq() warns and fails to detach ioc3_irq_handler(), leaving a
-dangling handler referencing the freed IRQ domain and driver private
-data.
+When the MAX8907 device is configured as the system power controller,
+max8907_i2c_probe() assigns the devres-managed device context to
+max8907_pm_off and registers max8907_power_off() as the global
+pm_power_off handler.  However, max8907_i2c_remove() does not clear
+these pointers upon device unbind, leaving pm_power_off and
+max8907_pm_off dangling after devres frees the driver state.
 
-Register ioc3_irq_handler() with request_irq() to match free_irq(),
-dispatch child interrupts via generic_handle_domain_irq_safe(), and free
-the IRQ prior to removing the IRQ domain on teardown.
+Convert max8907_power_off() to a sys_off_handler callback registered via
+devm_register_sys_off_handler() so the handler is automatically
+unregistered on device unbind and the global max8907_pm_off pointer can
+be dropped.
 
-Fixes: 0ce5ebd24d25 ("mfd: ioc3: Add driver for SGI IOC3 chip")
-Closes: https://sashiko.dev/#/bug/linux-81f02420-548c-47cf-bd46-0bdcfb5c1738
+Fixes: 9582fdcb6fcf ("mfd: max8907: Add power off control")
+Closes: https://sashiko.dev/#/bug/linux-d73d6689-d160-447f-9b3c-710fd4c4b6fb
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/ioc3.c | 32 ++++++++++++++++++++------------
- 1 file changed, 20 insertions(+), 12 deletions(-)
+ drivers/mfd/max8907.c | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/ioc3.c b/drivers/mfd/ioc3.c
-index 5f8ac364b610..885f19154e02 100644
---- a/drivers/mfd/ioc3.c
-+++ b/drivers/mfd/ioc3.c
-@@ -99,10 +99,9 @@ static const struct irq_domain_ops ioc3_irq_domain_ops = {
- 	.unmap = ioc3_irq_domain_unmap,
+diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
+index 7bac1d651771..dab5706d4115 100644
+--- a/drivers/mfd/max8907.c
++++ b/drivers/mfd/max8907.c
+@@ -15,6 +15,7 @@
+ #include <linux/mfd/max8907.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/reboot.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+ 
+@@ -173,11 +174,14 @@ static const struct regmap_irq_chip max8907_rtc_irq_chip = {
+ 	.num_irqs = ARRAY_SIZE(max8907_rtc_irqs),
  };
  
--static void ioc3_irq_handler(struct irq_desc *desc)
-+static irqreturn_t ioc3_irq_handler(int irq, void *data)
+-static struct max8907 *max8907_pm_off;
+-static void max8907_power_off(void)
++static int max8907_power_off(struct sys_off_data *data)
  {
--	struct irq_domain *domain = irq_desc_get_handler_data(desc);
--	struct ioc3_priv_data *ipd = domain->host_data;
-+	struct ioc3_priv_data *ipd = data;
- 	struct ioc3 __iomem *regs = ipd->regs;
- 	u32 pending, mask;
- 
-@@ -110,10 +109,12 @@ static void ioc3_irq_handler(struct irq_desc *desc)
- 	mask = readl(&regs->sio_ies);
- 	pending &= mask; /* Mask off not enabled interrupts */
- 
--	if (pending)
--		generic_handle_domain_irq(domain, __ffs(pending));
--	else
--		spurious_interrupt();
-+	if (pending) {
-+		generic_handle_domain_irq_safe(ipd->domain, __ffs(pending));
-+		return IRQ_HANDLED;
-+	}
+-	regmap_update_bits(max8907_pm_off->regmap_gen, MAX8907_REG_RESET_CNFG,
+-			MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
++	struct max8907 *max8907 = data->cb_data;
 +
-+	return IRQ_NONE;
++	regmap_update_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
++			   MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
++
++	return NOTIFY_DONE;
  }
  
- /*
-@@ -133,6 +134,7 @@ static int ioc3_irq_domain_setup(struct ioc3_priv_data *ipd, int irq)
- {
- 	struct irq_domain *domain;
- 	struct fwnode_handle *fn;
-+	int ret = -ENOMEM;
+ static int max8907_i2c_probe(struct i2c_client *i2c)
+@@ -256,13 +260,23 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
+ 		goto err_add_devices;
+ 	}
  
- 	fn = irq_domain_alloc_named_fwnode("IOC3");
- 	if (!fn)
-@@ -146,13 +148,19 @@ static int ioc3_irq_domain_setup(struct ioc3_priv_data *ipd, int irq)
+-	if (pm_off && !pm_power_off) {
+-		max8907_pm_off = max8907;
+-		pm_power_off = max8907_power_off;
++	if (pm_off) {
++		ret = devm_register_sys_off_handler(&i2c->dev,
++						    SYS_OFF_MODE_POWER_OFF,
++						    SYS_OFF_PRIO_DEFAULT,
++						    max8907_power_off, max8907);
++		if (ret) {
++			dev_err(&i2c->dev,
++				"failed to register sys-off handler: %d\n",
++				ret);
++			goto err_sys_off;
++		}
+ 	}
  
- 	ipd->domain = domain;
- 
--	irq_set_chained_handler_and_data(irq, ioc3_irq_handler, domain);
-+	ret = request_irq(irq, ioc3_irq_handler, IRQF_SHARED, "IOC3", ipd);
-+	if (ret) {
-+		irq_domain_remove(domain);
-+		irq_domain_free_fwnode(fn);
-+		ipd->domain = NULL;
-+		goto err;
-+	}
- 	ipd->domain_irq = irq;
  	return 0;
  
- err:
- 	dev_err(&ipd->pdev->dev, "irq domain setup failed\n");
--	return -ENOMEM;
-+	return ret;
- }
- 
- static const struct resource ioc3_uarta_resources[] = {
-@@ -615,9 +623,9 @@ static int ioc3_mfd_probe(struct pci_dev *pdev,
- 		if (ipd->domain) {
- 			struct fwnode_handle *fn = ipd->domain->fwnode;
- 
-+			free_irq(ipd->domain_irq, (void *)ipd);
- 			irq_domain_remove(ipd->domain);
- 			irq_domain_free_fwnode(fn);
--			free_irq(ipd->domain_irq, (void *)ipd);
- 		}
- 		pci_iounmap(pdev, regs);
- 		goto out_disable_device;
-@@ -645,9 +653,9 @@ static void ioc3_mfd_remove(struct pci_dev *pdev)
- 	if (ipd->domain) {
- 		struct fwnode_handle *fn = ipd->domain->fwnode;
- 
--		irq_domain_remove(ipd->domain);
--		irq_domain_free_fwnode(fn);
- 		free_irq(ipd->domain_irq, (void *)ipd);
-+		irq_domain_remove(ipd->domain);
-+		irq_domain_free_fwnode(fn);
- 	}
- 	pci_iounmap(pdev, ipd->regs);
- 	pci_disable_device(pdev);
++err_sys_off:
++	mfd_remove_devices(max8907->dev);
+ err_add_devices:
+ 	regmap_del_irq_chip(max8907->i2c_gen->irq, max8907->irqc_rtc);
+ err_irqc_rtc:
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
