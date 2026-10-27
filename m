@@ -1,96 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108928;
-	b=2SUdjA2YdfNzTQHzCXbamsMf5QcozHI8nqnOsG8V+S8yb1ta6NadlYKn1isZZ3jSEhJ+
-	 PeWaYewFtIReqRFr9H+5QF9LUAUd5vRdgJcTYbMwXT9aI73ipbictkx+3tJ4EOPoq8+MC
-	 pFYIiVxsFbb3o7q4DjGv+Xr6OSWGmwSDTIQqeq5OtWuT66fDgF1xPkY0lW9DXrCDoblWQ
-	 59d8J4+3lZLuFvEn5jxBV7KEulEj7DCi1b+G51xqXumLZZriPROQFHLHjiADxMO1njahb
-	 I0hdLHyJWaiCngmW/Wq2GMmcMhihYkxon0N1bp35tfA9SwfQS9CS9AVM/lcguOpD5BA==
+	t=1793108955;
+	b=fCtogBYq+Szms79Z/iXUt+kTvonz6jWXkDDi2z8wNDh417Rlr+isVkV+ww2ArOe538W5
+	 SD5GROrSv6EwvPgeuVe5eLmllv8A+2mm8R2N8QNfBwhXNY92bWni/5a+hZ+fqn+PP+6cS
+	 yTDy0ReF/YedowHRu+SKBbS3g6LfmNj+x/bD/zxQyFLwBX2/XuH7Rv793pSFEZ4mKCmDx
+	 dpUrD2YbP3t6tdTcvKwOzC6RLNZAMhkvsig8dvGP8PzEJ25D0kIl8LJ1f6NTcww0ClLCa
+	 UGfSlUhrS/kwQO9ZUHhupWXGiphiKtAxtZuzWFXDGPFmy0pGgiCcMNoxkRMNQYu6ErQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108928;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:X-Source:
-	 X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=xnmTt7xAHrUILK2F5tw9jpxyescs2qacR8TokbmgBtk=;
-	b=F/WRL22J/803iOGwglHHFiEumG1zyjo1L43DZq9lwYmULGtBPaQIevpXnQrsPXSjdL2p
-	 Rnmp8sFV4PPYI3qX8ATctql16+fpxLB8r6eGZ/sEmmQR6erOvu0EEv7bZQRJvt+TaxkUv
-	 FdLojiR+LUneg5Z2ypYRqcamY5oIbS7cWsgd1//dgkG7ugUmWeZ19R3Ib6at4e480iBOW
-	 YaPxjRs8M/bcQEkIirDPsRiCULlebISbvQywgCTpLsE6fNxPM2FUUJelFObIzjdzgJiUT
-	 c48HAZADNhRBPzA7XArxcsQ6/i2hF/MlwBTULFqwvIZ0B/C/GPs+m/YS8fdiky7LpHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108955;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=XomX6DB6D1/SIO93qU+NvqAlwsKLsAk/d0xRuNeXAOk=;
+	b=QR2bwc5L7i9+nmGM3mQRs3+ltraRJBMu0Dun+QMQQ4QOGOC/dB97Kj2DUKAtp8LIipEP
+	 UvNchMsTiXJC885Sx5TFQLujMFW/6MWHDjZ7fe7/6OhVCJ4kAmu7JvdUSg+F5evh6BKhb
+	 cHbG2197f2z44E9CQ4/Yl8daLuFVDdalEiiAdgQLWpzlj+KYFn7Mu8i1rV6EnWoOmBJxc
+	 FlUdZoglWelrZCHgm8ozxk9KGVXE0hAi/2hLw/wXeysoXtwuPinp8hPWfaVo7xOzqyDAW
+	 giOCYrsWxEOBSK7gPsyE2UXQu0lr/JNPBNKmENPhHR1zg/t4xkIY6wuXxp3B3s9Ma7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SpXCwzbR;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=QirECd2g;
+	arc=none smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB93606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB93606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B727606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B727606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SpXCwzbR
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id LdpBxFCQic3XsLhXjxgJbV; Tue, 27 Oct 2026 13:48:47 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id LhXixC2W16hvPLhXixTtro; Tue, 27 Oct 2026 13:48:47 +0000
-X-Authority-Analysis: v=2.4 cv=cqCbk04i c=1 sm=1 tr=0 ts=6ae0abbf
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=8nJEP1OIZ-IA:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=iox4zFpeAAAA:8 a=SGJkWrW82lNR26rtH8EA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=xnmTt7xAHrUILK2F5tw9jpxyescs2qacR8TokbmgBtk=; b=SpXCwzbRcHVw
-	N2YxxPeLLeWmEdPesF9F/Tvwg3/Ur+cwc0BNs5PkwRihIB8ZMpHxkfenhxHZpiilczHaa4BtNtJ1l
-	MQnh1TC5aAZMz+jcAA5b/5ruWpsHOZrFPKBcqgrpVB3caHvWBe1ZNul0by2cPjbo+g7bcc2QVh+57
-	V6+/SqH5BLHSkzcWPPnOglmu2ivP6fkSwwKLoaDhSDx727CnyZj1Tp4091tI/+Uj6SFEuba4GhaTl
-	igg3Fb3jjUNUqPtxHIgSUTYnREXjUpO4E5Wjps/Jf4KT2tqED6oeLR6WZpxmMaRsTbbMxiLK7yK0h
-	Q6z0bqsN0q8zSZQDFgNCgQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:34878 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xLhXf-00000003hnK-28cN;
-	Tue, 27 Oct 2026 19:18:43 +0530
-Date: Tue, 27 Oct 2026 06:48:42 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Gregor Herburger <gregor.herburger@linutronix.de>,
-	Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
-	Gary Guo <gary@garyguo.net>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
- Pi RP1
-Message-ID: <53a4b4bb-271c-4d2d-a9e4-cec4e0ce214b@roeck-us.net>
-References: <cover.1792748690.git.andrea.porta@suse.com>
- <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
- <auBzvB8TsvIK8Hik@apocalypse>
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=QirECd2g
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53cd0c8614eso14163991cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:49:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793108954; x=1793713754; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XomX6DB6D1/SIO93qU+NvqAlwsKLsAk/d0xRuNeXAOk=;
+        b=QirECd2ghwJmRxFJOo7gQFoS9QwNcRuzit5+GxNaO2qtQ+wt8h38/bJwNtvPVkzpvs
+         uBKiKsScICwdQfoim073GAnQEIVbJHBo9jXXyitttfpOjHA+RUzshYmhJah2wsfiGeiL
+         quU+CXY6kF1//9a51cB6/Ld44ufTmvwrx9FHP4o/SOeQEzHybxBMr5nkIL1LY5F47hgn
+         NOUhG2kwUKeQOOVvId/Q2+PdYC4gdULgfWWMzo1gkaBatU8cmxuxgAeWtgwCBJxZejMb
+         H/SSVcSUMG6rpkrI803+iGPyss26YF5EI2j0KKoKWo9uQjHkad4gHNpMATKcxlKytRwr
+         12sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793108954; x=1793713754;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XomX6DB6D1/SIO93qU+NvqAlwsKLsAk/d0xRuNeXAOk=;
+        b=eZmUre8e2hQ4SIQYsv0vlgeFethjGl0VqSh02FpPirhL6XFdSJ6Xduzr1x6VdoNgux
+         rfiVCMctf787BTk2EGh3+4As8HkMsK8+JFUQ7GfXHMbeLldfF5Q+Kvr6xDCNOYccmmGx
+         zcZv+Cq14L9Asonw0oYAwRVV3CvVwg3XFeQQFrSK1wCTc+xDX6FTJnQTQdqGh5Tfm7r0
+         Va3RC2pJdWeL7HTOBvhfhZ92+j7WiYavYLcN8TtKE0CgmBcGFHv+dX8shGxi1k+PPIra
+         BPO4BBov/tvtd63GgbOE4OF6fShJ8pfxiqouSYtIZBdmMtr2x0g8sgvm4AlNxset9nID
+         0TKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwI/Su6q3lG1ARrUANLehRJ+BfzNc7XDGsCxQmhahJXAkPLWJK6ryO9ub7I/hEvtJdHGjgE6XWOAw5QyUw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkiA/9FepfUFpwvC5ICiFSetgu8M3VzqNHtVeio5Gw5HZ68f8q
+	+693Y+cXUUdmxD7Ga/ulirKxMgZjlywcb0w8V1djL3GLhOpXFcm/a8LOEdsp1qUFKUE=
+X-Gm-Gg: AYBFou1xR/TDXIykV6X1paCnJIr+QJSffjitvupQ8ZdxqYxp+Q6IBSIpPdtCiv5CK95
+	fhsXCkduip5lNGAA3QOn4+GsfssSib/c1fHNJa28p8Yw9Gw27Cf3BCivj7Ke5BPUEAKYtrkWnw6
+	ZhKOHTIWxshkwjH0Vk5KGtLXia5XDxpNj/3lzBk06dvupLEJdPmM4Yd/nO4g7uAiMOaCrd5R6Yb
+	+nfQMLdSKfEWmPtHOtmPOv9DX5Aqc3EyRUuMS9IL+DVGq29UIURvDX3Uw9xAQJeTSCU1zjsKI4f
+	zSB6QUg1AYPWKdFEux1E9xsY4+ejkk3L9A8T5tcIEcyEbM3T1Yqmn5Xn31QSO4D0di8iKzLnMxJ
+	A05Q86Za3Y1MGS/RPHov2OzEHAxBYoEJ6qejTim/40Q33XLy6vOQ+Gx2FqhZPj+27bBFZlLBHeQ
+	bI3kmCNqoE/GYk8Q/bUoUENYANVKtNB5e4Eyabjm1YoIfPvHzuj71oGQ3xcmP0gP31UXY51TVly
+	ZzCYLV3xFPq7zkpDObSyALtRpS9hL4DL9hIOyA+yLlFLx4oVwM2jb9pHULJBXsEMDROqwuAbRf0
+	msT3JLZfsJmS6uqg0jQtMfo8jhY=
+X-Received: by 2002:a05:622a:1b10:b0:532:f0a2:ef4 with SMTP id d75a77b69052e-5383b4caaa3mr156684351cf.26.1793108953988;
+        Tue, 27 Oct 2026 06:49:13 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53839709ed6sm79085531cf.16.2026.10.27.06.49.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:49:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,126 +88,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <auBzvB8TsvIK8Hik@apocalypse>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xLhXf-00000003hnK-28cN
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:34878
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 6
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJ8k19VF43jOdEev2O8oNtjqnZOt/tYvYOaVV6NroMRJcTS1mDpxlmj5k2/XRe3e+EX3NCmrGnBD7T71q92dqayKc17tsFfDnCVPfmaOuH6IZ1/eCajL
- trF6VxSntplT0oysl4v+8VHuOireMd/yWjnss77VaH7ep4jzeE73k7cjwvJFvIRqqa2VuSRqrfHKgYWMZ843KmNzLfgBcEBBeS76I5SRYWk0U7614kreDm2L
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 0/6] mm: fix pfn walker races with memory offline
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org, 
+ surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
+ hannes@cmpxchg.org, ziy@nvidia.com, linmiaohe@huawei.com, 
+ nao.horiguchi@gmail.com, ljs@kernel.org, liam@infradead.org, 
+ rppt@kernel.org, osalvador@suse.de, muchun.song@linux.dev, 
+ iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com
+In-Reply-To: <9051ac3d-60b9-4ed2-b781-b7191898bc83@kernel.org>
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <01d7d54d-0047-4eb6-a1d2-5b3f113f26cf@kernel.org>
+ <179310071902.664110.12994053710961856591.b4-reply@b4>
+ <9051ac3d-60b9-4ed2-b781-b7191898bc83@kernel.org>
+Date: Tue, 27 Oct 2026 09:49:12 -0400
+Message-Id: <179310895201.1491991.14362391061932133491.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Tue, Oct 27, 2026 at 10:49:48AM +0100, Andrea della Porta wrote:
-> Hi Guenter,
-> 
-> On 09:24 Mon 26 Oct     , Guenter Roeck wrote:
-> > On 10/23/26 03:15, Andrea della Porta wrote:
-> > > Hi,
-> > > 
-> > > This patch series adds fan tachometer / RPM monitoring support for the
-> > > Raspberry Pi RP1 southbridge found on the Raspberry Pi 5.
-> > > Please note that the patchset in [1] is a prerequisite for this one.
-> > > 
-> > > On the Raspberry Pi RP1, the active cooling fan speed is controlled via
-> > > the RP1 PWM controller. In addition to generating PWM signals, the RP1
-> > > monitors fan tachometer pulses. The pulse measurement and RPM calculation
-> > > are performed autonomously by the RP1's onboard Cortex-M microcontroller
-> > > core, which periodically writes the computed RPM value directly into
-> > > dedicated MMIO registers located within the RP1 PWM hardware block.
-> > > 
-> > > During earlier discussions, Uwe Kleine-König explicitly indicated a
-> > > preference to keep the core PWM controller driver (drivers/pwm/pwm-rp1.c)
-> > > focused strictly on PWM duties, rather than bloating it by registering an
-> > > hwmon device directly from within the PWM driver (see [2]).
-> > > 
-> > > Because the Linux PWM subsystem currently lacks a generic framework or
-> > > consumer API for reporting hardware-calculated tachometer readings, this
-> > > series implements a standalone hwmon driver (rp1-fan) using the following
-> > > structure:
-> > > 
-> > > -  The PWM driver exposes and exports rp1_pwm_read_tachometer() within a
-> > >     dedicated symbol namespace ('RP1_PWM') to read the RPM value from
-> > >     the MMIO block.
-> > > -  A companion DT binding (raspberrypi,rp1-fan.yaml) introduces a vendor
-> > >     property, 'raspberrypi,pwm-tachometer', to link the fan node to the
-> > >     PWM controller node without overloading or abusing the standard 'pwms'
-> > >     property.
-> > > -  The rp1-fan hwmon driver parses this phandle, establishes a device link
-> > >     for proper runtime and unbind dependency management, and registers the
-> > >     standard hwmon 'fan1_input' sysfs attribute.
-> > > 
-> > > An alternative architectural approach to the DT phandle + exported helper
-> > > method would be to model the tachometer as a child device using the
-> > > auxiliary bus framework (drivers/base/auxiliary.c). In that model, the RP1
-> > > PWM driver would instantiate an auxiliary device for the tachometer, and
-> > > the hwmon driver would bind to that auxiliary bus device without requiring
-> > > a separate DT node.
-> > > 
-> > > However, adopting the auxiliary bus would require a more significant
-> > > rework and refactoring of the existing RP1 PWM driver.
-> > > 
-> > > I'd appreciate any feedback on whether the current companion driver with
-> > > a dedicated DT property is acceptable, or if an auxiliary bus-based
-> > > refactoring of the PWM driver is the preferred upstream path.
-> > > 
-> > > Patch Breakdown
-> > > ---------------
-> > > Patch 1: pwm: rp1: Export helper to read fan tachometer RPM
-> > > Patch 2: dt-bindings: hwmon: Add Raspberry Pi RP1 fan binding
-> > > Patch 3: hwmon: Add driver for Raspberry Pi RP1 fan tachometer
+On 2026-10-27 13:51 +0100, David Hildenbrand (Arm) wrote:
+> On 10/27/26 12:31, Gregory Price (Meta) wrote:
+> > On 2026-10-27 09:57 +0100, David Hildenbrand (Arm) wrote:
 > > 
-> > This seems conceptually wrong.
+> > I actually have a reason for these fixes other than "bot said bad".
+> 
+> So you found them on production kernels?
+> 
+> We did not have a single real report of that for probably a decade or
+> even longer in production.
+> 
+> Recently, we had the single first report about the compaction case from a
+> stress test (no production):
+> 
+> https://lore.kernel.org/all/20260903095543.3752338-1-yuan1.liu@intel.com/
+> 
+> "We are not sure whether this race is reachable under realistic
+> workloads or only under this synthetic stress test."
+> 
+> Where I motivated that we need something clean.
+> 
+
+tl;dr:
+
+while these are ai-generated, I'm not posting untested, unreviewed
+schlopp for the sake of getting patches upstream.
+
+I actually care about this issue.
+
+---
+
+Some of these don't show up as crashes but instead as hung offline
+attempts (GFP_KERNEL landing on movable).  That shows up as our
+hypervisor just failing to overcommit / guests hanging.
+
+The compaction/alloc_contig bug is one I've seen in production.
+
+I've seen a handful of NULL derefs in production i suspect are the
+zonelist derefs, but it's hard to say (they're rare enough that we
+lose the dumps before someone has a thought to pull them).
+
+I expect this will scale up as we increase the number of VMs and
+the amount of hotplug we're doing.
+
+For clarity, we use ballooning + hotplug as a combo:
+ - ballooning to do cooperative overcommit
+ - hotplug to defend host stability when the overcommit ratio is extreme
+   (basically deflate_on_oom because a host stability issue)
+
+We're pretty aggressive about ballooning guests to squeeze them and
+dropping the balloon to hot-unplug that memory when a guest is cold.
+
+
+skippable side note on virtio-balloon/mem:
+
+I have some improvements to virtio-balloon and virtio-mem that allow for
+handoff from balloon directly to mem for hot-unplug without having to
+drop the balloon, but I haven't posted those (and we don't run those in
+production, so this is not the nexus of crashes).
+
+Similarly I have another extension that lets the host set a "NO_ALLOC"
+bit on the zone so a balloon-only system can provide the host a way to
+defend against mass deflate_on_oom events (we prefer guests to OOM and
+have the host to kill them due to PSI, rather than threaten host
+stability). Also not in production and not posted, but there have been
+a lot of experiments on overcommit here.
+
+> The thing is that the race between offlining and actual memory removal
+> is extremely long. Poisoning is just a mechanism to find these theoretical
+> issues that could cause issues faster.
+> 
+> And with all the other things going on, this has lower priority, and I
+> wanted to get back to the AI patches I have once the other thing is sorted.
+> 
+
+Sure, I realize I'm pushing this out during the merge window, but I
+felt it reasonable to get some thoughts on whether these fixes are
+worth considering for the window.
+
+If the answer is no just put em on the back burner. We can carry
+fixes as-needed.
+
 > > 
-> > Have you considered implementing the hwmon driver as auxiliary driver
-> > and accessing the register in question through regmap ?
+> > I have a reproducer for every single one of these (and the other
+> > series) - but a handful are unreachable due to a 2-statement read
+> > being emitted as a single read by the compiler (which can be undone
+> > by a targeted compiler flag). Those were included for completeness.
 > 
-> Yes, I also proposed that in the cover letter because auxbus seems also a viable
-> solution.
 > 
-> The current implementation is a consequence to the discussion about the companion
-> PWM driver, from here (and the revisions that followed):
-> 
-> https://lore.kernel.org/all/cover.1775223441.git.andrea.porta@suse.com/
-> 
-> To give a short and hopefully coherent view of the decisions, here's a breakdown:
-> 
-> - first proposal: PWM driver + fan hwmon (to read the RPM), all in the same driver
-> 
-> - V2: Uwe preferred to split the PWM driver from the hwmon one, so the hwmon was
->   dropped from teh PWM driver in favor of a future (fan) driver. To accomplish this,
->   I moved from readl/writel to regmap + syscon.
-> 
-> - V8: Gary proposed to export a function to read the fan RPM as a viable
->   solution. As a result, the regmap/syscon was dropped as it was no longer needed
->   and the function has been exported from the PWM driver
-> 
-> - new patchset for fan driver: the now independent hwmon moodle just call the
->   exported function from thw PWM driver.
-> 
-> If the auxiliary bus is indeed the preferred approach, I'd like to ensure we are
-> all aligned, as this would also require refactoring the PWM driver.
+> In general, I think we want something that will protect all
+> pfn_to_online_page() + zone->contig thingies, not just selected ones.
+> We discussed in the past using some sort of rcu for that.
+>
+> get_online_mems is usually the wrong approach.
 > 
 
-Let's say it that way: If you don't want to implement the auxiliary driver,
-and you insist using the exported function, I would prefer for you to go back
-to the first solution. The one thing I really dislike is conceptually broken
-code, and I consider the current approach broken. Your call, but the one thing
-I won't accept is the code with the exported function.
+Agreed, although the PFN walks seem genuinely harder to wrangle into an
+good rcu shape.
 
-Guenter
+get_online_mems seems like the backportable solution, but i can see not
+wanting to have to go clean it back up later.
+
+> protecting individual pfn_to_online_page is just whack a mole. Likely we want a
+> way to check whether pfn_to_online_page() is called from the wrong context, and
+> maybe we need a variant that can be called from "wrong context" for a good reason.
+> 
+
+Agreed.  Although I fear the structural fix for this will have uglier
+performance issue than we think.  Then again, maybe it doesn't matter
+(if you're doing a PFN walk, then you're likely already doing something
+stupidly expensive).
+
+Where i'm largely concerned is the page allocator and the
+compaction/contig code not taking a regression.
+
+For zonelists i've ended up with something like this:
+
+@@ -1461,7 +1466,7 @@ typedef struct pglist_data {
+         * Generally the first zones will be references to this node's
+         * node_zones.
+         */
+-       struct zonelist node_zonelists[MAX_ZONELISTS];
++       struct zonelist __rcu *node_zonelists[MAX_ZONELISTS];
+
+...
+
+static inline struct srcu_ctr __percpu *zonelist_read_lock(void)
+{
+       return srcu_read_lock_fast(&zonelist_srcu);
+}
+
+static inline void zonelist_read_unlock(struct srcu_ctr __percpu *scp)
+{
+       srcu_read_unlock_fast(&zonelist_srcu, scp);
+}
+
+DEFINE_LOCK_GUARD_0(zonelist_read, _T->scp = zonelist_read_lock(),
+                   zonelist_read_unlock(_T->scp),
+                   struct srcu_ctr __percpu *scp)
+
+static inline struct zonelist *pgdat_zonelist(pg_data_t *pgdat, int type)
+{
+       return zonelist_dereference(pgdat->node_zonelists[type]);
+}
+
+With this the zonelist cookie checks evaporate, but you still end up
+with guard() at every walk location - not great, but better i suppose.
+
+I was hoping this could be sunken into the zonelist walk macros, but
+I haven't seen that pan out.  I've been spending a lot of time auditing
+that code for private nodes as well.
+
+
+On performance:
+
+I've been hammering this with will-it-scale and a bunch of workload
+tests on a variety of hosts and have not seen any obvious regressions
+outside of powerpc (which i can't test directly, but SRCU-fast requires
+atomics for powerpc from what i can tell - so it will eat overhead
+without a fallback... if there is actually any hotplug ppc hardware out
+there to care about?)
+
+-- 
+~Gregory
+
