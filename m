@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793118134;
-	b=c4f7UENyOIgV3BWobaS2K9SEcr7xmsy2kCrqaMU9wCmrxaFdmbXy2DbFh+BvQJ51lZOe
-	 Vhs3IbPyUVnqrwPk6nOx19BtVbllC67oET6VLuSWF90O8A3UuWIuNIgAwVPfT2I3OYPjK
-	 mofgexIGGleZuQ8O7rQ/9OsRuM2LnX9de2kdach/XhCBqIIgb3kgpNG9FKW2hlJ+6BQYk
-	 gHis3OeKTNKJU4n6G2v7s2Xstje+8BchuKsa5UypDwYsJbvW2ZW+bugCGLCS7jBmG2/tv
-	 xQQ+7xvUtItyrMGQ/WtAqv0zrtq0P71j4rvC8vXGlF8j85DBLSCuj6zcepVYqHNFNlQ==
+	t=1793118154;
+	b=HN7gw0lMDgjjhk5mXF4hjgdGL4T6UZ1YW9I2R3ZBAm949NeNeOgoWlfvq2wm+YKH+KC+
+	 JlcFUE9hzvOhLWLpLgsWEp4cxCXhBukijSq3yHeLpdgb7B4Fts7AlcsE7b/QjNyf26QMr
+	 0zPIkTLz8hLvF2rWCCHWs+xA1m9JyldcSEvxJ4GRdJZKjE7/Ygxmmr5MQKjLUQ1d2UEC1
+	 jAlxzFaw36D7EJICfnn1j7Av1kt675ElgPu9LhnXplrku4tz5ycWECeC+FJn9Up6+oYXl
+	 tF7+z1Fj8q8zgnWX6EqvByeYPSUN3cm8/j9U1mGDWMlS1ZUkjO17mBsxeQ51dro5qtA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118154;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=1rdLpGOdPiVaYichAmiV+HhfkwVpdUkenG+R9qH/YbU=;
-	b=EcYPnUJOydIzI2A6PsFsaZNBdzinl44zJAoggPWc2gAlfkDor4qkLD7/mWs7LcoqI4kf
-	 RgmVWci6lntsfUXfw+Mz+Prc9SwqDENjxiKvzxWH7Yy/fgHfWslFraD69X8tr09eVma/d
-	 Fe+xGrd7l62kT5xgyibbb4F8cjOe1JN8i7Pjg0RUMaSIzz93GakgtnkJF0RF9tomGAW1y
-	 5NLCwDBm4of2ea0ibeKK85rc4N4r2pmTogziVQHpHxJrs+GDp+cKEZ5f4WiawGw78nSLT
-	 /7cKAIUCU3PSqN5Jjpv1p8pResUOlUrJZKgc0DxdhrVDzDOmOFK6oOIMWyve5CN2V5A==
+	bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+	b=MNhzjLbpc+/GC3leKHJdg4zOkk6h0S2VQqxPnf185qOtHHcTqRkvMvGyruIeZUyJquyJ
+	 ApoCH0PBgwT6kHkcdkKQSanVUXCv8Uzszju1NKH3SlIXiH6M4TN3UKhMAGVfg5ge9UzKz
+	 Rf1z5DoLMraW2uVxy1+x6Ivtg7ZHfVrO+YWqWNuqI+bQkB7WxoaPpwJlrntT9XpUJ8rGE
+	 N1ijcowFJU3ZF75zz4jXDxONYDGsrfuGetkMz6ZFE1OaxQrD1A+F597FSATsjfuEhJtMf
+	 uppzmH2T9VbpfakgfWq2ruHmTn/hUOPvVcPJ4OYVghXq23WAar36gkx5kJOjj0rE3hg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ojT8056X;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1iQHa5S;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F4D606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:22:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1F4D606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E09606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:22:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8E09606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ojT8056X
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8726acc5eadso34913197b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:22:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793118133; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1iQHa5S
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0f59a5fdaso38503017b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:22:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118153; cv=none;
         d=google.com; s=arc-20260327;
-        b=EaqozHbh5XK2H/lw9MulmIWxyw/jitIOO6urjsJO8vhgwb1xPjY3forp6p92e7gXC6
-         f0swFe4lCBtv1zkCBHppihKSVMf8eJ9/gDdhJGlGJIWivwnPBGehDpszh0KpwH9SBpo7
-         awcdhDWhIEPSE6dll5+UrCjeu0yCkmmPLzyAhfFJk1jnZKZ7kP+BOYqArA9Gei+5Mh7z
-         BVEvy2fOMJEAY+MFVrgvVzBT8q8EdLW/unnk091oxfzI7yN0doK5ev1vtaq/bde3qlz5
-         QAcfRKez7cp/Yz3fYvDeiANuXj8pzvnxhRNAV6FjqrX6lM0Rm1driKlPfjpxRtNjgKz6
-         qW6A==
+        b=iyJp52jIc4deEZ/HFEKeb5p+8Y7sgrxNwvEJnOsHnQR36tYFQi20xml+0YYXzOUdaE
+         7EH/jG7vtihVKdC59KZGeqvMaSvPkQ66A6Qac6cyyBlI4FJlM+GKEp+tZW9L4SxAor8q
+         kqWYrMWRQT+VwqXRu7Qwg0r+gKgpelh+WNbh/+kML6myt7IvhEWxZW2P+WCwRLAFfD+4
+         Jpii6L4AJPvoaMCSy3c7sLG03l12LTAYl1j3TcIEZKWBhhoHP6h/pOY2zVIrdxGb9SNQ
+         GcGiIu8OQG96mAETq0yUyxmRKTNlftunnmsareGVNkRRtMvNEiEAOSNifdCnpyehOC9D
+         i4pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=1rdLpGOdPiVaYichAmiV+HhfkwVpdUkenG+R9qH/YbU=;
-        fh=UCUudsjNy6bf4Ql/UDiCQ+DDOIOhg2W55EOt80fACg0=;
-        b=Giz9tiANRd3iqyGRA4auGgXsSyCVBOt2jZfC0tCqxNbKcLIypLCkiW8Va/eLC8FXFO
-         du98GQcaIEfS2BOsjLJj+IH2B0Z2n5vdoxwbNsuDe2AV/ayOOMpvKpgqLBfuLz4fmHON
-         91QcG7e0hBlDx/+ppfunbC26TUROrVlKl89+rhZA5hZmx7noUbJMRq7lrJ5cUTq5Btv7
-         NGKZDvmaPO2qCKR7F3SgVDlq4QcBlTNMfPicqUQB3/ERZRulrOaGsD0Y75ZADKSp0oCz
-         ztHWFEitr5FXfKHd5IgP/yfDDxsdvLdYbx9UIN99OrEV+kJfNln5jmNjMJxA5iTXFBNz
-         aROw==;
+        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+        fh=hkp40rUJNvc2y33J+JZgubOd2riW1+tzOE0v7EnreWg=;
+        b=DJHZLnQ+uz9go1TB+12sjWv3/liGH8XIqdR4lECLtwsilfEL6/FSOfNWiAIzfeHTl4
+         HgGCmFeWSP6IHTWyaQOZUdN2UHkxXliIaBxsdm5yiLHUyFgtcx709gntKZRaDT11YojZ
+         rkHond50LmltZAJjkGZE3AEhWnRlPiIQigvCO6KT9VO0a/fETI/9ZTmbzE9rc95KRWhO
+         /DQ0Qk7DniWIzkMm+EIdxvYhO7eyVx0aUbYzRM/pzGDh3hFc+jBJG9JNVqInfXVYrX3u
+         67JjmiwMlPohYX05dGkgqVWeXLATuGMGJqpJMk+/2dEV22Y1tHzCe0fdld8CPFL6KNL3
+         A9Tw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793118133; x=1793722933; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793118153; x=1793722953; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1rdLpGOdPiVaYichAmiV+HhfkwVpdUkenG+R9qH/YbU=;
-        b=ojT8056XaWIE5tAJULqg8MFCtqI2PkKXedZdnmIwjDNx/gjdgoJFOYgr60aavlYget
-         NAph7/TMSvyiX2/+G3WXKQEkd3e1zFb33LVIAvGMHQMyXXL0izVm1ASM7Y+M8XXTvzSY
-         BUzGvYSB4BDmOhIdESLK59JnOefu+zKnOjL1FGkj60Qb6spc5fcaAA7pWcaRG3MOx60u
-         tP9sUY1jo8Ud5wu6gKiyPGHwpfDLUiyKAyvPk2XguE6nN/deiikto7XBHpiM+q65pEHu
-         RHN+oxpmvgdzMgReZhMbCFXcEt9tUwhH3hoUrasBe6SBx8sVaKes6Ik2x6Dib5DJ7YDC
-         Njjw==
+        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+        b=W1iQHa5SX/Qc+pJyHgnzeP49i7n4MyoEA1Sg3k4vdH/8WuPlX0on9nVDrySw3Zna8i
+         VmAyaK3ohLRAwCwDkIuGUhl6lFASHb9v/c6ua/hWP4ZnWIS4Pg/QPxL+h/j2+M/ph6tF
+         1vS3HMQklRX7SsooBGhCqQgqAsP87LL1H8P0aiSVUl4bKJTDy8l9YqnJ0x5Ec1X5CdbS
+         J+/smu1iGC4WhXJMXPInRtuGzDFJObu3iEpaPAiN+VC9nv1zNGfLCEZH1FiQpKqwIiPf
+         VWeWPMWfSjW129zws8g4m5xGzmWq5KHVcVk+cQtM/DXfJbdUlA+dhI85l6M9pPu5/00F
+         GlHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793118133; x=1793722933;
+        d=1e100.net; s=20260707; t=1793118153; x=1793722953;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=1rdLpGOdPiVaYichAmiV+HhfkwVpdUkenG+R9qH/YbU=;
-        b=obCl0GGbOYkYLCh7CxbwLxG9/BvNXIL+DVbio4h6w2/P8kmkZH/94R/o6Vwqup7Urx
-         sI03dXbeSvH9TcNDOwecljdkO3dhl0uZkpTOwb1d5S4ll/SNJOQUpxHEjAFYuz+3uZfP
-         abHVrtw2z5KdKw3+CwBh1DP156W6SkVndXcP+IZTey6Dy6sH6BZ5rPoT58fq923sDZf3
-         6r9ooGqV6rrpa28LPJqze5q75vA4TmKqKq8YCBTgI1oPaxctpuZXRuKgQOmxZoqwfKcK
-         LR7qSFRO1NbjMcBtTgYgxVlxb9REHe4jm9h6tzM09tmYv+SKVCWfUTLrwP12c68P4P0T
-         rWnA==
-X-Forwarded-Encrypted: i=1; AKwUvBzbUUvFjQb8rZiVdk0g0GTttR17c6ScXLZyNynyzu80+X8jFsdMUEJ2/Md9qnhtMygf63qrsun+zszaGmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRToCR3C9+nGwl2NM6we5aJ+8b7ZldNDizep4GSnAxzUtn+oD9
-	G0yN1qYGGYCYtNP2azlXzKpRoM4b2WTI7OUs6VfjYMAFgkzfwfu2Um7yggxcExE0TB46WBBzYjj
-	bRRyoaN5nssgBIj7dL9nBx0HWO6+rOfI=
-X-Gm-Gg: AYBFou1h7i4yOKeT8aHiyzgFGooofKtzVzSplP0sfDN5kWfcfUEnG//lU5uvh5Pfwu9
-	V9KI19+3ewBkxWq6eUo4sd4jNXketaNBQ3lbnT1BI5JfLpk4ujK99ZuRi1TEcF8MLXfzXbjdC18
-	P9ELaHbjvzF3Wa/sA92Y6Kpf6mEuTj55OIrNpr847UpcCSfO7GIAwHyocoOGW7Wj0tyuLIgiU7D
-	KdSB1QnFem18eCawDLYLFoFnwK88RWaIOsEHlC+HC//Ta2AA4UJcdKoiy87Ittdg3ATK9MehG+b
-	HWCr4e0MV3NLIt+OF7IpjhyTLck+iMTgzSejrz8mri9XBo7rt6lDuBKpArejRGL3euFmIYOOf3H
-	wbaFhtyq8TCifquXDoDQAMV6rEJYCVyTbUxsC8N07EZkrf0dJrYGlF2bQ1A==
-X-Received: by 2002:a05:690c:7108:b0:8a0:76e8:c738 with SMTP id
- 00721157ae682-8b1667b96bfmr81615047b3.0.1793118132815; Tue, 27 Oct 2026
- 09:22:12 -0700 (PDT)
+        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+        b=a/Fzq/wHcxCLPrucwWsoW2tXnnYN71mtLcfoeRayjmJxqIcLfscIGaT3Wftnmsg2D+
+         tmKwb4/JZARW7iWmnpK9Y4phUO6Jc6orpzFmmbthdqkvE0eiUC2EgBfXvR3nr2LzoSWs
+         1rrGQ76Oim8DDPfRGKEnTNPs2or8FlHRFVYtn0mOJ6rzIEgkaheKGOx8WPATrBhzgFC7
+         7v24+Au4MFh8XKOqxkEGClHtWJydKvz+HIAjYmgDra/JAOgb/AecNPSZ6T/0EFAst3jz
+         2BW3wHa3WpMgmorhrB3WWCCL/uhmmv63JXLhIHnU/8WH8Cik0fl4fHGl4VJomvNlhgRi
+         Wnuw==
+X-Forwarded-Encrypted: i=1; AKwUvBz13ayUGWiFkaOKs+WgfSzsBr5H0KZSYGXy2ZFuLQb9ULbMnfhB9jHZy5K2Hv1MJ3AfYo++9S+HH+AnY24=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqaHcnZGMKAedkZ7KVPqohfvSbodk1s5FvSuw/2DmgBLpFoWt4
+	DPxf0Dp2hKWJBGb/KBiaqITlAjSobrfRxDIsPvHsUaJPcU2asAnrY94+iwpHS+n1EZYZX6RFUJI
+	zPVv9x04cJEh0KVoVjODfvGYPrjn6NVs=
+X-Gm-Gg: AYBFou296OwoBvdb3sgI8zk8X+vZm2u2D8iS57C1JgSzVxeOgLltw4JknJbXthf6gBG
+	O4JrZsW80du0/xJI9+EhveB7mZLMY7w0ZclA4jKJaToMxDT7tFk0HNn1VN7Vb9l3T0W5hzF7gyP
+	G0NBD8FNcCa3TYBg2J9utUawbWJg7t5lNPFlDKaPiI0wPwWJB9aM1/DYrlUd/IFM4oZ0rpqRAIt
+	NfU3eyeJqb8sDTJUwUjC/Mc1nvKieKTnofLQ8YYq4RDMhNB4SbjcipB9Pu4iBLVXo6wb0MfqlHx
+	Y22bUuhzfizTo1PD4sRVOWLzvNpNqvHZp2M+dC7ztzQdtwZ5PopM/F1uoBVeAzI29l89mkfvo65
+	c34aAtLhnko3ZLnN1c8hajjIFKMl7eCAu3gNw
+X-Received: by 2002:a05:690c:dd6:b0:8b0:cee8:53cf with SMTP id
+ 00721157ae682-8b1669cb374mr84387667b3.3.1793118152555; Tue, 27 Oct 2026
+ 09:22:32 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,39 +103,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027024609.117371-1-lgs201920130244@gmail.com> <c04f2ba8-fc83-4118-a26a-76ea8cbee518@kernel.org>
-In-Reply-To: <c04f2ba8-fc83-4118-a26a-76ea8cbee518@kernel.org>
+References: <20261027145313.136305-1-lgs201920130244@gmail.com> <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
+In-Reply-To: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 28 Oct 2026 00:22:02 +0800
-X-Gm-Features: AclHuK_iX4SH8qBhnH28MTM8xZlzfsclFjVNEOpTxXSJI2-mCXDyAbwNghV1urs
-Message-ID: <CANUHTR_VjDZiG=igkaiy=Pj-gLKchTwA-OvJ4KjVoC-nDX3YTg@mail.gmail.com>
-Subject: Re: [PATCH] mfd: hi655x-pmic: fix IRQ action memory leak on removal
+Date: Wed, 28 Oct 2026 00:22:22 +0800
+X-Gm-Features: AclHuK9WhSZ_5Xj4ee9jEQ2X-wRviwNJD5dHM2yTu5byUlkX8Eudsa4g1RS5X-w
+Message-ID: <CANUHTR_RYcMEOTevXWRF2iS83oNDc4pXqsbBZKLV7QbSUeYh=A@mail.gmail.com>
+Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, John Stultz <john.stultz@linaro.org>, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Hans Verkuil <hverkuil@kernel.org>, 
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hi Krzysztof,
 
-On Tue, 27 Oct 2026 at 23:27, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On Tue, 27 Oct 2026 at 23:32, Krzysztof Kozlowski <krzk@kernel.org> wrote:
 >
-> On 27/10/2026 03:46, Guangshuo Li wrote:
-> > hi655x_pmic_remove() currently removes the regmap IRQ chip before
-> > removing the MFD child devices. regmap_del_irq_chip() disposes the
-> > child IRQ mappings and removes their IRQ descriptors.
+> On 27/10/2026 15:53, Guangshuo Li wrote:
+> > fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
+> > DMA address does not satisfy the firmware alignment requirement,
+> > but leaves is->memory.vaddr non-NULL.
 > >
-> > The hi65xx-powerkey child registers interrupt handlers using
-> > devm_request_any_context_irq(). During child device removal, the
-> > device-managed cleanup calls free_irq(), but the corresponding IRQ
-> > descriptors are no longer available. As a result, the allocated
-> > struct irqaction objects referenced by irq_desc->action are not
-> > freed, causing a memory leak.
+> > Because firmware loading is asynchronous, this error path may run
+> > after probe has returned successfully. A later remove can then
+> > attempt to free the same DMA allocation again.
 > >
-> > Remove the MFD child devices first, allowing their device-managed
-> > IRQ handlers to be released while the IRQ mappings are still valid.
-> > Then remove the regmap IRQ chip and its IRQ domain.
+> > Set is->memory.vaddr to NULL after freeing the buffer so the
+> > existing NULL check in fimc_is_free_cpu_memory() skips the
+> > already-freed allocation.
 > >
 > > This issue was found by our static analysis tool under development.
+> >
+> > Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
 >
 > More of postings by bot ignoring any feedback.
 >
