@@ -1,59 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793090106;
-	b=xCMvN+0DzWcaPPZOOM1h25cMvsDzSwrcFyf8dRg0g/06zqVMIAG5ZYAsn8tqWd+OAaI4
-	 CLa6c1RrGbAcOoCDIMIqsM8tx41YQ5GNS3jr3wJCZYnjPrFV1SYu+xzACGplUjGlgZTPB
-	 ACw56qCZocZxWchSR0tEGD9tPFS2M3476+DhQRmj/vphBOPRvtpnIOPWbS8dObV6ps2vP
-	 kZlLyqKzjp0nE+0vxAAWBNGt6OalBAWz3X7Ca9PMYYwWrtYWeaheQYvfcYQKoBTg3JS1u
-	 dMZWoJbwm5ANiQbPPWsiCDFkNDcIQx2D7dP4NPmqOjFwSUjKiJbr/jvG3WHKWjeqYiw==
+	t=1793090115;
+	b=HThdqB36HSpFt4L6AI0zGy2oi70FnkuwjS7EfCjQ/C8rO0j+V5lLwnRT4SJFyXimJDl6
+	 NjfcssHZMk2+6ZT7gPPs+ZRvhRoYT0THTydmDP/agWZwfNFpDF6GFxcxEkt0YrU02WXmC
+	 7mzGrh0V3xZN+JS8L/Qys8yhXY931YYgKe0eVZTo1sW34MJ7w1Se6UQktjKuHGurTprEH
+	 V1VcZA1VaKJSklJ8c6+WYwfDU8R6dlQ/cxhnJxVb7z/fHT0cQZDZugEjyYhyUaxPLnmEw
+	 95NUxebZG7is8JDaxx/GBCwJlizzVZZnQCPXMzJsH2eM/Fzmw0W/G8TEAmCs6PxLOIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793090106;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Mime-Version:Subject:Reply-To:Sender:From:To:CC:X-Priority:
-	 X-Content-Kind-Code:In-Reply-To:X-CPGS-Detection:X-Drm-Type:
-	 X-Msg-Generator:X-Msg-Type:X-Reply-Demand:Message-ID:Date:
-	 X-CMS-MailID:Content-Transfer-Encoding:Content-Type:X-Sendblock-Type:
-	 CMS-TYPE:X-CPGSPASS:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
-	 X-CMS-RootMailID:References;
-	bh=5bahGxfUN75E2T3mOHUJ9Zz0leyIiVRMhMYoQV+Rpgs=;
-	b=x0uYXytUFi4bDj43xFr0GT9ouuFLvbqVZzo1FPVExUK2xFy+Q7gQg2tenh1/6YA5MXHE
-	 D0Ul06jLCYlJbjbuFQqWLsWHeqDhjLK3SyncdWD5YcHy55SCqWmeUMF5PTz+EKVANcXCp
-	 7rub6X/6yKqTjDUNU23STIDCD6TkH7PhtfdGCSRsmAwbPE0av4I2I0USOKGGppqRmuKfh
-	 7sBgpdqeaj0zGjXRX6ISB4iWZyRlc+01DVnsCejPmp9nPcsSqKSBH1rubG67I22UK9hKX
-	 UzNHfpPIyUAep3FZCyU+Q6wf8VWuwxUwahSowNypEPCSFJXkDoqa57AYFNWs9WJgWGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793090115;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=7YA8P+muIJDBbbr/1PLa8S19fZTHN+SvrUEgHhvUB0Q=;
+	b=neOHSJacJkzqi9HpyReefar5YYExAtxUkSk4fo4fCJPSaWJ3SCiFqSL33Kpcly/4JvDa
+	 Q/32hl652vE6CP0xtY7jYTx0DH9bSlxItaRajnIHKH4lluyOaw+9ez7LYi3r0j+OidW5l
+	 X3bWQ2JP+E6+RBFt/WEnXlXxd9/aeNJWa8y7piuDwwDqCplZlkpcdXOFpHu1k1VYQOPyc
+	 JCmhQB5hCkIn8HngWHm3ub9Bd3EwoOR5t2foXYrSQJAA18/cTrLKsNHUxz+3Nr3hvKmMK
+	 Z6sSefs2vtLqhNTjaOAWUinIUjWZ4ppH/Ak7hY0BOxP/Suxnkj8fAw/CbE31nsE9yag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=L4lEPNd+;
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="ZNSDyy/z";
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DC8606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:35:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97DC8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B762606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:35:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B762606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=L4lEPNd+
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261027083503epoutp02f228f7f3546ec4fe3304f8dd4d1ac1f3~iVfL8-zQk1440014400epoutp02b
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:35:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261027083503epoutp02f228f7f3546ec4fe3304f8dd4d1ac1f3~iVfL8-zQk1440014400epoutp02b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793090103;
-	bh=5bahGxfUN75E2T3mOHUJ9Zz0leyIiVRMhMYoQV+Rpgs=;
-	h=Subject:Reply-To:From:To:CC:In-Reply-To:Date:References:From;
-	b=L4lEPNd+F7ee8P3N/mHT/N1cn74Bk23jtK73oJvSICLDsyxIDUNmFDbFox9TiE9+x
-	 ADQgI+Kd7P6lLh55lo/7d7+/uivKwLd3FhCIpos1hwluRZoNZuiJTwo7wna/3uI5WM
-	 RB8L7kn8gWQ3LAMMrLPijurzgNnNQ3qzhXraLJ+s=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261027083503epcas2p494af9311ba030f4f9573dc589ba17ada~iVfLXfW_z1990719907epcas2p4J;
-	Tue, 27 Oct 2026 08:35:03 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.208]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jDP1y6RkCz6B9mR; Tue, 27 Oct
-	2026 08:35:02 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZNSDyy/z
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd6a7b62ce8so1176254a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 01:35:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793090114; x=1793694914; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7YA8P+muIJDBbbr/1PLa8S19fZTHN+SvrUEgHhvUB0Q=;
+        b=ZNSDyy/zyhhCmgZWgl6qcdmIcef7mMr+iRmpVFcu2dq5I+uaR0LbVBeoDUwc7BppFw
+         JTA1z90X04oWX+uVnK8SDnajOzG9CIu9cGRpt3Ad1eONnavGivXYfWgxXPbBHaGuYMbL
+         sKXeJuzauv/A5JKlVvLd2rCZGZR3lYdok87md/Chbi13U2yUfkXZmwoYjRqGnin9cH+M
+         TMFf3Hr5ti2un3JHBpg+fS2qsCyR2C6q3ijmjwVuNDsJ8KRBuCbpcjttGmMLSpqka8/6
+         1MSFAfZP4/WNh8hQiylQ97JZ99dtGOZPgDO7VZC71jQkXGbVyxP+gjjFPAQW8ttc7zWW
+         Crdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793090114; x=1793694914;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7YA8P+muIJDBbbr/1PLa8S19fZTHN+SvrUEgHhvUB0Q=;
+        b=qitzmIYHs4Ozi+6kPEtPrVYh+ZyGZ5VpIADL7xfOMZ3j2pZKld0T22lSPw0dG9W/69
+         q5tL8fqWNaYrqJIfr+eM6LOVtLK6TVuRFX8p4I9DnMSQcyMG9Lbwqbmg59b06rjmxWMt
+         7OqdYg+eVTd8hQYiNpAEcbw7r11PrfOrV0b//uIeT2MaXjF7kK042ln5NwUpWjXZmBjO
+         CDWBng7eUOmp0psDT99lghBJ862QsDDkp/Hp93QEodqxeCkJNCG8uCB179vcWfJ32oBg
+         4gf0v53LYLJFcxoU298SMs/A2lzpvfurqXUyOOOZQFqQF4JARwnHUTudoNRrB5vfyQ6J
+         XY6w==
+X-Gm-Message-State: AFq9FYJaFUdx/XZWgkFSoHw/tlzn4VqYZ1u4FYB30m77uVAbrv2Ml27N
+	1R27Jjqd+eaDpC2HMlV28hJaOLWyZ5F/eOZRNYQHliM+3Ye+LqVurzQM+37/ZRM4
+X-Gm-Gg: AYBFou1FbBz5G45OdD+IWB3Dzn3rQNppnR47MdvBcf7I8GHN+rq+tu8zRLgoD+04hNJ
+	pRg7aSo1yXFxZNovQFO03o73Rb+e5IQLO8KzrRArCBqZLzA7FIxQutZBV5STxabzEfddnSecQAJ
+	CVg0rHMuWMj7y/3ioNalOOmrCo3kgYmm8ct/LlAvKofmzUccEw+jqeNOP0FG/leaU18eCUHfkq4
+	y3kJym2MHL44embNv8JmyncVJWoqeS0WaMl5H8KtBN7N+LPeZiZvS3Mhe/Jv6j6t8wnEibTzbvt
+	twadArtA141bF3e8p1rpMalbxiXQGS7zBIWSIgVCgAQY6yhs9/dJ03nM5m8ctSQMFM5/esbZ4VJ
+	Oyh8IPuYhau8q7rE+Hx/Ftwnmca/HufSyHMBW47Q66oIFnc92wjMq2wfm2/swL6mkTkH4go3CRC
+	kqNX80h3U8gmPsg1306w31tSBYRKNLhAdxAyshDeoT+cl1ime68Sdo14pvh87NY6xEgILAkyx/k
+	FiA4rQPc07/tiqIc6eW9XA0Ghx8Phe2tTk1Qm3/6u+EQFpRxYgFgcJy7OCe
+X-Received: by 2002:a17:90b:1c12:b0:3ac:6e91:3f22 with SMTP id 98e67ed59e1d1-3adeafca234mr6397843a91.52.1793090114408;
+        Tue, 27 Oct 2026 01:35:14 -0700 (PDT)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404274b2sm2750182a91.5.2026.10.27.01.35.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 01:35:13 -0700 (PDT)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: james.morse@arm.com,
+	ben.horgan@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com,
+	Ping Li <leeonion.muyu@gmail.com>
+Subject: [PATCH] arm_mpam: Warn when firmware leaves PARTIDs disabled
+Date: Tue, 27 Oct 2026 16:35:07 +0800
+Message-Id: <20261027083507.48226-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,57 +94,80 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Subject: RE:(2) [PATCH v4 5/9] xfs: limit the count of a pNFS write
- allocation to one extent
-Reply-To: daejun7.park@samsung.com
-Sender: Daejun Park <daejun7.park@samsung.com>
-From: Daejun Park <daejun7.park@samsung.com>
-To: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-CC: Carlos Maiolino <cem@kernel.org>, "linux-xfs@vger.kernel.org"
-	<linux-xfs@vger.kernel.org>, Christoph Hellwig <hch@lst.de>, "Darrick J.
- Wong" <djwong@kernel.org>, Dave Chinner <dgc@kernel.org>, Chuck Lever
-	<cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, Dai Ngo
-	<Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, Andrey
-	Albershteyn <aalbersh@kernel.org>, "linux-nfs@vger.kernel.org"
-	<linux-nfs@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Daejun Park <daejun7.park@samsung.com>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <atoImJxtg70XcIjS@quentin>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20261027083502epcms2p736b8c20d8a66bdc43b1f68e5cde0fc24@epcms2p7>
-Date: Tue, 27 Oct 2026 17:35:02 +0900
-X-CMS-MailID: 20261027083502epcms2p736b8c20d8a66bdc43b1f68e5cde0fc24
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-223,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261022130241epcas2p22506b749cfa884fea92c554d34d3df19
-References: <atoImJxtg70XcIjS@quentin>
-	<20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
-	<20261020-xfs-pnfs-batch-v4-5-9230fa2ca4a4@samsung.com>
-	<CGME20261022130241epcas2p22506b749cfa884fea92c554d34d3df19@epcms2p7>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 03:02:30PM +0200, Pankaj Raghav wrote:
-> Isn't it better we add this in xfs_direct_write_iomap_begin() instead of
-> adding it in pnfs?
-[...]
-> +       count_fsb = min_t(xfs_filblks_t, count_fsb, XFS_MAX_BMBT_EXTLEN);
+MPAMF_IDR.HAS_ENDIS indicates the MSC supports the MPAMCFG_EN_FLAGS
+PARTID enable/disable feature. Firmware is required to enable all
+PARTIDs at boot before handing over to software that is unaware of
+these registers. A PARTID left disabled silently ignores all resctrl
+schemata changes, as its traffic is treated as having no resources.
 
-Thanks. That works for pNFS as well, as xfs_fs_map_blocks() passes the
-same count to xfs_iomap_write_direct(). I put the cap in
-xfs_fs_map_blocks() because it relies on the caller asking again for
-the rest of the range, which nfsd does, and the other caller,
-xfs_direct_write_iomap_begin(), already limits a mapping to 1024 pages.
+Debugging an IP that implements HAS_ENDIS but had no visible effect
+from resctrl took a while to root cause. The fix belongs in firmware,
+but warn during probe so this misconfiguration is reported loudly
+instead of silently.
 
-Daejun
+Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
+---
+ drivers/resctrl/mpam_devices.c  | 16 ++++++++++++++++
+ drivers/resctrl/mpam_internal.h |  2 ++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 48adc49b833c..f03aa40faa0a 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -1159,6 +1159,7 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+ {
+ 	int ret;
+ 	u64 idr;
++	u32 en_flags;
+ 	u16 partid_max;
+ 	u8 ris_idx, pmg_max;
+ 	struct mpam_msc_ris *ris;
+@@ -1199,6 +1200,21 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+ 			ret = mpam_msc_read_idr(msc, &idr);
+ 			if (ret)
+ 				return ret;
++
++			/*
++			 * Firmware must enable all PARTIDs before handing the
++			 * system to software that is unaware of EN_FLAGS, so
++			 * a disabled PARTID here means resctrl schemata
++			 * changes silently have no effect.
++			 */
++			if (FIELD_GET(MPAMF_IDR_HAS_ENDIS, idr)) {
++				u32 en_mask = GENMASK(FIELD_GET(MPAMF_IDR_PARTID_MAX, idr) % 32, 0);
++
++				ret = __mpam_read_reg(msc, MPAMCFG_EN_FLAGS, &en_flags);
++				if (!ret && (en_flags & en_mask) != en_mask)
++					dev_err_once(dev,
++						     "firmware left PARTIDs disabled, schemata changes will not take effect\n");
++			}
+ 		}
+ 
+ 		partid_max = FIELD_GET(MPAMF_IDR_PARTID_MAX, idr);
+diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+index 1f86cc158100..008dc4e10f38 100644
+--- a/drivers/resctrl/mpam_internal.h
++++ b/drivers/resctrl/mpam_internal.h
+@@ -574,6 +574,7 @@ int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc);
+ #define MPAMCFG_MBW_MIN		0x0200  /* min mem-bw config */
+ #define MPAMCFG_MBW_MAX		0x0208  /* max mem-bw config */
+ #define MPAMCFG_MBW_WINWD	0x0220  /* mem-bw accounting window config */
++#define MPAMCFG_EN_FLAGS	0x0320  /* partid enable flags config */
+ #define MPAMCFG_MBW_PBM		0x2000  /* mem-bw portion bitmap config */
+ #define MPAMCFG_PRI		0x0400  /* priority partitioning config */
+ #define MPAMCFG_MBW_PROP	0x0500  /* mem-bw stride config */
+@@ -608,6 +609,7 @@ int mpam_fb_check_shared_buffer_size(struct mpam_msc *msc);
+ #define MPAMF_IDR_HAS_RIS		BIT(32)
+ #define MPAMF_IDR_HAS_EXTD_ESR		BIT(38)
+ #define MPAMF_IDR_HAS_ESR		BIT(39)
++#define MPAMF_IDR_HAS_ENDIS		BIT(42)
+ #define MPAMF_IDR_RIS_MAX		GENMASK(59, 56)
+ 
+ /* MPAMF_MSMON_IDR - MPAM performance monitoring ID register */
+-- 
+2.34.1
+
