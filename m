@@ -1,57 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093269;
-	b=IQLcYtBACWK895jYMvr3OpSJC9uL/5wFVb0OuMIL3/v2s+mlgfFSjBkFeaMEkKsbmOfD
-	 n2cNqxq16xroN1BI5O06JE6IIMh5N8q5fIxzeMQCynZLETvr3vAeFMcDf816dqNgier3c
-	 GQK840dBPWL/iPcnhmMx3CZFsUOnJ+p99IeUiwLoEm+4siFEUg5A6rfWKiDBSknzEYQ8k
-	 0muvLGt0Bbxex6riPZnDm7mIevjNrQWsWCDoZsTWlpm2FqlvrqVuaLcBHfyW3aqmEHfLF
-	 9Vy7ZJqRMLFeLpR0YfeA4WE0EnJBPZks9A28gItr0Q4G+2hpQVLXe0hufqCPf1mDnWQ==
+	t=1793093296;
+	b=cpC3xqZMCttmajV6h1QMN0qwFt3gWc5EpIxQkavugWPXp9Jh1qTqWgRVg1B7y2Ki8Dis
+	 1393QyyzSSO7vqapqhJmzyEBiQYrN7P92E9Vg9koqzLj+Nuq+dXYiyQjESMwnAo3/Mw7X
+	 e7lC1PdI9e6/DkhmyvRKLZi0sNBmXPfJP3t5n6dZM0mwvz5lg4F2FlDgWDSoLH/vKn87s
+	 NxR7HxV8q+Ds/HA5C+V6cQHbo5AW+YflOA7Nil0b2Oi0gKAKlSDEcERLBeyhBzYC45hBb
+	 NimZvKFd/Bjk5dC3LQFfHXngYlt2HpvVxGNf61WMQmKvzzvHv21nujvPADnT874i87A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093269;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=cqMEEiWYMoK/eFz0KCyctPUX1pvK6M3UDTv6SKHJbck=;
-	b=xH7rEij7ECxybBhDMOE6E77PlXJy0Sdz7TTdngZ24kQQAeuCOd61ZIlSTJ6b69bFuIfj
-	 zb2f6pVXh/XrLbkD/ulOVGC2idob3y166kjkjOlv/8bARLBu1lSwe1Qgvo6aj/xxpqJR6
-	 TsX9CpUtL2ER4RKOZ5/3yaMM8kmJTkfvDHRMv5GCOKT+mHQwAVyVg4t8GSz97+1LYFi2W
-	 Wi26o1zoYz8/ZkanOM3SczsfpT4/CA/RsI8nUkC0rja57N7c2bpU5yqNkIWYuWfbTZUyD
-	 uF3MeSTlvihLFg/j+H9nKXIbALGAd3t8Hzh7gH140TXF303+pQ/7n3N8zen1bdykGow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093296;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=HdpV8/8ebIhU1zoXk4jFUfi23O/1u5Y3/kMloldzY3o=;
+	b=07XSbegBNqp0N2WoDRyIy8y31gG1tloW4gWBtr/fda4BfZZGK/6HCSX0u7QC5Ed3wLAD
+	 LIrswBwG5IrOC7J3SQKE2P5quasFWQuZ09aEJzZmMViQAJUc3Ac2gKJ6pjLhzG1biR6X9
+	 pEsP7ss/x7ukZaMEkZGJ0q5nGy4+3ZfAIMqqUL8QYNm+hAUclDk3Ppct5FtpRqKl4r3zF
+	 Yy4rBLbpF4QRQaRlXfPMueVDyt+Moku9K2Ek+RPD1CETYi6cT0Y/vvSv5yU/rp6P+JKon
+	 g5Dvx5uxM/FM9Rqu2dXGlULWrq9D+4fvU7XjxRvt3QfQlcv2dfw6uh5unk75eEeAPRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qAezmMBT;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5300B606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:27:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5300B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUBb3Qhh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76163606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:28:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qAezmMBT
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1A4A1596;
-	Tue, 27 Oct 2026 02:27:43 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE4BE3F673;
-	Tue, 27 Oct 2026 02:27:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793093267; bh=3HTFONAtsNkglkqcovoxQq04UGMU0Xwx7v6nOz9s7QI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qAezmMBTbU/EGoNn3tUW75M1WR3VQO/nODpfQ0fRfxNtZ25acW1NbtrIK9BLhcbUE
-	 hGw7le/HnI5z2mJQXHWz4dniutngUgRsOxfB4g2Rq3kwwyqeW3PVfqZ5Bt6IZLUWir
-	 ux0mMQ7VdW6TM1ekRsFgC7Ln4LgkIu+lpTynQJ+Y=
-Date: Tue, 27 Oct 2026 09:27:44 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>, coresight@lists.linaro.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] coresight: etm3x: Remove redundant NULL check on perf
- event attr
-Message-ID: <20261027092744.GA769456@e132581.arm.com>
-References: <20261027-james-cs-redundant-null-check-v1-1-ed9486be26e4@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUBb3Qhh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D43D1F031E3
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:28:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793093295;
+	bh=HdpV8/8ebIhU1zoXk4jFUfi23O/1u5Y3/kMloldzY3o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QUBb3QhhXF/1sAdgLNkyeIBkfegZ2auDCxH+GLk8G/jkRgMkdJk+HdNEifadd/lM4
+	 /u05qFnd7H5zy54uBgARdMPEVVnBwYD3AgZnwGM2PNGlOpIGdcG/bUv0XvRqDbNs2f
+	 umdA6Hu09Po2N/Y/rDfSTipeeX0I5PUysZx0TGpd2yWJljSsWHt7SFP3xppQHd+9av
+	 KjIGKvaulGuzHFWB5UBuprDsFOvsgz9q3fr9OJzgWNs7sAvUmJ0PvvHCBMLuYQXzVY
+	 gQBpDWZoIBF73dIdRGvzKdCcOL8TTsXsp27CkeS0GVB34xwMMhbY3KPnwpo9yemJv4
+	 wPGNYce2LWXYA==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c247f6687dcso591206566b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:28:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzKIwCKkbUloIGvbH6V3GieZbApLBb5SPNYgEa65eoFXOdBImg2NoChLg3gmLyYJGOsSef1xIAHk8tFiIg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfU8j2vkhN91NpUaz5CfEZbjDjbpzP6K506o6LoQhA1OxSXn5Y
+	ktGnV25aOw7IfVFQV0BMqzlX+RSX82gGFDkeJ65GNPTru4JuFanDfv9f71X/4v50DpZK/LKCU0o
+	NY95ZdcUUC7tErf0OLB0YoHx6fKUPGf4=
+X-Received: by 2002:a17:907:9711:b0:c2e:8eb7:53dd with SMTP id
+ a640c23a62f3a-c46bde23c36mr970710666b.42.1793093293725; Tue, 27 Oct 2026
+ 02:28:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,18 +59,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-james-cs-redundant-null-check-v1-1-ed9486be26e4@linaro.org>
+References: <20261026125541.87507-1-dar1knessx@gmail.com>
+In-Reply-To: <20261026125541.87507-1-dar1knessx@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 27 Oct 2026 18:28:00 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-NkB-fDPN-tCLbcFOfbGLQoVE7RSPwYvpZ-BX5mEBxYA@mail.gmail.com>
+X-Gm-Features: AclHuK-9hOq04acXPgcCfbFyvdOXqJ2p-mYNoPkIXSRdIeTvt563ht1dQ3pl9tU
+Message-ID: <CAKYAXd-NkB-fDPN-tCLbcFOfbGLQoVE7RSPwYvpZ-BX5mEBxYA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: use the resolved share path for the share root
+To: Denis Kulikov <dar1knessx@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Steve French <stfrench@microsoft.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 09:17:06AM +0000, James Clark wrote:
-> attr is derived from &event->attr, so it can never be NULL even if
-> event were NULL, making the check dead code. The only caller,
-> etm_enable_perf(), always passes a valid event anyway, so remove the
-> check.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-c4ca0d3c-1e98-4965-aa46-da226c756b83
-> Signed-off-by: James Clark <james.clark@linaro.org>
-
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+On Mon, Oct 26, 2026 at 9:56=E2=80=AFPM Denis Kulikov <dar1knessx@gmail.com=
+> wrote:
+>
+> If the share path is a mount point and crossmnt is not set (crossmnt =3D =
+no,
+> or ksmbd-tools that predate the option), the share root looks empty to
+> clients: QUERY_DIRECTORY on it returns only "." and "..". Files created
+> in the root go to the mounted filesystem, but a directory query cannot
+> find them afterwards, so e.g. "rm" of a file that was just uploaded
+> fails with STATUS_NO_SUCH_FILE.
+>
+> An empty name refers to the share root. For it, ksmbd_vfs_path_lookup()
+> looks up share_conf->path again starting from its parent, and the mount
+> on the last component is not followed, which gives the directory covered
+> by the mount. All other names are looked up relative to
+> share_conf->vfs_path, which was resolved through the mount when the
+> share was set up.
+>
+> share_conf->vfs_path already refers to the share root, so return a
+> reference to it instead of looking the path up again.
+>
+> Fixes: 74d7970febf7 ("ksmbd: fix racy issue from using ->d_parent and ->d=
+_name")
+> Signed-off-by: Denis Kulikov <dar1knessx@gmail.com>
+Applied it to #ksmbd-for-next.
+Thanks!
