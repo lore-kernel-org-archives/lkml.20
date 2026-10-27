@@ -1,41 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069211;
-	b=Fe9X9qHsllKTdxEvshEnBbY2hT50nkFZkgpalRTn0Wqv6PpsA6s5ZGCn5P2XyEp7PBY4
-	 LRQLNw3Dl6e5kI3i246IbRIm1sYX9CAwP8V6IkN25KbgsMg5TssImtKEEyQRC6M5A+YYw
-	 U/VQi9m5wBPZWWioy0+LzZ6krRaqyvRdJXhZcT8H3OgWAzFxiRVYRZPdf5s2zqwS14Eyb
-	 TuBZyIB+DmHKNYJjGuXT9B8F3gDC/aHeITmye4lzpvSgdY6aZx+FTh168wq95CizCB+Hy
-	 LhzPemEb64oSEQT4BxDR/XQomKCmQcsFdKN+3B97yAyxzzCjOsnEt6+UlxO5yZvuByg==
+	t=1793069271;
+	b=R8KX3zlNb/Uubfh7mb1zqhvAMI0H2ulFyTU1VkPX2duW4qfxSSCta7ZBjLIbBCaVy80+
+	 70lwH4dbQJW8iMnWBfZxmUgrVY021sXnNR7HwFGAmvGMoEUH7THwSkOuq9UjdKZxHyPy1
+	 vqR9ZSbVlW7R1q4NG1QUW4fpf546DNNAs8RFKOnmoFdEuUEbAglJkS3OlbRWAg5mT+oqC
+	 9DH+vAAJlf5aWwkADHQUrqOWGyqiOpXPKpFMdSxjbvfr/j5UaVtSrn7N9yLD2zMeyns7U
+	 l1fPK5ktEqjJi81Wzdz2PIW8uZZ2o2tDKXWNg0ZoQBWj7gEwMol0wRfBxYPmt42IBlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069211;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=tJccXRA73KxCPHa334RsjIMd6gOUDXrizq4EVOM7j+0=;
-	b=oFBG2W7n/UwAoHtvJHGwIlCyFkyBkt46uBPcu7Hgpo4cRNALDWoWN0ZS4rCB+EWsyK4L
-	 oLw++u1M4K7oCjFdA4DsBgffeP/2mLYQWEpKmKsEaoeeYYzJ1juGvLZGdGg4DRaLaXW/N
-	 JjRIvlESg0l22XSZBcW1l70cVI1/NmCsdOymk3fhvcEKkHYUA/3M6tXdHfna3YZa8+c22
-	 fpOAdmTGknKirCvBZ0DvqweM9TDjOXMUJMJf+R/Lq7aaYomlDoY670kr4qyEh70w9Cno7
-	 Gcc65cW77T974nNefzPj8QmiumC1w3cAzuRbj1nQ4/yP5GJUt76AfZVc2Y8EolaPssw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069271;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:Date:Message-ID;
+	bh=lvDhK1lQBCnTBgCeDn8IE0UD8FXFRVaT+2qmolhhuoo=;
+	b=4UUPh1n8abmh6yBbz1GjjJ+pTkUFlNECVNxRh3q6zq2y1YntYi1YCZ1+/A08da6EDLmP
+	 NuKiSiAAd+zHDa/UfM18C+BNbVeq8BGHTiz7UwWn63iX5gjPj6ZYmHokpSdqaW8lxDxmQ
+	 5U1P+urFMBrIWkyG1ItCiejFQzBIqHS3LKWoMhhvY/7awqcL7O6/JSaMujdD8ZX+62yWp
+	 XqJH41T4M1Ox1HTsDp4WWvN+2R/h3/qNuKa4u/hSakVCAJek90kGBloKDdL5OsWHcqvc3
+	 6xZ0wIa4E9lUKvB4m6cPqna/UjeManM4JqCGl+ieNzOLjCBjspUgKHr631IHB2dxA6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60843606A31D;
-	Tue, 27 Oct 2026 02:46:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60843606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.102])
-	by gateway (Coremail) with SMTP id _____8Cx_9KXEOBqy60ZAA--.9213S3;
-	Tue, 27 Oct 2026 10:46:47 +0800 (CST)
-Received: from [127.0.0.1] (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJAx2c2UEOBqy4cwAA--.36117S2;
-	Tue, 27 Oct 2026 10:46:46 +0800 (CST)
-Message-ID: <33132214-21cc-4ea8-9eb4-022ecd0659c4@loongson.cn>
-Date: Tue, 27 Oct 2026 10:43:59 +0800
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=74.125.227.135
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F845606A324
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:47:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F845606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-3ac63aee1ecso707934a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:47:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793069266; x=1793674066; darn=vger.kernel.org;
+        h=message-id:date:mime-version:content-transfer-encoding:content-type
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lvDhK1lQBCnTBgCeDn8IE0UD8FXFRVaT+2qmolhhuoo=;
+        b=ExcyeD3X/eASS+Lt56dL6RiK9ULFT3Pc5YgWeHYUVnK3/fxmU3LjuVBY5qTgq7Nvw1
+         5AmuEADgEJ+/9hfGT5RCvUELhTrKvjgbL5QbdIpi0QElAaNOl+gXJxtL9+Av9cQKStdk
+         HFUxpii0/WmmdMYFkCaaF/z6fdIE+/OGEM6CvjRXuOVZbt47YLk/fQGdZX5Lx5FxIZlr
+         vDx92Syx+RaKIXdx0aZbxswckdlg4CgI7tvsMxfzJOw1v3dF9cfweP4nJm3wTgr2tWNK
+         Kr4Z7qkUZOO3SaQ67nbMvxAQ2BKrTB77BvLsWHIDw4RjzHRtP/CMZ4Z+Hf3yCHtMwR1h
+         4hJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793069266; x=1793674066;
+        h=message-id:date:mime-version:content-transfer-encoding:content-type
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lvDhK1lQBCnTBgCeDn8IE0UD8FXFRVaT+2qmolhhuoo=;
+        b=IsE9+Gkjg09rHGJu9uM3MUgnNdGk3WVTGqRfm+VqT0H2ZA1j4SGTAliXNb3Jj+2c9b
+         00MH88iUChhJGy1TCeZZSgKkCx1a9F2kIagyyxDwVp5+uu0ZAenhwd9CubFQAF7dAAYb
+         cZNA+llYT8fOHP5ZrsNOhL7q0Ew9Kw0EUSBEkHdNPlwd2DR7RqS3S+TsHvPgEOjE+Haw
+         FKm1+HcuQuRGUDjFJtscO91yauWlAKXJddnBWLW3OhqResEQ03Psd+DGHYXaCP3vQyYO
+         /3qh7AkNg3ufdImxweXe46R7a0mD2R0GHVS9ptaN6rCzpUYVoajXWc2PnhV9NiDnCiHC
+         oepQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxvusQhyAuJ1Socp7A77JJhC3wPpfxYEKaYWFMaXUmyGKOSpeJYs3KEOx5KyZTSCRdI2iy8nkw6veK2lco=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVIzzVEWNyYQTHchJaKPyFzXK4Ugt2c+XC+sQt65+GNvPVWufC
+	YjpFmoz1gNBPZzONi0BjndoEPjAS6I4pive2MT5oQkYKwoGTCogLrq89
+X-Gm-Gg: AYBFou0ZBp8GUNgZ3uMFhLwi2PqfRlcPJgLDjHxmq7ExFIFNDdNLzpBDj8jR5VdwYgH
+	ZaGcFFAUOl8cbpCOVeXMlw/GPsT0wT+sfdeBhxUpsG6loS7BmxBS51YfwJa3VptHs28UczomR/R
+	1QQ/aTV1zrD+P1uRwII2bCdFRTGIUxI+loAV5+ErfIcHQXDLSeRwTjuRsJpIOxj9cgkfIN5kfsE
+	qhi2mz+9trxzUeAHsjq7YfdaE3NOveXHm0AyFqy0H5gHy+n8vYg47v84lTXoltReoeQH59pTktv
+	q6Em3pq92MUA6xn3BrvtcXL0XcezidqD/BnymTbzCFvRWICHefNDiUYIoWmsSHghkedq1qcbWUn
+	5qCUmY+GjWVVNHH/a7kVqnyfH57TJdxtdeTqeddTqkW7n6PchoFF20hswfnZHuxY6ThVtreAHD/
+	i6AkmCHdbYm0bRfe7oe2GT3pBilq8MKvRnqbHntvhm3FEF2okyNEuktnNmEhbb/NRDkvBqat1NW
+	TBp/+qBLqWI4Baxi2da1ZUQZNP281lnOtLjX+Zeef95O62GisAxbZPOWhwUlM756NpTxBlJ3taM
+	/IKY4dHBlw5ZF6RXKKxGTGElCMYxX6NHhuZBS58xbBRwtpmkLOPn
+X-Received: by 2002:a17:90b:3b45:b0:3a8:7096:9b48 with SMTP id 98e67ed59e1d1-3ade9b2cff5mr7922722a91.1.1793069265598;
+        Mon, 26 Oct 2026 19:47:45 -0700 (PDT)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404426c2sm1518262a91.7.2026.10.26.19.47.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 19:47:45 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Manuel Ebner <manuelebnerli@mailbox.org>, damon@lists.linux.dev,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/8] Docs: damon: fix grammar and typos
+In-Reply-To: <20261027004916.160854-1-sj@kernel.org>
+References:
+ <179301327249.2.4690198998605536207.damon-docs-grammar-0@gmail.com>
+ <20261027004916.160854-1-sj@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,97 +98,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/28] mfd: loongson-se: Zero-allocate driver data and
- initialise engine completions in probe
-To: Lee Jones <lee@kernel.org>
-Cc: Yinggang Gu <guyinggang@loongson.cn>, Huacai Chen
- <chenhuacai@kernel.org>, linux-crypto@vger.kernel.org, mfd@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-18-lee@kernel.org>
-Content-Language: en-US
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-In-Reply-To: <20261021121245.3111563-18-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx2c2UEOBqy4cwAA--.36117S2
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7CrW7tr43WF48Wr4fZrWrJFc_yoW8tr13pr
-	sxua4jkr45tr409an8JryUuFyY934ftrW7Ca9xtw40yr1DJ3s2gFy5KFyUWFWDArWDGF12
-	qFykKa1rua1FkrcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUyCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07j83kZUUUUU=
+Date: Tue, 27 Oct 2026 13:46:00 +1100
+Message-ID: <179306916017.2.12297411301652219760.damon-docs-footer-reply@gmail.com>
 
+Hi SJ,
 
-在 2026/10/21 20:09, Lee Jones 写道:
-> loongson_se_probe() allocates struct loongson_se using devm_kmalloc(),
-> leaving the se->engines array uninitialised until child MFD drivers
-> later invoke loongson_se_init_engine().  Meanwhile, hardware interrupts
-> are unmasked and se_irq_handler() is registered during probe.  Any
-> engine interrupt arriving before loongson_se_init_engine() runs causes
-> se_irq_handler() to call complete() on an uninitialised completion
-> structure.
->
-> Allocate struct loongson_se with devm_kzalloc() and initialise all
-> engine completion structures in loongson_se_probe() before registering
-> interrupt handlers.
->
-> Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-> Closes: https://sashiko.dev/#/bug/linux-ad9310d7-13b2-4a4a-ad7d-78a4c612c78c
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+On Mon, 26 Oct 2026 17:49:15 -0700, SJ Park wrote:
 
-Reviewed-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+> Are you intentionally removing those suffix, using 'git format-patch
+> --no-signature' like feature?  If so, any reason to do so?
 
-Thanks for fixing this!
+I was trying out my own script to assemble the patch emails this time,
+and seemingly I forgot to add the Git version footer. Thx for 
+reminding me that.
 
-
-Best Regards,
-
-Qunqin.
-
-> ---
->  drivers/mfd/loongson-se.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-> index 9b531e62fb85..187ebbed0422 100644
-> --- a/drivers/mfd/loongson-se.c
-> +++ b/drivers/mfd/loongson-se.c
-> @@ -106,7 +106,6 @@ struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
->  
->  	engine->se = se;
->  	engine->id = id;
-> -	init_completion(&engine->completion);
->  
->  	/* Divide DMA memory equally among all engines */
->  	engine->buffer_size = se->dmam_size / SE_ENGINE_MAX;
-> @@ -199,12 +198,14 @@ static int loongson_se_probe(struct platform_device *pdev)
->  	int nr_irq, irq, err, i;
->  	dma_addr_t paddr;
->  
-> -	se = devm_kmalloc(dev, sizeof(*se), GFP_KERNEL);
-> +	se = devm_kzalloc(dev, sizeof(*se), GFP_KERNEL);
->  	if (!se)
->  		return -ENOMEM;
->  
->  	dev_set_drvdata(dev, se);
->  	init_completion(&se->cmd_completion);
-> +	for (i = 0; i < SE_ENGINE_MAX; i++)
-> +		init_completion(&se->engines[i].completion);
->  	spin_lock_init(&se->dev_lock);
->  	mutex_init(&se->engine_init_lock);
->  
-
+Thanks for applying the series,
+Aveline Noir
