@@ -1,68 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088859;
-	b=pQGcqSKILnk8gTXOwhaT8OPlZHlAGS/ExAisYy1frGA5KpWtltaIEHrKtL7/6atLG8yu
-	 PZqcT7JqC3x6eqstTj3GcQX7B/6iJjZjiXzh8csVX7Deq2SpE34Tb1jVa6tIB8hQCgeb9
-	 3SVVD/+uvBiRlOwKyHwUkAyYhuwXseTGrpCoqYQCpGHzruWUq5I9ExsqypevhcFjnqehr
-	 vqOEG+Ts+OzPnNo7hLxB7qOacchY8iWXMR2EI9GnPyBGw2545HN7lNixJ/83XvDNqGZDk
-	 +P6HZRVQDSg5kzFFv6IW6cmNWWJbv8Jk0f/T5oVWYcY+DPEqoMDoy1hmQLYCAWE93BA==
+	t=1793088892;
+	b=iF8G9FgSHZED6rdQHX6t6djtxiyMp34waH2tazd3H/FSUye5rBTFrAyZRpYEeC8mvn6I
+	 z+/dkSBxygmsX8Q/PBTLT5lXN9ck4hM95ibHRttDBoKp7udIkNfHclPn38ig3Zzb1Jznz
+	 FIr9zXdjXHxmMBo7itutiqeXY4zInSA2FfPMeYJeYPOUaY1AK8K/5baUm0gwG4lD6u/0d
+	 hpCFXZ7T6rmveqkpfMaNtYVplFF06gVbH1W3vz87onEsElW2G7Hhn3wE4fRnS9eTBNH1O
+	 YM85aFm1AO9O0lMCBzgDAvF5QzEUUqqOfoWGy9l2o4sz265jMbbJVUf3RV1J263iU1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088859;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=nGbu4upuJLgm2lXKD/Z91nFxrjKCKZHpwQrOt6s2bDY=;
-	b=T9P0YceJrHewQNWUI7QxqijjRYwa3mnclkDrnrzLY85NHp9HxmjnXoKLjUSnfsoZhhu5
-	 yKEZ5kfnIBG6JR3sqSkIbfnT/mf0pO7uarCVGuzjJYofGvWwYx9GSKpo8EzJIpFQNmIpg
-	 /by7FLwuQosjOdNJR42X8xKJbe9/bx4Hb4bn6ZIiu9oZztvaIkbesHUkSwYQJLB6zRIkE
-	 lX7mhoJI5fae/aFRg6ccu8cWLk+Zgo8xlY1/s28qU35A3VGdjgspZXgWj0nF3mR/rd7HT
-	 yEQt1kN36a/p4kCkqCNxoN5A2MER7/UmcxlwQ2+ciEpFkOBLrOu6cLaVyzu6u2QcDCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088892;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=DQ1O5D8XCRfscupgrJRVMbXZrkg6BlOL7s17MUvfBDo=;
+	b=i3peTng9nmerC0gEYx7w3NsL+WePuTV5XQrEqYpXV1SE+XCi1JgxWEB8rS+dJ4PMVGc6
+	 +FqHBQCPA0M1/cygOeUOkEiOZoDDjuz6wRPvuUL6yOsTiJlMiCgC/rIDreZVnkh7+hmoI
+	 2Fwe0hp3Q+0oTGR0hAwuQL+wBVDllVslQ3G4krjgZD+jZTaUzx0ArYnKgp9c4eyntCcXF
+	 0qIgmAl6Ir+OJdAHMqPv/83i+QfCljxKvJp9ThrmaoEymykj8KC0KucHpZVmctUq3NISF
+	 D1qB/XJMqZvDwvcJLFk6ethfWkVBg+or+JLUV/bfBBM2kFwhmn6lSLc+S850iP/0hrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ZRB1vNch;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=joshtriplett.org;
+	spf=pass smtp.mailfrom=joshtriplett.org;
+	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm2 header.b=1PS7tLLT;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=a1863jL1;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D47E606A339;
-	Tue, 27 Oct 2026 08:14:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D47E606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B8CB606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:14:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B8CB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joshtriplett.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joshtriplett.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=ZRB1vNch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793088845; bh=nGbu4upuJLgm2lXKD/Z91nFxrjKCKZHpwQrOt6s2bDY=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=ZRB1vNchEBn1xTDidt7KlotYbtlRGWLoegdUkgm34YutKGqGFS1vndGuabXwuQZ90
-	 /f0QxD6nmcPMBlMpQq6BxhjlE6opBg1xCkYHbn2pqTPsi40cCO5nyYQN/e07PWbv1P
-	 526lVXWyA9AKXODNJhPhJr8lZw09DmYOIJjw38go=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-XMAILINFO: M/8oWtQ8RXooJTRnGxFYe36RnPXjfz6V34oARLY5ztdCgTVzwe4zrpt0OZIqiV
-	 6WOy1tfKUMOwIp89CO5v2jtf8fTEeOq5mi2JUzH4Nef7OjAKvx4xPiylH90reQ6IHIXTUg6D63e0T
-	 481ZvsLL6TnnEWH6cGafWPYXdPkOaWIDYmQaR1TyCkbo1JAipqPJjLWdkJ7c5f9Ntm6rE/Vc85MFA
-	 6/0Yv3GuE058KwOnH34QUKfrzxTwP4bBI/d4wotgx7yzEXWjSCUkxlS5SsVZOnxqFUStijqTic+NF
-	 aNvSUUJDUS18HxXkxELs9NR1BNaF9SEdq07pweT3dgStQMYxIOxFwsx6Ap79t3P7Wda50cBNlyUzK
-	 L0nGZYeXMmxra3ro1YB2pEadf81VxEf50WmhVY2f7ZPN8y/UM4PdbyPXVRvhxVv5nxNg2J/hfK3Kw
-	 pSUJyHx1xsdjaUc/Gnio/6cqfs97icdTwq6NCBZO/byU2hnjUaTaSt9AEwM87gAki9zbOe1yZScN+
-	 PYFSmvDn44vv/ex5eNUA78ks2mSVtzQxrO7o6vvSIaJ6tqOmxNsMswoV+th2FwjbUQUCw5dIurGYx
-	 UiC98zYj+8M80tQd0v5a55xNOCWrzJMcpL9u6ctYYBOGjDYnmGgQj5BgHu3DucOOtbhhIP6iVdcse
-	 NZTX916vUU0yg5PAavrQyQmT52VA/r5Xy6Ozbu+A1EzoVqgRPIIiO+pX5cRNy8l9R/uK/vKiFdjfS
-	 Ky3dE5tvMSNS1KhWn0R+OuSWPkiRCjFJy5irVQouqZ4/77IVsPighdskAl4O9q7fgA02C+iRFllws
-	 TrKDgHhDDjWkiTzDvbHNZ+Xui1Lnl5aLZBJ/0ZBY97G6jebO3CJGueOksuo4EaO36eMoHjNsEs7jF
-	 gP2WMOd83oGx+87D1EJrlBu4GKZGwED07/KKJKyeCzvvIAfQ9zrQH9ERkrMRJD8C0oXuiXNt8am21
-	 KQeoVpouoyLgDKb99Ev+/BEPpEcXH07BurkkWIUVwhaRz5pdTGd6RB/IhJuRgQajP6VGsNTm4Hw8p
-	 61dj2p8TsB+wovP+gd5bvf5tjSyip3s4Xa6VnLxgzG1xCV2ekXBbBh4XrhkKmA+tZOsI4QpyF03f0
-	 IPelgJyNvew7LQ==
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?U2hhd24gTGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?U3RlcGhlbiBCb3lk?=" <sboyd@kernel.org>, "=?utf-8?B?QnJpYW4gTWFzbmV5?=" <bmasney+clk@redhat.com>, "=?utf-8?B?SmVyb21lIEJydW5ldA==?=" <jbrunet+clk@baylibre.com>, "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>, "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>, "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>, "=?utf-8?B?SGVpa28gU3R1ZWJuZXI=?=" <heiko@sntech.de>, "=?utf-8?B?UGhpbGlwcCBaYWJlbA==?=" <p.zabel@pengutronix.de>, "=?utf-8?B?RWxhaW5lIFpoYW5n?=" <zhangqing@rock-chips.com>, "=?utf-8?B?TGVlIEpvbmVz?=" <lee@kernel.org>, "=?utf-8?B?TGludXMgV2FsbGVpag==?=" <linusw@kernel.org>, "=?utf-8?B?QmFydG9zeiBHb2xhc3pld3NraQ==?=" <brgl@kernel.org>, "=?utf-8?B?UmljaGFyZCBDb2NocmFu?=" <richardcochran@gmail.com>, 
-	"=?utf-8?B?VWxmIEhhbnNzb24=?=" <ulfh@kernel.org>, "=?utf-8?B?QW5kaSBTaHl0aQ==?=" <andi.shyti@kernel.org>, "=?utf-8?B?R3JlZyBLcm9haC1IYXJ0bWFu?=" <gregkh@linuxfoundation.org>, "=?utf-8?B?SmlyaSBTbGFieQ==?=" <jirislaby@kernel.org>, "=?utf-8?B?SmlzaGVuZyBaaGFuZw==?=" <jszhang@kernel.org>, "=?utf-8?B?QW5kcmV3IEx1bm4=?=" <andrew+netdev@lunn.ch>, "=?utf-8?B?RGF2aWQgUy4gTWlsbGVy?=" <davem@davemloft.net>, "=?utf-8?B?RXJpYyBEdW1hemV0?=" <edumazet@kernel.org>, "=?utf-8?B?SmFrdWIgS2ljaW5za2k=?=" <kuba@kernel.org>, "=?utf-8?B?UGFvbG8gQWJlbmk=?=" <pabeni@redhat.com>, "=?utf-8?B?RGF2aWQgV3U=?=" <david.wu@rock-chips.com>, "=?utf-8?B?UmFmYWVsIEouIFd5c29ja2k=?=" <rafael@kernel.org>, "=?utf-8?B?RGFuaWVsIExlemNhbm8=?=" <daniel.lezcano@kernel.org>, "=?utf-8?B?WmhhbmcgUnVp?=" <rui.zhang@intel.com>, 
-	"=?utf-8?B?THVrYXN6IEx1YmE=?=" <lukasz.luba@arm.com>, "=?utf-8?B?TWF4aW1lIENoZXZhbGxpZXI=?=" <maxime.chevallier@bootlin.com>, "=?utf-8?B?TWF4aW1lIENvcXVlbGlu?=" <mcoquelin.stm32@gmail.com>, "=?utf-8?B?QWxleGFuZHJlIFRvcmd1ZQ==?=" <alexandre.torgue@foss.st.com>, "=?utf-8?B?Vmlub2QgS291bA==?=" <vkoul@kernel.org>, "=?utf-8?B?TmVpbCBBcm1zdHJvbmc=?=" <neil.armstrong@linaro.org>, "=?utf-8?B?TWFuaXZhbm5hbiBTYWRoYXNpdmFt?=" <mani@kernel.org>, "=?utf-8?B?VGhpbmggTmd1eWVu?=" <Thinh.Nguyen@synopsys.com>, "=?utf-8?B?SmFlaG9vbiBDaHVuZw==?=" <jh80.chung@samsung.com>
-Cc: "=?utf-8?B?c2hhd24ubGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bWZk?=" <mfd@lists.linux.dev>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?bGludXgtaTJj?=" <linux-i2c@vger.kernel.org>, "=?utf-8?B?bGludXgtc2VyaWFs?=" <linux-serial@vger.kernel.org>, "=?utf-8?B?bGludXgtbW1j?=" <linux-mmc@vger.kernel.org>, 
-	"=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>, "=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 24/27] mmc: dw_mmc-rockchip: Keep RK3572 NVM domain powered
+	dkim=temperror header.d=joshtriplett.org header.i=@joshtriplett.org header.a=rsa-sha256 header.s=fm2 header.b=1PS7tLLT;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=a1863jL1
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E02357A0114
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:14:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 27 Oct 2026 04:14:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	joshtriplett.org; h=cc:cc:content-type:content-type:date:date
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1793088890; x=1793175290; bh=DQ1O5D8XCR
+	fscupgrJRVMbXZrkg6BlOL7s17MUvfBDo=; b=1PS7tLLTgyk6mpr0iINctDgSoG
+	2nuswQamfw0rQwoicPYTXtDUeEaOluQgJQKq2aS9CkT/eH8Aa2oo4jtl/EVSI72+
+	WAO522rZMuL2V1dmJOkIy4Sdvvs3mFj+wje02jawolV/VsxXBzAJ8wLjDIXeF/G3
+	Ky7Z5URLRXsTDWaZvMB9p3SZyXF1/IdOcvYAPQeD4qw+ZLTF0cWEUSmCnICVK7wN
+	E8rNGPXzmEUZCIupwVl09nFje1LByc6AJ0D/vU6NuW/BUCHHFSwoJW/czUBgDu4v
+	dL6MFzNgCE6Rx21XAYWNPg3o7R+/v0wVrjZpzOgWAzBsVqeXxIhhQT1aULfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793088890; x=
+	1793175290; bh=DQ1O5D8XCRfscupgrJRVMbXZrkg6BlOL7s17MUvfBDo=; b=a
+	1863jL1gJuQ/MtMvxXLIHdvUyB0uolILE92fvCNXSyfshY6dgFzz4jkATcFqhQYF
+	wsh4PhGNS+oOMXESXeCUzrUQMlq8qM7mirFqqq2DBtbV564WvSJMdF5sfzR9SCF5
+	gj6JWCRJFYsTFP1KVkO983Q2OuNV1/V2EP4oRqudRLYRTZTOOh730mpm6OEANHBM
+	MGfQvMCtmqNm8RrGmhqJ6MQwpSBMsMEtLzDamHJTja1FNLJCK/6CnuzLXWSf5OwG
+	pU7aWKj+cRoqOd2d9YyMqizRxFvrou01cjJlDGS390wnQCRfSCbmF67aRaCpxH9I
+	o56fseEP8cO7Z9JmmWpPg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=joshtriplett.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793088890; d=joshtriplett.org;
+	mf=PGpvc2hAam9zaHRyaXBsZXR0Lm9yZz4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:xYcuQfpCYzNuuwbK1UCcppcNIOfZcrArK53R4xP1y98kcif
+	fmkd80AaZnnSchqeEt7mehepMzhEKts6wwquQcs+Kyw4f/QeXoan2AxB+dnnKeUj
+	Ha0rWRXFBsqFjsPmqbwXSRI3bA0c05z1zcPC++uVDHa8LgOOkFgj6AuijYumIih6
+	EQcyhPHp147staqe+UTf+nlKslNv7eftT2f+WPPeDTKBJQaB0r4E5d43+nvlthiV
+	650JCbl3j57OsuSFtunM4QIeJqjtjNMvZjFD+PcfkmcFrpqegnPxW+SDEQ4elpfv
+	Ir0CLv64wTbsZyjsWj+/JwQPZTYZDLBjFKsfOxw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:X7GI2RF4A9VBkMYRS0wzaYT9U8SCUELBmSu7Wl6R3Xw=:V4DdvxFzeA6wC1TolVWuj0hyWB7hbsf5T4ZM7+HYRJ0=;
+X-ME-Sender: <xms:eV3galXlcj_scSoU3Hqv1NADbVX05JVBYwSpcLbi3WypcbSxK8bAdQ>
+    <xme:eV3gah-DMp9SrzsQreJosTVvxSkTCK_x4eVhtbswvvsox3qTVaJzWiP8MZVGsX0ej
+    kIxcx7TJ7d7Si91co7IWzyTUyA8JA0KAr_UbLQa7UsDj6u3-VsoSpk>
+X-ME-Received: <xmr:eV3gal0_ny_FAVYuRLc6-UTqRsQhbxpAK5SGok9edGWNdePmJl_I-Q8dSQ>
+X-ME-Proxy-Cause: dmFkZTGrWbY5Vw0aiQoHkO8jbm2XLbZm9c2gvrh5uZvUCxmh6DJEUnUukC6n1U1R3OV6pI
+    ZgLOzQnbLbtPesu2kZjA14WWItr0URYHFkBLWiv0V1PcXCxAs7dhWdvd4fymHMxsZORcy8
+    nMkAOyBabtGGLWdZ7/vb+R5aQXr1e7PzY7uAQVnd9gwZHmtrPe2hSIrmjh8m/UoaxdPvMd
+    f4GGz/D3ZEi/HjvRlHoFJ0vv10fjnZ9ok7j3bi7JUF6zCd7XDftGugpwCZM+WX9mG7Nq5U
+    t4zl6GQUES7GfkhDvEz5Dhc6WfMFMrG3aKfBAHdACbvGJ3uD3U98gppyfRo9HU4Ce9Y2q0
+    J01tJHY2olgVdQHnQHiDnpGW5iLCNS4/lUGy9c+wpVzvOBGzamRUt+ABfGXvUbBuQP7De/
+    ZX0hLVTpoRp57UU6JpKuEkmAU7Ex4YZAWkf2cMWyO5rW4oJ63lweQ5FgT78lKfXHgjGLf1
+    9cwuITXp55ltOfQugPfaetT8S4LMzgbso8MJ6r4ROFXVbxe33py0SRG2dov/HBJiEHFy8V
+    4yKASewSfTBKxpbfBQTZ/DQc/lk/512yIy145abItHJowmLiHT8YEYG4JI+q3fc8pRm/UO
+    u+8Gm4tHtFjQr2oG82dXFR5VELt0J6n8vNuFU7m9J3iAzIUfB7gZ9WwUkEPQ
+X-ME-Proxy: <xmx:eV3gamedrPD0pEWewVTVAacbb1AHmJ7vZY2syW4mvT1qevLRtnbDUg>
+    <xmx:eV3gasAupKgZa_gtyPD5Qx26qRlrVRdjTChKI9Yxhbdqh4bm3dMHQg>
+    <xmx:eV3gat-LTwTlokUk7ZU74ElSMryzSsZtlb99P6OF9MnVBBPANfvy9w>
+    <xmx:eV3gagrtRzXrPxzf0k4OxvVI1A0KQ_Zhw_Vtxh1c0KXelwVf1ZVwWA>
+    <xmx:el3gauSKc-A-1SlO5eUMg4TfW0Y9_NX6XagqEj5apYL9_pU0GtZHv1X6>
+Feedback-ID: i83e94755:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 04:14:46 -0400 (EDT)
+Date: Tue, 27 Oct 2026 00:14:45 -0800
+From: Josh Triplett <josh@joshtriplett.org>
+To: Bjorn Helgaas <bhelgaas@google.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-pci@vger.kernel.org, x86@kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] pci: Support preferring MMCONFIG for all config space
+ accesses
+Message-ID: <a7d2b402784a409f5564c1fdce77a41e09f29280.1793087687.git.josh@joshtriplett.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,47 +125,186 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Tue, 27 Oct 2026 16:14:00 +0800
-X-Priority: 3
-Message-ID: <tencent_0431D34CCA9424908F2C068820D6F9C1370A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-24-0b0fd85a31ee@qq.com>
-	<bb38e2c8-1868-4a66-9e0d-78d9f68ab4be@rock-chips.com>
-In-Reply-To: <bb38e2c8-1868-4a66-9e0d-78d9f68ab4be@rock-chips.com>
-X-QQ-mid: xmsezb41-0t1793088840t5jwsbqnj
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-SGkgU2hhd24sCgo+IEJlZm9yZSB5b3VyIHYyIGFib3V0IHRoaXMgcGF0aCwgSSB3b3VsZCBs
-aWtlIHRvIGFzayB3aHkgeW91IG5lZWQgdGhpcz8KPiBUaGUgZHdfbW1jLXJvY2tjaGlwIGNv
-bnRyb2xsZXIgaXMgYWx3YXlzIHVuZGVyIEEgcG93ZXIgZG9tYWluIG9uIGV2ZXJ5Cj4gU29D
-LCBub25lIG9mIHRoZSBwcmVkZWNlc3NvcnMgbmVlZCB0aGlzIGtpbmQgb2YgY2hhbmdlLiBJ
-ZiB5b3Ugc2VlCj4gc29tZSBlcnJvcnMgZHVyaW5nIFJQTSwgcGVyaGFwcyB5b3Ugc2hvdWxk
-IGhhdmUgYSBsb29rWzFdIGFuZCBjaGVjayB5b3VyCj4gRFRTLgoKVGhhbmsgeW91IHZlcnkg
-bXVjaCBmb3IgcG9pbnRpbmcgb3V0IG15IG1pc3Rha2UuCgpJIHdyb3RlIHRoaXMgcGF0Y2gg
-YWZ0ZXIgb2JzZXJ2aW5nIHJlcGVhdGVkIFNEIGNhcmQgcmVzZXRzIGFuZCByZWNvdmVyeS4K
-QWZ0ZXIgc2V2ZXJhbCB0ZXN0cywgSSBmb3VuZCB0aGF0IGtlZXBpbmcgTlZNMSBwb3dlcmVk
-IHByZXZlbnRlZCB0aGUKcHJvYmxlbS4gSSBjaGVja2VkIHRoZSBTRCBzdXBwbHkgYW5kIHBp
-biBzZXR0aW5ncyBhZ2FpbnN0IEZvcmxpbngncwp2ZW5kb3IgRFRTLiBUaGUgc2V0dGluZ3Mg
-bWF0Y2hlZC4KCkkgdGhlbiBzZWFyY2hlZCB0aGUgbWFpbmxpbmUgaGlzdG9yeSBmb3IgUksz
-NTc2IGFuZCBmb3VuZCBpdHMgU0RIQ0kKd29ya2Fyb3VuZCB0aGF0IGtlZXBzIFBEX05WTSBw
-b3dlcmVkLiBJIHRoZXJlZm9yZSBhc3N1bWVkIHRoaXMgd2FzIGEKc2hhcmVkIGRlc2lnbiBp
-c3N1ZSBpbiB0aGUgUkszNTd4IGZhbWlseS4KCkFmdGVyIHlvdXIgZW1haWwsIEkgY2FyZWZ1
-bGx5IHJldmlld2VkIGFuZCBjb21wYXJlZCB0aGUgRm9ybGlueApPSzM1NzItQyBzY2hlbWF0
-aWMgYW5kIERUUy4KClRoZSBPSzM1NzItQ19MaW51eDYuMTIuNThfQWxwaGExIEJTUCBpbmNv
-cnJlY3RseSByZWZlcmVuY2VzIFJLODA2IFBMRE80CmFzIHRoZSBTRCBjYXJkIHN1cHBseS4g
-VGhlIGNhcmQgYWN0dWFsbHkgdXNlcyBhIHNlcGFyYXRlIDMuMyBWIHN1cHBseQp0aHJvdWdo
-IGEgc3dpdGNoIGNvbnRyb2xsZWQgYnkgR1BJTzBfQjYuIFRoZSBvcmlnaW5hbCBEVFMgdXNl
-cyBuYXRpdmUKUFdSRU4sIHdoaWNoIGxvc2VzIHRoZSBlbmFibGUgc3RhdGUgd2hlbiBOVk0x
-IHBvd2VycyBkb3duLgoKSSBpbmNvcnJlY3RseSBhc3N1bWVkIHRoYXQgRm9ybGlueCBoYWQg
-dmFsaWRhdGVkIGl0cyB2ZW5kb3Iga2VybmVsCmFuZCB0aGUgY29ycmVzcG9uZGluZyBkZXZp
-Y2UgdHJlZS4KSSBhbSB2ZXJ5IHNvcnJ5IGZvciB0aGlzIGluY29ycmVjdCBhc3N1bXB0aW9u
-LgoKSSB3aWxsIHJlcG9ydCB0aGlzIGlzc3VlIHRvIEZvcmxpbnggYW5kIHJlcGxhY2UgdGhp
-cyBwYXRjaCB3aXRoIHRoZSBEVFMKZml4IGluIHRoZSBuZXh0IHJldmlzaW9uLgoKQmVzdCBy
-ZWdhcmRzLApDdW5oYW8K
+Even when MMCONFIG is available, PCIe currently defaults to IO-based
+accesses for the first 256 bytes of config space.
+
+IO-based accesses are serialized, and can cause substantial scalability
+issues when initializing a large number of devices on a system with many
+CPUs. (Those often coincide, because many systems have PCIe devices per
+CPU.)
+
+Add a `pci=prefer_mmconf` option to use MMCONFIG for all config space
+accesses. Also add a Kconfig option (default n) to make that the
+default, allowing a boot-time opt out with `pci=no_prefer_mmconf`.
+
+Tested on an AWS c8i.48xlarge system, with 192 CPUs, over five boots
+with and five boots without.
+
+Without:
+PCI init 266ms
+Boot to minimal /init 726ms
+
+With:
+PCI init 213ms (~20% faster)
+Boot to minimal /init 661ms (~9% faster)
+
+Signed-off-by: Josh Triplett <josh@joshtriplett.org>
+---
+
+This has come up a few times, such as in 2017:
+https://lore.kernel.org/linux-pci/20170302232104.10136-2-andi@firstfloor.org/
+
+We have even more parallel systems now than we did then, and the
+performance hit from the serialized IO path hurts.
+
+This *should* be safe everywhere. It seems exceedingly unlikely that any
+systems need this. Despite that, this patch makes it `default n` out of
+an abundance of caution.
+
+I expect this to have even more impact on larger systems. I'd be
+thrilled to test this on a 384-way system, if I had access to one. If
+anyone at AWS would like to approve quota increase case ID
+179306079200327 so I can test on a c8i.96xlarge, I'd be happy to test
+that. ;)
+
+
+ .../admin-guide/kernel-parameters.txt         |  5 +++
+ arch/x86/Kconfig                              | 24 +++++++++++
+ arch/x86/pci/common.c                         | 41 +++++++++++++++++--
+ 3 files changed, 67 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index d0f174288365..64a138ea8f54 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -5018,6 +5018,11 @@ Kernel parameters
+ 				disable the use of PCIE advanced error reporting.
+ 		nodomains	[PCI] Disable support for multiple PCI
+ 				root domains (aka PCI segments, in ACPI-speak).
++		prefer_mmconf	[X86] Prefer use of MMCONFIG even for base (<256)
++				config space accesses.
++		no_prefer_mmconf	[X86] Don't prefer use of MMCONFIG for
++				base (<256) config space accesses, even if
++				CONFIG_PCI_MMCONFIG_PREFERRED=y.
+ 		nommconf	[X86] Disable use of MMCONFIG for PCI
+ 				Configuration
+ 		check_enable_amd_mmconf [X86] check for and enable
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index bdad90f210e4..e8f2d02562ed 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -2888,6 +2888,30 @@ config PCI_MMCONFIG
+ 
+ 	  Say Y otherwise.
+ 
++config PCI_MMCONFIG_PREFERRED
++	bool "Prefer mmconfig for all accesses"
++	depends on PCI_MMCONFIG
++	help
++	  Use memory-mapped accesses for all PCI config space accesses where
++	  supported.
++
++	  Historically, Linux used legacy direct accesses for the first 256
++	  bytes of each device's configuration space, even if memory-mapped
++	  accesses were supported. Legacy accesses are serialized across all
++	  CPUs, so they can become a bottleneck on systems with many CPUs.
++	  Enabling this option substantially improves the scalability of PCI
++	  config space accesses.
++
++	  In the unlikely case that enabling this configuration option causes
++	  problems, you can switch it off with `pci=no_prefer_mmconf`.
++
++	  Even if this option is disabled, it can be set at boot time with
++	  `pci=prefer_mmconf`; this option just sets the default.
++
++	  You should say Y unless you have a very old system that doesn't
++	  support this. If you have a system that requires saying N here,
++	  please report it.
++
+ config PCI_OLPC
+ 	def_bool y
+ 	depends on PCI && OLPC && (PCI_GOOLPC || PCI_GOANY)
+diff --git a/arch/x86/pci/common.c b/arch/x86/pci/common.c
+index 63105b29fbf5..13e547f88d75 100644
+--- a/arch/x86/pci/common.c
++++ b/arch/x86/pci/common.c
+@@ -26,6 +26,13 @@ unsigned int pci_probe = PCI_PROBE_BIOS | PCI_PROBE_CONF1 | PCI_PROBE_CONF2 |
+ 
+ static int pci_bf_sort;
+ int pci_routeirq;
++#ifdef CONFIG_PCI_MMCONFIG
++#ifdef CONFIG_PCI_MMCONFIG_PREFERRED
++static int pci_prefer_mmconf = 1;
++#else
++static int pci_prefer_mmconf;
++#endif
++#endif /* #ifdef CONFIG_PCI_MMCONFIG */
+ int noioapicquirk;
+ #ifdef CONFIG_X86_REROUTE_FOR_BROKEN_BOOT_IRQS
+ int noioapicreroute = 0;
+@@ -40,9 +47,20 @@ const struct pci_raw_ops *__read_mostly raw_pci_ext_ops;
+ int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int devfn,
+ 						int reg, int len, u32 *val)
+ {
++	bool tried_mmconf = false;
++
++#ifdef CONFIG_PCI_MMCONFIG
++	if (pci_prefer_mmconf && raw_pci_ext_ops == &pci_mmcfg) {
++		int ret = raw_pci_ext_ops->read(domain, bus, devfn, reg, len, val);
++
++		if (ret != -EINVAL)
++			return ret;
++		tried_mmconf = true;
++	}
++#endif
+ 	if (domain == 0 && reg < 256 && raw_pci_ops)
+ 		return raw_pci_ops->read(domain, bus, devfn, reg, len, val);
+-	if (raw_pci_ext_ops)
++	if (!tried_mmconf && raw_pci_ext_ops)
+ 		return raw_pci_ext_ops->read(domain, bus, devfn, reg, len, val);
+ 	return -EINVAL;
+ }
+@@ -50,9 +68,20 @@ int raw_pci_read(unsigned int domain, unsigned int bus, unsigned int devfn,
+ int raw_pci_write(unsigned int domain, unsigned int bus, unsigned int devfn,
+ 						int reg, int len, u32 val)
+ {
++	bool tried_mmconf = false;
++
++#ifdef CONFIG_PCI_MMCONFIG
++	if (pci_prefer_mmconf && raw_pci_ext_ops == &pci_mmcfg) {
++		int ret = raw_pci_ext_ops->write(domain, bus, devfn, reg, len, val);
++
++		if (ret != -EINVAL)
++			return ret;
++		tried_mmconf = true;
++	}
++#endif
+ 	if (domain == 0 && reg < 256 && raw_pci_ops)
+ 		return raw_pci_ops->write(domain, bus, devfn, reg, len, val);
+-	if (raw_pci_ext_ops)
++	if (!tried_mmconf && raw_pci_ext_ops)
+ 		return raw_pci_ext_ops->write(domain, bus, devfn, reg, len, val);
+ 	return -EINVAL;
+ }
+@@ -551,7 +580,13 @@ char *__init pcibios_setup(char *str)
+ 	}
+ #endif
+ #ifdef CONFIG_PCI_MMCONFIG
+-	else if (!strcmp(str, "nommconf")) {
++	else if (!strcmp(str, "prefer_mmconf")) {
++		pci_prefer_mmconf = 1;
++		return NULL;
++	} else if (!strcmp(str, "no_prefer_mmconf")) {
++		pci_prefer_mmconf = 0;
++		return NULL;
++	} else if (!strcmp(str, "nommconf")) {
+ 		pci_probe &= ~PCI_PROBE_MMCONF;
+ 		return NULL;
+ 	}
+-- 
+2.55.0
 
