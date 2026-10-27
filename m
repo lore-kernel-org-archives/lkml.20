@@ -1,109 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098717;
-	b=uO3P82Q8gImTcO6bDLrFE5kAULGYCJYVzVyoMLA9Zns0NQoFexVjUjF0r0L1GMTeOpXR
-	 7dLos/3PARyL6Qpc6JR+yFURO6r21TL5AAViv/f6CtUznbfV9OZpQWwD2QYXmD8TS4cRx
-	 PcUZR0tNVzpqCa/ASNg4VlH/OAjzRgwZDjARz+NIndVHtrdtDTtWwkU0H6WFrMF+GAKXq
-	 xJsbWE0oW67+IwNccnSf7Ke5nPTrHveGqyYfPLBWy9qyEhwVZrSJQF/hoFC3fbRljyd13
-	 eo/iNY2vWsB+HDrQarp0yPf81L3wD8kG0HEXaxV7UdMLEXXfCc5VZ2M8mg0ksPWQVdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098717;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=5EcasOAWbOKIUjjsy8ENhgR4jVwsHVMq/E+4MI5OtqI=;
-	b=jiWerIVcd8ydeL7DvL0+1Hxeg5lt0zDLj7ozYCsayXG3TzlWh9DNl3KSxSF3d/JstpFE
-	 DcNVzWoP4PhSvdcmNTIcO7l4Bu+jWMy45blWZed8LVdJ+xkMXdj00BPVKVdFHnlls3JDg
-	 x2HM4FADjKj2uJc7oJgTUWlKlii6+E0y75CKaycJlC3NfNZzEFDVHfASS6uHmqSg6cpvt
-	 ykW7zx7Fc6bdNf+rjR40YN9ctD6p8c2XsUgIMHiJl4vtl6YNi4tbdGQ4nUTBuB68cqFDW
-	 EF8+duSRDZwi7AaxefM2ALF7aNRwELz6lIZAEmmP9NghA1JevF7IuB9UqyPGUb8hCfw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="oJZoJ0/9";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j62+lRRf;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793098733;
+	b=fFs81wCMN8ipPqzQ2St5CvJD5OmI5/N1fqWz9smwI5cixduTBNH7c4XEbxiqcsJAEBiK
+	 3+g+GrdNoy9coxNefsOIq8kCZVBY30ClRrnalbo89LvM8h3A8L+Zyzkzdlaw3Dk0EOOGY
+	 jfFWvtV9H3sj65EShUoQK/zobCsmaDzkkVGeywZAtB0vn3hZKpGhJwwqJOWMBg10Nvrd5
+	 LuCgmLKygp6w12lhj3PbWcDB1lBc8DvRP/cZgAeiTyAXuxbEip4Vq9o8DCQgVX8MXhS3+
+	 FurRSp2UfHd6BgZDwLpnbk5DyCaaVwEUjxWukAuuxtLRWN4eHpM5Q7waGsxmftSEPLw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098733;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jRVGSqGb3x/iswrEHVzAMghiqhU4ka2ocVNlaJSUIlo=;
+	b=2unhh6eAGQVh01BCGI2MW1CE9MTpTBe9MBfgqDST0P9WHD09GrEMukOqyL7ZGQbSM59T
+	 wllPDE1+uhkWUTg/959AtN1Re6aYfKNNVRrrqX6Vcl8/49HhWa3GlO57e9MgvhANKYkln
+	 k6yXMLWuMuJnOFL73FcdLycJx1usO+Ru+u7xaIodm24H9VeonoSpaQ31hM3p/N/RM8zQ8
+	 KFRGocVPAuNQXVCBQqYccXt18LNW/mdoLl4gF158eMq3RALwzw5XnYe1GApD/aNZLunDx
+	 ihLLgI9UZmn7ceA1ZJrEy7ERPfhPdFxZIu6KVHFT0g3Zqhkpa+d5bYDj5sK+Nh7281Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajljmEdH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAE9606A31B;
+	Tue, 27 Oct 2026 10:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajljmEdH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793098733;
+	b=XhWekbwv/qD3PeP2dWAYUO2+NMC76MG+CvbGqDyrwH6D9iAo5HkE+Sn0c/GriiQjFrcc
+	 Cea3YdKipyDMCfjTIf2YqZ6BWIKlaneEQ0BXUESj9KvykZ/kLi8i96dgukrgmL0oB2ktW
+	 dTHmm3t2MqqyCIta8SE629wrgfEfDTrmnOYE9GRPqju6+VVabgR2lm+criqYgKtE6CH3l
+	 wmwC4YDeZXRA2P7XSn/Y9Ew+/EDyVk94nawlBUE9+k52e7NPWSPzRZTzMbmKOBFmNIvKh
+	 IKtAGts6ikTyaHihOdnBrkZ7Z6enq46TLD2dy57knE+IOs8M+gH7mYstWXi2A6fRiJg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793098733;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=jRVGSqGb3x/iswrEHVzAMghiqhU4ka2ocVNlaJSUIlo=;
+	b=oymBU4CuUQvHlemp2Lv92Z1A7dNk6tRyQ/bNIa39MBnY6lcvL4cS1a6ts4zRMlRDX4pQ
+	 PJZBab7UkLhrmlUikuse21RXDzlxo8MqbP+eYdUziJ1+VdwnqtXfbP2+IK9FV1srW1XdU
+	 K75Qk+QQuaPkqTFvGXYNCrS+8nWf7FiiWGsmNfutroshJK11zINqv/sR3Ifm+DLKWiz5l
+	 w8vEeHkDpEIc4uBgXB0fE23I4KQGashgKK/t2obE7qbpcUX3rLeOYqF8dhFtfbzubPHV9
+	 QGC4tqjNR7SC9t5gXlRHuKm5rMkWAXxMRaBc0kpKWMH0rNhTDuIwwiqUmi0RCWfcETA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685E8606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 685E8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oJZoJ0/9;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=j62+lRRf
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAdwDm2458098
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:58:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5EcasOAWbOKIUjjsy8ENhgR4jVwsHVMq/E+4MI5OtqI=; b=oJZoJ0/9L2pXvJCh
-	+AVIw8DAlppSxDwqHmA+ztXhBrZicpi90xg0i4uVbavLGD4TxqfW4/8pnYY3uoLE
-	5TP82RxR+ZdichJeAgtBHVgVVdPwmXGyAS/pnUYqaomZ6IifePzOnCZbZRUg3XNe
-	BCmBU8fy1eqcFAxQJiHEF+L7WNzkD8Zlht1A5g4QCt7LAG8rnuk9D3ZttRD3x/hT
-	uafdrht6QPuzHefl4I+tYtfovrcJ7XuYWfnNwZpjQk1s5jC+SXeh1f36cnBCBO+I
-	LWTS6Uu1Od1RU+YjJTHo6AxspH1gZJxt+EyxXgUGQ+7YzUlFsgQDzuO4yoROlBo1
-	p8fCng==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbt9wdu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:58:36 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5360b8cf8f5so11552401cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:58:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793098715; x=1793703515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5EcasOAWbOKIUjjsy8ENhgR4jVwsHVMq/E+4MI5OtqI=;
-        b=j62+lRRf67E/I/kvV45GEqo7UbYZ5EQ3iIjvRBxWGUuwEO0hEb8mmr+Aw0VOBoOYqy
-         X6hbYf5m+7hoh55IaSidr6Tln0vtW10mr2D1f/FzatnQX4tC5PSKXtgZbluLVIBLd8SS
-         3TgoED9ikyrdPZRkNe2QinS2wIX1Bm8KdeQGknHNmd/ncKT01NtgO1GcF7qkKURqWj0K
-         b2xICjV/TZW0BfIvrzClhie4WPw0bBj6RbX/V7TRKHB7+vc24jloZxCM2SDX5Z3nhxqM
-         JUN0zFwbI39rBQRWYuQvyXq27fn1SCrNKZhBK13YmKYo7B9RviStHV3Tq0CuYNMybxUu
-         7GbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098715; x=1793703515;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5EcasOAWbOKIUjjsy8ENhgR4jVwsHVMq/E+4MI5OtqI=;
-        b=vava5ub/sFRO6Zn09yeQqyU5Tn6ahmfnJalo0HJ1Qv/0bEEpR1IFFC+PHNmE4esJLC
-         3vH95CqA9Y+rVM0w6SLT+73aC2LlmOjrj1UMixHNdvdpFJiN2hSbn5OLFnzUcNe1BhVa
-         0k34rvbK2aPKmWGu8gcaqHG1NHkm1B+Mf1dOn7lLs9hrMT4QfMs51+Fwk/kKhnWIUyUz
-         M4V22PiPjiFn8OGWwPmJ8HTC0D/7v3JSOfl1e1V5B4hEO4n/ZdSp94mKXu1ciBTuttpw
-         GN2lF5SqIjUYIFv9wwB++riKlrts0e0+9BqNXYPgDDZnv3qw1pHqpeMW7SuElem1aH92
-         O2Gg==
-X-Forwarded-Encrypted: i=1; AKwUvBz5chEaykVydIC4CnsxdGBLKc7L/p7EDbaGdDbrxInkwmDVhI+7eVyYSu/EJJlVvbq+wh28+lNzPyODaDs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+rhVx1zezt8nUOJFI0WVxPTkQHxFv61+P4MhOoxJAwgdAgjAs
-	BsHyA1+8DYJ5Tobl7TIxDT+due1tWqRvjW4XT3HBTm10i+OLQFt5b3ENYTSQwq6435dRY2o/uiw
-	1qbk44B+sZVtHujXDIuG3XWU7p3vaVIX5sez0zY/8B8K48JieSIkQ7SH7cXnF4VDgJqM=
-X-Gm-Gg: AYBFou0CxYNun0le22CqsIHuQ90jFNkfzswe8lutJJqgNX/99ofbabyBL5ujZDuc/os
-	WeFoH8JyV2V3psOtdWer7v9SG1FVzuhUObjzgJ3uccS7sWPa39P5ifcJGf6iwWLfBmUwvYhZZq6
-	d1dVlAvBhaRMKD47grHkx288h4k716SaOAf2BzU1EWODShLQryRkd18ZAJV4K9fFyn1Q6WWqgLK
-	voqGpT+FohOEfpIpyInwvwlaT12Hg3Ohin5gKyknMv1a0uWtnea1M7ug+GXblnzD/CpoFEn33DN
-	fzlE7s6VxfTP9J1oBOvhmc7ICUjopjpE9K6Ru5Wv/fdeRdWmyTcoT/qz1Qqmh829S7bCSYtTOtD
-	FMZJzSIjR7GOn4+SYZk5KvA==
-X-Received: by 2002:a05:622a:e0ca:20b0:538:40e2:bba3 with SMTP id d75a77b69052e-53840e30413mr134148691cf.0.1793098715613;
-        Tue, 27 Oct 2026 03:58:35 -0700 (PDT)
-X-Received: by 2002:a05:622a:e0ca:20b0:538:40e2:bba3 with SMTP id d75a77b69052e-53840e30413mr134148481cf.0.1793098715166;
-        Tue, 27 Oct 2026 03:58:35 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7975b2sm438661566b.73.2026.10.27.03.58.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 03:58:34 -0700 (PDT)
-Message-ID: <a0f82960-be24-4d57-b12a-b6f5078ac64d@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 11:58:31 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 7570B1F01825;
+	Tue, 27 Oct 2026 10:58:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793098732;
+	bh=jRVGSqGb3x/iswrEHVzAMghiqhU4ka2ocVNlaJSUIlo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ajljmEdHmyMGq01Jw9j6/obLNAiTRumm/M9Lg/OiDTa9YVeQSgjOGKc8NRU7wzC97
+	 Of/wIvnwo/iSP0Vb6QuNyYr1I010QYCxrUimzvOvorffOoxTkaKF+FQ42S+LLxIMK1
+	 tiAWzrJ4i4OQonLPV3T7QRljQm7pU0QYVmZzZ/5TPBsjNA6j/v64P7vX6vllH3DlPd
+	 qe8UtAfQ/E9oTyTy1KSYgWr1yIF0mmhez1EAQzMTBqo1fO0qPJDJFPtLH/vaKwdaId
+	 n/g/z3ULY5tgOM3QQlhOKIZrnqdlIXsnRU/pf2H7946AdbBnzN2xjG3CM5qSbl7pSZ
+	 EswBvNT2vuuUg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CC1264509F;
+	Tue, 27 Oct 2026 10:58:51 +0000 (UTC)
+From: Daniel Schaefer via B4 Relay <devnull+dhs.frame.work@kernel.org>
+Date: Tue, 27 Oct 2026 18:58:39 +0800
+Subject: [PATCH] iio: light: hid-sensor-als: Don't read past the end of
+ short fields
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,65 +83,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] clk: qcom: ipq-cmn-pll: Correct IPQ8074 NSS NoC
- rate
-To: Robert Marko <robimarko@gmail.com>, andersson@kernel.org,
-        abelvesa@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com,
-        jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, konradybcio@kernel.org,
-        taniya.das@oss.qualcomm.com, ansuelsmth@gmail.com, john@phrozen.org,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261026120920.1667982-1-robimarko@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261026120920.1667982-1-robimarko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX3AOa3dr72RZf
- ff7lkffzbevGx5HCCq3Uo5g7xukHp33xtpRG8eUKlLdwFUFYRhZoTY+HV4SX5og5RP9CgiQ3iSn
- a1csOeE8uY0PIgt1eNZCdKriwfXXNFc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX0pc+SrhG6FZr
- LhBG3wOvQo+r2tX+RXy/cXBTDPwk19HZrZ8duk2PGng5lUD9F32qy0617WGJddKwu6a+7/rAKBR
- abj8Sq2whhQQ9tYAB1d4h68Us88tB0J5DvJOaIjMHMHbC7Y6N/4+Z94LvGUp31ZbsTJTAXBj2Zh
- l7WKyQL+P1otvHYf3gIKvTa5N3Ie2JQ0W7MufkFKwTCeestM9i6SQzLUb2TLEwk6biujzme1rqI
- 6L4UEhFDb1dRpTzhVSS1TV3KhRnqr+Zl/YF8tQE3sLkPT2EVJCR56mUbhyOUuY72BAR47p1B7eI
- VPofb+CdPhAgd57A+IPNt0x+tYEXFSn7jwC8EczXBFHf1HjKsmszxklA+j47u/dAqFaQQkZMtXy
- +aml0UmNKmjUCSl742PiFplGvlNSUJH8sR6sgg2tilR02Te/sZ2HHYo3NEUemz2BKPOYElRLdC1
- KQSF1j4n0gxDvTHis+A==
-X-Proofpoint-ORIG-GUID: ABk1DFKYGu5bpWBTUY3fLDhRZDodKGpo
-X-Proofpoint-GUID: ABk1DFKYGu5bpWBTUY3fLDhRZDodKGpo
-X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae083dc cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=tfqOdNywceuasvfARf4A:9 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270043
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-iio-als-overread-v1-1-e47e2706368b@frame.work>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0atI1gZsxe9VxEWoqQaklRREkN7d4
+ vItZl5IrMIJ5uoF5VuSxFBg6grcQWFnlK0YbGN709gBRSLSmTDerMq0oZu4a0dPvfEEJbuUvTz
+ /cllz/gAIkYvKYgAAAA==
+X-Change-ID: 20261027-iio-als-overread-c9e538fa61fa
+To: Jiri Kosina <jikos@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: srinivas pandruvada <srinivas.pandruvada@intel.com>, 
+ linux-input@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Daniel Schaefer <dhs@frame.work>, 
+ =?utf-8?q?Sven_Vaink=C3=BCla?= <sven@xn--vainkla-r2a.ee>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793098731; l=1879;
+ i=dhs@frame.work; s=20260705; h=from:subject:message-id;
+ bh=HbHuBMAJPm4/X1qXGCMYOxlRvxnQ4Q+ym/c/16zMV7Y=;
+ b=hNWK6KU9FNsC+SmMsb+DoSpOCyteg/p4oNS7Z6kAHJRdxscCJyuLk7DJM3oE/Xsd/yq3H+sbb
+ VNQqTddW9FYDRCIKWlZ+Xut5xDwHppXVKYz0tyVIqs32kOpEi5+06sy
+X-Developer-Key: i=dhs@frame.work; a=ed25519;
+ pk=O1zF7VDnmz6EZNc7sEiawR+KK650uRg1XteQ8jHwScw=
+X-Endpoint-Received: by B4 Relay for dhs@frame.work/20260705 with
+ auth_id=852
+X-Original-From: Daniel Schaefer <dhs@frame.work>
+Reply-To: dhs@frame.work
+Content-Transfer-Encoding: 8bit
 
-On 10/26/26 1:08 PM, Robert Marko wrote:
-> The IPQ8074 NSS NoC bias output feeds the GCC NSS NoC clock without
-> a divider.
-> 
-> GCC and SSDK (Qualcomm vendor switch driver from SDK) both configure that
-> clock for 461.5 MHz, while the CMN PLL driver reports its parent at
-> 416.5 MHz.
-> 
-> Report the 461.5 MHz output rate so consumers see the correct rate.
-> 
-> Fixes: 4e36f8ab45c4 ("clk: qcom: ipq-cmn-pll: Add IPQ8074 SoC support")
-> Signed-off-by: Robert Marko <robimarko@gmail.com>
-> ---
+From: Daniel Schaefer <dhs@frame.work>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reports are not guaranteed to be 4 bytes.
+On color ALS sensors there are fields that can be shorter than 4 bytes:
+16-bit illuminance, color temperature and chromaticity x/y.
 
-Konrad
+I don't have such a sensor right now, but I have emulated one in
+firmware. With this patch, no garbage data is read from the next report:
+
+  before: 05dc02bc 05dc02bc 190005dc 0ce41900 00000ce4
+  after:  000002bc 000002bc 000005dc 00001900 00000ce4
+
+Same fix as commit ad02ca57e44e ("iio: hid-sensor-prox: Add support for
+16-bit report size").
+
+Fixes: ed5514c925a0 ("iio: hid-sensors: Added ALS")
+Signed-off-by: Daniel Schaefer <dhs@frame.work>
+---
+Tested on an emulated sensor with 2 byte reports that is correctly recognized
+by Windows.
+
+Cc: Sven Vainküla <sven@xn--vainkla-r2a.ee>
+---
+ drivers/iio/light/hid-sensor-als.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/light/hid-sensor-als.c b/drivers/iio/light/hid-sensor-als.c
+index 929343e42d83..00dfc2037c19 100644
+--- a/drivers/iio/light/hid-sensor-als.c
++++ b/drivers/iio/light/hid-sensor-als.c
+@@ -267,7 +267,21 @@ static int als_capture_sample(struct hid_sensor_hub_device *hsdev,
+ 	struct iio_dev *indio_dev = platform_get_drvdata(priv);
+ 	struct als_state *als_state = iio_priv(indio_dev);
+ 	int ret = -EINVAL;
+-	u32 sample_data = *(u32 *)raw_data;
++	u32 sample_data;
++
++	switch (raw_len) {
++	case 1:
++		sample_data = *(u8 *)raw_data;
++		break;
++	case 2:
++		sample_data = *(u16 *)raw_data;
++		break;
++	default:
++		if (raw_len < sizeof(u32))
++			return -EINVAL;
++		sample_data = *(u32 *)raw_data;
++		break;
++	}
+ 
+ 	switch (usage_id) {
+ 	case HID_USAGE_SENSOR_LIGHT_ILLUM:
+
+---
+base-commit: 09f742b49cb2728086d78be2b0b35e4d1d71fc85
+change-id: 20261027-iio-als-overread-c9e538fa61fa
+
+Best regards,
+-- 
+Daniel Schaefer <dhs@frame.work>
+
+
