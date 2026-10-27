@@ -1,62 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.79
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793104581;
-	b=fklBBRDB93OGKu19YhVMUYjMFNe7oFrrHgn5qfgQIJ8AiYnryilZyPIHOHJHivD/ArdN
-	 UVwXYVU2yygoRHIegeWVfxPHFyhPhWZU4yVew0Mm+SLslR3EIlIe2+2fTA7ZZ1Vsve3NN
-	 4f8uK4DyOSJ90PyRsOMQneEMo2FO6Vm7ZA3r3hHhFf7iUWa1boE6XbRIETnWsq9+7AQfK
-	 ipu502fwbEi5eIUPbxMcqluaZV5+OqryH9l5OVNHp96ovEs0JBanj94Ya0wJleDcxz86e
-	 iFCGxmlLq8bnqSBFiB6EUv4IOWFDIUhWPWFIxA5Q9VJmaEoQu0aRsLRAqjd+Q8rCXEA==
+	t=1793104617;
+	b=ghqR7C4BUhJlNb89txTcB/27gZtUAVZqnUXaiXdgt1Zv8lybxS9sWMWj5WqaNvN6QcTE
+	 hWQKnc8WtcjqzEB7yzrimlygwkYtyv1+UL+wtHxEF5wUqabsl+PDhgWs8d0XHdQF4RSa5
+	 q1+DGDBAgEAfdItnYbjsblqi31j8UG81TgnpY26qs7k1evejSXDIdyer6KYos4UPzeLn0
+	 ulQjZl6YIdkRF4Yedano4Z5T2oP6z8AzHsuJ+Y0fhCQ0FOM224tjysPl6y4iTtiME1YRM
+	 G0clLWx1pzANo+laeittdLSP5W9m8SzO2yJb7PwOlI98zgwc4c9M03lEDbzhwyBYCBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793104581;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6U6ukWtJS8Ibwot9neAzAfooQ69RGsnjUX/d7S/uqMM=;
-	b=J1lVT45IV5dyf+lkvMgG7GzOpaYsIJFd0s3xb7YpX0iKfiv/HcHI5btd3mDb6lSd9lNc
-	 ke2Qj9oPmqknHzK8ixy5DG8jUmpGAMz0/X+edfhwuHfXipFy/RvyPD6x5WeSqbaiwd1+O
-	 Ya7o+HWPSeLR5Jy046GxKR+m4ZiwhJjVokksZskphYNpU98jyXg0WQkO3JS6nZbguaYgE
-	 9qDnuuNqH8UrhFcet0YBjayxEN+YPqslJ6MWTNvl6yQfoVj5AzlmOf0Jj1bja0aIhVG77
-	 x8Uwn8W6Lc9N87jBK4KDZVoxvUd8Cwnc9B/6hIbmxX41w8Ol9MWYnhA4lI6diPS5x3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793104617;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=CiGmRdlkoViId5TfscHFKflRSN2mgmPjTQiT6qBmjg0=;
+	b=v2x/U1iQc40N7GJeqlQMyjk3mrUf5bwAO4gaqKoLInJAUIPHU4s65bYovOUz1eNfxTQB
+	 QrX6ogAH8LwCEQuGEfEgWFuWq+oZy6EhyDful4rHqLXqooFxVQ5e5HXjW3/Qwul8X0PVk
+	 eMZIhwkzQthBNnMai48Ed7kAZ2L76x5yIN1Tt+9fGCq49cOKRNPDlgvts+6DqML63JUK3
+	 Sii3H2RI87OxI2GcMYf733iHc1Go2OkaD4pfEg3SjbaQ+ndTB3pDfN2nZNjTaJ9vPLqD7
+	 Cmo3LgBtfPFZ2id6o+iD8KZG4Bu06mIYwmO5tg7p+YzsEd9QpURx3Vy9qRE089astGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="S8vG/Rdf";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8C52606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:36:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8C52606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=JcY10bMX;
+	arc=none smtp.remote-ip=154.81.10.79
+Received: from mail-m1079.netease.com (mail-m1079.netease.com [154.81.10.79])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A00606A31B;
+	Tue, 27 Oct 2026 12:36:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A00606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=S8vG/Rdf
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 08D2A15A1;
-	Tue, 27 Oct 2026 05:36:16 -0700 (PDT)
-Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D9063F7B4;
-	Tue, 27 Oct 2026 05:36:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793104579; bh=HF9mtcjcyXbLfac05vPyf9/ddhhqUEYPjy2TFsm4o6k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S8vG/RdfKAp3mrTU24tsu1+AvwXvDJXh/3pGzvtcrDobvdvAFaasDGuudwYnXYpU9
-	 oh+CiuR4qh3TXwjU1uPdtdAVK1rB02wyOTJ1mWXqismrYaSKGMnTX8DSFgefBBZ4cP
-	 BmbTu8nTjAt76sVM8SE9Ixb2QC0ThhEK8P/H7kjs=
-Date: Tue, 27 Oct 2026 12:36:08 +0000
-From: Wei-Lin Chang <weilin.chang@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Gavin Shan <gshan@redhat.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>
-Subject: Re: [PATCH 1/2] KVM: arm64: Replace memslot_is_logging() with
- kvm_slot_dirty_track_enabled()
-Message-ID: <3gewc54nkhrdyof75ijpyv3f2gbd7isc7sx2foqdk5yo2bjpgx@hoxbbo3n3ayn>
-References: <20260605153248.2412064-1-weilin.chang@arm.com>
- <20260605153248.2412064-2-weilin.chang@arm.com>
- <CA+EHjTwK092o8YZjV0vzBDLSY=cesOvhqj39zDd1MF-toOVTwA@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=JcY10bMX
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 528682039;
+	Tue, 27 Oct 2026 20:36:42 +0800 (GMT+08:00)
+Message-ID: <311338f7-ae03-47b9-96fe-1ec2b2851c7b@rock-chips.com>
+Date: Tue, 27 Oct 2026 20:36:41 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,85 +48,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTwK092o8YZjV0vzBDLSY=cesOvhqj39zDd1MF-toOVTwA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, imx@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, linux-amlogic@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ sophgo@lists.linux.dev, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-tegra@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 06/16] PCI: dwc: rockchip: Use cached PCIe capability
+ offset
+To: Hans Zhang <18255117159@163.com>, bhelgaas@google.com,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ jingoohan1@gmail.com
+References: <20261027122827.2725643-1-18255117159@163.com>
+ <20261027122827.2725643-7-18255117159@163.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261027122827.2725643-7-18255117159@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa17d5ce66c03a4kunm8cbf4897570f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGktJVk9ISU0eTR5CHUIeHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=JcY10bMX5VWFSTKD/G7A+Y8NZJqvgD8AMt+1D9jMkiqr+9Jj2ehRz18pkYtHT8ZunL5eUiWUhHwAdDix7KG3Iz5rowwLyFwISqEK7Ufpz8TkQo2jzcOTYLFdc41EbsaxeluNB0tsf/s/ByM6UAVG153ph24+T3bO3XlJYxZOroY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=CiGmRdlkoViId5TfscHFKflRSN2mgmPjTQiT6qBmjg0=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi Fuad,
-
-Sorry for the late reply, I was focusing on something else.
-
-On Wed, Oct 14, 2026 at 02:18:29PM +0100, Fuad Tabba wrote:
-> Hi Wei-Lin,
+在 2026/10/27 星期二 20:28, Hans Zhang 写道:
+> rockchip_pcie_enable_l0s() is called from rockchip_pcie_host_init(),
+> i.e. from the .init callback, which runs after the controller clocks and
+> resets have been enabled. Replace the capability search with
+> dw_pcie_get_pcie_cap(), which reads and caches the offset at this very
+> point.
 > 
-> On Fri, 05 Jun 2026 16:32:47 +0100, Wei-Lin Chang <weilin.chang@arm.com> wrote:
-> > When checking whether a memslot has dirty logging enabled, the
-> > KVM_MEM_LOG_DIRTY_PAGES flag is the source of truth. Previously we were
-> > using memslot_is_logging() which only tests dirty bitmap and did not
-> > consider dirty ring. This was not detected because
-> > KVM_CAP_DIRTY_LOG_RING_WITH_BITMAP was introduced together with KVM
-> > arm64 dirty ring, and users need to enable it to ensure dirty
-> > information is not lost for the case of VGIC LPI/ITS table changes.
-> 
-> I ran into the same bug while testing the arm64 KVM_PRE_FAULT_MEMORY
-> series, and then found that you'd already fixed it.
-> 
-> It might be worth mentioning the impact in the commit message: with
-> the ring and no bitmap, a logged memslot still gets block mappings, so
-> guest writes to most of a block are never logged and a migration can
-> copy stale memory. That would also make the case for a Cc: stable.
 
-That makes sense, thanks for the suggestion!
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 
+> Signed-off-by: Hans Zhang <18255117159@163.com>
+> ---
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> > Note that memslot_is_logging() also treats a memslot as not logging if
-> > KVM_MEM_READONLY is set, hence a memslot with both dirty logging and
-> > read only would be seen as not logging for memslot_is_logging(), but
-> > logging for kvm_slot_dirty_track_enabled(). This allows a read only
-> > mapping of size > PAGE_SIZE to be built when memslot_is_logging() is
-> > used, leading to a better read performance compared to
-> > kvm_slot_dirty_track_enabled(). However memslots that have both
-> > KVM_MEM_LOG_DIRTY_PAGES and KVM_MEM_READONLY set do not really make
-> > sense as dirty logging is essentially nop for a read only memslot, so
-> > this shouldn't affect real workloads much.
-> 
-> FWIW, I'd go with Leo's suggestion of keeping the KVM_MEM_READONLY
-> check, so those memslots keep their block mappings.
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index af26a07c0c9e..753606193855 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -373,7 +373,7 @@ static void rockchip_pcie_enable_l0s(struct dw_pcie *pci)
+>   	u32 cap, lnkcap;
+>   
+>   	/* Enable L0S capability for all SoCs */
+> -	cap = dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
+> +	cap = dw_pcie_get_pcie_cap(pci);
+>   	if (cap) {
+>   		lnkcap = dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCAP);
+>   		lnkcap |= PCI_EXP_LNKCAP_ASPM_L0S;
 
-Okay, then I'll not remove memslot_is_logging(), just use
-kvm_slot_dirty_track_enabled() within it. This makes it even easier to
-rebase & backport.
-
-> 
-> [...]
-> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> [...]
-> > @@ -2084,7 +2079,7 @@ static int user_mem_abort(const struct kvm_s2_fault_desc *s2fd)
-> >          * and a write fault needs to collapse a block entry into a table.
-> >          */
-> >         memcache = get_mmu_memcache(s2fd->vcpu);
-> > -       if (!perm_fault || (memslot_is_logging(s2fd->memslot) &&
-> > +       if (!perm_fault || (kvm_slot_dirty_track_enabled(s2fd->memslot) &&
-> >                             kvm_is_write_fault(s2fd->vcpu))) {
-> 
-> FYI, this no longer applies to kvmarm/fixes or kvmarm/next, where the
-> condition now ends in memslot_is_logging() ||
-> is_protected_kvm_enabled().
-
-Ack.
-
-> 
-> I tested the series on v7.3-rc7 (with that conflict resolved) in QEMU,
-> with dirty_log_test changed to back the memslot with THP. In ring-only
-> mode it fails on the first iteration without the series and passes
-> with it. I'll send the test change later.
-> 
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Thanks for the tags!
-Wei-Lin Chang
-
-> 
-> Cheers,
-> /fuad
