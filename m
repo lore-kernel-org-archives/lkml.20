@@ -1,79 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101961;
-	b=T53XgL7ELBBMZerAICWzsda0LM3OV87I/4oT67qITazGSOw548q0HpW5JlA37k3KxyAG
-	 nM/blDA5r5V917YeI9sAf50WBkIIY93l3yrkuufaa0PI2F8mZNlxDD7syTr/WuUhg9akY
-	 Kmo+fdFjQKbuaT5mFXut6ZaeikKrASdPo1PwZ1ZIoVCMzq1/8AuXEnpqqY8oybCn0ljHv
-	 ilKqwd8q9BfP1ntXSmdi9eqDc4O+8y4qsT3CdnPdGLsP7RhA5docPM9ZYdvH6/lBGkqZU
-	 /zPnnpxHsBd4IS4H/ZXfE19HiDr5V7N4zV/99XJFE7l8y/SakeVZSElLCKCssmSjj0w==
+	t=1793101969;
+	b=o2WRv9BOlyczbZBqLWgZqPLgEfcv/H4P6JBdhEbUz5hvPX0mxn5JC9/YkT5c+q1bQHrM
+	 xtqYbfOv91YSLSvbaQq6axjhBmE7x65t9R3uUHWD1vZDR4YvWopd7UxpWnEY5jvPhi63c
+	 wrqc3CABooSSm8Ex09PXeE4IF7QZohdiyqJNoHvjtp7OQm3UiKZP7kBdgXO+eG1fMyuhG
+	 8qdqVq6XYvDJm5ptcRUlgN47mydeZcwPc+rGXJe5UBfmVNJH6wOqJSzhRZVy1POeMbDmD
+	 VWkQ4qPyOOYCw7b7tmALuYKq9WHjkHX55tLW2wZ3qGfI6dpT/lOliGQpuE8UiJiAVxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101961;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=RTUNY12Kk2hu55BR/I6ei8JLRh/Fu6fPdaSExOFhP8o=;
-	b=xMaw0eUjzg+WnGQJ3BubLZg7EFNzWjKRgX/QfRFJEuCV1J2Yvd/h4DlahqgRIc33kl4V
-	 PPlQRXBb1wDI3inM5sOUfz8HHhqmiP01lANoye9KDdiGk3lFRBsrVdJzMpIJA55AUZ6tp
-	 ydPabKJd2BtMhn2H8wPHvT4Mlo/AFUtxr0k6J152rVmRI3wFR5kKOVZZmjJ2dqUQhtvPA
-	 tgaQWvFe4TWUKDFiQ9XFfrn0BPy1iOGvmrEh/xFElIzcWMP+rbip17/nTx4GxJYi4u+no
-	 0SRY5CTSd93CGBdCP2dB/VYHXYce81sFy9pzZql0J0x8ChiP0KphGPge7oy0IRmKuGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101969;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=evLAp26msHZa21KMXu+YtqFBUAj1Nw5xOqezOiL4fU0=;
+	b=Kp0miN8BIcev7lnzH3Ll02qBbSXEeMynjQvs7SLSB/RARtlOyja3tUWXQ672wNI3xndd
+	 ggezyR1JAzQezUaEd+Wyhzi3m6qK5XVTPET73nAhyiiGWBKcZFe9UWX2GSVu2Pu5Ulx34
+	 LmOB6i8A+psur97n8+ObttdnyM5wNp+oVyoMnHED0P2JLqHIUTnXbAgb0FViYB1zjikwX
+	 bh4YEiIB/AHQQ6lU4pPVJrFf8F1Egkko4hIQocvxoCbxlodByxaqy/SOEwRYwGJPIyrai
+	 FdsAHa3z6v1WchkFZhwhf2vgDPOyUNkjS67p30KTyU44Tjin022rRRe5xPIahsWEGqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=TbeUJXPp;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fasM1xdz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B8pKnWBS;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E5F606A31B;
-	Tue, 27 Oct 2026 11:52:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60E5F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3C4606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:52:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D3C4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=TbeUJXPp
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=RTUNY12Kk2hu55BR/I6ei8JLRh/Fu6fPdaSExOFhP8o=; b=TbeUJXPpj+jD7aDbOqRGfRQgwF
-	xzkudsFBiyBgSUoPn9OdSPUlvJYxN7OHzKQOolV8wuqw/sCWo+IhGeg6KDHX3+5bU1WjV0byKUa5U
-	d8IG3KOZWbxMPl+shcCt2wgZ46JwbVZDmKiAQ/ito2DHp0riE0CaK+uLPYJO/IaPWCjAh7oA48l/4
-	Z553U3ZtIL/tIl0X8V1shGtNRK+SlAzsLFa1CI1oPBZPBd+D8874dImMbPhqMN1iyj//4OzNuHeSf
-	lnsOaDEXPCWZGMbHFLFT3kOf/eiPZf1ZfJcPHo6hvqtns8WGerzahDkSO7vyMCG8lpdBrhWvdL8ji
-	DNH/Jx/g==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xLfjE-0000000EtKD-0CaF;
-	Tue, 27 Oct 2026 11:52:32 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 102E63014C0; Tue, 27 Oct 2026 12:52:30 +0100 (CET)
-Date: Tue, 27 Oct 2026 12:52:30 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] sched/numa: Leave the placement of a BPF-scheduled
- task to its scheduler
-Message-ID: <20261027115230.GJ2668564@noisy.programming.kicks-ass.net>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
- <20261027041536.3317971-3-arighi@nvidia.com>
- <20261027104317.GC2668564@noisy.programming.kicks-ass.net>
- <auCGbbLTw4qZS536@gpd4>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fasM1xdz;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B8pKnWBS
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAdwNY2458098
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:52:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	evLAp26msHZa21KMXu+YtqFBUAj1Nw5xOqezOiL4fU0=; b=fasM1xdz0MyUUFOZ
+	xH6XddfJHYYVTiZEoEDgJWzfuI8aOY/Wk303Futj5BVx2N/rqRmSfsVHa/ugEirn
+	4se8DNJTIK3GqrYnLNfCgUDcuZXTEN4SKSYyrNhv/LVQvrUg1+q5fdZagUmMutTC
+	A7MyD8StpX4ZttfOL9IC+bXpzVqPZhPpPXxOzIyk7kX+CgyjhMILOxE9hNyc4NIq
+	C+ccOi68UibZOU5Kb3bkdXkBwyu4UxuZ52DA5YEQNl2uJeuSocYIM/kzx1W3N+r1
+	EVl1NcVLgk8Z/GkknyWSzZwCfrldQCXcIWwUIY7eoP7u0dLun8aqkyjbDrvoAjO+
+	taksPg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjjbta3v2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:52:48 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934a8cd3a8bso57681485a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:52:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793101968; x=1793706768; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=evLAp26msHZa21KMXu+YtqFBUAj1Nw5xOqezOiL4fU0=;
+        b=B8pKnWBS9b5Z91QC8E10urXyTHj0I3dCpVM8a0mhX+cHPF9cvrGYyBqJ2VCmGh5iZC
+         TEvrnEZqhNVsEWJl2wPJYLYTgPt+Py9ZA06sETLF1G9tDyaQT27eOEHL7gVOJy2u1oPD
+         8xgpGfMM+qISLIEw4wYXUHUL9jF5YMwkRNg+ZPyZBC7SiI7K+q/IjCnorwrc60UENthS
+         9UpzfsuVW66BWmcrvAMWplqm8DS1A+vszMVxtIE2mS07oIKbxCLmbQa99R/Du0rVUHKI
+         dLz1v5oJkW1CP7Xfpz6CaxdQNh1/0O/XvWMv9ne7zIOr3rOxXjom2Y5InkPHvp2uGPNa
+         yjPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793101968; x=1793706768;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=evLAp26msHZa21KMXu+YtqFBUAj1Nw5xOqezOiL4fU0=;
+        b=i6aW8Y5Nveo+krR8Bk4iW1hSR3hbOhfk14A3T1B1f6ZXKUDHKX++hTdN1tYONQP7sw
+         2VB5rBSOI/0E2PoupdpeewwYcBxqFjQj2dzjnSTXOZPibQ5RPBERhlcOd1mr307QlT9F
+         NlNaapB49IINyhC/l/knxOHkD5T3oaSU/uCtW9bkyqbdvFwJWEkJz/Mt+oyE4P2KJsxi
+         X867r6bIIzzs2Rc8IVYeZoZ2L/EmVJWlQwthMIH509muqH4ax7IIqvns8RE+IPNW0+/E
+         ccP/EX5Jthu2HQD5HN/H3izGC0OxuZWaYi9X3LV4pBiy9GjT8w7mjD6w/Rrb2KUTO5qU
+         sVmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxkDHKhSlFAu/jC3e/IzCQnQXSLwKK0QHPZwgXepVVN81uO9bot48hrI44+EPX7Z+UyU+DTlYTnn3ToWSU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkBQFMCiahcawKVxZ4DP09gl1M2ouFyz0dZ5VipPAKF6qxtFqv
+	QRbnYlWw+96rIeyMe3wFr5cqnaGG8C842+1+AXZwF7b0+b91MgRF3vNYTRzlQb4bEnQu7iF9f/Z
+	76iwT6Nav22iHER6LvTXbS9KP+5ujxAO5LhxYQOZeTMizYTv9p+jdD7iuZqmsByflPlU=
+X-Gm-Gg: AYBFou0YtuQDIiPa1L9dvu00O4sg0L+KKR/s7Jv5HHu2HU0xVByx7ir+EtlXbS8E1/M
+	HnORnwoqZsUnQsGans44Imw0VBNR+p/TFAdMcKN94rFC4PrVIRDOK2A2h3d1XL5WtqJVFYaPWaP
+	ctGqVskNrELSUAEmiAd+35uliiG+g55Azu+gyANhpUERYI50QAI0SVh09ZNxJb9rJlw792Ftc+B
+	puDbbg/3ExYjDwEjaBengOA0rXmA35IO1+z9VweGQFdSnwzaYKfFr3nkYOhGcNgLvlGA5ML/6sO
+	oE3PCwyyc89iI9Ws/NyPAaUeguipg2ZgamE+31Vd6OMSKB0eO1Og6pEnYxf5TJM1QlHCPoyLo8D
+	VDaxRCHPEKqGDzLHnweMCVA==
+X-Received: by 2002:a05:620a:a181:20b0:936:2f59:dfe4 with SMTP id af79cd13be357-940ef67bc89mr1481929485a.0.1793101967569;
+        Tue, 27 Oct 2026 04:52:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:a181:20b0:936:2f59:dfe4 with SMTP id af79cd13be357-940ef67bc89mr1481925985a.0.1793101966983;
+        Tue, 27 Oct 2026 04:52:46 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b445991af3sm5027246a12.33.2026.10.27.04.52.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 04:52:45 -0700 (PDT)
+Message-ID: <1682bdbe-acc9-483b-ace8-51569cdbb3f8@oss.qualcomm.com>
+Date: Tue, 27 Oct 2026 12:52:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,160 +115,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auCGbbLTw4qZS536@gpd4>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] irqchip/qcom-pdc: Restore the configuration when resuming
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>, Thomas Gleixner
+ <tglx@kernel.org>,
+        Radu Rendec <radu@rendec.net>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261026-b4-irqchip-qcom-pdc-restore-resume-v1-1-ed6cc37816b0@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261026-b4-irqchip-qcom-pdc-restore-resume-v1-1-ed6cc37816b0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX57HadpvrKWab
+ 4nq/lf4WaJvjNz37m1U3ccAx1YntDoVF73PbihjjbhLs+KEQSpXNodNZV8Bex1bSELVzZWiaCL5
+ WSNZW8bUR3aL+o2ZAWHi5UDGLuhXEbE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX6rvnnkiDKl6C
+ 31m5QBsVw1kaM/wjMTvt132GVtoCUsBVQiBo1915YElZu/pcnO1Fa6DF2yKHV9EFMWTZcYWCFP8
+ 2zQSCV/D9wbV/o4wRCe4QtfShDQ1ufuQm8HRL6s0sKErX230+NzGQWgOeQOMDEGtF91d1Xr4b7y
+ 4uFnxH4X0NuqFy+ah8KI+XKLNLlYMPdoyRPMclprtGVShgGxVPpI6oIJGN0k6XlfrwNhuEFkNnm
+ nrTZgZCyXGWtYOqJhIbzTG3e11H3VXaleIvoAJ2LowTxTOofR+QQ9+GcH+yQRu55mzEWJ6IMPsj
+ rDrapXj2OlbmgUY8etDKYZ+Dy1YL77PQzrnkBRpPec6dCs1E4Tf3tD8x7Alsw7aFm81pikf6lBR
+ y9PtT9aLL13liMG/bKxRT8Roe1zoSyHk7/p8RiEYE+D44xdUPQu9pKTkjO+Bb0PegyB9NTc0kXX
+ uWa2173fcp2+ZFHPJHQ==
+X-Proofpoint-ORIG-GUID: jofo0dG7dLs4H4CqnsYfcmV5dB9c130t
+X-Proofpoint-GUID: jofo0dG7dLs4H4CqnsYfcmV5dB9c130t
+X-Authority-Analysis: v=2.4 cv=XaIcX455 c=1 sm=1 tr=0 ts=6ae09090 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=5MpwvvwstkcgiFTKn_sA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270047
 
-On Tue, Oct 27, 2026 at 12:09:33PM +0100, Andrea Righi wrote:
-> Hi Peter,
+On 10/26/26 5:37 PM, Abel Vesa wrote:
+> A hibernation image is restored after a power cycle, and after the
+> kernel that loaded the image has set the PDC up for its own
+> interrupts. The restored kernel then runs with the PDC configured for
+> another set of interrupts: a GPIO interrupt it uses may be disabled or
+> have another type. On a Qualcomm Glymur CRD the EC interrupt, which the
+> PDC detects for the TLMM, then fires forever:
 > 
-> On Tue, Oct 27, 2026 at 11:43:17AM +0100, Peter Zijlstra wrote:
-> > On Tue, Oct 27, 2026 at 05:13:31AM +0100, Andrea Righi wrote:
-> > > A task under a BPF scheduler can take NUMA hinting faults via
-> > > task_numa_fault() and then reach numa_migrate_preferred(), which may
-> > > migrate the task to its preferred node through task_numa_migrate().
-> > > 
-> > > The migration of such a task should always be driven by its BPF
-> > > scheduler, which owns the placement of its tasks.
-> > > 
-> > > Keep collecting the statistics, which is what makes
-> > > p->numa_preferred_nid worth reading, but skip the migration for a task
-> > > owned by a BPF scheduler. The scheduler can read the preferred node and
-> > > decide for itself whether moving the task is worth the cost.
-> > > 
-> > > For the same reason, never pick a task owned by a BPF scheduler as the
-> > > swap partner of another task that NUMA balancing migrates, e.g., a fair
-> > > task when the BPF scheduler runs in partial mode. Such a task is
-> > > treated like a kthread on the destination CPU: the migrating task can
-> > > still move there alone, but the BPF-scheduled task is left in place.
-> > > 
-> > > Reported-by: Vladimir Vdovin <deliran@verdict.gg>
-> > > Link: https://lore.kernel.org/r/20261002124559.10367-1-deliran@verdict.gg
-> > > Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> > > ---
-> > >  kernel/sched/fair.c | 15 ++++++++++++++-
-> > >  1 file changed, 14 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > > index 36df9a4dde534..5064c7b707f4d 100644
-> > > --- a/kernel/sched/fair.c
-> > > +++ b/kernel/sched/fair.c
-> > > @@ -3267,8 +3267,13 @@ static bool task_numa_compare(struct task_numa_env *env,
-> > >  
-> > >  	rcu_read_lock();
-> > >  	cur = rcu_dereference_all(dst_rq->curr);
-> > > +	/*
-> > > +	 * Never pick a task under a BPF scheduler as the swap partner: its
-> > > +	 * placement is left to that scheduler, see numa_migrate_preferred().
-> > > +	 * Moving the faulting task alone to the destination is still allowed.
-> > > +	 */
-> > >  	if (cur && ((cur->flags & (PF_EXITING | PF_KTHREAD)) ||
-> > > -		    !cur->mm))
-> > > +		    !cur->mm || task_on_scx(cur)))
-> > >  		cur = NULL;
-> > 
-> > Rather than check task_on_scx(); your argument with Prateek seems to
-> > highlight that the actual check you're looking for should be something
-> > like: cur->class != &fair_sched_class or somesuch, right?
+>   qcom-hamoa-ec 3-0076: Unknown EC event: 0
+>   qcom_ec_irq: 20501 callbacks suppressed
 > 
-> Right, the actual condition is "cur is not a fair task". I used
-> task_on_scx() only to avoid changing the behavior of RT/DL tasks, but
-> the same arguments apply to them: their se.avg isn't updated either, so
-> task_h_load(cur) is stale, and their placement is driven by their own
-> class (push/pull), so fair shouldn't move them around.
-> 
-> So yeah... "task not in the fair class" seems the right thing to do.
-> 
-> > 
-> > >  	/*
-> > > @@ -3645,6 +3650,14 @@ static void numa_migrate_preferred(struct task_struct *p)
-> > >  	if (task_node(p) == p->numa_preferred_nid)
-> > >  		return;
-> > >  
-> > > +	/*
-> > > +	 * A task under a BPF scheduler is placed by that scheduler. Keep the
-> > > +	 * statistics coming, which is what makes p->numa_preferred_nid worth
-> > > +	 * reading, but leave the placement alone.
-> > > +	 */
-> > > +	if (task_on_scx(p))
-> > > +		return;
-> > > +
-> > >  	/* Otherwise, try migrate to a CPU on the preferred node */
-> > >  	task_numa_migrate(p);
-> > >  }
-> > 
-> > I am somewhat confused on all this still, probably because I've not
-> > looked at it for more than a couple of minutes at this point :-)
-> > 
-> > But rather than putting a callback in sched_setnuma() should you not put
-> > a class call here?
-> > 
-> > That is; have this be:
-> > 
-> > 	p->class->task_numa_migrate(p);
-> > 
-> > and have fair set task_numa_migrate_fair(), which is the current
-> > function, and then ext can implement the BPF thing.
-> 
-> Yeah, that'd be a much cleaner approach than special-casing ext in fair.
-> But I think it gives a different signal than the sched_setnuma()
-> callback.
-> 
-> numa_migrate_preferred() is called from task_numa_fault(), in the
-> context of the faulting task, at most every numa_migrate_retry, and it
-> only gets to this point when the task isn't on its preferred node. So a
-> class call here means "this task is misplaced, migrate it if you want",
-> repeated at each retry, even if the preferred node remains the same.
+> Restoring the TLMM configuration does not help, as the trigger type
+> and the enable for such a pin live in the PDC.
 
-This is an important signal; it is fundamental to the whole controller.
-Without a force to keep a task on its preferred node, the memory will
-keep migrating around for no purpose.
+[...]
 
-A task really should be moved 'back' to its preferred node it at all
-possible, and it remaining to run outside of it had better have a good
-reason (like imbalance). Of course, if a task is ran elsewhere, then
-eventually memory will migrate to the 'new' place and then a new
-preferred node will be selected.
+> +static u32 pdc_last_bank(void)
+> +{
+> +	u32 last = 0;
+> +	int n;
 
-The new place is typically constrained by the numa distance, when its
-not possible to run on the preferred node, it tries to run near, which
-then limits the possible nodes and will have it converge on a new node.
+You can declare the iterator as part of the loop, since you don't
+you use it outside the scope anyway (also in other funcs)
 
-The recently added cache-aware will help here, since that is a short
-term signal to stick to one place, ensuring the memory migration is
-also likely to be more stable and the whole thing will converge on a new
-node more quickly.
+Otherwise I think this looks ok
 
-> The sched_setnuma() callback instead reports when the preferred node
-> changes, which is what a BPF scheduler needs to use the preferred node
-> as a placement hint.
-> 
-> So I think the two are complementary: the class call would replace the
-> task_on_scx() check here (ext can just skip the migration, or expose it
-> to BPF if we think it's useful), while the notification would stay in
-> sched_setnuma().
-
-I am still not quite sure I understand why sched_ext needs the
-sched_setnuma() hint for placement.
-
-> One thing to consider: RT/DL tasks would also stop being migrated here
-> (they can take hinting faults too), which seems more correct honestly:
-> task_numa_migrate() decides the move based on task_h_load(p), which is
-> stale for them, and their faults only come from pages scanned by other
-> fair threads of the same mm, since they don't drive the scanning
-> themselves.
-> 
-> Would that work for you?
-
-RT/DL should definitely be ignored. 
-
-> > Anyway, if you want to do this task_on_scx() thing like you did, its in
-> > the wrong spot, that condition right above it is irrelevant if you're
-> > not going to be calling task_numa_migrate(). 
-> 
-> Right, I'll move it before that check. It still needs to stay after the
-> p->numa_migrate_retry update though, otherwise the time_after() check in
-> task_numa_fault() would be always true for scx tasks and
-> task_numa_placement() would be called at every hinting fault.
-
-Just so.
+Konrad
