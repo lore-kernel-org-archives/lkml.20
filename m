@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099243;
-	b=pEz8dcspmhiHDXnCFEY7WPc83v3POSJ+ptCpeKcbX0FjTMuRDISL4h7aUsWJaAJDj4mj
-	 Lvt1aFI4nquuzr5a+EINP+0lssimYppkxa2M7m8pqu1DPWzG9I7E/PZjf58FBDmxoxCwZ
-	 DwLimq4Va+9j0+PqhlCnMD0qH5ETs3CwfDHhrVGdriH6YuuM2STvVfA+nz6tPi+NZOUzh
-	 pW7U/dV7YJptkM8pabgZXEXdw5eEkBYL76LZgMm8R1KsaSe2D1Dhtaqwe0tTUOrOE72y4
-	 PXjR9fa7ukFbgVbkMY9GNjaaxmBrFsqNXbA8wDCF0OxHn84wrm5cw9qU+96d8ImjZnw==
+	t=1793099251;
+	b=ElOauyuOqyVf/4PI7m7sDkPHgbtvQb2GA61a9Ww3eQSPW0NF9jrSX3c18IdbveEn63k8
+	 GFN/3ZIGJF/YpqqAuQPUkP/xB9cLuNfdQXp0DuWKT9ph9RnieWOwZ4J2Y6FKB+9GEd04q
+	 njH4+Hj2PAdofbfYOmJO7GdefhNqAmIiLIQuDsh1UWgBEMc90xriGAzrZ6JR3EYQJwjnn
+	 4w/ijIpQZ7EZsDYd4s8xe/vSvF6PIexVDYZIb0t9WLgls/PljoQznpx3FrYOyR9kbUZfI
+	 epEkeWKF1Aei6uK0/16GR2gyZqwPR9/MX2w6k0Qfj0eqbhkiOo/rY8wzhNIg5rVcskw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099243;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099251;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=rfgTqOaNw3826i0VaS1Qa3IwpOdenBIQdfBwT32lnrs=;
-	b=0UIWAlJAisKsaDFL4B08BBPYtbrLpo1Pa55t3iLUr1Op8vHZa2O7SCAfa7Ga4Bwz6o/s
-	 I1zrbml87wEeHGXdAUrIa2O2Wq+FVV26Buk7BxjwtLK9Kjz73wAvFybVEylvq4/qgVzve
-	 n+8U6oArhiR5rOS9mU0qll56ZF2pZr2lf6XV7LHYdI6CWd26CMS1LdlF479aDyKIrzuQL
-	 VW5idhlYb1ZRXs5bsSNA+ZcoVNXEZFhVjbO42hiRzqLGYydm4rsEqvuYNh9C7P3cyM4jS
-	 gZh93oIGJtnYdk9+2URPADJKozI9/PhWVgNRSQ6tIOZevipJPcOlrt7UCns/sRSe2ZA==
+	bh=LmFYO9q8aHV3jXtCeg+1TpTcQaYP/vBmoA7b4hJD89E=;
+	b=DeqkNFspuGUDeYmSSySd0S0ZnxeCa9aVeXLNGXz0CwQP2sdpKOBbL18SHskBr6j8KWkk
+	 4AwnvZ0mcDBHGmgloa2nqgtv7MpVm/bVLoRkGLp0UsgLcJNOefaCfJWnWsK4oOkj+evmu
+	 VKx2StIeFosuAqmbjT7LgpEaOJKhCi0OZ39vLdnvOESRnhML89vXh4R1habVTHu+XpJn8
+	 HYIr420O7e7S1Wbord2NzDRE6CuThbs1WgHiRgYaJ+bMbBi0GCoXXWhKVKf/pYiho1fc8
+	 qsGuJ+U4Qycwj9CSRQ3WAf2Jydq9x15ibnV9Fd9Cn9ozs37yGbAK/kH7487IndFnaJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PmpwvjiQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=woku000l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19ECC60A263A;
-	Tue, 27 Oct 2026 11:07:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA31606E7F8;
+	Tue, 27 Oct 2026 11:07:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PmpwvjiQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69F951F01287;
-	Tue, 27 Oct 2026 11:07:22 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=woku000l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC5581F031E6;
+	Tue, 27 Oct 2026 11:07:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793099242;
-	bh=rfgTqOaNw3826i0VaS1Qa3IwpOdenBIQdfBwT32lnrs=;
+	s=korg; t=1793099251;
+	bh=LmFYO9q8aHV3jXtCeg+1TpTcQaYP/vBmoA7b4hJD89E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PmpwvjiQeAHvPrnILR2uRXYFVy66Y3dw+bk6KwpD8Wr5YdAAooPc9UGoRI4ZEZx35
-	 hJAgvLXV4AzNSAtR865fyFaqz1I57Lgvww3EfQ8P9SgQw9ZaX1WkOsj1cZ2dGo43n5
-	 69R4JpoA1WAUBvWxKf3UZEpY0m5VvJhYc0nOcHIc=
+	b=woku000lxuAqiwy3NYW8oA1WWgEvS02a4ROvMSt1k95stU2lkkUhQ2o+nK2WW00PK
+	 Db1orD3M1O4a+Gt6Z1lViT1/KvP18yZ5cPHPzpCKxhI6KLjdn+UZX2X1GnUn3T+0dV
+	 umMZXvrdLLLm9rOukUb5w8Lau3h45fTt3QYNq1PA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 12:06:41 +0100
-Subject: [PATCH 15/24] serial: 8250: omap: acquire rx_dma_lock in DMA
- completion callback
+Date: Tue, 27 Oct 2026 12:06:44 +0100
+Subject: [PATCH 18/24] serial: fsl_lpuart: fix tty ref of wakeup event
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,7 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-tty-llm-v1-15-99b0202ae546@linuxfoundation.org>
+Message-Id: <20261027-tty-llm-v1-18-99b0202ae546@linuxfoundation.org>
 References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
 In-Reply-To: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
 To: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
@@ -83,54 +82,61 @@ Cc: Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
  Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
  Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org, 
  linux-serial@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Moteen Shah <m-shah@ti.com>, Kendall Willis <k-willis@ti.com>, 
- stable <stable@kernel.org>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>, 
+ Peng Fan <peng.fan@nxp.com>, Shitalkumar Gandhi <shital.gandhi45@gmail.com>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1450;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1672;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=7dlGvGO54Ra670tmxqdD2cDzG05O2464Fe8r8EsloYk=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPWvdlvdnzVzYg6cGmd4anIzpm9yRs+rLnxXrHajGxj
- gplbfW6jlgWBkEmBlkxRZYv23iO7q84pOhlaHsaZg4rE8gQBi5OAZjIKjeGBQv/Fdy6u34/87VZ
- SvZv+YzzdX9UPmZYsPJi85zPxQcVdjWs2sClyLFb70CCEQA=
+ bh=7PndLWziLhFxVf15LX4uO3S84WcvtpCFzOrbOnnsIEc=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPWvedW1TjGF3KsWPVrrnS4cwtnf+uPJnLF7/55bK9W
+ 97sC3nq1xHLwiDIxCArpsjyZRvP0f0VhxS9DG1Pw8xhZQIZwsDFKQATuV3BMM+2syirRiBvR5mg
+ ybVnshdjaw+mPGKYZ7ppnaDDFXPXW9urTkYHtzjz68xcCAA=
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-From: Joshua Rogers <linux@joshua.hu>
+From: Josef Bacik <josef@toxicpanda.com>
 
-The __dma_rx_do_complete() helper requires priv->rx_dma_lock to be held,
-but the DMA completion callback __dma_rx_complete() calls it without
-that lock, only holding the UART port lock. This allows a race between
-the callback and omap_8250_rx_dma_flush() which properly holds
-rx_dma_lock, leading to concurrent tty_insert_flip_string() calls that
-can corrupt flip-buffer state. Acquire rx_dma_lock around the call,
-matching the established lock ordering (port lock then rx_dma_lock).
+To report a wakeup event, lpuart_resume_noirq() gets the tty with
+tty_port_tty_get() and never puts it: each wakeup by the UART leaks a
+reference, and the tty is not freed when it is closed.
 
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: Moteen Shah <m-shah@ti.com>
-Cc: Kendall Willis <k-willis@ti.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+With no_console_suspend, the function also gets there for a console
+which is not open.  Then tty_port_tty_get() returns NULL, which is
+dereferenced.
+
+Fixes: 18bdfccf3c30 ("tty: serial: fsl_lpuart: Add missing wakeup event reporting")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Joshua Rogers <linux@joshua.hu>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Peng Fan <peng.fan@nxp.com>
+Cc: Shitalkumar Gandhi <shital.gandhi45@gmail.com>
+Cc: Sherry Sun <sherry.sun@nxp.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/8250/8250_omap.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/tty/serial/fsl_lpuart.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index 07ebed6ac6c9..0afd648733da 100644
---- a/drivers/tty/serial/8250/8250_omap.c
-+++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -975,7 +975,9 @@ static void __dma_rx_complete(void *param)
- 	if (dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state) != DMA_COMPLETE)
- 		return;
+diff --git a/drivers/tty/serial/fsl_lpuart.c b/drivers/tty/serial/fsl_lpuart.c
+index c8575c965203..e54b4c44db42 100644
+--- a/drivers/tty/serial/fsl_lpuart.c
++++ b/drivers/tty/serial/fsl_lpuart.c
+@@ -3113,8 +3113,14 @@ static int lpuart_resume_noirq(struct device *dev)
+ 			/* check whether lpuart wakeup was triggered */
+ 			wake_active = stat & (UARTSTAT_RDRF | UARTSTAT_RXEDGIF);
  
-+	spin_lock(&priv->rx_dma_lock);
- 	__dma_rx_do_complete(p);
-+	spin_unlock(&priv->rx_dma_lock);
- 	if (priv->throttled)
- 		return;
+-			if (wake_active && irqd_is_wakeup_set(irq_get_irq_data(sport->port.irq)))
+-				pm_wakeup_event(tty_port_tty_get(port)->dev, 0);
++			if (wake_active && irqd_is_wakeup_set(irq_get_irq_data(sport->port.irq))) {
++				struct tty_struct *tty = tty_port_tty_get(port);
++
++				if (tty) {
++					pm_wakeup_event(tty->dev, 0);
++					tty_kref_put(tty);
++				}
++			}
+ 		}
+ 	}
  
 
 -- 
