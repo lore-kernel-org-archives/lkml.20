@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119422;
-	b=KhdSINgNuibpl5s/LnY1VWpqzIFLgU+kuA2cz24dyGreWUV2uAi2PjKi9nL1Sp4+SAgk
-	 kzhZK+PqQMubKX2Sz53FeCK1wAxl/2/v4+K9ksvy26QhQJZTzKFAtWUad4bHY3aedd/jA
-	 QczIe6NNcl8Pgz6jjRX5vvlEOup04kURzvcvYCzwW7phZXHiF0a3x+lrJ9z6rjh0s8UPe
-	 cry9XLTwdY5TcVGIuFbtklRJgkNHUinlqdb0mnN7UsLIwRdRDkKhzwNC/R4KGw3z8E/hC
-	 bfMi9g1RpXC208RVeqgfwGOCZkvsMYZ9DWp+KRzK8UjqDSsMkhh2Po8Alw2ddKPYWVA==
+	t=1793119425;
+	b=yo9uqyeJDc/J9SZOWYJOgzZygNIO56UluFGTjCXYBIFvaPP/mZYfNRE7seMGWxitXw3Y
+	 Xp9RNeXVZo8sf7DJtw7FgjWQkzPTo0zO9JxuNBeJv9xOMMbF7HF1K9WuOulErGEdyBiDR
+	 51Bptx+zabCEzCBkyBToHGF5gshcVGg+m7kB9hjVf+Fcv8uHpxucpT+OOsgOR56F9Oefb
+	 8ntnexjt8/PPhZSBe6uAy+ehES0D4uxU1e4/VM5htTJoJzhOXEL9yu1Y1E3JvbgjL2lqk
+	 NoGha+qsUW7iYd6vowoQLaR2Vajl0DWIcshqSQcQnpQ3yI5OrRvDG9Am+WiivgNKJtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119422;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119425;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6qHl/cMD0A9vT0H/NX5XdRQrkTfmJRWAduf7KDATGLY=;
-	b=f/1JWq9hM4ayIAZUbWMHjV3qSa7F4xSkLix2iYoYRvhFT1LnerpGrllhqu6konQhfGJ+
-	 s5kW4KRUn6OcV4+zf3F54gTzi2ANVORWG2rfIUbDQTqESnzj579MvZJKMWrHDIxLoNHIy
-	 63nd7SKwAn+ADb/P+ikp5Y5yl/BaE9LB+kFaVPPXWbN4441a8eJSM941zVmzfhw4z5Nhq
-	 uVSGQUspLmIW2CS18uGvYCM92m0cI0MlCZQffPL8Uv4X0w/2vxYVEeTX9Nfeyld/DI18c
-	 90Tjfr6zmzniMRAZkD6ucEi/DYmnYmqYLsqaGw2pza64zWyI4D6956ExZhR22bkDPlw==
+	bh=b2OEDXtRqaEOlUqjaone3ufJVoeRqYEu7QBdQlbNa1c=;
+	b=ucrci4aHOdWcypvA2uEB46WR3kiJu0c7q8GeIye7NSxsvfUEYr60FyxtkWSF0cNuHQrg
+	 e5gQWAX/06Hzj5B9pv0utRyZNQiWCVghPrplHXY7Y816HqeJ6YbQX4zeyDVVt90RwDpMS
+	 AePtJoKi2nhOoFoFNSBERQcabtu5X/VrCJepk9UI75SRuIRZ6xJL74myL2bSc0Rpylkji
+	 nZKpHfStbgIsVAjEGogdGBfveqGW2KNM3EcUJP7cOp9XRKPxnUd4nuI9+rZ8pQnOIPypY
+	 gyP0HJW4ur1anlP5hRKi62gPiUX5QZVvdyYSHn+g0mjHgaufVXQmOay9Zfb274IfZbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="GmhFnPC/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fKDzbDup;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E183606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:43:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B94606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:43:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GmhFnPC/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A31741F031E0;
-	Tue, 27 Oct 2026 16:43:41 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fKDzbDup
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8071F031E1;
+	Tue, 27 Oct 2026 16:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793119422;
-	bh=6qHl/cMD0A9vT0H/NX5XdRQrkTfmJRWAduf7KDATGLY=;
+	s=korg; t=1793119425;
+	bh=b2OEDXtRqaEOlUqjaone3ufJVoeRqYEu7QBdQlbNa1c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GmhFnPC/2oPwWVlFa6JpjLAPR1Ja8vwOxdmtREQ0BsdbE2J0ChpfceserjVYOof1+
-	 NyqxBvlnMzuJ78ICGSe2t1VrTOyjXm5OvhKoLmxxRdMzz7K1lRO8YIjYtMHSMvfjNQ
-	 KjNU0dkbEltf1+wRB3+fGNcwvPHpvX7yNQYcRSCY=
+	b=fKDzbDupbtPhbiKEsDlei0VTwy0NLd03ul+nFH0NsyCbnp6JyM0q/HxI2DcIYIA8f
+	 jSnbSbdsA4/0YVEm7ICs8wAtBY7KbNJYX2qfBaxydXNx5XrBhASjYPU4pmb31Ymm3C
+	 6dysftvzuXsTce5LcXHsPwvO8caf7e4LzPjZ0ha4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 17:43:31 +0100
-Subject: [PATCH 4/5] comedi: ni_tio: Fix overflow of the clock period
+Date: Tue, 27 Oct 2026 17:43:32 +0100
+Subject: [PATCH 5/5] comedi: vmk80xx: report failed transfers of the K8061
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,7 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-llm-char-misc-comedi-v1-4-1899771ee15b@linuxfoundation.org>
+Message-Id: <20261027-llm-char-misc-comedi-v1-5-1899771ee15b@linuxfoundation.org>
 References: <20261027-llm-char-misc-comedi-v1-0-1899771ee15b@linuxfoundation.org>
 In-Reply-To: <20261027-llm-char-misc-comedi-v1-0-1899771ee15b@linuxfoundation.org>
 To: Ian Abbott <abbotti@mev.co.uk>, 
@@ -60,54 +60,102 @@ To: Ian Abbott <abbotti@mev.co.uk>,
 Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1629;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3225;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=cxcw7FQaT/ugBX0xey6h0pFcUZjYx9elASJcZQ2H+DY=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPrmzkPF1558PyxAjmfVdslmjf4A/yLM/dZHGtYfXX/
- XcPnZ2c0BHLwiDIxCArpsjyZRvP0f0VhxS9DG1Pw8xhZQIZwsDFKQAT4Z7EsKBn1qL+YFX+ZZG3
- 9GeKb/hQceKr/gmG+T57+D0W3/f5yFnxscTKcUrFtadVTQA=
+ bh=twPdbasRyn1FcntLl5Y1sYSnS68oObpYb5l2jEyFfI8=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPrmyse6NTdS1jAs9Cc/k2gTdWtnzvtBmuTdB131vye
+ 73Wg9Y/HbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjARTQ6G+Tli/Qt9lpdVJKst
+ Lj/ySD9cvUfjGcNc6b0G3pd+zP31O1tuYuJv2bY+Aw0NAA==
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-ni_tio_set_clock_src() stores the period of the clock source, which the
-user passes in nanoseconds, in picoseconds:
+For the K8061 board vmk80xx_read_packet() and vmk80xx_write_packet() call
+vmk80xx_do_bulk_msg(), which ignores the result of its two bulk transfers,
+and return 0. After a timeout, a stall or an unplug the instruction
+handlers therefore go on and hand the old content of usb_rx_buf to user
+space as a fresh sample (analog and digital inputs, counters, PWM and
+output read-back), and writes to the outputs are reported as done.
 
-	counter->clock_period_ps = period_ns * 1000;
+All callers check the result already, because the K8055 branch of the two
+functions returns that of usb_interrupt_msg(). Return the error of the
+bulk transfers as well, and don't wait for an answer to a command that
+could not be sent.
 
-period_ns is an unsigned int, so that the product is computed in 32
-bits, although clock_period_ps is a u64. It wraps for periods above
-4294967 ns, that is for external clocks slower than 233 Hz.
-INSN_CONFIG_GET_CLOCK_SRC then reports a wrong period, and
-ni_tio_set_sync_mode() decides on a wrong one: 4294968 ns become 704 ps,
-which is below the limit of 25 ns under which the alternate
-synchronization mode for fast clocks is switched on.
-
-The multiplication was done in 64 bits until the constant
-pico_per_nano, a uint64_t, was replaced by a literal. Widen again.
-
-Fixes: 3e90b1c7ebe9 ("staging: comedi: ni_tio: tidy up ni_tio_set_clock_src() and helpers")
+Fixes: 985cafccbf9b ("Staging: Comedi: vmk80xx: Add k8061 support")
 Cc: stable <stable@kernel.org>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/comedi/drivers/ni_tio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/comedi/drivers/vmk80xx.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/comedi/drivers/ni_tio.c b/drivers/comedi/drivers/ni_tio.c
-index c3a909abcfa7..b7ab70f34275 100644
---- a/drivers/comedi/drivers/ni_tio.c
-+++ b/drivers/comedi/drivers/ni_tio.c
-@@ -800,7 +800,7 @@ static int ni_tio_set_clock_src(struct ni_gpct *counter,
- 				GI_PRESCALE_X2(counter_dev->variant) |
- 				GI_PRESCALE_X8(counter_dev->variant), bits);
- 	}
--	counter->clock_period_ps = period_ns * 1000;
-+	counter->clock_period_ps = (u64)period_ns * 1000;
- 	ni_tio_set_sync_mode(counter);
- 	return 0;
+diff --git a/drivers/comedi/drivers/vmk80xx.c b/drivers/comedi/drivers/vmk80xx.c
+index 84dce5184a77..ddb12b48c8a4 100644
+--- a/drivers/comedi/drivers/vmk80xx.c
++++ b/drivers/comedi/drivers/vmk80xx.c
+@@ -151,7 +151,7 @@ struct vmk80xx_private {
+ 	enum vmk80xx_model model;
+ };
+ 
+-static void vmk80xx_do_bulk_msg(struct comedi_device *dev)
++static int vmk80xx_do_bulk_msg(struct comedi_device *dev)
+ {
+ 	struct vmk80xx_private *devpriv = dev->private;
+ 	struct usb_device *usb = comedi_to_usb_dev(dev);
+@@ -161,6 +161,7 @@ static void vmk80xx_do_bulk_msg(struct comedi_device *dev)
+ 	unsigned int rx_pipe;
+ 	size_t tx_size;
+ 	size_t rx_size;
++	int ret;
+ 
+ 	tx_addr = devpriv->ep_tx->bEndpointAddress;
+ 	rx_addr = devpriv->ep_rx->bEndpointAddress;
+@@ -169,11 +170,13 @@ static void vmk80xx_do_bulk_msg(struct comedi_device *dev)
+ 	tx_size = usb_endpoint_maxp(devpriv->ep_tx);
+ 	rx_size = usb_endpoint_maxp(devpriv->ep_rx);
+ 
+-	usb_bulk_msg(usb, tx_pipe, devpriv->usb_tx_buf, tx_size, NULL,
+-		     PACKET_TIMEOUT);
++	ret = usb_bulk_msg(usb, tx_pipe, devpriv->usb_tx_buf, tx_size, NULL,
++			   PACKET_TIMEOUT);
++	if (ret)
++		return ret;
+ 
+-	usb_bulk_msg(usb, rx_pipe, devpriv->usb_rx_buf, rx_size, NULL,
+-		     PACKET_TIMEOUT);
++	return usb_bulk_msg(usb, rx_pipe, devpriv->usb_rx_buf, rx_size, NULL,
++			    PACKET_TIMEOUT);
  }
+ 
+ static int vmk80xx_read_packet(struct comedi_device *dev)
+@@ -183,10 +186,8 @@ static int vmk80xx_read_packet(struct comedi_device *dev)
+ 	struct usb_endpoint_descriptor *ep;
+ 	unsigned int pipe;
+ 
+-	if (devpriv->model == VMK8061_MODEL) {
+-		vmk80xx_do_bulk_msg(dev);
+-		return 0;
+-	}
++	if (devpriv->model == VMK8061_MODEL)
++		return vmk80xx_do_bulk_msg(dev);
+ 
+ 	ep = devpriv->ep_rx;
+ 	pipe = usb_rcvintpipe(usb, ep->bEndpointAddress);
+@@ -204,10 +205,8 @@ static int vmk80xx_write_packet(struct comedi_device *dev, int cmd)
+ 
+ 	devpriv->usb_tx_buf[0] = cmd;
+ 
+-	if (devpriv->model == VMK8061_MODEL) {
+-		vmk80xx_do_bulk_msg(dev);
+-		return 0;
+-	}
++	if (devpriv->model == VMK8061_MODEL)
++		return vmk80xx_do_bulk_msg(dev);
+ 
+ 	ep = devpriv->ep_tx;
+ 	pipe = usb_sndintpipe(usb, ep->bEndpointAddress);
 
 -- 
 2.56.0
