@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793086574;
-	b=aEPzjKMQI/ivsYgwTZ5FEl2B8ltR2jQ2hoA4z9Wd5FPbhJ49EyolCg7ayA9tTGPQAokz
-	 IMqQGX+2M5WA9GqSDNvleyYxSiSZeoFl66Gp+oQ+6Gm0odQFlt6LYDWVqHC8MjcgoOm2I
-	 z8MaU4dkrrLe13vUdCTv1JBG9QsHYyKSDx2IPdAYPjOHI+655dJ3l9vdRSfWiAVAp0Lpu
-	 BzC04+jZCV2VKi3/pVcxvL6WGKoat52yZXookeoBSABmBqgC+Zxu0Gy4Ape3wO9NIeRiP
-	 YEfY284x0aVLqYq3th2RFh1ACGsJTFh+76jenE0yJkarxqZtd604VBC0f9uVzHa9TYw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086574;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=U1Eu/wme+RoAYQKijbOjp9dTQO1CcViEgfNc/ikC+tQ=;
-	b=yozLA0zFNHJNzfr1U3GLUkHaKQt9qZeMqtUShMdRZJsNPuhc3TIHvVDADeTKY67C1G9H
-	 qmJg2lZkqiwgDAt+1C3XH5dO9gntrEzQ37lMjud2TL+fmAzLeJcjzlbDuBEDGiLeW9DZu
-	 DfSLJTf+TGLgXjxKVbcQMjnhiCA4Za1o/ugUT+XwWs0ajZ7c87Hw2FLU1o0jByHZvllXg
-	 L7APFhXhDWTks4wGxpzcPrZDOAZEMcdxs6Qg6aBNgaiqePxHttFQLZAyPJN3WNvcHXsTa
-	 QT1s3pOLv82/nXfXDQrEnC1Ml9u9OPTbDLnEXbxQ3Fo3apqHFU7LvOHo9lHcPIvRQhw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hV61kxrS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.14
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012014.outbound.protection.outlook.com [40.93.195.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793086575;
+	b=MU4uThDlM+lNAnGldxyI53BAttY0ByVnJwMZ75ebXBJ7LMkiQcS7HwSJd0ZLbVswF6Wp
+	 /T0dXOi8TUBBU17AsPT3QGRz9ifiOpagJz2npN6EJXDGhUsAGkhr42tBA5uDXTqF3EI9f
+	 JZ0ynTlvVfgNzCdNbz23W4skpMVPCkR38emgTLNAR2hMlR6q4540wUr+lapN4H6UCAI1O
+	 tUYfoLghv6rnOVjP4RnBMajaNgz1lJzQBrJQlluqBy05x4xCxnDjGY3c8sCD28/AUb3HN
+	 LRquqoOo0nIkHnZuxZ2QnbCtgdsnf8q4YjKSxL/Wy0HIbJ0BUWrwOuAMm8xudpKydpQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086575;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=TeuNf51TxMDPa7xvpxS6POY5MbCscFG1kBCUI4jUNC8=;
+	b=DsknHxodYPpQQBK3iGtbfiHx/3uvd5NSDT/9/uCRhF8acoTfjduH0aT3pzCTFJABxaR9
+	 AGF3+AB00aDYOIJcBptEHXKcaDyQSvk2eEPxbNsJrTFyfWPjoA5p/BM2aNJEg3GfiJESa
+	 GEYlun5tDY6CpUYbXppNPZqh3rJB/c7MHNE74CfyXsZa80n23M9RUsECIYMr97Yz7lADJ
+	 Sygz9cpSH27ecotF8dtcpN+uoBBUh9hEbWSFzg0nSyS6RR/ahKnTNo0Eo/mKZYSaIT1M5
+	 pN/tiAXEuVf7n/5/UN5DZwBI3gvj3G2IsB30XcI5B8ZhHyr4ruqyPD0vmB4cICyT85g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=t4sIvf2W;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E560606A33C;
-	Tue, 27 Oct 2026 07:36:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E560606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B96606A327
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93B96606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hV61kxrS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WEKjApKqEGprj1O0fYlYAc+rlguzMl5YEtWklL50M4YbPfCAyT9G4j5BTpwwU5EsgjmPVpaxNHj3yYBxV9ZvaDXTKTTH2BIW24PgbgyWP/DmAWs+kmio0mD90UG28q8ploXfDjKWiEVoy4wZkmZJXv9Ls72aKTePuFnNKc9Fxtab9geGHUyM1ACcyLP5djRi6SxL/TZ1YucjdVufmWch9hzPSOlyluwnRGDTlHzqflyQNsKkg7f91EMNMmDi97OGPhe6hYatKv8GlQQ9zxqDY/ue6o+tTo3ddFMiFlLyc7w09lshvdH3nSK84BCmiMFluL4pWOG0CDcp3ewlwRd7Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U1Eu/wme+RoAYQKijbOjp9dTQO1CcViEgfNc/ikC+tQ=;
- b=QNgG7Ku09RCODW6oUAqO/9x0aAfM0+GVvYmCoz7ClYozBDisSl29tW3+H9XPIeS/bH+J0hnjUtFMcoFWF++Wm8gPIVWkrEhp8AtIxuJJFIK3VRrH+dt3MEq55Rz3fI2nd6tG11rtxOXg3ZLq5fKpLhqWEfjYm8YCtqqge28fHTCLxmFoP67NTW3UVbPa+3pUXTY+ogU9vN+pRB0+Xzh8tXWrN+nVd6Vc/9pabOhCYh35pedSTHcfxMGgHzR4prGQBUldRbRchSDX9c5RRc8/lyaTYOcbOJzChu5hj3ZM+CcvM8u0GOFBxOam3maUX0vp9OU17frWkdLKokDVXJ4F8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U1Eu/wme+RoAYQKijbOjp9dTQO1CcViEgfNc/ikC+tQ=;
- b=hV61kxrSsb2vD0y5MQg93LS29qYsxZONRZwZm5lLIf2zQ4q4oUjdBs/JE+FrZu7m+turZaDfsE2TTCV3Idkh5wlZ+FYaMEUX0yAGf0iwDfoCtI8WEbhpMahgC69NVEFr2jaqlTJ/kO8GJxw2R12sPPZkD6MFvJG5vRO5c7IaScch1XyBzeHoVvSOgsvUZ6EDy9TTEt+Gf/a1mBIYFn88ZnnJYowkH+thbsWaAAFK1OHJk90TFqAMgZcoZTJ2GmqBXBQrCisuLa+o0UgOKXMz7tymIH/Hgnstc9b/c9TB3Z8NYEsba1v4gSEuPD6htqoMzf4Rx4qh3vtL2ZSN6phQyQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 07:36:04 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 07:36:04 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 27 Oct 2026 16:35:48 +0900
-Subject: [PATCH v6 05/15] gpu: nova-core: gsp: cmdq: group the RPC-specific
- part of send_single_command
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-cmdq-rpc-v6-5-bed9669724ba@nvidia.com>
-References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
-In-Reply-To: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
-To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
- Gary Guo <gary@garyguo.net>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P301CA0106.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37b::17) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=t4sIvf2W
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e9d1114320so29207735ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:36:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1793086565; x=1793691365; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=TeuNf51TxMDPa7xvpxS6POY5MbCscFG1kBCUI4jUNC8=;
+        b=t4sIvf2W+qLD3CqixmNHF0jnDEYkWaLv3ueAF9jTKdiJ8+KHNWlRKPFIoTJ7z195sY
+         rls9+daC9CvtMAIjT2Avi6img8Qy0ImQ222XCWXDZP7l9SwTQIYRrFQoAqb4HcNOT6d+
+         4UDhL0yFtHTxYVz/Mn6Htvuo3fj1IELxkYP+8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793086565; x=1793691365;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TeuNf51TxMDPa7xvpxS6POY5MbCscFG1kBCUI4jUNC8=;
+        b=mmCS72ZFNi45DAZJF+1nBqkoaPK2P4MbjUBkTtbmczBy/BpedfPv5N0L+svqgqVTfi
+         tEmpTdeTPnDhEoboN7QRvFTlu+rWXygYWZHSmYhBYqTpf92x1TL9Hp/LEVZ6gkM8Fx3S
+         r9x3gglAtacmwUZpZcdiYlG1F9UBiayjRh4uUdBOEZFbuqB+cv6keI+ydTRStBmoZoR3
+         H8jxW4QXJV5KBZcwBi9i3nqBePKbRDzH5xAw90SSrOhaPY/bXJePYociR+429Mn15EEo
+         O/8sECM/jR+s3irvdA2BfGP1Cge/utnMiOv0iPUljyOI6d1iC/YM9KeWXMrTSyOsYfLS
+         tOYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/sD34rvReRlop2Hihj9shGIDxqoZLC5DUMjW1pq3fnvGDcnLrHkRC+MyNWUEtE3n3RwbziVVrZBzU5M0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBexZycCRKIFNSkXWUm16hjUU2ceJ6tI+60VQe2U/KvZP4efYd
+	ylWvHDTy4KUrg1UydsfpWS41sH5/kmNJ7BP6ubIahGOiLPk7mV6NOlIXK8X1jdre6sM=
+X-Gm-Gg: AYBFou0+rcYCQk3J/eVbFcrKb+kVJ5YOh7Ku7lT27GHblR2qKQvktjCo8frdut7hDT/
+	jK5/4Bz9yINgUQ6NG+HPWePV5HKWQkcS+3h5+VEm+ewxSYdyFyVnDVeKE7lO5ySyIoBGot8E8Zm
+	jRdPmc4lX+yunDHUJ16ecLS2RrTPC3rNuKPBzeTuHbPibpR0nKXjH2vKCTk7TCYIMsYgr68XMB0
+	lbqlccC4vrCkHJ49u4A661KLtcH7kkqRKC70qG4ZJvz8O/EYr5Xjsfaw3G4hz2ywn/oMSEQIb+I
+	d0Wfw4HfGECEpPnmCBCRNYcTyFch2ypTZ9NnbgqyK2yD0uTkyNHKmKxjpDdRsfXGx3G4SG9uk1E
+	LlYQ6no2oPkeQRRtIPFfKdj9ko1Y32c/CJXnFadZi9Muk//RDw8NszxU7z7IuvTimlsJoj9H+cQ
+	TWKxcwM0NnCEMoqfgzkJknz3NZMhAo1lDMX6U8oCYFiTNaSUzChGKvZFsD9KFr0lyFaC6OrRheG
+	BRwDaV12T2PPGhWA7aJOY0gKvrpb4zYLIcfmBoAU5olpy0c3povYtAok/3sleiDpYAyrT6rmxXX
+	NcrYGdzbi0/aiK7TZMj8B/V5fmQwv/c0W4O9o/CKHJM5r62ju/Ymi+D25Psql/CbQh8MXRtM92I
+	H38g3JZDPaLoSwjBuuKS5rWE=
+X-Received: by 2002:a17:902:cccf:b0:2e3:598:75b8 with SMTP id d9443c01a7336-2ea9c67507bmr74148095ad.27.1793086564825;
+        Tue, 27 Oct 2026 00:36:04 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6ce5912sm5015185ad.71.2026.10.27.00.36.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 00:36:04 -0700 (PDT)
+Date: Tue, 27 Oct 2026 15:35:59 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Kieran Bingham <kbingham@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH 5/8] mm/slab: Support disabling SLAB_BUCKETS at boot
+Message-ID: <11c73e97a9a8a2a532b3637c290657f99dd6a69f.1793086056.git.chris@chrisdown.name>
+References: <cover.1793086056.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,147 +103,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB8451:EE_
-X-MS-Office365-Filtering-Correlation-Id: b246b863-cf15-41e3-40b9-08df33fcf4f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|261021123027099003|56012099006|11063799006|261022105027099003|261009223027099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	NA1tOZ3vwX7v84a8qqi7NznrM8wTAgq3+Q9I4RXGx1XT4bfDTVxhn+aMEF06ArNBKquiMtztGi3IcKweW1rE0xDBKfM3VSunGGyOOkupFqZT3IPo7+z+2CgOSBTMYxauXg5qVe5eZGessQBkA/jwO3j0iRuBpWp/Fyz1bCzv5NZEMhfgzuw9d5c0MHLg8vIEECCpe7DAH8tC4A5F9KeKv984Rxa0t8XxKZiE4X61E3ceOMU2fFcm33PkA0omVvKooze4HZSi/xUZez++A7XP6NyGl1yAiGptdx5b2K2wnSu5uoCcn7iBRzSCYTcO8E/pmvXjPdHqhk5hviwequ+kgJMstZaGwfRx8beE58b/ovH2pWG5JOzgPuGqi/eeyUQShzIy+ASjRmrxQu7JI8sY4Gl/6s3yKZj7WUTJ+s6qPY/D477JoH4R5y0/MR6FM4+qR5qEZZDhDo16BFZM9xlgcagVx1mkWGePh7QS1mvfkG9Iyww4h/7thn+Dgu9w6eded2Wq0sGFx16ufxVhui3MUdFhizoEMBdhBwkmf3/7kPAkjxQLcU58U8QMJ/GREr2WvKIgG2GONWt19XfrHuyYfuBhdYXr3TnlQDZQetGryzuXTtMGH5bXMjrK1OboMSUjtwYs3IWmytiIglSYbFpTFSCC4uMmj6fuITEJ+T5wtPQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(261021123027099003)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QXZsYmZIcFc0cG5VN1lyc3AzZGxJVEdNMTZEaThjV0l4QkY5bTJGWUpWcGNX?=
- =?utf-8?B?Y0xZS3lrSXJRL3ZpQ1FYTXh5UzU3djZPZFpnR0g5WUI0aTRGdGd1VmNKRWph?=
- =?utf-8?B?T0pUby8wMU1rYVNQS3ZDQ3R3WDBlTy9YMVcyNko0bFpzTlBNQnE2V2FlU0RE?=
- =?utf-8?B?clFjRUpaL3A2SlF4Rms1eGFBOTk1Vmx6R0JMUTZYS1JtbHVrejE2MlluMWlq?=
- =?utf-8?B?ckJpTGMxM3hPR2h5c0tlcWxPWUZyWnlDeUw1RVhTWTdINEowdXg4eUtqZFRY?=
- =?utf-8?B?SnRxY1lrT3EyQkdQYWFESVQ1K29wb1FQNHFVZGVkakNyTWh0M3E1N2dPQ0Rx?=
- =?utf-8?B?cTltK1pKWkVVUlZSVzY3aVVmUjVXamczaUJoZ2Y2MllVbW9xdGV1Yi9BL2Y2?=
- =?utf-8?B?Q09Za3BkbUJjejM4a3BIcE44LzVJa2xiV2xITW41ZEQzdWhQSllzTHhKWTZz?=
- =?utf-8?B?MDlwc093Z0NPZHAxa2hGSDFhUldtMTVMOW5TSG1WQzlPYkM0N0FxRFlzaytK?=
- =?utf-8?B?eFpWZ2QyYTh5SHN4YWZub2FndVl1YXVGdk9CWEMzVmFtMUdIb3hvejZXdUpV?=
- =?utf-8?B?bnZmT1k2MldUbkEvL1YxcW5RNjdoL1B6Z3NOazNyNmFSUTRrT0FPb1MxYVdK?=
- =?utf-8?B?UXVBTGdFZjIveWhQa1RqYng0aGMwdGJRRzViNXp5N25wVFNONTJmUmFiVDBK?=
- =?utf-8?B?UkpuK2xzUU5mMTZRVzBzY2hHdy9ZVlVsTlpyYysvdVYwSEpMSDM4dG1IajRR?=
- =?utf-8?B?NE52WUhFdDd2Y05sRVBsN2lBL0pHR25hdzYvYTBNSHFueC9oU1RNTVl4S01S?=
- =?utf-8?B?Z1FMTUR2UENHaFV3czc3bUQxNWY0ek9VbTFqMXl3R1BQRy9mcGdtc3k3NTZl?=
- =?utf-8?B?SFYzU2tpMUxNQzZXRHpuR29pT0paendEMFdGd2Z1NkJXVkEvc2xJQTh5a09X?=
- =?utf-8?B?dW5JaHQ4MDcvK1VQUmo2U2xaazJVb0lnREowYUU1K2YyWmpNTi9sVVlkMGk3?=
- =?utf-8?B?MnlQNVJza1dTSE1FNGtlVnhRTXRtL2dXQXlNTW1DR3VaOU1KUElsYjdKMWtP?=
- =?utf-8?B?N25wSitaSmxiMW1WNmxodFBqamcvWEpBUnUzMDB4MmU4QU13Y1AvenBsZmlB?=
- =?utf-8?B?ZGpVWmtoQk9mY2FBUjJIa2RnUk5ZQlo5cGpaOTRPdmlhZ2dPRElWc0VCVlA3?=
- =?utf-8?B?b1ozWTBUdEFPVjhvcUgrQTBHamw3cVZUSlVRcjdrbTd3bzNVL3VIb0ZuWU9v?=
- =?utf-8?B?bi9BS2xSYkJWUUNHY1ZudE8xYWp0S21jcmJhcU9aeXB2WVFnUGJoVXVMU2lm?=
- =?utf-8?B?ZkJHMC9IVjNwYmI4Ulc5Z043ZEtoTWJtZ1gzWitGR3ZZK280SVY1bVlGelI2?=
- =?utf-8?B?Uk9yTS8wUStOREpha2Npc1oxWFpLYXpKRUVpMFh3R3NHaDRudm5jTU4vOVRZ?=
- =?utf-8?B?R2ZRbllCNGhnZVdhZTlEaWIrL1dBcGVaLytTcmtFNWY0Z3dkUmlsVC84M29j?=
- =?utf-8?B?bDYxYTEvbC83MTQ0dkErdnlGQTdPU3lyWnFmaTUvTmJuRHpjTzMxNTBWMWkv?=
- =?utf-8?B?THNpTHduODNIa0owcEdFWm93YXNYMHBBQyt5ZFdMbGEyS1dGQ3kzV2VWc2di?=
- =?utf-8?B?MUtmKzlGWTVpRk5PNW84UlZ0bytwNHZNRzdweS83anNzb3c3RFNRVUZZUE1Q?=
- =?utf-8?B?cDFkNFEyM1NnaWF1SXVVZDlrMEw4QUdydzYxSkFJS2hhanp3V3dxRzdJSjRa?=
- =?utf-8?B?MXdtTGQrMUdCUG56ZGEycnlqMkdSZGp4L0J5cTFKa2NLMll0UjEyK3NxbjJw?=
- =?utf-8?B?WmFtTHdneFNGYksvQy9zK09jbXVRTG04S2dXa0tvTGk3MFBQZ2cxcmZEb3p6?=
- =?utf-8?B?UXRSSFFmTGh2N3R0QWZSdkpmNG0vbjdpWE8yZ3BkQUJsWVRqWldMZGt6bDcr?=
- =?utf-8?B?M2FWQ1ZhM2RYWlcxSmEvekZ0SGdhcXRLak54WFZFV25KelZIbTFqT1FHZG1O?=
- =?utf-8?B?U09jQVZta1oraFVadXdkQldpYUJ0enVnNmJvYytiSHdDaVZncWh3NVlaL0Yx?=
- =?utf-8?B?cmxZd29YQ1h3Z0dYV1ZSTDh4TFhxalNtaEpwVkxxdkJhYXgxUkdmdWNjRVFT?=
- =?utf-8?B?dVRmYlBadmhMSW9aalVpd2dIbUVMUFVvRTdETEFjRzdLZzVYTDVHQ0dwUWNk?=
- =?utf-8?B?SDliRGlvU1Brc0dLalZ1Sk9SZm4ySE1NYzBMdGlxVmNvc2oxUXIwUFFKcDVW?=
- =?utf-8?B?dHVsWEJjWWlDc2thd0ZtdFVtcUVkb3ZzbVBjOVlpS0V3OUY4K2xUNjQzQmNK?=
- =?utf-8?B?amgvMUVLN1dJNEJwMmx2bzJjeVRmQ0xBRi9wUWdEd2hDSTFDV3pCUFlHTEZw?=
- =?utf-8?Q?OOPEFd/P7mTFoWqIuqBcibFS3mZ2VXRg65VzEJsczgZkP?=
-X-MS-Exchange-AntiSpam-MessageData-1: 8okuCKvDgASkwg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b246b863-cf15-41e3-40b9-08df33fcf4f4
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 07:36:04.5507
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f9mmlckiVufcoWI4lMarf/BaMO20GtggeU7F/QfxUXS1pxk+4gGedfk3c4UGq+Rdnpci89ugo+vNZyp1wP02Ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8451
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1793086056.git.chris@chrisdown.name>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-`send_single_command` handles both the transport and message layers of
-the command, intertwining the logic of the two.
+Add a slab_buckets= early parameter, enabled by default on kernels built
+with CONFIG_SLAB_BUCKETS=y.
 
-Reorder the code so the message layer logic is within the same
-contiguous block of code, so it can easily be moved.
-
-No functional change intended.
-
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+Signed-off-by: Chris Down <chris@chrisdown.name>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ .../admin-guide/kernel-parameters.txt         |  8 ++++++
+ mm/Kconfig                                    |  4 +++
+ mm/slab_common.c                              | 26 +++++++++++++++----
+ 3 files changed, 33 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 01c83a79da14..88d81a4e37ef 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -683,18 +683,18 @@ fn send_single_command<M>(&mut self, command: M) -> Result
-             .gsp_mem
-             .allocate_command(size_in_bytes, Self::ALLOCATE_TIMEOUT)?;
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 5c4d784e7786..20710d6ccd1f 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -7001,6 +7001,14 @@ Kernel parameters
+ 			apic=verbose is specified.
+ 			Example: apic=debug show_lapic=all
  
--        // Extract area for the command itself. The GSP message header and the command header
--        // together are guaranteed to fit entirely into a single page, so it's ok to only look
--        // at `dst.contents.0` here.
--        let (cmd, payload_1) = M::Command::from_bytes_mut_prefix(dst.contents.0).ok_or(EIO)?;
--
--        // Fill the header and command in-place.
-+        // Fill the header.
-         let msg_element_init = GspMsgElement::init(self.seq, size_in_bytes);
--        let rpc_header_init = RpcMessageHeader::init(size_in_bytes, M::FUNCTION);
-         // SAFETY: `dst.header` is a valid reference, and is not touched if the initializer fails.
-         unsafe {
-             pin_init::raw_try_init(core::ptr::from_mut(dst.header), msg_element_init)?;
-         }
++	slab_buckets= [MM,EARLY]
++			Format: <bool>
++			Enable or disable separate kmalloc buckets on kernels
++			built with CONFIG_SLAB_BUCKETS=y. When disabled,
++			allocations use regular kmalloc caches. Ignored
++			without that option.
++			Default: on.
 +
-+        // Extract area for the command itself. The GSP message header and the command header
-+        // together are guaranteed to fit entirely into a single page, so it's ok to only look
-+        // at `dst.contents.0` here.
-+        let (cmd, payload_1) = M::Command::from_bytes_mut_prefix(dst.contents.0).ok_or(EIO)?;
-+        let rpc_header_init = RpcMessageHeader::init(size_in_bytes, M::FUNCTION);
-         // SAFETY: `dst.header.rpc_header_mut()` is a valid reference, and is not touched if the
-         // initializer fails.
-         unsafe {
-@@ -717,14 +717,6 @@ fn send_single_command<M>(&mut self, command: M) -> Result
-         }
-         drop(sbuffer);
+ 	slab_debug[=options[,slabs][;[options[,slabs]]...]]	[MM]
+ 			Enabling slab_debug allows one to determine the
+ 			culprit if slab objects become corrupted. Enabling
+diff --git a/mm/Kconfig b/mm/Kconfig
+index 56c422684b44..ebdf14a87c71 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -235,6 +235,10 @@ config SLAB_BUCKETS
+ 	  of extra pages since the bulk of user-controlled allocations
+ 	  are relatively long-lived.
  
--        // Compute checksum now that the whole message is ready.
--        dst.header
--            .set_checksum(Cmdq::calculate_checksum(SBufferIter::new_reader([
--                dst.header.as_bytes(),
--                dst.contents.0,
--                dst.contents.1,
--            ])));
--
-         dev_dbg!(
-             &self.dev,
-             "GSP RPC: send: seq# {}, function={:?}, length=0x{:x}\n",
-@@ -733,6 +725,14 @@ fn send_single_command<M>(&mut self, command: M) -> Result
-             size_in_bytes,
-         );
- 
-+        // Compute checksum now that the whole message is ready.
-+        dst.header
-+            .set_checksum(Cmdq::calculate_checksum(SBufferIter::new_reader([
-+                dst.header.as_bytes(),
-+                dst.contents.0,
-+                dst.contents.1,
-+            ])));
++	  The separate buckets can be disabled at boot with the
++	  "slab_buckets=0" kernel parameter, in which case these
++	  allocations use the regular kmalloc caches.
 +
-         // All set - update the write pointer and inform the GSP of the new command.
-         let elem_count = dst.header.element_count();
-         self.seq += 1;
-
+ 	  If unsure, say Y.
+ 
+ config SLUB_STATS
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index e66c0778ee98..b7a46c368ab1 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -410,6 +410,16 @@ EXPORT_SYMBOL(__kmem_cache_create_args);
+ 
+ static struct kmem_cache *kmem_buckets_cache __ro_after_init;
+ 
++static bool slab_buckets_enabled __ro_after_init = IS_ENABLED(CONFIG_SLAB_BUCKETS);
++
++#ifdef CONFIG_SLAB_BUCKETS
++static int __init setup_slab_buckets(char *str)
++{
++	return kstrtobool(str, &slab_buckets_enabled);
++}
++early_param("slab_buckets", setup_slab_buckets);
++#endif
++
+ /**
+  * kmem_buckets_create - Create a set of caches that handle dynamic sized
+  *			 allocations via kmem_buckets_alloc()
+@@ -424,10 +434,12 @@ static struct kmem_cache *kmem_buckets_cache __ro_after_init;
+  *
+  * Context: Cannot be called within an interrupt, but can be interrupted.
+  *
+- * Return: a pointer to the cache on success, NULL on failure. When
+- * CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned, and
+- * subsequent calls to kmem_buckets_alloc() will fall back to kmalloc().
+- * (i.e. callers only need to check for NULL on failure.)
++ * Return: a pointer to the cache on success, NULL on failure or when the
++ * separate buckets were disabled with the "slab_buckets=0" boot parameter.
++ * When CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned. In all
++ * of these cases subsequent calls to kmem_buckets_alloc() with the returned
++ * value fall back to kmalloc(), so callers that can live without separate
++ * buckets do not need to check the return value.
+  */
+ kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
+ 				  unsigned int useroffset,
+@@ -448,6 +460,10 @@ kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
+ 	if (!IS_ENABLED(CONFIG_SLAB_BUCKETS))
+ 		return ZERO_SIZE_PTR;
+ 
++	/* NULL makes kmalloc_slab() use the regular kmalloc caches. */
++	if (!slab_buckets_enabled)
++		return NULL;
++
+ 	if (WARN_ON(!kmem_buckets_cache))
+ 		return NULL;
+ 
+@@ -1059,7 +1075,7 @@ void __init create_kmalloc_caches(void)
+ 	/* Kmalloc array is now usable */
+ 	slab_state = UP;
+ 
+-	if (IS_ENABLED(CONFIG_SLAB_BUCKETS))
++	if (IS_ENABLED(CONFIG_SLAB_BUCKETS) && slab_buckets_enabled)
+ 		kmem_buckets_cache = kmem_cache_create("kmalloc_buckets",
+ 						       sizeof(kmem_buckets),
+ 						       0, SLAB_NO_MERGE, NULL);
 -- 
-2.56.0
+2.54.0
 
