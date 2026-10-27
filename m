@@ -1,114 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115855;
-	b=AZQdHTgd/iFGntHZuUVYl1Kf1HgfP1rDkEP/6+Cc+mkiF5R3ijtvouuBBgoHmQYvggyt
-	 ufdoFriPh03h+UbAlBUNGw9rkm7Tn8FMF8YZtOkKFIqtbS7JaqWv9stkNOwz/GCissxXH
-	 /4XCYrO+eMFqtbxqom4fj4JutAc0suJZnHlnaRyKXHx9nY692ZH44h1CTon7ilp3gEaDq
-	 deb5pPr3lauE1Uy55QSEZV9MQU47qemwRsMtpNeXcaNp+nroS9QrJng90Z3RfIO8YIJCV
-	 4nn2ZvvZH7jOlfJgGArOVOEN4JeaflzsEntWUJNwRTk1MVyFeWWe3u50JH7dZf6uO1Q==
+	t=1793115963;
+	b=mCnfkDT9VRFrG9RzmhE6IPJFGuAcm4S6894i3bEmv/kJkODn4lLUkKYZ2SlwsQuaORGM
+	 GTqOcGV2noQTxcW0kOOuevub0B4Wg0Biz0UXOxzczTwOibtN3t39x2w4daOv8t7Gaxbxx
+	 UGM1z09kq4U/2J27igNv+5okF3JB5UQRZVszJ0Mlw5I8s8LjgkcDq9wU5kdvwUeYC9UUs
+	 +32A5MzUpm5W6oMLOUFI3ErRTaJLmMs3Onxv8xV0p3DC81dPEsR2p7Nxaxffx++oDJu5x
+	 am/+MtriJ/95jcoRSzWqEkhCc+rp5+Stc4WD3SwayXMWnfrkCaLusHAW/FCAsxEAPRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115855;
-	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
-	 Cc:Subject:References:MIME-Version:Content-Type;
-	bh=65ibzMdITZGSAinHNOg+LTDdIfpABOn2+CpyYHzaFRs=;
-	b=w2vjufNOoKuwPYCE4+EYmWTkJUPUaMsd4wCvIMBRJ3atOuyZFqiXNnRN58D/2PSCUm2x
-	 cZvXCAUXahjLWKoYtw+dAXVgJvCq/xEvXaWLgREEYfmKIGSZV9iid/Oh3iyS1oZ4gQAH5
-	 vv/GCRwC925Z6NfPBywF1Uj1CT4mlZSrOYQL/bqjS/js6YgnGX14eMD83XUsmiLwjKN8m
-	 kQJ9a1AV5+q5ajbbFzVA6R04mLAouMflj+H1kO8WFMzaRiK//ZaWxLGJTE/2w4Xn553jg
-	 ypRGAgUrwROHK5gY6AGtEXt9uVoHHtmy7EEHWOa+W5pKMsEDE/4MhHkiYyKiyjzQL7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115963;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1U/f7oPGNubcc6Z6QRWv6i5yV414y9BBz7ooV/FsgrM=;
+	b=XEx4ecmER+sPtoeqeBkDs6EEnnHIKnphUUpOpqvduSWIkG5p6U1OQtvB+k2pjIhvqC13
+	 Sc2emUlvz7YF7EFrevPe4KrUPepuNrIcRZtoh/I87m5ZCznpNmfcWdzhjgNvf0tKFgMj1
+	 GtMn0UvX3Xl7x24z8PJA0CkpfW1lq07+6fLFjHlqL2h7M+CnX7JK5kFfU9IJGpgu/gcju
+	 yaGuC0IoLRE8HvFCXibtj8mAXOlAgZ1BMNpIvaWiMi+0yqqBb8br+BfTqUfQy/+hiOCWZ
+	 b0/3LCZuLoMxE93MvpQEWArV1NQutP0ndtYtBZwW74XiCTPeLcYweUzh2HBaLZVgLPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILrstzel;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dDxSCKV7;
+	arc=none smtp.remote-ip=74.125.231.73
+Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480EF60A262A;
-	Tue, 27 Oct 2026 15:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627E4606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 627E4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILrstzel
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EB01F031EC;
-	Tue, 27 Oct 2026 15:44:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115855;
-	bh=65ibzMdITZGSAinHNOg+LTDdIfpABOn2+CpyYHzaFRs=;
-	h=Date:From:To:Cc:Subject:References;
-	b=ILrstzel9sh37XBGgpdGLVoMZZPwgFmzqTPYiJYdvHBD2VW/wP7qteo/K2QbcrcgN
-	 hHTd29eWnKhMWjnGR6ag5JLvmd0f+VAVAcMjHbxUFv7v6i6p8LO3QgMbHcuOBAyA6r
-	 PRwNWLLNmG/DdOwJpG4XAz1QoP+ANfM0NLFCjQ1xSYxSU3sr1nI7FYlBg4cpLsHYvP
-	 b8ykWLq92n2UhVg1XBzUtlktg7Zvf/Tpzl3/2WFxAW7/cWK0juK5sz6qDJFK8o3rn8
-	 imb0TrnpC8AATsUq8uc4J8Is1et9nN/XgP/s1eRBRG5fRWoiOyTW16S16Aw/4zFPXk
-	 BdM2I95nC1z/w==
-Received: from rostedt by gandalf with local (Exim 4.100.1)
-	(envelope-from <rostedt@kernel.org>)
-	id 1xLjLS-000000078kD-1Ukd;
-	Tue, 27 Oct 2026 11:44:14 -0400
-Message-ID: <20261027154414.184324075@kernel.org>
-User-Agent: quilt/0.69
-Date: Tue, 27 Oct 2026 11:37:07 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vineeth Pillai <vineeth@bitbyteword.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Aaron Conole <aconole@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alexei Starovoitov <ast@kernel.org>,
- Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Borislav Petkov <bp@alien8.de>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Danilo Krummrich <dakr@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- David Airlie <airlied@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eelco Chaudron <echaudro@redhat.com>,
- Eric Dumazet <edumazet@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Ilya Maximets <i.maximets@ovn.org>,
- Ingo Molnar <mingo@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- Jiri Pirko <jiri@resnulli.us>,
- John Fastabend <john.fastabend@gmail.com>,
- Jon Maloy <jmaloy@redhat.com>,
- Koby Elbaz <koby.elbaz@intel.com>,
- Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Philipp Stanner <phasta@kernel.org>,
- Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- tipc-discussion@lists.sourceforge.net,
- Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
- Xin Long <lucien.xin@gmail.com>,
- x86@kernel.org,
- amd-gfx@lists.freedesktop.org,
- bpf@vger.kernel.org,
- dev@openvswitch.org,
- dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org,
- linux-scsi@vger.kernel.org,
- linux-sctp@vger.kernel.org,
- netdev@vger.kernel.org
-Subject: [PATCH 9/9] x86: msr: Use trace_call__##name() at guarded tracepoint call sites
-References: <20261027153658.703730257@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dDxSCKV7
+Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-47bd4bcc3e2so15695fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:46:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793115962; x=1793720762; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1U/f7oPGNubcc6Z6QRWv6i5yV414y9BBz7ooV/FsgrM=;
+        b=dDxSCKV7uirI0zJKGKUITji24Pmx13hWIPnSRXOF0IdrdI73IX7Jp49wDeC8fo0GFy
+         TEP3yqJug5HAfCZQ8dfgAXECgerbozNJLCGWPHWetz0tP15iMl/F9N5PJM4kEu4Gi9tw
+         zX1AorLE67asLZAGd512VBbHcU4zgxFvl7QBAcbJDy8L5kILe+alejUjA6ivBR2JqeYG
+         bOI0WLoDP9Yv4jixhxrviramGCGn4MeTc466GBnhtAWTu/rC06O+10lwkvWJJe0e4b3S
+         GiRDf7rV5T0KAHh14QsnTjUmHb0t0Eb4OAf9bcTBSK/7Tl3gv8OIwpJAL6c2H+XY0haL
+         N3Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793115962; x=1793720762;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1U/f7oPGNubcc6Z6QRWv6i5yV414y9BBz7ooV/FsgrM=;
+        b=wwnHvTlmaJiU/drs2iDeyda2Cvc5yt0n1yprIK4LbJwiWROk7VGIz6abfTM/auwwuF
+         j9efj38uGMEKVpvLYpKPx5mIIOPfwczS5W17AAhsvIDZUmAvkKX6bu5kzNBs8ps2BjB4
+         XavX/G+ZPvStirbDXhZmbsDjj1qPjPOvAvgNVArj0pgqBN6hQoyX/Wjm2HxEmuWh8z4S
+         gzMVN5g41Ywzs3f26+KfYgqCOhAni/66+tnwzpA6F5Ru4rDp7UD+DUfdMxG2+ma5HltS
+         C6jtdkBIHGCkLIZagNBaJi9pXouVuglU9NdQ8xysEce8htLvY0FQ0Qe1h3hFApdLLzZH
+         6kZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZw22sAUwIIJG5QaUJpsafLlVc1k7R/1Jql8doyzfbMuKGYuqxGvL+owbtbiMggbjU+JG3x4pAs69oBhA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYInDppN7QICbhyOZCEqeo4cgdFKhZgLjtVrIDY6dKuvt+s4Gkc3
+	lVaKeFcBeuZWHlp15M3gviEM74MRSU5v4isjhOOsg7mrHuJhKCBerPqy
+X-Gm-Gg: AYBFou3SYEo210T4I/9eGVpOW+g7cat0P+KmRy+SCK1vlJ/9I30z1EuNqt3xJ+N8W0f
+	bWmiCzoBMuAOEp1oUHWTiRhRsJCDZ0b13bEqPAj/TE/vz19VcSShxsdmNz4Zpl8sa9N1DkLzFo6
+	PZeISco0zJtOMy8ypPj1eZ39Svw3N/3nz+2089PWAJV4BHd9S47R5AapIKMRqoB6XODQw6f9MBL
+	4KTAGvqfhnBlhgUke9fRm0+Tp1zhugf3kgczivKJx/zVogpNJtOUHDYt33zDDdIvMN2Lu79h8k5
+	CpBohLf+bBrFK0z5HXQS+/lNQiw7ngxtoCjYRRZk25oHO0g/7JK3W8I5wfpWnkQAnPC4PhIkUaD
+	FyUcTe/itJyT8CYS2ZKtw7FCNmrJnxn5PZIHdgVSWaEpNZVf/zwa/++0CNtuglwnKa7SI/kH9xb
+	X1qszs8nAjb2rub3VsDfHhcZVdkKQH3XF/pT0JqGLZCNhtLL+UURxgu9Bzg5dsyje+IGyMTQWzj
+	ltcWTkZ2CcSpOQdW6+kTd0iRD9lbxZJLnG7JqnhJpBgyrWXdkLDvzK9B3a1BLAQ2YHEmx/HAQeU
+	rT1HxnOFx+YapZCKVWo=
+X-Received: by 2002:a05:6870:ac14:b0:494:7435:ebc9 with SMTP id 586e51a60fabf-4a83f60f8f9mr6048799fac.52.1793115962282;
+        Tue, 27 Oct 2026 08:46:02 -0700 (PDT)
+Received: from localhost.localdomain ([14.116.239.34])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b78de44esm445828fac.11.2026.10.27.08.45.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 08:46:01 -0700 (PDT)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>
+Subject: [PATCH v2] bpf: fix out-of-bounds frame access for async callback stack args
+Date: Tue, 27 Oct 2026 23:45:53 +0800
+Message-ID: <20261027154553.1043567-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,61 +106,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Vineeth Pillai <vineeth@bitbyteword.org>
+check_stack_arg_read() resolves the caller frame with
 
-Replace trace_foo() with the new trace_call__foo() at sites already
-guarded by trace_foo_enabled(), avoiding a redundant
-static_branch_unlikely() re-evaluation inside the tracepoint.
-trace_call__foo() calls the tracepoint callbacks directly without
-utilizing the static branch again.
+    caller = vstate->frame[vstate->curframe - 1];
 
-Original v2 series:
-https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth@bitbyteword.org/
+and copies caller->stack_arg_regs[spi] into the current register
+state.  It bounds spi against the callee's declared incoming stack
+arguments, but nothing validates the caller side.  Two kinds of
+callback frames reach this code without a validated caller.
 
-Parts of the original v2 series have already been merged in mainline.
-This patch is being reposted as a follow-up cleanup for the remaining
-unmerged pieces.
+Async callbacks (bpf_timer_set_callback and friends) are queued via
+push_async_cb(), which builds a fresh verifier state with frame[0]
+as the only frame and curframe left at its kzalloc default 0, so the
+code above evaluates frame[-1]: an out-of-bounds read behind the
+bpf_verifier_state.frame array whose result is used as a pointer.
 
-Link: https://patch.msgid.link/20260515140004.2238951-1-vineeth@bitbyteword.org
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-Assisted-by: Claude:claude-sonnet-4-6
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Synchronous callbacks (bpf_loop, bpf_for_each_map_elem, ...) run with
+curframe >= 1, but push_callback_call() ignores every error from
+btf_check_subprog_call() except -EFAULT, so a callback subprogram
+whose prototype does not match the helper's callback ABI (e.g. more
+than five BTF arguments) is still queued for exploration.  Inside
+such a callback an r11-based incoming stack argument load passes the
+spi bound check, while the kernel helper never passes stack arguments
+at runtime:
+
+  - caller->stack_arg_regs is a heap array sized by the caller's
+    out_stack_arg_cnt; if no outgoing stack arguments were prepared,
+    the load dereferences NULL or reads past the allocation;
+  - if a previous subprogram call left initialized outgoing stack
+    arguments behind, the stale register state is copied into the
+    callback's registers even though the runtime ABI passes nothing
+    there.
+
+Kernel helpers pass at most five callback arguments, all in
+registers, so an incoming stack argument load can never be valid in
+a callback frame.  Reject such loads when the current frame has no
+caller (curframe == 0) or is a callback frame (state->in_callback_fn).
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Fixes: 0f6bd5e7a804 ("bpf: Support stack arguments for bpf functions")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
- arch/x86/lib/msr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/lib/msr.c b/arch/x86/lib/msr.c
-index dfdd1da89f36..14785fe5e07b 100644
---- a/arch/x86/lib/msr.c
-+++ b/arch/x86/lib/msr.c
-@@ -125,21 +125,21 @@ EXPORT_SYMBOL_FOR_KVM(msr_clear_bit);
- #ifdef CONFIG_TRACEPOINTS
- void do_trace_write_msr(u32 msr, u64 val, int failed)
- {
--	trace_write_msr(msr, val, failed);
-+	trace_call__write_msr(msr, val, failed);
- }
- EXPORT_SYMBOL(do_trace_write_msr);
- EXPORT_TRACEPOINT_SYMBOL(write_msr);
+v2: Also reject r11-based incoming stack argument loads in synchronous
+    callback frames (state->in_callback_fn), not just the async
+    curframe == 0 case: push_callback_call() queues callbacks whose
+    prototype failed btf_check_subprog_call() with -EINVAL, leaving
+    caller->stack_arg_regs unvalidated or stale (sashiko review).
+    The curframe check stays necessary because the async timer and
+    workqueue setter set_timer_callback_state() does not set
+    in_callback_fn.
+
+---
+ kernel/bpf/verifier.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index 5f874979b8d75..c838ec39590b9 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -4232,6 +4232,11 @@ static int check_stack_arg_read(struct bpf_verifier_env *env, struct bpf_func_st
+ 		return -EACCES;
+ 	}
  
- void do_trace_read_msr(u32 msr, u64 val, int failed)
- {
--	trace_read_msr(msr, val, failed);
-+	trace_call__read_msr(msr, val, failed);
- }
- EXPORT_SYMBOL(do_trace_read_msr);
- EXPORT_TRACEPOINT_SYMBOL(read_msr);
- 
- void do_trace_rdpmc(u32 msr, u64 val, int failed)
- {
--	trace_rdpmc(msr, val, failed);
-+	trace_call__rdpmc(msr, val, failed);
- }
- EXPORT_SYMBOL(do_trace_rdpmc);
- EXPORT_TRACEPOINT_SYMBOL(rdpmc);
++	if (vstate->curframe == 0 || state->in_callback_fn) {
++		verbose(env, "stack arg read from a callback frame\n");
++		return -EINVAL;
++	}
++
+ 	caller = vstate->frame[vstate->curframe - 1];
+ 	arg = &caller->stack_arg_regs[spi];
+ 	cur = vstate->frame[vstate->curframe];
 -- 
-2.53.0
+2.43.7
