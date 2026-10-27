@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793132190;
-	b=yvNDuGKS6KzfQ5gR8eby4HEjDJ4Jzyw474AwY7ZTH+xGycsvaUaz1cXU06iFgHUrUdkH
-	 ePyRt944p1zrGNE1KyvuMbs62yrEhvQ17PjiU9+xSC7k4YOBf6KJibsTChgKconEj2rTV
-	 WDI85NlpMeZjtRMElYS37zdceoSIN3WEW86Wx/9qhJcmAPDrF9YD6dPdoLckmHdrotVGd
-	 LE/BSmAeLdCFRrDa0NoxUKWP/IrgHeeLEgK1Vmd2vV4c+9KroIgs1JkVruq0kNIgSSxn9
-	 vKBu/0PAvPNXdQzhxndVcaZDiRusRlg26hSo4FLi6Is6wJOKvfNOfQfGS8c8tT/aFYw==
+	t=1793132255;
+	b=J3/wzaUE787Rxbv67+5HYBDYQnIFDvq9fIQhU1Z6cbg/2BYbTCllhA9GQdIi+u6WLndQ
+	 Orv8MNUyJvfrunChM9ZlQkLLqRdDig3CZ7xq1/Cr72913NI8jvVoI68Ht6GwkjGQojxOd
+	 lipSmF/c5G2P8Yc25kYy0tGjps4TwRR05jKjAJ4ADGKuZXsWABy+4Fs3NYp5BpqixV7wl
+	 CRwc0m0owdbszlon5RfriL+kfGb3sY4mnWloxt5l665ueIUfilcwKBu68oXahKfeyWFx/
+	 K/26UlL3paaDULwFxrYgz4zsM41iaQC+qWcbgsqi/C6A5WSjToyvd+6VG3Iko9SB7YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132190;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yv3WgMVRZis5mvccj4o/E0izobfrAv/a1j0nsDI8MA0=;
-	b=NsCOUhynFll6Gik1D0h3md4hK/y7UQbvQlVh4Y+CN7l1KG5uhMwJ9SIdad52+O2qGPho
-	 oD2rbVl5de0edf2NH2897Hrnk7VMBZ9+c9PqEyVihyJ+NrjWyt9uKJu0Lzdwt7GUOBwqN
-	 iiyS5WJCT1z6Flm9WLxgGPlzlew85JuN7QPWbe4Djaa0FVvJBg986Rn3lb6HNalq1nHKt
-	 qUSaOkukg+OZe4QeQvYPhXYmQDr8/WHWJXB4uEbW8at5J+oazb3Tm1I2QpBKw3hL7KP1z
-	 Bhtj3yl0VicfwFigZI6LzmjC5Xb3ryBXE57a1oE3s1avIAE2r8gTsFkdnrjg38uQUJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132255;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=KKwkeFgU3gXfmKW0SRyZt4v+TocmcIjpYN2wd5Bhajc=;
+	b=JLCXS3ZCmdKCb/MRk12rbfJVQt80ynB4yaXKh07IfesZhYejIBpTQ6lmVbgkurqQJe7u
+	 TCJKfdemv6l+mqN6cj8RXlZ2Kz+4NYGIGAHmEmY4DwpE06MsZNM7SDYpC/R5g6+4MAl4t
+	 48hVJDlIhdmvuze7FcVCYlJsS1HCTQrI/StLLeQacpSvxJGNAtVmk+ye6DwZwNvqmV6C3
+	 l/0ow6J+P22y06KRdHSnZlYXyvKl+XLNa+L6tC339CohBmzUWg/MzXNigQPfhvmLYenvw
+	 CNYPVf1Fe/AGZVl83jl6XwSrCg6trk0WahZvziBtn4bdVM03tjUn8cvq3Q4x3OjGpdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJW0SXJL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=squebb.ca;
+	spf=pass smtp.mailfrom=squebb.ca;
+	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm3 header.b="jR//LgNx";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NHMWqTTR;
+	arc=none smtp.remote-ip=202.12.124.146
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B687F606A31A;
-	Tue, 27 Oct 2026 20:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF879606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:17:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF879606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jJW0SXJL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AA341F01828;
-	Tue, 27 Oct 2026 20:16:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793132189;
-	bh=yv3WgMVRZis5mvccj4o/E0izobfrAv/a1j0nsDI8MA0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jJW0SXJLeraETSisKmLGPZ7i/niPRtOH+C6mSo0yvHCASRUUPPEIxjgRf6Amq8fm+
-	 guD8eMawZUcIYN4L8ottvokjcLzQtRxTIc6G/IaYcQ28Enew/DR0Bnl3BsYV/QQE2J
-	 0hdFqwJZNLy8RKx4IJqyGPpAU9wV/3120sksETknuNAP8zPqt4N860F/uqakh7J7BY
-	 rZ3SThlETe8nJioehN7u2DR+e6u0H+HcigoSFiL10pPiH6mkacMEP5q/dTdZzfuopT
-	 MmIzUUMf8ZnIOiPnpYj5WEcYVoDTKryLy7LcYVnKciV6QElSnOEpZ5Ft6bRTWLHX4N
-	 dKR41ADQjP4Gw==
-Message-ID: <9da1d287-c101-4af0-8371-888e78b3defe@kernel.org>
-Date: Tue, 27 Oct 2026 21:16:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm3 header.b=jR//LgNx;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NHMWqTTR
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 0A6011D00149
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:17:34 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Tue, 27 Oct 2026 16:17:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1793132253;
+	 x=1793218653; bh=KKwkeFgU3gXfmKW0SRyZt4v+TocmcIjpYN2wd5Bhajc=; b=
+	jR//LgNxqdJ1855Eonm5NxFLcQYXl3QkwACGhA1uDEhdymejLe58nH9SZguzjlZ3
+	EauDrD9w05ykiccvIC7JfzkoG3NR34ApQ28ovYwg/34C6IoiuUfh8/jCSIdWI+Wu
+	O2yyChamrQH+nIZH3q7ixfIp/ZKAevEUss+rgmjLOw0ris6GkLJ+ERtdZuL7Sehv
+	N8TtsVxrpu/R/3SUodm0iQDPUCAIQEQDE3okFE0SOiNTJYcfWCor4Pjxu9fK8Qg1
+	bfPgrOFZFo4zHVPkT0/+vs140UtLg196gOeJM5DLbAaZPPwA6aOPFRZWMZU210zq
+	iUQBiv3UvvkCk7Lss3U/1Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793132253; x=
+	1793218653; bh=KKwkeFgU3gXfmKW0SRyZt4v+TocmcIjpYN2wd5Bhajc=; b=N
+	HMWqTTRgdOLk/pqTxHPCFd1KOeV2ja8zlHZc3GNteP/RfTZafhl6aUigxsvL+4oZ
+	1ktwBlrSu36HoatxaIaYpmoK4s03yxJcWXX8Wq7CTP/PmsVLmq1H0UNloQIP7kBI
+	CRSmp/xAf5uxZfqRFRFcpqB2xJu5cMqpWmttvPAtzz3xOh31HG3wuIplBopKQjLk
+	vW2Mx7p+FJhNv8iZYdKBjMeQE8Y0wY1TNZr4YKLqWxEM6a5D/TFgxMOit+DyMh7V
+	2v694EVVblhrQ+ANCLdih2OzqOPN5KV3+pe1XwYL3r0vkkt3jkGottKUovZgDwEO
+	cEcnDX6j8RTeikccx6Law==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793132253; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:GlebX0B+IiutO+KxE+Syv0DM1TMRx4YYRj/zVWMeMzx8EwN
+	Iuuc2QDPVGhln0w4m16Bu/oUTS7hxjmQGz+cwm1/FQyAHRhi2tDxXPE0IduFXJHJ
+	gPlR4sBPAQLTNo1cMRq2/ib0QYcMbDPWCbj8R0haN0/GubU0sPLAGORBvxh57cFq
+	HWlAVl3Ua4efdu+urxqUl9+wl5x84sKoUjQrouqO3QI7N5BdnqppWVzPYHgwJABP
+	XOmKXWh321DDpMO/Uh7+Pa1ldyAsy8ET8OQxMGlbjRq/J/84EH2UI/VPg+hyUwLP
+	ZJ2ZeIKlWPUrLISMuETNqh8GtB27X4pQUEAvlAg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Nep/12MHvmmJQH5s6LGpxzUD5s0BrbGyAmaBxU9y/VA=:8elFCOVnDjzDevYIrkiXCBs5k+XBc7aLcTwoHNT+2EM=;
+X-ME-Sender: <xms:3QbhauI3O6eIc8kH9YszxFuGRgxsUREd_fw9YX1HzzZ7mYPVQsw0ig>
+    <xme:3Qbhag-rUsTf9oDZMPQ6AXvs2iQ3oEKSKkecnteOBijzDgEO6wzQtcbH0VT7l_LjU
+    HMtD_haBTSy18d-h27bQU7HMyB8fB1hqU1HfsQm-_5K0_0dRcdmmm_x>
+X-ME-Proxy-Cause: dmFkZTEODNfd+5jyxRpKnbWFaRZYVF8JtUu2LRUSMMuUvfzUgZQewT6BgYUipmBkOBRmf0
+    PSnguYVp2KGoZeLL88bgzeXmBH2T+qG03+z3QxIhxQAhMTYzmFICzkcGA3NHdFkXXc/vhm
+    IRrrJ7TADjYBlqUyxLq7W81tfavekyaabbrMpkrRuXR0aJIEWTVe7CEW6FQ78RG/ovQqnD
+    ehbQfJpiTYN9lXfGR0n1GHZcK5Pw1U7wVaoaPYkRVmFAD3ov4avkzLAsba5BWORAoEsNJF
+    8w0GPrZqav3NOsfwSo/7LW/uDzPpDQSfJSYJxiMfdXof4NKb8AfU+p2nmzwKWWIq7xNPpU
+    aa/xxLOHxUQKHwWAqCYkFUt1M7FH0Wqiwe4e/Ct0EJaPhepD7pWfEF+B2ECmJBLgMlvJok
+    JtXHGVQQ0bgJWvvepNFhpvJ5QrPadQaP80VAjRnQYNID0a/wLWKdaV4XcmGfr6XuWffxCC
+    k6+O8lm2ECUzBJW6xPxBW4VPUXdKXeIaSgaULundntcWoucmBj1wxCfo+50nqmRYA9O9pW
+    e9fovkIrRi+DHXcQi6hdZhmqG6AnKYyjVEQ5/aMczsyGtV0Z2kbTcb4gBhryn5aUKHEZwb
+    T3S/9OR7zjWBjBpfeLH70eKZ6Equ6Z/xlFZBxDX6poCNqX3wwbwZIIjlnbhQ
+X-ME-Proxy: <xmx:3Qbhan3rtvRV1UESG4PTADhzPLOvS6uJDrmgsch2zq7ku3MC2p5ZjA>
+    <xmx:3Qbhas943SGiCAFW0lkij_9E0tX1n0-um71J1pLQBBTJyZAI1Nyl9A>
+    <xmx:3QbhagP9vOmJjN_jOwe_lBPaHpv_Xfwi0AFK_cFkPJXQfjAexIPmFA>
+    <xmx:3QbhaoeWLa9nMe1Rd0cu5bRASlQHMgjL99LtUPXoeXc9qVeVPdYu-w>
+    <xmx:3QbhajOBpIlZOaeWgSqELbNx-pP8o1nUuoJ4OyaHc3uDM-ydEOUyFYWf>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 03C9A2C0007E; Tue, 27 Oct 2026 16:17:33 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,97 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-To: Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>
-Cc: Peter Zijlstra <peterz@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Matthew Wilcox <willy@infradead.org>, Usama Arif <usamaarif642@gmail.com>,
- Frank van der Linden <fvdl@google.com>, Oscar Salvador <osalvador@suse.de>,
- Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@suse.cz>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
- Baoquan He <bhe@redhat.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
- <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>
-References: <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
- <at_f43oDv73y-t7O@thinkstation>
- <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
- <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
- <auCKv_omLGRc6wv2@thinkstation>
- <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
- <auCZFckDfBMrlfxV@thinkstation>
- <070DDE5C-2183-4A8B-AC2D-891CAE15E581@linux.dev>
- <d7a634b6-8668-4753-8bfc-e9334dde705e@kernel.org>
- <4A32F5E6-977D-4720-8723-B19AFBC08FCF@linux.dev>
- <auDkbDlgSZxqlk2G@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <auDkbDlgSZxqlk2G@thinkstation>
-Content-Type: text/plain; charset=UTF-8
+X-ThreadId: AYlPbohTFbKF
+Date: Tue, 27 Oct 2026 16:17:12 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Heikki Krogerus" <heikki.krogerus@linux.intel.com>
+Cc: "Greg KH" <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <03186586-6a9c-4350-aa7b-a42de11ea420@app.fastmail.com>
+In-Reply-To: <ap6akwNAlqmJPMOz@black.igk.intel.com>
+References: <mpearson-lenovo@squebb.ca>
+ <20260729182203.3667583-1-mpearson-lenovo@squebb.ca>
+ <anMmhwSSLEAnAZZI@black.igk.intel.com>
+ <b98ed1c6-37fb-4235-8ebd-df350728f797@app.fastmail.com>
+ <ap6akwNAlqmJPMOz@black.igk.intel.com>
+Subject: Re: [PATCH] usb: typec: ucsi: Retry if notification enable timesout
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 10/27/26 18:51, Kiryl Shutsemau wrote:
-> On Tue, Oct 27, 2026 at 10:03:54PM +0800, Muchun Song wrote:
->> Therefore, I am kind of leaning towards removing the RO protection
->> and restoring RW permissions to solve the race.
-> 
-> Okay, what about this:
+Hi Heikki & Greg
 
-I'd be fine with that. Best to send it out officially such that we get more
-feedback from other folks.
+On Mon, Sep 7, 2026, at 7:05 AM, Heikki Krogerus wrote:
+> On Thu, Sep 03, 2026 at 02:18:08PM -0400, Mark Pearson wrote:
+>> On Wed, Aug 5, 2026, at 8:03 AM, Heikki Krogerus wrote:
+>> > On Wed, Jul 29, 2026 at 02:21:50PM -0400, Mark Pearson wrote:
+>> >> Found on Thinkpad E14 G8.
+>> >> When UCSI notifications are enabled the FW does not ack the enablement
+>> >> itself. Future commands will be acked correctly.
+>> >> 
+>> >> If this happens try enablement again and confirm acks are working
+>> >> correctly.
+>> >> 
+>> >> Signed-off-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+>> >
+>> > Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+>> >
+>> 
+>> Thanks Heikki.
+>> 
+>> Just curious - what is the process/timelines for this subsystem for patch
+>> being accepted and making it into Linus's tree?
+>> We're tracking this for being able to get it into the distro's, but I want to
+>> make sure maintainers are happy with it first. I couldn't see it in usb-next
+>> etc, so wanted to make sure it hadn't fallen off the radar.
+>
+> I'm sure Greg pick soon.
+>
+> Thanks,
+>
 
+Just checking on the status of this (I have users of this platform wanting the fix).
 
--- 
-Cheers,
+Let me know if anything is needed from me to get this fully accepted upstream. I can't get it pulled into the distro's until then :)
 
-David
+Thanks
+Mark
