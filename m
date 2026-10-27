@@ -1,58 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793092315;
-	b=tJQxvVEkHtC6wL/QfoMI9KjBNkgDugxnoBsGhBTvs1OY6pG59bZB3KIzPTbx8vjOmCBF
-	 fU5YJ0t1r5npChxPdGSu8nLLkVbAOP07vvGWFbMekmZmNeLaZxzc8y2ockEpJic4zEQXb
-	 kdVRRz6Dv/04Jt/d2jQ50CZhwiVsUuWC5UaoupqqH46cDW6+Ov1S14ZDG1n4qtIvCJV07
-	 du6jp3jkJ5aREb6q85YY6GTmqbJreV7aumiv/H3o+2tOUjIws3y7msCeohm1QGjfBbCtG
-	 kCLLNtotswyl/aTfppfk4RNUysPPWcveK/6tU6shrT203KBpx6jAJEvhOa+lnZjR76Q==
+	t=1793092361;
+	b=mPzNONu+ZCk/Us/8T0Q+y/ct4orcDekFlI8+gNkOWQCDvEKOaC97JaTrKX1wztJkzyAX
+	 nMYUjDe514VTeo/vUDd8b2K0+yHpzSLtXbjsy0U3qnA16tpnuW5orJZtZ8+R7JBlqmAIs
+	 AUWfJaH8c+L1jdy5C9W4kMkFGiIKJ6sWoyTQY81J05S6G0GVCzvGM1VwNOIm4TRIEDvHh
+	 BLBSI5YMphM19K3+inN2QUZimTyFym/n/8tOeM+crefx6yTwvUG27GKcKVn+pWpPFSfX0
+	 6Y8TCyM7fh838+q0uCecD3BV3QCmaLQbH+nNWF6tRBqYqQpKWZ/ORHuCE8lh/OGHKkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793092315;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=T79Dr75s1wvEXUoDZaE7cn4PwcHACPes5COGJi8oy7U=;
-	b=fHO//l8NMM3WclOyYZlOr7/JIEl9jiTNFtRlM1Ok0k4SP5pc5LdHJiTf3iUbESvTZLVW
-	 KqUwhpqe2niXGSiUSZBygp9wPd5L5Kyo/kphFqFRjq2G77uAQI1IK5+Hp/fBYzZAJe/b1
-	 OZOkc0QBqeZH6RWkOKHi0/GXVb96x4M6+bEdD/NI/jZPZasqXqvkbTT/UXUcKrkhJ1lZ6
-	 pjVWqRP9qrgC8KYJRHoOuVZ38c/kGxgHLLMH2ZpseMW3/ZrTZCNhABwe4ZpZtlOmFCVmq
-	 YkogBkyHUfbcslRCvUDQxsrRT0FoAWCMAh5yTXIze6HyOdFotKke/AWMBcjFuqEdpQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793092361;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Ndi2448wVUZuF68kqWF0v2z9NaMIBNKc9nVCJQzYI1k=;
+	b=YPT26ORtOmpBLmL3b0idVD+alBiUe8wkfHd0J+OyKVmWh5TArK5X+YbSF6VVhVyov7mO
+	 ZMco0ncNTPT0qpJhVWP3M6rl4hG6qprYCcbWDq8+mtNiM/arnJy0DLx7hCMdbdXf7JVGe
+	 iKSIauj5Z6EBqF8VLfiZ0hSgsLvlb279PQHXOJCeC3K2pLnxfrlgojtwsCBZ2y+ZUR7XM
+	 hNYFS91FO48yJhx65yuwKaB4rCpgetee2nh6SMxcryE937eIcNvvmDZ3Hbt8V4a6vnIqW
+	 3PCPH3Kh6qfd92F88OsPJGJAQ77+OyzhenX+CF+TRgn4qeaSix+M5E+OvMraJw3/KSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="UuR7/ceK";
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.173
+Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD0C606A31E;
-	Tue, 27 Oct 2026 09:11:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FD0C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UuR7/ceK
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id AE9BCC5846F;
-	Tue, 27 Oct 2026 09:12:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2E838603BD;
-	Tue, 27 Oct 2026 09:11:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C36211032904F;
-	Tue, 27 Oct 2026 10:11:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793092309; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=T79Dr75s1wvEXUoDZaE7cn4PwcHACPes5COGJi8oy7U=;
-	b=UuR7/ceKR3WvRHfZBPIedxhdV4OfAZXNIaXp3g8W7wt1efy1uoDsg0DMZTk5cRNDiNtala
-	Omvkg8mIONIePJs1AXs12/YATeNT0fD5h/EXQZicnjbXevpQ2CpHVhz/8haGqX0ZlIo+JA
-	EG6OC5DHxEGXP9hOB3ylx3BkmW4u5czjzb4XHEq4dL9KXjgmT9wjq8veuW4iAgbI/Q6kOE
-	Tq92N6JhK2VGV1QVFyN8UjliNVqXShOUtGsP3SZLgsFopKDji/FB71MDawONogQloIyLEt
-	h9rUVj8ZpDSYFZlyEq+sOxwNupUnHhkapAE3hbDZlc4ft2t38vmFeyK1r2tU1Q==
-Message-ID: <42d26a0b-c517-4fc5-8d19-e0b7c4506cbf@bootlin.com>
-Date: Tue, 27 Oct 2026 10:11:37 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC23606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BC23606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Iy2EZRXCQMOBxljPF+GT6qR9TSW/M2vcb/khwUxJInc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793092348; v=1; x=1793697148;
+ b=bA2/gm+InVPxrA8/cUeuKfkv9tlw8WkJfCJkOBEDJtQCHB0HWSave9Iz76npyrcxJMqpPc1t
+ uCc6jbvmBvAjzUUwt9MB4DHn/lLKKxWsS6jwJ3eh4ZlxhovExca29l8pVbWHLXsWABOthurUun7
+ yDoOp3aXMoQ0FUfbTaxkhPds=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id e68cbb451e1e33a5;
+	Tue, 27 Oct 2026 09:12:27 +0000
+X-Mizu-Trace-ID: e68cbb451e1e33a5
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	JP Kobryn <jp.kobryn@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>,
+	davem@davemloft.net,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	KP Singh <kpsingh@kernel.org>,
+	Tao Chen <chen.dylane@linux.dev>,
+	Mykyta Yatsenko <yatsenko@meta.com>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Anton Protopopov <a.s.protopopov@gmail.com>,
+	Amery Hung <ameryhung@gmail.com>,
+	Tobias Klauser <tklauser@distanz.ch>,
+	Eyal Birger <eyal.birger@gmail.com>,
+	Rong Tao <rongtao@cestc.cn>,
+	Hao Luo <haoluo@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Jeff Xu <jeffxu@chromium.org>,
+	mkoutny@suse.com,
+	Jan Hendrik Farr <kernel@jfarr.cc>,
+	Christian Brauner <brauner@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Brian Gerst <brgerst@gmail.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Paul Chaignon <paul.chaignon@gmail.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [RFC PATCH 0/2] memcg_ext: dynamic memory.low and memory.min protection
+Date: Tue, 27 Oct 2026 17:11:58 +0800
+Message-ID: <cover.1793086858.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,85 +117,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 13/20] dt-bindings: pinctrl: berlin: Support Synaptics
- SL261X SoCs
-To: Jisheng Zhang <jszhang@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Andi Shyti
- <andi.shyti@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-i3c@lists.infradead.org, mfd@lists.linux.dev,
- linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20260929061417.20733-1-jszhang@kernel.org>
- <20260929061417.20733-14-jszhang@kernel.org>
-Content-Language: en-US, fr
-From: Richard GENOUD <richard.genoud@bootlin.com>
-Organization: Bootlin
-In-Reply-To: <20260929061417.20733-14-jszhang@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Le 29/09/2026 à 08:14, Jisheng Zhang a écrit :
-> Document the dt-bindings for pinctrl in Synaptics SL261X SoCs.
-> 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->   .../bindings/pinctrl/marvell,berlin2-soc-pinctrl.yaml  | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/marvell,berlin2-soc-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/marvell,berlin2-soc-pinctrl.yaml
-> index 6ace3bf5433b..fb60a310a24e 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/marvell,berlin2-soc-pinctrl.yaml
-> +++ b/Documentation/devicetree/bindings/pinctrl/marvell,berlin2-soc-pinctrl.yaml
-> @@ -37,6 +37,8 @@ properties:
->             - marvell,berlin4ct-soc-pinctrl
->             - marvell,berlin4ct-system-pinctrl
->             - syna,as370-soc-pinctrl
-> +          - syna,sl261x-soc-pinctrl
-> +          - syna,sl261x-system-pinctrl
->   
->     reg:
->       maxItems: 1
-> @@ -44,8 +46,10 @@ properties:
->   additionalProperties:
->     description: Pin group configuration subnodes.
->     type: object
-> -  $ref: /schemas/pinctrl/pinmux-node.yaml#
-> -  additionalProperties: false
-> +
-> +  allOf:
-> +    - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> +    - $ref: /schemas/pinctrl/pincfg-node.yaml#
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-The special value bias-pull-up=2 is handled has a strong pull-up in the 
-code, maybe that's something that needs a documentation in the binding
-(or the strong pull up value is really 2 Ohms, and in this case, 
-everything is ok)
+This follows the memcg_ext RFC [1], which adds bpf_memcg_ops - a
+struct_ops type attaching memory controller policy to a cgroup - and
+one member, high_policy().  Its cover letter names dynamic protection
+as future work; these two patches are that.
 
->   
->     properties:
->       groups:
-> @@ -60,6 +64,8 @@ additionalProperties:
->       - groups
->       - function
->   
-> +  unevaluatedProperties: false
-> +
->   allOf:
->     - if:
->         properties:
+Why it matters: memory.low and memory.min protect a cgroup by a fixed
+threshold and have no idea whether it is using the memory.  A
+high-priority cgroup that holds a large working set and then goes idle
+keeps suppressing reclaim on its siblings, and that memory is wasted.
+A policy program sees the real activity - page faults, charges - and
+can grant or withdraw protection as it changes.
 
-Regards,
-Richard
+The hooks are not new: [2] proposed the same below-low and below-min
+decision on its own memcg_bpf_ops type.  Only the carrier changes
+here.  bpf_memcg_ops already supplies attach, the ancestor walk,
+result combination and the re-entry guard, so protection costs two
+members and one walk helper shared with high_policy().
+
+Patch 1 adds low_policy() and min_policy().  A program gets a
+read-only snapshot of the check the kernel is making - the memcg, the
+reclaim target, the threshold and the usage - and returns a request;
+BPF_MEMCG_PROT_BELOW, the only one so far, treats the cgroup as below
+its threshold, so reclaim skips it and counts it in memory.events.
+The kernel compares elow/emin first and asks BPF only when it found
+the cgroup unprotected, and ORs the answers of the cgroup and every
+ancestor, so a policy can only add protection, never take it away.
+
+Patch 2 is the prog_tests runner: attach both policies to a child,
+fault 8M of anonymous memory into it, reclaim from its parent, and
+check that both hooks were consulted and that the ctx described the
+check faithfully.  Both answer NO_OPINION, so nothing about reclaim's
+outcome is asserted.  A working example that does answer BELOW, so
+reclaim skips one cgroup and takes the memory from a sibling instead,
+is maintained out of tree at [3], released under GPLv2.
+
+[1] https://lore.kernel.org/all/20260921192559.2619635-1-shakeel.butt@linux.dev/
+[2] https://lore.kernel.org/all/cover.1779760876.git.zhuhui@kylinos.cn/
+[3] https://github.com/teawater/memcg-async-reclaim/tree/memcg_ext_plus
+
+Hui Zhu (2):
+  memcg_ext: add memory.low and memory.min protection policies
+  selftests/bpf: Add bpf_memcg_ops protection test
+
+ include/linux/bpf_memcontrol.h                | 104 ++++++++++-
+ include/linux/memcontrol.h                    |  23 ++-
+ mm/bpf_memcontrol.c                           | 162 ++++++++++++++----
+ .../bpf/prog_tests/memcg_ops_protection.c     | 151 ++++++++++++++++
+ .../bpf/progs/memcg_ops_protection.c          |  72 ++++++++
+ 5 files changed, 470 insertions(+), 42 deletions(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/memcg_ops_protection.c
+ create mode 100644 tools/testing/selftests/bpf/progs/memcg_ops_protection.c
+
+-- 
+2.43.0
+
