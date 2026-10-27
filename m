@@ -1,84 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793085959;
-	b=Oye1UzhGtQUhZ/BqYjI1j0uV02NP1eOtIZeJmO1G4aMu5YnY6VCYiSLwvIecA7Wrie1D
-	 u1tf0/H76Ml/JynGr7onmTVl5DLtkCkrgYkn4NWP1D6XdwjIAWNtRFjfvKwEAN85k3Wnd
-	 pySefbv6itc32FRoFjPjogWXuds/UjWfHikS2tAfAecAq24YdiOaXPv/sUTvQMC1RGb81
-	 2/JGuEtLx7zV0GuEAc7mqaXiBQ73oSIUlSVIyR9uqyHjC0+07NF+Kn6qxCJAGu8WZI0AS
-	 YGhzzYFsy5gPJqpfNMxDvtR5S61rPuvS2QFiQl1cJWEc6/bpn2WvRznC6al7fHQkZWA==
+	t=1793085989;
+	b=xY6kUfbktitLRTMQHHjC92rk43EXiN5V7YM18S6s4Wpvb0aWRPduN4LHOc9SrqiIlL8L
+	 itjJs9xyAoEL82zt2AOEPnfw2LnbBxONd1UDH3/fhbksOD3bg9Hg9Gfu0EnYoWDjj/tCV
+	 jwxMPlNqUmgmeaJHWJAs5iVE8Y2uCCYQhVwbTpYKV3EL5IT2TxVDQF01sPa5IS5b3HTvg
+	 nqTlJuDMNN7eegShqHphnbcR66fGKDVjkUeeZ/5gQXp8V0D6OWxPitLaOYTtPi8+wRz26
+	 Ak8XWE+GZZ68GFoj8hEAysQCHnLH3BG0kD5/4EG0tM70eiY8GJ1R8V1spIwn6pvnDJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793085959;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Qd/5lb2CY+C9moNEfnfMYyvO1d2LW0AM03zWz1R1+xE=;
-	b=LIboGECGpeDAyD62945ZsI3GL7csHtbjhlU0zyp7c2mOBjNdBh2sEtyj2qCdk9j+47WX
-	 8iAIBC3HQW+quMXW2KFmIbXYvIO2IEssn22G1FX9PJ0DRCoscLh1e/Icz4cKNfETmivAD
-	 h0Ak2IaQGfvWm8JAOuBBexUXGjl6vgaNlreTePCsVy7Zd2asL5bxlz2eI5iY+PS+hoYWG
-	 BaEE1XhLck78mgZn8Gd7Nyw9QLvrPn/IsuX5q/TFiCmBc9UhMV+0dkqE382N4ghhQk72g
-	 /7q00x/i0oRi+zLKZg5XNbmut8li4htWcHmqujw0DDX0GKIw64I1O1qFOuiOx+mgtRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793085989;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Voi00V0tdXCD/BPkPI2PBi2izLO04MVewLq5+Eoz9wA=;
+	b=WhoQsD4DvBiXX2X3LqVBs90N+zSEV9wwtbGvU60KABfMsQyj6WYZxKyaT+3hzVs+gWiv
+	 UXBni8ZsvH10aE+ptZGbavYxl9+8o+hi8L+u7a5oynnmJBW4F/BqCK/A21eyVtdLQIdGp
+	 Wm/+lY/YkLFaZhc5RFvMXA9WeAHj1WQYKBCjW3NeHFXEwpbLazehOc02FRiPAe9O2ETmM
+	 M3bQVv5mUmFxdOqDsIBq92pD0viJjSBR5pOWQICFk0c8Nbz4HDMXIIPcHF/IrVDlYAius
+	 nqrkx3DK+MNFu8oxpA1w4/q9+uLtCOhG2Si9LqxU3QLPC0TkzjFEswpoD4eLuMnf11g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aR058ypB;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=vmc9eYFo;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B104C606A31A;
-	Tue, 27 Oct 2026 07:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B104C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433BF606A31A;
+	Tue, 27 Oct 2026 07:26:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 433BF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aR058ypB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793085959; x=1824621959;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=r5hxiYwKE4osvI84HGJH8mSrHPipdV0Nlqi1ddY2Xq4=;
-  b=aR058ypBCFeh8Y2hYdevopotXh9BeaO7CAJwb+ox1lvMUr/vnbaIwsOu
-   iYk1Gi+w8PzJfMwPu8BguK0Te82XtD9QNoNiOA9N/kMSj5OYONqX6rJmS
-   +yM+gI9dMiHM/gbyoq73aAUkB69EfvoJ2vUxzufdQftheGvu3DnPCalJV
-   u6a/TB0wwZwIxEgdO73HxmFU0Uta76DGIrXiprRT1bNiXaKFxumpUNL5Q
-   zAdb+KYr0p+/z8vjcszZU11mZ0Y+J8Y6Fphr7+cpWinOPVRZFAAyKt6Rr
-   w9HtWpTmgjr9SNlzx2PJxrcA0jHg3gFHzREzixO1K/vZUW/1P2WmV+88u
-   A==;
-X-CSE-ConnectionGUID: SCifjgGpQdGTiupuGT5gNQ==
-X-CSE-MsgGUID: VSBFPnPpS56laz7k5uvVNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1674371"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1674371"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:25:58 -0700
-X-CSE-ConnectionGUID: Op8EKmWpTe2Dg6J55hx/ZQ==
-X-CSE-MsgGUID: PTuUsTGxS7CobRS55FyWEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4431277"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:25:54 -0700
-Date: Tue, 27 Oct 2026 09:25:51 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v3 3/4] serial: 8250_dw: configure the Allwinner H616 UART
-Message-ID: <auBR__5g021tMvQR@ashevche-desk.local>
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-3-286fc1b8c3c1@gmail.com>
- <auBRD7Ny6u_a9X7p@ashevche-desk.local>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=vmc9eYFo
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793085975; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Voi00V0tdXCD/BPkPI2PBi2izLO04MVewLq5+Eoz9wA=;
+	b=vmc9eYFo0K0Pvwh6FysRj3i6dhQ3FQuyiKDvSZD3LZzcQpSqQiKKs6Kclhu7acLPWqxZ8UyezwC8KhGTXtXOZmlhU6/wmuvE0wGTw8kgTrDgTPpOEnkMBWBAzfL7VVEf41oAywl5tZv6JTa+sy5P0Voz/PEJMuQxZw4qYTCN+dA=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=30;SR=0;TI=SMTPD_---0XDcwS4h_1793085971;
+Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDcwS4h_1793085971 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 15:26:12 +0800
+Message-ID: <e1aa3fb6-a557-420d-88b5-9864ddfcec2f@linux.alibaba.com>
+Date: Tue, 27 Oct 2026 15:26:10 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,61 +53,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auBRD7Ny6u_a9X7p@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/16] mm/shmem: discard whole new large folios on
+ fallocate rollback
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Gregory Price
+ <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <20261026-fixes_shmem-v1-10-703206d5fa0c@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261026-fixes_shmem-v1-10-703206d5fa0c@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 09:21:57AM +0200, Andy Shevchenko wrote:
-> On Sat, Oct 24, 2026 at 02:22:25PM -0600, James Hilliard wrote:
 
-...
 
-> > +static int dw8250_sunxi_set_rxtrig(struct uart_port *p, unsigned char bytes)
-> > +{
-> > +	struct uart_8250_port *up = up_to_u8250p(p);
-> > +	unsigned int i;
-> > +	int ret;
-> > +
-> > +	/* Use the nearest lower threshold, as the generic 8250 implementation does. */
-> > +	for (i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++)
-> > +		if (bytes < dw8250_sunxi_rxtrig_bytes(p, i))
-> > +			break;
+On 10/26/26 5:40 PM, David Hildenbrand (Arm) wrote:
+> When undoing a failed fallocate(), shmem_undo_range() must discard each
+> newly allocated folio. Its second scan instead passes large
+> folios to truncate_inode_partial_folio(), which does not necessarily
+> discard the entire large folio, but instead tries splitting it to
+> discard only the requested range.
 > 
-> Can we provide an array of the possible values and deduplicate this loop?
+> For example, with huge=always, a failed allocation starting at offset
+> 4 KiB can leave page 0 allocated in an otherwise empty file.
 > 
-> drivers/tty/serial/8250/8250.h:
+> Discard the whole folio when unfalloc is set. Note that we enter this
+> path only for folios that are not uptodate, and can consequently be
+> dropped without losing any data.
 > 
-> static inline int serial8250_bytes_to_fcr(unsigned char *rxtrig_bytes, unsigned char bytes)
-> {
-> 	for (unsigned int i = 1; i < UART_FCR_R_TRIG_MAX_STATE; i++) {
-> 		if (bytes < rxtrig_bytes[i])
-> 			/* Use the nearest lower value */
-> 			return (--i) << UART_FCR_R_TRIG_SHIFT;
->         }
-> 
->         return UART_FCR_R_TRIG_11;
-> }
-> 
-> drivers/tty/serial/8250/8250_port.c:
-> 
-> static int bytes_to_fcr_rxtrig(struct uart_8250_port *up, unsigned char bytes)
-> {
->         const struct serial8250_config *conf_type = &uart_config[up->port.type];
+> Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
->         if (!conf_type->rxtrig_bytes[UART_FCR_R_TRIG_BITS(UART_FCR_R_TRIG_00)])
->                 return -EOPNOTSUPP;
-
-Even this probably should be moved above as well.
-
-> 	return serial8250_bytes_to_fcr(conf_type->rxtrig_bytes, bytes);
-> }
-
-> (this split should be done in a separate preparatory change).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Good catch. LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
