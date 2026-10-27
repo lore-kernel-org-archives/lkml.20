@@ -1,77 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099299;
-	b=XK7jii9ouhg47Dz1jnN/vuAVhzVPe0yN5MZgYnFwDmVp0Khry1JKJ8Aib/f7zkI3SWnT
-	 dbdI2Wv/rFpZVhaDYwgTVOBZCMQn+/+RHrXn1GAfZZcghWKYJIJK+ZK71TIcj8MXKfomL
-	 VofAN3a+aoSWkfvQ4fOanUPv1SWfZAs0pP1hZnzFCzAZdDOoyXKB+JCg5XZsaAFeeiaxb
-	 c6Wn+JUMCYRMZdLOVDfaMJrrf7FLE86EW2Dh3nwcvdKZqwh13KqCzMFz5LUD9C08HI6QL
-	 iAsqnu4vHcJ/AYk/MCnmR8JlWQbsRARtsQisUZiAg73Tjj+Bc5gmlKtqBQBS/7hAX+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099299;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=J2d2zJ5HLBob4v1CtJnPXEx47rAgJ9b+O4LDKjyJETg=;
-	b=Mwm7tnYZtZwU//WX8dFyOK/7sMQcOMtpO9imcJRcoG04MsusJkpq/6treaTbd1d18Q0C
-	 GaLtUGOAT7qcpQ5/vFoKoOHvybq0ZLyTpZKHtA2eTD3G50j5VHRs5RGUZCVMPmiV9oBz2
-	 5jzReOrY4gBwye4RZE6+SxfIA+dU238a0tI/hrZjflex7S1QcOsqIFutbzV8QS4zaqK9I
-	 OnqtuQI2jkROsEO4eqs+sCQhYRZtrKCfHb1fJnZdU5TBGGA5mf2bLe0BUJx/X0I+DI5BL
-	 cy+IgHaqlvDPxjpZEbsDDmw3ZUKKw/LmM3KPdh3mF+BcDFCEnop0q6hIFsKNV5RWekQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="MoH/qVXp";
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.67
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793099388;
+	b=nxX94JHZQ4KkisW+ITchyUKJJPheXnL9UuYOa1SxW0z6zRFNXv5J/z2uD7y4G3+gunwu
+	 m29O3AX+tTN3yAXe46it0e+0jJNVSXJZjUlyQnDY4xKtuBsTQT6xyNR3QvKfcOFZn6qau
+	 nazivy29z1ipUt9/8cLiLqEe3Rl4gccCWxU35Zh3+Ps6F8Q+ue0CKm5ffp52nwNja4q5O
+	 QxPo8CodVhkk+evg0kdpzZL7y3oBHKxj+ylk8vMpsc2z29eleCQqFpw75HI2SyDKR/JHX
+	 FvzRUsmi7j7wpP1aR+c0Q+7ERDyShcCe7/REJx6f66sm4reaU2IGwwIkw+yA/DK8B5Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099388;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=upkT3vTLjUpvfiUzZSr0d2yk3KbwqmgsUVh6DfNCsGg=;
+	b=f6xdrgyLqLXCibEs91dUqSk5qbpa4y6AjddbEnTJH1T+IdfFgBbHfCEMgzK1ZhLH7PTb
+	 h4W+MNp/3HQSavTpdOn+o1pOSLQZ6cgEp9fJeHBmwfnwo2kNpt04Ep8uZK94TEwVIC7Ek
+	 8/Iq9zRMYVaLsFMknhetwKw7yGoJXDIyemEwU3mvLRkWH/L2DMj+ZpowrPcl4dyXIJmlj
+	 syS+eGzZY2tvspLrIyI120uzw7LDhfV5V+sozNJwAq7bFOvymxNWORyUQDz3KILuMefAV
+	 lh1mylA/FlAB0EOkn3T52SZ5Hn4iCFqKWjM+BRC+Oek3cgckCqADEOFac21jRPI6kWw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=s48ffASZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.67
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012067.outbound.protection.outlook.com [40.107.209.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFC4606A32C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:08:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDFC4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586BF606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 586BF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=MoH/qVXp
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261027110815epoutp024b6ed9d4f8eb48727fb45a7b11676567~iXk8UFwdo2839528395epoutp02G
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:08:15 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261027110815epoutp024b6ed9d4f8eb48727fb45a7b11676567~iXk8UFwdo2839528395epoutp02G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793099295;
-	bh=J2d2zJ5HLBob4v1CtJnPXEx47rAgJ9b+O4LDKjyJETg=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=MoH/qVXp1KJnlmYOItify0XUtHFePB31y9JecR0hmjt6jSGvR5XNUfTH/s3+Nutjm
-	 /rMdkHoawjN4G0v1TXQZpjscg8ob1cL9N61DDbXlRL+2tK0ZMXBQx4YkLEtVsaESso
-	 RuT5PlRltBF0me6AXh1PsPePJdqPT2K80lhebMVM=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261027110814epcas2p276d32aee099ea7822dbe9495c9d4dcd4~iXk71-ODu0483304833epcas2p2F;
-	Tue, 27 Oct 2026 11:08:14 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.202]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jDSQk40V1z6B9mB; Tue, 27 Oct
-	2026 11:08:14 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb~iXk6uJPBq0449304493epcas2p4t;
-	Tue, 27 Oct 2026 11:08:13 +0000 (GMT)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261027110813epsmtip2c36e1e5b4a84ca8655d87b84dd827fcb~iXk6pG0-l0549405494epsmtip2Q;
-	Tue, 27 Oct 2026 11:08:13 +0000 (GMT)
-From: HOYOUNG SEO <hy50.seo@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
-	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: HOYOUNG SEO <hy50.seo@samsung.com>, stable@vger.kernel.org, Stanley Jhu
-	<stanleyjhu@google.com>
-Subject: [PATCH v6] scsi: ufs: Change the error check sequence for auto
- hibern8
-Date: Tue, 27 Oct 2026 20:03:57 +0900
-Message-Id: <20261027110357.3649301-1-hy50.seo@samsung.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=s48ffASZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xvgu1AuNbVPddKsu5P6kV+BopVsy/vpmiW3p3I/vb/d3fRiyfwBw4+eWymQf8IUHdYiDJugFgjHzvl3ageyqUYh2JiqGpla2uCRw9SpH5TVyiSTH+F1LLJf+N3raOUilFP4U+8fTJjpTEnt3DERNjkfSzKZ5GrdSO5Rg2MwJsEAZA8beR8LF1y44tk5mM9OKMjPZzJE7jexdowxVcaOWSt/RY1wx7qakx2n5WERC9mj1bLjrVUwzWLyjMLbKVJY/AZqnYj0d7Hcj2Hsiu7GM6Zg6rYAdEXvdCX+22KKRv5A7p+oINacKM4rtbKxkbNHEDdmh7zS5nmuq3+CZ8c/mUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=upkT3vTLjUpvfiUzZSr0d2yk3KbwqmgsUVh6DfNCsGg=;
+ b=w0OHtkt3Z3roFkiBg2/pQsOcsYRFe6QBX8SIAYXUbOHYlY6Xxevczugizy4xdN8ZXcWFqH5Ec7INF8hyZqoMXoQcvRZ+0Vjq3N3TiPAXPrzhjv7xWma5/iWFBMDRjwQINegr3wilfQwOQEomcEPBkxXx2xk0vBKRm1Z237YxhkJpTWPc9FS0M49NxWJjPaYwtrAfIaLHryCphsFaqW9dpt88ftyvnzwIZSMVQ+dH4Qty8+xCtP8A3sHxbWGLUaKzk4wqIyg2JnrHcp88nLS9z/2GxMhxt9bcZLQvKou08yiHoXEWq/8MvuNXjLunRKg4RFsT0i8HO0KjR0lqF24Onw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=upkT3vTLjUpvfiUzZSr0d2yk3KbwqmgsUVh6DfNCsGg=;
+ b=s48ffASZP2yBdi8Bui6V/hbO2K1+EplPMNnHokRJzgym6Mg7On9ENc/LqRwpQrCNdPjnWdDb5pfuP1ddFSHr6ssJwdqQD2Q6jfU8/x5gUzUXoyk4N/1eXE2j5r7sB0N1US0yPU/Lrh8QrlU4AG5j4wiy43UfMJom7VNdIkCxXP4YLJ8Tqaax8ARaAumY4gSL2ynUcuKJhVhXBm/DMCQW4VBMPakKT3zu6wYCf2cOQTAnVkQuCTMN7DB4Weav1GwGOjeh5NCsWsVysbgdFXjP2Raj9sOBOeOIb2j7bQ+rOa6yZdVVxWTBZf1Y9HbYRxgSH4jVgGoSYHaRgJa29CqADg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by CH0PR12MB8532.namprd12.prod.outlook.com (2603:10b6:610:191::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Tue, 27 Oct
+ 2026 11:09:42 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 11:09:41 +0000
+Date: Tue, 27 Oct 2026 12:09:33 +0100
+From: Andrea Righi <arighi@nvidia.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Vladimir Vdovin <deliran@verdict.gg>,
+	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
+	Emil Tsalapatis <etsal@meta.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/6] sched/numa: Leave the placement of a BPF-scheduled
+ task to its scheduler
+Message-ID: <auCGbbLTw4qZS536@gpd4>
+References: <20261027041536.3317971-1-arighi@nvidia.com>
+ <20261027041536.3317971-3-arighi@nvidia.com>
+ <20261027104317.GC2668564@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027104317.GC2668564@noisy.programming.kicks-ass.net>
+X-ClientProxiedBy: FR4P281CA0120.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:bb::8) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,112 +111,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb
-References: <CGME20261027110813epcas2p4011de6cde600db5c995d3a3e45b056fb@epcas2p4.samsung.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CH0PR12MB8532:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9c8abab-6a5a-424f-ca60-08df341acc79
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|6133799003|18002099003|22082099003|261026140227099003|10067099003|11063799006|4143699003|56012099006|261021121427099003|261022075727099003|261022105027099003|261021123027099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	p1NbapFX2sRBhidTTQdZa1ghH2sCHeLedIHqYbmJR3GZvD//yraYc21kTonILUz9FiMRd/B5UaL8JKqEFRMoUMFIhSAGmTf5QB0acfbBfD/qpj4ngDx4tt7j9jJh7X9nopCoK74lMfS4aAZeUDpO56aTOz95G0KGAXFoM36TkFcWbm5CiU76hBmUY9u9+Z0riIv8LLjm6JlyrbmMNVngVqftrWNogooPeNtXNz22Yum0WvpMFBGRzUslP8ySjkEAZtBGqpLQ3KYTXKM23Ox4nNjlM3/SS+B9TAM/0htNZoCqCjJ6oh45towjAbHZNAqtPnXfwGNtU860iIghF3uP17kQohbTaVer0lFst2u/HOGSoDBMxkbsM9PGiaAfmLhdYpylHfclPmXZDzkhComONTINJkEauz7UeXAy1LZbU2RkLehUyHQuPuysswnBApXqZ6j1tFAI5zJQlSSKiQGnmMotS5PWnbE5m1rNGF5ewWQxcPAvE8fdDpGPAHb1j1TWT9EXeNNXLv9nTV1Wjr2Zm4JyLFpxz8M+xhAjVRLld99kXzRrJZgsJ40P5BMMk3AZq8ocCMWnL62y10QkRQOebV1bSOThjr7YZW5MRRfQTqfwNR2MeShdnpgiF1sSyQLjP/n0SSG1MG7urrioA9GMTEE1JW4gQcOkR1ye+zIAM0Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(6133799003)(18002099003)(22082099003)(261026140227099003)(10067099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261021123027099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HzVoFe3dke3aN3SILRWfkPMH8Xd3M+EnIiB+UxmhWQQiOuKiUm7yEu0NpghV?=
+ =?us-ascii?Q?eVV6LBz5lzwDnLMlVDwNp0x+3K8TqBzvWJGIP1LdD8L780fL5tsDMBzkPI53?=
+ =?us-ascii?Q?B3q3jN9rPGlAeO9QTAt/VwkZbrICn7zOWqWA/effkZx30w/lYYrKHQmJZeAa?=
+ =?us-ascii?Q?3v7VG1TFec8xDq4GV2YkASsMiIhzK4cUTf0uc6/fCT6NiHbONfjWJafekKfe?=
+ =?us-ascii?Q?je+NBKsZulk+q+sO6snRqzJmyPGftVVWOgI+QbkrZOb59kT+qGELUg1Nm0yT?=
+ =?us-ascii?Q?LN6gwF7FMWCaHUEsDshA3TF+oSGp4kX9Mb3fDYR11HaPmjFoq3AhgLuuek5u?=
+ =?us-ascii?Q?J/BZakNbwPuBbTyVQDtOIKSKt5UzLpulmBj6b517Fm0skpu6+Rjm5P+VBVcA?=
+ =?us-ascii?Q?xzVBHKqbFApP+SrgkLNC6mEB3fsHs2szwmBAYxEDaPYKADyM7fAcPxW5tcWf?=
+ =?us-ascii?Q?vnrrx4vURzFVZKX0XdrZMI/k7k863qpjM+RALO95TreWKmIgnbbkdtTQ50i4?=
+ =?us-ascii?Q?nHiimhIlQzxBInkHZmcR5EtBuOag6Erchds08ClR3eiKTcuIITjd6Aben8jF?=
+ =?us-ascii?Q?bCWkKZn48miU7NisvFJCOXzxng/hKIOGet+BlksN8yQXOb3Vflzh0wPOHSJj?=
+ =?us-ascii?Q?5LE7cSjVne5w53qmbYPUdxqG0084oLjYipAu0OfbqjtEHdJMTjjVy8aY9xXt?=
+ =?us-ascii?Q?s6ZNDHwrGSx8GFQOssRI2ojSnj7OLjNcTdPGVh1O2NPR3xgDbPKL+i9bTVBk?=
+ =?us-ascii?Q?MaMRZLl27yqVUSKntBqHvKGFq6PDaZi6kC/RWRlb8caoB9XMn12zAAtAWvDF?=
+ =?us-ascii?Q?rK/0S5SxsO2AUCuJESvxLe59+9yXTFuTuMCcWZPzu0uwm5CrNHthVWBYhuya?=
+ =?us-ascii?Q?3MursPz8Kbzz1+C2FyiLUmPFcmqXdoJiPvh2keksVOV+DJytkN1RZkQLN9w+?=
+ =?us-ascii?Q?h6Oxp0LkZyKThUeJWVZ/4fWk0/qNn4FweN5EOMTPen9WOLga/QyUYWMTMMph?=
+ =?us-ascii?Q?MZ79xeksneM92X501ijIZCcWiDQ6bWjrWv1dl4MZl7g8oa/Fjos434JMKbXj?=
+ =?us-ascii?Q?DQqm/l2HhOfG5hLd+vwiUGWlqEn2o4UhC4X4fp0L8blq0YgPRYgVlE3waJuC?=
+ =?us-ascii?Q?mYW5E7Qu7rXb4S5NjnFQQ/k+bEIv5KF34zo1XcvHrP8I4IRsvfn6kj+0ogx6?=
+ =?us-ascii?Q?xlWNmStSJ+PVO3iUt22BoNyKvMfFwzccqAXxZi5mBuRNHEXKKDV0XM7zKyU2?=
+ =?us-ascii?Q?xOfOfIfVtW3Gu/nIHRpOHZDRmKN++UcL7U/en0mOAc3DJptV0eGfF+osRsj3?=
+ =?us-ascii?Q?QgutNJzgwJaGzDUIlHbhpt/vfIXeBFAQB7avsY7LPPvSxPYsjTy8ZuIFdmm5?=
+ =?us-ascii?Q?rmrJUwGKw5NH72EOuFe8RkzBCHEmU8jJ2w308Z9TfBbK0wX/RNuiQTpXuQ7n?=
+ =?us-ascii?Q?KFYln42zWBKTYXCYjJ0Xfd1BLi8fR6LWlZPsXSK6Yt+Wce0JBpYg/euo3/8X?=
+ =?us-ascii?Q?QlM3P5g009n7l0HZwFbibOgo8UjW0n8ZAPxwFWyDMTdSyIHAX0I40JIHJ2D2?=
+ =?us-ascii?Q?+NMjbVPq+5EgI7FkTJBlf8cfosCvmvFxeKDHaif0Yp9527ycwbhy1zXgXkSa?=
+ =?us-ascii?Q?swXcLw5wdFFiP037x+zP6jfCx5Rmyokte0ll9lx+qs5F1DGSFnoBkaR3JkKM?=
+ =?us-ascii?Q?EB5f7pXgsb/zTapWwbkiEfrCcZk8t9zNXzox1NB7Epej4b5KbTaGA7c1yqO2?=
+ =?us-ascii?Q?ux9GpONSjw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9c8abab-6a5a-424f-ca60-08df341acc79
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:09:41.6157
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KZXNZdwDT9djxYUX0/9jfbBGIq09rS1bGh8mPfsYzOL+ydTh/vjIjWMYcLBlzCpbYRajCXrbrQ39fNwhUqF1IQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8532
 
-Auto-hibern8 enter and exit are performed by the host controller without
-a UIC command, and the auto-hibern8 idle timer only runs while no UIC
-command is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is
-therefore usually reported while hba->active_uic_cmd is NULL.
+Hi Peter,
 
-Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
-easier to analyze"), ufshcd_uic_cmd_compl() returns early when
-hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
-called. Such auto-hibern8 errors are no longer recorded in hba->errors,
-so ufshcd_check_errors() is not called for them and the error handler is
-not scheduled.
+On Tue, Oct 27, 2026 at 11:43:17AM +0100, Peter Zijlstra wrote:
+> On Tue, Oct 27, 2026 at 05:13:31AM +0100, Andrea Righi wrote:
+> > A task under a BPF scheduler can take NUMA hinting faults via
+> > task_numa_fault() and then reach numa_migrate_preferred(), which may
+> > migrate the task to its preferred node through task_numa_migrate().
+> > 
+> > The migration of such a task should always be driven by its BPF
+> > scheduler, which owns the placement of its tasks.
+> > 
+> > Keep collecting the statistics, which is what makes
+> > p->numa_preferred_nid worth reading, but skip the migration for a task
+> > owned by a BPF scheduler. The scheduler can read the preferred node and
+> > decide for itself whether moving the task is worth the cost.
+> > 
+> > For the same reason, never pick a task owned by a BPF scheduler as the
+> > swap partner of another task that NUMA balancing migrates, e.g., a fair
+> > task when the BPF scheduler runs in partial mode. Such a task is
+> > treated like a kthread on the destination CPU: the migrating task can
+> > still move there alone, but the BPF-scheduled task is left in place.
+> > 
+> > Reported-by: Vladimir Vdovin <deliran@verdict.gg>
+> > Link: https://lore.kernel.org/r/20261002124559.10367-1-deliran@verdict.gg
+> > Signed-off-by: Andrea Righi <arighi@nvidia.com>
+> > ---
+> >  kernel/sched/fair.c | 15 ++++++++++++++-
+> >  1 file changed, 14 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > index 36df9a4dde534..5064c7b707f4d 100644
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -3267,8 +3267,13 @@ static bool task_numa_compare(struct task_numa_env *env,
+> >  
+> >  	rcu_read_lock();
+> >  	cur = rcu_dereference_all(dst_rq->curr);
+> > +	/*
+> > +	 * Never pick a task under a BPF scheduler as the swap partner: its
+> > +	 * placement is left to that scheduler, see numa_migrate_preferred().
+> > +	 * Moving the faulting task alone to the destination is still allowed.
+> > +	 */
+> >  	if (cur && ((cur->flags & (PF_EXITING | PF_KTHREAD)) ||
+> > -		    !cur->mm))
+> > +		    !cur->mm || task_on_scx(cur)))
+> >  		cur = NULL;
+> 
+> Rather than check task_on_scx(); your argument with Prateek seems to
+> highlight that the actual check you're looking for should be something
+> like: cur->class != &fair_sched_class or somesuch, right?
 
-Check for auto-hibern8 errors before checking for an active UIC command,
-as was done before that commit, but keep returning early when there is
-no active UIC command so that a NULL cmd is never dereferenced. Only
-report the missing UIC command if no auto-hibern8 error was found.
+Right, the actual condition is "cur is not a fair task". I used
+task_on_scx() only to avoid changing the behavior of RT/DL tasks, but
+the same arguments apply to them: their se.avg isn't updated either, so
+task_h_load(cur) is stale, and their placement is driven by their own
+class (push/pull), so fair shouldn't move them around.
 
-Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier to analyze")
-Cc: stable@vger.kernel.org # v6.13+
-Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
-Reviewed-by: Stanley Jhu <stanleyjhu@google.com>
----
-Changes in v6:
- - Add the missing "Cc: stable@vger.kernel.org" tag next to the Fixes tag
-   and keep the tags in one block (Bart Van Assche, Stanley Jhu).
- - Add Stanley's Reviewed-by. No code change.
+So yeah... "task not in the fair class" seems the right thing to do.
 
-Changes in v5:
- - Fix the unmatched brace in ufshcd_uic_cmd_compl() that broke the build
-   in v4 (Stanley Jhu, Sashiko, kernel test robot).
- - Use a local bool for the ufshcd_is_auto_hibern8_error() result instead
-   of testing hba->errors (Bart Van Assche).
- - Move the Signed-off-by above the "---" line and Cc stable.
- - Link to all previous versions.
+> 
+> >  	/*
+> > @@ -3645,6 +3650,14 @@ static void numa_migrate_preferred(struct task_struct *p)
+> >  	if (task_node(p) == p->numa_preferred_nid)
+> >  		return;
+> >  
+> > +	/*
+> > +	 * A task under a BPF scheduler is placed by that scheduler. Keep the
+> > +	 * statistics coming, which is what makes p->numa_preferred_nid worth
+> > +	 * reading, but leave the placement alone.
+> > +	 */
+> > +	if (task_on_scx(p))
+> > +		return;
+> > +
+> >  	/* Otherwise, try migrate to a CPU on the preferred node */
+> >  	task_numa_migrate(p);
+> >  }
+> 
+> I am somewhat confused on all this still, probably because I've not
+> looked at it for more than a couple of minutes at this point :-)
+> 
+> But rather than putting a callback in sched_setnuma() should you not put
+> a class call here?
+> 
+> That is; have this be:
+> 
+> 	p->class->task_numa_migrate(p);
+> 
+> and have fair set task_numa_migrate_fair(), which is the current
+> function, and then ext can implement the BPF thing.
 
-Changes in v4:
- - Changed patch version
+Yeah, that'd be a much cleaner approach than special-casing ext in fair.
+But I think it gives a different signal than the sched_setnuma()
+callback.
 
-Changes in v3:
- - Check auto-hibern8 errors before the NULL check again, so that errors
-   reported while a non-hibernate UIC command is active are still
-   detected (Sashiko review).
- - Return early when no UIC command is active instead of falling
-   through, to avoid dereferencing a NULL cmd (Sashiko review).
- - Add Fixes tag, reword subject and commit message.
+numa_migrate_preferred() is called from task_numa_fault(), in the
+context of the faulting task, at most every numa_migrate_retry, and it
+only gets to this point when the task isn't on its preferred node. So a
+class call here means "this task is misplaced, migrate it if you want",
+repeated at each retry, even if the preferred node remains the same.
 
-Changes in v2:
- - Check UFSHCD_UIC_HIBERN8_MASK for auto-hibern8 only when cmd is NULL.
+The sched_setnuma() callback instead reports when the preferred node
+changes, which is what a BPF scheduler needs to use the preferred node
+as a placement hint.
 
-v1: https://lore.kernel.org/linux-scsi/20261021051951.1687479-1-hy50.seo@samsung.com/
-v2: https://lore.kernel.org/linux-scsi/20261022074249.3098100-1-hy50.seo@samsung.com/
-v3: https://lore.kernel.org/linux-scsi/20261026051851.1845934-1-hy50.seo@samsung.com/
-v4: https://lore.kernel.org/linux-scsi/20261026052632.1848929-1-hy50.seo@samsung.com/
-v5: https://lore.kernel.org/linux-scsi/20261027021037.3398180-1-hy50.seo@samsung.com/
+So I think the two are complementary: the class call would replace the
+task_on_scx() check here (ext can just skip the migration, or expose it
+to BPF if we think it's useful), while the notification would stay in
+sched_setnuma().
 
- drivers/ufs/core/ufshcd.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+One thing to consider: RT/DL tasks would also stop being migrated here
+(they can take hinting faults too), which seems more correct honestly:
+task_numa_migrate() decides the move based on task_h_load(p), which is
+stale for them, and their faults only come from pages scanned by other
+fair threads of the same mm, since they don't drive the scanning
+themselves.
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index d085d394858f..c08278a2e43e 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5939,18 +5939,26 @@ static irqreturn_t ufshcd_uic_cmd_compl(struct ufs_hba *hba, u32 intr_status)
- {
- 	irqreturn_t retval = IRQ_NONE;
- 	struct uic_command *cmd;
-+	bool ah8_err;
- 
- 	guard(spinlock_irqsave)(&hba->host->host_lock);
-+
-+	/*
-+	 * Auto-hibern8 is performed without a UIC command, so check for
-+	 * auto-hibern8 errors before checking for an active UIC command.
-+	 */
-+	ah8_err = ufshcd_is_auto_hibern8_error(hba, intr_status);
-+	if (ah8_err)
-+		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
-+
- 	cmd = hba->active_uic_cmd;
- 	if (!cmd) {
--		dev_err(hba->dev,
--			"No active UIC command. Maybe a timeout occurred?\n");
-+		if (!ah8_err)
-+			dev_err(hba->dev,
-+				"No active UIC command. Maybe a timeout occurred?\n");
- 		return retval;
- 	}
- 
--	if (ufshcd_is_auto_hibern8_error(hba, intr_status))
--		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
--
- 	if (intr_status & UIC_COMMAND_COMPL) {
- 		/*
- 		 * Store the UIC command result in the lowest byte of
--- 
-2.34.1
+Would that work for you?
 
+> 
+> Anyway, if you want to do this task_on_scx() thing like you did, its in
+> the wrong spot, that condition right above it is irrelevant if you're
+> not going to be calling task_numa_migrate(). 
+
+Right, I'll move it before that check. It still needs to stay after the
+p->numa_migrate_retry update though, otherwise the time_after() check in
+task_numa_fault() would be always true for scx tasks and
+task_numa_placement() would be called at every hinting fault.
+
+Thanks,
+-Andrea
