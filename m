@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086609;
-	b=TzlbYcEKPCiVhtArrljR7OsYI3W8BZ2bXx5LSA4Hv6OGN9Jq8gsEEd5+KeSopwcz0Fjk
-	 SKGu/N4JHlBIONsJw7c4z2WWuzDxYAeeFpAtB/svsXoaowO/W/Qw+2hSOj9BdVUsOIyly
-	 Wa6IHhaWwa8QoCFpyCk6uWYyvImfyUrVxfIJ4nL6TKqzWPND55ivdrMs39ew1e27E8IQU
-	 ST5V7LbnxAn0gVs5jiKWS/A8BikL+NDgW/AAhI9QD8CM4M/cT7TSrnh8A6HEDehxeit7D
-	 zenb8d5VmM1tfCmkp49v5ZDXbJF/IgBobt2cGWtjwfggzmk6lt6MkN7GLLsZAHgyyFw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086609;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Rspamd-Server:
-	 X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=5mOy1Nx9Nt52I5GK5rG1oj7yfpJvH/VLyGjzbqoN6l0=;
-	b=imqhOmlN0hSiYGPSui7Ks09d0ppwN/avDASo6ObpgrUH81Qpa47/4z1w3r0JQfVoSpA/
-	 2SeWaYP7NUcn/NHH/lpRRtY5eqOPh5KSrc7LfiqILok7Yg5WPodZzWsr3gmuyPaS2Um1p
-	 8YNuWLq8cvRMhqSuu5VGF9s2t3cldUWCBUIsStGCb9lbE0V3rJgh8yYADIm9STqzGEOYZ
-	 X033BnAJviGx6Xw28d8dPpqw4FaVrpd5Pz+Zc8q7o0MnhDHLq7W5F2TrQXapQkQEdQT5v
-	 krnL34UGvnWan6fRw+0GWUS2XVYsDc7GEs1ui5k7a+sLUttBscqgT6wKfGb7PDmcdew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CgGmlpU1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HDsnFhuU;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AEOoK2Wt;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gMO2O6px;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.30
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793086601;
+	b=zfGO0kO11k7lztfhBf2bHBi2ELB4izJ+DBDbCd1z6spg+7Am3TceK3GGsZw9SrdFg7rG
+	 Y5VcfPezHYTz42H09hp5ePl2YFK28IThrFmGWjsmm1AsHiLTsYgi1aqFuRPk0ZHht1ZUc
+	 mRboQCQCrUtyF2h9gwVhnEh2nwyvSZLZscWENsZxE+7ZoCuahBBHa1QWFzDijWkZKaswn
+	 YA7Lp6QcCRt94mLLfnyaDM+iAPrueazDSkFDlEpsJjf2QLzrDZveu3amuT666IpynkC2Y
+	 3rQQ91qlPaaAh+Bn1Vfc5Gb/gH46cikNpBmjbMOd22ZZL1icSFK+AfJE1VzsjQALYxg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086601;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CPmW/cL12Xsye1mwODi46kltjXliLuKk2FtaVY7Fr7w=;
+	b=PyPxGS3w+fh7s9tZvxkzBio71WceEIjcPLzeW4Y4iMFfVf/kStAgaN6n6lnpEQfgsVv1
+	 Moo3FwrquXKUGD6NCQFPTm1yBsbiX2krhBOQMdoSW53z+jn0WJ58qayDDSOaa7iEXDce+
+	 SEo84wVtcmOcP9lzn1c6IeNHXaq1qe/VezFyH4pgINf7CY4m2jAB8dTuoMWAT+/b/yj4L
+	 yqNgr7YUxcZBSr6TnKkBUroulemw1xNsO/vqodm67eImgzBaG9v1DhbBy577b95mCjemR
+	 hH89jc4KmJxpeMTi/0SNCrGfSF2LKnBB0kzerpl7la4r6Oq2/9w+piprVINAtSuSfdQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kmDP722C;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.30
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013030.outbound.protection.outlook.com [40.107.201.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6BF60A261C
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:36:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB6BF60A261C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADA660A6F7F;
+	Tue, 27 Oct 2026 07:36:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ADA660A6F7F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=CgGmlpU1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=HDsnFhuU;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AEOoK2Wt;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=gMO2O6px
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DF3DB1F791;
-	Tue, 27 Oct 2026 07:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793086607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5mOy1Nx9Nt52I5GK5rG1oj7yfpJvH/VLyGjzbqoN6l0=;
-	b=CgGmlpU17VGQw9iiEjkClU6UfPZqktpx4pfrFyd4PohVOang9hlRupyS07Ut/y+iEuyVJq
-	Tqtf9DD7vf5GUn6dp2B0ZehZQvyusAz5jindwO2PecQH5yVZmzFfWzWmBOnPobjoi1T6u9
-	BHBuibqzfCXkFt0/LHU3B0gsOG+Dv+s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793086607;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5mOy1Nx9Nt52I5GK5rG1oj7yfpJvH/VLyGjzbqoN6l0=;
-	b=HDsnFhuU88nCN2tE7dl3AXryPBRqNrKAKtmBnGAb7px9mIJqz9obZPKuahYGSqIBexMUWY
-	JNVsWZCGDIxkLzDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=AEOoK2Wt;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=gMO2O6px
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793086604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5mOy1Nx9Nt52I5GK5rG1oj7yfpJvH/VLyGjzbqoN6l0=;
-	b=AEOoK2WttG9+DbFszI1H1qzda/dhmstiHWk9j7YVW1+x/pgWcGgVlmKOo/kzfmbn3QBYLV
-	8ZM3cjLaGkhWOTLws9yNmc2QyM+eRf38xRl5U0eCVkp5cW13ejUHOWre+q7GIf/dhTgz5P
-	RPxGpQx+jhlv6DKccjfYWrxu3hxFEL8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793086604;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5mOy1Nx9Nt52I5GK5rG1oj7yfpJvH/VLyGjzbqoN6l0=;
-	b=gMO2O6pxhyPYD48UgtlxgvClsg58CCPlYmm8rQy0SISaYd0kae8BHv5gCSctRulZCn54Qi
-	HRWPch0pGRriF1CQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 02C9313319;
-	Tue, 27 Oct 2026 07:36:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MxCqJ4tU4GoHXAAAD6G6ig
-	(envelope-from <hare@suse.de>); Tue, 27 Oct 2026 07:36:43 +0000
-Message-ID: <b7334814-eb15-4c94-b227-8102c84dbb47@suse.de>
-Date: Tue, 27 Oct 2026 08:36:42 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kmDP722C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AdsWPyLWfi2cpc+FW8T8+JjQJVVCTHFvNFxxbAvZ4stWNOaujgWCbAKN5gWSoPc8s+af2MMz3sL/xWoranYlsIrFf5BPEK7pcyaCwVPdtqQ5Eusy8xyQlK8E3yNIMFhDww/ZWeiVtMdoLM/4uHtG+5/n8timI5Q+zlwmpcFF0behJZv/z+rOmLZBlMVxhfJnJ7qWBejXi1IjsUZAkEIIpc347X0teYl6Fq1azYirrkPev8BKc6h+0Xj3hGq55cX0SSY0PGrcj/S7V6GpXVHx5moqn1PJPkTXOhUBDZrv/X/93GD3/p5Ri9o1B6rCB6/Ngb1sC4CWX8+GI2R6/leZTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CPmW/cL12Xsye1mwODi46kltjXliLuKk2FtaVY7Fr7w=;
+ b=bNVzXQYr4l/6OVUq3VMYq4V90V+rfYRTPCSGgsdKiUmuOFoETXFOf6Lb88j2vMVnkzi40XqVYMdzXhZdwlEE1w93wrN2t+x3ukEwTnVPFDUJBgygb0uxaTiWJ6o36tBSJFPdeRCmR8DHshTU/3Eln53bnBeRduE4c2eq8cXfa+7ZbSHtng7cJyhzdOhNRbUfdviPZmNxQchp3pHgoQiRDOExmGKmA4oF9ctzxdYdu8phDfLA70BAcSB+TVSrBbFUY0+eoio6/2+tuTNADWXjS4esPm9AQbwebHwaBDHNomx4+gyO+3TKffsMheSo/eaMD+1rQ7p2kZcqRBKEfBhQOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CPmW/cL12Xsye1mwODi46kltjXliLuKk2FtaVY7Fr7w=;
+ b=kmDP722CYLQe3gpt4NpSQc0A6HLkB/5Shyu5wesjBD3meTcCMB5tni1TGZyjnH515ykKK49Drpc71RBkGVX5antU3SEQQBBQF8l0tavTxFe7pI8L47Z8O8JueWYLG8q6sh0aPwhRQ7X3Q63ytTL+YSgmJozGGVogGboQ8A0YVyNIqRJoPhhUnJ3nx78/KqoLl4vHuKmV+nVfTC3f+ITWiZAdA2wD0ITUv2VQsPe9xb+u3DyJUY5Y5jiYKCF/GrKoxo3hBLVfYec1QUv9hTXLRiS05B7u0An8h1N7svJYAJW73DLig2a6uy427u7P/ddQjno9SiDB1dP4/jn3HpK9Yw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 07:36:36 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 07:36:36 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Tue, 27 Oct 2026 16:35:58 +0900
+Subject: [PATCH v6 15/15] gpu: nova-core: gsp: add `rpc` to RPC message
+ send/receive methods
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-cmdq-rpc-v6-15-bed9669724ba@nvidia.com>
+References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
+In-Reply-To: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
+To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
+ Gary Guo <gary@garyguo.net>
+Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYWP286CA0024.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:262::9) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,289 +104,253 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] nvme-tcp: skip TLS control records while waiting for
- the ICResp
-To: martin.nvme.dev@gmail.com, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, Hannes Reinecke <hare@kernel.org>
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- Martin Belanger <martin.belanger@dell.com>
-References: <20261026-nvme-tcp-ctrlrec-fixes-v1-0-ebf6ff7eff34@gmail.com>
- <20261026-nvme-tcp-ctrlrec-fixes-v1-2-ebf6ff7eff34@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261026-nvme-tcp-ctrlrec-fixes-v1-2-ebf6ff7eff34@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-12.00 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.00
-X-Spam-Level: 
-X-Rspamd-Queue-Id: DF3DB1F791
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB8451:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ec925b1-c738-4328-f048-08df33fd0802
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|261026121527099003|261021123027099003|56012099006|11063799006|261022105027099003|261009223027099003|261022075727099003|261021121427099003|10067099003|22082099003|18002099003|6133799003|261026140227099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	zfgT5JOQ1Oi1FwWTNzPEA8oC+3UKpvJcLOCoPloLFgV+6O36SU7Ip+tN432fqHUqr9GecGdheONaXO8yeIUlZz29ZxqU+AexZ2M5wnsTUz5HxQYc4NE6LOICW3FFtW+2vbiW+Dl48tN5lyLcgMtNausK7GemtmXqw/hILQwFv+jDWPdLkaMgLcr5VFXz/icASv+kBEDplpfHVuRj+Db0nsxBaZoUqD+HGv1vE96GeegfckhEiBiTQF8WEIowD5rC+Qiq7x8UKbnNJC2cWuE5PLGOsJ9neTLPYeRstC/QPE+yFJFwvUNEG6Uyd/HNX0vVGGIFvlWcUE7/Po4YbJ/h2mVnNI29WopUlNNausFrUXpMIvfCqDwvxp2PFMC6W8GHdgk3gshObtR9Onyi5QUWqgbAs0LEY2E4y01FSJLRDG5O9WAKr9JWJ1AhwBs3VEuoMS7Y+24D35ppr9W86MYgoHMtr9LM41Iz6u033sD5M88gtd3H4yCrkByxY3c2K2df17t0civ8us7bsp8HjfMHu3Qab2ebN+5VNn2X8px6MgyDZJNJkCvp+c8R15w+/6wICK6AKNXbbXHEsvgAx/DUuvAGzQ94OdIC5eGXbIkUiVEoBMAkaH/2//PU5ndvVxT01boCRa6iUcH/sO2cJyJk6NRlL9MeHRqsecXJaeXsXL4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(261026121527099003)(261021123027099003)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261022075727099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Risya2h4YXg0VUhiMGUxajFBQnpob3lYRkZpWFczalFUVTVwRDBwSCtWUkhW?=
+ =?utf-8?B?RXFXaElXaTRZZ3VWbXp4VHBVSjJDSXFZYUpWUFdwRFZsK1QrcWRnRG4xKzRS?=
+ =?utf-8?B?UElXQkVQa05pSVprS1c2b3dyd2drQ2FFdmhqT3JsVXlldFFFYlY4NjNvRnhi?=
+ =?utf-8?B?bjlvUE9jZnR6TkYwYjYrbU1hemxZRkllem1GbXlSRmRHOEZvcXpUMm5oRFJ0?=
+ =?utf-8?B?MVZqS0IwUHNmVjZxNzNNOEk4S3ZpdWpXT1RXUEtKZlBudDVoSDZLVm9TNXJT?=
+ =?utf-8?B?RGtaczhNd21aVW8rQXVKOUJDQmlweXVYVTB1cXhUNTFXRUtUczArLy8zL2Zr?=
+ =?utf-8?B?cHFQNjRHMWpsdVhxeTdTeFFySGRLQSt5YjRLbWJ1bDkzZGl3UTU1ZGlzdis2?=
+ =?utf-8?B?Vm95Vld5RzBIaW1TNUoyZkxsZXFpdDJQbGVJWGpERHhWeEpnVzg4K1NnVTZG?=
+ =?utf-8?B?RUpZOE16WUdnU1ZrRWVpWUNHaFdZUUZrNzQ0THZnemswVFFKVldhV1ZBVmxn?=
+ =?utf-8?B?QkZLRDhuZ2JiUUFxTTlUK3VvamRtRXFUeTFDN1ViKysxNHVqcmc1VkJnb0NO?=
+ =?utf-8?B?c2JkTWtkLzhzOGVYcUVIRml1d1hZaHVES0N6N0YrcXE0WHVDd1BDcmplMVR3?=
+ =?utf-8?B?LzMxc2ZkVHY0dCtUN3NZaDJYQU5iVnZPWVd5SzQ4VFNnYUFOZzVGZEUwUVdo?=
+ =?utf-8?B?ZXZONE5sbkpwc1JqRDhGZW1UUGh3bE1EYnkvR3d1d2RzamlxM09ia1RiWUlL?=
+ =?utf-8?B?enU1MFhHb2xENUJuQnZpaXdnTzd2VndQRHZDS0VjcEZDQ1hZTnA2NjY3aEN6?=
+ =?utf-8?B?a1VMYkVJNHNob3RUOEFqdm90R2xIR2RReU0rWVdiL1ltWFUrRFdjclFWcjJC?=
+ =?utf-8?B?UTZyVXd6WmFra1ZDU05xTVQ1UmxTRktId215L2JzVjF3akJCYzVJUlQyangz?=
+ =?utf-8?B?NEhzQUFQNUt0WlRpUlAxN0pSQm42Y1pkanBBU2RIQTAvcmJ4R2RFd3JTdDEv?=
+ =?utf-8?B?UmtKbnJ4dEgzZWdRT29SL0QzNkVLVVRnQ0Uyek5sUTZrMmpWUitZeWJKNi9Z?=
+ =?utf-8?B?M0gvbXpiUW54Q0xybmlOaWVHZ01UekU1dUJObXA5WXAzMnR3WHF4NmsxNVk4?=
+ =?utf-8?B?NlFIWmJ3djJlZzBpMFNIY0UycjdlWG1McEh4Mmo5dVVqQzl4aFVkbVMrZENX?=
+ =?utf-8?B?MTJxNThkMjZvN0RVQmEvQTBVcll6eVRzOEY3Sjh6ZUlyOHAvU3N2WWlRQTIv?=
+ =?utf-8?B?MCsvb2txVHJzQXVVMXdIK3JMSkJlM3JhQ0ZOUjE1U3FObjhpNUZCK1RtTVRk?=
+ =?utf-8?B?NGxaVzBuelBKQVdxa2gwamg5SHpDN2ZsK25nSHJSaHh3SlNCTkpXMlpJNnNa?=
+ =?utf-8?B?azkrMlIyZzZmZnVsV1hhT3NaOVJrS2FOQkRKVTFWTlZyL054OGsvbFVLZGQr?=
+ =?utf-8?B?TGRCMkdnVHI3RzNaVWYva0h5L3dtVER0aFBlZHJrQklBdmZ0ZnNReDRQKzRC?=
+ =?utf-8?B?eERwcUI5eHd2OW12S2RIZ0g4Ni9YZWZBTWllc0p5WEhMMTVSUDB4d3NiTkcx?=
+ =?utf-8?B?QndvRlNwWnVPRm16RGtCTDBtc0xwZVBaOGZYUExINlBBS3IrRThiUEN4ZTNZ?=
+ =?utf-8?B?L0hKL24wRUxzQ2xlcjh5U2JIYXYxM3UyYWRKby9jOUd6TS9nZVFCT2tuS1B3?=
+ =?utf-8?B?N3ZRSUtnN3llOEpGRzZMQlBXajRPbW5tdHVpMzJyQ3RPU2pRQlgxclVIcDhz?=
+ =?utf-8?B?ckFDOU02THBOQ3NjcXg5VklvSlJjd1d6YWs4N1l6cVprZ0kxYUpzalFzNVJR?=
+ =?utf-8?B?TFFmWXdNWE5BREtlVUVVNE9iS1BIT3I1TUlCV2hleFVXUHh3dmtpTzVqTEsz?=
+ =?utf-8?B?WTk2THBUd2xxMTBCVnpSQVpvQmN6dWlxRFYzeS9uaUpBN3pZeE91YStTZlN2?=
+ =?utf-8?B?bVN3K0JaSGRaYjVYazZUV2E1NEwxQ2RNekVKbmY4ekc2U3NXQjBDeGVYQmJ4?=
+ =?utf-8?B?NmVLaGIxeU5iZ2NmMEVhemMwNkFRMzM2TUJDWldnWjJmTXljcm9TTUtIVklh?=
+ =?utf-8?B?SmJTS0VWM3RsN2tNY0JsSEQwUnhKVTdzRHViYUJ3d1pvZzNMWENxczJET2J1?=
+ =?utf-8?B?cit0ei9QZFNhYlJqZkw3a29wTTZ1eDVnSERZeUdUcU1MaFJ0Wm9jV3FqWHZG?=
+ =?utf-8?B?cWZKSG9MKzQybFdFSUV3TDl0ak1nU3llUkt4VjdPSjBGVWlqWElEVWQ1cm1N?=
+ =?utf-8?B?VXJ1RHMvbXprVlUwU29hN0E1WlVoL2t4NDZWcXQxSjB5TFVabDdSQmtIWW9Y?=
+ =?utf-8?B?Sk94ck8wdUFlOXNMWjhNeVp1dHErL1dWUzhvWnQ0WjhnUUNYU3JTK3p5NnVL?=
+ =?utf-8?Q?q5PUY9csD27bChHBmo+cvbeRt+kwzP8qVGQimSnFout+A?=
+X-MS-Exchange-AntiSpam-MessageData-1: bL4itj1bTf8YVA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ec925b1-c738-4328-f048-08df33fd0802
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 07:36:36.5133
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nnX6GtveUW2l4KrADB5p8IM8zqtpniFfMYeG7XxrLFfBGAAzVurtjv4TXqxaq8gLbZfkDzQeZTzUQBGOO3FrNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8451
 
-On 10/26/26 7:09 PM, Martin Belanger via B4 Relay wrote:
-> From: Martin Belanger <martin.belanger@dell.com>
-> 
-> A peer may send a NewSessionTicket as soon as the handshake completes,
-> ahead of the ICResp. nvme_tcp_init_connection() fails the connection on
-> any record that is not application data, so such a target cannot be
-> reached at all. An OpenSSL-based target does this by default.
-> 
-> Discard such a record and read again, up to a fixed number of records.
-> Report an alert, and fail the connection for any other record type.
-> 
-> The record type is now checked before the length. A control record
-> shorter than the ICResp was reported as -ECONNRESET, which hid the real
-> cause.
-> 
-> Fixes: 2837966ab2a8 ("nvme-tcp: control message handling for recvmsg()")
-> Assisted-by: LLM
-> Signed-off-by: Martin Belanger <martin.belanger@dell.com>
-> ---
->   drivers/nvme/host/tcp.c | 157 +++++++++++++++++++++++++++++++++++++++++-------
->   1 file changed, 135 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-> index a03476f0f69d..2d361a9e8710 100644
-> --- a/drivers/nvme/host/tcp.c
-> +++ b/drivers/nvme/host/tcp.c
-> @@ -55,6 +55,12 @@ MODULE_PARM_DESC(tls_handshake_timeout,
->   		 "nvme TLS handshake timeout in seconds (default 10)");
->   #endif
->   
-> +/* read a TLS control record in chunks of this size */
-> +#define NVME_TCP_TLS_REC_CHUNK 256
-> +
-> +/* TLS records read while waiting for the ICResp, the ICResp included */
-> +#define NVME_TCP_ICRESP_MAX_RECORDS 8
-> +
->   static int nvme_tcp_cpu_queues[NR_CPUS];
->   static DEFINE_SPINLOCK(nvme_tcp_cpu_queues_lock);
->   
-> @@ -1548,12 +1554,138 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
->   	mutex_destroy(&queue->pf_cache_lock);
->   }
->   
-> +static int nvme_tcp_recv_tls_alert(struct nvme_tcp_queue *queue,
-> +				   struct msghdr *msg, int len)
-> +{
-> +	struct sock *sk = queue->sock->sk;
-> +	u8 level, description;
-> +
-> +	if (len < 2) {
-> +		dev_err(queue->ctrl->ctrl.device,
-> +			"queue %d: truncated TLS alert\n",
-> +			nvme_tcp_queue_id(queue));
-> +		return -ENOTCONN;
-> +	}
-> +
-> +	/* tls_alert_recv() reads through the iterator */
-> +	iov_iter_revert(&msg->msg_iter, len);
-> +	tls_alert_recv(sk, msg, &level, &description);
-> +
-> +	if (level == TLS_ALERT_LEVEL_FATAL) {
-> +		dev_err(queue->ctrl->ctrl.device,
-> +			"queue %d: fatal TLS alert %u\n",
-> +			nvme_tcp_queue_id(queue), description);
-> +		return -ENOTCONN;
-> +	}
-> +
-> +	/* a peer shutting down normally is not worth a warning */
-> +	if (description == TLS_ALERT_DESC_CLOSE_NOTIFY)
-> +		dev_dbg(queue->ctrl->ctrl.device,
-> +			"queue %d: TLS close_notify\n",
-> +			nvme_tcp_queue_id(queue));
-> +	else
-> +		dev_warn(queue->ctrl->ctrl.device,
-> +			 "queue %d: TLS alert %u\n",
-> +			 nvme_tcp_queue_id(queue), description);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Discard a TLS record that arrived in place of the ICResp. A peer may send
-> + * a NewSessionTicket as soon as the handshake completes.
-> + *
-> + * Returns 0 when the record was discarded and the ICResp can be read, or a
-> + * negative errno if the connection cannot continue.
-> + */
-> +static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
-> +				    struct msghdr *msg, u8 ctype, int len)
-> +{
-> +	u8 buf[NVME_TCP_TLS_REC_CHUNK];
-> +	int ret;
-> +
-> +	switch (ctype) {
-> +	case TLS_RECORD_TYPE_HANDSHAKE:
-> +		break;
-> +	case TLS_RECORD_TYPE_ALERT:
-> +		ret = nvme_tcp_recv_tls_alert(queue, msg, len);
-> +		return ret ? : -ENOTCONN;
-> +	default:
-> +		pr_err("queue %d: unhandled TLS record %u\n",
-> +		       nvme_tcp_queue_id(queue), ctype);
-> +		return -ENOTCONN;
-> +	}
-> +
-> +	/* the ICResp is in a later record, drain this one first */
-> +	while (!(msg->msg_flags & MSG_EOR)) {
-> +		struct kvec iov = {
-> +			.iov_base = buf,
-> +			.iov_len = sizeof(buf),
-> +		};
-> +		struct msghdr drain = {};
-> +
-> +		ret = kernel_recvmsg(queue->sock, &drain, &iov, 1, sizeof(buf),
-> +				     0);
-> +		if (ret <= 0) {
-> +			pr_warn("queue %d: failed to drain TLS record: %d\n",
-> +				nvme_tcp_queue_id(queue), ret);
-> +			return ret ? : -ECONNRESET;
-> +		}
-> +		msg->msg_flags = drain.msg_flags;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Receive the ICResp. Over TLS, skip the records that a peer may send
-> + * ahead of it.
-> + *
-> + * Returns the length received, or a negative errno.
-> + */
-> +static int nvme_tcp_recv_icresp(struct nvme_tcp_queue *queue,
-> +				struct nvme_tcp_icresp_pdu *icresp)
-> +{
-> +	char cbuf[CMSG_LEN(sizeof(char))];
-> +	struct msghdr msg;
-> +	struct kvec iov;
-> +	u8 ctype;
-> +	int i, ret;
-> +
-> +	for (i = 0; i < NVME_TCP_ICRESP_MAX_RECORDS; i++) {
-> +		memset(&msg, 0, sizeof(msg));
-> +		memset(cbuf, 0, sizeof(cbuf));
-> +		iov.iov_base = icresp;
-> +		iov.iov_len = sizeof(*icresp);
-> +		if (nvme_tcp_queue_tls(queue)) {
-> +			msg.msg_control = cbuf;
-> +			msg.msg_controllen = sizeof(cbuf);
-> +		}
-> +		msg.msg_flags = MSG_WAITALL;
-> +		ret = kernel_recvmsg(queue->sock, &msg, &iov, 1,
-> +				     iov.iov_len, msg.msg_flags);
-> +		if (ret < 0 || !nvme_tcp_queue_tls(queue))
-> +			return ret;
-> +
-> +		ctype = tls_get_record_type(queue->sock->sk,
-> +					    (struct cmsghdr *)cbuf);
-> +		if (ctype == TLS_RECORD_TYPE_DATA)
-> +			return ret;
-> +
-> +		ret = nvme_tcp_skip_tls_record(queue, &msg, ctype, ret);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-> +
-> +	pr_err("queue %d: too many TLS records before the ICResp\n",
-> +	       nvme_tcp_queue_id(queue));
-> +	return -EPROTO;
-> +}
-> +
->   static int nvme_tcp_init_connection(struct nvme_tcp_queue *queue)
->   {
->   	struct nvme_tcp_icreq_pdu *icreq;
->   	struct nvme_tcp_icresp_pdu *icresp;
-> -	char cbuf[CMSG_LEN(sizeof(char))] = {};
-> -	u8 ctype;
->   	struct msghdr msg = {};
->   	struct kvec iov;
->   	bool ctrl_hdgst, ctrl_ddgst;
-> @@ -1591,16 +1723,7 @@ static int nvme_tcp_init_connection(struct nvme_tcp_queue *queue)
->   		goto free_icresp;
->   	}
->   
-> -	memset(&msg, 0, sizeof(msg));
-> -	iov.iov_base = icresp;
-> -	iov.iov_len = sizeof(*icresp);
-> -	if (nvme_tcp_queue_tls(queue)) {
-> -		msg.msg_control = cbuf;
-> -		msg.msg_controllen = sizeof(cbuf);
-> -	}
-> -	msg.msg_flags = MSG_WAITALL;
-> -	ret = kernel_recvmsg(queue->sock, &msg, &iov, 1,
-> -			iov.iov_len, msg.msg_flags);
-> +	ret = nvme_tcp_recv_icresp(queue, icresp);
->   	if (ret >= 0 && ret < sizeof(*icresp))
->   		ret = -ECONNRESET;
->   	if (ret < 0) {
-> @@ -1608,16 +1731,6 @@ static int nvme_tcp_init_connection(struct nvme_tcp_queue *queue)
->   			nvme_tcp_queue_id(queue), ret);
->   		goto free_icresp;
->   	}
-> -	ret = -ENOTCONN;
-> -	if (nvme_tcp_queue_tls(queue)) {
-> -		ctype = tls_get_record_type(queue->sock->sk,
-> -					    (struct cmsghdr *)cbuf);
-> -		if (ctype != TLS_RECORD_TYPE_DATA) {
-> -			pr_err("queue %d: unhandled TLS record %d\n",
-> -			       nvme_tcp_queue_id(queue), ctype);
-> -			goto free_icresp;
-> -		}
-> -	}
->   	ret = -EINVAL;
->   	if (icresp->hdr.type != nvme_tcp_icresp) {
->   		pr_err("queue %d: bad type returned %d\n",
-> 
+Since we are going to introduce a second type of message, add `rpc` to
+the names of the relevant command queue methods so we can distinguish
+between the two.
 
-Thanks for doing this. Turns out that the 'new' TLS RFC 9846 actually 
-requires us to drop NewSessionTicket message as we don't do session
-resumption.
-Note to self: we could check to (ab-)use the NewSessionTicket mechanism
-for I/O queues when creating the connection; might be interesting.
-Anyway.
+No functional change intended.
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+---
+ drivers/gpu/nova-core/gsp.rs              |  2 +-
+ drivers/gpu/nova-core/gsp/boot.rs         |  6 +++---
+ drivers/gpu/nova-core/gsp/cmdq.rs         |  2 +-
+ drivers/gpu/nova-core/gsp/cmdq/rpc.rs     | 24 ++++++++++++------------
+ drivers/gpu/nova-core/gsp/commands/rpc.rs |  2 +-
+ drivers/gpu/nova-core/gsp/sequencer.rs    |  2 +-
+ 6 files changed, 19 insertions(+), 19 deletions(-)
 
-Cheers,
+diff --git a/drivers/gpu/nova-core/gsp.rs b/drivers/gpu/nova-core/gsp.rs
+index 75a3ba7d50f4..ed7eef21e8f9 100644
+--- a/drivers/gpu/nova-core/gsp.rs
++++ b/drivers/gpu/nova-core/gsp.rs
+@@ -221,7 +221,7 @@ pub(crate) fn new(
+ 
+     /// Query the GSP for the static GPU information.
+     pub(crate) fn get_static_info(&self) -> Result<commands::rpc::GetGspStaticInfoReply> {
+-        self.cmdq.send_command(commands::rpc::GetGspStaticInfo)
++        self.cmdq.send_rpc_command(commands::rpc::GetGspStaticInfo)
+     }
+ }
+ 
+diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
+index 8e446ad1eac2..0d0b07fafd4f 100644
+--- a/drivers/gpu/nova-core/gsp/boot.rs
++++ b/drivers/gpu/nova-core/gsp/boot.rs
+@@ -43,9 +43,9 @@ pub(crate) fn boot(
+         let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset), GFP_KERNEL)?;
+ 
+         self.cmdq
+-            .send_command_no_wait(commands::rpc::SetSystemInfo::new(pdev, chipset))?;
++            .send_rpc_command_no_wait(commands::rpc::SetSystemInfo::new(pdev, chipset))?;
+         self.cmdq
+-            .send_command_no_wait(commands::rpc::SetRegistry::new(ctx.vgpu.state())?)?;
++            .send_rpc_command_no_wait(commands::rpc::SetRegistry::new(ctx.vgpu.state())?)?;
+ 
+         // Perform the chipset-specific boot sequence, and retrieve the unload bundle.
+         let unload_bundle = hal.boot(&self, &mut ctx, &gsp_fw)?.or_else(|| {
+@@ -91,7 +91,7 @@ fn shutdown_gsp(
+         mode: commands::rpc::PowerStateLevel,
+     ) -> Result {
+         // Command to shut the GSP down.
+-        cmdq.send_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
++        cmdq.send_rpc_command(commands::rpc::UnloadingGuestDriver::new(mode))?;
+ 
+         // Wait until GSP signals it is suspended.
+         const LIBOS_INTERRUPT_PROCESSOR_SUSPENDED: u32 = bits::bit_u32(31);
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index ddf3f6256222..e6d9a97130ea 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -62,7 +62,7 @@
+ use super::regs;
+ 
+ /// Marker type representing the absence of a reply for a command. Commands using this as their
+-/// reply type are sent using [`Cmdq::send_command_no_wait`].
++/// reply type are sent using [`Cmdq::send_rpc_command_no_wait`].
+ pub(crate) struct NoReply;
+ 
+ /// Trait implemented by types that can be sent as a single command queue element.
+diff --git a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
+index 13baf4398632..2c52ec78871b 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq/rpc.rs
+@@ -158,9 +158,9 @@ fn write(&self, dev: &device::Device, seq: u32, dst: &mut GspCommand<'_>) -> Res
+ 
+ /// Trait representing messages received from the GSP.
+ ///
+-/// A reply that [`Cmdq::send_command`] waits for, or an event that [`Cmdq::await_msg`] waits for.
+-/// The receiver matches a message's function code against [`Self::FUNCTION`] and decodes the
+-/// message with [`Self::read`].
++/// A reply that [`Cmdq::send_rpc_command`] waits for, or an event that [`Cmdq::await_rpc_msg`]
++/// waits for. The receiver matches a message's function code against [`Self::FUNCTION`] and decodes
++/// the message with [`Self::read`].
+ pub(crate) trait MessageFromGsp: Sized {
+     /// Function identifying this message from the GSP.
+     const FUNCTION: MsgFunction;
+@@ -284,7 +284,7 @@ impl Cmdq<'_> {
+     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
+     ///
+     /// Error codes returned by the command and reply initializers are propagated as-is.
+-    pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
++    pub(crate) fn send_rpc_command<M>(&self, command: M) -> Result<M::Reply>
+     where
+         M: CommandToGsp,
+         M::Reply: MessageFromGsp,
+@@ -292,9 +292,9 @@ pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
+         Error: From<<M::Reply as MessageFromGsp>::InitError>,
+     {
+         let mut inner = self.inner.lock();
+-        inner.send_command(command)?;
++        inner.send_rpc_command(command)?;
+ 
+-        inner.await_msg()
++        inner.await_rpc_msg()
+     }
+ 
+     /// Sends `command` to the GSP without waiting for a reply.
+@@ -306,12 +306,12 @@ pub(crate) fn send_command<M>(&self, command: M) -> Result<M::Reply>
+     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
+     ///
+     /// Error codes returned by the command initializers are propagated as-is.
+-    pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
++    pub(crate) fn send_rpc_command_no_wait<M>(&self, command: M) -> Result
+     where
+         M: CommandToGsp<Reply = NoReply>,
+         Error: From<M::InitError>,
+     {
+-        self.inner.lock().send_command(command)
++        self.inner.lock().send_rpc_command(command)
+     }
+ 
+     /// Waits for an unsolicited GSP event of type `M`. Events that arrive before it are logged and
+@@ -327,12 +327,12 @@ pub(crate) fn send_command_no_wait<M>(&self, command: M) -> Result
+     /// - `EIO` if a message fails framing or checksum validation.
+     ///
+     /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
+-    pub(crate) fn await_msg<M: MessageFromGsp>(&self) -> Result<M>
++    pub(crate) fn await_rpc_msg<M: MessageFromGsp>(&self) -> Result<M>
+     where
+         // This allows all error types, including `Infallible`, to be used for `M::InitError`.
+         Error: From<M::InitError>,
+     {
+-        self.inner.lock().await_msg()
++        self.inner.lock().await_rpc_msg()
+     }
+ }
+ 
+@@ -348,7 +348,7 @@ impl CmdqInner<'_> {
+     ///   written to by its [`CommandToGsp::init_variable_payload`] method.
+     ///
+     /// Error codes returned by the command initializers are propagated as-is.
+-    fn send_command<M>(&mut self, command: M) -> Result
++    fn send_rpc_command<M>(&mut self, command: M) -> Result
+     where
+         M: CommandToGsp,
+         Error: From<M::InitError>,
+@@ -379,7 +379,7 @@ fn send_command<M>(&mut self, command: M) -> Result
+     /// - `EIO` if a message fails framing or checksum validation.
+     ///
+     /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
+-    fn await_msg<M: MessageFromGsp>(&mut self) -> Result<M>
++    fn await_rpc_msg<M: MessageFromGsp>(&mut self) -> Result<M>
+     where
+         // This allows all error types, including `Infallible`, to be used for `M::InitError`.
+         Error: From<M::InitError>,
+diff --git a/drivers/gpu/nova-core/gsp/commands/rpc.rs b/drivers/gpu/nova-core/gsp/commands/rpc.rs
+index 54c40f29e367..156357dd48df 100644
+--- a/drivers/gpu/nova-core/gsp/commands/rpc.rs
++++ b/drivers/gpu/nova-core/gsp/commands/rpc.rs
+@@ -190,7 +190,7 @@ fn read(
+ 
+ /// Waits for GSP initialization to complete.
+ pub(crate) fn wait_gsp_init_done(cmdq: &Cmdq<'_>) -> Result {
+-    cmdq.await_msg::<GspInitDone>().map(|_| ())
++    cmdq.await_rpc_msg::<GspInitDone>().map(|_| ())
+ }
+ 
+ /// The `GetGspStaticInfo` command.
+diff --git a/drivers/gpu/nova-core/gsp/sequencer.rs b/drivers/gpu/nova-core/gsp/sequencer.rs
+index 9f5ab08def2c..23b09fb875e9 100644
+--- a/drivers/gpu/nova-core/gsp/sequencer.rs
++++ b/drivers/gpu/nova-core/gsp/sequencer.rs
+@@ -343,7 +343,7 @@ pub(crate) fn run(
+         libos: &'a Coherent<'a, [LibosMemoryRegionInitArgument]>,
+         bootloader_app_version: u32,
+     ) -> Result {
+-        let seq_info = cmdq.await_msg::<GspSequence>()?;
++        let seq_info = cmdq.await_rpc_msg::<GspSequence>()?;
+ 
+         let sequencer = GspSequencer {
+             bar: ctx.bar,
 
-Hannes
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.56.0
+
