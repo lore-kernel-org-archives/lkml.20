@@ -1,68 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105677;
-	b=DMd6ihRdXZCUx2x2MhfW9dapZ+LIvIhIlKgsyORovfHoN+iZxLorE1ArBlBZ9hhCZhlQ
-	 +UcNI76wHyOz1HR4ZMQ7HrYTGW9E4deiJLYGSEfpWEcRUeR9VbVdzF+QkOcmhaBr0m4Do
-	 MhA4J8GC5oD7Yp3dCqOd5rWG4GgjeS3vLfY/T5okO0s9Sa5jSW3Brhzadot1nJfUq/uXy
-	 3PEMzi+n8YKpz5NjWZeJBn9PSc2AcIWd5c5/JZZ0V6AdC0lgj/qmxpA1YDU3t0j5b9NIf
-	 5nuyJCoIK4TGR1ys4MXKkTJ90b80Sb4/dxvhZ80n4BHJQ364lOJiWyXNiKA39o4pTnA==
+	t=1793105712;
+	b=et5R/XEDEyiK4p6OHtGmOeFKuMafE8qKRqCYGTHYGPoX1XQW33IAvrvtGIxPNDvmJpqo
+	 7eh9T4ASyWREt6I+AFSrTlnqOeOEHHvrmrw/zcDqvqTbg2RoHjJFlEjRd7uhUUZ9hk+A9
+	 xlnkj+IFWS6AvphaU0QikVSVhyPmEXOns9vKOrg2ZreyXh0seBRW8t1WFm/GilNyWLLRW
+	 WGKdkGaW9rgA0s8pRLwRTGfnDq/BGmUM4XxO61A5aHJ3JPyXgygTRNUTTMmu3/l60cyQe
+	 7jlx+BrfYGlNYRGg8TB+Ciz82/Rkg3cFR1qEOgcs/Ti5s9gqLCQT8FGT2BTbdUg6lYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105677;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=w2Eb4Z3/NENc4HHbZuUZ5NK5jd4aIWZeLoSJWD4efno=;
-	b=EqNzpocql+z1LMZ3XDDBEihaEycAsXkAkhPJRqLWlFs5IScVkOttuSByy3/blO0lPzWV
-	 z0sxB7ijbrfwhIIu+/jQphOVSqRKfMb1x1oyt2aeV+jBPZpqPQcXn5Vpn+BGvjKY40Z4Q
-	 ExnvofiMVdrMKMW8v0ahiZcE43ex8s8PtAQQ5+fRjfnNVOph9eFKlWA+pJPon4FB4raw9
-	 JVGxDJS9jpwYKKDkPZnFB+FzMpW/BBgcUY7VRb9tYrFfpJ2JHVwUmf9HitnrU23+I5hAm
-	 oupF6mvge/dRy8fxtRIHXGv+OrTdLrIroEA7FbyApRgx57/g+HCrM8BpumEpwV3djZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105712;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=l8rtHrapaottmx9goZkL6akyA4nq8Ox0o4KHJkDcn9s=;
+	b=IkiOsnHsNZcW+kII5+JB2kTeZmyOqEk33Xc/eGu2b6OKFutC7r88qeQHYdPZcEI06Ytq
+	 ZwCFv7ttgGWCQVfDgl3mO4rFFDkPito4MIBbwgIK4XLi642jpdEZH2eIEH5/eXpteY8/2
+	 iyE/H94KqPMnZ+WmN2sfukmm8TjTjWyJnzT0pP/qRzcl/+RN41z6B22/NoLKkvtuSlApL
+	 16K0kzs5KEw5e1YiWR51qoTX2PBVep9dQOE3HBAj89qqpYZ+OA9liTgOz0IOuuf1nC8ND
+	 waSYs6y4a/gHb0woEpi33Gxi1qZYHyRlrNgAzUcHvcdgU/i5AMNaCz3iBF5usFq0sjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=K1eaZA8Y;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b="jII/eFTh";
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33880606A31A;
-	Tue, 27 Oct 2026 12:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33880606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B13B606A31A;
+	Tue, 27 Oct 2026 12:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B13B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=K1eaZA8Y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=w2Eb4Z3/NENc4HHbZuUZ5NK5jd4aIWZeLoSJWD4efno=; b=K1eaZA8YgTh9mhQnw0ZSCZX/0P
-	JGrl9vy19ohl6MaRxt8V8woOuZ2qREY3C2u2XAsd63RjTNgS6DsiQvSv/Z14G1VSauBX2ZOhKPmwj
-	KnlkQz/PrxdvRcSnWXGSrTcqZXu9voEI3iSV25sOL6h94kK+pSu6pCmivaLtDVHrbpF8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xLggy-00Cw3M-67; Tue, 27 Oct 2026 13:54:16 +0100
-Date: Tue, 27 Oct 2026 13:54:16 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Yongzhao Chen <yongzhao.derek@gmail.com>
-Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-kernel@vger.kernel.org, Ziyang Huang <hzyitc@outlook.com>
-Subject: Re: [PATCH net v7] net: dsa: qca8k: preserve port state across MTU
- changes
-Message-ID: <47e9713f-815e-4caf-8928-a7ec12d0087b@lunn.ch>
-References: <20261022155837.760-1-yongzhao.derek@gmail.com>
- <179268501671.3290.6623232109527554630@kernel.org>
- <20261027092718.266370-1-yongzhao.derek@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=jII/eFTh
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C792108A85;
+	Tue, 27 Oct 2026 13:55:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793105704;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=l8rtHrapaottmx9goZkL6akyA4nq8Ox0o4KHJkDcn9s=;
+	b=jII/eFThrQM6/pj3YkTAaPlhsi0wrkdNeuEsdMtU/Uat4y4xQGzuLa+oV6yo8SyFFP11Qj
+	rlLHD0YtGXY+6YYcTI2jglyRB/O9aBS0RrvvMKSu2z8Xoofsf039UFWAhnK2DPhpAyXIy6
+	nF0iKqVUtKzZKmdlBnJAqVa0jP93fkFwZqhXZdldyj+W2xSXLXGz1vGdNUn/H8xDw4UILp
+	VhH6wBCTqb/2t+UmMZJjZ3zmRrCkFjzONguTGW8o+VcyH5A5wk3f4HIEZ4VbN2XMU3wyXq
+	g5TVszijKlAw18o+ODALDahs0YQZOqRpGRBNoSA5D32e0PK++XkhuIA/7mqoYA==
+Message-ID: <b87fb6cb-e9c4-46c7-9306-fce90cbee6e0@nabladev.com>
+Date: Tue, 27 Oct 2026 13:31:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,22 +56,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027092718.266370-1-yongzhao.derek@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V2 2/2] ARM: dts: imx6ull-dhcor-maveo-box: Correct PCB
+ number
+To: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
+References: <20261027111201.20936-1-cniedermaier@dh-electronics.com>
+ <20261027111201.20936-2-cniedermaier@dh-electronics.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20261027111201.20936-2-cniedermaier@dh-electronics.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 27, 2026 at 10:27:18AM +0100, Yongzhao Chen wrote:
-> On Thu, 22 Oct 2026 16:03:36 +0000 netdev-bot+sinfo@kernel.org wrote:
-> >  - How the issue was discovered, e.g. hit in production, hit during
-> >    development, syzbot report, manual code inspection, LLM or static
-> >    analysis tool scan.
+On 10/27/26 12:12 PM, Christoph Niedermaier wrote:
+> The PCB number of the maveo box isn't 525. Change the
+> number to the correct number, 625.
 > 
-> The original problem was found during development, not in production.
-
-The point of these emails it to try to determine if the patch should
-go to net or net-next.
-
-Is this a real problem which bothers somebody? If it has not been seen
-in production, it sounds like it does not bother anybody. So net-next.
-
-	Andrew
+> Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
+> Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Reviewed-by: Marek Vasut <marex@nabladev.com>
