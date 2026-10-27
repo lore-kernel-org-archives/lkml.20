@@ -1,99 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793105104;
-	b=z6hChXamCKlXd6pGNNZDZtogn9/nQB3BhzFksnR5ewICARMP0Bj8pkTAd2Aoxz0sKgSD
-	 MtqJiENuR/YFKoNCN80VW3i38vqRhvDayQitQ71oY1R6cHl7yQmm8yUpeG3GHz8t5xNpu
-	 8fs+RdacUUhkLfd+QP5GYrzsU3RsuMTkdV+Qls8ymJHzSVo2j9UpHm8PIi+/zgyyIejZc
-	 aNsIT21lcFYWC2o9F/xFVW/dY0S+JE79CqAwkMGNQMhGclaU5EfTZ0orlgo7dx8fsrjTy
-	 lxdohqw0cXlX76H+llgy8ZGtZczFxTy5SzexwFHD0KFEvJEgNeiQPQXIYRiog+L/84Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105104;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=tp5Z/PycBAJg9TMmmwDWZ/1o8EUvDrLUX04tXR+wyv0=;
-	b=PnzvmlNxvKLv82a9p1U+O7rbQyB7BVZZ9uAg767Qs8vBT9ltwYp0TXMwx1N3X/S0HK3s
-	 C/QKQrtNe1hzdrRNEDr3abqAOWCMAI9GEumD5o04/YihTj7YBuGDf8buCEaAGCmECL6IN
-	 mTD5V0zv8TOSx/KOsl7fq4SgwbKSt8m7b/KCpKqz7JTaM0jPJltjSUsqGW7HSxZg6yB9o
-	 LzDcmJa9vg6+iw0YxWY5Z0slggjFl1n+vhaZEbGwqzkATNvVJJDJSDuY4FIaDE2T8E1Pd
-	 8GdWS3jXM7hj5sX3v/tDKNCQoRn1avnOvpnFiCAT1gqVE5sCxC1av4GbY1Bkt1WdeUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=clyso.com;
-	spf=pass smtp.mailfrom=clyso.com;
-	dkim=pass header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=fYGlF2xZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793105120;
+	b=QU9LOZ0ML1Ap04AFFYjJg2biV9CBZEnUryx0yAwbJpCx1hxDb2S5jluVPqEbtivsqxJQ
+	 zX2cZWfMGA+ob9jSPE5K3wAa4xcdRbB05+cfakVNFRT64iUNpz/+v5CZ1odYYOy8JAmv0
+	 BkBTZ+RhUTmRyqEUxQtpqC4jYeymXPGGLVHcx8P4eQezghfOW6i4nQWfe0exWgHFlfmAj
+	 QprAAsT8xSFV4OdPmM1rQ380aetlLRa9IDTVtnlcSJUsYZmpjNSX33iWyyBRDQDUkdk76
+	 Z62ZfTioKOjlsKWvXpYqreYEW2wVsPMVtgfzliLUTXuYRdHW/0lh7DrMPHXAvLEBzZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105120;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=cp5F5plX1o9uNVRyUnVlyzWtsNabM89/L+nyYHXZXX8=;
+	b=EhfuI1OSGf74KevBak/85hVDVwbRRVBCjAtufXfK9llFid1tIQcxHXD8nAxG3bB+FcoQ
+	 Rrl574lOmVwMQxtOOPdGMgm0Og9oftTOvIp0IS+/brj+y/7CFyjeYa2do3O9POvmrVTBZ
+	 jQmY6zGHHQguKjjqimth3NqeJhG0/ImQqKkBbjjGSAkBl/HY3jY0hjHGrjqbUpRTEV95E
+	 9jTqYyK9SwKV4CQNmnUTQscgS8N1dc/Nrm8r1UrwL/wwQU+JTEkK3BuSorBlhKslR5K48
+	 F9EPHjqu7KEVJZ2yB1OT4q9Afyhs50DicMtTXu5TLzSFFGHHaHFW32qYSydGgRCsUlg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Q9pYh5eX;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D869606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:45:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D869606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529BD606A330;
+	Tue, 27 Oct 2026 12:45:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 529BD606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=clyso.com header.i=@clyso.com header.a=rsa-sha256 header.s=google header.b=fYGlF2xZ
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c450ab1483cso558054566b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:45:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793105101; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MfWoYIgtpLmQaIui+H2xmX3K6NGkdMgn2tsC2y4uV2UW7lrdv7yI02a6R+RYS5z1lb
-         NVIu5h8raJ9FOhMB+qyYihktfYgO1nCum0Gqwdyt9e9nHZJ+UpRTSphex5oJvuUalQ2m
-         8dNr+HpA0/3ZmJXQR8u2lLIYdmHpskMsVZPriGbrmvWNUYrldrkWqX1lmlIE/Fdsbdhq
-         /zQ6hx3rrfmAu9MQzBciZGuzI4/Wy27i9pt6170cLm8ZuJIvOVFJiVxLNI0VvSen0klX
-         AsWaNFK7nI35tJszJ97Ovdnm2U3KYVQgoJk17sAubxNexISN0daY9vtw1E9mEcPkhWiA
-         lIkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=tp5Z/PycBAJg9TMmmwDWZ/1o8EUvDrLUX04tXR+wyv0=;
-        fh=fPGrc1dIqhW1sdGEb5a4ZvPlN7ZHWU4yYd5yJecqrgY=;
-        b=frH3VIRRW/1JydW6+uWjBsQgFDIsgsPszY9qPaDAR4zzkkCo+/H4s2/jJU0rzu3nM9
-         s3f/L7iRdPktLceR6X/SEkIhF5ZGgoNCWABdsOqdX8SpNtw9aGPvMmvTfzfYLBYHP2Vw
-         lEjfYbhyCd3SwQLx6xYfP9PkPkFTOshb+DFdCGrmjbtvwAPWUSprlbsB89v1khKTIPj6
-         o4ySxdxqtTc9Hsg3ECoh7vpL1Sd6w9VidVm0J5DVNiQSM5XGICFWSriosRr+qc8pxGnK
-         9VThbScLDY7lF83SNktEpKj0FT9PLECnwAJyPvCtGxVrUakSrUTSHddsdnbqxGBjIKgE
-         ZRMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1793105101; x=1793709901; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tp5Z/PycBAJg9TMmmwDWZ/1o8EUvDrLUX04tXR+wyv0=;
-        b=fYGlF2xZvMKZpXD35R3nsX3JNM8VYluoq0Sj5pX1aaLxFpGjyWGA43KLCVb2+L9ohT
-         3AEYCqTkA7WblXENEhH2k+nw0OAYFhNUcjuSClCZgJumuylOegdtXosZ4pDVkyS6L1Db
-         z/ewE+Sw5R165rqd36h2P2En56J8ih29CGIN6QKqlROosTvZ+ugDhzAA70CDkShIpFoT
-         ySjqyqzy7o4YsQx0o9MM6OXqjIM6EX+pi9ZsNDiiF4Sl6l2GlS86ZeN9Ufi1kpsoEsnL
-         G0xiTzsEOoMawiz7LwRXR5MsYFw7HUhYbicJXk7PCZJbx8R24ZeZu8BE1lVg3cMMTUKb
-         vcxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105101; x=1793709901;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tp5Z/PycBAJg9TMmmwDWZ/1o8EUvDrLUX04tXR+wyv0=;
-        b=12vv1ko7e5UXmYdg2muyVRZhc73niOIdmmBvqSnzrXPA7UYRaMVN/T6qaPFvJ/bn24
-         4wLdPaNkhPSvK8iV5IMqMf5+xvlDwGYaX/SC4o4oxphffm0WEAz1XoLthhbf5xT/q5uz
-         jQjusJpQymcqjpmuq/dNYwLG1mruQUqgjDGKZyn7rAb+mLf9e0U8x2SJIdn8Qj4aMAGL
-         F00OGFSCxP41Osob/0Q/VJctjsa+6XYGOBGTkqCtLRwuEjI7AGCvfjaDNMJPbfDs0U54
-         Yg5LAY4ah7bemLgth7ciWIaSTs75cq2Me5EyH57oP2kR3uJSHH4nufHnlZr5RQM3eCML
-         DmSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwktCR7Y+yb8Sj7zkRdYDfY5grYiF83S2MReOUPbNnFdalm1W3Mmdfc/PtKaA5z6dAkG2plVLrFhGtc/vs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmI6zc58PzmQNsOBObnPobVuHMpNfOWBNzvA9Cl43ucHrzGMZ+
-	/LWO/K5IR0qjfM6SqTN8uYmGz/whgDrmsvSwH73JVjHzWGq/SFtsIT+SBqsi5YbE5f0bDushJBP
-	tX76Bcq8vR9P19Jql1mDqFAvWZEQ62UGyogkMQawtaw==
-X-Gm-Gg: AYBFou2jUJwbvvG1/eViE4/LZKy7GE6RVbrHWMU/pJIOtah9VCLriFLYwIPL/FcPX0C
-	u0cAREyUqJ0DcwTRL4auNS7PnOW4zALDXl3v3vNyrHtPhMEI7jY20nkXULhyo2w05dn8O+v/mcT
-	HGpkuZy5IY0wl6ZL/WNhmSBBuPT1pOn8KYCSvpdU4b15C4c+wG79ZpsULvAXfBIoZmHSgr6BwzS
-	UEA7Qo9iNtJRH5wQFfHiUenTi7ZJiTxnAl5SNQwvsNcWTCKl37Zw0f8rfJn8xWOoIGO+MP3IwBn
-	d3wLcjIjvaXnxzpzvYFwWJEiz3jStcw1d/MvILcJAq8LijXDaHSu1fDMS+StEJAJdby/2fSV+Hc
-	lp8/G1gQwvyCbuIITTNl5Zc6Gwmb8b81b3rY6pDo=
-X-Received: by 2002:a17:907:3d56:b0:c46:2987:2156 with SMTP id
- a640c23a62f3a-c46bde530a6mr1170312866b.29.1793105101334; Tue, 27 Oct 2026
- 05:45:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Q9pYh5eX
+Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 03BCB1C3F4F;
+	Tue, 27 Oct 2026 12:45:16 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 1F84E20018;
+	Tue, 27 Oct 2026 12:45:15 +0000 (UTC)
+Date: Tue, 27 Oct 2026 08:45:13 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2 6/9] tracing/filters: Skip second character of '&&'
+ and '||' in calc_stack()
+Message-ID: <20261027084513.16dcb663@gandalf.local.home>
+In-Reply-To: <undine-1793059963392038141-496f89524ad52c64@undined.local>
+References: <179291742944.492959.11659339795290028998.stgit@devnote2>
+	<179291748555.492959.3275503783612449972.stgit@devnote2>
+	<20261026164727.0d1636cb@gandalf.local.home>
+	<undine-1793058642821980546-e873f302f6a6d563@undined.local>
+	<undine-1793059963392038141-496f89524ad52c64@undined.local>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,197 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.20261025T182649Z.ca9ae7a18449.git.amarkuze@redhat.com>
-In-Reply-To: <cover.20261025T182649Z.ca9ae7a18449.git.amarkuze@redhat.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Tue, 27 Oct 2026 13:44:28 +0100
-X-Gm-Features: AclHuK-ojbEjvM3prTzqiHVXlqJdtBT0a5aS99YgrWUgj8YCYdBw1ESDVDxY2OQ
-Message-ID: <CAOJNxRKQETQbti6Rgdeekkuo+GAT1xHOvt-G8YvoHsLeDbcP_w@mail.gmail.com>
-Subject: Re: [PATCH v6 0/5] ceph: support subvolume quarantine
-To: Alex Markuze <amarkuze@redhat.com>
-Cc: ceph-devel@vger.kernel.org, idryomov@gmail.com, slava@dubeyko.com, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
-	linux-fsdevel@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
-	ebiggers@kernel.org, tytso@mit.edu, jaegeuk@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: whotn9q6szo35b7buf4zhw3e6c6kk6is
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: 1F84E20018
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+zguBbqu5krc6CbB7lx/helQypDPpL6/o=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cp5F5plX1o9uNVRyUnVlyzWtsNabM89/L+nyYHXZXX8=; b=Q9pYh5eXyKKG3lpi69ZRFB7U6Oi+Qe1mPKkgGR4SRLc0tBzDQesXRZ/Gllo8DgkqN6Q33qoWaS51imiTYdmcdIb2U42pj+WJH+t5qYABWVz0XvYfE/oCWsi6i3X4i/TcKTkFO+hDd/vmboDs/Q+CWqHMh9qzD1HCI9o1DRUbdLI=
+X-HE-Tag: 1793105115-725216
+X-HE-Meta: U2FsdGVkX1/Td6Ojvo70Dsv0u/cRljFIAxmwzShFO+L7SxtpEthVgsRY+yTpTFkxKgocBQZ7yXh2flLfdwZWRexMCZgTAH5yCYRXDkUtMlxsGmpM64LVXdnQ1ljKYQTxQoSrHbzlMdZDtbAYnFB1RGhb14RU3Kc0YvrxCBJpWw8k5a3GBoAWb2/pbMDPktbihTNJvwXGpc6L81QHoQbEZruQad3e99I/7bYRklF8p2PQQTWppziz7u8jzb294rw3NAvh4esWlkra3bN2TzXjW62mywMgKrSP7BNpj2RpyaX7CVcUiigcjDgzfjwR2oAElS5WCOA3ex1nUal42HH79Aq7aOizuWY7
 
-Hi Alex,
+On Tue, 27 Oct 2026 09:12:43 +0900
+"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
-Thanks for v6.  I tested it on a KASAN + lockdep.
+> BTW, to check the correct input is encoded correctly, we may need
+> in kernel selftest or a feature to dump the interpreted pred after
+> "#" line via filter file. Latter one allows us to test it via tracefs
+> (ftracetest).
 
-What is still slower with no quarantine at all (the MDS supports it, so
-quarantine_supported is set):
+Hmm, I guess we can update the filter file, although I'm a bit nervous
+about backward compatibility.
 
-  1. Non-owner path walks.  Every inode gets ACL_DONT_CACHE, so root,
-     other users and group access pay ceph_get_acl() on every path component.
-     d48 stat is 47% slower.  See 5/5, acl.c and ceph_set_ino_cb().
-  2. Owner path walks.  __ceph_do_getattr() takes i_ceph_lock twice per path
-      component.  d48 stat is 9% slower.  See 5/5,
-ceph_quarantine_head_cap_valid().
-  3. Snapshots outside a subvolume.  Every read() and stat() goes to the
-     MDS.  See 5/5, ceph_snapshot_has_path().
-  4. Async create is off whenever the inode has an LSM blob.  See 5/5,
-     ceph_atomic_open().
+IIRC, the libtracefs does self tests and clears filters. That may be a way
+to see if it breaks user space.
 
-All four can be fixed without weakening the quarantine checks.  My
-reply to 5/5 has the diffs I tested, each under the code it changes.
-"v6+fix" below is v6 5/5 plus those four diffs.  With them, the numbers
-are back to base, and my quarantine tests still pass, plus new ones for
-each change.
-
-Benchmark method, for every table in this thread:
-
-  - ABBA order, 12 rounds: base v6 fix fix v6 base base v6 fix fix v6
-    base.  Each variant runs 4 rounds of 20000 ops, 80000 pooled.
-  - One Python process repeats one syscall and times each call with
-    perf_counter_ns().  It is pinned with taskset to a vCPU on a P core.
-    Without the pinning, the hybrid host gave bimodal results.
-  - The VM is rebooted before each campaign, because module reloads
-    eventually exhaust lockdep and turn it off mid-run.
-  - Paths:
-      d48 = /mnt/qa/outside/pb/d1/.../d48   (48 components)
-      d5  = /mnt/qa/outside/pb/s1/.../s5
-      mount -t ceph admin@<fsid>.a=/ /mnt/qa \
-            -o ms_mode=prefer-crc,noshare,nowsync
-  - "owner" runs as the uid that created the directories.  "non-owner"
-    runs the same loop as root, so acl_permission_check() falls through
-    to check_acl().
-
-Non-owner, latency in us:
-
-  test            ops/s   p50    p90    p99   p99.9   max
-  d48 stat
-    base           7422  140.4  153.0  225.5  2174.8  6176.9
-    v6             4909  206.5  216.8  290.3   877.5  2918.2
-    v6+fix         8238  141.4  162.6  217.4   718.4  2132.9
-  d48 symlink stat
-    base           7334  143.3  153.2  190.7   359.2  2450.1
-    v6             4968  210.3  221.1  279.6   777.0  4999.7
-    v6+fix         7238  145.6  155.4  190.8   463.8  2456.1
-  d48 readlink
-    base           8482  138.5  148.3  174.6   307.1  1972.1
-    v6             5046  205.0  214.8  267.3   389.2  1020.8
-    v6+fix         7624  141.0  150.7  184.3   311.5  1233.9
-  d48 open+close
-    base           3826  257.6  277.1  912.5  1842.6  9565.7
-    v6             3026  323.3  346.3  975.5  1721.0  3465.7
-    v6+fix         3685  259.6  277.8  926.3  1755.6  2680.5
-  d5 stat
-    base          59504   15.3   17.6   32.7    51.3   565.1
-    v6            30720   42.0   42.9   52.9    78.8   662.5
-    v6+fix        48144   15.6   32.6   42.1    54.9   445.7
-
-Owner, latency in us:
-
-  test            ops/s   p50    p90    p99   p99.9   max
-  d48 stat
-    base           7514  141.7  151.7  195.2   968.1  1719.4
-    v6             7393  154.4  164.5  202.9   739.2  1972.5
-    v6+fix         7695  143.0  152.8  189.4   809.2  1747.5
-  d48 symlink stat
-    base           6887  145.2  154.9  200.9   335.3  2198.3
-    v6             6409  159.3  169.8  215.4   348.4  2254.7
-    v6+fix         6605  147.2  157.2  209.1   331.1  2132.3
-  d48 readlink
-    base           6907  141.1  151.0  206.8   319.1  3761.8
-    v6             6350  154.2  164.3  229.1   373.0  4344.2
-    v6+fix         6801  143.0  153.0  207.9   319.2  1511.6
-  d5 stat
-    base          35110   32.0   32.7   42.8    74.3   926.0
-    v6            28277   34.6   37.2   45.7    75.5  1399.8
-    v6+fix        30807   32.7   33.8   44.2    87.6  1388.9
-
-pread is unchanged in all variants.  The owner numbers replace the
-"symlinks and cached dentry lookups" section of my previous mail.  That
-run did not pin the benchmark process, so plain stat looked like noise
-there.
-
-Snapshot test (plain directory, not a subvolume; 4M file, 52 entries),
-MDS requests counted with kprobe:ceph_mdsc_submit_request:
-
-                         base             v6                 v6+fix
-  read4k (x1024)         8 req, 0.14 s    1041 req, 0.91 s     9 req, 0.16 s
-  stat x1000             0 req, 0.07 s    6000 req, 4.49 s     0 req, 0.11 s
-  ls -l                 59 req, 0.12 s     950 req, 0.74 s    60 req, 0.12 s
-
-Async create, 500 O_CREAT opens on the nowsync mount, counted with
-kprobe:try_prep_async_create:
-
-  base: 500    v6: 0    v6+fix: 500
-
-
-Thanks,
-Xiubo
-
-On Sun, 25 Oct 2026 at 19:42, Alex Markuze <amarkuze@redhat.com> wrote:
->
-> CephFS subvolume quarantine restricts ordinary access while allowing
-> recovery clients with q/Q MDS auth caps to operate. Add client support
-> for quarantine notifications and enforce them on cached access paths.
->
-> Based on the testing branch of https://github.com/ceph/ceph-client.git,
-> commit ed0502cb11f8 ("ceph: validate encoded xattr name lengths").
-> The full base is recorded below. The dcache and fscrypt prerequisites
-> are included in this five-patch series.
->
-> Changes since v5:
-> - Describe the dcache export as a prerequisite and remove Reported-by
->   and Closes tags for it.
-> - Reject foreign, disconnected and unhashed non-root aliases in ancestry
->   walks while accepting the live, unhashed superblock root.
-> - Reset quarantine state only when the lost or reconnecting session is
->   the reporting MDS rank, including when its cap is already absent.
-> - Check saved authorization's generation even when no inode is marked.
-> - Check snapshot path access and acquire normal wanted caps after
->   quarantine authorization.
-> - Clear detached xattr-buffer ownership after releasing its reference.
-> - Use synchronous CREATE for new inodes with an LSM security blob,
->   before async preparation, including before feature negotiation.
-> - Keep an existing quarantine mark across a zero-error IMPORT while
->   processing imported caps and negative quarantine errors normally.
-> - Use the incoming wire cap mask for clear decisions, so PIN-only updates
->   cannot acquire clear authority from capability bits retained in a merge.
-> - Update encrypted-symlink and capability comments to match their
->   interfaces.
->
-> Validation: GCC x86_64 builds with fscrypt, ACLs and security enabled
-> passed W=1 vmlinux/modules for the final tree and the recording patch.
-> Twenty-six extracted-code quarantine state tests passed, using mocked
-> kernel context. Live cluster, boot, KASAN/lockdep, LSM policy,
-> failover, performance and LKMM validation have not been run.
->
-> Previous submission:
-> https://lore.kernel.org/r/cover.1792527529.git.amarkuze@redhat.com/
->
-> Alex Markuze (5):
->   dcache: export d_find_alias_rcu() for modular filesystems
->   fscrypt: allow filesystems to disable symlink target caching
->   ceph: add subvolume quarantine wire definitions
->   ceph: record subvolume quarantine from MDS cap updates
->   ceph: fail quarantined subvolume access with EACCES
->
->  fs/ceph/acl.c                |  33 +-
->  fs/ceph/addr.c               |  72 ++-
->  fs/ceph/caps.c               | 323 +++++++++++-
->  fs/ceph/crypto.c             |   1 +
->  fs/ceph/debugfs.c            |   1 +
->  fs/ceph/dir.c                |  54 +-
->  fs/ceph/file.c               |  82 ++-
->  fs/ceph/inode.c              | 956 ++++++++++++++++++++++++++++++++++-
->  fs/ceph/ioctl.c              |  13 +
->  fs/ceph/mds_client.c         |  26 +-
->  fs/ceph/mds_client.h         |  30 +-
->  fs/ceph/super.c              |   4 +
->  fs/ceph/super.h              | 101 +++-
->  fs/ceph/xattr.c              |  60 ++-
->  fs/crypto/hooks.c            |  28 +-
->  fs/dcache.c                  |   1 +
->  include/linux/ceph/ceph_fs.h |  13 +
->  include/linux/fscrypt.h      |   7 +
->  net/ceph/ceph_common.c       |   2 +
->  19 files changed, 1706 insertions(+), 101 deletions(-)
->
->
-> base-commit: ed0502cb11f84fff29f374238e526ae94d9bdfde
->
+-- Steve
