@@ -1,108 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103211;
-	b=3WefEbiV5LQv3v5rYB5/FOvRPE/uKWHfbxiwfzUCE8+5MGNDoK9jZyn56BX8nb198mD5
-	 0brhXb3weHVucMVdhGEaMGkczYcP7gvJ6GZjRtbSNacnCETZJNOMoc8TfFwoQ9D0QzPXI
-	 q8G3799Pf5MJC4IxvHfrsRsrZ9lhZ5KcuPIcohXIT6PrgkZIcyafCR5pxbr5CeNC1rlhC
-	 LzNgMaxMg3Xk+I3VzrAmTI2s+UmAa6QkgtJo8rmOjX0TlL+Zz4rgnFbWPnGChuZ5YcrdY
-	 qqwAs6CxTZA3vhAqn7nKuuArGD4rMDQMhjjBAhJv0kuGCdsITN6MyT12S6j2kUiED5A==
+	t=1793103215;
+	b=P32wJHUeEIkvT4LyEU6WsHjMr0rpqa7ZqBOpe3Kl8gvTmRR7m4aChoVkPbSeFXAzeWBa
+	 vUBXJNsTYz+gLH8/Y94mfFeIzdwpu8BlZTiInOzxvcKHkLu7nqJOjBWdYiiUvqyNFZCIK
+	 HSNhkSCk5iNyBtIRkfr48bCJEs9wA9TzgrkZRUIKd2pbmgoUSJ4ZKPbBuKmwhao53DR8g
+	 2lugpZyI5rhCuzWnMeA3TEDHAFX7tUIfgbD5nvt4cOej/Z+uMfnv6eBktfQ+e5j1QXKhe
+	 hSvqi005zS+ErFEJ5LMr8aw4KNTyC1MI1kU/dHeWS23w+wuVGdugL4LJKPjzUcpqd6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103211;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
-	b=wE1OXiMNYDq756Aa3fx01IKUARzucyrak+zHVJ6L2PvsWr3pGifhPlBHGQ+hF0lu2XVs
-	 fAKMio5yzKh1U9bCfcy52E6o9cfY75pY6Rw5tzfJDTUiZ/lKXJrb2HN+2Mc8JSpfCKHFQ
-	 YWGUtF1Fl1Aik3M5/FEdB6/Y+J8NCYyqEiQ0WfSEDyG2tes7CKLcabZukFSomsOFeGJQv
-	 YUDHoWdh22xkRjRj/4DXfznZ/6UuJMEUD18Sez8mtMa3a4pE4uBW+Q0/G1zuY1Row4UHE
-	 amNuh3CpHAEVnNVplrVT+9gqPoTvOxg8t+t+3YYkwI6Se374Z2ISCuJYWIu8JECMBWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103215;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UqgubOSrlWvHKhI1cqoT/fdRktbJuQr2VeGa7H2doB0=;
+	b=3kicCG6GuN2ZjBLiLwP7bNFTyYwKe497advGh/nUo4P55XzlXy3n68XDQ/tn5bi0KooI
+	 VG1UAMYmDwybw2B7jxPVp4em4jzHtvo91ivsV+1SDvT5acDpIh904ocDQRK10ZlLnW5lA
+	 UMBHNTS0N12JuIQFwUP7ERsju5cHvoVmsv7olvqJac9gFVqglVAVE+vE8HCZH4UyCj1Yh
+	 1r5EPwdjGidKxWXbp5jve30rOMliu8l9hbPLh51NwJEfER8Qbwlx0q/ARG06oRW8m0zdZ
+	 0QbLhvYHNmeiQBEUaLmpOhlbLoydWv3Sq1z+j5027LgZRo2FmB5XyS3v9FepZ0XyNsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Jdtkfbrg;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=b4H3Zn2N;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b="RBTg/FKM";
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A67160A380A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:13:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A67160A380A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698EB60A260A;
+	Tue, 27 Oct 2026 12:13:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 698EB60A260A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Jdtkfbrg;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=b4H3Zn2N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793103209;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
-	b=JdtkfbrgCGLwl3Gty2ipvEKU9/LDKoP3Qw9jKYDCasCa0us0OBIBEePN1xStY3MHg5tztd
-	u9qh8FRQIyUo4s8gt0Gmnp9bCT/gWp76ecNrBC9eRBtZ6/S2gQN2b50lO2F23SygVAF2si
-	29bGuH94KYtDnQ2axKKXWDUoWFLy7kc=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-550-Yxq7EgslMMyR5SebS_Zhug-1; Tue, 27 Oct 2026 08:13:28 -0400
-X-MC-Unique: Yxq7EgslMMyR5SebS_Zhug-1
-X-Mimecast-MFC-AGG-ID: Yxq7EgslMMyR5SebS_Zhug_1793103207
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a20e41008cso28159965e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:13:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793103207; x=1793708007; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
-        b=b4H3Zn2NqCXi1TzCWwVZtbcJLilvzGtuX5Ae7E2k3ErGVM7dOd+nMiBdMDSNFelp0C
-         Wql16KwtnUVjx9H2ruY8ZlXpvxUYs0l8bl0gxQFymagtHBUCDym1JqBqWnaQiDCY3WFT
-         FkNIdYM4xt7pRjVV0WXMU+jAagnw0TcyXXcagC6YcuZ7JHem48Mod9XT1XVGtr/3FtLc
-         VQbqtc7WkXyjcTHf5hWQJZhEs9JuticAKj4uksVNVNpYVRFp+7Nq6AOQFxFN+XI2u17u
-         S2WU0CxHDRnkRL9/vEPynUPnhwXDN+md9v3z5RTm/T3m0KtawYMK5ovBlL4H78fo5oWn
-         MnDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793103207; x=1793708007;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bv8zVoHbSrIX7BVSNh9Ga9PU7EhbCPSf8uQb+AR6ROc=;
-        b=R67RmSSk3ss56mYoqn9pnUy4E8Su0cjDbMDKQlrUIup8cKWGYwE0yCln1Ji/wuVpq7
-         F1rqPh0mRtz64JwUAx6hrIk6MOoCLQ837pVCWvCWyX3DIin3nYUEZRmuFoPOpZBMzFBb
-         DSZhwGNlt6MbH0qsSKQeJpjPbctf4/sJvWMP/XjIpn8rMSqikScVNJCWwA372q8hyn/Y
-         I3diEW3ib2Ow99n4IDAoGRm7qg9PmxXWO3XS/EGepAEyLVtRfaOSrXOo1lWm813y+b/o
-         gfZjhF35pSCGTL7Mr5W5le1v4OqJ986EepcSLyvw4OYCES4ip1WmB7vd+w+Jp3NySoNG
-         wUYg==
-X-Forwarded-Encrypted: i=1; AKwUvBydAIW3fEEGWHTSZ59Ql+puJFX6AqRqh7g+ogOFdQUFpqYcibtajPBZEd8WhxqC6MvY3o3OO1WUxB9z0Bk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoNCWv4ahqZjEql+N9Glhag2LcFE6vMYvdITo4j9VJ6688x3j4
-	ZMPfwycCqFfjI//CLSTBecLKnwifJ/Zf/ya6m6JPmxl4QmSDvN0JpAA2D5ek5BsNDAKTWIV779s
-	uEdwNUXml11hPFZHIwMH4b5I0OpUpUKZGUyekoTbTy883mP+izkXt/ClVoXrW/wAwig==
-X-Gm-Gg: AYBFou0mz+nA9GFrQ0Eaj8iTcJ5zvhpFhrvtNDMDaUuECnVqmflplKuTYjAqdwg1daL
-	LH6e8Rz29rDK+mTVwnXezlATNLYhQvzWMnIg1/eMZ7aQsRvjTHxPfVwxJ5irPB+NaeVDBbkRqPf
-	KSB3gCUKHaiu3jkseKoCwQXDHFz8Ji4WEYf8UigNMYuqXOrfU9GOCj4ThnTFEy9pNyMkmqi4Ij6
-	r6Hppv2fgjD0mCbeKZTU/tv/gKS6E1Jq3T3C3MLjkuJpWYyQvpVWwGYa4PWUhV7LFcCs/JjDkl7
-	SbSTDUkCpFyeNLhHYvAux2HGg20QTil90v/XAf8KiQrDPfWlMIuuvp/XT9ihZw9o0OgkmP6YuBu
-	aPypIJDmDyL43TeY5hyLet7OxoTsKknDSL9pTWlqKpKLtLoe6wVZpN0LjCVnWZNK0wEGibPUYpA
-	==
-X-Received: by 2002:a05:600c:3b93:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4a35acb0791mr198799825e9.28.1793103207049;
-        Tue, 27 Oct 2026 05:13:27 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b93:b0:4a2:fe3:121b with SMTP id 5b1f17b1804b1-4a35acb0791mr198799275e9.28.1793103206632;
-        Tue, 27 Oct 2026 05:13:26 -0700 (PDT)
-Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a0bae01sm324835885e9.7.2026.10.27.05.13.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 05:13:25 -0700 (PDT)
-Message-ID: <8c000566-a792-4777-8148-6da137537f7c@redhat.com>
-Date: Tue, 27 Oct 2026 13:13:24 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=RBTg/FKM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=UqgubOSrlWvHKhI1cqoT/fdRktbJuQr2VeGa7H2doB0=; b=RBTg/FKMjiMJhvBeWjtZ6CZIY9
+	rvPo1ckUCe6w+h0QiGzd+6cZ2SX9h4XjdR9cge27tpZKPnYIX66xu0ynCGVEVN17tU71OKLzHYeUd
+	YqLq2zAJnig/4jV33IsJ4SPBSdrisjLfFdiJlsjpW5dPMWCs+MvV7MeJYcTUbpvu4bgIGirMrhNRT
+	rfQtF87hxPbl4GLZG512PZKdcraOJ9bUOs97wFlIO/vsRNJjr0Xeic51ZjNa4hLcU1g1mU3TtvmU/
+	TMvXw7zT4HnYQe+O4c+SJwwIKJjffebWKGrSbkUjU7VknhliRZuEvq3AGqvm5+9EA7IZvX/8NaQPB
+	FB/pcf5A==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLg3R-0000000EufN-04F8;
+	Tue, 27 Oct 2026 12:13:25 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 9C1633014C0; Tue, 27 Oct 2026 13:13:23 +0100 (CET)
+Date: Tue, 27 Oct 2026 13:13:23 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Matthew Wilcox <willy@infradead.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	Frank van der Linden <fvdl@google.com>,
+	Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	kernel-team@meta.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>
+Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
+Message-ID: <20261027121323.GO2668564@noisy.programming.kicks-ass.net>
+References: <20260227194302.274384-1-kas@kernel.org>
+ <20260227194302.274384-14-kas@kernel.org>
+ <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
+ <at_f43oDv73y-t7O@thinkstation>
+ <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
+ <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
+ <auCKv_omLGRc6wv2@thinkstation>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,49 +93,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] gtp: Require 'CAP_NET_ADMIN' when joining the gtp
- multicast group
-To: Anil Kaushik <anilkaushikwireless@gmail.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Harald Welte <laforge@gnumonks.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>,
- Nicolas Dichtel <nicolas.dichtel@6wind.com>,
- osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261023073738.2436362-1-anilkaushikwireless@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261023073738.2436362-1-anilkaushikwireless@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auCKv_omLGRc6wv2@thinkstation>
 
-On 10/23/26 09:37, Anil Kaushik wrote:
-> The gtp generic netlink family sends notifications on its "gtp"
-> multicast group when a PDP context is added or deleted, and for GTP-U
-> echo responses. They carry the same attributes as a GETPDP reply: the
-> MS and peer addresses, and the TEIDs, or the TID and the flow label.
-> 
-> GETPDP requires CAP_NET_ADMIN, but generic netlink lets any user join a
-> multicast group by default, so an unprivileged user in the network
-> namespace of the gtp device can read all of this. Found by code
-> inspection.
-> 
-> Fix by marking the group with GENL_MCAST_CAP_NET_ADMIN, like the psample
-> "packets" group. Only users with CAP_NET_ADMIN in the user namespace
-> owning the network namespace can then join it.
-> 
-> This is still weaker than the check on GETPDP, which needs
-> CAP_NET_ADMIN in the initial user namespace: in a network namespace
-> owned by another user namespace, its root can join the group, but not
-> use GETPDP. Genetlink has no multicast group flag for the initial user
-> namespace, and ioam6 pairs its ops and its group the same way. This fix
-> blocks the unprivileged users.
-> 
-> Tested by joining the group as root, as root without CAP_NET_ADMIN, and
-> as an unprivileged user:
-Please additionally update Documentation/netlink/specs/gtp.yaml accordingly.
+On Tue, Oct 27, 2026 at 12:00:47PM +0000, Kiryl Shutsemau wrote:
 
-/P
+> Fair enough. Here's some context.
+> 
+> HVO (HugeTLB Vmemmap Optimization) frees most of the memmap of a hugetlb
+> folio by remapping the struct pages after the first vmemmap page to a
+> shared page, mapped read-only.
+> 
+> Every lockless get of a page reference (e.g. page cache lookup, PFN
+> scanners) relies on page_ref_add_unless_zero(), which is
+> atomic_add_unless(&page->_refcount, nr, 0).
+> 
+> The page can be freed and reused between finding it and the get; the
+> zero refcount is what makes the get fail. The race:
+> 
+>   lockless get                        other CPU
+>   c = atomic_read(&page->_refcount)
+>   c != 0
+>                                       page freed
+>                                       page allocated as a hugetlb tail
+>                                       HVO remaps it read-only
+>   try_cmpxchg(&page->_refcount, &c, c + nr)
+>     -> write fault on read-only vmemmap
+
+I missed a little something here; page->_refcount is in the page-frame;
+how does the page itself being RO affect this?
 
