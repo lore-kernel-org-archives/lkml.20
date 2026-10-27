@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793102839;
-	b=numzfOdayHn0lS7ZVT6UWv3OVEYWz4eXhFmGaY6e2z+p4AS/D5vflETkvNT8eA5T1xoR
-	 t1sOpDW1hgl973JDIIUxpe/plO2JJ1F3cWJs7vkFxcq048Ts3pfDkEahiRmFRWlCI7aYR
-	 w4balMCn/YkzUDVJrKQPtI+LLmy10aYEtGKD7NiHw5O0ycOHlPFjYzdDbis1J6pMOYlyE
-	 vVk7qsBxcZUbci1HRMKOBvKZAqg2aDan+4IPe8EpjMY3uSVuzwKbOsViojgmD6QppiUYp
-	 MY14hm+ifOVAMDzcsruaneCagSYYS6vXYLqmYEga5YVAL1jUOFqL3Br/YWw5EXIW65Q==
+	t=1793102848;
+	b=0GredhS7pebESSmV89b4ZQKc3SdwV7MJw9BOJO9h/3vxVXoxISiNnbjBVjT4DbNgfjIX
+	 FmJQ0n3ZHKC4+6nwQVJ2/zYNpYIpor1FTscL6ez5d3NbOD04XeBuAYFJo+NV6l9oIIGsx
+	 obWh97ibRSmzTIvjHYCMBXdFIFKsIUHfieADAifpWxArIVPGfTjTk4WhCedMzMzk3y8qf
+	 4wdCHUW+xLM1d8pXLLQpSlvFPHQhu6WB9TkrpLhtWdO8nDRGq0NE7KtlfoV4OSDebJXeO
+	 ztCHq7XWbmGCeWqtxOjpOON+dlwVN/GTWnZtaR3458Vtj79aeJdgKuewdyQE9cNKKxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793102839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102848;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=qa5CSr7uQIwst0qSmysxe9s+lZC1h4R1TF3I9gk2Z6Y=;
-	b=xGHsVH8h2O0i+xEeu8aGkDHRnj0aUJ8GgichmpK1jAzAPGEl5XDOgN4NeeWpzNJceU2u
-	 6B5f9SLB1UjNex+u5P2QaSfDXOm0y3QgBH5IDuz8TdGnTlg0CDcUbZvhpL1+VLqBl6E+W
-	 h5BdVo/qNg/zl1272iUEhjo9ELmsCxBb95ly+MYS92dOfg3iZrT4twgABxAQ7vmpaj78y
-	 hXgIL3klMwPPpUtvPNqlEz3JXgMre7rYFWobPb4M6u7ASz+AKeyOcN2QKSnl0+R9dSVok
-	 didUC4mqRfJcOSWhg/NcXerd9sxlbfoBakfMZg2t/ukUzJAlNwFXnvO68xqmcZPB7gw==
+	bh=pNXJLprrikiyjdl1QDWtGw0/RtOyXwyYKGXN/8wvjIk=;
+	b=p+vJIKExiaFoDdi5mDBW6vWmhTMVP6hAZk2/qDKQJM/SsvSlyUq7w/Yf770FCoad5MTc
+	 vLUxPnFl9t+dZ41WGKRAlPnQ73D709xBfbfWFWNq8RXHRjnqFxPKPhX1zYTv9JijKBpZC
+	 mfhS+7jZUGl/lRf/plln4qWgfLDPGlffZV/2/cs2Mj6aaQvrGvDAYgAUqhTAEA3gOYC1j
+	 k4xhM9vEoggVCiGi5cmKVnTq2Zb48+WlnR27BHgGsSmxFisv46+baf6IR3GpK6Vfk+/nW
+	 udcAs12ljNV2ZOjyZcxLQ5XRaV8Iw8y/GySpmRjuc55DaIAkmFnQrJgE2WEydOC44wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNcfMMVw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=droMFJoX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70026606A31A;
-	Tue, 27 Oct 2026 12:07:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B352606A321;
+	Tue, 27 Oct 2026 12:07:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNcfMMVw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6E71F01825;
-	Tue, 27 Oct 2026 12:07:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=droMFJoX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3C81F01828;
+	Tue, 27 Oct 2026 12:07:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793102839;
-	bh=qa5CSr7uQIwst0qSmysxe9s+lZC1h4R1TF3I9gk2Z6Y=;
+	s=k20260515; t=1793102847;
+	bh=pNXJLprrikiyjdl1QDWtGw0/RtOyXwyYKGXN/8wvjIk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VNcfMMVwwOoyBO3YNPRzJKXAMnN7tgWXQW2Ac3SuUxS4/5Wb1RvIZ2DlTJz+fjbtl
-	 RAJeHkUSBr2T/riaHmgrwr/aXpSi0J7PaE2oei8gSy5QA/B0F72CnGOs0gn2mr2dUK
-	 8vklYkOVhmKznj1r4zloDuNVEuGEMzt5OcuF26V8Q0Nny4dNOyET1f+VMt9djx1aig
-	 pWnytNsfWekIVlH2EDDB3dGkmzytn7LB0V7t/s0RVtv7rSofF9HbwIAnSse9itcA3z
-	 KcViAEaPuT0diDjiUxIIPbHu5BlGOgbOV8yc+xkGR93Hf9LmM9uCyuLEl6QzL+A649
-	 EGHAy08LT3TTA==
-Message-ID: <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
-Date: Tue, 27 Oct 2026 13:05:58 +0100
+	b=droMFJoXyLggipZyfrxjW6vvPs0RatK5Ln8l/8ouZu9C+IH7SsaJ+ysMa9LZCAVQq
+	 e+xL4ZIejnr455+J5CQxelz195RbChcq+BJl04WYclXHkI48r+Cq96ZzkN613lJ9BD
+	 nO5IiQ3hJH9mQz+VrbRivjNP+nRaLk/PATbwYuP0V4psk8PC+aN+OLW/EAQrvphVah
+	 e0snwB80F2nuHWo3re3sNJWbk3i17h834g4JmwA2T7n66Wx+rpOyCV1I/zgQzLMG4D
+	 jPA4+ze61RWdVnQAJQ1Q18w6b26mK1d0iEROGpcyAMOb6jbPdUmy6yAcLBZ9a4UmDV
+	 qVBDPC37NRnxw==
+Message-ID: <7e4b4737-8086-4444-9c27-88ef09a2e591@kernel.org>
+Date: Tue, 27 Oct 2026 13:07:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,30 +52,34 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-To: Kiryl Shutsemau <kas@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Matthew Wilcox <willy@infradead.org>,
- Usama Arif <usamaarif642@gmail.com>, Frank van der Linden <fvdl@google.com>,
- Oscar Salvador <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
- Vlastimil Babka <vbabka@suse.cz>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>,
- Baoquan He <bhe@redhat.com>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley
- <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>
-References: <20260227194302.274384-1-kas@kernel.org>
- <20260227194302.274384-14-kas@kernel.org>
- <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
- <at_f43oDv73y-t7O@thinkstation>
- <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
- <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
- <auCKv_omLGRc6wv2@thinkstation>
+Subject: Re: [PATCH 00/16] mm/shmem: various (urgent?) fixes
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Lukas Czerner <lczerner@redhat.com>,
+ Carlos Maiolino <cmaiolino@redhat.com>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Stevens <stevensd@chromium.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ William Kucharski <william.kucharski@oracle.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>,
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+References: <20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org>
+ <at-yaxmjeOXtA15M@gourry-fedora-PF4VCD3F>
+ <5d10eba8-11cb-4031-84e1-a394ca5b4cba@kernel.org>
+ <179304984259.319828.7383468637599462048.b4-reply@b4>
+ <3022ba03-54c6-499d-b07a-2ca8d033a56d@kernel.org>
+ <179310104515.664110.14057520583832900506.b4-reply@b4>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -122,87 +126,33 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <auCKv_omLGRc6wv2@thinkstation>
+In-Reply-To: <179310104515.664110.14057520583832900506.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/27/26 13:00, Kiryl Shutsemau wrote:
-> On Tue, Oct 27, 2026 at 12:00:28PM +0100, Peter Zijlstra wrote:
->> On Tue, Oct 27, 2026 at 12:37:13AM +0100, David Hildenbrand (Arm) wrote:
+On 10/27/26 12:37, Gregory Price (Meta) wrote:
+> On 2026-10-27 10:34 +0100, David Hildenbrand (Arm) wrote:
+>> On 10/26/26 22:24, Gregory Price (Meta) wrote:
 >>>
->>> I'm sure x86 folks will have an opinion :) . Let me CC them whether something
->>> like that would be acceptable.
+>>> It's there to show the work more than to merge, but the long-term goal
+>>> here is to feed these tests into a larger session that does the polish.
 >>
->> This looks quite terrible, doubly so because I have no idea what its
->> trying to fix. Please try and justify this insanity.
+>> Agreed. But a note that if these essentially contain reproducers that can cause
+>> harm on real systems, posting them upstream might not be a very good idea until
+>> fixed.
+>>
+>> Well, unless people can trivially generate them already.
+>>
 > 
-> Fair enough. Here's some context.
+> Nothing here has been generated by anything the public does not have
+> access to with a $20 subscription or enough RAM to a run a decent
+> model locally. Otherwise I wouldn't have posted it.
 > 
-> HVO (HugeTLB Vmemmap Optimization) frees most of the memmap of a hugetlb
-> folio by remapping the struct pages after the first vmemmap page to a
-> shared page, mapped read-only.
-> 
-> Every lockless get of a page reference (e.g. page cache lookup, PFN
-> scanners) relies on page_ref_add_unless_zero(), which is
-> atomic_add_unless(&page->_refcount, nr, 0).
-> 
-> The page can be freed and reused between finding it and the get; the
-> zero refcount is what makes the get fail. The race:
-> 
->   lockless get                        other CPU
->   c = atomic_read(&page->_refcount)
->   c != 0
->                                       page freed
->                                       page allocated as a hugetlb tail
->                                       HVO remaps it read-only
->   try_cmpxchg(&page->_refcount, &c, c + nr)
->     -> write fault on read-only vmemmap
-> 
-> The refcount is zero by then and the compare fails, but LOCK CMPXCHG
-> writes anyway.
-> 
-> Before v7.1, HVO mapped the tail vmemmap pages to the head vmemmap page
-> of the same folio. The first struct page in each of them read as the
-> head, with PG_head and the head's refcount: a fake head. A get on a fake
-> head of a folio in use always tried the write, not only in a race, so
-> page_ref_add_unless() checked for fake heads before the atomic.
-> 
-> Back then, the race above was closed by bd225530a4c7: rcu_read_lock()
-> around the read and the cmpxchg, and synchronize_rcu() in HVO before the
-> remap. The refcounts are already zero by then, so the get either
-> finishes its cmpxchg before the remap or reads zero and bails.
-> 
-> Since v7.1, tails encode the head as a mask instead of a pointer, so
-> tails of the same order are identical and HVO maps them to one page of
-> real tails, shared by the zone. Fake heads are gone, and every read-only
-> struct page is a tail with a zero refcount. The race is not gone, but
-> 32c440d67e6c and 01b1d0ffb6f7 dropped the RCU on both sides anyway, on
-> the wrong belief that it was only there for fake heads. That is what
-> David reported.
-> 
-> One fix is to put the RCU back. It works, but it means rcu_read_lock()
-> around every get that goes through page_ref_add_unless_zero(), GUP-fast
-> included, and synchronize_rcu() on hugetlb allocation and freeing,
-> including surplus allocation at fault time. So I am exploring other
-> options.
-> 
-> The fixup is one of them. With the new layout, a fault on that CMPXCHG
-> can only be a write to an HVO tail, so the refcount is zero and the get
-> fails, and the fault only happens in the window above. With GCC the loop
-> compiles to the same code as before; clang adds a SETE/TEST per call
-> site.
-> 
-> Writing this, I just realized that we have another option -- map the
-> shared tail page writable. A failing LOCK CMPXCHG writes back the value
-> it read, and the get never changes a zero refcount, so the race becomes
-> harmless. The cost is the protection: the page is shared by every
-> hugetlb folio of that order in the zone, so a stray write to any tail
-> silently corrupts all of them instead of oopsing.
+> Posting the patch is the full disclosure at this point.
 
-Right. Without HVO we would just corrupt pages in the single folio (which is
-also not nice).
+Agreed.
 
-I'm also questioning whether we need this RO protection all the time active.
+I'll post a v2 rather soonish to move forward with that.
 
 -- 
 Cheers,
