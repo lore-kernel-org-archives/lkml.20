@@ -1,92 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793062586;
-	b=VKbgRlmF0BkpNHJMsUxpApfs4kZAW58UgHDNdSoc8+YfHCo8UU6oYg7oIJpI8MlXosZb
-	 CcE7xbqWZTTnjqavRPal+hQFcLe1ylumLYL8CkZ9914a1cc1Fn+SqX6B+pmjNQxiiUbQU
-	 eeEhJh4q8FRr/xQsJWc7DG8r9TMzskSfoqIqMrQfzN/8b9shvSkLOUs0oOgS4Pa0a3wa+
-	 6kFzbvpcIOeAD5tRjSQEpA2nzrgpQgoYIKJ4CsibGRMrCRvPjllFGcAj5Z39AaPA8f7DK
-	 /i2z+KWTUXfA9ufmEIEbtpLin+IjlXOigYy+Apbo+J0EyIRh0bKV2KEkK6ayPYwacCw==
+	t=1793062595;
+	b=y88sa6emqNPRo+pwNwXe35JtQgKHIgHJ3JTsgS1wpWBioQ/rhHW/iN1VabVOkzLtDviK
+	 aYnqQUaHmtsaEng1BrLqXubDRt7mtiR7x1YhIpL+wJ6PD3tGjhPuFYs9wKC7JPK9kSgMq
+	 4onRhMKYyO/vKgfDnlFIwL3ZlNfMhHuXSxzcTW4dySI0nNMllLRXQcdJ6T80EWyncJ+io
+	 teHUJ90aVdbGqSVMj2Ea6Fm/oiSkmpBO0uvTuPISKDBiLwwWfp5EfBNmqPFSUHUx49HOV
+	 3AqZjYVrkcFBkkWXbpB+XuLPKQXSslsRKolW5nOE3ZR5l1p7PbT/AdOeSX7Q+MGXwOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793062586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=fvxA4psjvpTikdFCmDiAeEgeeyr+lNEAXNl8+Et9d28=;
-	b=2puKB/p0LLgdkIu/aEYfeGQnw75/RYHukxJYnnH1eiaxXsIuWGY188ApqNZ5oKzODBPo
-	 sK0cUdDhA4XOFaVqyFu4uSE6BzRp61KrghK6C+oJVesV63vtlFvcw5fo14ZrYapgiBHd8
-	 o8/SAAB7j9SUBhTiCnaxyXmXLvWSVWfo7raE9cxlnsn1RQWr8t9YcUVwK2vwZjVRxMfJg
-	 CzgkQOcnkpdSUoGeBMZs3h357Cv7xZ/ojx5Au4NQkT5THNL7/DjU2eKs/g3Cb67RI++pe
-	 hJpwqbvx/sSiNwvwLgULLmUqH06z/CCJRK0nJTxYRnIpOPLqsj76CfRiEZPMuNvRi9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793062595;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=FSAxfmic52ND3G8dQDz0tc2KBUjw/SYV9wPYI5DUcGg=;
+	b=ObDeZUgLL5PXacUoY/ROrV5HcghY8XTWbQqRGR6AEfBh0UfsOYOzVEQGJS+bE2+o3vdY
+	 pF+dxF73Va5vlqqea1a+NTcSGYd+96YjUAXJ1nXnxfiVk4jPq8V5UJwBmeJ+SjVx12pMn
+	 VkWdRNHu4nqcVws0NKLuvLWSDVhA1sCa5kGqCG0pFjlV0WT+5wNg+GuVNp/xydbE0bMQQ
+	 wRvhT+dn1V/76w4g14zKwP0clty8mp0NioMBqOesvr/VjWgkjSvTY9Z9hSKajXAcCJB1o
+	 TKI6TmysXPX48Q2ly22Z93o399j8kJo4W0OEKxXBRsMaudPaZntkjMv6FniRODKzAxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hYwrj0gp;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PWL363Gd;
+	arc=none smtp.remote-ip=103.209.128.35
+Received: from mail-m12835.netease.com (mail-m12835.netease.com [103.209.128.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61B1606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:56:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C61B1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5560606A326;
+	Tue, 27 Oct 2026 00:56:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5560606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hYwrj0gp
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3535a54bed9so5567249eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 17:56:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793062585; x=1793667385; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fvxA4psjvpTikdFCmDiAeEgeeyr+lNEAXNl8+Et9d28=;
-        b=hYwrj0gpir3Tlmc3k3ZI/BsJn8CK4+Bd+IuUXX/AMkRr7RGzR+hSOP5Uq/CCszFr4J
-         /C1ZB+43JLs7Ykk/cCDv2eLVY9WwjQ7sTTKXrd4agciy9z4oSDCb0W6H2rxdmRk6UDCE
-         WEMjb2oyaChE3XTjy6higzg9J6YiUSS5xUNElGzYcFxhDXbUU+E5vuNBJ87ojBZiHu7C
-         wU1B71B5z4kKCHgLQpZn0AYXFH1CR5V/aZpYhgwUF/p5gpZhJ1YU9ErKklbF8RWvFyLo
-         90P178pu8LWHpEKRJcwJxk8uo/d3iLvTvAO2OTuVuWQNNvr7pze0Cunazmtaj0Jc/QVR
-         uMiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793062585; x=1793667385;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fvxA4psjvpTikdFCmDiAeEgeeyr+lNEAXNl8+Et9d28=;
-        b=O3joeY8ZX1oIl+GIkKZoOgQ4dIESoZeNKKoqXYn8cxVbjPsrH1Tgt4TaDurWhYYqTl
-         7Mja/R4+TGJVkAYbOunH3sUvZx4Z1VRvGypr5bAugJMjLU/wToxyBlhjsb1IoH3x31R5
-         zODOLVmzMRGAJSOvVw2IBR8AxVwqyE/4aj9yNjPuFULfL2uLM0xnZUBpEEKrKOWELeuc
-         VWY7H8ZNu+9lHiNagiluTCGzUaFEdOnWwFcmXK+jFM2/U506+iv82T8U9FWpnJHpmjVF
-         5cZ8tMW5frDHvn6ujY/L2feD8hhi8Dk6NejiQw+61jShLE7wuHEYhw3+sA5zSSheSYkd
-         PxQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwFLXfSEf3cjIsk4v3KTsagmOZF/vYvHUxU2VcxJ98RgxotdVjd2gEZJi9QxQ5tvLSdeajZRprT1FhMDf8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsY5NLI9QxqXotU/xNpN0XvpmJkaxA1/QxFeQ5XIbh/JrC6O+c
-	1YaZ2DetKXj2EycpQOkeFZ+kfjCfbs2TP2xT9blZzRvm8gXQQW7YbqgH
-X-Gm-Gg: AYBFou2UYx+dPgaYQ/hS6UZW5agUQ3DfsJ8x3KUP3tcWQK/smI9VJre9sJ7wcgx6fk0
-	GeaaGdnsiLXdQCv79rjlnP7ITEpeqyKfmexgYhp9z/znNxCo6Is5RkXkz849pHzABt7nyoeFuHL
-	sMwva116+VR8yprI8Y6KxX3dykCx1l8GgSzIJ/nwnzBZPJtfxKwyFYqSkACUYKrna+Xm9JI8PIf
-	P4W6XlvRyY3SjFJ9f0NEa4wFT1On4VoFtBY2GIWe0j0lcbQNe1AR71cLTkigVT9UZzFRX35b4m6
-	K6Z7twc5wWzYebgZIgNqjWXA4RI5NvSpsSDXm01my8xlwoXU4kkpnRtXsDhmeDGGZG0kDlpKDIq
-	Qhe2gmKWv8U5QgIGYKjkjyfX/OTB7wJ5e0U3BSFrThBnEoAS5X/2Vbn1aE5btM7kb5IssfEI2Jo
-	NkjnuVdVy1KZjtfHMuz4ThztJjX7eFYcH27vfeKqc9ME2K8Qi30ACcyqiIDe+TPOm+eyb0tdrUX
-	uFbEfmTZr9F29yQUj7IDy23/9JVx5nYB8E8FGFPFpgzkeAdxkL6jH3YfPqtyjEWb/WdcwiaLLD9
-	70Ta5bpGsMtEOHkk/LtGKQ==
-X-Received: by 2002:a05:7022:3f07:b0:144:fa57:c617 with SMTP id a92af1059eb24-19935dd7f53mr13799364c88.34.1793062584598;
-        Mon, 26 Oct 2026 17:56:24 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:2dc1:2e1d:6b4d:5a9a])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19894d5a470sm25575440c88.2.2026.10.26.17.56.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 17:56:23 -0700 (PDT)
-Date: Mon, 26 Oct 2026 17:56:20 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH 0/4] input: use devm_pm_set_wake_irq
-Message-ID: <at_2lPLNBh_CQKOh@google.com>
-References: <20250205-input-cleanup-v1-0-9758898ff8cb@nxp.com>
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=PWL363Gd
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 526ea9e6d;
+	Tue, 27 Oct 2026 08:56:23 +0800 (GMT+08:00)
+Message-ID: <edacd4f1-1124-4439-9eda-633c7a4a6f8c@rock-chips.com>
+Date: Tue, 27 Oct 2026 08:56:19 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,26 +48,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250205-input-cleanup-v1-0-9758898ff8cb@nxp.com>
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Artem Shimko <a.shimko.dev@gmail.com>,
+ Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Simon Xue <xxm@rock-chips.com>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the watchdog reset to RK3399
+To: iav@iav.lv, Heiko Stuebner <heiko@sntech.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+References: <20261027-rk3399-wdt-reset-v1-1-de9615abb0ec@iav.lv>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261027-rk3399-wdt-reset-v1-1-de9615abb0ec@iav.lv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa17adbbbac03a4kunma90a6e004743a1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTktOVkJNSR8ZHR9PSx9LGFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=PWL363GdUjW1784OfG7j+YKI7o/gFsCMvKUsjaCHhA2WFslocJsNLRvCL1YreVxr+O45uyPM7Kq0juXgChueXnqPDFWX1pVeiw6ZNVXF4zq/pSJ9+Ny2sH198XWu9XqoxmnM6JNY43W0p0Djo4vSlFTdq3AGMa3oQifoaCUsM9c=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=FSAxfmic52ND3G8dQDz0tc2KBUjw/SYV9wPYI5DUcGg=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, Feb 05, 2025 at 08:45:13AM +0800, Peng Fan (OSS) wrote:
-> This is a pick-up of patch 2-5 from patchset [1]
+Cc: Simon
+
+在 2026/10/27 星期二 8:20, Igor Velkov via B4 Relay 写道:
+> From: Igor Velkov <iav@iav.lv>
 > 
-> Since devm_pm_set_wake_irq is in 6.14, so resend the input parts.
+> The RK3399 watchdog at 0xff848000 is reset by SRST_P_WDT0 (bit 5 of
+> CRU_SOFTRST_CON20), but its node has no resets property. Its clock is
+> gated from SECURE_GRF_SOC_CON3[8], out of reach for Linux, so without
+> the reset dw_wdt_stop() can only set WDOG_HW_RUNNING and the watchdog
+> keeps counting through s2idle: on a Kobol Helios64 and a ROCK Pi 4A,
+> s2idle longer than the watchdog timeout ends in a watchdog reset.
 > 
-> [1] https://lore.kernel.org/all/CAJZ5v0jb=0c5m=FeA-W-aG30H4706Ay_xCHTsiC1S-7MuGxqTQ@mail.gmail.com/#r
+> With the reset line dw_wdt_stop() can stop the watchdog, and with
+> "watchdog: dw_wdt: manage reset line during system suspend/resume" the
+> driver holds it in reset while the system sleeps.
 > 
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> Signed-off-by: Igor Velkov <iav@iav.lv>
 > ---
-> Peng Fan (4):
->       input: keyboard: ep93xx_keypad: Use devm_pm_set_wake_irq
->       input: keyboard: omap4_keypad: Use devm_pm_set_wake_irq
->       input: misc: nxp-bbnsm-pwrkey: Use resource managed API to simplify code
->       input: touchscreen: ti_am335x_tsc: Use resource managed API to simplify code
+> The dw_wdt side is applied in the watchdog tree:
+> https://lore.kernel.org/r/20261024140854.25664-3-a.shimko.dev@gmail.com
+> ---
+>   arch/arm64/boot/dts/rockchip/rk3399-base.dtsi | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
+> index c46e58d4af0d..7b71b24c1f51 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
+> @@ -1748,6 +1748,7 @@ watchdog@ff848000 {
+>   		reg = <0x0 0xff848000 0x0 0x100>;
+>   		clocks = <&cru PCLK_WDT>;
+>   		interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH 0>;
+> +		resets = <&cru SRST_P_WDT0>;
+>   	};
+>   
+>   	rktimer: rktimer@ff850000 {
+> 
+> ---
+> base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+> change-id: 20261027-rk3399-wdt-reset-c58d2111609d
+> 
+> Best regards,
 
-Applied with minor changes to patch #4, thank you.
-
--- 
-Dmitry
