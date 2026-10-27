@@ -1,132 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108718;
-	b=RvTAtM3YbSCiKagnFSSESxBlP8RH1oSqbfiRXCdtnwe1uK65IjLXGAqr9Jc8TncJHxu6
-	 3EBkrSVz6Cl0qOSX8xN7F2qgYsoiZB0vET2U4iUNXHhSlv+Fw34bqe2yPBFDB7yAAAnqN
-	 Bt84ueviW3KZbpd37LqLooIshocF5jc/r7AzMJ+0vLW/ZperAgEZfDwW216s+n4NQb2K9
-	 1lahbRNxQ97ABGCAdp5uWSH37gtUIrLbPPrlIz7eGy+TVT+Uute/xQGl+C5xDrL4CK7LU
-	 V5tXtTqI6coit4aSWQi0wUlOMno9t2+dfwxFXkprMS4/P3EA+SFSc7tR/SSqBdfwEIA==
+	t=1793108853;
+	b=LSIerRzGGYC2pGoP8tZgneOkVFbnWeffLiQKaMwpQDUNYs+uXYWp5ARjpsbaNiaCD4ZH
+	 CyIQcqLJwIURx5Wkxfz7BkVvnwWwuFqyaOcBy8NJER0CTQ1Gx4LSQ1EzcuEt951waDQcf
+	 euj88NhzsZsOiYivYIb/JpnPppvR4EwTLQ03VThHCgsLOyOFHPk8vD1nzZMJYn7kxK2ld
+	 734tOmRlZKa0+YoBO606Ze39wK9+mSlA/erUlNXlPVkxPGeGKPA6FTMxev2xp7BkzWLo2
+	 fFjQ8x0An/nzNIC/cmNxujPyyNnX+Otjb8TPJ1JoUyhxEr8YQUo+3DgzXCOwzByfFOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108718;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8TAIza2maHFoLukZ9iYbRq1qc6+ujGeVY4cIhriAjjI=;
-	b=b2QzmHfm0BE8TxQriwt+h7yStaYgmKgUvCoPNSgFIXHRuDqzxgLzV2++N2WEbLWSDg/l
-	 t08B56D7LzNDvIe0SMc34A5RKNkhH2BbhdZWJLZr/utEU22PQrPKp5inTgq6Z0a+ZG7Gs
-	 StlzXZQCqKZFC8tkKjgJSLjMXh5yuvPyTbievqK/2aAy6omnnJybizViaFUquV6HINhCU
-	 w3mRMB/A3Slx8eHUIPxdZDrGKoPqjTBo86A7CQLLipJrQlseEC7aSp55tpCu4KpkzM0t6
-	 6Y+ZfrprGnaHGGa9sGjxYABq0M2kzyh6mkKKoC2FZhMpq9LTR/tiiKlNaYPJFaw3ETQ==
+	bh=Vi2VyxWb8hUzIvesy3TGk19mK9cZ4B2w+p8Em2DTRI4=;
+	b=VqSF+mgvtReGjdsvAWKaD09uPcvnet+8FNDW0lDVu7R3enU9jWkxaXA+rV2zqhmQzB6J
+	 gFCU1I2+4IMktmdhgnnd/lf6+EpDv+zTSOBx9dFJKwFqgF3RwF8oVq4tHRrVMlK3tQH4a
+	 b6WdI38EFPX7gesfneT1yhLHcs0fTpUVR19OiYc5ABEZEm0iPik8mUYFTuSudg7Nvat+r
+	 FtZv/mTCLA9AcEiLqi+t4bAaBfHpfezhH3xZ6YR6jV6rL/TTkvXCd83FXJjRiQcAqC9rr
+	 vYGQhnJGUVjnMqsMkaiKFGiYW3Dw9T1ulaJqAG7j+Pq+dTQF4wndHBTxdYmV1h8LGIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=rQbXiCep;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="BkFc/OuK";
-	arc=none smtp.remote-ip=202.12.124.142
-Received: from flow-b7-smtp.messagingengine.com (flow-b7-smtp.messagingengine.com [202.12.124.142])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=B52Xihmr;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3A8606A31F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:45:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF3A8606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B465F606A31E
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:47:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B465F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=rQbXiCep;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=BkFc/OuK
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.stl.internal (Postfix) with ESMTP id 2AE111302990
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:45:16 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Tue, 27 Oct 2026 09:45:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793108709; x=
-	1793115909; bh=8TAIza2maHFoLukZ9iYbRq1qc6+ujGeVY4cIhriAjjI=; b=r
-	QbXiCepoMvMX78v2pXgxAc3L4YBN1LsHDtFluN8UK4w3oM2o+85HbDzIVIv4dXfn
-	38sJseJaFFbHwZjZjzsMhJ8O95gQlp/Lk0Cmi4tuzI64arSFOqjnZYzUL57W9845
-	w5hiLemPDctUhfWBO3cv0ZFm4SYHK3hKx4P9yIQmHSIjTAPBv7Gzl7aFCORgZrKX
-	2xWFOIlDi9j5aYaXgxIvMTfYW6TIQWN34QbusR5bNMOjbL5+wsru9ykM7SRlbY8T
-	3iuH237OqrxSrt8iEJGFHUduXngz6dZGR/X9J1J3PGR3EB51XMqFCSvfI0JO7Ody
-	MYtLuF2aYVmDyu3luLzVA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793108709; x=1793115909; bh=8TAIza2maHFoLukZ9iYbRq1qc6+ujGeVY4c
-	IhriAjjI=; b=BkFc/OuK6ZU1iDEjgXsHUFdtgBRLUTJUUEKgfa9w+h0ksmiXSTR
-	QOPFjYZ7WU+pI3YTlUOEZMOZp/a4Kz3TQqmOKLWoKLOXR/Oo7Oq6gHv6AmufAuNU
-	6AU1sv5sXZSVWxvGF3K9imo+rSAS5+Y3NSFfSvUcKTG/+nqRmGSHadxQfrKqJTQs
-	m2qdEx4jTmfGKOz/R4CM8ry5bR5VodN7YTg+1zCy+mBk+A8LLHOk6wGLdqLi8oH+
-	B+JQ3J+le9+nVf+HJSVHurb/NHyqTD0an3GZ2db3zEnpVATYfEWZPJFYvrJR1oSx
-	5AEw3lxrq24hjW6fPsqnmo9EiwXC7H9jUCQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793108709; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:xQqSFNt6Bmomr3knC7T5wwLfKzAEUQHk4X4xMtVn65Xo5cR
-	CxTTZAwzRM75ybAW2sbAcWD4YtWJX9IMA0oD7cyPWGf57dL38IaWU46R2PPLQTky
-	jfkaRT5vC74t2/jcLp4wgcH/I14lL82JmH54JBWCa1D14Ct1YIDuWLXKhc+724QL
-	AhuGNdYxZUmi4TP707hMHww6I4C5t19RmK1VuhdEneSm4xtxLvLZ7ouX/AJi2qvl
-	djQqMTQyBBj/s5U041hf0Zf6ovBrJ0Wb2TIULWK4YYD7sYYM3Evseidgsc9vOFKj
-	viFBZVs/d5uc1YO/fl5NraTJ/DHu7krTupeOGNQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:seaL8eoUk9zz7RKlbs/WO4VFngl+PPR6zsD+uJ3Mc/M=:Enih+tl6eKbc4ggwNBptcy2mvOiomnW/6tHkarBfMLI=;
-X-ME-Sender: <xms:46rgasQk3ATXoQlHGjlYmuUDjSQehUiJuO75_MfqTS3uwPRLu_wIsA>
-    <xme:46rgan11uqiyYSdgHiJXmG5QnS1EDBnVXq6mGeSsgsrEOCR3a6_g2S7o2cyvomTzm
-    ZZa_QNqot9iI9Roj0DWugZ96g4SKX62q18Q9B6J3Hs3sbKRGB_Xapw>
-X-ME-Received: <xmr:46rgap1PkLRQUwyTCxzr0telQ1P9i-4_Phsd-V1cyR4QwVZE_DZCiDPDoP0>
-X-ME-Proxy-Cause: dmFkZTGblqe+wfRiQe8bcmkWYEKf3fZ/EiWo5l7bp+xDj5MkloEPRlh17pptfO3Q5h+fqJ
-    tnwEFFeraUcTpHK/tCx+CFZKuwAI9oAZ0CLgKu5WtNsHXbF250PIeIsdaPnp5LB4TK8mhU
-    3nns4LfB4Zb+Gp3SuArkJViR94h5KQbl5QTycoy4R1g6lI2N0HZjNGIm1/REnmCSE4sSeb
-    iO9NqRbEJ6d4mXWOaptabctmr11CwGRSteBTFl0vIbKml7k332veFp+P4Y64yWzaWlHibG
-    Ewcvn2Ke2kyuD/kc9DgTOu4B6JFDMG09zfFLBSRnyziPPuYJSbTWmODezy3iyx4WZFFmYg
-    AKcGkfvKZ3Jn5tMBUDtbg8/qv8CjlroBAxGH8XbxFUcHUfdWZYLaJrKeU/3ZpR3iLu4k/4
-    tdze24ILcsucOqdyrCjtnaa6N9ElZnbYkKcFhdU4rFr6+ipli12b2fbq5vGvVNLQE0Bm+j
-    4Z58gp6/30oTfcWjMyZEG454nT+YEoqoN8YOoCfC46f8hOw6scje4vy3HXntvGyFjtI07Q
-    YuLghAS6wlzOoQg48qg9z2d9JNOhFzuKm5IfqBJ9OTB/mAc21zfw0KhF6XU7tU6512y5Nh
-    gc8xPuKLL2Kj6fvREKwSuTfhh9PbqCiVuj0nX9AA3UioLAXC56WYyiFhjoEA
-X-ME-Proxy: <xmx:46rganCSTWOYxoqEvQYDO11fv7rB5mKBaWaqdJW2oHHAYT9oO5qgOw>
-    <xmx:46rgaldfQE5UbEhMGsBcWVrD_KfEwjuoJgQpGnsMuo64AT4Firlkhw>
-    <xmx:46rgao4Jnzqcv1bFo7EPmNvUWPeBDlcV6FZpWbMo4bPp6vB_TDa8Kw>
-    <xmx:46rgaiRCQE_k7-iCJwGDsDXClD4aAZpjPLZRtSBsCpBMJIustJdVgQ>
-    <xmx:5argat7gTGe6XnTgOpEjZVHu_v9aliKhzaSspQIOg9cv6OQc_EWgFnAo>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 09:45:05 -0400 (EDT)
-Date: Tue, 27 Oct 2026 13:45:04 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org, 
-	linux-mm@kvack.org, ryan.roberts@arm.com, abuehaze@amazon.com, alisaidi@amazon.com, 
-	blakgeof@amazon.com, dipietro.salvatore@gmail.com, rvvandan@amazon.com, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, linkinjeon@kernel.org, 
-	sj1557.seo@samsung.com, yuezhang.mo@sony.com, miklos@szeredi.hu, agruenba@redhat.com, 
-	djwong@kernel.org, hyc.lee@gmail.com, almaz.alexandrovich@paragon-software.com, 
-	cem@kernel.org, dlemoal@kernel.org, naohiro.aota@wdc.com, jth@kernel.org, 
-	willy@infradead.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, ziy@nvidia.com, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com, 
-	ritesh.list@gmail.com, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	exfat@lists.linux.dev, fuse-devel@lists.linux.dev, gfs2@lists.linux.dev, 
-	linux-xfs@vger.kernel.org, ntfs@lists.linux.dev, ntfs3@lists.linux.dev
-Subject: Re: [PATCH 0/2] mm, iomap: account dirty at page granularity for
- per-block dirty folios
-Message-ID: <auCqlqe97AMeqKHY@thinkstation>
-References: <20261027112702.3747009-1-dipiets@amazon.it>
- <668c53f7-20b4-4400-b442-71749db88d03@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=B52Xihmr
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4697404c2bso539302866b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:47:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793108846; x=1793713646; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vi2VyxWb8hUzIvesy3TGk19mK9cZ4B2w+p8Em2DTRI4=;
+        b=B52Xihmri68zEQvOwl0tik89nRtTdSvySUKtMLXC2dQa/2PIgZ+TqYVkwSGWfj6CLl
+         fmUxnQLmnJTCCasfhumf/8XYsj1jH9CNWubsIqmQo37PVxYt/Lfl0aDxbI+Gvl0wgZTV
+         vHjLMOphw3xRMpdsdwPxgavAmAb8/neFssd1A1L8ci+yspEuWJtchXTVqEmlLO8XgcQx
+         xoCVYSNUqrJMnbEhrgdfdGpf7Y4xJVvf7RX1KVEBrmtM06CSZud3KU4Cq6mJA/aJFF+O
+         H/O2V7URqxLCi73ulwpwCjk3aXhqOib2v/f2/2yB8tuRo8IYv9MCuxgh+SrcAofSghCa
+         d/jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793108846; x=1793713646;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vi2VyxWb8hUzIvesy3TGk19mK9cZ4B2w+p8Em2DTRI4=;
+        b=VaiEkF3nKXSekt7NOVcDVUBD71Rw87mPem4vRBdIvyn2tPYs7jzMv2fIaUm6XNpibS
+         cG0iEYSlkVe+M+B2eX4nxw90Ds8B7EYEogw4Pmx9NSXrCwFxIQrYwZ+V/e8197NWebN3
+         c5nUTPII1A4nqAoD+1dmpJzh6bz0HUln46Wdca0tnmv/eyB/Hw0q2ysO5ffRUuiUm8zc
+         17h8D8VFydUHwhSN2wsa1JiGtI6sUEStbK3LEryE6U4sRgtB3Hd4UzLOd8e4MwTQB82h
+         Y6UqOvUbgGBNOZ3Xhzkk8dSXsAKvSLSspNeLAMjqXF54ic1rTa3plM9IMWwsG3/8083l
+         Sr8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwnCGVQH3oio8ZQZkXrCmBIHoeRBzDCwpm+p/HoXxjQxDDLiyrP7mA40lW1HfH/pnUIoPTPEg771LfGMkw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyFwWM+Pk6kkaTDr4IjeDiZTbmOd6kyNQA7D93tsmwXIdGXYHY
+	3Zwve1s2f68OLC00Jc4YS4jIi4HmnHNd0pq1QltsBtpP5KzM8TtrDr71e+Q+vQPJytE=
+X-Gm-Gg: AYBFou3WWlQjAYyDFxLi7JVQPzBmhDNKDTCNvePggBMv29l6xdI8hMfvfor/olSs5Jt
+	BrB10rJUJE+adgCpBTt1VPilet+rf4ZsVqQWi4S+riglsYvGQe/U+xXEIWSpf3iPT2ta27gxI1+
+	VfzIczCa4/292Zuf8fWY7PebsJgBOjWapUY+qZ+r3gmIcgy+mqGg4ArE0No7Yu0MJoHU8ajXXuX
+	5736LdGq/cai1EUvXmQjzqn63kOKXqaoRkywxYPuqgoPoJFyj/paK3vNHx57Sh9waQCD+R+Tv5K
+	NwAeMWJRQZmIW4ToCApBC/UhWv/ivt5WEGhFwsAIeSIRS+JEJhExsQOvY/PKe4Smvwa/4DTM+8D
+	HI6MLvp1umcDb1lo7mwBpi0urbR5/wkrZzVXCpXFqGkSrr5IrnozbNjEoj8d8clt16Bm/ppLVak
+	GaTM/qamSAOsI54Xqyxz+e3FJqwIL2Kzad70cDx1UfL2cAi3KSKCJD0zc8q4y9Makz8yDxHhoit
+	W1aTbwfdDGale0pHYfUAxtt1GXnONj4H4xEyICDhIs7DRZiK1TREPq6FiKd/7LHMWkh4fYIXVp2
+	A3u5jVaa2G4eBUXLZs897Yg5JWAG+y/8gHOnAZyp4/LHofe3kOd+
+X-Received: by 2002:a17:907:d649:b0:c36:7579:fe6d with SMTP id a640c23a62f3a-c46bddce8edmr1009655366b.11.1793108845951;
+        Tue, 27 Oct 2026 06:47:25 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd5206dasm460325266b.33.2026.10.27.06.47.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 06:47:25 -0700 (PDT)
+Date: Tue, 27 Oct 2026 14:47:22 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: John Ogness <john.ogness@linutronix.de>, chris@chrisdown.name,
+	Sam Crossley <samuelcrossley@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Simon Horman <horms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH RFC 0/2] netconsole: allow replaying the printk buffer on
+ demand
+Message-ID: <auCraiuMZApQHiNA@pathway.suse.cz>
+References: <20261024-netcons-replay-upstream-v1-0-9613f38496e5@gmail.com>
+ <87fqxskdpl.fsf@jogness.linutronix.de>
+ <at84qygscue8crQi@gmail.com>
+ <87a4o0k3qa.fsf@jogness.linutronix.de>
+ <at9qgBucVm-QHnye@pathway.suse.cz>
+ <87zew0ifpp.fsf@jogness.linutronix.de>
+ <at-Ppa86sBw7mO8W@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,90 +117,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <668c53f7-20b4-4400-b442-71749db88d03@kernel.org>
+In-Reply-To: <at-Ppa86sBw7mO8W@gmail.com>
 
-On Tue, Oct 27, 2026 at 01:22:22PM +0100, David Hildenbrand (Arm) wrote:
-> On 10/27/26 12:27, Salvatore Dipietro wrote:
-> > Since iomap gained per-block dirty tracking, a large folio can be
-> > partially dirty: struct iomap_folio_state records exactly which
-> > blocks are dirty, and writeback only writes those ranges.  The mm
-> > dirty accounting, however, still charges the whole folio even if a
-> > single block is dirty (up to 512x over-accounting for a 2 MB folio
-> > over 4 KB blocks).
-> > 
-> > balance_dirty_pages() then throttles writers against a number that
-> > is unrelated to how much data actually needs writing back.  On
-> > workloads that repeatedly dirty small ranges of large folios --
-> > e.g. PostgreSQL, which writes mostly 8/16 KB pages -- dirty_thresh
-> > is crossed and writers are throttled long before the real dirty data
-> > justifies it.  On the benchmark below, run on v7.3-rc7, the
-> > unpatched kernel charges ~159 TB of dirtied pages while writing
-> > ~6 TB to the array, a factor of 27; with this series the dirtied
-> > pages charged match the data actually written.
-> > 
-> > This series makes iomap charge and discharge the mm dirty counters
-> > per dirty page for folios that carry per-block dirty state, so a
-> > partially dirty large folio is accounted for the dirty part only:
-> > 
-> >   - Patch 1 adds the mm infrastructure: an AS_DIRTY_PER_BLOCK
-> >     mapping flag, an @accounted argument to __folio_mark_dirty()
-> >     and __filemap_dirty_folio() to skip the generic per-folio
-> >     charge, and an address_space_operations::accounted_dirty_pages()
-> >     callback used by the discharge and migration paths instead of
-> >     folio_nr_pages().  No filesystem opts in, so it is a no-op on
-> >     its own.
-> > 
-> >   - Patch 2 makes iomap charge per dirty page from the per-block
-> >     dirty bitmap and wires iomap_accounted_dirty_pages() into every
-> >     iomap-based filesystem.
-> > 
-> > This was benchmarked with PostgreSQL using the pgbench simple-update
-> > workload on v7.3-rc7.  Average throughput rises 46.8% (139.8k ->
-> > 205.2k tps) and run-to-run variability drops from a 23.60% to a
-> > 3.98% coefficient of variation: the worst iteration improves from
-> > 97.9k to 191.5k tps, while the best gains 8%, 199.4k -> 215.9k.
-> > 
-> > Ten iterations per kernel, same database and workload (tps):
-> > 
-> >   Kernel                     Avg     Min     Max      CV   iters   iters
-> >                                                              1-5    6-10
-> >   ______________________  ______  ______  ______  ______  ______  ______
-> >   v7.3-rc7                139.8k   97.9k  199.4k  23.60%  164.4k  115.2k
-> >   v7.3-rc7 + this series  205.2k  191.5k  215.9k   3.98%  200.1k  210.2k
-> > 
-> > On unpatched v7.3-rc7 the worst iteration lands ~51% below the best,
-> > and throughput decays as the run progresses: iterations 6-10 average
-> > 30% below iterations 1-5.  With this series the decay is gone -- the
-> > second half is similar to the first -- and the coefficient of
-> > variation stays at 3.98%.
-> > 
-> > The over-accounting has existed since commit 4ce02c679722 ("iomap: Add
-> > per-block dirty state tracking to improve performance"), merged in
-> > v6.6, where the ifs bitmap started recording partial dirty state while
-> > the mm counters kept charging whole folios.
-> > 
-> > The throughput collapse bisects to the v6.17 readahead series, first
-> > bad commit c4602f9fa77f ("mm/readahead: store folio order in struct
-> > file_ra_state"), which lets readahead stay at the largest folio order
-> > once it has ramped up, so a single dirty block charges far more than
-> > is written.  Patch 2 therefore carries:
+On Mon 2026-10-26 10:49:32, Breno Leitao wrote:
+> A bit of context on the use case from our side.
 > 
+> In an ideal world netconsole is enabled from early boot through the
+> kernel command line, but in some case this is impossible
+> (linux as bootloaders - ipxe/sd-stubs/etc).
 > 
-> How does this relate to
+> The other way to setup netconsole is to create a new target at runtime
+> through configfs. Netconsole then only sends messages from the time the
+> target is enabled.
 > 
-> [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap writes
-> 
-> https://lore.kernel.org/all/20260903182943.662461-1-kirill@shutemov.name/
-> 
-> ?
-> 
-> I assume they try to solve different problems, but would more fine-grained folio
-> dirtying also make your solution benefit?
+> For this second case, I would like to replay the whole kernel log on
+> netconsole, such as previous messages. Something might have happened
+> before the target was enabled, and we want visibility into that.
 
-Yeah, it solves different problem.
+Just to be sure that I understand it correctly. 
 
-And I abandoned my patchset. The right way to do this is to make
-page_mkwrite() per-page, not folio.
+Is the netconsole registered before it gets functional, please?
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Is it possible to detect that the netconsole is not yet functional
+and when it could start working?
+
+I ask because there is the flag CON_PRINTBUFFER which should cause
+re-playing all messages on the console during registration.
+
+A solution might be to delay the console registration until
+the netwok target is really working.
+
+Another solution might be to temporary block/disable the console
+until it gets operational. We already have console_suspend()/resume()
+API. But we might need something new to distinguish it from
+the system suspend/resume handling.
+
+> That said, the "per-console counter" might work as well, since it would
+> start as 0, thus, we know that netconsole target would be behind, and
+> try to replay? (not sure how yet)
+
+This is what the console_try_replay_all() does. The only difference
+is that it resets the counter to the oldest available message,
+see __console_rewind_all(). It is just a small optimization
+when the ring buffer is already full and the oldest messages
+are gone.
+
+> That said, one way or another might work for our purposes ?!
+
+Best Regards,
+Petr
