@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793067298;
-	b=4Z/lMc7GSBRieG47lZwgYIK1sxWurYjY/6I4CQHvRe99qHOwqMu8E5W2lcOw2ivJjcTv
-	 E4OypS9CKYb0ABSm4dyJZ6eqHkJhRzcRIJLE4pGP0QUsA9j+lOUljXVghb7nJYfiHTeai
-	 I45kwPXkCSdFNbRo4KCW9/9dSCsqW7Le/FD5SjgvjW9XmYF3fxWk5qpQhTnSnBga3Rosa
-	 9iWmlMwORuWFkkWvdKtuQsrozRUDzWjujWDWVtyrcKjEA5xFEPlJkVmAOkyjIo/hTcIrC
-	 tKNIEo5UZ9CFC7AD8BGelXZg0dg46tGAeaVhjUfEv4K/VZoZwrbDBA3Npif3gC07/Ng==
+	t=1793067423;
+	b=SS65mFgK6ASLdIa33COBxFrYQti6H/cma2zPdXoXQ+yzBXXG9qv8vrKiG5k5C78eF07O
+	 0BrBvF0AwSuxo2ZM36hFUBxJpWyrwg72qQSwG+EK0//hSZT8PAqN++h2WM6N7DIJA++VJ
+	 9u0DBFfGh3kiE1fsLDu35Hu9ClLovZV08JZL1vcapRHRETcJM9dhSAZL5XOTW/TLwtbXv
+	 DgVEObkdQJ26CBxIlIvDhyZpshwPx1zIx6dQBsSrJaeoeMhpqdWU7lGSsjhf4HDWOdzLV
+	 2CT3dBuMeh4m/rMoiH7zeh6G3XzyjEoxgI7FMRqlV91wQpOyAJUYANTIB0Uk/oqSfBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793067298;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=r/ih1FRvfSOmfO7QDbPciyZaWLHsTj9/8O4QuQ4T6pU=;
-	b=GVKaLzapUxWvbWhZOrvSqWWgOq1nr1698QICmyub6HVuX1i1rSCcybbmsETAxSI++G5T
-	 zx6MK8diGbpYbSpntL5QvhByQNGSXOJ+4xUgDkJ5rEo6NROXtr+BZmPE3M6JN3tIHArX/
-	 l3bSBdHE9IA0wGG2H7fBJI5CJND5cYRtCKOYi/aLJJH7NpwYNAOuCQpWO1EHNAeLv/dDe
-	 ED7x7XOKdT/ZzEG6FiDjdhMAPHp2ItRjnpypSkHxCfL1XR11SG48kH4BIcToCBZBLljfz
-	 baIudVdsjdB8in86ZE3rB3ONU9IGcH4Lqm7jxTvj6pZ6JUOfyCEmhjc4yvJLk9Y1NhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793067423;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=3ojf1XO/iaoieDVB5HRoBecDQ4hVUQJNCe5eIUaEZK4=;
+	b=DaxOD7mdHHOClRMiemj07VWJCqNUsOGPfAGjLcBgdgmbDRCoaHbDhVO9F8MfDTYobCUt
+	 0unP8P1l3t1UEQe/wph7YGRzI5gg/eyyoIMSM12jkcVX4zTb9ayNCQkb0ZfiwJAPOC2YX
+	 GDsT8jA6neNAWh8JgAZ9d1bXEvnWAAQn+QFkBEIQVDTkBqJXxb+FCbkAo/zgTfJChlrHH
+	 XTok+WQ4WCfz3TisTOkTlUjLtzXogbohkCNhKdtdzGqLLgL/hrJpi+nb6nYIAeDXo+4iE
+	 gSeGGK0scx/MDzMXAkMvcd+kI3z5TkOguXE4G4nFBt5Q7bdhvzavPkdSxI2YpONBhiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LBKrDqA+;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aTRpZpwI;
+	arc=none smtp.remote-ip=113.46.200.227
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C50E606A322
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C50E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C972C606A31A;
+	Tue, 27 Oct 2026 02:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C972C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LBKrDqA+
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261027021454epoutp0416c8501fe23ba6492c7beb91a12dd089~iQTQuKfzf1545915459epoutp04K
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:14:54 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261027021454epoutp0416c8501fe23ba6492c7beb91a12dd089~iQTQuKfzf1545915459epoutp04K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793067294;
-	bh=r/ih1FRvfSOmfO7QDbPciyZaWLHsTj9/8O4QuQ4T6pU=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=LBKrDqA+Bt5IVXuwI1IcW8kNbSc8vQbrTc6GqNEGsM7CVMUxWuMyKhQ9DRdPRUpVw
-	 tHdh0KrbGigc/m9KEEyZW+tfUXTxbaLflO5SyXAwkZ6HKq+P+702cZxARokaQg/J+4
-	 YywJQhpGc4iY96kitz5Xd2IV6fXfhewGcoPsoYk0=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261027021453epcas2p28f51b1d20d1019d8cbbfad208984efd1~iQTQWG61U3121731217epcas2p2H;
-	Tue, 27 Oct 2026 02:14:53 +0000 (GMT)
-Received: from epcas2p4.samsung.com (unknown [182.195.38.204]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jDDbK1kgCz3hhT7; Tue, 27 Oct
-	2026 02:14:53 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa~iQTPbqUs11825818258epcas2p1N;
-	Tue, 27 Oct 2026 02:14:52 +0000 (GMT)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261027021452epsmtip2b378fe92584083c91083387acfbb1a46~iQTPWge012996629966epsmtip2r;
-	Tue, 27 Oct 2026 02:14:52 +0000 (GMT)
-From: HOYOUNG SEO <hy50.seo@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
-	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: HOYOUNG SEO <hy50.seo@samsung.com>
-Subject: [PATCH v5] scsi: ufs: Change the error check sequence for auto
- hibern8
-Date: Tue, 27 Oct 2026 11:10:37 +0900
-Message-Id: <20261027021037.3398180-1-hy50.seo@samsung.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=aTRpZpwI
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=3ojf1XO/iaoieDVB5HRoBecDQ4hVUQJNCe5eIUaEZK4=;
+	b=aTRpZpwIaUse7idT5YcevWycXV8LRBZTmAYLN9/oO0O2FtjxoA9njNUBWYqR110b+uedkCvVh
+	yFt54UxtY7gFUi8KNV/fqbktKgXs2UQn+0IIxG/L77dZ1ZAfunULJZNNYJFzn+4SzB6basB5GPj
+	+fd+7nv/JvLP/wzV031+VpU=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jDDdp5RnSznV2X;
+	Tue, 27 Oct 2026 10:17:02 +0800 (CST)
+Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
+	by mail.maildlp.com (Postfix) with ESMTPS id CED2E4048B;
+	Tue, 27 Oct 2026 10:16:57 +0800 (CST)
+Received: from [100.103.109.15] (100.103.109.15) by
+ dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 27 Oct 2026 10:16:57 +0800
+Message-ID: <810801c8-55b2-45f9-81b8-cd95847fe530@huawei.com>
+Date: Tue, 27 Oct 2026 10:16:56 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,105 +62,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa
-References: <CGME20261027021452epcas2p1f71a25c723df847d76cd114ce7afabaa@epcas2p1.samsung.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rseq: Prevent self-preemption when granting a time slice
+ extension
+To: Peter Zijlstra <peterz@infradead.org>
+CC: Thomas Gleixner <tglx@kernel.org>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@kernel.org>, Mark
+ Rutland <mark.rutland@arm.com>, <linux-kernel@vger.kernel.org>,
+	<liuyongqiang13@huawei.com>, <stable@vger.kernel.org>
+References: <20261023040439.3829110-1-yaokai34@huawei.com>
+ <20261026114038.GE2668200@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Yao Kai <yaokai34@huawei.com>
+In-Reply-To: <20261026114038.GE2668200@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ dggpemr500006.china.huawei.com (7.185.36.185)
 
-Auto-hibern8 enter and exit are performed by the host controller without
-a UIC command, and the auto-hibern8 idle timer only runs while no UIC
-command is outstanding. An auto-hibern8 error (IS.UHES or IS.UHXS) is
-therefore usually reported while hba->active_uic_cmd is NULL.
 
-Since commit fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl()
-easier to analyze"), ufshcd_uic_cmd_compl() returns early when
-hba->active_uic_cmd is NULL, before ufshcd_is_auto_hibern8_error() is
-called. Such auto-hibern8 errors are no longer recorded in hba->errors,
-so ufshcd_check_errors() is not called for them and the error handler is
-not scheduled.
 
-Check for auto-hibern8 errors before checking for an active UIC command,
-as was done before that commit, but keep returning early when there is
-no active UIC command so that a NULL cmd is never dereferenced. Only
-report the missing UIC command if no auto-hibern8 error was found.
+On 10/26/2026 7:40 PM, Peter Zijlstra wrote:
+> On Fri, Oct 23, 2026 at 12:04:39PM +0800, Yao Kai wrote:
+>> __rseq_grant_slice_extension() makes the grant visible to user space and
+>> then reads the clock to compute the expiry time before it clears the
+>> pending reschedule request. This runs in the exit to user mode loop with
+>> interrupts enabled.
+>>
+>> Clocksource read functions are free to disable and enable preemption.
+>> kvm_clock_read(), xen_clocksource_read() and the arm64 architected timer
+>> counter accessors, which are used when a counter erratum workaround is
+>> active, do so. With full or lazy preemption, when the request which
+>> triggered the grant is a non-lazy TIF_NEED_RESCHED, e.g. a lazy request
+>> upgraded by the scheduler tick, then preempt_enable_notrace() in the clock
+>> read function schedules right away, e.g. in a KVM guest:
+>>
+>>    __schedule
+>>    preempt_schedule_notrace
+>>    preempt_schedule_notrace_thunk
+>>    kvm_clock_get_cycles
+>>    ktime_get_mono_fast_ns
+>>    irqentry_exit
+>>    asm_sysvec_apic_timer_interrupt
+>>
+>> The task is preempted with the grant already handed out to user space,
+>> i.e. in the middle of the critical section which the extension is supposed
+>> to protect. The stale grant is cleaned up when the task goes back to user
+>> space, so the damage is limited to the extension silently not working for
+>> such preemptions on systems which use one of these clocksources.
+>>
+>> Read the clock in the interrupt disabled section after the reschedule
+>> request has been cleared.
+>>
+>> Fixes: dfb630f548a7 ("rseq: Implement rseq_grant_slice_extension()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Yao Kai <yaokai34@huawei.com>
+>> ---
+>>   include/linux/rseq_entry.h | 14 ++++++++++++--
+>>   1 file changed, 12 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/include/linux/rseq_entry.h b/include/linux/rseq_entry.h
+>> index 31ce349ed42c..3e6a339175f8 100644
+>> --- a/include/linux/rseq_entry.h
+>> +++ b/include/linux/rseq_entry.h
+>> @@ -174,8 +174,6 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
+>>   	rseq_stat_inc(rseq_stats.s_granted);
+>>   
+>>   	curr->rseq.slice.state.granted = true;
+>> -	/* Store expiry time for arming the timer on the way out */
+>> -	curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) + ktime_get_mono_fast_ns();
+>>   	/*
+>>   	 * This is racy against a remote CPU setting TIF_NEED_RESCHED in
+>>   	 * several ways:
+>> @@ -222,6 +220,18 @@ static __always_inline bool __rseq_grant_slice_extension(bool work_pending)
+>>   	scoped_guard(irq) {
+>>   		clear_tsk_need_resched(curr);
+>>   		clear_preempt_need_resched();
+>> +		/*
+>> +		 * Store expiry time for arming the timer on the way out.
+>> +		 *
+>> +		 * Read the clock only after the reschedule request has been
+>> +		 * cleared and with interrupts disabled. Clocksource read
+>> +		 * functions, e.g. kvm_clock_read(), may disable and enable
+>> +		 * preemption, which would otherwise schedule right here on a
+>> +		 * pending request and void the grant which was just handed
+>> +		 * out to user space.
+>> +		 */
+>> +		curr->rseq.slice.expires = data_race(rseq_slice_ext_nsecs) +
+>> +					   ktime_get_mono_fast_ns();
+>>   	}
+>>   	return true;
+> 
+> I am confused; even with this patch on, a tick that happens after
+> unsafe_put_user() can cause things to get rescheduled 'instantly'. That
+> preemption happens from irqentry_exit_cond_resched(), and needs no help
+> from any preempt_enable() usage.
 
-Fixes: fcd8b0450a9a ("scsi: ufs: core: Make ufshcd_uic_cmd_compl() easier to analyze")
+Right, that window still exists and this patch does not close it. An
+interrupt which hits between unsafe_put_user() and the interrupt
+disabled section preempts via irqentry_exit_cond_resched() as before.
+That's a race against a handful of instructions though.
 
-Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
----
-Changes in v5:
- - Fix the unmatched brace in ufshcd_uic_cmd_compl() that broke the build
-   in v4 (Stanley Jhu, Sashiko, kernel test robot).
- - Use a local bool for the ufshcd_is_auto_hibern8_error() result instead
-   of testing hba->errors (Bart Van Assche).
- - Move the Signed-off-by above the "---" line and Cc stable.
- - Link to all previous versions.
+The clock read does not need an interrupt at all. The request which the
+grant is made for is still pending and folded into the preempt count when
+preempt_enable_notrace() in kvm_clock_read() runs, so the task schedules
+on every grant for a non-lazy request. I verified that in a KVM guest
+with kvm-clock: without the patch the extension does not work there.
 
-Changes in v4:
- - Changed patch version
+If that makes sense to you, I'll send a V2 which spells out that
+distinction in the changelog.
 
-Changes in v3:
- - Check auto-hibern8 errors before the NULL check again, so that errors
-   reported while a non-hibernate UIC command is active are still
-   detected (Sashiko review).
- - Return early when no UIC command is active instead of falling
-   through, to avoid dereferencing a NULL cmd (Sashiko review).
- - Add Fixes tag, reword subject and commit message.
+Thanks,
+Yao
 
-Changes in v2:
- - Check UFSHCD_UIC_HIBERN8_MASK for auto-hibern8 only when cmd is NULL.
-
-v1: https://lore.kernel.org/linux-scsi/20261021051951.1687479-1-hy50.seo@samsung.com/
-v2: https://lore.kernel.org/linux-scsi/20261022074249.3098100-1-hy50.seo@samsung.com/
-v3: https://lore.kernel.org/linux-scsi/20261026051851.1845934-1-hy50.seo@samsung.com/
-v4: https://lore.kernel.org/linux-scsi/20261026052632.1848929-1-hy50.seo@samsung.com/
-
- drivers/ufs/core/ufshcd.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index d085d394858f..c08278a2e43e 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5939,18 +5939,26 @@ static irqreturn_t ufshcd_uic_cmd_compl(struct ufs_hba *hba, u32 intr_status)
- {
- 	irqreturn_t retval = IRQ_NONE;
- 	struct uic_command *cmd;
-+	bool ah8_err;
- 
- 	guard(spinlock_irqsave)(&hba->host->host_lock);
-+
-+	/*
-+	 * Auto-hibern8 is performed without a UIC command, so check for
-+	 * auto-hibern8 errors before checking for an active UIC command.
-+	 */
-+	ah8_err = ufshcd_is_auto_hibern8_error(hba, intr_status);
-+	if (ah8_err)
-+		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
-+
- 	cmd = hba->active_uic_cmd;
- 	if (!cmd) {
--		dev_err(hba->dev,
--			"No active UIC command. Maybe a timeout occurred?\n");
-+		if (!ah8_err)
-+			dev_err(hba->dev,
-+				"No active UIC command. Maybe a timeout occurred?\n");
- 		return retval;
- 	}
- 
--	if (ufshcd_is_auto_hibern8_error(hba, intr_status))
--		hba->errors |= (UFSHCD_UIC_HIBERN8_MASK & intr_status);
--
- 	if (intr_status & UIC_COMMAND_COMPL) {
- 		/*
- 		 * Store the UIC command result in the lowest byte of
--- 
-2.34.1
 
