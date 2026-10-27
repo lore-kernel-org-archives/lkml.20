@@ -1,49 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100125;
-	b=q0pfdoroAYEh5jrfGupkABLRoM/MUFxU/aUynw2SM0AiPDefPNybCVwG8A2lP8LQpnfb
-	 wgrviQVWNMw2/JpytgsF7iiwgmVIislJTC21QDeSZ/s3gzFaFn/7ajfPTEbVUXj+uA6Eo
-	 m9yVP99TbMFtExdFsXLdn2SEVgekO1pe79oMhwsMm8z76Ds/EgYpLN7L1jqOWVtOhRIAa
-	 Q5vMorNkcthQcGuMW79BhzhLJ9MXFTINl5WR48hJ3l8YolpOKsFF5NQ4ct0FOU3w0gwHP
-	 ytJjN3gBx3lu86H79b3/tMwSPIhFt0fn6gF0dBRuLgTqDCIcA50LNB8kXFKysT3Rxug==
+	t=1793100203;
+	b=re0l96o5eRKu4TeDYkht/djlYiQx6QRTDdRH5MunwpoW6hNnCtsv6pegI/5lfby5qYFQ
+	 kXvAm20HcS+9uNJNKYOZ4Zn0/oti5SIBEzvPQZ7wt+M4QUs+rDftdKyQehwdxVPEajv/U
+	 /8BqrNd29piSIk7IPy8R36PShby20ZUIZe6O3xaU0uXZE2Ysl7NNR2+nhqKPNIoCRuDns
+	 wckWPeK5r7TEmAUPPKUqLMMA2W4+0bsv75B6IvqzVXPfLcj4Qgmvqsfz6PPZ6Xj8swI+J
+	 4cHqNsaqfWSUkUSqRvhLqi+PitbQNIdL85lz0VUhIJofIEZsfCQG2Wfo7D8uwBviLtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100125;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jfyUDsKhlOqT9ZVuYcSgjElm7tsdbAKRMFhtvXe6L9A=;
-	b=jjIyNnJoIZ/AD8BKpBbqHVPqEanlqYjF0w4DF87Zx1phAxPGxOpqYZMBOc8c5EI240uV
-	 bds33U9a9Qed+UNyOq5X5sCZQS30V4G7zr4aqv/LTcVfgy11+9IbD+slRIMxMa5qSNHmT
-	 2JqBcTaZDFyWHBiKkRd6kdyGYfqH8zL7HylFbcc/HzIzg2N5WRMMRg7741zHTJWXzRT7D
-	 hwh7pjV9b9Pmmoa/joW4afaPoqtQEGwaBEmxdLtBLGDm5daxN4iweRF3lGfrxwQrfx5FN
-	 90BrGU/u9fe+BDWp2XApFMi6DQ4FyeTVzQgYpoHvn50M8x6RNH8Ul8CVgOeFsznaYNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100203;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LCLGT3dGFbYN1moOX5comzCHld4bgy4ncy8r17Egy90=;
+	b=TXXUR5GeKnav5BpuBIvZ/Raxu7bNv11gSSgkaP8Ao9um5b7m2jQWZyVl/XsxhZgDHRBd
+	 VGWlR5fS70Z5+7R6SYGcdJ5s8pYmb50SS/r4dsMBl+bmj1q3DkaZInNApLV0CX6Fs2sGo
+	 52TSpHz9W9yjeTAlNNRdejLJ1fQDXvmm1f2Yz0ENl/TTvxSuwGVfEi0KLWNW2aaKLieUs
+	 pSLAcS1tAO8mOqv8vBLPUVNeYICDsfBQHhuLM36KLj4meIIRwe2rzZeySgkMbToFZADbw
+	 sXmvBkzhWotsaFDsfl97CUTwYj00A3jBcbxzAyUmXI409cl7B5DPdSCRYQa+5RbS+4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ddLT2Zf5;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDE90606A323;
-	Tue, 27 Oct 2026 11:22:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDE90606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D0SkzBCp;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JKM+lQbB;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A033D606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:23:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A033D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ddLT2Zf5
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C580D15A1;
-	Tue, 27 Oct 2026 04:21:59 -0700 (PDT)
-Received: from [10.57.10.231] (unknown [10.57.10.231])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3740A3F59E;
-	Tue, 27 Oct 2026 04:22:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793100122; bh=838wFtDFsF0HokI538R5ofd77JbIMlhOLC16rwoHK7s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ddLT2Zf5YQBgKygXg943E7oErBMT3tunlYUxi1c2QV3J7lV97pOhC5X6oYoLTnzyx
-	 kcEHAurLuaud35aWmyo7L/LpN4baP1jt+0SlVLTZMdMxxdk43dhKxBNPhg/Pf23EbK
-	 fI47paTsb38KgDdHi4IVmMZQYK3vU+ixcdKUBAaE=
-Message-ID: <82adee03-a169-4106-99f2-7624a4926037@arm.com>
-Date: Tue, 27 Oct 2026 11:21:59 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=D0SkzBCp;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JKM+lQbB
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeApW2524940
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:23:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LCLGT3dGFbYN1moOX5comzCH
+	ld4bgy4ncy8r17Egy90=; b=D0SkzBCpnj/p7gIAvgZJWNa4gx96i7m/IaIl34+6
+	nDvIVb8O3g28rqcitQCqrjNmvK59YLW3XT+Ivs5gdufNBdyPjIY5MabwR0Aq6PD6
+	holb2bkwxif4Dd9qfkphphkYORji9BV0SqQtgsHLXMWe4Phrva4ojg/8F3ID5ix/
+	cBm/7O3asPnPiSK8qlzi8ieX40a8E3hbbePq2dmSqKipyetD626oUAQVZlkDSSqh
+	JHTwN/1R5LsSS+KViD//rA4rNxhY2QkuUlVlPiysTD23Ht8X5nGRuXJMXvV684aR
+	LsM0yBjh5rQvV8LJCMTky6aUAwMuFiLr07/1CARLgyfXww==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqw20tfg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:23:21 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f13c143c8so741558185a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:23:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793100201; x=1793705001; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LCLGT3dGFbYN1moOX5comzCHld4bgy4ncy8r17Egy90=;
+        b=JKM+lQbBCMimTyITmAUUODC+CuPTHnQv4ze7SP1UbEt0dzJHp6UquHwCaxDeAuI8TE
+         VMiIxphUvpTsbfQBXrh4I+xFpKwxgOl4ZniJ4hYQt6AaTqijDIsp142mjbVtwZSYTnEP
+         AZyDtDg5Z4YWuhpbnGpxB5okhnoVqvUs/DlQhL8iD1qmJZ+ka5VoJzOUQ1eNEA4b5SMK
+         t3sfownP24/dID9mOn73avgDWSsKhMS3aJATmb1vycdO5QCC4/ZMwK29b/BlgOmCbKas
+         lmnOdbR1O4rUJsbOSedQSRlnn+0upLOHMzl1tqV8A6tL1+lcfqH/4/6xLGqN5KSuPHX3
+         SSZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793100201; x=1793705001;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LCLGT3dGFbYN1moOX5comzCHld4bgy4ncy8r17Egy90=;
+        b=hMtd1GOU6xghBi9xS7ylzghrdd8RPQpiBMCZcD2LrHzb0Fgyf5ZY8zH1ZPBbYUD1XG
+         /rF0fxUXampwM+Uq6VOPrprwJRFoWgjITxQUVOGHZN9+D5jmiDIAiJ1uyUPl+q3BUqE1
+         sBYGwajB5M9FWZJvuKqm1YUMKAH6upuscKiEDrT7OLnFVOg/muwz92/ALrxCl0Hxd8Tp
+         LdzCNLU75vH/+D7w1GWXFTIwvs0G463kIjW7h3PZZzxRXPP2ev3bl/PkCAfbCPcyTSXS
+         r+tx+VR3mIOuXQq09EGOH8+Abve0LX42vcEpEXAyh4IT0tT9XhTFjUnxA4+DCz2Oq83e
+         Cz8g==
+X-Forwarded-Encrypted: i=1; AKwUvByS5aQR0YBr2nDdVD4mA9rsmv5ZbsJnIlIkOfy+JfZA4EVoAWR7zThhG3ml7USdhbsh2/gFRRhd8PeuSiQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJt81vYkuR0YvjYxyVkIFPJqmU/cpFlqgLdGhNpbohl0gs4OwU3
+	wg07R0efwKau6aPRYOfjnLabDqDl0EljvJ96zFrdQ0HZncna/U7CxkwxxT9UvDA5xbSz9//TVze
+	tMmh6XQ6/K2Z5O7a3KL8YYZCVSMTI7L/Sg0UBmD2Rm2JxGKww/AgQKcn4BtMsf+1CR0E=
+X-Gm-Gg: AYBFou0/F1XmL/BEZOraM1t/2WVx/KtUZ4B+DXZoPQaboeMWM+lVe+xQoowsVsOWn5D
+	fRDjG3hiqWMrdet3SYrHYwS9m8xS3KH0itka79XaNWS3p6ADEQ/8e/+DOrF8f42XVKv2RPBIpD1
+	NKCHPbdxeadI45sqKrDWM5k7VhuBdGkdyiAM1JeJWunWK0Jm21qyfZuweXYVorSNJS9f7k7jgxP
+	A4k8m+K5VxZKDsVgxUGpk/NFwUtrfWV41XsGxnYlreMNktQ3d8jb6qomX0kO7kBgAXW5a4wc8KM
+	lD4M/tM6baqY0n848XT8EgVQmiaJQ1q8xeP1X7V3bCcUIP5oyJMnL2lUJrUr5Vt/DKU6uucaunE
+	MDc1wDzdFd7xUul12SnkHQalp+wpIlN+1KddeiIPuLXpE+Y39HektabpWBRjg8ku5wA==
+X-Received: by 2002:a05:620a:198b:b0:914:afc1:c66d with SMTP id af79cd13be357-940ef7b5363mr1437220585a.11.1793100200675;
+        Tue, 27 Oct 2026 04:23:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:198b:b0:914:afc1:c66d with SMTP id af79cd13be357-940ef7b5363mr1437216385a.11.1793100200094;
+        Tue, 27 Oct 2026 04:23:20 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359f59750sm175048735e9.0.2026.10.27.04.23.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:23:18 -0700 (PDT)
+Date: Tue, 27 Oct 2026 13:23:16 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Robert Marko <robimarko@gmail.com>
+Cc: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org,
+        bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, konradybcio@kernel.org,
+        taniya.das@oss.qualcomm.com, ansuelsmth@gmail.com, john@phrozen.org,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: ipq8074: Add CMN PLL
+Message-ID: <xzlcs4jdxvndta2lmbnofb4dvekkbea3gaodqxjomn6o7ibjif@lakwxrxx2is7>
+References: <20261026120920.1667982-1-robimarko@gmail.com>
+ <20261026120920.1667982-4-robimarko@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,95 +123,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] coresight: syscfg: Match feature capabilities
- separately from device class
-Content-Language: en-GB
-To: Leo Yan <leo.yan@arm.com>, Amir Ayupov <aaupov@fb.com>
-Cc: James Clark <james.clark@linaro.org>, Mike Leach <mike.leach@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
- Shuah Khan <skhan@linuxfoundation.org>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261012230527.750567-1-aaupov@fb.com>
- <20261012230527.750567-3-aaupov@fb.com>
- <20261021143958.GH26205@e132581.arm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261021143958.GH26205@e132581.arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026120920.1667982-4-robimarko@gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX9AqC/GFnOlZT
+ gdLA53wxXsG9HJGQ8Er5V07/mKdQRctNJHwxLMmqvvk0lmIo1OJQAbV/mylDRjoAo25Mfhd73q7
+ OJwwYKn/F5+aO0Gq3EXAGBAsuOJehec3R9iHpN+pM3TdF96wl+4sgA8375PJIggr7sc2IX4ZrG4
+ xz2HBxSuejQcux7YDh2HmN1y6LKMfwz+V0k4Pr2tZmgwq8x8TBv/VdUKh/rDsSEjech/zhYyikF
+ 204ldOV+ROAE6ZFcgKHHteHG33Y4C0BhqLJ6Ryu9rhsb+H5Dw2Vob3PxY9QrTQfm9D3FLLXJSye
+ o4S7Qb91TBhToc6QgwzE+13bJtL4DXym/NMfU7x2vMq8L+pElIR4X0blGv0YUHabwDHjMVAIJ6k
+ ZBvNpk/m7E/gkW1yLF6DbuGsnRIdgNgUQpFqZ7XQow6macPu1UiHAkcXWYHV3YvxHTk7dEPohQK
+ nZBttgtQ6LzmNfzpsoQ==
+X-Proofpoint-GUID: FHij58k8CEGgsmlrSWyOgoNldTKKGVho
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX3pwzucfTuj5M
+ pW+8UF+4urv5Ll8QUyPn5CJo5C219ynTrmr0dGUaj8B+bbbkGVw86T2i0CC3afkVdSTLr6D1a3Y
+ WypNAcJixD9/boX4HlzjTa7KXZ2PH2Q=
+X-Authority-Analysis: v=2.4 cv=PsYG/AM3 c=1 sm=1 tr=0 ts=6ae089a9 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=w-uRcYzalQcvdjeGYpgA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: FHij58k8CEGgsmlrSWyOgoNldTKKGVho
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 phishscore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270045
 
-On 21/10/2026 15:39, Leo Yan wrote:
-> On Mon, Oct 12, 2026 at 04:05:21PM -0700, Amir Ayupov wrote:
+On 26-10-26 13:08:15, Robert Marko wrote:
+> Add the CMN PLL node, it will be used to feed the required fixed clocks
+> to networking subsystem.
 > 
-> [...]
+> CMN PLL provides bias_pll_cc and bias_pll_nss_noc to GCC.
 > 
->> --- a/drivers/hwtracing/coresight/coresight-config.h
->> +++ b/drivers/hwtracing/coresight/coresight-config.h
->> @@ -30,6 +30,12 @@
->>   #define CS_CFG_MATCH_CLASS_SRC_ALL	0x0001	/* match any source */
->>   #define CS_CFG_MATCH_CLASS_SRC_ETM4	0x0002	/* match any ETMv4 device */
-> 
-> It is good to introduce a marco:
-> 
->    #define CS_CFG_MATCH_CLASS_MASK       GENMASK_U32(7, 0)
-> 
->> +/*
->> + * flags defining device capabilities a feature can require. A feature loads on
->> + * a device that matches one of its classes and has all of its capabilities.
->> + */
->> +#define CS_CFG_MATCH_CAP_MASK		0x0000ff00
-> 
-> To make the mask explicitly 32-bit unsigned:
-> 
->    #define CS_CFG_MATCH_CAP_MASK		GENMASK_U32(15, 8)
-> 
->> +
->>   /* flags defining device instance matching - used in config match desc data. */
->>   #define CS_CFG_MATCH_INST_ANY		0x80000000 /* any instance of a class */
-> 
-> Not an issue with this patch, but CS_CFG_MATCH_INST_ANY appears to be
-> unused and could be removed in a separate cleanup patch.
-> 
->> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
->> index a816c22c87bc8..1545d64afec01 100644
->> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
->> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
->> @@ -172,7 +172,21 @@ cscfg_alloc_csdev_feat(struct coresight_device *csdev, struct cscfg_feature_desc
->>   }
->>   
->>   /* load one feature into one coresight device */
->> +/*
->> + * A feature matches a device that shares one of its class flags and has all of
->> + * the capability flags it requires.
->> + */
->> +static bool cscfg_match_feat_csdev(u32 feat_flags, u32 csdev_flags)
->> +{
->> +	u32 caps = feat_flags & CS_CFG_MATCH_CAP_MASK;
->> +
->> +	return (feat_flags & csdev_flags & ~CS_CFG_MATCH_CAP_MASK) &&
->> +	       (csdev_flags & caps) == caps;
-> 
-> For clearer comparison conditions:
-> 
->         /* Class type must be matches */
->         if ((feat_flags & CS_CFG_MATCH_CLASS_MASK) !=
->             (csdev_flags & CS_CFG_MATCH_CLASS_MASK)
->             return false;
+> Signed-off-by: Robert Marko <robimarko@gmail.com>
 
-Why not use FIELD_GET() to compare to make it more explicit ?
-
-> 
->         /* No required capabilities miss from the device */
->         if (feat_flags & ~csdev_flags & CS_CFG_MATCH_CAP_MASK)
->             return false;
-
-Same here.
-
-Suzuki>
->         return true;
-> 
-> Thanks,
-> Leo
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
