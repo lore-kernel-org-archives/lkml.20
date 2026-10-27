@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119134;
-	b=nIfC9PsdVh3PLPtIgYd5FW9Kwf2BFOUkGRPD1TEwD/IQIcGQDpuRZBEH3UsnfDMVlagg
-	 CPYzqe6bgvJaOy0aFCT6pkzTRwgZqrRLFgs0nHlE9X0uXWxIbmK/cTqJ45JgrZfgPl+yY
-	 dHuyiL6s65vYioIyXQnNTXK3M2t8jE8LIdSxE75X5NsK++gYmilDEEB+o2gsdm+Z9Gplf
-	 ptWwBVFy9mKjKUYU6KLKc26XvD5RtGvioPGjG9iDg/bVFGRj+k13WoWlUG5u9Jbl/+l8s
-	 tOVmDiZpaCP4IATrKHzGlr7PWkfc24tN9ZiTHLTjITL6VvvICtJEnKGwVVpqP0GD8hw==
+	t=1793119131;
+	b=ntQ2vY1jBvL2t/W1NNA0k8xEXWJtC2FTuYSI6iEd/5Ix9vi7kFfwJMuP2NLEID35rf62
+	 o+rr7/dsPa6472SU6wS8O6uwKfZIR930NJSn5rc3cVW4ycQDkG/aBYmK7H55IQ8vJpTuS
+	 8j2EN/A0hGamZhN9rUe3CvjzcpTgoj+6ixs+l0JNiXcQWbZ9ACiShvCaey6xgk0I6xj3W
+	 TEtdKBzZPNHJW7ymNLNarl9US4LxFhR6IKL/74RKI1r5CDNzLhbhbqbHy3rGJxQMUWDgW
+	 SqViCXYuSajkss892ycEibldG5qQYbdvzQn1bTNwZy28Bj/gOLOnliD4+1w5gweq1Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119131;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=u2vDv32MA81U0LmwErTlcthaqDxgBvR1wRAzc93ugyc=;
-	b=HFjRgUTxEF/YW/gkock1zvC33qCOv7VpBPQRWGSmEym4ck07F5xadttxAc54TjN8ARx1
-	 WkSkIhIxBa6h4IuCHxKJZV3BetjBMAzooN6vrIdCBAP+KKfaK16Dlgtrs/I8n2yPhgRVf
-	 HTA4EbDcuOzRIKU+5g9fjHy/wdPq+ADRh/KbDVhIhpxqNd7FFWl0kQ9IhspSlSRrT/xSV
-	 icAHBF8hh31hXWx/CBUFBlBPkrCUDM6FInR4Wa0f/RQ7sdaNWkC2ANjtEDycPoNs3vEZy
-	 fubHmnS1peGPrNQAHDblzMhohiEsxlg7cCiIh03zbtaaVjrTY7Fq7SGWg5ugASJmCVg==
+	bh=uR0yAsXbMma6/WfA/RpMNc9+EEy6cOFQycvac3oRjgc=;
+	b=tdDCyxZZAMoR8316Rv7IPZ540ZniUf1q3rgYkJCaMC4E53VyXADLSU2W+1MznyS9Q7LJ
+	 ID+M41PfrcECt2Uv8F50MNyD8DCv9oTaGl9haDlKEHagSkIx8zT/jRscYaqJv/jYknNRt
+	 MME18y2+B/t2Yhe2z92jyjfh3K/obQB0+FraJoQz95XRLVC5RaUHZzye57YFHHM+zUfb7
+	 7e+lKQG+co6MiF3wLGbNxzJCOBeyvY+VuxwRAehwzohc+evenhZ5AxQSJBZ5c0OO3NrNp
+	 agX50jA80wzsfkTZaJysBUNNGZzAXf9G1JGOolg8dsuj9c1rWXQfmIg6p0RLQuopYAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vBf0RjX8;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tQEH+Hzu;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A5560A2604
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6A5560A2604
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23547606A334
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:38:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23547606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vBf0RjX8
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a210470b49so258045e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:38:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tQEH+Hzu
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so257645e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:38:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793119132; x=1793723932; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793119129; x=1793723929; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=u2vDv32MA81U0LmwErTlcthaqDxgBvR1wRAzc93ugyc=;
-        b=vBf0RjX8254h+5Ot1OzQFloa1ymqkVidegDxNaWxZ3l/i+MQQad2y+u6UTbY3PZP/F
-         I/ztS4Z5IonE2D6IS4TXVBMFZYTXsy7/kaV4jYBBPu9SbI7YpHmavTjGlWNcjG94QyhE
-         JAOHzau5GaTkz8T8dt0Lr5VG0nXRF3EGiV4z41Gvn0B3qSRsHzoe57V8NyUES+WVzb5m
-         gGMBFU3TbvIzoXKyHLTMH2ugXK3tcJkzDgHD7KJiwqN5jStZok5v6jBKWr+iZvAE4riU
-         P7GoCyjIeY/vBOolINx60BkfDRR/eS1f0K3bjO2ARdyMS2bgKpHLptxuhtG9agXIZkay
-         6EhQ==
+        bh=uR0yAsXbMma6/WfA/RpMNc9+EEy6cOFQycvac3oRjgc=;
+        b=tQEH+HzuZ8N6ABNkR399evROXJyBsW7JyFwK/5y0whEGzrXVyiwkOdg8PC4vVSWUi0
+         DAA+etD3fD9ACooMHDluagTnVbrz5zMrGHBVAgFsNCSfwM372WWQPnOfOBicCzpsfCg6
+         cqQeG3ALFLk7551NVHYFXSlTBsB24xEOgRXym3d5bsw2BVBsu8un/RIRaHULM+aS1RNy
+         6kyRqGDdgHKNIb+GeyZVP1qGlugobcWSv16Fn0BOlobKwpTqKMxUiGEk/czNv8xClRqB
+         W4aeIYqjSSVvEBXvpvQRMvXlNcf4jIKlfwVtbdf/P/1ETu/CpN1xNZn7J0kcl6xs/Bpj
+         Bpbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793119132; x=1793723932;
+        d=1e100.net; s=20260707; t=1793119129; x=1793723929;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u2vDv32MA81U0LmwErTlcthaqDxgBvR1wRAzc93ugyc=;
-        b=XgaGoG/Jcq8IHK8C71zoehTpKz/bNdGzmQCLEZVJaAyNa2E9U1xw6ZoJ+RrEgs5n0k
-         xXwDaTClKGfbQWJpbvzskmM3QnFuVfSEqYuQFZisKGcP1+b8jfokTDlydi5fjH9RJnnI
-         6+vromKmfh9ZoW2sksudeBBeE6rMO2oJ0ubtiOXhUC46k9GN7NCVAVEM1b3/2iUXuBtJ
-         TwXqGkxhBxbicuK80ZfsbSGm4sYCDxXQmufS0AVYKVRXeh6+I6KbsD73yeSqUe4p1Jl7
-         IAUglVkBBCxAurzeRPUm1oe/CKfKxL6NLlakct2ZC+ksNNUmlgTTB5K0YkNVcjZwlt5T
-         wlZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxy7OnH4JuO1cx1N3oA7DgQIoragN5ysG5k7ZlfrqvnX9bwe0/OmABqWhxy4mKXCes81rmRACvWB+YG0Bg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRqUjiYJXE+JNl+vsEoYnWriLQj5zvKRyQwo/7KMFc+C6+umIm
-	6Kwd7POOP9dwZHUWq5TRRHuulwN8XW9PAnAksmL1iH7inGtmRkegE+md
-X-Gm-Gg: AYBFou0TlyvSgMRvNFOuBYZqmoLuR6u5ie+vUvoKE7QRoN+CGUel4LrPDqBVpcX87On
-	re0p1ueUThZdPbbeGsgSCp8q4sXCH+ppCu+MM8ev+RkjBJ5vU7qlkGnQwL8676TJZ/plNb1gCtt
-	YpSQzFBDE6AbR2p575y5kTC6tbHEh0VNoV8qMUzW5lHSAr0zAUUf0IE4GrfgOk8eri/03/HeHBK
-	pMxnMTflVVNgIW7+WK0Oj10ucoWGBWzdrwnJUWflKSGXlOVTG9SvM3U4ea4hIfa/azOJT16IM+V
-	sTqtYGccukOOWr4Q2AixLJOPncmkF3/w2+bBiSweOoqXfwl+NY3VQKhqHS7FzcH7svtD7y+1WWb
-	AF8YwT1DxowlYbhVIzrL7ObXgSAUPPbKL0Xl+6RbEOTi7/zvWT6Lg6IoiqjcL3vo3lPov5puYuo
-	5D0pgy8uyxVQ81RYseZCTRv44en4ghQMONUa0OT9TDaAFE+O7EO1ogPy4jVaGaFkky2fcfDEnIw
-	xENZ2XeVvXxV331wNxXXACsFos96+eVldDcq2chFOQAwCxCIUhD+Ik0tjpaA/CvJT3Amr5c8XFk
-	iaV86KAYzr0URlBVVfxxCnDrIBmFlROYyJKUKg6s8YcNpxc=
-X-Received: by 2002:a05:600c:3acb:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4a35aca4fe1mr202598135e9.16.1793119131961;
-        Tue, 27 Oct 2026 09:38:51 -0700 (PDT)
+        bh=uR0yAsXbMma6/WfA/RpMNc9+EEy6cOFQycvac3oRjgc=;
+        b=LlflekqTgmRRnkI/rYK5alabXb+t+4Ur2zwFci+NlBHgOw8vfOEzZtXIuz6YT74Fq/
+         sycsXIGg4NCVuLqMYVixyBhuyOU4qzG1xEmwgI95vpwJrwKwxclWF6tuqf+ZN/vK4q/R
+         KHLXUg/4XujKsX6ubsrZa9JQqnZCc8CSqe4yTYuoCTsRI0Rzgwi7370tKXqqU7yP8AIu
+         3PoyZ64ygbfXKG2jngn/R4q2vDWmkjJeApvbMSp59SOKWj/jLCkPyOfwqaFgqY8be2zP
+         J7jNiZDgbGwIokeGnDYgoWXruDw9GI9oEfQ01I1FFndVcudLtfgT4oSLK4BHpROQ0mDh
+         J1fQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRslI/bIHvBG7Ro4gRKMwS21+UJB/x2HumOGtsi9KPtB7M0oGG0pxe5XlfV+1vAqsHlxqapvjkg+Dr1/U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQwBA4spa3QTnBKquhxyEqnawFfJEN9YFe14jO1PXXljmdHqft
+	EDu2k6nX8xqRNgrJpplE9Dj8PvyQmOeXNfkwDKVAGYG3KsoEIAIs3k1f
+X-Gm-Gg: AYBFou2q0CjZm6nvSioYydmntZV2s2qcqPAXcQvRD5MkhLrtWm0swwQe0R24m8gZfPI
+	JAwLHTZXBK+6fLVu9I0SQlqOsXOymoUY3HtUFxckxR//1trc7AOEla3PZO+2kkYauEME9yxDVDR
+	NqmKD3nWjK9MDPa24dHH1faQiwHLtr5nt5kr9StLICjC/8B6iNw0Fqd9mlj+/Gz1rHO2OpHGt8e
+	0oezl7OyQiZAHteZ6w+aQQPA9wlXnUTTq3cKoDKtC/t5hYI1ifplp1jxgnm1mqMSV8G+ngsKTzO
+	etkKp88HR1mVVF+aepLSe/DFq/1oz6zWtla71q1ffUUA86u126/S/dEVESf0S1T0xAsjaezd5fI
+	LfjmWBoVVw+VQu2As2FcU2A32GEvu1ilXwUi6dS2dF4n+9SPMg5pOb4vV51CErQTTRSFbYt2/zY
+	FJD9LiWOqcDVDo9dmnnx61YOiTOHt7Iq/ki1u4Xe9ddXrkje71JCd9JvC81vTEZNwXMFhb3OX4+
+	+HefseqZMS6ZZRMlNHBt7LtDn5R4Hq7aVvEClVhQ5U71YHvJi1tvL9iHfihM1rcQb6lzL2REsEk
+	j0FCtdFScFjdsziKXtwkoeUZAA==
+X-Received: by 2002:a05:600c:19d4:b0:4a2:18d4:f9e0 with SMTP id 5b1f17b1804b1-4a35acbbcaamr197509565e9.25.1793119129109;
+        Tue, 27 Oct 2026 09:38:49 -0700 (PDT)
 Received: from andreayoga.wind3.hub ([31.189.68.219])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a92c21df84sm2358195e9.15.2026.10.27.09.38.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a92c21df84sm2358195e9.15.2026.10.27.09.38.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:38:51 -0700 (PDT)
+        Tue, 27 Oct 2026 09:38:48 -0700 (PDT)
 From: Andrea Parri <parri.andrea@gmail.com>
 To: "Paul E. McKenney" <paulmck@kernel.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
@@ -97,9 +97,9 @@ Cc: Andrea Parri <parri.andrea@gmail.com>,
 	rcu@vger.kernel.org,
 	lkmm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH -rcu/dev 2/4] hazptr: Check per-CPU slot owner with CONFIG_HAZPTR_DEBUG
-Date: Tue, 27 Oct 2026 17:38:04 +0100
-Message-ID: <20261027163811.2470569-3-parri.andrea@gmail.com>
+Subject: [PATCH -rcu/dev 1/4] hazptrtorture: Release all deferred hazard pointers before stopping
+Date: Tue, 27 Oct 2026 17:38:03 +0100
+Message-ID: <20261027163811.2470569-2-parri.andrea@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261027163811.2470569-1-parri.andrea@gmail.com>
 References: <20261027163811.2470569-1-parri.andrea@gmail.com>
@@ -114,126 +114,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a per-CPU slot records the wrong hazptr_ctx as its owner, nothing
-reports it where it happens.  If the task is switched out before
-releasing the slot, hazptr_note_context_switch() promotes it through the
-wrong context, and if that context is detached,
-hazptr_chain_backup_slot() adds its backup slot to an overflow list
-again.
+hazptrtorture can hang at shutdown when deferral is enabled, as in the
+PREEMPT scenario: the writer stays in ->sync() and kthread_stop() on it
+never returns, until kvm.sh kills QEMU:
 
-The kernel can then crash later in hazptr_synchronize(), far from the
-cause.  For example, from hazptrtorture with readers that nest a second
-hazard pointer, as "hazptrtorture: Nest a second hazard pointer in
-readers" makes them do, and without "hazptr: Record per-CPU slot owner
-after claiming the slot":
+    [ 1800.899278] hazptr-torture: Stopping hazptr_torture_do_pending task
+    [ 1800.899447] hazptr-torture: Stopping hazptr_torture_writer task
+    [ 1812.713870] hazptr-torture: rtc: 00000000225df70a ver: 12436 HTWS_SYNC tfle: 0 rta: 12437 rtaf: 0 rtf: 12427 onoff: 48783/48783:48786/48786 3,254:3,280 611671:731494 (HZ=1000) acq: 5720353149 rel: 5720210186 acqirq: 571927 relirq: 714778 reldefer: 714139 relundefer 714114
+    [ 1812.713971] hazptr-torture: hazptr_torture_stats is stopping
 
-    Oops: stack segment: 0000 [#1] SMP PTI
-    CPU: 4 UID: 0 PID: 83 Comm: hazptr_torture_ Tainted: G        W           7.3.0-rc1-00107-ga2aa5148421f #2 PREEMPTLAZY
-    RIP: 0010:hazptr_scan_overflow_list_period+0x94/0x100
-    RBP: dead000000000100 R08: 00000000002fa6bc R09: 0000000000000004
-    Call Trace:
-     <TASK>
-     hazptr_synchronize+0xb7/0xd0
-     hazptr_torture_writer+0x181/0x3f0
-     kthread+0xd1/0x100
-     ret_from_fork+0x179/0x240
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+    Summary: Potential hang (QEMU killed)
+    !!! PID 1393523 hung at 1980 vs. 1800 seconds
 
-Check the recorded owner where it is used.  hazptr_release_debug() now
-warns when the context releasing a per-CPU slot is not the one recorded
-for it.  hazptr_note_context_switch() warns when the recorded owner's
-->slot is not the slot being promoted.  In that run, the checks warned
-1.3 and 0.08 seconds before the oops:
+hazptr_torture_cleanup() stops the do_pending kthread first, then the
+writer, then the readers.  Once torture_must_stop(), do_pending makes
+one last pass and leaves its loop, but unless stutter_will_wait(), that
+pass releases the deferred hazard pointers of a single CPU.
 
-    Hazard Pointer (addr=000000006dd14922) released from a per-CPU slot recorded with another owner. Acquire: caller=hazptr_torture_read_lock+0x43/0xb0, pid=82, cpu=7.
-    WARNING: ./include/linux/hazptr.h:304 at hazptr_torture_read_unlock+0x137/0x160, CPU#7: hazptr_torture_/82
-    Call Trace:
-     <TASK>
-     hazptr_torture_reader_tail+0x80/0x220
-     hazptr_torture_nested_reader+0x6c/0x90
-     hazptr_torture_reader+0x2f5/0x530
-     kthread+0xd1/0x100
-     ret_from_fork+0x179/0x240
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+Readers can also still defer after that pass, from the iteration they
+are in when torture_must_stop() becomes true.  Readers that have left
+their loop hold no hazard pointer, so the writer waits on one of the 25
+deferred hazard pointers above (reldefer - relundefer) that nothing
+releases.
 
-    Hazard Pointer (addr=00000000742d8665) in per-CPU slot 1 recorded with an owner that uses another slot.
-    WARNING: ./include/linux/hazptr.h:185 at __schedule+0x7ba/0xf10, CPU#0: hazptr_torture_/82
-    Call Trace:
-     <TASK>
-     preempt_schedule+0x2d/0x50
-     preempt_schedule_thunk+0x16/0x40
-     hazptr_torture_read_lock+0xaa/0xb0
-     hazptr_torture_nested_reader+0x39/0x90
-     hazptr_torture_reader+0x2f5/0x530
-     kthread+0xd1/0x100
-     ret_from_fork+0x179/0x240
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
+Stop the readers before do_pending, and do_pending before the writer.
+do_pending still leaves its loop at torture_must_stop(), and now
+releases the deferred hazard pointers of all CPUs once
+torture_kthread_stopping() returns, that is, once
+hazptr_torture_cleanup() stops it, after the readers.  The writer can
+still wait in ->sync(), but only until then.
 
-hazptr_release_debug() reads the owner of ctx->slot only if that
-per-CPU slot is in use, and skips the backup slot that a detached or
-promoted ctx uses.  If ctx holds the per-CPU slot, no interrupt can
-claim it between the ->addr check and the owner read, so the check warns
-only if the slot records the wrong owner.
+This should be safe because readers defer only from their own loop,
+which they have left once torture_stop_kthread() returns for them, and
+the hazptr_torture_acquire() IPI runs synchronously within that loop.
+The readers do not need the writer to stop: they leave their loop at
+torture_must_stop(), after at most one stutter_wait().
 
-If ctx has already released the slot, which the hazptr_release()
-kernel-doc permits, the slot is in use only if another hazard pointer
-has claimed it since, and this second release would clear that hazard
-pointer, so the check warns then too.
+do_pending keeps the torture_must_stop() check before its sleep.  A
+kthread_stop() that comes after that check and before the sleep starts
+still delays do_pending's exit by a full kthread_do_pending_ms sleep,
+however long that is.  With the readers stopped first, this happens
+only if do_pending passed the check before the test began stopping and
+had not yet gone to sleep when kthread_stop() came, after all the
+readers had stopped.
 
-One case can escape both checks: an interrupt handler that acquires and
-releases the slot instead of detaching it, then a context switch before
-the task's release.  The stale owner's ->slot still names the slot, and
-the promotion empties the task's per-CPU slot, so hazptr_release_debug()
-warns only if another hazard pointer has claimed that slot by then.
+With this change, a 30-minute PREEMPT run on x86_64 with 8 CPUs ends
+with "End of test: SUCCESS" and with as many hazard pointers released
+from the pending lists as were deferred (reldefer: 983727 relundefer
+983727).
 
-The crash was found with the help of an LLM.
+The hang was found with the help of an LLM.
 
+Fixes: f23d7b47ced9 ("hazptrtorture: Add kthread to release deferred hazard pointers")
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 ---
- include/linux/hazptr.h | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ kernel/rcu/hazptrtorture.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
-index 90d8d5a3d2443..d37792af34939 100644
---- a/include/linux/hazptr.h
-+++ b/include/linux/hazptr.h
-@@ -182,6 +182,9 @@ void hazptr_note_context_switch(void)
- 		if (!slot->addr)
- 			continue;
- #ifdef CONFIG_HAZPTR_DEBUG
-+		WARN_ONCE(item->ctx.ctx->slot != slot,
-+			"Hazard Pointer (addr=%p) in per-CPU slot %u recorded with an owner that uses another slot.",
-+			slot->addr, idx);
- 		item->ctx.ctx->detach_cpu = true;
- #endif
- 		hazptr_promote_to_backup_slot(item->ctx.ctx, slot);
-@@ -284,6 +287,8 @@ void hazptr_release_debug(struct hazptr_ctx *ctx, void *addr)
- 	int pid = current->pid, cpu = smp_processor_id();
- 	bool warn_remote_cpu = !ctx->detach_cpu && ctx->acquire_cpu != cpu,
- 	     warn_remote_task = !ctx->detach_task && ctx->acquire_pid != pid;
-+	struct hazptr_slot *slot = ctx->slot;
-+	struct hazptr_slot_item *item;
- 
- 	WARN_ONCE(warn_remote_cpu || warn_remote_task,
- 		"Hazard Pointer (addr=%p) released on remote %s without %s. Acquire: caller=%pS, pid=%d, cpu=%d. Release: pid=%d, cpu=%d.",
-@@ -291,6 +296,14 @@ void hazptr_release_debug(struct hazptr_ctx *ctx, void *addr)
- 		warn_remote_task ? "task" : "cpu",
- 		warn_remote_task ? "being detached from task" : "context switch",
- 		(void *) ctx->acquire_caller, ctx->acquire_pid, ctx->acquire_cpu, pid, cpu);
-+
-+	if (hazptr_slot_is_backup(ctx, slot) || !READ_ONCE(slot->addr))
-+		return;
-+	/* Whoever claimed a per-CPU slot must be recorded as its owner. */
-+	item = container_of(slot, struct hazptr_slot_item, slot);
-+	WARN_ONCE(item->ctx.ctx != ctx,
-+		"Hazard Pointer (addr=%p) released from a per-CPU slot recorded with another owner. Acquire: caller=%pS, pid=%d, cpu=%d.",
-+		addr, (void *) ctx->acquire_caller, ctx->acquire_pid, ctx->acquire_cpu);
+diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+index 7c8b5899fb011..c46083a8af093 100644
+--- a/kernel/rcu/hazptrtorture.c
++++ b/kernel/rcu/hazptrtorture.c
+@@ -560,6 +560,9 @@ static int hazptr_torture_do_pending(void *arg)
+ 		// Omit stutter_wait() because this function needs to do cleanup.
+ 	} while (!torture_must_stop());
+ 	torture_kthread_stopping("hazptr_torture_do_pending");
++	/* The readers have stopped, so nothing new can be deferred. */
++	for_each_possible_cpu(cpu)
++		hazptr_torture_do_one_pending(cpu, &rand);
+ 	return 0;
  }
- #else
- static inline void hazptr_release_debug(struct hazptr_ctx *ctx, void *addr) { }
+ 
+@@ -773,9 +776,7 @@ hazptr_torture_cleanup(void)
+ 		return;
+ 	}
+ 
+-	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+ 	torture_stop_kthread(hazptr_torture_preempt, preempt_task);
+-	torture_stop_kthread(hazptr_torture_writer, writer_task);
+ 
+ 	if (reader_tasks) {
+ 		for (i = 0; i < nrealreaders; i++)
+@@ -785,6 +786,14 @@ hazptr_torture_cleanup(void)
+ 		reader_tasks = NULL;
+ 	}
+ 
++	/*
++	 * Stop the writer only after do_pending, and do_pending only after
++	 * the readers: the writer may be waiting on hazard pointers that
++	 * readers deferred, which do_pending releases once they stopped.
++	 */
++	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
++	torture_stop_kthread(hazptr_torture_writer, writer_task);
++
+ 	torture_stop_kthread(hazptr_torture_stats, stats_task);
+ 
+ 	/* Do torture-type-specific cleanup operations.  */
 -- 
 2.53.0
 
