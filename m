@@ -1,80 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793127511;
-	b=0f7k1JaLQXIpNj/vTpj2gZFrFiZTZAzDSFP30v3efxXk26D4NSvEyPcoM6640opfHSQM
-	 MRjhMNRgv5oEtxdMpcslnXrPRmrkfBdkpdxZatLMwLLndeoDD0nYdqqxJrmJHrdEkNGVb
-	 actzASxsXrCYgVYMCguSn8kaYuZiE5nbCHv1PgQh2jR5gnisZ6g8Gv4FrTLE+vHqJG2pC
-	 94adk/3HuYCD4cPg4Dk15czWT9XNgxvX6P7kI6ZFkLFIyC+lHFfRsILKYHdz+a0S4ujVA
-	 rEdeYdzYipeyC6ma0Z4ZCfRu2kfRP/JGcOaPum4ePLizkueWh/flpsLMI88J3w6+7NA==
+	t=1793127560;
+	b=SM49DYo7QIOvkcoyXwTaecferE99SoNBWU7PchM3BVDMPtMUIT+LKH00r/G3MqwnLk6N
+	 Nhc2O7eOxL+TSVQ4CA6ReLlOmTxGialIM7gK3EA7r2T16V5/3cSt7djwI/Q9+0xKl7VRE
+	 HcJrYXGc3THSgHNYzLiiEUAjW1uJkHIdQJ/IPquSXc/mCdmfE/k5HdRwJqehbBFiqmn0E
+	 7W4/upJ9AC5HTErvslH58Zu7ofByvtThsBiwyP9ixueNxZ1eXiDlghKxNiG/oAwUjstD+
+	 3z3kYmqPiLWHhPBVfK/Fq1Xg/ukgeYBhFOUxIg0Brl4z2QSVTjKpi7sbdsInQLVAQpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793127511;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:Subject:
-	 Message-ID:MIME-Version:Content-Type:Content-Disposition:
-	 X-Scanned-By;
-	bh=JThLiNjGPgBcHpi9LsSr4xDdGpVZCgcVP8gr6/Kzs6c=;
-	b=ggKoh+ZkJb5wBAJGNjx9i46tv2PN9UAyvGWJ2COdCp97VnIF4VBZOutEfwflKFkP3pyj
-	 LoTqniMb7DnIHoBKX/xyFjj8bbfjEBgh7tcNGRMr8jTaWAo32OgByiP+t3oU0i9Uy6PnW
-	 t1x3nbwT4yIO3nYU9Rq5AhhsT/rR88P+w+lAiIZwfc1XXDUVk/QYmP7U+j3YqdSUDiXCy
-	 npZrdR/rLFX75AIw4TQww+SCU2+fVJXlEvhExHuh1JFXeqVrf85PLAFhOov6ChZzAPHVE
-	 gwGCfpDLPIbklvJSkFAoD/NhRsUGYXk9lTlVREhTCjaXAYxea0lwe7E/ZeGJ9V8m1hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793127560;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=dQ+cCxuwh8Zl3zbw4eqIfOHayKknJP6gyts2HlafbsQ=;
+	b=zfZqSTn+wgP1X2loiFNS361lVnUfcNkfgJor/jaEHcohM9O80/k6PmTcdo9Gr3zAXSuH
+	 zUHJyfF3neInlOef3vb93DourynhCUtAEfNdhg0luG7VsurXh9Lag7lS8zBHGPrzoepy6
+	 rxGc8tBJwmpDcXwsZO3Ekyoix1ZuhqKuGiB9xTn7y5ZaNf70O0GW1rJN5w3A/8Zfp9Uqn
+	 xRT6ig8HiY8WbwN4zzXz+xCbNSNEYaxNPecw1w4iRl6eerPfilns6LIGh5CcVHRByEyA2
+	 NeG21R/I9if0qQrLFwvPolQ3nAE79uWYc2idDasvD1IsiXSvnzB0VZAGyAC2gyppeDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=istekYQe;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Luhdb2cJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10ACB606A325
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:58:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10ACB606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63767606A31A;
+	Tue, 27 Oct 2026 18:59:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=istekYQe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793127509;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type;
-	bh=JThLiNjGPgBcHpi9LsSr4xDdGpVZCgcVP8gr6/Kzs6c=;
-	b=istekYQeDKb268NsJB9cWz0m84HMaCUQgKLkRt0TS7vczpqn37YGRJr1fI2XtAob1lavQ+
-	XbfwScD1O4jyv4EA8CW/wuOHnZHr8BcJioybmImmwipfD9hgaxcFJVTmIQFEkMszoD1GT8
-	trgod6HHSrUfiA7TEO4IK8IAUTbaSC0=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-16-400PbuDJP5yk0JAb_H_DoA-1; Tue,
- 27 Oct 2026 14:58:23 -0400
-X-MC-Unique: 400PbuDJP5yk0JAb_H_DoA-1
-X-Mimecast-MFC-AGG-ID: 400PbuDJP5yk0JAb_H_DoA_1793127501
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8A3371954238;
-	Tue, 27 Oct 2026 18:58:20 +0000 (UTC)
-Received: from localhost (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 58E421956049;
-	Tue, 27 Oct 2026 18:58:19 +0000 (UTC)
-Date: Tue, 27 Oct 2026 15:58:18 -0300
-From: "Luis Claudio R. Goncalves" <lgoncalv@redhat.com>
-To: LKML <linux-kernel@vger.kernel.org>,
-	linux-rt-users <linux-rt-users@vger.kernel.org>,
-	stable-rt <stable-rt@vger.kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Carsten Emde <C.Emde@osadl.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Daniel Wagner <daniel.wagner@suse.com>,
-	Clark Williams <williams@redhat.com>,
-	Mark Gross <markgross@kernel.org>, Pavel Machek <pavel@denx.de>,
-	Jeff Brady <jeffreyjbrady@gmail.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Luis Goncalves <lgoncalv@redhat.com>
-Subject: [ANNOUNCE] 5.10.272-rt168
-Message-ID: <179312713996.233155.17570690892326419739@lgoncalv-thinkpadp50.rmtbr.csb>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Luhdb2cJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B456A1F01825;
+	Tue, 27 Oct 2026 18:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793127560;
+	bh=dQ+cCxuwh8Zl3zbw4eqIfOHayKknJP6gyts2HlafbsQ=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=Luhdb2cJRg0tQy9wrmxUhuSF4OlugZTomN5BeG4ucjo9tjm5hWhP+JiWmXDmF6ajd
+	 rXTJSDiNxKj0+pXKlZeX15BhG8aIKOE5aISdW0h9BhBhaVIiX042ZYUMuL9isdm0gs
+	 p1XiJFS33DA/WCZCh2cqp0xExWn1cdsAgYFchbxJDJU9yi68zL3G6UWRCFllM39TrF
+	 HE+qsC1FzN/rakkcvbeXTUMXepXqlOmnYcvueLMn2dzdnU7u6K0WMv/BClVAxz9Mgb
+	 r6XzBSW2XaL7JactruIWVXTy0AojaC1d2vRfzo/cfcPGTP97m8At6TN9PyMROMjuFo
+	 nGufISP/pu4/Q==
+Date: Tue, 27 Oct 2026 13:59:16 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,45 +51,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-doc@vger.kernel.org, 
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Helge Deller <deller@gmx.de>, David Airlie <airlied@gmail.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, linux-embedded@vger.kernel.org, 
+ Francesco Valla <francesco@valla.it>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Peter Jones <pjones@redhat.com>, 
+ linux-fbdev@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ linux-efi@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Sam Ravnborg <sam@ravnborg.org>, Jocelyn Falempe <jfalempe@redhat.com>, 
+ devicetree@vger.kernel.org
+To: =?utf-8?q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
+In-Reply-To: <20261027135342.2003632-8-maximpedraza@gmail.com>
+References: <20261027135342.2003632-1-maximpedraza@gmail.com>
+ <20261027135342.2003632-8-maximpedraza@gmail.com>
+Message-Id: <179312747851.232790.4690032223617337169.robh@kernel.org>
+Subject: Re: [PATCH v6 07/15] dt-bindings: display: add a boot logo node
+ under /chosen
 
-Hello RT-list!
 
-I'm pleased to announce the 5.10.272-rt168 stable release.
+On Tue, 27 Oct 2026 14:53:34 +0100, Màxim Pedraza Padilla wrote:
+> Products built on the same board often differ only in branding. On UEFI
+> systems the firmware hands the operating system its boot logo through
+> the ACPI BGRT; a device tree system has no such table, so today the logo
+> is built into the kernel, and each product needs its own kernel image.
+> With U-Boot's Falcon mode the device tree is the only thing that reaches
+> the kernel, so it is also the only place the logo can come from.
+> 
+> Add a "logo" node, compatible "boot-logo", under /chosen. It lives
+> there because a logo is configuration handed over by firmware rather
+> than a description of the hardware, as simple-framebuffer nodes already
+> are.
+> 
+> The image is a BMP with 24 bits per pixel and no compression, the
+> format of the BGRT image, so that one file serves the firmware splash,
+> a BMP loaded as firmware and this node alike. It is carried either in
+> a "logo-image" property, which dtc fills in from the file with /incbin/,
+> or in a reserved memory region the bootloader loaded it into, named by
+> "memory-region". Exactly one of the two must be present.
+> 
+> "logo-position" takes -1 on an axis to mean centre on that axis, which
+> is the only way to say it when the device tree does not know the image
+> size, and "logo-offset" is added afterwards. "rotation" is the one of
+> panel-common.yaml, degrees counter clockwise, but turns the image rather
+> than the screen, so position and offset stay in screen pixels. The
+> optional "background-color" goes with the image, since a logo designed
+> for one background looks wrong on another.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
+> ---
+>  .../bindings/display/boot-logo.yaml           | 156 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  2 files changed, 157 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/boot-logo.yaml
+> 
 
-This release is just an update to the new stable 5.10.272 version and
-no RT-specific changes have been performed.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-You can get this release via the git tree at:
+yamllint warnings/errors:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/boot-logo.example.dtb: chosen: 'logo' does not match any of the regexes: '^framebuffer', '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/chosen.yaml
 
-  branch: v5.10-rt
-  Head SHA1: eda0354ec577de6b8b4b2080c740a51b720cc826
+doc reference errors (make refcheckdocs):
 
-Or to build 5.10.272-rt168 directly, the following patches should be applied:
+See https://patchwork.kernel.org/project/devicetree/patch/20261027135342.2003632-8-maximpedraza@gmail.com
 
-  https://www.kernel.org/pub/linux/kernel/v5.x/linux-5.10.tar.xz
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-  https://www.kernel.org/pub/linux/kernel/v5.x/patch-5.10.272.xz
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-  https://www.kernel.org/pub/linux/kernel/projects/rt/5.10/older/patch-5.10.272-rt168.patch.xz
+pip3 install dtschema --upgrade
 
-This release has been tested under KernelCI as:
-
-  https://dashboard.kernelci.org/tree/stable-rt/v5.10-rt-next/v5.10.272-rt168-rc1
-
-Signing key fingerprint:
-
-  9354 0649 9972 8D31 D464  D140 F394 A423 F8E6 7C26
-
-All keys used for the above files and repositories can be found on the
-following git repository:
-
-   git://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git
-
-Enjoy!
-Luis
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
