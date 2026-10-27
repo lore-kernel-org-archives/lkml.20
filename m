@@ -1,107 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793083430;
-	b=4HBPaiIQZUe3xEbf7bMkZkYrZgLpja8Mf+ADbkHCZ8RVZ5D77n2stO8B50jI0+FXNiga
-	 p2I7Iq5YNZds9pS64QRHIyrVQSHj3z3PTqjqaYitnN4on/tzeoY5vEHnHh9dzmIUPEOlC
-	 7fZhebWMpG4+CQLTuVA6/2pk0lvyZYsGjmnXQM4gb1mp7ErMhvujJZG8hyGhhBsy+JOg6
-	 rhJJKnMnibYf6gm5YuDre5S+wyt1FpNkNpUufLr7RloopwSrgWTm9FE7g8Hc9KJv4hAFl
-	 vJLMFvXe8/9dgbNMG+rUoVDkyr6RnglScfV58qRPHOl55sZv2o7O9xjHNhXHOTvoGpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083430;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=h8FpjP1nrdbASzvpv6u2ZxVkSPuM6COfzl9S9qhn2IE=;
-	b=K22PdCE6qACfYG4SAh7H3Lk0ayF3NEYA08v2pTmTnrPsY382j30AU3rX4vfOJjvacCtc
-	 Eri25VIR2vhLJKA0gp4+cu0B+Mwj2FUJrdqbvhrPFnsaO4yKh3fD6hvUjpmSd8QjcPbdw
-	 mJM3KKXGRAIu2H/GQXC1H6cRJ6tBJC68duzq+okBm3D1PV0JkEVKXOa8QPpnFape0L1sw
-	 UFzayM/THrybuN9qkQXkGg1C2OeRm+n5rUD4CDD3g0AGM7ygKhrbAeH6yD0BzIWgOS307
-	 8EI9koEYMkW8S6BYbjwnmKjXbMtMSvxmzOin39ubpsV7TgSA8PnzuI6Q4gjcD1cy4mw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OIQ105Vh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.35
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010035.outbound.protection.outlook.com [52.101.46.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793083551;
+	b=UF0ubxofouZe0LUJ4Yjk5AtswyB6ItdebILbJzO3Y8D6seQ5/AcbqKE0++FIdzo9DRf5
+	 EC1CCsjU8t0+McPXXBdOKjlywRfiSag16fiDzS9zzqK3a8Ogrd042rxOAf5Jk2obpPwio
+	 61b68fyzMpK19HxMh2fa2ccdVUcV79zamGWlGLH5AJAC2lueEi1c/7KsgG1JYwBWU4g1J
+	 pAn8YwfnWIQGDij5LPpcx/U5u1uO30xLJY1TweAAGU7JOwD0z5+OcHpeU5FJKkIjpKy/h
+	 bHfIjtoHmbpK5PQNmGC9udW8EgP/sNzkYfDMdYoUC1mqIiI05E/tHBLyrwJKnXnL1Zw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083551;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=45EA+yxw9ZAYEmsBHhVFqQBnIpsw1+TN7/vvynIibe4=;
+	b=0+ZVw1EWhYv7RjiRPlAtZ12mQrYvkv/PEXPAqVvD9iJtTujDT+l7BPeQ9steB+b1EjPO
+	 36a8o6GIuvndMxZQm/vDSn5ugAV8GuZcSCPQmqQ2a1zaSTP/MKJtPqyKeniJ6z9+ROKAl
+	 2xxm9Xe0FLf4ocWdDMaurh9yaKwfjv2szX5cAvbjx/35IIQTlWNF0rcf2sN21B7Wu7XT8
+	 pMTqtob/tNE3eE9WdmwkxDqLnxdPcDqE+yFbgEkS3wxZ09gr0MIznBw6Vq1vWCoGtWOBy
+	 lpCY5FHx238Rm4RISdBS3Z3hqnmGhm5lWIJcSRjp/fT59p+ALj7gh4Yg7BHCNXZRaMg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=s13F4IuL;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A87606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:43:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94A87606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF05D606A31A;
+	Tue, 27 Oct 2026 06:45:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF05D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OIQ105Vh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K5i8UYKJlECjwoxC3o5F4K/Ce1tvCHt4yvj+gLw1Xh01IhuD4SBBwzrSbCQtjgGRYobB6DYSIIqDVjYV5ILrKzHaSkTZXnLlujEIdoKnzqpwL/c+Qi7PRwuTrSyj8C2l+CPWifEK/jlnLnc0+am9Evu8VqfL1DaOQ18zdl34poMN3HXQ/um7NNKTLv6mnjsLY5yp3rcMI9P7RDLb3PsyYS+sjIz+2jX3jgFXgUxjxBAkOzmGSR75QTLofeYHPo806WFgXFxVRfhufm158HjuXMCb+8m9UdC9SRPdfoiTcJJc+wjKE3QNK/fCsrmw4UoF9/ZKcDRXBHUZhrDh5Gv0+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h8FpjP1nrdbASzvpv6u2ZxVkSPuM6COfzl9S9qhn2IE=;
- b=r5rpqkPDpr9OXHGVdrcIjfELPoizMQf6lgDpMcBdZrewP4Aq19y8XV6Own3gl6tO7u/KJgCK7pFUCnbpQAroTIzrY0E5g+xgR1891BO0qlqeY4Pn+Z/Bva0RegnQ7vN7bMXqiib2nLKnAiFeME8nmji7ErUSV91xQAqPv6VbBvKjrpXg04IHXp935B2F6MBNQAWJV+Ja8k5kczbADh/GCO6sT5o8v+Kw2/yoyXdmHW9S752t3LOeTjxLsC3Iw9/smgP88hKULina5rEFOkS54ZI4hueV2PqMYZXJC6PZeukeduSE/BemTMDRsN3+mUrtRzu4JvqH+9MHsAz4tAHEzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h8FpjP1nrdbASzvpv6u2ZxVkSPuM6COfzl9S9qhn2IE=;
- b=OIQ105Vh/em7PlCdl1h8aDC5MVfckOy7rv7LF5ED/Ek/WZl9Vt5mxzmX9VmuDXJ74yLw9Y8foC8SCevi9FptWETinxRPSCuliiskTYwbJNQJpTonACMZLawhEMcz68Td4deCX7LUlBosYEMcc1EucjGZQBPDAX837lF1/zL30lIhtlPCxunY29uwTEuiRm6bwoAnVOyHb8HtvJCZwfhuStAhfaP5esegWpV+qKy2hR5J5nfshhIyFsLhkdq6Dd1xOkE3QBK1AvYagcIZlzvmdUyondgFltQ9/BkzPe1HZ67P4HCT4Fhip5NNo580kHzl2ES4+8vOosUkTl0HkOUv2w==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by SJ2PR12MB8109.namprd12.prod.outlook.com (2603:10b6:a03:4f5::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 06:43:46 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 06:43:46 +0000
-Date: Tue, 27 Oct 2026 07:43:39 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] sched/numa: Leave the placement of a BPF-scheduled
- task to its scheduler
-Message-ID: <auBIGwZfPR9oDPH6@gpd4>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
- <20261027041536.3317971-3-arighi@nvidia.com>
- <8464e356-d1d2-4aea-8702-40429c63bac1@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8464e356-d1d2-4aea-8702-40429c63bac1@amd.com>
-X-ClientProxiedBy: ZR0P278CA0069.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:21::20) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=s13F4IuL
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=45EA+yxw9ZAYEmsBHhVFqQBnIpsw1+TN7/vvynIibe4=;
+	b=s13F4IuLINF+M1GqDP99tRvU+7xUR12+blUeguu8UXYNAvB3FzQAc7s8zAtqx2/mfQU0o6Sw/
+	4NmraHb1g4xjRi381EH47uRoreLcgqUmE3pTg6e8OQyB+fySmqMIx37NUUr5+eZhJUhYFWi+RD6
+	zqNWHJVNSlBLYC4MdLseAbs=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jDLbk3czJzmVXl;
+	Tue, 27 Oct 2026 14:45:38 +0800 (CST)
+Received: from kwepemo100017.china.huawei.com (unknown [7.202.195.215])
+	by mail.maildlp.com (Postfix) with ESMTPS id 29E6040578;
+	Tue, 27 Oct 2026 14:45:44 +0800 (CST)
+Received: from [10.67.120.228] (10.67.120.228) by
+ kwepemo100017.china.huawei.com (7.202.195.215) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 27 Oct 2026 14:45:43 +0800
+Message-ID: <cfd7cf81-f87a-4d93-abfe-99354e948830@huawei.com>
+Date: Tue, 27 Oct 2026 14:45:42 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,164 +62,245 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|SJ2PR12MB8109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ffb6c0f-a6f8-4d22-671b-08df33f5a643
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|261026121527099003|11063799006|4143699003|56012099006|261021121427099003|261022105027099003|10067099003|261022075727099003|22082099003|18002099003|261026140227099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	2Kz9y6LeW6KVqI8dWRx1aL7fFdY7TYkx/1GrfqQoiZEz0t3wL46pci3g2n/cHjekeBx4P6amU0EToGPhZbmlUAy7NosJBRTRjbGGekknIxwSzNKugXVl4D5HDEct67GQnUMfVz6FZt54/jP8CL7dJetIEp1M8uultkyWEupKpwzL9F3mnoNd7BNaHTl7F0c6BCDMKMu0unUFTboAjnumxkFO8GAl1v7DdlZgrus50maG+yGkyAo/Zp1/46Sv9NbRoZivk+2xV70qx/TP6i4SxAP7dywgiHPSbjqL/SFHM2Nq8mM1cFSe0GC34Bg+Y+59NAua/lwMH0ImcpmfH8nBzlmFUeQoxqm8PH/LHqatPe0Oshuja5tsO+M1XvWaZFowhdkNyFvjQwa7ra0iFSADxDxfiv0cSzQIo/sjuIeIto/o4IpVfapcrpRetMO55jsHcRi6QIXD7Ds1atnV6zyJTRGEMOjkmGdma0ySy7YT8ZQC55IJHmCAcuMcnf8LU1RpC8UZ5oo462ggoaIQ7Z7t4JBDMqFoQyh7filHvxRFjLZkJEoKrM65n1udVAUQS2qwF3DFARafobPK+8p9EeKbXHlcKvRmDXrMoT8Y2Nv39RqDWu1S3U1exJ4cWTyPO/Sy5V6iobr6mf3GH6FQgOCvgoHRrHp3xIY2QqNRszNKyDc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(261026121527099003)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(10067099003)(261022075727099003)(22082099003)(18002099003)(261026140227099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?J8if8tSqyN4Y8xHXb6JJlbMo0aFG8hSiT94v5hUTkISdOS+7e0DoLPd4z+am?=
- =?us-ascii?Q?vJc3F2wLBGU0DeD/vHbEQMVqbsbUIkgwPBtEIGJZacl6vpeDLPpkj5V3HGQE?=
- =?us-ascii?Q?oGtPEpUFnvr/vkkWvZOVZexPa8nCnduydpppiVpeQB3pwaWVTQC2XLAmADZL?=
- =?us-ascii?Q?apWtEvI5DIVZ7GU13NONxLUIJ4koK5KvBRrEPi3p5w2D4yrMfjoHIIHAhT+R?=
- =?us-ascii?Q?qV5qCMXyHRJDK6eHJX7CkgTghPrTWwIX/5k4eCdNz1KgdHHdScwH525e91fi?=
- =?us-ascii?Q?u8X1S2dHWOBZzfK7TolncHTmAGk5RaE+xEu0KxcHDZp99US8Kugu5PxNSOKl?=
- =?us-ascii?Q?1jU3bTsnsGTRPquc47YkKfkGeHZJ3X45oYV31Ke7rq884/M7TGJ5YEgwoi+S?=
- =?us-ascii?Q?6Hp7doJ2Bu4IGLSsi5JKTO+E8bOrBVr5rq7n89xsDh5vVzEJp4FYuUkSiEzM?=
- =?us-ascii?Q?x6+YH8aGMUOeSRloTFPvgV1VDJxraz7C6+N1kAKfET47jOBsLxm396v7RGKo?=
- =?us-ascii?Q?0txB/PMkBkZtQSE7Ml/T1TGPaSiNSmjSNTRc/p08KF4RpDS+axXSbjTPM25U?=
- =?us-ascii?Q?aqJPLt+e6nStnQNd5RYlyaoaDeqikIJuhmW8kz9Kym6wzuXQ0QljfKzrXmzK?=
- =?us-ascii?Q?9eu6hrUDJsnm9NQHyhj6v+dd6zcrdCQsszcfJJyqSPcnFZIOOgZm4UWfhHgh?=
- =?us-ascii?Q?Nr3cNSXjJ08PY/8U1XCRslfFlQkTGgie+3be6d7r4pvjBQN3udBFqq5aGrSt?=
- =?us-ascii?Q?7nb7pNMbgllWz4SypL/5P+nS9q7uvutWCwixaPzgtp5VuAr99JjrH7DPB+HU?=
- =?us-ascii?Q?6Cpblv+Pc84tWAyGRUzZ++n5k0LF47D8gbO1lBkZXa++WWtWL83xdCJz/k3n?=
- =?us-ascii?Q?es/cep6fjvYw9T6cguDkPwji0VLQSOJ5vm7JSVMkA091fsAMZWju7JufrP3w?=
- =?us-ascii?Q?U9whTr3xRllQUz1dU4QOOVuRlgyoqJpXcW0pwkcW1xeSn8v25rROtRYLlqEg?=
- =?us-ascii?Q?Ub7xgNua0EusVTQnpsM48Rvexr8Mpaimeoq4quF1Gq1ayQwCBISBQ/a+z5y9?=
- =?us-ascii?Q?B4LFDGvClHEAdRzA6w+GVQsXR6lxEZiiT3qtM+jEy8G8Th25bv+lQpP8hmhc?=
- =?us-ascii?Q?C2kGaVLS4P6xBk6KFWntZ/k7Y2qWD160fvE2uqkQ5dIo1ANWtFuqZ5he1X9A?=
- =?us-ascii?Q?WLdxjZfJ5o1oBcDIfvWE1W5vJz2LBi4eH/GuV34vjMe7PQwN0ezjK/J+0V4U?=
- =?us-ascii?Q?pIC3ORlqa57ujyLty1DRnNOnrlG13JamgKFVxL97Nan0MPjZk+aY6A494N/r?=
- =?us-ascii?Q?2yPlWE2ATKEPmSJ9BUuTDpzMStpAE8mqWlSC2+PaIXfsH7JgM5Cif5bbuYEt?=
- =?us-ascii?Q?wmxjSP/KPzXepLfaz8edQDH0Enu7VZK7Mu2uAHegF6prOI/erDuzL3sEOl/T?=
- =?us-ascii?Q?Y2CH50Rt83F2FZSwEThG50me3jfvEA+Fbwb+S9K59fYs3Y3RWIwpRPi1C/uf?=
- =?us-ascii?Q?f72m+vb1ra0MNEVmii8dGk19UOJEe4f1p/L6E3JQMjOTRrQUelG4yp54t8JR?=
- =?us-ascii?Q?HTP6BQkb5nkejYaLBsnmcwoXRwIn0UuR/QGFaDUtppnyzX2LTGET5LyvJucO?=
- =?us-ascii?Q?eS5/nYHVjrMmIgpLPjM6PzmoBIsmugUANH4Ogw6IhwlikEVpNFImFv4pDjAd?=
- =?us-ascii?Q?MrGFGoWQ/ojYtthUoXGwXyIuZkFyvmunigA7WOe9SVwWrH/OXeNQUn7Ywtjf?=
- =?us-ascii?Q?EEDL8alSng=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ffb6c0f-a6f8-4d22-671b-08df33f5a643
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 06:43:46.0777
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JvUNq8kCbdNONb42dKB7INiC+Cp5pavfCx5sJg+knYSevGRHupPsf6suSI+qbV6Q/gGj3VCDXm2hoBNPqdZrKg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8109
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] i2c: hisi: Add I2C bus recovery support
+To: <linuxarm@huawei.com>, <liudingyuan@h-partners.com>,
+	<andi.shyti@kernel.org>, <linux-i2c@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <zhanjie9@hisilicon.com>, <prime.zeng@hisilicon.com>,
+	<wanghuiqiang@huawei.com>, <xuwei5@huawei.com>, <zhangpengjie2@huawei.com>
+References: <20260917024018.3052954-1-yubowen8@huawei.com>
+From: "yubowen (H)" <yubowen8@huawei.com>
+In-Reply-To: <20260917024018.3052954-1-yubowen8@huawei.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemo100017.china.huawei.com (7.202.195.215)
 
-Hi Prateek,
+Quick ping on this. Any throughts or suggestions, or anything else
+you'd like me to dig into?
 
-On Tue, Oct 27, 2026 at 11:15:58AM +0530, K Prateek Nayak wrote:
-> Hello Andrea,
-> 
-> On 10/27/2026 9:43 AM, Andrea Righi wrote:
-> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > index 36df9a4dde534..5064c7b707f4d 100644
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -3267,8 +3267,13 @@ static bool task_numa_compare(struct task_numa_env *env,
-> >  
-> >  	rcu_read_lock();
-> >  	cur = rcu_dereference_all(dst_rq->curr);
-> > +	/*
-> > +	 * Never pick a task under a BPF scheduler as the swap partner: its
-> > +	 * placement is left to that scheduler, see numa_migrate_preferred().
-> > +	 * Moving the faulting task alone to the destination is still allowed.
-> > +	 */
-> >  	if (cur && ((cur->flags & (PF_EXITING | PF_KTHREAD)) ||
-> > -		    !cur->mm))
-> > +		    !cur->mm || task_on_scx(cur)))
-> 
-> So if you are here, it must be from:
-> 
->   task_numa_migrate()
->     task_numa_find_cpu()
->       task_numa_compare()
-> 
-> but task_on_scx(p) would skip this and it means a fair task is looking
-> for a swap candidate when scx running in partial mode right?
+Regards
+Bowen Yu
 
-Correct.
-
-> 
-> At that point, it feels fair class should be well within its rights to
-> call shots on the swap candidate even if it is an scx task.
-> 
-> If scx has a ops.set_numa() defined, it would have accumulated hinting
-> faults and the CPU it is running on is a wrong node anyways so the
-> migration shouldn't be bad in grand scheme of things. If ops.set_numa()
-> is not defined, then the scheduler doesn't care about NUMA placement
-> and it should be okay for a fair task to acquire that CPU.
-
-The fair task can still acquire that CPU: with cur = NULL,
-task_numa_compare() can still pick the destination CPU for the fair task
-alone, and once it's there it'll preempt the sched_ext task, since fair
-wins over scx. What the check prevents is only the other half of the
-swap, which is fair moving the scx task to the source CPU, overriding
-the placement decided by the BPF scheduler (the idea is that fair should
-be able to preempt scx, but not override scx's task placement).
-
-And the fact that the scx task is not on its preferred node doesn't
-necessarily mean that it's on the wrong node: the preferred node only
-tracks memory locality, but the BPF scheduler may have placed the task
-there on purpose for other reasons (e.g., close to a device, which is
-one of the use cases that motivated this work), using the preferred node
-only as a hint.
-
-There's also a more practical problem: the swap decision is based on
-data that isn't maintained for sched_ext tasks. task_numa_compare()
-does:
-
-	load = task_h_load(env->p) - task_h_load(cur);
-
-and for an scx task se.avg is not updated, so task_h_load(cur) reflects
-whatever load the task had when it left fair. Similarly, if the BPF
-scheduler doesn't implement ops.set_numa_node(), the task isn't scanned,
-so its NUMA fault statistics are stale as well. So fair would be
-deciding the swap based on frozen values.
-
-So I think it makes sense to apply the same principle as in
-numa_migrate_preferred() also to the other task involved in the swap.
-
-What do you think?
-
-Thanks,
--Andrea
-
-> 
-> >  		cur = NULL;
-> >  
-> >  	/*
-> > @@ -3645,6 +3650,14 @@ static void numa_migrate_preferred(struct task_struct *p)
-> >  	if (task_node(p) == p->numa_preferred_nid)
-> >  		return;
-> >  
-> > +	/*
-> > +	 * A task under a BPF scheduler is placed by that scheduler. Keep the
-> > +	 * statistics coming, which is what makes p->numa_preferred_nid worth
-> > +	 * reading, but leave the placement alone.
-> > +	 */
-> > +	if (task_on_scx(p))
-> > +		return;
-> > +
-> 
-> Restricting ext on this path seems fine.
-> 
-> >  	/* Otherwise, try migrate to a CPU on the preferred node */
-> >  	task_numa_migrate(p);
-> >  }
-> 
-> -- 
-> Thanks and Regards,
-> Prateek
-> 
+在 2026/9/17 10:40, Bowen Yu 写道:
+> When the I2C bus is stuck due to a slave device holding SDA low
+> (e.g. during an incomplete transfer), the master has no way to recover
+> the bus through normal operation. Add bus recovery support using the
+> subctrl register to manually toggle SCL and generate clock pulses to
+> release the bus.
+>
+> The recovery is performed via a second register resource (sctrl_base)
+> that provides direct control over SCL/SDA lines through mux and
+> output-enable bits. After recovery, the I2C controller is reset through
+> the ACPI _RST method and reconfigured.
+>
+> Recovery is only registered when the subctrl resource is provided in
+> the firmware description, keeping backward compatibility with existing
+> platforms.
+>
+> Signed-off-by: Bowen Yu <yubowen8@huawei.com>
+> ---
+> v3 -> v4:
+> 	-Some clean code fixes.
+> ---
+>   drivers/i2c/busses/i2c-hisi.c | 146 ++++++++++++++++++++++++++++++++++
+>   1 file changed, 146 insertions(+)
+>
+> diff --git a/drivers/i2c/busses/i2c-hisi.c b/drivers/i2c/busses/i2c-hisi.c
+> index ba5c9579ae19..051a7759bb14 100644
+> --- a/drivers/i2c/busses/i2c-hisi.c
+> +++ b/drivers/i2c/busses/i2c-hisi.c
+> @@ -5,6 +5,7 @@
+>    * Copyright (c) 2021 HiSilicon Technologies Co., Ltd.
+>    */
+>   
+> +#include <linux/acpi.h>
+>   #include <linux/bits.h>
+>   #include <linux/bitfield.h>
+>   #include <linux/clk.h>
+> @@ -62,6 +63,8 @@
+>   #define HISI_I2C_INT_CLR		0x0048
+>   #define HISI_I2C_INT_MASK		0x004C
+>   #define HISI_I2C_TRANS_STATE		0x0050
+> +#define   HISI_I2C_TRANS_STATE_SDA_LEVEL	BIT(5)
+> +#define   HISI_I2C_TRANS_STATE_SCL_LEVEL	BIT(6)
+>   #define HISI_I2C_TRANS_ERR		0x0054
+>   #define HISI_I2C_VERSION		0x0058
+>   
+> @@ -86,9 +89,26 @@
+>   #define NSEC_TO_CYCLES(ns, clk_rate_khz) \
+>   	DIV_ROUND_UP_ULL((clk_rate_khz) * (ns), NSEC_PER_MSEC)
+>   
+> +/*
+> + * SUBCTRL SC_I2C_CTRL register
+> + * Set HISI_I2C_CTRL_DAT_CFG_EN and HISI_I2C_CTRL_SCL_CFG_EN to control
+> + * I2C pin behavior by subctrl controller; use HISI_I2C_CTRL_DAT_OE and
+> + * HISI_I2C_CTRL_CLK_OE to control input or output; use HISI_I2C_CTRL_SDA_OUT
+> + * and HISI_I2C_CTRL_SCL_OUT to control output value.
+> + */
+> +#define HISI_I2C_CTRL_DAT_CFG_EN BIT(5)
+> +#define HISI_I2C_CTRL_SCL_CFG_EN BIT(4)
+> +#define HISI_I2C_CTRL_DAT_OE BIT(3)
+> +#define HISI_I2C_CTRL_CLK_OE BIT(2)
+> +#define HISI_I2C_CTRL_SDA_OUT BIT(1)
+> +#define HISI_I2C_CTRL_SCL_OUT BIT(0)
+> +
+> +#define HISI_I2C_RECOVERY_REG_SIZE 4
+> +
+>   struct hisi_i2c_controller {
+>   	struct i2c_adapter adapter;
+>   	void __iomem *iobase;
+> +	void __iomem *sctrl_addr;
+>   	struct device *dev;
+>   	struct clk *clk;
+>   	int irq;
+> @@ -108,8 +128,14 @@ struct hisi_i2c_controller {
+>   	struct i2c_timings t;
+>   	u32 clk_rate_khz;
+>   	u32 spk_len;
+> +
+> +	/* Bus recovery */
+> +	struct i2c_bus_recovery_info rinfo;
+> +	acpi_handle acpi_handle;
+>   };
+>   
+> +static void hisi_i2c_configure_bus(struct hisi_i2c_controller *ctlr);
+> +
+>   static void hisi_i2c_enable_int(struct hisi_i2c_controller *ctlr, u32 mask)
+>   {
+>   	writel_relaxed(mask, ctlr->iobase + HISI_I2C_INT_MASK);
+> @@ -151,6 +177,122 @@ static void hisi_i2c_handle_errors(struct hisi_i2c_controller *ctlr)
+>   	}
+>   }
+>   
+> +#ifdef CONFIG_ACPI
+> +static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
+> +{
+> +	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+> +	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
+> +
+> +	return !!(reg & HISI_I2C_TRANS_STATE_SCL_LEVEL);
+> +}
+> +
+> +static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
+> +{
+> +	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+> +	u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
+> +
+> +	return !!(reg & HISI_I2C_TRANS_STATE_SDA_LEVEL);
+> +}
+> +
+> +static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
+> +{
+> +	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+> +	u32 reg;
+> +
+> +	reg = readl(ctlr->sctrl_addr);
+> +	if (val)
+> +		reg |= HISI_I2C_CTRL_SCL_OUT;
+> +	else
+> +		reg &= ~HISI_I2C_CTRL_SCL_OUT;
+> +	writel(reg, ctlr->sctrl_addr);
+> +}
+> +
+> +static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
+> +{
+> +	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+> +	u32 reg;
+> +
+> +	reg = readl(ctlr->sctrl_addr);
+> +	reg |= HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN |
+> +		   HISI_I2C_CTRL_CLK_OE | HISI_I2C_CTRL_SCL_OUT;
+> +	reg &= ~HISI_I2C_CTRL_DAT_OE;
+> +	writel(reg, ctlr->sctrl_addr);
+> +}
+> +
+> +static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
+> +{
+> +	struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
+> +	u32 reg;
+> +
+> +	reg = readl(ctlr->sctrl_addr);
+> +	reg &= ~(HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN);
+> +	writel(reg, ctlr->sctrl_addr);
+> +
+> +	/*
+> +	 * Invokes the specific ACPI method "_RST" to trigger a soft reset
+> +	 * of the I2C controller to help the I2C controller recover from
+> +	 * the abnormal state after the bus recovery process.
+> +	 */
+> +	if (ctlr->acpi_handle && acpi_has_method(ctlr->acpi_handle, "_RST")) {
+> +		acpi_status status;
+> +
+> +		status = acpi_evaluate_object(ctlr->acpi_handle, "_RST", NULL, NULL);
+> +		if (ACPI_FAILURE(status))
+> +			dev_err(ctlr->dev, "_RST method failed: %s\n",
+> +				acpi_format_exception(status));
+> +	}
+> +	hisi_i2c_configure_bus(ctlr);
+> +}
+> +
+> +static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
+> +					 struct platform_device *pdev)
+> +{
+> +	struct resource *res0;
+> +
+> +	res0 = platform_get_resource(pdev, IORESOURCE_MEM, 1);
+> +
+> +	if (!res0 || resource_size(res0) != HISI_I2C_RECOVERY_REG_SIZE)
+> +		return -ENODEV;
+> +
+> +	ctlr->sctrl_addr = devm_ioremap_resource(&pdev->dev, res0);
+> +	if (IS_ERR(ctlr->sctrl_addr)) {
+> +		ctlr->sctrl_addr = NULL;
+> +		return -ENOMEM;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int hisi_i2c_recovery_init(struct hisi_i2c_controller *ctlr)
+> +{
+> +	struct platform_device *pdev = to_platform_device(ctlr->dev);
+> +	struct i2c_adapter *adapter = &ctlr->adapter;
+> +	int ret;
+> +
+> +	if (acpi_disabled)
+> +		return -ENODEV;
+> +
+> +	ret = hisi_i2c_get_bus_recovery_res(ctlr, pdev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ctlr->rinfo = (struct i2c_bus_recovery_info) {
+> +		.get_scl = hisi_i2c_recovery_get_scl,
+> +		.get_sda = hisi_i2c_recovery_get_sda,
+> +		.set_scl = hisi_i2c_recovery_set_scl,
+> +		.prepare_recovery = hisi_i2c_prepare_recovery,
+> +		.unprepare_recovery = hisi_i2c_unprepare_recovery,
+> +		.recover_bus = i2c_generic_scl_recovery,
+> +	};
+> +	adapter->bus_recovery_info = &ctlr->rinfo;
+> +	ctlr->acpi_handle = ACPI_HANDLE(ctlr->dev);
+> +
+> +	return 0;
+> +}
+> +#else
+> +static int hisi_i2c_recovery_init(struct hisi_i2c_controller *ctlr) { return -ENODEV; }
+> +#endif /* CONFIG_ACPI */
+> +
+>   static int hisi_i2c_start_xfer(struct hisi_i2c_controller *ctlr)
+>   {
+>   	struct i2c_msg *msg = ctlr->msgs;
+> @@ -496,6 +638,10 @@ static int hisi_i2c_probe(struct platform_device *pdev)
+>   
+>   	hisi_i2c_configure_bus(ctlr);
+>   
+> +	ret = hisi_i2c_recovery_init(ctlr);
+> +	if (ret)
+> +		dev_info(ctlr->dev, "I2C bus recovery not available\n");
+> +
+>   	adapter = &ctlr->adapter;
+>   	snprintf(adapter->name, sizeof(adapter->name),
+>   		 "HiSilicon I2C Controller %s", dev_name(dev));
