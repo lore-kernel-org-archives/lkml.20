@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793070414;
-	b=X6Q//UOV80H5dw3T4N88Ofe6nD91154Gt1M7AxmUPCw8Xv2e489k8nDCHfY19n8NW/Cc
-	 11eOsl+yTUY31E/eNvtJaQ0U0zZlfys7Eg1Vj+qeStx9p3Fzu4hjMAiVuEosanbxFaVuf
-	 r0Ic9IvPu9KfMvey4Sh0vRdxHX6qotxTvgUxR9/Q/wYRAsrXzs5IHGIHKNfBQJjLjOOit
-	 HmfgClxzmIOsQ0QFlrkpQbZRrWFsiHOU5ed/je0AjHKSTLP6UsDPxW2eQfUz0uig+QnmM
-	 jIuxexbzWrSkS7Al2d+E1CPUDXYv0i82tQRKslW5s58mC4gOk15y9nFZ1THh7nPSdjg==
+	t=1793070410;
+	b=0zzvh0TzpyXqfoInAYVz8nOadZ3oMySCsqhDfW+QPVel8QvmSDGewCLsVMKu0q25MZxI
+	 PYuMzHv2Zr9KDLxQDG4kpJiwk9olGw4wPdIagdgWXyZziWwyk6JZ0l2OkhQdox2+Xgh/j
+	 cqzMqAllovx0jZqEukh0OJkUknpCJTtrygM/VLW/HHcUjkToYXNwOU182q8SCAUzro32J
+	 GgqUBMVVIrglEJt72NAIAdC14Mx0ZkfI3MeON3UVbm6kKe9ucRkO6AVHvkMD3tufE0Kca
+	 ovoE+MZrnTIGyD9HSA1NowBSZn1dcv58xKs99f60uWvelCx2SktwMJAU8jmKbhPEvwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793070414;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=QB27yEBKtA/xKDE4Lpw6rAITC1mnPekLzcQwjnT1UyY=;
-	b=s9yQcWXYv6aGURD/oyweDr1fB7Uj+bu+TNY3kRXgGaQ5/wn8+nrhr/1RAaBLbR8yg7Qq
-	 c0ICXivZnIaEaZNk1qpiJbpX8ixQOBgaBySk5Ss6j9bbz5NF4C7Zp0VEmo2zrnkdw3arz
-	 1djyPwHg+VPl6b4Bq73SyYV79iY1zW8P5Z31rQxGIT6Cl5W+IRaCt5cfeHC9kY43egsz7
-	 otoL4OkzbKyjdSw6Fa05XphvQRo0d7xugL3wN4Xta+EYRqPfXzf2QenMmCXYfjnZJPdyy
-	 iMfF2hTm17RAIrJmRZiN8baxOvniI4NIUilZwDoU9WlL1ifStRJ3fFRSw8hPv8nVsOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793070410;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NfiBYouQ7SUxOIRjsg6uwpg+DvPUrarmQVPVZOSrssU=;
+	b=kXssFRlhV6v/a4TCh7CxGx89xDctRpinIQRwjGiGbldTdo+LrwPunat6wwbrrIsTa97H
+	 /oXT4AbMlStjHjAILITAEkDJERzqmgK2Uao/t64EO1mH5QLwEQ9KiMEkzPzCyskFAUtYS
+	 Ng1sJ5FitpxtqnjaYpRNMwUoOkbr3+bSvE2E745jg1OkdJ6y5HpF/DYo7sVqYuU+v13UB
+	 Da3o+s9ZdihVpdJNDkdvNHBSsYJqvQSR4vV0LgHwGRCU1446aNZE4vG3S8R2HcZcec9Kn
+	 F6AZJyzuO9ARI/mgH3eJd/0LIrpsJk+oJz/tSOUeiG6nIOwvBHooS/yq/KNz45k0ODw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rgTQ9eRx;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OmJvHkyF;
+	arc=none smtp.remote-ip=91.218.175.198
+Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D53606A32A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:06:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60D53606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6721E606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6721E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rgTQ9eRx
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35b2c599f43so2070007eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:06:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793070412; x=1793675212; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QB27yEBKtA/xKDE4Lpw6rAITC1mnPekLzcQwjnT1UyY=;
-        b=rgTQ9eRxSMvwGrirkI272WKRq8mYyvay3ISAHS88evRz97/bTokaePHOPal77r0wIz
-         AlL8+2mukmMD9ySrQgDSG644ywd2Q+LvgGN0pwcr8RdSnB7/4dVFTjKeyEY/jROSM7R6
-         QH4I0SJ9f40CzkRBYUn2pSyyjCsseY/rAVMOR5IO6R4ajvdkvBRQ3BVH07tTL1ndJyl5
-         /i4UEj7QbwDb1W2Ltaxm1DCaHkWDL8awCI9bp2vxq/Wg8xc1oytJd35qDQ2mYjdYZXUp
-         5+mK6sfCJgZHmpRq3+60EFt3VN2Vs980U0reSl2nKgj/f+IS1RQ9bkTVu1LKILb2rPEz
-         ChKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793070412; x=1793675212;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QB27yEBKtA/xKDE4Lpw6rAITC1mnPekLzcQwjnT1UyY=;
-        b=DU32+IsGcJqHA4y6+28KEgFVL9rRoUUmIBIdfifeTsJsZ1tgjA2LgESq2IalidyAz9
-         rjEuJIqbcKdlsia6FEpKrSwwpqwOBtr391sn58ZpRcWa5rxcVGpMripYjZZhXj3mkvzn
-         9qIU40DqVXEdV3H+rsXkOxKkGcKvK79yfUCZT/TbTy6ebx22oix8cHkBnNu07wCuYlI8
-         3DD0uD6TsOWwl0ylN/R35L/JrgerJtW+b4016tC6QwEVYs0Pniw1kP6falCcLISbmnqy
-         iZqp38Ct6DdatNlaAsCRq9MWV7/1fIuYP3v0v6dlFpgf7v3Mg6bDRVwL8EIQibcXWSD7
-         BtSA==
-X-Forwarded-Encrypted: i=1; AKwUvBxv/+eMHOhHMk314j6I9NYpx/5eZH2Z5G1BoJBZfB3b0q3mCK6N4GpyDbxlsn7ZYFo2hW8QPoD2QsLOxJc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmv33sVD9cueLzD9urn2HTwZdIITOQ8VBLt07A7PE4HPy3k17e
-	PrMdzQjLO7iIpsHyxORzMe9yjVsEICvWC8E0dwNdny2XFOTYNs1YeCLO
-X-Gm-Gg: AYBFou1IMMalVz35ljbHTsTMEnuCOJl8VIK8q2mGrcneLLtA3GcZPdq+go56ZsBNljp
-	ga4KmqQrJ7G/kikT7qlbfd6tCXwdd2QBiAeUs17m3QoHL0k0HtZb3Zo4elGU3qxrsNFhQ+roO7D
-	ubabLjHV5Viy+mTIoeRaSlDKA3uXepiSvQUYOrps5BRGXSFM3CqWTDv9HZJ17x8tCLLhhG1L+n/
-	hCtNpm0i+izmhr4S4zRjptDqzb5Q15gOdOOf75uVLjNRr4pMl75kO+qLpDaoc9nKRDg/S+fpTaN
-	qf/bCME7PrjhkDVwga/TVDQkd7uy6IBC4cYJsY1Mkt9akWaw8Y61of8fVm6a8jA/gHp2yFfsarA
-	IiarvB9rCymzjKCDilKLHuhcf9Qaspns0XFMdle5iypzesLgWLSJy1Yi8gmgS72NMEOL9nZI6Mj
-	Jc3tsxqRrnqy862+DzfcFa81xyKtyTgtyafIRNcxzBSJcXlog7RvHL78EV2y+8lBd7diNij2py9
-	OPufBJhBAUwaBhD3qF9jPkXTYOuauSpeHMoTXN4iC35zIl6uhhR5wqM9IvN2DJXS65RZY1y55TY
-	c0v9rxidJKBc//IZlL6PxwKFAMfLs/0JfkMbr9c6IIsburVb04LWxUZw0E9t0hiEfCJ7nA==
-X-Received: by 2002:a05:693c:20ce:10b0:343:9eb1:9940 with SMTP id 5a478bee46e88-369e849d12fmr12565801eec.26.1793070412156;
-        Mon, 26 Oct 2026 20:06:52 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2ebe:8:2dc1:2e1d:6b4d:5a9a])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a11b45b8csm2998795eec.17.2026.10.26.20.06.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:06:51 -0700 (PDT)
-Date: Mon, 26 Oct 2026 20:06:50 -0700
-Message-ID: <9499ecc052d84c2c015a27e8e1f34f0a@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Rong Zhang <i@rong.moe>
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Ike Panhc <ikepanhc@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Maxim Mikityanskiy <maxtram95@gmail.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard controller
-In-Reply-To: <35aef2ab2b6607a46eaa0105e8b13c7ba60e5509.camel@rong.moe>
-References: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com> <35aef2ab2b6607a46eaa0105e8b13c7ba60e5509.camel@rong.moe>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OmJvHkyF
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AqI8n299OICKahJhyCKFqs0u3m8/ZWmCuQo8Rk556kA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793070407; v=1; x=1793675207;
+ b=OmJvHkyFxsfeKypToUZ7LSGC2sUxdtwI3R9o6a19BnFlQ/VY2YusuFobH1ESXjXmdW4D/0v1
+ 2U+cDF/TlFIvOXWIa+BCKSj8lSkeCR2P5jwvU83YvE2C4LcKuDnPaa1N3Qp/AhtOyPyWtF6jp0r
+ X5a1YWHseL+TPDdj7Y10H9cA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fa452c266040fd6e;
+	Tue, 27 Oct 2026 03:06:46 +0000
+X-Mizu-Trace-ID: fa452c266040fd6e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b0f16e9c-691a-4ab1-9ac4-d76b92c58b60@linux.dev>
+Date: Tue, 27 Oct 2026 11:06:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,33 +58,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 26/46] mm/mmu_gather: fix flushing ranges with 4 GiB or
+ larger
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-Hi Rong,
 
-On Sun, Oct 25, 2026 at 10:25:46AM +0800, Rong Zhang wrote:
-> > +static const struct input_device_id ideapad_tpswitch_ids[] = {
-> > +	{
-> > +		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
-> > +				INPUT_DEVICE_ID_MATCH_KEYBIT |
-> > +				INPUT_DEVICE_ID_MATCH_ABSBIT,
-> > +		.bustype = BUS_I8042,
-> > +		.vendor = 0x0002,
->
-> Missing INPUT_DEVICE_ID_MATCH_BUS and INPUT_DEVICE_ID_MATCH_VENDOR?
->
-> Other than that and the module parameter's name, the patch looks good to
-> me. With them fixed:
->
-> Reviewed-by: Rong Zhang <i@rong.moe>
-> Tested-by: Rong Zhang <i@rong.moe> # not matching other touchpads
 
-Indeed, well spotted! I have added the missing match flags and your tags
-in v4.
+On 10/27/26 7:17 AM, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> __tlb_adjust_range() takes the size of the range which has to be flushed
+> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+> gets truncated, possibly to 0.
+> 
+> On arm64 with hugetlb, a 64k kernel can flush 16 GiB hugetlb PMDs, and a
+> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+> at least these two scenarios are affected.
+> 
+> Fix it by flushing the proper range instead of the truncated one.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: use two-tab indent, simplify description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>   include/asm-generic/tlb.h | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+> index fbe1114e9a443..3f4a180b48f3c 100644
+> --- a/include/asm-generic/tlb.h
+> +++ b/include/asm-generic/tlb.h
+> @@ -350,8 +350,7 @@ struct mmu_gather {
+>   void tlb_flush_mmu(struct mmu_gather *tlb);
+>   
+>   static inline void __tlb_adjust_range(struct mmu_gather *tlb,
+> -				      unsigned long address,
+> -				      unsigned int range_size)
+> +		unsigned long address, unsigned long range_size)
+>   {
+>   	tlb->start = min(tlb->start, address);
+>   	tlb->end = max(tlb->end, address + range_size);
 
-Thanks.
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
 
--- 
-Dmitry
+Thanks,
+Qi
+
+> 
+
