@@ -1,84 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084061;
-	b=XjGPnu0RRhi8s29vm8P9ChE2idta3tap9SDoAUFsRZIrMeiMr670G6NqMcIfIvmURJ92
-	 CjW4N3GnMPMcwTH5H7jGgkSNDM1pMRQLT3Tjtuw3X8LXsWY4PDrr6u4/gLWWQKzOdnpSW
-	 un9e+HcJBNtGzfQshA8DZ0zWaLDOWdL9C6ume9Yr0ZI/jJX5g84Y3ZkfhUJlHVkP8diuF
-	 fAXulZHqeMuiHoZPOFL+L+wX6krAgIzIgnru3ZAwCr+Y+Dj5nRMIpxX9veLoRBqQsLgta
-	 AnImk0+17JSPNlZVcc88Q9S4VTE0tPag+KDXdX0TYHHQN7deunAj3cyiSlgCk3R6PZg==
+	t=1793084096;
+	b=r0pgDFMDSawe0r4rfGKUNFx8ktEyUh/98uzvOaO0IdJacwyF0jIZibby05HlE0NI+Es9
+	 rbRqeuQoGeQcVMY9Ki4kL3LoP87v2QqNFFZsJ7CSqj/AF/3XE/97qNaelvDZXZ1mRZ2hs
+	 iX8fPbc54WeNDltkKTJh5kJQtORpCwvrmmBIYgOMVUIbEewF8uC7/WTtQdMIdQWrkajDd
+	 XOr/Q+X94/NrKatpeMY13cGz7Q2Mwm19S3fU95YD3k1QDl92YP4hVzAdLQnmOk0wQIjnB
+	 PnOFaxmx6kmTWYxyLdWim4xvd2Qn8UgF1wlP88uFjZxI40kuxuJBmc9Apm3hEF5FMDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084061;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=kV4jEv5sJ1fhwruuECh2r7bZz8ZxIRz2IHxBzvIfK/w=;
-	b=iavm6LXtlN/iKssUTHhNurIYMLIdL1Gvl/dJkaSjIYSfmmLBQHeXRBxcv3Ux0TxpCt5r
-	 9jjPjHwGGIfHBtJMP8tlDlFWM+MEynMfT4lv0Tjmmcuvpm0z/CWHBB7oAgV8qLtWX6VPc
-	 NVGOvNqhCx2zUQYXcjjRbha6QYUefLPVNBzKpY3Ux4t09emjj+10HM6Qk+lidB0loYW6i
-	 c6fOalbTI1nFg7gVOsB775ufajurMM2Hu6aMCjo6DcauumX8DtLnxbd0j5/iQj1pVjva5
-	 71PjnchBC+4pvMBxXsN5184cmE+mriJpRz1d5P3/mZ35BLedRSCHojB4D+ypG+CL2HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793084096;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=oEXr1K3EZeJQI84eHYprlnMC5Rarw55WE3zGp6jDEkE=;
+	b=LjfU2g/sHa+Pjk/a8ZOpra2s1Yi7O40rwnpeSKr3xnqUoadXFf1dL9INAcAC9w8/s7Gl
+	 MSbUJu9GF8ksg40sxK0ppqqnlHsj6++HQ4ICyG/XDZYc6hqKBV2413/Lz0dXz+uIjdyVd
+	 tHRqKmnpVDnI6oa6Y4/8oaYlhwvEvSOA3nzNcqmuu4XeRnaYxcBcU5eu5ikSMr6J44xc1
+	 y8993dSUJEPL0fffkoFK7ezBXVqN/VKkHFH44JGlFViygFwzk9Gpj3Joa3JLxGdqfmsph
+	 db31j6HLs3Eor3FRglYqhv9NAY4vrDhpoBYOIjCmBUYDKYAEMKLbbr6Y8I7Vn7o+ymg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KJvjNvX2;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Rbm2u1OD;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47862606A321;
-	Tue, 27 Oct 2026 06:54:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47862606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 550C3606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:54:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 550C3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KJvjNvX2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793084060; x=1824620060;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=E54gxf4saca+RBeymUGcrO5/xiigxNpKbUqIJy908ig=;
-  b=KJvjNvX2cw/ulcmwTLoCVqh3MGvfwbS3O5dXGeEhXyAPQLFCMK80z51s
-   +6DfRmjmylEeb1f19P97j7GVMMjIyUCfekFxDvIeBwXIPPf7lTjdmnqSl
-   U0xwcsDE6nFl6Yd3TBIvbb1WZWD4Q1HCYd2+eMHYRQLLND0QTwM6Y9DRB
-   JFco9JWAuPxJpmUg7dhn5IOhBaJ4HbuSvq/BrFH/pQQEsx4SN00NdrpXh
-   pagPx89EYUv8e+OQnd6wk3SN3Et1gxkk62qa672545epEkJN9XHplFqVD
-   J1ipYA97n6g+ylVfQH2+Ke/x5Jc9DOmjXna+KX5Jexa2mnTrxpiTtQMCe
-   g==;
-X-CSE-ConnectionGUID: A3DD1MdwRKiuC8r42Dk5Zw==
-X-CSE-MsgGUID: FLUP9v8HSZqg5gCDK27Uhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1798035"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1798035"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 23:54:19 -0700
-X-CSE-ConnectionGUID: cEV2pnl5QWexlm2/6h19Ug==
-X-CSE-MsgGUID: gXby9iudRf2Fmsjfa53UKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4865007"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 23:54:17 -0700
-Date: Tue, 27 Oct 2026 08:54:14 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Rbm2u1OD
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso38242205e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:54:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793084094; x=1793688894; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oEXr1K3EZeJQI84eHYprlnMC5Rarw55WE3zGp6jDEkE=;
+        b=Rbm2u1ODARNBL1tpPkHcrJM/nHYPU7J8ag3G/Z7wD9ZUxWbcU8zU2GfDy84PQZqBxI
+         olGNMC0m9AmkJQMUoBagRXCjfUWnRf72LOO6b8ZKHnif1ixuAo87CkfIcCF2+c6oDo5N
+         Zl90Q0Y0wquDTGNCkQp7AsQhS8KWjiVBICgCGQoFmHqGDy//4y8okmwwXdrNLN3LRqUn
+         XiNDojM4jhEPtC8xX8wW9xNGR7AXZDCLKqCLWasUszZSmZgmWpmE2DYt/pIL21A0gmmU
+         hDfGOgrCWfkynb4anQleTR8DpQW2ISV5cbX4aiTSdtuXDutGLv4CwG/UtbOyuEuXkiPd
+         FiVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793084094; x=1793688894;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oEXr1K3EZeJQI84eHYprlnMC5Rarw55WE3zGp6jDEkE=;
+        b=C5FLCMYXeWeSQR66R79s6uqDq8o3N3LvDLS/EjR9kkafNdmCnvK31ouMvoTrh/Yaw7
+         C1Iqu911NQNK3YWjlGq3JAYMxjwrbqe/WFaaSRH6pjOasDMbNYgNe84X+8xm6uXyMUAS
+         g4rd1DKxVm+OyaZpn6E9x6+IdVnzHgyxDgOSe2p7zcr8oVPjhRcRT2+sw+c6Ul5TvWAe
+         lcESKdbi3BZbv/XLLw9whnjElr6eRl5Am2p9IktBBReLa6vsTGo/PQZAurFs6Jf1Gdb5
+         UXbKzSxLd5LLAZLLIH43LsnGkiZ1ZAxl4939wwKls2KU5fmPT8/v2J8t+xkrW9Q5Kfjx
+         aXpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWovmTkUspP+dAc4FuVYXbkAL0OM2t63kacgppZMcijNEpSJ0FhpJVuzK4k///abV0rZ6EyzvLs1mwVHA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKf0FRUEGJJlbiaL8JCNHK7qsdtELONf3YYf9ocKIc5hqFQDKFe
+	fZ1q5Sz1tLCdhHkrY1K6kbNg8zZjKhTVvXke9wnGCUylTtidLZbP61j3
+X-Gm-Gg: AYBFou120hIM1BA6ZHNnOfvGGHuSNO3kQgOt2EMa09evYazobjo1nL4Ajfsu2vIN4mw
+	JqfQFIr9W8/F3rdMtz6l9Q6j9EYM1GbQzJRlT64CJBx2IpxLTyIXIFmyojH3I/M3M/lP9Eo6zlS
+	MQ+gvpIJLd4TGzIC7fuxCSWipmiNuFCp9pe0iS/ir/PgDv7DGTUBKRpDFZPuYa4kQlHJ+vVQdvQ
+	uxW52DYPF5oQ1s+7RbureshA5FBXzKX5uHdnOzUWBKGJHH6EvwDnLKVJ+s9+u+2Fy0UKxMfV1Ie
+	45fhD6aICBwHcIGsZhDxoHYtnBEcDE9739b5ytvcB6Vh9uvCZRSpHUPqn0z+be5q7kAslQ91Kpq
+	Xuf2uhEkiIzySveK3CXoGJtGlkpLV71Iqdm2jby6hFpVe5Wvg4KaIDXQsbuR7/lOAOUlO0tULHN
+	Uw75rHQ3UbVO297GI4Wjy9HqnSJt55F29leXOd/LfZ1ysDev7J4HFQEkuuzA/ooRBQU7iFqg7Xb
+	l07ksfC1/5eZBSJQ1D32eDHc9sXeZ4wjjWXXZAVUr7f43GKgz21H3cA32xQycCAiiquP2aebh+t
+	f13nFgY9DQKyVrctlsm8wwyIhlerG41j/+PBk5jDR9rbYNbMOBonYP7mNsYeAoGIfmN25tgJDDn
+	sSvWA5JnqQPHAd5nFQCArrJheJ3jiMpBpSJN11dKwDw+94a/WoVoEeepmuf5AHHAZEp4KLrH3To
+	IEhVG6
+X-Received: by 2002:a05:600c:46c3:b0:4a2:fd2:9855 with SMTP id 5b1f17b1804b1-4a35acbd173mr173946805e9.13.1793084093615;
+        Mon, 26 Oct 2026 23:54:53 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b2ac-9b01-6900-1f92-d182-4435.310.pool.telefonica.de. [2a02:3100:b2ac:9b01:6900:1f92:d182:4435])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a4cb7bece3sm189318425e9.10.2026.10.26.23.54.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 23:54:52 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v3 1/4] serial: 8250_dw: select port setup through
- platform data
-Message-ID: <auBKlohJi7TV9uq3@ashevche-desk.local>
-References: <20261024-submit-h616-uart-fifo-v1-v3-0-286fc1b8c3c1@gmail.com>
- <20261024-submit-h616-uart-fifo-v1-v3-1-286fc1b8c3c1@gmail.com>
+	Aaron Kling <webgeek1234@gmail.com>,
+	linux-tegra@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] Fix NVDEC boot on Tegra210
+Date: Tue, 27 Oct 2026 07:54:46 +0100
+Message-Id: <20261027065446.97098-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261015-b4-t210-pd_nvdec-nesting-v1-0-39a36b622eac@nvidia.com>
+References: <20261015-b4-t210-pd_nvdec-nesting-v1-0-39a36b622eac@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,78 +108,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261024-submit-h616-uart-fifo-v1-v3-1-286fc1b8c3c1@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 24, 2026 at 02:22:23PM -0600, James Hilliard wrote:
-> Select feature discovery and DMA attachment through a platform-data setup
-> callback. The generic callback probes the optional registers and attaches
-> DMA when a FIFO size is available. Integrations with a fixed configuration
-> can supply their own setup before the port is registered.
-> 
-> Replace skip_autocfg with the Octeon setup selection. On 64-bit builds,
-> Octeon continues to skip optional-register probing while retaining its DMA
-> setup; on 32-bit builds it retains the generic setup. Keep generic setup
-> for devices without matched platform data as well.
+On Thu, Oct 15, 2026 at 06:58:01PM +0900, Mikko Perttunen wrote:
+> On Tegra210, parts of the NVDEC hardware unit are in the NVJPG power
+> domain. According to the TRM, the NVJPG power domains must always be
+> ungated while the NVDEC power domain is ungated. Model the dependency in
+> device tree.
+>
+> The first PMC patch updates the PMC driver to handle cases where a PMC
+> power domain depends on another PMC power domain (other than the core
+> domain). The second device tree patch adds the dependency in the device
+> tree.
 
-...
+Tested on Jetson Nano (Tegra210, 7000e400.pmc and 54480000.nvdec with
+nvidia/tegra210/nvdec.bin) on v7.3-rc2 (5b0764a53235):
 
-> +static void dw8250_setup_dma(struct uart_port *p)
-> +{
-> +	struct dw8250_data *data = to_dw8250_data(p->private_data);
-> +	struct uart_8250_port *up = up_to_u8250p(p);
+- Unpatched: pm_genpd_summary lists nvdec as a top-level domain while
+  nvjpg stays off-0. Writing "on" to
+  /sys/bus/platform/devices/54480000.nvdec/power/control immediately
+  resets the board into TegraBoot.
+- With both patches applied: pm_genpd_summary registers nvdec as a child
+  subdomain of nvjpg. Writing "on" to 54480000.nvdec/power/control
+  powers on both nvjpg and nvdec, boots the Falcon firmware, and puts
+  54480000.nvdec into runtime_status=active. Writing "auto" powers both
+  nvdec and nvjpg back to off-0.
 
-> +	/* If we have a valid fifosize, try hooking up DMA */
-> +	if (p->fifosize) {
+Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-This can be written now as
-
-	/* We can't setup DMA when there is no FIFO defined */
-	if (!p->fifosize)
-		return;
-
-> +		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
-> +		data->data.dma.txconf.dst_maxburst = p->fifosize / 4;
-> +		up->dma = &data->data.dma;
-> +	}
-> +}
-
-...
-
-> +	if (data->pdata) {
-> +		if (data->pdata->setup)
-> +			data->pdata->setup(p);
-
-Do we have users for this case, when pdata is defined and no setup is provided?
-What I see, we may default it to dw8250_setup() and drop a lot of assignments
-below.  Otherwise those special cases can add an empty stubs, which in my opinion
-will be cleaner solution.
-
-> +	} else {
-> +		dw8250_setup(p);
->  	}
-
-...
-
->  static const struct dw8250_platform_data dw8250_octeon_3860_data = {
->  	.usr_reg = OCTEON_UART_USR,
->  	.quirks = DW_UART_QUIRK_OCTEON,
-> +#ifdef CONFIG_64BIT
-> +	.setup = dw8250_setup_dma,
-> +#else
-> +	.setup = dw8250_setup,
-> +#endif
-
-I'm wondering if we can do something at runtime with these ugly ifdef:s
-(yes, it's a preexisted inconvenience).
-
->  };
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Karl
