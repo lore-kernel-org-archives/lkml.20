@@ -1,101 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793137177;
-	b=0mS+8CPJGU/STcrPYT+nkGC161poqQSQ8EIvFiUjp2lfcYRSsnC+0O9yB5RGoa3kj/nW
-	 LN9PMb3p3sNOHGMH94Ewmc3fvD4PCseAnI+x9ml/oE6ecg9YvU9DTjpXFcyAgk8rHt5NW
-	 PkdB+bvYhcvpaEBPAbNUEX4I/xVOML0WcYARXPDvQc7Sc1iQad3BQ8S4I99S+o/th7y71
-	 pGu58fYhEZ5krwt/R27ZakvPBccZNYd02qcC3eMVsaF1d2y8UkYBG2eRnfMUNfKG3chjL
-	 UkLaMsH3C0WAfSo7PzPwERwdfPK2pZXeMm8bB0NOWRrxMCOL1nLPamjmHDMf+wODZ9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793137177;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=by0WSEq1pKv4CYxHbkdCM7Yq9Uxx1VgyJqzrAXN1xUQ=;
-	b=u3rA4tYgADj0x9dh4czJK2tXTv4vF9/iFuAP88DWYQNmhDyiU7MB0VLj6asJna7BN5ht
-	 6Td0sz5PWgsgN35+OAqkh3OwDd1Jshk7xu8Ml1ELQT7MTYee1Bnycv8ZGBFjkUjNy6AGx
-	 Wr3vCGnNra1bEoj7Oaj1aCGx1GXGx2KUZaasRWR9f2EdfMt5Uql0AMZBfcrESjUydcyE1
-	 NjVfwXD1tawr2oHW6IWs9XBZrFWD9qwMOakLecYg6KUKK2IuaYEJsKFSgEaLN9KkXBn/Y
-	 Hu1g7STk7PLOuQpcNM41t8sijf60WFvdbm56oNateXWlf84rMi87WeI5FE7TBbraMAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1uuYwXWQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.37
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012037.outbound.protection.outlook.com [52.101.48.37])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793137214;
+	b=YraHjxCi4jrADFs6Q6Jan7Cp7qyaopHah08OMJ0uhbCBX9O85xIZSKO2YU4LAMGFResq
+	 28YVdEdIE6Xwz+eqg+I0BxEmpiw1dylwzouAKaUtOz+tiGml/4aklZo62Qg1XJsIK01EO
+	 8lgpiO3g9mor0MgWmMfhKZydG5p7uLFeuV/aiX2HzEGw8Npw7x01jdDgwi3dxhx3xF2Y2
+	 b1r2UBgVVkFc9xRaTWHxDQox8WeVyYEXfZglOygZpKKX9/jOlMSwryg6ZnfDVI/n+3nmS
+	 b9IIw4cET6pcvc4GjhullRhV9pGCREzDyLlaG4EYjJhkkffKO3f4uHfsfxvXwV8i26w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793137214;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=F9FEofSoUSLMuDf15+WCUoOYCD7og7XvQVtByxgDU1A=;
+	b=wrDe9eqmzXx86yFLBcfT6ukLqQkzhpozUoIvKV6B6Bz3AvI2Mckt7wInKyNFcNGHIvRx
+	 tLVaM6ZHOpivp4FGjKrdD5Mv8Sxd9uzjucJPeuT9p7P0ebV895VkOOy0+vV6sN2d5RNwR
+	 B43eamTpr6UeZqSP3guR8BIMfTrmK/+3BCeqYg8goFHkC2dxxDb8TkICLJT0HEOog5I0L
+	 3aHg37r8X3PB71m2iz9mEH5AxyEnUaKziDPMnLvYum4633dMMhZjIZPl/zQ92U60PD8mt
+	 jAE3GsB1L3ZX0uwdK8OKFwVONFhEYXrSSZhX1HjaVxuXv0Eh2q4Z64J6eUw/o+y4/Lg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IujTEz5i;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E17D606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 21:39:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E17D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69992606A31A;
+	Tue, 27 Oct 2026 21:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1uuYwXWQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sGM/JU8cFoFkTWFK+gCcvlzKYnGKfNNrx6hzaKwIfoZKmDvEsV1UQzTEiqE3Kzgh6Ps9DKz8/5qRMzd1zzMhiVlxBJZouiL+0B4lKN9F9bEkQ1GGUiZuvR/LfHcz5H4UDfE0wG1d0UgDHxNRdUDF7I6sFVnpNkF6Z4M9bgbIrNv3P5qXTCouV/WW97yYgScgOS4l9IIi8kxnKJ5b8M6naTQs1yK6Wnxx5/Lyc4UcOeXwGWImFp12F28u6DPD9UrssXXSJHPN3GSGbdTfs92XnEBSrEVeO8GN9ltKddcqskqmMwYViw5bYX6i7s+HBZ13tDnZSSGIF6NV+N1RAe868g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=by0WSEq1pKv4CYxHbkdCM7Yq9Uxx1VgyJqzrAXN1xUQ=;
- b=eZvGnw3QgXXMSEDqw8v+HkdOXpFDm4E8SCiZdAO6TYNbhFzrT5yBkErO/JiVyACT8yDhB1YHuwvausycEufEKzYu845oJnV1wwdB2JbLiwFvyTNT/CTZeWCjHG3cwVl99pexUe9qbsDYnbne8yNgokkTxRqWQXtrx2r8Sewc89UM76YI8vWSuM649nSfhzx4zz2flu4f/IoV77bRkg4USW5vMEE3sj5nq3/tdonYLyRSLeu2UNxbgk8dob79KH8ESE8im3OQbx4Ucg/cPiwauTaHQY0/sefDO+dyAji4PKc0gf7AHTPhPebiGvLRJ09IfsvQP4e/fjpjytJaI2TaAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=by0WSEq1pKv4CYxHbkdCM7Yq9Uxx1VgyJqzrAXN1xUQ=;
- b=1uuYwXWQI4ej2eafti4JBxJfSCuLwuL9mZq6pLqFiRI/dcAfkzO9JlJbedF/sb3vM3PyAb8Rk1DyXuXeWYuCBHjVGPibMLkF4S3cmp0dSKQm5SEWkLF7EWxGKdmOkGX5zIYOJs9e11fF0VfntYeZffdSiI2lctRvCZ0bQFZ22pw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com (2603:10b6:510:2ed::9)
- by SJ0PR12MB8165.namprd12.prod.outlook.com (2603:10b6:a03:4e4::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 21:39:33 +0000
-Received: from PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc]) by PH7PR12MB9174.namprd12.prod.outlook.com
- ([fe80::eaaa:b430:ba9:5dc%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 21:39:33 +0000
-Message-ID: <24f05c8b-96ab-454b-abf4-ae28ccecb809@amd.com>
-Date: Tue, 27 Oct 2026 16:39:30 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Don't warn about vendor infoframe for
- non-infoframe sinks
-Content-Language: en-US
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Wentao Liang <vulab@iscas.ac.cn>, Alex Hung <alex.hung@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261027185414.162183-1-pmenzel@molgen.mpg.de>
- <ba77a6b8-f79c-496f-ad45-9314ac8f8a46@amd.com>
- <75709eb7-6ff8-44ce-9f0c-84ff47c6ba22@molgen.mpg.de>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <75709eb7-6ff8-44ce-9f0c-84ff47c6ba22@molgen.mpg.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0004.namprd04.prod.outlook.com
- (2603:10b6:806:f2::9) To PH7PR12MB9174.namprd12.prod.outlook.com
- (2603:10b6:510:2ed::9)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IujTEz5i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13BD01F01825;
+	Tue, 27 Oct 2026 21:40:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793137214;
+	bh=F9FEofSoUSLMuDf15+WCUoOYCD7og7XvQVtByxgDU1A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IujTEz5iUJJ8fLWRNgswwtRnTCYdpMxhrlitVPuCT32SzFTcFnPci0d0/lWxLkKcA
+	 +pSqNESCKFi9kTJHVm4lxMoirRODOdyNoYPKN0u173eEpwFVUq4xy4GRzfQ2bo6D8D
+	 1fQcKGu84IbHFNMxkTvuyMxGSc//Dl52HSfcusk1KtCE8USl9jkVtmd8Oo9nYEPLsv
+	 KGPH38edv/r7PQ8aGHwnWAMiGAUarLTbX2RAG6iL0vfeKxJUUCNhkZ7g5xovCEYg0Z
+	 h0XYI/mkZnv53QJ/b31UGrsg/sTekZe2+wxwOVhMUYkMcyNfXs8ZOgr3xEL6kQLsmr
+	 2hOR2siSQGkmA==
+Date: Tue, 27 Oct 2026 16:40:10 -0500
+From: Rob Herring <robh@kernel.org>
+To: Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, arnd@arndb.de,
+	stefandoesinger@gmail.com, krzk@kernel.org,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 12/24] dt-bindings: PCI: Add ZTE ZX279128S host
+ controller
+Message-ID: <20261027214010.GA1212169-robh@kernel.org>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com>
+ <20261014072109.1759502-13-ghahramani.navid@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,151 +65,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB9174:EE_|SJ0PR12MB8165:EE_
-X-MS-Office365-Filtering-Correlation-Id: d633315a-3eba-4086-6c4b-08df3472c9d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|18002099003|6133799003|22082099003|261026121527099003|261021123027099003|10067099003|56012099006|5023799004|4143699003|11063799006|261009223027099003|261021121427099003|261022105027099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	vWnXLH994hm5gHBvI0RzR5NoyqjI62KS7cfSkg7Ctv3shauP0DFb4TnZripFScSPZtEseP19FzgCaQkO8Ma98mcwAYLxJIfYFj7mDVEHsJzGIpoz6CWSeuDfNalxOIcSXEkXyqNETS3ZdLQ+GcNQaeyyy9BlPq824dh5MQeMZAJgzTgXmBMJzcCaoxrSd82EDHmVxtN0MFLNGJnNgFFiZTqYL9m+CsjiuBT0yKrcGChTr7xCphugb14zkGdy5UrBx5PUjRXD/PHYuqGrE3Inq8F8R4K8UJZAwCTH25ycvG9LE5QpwjdHcYjWrTS+x0uWQf2uSuTrkY6/2S5I4j7yliZ7bZks9seRxaYvM+66Y+uKtrUmonbzltK0rLGr0FUXWbeqnN7mHUcXIIvKKB104kqSQOvyo1skYtuF7StfEz3lByJDXzUbxLid27oiRTLjFBzkSvH4bPF9oH51zUtCbKvxKg1z19THdVpvaUiMUMsksrPzIUiagkqobwZJpVQx+kfS6clyG0pyoYDIPz0neJEEBvy3eRqBNThnF/fw8XfTaWMu00GmPFBTd+cnhNIP8GycRq5fHb0wiJACRwdOwZ6ij0hDEznLznmoFqUkNBk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB9174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(6133799003)(22082099003)(261026121527099003)(261021123027099003)(10067099003)(56012099006)(5023799004)(4143699003)(11063799006)(261009223027099003)(261021121427099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkJUeHc3VEJRelc5Wmw4cXpib2J4QkJmT04rdGd3SS9aZURNUnJGSnFpemhz?=
- =?utf-8?B?OU5IQ1FKQzBRK2J2eGYxYUhiZEZtMldIc25QSHFHYlRTV2xDRmkvTFBhLzhm?=
- =?utf-8?B?U0xTc1VDc3JHOHB5eUNndWYrR1cxUi8wSnRBYVVZYk1yVmZsVVZmYmpRVFlJ?=
- =?utf-8?B?SFJHYkhEZmh2QUU4Uy9jZE5xcE1uNDI5MStudGs1SHRLZmpSd0x4dFZ1UGVY?=
- =?utf-8?B?MTJuUFRUVEFteHhnRm95VGdWRnMzQTFGRnhsYmFiTUJ1bWJ1OUlqODR4QndY?=
- =?utf-8?B?MElqYUFzQVZiRi9pVFFiVUtPeWVpYlNHQzZMR1lxWjZRMmxZT01ISUtoOFpo?=
- =?utf-8?B?MklpRUxKRjhIb0JjRCsrblZUQUxBVGl1MitFbkpsS0pXekR2Q2RBUCs0R0du?=
- =?utf-8?B?V2hOMUJpK2FLcWk5Y3ZuK3dSMFZhdUQzZjk1ZkdtUnorZ0plME92VFVRckY3?=
- =?utf-8?B?KzdVVi9nbVZ5ZUl6ODVVWWMvZlpVY01ObTIxUURzQk5kM2ZyQm9lZXB2NVRq?=
- =?utf-8?B?ZnowVjdvN2VGUkJWVDZmamZMc1hITmpJMEhIbWl2VFp1MHJnWWhVSERiaWdo?=
- =?utf-8?B?M1F1cm90RjJRdWo2S0l3M1BuWlh6bG1HeDhRaWV3TVZUVjR3amQxTDBMd083?=
- =?utf-8?B?azVLZ25xWUY5RFNQSnJycC9hY294ek9HcW9WcXMvUnVwUEw2ZThjSTlBTkx1?=
- =?utf-8?B?SUpCYkMxR09HL3FXM2IwR3dEM29wSTRIOGljUXZvNnN5OHgySnRjOFphNVZZ?=
- =?utf-8?B?dGVLTzJpS0xBMW5NSXp0UjRnVlZ0S0NvUEt6WmlkUHhKMElIekdNcHVCY2c5?=
- =?utf-8?B?cWZwQktZZjk5enBRanZFbC81WWJWdS8ycHdTWlhqdU4zQmZXWUZMK2tQSXAx?=
- =?utf-8?B?Y0E2N0VTajlZMUQza2JwQmhxK245Q3EyNGxOazBFUmRKTklLUHhsQ3lmeldw?=
- =?utf-8?B?SUlQdk5ZZmFiYURpUXF1M1VCVnQ4dmFnSGN4R2xVNzB5YWphWk1IdzEzRCsv?=
- =?utf-8?B?SDFuaTE4WDdma09uQ0ZoQlhPRGtnNG9tbXhhQUdwZFZTUUVaYzV3eHl2Nnpt?=
- =?utf-8?B?K1BBUjkrZzJ2TGFETlJMU2JNeXhCd2xPbFoyY3lheUJMcjA0dTJGZjVLSDRD?=
- =?utf-8?B?NFU3Y3JUY2xNWlhnWExhekNPcm5GNkxmYXMwVUw1d3FwNFFzbFFtV1hzdGJO?=
- =?utf-8?B?enVkSzdXZmplV1RsWGlEUHVJSWdZOVZ5NHpsckFSVGVkczFnK3lMK1ZwYXNm?=
- =?utf-8?B?YkVibTdUN0hRT3pFM0pRQ1RMSXNzV3VJby9xZENWRG5nUER6NFNXTVFmalNy?=
- =?utf-8?B?NHc2WHphZDU0QlNwVVIxUnEvRDJ5Z0hzTFdHVDZQTkhvaGI5UEdFRU5Ya1Yw?=
- =?utf-8?B?Wjl5MkgrY29Fc2M5V08ranlGSjg0cXNZRmhEQ2FYNWVmM3pycTloNkczMUZR?=
- =?utf-8?B?ZFNwc0c4dG5NRU5BV3UzcHZGR0JCbW5mcTZMVFNHZ1RQM3FjUVAvOVRnV1lu?=
- =?utf-8?B?S2ZvMlhMRjRMU2xhQlVCYmZRZ0VrOGkvRnlxSG9qWXN0eHpNSitVcTUvRE5x?=
- =?utf-8?B?L0k2SFRuLzhnOTFuaHFjRnZMMlRyRWNqNUErcFl1Uk1SaHR3eTNmc1BCdDlM?=
- =?utf-8?B?QmJ1djlwc21CKzQ3ZmROVE12QWwyZWJqeXNaM3g0R2E5U3IrMmp5UDI5akFV?=
- =?utf-8?B?RXE5Nkx3TnpwcytmcXNwMkZTdGR2R1dZeWV5UDNlNXZzaEZ0N0o1L3RzRlpa?=
- =?utf-8?B?U1JSaFppZDgwTkZkNmYwQ1RESDN6cHRvcnpZU2JnUEZTWVBRWkV2UDZ2N0Vk?=
- =?utf-8?B?RGl0dkFlRTZWVkR5OGJ5b3BxTnEwclQ1VVF4WnNyR3oyNU51ZjArNGY1ekRS?=
- =?utf-8?B?QUYyZkxIbm9hb1hSY2VUOFpyRHl4THhPNnkwM0ZLZ0ZLVEh5SUZwdVJEdUJG?=
- =?utf-8?B?OUlmRzRDYm1QcVVLVWZYQzhtSTJ2Z3ZUTmNYWE8wL2Exc1pWanB3WXpWV1NC?=
- =?utf-8?B?c3RjOHdnL0grNkRoamQxejF1M2o2czNpSk1RT2h5MUpuS3cyTGhkN3ExMVBC?=
- =?utf-8?B?RjRBVk1XQy90Qlo3TFIyMWhGUVd1ZlV3YzduYkNyQko2Y3NDb2F4TGtSbVhj?=
- =?utf-8?B?YlpXUU9scXV3ZzBuYVRwZWJYbkx3dmhla0JDTTJrVTlrWFY5ZWhBSGFmUlVK?=
- =?utf-8?B?ekUzR213bS9TVy9tems3WUtlT1FYL1hqN3M3QkR0OXhNZ0hwbk83VUZZdkJI?=
- =?utf-8?B?cGZ0Y0hBSmh2NTVRMk5lQ3ErVW5KOVdPdndNeXJYY3ZtdjZXU2xHSVkvamUw?=
- =?utf-8?B?dVE3ODE3R3B2MVd5Njd4ak1iQTQyeDJ2c2QyWENKZzJ3YU54OUlVUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d633315a-3eba-4086-6c4b-08df3472c9d8
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB9174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 21:39:32.9443
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TkB/4eXE+EvP2+hx4Ud0psQOcOqT2oISATcmwBu0DTKGZ1tP3ywzQkjD/SI39+EMmxg3L8OlapRU+bR8xKhURA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8165
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014072109.1759502-13-ghahramani.navid@gmail.com>
 
+On Wed, Oct 14, 2026 at 08:20:52AM +0100, Navid Ghahremani wrote:
+> Add Device Tree binding for the DesignWare PCIe host controller on the
+> ZTE ZX279128S SoC, using standard clocks, resets, and phys properties.
+> 
+> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
+> ---
+>  .../bindings/pci/zte,zx279128s-pcie.yaml      | 121 ++++++++++++++++++
+>  1 file changed, 121 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml b/Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml
+> new file mode 100644
+> index 0000000000..dc0214511f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml
+> @@ -0,0 +1,121 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pci/zte,zx279128s-pcie.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ZTE zx279128s PCIe host controller
+> +
+> +maintainers:
+> +  - Navid Ghahremani <ghahramani.navid@gmail.com>
+> +
+> +description:
+> +  The ZTE zx279128s has two PCIe host controllers based on the Synopsys
+> +  DesignWare PCIe IP, each with one lane. Their clocks, resets and PHYs are
+> +  controlled through the SoC's Top CRM blocks.
+> +
+> +allOf:
+> +  - $ref: /schemas/pci/pci-host-bridge.yaml#
+> +  - $ref: /schemas/pci/snps,dw-pcie-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: zte,zx279128s-pcie
+> +
+> +  reg:
+> +    items:
+> +      - description: Data Bus Interface (DBI) registers
+> +      - description: Controller wrapper registers
+> +      - description: PCIe configuration space region
+> +
+> +  reg-names:
+> +    items:
+> +      - const: dbi
+> +      - const: ctrl
+> +      - const: config
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: PCIe controller clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: pcie
 
+Drop. No point in -names for 1 entry.
 
-On 10/27/26 16:32, Paul Menzel wrote:
-> Dear Mario,
-> 
-> 
-> Thank you for you reply.
-> 
-> Am 27.10.26 um 21:48 schrieb Mario Limonciello:
->>
->>
->> On 10/27/26 13:54, Paul Menzel wrote:
->>> With an EIZO EV2781 connected over HDMI to an AMD Ryzen 3 2200G (Raven)
->>> on an MSI B350M MORTAR (MS-7A37), Linux logs at every boot since v6.16:
->>>
->>>      amdgpu 0000:30:00.0: [drm] Failed to setup vendor infoframe on 
->>> connector HDMI-A-1: -22
->>>
->>> Commit 6027cbee1900 ("drm/amd/display: Add error check for avi and
->>> vendor infoframe setup function") started to log the return value of
->>> drm_hdmi_vendor_infoframe_from_display_mode(). With `frame` and `mode`
->>> being non-NULL, the helper only fails with -EINVAL, if the sink does
->>> not support HDMI infoframes, that means, if
->>> `connector->display_info.has_hdmi_infoframe` is false, and its
->>> kernel-doc says, that this error can be safely ignored.
->>> drm_parse_hdmi_vsdb_video() only sets `has_hdmi_infoframe`, if the HDMI
->>> VSDB has HDMI_Video_present set, and drm_parse_hdmi_forum_scds() sets
->>> it for sinks with an HF-SCDB. So an HDMI sink, whose VSDB lacks
->>> HDMI_Video_present, triggers the warning, although nothing failed.
->>>
->>> The EIZO EV2781 is such a sink. Its HDMI VSDB has a payload of only
->>> seven bytes (source physical address, Supports_AI, and a maximum TMDS
->>> clock of 250 MHz), so the byte with HDMI_Video_present is absent, and
->>> the EDID has no HF-SCDB:
->>>
->>>      67 03 0c 00 10 00 80 32
->>>
->>> Only warn, if the sink supports HDMI infoframes. The infoframe setup
->>> itself is unchanged.
->>>
->>> Fixes: 6027cbee1900 ("drm/amd/display: Add error check for avi and 
->>> vendor infoframe setup function")
->>> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5025
->>> ---
->>>
->>> Notes:
->>>
->>> claude-opus-5-5 (Claude Code) assisted in analysis, code change and
->>> commit message.
->>>
->>>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 3 ++-
->>>   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> […]
-> 
->> The actual change looks reasonable to me.  But a few things about your 
->> commit message you'll need to change.
->>
->> 1) You are missing a S-o-b [1]
-> 
-> Sorry, overlooked.
-> 
->> 2) Disclosing LLM should currently be done by
->> "Assisted-by: LLM" [2]
-> 
-> Since commit 1e035297ffdadf (docs: remove Assisted-by references) it 
-> seems to be deprecated:
-> 
-> $ scripts/checkpatch.pl 0001-drm-amd-display-Don-t-warn-about-vendor- 
-> infoframe-fo.patch
-> […]
-> WARNING: Non-standard signature: Assisted-by:
-> #35:
-> Assisted-by: LLM
-> 
-> ERROR: Unrecognized email address: 'LLM'
-> #35:
-> Assisted-by: LLM
-> 
-> I wanted to send v3 with the tag added, but would refrain from it now, 
-> if that’s alright with you.
-> 
-> 
-Yeah; just send an updated version with your own SoB then.
+> +
+> +  resets:
+> +    items:
+> +      - description: PCIe controller reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: core
+
+Drop
+
+> +
+> +  phys:
+> +    maxItems: 1
+> +
+> +  phy-names:
+> +    items:
+> +      - const: pcie
+
+Drop
+
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: Optional board GPIO reset line for downstream endpoints.
+
+Is this for PERST#? If so, make that clear.
+
+> +
+> +  enable-gpios:
+> +    maxItems: 1
+> +    description: Optional second board GPIO enable line driven together with reset-gpios.
+> +
+> +required:
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - '#interrupt-cells'
+> +  - interrupt-map
+> +  - interrupt-map-mask
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - phys
+> +  - phy-names
+> +
+> +unevaluatedProperties: false
