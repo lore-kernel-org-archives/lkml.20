@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793072849;
-	b=u+SKSrUXflJ3yjlFEt03mgmKAwVl29DJZuks2YwUg0rV4uGjTOb1e5JG5+hTqxZCt8AI
-	 JS38osPDGl++s381pE0yXeY5pWoP0s43ZvHLpGdQQe+y4MPeltAu47MtSDaa9Tcxn6qT8
-	 k62DoJgCE6LB6JKGALvAAkrXIrysnu4EIgq82Hw2S/DA0h+d2aNXkOaLPx0jinSKM2NwO
-	 YB1T5gcIWfSv0Il11E23N+H7/OodHYx7eLYsfBY9Fb/RKMECAVaJ0zDMMuJxkBEg+vl1g
-	 Cnp+TAGdWZ5sJyQ9q31l0E3cCVtertbkBEauVFUZvXAEq075cmIkuQgNUYjjoAdGwSg==
+	t=1793072964;
+	b=ngMB4hScJgKb3TvXWnHFTAJmThn6oaCjkwIV7wAiiWMtAIzY8ZXfZZ/8iUxWQIzpivx8
+	 nBFeIK/vYW4eZBeypkeuhZweRPb4/6ipRkuFxJ3meJWhnFs6H4Z6iDf6PIFSVjP4npoTN
+	 IkxkIRORLSPSPoaypXRcPc1hBphRCVMyQIPhVmOSAjoqKJN6bQyNibIExSlSP/FxBirdC
+	 ynJaG3ewmoEUBrYy8jAZpGL1zkHsPY36Sq2Bk/M5s6LcLAk80MLAdKW2IWx49hWP945Bp
+	 Ovvwp935C2jawnkpbY2hgpAFFyEHZisat2qWXEpTAJNJhnOxBmiVKZiUuFxOHm5nl7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793072849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793072964;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=d5xPE7zkAisWNP1/3IMkS+loLJJfjfdBEUGlcoiM7g0=;
-	b=ffNy33zF6L+xcTg0XLk+NrsRdlqqBMqBddeTo99jc1BCIMHccHDMRTLK65Pb74As85vl
-	 ldFrGGWcLd3RGl5tYGLMLlqYE7tmjLulizwbnwoiw1yZZ+akD/nKJ58LQi8cgcfrEO8SE
-	 LbELFydyGMIAoYoMUAjPzfmikF/HGrOnfmE3EhOJvS/FR+QjdTodp5qwGqanQl/q60emC
-	 1GMBzd7OkJlMRcSzNpl+1bVLRZsB34MZmXJUKwX2qdrSq4SY25gKnGB7SszA3hcmiRMX1
-	 SrYjEI7bLa9gqfHcbTC+ejT2MphJN+RtZRpGluO2lPqjaiocx6C27PXIyL3vsIKccVg==
+	bh=QYcOxOwG5nt64SzUuyibNRblxh48usRslX5qPY98KUI=;
+	b=Gq93OHnQfWknc6VhcuPCPrgzFu0aLMeEnpg/zTnLabFTA9hHY7NsT7I9dpBlFhZAD7cU
+	 mkxMTlUKraJVpxYzNkvoz0SINRaCfJ9aB3kGNAmhH1gwSFFwN1vRgcJUbXrrxWE5PdpMw
+	 gBnJNK1NHV6cyos8nlo5uEU34tcTO6MXCExWEmABdOepafHGYKHPwYTtITeTyhABwwRP1
+	 DQgQ0EUeB0tnCctWlJkXWq9/0Nt3OzwcjrlOufH9JES1GFwCE5qWv6JynKSayDxjj5/u9
+	 wPf1nGQZmszH7m+RAcvy6jFnqxnZ+NtlmxwYTabGrnOR4HddD5FY8pRo0V19xvWP0gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e983Zow8;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gamDn5qG;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D15606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:47:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13D15606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F0B606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:49:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1F0B606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e983Zow8
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so778572eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:47:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gamDn5qG
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35c76e9614aso5845004eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 20:49:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793072848; x=1793677648; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793072963; x=1793677763; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d5xPE7zkAisWNP1/3IMkS+loLJJfjfdBEUGlcoiM7g0=;
-        b=e983Zow8bqjcKnPpbeo0bbx7KS7wIeUh39gAOhDmf2Re+Zkktq3fgnJC41tfL3GREe
-         5c6sMBCH2D4WNBCK52FND3Xet7GOvnwn13zfbYx7WoOVAzxFGimRlBBT7Y07ZzNEEktP
-         7WXk+Yi/UJL42KfR3Di5c6WFqo5Tvb/ND7+pWcYoSSHGN6Xhi6Bl7CypCbWewPd3QNUT
-         k5mohsSecJcBa+nCksrsh0AVnrGG/oWPJl9JesGIU1/9WNuYcQbYO1xjz+ZNXnwBd8tf
-         JdeFa+FyY3QE6XfKiASyPEKdUp1zMj78IG9LZPrLQSMz0xSnnywEzz5NhGHDOWOQTzl3
-         OHSA==
+        bh=QYcOxOwG5nt64SzUuyibNRblxh48usRslX5qPY98KUI=;
+        b=gamDn5qG7zjt0/0vVNhqtjnZ55eJX6z5bQbasu+FsrYvhtBjn7O1sZMZ2m5UJJ1h/V
+         P632O7Iv6EzQgIWyXQSW/7dwWGcQL54thcaOWV3r1gGiqmmQSnRs+Pz/pnr9fDwFkS83
+         qJSljVXArbMCzxoMU/dcnETkrha9eNjEtvxNV7t1chH8D9IOeHtLM10ICapdKZGBqvz/
+         irkSWTE/mC+gwnt1dKXb7Vz1K3RMMH8FaVJsA6/7weNB9Zph/x8MEwb+B671LT4OC5fG
+         hFPoEDXkyZ5bbOTYhiXsZ27+b99iV/xmUcSTcn+9z40sBc6NkummE2zQOT9OZaeO3bdy
+         7Zsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793072848; x=1793677648;
+        d=1e100.net; s=20260707; t=1793072963; x=1793677763;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=d5xPE7zkAisWNP1/3IMkS+loLJJfjfdBEUGlcoiM7g0=;
-        b=JDTjQwKzCYmEL/TEZ3QNsVU70HVJB5vGaVb+796d/WsVUazJtfNTOc/3aY3FzG1b1z
-         ZHiMJveORDgRM1wm25vbRkE1/F/uu1XhuzCULEfsplmwBcfgPCLJuuMboxI3nrKkXCyv
-         kcKAx1bz6Zl65JkUKcInNsBM9uxtO6lGvoxPx2rFDXX2MUPP93A+vtUttqCUMOXPbOvb
-         2gYJATLO8oHR5new9pQk/4DGfUPsaFVZk9g7SUowoWbhPEOdQStAHGWd7HrTzY6SB5Zt
-         uQ8K0LZzzLGenEIaka2E7mXPuSHKR8s+F/w/WBBpB8sKkEF2k1HQyEI1zWGbIWp+z7ua
-         xQpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw9Cq3t7TmbQcChjk6KwlYGEM+YRuLL5Wdjx8n1AioXIarxL7FWeeCapH5vuKbG1locxGzjGs0Xq+To//Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJA1WSs4OBA6R+Bf5vDiRfn/CE0pEzZZKaSFzteJW4rq/j8vIHN
-	RbJ2EqjHLh50aBulbY2uNwI8j9tNPn5qfhPt4uLH21ukPC6OBszrkfQS
-X-Gm-Gg: AYBFou23MWDYodCV5FnQF1W3YErxNmM+aiCTTjkOS3F2S/M1wrXpMRun+snjSr+LZRY
-	8tbGukOuyTZ411nVaj2cyHGQVPSzwYBhY/Rg8BVDKv9XBEjm7tziZjYUiR8s4RlkVkE9cewh7AX
-	e20ncDSxen2pGGjR1bpiQGxPOceD2v2bin7YEak2qOCiznSTuMwKvF/V1TrflVZCtD9w+PDbyaK
-	FICDx82KLWVtB5rz/tTSlgbmM6jdzToAwyUms8DEv/fSnSfrQbJUg1KPG+3Z54jKM77zRFEjnmg
-	72lqOJtmEavFHDYEXE6tcnhMfxnylWRFzkwOyMznkoBf9VyLn7LUs/HgTtCe8TAxszd1t50uOTl
-	7L13gALJCdcVgZ4tDlE5GJ+LvyHmN/Wc7dForo2z187jE4HNBiM5L/xT9lE0gu5J1mrACsxuoJx
-	XBWkK2iiZwDcaFO4i8THGm5CQlEELBe5sNgCTOSmrRm+l75b8T22sHj+WPM2liBYp9qLWiuLMgk
-	d29/8y1iL5DMyz4PT7s6zLv+hcqyZtra5onzAlmk1QWHPGqCoWKdK9qHqqpTQgaD4mDSThURvM2
-	FhABCJoVMMoWzjdX
-X-Received: by 2002:a05:7301:7d01:b0:366:c497:610c with SMTP id 5a478bee46e88-369e8610133mr11168504eec.33.1793072847986;
-        Mon, 26 Oct 2026 20:47:27 -0700 (PDT)
-Received: from blue.tailcc13ef.ts.net (104.194.64.109.16clouds.com. [104.194.64.109])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a026e04a0sm11349777eec.1.2026.10.26.20.47.25
+        bh=QYcOxOwG5nt64SzUuyibNRblxh48usRslX5qPY98KUI=;
+        b=2vx6VjdENKvcvN5CDIjtfWsI1tJ+S/qKHSNg+v7XV9eHkwej49Ev8uw/MYC/vQggMW
+         i+ez2Tx0WJjF87tMz1XP4UPmDAmuRiaqDEVIVxJ7zf7EJKzSLW2yvM3Czf+8fywc/dK/
+         D5QMyO3m2izx3MEPqAQnO79AZHG20kXJTv6FeXZKbkIUUDqnbIfzGdkMG1y26eEcMezy
+         gsEjgSxe+j7WVdDk+egDLOrJKgDeX1QT17Gra0WEXbxK6JDk2YvCdzTEuiY5PVZwP5yx
+         LDxjaPv+E7P79mDe/JyQKRS+ViV0iZ+yW48yo6ekLY7VHWBWQ+Hhb9l7mDehph4AKU4p
+         h6+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwSAnItvNDe4C2EOFChLw6uvVzq1dbRrlGISsf2ruGK6uxAOeSMGwFZnjMKR0OZoAe8t0woF0CfY1GlVT8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIc6iTo0SJWDDXnwswWl+6RP9pgwGyoRVI9DV3SCZONcsDhyDwZ
+	r5Ag6Pnj/PAvWARAYypelyyTchgOs35Lx/o2Q+ACMsHs4EDHR1mrbI00
+X-Gm-Gg: AYBFou2rgIwMu0dWiRKyWtRxYF5QTqkXxAQcH2debZXBPBn0GYJ9Y1Q7WePhfTRCQVH
+	GEW9spkmWNmE7IwytBEfsHswZ4RzCzB4jeqzGWi5vMxx3fUctZ8Kpb4SwJa/ql8cExCCE7H97qM
+	bqKD1ctCDR600ejcKCO/7c2tuZALNe3GBaf1iY4vCtfflUWOQjkhhRgjJoAudT6UnrSzg4C1fSB
+	6cEFLo7NY8J1VVMGEaZ7fjIL8Hd6EFQRGpsKoWtjp2m8cEDoO5JGDBpftgKHJrYfrFDQyyhqLw7
+	A0kJsmKR+c24ZoZXKfXQa5TtUpy8NhL/ou6CpGqzLqI8j9Jq9wkd7pKv6l3J+ZE/QZNE3/Rize6
+	FEHmcyCnMl+tk7tp0haXvvnyyYipGl9kUuxgzKnzxnDFJMz386Z4mjVy4Q70c2h3J7BSGww47/0
+	7ZijUxSp6k5LFB6/fZZ3hMb5AyyKWeIQqR1DFOTj2GLTydVp8YiLPbZNI4jerFhBBpONzuVrAIl
+	sworwqfOd+43ac1UyiCSPE4r4TXsLVOx0/oSxJBK1uJKjeTsIobzc2N1LeEWJZO7mgnl1rpVCGH
+	5vl+y21crM9veOblsxTtqFNv0PcEpItkN6p2gz3N6yrf
+X-Received: by 2002:a05:7022:f511:b0:1a0:5c85:d1b3 with SMTP id a92af1059eb24-1a05c85e6damr7103884c88.43.1793072962440;
+        Mon, 26 Oct 2026 20:49:22 -0700 (PDT)
+Received: from debian.prasanth ([103.177.82.12])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a2a5a515sm26430012c88.19.2026.10.26.20.49.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 20:47:27 -0700 (PDT)
-From: Yao Yiqi <yyaqia@gmail.com>
-To: deller@gmx.de,
-	tzimmermann@suse.de,
-	simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
+        Mon, 26 Oct 2026 20:49:22 -0700 (PDT)
+From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+To: joel@jms.id.au,
+	andrew@codeconstruct.com.au
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ryan_chen@aspeedtech.com,
+	billy_tsai@aspeedtech.com,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	yaoyiqi3@huawei.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] fbcon: Avoid cancel_delayed_work_sync() in atomic context
-Date: Tue, 27 Oct 2026 11:47:16 +0800
-Message-ID: <20261027034716.588174-1-yyaqia@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	openbmc@lists.ozlabs.org,
+	andrew@lunn.ch,
+	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+Subject: [PATCH v9 0/2] ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+Date: Tue, 27 Oct 2026 09:19:09 +0530
+Message-ID: <20261027034911.99482-1-prasanth.padarthi10@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,120 +107,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yao Yiqi <yaoyiqi3@huawei.com>
+Add support for the ASRock Rack B650D4U BMC, based on the ASPEED
+AST2600. The series adds the board compatible and describes memory,
+SPI NOR partitions, UART5, GPIO line names, GFX memory, the I2C7
+EEPROM, and MAC0 with its RTL8211F PHY.
 
-fbcon_cursor() can be reached from the console printing path, which runs
-in atomic context. When the VT software cursor is enabled
-(vc_cursor_type & CUR_SW), it calls fbcon_del_cursor_work(), which uses
-cancel_delayed_work_sync() and therefore may sleep.
+Enable both ADC engines with 2.5 V internal references and expose
+all sixteen channels through an IIO-to-hwmon bridge. The channel
+order is ADC0 channels 0-7 followed by ADC1 channels 0-7.
 
-With CONFIG_DEBUG_ATOMIC_SLEEP enabled, the following is reported:
+Changes since v8:
+- Enable ADC0 and ADC1 with their reference settings and pin groups.
+- Add the sixteen-channel IIO-to-hwmon bridge.
 
-  BUG: sleeping function called from invalid context at kernel/workqueue.c:4722
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0
-  ...
-  __cancel_work_sync
-  fbcon_del_cursor_work
-  fbcon_cursor
-  hide_cursor
-  vt_console_print
-  console_unlock
-  ...
+The other board descriptions from v8 are retained. Andrew Lunn's
+Reviewed-by tag remains scoped to the MAC0 and MDIO nodes only.
+Fan/PWM support and BMC-ready GPIO policy are outside this series.
 
-Make the default helper safe: fbcon_del_cursor_work() only stops
-blinking, using cancel_delayed_work(), which is allowed in any context.
-Every "stop blinking" call site keeps using it, including fbcon_cursor().
-Only fbcon_release(), which is about to free @par and must ensure that no
-callback is still using it, calls the separate
-fbcon_del_cursor_work_sync(). New call sites therefore get the safe
-variant by default.
+Base: aspeed/arm/dt in the BMC maintainer tree
+https://git.kernel.org/pub/scm/linux/kernel/git/bmc/linux.git
+Base commit: 8db593481c8669eddb8b4e21ea44f3fa11d9f030
 
-cancel_delayed_work() does not wait for a running callback, and
-fb_flashcursor() re-arms itself, so also move the requeue into the
-console_lock section. fbcon_del_cursor_work() callers hold
-console_lock, which serializes them with the requeue and keeps the
-non-synchronizing cancel effective.
+Validation:
+- Compiled the board DTB with aspeed_g5_defconfig using
+  arm-linux-gnueabi-gcc.
+- Ran dt_binding_check for arm/aspeed/aspeed.yaml using dtschema
+  2026.9, with no diagnostics reported.
+- Ran CHECK_DTBS=y for the board DTB. No board-specific errors were
+  reported. Two unmatched-schema diagnostics remain for inherited
+  aspeed,ast2600-lhc and aspeed,ast2600-i3c-global nodes.
 
-Fixes: 3b0fb6ab25dd ("fbcon: Use delayed work for cursor")
-Cc: stable@vger.kernel.org
-Assisted-by: Opencode:deepseek-v4.1-flash
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
----
-Sorry for the last email, I forgot to write changelog. This email has no
-code modification, it just adds the changelog.
+Hardware testing used the same ADC node configuration in a locally
+patched OpenBMC image based on Linux 6.18.24. Both engines and the
+IIO bridge were available; twelve configured voltage rails returned
+readings, including standby rails with the host off. Voltage readings
+also recovered after a BMC restart with the host reported on.
 
-Changes in v2:
-- Reworked per review (sashiko-AI): do not guess the context with
-  in_interrupt()/irqs_disabled().  fbcon_del_cursor_work() is now
-  non-synchronizing by default and therefore safe from any context;
-  fbcon_del_cursor_work_sync() is added for fbcon_release(), the only
-  path that frees @par and needs to drain the work.
-- Move the requeue in fb_flashcursor() under console_lock so a running
-  callback cannot re-arm the work after the non-synchronizing cancel.
+The complete DTS on this upstream base has not been boot-tested.
+The tested OpenBMC image uses a different flash layout and separate
+local power-control and sensor-discovery changes. Consequently, that
+image is not a directly reproducible build of this upstream series.
+Voltage scaling and sensor publication are userspace configuration
+and are not included in these kernel patches.
 
- drivers/video/fbdev/core/fbcon.c | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+The patches can be applied with git am on the base above. Anyone
+boot-testing them should first adapt their image and bootloader to
+the described flash layout; the DTB alone is not a flashable image.
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 94abbb5ac766..917ce9d641a1 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -422,10 +422,14 @@ static void fb_flashcursor(struct work_struct *work)
- 	par->bitops->cursor(vc, info, enable,
- 			    get_fg_color(vc, info, c),
- 			    get_bg_color(vc, info, c));
--	console_unlock();
- 
-+	/*
-+	 * Re-arm under console_lock so that a concurrent
-+	 * fbcon_del_cursor_work() cannot race with this requeue.
-+	 */
- 	queue_delayed_work(system_power_efficient_wq, &par->cursor_work,
- 			   par->cur_blink_jiffies);
-+	console_unlock();
- }
- 
- static void fbcon_add_cursor_work(struct fb_info *info)
-@@ -437,10 +441,30 @@ static void fbcon_add_cursor_work(struct fb_info *info)
- 				   par->cur_blink_jiffies);
- }
- 
-+/*
-+ * Stop the cursor blink.
-+ *
-+ * Does not wait for a callback that is already running, so it is safe to
-+ * call from any context.
-+ *
-+ * console_lock serializes this with the requeue in fb_flashcursor();
-+ * otherwise a running callback could re-arm the work.
-+ */
- static void fbcon_del_cursor_work(struct fb_info *info)
- {
- 	struct fbcon_par *par = info->fbcon_par;
- 
-+	cancel_delayed_work(&par->cursor_work);
-+}
-+
-+/*
-+ * Stop the cursor blink and wait for a running callback to finish before
-+ * @par is freed.  May sleep, only for teardown paths.
-+ */
-+static void fbcon_del_cursor_work_sync(struct fb_info *info)
-+{
-+	struct fbcon_par *par = info->fbcon_par;
-+
- 	cancel_delayed_work_sync(&par->cursor_work);
- }
- 
-@@ -765,7 +789,7 @@ static void fbcon_release(struct fb_info *info)
- 	if (info->fbcon_par) {
- 		struct fbcon_par *par = info->fbcon_par;
- 
--		fbcon_del_cursor_work(info);
-+		fbcon_del_cursor_work_sync(info);
- 		kfree(par->cursor_state.mask);
- 		kfree(par->cursor_data);
- 		kfree(par->cursor_src);
+Prasanth Kumar Padarthi (2):
+  dt-bindings: arm: aspeed: Add ASRock Rack B650D4U
+  ARM: dts: aspeed: Add ASRock Rack B650D4U BMC
+
+ .../bindings/arm/aspeed/aspeed.yaml           |   1 +
+ arch/arm/boot/dts/aspeed/Makefile             |   1 +
+ .../dts/aspeed/aspeed-bmc-asrock-b650d4u.dts  | 173 ++++++++++++++++++
+ 3 files changed, 175 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-asrock-b650d4u.dts
+
+
+base-commit: 8db593481c8669eddb8b4e21ea44f3fa11d9f030
 -- 
-2.56.0
+2.47.3
 
