@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793101878;
-	b=Ot+Z6ZwgGmN8d71U5zGybFWJpFrXMMuM65MC7Nompne6YVZUJ3Kz/fkZhmaqJKFklRjv
-	 UQYlv1dehGS/BFcVOMAZXXjG/Kkrs8c3ibWa39/+/bpHy9MTo/9KGdeYmxfieSHZOAdua
-	 OmOzbGeXDVa6A8PMz6u3w4B9xJP84G5x3pOtACuWjwi5et5CH0yLAcOSt93UFsffDS/fG
-	 ZfssaNLi+cRJL7KVdl1ojDB5PWaQXOS1jGddu5UBj3loZnxR04x/3wsv7ecH7DnlMkNn5
-	 MG5RpF/sBy4dKWlXeZILS9LulwXCa2YnZ4mux+8TNjuwsyGvu/yKSDGnWR5+txl/PRQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101878;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bUmrBECpx6IYHNhYlc5fazHVSIOYBwywuUSfjizohv8=;
-	b=GZk1LW71XFHuwZajrTXBFpCl1SLRsLYJRtmEq0YMAA9UXPO6RIsKxrS7OSkUp7Qk4IfO
-	 9rqckBjOGcZktBue5BqOYVP7jjVBAf0OrsuuWuOIUSIbbR6cSj011KTB1/U1h3ArlBAx7
-	 gsh9dnWhp+BELAnLKEgFQFFrllyNtQ/6u1etGPWEuL0c8Dz0IxcWGX9Qc4cqvEu4LvQV3
-	 kto78LoWvmeL0avEjlfww28UpT+Arn5z7hGhZnknk5ad9ZPUujgn7dKFrfaA3M6GF3n0g
-	 bCGa9TXJexRhYg3KCsZgQCSQbJtmDLwiqkyj1fjNeGuRo9S59INtvibq7o4jBAI66qg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JQ6r7idL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793101879;
+	b=DBnm3juvG/8wxAI9iGUvYEXJfsxu1WxnhhuO+fAkuXJViN8AY9V2WW3ohOIcu5IhGCTA
+	 MNieCTeAeN/HX8h7h2gZVRETPysWbexzjZl3Ds+JrXKWnLZTJ94a27ko5gqxYHXXRxF4s
+	 8vxhtsIUjwFa+8/BU0dmi36muW9bQvSO8HUJHTJIYYcmzQFfrNr3Xw9QdLpAMVw7FzThp
+	 /bIiftc1ZaJtBkcOcJ/6Dsd3bbiItOeoXNtcE0L+ze0XrpDJSv4pxNP+DNuXiPwvozlUU
+	 6LYRL+wKY3d5e8wiBXovN4V1PMJNNgtARPEnCwFmSnJmEs0yVgiRoHtGOmNkq1gNSpg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101879;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=F/mWK//sMGFsmSsEUJ200vCzHTJ/nzoybM/vJ3RQJuQ=;
+	b=xxmUeYnottKEomzJpqFyWVTaEWQV8YtPhPtn9mTlXw4ZF8Xe7h0xJZTrpSQqujxG8iFT
+	 AzN8n1nC3gxmyObzEgiYPMx+vxQer3uM1GDbKKpEQGJ0UwSPu5RPX7fszL9dwsNa6Eoy7
+	 ZIlF8ERFDf43UxcNrNhAc+JumdMYqcFlNlhdLNAI36eYhWgGGhl2reVm7LXhHiAkcD0qC
+	 6bFXTj2SgARy0+8o83Z3QIk6dP7rcoCdgyRo634GE1xKzZMQBq56WovaRajag4Vf0TN+m
+	 Z4SDtqlSaL9c5Y7QGvQOHG5V78Ir1GF9847//Nes8DxRDBrVLzi8YY5PqcWscqnVi0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ir2Yu0N0;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B16606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:51:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74B16606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B78B606A32C;
+	Tue, 27 Oct 2026 11:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B78B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JQ6r7idL
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a05b210703so1619307b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:51:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793101877; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qLezGiWLqtd3V8KfL4xaI0h2i9/ibqpoJj0KmE0SmtO5URp+D1DYxqiRzsgbMQXSma
-         6Jr51yVgZOYuxn6Hdej5CKBIO8U7Chz+gp0QdGHYodK6IDqH/TryyX1BLWNVggCILDZN
-         mCqXqV0uyIEzPOxClfyDRrDICgrM9fPuz66XiVWNGucVfbNAZfkJtYy3xg2ouICGT55P
-         NmHLEIYPjomSOYZzXtjKjVwAet7VXRN2CakKqffQcvy4b+WJymkJCIvwWwkaIrxzI1bw
-         R7hlQcTYXQ8V9mjm7aNY272Ny5zRqnePv9u6eKwaBXaZ5OeY5IxYsK+8rBy6jaVbmsqA
-         ie/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bUmrBECpx6IYHNhYlc5fazHVSIOYBwywuUSfjizohv8=;
-        fh=5KHSqIlQErRTELVbjd1Zl62U+Av5N8KFZUDwlquojSg=;
-        b=AEohmrog508vcmDdUrGjD6Fm8IE1tfT/BvIgQ1LBIpDZwbCvnygiwkl5kay0vZu343
-         sN8AL34mZxJTIEFKTVimKZcuQ496AjX1b7FfcU4gLYi9wE5OlnnIlX+8MKx7j0RXlP7t
-         LyNINKMBj1apHqf9NF9wwM9bWEH76gWjaPwFGJt6DppisYi3Us7AG5miVssS6zpTm2Vx
-         y991UNl0DOGh8TaHUGjlzEVCAl1Dap01lRwUYAvlmAklNEa+JZ3scKQ8OLKcs5Bm/s+/
-         2M44qx033J/m7gKwRjrTQRBksEyzdzim0L9cYwBHc/l30Aukn2Lw6VQRSEMem3J3Yo/1
-         atzQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793101877; x=1793706677; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bUmrBECpx6IYHNhYlc5fazHVSIOYBwywuUSfjizohv8=;
-        b=JQ6r7idLn9Z50qkJMn09+UDiGQzmbW9+4RZq4mzsCoUk9Xbc3yFQvizx+Un6PkNLWO
-         kGqnSyBPImUxRi2caWb9IpN8Q1SmVPssMpllOWku5yHR0s32vfXh1STFUlr+qUeUiq2a
-         akdnnxd98YS38qFxDWGFalP4HIpfOZxqhXVyHRwfzrGzh55mNfVFxSb0+/jPxGu9FSao
-         Y0UzeJa153BZCE5p7Xgln+2HLlYI6CfP6Pze1/2vIfsuPORRFWfS3UFR2NPa78zjGzkV
-         JxDGws6lWrvo9FFLJxJRTHNbGi7/mPFmBACeN7Z2SyB+I5TMgmhTd2416HzwOSRHU1sa
-         C46w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793101877; x=1793706677;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bUmrBECpx6IYHNhYlc5fazHVSIOYBwywuUSfjizohv8=;
-        b=pGdGfeOYCJGP0oNRU9FJP2qDbalDmIJEHFzVUi7WE16WdcY5gJQJrecLGe9km+QOM+
-         C+vb4epLc5UF5iATVVSH1hPsT+XR5qjY4xJk0TJkc5xh9n8YNusf60ipbx7EPlM1+joI
-         +wf45gdoYJ96REzQmn9yoBX+pn0EinJgEYTgRjJfzzJdwUcMUf/Ezse/XbNYKxLCADzQ
-         Td7IAPKG0n5HLNWl0O729EW3zAxr7azl8D/NMm+SqvEMJWpwjYvl/2OLHiUL743aT7dx
-         J1N8ejFt9hsYFSmwrneVJFEpetjucZj+mvZq8ztGIMVKudIRd0phTM3TyE80OTrcZloN
-         742g==
-X-Forwarded-Encrypted: i=1; AKwUvByxmsQmKX7pTYHeKOiYARw13SpJETDclf0223F32F2/+xJ4TXsCLV+6YwxCqCCQ8HbtBhwJa9xlseefCaU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7hA+NvgeRieYbVAhEhP7ikR0WKRz7ijHyR1h9eNwNepkAAkjv
-	YVrYwRJebFo662yp6VuMROG0tXaxTwFmInBhv0GorKurjUSW4AhNfsVKadcRlr7xD6KsgfugLGO
-	A3rvmPyuxdyNWiKUnuVKYqQpUVXpzwaM=
-X-Gm-Gg: AYBFou1qZpXQC3qmf5KVPmQjY1ukCEmuJSz4oGbymvkDOmCzzhogtWMz6c3pBXKG3Ud
-	khbP8V5xe/ihd25EuHXsKckaw7FDT0dSflczzHnvnBMWXawL/0mzk17/e0d8hsyuXNIiYnZYT4T
-	FKIz7ajkxsCf/GVdZe7hXAxoAQVbOVexP8rxwaovMhnI28CpcN4Bu7CNgb61F7yymrhzy12e9v4
-	gWfFpLu52GHr2PzCfBryab4rTogfKMkacy3qE93IpWEaiOaBh9qGnIZevjeATAN23U8u6CZnIgv
-	/raHkefezU7SfaUwAQWfvKc5JcXtrYQtJ5CnFOCu4wUlFARxFlCYQS/KvgvPdHA9CRdkfzzN6WU
-	/+S8lTCAtcLoaSgcxrtrfM1D3zNy5ltPkww9hsj2dZsKjwyG9igyjCFxRVIzm/ghWX/e8gA==
-X-Received: by 2002:a05:6a00:3a1c:b0:8a2:753f:678c with SMTP id
- d2e1a72fcca58-8a367a36c76mr7405483b3a.16.1793101876780; Tue, 27 Oct 2026
- 04:51:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ir2Yu0N0
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeKVU1427437;
+	Tue, 27 Oct 2026 11:51:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=F/mWK//sMGFsmSsEUJ200vCzHTJ/nzoybM/
+	vJ3RQJuQ=; b=ir2Yu0N0kTKGEBP0WKBzw3hdzPf/B1/e/coo+oI3u+2ljG9i/Bl
+	ibWbOw6eta3gL9hWgIvMX7zp3fsGVgM6lk/VF/rOmB3bZVrsK9pVMw9MhKjriwZy
+	K3XyYFwQbnuI+iRxyhixd2c7MnOhqgqOZKMNWrcQeuLP4qtJ4AuitWPhgL8z7JzL
+	O2Exm//w0lG0BUOF001i/EEV/ToOlvORsMZP4Y20nfUwSX+v0Yn9ajrwOLcIUGPu
+	Iwks/MpBe4lyatA/4jsHOXPNMi2in+sa/iM9EekXgwZidXZi1kd64yLIquExfqMf
+	AI566feZ2MEiYOluDdtmhp74E8NTcC4SItA==
+Received: from nalasppmta03.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjbmmbdvr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 11:51:16 +0000 (GMT)
+Received: from pps.filterd (nalasppmta03.qualcomm.com [127.0.0.1])
+	by NALASPPMTA03.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69RBpGLZ1386854;
+	Tue, 27 Oct 2026 11:51:16 GMT
+Received: from hu-devc-lv-u22-c.qualcomm.com (hu-kumaranu-lv.qualcomm.com [10.81.89.194])
+	by NALASPPMTA03.qualcomm.com (PPS) with ESMTPS id 69RBpFp71386832
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 27 Oct 2026 11:51:15 +0000 (GMT)
+Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 4187942)
+	id 9E452A97; Tue, 27 Oct 2026 04:51:15 -0700 (PDT)
+From: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        quic_mohanull@quicinc.com, quic_hbandi@quicinc.com,
+        Kumar Anurag <kumar.singh@oss.qualcomm.com>
+Subject: [PATCH v1] arm64: dts: qcom: Add dmic45 support to rb3gen2 vision mezzanine overlay
+Date: Tue, 27 Oct 2026 04:51:15 -0700
+Message-Id: <20261027115115.1822423-1-kumar.singh@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,123 +83,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <ar2YlFYjYUZ49ZA5@chrisdown.name> <at9kJwdGkHPsWwgG@chrisdown.name>
-In-Reply-To: <at9kJwdGkHPsWwgG@chrisdown.name>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Tue, 27 Oct 2026 19:50:37 +0800
-X-Gm-Features: AclHuK9w3cu477cLAvN2jZ5u1J4X0qRFiJaPiVLgSpXQ2zVF3SsFLR12fIJNRmM
-Message-ID: <CAMgjq7BG-hM84bS4yRs1Bpo8=vhq1yoJPxkNpkvUhX7xCit5Pw@mail.gmail.com>
-Subject: Re: [PATCH v2] mm: Make swapoff interruptible when unusing mms/shmem
-To: Chris Down <chris@chrisdown.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Vineeth Pillai <vineeth@bitbyteword.org>, Hugh Dickins <hughd@google.com>, Chris Li <chrisl@kernel.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Ying Huang <huang.ying.caritas@gmail.com>, 
-	Kelley Nielsen <kelleynnn@gmail.com>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX3kg6ZOgrQRSz
+ 1rZanyCcU9g94Ddxn+U9DQs2gHqend/5ucmWgajgVfIa+80NtmygWjbFp8OkErO/j6nOp/4f3Ec
+ Nq49FoHB3txKIUKrkAK84cMQtV9JcDQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX5ijrR/TuoDPt
+ dH5MMTYcPlpHYX9KSmJwzlY37oUh5rlOutN/xzoT6mdFKThMLo+6bPYgwof6ciUqmhqzxZuNioY
+ RoMYNvBEvH8XhIrJUSgIpHA2BQNXPcabl9yqyMr9Dl6YIQjznsd0vyDRFavv1bhL9Cg24xU5GQ1
+ xizYkdbOWUAoGLbncjByJRWXcAoMHZHyfjKGh50dKBWHXl3lVE317zLJkQ9Nlg9FmeWnBFC4Kh+
+ qN/FtMGsCP9to+dO+w5VrRY1B3PYhctBiVKvDE/TQPr3SY0SnxJYi3FuSkTfJxsEk00+W5VyTMK
+ FNBFQ0Fqw5tgGNoSI+xmGCohPKI/nmuXRF3WJmOE/vK3z9KL+t324Lg06u0ah76p5qrxVy5+h1q
+ 63sJdiIbJGGC0RfD6cEDnqcmFuGIuQzARRaL9fSgD+kCrXNDtUYC5rXxKjK3WYLh+Zz7SSBhvuJ
+ zRvnXu8UEX0Eyav0SsA==
+X-Authority-Analysis: v=2.4 cv=PrkG/AM3 c=1 sm=1 tr=0 ts=6ae09034 cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=rPWhUXy31NhIqF_oE8AA:9
+X-Proofpoint-ORIG-GUID: Cgt7Qflgps84_PNOrDXpS7tt-pqMxJOJ
+X-Proofpoint-GUID: Cgt7Qflgps84_PNOrDXpS7tt-pqMxJOJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ impostorscore=0 clxscore=1011 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270047
 
-On Mon, Oct 26, 2026 at 10:35=E2=80=AFPM Chris Down <chris@chrisdown.name> =
-wrote:
->
-> try_to_unuse() only checks for a pending signal between mms, and
-> shmem_unuse() doesn't check at all. That means that once swapoff gets to
-> a process or a shmem file with a lot swapped out, nothing can interrupt
-> it until every last page of it has been read back in.
->
-> Just as one example of where this can concretely show up, freezing tasks
-> for suspend or hibernation has to wait for swapoff to notice the
-> freezer's fake signal, and gives up after freeze_timeout_msecs (20
-> seconds by default).
->
-> Here's a facetious example where one swaps out 2GiB of one process to a
-> swap file on ext4, starts swapoff, and half a second later tries to
-> freeze with pm_test=3Dfreezer. Writing to /sys/power/state then fails wit=
-h
-> EBUSY and this in dmesg:
->
->     Freezing user space processes failed after 20.003 seconds (1 tasks re=
-fusing to freeze, wq_busy=3D0):
->     task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:29=
-55   task_flags:0x400100 flags:0x00000419
->     Call trace:
->      [...]
->      io_schedule+0x44/0x70
->      folio_wait_bit_common+0x1ec/0x3d0
->      __folio_lock+0x24/0x40
->      unuse_pte_range+0x2d0/0x348
->      unuse_vma+0x158/0x248
->      unuse_mm+0xfc/0x150
->      try_to_unuse+0x104/0x3f8
->      __do_sys_swapoff+0x220/0x5d8
->      [...]
->
-> The same goes for anything else that wants swapoff to stop, like an
-> admin hitting ^C in a panic, of course.
->
-> Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-> try_to_unuse() was driven by find_next_to_unuse() which checks for a
-> signal before every entry, so let's restore that behaviour.
->
-> Just as an example of the improvements, here's how long freezing takes
-> in the same test while swapoff is happening on my computer:
->
->                       before                  after
->     400MiB anon       8.925s                  0.028s
->     400MiB shmem      1.639s                  0.003s
->     2GiB anon         failed after 20.003s    0.011s
->
-> Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
-> Cc: stable@vger.kernel.org
-> Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-> Signed-off-by: Chris Down <chris@chrisdown.name>
-> ---
-> Changes in v2:
-> - Return -ERESTARTSYS at both new signal checks and at the existing
->   try_to_unuse() signal exit (Baolin).
-> - Request stable backporting with Cc: stable@vger.kernel.org (Andrew).
->
->  mm/shmem.c    | 4 ++++
->  mm/swapfile.c | 4 +++-
->  2 files changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index fadf23f9e21e..13e0786436cd 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inode *inode, =
-unsigned int type)
->                 if (ret < 0)
->                         break;
->
-> +               if (signal_pending(current)) {
-> +                       ret =3D -ERESTARTSYS;
-> +                       break;
-> +               }
->                 start =3D indices[folio_batch_count(&fbatch) - 1];
->         } while (true);
->
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 254ce86fa923..0f72a5b23a3a 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct vm_area_st=
-ruct *vma, pud_t *pud,
->         pmd =3D pmd_offset(pud, addr);
->         do {
->                 cond_resched();
-> +               if (signal_pending(current))
-> +                       return -ERESTARTSYS;
->                 next =3D pmd_addr_end(addr, end);
->                 ret =3D unuse_pte_range(vma, pmd, addr, next, type);
->                 if (ret)
-> @@ -2922,7 +2924,7 @@ static int try_to_unuse(unsigned int type)
->         if (swap_usage_in_pages(si)) {
->                 if (!signal_pending(current))
->                         goto retry;
-> -               return -EINTR;
-> +               return -ERESTARTSYS;
->         }
+Add pinctrl states and VA macro routing for two additional digital
+microphones (DMIC4/DMIC5) that are present on the vision mezzanine
+add-on board, mirroring the dmic01/dmic23 pattern already used for
+the on-board microphones.
 
-Reviewed-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Kumar Anurag <kumar.singh@oss.qualcomm.com>
+---
+ .../qcs6490-rb3gen2-vision-mezzanine.dtso     | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
+index aceafea45343..0a4e6080a2b2 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-vision-mezzanine.dtso
+@@ -80,3 +80,42 @@ cam_mclk3_suspend: cam-mclk3-suspend-state {
+ 		bias-pull-down;
+ 	};
+ };
++
++&lpass_tlmm {
++	lpass_dmic45_clk: dmic45-clk-state {
++		pins = "gpio12";
++		function = "dmic3_clk";
++	};
++
++	lpass_dmic45_data: dmic45-data-state {
++		pins = "gpio13";
++		function = "dmic3_data";
++	};
++};
++
++&lpass_va_macro {
++	pinctrl-0 = <&lpass_dmic01_clk>, <&lpass_dmic01_data>,
++		    <&lpass_dmic23_clk>, <&lpass_dmic23_data>,
++		    <&lpass_dmic45_clk>, <&lpass_dmic45_data>;
++	pinctrl-names = "default";
++};
++
++&sound {
++	audio-routing = "SpkrLeft IN", "WSA_SPK1 OUT",
++			"SpkrRight IN", "WSA_SPK2 OUT",
++			"VA DMIC0", "vdd-micb",
++			"VA DMIC1", "vdd-micb",
++			"VA DMIC2", "vdd-micb",
++			"VA DMIC3", "vdd-micb",
++			"VA DMIC4", "vdd-micb",
++			"VA DMIC5", "vdd-micb";
++};
++
++&lpass_dmic45_clk {
++	drive-strength = <8>;
++	bias-disable;
++};
++
++&lpass_dmic45_data {
++	bias-pull-down;
++};
+-- 
+2.34.1
+
