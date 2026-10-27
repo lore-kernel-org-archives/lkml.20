@@ -1,92 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793126638;
-	b=lRLD96Fr37znSAaBwA+5t2IdtAbp05mj5Ub+djOSSsjTRFdJa2a86zrjoKYH/cPGGu5j
-	 6FHv0Z0ghT2MAi2fUXwHo83HQyBKjxojeSiFlU95o4wZkzv//l1LCvU6otVOuGLzueHMX
-	 ihHawN1w3MU2tdRQtR5EezZ22Ur9sCK5si6MnvTOVIner3deh6tCbb/H/8KmI2Ez02A94
-	 rCyKPweGIFoHXfv+U8cbutU83d01wx5+EIkcHTvLEtPfc0IFWDWr9K5Ts+6UW8Hpd5jSk
-	 +5iz0+CUSN4cnHqjh+aqkpgKx7VnZoc7UAQgbouB6C75gWxLVBIYq6y6cvzZ1sF/HWA==
+	t=1793126659;
+	b=YvUg9y1SKb9NkKbod8eblEg0X3E0UkWEMNvP4UnmASbKzfhmx0ASUZMX3mOmNw7fWjrO
+	 HO62UFCPLBsfnUj0cXuGq5dWNz63Oin8qdCsmjztdzWgG59wSWTu1Hg1jXYJzNq98pQME
+	 WLh0xgAt2LBHYzqbHnmaz+N9P01IMU1dSxFuoDnCXtktBoIdZNJzeuEaN7DERwNXbwDcl
+	 wBo+iSPHyjVLFGlDj9rsWu7odPpOSG+1QzykTRNUKFXImaYdKcDJr/iQnCt7Vea1l2Ovw
+	 +e89zpzjXRyW71N5m8xT61Prqwgtyy1oFOQr8+ofS3Q4iht7OSgyAgDYxPwsCjjQCKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793126638;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 Content-Language:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=mgdYMJyAkUlwT7RfESxpZUFd0c3Pn7YULHqUey2cwFc=;
-	b=tLKsDDvAay77OVdV4XahSouenMS9Du+WPg80R6Dsa0eMCJSo/1tQWaLNguH0xD9YpcXo
-	 AgbX6K7jGLzuTpTPE/CNpZo6pLgHJF2TZBUuADnxFQsIi0cASfoIBz+TMyC1315AmLfQL
-	 9jnHKowaR22xdP07cJTJrQXJb016hC7xcgguuMA3z5KoZcOQr+sxJbOOrFzLKYINwirwo
-	 AZX2vkoD/BPANJRolw6fHYtdGIhRAPebTM8EKca6Lrh5e+4Ee/bAzjqlvTVT/4Hl8ucJr
-	 S6E+pMQKmJIT1/TzKFOi+lMXXSTN2RFibmoLoz1f49WqYOq//AKPTow2Y4KhpbOwWIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793126659;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=2FcWg1V/3aBTP3KwZYU/FI1oXS/QXKtS31y8wgVo5lM=;
+	b=YvqxAbc/GVdJPVkrycXrK4tv3dQjVEOtELCJAbN8YKJqJm6kvwML6FvpcF5koFjOUiJD
+	 bhmpiUBMwuVAsCTtDqF2tnuCkl3+OAqZEJVfvgyN/6Dw+J7qI0+3Om6UKTmtRuDpxaXUZ
+	 KokGm6tdd/7vkAlCNDkI/gCxbcOnKswljnR/IFZ3QFmopgPVQDMdMj44ZKVjbdMMgt45j
+	 wEx470TeqVbxzdWj1UKVQZ2hbgHe2ujBlOFRVvAjmsqfkR4079oMBs+0PDxaCtVUWTR/s
+	 ouLeU8g+0OkbIkvGfHrRZUhSEqiXaktwiJ2Al0DdptTmBzfQzWvhTM5M1fHb1FNvvYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qPwm5oar;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=KX+TpbtE;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 857EC606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:43:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 857EC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BB8606A31A;
+	Tue, 27 Oct 2026 18:44:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3BB8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qPwm5oar
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so99503f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:43:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793126637; x=1793731437; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mgdYMJyAkUlwT7RfESxpZUFd0c3Pn7YULHqUey2cwFc=;
-        b=qPwm5oar98PCQlwDOw9kJrG8AWB47g668VVfH+h+9LwHytAQ4tJkuRB1WoUoh1KZGg
-         QJIAqVpw8pKBMv8ou7w8bbLf3+tPI6i4XpYPd4LDLbCvTspp+mVvpwvEhVWUc+kp/cJy
-         H8tH2zi54+V7YyyFeTS2VFXZGNzHomQ6ZIQMT80lDlwJc0Rbahoj+UOcVArQISa2okM8
-         XWk49/mw2j0AHpY1/wfZAhClWQAI0/2gZjHmoC0yT6jBdS4biWBm6L3B7MtNvVsQehwG
-         SmTcbK3nM5EnmblQPBcABDqycE0BWHzrZw4udwEyjMkfPy7KTKahaH9J0UqnYab/Movg
-         6AFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793126637; x=1793731437;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mgdYMJyAkUlwT7RfESxpZUFd0c3Pn7YULHqUey2cwFc=;
-        b=LyR9MqSlQqVbHpTaKQvae+pAxI7FMGtlwF+mFLga6q5Ukm174a6kPGn9Y/8X0bsvY0
-         bSDI9e/IxILwScgNrNAvMoUh9KorL1BmMkK8oKhDrljKQBll4QN3dB2ykg96PC8x3eFQ
-         lYHSiMSyj9VK5COcDvwTAu2eNl1+ojfikb1py273fD0t0VNl/uOlZjKp3cWOLOXV+XoG
-         zT6hAruI0S9/5ZjgacUFST6XeyjH1RegZ0uHAp+5bnLdU3AbR0V5rmnM2TOmwtueNOtk
-         MKsPDrJb6UbNYi95fgnCqJarECIWAHEumU5j3UZcQAxRsN02k9xf0cwdPDpfKekINv8b
-         0TeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMTndDUk/R2FC1xjhhpcrAObLtshQVyFe0g/Ndcrka+NGu+wvlnLWLYhvSa3sCyA+OAGfDcUfY5GuktDE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAl1vFOE5FQBJQVf0aBwhG/lvVnUjPvRO3NyHbBlR34iX9rASZ
-	tAVm8/4g6eBbMxeXO2LyG81pKtJ7eU41IkKHclFREkZlaa8WWXTTIxKK
-X-Gm-Gg: AYBFou39o85meWWOfZclaVZB77E4ViZxtshW7p9Z+AcSPz8nGN7iy7FR+dpMcgdu0nT
-	7JAA+DuuZs37ahWRRs8bEvCDr5S23yPljMg9DkXturWFbEpVIhh07DaF9zM35EKLzrudFNejxVV
-	ENq4jcsMnE2Tnbq6Eyj18Tz3uFvm/f08JfiHGKyAODSEEpkJVxEB0bqHsX8fedIkdC+++zqN8iD
-	dbSw21mv6zY54ZvwnxqL9JoTPh/lLuv3oY659Q3zg7vgoYkybm2+bF30nPeqEwSKEQDzNVMINWk
-	vap9Ch+mBbNRPUOPuMOuQIn7ALZAkdhA6FZMs2WocFVDXnu2Cy5j0A+rlhs7anL//aBr5dMNbU2
-	/VsayHQRpwduGq9C3dGcUBRPn6lOBUe8qNyKs58Cec4Zp7hnv7vEyt010B5zGW6wpD93m7Ftmy0
-	d3LynCKK0hdFzwJvdcCff+btgxhgeHed7sK+dbfA5WFiFIpW+8PoQfLJLT3GnhMKAezriC++WcD
-	HJ48tXgZjal5ucdmC60GtpiyHelbvfDWOUmXTPThELAIBaNpmoYttOJqdVNUyKj8dd3VPHl+W2V
-	wAAMQCZKDg+hC9bpIpK8HiiltHKRvycOpAkA/wPfedhz+Lb+sg==
-X-Received: by 2002:a5d:4e46:0:b0:48d:f36e:fbcb with SMTP id ffacd0b85a97d-48e5d58f60cmr502427f8f.14.1793126636649;
-        Tue, 27 Oct 2026 11:43:56 -0700 (PDT)
-Received: from shift (p200300d5ff07190050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff07:1900:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7c3sm25746227f8f.51.2026.10.27.11.43.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 11:43:56 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift.daheim with esmtp (Exim 4.100.1)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1xLm9K-000000002yU-1lce;
-	Tue, 27 Oct 2026 19:43:55 +0100
-Message-ID: <c5f62e31-4e10-4200-b0bc-a737a3a7c161@gmail.com>
-Date: Tue, 27 Oct 2026 19:43:55 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=KX+TpbtE
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DCE36A50C8;
+	Tue, 27 Oct 2026 19:44:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1793126654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=2FcWg1V/3aBTP3KwZYU/FI1oXS/QXKtS31y8wgVo5lM=;
+	b=KX+TpbtELSQM0CG8heszhVDiIrQ7Sq2zR2SosWBHXg4On0jjcUZ3eA77V56vs15sXPp99R
+	eN/5HpRu/o9+o5DSPTQcQ7U3zZABkme71lIC9e7Mw/3X2WmYHQFrmRYYrydI0641nBHfE+
+	aul/cUeVrjO2+tHCRIvR/iBk8AOzvyCk3P8lJ/qzKYE6MWNPBvraZM36fs28bHOfwPUs4k
+	8ZjJUI/JREdRYqMEAvv8/Ly8MYSB1lr1cnZN2FABf4Wcc2ZDhfooijMvXVF/1l+bTRJ4px
+	edIfo1/O+48Zz9dsoQR8FQPbBT1BwVgFVTRNm745UAK2JoDAlEzZB0+Y8cCcQw==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+Date: Tue, 27 Oct 2026 19:44:09 +0100
+Subject: [PATCH net v3] octeontx2-pf: fix skb use-after-free with ipsec
+ crypto offload
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,62 +56,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 wireless 1/3] wifi: carl9170: replace open-coded IE
- search with cfg80211_find_ie()
-Content-Language: de-DE
-To: Tristan Madani <tristmd@gmail.com>,
- Johannes Berg <johannes@sipsolutions.net>, Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Ivo van Doorn <ivdoorn@gmail.com>, Kees Cook <kees@kernel.org>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- tristan@talencesecurity.com
-References: <20261026223202.2089824-1-tristan@talencesecurity.com>
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <20261026223202.2089824-1-tristan@talencesecurity.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-nb-otx2-xfrm-unshare-net-v3-1-31dc9d79d11d@tipi-net.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WOQQ6CMBBFr2K6dgwdoFhX3sO4oO0gNbGQthAM4
+ e4W3OhGl3/mzfszs0DeUmCn3cw8jTbYzqWQ73dMt7W7EViTMsMMBc+4BKegixPC1PgHDC60tSd
+ wFEGoqqilqI9GEkvnvafGTpv6whLAru9hGNSddFylK9baEDv/3B4Y+Qb/7xo5cCCSCotGkqjyc
+ 7S9XVcHQ1vRiB8qxB8qTKqylJmWOZZKm2/VsiwvhJqGXCQBAAA=
+X-Change-ID: 20261019-nb-otx2-xfrm-unshare-net-6b74a96a8d9e
+To: Sunil Goutham <sgoutham@marvell.com>, 
+ Geetha sowjanya <gakula@marvell.com>, 
+ Ratheesh Kannoth <rkannoth@marvell.com>, 
+ Subbaraya Sundeep <sbhatta@marvell.com>, 
+ Bharat Bhushan <bbhushan2@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicolai Buchwitz <nb@tipi-net.de>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/26/26 11:32 PM, Tristan Madani wrote:
-> carl9170_find_ie() open-codes the IE search that cfg80211_find_ie()
-> already provides.  Replace the hand-rolled function with
-> cfg80211_find_ie() at the single call site.
-> 
-> Fixes: a84fab3cbfdc4 ("carl9170: 802.11 rx/tx processing and usb backend")
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+otx2_dma_map_skb_frag() calls skb_unclone_full() on its own copy of the
+skb pointer. For a cloned skb, for example with tcpdump running on the
+interface, this frees the skb and the new copy is lost on return. The
+transmit path then uses the freed skb and the copy leaks.
 
-Sure!
+Make the skb writable in place in otx2_sq_append_skb() instead, so the
+pointer stays valid. Also do this for nonlinear skbs, as the hardware
+writes the encrypted data back into the frags, which may be shared,
+for example with the TCP retransmit queue.
 
-Acked-by: Christian Lamparter <chunkeey@gmail.com>
+Fixes: 195c3d463181 ("octeontx2-pf: map skb data as device writeable")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+---
+This was flagged in the clashiko review of my skb_unshare() rename patch [1].
 
-> ---
->   drivers/net/wireless/ath/carl9170/rx.c | 27 ++++++--------------------
->   1 file changed, 6 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/ath/carl9170/rx.c b/drivers/net/wireless/ath/carl9170/rx.c
-> index fbe46a5e4e415..9db6ac9d6d3c0 100644
-> --- a/drivers/net/wireless/ath/carl9170/rx.c
-> +++ b/drivers/net/wireless/ath/carl9170/rx.c
- > [...]> @@ -541,7 +523,10 @@ static void carl9170_ps_beacon(struct ar9170 *ar, void *data, unsigned int len)
->   
->   	ar->ps.last_beacon = jiffies;
->   
-> -	tim = carl9170_find_ie(data, len - FCS_LEN, WLAN_EID_TIM);
-> +	tim = cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-> +			       (len - FCS_LEN) -
-> +			       offsetof(struct ieee80211_mgmt,
-> +					u.beacon.variable));
+Compile-tested only, I have no octeontx2 hardware.
 
-nit:
-If there ever will be a v3. You could consider that the 80 characters per line
-is not a strict rule.
+[1] https://lore.kernel.org/all/20261015-nb-skb-unclone-full-v1-1-0dfbf01f60f2@tipi-net.de/
+---
+Changes in v3:
+- Also copy nonlinear skbs, GSO segments share frag pages with TCP
+  (sashiko, Paolo)
+- Count the drop in tx_discards
+- The other pre-existing issues flagged on v2 will follow separately
+- Link to v2: https://patch.msgid.link/20261022-nb-otx2-xfrm-unshare-net-v2-1-5590c9325bcd@tipi-net.de
 
-This is straight out of "Documentation/process/maintainer-tip.rst:
-"The 80 character rule is not a strict rule, so please use common sense when
-breaking lines. Especially format strings should never be broken up."
+Changes in v2:
+- Also handle skbs with shared frags (Jakub)
+- Note: conflicts with "net: rename skb_unshare() to skb_unclone_full()"
+  in net-next, the resolution is to drop the skb_unclone_full() line
+- Link to v1: https://patch.msgid.link/20261019-nb-otx2-xfrm-unshare-net-v1-1-ee9b24f9e673@tipi-net.de
 
-my 2¢:
-	tim = cfg80211_find_ie(WLAN_EID_TIM, mgmt->u.beacon.variable,
-			       len - FCS_LEN - offsetof(struct ieee80211_mgmt, u.beacon.variable));
+To: Sunil Goutham <sgoutham@marvell.com>
+To: Geetha sowjanya <gakula@marvell.com>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+To: Subbaraya Sundeep <sbhatta@marvell.com>
+To: Bharat Bhushan <bbhushan2@marvell.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c | 4 +---
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c   | 9 +++++++++
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-Cheers,
-Christian
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+index 4e418c7456b7e..c441c0161dbf4 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+@@ -2115,10 +2115,8 @@ dma_addr_t otx2_dma_map_skb_frag(struct otx2_nic *pfvf,
+ 	int offset;
+ 
+ 	/* Crypto hardware need write permission for ipsec crypto offload */
+-	if (unlikely(xfrm_offload(skb))) {
++	if (unlikely(xfrm_offload(skb)))
+ 		dir = DMA_BIDIRECTIONAL;
+-		skb = skb_unclone_full(skb, GFP_ATOMIC);
+-	}
+ 
+ 	/* First segment is always skb->data */
+ 	if (!seg) {
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+index 8d2d607bc92f9..3d38ca2402e38 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+@@ -1205,6 +1205,15 @@ bool otx2_sq_append_skb(void *dev, struct netdev_queue *txq,
+ 	if (free_desc < otx2_get_sqe_count(pfvf, skb))
+ 		return false;
+ 
++	/* Crypto hardware need write permission for ipsec crypto offload */
++	if (unlikely(xfrm_offload(skb)) &&
++	    (skb_cloned(skb) || skb_is_nonlinear(skb)) &&
++	    skb_ensure_writable(skb, skb->len)) {
++		atomic_long_inc(&pfvf->hw.dev_stats.tx_discards);
++		dev_kfree_skb_any(skb);
++		return true;
++	}
++
+ 	num_segs = skb_shinfo(skb)->nr_frags + 1;
+ 
+ 	/* If SKB doesn't fit in a single SQE, linearize it.
+
+---
+base-commit: 2cffcf1aeabb187e4f08fe4f5363128a3c45d786
+change-id: 20261019-nb-otx2-xfrm-unshare-net-6b74a96a8d9e
+
+Best regards,
+--  
+Nicolai Buchwitz <nb@tipi-net.de>
+
