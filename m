@@ -1,122 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069882;
-	b=lSGUGETZkizVk5GURAAOlnLx+wfYZt5sNi6ymo7mNppkqtZRGf6GfU5j+mSH+hXaw28r
-	 /Qv8Gw47CEqxAK8miPkY1b6iZfJWFm+gEVhcIm5CZkWg0Feiko8WTv5FrzGS0lowSYSJc
-	 pfWv7P5/874P07l1bNRV9ThL3qbszw3MaHjoXO8XyMJucyWWLImVSJckAauEtPqWqGdCL
-	 0HOPz1liOoz26usvROlxkdTFsflfayGhoEPRhZ4pAyWjbypd+9CLVrV1cyD+Boti1evTx
-	 HqcFpynIhhkBub/VFRWIx21+vszcNfqgu8LACS2/FGxSiHXRPOZEbLDwExJyzUAy8rw==
+	t=1793069873;
+	b=NBHqFaobF9MaaFNxwwQTQ+wBmSZw/ZvLdQRZkqdgr1SNa9Jc4QHTQBeIjwznCT+fAKj1
+	 KniJ3wIhaaZv1HcGbJI6EP6yaeFBtr3CbJuf2RKeVvtCdqiURmCF7D10HhFA1ZRBN6Srr
+	 N2Jm11jC6KCT77TUJIPnD596gUF3ZyX/aYmNGjB+RQWLjfloDj6DVIhpRHIu9n78ANHkn
+	 ilLC+pIC4NVs3ljFO6BZ5gNgD8YqLCyORv+pTHIR+49e2F/dkQJjfV+WSnqhDAY7aqgsC
+	 l5Fp4swBDZ2ppBbWjWgGYX1boQC/M9UfTESjuAr5KpucTp6qzb4V9kwBoDe6idTHyQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069882;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=RzDuW1fDhj/bN/SCFcWzt38KwQN8yOJ4LZuXA6dl0rk=;
-	b=VEZBGwKagLgYEpKSJwdNawqMFS3vgzczSMpA7ex73SU4TeZIfm2A2/Kib4tVyDJITPrC
-	 gYyybUlaIpNWvUbUnV7sS65WSeFxyziyfosejC5h5pJ4FP0sSM6hgc26m3Su+osMzbxGm
-	 r8IttKK/dVvCRopT9KNnGvJvfLQtXoUmV9MEwkvT5enNpnkc6XZdQexSrKYxkCinBZ/8q
-	 ZhvpnPz4au9hUgbouD/zjoTwkC6RvIQlcUd6QstXjAgO5rS+R6pzvO9zD671m9sKTCOgn
-	 JkSVGm8LhI+/mgKo/+Db1d/YYtyUPUxRg1mni+ycYuV1sAGAgz1bEOwCRUWQn4K1zUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069873;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=TTwekm/Gt9bndSKmUoo4bfoXvp6BtM9Qta1TmXnMuEY=;
+	b=2O03/HMOJMospmjuX0ranOa7hzl1D+cW1YAsM/YYU/Flc+IGFcEURhGjm5aOBb6iN5IF
+	 CoZnoM3drkSfJ9ZoU7GqyHazjVvqWKHsn/8XEK/hpnBtyeFQWaM5usaCynKHB09j5ml3y
+	 8mXWHlIjfU20L/sN09POQEn8rGY+WjQpGP+X51TjxMlCUotFPtpz9Zu8SvA6yzy/PMVfM
+	 I5dH3mFFGw0ablkC6Fq412X+zARhFhZI7Nfyq4Rm0b+SeSrLQX/2/CAbRPJyZZ5kY2dvy
+	 nhaxYnEqtXEjIRnB+iDhpjvMFuT2Ozapl5vwSsGU9GK3WtiPI5KfgI0YSaIQ5GgGo9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=benboeckel.net;
-	spf=pass smtp.mailfrom=benboeckel.net;
-	dkim=pass header.d=benboeckel.net header.i=@benboeckel.net header.a=rsa-sha256 header.s=fm1 header.b=UeNIr0Jh;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cKQ5WR0w;
-	arc=none smtp.remote-ip=103.168.172.158
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H2AERsOY;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C67606A332
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9C67606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=benboeckel.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=benboeckel.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B842606A31A;
+	Tue, 27 Oct 2026 02:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B842606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=benboeckel.net header.i=@benboeckel.net header.a=rsa-sha256 header.s=fm1 header.b=UeNIr0Jh;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cKQ5WR0w
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id C390A14005D5
-	for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:58:00 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 26 Oct 2026 22:58:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=benboeckel.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793069880; x=
-	1793156280; bh=RzDuW1fDhj/bN/SCFcWzt38KwQN8yOJ4LZuXA6dl0rk=; b=U
-	eNIr0Jh2uPoH1auyN+hsH4853oN1mOuGOmAACZIZ8cozE1b8Gf3v2d9nMLbpu4bY
-	4TtVy2qsi6UyRVVR+nx1tYYPfj1bpBMdH+ER8vl0Pdt302wgmyfzUhxZQwUwliCp
-	mGe+4vgEUNFHfkcqdull7tiZhAIIv3cPoEPy/6Ozg07nmhhcVR7z1LMoIi8X0LdK
-	iE6+JoS8qnUjeqUq1uvuwrP8mDFvRGg4SDHkME74Kfy5atSJACSB58MxeUQadRBn
-	xGmvyCeKQBiRVhJ7MseLeLpziWDvy3yNznXZ5mlLYMd+IL0wA+EL+Aw1jfiB1vWo
-	aLxszVyq8di/8tqtOVcgw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793069880; x=1793156280; bh=RzDuW1fDhj/bN/SCFcWzt38KwQN8yOJ4LZu
-	XA6dl0rk=; b=cKQ5WR0waNZuxt341vn7uPZy0fBNFZp+ivscc07L5/1xArmlvNL
-	R8EzaRFtnYnx8+X7KBT56AQ0d2rh1frTzf4pUYYL7aol4Gr9/rIemkzLqGweHtd1
-	gj02t7ezIKQml9hjp2uyGNOHdMkI0wm9AzpBPzvOTW+c6OZkUQ+30mLD2MKXmk+Q
-	g5b6aWtacyJ4VfFpFnZL0DjRpowWZ/kh20dLuGNa2TayqCqu/HeP0ea1zGCx8LU4
-	Rh1UWjEIHt/COJ/jYAxY0/Z6a+2qlpZV25yV90i+ZqfqS1siHBtNiSLzNQ0VfgNP
-	QnyrfLtArFgwVlQLLTIDnXjxRm5hohtI09Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=benboeckel.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793069880; d=benboeckel.net;
-	mf=PG1lQGJlbmJvZWNrZWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:jtQ061D+RkGh8ZWojzgCozRZC+Tx9AnPtPAwlZcgyTKGy1i
-	zUmwMG3FU4y1Ab8cMqifH4ql1O5qIeH/oyokag5wPe8qDgKdNNQMXx95EnrXlPzg
-	1rNYcpzIGP1WldnsPzHXXLdST/k3djAEORxeiEvsT2gfDNV7tjmNQmH/TT4+7Pwp
-	5ACGMHTilGhTss2VCXptj78Hezn5XFu1oify6+kEvNrBbASGrc2QRhlUsRkm81+K
-	KpQqStxy2ZXW+ykXdzeQwS1qYpUUWmA1hxCp4EOU7PcCOk+3amJ7VWxza7mTkMK/
-	2YYF2rSSbu1QbAsfj0vEpAWa01iVCkHUa7qfcAQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:+4JOoAOpxmGwmiy8zJkbWfnT3k7Uc2NPoWUZjWpVx2U=:2GqvvgHS9vIpd+C3RxT/6sILK5vwn5b4h1g341jDraw=;
-X-ME-Sender: <xms:NhPgaitRVOpMXH8K_XVoCpLdKPzdqROcoCxc1rneEytKgr-o0QnikQ>
-    <xme:NhPgateoeX3srGscpmIuQLzPfd7EhqEkbsoC3iMA6f7AtijwrMNZC9vya9R8BJDdU
-    kZPo17BqXcpvGJRc66bNLNwSk_eMbSqt8qXQdoHm749hRrAs5rM-qcV>
-X-ME-Received: <xmr:NhPgaol2cmY2S12dM36SiXOQi2dAz3SvKQoQUrbs4FJ1Bd23E5a6Q9NwQw>
-X-ME-Proxy-Cause: dmFkZTFCDO9tIo5qGgC4lPr4j0mlKGdDLgUIJRjYgHUovDj6WV7SvLBEDePAMPdxZpTSOS
-    LkWKH48+tetCfZoL6oWN6O+w1QYH7Bayi2nMyxO2a7kmQoWgRkbdD82y8J5vxF313F7VfH
-    4cyoIWJRzD0BJPqUjHlGFomneVHkd9iY3LkviyfHWUEqzKtIJkyov716cjSOlohHOL69Sm
-    NrYYYwidtkHv0ocNVvwYIQ54qllW7iWKx3qjfTGpDOLQbEwx8/ouVtQJeHrByjj2BB5n3S
-    MMNPcutB1sKqHsX9L1hppBl9qvYY+Odpmm6jfwpTaU3mYKvHEwI+xUv84rnxnNiX3949kk
-    er/8NTsXj2PS6Jr3KeJFSecKGHEUKs4ktrhNbbvoGH2tr3JQp4OZo/eNmMo+BzP78tVaY2
-    FjjNC2+BVDhIYYN3l+vT2+lE2Ii/0I6zxHfqVw/zbxGIdfOvw0hPDLhRmWbsR3zwKrOpAJ
-    RdJ2Lb5ethWUZrnsD6Q+bdua9qtzA9AdcpHlKAXsurrJopc3DcbDPIH+y/7XvAjaylaaPN
-    1vm7SpjVjzgUbpgXZDhVwksKaf2whZTtVFbOGa0un/uf9tvhZNP6HcZIPMMi2hgS4lmQ2S
-    TkyHe42wKFsTWBNXSFLVKgtJ9TMHaJQZfHuUh2+f+9/0kO3fSsZJHaX4GlkQ
-X-ME-Proxy: <xmx:NhPgagCf-Uvlu7wbWnv8-7H7FXjKy0uVg6Ztv1wmY5MkjaRT32t0Fg>
-    <xmx:NhPgaiN1nbuqWBEQ20waHDqF1GF6zMsQZDJdayp0117-8X727meJ2w>
-    <xmx:NhPgavPXBBIre349XTx6KJMNj3yoYVfARAgdgtX00TqvzTPVwCpt2g>
-    <xmx:NhPgaimIZstfhwy0GN38ViotyYb506Y4MKbxGGsEc9nfuGH7IPtBNA>
-    <xmx:OBPgaqYUpQ7hasDMyY7Bn045gFrO0rDO1HaAdcQ_eYDzrIvTyay5WvjL>
-Feedback-ID: iffc1478b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 22:57:58 -0400 (EDT)
-Date: Mon, 26 Oct 2026 22:57:55 -0400
-From: Ben Boeckel <me@benboeckel.net>
-To: Tang Bin <tangbin@cmss.chinamobile.com>
-Cc: dhowells@redhat.com, lukas@wunner.de, ignat@linux.win,
-	herbert@gondor.apana.org.au, davem@davemloft.net,
-	keyrings@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] certs: Print correct error on pkcs7_parse_message()
- failure
-Message-ID: <auATM8gAJhFngmQ_@rotor.dev.benboeckel.internal>
-References: <20261025025830.2239-1-tangbin@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H2AERsOY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793069871; x=1824605871;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SchimnEHsM3qHihA0tcHF9PFqJCA9ILjKcim1aKJcUc=;
+  b=H2AERsOYJ82c4RuR7oPfuvWM0uRxXNPMatqRtuzGQRWmCpOiW85oK6UY
+   NZdowN2XKoXu7/msKmGdIT9gdEIpRAuB1FuVT2nfEMaNVTPj+D8IOdQe3
+   1NTWc/kozY/6gjueg2PR7Z0aeGwMaTlJHN/6Xuo/7lLHdjzhroOV1a+rU
+   O38xJK85eSu++5GhIG3VkFuBJcQhLL7atwrGT/nldIH7xi5Uq6qHW6GU4
+   D404QG9AM0371tafDMEdaBViGkKvVSujE797iw4/opK1WaFJU7a/iqa5O
+   P9sFMJcPJsNE+QKd/tmlNLIGugtu6Dm7uamehVZgehM4T8vzuOn6uShel
+   A==;
+X-CSE-ConnectionGUID: vNf7IGvRTZ+V+hJWsINxrQ==
+X-CSE-MsgGUID: w46RGhDYRoOy3yIs+uF0ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1761129"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1761129"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 19:57:51 -0700
+X-CSE-ConnectionGUID: faI6S+BMTEa9liU7ZOXU7Q==
+X-CSE-MsgGUID: 01uCM4FQQ4+NTTAzLBsaEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4537589"
+Received: from shsensorbuild.sh.intel.com ([10.239.132.194])
+  by fmviesa002.fm.intel.com with ESMTP; 26 Oct 2026 19:57:48 -0700
+From: Even Xu <even.xu@intel.com>
+To: bentiss@kernel.org,
+	jikos@kernel.org,
+	sammiee5311@gmail.com
+Cc: srinivas.pandruvada@linux.intel.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Even Xu <even.xu@intel.com>,
+	Rui Zhang <rui1.zhang@intel.com>
+Subject: [PATCH v2] HID: intel-thc-hid: intel-quickspi: validate GET REPORT response size
+Date: Tue, 27 Oct 2026 10:58:20 +0800
+Message-ID: <20261027025820.3085067-1-even.xu@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,23 +83,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261025025830.2239-1-tangbin@cmss.chinamobile.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 10:58:29 +0800, Tang Bin wrote:
-> The panic on IS_ERR(pkcs7) printed 'ret', which still holds the result of
-> the prior successful x509_load_certificate_list() (0) rather than the pkcs7
-> parse error. Use PTR_ERR(pkcs7) and %ld so the real failure code is
-> reported.
-> 
-> Fixes: 8cd9f234f706 ("certs: Move RSA self-test data to separate file")
-> 
-> Signed-off-by: Tang Bin <tangbin@cmss.chinamobile.com>
+From: HyeongJun An <sammiee5311@gmail.com>
 
-Already submitted:
+quickspi_handle_input_data() copies GET_FEATURE and
+GET_INPUT_REPORT responses into qsdev->report_buf. The response length
+is derived from data supplied by the controller, but was not checked
+against the destination buffer size.
 
-    https://www.spinics.net/lists/keyrings/msg19526.html
+Adjust qsdev->report_buf_size to store the data length of report buffer,
+reject responses that exceed it before copying. This prevents an
+oversized response from overflowing report_buf. The rejected response
+does not complete the GET REPORT request, so quickspi_get_report()
+follows its existing timeout path.
 
---Ben
+Fixes: 9d8d51735a3a ("HID: intel-thc-hid: intel-quickspi: Add HIDSPI protocol implementation")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Signed-off-by: Even Xu <even.xu@intel.com>
+Tested-by: Rui Zhang <rui1.zhang@intel.com>
+---
+Change log:
+V2:
+ - Rebased on top of latest mainline kernel
+ - Adjust qsdev->report_buf_size to store the data length of report buffer
+
+---
+ .../intel-thc-hid/intel-quickspi/pci-quickspi.c  | 16 ++++++++--------
+ .../intel-thc-hid/intel-quickspi/quickspi-dev.h  |  1 +
+ .../intel-quickspi/quickspi-protocol.c           | 12 ++++++++++--
+ 3 files changed, 19 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+index 53023e30cf8d..d0aa66a8a4b4 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/pci-quickspi.c
+@@ -562,17 +562,17 @@ static int quickspi_alloc_report_buf(struct quickspi_device *qsdev)
+ 	max_report_len = max(le16_to_cpu(qsdev->dev_desc.max_output_len),
+ 			     le16_to_cpu(qsdev->dev_desc.max_input_len));
+ 
+-	/*
+-	 * write_cmd_to_txdma() writes the output report header ahead of the
+-	 * content in this buffer, so it has to hold both.
+-	 */
+-	qsdev->report_buf_size = HIDSPI_OUTPUT_REPORT_SIZE(max_report_len);
+-
+-	qsdev->report_buf = devm_kzalloc(qsdev->dev, qsdev->report_buf_size,
+-					 GFP_KERNEL);
++	qsdev->report_buf = devm_kzalloc(qsdev->dev,
++					 HIDSPI_OUTPUT_REPORT_SIZE(max_report_len), GFP_KERNEL);
+ 	if (!qsdev->report_buf)
+ 		return -ENOMEM;
+ 
++	/*
++	 * Store the max data length of this report buffer, then compare it with output/input
++	 * packet content when write or read into this report buffer to avoid buffer overflow.
++	 */
++	qsdev->report_buf_size = max_report_len;
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+index fe51ff51d8c0..4362ac568bda 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-dev.h
+@@ -115,6 +115,7 @@ struct acpi_device;
+  * @input_buf: store a copy of latest input report data
+  * @input_len: the data size of the input report buffer
+  * @report_buf: store a copy of latest input/output report packet from set/get feature
++ * @report_buf_size: the data size of input/output buffer
+  * @report_len: the length of input/output report packet
+  * @reset_ack_wq: workqueue for waiting reset response from device
+  * @reset_ack: indicate reset response received or not
+diff --git a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+index 0df33c44fbff..5de25c36a1e4 100644
+--- a/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
++++ b/drivers/hid/intel-thc-hid/intel-quickspi/quickspi-protocol.c
+@@ -30,7 +30,7 @@ static int write_cmd_to_txdma(struct quickspi_device *qsdev,
+ 
+ 	write_buf = (struct output_report *)qsdev->report_buf;
+ 
+-	if (HIDSPI_OUTPUT_REPORT_SIZE(report_buf_len) > qsdev->report_buf_size)
++	if (report_buf_len > qsdev->report_buf_size)
+ 		return -EINVAL;
+ 
+ 	write_buf->output_hdr.report_type = report_type;
+@@ -161,6 +161,7 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 	struct input_report_body *input_body;
+ 	u8 *input_report;
+ 	u32 input_len;
++	u32 report_len;
+ 	int ret = 0;
+ 
+ 	input_body = (struct input_report_body *)qsdev->input_buf;
+@@ -210,7 +211,14 @@ void quickspi_handle_input_data(struct quickspi_device *qsdev, u32 buf_len)
+ 
+ 	case GET_FEATURE_RESPONSE:
+ 	case GET_INPUT_REPORT_RESPONSE:
+-		qsdev->report_len = sizeof(body_hdr->content_id) + input_len;
++		report_len = sizeof(body_hdr->content_id) + input_len;
++		if (report_len > qsdev->report_buf_size) {
++			dev_err_once(qsdev->dev, "Get report response too big: %u\n",
++				     report_len);
++			return;
++		}
++
++		qsdev->report_len = report_len;
+ 		input_report = input_body->content - sizeof(body_hdr->content_id);
+ 
+ 		memcpy(qsdev->report_buf, input_report, qsdev->report_len);
+-- 
+2.43.0
+
