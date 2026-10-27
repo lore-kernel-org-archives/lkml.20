@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793133105;
-	b=xj3/x3fhuGgxrBAWoESbo5mSaPZfu4cHVbImVCN6Y72z5CWJ3yIhJFpQShXSB1EnE7Y0
-	 4/PkTW/7HC1693yHRkgco83KJAB4Y2+3G31rUeDJgTTb6S1dlte+kkYPt3HD6pqhRkW5I
-	 EO+Mdx0nGRftOOGtVowtm910L/H8WSOtWTj6BbJAX/alp5hNwW+iGA5e0MfikQ8vgs7SV
-	 bqN2dwErjNCZZGcRoFtnbPVKTVzbzTfS+Da7gDqM8WiIRl98f2OgLzzCRIunsEYVSJRtM
-	 JI+kiQz/Ae5RGY8hMDxod1n0v3v0qC6KPFmW0NwTBRT2ARe2CpYXj8NPHCGhi87Mo5A==
+	t=1793133150;
+	b=JJMv+meN9ASG/huP8uIHVsj/nLrB4aiwTCnHcfQlyQGQXe27wpo8J5JMTqWvhmkiiENy
+	 jeCoNzx9LuS1pQ5Vs7WBjJXYFxu8QnnldfKxLMOa7MXzA1RhtW6XRsdHlgvbIix3taGt+
+	 QveqIIw3tYtBVTe2hbwHgr+vKJ9b3Hgx+wDdbSbC52Kfgijps9RPxQIok6VOsVoRORHAW
+	 k+m0r1C0XmECIPq9ouTWPVW9iA+vQSx2yD+RACvSs2TwAxgk8dDo3QsXuIokqim3SJW1c
+	 ZPmciiT8MA/gHuDgJxLXO0qL4azbM2jjKAI82xFuQ3uNT8g2GZPgEiLPViEJBk6xYCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793133105;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ItOY3Vg5BOHo/uC07nNATgEJDvbeahAuY9/6a3jg9K0=;
-	b=mTLq8MO6HMQg5Pn73CHWdAc47+SlpMjRxCRz2YBaj3Pm4r8vdkAQ7QO0wTn9fbuiaw0h
-	 emBKKhELsDqghZ3tsZTjeotxSTCFqObqVAJA2yDWSIjKotMQHWulC7ylpoy9wPjqD15ym
-	 DQ8NXWzQA4IJI4TqzHj9Le/+L+MUoReAtqsFVTqlDwKPnvLnrzepaMiwmsJsfzZwz/cmH
-	 IQu/m7MQEbId1llsZLS0MDK3o+cPpKbHZ2EoK6W1sR0mIn/2gCSMHpxSY6q7jslNA0oJ9
-	 iS9Js63xD2PbARcq275veYj2pFK9h+0y7rP+MZQJfIf0AMDweXg8Ie9wSAGWOuFnh+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793133150;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=86fhQATGDo+8MDnZqTEUILQavbmG5W/eLVJguZT8p6Y=;
+	b=xXc3tnUoUNa0+9LYCBcEGClOaxVnFwXiLy35NfGhny8ocK4xcxEqKDUqBNdm6pWjZDzy
+	 3ohB9QjSyVvRQvjifBQ7wz69PVIOGzxZ8MUuwqQ0orfLYsjwekh5gPnNPohXQJIthyhtF
+	 WpDJpcsHqdb3RlD8D7zNn99ZNKuYNDV1BbwBoxAqqqDN9Gm806vlVZjiGMFbmZ6uVaF2e
+	 xHuL+gi8GHjsR10bCbI+um5iNxb8JOCsQBKegLFY5vN9VBd8O1wWZVCtjP9kovpbkOfjd
+	 buZ9vVGBQa/mqKmLfjk3y+48KVmbgyCXjQEWVolnyva2kPrO7SXKGWysrDO6czP5ouQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TNP6XfRW;
-	arc=none smtp.remote-ip=109.224.244.122
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUUj8rbd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9A3606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 20:31:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF9A3606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C03606A31D;
+	Tue, 27 Oct 2026 20:32:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=TNP6XfRW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793133102; x=1793392302;
-	bh=ItOY3Vg5BOHo/uC07nNATgEJDvbeahAuY9/6a3jg9K0=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=TNP6XfRW0r6Gi8+sA3NB85f8TvH3QXPO5o1Mv7fMSt+egBjOcM9z08uapPa+XPspm
-	 d+GWCir7eKtVZp2n7PQNehpQafWQxYCtp+qEKooSMo1pN4KMmCk67KnfgolvceSit2
-	 5oCdNk/1EQQnx0aXTbVmyODKAOd53WN9ACOcfmZKiWt/lX5sadx4RPIDsw4/oCpX/b
-	 hytZQm6y2CG/WlFQ6IiaycRIZRUT7uub04RMBPbZjc7JBCF3oerDzm9c3hYAqQdArC
-	 ZELVJI9sUGtm+AeLHodL1UkoqONE/9/DtbwH5YjLNTYGE1ysDwv6X9SyVmL7C9yYRx
-	 H6QvjUAesgakQ==
-Date: Tue, 27 Oct 2026 20:31:38 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-serial@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] serial: qcom-geni: Set the serial engine up again after hibernation
-Message-ID: <20261027203136.95971-1-birk.skyum@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 514362eb52f479d693c59884f7ec81f7766e91c6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUUj8rbd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5A11F01825;
+	Tue, 27 Oct 2026 20:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793133150;
+	bh=86fhQATGDo+8MDnZqTEUILQavbmG5W/eLVJguZT8p6Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cUUj8rbdB8sxeJkMuDL4RCOdrYbrRplzvevKwnxFuwaEcH7HP+ENffudf2T0mpEpv
+	 5IgYZPx4U8OILjqSgrQVM2ZVtEuU+s+iUCRqr37O0SlFEfCwYP6WH8sUr54mzsCt1s
+	 iMf6J0wk9xYuuAD3vV+C40mhUS8iHT1njIORZz73KfNOXA2HaiIMPxjzwaUpjzGq0a
+	 +HDzAe6Y83Ik9oMrM+EDzTEENc7lTwdaNWApON+amLO666KTk6vgqAwdt/I26Z5K2e
+	 tnFRDkmrRt4vDlqitIfQMOzf4AtEOnF0EKCtlUHfO8gpTP2ZD2//SXJTbcFDzwJNgN
+	 ttZ0nsquNOB0g==
+Date: Tue, 27 Oct 2026 20:32:28 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Alistair Popple <apopple@nvidia.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 43/46] mm/vma: don't leak the charge for stack growth
+Message-ID: <auEJGq46amG5oPVQ@thinkstation>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-43-6f74bec9a5bb@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,111 +83,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-fixes_core-v1-43-6f74bec9a5bb@kernel.org>
 
-A hibernation image is restored after a power cycle, which resets every
-serial engine. The kernel that loads the image only sets up the engines
-it uses itself, and on laptops the Bluetooth UART is opened from the
-root file system, so that kernel never touches it.
+On Tue, Oct 27, 2026 at 12:18:03AM +0100, David Hildenbrand (Arm) wrote:
+> acct_stack_growth() charges stack expansion even without VM_ACCOUNT.
+> This can happen for read-only or MAP_NORESERVE mappings created with
+> MAP_GROWSDOWN. Unmapping these VMAs does not release the charge, leaking
+> Committed_AS.
+> 
+> Only check and charge growth for VM_ACCOUNT VMAs, matching mremap().
+> Unaccounted growth skips the overcommit check while remaining subject
+> to the other stack-growth limits.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-The restored kernel still has port->setup set from before, so the
-startup in uart_resume_port() skips qcom_geni_serial_port_setup() and
-the port runs on an engine whose FIFOs, packing and transfer mode were
-never configured. On a Lenovo Yoga Slim 7x (X1E80100) the WCN7850's
-Bluetooth controller then never comes back: every setup attempt of
-hci_qca's error recovery ends in "command 0xfc00 tx timeout" and
-"Reading QCA version information failed (-110)".
+Looks good to me,
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 
-Clear port->setup in a restore callback of its own, so the next startup
-sets the engine up again. The other system sleep callbacks are
-unchanged.
+Maybe worth having a warning when it's accounting w/o VMA_ACCOUNT_BIT
+or let those helpers skip when there's no VMA_ACCOUNT_BIT set... 
 
-Signed-off-by: Birk Skyum <birk.skyum@pm.me>
----
-Tested on a Lenovo Yoga Slim 7x (X1E80100) with 7.3 and the other
-hibernation fixes for this laptop, which are in review:
-
-  pinctrl: qcom: Restore the pin configuration after hibernation (v4)
-  https://lore.kernel.org/all/20261021210425.57066-1-birk.skyum@pm.me/
-  PCI: qcom: Power the controller down when hibernating (v2), on top of
-  the v6 series "PCI: qcom: Implement shutdown() to avoid SMMU/NoC
-  errors on reboot"
-  https://lore.kernel.org/all/179181074907.22199.10556821368232442334@pm.me=
-/
-  soc: qcom: smp2p: Start over after a restore from hibernation
-  https://lore.kernel.org/all/179158127177.70185.5691100900886332545@pm.me/
-  Bluetooth: hci_qca: Reset the in-band sleep state on power off (v2)
-  https://lore.kernel.org/all/20261014180201.57109-1-birk.skyum@pm.me/
-
-The test kernel had a switch for this change, so both ways ran on the
-same build, each a real hibernation with a power-off from a fresh boot:
-
-  without   restored after 112 s, Bluetooth never comes back
-  with      restored after 89 s, hci_qca's recovery sets the controller
-            up about 18 s after the restore and a scan finds devices
-
-pm_test=3Dcore and test_resume pass with it as well; there the port is
-restored without a power cycle and is simply set up a second time.
-
-7.3 does not have the console pm_runtime_resume() that tty-next adds to
-the resume callback. The port here is not a console and this laptop has
-no serial console, so console ports were not exercised. For those, the
-kernel that loads the image sets the engine up itself when it
-registers the console, so clearing port->setup only repeats that at the
-next startup.
-
-Built with W=3D1 and sparse on tty-next with hibernation on, with
-hibernation off, and without system sleep.
-
- drivers/tty/serial/qcom_geni_serial.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qco=
-m_geni_serial.c
-index bfdc155c1..4e5b0e247 100644
---- a/drivers/tty/serial/qcom_geni_serial.c
-+++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -2131,6 +2131,20 @@ static int qcom_geni_serial_resume(struct device *de=
-v)
- =09return ret;
- }
-=20
-+/*
-+ * A hibernation image is restored after a power cycle, which reset the se=
-rial
-+ * engine. The kernel that loaded the image only set up the engines it use=
-d
-+ * itself, so set this one up again when the port starts.
-+ */
-+static int qcom_geni_serial_restore(struct device *dev)
-+{
-+=09struct qcom_geni_serial_port *port =3D dev_get_drvdata(dev);
-+
-+=09port->setup =3D false;
-+
-+=09return qcom_geni_serial_resume(dev);
-+}
-+
- #if IS_ENABLED(CONFIG_SERIAL_QCOM_GENI_CONSOLE)
- static const struct qcom_geni_device_data qcom_geni_console_data =3D {
- =09.console =3D true,
-@@ -2168,7 +2182,12 @@ static const struct qcom_geni_device_data sa8255p_qc=
-om_geni_uart_data =3D {
- static const struct dev_pm_ops qcom_geni_serial_pm_ops =3D {
- =09SET_RUNTIME_PM_OPS(qcom_geni_serial_runtime_suspend,
- =09=09=09   qcom_geni_serial_runtime_resume, NULL)
--=09SYSTEM_SLEEP_PM_OPS(qcom_geni_serial_suspend, qcom_geni_serial_resume)
-+=09.suspend =3D pm_sleep_ptr(qcom_geni_serial_suspend),
-+=09.resume =3D pm_sleep_ptr(qcom_geni_serial_resume),
-+=09.freeze =3D pm_sleep_ptr(qcom_geni_serial_suspend),
-+=09.thaw =3D pm_sleep_ptr(qcom_geni_serial_resume),
-+=09.poweroff =3D pm_sleep_ptr(qcom_geni_serial_suspend),
-+=09.restore =3D pm_sleep_ptr(qcom_geni_serial_restore),
- };
-=20
- static void qcom_geni_serial_sys_shutdown(struct platform_device *pdev)
---=20
-2.56.0
-
-
+-- 
+Cheers,
+Harry / Hyeonggon
