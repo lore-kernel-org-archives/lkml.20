@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101616;
-	b=xohASyiyvFxPcYdD+wyq0NuKoOL/16haELsRv98uFaE29cTfP1RH8PDeLpSGnbtWlVPn
-	 aGluX+9iskTTDUD3i5H/Wz1bX7S3x/KpY7CxTOKi6fBxqayAUyoDiS4Phe7j4lnFiSPcG
-	 CgnXyNgF2wIBJiG0cm5DdPh+q6PEZ4DJ2abHTvswgjexvnfscU6ouyXVilF/SKjAieULX
-	 Pjh77B6dxrDMp5WXAKMsO7RfEcUkEMaUkIEXtRt5xEKwC3k6VrZSBAjvy6qeOFduEFH8l
-	 l4Pu18aW1R3bPG+qmnGE49xy7IYk66i2b9Gt5tuW3vOGGEeb9gQTKgmNvmGvwEVxRHQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101616;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aN3CXt/x9gfOlsvyXuijagfc4O1+FI+oPryE5Ah2IBY=;
-	b=gTbBdq83M1xkzquFFFvjt5zZ0sYCnu1L90vXbGgUKSOM64TRU4eRlEnDDYT3poxR8LTt
-	 jwcXKrfIlV2rkYcVrHeLce+702FCzwLi2P96hdmVNag8oSAsmKmra0rLDz460kgzvrPGg
-	 2kYsRbpVG7YVkEoBMMZVbV7SDcHRNzG4oJoXRhE3h9NH2PiPC/7fYz7q6z1him9AxUNba
-	 EbsG86aZvjnMIWFS8EifNuXFtVGwkweQeklV37A4oz5++tc2bFKw2rDDKuPodSEsLpb9s
-	 UIfLY84+af7D908lMASIyeAewvODI2eV2kNcQyEn6agXecA23sYp5uyLbl+3wdgXimA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iTiOXuc2;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.87
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793101620;
+	b=UwIUjp9GRU5YKiATiviMFiU6ZFFPjJ9OCONVNb9/XR77Ump5Lv0wFMidms1q0lnPMsZY
+	 lDjvABZKg6Xpot63ixlauuk1uMD0JvSAMM1dU8bF+fWcJ2aJsYd5tVIvPrwS651d9BzWI
+	 0VmyVBNdRK2rONESAh6IGiqndEKyhWUMcikw/jLOQbdiLWU0Xxpb/WbZ6GcC01pgWG4zk
+	 H/8O0f7IygYLg41m50kyYxkk6R8jyXg7Pl9Dd765YZ3/XVuMy6Ns1mLlP2L0CAxQ5MjEF
+	 RzvakQG6PbVyceOX0Omh2U9usdlk0MZ4zNigT/h/SmzGE1jhiLCQ68hzmkYzNvGhyjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101620;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=cFnyBiT/lrkM3aAVIKsMau7nQJGRSJcd83zTCarFwis=;
+	b=AEmRvzir+TAhpmT4mJ+yOADcwnHxHZ8gAEbbgrmQulIp14w8MfoG/Y/UlBVTSJc6y+m2
+	 pFdeMcPCAR9a+ClvlRgGn/OdlG9ic9yxWkykcHpjpBO+EN9VEsUWF4egowEC2C+8QXl71
+	 R5fxStGHW4S9UQh53XZ7F1FCq7nYNSiuZvMTArQ6/1TsqJEgGERbXdF1MbKRQb4qBZUP0
+	 6ZEcNt7YT1K7/eYnZ+7J5HepDUmvyY7+cl0Gjy6zeSlchTQzGdeFzch8oMy2tzXCWN4oE
+	 R7qtlp8wbyBwZRMHyGs6hfRmpE61BcLey9C8aY+XhsLoRlYcVmb0KmWEl1RhLF3tCAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hotmail.com;
+	spf=pass smtp.mailfrom=hotmail.com;
+	dkim=pass header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=ZceZXy8g;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.74.87
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazolkn19013087.outbound.protection.outlook.com [52.103.74.87])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2803F606A9C9
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2803F606A9C9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E163606B5FB
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:46:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E163606B5FB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iTiOXuc2
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso628693366b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:46:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793101614; x=1793706414; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aN3CXt/x9gfOlsvyXuijagfc4O1+FI+oPryE5Ah2IBY=;
-        b=iTiOXuc2DIBefNMU0bxEfoJ6vuVhIeurBON/z2O3LIeiHc/CO58gw6iP68+ewY+yZW
-         qYVyvZWHzV8vG10hb52qMTZHrNPEE1KFMtUL785qTPoLqKmntXsLmGAX2T03vGiS8WCP
-         xVP+rgiBb/n5AlzOGLR1df7Z7cD8DaikbEZLWzWUtgKJYnzqTl3155Tn1p3iCYXmktUr
-         ExpCdaWXzf2mDgvzy2PEQDsHHNZNDX1ANYfmAnS9C02OdhWEtpZHvU//l6bYlOF+uCj5
-         Ax/8tCPVHL8561hYhpnDJXieFpzt/mYsQxVlmxCdfUmujQjgi0Q91fw8UMKR2G+wA/59
-         fciA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793101614; x=1793706414;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aN3CXt/x9gfOlsvyXuijagfc4O1+FI+oPryE5Ah2IBY=;
-        b=hyUA5EiLSTrgWPwVs02DtHT3S/StJqNHrJqICRbKU2N34pMLeNy7fqBce3hbhGP33c
-         HtzrKULKHXneCn7s7bbIOKU2lnW1/CdsLLp4DTeCti/XKR30p0EqMiroWlILWyX1iKDY
-         zwf99ttdNqO4EuxE4xx8u5Bg3DjMC2NaHhB/84jz62N+em1NoDtGrqYGm4ufOjoN15Ua
-         2lNUHv4pI6qR/X49A1fVCklTA3UjFcEIOZB0hoyCWur8Q3TNAiFmDW+5/XGWomYEzLF4
-         AL0vukHylVKbff1Lrkj9StCZcYEXnf3VcavIAQKilBNtuO0uhTv6F2KISBzgUSo0dgcM
-         ifCg==
-X-Gm-Message-State: AFq9FYKcknV0G2xN2DZ8zrgdrCU/hPviXd5Mgf7EB1L7TFbTnH19b4e9
-	2ZkDecdAwpq4MAlRA8vpZJ5ZICwSo6zsdKwZhG4eAGn9HXIUHjQhGHGS
-X-Gm-Gg: AYBFou1qavl4h+grMWPS7QwKz/geUBRCz6Cspl7/gCR8br/pDESXQU6pCYF30/7ZvPY
-	8EUo2oFW+s7mguca8vN3QGo6GDklAismGxfWXD8hDRRC5NOFD+or3ZXSUKTcFyBvhTDf+WYElyS
-	v2O78Bqz456RpggC2lv0m/QNaq3QvDY6zanwh5XPGNGCiGmslmDgOrvl679HSaoElPuccAOs1cU
-	q9bzXSt2yXXzXQt38UWGijJUL/LqtFiFs+Ek6/xsPY9LJQ5xf92wcDsmU/icS5VA4vJRmL9wtID
-	PuGv8Ro3TFGKa9hEe9rZGss5uqsLwv1s7RYKW/KtRYeCIPv2xThCjYg2MWk03K2S9uQAuFxgMMl
-	pF86zXdOEpXRPaUT4HZqQemun8PyWC4qk/BFp5uTIPYqfYuldoiAARijxSD0dZbW9HpTOIKf9HW
-	JVZTBHy9MLKLeUGI93krNO+diQwfrU/xNMGt+MXomrzAdxD+Lk0CtB3kvVHc7/Vgje0GL3a9gSu
-	4EphGqgn/kmnGrsPweqY1dDrpqu1BriCugoDJne7oJorG/t38jKv6NbMkc3TklE6oOEuvhFaU1l
-X-Received: by 2002:a17:907:9624:b0:c46:a5bb:5740 with SMTP id a640c23a62f3a-c46bdacd582mr1075309766b.5.1793101614258;
-        Tue, 27 Oct 2026 04:46:54 -0700 (PDT)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd529b3csm430692866b.37.2026.10.27.04.46.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 04:46:53 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH v4 4/4] mfd: max8907: Convert to use device managed poweroff handler
-Date: Tue, 27 Oct 2026 13:46:34 +0200
-Message-ID: <20261027114634.79706-5-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027114634.79706-1-clamor95@gmail.com>
-References: <20261027114634.79706-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=hotmail.com header.i=@hotmail.com header.a=rsa-sha256 header.s=selector1 header.b=ZceZXy8g
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mwRe7BNhO/y9CiWWTObppQoPw/meAtEY2ulIcCWiisvrVzlU+7HIABn9ARnvpBTiMJ2g7BUGar1ZVnEqUApwA8+lsfOO7WfTYol85COvIKSmUBT2F5Wsohoez5C6LtfGHDh0K1kUMm9gs+mpRBdA/UDWBaEYq7xX5L0McHYxPCax635nFyGsXmK+y+Y7/tDKfGKw8OS0tivHl7nB5cs7KQ4lxsESMedsjmZ/UfgdqEE57Kvdwro75rEQN0AoDXulBjnNOkFvHZ/zjjPYSJS7+l1QRfJSPEAtfbRvVNlFmYN/HEDJCL6ZHcgDfzEJBLYtf2ZRvImenB2sjaijLak7/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cFnyBiT/lrkM3aAVIKsMau7nQJGRSJcd83zTCarFwis=;
+ b=HZlZ5Q4uR1r1/1+eaW9LRvtZQGyumvx2iBo/0tmc0NMaw7hWcRAT9F3+1JZGEd5jHsn5hPSLx2cxoyyHIsb65249XJHuMKmA86LuCrntJ2wbC3d55j179xcBZUDHM4lhYyPrGygeOOC8h6v/Lx8bNNMFo4QN/6EIvzTAe387+2KQuIhax9HE91oBF0qwI2/kg59cKO1ki0SSgGYlohuCn7V+JHCOeMay96lkgRoKgCKg7HhKFriSXO5h4JIEIlcZrjIaxoT0YuPPQ3VHzxCzGrfMFdSDuIKLxU/zp86tLLkiB6SsaeZLQRUew3ed29i9YQp5P28+sfJGi/n12OI0EQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cFnyBiT/lrkM3aAVIKsMau7nQJGRSJcd83zTCarFwis=;
+ b=ZceZXy8gUobgaPs0LSMTMW75vInpwq5EbYxgXqjn6FrMZk8AcIYySfSrENR2rvzuSFB+oHYS1moB9lRU7LasI/CvNdXibUUjnrWodGH7efn9Sfa5NTqVDYlGhy42oi+U+Jr6yj5DwmZHB6p29h5dhOu5rgS0aq5huxAmpBjDMOzyp2P7orqiDu1d0EaQLU7xWRDCOwN9hmW850AQr5fE1EqpLfQnIuzb7/E4yo8FFq2BJ5s2ZVwuwryvt0QRzCYZT5YC3SwFvmJTwcnK1uCIW3UfQcXXH46tdaqtNSvhoiERgekMURsRhgIF8GIeJJJBePfFB80SZwVP9TMNBrupEA==
+Received: from TYZPR04MB7491.apcprd04.prod.outlook.com (2603:1096:405:40::7)
+ by OSQPR04MB7948.apcprd04.prod.outlook.com (2603:1096:604:28f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 11:46:48 +0000
+Received: from TYZPR04MB7491.apcprd04.prod.outlook.com
+ ([fe80::a450:2576:3b21:6230]) by TYZPR04MB7491.apcprd04.prod.outlook.com
+ ([fe80::a450:2576:3b21:6230%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 11:46:48 +0000
+Message-ID:
+ <TYZPR04MB749148EDFFEE323B5280786FF3602@TYZPR04MB7491.apcprd04.prod.outlook.com>
+Date: Tue, 27 Oct 2026 19:46:39 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v5 10/10] iommu/riscv: Add IOTINVAL.GVMA invalidations
+To: fangyu.yu@linux.alibaba.com, tomasz.jeznach@linux.dev, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, baolu.lu@linux.intel.com,
+ jroedel@suse.de, zong.li@sifive.com, andrew.jones@linux.dev,
+ anup@brainfault.org, jgg@nvidia.com, jgg@ziepe.ca, kevin.tian@intel.com,
+ atish.patra@linux.dev, skhawaja@google.com, vasant.hegde@amd.com,
+ joerg.roedel@amd.com, tanchi25@mails.ucas.ac.cn, gong.shuai@sanechips.com.cn
+Cc: guoren@kernel.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, kvm-riscv@lists.infradead.org
+References: <20261020094106.92722-1-fangyu.yu@linux.alibaba.com>
+ <20261020094106.92722-11-fangyu.yu@linux.alibaba.com>
+Content-Language: en-US
+From: "Nutty.Liu" <nutty.liu@hotmail.com>
+In-Reply-To: <20261020094106.92722-11-fangyu.yu@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TY4PR01CA0062.jpnprd01.prod.outlook.com
+ (2603:1096:405:370::14) To TYZPR04MB7491.apcprd04.prod.outlook.com
+ (2603:1096:405:40::7)
+X-Microsoft-Original-Message-ID:
+ <91c0077d-cccd-454f-8b5f-3984db27903f@hotmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,73 +104,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYZPR04MB7491:EE_|OSQPR04MB7948:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed54605f-fe48-4e5e-258f-08df341ffb9a
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|15080799012|23021999003|22091999003|55001999006|24121999003|19101099003|25010399006|4140399003|41001999006|51005399006|19110799012|8060799015|6090799003|5072599009|40105399003|440099028|3412199025;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bzBzYmFaaWtTeUZPRE5YL2RxcGlWRHpOV1hxam1WNnJyM0JVSFg5cjU0aWhK?=
+ =?utf-8?B?Sm00S0RMZ2E4OVhCRlZOblRjSmhYbEpFRGwwTGgrS2tkcHRFL1ZWelNYRENM?=
+ =?utf-8?B?OU9xaWVuemlPcjBaQlBmemhqSmRiMXF2dUdmODl0QzV4TWhJVzVwcEFVT2dy?=
+ =?utf-8?B?SW00MU03L2tBeGQxMFBWbXByVkl1RUFjQkFERTFKdkdSd2p6L3JFUjJzSjNl?=
+ =?utf-8?B?TzVCTEsxeTkraXNNbUQ5a0pLTWdtZzNyUWJMdEMzbE9MaW8vY2RZa0dLci9i?=
+ =?utf-8?B?NStLWEFVemxqa0kyaTRsOTBNVG9kcUtvWEV5by9UYXpTaFc2MlBkeHpBR3lD?=
+ =?utf-8?B?Z2tJSkQ3enBkcVdwclZSUmVwUTFoWXZoUVlVUm41R2VsTDFCMFF4Nml5MlVz?=
+ =?utf-8?B?RGgrWURpNytPUTk0R3RUWnhaNHM4eXNCV1MvelhDOVo4MVJkVVpHdTdwT1RM?=
+ =?utf-8?B?RUI2d2NISFJLM0xVelB6OFFLK0dlTjZmWWxSY2lQWFZqSGNIWTE3TjN6MkFD?=
+ =?utf-8?B?YkN0TmlBakRJYUtIQ3NocnU2MHZWSHZ3VWh4TG5JMUNKdy9mTWZiOFRIMXdL?=
+ =?utf-8?B?eXZFN2pJSFBLS1pveG04R0FPUnpyeWEwY29TbUxOOEl3TDZxZEk3YzRMR0pU?=
+ =?utf-8?B?ZTk1SGNhNHRJWDFqQ1dOMW9TWU9YZzE4K0JZN3NDZTFGb0U4bXRMNENnMzQ2?=
+ =?utf-8?B?U2dGdDUxVlo4TTduY1NOVGt5ekRqNkQ3TG9YeFZzOWs0d2loRUI1ejFRTk13?=
+ =?utf-8?B?MmRNMHVmNmhiWml4NDFxOUFTVkozZVdOdGxlREV1ZUYva2x6a0NQMFJaUk1H?=
+ =?utf-8?B?bjltb2JDeDdyWGl1NENKU1FSb1RQc2p5Szc3OTJMbHh5d1JHM3Aza1plbm04?=
+ =?utf-8?B?aWo3dUJ6TENFT3JXY1JvYnRTaThQaHdobmw1d3dOeGphK3pEN2ZIZWx6UmJY?=
+ =?utf-8?B?Zy8xYXkvYk9hWFM3bHVNUE5nMDlYOUZ4TzNmZmxvS2ZWazRmQjlrRzVBWjZE?=
+ =?utf-8?B?bCtBK0pVTjN2YVgwYnNmWC96RHRwK1o0THgrdXJ4UUFPaEswTnlObVhLMG9P?=
+ =?utf-8?B?WHEwdE5Xbk1abXc1V2QxUllheDBOQ1FuMUFFemxYVDlDeklKaGh0YjArRkdp?=
+ =?utf-8?B?VTJYMmw2MWFOZTl4KzVibS9JNmV4aHZpTkxxd3lJUjlpYkUweGQ5MXd2amlv?=
+ =?utf-8?B?QzRYOVpQN1IzVElHM3RUc2llekVqNHFJK042bEl0aHpwd3loUW5aNVVCbGJM?=
+ =?utf-8?B?UE9iN09FQkpvcVRnYk9pcmxtZXZSU3hpbkJlWDlGRTZyd3JRUFJNbWVxdWx0?=
+ =?utf-8?B?eUVTcHliZ0VpYW0wM1hralYzSzNHS2ZsK1UzQnU4cVpSVUtXRSs2UCtZN09z?=
+ =?utf-8?B?dStEWDc5aW9zRnhhcS84YW9vV2pUSzlucWYya2FGbWN1YWN0Qkh2ZGdEVlJt?=
+ =?utf-8?B?NUxkZHJkRnM2K0ZvUy8vN1NlMm81SEt5OTQ4eHhRPT0=?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YXgvWS9tNHdUdThPM2t6TlpiSiszTk1HWnlCVmcyY0pLTnJGelorbHlsSjBp?=
+ =?utf-8?B?UlFvVlpyWnE0VHZjTUtnaVBqbFQ0MExXeXlPblgyWkxhOW9kcytFMmdVZE03?=
+ =?utf-8?B?eno1TExHKy9zcEdHd1JmekM2N2N0aHJGWTJTVzd6YmplTlZKOTQyd0lyWElR?=
+ =?utf-8?B?a211WTNRaG1TTUFNTFpubjNySFFCSnpNTFcxemd0VFZieGVETkl0Y1JNRFA1?=
+ =?utf-8?B?MUYxVk83TElSLzVrUm1BRHRpRkVnMG0yTUxJazVuNVhjNEd0Y21NVjF0a0FP?=
+ =?utf-8?B?bDB5dTNyUS9oVFdOY1VpaHZLcnZsTjd0eGhmTmxybTRBbnM0UUVqMEl1YzJo?=
+ =?utf-8?B?VjEwNXZSc0toZW82QnJiOFlYdEJJUHdzbi9GN0hjdGxxTWJaMDNRcm52YVFO?=
+ =?utf-8?B?REFUa1lKY3VrVzB6WU9vUHJHMkxNc0VOYWJlbHBqckVTK0hKYkpHeUNnQTZt?=
+ =?utf-8?B?L1dQWHhEaXlla3FNWXdpb2RsdU94ek5ZdVNwYjRsdkRTUVAxU240N1BHd01I?=
+ =?utf-8?B?a1laSDEweE14c2U0M3g0anEzTEFzMDRDY2ZUeWlQSUVJU21YWS9xckwwSnFN?=
+ =?utf-8?B?bWJ5b1hnM2ZYcXFIUDU4cmM5REJGazI5QWdwSE5xM09lZndUM1VlRERhdTIv?=
+ =?utf-8?B?MHN6VytORytKcEszSjFXTGJNcnNOVUZ3UjI1eHpPRkYzTFFLcUtmcDFCUUJN?=
+ =?utf-8?B?U2pWTktUeDQ4RlVpMTA5VEV0bkd0L1RrTVIxOXZ0alJUdFpLNHdrMWd1YzZE?=
+ =?utf-8?B?ZDBIaVJ2K1hxL2dmNTRhVUhsYnpKNEhncVNNWjZheUxTWGc3N1dDUWNuN0JK?=
+ =?utf-8?B?OGZsWXk0T2VoSHgzZDhRTmswZTR2YUpaakVqSFhSUDZVMmhESkNKYXNEcXI0?=
+ =?utf-8?B?elBOMCtOelp1eVE5L0p3Nm1Zb0FMYUVZdGxwbExLRWtMaFFhVFl2NUFUOUFz?=
+ =?utf-8?B?T3pPQ0I1VzNJMjlyeDhuZTRTbW4zUENBS3c2elA4bXFUZERPTzc1L3JZRVNp?=
+ =?utf-8?B?SmdwWEF4dVAwVXBNalNyc2Vuays1bnhPNFJiUnJnTXFmcjh0dWczd2dnODZ6?=
+ =?utf-8?B?UTl1OHNPYi9VU0NPdkpRMFRMdmg4Tlo4aXQvL2lDNi9LdTFYY3U2c3hvMG90?=
+ =?utf-8?B?MUovcXkydnNwd2wvbTJRbjh5cHJoMGJ2RmtWRTM5Mi91aHRnUTd3VUNpNVRF?=
+ =?utf-8?B?bktIY3hKcVBPb2Q3cm5EV3FRUlhkRXVpamE0S3o5VmNYWGNzUUptVnF6Yzcv?=
+ =?utf-8?B?dXY1N3hwMUlZYi93UFl6b1hvMnpBb3RHZlJUM2pYb1dLUnNhb3dLVDRxZVZx?=
+ =?utf-8?B?NkJKRWdrSWVkTjdXQjQ0MkRQVTR5NW1VcXh1Z3EzVXFCQkZLeENQRGQzS0lT?=
+ =?utf-8?B?V2VsNjhaVFhGaXFlblF3cmRYT0hPWWRUWS91U0RGeWZjZHRJdTZWMlVLbkZJ?=
+ =?utf-8?B?UEVzM1ZMeDl6S2pqU2lYRzkyVGpwL2E3UWt1aFdRV3lDdGxwSG1GODMzSVQx?=
+ =?utf-8?B?SUdrTXJETmMzeU53VHo3VHh1S0tCNjZHZ0k1ZlhSNVNiZEZ4MzBteFhkQzhl?=
+ =?utf-8?B?NHUvTWdkMXJTejliTlkxTmU2cXltbnBieEpWcHlnMyt2QitiTlVUTnkzbS9E?=
+ =?utf-8?B?aC90WUtvbWJJVWRqWWhCZXgvNUk5eDVvVDJVUTJleGpTenJUeTBFQ2pFNENn?=
+ =?utf-8?B?UWVvRyt3cVZsTjNsRjY1YVN6blkvazRRVjV3YWpWaUlVSElvR2d3aFdyTkF2?=
+ =?utf-8?B?Q2l5VW1pMEtuUzRYT3NhSjNvSjBCSDRBYSswY0kxVDJiOGg1Zmg0MndYT1VJ?=
+ =?utf-8?B?cm1DWU5zdGlvWWU0SHBKaDZPWUpHM0ZaT3p3blFiU0tWcWxLQmJvTEJ5Vk8w?=
+ =?utf-8?Q?84tFBHjVWpd0J?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-c3e7a.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed54605f-fe48-4e5e-258f-08df341ffb9a
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR04MB7491.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:46:48.2200
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSQPR04MB7948
 
-Replace the legacy global 'pm_power_off' function pointer assignment with
-the devm_register_power_off_handler() helper.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/max8907.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+On 10/20/2026 5:41 PM, fangyu.yu@linux.alibaba.com wrote:
+> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+>
+> Previously, only IOTINVAL.VMA was issued, which is insufficient for
+> second-stage address translation consistency.
+>
+> Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
 
-diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
-index 2a38e00a10c3b..e282dd82ece69 100644
---- a/drivers/mfd/max8907.c
-+++ b/drivers/mfd/max8907.c
-@@ -15,6 +15,7 @@
- #include <linux/mfd/max8907.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/reboot.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
- 
-@@ -173,11 +174,17 @@ static const struct regmap_irq_chip max8907_rtc_irq_chip = {
- 	.num_irqs = ARRAY_SIZE(max8907_rtc_irqs),
- };
- 
--static struct max8907 *max8907_pm_off;
--static void max8907_power_off(void)
-+static int max8907_power_off(struct sys_off_data *data)
- {
--	regmap_update_bits(max8907_pm_off->regmap_gen, MAX8907_REG_RESET_CNFG,
--			MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
-+	struct max8907 *max8907 = data->cb_data;
-+	int ret;
-+
-+	ret = regmap_update_bits(max8907->regmap_gen, MAX8907_REG_RESET_CNFG,
-+				 MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
-+	if (ret)
-+		dev_err(max8907->dev, "failed to power off the device!\n");
-+
-+	return NOTIFY_DONE;
- }
- 
- static int max8907_i2c_probe(struct i2c_client *i2c)
-@@ -185,8 +192,6 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 	struct device *dev = &i2c->dev;
- 	struct max8907 *max8907;
- 	int ret;
--	bool pm_off = of_property_read_bool(dev->of_node,
--					"maxim,system-power-controller");
- 
- 	max8907 = devm_kzalloc(dev, sizeof(*max8907), GFP_KERNEL);
- 	if (!max8907)
-@@ -237,9 +242,10 @@ static int max8907_i2c_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to add MFD devices\n");
- 
--	if (pm_off && !pm_power_off) {
--		max8907_pm_off = max8907;
--		pm_power_off = max8907_power_off;
-+	if (of_device_is_system_power_controller(dev->of_node)) {
-+		ret = devm_register_power_off_handler(dev, max8907_power_off, max8907);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "failed to register power-off handler\n");
- 	}
- 
- 	return 0;
--- 
-2.53.0
-
+Thanks,
+Nutty
+> ---
+>   drivers/iommu/riscv/iommu.c | 18 +++++++++++++++---
+>   1 file changed, 15 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+> index e3791e912af3..a764a172c588 100644
+> --- a/drivers/iommu/riscv/iommu.c
+> +++ b/drivers/iommu/riscv/iommu.c
+> @@ -830,6 +830,15 @@ static int riscv_iommu_iodir_set_mode(struct riscv_iommu_device *iommu,
+>   	riscv_iommu_cmd_inval_vma(&cmd);
+>   	riscv_iommu_cmd_send(iommu, &cmd);
+>   
+> +	/*
+> +	 * Per the RISC-V IOMMU spec (sec. 5.5), the IOMMU may retain
+> +	 * cached translations across mode switches. IOTINVAL.VMA only
+> +	 * covers first-stage leaf PTEs, so use a global IOTINVAL.GVMA
+> +	 * to flush stale second-stage translations.
+> +	 */
+> +	riscv_iommu_cmd_inval_gvma(&cmd);
+> +	riscv_iommu_cmd_send(iommu, &cmd);
+> +
+>   	/* IOFENCE.C */
+>   	riscv_iommu_cmd_sync(iommu, RISCV_IOMMU_IOTINVAL_TIMEOUT);
+>   
+> @@ -1175,12 +1184,15 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
+>   		/*
+>   		 * else: IOTINVAL.VMA with GV=1,AV=PSCV=0,and
+>   		 * GSCID=DC.iohgatp.GSCID
+> -		 *
+> +		 */
+> +		riscv_iommu_cmd_send(iommu, &cmd);
+> +		/*
+>   		 * IOTINVAL.GVMA with GV=1,AV=0,and
+>   		 * GSCID=DC.iohgatp.GSCID
+> -		 * TODO: For now, the Second-Stage feature have not yet been merged,
+> -		 * also issue IOTINVAL.GVMA once second-stage support is merged.
+>   		 */
+> +		riscv_iommu_cmd_inval_gvma(&cmd);
+> +		riscv_iommu_cmd_inval_set_gscid(&cmd,
+> +			FIELD_GET(RISCV_IOMMU_DC_IOHGATP_GSCID, iohgatp));
+>   	}
+>   	riscv_iommu_cmd_send(iommu, &cmd);
+>   }
