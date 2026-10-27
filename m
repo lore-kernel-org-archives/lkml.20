@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793078912;
-	b=mUAY72dz14agRzg7h/jny2UFOUe5nG3tfyLc8LHmvnZBFuWpM3yURqRf+pcHlkt46Sjr
-	 h6XVyVBrJycFzv+/08AYYBhihrpo2RoTuz8Bq8C7IwsXHtSNCbp5MGtLaxZy4oTlb980v
-	 7v1XMEio6WK+TUKOrO90vd59SLIHrbPL6UpTSK8jt1OXfpbvdyRRyy3rwk9tNgUTyUs8h
-	 BmCQMXXN9/iQ4+nbAW29ZWy/BpBQJgX8bUyUZSOt6eODEMTHSqvrK6gpLAbfDui1qoiGb
-	 EG7gn6Ju8CXcb9pYpHwFw3d9c41K72PXNC2N4gsRDua9ZBKLADORyZRsiET+KOtDurg==
+	t=1793078919;
+	b=CVrvcXuTiAdg0yIN+mbeOIO1nqjwqrAvexK7rbhiUOdYgBL91/3oY1ZALggJMDCks5k1
+	 R4mvda8XouVHdIIKkAIZRYhUZE5rnwxgHM3NpkNa5aV+zjiCzdpJbGz0oTiJqVpEXZGxb
+	 U2xMbRQfVOLwff6WAkx70H2nkQUX/fRCctXL4C6fl50B+qFYY96huUuAIAoi13D2Sours
+	 YPQk2gmEHrTrWuFlzX3n5zxG2IyOWUQOPpL+djoIXEDscQnSymhHVWvOYOernO3WMbRe9
+	 TBnUCpzs+K3iUWh7Vef7nfsqtR+mdOmZS0JY1UF1/vS2xLt/Rv6qg+ciwp6ifj/oeUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078912;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793078919;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aUUrd4E5Xw5s9j+rkflFuxNd81QaxojYSSWf5OfPIxE=;
-	b=h0CNSL78zqJA0WnvTuOSOW0DboEt3f+/j+JvnL/cGCutGofJIfRzk1JraokXQu6KY3Et
-	 UbyWh7/wjtu3iB40LPeuEgPqlzYV3ruDaIKDhgzN58zxMvMifHAgeqkRqnJIojCzzWi9M
-	 yogl3itTO/v/zKYmrKTQZ7SDEOJtFnYPo1pLS6lg4bLB/G+23zcbQBqHI+FPBgIreemGi
-	 j6iDLKYDCRm1Kdb7vPJvV3C7sfl9/wLNVw3JLBDddM2JjPJEtM/Farts1GhORsvr7R4lM
-	 UFu3do0gVPoyQjwqgWV6SAgWEBmSsnDllDQleBDUzfcKbOD0cHXMg2/gtAe9xL8AfRQ==
+	bh=7ULKdw7nG1ai3r4qmUZgbvbhTa7bgBPZLif2ckCL4RE=;
+	b=o+lx4OrqPkCuzMI/qQRrwTWxU0XV+5LZU1BDcRuGemD4JH3JbQkJSHg6Viz6S5PgcYeZ
+	 KkS1Ptu1I3gIKuCTh2NkZilVJ5yQlkBhusrb7SIto+M6xWObyke8JUvgtBj0aHZW+XYal
+	 cmcJW1DSKqpa9lypS3efBnjbIY0jgegyjymF+k51hUh7LQMfwthpWRS8OE7nQk5eeTOmw
+	 LNQbbULS88Fm2Jc8JaV0K++SNR9/nS6tBz0K3RV8KJ4fh+5LyWpO50c7VeQX2cHwU0/PB
+	 T45oGRJUGkDTAAj56YT5ABBWvNTLoUDlQ1GhdIYEWxSnVA0y6AD6UCks+2IryBKgMew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YTmWG1ES;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="mNp0kR6/";
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E86A606A32F
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E86A606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF43606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:28:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BF43606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YTmWG1ES
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e96502e447so32264905ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mNp0kR6/
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e831e86ebfso23216295ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793078911; x=1793683711; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793078919; x=1793683719; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aUUrd4E5Xw5s9j+rkflFuxNd81QaxojYSSWf5OfPIxE=;
-        b=YTmWG1ESwbN0XwH51gxbHiAuUkW+mAIjKpnvoqopHe1qhUg7eW+lbxcGz5XtZKcgkx
-         LjZ6d5vGfifkLR8MRVuS5vA/rUcu627XdWcN8RkBDYq5ieXionVQSJScJ8j3c8CUZoGU
-         EdkIY6SXnrOXzpf7VqU1dEg+LVQki3PVsHtAUF/CHyTkbzItIdhw/uiU6mKI5dw7CeC0
-         uasVCFfjdntyQqjf1CoMkMxNuMUT4d7rU3IRh7vKIWTfxpODHg32T2UiL5iiq8rMqinB
-         ViZG1BEZfHodPejx73/d2VK2f34fbW3KrBEd2ZdZ8j4tqyTVhKkUpgDYpexibRKXN8Kb
-         XKTw==
+        bh=7ULKdw7nG1ai3r4qmUZgbvbhTa7bgBPZLif2ckCL4RE=;
+        b=mNp0kR6/8+rXV3/wgMuhgo+r7aGb+8okwnoahZdS4XbFD3lPv4O8pfgyykJFkA7zxG
+         q50iylJXYUqE1oNkhv6QhRN20B4/V11ggoF1T73+2HewZ96tnn4klnetG+6iUIarHK4K
+         FjULIrkHYom2wqihJmjz2z3uU/U45tCfLGKOg8CNJMewERo/LRWUu7sEJUOMArjIEmgb
+         Y/4dkoBaSIAMnn3fGQlpovVAsArSytXlUNmST5bBs9GJWA9dFM447fCBluCpZAma8eru
+         R4+yrPYRc+oeYG1o6Ou50HewqDYIuJ6TjIyMJNqN2ijTUCJxIP+Y/HuNzYFH7Tar/3v2
+         zKVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793078911; x=1793683711;
+        d=1e100.net; s=20260707; t=1793078919; x=1793683719;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aUUrd4E5Xw5s9j+rkflFuxNd81QaxojYSSWf5OfPIxE=;
-        b=btUZPJe/yn6u3s8puF+QQzLzM2EBtz6AM/R+DFmo9WZsPcBg9Ztha2QmJONJOBv5ge
-         gko+03v3mnuJEXvQhYzDaoGmeVf5z35fDW1p1Jrv6ZGY1IykstkjVCc+2uW3IkdiduoT
-         dug0XARglJS7u65t3mbZgmyLWZCE+NMgD+A/Z5/+Cl6yC7H3XkcsOxgpPm44QZ3ANb8X
-         uvqemvs2EhM9Rv6yNnoxCIVsQ/ZA+RV495txc68UrdWvn53AtWzdCZINGuvAhm4rSNjE
-         aeAnGXsCp7yY/TG6I+QBqo8IruOt2BlCQ4LtIQzQAX0xmItndnIcjYac5uCid49BDoSR
-         11mw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCDfCPK/XGD0UjKvajlv0vIfGjKXE7RmPw4tturYeX3565JG4FCrANVrWwzz6Si00Q+23Vk9xxANbePfM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMlPJ02hsDkXZf0aH4FhS+z9aZc1+q6EXSp5tSUrm0S+LaiI92
-	18ogONPD+sv282h5Id7bXsShzh/8BBGszdyrdBuB4Btd0a4ewfaJv71c
-X-Gm-Gg: AYBFou1EScYM4ZaX2tNVF5rK+PqwwdxTx+0jhg6k7mgXgRf/j01dUpEaqDhRKZmv4bD
-	Q9NXg57jTi8ESK9PU6SLSIkiLHP14OtDrD6uxV6GLtiPrTJyiWsStGvdNvCoKMnoAaegq/+bZLx
-	MrxzpHwJ/ZGguItJV7MiP8kxkgFo6bz0Gz/2n0ZB1y7l1NcoTNr1mzOi1KtiMeZ2DHtY1tum+5x
-	z+dvFSODaO7bSqBny2P//sT0sY0WFPOqHKdP02w9NinVIH6EGTK9QQ9m5231sIv0y+GcoHRvrvA
-	y7Cy6Sv8O5XJncsu6ZGaYDSVf7Fy/0bQpRpIaudXz54vcR7NQnwmPnJlB8qgE2mcfAr60xWMr/V
-	Vqoip48lQdsxTIy2t3Lz2fP5RT2A6Vzr3STOpASSJ5sdY4KuRV0HrggIPKlBpUxQH3EkI5Ca1kd
-	QeSj1nptt320v3EGXHwT1T382HRUp9DoUl7YeAd+QkrIN9XqARVUyuhyXg0eHNVeIiuxxQuCqh6
-	ekPHQjc0ByIgiRaW3cCq1xwvB0Z8Knb1O9JccSC7rARioN/sZUTX4QPt4xbu1APtWvgphaiarqi
-	wfjPNQvRNm3tYjObwp8l
-X-Received: by 2002:a17:902:ce0d:b0:2e9:7b4f:b994 with SMTP id d9443c01a7336-2ea9c7c8254mr73796515ad.33.1793078911484;
-        Mon, 26 Oct 2026 22:28:31 -0700 (PDT)
+        bh=7ULKdw7nG1ai3r4qmUZgbvbhTa7bgBPZLif2ckCL4RE=;
+        b=eaUvafhogPAWHx82kP8zcII3bdTbBfzf7EHy1obN63F3csHcV62wngRGRaLP7tVYgR
+         xP19D6/H5yT1VB2mxiOpbN20lbPYkTGMntQvFbu5VCej6nj00/KV25+M2ooYLjA5u15Y
+         pEwu78mc+XKrRtY+JlVkEjOd+hJzSPiMTyWqDzYufP1UEnTDBHCOZtC1zET28ZPWXKVp
+         6LFXJE3cK+YLQ+vq+uVDQAhVZs3q16ad7tf9J/NZTvhEVnwGzzm5FGIAZFWpHKCRDoKJ
+         3/S9lt+kK+M0MJdVAPnfFYIUKZAlYQM4Y3E0ciRksEPlWSTHqFqHwQSOVEOhc96tnZhG
+         Vcpw==
+X-Forwarded-Encrypted: i=1; AKwUvByPi1lFJlEK1KqOHcv4LebN6qL0V/QsMxzV314cz3fPWn2sqe3UiiiQ0+13A9sQX25jEdHT4Y/sV95FhCc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIz1g/o/y/o3YRlAlA72UQ73AqTgIED5OkVlM8l9YohHjqpUso+
+	MVzQlQTyyx+ltEkKwfyBJ13lIWJXI649gaWktbIRIHlrtwGZyjuuGCTY
+X-Gm-Gg: AYBFou2mu7gV645VDd6g8b6zJ7sbha6Y4LeRQklb3t8IR68LLFLmg/OVvnLZwJOkOLH
+	Mxo9lQMvWMBaInyQaCJyOynq8t8gAD6o0O5Lo+omQ4E3NeWAUkQZSHXM6KnMk/hAlDNjL3CuFcz
+	iHM4MoSNNn5+193veCR1+/WhK6ZoLe9WQEHb42G2Q71oA3ylRtcwej2TRHdKDjMZslLn86OQGrQ
+	A09Al5V/3GXy1Ce7RqT5lffHBnfNAV76yfHEc3llq9UEjnJTdFL+bbUCq0c2D4SbUJjBwLAYb5K
+	j2gl9ZcPbPIxAfbOoTM5ifCJOOgysmbdTBXi72H1N3FUAPYIVGiyqQCrpdSkjPNktlC1efPcjb0
+	jb6dXv7Gls1WGYhA6NQcyRJZ7c3p0SRXWu2h8CjMuJKxmtzUyuZdn5HDkM1sm8Z/fyo6SQ3DnKR
+	y2OFCZfGKSBWJLO9RzNkieJLnKGoWPNhsv9SNf3UHM/Z2nhYp01NnrePmqRojb+gb74xVQd44mu
+	MBbrT+hd2yxL5zjFj0E1w/xGpQG+A6xZoywo/HTywJWLL9js0EoSZ+f10GCnz99h0ISRESx/Bz8
+	1S5trRyMfyFhCuL5Kgs=
+X-Received: by 2002:a17:903:41d1:b0:2e9:5ec6:bfc9 with SMTP id d9443c01a7336-2ea9c6c82a8mr84726685ad.9.1793078918650;
+        Mon, 26 Oct 2026 22:28:38 -0700 (PDT)
 Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.28.24
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.28.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:28:30 -0700 (PDT)
+        Mon, 26 Oct 2026 22:28:38 -0700 (PDT)
 From: alistair23@gmail.com
 X-Google-Original-From: alistair.francis@wdc.com
 To: akpm@linux-foundation.org,
@@ -102,9 +102,9 @@ Cc: ojeda@kernel.org,
 	tmgross@umich.edu,
 	alex.gaynor@gmail.com,
 	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v5 21/23] rust: x509: Add X509 certificate bindings
-Date: Tue, 27 Oct 2026 15:25:34 +1000
-Message-ID: <20261027052536.1722081-22-alistair.francis@wdc.com>
+Subject: [PATCH v5 22/23] lib: rspdm: Support SPDM certificate validation
+Date: Tue, 27 Oct 2026 15:25:35 +1000
+Message-ID: <20261027052536.1722081-23-alistair.francis@wdc.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261027052536.1722081-1-alistair.francis@wdc.com>
 References: <20261027052536.1722081-1-alistair.francis@wdc.com>
@@ -121,170 +121,146 @@ Content-Transfer-Encoding: 8bit
 
 From: Alistair Francis <alistair.francis@wdc.com>
 
-Initial support for the kernel x509 parser bindings,
-which will be used by the SPDM library.
+Support validating the SPDM certificate chain. This only performs basic
+sanity checks on the chain before we continue on. This does not ensure
+that the root CA is trusted, we leave that for userspace to check and
+enforce. Instead we just make sure that the chain is correct, uses
+supported signatures and that it isn't blacklisted in the kernel.
 
-This is just a few functions that the Rust SPDM implementation will use
-in the next few commits.
+We then store the first leaf certificate for use later.
 
 Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
 ---
- rust/bindings/bindings_helper.h |   2 +
- rust/kernel/lib.rs              |   2 +
- rust/kernel/x509.rs             | 118 ++++++++++++++++++++++++++++++++
- 3 files changed, 122 insertions(+)
- create mode 100644 rust/kernel/x509.rs
+ lib/rspdm/lib.rs   | 12 ++++++++++
+ lib/rspdm/state.rs | 56 ++++++++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 66 insertions(+), 2 deletions(-)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index da8855899c530..66e18819d52b0 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -39,6 +39,8 @@
- #include <drm/drm_gem_shmem_helper.h>
- #include <drm/drm_gpuvm.h>
- #include <drm/drm_ioctl.h>
-+#include <keys/asymmetric-type.h>
-+#include <keys/x509-parser.h>
- #include <kunit/test.h>
- #include <linux/auxiliary_bus.h>
- #include <linux/bitmap.h>
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index e8b652faa3b49..aa95aafff8c49 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -153,6 +153,8 @@
- pub mod usb;
- pub mod validate;
- pub mod workqueue;
-+#[cfg(CONFIG_CRYPTO)]
-+pub mod x509;
- pub mod xarray;
+diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
+index 6b0be0a0303fa..5277fc8c56fb8 100644
+--- a/lib/rspdm/lib.rs
++++ b/lib/rspdm/lib.rs
+@@ -289,6 +289,18 @@ pub extern "C" fn spdm_authenticate(state_ptr: *mut spdm_state) -> c_int {
+         provisioned_slots &= !(1 << slot);
+     }
  
- #[doc(hidden)]
-diff --git a/rust/kernel/x509.rs b/rust/kernel/x509.rs
-new file mode 100644
-index 0000000000000..1b5bc2a99c91c
---- /dev/null
-+++ b/rust/kernel/x509.rs
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0
++    let mut provisioned_slots = state.provisioned_slots;
++    while (provisioned_slots as usize) > 0 {
++        let slot = provisioned_slots.trailing_zeros() as u8;
 +
-+// Copyright (C) 2026 Western Digital
++        if let Err(e) = state.validate_cert_chain(slot) {
++            pr_err!("Certificate in slot {slot} failed to verify: {e:?}\n");
++            return e.to_errno() as c_int;
++        }
 +
-+//! Wrappers around the Linux kernel X509 parser APIs.
-+//!
-+//! C headers: [`include/keys/x509-parser.h`](srctree/include/keys/x509-parser.h).
++        provisioned_slots &= !(1 << slot);
++    }
 +
-+use core::ffi::c_void;
-+use core::ptr::{self, NonNull};
-+use kernel::prelude::*;
-+use kernel::{
-+    bindings,
+     -(EPROTONOSUPPORT as i32)
+ }
+ 
+diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
+index 7799d4ac70c3f..aa36d4ce7b41a 100644
+--- a/lib/rspdm/state.rs
++++ b/lib/rspdm/state.rs
+@@ -14,10 +14,15 @@
+         Bound,
+         Device, //
+     },
+-    error::Error,
 +    error::{
-+        from_err_ptr,
-+        to_result, //
++        to_result,
++        Error, //
 +    },
+     hash::Shash,
 +    public_key::PublicKey,
-+};
+     str::CStr,
+     validate::Untrusted,
++    x509::Certificate,
+ };
+ 
+ use crate::consts::{
+@@ -97,7 +102,6 @@ fn exchange(
+ ///
+ /// `T` is data and an exchange function owned by the caller,
+ /// so the borrow checker enforces that the transport data outlives `SpdmState`.
+-#[expect(dead_code)]
+ pub(crate) struct SpdmState<'a, T: Transport> {
+     /// Responder device. Used for error reporting and passed to `transport`.
+     pub(crate) dev: &'a Device<Bound>,
+@@ -148,6 +152,9 @@ pub(crate) struct SpdmState<'a, T: Transport> {
+     /// Certificate chain in each of the 8 slots. Empty `KVec` if a slot is
+     /// not populated. Prefixed by the 4 + H header per SPDM 1.0.0 table 15.
+     pub(crate) certs: [KVec<u8>; SPDM_SLOTS],
++    /// Public key portion of leaf certificate against which to check
++    /// responder's signatures.
++    pub(crate) leaf_key: Option<PublicKey>,
+ }
+ 
+ impl<'a, T: Transport> SpdmState<'a, T> {
+@@ -173,6 +180,7 @@ pub(crate) fn new(
+             sig_len: 0,
+             crypto: None,
+             certs: [const { KVec::new() }; SPDM_SLOTS],
++            leaf_key: None,
+         }
+     }
+ 
+@@ -240,6 +248,9 @@ pub(crate) fn get_version(&mut self) -> Result<(), Error> {
+         request.header.version = SPDM_MIN_VER;
+         self.version = SPDM_MIN_VER;
+ 
++        // Clear the leaf cert as we are re-authenticating
++        self.leaf_key = None;
 +
-+/// Owned `struct x509_certificate` wrapper.
-+pub struct Certificate {
-+    cert: NonNull<bindings::x509_certificate>,
-+}
+         let mut request_buf = request.to_bytes()?;
+ 
+         let response_vec: KVec<u8> = KVec::from_elem(0u8, SPDM_GET_VERSION_LEN, GFP_KERNEL)?;
+@@ -551,4 +562,45 @@ pub(crate) fn get_certificate(&mut self, slot: u8) -> Result<(), Error> {
+ 
+         Ok(())
+     }
 +
-+impl Certificate {
-+    /// Parses a DER certificate from `data` and returns it with the length
-+    /// of the certificate in bytes.
-+    pub fn parse(data: &[u8]) -> Result<(Self, usize)> {
-+        // SAFETY: `data.as_ptr()` points to at least `data.len()` valid bytes.
-+        let len = unsafe { bindings::x509_get_certificate_length(data.as_ptr(), data.len()) };
-+        let len = usize::try_from(len).map_err(|_| {
-+            pr_err!("Invalid certificate length\n");
-+            EPROTO
-+        })?;
++    pub(crate) fn validate_cert_chain(&mut self, slot: u8) -> Result<(), Error> {
++        let cert_chain_buf = &self.certs[slot as usize];
++        let cert_chain_len = cert_chain_buf.len();
++        // We skip over the RootHash
++        let mut offset = SPDM_CERT_CHAIN_HDR_SZ + self.hash_len();
 +
-+        if len > data.len() {
-+            pr_err!("Certificate length is larger then the buffer\n");
++        if offset >= cert_chain_len {
 +            return Err(EPROTO);
 +        }
 +
-+        // SAFETY: `data.as_ptr()` points to `data.len()` valid bytes and the
-+        // caller has already checked that the DER certificate length fits in
-+        // that buffer.
-+        let cert = from_err_ptr(unsafe {
-+            bindings::x509_cert_parse(data.as_ptr().cast::<c_void>(), len)
-+        })?;
-+        let cert = NonNull::new(cert).ok_or(EINVAL)?;
++        let mut prev_cert: Option<Certificate> = None;
 +
-+        Ok((Self { cert }, len))
-+    }
++        while offset < cert_chain_len {
++            let (cert, cert_len) = Certificate::parse(&cert_chain_buf[offset..])?;
++            cert.check_accepted()?;
 +
-+    /// Returns the raw pointer for the X.509 certificate.
-+    /// This is what is returned from the C function x509_cert_parse()
-+    pub fn raw(&self) -> *mut bindings::x509_certificate {
-+        self.cert.as_ptr()
-+    }
++            if let Some(prev) = &prev_cert {
++                prev.verify_signed(&cert)?;
++            }
 +
-+    /// Check that the certificate is not unsupported or blacklisted.
-+    pub fn check_accepted(&self) -> Result {
-+        // SAFETY: `self.cert` was returned by `x509_cert_parse()` and remains
-+        // valid until dropped.
-+        let cert = unsafe { &*self.cert.as_ptr() };
-+        if cert.unsupported_sig || cert.blacklisted {
-+            pr_err!("Certificate was rejected\n");
-+            return Err(EKEYREJECTED);
++            let _ = prev_cert.replace(cert);
++            offset += cert_len;
++        }
++
++        if let Some(mut cert) = prev_cert.take() {
++            if let Some(validate) = self.validate {
++                // SAFETY: Call the `validate` function provided.
++                let rc = unsafe { validate(self.dev.as_raw(), slot, cert.raw()) };
++                to_result(rc)?;
++            }
++
++            // The leaf key is the same for all slots (MULT_KEY_CAP == 0),
++            // so just store the first one.
++            if self.leaf_key.is_none() {
++                self.leaf_key = cert.take_public_key();
++            }
 +        }
 +
 +        Ok(())
 +    }
-+
-+    /// Verify that `child`'s signature is signed by this cert's public/private key.
-+    pub fn verify_signed(&self, child: &Self) -> Result {
-+        // SAFETY: both certificate pointers were produced by `x509_cert_parse()`
-+        // and remain valid until dropped.
-+        let (prev, child) = unsafe { (&*self.cert.as_ptr(), &*child.cert.as_ptr()) };
-+
-+        let prev_pub = NonNull::new(prev.pub_).ok_or(EINVAL)?;
-+        let child_sig = NonNull::new(child.sig).ok_or(EINVAL)?;
-+
-+        // SAFETY: `prev_pub` and `child_sig` are valid for at least the duration
-+        // of this call.
-+        unsafe {
-+            to_result(bindings::public_key_verify_signature(
-+                prev_pub.as_ptr(),
-+                child_sig.as_ptr(),
-+            ))
-+        }
-+    }
-+
-+    /// Transfers the public key out of the certificate so the certificate can be
-+    /// dropped without freeing the public key.
-+    pub fn take_public_key(&mut self) -> Option<PublicKey> {
-+        // SAFETY: `self.cert` is a valid certificate pointer.
-+        let raw = unsafe { (*self.cert.as_ptr()).pub_ };
-+        let key = NonNull::new(raw)?;
-+
-+        // SAFETY: `self.cert` is a valid certificate pointer. Clearing `pub_`
-+        // transfers ownership of the public key to the returned `PublicKey`.
-+        // The `pub_` field will not be freed by `x509_free_certificate()` in
-+        // Drop
-+        unsafe {
-+            (*self.cert.as_ptr()).pub_ = ptr::null_mut();
-+        }
-+
-+        Some(PublicKey::from_raw(key))
-+    }
-+}
-+
-+impl Drop for Certificate {
-+    fn drop(&mut self) {
-+        // SAFETY: `self.cert` was produced by `x509_cert_parse()` and has
-+        // not been freed yet.
-+        unsafe {
-+            bindings::x509_free_certificate(self.cert.as_ptr());
-+        }
-+    }
-+}
+ }
 -- 
 2.56.0
 
