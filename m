@@ -1,48 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106211;
-	b=LY6eRpMvEQh6BDT9J7XL5550tFS5yen/N2KA3WAEB9Ohhwyxp430rDtZlxd78K/GfVRc
-	 z25K/GYPJ9ccfbK6zQs4UqsqMRouaypcGf3PViFh7sWuKUxjxHI4v/SuyuGRt0Fh5iBb1
-	 2oiECTpYgWzhOC+PevVLaFjE9NjK81cVQMZN4kggmEgBt33yZmMaRvBImXYQupL1wrAv2
-	 y6igpZLK/hbSU8yZ/rVIN3U16A7z0SeqmJhCXH2gFr5odVTgFPwSuVZIFqn0f8leXcedk
-	 lKJIMpyWJvKE5zvbNWzhPN2V1mY0toQRt17Jy7KITvmYKHBKoijVMHts8HYMkD83a0Q==
+	t=1793106212;
+	b=jGhKMtJ3BgjeXU7bBGu4dd/hFq+Dqcq+PhzMza7atjW1l3GSmklOqw1/G4FFCnaKJ6nU
+	 JKaYxaqHbOk51uBgRyfqqYyDdvy6rA/W1txlsWwxwD8Z6A7cVdckOBInfAu0cIWHq9rKA
+	 7UVMca+VvcLPUprB5MWvogdd//zmrsauafpDZS/a/CMVPN6ruxBdIIZ+4ZVjx9EFS4OkQ
+	 0HJsabR5SFulUDWCtnsIo1PQuu/rwyxLm7mTDQ2MzYIU1C6GiV5IiGcyO/PWRRUPMtvEl
+	 7qU4cbaLyTy3z4lxEKsr2d5KIEhRokySclyFIOmLuIcYzZ1eyccKH41FIBZSY//CqsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106211;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q7D2pDXqbZSONsr/MmRGENltL8knHH0R9po0DYvSbu4=;
-	b=NGHj0Rb+U6g+px1x2RPApyQgQHbQHOSEiBf5V9qZFLr+q1vo4tGA1EHW5C/EMBMW729N
-	 wqGAGys5LglK42tajiIh7JIPtvM7rePvEWtjr3btLj4qCgD9nER0YxXFZQD59BuhWaWI3
-	 bUMCnVgV2AmfmXyRphcbyh7oTLsLgQX0umwIIjMwIW/gZqSmfsEVSdfHhz7xCqpCWmZWx
-	 IF6H6j+zbxplIJ0zmTkhs1iOA8S25Rs7rfJ7AA7ClmNpjh5ou7n67Vf0R2+In38D+304p
-	 2acMpxNnvTixGqcaAchx/j5I5b9wEYJMugOQk/Ny5zUJZLe9UfVJjwtPQ/DZ9rvvk0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106212;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ReSdqMrGBGnsTnwVh5aa3vwJIfFSFewN0arb4MIegpw=;
+	b=yMV73lrpOOeKmwwXdgmmvYpulQ1XiDsS4rbz86NQFaGlhBH1zj0ZQZSDhA19E2Jx5ZPt
+	 DZ3BMOzs74NuW3gAmXV9K4fgv543B1SyNLI5IgBdblYO2oyLEyTa3qf8hoGE4JIZHQ5LM
+	 ANAdU2Aw5AmCvjF6gkS2XFktU/X/WW8ofp3O25bxrCmbapEY62BnZZovofjcnlu1pzbmU
+	 aQqHGHcxY/W9dNJ0bDVorChGP60cu/JyzKUb1XgFpFFbXaNq9/wLQke/avrBGlQRUoJwd
+	 jq5y1YX4dG4KcsCBjanW7cTXafImJEp0v7wKQ76utvuPJ4Z6UiD+hz7wpVByb6+lQeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FRpCV5Ea;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pwZubLos;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A19DA606A323;
-	Tue, 27 Oct 2026 13:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD3A4606A32C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:03:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD3A4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FRpCV5Ea
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1FB1F01829;
-	Tue, 27 Oct 2026 13:03:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793106211;
-	bh=Q7D2pDXqbZSONsr/MmRGENltL8knHH0R9po0DYvSbu4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FRpCV5EaSLtVC8eEMDVo0u1FmULq5zDGV8G+kIfW8i6YVeXP/TraM30QNhy3KXjGF
-	 TBnRw+JKmsEW853CgwTRSl8OoKlIpdTxwWbJMAFAK1gjL6W9P0tdldeDA4VYmSJsBY
-	 fjHs9KsqiPI4s5TiR4sQD1nIN+sMvB6zVtyxz+YpiyNGseRZEbTNv0cVqSqDevw32+
-	 jyhOI+3+bVZpLb5QwbsZvJVYVjx6dn6y8Qkmj279LOd+xdlGrO0ieT73YWk2/15IK8
-	 EQds5zruV+Q+e/YrZFZQohlrg2s1XdBdfdN2c57USCYUbV9pDRzr1P/bb9RIqoiA/9
-	 hAJ2HAAxOHgiw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 27 Oct 2026 14:03:06 +0100
-Subject: [PATCH v2 01/14] mm/mempolicy: charge shared policy nodes
+	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=pwZubLos
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a17a332ecso554799eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:03:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1793106211; x=1793711011; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ReSdqMrGBGnsTnwVh5aa3vwJIfFSFewN0arb4MIegpw=;
+        b=pwZubLosiPicmF6eOZkcnrmXKaKA0onFcjm5mWUKQ+V0EFxJ+Ny1krsU2gwo/ukIqh
+         rqUN13guldw8LZ6tfWAc0W2WKHDNYERK7ZP74wB8FueP2bBNXK3u1ZjeRuGOc1sMSpQy
+         f3eWBeCGblNzaC23usWJLhwYcfBo5g6Z5k2g0M1kQ1V5+BsNqMY0omu3RhL3UmBhhDTa
+         II3fH1sqsbJAufYvRV/OZbxhH9TbAV6O6b1ChNbIP8GO+fBZZHGIh7N6bSQxHIKc/44V
+         Wm7LF9P3hc7tBhnnSkWAUwBcF3UD9Qp/uepks4vAFBlxZ8Qmd3Khnm5hhAYEDg5biV5X
+         Zk4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793106211; x=1793711011;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ReSdqMrGBGnsTnwVh5aa3vwJIfFSFewN0arb4MIegpw=;
+        b=gllxa3wPOyFJ51OlJuba9ykRXk9sUNP+19a/Ib+FQA1xJPVbXaROrXlNCc8mtOC3r/
+         yX4PotcKG/kLDwpMpOJXPnN2tpPCMhhiZL8JiBg9EcTKkRQmJlsj7uy9H2kuzoXGNDwy
+         ZfWMb9GoxASlhTRq4MhKoPAtwLXHLjsnbsv7UaL4e7Ii5mLZJmMIxmqbaCZh8HybRe1Z
+         FdBSJWoMd/qx1RdvtNYwctBRehvP7yTNq+M2Dx/Q7BpC6S9eSfeanZF68ZzIl9zN9k2g
+         PGBow7DV2yOHeqOx1PjpkC7qbe/Sk9IYQVpnMedwzlc8EVz2OgAAzkZSeAIhM4x7/u7Q
+         beQw==
+X-Forwarded-Encrypted: i=1; AKwUvByDzOtupElnaYxCuQKkRGYVAGof4n5V5+U462jVO8EGJBZGRNz/VIimG9bBG4CR4oTPS7rpuphs0x11XE8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXL+SnSKYAgVTP35PvxvpTgsVfzcrgTtuDmyzRfCxb7ysYBz51
+	4g94fmJ1s5XeUHn13hHBc7VQOafsNP2MBCj3OwPCv/sj9Ol0jA1TQl06FNNbKi214DQ=
+X-Gm-Gg: AYBFou1Z0YeQNv2H5eO+o9EjjNm22GbCsfpAXenxE6ICc2/Ji2Ff0YJc+gaKBW5g4oN
+	vzfU99XwfbXJDcFm+JBiTJ5oU6CAxSIlp2Ma0AusvcrVfxBqdwxyYgOoRwfGkqbeKKckFyyTPjm
+	burkc01jWSJJuWikRwNxm+KT2XxsUgBGB/oSfcuyC+G7zgU5sv9HsvW/gQ0fuA39Ykr/6Yp8pfW
+	GRmoyZSQX4x3QP/6ck376DQBc/1Cd8VJBtbkk194GXgNeFCwlY91UHlG7BXXl6/CFh/qcl48pM9
+	9Nc9E6zqQq0JggtF/ZZeTwbs7yrIpngevYWyApl2lpbq9PGYFdo2xmKjWohWA71b1okGo6LyTAP
+	7HMMknKl/TeH4Jm8vJrFxZtBiBwZaAjjtumnXa7pgaHHvoNLOdQ31HgWnww2gy5Y9i+og8TipHM
+	hbdNYI0uHrpkQycTD8TMNXCg6AhYxWOVYnPXd0pGN8EP5sl34rYyZfV+F/Gx0b41v8Y03lMDKFc
+	/ZDzWDng55ccUIsATyzad0nogt+X37E/58jspFDG2K24GBQ9wY/6EMw27vmemu8p6yv2TEBPhHF
+	hGLaYIs02lJ6jqmTiH9MA+KpGkiFCw8R5DAu0zA=
+X-Received: by 2002:a05:7301:77cc:b0:36a:168a:96c4 with SMTP id 5a478bee46e88-36a168a9865mr1879705eec.1.1793106210431;
+        Tue, 27 Oct 2026 06:03:30 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7b23sm46576346eec.19.2026.10.27.06.03.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 06:03:29 -0700 (PDT)
+Message-ID: <f92baf52-bc4b-432b-bc0a-f39f59483805@kernel.dk>
+Date: Tue, 27 Oct 2026 07:03:29 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,109 +92,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/1] misc: fgds: introduce GPU-File direct I/O via
+ dma-buf
+To: Li Wang <liwang@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Pavel Begunkov <asml.silence@gmail.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <20261027090853.30099-1-liwang@kylinos.cn>
+ <20261027090853.30099-2-liwang@kylinos.cn>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <20261027090853.30099-2-liwang@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-fixes_shmem-v2-1-86a00952acb9@kernel.org>
-References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
-In-Reply-To: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Stevens <stevensd@chromium.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- William Kucharski <william.kucharski@oracle.com>, 
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2683; i=david@kernel.org;
- h=from:subject:message-id; bh=gtxaBrXycCbt80R146vYiuduiMmjXTomAHupfr8V11s=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeLBQIF+jI+L1r94RdB436LiUluq0JODvPmOXDkYDLc
- 8RbRe/md5SyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjARnXuMDJf8uF6o6vkvbVxd
- X2Xi6Dqf97lx3XWHy3xh2TMUmPOnJjIynJtZssWR/ceS7r5nvheP35HT81T10/j9Kl6zoGkuo30
- 1LwA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+On 10/27/26 3:08 AM, Li Wang wrote:
+> From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+> 
+> This patch introduces a driver that allows moving data between a GPU
+> dma-buf and a regular file on NVME without staging it through the page 
+> cache. Userspace registers the GPU dma-buf with the device, then issues 
+> read and write requests via the device's ioctls. Each transfer is direct 
+> I/O: an ITER_DMABUF_MAP iterator is passed to the file's read_iter or
+> write_iter, and the filesystem's iomap path submits REQ_DMABUF bios that
+> already carry the dma addresses.
+> 
+> Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+> Signed-off-by: Li Wang <liwang@kylinos.cn>
+> ---
+>  .../userspace-api/ioctl/ioctl-number.rst      |   2 +
+>  drivers/dma-buf/dma-buf-io.c                  |   3 +
+>  drivers/misc/Kconfig                          |  16 +
+>  drivers/misc/Makefile                         |   1 +
+>  drivers/misc/fgds.c                           | 506 ++++++++++++++++++
+>  fs/iomap/buffered-io.c                        |  11 +
+>  fs/iomap/direct-io.c                          |  23 +-
+>  fs/xfs/xfs_file.c                             |   4 +
+>  include/linux/iov_iter.h                      |   4 +
+>  include/uapi/linux/fgds.h                     | 124 +++++
+>  lib/iov_iter.c                                |   1 +
+>  mm/filemap.c                                  |  22 +-
+>  12 files changed, 713 insertions(+), 4 deletions(-)
+>  create mode 100644 drivers/misc/fgds.c
+>  create mode 100644 include/uapi/linux/fgds.h
 
-Any local user can bypass memory.max with mbind() on a tmpfs file, and
-allocate unbounded kernel memory.
-
-mbind() sets a NUMA memory policy for a range of a mapping. If the
-mapping is of a shmem and friends, the kernel also stores the policy on
-the inode, in a tree with one entry per range of the file.
-
-Each mbind() on a single page of a mapping can add one shared policy node
-(struct sp_node) and one struct mempolicy to that tree. They outlive the
-mapping and stay around until the inode is destroyed. The tree is not
-bounded by the file size, so the file can be empty.
-
-Memory that user space can allocate must be charged to a memory cgroup. A
-slab cache does that for all of its objects if it is created with
-SLAB_ACCOUNT. numa_policy_init() creates the slab caches for both
-structs without SLAB_ACCOUNT, so they are not charged to any cgroup.
-
-Reproduced with mbind() on single pages of an empty tmpfs file, from a
-cgroup with memory.max=8M: the global OOM killer killed tasks owned by
-root, and the machine panicked.
-
-Fix this by creating both caches with SLAB_ACCOUNT. This change implies
-that mbind() can now fail when running into memcg limits. Further,
-the policy_cache also serves task and VMA policies, so they are
-similarly accounted now.
-
-Note that per-file limits are not really helpful, as the user could
-simply use many files; having limits per user is tricky as well.
-
-Fix generated by an LLM and submitted by Chris Mason in private.
-
-Fixes: 5d097056c9a0 ("kmemcg: account certain kmem allocations to memcg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Acked-by: Pedro Falcato <pfalcato@suse.de>
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: smaller description tweaks ]
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/mempolicy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 0884c629670dd..4da1cb8777f68 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -3372,11 +3372,11 @@ void __init numa_policy_init(void)
- 
- 	policy_cache = kmem_cache_create("numa_policy",
- 					 sizeof(struct mempolicy),
--					 0, SLAB_PANIC, NULL);
-+					 0, SLAB_PANIC | SLAB_ACCOUNT, NULL);
- 
- 	sn_cache = kmem_cache_create("shared_policy_node",
- 				     sizeof(struct sp_node),
--				     0, SLAB_PANIC, NULL);
-+				     0, SLAB_PANIC | SLAB_ACCOUNT, NULL);
- 
- 	for_each_node(nid) {
- 		preferred_node_policy[nid] = (struct mempolicy) {
+What's the point of this, when you can just use io_uring to do
+the same?!
 
 -- 
-2.43.0
+Jens Axboe
 
