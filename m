@@ -1,100 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793111696;
-	b=tQPB35zOEoO+EnJbwK1aLb4uWpxYnU8Jyec53/rSLnb14yPBAqXGSYkFFX66jen2HHhb
-	 WJyLHaNMRkdcCZzrTZLV33y53hnV7I1LZOjOFz4P5232kSRgrTzWP66iLbTjrLCeHdaLE
-	 0uTQmMAvaVBNmmPtYOtKjtiK9Eq7Ec+XsAuDHwVxU5hsQ9G3nqGCdHFfN2/sDvntPnOPx
-	 CFbpRtV4R5FgKtM6W7G/cHFDDWH9/zR9zMwBtXipHQFrHKAZFVCY5iH72cCGoiOT4iaFx
-	 1Er748pfywhr23G4TVn8LdjcVtVa2GHGNfq0mNBik9pYPA4Wa8w1cV0eoe0lYNq9aoQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
-	b=FMNymwGQFeEI0ge/pro6LF4lA39Gczk28ljSwNUc0Lgb2ktUDH4A1dtk2OUqzVwbV3Uk
-	 jo8YLjcMyq4mSU8HQZgzOHorG9vZS/wtEnvfPIsm2kQfRHGhgEH7oVmydv+7kjNYqdHTp
-	 AbR7fhDieVeuo/d9EsbzMwUc6jay6YKpDpU3XSqh/3iNIXSUA/AdqGaTEuqcMNGe4ozKD
-	 ZoqhHt0E1t7bp9ZGnB/mFzqeTzvJ2s87cbrZIikEI7asyfYqL0CmIAHpA04Vye/YcofXE
-	 mu6rS9zYSWQOEy0zPT+WPcf/y2i+B3P3YQ/HDBoUWoF72wT0TRKYM7kKmkjA/zrdqUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gNL1x+Xv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793111722;
+	b=Nidc6BsmYVyEQLNBaGs6z2LpR5vfd3KJ+Cwv2Rhk1iJ2supVBYBoQj+xDVBmHopuAo+D
+	 ns2halMgfSFxKwfPj5jgOxvGedI1spsJIlpmelQ8d9GVcL9Cx2SLRXmHEvDXzRGOAeqIk
+	 fN39K6F5wIyxg+jAOix0v6ZkGW435FQDCsHkId67FuxO2oLy0AQ5YmupI3U3dbbTQIxGV
+	 EzOhwT5xoYJoAbLpjmYP4Y2RUHMdR6dqrg07OLQT1MGsAsCtdQIihCSVqD3ROlytNzzXy
+	 ci6KuXLSEOsL4sYsYwYPjSrk/rBv+pdOVDCEeBrYqdg0UnegeKYm2iFR07yuXsjcawg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111722;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=Q/JtrdSYqaoMZ5K50zjIe2pHdtAbZc6SNut/NqhXrVI=;
+	b=NiU/dUBYbQ8GhBqh0W+ACBCJJOGQCCRchQOBrKGdvJKLi7NOsPdvXitoLGyhVWiUJH1F
+	 lXmvDTqy8PV8l7+UHw+ddPoQWZ64NY1N5OnfnUVvsb/pD0o3JfG7OuGpON2A8gOApC15L
+	 siKqG/Ih7wF/q3TdBwTsXC2f+QuoIS/Ehf/Zn5qewTavbCpi4yY3w8nuAWs262aHZMbUj
+	 obm8xAB2CSxKQ4AYb6NsAXSrXLr7LEpJ2nV0ifzfUKkH1L7399xNTAB24xSkEcQZfRIRW
+	 aSHKEdepVHpSFPKP3Y9ttJfTgcSsoS6klomc4CE8cnbrQkL5AKXtwqf8HLbvmLCFbig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=howett.net;
+	spf=pass smtp.mailfrom=howett.net;
+	dkim=pass header.d=howett.net header.i=@howett.net header.a=rsa-sha256 header.s=fm2 header.b=aAGkOodr;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Qs7usP+m;
+	arc=none smtp.remote-ip=103.168.172.158
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C07606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:34:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38C07606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12C4606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:35:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E12C4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=howett.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=howett.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gNL1x+Xv
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-53669f7b518so44261151cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:34:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793111695; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GmNNYhsYa5gTUYl4CxY+bpx0/vhyS79Akznbg6snGWlJqfH8NWZ5tg+fB0JG9usFBQ
-         2qwJx0oo5oHfag10NK5EgnkxMZRUZiJzsqtnhQlzytmzrYTWMJg18FytmOB/8XQ1pfFO
-         5A0fdp1W5Ov+jYAhY/RyaakSWBatfhgKTZvLFU0G4RCAgVoAXPKC6lUGzoKuFtP+C4pG
-         YGUWpK/ytxpyu4cMWrwXAgNXve75epqVyLUV663fHytE33ycIHBjSkVw9KpINWmG7Ii3
-         KzfaFEIHU9ux0b3UdB3JdHxjey0VNB/xeAGpZQpwjsw3lJAsJOw3V2lDnOLaHUW3FBEf
-         vObg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
-        fh=Y5TMomttH+hkGkyUE6HzrG1Ls8HNMK0GG4knGGvygWs=;
-        b=kUIPn8bxJx1d8rE6hDX4Uk6Iq8KoRfIGBx7vpIg3pq+1Lnoh5+tADvIpqRdnOeNPkI
-         S74ZCNmPE1RAwRsh68tpfOoaEA3STzmw7pIiW+p+TjcmmNjhGwNOX6HtXidoRkrsq+xB
-         6dF+csvEu7nrWOpGuwT/rsW53OVbqOV/jzZZUuqiF5xtRWtbR2Hu4fN8dIfr+oqY9aej
-         w4w/InH75t6Yevmf6/zdvEQTJCKWPuxpYofaIxkgxtAAs8D2D+novqF2Z+sDxrEFHIkk
-         L8Y9yDC06KoaUP4hgGyWJn2rSmEiJ2zyiW/kX8UjQTJL21KNl/CcZc4frJ2Lq72fFB6N
-         s5rw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793111695; x=1793716495; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
-        b=gNL1x+Xv1DnXFPpzgePiAQuuZuxGQYp4vZ1KZEbsXr6VBegt4pJtXNzLeNxrCpoSCI
-         vyOi7v6/0+IApmMQXYD6AGe5EUrYKJPHhrDm8nm3kiAEl/doeYsPq0sQTlTGWyGIHSax
-         8uUnTg6CWkRGKsQ5Qzhc3YiWHw/HIdwgW7WIjIl/n587BwpsChYbbMrR1t33toZDX5pu
-         cO31gnJ7HsIsGJijHvaWYd7DrEnivbFfmTpnn+VmfvsLebMcgPHXqdxCtjs4hOFv+opL
-         /7mt9QweVw3fEG1JnW37At3rsmCLkOf1b6RdlUc9/i//g2ff+EPN3LK9o7hPShF19pzU
-         QRsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793111695; x=1793716495;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kpMVzTEsyq+10ygaZmcWH4opP1T6BP5uZJEA0uY70vE=;
-        b=0e4AScrcOKm/INJ7oXgwS1apl5obL+BLxgFWAmL1D04WfzdfvgJQpkMHf7keS1BOuD
-         Un/Ua6/pDjMlqKbXQCUgyzI1uXI9S9E2fio6oB0miZsHfjQLC/JvOZCpTvXrGAlIBDYR
-         wYL+F+H0ep+PdUncfltwyBa4OcCpGev88LIuhhGtqugXR9bLlBHxUw26hkGZxQEUK5WV
-         JiiKlhCg/9aJs+ECjuyrq/5BlC/2XnOhvGWPnVId79b1A/+WOmkfJS4DdMH85Y7iGqL2
-         ajVcvoEP02JNtoMeQM7uFL92yYcUU5zmWOLjjgshrTDrcg1W0Sl9/O3M/evJb/KRXzbz
-         kx1g==
-X-Forwarded-Encrypted: i=1; AKwUvBx8MimId4jZhc+gSxIear33pFA4Ef5ktsHhwz4ygBkb96myGJTjy471P+UtlMyryL4+RdpPgMhl/mvLFL4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIS/9Y214IxdyQ8jdkJWEoWDWBzvALimv0XooM+WbcWAGCUrtqG
-	/jniz75jcjQA5Ak4G8CvqOGmfrpijxbVJKM9ChLg21cHkH4gNLn9a1sL2RoZ59x8wxtu7dCuz5A
-	w/eKV2W6tiHynE0jeKcEMXGYUcIuoXWg=
-X-Gm-Gg: AYBFou3kRvDpxcG9nBnDCqZVCbIS77Y+Djg4V4mJZA/h4xVgZn77iK5LR6SgYGIT3OX
-	sw5qfKgZXFvdpLAL8+WZxiS1+ggPmKXjuD5ffN9ETpbs8ItjTQ2ebQLVsUUPe3zv6Ph+JJm2zMh
-	+j130MsFH1z0c8Hk9HlvfCH0h19ASXhG76iX82HO9LD/Mws2bOz2/0I6pJzZBEztGLCUeIIxqZC
-	XFToQ8Dk1Unnj/9z6HwQRNe9xLfInGOoU1hiOB0EBxNo382hs6fjYpIIn2Eg9Tm9RiK9TwGs6L6
-	oVWXo5/GFOlTuSYisUPfnN7j8yNHSzQ3IkccRMMGt+4tYUYNfoOgVc3y2XxcdO3rrlFoU+X7eoK
-	Bk9HbLzD+3B8TUZAPjB4kmzqfqlB2ulj/y2sLOOsME3BnaclaCgozN+qR1Ol4Duppi7OymNj3Yb
-	sdTWK2GL1fj2EqlRL0h51xOeHiPEJ25+8dC0mdxE8l8EvM/IWm
-X-Received: by 2002:a05:622a:90b:b0:536:6bc5:2fb9 with SMTP id
- d75a77b69052e-5383b4a928amr176076021cf.14.1793111694872; Tue, 27 Oct 2026
- 07:34:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=howett.net header.i=@howett.net header.a=rsa-sha256 header.s=fm2 header.b=aAGkOodr;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Qs7usP+m
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 16C0F14000E4
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:35:20 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Tue, 27 Oct 2026 10:35:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=howett.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1793111720; x=1793198120; bh=Q/
+	JtrdSYqaoMZ5K50zjIe2pHdtAbZc6SNut/NqhXrVI=; b=aAGkOodrm9GJSNDFnm
+	bwuSwi3Gs1GC4H6vg/Am/RahdumD8xkzGNxD0KEA2qOEtsEBE3MiUmOeh2qiq2XY
+	z+SJmQXIobQPNrDNlqT92jBTL2f523uHtKWk38lr08N/7Zg9JOxGasBXQ762wTQS
+	6+qfy3c0UhSgLiDZoATHg4+8N3hAzc8cSufHaOuuxL90M0Nzw+GVdu7MSoKJrGN0
+	4gHGEJF2BR9448G3cRkiEgXoORbKtqIviCaJw9ROAKKLUKwF4Pjda7QLglBCIg3h
+	4/BhzRfsznzHG1WWOa2ltwxtgLCvei+H3X/GCET4BE43fuOU9rsRx4ZYdMBCdJfP
+	fGrQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1793111720; x=1793198120; bh=Q/JtrdSYqaoMZ5K50zjIe2pHdtAb
+	Zc6SNut/NqhXrVI=; b=Qs7usP+m0ZhxSsgWlLv+ETSx+HPn72pGgoDm4e8HXHke
+	PgDH/0OqXOPhbuO6u/C8HxyYpctaj08fNnQ+KFpRBciQ0bmc8P3f0HQu4QmbHPS6
+	jEAWtZmo/Dhwqhmo6A2uanuCULZmF15V+al+FGCIo2IhFJ7bkMxFHTc7SmXXA3GC
+	ItB/+CzVU9Fd4nrSO43vxwJmrTYEHarNCvRyDeFbsG3re+MJoGp1HMHwhYUXqcyT
+	3y8Uvib0CO8KvUKEG3XNLEbJrgzaK3NIpYIY+3oZDOYA/IgR5mKN4uJE+S7LwnVi
+	HTbTgWpjN0bXGDOeqGVOdk4kxQ2Xz7HxdDwSPIogCg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=howett.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793111720; d=howett.net;
+	mf=PGR1c3RpbkBob3dldHQubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:L8e+5KJ6DzI6/nUbPSrhJavpTKJNGkZbIM923YJIJEeMWad
+	e8hSAy8+W/I79noME3XsqduHqajhB+GM1JpNYRwyo4HOy91nPcovumZHSv5+OnsH
+	rxcrC/DDQ11MSMymhD7KeAsPPfVvGrNaA/WnGp6QAIbdxEjAJclMqPUxaCiTXgp+
+	0tTNK/I/u7MKweV/Gx7/VMYdroU9KwDSEN2HxHdij0rbi1pTf5ZdvmUVd5xT7Q9p
+	xGhQWLlMqusQgEC/bI8+J+MrABvgewpzD+mgbG3EF6v6+DfAlcvjp5KNr9RqGmZ1
+	fPIobwd+KeGRzYbKR1VNqSLCWhkqsRXLvzre3Lg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=10;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:7MAftU3YGbzG9HxFexOx+ZJ+tmgk6HO3PnmxawkX5MA=:b7leeV9rfUv+9vbvtzbdB4Q/59mZHGYHICDYPmQ+tXA=;
+X-ME-Sender: <xms:p7bgar1KuJh1A8xSgJOq5WoB66K1tVhPsvuuKf7R5P3-eR45wkFIsA>
+    <xme:p7bgajYQx0nepxI_6gQHsx7w3DoWN9KwgzS_m1lzYz-z8ABgZ089xpPlVKVXDBWx9
+    ICpwLwNVI7IxrthelDXld_Y7azGp8cNAZ5X1-sKdoUeEbSVH5onRoyM>
+X-ME-Received: <xmr:p7bgajI6kG4WzDPhmvI7II3W7XR5GbbIyXAzQKZYWuiemJ8AeoyjgtlWFoKEEUxrr-YFLA8HRhmEnb9pn7vl7HpkNBG1xAhJAhmESv7lRn6nZPYMNqo>
+X-ME-Proxy-Cause: dmFkZTFQce6hq3A/PH9aM+qNxdORuWXaq7+Yjm+OUnPHnfDVZyqx1Ex6cpmILMwBRVk+m0
+    0lnTD5NfIWg41bWHXe3c+sfWEDYvTGq6jjyNiDCkygIxn5gXbgfIeaYtd+/3M9jGm5d8+n
+    NtPUaskUoMJUvCGbcPWp7DvSgyxuzkKxsYslsNJMTq/8RhLcwq/Nnk7BIFtdgc3mwgIa/C
+    07lkcJz2X86CSD5VwjX083wkVDSaku1iF4aFiIHaFEH7kxy9Nlp5QsRI1MW/LCy4rYfJB7
+    DB+qShCEiIMk07knNWIebV9+5LcW9jnA39KgYkfXfboTl/0i5HAUWnHYU6JKKiy2HZYaOF
+    ljSUgYcX7xvt1XP6RU4O12FQ3fewokslBVlz9xgVdjro4YhVTYGDBLsGIDWY4qyrzBkD6n
+    mT5dCLg+PNbSTRczyVU0l5NOwRWLi+uS9J9U3jFZlnMJofxxoWjDmBwtgX0qkE/ydqg2vM
+    VSnxMKJab6VSiPpMNfQyHBa20PTFJjP23butcaCbpT/Vyxxtc/sWoyqbX2XtIvjL/Gs3bC
+    90o96BbXS52c0yQJvZ5WlZINsX/UXM3LObxPdrMKXAMU5bFAU3dMqcJrmdJczEr/NZgx95
+    X8HCIxWLj9SaVXmlWxF2OCNx96YShP8nR2gk+eSyzY4KVQEg9WDKQBn6rhLw
+X-ME-Proxy: <xmx:p7bgaiHS-Tg4mgb9Zy-3RNoZsceBbswfzqYteQ_VMCKkkjWMcR5XAw>
+    <xmx:p7bgaquUnBfXnHVG-csukZn4i6Ch-6R95S6x3D28CRhLXwJUftaW2Q>
+    <xmx:p7bgahvzrhGZEkf674JNOv8wr8g9yK_OjLYL0EP3dE0-Ex7kU_DT-A>
+    <xmx:p7bgaoCgDyiz3gVo_ucz7uPBk0KKmLMyeb6AQuqVUSS9yI-Y564Qow>
+    <xmx:qLbgakuM4kV2XIz03-g0TOFXZVNmqo-cTpZO_31q7FU_84JDbA1K7bLR>
+Feedback-ID: i32264b73:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 27 Oct 2026 10:35:19 -0400 (EDT)
+From: "Dustin L. Howett" <dustin@howett.net>
+Date: Tue, 27 Oct 2026 09:35:18 -0500
+Subject: [PATCH v2] i2c-tiny-usb: add support for the Oops Electronics SFP
+ Media Buddy
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,54 +119,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012-fix-aer-mask-override-v1-0-49a0d7aeaea0@google.com>
- <20261012-fix-aer-mask-override-v1-2-49a0d7aeaea0@google.com>
- <CAMAsx6dLGdqr+ZxG8FrwN-6r=5yVY8hk-c+7CVrAkS0zpKPmGg@mail.gmail.com> <20261026175724.1482083-1-rathodpriyank@google.com>
-In-Reply-To: <20261026175724.1482083-1-rathodpriyank@google.com>
-From: Daniel Pereira <danielmaraboo@gmail.com>
-Date: Tue, 27 Oct 2026 11:34:43 -0300
-X-Gm-Features: AclHuK_njZlT_A6caNrXNbbG7gBGxHmrzYc6IWZzccr4qUxgXvxpemc8dDRNGgY
-Message-ID: <CAMAsx6fdOmV4DH4WCi6u_EadZxdEg10FFnAKSe=g7duTW+eDdg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Documentation: PCI: Document aer_inject's
- aer_mask_override parameter
-To: rathodpriyank@google.com
-Cc: bhelgaas@google.com, lukas@wunner.de, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, ilpo.jarvinen@linux.intel.com, 
-	dave.jiang@intel.com, prarit@redhat.com, ying.huang@linux.alibaba.com, 
-	terry.bowman@amd.com, corbet@lwn.net, jic23@kernel.org, 
-	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-i2c-oops-electronics-v2-1-0601f2ebf579@howett.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBBGr0Jm7Rhaw58r72FYQDvIGNOSTkUN4
+ e4WPIDLl3zvewsIBSaBc7ZAoJmFvUugDxmYsXM3QraJQee6VLmqkLVB7ydBepCJwTs2goW1p7J
+ oqlrbDpI6BRr4vd9e2x/Ls78nYfvaFiNL9OGzd2e17f4kZoUKDTVlPtSD6qvuMvoXxXh0FKFd1
+ /UL7wDVZssAAAA=
+X-Change-ID: 20261017-i2c-oops-electronics-5dd3659782da
+To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Whinis <whinis@whinis.com>, linux-i2c@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, "Dustin L. Howett" <dustin@howett.net>
+X-Mailer: b4 0.16.0
 
-On Mon, Oct 26, 2026, Priyank Rathod wrote:
-> The reason bit 26 reads 0b on the e1000e Endpoint in the cover letter
-> is Note 3 of Table 7-149: a non-VF Function only implements bit 26 when
-> Poisoned TLP Egress Blocking Supported is Set in the DPC Capability
-> Register (Offset 04h, bit 6; PCIe r7.0, sec 7.9.14.2, Table 7-280).
-> Per PCIe r7.0, sec 7.9.14, the DPC Extended Capability (001Dh) is only
-> applicable to Root Ports and Switch Downstream Ports, not to Endpoints
-> like e1000e (and in QEMU, pcie_aer_init() initializes PCI_ERR_UNCOR_MASK
-> to PCI_ERR_UNC_INTN | PCI_ERR_UNC_TLPPRE = 0x02400000).
+The Oops Electronics "SFP Media Buddy" is an open-source USB device that
+provides i2c access, among other things, to a SFP+ network module.
 
-Hi Priyank,
+It exposes a vendor protocol which is compatible with the i2c-tiny-usb
+kernel module. Due to a bug in prior firmware versions, that protocol
+can only be used with devices reporting bcdDevice >= 0x0101[^2].
 
-Thank you for the detailed explanation, and for pointing me to Note 3 of
-Table 7-149. That clears up why PCI_ERR_UNCOR_MASK reads 02400000 on the
-e1000e in the sample session of the cover letter: bit 26 is only
-implemented when the DPC capability reports Poisoned TLP Egress Blocking
-support, which does not apply to an Endpoint.
+[^1]: https://oopselectronics.com/product/SFPB and
+      https://gitlab.whinis.com/oops-electronics/sfp-media-buddy
 
-> That said, your suggestion to use "Header Log Overflow or Internal
-> Errors" (PCIe r7.0, sec 7.8.4.6, Table 7-152, bits 14-15, and
-> sec 7.8.4.3, Table 7-149, bit 22) as the example is much clearer
-> because those bits apply to Endpoints as well and match the sample
-> output directly. If you or anyone else suggests the same, I will gladly
-> change it.
+[^2]: Devices without the fix will crash and drop off the bus when this
+      module is loaded, which prevents them from being updated.
 
-Yes, I would suggest using those two in the example, since they are
-masked by default on Endpoints too and match the sample output directly.
-This is only a suggestion, of course; how to proceed is up to you and the
-maintainers :)
+Signed-off-by: Dustin L. Howett <dustin@howett.net>
+---
+Changes in v2:
+- Matching on interface class as well (thank you Andi)
+- Link to v1: https://patch.msgid.link/20261017-i2c-oops-electronics-v1-1-ce960f8f1b7a@howett.net
 
-Thanks,
-Daniel
+I think I've seen the under-the-cut behavior with adding Trailers with
+b4 in the past, and was unsure how to fix it. Thank you! It should be
+better now.
+---
+ drivers/i2c/busses/i2c-tiny-usb.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/i2c/busses/i2c-tiny-usb.c b/drivers/i2c/busses/i2c-tiny-usb.c
+index 73355a56aabf..07cfa6598a44 100644
+--- a/drivers/i2c/busses/i2c-tiny-usb.c
++++ b/drivers/i2c/busses/i2c-tiny-usb.c
+@@ -162,6 +162,17 @@ static const struct i2c_algorithm usb_algorithm = {
+ static const struct usb_device_id i2c_tiny_usb_table[] = {
+ 	{ USB_DEVICE(0x0403, 0xc631) },   /* FTDI */
+ 	{ USB_DEVICE(0x1c40, 0x0534) },   /* EZPrototypes */
++	{
++		/* OopsElectronics SFP Media Buddy v1.01+ */
++		.match_flags = USB_DEVICE_ID_MATCH_VENDOR |
++			USB_DEVICE_ID_MATCH_PRODUCT | USB_DEVICE_ID_MATCH_DEV_LO |
++			USB_DEVICE_ID_MATCH_INT_CLASS,
++		.idVendor = 0xc2f9,
++		.idProduct = 0x0004,
++		.bcdDevice_lo = 0x0101,
++		.bInterfaceClass = USB_CLASS_VENDOR_SPEC
++	},
++
+ 	{ }                               /* Terminating entry */
+ };
+ 
+
+---
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da
+change-id: 20261017-i2c-oops-electronics-5dd3659782da
+
+Best regards,
+--  
+Dustin L. Howett <dustin@howett.net>
+
