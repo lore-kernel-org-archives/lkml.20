@@ -1,93 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.155.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793128841;
-	b=O2knUFvsr8AtDSOZgZHmrWx6Fe51DYzM27LTYQd8ylrwXFJFWJ4LRitxKzIN1A1uVMiH
-	 Q7v6sdhOxy6ha3edS7Cp6Kk0LzW+b9I7FfRPRfkpIvfhMOI7FM1DApkPvGnGkv54nUNvz
-	 p6Fr/tzDwyKYUhj9ns75gZrsA2nGMhcUFcSjsEfaDwdvvsOsLyLUr6frYYST1Y6NZw13b
-	 ntjfBF+i7Cls90FQROvktz3N1TUu/hnqweryxU8KiZTgnV40zI0e79/0OjSVaF44SCj6v
-	 GzLrOdSm/8FgUc9NvtUYP1MimHoGX0IrzBekDD5ePmoWfHclK9FmhIemgvD+gKMUY8w==
+	t=1793128928;
+	b=rYAQ8S1zTa6BDQWbDEEBsqmsVBLtzi6K/rh2ZTL+1Aw2zqK16yc6quXFm1TRjI0UvUrT
+	 6KF7dDcjVazK7ZRhlxNNtLJ4yeo3X8iepNdyllJGKzYMEsmlrWK3rFwuk5OlnC/3qhV2V
+	 M12iXo3rT/IsCQhKFzHfS19QCIxYBNfTQQelttHMYKpd0zxZV4djwwhYHgoo1CUX5wT9t
+	 kRUikQvZymf9VLmGfFevxO2NfzFSHrVhc14r2Il1nABAAfHh8HtWK06FVXzXC5TPhR23J
+	 93Va2RhyAnN2CSRR77sJ8QNLpAOKTy81sSNZqoq+So/o+u1FdpQoydTAMGcMeq8/+7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793128841;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Hk9/0T79qmJBx1+aBaKaGLqZJw/M/AXieWp8XrsTCTg=;
-	b=aep0K+lnzj5+Y0+6IqhwRsL5m3RDI6osiV+9q1ThBwFWY2mLYCK1x5fj9/jrdbxF2c8d
-	 0nkg8VbABb5O/9ft88kbvH3uqNaOa8FOXv4VtTRbWmQLTPy+0P4lqSPNnwAQojpgv6+lA
-	 auyDaI3vKLFvL/JuI4TSlyla6EhY9GuSXWmO7t4UgFzqu0jJXedXzXHq9jOiIXkuqpDnA
-	 eV0R7sY75QjcQltpRPnmnrPj0OVTsU3EtUBH/ihWrKzwfkTactKEzXmglGpG4hiUye2XB
-	 5GS/6bQQbnk60yOBAFff2JBK7DU8CofmSP3/YWdjC6xTaNwNPsf1xxB1sdkrN1sM2NQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793128928;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=oSYkn3tPSYmfylFq1MY/pIePTVsMNstRYcijOc5Qkvw=;
+	b=4Wjj/RbVCNgHLu9HRVhhOp7Wz6bOiLlMNC/7d2aFmFOricrEYVgZfNWpQ936nqCFtHPg
+	 0EWFeheOKbxKqikxRZ1cT+fz0O3XpyADWPF1BG2M/BgUR5yZ2RwSr7COP5cNrh8szin6r
+	 hU83SOJgnPHA82SlHHFDU/IQYc/vg7Id5pO2rI7dT570yXQ1vXQV5O4ysAwXPAzTXiNAa
+	 11p04SzdkKFqUD+2i59b4Eq4GZMmbtxdQshOQMHO9GrJXOW5zso+na1eDtF8MDTzT58VI
+	 i1hfqbgYDICRJVWha1OE6D38GE9CMmr8SIigoXgz1j/siOBgVCd3k3N8/AnfhzaHuAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="QQkLR1g/";
-	arc=none smtp.remote-ip=74.125.229.6
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mythread.it;
+	spf=pass smtp.mailfrom=mythread.it;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=iGlFLHxb;
+	arc=none smtp.remote-ip=62.149.155.149
+Received: from smtpdh19-2.aruba.it (smtpdh19-2.aruba.it [62.149.155.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46C4606A31E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:20:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E46C4606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F50606A32A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 19:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54F50606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QQkLR1g/
-Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-33e48934fa8so58989eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:20:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793128840; x=1793733640; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hk9/0T79qmJBx1+aBaKaGLqZJw/M/AXieWp8XrsTCTg=;
-        b=QQkLR1g/+aSDG22UmIZXQnpCRa4u2Totc+OsjxD24KKdE44CNN5+V/iXKGbMy34KE0
-         9J/mdrs7iGN6Cblm4VspbDP498gyj0tj6d9hyieE0H8p4MbZE+EHmO6GiTSdTWP9Ujw6
-         xw96k0X6QJCDIXUvebMzlWbB7Jb91SoAcZd73u4N89bUACIqoSnmxiihSVjpw2GbKCln
-         noZFuc7jG6N7ev7Ayl68F9AuR36yDmAYpDcqJ1RZf3/VNORZWW/bKDsqLmgjqtIcCBZn
-         Wwt9m6d/4ACkqxnabKNpCc1rZC4TIZ5SxWFLlim33XkZBEGr2fnPTVUEVuUKDAFmP58j
-         oyFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793128840; x=1793733640;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hk9/0T79qmJBx1+aBaKaGLqZJw/M/AXieWp8XrsTCTg=;
-        b=r9Rr6vftfdYY4XGOo8/sCeohKDfWtE16r9IvmkKMCe+SqM+j1NI0sEYy59t8ltAcdI
-         IJ6h9TdNaZIszP36xAon8x/6USj3JMewSaAv/uibreQX/RqdUc/5yzAxoVeFZPBfr6AJ
-         mOIT24lulRgaKMMwZHoZeuZpVqPuSIMOW3nvsQgiuZ++ptBviwdbjlhhcYlL+wW9gK5a
-         ukWugRCLFiWK8YmD4GhRVaYvHV66zjYbDq/oN26skEbGObzdzvmTUbmB6aa7azoYCjvb
-         AOEwCCTvGbigc2RL9t/Cov1q8x4KT6hqoPmZEumT5kxIh9u4T8jqKjjoJyYkB6uzDSDS
-         KN/w==
-X-Forwarded-Encrypted: i=1; AKwUvBxACGcLWfGzywm4CPrppBjgQ4wHUlwDV7RthYKO6648chBhAOYnkvdOUMt/VmFZiOZu+UMDYQ2M2reyFS4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiuhLrgnAg9dhs6vUwhcdrxzG6kkIG/TYTAU6m+rR2C5j+zV+t
-	b387Xup1JpxHF1gsp6xvhUrQVi75MB+mxMSWf7Za7Ul9QvyMxp5NkJi8
-X-Gm-Gg: AYBFou3MnVfXcifEabnLgMNRPe2EOTuwJ4qVdlEkyB5JQ0Lta8PgeMkH7xACSgAKxnV
-	rMAmLtuYJjgkbd5GlnUofFqQuNtqfVRmj0LylCWy+6x4XEKTsb9DSWEO7nc4BozVFJgdDHJ4wpO
-	Qy0VmxoOtRARe0npR6re7o6EJgnBsG7WxfhhCEuiFRz3SawitywnlvCfbyG6qTmHTWRvZFIQ5fk
-	KooCS9FQ0mOtBT/HseYpmMaXSfaSc/sudcxsVthXoLsbHOIOPrR8BhD/QRuXHVjywsvdxq9pF8S
-	+flScxHPhUXCZ48e8a5xK02yjg523pl/kYE7x/Z8FwKEFivWm0gRZYrSOwbuCHuAlg+93wjIO/N
-	LiKlHmTw+A1bCgg0YWGyZiFRypGfT2QzXaC3yDZrmrhVHVchdp3RKkjKvoWmY5j98F8xHO9qPO/
-	wC/y/1tO0mTrZaaOIfZnPUZ0QaehO7v/gZpMW3sXHMzv9d+tr0SJnsw3xy1up5dEYOT9V7tdzlA
-	MHeyrn+wwMgE9gftf/mHBh3ruJEvkeunBfS1dh5MhsJgD5JQjLJT2TZl0Txc62VAgVhA7cKiCGk
-	5Kq4/ug=
-X-Received: by 2002:a05:7301:2411:b0:369:fdae:c9fd with SMTP id 5a478bee46e88-36a201132b1mr506995eec.13.1793128839731;
-        Tue, 27 Oct 2026 12:20:39 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8db7e73sm35948746eec.20.2026.10.27.12.20.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 12:20:39 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: jack@suse.cz
-Cc: amir73il@gmail.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v2] inotify: do not coalesce rename events
-Date: Tue, 27 Oct 2026 19:20:27 +0000
-Message-ID: <20261027192027.8617-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=iGlFLHxb
+Received: from fedora ([94.34.125.0])
+	by Aruba SMTP with ESMTPSA
+	id Lmk3xaK2cb24ZLmk3xQPmC; Tue, 27 Oct 2026 20:21:53 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1793128913; bh=Vi4/zqksLzLeB6wIQLU71fV8r0YSVyXdWoKGQv4Ax6k=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=iGlFLHxb7YXu6Dx0YwciZwyu1sg3QOGj45bF7KG/yOHlgFQae02Ll9Q0yfODvhMJW
+	 MIMt90nhgDbCWhn42dalW0HIQsTAZtbzxyv9la1hPprb9fnz7kDOaFqUREMpcFBvXz
+	 yOT8tkdG6maUheuYPIHqhBeUHftK3wwPPlGPVCT1iSpoN6S6pkN41JSdoOs8ROxc/q
+	 ErT9D2svgQ/3DWcQzf/lCtitvsqURbgeh7qaRykgDHS/EXPa9F3eONuT90sXJs4qDh
+	 405O6P94HvG8MLbZxG9uw6wUawhIbjhQG5L8A1Fszd3GkbNnmXZeOPYMvVYQ6lFO9D
+	 96BZg+Oydj+FQ==
+Date: Tue, 27 Oct 2026 20:21:51 +0100
+From: Alessio Ferri <alessio.ferri@mythread.it>
+To: Andreas Wendleder <gonsolo@gmail.com>
+Cc: linux-wireless@vger.kernel.org, Johannes Berg
+ <johannes@sipsolutions.net>, b43-dev@lists.infradead.org, Michael Buesch
+ <m@bues.ch>, kvalo@kernel.org, julian.calaby@gmail.com,
+ jpeisach@ubuntu.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless-next 1/2] wifi: b43: reprogram the MAC filter
+ after an interface restart
+Message-ID: <20261027202151.7dcdfe4e@fedora>
+In-Reply-To: <20261014143225.82149-2-gonsolo@gmail.com>
+References: <20261014143225.82149-1-gonsolo@gmail.com>
+	<20261014143225.82149-2-gonsolo@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,46 +68,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfAJtmQEREgsDqnAdqzUz0Ej+Q3246vMJHzt7XggsLVazcZXJt5c57BKP8Eb6JrBUVfoYtC6eTXmQOchC3TvvktmJ/+mdDKuzZy4pLvL4JagZc3KzJmik
+ 36PXRoicnrhN2JUak6xmjCXGjVZ6LFRew37CJurIDTUeGchl2zu4TfK59N4bpcyh6YCoVGIf7A57uOEXzptP4aN88cpbQoHRWHcC8qrEgWz994QeQAA9mqKA
+ VKFtoFzlVfohu4lRcBmPx3RAw+MlpXJiut8hsPd/5ps0xNYBmYuKZy38OY9kuZ8fgI81NSA3WPfFp+wNWHLH/uWyfKwUKqsmRFp9cAvxL15cLx3R/uwxbIi7
+ gWBhr2TODuDiqonXPHfj47spYYQd64LtapU3b6MV0/Q/Ovrlm5itwkbEaMh+8sYZ55ofRpHLu38JcWy4I96wmrbAvM8CvfWqPdkyGNBQeTbzl9S6xpA=
 
-inotify compares the mask, watch descriptor and name when coalescing
-adjacent unread events, but ignores their rename cookies. Distinct
-IN_MOVED_FROM events can therefore be coalesced, losing the cookie needed
-to match a later IN_MOVED_TO event.
+Il giorno Wed, 14 Oct 2026 16:32:24 +0200
+Andreas Wendleder <gonsolo@gmail.com> ha scritto:
 
-For example, watch two directories with IN_MOVE. Move an entry from the
-first directory into an unwatched directory, recreate it under the same
-name, then move it from the first directory into the second watched
-directory before reading the events. The second IN_MOVED_FROM is merged
-with the first, while the IN_MOVED_TO retains the second rename's cookie.
-Userspace can no longer pair the second rename's events.
+> b43_op_start() clears wl->filter_flags, but mac80211 computes @changed
+> for b43_op_configure_filter() against the flags it cached from the
+> previous run. After a down/up it can report no change, so
+> b43_adjust_opmode() is not called and MACCTL keeps the cleared filter.
+> 
+> Compare the requested flags with what the hardware was programmed with
+> and add the difference to @changed.
+> 
+> Signed-off-by: Andreas Wendleder <gonsolo@gmail.com>
+> ---
+>  drivers/net/wireless/broadcom/b43/main.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/broadcom/b43/main.c
+> b/drivers/net/wireless/broadcom/b43/main.c index 8f4aff3..57a5935
+> 100644 --- a/drivers/net/wireless/broadcom/b43/main.c
+> +++ b/drivers/net/wireless/broadcom/b43/main.c
+> @@ -4318,6 +4318,14 @@ static void b43_op_configure_filter(struct
+> ieee80211_hw *hw, FIF_OTHER_BSS |
+>  		   FIF_BCN_PRBRESP_PROMISC;
+>  
+> +	/*
+> +	 * b43_op_start() zeroes wl->filter_flags, but mac80211
+> computes
+> +	 * @changed against its own cached flags, so after an
+> interface
+> +	 * restart it reports no change and MACCTL kept the zeroed
+> filter.
+> +	 * Compare against what the hardware was actually programmed
+> with.
+> +	 */
+> +	if (wl->filter_flags != *fflags)
+> +		changed |= wl->filter_flags ^ *fflags;
+>  	wl->filter_flags = *fflags;
+>  
+>  	if (changed && b43_status(dev) >= B43_STAT_INITIALIZED)
 
-The original inotify implementation compared cookies before coalescing.
-The fsnotify conversion lost this comparison. Do not coalesce
-IN_MOVED_FROM or IN_MOVED_TO events, which carry the identity of their
-respective renames. Leave coalescing of other event types unchanged.
+Tested on DSL 3580L, with 4352 chip on 5Ghz, the chip transmit and no
+dma error arise. Without the patch the dma engine report an error on
+the descriptor. Earlier in June i wrongly asserted that the DMA on AC
+chips was needing 64 Kb segments, it was a wrong conclusion: going 64kb
+did stop the error, but for the wrong reason.
 
-Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-Cc: stable@vger.kernel.org
-Suggested-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/notify/inotify/inotify_fsnotify.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
-index 7c326ec2e8a8..6e3af6452dcc 100644
---- a/fs/notify/inotify/inotify_fsnotify.c
-+++ b/fs/notify/inotify/inotify_fsnotify.c
-@@ -36,7 +36,7 @@ static bool event_compare(struct fsnotify_event *old_fsn,
- 
- 	old = INOTIFY_E(old_fsn);
- 	new = INOTIFY_E(new_fsn);
--	if (old->mask & FS_IN_IGNORED)
-+	if (old->mask & (FS_IN_IGNORED | FS_MOVE))
- 		return false;
- 	if ((old->mask == new->mask) &&
- 	    (old->wd == new->wd) &&
--- 
-2.43.0
-
+Tested-by: Alessio Ferri <alessio.ferri@mythread.it>
