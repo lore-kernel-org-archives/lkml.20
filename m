@@ -1,92 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793111093;
-	b=0OyxTImk5l86V4GRkgXdaI78+2vXVyaRDYfVtoKpuum8iUqa7OYdh8Ngd5MwPfIYPkPd
-	 nPFwRM6XfWESLPG7RLzNTzk5b5EJKJXqiPSukLHzMy12wvIcvqvxZxbsn9wKROTkpuqVR
-	 bhKEjfjDaJ0QJBjipGgi9d5I6VHoPCuWn5eo0CIK/Xk4Hywa1pA1A++rTPV12XyegDqRZ
-	 k/M/Rfs4yekRxay5Aca5AWnd9VA86h/PzKOhiJicW0kzFZ5uLRRaEMbwpi+r9hx0BREA8
-	 nN8Vk+ComWMKCI+rCwxii5yIkvo47tYbm1Q9zrOOLhlsql7r8sgIoklfmMuwGCiZvWA==
+	t=1793111141;
+	b=47cPj/Rgye+fkcQCHdCHkxSchCmZH6U6uLlkhAJelEGf0nmKlRuFe4GfDp8Oi2HfN1yV
+	 p3vS9wvMr5YinIbwSh4zFVgp4nclFG8si1JE3z7/7td0KbMT8Agqq6HIgt4mCB9W3tE7C
+	 HiIaergqbx2X+P+5fyTxK2kZV0aqrn5VyFZ5/kPRkdUI+36+gTKT9Tsz/A4zTNR8L/MAv
+	 nnhqbFifUney5ggOD1UDzKPMIoP0iM6xZXqrIPGPv86yxCs+YboCytUxDDlJTkk2d9t48
+	 1sEFUoac2hO6/zb0RMeyQpBhWCV23OSXG7Ao99UQhRgxfdzquCKU6OfnlI7tviI3vXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793111093;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=yEWNUsKm7Qc1kCh6w8kIYNOu8KlZoqm6MpCK94ycMCQ=;
-	b=cpy+SCCodjHAbIibCHwwgC1yVSJgAGYCTveBIkE61X5nlE+SXEuZ3/5uDHL4nci4dT/5
-	 JZSrcCumh2K510C55PvGAurf3FXEK7bQmWTe50lHgonn85kygcPiXPYk+cdonyRIo/2ey
-	 bJu5bzdgMyD2J1njr4o66dxL6CyQmjvxH136sdi22A4oyb0CZQ9C6ydtnks50hpRrTHfX
-	 AGEyd06MQLylhQv6oZ3ZbAvWR9LRm9cMdSv9B61nTCeQXJzvHmE1HY5S8lZVkOMp/0G9r
-	 8fEJZQr3YD9qpqHrD8bKItwiBymbR8gG37fuQTigsJ7JEdHBbefzjYtm3t4jg72eZ1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793111141;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=PFhjsSzjrSaqA5+aCRY0bUwXIe0fg6PlHgdKnIMoQmM=;
+	b=E3gonXUpAQQi5TiqYvdzlYt4DoCWlpkNkJJIVQMExL0HZXXM6nZcDThmVPyGqzXvrVL2
+	 ixlNmSh31PKHSRzXrMfBLnK1dNaMk8Ukah5rK1ILnAJPAw92nzVzGFlAgHGL+QDSZ2aYH
+	 CkUTcMxVlrjcrzzZgEwE79QMJBE0TAKe3JPebpOFGy88ssinflpwiyXEYB2X7L1qa2E5l
+	 3oVQy0ohGBH6NyQiRbZLyyWl8LDbxjukkgvriyY0N4eJUPIjJnI53yNnexR7ImOD0KmWF
+	 bhNjJ8aE2+U2iqcG6UcYwhMIbeSdYfcDiEUW8+F5LJ7yp6CVEx6V7xn35wyDQNAWK0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgwN6bZV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSWOy8LJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69ED0606A320;
-	Tue, 27 Oct 2026 14:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E480E606A31A;
+	Tue, 27 Oct 2026 14:25:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgwN6bZV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F6C1F01829;
-	Tue, 27 Oct 2026 14:24:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jSWOy8LJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624761F01825;
+	Tue, 27 Oct 2026 14:25:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793111093;
-	bh=yEWNUsKm7Qc1kCh6w8kIYNOu8KlZoqm6MpCK94ycMCQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HgwN6bZVSUvTEunIB0n0MyBbWfBY7/m0OZZbBqEDyRGpJzWLSF4fj2DkpSNOuXuTP
-	 X/XJkJp8r5GlB9zJTg2bgYUVBGrUjDGQDuiQ9f68r1uqGLD5Nt8R/4wGDkLqHf9k49
-	 xOURNRPZjiEh5g3Xm6PGr+wf/pQ8pXNGV7MAmeCuqyS5bNFv1R9J1rOkST7t3xvyij
-	 kSTgfjfCySOpTAZNGp3xZ9dYv0FLwlvLalScpzvS2/rDFGO87rrpJjeaOV9ZyqD4Eb
-	 UJ2ihgd3bkGDQewz574T+BDecGLsrnzLuKN4jWd/XBkleqddfmZSIPN4V/S7+J6uhX
-	 S7t9vG+/GHWmw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id EA8431980047;
-	Tue, 27 Oct 2026 10:24:45 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 27 Oct 2026 10:24:50 -0400
-X-ME-Sender: <xms:LbTgah0Y2zUPM-xl095OIMJHEEk1nZLl-Xwkwcr3ihWoTEXW7hhyKA>
-    <xme:LbTgavcSnHTljp_qgS-o-aGa-RdYdxJx8almLF0RvrQDy82IxyAZM8QgP8aCesr3N
-    i8Y_CPaqbelc9CSgeY7LKlahn6_GDfBCn_m4lXNKKymEDXmzM_GN9x7>
-X-ME-Received: <xmr:LbTgasMkIrRCiVWd4olqDjheZxCHlGu28Zg_-RduqHp4oo75tJbWsdNjsjo>
-X-ME-Proxy-Cause: dmFkZTEY7jaHDxQTEHTExXmqATn3TLnQPFgZZSRP0UGVbFG61dzcxdwg1+6lqF/EbilMy8
-    kGIUZu59aEs28drJOODW15kao7vxrYDqwJWwMD5qolD3GG5RJNK3YouzLlKD4P5N/+AnT/
-    V+KB46kMbRC/tqkZ7JM/qFMTKwgFjdtx8NJuqp8whRVPFF/LABQe+3fjRdn8g8HHcwQWQ0
-    /JIv4J9NBgrVmUFlnH/h+d+lra/nEXZZ6i72c+v7yPQ/0iN5IPmbKaFLVVqZqs/TCC+doQ
-    NKK5Z8jg35RfRe1XoCKltDFCkiubplQ/n2C6OV5aNqtcGJKNis+aP3phFz4wOInMw6NHUZ
-    oBxkpCoYzMXHT9otR7FxT3RKzIHyZDBPWEqfjYqxrAmY0kbhT+WCr9jk4x4n/ptOHxmBOI
-    K7VN4ooTSjgriQG70UUfAvtbgY7whOPgODYDICVDtzBDDegIDa5x1061P0tRu7XDJnr4Ac
-    01roTkEO7+e+nyRlPAXCyaaEDQ6IojvMMMtZ1G0pHZepYB29zVeTbzwsI+ZD/QKrsskd30
-    sO7XbzjtRDPjp83vRAXtnLG9BOcbcLqA85OG4/w1e4HYBFIkaqQ1uzGj6+91RucfEjxNZg
-    3TmZM5JelINSN2jKAecBHsE/BdpGGzW3wpBbodKNcSEotpAqHgYegXN90QXQ
-X-ME-Proxy: <xmx:LbTgak0WwXqcogqRvas4QCxiGAPXeKPTd37Miz5AJK1hi1YjAK-J1A>
-    <xmx:LbTgan1DufEsTFW9f2ItVSaUyEdhgCeqfAWV5ZMVZI5xtnd7-Tn3Ww>
-    <xmx:LbTgaiULC2sV0jVr2uVPOMjZvUTfgMHSTqZBB4QZqi2AsNo7QkYTWg>
-    <xmx:LbTgahiFu_fq0FMpKro8JZ7vva5k21ZPLUGrewRqjHdfFedeZq0dIA>
-    <xmx:LbTgatJsqum3IFN3Q0rVKi8wl6c9tMliCODtpaMdX9s70a9rri26ZS3H>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 10:24:44 -0400 (EDT)
-Date: Tue, 27 Oct 2026 14:24:43 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>, 
-	kvm@vger.kernel.org, =?utf-8?B?TG/Dr2M=?= Molinari <loic.molinari@collabora.com>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v4 3/4] mm/huge_memory: read a special PMD under the lock
- in copy_huge_pmd()
-Message-ID: <auCz5LKkNatuoIxM@thinkstation>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
- <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-3-66f00b7a564c@virtuozzo.com>
+	s=k20260515; t=1793111140;
+	bh=PFhjsSzjrSaqA5+aCRY0bUwXIe0fg6PlHgdKnIMoQmM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jSWOy8LJkxSak6c4LrJF2hwurtL3ucz2THXT6d0oHTxI9m1wovlLyhOJHhUd6RTa/
+	 cggsX+CFEBWxuO8U3lTyg83IQBx8Inwaoaf/1TlTOWKe8f8XEAe5mInFdhIlEJOFnY
+	 Kn5ebNwLb/95HniTpqjyuCnviZysgwKWv7Ot5WGh+X/t7wcwUJpUzqLsDjrjWMixsX
+	 5lwZjWuypADQXVuRKqWalOX+tgIbIJFVhCDXwwzsQXzk30xvIGOpM3MEV+MA95F23E
+	 yyz++iSrSpqSDlNfloyjH+X5bES8Sq5NEKpag51F2qXPPI+MKig2kmr1qEa0c/doy5
+	 xIHsem+WCwhZw==
+Message-ID: <1c61eeb7-5fad-46e5-9643-e99050b9042d@kernel.org>
+Date: Tue, 27 Oct 2026 15:25:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,55 +51,290 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-3-66f00b7a564c@virtuozzo.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] mm: fix pfn walker races with memory offline
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-cxl@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org,
+ vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com,
+ linmiaohe@huawei.com, nao.horiguchi@gmail.com, ljs@kernel.org,
+ liam@infradead.org, rppt@kernel.org, osalvador@suse.de,
+ muchun.song@linux.dev, iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com
+References: <20261027042204.3741307-1-gourry@gourry.net>
+ <01d7d54d-0047-4eb6-a1d2-5b3f113f26cf@kernel.org>
+ <179310071902.664110.12994053710961856591.b4-reply@b4>
+ <9051ac3d-60b9-4ed2-b781-b7191898bc83@kernel.org>
+ <179310895201.1491991.14362391061932133491.b4-reply@b4>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <179310895201.1491991.14362391061932133491.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 10:36:02PM +0200, Konstantin Khorenko wrote:
-> copy_huge_pmd() reads a special PMD without the page table lock and
-> copies that value to the child. The mmap write lock held by fork does
-> not stop unmap_mapping_range(): it zaps under i_mmap_rwsem and the PMD
-> lock.
+On 10/27/26 14:49, Gregory Price (Meta) wrote:
+> On 2026-10-27 13:51 +0100, David Hildenbrand (Arm) wrote:
+>> On 10/27/26 12:31, Gregory Price (Meta) wrote:
+>>>
+>>> I actually have a reason for these fixes other than "bot said bad".
+>>
+>> So you found them on production kernels?
+>>
+>> We did not have a single real report of that for probably a decade or
+>> even longer in production.
+>>
+>> Recently, we had the single first report about the compaction case from a
+>> stress test (no production):
+>>
+>> https://lore.kernel.org/all/20260903095543.3752338-1-yuan1.liu@intel.com/
+>>
+>> "We are not sure whether this race is reachable under realistic
+>> workloads or only under this synthetic stress test."
+>>
+>> Where I motivated that we need something clean.
+>>
 > 
-> The zap visits the parent VMA before the child's, as dup_mmap() links
-> the child right after the parent in i_mmap. If it clears the parent PMD
-> after fork has read it, and passes the child before fork copies it, the
-> child keeps a mapping the driver has revoked, for example:
+> tl;dr:
 > 
-> - vfio-pci: the child reaches the BAR after the device memory was
->   disabled or the device was reset, instead of getting SIGBUS;
-> - panthor: the child maps the pages of an evicted buffer object after
->   the driver has released them.
-> 
-> The same branch deposits no page table under the copy. ppc64 in hash
-> mode keeps the hash slot array of every huge PMD in that table, so the
-> child dereferences a NULL table on the first hash fault, in
-> __hash_page_thp(), and on the zap, in hash__pmdp_huge_get_and_clear().
-> 
-> Take the locks first and let vm_normal_page_pmd() tell a PFN mapping
-> from a folio under them, as copy_present_ptes() does with
-> vm_normal_page(). The zap clears the parent PMD under the same lock, so
-> either fork finds it none and skips it, or the copy is in place before
-> the zap reaches the child.
-> 
-> The copy of a PFN mapping then goes through the same tail as a folio:
-> 
-> - it gets a page table where the architecture needs one;
-> - in a shared mapping it is marked clean in the child, as a PTE is;
-> - in a CoW mapping, which only VM_MIXEDMAP allows, both sides are write
->   protected instead of a warning being printed.
-> 
-> Fixes: bc02afbd4d73 ("mm/fork: accept huge pfnmap entries")
-> Fixes: d1503aa9ab80 ("powerpc/64s: Add support for huge pfnmaps")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v1-1-d225c60bc316@virtuozzo.com?part=1
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> while these are ai-generated, I'm not posting untested, unreviewed
+> schlopp for the sake of getting patches upstream.
 
-I have limited understating of VM_PFNMAP/VM_MIXEDMAP, but looks okay to
-me:
+Appreciated.
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+For this long-standing considered low-priority thing in particular it is
+reasonable to go back in time, see how often it was raised (quite often by me)
+and how often it was actually reported (I found one case).
+
+Then discuss the high level design in more than a single sentence :)
+
+Discuss why we are not using it for other pfn_to_online_page() users, how it
+interacts with zone->contig etc etc.
+
+There really isn't a lot on the design in the cover letter.
+
+> 
+> I actually care about this issue.
+> 
+> ---
+> 
+> Some of these don't show up as crashes but instead as hung offline
+> attempts (GFP_KERNEL landing on movable).  That shows up as our
+> hypervisor just failing to overcommit / guests hanging.
+> 
+> The compaction/alloc_contig bug is one I've seen in production.
+
+Right, but I suspect that's "[PATCH 4/6] mm/page_alloc: don't undo another
+isolation in alloc_contig_range" which is *not at all* related to "mm: fix pfn
+walker races with memory offline".
+
+> 
+> I've seen a handful of NULL derefs in production i suspect are the
+> zonelist derefs, but it's hard to say (they're rare enough that we
+> lose the dumps before someone has a thought to pull them).
+
+That would be interesting to know.
+
+> 
+> I expect this will scale up as we increase the number of VMs and
+> the amount of hotplug we're doing.
+> 
+> For clarity, we use ballooning + hotplug as a combo:
+>  - ballooning to do cooperative overcommit
+>  - hotplug to defend host stability when the overcommit ratio is extreme
+>    (basically deflate_on_oom because a host stability issue)
+> 
+> We're pretty aggressive about ballooning guests to squeeze them and
+> dropping the balloon to hot-unplug that memory when a guest is cold.
+
+Yeah, that makes sense.
+
+> 
+> 
+> skippable side note on virtio-balloon/mem:
+> 
+> I have some improvements to virtio-balloon and virtio-mem that allow for
+> handoff from balloon directly to mem for hot-unplug without having to
+> drop the balloon, but I haven't posted those (and we don't run those in
+> production, so this is not the nexus of crashes).
+
+Do you mean free-page reporting or actual balloon inflation/deflation paired
+with virtio-mem. I hope not the latter, because that is just disgusting.
+
+> 
+> Similarly I have another extension that lets the host set a "NO_ALLOC"
+> bit on the zone so a balloon-only system can provide the host a way to
+> defend against mass deflate_on_oom events (we prefer guests to OOM and
+> have the host to kill them due to PSI, rather than threaten host
+> stability). Also not in production and not posted, but there have been
+> a lot of experiments on overcommit here.
+> 
+>> The thing is that the race between offlining and actual memory removal
+>> is extremely long. Poisoning is just a mechanism to find these theoretical
+>> issues that could cause issues faster.
+>>
+>> And with all the other things going on, this has lower priority, and I
+>> wanted to get back to the AI patches I have once the other thing is sorted.
+>>
+> 
+> Sure, I realize I'm pushing this out during the merge window, but I
+> felt it reasonable to get some thoughts on whether these fixes are
+> worth considering for the window.
+
+Just a matter of priority. I think this should be tackled in clean way indeed.
+
+> 
+> If the answer is no just put em on the back burner. We can carry
+> fixes as-needed.
+> 
+>>>
+>>> I have a reproducer for every single one of these (and the other
+>>> series) - but a handful are unreachable due to a 2-statement read
+>>> being emitted as a single read by the compiler (which can be undone
+>>> by a targeted compiler flag). Those were included for completeness.
+>>
+>>
+>> In general, I think we want something that will protect all
+>> pfn_to_online_page() + zone->contig thingies, not just selected ones.
+>> We discussed in the past using some sort of rcu for that.
+>>
+>> get_online_mems is usually the wrong approach.
+>>
+> 
+> Agreed, although the PFN walks seem genuinely harder to wrangle into an
+> good rcu shape.
+
+And that's where the overall design needs to discuss this and how to resolve it.
+
+:)
+
+> 
+> get_online_mems seems like the backportable solution, but i can see not
+> wanting to have to go clean it back up later.
+> 
+>> protecting individual pfn_to_online_page is just whack a mole. Likely we want a
+>> way to check whether pfn_to_online_page() is called from the wrong context, and
+>> maybe we need a variant that can be called from "wrong context" for a good reason.
+>>
+> 
+> Agreed.  Although I fear the structural fix for this will have uglier
+> performance issue than we think.  Then again, maybe it doesn't matter
+> (if you're doing a PFN walk, then you're likely already doing something
+> stupidly expensive).
+
+Which areas are you mostly concerned about and from which piece do you expect
+the overhead?
+
+> 
+> Where i'm largely concerned is the page allocator and the
+> compaction/contig code not taking a regression.
+> 
+> For zonelists i've ended up with something like this:
+> 
+> @@ -1461,7 +1466,7 @@ typedef struct pglist_data {
+>          * Generally the first zones will be references to this node's
+>          * node_zones.
+>          */
+> -       struct zonelist node_zonelists[MAX_ZONELISTS];
+> +       struct zonelist __rcu *node_zonelists[MAX_ZONELISTS];
+> 
+> ...
+> 
+> static inline struct srcu_ctr __percpu *zonelist_read_lock(void)
+> {
+>        return srcu_read_lock_fast(&zonelist_srcu);
+> }
+> 
+> static inline void zonelist_read_unlock(struct srcu_ctr __percpu *scp)
+> {
+>        srcu_read_unlock_fast(&zonelist_srcu, scp);
+> }
+> 
+> DEFINE_LOCK_GUARD_0(zonelist_read, _T->scp = zonelist_read_lock(),
+>                    zonelist_read_unlock(_T->scp),
+>                    struct srcu_ctr __percpu *scp)
+> 
+> static inline struct zonelist *pgdat_zonelist(pg_data_t *pgdat, int type)
+> {
+>        return zonelist_dereference(pgdat->node_zonelists[type]);
+> }
+> 
+> With this the zonelist cookie checks evaporate, but you still end up
+> with guard() at every walk location - not great, but better i suppose.
+
+
+For "broader" things that are not just a simple pfn_to_online_page() user, we
+could also have memory online/offline sync in more efficient ways using the
+memory notifier.
+
+It's also tricky, but maybe for zone->contig + compaction the better solution?
+
+> 
+> I was hoping this could be sunken into the zonelist walk macros, but
+> I haven't seen that pan out.  I've been spending a lot of time auditing
+> that code for private nodes as well.
+> 
+> 
+> On performance:
+> 
+> I've been hammering this with will-it-scale and a bunch of workload
+> tests on a variety of hosts and have not seen any obvious regressions
+> outside of powerpc (which i can't test directly, but SRCU-fast requires
+> atomics for powerpc from what i can tell - so it will eat overhead
+> without a fallback... if there is actually any hotplug ppc hardware out
+> there to care about?)
+
+So the big problem is the overhead on the read side for srcu?
+
+If we can find something else to suspend compaction, we could maybe switch to
+rcu for the remaining cases.
+
+Now that I think about it, I recall why I didn't fix this earlier :)
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Cheers,
+
+David
