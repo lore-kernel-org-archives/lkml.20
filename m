@@ -1,57 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793067456;
-	b=NUAMA1JtcovCqgH/cqiTUBAxf0fC0IhFjy/yJDI51S7erMoS4hXrfQyWjJ0+2kkXdKCU
-	 1Ucf2HfGEp8akr2r6zPlVwQx7io7IVyRQmIZ8FwdyGz9KgGHzf41GuN1X+yqwMwZxh7UA
-	 B/OcxhO2oy4z5fOhNDxUkXCgqssFEAE6C1oCOvYWVHxGou14SWnLe2hynRYU0DeMnZyBY
-	 /fOiLx5C33avrIbPVTsYFv0lLOdCV3cI3fl0QuC245mxbCph+u4Jy9tK3TYrV2ZaGeR+C
-	 mBODu71pVPGU1lIMzZsME55VIkk2HgSiwKZ47nW2d08tkEY+hzQW+P14xixnpvtOBSg==
+	t=1793067500;
+	b=LkHIbFQ1kiYgst219SAjI6EPDXE1/pmuZDOv38dOOd8cZXGPrY5PXDb8cMpJkwPPXu0R
+	 AV+OyhVBbQ3dUtdqZzcELksvzileHHzs3Io/Dgb2wyHvx4uED+ZEqBUMkK/k578C5js/0
+	 iK6qs7e3TY8sbPuhZBQaxROvzlbx2STcmR79a1lYzMx42+b2AXmEJiQCUcqo6V/8PX+mh
+	 4zg5tT0LjMhTWUMjff4FQIGjqd3VpCcPK4PsrMDr9kskSGBtlu4mNFJfFlq3bCoCAPE5r
+	 +llwRdgVLrRoDAH3bQGw7WPSVHV4W0yuaE0ck85I0ZKN5uYteCKq29M8C0e86Xzuykg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793067456;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Z+78x8Sds6faPgLtpH+RiZhgHTBSFQl1dM4NHGQ6pLM=;
-	b=y+6RVjYJqtbjGfl6046QwezatNsjaqgFWaR9EyVBXZycoDj+4p9c9rCRU1Nmm/HFn8/t
-	 3Jbr7v1FhkzBx2Z6rBktTJ+ShRopGpQ+Iw4AOZIlY9WeziCcwsg86UoiIWRFKGX28shH2
-	 L+uU2kMVnGleFmGykz8O/yLXNpyXAwsq8DDA3O8WVAArEFP0n9b64pU8TSjafyTb6CLX/
-	 qdmNPkRikZganOuJAQmy2nQmHfPWW3+LhhLUGSxhoaci+Tj7VVxLqnRDnXH/ze0fy0JPQ
-	 PSjlu15PArza0gqkJmVVFujq7M5hcBedB13KxAmAGWLvcs/jb+ir+G68xfPmv6yMgEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793067500;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=qGaKz0ghX7Lbonx8PvJJJqD0p/WMYPC2YliZwFbr0fY=;
+	b=fCeqF3hY+x8PIOX2QRyDjwtENfgu/eNlfiGgw9KkftehzX5euCgwICBmE8SM/NNMArbP
+	 2DfRXQwR8JD3JQgHk/bWoUSbkHR1d2ZTZ3Oo9wyXMK3/JgolGlVdE1hqhThDiV3rMAY7b
+	 9G4glcZEPjvyZg9WSWFzCYJf0gCFQiGMHDkPQNKaiI2IDE1lS8dcHn8r94ksGV/SKiflV
+	 wlqKLZlK4X5EyI7n2rwQ2mT2E/7EtwmV2N/br00XsVwqeUbh0sSsP5W0fKl8rK8yXPW6b
+	 U1MDDl6/Tpxq2NbpGY8dJAbz7itrrUWyDNi/EbL0rpk+qVvCjqfS1rhYsE1kIyqXYfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25F1E606A31A;
-	Tue, 27 Oct 2026 02:17:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F1E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=Z+78x8Sds6faPgLtpH+RiZhgHTBSFQl1dM
-	4NHGQ6pLM=; b=ysu0jrb/RyfRQvljwiEvv2or7chdYs4WZuSMzOhsMDYDYijQmt
-	UOCaztIVlIWoXNTb5uDyL64LMr3wfIDXPCR22En9tcyWoghDJv1dbexV8mXDBTXC
-	n5nL+Fte4XIq8r33nECGiqiKxqAL2BigLhsjJJE7IRhaFs/8r8jrHr8rg=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmjQOvCeBqqsjsAA--.46970S2;
-	Tue, 27 Oct 2026 10:17:20 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Sean Young <sean@mess.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	=?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
-Date: Tue, 27 Oct 2026 10:17:18 +0800
-Message-Id: <20261027021718.14264-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
-References: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
+	dmarc=pass header.from=surriel.com;
+	spf=pass smtp.mailfrom=surriel.com;
+	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b="AAVc/08V";
+	arc=none smtp.remote-ip=96.67.55.147
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60F2606A31A;
+	Tue, 27 Oct 2026 02:18:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E60F2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=AAVc/08V
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=qGaKz0ghX7Lbonx8PvJJJqD0p/WMYPC2YliZwFbr0fY=; b=AAVc/0
+	8VsTK9mY92KOp5wEbhgroVTHRCfftI50sRYAJL1JakNYXe+BTepKbKwB6Z414AlpfS+DUDqYZ+/Eh
+	nj5OxnhFMAPMtHr6a/UJArBMlo0zPGvXYzSP1AyfZimUEGGpKcN/pXFGUhEd5cPb7Dgv67jI1G4uP
+	55e644clgrRX4+HyA5EnIo6nQpVv4Na5C+pF7/iF0yMcG+jx4Pb5juMQq7eJznU+ew7NwWmld1Do7
+	JjXyIXADjvO6IyFgjI58QIOi9mZPYlrJwYQaR08EmI3Mg0q8v1woNBDGgbAYg+CVCPeVTETY9liEP
+	8I8zspCUGpVJFYfua7YslrF00KSg==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xLWkM-0000000B1GF-0On5;
+	Tue, 27 Oct 2026 02:17:06 +0000
+Message-ID: <db8ec1a4c7cb160c794888a0aa51b8f3eacb2044.camel@surriel.com>
+Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the
+ mapping
+From: Rik van Riel <riel@surriel.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Andrew Morton	
+ <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, Michal
+ Hocko	 <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt	
+ <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, Kairui Song	
+ <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen	
+ <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
+ <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang	
+ <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
+ Baghdasaryan <surenb@google.com>,  Michal Hocko <mhocko@suse.com>, Kees
+ Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Jann Horn	
+ <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Hugh Dickins	
+ <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush
+ Yadav	 <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ Lance Yang <lance.yang@linux.dev>, Harry Yoo	 <harry@kernel.org>, Alistair
+ Popple <apopple@nvidia.com>, Nico Pache	 <nico.pache@linux.dev>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain	 <dev.jain@arm.com>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau	 <kas@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>, John Hubbard	 <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, Will Deacon <will@kernel.org>,  "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Oscar Salvador
+ <osalvador@suse.de>,  Minchan Kim <minchan@kernel.org>, Muchun Song
+ <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>,  Chengming Zhou
+ <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, Kemeng Shi
+ <shikemeng@huaweicloud.com>,  Nhat Pham <nphamcs@gmail.com>, Youngjun Park
+ <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>,  Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Ying Huang	
+ <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, 	linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, 	linux-cxl@vger.kernel.org,
+ stable@vger.kernel.org, Josef Bacik	 <josef@toxicpanda.com>
+Date: Mon, 26 Oct 2026 22:17:05 -0400
+In-Reply-To: <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+	 <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,82 +126,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkBmjQOvCeBqqsjsAA--.46970S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFy8Cr15AF1xZw4Duw1UGFg_yoW8trWfpa
-	yrKFyrArWqqrWkursrZw4Iva4vvw4xJFs5uryrGayDuw45Cry7tFWSqFy5ua4q9rykC3Zr
-	tFnxX3y8u3yUAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU8dwI3UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FLigAAsB
 
-Hi Sean,
+On Tue, 2026-10-27 at 00:17 +0100, David Hildenbrand (Arm) wrote:
+>=20
+> In that scenario, the collapsed folio with the data from before the
+> write
+> stays in the page cache after the write has returned.
+>=20
+> This used to be impossible, as khugepaged only collapsed files that
+> nobody
+> had open for writing.
+>=20
+> Restart the lookup at that index, like shmem_undo_range() does. The
+> same
+> problem seems to exist in truncate_inode_pages_range() as well when
+> truncate_inode_folio() fails, so handle it there as well.
+>=20
+> Fixes: 1b6444331beb ("mm/khugepaged: enable clean pagecache folio
+> collapse for writable files")
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-The v2 below does not apply to linux-next/next-20261026 (f1ac44c32cba):
-rc-main.c has been reworked by your series in the media tree, in
-particular ec7cb49871e5 ("Fix race condition during rc_register_device()")
-and 37efd09ba2c6 ("Ensure registered is cleared in error path").
+Reviewed-by: Rik van Riel <riel@surriel.com>
 
-37efd09ba2c6 already covers the lirc side of the problem, so the
-out_lirc part of my patch is redundant.  However, the original uevent
-use-after-free still looks possible in the current code:
-
-	out_rx:
-		rc_free_rx_device(dev);
-	out_lirc:
-		scoped_guard(mutex, &dev->lock)
-			dev->registered = false;
-
-rc_free_rx_device() calls ir_free_table(), which sets rc_map.name to
-NULL under rc_map->lock and then kfree()s it.  rc_dev_uevent() takes
-dev->lock, checks dev->registered (still true at this point) and reads
-rc_map.name at rc-main.c:1660 without taking rc_map->lock.  A reader can
-therefore take the pointer before it is cleared and dereference it after
-the kfree(), which is the slab-use-after-free originally reported:
-
-  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
-  lib/vsprintf.c:737
-  Read of size 1 at addr ffff888007ca9d80
-   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
-   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
-   uevent_show+0x1af/0x380 drivers/base/core.c:2756
-
-This path is taken when ir_raw_event_register() fails, i.e. when
-kthread_run() fails, which is the reported case.
-
-Would it work to clear registered before freeing the keymap in out_rx?
-Something like:
-
- out_rx:
-+	scoped_guard(mutex, &dev->lock)
-+		dev->registered = false;
-+
- 	rc_free_rx_device(dev);
- out_lirc:
- 	scoped_guard(mutex, &dev->lock)
- 		dev->registered = false;
-
-The second clear is then redundant on the out_rx path, but it is still
-needed for the failures that jump straight to out_lirc (lirc_register()
-and rc_setup_rx_device()).  A separate label could avoid the duplicate
-if you prefer.
-
-I am happy to send a rebased patch against linux-next if that is easier
-for you; otherwise feel free to fold this into your series.  If you do,
-a Reported-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn> for the
-analysis would be appreciated.
-
-Thanks,
-YuanZhe
-
+--=20
+All Rights Reversed.
