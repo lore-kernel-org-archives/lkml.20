@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069809;
-	b=xIPR6vAhiQfCP70C1BbvS7o/Y/XYan/NmjMXZDjeRicABQeFH5CLXeNkd/k19gg369fR
-	 nuVmLIfGdIgVAfAsMd5pJyOiiCKRfXAoyDfND+GAGZx0YfqG5lTkYbPYFHRnvtsWGyDdW
-	 jyUR+CtI3mW1FMI9dPlYEPR87dI7UUkpdGOf8GsmEk4hUJPdU0BByIkrw6VZXsODiDVrl
-	 3tASKtasED5YPT7ZEbr7XeAqyKrcs2YeQayaNlR3FnCP3LsIs0N/0QNXT5/wN5MDPEMA2
-	 BP4exck9bGWTozm7rricg7RQRc39vWrU8zz5IG7TV4dB02LKW/d6odpjd1noZ8YoDPA==
+	t=1793069815;
+	b=0v7AnYkeiluetsq41wnmp8VgbjEs9jnPrhkgoQ/zWQFQEBOiiX7f98w+9lit88WQGBQO
+	 5ztAXJWgvUNmK2XaBQlbdnZ724IJjmHIEn7uW5TDpe5hlBM8lOFgC29zvUS6TGP1OVHzL
+	 vzTZzByNzu3JXrnHjOuepFkvgQXHvlUKoW7QCSu6DcfBDM922aP6Gj6gVfEcZiyHN9hJD
+	 JAscqBHeh4vqP0aiEdhsFMfR9uB/ZB6WkKxZ2YPvqo4K5mfwstey+ryYy7RhVhO/naLP4
+	 Wzw7wBGwVIDpeaFiaq9Ax/C9Wl+PV4WF1QD7RiZ3xfWTNvZHJD+O0nWQps4XXuB8xZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069809;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069815;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=i2TVROB2tkypKL2JwuC8PelARTqsfICvFAyjnT/ZhdE=;
-	b=FosjkpwFjkeprnnkOX8TBRr41mPXYEnIb7w1ScoUqJbx6tiBCGMzrP+fDoWCz1czcVjg
-	 koqLwb1/uIw6ovd1RAragIOSRmwcVldk9Q+GvMvEwxe1V1Qk4qDOV83KhFAn1y+1Squcv
-	 DyLw9s/Ubk0nwZyWZNUwLNyj0wud26XHGYWlgQENDgMHeMkdJl6ZizlY837DDuM4tifTq
-	 7glCbefgvui8o557bOa1PpEzn3W9Uc66OapDJw6Cil5P1+kWEN5p167cmI/V9nDebYSkZ
-	 lifXbxtCxn0kMx/ddimYBy4EgSTIr9I+pnbeOdq2Qx7mCZ6Bbg6G1JnCZ18VLwLWgjQ==
+	bh=LCdG6rFn11zBCazpVzMCvIt14BjXcoxSwJ2DZpHTKik=;
+	b=cRuQsXk4SUJ0zK9Q2bCp07Urr/2HxHE1ZBSKVh1u0lGibiIhb2aZdJQVHe+9TD+FZDJe
+	 qAbOt10fUfh5KRQqik6pwsngEgyd9Qg/AZMzVvhsNE2I7HoPX5VjTBjUGygekpPyOo6gV
+	 mKHRCYEsKiCWZRoDdohUWFi6H/a0xLR5AO63jiO62tmEGjjAykVH1ggUImnTRe3VIRkQq
+	 P/WcpcjQ7FpCG0jnstqi6wmMlqt82xTnqVBNe0khyNEnKJ/cJwd8Um+yujQhTUMXVgKtB
+	 wAgCA/IA4I1PQGgK/N8dUDpAvfJwC/AgsqLYMR02A3gonm4H8ANYvqBqmiGtMU7fPrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OshOJle1;
-	arc=none smtp.remote-ip=209.85.161.71
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=n4SHizbm;
+	arc=none smtp.remote-ip=209.85.160.71
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E4E1606A333
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E4E1606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1169B60A260A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1169B60A260A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kevinloughlin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=OshOJle1
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6f8edf0c859so663254eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=n4SHizbm
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-44899f99756so6644856fac.2
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:56:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1793069809; x=1793674609; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1793069814; x=1793674614; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=i2TVROB2tkypKL2JwuC8PelARTqsfICvFAyjnT/ZhdE=;
-        b=OshOJle1ccK86kFRhnnl9I9wToaSwSXU+d+gmBvsmvocUT6341f0jhLncIp73TVjuv
-         JU8RataLvH4x6mJrLZqrqQgqVWxVFubvIwOXlNccoumrpB4cW/ZCXZfPPk8/b9aZFTsD
-         xEiixrF4jSV/+oHgWiil+xDcqhdSLQtWoa4mG07qc3xgZZvAtdwUf+VKxST/PzGxr+xN
-         V/X4HwZAFEEzSLo7pM+SHHMTP75CBsnvrK/cis+x2Zz4DJ5oMpAbyFrT9s+kCaZyUaXx
-         /erSsmXPnPy4XQzhmG2fTMp2o0It3qf5EWmJy0nfbt1kGnRjFqlYDpbU6jFV87r1MvNz
-         tEIw==
+        bh=LCdG6rFn11zBCazpVzMCvIt14BjXcoxSwJ2DZpHTKik=;
+        b=n4SHizbmrVKHw5giNfmoZ4gzXbtHzneH5WzkSgh2t8TWpy/3bc8abaUFhq1mRLUagv
+         4grlXHWSR1O+DGsfkRGyBTS4SBlsI30DWaaXWqpVZ+J4IgHaDYxxN8uW88yWFN7psIXi
+         0MIUCKZy/3okX+88aoawpGiZW1wmqeZNTO9D8jxy7BgFp21dU/YAq/J3aYzr0DU6/VOA
+         9qd7ayF3K9AzavUz46dQVAYcx47Zf0AfDDBrjWZ4mrvfoVZFsrxHrYTm61cW6ZMXD2tm
+         NFQ0Eb8Jft4olwKq8My+g0V5dWZ7FdDBH8rlAK2OXDi0fEEhvEO5Hw9Ciyuet/DIeA4m
+         GPfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069809; x=1793674609;
+        d=1e100.net; s=20260707; t=1793069814; x=1793674614;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i2TVROB2tkypKL2JwuC8PelARTqsfICvFAyjnT/ZhdE=;
-        b=rz+LQ9owft0mQos3/QqCBNUQLzDQC7hVfI/vJ4mHOsKxGSmWbJqiCOYiI+plPBSoAX
-         m1JxOhigbom4XJnhrqYJhfnpLWNzCJ6elLBXnRloh26PG4TKCXOXcg6DgXXobY43UysY
-         VVCu5QOLp4k2vetc8vHcBoQgLW32bYLPrv5/oD3WeDmNI/H2nV025Z03v+A80aaL+xOK
-         /zA+tFqg6AA0vQDc1UHy+k1rVCnGt4xxt4KyOpAnCPWNi8IxUf9fdN8ZCyPaNWTWFhJr
-         hfyVAqyQmxjsaQxYVSMWIQW9aFPIUsPlYGnsJ3fUKwNPUHUy/jwU301HsEGtPa2N/mZx
-         4XaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzW2YhSht0uJHuVpFFToiSJyLfDXcEsNm1zMZu690GhhJRG4k5MKLi1EuOkxvX5/O0b6DPedEwSVtH83fI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKM5ly+2avPiEcalLVmAlY6ss2tQDQnqRiIX1SO+3Mtc2yfNEZ5
-	uV1z8C3I8ss6hsmuZQ3wqNDzadLwOpN2guzXdRHPoCa9fNUtESLijsKhM1zvuHlLPa32xaPZKBr
-	BhSP6EraulK/7K58J81mqPBi1JQYQoMeT4Q==
-X-Received: from ioyd21.prod.google.com ([2002:a05:6602:2bf5:b0:9c4:de2b:c40f])
+        bh=LCdG6rFn11zBCazpVzMCvIt14BjXcoxSwJ2DZpHTKik=;
+        b=fjdg0WGDKm+P/Gj/7iv4zM84wx6QQhK/RvsrjnZ5qAnyDWL846uPJzu0/ndAhqkr5p
+         how+gVK990yBVkdEMnBibb+N10LYLiLteJR0Z1Ra3wofdudjEj5H52/aJxNe45Mr4kFO
+         Hx5Wfc+/tTeV4tfGLBIqv5x7wipNaETyqgY80YMI7tJBT3fxxkqRCuTQPbCfq8Mj5L9E
+         Ypqtf59ZuLZ6zA46QtmKAaIY6O5I/9Vv64+BvXsSg7U8DHgKvkgTfrsDHJ1XCwmVSh5n
+         g31gmLUkzoMnt5x5MqrZHkpYbtgGyApMteDbG+lxGA9MSxpAI0bCFgi/UfvrRixrwRG3
+         Ggsg==
+X-Forwarded-Encrypted: i=1; AKwUvBxM1kRa0XncT9LgD9Ms/qy3txi3KjCweTOdpMfk/0Dyf+IBoyWJoYXmcW3Hu7TbyFS84Auqmw0KrMzzTw4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvDGjxZNaf8FMXA3E4bA7aWB35uF7WEFe+5dzSitvM/06lULoy
+	/FcVWAkMuh1Pe7f//dWVfT6DE9JGN4tiKnWiGCpQpqQIaTyJVncjH0RiICXv7JySQrfa/YkVqu6
+	p35BIZf5+3TNwBEJNBaLvPAHG/DorknnT6g==
+X-Received: from iohd14-n1.prod.google.com ([2002:a05:6602:86ce:10b0:9c4:b80b:7605])
  (user=kevinloughlin job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6820:1ca4:b0:702:c1a4:7563 with SMTP id 006d021491bc7-7126910deb4mr1003099eaf.8.1793069808399;
- Mon, 26 Oct 2026 19:56:48 -0700 (PDT)
-Date: Tue, 27 Oct 2026 02:56:08 +0000
+ 2002:a05:6808:1b2b:b0:4f4:73a9:f853 with SMTP id 5614622812f47-55bfff91bbdmr5294339b6e.1.1793069813464;
+ Mon, 26 Oct 2026 19:56:53 -0700 (PDT)
+Date: Tue, 27 Oct 2026 02:56:11 +0000
 In-Reply-To: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261027025616.1632690-1-kevinloughlin@google.com>
 X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
-Message-ID: <20261027025616.1632690-6-kevinloughlin@google.com>
-Subject: [PATCH 05/13] efi/libstub: start unaccepted bitmap at address 0
+Message-ID: <20261027025616.1632690-9-kevinloughlin@google.com>
+Subject: [PATCH 08/13] mm/page_alloc: route unaccepted isolated pages
 From: Kevin Loughlin <kevinloughlin@google.com>
 To: "Michael S. Tsirkin" <mst@redhat.com>, David Hildenbrand <david@kernel.org>, Jason Wang <jasowangio@gmail.com>, 
 	"=?UTF-8?q?Eugenio=20P=C3=A9rez?=" <eperezma@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
@@ -104,111 +104,217 @@ Cc: virtualization@lists.linux.dev, linux-coco@lists.linux.dev,
 	David Skidmore <davidskidmore@google.com>, Kevin Loughlin <kevinloughlin@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-When EFI_UNACCEPTED_MEMORY is present in the EFI memory map or the
-platform supports dynamic memory unacceptance (such as AMD SEV-SNP),
-start the EFI unaccepted memory bitmap at physical address 0
-(phys_base = 0) instead of the lowest initial unaccepted address.
+When free page reporting unaccepts isolated pages on confidential
+computing guests, __putback_isolated_page() must not return those
+unaccepted pages directly to zone->free_area; doing so would violate the
+allocator invariant that all pages on zone->free_area are accepted.
 
-This ensures that pre-accepted low memory below the initial unaccepted
-region is addressable in the bitmap so it can be dynamically marked
-unaccepted and re-accepted later via virtio-balloon or free page
-reporting. Non-confidential guests without EFI_UNACCEPTED_MEMORY
-continue to skip allocating the table.
+Update __putback_isolated_page(), __free_pages_ok(),
+__free_frozen_pages(), and free_unref_folios() to route dynamically
+unaccepted pages to zone->unaccepted_pages via __free_unaccepted_locked()
+(falling back to immediate acceptance for isolated or CMA pageblocks).
+
+In addition:
+- Extract free_pages_prepare_init() so post-acceptance poisoning,
+  zeroing, KASAN tagging, arch_free_page(), and debug_pagealloc
+  unmapping run after accept_memory() without touching unaccepted pages
+  in __free_pages_prepare() or re-running metadata teardown in
+  __accept_page().
+- Pass FPI_SKIP_REPORT_NOTIFY when __accept_page() frees a freshly
+  accepted block into the buddy allocator so it is not immediately
+  re-queued for free page reporting before allocation.
 
 Signed-off-by: Kevin Loughlin <kevinloughlin@google.com>
 ---
- .../firmware/efi/libstub/unaccepted_memory.c  | 45 ++++++++++++++-----
- 1 file changed, 33 insertions(+), 12 deletions(-)
+ mm/page_alloc.c | 120 ++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 85 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/firmware/efi/libstub/unaccepted_memory.c b/drivers/firmware/efi/libstub/unaccepted_memory.c
-index 757dbe734a47..fcb622ac0564 100644
---- a/drivers/firmware/efi/libstub/unaccepted_memory.c
-+++ b/drivers/firmware/efi/libstub/unaccepted_memory.c
-@@ -2,15 +2,28 @@
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 46ae8c6f3814..c10b77304633 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1298,12 +1298,53 @@ static inline void pgalloc_tag_sub_pages(struct alloc_tag *tag, unsigned int nr)
  
- #include <linux/efi.h>
- #include <asm/efi.h>
-+#if defined(CONFIG_X86) && defined(CONFIG_AMD_MEM_ENCRYPT)
-+#include <asm/sev.h>
-+#endif
- #include "efistub.h"
+ #endif /* CONFIG_MEM_ALLOC_PROFILING */
  
- struct efi_unaccepted_memory *unaccepted_table;
- 
-+static bool efi_stub_has_dynamic_unaccepted_memory(void)
++static inline bool should_free_unaccepted(struct page *page,
++					  unsigned int order,
++					  fpi_t fpi_flags)
 +{
-+#if defined(CONFIG_X86) && defined(CONFIG_AMD_MEM_ENCRYPT)
-+	return sev_get_status() & MSR_AMD64_SEV_SNP_ENABLED;
-+#else
-+	return false;
-+#endif
++	return !(fpi_flags & FPI_NOLOCK) &&
++	       page_contains_unaccepted(page, order);
 +}
 +
- efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
- 					struct efi_boot_memmap *map)
++static void free_pages_prepare_init(struct page *page, unsigned int order)
++{
++	bool skip_kasan_poison = should_skip_kasan_poison(page);
++	bool init = want_init_on_free();
++
++	kernel_poison_pages(page, 1 << order);
++
++	/*
++	 * As memory initialization might be integrated into KASAN,
++	 * KASAN poisoning and memory initialization code must be
++	 * kept together to avoid discrepancies in behavior.
++	 *
++	 * With hardware tag-based KASAN, memory tags must be set before the
++	 * page becomes unavailable via debug_pagealloc or arch_free_page.
++	 */
++	if (!skip_kasan_poison) {
++		kasan_poison_pages(page, order, init);
++
++		/* Memory is already initialized if KASAN did it internally. */
++		if (kasan_has_integrated_init())
++			init = false;
++	}
++	if (init)
++		clear_highpages_kasan_tagged(page, 1 << order);
++
++	/*
++	 * arch_free_page() can make the page's contents inaccessible.  s390
++	 * does this.  So nothing which can access the page's contents should
++	 * happen after this.
++	 */
++	arch_free_page(page, order);
++
++	debug_pagealloc_unmap_pages(page, 1 << order);
++}
++
+ static __always_inline bool __free_pages_prepare(struct page *page,
+ 		unsigned int order, fpi_t fpi_flags)
  {
- 	efi_guid_t unaccepted_table_guid = LINUX_EFI_UNACCEPTED_MEM_TABLE_GUID;
--	u64 unaccepted_start = ULLONG_MAX, unaccepted_end = 0, bitmap_size;
-+	bool has_unaccepted = efi_stub_has_dynamic_unaccepted_memory();
-+	u64 unaccepted_end = 0, bitmap_size;
- 	efi_status_t status;
- 	int i;
+ 	int bad = 0;
+-	bool skip_kasan_poison = should_skip_kasan_poison(page);
+-	bool init = want_init_on_free();
+ 	bool compound = PageCompound(page);
+ 	struct folio *folio = page_folio(page);
  
-@@ -30,19 +43,27 @@ efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
- 		unsigned long m = (unsigned long)map->map;
- 
- 		d = efi_memdesc_ptr(m, map->desc_size, i);
--		if (d->type != EFI_UNACCEPTED_MEMORY)
--			continue;
--
--		unaccepted_start = min(unaccepted_start, d->phys_addr);
--		unaccepted_end = max(unaccepted_end,
--				     d->phys_addr + d->num_pages * PAGE_SIZE);
-+		switch (d->type) {
-+		case EFI_UNACCEPTED_MEMORY:
-+			has_unaccepted = true;
-+			fallthrough;
-+		case EFI_LOADER_CODE:
-+		case EFI_LOADER_DATA:
-+		case EFI_BOOT_SERVICES_CODE:
-+		case EFI_BOOT_SERVICES_DATA:
-+		case EFI_CONVENTIONAL_MEMORY:
-+			unaccepted_end = max(unaccepted_end,
-+					     d->phys_addr +
-+					     d->num_pages * EFI_PAGE_SIZE);
-+			break;
-+		default:
-+			break;
-+		}
+@@ -1411,34 +1452,10 @@ static __always_inline bool __free_pages_prepare(struct page *page,
+ 					   PAGE_SIZE << order);
  	}
  
--	if (unaccepted_start == ULLONG_MAX)
-+	if (!has_unaccepted || unaccepted_end == 0)
- 		return EFI_SUCCESS;
+-	kernel_poison_pages(page, 1 << order);
+-
+-	/*
+-	 * As memory initialization might be integrated into KASAN,
+-	 * KASAN poisoning and memory initialization code must be
+-	 * kept together to avoid discrepancies in behavior.
+-	 *
+-	 * With hardware tag-based KASAN, memory tags must be set before the
+-	 * page becomes unavailable via debug_pagealloc or arch_free_page.
+-	 */
+-	if (!skip_kasan_poison) {
+-		kasan_poison_pages(page, order, init);
+-
+-		/* Memory is already initialized if KASAN did it internally. */
+-		if (kasan_has_integrated_init())
+-			init = false;
+-	}
+-	if (init)
+-		clear_highpages_kasan_tagged(page, 1 << order);
+-
+-	/*
+-	 * arch_free_page() can make the page's contents inaccessible.  s390
+-	 * does this.  So nothing which can access the page's contents should
+-	 * happen after this.
+-	 */
+-	arch_free_page(page, order);
++	if (should_free_unaccepted(page, order, fpi_flags))
++		return true;
  
--	unaccepted_start = round_down(unaccepted_start,
--				      EFI_UNACCEPTED_UNIT_SIZE);
- 	unaccepted_end = round_up(unaccepted_end, EFI_UNACCEPTED_UNIT_SIZE);
+-	debug_pagealloc_unmap_pages(page, 1 << order);
++	free_pages_prepare_init(page, order);
  
- 	/*
-@@ -59,7 +80,7 @@ efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
- 	 * The bitmap will be populated in setup_e820() according to the memory
- 	 * map after efi_exit_boot_services().
- 	 */
--	bitmap_size = DIV_ROUND_UP(unaccepted_end - unaccepted_start,
-+	bitmap_size = DIV_ROUND_UP(unaccepted_end,
- 				   EFI_UNACCEPTED_UNIT_SIZE * BITS_PER_BYTE);
+ 	return true;
+ }
+@@ -1572,14 +1589,31 @@ static void free_one_page(struct zone *zone, struct page *page,
+ 	__count_vm_events(PGFREE, 1 << order);
+ }
  
- 	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
-@@ -72,7 +93,7 @@ efi_status_t allocate_unaccepted_bitmap(__u32 nr_desc,
++static bool handle_unaccepted_free(struct page *page, unsigned int order,
++				   fpi_t fpi_flags)
++{
++	if (!should_free_unaccepted(page, order, fpi_flags))
++		return false;
++
++	if (__free_unaccepted(page, order))
++		return true;
++
++	accept_memory(page_to_phys(page), PAGE_SIZE << order);
++	free_pages_prepare_init(page, order);
++	return false;
++}
++
+ static void __free_pages_ok(struct page *page, unsigned int order,
+ 			    fpi_t fpi_flags)
+ {
+ 	unsigned long pfn = page_to_pfn(page);
+ 	struct zone *zone = page_zone(page);
  
- 	unaccepted_table->version = 1;
- 	unaccepted_table->unit_size = EFI_UNACCEPTED_UNIT_SIZE;
--	unaccepted_table->phys_base = unaccepted_start;
-+	unaccepted_table->phys_base = 0;
- 	unaccepted_table->size = bitmap_size;
- 	memset(unaccepted_table->bitmap, 0, bitmap_size);
+-	if (__free_pages_prepare(page, order, fpi_flags))
++	if (__free_pages_prepare(page, order, fpi_flags)) {
++		if (handle_unaccepted_free(page, order, fpi_flags))
++			return;
+ 		free_one_page(zone, page, pfn, order, fpi_flags);
++	}
+ }
  
+ void __meminit __free_pages_core(struct page *page, unsigned int order,
+@@ -2955,7 +2989,8 @@ static void __free_frozen_pages(struct page *page, unsigned int order,
+ 	unsigned long pfn = page_to_pfn(page);
+ 	int migratetype;
+ 
+-	if (!pcp_allowed_order(order)) {
++	if (!pcp_allowed_order(order) ||
++	    should_free_unaccepted(page, order, fpi_flags)) {
+ 		__free_pages_ok(page, order, fpi_flags);
+ 		return;
+ 	}
+@@ -3024,9 +3059,13 @@ void free_unref_folios(struct folio_batch *folios)
+ 			continue;
+ 		/*
+ 		 * Free orders not handled on the PCP directly to the
+-		 * allocator.
++		 * allocator, as well as any pages containing unaccepted memory.
+ 		 */
+-		if (!pcp_allowed_order(order)) {
++		if (!pcp_allowed_order(order) ||
++		    should_free_unaccepted(&folio->page, order, FPI_NONE)) {
++			if (handle_unaccepted_free(&folio->page, order,
++						   FPI_NONE))
++				continue;
+ 			free_one_page(folio_zone(folio), &folio->page,
+ 				      pfn, order, FPI_NONE);
+ 			continue;
+@@ -3187,6 +3226,16 @@ void __putback_isolated_page(struct page *page, unsigned int order, int mt)
+ 	/* zone lock should be held when this function is called */
+ 	lockdep_assert_held(&zone->lock);
+ 
++	if (page_contains_unaccepted(page, order)) {
++		if (__free_unaccepted_locked(page, zone, order))
++			return;
++		accept_memory(page_to_phys(page), PAGE_SIZE << order);
++		free_pages_prepare_init(page, order);
++		split_large_buddy(zone, page, page_to_pfn(page), order,
++				  FPI_SKIP_REPORT_NOTIFY | FPI_TO_TAIL);
++		return;
++	}
++
+ 	/* Return isolated page to tail of freelist. */
+ 	__free_one_page(page, page_to_pfn(page), zone, order, mt,
+ 			FPI_SKIP_REPORT_NOTIFY | FPI_TO_TAIL);
+@@ -7933,8 +7982,9 @@ static void __accept_page(struct zone *zone, unsigned long *flags,
+ 	spin_unlock_irqrestore(&zone->lock, *flags);
+ 
+ 	accept_memory(page_to_phys(page), PAGE_SIZE << order);
+-
+-	__free_pages_ok(page, order, FPI_TO_TAIL);
++	free_pages_prepare_init(page, order);
++	free_one_page(zone, page, page_to_pfn(page), order,
++		      FPI_TO_TAIL | FPI_SKIP_REPORT_NOTIFY);
+ }
+ 
+ void accept_page(struct page *page)
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
