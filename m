@@ -1,59 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793141327;
-	b=TAuawFGc7TehfAOM/Sy2ju4eazitmJb2Riteq7DEMbD9pfXDrUx+KeAenlr8cAWlf3ld
-	 cFbpVRtrfZED3Qf7+UWd/QkuCF2DAGZQHtYuy7ER3YZEg9OEwvim72hxwQJUn87meHj1V
-	 Q7tjrjEfOd8VyFomHoc8v91eg7dBMClyW2Y/PJ7CgVXusXktCERQG7oZuOEk2hT+oyw55
-	 nOgOeNKUtErOKBw9482j6mHX8/y5PzaBpANsa2Vw97uYj+RVNgupsy0L6R4j1Hg+7mnim
-	 1bYhkOhLyp9oP4sF/T3ABpJteWsyakGyEclTBPdmLwLKBnaKUZcBYkr86lJhJRfGzTQ==
+	t=1793141360;
+	b=jwUFozGhJftaGmRnl7lr5zR/E2UZk7djQ/OPaumr2PJD14YPDcYU2oATNJ8qwuBer+AQ
+	 U0/BX/opi1SApqR6PPJyxinBJS2ANpCO/i/F1uOWmXIfHpe2xwq0erJ8PDE2KBymYh5aD
+	 ZJgumDtGWxS/2N0smWShz7eMrx5AyZINrprNSjHx4RYIfUqhCysJ6Qx4sLMheBtFF5orB
+	 aW+SqpmybR0ZDrrUpDSAf4+brja3lFqd6Psh7FZxknyUWjQ5z5IIqzX+GAVGS/8SzhEDY
+	 LzalEk2cRiBFjJk5P3iQ3GVp3SkWMUdvrYZzsv8Ed5InsuiCtLtdnHkRkoEYGDxdo3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793141327;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=AHSuLsmPArajERs48+ezcL7wF6flNWrV+Ftvie2M+AE=;
-	b=qgUvb0tsww59eo6hxb/Qkalf+TIccHikBeFAVBc+GGw0kl4YcfImCBF9wYUvcqfqsQ8U
-	 UkKlDD/funLa5VmxzL0FiDLiEqbn1u8+9PY0iJwII6Acd0xOiu2sLY5svB7c/0R8P7hK7
-	 S3pGdR19/xtMFzC612uxXoRZf8VBQNj3wzQutQIJUFNpvyBUs8qZ6a0Ss006HyflTu0iG
-	 Pd+OrTiZAgf/AxXZpvwB1T/Acgv+sUTRIR+hA/K9iqAcBpt9W9TP9zMjV1gnLpqxgv1Zz
-	 Qd+QlxCA1pLV38MYE/z6QxFI0XTedshN0Ta9JNAx2K9/yhZ3FEUALnVZ9FS0k18+Yrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793141360;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=0siHLmY7jqw5ijMhn2w+ZHZaBh8kJXscofyY+4DEBpE=;
+	b=dKsV6lEsVBfGyO0jmzXM5XLssaXOU/xc6VTIawTEVR29COVGJuKXjaGhcGYc+kPimD2I
+	 0udOCnkVFYDPCjXVD+sS4DR9pMHNgmQvC4KxokxEDs/8DMRNy7KM6avLpF0CQ6tG2yHk1
+	 Pl95hJIo+XKu7a+uFlJYXibuP+6qtO/t2OHH8daE6TFQe/4Ua/t5L5r1El/uEieJH4JBf
+	 0m1bfahP6mvtgtabHnRvda5V+UFabcfWjSu10tP1HaZA4UkWA7LRIwTGYK6iybU4Vs8PO
+	 5IJLx8jY77/jdxYLPoBl/14GE0vzWpnNKqgyr6sR+wvLtvmjoM6cO60q+rjQFcdxzgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhC60JpT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VZZV2ut1;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782A0606A31A;
-	Tue, 27 Oct 2026 22:48:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEE5606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 22:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CEE5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dhC60JpT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4FA51F01825;
-	Tue, 27 Oct 2026 22:48:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793141326;
-	bh=AHSuLsmPArajERs48+ezcL7wF6flNWrV+Ftvie2M+AE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dhC60JpTQ+oyZSm0MAOoe9dWr/rdcXLsL8YCCC08ksZJXA8ZobswopoigV/5/zCJf
-	 NrizJI+GJKnBXg/DTfZXtA2Os+LJZaoCUc+7bHq6OQ8VZS86lN+2VPuhTbeqiMC9/G
-	 dgUDj9Nu2K2O60Wwg8Uzz5EvRFAAP23vk/pASRzL9b94zqYntH1UQcw98V6oF8CMwr
-	 fkmu+90ymqfWSeiu5lf3f9nUqeQzDpG+P7LNsajg8LG6/2fz0I3zoZJN3QxpyDEB5R
-	 DpUqO9ZN9MzkN8rf+k6Ka0mYtagfrfrkEowkd+vT3EiCuWc+sHRMxXSMMsdF0xZrHD
-	 TBY7q8xzKh96g==
-Subject:
- Re: [PATCH] net: dsa: b53: Enable IGMP and MLD control packet CPU copies
-From: netdev-bot+sashiko@kernel.org
-To: florian.fainelli@broadcom.com
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, vivien.didelot@gmail.com, linux-kernel@vger.kernel.org
-Date: Tue, 27 Oct 2026 22:48:45 +0000
-Message-ID: <179314132517.3134.14168811742216365656@kernel.org>
-In-Reply-To: <20261026172453.3152951-1-florian.fainelli@broadcom.com>
-References: <20261026172453.3152951-1-florian.fainelli@broadcom.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VZZV2ut1
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e93f266d20so4083035ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:49:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793141360; x=1793746160; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0siHLmY7jqw5ijMhn2w+ZHZaBh8kJXscofyY+4DEBpE=;
+        b=VZZV2ut1CVciSEcV9+PNFaIetu+19iAElwLaOb8ab1I3FLxhslzz7Ltzkel+6wWzlt
+         kusVKaJEPAMD1ehX8ZoYfNoU/86+XpSTWrx0aGp2XIiO5mxaQFK4GZwQ3VtuKM1yOjGc
+         zRyPE3lFt07XfWAgU9aY883oBxLTH3L+aK6QeLcVadWOIIxTeStdIedew1vmQFwfO8HP
+         oyzaZ4LfdgiGY/fZk+tO2FoUsq10A9H89M1MjHmRFJz6ag77KK0om5VTLPZAyw8UGXQJ
+         1FR1Vt7rPJwxhfYCOjnbWirra6VQuBwZ/s6fvBMMsLykJdgyd7a6PkklJqSPQBFxpFCk
+         iEGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793141360; x=1793746160;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0siHLmY7jqw5ijMhn2w+ZHZaBh8kJXscofyY+4DEBpE=;
+        b=KISQyYK+GiRr/I5hZdzEXmNbBHMRM2GgU8cfDUBPGHHB8xcZg7tLN+zmUJWB2YoOAB
+         pi+qYPtnCsYxSvRd7MUEaQ1z1pG/2Fun5A003UPcKJk2SPyhd6nGXGhzVFs8l1UhZ6Op
+         pQUIbVUYfgRlkXvlGZI2LWQ3dVFxvt+nUTe8w4jFWdfqZ5lfzc/e5cA4buowNu933dLh
+         bt1Y5d/RdIZWOvVTL2AA09USq43s8yJxK5H4EHey327mc1IQr/LJvV80tiDyk+eZ2VwW
+         veMleDzRVxKP0iXx4aT9K+JxbEanDF94Kq07Wqs2hG7/q12Ux518dqUteHxhVV/EfTbP
+         xEiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/iOfjrHLDjLILHdj9jb44vKU6HKqt/sBaZUkC+fAaGFsXauBNiobILWB54CTluKWg/JzzjU9z/8hkum4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIw2dKVMmxFNqax9zqmw5Cn9CgiVz2m13Tk8eApfi294Hrb54/s
+	1swKarhAVKo+9TrtgGqyYUVcrs9qiyUMztlJOvK2+7fi2EgKJG7eend50Ne4ZYbkajz/MMVc9Ly
+	alZdBkg==
+X-Received: from plhx12.prod.google.com ([2002:a17:903:2c0c:b0:2ea:829f:27a8])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:d541:b0:2e9:77c0:c7ab
+ with SMTP id d9443c01a7336-2eb003c917amr7068955ad.29.1793141359612; Tue, 27
+ Oct 2026 15:49:19 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 27 Oct 2026 15:49:08 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,105 +76,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261027224914.1574319-1-seanjc@google.com>
+Subject: [PATCH v2 0/6] KVM: x86: More EFER.LMA vs. CR4.PAE fixes
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Revert a change I made years ago to allow userspace to stuff EFER before
+configuring guest CPUID, as configuring CPUID and feature MSRs before anything
+else is now a hard requirement (though I suspect I was just a bit overzealous
+at the time).  The biggest problem with that change, other than creating what
+should be impossible state, is that it also bypassed this check:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+	if (is_paging(vcpu) &&
+	    (vcpu->arch.efer & EFER_LME) != (efer & EFER_LME))
+		return 1;
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+which was kinda sorta intentional?  I assume the idea was that userspace could
+stuff CR0 vs. EFER in any order.  Except that in doing so, userspace could get
+impossible state in CR0+CR4+EFER (in the aggregate, not in any one individual
+register).  KVM doesn't advertise MSR_EFER as an MSR that needs to be
+saved/restored, and AFAICT no VMM manually does that, they all just use
+KVM_{G,S}ET_SREGS{,2} (which is what we want).
 
-- [High] The new IGMP/MLD CPU-copy setup in b53_enable_mcast_snooping()
-  (drivers/net/dsa/b53/b53_common.c) is static and has one caller,…
+So, hit the "I'm feeling lucky!" button and simply revert the misguided
+commit.
 
---
+Patch 2 plugs a hole where userspace can get at the "wants_to_run" logic in
+svm_set_efer() via KVM_SYNC_X86_SREGS, which is "fine" for now, but would let
+a misbehaving userspace trigger the KVM_BUG_ON() added in patch 3.
 
-net: dsa: b53: Enable IGMP and MLD control packet CPU copies
+Patch 3 is more hardening.  Rather than pend a triple fault, which is flawed
+because (a) KVM still yanks the vCPU out of L2 without going through a normal
+nested VM-Exit and (b) there's a window where KVM can do stuff, e.g. init the
+MMU, before the triple fault request is handled, immediately synthesize a #GP.
+The only reason I didn't go with a #GP the first time around is that I didn't
+want to bleed EFER_SVME information into the common set_efer(), KVM effectively
+doesn't allow kvm_x86_call(set_efer)() to inject faults, and the vendor version
+is used for many flows, whereas set_efer() is strictly used for WRMSR emulation.
 
-This commit enables the IGMP and MLD high-level protocol classifiers in
-B53_HL_PRTC_CTRL, so control packets get copied to the CPU even when a
-multicast ARL entry matches. This lets the bridge keep learning listeners
-after the first MDB entry has been offloaded. BCM5395 uses a 16-bit layout,
-BCM531xx/5301x/58xx use a 32-bit layout, and older chips are left alone.
+Patch 4 is also more hardening, to try and detect+prevent EFER.LMA from going
+stale.
 
-> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-> index 0880310c9ce3f..54844cfadf019 100644
-> --- a/drivers/net/dsa/b53/b53_common.c
-> +++ b/drivers/net/dsa/b53/b53_common.c
-> @@ -836,6 +836,52 @@ void b53_brcm_hdr_setup(struct dsa_switch *ds, int port)
->  }
->  EXPORT_SYMBOL(b53_brcm_hdr_setup);
->  
-> +static int b53_enable_mcast_snooping(struct b53_device *dev)
-> +{
+Finally, update the EFER selftest to match the new #GP behavior.
 
-[ ... ]
+v2:
+ - Disallowing clearing SVME via KVM_SYNC_X86_SREGS if L2 is active. [Sashiko]
 
-> +	/* Older switches use different IGMP controls, not HL_PRTC_CTRL. */
-> +	if (!is531x5(dev) && !is5301x(dev) && !is58xx(dev))
-> +		return 0;
+v1: https://lore.kernel.org/all/20261022223052.646891-1-seanjc@google.com
 
-[ ... ]
+Sean Christopherson (6):
+  Revert "KVM: x86: Skip EFER vs. guest CPUID checks for host-initiated
+    writes"
+  KVM: x86: Reject clearing EFER.SVME via KVM_SYNC_X86_SREGS if L2 is
+    active
+  KVM: nSVM: Synthesize #GP instead of SHUTDOWN if L2 attempts to clear
+    EFER.SVME
+  KVM: x86: Recompute EFER.LMA instead of inheriting the current value
+    on EFER writes
+  KVM: selftests: Update nSVM EFER test to expect #GP when clearing SVME
+    in L2
+  KVM: selftests: Expect failure when trying to set EFER that violates
+    vCPU model
 
-> @@ -1334,6 +1380,10 @@ static int b53_setup(struct dsa_switch *ds)
->  			b53_disable_port(ds, port);
->  	}
->  
-> +	ret = b53_enable_mcast_snooping(dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	return b53_setup_devlink_resources(ds);
->  }
+ arch/x86/kvm/msrs.c                           | 53 ++++++-----
+ arch/x86/kvm/regs.c                           |  4 +
+ arch/x86/kvm/svm/svm.c                        | 15 +--
+ .../selftests/kvm/x86/svm_nested_efer_test.c  | 95 ++++++++++---------
+ 4 files changed, 92 insertions(+), 75 deletions(-)
 
-[Severity: High]
-Does this fix reach the Starfighter 2 switches (BCM7445, BCM7278, BCM4908)?
 
-b53_enable_mcast_snooping() is static, and its only caller is b53_setup().
-bcm_sf2_sw_probe() sets the chip id and then swaps in its own ops:
-
-drivers/net/dsa/bcm_sf2.c:bcm_sf2_sw_probe() {
-    ...
-	pdata->chip_id = priv->type;
-    ...
-	ds->ops = &bcm_sf2_ops;
-    ...
-}
-
-bcm_sf2_ops sets .setup to bcm_sf2_sw_setup(), so b53_setup() never runs
-on these chips. bcm_sf2_sw_setup() does not program B53_HL_PRTC_CTRL:
-
-drivers/net/dsa/bcm_sf2.c:bcm_sf2_sw_setup() {
-    ...
-	b53_configure_vlan(ds);
-	bcm_sf2_enable_acb(ds);
-
-	return b53_setup_devlink_resources(ds);
-}
-
-bcm_sf2_ops still has this entry:
-
-	.port_mdb_add		= b53_mdb_add,
-
-So multicast ARL entries still get installed on SF2. After the first
-listener's entry exists, the original problem looks unchanged there: later
-IGMPv2/MLDv1 reports sent to the group MAC follow the ARL entry and never
-reach the bridge.
-
-The resume path, bcm_sf2_sw_resume() calling ds->ops->setup(), has the same
-gap.
-
-The is58xx() part of the gate above matches BCM7445_DEVICE_ID and
-BCM7278_DEVICE_ID, but devices with those IDs never reach this function. Is
-that check dead code? The commit message also says this covers the "newer
-integrated RoboSwitch families".
-
-Should the helper be exported and also called from bcm_sf2_sw_setup()?
-
+base-commit: 7e60162b16f9da0d2fa83da5c1723b6853a0ac1d
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026172453.3152951-1-florian.fainelli%40broadcom.com
+2.56.0.307.g5fe7bd680c-goog
+
