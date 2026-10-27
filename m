@@ -1,68 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793126591;
-	b=RNaZW0cfpZYAO5K0/j4+RxMTmu+d+JSXEUFuEuFESHGRmqW3WMLv4WU6pZNC1/UkLpsw
-	 UrZg3Nqk7H1zFw5v59OkZpwUlozO2GicHD+0U9zgHBDz4KzQidPrIxZ1NwOXK7yoT9hkf
-	 bWzHUX5GlybpbEGxPpp1cO3UDamhdRYa7bqnaCC/AqrxnJkxbvD0t/jILKOabwfI1fw8A
-	 /PdqCdJWs3ddrIwzwnQw6GU8TDwsbC0U3yXlCVGeQOhtXG3UMiZwLx4W06Z4u/dMAJKuw
-	 wR5AblMSAymICBaHiU+FtiSnGjlCR4RTzdW8/SpCG3am25g9gdwqF2k5/Ual5xwjB7g==
+	t=1793126611;
+	b=qDPZVpstUxAUBI2qTmJsOSa28c7S5mcVsxH2MbvUy3UhrEBH67HGzV7gLRfyRkHMz5Ve
+	 yYLxJcr56OwCotuE5MU9mz7zV1fk2efBxwFwVzdKADT8KDCni+dV4eEcIhIlLJfQHM7Tv
+	 blkfaQFHE0tCDu25L1/yM4F1me/9pclABSMKnddgd6z/q969TsjDuwbcd+6phHUWlKf56
+	 hVZz/BaDW6yx9vo/lcwuLXdX3wzSgjJEietZhBR/xbrvR7ilEdj9uNWYW71In8fdFVlz/
+	 uWnmm8qaH0HEgeoHzX8ZJGNNpJvKyQWgBLZZnHeBil/CQPiBgUclUbfjD1PM0qtpkOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793126591;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=xIFdqcQop16rBA6d8rokSjCRa+xyZ7YEUJL0UVFobxw=;
-	b=CPUN8SmYg6xm4KdOtFotpNS4PkgFTPJRwWlke0SJk+BPjrp699PWw2Nx8GoOHOl38VAD
-	 eLdThhAKo0eI2DLgbRsJnQhKRBNp9CvNwZziAhU/2Rx0+VzYMgUfBjBshIBkc5roD+Slj
-	 BkrPn0zpEUr5UutDP3Uq9xsDY5iJzB3XKtTLz0NNUiQnf4Acm7+TR/uKfrFdAQuTrpC7L
-	 D42vJ9ZULR2z1D6kR6tQeAbR9fy+FgQol7KyuoN12qFVQ2PJXKh9QQOGUQbAgy4uYOtxJ
-	 cv/VoF2RMQQe67DFbH8+V9DRbb9WWiipm8RrZcJ0PcS9A5dgW3NWehiwESZ3wxGtpRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793126611;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=/3tibRvQ76ExQ0W3ZkBRUL/Y1H2AP4fK7D1nRgB0KTM=;
+	b=jYd2gU9Kv9g+WW8JiH+dgRYNSn+nWOCWl8GxpmpkofOH0FeBtRdoZ3no3eaSOHL4SWtP
+	 98QwRbwF0v+W6PZbWousDEVCkqQ49TzbfSghFYX40AGyZbh19yKjC3YyDlmh53EqBZL2G
+	 XpE6h2dQvl4bz12dzR3iZ4KqE4C5W+uCQffJ8sMCpnzGfDhTemm/0eAay0qSyFICn8ZrZ
+	 0Iv9fLADUpI3eoytsEmqkdOHikfwnGnsWpnbZGXB2IhkNOEnA4P71p7vz1sNg0fkqm4Hl
+	 L02wDL9vYNgWet8JIbqA8bWOzLIdrQ5E89fuTJfkSKbfazXyF5OpyT2yDSfFL0OX0CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PCupMWgX;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b="aL/2Qb2A";
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789F8606A31A;
-	Tue, 27 Oct 2026 18:43:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 789F8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5D0606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 18:43:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F5D0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PCupMWgX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793126590; x=1824662590;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=UwTqLSGufc96edkaRFFGuSNo8Y98RISJikAmskrMGZs=;
-  b=PCupMWgXdTjloa+A++EHK9iT1zMP8Wfm4hAnHBrIotUx6Jxqlq/aE2O3
-   hsA1RVdlZOoXaS7xRQbzXKbKeDXViQC1imk5cDO2sHA3zyzOuWEPd9LPT
-   DTfzxS4AFG4tgMHwUVpKpwM7NVPEMrteaXS+aQ1yFc5l1kl0i7ISWSxsW
-   KY6ehTf7zyW/5FhjAEWuupUQkKWb1wDGuAD9a+o4/vwp7+9oR2hdgelBb
-   v7bgcFAvfjU06KZ/lEPXOVo+plmfBzDWexubHpGLkuEwbQb5/x2cL20+f
-   oyoFnSHQ/+SiU71j3NCj5sZk1kTcDqUG/XSrRT8S0cnNkvovBp85HMgKL
-   Q==;
-X-CSE-ConnectionGUID: a1lXrHtQR6aXOoOgrOHv3w==
-X-CSE-MsgGUID: cqpF9eiFQdSjvFabigTQvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1736630"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1736630"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 11:43:09 -0700
-X-CSE-ConnectionGUID: sGhZ8Nj9TKOOJVH0GytfUg==
-X-CSE-MsgGUID: SmUAzGd1Tz6Ltvlu8kgzxQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="6484299"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.108.170]) ([10.125.108.170])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 11:43:06 -0700
-Message-ID: <592d643f-e97d-4de8-9a87-e47d57dc8457@intel.com>
-Date: Tue, 27 Oct 2026 11:43:04 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=aL/2Qb2A
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91c67992ce5so1818746d6.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:43:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793126610; x=1793731410; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/3tibRvQ76ExQ0W3ZkBRUL/Y1H2AP4fK7D1nRgB0KTM=;
+        b=aL/2Qb2A6wIg62sataJ4dhl7YCi8CuF/ywKK2ZkdAMm/4r+vwoyJNNQgWpuMhAe5Hu
+         DOoKVXejH35OXH31pDusY1ns6/OsrpceBFGvQsT8fySizIjyxjJiyKP3MW4xslN8ckcw
+         sEqavfAF8QVq8cnobdZLdkGDdscMHzgbUlcbAKWDFrjZ62LvAS9RDfmo9Q4sUyhnQO76
+         VfccEHnwoU+9Czq+7TFzm5UBcdGf+VvrQRdtcjKVeD1CMV752Y/EJZ5y8IRWMkT7p5rj
+         hC0TjbjuIIqEqX0sMCEnkaBA5dSaAt2pRP8jUvi5RESHrom6vO0akDM9Yd3ph49smflz
+         BLVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793126610; x=1793731410;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=/3tibRvQ76ExQ0W3ZkBRUL/Y1H2AP4fK7D1nRgB0KTM=;
+        b=ljHmc1OZ+yo8d9e9+N2SM0o7cRvUes3/huOIXMegCyOP8bEtb/o9re0Qat9SXNbkce
+         RoX9KfPPnWL6IGwBFD60QyyyCgTMzjwuxcfsRI64L0FggYVdl1JE6kXGkrQoGIkqmA97
+         p1PhRI7pIyijkLKBR4s/m8dODTWe0kC9PZ0x9ITI5nknGERTcep12ZF00dnLWj+K6r4A
+         H0GttcHQwu5yfVck7nD3Y9ZbbXzVY2EMid0xbbdSlYb+PTRGhFCVgyS7uzDel/rR1dn8
+         Hm8S3hwmIiBEJUmD0uv8/6qRnUnoVbVjVyKTPwC/EGAFNlLtX0oaiUDRm1O92r7btw7R
+         NLQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEfvvoGH3VeoYdIyh3uJc4vmh2BT3zNGWFlY3aKMP4PLZZ7QG8IljxmIVLJi+9VJrBLrRNZaLUlUPe1g4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQ4Mw8LVaO29c6m7lqlZbRAk+uDlIfyRlB9yTOqOIL9yKsOqBN
+	PYx9kqg97PDbdLkzYvYrbI8NAhoCGAsWMuM2Ey3ienuF9UxdX/b+E9lQBkKQuQhxip+nGmwTfEP
+	uL4E/
+X-Gm-Gg: AYBFou3/Seux+/9LiPcwuvP8EsuNNLEYzbLeiqIfPei88ktH9BNFpIqwDF152O4cd7x
+	qcUfwDqerbLtwHvPyNEULf9/kR7IY167O2X7+6WojhZjrqdqStoo+vhVYBgvrvIeI47JpAlavUR
+	wTOPRqMlqg+cuxsZXTbrJpUF37OsajNJxpfkfx7cx+x9kZoDIdc1YvsI7qUutZ56JRMxPROONOK
+	/GMd83+vACNtyiBopzph8eeAGcPYfZvFxV9+yT75RRd9qZ9y5rYNMJBfEKYIVDjVz43XCmCsQgc
+	Yx2AKtknNs9kRKR22K3TckEmHA//cpR5zH2lnqqCnb4fRgWSFPDn5Os8LRZTBROHpYrBCtkXV3u
+	cjA22X4iDqzWPZTx4PZvUU6I/u48FYU8r/UXGit5YihSBVr8CiH3SEgeTyqx6x8kxo47Pk8THDD
+	vu+2iLVij60WFjbGTMN34ZXnKW2f1QuUebDUOf/WMhFIylVggZtKvEzxAdVbaKK4peqXPWcyjW3
+	VyZXQZCXWuTJ7TA9qNbJJis+TzaupB07HEmrj8aK7Iyf4uG/Vjq+RgOj5GZYXtH18OFVxSK4Rbl
+	9zKnM6rjEvGR6P8cPj4WZ0ht6VXcBFZFIwQJMNulLslLI8U=
+X-Received: by 2002:a05:6214:4198:b0:91b:5d3a:5106 with SMTP id 6a1803df08f44-91c48e86a0amr179280536d6.52.1793126609742;
+        Tue, 27 Oct 2026 11:43:29 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.253])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c6e20ba4fsm31819396d6.14.2026.10.27.11.43.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 11:43:29 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 27 Oct 2026 18:43:14 +0000
+Subject: [PATCH] ext2: only flush DIRSYNC directories on every change
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,219 +92,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-To: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org,
- kvm@vger.kernel.org, linux-doc@vger.kernel.org, jgg@ziepe.ca,
- david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
- rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
- drdeeglaze@gmail.com, James.Bottomley@HansenPartnership.com, aik@amd.com,
- jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
- jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
- suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
- elena.reshetova@intel.com, dave.hansen@linux.intel.com,
- sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-b4-ext2-dirsync-v1-1-3dcd012d518d@toxicpanda.com>
+X-B4-Tracking: v=1; b=H4sIAMHw4GoC/03MMQ7CMAyF4atUnrFIolAQV0EMsWuoGQKKCyqqe
+ ncSWBg/y+9fwKSoGBy7BYq81PSeK/ymAx5TvgrqUA3Bhd67sEeKKPMUcNBi78x46Dn56PwuEkN
+ dPYpcdP4WT+ef7Uk34all2gclE6SSMo/t1Lj9T8K6fgAPV658lwAAAA==
+X-Change-ID: 20261027-b4-ext2-dirsync-86ca140154bc
+To: Jan Kara <jack@suse.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793126607; l=1707;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=+K3FWhF6zDMGz/BBYD/9H90CCViXMrrzDaS65J+qi7Q=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QBPzjtD6VIdsn/SXpO6bRWXb/ppKa0VePG+69S+DwXUp6u+Lkjsi6IoVmuGN1N2uwOUijesbDuS
+ IeNJ5pTVCCAc=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
+Every change of an ext2 directory is written to disk before the system call
+returns, whether the directory is DIRSYNC or not: its pages with
+filemap_write_and_wait() and its inode with sync_inode_metadata().
 
+Writes which reach the device for 2000 files, and 200 directories, in a
+directory without DIRSYNC, with the flusher turned off:
 
-On 10/15/26 7:50 AM, Jiri Pirko wrote:
-> From: Jiri Pirko <jiri@nvidia.com>
-> 
-> Linux has several attestation interfaces tied to individual technologies.
-> That makes evidence retrieval, measurement registers, device state and
-> kernel consumers provider-specific.
-> 
-> This series introduces a common attestation subsystem. Its goal is to
-> support platform, TEE and device providers through one model, including
-> TPM2, TDX, SEV-SNP, Arm CCA, FIRME, Caliptra and PCI/TSM-backed devices.
-> This first series implements the common subsystem and a TDX provider.
-> Existing native TDX tsm_mr and tsm_report interfaces remain independent.
-> 
-> Attestation devices use CTLV, a schema-driven character-device TLV UAPI.
-> Compared with sysfs or configfs, CTLV executes one validated request
-> atomically instead of assembling a transaction through several files.
-> Compared with netlink, an opened device fd directly identifies authority
-> and lifetime, can be delegated normally, and owns its event queue. CTLV
-> also provides:
-> 
->   - generated kernel metadata, UAPI constants and documentation;
->   - strict type, bounds, nesting and required-field validation;
->   - runtime operation and schema introspection;
->   - family inheritance and extension points;
->   - fragmented queries with generation checks;
->   - per-fd event subscription, overflow reporting and removal notification;
->   - large input and output blobs.
-> 
-> The attestation family exposes capabilities, evidence, measurement-register
-> topology and operations, an append-only MR journal and journal
-> notifications. This first ABI contains the paths exercised by TDX. Extended
-> evidence classes, dynamic registers, record payloads, verdict recording and
-> device-security transitions follow with providers that need them and are out
-> of scope of this initial patchset. The broader direction is illustrated here:
-> 
-> https://github.com/jpirko/linux_mlxsw/commits/wip_attestation_all_1
-> 
-> That branch also contains additional providers (test and sim),
-> attestation core extensions, libctlv and ctlvctl. With the tools
-> and kernel specifications, an attestation device can be used as follows:
-> 
->   # Discover CTLV devices and their family chains.
->   ctlvctl --spec-dir Documentation/ctlv/specs list
-> 
->   # Inspect the root-family lineage and attestation capabilities.
->   ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 families-dump
->   ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 device-get
-> 
->   # List the measurement registers of the attestation device.
->   ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 mr-dump
-> 
->   # Read RTMR0 (MR 1).
->   ctlvctl --spec-dir Documentation/ctlv/specs \
->           query ctlv0 mr-read mr.id=1
-> 
->   # Extend RTMR0 with 48 zero bytes (SHA-384).
->   digest=$(printf '%096d' 0)
->   ctlvctl --spec-dir Documentation/ctlv/specs \
->           exec ctlv0 mr-extend --json \
->           '{"id":1,"value":[{"hash-algo":5,"data":"hex:'"$digest"'"}]}'
-> 
->   # Retrieve the RTMR0 journal.
->   ctlvctl --spec-dir Documentation/ctlv/specs \
->           query ctlv0 mr-log-get --json '{"selection":[{"id":1}]}'
-> 
-> The 20 patches are organized as follows:
-> 
->   1-13    add CTLV, its generator and documentation
->   14-17   add the base attestation family and implementation
->   18-20   expose the native TDX service and add the TDX family
-> 
-> Note to reviewers: Please focus on the overall design, UAPI and internal
-> attestation-provider API. The internal CTLV and attestation implementations
-> remain rough around the edges.
-> 
+            create   rename   unlink   mkdir
+    before    4000     8000     4000     800
+    after        0        0        0       0
 
-< --snip-->
+In a directory with chattr +D the numbers are those of "before", before and
+after.
 
-Hi Jiri,
+commit bc943f4872a7 ("ext2: Don't flush page immediately for DIRSYNC
+directories") moved the flush from ext2_commit_chunk() to the new
+ext2_handle_dirsync().  The IS_DIRSYNC() check which was around it didn't
+move along.
 
-I built a proof of concept on your wip_attestation_all_1 branch with help of LLM
-for TDX Connect device attestation to see how it holds up, and wanted to share
-what I found.
+Fix by putting the check into ext2_handle_dirsync().
 
-What I built:
+Fixes: bc943f4872a7 ("ext2: Don't flush page immediately for DIRSYNC directories")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+I ran into this while testing an overlayfs series with ext2 as the upper
+file system. Directory entries were always on disk after a crash, also
+the ones nobody had synced.
+---
+ fs/ext2/dir.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-- A ctlv-attestation-spdm family. As you proposed, the sysfs lock creates the
-  assigned-TDI attestation instance; in my version unlock removes it.
-  EVIDENCE_GET, EVIDENCE_ACCEPT, DEVSEC_STATE_GET and DEVSEC_RUN all go through
-  your ops.
+diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
+index e17bbc7598c1..5de32c221a83 100644
+--- a/fs/ext2/dir.c
++++ b/fs/ext2/dir.c
+@@ -442,6 +442,9 @@ static int ext2_handle_dirsync(struct inode *dir)
+ {
+ 	int err;
+ 
++	if (!IS_DIRSYNC(dir))
++		return 0;
++
+ 	err = filemap_write_and_wait(dir->i_mapping);
+ 	if (!err)
+ 		err = sync_inode_metadata(dir, 1);
 
-- A provider (a 'struct attestation_provider') that sits on top of PCI/TSM, so
-  any backend can use it. It serves the evidence PCI/TSM already publishes, and
-  asks the backend for a refresh when EVIDENCE_GET carries a challenge.
-
-I ran it in QEMU with the devsec sample TSM, and in a TDX Connect guest on real
-hardware with a real device. Both worked: lock, EVIDENCE_GET, DEVSEC_RUN
-refusing a device without a verdict, RUN, and unlock. My tree has out of tree
-code for TDX Connect to get things working.
-
-The model works well for device attestation. A few things came up that I think
-worth a look.
-
-1. EVIDENCE_ACCEPT and DEVSEC_RUN take any evidence generation since the last
-   device change (attestation_evidence_validate()). Ranges would narrow that,
-   but they need measurement registers (attestation_ranges_required()), and a
-   device has none. So a verdict survives a refresh. In QEMU with the devsec
-   sample:
-
-     EVIDENCE_GET, empty challenge   -> evidence generation 1
-     EVIDENCE_GET, challenge c1      -> generation 2, measurements changed
-     EVIDENCE_ACCEPT generation 1    -> ok
-     EVIDENCE_GET, challenge c2      -> generation 3, measurements changed
-     DEVSEC_RUN generation 1         -> ok, device in RUN
-
-   Any process that can issue EVIDENCE_GET can do this between the appraisal and
-   DEVSEC_RUN, and the device runs on evidence nobody looked at.
-
-   Combining EVIDENCE_ACCEPT and DEVSEC_RUN, as you and Aneesh discussed, makes
-   sense to me, but it doesn't completely resolve this. The combined op would
-   still take generation 1 and run the device directly.
-
-   Only the provider knows a refresh replaced the evidence. It can't tell the
-   core from inside an op, because attestation_state_changed() takes the lock
-   ctlv_attestation_op_pre() already holds. How about a helper the provider
-   calls after a refresh? With it, the old generation gets -ESTALE:
-
-     /* core.c, next to attestation_state_changed() */
-     void attestation_evidence_replaced(struct attestation *att)
-     {
-             lockdep_assert_held(&att->lock);
-             attestation_evidence_accept_clear_locked(att);
-             attestation_evidence_ranges_clear(att, false);
-             att->evidence_floor = att->evidence_generation;
-             att->devsec_version++;
-     }
-     EXPORT_SYMBOL_NS_GPL(attestation_evidence_replaced, "ATTESTATION");
-
-     /* the provider's evidence_get */
-     if (request->challenge_length) {
-             rc = pci_tsm_attest_refresh(pdev, request->challenge,
-                                         request->challenge_length);
-             if (rc)
-                     goto out;
-             attestation_evidence_replaced(att);
-     }
-
-2. TDX Connect (maybe others) does not raise an event when a device drops out of
-   RUN. The provider only finds out when it asks, and on TDX even that answer
-   can lag. The guest reads the state the TDX Module last saw in a TDISP
-   response. A function level reset, for example, moves a locked TDI to ERROR,
-   but the guest keeps reading CONFIG_LOCKED until the TDX Module sees another
-   TDISP response, such as when the host asks the device for its state.
-
-   So the provider learns about a change inside an op, where the same lock keeps
-   it from calling attestation_state_changed(). DEVSEC_RUN doesn't check the
-   state itself either in ctlv_attestation_devsec_run_action().
-
-   Could the core add a version of attestation_state_changed() that a provider
-   can call while the op already holds the lock? Or let the provider flag the
-   change, and have the core send the notification once the op drops the lock?
-
-3. Jason asked on 14/20 whether anyone needs a variable-length challenge. I
-   don't think devices need a range. A plain read sends an empty challenge, and
-   an SPDM GET_MEASUREMENTS nonce is "NL = 32 or 0". Your TDX provider always
-   takes 64 (attestation_tdx_evidence_caps).
-
-   A device needs exactly two lengths: 0 for a plain read and 32 for a refresh.
-   struct attestation_evidence_caps only holds a single min/max range. It's
-   checked on every request in attestation_evidence_request_decode(), and any
-   range that allows both 0 and 32 also allows everything in between.
-
-   To work around that, my provider declares 0-64 and PCI/TSM rejects any length
-   other than the backend's nonce size, 32 for both backends I ran. Could the
-   caps give one exact challenge length instead of a range, plus a flag that
-   also allows an empty challenge? A device provider would set 32 with the flag,
-   and your TDX provider 64 without it.
-
-4. EVIDENCE_GET rejects any buffer smaller than max_length
-   (attestation_evidence_decode_objects()), so userspace has to allocate for the
-   worst case. Aneesh's provider declares 16M per certificate chain, so every
-   read needs a 16M buffer. Could EVIDENCE_GET take a smaller buffer and return
-   the length it needs, or offer a way to ask for the size?
-
-5. evidence.challenge is a required attr of evidence-request, so a plain read
-   has to send an empty one ("hex:" in Aneesh's example). Could it be optional?
-
-6. tdx_attestation_test's discovery_and_construction_fields expects an
-   inheritance chain of 4, but the TDX family inherits ctlv-attestation
-   directly, which gives 3. In a real TDX guest it fails with
-   "Expected 4 (4) == ctlv_chain_len(self->dev) (3)".
-
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261027-b4-ext2-dirsync-86ca140154bc
 
