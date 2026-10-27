@@ -1,50 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099504;
-	b=JEfx21M42bMQ5Fsx2VxpcqfklFVpqM5Z1fWrbdLltUo5sdCLzMeWxWLtzAO4/ElQ/4J9
-	 r8A7JvNeQx0gneI3miC1I79WhSQ+fqLpvNlhejLSwYeCWsgF4+MGRc5kCbThRhZ84r88v
-	 yfcDG85piHlR4Z41RXXxXfo/btbJr4VQ300bzZ7HJW1PfXpur6GtGiSjKp9MRccgC5SOE
-	 tYr4eVXvkX7iqQsD9l84SagKT3w+dCEkaqhmjrf3x6+1OBwm1KZEk4VXFCCORAP8ptkpO
-	 ilcWwme1dmfwufIeAFWiwm5GoJLr8A63AmHwXjxpiq/GDSu6MJB3UdzsGYrWdqk6CTQ==
+	t=1793099507;
+	b=C4yFbFjUDzcLlWPt7QabnV8wiciDecf9lU+s8sfolsk0GdzA05dm2KLRvivQxttj3fJv
+	 +wMyRkC/QRZ+2ZrLDQqQ3TYzhpJgDQGDJW9lJ6dB8x74r3xmlq8gqZSu9nV0qbi3hcydD
+	 WMErLCSK5DiK03Pe9uar4EU4wi0JfupmhKWWkhga7NEKwVedYU3MRpNs/dD5VEEFS8CbN
+	 L+ip8zFjC9q/nH5Ke1V1Fk1bgiBoALmWDA7jbcZkWMO/wu63v38jUO8nnHQxiyf8DOvLq
+	 n/Vr5mW75LtNNuWkeT0xHDQYPYFTKeh7QhAvhUIIxJnGzyEU01iPNolYlIb9tZNr6mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099504;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099507;
 	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=uRm+F7qYtT36OPuPfH5nm2HUlkYwRf4AN90k+1SZEEo=;
-	b=rhXd7rA92MyhzT5/bljyzCHJIl2yUV1nu3Vh7RLfw5nhEcxW7mh5gyKI5o5FcNsEq8As
-	 1+IJmvRihPRzGpj+TUov8VZD7xPqjYFIDtvkCl3Vrk2YKEHFx+DWL1KCJeqyenQxxXdoL
-	 mhnren1kWc+QpUzZk5FM6KmgefYZyUSnbqQhwLNL67kTVe6hnrM1pxXF6Fe/4eW8m8lm3
-	 yCQOy7p+IqsCMRZoR6zQWo5zdHCN9xSGKjkALSQZMZLy3AEAwyPW5wsXcgIWJfv9EtrP9
-	 bMS7j7kwXGTXnlBZ64z6tYEBGc6/w11h9QZq0xHrqyJOArseFoXNXdda59RAUWW9bhQ==
+	bh=3ZNZ1PFbAd3WXOSZ79HxKGLz5biQN25VWI9t5QUFhJg=;
+	b=4+1v3gVjrmH5+COYN1yp0x1SJ58RPbxE/h7twBkgrHOCsUnKzPPOC/pa3So7VDoWxdOD
+	 psgIMGcYb7QoecKpZ3+9Ye6j6AoaxRAVYAtuRVIa/yG/wSxkZVgJymfnIEqUBcQBy7mYR
+	 BbbZ8o3Hg9940CYL/TfJhymczsr4xJpiZJdUWZywcEnUO+ANEW9yzn83gyhNccjm2ivsy
+	 8Na4F3TYe2dRFfuND+GM7arRGDrBOYsfb5DJ3pN/r/6dyv2CK7VmAEnXl+VlVtCwpj4lZ
+	 OU83o0ELofZs7FWjSlMxDoulXBp3UNWph5bkY3E/5xIUOjJexBsYiQZw9v0c0bOpdow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=runtimeverification.com;
 	spf=pass smtp.mailfrom=runtimeverification.com;
-	dkim=pass header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=OYa4Eb8M;
-	arc=none smtp.remote-ip=109.224.244.106
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+	dkim=pass header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=sMMu2Jvb;
+	arc=none smtp.remote-ip=109.224.244.107
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A97606A32D;
-	Tue, 27 Oct 2026 11:11:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0A97606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268F9606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:11:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 268F9606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=OYa4Eb8M
+	dkim=pass (2048-bit key, unprotected) header.d=runtimeverification.com header.i=@runtimeverification.com header.a=rsa-sha256 header.s=protonmail header.b=sMMu2Jvb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1793099500; x=1793358700;
-	bh=uRm+F7qYtT36OPuPfH5nm2HUlkYwRf4AN90k+1SZEEo=;
+	d=runtimeverification.com; s=protonmail; t=1793099505; x=1793358705;
+	bh=3ZNZ1PFbAd3WXOSZ79HxKGLz5biQN25VWI9t5QUFhJg=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=OYa4Eb8MMmjnnSbftKj6t6tsGHic4RQNA/6WBHSkWGWjXLZungxm37Dy6thwFzn6w
-	 ttNvjB19xqdAw2tZXvk+IRLLy+7DvqX7CqjWr9mON5mK5iZqM4Cifo4RhUTrUrie2L
-	 2Q/nGfE/ij0XGHoLHKW3RMc6qQGa2sKn0DO+zYJb4gS/cGQsyOfdk+rR67+j8yuGu8
-	 vsCaqlMlxKd1jzbg0SmloMaa7lRgYdDuO91dPyNfXe8e+rguZVwplPZD9VwTA/9XH5
-	 diPoPp8j84cgmvipLqtt++w3RD5oJWbtHPzzHFea8NgwLdTTt8YefAjzSq2q18kDnN
-	 Ln3r4THmsAypg==
-X-Pm-Submission-Id: 4jDSVb5T0kz2Scj6
+	b=sMMu2Jvb0v2pMl7+RupYxfJmcaPPznrS8ZFLSSnF83vJs19ql8ATvTSzVGb2SJyMV
+	 wozXQakD7Eic/Lj3cJAgySi0opZ/QpP2s7kFxmf5gDZiqBFL0OlAb/tCrIVdAF8d/4
+	 inNLUD62/sRPkENZq3G9vcitRfTZ+lyks0erh0l402ToaE1i2BBrpgtRic8LtPyxgE
+	 Xeo19wWUeijFKHlFh/FJydvkHjSXVH/ajJmAH9gGumWndTMfYfxmlsk5OkKHxXmTS3
+	 nceETJtclM4Xn/lrtSp8QArnxoHS+CXDVEb43n7nhaHUATWf0ZZj/Mg6a1kypd8MzO
+	 8nZe4UnCAgKFA==
+X-Pm-Submission-Id: 4jDSVj05Nlz2ScjB
 From: Natasha Klaus <natalie.klaus@runtimeverification.com>
 To: laurent.pinchart@ideasonboard.com,
 	hansg@kernel.org,
@@ -54,11 +54,10 @@ Cc: ribalda@chromium.org,
 	david.laight.linux@gmail.com,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
 	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH v4 2/3] media: uvcvideo: Fix integer overflow in frame buffer size calculation
-Date: Tue, 27 Oct 2026 14:11:15 +0300
-Message-Id: <20261027111116.119182-3-natalie.klaus@runtimeverification.com>
+Subject: [PATCH v4 3/3] media: uvcvideo: Skip frame descriptors with a zero computed size
+Date: Tue, 27 Oct 2026 14:11:16 +0300
+Message-Id: <20261027111116.119182-4-natalie.klaus@runtimeverification.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261027111116.119182-1-natalie.klaus@runtimeverification.com>
 References: <20261027111116.119182-1-natalie.klaus@runtimeverification.com>
@@ -73,104 +72,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Noam Ben Shimon <noambs2999@gmail.com>
+For uncompressed formats uvc_parse_frame() recomputes
+dwMaxVideoFrameBufferSize from the frame dimensions and the bits per
+pixel. All three operands are read straight from the descriptor bytes
+with no range check, so the computed size is zero whenever any of them
+is zero.
 
-In the function uvc_parse_frame(), it recomputes
-dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
-around devices that report it wrong:
+A zero size is not harmless. It is copied into
+ctrl->dwMaxVideoFrameSize by uvc_fixup_video_ctrl() and reaches
+uvc_queue_setup() as the vb2 plane size, where it trips
+WARN_ON(!plane_sizes[i]) in vb2_core_reqbufs() at
+drivers/media/common/videobuf2/videobuf2-core.c:951 and fails
+VIDIOC_REQBUFS with -EINVAL. On a kernel built with panic_on_warn that
+WARN is fatal.
 
-	frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
-					 * frame->wHeight / 8;
+Such a frame can also become the active one without any application
+asking for it: when no frame matches the device's default bFrameIndex,
+uvc_video_init() falls back to frames[0], so a device that also has
+usable frames can come up unusable.
 
-These three arguments originate from the device's own descriptors, and
-therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
-u16. The expression is evaluated in int, and the maximum value is
-255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
-A device that declares large dimensions therefore overflows a signed
-int here.
-The kernel is built using -fno-strict-overflow, so this wraps rather
-than being miscompiled, but the wrapped value (which is often negative)
-is then divided by 8 and stored in a u32 used as a size.
+Skip the frame rather than rejecting the descriptor, which would discard
+the whole streaming interface and every valid format on it. This follows
+commit 81f3affa19d6 ("media: uvcvideo: Don't expose unsupported formats
+to userspace"), which drops a format descriptor the driver cannot use
+for the same reason: to keep it from reaching userspace and triggering a
+WARN_ON.
 
-Two examples for this (using legal field values):
+The zero size case was found with Claude Code, an LLM tool, while
+reviewing Noam's overflow patch.
 
-  - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
-    INT_MIN. After division and conversion to u32 the field has the
-    value 4026531840 rather than 268435456.
-
-  - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
-    The field holds 0, rather than the correct 536870912.
-
-I don't think memory corruption is a consequence of this. The value
-reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
-decode path is bounded by buf->length, which uvc_buffer_prepare() gets
-from vb2_plane_size() rather than this field. What a wrapped value does
-instead is make the driver describe the stream inconsistently.
-For an uncompressed format uvc_fixup_video_ctrl() copies it into
-ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
-sizeimage reported by VIDIOC_G_FMT. This is while width, height and
-bytesperline continue to describe the full frame.
-This also makes uvc_video_validate_buffer() mark error on all frames,
-because it is comparing bytesused against the same number.
-
-Compute the size in 64-bit, and if the result does not fit in the u32
-field then skip the frame descriptor. An uncompressed frame this large
-is probably not a real device, and skipping it leaves the rest of the
-format and the streaming interface usable.
-
-The overflow was found with the help of Claude. The fix itself
-was written by hand.
-
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
 Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
 Tested-by: Noam Ben Shimon <noambs2999@gmail.com>
 Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
 ---
 Changes in v4:
-- >> 3 instead of DIV_ROUND_UP_ULL, see cover letter. This is the
-  form Ricardo reviewed on Noam's v2; Noam's test inputs give the
-  same result, so Reviewed-by and Tested-by are kept.
-- Changelog says how the overflow was found.
+- Changelog says how the zero size case was found.
 - Rebased onto d135ab453a74.
 
-Changes from Noam's v2: rebased on 1/3; dev_warn() instead of
-uvc_dbg(); operand values in the message (David Laight); last
-paragraph describes skipping instead of rejecting.
+Needs 1/3 for -EINVAL to mean "skip" and 2/3 for bufsize.
 
- drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/media/usb/uvc/uvc_driver.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index 14ab4cc28c40..4d1380c38ec6 100644
+index 4d1380c38ec6..c1c05bba7f7f 100644
 --- a/drivers/media/usb/uvc/uvc_driver.c
 +++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -295,9 +295,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 	 * information. For uncompressed formats this can be fixed by computing
- 	 * the value from the frame size.
- 	 */
--	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
--		frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
--						 * frame->wHeight / 8;
-+	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
-+		u64 bufsize;
-+
-+		bufsize = ((u64)format->bpp * frame->wWidth *
-+			   frame->wHeight) >> 3;
-+		if (bufsize > U32_MAX) {
+@@ -308,6 +308,20 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 			return -EINVAL;
+ 		}
+ 
++		/*
++		 * A zero-sized frame is unusable: it reaches vb2 as a zero
++		 * plane size, and it is reported to userspace as a 0x0 frame
++		 * with a zero sizeimage. Skip the frame descriptor, the
++		 * caller moves on to the next one.
++		 */
++		if (!bufsize) {
 +			dev_warn(&streaming->intf->dev,
-+				 "UVC non compliance: FRAME %u computed buffer size overflows (%ux%u, %u bpp), skipping it.\n",
++				 "UVC non compliance: FRAME %u has zero size (%ux%u, %u bpp), skipping it.\n",
 +				 frame->bFrameIndex, frame->wWidth,
 +				 frame->wHeight, format->bpp);
 +			return -EINVAL;
 +		}
 +
-+		frame->dwMaxVideoFrameBufferSize = bufsize;
-+	}
+ 		frame->dwMaxVideoFrameBufferSize = bufsize;
+ 	}
  
- 	/*
- 	 * Clamp the default frame interval to the boundaries. A zero
 -- 
 2.34.1
 
