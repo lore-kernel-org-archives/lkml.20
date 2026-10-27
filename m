@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793116016;
-	b=VTVwP64KCyM1EagU7ZrUc+dmZJaRq47+0z6DCtRIDtHT3iLTpTMH+Ak0rlJB/AnK9923
-	 6fJlTN16Yna13P97P6MdU03cBALshbZSVjQB+FbL63kkQ3byIXjtCs0mGT6BlbVvu+Z5r
-	 cT25cwB/mgYrlMX4sRWac9ax1gApEHA8764KgZvwm4TuWoIrEDiaUaYQw5r2IKcA3GCMc
-	 3b89uTXNEw9wt0310vTSWezTYhzLmR7cqGvW7rSmjov1m5zZdEiR9YWU8rKM6R56PmIXv
-	 XkCv7d6NvhB57dbEfq9laoFcETXfKyvsZXewFf8M1sQdvIXXnjIpstxl6NqSmnCFIEw==
+	t=1793116002;
+	b=DF97Oqf5HOGxxqQmiyg7K7wOBlW6SiLmMmd0TM9s2wy4GEaXVsIntdptBfxfrDlxXv1+
+	 GrHRs0+dhQ1xjwK/UrIE1MhJR2tGy6pqc4HgpB3hBMnLpGEql8lHZYUR4iGBN2ybKixvr
+	 OUrIre80G/IN2XL/tPCk3aKXbHqqLhfp3MR46blVvSZSp+mFjl+VmKJTNm2mEeiQ9Agf7
+	 aiT/el+3RO3YgGcwFlQl/3qcb9/3PcDuR8kVnCXHrtNOFP4sb2Fjh8/Qt2U2XYi8ZzJyC
+	 f5vdunPRuiopwEBecyi6Nyby7QswGFYyru13i3+A+NflRVFD/x6q15V8L6zILGpGnWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793116016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793116002;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=CF4JG26SyUmlFQ+N2KC4es1n4tmJXfM005qUTadw3Gc=;
-	b=MCtIkfR+SK2EPZLUc3+hnJajW8z1TMbUXIUxWCb1AnCcos9h4a+kuICav9O96DWcRxI+
-	 COJtjYcCqfdfXVc3QEWGy1mqrJVCYt/RvR3CmYOiWFeUcCYBxRswoksGqU2Mohx9mQed4
-	 kLlimFZFpZ4/em3hIXMqvZ8+aMDLm2bQxO6fyWllNeQa+dqD4RK+6NfuFxZtwJiVakp28
-	 /EbiI1QolnulHe0hWQJj4OBD4ofS3b1lJWw+0NlIqUaGRYkSdt/anhFLvFisJOmmd4RHd
-	 VBbdUXs/XF4I+gq77fAakItC+iPQXzlqYkxLQ4bjnXK6ccOqbIq/cdGZhPy0+Te4Trw==
+	bh=JZkvBXJ1M4cprmGAnU9nv4mrWfliu5LNDxbLf5XaiBg=;
+	b=naNSG6KuGwxOY4OMu6RqjhUCniUad7qYd4/HTekJkvQ4Q4PIirRdHmLx6QvBIAdiX8nY
+	 uEUWjxtR4ZdZMAj49YcV4KIul0Y0jzlLuSxw6iwirf+8U2tcQr/rrRYYxt8xx2brRRYzv
+	 e4Fbpi1Gat1IZ2x1AH8k0M61Nmcmxzs9ElwqUJrNlnZArFV7RADu8xdFUObq5g6/tc5mf
+	 JZFTegWZAOkYe2M6TrjmVcx4Y4Tl1GSUt5m8REK1f+32BSoXBVT1lLVuMPzmw81lLYwlg
+	 hOwlV2dOQBOrYPlfS9+uzke+dnZZ0Se6J4Knn2o0U5FeMHwsl8f6XFZ5urhVhhS+7VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6oFFEUT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wi3ycDQp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC9960A3816;
-	Tue, 27 Oct 2026 15:46:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1669606A325;
+	Tue, 27 Oct 2026 15:46:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6oFFEUT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAA381F01825;
-	Tue, 27 Oct 2026 15:46:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wi3ycDQp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17F91F01829;
+	Tue, 27 Oct 2026 15:46:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793116016;
-	bh=CF4JG26SyUmlFQ+N2KC4es1n4tmJXfM005qUTadw3Gc=;
+	s=k20260515; t=1793116001;
+	bh=JZkvBXJ1M4cprmGAnU9nv4mrWfliu5LNDxbLf5XaiBg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=W6oFFEUTbkszQPQTUqjH2nM9wxzFXgif+iYI3lQBmt4ANfuR5U3fylXGePiEljIs1
-	 B4mwUBBvANjpGZ2PiIfJAMQrhHVr6KjsAN0wYrILRw70Ng0eN4GgP/LdvaNTzVERgb
-	 c3Fgtbs4k1uZyjXLwHFG1ek5AHdr/f6Vlof00Jl3xVO2XLFHS4YIEGBxUJ1HiqqIQc
-	 797DlQNMMTBp45i9AiXjBXhhjGFHEhcpKkL83+tvLnnjpaWylwM8HUW01MgAroXrIc
-	 91Hu/G2BSQafZEw0VndL2EHCjgZk/jzyU/tFfWeSMUSvT98nwszudKpJRxmuLcj4jS
-	 a4mb+yAAmPnHw==
+	b=Wi3ycDQpHF+2DIQxiDwQjdSsO80VWcpydnlA755H+EKJMGT8hFyb11qJN+Gseajqt
+	 Byo+QhM5RwKb2KaoAkOnY8OD680CD011e5np2eh5OvSj9jNHK1VSl96bA92YWs81BZ
+	 yX3UDHGZs7N7CIsp2y4BIuKhbks1JtLfBADzO6vesqXSur5M5wM3ZruF6VCFjA/T9s
+	 mGBc39SYbWerm/Qh9VTg2baNXgVabajJy3pjqmbOJOLzT6yK5buRJ4WXMmUbWSOLi+
+	 84B7Yp5bQkRwVMiqoZcMxHGwGPo8lfgIOsv6f/Koddk4FP7pNe1Pu1J2b9ZxMjMxIT
+	 Z60vbzB3zih/A==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Tue, 27 Oct 2026 16:46:32 +0100
-Subject: [PATCH 6/9] mm/compaction: trust zone->contiguous only in the span
+Date: Tue, 27 Oct 2026 16:46:28 +0100
+Subject: [PATCH 2/9] mm/page_alloc: clear ->private of deferred free pages
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-pgalloc-ai-hotfixes-v1-6-9c7d1aca801e@kernel.org>
+Message-Id: <20261027-pgalloc-ai-hotfixes-v1-2-9c7d1aca801e@kernel.org>
 References: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 In-Reply-To: <20261027-pgalloc-ai-hotfixes-v1-0-9c7d1aca801e@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
@@ -70,80 +70,56 @@ X-Mailer: b4 0.16.0
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-compact_zone() keeps the positions of its scanners in cc->migrate_pfn and
-cc->free_pfn for the whole run. Memory offlining can shrink the zone in
-the meantime. At the end of remove_pfn_range_from_zone(),
-set_zone_contiguous() only looks at what is left of the zone. If that has
-no hole, or if nothing is left, zone->contiguous is set again, and
-pageblock_pfn_to_page() returns the memmap of any pfn unchecked, also of
-one that the zone does not span any more.
+free_pages_nolock() and free_frozen_pages_nolock() put the page on
+zone->trylock_free_pages if they get neither the pcp lock nor zone->lock.
+add_page_to_zone_llist() keeps the order of the page in page->private.
+The next free_one_page() which does get zone->lock passes these pages to
+split_large_buddy() with ->private still set.
 
-The memmap of the range that left the zone is poisoned if CONFIG_DEBUG_VM
-is set. Once the memory has been removed, the memmap and the pageblock
-flags are freed. Ejecting DIMMs that were online in ZONE_MOVABLE while
-other tasks write to /proc/sys/vm/compact_memory, no debug options set:
+__free_one_page() writes ->private of the head of the resulting free page
+only. If the deferred page is merged with its lower buddy, it becomes a
+tail of that free page and keeps the order in ->private.
 
-  BUG: unable to handle page fault for address: ffffea0004000008
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  PGD 3fee9067 P4D 3fee9067 PUD 3fee8067 PMD 0
-  RIP: 0010:isolate_migratepages_block+0x32f/0x1280
-  Call Trace:
-   compact_zone+0x673/0x1140
-   compact_node+0xb6/0x130
-   sysctl_compaction_handler+0x77/0xd0
+All other free pages which are not the head of a buddy have a ->private
+of zero, and since commit 819bfbd47e49 ("mm/page_alloc: remove
+set_page_private() in prep_compound_tail()") the allocator relies on it.
+When the stale page is allocated again as a tail of a larger page:
 
-kcompactd and direct compaction walk into such ranges in the same way.
+ - prep_compound_tail() hits VM_WARN_ON_ONCE(tail->private);
+ - with the page checks enabled, __free_pages_prepare() reports
+   "BUG: Bad page state", "nonzero private", and leaks the whole page;
+ - without them the value is seen by whoever uses that page next, e.g. as
+   folio->private of a folio which is split off a large folio.
 
-Only trust the flag for a pfn that the zone spans. Everything else goes
-to __pageblock_pfn_to_page(), which finds the section offline or gone.
-The span is written before the flag is set, so read them in the opposite
-order.
+Only pages of an order above zero are affected. Those can be freed
+through _nolock() by the stack depot (order 2) and by SLUB (a new slab
+which cannot be added to the partial list by kmalloc_nolock()).
 
-Fixes: 7cf91a98e607 ("mm/compaction: speed up pageblock_pfn_to_page() when zone is contiguous")
+Clear ->private when the page is taken off the list.
+
+Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
 Cc: <stable@vger.kernel.org>
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- mm/mm_init.c    | 4 ++--
- mm/page_alloc.h | 7 ++++++-
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ mm/page_alloc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/mm/mm_init.c b/mm/mm_init.c
-index df1f888e59b8..262e4e5e97be 100644
---- a/mm/mm_init.c
-+++ b/mm/mm_init.c
-@@ -2270,8 +2270,8 @@ void set_zone_contiguous(struct zone *zone)
- 		cond_resched();
- 	}
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ee013db45ed1..9a4d3352c037 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1562,6 +1562,8 @@ static void free_one_page(struct zone *zone, struct page *page,
+ 		llist_for_each_entry_safe(p, tmp, llnode, pcp_llist) {
+ 			unsigned int p_order = p->private;
  
--	/* We confirm that there is no hole */
--	zone->contiguous = true;
-+	/* We confirm that there is no hole, see pageblock_pfn_to_page() */
-+	smp_store_release(&zone->contiguous, true);
- }
- 
- /*
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index 2b1017a91928..e24d1203c514 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -216,7 +216,12 @@ extern struct page *__pageblock_pfn_to_page(unsigned long start_pfn,
- static inline struct page *pageblock_pfn_to_page(unsigned long start_pfn,
- 				unsigned long end_pfn, struct zone *zone)
- {
--	if (zone->contiguous)
-+	/*
-+	 * A scanner may still be at a pfn that has left the zone: the zone is
-+	 * shrunk before set_zone_contiguous() says that it has no holes.
-+	 */
-+	if (smp_load_acquire(&zone->contiguous) &&
-+	    zone_spans_pfn(zone, start_pfn))
- 		return pfn_to_page(start_pfn);
- 
- 	return __pageblock_pfn_to_page(start_pfn, end_pfn, zone);
++			/* It may end up as a tail of the merged free page. */
++			p->private = 0;
+ 			split_large_buddy(zone, p, page_to_pfn(p), p_order, fpi_flags);
+ 			__count_vm_events(PGFREE, 1 << p_order);
+ 		}
 
 -- 
 2.56.0
