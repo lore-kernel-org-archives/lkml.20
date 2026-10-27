@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793093967;
-	b=PinDmjkpM5TUYFCwJ2rqfCfVaPrOyd9dPU2hHCSg5m69mPq/EZQkfeGRrcYcn8x2VK/W
-	 /pOQPd6JhzczBkmB2Qcobx62A6UmAWAybpxSPKSk1czpl/at6M/fvwwd9wIyqd0enZUt3
-	 ZpThwBsowtQtwWYq/2gP9uhVXbdN+R/7OTL5X33PMmJLCLQHSZY0rZiFfZvzdDryIuQW0
-	 JUbhIAxxbUDGBjaydcszNnWTTFvRJQRIrsimqQ7NeOH1f4Qfxsm++JJyxLmW7eaaWl5ak
-	 Z+Lse9eaOE0mewzNCmavpKevgHX1BpPud3mhik2KlYHZd0NzTlH9Z7BqaAaShRMT8UA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093967;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FvxARh4T9tI5kdcX4Gm7kudKWLQhzFK8eZWFYxwcQV4=;
-	b=0PGo5CXaCnWaH0oDAIhMxkJZsX6QmcXkyUNaqjxn0Biwi+slF1EMgTpNkzGd3Sx4jD9z
-	 lGUl2SLO9jjbYxyR/br0ToKrKc8FRJP83K5doY8/KxrziVzAVx3lI8dKUH0HBgOZ2JG+7
-	 hcnYCM/zk7rgsR0SmRjXjQe8zW+q7M+ZnxWiDjmJNSiPm7w/aYWKm+GZ3KSCSZGklvy1L
-	 gtJ07+6y3720zqPXZU95WJcEfwG5OpVh2EjnzZf8cbhQseg+HyQXGrtbQH8K2NAyvfWwo
-	 9r8ZFwJCnNHzsUO5/57YOSeqDI6hm3kDNi++HoItnu099F0A9QoFKMiTKqucEiR2IAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nBbfjeWq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793093997;
+	b=NDIi5ois8l2pr5p8Odfoolqx4eMSuzY5L1FnbOnZj1ZVTWjTI+d2JDMqbKAqvhc/wpOK
+	 RyGe4wuLJt8PMib0jywMabto4J1vVeoiyeVRojkUGV6kBGPb/Qf1c9Co2ymTs0EM5A5sQ
+	 R8BrPrJrwyMkh5rYomJIKc7rWpRQ1IvJOnjxAYJzxEGWnxtgh4d671QSQdMoGcrfd8EQh
+	 2Gzg810aiphFldNl4sjNdoYo3VJh5Xmn+JI0CUMLYTFfwH76g8aKQ2qrgLPbLva5lfwmo
+	 LggRBe3YdSq5XVhEc2mMG9W1SXOSWUXNWCu+zH4ckLCr9+BGhqCNpotHJEO3U368pFg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093997;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=HNOqKHaW5A2iClqqltqQ1v/OcF7NaXZNMryL+B0mlVI=;
+	b=rLmUzEnzpsnpnETprVEPe0XzTNYn1PqgVBoDZq3x99+t7vHDRnxoWxhCQOJfI6ZdB9mg
+	 7d6dncvqJbgCRYkIbjUYEERUgmKE6nTdr+0uLRrWa25vtdIORJCSnwGSd9D3nRL1I0Rcd
+	 VcgMKjYxWGgrskgWf9PG64a4dmOsNPKca++fB78Vd6maM17aYaT4VFSvWwN6c7unU6gEG
+	 EjlVEAjhDXb8iACHJir5v8hlS6syM/HvAhcQoolAiiOwBPIoF/pPMcdE0oRMrqQTmSjtb
+	 cj7+urISHQiDlV+hPh+DDZLXE6tXvc1APVrTZNWfUCtBVcoV1tBTihckokyczJFJiYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H5OjzAwK;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F7DE606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:39:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F7DE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC26606A329
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:39:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDC26606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nBbfjeWq
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so22282465e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:39:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793093965; cv=none;
-        d=google.com; s=arc-20260327;
-        b=obB+7hwwuqE8AKjTJM7TW/jufd4KoDqBdScen6dSfMoPN3BXqaB7F6dxwP0prjeOgu
-         nstCEpfDy+2LurN77H3XjvE5aB//Yx780r6JpTxdUJ4Sa/wI/sQ7l0U2/eb+W7ujCkTn
-         80hG5SR0iFRhIx7yAB5Y8F/BDEx5RQ9qGE29LnMQDQC7e3ktyOHy/wCC2gajEmFGdZMB
-         CqXLpLpVSyrJbvS4VyQh0FUTn43ZcLKpg+euyU8P49elnYim8o3aRg/1BpmDTypaM0jG
-         xKE2rvQNmb3g2zZNWBDxPnezl/Z9+ypsiPmzZ4w4pex6JtBssgW0tOeSPzpKDgIl9o4j
-         fHcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FvxARh4T9tI5kdcX4Gm7kudKWLQhzFK8eZWFYxwcQV4=;
-        fh=xLTcq2Q5hO2kq/rcp9aKaefIK4i5XIkvPV2ROzH8R1E=;
-        b=HLcZXGZ0uyD1bjKF62pRaVzlAcLROOzr3HjdTmHJdiZVadNdtaUGIz+6OgkG9SytdN
-         UVxZyNysl/Q2lG1S8E7+hrQ+dfSseL3Lbv48t5PdtkEyLXi4rDKsW6p/9sO6cQQIq+Wh
-         9TA+q9H5D68U0HVA/wwczzPdReejUBKlQkFRp7qgQQvzkqKw82R8qKXfoqUzf1d0OUEn
-         LRoS4FgIXLqWXg/5NCe+GS7bsuRAvCNbZNTwevMx8pxGTdSSLjsbkLGu1IG5rK2S7XM+
-         gNtEZsnsagNS9SkfDaSHfkm1UvYW6iihPXgrtDJN8oTgMZyb2iXwGFxB8BILOii7/2qj
-         mYpg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793093965; x=1793698765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FvxARh4T9tI5kdcX4Gm7kudKWLQhzFK8eZWFYxwcQV4=;
-        b=nBbfjeWqdB3RFA3SVM1a5v1/eQaMC9sYaVQTeUca/bYIL8aPnNYFsSWytrOksPMRfk
-         3g/0n2B5XQHtf4h1G5qBCkFYptkuDzWYTf79mCeLEm5fM4ezdzuGxu7Ql/Q2i3mDVNnc
-         fVDkDQCTBsRC2f0vKl0F96ZxNeZMcVAylvWWII/uRIGvlEjIjX5EvLp3T/d9+iMtNlmj
-         TCkGTvTggYZM+i+07/VqrpD9HyhVw3Itq0LZGS5Gxa4d/32iTVjiA3KohG7l1AZAx7gT
-         ZxcVjYfk7lc7+K+Ptqm3veaPfJ9UQhrSPYVW8g9o5SZkRGrRbDoyb/NZHAQpTpNFQ5rN
-         8qdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793093965; x=1793698765;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FvxARh4T9tI5kdcX4Gm7kudKWLQhzFK8eZWFYxwcQV4=;
-        b=GEwDHl09fSPMwk3gZ76YAenDBMJ1wW9QZrtwWEp2CFIvyqmIU44Z3DGnXMGiKid+Fo
-         legHlHSCwgk1WPmD6CTZitwMJ91dRyfktNIkyrwcO0YkoJlPHQz01ONPksZfoia+zJhn
-         tN1KYzt8fniQHEtNlJJO0FzYY2uhd/lyNgJQFn/URDWgV2gYpcuxjQtgGdvQHPUB7cQD
-         Gj0sNAqVSPD3ES7ypAHyx/42rFAIKxWzir+qzvrazdbMdexL/ASd8jFfZ9UWSyuyNfFX
-         s5PsQUy/ySYur17+U6Se8SKIUuC2CfoFd2NgHb4GA8lTtwzae3GvR4i6nZw9ZLGkrGTW
-         kT/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxocP8LziaTQ5Eead+8GXDJIq4F4v/gRTPoFAhPHMwFTOsD5m4k59LYwYW9B0iDhQ76xWBXOPMJelAN4Jo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpZCyDG3GeDvvtSCp6ROt7aoF+PTCS+pyBrg/9ntArJfZhlZQI
-	ba9DJvr9cZBrYszLs46PsicSNH+NB/SRTCr6YwQ6d/Kmmm40Kg2f8T4U2WX84ipTWQxqzA8hYE2
-	9dzjmzGe0mnOq9I2R/xtMMv6Ez+9pWqo=
-X-Gm-Gg: AYBFou2QQ+V2powq6m6RHAnyABv0T4QjDN3Rbq7qq/Hy6MrAm9B/w+xB4VQ+LNLuTWZ
-	RHIGN1kRIEwGVMNjxRf/tG269z7ZP6OPIz/sM3+sEz1LkX/7AUvi0KvEaXyJtDBYKRxD96Lyf9Q
-	t7sLwpyCQ/jmejJwJzzSWRo6DTO5XGaZe7aE+UcXQ3uROZ2zxte8XBvV6BYsBEdd7nVXrBfsXS6
-	/XMRb989PWn7cLDZ2l7QU1M88u/o51a+Fdl1tIWtWkZ5jFAU+XTnUVnJuJgKPb43YZNjbkh4eCO
-	qLlS+AX/YRNLz6ur/kRhKpkW77Awyu/yVhk+dbW6uI9s21J6Om6KqoMeEm2tVjlOZJzNnVELuc9
-	mCRuxnTKmZie3Ixs5E5FgSK0zF7CO88BqQPM+7tluXWPf6WHtqqP2se+jhpqoCFnidcB9
-X-Received: by 2002:a05:600c:1d01:b0:4a1:ac66:6ac6 with SMTP id
- 5b1f17b1804b1-4a35acafdf5mr158312525e9.26.1793093964471; Tue, 27 Oct 2026
- 02:39:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=H5OjzAwK
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4D9AA1A12CD;
+	Tue, 27 Oct 2026 09:39:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1BB8A603BD;
+	Tue, 27 Oct 2026 09:39:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3944D10329081;
+	Tue, 27 Oct 2026 10:39:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793093993; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=HNOqKHaW5A2iClqqltqQ1v/OcF7NaXZNMryL+B0mlVI=;
+	b=H5OjzAwKmDYwkrKRCVof6ueHtrArl37MXhJl9V4EViws9xStWIo8MxZHLzHYwSvaMM98k8
+	JzwAtiADZiL4hMBfh+KhRXPw9SIzOVHDwq418iOhvPSEyp31TfKtzsjNbHnf3dJAHbplV1
+	mUNvpgQromLh9DpHHJc1y4v3jGq9ayesESo48uXeyE5YyJ1HHH8wCGncv6FmNrGvKQTRpy
+	/98ZHDRIRtgNiZuSc01lH8jZu1pLLtwm07AAlLruDv2FsMBE+V437BmlSyPDEV+tWC2cuk
+	213Og4Lcmg0oICZj73zpdaE79WK9Ls2QMf4DiNTPzIYPKiEGhec536lUhKwmfw==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Date: Tue, 27 Oct 2026 10:39:23 +0100
+Subject: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,124 +63,293 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022220203.91911-1-baohua@kernel.org> <20261022220203.91911-3-baohua@kernel.org>
-In-Reply-To: <20261022220203.91911-3-baohua@kernel.org>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Tue, 27 Oct 2026 17:39:13 +0800
-X-Gm-Features: AclHuK8LQwtQnfDOAed72citROdISwJfQPWQCA3Tq3i-D2KJ4BqJbqxJeh4RDU8
-Message-ID: <CAN_Opa_s-xW27K81UAE-xHyRnPto52bZxnkPaGug+yhG76ArLg@mail.gmail.com>
-Subject: Re: [RFC PATCH v5 02/14] mm/mglru: extract lruvec_populated_min_seq() helper
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, hui.zhu@linux.dev, 
-	axelrasmussen@google.com, baolin.wang@linux.alibaba.com, david@kernel.org, 
-	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, ljs@kernel.org, 
-	mhocko@kernel.org, qi.zheng@linux.dev, ryncsn@gmail.com, 
-	shakeel.butt@linux.dev, weixugc@google.com, yuanchu@google.com, 
-	zhuhui@kylinos.cn, baoquan.he@linux.dev, liuxiang.277@bytedance.com, 
-	wangzicheng@honor.com, lianux.mm@gmail.com, kasong@tencent.com, 
-	liam@infradead.org, surenb@google.com, mhocko@suse.com, rppt@kernel.org, 
-	zhangbo56@xiaomi.com, lyugaofei@xiaomi.com, ridong.chen@linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
+References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+In-Reply-To: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793093986; l=8577;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=Zkf95RR2AfAinvtNOofKYnygHe8dIOqOMvPT4CNSEHk=;
+ b=uq/N2azOjuKtW53mm+DXvkLMSfOGz4cT2WKfZszEls/hAZYSy/Gw+s92Fiwcx45PfCyg6//TV
+ M6bKE7n7F4nBwIic8lmq5TyADYx5lrzSKV2ZnsZnZnU59UvQIHQVLKQ
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Oct 23, 2026 at 6:02=E2=80=AFAM Barry Song (Xiaomi) <baohua@kernel.=
-org> wrote:
->
-> From: Kairui Song <kasong@tencent.com>
->
-> The search for the oldest populated generation of a type, previously
-> embedded in try_to_inc_min_seq(), is extracted into the new
-> lruvec_populated_min_seq() helper. It returns the oldest populated seq
-> of a given type, bounded by the given max_seq so the search never goes
-> beyond it.
->
-> No functional change.
->
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> ---
->  mm/vmscan.c | 43 +++++++++++++++++++++++++++++--------------
->  1 file changed, 29 insertions(+), 14 deletions(-)
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 3be0d6c04a82..500ef23949fd 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4131,30 +4131,45 @@ static bool inc_min_seq(struct lruvec *lruvec, in=
-t type, int swappiness)
->         return true;
->  }
->
-> +/* Similar to lruvec_evictable_size, return the oldest populated seq of =
-the type */
-> +static unsigned long lruvec_populated_min_seq(struct lruvec *lruvec, int=
- type,
-> +                                             unsigned long max_seq)
-> +{
-> +       int gen, zone;
-> +       unsigned long min_seq;
-> +       struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
-> +
-> +       lockdep_assert_held(&lruvec->lru_lock);
-> +
-> +       min_seq =3D READ_ONCE(lrugen->min_seq[type]);
-> +       while (min_seq <=3D max_seq) {
-> +               gen =3D lru_gen_from_seq(min_seq);
-> +               for (zone =3D 0; zone < MAX_NR_ZONES; zone++) {
-> +                       if (!list_empty(&lrugen->folios[gen][type][zone])=
-)
-> +                               return min_seq;
-> +               }
-> +               min_seq++;
-> +       }
-> +
-> +       return max_seq;
-> +}
-> +
->  static void try_to_inc_min_seq(struct lruvec *lruvec, int swappiness)
->  {
-> -       int gen, type, zone;
-> +       int type;
->         bool seq_inc_flag =3D false;
->         struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
->         DEFINE_MIN_SEQ(lruvec);
-> +       unsigned long seq;
->
->         VM_WARN_ON_ONCE(!seq_is_valid(lruvec));
->
-> -       /* find the oldest populated generation */
-> +       /* Requires at least MIN_NR_GENS gens for basic functionality */
-> +       seq =3D lrugen->max_seq - MIN_NR_GENS;
->         for_each_evictable_type(type, swappiness) {
-> -               while (min_seq[type] + MIN_NR_GENS <=3D lrugen->max_seq) =
-{
-> -                       gen =3D lru_gen_from_seq(min_seq[type]);
-> -
-> -                       for (zone =3D 0; zone < MAX_NR_ZONES; zone++) {
-> -                               if (!list_empty(&lrugen->folios[gen][type=
-][zone]))
-> -                                       goto next;
-> -                       }
-> -
-> -                       min_seq[type]++;
-> +               min_seq[type] =3D lruvec_populated_min_seq(lruvec, type, =
-seq + 1);
-> +               if (min_seq[type] > lrugen->min_seq[type])
->                         seq_inc_flag =3D true;
-> -               }
-> -next:
-> -               ;
->         }
->
->         /*
-> --
-> 2.34.1
->
+Add device tree binding for the TI LM51772 buck-boost voltage regulator,
+which consist of a primary VOUT output, and a fixed 5V LDO.
 
-The helper preserves the original search result, including the
-terminal sequence when no populated generation is found.
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+ .../devicetree/bindings/regulator/ti,lm51772.yaml  | 232 +++++++++++++++++++++
+ MAINTAINERS                                        |   5 +
+ 2 files changed, 237 insertions(+)
 
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+diff --git a/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+new file mode 100644
+index 000000000000..ec6dd45e0c71
+--- /dev/null
++++ b/Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
+@@ -0,0 +1,232 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/regulator/ti,lm51772.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI LM51772 buck-boost voltage regulator
++
++maintainers:
++  - Paul Louvel <paul.louvel@bootlin.com>
++
++description: |
++  The LM51772 is a buck-boost controller with I2C control, designed for
++  USB Power Delivery applications. The output voltage is software
++  configurable between 1V to 48V, with:
++
++    – 1V up to 24V in 10mV monotonous steps.
++    – 3.3V up to 48V in 20mV monotonous steps.
++
++  The peak current limit threshold is programmed through software, between 0.5A
++  to 7A.
++  The LM51772 also provides an auxiliary fixed 5 V regulator output
++  (VCC1).
++
++properties:
++  compatible:
++    const: ti,lm51772
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++    description: Fault / warning irq.
++
++  vin-supply:
++    description: Regulator supply for the chip.
++
++  regulators:
++    type: object
++    description: List of regulators provided by this PMIC.
++
++    properties:
++      vout:
++        type: object
++        $ref: regulator.yaml#
++        description: Main output voltage.
++
++        properties:
++          ti,active-discharge-strength-microamp:
++            description: Discharge current for VOUT.
++            multipleOf: 25000
++            minimum: 25000
++            maximum: 75000
++            default: 25000
++
++          ti,iset-pin:
++            description: |
++              Select the ISET pin as the source of the current limit, instead of
++              the ILIM DAC. When this property is present, the ISET pin is forced
++              in its active configuration and the ILIM DAC is disabled, so the
++              current limit can no longer be programmed through the
++              dedicated register.
++            type: boolean
++
++          ti,pcm-window-low-permille:
++            description: |
++              When VIN is inside a programmable window around VOUT, the PWM
++              logic stops switching entirely and the regulator connect VIN to VOUT.
++              This mode is called the Programmable Conduction Mode (PCM), and is an
++              efficiency features allowing the unit to avoid unnecessary switching
++              operation when VIN ≈ VOUT.
++
++              Lower threshold of the Programmable Conduction Mode (PCM)
++              window, expressed in permille (1/1000) below VOUT target.
++              If this property is zero, PCM is disabled.
++            $ref: /schemas/types.yaml#/definitions/uint32
++            multipleOf: 25
++            minimum: 0
++            maximum: 775
++            default: 300
++
++          shunt-resistor-micro-ohms:
++            description: |
++              Value of the current sense resistor connected between the ISNSP
++              and ISNSN pins, used to translate the ILIM threshold voltage into
++              a current limit and vice versa.
++              TI recommands a value of 10000.
++            default: 10000
++
++          regulator-temp-warn-kelvin:
++            enum: [0, 1, 368, 383, 398, 413]
++
++          regulator-ramp-delay:
++            enum: [40000, 20000, 1000, 500]
++
++          regulator-min-microvolt:
++            minimum: 1000000
++            maximum: 48000000
++
++          regulator-max-microvolt:
++            minimum: 1000000
++            maximum: 48000000
++
++          regulator-min-microamp:
++            minimum: 500000
++            maximum: 7000000
++
++          regulator-max-microamp:
++            minimum: 500000
++            maximum: 7000000
++
++        unevaluatedProperties: false
++
++      vcc1:
++        type: object
++        $ref: regulator.yaml#
++        description: |
++          LDO regulator for auxiliary use.
++          It can used to power, for example, a PD controller that will drive this PMIC.
++
++        properties:
++          regulator-min-microvolt:
++            minimum: 5000000
++            maximum: 5000000
++
++          regulator-max-microvolt:
++            minimum: 5000000
++            maximum: 5000000
++
++        unevaluatedProperties: false
++
++    additionalProperties: false
++
++  ti,sync-pin:
++    description: |
++      Selects the function of the SYNC pin, used when several converters
++      operate in parallel.
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [input-rising, input-falling, output-rising, output-falling]
++    default: input-rising
++
++  ti,ivp-thres-microvolt:
++    description: |
++      Input Overvoltage Protection and Regulation Threshold.
++      It shall avoid any damage to the device in case the current flows from the
++      output to the input and the input source cannot sink current.
++      This threshold is used for IVP (Input Voltage Protection) and IVR (Input
++      Voltage Regulation).
++    oneOf:
++      - multipleOf: 125000
++        minimum: 4750000
++        maximum: 23250000
++      - multipleOf: 250000
++        minimum: 23500000
++        maximum: 50000000
++    default: 50000000
++
++  ti,ivp:
++    description: Enable the IVP feature of the regulator.
++    type: boolean
++
++  ti,ivr:
++    description: Enable the IVR feature of the regulator.
++    type: boolean
++
++  ti,nint:
++    description: |
++      Configures the nFLT/nINT pin to act as an interrupt pin.
++
++      nFLT mode: The pin remains low until the cause of the status change ceases.
++      In this mode use an level irq trigger.
++
++      nINT mode: The pin is asserted low to signal a status change.
++      In this mode use an edge irq trigger.
++    type: boolean
++
++  ti,cable-drop-compensation:
++    description: |
++      The cable drop compensation feature helps to keep the output voltage at the
++      nominal value over a wide range of load current without the need for
++      additional remote sensing. The cable drop compensation measures the
++      current and offsets the output voltage proportionally to the measured
++      current.
++    type: boolean
++
++dependencies:
++  ti,ivr: ["ti,ivp"]
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pmic@6a {
++            compatible = "ti,lm51772";
++            reg = <0x6a>;
++            interrupt-parent = <&irqc>;
++            interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
++
++            ti,nint;
++
++            regulators {
++                vcc1 {
++                    regulator-max-microvolt = <5000000>;
++                    regulator-min-microvolt = <5000000>;
++                    regulator-name = "vcc1";
++                };
++
++                vout {
++                    regulator-max-microamp = <5000000>;
++                    regulator-max-microvolt = <20000000>;
++                    regulator-min-microamp = <1000000>;
++                    regulator-min-microvolt = <5000000>;
++                    regulator-name = "vout";
++                    regulator-ov-protection-microvolt = <1000000>;
++                    regulator-temp-warn-kelvin = <368>;
++                };
++            };
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 57285ff29a16..c958e116cd66 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27461,6 +27461,11 @@ S:	Maintained
+ F:	sound/soc/codecs/isabelle*
+ F:	sound/soc/codecs/lm49453*
+ 
++TI LM51772 BUCK-BOOST REGULATOR DRIVER
++M:	Paul Louvel <paul.louvel@bootlin.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/regulator/ti,lm51772.yaml
++
+ TI LMP92064 ADC DRIVER
+ M:	Leonard Göhrs <l.goehrs@pengutronix.de>
+ R:	kernel@pengutronix.de
 
-Thanks,
-Kunwu
+-- 
+2.56.0
+
