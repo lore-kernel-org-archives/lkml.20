@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.136.64.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793100844;
-	b=1CSZxQvE+cg7M4AqKK/pZyJWKc57dwAeeY2S4SOn88ELtjNfl3UlNsvL2831vdxfrrIx
-	 GIYX+KtbE9Wm+sxo9zmQjUrEMc8gzN3js8V0YmwdAzkTFpQ9fhE5q7r40d44qK51cEZxJ
-	 RR+oWdlcpWmpPq6hzbv+jVbgrpcu2AnWIJfrzlyMaHkByHXXc/q9UsqMEOXKix8O6D1aX
-	 GbeFSHUFK3cWAL0IVIkZdMg7MPXMEGKhygeaOBbPZrXDGPIzsyyhlqKM7RGXPK5lqeQxP
-	 JA3egft58Yj9KRKC3Ppi9ZYRfogOgu3wjXKnAWpbwHc2/tqFZp6mVggtKu/I+c3ecvQ==
+	t=1793100839;
+	b=AwcHWSwno7n+9CB4WV4eicVu0I/f24BjGxjAveYOPb4uZIEkAOev/PuiKOC09pSJUyfF
+	 c459voK9Fw0iIr4Wd+oGGb7f1q7pNPrGLe8ZYh1kEl7Vl0bNh7zGuEdHnt9TW64oMFNMH
+	 iF21ECAk0SWJpkkTpvXIeYvix7/iRomArZi8fntwlWl3cyPgdp2U99GaHI1c5trTNJvos
+	 UVI/ow5+ckgngMkP5Fk+rs5LUlMrP83P4KLl9Evc0NEqLCm17ftFQelIU7T9Fe71kKPpX
+	 +e7kbOqbvRie6j/F+RJF8Hwx/kry144TJN1u9B++8TCBk9v11R7Zw/xvLjszyQWWJLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100839;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Flowmailer-Platform:Feedback-ID;
-	bh=Rs4N/HkUBnDEEaFceAjgCgShwFi+Xu++Bs87eYOoOBM=;
-	b=FwsYvQeiJWjuQurtdcXfN20pluIy5T9HC/k0Efvoz+JpqViYRBp2kzAz2wXzDa0hFcIS
-	 +zkyplhEw+Va+ijV97HdiJ2BNIDXRMgTo4SjhwO7AjWNuDL7fQDM9gx/Vkwk00xkFIlyg
-	 ylVq8PPKTu8Hu1cz4K+JSOdBycIdU/MRR55NV9RNx1wgLXEZHLGeNV7eIQtZEc0HPq15h
-	 +ydTwz6Yog0OzrEbb+l4oZvs8jNEmh8d+/098XJyWUWqfZAEwVYoHO9hG1evBy3YARJjL
-	 aAwaUB6Pg+0Vtavv84R1ZnYsOsLAWoJ5uR9VPLeLYU/2O+R819n5RgtAmgEtRq6zcwQ==
+	bh=C1UwBGolQPjZYIOlTjwKI53Ig/Ixu2xTIOtSgZjJ3/k=;
+	b=XdT1dR+SGLFYFOO3743CFEP+Xpk1QJjeS3x/fZbW4H4V2Fj7Whi8QE0ennUuiV5zylcf
+	 WCXkOIqZ/KT88Fms9AT3z32k3HqPsGbUZQEp6gUAzkXQMbzj2Ebv7wRh10TJgmhVqYTRl
+	 Ch+dmF7QrP1fulzFeU5n6JRIlCM3H3qGFfzBB/r2DhTdCwOBQR3SI6PxZwyKmPg+VTMyP
+	 06IvQpV3cZHOwxvHIiI5lwg1Uh1ebRAPhjGGAcPDiW378LK1C4WV3dZGJ3euJYMwW7jJ7
+	 bW383r/NrnP2YGE2WLyng6J6rPseYNdM1GVZJI6QglFatI/8KVUISxqhr//W/x27YvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siemens.com;
 	spf=pass smtp.mailfrom=rts-flowmailer.siemens.com;
@@ -24,23 +24,23 @@ ARC-Authentication-Results: i=1; smtp.subspace.kernel.org;
 Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5533606A339
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:33:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5533606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A875D606A336
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:33:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A875D606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
-Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 20261027113354c5a8f09dc3000207cc
+Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 20261027113353d8da1b97b90002071a
         for <linux-kernel@vger.kernel.org>;
-        Tue, 27 Oct 2026 12:33:55 +0100
+        Tue, 27 Oct 2026 12:33:54 +0100
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
  d=siemens.com; i=alexander.sverdlin@siemens.com;
  h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=Rs4N/HkUBnDEEaFceAjgCgShwFi+Xu++Bs87eYOoOBM=;
- b=cf+VCVES6xCl+xHMqj6WSTH2Ofcp/6zd/21BRKpFojcQGvn+foa9I/789ONGcowJZ+av9J
- uwL9f3NSmraXSQVjKU/zI1MrpwdDRYtBua6SodzTZsdhiRRqyxjvZrrhRXfSJdImBYyKZJdY
- ck6DPRrm+gldKBnkIRI82LVeKn4MGD0LN1ZLLZFfxxzmgfW68w9tOn1J38pIzlS672pTqVeh
- aR1nUgfFWl9WV/cgwtYN1LTHpS6jwcocR9VRpUv9OjCkYQ8VV4Q9n5JvzBjfCvPlF/LmwSJ9
- LAp0TGGvyhqjDROWQ6V6/uL6EdAv6nyLpQfn8cp9cpdrRe5wjO6KA40A==;
+ bh=C1UwBGolQPjZYIOlTjwKI53Ig/Ixu2xTIOtSgZjJ3/k=;
+ b=GuAU9/2BFRn2EhosY7BFwkjbiXoJn5bra56WNLOKg3d3F55x22+FVCf6HvUFwx+hgWG0ju
+ tZRmZhw0CL6dd3EIfoaalXE8HAX94FkmjVarLhJ9bc2qHz1F2aGVDq7T1GvIetFfUm9cizAj
+ 3MoFbVQqOf1Yf/i2WhsgvzGOIYsE5neLFsgl5rHZ10mm86ayb+0RlxfazHmPpDweu5ChEmC1
+ 9Ib9238MBHV2O8pkB3ETafpqnkQg2QK0c6zn+p9jotu504f7wsBkMaSOObm6Od4rjw5oWadD
+ AOXLE2wRXiVAdztw8pVv8wa8/kYII+ABFqLSFaWg3g/empsc6+27Vl/Q==;
 From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
 To: linux-leds@vger.kernel.org
 Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
@@ -54,9 +54,9 @@ Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
 	Christian Marangi <ansuelsmth@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v6 5/5] leds: trigger: netdev: Serialize mode/interval stores with trigger lock
-Date: Tue, 27 Oct 2026 12:33:45 +0100
-Message-ID: <20261027113349.383147-6-alexander.sverdlin@siemens.com>
+Subject: [PATCH v6 3/5] leds: trigger: netdev: Fix sysfs_update_group() races
+Date: Tue, 27 Oct 2026 12:33:43 +0100
+Message-ID: <20261027113349.383147-4-alexander.sverdlin@siemens.com>
 In-Reply-To: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
 References: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,191 +74,192 @@ Feedback-ID: 519:519-456497:519-21489:flowmailer
 
 From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-netdev_led_attr_store() and interval_store() update ->mode and run
-set_baseline_state() without trigger_data->lock. kernfs only serializes
-writes to the same file, so two attribute writes race on the non-atomic
-read-modify-write of ->mode:
+The link_speed attribute group was listed in netdev_led_trigger.groups,
+so the LED core creates and destroys it via device_add_groups() /
+device_remove_groups() in led_trigger_set() (under trigger_lock), while
+the trigger also refreshes it with sysfs_update_group() from
+netdev_trig_notify() and device_name writes. With no shared lock this was
+observed as a sysfs splat when the trigger is re-armed during PHY link-up:
 
-  CPU0 (echo 1 > link_10)       CPU1 (echo 1 > link_100)
-  -----------------------       ------------------------
-  mode = trigger_data->mode;
-                                mode = trigger_data->mode;
-  set_bit(LINK_10, &mode);
-                                set_bit(LINK_100, &mode);
-  trigger_data->mode = mode;
-                                trigger_data->mode = mode;  // LINK_10 lost
+  sysfs: cannot create duplicate filename '...green:lan/link_10'
 
-They also race the notifier's link-state and ->hw_control updates.
+    CPU 0 (led_trigger_set)        CPU 1 (linkwatch workqueue)
+    -----------------------        ---------------------------
+    activate():
+      register_netdevice_notifier()
+    .                              netdev_trig_notify(NETDEV_CHANGE):
+    .                                sysfs_update_group() creates "link_10"
+    device_add_groups()
+      creates "link_10"  <- EEXIST!
 
-Take trigger_data->lock in both stores. netdev_trig_work() also holds it,
-so use the async cancel_delayed_work(). interval_store() now tests
-->hw_control under the lock too, so it can no longer sample a stale value
-and change the interval while a concurrent store enables offload.
+The mirror case (device_remove_groups() racing the notifier) leaves an
+orphaned sysfs file pointing at freed trigger_data, i.e. a UAF.
 
-The async cancel cannot stop a worker already blocked on the lock: it may
-resume after a store enabled hw_control and keep software-blinking and
-rescheduling itself. Gate the worker and its arming in set_baseline_state()
-on a shared netdev_trig_sw_blink() helper, so it stops once offload is
-active or RX/TX monitoring is off.
-
-set_baseline_state() can also re-arm the worker from a store that acquires
-trigger_data->lock in the window between a notifier's
-cancel_delayed_work_sync() and the notifier taking the same lock. The
-notifier then sets carrier_link_up = false but does not cancel the re-armed
-work. Gate netdev_trig_sw_blink() on carrier_link_up as well, so a worker
-left armed across a link-down stops instead of blinking.
+Manage the group in the trigger: drop it from netdev_led_trigger.groups
+and create/destroy it in activate()/deactivate(), so the LED core never
+touches it. The two remaining refreshers, netdev_trig_notify() and
+device_name_store(), are serialized against each other by a dedicated
+attr_lock, and the is_visible callback takes trigger_data->lock for its
+supported_link_modes read. sysfs_update_group() is never called under
+trigger_data->lock, so it cannot deadlock against a concurrent link_*
+store that takes that lock.
 
 Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/all/sashiko-outbox-178980@kernel.org/
-Fixes: d5e01266e7f5 ("leds: trigger: netdev: add additional specific link speed mode")
+Fixes: 06cdca014eca ("leds: trigger: netdev: Display only supported link speed attribute")
 Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 ---
 Changelog:
-v6:
-- fixed unlocked hw_control check in interval_store()
-- added missing carrier_link_up check in netdev_trig_sw_blink()
-v4:
-- introduced netdev_trig_sw_blink() and used it in netdev_trig_work()
 v3:
-- explicit mutex_lock()/mutex_unlock() instead of guard()
+- changed guard() to scoped_guard() and dev_put() to unset_device_name()
 v2:
-- reduced verbosity both in the comments and in commit message
-- dropped sync from cancel_delayed_work() (worker now takes the lock)
+- this patch is a combined rework of patches 1&2 from v1
 
- drivers/leds/trigger/ledtrig-netdev.c | 56 +++++++++++++++++++--------
- 1 file changed, 39 insertions(+), 17 deletions(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 74 +++++++++++++++++----------
+ 1 file changed, 47 insertions(+), 27 deletions(-)
 
 diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
-index b1f84014acab9..a503a4d64cefd 100644
+index e72e850e0070f..bf9a5ec245a43 100644
 --- a/drivers/leds/trigger/ledtrig-netdev.c
 +++ b/drivers/leds/trigger/ledtrig-netdev.c
-@@ -81,6 +81,17 @@ struct led_netdev_data {
+@@ -57,6 +57,8 @@
  
- static const struct attribute_group netdev_trig_link_speed_attrs_group;
+ struct led_netdev_data {
+ 	struct mutex lock;
++	/* Serializes link_speed group refreshes; never taken by attr stores */
++	struct mutex attr_lock;
  
-+/* True while the software activity worker should keep polling and blinking. */
-+static bool netdev_trig_sw_blink(struct led_netdev_data *trigger_data)
-+{
-+	return trigger_data->net_dev && !trigger_data->hw_control &&
-+	       trigger_data->carrier_link_up &&
-+	       (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
-+		test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
-+		test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
-+		test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode));
-+}
-+
- static void set_baseline_state(struct led_netdev_data *trigger_data)
- {
- 	int current_brightness;
-@@ -164,10 +175,7 @@ static void set_baseline_state(struct led_netdev_data *trigger_data)
- 		/* If we are looking for RX/TX start periodically
- 		 * checking stats
- 		 */
--		if (test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) ||
--		    test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) ||
--		    test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) ||
--		    test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode))
-+		if (netdev_trig_sw_blink(trigger_data))
- 			schedule_delayed_work(&trigger_data->work, 0);
- 	}
- }
-@@ -385,7 +393,7 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- {
- 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
- 	struct led_classdev *led_cdev = trigger_data->led_cdev;
--	unsigned long state, mode = trigger_data->mode;
-+	unsigned long state, mode;
- 	int ret;
- 	int bit;
- 
-@@ -417,6 +425,10 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- 		return -EINVAL;
- 	}
- 
-+	/* async cancel: the worker takes this lock */
-+	mutex_lock(&trigger_data->lock);
-+
-+	mode = trigger_data->mode;
- 	assign_bit(bit, &mode, state);
- 
- 	if (test_bit(TRIGGER_NETDEV_LINK, &mode) &&
-@@ -429,20 +441,26 @@ static ssize_t netdev_led_attr_store(struct device *dev, const char *buf,
- 	     test_bit(TRIGGER_NETDEV_LINK_25000, &mode) ||
- 	     test_bit(TRIGGER_NETDEV_LINK_40000, &mode) ||
- 	     test_bit(TRIGGER_NETDEV_LINK_50000, &mode) ||
--	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode)))
-+	     test_bit(TRIGGER_NETDEV_LINK_100000, &mode))) {
-+		mutex_unlock(&trigger_data->lock);
- 		return -EINVAL;
-+	}
- 
--	cancel_delayed_work_sync(&trigger_data->work);
-+	cancel_delayed_work(&trigger_data->work);
- 
- 	trigger_data->mode = mode;
- 	trigger_data->hw_control = can_hw_control(trigger_data);
- 
- 	if (!led_cdev->brightness_set && !led_cdev->brightness_set_blocking &&
--	    !trigger_data->hw_control)
-+	    !trigger_data->hw_control) {
-+		mutex_unlock(&trigger_data->lock);
- 		return -EOPNOTSUPP;
-+	}
- 
- 	set_baseline_state(trigger_data);
- 
-+	mutex_unlock(&trigger_data->lock);
-+
- 	return size;
- }
- 
-@@ -494,9 +512,6 @@ static ssize_t interval_store(struct device *dev,
- 	unsigned long value;
- 	int ret;
- 
--	if (trigger_data->hw_control)
--		return -EINVAL;
--
- 	ret = kstrtoul(buf, 0, &value);
- 	if (ret)
+ 	struct delayed_work work;
+ 	struct notifier_block notifier;
+@@ -336,8 +338,9 @@ static ssize_t device_name_store(struct device *dev,
+ 	if (ret < 0)
  		return ret;
-@@ -505,11 +520,21 @@ static ssize_t interval_store(struct device *dev,
- 	if (value < 5 || value > 10000)
- 		return -EINVAL;
  
--	cancel_delayed_work_sync(&trigger_data->work);
-+	/* async cancel: the worker takes this lock */
-+	mutex_lock(&trigger_data->lock);
-+
-+	if (trigger_data->hw_control) {
-+		mutex_unlock(&trigger_data->lock);
-+		return -EINVAL;
-+	}
-+
-+	cancel_delayed_work(&trigger_data->work);
+-	/* Refresh link_speed visibility */
+-	sysfs_update_group(&dev->kobj, &netdev_trig_link_speed_attrs_group);
++	/* Serialize the link_speed visibility refresh against netdev_trig_notify() */
++	scoped_guard(mutex, &trigger_data->attr_lock)
++		sysfs_update_group(&dev->kobj, &netdev_trig_link_speed_attrs_group);
  
- 	atomic_set(&trigger_data->interval, msecs_to_jiffies(value));
- 	set_baseline_state(trigger_data);	/* resets timer */
- 
-+	mutex_unlock(&trigger_data->lock);
-+
  	return size;
  }
+@@ -544,22 +547,23 @@ static umode_t netdev_trig_link_speed_visible(struct kobject *kobj,
+ 	 * Stop at the first matching entry as we care only to check if a particular
+ 	 * speed is supported and not the kind.
+ 	 */
+-	for_each_set_bit(mode, supported_link_modes, __ETHTOOL_LINK_MODE_MASK_NBITS) {
+-		struct ethtool_link_ksettings link_ksettings;
+-
+-		ethtool_params_from_link_mode(&link_ksettings, mode);
+-
+-		CHECK_LINK_MODE_ATTR(10);
+-		CHECK_LINK_MODE_ATTR(100);
+-		CHECK_LINK_MODE_ATTR(1000);
+-		CHECK_LINK_MODE_ATTR(2500);
+-		CHECK_LINK_MODE_ATTR(5000);
+-		CHECK_LINK_MODE_ATTR(10000);
+-		CHECK_LINK_MODE_ATTR(25000);
+-		CHECK_LINK_MODE_ATTR(40000);
+-		CHECK_LINK_MODE_ATTR(50000);
+-		CHECK_LINK_MODE_ATTR(100000);
+-	}
++	scoped_guard(mutex, &trigger_data->lock)
++		for_each_set_bit(mode, supported_link_modes, __ETHTOOL_LINK_MODE_MASK_NBITS) {
++			struct ethtool_link_ksettings link_ksettings;
++
++			ethtool_params_from_link_mode(&link_ksettings, mode);
++
++			CHECK_LINK_MODE_ATTR(10);
++			CHECK_LINK_MODE_ATTR(100);
++			CHECK_LINK_MODE_ATTR(1000);
++			CHECK_LINK_MODE_ATTR(2500);
++			CHECK_LINK_MODE_ATTR(5000);
++			CHECK_LINK_MODE_ATTR(10000);
++			CHECK_LINK_MODE_ATTR(25000);
++			CHECK_LINK_MODE_ATTR(40000);
++			CHECK_LINK_MODE_ATTR(50000);
++			CHECK_LINK_MODE_ATTR(100000);
++		}
  
-@@ -691,11 +716,8 @@ static void netdev_trig_work(struct work_struct *work)
- 		return;
+ 	return 0;
+ }
+@@ -603,7 +607,6 @@ static const struct attribute_group netdev_trig_attrs_group = {
+ 
+ static const struct attribute_group *netdev_trig_groups[] = {
+ 	&netdev_trig_attrs_group,
+-	&netdev_trig_link_speed_attrs_group,
+ 	NULL,
+ };
+ 
+@@ -651,10 +654,6 @@ static int netdev_trig_notify(struct notifier_block *nb,
+ 		fallthrough;
+ 	case NETDEV_CHANGE:
+ 		get_device_state(trigger_data);
+-		/* Refresh link_speed visibility */
+-		if (evt == NETDEV_CHANGE)
+-			sysfs_update_group(&led_cdev->dev->kobj,
+-					   &netdev_trig_link_speed_attrs_group);
+ 		break;
  	}
  
--	/* If we are not looking for RX/TX then return  */
--	if (!test_bit(TRIGGER_NETDEV_TX, &trigger_data->mode) &&
--	    !test_bit(TRIGGER_NETDEV_RX, &trigger_data->mode) &&
--	    !test_bit(TRIGGER_NETDEV_TX_ERR, &trigger_data->mode) &&
--	    !test_bit(TRIGGER_NETDEV_RX_ERR, &trigger_data->mode)) {
-+	/* Nothing to do under hw offload or without RX/TX monitoring */
-+	if (!netdev_trig_sw_blink(trigger_data)) {
- 		mutex_unlock(&trigger_data->lock);
- 		return;
- 	}
+@@ -662,6 +661,12 @@ static int netdev_trig_notify(struct notifier_block *nb,
+ 
+ 	mutex_unlock(&trigger_data->lock);
+ 
++	if (evt == NETDEV_CHANGE) {
++		scoped_guard(mutex, &trigger_data->attr_lock)
++			sysfs_update_group(&led_cdev->dev->kobj,
++					   &netdev_trig_link_speed_attrs_group);
++	}
++
+ 	return NOTIFY_DONE;
+ }
+ 
+@@ -749,6 +754,7 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 		return -ENOMEM;
+ 
+ 	mutex_init(&trigger_data->lock);
++	mutex_init(&trigger_data->attr_lock);
+ 
+ 	trigger_data->notifier.notifier_call = netdev_trig_notify;
+ 	trigger_data->notifier.priority = 10;
+@@ -782,12 +788,23 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 
+ 	led_set_trigger_data(led_cdev, trigger_data);
+ 
++	rc = sysfs_create_group(&led_cdev->dev->kobj,
++				&netdev_trig_link_speed_attrs_group);
++	if (rc)
++		goto err_free;
++
+ 	rc = register_netdevice_notifier(&trigger_data->notifier);
+-	if (rc) {
+-		dev_put(trigger_data->net_dev);
+-		kfree(trigger_data);
+-	}
++	if (rc)
++		goto err_remove_group;
++
++	return 0;
+ 
++err_remove_group:
++	sysfs_remove_group(&led_cdev->dev->kobj,
++			   &netdev_trig_link_speed_attrs_group);
++err_free:
++	dev_put(trigger_data->net_dev);
++	kfree(trigger_data);
+ 	return rc;
+ }
+ 
+@@ -797,6 +814,9 @@ static void netdev_trig_deactivate(struct led_classdev *led_cdev)
+ 
+ 	unregister_netdevice_notifier(&trigger_data->notifier);
+ 
++	sysfs_remove_group(&led_cdev->dev->kobj,
++			   &netdev_trig_link_speed_attrs_group);
++
+ 	cancel_delayed_work_sync(&trigger_data->work);
+ 
+ 	dev_put(trigger_data->net_dev);
 -- 
 2.56.0
 
