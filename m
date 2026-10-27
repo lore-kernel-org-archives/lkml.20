@@ -1,111 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103504;
-	b=FMJNoHFE+mgCdI5E3xS2KDaemqcOu+ZuSHXvmuQiKIlfYxKX+bhV1g8niGc40qjeYgZ4
-	 PLoy1BV8W+lCJr/Ie00bP5UdD73/Aq1z8F2qqQPhEAdRdkvVrJa95pQ5xRHEUGycG3IbN
-	 RXjBscnRup7dd2oEGOB2k1nK/8SU7eKrPj21RBrVFb5gfo5+QJrxnTuuqjt+QRXr7+3rs
-	 BqO0Kzq7+oErGhZissBbyiiWdlSTH+XvmL7lsk1/nU/gzvo5QWq5e+Qdkh06m1NpyytCC
-	 Fl0nUldZkzkvgCCYKeP0E+zPI0sH5LFCk5aVSm74bgEKa6rm8SJGOwHPU1+XA7x6eFA==
+	t=1793103511;
+	b=LBzv8oX0Fi22F5V18mhLtSxyeBMv7TM8DO5/MrtrvK0Oqk3J56XW+WaWi5XXvlD8F5al
+	 5P/Tbx297I4EN4WBLR7rbHeURbRyV7PTrTKtqc5BUcuyiOum9w0uuuqpYowsXt2ntEkmZ
+	 rch/qMpsD1h21l5twUkkyZG3tMBbYZuO8pDQJAMVT+9KulZLwV44bKCm5294zamACPQ/b
+	 7vHQVa1BBqfuqnHUo+tdNR8s1s7BtQB3AVTVNUk58He2GNRznfLtw0m7kheDf24HjXhlf
+	 2KRhiR210fmyXNxLVmIRxkYwdbsHVRGmoblY6+JsnAispbPUPPPtKoQuwWqoz06tBEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103504;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
-	b=HjW1n9BssM11wcSnAfIaZzP5M0rtJpAZkXsjIuRejoGPnKP07JMgfCBtW+Ze02Ctnka/
-	 z1T32FOdpju1VjEbDTRTwEqbikR6GxvsZDQd6Dsv/sbUq64I5PZ7wXucJRaYUcDTvaRVR
-	 Vtg8AbkDPV8dybxlil5/M300fBMJ3INsmr7A1tlO1OcmoKgX+C5JbBM85n/ylcp2ZqG4e
-	 X3omv+EE4NapxQ+ZvrRzB1lf8EeGYI4t6e1VA+HPg4LfWNwO0wVrlIxOsoLdfQ3CokVjC
-	 Jx2A9AtaxcUG88YHq5yWi3XODbGc8UaZHgNeJhXyDnhAyFU3416FG+32kmbyG/ylQEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103511;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=qm6TGibcwphKeohobyNtjyfRQPqYuyY51baxEc3sRXE=;
+	b=dW99GrPzOnp1Zu0AoeICSrPAVkeWRAGybD58lJKbdx27jvatYcU4xzPS+L2rCiUmVLuj
+	 penwBnqsio+j1m2fg97JQ3RLlGY3isqyMjNKLowtIc9YeSt1X5Oh77CroI4RfFbnwX547
+	 ylzP0+vwOLFy0cd3gp5tJcFsRqQq4N8GDr5YaWzAvSA+pbxO2izNX4RjafkUhfdQ4fEnP
+	 oeqsceHNFBoy3bRCY+1F6dOat8CuRlOhU/T49s0l/9njNR2dJunCQeEyxHYiBpgCT20U+
+	 cDbZqX+ClOWKKgqBY3MtNPbB4xL8sYMZpO8ZrCR/P6HLunWy2WRm3/GAgXgXGPUd23Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=g7Ibpv6B;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nVInDUJg;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JSzPA2tX;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xmGj1+R7;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YLv1f7FJ;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pN7qsvxD;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8553606A31A;
-	Tue, 27 Oct 2026 12:18:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8553606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49BC606A321
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:18:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B49BC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=g7Ibpv6B;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=nVInDUJg;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JSzPA2tX;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=xmGj1+R7
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B42BF1F7BE;
-	Tue, 27 Oct 2026 12:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793103501; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YLv1f7FJ;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pN7qsvxD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793103509;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
-	b=g7Ibpv6B84sstM7I/79yQ+rlnikVcDxn9Z5abKeg9i74awwyWyymesqZoid6Uwy9/1lxI5
-	4TwztHSU3LV7ydiscMf5ESkXJ5XT0sJnwDKOZBEzxhlSdLHdQ/mn1UkkrA0sY6alFk3qos
-	WkwtX+FdR0//bCFpGSoISHQyYx9HfLc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793103501;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
-	b=nVInDUJggYLCLbDRHYYsRMbO1x+AOVoKrdg0w6wowrIravKKS1DD0LwPj/N/hdC52OvETO
-	c9VDQe8gZLF4fqDQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=JSzPA2tX;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=xmGj1+R7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793103500; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
-	b=JSzPA2tX8PYYltEI9WbXOazkPLv6rb+rIrCFid9Wnd+nyNjqbVugILUI7ObmOiICofwGT4
-	rgXh9yBS53OmFVZ5vvUSRO7uUKXDtugAPdSpRpxnfzg2u246LM4cwo5+DAe5dPruDYw92i
-	kA9MPuFDywGLerXFHZj/0iTIkaeNuss=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793103500;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PDKPE1DY4rH3zqXOGpxZjcDadnBXMru7fQiU3DWYkZQ=;
-	b=xmGj1+R79hNqFuB8nfpVJtCUhw40zo+0yC8Y5uBLsU4LZnM9oq+QP/kmryQBokIdj49bqf
-	p66WsENkV6pp8iAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 818C51321C;
-	Tue, 27 Oct 2026 12:18:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OZ+fFoyW4GppAQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 27 Oct 2026 12:18:20 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 21F51A133E; Tue, 27 Oct 2026 13:18:16 +0100 (CET)
-Date: Tue, 27 Oct 2026 13:18:16 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Josef Bacik <josef@toxicpanda.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] super: make sync(2)'s wait for s_umount killable
-Message-ID: <iuzzutvgk7rzto25mdmbsooewnacir5y2gu2ghvcwqcwuox2n6@7elbvcvbrzws>
-References: <20261023-work-super-lock_helpers-v1-0-d0fcb3f2f275@kernel.org>
- <20261023-work-super-lock_helpers-v1-4-d0fcb3f2f275@kernel.org>
- <tqgqwii6it4zxhtsfgnkri2mppbcijvsdnywrsbsyrsc3ey6w5@ts5aqmpikwyv>
- <20261027-spargel-laterne-verirren-9d984ac342d4@brauner>
- <20261027-wedel-lenken-seehund-d85c9ba29aa9@brauner>
+	bh=qm6TGibcwphKeohobyNtjyfRQPqYuyY51baxEc3sRXE=;
+	b=YLv1f7FJWs+KbmklJm81eSrtGXEzmnuuMcBMyviU4SOEI+Y3x2RDIVQ7llhVBz8vqT/AK2
+	tLlkFGS0AOBta0OSWXT4YioZYFY2v3V1ANOwXX6kIcYud3zrprcGVs43y9fwlF/Z+wUOhn
+	+aH0v/djRbHcVrQpbzPUoPeuvCvHxYY=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-482-Su9rxnXcOrG18yiy98fP8g-1; Tue, 27 Oct 2026 08:18:23 -0400
+X-MC-Unique: Su9rxnXcOrG18yiy98fP8g-1
+X-Mimecast-MFC-AGG-ID: Su9rxnXcOrG18yiy98fP8g_1793103502
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a20a40d3e9so26356835e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:18:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793103502; x=1793708302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qm6TGibcwphKeohobyNtjyfRQPqYuyY51baxEc3sRXE=;
+        b=pN7qsvxDwVBeWI7RSLvEazYQHeVBSrlZNTFT/dMEBhhABu8gupbhwV1vnPc/GlVulO
+         GFFVsj2FVx4D+sPfYVlZbUebtXt/+sB/J3YrReoHdiVE7zpLqIYeGowg1Zk5GLnwXRRV
+         TvWYA/AwUIs5yztThams6vVpIQQGNIjWml6LHcJZ2oAESoj5XpRRX87oN7ahPo1rcs4C
+         VWwVmDFmyFHmyWJ69xIlZcK9dVxHP1nYASavNijzvNSks5+TOJRZMhD3VTlDA9eSsHOn
+         mLR2ZqIQZRjUDovQlWApAMjoECufC9VGXeKK6IYGWQ3mhidBv1DwEGhQxh/4cea/rI/Z
+         OytA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793103502; x=1793708302;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qm6TGibcwphKeohobyNtjyfRQPqYuyY51baxEc3sRXE=;
+        b=Di37CS+uwrNFnqNc9mYa69sDTnYRmznxNbM3ofxrPq1/YGVGxg1JsIoblfKv9Q3fYC
+         /JOykwOM70zAHdfW+by1hcifArOMX8Zfo09kdGx22q7Uhc4K7y74clKL+IhboDKCUAbF
+         e3d1wdc3WHgmQv9F5DbNxtFPQSgca/6Y4/BN1WVyrc6DoOnUHVBMrMj2k6ooPg2NM3+6
+         tr7KAr79EvoE6bVgmfQ75XH1bupMEzPzMhiJr4cELGPA53dRt1cxC8dZ2D8k89rCX1In
+         o+EY1773fBQk75n8xLyy4qagwjbJ1vNO0yBQ6QFBPBMr81kpGYeTYKx4F1t4Z+kTuNFn
+         HxLg==
+X-Forwarded-Encrypted: i=1; AKwUvByBVsTR63taNOsxwZzFvP+hot+ytu7JsEUbh3h9yEFPRO2xoqEw/M0Ph+ibl5vwrjKK/oKcraIA9R/gfpY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLLPk8JnbxnAQYAVKciKLM2ec2hEH/+Z1TTUarkiUyIGcUdoms
+	FQO5awtGURaOV1/WCVB4isi1arLeANzgHJnKYpgZJFy5nle4LOMxE72bTmYqX/UpTBj1zw11/xc
+	eUhBSqCN5SmbFP2GMFIaSmCuh1x5iDGKwjOzJN2gxnsEfBmZ3bL8924ITbhfnPKh6jg==
+X-Gm-Gg: AYBFou3iki5yE3xYuW3klNS5vur5dleVwJJlmX5cbUSeg/QqBSYTEg6KinpBa/T4Anw
+	K3iAgQarnwLwWqnGlCzgN2+GEnUm45DTwVVhjP42KnXrKTU9UGkja+h4OqXrkqDJVSGcjVY49Io
+	dDdetqLZDhrPJnow76ulynrlKsdnNsf8qHpJJ1VMgZSqmHIqZiieTNUAx+qVPTSdeQxPKeRWClt
+	C3tZ4bk2t/l6m/1WUKRiq+c4kY6mq1En2dWbDlVL2dYHtsKxqJdYcmAvk7qYM45x1hTXBsRvK5E
+	kdwd/iVjiKzPBPv8NpwNA5x/DQ4RUsPmydbHVPRco78uXHf8+XeiUeeopWF2KFHqgtaTakNfNSu
+	AIPTC2f3u3LRWIJc8jlHwjEJH4PFrPfJFJT2yfQ4xACThdvyWwUGxSZcH6r6lRWD/ewgIzpu2pQ
+	==
+X-Received: by 2002:a05:600c:474a:b0:4a1:d97e:cd60 with SMTP id 5b1f17b1804b1-4a35ac91f2amr198363745e9.16.1793103502225;
+        Tue, 27 Oct 2026 05:18:22 -0700 (PDT)
+X-Received: by 2002:a05:600c:474a:b0:4a1:d97e:cd60 with SMTP id 5b1f17b1804b1-4a35ac91f2amr198363225e9.16.1793103501794;
+        Tue, 27 Oct 2026 05:18:21 -0700 (PDT)
+Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd354asm21785015f8f.43.2026.10.27.05.18.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 05:18:21 -0700 (PDT)
+Message-ID: <cde7570c-50bb-4813-a461-04154d4cfa65@redhat.com>
+Date: Tue, 27 Oct 2026 13:18:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,108 +112,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-wedel-lenken-seehund-d85c9ba29aa9@brauner>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_THREE(0.00)[3];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: B42BF1F7BE
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: dsa: motorcomm: Fix function parameter types
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org,
+ netdev-bot+sinfo@kernel.org
+References: <20261026083252.12684-1-mmyangfl@gmail.com>
+ <179300378438.3327.666635400432470005@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <179300378438.3327.666635400432470005@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue 27-10-26 11:13:09, Christian Brauner wrote:
-> On Tue, Oct 27, 2026 at 09:11:42AM +0100, Christian Brauner wrote:
-> > On Mon, Oct 26, 2026 at 01:02:46PM +0100, Jan Kara wrote:
-> > > On Fri 23-10-26 11:41:04, Christian Brauner wrote:
-> > > > iterate_supers_sync() waits killably for a superblock that's being shut
-> > > > down, but it takes s_umount of a live superblock uninterruptibly. So a
-> > > > freeze_super() or remount that's stuck under s_umount, in
-> > > > sync_filesystem() or ->freeze_fs() say, still hangs every sync(2) on
-> > > > the machine without anyone being able to kill it.
-> > > > 
-> > > > That's inconsistent with fs_bdev_sync() which already uses a killable
-> > > > super_lock() for both waits. And the reasoning is the same: if the task
-> > > > is killed the walk stops and ksys_sync() returns, there's nobody left to
-> > > > make a promise to. The emergency sync and the sync before suspend and
-> > > > hibernation run from a workqueue where that can't happen. The PROM sync
-> > > > on sparc32 runs in whatever task it interrupted but that one could
-> > > > already be cut short while it waited for a superblock being shut down.
-> > > > 
-> > > > Let __iterate_supers() pass SUPER_LOCK_KILLABLE together with
-> > > > SUPER_LOCK_WAIT_SHUTDOWN for SUPER_ITER_WAIT_SHUTDOWN. Only
-> > > > iterate_supers_sync() passes that flag.
-> > > 
-> > > This might get surprising in the future, I guess SUPER_ITER_KILLABLE flag
-> > > might be a more explicit way to control this but I can live with what we
-> > > have now.
-> > 
-> > I think you're right I'll fix that up in-tree.
+On 10/26/26 09:36, netdev-bot+sinfo@kernel.org wrote:
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 > 
-> I've folded:
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
+> 
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+You should reply to the above questions here.
 
-Thanks!
+/P
 
-								Honza
-
-> 
-> diff --git a/fs/super.c b/fs/super.c
-> index aff2169ca94d..cd6f57ababe0 100644
-> --- a/fs/super.c
-> +++ b/fs/super.c
-> @@ -1015,6 +1015,7 @@ enum super_iter_flags_t {
->         SUPER_ITER_REVERSE      = (1U << 1),
->         SUPER_ITER_WAIT_SHUTDOWN = (1U << 2),
->         SUPER_ITER_SKIP_UNBORN  = (1U << 3),
-> +       SUPER_ITER_KILLABLE     = (1U << 4),
->  };
-> 
->  static inline struct super_block *first_super(enum super_iter_flags_t flags)
-> @@ -1040,7 +1041,9 @@ static int __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
->         int ret = 0;
-> 
->         if (flags & SUPER_ITER_WAIT_SHUTDOWN)
-> -               lock_flags |= SUPER_LOCK_KILLABLE | SUPER_LOCK_WAIT_SHUTDOWN;
-> +               lock_flags |= SUPER_LOCK_WAIT_SHUTDOWN;
-> +       if (flags & SUPER_ITER_KILLABLE)
-> +               lock_flags |= SUPER_LOCK_KILLABLE;
-> 
->         spin_lock(&sb_lock);
-> 
-> @@ -1122,6 +1125,7 @@ void iterate_supers_born(void (*f)(struct super_block *, void *), void *arg)
->  int iterate_supers_sync(void (*f)(struct super_block *, void *), void *arg)
->  {
->         return __iterate_supers(f, arg, SUPER_ITER_WAIT_SHUTDOWN |
-> +                                       SUPER_ITER_KILLABLE |
->                                         SUPER_ITER_SKIP_UNBORN);
->  }
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
