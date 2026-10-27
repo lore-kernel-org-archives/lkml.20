@@ -1,109 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793093454;
-	b=CWUrmfab5jqed//RcjvprevzHmGUwIixYcsZ5mB+p40ktr2wcx7VckO6REs2zF6M0gCa
-	 lbI1tJX1R1LX9RXs1+jNm6+W8Pmz6tpbEywLO5rhthVDq8yrrp5aKnfDq8FlyHad/1QmX
-	 QbiNVY1HY7s4dADpQN/cEOZWahXI9Hipxac2xUpn1Nzqweb2HmkQZ6ULGVnJN4Jdq2iH0
-	 LduZI//LVTZOQy0RbZIpq+dR4p6c0Nho5hUrcfPazRm2lPfMb2F/MQfrnrNUkoVyONA0s
-	 X4U0H/qX+du1kIqYxs4Pb0RokhIB8HMgJMLsrijr1VzluzSbSCGblnIr4r7ZcNn4txw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093454;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TJ7RfmPI3iqnpNgWO4PhRwGMAeKa2mc7mIcA07/teDo=;
-	b=ue2jG8Tzi3uCRvJokA339lD2FMN+ZMWJKJPPOPwKReCnyP2AKeyTyZ//eCOLu0BXNkh0
-	 Dq05KcIz4E7DXKynYv95lSX8e4L9D/DWsi9mgZK3cigf8AAJtQXEtUdNX8dkm7d8GIFa2
-	 Y7KlZpmr+V38uXapLfed6qXZtD6j4/N1bAPFtbE4OZ533YcIOSkepYk/QthocjNqJJGYa
-	 hVprDOwNZ8wwIwHzwwltrugKZytomrvUgFR/a64Zi6WbsjOlPSS7nIj7fpOM+LRs96m36
-	 Bjep+z4ovpl6JRkBiZvODpgP8QNi9lOSX7KiQPDgAzihF1d+n4oD7mKo/l9SnLRHidQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tVnT5n8E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.5
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011005.outbound.protection.outlook.com [40.107.208.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.94
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793093476;
+	b=fHzQmNO4tL9tosdF0UFMYFBpDwygY4SNPWKHpBpey1DL94W9dK5zso9z0PsXHoIfeTdG
+	 aLsljKc2ypEmbqkn86HxneDDmDNYDFyInD5sV2wCscqniYtEX6VS4Cu8fWjvMgriBjSBi
+	 plxuArw3Gni1hKKVCv6B0WXVFWM2cEUwJkQmINJx7PKyrf6TbYNGC+CBUFIXRXvIP8Cuq
+	 lrONXlQb3Nx/uZjLhd8ZBI+QQILXWV+VG/QVHT5MrtwH9Fp9mKZV8BfJ+SpgPkvcZByMw
+	 cXETzTrbGxd0BTVd7lSV20oySLTUznUMDwGhGcn+GHq5zNkDIwD1x+o47/7IdzZdIfA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093476;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=kIXCKvOTKtSXTnAmt+w2O5J3oCLsmilmPqyShsZT8Vs=;
+	b=p3m1SNEWEAxEYlhWQ3lJnQMgGslSjujDMzIfjPnQgs3dAgiVwJNn+0S+uZhb7Qs9Uiqs
+	 LyV9auJFF3s3xDGh/pVEK0Cg+1MgrLIzPmLAJdv33oslHzhOOyPjZ9af1Zrz7sSyE4GNO
+	 fwAY0CqZe8v0UYdy9vZ/AJmTuFeckoM7KeDbhX0N+ZEqDhKe3e+IQ3gPyuyKQ4vBYJnI7
+	 7pzj8Q0KhAJZb7KzQ4/8qCeqoLvzJUUGdhIN6VYBZq+hUcN49CI7qKdDqsWIRZCTeUw4H
+	 xYFBjqR3tbdztDfE+iUmpbnEMNY2urUGfqK5gOYpaB+GeZ3As2iIZisFuEuxW6HVGXg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TOPyQ1WI;
+	arc=none smtp.remote-ip=91.218.175.94
+Received: from mta0.migadu.com (out-94.mta0.migadu.com [91.218.175.94])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F24606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82F24606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5FD606A31B
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:31:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B5FD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tVnT5n8E
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L67pv7MjQ07IoLO44g8tlPe3+QkdHTbVAMW3EWpee9ZlqyNdSA/W9MIKm8c3jShdU0xFWu+XkerU1ez6XuyEMV13SKgu/msThmLDIsRDRGMGuY6vpiP+4LHRFe9j5g3A09QTaUEV2uUWzg4rxRF7qLeQKjZNOoQbc5aki53U5ezC2QwnXnOznndp/bhcMVszu6ziaPmOLVrJaicSRk5Ws8nMJewyFdM0Idatz3Aji3FWnYrLOpLF+KBqzkacFMlgyHL9wlZ+xDhXwHbMxT2e/sJ1ogqCHJe+vCzkyz0xjkf7c/lmpAq5a5uIclv1UzFDJCrvRTjMD+iFt7ST5EYwjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TJ7RfmPI3iqnpNgWO4PhRwGMAeKa2mc7mIcA07/teDo=;
- b=wqLzmHB+TQytQ2H08gh71rtpJSAF5PV0BPjncoaLxu+Org2VxItnvAaXaJ7Vmydq2RocWBeio8oBG5rdMiqTl8zHplNgzIr9JBQufBY8XCGqjHVWPuhiW/Z/GB5l1HCFK+rG9lUaPUQ0LauPsp16TyaWSx29WKAvMtn+btupNtTSKadjcAteVWenKjPmwEdtbnJu6JhccaHhw1FNYmqAjCSjb8LwvFLLNdjTf6AYGU2U20sk4CdxhDP77VOlGvj5XPfxKynPWLr2EP+1od14zF0/JRR0MFa9WNsJvKtmXFoRH1sRjvbQYVli2hdPkgZOTp/bdVLzwTAunSnqznmsWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TJ7RfmPI3iqnpNgWO4PhRwGMAeKa2mc7mIcA07/teDo=;
- b=tVnT5n8EySnMqizHfVxriSjHPp1bOd+HMCDm1r5n1YAZXhVZ6PIKN548xkksTamwxXC4owS+/Vrb8uvdWJwha3wC3HH+w74DFUnpo0s4y2yhPehKRZfTTjOv2w3yZD8ro4yH9SNy8unZzdJjCVTWfKAz9eaxLxPVc0jtL3s0pnNG7tl9+lvx4OkWryS0Pn2nnnWOFAxJPos/WKxN2o2W2e2C1ZnI+5GBRY+cNcx/VKo+Dq6kga/Uku9NmLg5d5h49bYALs1X11wDIvx7E6EwkoT1slowr7kI8SzvW96Ar4SJKm+N4jRMNuRfBsYxBBgqSqzqJSyHDlK8k/lUwik33Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by CYYPR12MB8855.namprd12.prod.outlook.com (2603:10b6:930:bb::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 09:30:49 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 09:30:49 +0000
-Date: Tue, 27 Oct 2026 10:30:41 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Gregory Price <gourry@gourry.net>, David Dai <david.dai@linux.dev>,
-	Emil Tsalapatis <etsal@meta.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Balbir Singh <balbirs@nvidia.com>, Lee Trager <ltrager@nvidia.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] sched/numa: Leave the placement of a BPF-scheduled
- task to its scheduler
-Message-ID: <auBvQc7-lfMMoQPm@gpd4>
-References: <20261027041536.3317971-1-arighi@nvidia.com>
- <20261027041536.3317971-3-arighi@nvidia.com>
- <8464e356-d1d2-4aea-8702-40429c63bac1@amd.com>
- <auBIGwZfPR9oDPH6@gpd4>
- <d63c6e92-a722-4061-a9a0-5e84a3313c43@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d63c6e92-a722-4061-a9a0-5e84a3313c43@amd.com>
-X-ClientProxiedBy: FR4P281CA0429.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d1::10) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TOPyQ1WI
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SiCopvP+yMT0xlwZ2moQJ9M5qKmGAl7iAC0O0RjC/0M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793093473; v=1; x=1793698273;
+ b=TOPyQ1WIMjqfIiE1Hic3NjFMjMCQncNZBcwpogDTnEhep6VLeb0QhbW6akilADh+9Hwf6HQy
+ USb90LqBiZBbaVoeqg2aUwyqocWBGuHP+rtbFUWbe9FTA5/tsmI5iJKSI9EcsQ/AHOh/WXOekq5
+ 8qHBk0rQ9XiCFL2rL8xTyDUc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 217aa2d2c16b77b4;
+	Tue, 27 Oct 2026 09:31:13 +0000
+X-Mizu-Trace-ID: 217aa2d2c16b77b4
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 27 Oct 2026 17:31:47 +0800
+From: Chenguang Zhao <chenguang.zhao@linux.dev>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: netdev@vger.kernel.org, Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net 0/6 RESEND] net: dsa: b53: PCS fixes
+Message-ID: <20261027093147.GA1548768@pc>
+References: <20261022225656.1387306-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,133 +69,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|CYYPR12MB8855:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b43daf5-6961-422c-7357-08df340cfc60
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|261021121427099003|261022105027099003|261022075727099003|10067099003|56012099006|3023799007|261026140227099003|22082099003|18002099003|261026121527099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	pcnFkVIfyfgjt9jcRXUxdQQqXWYE61MiMVlnhdzsga+DPQ4Yr7twRLRlLBmi7eU2WxPv8SmE/86HcqOF1zKeRURxvcR2RJgaGBEoqJBRohwCNaa5+xwGtyG79jkXQK5LvA0rc20n0cUJ//Za7+wpwIZfPeW7optRBO7Xn5hiLUjeFnxRQvuQhXjoKMZWSXozaZKM3QpsfJnU62PgAmG6CaDyBwQKVwU6qw43pulfbSTZpIwfHzfLcG956c4XSHvAZvNC/2vhBi/AI+cQ6sXb/4nWqCO3pi5fPtjTZJqcY3c955OyZJz10J+c0+zU3zS1lnI2O5nsgnHgrRH/dwU25YHaJmH7yacAAxEu13yUYxjwoSE69zJu09gvsKwddSy5vfKeyau0XXpGF+1lLwE+gpgwOBXfgepJeft6CN1CFeLUHIQ6AHz7IVEXnN4iiJsTJRSGbeCLecAXIl+M4RPsKQvDmpii0r9pSQyPJLokOKlRcY/C3mjUkSH88MMv1N6YkgZ8/hOW0of3FUZe6P+VaMC/Ub6KuaXgqeyvfXZvD7jxYdJehZaN7e+8YS+BWXQCxeUCXL7R/Zbx5WQgmOjEJeYE7mA7zMRUZOlfws1w/MaHqOaSb0PQhjmV6NZcc6TFNYiZzwn0cD4JMimcYtYrc5y5+NRKvzZCCfulrbu8ESk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(56012099006)(3023799007)(261026140227099003)(22082099003)(18002099003)(261026121527099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?OE7YU7UPw9aDBhGME9cZ+chtsXdS8q/OBx/d9JapdNUOeazJKSRakm2iv4Zq?=
- =?us-ascii?Q?FPjaVSTyfB/MgZBgOgaLXx1UEDXj5p2Rop9u1q+UR0e4CwWmBn6xMIwY0SLz?=
- =?us-ascii?Q?DQE2GsUkHrh8nD6vINJelU6PrXcSZAa07GKdu2HDTctOg9pGafUZmNjwZtVn?=
- =?us-ascii?Q?aEZJnaDplBuzsjjhV0A6WShSelANLX5d2y6kKkF8ylII3bsnhjbTHN27uFzR?=
- =?us-ascii?Q?BiP7CtjOPtFzG6wEehiGzxrjQvUDVg23Pc4mMFAV4rftmm5zZ1XeAKEHv4St?=
- =?us-ascii?Q?rmMMGGiy1U/vlZDcPZCwQqqwqyfgghGHlifOZKHtIsYeN00Nx7YuO0TYZBnP?=
- =?us-ascii?Q?MB0nkFsdkfJvcEfTL8jgkrPpkEVZ6NAKsZF0QOhOvVqhwSS6ka0RfskGPNB7?=
- =?us-ascii?Q?tvhwN5EPOxdlu7mM83zcb1FJX22FCCVQ4F5/e1hocTwQdN3FFBq2w+HbmWOn?=
- =?us-ascii?Q?jT4negrR83efu83PQUUmHlSI4kphXCTD6qs5PH78nJpQsOjeEbyPT2gqghLv?=
- =?us-ascii?Q?MFZd00Y3sCVRZMQZ3eod9G263tdvnPZ16PUIpPyFklk8sjCiA2RhsfwMKKMJ?=
- =?us-ascii?Q?DnVySlo/kfGUqgZLSY6vCro9reVw+NHlMSJIwek4TiU9FJg3x9n4HSXFVFLf?=
- =?us-ascii?Q?DIPOtnknlJprO1Hg2kVnkUhZ4h6Q0lrYqDibfZZwFuNL/tu8DJso9cPCDCYz?=
- =?us-ascii?Q?X81GfQfyPEBRSNRRLJAKddS7pTxyP0S3DAGAPtm4VdEwLzqMPRNu0l/TdEoi?=
- =?us-ascii?Q?wxZNeh7nNFOpRXRZiBJeWS1tsgAnefbjUEAjb7cKXBJIU/iDGJVgtagTxsjp?=
- =?us-ascii?Q?DVD9SgPUKhwBijX2Uf2D6Ojf8Wkq3iHKOv0KGd/IMTWUeDmkfNoSRv8qfChS?=
- =?us-ascii?Q?YJtz7g+MKIlPGh9D8+9hx+MLbWVC27omyL18OniuJoiIizIjkm5lRhp7fPOC?=
- =?us-ascii?Q?2A0xzgFuknjF+VM3XP7nWnIvwZwUqYZcYAXp+e6ALKmg1LYuMSEDjro9OB4W?=
- =?us-ascii?Q?NdrjRcgJC0O6XJIQ9cfsDgfbgPot/wO+U1/1yEdnz3ddGr26bpzxtJBFvOD6?=
- =?us-ascii?Q?U9iLd8JAe64W4QSsLrL9W+HZuCuKyYmvcgRSTAhx7s7MltpeHql3jHsvO7cF?=
- =?us-ascii?Q?DaK/GGBoQShxrgmmOmbhCE7H5et7ODjIy2w4PQhnWtUHB0sCdJ97+5RvENFm?=
- =?us-ascii?Q?W+2jEsOuuJx3eOVswax4fn0YgPZkfWRAoGOcQeQ2U0kw9flF5R1vKxH1fz23?=
- =?us-ascii?Q?mlybFBpC6U36aBby/j5ttHsWeGfAUafvq/JWKiq8K4jwyXPI6dDB/hIqpDqb?=
- =?us-ascii?Q?5FxQIjfHIp6iwM2nWEGl2Ndn9jCP7t1K4vdW4Tn38Or7ysvFKd3eS1hh6WnB?=
- =?us-ascii?Q?9eqz5CAstVSYcQLK9ZyE3L9I+trWSoukIrzt9goUQRSrArwFtxKXXzOiJSuY?=
- =?us-ascii?Q?HzmKzm9phOvn3P06cDlYxQqyRKEAwVX1rkHUf8Ia4gYqHdahESfSEf6uY5gh?=
- =?us-ascii?Q?H99jb5OoJ+y57dT7sWo3km9olKQ1m6HLnhvTkhFpK+JDc+J3OOTxvdmKbeFn?=
- =?us-ascii?Q?xP3L6ElM77Lr6W0JnkvsL8QjAHLbBv1SK0tEuQnNQLiyd83KmAy+ZO3YQRHr?=
- =?us-ascii?Q?tpzU/M1g0zkgmsW0sSok2bIqVW9K0NxYfI0AuBIQniEeHun6HHyI0rvq2BOP?=
- =?us-ascii?Q?k2FJGwVA6Vg2S0H6qq+msYoJ0jOD4mXA6aJH+NK0AjGtkDNzqP9tGRopGf8X?=
- =?us-ascii?Q?ufvyXyQ/0w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b43daf5-6961-422c-7357-08df340cfc60
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 09:30:49.3152
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uJEoAA3LARbB7dQZZIs1j2syivf9sd3YG2GgqSdzM01oDV+Qba4l5qHvwdmZjiZ5h1dJkMRwubKR2KoUhCDoDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8855
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022225656.1387306-1-florian.fainelli@broadcom.com>
 
-On Tue, Oct 27, 2026 at 02:30:31PM +0530, K Prateek Nayak wrote:
-> Hello Andrea,
+On Thu, Oct 22, 2026 at 03:56:50PM -0700, Florian Fainelli wrote:
+> This patch series fixes a number of issues found with a LLM and while
+> testing on a Broadcom Northstar Plus reference board (BCM958625HR) using
+> a SFP connected to a fiber converter:
 > 
-> On 10/27/2026 12:13 PM, Andrea Righi wrote:
-> >> On 10/27/2026 9:43 AM, Andrea Righi wrote:
-> >>> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> >>> index 36df9a4dde534..5064c7b707f4d 100644
-> >>> --- a/kernel/sched/fair.c
-> >>> +++ b/kernel/sched/fair.c
-> >>> @@ -3267,8 +3267,13 @@ static bool task_numa_compare(struct task_numa_env *env,
-> >>>  
-> >>>  	rcu_read_lock();
-> >>>  	cur = rcu_dereference_all(dst_rq->curr);
-> >>> +	/*
-> >>> +	 * Never pick a task under a BPF scheduler as the swap partner: its
-> >>> +	 * placement is left to that scheduler, see numa_migrate_preferred().
-> >>> +	 * Moving the faulting task alone to the destination is still allowed.
-> >>> +	 */
-> >>>  	if (cur && ((cur->flags & (PF_EXITING | PF_KTHREAD)) ||
-> >>> -		    !cur->mm))
-> >>> +		    !cur->mm || task_on_scx(cur)))
-> >>
-> >> So if you are here, it must be from:
-> >>
-> >>   task_numa_migrate()
-> >>     task_numa_find_cpu()
-> >>       task_numa_compare()
-> >>
-> >> but task_on_scx(p) would skip this and it means a fair task is looking
-> >> for a swap candidate when scx running in partial mode right?
-> > 
-> > Correct.
-> > 
-> >>
-> >> At that point, it feels fair class should be well within its rights to
-> >> call shots on the swap candidate even if it is an scx task.
-> >>
-> >> If scx has a ops.set_numa() defined, it would have accumulated hinting
-> >> faults and the CPU it is running on is a wrong node anyways so the
-> >> migration shouldn't be bad in grand scheme of things. If ops.set_numa()
-> >> is not defined, then the scheduler doesn't care about NUMA placement
-> >> and it should be okay for a fair task to acquire that CPU.
-> > 
-> > The fair task can still acquire that CPU: with cur = NULL,
-> > task_numa_compare() can still pick the destination CPU for the fair task
-> > alone, and once it's there it'll preempt the sched_ext task, since fair
-> > wins over scx. What the check prevents is only the other half of the
-> > swap, which is fair moving the scx task to the source CPU, overriding
-> > the placement decided by the BPF scheduler (the idea is that fair should
-> > be able to preempt scx, but not override scx's task placement).
+> - there was no serialization of the registers across multiple lanes
+> - the SerDes powering down was incorrectly managed and should have used
+>   .pcs_{enable,disable}
+> - the interfaces advertisement should have been confined to successfully
+>   initialized PCSes
+> - the negotation and forced link parameters were incorrectly supported
+>   and should have used pcs_link_up and pcs_inband_caps
+> - link state should have been reported through the PCS
 > 
-> I guess that is fair - if there is a better target, it should be
-> preferred. 
-> > And the fact that the scx task is not on its preferred node doesn't
-> > necessarily mean that it's on the wrong node: the preferred node only
-> > tracks memory locality, but the BPF scheduler may have placed the task
-> > there on purpose for other reasons (e.g., close to a device, which is
-> > one of the use cases that motivated this work), using the preferred node
-> > only as a hint.
+> With these patches disconnecting the fiber cables triggers a link down,
+> as does disconnecting the fiber converter from its cable or powering it
+> down, ip link up/down also work properly as a result as well.
 > 
-> But is anyone running ext in partial mode expecting good performance
-> without having moved a ton of tasks to ext beforehand?
+> Florian Fainelli (6):
+>   net: dsa: b53: serialize SerDes register transactions
+>   net: dsa: b53: manage SerDes power through the PCS callbacks
+>   net: dsa: b53: constrain SerDes interfaces to initialized PCSes
+>   net: dsa: b53: configure PCS negotiation and forced link parameters
+>   net: dsa: b53: report link state through the PCS
+>   net: dsa: b53: apply resolved link settings to serial port MACs
+> 
+>  drivers/net/dsa/b53/b53_common.c |  69 ++----
+>  drivers/net/dsa/b53/b53_priv.h   |   4 -
+>  drivers/net/dsa/b53/b53_serdes.c | 407 +++++++++++++++++++++++--------
+>  drivers/net/dsa/b53/b53_serdes.h |  13 +-
+>  drivers/net/dsa/b53/b53_srab.c   |  12 +-
+>  5 files changed, 345 insertions(+), 160 deletions(-)
+> 
+> -- 
+> 2.53.0
+> 
 
-Yeah, partial mode has always been a bit controversial, users of this
-mode are mostly those that rely on fair-specific features (e.g., EAS)
-but still want to experiment with sched_ext. And to make it work
-effectively, the best approach is to statically partition the system, to
-avoid mixing fair and ext tasks on the same CPUs.
+Hi Florian,
 
-In that scenario I think it's even more important to not let fair move
-scx tasks around. Hopefully, once the ext class is able to provides all
-the features that fair provides, we can stop supporting partial mode.
+Please take a look at the issues Sashiko reported.
 
 Thanks,
--Andrea
+Chenguang
