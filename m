@@ -1,67 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117541;
-	b=S7N/swJ7/J+pgoh/ah7TLEY9JCdmESpCapSC3q3am9v7twIsp00C1KH2qY7NTR2y7p/R
-	 QRLt03mItxd6M/W0CiSxhbFIbvcmeNSpSdwAzosqEF2oMOK26+LrYIxYMMxOgeT4xR9vo
-	 qRVCOavtnwD4PWNlg2Yw0vVEHVGGqiaH2x896BuzIXjVgExhZsYVz2pnkADV9jEq/axn/
-	 ImU9moznntWnPoblm28g5fXKO+n2RZ7uXXSoLm1jjaMyrp78tAd8XYojn+zbJLBUXaf5m
-	 8CLKy4///DwiAUsIYil7zD4ZxGt5MpMSyk4jKlKjvUORDdA+76hkGKleqLn+gH/1e/g==
+	t=1793117566;
+	b=0U4jdasd/JDIfbTuF20oBmbhs+hcKiV40Kg9m8oxwlLaq/Tr/vxnF/WL10ZY9qBZTElf
+	 gPdeZTK0jimDluYEtKVcgjczW7R3It3Bqm8R+GbUb7aJ81hPCAK8mbmFg860XpC8xWrBc
+	 TDKU/Gip3kjuxtgGkTLgfWPF/Hgzxt+xba5/vTW/XvGIVP9AtpMZKVnmghjBNnS79d+OX
+	 1yTqdyC5XVHVJNlfzC+sv6pYjYBTT1QToEp4beKf3cMhuik33OAoBF6AuqVziyPtyN45k
+	 Bo46uKt/4MKPDyBxLJGNtafCmmHUvldUi6vQE3MXWSctSyIiBYbd5c2VXLjnUtgOBCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117541;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=XqbIHLFdsXyVkuJgdDLCayfeh03Np6T/BV+S9W3GA4g=;
-	b=FVkoinTw7vQ9xH9xvetp9INYIYmYR5OT5UJZFeeNIG8Kuy0iCKpE3MYdjHf9qB7cBKtA
-	 bhuAjJgihzPuKWF3rfInC//salGCETOOSj46neAjvM8KTEbL+mLCmTFfme1nwsyuDYdpg
-	 DrJUcgddTAFtc/nI+XAmIVh36qybiKA6wF60qNKgnZ8iqOfUqyaglqNZP55HKrQUel63s
-	 bxyXQiCH9bdfNrBH2VW1VanzjTGkUNP1w4t2mkjZ2QRW0tIwtxE3/I0vXdwlWOl7IqK7c
-	 T5B4gbWOfIxg+Dh7pYhLHTc4rMiDxA907UaicjFmcfGKsWB/nbCQfvRLyOj0mtr6SHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=H2JU4hnXGHPQ1uce7Tn8xfVvyIR1SgV6yrtF0fmEwuc=;
+	b=AwwbR++5/Ymg20Mgy382k3HLE/mLI97hxCL9ialNXTggMOzBf7LjwSmaAlHKVXEW9aWM
+	 9bl81H53BW9YFLcVLpYS7jrovRTJdPjqri48ToDUYodWh77hSnqN1DhlEipeqyzCRGfEt
+	 ijuc9yw72VLKjUQsK9cjEZBg5Ylm//cliSztwLVRRFZazVHr9a/QEE5Cpdfc0+3+aTIC2
+	 dk1mlOaxUjr+Q54HYaA3yWiAIQse6w4BoR9RYIlUDeJ8Dl2lzl13j2C9LZCZLec6hTrXe
+	 I9XgLi6FPBYdNI7Js2dv4cNpbrU5Gkn7qLzs8ljCR0i11H0+WYWHIUCBDS6jNJXPPUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=r5lOOUy9;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CG1x+ZfW;
+	arc=none smtp.remote-ip=209.85.216.48
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6B0606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A6B0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B20606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6B20606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=r5lOOUy9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=XqbIHLFdsXyVkuJgdDLCayfeh03Np6T/BV+S9W3GA4g=; b=r5lOOUy9agjKeSf2geXClhnRhS
-	x42fF/fiE4xOq6wgM5aym6FUTHzZxMnOoO7ekAODq5vKGfotJYcQNnS2U7U46Aw9LYtguaM0Oygov
-	Ox1D0G5fqCIlVvWFHqpmkArxgE6GeDUeaTVEQiHfV3Pe2C6iqeqVK+zl7m9IlRwoThnAE+6HS/Txw
-	Ql0+sVrK7J2Vx7fEfvcsDwt1Erxc22pIy+HEFikqzhz650SaRkyrFjCetzlJvibexK4m12qdwB+LX
-	nMgFnZWwfrNYvTTF1g0WmCRAUPsGo6rtPtj+gcI83LVKQqMJoR7WUfe5yAgV8ikWxBzKtclCDLzmi
-	nedyzPIw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xLjmY-001a2B-1O;
-	Tue, 27 Oct 2026 16:12:14 +0000
-Date: Tue, 27 Oct 2026 09:12:09 -0700
-From: Breno Leitao <leitao@debian.org>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Rio <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
-Message-ID: <auDM_p2_nwVkw_0n@gmail.com>
-References: <20260915100140.3631650-1-ryan.roberts@arm.com>
- <aqqU3I7d9lMAjSvy@pathway.suse.cz>
- <87bj8kkfwk.fsf@jogness.linutronix.de>
- <ats4n8snmReT7Nc9@pathway.suse.cz>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CG1x+ZfW
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so48720a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:12:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793117565; x=1793722365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H2JU4hnXGHPQ1uce7Tn8xfVvyIR1SgV6yrtF0fmEwuc=;
+        b=CG1x+ZfWRDhvdkQBJq7mbtL55ObdADPs4IxuxxUaFkF7M3Y7mXQp8u4pXJ1K30gjRM
+         1VKOaBjEtekTBWCMUxTa6U6RaXxagaNmu3JNbZn4CJnwv3UTpXaG38cjFLIhjeKJevKa
+         +Ur/mlxcCw8aSkxgg57A1zlSRthl4TRnEVSZ/4C/9a/7DD80nY9iwNUN2Imsx6nBmkXF
+         rx9GEgZSP9FHA31LhRsltMer9Daf/xraPZnCaxyQw2pYXWnCyfjKFBUJmRRAwiOTIRzJ
+         +NMvDGHeHfykBAAE10HyENW/ksYMB+wA+gcEVwPGPxM6Dzo95OH97M8zWdq4zAdpemqP
+         S6Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793117565; x=1793722365;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H2JU4hnXGHPQ1uce7Tn8xfVvyIR1SgV6yrtF0fmEwuc=;
+        b=hiWtZBigAkz0zxq34MDdRyIsskOpcb2+Lj7RtPObhNSfOVAfi3o8FXxEDnY4lVA31b
+         icVejddUFV/YPmwamCV4We/LU/qPpJ52t3qs11kjmxLgRSmCH5buXPEf3TBMwJB0CRPt
+         9V2IAim10wQ5IeO6Cq9UyS7TjeL2xPve3VOGhZboyoQv0h+J99yu2FZWF5khZwQLE5+c
+         OeBdjlLEYwWB6XWDZWWh1vzIoWXBZIRFhvcTgxz5Xlf6tqbE84NSPnBgxGEo795ek/Uj
+         bFSYB6rw3VTkul5C1XmLqbHg+a/WlHFQ+B3cavcdNyfFMJpjL0I5OEufMyilAePXunXM
+         0AQA==
+X-Gm-Message-State: AFq9FYJ/ahzvsOlLkKfrGc5woiU+jYz8hkOGpPLnJG/QMOyHShTUwlIz
+	fTnDoCsWdXCoPtxIru4Cxftqp9qaIJzLDp1WUKckP1yRpMRXpCShZAWC
+X-Gm-Gg: AYBFou3Kwj3UyMBt99nXhDPujkzjKA1gr9rKTQxcdw+72VJSUa+sPWqKV1Mz/IjEu0s
+	9vW6ZoglmzKsmIc2r8uLYbGQ3940xdJJHfVlIKAc2cFZZmJxOA7XpYHu/3hbffB+6QLxUjyMFSX
+	Rp+gUms+P2d1G5u5ZnyTeSwRemTWcPrXJvNAfJG9vTo/IbeUDODYbMOXfhPUipO9wLGHGZlbKU3
+	MhGhzvkNW6xcjw8hxpY3EWRGYqEFxr4LYnb44XdvR2nuekyiyMFtag3clMmrYtFa1L0vrPU1Adl
+	HQmCHohr8vdUbq4xKlA08VgGFK/OdGv54ycrSzJUXl0U9OrJ3IPJDL+8D7XIKMUcNDqs4YJeqV7
+	LlgvWwMu11fQXCEusozblftLc4AzNh/7yNC7IojLXVCJvvmyibS9AsJWUZVJB0uNkcuf7q1BCc9
+	x/EOzVl1luHLFcDa+v1ZyDrDPam1iv6/uLLU1ZPfgJ1U30uX4UsDP5Cs/FLpwdY0z1I5uWNmeSo
+	QLxh8GjRdySdvfOSSvB9LMRSbv646DKXyXe7xNFxXFPVrxigIHXmvcyadvXf1T69mMTXohWg9fr
+	38nzuTMZD2p0W0gVcgY=
+X-Received: by 2002:a17:90b:1b0e:b0:3ab:9c73:12f with SMTP id 98e67ed59e1d1-3adeaae626amr8746577a91.24.1793117565124;
+        Tue, 27 Oct 2026 09:12:45 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4066d631sm4483494a91.17.2026.10.27.09.12.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 27 Oct 2026 09:12:44 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	chrisl@kernel.org,
+	nphamcs@gmail.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	shikemeng@huaweicloud.com,
+	kasong@tencent.com,
+	linjh22s@gmail.com,
+	kunwu.chan@linux.dev,
+	kees@kernel.org,
+	gustavoars@kernel.org,
+	tglx@kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [RFC PATCH v3 15/18] mm/swap: reuse per-CPU queue readers across priority changes
+Date: Wed, 28 Oct 2026 00:12:17 +0800
+Message-ID: <bea2aebe1693ded274563505d92c48c4b63db46a.1793106426.git.lianux.mm@gmail.com>
+In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
+References: <cover.1793106426.git.lianux.mm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,97 +108,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ats4n8snmReT7Nc9@pathway.suse.cz>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 12:36:15PM +0200, Petr Mladek wrote:
-> On Fri 2026-10-23 10:03:47, John Ogness wrote:
-> > Sorry for the late response... this fell through the cracks. Response
-> > below...
-> > 
-> > On 2026-09-16, Petr Mladek <pmladek@suse.com> wrote:
-> > >> In older kernels (v6.19 and earlier) netconsole is able to print these
-> > >> panic logs while the system is configured to reboot on panic. So from a
-> > >> user perspective this is a regression caused by commit 7eab73b18630
-> > >> ("netconsole: convert to NBCON console infrastructure").
-> > >> 
-> > >> We have automated test systems without BMC access, which rely on these
-> > >> two features working together.
-> > >
-> > > I see. To be precise, I would say that the primary culprit is the
-> > > commit 187de7c212e5fa87 ("printk: nbcon: Allow unsafe write_atomic()
-> > > for panic"). It adds support for consoles which will be flushed
-> > > in panic() only by nbcon_atomic_flush_unsafe().
-> > >
-> > > It is a big difference because printk() tries to flush both
-> > > legacy and "safe" NBCON consoles directly in panic(). In addition,
-> > > they are explicitely flushed by console_flush_on_panic().
-> > >
-> > > console_flush_on_panic() is called more times in panic().
-> > > And it tries to flush legacy consoles the unsafe way even
-> > > before emergency_restart().
-> > >
-> > > OK, we should close this gap. But I suggest another solution.
-> > >
-> > > We already have the following functions for flushing NBCON
-> > > consoles using write_atomic()
-> > >
-> > >
-> > >   + nbcon_atomic_flush_pending() - flush CON_NBCON consoles
-> > > 	using con->write_atomic() but only when safe
-> > >
-> > >   + nbcon_atomic_flush_unsafe() - flush CON_NBCON consoles
-> > > 	using con->write_atomic() and allow unsafe takeover.
-> > >
-> > > I suggest to add 3rd variant, for example:
-> > >
-> > >   + nbcon_atomic_unsafe_flush_unsafe() - flush
-> > > 	CON_NBCON_ATOMIC_UNSAFE consoles with con->write_atomic()
-> > > 	and allow unsafe takeover.
-> > 
-> > nbcon_atomic_flush_unsafe() already includes CON_NBCON_ATOMIC_UNSAFE.
-> 
-> I was not clear enoungh. The purpose of the 3rd variant was
-> to allow the unsafe takeover only for consoles with
-> CON_NBCON_ATOMIC_UNSAFE. And rely only on the safe atomic flush
-> for consoles which support it.
-> 
-> But it is likely too complicated and probably not worth it.
-> 
-> 
-> > > And I would call this 3rd variant in console_flush_on_panic(),
-> > > something like:
-> > >
-> > > void console_flush_on_panic(enum con_flush_mode mode)
-> > > {
-> > > [...]
-> > > 	printk_get_console_flush_type(&ft);
-> > > 	if (ft.nbcon_atomic) {
-> > > 		nbcon_atomic_flush_pending();
-> > > 		nbcon_atomic_unsafe_flush_unsafe();
-> > 
-> > s/nbcon_atomic_unsafe_flush_unsafe/nbcon_atomic_flush_unsafe/
-> 
-> Yes, I am fine with this.
+Inserting a new priority allocates a replacement per-CPU reader array
+even when earlier ring removal left enough storage. An unnecessary
+allocation can add swapon work or fail despite sufficient capacity.
 
-This fixes the reboot case, since console_flush_on_panic() runs before
-emergency_restart(). 
+Track the installed reader capacity and retain its high-water mark
+until the queue becomes empty. Reuse existing storage when the new ring
+fits, initializing every valid ring index for the new topology. Prepare
+larger storage outside the writer only when growth is required and
+recheck capacity under the writer before publishing.
 
-But I got the feeling that it does not help when a crash kernel is
-loaded, which is a common production setup, and how our fleet runs.
+Preserve the existing prepare/install ownership and failure rollback
+protocol. Device removal continues to avoid per-CPU shrinking allocation
+under the writer.
 
-With kdump, the kernel kexecs before any of the console_flush_on_panic()
-calls in panic():
+Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+---
+ mm/swapfile.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
- 1) panic() calls __crash_kexec() before panic_other_cpus_shutdown(),
-    or right after kmsg_dump() with crash_kexec_post_notifiers.
-
- 2) On an oops, oops_end() (x86) and die() (arm64) call crash_kexec()
-    directly when kexec_should_crash() says so (panic_on_oops, oops in
-    interrupt, ...), so panic() never runs. With
-    crash_kexec_post_notifiers they go through panic() and hit 1).
-
-So netconsole, or any CON_NBCON_ATOMIC_UNSAFE console, prints nothing
-on kdump hosts.
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 7b3520ce1e41..5b6492b1bdc6 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -201,6 +201,8 @@ struct swap_queue_cursor {
+ };
+ 
+ static __percpu struct swap_queue_reader *swap_queue_readers;
++/* Keep the high-water capacity until the last priority ring is removed. */
++static unsigned int swap_queue_readers_capacity;
+ 
+ static inline bool swap_device_masked(struct swap_info_struct *si)
+ {
+@@ -240,7 +242,7 @@ static bool swap_queue_needs_readers(int prio)
+ 			return false;
+ 	}
+ 
+-	return true;
++	return swap_queue_len >= swap_queue_readers_capacity;
+ }
+ 
+ /*
+@@ -288,13 +290,15 @@ static void swap_queue_reset_readers(void)
+ 	}
+ }
+ 
+-static void swap_queue_install_readers(struct swap_queue_reader __percpu *readers)
++static void swap_queue_install_readers(struct swap_queue_reader __percpu *readers,
++				       unsigned int capacity)
+ {
+ 	int cpu;
+ 
+ 	lockdep_assert_held_write(&swapon_rwsem);
+ 	free_percpu(swap_queue_readers);
+ 	swap_queue_readers = readers;
++	swap_queue_readers_capacity = capacity;
+ 	if (!readers)
+ 		return;
+ 
+@@ -431,7 +435,8 @@ static int swap_queue_add(struct swap_info_struct *si,
+ 	}
+ 
+ 	/* No ring at this priority: insert a new one at pos. */
+-	if (!*readers || nr_readers <= swap_queue_len)
++	if (swap_queue_len >= swap_queue_readers_capacity &&
++	    (!*readers || nr_readers <= swap_queue_len))
+ 		goto failed;
+ 	new_queue = kmalloc_array(swap_queue_len + 1, sizeof(*swap_queue), gfp);
+ 	if (!new_queue)
+@@ -459,8 +464,12 @@ static int swap_queue_add(struct swap_info_struct *si,
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+ 	kfree(old_queue);
+ 
+-	swap_queue_install_readers(*readers);
+-	*readers = NULL;
++	if (swap_queue_len > swap_queue_readers_capacity) {
++		swap_queue_install_readers(*readers, nr_readers);
++		*readers = NULL;
++	} else {
++		swap_queue_reset_readers();
++	}
+ 	return 0;
+ 
+ add_to_ring:
+@@ -503,10 +512,9 @@ static void swap_queue_del(struct swap_info_struct *si)
+ 	}
+ 
+ 	/*
+-	 * Shrinking the small topology arrays is optional. Keep reader storage
+-	 * until a new priority is inserted or the queue is empty: per-CPU
+-	 * allocation must not run under this writer's noreclaim scope, which
+-	 * can grant backing pages reserve access.
++	 * Shrinking the small topology arrays is optional. Keep reader capacity
++	 * until the queue is empty: per-CPU allocation must not run under this
++	 * writer's noreclaim scope, which can grant backing pages reserve access.
+ 	 */
+ 	gfp = GFP_NOIO | __GFP_HIGH | __GFP_NOMEMALLOC;
+ 	noreclaim_flag = memalloc_noreclaim_save();
+@@ -549,7 +557,7 @@ static void swap_queue_del(struct swap_info_struct *si)
+ 			swap_queue = NULL;
+ 		}
+ 		if (!swap_queue_len)
+-			swap_queue_install_readers(NULL);
++			swap_queue_install_readers(NULL, 0);
+ 	}
+ 	spin_unlock(&swap_queue_update_lock);
+ 
