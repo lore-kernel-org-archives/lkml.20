@@ -1,76 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122740;
-	b=edYqIz/bMQoeqcVAqIWTRWhbIfrW2UZxPtNuEb1OqXXOhPVDuxTV+kqLSGsN1Pi7eDvY
-	 fx8AikIHGo6ZOTiv/RNE1nrca0ltib86whrQNRHdrv8/lZ0PWI6Sl/mCw7KKox9TMJMWE
-	 56hxbMgV9OYMOLR2VFvCZiFGQCHGkT8XXEy8Oey9Pev+5V0RC7gx8uOTGNmlAoRtvRxip
-	 5Yxb5OvGkzSNCFNGtSBJoh98AzpACGCd3jWU82cnJyJtjCeoYleihMIa+aI5aq8FqNnl0
-	 +h3DxwZKBNNJyH6DC1FpzG6hxgwL5iNXamGr4qY4uNUi1y/a3ONXx6luIcrKW5L1oDA==
+	t=1793122747;
+	b=eId7tSY17mXQmN5imH84KSFevBcD8AFizVc5myZZgCtj8k5O5burBDgouvHGiuQKhC8N
+	 bsMzR3YnKK+9zzI/fC30K4sxWr4r7o9njCjaYyleJCMlcDKpYcmjd3sMObrdn0mTT14CE
+	 iM+K4bbCj+a7J/FLXrJquj3hon3XpenHorUBqnxno0TkxQ0vkvB5LN1mYQdIXC7CmcCT0
+	 7oJBki+FaLUa9hRA+98k2I+LbO83jA/JYI4Ni/qpuxdPxabX9YeyXncQio3OjAnu7Tth+
+	 GxxHbjizAPk7mex59E+pJF1z42poGRT6r9STc4r08XP9/00MXU1W1iODNP91Kk3p5Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122740;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=2cBJI2nnIkywytYzxR6H/QQFOPTi1qFD5/ttRLHdX9w=;
-	b=Q1bYhp6aXyyS3Rmb08xGL82PQGIcxbbvXoytE1j31V1qjPb1W8EKgpVQpvvB+Nd0j0W3
-	 hVG7ViYHIYMyBNVRblqzJZtU90bqgTgE4bQd5OzZbzhnNkd2DsEtjJUXm9/EaagFju5hs
-	 McxHx96xml64C2VaU3quy9ZO0bvAUkUYHigIG0P5WLi7MOG0SVsVNVzZ9sAu2mRFwMVbm
-	 fNPd4nLjKdLVL0zpVsEjvgCz2jUJU9NjhZmFBm87I4UvRhsuA+Nc5bDxhfXLbv/jPaEW5
-	 B9tuVrEQ+uguUzDt6khUQCBtB+/dfjiUi/dvdxNsMHdf0yQ+xEaoL0WMiQ/rgXgVwNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122747;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=GMLoZqn9hUz7CF6Vy6FF9tNhZQTvAeSqJAal3eoYO48=;
+	b=BvwSe76GytdX6c6mchfAcaEzW0exlJKpwEqThV6h07fq9suaXkUsqVY53bGLXPwZ7ynq
+	 8BF8IONBo+MpnvtHXx4pasCfH9yMof46zW9L4JdBxNRARA3MFODkj7P3/KHPnbi7GPon2
+	 U8FcDX66GhcXIFzBO/lqNK+tvKk7AgTuzCD0IrkHW/q7v/E8/WARHH2hn+4X1DZtCUFOk
+	 kz4UQA5Yqc7B2DuTjk9ehnFDFpaaQaGOBzeY2flAjr+TlhiU11hkg/b3+zj14qgLz7BVC
+	 +ZXRs//4/SepDwq302U7/iQqiqeZvwpESa0kDrGSAeJM7eWUujEh35YLbcYIzGfDAjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XJSi/vmL";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqyexwYF;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0E0606A31D;
-	Tue, 27 Oct 2026 17:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F2A606A321;
+	Tue, 27 Oct 2026 17:39:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08F2A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJSi/vmL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC361F01825;
-	Tue, 27 Oct 2026 17:38:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793122739;
-	bh=2cBJI2nnIkywytYzxR6H/QQFOPTi1qFD5/ttRLHdX9w=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=XJSi/vmLDkwnReKwKmEX4JRALl4syw+iIaeGn0uJWZZMKBFHHtHiF7enafrQ9woRP
-	 yoSRlydCDwzuwwl/OCE+bZzKi3TXFoBvcoJ7/8vdphLqH13Vv4flItJXCKhApdPjX5
-	 1fhiuCB7uODos7v0qtlUXi9BUb8CZY6nWHQ8JhpV8fhP6cfpK7Sb1TnmkbRqOB7ra7
-	 8cu4ZAjnKmBA7PU8Ne84zg0Cmmg3Gh5PgrGF7ASspqYFeRa0sOzJLgYGuukSpK0FBJ
-	 qjrKoONkCB6PmdFb5kmfDuZmQRqF1xnZH1d8ct2sQ+Bidhd/moOzuhhrX9Swacz4DS
-	 c10ssfWxCS0og==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Alexander Viro
- <viro@zeniv.linux.org.uk>,  Christian Brauner <brauner@kernel.org>,  Jan
- Kara <jack@suse.cz>,  "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-  Hugh Dickins <hughd@google.com>,  Baolin Wang
- <baolin.wang@linux.alibaba.com>,  Andrew Morton
- <akpm@linux-foundation.org>,  Zi Yan <ziy@nvidia.com>,  "Liam R. Howlett"
- <liam@infradead.org>,  Nico Pache <nico.pache@linux.dev>,  Ryan Roberts
- <ryan.roberts@arm.com>,  Dev Jain <dev.jain@arm.com>,  Barry Song
- <baohua@kernel.org>,  Lance Yang <lance.yang@linux.dev>,  Usama Arif
- <usama.arif@linux.dev>,  Kiryl Shutsemau <kas@kernel.org>,  Pasha Tatashin
- <pasha.tatashin@soleen.com>,  Mike Rapoport <rppt@kernel.org>,  Matthew
- Brost <matthew.brost@intel.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>,
-  Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
-  Ying Huang <ying.huang@linux.alibaba.com>,  Alistair Popple
- <apopple@nvidia.com>,  Kairui Song <kasong@tencent.com>,  Qi Zheng
- <qi.zheng@linux.dev>,  Shakeel Butt <shakeel.butt@linux.dev>,  Axel
- Rasmussen <axelrasmussen@google.com>,  Yuanchu Xie <yuanchu@google.com>,
-  Wei Xu <weixugc@google.com>,  Baoquan He <baoquan.he@linux.dev>,
-  Johannes Weiner <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>,
-  Lorenzo Stoakes <ljs@kernel.org>,  linux-fsdevel@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-mm@kvack.org,
-  kexec@lists.infradead.org
-Subject: Re: [PATCH 0/3] mm: allow freezing mappings
-In-Reply-To: <fcb7b786-53e5-49bb-8505-63eb8bb4e836@kernel.org> (David
-	Hildenbrand's message of "Tue, 27 Oct 2026 18:35:51 +0100")
-References: <20261027173031.763213-1-pratyush@kernel.org>
-	<fcb7b786-53e5-49bb-8505-63eb8bb4e836@kernel.org>
-Date: Tue, 27 Oct 2026 18:38:52 +0100
-Message-ID: <2vxz33troxg3.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqyexwYF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793122746; x=1824658746;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=+MxEiuBZ/L0ubNP9ZUsiWv6JkZZH6q8NBc49BPiB3FQ=;
+  b=cqyexwYF5u2DX9SPcyWciTroJ2F8wPeHV9ejTYhfKbZtQpn/o+xHfZrL
+   P20S/HM/NcIupEeGpkHnoqp73x+EdWLs2x+BR6nORjgf3rfslILnsZ2ot
+   tirInmbTbaim93jNRVQ/luR3BuHfB0KtMcj8QQVrHDwP7Q3TVi6z9627y
+   ci+5cP7kr1ACN967b6emwUaoFkprkbbjw4fg5c5uEOnXcRJWRSp60HaNA
+   fw/g8moWKOw+SIxGCNjZ/KyGQQNKkBXIiokk2YRhD/WiaXHTW4PRoh1pF
+   Twy+VaP9ajfMS51jQInpCnT/rLdsKmO7vphdH2u0jUUeB8WGKhpgnS9Vg
+   g==;
+X-CSE-ConnectionGUID: 4w02iSAWRYSSurM3O17Ugw==
+X-CSE-MsgGUID: 3RT8oe5ySPmLIJ5YFBGTjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1718084"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1718084"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:39:05 -0700
+X-CSE-ConnectionGUID: QWVD5rq2SAmBbkxIBx4vRg==
+X-CSE-MsgGUID: mL7lmYsUSTaE4Fxi9cNa8Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6474352"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:39:03 -0700
+Date: Tue, 27 Oct 2026 19:39:00 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/5] media: atomisp: remove the circbuf library
+Message-ID: <auDhtEFGht8PQnET@ashevche-desk.local>
+References: <20261027120341.2305533-1-vladurares@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,24 +84,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261027120341.2305533-1-vladurares@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
+On Tue, Oct 27, 2026 at 12:03:35PM +0000, Rareș-Mihai Vladu wrote:
+> Thanks to Andy for suggesting, in review of my earlier typedef
+> patch [1], that I look at converting the custom circbuf code to
+> circ_buf or kfifo, and for reviewing the previous versions.
+> 
+> While looking into it, I found that the circbuf API is only used by
+> the local queue path, and ia_css_queue_local_init() has no callers,
+> so as far as I can tell that path is unused. The remote queues only
+> need the descriptor and element layout shared with the SP firmware
+> and a few small helpers.
+> 
+> So this series first moves the remote queue handling into helpers,
+> then removes the unused local path together with the queue type that
+> no longer seems to serve a purpose, moves the few remaining pieces
+> into ia_css_queue_comm.h and drops base/circbuf/. I may well be
+> missing something, so please let me know if a different approach
+> would be better and I will rework it.
+> 
+> checkpatch warns about new typedefs in patch 4 and about MAINTAINERS
+> in patch 5. The typedefs are only moved from ia_css_circbuf_comm.h,
+> which patch 5 deletes, and MAINTAINERS has no entries for the removed
+> files.
 
-> On 10/27/26 18:30, Pratyush Yadav wrote:
->> From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
->> 
->> Hi,
->
-> Hi,
->
-> we're in the merge windows and focused on fixing things (apparently all of the
-> kernel). This is not the right time to discuss new changes.
+Almost there! The few minor amendments to the patch 2 and I think we
+good to go, I believe next version will be final for this part of job.
 
-Sorry. I thought the MM tree was open to changes in the merge window.
-Please feel free to ignore this until you are done with the merge
-window. I can also resend it after -rc1/-rc2 if you'd like.
+> Compile-tested only.
+> 
+> This supersedes the typedef patch [1].
+
+And thanks for doing this! This is the real cleanup series from people who
+want to learn while doing something against staging. I will point others
+in the future to this success story.
 
 -- 
-Regards,
-Pratyush Yadav
+With Best Regards,
+Andy Shevchenko
+
+
