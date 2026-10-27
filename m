@@ -1,94 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069271;
-	b=R8KX3zlNb/Uubfh7mb1zqhvAMI0H2ulFyTU1VkPX2duW4qfxSSCta7ZBjLIbBCaVy80+
-	 70lwH4dbQJW8iMnWBfZxmUgrVY021sXnNR7HwFGAmvGMoEUH7THwSkOuq9UjdKZxHyPy1
-	 vqR9ZSbVlW7R1q4NG1QUW4fpf546DNNAs8RFKOnmoFdEuUEbAglJkS3OlbRWAg5mT+oqC
-	 9DH+vAAJlf5aWwkADHQUrqOWGyqiOpXPKpFMdSxjbvfr/j5UaVtSrn7N9yLD2zMeyns7U
-	 l1fPK5ktEqjJi81Wzdz2PIW8uZZ2o2tDKXWNg0ZoQBWj7gEwMol0wRfBxYPmt42IBlw==
+	t=1793069354;
+	b=LcRz/S7SEkqoHHeKLsjGb2l8kJRfb5/BqJZ0RZjdCWgI4wjP8kmuhoTVnsiP7xTocjuu
+	 ChtdgFGr0kj5U1AeW/TpTLqdnp1tsVsQj7BdESqgMilKzCUDvZ5ORYz1wjH9gVYGkgEJe
+	 WI4tguAl+oJy6x3aQwjZWGwFy+3yar/bHb5otAjd335G6JdcXGEJ39jWa5WIW6aWMiqv8
+	 9Ag847Hoqa9L8KHBtANcCsgr16YwbpwmNHNSmOP/LJksmtbTg0ok7+DNnHLJSD7EvwB68
+	 q+rq0NPl6W5YrxBZMBpEZ1AmaRxy0KnUNqvPpXL2lsVOR0pOAH3eY6PkeK6aVbVM7Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069271;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:Date:Message-ID;
-	bh=lvDhK1lQBCnTBgCeDn8IE0UD8FXFRVaT+2qmolhhuoo=;
-	b=4UUPh1n8abmh6yBbz1GjjJ+pTkUFlNECVNxRh3q6zq2y1YntYi1YCZ1+/A08da6EDLmP
-	 NuKiSiAAd+zHDa/UfM18C+BNbVeq8BGHTiz7UwWn63iX5gjPj6ZYmHokpSdqaW8lxDxmQ
-	 5U1P+urFMBrIWkyG1ItCiejFQzBIqHS3LKWoMhhvY/7awqcL7O6/JSaMujdD8ZX+62yWp
-	 XqJH41T4M1Ox1HTsDp4WWvN+2R/h3/qNuKa4u/hSakVCAJek90kGBloKDdL5OsWHcqvc3
-	 6xZ0wIa4E9lUKvB4m6cPqna/UjeManM4JqCGl+ieNzOLjCBjspUgKHr631IHB2dxA6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793069354;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=G934Mq/keLoDolgJR1gPsMrdwz79ahRc6imGh8/HQtc=;
+	b=e4MJLrRrv6fB9lM2xwNqqrud2aVGhNOzT1k11qxmDePDw/KGzUyOZEAWVgq5t1g/V/1h
+	 uAqozlLlXggtTMaZ2pkQ/n6QNrjTrOV5qww4Z86Pa0zhXP6Ja4HNwn4BJkdaco7OyDz+p
+	 XsZ4QsGUNuYzGQ4dTT3Tdi/J8JMaYyA5aDEAcJ1FXV1sugzbxK7l6WDamVosupROsen91
+	 UTqByIXL8vS/vhsRbWz2Jq43bVPKsCri0k/VrxqT5elYwr6hjppTZe6BcfBQSAGV2okON
+	 nt54X5JsmMJSSMdxE381cJmypbNo3CVcJyTHouA0SVajrUsbGxU7QlbhHcpw0xGKzaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=74.125.227.135
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F845606A324
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 02:47:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F845606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-3ac63aee1ecso707934a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 19:47:46 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E997606A31B;
+	Tue, 27 Oct 2026 02:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E997606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793069266; x=1793674066; darn=vger.kernel.org;
-        h=message-id:date:mime-version:content-transfer-encoding:content-type
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lvDhK1lQBCnTBgCeDn8IE0UD8FXFRVaT+2qmolhhuoo=;
-        b=ExcyeD3X/eASS+Lt56dL6RiK9ULFT3Pc5YgWeHYUVnK3/fxmU3LjuVBY5qTgq7Nvw1
-         5AmuEADgEJ+/9hfGT5RCvUELhTrKvjgbL5QbdIpi0QElAaNOl+gXJxtL9+Av9cQKStdk
-         HFUxpii0/WmmdMYFkCaaF/z6fdIE+/OGEM6CvjRXuOVZbt47YLk/fQGdZX5Lx5FxIZlr
-         vDx92Syx+RaKIXdx0aZbxswckdlg4CgI7tvsMxfzJOw1v3dF9cfweP4nJm3wTgr2tWNK
-         Kr4Z7qkUZOO3SaQ67nbMvxAQ2BKrTB77BvLsWHIDw4RjzHRtP/CMZ4Z+Hf3yCHtMwR1h
-         4hJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793069266; x=1793674066;
-        h=message-id:date:mime-version:content-transfer-encoding:content-type
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lvDhK1lQBCnTBgCeDn8IE0UD8FXFRVaT+2qmolhhuoo=;
-        b=IsE9+Gkjg09rHGJu9uM3MUgnNdGk3WVTGqRfm+VqT0H2ZA1j4SGTAliXNb3Jj+2c9b
-         00MH88iUChhJGy1TCeZZSgKkCx1a9F2kIagyyxDwVp5+uu0ZAenhwd9CubFQAF7dAAYb
-         cZNA+llYT8fOHP5ZrsNOhL7q0Ew9Kw0EUSBEkHdNPlwd2DR7RqS3S+TsHvPgEOjE+Haw
-         FKm1+HcuQuRGUDjFJtscO91yauWlAKXJddnBWLW3OhqResEQ03Psd+DGHYXaCP3vQyYO
-         /3qh7AkNg3ufdImxweXe46R7a0mD2R0GHVS9ptaN6rCzpUYVoajXWc2PnhV9NiDnCiHC
-         oepQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxvusQhyAuJ1Socp7A77JJhC3wPpfxYEKaYWFMaXUmyGKOSpeJYs3KEOx5KyZTSCRdI2iy8nkw6veK2lco=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVIzzVEWNyYQTHchJaKPyFzXK4Ugt2c+XC+sQt65+GNvPVWufC
-	YjpFmoz1gNBPZzONi0BjndoEPjAS6I4pive2MT5oQkYKwoGTCogLrq89
-X-Gm-Gg: AYBFou0ZBp8GUNgZ3uMFhLwi2PqfRlcPJgLDjHxmq7ExFIFNDdNLzpBDj8jR5VdwYgH
-	ZaGcFFAUOl8cbpCOVeXMlw/GPsT0wT+sfdeBhxUpsG6loS7BmxBS51YfwJa3VptHs28UczomR/R
-	1QQ/aTV1zrD+P1uRwII2bCdFRTGIUxI+loAV5+ErfIcHQXDLSeRwTjuRsJpIOxj9cgkfIN5kfsE
-	qhi2mz+9trxzUeAHsjq7YfdaE3NOveXHm0AyFqy0H5gHy+n8vYg47v84lTXoltReoeQH59pTktv
-	q6Em3pq92MUA6xn3BrvtcXL0XcezidqD/BnymTbzCFvRWICHefNDiUYIoWmsSHghkedq1qcbWUn
-	5qCUmY+GjWVVNHH/a7kVqnyfH57TJdxtdeTqeddTqkW7n6PchoFF20hswfnZHuxY6ThVtreAHD/
-	i6AkmCHdbYm0bRfe7oe2GT3pBilq8MKvRnqbHntvhm3FEF2okyNEuktnNmEhbb/NRDkvBqat1NW
-	TBp/+qBLqWI4Baxi2da1ZUQZNP281lnOtLjX+Zeef95O62GisAxbZPOWhwUlM756NpTxBlJ3taM
-	/IKY4dHBlw5ZF6RXKKxGTGElCMYxX6NHhuZBS58xbBRwtpmkLOPn
-X-Received: by 2002:a17:90b:3b45:b0:3a8:7096:9b48 with SMTP id 98e67ed59e1d1-3ade9b2cff5mr7922722a91.1.1793069265598;
-        Mon, 26 Oct 2026 19:47:45 -0700 (PDT)
-Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae404426c2sm1518262a91.7.2026.10.26.19.47.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:47:45 -0700 (PDT)
-From: Aveline Noir <jm5905938@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Manuel Ebner <manuelebnerli@mailbox.org>, damon@lists.linux.dev,
- linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/8] Docs: damon: fix grammar and typos
-In-Reply-To: <20261027004916.160854-1-sj@kernel.org>
-References:
- <179301327249.2.4690198998605536207.damon-docs-grammar-0@gmail.com>
- <20261027004916.160854-1-sj@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=G934Mq/keL
+	oDolgJR1gPsMrdwz79ahRc6imGh8/HQtc=; b=p332BPPAyEK8lvaqrhyr+p5gdh
+	6wyZ0Jb6hmB8UqSWRHUE/xrDgymSzs1VzyDC8k+BYW61CwY7im5FkMvKybXdGl4a
+	zL6RdIiwI2FwIiYESfxfc3TuuZBMSMBrWiYbihmjrwmDouZ/dExxXjaA/iTA6B3p
+	NHyb7z4/diitGnQ0Y=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnwQZEeBqBLjsAA--.49584S2;
+	Tue, 27 Oct 2026 10:48:58 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v4 0/3] media: dvb: fix use-after-free family in dvb-core and dvb-usb disconnect paths
+Date: Tue, 27 Oct 2026 10:48:53 +0800
+Message-Id: <20261027024856.22764-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,19 +59,269 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Tue, 27 Oct 2026 13:46:00 +1100
-Message-ID: <179306916017.2.12297411301652219760.damon-docs-footer-reply@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkBWnwQZEeBqBLjsAA--.49584S2
+X-Coremail-Antispam: 1UD129KBjvJXoWfGrWxAr1kZF17CFW8Kr1kGrg_yoWkKryfpa
+	95GrWYyrWDKwn7Zr47A3WUGr95Aa1Sya4Fgry3Gwnagr4rG347tr97K3W5uws8Grs7Ja4q
+	qwn8Wry8CF47A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
+	0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
+	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
+	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
+	0VAGYxC7MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW8JwCF04k20xvY0x0EwIxGrw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUkHUDUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FSYwAAsx
 
-Hi SJ,
+Hi all,
 
-On Mon, 26 Oct 2026 17:49:15 -0700, SJ Park wrote:
+this is v4 of the series fixing a use-after-free family in the
+DVB-USB disconnect path, seen with a Pinnacle PCTV 400e USB DVB-S
+receiver (ttusb2 driver) on 7.1.2 + KASAN/UBSAN.  v4 keeps the v3
+structure and addresses the points raised while reviewing v3 (see
+the changes below).
 
-> Are you intentionally removing those suffix, using 'git format-patch
-> --no-signature' like feature?  If so, any reason to do so?
+The root cause is a lifetime mismatch:
 
-I was trying out my own script to assemble the patch emails this time,
-and seemingly I forgot to add the Git version footer. Thx for 
-reminding me that.
+  1. open("/dev/dvb/adapter0/frontend0") grabs a dvb_device ref and
+     starts kdvb-ad-0-fe-0;
+  2. ioctl(/dev/bus/usb/BBB/DDD, USBDEVFS_DISCONNECT_CLAIM) unbinds
+     the ttusb2 driver -> dvb_usb_device_exit() -> dvb_usb_exit() ->
+     frees everything the still-open descriptor can reach;
+  3. the fd's ->release(), or the in-flight frontend thread / i2c
+     transfer, then dereferences the already-freed
+     "struct dvb_usb_device" (usb_mutex, i2c_mutex, i2c_adap) and
+     the already-freed "struct dvb_device".
 
-Thanks for applying the series,
-Aveline Noir
+Patch 1 fixes the "struct dvb_device" object itself:
+dvb_remove_device() dropped the minors-table reference before it was
+done using the object, and dvb_register_device() published the file
+operations before the registration steps that can fail, so an error
+there freed them underneath a concurrent open().  The minor stays
+reserved from the start, but the file operations are installed only
+after device_create() has succeeded.
+
+Patch 2 fixes dvb_frontend_release() and the dvb_frontend_open() error
+path, which read dvbdev->users after dvb_generic_release() may already
+have dropped the last reference (KASAN at dvb_frontend.c:2903, and the
+same pattern in the open() failure unwinder).  The reference needed for
+the check is taken before dvb_generic_release(), while the file's own
+reference still guarantees that the object is alive, and it is dropped
+again right after the check.
+
+Patch 3 gives "struct dvb_usb_device" a kref and a "dead" flag.  The
+reference is held for the whole lifetime of each registered frontend
+and dropped from a wrapper around fe->ops.release(), so the release
+callback that runs when the last descriptor is closed after a
+disconnect still sees live memory.  The embedded "struct usb_device"
+is pinned the same way, and the USB/i2c workers check ->dead while
+holding a reference and bail out of the actual hardware I/O instead of
+touching a gone device.  This covers crashes in i2c_transfer(),
+dvb_usb_generic_rw() and ttusb2_i2c_xfer(), including the qspinlock
+UBSAN splats caused by unlocking mutexes inside freed memory.
+
+Crashes addressed (excerpts below the diffstat):
+
+  KASAN: slab-use-after-free Read in i2c_transfer        (reports 1, 9)
+  KASAN: use-after-free Write in dvb_usb_generic_rw      (report 2)
+  UBSAN: array-index-out-of-bounds in i2c_transfer       (report 3)
+  KASAN: slab-use-after-free Read in dvb_frontend_release (report 4)
+  KASAN: null-ptr-deref Write in ttusb2_i2c_xfer         (report 5)
+  UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer    (report 6)
+  KASAN: slab-use-after-free Read in dvb_remove_device   (report 7)
+  KASAN: slab-use-after-free Read in dvb_device_open     (report 8)
+
+All three patches pass checkpatch with zero errors and warnings, apply
+on top of the media fixes base (git am reproduces the exact trees) and
+are build-tested on x86_64 with gcc 11.4: drivers/media/dvb-core and
+drivers/media/usb/dvb-usb are compiled with CONFIG_DVB_USB_TTUSB2=y,
+once built-in and once with CONFIG_MODULES=y and CONFIG_MEDIA_ATTACH=y
+so the module reference accounting in patch 3 is compiled as well.
+
+Changes in v4:
+
+  - [PATCH 1/3] keeps dvb_minors[minor] reserved from the start but
+    installs dvbdev->fops only after device_create() succeeded;
+    dvb_device_open() returns -ENODEV for such an entry without
+    taking a reference, so the error paths free the file operations
+    and the object with no concurrent user in sight;
+  - [PATCH 3/3] dvb_usb_fe_release() calls dvb_detach() on the
+    driver release callback it calls, and the wrapper is installed
+    together with a matching __module_get(THIS_MODULE), both under
+    CONFIG_MEDIA_ATTACH, so the dvb_detach() that
+    dvb_frontend_invoke_release() applies to fe->ops.release stays
+    balanced; the wrapper is only
+    installed after a successful registration, because the early
+    registration failure paths do not set fe->dvb yet;
+    dvb_usb_adapter_init() unregisters the frontends it already
+    registered when a later step fails;
+    dvb_usb_device_init() marks the device dead on its error path;
+    ttusb2_i2c_xfer() re-checks ->dead after taking i2c_mutex;
+    dvb_usb_i2c_exit() restores the i2c adapter data pointer after
+    i2c_del_adapter() cleared it.
+
+The patches are real git diffs, produced by "git format-patch" against
+the media fixes branch.
+
+YuanZhe Liu (3):
+  media: dvb-core: fix use-after-free in dvb_remove_device()
+  media: dvb-core: keep dvb_device alive while checking users count in
+    frontend release paths
+  media: dvb-usb: refcount dvb_usb_device to fix disconnect UAF on open
+    chardevs
+
+ drivers/media/dvb-core/dvb_frontend.c    | 19 +++++++
+ drivers/media/dvb-core/dvbdev.c          | 37 +++++++++++--
+ drivers/media/usb/dvb-usb/dvb-usb-dvb.c  | 66 ++++++++++++++++++++++--
+ drivers/media/usb/dvb-usb/dvb-usb-i2c.c  | 11 +++-
+ drivers/media/usb/dvb-usb/dvb-usb-init.c | 47 +++++++++++++++--
+ drivers/media/usb/dvb-usb/dvb-usb-urb.c  | 21 +++++++-
+ drivers/media/usb/dvb-usb/dvb-usb.h      | 14 +++++
+ drivers/media/usb/dvb-usb/ttusb2.c       | 24 +++++++--
+ 8 files changed, 221 insertions(+), 18 deletions(-)
+
+--
+Excerpts from the KASAN/UBSAN reports (Pinnacle PCTV 400e, 7.1.2,
+CONFIG_KASAN=y CONFIG_UBSAN=y):
+
+Report 1: KASAN: slab-use-after-free Read in i2c_transfer
+
+  BUG: KASAN: slab-use-after-free in i2c_transfer+0x324/0x360
+  Read of size 8 at addr ffff8880050a0f08
+
+   i2c_transfer+0x324/0x360 drivers/i2c/i2c-core-base.c:2312
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+   __fput+0x3a6/0xac0 fs/file_table.c:510
+
+  Underlying object is the dvb_usb_device, freed by dvb_usb_device_exit()
+  on USB unbind while the fd was still open.
+
+Report 2: KASAN: use-after-free Write in dvb_usb_generic_rw
+
+  BUG: KASAN: use-after-free in mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
+  Write of size 8 at addr ffff8880050a4eb8 by task kdvb-ad-0-fe-0/268
+
+   mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
+   dvb_usb_generic_rw+0x216/0x460 drivers/media/usb/dvb-usb/dvb-usb-urb.c:59
+   ttusb2_msg+0x1f2/0x5a0 drivers/media/usb/dvb-usb/ttusb2.c:97
+   ttusb2_power_ctrl+0x8a/0xa0 drivers/media/usb/dvb-usb/ttusb2.c:483
+   dvb_usb_fe_wakeup+0x84/0x2d0 drivers/media/usb/dvb-usb/dvb-usb-dvb.c:254
+   dvb_frontend_thread+0x216/0x1620 drivers/media/dvb-core/dvb_frontend.c:677
+
+  The frontend kthread issues CMD_POWER while the device is being torn
+  down; d->usb_mutex belongs to the freed dvb_usb_device.
+
+Report 3: UBSAN: array-index-out-of-bounds in i2c_transfer
+
+  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
+  index 6996 is out of range for type 'long unsigned int [2]'
+
+   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
+   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
+   rt_mutex_lock+0xa9/0xb0 kernel/locking/rtmutex_api.c:89
+   i2c_transfer+0x1b3/0x360 drivers/i2c/i2c-core-base.c:2312
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+
+  Mutex in the freed dvb_usb_device has a garbage ->owner tail;
+  decode_tail indexes out of the per-cpu qnode array.
+
+Report 4: KASAN: slab-use-after-free Read in dvb_frontend_release
+
+  BUG: KASAN: slab-use-after-free in dvb_frontend_release+0x28b/0x2b0
+  drivers/media/dvb-core/dvb_frontend.c:2903
+  Read of size 8 at addr ffff88800632bd60
+
+   dvb_frontend_release+0x28b/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2903
+   __fput+0x3a6/0xac0 fs/file_table.c:510
+
+  Allocated by dvb_register_device+0x1d6/0x1230 dvbdev.c:472 /
+  dvb_register_frontend+0x3ed/0x640 dvb_frontend.c:3051.  The struct
+  dvb_device is freed by dvb_remove_device/dvb_device_put on disconnect,
+  then read at line 2903 ("dvbdev->priv") by the still-open fd's
+  release().
+
+Report 5: KASAN: null-ptr-deref Write in ttusb2_i2c_xfer
+
+  BUG: KASAN: null-ptr-deref in mutex_lock_interruptible+0x61/0xb0
+  kernel/locking/mutex.c:1059
+  Write of size 8 at addr 0000000000000ed0
+
+   mutex_lock_interruptible+0x61/0xb0 kernel/locking/mutex.c:1059
+   ttusb2_i2c_xfer+0x60/0x660 drivers/media/usb/dvb-usb/ttusb2.c:374
+   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+
+  i2c_get_adapdata() returned NULL after the dvb_usb_device was freed
+  (0xed0 is the offset of i2c_mutex inside it).
+
+Report 6: UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer
+
+  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
+  index 8284 is out of range for type 'long unsigned int [2]'
+
+   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
+   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
+   mutex_unlock+0x9a/0xa0 kernel/locking/mutex.c:582
+   ttusb2_i2c_xfer+0x490/0x660 drivers/media/usb/dvb-usb/ttusb2.c:428
+   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
+   tda10086_release+0x100/0x180 drivers/media/dvb-frontends/tda10086.c:692
+
+  mutex_unlock(&d->i2c_mutex) on the freed dvb_usb_device wakes a waiter
+  list that no longer exists.
+
+Report 7: KASAN: slab-use-after-free Read in dvb_remove_device
+
+  BUG: KASAN: slab-use-after-free in dvb_remove_device.part.0+0x1f9/0x250
+  drivers/media/dvb-core/dvbdev.c:606
+  Read of size 4 at addr ffff88800611ce2c
+
+   dvb_remove_device+0x1b/0x30 drivers/media/dvb-core/dvbdev.c:596
+   dvb_unregister_frontend+0x62/0x90 drivers/media/dvb-core/dvb_frontend.c:3080
+   dvb_usb_device_exit+0x1a4/0x490 drivers/media/usb/dvb-usb/dvb-usb-init.c:338
+   usb_unbind_interface+0x188/0x770 drivers/usb/core/driver.c:458
+
+  Freed by dvb_remove_device.part.0+0x1c8/0x250 (dvbdev.c:601): the
+  function frees dvbdev via dvb_device_put() and then still reads
+  dvbdev->minor at line 606 for device_destroy().
+
+Report 8: KASAN: slab-use-after-free Read in dvb_device_open
+
+  BUG: KASAN: slab-use-after-free in dvb_device_open+0x32c/0x350
+  drivers/media/dvb-core/dvbdev.c:99
+  Read of size 8 at addr ffff888004b50618
+
+   dvb_device_open+0x32c/0x350 drivers/media/dvb-core/dvbdev.c:99
+   chrdev_open+0x145/0x400 fs/char_dev.c:411
+
+  Freed by dvb_device_open+0x29c/0x350 (dvbdev.c:113): open() grabbed
+  the dvbdev from dvb_minors[] under minor_rwsem and the
+  dvb_device_get() succeeded, but f_op->open() then failed and
+  dvb_device_put() at line 113 freed it; a concurrent open() follows
+  the stale pointer.
+
+Report 9: general protection fault in i2c_transfer
+
+  RIP: 0010:i2c_transfer+0x1b0/0x360 drivers/i2c/i2c-core-base.c:2312
+   R14: ffffffff81ff8926  (call *(%r14) - garbage lock func ptr)
+
+   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
+   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
+   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
+
+  Same i2c_transfer UAF as report 1, but here the freed memory was
+  reused so adap->bus_lock points to a garbage function and the
+  indirect call faults.
+
+-- 
+2.34.1
+
