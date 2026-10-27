@@ -1,86 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793083234;
-	b=n2vwhyXyfqIzecN52DOU4MxFNRkQOZsoxDQC19ZJoDRvqqp92XzOUeVAhhgszfkwx4br
-	 Ca+kG8SuMg5diq882fqvK8EZwrrHNQ1JcXmlw7sk5CSuzXWDjiMEnkh8cI7/LzmxaBRPw
-	 Lm1sF5tmkM7WpFa9rWm643zCYc3bsP9mwFGC9fi2dCa2vlrC1k9rgFLihNWTelvmDsjRp
-	 gTXTAk9WHCmnEE02gWf/kA2vkFZunjvL8AsGu9fEqxsH9Q3imi+NWSsP8eSG+2yt6hrY/
-	 Y7zBkPVOqlXfcxaz6CfM1PDKRU1EBwpy+aoZk93oCFo2HkytsjcfvCJEllE+OhtbIiQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083234;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding;
-	bh=FMlVixG0r7ucjTAqdIszWewlNzO+T0JDcfYGipLMztI=;
-	b=cKLp5QJZTL78HlF+vV7QbO1tnjjTob/jvKXOm3UKYS9oDlMUKvrKlA0Hrr6V1JBEkg2j
-	 KhJ/ZHVMkcVKtDpejMMiQPzW9hrmMVxoUpCH6mpcJ8p+Jf777GE+O7cl/Cxba+Dag9ikj
-	 N6yUtqLK/6GVjn5Gv1z21b42ostpAMRJr/gm1ujPpwc9mI5SPrRiAK4wvr9GYS6YLg2lm
-	 kByd6wMQX/SRiR2hPT21LK7JnP7hZ2+uZP8gFn61/iv8NdcLH5S2qOM6qvffT0cVlnT9O
-	 9FIRCZI0RJyL81gLmlZBNR6sZxGH2RcxfsE4dP3Urce38RWPsnADECXyGvx5ypQoqYQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C0CPxuo+;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793083269;
+	b=OuwP/kPV/xdgJD55q10081Mmm0Ej+QNlL96f7QrEDjAUrv5ITRWHZ2H669Jz181l1Xl+
+	 2sZUsFhgfTvI+JBzsZNSZU4LzIDVjek6bKGZRHdb9Szx9LrawBke4oJEs7qnKjr9F+ewX
+	 IP6fjRpMIvcfHfCbtWlI3gY5X/Qy0iCh7QjHzfYH+a44kJc1pHPs040GBs/fD+5SwIfdk
+	 FP7JX4PnknyAMjDYKV2smUcHIqm1zpG2W6aw2WDvfwxrWTiu50gjPqh/e+VhpSrTAt/nn
+	 XKaMmnEUlwmpx+Q4Vxza/kydgIrg5poKDAJuhcMsYCihy/Qluc1XTIyKKP7nn151wSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083269;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=D9jhrfki5Rzv3EMAPTS/ylJ//+mCdg1LCoGL4dgNgM4=;
+	b=lwjQWdzgBEm4zQ8qfelWYzuVWurRfSppTrBflgkqUsRFHhI18CX9MiWspiC8KX73lcqp
+	 nW/CrCBhBuRJmdMeCIdSTUXdRu/zYdug870Zp373UBoF82FvCknFgxtetDcbHwsnwh954
+	 6htjhNk3ypaJxWx6vQWOwvOvOgHwu8n/hmLGL0IZaA+G9uhnfJWetFqIXMXedecg/zRM2
+	 hLSYfViACJ50U4HQGatILP5i+LDrdZkcYxn/fB/qS8d7WAQkQitPgNCi8sEFXBoDO5zHx
+	 O0uN4IY5meNJc3elkI7b8f2ToebPKIhjdCBW9xcsCTL+ABs0jAd1EKwkJ2uyp+ISX1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JtFNbwvK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.56
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010056.outbound.protection.outlook.com [52.101.56.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE1E606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:40:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BE1E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5EB606A31A;
+	Tue, 27 Oct 2026 06:41:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F5EB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C0CPxuo+
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so3792153a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:40:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793083234; x=1793688034; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=FMlVixG0r7ucjTAqdIszWewlNzO+T0JDcfYGipLMztI=;
-        b=C0CPxuo+KdEaQyPnZS8KuAy5PX0fa824kYaMK1GEXSXUZ8Ghxds/6AB2PkalA0VYyb
-         6RXmDkaAJYWF4HKVte5cztqYvAunN2CKzdlT9RVlcW2hdL8Iz8eRlf7pVhsInrbj/vc3
-         9LMaDH4SAriDU3zRZGke+KlOpACdRYw1U7OqCgVasV3gk7I3A6qwYm8qCWwLPGKx1BJ4
-         Q0FlOlPjALOP+BNuCKaQbSjA3inP0CZdhroo31/ppvcGKgtrBm8yzzHoQcpm9mC+89ri
-         F5U2mXVu4gGwbu8LirOBolvHYwzb+fs633zaxn6ax2M22xuir77VVHJEv2oHFDcSKv8y
-         yXkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793083234; x=1793688034;
-        h=content-transfer-encoding:content-type:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FMlVixG0r7ucjTAqdIszWewlNzO+T0JDcfYGipLMztI=;
-        b=wtwwb0TI8rrg2nQ3KpWRXUI+on0RdvpGaWR58m2sO04iZpTBSKCWPMi8LQwfsTMls2
-         PjzOkuz7noJahMkKj5E2y3IHwQnSR6iwOUUrXchjlhnPo1Hzx3FrM7T3aE8GylzG0oz9
-         VNunjAogwJuuYdxWw44O5yKc7dxkJRIbM7xI5OKvnCaDxgjRti2H9vVocS0LId2ns41O
-         yUx7jVQXNiFV4pTyTdCnMd0Q05O6ZDA0B4OdH2bRQZPGwMgjEHyl2x8xrZ9mUS92Wphc
-         Pm5J+0Q2KN4JpN7HVMKgpEFjoonXogO2YMJSEeUm2/miCdDBYb/iEeYhz5QODz8ii7DC
-         FDNw==
-X-Forwarded-Encrypted: i=1; AKwUvByPmCUkDlrSkzRP+ujUg7lrj3iVgG9dnp7G34JyfopvgdmRODBTppzfXRUgVi6RrytXukIdKvatt8wqTOI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJ3QUZq/vZnwIDRH+Wg+vLGnrdSaaAbH032oS0A84i4lg8uAra
-	nF6Q6G8ZBDeFu0lxChiGQh0f2YanoQYs0A5A9PGyOppe0SkrIOhCv4A=
-X-Gm-Gg: AYBFou2/Sc0KyYVEiM4fcxOlLFWx9pC/ReL3CeHFujkfQ/N8MmJ6SugE45kS+lolG65
-	1GuWOXjdtwWlSK1tFnidG1ecmyz6l/U4nGTs95VActvbI7CCK8RC978Z7avNSZDIiISfvFmRQLz
-	874qpxTxqUmYTXFybNkTER2rq7Y2M8Q15/icNetl1NtcF1FQ2LhROwNUhX1BrfYt7YXGBocSTDG
-	njQDWR+++iRzTUEXExXR//IZzYefWco1m+5jXA35WHuMjZIIuhr6zXp0AWYtFViNXT5piV/UOy0
-	rBXG1LLqsr38UKofcH/iaFkoEcOgS3KZ3FB6Hk59hdkFkXnFXb7jbPD9kQ1AUbJqAHniwO/6g6C
-	4fngRk3NM4kyNX16ojSb3MBELIR9IyNn5pwZ+jshxMyxz3xKdSaUpkoN50DPaRgc6MpsJ6LFj9k
-	+7HrCmlzcv3kRj2heQf/vbqVj1VXPWmqP9NmevcBQywuNz7dvtIsXoAv4EnQYqhaNebphvbraS+
-	HzLre4W1UIP/p9DBxN88wCwN3gsWGxeUfkZJr6mmLdE4SEIh9EvkJ79V+hh1t6PVy7lDDLQZQx1
-	J59VrXSFBJ5D3A==
-X-Received: by 2002:a17:90b:164e:b0:3ac:4291:f569 with SMTP id 98e67ed59e1d1-3ade9b2ed66mr7926692a91.8.1793083233783;
-        Mon, 26 Oct 2026 23:40:33 -0700 (PDT)
-Received: from [10.1.1.198] ([71.212.222.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae4066cf2dsm2200569a91.16.2026.10.26.23.40.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 23:40:33 -0700 (PDT)
-Message-ID: <5b31ea48-7918-4f0b-b012-6915b384b922@gmail.com>
-Date: Mon, 26 Oct 2026 23:40:32 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JtFNbwvK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PRF7w3kyiDeZC23DfN7iOe3zNO/Eky4EbDfzhJ3f44bkkb6yd+vnWG9EplXRq2xhbIYzHl3xVCCsbOVcifyjubf7IVV8PP/rFry4u859Is9GUVp0A7s+fBL5GSoafBpBHlUgf1AOVo1pNKQ1F6utpqEBYkBex6ZtURvoDzdIdut3He9XMeouhCdOb2+DeBq2bTsqiZqn0Q8ycL5s3EYTuPmdlaAMSAxcJRXyzQ0KVbGNDmI2V8vLja6+TJW9OJ9WiqCJtwEzNQiEwdOW6UVY8VKhZqSFNK6CiXjT8JfYVLjQLgzlfOSAVhhdKEu+MERubaaLD1DKA7RH5W12BXwYiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D9jhrfki5Rzv3EMAPTS/ylJ//+mCdg1LCoGL4dgNgM4=;
+ b=VSImvrZD+XrUupXimj6YmhcY7Ym5T3UZCzzXdxcYbOCiW/s+xYfzLFBUR4Y48zqWJJRuVp83UD08RVdStUlLqyIaQd0HstAfJ/i4szxWBYpFGknzpGgH/8rGtKQvt3PRoJWOVeMgXZWBz63j1klRuffjqVnga99nSWEwX9/2B+yh6um3t4kwlVAdZ59XhFubfOjyMBaE6oJQ6qR+L+MQugSvVRXwZIdr80fi/5f3WvlMw4F0cBH4UNaewft5RiC1+0+X8wSM+n9WQ74yJJ0c6Ma5v4kRYP+RQ4w9HdanU9NyRSit6QUiV9vVaplMEmirAjSX/DU5cgB59h9QK4QS7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D9jhrfki5Rzv3EMAPTS/ylJ//+mCdg1LCoGL4dgNgM4=;
+ b=JtFNbwvKXOuOW3vjUfGZYUtI/CCsN0KtUIx/J0R5ajpyFivtzdb6Auh/fizwbow02hQYryWdO9qRIvrEnMNIAc1QWFUKOd1w9LB0alCf20NFV8ELMiaKssB0OFrSTQp5YLj8JTE0lhMb0NFVOqYAgCRwxhO2huS6VdPXl107WHM=
+Received: from BN9PR03CA0917.namprd03.prod.outlook.com (2603:10b6:408:107::22)
+ by BL1PR12MB5803.namprd12.prod.outlook.com (2603:10b6:208:393::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 06:41:05 +0000
+Received: from BL02EPF00029929.namprd02.prod.outlook.com
+ (2603:10b6:408:107:cafe::8a) by BN9PR03CA0917.outlook.office365.com
+ (2603:10b6:408:107::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Tue, 27
+ Oct 2026 06:41:05 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF00029929.mail.protection.outlook.com (10.167.249.54) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 06:41:04 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 01:40:51 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 01:40:51 -0500
+Received: from [10.136.37.77] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Tue, 27 Oct 2026 01:40:49 -0500
+Message-ID: <575c1cde-7705-4190-9560-a1d6cfcb4dfa@amd.com>
+Date: Tue, 27 Oct 2026 12:10:43 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,85 +106,183 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KVM: x86: Compute the max guest TSC frequency from the
+ current tsc_khz
+To: Sasha Levin <sashal@kernel.org>, Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+CC: Vitaly Kuznetsov <vkuznets@redhat.com>, Jim Mattson <jmattson@google.com>,
+	<kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261024174525.1218244-1-sashal@kernel.org>
 Content-Language: en-US
-To: Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
- Nabige Aala <nabige.aala@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>, linux-phy@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Burke Cates <burke.cates@gmail.com>
-Subject: phy: qcom: qmp-combo: Glymur USB Gen2 fails on one port (chip rev
- 2.0)
-Content-Type: text/plain; charset=UTF-8
+From: Nikunj A Dadhania <nikunj@amd.com>
+In-Reply-To: <20261024174525.1218244-1-sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00029929:EE_|BL1PR12MB5803:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a7ed99b-887f-4e97-1a55-08df33f54631
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|261026121527099003|11063799006|56012099006|261022113327099003|261022075727099003|261021135927099003|261009223027099003|261021121427099003|261021123027099003|10067099003|261022105027099003|22082099003|18002099003|13003099007|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	2dnh+2YT6te7B5M+zAgp7iBYYVs/pWvbjOU41Z8zcax90Secm4h82iz73tWF2X21AXvGIWDkkJRdUOwKjZJ/VOUL/z9zjKuZK9IYVxZvqdVu+cN0edVNR9JyLnmoOVtsrgBen/d9hNdHYlUcSug5CqxXN+NvWuL8NilBTLmMCuAd88WWMHlkjTMM3IT0WHQDM+1TdpW0zXDj+VSS7inAPQkde8FZ3BeLMkBb1HLuIHKYnEIHSITLRCffgxt/NAzU6trVGDM14uCi+ZtjQzf03zifoudTuBXC/Kg2rT/iYFCl1PyR7zM3S8hZRERcuW8S5ZhHE78RmZu2Uq35N7JihmVFvyGl0gdmZeUxq10fKINt6LyMy0ZtE3oy8yC5R3Fmb+vtPG3jy0e/IGg0v5wLijb45idfp3RtKT0jaImiT57ZkQlWZNdx99IvhuqqEtPFXqesL1ieB14IK+24Tx/yP7aqDOElswn84txrTxtAIFzdF7uD+16+vgII1J+RWvn8Dl76LCiiylT+Izv7TmaXf6WmRDgSMnSk4kNWagcea0UXxDRGIRFI3YbmD9P6reRdFjNkhgxBiN0w52G5HSblM6e3jHrARiGTPbnJea3koncxEs4R2u/A0BnwccBIy5WU3rey2ELD+UHx84QasG4/AQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(261026121527099003)(11063799006)(56012099006)(261022113327099003)(261022075727099003)(261021135927099003)(261009223027099003)(261021121427099003)(261021123027099003)(10067099003)(261022105027099003)(22082099003)(18002099003)(13003099007)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vcfxQpng8NbwSpNDjgxti6NUeGv9L8XignekDw9YuozDCLGPTvudE47qPaJPVNOuz/ab+VMF/rRKQQaqCSlnfuV4f/qeGkUcK9bkctxZizaZX+4dCpE6mJa57RJ+Hoiz1uluGU5t4EQD03b+AXy35ypysy6hSfvfvzRaUldv0YzmDx0RSDoUucoN9egLraJXgi9I06nlB2fYCoLqzmZpG+pBTXhcNMXv/UqdSjTGgBDcEZJhJYoDmeXYVIiOWfY5h7zdw9s8eNIvmFo5mQk2BJprfiDJJgYfBveh7065FA88iikTWc2N4PJFGqbH3Mlw6s6idGePyRM6c/EUh86J4GdvJU7bJ3gCB8xMBOctFdWbcGbFtA8LNj6H3u5Dn6LxFEi/6G4GlG8ZQ3LLGEOWhvqxvOtPAdK9W8eH+7awnPdXZRBLO0qNJ3XjZm6re144
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 06:41:04.7180
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a7ed99b-887f-4e97-1a55-08df33f54631
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF00029929.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5803
 
-Hi,
+On 10/24/2026 11:15 PM, Sasha Levin wrote:
+> KVM computes the highest frequency that KVM_SET_TSC_KHZ accepts once,
+> during vendor init, from the tsc_khz of the time. When KVM is built in,
+> that runs before tsc_refine_calibration_work() refines tsc_khz, about a
+> second later. If refinement raises tsc_khz, the cap stays below what the
+> maximum scaling ratio gives for the refined frequency, and
+> KVM_SET_TSC_KHZ rejects frequencies that set_tsc_khz() would accept, as
+> set_tsc_khz() computes the ratio from the current tsc_khz.
+> 
+> nested_tsc_scaling_test runs into this on AMD: its last case asks for
+> the frequency KVM_GET_TSC_KHZ reports times SVM's maximum ratio, and gets
+> -EINVAL on boots where refinement raised tsc_khz. KernelCI sees it
+> intermittently on a DL345 Gen11 (EPYC). On Intel the cap is limited to
+> INT_MAX, so the test does not hit it there.
+> 
+> Like commit 741e511b4208 ("KVM: x86: Don't snapshot "max" TSC if host TSC
+> is constant") did for the default frequency of new VMs, compute the cap
+> from tsc_khz when it is used instead of taking a snapshot at load time.
+> This covers KVM_SET_TSC_KHZ on both the vCPU and the VM file descriptor.
+> 
+> This also drops setting the cap to tsc_khz in the Hyper-V reenlightenment
+> notifier, which left no room for scaling up once the host TSC frequency
+> had changed; commit 0092e4346f49 ("x86/kvm: Support Hyper-V
+> reenlightenment") gives no reason for that limit. The cap now follows the
+> new frequency the same way. The notifier still does not recompute the
+> multipliers of vCPUs that already exist.
+> 
+> Fixes: 92a1f12d2598 ("KVM: X86: Implement userspace interface to set virtual_tsc_khz")
+> Link: https://d.kernelci.org/test/maestro:6adc828a55fda507607f79c3
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
 
-Could someone at Qualcomm check the Glymur USB43DP USB tables
-(glymur_usb43dp_*, introduced by 5b289913959b "phy: qualcomm:
-qmp-combo: Update QMP PHY with Glymur settings") against the
-supported production settings for chip revision 2.0 and later, and
-post updated tables if needed? Is revision-specific or per-port
-tuning expected?
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
+Tested-by: Nikunj A Dadhania <nikunj@amd.com>
 
-In short: on a retail ASUS Zenbook A16, USB Gen2 fails to enumerate
-on one of its two Type-C ports with the mainline tables, while
-Windows runs Gen2 on that port, and local changes to the Gen2
-receiver/lane and common PLL settings make it enumerate. I'd be happy
-to test proposed settings on both ports and report enumeration, DP
-and suspend/resume results. Details follow.
+Tested on an AMD EPYC 9996 (Venice) with KVM built in (CONFIG_KVM_AMD=y),
+booting with tsc_early_khz set to the refined tsc_khz minus 500.
 
-The machine is a retail ASUS Zenbook A16 (UX3607OA, Snapdragon X2
-Elite Extreme, SoC ID 662, revision 2.0, BIOS UX3607OA.312):
+The Hyper-V notifier path is only reachable when KVM runs as a Hyper-V
+guest; I haven't tested that path.
 
-  C1 (left, rear/display-adjacent): Gen1 and Gen2 enumerate
-  C2 (left, front/user-adjacent):   Gen1 works; Gen2 fails
+> Reproduced on an AMD DL345 Gen11 booted with tsc_early_khz= 500 kHz below
+> the refined frequency, so that refinement always raises tsc_khz after KVM
+> is initialized. With KernelCI's x86 build of mainline 5b0764a53235,
+> nested_tsc_scaling_test failed 3 out of 3 times with KVM_SET_TSC_KHZ
+> returning -EINVAL. With the same config plus this patch it passed 3 out
+> of 3, and tsc_scaling_sync, tsc_msrs_test, kvm_clock_test and
+> nested_tsc_adjust_test still pass. A nested SVM guest with the same
+> tsc_early_khz trick gives the same result, and with tsc_early_khz above
+> the real frequency (refinement lowers tsc_khz) mainline passes.
+> 
+> This does not change the existing window between the cap check and
+> set_tsc_khz(), which read tsc_khz separately.
+> 
+>  arch/x86/include/asm/kvm_host.h |  2 --
+>  arch/x86/kvm/x86.c              | 30 +++++++++++++++---------------
+>  2 files changed, 15 insertions(+), 17 deletions(-)
+> 
+> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+> index 1ee4b127004df..35a74f0eb45e5 100644
+> --- a/arch/x86/include/asm/kvm_host.h
+> +++ b/arch/x86/include/asm/kvm_host.h
+> @@ -260,8 +260,6 @@ struct kvm_x86_pmu_event_filter;
+>  struct kvm_caps {
+>  	/* control of guest tsc rate supported? */
+>  	bool has_tsc_control;
+> -	/* maximum supported tsc_khz for guests */
+> -	u32  max_guest_tsc_khz;
+>  	/* number of bits of the fractional part of the TSC scaling ratio */
+>  	u8   tsc_scaling_ratio_frac_bits;
+>  	/* maximum allowed value of TSC scaling ratio */
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 32563a91fba99..9e22072f39c18 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -1156,6 +1156,19 @@ static inline u64 __scale_tsc(u64 ratio, u64 tsc)
+>  	return mul_u64_u64_shr(tsc, ratio, kvm_caps.tsc_scaling_ratio_frac_bits);
+>  }
+>  
+> +/*
+> + * Use the current tsc_khz, not the one at load time, as the TSC frequency can
+> + * be refined after KVM is initialized.  Make sure the user can only configure
+> + * tsc_khz values that fit into a signed integer, otherwise KVM_GET_TSC_KHZ
+> + * would return a negative value and confuse userspace.  A min value is not
+> + * calculated because it will always be 1 on all machines.
+> + */
+> +static u32 kvm_max_guest_tsc_khz(void)
+> +{
+> +	return min(0x7fffffffULL,
+> +		   __scale_tsc(kvm_caps.max_tsc_scaling_ratio, tsc_khz));
+> +}
+> +
+>  u64 kvm_scale_tsc(u64 tsc, u64 ratio)
+>  {
+>  	u64 _tsc = tsc;
+> @@ -3728,7 +3741,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
+>  		user_tsc_khz = (u32)arg;
+>  
+>  		if (kvm_caps.has_tsc_control &&
+> -		    user_tsc_khz > kvm_caps.max_guest_tsc_khz)
+> +		    user_tsc_khz > kvm_max_guest_tsc_khz())
+>  			goto out;
+>  
+>  		if (user_tsc_khz == 0)
+> @@ -4695,7 +4708,7 @@ int kvm_arch_vm_ioctl(struct file *filp, unsigned int ioctl, unsigned long arg)
+>  		user_tsc_khz = (u32)arg;
+>  
+>  		if (kvm_caps.has_tsc_control &&
+> -		    user_tsc_khz > kvm_caps.max_guest_tsc_khz)
+> +		    user_tsc_khz > kvm_max_guest_tsc_khz())
+>  			goto out;
+>  
+>  		if (user_tsc_khz == 0)
+> @@ -6749,7 +6762,6 @@ static void kvm_hyperv_tsc_notifier(void)
+>  		for_each_present_cpu(cpu)
+>  			per_cpu(cpu_tsc_khz, cpu) = tsc_khz;
+>  	}
+> -	kvm_caps.max_guest_tsc_khz = tsc_khz;
+>  
+>  	list_for_each_entry(kvm, &vm_list, vm_list) {
+>  		__kvm_start_pvclock_update(kvm);
+> @@ -7188,18 +7200,6 @@ int kvm_x86_vendor_init(struct kvm_x86_init_ops *ops)
+>  	if (!tdp_enabled)
+>  		kvm_caps.supported_quirks &= ~KVM_X86_QUIRK_IGNORE_GUEST_PAT;
+>  
+> -	if (kvm_caps.has_tsc_control) {
+> -		/*
+> -		 * Make sure the user can only configure tsc_khz values that
+> -		 * fit into a signed integer, otherwise KVM_GET_TSC_KHZ would
+> -		 * return a negative value and confuse userspace.
+> -		 * A min value is not calculated because it will always
+> -		 * be 1 on all machines.
+> -		 */
+> -		u64 max = min(0x7fffffffULL,
+> -			      __scale_tsc(kvm_caps.max_tsc_scaling_ratio, tsc_khz));
+> -		kvm_caps.max_guest_tsc_khz = max;
+> -	}
+>  	kvm_caps.default_tsc_scaling_ratio = 1ULL << kvm_caps.tsc_scaling_ratio_frac_bits;
+>  	kvm_init_msr_lists();
+>  	return 0;
 
-The tested Gen2 device is a Realtek RTL8159 10G NIC. Two different
-C-C cables reproduce the C2 problem. The same adapter enumerates at
-Gen2 on C1 and on the Type-A port. Linux applies the same USB tables
-to both Type-C combo PHYs.
-
-On C2 the adapter either enumerates at Gen2 and resets/disconnects,
-or never enumerates, looping on -71 ("Device not responding to setup
-address"). For context, this October 22 excerpt is from the earlier
-flapping case, before UCSI was started in the initrd:
-
-  [  307.056050] r8152-cfgselector 6-1: reset SuperSpeed Plus Gen 2x1 USB device number 3 using xhci-hcd
-  [  307.136539] r8152-cfgselector 6-1: can't restore configuration #1 (error=-71)
-  [  307.136705] r8152 6-1:1.0 enu1: Get ether addr fail
-  [  307.651093] r8152-cfgselector 6-1: USB disconnect, device number 3
-
-The failure also reproduced with UCSI running in the initrd. In an
-October 24 A/B, keeping the cable and orientation the same, the
-unchanged USB tables failed to enumerate on C2 with the -71 setup
-address loop. Local changes in the Gen2 receiver/lane and common PLL
-settings made it enumerate at 10000M, with no -71 in that capture.
-Windows programs different values on this hardware. The A/B suggests
-a settings issue but does not establish which programming is correct
-for production hardware.
-
-With those local changes, C2 enumerated at Gen2 with both cables,
-in both orientations and after s2idle. C1 still enumerated at Gen2;
-DP still trained four lanes at HBR on both Type-C ports. I haven't
-isolated which part of the settings change is necessary.
-
-This is an enumeration result, not a throughput or complete NIC fix.
-On the changed kernel the RTL8159 still fails to get Ethernet carrier
-on both C1 and C2, and cfgselector resets recur. That is being tracked
-separately; I have no Linux iperf result with the PHY changes.
-
-Under Windows the same NIC negotiates Gen2 on C2 (USBView: "Device
-Bus Speed: SuperSpeedPlus") and carries about 5 Gbit/s each way in
-iperf3 (about 6.5 Gbit/s in total bidirectionally), so the port and
-cable are fine at Gen2 there.
-
-These tests used v7.3-rc5 with out-of-tree Glymur platform/board
-patches, including DP PHY support. They were not on an unmodified
-mainline kernel.
