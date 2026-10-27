@@ -1,136 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793118157;
-	b=EH8bxoXTz9lgzO/jEtPsgMbYuQWdC6o57hHEU5HjIAjE7WOlKpTdQvufRkRSuibCf7/Y
-	 Tzvea56ZTbUY8btg2744Q80mB7icOoHbFrLxF7IRqcFviu/M+NAZZGyRsIWtJcmrNz2YV
-	 oeuoMmiN74mmFJSJuiNFBpJtqFfuJa07IYDUTZyJccGdSBYRNO2tEKAdvnqwAd86fVUyt
-	 M9rOp5Wh3lkHNlZG4ew0cZYSFaMjDMXkQCH4ozlH+8g9ggLvXZf2fEfhuMQ3J4ypDn7Ns
-	 XHh95R/GEHL5kaw+i10ujP/OhdJBk3kauaNOuqcs2o55VxHvoF/4I/Vu4Ro6N33KeLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793118157;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZFNrAqpRj5/hQtzzxfb58+4BY6vTIZ+FW4O/6YIk5uI=;
-	b=TL6OJcsy7TmcNukcLNI0+2yvACmaRZFUUp35DWZLto3WTxHXdzpBAN/b83eFhbej2fI9
-	 GHixvjp77Zobd9/noPXWLLppJfjZ0OOjXupby5J1BPpLVXGEZfny3dKTlHM4cCyJtN+tX
-	 EZxRBg3Aerq7zH9G+uExPqsCDZJDDUFOJHG64O5fa7emNu8X3ETTR0/LFEv883QYxwf1T
-	 GdskI7NwirUNvuTLX98khWEt6IdpW96LpxdvAZ7Z2IlmcN9CjOh8hu2qezYN+2RNyzrDs
-	 sUe5pKs8Y/x8qGa2jUYD2TgwAcICyLTe2Xk0dDHppJDZzApYRgC1YfZvwo77rUb9Tlg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ENlqbxNt;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lyqFUuB6;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793118171;
+	b=yOs82gCKpkVic+Jr4eOZA30VfGHiORIQLDLPs50Afn0OP7iXvm1+dLmjjjDUImVlysBN
+	 PrRgCGqDqOhWtlppP3ohyKEWLWpUTPf9/1D4Abkr0/Jrw5/Yjoxj10I5rClQTgWzzJOrE
+	 HS+VO7uEaJEES1u7CJdNVyDRB7V+dAqO58eNYFkF1EuZg7IQQf2iwESwmN3RwLm4+zLEJ
+	 vGyGrsqQRm+wf3s9NKIu1VLAwb5XnsgT0xSUrgLe2Kx9x2Ef7iDmgonMas294o6hjUxf9
+	 Qtd7dj6AbFeM/c/7vzI8QvVzxv8Jw+DpIV68lYqCr97itQA/ieXP3ReFq8IsSboc8oQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118171;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=22ywsYlIXPLEZhJs/rKkSRGb+sdBWcXQ3G5P+0AZq5U=;
+	b=efEKK7MJQ94uzS/3g1Rrdhie8/5IZzQONyFTfwOEtORFAzXDHJx7E1j93njaqOk32md4
+	 lQa88vYzF9dVT5M5PvttULIXx9ya2iBDpBH1G8bdLZLHtSlXNZyhv5ulmGWNFJVI+smEs
+	 phWZsK12twXdlyB2pj6Yf13W+lvQnv/LyEv4ZPEpsao5/IhRYso0AbHNp3/z0tLgWEhSJ
+	 w9SuZ68+l8JVSnHLxvkWHvh9VQwBYqxa9U5CCTrY9KSo6MLrwdEc1fKu1a/Puu79vcNWf
+	 2W+kNGmDCrue/NSWcVtfMkeQuM222eUtddAo+d9S+sm9wlNvdyknViyrmTGe2T6UCAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KKkscxUS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.17
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010017.outbound.protection.outlook.com [52.101.46.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C4F606A335
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:22:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27C4F606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EB3606A323;
+	Tue, 27 Oct 2026 16:22:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81EB3606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ENlqbxNt;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lyqFUuB6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793118156;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZFNrAqpRj5/hQtzzxfb58+4BY6vTIZ+FW4O/6YIk5uI=;
-	b=ENlqbxNtXxFuqazrnNKH5RilrxSTa9QVHQ4q6dUXsomyzLYOIc/Btq5kWEbciPZQYc28c6
-	iZEehN+pDNCWnBK9nqtSaBkzhrN39SWLA/v+vszjGkbO6gnGs2cDHTaXEJj9CouxgNGIhD
-	d36ycUJZR8f1iKGhbtxc4zZVTB1or0g=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-102-2h6WDb5KPXqYYoCyRP5Qeg-1; Tue, 27 Oct 2026 12:22:34 -0400
-X-MC-Unique: 2h6WDb5KPXqYYoCyRP5Qeg-1
-X-Mimecast-MFC-AGG-ID: 2h6WDb5KPXqYYoCyRP5Qeg_1793118153
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a16dc2323cso61315e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:22:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793118153; x=1793722953; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZFNrAqpRj5/hQtzzxfb58+4BY6vTIZ+FW4O/6YIk5uI=;
-        b=lyqFUuB6UR51JP1gaMWzNPcaTr6Ln1s6YMolPbuFQWDWWHM+UnnwBM+TCPeaA/Q4HT
-         88xfmRHzxVRoRtWgh5W0MeBTF4qjFRTqj7qdMy6MqIf+aqjD/QEX8gyC3Aa1ChrHfw5X
-         okcaxPwzJ1Nk6gmHjGfspuoh525l3ZNgoCwziT1snnZtVmjs2qmK80AOZxCn3u0vVpI1
-         yHbixgxYFRpzQ3oQUuTfvkAxnT3Xb4R0+U7TkrenNuNrYn9dKC95y9hZIbJjqwc00ZGw
-         qzM1lPcFE31NVa0bDR/sb3hEsMYgfGlf5sSFsxykTRlQ1BfpHlckQoTX5pCmGjwLwTtV
-         p0yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793118153; x=1793722953;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZFNrAqpRj5/hQtzzxfb58+4BY6vTIZ+FW4O/6YIk5uI=;
-        b=VQ9Lwkw3SPyzv8yzEXPB23YIgrpqPwegYIRAJtqQVY3DhMLjCJ03oC2iiwbZSFvyxd
-         OyTnWyJvipQ2XqSxfMzp/3xOQVZuzBjF4cOZZ+Of5tqc31h6v7y3gqXqUYJTvrsbRuGk
-         EsSeMy9SpDejRiTgjvhrdM5nU6FrOWcGe58UpYHjnIAGArDzKVZ8vDY6GOMhiAPRydvB
-         Hx5PcKoySPr1Xepe2Rbr66KJI+L74pHY4zJc/9g0TG43DzjxzWJosZZeWuYuJGdsenT7
-         NOfunOLv8xJ0pKY/VkmNpn4b8MBD9KTxS59hcenfNYa+4+2AC4e2UvqdlT2sjvmRNIUD
-         C3Aw==
-X-Forwarded-Encrypted: i=1; AKwUvBwn3RKKtcptMJ2Xf552V7am/Ef2plkRHe+1LPuq6QujE7w1L3VrYMr3PJ8Ley8hlYErpNDzGrgTSfi+MeI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLgd//1LOLj8t2kVos6GZTZjK97QCHS5x7bTgvbFa/QQFyknVO
-	IQqXjOzW0I9HHPCy95Z039yb578fctzfQ7IKjU/t2UM+NjxB7KmCFD2koI7gCUIf0wPy0f2si4r
-	3Ww4v9zbzOL8DasR97VbBWJ3SNQbkMykx6E8HL93bRMBKZCwNe8RFA50BfLNVOW+Nmg==
-X-Gm-Gg: AYBFou1j7PusiUguMKL5OezkU5Uc/cMkXsSfiQ/i+fk9kXLyYYe68H/6ExLLE75RpzM
-	objkXk3eEqLiq2C5hG8v6D6x0fcX7eY/vNLqjvKJt1ERPgSRc2d7pwOsgzpgGlPe1/yH9ZliDUf
-	WgcMtm2LRk2nOUryw1nUlzZ0uDgV55ngiOO4u9DrzwL9fG5YP686EAOZz3XRs1gJV4ImUJAX319
-	Zw/1eX7C0Npu+tSBO+qbhi3A0XOugpD5LnENvDA6IZMDEQkerW65bh+/5KCUWlHg7dDbsThh5w9
-	nmByxM1HqdQA8N4d91g7oruP1bskHgK/+bEcUClKH3lM+a6YecO4YXtqxS9xgCUzAa99U4ZNGXR
-	V1FDetf2jMAAWJr0bD5IAUUrvCmR36Sc=
-X-Received: by 2002:a05:600c:4e43:b0:4a6:4d6b:a840 with SMTP id 5b1f17b1804b1-4a64d6ba846mr134875925e9.31.1793118152912;
-        Tue, 27 Oct 2026 09:22:32 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e43:b0:4a6:4d6b:a840 with SMTP id 5b1f17b1804b1-4a64d6ba846mr134875075e9.31.1793118152447;
-        Tue, 27 Oct 2026 09:22:32 -0700 (PDT)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([176.206.35.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a92afd54b4sm1470065e9.3.2026.10.27.09.22.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 09:22:31 -0700 (PDT)
-Date: Tue, 27 Oct 2026 17:22:28 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Andrea Righi <arighi@nvidia.com>, John Stultz <jstultz@google.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Valentin Schneider <valentin.schneider@arm.com>,
-	Connor O'Brien <connoro@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Suleiman Souhlal <suleiman@google.com>,
-	Metin Kaya <Metin.Kaya@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Zimuzo Ezeozue <zezeozue@google.com>,
-	Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Qais Yousef <qyousef@layalina.io>,
-	Xuewen Yan <xuewen.yan94@gmail.com>,
-	kuyo chang <kuyo.chang@mediatek.com>, hupu <hupu.gm@gmail.com>,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	"zhidao su (Xiaomi)" <soolaugust@gmail.com>,
-	Hui Su <sh_def@163.com>,
-	"Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
-	kernel-team@android.com
-Subject: Re: [PATCH v33 7/7] sched/proxy: Add deactivated (sleeping) owner
- handling to find_proxy_task()
-Message-ID: <auDPxCTyGbStTWJD@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261023220431.1106611-1-jstultz@google.com>
- <20261023220431.1106611-8-jstultz@google.com>
- <atx1U_0FC-fazkV7@gpd4>
- <267d3f71-7f60-48d2-b8dc-bf87f403b94f@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KKkscxUS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EzRiFpDYC1oEI/UQt+dc6x7pC1UKKQT9J3vinfVtUyEUHs14RQkai+OWy1wW6PM0pwjWVnKkIRuVSmYw201pMudnU+owLSpvGdvzUamKOKTWPk1AQZY4/wCR+JSZ/18xmQ5rtdceEVNrWbAAO4ou8thnAv+i8HrC3r1E33kA9FQWAYvbZ5GY4mXkfVCO0jPuQDQCkoP/V4UGXZvEQAAlsTIMhXdXZp156qWxHiiyvtlOeLDYz+fK9Kj8AG5hDB1/FqPHBNwKJNEu9WAZdpdRGaeXhY2koD71IrbeeP2OOC7rUjV1ytBnDNjev2TUozZHS7UwuZ/zw9DN4R5vIvBH6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=22ywsYlIXPLEZhJs/rKkSRGb+sdBWcXQ3G5P+0AZq5U=;
+ b=pPjVmQ3u8Imu5xLhavC3qPOh1M0odtNLOxLEno31lnb06kClczOV5Tps+YnMPwATK/hgjlQTWBYzMFkdC5gkidruTT80R5IbEP2Pllz6hJgZg2b13KGaqSeS1bjzpTIBhlwpVkJ2pnuMGIlQmpdVgbxh+g4QNU8HXVFRBhSJPJfMqDQyr8DfZefpknBG8P0+ASIEh6AuTJB1sqQP9yY4v7Oifi3QoWX2jiLyzI4cCY2uXG6ZqOyrdRFhfmThwYQEgmSoGeuhJBBTLw4Q5wLuJ/QgmxGCN9VJb2wzmFOBYqMEE98se9Mk98TmZ2ewTWSjzlYyo6BT1r8euxVTjk5ngA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=22ywsYlIXPLEZhJs/rKkSRGb+sdBWcXQ3G5P+0AZq5U=;
+ b=KKkscxUSlKuwhcdzSl/M0lAR1PjZ1MVyybq0sHUfPy7pNDkAHcb4G6cmPn+n9y3PtHMw9vCUDRj8Pzp/ceY6fhK+41s8tUa12H2bb+RYL1QfVntw27Wvj8+Ei3cAx2/MkWRXsmfOUGfcW1QDq9wQYE4JtvTPlE8rcwvkMJXECd4=
+Received: from BL1PR13CA0404.namprd13.prod.outlook.com (2603:10b6:208:2c2::19)
+ by MW4PR12MB7117.namprd12.prod.outlook.com (2603:10b6:303:221::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 16:22:46 +0000
+Received: from BN1PEPF00018073.namprd04.prod.outlook.com
+ (2603:10b6:208:2c2:cafe::62) by BL1PR13CA0404.outlook.office365.com
+ (2603:10b6:208:2c2::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.8 via Frontend Transport; Tue, 27
+ Oct 2026 16:22:46 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00018073.mail.protection.outlook.com (10.167.245.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 16:22:46 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 27 Oct
+ 2026 11:22:45 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Tue, 27 Oct 2026 11:22:27 -0500
+Subject: [PATCH v4 3/3] drm/radeon: Match VFCT using initial PCI bus number
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,72 +99,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <267d3f71-7f60-48d2-b8dc-bf87f403b94f@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261027-vfct-regression-v4-3-0e7190e39c2c@amd.com>
+References: <20261027-vfct-regression-v4-0-0e7190e39c2c@amd.com>
+In-Reply-To: <20261027-vfct-regression-v4-0-0e7190e39c2c@amd.com>
+To: Bjorn Helgaas <helgaas@kernel.org>, Alex Deucher
+	<alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+	<christian.koenig@amd.com>
+CC: Oz Tiram <oz@shift-computing.de>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, Mario Limonciello
+	<mario.limonciello@amd.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018073:EE_|MW4PR12MB7117:EE_
+X-MS-Office365-Filtering-Correlation-Id: e16391a8-29b8-4795-9b05-08df3446895f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|261026140227099003|56012099006|11063799006|261021121427099003|261022115727099003|261022105027099003|261022075727099003|261009223027099003|261021123027099003|10067099003|22082099003|18002099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	7OciLDbswdY73iBfVxzCwM95lho7YuQfXOS3djUMa6lBQkQ2vTRMUpgf1Eg2FWqccr901vwPscn+U6NYmW6cX3NoWaAsa/fgIDF7HrADywB/j1YmM8me7o1N7pViCE/ou6kFp2CEeFRREQMpCAt/QjT85OOJs+Y9ASMy3OGuf5q55uoQeF6/XJrq/9kowBTuQfze7XkIuPQmihJ8bgtxqsMvRBT9KTuH/halo2akS4wCd+7FBtlA4gsiFGt0QQUBTKejgGwuYvtS0P5vo1nG8+AJd3pdj7ZlLM5WfhUBg00in8OOke7eTTzgBuPiDEdI/i1PsXAhj6PEqbfGC+j4Sd8F2VoPgGTkcVLVjHsZ/tvI9+OjddHd0V3m9u9NjdHRK2KESjcAIKkYigh7giJgbzDS43WWoNthYoYTwvd9kaU7ay6CpB8CEvkWzDZLBIk8/M8G924QOXiB6L0HT5Tjm8C7vbhwtYzrAaGsIOUSy02h0nxAXuZE4tHN6KQQSWu47t0skY2uYe3ZRbj/WpMMVK4Pq4yTfpV1J6oa+PjHoa6fMuzWWvvNAAOW3qjwq7O2XbMMAr1QMP5cv3MMhRBL7NUgFmw5wuadIt7EVPYkPDZvwHz+3DIwwFmEnV4xVp2QeMMRXv5HumFs0qqij/SqgaBqIhF/dX604kO7Yc/vdGkHskUjWfeI+vR5/yOkxdOI8lE9x5PYMrAgsnc/v4tDpQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(261026140227099003)(56012099006)(11063799006)(261021121427099003)(261022115727099003)(261022105027099003)(261022075727099003)(261009223027099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WkJuOTve6gyS/eN6QCbVcOW7EQDAhQvakMJO59ItvqRTS8XSd/4JghX6KxLt9emZgFxj4l181ZDrb6VLXLRi6XXmqhKWlmORa7XeNDUn6bHWjJaW/BhOB33vX0amHMGkm6/yc30CvGPMVCFAMzp10MscY21/RcV3XXdaXbtnz0TNi43AbH82nUDnSyoxupG0vAt8SND4m+CLW2v9kruA357KE6jo+0M+A2vnMymy5LgUvnLzpsUUZh5WutuGtkDOg0NTc1HZIeXruJvo51qntf6jMIngwPYYbHLNdCOdV6/GvKbfW71kIFJeNUoWVXCYU+eeiU8wwe4/MMCE/eVU8AQaqV41o44DJQb0DGRTSCQX4zr4rEL99u1N+7oAbjjuyHOTJ+LMuMPMpzBnNfwuXng9gbtThqKYmYSr/LleqXVQnLZmQC1fn0kmuaBLLdJp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 16:22:46.6547
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e16391a8-29b8-4795-9b05-08df3446895f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018073.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7117
 
-Hello!
+VFCT records the PCI bus number from BIOS POST. The current bus number
+can change after PCI core renumbers the bus, while accepting a mismatch
+based only on device identity can select the wrong VFCT image when
+matching devices are present. Compare against the bus number captured
+from the firmware bus assignment before bridge renumbering.
 
-On 26/10/26 09:56, K Prateek Nayak wrote:
-> On 10/24/2026 2:37 PM, Andrea Righi wrote:
-> >> +static void do_activate_blocked_waiter(struct rq *target_rq, struct task_struct *p, int en_flags)
-> >> +{
+Fixes: 4059e2f02c8a ("drm/radeon: Fix VFCT bus number matching with soft filter")
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+---
+ drivers/gpu/drm/radeon/radeon_bios.c | 17 +++--------------
+ 1 file changed, 3 insertions(+), 14 deletions(-)
 
-...
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 1da6bf1c17ff3..bdbca4fad6b8c 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -609,10 +609,8 @@ static bool radeon_read_disabled_bios(struct radeon_device *rdev)
+  * VFCT entries contain the PCI bus number as recorded during BIOS POST.
+  * On systems where the kernel renumbers PCI buses (e.g. pci=realloc or
+  * resource conflicts), the runtime bus number may differ from the POST
+- * value.  Match by device identity (vendor + device + function) and use
+- * the bus number as a preference: exact bus match is preferred, but when
+- * the bus numbers disagree we accept the entry if the device identity
+- * matches.
++ * value.  Match using the bus number captured when the device was
++ * discovered, before any bus renumbering.
+  *
+  * Returns: 0 on match, -ENODEV on no match
+  */
+@@ -628,16 +626,7 @@ static int radeon_acpi_vfct_match(struct radeon_device *rdev,
+ 	    vhdr->PCIFunction != PCI_FUNC(rdev->pdev->devfn))
+ 		return -ENODEV;
+ 
+-	/* Exact bus number match - preferred */
+-	if (vhdr->PCIBus == rdev->pdev->bus->number)
+-		return 0;
+-
+-	/* Bus mismatch but device identity matches (PCI renumbering case) */
+-	dev_notice(&rdev->pdev->dev,
+-		   "VFCT bus number mismatch: table %u != runtime %u, matching by device identity (vendor 0x%04x device 0x%04x)\n",
+-		   vhdr->PCIBus, rdev->pdev->bus->number,
+-		   rdev->pdev->vendor, rdev->pdev->device);
+-	return 0;
++	return vhdr->PCIBus == rdev->pdev->bus->number_initial ? 0 : -ENODEV;
+ }
+ 
+ static bool radeon_acpi_vfct_bios(struct radeon_device *rdev)
 
-> >> +		if (task_cpu(p) != target_cpu) {
-> >> +			en_flags |= ENQUEUE_MIGRATED;
-> >> +			psi_ttwu_dequeue(p);
-> >> +			proxy_set_task_cpu(p, target_cpu);
-> >> +		}
-> > 
-> > Can this break SCHED_DEADLINE bw accounting?
-> > 
-> > p is sleeping here (not TASK_WAKING, not TASK_ON_RQ_MIGRATING), so
-> > __set_task_cpu() skips migrate_task_rq_dl(): the old rq never does
-> > sub_rq_bw(), while ENQUEUE_MIGRATED makes the new rq do add_rq_bw(), so
-> > this_bw is leaked on the old rq. And if p is still dl_non_contending,
-> > task_contending() on the new rq just cancels the inactive timer, leaving
-> > running_bw on the old rq forever and making it underflow on the new rq
-> > the next time p blocks.
-> > 
-> > set_task_cpu() doesn't help, because migrate_task_rq_dl() bails out
-> > unless TASK_WAKING, so I'm not sure how to fix this case...
-> 
-> I wonder why "p->dl.dl_non_contending" is not sufficient to know if
-> there exists residual bandwidth on prev CPU. Seems to have been like
-> that since commit 209a0cbda7a0 ("sched/deadline: Improve the tracking
-> of active utilization").
-> 
-> Only time task is non-contending is if it goes away with DEQUEUE_SLEEP
-> or switched_from_dl() with dl_runtime.
-> 
-> The latter doesn't need migrating the timer as the timer will either
-> be cancelled if the task switches back to deadline, or will expire
-> where it was queued - set_task_cpu() has no effect in this case.
-> 
-> Only other case that marks "dl_non_contending" is sleep + wakeup and
-> for that "p->dl.non_contending" should be sufficient. I don't think
-> we ever do a set_task_cpu() for a blocked task other than wakeup do
-> we?
-> 
-> Juri, Peter, are we missing something subtle here?
-
-I think Andrea's concern is valid, but I'm not sure I follow what you
-propose Prateek (apologies!) or are you saying you don't see an issue
-here?
-
-If the issue is confirmed, I wonder if relaxing the first check in
-migrate_task_rq_dl() to something like
-
-    if (READ_ONCE(p->__state) != TASK_WAKING && !p->is_blocked)
-        return;
-
-might fix things, but then it's ugly to call it from do_activate_
-blocked_waiter(). We could teach set_task_cpu() about blocked waiters
-(otherwise it warns) and then call it instead of __set_task_cpu(), but
-I'm not sure it's any prettier.
-
-Thanks,
-Juri
+-- 
+2.43.0
 
