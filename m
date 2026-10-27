@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793087309;
-	b=J9uNbvEzRiYP2yg8TKk28kvdx0sRdSzHkCDzhFg04Cnqq3Jc5QD3Pyk6l/7NDeZAyAbL
-	 B1q2vZK2FMAYW2G+Pa4QP79fFXbIjFQtPD8AiPZGt8yi5N3YEyR3T9vo15F22IVzz/EQQ
-	 NbEY9y69oeLkEQCjtDFX79RORhVZDFrTqHurMT1Wl1xaou5nXEYV23pGZimV32PEvcd/i
-	 ACY1uie0VLcP1ZYH56g4hcEEJRcknxuoy4M6EAVnR0HUxeRGtseFqCOSIytI2gbJ7p/lJ
-	 n/tVwHp3oSGKA57B6Wv8VuORO12Aa92vASfRbiu/HR09MBvBby9TimZKpMZUVdkvsIA==
+	t=1793087356;
+	b=izcbkKxN2KkmOu4kUiLZBcIpVCqNRuBcUEI/EcCWJ8qtvDX+InGgt6FJQhtZF4oms0RC
+	 e7qY4eXeE4LjtTdM9xW0TYiwOqtzDKN8FlaHDLAQlVPqbBvlIFhkp7Lxk6CO3kVdFz1Vr
+	 nf21bA/d1m8tX3Hyn47ts2TFsP4m4TCXM/g1/Nk3uTQcV8Sgl4dslrmLInIqQNndOproP
+	 tql0OekyKKeJ2R0FBKn4+Jh59LLzV4eYcue3pCTFdhmgzAzPfEc5rS7lk/RoCZTeiwpm2
+	 nRIWxMQ3tNZDtffSrpNdUEYLJ1MpyB0qb9cSrs8y/Zk4Vf7QOVH5uoyFoZeW8zOO5XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793087309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793087356;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hyOQjk3K8q/yVPwZ27qrjO8iwmjy2yoP6q4VHiqEPJA=;
-	b=qLX900eJWWLeb8B2Gelq7FvfP+xc80Mg/2AfjkWvc2N1QLxfpPZ7I4kllhrYip76ow+D
-	 +V3QfJrfuNFyD3272qDmQjxkAAotw3k/x+CV2nauhcUn9ZR9Zqi6wt/WsKWlzgEyAcOPx
-	 F/YDQab4F6Lzbo5q0aJZwH8xWkhCbmsEUrw/IU6iiHbXIVn44wY8YtMuD5F/JeEfS2dLG
-	 eahb2k1Vvnd7mFkPqTYRInMKP8/N3Tc1EkIirgxnU0yQgXsL9z7Ke1Pn7TgvIdse91KoY
-	 t600tWBR5qpR2Yw5TmxzKWD9pn9/DS8koQwx7z84SGvinJrpQ+B3dn2vCk+6lepBI0g==
+	bh=V2unCDaCesF7t0tCAr5s7QNJEM7FuHcgeX7X/YYseTs=;
+	b=L1xRioo1H0/zf7yaECpsLVZ49VPxPEJyCy4HlN7Bas4i13zupmyGd0Su4mGGCyDRfuVE
+	 bDUYwMIhUrNxDVGlYKV463vzN02rUXCj71Sc9Ta+BDPkr/M+JBnF07jK4Jy23JgJiKnRv
+	 3rrplOAcR0ujQTzyDyCtPNrqGMlnRdUXxUlIBifmDy9nB4Dgom3GZXRhMqb85hp5R5zQg
+	 HmtBr1goBN8jE8VNtaChhMWs04mLxx1vyyg2sswGa167tA+p+Oyh9RhvvVn+BguZg7+0a
+	 IUUrUPvUL6x8ZrPV+KRbQ80kUnZ3htY0/kra0bkQ5dZQyUAqe7fab5PDF0Jg2myrqnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AueqGJCd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBCmDAOO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68F9606A31B;
-	Tue, 27 Oct 2026 07:48:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A16E606A31D;
+	Tue, 27 Oct 2026 07:49:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AueqGJCd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3791F01825;
-	Tue, 27 Oct 2026 07:48:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBCmDAOO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB37C1F01825;
+	Tue, 27 Oct 2026 07:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793087308;
-	bh=hyOQjk3K8q/yVPwZ27qrjO8iwmjy2yoP6q4VHiqEPJA=;
+	s=k20260515; t=1793087356;
+	bh=V2unCDaCesF7t0tCAr5s7QNJEM7FuHcgeX7X/YYseTs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AueqGJCdW76ZbmKfVwzLggoxxer5DgpH1Dw1u53556Tw8kBTZ8I5O4TaOh6ICA5bX
-	 rb8KqsfEJulnjeOYcr8oN1n9eDQTcA6cEK6HnRTJi574uZK0dBO6KyuUOaufuxGeBG
-	 I4UsLAVkfEOMD/X6ntBASRocva2oomX4CybsMjv+OyZDQYFRUc5ucYBpJ4lguzxQih
-	 bgzi9ygh7zjrFd7Xcv+oJ+uXznziMhDRAeqXE6VFRZGmdKr+E7dHUY6jhcfJWi9Btw
-	 e2S4yaVMrfrMCuLoCKbIBzMWsRFh2QY/U0DlcswEns8h0I3cbagWQd9U2Ak2Qnt6E3
-	 Q+Te8VODsULpQ==
-Date: Tue, 27 Oct 2026 08:48:24 +0100
+	b=iBCmDAOO67sb0Djvtmfo2ldqbCyvm8yU4IKQCZ0pEs1bcqtdhkQpD1mqApsbC459t
+	 Q58V4/XW1cdGmDbFH97Gm8uafVK1fo+0D6kn+l+acHSMgmgXQXx9o6AORojhYEhZcs
+	 vuZyxZWH1WvaWypWG99Hsf3xZTTHHhONQp11BRuIlwuAstD5fk+fkhmBRr3NNbmOyo
+	 K3gEn/Eta5KdV54q8nZl+AmZgggSDdD/FBqHQKO/SKgaSUUz0AncpaMg6gSIELsNnY
+	 jSFY5keXFW5mbplvc03P6LxKCcbA8PAG0APF7xsG0qaUeumkdD82i73H8We1al44k1
+	 TFcNJKYZGUBHQ==
+Date: Tue, 27 Oct 2026 08:49:12 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jianfeng Liu <liujianfeng1994@gmail.com>
-Cc: heiko@sntech.de, HystericalDragons@proton.me, amadeus@jmu.edu.cn, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, hrushirajg23@gmail.com, 
-	krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, macromorgan@hotmail.com, 
-	michael.opdenacker@rootcommit.com, naoki@radxa.com, robh@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
-Message-ID: <20261027-angelic-caribou-of-wonder-02ccc8@quoll>
-References: <5520293.6fTUFtlzNn@phil>
- <20261027022801.377819-1-liujianfeng1994@gmail.com>
+To: Aiden Isik <aidenisik@member.fsf.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Sylwester Nawrocki <s.nawrocki@samsung.com>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: phy: samsung,usb3-drd-phy: Add
+ Exynos5515 compatible
+Message-ID: <20261027-misty-artificial-nuthatch-9fd82b@quoll>
+References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
+ <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,51 +66,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261027022801.377819-1-liujianfeng1994@gmail.com>
+In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
 
-On Tue, Oct 27, 2026 at 10:28:01AM +0800, Jianfeng Liu wrote:
-> Hi Heiko,
+On Thu, Oct 22, 2026 at 05:46:36PM +0100, Aiden Isik wrote:
+> Add the compatible string for exynos5515-usbdrd-phy. This PHY is
+> compatible with the Exynos5420 PHY when running in High-Speed mode,
+> in that it uses two clocks, phy and ref, so document it as such.
 > 
-> On 2026-10-26 11:43 UTC, Heiko Stuebner wrote:
-> >> I confirmed this with ArmSoM. They purchased the original CoolPi 4B
-> >> hardware design from CoolPi and confirmed that no hardware design
+> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+> ---
+>  Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-"no hardware design modifications" is quite different than what commit
-msg said "based on".
-
-> >> modifications were made for the Sige7s.
-> >> 
-> >> So the Sige7s uses the same hardware design as the CoolPi 4B, rather
-> >> than being independently designed.
-> >
-> >if it's the completely same board, just with a different print on
-> >the board, why does it need an empty devicetree. When it's completely
-> >unchanged, what's speaking against just re-using the original one?
-> 
-> The existing CoolPi 4B DTB does work on the Sige7s, and I agree that there
-> is no hardware difference requiring a separate device tree.
-> 
-> My main reason for adding a separate DTS is to preserve the Sige7s board
-> identity for long-term upstream support.
-> 
-> The CoolPi 4B appears to be discontinued and is no longer readily available
-> through the purchase channels listed on its official website
-> (https://www.cool-pi.com/buy/). In contrast, ArmSoM is actively selling the
-> Sige7s and has committed to producing it until at least January 2034.
-> 
-> I'm also planning to add mainline U-Boot support for the Sige7s and
-> integrate it with Stubble-based UEFI booting.
-> 
-> While U-Boot could update the model and compatible properties before
-> booting Linux, Stubble may replace the firmware-provided DTB with one
-> bundled with the kernel. Having a Sige7s-specific DTB would preserve the
-> correct board identity throughout this process without requiring additional
-> distribution-specific modifications.
-> 
-> This would also avoid confusing users who purchase a Sige7s but find their
-> system identified as a CoolPi 4B.
-
-Maybe just install the DTB under new name if they are identical?
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
