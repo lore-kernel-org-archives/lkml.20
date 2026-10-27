@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793083619;
-	b=nMOFmBuEDHZAMN13cAQFRbZtMc6pk8qIpz1XBtwenCjFlo2oR+YktAKHY0Ig/KPwwDbu
-	 lmLDcUt69A7cmbHSdr+obAv83mgXkR0MAEueok/365Z3Rp+2Mt0/mZClVxCQL3OpGBByg
-	 ukRbLCehtYPHulDJuX2vmWOhfJRI4rjbIHBzDKbZZzc5d+pM1yDQgeAOECWN6Ws844C2G
-	 l96wvApyvDHHH6ec2KCD4D20O9MBIDcfwARD/nW5Di3ShZyIYlHh9ihTs0bD3Rp3gjyTO
-	 Vj8liHpUf6rE4n6eUreKCv8ifdZhOpqra5mbwwcGIL0weSsPe+IXUGvttZnoTJef4Eg==
+	t=1793083751;
+	b=uD0W/yr+++x/wQzYqbrEVwjJgWYWQK0kveVZ3XOPoMEJ/UPEyWP9SH0iBdpdPeyUAybw
+	 tyehyYn8kwXXgrCdKI4x2GAJiqgz56eINcrhYFz1XvF5/BPBYqtTHMHs6NLQZ5XtZ20s7
+	 foR1N2UGVNYSnGDSCVG14+ch086oSbwgm9aDfSPXqO1kGrPVtEh76fGYbCStTqOTwNLQB
+	 BLg43HeGeKVlpIkJUccTI8dAMvj2QkI3pTxXZm9/vTm2pT4rzX8ZqOnclT0ZOpofyOffr
+	 tYQlAFWqVL+96K163Z0nvGmJgjDygQurUUXVclg7ZcSBnbdtWbXqg/k0xYa1guM3mag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083619;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JcaGUQbRazqsv6mT2YuGwgADTFeIvqCswJSmdStymkM=;
-	b=lxmLDaiBZFB585yzxTrxaTie8ekH2Ekk3T8mSN7p3qPkDJRBElmjSSxoIDEjbCK+vBO2
-	 tkPQdojkd47nONI9Ll4l4mDdzLwirEFa4Dj+KCnn+NPWZKahyL0vLUgBZa0LnvaDShpnH
-	 pPpfyBbd4ymb8vfFcF/aXmasS2yQuvh38nUpFnLg9oAu59IxQEqpZzsZrIqN44Y7IDbq9
-	 /B53pZy2MAGAhLdhQEPClab3fWmWVdUyIE4ZWcx1UllkbDaqsXQCGDlzMgQaDGrUNBjH9
-	 MEQCG871GrYyKMHTnVEO2v0YD3fvI5nNEURbXm++hCsz+IOIgoML6pCjiMGxWglpjXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083751;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=gpEAWVIxbWupLzv90UrOrrFdVYEi/6hmO1ydhABKc4g=;
+	b=M0sJcXfzdkl3MiDGIbE79ev7TPXqLO9EO0TCQkLzIxHBH/xWuJPYD3C2BIh2bl75fnni
+	 Cw34TbPXUy+CK0hgWCottVJOdCtZtjYRWrGv9FUMXwpfcxe5Ab5DLH8K9PvXV+q0B6/mZ
+	 onXuoMHI30lA/9BTKZG7tTWbPfWwbUoTSMOLg1tqc4s+SWDmjf5OR78smYXKLQeGdjKf8
+	 8frhhZwHMfXOvqmlTGOBmvOP026niYc8C7NoVTGWiFlPqH6VxsBnCDgcdDUDuZq/Po5ZX
+	 s2gP8jEP2UY77Up4W7vjc0bn6SpdMOV50KAmboaZh2ANWioRA5YWvpB7oeoOPI7+P5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=aoYG9MVV;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HKKmRv+g;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B44606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:46:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76B44606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6649A606A31B;
+	Tue, 27 Oct 2026 06:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6649A606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=aoYG9MVV
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so3081311f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:46:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793083617; x=1793688417; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JcaGUQbRazqsv6mT2YuGwgADTFeIvqCswJSmdStymkM=;
-        b=aoYG9MVVv2kdAHg5xrumowJ/Zuwm+S41V+U/YtgjSziVxJGO9TTcFt3e6gC1YZrGdH
-         gdgInILPjDt8vfGHPSr9IVS05UHfMSnysg8PPKfKeKPL1Pd6Wx9fcbM1nfobRiLAV4mQ
-         beVTyk5FiQOt7Kb/AqDJ0SntYRjcRTvsw1Zxh6DTPB/q5PFg/d/6dnzsGhWRLhhkY7ql
-         BjIVZThStZSHAh3+fAF79rl2ssHOhe3cESJS6iEtJessdsuyl19HgJ6JPn7uWMc1C8Mb
-         ilG1V+MvOMMG+YqJwh0G2HCuZ+zDjH3RY0KkxZsRkPIxLOZ23drpYSGgt7Y/Z/nJuJfD
-         BtuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793083617; x=1793688417;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JcaGUQbRazqsv6mT2YuGwgADTFeIvqCswJSmdStymkM=;
-        b=jLDcE+UUeqooM49Ut2kp0zWXm7O7ngApA825lN4oD0WG/XqAPt1PeyVEMWu5nwKc5h
-         Iq/xZOJhTMn0La+hFUn74iKDXab4/Zrch7hp+DH0Nc8kmQ5U+9Vs1TX7lx9PJOer6Uno
-         28F9/jKGIeXkL+NqYObOMaf0R5wl4Kv1S4LV37jI3ppUu6y4E6O44dbJm1jRx8Gdd93D
-         gv4AaRFPgYraGnRJP5ZLi9Ks/SzO4sOplzxLfkTmNbBq1lvwW1wOycvR+bVX2Aci31FJ
-         rz6jgIh5YbSUqlkfrdWMzK26Lf1JIuV09CcY67ECnI9SDq1ZG0tCIdIBhjszOLj+GWG9
-         Zctw==
-X-Gm-Message-State: AFq9FYK2qyoTDs/EjbRp6tScfl+jLstSODoopzpcPjRGnChhD5qROsH6
-	ws5my3nlsMT8J7bgdf7RgWdBvd204VeziTd14HeXjiOKE9yF6ET+fDgDuT5o8aPLwyI=
-X-Gm-Gg: AYBFou2vJ9AcOSqzuSKx4eNjhbBJU+6mW9IB25g6PEVvLWIrgL8Aa1IG2LUdX/GasgZ
-	SXhKzWUNj66sTkkSimgFrcpTXtfy3nA90CDXBKpI1+ywXUaeuwBjbzZA2GkkX6fVVgdoTDKQfym
-	36LOr3UuVyEGrMHQWfyfRXq8ekCQlqBwVcZYoTl1AsBBkmObLQdFKq5cnhygdF5e7vM+/G4xlll
-	WjEdwAcnLrzeXfWn/mqJKLXMYzyFg3bZh+EJHhr/7ubXtoOgOZmUog4K4A9OA5G/K1FCUVBwBtK
-	WrJAN0/4UglqgJ1U7SnSI9W1NKCx4Y9zSiuPBeRNB5t1O6YpfBWdXVrMo+Mnuq2SPVizY+2agJu
-	O2BeIZ5hwLEcItM3e9wiTW/eHe5Nv4fI2rCxTHQa/foxzwWEZE1y/bAEJsqLHR0b2ZuTk8GnXi3
-	pOwMYg8tWOQqDe8VTZBqyHs6NpksrUGD77EdOKShWfzNTlhC7nLBx99Qf9ke7eUieHmGi/lGsH6
-	xP0BhJICEIUjgBwjAeL8UzRdqCGWxrf2322EcQuy5Kt3R5PLe3odWGwIl6JzZjgH01YTlvDl5Mm
-	1P1g
-X-Received: by 2002:a05:6000:3104:b0:488:8232:d16e with SMTP id ffacd0b85a97d-48e3eb86a37mr16372061f8f.45.1793083616708;
-        Mon, 26 Oct 2026 23:46:56 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb8d5sm21829653f8f.28.2026.10.26.23.46.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 23:46:56 -0700 (PDT)
-Message-ID: <5b26f7b4-0156-4165-a86c-45f5ae7736d7@suse.com>
-Date: Tue, 27 Oct 2026 08:46:54 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=HKKmRv+g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=gp
+	EAWVIxbWupLzv90UrOrrFdVYEi/6hmO1ydhABKc4g=; b=HKKmRv+g8Z/PAAXJV8
+	owYL14OEAqJkAZ2zwkiKg5sNdw704YfZa0+Bhp3wEb6shByHoO0hD8kR0WvPT0HB
+	ghao3680vTORxfDv2+joN7cDoLjYiZgsKGTS1YDpu6NHIrs7EWZX3fdcuKdnt34m
+	xkedVKESwTT8X+eERTUm5Se0Y=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgBnk4tESeBqAJpjCQ--.31930S2;
+	Tue, 27 Oct 2026 14:48:37 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Mark Brown <broonie@kernel.org>,
+	Ashwin Chaugule <ashwin.chaugule@linaro.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v3] mailbox: pcc: validate PCCT subspaces before parsing
+Date: Tue, 27 Oct 2026 14:48:35 +0800
+Message-Id: <20261027064835.2264459-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,209 +64,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/5] KVM: TDX: Validate directly configurable CPUID
- bits
-To: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
- pbonzini@redhat.com, dave.hansen@linux.intel.com, andrew.cooper3@citrix.com,
- kas@kernel.org, rick.p.edgecombe@intel.com, xiaoyao.li@intel.com,
- chao.gao@intel.com, tony.lindgren@linux.intel.com, kishen.maloor@intel.com,
- dedekind1@gmail.com, adrian.hunter@intel.com
-References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
- <fe3eaf31-acc3-4132-b768-9451c00aa746@suse.com>
- <c2fbd673-6f2a-446e-b5d3-04a97bb86930@linux.intel.com>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <c2fbd673-6f2a-446e-b5d3-04a97bb86930@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgBnk4tESeBqAJpjCQ--.31930S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr1kAry7KFW5Cr1UGrW7Arb_yoW5ZFWxpF
+	WY9a9IywsxAa13Wry2vws5AFyfCws7ZFyUKrWfGa42qwsrGF45XFy0k3yjgr98Jrs29F1a
+	van0gF1DCrWqyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UdkuxUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQU2cGrgSUUXAQAA3e
 
+The PCC mailbox driver counts PCCT entries before its probe walks the
+same records by their declared lengths and passes them to type-specific
+parsers.  The counting pass currently accepts entries based only on their
+type, so a malformed entry can move the probe cursor outside the table or
+cause an out-of-bounds field read.
 
+Validate each entry against the table boundary and the minimum size of
+its PCCT subspace type during the initial ACPI parsing pass.  This also
+covers Type 5 hardware register communication subspaces before the same
+immutable table is consumed by the mailbox probe.
 
-On 27.10.26 г. 5:17 ч., Binbin Wu wrote:
-> On 10/22/2026 1:43 AM, Nikolay Borisov wrote:
->>
->>
->> On 16.10.26 г. 12:14 ч., Binbin Wu wrote:
->>> The TDX module reports a set of CPUID bits that the VMM can directly
->>> configure for a TD, but KVM cannot blindly expose all module-supported
->>> bits to userspace.  Certain features imply additional architectural state
->>> (such as one or more MSRs) that KVM must explicitly manage across
->>> host/guest transitions to prevent host state corruption.
->>>
->>> Today, KVM hardcodes a denylist to filter out host state clobbering
->>> features that KVM doesn't support.  However, a denylist doesn't scale as
->>> the TDX module evolves, i.e. host state clobbering features added by a
->>> future TDX module are not covered by the denylist, and userspace could
->>> enable a feature that KVM doesn't support.
->>>
->>> This series builds an allowlist for directly configurable CPUID bits, and
->>> filters and validates userspace input against it, so that newly introduced
->>> TDX directly configurable CPUID feature bits can only be enabled by
->>> userspace after KVM explicitly opts in.  Except for a few fixed-1 bits
->>> required for basic TDX support, host state clobbering features are either
->>> directly configurable or gated by TD ATTRIBUTES/XFAM.  KVM already
->>> validates ATTRIBUTES/XFAM, so the allowlist only needs to cover directly
->>> configurable bits.
->>>
->>> Patch 1 is a standalone fix for the existing denylist check, which uses
->>> the index of the matched userspace entry instead of the subleaf reported
->>> by the TDX module, i.e. userspace can bypass the HLE/RTM/WAITPKG check.
->>> It is tagged for stable so that it can be backported independently of
->>> the rest of the series.
->>>
->>> Patches 2-5 build the allowlist, add CORE_CAPABILITIES to it, filter
->>> KVM_TDX_CAPABILITIES, and validate the CPUID input of KVM_TDX_INIT_VM.
->>> The last two patches are user-visible changes, which are now called out
->>> in their changelogs, along with why existing userspace and guests are not
->>> expected to be affected.
->>>
->>> For this version, I'm hoping to continue to collect some RBs and Acks.
->>> The key discussions from v3/v4 [1] are summarized below.  Note, FRED KVM
->>> support is in progress upstream [2], and no TDX module with FRED support
->>> exists yet, so there is no immediate issue.  But it would be nice to get
->>> this series merged sooner rather than later.
->>>
->>> Discussions from v3/v4:
->>> - Rick asked whether the assumption that the reserved bits in
->>>     CPUID.0x1.EAX, CPUID.{0x4,0x18,0x1F} and CPUID.0x80000008.EAX won't be
->>>     used to enumerate features can be confirmed by the x86 architects [3].
->>>     Confirmation is still pending.  Per the SDM/APM, these leaves/registers
->>>     are defined for specific information (version, cache/TLB parameters,
->>>     topology, and address sizes), so the reserved bits are expected to be
->>>     used to extend the existing information rather than to enumerate
->>>     features.  Allowing these registers in full is a best guess, but it's
->>>     still far better than the existing denylist-based check.
->>>
->>> - Whether to restrict the TDX feature bits to kvm_cpu_caps[].
->>>     The conclusion from the discussions is to construct the allowlist based
->>>     on kvm_cpu_caps[], plus a few bits that KVM can support for TDs
->>>     independently of kvm_cpu_caps[].  If TDX feature enabling turns out to
->>>     be consistently blocked by non-TDX VM enabling, a solution can be worked
->>>     out then.
->>>
->>> - New opt-in interface vs. backporting.
->>>     There are two options for old KVM versions that don't do the filtering
->>>     and validation:
->>>     1) Add a new opt-in interface to expose features newly introduced by the
->>>        TDX module.
->>>     2) Backport this series to LTS/stable branches.
->>>
->>>     The opt-in design vs. backport decision is deferred, since this series
->>>     is correct and an improvement either way.
->>>
->>> - Potential backward compatibility issue when an effective fixed-1 bit
->>>     becomes directly configurable due to x86 feature deprecation.
->>>     This is left for the future, i.e. it can be addressed if and when such a
->>>     deprecation actually happens, e.g. by adding an opt-in interface to let
->>>     users/admins choose between migration flexibility and backwards
->>>     compatibility on old platforms.
->>>
->>> Changes since v4 [1]:
->>> - Split the CPUID entry index check out into a standalone fix, which
->>>     allows it to be backported to stable independently of the rest of the
->>>     series.
->>> - Exclude XTPR from the allowlist, as neither TDX nor KVM actually
->>>     virtualizes the feature and guests don't need it. (Xiaoyao, Rick)
->>> - Rename TDX_CFG_EXTRA_F() to TDX_CFG_INDEPENDENT_F(). (Xiaoyao)
->>> - Fix AMX_COMPLEX to be added for CPUID_7_1_EDX instead of CPUID_1E_1_EAX.
->>> - Drop the descriptions in the TDX documentation and the uapi header, as
->>>     the ioctl interfaces for KVM_TDX_CAPABILITIES and KVM_TDX_INIT_VM are
->>>     unchanged by this patch series.
->>> - Improve changelogs and comments. (Xiaoyao, Rick)
->>>
->>> The series follows the CSV version of the CPUID virtualization document
->>> from "Intel TDX Module ABI Definitions" [4], updated in June 2026.
->>>
->>> AI tools were used to:
->>> - Polish the cover letter and commit messages.
->>> - Do code review.
->>>
->>> [1] v4: https://lore.kernel.org/all/20260917072548.2314491-1-binbin.wu@linux.intel.com
->>>       v3: https://lore.kernel.org/all/20260827031837.2863609-1-binbin.wu@linux.intel.com
->>>       v2: https://lore.kernel.org/all/20260604023314.3907511-1-binbin.wu@linux.intel.com
->>>       v1: https://lore.kernel.org/all/20260417073610.3246316-1-binbin.wu@linux.intel.com
->>> [2] https://lore.kernel.org/all/20260911213659.2025974-1-sohil.mehta@intel.com
->>> [3] https://lore.kernel.org/all/e7182b3c03a0e39cb60392b4d75111255418d6cf.camel@intel.com
->>> [4] https://cdrdv2.intel.com/v1/dl/getContent/795381
->>>
->>> Binbin Wu (5):
->>>     KVM: TDX: Check unsupported CPUID bits against the TDX module's
->>>       subleaf
->>>     KVM: TDX: Track configurable CPUID bits allowed by KVM
->>>     KVM: TDX: Add CORE_CAPABILITIES to the allowlist
->>>     KVM: TDX: Report only KVM-allowed CPUIDs in KVM_TDX_CAPABILITIES
->>>     KVM: TDX: Validate userspace CPUID input for KVM_TDX_INIT_VM
->>>
->>>    arch/x86/kvm/vmx/tdx.c | 258 ++++++++++++++++++++++++++++++++++++-----
->>>    1 file changed, 231 insertions(+), 27 deletions(-)
->>>
->>>
->>> base-commit: dea4f6380f4ec96e8f3b0aaf2343764bd0d25ef4
->>
->>
->> For the series:
->>
->> Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-> 
-> Hi Nikolay,
-> 
-> Thanks for your reviews!
-> 
-> I noticed you later gave separate RBs for patches 2 and 3. Is that because
-> patches 4-5 conflict with Sean's series [1] during rebase?
+Fixes: 86c22f8c9a3b ("Mailbox: Add support for Platform Communication Channel")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
 
-Yep, overall the whole series LGTM in isolation but given that it 
-intersects with Sean's series I decided to give explicit RB to the 
-patches that won't change.
+Notes:
+    Changes in v3:
+    - Add the minimum size for Type 5 hardware register communication
+      subspaces.
+    - Reject unsupported types before indexing the minimum-length table.
+    - Drop duplicate validation from pcc_mbox_probe(), since the entries are
+      already validated by the initial ACPI parsing pass.
+    
+    Changes in v2:
+    - Replace the type switch with a minimum-length lookup table.
+    - Remove the redundant remaining-header-size check.
+    - Keep an explicit type bound check before indexing the table.
 
-> 
-> For now, I'll carry your RB only on patches 2 and 3 in the next version.
-> 
-> [1] https://lore.kernel.org/all/20261022210134.612848-1-seanjc@google.com/
-> 
+ drivers/mailbox/pcc.c | 40 +++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
+index 14dc4a187bfc..5d20c5a6d183 100644
+--- a/drivers/mailbox/pcc.c
++++ b/drivers/mailbox/pcc.c
+@@ -560,6 +560,37 @@ static const struct mbox_chan_ops pcc_chan_ops = {
+ 	.last_tx_done = pcc_last_tx_done,
+ };
+ 
++static const u16 pcc_subspace_min_len[ACPI_PCCT_TYPE_RESERVED] = {
++	[ACPI_PCCT_TYPE_GENERIC_SUBSPACE] =
++		sizeof(struct acpi_pcct_subspace),
++	[ACPI_PCCT_TYPE_HW_REDUCED_SUBSPACE] =
++		sizeof(struct acpi_pcct_hw_reduced),
++	[ACPI_PCCT_TYPE_HW_REDUCED_SUBSPACE_TYPE2] =
++		sizeof(struct acpi_pcct_hw_reduced_type2),
++	[ACPI_PCCT_TYPE_EXT_PCC_MASTER_SUBSPACE] =
++		sizeof(struct acpi_pcct_ext_pcc_master),
++	[ACPI_PCCT_TYPE_EXT_PCC_SLAVE_SUBSPACE] =
++		sizeof(struct acpi_pcct_ext_pcc_slave),
++	[ACPI_PCCT_TYPE_HW_REG_COMM_SUBSPACE] =
++		sizeof(struct acpi_pcct_hw_reg),
++};
++
++static bool pcc_subspace_is_valid(struct acpi_subtable_header *entry,
++				  unsigned long end)
++{
++	unsigned long start = (unsigned long)entry;
++	size_t length;
++
++	if (start >= end)
++		return false;
++
++	length = entry->length;
++	if (length < sizeof(*entry) || length > end - start)
++		return false;
++
++	return length >= pcc_subspace_min_len[entry->type];
++}
++
+ /**
+  * parse_pcc_subspace - Count PCC subspaces defined
+  * @header: Pointer to the ACPI subtable header under the PCCT.
+@@ -575,10 +606,13 @@ static int parse_pcc_subspace(union acpi_subtable_headers *header,
+ {
+ 	struct acpi_pcct_subspace *ss = (struct acpi_pcct_subspace *) header;
+ 
+-	if (ss->header.type < ACPI_PCCT_TYPE_RESERVED)
+-		return 0;
++	if (ss->header.type >= ACPI_PCCT_TYPE_RESERVED)
++		return -EINVAL;
+ 
+-	return -EINVAL;
++	if (!pcc_subspace_is_valid(&ss->header, end))
++		return -EINVAL;
++
++	return 0;
+ }
+ 
+ static int
+-- 
+2.34.1
 
