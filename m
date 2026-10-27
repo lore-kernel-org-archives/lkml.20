@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793086558;
-	b=RNNfv9ux/yJOWzuNFFsynGHVxqr4NmGfWo0VosntC2nZKHUhrhRPUR7Nl26MwFQPdouj
-	 r2LZv0LbFjmMUvmI4UIQc+SgS8HSXQ18P+okA0Q2BCwA09q3JoWrcF8tJqXXkzMHt1eYE
-	 Fj/rbVQgRVDirNNeXnNH3G8gwmGT0A5SIAZAk3BVMm+0SnZ8Lhj+hJUnOUnX1eYiLLkJD
-	 vnmguVjDBSFIZbmzx/6znJUeviekk/rPo8yQyZ1IC9kfmjsS++gVqXxK/NWzJ5XgM5bTP
-	 qn3N90n0SN2C9JOcletMfhkYxGWFVZs9YPyNRqP17OBcA/L5uLM/Cy4GKrVfv+pJfpw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086558;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=tRjUg4XWS3Jn0WUM36LxiUi/2nHlDGjT7YewrHdqClM=;
-	b=W/uGJBjl16u7m4zbpg9KytH88N7JhcHjf1K0Bh3lLP7aoPkHadOMhnKjgHksMWjNZaBm
-	 mZWRBUS2Nf946gSidPxMRCeTHoC4YsSfL4KzsZWXinNy0f/zlXHlFgKJjxqhPC0uX2Xdn
-	 AlN+5gZGMTNByVFGCNoN8ViYZY7jtXMQDneySxx9umW7l2MZGMZuDpxBlKm6FwJ5hCYNP
-	 idQCivIkjNF9auYIGx8tLE4Kq0IKM2i6yA5XTEfoJrHYtVG9VkeKdU1Rva8u0H7ZAHsIn
-	 lFf0jplqyeb6/nwlJaymJp49b2vJrQB62gOblC71PdKNui5TDdZzpe8SESokLVWxU6A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hrnVnMqN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.12
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013012.outbound.protection.outlook.com [40.107.201.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793086560;
+	b=bzgFsVeMsrBE3Nc8SqNVFsxzOjJKvjtrMt1gsdBIXkTBWbJvi7TPz8guOnBvaSXy1NHu
+	 15RaOyLipxlBz4qR0l1euP7xuMdJLVkWvaFpaxHFtrryOaJoENETZq6Pj4J0o4/3iQbTO
+	 2Gsj1rwub5ce1wcvxKkXe4gX+1QBcu5A+oIFvWMwt7D/UhzZe6WY5AJdwxvJ6nZKavo7n
+	 lZ0Eim2kLaURKiZddxyixqH18LJ4WHzmN886fW440sX8boUwKsGwPsBBnE/lNGiXDuV8q
+	 c9Qd3yqnjRupY8tKyWb9sP/fqNoIEbxRg2peZIyQjlObfr/+cyD+aqtWaXl4mIPDThg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086560;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=hpIIV0W46trht3EV+1EEIjsc/ykz7v9qZcaLCd0bYkU=;
+	b=VV27G+N6TUfhKDHN3b5xYcLFm2rQxbsDvvEY6blEY7m1v/+16Z2AuV+QE4p3gtOowqK/
+	 3dDWZ3t6U8n9alR11Ej0tViobN4kKeKxqloE2RLSjdydSD/mo1dGlUkbB2xTPywnl+bSI
+	 mWyeOXw1q2qWwRrhB/qCLl3BuJwmwyv5ia04wjAoT6SvAzIaLNl1pjUb/toG9N+ILn+WO
+	 NJwQoKMhEnvM9atxV19203fkB+sVNtVESYgIc1fgXe9p9QV8rsmgX7dMnSeaWihGvDlPd
+	 ItDPTdhpxPTuXV367MbGvJBASuhUWgGqwpbUYdtX7qwjUS9KXSt4VgJQu2jbfhsY7xA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b="Sya/jb27";
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D435360A2606;
-	Tue, 27 Oct 2026 07:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D435360A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C989160A261C
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:35:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C989160A261C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hrnVnMqN
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QwwZVXap8nrOUcOq5Cc5o+W08gTweRcl8LlXy01brO/wdtRy8WWdNpUL0q6wDMlHYLailmTtUlTRgcZLd+3xrfBSMbEzacNP3YqCtmgTqeyH2M30on5rt6yndJPngPE4RDLfzywQ7tpAdBZMadi9j+Kr88LYpHIazongcIniq+PCTkKLoxVxmTFI46vpmweKDw0dIkvz6Kdrfqjfj2NrxDJ/8vfOYRTqQZKaWx79mpz9rTLnTMkx3Ucr7ym/AbiUvplOp/0YLKNJ6mjnp8x4EP29A4lkZhi0e6vQPcmkQ1jmtHtOU16PBsyBVP0ies4rcW4BkbR6pLcDODTRib9iQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tRjUg4XWS3Jn0WUM36LxiUi/2nHlDGjT7YewrHdqClM=;
- b=k1ubUVioecy0FfauYzomZvoxQgfieHv0CK1FW52RN+4gaiPwW/OO/MEQ/RmO2FZzrwyTV5JZnLfRkpkzxl6nVcQW8Mi+hFRfS83Nse2GqhlBL5FVY8iGUnEB7/FFGIpI8U6rtgqRw+FB3XSRnMcMwXT0LpBL/frHvFC8rF21c2l6iV51UCuWFYW+8ShhDTxKvq17omyWziWqzgIMW8P75mYARuYx6Im2yDIO/St/68VjlNy0GQKsmlc/Ae5IltG9CKxW+4UJyEa0t+s9p3rY8iLV4yRSfXMduFK8TAgXTQGN04gXT1elkDy8glSEx6D3EYAhXnbpzoD5jI6RNbZ92Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tRjUg4XWS3Jn0WUM36LxiUi/2nHlDGjT7YewrHdqClM=;
- b=hrnVnMqNmg1+caYJMPaZbVoNXuKDbo1rSX68CMONuO161XkF/fseVWjn2vP0Y3FoctKWIFraJlds4ljm4nQxbEImqgxitE4RldwerLeOSULTMmEcLVDuAQMtC6M+tChxvEaB67qzmmcYuCfxSZSHyChpoB8uMYI0Kau/9bTLNfcWJXNcmsVhBznqoP6fEvain9hhKkPnvaH4HCQTlOkvYXoH3DD1q0myQNrwLibU5MKIIqBPSexeJ2UoFG+HavibzFh8IWDJV2WWDwUWbRBibiJ9hOIqyCBAn4OxpIDXNdyBbBbwr5gx4vcVBaSfJspvfi0mKBPit03VkrYQmw4MRA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 07:35:55 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 07:35:55 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Tue, 27 Oct 2026 16:35:45 +0900
-Subject: [PATCH v6 02/15] gpu: nova-core: gsp: cmdq: simplify framing error
- description
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-cmdq-rpc-v6-2-bed9669724ba@nvidia.com>
-References: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
-In-Reply-To: <20261027-cmdq-rpc-v6-0-bed9669724ba@nvidia.com>
-To: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>, 
- Gary Guo <gary@garyguo.net>
-Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYCP286CA0364.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:79::8) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Sya/jb27
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so2006234a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:35:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1793086559; x=1793691359; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=hpIIV0W46trht3EV+1EEIjsc/ykz7v9qZcaLCd0bYkU=;
+        b=Sya/jb27lh0beXAqtnIJlVvq9EAFZBzGHClnjf9Q8/lNpvFZjHz4qKv6KgxaUI83CX
+         YH0AuAup5If0GOe/Y0pNNRcTgzEvB5BIAaDI10ypdeUuhF+uXJVMgoAG3C4hoGSH+pw7
+         lx0AtJLcOCdWWbJg3hx3ZankbSu70ySWHQ5Fk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793086559; x=1793691359;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hpIIV0W46trht3EV+1EEIjsc/ykz7v9qZcaLCd0bYkU=;
+        b=d5BlkJ/AFqSakDqneGZfkLl6nzPaLw0YiQD4mN87QNxxmmbZxbOByEuEvyPCzwrF8T
+         +qOr+l/J7NtSiXqXKVwUoV4gRQ3SU50xHLPxhw7LVEtPOZN6/Ptb30pDTsWY6pfKEZSS
+         Dv3Srh/iKUe6cxpkihS0QenLLv1E8l32quUSQs78QGtmJrMl8GOvB8h99cVEZZRLzxlf
+         BjZ2CiRWPO+3XnvL3nYd3stCtthnGcGdEZODpVItxU+MaObJ0dJ4CGoGuP6nWyGCsX7h
+         JIWXVqLVNMTRuhCfJrZjB9WhSZyepgqx7bpNnnKHnRqE/vtxqp4vRmZjxT2y1ORfRr7Y
+         anVw==
+X-Forwarded-Encrypted: i=1; AKwUvBwX1WUUEdkLauyjdLo1qv3dpEAA7uEHVOfAtbPdowxjRaWkRCrmsUmp/PP+w1zcl5ZYKfVFIj0zQo+fj7A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJePu4pL0tAzkm//mbs9eLcZrnT7X+FKIGMNmwxFW9z83H3frmG
+	kU2+6HD6DneNCJTdfcbGVw+pcLd68MEqFpcTeMOgVr9AUHjord/x0+Q3x8uVtFpDPss=
+X-Gm-Gg: AYBFou0l0L/K3socaatoOKBnUnlClLCvQYMtdbmT2JjWY8AaIySNwy0zNqpn41v1npJ
+	YNmt3rBrh0A6DBZX0eWr+e8XQutq5Sh8w6SFe4/5yhvZT0p98dJKdtmKi1UM7kqLrPOJ59mEhJ7
+	NY+D7qT0lcfDdFeycFSh1ZFWAYE1Zb8lmVyjk5XZt6TdlYUf9h85HQiSJtUsRFiXAPGDhtnLxWh
+	49YZnoszJlnmV6LoFMvr6rQq/nqfkevozvrDXE9hWYZQ+johZG7sTe8LdJ+D1MwpV5H/omkRtQI
+	FSmqNCR1tXaBJR5AkC6mpE4Nxq/47erBztJSOsGcTUKyayGetbz74vrANxov9kinmP7kHt4enHX
+	Pl81txItawK/N+Veq2hs4jFRmWicqMGc2Puz0xbub3RqHv1iZeJxJJhSRJ9QOoi7s175uIBHVWY
+	tPne5R86ScCnn+M5WXDEl8rxH88iYo1AHz+r02k0DWLtAv8nuEE5avf0eBxr4G/x61DP+FfLE8d
+	2bxdCXaodOoTHvVApzyNIZOJY6+dL7X4VnlFnUFGvpfGSn0MwWvbM+KfSjZvhMs7VoemkQlVndp
+	JU5CCh3XsFda04aLxATBETgSrP8xxJL7OWIhEHPkdWq3ZgeD1s/LNScNgE31XdELC6Ehx5cln5l
+	Qc9mo4qiWjT9Yh07GgQK+YQO8MboGfeE4a0M6Pgm1DeS4Q60YQbpp77SVwFw8xudp8sjlJpAF
+X-Received: by 2002:a17:90b:5408:b0:3ac:bfa7:b079 with SMTP id 98e67ed59e1d1-3ade9b2f216mr7575308a91.7.1793086559188;
+        Tue, 27 Oct 2026 00:35:59 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebb0dda7sm7230307a91.4.2026.10.27.00.35.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 00:35:58 -0700 (PDT)
+Date: Tue, 27 Oct 2026 15:35:54 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Kieran Bingham <kbingham@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH 4/8] slub_kunit: Add a test for slab_freelist_random=
+Message-ID: <0af4fc45ca8e1d7027ceaad079f8f9eaac663c76.1793086056.git.chris@chrisdown.name>
+References: <cover.1793086056.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,115 +103,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DM4PR12MB8451:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4c76699-9779-4d60-24e4-08df33fcef38
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10070799003|261026121527099003|261021123027099003|56012099006|11063799006|261022105027099003|261009223027099003|261021121427099003|10067099003|22082099003|18002099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	AHhbVdnJtvkDtELqDcYZr85j1ySNWizpXFeszHPXQBgV4zVda3+SEQAegnHTZ1ymn0iKEKG91EWm+gyOqJV18qjHhmo4tjyx4BKlHc15fEVCVjSWIEk+V4eXXK7lD5xRluJuJeI6l9Wf0aY8Fod/upemXpDeK+MTie8C8p674WbBgZ2Qmp5gIaqHPFxdmuTCthjfXwuI4wkgbeFXzXPM3ZAB0cGtQTauSofCkPFJrYHEG+Ke9AVY1q8sBdoJT8ddDEbp+BpcHkdYO7O2w43wDcsU7rFitgjAHOzNUOc/9NkbOWZ+qla+lDOeYo5Fmzi7w8mwBAatoczFzsYntJglxAXAyfpsCJlO7NxwaN+fMjDpCuJmPW2jeHi9PNqpXsqCeOJxhvTDSyGEtj8NrI2ECZ4iwMl10ZcZ6RG4wgpSMuQrD3YH9QhmPGCcqE0mBROT9OJaWycCv5O8kSA7chduePbJ5alzWFXeCjq2/JzegFa6n4pRGY4+gNhtnzAZiOlzAn0tbhulR5As22+yej6I6XznUr+xemt/4sFPWy4Whh/LqrWtKlscuK5w6A4KzyD7ttCulEyTkhuFjKoh+RRIzDCFpnLs7SzIkg3AUyLYBut9qdtJbV6RQSvG+OeIbDfh8erQsV5qrtfBTasYJ4UL25Xncp02SiNDRchidETwQGM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10070799003)(261026121527099003)(261021123027099003)(56012099006)(11063799006)(261022105027099003)(261009223027099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y3krTnZ0L1JmVEk0dnRWdUtGOUtwdVllQXVpWXJkMjg2Q2VuQXM2eFBwYXFN?=
- =?utf-8?B?eXV4TFM0QlQrSG42dVFFTk14YWx3ZGNpb2JQczlVaktJajYvS0pDcFV6OW9h?=
- =?utf-8?B?WnMzZ2s5dXJxbExjVW0xbEM1TG81R1NlZ1J0QzVLVkVaZnZKclE3bFpMdU8x?=
- =?utf-8?B?OVBNZTAwTVVnM3VKYjlieU1mK2ttc0g1SmlGV0paTmE4eUh0RUlCaXo0ZkEr?=
- =?utf-8?B?N0FyTzNSODdlQ3FJa1ZEWjRsUVRuMjEwTzNtVDN6cmFwYlltRHN6NDVxMnhl?=
- =?utf-8?B?RWUzU0E1d3Juamh3aVdkV3VPcTMzaEdzU2tCMDF1K09WSFVSMTVsVGs5TTc0?=
- =?utf-8?B?cXF1ekdmVzB1VDdjSTFCUnlhSy9HQVlyVnhMZ09CRkhCeERyT0VTSGFvakFU?=
- =?utf-8?B?KzB5bjRucmpwZEROT0JEVFEvTTVXbTlJOFNUVHJkN243cmVVdTJRZTArMEcy?=
- =?utf-8?B?SmdlYWFXSlVlOXkvcnlNV2NVUjNCT2lXQk5tMm9nK2pYZmo5T1lidkE5R0ha?=
- =?utf-8?B?WjlrV3FZRVRWcUxsb0lZUyt0aEpVMzlnbGFCdXF2TUxoMTFkSkVIYkV2Z0hN?=
- =?utf-8?B?LzM3Yk84MlVEQ3dnQlRYQUc2SzU1d1RyRkdzZXFReTB1c0FEdURoRWZoc2g0?=
- =?utf-8?B?cnQ4TVhnUDhxNTNYTzlZUU1jbWQ4aXZTRzJGK25wbkpYRjNxUWtqdFRHUURy?=
- =?utf-8?B?M24yNUVBcks0QjB6RUpCaHB2aWRlcmpMVHZ0eFdiVkUyZEdWRldUcWtFRGZC?=
- =?utf-8?B?NEZjZEFES3pES0N6LzNIQVVrV1Aya3dvaDJFc1ErQjNDaS9IY29pVVB2VG1O?=
- =?utf-8?B?UDZUQTAzdnZQREU3a1Z2RVBtaU5lUmpXVzZjZjJWV0ZJN3pKbWhtc0lYQzRH?=
- =?utf-8?B?enRGSVh5d0c2QzFLYzFHMmZaaUJQMHZKM3crT3N6TVJOVzVjSlFsZ0Y1Y1hh?=
- =?utf-8?B?WDd2c28wcjBBRXV4Q0t1aTlyTXpacmsrQU96YkRWVVB6VEFBMUg3T0FLZkZO?=
- =?utf-8?B?RzIyZ2ZHbGJwTzFITzhSMFd2VW5GRzc5MDJOWVh6UDVJc3o4a2tJbDNLMk1C?=
- =?utf-8?B?ZDRvN0FSZmdhUTZUWjVNZU5vYkdaa2NDaDRNVmEzSUtGUXdFU3hRS0RzbW5h?=
- =?utf-8?B?UDRpZkVkOC9iM0tSWVNFVUpQQzFCV3ZTOVdkOHV4Wlo5VXE0emY0ZVhNSWVo?=
- =?utf-8?B?TEtqQVJEd3pIZGYzZ0hvVVpVRUgyT3BqZDNqcnIvM3h5MW41dFJEd3FjdUsx?=
- =?utf-8?B?ZWQvMzRaY0VmWXBBUDRpVHVpTi84UkgwSXZqRCs0T3NrclhzVWhhemtTUFB1?=
- =?utf-8?B?bDc0TWowcnFRSEVwZXpnZEszbUpRUU02aDhOcGQ4V0h2djQrU3F4MjlZMzl3?=
- =?utf-8?B?cElqOXN4Mml3OGRhYTZSMHpnQzd3TDdnelNvQ3d0cFBEb1Y4TEE1VGxmS2pN?=
- =?utf-8?B?NWY4Y01QME16ektSK2hpRjZWWXZnSmZYZVp0azZlSFIzdnVSK0VHRXduWkR1?=
- =?utf-8?B?bXVEOEJFUm5LNExFS0llaXp6b1d6ZnlXeG9PL3hCRzhiNVNpWjc5RUk4UG03?=
- =?utf-8?B?L0tpRzVjeW91Wi9PK3krTXl3WUw2ankrOFk4c0orWW1Hamp0ZEFacGVMWlJx?=
- =?utf-8?B?emhDYk52K0twU00zNXlSMGY5ekZoamZ5RXpKVGQ0elBucGUvWVUwOXBxd21W?=
- =?utf-8?B?Qm0wOG95VmpBVlZEb2diUEtLRTlYb3RUdFp4Z3ducE9teUhlYXdtTWovdWpT?=
- =?utf-8?B?a0JON3dYbTVHSWl5MmtyTHl6TXZvejBlVTB5cWFWRlArdG5rN0N1ak9wU2tr?=
- =?utf-8?B?dnVtQ2Y3UHZZNHRGcHQyaGRwOFZwTE1BRXkrQWNaT0hOdDNPVUxuZkVqdkl1?=
- =?utf-8?B?dGNjU2pBQXJZd3RXMGk0Z0pBTmMzSVNRRHVhOXMxK21YL1Z3NU1LQTg4clZT?=
- =?utf-8?B?bDlWTnI2c21qdkJrUkJ6YTFDUzBkVTl1NlpWdkl2eWc1TkpWMHFKQm4wRVBD?=
- =?utf-8?B?NXdjTTZJbW9KWGN1SnZhaUJRN1Q0SXpwUS9hVlQ0OXcwaStiR1VEdXZIeko5?=
- =?utf-8?B?WjAwcWVZc2VndGRYYUtDZW90eXJaZXk0aHlXLzhCT000Y2NjcEN4QkgrQitW?=
- =?utf-8?B?UVVqNGlpaU04aG1ha0dDNW04OGxoUHFkRUtyd1VKTTdSZHZJYW5pRm9yT2ZB?=
- =?utf-8?B?dUFhbEttSnVmaDA1L3JQYWM3d2w2YXpEdWNUYWQ3QTRnSnhyUmhEcU12a09x?=
- =?utf-8?B?SnZsb1BkbEF6b0g1Y1lWWjZzWHo4WjhBNlQrN3o4LzVPcTFwU1NVQmJUTjRm?=
- =?utf-8?B?U1o0TmVtcVNiRHNha2EvaFhXb1g0eGhuWG1Oa1pMRFlJaXI5azdpUWFwazgz?=
- =?utf-8?Q?T9HvmM2gIjortnaEafA7EXwjk+AZf2NQHpgEcbBpWFCYz?=
-X-MS-Exchange-AntiSpam-MessageData-1: K1zdDuWW6f2gTg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4c76699-9779-4d60-24e4-08df33fcef38
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 07:35:54.9173
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rQGigQT164YCg17ylLoIHSYtEiKqixLfM/0IywCntBnmBFki0EIHx7tRBYyiaZ71L8BeB2AVWago0ZpIpoaqIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8451
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1793086056.git.chris@chrisdown.name>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-Use simpler and more precise language to explain the conditions in which
-`EIO` is returned.
-
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
+Signed-off-by: Chris Down <chris@chrisdown.name>
 ---
- drivers/gpu/nova-core/gsp/cmdq.rs | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ lib/tests/slub_kunit.c | 51 ++++++++++++++++++++++++++++++++++++++++++
+ mm/slab.h              |  3 +++
+ mm/slub.c              |  3 ++-
+ 3 files changed, 56 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index accfc1d20d28..1bd15fc0aef2 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -775,8 +775,7 @@ fn send_command<M>(&mut self, command: M) -> Result
-     /// # Errors
-     ///
-     /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
--    /// - `EIO` if there was some inconsistency (e.g. message shorter than advertised) on the
--    ///   message queue.
-+    /// - `EIO` if a message fails framing or checksum validation.
-     fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-         // Wait for a message to arrive from the GSP.
-         let (slice_1, slice_2) = read_poll_timeout(
-@@ -849,8 +848,7 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
-     /// # Errors
-     ///
-     /// - `ETIMEDOUT` if `timeout` has elapsed before any message becomes available.
--    /// - `EIO` if there was some inconsistency (e.g. message shorter than advertised) on the
--    ///   message queue.
-+    /// - `EIO` if a message fails framing or checksum validation.
-     /// - `ENOMSG` if the message was not the awaited reply.
-     ///
-     /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
-@@ -902,7 +900,7 @@ fn receive_msg<M: MessageFromGsp>(&mut self, timeout: Delta) -> Result<M>
-     ///
-     /// - `ETIMEDOUT` if no message of type `M` arrives before the deadline, however many other
-     ///   messages arrive while waiting.
--    /// - `EIO` if a message fails framing or checksum validation (see [`Self::wait_for_msg`]).
-+    /// - `EIO` if a message fails framing or checksum validation.
-     ///
-     /// Error codes returned by [`MessageFromGsp::read`] are propagated as-is.
-     fn await_msg<M: MessageFromGsp>(&mut self) -> Result<M>
-
+diff --git a/lib/tests/slub_kunit.c b/lib/tests/slub_kunit.c
+index 5ace73368523..49b9942bc564 100644
+--- a/lib/tests/slub_kunit.c
++++ b/lib/tests/slub_kunit.c
+@@ -190,6 +190,56 @@ static void test_clobber_redzone_free(struct kunit *test)
+ 	kmem_cache_destroy(s);
+ }
+ 
++static void test_freelist_random(struct kunit *test)
++{
++	struct kmem_cache *s = test_kmem_cache_create("TestSlub_freelist_random",
++					64, SLAB_CONSISTENCY_CHECKS);
++	bool random = false;
++	unsigned int i, nr, nr_linear = 0;
++	void **objs, *first;
++
++#ifdef CONFIG_SLAB_FREELIST_RANDOM
++	random = slab_freelist_random;
++	KUNIT_EXPECT_EQ(test, !!s->random_seq, random);
++#endif
++	kunit_info(test, "freelist randomisation is %s\n", str_on_off(random));
++
++	/*
++	 * Caches with debug flags have no sheaves, so objects come straight
++	 * off the slab freelist.
++	 */
++	first = kmem_cache_alloc(s, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, first);
++	nr = virt_to_slab(first)->objects;
++	objs = kunit_kcalloc(test, nr, sizeof(*objs), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, objs);
++	objs[0] = first;
++
++	for (i = 1; i < nr; i++) {
++		objs[i] = kmem_cache_alloc(s, GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, objs[i]);
++	}
++
++	for (i = 1; i < nr; i++) {
++		if (virt_to_slab(objs[i]) != virt_to_slab(objs[0]))
++			break;
++		if (objs[i] == objs[i - 1] + s->size)
++			nr_linear++;
++	}
++
++	if (i == nr) {
++		/* Without randomisation, objects are handed out in address order. */
++		KUNIT_EXPECT_EQ(test, nr_linear == nr - 1, !random);
++	} else {
++		kunit_info(test, "objects were allocated from different slabs\n");
++	}
++
++	for (i = 0; i < nr; i++)
++		kmem_cache_free(s, objs[i]);
++	kmem_cache_destroy(s);
++	KUNIT_EXPECT_EQ(test, 0, slab_errors);
++}
++
+ static void test_kmalloc_redzone_access(struct kunit *test)
+ {
+ 	struct kmem_cache *s = test_kmem_cache_create("TestSlub_RZ_kmalloc", 32,
+@@ -535,6 +585,7 @@ static struct kunit_case test_cases[] = {
+ #endif
+ 
+ 	KUNIT_CASE(test_clobber_redzone_free),
++	KUNIT_CASE(test_freelist_random),
+ 	KUNIT_CASE(test_kmalloc_redzone_access),
+ 	KUNIT_CASE(test_kfree_rcu),
+ 	KUNIT_CASE(test_kfree_rcu_wq_destroy),
+diff --git a/mm/slab.h b/mm/slab.h
+index 8187ddb2face..b648b33f25c3 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -887,6 +887,9 @@ static inline void dump_unreclaimable_slab(void)
+ void ___cache_free(struct kmem_cache *cache, void *x, unsigned long addr);
+ 
+ #ifdef CONFIG_SLAB_FREELIST_RANDOM
++#if IS_ENABLED(CONFIG_KUNIT)
++extern bool slab_freelist_random;
++#endif
+ int cache_random_seq_create(struct kmem_cache *cachep, unsigned int count,
+ 			gfp_t gfp);
+ void cache_random_seq_destroy(struct kmem_cache *cachep);
+diff --git a/mm/slub.c b/mm/slub.c
+index 7e9dadda3d10..8c7b46c2052f 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -3424,7 +3424,8 @@ static inline struct slab *alloc_slab_page(gfp_t flags, int node,
+ }
+ 
+ #ifdef CONFIG_SLAB_FREELIST_RANDOM
+-static bool slab_freelist_random __ro_after_init = true;
++VISIBLE_IF_KUNIT bool slab_freelist_random __ro_after_init = true;
++EXPORT_SYMBOL_IF_KUNIT(slab_freelist_random);
+ 
+ static int __init setup_slab_freelist_random(char *str)
+ {
 -- 
-2.56.0
+2.54.0
 
