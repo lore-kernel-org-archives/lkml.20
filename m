@@ -1,69 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793120778;
-	b=aaaOLvxWPzqJot6cDMUa5b70aQTECsfWompwzUByCel1lYSeQIGb25NrND7uICsS4OFC
-	 xIntoFou+xzKMi2YCVDDMQE3jkBgZHWkPaC5x2fX9UkpB3y06oQBrZbt9u/bPxzTgUPmo
-	 1EYwf1W9ZeQUCICGUJ7irjXmUFwUqUAFKdwLgiPDNQcvqoSZH3E3zirpjh1/laJrDdMd7
-	 vww4+lZ0WpAXzgmEJVSfeIGX/olUZ6Vd+IZWcpwam8+FEchcLjziOeMsx4RVZGGsKGo9X
-	 IRfHI5CFRaHU+AXVhxR0ux8hmDUQWRvkUSRwUpphI4swe3cXlAWsEYe8R4FvNw/O+Gw==
+	t=1793120820;
+	b=uQHlj8bekzqE+8g66CY+t+MP/Lm/Famv7jVUH9LtAQBD1ioIBge6nETlIqxFNLelhNHY
+	 xVq4ShvR9DKOp+0RKAnQErv9Ky1+dAezJr+kKXNS4qj+gY3kHrCMZZi9vJHe9wuvW5lv8
+	 cRA/rwnKRso4tuiamEOwhz6pVzOpQ+hiOId2JJoyFnaAiLqg1nB6o4f+/ADDWCa1Po4Ot
+	 ReoMYeXrnSbivOyd+Z1mrsHHgXjWY6WqGOtsHwXxmGP+goBaRD8loWhOdKLroFvytdZ8l
+	 W1uyxam3A0+NHzCyQnX1DOmWdjyH1ft/Vx3Q9Brxcxvk6cgk/Dv7fo9d2gJIeFWIBeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793120778;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=CIRKIW6FyjGByuy1vcj3Kaosm6T+AEo/GoygfORs3IQ=;
-	b=kPU4sTQR3u+23ZwYwxjOjhbMxEr9CH8WN/rhXwBcFV51vjN7o+x+niTaNLCzCw7Ofnub
-	 SVrF0FBy/fOooSJEhrvs+fvk11oFjfYqS7L8auNxeDgLTO2fDSGWsCW101WTFuik58leS
-	 +lhG0a5xSaqBfpWD2RsSiBYPBHWs+RnkiYDtEwgTXAbKjyzan+52v2huH3NmHJIp/2C+U
-	 9+28SaX/aEq4alUFFrgWvi2R6DEuPtyWkwSp1ecXkajD/UhL1gow26QrrVhVqbyLwSRxi
-	 0RdHtD6cax8gR29f1TLJ9aoobzHGN0whsC95BP1oNw5ajwRNwI1fMwJtUR45yoUPjZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793120820;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=qz+F66rSX774OMfGyH0AnvMDREHIfP+YFA6k4xGLXvo=;
+	b=SyYYEr1VFEofyXe/a7TFkxMI8iUOg8KdGxdAGWfg9oLuR1Lmmgwkvw4xPmMN7dpmHxna
+	 1qxhRBItAzD072qhi59YFOM1IkjdR1JQRDaT27s30UslBpn0yAOc5VaZsCrEkv7lSdcnI
+	 +ou8rEabEW+nd9TAMFCw675d1uqSqiyMSN8uoXeto7kA9U+PBWI6mCrAYEQNqaA4BiCDM
+	 SFVIAohd5q3X+uW67Dv45OB/X9yMIxqTcReOEmj4zddQ8DFyJ1XOSPZg9MS5RXGc+PmbS
+	 1bofUH2nsA426X7IBDCpnLpAf9VzWuWgnDUpc+PA16Jk7qTY34g0Uz8SFNPf95kFZ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LX9oQFb3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2BA3B606A320;
-	Tue, 27 Oct 2026 17:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA3B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fpC3byZA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87244606A31A;
+	Tue, 27 Oct 2026 17:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LX9oQFb3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D61871650;
-	Tue, 27 Oct 2026 10:06:12 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8FEFF3F7B4;
-	Tue, 27 Oct 2026 10:06:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793120776; bh=YfBOcf/1p0yKe28rQCyfQziZDw3iZcDMCiJAcTFH3s0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LX9oQFb3JCU/nRh3HOHfyGm75yvY2AqOJkXgl4H1OUrL+YV/yfv5t2j4NyOmkDQk9
-	 wJjiz2smZNW3BasgYXW2q2tqg9DtW18Hjbi6WScVSvfUxSgq2xS9N/BwOrfVKoiH+i
-	 KRo062zN72Uh7zYRswDgomQDOFjW4Mykh8WDYZzM=
-Date: Tue, 27 Oct 2026 17:06:11 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Muchun Song <songmuchun@bytedance.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Dave Hansen <dave.hansen@intel.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@rivosinc.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alistair Popple <apopple@nvidia.com>, linux-mm@kvack.org,
-	linux-riscv@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Muchun Song <muchun.song@linux.dev>
-Subject: Re: [PATCH v3 4/4] arm64/mm: fix destructor for unconstructed
- hotplug page tables
-Message-ID: <auDaAw5IR-ZFvqJ5@arm.com>
-References: <20261023063428.3658761-1-songmuchun@bytedance.com>
- <20261023063428.3658761-5-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fpC3byZA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFC171F01825;
+	Tue, 27 Oct 2026 17:06:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793120820;
+	bh=qz+F66rSX774OMfGyH0AnvMDREHIfP+YFA6k4xGLXvo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fpC3byZAtvlGpYRXSXRyHxG01Qq1iZeMikIG5S7aRtixJQnxNdauV/efJi1gVGJhB
+	 wBeFbBT/viBcaQv2sHIckw6BB/MN7vk7kA11nWjLGmK+CeS85PvbIbvsIIpzHBdKBI
+	 rcG0Toa4pjT2NssAJGvSH8s8SFvBIIaA9K1jAlHa29Wgrcj2NKTFLaTtLZw0726Irc
+	 4O10HZvJh4oCIPvgRSh5gAOl0PjqWSEwPbv9AaET7rik5Vq/bIIpvW7+PLnixs0X+9
+	 AE2CG7kEFAkXIcBOL0XovK2BvmmY2G5lgRL5TDkHeKI0a60Esf/SIUQx8i2k6rwJ3K
+	 FgMkDleBkxVKg==
+Date: Tue, 27 Oct 2026 18:06:57 +0100
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Stian Halseth <stian@itx.no>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/cputime: Don't warn when the tick period starts
+ after idle exit
+Message-ID: <auDaMdhD2zGBLhDE@localhost.localdomain>
+References: <bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de>
+ <20261025100202.2584654-1-stian@itx.no>
+ <at-C_3rGi55L1v2X@localhost.localdomain>
+ <1e00b909b81c6195b3ad5aeda207d20cbedc3971.camel@itx.no>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,32 +66,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261023063428.3658761-5-songmuchun@bytedance.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1e00b909b81c6195b3ad5aeda207d20cbedc3971.camel@itx.no>
 
-On Fri, Oct 23, 2026 at 02:34:28PM +0800, Muchun Song wrote:
-> Commit c594b83457cc ("arm64: mm: call pagetable dtor when freeing
-> hot-removed page tables") made free_hotplug_pgtable_page()
-> unconditionally run the page-table destructor. This matches page tables
-> allocated by the arm64 mapping code, which runs the corresponding
-> constructors.
+Le Mon, Oct 26, 2026 at 06:28:44PM +0100, Stian Halseth a écrit :
+> Hi Frederic,
 > 
-> However, arm64 also uses the generic sparse-vmemmap population code.
-> Runtime intermediate page tables allocated by that code do not run a
-> page-table constructor. Freeing one during memory hot-remove therefore
-> runs a destructor without a matching constructor and corrupts
-> NR_PAGETABLE accounting.
 > 
-> Free intermediate page-table pages through pagetable_free(). It runs the
-> destructor only for constructor-backed pages and then releases the page
-> through the page-table freeing path.
+> On Mon, 2026-10-26 at 17:42 +0100, Frederic Weisbecker wrote:
+> > 
+> > I'm a bit confused by the scenario that happens here. Do you mean
+> > that after switching from a clocksource to another, ktime_get() goes
+> > backward?
 > 
-> Fixes: c594b83457cc ("arm64: mm: call pagetable dtor when freeing hot-removed page tables")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> No, not going backward, my description was vague, sorry.
+> It's tick_next_period that runs ahead, not ktime going back.
+> 
+> Also, please challenge my assumptions, as I might be analyzing this
+> wrong. This codebase is still pretty new to me, and I might
+> misinterpret some things.
+> 
+> But from how I see it, on jiffies, ktime only moves at the tick. So
+> seen from the tick's point of view, tick_next_period == ktime_get(). 
+> 
+> After the switch ktime keeps moving between ticks, but the next tick
+> still adds a full TICK_NSEC, so tick_next_period ends up ahead of now
+> by the part of the period that jiffies never counted. 
+> In a KVM guest at HZ=250 that was 2.3 ms.
+> 
+> Do you follow my reasoning?
 
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+
+Ok let me try to picture this:
+
+Initially, jiffies or tsc-early, not sure, is the clocksource:
+
+- tick_setup_device() sets tick_next_period to ktime_get()
+- tick_periodic() adds TICK_NSEC to tick_next_period right before updating
+  jiffies. So as you said tick_next_period == ktime_get()
+- Note last_tick is not involved in that mode
+
+Then later on boot comes a oneshot device:
+
+- tick_init_jiffy_update() adjusts tick_next_period to be aligned to TICK_NSEC
+- tick_sched_do_timer() -> tick_do_update_jiffies64() sets tick_next_period to
+  roughly ktime_get() + TICK_NSEC
+
+> 
+> > 
+> > Also refine-jiffies is not a suitable clocksource for nohz, so
+> > last_tick shouldn't be updated while refine-jiffies is the
+> > clocksource.
+> 
+> Yes, right. last_tick gets its first value from the sched timer expiry,
+> which is that tick_next_period rounded up to a tick multiple by
+> tick_init_jiffy_update(). 
+
+last_tick actually gets its first value when the tick is stopped for the
+first time in tick_nohz_stop_tick() and is set to the next tick that won't
+happen.
+
+> 
+> In the guest that made the first expiry 4.66 ms after now, so for the
+> first 0.66 ms a tick stop leaves last_tick - TICK_NSEC in the future.
+> Paul's registers show the same, now 235623102 with last_tick
+> 240000000.
+> 
+> I can rewrite the commit message along these lines, or fix up
+> tick_next_period at the switch instead if you prefer that.
+
+I'm still confused by what is actually happening.
+
+Thanks.
+
+> 
+> /Stian
+
+
+
+-- 
+Frederic Weisbecker
+SUSE Labs
