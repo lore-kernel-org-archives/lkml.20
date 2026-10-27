@@ -1,63 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793083871;
-	b=RkQiE7IbnUZCcuCNPU1awSHP/wrP79K7HtdOZ1nW/TqnpgX9lSl+OjaDD67QGOPZmtoI
-	 8qMAoedJhf8W7ftksEpXvSz0E8i+NaAaXCIzNTEOQmuLMgQ8dPlCD3+PnF6RgYGdTlH6B
-	 4nU4FZ+JCMAfEuaCh4mT3EcFwhPM3Q9P3SSp9EpYg1Wr6zFzUExdmStIRGIkMItjZ6y+L
-	 3iXL/TmRscoICk/ZnCCtQ8dsulwX0qvZO3jEvnJ7Dx89hDvAOPI483iXdtbKgB85KliFq
-	 VcpmPimZjcPLxY4JApuiF/kGmnNRIluYr8dwK5R3/dCHLM2b7MkwC75C78VvtXE9MMA==
+	t=1793083960;
+	b=VlEjKUjZFVT9US4V/jx5lOBxfhXNj1quI5CszwP+oki47m4XGHUOdJpogty9QWKKWXve
+	 Kjl5PJUT5FCv+rj4InSLJe069fSLJhXm+2mAdVmZ+jUyjzDl/6GCilUQoROPr2Rykuu4N
+	 rATYJjvOyoJfWptJkbHudpEOVtGdXwFVVJz4Tk0bT5GhmwbLeYrUpulO1qFokK/qPPE97
+	 ResWbJ8Isq71d2RWKTt4YjdhZcUEk5twS9UU66x+GEfCM900GgPCQWB8kivKZI+x0zm7h
+	 wPEJftjLzWcZ9neMSTZLi8d6yG5B3ZORqQx7ph5i7t1QEu+fGpUefTee41MNaEgdxJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793083871;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=T7GMpbDuEdomDKncFT3yYy8syZ+MfWolkM+DO91ddA4=;
-	b=vxgu7ah4ssdYyZQjWnOg3Of5ki0vTmHb95J6ST+4MOpApwkmXMlVGSWXmKX3UU15+cBw
-	 h9aG87Cu9KR3L/SNbjlU+hh4aS9KLC5Lmqz/OJMQIiBheIJkJPECr34piN6DezFo/YnOA
-	 6DIW3dcqHFLh1F0IuZqqcM5OObAy0gkywe18Kvc22TRyY6BdHHXoDTi+4pRqgMvDqOC1G
-	 FoQFYPZZuF/b6rU4aHI+/H188Ti1Y8BslqQjG6SIevqPxWoBoGytgHcgVylFQ9yM1e3Nt
-	 up+YsOP9rmNk0tEPYS25HeOE8scKwq2G3EXHRFFqU5fZoQYlYjBsWzRCRBK9SggOmfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793083960;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=zBTr+aLfoHutgtRMLFhVSfnloOb2GCy4j9NdEp3TABY=;
+	b=466mWEVbJCHYsNwmtWCN5UBE17VebLkGbvxvQk6TqM5MHsjPaN9y+tEmUJN/h3CpCn4s
+	 Gf2qnoxQ1QajM0i27+wXZFX9bdP4LZa/r+haib/AUZ7XSNlmWmFhd5ukB7j/C3AefR2SE
+	 4NR/f3JJJ4p5caUQp1eymzgfsZ6iTGmbMh3stdYmV9hlJhOTK0KEIgyxEFnMp2RN5QLBy
+	 u97czMGoxEjk9WOgbUugLOxxW+6MX9XuJ2ISdD17DnpDMkQF3dS9Gbcj3S2wLOd8N3X0F
+	 kt0W/Tw/ElI2k9xK1dLwioVG4omYw09QczHRyaqQAlEQZiariyqbzlsPnK/+RPk9Ndg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N7tkItcO;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p3ncFKIj;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C48B606A334;
-	Tue, 27 Oct 2026 06:51:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C48B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45690606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:52:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45690606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=N7tkItcO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=T7GMpbDuEdomDKncFT3yYy8syZ+MfWolkM+DO91ddA4=; b=N
-	7tkItcOAJBFYJOpTHkz+a5Uur8gwRX0IYqacuVKvGYhfmjNwobJDyU+Oo0FHlMIP
-	IbJv+ILgqqYt5961K2QTmoAQRCTGKvNoVsxtEss5Dmz64tK6Bbb6zrW7QaTInIR+
-	8o2Qhfw0eYPIw5f7cmZOxOfy67khNJICM9jQEIp4oA=
-Date: Tue, 27 Oct 2026 14:50:49 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Sudeep Holla" <sudeep.holla@kernel.org>
-Cc: "Jassi Brar" <jassisinghbrar@gmail.com>,
-	"Mark Brown" <broonie@kernel.org>, "Arnd Bergmann" <arnd@arndb.de>,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re:Re: [PATCH v2] mailbox: pcc: validate PCCT subspaces before
- parsing
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261023-invincible-satisfied-dragon-c3dc50@sudeepholla>
-References: <20261023093839.715037-1-yaojiale02@163.com>
- <20261023-invincible-satisfied-dragon-c3dc50@sudeepholla>
-X-NTES-SC: AL_Qu2SAfyTvEAv7ymbYekcn08ShO49XMOyvfoi2YFTc8EFhwzy3T8rZFVlLHfY28mULw+2ux6vQhhcw+doWoNAEsXTXuVpb4zAhBF5dsEARg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p3ncFKIj
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a56e05568aso5290195e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 23:52:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793083958; x=1793688758; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zBTr+aLfoHutgtRMLFhVSfnloOb2GCy4j9NdEp3TABY=;
+        b=p3ncFKIjxLhsdDygTGtYUoWUmAaNODQO3kiwcGcBYCCOdn1XpK8mkIdK/LTWVcapvm
+         Jxtk3Rm4mbYTo6JJqyK6x7bQr15OSFAB0AbT2rRlZreAAwHhvGNiWbkj4mqo4pSVvd1P
+         LmsdDbENLiZDPR7OlsHOppbeeXXfvo9YT9y/UamTZ9iWL+t7jBBbPOSYSyFsm0aFwuHI
+         +vFhnebeYiFT9qyqH0K7AAkwdZaLENAxOrWHxiPmofgEl10vOxcWGg81ehSVOfB4bJ19
+         6dR9G8WIG/P1RiSiFC3UxspUb1DVpUoeqZboGOX6Fodrb2bfXM+ZhOWSiZtMHPr7bu2/
+         Hg3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793083958; x=1793688758;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zBTr+aLfoHutgtRMLFhVSfnloOb2GCy4j9NdEp3TABY=;
+        b=Z4dJUUSUhlf3uk37sB87AtpMpRuxYxFfxgbb86hKWfJsDh6S5jrv1Bh5IDGgfnHpvZ
+         YPW7mCZwbPG8IFZ/U4q3452XjKuBrxdHRFd3rc156IzflKiT2gKUWH6tyzdzbZYz0lqe
+         7NTPwxH6LJmL1Ndx8IwNg3LUTtvhmaUCWgG9y/tsaTPLSYg3cDNm6JVDBAMCNKGKFmTw
+         Wd+paHz8av39ZX0iQBMzlGqGjNNgI7j4vK+xjBRKJgMwnBuOEfugH+pfWzwDDIRRA1E6
+         4jOzP9b9OYXTdZs1nRfrU/N42yHLFXi8QIJ1y8HaSbByuluuTErDm1GcMlGsnISod5Z0
+         DHgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxTp7u5nkK/2zlZid/Bc+RRkW0wix/paTdtEmQfkA7+KCwniQ6FCDkzCUPrujNg57/oSkgnjUzH99xcblk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJD0pctshM6kTEnVqmu1UdBIEG5vjzW5W4nh5Yasqq3wa9TvRpI
+	PhM7evfVeZKEKUXXhBqDRTrgT/mWfKmbIcPvfh913YVge/QXmFVzNp3k
+X-Gm-Gg: AYBFou396jea2/1hAMZDpfRiiMFaqnIYilFWz3y8tYC+YTXW08rK1ejshwYu+cS0lIi
+	o2whbLyE4984fHFQg4CthfCjYLZ+OGU4waxBXMwH1k58Id9R2EHqP19XqW8hPeefTFo9Qc/7+eJ
+	eJJXMhwItfvwnRkDkEqZeKtjfnK+uRM+7FBIUuC6W6ACkSq/0YKFxnBR0ca4u2i24CDpJ6LF2ie
+	q3KCLzCCExc7rj+D4bKW8ZSnT0TnAQz2qxd9jOXvyDLVyN9xbcow0udMp8FJd6gTyCiUCMkD3VZ
+	WaAIPtcqGh+hnMq6ANUM8DHVjrFlc76xZ0L4HAX5uP4Iw4BAJMcxjQrOgGiEG8Dvr/ivdgWKmLa
+	j9jYnUZ9nb3GJB0MtNFTwvOzAqx2OL7cq5nh2ryAiD8SYcRkgRp7IJSFGj/MtW9wLe+nNKbv0gB
+	UVqX982onRXpQgE3FEo7Ld8W4qIWj2pLVNXdgsBGYOmYz06g+SETdHrZpNHowbyBt0VL8An3d9/
+	ciHndntI/9DP2t59IyCy/9MiqTz4zQmm5BKrRcgi2vfPTNhxVTO4YUP50LLl29ijkPWp8KNQZrX
+	f6F3sPg=
+X-Received: by 2002:a05:600c:8b88:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4a35ac6a906mr154315185e9.1.1793083958464;
+        Mon, 26 Oct 2026 23:52:38 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a07ebc0sm116147835e9.3.2026.10.26.23.52.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 23:52:37 -0700 (PDT)
+Date: Tue, 27 Oct 2026 09:52:33 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: albin_yang@163.com, albinwyang@tencent.com, bsegall@google.com, 
+	chen.yu@linux.dev, dietmar.eggemann@arm.com, juri.lelli@redhat.com, 
+	linux-kernel@vger.kernel.org, mgorman@suse.de, mingo@redhat.com, peterz@infradead.org, 
+	rostedt@goodmis.org, vincent.guittot@linaro.org, vschneid@redhat.com
+Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated
+ blocked donors
+Message-ID: <auBEeDRRFKZOGlZA@scheduler.schedules>
+References: <72a6eb77-0461-477b-a0e9-c06a486e3e0e@amd.com>
+ <20261026133831.4111227-1-albin_yang@163.com>
+ <36f12b2f-9fc8-46e9-8312-536c918722f1@amd.com>
+ <auA7AQ_S9iwPHr4d@scheduler.schedules>
+ <4ac4564e-08fb-4639-a89e-a2ad54cee3f7@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,103 +103,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <6b05ec89.55fd.1a17c203cd6.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gigvCgDnj8HKSeBqi_xgAA--.1500W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQpXkWrgScol-wAA3S
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <4ac4564e-08fb-4639-a89e-a2ad54cee3f7@amd.com>
 
-QXQgMjAyNi0xMC0yMyAyMjoyNDoyOCwgIlN1ZGVlcCBIb2xsYSIgPHN1ZGVlcC5ob2xsYUBrZXJu
-ZWwub3JnPiB3cm90ZToKPihGb3Igc29tZSByZWFzb24geW91IGRvbWFpbiBnZXRzIGJsb2NrZWQg
-Zm9yIG1lLCBzbyBwbGVhc2Ugd2FpdCB1bnRpbAo+SSBjaGVjayByZXNwb25zZSBtYW51YWxseSBv
-biBsb3JlKQo+Cj5PbiBGcmksIE9jdCAyMywgMjAyNiBhdCAwNTozODozOVBNICswODAwLCBKaWFs
-ZSBZYW8gd3JvdGU6Cj4+IFRoZSBQQ0MgbWFpbGJveCBwcm9iZSB3YWxrcyBQQ0NUIGVudHJpZXMg
-YnkgdGhlaXIgZGVjbGFyZWQgbGVuZ3Rocwo+PiB3aXRob3V0IGNoZWNraW5nIHRoYXQgZWFjaCBl
-bnRyeSBpcyBjb250YWluZWQgaW4gdGhlIHRhYmxlLiBJdCBhbHNvCj4+IHBhc3NlcyBnZW5lcmlj
-IGhlYWRlcnMgdG8gdHlwZS1zcGVjaWZpYyBwYXJzZXJzIHdpdGhvdXQgZXN0YWJsaXNoaW5nIHRo
-ZQo+PiByZXF1aXJlZCByZWNvcmQgc2l6ZS4gTWFsZm9ybWVkIGZpcm13YXJlIGNhbiB0aGVyZWZv
-cmUgbW92ZSB0aGUgY3Vyc29yCj4+IG91dHNpZGUgdGhlIFBDQ1Qgb3IgY2F1c2Ugb3V0LW9mLWJv
-dW5kcyBmaWVsZCByZWFkcy4KPj4gCj4+IFZhbGlkYXRlIHRoZSB0YWJsZSBoZWFkZXIsIGVhY2gg
-c3Vic3BhY2UgcmFuZ2UsIGFuZCB0aGUgbWluaW11bSBzaXplIGZvcgo+PiBzdXBwb3J0ZWQgc3Vi
-c3BhY2UgdHlwZXMgZHVyaW5nIGJvdGggdGhlIGNvdW50aW5nIGFuZCBwcm9iZSBwYXNzZXMuCj4+
-IAo+PiBGaXhlczogODZjMjJmOGM5YTNiICgiTWFpbGJveDogQWRkIHN1cHBvcnQgZm9yIFBsYXRm
-b3JtIENvbW11bmljYXRpb24gQ2hhbm5lbCIpCj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3Jn
-Cj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUwMkAxNjMuY29tPgo+PiAtLS0K
-Pj4gCj4+IE5vdGVzOgo+PiAgICAgQ2hhbmdlcyBpbiB2MjoKPj4gICAgIC0gUmVwbGFjZSB0aGUg
-dHlwZSBzd2l0Y2ggd2l0aCBhIG1pbmltdW0tbGVuZ3RoIGxvb2t1cCB0YWJsZS4KPj4gICAgIC0g
-UmVtb3ZlIHRoZSByZWR1bmRhbnQgcmVtYWluaW5nLWhlYWRlci1zaXplIGNoZWNrLgo+PiAgICAg
-LSBLZWVwIGFuIGV4cGxpY2l0IHR5cGUgYm91bmQgY2hlY2sgYmVmb3JlIGluZGV4aW5nIHRoZSB0
-YWJsZS4KPj4gCj4+ICBkcml2ZXJzL21haWxib3gvcGNjLmMgfCA0OSArKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKystCj4+ICAxIGZpbGUgY2hhbmdlZCwgNDggaW5zZXJ0
-aW9ucygrKSwgMSBkZWxldGlvbigtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWFpbGJv
-eC9wY2MuYyBiL2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBpbmRleCA5ODg4ZGFiNjQ2MzkuLjkx
-Y2VmMGVlMzM5MSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tYWlsYm94L3BjYy5jCj4+ICsrKyBi
-L2RyaXZlcnMvbWFpbGJveC9wY2MuYwo+PiBAQCAtNTUzLDYgKzU1MywzOCBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IG1ib3hfY2hhbl9vcHMgcGNjX2NoYW5fb3BzID0gewo+PiAgCS5sYXN0X3R4X2Rv
-bmUgPSBwY2NfbGFzdF90eF9kb25lLAo+PiAgfTsKPj4gIAo+PiArc3RhdGljIGNvbnN0IHUxNiBw
-Y2Nfc3Vic3BhY2VfbWluX2xlbltBQ1BJX1BDQ1RfVFlQRV9SRVNFUlZFRF0gPSB7Cj4+ICsJW0FD
-UElfUENDVF9UWVBFX0dFTkVSSUNfU1VCU1BBQ0VdID0KPj4gKwkJc2l6ZW9mKHN0cnVjdCBhY3Bp
-X3BjY3Rfc3Vic3BhY2UpLAo+PiArCVtBQ1BJX1BDQ1RfVFlQRV9IV19SRURVQ0VEX1NVQlNQQUNF
-XSA9Cj4+ICsJCXNpemVvZihzdHJ1Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWQpLAo+PiArCVtBQ1BJ
-X1BDQ1RfVFlQRV9IV19SRURVQ0VEX1NVQlNQQUNFX1RZUEUyXSA9Cj4+ICsJCXNpemVvZihzdHJ1
-Y3QgYWNwaV9wY2N0X2h3X3JlZHVjZWRfdHlwZTIpLAo+PiArCVtBQ1BJX1BDQ1RfVFlQRV9FWFRf
-UENDX01BU1RFUl9TVUJTUEFDRV0gPQo+PiArCQlzaXplb2Yoc3RydWN0IGFjcGlfcGNjdF9leHRf
-cGNjX21hc3RlciksCj4+ICsJW0FDUElfUENDVF9UWVBFX0VYVF9QQ0NfU0xBVkVfU1VCU1BBQ0Vd
-ID0KPj4gKwkJc2l6ZW9mKHN0cnVjdCBhY3BpX3BjY3RfZXh0X3BjY19zbGF2ZSksCj4KPlBsZWFz
-ZSBhZGQgVHlwZSA1IGRldGFpbHMgaGVyZSBhcyB3ZWxsIHNvIHRoYXQgaXQgZG9lc24ndCBlc2Nh
-cGUgdGhlCj5zaXplIHZhbGlkYXRpb24uIEFzIGlzLCBpdHMgemVyby1pbml0aWFsaXplZCBhbmQg
-bGV0cyBldmVyeSBub24gMC1ieXRlCj5yZWNvcmQgcGFzcyB2YWxpZGF0aW9uLgo+Cj4+ICt9Owo+
-PiArCj4+ICtzdGF0aWMgYm9vbCBwY2Nfc3Vic3BhY2VfaXNfdmFsaWQoc3RydWN0IGFjcGlfc3Vi
-dGFibGVfaGVhZGVyICplbnRyeSwKPj4gKwkJCQkgIHVuc2lnbmVkIGxvbmcgZW5kKQo+PiArewo+
-PiArCXVuc2lnbmVkIGxvbmcgc3RhcnQgPSAodW5zaWduZWQgbG9uZyllbnRyeTsKPj4gKwlzaXpl
-X3QgbGVuZ3RoOwo+PiArCj4+ICsJaWYgKHN0YXJ0ID49IGVuZCkKPj4gKwkJcmV0dXJuIGZhbHNl
-Owo+PiArCj4+ICsJbGVuZ3RoID0gZW50cnktPmxlbmd0aDsKPj4gKwlpZiAobGVuZ3RoIDwgc2l6
-ZW9mKCplbnRyeSkgfHwgbGVuZ3RoID4gZW5kIC0gc3RhcnQpCj4+ICsJCXJldHVybiBmYWxzZTsK
-Pj4gKwo+PiArCWlmIChlbnRyeS0+dHlwZSA+PSBBQ1BJX1BDQ1RfVFlQRV9SRVNFUlZFRCkKPj4g
-KwkJcmV0dXJuIGZhbHNlOwo+PiArCj4KPllvdSBjYW4gZHJvcCB0aGUgYWJvdmUgY2hlY2sgaWYg
-cGFyc2VfcGNjX3N1YnNwYWNlKCkgZG9lcyB0aGlzIGZpcnN0Lgo+Cj4+ICsJcmV0dXJuIGxlbmd0
-aCA+PSBwY2Nfc3Vic3BhY2VfbWluX2xlbltlbnRyeS0+dHlwZV07Cj4+ICt9Cj4+ICsKPj4gIC8q
-Kgo+PiAgICogcGFyc2VfcGNjX3N1YnNwYWNlIC0gQ291bnQgUENDIHN1YnNwYWNlcyBkZWZpbmVk
-Cj4+ICAgKiBAaGVhZGVyOiBQb2ludGVyIHRvIHRoZSBBQ1BJIHN1YnRhYmxlIGhlYWRlciB1bmRl
-ciB0aGUgUENDVC4KPj4gQEAgLTU2OCw2ICs2MDAsOSBAQCBzdGF0aWMgaW50IHBhcnNlX3BjY19z
-dWJzcGFjZSh1bmlvbiBhY3BpX3N1YnRhYmxlX2hlYWRlcnMgKmhlYWRlciwKPj4gIHsKPj4gIAlz
-dHJ1Y3QgYWNwaV9wY2N0X3N1YnNwYWNlICpzcyA9IChzdHJ1Y3QgYWNwaV9wY2N0X3N1YnNwYWNl
-ICopIGhlYWRlcjsKPj4gIAo+PiArCWlmICghcGNjX3N1YnNwYWNlX2lzX3ZhbGlkKCZzcy0+aGVh
-ZGVyLCBlbmQpKQo+PiArCQlyZXR1cm4gLUVJTlZBTDsKPj4gKwo+Cj5TbyB0aGlzIHdpbGwgdGFr
-ZSBjYXJlIG9mIHZhbGlkYXRpb24gYXMgcGFydCBvZiBhY3BpX3Byb2JlKCkgaXRzZWxmIHdoaWNo
-IGlzCj5nb29kIGJ1dCBzZWUgbXkgcXVlc3Rpb24gYmVsb3cuCj4KPj4gIAlpZiAoc3MtPmhlYWRl
-ci50eXBlIDwgQUNQSV9QQ0NUX1RZUEVfUkVTRVJWRUQpCj4+ICAJCXJldHVybiAwOwo+PiAgCj4K
-Pk1ha2UgdGhpcyB0aGUgZmlyc3QgY2hlY2sobmVlZCB0byByZXZlcnNlIGl0IHRvIHJldHVybiBl
-cnJvciBub3cpIGFuZAo+ZHJvcCB0aGUgYWJvdmUgY2hlY2sgYXMgbWVudGlvbmVkLgo+Cj4+IEBA
-IC04MTIsNiArODQ3LDcgQEAgc3RhdGljIGludCBwY2NfbWJveF9wcm9iZShzdHJ1Y3QgcGxhdGZv
-cm1fZGV2aWNlICpwZGV2KQo+PiAgCXN0cnVjdCBhY3BpX3RhYmxlX2hlYWRlciAqcGNjdF90Ymw7
-Cj4+ICAJc3RydWN0IGFjcGlfc3VidGFibGVfaGVhZGVyICpwY2N0X2VudHJ5Owo+PiAgCXN0cnVj
-dCBhY3BpX3RhYmxlX3BjY3QgKmFjcGlfcGNjdF90Ymw7Cj4+ICsJdW5zaWduZWQgbG9uZyB0YWJs
-ZV9lbmQ7Cj4+ICAJYWNwaV9zdGF0dXMgc3RhdHVzID0gQUVfT0s7Cj4+ICAJaW50IGksIHJjLCBj
-b3VudCA9IHBjY19jaGFuX2NvdW50Owo+PiAgCj4+IEBAIC04MjEsNiArODU3LDEzIEBAIHN0YXRp
-YyBpbnQgcGNjX21ib3hfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4gIAlp
-ZiAoQUNQSV9GQUlMVVJFKHN0YXR1cykgfHwgIXBjY3RfdGJsKQo+PiAgCQlyZXR1cm4gLUVOT0RF
-VjsKPj4gIAo+PiArCWFjcGlfcGNjdF90YmwgPSAoc3RydWN0IGFjcGlfdGFibGVfcGNjdCAqKXBj
-Y3RfdGJsOwo+PiArCWlmIChwY2N0X3RibC0+bGVuZ3RoIDwgc2l6ZW9mKCphY3BpX3BjY3RfdGJs
-KSkgewo+PiArCQlyYyA9IC1FSU5WQUw7Cj4+ICsJCWdvdG8gZXJyOwo+PiArCX0KPj4gKwl0YWJs
-ZV9lbmQgPSAodW5zaWduZWQgbG9uZylwY2N0X3RibCArIHBjY3RfdGJsLT5sZW5ndGg7Cj4+ICsK
-Pj4gIAlwY2NfbWJveF9jaGFubmVscyA9IGRldm1fa2NhbGxvYyhkZXYsIGNvdW50LCBzaXplb2Yo
-KnBjY19tYm94X2NoYW5uZWxzKSwKPj4gIAkJCQkJIEdGUF9LRVJORUwpOwo+PiAgCWlmICghcGNj
-X21ib3hfY2hhbm5lbHMpIHsKPj4gQEAgLTg0NCw3ICs4ODcsNiBAQCBzdGF0aWMgaW50IHBjY19t
-Ym94X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+ICAJcGNjdF9lbnRyeSA9
-IChzdHJ1Y3QgYWNwaV9zdWJ0YWJsZV9oZWFkZXIgKikgKAo+PiAgCQkodW5zaWduZWQgbG9uZykg
-cGNjdF90YmwgKyBzaXplb2Yoc3RydWN0IGFjcGlfdGFibGVfcGNjdCkpOwo+PiAgCj4+IC0JYWNw
-aV9wY2N0X3RibCA9IChzdHJ1Y3QgYWNwaV90YWJsZV9wY2N0ICopIHBjY3RfdGJsOwo+PiAgCWlm
-IChhY3BpX3BjY3RfdGJsLT5mbGFncyAmIEFDUElfUENDVF9ET09SQkVMTCkgewo+PiAgCQlwY2Nf
-bWJveF9jdHJsLT50eGRvbmVfaXJxID0gdHJ1ZTsKPj4gIAkJcGNjX21ib3hfY3RybC0+dHhkb25l
-X3BvbGwgPSBmYWxzZTsKPj4gQEAgLTg1Niw2ICs4OTgsMTEgQEAgc3RhdGljIGludCBwY2NfbWJv
-eF9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+PiAgCWZvciAoaSA9IDA7IGkg
-PCBjb3VudDsgaSsrKSB7Cj4+ICAJCXN0cnVjdCBwY2NfY2hhbl9pbmZvICpwY2hhbiA9IGNoYW5f
-aW5mbyArIGk7Cj4+ICAKPj4gKwkJaWYgKCFwY2Nfc3Vic3BhY2VfaXNfdmFsaWQocGNjdF9lbnRy
-eSwgdGFibGVfZW5kKSkgewo+PiArCQkJcmMgPSAtRUlOVkFMOwo+PiArCQkJZ290byBlcnI7Cj4+
-ICsJCX0KPj4gKwo+Cj5XaHkgZG8gd2UgbmVlZCB0byByZS12YWxpZGF0ZSB0aGUgc3Vic3BhY2Ug
-aWYgaXQgaXMgYWxyZWFkeSB0YWtlbiBjYXJlCj5iZWZvcmUgcGNjX21ib3hfcHJvYmUoKSBhcyBw
-YXJ0IG9mIGFjcGlfcHJvYmUoKS4gSU1PIHRoZSBjaGFuZ2VzIGluCj5wY2NfbWJveF9wcm9iZSgp
-IGNhbiBiZSBkcm9wcGVkLgoKVGhhbmtzIGZvciB5b3VyIHJldmlldywgdGhlIHVwZGF0ZSBvbmUg
-aXMgaGVyZSwKCmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTAyNzA2NDgzNS4yMjY0
-NDU5LTEteWFvamlhbGUwMkAxNjMuY29tCgo+Cj4tLSAKPlJlZ2FyZHMsCj5TdWRlZXAK
+On Tue, Oct 27, 2026 at 11:54:35AM +0530, K Prateek Nayak wrote:
+> Hello Kayra,
+> 
+> On 10/27/2026 11:41 AM, Kayra Cizmeci wrote:
+> >> So all things considered, I think the following should work unless I'm
+> >> terribly mistaken yet again :-) I've left my reasoning as comments:
+> >>
+> >> diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
+> >> index ebe0a7765f98..c4c624deb25b 100644
+> >> --- a/kernel/sched/stats.h
+> >> +++ b/kernel/sched/stats.h
+> >> @@ -239,6 +239,15 @@ static inline void psi_account_irqtime(struct rq *rq, struct task_struct *curr,
+> >>  static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t)
+> >>  {
+> >>  	unsigned long long delta = 0;
+> >> +	/*
+> >> +	 * If a task is blocked (blocked donor, delayed dequeue task),
+> >> +	 * do not account the queued time as runnable. A task that is
+> >> +	 * blocking would have already cleared the "last_queued"
+> >> +	 * indicator from sched_info_arrive() when it got a chance to
+> >> +	 * run on the CPU.
+> >> +	 */
+> >> +	if (t->is_blocked)
+> >> +		t->sched_info.last_queued = 0;
+> >>  
+> >>  	if (!t->sched_info.last_queued)
+> >>  		return;
+> >> @@ -290,7 +299,23 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
+> >>   */
+> >>  static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
+> >>  {
+> >> -	if (!t->sched_info.last_queued)
+> >> +	/*
+> >> +	 * "t->is_blocked" is only cleared after the enqueue is done and
+> >> +	 * the task is woken up. If the task is blocked, update the
+> >> +	 * "last_queued" timestamp to that of last enqueue - if the task
+> >> +	 * is still blocked while it leaves the runqueue, this timestamp
+> >> +	 * is ignored and is cleared at sched_info_dequeue().
+> >> +	 *
+> >> +	 * To transition a task back to blocked after wakeup, it has to
+> >> +	 * run on the CPU and naturally reach a safe preemption point.
+> >> +	 * sched_info_arrive() will do the correct wait time accounting
+> >> +	 * based on the last "last_queued".
+> >> +	 *
+> >> +	 * Any movement of task after being marked not blocked will be
+> >> +	 * correctly captured as queued time at enqueue + dequeue
+> >> +	 * boundaries when "t->is_blocked" cleared.
+> >> +	 */
+> >> +	if (!t->sched_info.last_queued || t->is_blocked)
+> >>  		t->sched_info.last_queued = rq_clock(rq);
+> >>  }
+> >>  
+> >> ---
+> >>
+> >> That "t->is_blocked" check in sched_info_enqueue() may not be
+> >> necessary either but I've left it in there for now since I did my
+> >> quick testing with it.
+> > 
+> > 
+> > Hi Prateek,
+> > 
+> > IMO too doing this with is_blocked would be cleaner.
+> > 
+> > But I think this not works on a case where a donor is in a different CPU
+> > from its owner, like:
+> > 
+> > A holds the mutex M in CPU0, B is the waiter and its on CPU1.
+> > 
+> > proxy_migrate_task() gets B to CPU0.
+> >> After that, A suddenly wants to goto CPU1. And it goes.
+> > Now B goes back to its home CPU next to A.
+> > 
+> > Now in here, timer starts.
+> > 
+> > And suddenly A drops the mutex. Now B is not is_blocked.
+> > 
+> > Because B is back to its home CPU, there is no dequeue.
+> > Even if there was B is not is_blocked so timer wouldn't be reset.
+> > 
+> > Normally we need to add the time that task waited for itself.
+> > But in this case we add the time task waited for its mutex + for itself.
+> > 
+> > Or am I missssssing something?
+> 
+> Indeed. That is possible and can probably be fixed by doing a
+> sched_info_enqueue() in proxy_needs_return() for
+> task_cpu(p) == p->wake_cpu case like:
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index 04b62c16fa8c..3d261a4e5b0b 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -3838,8 +3838,11 @@ static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
+>  	 * will not apply. But if it did, this check is the safe way around
+>  	 * and would migrate.
+>  	 */
+> -	if (task_cpu(p) == p->wake_cpu)
+> +	if (task_cpu(p) == p->wake_cpu) {
+> +		/* Begin wait time accounting before marking !is_blocked. */
+> +		sched_info_enqueue(rq, p);
+>  		return false;
+> +	}
+>  
+>  	scoped_guard(raw_spinlock, &p->blocked_lock) {
+>  		/* Task is waking up; clear any blocked_on relationship */
+> ---
+> 
+> Not sure if this solution is ugly or not for calling
+> sched_info_enqueue() out of the enqueue path :-)
+
+I think this fixes the issue. BTW I think this should skip curr, no?
+On a case like this:
+
+C holds M1 in CPU0, D waits that mutex in CPU1. A holds mutex M2 in
+CPU2. B is the working task on CPU1 but it wants mutex M2 and we enter
+__schedule(). B gets is_blocked. D gets chosen. We open the rq lock to
+get D to CPU0. While this happens A drops the mutex and wakes up B.
+we enter ttwu_runnable() and B is still curr. And we start the timer.
+
+Or am I MISSSING something?
+
+
+
+
+> 
+> -- 
+> Thanks and Regards,
+> Prateek
+> 
+
+Thanks,
+
+Kayra
