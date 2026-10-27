@@ -1,50 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106010;
-	b=YgAUBw51chBrmr3vXuIrXUpTWsimXWm7JmjS+i5/jkuWEv4NPFVgCr323dUsdD9JhjoZ
-	 rTRciNJgTdLGv+ozTdbLRsKrvngrzHJla/Lpk7Cgf5leJNB4eJnNp4JM29aSoncrFMAW1
-	 zdjIFFa9qeQtC4BGKPg9msM2g08gIZvUuPzD1om0KuaBMm1Bmb3gw9oUyatzuMWuiUIDO
-	 UAcfQelTHDwDjn6k14G4Akn5JMHPgAyZa7HefF6iC+xrwwFxFrOYIfhsMS1CNoCNyJ953
-	 4Xqiq+wlrSmC0730Y8W+/hFyNpTWuU54PGgLVQjnI1EQs4sSGDuLeDqSbvTpN3nawrQ==
+	t=1793106144;
+	b=18kJxNsyyQDSqA+pRiboTtTdPiHcALpW0IQfKbPzUzk7RAmJdvhdS1HdPgBhihDfr3Tf
+	 tW73o8bfWwZ3ygIEtOPVgJCJONRGUeMCmB8jf0z2VYavr8g1iOSW0PtNt9bnjY9froZdT
+	 26usPNpeg4kIiTkH++9jEiR52/IysO+gJV2lTgKvcc1osmMeS8b5gW9gTKPiT8ZPrUct+
+	 izMdGLTLE4imW+0SEJ7u68PHtquUa411foPFvBLnnPLfswhdn7EoyTll5kB9rZ7d5lvwd
+	 q5pRtlXPw27G2GO+uytm8N3PSRF9+q/iU/W1KEiDiyH7g6+xtRD5tHJmD8tXOTxpRyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106010;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=njFkWVmcvK6W9Ax7/0dLK/1HgZ6Q7qmr1RfBoVXi/fo=;
-	b=tnJVsBM6XN+7N7vssQxDrVMV/o3wqmRGTTshuzgMongzSPqJlZ3BaDGVPJg5XKiqzuGu
-	 l4s956JHL432YBO0prvV5nk/KuB1JvSRAeWZuyFk3Z+D3lXeVcoNfKpFMWJrVmyGMoaz3
-	 hvJ0PwUrlIxHgJCJgZC/758vmP5eGdQq9N9lwHtogFJsL4Hef/UUawV9Wrtm1usaoCKj+
-	 YAcVWjNCS6r5pdfKbdXYJwpzE3F4UnU7HPsSWfRS1XUSH8Ul7lOPtMHCK+ZAAhCXvz1/l
-	 ZHAOen6G2bhLo9ynC/G/7MzXJeKXtkxZC4xDckguPBmG6bCfnuuW1skZhv35IKvRM7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106144;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=QsIq+b+nVuNOBKkqFGt+6fJye72iwcODEcvP3kOjZcQ=;
+	b=NEaCXRpXsSOqpUU0VNnMIF6eakFFKVwlj3CNusfkAfw/bPzLp82zEGgvYOb40P12+Ka5
+	 eqkio1uDG/odoSqI3s5DDOBvPk6f2ivT+DtLs8bVbZDAglH2SbH+vN9yw1i/5ZHrgMNFA
+	 4CDIrT73rECr9adGoQERoK0wWVQjr80jH38bVDv+vQAy7gl4+VOmkG1kxIS0nDgqkgjUN
+	 BtzwfmroYqMOWiOVxzzVI0Y1zh6+j6G+IEiEsljvHf5nU526860RBe6Vmo47gJvtV4Fmg
+	 QVifwOTGfIeyeFBCKwy2LV/2IO8A7E+L4V/DGrwejmz80I7kgEKWmdGyEShstRLM/sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHtMqQ96;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FqY4LiyE;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31114606A31D;
-	Tue, 27 Oct 2026 13:00:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9E0606A31B;
+	Tue, 27 Oct 2026 13:02:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA9E0606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHtMqQ96
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541BC1F01825;
-	Tue, 27 Oct 2026 13:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793106009;
-	bh=njFkWVmcvK6W9Ax7/0dLK/1HgZ6Q7qmr1RfBoVXi/fo=;
-	h=From:Subject:Date:To:Cc;
-	b=FHtMqQ96VH4ver1xWDcJF/i9dGeYXzfBR24hVmYVeqLM5sfhlUcqM8UnWylVq884Y
-	 bDDSutFAWuqtbHvP/gRSlXAar1394c5q3C2JtNWsunN1z5wkpqei7rtFgMM+6/i3kZ
-	 uzdstkIVA6xrJWNdNA9RMPVS9opHggiHF2n868wQC66tizkmJZgFzvt4btc3CgQzPH
-	 OVksTEY1N3glRfHWTG5Z7KKxDbFvjaCq82M1GYsrz54mT13rT2HObm+DEhrs3g6Zeg
-	 w7H0NVjmTIuAFVt2Jw2Yr+hPBlKCn479OJ6PAcdwxqEbgnEKk89K0dNyQoDtMdkNOv
-	 Xe0op1oP+e8ug==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH v4 0/2] Add support for SA8255P in the
- phy-qcom-snps-femto-v2 phy driver
-Date: Tue, 27 Oct 2026 14:00:03 +0100
-Message-Id: <20261027-phy-qcom-snps-femto-v2-8255-v4-0-874023825a63@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FqY4LiyE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793106144; x=1824642144;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=oUSs0MPKdaL1ffVF0pRa19PxPpMZnnSfYMznFsOG0aA=;
+  b=FqY4LiyELq+PO0YXiKKiNDwBNlLUHPmPa1Lds+vCMRV+ZFk1TNs+MhJR
+   oWB6g/1fXgIPhAFvsq8oIG4aEvpy4TobDDLO2rPa2eecCrpEeDNIItfcL
+   ynR6aVyBoXNDT3liZ1KiJa6SvJSIt2kTMb0gwfIKE/W+TDlQVUceg7Tz5
+   n7BzsWvm4YGXNsFq5E/CjIdPfQq48GAIotSWKMGnO6RXowL/gh0nLAwOo
+   sj5aR8azYh+3A3GhuJi5m7x8lYhvGLHJ41NZg/frrxs8kIwy+uMvKkjdj
+   zGQJsBBBte1HKYUKNHoPTUjbYuODyUfe+sPUoRE83hgXZ6/dFRY3rY7OJ
+   g==;
+X-CSE-ConnectionGUID: WzOrIVnEQzCdP9qxHZfsuw==
+X-CSE-MsgGUID: 5txX0X+zSLS3h5VoJO/9sA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1792049"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1792049"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 06:02:23 -0700
+X-CSE-ConnectionGUID: FUeDrtKaSj65EplJX5DqFg==
+X-CSE-MsgGUID: E49Qn/k/RWaF4SRweWQF4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4875837"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.30])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 06:02:10 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 27 Oct 2026 15:02:07 +0200 (EET)
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+cc: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
+    Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+    Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>, 
+    Florian Fainelli <f.fainelli@gmail.com>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Peter Hurley <peter@hurleysoftware.com>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
+    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+    Pengutronix Kernel Team <kernel@pengutronix.de>, 
+    Fabio Estevam <festevam@gmail.com>, 
+    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
+    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
+    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+    Peter Griffin <peter.griffin@linaro.org>, 
+    Alim Akhtar <alim.akhtar@samsung.com>, 
+    Robert Baldyga <r.baldyga@samsung.com>, 
+    Thomas Abraham <thomas.abraham@linaro.org>, 
+    Kukjin Kim <kgene.kim@samsung.com>, 
+    Patrice Chotard <patrice.chotard@foss.st.com>, 
+    Srinivas Kandagatla <srini@kernel.org>, 
+    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+    Andy Shevchenko <andy.shevchenko@gmail.com>, 
+    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
+    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, stable <stable@kernel.org>
+Subject: Re: [PATCH 24/24] serial: stm32: don't report a wakeup to a closed
+ tty
+In-Reply-To: <20261027-tty-llm-v1-24-99b0202ae546@linuxfoundation.org>
+Message-ID: <aef066bc-1b1e-b1e8-97f5-6fa8c8d18940@linux.intel.com>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-24-99b0202ae546@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,124 +104,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33N0U7DIBTG8VdZuPYYOBRKd+V7LLsY9LCirlSox
- GXpu0un0RiTXn7Jl9//xjKlQJntdzeWqIQc4lhH87BjbjiNZ4LQ182Qo+YtdjANV3hz8QJ5nDJ
- 4uswRCoJBpaDj3lOr24ZzwaowJfLh464fjl87v9tncvNKro8h5Dmm6z1fxPr7Lkm+WSoCOBhrr
- FeCq5M2Ty+URnp9jOnM1lTBX8xIsY1hxXqnRdd635Ow/zD5gwnOcRuTFZMNqgZt31mn/2DLsnw
- C4oRM0HMBAAA=
-X-Change-ID: 20260729-phy-qcom-snps-femto-v2-8255-90ffe7674001
-To: Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mattijs Korpershoek <mkorpershoek@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Sriram Dash <quic_sriramd@quicinc.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3851;
- i=mkorpershoek@kernel.org; h=from:subject:message-id;
- bh=rpr3MaquFeAFWt0e7SR5ZEfxzmpjxuycEgP0fXoFKCs=;
- b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBq4KBWFc535eVcBM1h47FV1d+GUsduLTx6UzOy2
- YtPFhtfQeuJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCauCgVgAKCRAZDR20Zk4Z
- NRAjCADVh+w8VHJ9WLG4k1mtJGdWNwEkqXNfBLNrI/VF1oL7PoyTo7Pv3cBJPxeAf8O3529EXj+
- k9/HC8LH9/1Up2ey+KrBY3FP8Qka7YlB7VWF8wXkFBpv2C1Yg1p+zVpHYyrngUp0fEgHAKNzFmo
- kN6WXE36oxqAyi5fpUVZCCcbRN1j1h7blSSQQDKjwe75rg6CizajLhAsUDtV9VsxPWHQ1yupcUq
- azx5/nkeNEmZDViAmDEqTK7gV9JRdY0EJskqiW02iRqd3/h/hI/P6RTjYYqpqGXFz3ZR/FmTp/7
- +YUP7EzAFhIuWjgimsfNQn/F6ZjCSTwzzoFF4JdQR9kBqcOZ
-X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
- fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
+Content-Type: text/plain; charset=US-ASCII
 
-The Qualcomm automotive  SA8255p SoC abstracts resources such as resets,
-clocks and regulators in firmware. The SCMI firmware exposes multiple
-protocols to control such resources which are identified by protocol_id.
+On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
 
-For this USB phy, 2 SCMI protocols are exposed by the firmware:
-* power domain management protocol (protocol_id=0x11)
-* performance domain management protocol (protocol_id=0x13)
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> stm32_usart_interrupt() reports a wakeup interrupt as a wakeup event of
+> tport->tty->dev.  That pointer is only set while the port is open.  The
+> port of a console is not shut down by the last close: it stays
+> initialized, so the wakeup interrupt is still enabled on suspend.  If
+> the system is then woken up by the console, the handler dereferences a
+> NULL pointer.
+> 
+> Take a reference to the tty, and leave the event out if there is none.
+> 
+> Fixes: 48a6092fb41f ("serial: stm32-usart: Add STM32 USART Driver")
+> Cc: stable <stable@kernel.org>
+> Cc: Jiri Slaby <jirislaby@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
+> Cc: Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>
+> Cc: Peter Hurley <peter@hurleysoftware.com>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/tty/serial/stm32-usart.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/stm32-usart.c b/drivers/tty/serial/stm32-usart.c
+> index ad06b760cfca..3bc2ce877585 100644
+> --- a/drivers/tty/serial/stm32-usart.c
+> +++ b/drivers/tty/serial/stm32-usart.c
+> @@ -872,8 +872,15 @@ static irqreturn_t stm32_usart_interrupt(int irq, void *ptr)
+>  		writel_relaxed(USART_ICR_WUCF,
+>  			       port->membase + ofs->icr);
+>  		stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_WUFIE);
+> -		if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
+> -			pm_wakeup_event(tport->tty->dev, 0);
+> +		if (irqd_is_wakeup_set(irq_get_irq_data(port->irq))) {
+> +			struct tty_struct *tty = tty_port_tty_get(tport);
+> +
+> +			/* A console stays set up after the last close */
+> +			if (tty) {
+> +				pm_wakeup_event(tty->dev, 0);
+> +				tty_kref_put(tty);
+> +			}
+> +		}
 
-The power domain has 2 indices: 'core' and 'transfer'.
-* core controls the regulators, the clocks and the reset
-* transfer only controls the clocks
+Could we like add a helper into serial core to do this tty wakeup dance? 
+It is duplicated in quite many of these patches.
 
-For example, to power on/off the PHY, we should use the 'core' domain.
-To disable data transfer and keeping power enabled, we should use the
-'transfer' domain.
 
-Note: the performance domain (0x13) exposes opaques values (0xa to 0x11)
-for which we don't have any information. Since it is not mandatory
-for the PHY to be functional, we have omitted it from the bindings and
-the driver.
-
-Patch 1 adds the binding for sa8255p. Similarly to what has been done
-for I2C [1], this is a separate binding.
-
-Patch 2 adds the driver change, which is based on a public vendor
-patch from qualcomm [2].
-I did the following changes on top of that:
-* Use devm_add_action_or_reset() for dev_pm_domain_detach_list() instead
-  of implementing a driver .remove()
-* Changed power domain names to drop 'usb_' prefix
-* Fixed various error handling paths
-* Added suspend/resume support
-
-This has been tested on next-20261026 with a Ride4 SA8775P board that
-has SCMI firmware (which is compatible).
-
-[1] https://lore.kernel.org/all/20260617-enable-i2c-on-sa8255p-v7-1-ad736dbeab57@oss.qualcomm.com/
-[2] https://git.codelinaro.org/clo/le/meta-qti-auto-kernel/-/blob/LY.AU.0.1.0.r1-16800-gen4meta.0/recipes-kernel/linux/files/usb/0014-PENDING-phy-qcom-snps-femto-v2-Add-support-for-SA825.patch
-
-Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
----
-Changes in v4:
-- Don't control regulator, clk and reset in SCMI path (Mani)
-- Rename helper functions to qcom_snps_pds_{enable,disable}_all and
-  qcom_snps_pd_{enable,disable}_transfer (Mani)
-- Add some more helper functions to keep probe() cleaner.
-- Dropped Neil's R-b due to the above driver changes
-- Link to v3: https://lore.kernel.org/r/20261002-phy-qcom-snps-femto-v2-8255-v3-0-342542bd9bc6@kernel.org
-
-Changes in v3:
-- Applied R-b from Krzysztof and Neil
-- Link to v2: https://patch.msgid.link/20260831-phy-qcom-snps-femto-v2-8255-v2-0-dc6197ffde1b@kernel.org
-
-Changes in v2:
-- Move 'core' as first domain, before 'transfer' (Krzysztof)
-- Reworded binding commit message to be more precise about the various
-  domains ('core', 'transfer' and 'perf') (Krzysztof)
-- Link to v1: https://patch.msgid.link/20260730-phy-qcom-snps-femto-v2-8255-v1-0-8b8bf5105a68@kernel.org
-
-To: Vinod Koul <vkoul@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-phy@lists.infradead.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Mattijs Korpershoek (1):
-      dt-bindings: phy: Add sa8255p high-speed USB PHY
-
-Sriram Dash (1):
-      phy: qcom-snps-femto-v2: Add support for SA8255P
-
- .../bindings/phy/qcom,sa8255p-usb-hs-phy.yaml      |  52 +++++
- drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c      | 253 +++++++++++++++++----
- 2 files changed, 256 insertions(+), 49 deletions(-)
----
-base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
-change-id: 20260729-phy-qcom-snps-femto-v2-8255-90ffe7674001
-
-Best regards,
---  
-Mattijs Korpershoek <mkorpershoek@kernel.org>
+-- 
+ i.
 
