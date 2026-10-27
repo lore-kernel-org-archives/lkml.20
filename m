@@ -1,56 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121579;
-	b=V2C3B36w17kLWtzTcdrIjut9CdY+rwoVYLOZFCQ2B5MICteQH6sBX6jZj1iMFPodkxiq
-	 WVCEi5grwaWfkxo5QWrzApvv58KqQY/QBbeAlDVdTjcWVyPEojcdBTTZ4lZ+fyliDv3ZL
-	 Ko+pxvuLTiG/hbinldfTVywLoUDKhZ8HqvR7H1freXWI+Ej/dhW0Yn8YorlHn/8ypqtSb
-	 MQJ9SZyfZt4yXoME6mkVJqxwAx4VHTTI4pZxf26BV3je1ALsX6hJ9VXNQ3Zp7P5m2JsSG
-	 zFqc4e2Ou/4yQG2VYvSassjpCOtiLIzsrQSfObzoVcKt6PQlLMFoN5i7L4sU3w6+PIQ==
+	t=1793121710;
+	b=brzVXt6wktJn95dhd6qZePKKPrLkmynYxELSWrd2352yAa6gVhQPgkl2OkUeaLRdhH85
+	 YU91N0ZVRbqIMbe9IzXetoJHxoyIjxIQXJ3huYNRYNi1TpvJX+B8kgfBaQhDco76F+Cvj
+	 LFGUc3MIL76znCOXT2pPNMszjEYtuhjUs9fiIwNilZo+HY6sE+1PDt975FQOaWvlVS6O7
+	 3ZL/OQpfE4pG7XX86kIHTyIWVKSys8/snSauZHnlY33Aogoeb4SQSNvvulXU4YjLG0IE+
+	 B0VjY0t79WTEeuzmG/WXppu0mZzJm66HCC724Hw1MMYeS7NT+VcK44HXTA7jATcEVMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121579;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=lp3hOSIGPE1tppyJv1RE+JXMFvZyG7e+JE+3G2D1EhM=;
-	b=fu0Ta493eOcwG38cTcKG9oFVA0f6yzOgsnKuahvV8KbujUEq7l1wYDHXGT3V1ymRpMcR
-	 MnnKOyzalZQIMqg60wLTAURfGASLXD1zO0vALmFnD0V37kM+Ntc1deKvZQoNR20BokINm
-	 q3vAcAD8+DLiWfNRm9C7oFc0c2p175gjnz0eBmetkd2//684xoPE3pPo0FiAHzTRAUnDX
-	 AaCnR9e2kD9e8eovd8pldIHqtjwoFCTrRfQ/QDrrsSflR/pmQNWoBLTNDO6H9y6gTT2s+
-	 yeEnbyF6Ex9/jJwSfzE5s78+XchtOPrfIGKv09CdmhIVOIiQ+0jzlpiULo+hC9Zhg3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121710;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4NjwcCRUit4k9bfPnEwrZTpteoTnUrUFgb+iE1jnD40=;
+	b=xmh4FUuHZXqhTqbMzD0DGfUsd55+DNOdYHAUWGgTroffXWrbpeb1KjSU7kUzRBxUqj8O
+	 Ky8iccMFvGUWzjea9KLHo1Jx2SoQBGdKa1oCv/ybYa06LqbBMRO9dGbs9Sm2dYQiAcJN8
+	 JYNT04JACAygO9hsEZYbCkxd1DiHRmmGL32rgLFesmXdwClBmMiz3ETpulDW0gg5wNDdr
+	 yiWveXEvTiwBaP/ErNijF9ObzItxNgXlSQH28Q/dm5nWp9wGutgiCZMn57VvoMJb5t0v8
+	 x7EKbFgwrw/E13AoI5JFnQP/TT8Ufl6KGGd4V2Y/jv9Mkt/eHmgE49NH8B0LLcP/c9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=YM8ItfqA;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GVv2Hcjq;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BD6606A31A;
-	Tue, 27 Oct 2026 17:19:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27BD6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF30606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:21:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DF30606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=YM8ItfqA
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 723EE5340910;
-	Tue, 27 Oct 2026 18:19:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1793121569;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lp3hOSIGPE1tppyJv1RE+JXMFvZyG7e+JE+3G2D1EhM=;
-	b=YM8ItfqA4BF7rJZDIFswBTxxeSt2+Wmke/u8AQRSaWDIEkZBpQr6VW4vl4O7mke0AZpKtE
-	rVqebQG/95qvDD25TnBI5HD1MN2Bh+SCXNfMu0IwB6JNxRMFe256XCsZyNNtXz1nnPNWAE
-	AU+qWs7KjqVNem5fIqGtdh6urwU5IDA=
-Message-ID: <6251801f-3662-4ad4-8d55-710144462010@ixit.cz>
-Date: Tue, 27 Oct 2026 18:19:28 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GVv2Hcjq
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a1947498bso222088eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:21:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793121709; x=1793726509; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4NjwcCRUit4k9bfPnEwrZTpteoTnUrUFgb+iE1jnD40=;
+        b=GVv2HcjqVBxs6XsdK+tGsX6dQUvPiAlRmb8qceFfQD0is/IFu00DFUwLT9RgIbxM13
+         2BDQcke+E/Iumo7jQ0YGoagH7oWG85o8Pj9E93dx/qJFNU6Y6uS7Cz7+CtvTMDmjWaXG
+         oOlGYp4BRu/zHAKhxHMKrQjrFlQeUJXHTwayCgJXhq5GRCDFB6QAomPn4c0P3Pbf708L
+         CL4phI6IW+vDqVTrIWAtfOVhaPWVRM9+JKTqeiXHArqdJ8Xpe3qlDrCtan9YUwxOpJhV
+         mkaEvI66t7CyR+gsQOMfjqLBlvNECXPo0ncPO5vF+93NBPyj3g1mv62GYR9+mKUSWIuh
+         mUcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793121709; x=1793726509;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4NjwcCRUit4k9bfPnEwrZTpteoTnUrUFgb+iE1jnD40=;
+        b=vFShfxDS5jQHUYweYYkmlyReCiD8ICRdQ3J5mPm4o6AuZukOf9gDjf3Lzq2W5tptQg
+         PxWwUdlTbfV9IqxJ7nKp2if7KchrfuGJsuVQz1gJwyfYvF9+HKiuAaGW2NLlDM0Cwogv
+         NQEbAGgYNQF/HFifN2z9zOfRIi8Ue63XWWkLiVNHgEsrk2BnkLl+aQCuAkJMpmvi3Eul
+         ORwC7XPV3/mBvyx8eTRFqtlsgoASw38mqRHKDDkpL9Nhy0WNaudPhrrvmFqDvqvDNoAm
+         pmJK5gsg23x3z0J1aOboHsEgmTjhBTMT1UT4SRGAavsJObx95Ohhn+ygnBBrya1BaPB9
+         sJrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKc+H6VV4LJTXFD2sdq1JKofTsN0spOdgs3dS5sXRDlf/97bAOOvyhsZ1qcEgueFJTZlSzL47m8G3wdxo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNnl1KMIad/nbAwvT3xLVgXjz6WLEebZJRRpZvlUpMABnbpbkZ
+	kE1ScFw9ReIxoXxi0g1FHcMTYJ/KSId4Yi0RzOmP7YgGS7avh2iq2xb/
+X-Gm-Gg: AYBFou1Lshb3R8F86/wCoTtLQFygveFLT4Btjm1LHWI3DtS8cA9gO06aCisIjPW1dIw
+	Me6D1dNJ04cfgnL2jznBx6fqshrxsIJGsZCnYBnIgL/glFfkpHvbGObhhGKoek2P0VHLPjnr3/V
+	cu7xBuEGQY/Q6ySleFW6GUUKG/yEsvRyQB2dkbRU3iQmlWygVHPYpHGD1JgtptUIdxLx0opRX7d
+	IsnWBEggOsIQp7Fsj1MO7R+PNShBWc5yQM+111VrqJqFL10FUcWrSPSqryDWVS74g+VQpTv4Zx7
+	ggMz9Tsro9eKAyB62tD7Wk4DCGmi6Yh22qmvz5Scb++K/VuEadh5xaPO3wzH6rgSHdxpcCQA3sc
+	DqMEJmDSXc5dCXQjMNDOnFsVh3NU2SrqBPGH2BAW3fEciOABkj2OCvjVbJKJLLg8QPthTFnkWrB
+	qBHqd18v+uUyLR5wwhXAO4UGwt5K8z3H/NJNwxjsbHD7n/JdyKKI1o+5jxLp2+VNPWKlAPaN/78
+	Y3REkPIU5rMNYQX+pBklQNMqE6TfLYBxzcoyzY05xQs19lHNqYedreYS7KBxbaBu+RxFNirpUTu
+	T6WP3m89PKIB9gvKTLA=
+X-Received: by 2002:a05:7300:f587:b0:366:c497:610c with SMTP id 5a478bee46e88-36a204276a6mr78399eec.33.1793121709042;
+        Tue, 27 Oct 2026 10:21:49 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([49.204.164.42])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369e8ec9276sm59948763eec.25.2026.10.27.10.21.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 10:21:48 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: andrew@lunn.ch,
+	gregory.clement@bootlin.com,
+	sebastian.hesselbarth@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	lee@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH v4 2/2] ARM: dts: kirkwood: Rename netxbig LED child nodes to led-*
+Date: Tue, 27 Oct 2026 22:50:52 +0530
+Message-Id: <20261027172052.129283-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,176 +106,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] power: supply: qcom_smbx: add SMB5 support
-To: robin@snyders.xyz, Casey Connolly <casey.connolly@linaro.org>,
- Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Joel Selvaraj <foss@joelselvaraj.com>
-References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
- <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
-> From: Casey Connolly <casey.connolly@linaro.org>
-> 
-> Introduce support for the SMB5 charger found on PM7250B, PM8150B and
-> related Qualcomm PMICs.
-> 
-> SMB5 uses different DCDC status offsets, charger-state encodings and
-> electrical ranges. Select these from per-PMIC match data, with PM7250B
-> using the PM8150B compatible fallback and parameter block. Read
-> overvoltage from the SMB5 status bit, use the already-prescaled IIO
-> voltage reading, and convert the SMB5 current-sense voltage to microamps.
-> Use battery-info property presence when selecting voltage and current
-> targets.
-> 
-> Keep Type-C power-role and VBUS control with the dedicated TCPM and
-> regulator drivers. Clear the unsupported HVDCP negotiation modes so stale
-> firmware settings cannot raise VBUS. Leave the firmware recharge policy
-> unchanged and match the downstream default of ADC-based AICL disabled,
-> while enabling periodic hardware AICL with its twelve-second SMB5 rerun
-> interval. Preserve the existing three-second SMB2 interval.
-> 
-> PM8150B places the charger and VBUS regulator in the same DCDC peripheral,
-> but the SMB5 path does not write the regulator registers. qcom_smbx reads
-> 0x1108 and 0x110b, while qcom_usb_vbus-regulator writes 0x1140, 0x1152
-> and 0x1153. The SMB2-only OTG configuration write to 0x1153 is not part
-> of the SMB5 initialization sequence. The TCPM port and PD PHY use the
-> separate 0x15xx and 0x17xx peripherals. Name the USBIN BC1.2 integration
-> register and SMB2-only OTG definitions accordingly to make this ownership
-> boundary explicit.
-> 
-> Program the battery limits and complete SMB5 input and charging setup
-> from the power-supply registration init callback before device_add
-> publishes the properties. This makes all public callbacks safe without
-> driver-specific probe synchronization.
-> 
-> Suspend USB input and charging before SMB5 initialization. On a later
-> failure, restore the original charging-enable state before the
-> input-suspend state; leave the input suspended if charging cannot be
-> restored. Cancel status work before unregistering the power supply during
-> managed teardown. Update the Kconfig description to cover both charger
-> generations.
-> 
-> On a OnePlus 7T Pro, register reads from the initial implementation
-> confirmed the programmed 4.40 V, 1.50 A and 500 mA limits. A 180-second
-> guarded charging trace and a subsequent 600-second runtime trace
-> completed without crossing the voltage guard.
-> 
-> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-> Co-developed-by: Joel Selvaraj <foss@joelselvaraj.com>
-> Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
-> Co-developed-by: Robin Snyders <robin@snyders.xyz>
-> Signed-off-by: Robin Snyders <robin@snyders.xyz>
-> ---
->   drivers/power/supply/Kconfig     |   8 +-
->   drivers/power/supply/qcom_smbx.c | 757 ++++++++++++++++++++++++++++++---------
->   2 files changed, 598 insertions(+), 167 deletions(-)
-> 
-> diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-> index b89ef40df7f8..1159a7711919 100644
-> --- a/drivers/power/supply/Kconfig
-> +++ b/drivers/power/supply/Kconfig
-> @@ -1173,13 +1173,13 @@ config BATTERY_CHARGER_SURFACE_RT
->   	  will be called surface-rt-ec.
->   
->   config CHARGER_QCOM_SMB2
-> -	tristate "Qualcomm PMI8998 PMIC charger driver"
-> +	tristate "Qualcomm SMB2 and SMB5 charger driver"
->   	depends on MFD_SPMI_PMIC
->   	depends on IIO
->   	help
-> -	  Say Y here to enable the Qualcomm PMIC Charger driver. This
-> -	  adds support for the SMB2 switch mode battery charger found
-> -	  in PMI8998 and related PMICs.
-> +	  Say Y here to enable the Qualcomm PMIC charger driver. This adds
-> +	  support for the SMB2 and SMB5 switch-mode battery chargers found
-> +	  in PMI8998, PM660, PM7250B and PM8150B PMICs.
->   
->   config FUEL_GAUGE_MM8013
->   	tristate "Mitsumi MM8013 fuel gauge driver"
-> diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
-> index 71f5a4859412..bc2b1cd3ed68 100644
-> --- a/drivers/power/supply/qcom_smbx.c
-> +++ b/drivers/power/supply/qcom_smbx.c
-> @@ -23,6 +23,13 @@
->   #include <linux/types.h>
->   #include <linux/workqueue.h>
->   
-> +enum smb_generation {
-> +	SMB2,
-> +	SMB5,
-> +};
-> +
-> +#define SMB_REG_OFFSET(smb) ((smb)->gen == SMB2 ? 0x600 : 0x100)
-> +
+Rename the LED child nodes in kirkwood-netxbig.dtsi and
+kirkwood-net5big.dts from descriptive names (e.g. blue-power, red-sata0)
+to generic led-* names to match the new YAML binding schema.
 
-More and more as I look at it, this shouldn't be here, but within the 
-device-tree as
-charger@1000 {
-     reg = <0x1000>, <0x1600>;  # SMB2, or
-     reg = <0x1000>, <0x1100>;  # SMB5
-};
+Suggested-by: Krzysztof Kozlowski <krzk@kernel.org>
+Fixes: 59cf91cf87ab ("dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610270710.aWUm0pbv-lkp@intel.com/
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+ arch/arm/boot/dts/marvell/kirkwood-net5big.dts  | 14 +++++++-------
+ arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi | 14 +++++++-------
+ 2 files changed, 14 insertions(+), 14 deletions(-)
 
-But see also:
-https://lore.kernel.org/all/eodzuccugtdn42basgpczett4yatyirog4nxwe5rhg5xf46ibp@jzcjmje4aqc3/
+diff --git a/arch/arm/boot/dts/marvell/kirkwood-net5big.dts b/arch/arm/boot/dts/marvell/kirkwood-net5big.dts
+index 2497ad26b5b6..49deeb40f4e2 100644
+--- a/arch/arm/boot/dts/marvell/kirkwood-net5big.dts
++++ b/arch/arm/boot/dts/marvell/kirkwood-net5big.dts
+@@ -85,8 +85,8 @@ g762_clk: g762-oscillator {
+ 		};
+ 	};
+ 
+-	netxbig-leds {
+-		blue-sata2 {
++	leds {
++		led-0 {
+ 			label = "netxbig:blue:sata2";
+ 			mode-addr = <5>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -96,7 +96,7 @@ NETXBIG_LED_SATA 1
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		red-sata2 {
++		led-1 {
+ 			label = "netxbig:red:sata2";
+ 			mode-addr = <5>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -105,7 +105,7 @@ NETXBIG_LED_ON 2
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		blue-sata3 {
++		led-2 {
+ 			label = "netxbig:blue:sata3";
+ 			mode-addr = <6>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -115,7 +115,7 @@ NETXBIG_LED_SATA 1
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		red-sata3 {
++		led-3 {
+ 			label = "netxbig:red:sata3";
+ 			mode-addr = <6>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -124,7 +124,7 @@ NETXBIG_LED_ON 2
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		blue-sata4 {
++		led-4 {
+ 			label = "netxbig:blue:sata4";
+ 			mode-addr = <7>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -134,7 +134,7 @@ NETXBIG_LED_SATA 1
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		red-sata4 {
++		led-5 {
+ 			label = "netxbig:red:sata4";
+ 			mode-addr = <7>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+diff --git a/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi b/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
+index d4edf2727388..23e8e8b4597d 100644
+--- a/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
++++ b/arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
+@@ -115,7 +115,7 @@ &gpio1 13 GPIO_ACTIVE_HIGH
+ 		enable-gpio = <&gpio0 29 GPIO_ACTIVE_HIGH>;
+ 	};
+ 
+-	netxbig-leds {
++	leds {
+ 		compatible = "lacie,netxbig-leds";
+ 
+ 		gpio-ext = <&netxbig_gpio_ext>;
+@@ -123,7 +123,7 @@ netxbig-leds {
+ 		timers = <NETXBIG_LED_TIMER1 500 500
+ 			  NETXBIG_LED_TIMER2 500 1000>;
+ 
+-		blue-power {
++		led-0 {
+ 			label = "netxbig:blue:power";
+ 			mode-addr = <0>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -133,7 +133,7 @@ NETXBIG_LED_TIMER1 3
+ 			bright-addr = <1>;
+ 			max-brightness = <7>;
+ 		};
+-		red-power {
++		led-1 {
+ 			label = "netxbig:red:power";
+ 			mode-addr = <0>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -142,7 +142,7 @@ NETXBIG_LED_ON 2
+ 			bright-addr = <1>;
+ 			max-brightness = <7>;
+ 		};
+-		blue-sata0 {
++		led-2 {
+ 			label = "netxbig:blue:sata0";
+ 			mode-addr = <3>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -152,7 +152,7 @@ NETXBIG_LED_SATA 1
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		red-sata0 {
++		led-3 {
+ 			label = "netxbig:red:sata0";
+ 			mode-addr = <3>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -161,7 +161,7 @@ NETXBIG_LED_ON 2
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		blue-sata1 {
++		led-4 {
+ 			label = "netxbig:blue:sata1";
+ 			mode-addr = <4>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+@@ -171,7 +171,7 @@ NETXBIG_LED_SATA 1
+ 			bright-addr = <2>;
+ 			max-brightness = <7>;
+ 		};
+-		red-sata1 {
++		led-5 {
+ 			label = "netxbig:red:sata1";
+ 			mode-addr = <4>;
+ 			mode-val = <NETXBIG_LED_OFF 0
+-- 
+2.34.1
 
-I'll try to do some basic separation so we know what bits belongs into which 
-blog, keep you in CC.
-
-David
-
-
-[...]
