@@ -1,105 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098259;
-	b=Q+Dpiq0WuXgHPhXDeZmLba7WOPHId3rbCgvzJoISCe2CnzzkvG+P20MNtqauGrsBnQ+C
-	 lfjwwld/l3a/gCvJgncYb0UWnTghffzoWTNZSot7q3WV6/cknxpffNEIJpLrDiWm6yBjU
-	 HuZJuHyJieBXrcwCU1docMLWGJgqoFmZcnut3W7gPg6VSb1H0xK/77zK/urMBTDrAwgmj
-	 EnoZaRllGFlaxABcpHSf3d+FblTmDCPngiiKFfYqdqYB78OS3DN8Uo2TNc27e5fT3b/1w
-	 mXONej/6B+/5brv8fHft5hR0aQBV5NNEFA4TRvQ8fNpnbFz72CY3RYa0NfGCZxTxdMw==
+	t=1793098260;
+	b=Qie2zIG66zRuhcrNs49Nf9zFTcOF+Cm3Uw+fis3c2euoXC38VfwAlf/qoFkV9LY4aDyc
+	 AUeSVyD0cuORZf5QGqLkuqblUKNeDKhG+Ulfe9LKTyMHhV194hh4SmIBCOR3TZkYXV4nc
+	 Mt5Q50p3URLTXOXK9htVivEbHdppz8Xyfqwc+D3l7LqGTVfdPbwf3RtOwWap4MrPEu/xW
+	 mWksbozMKIZjTzguXvUV7yNGAc0QIwR9WlWqQn2Hq3HExJzeNP5FjliwTfNR/zj9JZK+T
+	 ho99FHSLia2k+9LtLtSQcgtaja4mr30eIZN3jiqjxNqMRrMJp8rq2SOaLU3dP+m4gNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098259;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=3VOGRaFrn8fAvV/f+zy2bWNoivBt7mrtA6BqeXwgJuA=;
-	b=J/eU2c19NTX9sm11Jaw/G3jyczJmBgbv+9ZEHE2KrMKGoVNda9O7LlZUVzWgxAhkiLxl
-	 NZ1t7M4+Ql477wg1+ffzvLbgvafHHWOp/iNbHE/cyOjTjcred9THsza7jR2vYT5ON97Tb
-	 tRPXeDnhtF+OBRZ5/+m4ke3hkTmJKDh1DMnpJKmk8UdxzW85MSIZ4Xk2WdKtrYQgq/rb8
-	 Y+TmOUPI5cecSLFNdga2HDCEII1NptlgLci2hYALhsr2X2WhRVIzunYyUi4ukGq7MW2x/
-	 mvNwlj190bLdas0iQkQjaSIEb2+aZf5SpjDVWqnuuKTKfGbk1g9AVtu25F/qYWGVZPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098260;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AwIRDSVIZlaoTPRqqTyp6BwANPNi3GUs2aLH5r38dzI=;
+	b=oh0caeW2W1RKGoNTMwTa9mIxu1FKMKyUPyd81pu2UjQ3tGO+dFR2aCZwd27wIyXjXpc7
+	 zi+sD83DmIrzAaOpE7SidS2Uf0HrIrX4Tz1xPWoLx5LWRACDAUGGGc7Rgc4ufXyzDAlu+
+	 f9DbBPMzA949NG9CDBqDbAZMkDr0CladTVUmps95ozM0fVGlKL8qyL45ju45DsenEgqzK
+	 fvRKwhYupxLKVLAikJREdSIVO0P4/2Md7MoPbkW/ANiCRsK6qmmvGrRYvAVT96beaZGNK
+	 ZSh6ZhgX3+Yat4MaDVyM1JoBh1Nc2Hd1LOPfRuCswVoXUMUhjeFjIH/uFHx6mRvcazA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=TjfZ9lHn;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=M1x1oHvK;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KMCg6sd2;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4522C606C259
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61F8606C270
 	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4522C606C259
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B61F8606C270
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=TjfZ9lHn
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so22298395e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:59 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=M1x1oHvK;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KMCg6sd2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793098258;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AwIRDSVIZlaoTPRqqTyp6BwANPNi3GUs2aLH5r38dzI=;
+	b=M1x1oHvKdnIBq4GixcEKqPW5wmqA56zOuot9Vo2rL1/70Zw2XR6Wspg0SKXsmPXLQ3DKIt
+	TdGEDVhJF44YAD0FFygcP/UJwLt2xhCkJHTQK6ZX5g+OridUn4hCMZGKXhz6qnkm8wu16V
+	t3JvkVa3wwfCZJEGJ7FBOgL2oTgJotM=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-663-JX17qlNSN9Ca89zEAz-a1Q-1; Tue, 27 Oct 2026 06:50:57 -0400
+X-MC-Unique: JX17qlNSN9Ca89zEAz-a1Q-1
+X-Mimecast-MFC-AGG-ID: JX17qlNSN9Ca89zEAz-a1Q_1793098256
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a0284121c6so37282435e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793098258; x=1793703058; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=redhat.com; s=google; t=1793098256; x=1793703056; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3VOGRaFrn8fAvV/f+zy2bWNoivBt7mrtA6BqeXwgJuA=;
-        b=TjfZ9lHnloyGqHLYTmVTNaXFB0h5au/uSJ70eQPUBfHM6uizRwdnUqiTmMXVlJL3b5
-         PhOfBtDeTrVASMCCW6PL7ZAibngede7Y33Fzx0gHerkFP6iV0VzKIYZ0JJ6OkpBJZv7A
-         VDlGxfj+i9sbW+XPtLmiFXTFMS2s+QLt3w8yY9SsyfHFYzEcHcvWLg6szpcYLoZBqig4
-         8Hd3IOCp+Z1LCNg6yZMyf7yXxjN8qKyQE8UZTj8HLBvgrsDL0ORJGLB9sZfcc147RYur
-         TGAzWFrC+if+E1jUTgOSAN3fMFZQAMrFDVVSLvTzixMVS+RhZSz5w9wGAKrrF15hfPCt
-         UEQQ==
+        bh=AwIRDSVIZlaoTPRqqTyp6BwANPNi3GUs2aLH5r38dzI=;
+        b=KMCg6sd2uzfr06Cf8EuzBU1QcQUFyPlvIcgI/ErwXC64VTS6z9rkR6S4PUYCAru+C9
+         HdLiYh8kRatzLDeyZZ2coe/SN3qvkHBdRN3bUueHXy4Do8aKeTCVHlQ54CJSjFoTSmK3
+         QCLqGpDiuTGE8vc7CpK+qeW+sG8vBECGqAyWs7DG4u+RtQoBjwQANpCAmwu6NARfgd6i
+         60fwOHGrnz9LOJPgazOFwGl64rZi3l12JxprNhZqRmNJ50CoN60gGmv8hXENz8OCOX1B
+         cUza4xPV/rXSvNnfTIiFl6kTQmNQLDRo4Qo8FAJoHb+LMTklJyqH8tAsXrF+Co5lIazV
+         sH2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098258; x=1793703058;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793098256; x=1793703056;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3VOGRaFrn8fAvV/f+zy2bWNoivBt7mrtA6BqeXwgJuA=;
-        b=beE2uxg8iAM4g0rHNJBgLOANn4cvfXNlwP/Rvb6fBYhggvZkXkqmGLobx7lD2S6cRy
-         m3HstXYuT+GG6nfW6/BdnLLgAzI/K4NlelY0xkNr9jnRryLS4l6T+U4ZC7lRGukQD8mx
-         6Ow8kPL7WgyFRN6qAV88DczudRflDhsHBbiu4xHXBr/e2Oz5gBH0EvpaneKEPvpaPz7w
-         8403obThkLy+l283gbz5tny9U/S+hpUl+FT6kaC3SPQE64hlFZxxbsbW8zYH0DRosV/k
-         Qr6kYC04rJgRtt9JC0DIYIV6zNYBi0+qGL/RnEOsl//Mdp6SuZvcE/BSdTukCG6My+ez
-         3opQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqbs4/2RzHACYN69eod9qNTTZENpYPOGkc/Q2Wjr3/ZQHLQdcZXG9HWPMsIlRpn7eE1jCFN6gd9++bB0E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkn5S/RXSWgFiKaeOU+u00b0b5hcnmaBs8wo9YrodpHOLKDGgP
-	nQ3smkEFOrxMl9TLy4V0beN6YvtraM5lq5opMQ4Yz5R+31OroaiSSKe09yLjcbs2nHY=
-X-Gm-Gg: AYBFou2rCraSW0+mTUctvRm4ovIPuE7szANfbWMOZi8fVrEOnqUIRSj5t3Etx7e177j
-	WWaY1WyHO2Gca5dC/Cf6jDSznGCN/3qwMkfTopBZiQcXP77s7M0eW0LoO52O+hbERomZK8QTigS
-	iUfSC7C9769arROICd0P+zgyo+/3RaaMURkftT7sIaBEhsVn66gcyqWGjafxHpk1CvzAVbWYNrp
-	j9lOV6n8C9ZKP4KElVgLY5X4zbJqIQADYkKuXtb8PIzS4m0Vh1Vri353pYKzZsBdZxCwWQm0JOU
-	CddmuaYN2Pw4EYwjw3pUvppEqKTMlF5g9Lh5hfxIgsYCxjCVxmsqrEasbR71ua7tm1wM0Z1e7Ai
-	JwWwYGBtUekUihUf8vO2hCOUXdRzECisFfsUSP+cCvI6yt/q08oSKFqwtlbghyMbEYzjk4qJBP7
-	lWKxg7xHh5DuYTwRE6rK4QSeX6Kp0njk0BYTROPyQ3NdeTOC8Dmh72+uSC4VAUVO3ezVB71i0Vk
-	iL42ZiTBUJgYkPSJ2H+H+b6kvlaw+MHVE3qe5t+ZrCy+iJJfDMCBQ6tXdl+X7ZiwMdwUdACrFDB
-	F5veSOkP75o/YzqIF+qHEM2mGCM+HRCr3HGe5YdUQqM5w6qwRhbj5LtNwnmibZLS
-X-Received: by 2002:a05:600c:3acb:b0:4a1:992f:d0e7 with SMTP id 5b1f17b1804b1-4a35aca4fe1mr176894865e9.16.1793098257669;
-        Tue, 27 Oct 2026 03:50:57 -0700 (PDT)
-Received: from localhost (p200300f65f19a904240e81f1f32a429c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:240e:81f1:f32a:429c])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a35a5698f1sm256311995e9.8.2026.10.27.03.50.56
+        bh=AwIRDSVIZlaoTPRqqTyp6BwANPNi3GUs2aLH5r38dzI=;
+        b=cmZeioY7aSqTvh3gfoKGoo4xJXid3Rw3Ds84KQWSXNzNMypkA70m1k13nNCC++sTzI
+         FYW0wSzXgUehRkP7qnuT3GpuVa07IWHqJYmM3JrjHP+GC0n0NQFhTqGvagcOYtjBSH4z
+         RER65qu29bNXgqZgKVVTsWEEYJL90UTdi8wCTz+f7uhUo4AZKVJpBEa9KJZfDu1wEQBR
+         6eixlPQjdu6jQB5uoJXB8Abccpn8pDMhO8AtMP/0c4afCROrg5zNk89s462MAJWDfbt+
+         VWtc67glqyk13fgY7CfTK/JRlLfQ+cfYZdHksO4mFs/cHkZkqtURrF5Z7RDf1raOLPUe
+         O/vQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxcmR34qwXt228v9Fy8SjsmdaM/BnzvtoL1cn+dAH3W6AwLaBvtUtXHcuxuGRdRJyPh28HTVncEtn06smQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJKf0c0ccymyfKDkM5388agsPSJM3iRWcoULvBSl/3+OzAQ9eu
+	2kNzt4eAeUEjgieIRONf6pejJGYoCMZVMCbZqcKVoGr4pWB9JLI+taraBMP9kV9y0iJML2588Vg
+	7j7Tfd90/LBFq8I4yR0ivYR/SBqrBAyhQF0Pcss0TAxkZx2US2qYPJqMx7dPAGFlwcA==
+X-Gm-Gg: AYBFou0gcbOwJLXkQw5I5F9IPxISal2xmoWyhuf1sP4EjGfHeAcvoqpzugGwp+ToMBW
+	bMvfa55zxhxuZcgF505iQXZhbLq4EveN5k4nBWSqPTOx3jBtwOT9IZMVySDXqRnKzDiGi2QxLDK
+	gGDFmsMurAF2TwSOnf7NBKtxvGFux/Ch82MTSxy6bgum5aiz4YWmd9BGZb76DiQoXfL6Oxvbh4J
+	aVy046NYsL/8LO67xNV5FmuOhObyaLcmCLJ8Bgfm3EgpYIl7B6AuVxuJafYtrkk0BkPhmtTD7xI
+	cnOuLBpBdEFAfrpCXBC/L4mVbJO5o+mHDCDx8LjEYTXcujhyhYEQBoOwcFyIUyAHRnI=
+X-Received: by 2002:a05:600c:4e0e:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4a35ac9d227mr178192175e9.8.1793098255901;
+        Tue, 27 Oct 2026 03:50:55 -0700 (PDT)
+X-Received: by 2002:a05:600c:4e0e:b0:4a2:397:73f6 with SMTP id 5b1f17b1804b1-4a35ac9d227mr178191625e9.8.1793098255318;
+        Tue, 27 Oct 2026 03:50:55 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a06da5fsm171269355e9.3.2026.10.27.03.50.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:50:57 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Lixu Zhang <lixu.zhang@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Enrico Weigelt, metux IT consult" <info@metux.net>,
-	Viresh Kumar <vireshk@kernel.org>,
-	Mika Westerberg <westeri@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Subject: [PATCH v4 23/23] gpio: Unify style of various *_device_id arrays
-Date: Tue, 27 Oct 2026 11:49:00 +0100
-Message-ID:  <c4102fd9781c4a79071b8a149577fa8c451e61d5.1793097104.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.56.0.rc1
-In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
-References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
+        Tue, 27 Oct 2026 03:50:54 -0700 (PDT)
+Date: Tue, 27 Oct 2026 06:50:51 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Francesco Valla <francesco@valla.it>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Haixu Cui <quic_haixcui@quicinc.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
+Subject: Re: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
+Message-ID: <20261027065001-mutt-send-email-mst@kernel.org>
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,116 +122,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3905; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=Y+ol7RAU4xTksWVGYwhEZhB8H6C2vUrzXYy4PRBuamI=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq4IHhbaIqZR95/W9vS954qwXPTq+1LQgcynNtV agF6gmclOmJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCauCB4QAKCRCPgPtYfRL+ TsQgB/9goajtO9UWZ46LFps8e2QfdurwGbjC8FPaELmHRAg+dxHD07Q8vEbR0RLHFrhkVx/hBkN jcaqOuwBWywOU9OjEnKnyITOL8Q+aB4MCGiTIV2CzOIrZF2WTw6ZG7u/1GY7+HvdXB0CA1lruYz WsNYYB2YuLA/2ly1jpz+SwLovuDT2iNYDFZn3VUbMkhqkeUZctLmRpO6E0SSqi4G05C5RN0fMlB p1zoxrhjseM2UJlQTGOkXIvYVpOP7nIy6Yv/TC3wVhImfTmgCq8LvIJGKVT7nBzB0CcsIb8WOSH jjewIC61gXUgzJVhzpUqexw+OK5QuFIyZs7m16NlGQdJicjd
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
 
-Update the various *_device_id arrays to conform to the most used and
-generally recommended coding style. That is:
+On Tue, Oct 27, 2026 at 08:26:32AM +0100, Francesco Valla wrote:
+> When a virtio transport exposes a non-discoverable bus, the devicetree
+> can be used to declare its child devices (if any) and/or other
+> properties. To allow for that, the virtio framework searches for a node
+> with a suitable compatible in virtio_device_of_init() when registering
+> a device [1]; such compatible takes the form "virtio,deviceXX", where
+> XX is the hexadecimal representation of the virtio device ID as defined
+> by the virtio specification.
+> 
+> This patchset thus does not introduce a new functionality, but allows
+> proper validation of nodes tied to spi-virtio devices, aligning SPI to
+> what is already being done for e.g. I2C and GPIO virtio devices.
+> It was sent initially as part of a different patchset [2], but since it
+> complements a functionality that is de-facto already there and is useful
+> beyond that specific use case it was sent separately (also following the
+> maintainer's feedback there to separate it from remoteproc-specific
+> changes).
+> 
+> This was tested both with virtio-mmio using qemu-system-aarch64 and with
+> remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
+> parts still not not upstreamed - see [2]).
+> 
+> I added myself as reviewer for the spi-virtio driver to be CC'd on any
+> patch involving the new bindings.
+> 
+> Thank you!
+> 
+> Regards,
+> Francesco
+> 
+> [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+> [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
+> 
+> Signed-off-by: Francesco Valla <francesco@valla.it>
+> ---
 
- - no comma after the list terminator;
- - a comma after an initializer if (and only if) the closing } is not
-   directly following;
- - no explicit zeros in the list terminator;
- - a space after an opening { and before a closing }, a single space in
-   the list terminator;
+I hope this can be merged through the devicetree maintainers,
+I have no idea.
+MAINTAINERS changes needs an ack from existing maintainers, of
+course.
 
-Adapt the few offenders accordingly.
-
-Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
- drivers/gpio/gpio-ljca.c           | 2 +-
- drivers/gpio/gpio-mpsse.c          | 3 +--
- drivers/gpio/gpio-pca953x.c        | 2 +-
- drivers/gpio/gpio-shared-proxy.c   | 2 +-
- drivers/gpio/gpio-virtio.c         | 2 +-
- drivers/gpio/gpiolib-acpi-quirks.c | 2 +-
- 6 files changed, 6 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpio/gpio-ljca.c b/drivers/gpio/gpio-ljca.c
-index f967feedb5d2..29b4e06497d9 100644
---- a/drivers/gpio/gpio-ljca.c
-+++ b/drivers/gpio/gpio-ljca.c
-@@ -473,7 +473,7 @@ static void ljca_gpio_remove(struct auxiliary_device *auxdev)
- 
- static const struct auxiliary_device_id ljca_gpio_id_table[] = {
- 	{ .name = "usb_ljca.ljca-gpio" },
--	{ /* sentinel */ },
-+	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(auxiliary, ljca_gpio_id_table);
- 
-diff --git a/drivers/gpio/gpio-mpsse.c b/drivers/gpio/gpio-mpsse.c
-index 61c5ca96314b..a540f6e94f11 100644
---- a/drivers/gpio/gpio-mpsse.c
-+++ b/drivers/gpio/gpio-mpsse.c
-@@ -80,10 +80,9 @@ static struct mpsse_quirk bryx_brik_quirk = {
- static const struct usb_device_id gpio_mpsse_table[] = {
- 	{ USB_DEVICE(0x0c52, 0xa064) },   /* SeaLevel Systems, Inc. */
- 	{ USB_DEVICE(0x0403, 0x6988),     /* FTDI, assigned to Bryx */
--	  .driver_info = (kernel_ulong_t)&bryx_brik_quirk},
-+	  .driver_info = (kernel_ulong_t)&bryx_brik_quirk },
- 	{ }                               /* Terminating entry */
- };
--
- MODULE_DEVICE_TABLE(usb, gpio_mpsse_table);
- 
- static DEFINE_IDA(gpio_mpsse_ida);
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index 77b447c0fea5..06f7ad0299f3 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -175,7 +175,7 @@ static const struct dmi_system_id pca953x_dmi_acpi_irq_info[] = {
- 			DMI_EXACT_MATCH(DMI_BOARD_NAME, "GalileoGen2"),
- 		},
- 	},
--	{}
-+	{ }
- };
- #endif
- 
-diff --git a/drivers/gpio/gpio-shared-proxy.c b/drivers/gpio/gpio-shared-proxy.c
-index bc69b8729d19..b64e32a1c0a5 100644
---- a/drivers/gpio/gpio-shared-proxy.c
-+++ b/drivers/gpio/gpio-shared-proxy.c
-@@ -303,7 +303,7 @@ static int gpio_shared_proxy_probe(struct auxiliary_device *adev,
- 
- static const struct auxiliary_device_id gpio_shared_proxy_id_table[] = {
- 	{ .name = "gpiolib_shared.proxy" },
--	{},
-+	{ }
- };
- MODULE_DEVICE_TABLE(auxiliary, gpio_shared_proxy_id_table);
- 
-diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
-index 42871db05ec1..062c70fe4671 100644
---- a/drivers/gpio/gpio-virtio.c
-+++ b/drivers/gpio/gpio-virtio.c
-@@ -647,7 +647,7 @@ static void virtio_gpio_remove(struct virtio_device *vdev)
- 
- static const struct virtio_device_id id_table[] = {
- 	{ .device = VIRTIO_ID_GPIO, .vendor = VIRTIO_DEV_ANY_ID },
--	{},
-+	{ }
- };
- MODULE_DEVICE_TABLE(virtio, id_table);
- 
-diff --git a/drivers/gpio/gpiolib-acpi-quirks.c b/drivers/gpio/gpiolib-acpi-quirks.c
-index 3ab02c5f95df..77b9e34cd618 100644
---- a/drivers/gpio/gpiolib-acpi-quirks.c
-+++ b/drivers/gpio/gpiolib-acpi-quirks.c
-@@ -465,7 +465,7 @@ static const struct dmi_system_id gpiolib_acpi_quirks[] __initconst = {
- 			.ignore_wake = "GTCH7503:00@10",
- 		},
- 	},
--	{} /* Terminating entry */
-+	{ } /* Terminating entry */
- };
- 
- static int __init acpi_gpio_setup_params(void)
--- 
-2.56.0.rc1
+> Changes in v2:
+> - Expanded the commit message to better explain the functionality and
+>   the chosen compatible.
+> - Redundant pieces dropped from bindings.
+> - Link to v1: https://patch.msgid.link/20260929-spi-virtio-bindings-v1-0-6a0eef3213b3@valla.it
+> 
+> To: Haixu Cui <quic_haixcui@quicinc.com>
+> To: Francesco Valla <francesco@valla.it>
+> To: Mark Brown <broonie@kernel.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> Cc: virtualization@lists.linux.dev
+> Cc: linux-spi@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> 
+> ---
+> Francesco Valla (2):
+>       dt-bindings: spi: add spi-virtio
+>       MAINTAINERS: add Francesco as spi-virtio reviewer
+> 
+>  .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  2 +
+>  2 files changed, 48 insertions(+)
+> ---
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> change-id: 20260927-spi-virtio-bindings-f4e350b2709a
+> 
+> Best regards,
+> --  
+> Francesco Valla <francesco@valla.it>
 
