@@ -1,85 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105771;
-	b=ANMEDJwCv6DS/OYD+5GSMIUEzpTLnx0tZn4jd+GmaUWI1715AjxrAr/v4NvXPSrgtPat
-	 UmxmRnTNTME0pmkUf33VjZhzBwk02y6tP3zXSBZRzWN9O71tDg/M1n6I6WzsZCrzWCuOK
-	 mfNk4nN25vnM6zBaDqFdjqi0pGapbjUaJF5ki9DTe6uZNbPJT+iVtNKlk0bKO4Sbm8brL
-	 tWZ2A/+GdzqwJOHEyoU4JigaS8taVJf7WK8RyJPFN0cM9XomU2iXhjPS0m4KEe4isfAU5
-	 /39KwTP5P8Mh1aanS0/zFiQdsjybMx8Q4jmm1tSVmDu7nuShetXU7KEoyLD/iH41pWg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105771;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=lcXO+Vd8p/zIO/CVoOpxlqwT9gefkkK9PohzmT8jAVo=;
-	b=PfAYrn4wMwx70u5SPSYrUZf3C/QZMEE9iqIhnBuF+4uSrJ8vqEpfZZ1SDPWXjRCZWlZS
-	 iIPRwW3spr2pilMNRucdYq+Wdt6w6Sxf91puZBe8XzbRPpvKU18feMDKtjCKww4DAETO5
-	 cNbm6tuTsZSuTzV/3Dj8QmfHzT0l+jhVbLNg0orxJRAWq1qHMRBtpZpz/0JO9Qqc2RIB3
-	 0xoy9Tj9Fc60V9bV1XOwKCmoo7rEW7z+HPrsrh+Svd8pwbFjd/ep0U2N+8NpZnhsvpMQz
-	 9O9OlquzLdYyLEIwhQULp8cpgIbWBUIHGkSrKKtUc8QL8keEEuCA+3tDC6SwhloI2/A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793105757;
+	b=IXmDr8R/YZIowlXJ82A/e/ndtVyTj3qMFIzNgQW+5aZFapCiHKIL6zMGaOmCtg7SW8pW
+	 6ZbM/z58KvK6BBXtPfuYxxj58EGnSLQ/ctGZGV4zdZ3ei7IOu2YFrUK//hH3EbTtmzVed
+	 GPh3mns3eUfGvLE+nnAzA+NRKAczUxN7//xNnSJjO2Jx2sqiw30Hw+X/GGkCBawVm/HJF
+	 scYs5LZqp4lU8ZlHnUlhAtwTakSIsoTBWI7KvNA5FfjwfcEqTq6oVTvuXtTs0Rbn70BeF
+	 EhO+yEQ+OaAURTDZZGTbY1Tj1czW1KdEtaqObl+3LphQ36gD3k4BJfPbNrz7B9nItpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105757;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
+	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
+	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
+	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=NUvJ3GF36bN209WRo6z37F31w8yWKDGZQuLsB+FTos8=;
+	b=UYUsN7QVV1fD5nzqg3p7u71Ht0FTDywfg6E6vuB1j7+YnD2xUVa+R2UwXLxKGjbh65g4
+	 WJvHT9CNHJIADqX5An8cJ0yJo9q0uSMGH6y7QhADLWGJwNXEu3XikF7TsJNhUviNR8LjG
+	 rlRNKu6R68jitMhzecRyJ+3U2MzRtWylsLAhev9BSRCpjo4zWXASZbRFKSdTJ7DNDQNSa
+	 l5b92WD9Rc6qmR2XAOHnedNSV5wll8gsCdQ+APr4HBhMk+Mo4VzflAevW5vCGEe3Lzprg
+	 GFCBt+3AWOXP2GzH10eZgWxCnSBYKbRYxVBcCtd4+EPAAdx2f50L+YXIQC2XwOdVFwA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=2MdXvrlq;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b="Mwl/FyGG";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.3
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28761606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:56:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28761606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-15dd124bbe7so2456556c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:56:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1793105764; x=1793710564; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lcXO+Vd8p/zIO/CVoOpxlqwT9gefkkK9PohzmT8jAVo=;
-        b=oBNbWBMqejrGY89fgbOt84PDcmNTYTRzwo7dXYm2kKYVugiTtHm2ZRf6xPFRETFchB
-         e7Bfe7EplJmnyZJHxSmEqnqLF0apjP9r8aTHoa5QeUL+bAlPMFtQ9KPjpctTYhkk48Zs
-         GuRD3ZJsnpqhQipbgNlbQtgHjz9SJSTDtrtUbMHj1rIHCMUdr0En8+WSNRORvJC/skfp
-         jakziGpSo9AEuV1mNNVR2uCI/3+MrUf/EdOW5tpzCv30bFbfQJ9H6QO7IY0eS7+pnb37
-         LQN18Vq4yUx8IHSZdyAQgT0jxb5HH7S3m6Ds4Z1SI3FeBf2i7Hwcp2UBmQNVZq84Tyl1
-         AO0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105764; x=1793710564;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lcXO+Vd8p/zIO/CVoOpxlqwT9gefkkK9PohzmT8jAVo=;
-        b=aYWx3W9zeLI74L2BfYsoP5+LWBXj/F51so2JEx1ohqIdFdrsakywQ9gzx4ztaK9/zZ
-         lsmjNayMuyj1fkTKBiNfiy8CRAhExlMn/Qf0Azfgiox0ldnRPMLOCRiZU/Wj6LtNf4vn
-         gcaiybIJqTSVUP//nf5dTD72hMbKTWP0EtV3d6l8GZ05WGjQprbz7AfQIT6ZET1qhVAd
-         8lT0dFvOWc6rQQjH3oLAjIOdszpPSOLfLF+QGwfqxsdfwZbr+16n5gea+iQ7sZg3SA6u
-         tg0EFN8rTnT01yiQLq2HBtjJpuBDPXAgsRZVlVPcQFEsX+p6X3A8OskC4Ul5uNoKlkVw
-         UpRA==
-X-Forwarded-Encrypted: i=1; AKwUvByyV6jgzKjLLZyChZEPr/a/4npuALqH4mAZMut+R+iIHifizaMlWpQeAjX+5vuPC3z503GodVgXNlzHAcQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK3PfdIierBsnXX69Ur5SB/Yzl9yfXIhUHybzoSB7/mFCeBPbA
-	I8LPZHx1Y/QNETVHKzHe2pjITastV2F6m1reuseq3o1NEyQjfPpqSHVIij8mOkj2nAo=
-X-Gm-Gg: AYBFou1HOL48yMTXPdUKbBTgoFVlx4Ms82xaS31lzy3htr7Zw5+3ozAEY3IebO5pDQz
-	QHawUW+ABEjcyxbAyI1hebD8a6H5OYsQP5dMQ+48cS6CV6jbWTEuYp5rD4ByIqdS2jKLmh+vkH1
-	XJq6S4A4y3kuGGV0nPcUcN2WEewledCWxR3HcZhF+BoFczr7Vi9O99h1xd8jNptfIPGsgt7MSiT
-	mVXnq1Ub99fz2kjY35DUl3eEvui5c2+eDs0GalG+3hCyplTDWE4tUdVPwWSHqxzJv/JTa5btnS+
-	SDCaZSeJi1rDlOtIv9V0PzEm5vKmJfE90e/xv/FPzWd0Z5DECHp/Rzeo2T/VMup6ityAUBV16O5
-	40ifWOX7hBNacdT6lu1HGLXEKBUZ3/D9uWlm4Z8B3jP06M8Z6WnUCFHW0/drVDcbXVK4hnhYhi4
-	Gy8ApxqX7V33tg4KTp/JtkaawVSQHCWSPH2kL4i5UIf4SPkl6Q8S9gGKkF1KxILovRL5jafRQqH
-	zm094vO1kJgRwwbT5Y7zWMczqV8zkhwinaq9IR+V808PNKtjGJSSglKkL0SooRXkYexrxyJ2cD1
-	+6ooawXQ4mjofg3byFHuxAy/vJz+k5PM+RNmK94=
-X-Received: by 2002:a05:7022:90e:b0:194:3a84:e67d with SMTP id a92af1059eb24-1993f6d2c4dmr19379065c88.44.1793105763829;
-        Tue, 27 Oct 2026 05:56:03 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a58093678esm4301247c88.18.2026.10.27.05.56.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 05:56:03 -0700 (PDT)
-Message-ID: <5f575079-a2a1-4f42-ba1b-204730a5402e@kernel.dk>
-Date: Tue, 27 Oct 2026 06:56:03 -0600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0221606A31B;
+	Tue, 27 Oct 2026 12:55:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0221606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=2MdXvrlq;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=Mwl/FyGG
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-8v6p.prod.antispam.mailspamprotection.com; s=arckey; t=1793105755;
+	 b=x5Bdw3RzX6L+0xxlTbdZ3PGlV+xKCAajGieGRlYKTFHW8JyNxmSGS+yK7+zVtfTtkMwXIzjW79
+	  3/gEVUI2XNl8pk7IGVsm2u1H6OsWMz+y87m8ehzq7yFQyXN59QK6V6LlqI/nY9hCRyBc4XIvNw
+	  tLqrmumefZJGZZxPdOh79t0ItT8BP6lnmqt7XkFQAmnSHfO7UFt8FOuYZXvvJFy7iyCg958Z6f
+	  abNRlAEHeLYNTwe4ppPLbewHrpW+D8IavTKsmTdSqqu0nB4H2Xu9pfJEWPmtRzn1HUYV1Qv+6Z
+	  rAsslzmHUz5C7+1T0X7GKspqcKT8c7Ro2gqJcLpqGhymtw==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-8v6p.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-8v6p.prod.antispam.mailspamprotection.com; s=arckey; t=1793105755;
+	bh=JJwrWqNQeqCeW8Tr+AOwLRCFkqBwP/40DqtliOwP7FA=;
+	h=Cc:To:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	  Subject:Date:From:DKIM-Signature:DKIM-Signature;
+	b=WDEw7RUzWq3ClAfRXcJPIGUjJo/TbLs5bnoekRxwHkQCe04uhgj1h8ZVsYqWUsO5TQwfsZ79LG
+	  KFc2cBhNrQED2b+kVpgkwbyKJcU74EsAG3wgwJLV3sCIfKb2SdNXPy0stq1SaCnYCEWtWMzIMp
+	  BBOTzAKdjER2bCQKR6KTliRSPuzTNo70yMFQ7VWwvk8A80PXwoDPW76HF/ROMpGjSXfw7mLdaH
+	  nQhMyoJAdFRLYixslrsXA62tiqMPBKGJi+m/zLWoZ+8K1xa5fhKSyv+7RlKUxvnH6kH8NS24VQ
+	  w5Ra52wFj3qcqi5XZHa5hD+CunuyRRhZETzl+sZIuuL+oA==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+	:Date:From:Reply-To:List-Unsubscribe;
+	bh=NUvJ3GF36bN209WRo6z37F31w8yWKDGZQuLsB+FTos8=; b=2MdXvrlqPEJdNaIFwBd+k4+lcf
+	XuAcG5EQ9p70pTXpLaRZ3erTk7zrFnWhX9iooR75Ibeb98cA8wpM3mLj+PiwXv95NX6DqKLz+s8g/
+	Am/pbB6HZcdvFRZL6L84LK6Hr4xDFbeVDg+Lks1lD5bBRXIkkv5zBdCvKBmXeQPm0lZ4=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-8v6p.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLgiR-000000003tD-1Fc3;
+	Tue, 27 Oct 2026 12:55:47 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=NUvJ3GF36bN209WRo6z37F31w8yWKDGZQuLsB+FTos8=; b=Mwl/FyGGVyUzGbe4ej+Ujxnjj+
+	OioXRLb3X4a+RJbvmg/cQ0X/g0QJlyCdFN9V2gpPHMqBjwlm0VoHy0HPRK1gA/BfqF4GBM/redoNF
+	yC49B2fEfwX2LFTqWvwrqduD46O3hPt/WHz1A+evIQCGaVaYhAGX0PatxaokKrTxnwxk=;
+Received: from [87.16.26.129] (port=60466 helo=[192.168.178.175])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xLgiM-000000007jS-40sP;
+	Tue, 27 Oct 2026 12:55:42 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Tue, 27 Oct 2026 13:55:24 +0100
+Subject: [PATCH] gpio: virtio: convert to immutable irq_chip
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,34 +96,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] io_uring: requests can overtake consecutive drains
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: io-uring@vger.kernel.org, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261027043323.98916-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261027043323.98916-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-virtio-gpio-irqchip-immutable-v1-1-f64ed13d4567@valla.it>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWduEEgPiVYyLdhzgNwJ1WogJ4
+ e5W3Lzk27yNoigk0rXYSGVFxDxl2FNBPLipF4NHNlVlVdvSXswKTZhNH3Kgbx4QDMZxSc6/xLS
+ +bhvbsHdnpvwIKh0+x/92/zsu/imcflPa9y8+TTWJgQAAAA==
+X-Change-ID: 20261018-virtio-gpio-irqchip-immutable-9b69717cba4c
+To: "Enrico Weigelt, metux IT consult" <info@metux.net>, 
+ Viresh Kumar <vireshk@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3982; i=francesco@valla.it;
+ h=from:subject:message-id; bh=JJwrWqNQeqCeW8Tr+AOwLRCFkqBwP/40DqtliOwP7FA=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFkP5nvy1E7XsqpNfFSQ9V5IuvCiYAzTXqG390PLbR+Vn
+ nCokP3TUcrCIMbFICumyBKy7sa9PXPNv6VtYHwEM4eVCWQIAxenAEzk4mWG//XTf5h93TMtV7Jo
+ e0uelt5eX4N1dk0RguqtlW73OIW9dzAy3L8RL88+09sj3zZkXcyum29v3P18S641NeDt5EOHlga
+ zMQEA
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: bc732c2ebe1f2d72237be5a62c5d01ca
+X-AntiAbuse: ID - bc732c2ebe1f2d72237be5a62c5d01ca
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xLgiR-000000003tD-1Fc3-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-8v6p.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On 10/26/26 10:33 PM, Karl Mehltretter wrote:
-> Commit ecb6817b769f ("io_uring: end the drain when the drain request
-> completes") lets a request submitted after one drain overtake a second
-> drain that is still running. This breaks IOSQE_IO_DRAIN ordering for
-> both standalone and linked drains.
-> 
-> An LLM helped with the review and reproducer.
+The kernel has been warning about non-immutable irq_chips for quite some
+time, printing messages such as the following one during initialization:
 
-Please have your LLM also make a patch that you can send out,
-then you get credit for fixing it as well. Same goes for the
-other one you sent out.
+  gpio gpiochip6: (virtio2): not an immutable chip, please consider fixing it!
 
-> No privilege, special device, SQPOLL, or unusual setup flag is required.
+Convert the gpio-virtio irq_chip to immutable and add the relevant
+helpers. The exposed name is kept the same as before through the
+.irq_print_chip callback.
 
-Puzzled why this is necessary to state.
+Signed-off-by: Francesco Valla <francesco@valla.it>
+---
+ drivers/gpio/gpio-virtio.c | 41 ++++++++++++++++++++++++++---------------
+ 1 file changed, 26 insertions(+), 15 deletions(-)
 
--- 
-Jens Axboe
+diff --git a/drivers/gpio/gpio-virtio.c b/drivers/gpio/gpio-virtio.c
+index ed6e0e90fa8a..d443b8c0e813 100644
+--- a/drivers/gpio/gpio-virtio.c
++++ b/drivers/gpio/gpio-virtio.c
+@@ -17,6 +17,7 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/seq_file.h>
+ #include <linux/spinlock.h>
+ #include <linux/virtio_config.h>
+ #include <uapi/linux/virtio_gpio.h>
+@@ -243,6 +244,8 @@ static void virtio_gpio_irq_enable(struct irq_data *d)
+ 	struct virtio_gpio *vgpio = gpiochip_get_data(gc);
+ 	struct vgpio_irq_line *irq_line = &vgpio->irq_lines[d->hwirq];
+ 
++	gpiochip_enable_irq(gc, d->hwirq);
++
+ 	raw_spin_lock(&vgpio->eventq_lock);
+ 	irq_line->disabled = false;
+ 	irq_line->masked = false;
+@@ -265,6 +268,8 @@ static void virtio_gpio_irq_disable(struct irq_data *d)
+ 	raw_spin_unlock(&vgpio->eventq_lock);
+ 
+ 	irq_line->update_pending = true;
++
++	gpiochip_disable_irq(gc, d->hwirq);
+ }
+ 
+ static void virtio_gpio_irq_mask(struct irq_data *d)
+@@ -532,11 +537,30 @@ static const char **virtio_gpio_get_names(struct virtio_gpio *vgpio,
+ 	return names;
+ }
+ 
++static void virtio_gpio_irq_print_chip(struct irq_data *d, struct seq_file *p)
++{
++	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
++
++	seq_puts(p, dev_name(gc->parent));
++}
++
++static const struct irq_chip virtio_gpio_irqchip = {
++	.irq_enable = virtio_gpio_irq_enable,
++	.irq_disable = virtio_gpio_irq_disable,
++	.irq_mask = virtio_gpio_irq_mask,
++	.irq_unmask = virtio_gpio_irq_unmask,
++	.irq_set_type = virtio_gpio_irq_set_type,
++	.irq_bus_lock = virtio_gpio_irq_bus_lock,
++	.irq_bus_sync_unlock = virtio_gpio_irq_bus_sync_unlock,
++	.irq_print_chip = virtio_gpio_irq_print_chip,
++	.flags = IRQCHIP_IMMUTABLE,
++	GPIOCHIP_IRQ_RESOURCE_HELPERS,
++};
++
+ static int virtio_gpio_probe(struct virtio_device *vdev)
+ {
+ 	struct device *dev = &vdev->dev;
+ 	struct virtio_gpio *vgpio;
+-	struct irq_chip *gpio_irq_chip;
+ 	u32 gpio_names_size;
+ 	u16 ngpio;
+ 	int ret, i;
+@@ -588,26 +612,13 @@ static int virtio_gpio_probe(struct virtio_device *vdev)
+ 		if (!vgpio->irq_lines)
+ 			return -ENOMEM;
+ 
+-		gpio_irq_chip = devm_kzalloc(dev, sizeof(*gpio_irq_chip), GFP_KERNEL);
+-		if (!gpio_irq_chip)
+-			return -ENOMEM;
+-
+-		gpio_irq_chip->name = dev_name(dev);
+-		gpio_irq_chip->irq_enable = virtio_gpio_irq_enable;
+-		gpio_irq_chip->irq_disable = virtio_gpio_irq_disable;
+-		gpio_irq_chip->irq_mask = virtio_gpio_irq_mask;
+-		gpio_irq_chip->irq_unmask = virtio_gpio_irq_unmask;
+-		gpio_irq_chip->irq_set_type = virtio_gpio_irq_set_type;
+-		gpio_irq_chip->irq_bus_lock = virtio_gpio_irq_bus_lock;
+-		gpio_irq_chip->irq_bus_sync_unlock = virtio_gpio_irq_bus_sync_unlock;
+-
+ 		/* The event comes from the outside so no parent handler */
+ 		vgpio->gc.irq.parent_handler	= NULL;
+ 		vgpio->gc.irq.num_parents	= 0;
+ 		vgpio->gc.irq.parents		= NULL;
+ 		vgpio->gc.irq.default_type	= IRQ_TYPE_NONE;
+ 		vgpio->gc.irq.handler		= handle_level_irq;
+-		vgpio->gc.irq.chip		= gpio_irq_chip;
++		gpio_irq_chip_set_chip(&vgpio->gc.irq, &virtio_gpio_irqchip);
+ 
+ 		for (i = 0; i < ngpio; i++) {
+ 			vgpio->irq_lines[i].type = VIRTIO_GPIO_IRQ_TYPE_NONE;
+
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261018-virtio-gpio-irqchip-immutable-9b69717cba4c
+
+Best regards,
+--  
+Francesco Valla <francesco@valla.it>
 
