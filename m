@@ -1,62 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793113078;
-	b=CgQzPIHTFvDZzaYzFQFZmFjJLPyenVdVCkoO0IjkUr9aHOoVfUFezFKf8TQ5MIw9aJ2T
-	 NWQZ4mtqZzVg63/oNjgGgTb/lbbNm4+930POZW/RHdHXl50NKspTEwVkCD/zOY4ZxborI
-	 wnmmjaoCtgOa6ADGKXcpLaCHU5sM7PJ5JZqPmGjTq6U6bevr4Ua6BRl1xKyRnfhislv25
-	 Ww/Hd+zZBMXjkez75JXqd5L+68ryOBT3OhqrGScIXPlE9ij9t5rmdonB4xlEO7LlGzzKQ
-	 nKQw9jmurzbglhP1b0ZzRSnCjqQ5If1WVRvVjArvjfUO3TcIZHOBw1oUTT6skAi9Kbg==
+	t=1793113093;
+	b=TDrbZzxzQ7uOCWzdoXWJEHiBuTnqogkz30S2eTqRw23E8lN1tojCSulHcXdtj5/+ms1L
+	 /c2N84rAdzIyagbqcGTIhC1zUF+mNfZqKYXFWDR04rSzi3cnn2i0wGQwRzy+BxtbIms7P
+	 tOLPoL/Ax+zFvSXYnoBAtw8LFuAzrbXqZtidWGopCywTzRA1Y3Hcdt9IOrhg7syfL0vbL
+	 /h3Ix3iRvMHkE8P59sBm/p/fke7LaL31KnlHRGPjtjsReRK6MkDyOlcomvWI6b8gxNbyT
+	 dMnn9S25mQRIKVpmFbiPLl4T7OzShGuxqejvQ1uMzQRAQT9eGZN29dqNUd2JDQtwSRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113078;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fOIiJ8JXePL2+4wv46vzGrkknmQD8qYWdV6yhTVlKzo=;
-	b=FOqVw/CiRO9MTG9CeNotI53IithmgqTOp5457yJAVXcig8ISp7Q+2ZFYPExAHOVyMA7+
-	 AIgK1TkTM8iAkXoO09PFGexeoT4RAtJ0l0tEuqU3ekLAzhgTa86nGs1sGirVlY2O/AwVF
-	 is1GMHHt4iFI8UwcEvFZj47Geq2r5NWL4gTmQxGjqjmJilOqP8DmxJB0aIeXM2g8RDsem
-	 BvXF4CrL6sRWjCGzz3+mhKA1u3RLSLhXeQ+JkRhzujVRgd0jedbK2yBuz6mkkPAFYUpDt
-	 Exr6xHlFfG4mnC4/UrCOXz7I8Ng1FqSf4G8MpHxAq1LsV6Ts6/1UoNYJQUJfwc2V/hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113093;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+d76iK+wGwS4qh7tYPP2y929nfoTrTw5AvjyrknUZPM=;
+	b=AuL0fu2/JEjVNmu1ZS7SNorvnT1I/J+6NjHd0HC1YGAlF6Tjuh2MS/xWkzjHQH7NtnOM
+	 N1ITH6EA0IyhZvwzBxqcmCZo3mXtrFxu0eXVica+0MwbmnjtGs+xdL0ShEo8rcoBWMYar
+	 Wia5/GGnzw51u0tm0wcVeXz+KYjP4v+X7D+LbrKxndneS9AouvqYeNrcU/K3XEw0BuVaE
+	 YsREC/hGipnFqCETmh+CyOIezskucc8obYZutRhk41tHPS4LArIPQwq9zJFLUupKBodWp
+	 sJXx4Mk6otxRU04JTESDtaIDxvA8NLD8hiBeHYaPZegLUy/ZGY5F7ypspMFq8sfk2nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZ9H78KO;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GGmtOW27;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A106606A335;
-	Tue, 27 Oct 2026 14:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773B960A3807;
+	Tue, 27 Oct 2026 14:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZ9H78KO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2201F031E3;
-	Tue, 27 Oct 2026 14:57:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793113078;
-	bh=fOIiJ8JXePL2+4wv46vzGrkknmQD8qYWdV6yhTVlKzo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QZ9H78KOsUn8YOcMuud+QSkEbmgph/VCrT9Y7/Cimob1ZE6aLammd9fcdbmDg8brj
-	 2tz7i996m40glew/smJOea3vYSaNhKUgsdAOM8H8XFfBJlOaXXrDeOl3uQ06CTUMVY
-	 D0R6JboK4Q2hlkmkRgitdKH0D1Y7cHAZeOo1xAwykWRLbCGsrbXLCNWkUwCCBf7XU+
-	 UUsnU4Y3QhbgjWXLY1Z1lQPeukFDnnm3y8Mz5/pSgzJAR25XJt7V3fsoyHE18JjGqx
-	 ZTf5f0jQ+BX0BQWjpKGMAl4WH42bQ8HOw3hIaZKu9lRcNW8ydVYtGc9ePIHvTmdp+o
-	 8Pcnd9DZwx3iw==
-Date: Tue, 27 Oct 2026 14:57:49 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, Jeff Xu <jeffxu@chromium.org>, 
-	Andrey Vagin <avagin@gmail.com>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	linux-mm@kvack.org, linux-hardening@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 2/3] mseal sysmap: Allow with CHECKPOINT_RESTORE, default
- off
-Message-ID: <auC7SFhV_qj-agQp@gremlin>
-References: <cover.1793094611.git.chris@chrisdown.name>
- <7ff59c2ab6c234ca4d799f862eb7c3f22d671f99.1793094611.git.chris@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GGmtOW27
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66291F01828;
+	Tue, 27 Oct 2026 14:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793113093;
+	bh=+d76iK+wGwS4qh7tYPP2y929nfoTrTw5AvjyrknUZPM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=GGmtOW27XK7cS3rJBtFlrVwAF035IlidqBGrpGuj8XjKV+vicEanXGZzvG1AzPr6D
+	 AsBz4v1GUKUWiVpb7QUD8yxKAFccwg1Fp2DBa57Kkqh2f7YoOJ8L+ipWYQg+bGv/uV
+	 l2v4eRhcKKvZ7/NfpI/ajPXohtRe6eX8q01U2KwA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Tue, 27 Oct 2026 15:57:47 +0100
+Subject: [PATCH 07/19] usb: gadget: bdc: the resume callback is optional
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,37 +49,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7ff59c2ab6c234ca4d799f862eb7c3f22d671f99.1793094611.git.chris@chrisdown.name>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261027-llm-usb-v1-7-b9751ddb9c7c@linuxfoundation.org>
+References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+In-Reply-To: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+To: linux-usb@vger.kernel.org
+Cc: Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Josef Bacik <josef@toxicpanda.com>, stable <stable@kernel.org>, 
+ Justin Chen <justin.chen@broadcom.com>, Al Cooper <alcooperx@gmail.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Neill Kapron <nkapron@google.com>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1469;
+ i=gregkh@linuxfoundation.org; h=from:subject:message-id;
+ bh=SxgH2L7C/xqN8XBmK82H2ka3tAQqLKL9y9o/JhRYmU8=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPdr+zefu2ozPQSlzBN+K0rCVTdb+u7e45Yh1cv2oyw
+ /51a9V1xLIwCDIxyIopsnzZxnN0f8UhRS9D29Mwc1iZQIYwcHEKwET2ezIsuNa+cdb6t3qyecyi
+ D47N1p7xP7PYlWF+mAOHZO5HAVsf+dVNUnnLlru0zFwFAA==
+X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
+ fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-On Tue, Oct 27, 2026 at 07:43:17PM +0800, Chris Down wrote:
-> MSEAL_SYSTEM_MAPPINGS depends on !CHECKPOINT_RESTORE because CRIU moves
-> system mappings when restoring a process. Now that sealing can be chosen
-> at boot we should instead use this to determine defaults.
->
-> Let's add MSEAL_SYSTEM_MAPPINGS_DEFAULT_ON and move the dependency
-> there. Existing configurations retain their behaviour. Kernels built
-> with CHECKPOINT_RESTORE can build sealing in, but will only seal
-> mappings when explicitly requested with mseal_system_mappings=1.
->
-> Hosts can also share a kernel built with MSEAL_SYSTEM_MAPPINGS=y and
-> MSEAL_SYSTEM_MAPPINGS_DEFAULT_ON=n, enabling sealing only where needed.
-> This lets hosts which need sealing share the kernel image with hosts
-> which need their system mappings to remain movable, which simplifies
-> deployment.
->
-> Signed-off-by: Chris Down <chris@chrisdown.name>
+From: Josef Bacik <josef@toxicpanda.com>
 
-Sorry, NAK to this patch. It's adding far too much complexity.
+handle_link_state_change() tests gadget_driver->suspend before it calls
+it and sets DEVICE_SUSPENDED, but calls gadget_driver->resume untested
+when the link comes back. gadgetfs has a suspend callback and no resume
+callback: with it the first bus resume ends in a call of NULL.
 
-The honest version of this is removing the CRIU dependency, and since it's well
-documented that many things break if you use it, and the config option is
-default-no, then it's kinda your own fault if you insist on doing the broken
-thing.
+Fixes: efed421a94e6 ("usb: gadget: Add UDC driver for Broadcom USB3.0 device controller IP BDC")
+Cc: stable <stable@kernel.org>
+Cc: Justin Chen <justin.chen@broadcom.com>
+Cc: Al Cooper <alcooperx@gmail.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: Neill Kapron <nkapron@google.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/usb/gadget/udc/bdc/bdc_udc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-So I don't think I'd mind that, and it'd make the change simpler, as you could
-fold it into patch 1 also ;)
+diff --git a/drivers/usb/gadget/udc/bdc/bdc_udc.c b/drivers/usb/gadget/udc/bdc/bdc_udc.c
+index 7a12219edac6..88a8f6550e02 100644
+--- a/drivers/usb/gadget/udc/bdc/bdc_udc.c
++++ b/drivers/usb/gadget/udc/bdc/bdc_udc.c
+@@ -218,7 +218,8 @@ static void handle_link_state_change(struct bdc *bdc, u32 uspc)
+ 	case BDC_LINK_STATE_RESUME:
+ 		dev_dbg(bdc->dev, "Resumed from Suspend\n");
+ 		if (bdc->devstatus & DEVICE_SUSPENDED) {
+-			bdc->gadget_driver->resume(&bdc->gadget);
++			if (bdc->gadget_driver->resume)
++				bdc->gadget_driver->resume(&bdc->gadget);
+ 			bdc->devstatus &= ~DEVICE_SUSPENDED;
+ 		}
+ 		break;
 
---
-Cheers, Lorenzo
+-- 
+2.56.0
+
