@@ -1,100 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793115264;
-	b=XNWsa8zP6C1Ad90BRjASFgiqFvxER9sRdWSIlkgj7ASef0UgAfUu0vH2sVRMxmoby3mR
-	 CJ/v1QTWgbiAhnMKklocR9ts0wUIkrOZ6oKVGbcaLQoL2u4TJczdSOxOnAhrSRz/eSbeJ
-	 bCVYblyB/B8GnowKbBc3VnJasGw0HlBK8Hzj+LgJmqPA1pYBsSD1TANQLfXDwavIQVyxZ
-	 tUvq6vhxl/pk3dJMV6woMRaepGV+U9jAOQfkmQDqWYw99enUyaUwWHrsPh2sr06fuo2Gj
-	 QbENyVomBLkVipvs6Fd0dbWs2eAHpoOKxxi4sp6Jx7mnnPTyMDn0JfCmwihANAcYqgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115264;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3BCqo9DTVlGvGGt63tyjWLqgcTRJp5lddshmK2HXV3Q=;
-	b=J7hGwnWxpuwcJvtDEZ3MRBZ6Uyz3XjYXc8eieWkD1UcCW1PzhGipACdXz9OvPYgJDm9g
-	 4QOfcdobTu2KEcTT7JEGQ/7axC7SlPr3Pe1J2luYzg1ltEvuoF8JFtC8+X+GY4DUyh3t9
-	 1k7GB/NLmDvnAK0RX9Q/vaR/xm4/6wI6zom4SkefVz4lLdHCz5hT+7znNCwPvs7pEHprP
-	 Kk7e57MdXkO17TV8w/MKYETyj/9M3AtN9kO+rvSxtTLuE0wM6krDockEukjFNk6jNBStg
-	 lqwURP0gFiEzxK2OipSHt69xQtcPpxiEd+1R/W1FOTl56nGr38y0t7MLnveeTQOke9g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I2CXkr71;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793115285;
+	b=x2oplR5E0jdBgF2Ayzm+fUqrUzLv/05MJnuEt8rfTq5DjCroe2nyV6SMr5t++rWuzxsn
+	 N2rs2omBGmKCrJbRCRZk9TUaCXKvdm72etdGCPYl0o5/YouCkGz6FXpqmielERQ6kH8Xk
+	 wETJA7iNdhPsmE8WEOCRSjEk0dlmy69zCcjdeb3PxOk9fMZv/5mgUHRWheQ3Hqgohz7Yx
+	 dUUj5hu1JYdtx0ua68O0k8xj6ghJLfVdYzB5KFv91Pw5KFtxFto5WpKcIIG6oDVsOjWVf
+	 9fdvf3JSWRtIR5t0NMOXIVjfY7nWewA1OmTie8TL3GjfeZzKqPPGPzEBaTAnxMTE5Dg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115285;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=syD++ytwmVWxJtGfHI8abOuUUYru2aIJFUXyJ4SbMjE=;
+	b=OOiR1uuVqGk/yJHWXYnwywFKCTAYvuWEqnTqfaby0F9g8oQ4A9Gdc363331WBirgi5e5
+	 7+RDbgL+/7Szx+HQEBtRjKiThSVOxVxNbNTeP3Q+T/jAiCeFZ42XMw9RHABUyffefrqXV
+	 O6ypPtqeON+FcOjupsaGXAMGGLJTxzo+12vcfZ1GInboBBOxAy2gJBihnQYm8KhmaWEa0
+	 NNXbOmg4DVZ1gcQFRqHx1sdQhqVaJEq+5yoEi/xa+Zpu9B2WIw5m6pXkNnXWdIxC4wbL8
+	 jOSokb8SDqjrClbCfL57yE+eovQLvviAsa4Mcv2DVnKqtHvCkxXylQoA4HUj1zSJnZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VKzNRe3N;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PS6lTxQQ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46359606A323
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:34:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46359606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45494606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:34:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45494606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I2CXkr71
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5337c7b9937so380711cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793115262; cv=none;
-        d=google.com; s=arc-20260327;
-        b=X7InJp5aDeRCWFvx+JM1cfch4f0swstsNakRugCZrsBSlfB8bj8T7u4+XwYp3SDaDM
-         W6AGrV2ZLmdMOYrRPsnnLDG4AXYuAPgF/2ytl/Y2FowsLMhsGpjNcygYbjJMrzlWJ4rv
-         MLKxd1vbCX2DJRrjxh6VKQtOWqrYeaXOvJGrit6DoWvJ7a3waztSDiOzjQavLf+TDHzg
-         cH75+EabHXXiEI7UMiAVUQio/QJlTFYTHYv4XXJfJFi0Q+8YNd8lZlZTOK0KVUxm3rxA
-         l2c+NNPDuBLyCVSs0bDNIiKHxjxXDYUeyZw4j0wO8KnyyJMtbXU3/+lOT3EWSaeFYYqk
-         sneg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3BCqo9DTVlGvGGt63tyjWLqgcTRJp5lddshmK2HXV3Q=;
-        fh=NufRlSa64cZyHyQPqFRwQFLwlOXF41MY4IdPhnfH/Mc=;
-        b=in7+2LYh3kLGfbjJKUBRU322xvdziRbR6NhdKAKJI1HwR31TLKT4z3qkdoUlONSJnF
-         LpwWulOdcKbz3UTMtnK4dNj5QQvtMvokWgnmxEnI19IWS3fhPfp+kaJTZculqeYtkp+n
-         4OSQC6NOqetR8c+czwqBohiOysoFMmdMCLCVXmorWUIbS73kzhI5t9XFvt832Dqj5pnJ
-         HJuNRD7adWRLdZtKslq8cfVcSUtfexVT0l1EDjglp50ib5NVfxCHwgkj+lT6VFxPZxCu
-         EAxLuC8IMjt5nH3oHLqPRhh0X1Cc8aoS16lfMAxEcbEJ4x9DBZq18O0hENbjESjY/TXj
-         pmIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VKzNRe3N;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PS6lTxQQ
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RFL7ft2549207
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:34:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=syD++ytwmVWxJtGfHI8abOuU
+	UYru2aIJFUXyJ4SbMjE=; b=VKzNRe3Nojh20JcuWbwd2+fSIhUSQaVXcSvs9MSp
+	fok1SmOmWKJA8bF/nqH2hioiQkkEyc56EOLGiTW4YRFCfWA2laCWLgCdJlUSp4Z0
+	5OgJmmgZtWUAYo74EoOHrCm895/Cp0OvF3GYBcbU0U8SVCJt8jQv8c4b7Vl0LQqC
+	UOqRLM+oHibom/s6856oR5engEkInoskYppyPYV/6QfYsqWYFlkMD8y38vQzeBG4
+	PXLdtVp9o4B2I8LBnfkqrGS7oWQvd8fVHuodjEJDERrUK+/GANZCKNpRNoGm5ms7
+	x9ayPuZgmXLdxoO3Qzf/sJrGWr/Ped0/YKFoTegq6/+D1A==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjrq69ndu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 15:34:44 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93caf7856ffso1017843485a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:34:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793115262; x=1793720062; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1793115283; x=1793720083; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3BCqo9DTVlGvGGt63tyjWLqgcTRJp5lddshmK2HXV3Q=;
-        b=I2CXkr71eslqj+MzkCc6GenReH55B9jr5dbqHpx5xXwrh5A5nfe28mCtZJLFc93rts
-         kzzut8h77lK+HBp+hUYOY/JB8iTND4LYg0o9AoQimbHDYAI+3D57aAXgh+ZC/e/MGGuj
-         fa7JcnFzV7NGUmxEPO55U8my+uiduAIt66MkZja5GFG0Aq/0iYlibtrXLvVxHs2wGymj
-         L9bIjOnqL33y4JHjuneWUxb85XsIqsyoKKp4BuvfrHC9hgD3YvPCOefOWOU2tERQGbaE
-         lQGM6tym4I0WRUaQq3QvWDzQCw8F0vkyJjuEizNzcgub7zA8OHwvq2kZYygY7fFyni3w
-         tKLA==
+        bh=syD++ytwmVWxJtGfHI8abOuUUYru2aIJFUXyJ4SbMjE=;
+        b=PS6lTxQQjNKHMS7hK+1p7ai0Ju45GTgiU9e2FDiGw8FZdubn60KnHqdq1SgHuFJsVh
+         /xQ7vN09qUSkZjp8FhaV1RAanzT36tW/PDFVxNMSyBXrLHe7KKDRPPjQ+Ygp3GhoPwBs
+         VXucfT0pShdPNuxhro9wedkGjqXw8N88aohyuV4CEzLfscFShxyIgm9eJlyhJqBSdcXW
+         uiq5BMl1y5YlEr9+15bDvrXI0luy+4pP49LIXWkhD1nY7cfvkXHne3K9NXnibl3Um0JM
+         gOQk9CvlpVXjox9p/SlPkay7JU/s/0CX2uZwPPOQNDEAJQLrcVqTBpRGuGAS4n2cuelE
+         mL+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793115262; x=1793720062;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793115283; x=1793720083;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3BCqo9DTVlGvGGt63tyjWLqgcTRJp5lddshmK2HXV3Q=;
-        b=N/Ys/rlC30RwDhSBMVB+jCt/i2BmoT97gVcKZY3Uq1FCMCPHMuRC7xSAQQF21zGukF
-         /bIaG418oGDK+UnD2C9YsMk6gCAPdEHWOytq7gjZQZVdHwFVeRn6p6KKK+aCOGRndi9Z
-         qrlzai++pgBUfU1oIsLPdUoDRmDRQlghqLQ4/Op++RxAclEOfwbcx5+reQN0DjL4kJZ8
-         zeusv6vdCbKBO9BOrbER6E9BP6H0uOrB52xUKm7C7blc1p7lHjchl8O8b+RQHuNSdWtd
-         Izt4grtmK/ZabRhJwrAbelhr7Jit0qAxNPGZzOHB4nqG08/D2ORUWmFlSGStbEhXWRE2
-         bcHw==
-X-Forwarded-Encrypted: i=1; AKwUvBynDNq5vZhjAehoN24xVmWX1xesi8HOyypeqYS0kTBv1RThS3ntOUeKkk2kavK1NxUaGeYrAiOyfgfA0dk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJLiuB03HKen3LNU3OhFHEh7BDu3oQW+PA5UVl3T58xCl6RmrI
-	bxPWPNcU+pg9IB8isAlUSfj3UXOwmY9kah0Ww/LwaBe4vSuNFrImCXl1yBzoOt+Ph9uNykD39I7
-	GazfsoUv6j+IugZVo32iLsaJbhY4/64H/57Lf2T+F
-X-Gm-Gg: AYBFou2YKf6DOKQxCv2bKHGRk5V/2ZLQodI2HQ6hUnQ0Zc/1/CiY9HSXwzz4z7M04Nr
-	JYJ1mHtc0MvUIZ9wUalt3Aaa6A4kQRmpAbSk7jgCpiahL0Z3btVRXOYEEZtK5zRRRIMdDEipJJS
-	aTEmYQi8zqIzs+L91hlGkLirg9Ypb4upNR4+w/s6o/A/DLgIOx66o7UKzJyiwAM94ugQ51Jw5BL
-	//D/bm5BKuwCcvwRF1hxvmqdvj5pHbBxh3rg4S3ACmKoQzQ3a1IuR1m4K18KLxiXHPfY6c2kkEL
-	L5UGMO8zzqCDaBU8nbirjcATWPcwrut7WLbmWJo8+GoCkf/viEfvWZdr7qzri86GKZfO4vIFNLr
-	T6XMp72uWIQTWeKXxQqf1WpaTXui6dCapvv0AcOeVQZE0yJ80X2ZIPXFjXQqSIiQttw==
-X-Received: by 2002:a05:622a:2616:b0:535:9aa3:5ebb with SMTP id
- d75a77b69052e-53e75218a9emr18868671cf.8.1793115261144; Tue, 27 Oct 2026
- 08:34:21 -0700 (PDT)
+        bh=syD++ytwmVWxJtGfHI8abOuUUYru2aIJFUXyJ4SbMjE=;
+        b=Vcw4dCsSj2asnHCBwVo5k1lkEmyVeh3G5Xvs0QSKmTLs32aUz/7c4B3z9mq5b95rq6
+         7qJ/mv4LIgOl/j69d8HXjjy7PU4oLs4bEByqgSSC1YzsopvOTpt8dvzq9KTTuA2iry+c
+         CScMjosWY2BgQ4Jy7CGxRgAXvYXefm4uVU6rGlqcB4ks3oKycJSHHCh8aq17J2uOHYZB
+         3PNwaOBz+BMQyp+KFV7IlJ5joXpcxZF+LKfy87ajDSamP9OY6SNT26o3fcK5RW6lCLVz
+         byjHnkYbNi6bJD2CRNfFH9a5qQvB/rTKKRGzzxZcXP3zNVh2ZWNVuDsauda6yWpn3h5N
+         4mig==
+X-Forwarded-Encrypted: i=1; AKwUvByKcMEhF0znJVcuTm0wRde8sO6IqZJlE7kERUyZQmlg+B9Jev//JEmJg3BvQUn5wJdkzGuZKlIuSPYrEqY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLi3t1Ns7DE9dgGf1vI0KJmNvaOnHmmFs2E/EQm+Qpej7zAAINm
+	NTU6ExSaG8DpHFir76ovQUOR9PwyPOS0MqaXmZrJMH6CgeLtL4QZ1ojlIohrGLKvGlTrv2oov1J
+	XoXO/qAdi1l/r2K4GX+foxfRcGaQ/SK/woXjfDmAS5Y57pfxRkPKjTv20/rB6Cw3rh1k=
+X-Gm-Gg: AYBFou3kb8j8KtAm858YwTLfG3DBPGziI3fOc6nP8CZMykRe6bX75ilF3pjqdeXRknl
+	Bv5xvXnRPVrhlUY0T9+0EeeWPpfvjlbBnm/Zx5a3m1U16sEtDDgFAjkKv62Odh37a2SKWw6E0nB
+	62JNtHFXinF/bOB4HXnl4XLvMD7OQBmsZ/zEGQlMqcVX9ybLJpV+sr51uGiv+iTU4tn1QAG7AO2
+	Pu7N1lOnxcJi/E9LH52QhpyAbW1JV/IiajB3XKjsJZV2jsrHKk5rAtA5Fv0vS5b6sHy7QrNetGN
+	ynn4wcTqAjLMRXLLrVlGhHi96ywyxLXfyuNvw93OpYQAW9lV7JPqqt5Z95GdtyaGAa83lJiZsVv
+	r/m/oQyFXxorXcf6W
+X-Received: by 2002:a05:620a:6286:b0:93e:6f65:de63 with SMTP id af79cd13be357-940ef8f8310mr1655474685a.47.1793115283192;
+        Tue, 27 Oct 2026 08:34:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:6286:b0:93e:6f65:de63 with SMTP id af79cd13be357-940ef8f8310mr1655467985a.47.1793115282534;
+        Tue, 27 Oct 2026 08:34:42 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f387sm23217567f8f.4.2026.10.27.08.34.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 08:34:39 -0700 (PDT)
+Date: Tue, 27 Oct 2026 17:34:36 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, andersson@kernel.org,
+        konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Subject: Re: [PATCH 2/4] firmware: qcom: scm: Allow QSEECOM on the Mahua QCB
+Message-ID: <527ui7l3vbr6bzfqvlyre4lhw45323eqmfuy2ehqdiqvzzpmar@oztr3ibem4od>
+References: <20261027114955.1266499-1-sivansh.gupta@oss.qualcomm.com>
+ <20261027114955.1266499-3-sivansh.gupta@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,395 +122,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org>
-In-Reply-To: <20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Tue, 27 Oct 2026 08:34:10 -0700
-X-Gm-Features: AclHuK_escKhxIfcgdWHS93RIjhc6nNSVRM5pRyb491eVnaMJqYuWsz74l9RKRk
-Message-ID: <CAJuCfpELhxhyVQANspX14OBLbghiAqndYcfv1hnmh4Nvo=1vAQ@mail.gmail.com>
-Subject: Re: [PATCH v2] fs/proc/task_mmu: fix missed VMAs when reading
- /proc/PID/maps and friends
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, SJ Park <sj@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org, 
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027114955.1266499-3-sivansh.gupta@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=RYwFmFtv c=1 sm=1 tr=0 ts=6ae0c494 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=pfxcL939j8YmDoyFsLgA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: pX7uFl0OzQV9Akv3WYxazIRKVv9o-zqz
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfX5S5jpTz0qDXV
+ OWnelZnDFHjvHNvLyzl60QCnKwJ1aRie+pEcUxajefADtRbGqwPrvDtXBS9yVKhJo3Enw9MX7Tl
+ wdCxwWdH3DqiAicNUYaWiBzxTNUnU3Q=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA2MSBTYWx0ZWRfX4l6H6pjSlNoT
+ OPOBib0Zx/hOCkigGlamfdH+qY8DGv2//7T1US0LcB/vOc3iED0BNxP43rN5keYUCkUIYv+yKaZ
+ XTmntLVCd4Q2DRqlcEoXFhtZsOSNYVR7wnnobhEIU0yOdcU15XYNueq7xxwh5z6XDg1UHhlvkYJ
+ B9MuTG3CW4XQhRbRXaNdAd3mHho6H/u54tx2EkU4ccKxbq4eAiQ4ce2WuziELDsefmw0jelfuVN
+ 6OaS8C9GWkyynfZlEAtblY1c0ngNNBtGPI0CpKkh7g/bUThinrIJI90r1xkUiMRYCHmsrRGmSxd
+ K9txT4r5kBu6zdHLPlsVRvZIBE/gdajJWcTeHcZ+WERzpama316ZXyURroTSHIU0oqfiWhYMYJH
+ 3CcnomQRwjBeozd5PL6yhBc7llK5SHMAi2UgrGRURgtdgHwIuQKqye9XfyMvimjzy4tQBWXZdSx
+ mf3Z1DRMNHmU0puYeeA==
+X-Proofpoint-ORIG-GUID: pX7uFl0OzQV9Akv3WYxazIRKVv9o-zqz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 spamscore=0 phishscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610270061
 
-On Tue, Oct 27, 2026 at 7:08=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
-rg> wrote:
->
-> Reading /proc/PID/maps under per-VMA locks can skip continuously mapped
-> address ranges during concurrent VMA splits or merges. This violates the
-> guarantee in Documentation/filesystems/proc.rst:
->
-> "If there is something at a given vaddr during the entirety of the
-> life of the smaps/maps walk, there will be some output for it."
->
-> lock_next_vma() reuses a tree iterator across calls under RCU. The iterat=
-or
-> remembers the range of its last entry. When its node is replaced,
-> mas_next_slot() walks the tree again at the last index of that range, the=
-n
-> advances past the entry containing that index. If VMA boundaries changed,
-> this can skip a range that has not been reported:
->
-> - A lookup finds [A, C), then mprotect() splits it into [A, B) and [B, C)
->   before vma_start_read() locks the first VMA. The reader reports [A, B),
->   but the iterator still covers [A, C). The next call starts from B yet
->   advances past C, omitting [B, C).
->
-> - The reader reports [A, B) and unlocks it. A concurrent mprotect() then
->   merges it with [B, C). On the next call, the iterator resumes at B - 1,
->   which now belongs to [A, C), and advances past C. Again, [B, C) is lost=
-.
->
-> Checking the mmap_lock sequence only within the next call misses writers
-> that completed before that call began. Also, a NULL result is currently
-> accepted without validation, so a race can terminate the walk early.
->
-> Even a fresh lookup can skip a mapping. Suppose it finds a gap before
-> [B, C). A writer inserts an adjacent VMA at the end of that gap, then
-> merges it into [B, C), replacing the node. The lookup resumes at the old
-> gap's last index, now inside the merged VMA, and steps past it. The
-> original [B, C) remains mapped throughout. Repeating the forward lookup
-> is insufficient: another merge can make it skip the same mapping again,
-> returning the same later VMA or NULL.
->
-> The fresh-lookup race also affects /proc/PID/smaps, numa_maps and
-> smaps_rollup. Resetting the iterator after gathering each VMA's statistic=
-s
-> does not prevent a merge during the next lookup. Fixing lock_next_vma()
-> also prevents omitted entries and incomplete rollup statistics.
->
-> Tie VMA iterator state with the current mm and the write generation at th=
-e
-> point of last mm speculation in vma_rcu_iter, whose values we call 'rvmi'=
-.
->
-> This allows us to neatly abstract the existing priv->iter logic alongside
-> query_vma_find_by_addr() which uses its own VMA iterator.
->
-> Then, provide helpers that act on the rvmi - vma_rcu_iter_[maybe_changed,
-> may_have_skipped]() to determine whether any VMAs may have
-> been altered since last mm speculation.
->
-> Additionally introduce vma_range_is_empty(), used by
-> vma_rcu_iter_may_have_skipped(), to determine conclusively whether VMAs
-> exist in a set range, needing to be traversed.
->
-> Original fix generated by an LLM and sent by Josef Bacik in private, then
-> amended by David Hildenbrand, and Lorenzo Stoakes added additional
-> abstraction.
->
-> Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma =
-lock")
-> Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} u=
-nder per-vma lock")
-> Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per=
--vma lock")
-> Fixes: d9d1c2d81797 ("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under=
- per-vma locks")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On 26-10-27 17:19:53, Sivansh Gupta wrote:
+> From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> 
+> Add the Mahua QCB to the QSEECOM allowlist for enabling access to
+> efivars and the UEFI bootloader.
+> 
+> 
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+> Signed-off-by: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
 
-Overall the code looks correct bit I have a couple of questions below.
-
-> ---
-> Note that I decided it's best to defer any VMA iterator stuff to a
-> follow-up - with the abstractions added it's clear what's going on and
-> easier for backporting.
-
-Ok. But once we get VMA iterator validation routine implemented, we
-won't need vma_rcu_iter and its helpers, I think. Are you ok with the
-fact that most of this change will have to be removed later?
-
-> ---
-> v2:
-> * Took over the patch to make David's life easier :)
-> * Introduced vma_rcu_iter tying the VMA iterator, mm and sampled mm seqnu=
-m
->   together, and update lock_next_vma() + callers to use it.
-> * Moved the sequence out of proc_maps_locking_ctx and the "must initially
->   be odd" requirement out of the header into vma_rcu_iter_init().
-> * Added vma_rcu_iter_maybe_changed() and vma_rcu_iter_may_have_skipped()
->   to replace the open-coded speculation checks.
-> * Converted vma_range_is_empty() to use a VMA iterator to be consistent.
-> * Added Fixes: tag for d9d1c2d81797 (PROCMAP_QUERY), as per Jose.
->
-> v1:
-> https://lore.kernel.org/r/20261025-per_vma_maps-v1-1-c4eec45b9387@kernel.=
-org
-> ---
->  fs/proc/internal.h        |  1 +
->  fs/proc/task_mmu.c        | 13 +++++-----
->  include/linux/mmap_lock.h | 22 ++++++++++++++---
->  mm/mmap_lock.c            | 61 ++++++++++++++++++++++++++++++++++-------=
-------
->  4 files changed, 72 insertions(+), 25 deletions(-)
->
-> diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-> index 623bb43ede55..1d95ff577a06 100644
-> --- a/fs/proc/internal.h
-> +++ b/fs/proc/internal.h
-> @@ -393,6 +393,7 @@ struct proc_maps_private {
->         struct inode *inode;
->         struct task_struct *task;
->         struct vma_iterator iter;
-> +       struct vma_rcu_iter rvmi;
->         loff_t last_pos;
->         struct proc_maps_locking_ctx lock_ctx;
->  #ifdef CONFIG_NUMA
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 74ffa5c99b8e..22361607020d 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -165,7 +165,7 @@ static struct vm_area_struct *get_next_vma(struct pro=
-c_maps_private *priv,
->                 return vma_next(&priv->iter);
->
->         unlock_ctx_vma(lock_ctx);
-> -       vma =3D lock_next_vma(lock_ctx->mm, &priv->iter, last_pos);
-> +       vma =3D lock_next_vma(&priv->rvmi, last_pos);
->         if (!IS_ERR_OR_NULL(vma))
->                 lock_ctx->locked_vma =3D vma;
->
-> @@ -270,7 +270,7 @@ static void *m_start(struct seq_file *m, loff_t *ppos=
-)
->          */
->         if (last_addr && !addr_is_sentinel(last_addr))
->                 *ppos =3D last_addr =3D priv->last_pos;
-> -       vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
-> +       vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, (unsigned long)la=
-st_addr);
->         hold_task_mempolicy(priv);
->         /*
->          * If seq_file had to flush its collected data right after m_next=
-() set
-> @@ -520,6 +520,7 @@ static struct vm_area_struct *query_vma_find_by_addr(=
-struct proc_maps_locking_ct
->         struct mm_struct *mm =3D lock_ctx->mm;
->         struct vm_area_struct *vma;
->         struct vma_iterator vmi;
-> +       struct vma_rcu_iter rvmi;
->
->         if (lock_ctx->mmap_locked)
->                 return find_vma(mm, addr);
-> @@ -527,8 +528,8 @@ static struct vm_area_struct *query_vma_find_by_addr(=
-struct proc_maps_locking_ct
->         /* Unlock previously locked VMA and find the next one under RCU *=
-/
->         unlock_ctx_vma(lock_ctx);
->         rcu_read_lock();
-> -       vma_iter_init(&vmi, mm, addr);
-> -       vma =3D lock_next_vma(mm, &vmi, addr);
-> +       vma_rcu_iter_init(&rvmi, mm, &vmi, addr);
-> +       vma =3D lock_next_vma(&rvmi, addr);
->         rcu_read_unlock();
->
->         if (!vma)
-> @@ -1421,7 +1422,7 @@ static int show_smaps_rollup(struct seq_file *m, vo=
-id *v)
->         rcu_read_lock();
->         reset_lock_ctx(lock_ctx);
->
-> -       vma_iter_init(&priv->iter, mm, 0);
-> +       vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, 0);
->         vma =3D proc_get_vma(m, &pos);
->         if (unlikely(!vma))
->                 goto empty_set;
-> @@ -1470,7 +1471,7 @@ static int show_smaps_rollup(struct seq_file *m, vo=
-id *v)
->                         reset_lock_ctx(lock_ctx);
->                         /* Resume from the last position. */
->                         pos =3D last_vma_end;
-> -                       vma_iter_init(&priv->iter, mm, pos);
-> +                       vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, p=
-os);
->                 }
->                 vma =3D proc_get_vma(m, &pos);
->         }
-> diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-> index 11b3ffef3966..9ccbbcbd7aca 100644
-> --- a/include/linux/mmap_lock.h
-> +++ b/include/linux/mmap_lock.h
-> @@ -17,6 +17,13 @@ extern int rcuwait_wake_up(struct rcuwait *w);
->  #define MMAP_LOCK_INITIALIZER(name) \
->         .mmap_lock =3D __RWSEM_INITIALIZER((name).mmap_lock),
->
-> +/* Tie a VMA iterator to mm write lock state at iterator initialisation.=
- */
-> +struct vma_rcu_iter {
-> +       struct mm_struct *mm;
-> +       struct vma_iterator *vmi;
-> +       unsigned int mm_wr_seq;
-> +};
-> +
->  DECLARE_TRACEPOINT(mmap_lock_start_locking);
->  DECLARE_TRACEPOINT(mmap_lock_acquire_returned);
->  DECLARE_TRACEPOINT(mmap_lock_released);
-> @@ -509,6 +516,16 @@ static inline void vma_mark_detached(struct vm_area_=
-struct *vma)
->  struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
->                                           unsigned long address);
->
-> +static inline void vma_rcu_iter_init(struct vma_rcu_iter *rvmi,
-> +               struct mm_struct *mm, struct vma_iterator *vmi,
-> +               unsigned long addr)
-> +{
-> +       vma_iter_init(vmi, mm, addr);
-> +       rvmi->mm =3D mm;
-> +       rvmi->vmi =3D vmi;
-> +       rvmi->mm_wr_seq =3D UINT_MAX; /* Start odd so changed by default.=
- */
-
-Why not initialize mm_wr_seq correctly using
-mmap_lock_speculate_try_begin(mm, &rvmi->mm_wr_seq)? That way on the
-first call to lock_next_vma() you won't be resetting vmi
-unnecessarily.
-
-> +}
-> +
->  /*
->   * Locks next vma pointed by the iterator. Confirms the locked vma has n=
-ot
->   * been modified and will retry under mmap_lock protection if modificati=
-on
-> @@ -516,9 +533,8 @@ struct vm_area_struct *lock_vma_under_rcu(struct mm_s=
-truct *mm,
->   * Returns either a valid locked VMA, NULL if no more VMAs or -EINTR if =
-the
->   * process was interrupted.
->   */
-> -struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
-> -                                    struct vma_iterator *iter,
-> -                                    unsigned long address);
-> +struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
-> +                                    unsigned long from_addr);
->
->  static inline void vma_assert_can_modify(struct vm_area_struct *vma)
->  {
-> diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
-> index 83b7d3ded0dc..834bbf86e004 100644
-> --- a/mm/mmap_lock.c
-> +++ b/mm/mmap_lock.c
-> @@ -13,6 +13,8 @@
->  #include <linux/trace_events.h>
->  #include <linux/local_lock.h>
->
-> +#include "internal.h"
-> +
->  EXPORT_TRACEPOINT_SYMBOL(mmap_lock_start_locking);
->  EXPORT_TRACEPOINT_SYMBOL(mmap_lock_acquire_returned);
->  EXPORT_TRACEPOINT_SYMBOL(mmap_lock_released);
-> @@ -428,21 +430,53 @@ static struct vm_area_struct *lock_next_vma_under_m=
-map_lock(struct mm_struct *mm
->         return vma;
->  }
->
-> -struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
-> -                                    struct vma_iterator *vmi,
-> +/* Is there no VMA in [start, last]? */
-> +static bool vma_range_is_empty(struct mm_struct *mm, unsigned long start=
-,
-> +               unsigned long last)
-> +{
-> +       VMA_ITERATOR(vmi, mm, start);
-> +
-> +       return !vma_iter_load(&vmi) && vma_iter_end(&vmi) - 1 >=3D last;
-> +}
-> +
-> +/* Might the VMA tree have been modified since last mm speculation? */
-> +static bool vma_rcu_iter_maybe_changed(const struct vma_rcu_iter *rvmi)
-> +{
-> +       return (rvmi->mm_wr_seq & 1) || /* Odd implies write-lock. */
-> +              mmap_lock_speculate_retry(rvmi->mm, rvmi->mm_wr_seq);
-> +}
-> +
-> +/* Could the VMA iterator have skipped a VMA due to the tree changing? *=
-/
-> +static bool vma_rcu_iter_may_have_skipped(const struct vma_rcu_iter *rvm=
-i,
-> +               unsigned long from, unsigned long to)
-> +{
-> +       return vma_rcu_iter_maybe_changed(rvmi) &&
-> +              !vma_range_is_empty(rvmi->mm, from, to);
-> +}
-> +
-> +struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
->                                      unsigned long from_addr)
->  {
-> +       struct mm_struct *mm =3D rvmi->mm;
-> +       struct vma_iterator *vmi =3D rvmi->vmi;
->         struct vm_area_struct *vma;
-> -       unsigned int mm_wr_seq;
-> -       bool mmap_unlocked;
->
->         RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "no rcu read lock held");
->  retry:
-> -       /* Start mmap_lock speculation in case we need to verify the vma =
-later */
-> -       mmap_unlocked =3D mmap_lock_speculate_try_begin(mm, &mm_wr_seq);
-> +       /* Only trust the iterator's position if the tree cannot have cha=
-nged. */
-> +       if (vma_rcu_iter_maybe_changed(rvmi)) {
-> +               vma_iter_set(vmi, from_addr);
-> +               mmap_lock_speculate_try_begin(mm, &rvmi->mm_wr_seq);
-> +       }
->         vma =3D vma_next(vmi);
-> -       if (!vma)
-> -               return NULL;
-> +       if (!vma) {
-> +               /* No reason to fallback if nothing left in range. */
-> +               if (!vma_rcu_iter_may_have_skipped(rvmi, from_addr, ULONG=
-_MAX))
-> +                       return NULL;
-> +
-> +               rcu_read_unlock();
-> +               goto fallback;
-> +       }
->
->         vma =3D vma_start_read(mm, vma);
->         if (IS_ERR_OR_NULL(vma)) {
-> @@ -471,14 +505,9 @@ struct vm_area_struct *lock_next_vma(struct mm_struc=
-t *mm,
->          * installed ahead of it. Otherwise we might observe a gap that s=
-hould
->          * not be there.
->          */
-> -       if (from_addr < vma->vm_start) {
-> -               /* Verify only if the address space might have changed si=
-nce vma lookup. */
-> -               if (!mmap_unlocked || mmap_lock_speculate_retry(mm, mm_wr=
-_seq)) {
-> -                       vma_iter_set(vmi, from_addr);
-> -                       if (vma !=3D vma_next(vmi))
-> -                               goto fallback_unlock;
-> -               }
-> -       }
-> +       if (from_addr < vma->vm_start &&
-> +           vma_rcu_iter_may_have_skipped(rvmi, from_addr, vma->vm_start =
-- 1))
-> +               goto fallback_unlock;
-
-Before this change we fell back only if the new search yielded a
-different VMA (the vma !=3D vma_next(vmi) condition) while now we
-fallback unconditionally. Note that the VMA that we are rechecking is
-already locked, so it can't change. Was the previous logic invalid?
-
->
->         return vma;
->
->
-> ---
-> base-commit: 33dbd62d6ff310b8cce8c70101639a6eddbb1b52
-> change-id: 20261027-fix-proc-pid-maps-missing-vmas-c870d14e1ca9
->
-> Cheers,
-> --
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
