@@ -1,46 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793099232;
-	b=uwZ1OsdPkCfDuL2/e2al/IfdwMEJZfKhGRYEGJgx1xuFCftGMk64BjuHyjRseGD0Erf/
-	 5rX5LyZUXGGwtpE/1h4rO3p9dCo88xD4SqkbDyeu+M6l1lKbuMCBec0NSq3ISW3vZud6e
-	 hdqsA0edvbxLwX+N6jklUJzYIL1ctw3rkLf0VxjSAKfMcZ0ZgFptErmRGsX5iGIf0GIKh
-	 z+cgy4Bkqx6wz3fTHHDtLWJaaMgqEnR/rySRsTlAox/YS7rQjYo008Q3NG7q3OmIlX/rC
-	 PQq6FDgOjogV+ifMjy2d7OmWcEnSvfrZWapEzv9WS6MlN5jIRo9xqYoofs0WQMGk86w==
+	t=1793099257;
+	b=iFa1N5iJORmyNYtrmxdBAlbWk7eirWd4PW6IvqY51Pt3KpCT0+U2NmGID0M77AiTKOf3
+	 bIpsdO8e1QAasX9crK1JtHuMaHef5wIrrg8lnGWAFhmzF+Fn5/2Jqt6ZabtWHrsdFVFAv
+	 b3DcPRwcDJGJtvag3rohuialPU31Kf0O8gBOvp4ekiPGsMFTUw5wcOVIqhKtH/1sFLjim
+	 f62d06VsX9QKx4lnSL28vIEdHhzBDTWEbjXokJedp64X6Ozm002Xs588c7KJaGGGaGwKD
+	 vNgDsBm1gUX4NFsdOT5B7ORTljb58UmHwch0L1YS1OOPuvlYDZFTHTcpjEP0DA2ZSug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793099232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793099257;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=IS2f9CzmgPzLCWC2brqivclf2ZPHfhRDbonV89t5d1M=;
-	b=gpzzt3urIWcy9w426ImRbNL5flHXYxv/QPzc0YSxc/vuBLigS2aVSvnpGJBibWwkm2SA
-	 SEDEIXKrlW8XUi/dXDOkdiMcYB7tKgY0aqSUQHlOrWi2iIUp9Bnr450ITRfYNN0xEM5C0
-	 saF8tJTiKAHMa+1rOTAKujPfnYKfkxaQ8QAw0HyqkWQvZvwpbb9CmQwzFVjh02Q9AcIS1
-	 gl8IrHArJHxyrrEKvIvH2MSu2dvKy0pjPZc2OcnnyKysAVuz8LYtwJZKZe0Wftj9Ici6K
-	 pa3ou0L1fvwh3fvepV9KDtpjLYv8RRWIOmR9VJMXVB37EDFf/VFUXVO21MGWyfxGSew==
+	bh=VpmMdIvwnQoe2HdnLf294GLEd81vJFoGVbPS61G/Fx8=;
+	b=aJd2VlqMD94S9VdZKQqdbY04P/Z4SMDN3hMBFtS8Z6D2iisSAxzuCUFz/hiOu54xTxIK
+	 F/IBD7QrMdSUJmRX3gEM7YMqJ/P7Oduo5xbv+fcUQ7u1+DRW3KX6rwyhhrhMntFoHNErd
+	 LmeG+G/Trkcwb43As4A4j6Ekt/ppHwmHSCYnk5GIK7quFpS2ANQVqsW9vtpXpm2Hd1rS2
+	 BnzQCeS0xPv60kUQLTzgyytFnirsuP2akvVjcB+XGRvsFzg6CPtOp4rPh6oCOZA8tEqUh
+	 3bAtHlGsLz/LrBG41zZ9WzVGlIk4GJYLjMOMzz3cjmM/f7lGMFBNhO0CT9F0SaF/MKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="bJMZ/a+5";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t7z8L8zx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8076A606A31B;
-	Tue, 27 Oct 2026 11:07:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EA1606A98D;
+	Tue, 27 Oct 2026 11:07:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bJMZ/a+5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92BF51F01280;
-	Tue, 27 Oct 2026 11:07:11 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=t7z8L8zx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F7F1F031E1;
+	Tue, 27 Oct 2026 11:07:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793099232;
-	bh=IS2f9CzmgPzLCWC2brqivclf2ZPHfhRDbonV89t5d1M=;
+	s=korg; t=1793099256;
+	bh=VpmMdIvwnQoe2HdnLf294GLEd81vJFoGVbPS61G/Fx8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=bJMZ/a+5Ad41npjc4pkXOzR34K8/ZY60Znl+w9Ezzxz2yxVDmNbN7PQ3hCT2Ja7ut
-	 9G8V/a8lrpo+bZLxrZ4CXF7GL1AN/HJkmXRHqidShnpUvcpgFYsQuob7Kr/VNFdpi7
-	 BvK3WS/UCYMD9yTGV4mQQq5d9RUCqZ/NNwHxsy5U=
+	b=t7z8L8zxaftKQO/f2gGr/cDBBFGpfQrmyL1qrGx7eEHxaNEmlHBVLDx2Bgp+3PlrO
+	 SvqhDsoyMvZ4w+4mkO3eXajJWGs6DzbwUkD6ZDbsKsvicbNjIz/ZwgdzQ/PHxnSPAX
+	 T9NP6Usd4JMnteTuhw3RBiMYYBYbb7yVeTOT488o=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 12:06:37 +0100
-Subject: [PATCH 11/24] serial: 8250: cap OxSemi Tornado UART count against
- BAR size
+Date: Tue, 27 Oct 2026 12:06:46 +0100
+Subject: [PATCH 20/24] serial: rda: free the interrupt on shutdown
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,7 +51,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261027-tty-llm-v1-11-99b0202ae546@linuxfoundation.org>
+Message-Id: <20261027-tty-llm-v1-20-99b0202ae546@linuxfoundation.org>
 References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
 In-Reply-To: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org>
 To: Jiri Slaby <jirislaby@kernel.org>, Joshua Rogers <linux@joshua.hu>, 
@@ -83,69 +82,51 @@ Cc: Tony Lindgren <tony@atomide.com>, Rafael Gago Castano <rgc@hms.se>,
  Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
  Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org, 
  linux-serial@vger.kernel.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>, 
- Marnix Rijnart <marnix.rijnart@iwell.eu>, stable <stable@kernel.org>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1879;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1199;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=VNWPqad47ORfVGxS6XN/YPqH0tGaIVf0nzG2TKO+/bY=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPWveJ/RX8coGj8s7hkC0PJhbyqR8J8ZwX2XzCYPbfz
- ojt9upJHbEsDIJMDLJiiixftvEc3V9xSNHL0PY0zBxWJpAhDFycAjCRZcoMCw5Najq4w3qp+xy1
- N+2TjlVOqrF+oc4wT5Pzy33eJOXbxw6H87yaPf+35+9nzwA=
+ bh=d/SIDOTsuf7hmDmQzmEO9zGBrAPvXK229O/Za0oLQz0=;
+ b=kA0DAAIRMUfUDdst+ykByyZiAGrghb+jRsDMWn1KA10AVLCyS/TL7xgDJTlXudsYM70x1VH+q
+ ohdBAARAgAdFiEE9LYMxb94wiFKMT3LMUfUDdst+ykFAmrghb8ACgkQMUfUDdst+ymmxACgghYR
+ mip0v+mWeATp4LIFLKtGw4oAn3K0FlzU2DX0Kz74Jve14XAP4Q8Y
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
-From: Joshua Rogers <linux@joshua.hu>
+From: Josef Bacik <josef@toxicpanda.com>
 
-pci_oxsemi_tornado_init() reads the UART count from device-controlled
-BAR0 memory without validation, allowing a malicious device to report up
-to 255 ports. Cap the device-reported count against what actually fits
-in the BAR using the Tornado register layout.
+rda_uart_startup() requests the interrupt, and nothing ever frees it.
+It is not shared, so once the port has been closed, the next startup
+fails with -EBUSY and the port cannot be opened any more.
 
-Cc: Jiri Slaby <jirislaby@kernel.org>
-Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>
-Cc: Marnix Rijnart <marnix.rijnart@iwell.eu>
-Cc: Crescent Hsieh <crescentcy.hsieh@moxa.com>
+Free it in rda_uart_shutdown().
+
+Fixes: c10b13325ced ("tty: serial: Add RDA8810PL UART driver")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Joshua Rogers <linux@joshua.hu>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: "Andreas Färber" <afaerber@suse.de>
+Cc: Olof Johansson <olof@lixom.net>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/8250/8250_pci.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/tty/serial/rda-uart.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/tty/serial/8250/8250_pci.c b/drivers/tty/serial/8250/8250_pci.c
-index 1dda63be6b89..9919504334bb 100644
---- a/drivers/tty/serial/8250/8250_pci.c
-+++ b/drivers/tty/serial/8250/8250_pci.c
-@@ -1083,6 +1083,7 @@ static int pci_oxsemi_tornado_init(struct pci_dev *dev)
- 	u8 __iomem *p;
- 	unsigned long deviceID;
- 	unsigned int  number_uarts = 0;
-+	resource_size_t bar_len;
+diff --git a/drivers/tty/serial/rda-uart.c b/drivers/tty/serial/rda-uart.c
+index 87fa30d68687..9c1785771cbb 100644
+--- a/drivers/tty/serial/rda-uart.c
++++ b/drivers/tty/serial/rda-uart.c
+@@ -471,6 +471,8 @@ static void rda_uart_shutdown(struct uart_port *port)
+ 	rda_uart_write(port, val, RDA_UART_CTRL);
  
- 	if (!pci_oxsemi_tornado_p(dev))
- 		return 0;
-@@ -1095,6 +1096,15 @@ static int pci_oxsemi_tornado_init(struct pci_dev *dev)
- 	/* Tornado device */
- 	if (deviceID == 0x07000200) {
- 		number_uarts = ioread8(p + 4);
+ 	uart_port_unlock_irqrestore(port, flags);
 +
-+		/* Cap against BAR0 size (Tornado layout: 0x1000 + n * 0x200) */
-+		bar_len = pci_resource_len(dev, 0);
-+		if (bar_len >= 0x1000)
-+			number_uarts = min_t(unsigned int, number_uarts,
-+					     (bar_len - 0x1000) / 0x200);
-+		else
-+			number_uarts = 0;
-+
- 		pci_dbg(dev, "%d ports detected on %s PCI Express device\n",
- 			number_uarts,
- 			dev->vendor == PCI_VENDOR_ID_ENDRUN ?
++	free_irq(port->irq, port);
+ }
+ 
+ static const char *rda_uart_type(struct uart_port *port)
 
 -- 
 2.56.0
