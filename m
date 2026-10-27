@@ -1,71 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793144444;
-	b=S+DbWbP8gHRdjtUE9/zIZGKb0dlo6DndlJA1O8Z4VVSdcpiAHEik2Sogu2SDEhUnj0Pv
-	 vFh/i7bc8L9uzYYKuxdU0hYk3kr4dHTiSDtTDQIiqrmhiVvCaPLB5UrUNvSZ7xEaOGRwP
-	 SH+qZW/CWdf5tN0RUi2zFe/7OXgK8d+VevexxD8De7V9k+9+PtGU9VRJGmAHFCdCDPbVs
-	 mpZubhkT6CoPaILStpclErqRgJzpMrmzrqMKCG3UrwLo2tnpnow+69MW0uaj2OTTVioRk
-	 2s6w9jQUZARFldidzTjEX2+kRq+R7699/BEnsITy7ALZnpVHXBSXmXYdZ+uE/koNN4Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793144444;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+El7GN3ABVO9vM31jJjliUxNOi3FKQJ/7NpwVz7amKE=;
-	b=ozl2SRRDXmNn64rRXke8JMDIPCDkaxEOr+HWl+yiNEsyq69dQIZob99mZ2ZnyJ3eww1n
-	 gstcBnFdGCar7C1zuBeBhX73vyPfCsR0xQDabAf9bw7KGwZg/LQAxINlyHKe1X9BNn69s
-	 I73mrH/iHqE5RLYt6zAy7UE/EXMKk1/eQcHJH3idgkVvhz+0qq0HvwU5A1CcA1sNLhquA
-	 bbHLiz5OetsUZvqIcw4icwnVRcpH6HeQ5lwyq1tjM2dpMpnNGRcaxzs6eFzkpRMl8NW1E
-	 98WsOZMDx8alfI4mq0qQr4ZJalPmTR8yNk72vkD/CzFBMzFAFNdmWdmkUg6QGxoWlQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=evQ74HRv;
-	arc=none smtp.remote-ip=61.135.153.170
-Received: from smtp153-170.sina.com.cn (smtp153-170.sina.com.cn [61.135.153.170])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793144492;
+	b=iHxyNBEn6Z6iy6r1UdmZECDSjWCYtrlkL/APhFyecyCo8L+4sk76PZmCjbwHz3utQ3jH
+	 VXaKt1qWOXlNf2H/tMRAOp8Be78VViAVUA4qRlfFUjHl83MZkI3cZG0JzYokii4n+jWtc
+	 iKvLjd7HvORcsnfiIB6BbIcq0XKpVfQ+akKgfBJDI8d7KyUx1z+5nHfrzjbJ8uKxFJhvS
+	 34TTaewVaCUMrARKR8AjPWbMolKsqlmYcGJ2XySIItfd97oAYX5VNtrBQO36bU2Jc9KBr
+	 vf3JxEbIXhBqUuU5PB5RSxPjvs3K3cBWH1NAfj3IqA3QllbJwdYvMLkKEoKaJu5UzTQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793144492;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=0I1FBZ956wGLn/X8olCE/kflFcHGoe1hSLvpL3SotdI=;
+	b=JQiiBQjXM6Bqem/Rc3iRl0OkCKRAFmtfI2PgUzbjQj1ZZCWdvNFNvOtWctfPpO5teJ9b
+	 ZPgdafPpVJVL9agFjYqCwuFv2tiiLpO2z7LC9PEfTgcj6keK4eTM5/Rx/6MuHj1VR+AnU
+	 dSB6NsI2bdWn37I2xdbVQ6sfvcse0VwVlSOosUddzUFN06jI8HDPuyv37cU/4AKrUJoRJ
+	 NfZRTgbe3O0Avxd6b+MIth7uWfThy5+GtTlExSIxpux5nweWxmpoBjXKLFuuqd84mcmP4
+	 N9o3guEQ5R45briMNthYOK8I4sU/F2XodIiOuU6R73UgJCrY2qrT6qpPeI7OHDfoFhw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q7QASbKg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.44
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678AA606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:40:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 678AA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B40E606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 23:41:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B40E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=evQ74HRv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793144438;
-	bh=+El7GN3ABVO9vM31jJjliUxNOi3FKQJ/7NpwVz7amKE=;
-	h=From:Subject:Date:Message-ID;
-	b=evQ74HRvgvLbJiQrelawqfs1l0aPHmoTryHoc7XgzCv7NEOX5AZSvpJ2Op9o+R/cR
-	 ChYt2zYeniFTLAwod51vzxuUZbU6b7kqoHRY/XfFRaG5P/5XE2viIJxGwyKrXN5ckf
-	 i7DnMNCQHgHV2HHSMlBNLE9a5LKxiv+BUBCOKmAM=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([124.64.22.19])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AE1366A000025E2; Tue, 28 Oct 2026 07:40:29 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 5950596291622
-X-SMAIL-UIID: 15CC297E008E4881A65D3AD8A1C81AC7-20261028-074029-1
-From: Hillf Danton <hdanton@sina.com>
-To: syzbot <syzbot+df0058a8d0bdce7c4059@syzkaller.appspotmail.com>
-Cc: hch@lst.de,
-	justin.tee@broadcom.com,
-	kch@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	nareshgottumukkala83@gmail.com,
-	paul.ely@broadcom.com,
-	sagi@grimberg.me,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] [nvme?] kernel BUG in nvmet_fc_remove_port
-Date: Wed, 28 Oct 2026 07:40:16 +0800
-Message-ID: <20261027234017.198-1-hdanton@sina.com>
-In-Reply-To: <6ae09457.f0fe5aea.79aa1.008c.GAE@google.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q7QASbKg
+Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6df5e315bd1so357826eaf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:41:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793144491; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D5pqx0ur5Pe/2UntESbpxHKLfJxGoz75f2gDLZu/EV9EE+O0FytlpABNpv7vIK3zi6
+         zQT6ns7WrdYURaAiAL8IL2Y4ZSQSpXo/sMoh2GIcCnqHMrPZ6pHEgYHvo5YxG8z+DPWH
+         c8+lypeHTRLd/jRR7XEVvwQdeTSM3YXZK6LNBWrO9OirkXEE+qhcS1VdzzT998BnuXDn
+         B38O2afk+/stXldnNYQdavqsle35KFGDecs6loG/ht2D0y8FpofWdQfu4POfu4oai47W
+         bdwJeNxOlB0ciTb2teafGsMoQcoSZbmlz+edxoERp2JVf8KHqPBXVyvj2Fpld0Cq6eA4
+         YRkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0I1FBZ956wGLn/X8olCE/kflFcHGoe1hSLvpL3SotdI=;
+        fh=JllkhPsf9e6ukPbiTPsDPltMkt3qIE+Dhr/yyytuZbk=;
+        b=gAtlwf3a92+lvJm985w7onqrM46QiW6XHjCDFYa8dqmLpmXwyYGstyRi+2eUCBLTBL
+         bRdwggihK7XpEPXC3hvVEs6k6rnNtPuSo2TuCUAaT03EFV+QvtmhnfBTdIok1iAkD+nF
+         eDXiYhCo+rxQO/3PwNfw/W6X2VGoG1BsahUK0TnCpjw92wv+LN6MMFOZzVVRxw562o0U
+         Ekt6Eu2UNlMBtsVOYGQ5oZCGwS/50BZjNasF/xzITZ8L0hcDTz8DUNiRFNrbBYPxl8kd
+         OGdsCc072/8LT19E48l0uSnsCHo/mGXdc+OjuxplJJjf8rn9zGLD5pcEmYch+dPnpDnb
+         Ow7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793144491; x=1793749291; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0I1FBZ956wGLn/X8olCE/kflFcHGoe1hSLvpL3SotdI=;
+        b=Q7QASbKg2H6XxG9/YowWVGCNfGIQ8KZYkWMnuqExkdNFXLcCWVLT7rnfAyE2iQcVFV
+         4LnF85d4oQp/1xY2FfTLvUUR4gnpBLnOFK0RLWybfVxT7Zv+VNCG4tm7Q4wtFliyQXui
+         Qi15iO4kcWpA0q4O/HODfzkGz/d4YRZQlg2/lWgC+ZT0nwXRoGPWDQvk55tnmbhxEHoE
+         LWmygWZVqDVaeqDpbyaB/x9LRbm0k+TXyPpXVx/m1KQrfoUo4Toyj6uWFAswyMZeubjx
+         U8m0E/rillRqW5NSvLfTNZqNrl0fs5sWoIdcu4iN5C0ULpsSkJgR+up5cgMp0O+BrPPJ
+         HizA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793144491; x=1793749291;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0I1FBZ956wGLn/X8olCE/kflFcHGoe1hSLvpL3SotdI=;
+        b=yeyQkhZfE80NlAyrmOa7R53kInffoc0ZQk9vQZ/PANlV9YYkF9BT6KHEzf5BCmlPIK
+         GidZnu36a2sTqWd/0STkuh+pX+lvmk/OrLjKyC9uaUj4MuF2Qw73+JUPwopjDpUYdFos
+         vLctON5PDKDqYTIYeW5/Y6wXUA0F7LQflPN/Euo35DFT0p6AW9MM9UYinfubbfFd8HSX
+         WD7mT1CQvR0hQWIdCDqWJd8MSBNthO3KLk8uqdK9DzpXwmlQ4hwfKU4gKl+kzvgf4Xcm
+         STsuItXK/gO0/U312/eqv+DQ+zoA/MEG0kkFl4TZ0w4F6Ba3j9aa+MoOltGGTCySTIlh
+         yXAA==
+X-Forwarded-Encrypted: i=1; AKwUvBz6wg7NhMDymE3sS99+jic6Y2/eSaVNRtyCs2s8PHhcHYu8Xk1XlkvFpZPS9z6TnaCeJvWy9xQuRSwp4KU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHs23ht6Vi0yjVqgjiW1PnqR8pRQnMz7f/jMJ8cTEb0i9rXCTk
+	KRg04YAEiYmFHnevmxMNYdGj3mbVxkPSUvuAy06giwa3el/5VEHl57CvoYr/Sdrz14Wnr5CD7X3
+	uEh9ObUCwVWC2FZiM7Wv8bUyfEMHKBVQ=
+X-Gm-Gg: AYBFou147/yFKVl4QFTcWmHm8+NZ+gDQ8dkgzUqYvmKr9bRU8DLzkmuhnxF53oAMdmo
+	92dsRkFcGztaIcuDgzA9076vqRQ3HmKYNIQMIkZVmHQs23bQILBY2GzafmvIs3VYwsT1zm/1cUC
+	+/jNS92H2hbiv7Hh36fTWWU9u41EqeZXCvFC5F11k8Mo9laYxpt7vJWotKEse6nmbwvFFgWxjcu
+	rclLMrBCqwx7Hk0XA5oDPyPJ+lMTBtnrv8ojjISXWDesZQGgRRUnxN1q4X5seHD6cgkI+4xld+z
+	55hDXtY6AcIHHSKExyDPF1U2+1n1CqY/uerHszMVooYeZDHTphfGQpkB3gZRI50iF5N+RdhPkup
+	QeB6ZWfosJ2TOoKOjYDdEzrk/bTwkKMkiL0YSEIWIP/kMmNeEhM8=
+X-Received: by 2002:a05:6820:3416:10b0:70d:8086:e497 with SMTP id
+ 006d021491bc7-713f157287fmr289110eaf.38.1793144491336; Tue, 27 Oct 2026
+ 16:41:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,83 +103,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261021-b4-8139cp-napi-v1-1-c9b683d9564b@gmail.com> <179297317507.3134.14510456592684233796@kernel.org>
+In-Reply-To: <179297317507.3134.14510456592684233796@kernel.org>
+From: Colton Pawielski <colton.pawielski@gmail.com>
+Date: Tue, 27 Oct 2026 18:41:19 -0500
+X-Gm-Features: AclHuK9ZlS2Hzsq_FlWB3EDnNwqFet-LXqbCSo5sxsm-OM2xCGrDfP92Bwret24
+Message-ID: <CAJpaz4bZ65aQtNDuxRR385GePEvdfWDszz3qufQWPp6+xh5wZQ@mail.gmail.com>
+Subject: Re: [PATCH net] net: 8139cp: close race between NAPI completion and
+ Rx unmask
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, daniel@0x0f.com, geert@linux-m68k.org
+Content-Type: text/plain; charset="UTF-8"
 
-> Date: Tue, 27 Oct 2026 05:08:55 -0700	[thread overview]
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    6b4b543fa187 Merge tag 'parisc-for-7.4-rc1' of git://git.k..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=16ce8f0d580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=b4c032ed87e6e91c
-> dashboard link: https://syzkaller.appspot.com/bug?extid=df0058a8d0bdce7c4059
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17db5e35580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1413f195580000
-> 
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-6b4b543f.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/003ef0d7eda6/vmlinux-6b4b543f.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/022618083bf9/bzImage-6b4b543f.xz
-> 
-> AI-generated root cause summary:
-> In the NVMe target subsystem, port attribute store handlers in
-> drivers/nvme/target/configfs.c (such as nvmet_addr_trtype_store) do not acquire
-> nvmet_config_sem and only check port->enabled. Because port->enabled is not set
-> to true until after ops->add_port() finishes in nvmet_enable_port(), a
-> concurrent write to addr_trtype can race and switch port->disc_addr.trtype
-> (e.g., from TCP to FC). When disabling the port, nvmet_disable_port() in
-> drivers/nvme/target/core.c indexes nvmet_transports using port->disc_addr.trtype
-> instead of using port->tr_ops, causing type confusion on port->priv (treating
-> struct nvmet_tcp_port as struct nvmet_fc_port_entry) and resulting in memory
-> corruption, refcount underflow, and use-after-free.
-> 
-Sounds incorrect given the debug diff that survived a similar syzbot test [11].
+On Mon, 26 Oct 2026 00:06:15 +0000, netdev-bot+sashiko@kernel.org wrote:
+> Wouldn't this CPU then spin forever on a cp->lock it already holds? On
+> SMP, one ARP request or ping from a peer on the link looks like enough to
+> trigger it.
 
-[11] https://lore.kernel.org/lkml/6ad48c36.a6d1a155.34a93f.0091.GAE@google.com/
+Yes, this is correct. napi_complete_done() flushes GRO into the
+stack, and a reply sent from there re-enters cp_start_xmit() while
+cp->lock is held. The LANDISK is UP, so it didn't surface in my testing.
+I reproduced it in QEMU (x86_64, -smp 4), where v1 locks up shortly
+after link up, and on a Raspberry Pi CM4 with an RTL8139C+ PCI card,
+where lockdep complains within seconds. I should have tested it on
+a wider variety of hardware configs, lesson learned.
 
-> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=df0058a8d0bdce7c4059
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+df0058a8d0bdce7c4059@syzkaller.appspotmail.com
-> 
-> nvmet_tcp: enabling port 1 (127.0.0.1:4420)
-> refcount_t: underflow; use-after-free.
-> ------------[ cut here ]------------
-> kernel BUG at lib/refcount.c:37!
-> Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-> CPU: 0 UID: 0 PID: 6113 Comm: syz.0.43 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> RIP: 0010:refcount_warn_saturate+0xd7/0x110 lib/refcount.c:37
-> Code: 67 48 0f b9 3a e8 b9 e8 d6 fc 5b 5d e9 c2 d6 b5 06 77 19 83 fd 02 74 3e e8 a6 e8 d6 fc 48 c7 c7 c0 08 81 8c e8 ba 43 eb fb 90 <0f> 0b e8 92 e8 d6 fc 48 8d 3d 6b 27 3d 0d 67 48 0f b9 3a e8 81 e8
-> RSP: 0018:ffffc900039d7c00 EFLAGS: 00010086
-> RAX: 0000000000000026 RBX: ffff8880549e4678 RCX: 0000000000000000
-> RDX: 0000000000000026 RSI: ffffffff81ebe399 RDI: fffff5200073af71
-> RBP: 0000000000000003 R08: 0000000000000005 R09: 0000000000000000
-> R10: 0000000000000000 R11: 0000000000000001 R12: 1ffff9200073af85
-> R13: 0000000000000000 R14: 0000000000000000 R15: ffff8880549e4678
-> FS:  0000555566238500(0000) GS:ffff8880d449e000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f8d01471220 CR3: 000000002d14f000 CR4: 0000000000352ef0
-> Call Trace:
->  <TASK>
->  __refcount_sub_and_test include/linux/refcount.h:400 [inline]
->  __refcount_dec_and_test include/linux/refcount.h:432 [inline]
->  refcount_dec_and_test include/linux/refcount.h:450 [inline]
->  kref_put include/linux/kref.h:64 [inline]
->  nvmet_fc_tgtport_put drivers/nvme/target/fc.c:1464 [inline]
->  nvmet_fc_portentry_unbind drivers/nvme/target/fc.c:1278 [inline]
->  nvmet_fc_remove_port+0x4c2/0x5f0 drivers/nvme/target/fc.c:2930
->  nvmet_disable_port+0x13c/0x200 drivers/nvme/target/core.c:400
->  nvmet_port_subsys_drop_link+0x26b/0x310 drivers/nvme/target/configfs.c:1189
->  configfs_unlink+0x3cc/0x800 fs/configfs/symlink.c:258
->  vfs_unlink+0x2f0/0xbd0 fs/namei.c:5661
->  filename_unlinkat+0x408/0x730 fs/namei.c:5731
->  __do_sys_unlinkat fs/namei.c:5760 [inline]
->  __se_sys_unlinkat fs/namei.c:5752 [inline]
->  __x64_sys_unlinkat+0xc0/0x130 fs/namei.c:5752
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+v2 will leave cp_rx_poll() as it is and fix the race from the
+cp_interrupt() side instead.
+
+Daniel, Geert: thanks for testing. Since the fix is changing, I'll
+drop your Tested-by tags from v2 and Cc you on it.
+
+Thanks,
+Colton
+
+pw-bot: cr
