@@ -1,84 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793108955;
-	b=fCtogBYq+Szms79Z/iXUt+kTvonz6jWXkDDi2z8wNDh417Rlr+isVkV+ww2ArOe538W5
-	 SD5GROrSv6EwvPgeuVe5eLmllv8A+2mm8R2N8QNfBwhXNY92bWni/5a+hZ+fqn+PP+6cS
-	 yTDy0ReF/YedowHRu+SKBbS3g6LfmNj+x/bD/zxQyFLwBX2/XuH7Rv793pSFEZ4mKCmDx
-	 dpUrD2YbP3t6tdTcvKwOzC6RLNZAMhkvsig8dvGP8PzEJ25D0kIl8LJ1f6NTcww0ClLCa
-	 UGfSlUhrS/kwQO9ZUHhupWXGiphiKtAxtZuzWFXDGPFmy0pGgiCcMNoxkRMNQYu6ErQ==
+	t=1793108957;
+	b=siFILLec2fzKscBag299+E+G11PSCxyMavGPRuzx6Vej91iQWCL01Yszpg7N31jrwX5m
+	 7QvuRsV+ML2XkA3RUaemjSd8/d1Db/ePjl3OolGr+izQ+/OlJwS5LwUHemM1LlhXa7xOI
+	 lMbRF4zpy0uOcZkR4jtcVeHZkr52sD8NC25Vkup7zEThBX36ZFlH8S5LnLHTOa7d62oL2
+	 AvueMgj5A2cuLLJ1+d41UMLwkkvdOCl2Gx0XhKZGRMciPy1WZXX8jVYlrk4faSEHx527z
+	 EziVCRywdnxv3vmSSfhw9wDChHuYk26WEO9gI9sAcIjG7Lx/UuvhLo6I+zh00FRApvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108955;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=XomX6DB6D1/SIO93qU+NvqAlwsKLsAk/d0xRuNeXAOk=;
-	b=QR2bwc5L7i9+nmGM3mQRs3+ltraRJBMu0Dun+QMQQ4QOGOC/dB97Kj2DUKAtp8LIipEP
-	 UvNchMsTiXJC885Sx5TFQLujMFW/6MWHDjZ7fe7/6OhVCJ4kAmu7JvdUSg+F5evh6BKhb
-	 cHbG2197f2z44E9CQ4/Yl8daLuFVDdalEiiAdgQLWpzlj+KYFn7Mu8i1rV6EnWoOmBJxc
-	 FlUdZoglWelrZCHgm8ozxk9KGVXE0hAi/2hLw/wXeysoXtwuPinp8hPWfaVo7xOzqyDAW
-	 giOCYrsWxEOBSK7gPsyE2UXQu0lr/JNPBNKmENPhHR1zg/t4xkIY6wuXxp3B3s9Ma7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793108957;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=GEmx/sUPQ2VMJDaiqbyGhNC0GffzmoblRKDktdSOsjs=;
+	b=G1JPPDJrj/q4+EIwg83UCZkf4FluDFzaCqmzHVHMFH1vMNURN/2TGq/GPGmJj5dMOpd5
+	 X8M3oQeLsqrEHmEYriBOMJoiWC1dZv0Jz5lWClcyUEy5UEHrYG29Y+9/snG/j7kSWZ/3F
+	 UkzC7dEb5IrKWFQzFmdFhDkttNALs990xbPnqqfJkku0hiPlurTS/M6qozWlkli4m7bVM
+	 IKPSa39o+n6bMTjSbPe1vBX41XCCoMpFI7gcMfY5aeHmxu0XCKygPbiuuJCoHsdLO/67v
+	 45a/5IrRoq53wNaPXe0hvrtFHuL2gqdDM7YA09Vx4kLJP+GhxhPkXJToZV+6Cal7SlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=QirECd2g;
-	arc=none smtp.remote-ip=209.85.160.176
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mTTn8ZWR;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Z0LOYJhm;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B727606A31B
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B727606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B8B606A333
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:49:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53B8B606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=QirECd2g
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-53cd0c8614eso14163991cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:49:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793108954; x=1793713754; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XomX6DB6D1/SIO93qU+NvqAlwsKLsAk/d0xRuNeXAOk=;
-        b=QirECd2ghwJmRxFJOo7gQFoS9QwNcRuzit5+GxNaO2qtQ+wt8h38/bJwNtvPVkzpvs
-         uBKiKsScICwdQfoim073GAnQEIVbJHBo9jXXyitttfpOjHA+RUzshYmhJah2wsfiGeiL
-         quU+CXY6kF1//9a51cB6/Ld44ufTmvwrx9FHP4o/SOeQEzHybxBMr5nkIL1LY5F47hgn
-         NOUhG2kwUKeQOOVvId/Q2+PdYC4gdULgfWWMzo1gkaBatU8cmxuxgAeWtgwCBJxZejMb
-         H/SSVcSUMG6rpkrI803+iGPyss26YF5EI2j0KKoKWo9uQjHkad4gHNpMATKcxlKytRwr
-         12sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793108954; x=1793713754;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XomX6DB6D1/SIO93qU+NvqAlwsKLsAk/d0xRuNeXAOk=;
-        b=eZmUre8e2hQ4SIQYsv0vlgeFethjGl0VqSh02FpPirhL6XFdSJ6Xduzr1x6VdoNgux
-         rfiVCMctf787BTk2EGh3+4As8HkMsK8+JFUQ7GfXHMbeLldfF5Q+Kvr6xDCNOYccmmGx
-         zcZv+Cq14L9Asonw0oYAwRVV3CvVwg3XFeQQFrSK1wCTc+xDX6FTJnQTQdqGh5Tfm7r0
-         Va3RC2pJdWeL7HTOBvhfhZ92+j7WiYavYLcN8TtKE0CgmBcGFHv+dX8shGxi1k+PPIra
-         BPO4BBov/tvtd63GgbOE4OF6fShJ8pfxiqouSYtIZBdmMtr2x0g8sgvm4AlNxset9nID
-         0TKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwI/Su6q3lG1ARrUANLehRJ+BfzNc7XDGsCxQmhahJXAkPLWJK6ryO9ub7I/hEvtJdHGjgE6XWOAw5QyUw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkiA/9FepfUFpwvC5ICiFSetgu8M3VzqNHtVeio5Gw5HZ68f8q
-	+693Y+cXUUdmxD7Ga/ulirKxMgZjlywcb0w8V1djL3GLhOpXFcm/a8LOEdsp1qUFKUE=
-X-Gm-Gg: AYBFou1xR/TDXIykV6X1paCnJIr+QJSffjitvupQ8ZdxqYxp+Q6IBSIpPdtCiv5CK95
-	fhsXCkduip5lNGAA3QOn4+GsfssSib/c1fHNJa28p8Yw9Gw27Cf3BCivj7Ke5BPUEAKYtrkWnw6
-	ZhKOHTIWxshkwjH0Vk5KGtLXia5XDxpNj/3lzBk06dvupLEJdPmM4Yd/nO4g7uAiMOaCrd5R6Yb
-	+nfQMLdSKfEWmPtHOtmPOv9DX5Aqc3EyRUuMS9IL+DVGq29UIURvDX3Uw9xAQJeTSCU1zjsKI4f
-	zSB6QUg1AYPWKdFEux1E9xsY4+ejkk3L9A8T5tcIEcyEbM3T1Yqmn5Xn31QSO4D0di8iKzLnMxJ
-	A05Q86Za3Y1MGS/RPHov2OzEHAxBYoEJ6qejTim/40Q33XLy6vOQ+Gx2FqhZPj+27bBFZlLBHeQ
-	bI3kmCNqoE/GYk8Q/bUoUENYANVKtNB5e4Eyabjm1YoIfPvHzuj71oGQ3xcmP0gP31UXY51TVly
-	ZzCYLV3xFPq7zkpDObSyALtRpS9hL4DL9hIOyA+yLlFLx4oVwM2jb9pHULJBXsEMDROqwuAbRf0
-	msT3JLZfsJmS6uqg0jQtMfo8jhY=
-X-Received: by 2002:a05:622a:1b10:b0:532:f0a2:ef4 with SMTP id d75a77b69052e-5383b4caaa3mr156684351cf.26.1793108953988;
-        Tue, 27 Oct 2026 06:49:13 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53839709ed6sm79085531cf.16.2026.10.27.06.49.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 06:49:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mTTn8ZWR;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Z0LOYJhm
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 7D14E1D00176
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:49:16 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 27 Oct 2026 09:49:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793108946;
+	 x=1793195346; bh=GEmx/sUPQ2VMJDaiqbyGhNC0GffzmoblRKDktdSOsjs=; b=
+	mTTn8ZWRIuh6yCC8N7zM1RkyjRwCnYj5ApXsvRRDF4DShqntltu32cedImYWxCZW
+	3T3+rX3vuwWPL5BhK3RzggeyxYrft8Aa0815cxCyq8/KAlrCQQgYJqtyYcVcPEAE
+	QZBFcR5xocMUdNEC/Ss256l4ZTh36L0yA6nnDmsTbvCqx+aGJldnAm0J34yVwDd5
+	m04wU9UA04ybLZrICroOAcmeVLw2Ys3YtKcCDiKCNrxuqwql7L/kxY1RPM3o8joN
+	8/N1a/j2bRPmUrjsWmf/ailBEue48H+ng2y83WUFWdeq+wi0PRYNxXfVLZstF6Am
+	KGujzhZxqmlaOMguIzoIhg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793108946; x=
+	1793195346; bh=GEmx/sUPQ2VMJDaiqbyGhNC0GffzmoblRKDktdSOsjs=; b=Z
+	0LOYJhmXY4ILhQ1ZEb9qsYJQb6aASLrmEzl9aoPc7z19rsBh9FMGWNyVNLU7hfmy
+	eZxpXf2mvRssP8XDq5BwNlaRlz5VE7OO5sTjTAUHeCklgX95D9UEE6KYLyNRa5py
+	1buGciWMGbz4a8FiV2/B0WZzxZLXehhPunxe710+MHMw23z0UhckVw58ZTZY1OFF
+	K7sJFwa+taHtRtekI+ovUwvgLNKhqphGmdlgaxNz94Ecd56bxmn/eEDHONbdfZSV
+	GC+WA7Llt0rFNrzwSacSwSzAnXm8emS5XWDdgAx/ihLYXUr3Kuu0StEEeQIx4iyU
+	s2anVNpi2GVaFVauFQC6w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793108946; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:b5M1NN4GiexdbILvccCHsL20QDElGAxNPkAlr8eabhtUN6r
+	8EJvcGHORQWzfAtT/ixdpmMnfrbXLkpZ0o/DelJfeM8fZhQTV8PNxB8I+Ofk2fNt
+	NLMfohh5SUlIy/KOKnXyx33SvGLh04OHJ+8a7BtcI2AYG5dMpcDD5FmRP1pEnDg9
+	REZyxjLm+Rna/By5M3H3VOYmyJNRp6/8nxndePbsIYced24d7TEB/uGzIs3SyvWy
+	k53x6BRx2wcvblaNBxjWFgaf5t2/FkEY98MmPwKFCPCEyrq/aydUNbkmE0UtXHGT
+	hfjBQCNDLZSQl+bcHiXz+DU6MOYm/2Ky1uHHe4Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:rJDu4bsxco/gIMrD+dD00LfJT4/xDEIwd0IpCUvE7Ok=:KdZkVqaRMOJUI0d/ETxpGSeypZPRT8HH1n5VL0jRLOY=;
+X-ME-Sender: <xms:zKvgamIraj1gKKF0eAeZnUhaYnPU1FGpZQXoPCi9QC9qq4y6HIW4Rw>
+    <xme:zKvgao9YFV_HCtCeHk0_T4CjvW0coaEmOrDF5Z2kFhRAfjJFVdAfJCZgMYi2KAs4y
+    3f0xiWGAzDybQFUZvrDJOKx47W96PA_q1fy2h9Hfuu1yJwKNNKxT-HG>
+X-ME-Proxy-Cause: dmFkZTGzAS/DSW4CsdWGOtMkgyUDpHtAQSg7qB+7/Ys6E0HD63N/Pcrnnyg0NyVoPg7+rI
+    ROPODo20FS22WszwXXzPBCSg8LrAc4Gs0zt1FYqdFSEzsiYNN6B+Zdt10yoE6tItpi5jSF
+    QuM9+Ljs5u0qdw3cXSYAYD7nPRBHPOx8gzkFNpi6Gbseu+z6gAkwtVDJbRXCWlJjnurtGi
+    Pmj6Er35n4sJoC87PBTI4TELC6x88vYuf+atC7A7hhxb4VyPJywRy4I+EgvWCkwzhpkRvn
+    nMptqgxqOXAcIdYDrgrCRIhV3oZrEOQDiLoCeq3SRJUVU6ykskJEuUkSjrW9OFNct6siFR
+    fRCHMvYkK6bV80wdgi788H8hwIJ8b9THhB9ckSuR1RmxxvD7WxOIPSotO3yOc02D3nKnM3
+    e5m4h7NOqMTkmL+0dH3YuEt+ZM4fUlHTkD+MOGsV2QC0axBtB9LuC6UF/Hga2d60sEaMeM
+    40YHfXH1iCpHr3TKPHgkxz6Pj9XU+ZkKAllecoPy6beK8+P2VrT9S8dyN4ldk28HsXkye6
+    rxBtxqQVDFqXb0+HrrMWnKRsiap6QZrMWRBn1XhjGmbJBKSbQuPyhm0bn9y/0hzTeACm5g
+    ExZO57S+I1i8J638jlcrb+h37dguBbsFt1hT6dF/Yp3L+Unc9SLLJFjplqEg
+X-ME-Proxy: <xmx:zqvgaiR9mD7HzWGzG7wCHl-DWnL2Zp7N8DEi80yl8Lf6Z1YFmMmqog>
+    <xmx:zqvgaosexHicgu3YXFdciJAflEvO83wUz3WY2lZdgiSFEu0DpPk1pA>
+    <xmx:zqvgagLpwi8qhmSfz4hjB85clzUCUokk2iF93sfQYo-JIMnIelfEzA>
+    <xmx:zqvgasfLrqodpNqK86D1uz78eKcESEEdMr7W4hbdXGZ5NycJfIS3Zw>
+    <xmx:0qvgaqh-ax7aBUwe4VoD-hxpmbytdLt64gvmlJ3Psa0VesPsIERnIBlT>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 0259C32A0093; Tue, 27 Oct 2026 09:49:00 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,190 +115,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: AmcrnnMArev7
+Date: Tue, 27 Oct 2026 14:48:29 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Fuad Tabba" <fuad.tabba@linux.dev>
+Cc: "Marc Zyngier" <maz@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
+ kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ "Joey Gouly" <joey.gouly@arm.com>,
+ "Suzuki K Poulose" <suzuki.poulose@arm.com>,
+ "Zenghui Yu" <yuzenghui@huawei.com>, "Steffen Eiden" <seiden@linux.ibm.com>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Yicong Yang" <yangyicong@hisilicon.com>,
+ "Zhou Wang" <wangzhou1@hisilicon.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <040cf379-baba-4e3a-bf3d-6bc009a9e28d@app.fastmail.com>
+In-Reply-To: 
+ <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com>
+References: <20261023070110.1833446-1-fuad.tabba@linux.dev>
+ <20261023070110.1833446-2-fuad.tabba@linux.dev>
+ <86fqxwzul7.wl-maz@kernel.org>
+ <CA+EHjTw08SZC_3Uodt6ew6vXVH-doW-8G41fVCF-rmaKsv+0fQ@mail.gmail.com>
+ <86ecdgzp6m.wl-maz@kernel.org>
+ <CA+EHjTy0jpY3sdVCENJRj_kfRDwbZ6TpkCAHQ2xUO-7ZuErpcA@mail.gmail.com>
+ <ad724195-3452-495a-a50a-5e5c8093a483@app.fastmail.com>
+ <CA+EHjTyLnAXanf9R7SuoL3gFZUNewX7QOnW=mc3qzwvaxg7jJg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: arm64: Hide FEAT_LS64_ACCDATA from guests
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/6] mm: fix pfn walker races with memory offline
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
- kernel-team@meta.com, akpm@linux-foundation.org, vbabka@kernel.org, 
- surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
- hannes@cmpxchg.org, ziy@nvidia.com, linmiaohe@huawei.com, 
- nao.horiguchi@gmail.com, ljs@kernel.org, liam@infradead.org, 
- rppt@kernel.org, osalvador@suse.de, muchun.song@linux.dev, 
- iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com
-In-Reply-To: <9051ac3d-60b9-4ed2-b781-b7191898bc83@kernel.org>
-References: <20261027042204.3741307-1-gourry@gourry.net>
- <01d7d54d-0047-4eb6-a1d2-5b3f113f26cf@kernel.org>
- <179310071902.664110.12994053710961856591.b4-reply@b4>
- <9051ac3d-60b9-4ed2-b781-b7191898bc83@kernel.org>
-Date: Tue, 27 Oct 2026 09:49:12 -0400
-Message-Id: <179310895201.1491991.14362391061932133491.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-10-27 13:51 +0100, David Hildenbrand (Arm) wrote:
-> On 10/27/26 12:31, Gregory Price (Meta) wrote:
-> > On 2026-10-27 09:57 +0100, David Hildenbrand (Arm) wrote:
-> > 
-> > I actually have a reason for these fixes other than "bot said bad".
-> 
-> So you found them on production kernels?
-> 
-> We did not have a single real report of that for probably a decade or
-> even longer in production.
-> 
-> Recently, we had the single first report about the compaction case from a
-> stress test (no production):
-> 
-> https://lore.kernel.org/all/20260903095543.3752338-1-yuan1.liu@intel.com/
-> 
-> "We are not sure whether this race is reachable under realistic
-> workloads or only under this synthetic stress test."
-> 
-> Where I motivated that we need something clean.
-> 
-
-tl;dr:
-
-while these are ai-generated, I'm not posting untested, unreviewed
-schlopp for the sake of getting patches upstream.
-
-I actually care about this issue.
-
----
-
-Some of these don't show up as crashes but instead as hung offline
-attempts (GFP_KERNEL landing on movable).  That shows up as our
-hypervisor just failing to overcommit / guests hanging.
-
-The compaction/alloc_contig bug is one I've seen in production.
-
-I've seen a handful of NULL derefs in production i suspect are the
-zonelist derefs, but it's hard to say (they're rare enough that we
-lose the dumps before someone has a thought to pull them).
-
-I expect this will scale up as we increase the number of VMs and
-the amount of hotplug we're doing.
-
-For clarity, we use ballooning + hotplug as a combo:
- - ballooning to do cooperative overcommit
- - hotplug to defend host stability when the overcommit ratio is extreme
-   (basically deflate_on_oom because a host stability issue)
-
-We're pretty aggressive about ballooning guests to squeeze them and
-dropping the balloon to hot-unplug that memory when a guest is cold.
-
-
-skippable side note on virtio-balloon/mem:
-
-I have some improvements to virtio-balloon and virtio-mem that allow for
-handoff from balloon directly to mem for hot-unplug without having to
-drop the balloon, but I haven't posted those (and we don't run those in
-production, so this is not the nexus of crashes).
-
-Similarly I have another extension that lets the host set a "NO_ALLOC"
-bit on the zone so a balloon-only system can provide the host a way to
-defend against mass deflate_on_oom events (we prefer guests to OOM and
-have the host to kill them due to PSI, rather than threaten host
-stability). Also not in production and not posted, but there have been
-a lot of experiments on overcommit here.
-
-> The thing is that the race between offlining and actual memory removal
-> is extremely long. Poisoning is just a mechanism to find these theoretical
-> issues that could cause issues faster.
-> 
-> And with all the other things going on, this has lower priority, and I
-> wanted to get back to the AI patches I have once the other thing is sorted.
-> 
-
-Sure, I realize I'm pushing this out during the merge window, but I
-felt it reasonable to get some thoughts on whether these fixes are
-worth considering for the window.
-
-If the answer is no just put em on the back burner. We can carry
-fixes as-needed.
-
-> > 
-> > I have a reproducer for every single one of these (and the other
-> > series) - but a handful are unreachable due to a 2-statement read
-> > being emitted as a single read by the compiler (which can be undone
-> > by a targeted compiler flag). Those were included for completeness.
-> 
-> 
-> In general, I think we want something that will protect all
-> pfn_to_online_page() + zone->contig thingies, not just selected ones.
-> We discussed in the past using some sort of rcu for that.
+On Sat, Oct 24, 2026, at 09:14, Fuad Tabba wrote:
+> On Fri, 23 Oct 2026 15:10:23 +0100, "Arnd Bergmann" <arnd@arndb.de> wrote:
+>> diff --git a/arch/arm64/include/asm/mmu_context.h b/arch/arm64/include/asm/mmu_context.h
+> [...]
+>> @@ -254,6 +269,8 @@ switch_mm(struct mm_struct *prev, struct mm_struct *next,
+>>          if (prev != next)
+>>                  __switch_mm(next);
+>>
+>> +        switch_iommu_mm(next, tsk); /* FIXME: is there a better place to do this? */
 >
-> get_online_mems is usually the wrong approach.
-> 
+> switch_mm() isn't enough when the same thread also runs a vCPU. In v2,
+> which I'll post soon, KVM will save and restore ACCDATA_EL1 only for
+> the guest, since nothing in the host uses it today. So after KVM_RUN
+> returns from a guest that has LS64_ACCDATA, the VMM thread's next
+> ST64BV0 would use the guest's value, unless KVM also saves and
+> restores the host's.
 
-Agreed, although the PFN walks seem genuinely harder to wrangle into an
-good rcu shape.
+Right, makes sense.
 
-get_online_mems seems like the backportable solution, but i can see not
-wanting to have to go clean it back up later.
+I was a little unsure at first how ACCDATA_EL1 gets handled on PCIe
+TLPs when there are both host and guest users that set it. As I
+understand it now, this only works if the PCIe requesterID is assigned
+to the guest VMID for stage2 translation, so a guest st64bv0
+uses the ACCDATA_EL1 as PASID in combination with that VMID.
+The host would just use ACCDATA_EL1/PASID for its own stage1
+translation without stage2.
 
-> protecting individual pfn_to_online_page is just whack a mole. Likely we want a
-> way to check whether pfn_to_online_page() is called from the wrong context, and
-> maybe we need a variant that can be called from "wrong context" for a good reason.
-> 
+This means that with your v2 patch and the switch_mm() code I
+have, this should be safe. There is a possible optimization to
+skip the host ACCDATA_EL1 save/restore if current->thread.sctlr_user
+does not enable SCTLR_EL1_EnAS0 (i.e. the same process that
+runs the KVM guest has mapped the MMIO area of an SVA device).
+This would make a difference if ACCDATA_EL1 access traps to
+EL3, but otherwise likely does not much much of a difference
+(I'd have to do some measurements on hardware).
 
-Agreed.  Although I fear the structural fix for this will have uglier
-performance issue than we think.  Then again, maybe it doesn't matter
-(if you're doing a PFN walk, then you're likely already doing something
-stupidly expensive).
+>> diff --git a/arch/arm64/kernel/traps.c b/arch/arm64/kernel/traps.c
+> [...]
+>> +static bool try_enable_st64bv0(struct pt_regs *regs, unsigned long esr)
+> [...]
+>> +        isar1 = read_sanitised_ftr_reg(SYS_ID_AA64ISAR1_EL1);
+>> +        if (!(isar1 & ID_AA64ISAR1_EL1_LS64_LS64_ACCDATA))
+>> +                return false;
+>
+> v2 will add an ARM64_HAS_LS64_ACCDATA cpucap, so this could test that
+> instead. As written it tests bits [1:0] of the register, not the LS64
+> field, since ID_AA64ISAR1_EL1_LS64_LS64_ACCDATA is the unshifted field
+> value.
 
-Where i'm largely concerned is the page allocator and the
-compaction/contig code not taking a regression.
+Thanks for pointing it out. I have rebased on top of your patches now,
+so this line is gone.
 
-For zonelists i've ended up with something like this:
+>> +
+>> +        sysreg_clear_set(accdata_el1, ACCDATA_EL1_ACCDATA, pasid);
+>> +        sctlr = current->thread.sctlr_user;
+>> +        sctlr |= SCTLR_EL1_EnAS0;
+>> +        current->thread.sctlr_user = sctlr;
+>> +        update_sctlr_el1(sctlr);
+>
+> On a host that runs at EL1 (nVHE or hVHE), this also requires
+> __init_el2_fgt to set nACCDATA_EL1 in HFGRTR_EL2 and HFGWTR_EL2, and
+> __init_el2_hcrx to set HCRX_EL2.EnAS0. Without them, the ACCDATA_EL1
+> access traps to EL2 and the hypervisor panics, and so does ST64BV0
+> once SCTLR_EL1.EnAS0 is set. Happy to write those and the KVM change
+> once you're ready to post this.
 
-@@ -1461,7 +1466,7 @@ typedef struct pglist_data {
-         * Generally the first zones will be references to this node's
-         * node_zones.
-         */
--       struct zonelist node_zonelists[MAX_ZONELISTS];
-+       struct zonelist __rcu *node_zonelists[MAX_ZONELISTS];
+Thanks for the offer, that part is definitely not my area.
 
-...
-
-static inline struct srcu_ctr __percpu *zonelist_read_lock(void)
-{
-       return srcu_read_lock_fast(&zonelist_srcu);
-}
-
-static inline void zonelist_read_unlock(struct srcu_ctr __percpu *scp)
-{
-       srcu_read_unlock_fast(&zonelist_srcu, scp);
-}
-
-DEFINE_LOCK_GUARD_0(zonelist_read, _T->scp = zonelist_read_lock(),
-                   zonelist_read_unlock(_T->scp),
-                   struct srcu_ctr __percpu *scp)
-
-static inline struct zonelist *pgdat_zonelist(pg_data_t *pgdat, int type)
-{
-       return zonelist_dereference(pgdat->node_zonelists[type]);
-}
-
-With this the zonelist cookie checks evaporate, but you still end up
-with guard() at every walk location - not great, but better i suppose.
-
-I was hoping this could be sunken into the zonelist walk macros, but
-I haven't seen that pan out.  I've been spending a lot of time auditing
-that code for private nodes as well.
-
-
-On performance:
-
-I've been hammering this with will-it-scale and a bunch of workload
-tests on a variety of hosts and have not seen any obvious regressions
-outside of powerpc (which i can't test directly, but SRCU-fast requires
-atomics for powerpc from what i can tell - so it will eat overhead
-without a fallback... if there is actually any hotplug ppc hardware out
-there to care about?)
-
--- 
-~Gregory
-
+     Arnd
