@@ -1,112 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793078905;
-	b=aolg5HAv8zXfuF+UCXvINgOl8JjpfI54ZWc+M05Fsd3ouakuUE+fP3B89btTxqOTby7s
-	 0kT7TowCXu1PXAY+mAeDO6d31SFkcECu0Dfyi5NP/kzGvzGAeaQowOzeTybvDDe5jdFqu
-	 mNNadsaVHMZiLu5JWDw8U6nGVzGULvtYE9w2qLhyffoOjcU2fo5wpqi9Alti2mltw/SXl
-	 /o0KIbgt2GqPDiLdVqn0fMbefUGLAVvTVvCn8o2FsWGuYRYKN09f4G5g3RhYjDo3DMCY8
-	 zpUo5rZMkQpRYmD+LR4urbFn0kHue579ufsCSXqlHG7KfVNAzYFVKWBVi5YidIjKQrQ==
+	t=1793078904;
+	b=rGimTr39IDWX2ujcrSFsKW4iuhAi9qr4Eu7zlN6nmTp2o/ub3LCw2cdNngveXJNgauKM
+	 XruJAeQqv9HUqU4t5+WGkMnwMfcXLXsYLEdnwbPBnvDJK9yCONmu0ZGKfj2Gm8e1JcV/9
+	 zk9PtjZqvsT+gIMIKReapEYmPsRZSMcgtg8bBsOSA/7UhCTgLGKuNETJW/4RVPn98QYuH
+	 pXRi0op82qfSVd2wllZ8zghPoQv2sJ91oT8MhReQJ0gXI40wTBaxVa1jzZmWojS0VBS6R
+	 wfSKdesinxVsAES4WGxA19G/Lh8miSa4Sk3fRQZF5Gxmaf+hTN8xFQ1ofaya3aIMgvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793078905;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3hMKyPaWEskOkBv5OG5DqLWYBk+n+YndVnXQUQRhXr4=;
-	b=rPgfHk/2D86kQKqBY4HasMR0B0+DvkfZkoZUKSPn9HLbFp2rOhgcvLGB1ur0iwvujAws
-	 7MZlAKwYQ18GwadUH/+k3tAwznnxwhtPgYPhIXyB666UUc6qLnJse0NXDVX2zeT4Ea/D2
-	 OOqsdaHEEkWYeXlIEdn6r2k1KSIx7riOofgx6lvti1VJbdOdyShDf34P+ccjsetEaLngV
-	 PoSHAcAIQUURoTySRqEga6VOZiSMws7pxTt07O0QV8SzZkAkj9ZLels97GhwzToIEdgar
-	 xQ+ndbiNZ2Bcer+3WiBneEsPm9VJ8IBWd2uhiRTRrTWYi7Q5M+0W1ryTEEPROpixSdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793078904;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=i0Omha6OI9MUeQUJmEdArgRodEoTi21Ihq4kzkDpg+k=;
+	b=2768JpsUWG8fQ2KrweCPRDBgCVDmCQx4c3OIaOgYA8TSioFfKJPsgB7qcc68VT7+hvBj
+	 8CUMj+seT5r1IsAsLeZapnjZmiTX5FBNhpzKlTbOj2j+0bGmqKvBkkzenvbhGhQ45XyYh
+	 UjbCEyguMBUVUsdfOeOFR7NB8C36Rivtxe8dy5hdRvXe7D9VwK1vTAxkvpRT6TFmV40Ci
+	 M1KN/YLxbhwttqnICbupDLxSvPNF0uBYrg+KiF6XdG1EOqkWwPQpeYpqEf8du+ZS6E4GQ
+	 9Ot89RzYDOjk++PAsCOl4vE1B6ys8+U1kKQmjx3sniDpOjHqw0ZivlUHOyI2Ry5Q+vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="YmQ/doa3";
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Hv5ts+VE;
+	arc=none smtp.remote-ip=209.85.217.99
+Received: from mail-vs1-f99.google.com (mail-vs1-f99.google.com [209.85.217.99])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A72606A327
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97A72606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFB3606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EFB3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YmQ/doa3
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e7e742a2c7so4318915ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793078904; x=1793683704; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3hMKyPaWEskOkBv5OG5DqLWYBk+n+YndVnXQUQRhXr4=;
-        b=YmQ/doa3Tp9ADiNWK9TKhBal34RqpzT+ddGpWNx00MH8fgCJWAnWAV/NTFOkEgLo3n
-         kU1EkuRLZtCaYK8MxHf/5EJ+Bn0740V11yy7Zph3QgLB33pXnppAeRzg2Fjoo5ScN1lc
-         AHTIhuBI98zFCVN00yliB3O2sJ0/lyagaM0DbMx3xSVFC+Y3eRg42ZnYGqnx92to6k4P
-         1sh7N9tAPLGJr1iwOxe+CkBsEbW9f9X7Fo3ZNY97TR4ZUliEGLy15OlmnzS4JqW5Zh4J
-         8gJz/G/CNd8RJz9VpfeMHyo199bp1EWPxOIH292Q8qJ456+HTdb1NXTqtt+St2MV2Wov
-         iQWQ==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Hv5ts+VE
+Received: by mail-vs1-f99.google.com with SMTP id ada2fe7eead31-7cb6dc850c7so1181764137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793078904; x=1793683704;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3hMKyPaWEskOkBv5OG5DqLWYBk+n+YndVnXQUQRhXr4=;
-        b=HIJEJOQj3voNEM/9aj1tSA+7Eykq2ZYO6FZlKUJyd/K1luNRJWMJ8rOIwQoxV9hfIL
-         vAMfEVi7eTuoXXp5CGxBMGU3e+qXb3tfsNkwoXAPB1i2itj49/Ja4fvrKoyGkaYfKb7y
-         vi2+125q3SepNVmOiffyepJaGbENHgRLcdgpDZwf2KseFixPj95pJCUvmA7ppz2Fnmrk
-         9RLY/OejC3qnjUpKZXtRhSrXzWDnHMOWND4l/a/3lfsiYl5ryPgWi30R2RVxWqzckeim
-         xFdrg/pY/tEz5RoaPOLWq0IZ/sjHDvCCAFgCLsAnV5W+yUBDtEJ6yEpsX/rcdeRA4lEB
-         GA9A==
-X-Forwarded-Encrypted: i=1; AKwUvBxFFwF/ylYKZ/79za2uGprCI8K/kvagxfpSM5Ps6RosHWfWVV8CoCjfwDcklvy/YyPJLPE2vFxlN7JIr2c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCGdpR83ychmnRJC7AW8qc5dv76No0ZlGgk8p8BMbP+WxAsa+s
-	rZR7DIWyICgx+tZ549zGAvfD3+soXwPGq/OGdTqoDNHr0w3qyibWnArP
-X-Gm-Gg: AYBFou2afGLfsSkYfOi7Z2RGr1WWrLPXlYxfDOLcKNaTS90Ny3j3XPGo3XVlxHiLW3Z
-	k4FRzkBxhUYhUb3a5ijic7wcOdVJTSLjHgbN1VvNYmMSwa7v0sZU7e1V9SxTkD4TYrK+H8I7G7E
-	IQgrladEJK3uczrDjUJEqNq8b5wIus6VbSrcEyxUoqWZu4YfHRJPX2/TGemmqsOY67GRMKEvcAZ
-	agvolqMaYB8dC51LVYrznW/uBqL/w0KBvauBr9d/Zb/YANkhIDJmQxzIABXBWKthcwIMswrBURJ
-	rqBtaq9dy5aMdq5ReJc456Nj8FlYcHAhYtMCAwsazUu7inXVvZD9daLRu/q9OiPXvnqMvSI3k15
-	T7/h6mBYIPPfKIckPFmetCKVJfwCtamEmel42NC+dCOxxBdcDfGFf9bG963yWkzNHI7vpEFaBZl
-	446kWcsfWEBUyKyk/ZT+9LzmYTvy07btMq87QgsI46EA06suz/5YwSYFW6EDzsRzpMmCMflb2if
-	HikVNqr4LeZ9U80fr5a+KTZy3ian9rbqP62c3m9f17INiqV62oO8lbrHzWSzGPq9lOLFbFRqg==
-X-Received: by 2002:a17:903:2ecd:b0:2e9:3a86:b995 with SMTP id d9443c01a7336-2eae39fdae1mr11913125ad.15.1793078903879;
-        Mon, 26 Oct 2026 22:28:23 -0700 (PDT)
-Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9757bsm3307715ad.58.2026.10.26.22.28.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1793078902; x=1793683702;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:dkim-signature
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=i0Omha6OI9MUeQUJmEdArgRodEoTi21Ihq4kzkDpg+k=;
+        b=d7hl+LU3amxztBanhB4zR6GJKxBqUvs5jmuNm7PPIAfR95VmGbqI9E1qeWqjUqhSmI
+         zAad1ZbecULCheLsbu2n1V5+Rm6g6tRaOPqGOwoQGwEPf3jIMGzL8XLRW4df8C8DZYDm
+         oRvV1hP+ytCa9xeiL0ZckTXYTpB1XwSSbFgMiWqIVR7hBM1XTudi4KFadFUX8yx6BffD
+         IIAqF+EQxtwDJyBnbTpsoe8pNaaJFI0GqRI8I8/ksSQXtaPwP4vqZ44aXARM9p1C4geo
+         1W6dV4KjnPqNEYBqEUbRgFO9lYZ3tTQuWdLzVsxLTMebdAz5NSyqBzJAecjZY9+peOXr
+         aTGQ==
+X-Forwarded-Encrypted: i=1; AKwUvByQmY+ZhvJ/k1WkZ//qMBxqFHb9dr/7nODx8qsoR0CsVLPf/l7k4cnSfrhbeY1CeC9HMH9pyW/29Niy2yI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQW9Kq9zOzfa2PokhnWvNYsagTNeLOh6idPYJGFdT2fn2CXnHV
+	8XadXPdXKZ6z7eLH46Hoh8lwZw/Qy7f5+vzERdEH4FzgZAn2rsD30TL5J6Gkqt/2YDEqYEi1QaT
+	r5qJbjQMq7MEQl2CqOm5XJYs4PWRH65nJq4bG6Uinnk9Z4A/2r3x+yVV4LyY60BHpucDnYYfNic
+	qsFost4IX8qIaqlHW3L8pPbCqXaqoVBPCrgPrrYRE40THR5vB3Siprq7a1jNSVyA0sg4OCj4L2J
+	F0jfGCkpyLToBt+jQ==
+X-Gm-Gg: AYBFou1clGrpjkD/Cx0F1cmdWf0lza4s67YwXbjHoHstdOR/W5y5wVqJY627qUisocD
+	lV5Ib+kXZRTPDhe837gkbjehAi9o/DIyVEKOZ0nvr0DhxZIZWCcu6uXuN2bpaxzzk9PPAhvz+lI
+	bLXFCi3DOjQSPAdJvA/UucCoVwohviR6tJaEL19gutdXvyGxL0VZGt2i1fCIsz+IT4op8v1uPCY
+	PmN6kKzUI0sej20ZqZDtb7t4qtGwvd4pISKm/wyhd5IHSkz76ETtQSMSQ/flcu0c4NfsY3VrrKN
+	YSWfyfZsXIlQCLkVaDwfnR8spzFdX6vFY8m1Cfp0l98V1ieZnFYFw5Vg1MX0/JxOoCfkKZBbBJ3
+	lMFBNDOeyPaJXBzX5YemtGbM56AOWL6p0qGiv6mcW3N1rd1pP67gLetc3wrxx1WQNfiqIkSBZlY
+	3V/AIze5+4jnzawqxynum8exa+N/HKG1EuVdTZ
+X-Received: by 2002:a05:6102:38ce:b0:7cc:9d47:9c9 with SMTP id ada2fe7eead31-7ce5ce42288mr2663050137.35.1793078902292;
         Mon, 26 Oct 2026 22:28:22 -0700 (PDT)
-From: alistair23@gmail.com
-X-Google-Original-From: alistair.francis@wdc.com
-To: akpm@linux-foundation.org,
-	bhelgaas@google.com,
-	lukas@wunner.de,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	alistair@alistair23.me,
-	rust-for-linux@vger.kernel.org,
-	jic23@kernel.org
-Cc: ojeda@kernel.org,
-	aliceryhl@google.com,
-	a.hindborg@kernel.org,
-	alistair23@gmail.com,
-	wilfred.mallawa@wdc.com,
-	bjorn3_gh@protonmail.com,
-	gregkh@linuxfoundation.org,
-	boqun.feng@gmail.com,
-	benno.lossin@proton.me,
-	gary@garyguo.net,
-	tmgross@umich.edu,
-	alex.gaynor@gmail.com,
-	Alistair Francis <alistair.francis@wdc.com>
-Subject: [PATCH v5 20/23] rust: public_key: Add crypto public key bindings
-Date: Tue, 27 Oct 2026 15:25:33 +1000
-Message-ID: <20261027052536.1722081-21-alistair.francis@wdc.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027052536.1722081-1-alistair.francis@wdc.com>
-References: <20261027052536.1722081-1-alistair.francis@wdc.com>
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-7cea3d9f646sm13024137.29.2026.10.26.22.28.22
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 26 Oct 2026 22:28:22 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c7c0d2b0aaso1020085e0c.1
+        for <linux-kernel@vger.kernel.org>; Mon, 26 Oct 2026 22:28:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793078902; x=1793683702; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i0Omha6OI9MUeQUJmEdArgRodEoTi21Ihq4kzkDpg+k=;
+        b=Hv5ts+VEac2dOY47cVEwh8LEduIMGy0w2R+fpKFa3THYi3LPzXdm+LxiFX+LLcCM2K
+         eeEjdhrkx21NWicVviE2eOLtjBg4ATMksb2vUzWhubzHbcHGBJT9Lj4kQbgwDCSqzzEK
+         YmiDYRvSBDW6DJdn60XcSRgqkTVgg/YsBc7FI=
+X-Forwarded-Encrypted: i=1; AKwUvBzxcVF12KyXhV3YGKiWk2gdkOe+M17HPj4JwhjXE/tz8ahtE4F+gd/FdYQe3n+Gbvvwlyer9IEQxFBdBn0=@vger.kernel.org
+X-Received: by 2002:a05:6102:334b:b0:7cc:1d0b:6d33 with SMTP id ada2fe7eead31-7ce5cda3f5bmr2464705137.26.1793078901757;
+        Mon, 26 Oct 2026 22:28:21 -0700 (PDT)
+X-Received: by 2002:a05:6102:334b:b0:7cc:1d0b:6d33 with SMTP id
+ ada2fe7eead31-7ce5cda3f5bmr2464700137.26.1793078901403; Mon, 26 Oct 2026
+ 22:28:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,124 +99,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261026092757.9168-1-vikas.gupta@broadcom.com> <179300703050.3327.1854487549237861268@kernel.org>
+In-Reply-To: <179300703050.3327.1854487549237861268@kernel.org>
+From: Vikas Gupta <vikas.gupta@broadcom.com>
+Date: Tue, 27 Oct 2026 10:58:08 +0530
+X-Gm-Features: AclHuK-e-IEGXyZmkxyrolV4vzi29eNKxFEsXYfr1j1mgNehM7DbZTSy-5Bbvrc
+Message-ID: <CAHLZf_t1t41ftc4o8i6cS_VVT1RgyLW-o9KeZst_VPPmD9x2oQ@mail.gmail.com>
+Subject: Re: [PATCH net v3 0/2] bnge fixes
+To: netdev-bot+sinfo@kernel.org
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	bhargava.marreddy@broadcom.com, rahul-rg.gupta@broadcom.com, 
+	vsrama-krishna.nemani@broadcom.com, rajashekar.hudumula@broadcom.com, 
+	dharmender.garg@broadcom.com, ajit.khaparde@broadcom.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-From: Alistair Francis <alistair.francis@wdc.com>
+Hi,
+  We found these issues during the Sashiko code review.
+  The fixes were tested on the Thor Ultra platform.
 
-Initial support for the kernel crypto public key (asymmetric-keys) bindings,
-which will be used by the SPDM library.
+Thanks,
+Vikas
 
-This is just a few functions that the Rust SPDM implementation will use
-in the next few commits.
-
-Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
----
- rust/bindings/bindings_helper.h |  1 +
- rust/kernel/lib.rs              |  2 +
- rust/kernel/public_key.rs       | 69 +++++++++++++++++++++++++++++++++
- 3 files changed, 72 insertions(+)
- create mode 100644 rust/kernel/public_key.rs
-
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index a2512fda77e1f..da8855899c530 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -29,6 +29,7 @@
- #include <linux/hrtimer_types.h>
- 
- #include <crypto/hash.h>
-+#include <crypto/public_key.h>
- #include <linux/acpi.h>
- #include <linux/gpu_buddy.h>
- #include <drm/drm_device.h>
-diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-index f7db5975e7621..e8b652faa3b49 100644
---- a/rust/kernel/lib.rs
-+++ b/rust/kernel/lib.rs
-@@ -122,6 +122,8 @@
- pub mod print;
- pub mod processor;
- pub mod ptr;
-+#[cfg(CONFIG_CRYPTO)]
-+pub mod public_key;
- #[cfg(CONFIG_RUST_PWM_ABSTRACTIONS)]
- pub mod pwm;
- pub mod ratelimit;
-diff --git a/rust/kernel/public_key.rs b/rust/kernel/public_key.rs
-new file mode 100644
-index 0000000000000..e1d51333c1179
---- /dev/null
-+++ b/rust/kernel/public_key.rs
-@@ -0,0 +1,69 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+// Copyright (C) 2026 Western Digital
-+
-+//! Wrappers around the Linux kernel crypto public key APIs.
-+//!
-+//! C headers: [`include/crypto/public_key.h`](srctree/include/crypto/public_key.h).
-+//!
-+//! Reference: <https://www.kernel.org/doc/html/latest/crypto/asymmetric-keys.html>
-+
-+use core::ptr::NonNull;
-+use kernel::prelude::*;
-+use kernel::{
-+    bindings,
-+    error::to_result,
-+    str::CStr, //
-+};
-+
-+/// Owned `struct public_key` wrapper.
-+pub struct PublicKey {
-+    key: NonNull<bindings::public_key>,
-+}
-+
-+impl PublicKey {
-+    /// Create a Rust `PublicKey` from a valid C `struct public_key` pointer.
-+    pub fn from_raw(key: NonNull<bindings::public_key>) -> Self {
-+        Self { key }
-+    }
-+
-+    /// Verify a signature using this public key.
-+    pub fn verify_signature(
-+        &self,
-+        signature: &[u8],
-+        encoding: &'static CStr,
-+        hash_algo: &'static CStr,
-+        message: &[u8],
-+    ) -> Result {
-+        let sig = bindings::public_key_signature {
-+            s: signature.as_ptr().cast_mut(),
-+            s_size: signature.len() as u32,
-+            encoding: encoding.as_char_ptr().cast::<u8>(),
-+            hash_algo: hash_algo.as_char_ptr().cast::<u8>(),
-+            m: message.as_ptr().cast_mut(),
-+            m_size: message.len() as u32,
-+            ..Default::default()
-+        };
-+
-+        // SAFETY: `self.key` is a valid public key handle, and `sig` points to
-+        // valid signature/message data owned by the caller for the duration of
-+        // this call.
-+        unsafe {
-+            to_result(bindings::public_key_verify_signature(
-+                self.key.as_ptr(),
-+                &sig,
-+            ))
-+        }
-+    }
-+}
-+
-+impl Drop for PublicKey {
-+    fn drop(&mut self) {
-+        // SAFETY: `self.key` was either returned by `x509_cert_parse()` or
-+        // manually transferred from an `x509_certificate` and has not been
-+        // freed yet.
-+        unsafe {
-+            bindings::public_key_free(self.key.as_ptr());
-+        }
-+    }
-+}
--- 
-2.56.0
-
+On Mon, Oct 26, 2026 at 3:00=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
+:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+>
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
