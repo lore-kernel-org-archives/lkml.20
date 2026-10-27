@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793132987;
-	b=hljyMo6Y1tGv++cYEc0GwHmQp4N0RHpwLTHL3TAaeDVtAs3K04ATfTMQJ3BQGohNtgbE
-	 S45/jm6m9hxa6N49r4e5wLH29VKo3BcD2X6oSokEzku9ZpyGFKKjuRAffKRsCeD+36vxO
-	 g/sdObtm7RvT91k916iX2tTY88XAPpljZ3Qdam8IBDsxGKNEuPSUzlaE4XMMXAT7xQbYl
-	 I9rykNoMHMMN2hjME5/hLcIORGFCDj0YeSXStIfmu6ML1rQffCdMX7foSoyK/M4jvB4QN
-	 fWz/LQQQ5KNzJNGvp+KU8DdXNqZIMYdx/rcEPdlKVBmEldKQ//1qSnKD7GeuaXgSQjA==
+	t=1793132988;
+	b=GG14gSOOAXU4+pmyN/Ftm1p+96WDQVDd9uDR3rXtcw56PNRo5rR6m+jE23PVLUY0Qt7K
+	 72jPhmp54/65sdYmyxa9JO48gSRjwWpr+BPX4qN1r6XTWoWqAC+nNYxOgUhYe/GCq7PYK
+	 UPJjvCSRhfFO43xwiYsl52Gd6eWfVfc3vO+Zgg3ZonXM9I9BLJeeWPN6X+PKvZGEkT+us
+	 kMBbX16rnlrktjUGTcKd2NlUmdVknqeXCfuH3xlgPy33HZyUyRTOard+inoOMCV8z4pEB
+	 DNi/t4ePJxZ+o8ka3vVGMiYEUh5KajiIbX6ghCLWTqRZqI5BVX0TSBfcTj1tYPpUVDg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132987;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hikT6HiFEb7otKpDa6+mXcWacBARRsW7oX81J7dlVJE=;
-	b=OFOIjznHSmlR6BIj4M5+0L/hLj0OJbsw6sWdQTXcgAVmy3kUtDpIP2iqMx8YufCSXuPd
-	 rZRBChiLWuNNYr1dQ3InxMYUjqx+sBss+f9gM9UOKTDH8TjS7LCEDF4qQ6Zey4aa3vKaN
-	 vda2vHMrWABAQ8lSIw80mleHoHSavYv9J/Dzk0yE9nEzL4ESielZMQ480BVUm0YTS+Ege
-	 1dkWO3IdQKYBZr5MiniTQMhYIL/rY54h49ii3BsebetcLbOjihmb9GYh9mr/d3voMBY1j
-	 /lrt9eODnki/K3hr72n6VjByaKn6osMWKK5qH+RZZrEded6Szd/B6/tVi+EBoSp+0rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132988;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=AyVK32z5B5Pj4unDquiQhRrEdn3raP4zBUK+ARpmv30=;
+	b=UN4W7tQl0g8liml3gnpP8HTKxGrtnu4KcfAkuR8ko2aQg7Oj1TwM9wnRXtx9QfiKMnSZ
+	 0ZCBSTzHk7mjyKI4hvu5Jvyuh05Pztbg30XjnQauFya3MsnwFaKvFdhHYNgxbXSjWUqHI
+	 YxZkImFXLk4LmnIiY1xG1FX6xL/WyV03Dmaypa4M0Ew6efWjCEgp0xYpUSBsme7o2O/EP
+	 U7oDR/R8/yIu6p6Wv4/duaoxGe4K+rJ6cNhHwfWu2Lly1LWpgxyxT7le9HXaa6ouC7hD9
+	 vVoli1fL/zRLO2c9tXBs/NWhcJBOok9sjwOqhNbNiMSSTptQ5U70JLsAiJM5U+9lMow==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ib3hhQTH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNvYqS3P;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A372606A337;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6C9606A31A;
 	Tue, 27 Oct 2026 20:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ib3hhQTH
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNvYqS3P
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793132987;
-	b=SdNrlTOI9XgiZrVQmy2aNlXLPRDDdPFwhcnv5e/Ou87YAXzGY/WLiAeweZmM2UY15skS
-	 gTrGRuIs39R41CWjTg00aGEW0xlgkU490WqMKgM+ugDSObwi+Sq9FPXA9dIJNGBg4MBuU
-	 u+wGQNiRZ42BEoXBZTIR35/49sN5jJ6AOWjcOkpUbcGHqswvpRqGVtrHMFnqNGeHEhGvX
-	 9FV++rklnfwTaZIGmzejInRguQnwNrp6dIT1Iad3FpQvO1Vt8p0WrWaX0aJVOM4aQc1FM
-	 3VxXaP/xF6V30flCzD7F+EvhNzoPtTCGVz3Fx/R+tuiMiVlTdjgOK7vmJHDpO67SEdw==
+	b=x3zcFhwT9SBgjkus4zyA5xKnFEJgN3M1BDerqpXIeF3dKirISUPGyFm91Qda2z9n/pWP
+	 pzp/TBTHy+5g4sSBCTmNzFfRpzqX+/cNXxano04R39H5BRStc6bZlomiMbE6aleJQdyac
+	 uRN4Oh/KuY55GraodS/MhujEGLgEtJNMqyrbCS2jCe/0+OfirycC5ULQQ2sFMMy2Zy/LB
+	 wAPmxEnn9FYOSsf4bCuu9Uf3fzdTjYz3sYsMTmsdCWg8iy9dx2zJvaq3tlkI8yymBqvGH
+	 BvyYYrTozKHO4qCss/MXEknOjPGZCf47Cj24cbOgQ8SxQOf8zddABjqJt0lQV5PUwVw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793132987;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=hikT6HiFEb7otKpDa6+mXcWacBARRsW7oX81J7dlVJE=;
-	b=zGcKfI9AnQLUxwwCuuv8XAX+hNpg0PETSOLwk2/J6OOP7CnU4r0cOFgoRQGXA5tG4WwC
-	 YVZS0Ul0UjrCFRNorSy2AvK+rZn5t85siBk7GUHhlg7+1sQSXIBbtKRtEUSD/JYv8GcO4
-	 oEj3u7/cFF4sIPd9nJbQ8d8J/EZMjW2rWIXPAK8/O52WFpegjUP9Vgw4s/8nC9Cq9Z0Dc
-	 xI92oMkd0kbPssSDte3jjFoZronTGni83LMuDp0wLRO/UHK3TBDY6gwLpxZV+SIpCpnst
-	 4/KzUrm95H3vXBdEPYJN7JSjakhuvo/MInuUcg3Z2Hj4taqXwWpfU+SNaGMGeicboDQ==
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=AyVK32z5B5Pj4unDquiQhRrEdn3raP4zBUK+ARpmv30=;
+	b=v8IzmdNNYVXriQS0z6W7Y6ZZ8fo7MiQ83s3zE3vQxK8CvEvxzYlVE6SLEWZ24079fgOc
+	 869uO2klysXZ0/In+Va7zSpGeU/catmSC8fC9ZD0YCciN39n5Clw2B6J4vtAVT4KkRTzp
+	 eyJrktJ+2kt91NGKVmIvzq5/elP0/jkVDQFVopDYHLXHLYaOaoKb+Pnds5e95OnzDWaGf
+	 Zl0OFG/ukQIRQzukyrtys87Tq4yrhx7JSFcejOeylkPvhAu+eS7ZSnfzKBxqgD5SSl+Su
+	 B+g0wG4bdTW/w7Ni59dQT9Rk9MDEElfcp1Z7RgQRaYtZ5PzpBI+V/OEWj2XPE43tL/g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A726B1F01829;
+	by smtp.kernel.org (Postfix) with ESMTPS id A70F11F01825;
 	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793132987;
-	bh=hikT6HiFEb7otKpDa6+mXcWacBARRsW7oX81J7dlVJE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ib3hhQTHFLK94HiqF+B7eUmSw5bk+A4U4HtTpWPVR3g20mFBaNan0j2xraZ6oSpg0
-	 KDeLXjtfoy6DSa3m5BuC/fX24YQ2p4Dg8ilM9zuD4ANRjeWc0RBfqau33OzsgyRylk
-	 Mh0t6YUQ63cZVJzyJLQLuQQ8VkztVzlnET3epdJeo7w9cXA08U99UEX8/ITTyisoSi
-	 Xj2D97vpmRqlanhfQzajUjmTl5PwLgFmUa1otgHfr4ZWWouxEI8B8qXXpI9TzBdoqe
-	 iclo0mUk7ZYdROM+DFwgfCAnAtfSuxYsxyIoyYRQZx9zQncC+dEuPx3erMy/1btHIG
-	 k9WRkttmLGWWw==
+	bh=AyVK32z5B5Pj4unDquiQhRrEdn3raP4zBUK+ARpmv30=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=JNvYqS3PJemCJS5UGfgrUgaEQUJCXATHsHw44V/+IeKFzvwOCadTv3bPLlJaqRuTF
+	 5NVS2jJ3s5bLT4zjfxFwi3N/HpL8xdnF5tBxknRRl6JMnW0kle/EynvW+JPcsCDrud
+	 nA3rFlPiIhXLIy/HF82vjvrzaQFm0AjkmiIkp2G/juEtHaxTv90HPybQy58EsPpBX1
+	 DGeP7OLw7W5Rxf4TBoawp3ZH0s/QqbYcTqsB627+0hz0vhL6mg1NpQCgTI3dJmI/4z
+	 nSFqfQu8BUL5m6B1f3VD4g2EoU4rKhh3FrM6Y1YRc/mHoCJm2q6MNVrxfgr5ht9lUf
+	 uJXFT6zMcFZxg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2F4E245221;
+	by lkml.kernel.org (Postfix) with ESMTP id 0B7F0451F9;
 	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
 From: Marco Ziliani via B4 Relay <devnull+rylos78.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 21:29:47 +0100
-Subject: [PATCH 3/3] media: i2c: ov5693: Use autosuspend when stopping the
- stream
+Subject: [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and
+ autosuspend
+Date: Tue, 27 Oct 2026 21:29:44 +0100
+Message-Id: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-ov5693-fixes-v1-3-3c8ab1ae104d@gmail.com>
-References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
-In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVhpKWuIhbUYCyQDiIRd1csv
+ 7z87wIhzyRQRhd4Olh4mQPSOAI3NvNAirtgwARNmmCulkMbm6meTxJVkEObayxs1kBIVk/fEIq
+ q/i17O5Hb3g+47wc/tte7cAAAAA==
+X-Change-ID: 20261027-ov5693-fixes-8ec29752893a
 To: Daniel Scally <dan.scally@ideasonboard.com>, 
  Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -94,63 +97,67 @@ Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>,
  Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>, 
  linux-kernel@vger.kernel.org, Marco Ziliani <rylos78@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132984; l=1849;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132984; l=2340;
  i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
- bh=MYKsyD0NZ6WLk/QqygH2Wd+qTYlOlgxa6tvnmewfJPU=;
- b=7Cmu3nt7sesvcZYUUEEW/4sywPGxNI7gz09CEeAH9dQ4m2URhNbJ4SWum/4UnFknzoSrqbWPx
- ZyOOX6OqivRAokHVOT1Q9uRg868k27pQ4ejnzURCRu2biGGLVAw3VBH
+ bh=b+xs0p06/qWDzb+PB6KudqXqlOojT5He/NY8G0f4Yus=;
+ b=bYnjA7bQi0B7AN/cS16FsNuFrp6oV/gD/3QR9pnQNOLPapiYWOIPuY+4LmsWbtgXL/pv4DSPH
+ uGv30dHlRncCXFdCozIgweW1w7f/f/XW6eMuOEalPLB7fbGmteQCh/J
 X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
  pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
 X-Endpoint-Received: by B4 Relay for rylos78@gmail.com/20261027 with
  auth_id=1333
 X-Original-From: Marco Ziliani <rylos78@gmail.com>
 Reply-To: rylos78@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Marco Ziliani <rylos78@gmail.com>
+Three fixes for the ov5693, found while getting the front camera of the
+Microsoft Surface Pro 5 (IPU3) to work, and since tested on IPU6 and
+IPU4P Surfaces as well.
 
-The driver enables runtime PM autosuspend with a 1 second delay at
-probe, but drops the usage count at stream stop with pm_runtime_put(),
-which doesn't update the device's last busy time. The autosuspend
-delay is then counted from the runtime resume at stream start rather
-than from stream stop, so after any stream longer than the delay the
-sensor is powered off right away.
+Patch 1 programs the mode registers on every stream start. They are
+only written on runtime PM resume, so a format change on a sensor that
+stays powered never reaches the chip. This is the ov5693 counterpart of
+commit 4e1446ac169a ("media: i2c: ov8865: Program the sensor on stream
+start").
 
-Use pm_runtime_put_autosuspend(), which marks the device busy, so that
-the delay counts from stream stop as intended, and a following stream
-started within it doesn't power the sensor up from scratch again. With
-the mode now programmed on every stream start, keeping the sensor
-powered between streams no longer leaves it in a stale mode.
+Patch 2 keeps the reported SBGGR10 order when a single flip is enabled
+at full resolution: each flip moves the Bayer phase by one column, so
+the output window is shifted by one column when hflip XOR vflip.
 
-On a Surface Pro 9 (IPU6) with autosuspend_delay_ms set to 3000, the
-sensor suspended 1-2 ms after a 5 s stream stopped; with this change,
-3.7 s after it, i.e. the delay plus the autosuspend timer slack. On a
-Surface Pro 5 (IPU3) with the default 1 s delay, the sensor suspended
-as soon as a 2 s stream stopped; with this change, 1.1 s after it.
+Patch 3 drops the usage count at stream stop with
+pm_runtime_put_autosuspend(), so that the autosuspend delay counts from
+stream stop rather than from the last resume.
 
-Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
-Reported-by: D. Manresa <dmanresa@gmail.com>
-Closes: https://github.com/linux-surface/kernel/pull/181#issuecomment-6436016335
+Patch 1 has been public and in testing in the linux-surface tree since
+2026-10-23 [2]. Simon Kruse's active state conversion [1], posted this
+morning, makes the same change as part of a larger rework. Patch 1 is
+kept here as a small standalone fix with a Fixes: tag, so that it can
+be applied and backported on its own; should the rework land first, I
+will rebase patches 2 and 3 on top of it.
+
+Patches 1 and 2 were developed in the linux-surface tree and tested
+there on a Surface Pro 5 (IPU3), a Surface Pro 7 (IPU4P) and a Surface
+Pro 7+ and Pro 9 (IPU6); patch 3 follows a report by Dario Manresa in
+the same thread [2]. The three patches as posted here have also been
+run on a Surface Pro 7 (IPU4P) and a Surface Pro 9 (IPU6) there.
+
+[1] https://lore.kernel.org/linux-media/20261027074933.21921-1-simon0x+git@proton.me/
+[2] https://github.com/linux-surface/kernel/pull/181
+
 Signed-off-by: Marco Ziliani <rylos78@gmail.com>
 ---
- drivers/media/i2c/ov5693.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Marco Ziliani (3):
+      media: i2c: ov5693: Program the mode registers on stream start
+      media: i2c: ov5693: Keep the Bayer order when flipping at full resolution
+      media: i2c: ov5693: Use autosuspend when stopping the stream
 
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index ca0968498..ef5e7285c 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -1070,7 +1070,7 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
- 		goto err_power_down;
- 
- 	if (!enable)
--		pm_runtime_put(ov5693->dev);
-+		pm_runtime_put_autosuspend(ov5693->dev);
- 
- 	return 0;
- err_power_down:
+ drivers/media/i2c/ov5693.c | 71 ++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 62 insertions(+), 9 deletions(-)
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261027-ov5693-fixes-8ec29752893a
 
--- 
-2.56.0
+Best regards,
+--  
+Marco Ziliani <rylos78@gmail.com>
 
 
