@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793123508;
-	b=BwcUVdZ9+2uoBlonfjVxFQItje4doFn657CD7abEtveFQQKx0K5Sf70UsfPv7HRVYYXP
-	 v9wDk7V38GWgx4p0bmtgrV2Rvbg7PzAeCNNC5o/mVELhSyFawdpcvKLHstub3oJLGs4v4
-	 i4jf/uh5ZTC5YV6T8ZGdajopvuwuiRGSao6Cy4JQ+aU8eD5cJfvgO4cxdhcw7aVcExrg+
-	 jRXUEDojPY0l/oaQXg8PbOoBc13BADxakN/9NxGijFO3oHQ9qSTyYKL3lkSkzKe/ac+cM
-	 8H9W7g2siy/v2fsHTH18bnG2Jvr3tGdl+eb4G3HJmo3Slu6ckHH3dcJX8olnBkrPxAA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793123508;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7cvs2Xtx0PtgOTTn5QWjiXGseQMOAfWpyXw4zUPemHU=;
-	b=zKhyp8pAOSm82aBc0RQLc+iyei846H8b8WyX17jYECwmf5WZmHeN3onTfyGzZVOuT5tD
-	 I0FwmJHDoO8xE4sgfX8gtIpcVsref3hL1fyISsI4+AJ+gyVi7XcrbN6mR7czQ+bsxjyku
-	 7HuJsyzKRWxCEHYrMHRpvyn+yZ7JExslKNIUKsXHNA/gv+yAOy3xpb8Dyi534ixhYvCQu
-	 WVvEdV81dxHsLzWnY5sLo8g9rmhTfAKljRD1+ZRcdbztaGNh+0brMNnwzA8lwC07lHp+W
-	 mQIxQ3mEV88WqVgbD+JXJCQjCvBg83+P5u+MuiMK0uXLvQIhfndhmN/5P9fQzHX8gZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWvbx7Yj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793123518;
+	b=qnSLCeD+q5LjCKANBrV2tiGzs4iejlwZjorId5zp/M7jlHVj8XQMt+WilTEX0UA9RlHG
+	 Qvq8DG2UF/SGTnnuN2kwMQktLpp7SQg+ZByIx5n6ODkJeR3mmLPuUzQCPIHwpqzx9ohj/
+	 zezNi2s7336jb8vBU8Owh09mcKRyX1i+WBFgox6/BDI2nHR4TEfl7QdYndH41QA2I9ngZ
+	 ZeYo8kRnjMA9uhBoDoYteQNPtv924T/nYU4E0PqdToOkTfe9X/1ryrLVchQyJrpILGm+q
+	 84McD46pooJ3YqzMxOs98GNUoKPy//aZ912bPJ8vi1OGxtZiVzZy4MjWk5jBvl1N1vQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793123518;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=GGr5j5Bzi08+rjV4DuhZvfvPzAyD+nxpZaxVOzmJBZY=;
+	b=uEtU6/EUn+m2nSvLmmxQg2lf6r1wLhg7kBOJqoSZSOpOC/z068wWzZF4ql+G/nZPxnVB
+	 zPegVKp3TXurtv8FSg9mYEV9h9D4/WkLch5A/l77QOxZT8nPt+AJ7dcgdNAnu7jWfRcVT
+	 ZOFN74VnBFizxnB2hRgBzze8mY5p7pUA3Buma2odcWZlIxNjkpYsjzF2Mh1ksXsHmwAUj
+	 DAoPjnyeWRgYa9yqECLmBJLqtb5yfOkcg5GgsN0bZgr61AjMG2H8UAzYh/sNAt1feBktv
+	 qKGkgqoKdlqqVqUVcZCnW6RUYwkt4jBN5Qt/2fjWpuxDR2Gg3vt53yji/Gm6xFjundg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LGeF3+A1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.50
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE2E606A31D
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:51:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D07F606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 17:51:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D07F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWvbx7Yj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68461F01825;
-	Tue, 27 Oct 2026 17:51:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793123507;
-	bh=7cvs2Xtx0PtgOTTn5QWjiXGseQMOAfWpyXw4zUPemHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cWvbx7YjveH6CSYMJOvh61G4XDIsBxwYy1hNAAz7nE6mTdn4YuWe4pTbt53LJaYrN
-	 zgB2TiZi0QjI+WcAZYWxbLS2dS2GsyLajprsuWpV8ET5L7dy8P0pPF7I4UqlGJPuRq
-	 RR9KuLKDAJkfUHRuc/3BFvnLrB9fx8bj0AyUmRLUkjWaPJvWjv4t6NHZkYvASIWUgz
-	 ghb9nT8dZKmnObXCdQ8qBRFKLFGs8+Spt00oVv8ez+3jT1YzF54+aiR1GXwsAiqLQf
-	 9ettFJJHIGMVRMDJjN7CoUgDjVZ9GaBkDteQvB88mmO91MogYCzJFeuqelYqNJsKgL
-	 WR+IK4Xm2eqVg==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 878B8198003A;
-	Tue, 27 Oct 2026 13:51:40 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 27 Oct 2026 13:51:45 -0400
-X-ME-Sender: <xms:q-Tgane4160Z5m_5kx5S5y1a0nB1H4Bt5lyUT50c_Ely-yKhaBX4Vg>
-    <xme:rOTgatrsWjP1MraltGmFvrCJY6l3q8z-EwL-BVHTlDqGo9wDvrNinM8KXaYtmnGS1
-    qbmCeZ4hSE5SR4sPpcUFD-kwBcngjEDeAoa0zVCu18Ak1XjxFp3IMfO>
-X-ME-Received: <xmr:rOTgah9L3Z_ubKwVisuiLOTIG3BZ5759QE61hHBza21JfPgHX5Q0e7iEDb4>
-X-ME-Proxy-Cause: dmFkZTEJ54V2o5886gXoRzsAs4tIMx+vUoNXgQPnAayI3VlBJBmvGOiJUBSG0i7ubLHch7
-    0JSiGiwy5lgoftBWGJG0zy4C9NkZdA2vOF9mUL3B7EeOORJ4ronuYngSgrFlXXDC06cx92
-    eyEuj6JdAFG/fpBg7FnzXxtPnTMwsB81ldWm5qd5aOYSuDIxHWT2yQ27eM3IYLGVXRK66/
-    KCn01kjg9WmPw2c6ZxaF6Hw0yqQDSf3HmXpVZIX2yK/z7Z9NchnGg4ACPo3bhA9cQvFPi6
-    JUtXh/FKR5/BoV7TysiI9pnpYh2ldG7/qRJuLit9m1Vao2ILByUDezNgEXKBj6oOQucyr4
-    7shXctyr5vOxZrHGDfPPI5M7l1CmLcdabzUyw/CnzHo3ezuHnUxHwIjm1UA1oJostydYVM
-    soSXIKaOrdP0FiPJ/nZBWnwFHv5LsLRNN8YhJswcQFses4jUpndRZKSh+HWHVpD6HiX9/j
-    uPrwMmrjwbkiPrnFNhT3J7QTVtkJQQckkB07ncoHO1iJSXfx+Snc9CHXv0YBCxpDD518SG
-    B03H37qKJmQs0Q7s62Sf0cLjXPa281Zzcto2Be3eHBxkwKBNVfFEqI6PVpKWN3/vwYpbWQ
-    R+0GOwGehvrhAkzvFwzCDWQO0UVuE9jBr/CC+ySqi5Zuy8vF3QPkfG20LqLg
-X-ME-Proxy: <xmx:rOTgao_99TFsm6eS16DH9tGIA2l2C7k1tF5bQbF5ZA2jXRJMVO9VbQ>
-    <xmx:rOTgajHc7hLeYG3BK_3zSCISklNqVcfZFYSN9J7F2UDcGP48n1c6dQ>
-    <xmx:rOTgavcBP-3mKNLSEP2QkYZeDmlDHuLcSJeskXJJfDGLNbFWARp1JA>
-    <xmx:rOTgaqLSyZso6BWVd8VhtJ2KcCxvjdN4Bie9tPyNzE3PYswIqlYObQ>
-    <xmx:rOTgagpOiOtRZAL6-_IvuamoMD6Ob_TDxRTbBGoWRq7CQb0RN3BVeqxk>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 27 Oct 2026 13:51:39 -0400 (EDT)
-Date: Tue, 27 Oct 2026 17:51:38 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Matthew Wilcox <willy@infradead.org>, Usama Arif <usamaarif642@gmail.com>, 
-	Frank van der Linden <fvdl@google.com>, Oscar Salvador <osalvador@suse.de>, 
-	Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@suse.cz>, 
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Zi Yan <ziy@nvidia.com>, Baoquan He <bhe@redhat.com>, 
-	Michal Hocko <mhocko@suse.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Paul Walmsley <paul.walmsley@sifive.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, kernel-team@meta.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>
-Subject: Re: [PATCHv7 13/18] mm: Drop fake head checks
-Message-ID: <auDkbDlgSZxqlk2G@thinkstation>
-References: <ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org>
- <at_f43oDv73y-t7O@thinkstation>
- <f97a8d33-50b2-4a86-8381-ee840cdfa2f9@kernel.org>
- <20261027110028.GH2668564@noisy.programming.kicks-ass.net>
- <auCKv_omLGRc6wv2@thinkstation>
- <f3f3aca9-bdb7-4aec-9099-9fb63a60e61d@kernel.org>
- <auCZFckDfBMrlfxV@thinkstation>
- <070DDE5C-2183-4A8B-AC2D-891CAE15E581@linux.dev>
- <d7a634b6-8668-4753-8bfc-e9334dde705e@kernel.org>
- <4A32F5E6-977D-4720-8723-B19AFBC08FCF@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LGeF3+A1
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-48ed188ee81so96459fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:51:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793123517; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PakXaSQ4OAAllQHraglcq3NS+YbaXmcSDK9XoHLrlB5D8NKWK6lX8TPXNXxAGaNMQt
+         Ce0/b2ixWl4PrP37EaGA5+iEjPGzndqukTxh9pTTHL9gb6ostYroLwDwyg/rd/bMJl7G
+         tUG4udgG9Yiai7bwWy8g2pKGNwLoyUiAbz++Brkh1cIpfcuJb7W9b7t+lN5Rt714Wlf5
+         4/Csyc8jW+nmCcqwwtxiWNFV+LikZbI0N9MOpiZYKn+U7A/sGXj1jO9fUzEPoJ8STWg+
+         RMIDP+YgHw/Pxc/OUCni057EGnaGRhG1yJWHoWYnOP+cUBTuqp9qNjNO4zoj6H99Mnmz
+         DmbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=GGr5j5Bzi08+rjV4DuhZvfvPzAyD+nxpZaxVOzmJBZY=;
+        fh=Bz6u+AdZIejFaXitE+2L45/5Fgg96o9Hlfel/GtwBQI=;
+        b=GvZ1w4iRwM3U+DDGrWXdoqtn9olsK1exJ5AkqQmj2ia3vZf3zJdBctANn+hJNMdtVK
+         KG8gCU2E6a0fZV8AJYAPO/VXt1i+8ksRrRy5MT1N9o3t25geQ/kC4qF4o6gN5pAa9Mh8
+         S+GATsgzq8Ii0rBg3x2ONIvWldaPzZXeAYFsOOzDFgRVt4PV/C2OWeNgGZ+vjoCwHZqh
+         CAVCC3A4oZX07/n5M97tl6sPBlqPY9/xuhLX3BSfRm/z/YqYiSuaQKjHJAttP2YJj+pV
+         MwGZkqmM5t4vzTwRMWBo/jEhOeM7ectrXatw995sgClhEGgRWZI7g6IT+Umc/zCzyyBD
+         PNrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793123517; x=1793728317; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GGr5j5Bzi08+rjV4DuhZvfvPzAyD+nxpZaxVOzmJBZY=;
+        b=LGeF3+A18XYLFSnGiPjlfhx1AcqWQGJxM7wBVkvl0QGNZX2BDCjHB5AWnOguKlsmV3
+         fMQD3skXh/F9QELC0+HtP/5mSju25uXXwropTt5kq1K+D/hF6QJTABPt1DeWY8yX4Sc+
+         rxd2wxl3uZ5Wu1e+1gYVuhDSHGIfzSKx/uYBGgCQJdLRkey0AnZCsUECEdg/lEH5/ffW
+         L6uARWO8Nrw7CD9xpYnziFVfy1RQl2LgliUrN0M4NxmT7Crs+QsYRiOdBQ8bJb5nCNVs
+         fqVtN9Xe5iLQskvAqY6apcvIq/LIdzEBwdQCCxApLDGQcC1h1mPjzD+xLtYGR1z01sVW
+         1UbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793123517; x=1793728317;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GGr5j5Bzi08+rjV4DuhZvfvPzAyD+nxpZaxVOzmJBZY=;
+        b=lShvN4yaXkL2gMgaO3d4Q0x7cjuHImbFbBXyz59HNgs6SYSlfK4JvYck9ge2wnZbhV
+         GmXK4cNtExI3YVm8e66VO7ZYuE2Kh6+YJk1VN42o+8OeFKsZGUNitOIcLAALlwR0FsGB
+         VmM8OEF0j2KsrmyDz7nnv6L2K2j6wfb/znuTqm7KLoHEBBFYVJeVwoXpvG020/nwoVYt
+         mz1XHTAISgzukP+K/RuRqSBrow9ViOglWPPHLdObjYbmZ07C8AT/x/RmIc6OYePA5vW6
+         U3uPAAVc2BgfShaWIlzDREwh69mDM30ajppgnzDLkxryegtHDl9JRJX8okjeZu4KWGNb
+         IvTg==
+X-Forwarded-Encrypted: i=1; AKwUvBx/7Ie+wqRYEtX6lGn1mercCNDv8MqRFPP7yqCjjzeX9BEzUacl9PeH/aeI/6nTdynm348s4NAm4eD1nEQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3xYa/LfhXAUfVq9WHUSTxq3F02Ex8WzSFlIAcCHgYDbp9kw7y
+	pSIzzgmSfgKWUGKUvj2twhi2zwsB4rSeVCWWcGgJiXH5v4y7+/1X18kt3FNohTU0XPU4a3uKuhz
+	0yk+SIhBOSfXcTY6uaob5Mvd3IXBi/J/Gb25NbvIEmw==
+X-Gm-Gg: AYBFou16knm6gG3OzvW6X3g8UK9ZZBXKCM6rmDtAG26AzXTqApLOmgph8ZIMhkzChb4
+	uEbnj2nLrhQJaHoziLeS7xtAIaPZSFn8uT5kiw9Oaqmdi96amWiDNpEPyvOpe9XA6fJa7VY4ovo
+	ZGyU4in/9yeBbJqxGnJsdO3+tMzut2UEygI1AC5WZVMdxrDowTOlARXcWaO3T+VPFDOcFDPsU/u
+	+9VUX2tZtSJ2te6xWTmsShaDHkOepubSZIuvbEyCjGMRPR+8bUQOcx7PJBop8MlkEh1Pn/VbwPr
+	jXHWFM5noGFgnESFJ2lL3g3I7Mp3KtyevL5OdAoqIduILza9kSWrhCskJhDZl45MUwje48qkMyp
+	JfQkYbRpkvAURwJa/rIPiUZsWWLPKd0LZRz2/l8PzTNz4oe5lRau49qmCskcw+iUUJYi7u6ZnPj
+	x91WLMOxTeeUxzIxtbW8Ze9FrrcgUbxkBNCbqBgZKSO9usKC5c5VU/iaTjeYO6PWzV0z9aEJZJc
+	JQ=
+X-Received: by 2002:a05:6870:32d4:b0:4a7:2ba2:61e3 with SMTP id
+ 586e51a60fabf-4a8bb68a9cdmr212651fac.38.1793123517141; Tue, 27 Oct 2026
+ 10:51:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,206 +105,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4A32F5E6-977D-4720-8723-B19AFBC08FCF@linux.dev>
+References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com> <20261014-vc4-common-scramb-v3-8-c68d58d959a2@collabora.com>
+In-Reply-To: <20261014-vc4-common-scramb-v3-8-c68d58d959a2@collabora.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 27 Oct 2026 17:51:40 +0000
+X-Gm-Features: AclHuK8ZKJ_JTVubRk5FXQa86W3jtd6tziWTz8u6Qiv1FIRrgy2UTs2WpYRya4I
+Message-ID: <CAPY8ntCPZBwg3ynaoQPM=EJFeWYCeueFNN_MD_4+sZuj3csMEQ@mail.gmail.com>
+Subject: Re: [PATCH v3 8/9] drm/vc4: hdmi: Bump BCM2835 max pixel clock to 165 MHz
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Maxime Ripard <mripard@kernel.org>, =?UTF-8?B?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, 
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, kernel@collabora.com, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 10:03:54PM +0800, Muchun Song wrote:
-> Therefore, I am kind of leaning towards removing the RO protection
-> and restoring RW permissions to solve the race.
+On Wed, 14 Oct 2026 at 02:03, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+>
+> Historically, the HSM clock for BCM2835 was fixed at 163.7 MHz.  Since
+> the pixel clock had to be at least 1% below the HSM clock, it was capped
+> at 162 MHz.
+>
+> Since commit cd4cb49dc5bb ("drm/vc4: hdmi: Adjust HSM clock rate
+> depending on pixel rate"), the HSM clock rate is set to pixel clock *
+> 101 / 100.  For a 165 MHz pixel clock, this gives an HSM rate of 166.65
+> MHz, which, per Dave Stevenson, the hardware can handle without issues.
+>
+> Increase the max pixel clock to 165 MHz, which matches the maximum TMDS
+> character rate of HDMI 1.0 through 1.2.
+>
+> Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-Okay, what about this:
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-From e23ab850837b53cc79d57d58f1cfb4266e745c3d Mon Sep 17 00:00:00 2001
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Date: Tue, 27 Oct 2026 17:23:47 +0000
-Subject: [PATCH] mm/hugetlb_vmemmap: map the shared tail page writable
-
-page_ref_add_unless_zero() reads the refcount and then updates it with
-a cmpxchg.  A lockless get, such as a page cache lookup or a PFN
-scanner, can read a non-zero refcount from a page that is then freed
-and reused as a hugetlb tail page.  If HVO remaps its struct page to
-the shared tail page in between, the cmpxchg writes to read-only
-vmemmap:
-
-    CPU0 (lockless get)               CPU1
-    c = atomic_read(&page->_refcount)
-                                      page freed
-                                      page allocated as a hugetlb tail
-                                      HVO remaps the struct page RO
-    try_cmpxchg(&page->_refcount, &c, c + 1)
-      -> write fault on read-only vmemmap
-
-The refcount is zero by then and the compare fails, but LOCK CMPXCHG on
-x86 writes anyway.  The kernel oopses when hugetlb pages are allocated
-at runtime with HVO enabled while a lockless get races with it.
-
-Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative PFN
-walkers") closed the window with RCU on both sides.  The RCU was removed
-together with fake heads, on the wrong belief that it was only needed
-for them.
-
-Map the shared tail page writable instead of restoring the RCU.  Every
-struct page on it is a tail with a zero refcount, so a late cmpxchg
-fails and leaves the page unchanged.  RCU would put rcu_read_lock()
-back around every get and synchronize_rcu() back into hugetlb
-allocation and freeing.
-
-The cost is the protection against stray writes to tail struct pages.
-The shared page is shared by all hugetlb folios of the same order in
-the zone, so such a write now corrupts all of them instead of oopsing.
-
-Bootmem folios optimized in early boot get their tails mapped writable
-and write protected later.  Drop the write protect step.
-
-Fixes: 32c440d67e6c ("mm: drop fake head checks")
-Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
-Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-Closes: https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
-Cc: stable@vger.kernel.org
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- Documentation/mm/vmemmap_dedup.rst | 13 +++++++++----
- include/linux/mm.h                 |  2 --
- mm/hugetlb.c                       |  4 ----
- mm/hugetlb_vmemmap.c               | 21 +++++++--------------
- mm/sparse-vmemmap.c                | 23 -----------------------
- 5 files changed, 16 insertions(+), 47 deletions(-)
-
-diff --git a/Documentation/mm/vmemmap_dedup.rst b/Documentation/mm/vmemmap_dedup.rst
-index 9fa8642ded48..6cd85aca4b96 100644
---- a/Documentation/mm/vmemmap_dedup.rst
-+++ b/Documentation/mm/vmemmap_dedup.rst
-@@ -131,8 +131,15 @@ pages of ``struct page`` (page 1 to page 7) are tail pages.
- The optimization is only applied when the size of the struct page is a power
- of 2. In this case, all tail pages of the same order are identical. See
- compound_head(). This allows us to remap the tail pages of the vmemmap to a
--shared, read-only page. The head page is also remapped to a new page. This
--allows the original vmemmap pages to be freed.
-+shared page. The head page is also remapped to a new page. This allows the
-+original vmemmap pages to be freed.
-+
-+The shared page is mapped writable. A lockless get of a page reference can
-+read a non-zero refcount before the remap and attempt its atomic update
-+after it. The refcount of a tail page is zero, so the update fails without
-+changing the page. Nothing else may write to the shared page: it is shared
-+by all HugeTLB pages of the same size in the zone, and a stray write would
-+corrupt all of them.
- 
- Here is how things look after remapping::
- 
-@@ -196,8 +203,6 @@ happens at a later stage when we populate the sections. HugeTLB reuses the
- the head vmemmap page representing, whereas device-dax reuses the tail
- vmemmap page. This results in only half of the savings compared to HugeTLB.
- 
--Deduplicated tail pages are not mapped read-only.
--
- Here's how things look like on device-dax after the sections are populated::
- 
-  +-----------+ ---virt_to_page---> +-----------+   mapping to   +-----------+
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index dd09c438fa23..bfaf4ce6d831 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -5162,8 +5162,6 @@ int vmemmap_populate(unsigned long start, unsigned long end, int node,
- int vmemmap_populate_hvo(unsigned long start, unsigned long end,
- 			 unsigned int order, struct zone *zone,
- 			 unsigned long headsize);
--void vmemmap_wrprotect_hvo(unsigned long start, unsigned long end, int node,
--			  unsigned long headsize);
- void vmemmap_populate_print_last(void);
- #ifdef CONFIG_MEMORY_HOTPLUG
- void vmemmap_free(unsigned long start, unsigned long end,
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index cea25773a6c9..7596704d94b5 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -3220,10 +3220,6 @@ static bool __init hugetlb_bootmem_page_earlycma(struct huge_bootmem_page *m)
-  * if marked with the 'noinit' flag. Set it to the default (MIGRATE_MOVABLE)
-  * here, or MIGRATE_CMA if this was a page allocated through an early CMA
-  * reservation.
-- *
-- * In case of vmemmap optimized folios, the tail vmemmap pages are mapped
-- * read-only, but that's ok - for sparse vmemmap this does not write to
-- * the page structure.
-  */
- static void __init hugetlb_bootmem_init_migratetype(struct folio *folio,
- 							  struct hstate *h)
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 917db0984143..77f9d035d04c 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -222,10 +222,12 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
- 		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
- 
- 		/*
--		 * Remap the tail pages as read-only to catch illegal write
--		 * operation to the tail pages.
-+		 * Map the shared tail page writable. A lockless get that read
-+		 * a non-zero refcount before the remap can still do its
-+		 * cmpxchg after it. The refcount is zero, so the cmpxchg
-+		 * fails and leaves the page unchanged.
- 		 */
--		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL_RO);
-+		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL);
- 	}
- 
- 	list_add(&page->lru, walk->vmemmap_pages);
-@@ -629,19 +631,10 @@ static void __hugetlb_vmemmap_optimize_folios(struct hstate *h,
- 	nr_to_optimize = 0;
- 	list_for_each_entry(folio, folio_list, lru) {
- 		int ret;
--		unsigned long spfn, epfn;
- 
--		if (boot && folio_test_hugetlb_vmemmap_optimized(folio)) {
--			/*
--			 * Already optimized by pre-HVO, just map the
--			 * mirrored tail page structs RO.
--			 */
--			spfn = (unsigned long)&folio->page;
--			epfn = spfn + hugetlb_vmemmap_size(h);
--			vmemmap_wrprotect_hvo(spfn, epfn, folio_nid(folio),
--					HUGETLB_VMEMMAP_RESERVE_SIZE);
-+		/* Already optimized by pre-HVO */
-+		if (boot && folio_test_hugetlb_vmemmap_optimized(folio))
- 			continue;
--		}
- 
- 		nr_to_optimize++;
- 
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index 5a2469fb1838..3f25d4a0bf47 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -299,29 +299,6 @@ int __meminit vmemmap_populate_basepages(unsigned long start, unsigned long end,
- 	return vmemmap_populate_range(start, end, node, altmap, -1, 0);
- }
- 
--/*
-- * Write protect the mirrored tail page structs for HVO. This will be
-- * called from the hugetlb code when gathering and initializing the
-- * memblock allocated gigantic pages. The write protect can't be
-- * done earlier, since it can't be guaranteed that the reserved
-- * page structures will not be written to during initialization,
-- * even if CONFIG_DEFERRED_STRUCT_PAGE_INIT is enabled.
-- *
-- * The PTEs are known to exist, and nothing else should be touching
-- * these pages. The caller is responsible for any TLB flushing.
-- */
--void vmemmap_wrprotect_hvo(unsigned long addr, unsigned long end,
--				    int node, unsigned long headsize)
--{
--	unsigned long maddr;
--	pte_t *pte;
--
--	for (maddr = addr + headsize; maddr < end; maddr += PAGE_SIZE) {
--		pte = virt_to_kpte(maddr);
--		ptep_set_wrprotect(&init_mm, maddr, pte);
--	}
--}
--
- #ifdef CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
- static __meminit struct page *vmemmap_get_tail(unsigned int order, struct zone *zone)
- {
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> ---
+>  drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> index 0a95e14792e8..5b7dedd7a9a1 100644
+> --- a/drivers/gpu/drm/vc4/vc4_hdmi.c
+> +++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+> @@ -1319,7 +1319,7 @@ static void vc4_hdmi_encoder_pre_crtc_configure(struct drm_encoder *encoder,
+>          * users are able to use pixel clocks closer to HSM's, namely for
+>          * 1920x1200@60Hz. So it was decided to have leave a 1% margin between
+>          * both clocks. Which, for RPi0-3 implies a maximum pixel clock of
+> -        * 162MHz.
+> +        * 165MHz.
+>          *
+>          * Additionally, the AXI clock needs to be at least 25% of
+>          * pixel clock, but HSM ends up being the limiting factor.
+> @@ -3190,7 +3190,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
+>         .encoder_type           = VC4_ENCODER_TYPE_HDMI0,
+>         .debugfs_name           = "hdmi_regs",
+>         .card_name              = "vc4-hdmi",
+> -       .max_pixel_clock        = 162000000,
+> +       .max_pixel_clock        = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
+>         .registers              = vc4_hdmi_fields,
+>         .num_registers          = ARRAY_SIZE(vc4_hdmi_fields),
+>
+>
+> --
+> 2.55.0
+>
