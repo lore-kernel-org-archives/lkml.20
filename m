@@ -1,99 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098241;
-	b=bIXHVCBgph+F6hKcR3EbhCR15Jq6o8W65FMnqLobj7gDo4VPDofKKVbVTiqZwjAzPudz
-	 DL0vPL1cjof9Xzj6WutHl1+a4mDfg+jBCAiadGLqJYIwr3AGD88pPryGC9/VVVz5H/EQc
-	 WQQhayxAUYpPOI71TpwiNFc/nkYiFlVi+uxWtZhC+0nB6CaeebQvBT+VnLEV2VQTa9+dy
-	 gCMiT8C/VXWfv9n58SkJ83oF7IeWjVoTaLt3YZcK9t4y2yjkMvhDdMP6WqORQ9z9jykLD
-	 GacAlmaBYsT03dt+hieyrh+eKCucQ1O8lIZicUbw23yTu0oJayWLnUC2oi/WfN93psg==
+	t=1793098248;
+	b=3q5j6p6RGf989LRdt9Ttd9HVLmQJ06M0WYVUjkzYjl8TTb0i85+IRzUianiYMbN7Sf73
+	 rlNf1LGMwmqfjljWmVDaYqQZAXXHILinqX41b86kskspoGdd1/0OcUVd9AhAXAlmD9oeV
+	 6L2kQErW4AfaiisaZeyvpfv/7HlhpXvvRbU409Dw468nn6xCEvPRm2RRrG0Peyu+EhG7L
+	 /25wMgJOWdNRqrGK3uV4RSOWz49ikJ+uErG+LGD01sObvkL0Pbg0udzr+qTIwOrfm+dQy
+	 8+CHgoUsr5xXP5YgNNqGkdntoj14vFlfTK6sapcIvgGDTR8R29TtN0gEAwrRG7mai0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098248;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:X-Developer-Signature:X-Developer-Key:
 	 Content-Transfer-Encoding;
-	bh=akP3a91ASLrcbUz3Gca86EVegYF5hLtx7viYyYgaUSk=;
-	b=Fh5mn+sybHJxClOnIp7ZHUvDIRZU34k/hgmRKATFPD7H+Hahqcy32S4iHn8+r6CtJu49
-	 oQgjdNFOKVVQwuN44wH3uDnNnNQlhQhFwDltMvBuIp0cRP9/BbE7o5SSbZWjfo6i50rcB
-	 3qF6Vz7iuk2IV+m5gQ9gDcbSODN6RoWdm4GS8CliHYZ1nJ0jVRIdJUDQEYYHhz+jTgU+0
-	 bZ/3eFrJ1/EDPDHK+bOdfZKekqRQ7qv6qxkk6moQyLRSCFLWl6eYTnRFDfaLtTsrXMC3k
-	 SrLHeQmLWay1o974usLqnuI9lce43tQxX/FlmmqpBZ2z6Icj5f9tPz5ZSS5RYVnx/eA==
+	bh=I9rh3Te2xYwf0xNAqLGtoJ0ZzJXpFdRlQePYZj4wULs=;
+	b=5ldPR8hJnOuAWfxvtZ9Qws4MKJMcpuFu1hYjALEjQiPLYjbJUoOzL8UnEXVqjgjax/Bi
+	 7VT0DROhWko5GoJuvn1EHL16qO4v2Oa9q/RCJQuoL9DyNr9dV7soXDZJyFQED/UKYjLFv
+	 kWwZsORT7MD1fv6snwo5WlQ7iTV7254Ps3mj2BLyHIGMczRfSaY+/5p8G91sWI2eUlZpq
+	 W7DkCyrl2vNHzk0Sck0PxiMhGnetI/GddSmC/aLay62wo79SZRfVTaYILQM/uOrDb0b86
+	 tZjq6n8rwhR7XH4WLr4AtlrlshWMA/NFt7D8VYc0ejl7V7I0RjEfYzAVtyb4kaGBAAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aaw4aiZB;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PWA0E6pf;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6801860A6F7A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6801860A6F7A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C1B606ADF7
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:50:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56C1B606ADF7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aaw4aiZB
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so15334535e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PWA0E6pf
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4649b35bso4018655f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:50:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793098240; x=1793703040; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1793098247; x=1793703047; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=akP3a91ASLrcbUz3Gca86EVegYF5hLtx7viYyYgaUSk=;
-        b=aaw4aiZBLq7VkZTEB/13yeOyJkGKRSQS1Vz5EknBBiHzrQCvv33xk58ptyp4xaVQTT
-         YdPGGUo3Jrcq1mjamKuqTOBTSvDJYVGCzylLP7HTW6uI0JWrYFJ07s3KsgcmCYKLlPU7
-         DGC8yThHNC/GBvkMy+NrzO+zDjIOAUjnkfk+xIkgctn4NouDZ1hXSI8YFoJ+Em/p0/it
-         aM0zDNALQ6B0Phbz+icnrbIWIZeKa4ZajtvGwaJZ2fHYvoM6y/xQ5cyghsoVwXbwsfDI
-         1if0wwnvRlz86XHLZpfhA2HvDZpMWhy3L0fztmhlV1xdJ+YtWDQQvRd72J2nAMN0tJkx
-         3bHQ==
+        bh=I9rh3Te2xYwf0xNAqLGtoJ0ZzJXpFdRlQePYZj4wULs=;
+        b=PWA0E6pfguevg4TX/fCH4G1cUCChZGK9BFBwhZFZpHL7/dK8WwnARewBJCjN5Fxmca
+         /CLnoG1GRH4kD/KtMqzppV/N9uUT+vHlOiUT+YmsIArh2yD38iJgF4kh1NyxNtEXumL0
+         IanYQbEW0WMr1oRXAfKwuOj9FAiEwzd9it/rzPk6f5POzYV6wNVqsZL1HoZ+PKPMS/Ij
+         KjqAeyWajRnmsei4ZVh/yhtiGe8zw2qxCl4Dhp+3Qh80qblQvdwOXzwVphsKJlbn9d25
+         IHd+o/7iCLHqrZTLRQpbHwTpkfZBfKxD3D1OVFmE8HChpjGyPQg3rKOQCpAwiXIwbW9S
+         K7ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098240; x=1793703040;
+        d=1e100.net; s=20260707; t=1793098247; x=1793703047;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=akP3a91ASLrcbUz3Gca86EVegYF5hLtx7viYyYgaUSk=;
-        b=T3aVTTAEw/rLB/rYEzQdGA1nxbelOLfsqbkk4ohNxYFWUYYwrqiLictmxpAnzfyUjl
-         79/9laDuztKr5NYXaj12BkQtXFphHCNrSXfWqtLjyequzSQRg9ETANalQqg58Pp5/SaI
-         GZs6Mr0ASXO3MszAi3TiBME6L0mSTZJA/xuLhWyg//T/QJkoJr+xUUcyVurxarQOsHV9
-         Yr2uY3ASevzS59LVUEziUab889E7yCEhJ6yhYrTTtLApx7VLDddS4ltfZE3PSiEh8NIQ
-         myx/cqDyobdczGjM6BsfjCLf5x/0IloqU2vjJ+tqzsJjIguPN/2MVSWoYUk7NeGM/uwh
-         82Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzh0hm9sy8dd5avU4YZqtnD2dLO2l00GibKt/zD1AhxdehsGBc72wK+ZZz0ofLQSG7vmLcswjn/v5dilrI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLu5Z1WOaDgxoXTKeoJZoZ657nQtMAIyZ2u+8nIWrDgSm4LmXkH
-	Rr5K/qp/SURwlX3zQQpkP9Oh89TuS7/MnvBWw3y5zbceY7bg8tDMxQOp0+Dv9WBwXl0=
-X-Gm-Gg: AYBFou29l0Zgn0h0Sy4snyfYItade6B7rHlXgXh9+BRmY/GeYYkQE2Xra5+B62hRXUd
-	FhbtSLTh0Ddd8Z9IgfTjNJK9VO4r9WdlFQUH4kk9MzYwesHdhfAAfWrNN6p4Z5FS5QWZdwmh5NZ
-	Hby3hYAefzRZq1skf48O0v544hFcXdVbn7FxzaA9SFAlxONk3y3GpgVDpzak0t1cVb+q7rGA00z
-	77rTBXa4FHQdYf8tnvSUvm6LKlPIYo4mcemei9daNZN1mN4vcgbyQvSGSn/V5dEq4idhkLGckwv
-	yXsWjvvvw07QHZ9K4I0iOK7kibru/pPtHGvc8oubW68FSBWKH5XtBea4hEgFild1nLjZSx9LkL7
-	piFRhoZ0Zh2wtnF+cpiw8Avq7McfwHluvcB2tr5VZSs93tvEQrUCdct1tpSvmuofN1lRbnRQRlX
-	YYiAuQdHSFL4h71h8rQB8/SMpMsIjALEBrJ1ClgxT5m7S7xfCe+kX5F4+/RdvhAstgyn7I0rLSE
-	s6SvfD+ZYe10+BGFzmmzlH9G7RxT5h/SY8eW7SCfOY/VuNAZJv+sDBkfhXnvpJ2gINUZE59zFne
-	7QzmgC9CdbBzyaupQLkLJB8N+zAEhK7q71G2u5rbChg=
-X-Received: by 2002:a05:600c:c098:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a5018d1340mr118752415e9.23.1793098239637;
-        Tue, 27 Oct 2026 03:50:39 -0700 (PDT)
+        bh=I9rh3Te2xYwf0xNAqLGtoJ0ZzJXpFdRlQePYZj4wULs=;
+        b=yI5A8xYnh+jDNq3y1evhCSwkVNejHg3PuvqtcgMqWRGFHErkS0217FxONXlqZEH0RG
+         vwI3KiWttuqNrhB2D3suFVfHtiOqWuV8S7qZRtoAKiAg3Ynsj5SBOOF8bGxWU/PgxjN+
+         UP1GGEG3Ik+61mn/2ZzMgASKb1wafZ6Hlv0O7jEi969+yqVkKv5rFO5o8xKSKGdD2jGQ
+         LIDs21djYIQ/LxkcArSskU54UXDsyBuYzf4yeY+zVIt9nkMwzQMZEDwhIjqjCP+S76nO
+         rSp12o3VCTrNMMXlzj3sUkmFVELjzdG3aPBnthcmP7rlqZD4JMTJh+kfrxSYeW+7JvU3
+         tylw==
+X-Forwarded-Encrypted: i=1; AKwUvByb0c8VEw7u/adehQUnTary9usqFBJ3vvWv5L33aQf8R3aLUZ0scG5BDAObrjUsr8YQ+uEYiBgVK7y18SE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjh2Xu4RJnEmys7gTcrdfxKvhijrbWBmQ8AXN3UpgsDvUjJMSb
+	o47A9z+gUJEJmQfgN3M7RxhjmOmSYImdfsznYXsf51XtZsTQ9344ZssgDZwDKaV97aQ=
+X-Gm-Gg: AYBFou2rfde572KPRn+BgZqulfeH8Kue1F1q6nGeXMHD3KvkJ/ezUZYL+HldGs9FaFw
+	5kJwarKhLCRWQOFJeaDEZVlVW0N6Dk0MRxGPhdKg+rpuC1s54hRsjMntXNsp8sSykNgyn4BwQag
+	71DloobL1XeWBT+tQpkLXAniKWXAAOPqq1WRDw/nHQ8Rktj9vH155WV1YZTAc3QOMMmBj/R1qU8
+	TbbnMsE8LfUjhgaYjQFRuxqIlv2l1GdWEK6eKdFWBsSt2S6vqRE0yFFTCVhSd7jxK4xkfD83HRh
+	6v9PnsNnXghtXwElBaOw1D3DTa5kJc0Axt3YaJwcB1TpA0Ov0r2jgejJVQXr4I9W5OpXAmKxrgN
+	uAtd1qrE24SjJIbYLK4wxu7UFU4ubyYj+Nkfdgfqsdjzv2PPVzOv2swbu+9XsmAv/XPfKJuIt0V
+	+cdYy2Ep1zYmcxcONoDMdqMMRbG2NLbRdh2Ju0gC0NeYgY2mgzWGqbNp2FaS3w5Sizhr+sQKqV9
+	xhKTsivrYoKfiH59rCtzHGNzeaUbhuOMQ0Spfr1yE0Ct4g085qTjbPcLKHhnqtrGev/WqmuzuGy
+	WCjhptsa9vIcWMnXkCXEUW2PytuLEAPf34CW5NyFtC8=
+X-Received: by 2002:a05:6000:2206:b0:48e:b1a:fa3 with SMTP id ffacd0b85a97d-48e54a0a7f2mr5629085f8f.35.1793098246696;
+        Tue, 27 Oct 2026 03:50:46 -0700 (PDT)
 Received: from localhost (p200300f65f19a904240e81f1f32a429c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:240e:81f1:f32a:429c])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a35a0bae01sm319025215e9.7.2026.10.27.03.50.38
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e3ece5e4asm21603671f8f.59.2026.10.27.03.50.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:50:39 -0700 (PDT)
+        Tue, 27 Oct 2026 03:50:46 -0700 (PDT)
 From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
 To: Linus Walleij <linusw@kernel.org>,
 	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Hoan Tran <hoan@os.amperecomputing.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Alan Borzeszkowski <alan.borzeszkowski@linux.intel.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Andy Shevchenko <andy@kernel.org>,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 12/23] gpio: Use named initializers for acpi_device_id array
-Date: Tue, 27 Oct 2026 11:48:49 +0100
-Message-ID:  <8813ad9f30c4127f48c82b1a14a8e8e1c4f1d2a5.1793097104.git.u.kleine-koenig@baylibre.com>
+Subject: [PATCH v4 16/23] gpio: Use named initializers for spi_device_id array
+Date: Tue, 27 Oct 2026 11:48:53 +0100
+Message-ID:  <11fe7ed408b5c4f8b9e67208363108d192d5acf2.1793097104.git.u.kleine-koenig@baylibre.com>
 X-Mailer: git-send-email 2.56.0.rc1
 In-Reply-To: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
 References: <cover.1793097104.git.u.kleine-koenig@baylibre.com>
@@ -107,7 +102,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9364; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=LqCaeYlVkMqOi2hn/8QGrW/4N0F0mxLWNGfGZ3YBqJA=; b=owGbwMvMwMXY3/A7olbonx/jabUkhqwHjdv//v1qFX/PM3eNz+WVRkcXaWqHbChhni1taNPn+ /YDt5ZkJ6MxCwMjF4OsmCKLfeOaTKsqucjOtf8uwwxiZQKZwsDFKQAT6axl/2e48MRsV97clnkZ Tdobv9fN0rGzPCus8ixng5+AA+OrW0nN8z79/vjvw8YHbOuj262t+uwnsR/amJ58S+k4t2Fn22t xo8aXd299mqiesbc0ZVd7eueB5Z8Mpa/s+X3XtipWSueEAPNUvxMWrFIP2nbo3VtitfyxSAH7zK iEJ1lGBQ+iQrbOM1K8fyTs38/26486AxImiL5prOeea+b/8t4DOyHLhF3Mzr3X/ERKtrCZVUn8M /1wtvXCbvGnC2SNM1W7SrprVUwD2XszUxTYd207eoUzvj5uqdTaCfZhd5atql5i+ipRWFU4Zp/E SZ48nexfKfuLBPOs79W7f+70VSsMvLAi9pNjp5+6SEUDAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2931; i=u.kleine-koenig@baylibre.com; h=from:subject:message-id; bh=uNWJjvjByUSk/Alx6uwMJrOimvtVntzmd6YoLQUBMo4=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBq4IHHIPl67+WUpoSrkDzCHbqDUyo2BVaVgefq8 AD7aObIeaGJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCauCBxwAKCRCPgPtYfRL+ TkgKB/0SfJ8fTC61IW0Yk+XPjTjoN5MZCzoJEO3QepOvDaZacI+LXqNwm+2rV0/6L2SjwEcdwsu WiTM4MiH/ttnsc2gkH0q5pCNclz9WhNX7TW5gf0XpfIqcEfZhVQ5efaDL/Rqz0aOXqW+7j/nxkB U4LGvGNU9mR2rEiszaxK8IjA6+2N3dJitrY+Xv7VM5sRzDW8Jl+oc28AmwkHTqT49knGsFvOwN9 WXHucYE3zuy2v+6vAje9QwoicbbeHuNT4t3QdSIAFz2JFxfhEsIfp5qM4waqI4aHWtjuUmdr6g1 dFOXjtPGOrD0YAc3M8zKNonm82Pgvi28oV2xWuQWDLo+fy2+
 X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
 Content-Transfer-Encoding: 8bit
 
@@ -117,250 +112,83 @@ to lookup the declaration of the struct. And it's also more robust
 against changes to the struct definition.
 
 The mentioned robustness is relevant for a planned change to struct
-acpi_device_id that replaces .driver_data by an anonymous union.
+spi_device_id that replaces .driver_data by an anonymous union (though
+none of these drivers uses .driver_data, so this patch isn't strictly
+necessary for the plan, but still ok for consistency).
 
 This patch doesn't modify the compiled arrays, only their representation
 in source form benefits.
 
-Acked-by: Sakari Ailus <sakari.ailus@linux.intel.com> # gpio-usbio
 Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
 ---
- drivers/gpio/gpio-amdpt.c           |  6 +++---
- drivers/gpio/gpio-dwapb.c           | 10 +++++-----
- drivers/gpio/gpio-graniterapids.c   |  2 +-
- drivers/gpio/gpio-hisi.c            |  2 +-
- drivers/gpio/gpio-mb86s7x.c         |  2 +-
- drivers/gpio/gpio-mlxbf.c           |  2 +-
- drivers/gpio/gpio-mlxbf2.c          |  2 +-
- drivers/gpio/gpio-mlxbf3.c          |  2 +-
- drivers/gpio/gpio-mpc8xxx.c         |  2 +-
- drivers/gpio/gpio-novalake-events.c |  2 +-
- drivers/gpio/gpio-pca953x.c         |  2 +-
- drivers/gpio/gpio-usbio.c           | 12 ++++++------
- drivers/gpio/gpio-xgene-sb.c        |  2 +-
- drivers/gpio/gpio-xgene.c           |  2 +-
- drivers/gpio/gpio-xlp.c             |  4 ++--
- 15 files changed, 27 insertions(+), 27 deletions(-)
+ drivers/gpio/gpio-max3191x.c | 12 ++++++------
+ drivers/gpio/gpio-max7301.c  |  2 +-
+ drivers/gpio/gpio-pisosr.c   |  2 +-
+ drivers/gpio/gpio-xra1403.c  |  2 +-
+ 4 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpio/gpio-amdpt.c b/drivers/gpio/gpio-amdpt.c
-index 8458a6949c65..32c4d0ee8101 100644
---- a/drivers/gpio/gpio-amdpt.c
-+++ b/drivers/gpio/gpio-amdpt.c
-@@ -125,9 +125,9 @@ static int pt_gpio_probe(struct platform_device *pdev)
- }
+diff --git a/drivers/gpio/gpio-max3191x.c b/drivers/gpio/gpio-max3191x.c
+index 6e6504ab740a..b06fecc98633 100644
+--- a/drivers/gpio/gpio-max3191x.c
++++ b/drivers/gpio/gpio-max3191x.c
+@@ -449,12 +449,12 @@ static const struct of_device_id max3191x_of_id[] = {
+ MODULE_DEVICE_TABLE(of, max3191x_of_id);
  
- static const struct acpi_device_id pt_gpio_acpi_match[] = {
--	{ "AMDF030", PT_TOTAL_GPIO },
--	{ "AMDIF030", PT_TOTAL_GPIO },
--	{ "AMDIF031", PT_TOTAL_GPIO_EX },
-+	{ .id = "AMDF030", .driver_data = PT_TOTAL_GPIO },
-+	{ .id = "AMDIF030", .driver_data = PT_TOTAL_GPIO },
-+	{ .id = "AMDIF031", .driver_data = PT_TOTAL_GPIO_EX },
- 	{ },
- };
- MODULE_DEVICE_TABLE(acpi, pt_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-dwapb.c b/drivers/gpio/gpio-dwapb.c
-index aa7c08e60707..e159c3f98f1c 100644
---- a/drivers/gpio/gpio-dwapb.c
-+++ b/drivers/gpio/gpio-dwapb.c
-@@ -720,11 +720,11 @@ static const struct of_device_id dwapb_of_match[] = {
- MODULE_DEVICE_TABLE(of, dwapb_of_match);
- 
- static const struct acpi_device_id dwapb_acpi_match[] = {
--	{"HISI0181", GPIO_REG_OFFSET_V1},
--	{"APMC0D07", GPIO_REG_OFFSET_V1},
--	{"APMC0D81", GPIO_REG_OFFSET_V2},
--	{"FUJI200A", GPIO_REG_OFFSET_V1},
--	{"LECA0001", GPIO_REG_OFFSET_V1},
-+	{ .id = "HISI0181", .driver_data = GPIO_REG_OFFSET_V1 },
-+	{ .id = "APMC0D07", .driver_data = GPIO_REG_OFFSET_V1 },
-+	{ .id = "APMC0D81", .driver_data = GPIO_REG_OFFSET_V2 },
-+	{ .id = "FUJI200A", .driver_data = GPIO_REG_OFFSET_V1 },
-+	{ .id = "LECA0001", .driver_data = GPIO_REG_OFFSET_V1 },
+ static const struct spi_device_id max3191x_spi_id[] = {
+-	{ "max31910" },
+-	{ "max31911" },
+-	{ "max31912" },
+-	{ "max31913" },
+-	{ "max31953" },
+-	{ "max31963" },
++	{ .name = "max31910" },
++	{ .name = "max31911" },
++	{ .name = "max31912" },
++	{ .name = "max31913" },
++	{ .name = "max31953" },
++	{ .name = "max31963" },
  	{ }
  };
- MODULE_DEVICE_TABLE(acpi, dwapb_acpi_match);
-diff --git a/drivers/gpio/gpio-graniterapids.c b/drivers/gpio/gpio-graniterapids.c
-index 2d0fe3abd5e0..6a77a5864d09 100644
---- a/drivers/gpio/gpio-graniterapids.c
-+++ b/drivers/gpio/gpio-graniterapids.c
-@@ -394,7 +394,7 @@ static int gnr_gpio_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(gnr_gpio_pm_ops, gnr_gpio_suspend, gnr_gpio_resume);
- 
- static const struct acpi_device_id gnr_gpio_acpi_match[] = {
--	{ "INTC1109" },
-+	{ .id = "INTC1109" },
- 	{}
- };
- MODULE_DEVICE_TABLE(acpi, gnr_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-hisi.c b/drivers/gpio/gpio-hisi.c
-index 3b65ed4592ee..1a89695ce515 100644
---- a/drivers/gpio/gpio-hisi.c
-+++ b/drivers/gpio/gpio-hisi.c
-@@ -222,7 +222,7 @@ static void hisi_gpio_init_irq(struct hisi_gpio *hisi_gpio)
+ MODULE_DEVICE_TABLE(spi, max3191x_spi_id);
+diff --git a/drivers/gpio/gpio-max7301.c b/drivers/gpio/gpio-max7301.c
+index c8bf6a9c3de0..9db20c22ba9f 100644
+--- a/drivers/gpio/gpio-max7301.c
++++ b/drivers/gpio/gpio-max7301.c
+@@ -70,7 +70,7 @@ static void max7301_remove(struct spi_device *spi)
  }
  
- static const struct acpi_device_id hisi_gpio_acpi_match[] = {
--	{ "HISI0184" },
-+	{ .id = "HISI0184" },
- 	{}
+ static const struct spi_device_id max7301_id[] = {
+-	{ "max7301" },
++	{ .name = "max7301" },
+ 	{ }
  };
- MODULE_DEVICE_TABLE(acpi, hisi_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-mb86s7x.c b/drivers/gpio/gpio-mb86s7x.c
-index 78bcae130e0e..58915ffb4bfe 100644
---- a/drivers/gpio/gpio-mb86s7x.c
-+++ b/drivers/gpio/gpio-mb86s7x.c
-@@ -213,7 +213,7 @@ MODULE_DEVICE_TABLE(of, mb86s70_gpio_dt_ids);
+ MODULE_DEVICE_TABLE(spi, max7301_id);
+diff --git a/drivers/gpio/gpio-pisosr.c b/drivers/gpio/gpio-pisosr.c
+index 2732ea8c16b7..75a8f3efaf94 100644
+--- a/drivers/gpio/gpio-pisosr.c
++++ b/drivers/gpio/gpio-pisosr.c
+@@ -150,7 +150,7 @@ static int pisosr_gpio_probe(struct spi_device *spi)
+ }
  
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id mb86s70_gpio_acpi_ids[] = {
--	{ "SCX0007" },
-+	{ .id = "SCX0007" },
+ static const struct spi_device_id pisosr_gpio_id_table[] = {
+-	{ "pisosr-gpio", },
++	{ .name = "pisosr-gpio" },
  	{ /* sentinel */ }
  };
- MODULE_DEVICE_TABLE(acpi, mb86s70_gpio_acpi_ids);
-diff --git a/drivers/gpio/gpio-mlxbf.c b/drivers/gpio/gpio-mlxbf.c
-index b2a7a41f1437..b6a460363d01 100644
---- a/drivers/gpio/gpio-mlxbf.c
-+++ b/drivers/gpio/gpio-mlxbf.c
-@@ -133,7 +133,7 @@ static int mlxbf_gpio_resume(struct platform_device *pdev)
- #endif
- 
- static const struct acpi_device_id mlxbf_gpio_acpi_match[] = {
--	{ "MLNXBF02" },
-+	{ .id = "MLNXBF02" },
- 	{}
- };
- MODULE_DEVICE_TABLE(acpi, mlxbf_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-mlxbf2.c b/drivers/gpio/gpio-mlxbf2.c
-index 70b6a5413a86..62d9ffb7b41e 100644
---- a/drivers/gpio/gpio-mlxbf2.c
-+++ b/drivers/gpio/gpio-mlxbf2.c
-@@ -451,7 +451,7 @@ static int mlxbf2_gpio_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(mlxbf2_pm_ops, mlxbf2_gpio_suspend, mlxbf2_gpio_resume);
- 
- static const struct acpi_device_id mlxbf2_gpio_acpi_match[] = {
--	{ "MLNXBF22" },
-+	{ .id = "MLNXBF22" },
- 	{},
- };
- MODULE_DEVICE_TABLE(acpi, mlxbf2_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-mlxbf3.c b/drivers/gpio/gpio-mlxbf3.c
-index 4c10a78e428e..96c40f745320 100644
---- a/drivers/gpio/gpio-mlxbf3.c
-+++ b/drivers/gpio/gpio-mlxbf3.c
-@@ -273,7 +273,7 @@ static void mlxbf3_gpio_shutdown(struct platform_device *pdev)
+ MODULE_DEVICE_TABLE(spi, pisosr_gpio_id_table);
+diff --git a/drivers/gpio/gpio-xra1403.c b/drivers/gpio/gpio-xra1403.c
+index fe0fba6ea902..3713475bdb75 100644
+--- a/drivers/gpio/gpio-xra1403.c
++++ b/drivers/gpio/gpio-xra1403.c
+@@ -185,7 +185,7 @@ static int xra1403_probe(struct spi_device *spi)
  }
  
- static const struct acpi_device_id mlxbf3_gpio_acpi_match[] = {
--	{ "MLNXBF33" },
-+	{ .id = "MLNXBF33" },
- 	{}
- };
- MODULE_DEVICE_TABLE(acpi, mlxbf3_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-mpc8xxx.c b/drivers/gpio/gpio-mpc8xxx.c
-index ee35da06cbc7..e79312a7d5a4 100644
---- a/drivers/gpio/gpio-mpc8xxx.c
-+++ b/drivers/gpio/gpio-mpc8xxx.c
-@@ -486,7 +486,7 @@ static DEFINE_RUNTIME_DEV_PM_OPS(mpc8xx_pm_ops,
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id gpio_acpi_ids[] = {
--	{"NXP0031",},
-+	{ .id = "NXP0031" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, gpio_acpi_ids);
-diff --git a/drivers/gpio/gpio-novalake-events.c b/drivers/gpio/gpio-novalake-events.c
-index b3bf0038f84a..d5a3bd48bed3 100644
---- a/drivers/gpio/gpio-novalake-events.c
-+++ b/drivers/gpio/gpio-novalake-events.c
-@@ -304,7 +304,7 @@ static int nvl_gpio_probe(struct platform_device *pdev)
- }
- 
- static const struct acpi_device_id nvl_gpio_acpi_match[] = {
--	{ "INTC1114" },
-+	{ .id = "INTC1114" },
- 	{}
- };
- MODULE_DEVICE_TABLE(acpi, nvl_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index afec5ec23696..77b447c0fea5 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -180,7 +180,7 @@ static const struct dmi_system_id pca953x_dmi_acpi_irq_info[] = {
- #endif
- 
- static const struct acpi_device_id pca953x_acpi_ids[] = {
--	{ "INT3491", 16 | PCA953X_TYPE | PCA_LATCH_INT, },
-+	{ .id = "INT3491", .driver_data = 16 | PCA953X_TYPE | PCA_LATCH_INT },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, pca953x_acpi_ids);
-diff --git a/drivers/gpio/gpio-usbio.c b/drivers/gpio/gpio-usbio.c
-index 489c8ac6299e..e34734aa4365 100644
---- a/drivers/gpio/gpio-usbio.c
-+++ b/drivers/gpio/gpio-usbio.c
-@@ -26,12 +26,12 @@ struct usbio_gpio {
- };
- 
- static const struct acpi_device_id usbio_gpio_acpi_hids[] = {
--	{ "INTC1007" }, /* MTL */
--	{ "INTC10B2" }, /* ARL */
--	{ "INTC10B5" }, /* LNL */
--	{ "INTC10D1" }, /* MTL-CVF */
--	{ "INTC10E2" }, /* PTL */
--	{ "INTC1116" }, /* NVL */
-+	{ .id = "INTC1007" }, /* MTL */
-+	{ .id = "INTC10B2" }, /* ARL */
-+	{ .id = "INTC10B5" }, /* LNL */
-+	{ .id = "INTC10D1" }, /* MTL-CVF */
-+	{ .id = "INTC10E2" }, /* PTL */
-+	{ .id = "INTC1116" }, /* NVL */
- 	{ }
- };
- 
-diff --git a/drivers/gpio/gpio-xgene-sb.c b/drivers/gpio/gpio-xgene-sb.c
-index 3675456b1e9b..6f2907468507 100644
---- a/drivers/gpio/gpio-xgene-sb.c
-+++ b/drivers/gpio/gpio-xgene-sb.c
-@@ -339,7 +339,7 @@ static const struct of_device_id xgene_gpio_sb_of_match[] = {
- MODULE_DEVICE_TABLE(of, xgene_gpio_sb_of_match);
- 
- static const struct acpi_device_id xgene_gpio_sb_acpi_match[] = {
--	{ "APMC0D15" },
-+	{ .id = "APMC0D15" },
- 	{}
- };
- MODULE_DEVICE_TABLE(acpi, xgene_gpio_sb_acpi_match);
-diff --git a/drivers/gpio/gpio-xgene.c b/drivers/gpio/gpio-xgene.c
-index b34b0c58b67c..84c1cc165024 100644
---- a/drivers/gpio/gpio-xgene.c
-+++ b/drivers/gpio/gpio-xgene.c
-@@ -195,7 +195,7 @@ MODULE_DEVICE_TABLE(of, xgene_gpio_of_match);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id xgene_gpio_acpi_match[] = {
--	{ "APMC0D14" },
-+	{ .id = "APMC0D14" },
- 	{ },
- };
- MODULE_DEVICE_TABLE(acpi, xgene_gpio_acpi_match);
-diff --git a/drivers/gpio/gpio-xlp.c b/drivers/gpio/gpio-xlp.c
-index aede6324387f..50625f98f8e2 100644
---- a/drivers/gpio/gpio-xlp.c
-+++ b/drivers/gpio/gpio-xlp.c
-@@ -304,8 +304,8 @@ static int xlp_gpio_probe(struct platform_device *pdev)
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id xlp_gpio_acpi_match[] = {
--	{ "BRCM9006" },
--	{ "CAV9006" },
-+	{ .id = "BRCM9006" },
-+	{ .id = "CAV9006" },
+ static const struct spi_device_id xra1403_ids[] = {
+-	{ "xra1403" },
++	{ .name = "xra1403" },
  	{},
  };
- MODULE_DEVICE_TABLE(acpi, xlp_gpio_acpi_match);
+ MODULE_DEVICE_TABLE(spi, xra1403_ids);
 -- 
 2.56.0.rc1
 
