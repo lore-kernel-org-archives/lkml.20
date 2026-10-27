@@ -1,49 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.141
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793097341;
-	b=LewzxM/aDCSmMbZ3/5SV3Gkb04y/wVLpGgd26DtZ2/z+G2V06YPsvKl+gC6ALd1arA1S
-	 vT2If/rG+OTAoMiMs/ey+E4gMxZGqedapFeBXXSCZHy7btP3P5GWfaI9PLuI3xwtEeLoT
-	 QDsrc09t9Y3XSGALat79W8v8Q9qi8xE/ilaWrJkL5WEEhSVLZ3K2BiOhNxxNYzdlljOrP
-	 KRmkDbYU9+s5okHPBXIBeH5KDl6fCBiomCKHmz2kvFbNnFgsZVpSDt2El9/vBIBPzSfBz
-	 nrHcs7vlxYnll6insf8K6Iawf0m7VPYNtShvn45kD79SbLEvC7iSz477ic7r7da4vLw==
+	t=1793097349;
+	b=ocQPn0pfFXUWqbW8pg5NgjTN+NUvglCI8xc5Kty4KbZ4Ew81D6nrRCuzAvOEzThrYRyR
+	 /xzJbx2QCdrWEqr2JX3qJ8GiJgInijfkkdP1OTjjTiROZvh5NGAbtkFWulligZG6nn4KV
+	 A+d8DN2p3sQDlzrXZ+OzJs9jT9AYCvUh3QpKRcWG37EPnksweLEZ3fJdsHjQUbAjO3HjL
+	 95fXZT/kHY2KdaN1XbCAEwlWo9K7hcC0wxhec2nzZl6WYUvKBNo4706n9mj1/RgJ0y9eB
+	 6HM8VgzLAEbERUKOqraW7F9bZBhKEnog5MuXcl9l5tbLaDUq3LYbz7dsG9xj6USJJBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793097341;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=fpnrnogDp3V5jKMwt4GW3YPjYv2QdO8b81MyuVuvoUU=;
-	b=maLYc9wOoRAQm6EbcV99xIxBbSfX6WvvUA0JoeYefslUh2xH21umM+vY5vdW7+9mppMl
-	 /CMQHvnwuhC2rOk27RC0aeJW5FjYBpmiQIw6muOSP/jTkNGVbxGkzWcCIs5fQW1PVMwqj
-	 1aMohGwmYRV9CgJDWZI8abLL0Ot67Ugc2NFzIOU/FikS9OTdYOzyD44Uj0cVIuzKu3XHS
-	 3tYh3e/7TAnax1HgfugYzeyzr2TbyH35TXNDxFivW5fFlXMbAPA8NW38e6foH4sxfChlG
-	 CFd/idyAizYA+kiPcBbZL+EtFQhiPTuIA4b7rXVCinSJ9g8Z+miVVnxMgmXQYvc8pDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793097349;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=cD96WCdctpe4xqBu48fVzWQv2mdj+Q39Vw8+UuE9NOY=;
+	b=ANDs0ntiqSt5KA3Lbz0C6DpyVDuL6FiBCLUfiw8A+d2XuKegAx8DYfDzLqNehYq5Gj9j
+	 yczbpK2ZBjTeY1X+W6b7usLbAws8yj4zyyLGjZtiqlVcEjEcJGd60pMP+SPUPNkzENdpV
+	 mlI0pcbTtFzskydffYyx9C+9BB3Lb5Rd4iFGBiyaRu5hxOWzVDE3WHHo1KN/hdkbgdFOy
+	 LALu82ElYr0kE6jQdzELpcZxoSD7bALgttpPy1vLx/UylWlSVLs5D9IG20O9RmqjDh4eE
+	 73S3kNIi6WN41mvYmryUIdOvjM9D6E7T6W2Rxln3PfMC3MBH2seYz07JVImO7Ue/fIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xiDY9Tnp;
-	arc=none smtp.remote-ip=115.124.30.132
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=g0poesKL;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wMaGvRgN;
+	arc=none smtp.remote-ip=202.12.124.141
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A117606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:35:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A117606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE34606A337
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EE34606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=xiDY9Tnp
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793097337; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=fpnrnogDp3V5jKMwt4GW3YPjYv2QdO8b81MyuVuvoUU=;
-	b=xiDY9TnpFojAAT6lLFTFh+Z3lhlsG7aNnEcqmgCIadHcd+96cZiv+pMARZ2kL1RBrgfRNL1Mod2ZovjpsOokAV2i4jkEQIkqdrCwDpV7yGfZAnfAJFNyuNGr5+NJVAeG6YCXUCBj7hxh8xYkRhge1AYf2UKfMgxR8a3siurMkcA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R841e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XDdS0nD_1793097334;
-Received: from 30.74.144.191(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDdS0nD_1793097334 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 27 Oct 2026 18:35:35 +0800
-Message-ID: <de0b41fb-4ae2-46a5-afe0-c021134ebba0@linux.alibaba.com>
-Date: Tue, 27 Oct 2026 18:35:34 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=g0poesKL;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wMaGvRgN
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.stl.internal (Postfix) with ESMTP id 92530130296A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:35:48 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 27 Oct 2026 06:35:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793097324;
+	 x=1793104524; bh=cD96WCdctpe4xqBu48fVzWQv2mdj+Q39Vw8+UuE9NOY=; b=
+	g0poesKLuQGMaU7v25wYb164Iof879cLQ+jrS7Vw6CuhEsyJqwn7PFMO9TEgL555
+	salmD3V/ClUhsKzYPi0e1twlBEQsUQgTWR1AZ4ucxcvSWh0tFF+QsAmR7kyrExiD
+	rs8QFLT2d4K3gWpb7cbvYPqhV9WNtc7sDvVFrq/AeZGLbrsDceBV0QVq1catnKNP
+	0vZraw8GdX+eRczyZn9JW2/ZNbjBM4QFUKd6YGV2yTzJi2ns5fiipJSmFKiJF3sN
+	GoBWeR4K6FMeN3rQg7Q7I4UT9hD0E+qvVgrEVdMfqW0b8abtf0o6SMw5UbAH+FLg
+	hVWbTZEFzS2/5wF4AlN9FA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793097324; x=
+	1793104524; bh=cD96WCdctpe4xqBu48fVzWQv2mdj+Q39Vw8+UuE9NOY=; b=w
+	MaGvRgN74SqlQokg0yGoa0qHrxHvnpo1EgRYl+NAZ2HGjyf2DoHqc5uAKC9rWw6/
+	vV5njRj3VAjVsozr2QciajWKilgp9EVdkzTxKpA/MsGbxExu52PceTGPRcPZsISB
+	KpYKodw2SCDSr9uGfucfgcGE2SA0UG7iid20bXHmKysdvynyqnnRbJjpSNwQ33N1
+	0pa9wUuAxjPIT/YsNOqCEmHDj7Qibp8Oyln4Wr2lT6g2YFOhW7GTB1NdlTnD6Y/N
+	mqImDReIq39YA7WkoOuwESu2xsiCrgirovD+YpK1k72+skpa4xR6mPYjJvlLn92L
+	+KFpP5vjxlM5S0xUcBdYw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793097324; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:eZU4zvaIEJfIHTcMjjSlSxp9hTwlzLFd3I9ld+mLan54Yrx
+	+BghOzdsdvdmSozYKVnyPgd3eakjdR/KMBIBCVnQioxr2pW6A8zxU6cwLnBAFj88
+	mvDbc5irODGGWClz8YunEMMGZyV2DTfKVT6HZR9d6Y10R57NDH7vtmY148lFswvX
+	rkWPTuCip6iJPjiaCHMAV3AWJZauzAtMuDcf9U6a1jVZzd50fKK3Fbb4OKsUDkp4
+	TdJpxpj0edw5GlHQ2MbeNNFtxsvgSmN2uU4hHt8DAJXb2L4BKce2NECYSfS7ETfy
+	DMrmUNa6SdmNcN1Zf59kmJID2Ue9HZUxmPybfuQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:cKjetnoeFjJorNH+mroEPI71xZFnj0iEAx7opE2N30E=:+7cbM9Ly9xGwj1eAsvoI2B7rTf1bDojBouGfp8ZZDqA=;
+X-ME-Sender: <xms:Yn7gauJPeu1PinbCI2gYx0_jlj2PnQL9uVqEmxziDToBSgj9D_xRbA>
+    <xme:Yn7gag_jv3yDvc0KG6xNU0a3i3tsXlBRwgQXJ5nMfcMcUHLemzagppJ4LiVff77wd
+    kWfJ0mG4Cc1YdeleyjjRgNmR8bhi_EzFH5DKuKtc6zsMLGUhHUiVHY>
+X-ME-Proxy-Cause: dmFkZTFn5p5gNfTa2ln7Ur1M8HLGH3FByI3bMffV+IVuNBxFNqZT4qibdV0911N+HRUSXj
+    K07q1nctC5A6CcFfeLY7jBaLOsZKNIqYeTCeDTItiSfcD8KPMq3RagWnzHGWxZYBxWAiCm
+    A3VT2o0IozuPu/s7pvPmuxDhNCPVlHQtdJeKAQbZtM/B41WPfEm0WHEt7Z4VBmU7Awz3r2
+    CW1Ic84f68hqkyPgXyGKcQw2wWDeenYkz/P7wEtiFmdUVM0amFmkVyW6og0RqG5tm89hZw
+    aKjqOAwHgBmvujhKmrOmxUKnEU58c+GvStpS1gjFmbH3Cw9L2zocbcI2nShgNxT4DZbAQR
+    wgaSkDdcdMc/d9G+mxaz1POpKC9kteRE12RXj5cBt5pww+0ny7yXHoqz13E7ttwMLwV2Zx
+    irGvBcy8nzFHGZLzVSm2bc8v02AbCF8YXzUkvfzziFLvAHlSLPGQdoNZ9j8Z+n4FuXVzNX
+    YX6+5h5244zwOTl9aQiqLa2ox4HvDWrM9qIOP1ddj/Qc6TrOohBTM5knyFzE2y92EKQkba
+    jTOi3P5IOCM4Xz9GLVwUPx/34MQnZ46TWseR6J3W3XI63DkzQUPhI7lmU3qjmL7/C1LwgY
+    Sem/AhqkedQIukr61kUqtibtpdY8TqVUBtJQynB3XFjVXPk3rqiMNJFlIJrQ
+X-ME-Proxy: <xmx:Z37gapHvcVHvMaM3ipgnYUZzm2Ryqqq0XCp7NdxFgDjKT2zqjSy1vg>
+    <xmx:Z37gapt5WD8JfcDqZC3gZOEaTUAl0efsI8damzFuxdzMc9AsHa6DBA>
+    <xmx:Z37gao4LOQoh_k9Rjo00qqoo4baOxCcq29WjL83ZgQ6XABea2d3MPA>
+    <xmx:Z37galm2wjPgXkNjyPJ3HOpQNs8U8c25nqH_wkaWl6-1QurrUIflow>
+    <xmx:bH7gapzWCUwwKYEsxCX9776XutFUkBaJpOGzr7ZN12X60l-MCDK0DRme>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A3C9932A0093; Tue, 27 Oct 2026 06:35:14 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,291 +115,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] mm: memory: fix truncation removing mapped folios
-To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
-Cc: ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, qi.zheng@linux.dev, jack@suse.cz,
- pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+X-ThreadId: AUJ1OXWu3nCJ
+Date: Tue, 27 Oct 2026 11:33:08 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "James Houghton" <jthoughton@google.com>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>
+Cc: "Thomas Gleixner" <tglx@kernel.org>,
+ "Peter Zijlstra" <peterz@infradead.org>, "Kees Cook" <kees@kernel.org>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>,
+ "Michal Hocko" <mhocko@suse.com>, "Sean Christopherson" <seanjc@google.com>,
+ "Paolo Bonzini" <pbonzini@redhat.com>, "Jim Mattson" <jmattson@google.com>,
+ "Jens Axboe" <axboe@kernel.dk>, "Pavel Begunkov" <asml.silence@gmail.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, "David Sterba" <dsterba@suse.com>,
+ "Chris Mason" <mason@kernel.org>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>,
+ "John Fastabend" <john.fastabend@gmail.com>,
+ "Josh Poimboeuf" <jpoimboe@kernel.org>,
+ "Steven Rostedt" <rostedt@goodmis.org>,
+ "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>,
+ "Ingo Molnar" <mingo@redhat.com>,
+ "Arnaldo Carvalho de Melo" <acme@kernel.org>,
+ "Namhyung Kim" <namhyung@kernel.org>, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, kvm@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-btrfs@vger.kernel.org, bpf@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <d7f009c90b11ded86654885b5ebcb8c9308fa31a.1793067441.git.baolin.wang@linux.alibaba.com>
- <2ba579e8-06fb-41f5-9eb2-f02b2aabe29b@kernel.org>
- <87e32afd-75de-4407-8f0c-fb70b40d5eca@linux.alibaba.com>
- <81ee2c92-f342-4f7f-aacd-d9558e67a980@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <81ee2c92-f342-4f7f-aacd-d9558e67a980@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Message-Id: <3c125ff6-5426-4f19-8e34-fb564d4b6387@app.fastmail.com>
+In-Reply-To: <14f5f919-55bd-47c6-a1c8-6f1445cce733@app.fastmail.com>
+References: <20261026215226.3713941-1-jthoughton@google.com>
+ <14f5f919-55bd-47c6-a1c8-6f1445cce733@app.fastmail.com>
+Subject: Re: [RFC PATCH 00/10] uaccess: Refuse and warn on user accesses when
+ current->mm is NULL
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
+On Tue, Oct 27, 2026, at 01:12, Arnd Bergmann wrote:
+>
+> E.g. on arm64 with CONFIG_ARM64_SW_TTBR0_PAN, the page table base for
+> the current process is only set in user_access_begin() and would
+> not point to any task here. Without ttbr0_pan, it should be
+> covered by cpu_set_reserved_ttbr0() turning off all user space access
+> for kernel threads.
 
+correction: for non-sw_ttbr0_pan, enter_lazy_tlb() does nothing
+on arm64, so it is the same as x86 and the others.
 
-On 10/27/26 5:33 PM, David Hildenbrand (Arm) wrote:
-> On 10/27/26 10:03, Baolin Wang wrote:
->>
->>
->> On 10/27/26 5:00 PM, David Hildenbrand (Arm) wrote:
->>> On 10/27/26 03:19, Baolin Wang wrote:
->>>> Ayush reported an issue that shmem/tmpfs folios are still mapped when
->>>> truncating them on production:
->>>> "
->>>> BUG: Bad page cache in process ...  pfn:...
->>>> page dumped because: still mapped when deleted
->>>> "
->>>>
->>>> I reproduced the issue with Ayush's reproducer [1] with the latest mm-unstable
->>>> branch, and I got the following crash info. From the dump message, we can
->>>> see that truncate_inode_folio() is really trying to remove mapped folios,
->>>> which is incorrect.
->>>>
->>>> "
->>>> [  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
->>>> index:0x3880 pfn:0x191647
->>>> [  189.171995] memcg:ffff0000cc073d40
->>>> [  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
->>>> [  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
->>>> workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
->>>> .......
->>>> [  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
->>>> [  189.172026] ------------[ cut here ]------------
->>>> [  189.172027] kernel BUG at mm/filemap.c:155!
->>>> [  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
->>>> .......
->>>> [  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
->>>> 7.3.0-rc4+ #277 PREEMPT(lazy)
->>>> .......
->>>> [  189.183986] Call trace:
->>>> [  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
->>>> [  189.184391]  __filemap_remove_folio+0x34/0x160
->>>> [  189.184633]  filemap_remove_folio+0x4c/0xb0
->>>> [  189.184859]  truncate_inode_folio+0x34/0x58
->>>> [  189.185087]  shmem_undo_range+0x220/0x658
->>>> [  189.185308]  shmem_fallocate+0x2f0/0x470
->>>> [  189.185527]  vfs_fallocate+0x128/0x328
->>>> ......
->>>> [  189.187078]  el0t_64_sync+0x184/0x188
->>>> "
->>>>
->>>> After analysis, I believe the race exists between truncation and MADV_DONTNEED,
->>>> and shmem's ->map_pages() merely makes the issue easier to reproduce. Since
->>>> MADV_DONTNEED synchronously releases the pagetable page before calling
->>>> tlb_flush_rmaps(), this could cause another thread's truncation to skip
->>>> zap_pte_range() (due to pmd is none) but still observe the folio's mapcount
->>>> as non-zero. A possible race scenario is as follows:
->>>>
->>>> CPU 0                           CPU 1
->>>> shmem_fallocate                 madvise_dontneed_single_vma
->>>>     unmap_mapping_range            .......
->>>>     ......
->>>>     (filemap_map_pages() remap folios)
->>>>                    zap_pte_range
->>>>     truncate_inode_folio            zap_empty_pte_table(pmd clear)
->>>>       unmap_mapping_folio
->>>>       ......
->>>>         zap_pmd_range (saw pmd none, skip)
->>>>
->>>>     filemap_remove_folio
->>>>       BUG_ON(folio_mapped)
->>>>                                       tlb_flush_rmaps(remove rmaps)
->>>>
->>>> To fix this issue, we should move the pmd clear operation (via
->>>> zap_empty_pte_table())
->>>> to after tlb_flush_rmaps() and use sync_with_folio_pmd_zap() to sync with
->>>> concurrent zapping, so that when we find a pmd_none() while unmapping a folio
->>>> without holding the PTL, the folio's mappings are guaranteed to have been
->>>> removed via tlb_flush_rmaps().
->>>>
->>>> [1] https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/
->>>> Reported-by: Ayush Ranjan <ayushr@modal.com>
->>>> Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
->>>> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in
->>>> madvise(MADV_DONTNEED)")
->>>> Acked-by: Qi Zheng <qi.zheng@linux.dev>
->>>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->>>> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>>> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
->>>> ---
->>>> Changes from v4:
->>>>    - Put the pmd_none() check in the 'else if' branch (per David).
->>>> Changes from v3:
->>>>    - Collect review tags from Qi, Pedro and Lorenzo. Thanks.
->>>>    - Update the related comments per Lorenzo.
->>>> Changes from v2:
->>>>    - Use use sync_with_folio_pmd_zap() to sync with concurrent zapping (Per
->>>> David).
->>>> Changes from v1:
->>>>    - Add an smp_rmb() to pair with the smp_wmb() (Per Lorenzo and Pedro).
->>>> ---
->>>>    mm/internal.h | 10 ++++++----
->>>>    mm/memory.c   | 30 +++++++++++++++---------------
->>>>    2 files changed, 21 insertions(+), 19 deletions(-)
->>>>
->>>> diff --git a/mm/internal.h b/mm/internal.h
->>>> index b1b0f29d2216..ffb8eaec90e3 100644
->>>> --- a/mm/internal.h
->>>> +++ b/mm/internal.h
->>>> @@ -584,14 +584,16 @@ void free_pgtables(struct mmu_gather *tlb, struct
->>>> unmap_desc *desc);
->>>>    void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
->>>>      /**
->>>> - * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
->>>> + * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
->>>>     * @mm: The mm_struct.
->>>>     * @pmdp: Pointer to the pmd that was found to be pmd_none().
->>>>     *
->>>>     * When we find a pmd_none() while unmapping a folio without holding the PTL,
->>>> - * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
->>>> - * indicate that it's unmapped. Skipping the PMD without synchronization could
->>>> - * make folio unmapping code assume that unmapping failed.
->>>> + * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
->>>> + * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
->>>> + * for the table have been removed, but nothing orders the pmd_none() read
->>>> + * against later mapcount reads. Skipping the PMD without synchronization
->>>> + * could make folio unmapping code assume that unmapping failed.
->>>>     *
->>>>     * Wait for concurrent zapping to complete by grabbing the PTL.
->>>>     */
->>>> diff --git a/mm/memory.c b/mm/memory.c
->>>> index e911e63ba1ed..d9c54549b85b 100644
->>>> --- a/mm/memory.c
->>>> +++ b/mm/memory.c
->>>> @@ -2036,6 +2036,15 @@ static unsigned long zap_pte_range(struct mmu_gather
->>>> *tlb,
->>>>            }
->>>>        } while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
->>>>    +    add_mm_rss_vec(mm, rss);
->>>> +    lazy_mmu_mode_disable();
->>>> +
->>>> +    /* Do the actual TLB flush before dropping ptl */
->>>> +    if (force_flush) {
->>>> +        tlb_flush_mmu_tlbonly(tlb);
->>>> +        tlb_flush_rmaps(tlb, vma);
->>>> +    }
->>>> +
->>>>        /*
->>>>         * Fast path: try to hold the pmd lock and unmap the PTE page.
->>>>         *
->>>> @@ -2043,18 +2052,12 @@ static unsigned long zap_pte_range(struct mmu_gather
->>>> *tlb,
->>>>         * to hold the pmd lock failed, then we need to recheck all pte entries
->>>>         * to ensure they are still none, thereby preventing the pte entries
->>>>         * from being repopulated by another thread.
->>>> +     *
->>>> +     * Clear the PMD after the rmaps for the table have been removed, in case
->>>> +     * an incorrect mapcount is observed after unmapping the folio.
->>>>         */
->>>>        if (can_reclaim_pt && direct_reclaim && addr == end)
->>>>            direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
->>>> -
->>>> -    add_mm_rss_vec(mm, rss);
->>>> -    lazy_mmu_mode_disable();
->>>> -
->>>> -    /* Do the actual TLB flush before dropping ptl */
->>>> -    if (force_flush) {
->>>> -        tlb_flush_mmu_tlbonly(tlb);
->>>> -        tlb_flush_rmaps(tlb, vma);
->>>> -    }
->>>>        pte_unmap_unlock(start_pte, ptl);
->>>>          /*
->>>> @@ -2102,12 +2105,9 @@ static inline unsigned long zap_pmd_range(struct
->>>> mmu_gather *tlb,
->>>>                    continue;
->>>>                }
->>>>                /* fall through */
->>>> -        } else if (details && details->single_folio &&
->>>> -               folio_test_pmd_mappable(details->single_folio) &&
->>>> -               next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
->>>> -            sync_with_folio_pmd_zap(tlb->mm, pmd);
->>>> -        }
->>>> -        if (pmd_none(*pmd)) {
->>>> +        } else if (pmd_none(*pmd)) {
->>>> +            if (details && details->single_folio)
->>>> +                sync_with_folio_pmd_zap(tlb->mm, pmd);
->>>>                addr = next;
->>>>                continue;
->>>>            }
->>>
->>>
->>>
->>> } else if (pmd_none(*pmd) && details && details->single_folio)) {
->>>      sync_with_folio_pmd_zap(tlb->mm, pmd);
->>> }
->>>
->>> if (pmd_none(*pmd) {
->>>      addr = next;
->>>      continue;
->>> }
->>>
->>>
->>> Minimal change required, no?
->>
->> No, keeping two pmd_none() checks cannot fix the race, as I replied before. [1]
->>
-> 
-> Best to wait to submit new versions if there are open discussions? Because now
-> we have the same discussion in two places.
-
-Sure.
-
-> 
-> I think you're right about the race, the issue is that we check for
-> pmd_is_huge(), not pmd_present() which confused me.
-> 
-> Clearest to me would be to not drop the second pmd_none() check but move it
-> where it belongs: if splitting zapped the PMD.
-> 
-> @@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_range(struct
-> mmu_gather *tlb,
->                                  addr = next;
->                                  continue;
->                          }
-> +                       /* We already synchronized with concurrent zapping. */
-> +                       if (pmd_none(*pmd)) {
-> +                               addr = next;
-> +                               continue;
-> +                       }
->                          /* fall through */
-> -               } else if (details && details->single_folio &&
-> -                          folio_test_pmd_mappable(details->single_folio) &&
-> -                          next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
-> -                       sync_with_folio_pmd_zap(tlb->mm, pmd);
-> -               }
-> -               if (pmd_none(*pmd)) {
-> +               } else if (pmd_none(*pmd)) {
-> +                       if (details && details->single_folio)
-> +                               sync_with_folio_pmd_zap(tlb->mm, pmd);
->                          addr = next;
->                          continue;
->                  }
-
-IMHO, I'm not a big fan of adding two pmd_none() checks just to avoid an 
-uncommon concurrent sync. If you don't like the approach in v4 [1] 
-either, I'll follow your preferred coding style.
-
-@@ -2102,12 +2105,11 @@ static inline unsigned long zap_pmd_range(struct 
-mmu_gather *tlb,
-  				continue;
-  			}
-  			/* fall through */
--		} else if (details && details->single_folio &&
--			   folio_test_pmd_mappable(details->single_folio) &&
--			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
--			sync_with_folio_pmd_zap(tlb->mm, pmd);
-  		}
-+
-  		if (pmd_none(*pmd)) {
-+			if (details && details->single_folio)
-+				sync_with_folio_pmd_zap(tlb->mm, pmd);
-  			addr = next;
-  			continue;
-  		}
-
-[1] 
-https://lore.kernel.org/all/4cc521a118564b4145edf0324066ab532fb41181.1792979870.git.baolin.wang@linux.alibaba.com/#t
-
-> Removing the "if (pmd_none(*pmd)) {" in your variant is what confused me,
-> because it looks like we no longer happen the case where we zapped the PMD
-> ourselves.
-
-Because zap_pte_range() will return the same addr and check the none PMD 
-again in zap_pmd_range() in this case, I thought you wanted this simple 
-version, considering keeping two pmd_none() checks is incorrect.
+     Arnd
