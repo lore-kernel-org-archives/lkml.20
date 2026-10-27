@@ -1,99 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793086554;
-	b=HFtrYptMgQ635T3l0WQE1j59iln17YhJsSscXcifcbQKx1PrEKL8xI1UwAQ+CZKNRpO1
-	 B6iPAZd3S/r5y/oZ+HMawI3/EL1Ks+gs6HabBtxdBLAx6mqzERF35AFYJZ+apYmRvI4S9
-	 FGqfRTxeJzQGAB0WNbYzlcrBJnZ/sqcGvxh84uFjamYqd/WE+wp3bQxhdb0lEfL2w+J9R
-	 iS2gYVS8R6YkfNmpM+N6CX2+zqxfmXnQ01t9j4U8Fb73C/MA3NWDzyYIgEddU78pmDBM2
-	 b6lmXrm5ULgu4kd+LEdI3vYRcHwQzi+awRYJX/WLkWHe8nG057BK9QTs3z5iDhs8NnA==
+	b=Tnyrnn62yGGVOrKxhWkp+vLmwfJyFvFpt28W+mLt7lTabjZN3CgcmoECvW6WFF1l3vgz
+	 OudJyedL6KAwmG+7MK8Xqi1acPwZqMszPPnY3dIgbYf/7jNvPYybM3IOqwmdUfXz2B1Hn
+	 Jec/HnFDkY5bg/rYh+g0KX6NWi4aFNImydgj2UoZ5YOmJmxY8Kgpogw9vKD0xjKgzfgxl
+	 zGAUrnZO43BAftfBTu6dAeK5yy9CWIQ0NfkL6ZNaL1215DoGB0neb6RPPaiznXW2xSKEh
+	 RCZoDG+weJAGIlJnaD+JHHjiKkzwuYesiI9yLoVeVrGluSBebu0klpl9+ott0RuxwGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793086554;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=aAleu3PFDaaloUL3fp9TR8UUZq+CL8OXKyhY9njoszw=;
-	b=PXhxWr+nwQzllz2LoLRIl6Kg5VaZ6bSUuIvn8dGMQlNA41l5pIX0Jvj5nS+7bYxjeOE4
-	 /Brt4OZYxptvemFKpkx+fPJfBg30Li/+P2WXgjNxgQ25eOaKSdS4D+VZ4IYzCwnbjW+3j
-	 YUMKAy3iPWdW01xDO47c41jO90p0MKzpe74k8it24SqGeMrr6LF7FHHYSTFC15P+FcUaS
-	 0VPADq74HUOk8psCAxMzC6cFxBblO/3Y5PoTPPfuWWoMUQFKGMc0A8BnPIaaW+9g18kNe
-	 D02yKUiIyKYc/JEJidP5CLMOW3e3fSIGSScpop3KHOohQoJBjU9yJKZVIGeKmhA3wdw==
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=5jc2ZtnsslhTBje2qQpVD7MrTZfTUlL74O4i/llDB/M=;
+	b=HK7b0hFK9ekbCd1jwKEOIVbpTiErYlHdr3sPZp6IofAcTTj5rHqNZ3g4Mw/en6mvR+Mo
+	 kLJm1xgCa2S1f3fdXVLkFECSjjGqG9weOnyF1K9vnYlsZ0Ke4mzPHe7Q+qw9Cy/4JjfS3
+	 ZvvA4SQIFwq+gXdC1ZWDJQ7hFCAP6eYHX9Sbu9SIbDNifjPQ/O8Rv5q4c2Zm+Ua3A0k7r
+	 /qc2zcWxr9g76ZKiB1nUJUDcmliI/qqIFkBvs0IvH7Fs6Cp6JmKwUrN6UmDRGhlekZkZF
+	 C+HaiLXyk49ofZl7KIPfF16v0DTyV019fnIAjpzxRBT8FGvy7wlJj3/rOGv8ivw+/1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=UA+RMIvd;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991CB606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:35:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 991CB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="ShPz/LB/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F324606A323;
+	Tue, 27 Oct 2026 07:35:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F324606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=UA+RMIvd
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so2049595a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 00:35:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793086553; x=1793691353; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aAleu3PFDaaloUL3fp9TR8UUZq+CL8OXKyhY9njoszw=;
-        b=UA+RMIvdJDiDPeX/NjNZrP60ECVkNVdz5unnwoSR8k6neRC99YxJu+tZQ4l6XDJul5
-         VKBgjMwFh83zsMth2P6QZMjYAHPFZX1UPTpIjC2sJZXYGp6DhJfmFCQFWoup7+5G35oY
-         TzxKVGL7soDKtAjYzTb6jCNU3NgUnmMzEe9ss=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793086553; x=1793691353;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aAleu3PFDaaloUL3fp9TR8UUZq+CL8OXKyhY9njoszw=;
-        b=IugwbLIH5Ash8DeWbFWsAfSjScYf/J9jfwKUBNMj7zQS1jZksJgQtJy5A2ZSmCR7xy
-         s1xLthLyXfuVwpFbMzZlmJLoLuzos/EdAdJENTQ8dBubIizeV9rj3O0uJBl0zIo7NzPp
-         CBfoRsOao+l0EVoaB9Kfuc6gM6Ja7CVfrHhl4kCEbfCxJn19FTzAUSeBkro9EdJD1noW
-         8E/Iqr9juM8orHT/35ZS7nYB8Kul5+1F4607GGCcBe9Pghc0UNqzYroUYMc5oVuHzzhV
-         TwaKzIvK9cwW0dAPEsGNZ5rtlRacmx64KGhSt3m90HXJ1Vhx7NEXAiopW8d35guiEJCc
-         aupQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXOmEfYm2tQUhvlYLhQaBZM/To7ZVy+BCSzuWu4/guWbS7UyW7mbkTLgldOh+t4tte2iY7wPqFSBlXyPU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQCs65Sh+L7GbPuidaoD2IfTttQQrrxNxyEEYKkR4kWjxibKfv
-	SL5WYGURx+P2ALMgdAa9CPWTp8Zvz0GTZY98OA3m53wpd3rLhpjRXWVGliWOs7Ke9sM=
-X-Gm-Gg: AYBFou3xpvz+e2QkBFOzK1WmTDfZTF/yaL5UBIWs9oDELBm/XpfEaw9JMl7KkHnIow6
-	4COS7c35HO2lNSsS7eXBRhUr/GBkwHAtvln5WGBOm79ATl1FFC7wWIaXAzoZ8xD56RQsgdgkcBL
-	Z5PHlIOqh3TBCUnKjatrX5pbY4VB3O4Utsm+hTep/khOwfNi4n97mopC1MWL00qkAlxs4lAQp9h
-	A9XXqEKAW3y6N64KDQF8e3NqUC0HG3fY1DTRfJ2bEbJfXXqMdiOP1COkzHNCj0AbqgbH3+vyozu
-	Wdlxuk+x7psEfT5cz7b2lhzxOXaN91X+w2axQWYLWmBCLvP5e/U+HnKE6C41JMx3H8b0EPZmCOf
-	YEN+Bdu9cAB4Dt+1k/2b50xR70tFyoF7NrLN/JL9ufhglmfYTG5jz6IFLrdvNRyAOCGk2+NwQve
-	oBXGm3X0JOC4ybl6SWSxl3gyAltLeRcovWurRHfbme2rRqJxd3V6p4nKH/ni3J5R5wvEbxZXdZS
-	d9nJnzdIOsK7Q4tbT1oln3X0Z2LkezTDj80Vp+lUpZrv+p8tW3o+DAJIr4MWAm94NKiuynP9Tw3
-	MEOVt5uMveLjmNvfEGdHK0LaCiM4xTquBH1FF+zN8BdhkQEz8KyS+kWUof5YtPTLSoG0zYW5yVH
-	H55AWSlB3ENFw2XqTBwa/9IQ=
-X-Received: by 2002:a17:90b:1652:b0:3a7:82ef:bcdd with SMTP id 98e67ed59e1d1-3adead4f65fmr8276505a91.41.1793086553098;
-        Tue, 27 Oct 2026 00:35:53 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae406506c2sm2520384a91.14.2026.10.27.00.35.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 00:35:52 -0700 (PDT)
-Date: Tue, 27 Oct 2026 15:35:49 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>,
-	GONG Ruiqi <gongruiqi@huaweicloud.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Kieran Bingham <kbingham@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
-	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: [PATCH 3/8] mm/slub: Support disabling freelist randomisation at boot
-Message-ID: <58f32032f0f5f3828322780aca1847f1cd80cef0.1793086056.git.chris@chrisdown.name>
-References: <cover.1793086056.git.chris@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ShPz/LB/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C08721655;
+	Tue, 27 Oct 2026 00:35:48 -0700 (PDT)
+Received: from [10.163.152.160] (unknown [10.163.152.160])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 316693F673;
+	Tue, 27 Oct 2026 00:35:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793086551; bh=n2WrtA8FsjLacOwP70K0qkcnkliELHh0b55ywQMgrm4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ShPz/LB/JTXMSaXWoN89wpg1R0MFhTQ3+OYAWgQenVr07qFiwcr+BtH2v6xKKQfRM
+	 QrYTx4Q3mPU1qcZAPdg41yN63hG8hPH4qkEAk45cxkJ8LLmOSK716gyfQv1IvIJqjZ
+	 R/89T7N51QEEo+TuFrpiXNQLA0t0iBWtwxXvK0jA=
+Message-ID: <21091d4e-0afb-4b5b-84ac-b36bac58e40f@arm.com>
+Date: Tue, 27 Oct 2026 13:05:27 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,93 +53,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1793086056.git.chris@chrisdown.name>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 26/46] mm/mmu_gather: fix flushing ranges with 4 GiB or
+ larger
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261027-fixes_core-v1-26-6f74bec9a5bb@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add a slab_freelist_random= early parameter, enabled by default on
-kernels built with CONFIG_SLAB_FREELIST_RANDOM=y.
 
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
- Documentation/admin-guide/kernel-parameters.txt |  7 +++++++
- mm/Kconfig                                      |  3 +++
- mm/slub.c                                       | 16 ++++++++++++++++
- 3 files changed, 26 insertions(+)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index ddf2f6fd60be..5c4d784e7786 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -7021,6 +7021,13 @@ Kernel parameters
- 			without that option.
- 			Default: on.
- 
-+	slab_freelist_random= [MM,EARLY]
-+			Format: <bool>
-+			Enable or disable slab freelist randomisation on
-+			kernels built with CONFIG_SLAB_FREELIST_RANDOM=y.
-+			Ignored without that option.
-+			Default: on.
-+
- 	slab_max_order= [MM]
- 			Determines the maximum allowed order for slabs.
- 			A high setting may cause OOMs due to memory
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 3ae97fec9946..56c422684b44 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -205,6 +205,9 @@ config SLAB_FREELIST_RANDOM
- 	  security feature reduces the predictability of the kernel slab
- 	  allocator against heap overflows.
- 
-+	  The randomisation is enabled by default and can be disabled at
-+	  boot with "slab_freelist_random=0".
-+
- config SLAB_FREELIST_HARDENED
- 	bool "Harden slab freelist metadata"
- 	depends on !SLUB_TINY
-diff --git a/mm/slub.c b/mm/slub.c
-index de4937fcb293..7e9dadda3d10 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -3424,12 +3424,23 @@ static inline struct slab *alloc_slab_page(gfp_t flags, int node,
- }
- 
- #ifdef CONFIG_SLAB_FREELIST_RANDOM
-+static bool slab_freelist_random __ro_after_init = true;
-+
-+static int __init setup_slab_freelist_random(char *str)
-+{
-+	return kstrtobool(str, &slab_freelist_random);
-+}
-+early_param("slab_freelist_random", setup_slab_freelist_random);
-+
- /* Pre-initialize the random sequence cache */
- static int init_cache_random_seq(struct kmem_cache *s)
- {
- 	unsigned int count = oo_objects(s->oo);
- 	int err;
- 
-+	if (!slab_freelist_random)
-+		return 0;
-+
- 	/* Bailout if already initialised */
- 	if (s->random_seq)
- 		return 0;
-@@ -3456,6 +3467,11 @@ static void __init init_freelist_randomization(void)
- {
- 	struct kmem_cache *s;
- 
-+	if (!slab_freelist_random) {
-+		pr_info("SLUB: freelist randomisation disabled\n");
-+		return;
-+	}
-+
- 	mutex_lock(&slab_mutex);
- 
- 	list_for_each_entry(s, &slab_caches, list)
--- 
-2.54.0
+On 27/10/26 4:47 am, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> __tlb_adjust_range() takes the size of the range which has to be flushed
+> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+> gets truncated, possibly to 0.
+> 
+> On arm64 with hugetlb, a 64k kernel can flush 16 GiB hugetlb PMDs, and a
+
+Nit: this wasn't obvious to me. Better expressed as:
+"a 64K kernel can have 16 GiB hugepage mapped contiguously at the PMD level"
+
+
+> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+> at least these two scenarios are affected.
+> 
+> Fix it by flushing the proper range instead of the truncated one.
+
+Nit: after reading this I thought you are passing some other parameter now.
+But that is just a type change.
+
+
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: use two-tab indent, simplify description ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+
+
+>  include/asm-generic/tlb.h | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+> index fbe1114e9a443..3f4a180b48f3c 100644
+> --- a/include/asm-generic/tlb.h
+> +++ b/include/asm-generic/tlb.h
+> @@ -350,8 +350,7 @@ struct mmu_gather {
+>  void tlb_flush_mmu(struct mmu_gather *tlb);
+>  
+>  static inline void __tlb_adjust_range(struct mmu_gather *tlb,
+> -				      unsigned long address,
+> -				      unsigned int range_size)
+> +		unsigned long address, unsigned long range_size)
+>  {
+>  	tlb->start = min(tlb->start, address);
+>  	tlb->end = max(tlb->end, address + range_size);
+> 
 
