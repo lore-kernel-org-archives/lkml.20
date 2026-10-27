@@ -1,97 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.69
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793079454;
-	b=rOWkxcixGK27x41jE+MWwhdx9Q8/XZXrLSlRQUz07trQlCMVayMpVSE0SJ/Hz8TcpQQQ
-	 0tUmKEMfKKW2UiPiAbAaeT0uEBE0VqR44MumxBa9WINih6EkRobsc5fLIe8RpFRjJL1j8
-	 LL6XJ6eDItLZsU+egnrOD0TLRU7YmknTkHStLBkFk77hTEPurG4g1/RTMdecad9UpaIxe
-	 MCNQz/X1oZ8oiBxHgyYOO59vNhyrmKIuMQ++MMdg/K9arN7HUEQkr2o2xRsxlEh97zzlv
-	 5V3erKglmdkpXGvHr2v6Of/q4/soltX1QTCH3KxmO4rnu9EcgOinuujsxcp4G7cfUrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793079454;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=km/ZbnwCeblWO/9LVQmtJ2M3VXn1MeFnmF/YAnlG/C0=;
-	b=Rm+srHrR1PMewPT/nH5pw3QXpAO4PM4exAHtRKgIZw6DzpGl5vlhyyYIqIDuGVGyEJGT
-	 ZPJfsjBZYenVmICegZIjxNQ/kbCxBNXkIf4np0uSlr/zIOsWZn0nX2erowp46TIuZ3zFl
-	 Ca0xONAwwfIyBWH9EO28bfoX0fjnSUs1dR9z+TcYBqBp/K1OG9VME68E7OzURnebIAk4D
-	 C+BBlZOiMnbLLJPDQCUp3FQGYWKLZYyiyTfXWx+Ua3XwtVu2ouXrL3wwe9Dmz96t7KRhX
-	 GVLTFjvSuOoH2gBJusSgWLIj/e7HutXLrLEaxKv6RY78zTYon9ZopomC85gMT2IvBqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jabil.com;
-	spf=pass smtp.mailfrom=jabil.com;
-	dkim=pass header.d=jabil.com header.i=@jabil.com header.a=rsa-sha256 header.s=selector1 header.b=JA3leZY4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.69
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010069.outbound.protection.outlook.com [52.101.201.69])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793079480;
+	b=bE53LArhPkTbAWXyRjxxJVZj8mBR/orWKyNJeeXTelTnXUKnePhm4eDDrYa3fWCx5pIs
+	 O4QOBRectPoUtqnBb1eBIpTdvfKL//dtMta9HTfloLwrMBuJC3kaBwDmzsEtu4hv9wUul
+	 MwDe5KDmW76mPz8N8h0B+nN0Dk4aIIdQal8RhZW3fRQxjSlQtVQHGELRezoxlelA06rwD
+	 Qrd1oVe1x0GmQxmDQI2GntAluGBF/SQJJQFSM/NJvsolO7c5jRw4QlIWhxteDOsa7Vfqh
+	 Cq2IdC/zMLeV2mSEZZxoU04s3JGz5gXEMeMpmY0HbCRMRK6GiQk4ugobj7HknwRuQrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793079480;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Nv/lnxPdAL8f7ZwBKC1/UYCMAS+CZk6z6IbxYlcIxfY=;
+	b=oFK7iDkIqzkYKDtQ69nWTyF8+d5dgiZBuHBY1Vncgnn5Pf+1NK09vIZRrP2f9pvBQ0ek
+	 aMRVSiFpc0yo+DabdSKFK6XsSBR5Lt51CvUDSc/AILkcc7eadi4Y2FnQQeYG7CzMSw8AS
+	 fAcLMHkx9Hgsfwcq4msedr91v8dJGMP0cLDTlPICs9Utt/HAHJ4Aeeep1Dh9Hpq4qgXS2
+	 gpaJgPmuRLSbl2f7t9gX9/eKBy5wwlli6PgmNH8Fo535A/JmPtw8oL4NWEsiUTUqEzEA7
+	 yNclSLKVzXF2No6yKCG9YPPN9x+3TQSAce8JM/IczG8QDf9JBKv9ua9ZPnUwZ7nUEjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="GAu/fsRT";
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3F3606A31A;
-	Tue, 27 Oct 2026 05:37:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D3F3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jabil.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jabil.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A5E606A31A;
+	Tue, 27 Oct 2026 05:37:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40A5E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jabil.com header.i=@jabil.com header.a=rsa-sha256 header.s=selector1 header.b=JA3leZY4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T2qzkRpW+XKigiXg7p7DdVaHBLvUU7yciEysiFxhr3SYAgwe0VcLdS1cYCE97QI95HnPnvnXFHDI/ma09Xp23t3g5McGkdp31KQ7tSbMFsZfTLcCymQaeytM09PMeK3E4sdKPdSQ0fkCMA7m43nv7kwDnVGYR0oIokVKi9/ZX4ihIezLpwYGNsequ9qx9EYFi5Wh0Adr70bDbvHKQ3CUNaVGNBOhq8jlNMapbvPXE+xhhABFuwRTnxXIx1n694OHiCI0KGFogjhzszCngtWbbJOTa2D9v1yisWl6Jb15TYgPfNwsssj9/d04QmutCIwlmr+0A55T4rEMKP7xXwXhBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=km/ZbnwCeblWO/9LVQmtJ2M3VXn1MeFnmF/YAnlG/C0=;
- b=Dkuj2uHrMgW5uFGcOZj1tq8nEcFe2VdQw8PQOg9XgYo1x0zvpKszICRnSCYXtPuUWw2/D2+n4UWKjZXqe6Kxk/qhAeeuSmy9uS5NWSQP1raD+1k/I0EZArURjm066NUMh3zFGvaR6D6GXasqbY2W74CHG/mKyJY03aYup2skDhw7OKq5if318OiQTizTv3QN4yhdRv2gHgJcXC4nzYl1DOOCdSbDhEZXB4Z9Cf3CGTR/Q/zJZC8i6d1CSSwA00wbBrWyZ7g0YgPLfMpgQMYEL9NtyhrVsmKi/st6WAksXpzor49hfMgI/Sa3/dCgNJtp/mQGrA6+p/PyOXJHCKu3Vg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=jabil.com; dmarc=pass action=none header.from=jabil.com;
- dkim=pass header.d=jabil.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=km/ZbnwCeblWO/9LVQmtJ2M3VXn1MeFnmF/YAnlG/C0=;
- b=JA3leZY4grbL8CseTJQoQ46uF+TB0EjlQZkQfxsP3D+oy2Jzv11368DPPvwnfZubBlDm6oz+CFDjOO0qSP5VcLsVOVH5+rnXvdzjX47nhX6NZr1Idc+8W3DCLAL96Qy5Lb3oO+6JI8Ftdgp+TGTJopVAxsx0ML/lHKqkCSx6JWijNScyu4zbH1CTyBgyUrzO1Z+QGfHb2tyKBrMQie+STo88Cjxnf3jNBsZRfSEfZXHKILQ5Oqei5XnfUfbVEmoK5V+YrGd4lg+kgB2a9OaDDvlfriiGDHIpn2wwP9wEWtcl8gP0zInGCC9g+f+LxRRnmR+fZTrj+tXtsE1jkTHSfQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=jabil.com;
-Received: from DM8PR02MB8087.namprd02.prod.outlook.com (2603:10b6:8:1b::11) by
- CH8PR02MB10899.namprd02.prod.outlook.com (2603:10b6:610:2b9::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 05:37:31 +0000
-Received: from DM8PR02MB8087.namprd02.prod.outlook.com
- ([fe80::6e40:b3cf:7280:6497]) by DM8PR02MB8087.namprd02.prod.outlook.com
- ([fe80::6e40:b3cf:7280:6497%7]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 05:37:30 +0000
-From: Kenny Hsieh <kenny_hsieh@jabil.com>
-To: netdev@vger.kernel.org,
-	Jeremy Kerr <jk@codeconstruct.com.au>,
-	Matt Johnston <matt@codeconstruct.com.au>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] mctp i2c: fix double free of midev on netdev register failure
-Date: Tue, 27 Oct 2026 13:37:15 +0800
-Message-ID: <20261027053715.1623087-1-kenny_hsieh@jabil.com>
-X-Mailer: git-send-email 2.50.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI1PR02CA0001.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::15) To DM8PR02MB8087.namprd02.prod.outlook.com
- (2603:10b6:8:1b::11)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=GAu/fsRT
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=Nv/lnxPdAL8f7ZwBKC1/UYCMAS+CZk6z6IbxYlcIxfY=; b=GAu/fsRTbB1eellz5tR+Gn9s5k
+	xIiH14IW4fePVO1I9BdkXk3t4tX7Yvmw15sOldvBV11QOqNT1CqBbxOhoMK6z8RLii+hKwEyqzkfE
+	9iXRqjQzJrC7IciBg3r4S/ghzy7Mwzk1oZLVvTQLya8+zPJafGq7xS7bpUK78yskQunzjrDxgsXFJ
+	UyTfFaNJa8C8YIFeZZn3yeQrD18OTClP1ti6bTVxpoC+Umtl63rl8FUNxTAvBUVS52PlJdENw3D0C
+	qLyTsvLC9Fcr8UZNPF6rw0IFa+aCykgGlfsbET846E4Uk6NSgKQkOV4dF/qZ21jIqGuj2LRLdDBZz
+	trTI8prw==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xLZsi-00000003moe-0ENF;
+	Tue, 27 Oct 2026 05:37:56 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	driver-core@lists.linux.dev,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v2] debugfs: clarify return values when disabled
+Date: Mon, 26 Oct 2026 22:37:54 -0700
+Message-ID: <20261027053754.1339833-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,227 +69,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR02MB8087:EE_|CH8PR02MB10899:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74105503-ce29-4a17-1130-08df33ec64b8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|23010399003|376014|7416014|366016|1800799024|261009223027099003|261022105027099003|261021123027099003|261021121427099003|10067099003|56012099006|261026121527099003|6133799003|18002099003|5023799004|11063799006|38350700014|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	TNpFKPxL48YlOYRWPmYbla53+KrgslEjIi5GlU0S6W2BHfzhe20I5WufF8fjuG5lu3gFse+JXWEtnnKVAaJfZPUgrOvMzdWMfQSR/qptXtRDVmCOiREOIS2PqfRLDb0B1MvUoHEh4fJuYlIQYkQ8HSWQSObsaWWRj461oWOj2RznOPIIBiXU3WU+qiCXXZruizXCsjJMHZ/Zczkv89izgmS+cBXdPch1c3mz4iMgo7WdeXoO+xz+X3Z6iZOyrNJnFE0d+0Z3gMIJkX2Ki/VIjiFL73GsxuvEYiCs+xPcAtV635QdVlhNTzPWeSspG6vUKaHhw+rl8IbJtpcHp9rrB2BuU2rTZM8PgebPOJMsZjjXodo1emUaktIM5QLbPLZvZMuCSpnuwiO1xCTaiJt+SMXZakZc+THnSkib8pntpmX54JiN42Jc54LQsxXd/AyW85hww67Au5SnDgqpKcnhn8Zhf7NEEbJtryFnVFQNRqD7kENgH94dj9MQLYBMc6fXM8yDKrLmKfmKnDFL6N1jVIBcEQLqn4DS5xWoFzLHfgj241WmQ+5LLf9TO62/2rHkxIzo8kCfuKQAku+IFhmBRBOPwOXU3bV/WdEX3uhO8TxWs97Zf6k41JmKNyCdcYaAxJk/4gEsUQ9kViixiLI0pDby5URhcDiQceDtjwxD4yg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR02MB8087.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(23010399003)(376014)(7416014)(366016)(1800799024)(261009223027099003)(261022105027099003)(261021123027099003)(261021121427099003)(10067099003)(56012099006)(261026121527099003)(6133799003)(18002099003)(5023799004)(11063799006)(38350700014)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ehcKSMMueUIiNcp235AwzyaDJi1yJ5yrffTWnHrsfKapU7D2APkFR3saSYV8?=
- =?us-ascii?Q?uUSsOWLwjuF3jJYyOAAQ0ew149Fug0l0AtG5P3lSD5vjZpiDwYg5H+UswtOU?=
- =?us-ascii?Q?QM8aUXqlRUrjKIJvfsyaoRaPT+fIxqPFfEbC6IXGlaA/1tOZD/OGOZqOoP8V?=
- =?us-ascii?Q?qzyBssf9NZnyCwO3pQpO4xZto/ZlhOCRFlsDDjT4TXUPsuL4hDHKZ0pbZ+qN?=
- =?us-ascii?Q?vy+PLpJCXe84ROjpIQDf1zoKm+eL/LBFoyrJuynyGl9yVMys6I8YY+yr563D?=
- =?us-ascii?Q?wh67kUIeM6IyuflcJ5dVQfBIq1fFOUsXfU1M7Yugu+h9iDUWDMKBC5waoFWR?=
- =?us-ascii?Q?TQWJasN0sbGJMV4TqV3X0+UBXSKbptBlIgbTYF9WPB2qQUCejbubChvhkrT0?=
- =?us-ascii?Q?oiPsH27GaEoJiCih338oAah/njuF8S34j0d0OGB8W6PgsMOLIagnUD3xzFdQ?=
- =?us-ascii?Q?quhq3xMlI0TYLeHmUwwXcd8d13veKtHW6vHiJle5K+ni+lBwce4C7vpjegn0?=
- =?us-ascii?Q?5wvqNazjwYlhMETUS73oAzjc+jysnK8pskZ2Fruz2RwgqExcLLzygwpPs0LF?=
- =?us-ascii?Q?PaM5HzHis1pdIsezOfrJAJU+njnYcTRtkL0pyOSoycx8eNfSF5CbWtKqUU+k?=
- =?us-ascii?Q?/HAsdONqjJgn9GGIEUexeSETKrrByk5Tgn6v6dx+KG6TzGSnFdOlYSKiYWxB?=
- =?us-ascii?Q?6QEAwRx4NkBs+QJhNUD4+JXNd9nMAOZaFtzIfGhKkScIRa2dZIiN6hast4LK?=
- =?us-ascii?Q?JMyg1qgvVjrilA+6i0elQOin1ua7m22SdLjEiYc1XndBxYC9aryu95RR86XH?=
- =?us-ascii?Q?SAaIOlpin3XZfRaUdxl1aK7z7uaxmcgiEJJ9ybVde0STtWFd8hIKn+dDqm+s?=
- =?us-ascii?Q?Y/XmfZ4U7a8HZc9FeBYQC6E2Di2LzFk6BZKoeJn44LIUpZnFreqLQzmVk9Z/?=
- =?us-ascii?Q?XuA1W7sNXiImA4v41mjuw7cILHk7vqPO537/UL6cs89KBotPe+gcd/lWia+9?=
- =?us-ascii?Q?uacC4Yjep2ji93OS3upOaRailaxctFg5dgh6aAAlEIOeO08bHCTLCxwk1XBT?=
- =?us-ascii?Q?FN2xbZO2LT8l99Y06H9B23pFQMlbJJ5s4/RsjFXeoTy6zvdvdVy92wPHim/a?=
- =?us-ascii?Q?QVy6CJJ/uF06wtHGAkMeYBxItgWLmO4KrHA0Mda3C/trQd4elw6a/JRmjxOC?=
- =?us-ascii?Q?5BEaYmXOZO7spTvoXzta7ev0/MBQYLn6nTsfLibafK9Z7hG46tRszOG1r11U?=
- =?us-ascii?Q?p2H4lxUHutK2QAAUYEW7LBE3Bcks2xBzaixjRKy3gatThvfahY5oeuSt0N/u?=
- =?us-ascii?Q?COWuKo2ngqSjl1+DAUGA2A0wYCa9IJ5+ARuCuJKqakVqwObd542fkdP0R4dw?=
- =?us-ascii?Q?u7PMwllH84bPMPVQmFsclr7IkyMVg1oGx+tloLwML3VPWpCD5foXyK+damSL?=
- =?us-ascii?Q?OponAkoAYvPL6TIJb7hNdREBdpDDOJoeimfChLzRgOGIhgMO6fQwlDmksQVB?=
- =?us-ascii?Q?4sba8gO3MWcryUm33XZHvhErKGy029XXB7EACYRo2r0TSG0rr7XEnjukor0C?=
- =?us-ascii?Q?O+k8ib1+7hOcBG/a++n96F8BPXj4V8Fgl8tBSj6M2m3t/j8l7/tIA39u2Cdm?=
- =?us-ascii?Q?UoWC7Dj8RUwu7wNA/0+tztQ1uIXLMQFih+ngTXtyr16RygtNfp3SmnYjQ17P?=
- =?us-ascii?Q?2kJLlZZ7DqRfopHaCXu9GC79INz2oGt3amILEdLMrzJ1Hcj31n0J9u/dlr+h?=
- =?us-ascii?Q?rrrTLTvn6A=3D=3D?=
-X-OriginatorOrg: jabil.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74105503-ce29-4a17-1130-08df33ec64b8
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR02MB8087.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 05:37:30.6988
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ig+jv5lMHwK878iqcQv0r4I+OHeBVeWVeGkxhe8l4sXUtfFSdsolS32ql9fkWCAagNkOevkj8+F8D5W0mTjzLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR02MB10899
+Content-Transfer-Encoding: 8bit
 
-mctp_i2c_add_netdev() frees midev if mctp_register_netdev() fails, but
-register_netdevice() may already have freed it through ndo_uninit,
-mctp_i2c_ndo_uninit(). midev is then freed twice: list_del() runs on a
-poisoned entry, and the adapter and client lose a second reference.
+debugfs can be disabled at kconfig time (# CONFIG_DEBUG_FS is not set)
+or by using "debugfs=off" on the kernel command line.
 
-Remove ndo_uninit and free midev only where it was set up: in the
-add_netdev() error path, and in mctp_i2c_unregister() before
-free_netdev().
+The return values for some debugfs functions in these 2 cases can be
+different. Describe those differences.
 
-ndo_uninit was there to drop mcli->sel's reference, which would block
-unregister_netdevice() while sel points at the netdev being removed.
-mctp_i2c_unregister() now does that before unregistering, keeping the
-existing reselection.
+No code changes.
 
-Freeing after unregister exposes two more things the old order hid.
-Flows released while the netdev unregisters queue the unlock marker,
-which is embedded in midev and must not reach kfree_skb() through the
-purge. And the bus lock, an rt_mutex taken by the tx thread, was
-released by whoever called kthread_stop(); the tx thread now drops it
-itself before exiting.
-
-The double free was pointed out by the Sashiko AI review of a pending
-mctp-i2c change, as a problem that predates it.
-
-Suggested-by: Matt Johnston <matt@codeconstruct.com.au>
-Fixes: f5b8abf9fc3d ("mctp i2c: MCTP I2C binding driver")
-Closes: https://lore.kernel.org/netdev/179239912623.3135.11352652156626817288@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Kenny Hsieh <kenny_hsieh@jabil.com>
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
 ---
-v2:
- - remove ndo_uninit instead of making the free idempotent, as suggested
-   by Matt. The unlink and sel handling is factored into
-   mctp_i2c_midev_detach(), which mctp_i2c_unregister() calls before
-   unregistering; mctp_i2c_midev_free() still calls it for the
-   add_netdev() error path, where it does nothing the second time.
- - take the unlock marker off the tx queue before purging it, and have
-   the tx thread drop the bus lock itself before exiting. Both were found
-   by stress testing the new order.
+v2: remove one old leftover comment (Danilo)
+    correct return values of some exported functions when debugfs
+      is disabled on the command line (Danilo)
+v1: drop RFC tag in Subject line
 
-Tested on an AST2700 BMC with 20 iterations of removing and re-adding a
-netdev, and unbinding and rebinding its controller, while requests run
-on it. dmesg stays clean.
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: driver-core@lists.linux.dev
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
 
-v1: https://lore.kernel.org/netdev/20261022031704.2295541-1-kenny_hsieh@jabil.com/
+ Documentation/admin-guide/kernel-parameters.txt |    3 +
+ Documentation/filesystems/debugfs.rst           |   24 ++++++++++++--
+ fs/debugfs/file.c                               |    6 ++-
+ fs/debugfs/inode.c                              |   24 +++++++++-----
+ include/linux/debugfs.h                         |    5 +-
+ 5 files changed, 47 insertions(+), 15 deletions(-)
 
- drivers/net/mctp/mctp-i2c.c | 64 ++++++++++++++++++++++++-------------
- 1 file changed, 41 insertions(+), 23 deletions(-)
-
-diff --git a/drivers/net/mctp/mctp-i2c.c b/drivers/net/mctp/mctp-i2c.c
-index b02476d33..4f4c715b4 100644
---- a/drivers/net/mctp/mctp-i2c.c
-+++ b/drivers/net/mctp/mctp-i2c.c
-@@ -109,7 +109,6 @@ struct mctp_i2c_hdr {
- static int mctp_i2c_recv(struct mctp_i2c_dev *midev);
- static int mctp_i2c_slave_cb(struct i2c_client *client,
- 			     enum i2c_slave_event event, u8 *val);
--static void mctp_i2c_ndo_uninit(struct net_device *dev);
- static int mctp_i2c_ndo_open(struct net_device *dev);
+--- linux-next-20261026.orig/Documentation/admin-guide/kernel-parameters.txt
++++ linux-next-20261026/Documentation/admin-guide/kernel-parameters.txt
+@@ -1205,7 +1205,8 @@ Kernel parameters
+ 			        get a -EPERM as result when trying to register files
+ 				or directories within debugfs.
+ 				This is equivalent of the runtime functionality if
+-				debugfs was not enabled in the kernel at all.
++				debugfs was not enabled in the kernel at all,
++				except that the latter returns -ENODEV.
+ 			Default value is set in build-time with a kernel configuration.
  
- static struct i2c_adapter *mux_root_adapter(struct i2c_adapter *adap)
-@@ -628,8 +627,11 @@ static int mctp_i2c_tx_thread(void *data)
- 	unsigned long flags;
- 
- 	for (;;) {
--		if (kthread_should_stop())
-+		if (kthread_should_stop()) {
-+			/* Only the rt_mutex owner may release the bus lock */
-+			mctp_i2c_unlock_reset(midev);
- 			break;
-+		}
- 
- 		spin_lock_irqsave(&midev->tx_queue.lock, flags);
- 		skb = __skb_dequeue(&midev->tx_queue);
-@@ -711,7 +713,6 @@ static void mctp_i2c_release_flow(struct mctp_dev *mdev,
- 
- static const struct net_device_ops mctp_i2c_ops = {
- 	.ndo_start_xmit = mctp_i2c_start_xmit,
--	.ndo_uninit = mctp_i2c_ndo_uninit,
- 	.ndo_open = mctp_i2c_ndo_open,
- };
- 
-@@ -782,6 +783,31 @@ static struct mctp_i2c_dev *mctp_i2c_midev_init(struct net_device *dev,
- 	return midev;
- }
- 
-+/* Removes midev from the parent i2c client, moving sel off midev.
-+ * mctp_i2c_unregister() needs this before unregister, as sel's netdev
-+ * reference would block it; mctp_i2c_midev_free() needs it for the failed
-+ * register path. A second call on the same midev does nothing.
-+ */
-+static void mctp_i2c_midev_detach(struct mctp_i2c_dev *midev)
-+{
-+	struct mctp_i2c_client *mcli = midev->client;
-+	unsigned long flags;
+ 	debugpat	[X86] Enable PAT debugging
+--- linux-next-20261026.orig/include/linux/debugfs.h
++++ linux-next-20261026/include/linux/debugfs.h
+@@ -110,8 +110,9 @@ struct dentry *debugfs_create_file_short
+  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
+  * returned.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value -%ENODEV will be
++ * returned. If debugfs is enabled in the kernel build but is disabled
++ * on the kernel command line, the value -%EPERM will be returned.
+  *
+  * If fops points to a struct debugfs_short_fops, then simple_open() will be
+  * used for the open, and only read/write/llseek are supported and are proxied,
+--- linux-next-20261026.orig/Documentation/filesystems/debugfs.rst
++++ linux-next-20261026/Documentation/filesystems/debugfs.rst
+@@ -41,7 +41,17 @@ dentry pointer which can be used to crea
+ clean it up at the end).  An ERR_PTR(-ERROR) return value indicates that
+ something went wrong.  If ERR_PTR(-ENODEV) is returned, that is an
+ indication that the kernel has been built without debugfs support and none
+-of the functions described below will work.
++of the functions described below will work. If the kernel was built with
++debugfs support but it has been disabled by using "debugfs=off" on the
++kernel command line, ERR_PTR(-EPERM) is returned.
 +
-+	spin_lock_irqsave(&mcli->sel_lock, flags);
-+	if (list_empty(&midev->list)) {
-+		spin_unlock_irqrestore(&mcli->sel_lock, flags);
-+		return;
-+	}
-+	list_del_init(&midev->list);
-+	if (mcli->sel == midev) {
-+		struct mctp_i2c_dev *first;
++.. note::
 +
-+		first = list_first_entry_or_null(&mcli->devs, struct mctp_i2c_dev, list);
-+		__mctp_i2c_device_select(mcli, first);
-+	}
-+	spin_unlock_irqrestore(&mcli->sel_lock, flags);
-+}
++  It's expected that most callers should _ignore_ the errors returned
++  by this function. Other debugfs functions handle the fact that the "dentry"
++  passed to them could be an error and they don't crash in that case.
++  Drivers should generally work fine even if debugfs fails to init or is
++  disabled.
+ 
+ The most general way to create a file within a debugfs directory is with::
+ 
+@@ -57,7 +67,17 @@ implement the file's behavior.  At a min
+ operations should be provided; others can be included as needed.  Again,
+ the return value will be a dentry pointer to the created file,
+ ERR_PTR(-ERROR) on error, or ERR_PTR(-ENODEV) if debugfs support is
+-missing.
++missing.  If the kernel was built with debugfs support but it has been
++disabled by using "debugfs=off" on the kernel command line, ERR_PTR(-EPERM)
++is returned.
 +
- /* Counterpart of mctp_i2c_midev_init */
- static void mctp_i2c_midev_free(struct mctp_i2c_dev *midev)
++.. note::
++
++  It's expected that most callers should _ignore_ the errors returned
++  by this function. Other debugfs functions handle the fact that the "dentry"
++  passed to them could be an error and they don't crash in that case.
++  Drivers should generally work fine even if debugfs fails to init or is
++  disabled.
+ 
+ Create a file with an initial size, the following function can be used
+ instead::
+--- linux-next-20261026.orig/fs/debugfs/file.c
++++ linux-next-20261026/fs/debugfs/file.c
+@@ -1144,8 +1144,10 @@ static const struct file_operations fops
+  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
+  * returned.
+  *
+- * If debugfs is not enabled in the kernel, the value ERR_PTR(-ENODEV) will
+- * be returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
++ * will be returned.
+  */
+ struct dentry *debugfs_create_blob(const char *name, umode_t mode,
+ 				   struct dentry *parent,
+--- linux-next-20261026.orig/fs/debugfs/inode.c
++++ linux-next-20261026/fs/debugfs/inode.c
+@@ -339,8 +339,10 @@ MODULE_ALIAS_FS("debugfs");
+  * doesn't exist or an error occurs, %NULL will be returned.  The returned
+  * dentry must be passed to dput() when it is no longer needed.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value %NULL
++ * will be returned.
+  */
+ struct dentry *debugfs_lookup(const char *name, struct dentry *parent)
  {
-@@ -797,15 +823,13 @@ static void mctp_i2c_midev_free(struct mctp_i2c_dev *midev)
- 	mctp_i2c_unlock_reset(midev);
- 
- 	/* Remove the netdev from the parent i2c client. */
--	spin_lock_irqsave(&mcli->sel_lock, flags);
--	list_del(&midev->list);
--	if (mcli->sel == midev) {
--		struct mctp_i2c_dev *first;
-+	mctp_i2c_midev_detach(midev);
- 
--		first = list_first_entry_or_null(&mcli->devs, struct mctp_i2c_dev, list);
--		__mctp_i2c_device_select(mcli, first);
--	}
--	spin_unlock_irqrestore(&mcli->sel_lock, flags);
-+	/* The unlock marker is embedded in midev, so keep it from kfree_skb() */
-+	spin_lock_irqsave(&midev->tx_queue.lock, flags);
-+	if (midev->unlock_marker.next)
-+		__skb_unlink(&midev->unlock_marker, &midev->tx_queue);
-+	spin_unlock_irqrestore(&midev->tx_queue.lock, flags);
- 
- 	skb_queue_purge(&midev->tx_queue);
- 	put_device(&midev->adapter->dev);
-@@ -827,23 +851,17 @@ static void mctp_i2c_unregister(struct mctp_i2c_dev *midev)
- 	spin_unlock_irqrestore(&midev->lock, flags);
- 	wait_for_completion(&midev->rx_done);
- 
-+	/* Release sel's reference on the netdev, otherwise
-+	 * mctp_unregister_netdev() blocks waiting for it.
-+	 */
-+	mctp_i2c_midev_detach(midev);
-+
- 	mctp_unregister_netdev(midev->ndev);
--	/* midev has been freed now by mctp_i2c_ndo_uninit callback */
-+	mctp_i2c_midev_free(midev);
- 
- 	free_netdev(midev->ndev);
- }
- 
--static void mctp_i2c_ndo_uninit(struct net_device *dev)
--{
--	struct mctp_i2c_dev *midev = netdev_priv(dev);
--
--	/* Perform cleanup here to ensure that mcli->sel isn't holding
--	 * a reference that would prevent unregister_netdevice()
--	 * from completing.
--	 */
--	mctp_i2c_midev_free(midev);
--}
--
- static int mctp_i2c_ndo_open(struct net_device *dev)
+@@ -562,8 +564,10 @@ EXPORT_SYMBOL_GPL(debugfs_create_file_si
+  * you are responsible here.)  If an error occurs, ERR_PTR(-ERROR) will be
+  * returned.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
++ * will be returned.
+  *
+  * NOTE: it's expected that most callers should _ignore_ the errors returned
+  * by this function. Other debugfs functions handle the fact that the "dentry"
+@@ -660,8 +664,10 @@ EXPORT_SYMBOL(debugfs_create_automount);
+  * unloaded, you are responsible here.)  If an error occurs, ERR_PTR(-ERROR)
+  * will be returned.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value ERR_PTR(-ENODEV)
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value ERR_PTR(-EPERM)
++ * will be returned.
+  */
+ struct dentry *debugfs_create_symlink(const char *name, struct dentry *parent,
+ 				      const char *target)
+@@ -818,8 +824,10 @@ EXPORT_SYMBOL_GPL(debugfs_lookup_and_rem
+  *
+  * This function will return 0 on success and -E... on failure.
+  *
+- * If debugfs is not enabled in the kernel, the value -%ENODEV will be
+- * returned.
++ * If debugfs is not enabled in the kernel build, the value %-ENODEV
++ * will be returned. If debugfs is enabled in the kernel build but is disabled
++ * by using "debugfs=off" on the kernel command line, the value %0
++ * will be returned.
+  */
+ int __printf(2, 3) debugfs_change_name(struct dentry *dentry, const char *fmt, ...)
  {
- 	struct mctp_i2c_dev *midev = netdev_priv(dev);
--- 
-2.50.1
-
