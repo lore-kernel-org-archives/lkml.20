@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793066251;
-	b=dOV9uzeT8wJp88mo/zuvmtfmEdTadZuIMdUd/GLdlVY9NCx1OMaDOkEiUMJuKqtvgTbZ
-	 hOawGsp/OZA3/Wy+P+VfauSQm5ssr0+cnr6HHL8iUG1O7PGPfJYX5Gm70g1DQTOWvZQn+
-	 8IlAKpcffuzwLJDhQCRLDTJcRDTEiiPigON4BiDPCPq4v0yuFnVsyw2QqlZfhYg7HtZKg
-	 zRgG3ZUVwHxB6EYEo/ANN5q1Zf1TPy/IzYtmndOxKQBqpN2rpOOo+hD1lRv+7MvdmVHV3
-	 1jOD3pCXQIbV+m9qPSdE+NQJOnAGs4a14TIW3XUcSFUn6e+Spz2SsRJ/arnqSYOgCaA==
+	t=1793066286;
+	b=1P64LrZs+9Wo/GdfccJPl0pszmEr4HfqI4b0eea2m5TyeYPlfgITxk4IJfhGsbP4Pczw
+	 Puhokn8D67QeNUz1XNCqizQQ3o2K1Zdzbl0ff4tW7r6sBnXSayQIcF3TjooUKGem8dw9c
+	 r/GR7NEGQ6PI7W1Z8VhdBnTALO82p2CN0o/5QZP0JZ1c9btOOb7iUCOrK46XNuQjnIfXJ
+	 iF9FBFWamw68mDSqlX9WL1GUdqDe7hXvJo/gaIe9J0PFD3KY2YLsw5/+Npn1AtTBkUnZY
+	 SxUKp+z/pK9Em1O5OeoLQWoYttpKhK41iHcUWxJARUVwHc2ldln5vsWype6KdWoSyqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793066251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793066286;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=NK5FFyjCkMxgeTHh2dC/Pdhkdnse5LPXhElDwUbDutU=;
-	b=v8+lBY9EaTjiDXdGzvS/b3m9lyBNMI+l5L5YUkvAzp2oYJ6OCx6FH9jRaUyGcZVYBM3Z
-	 3bzUQ64S065H6/xXAYVGHnFsy0B8Ev+UjHnTncJvFc7mCOaq0a8Zo3UDZajzHB0jQmkAC
-	 jfC36fhge8rATZMZVMBNXsCSqFIK63cl9v2neQs0t0G9aWLA35fg/Azpbj0l1NYXxV2TT
-	 u4lWygL6oi4lLvgtlnzP53nL+3ggHINV0x5DVXOLY/rzmFTbJgkVBLrmfu8AefFhtc73H
-	 p4GtOV+7WzmngzxLFlXHcJ8QYV8iNdZt444+JKmU153lxFIFpxYKp6Pu/+LfC9LwC2w==
+	bh=XBh+jeGWrVrdbr6WBz3wJMEAmK/99nIJkgC+bD2BzG0=;
+	b=QCWQBa+ZesGK8FiImQT7tReepxsihBImOZs6AzT7i3xJe2xnk8NYgvYDjrcm1T4n58sp
+	 7Zbtd5u/dcOcaT/0reiktrEkm6kKvww6vzV11zb4pyrWhsZNsIjMMVF+u2yVU6O/hU9fI
+	 OBuyCnsxBq71sup16XzgaIZlbdexx6eaNAxty7BlZgcTlBA/L9jjmITiig7txJm4C20s9
+	 o/47Vu5uxX57+A/VVvAkUCuPXWnwcn92MpM9RxC9RqqV+x7I+mrEiv1F8xSLA+2d6qGg9
+	 twhrQmJTH9TB4z/euA5W7bKB/2A/E5yJJnc4fpd3btIDWTpea7guartNb9MLbMlcChQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bwu5+Z++;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHp1U2Mi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E59606A31B;
-	Tue, 27 Oct 2026 01:57:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47A1606A31A;
+	Tue, 27 Oct 2026 01:58:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bwu5+Z++
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF14A1F01825;
-	Tue, 27 Oct 2026 01:57:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHp1U2Mi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 928811F01825;
+	Tue, 27 Oct 2026 01:58:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793066251;
-	bh=NK5FFyjCkMxgeTHh2dC/Pdhkdnse5LPXhElDwUbDutU=;
+	s=k20260515; t=1793066286;
+	bh=XBh+jeGWrVrdbr6WBz3wJMEAmK/99nIJkgC+bD2BzG0=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Bwu5+Z++DuLmsZ/xnrc9jVhQH0Izsq52h7iBxKCSeUC8ndDRZ3zmvdBLPOtZEmmZL
-	 JxyzRkUvJZitMAZelCz2PRPqekwkXAuWzRV6iPcvCPh/bPvw0f66SdekAkbR6CyAM3
-	 VWH9xotnhdVgzgXsNc6Xh5+DAmtTYib2eLQQ2VSqyMMtBYf66NxlfjLnrTsRUQgLu4
-	 E1ykBTH9YQ3vWMp/khDYXc9/Z5cU+aywPyjZ+1WbAKcO6awHCZ06Qak1rg4tcYKwlj
-	 1ZeaaHISaZK2dQiWmcuGqAvqQFJ3VxjaL8BZ7bujkkM1kqZmPyiQN2gqzaRtiwoI22
-	 ZOFsoCZLA0Hzw==
-Date: Mon, 26 Oct 2026 18:57:30 -0700
+	b=jHp1U2MiXgFMKY2AwTfz5Q5ipJlhyRGGVtqu81/sfx2430GOztUWQcnyO6yhyhe4p
+	 HNvKtcAULOSUCAgDy4S1HhNGPYiHlqYxh/YO70+3fcZ9o7nbiK2tN356J0xBgwf1Tq
+	 0wCR2HU7u0bkHwRXb3ghUdLodrPZ1N/q2X0bXqLB5VcED05+FJd+CUZ3TDD50RJiQT
+	 6g1A70vNR7tLWmpeSC85nv7UGQGl9LtEeeqdOWEZjkZP1X/dxVrN64wvAlmtVwJdTQ
+	 KT9r7yyDeSGu+dgQpVJx4LvLqGYP9jMWke+25SmcvWplMjMY7/E1y9ZNs/NzgIBcVA
+	 5dOLS4kl51Fyg==
+Date: Mon, 26 Oct 2026 18:58:05 -0700
 From: Jakub Kicinski <kuba@kernel.org>
-To: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>, "David S. Miller"
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
  <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Gabriel Goller
- <g.goller@proxmox.com>
-Subject: Re: [PATCH net-next v4 0/2] seg6: skip route refcounts in seg6local
- lookups
-Message-ID: <20261026185730.7f3d7004@kernel.org>
-In-Reply-To: <20261023-seg6-lookup-noref-v4-0-0ad0a83960ef@gmail.com>
-References: <20261023-seg6-lookup-noref-v4-0-0ad0a83960ef@gmail.com>
+ <pabeni@redhat.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next] net: phy: acx00: report receive statistics
+Message-ID: <20261026185805.2e508286@kernel.org>
+In-Reply-To: <20261025-submit-acx00-phy-stats-v1-v1-1-d3d461e46db0@gmail.com>
+References: <20261025-submit-acx00-phy-stats-v1-v1-1-d3d461e46db0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,11 +63,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Fri, 23 Oct 2026 22:47:55 +0900 Yuya Kusakabe wrote:
-> seg6local looks up the nexthop of its IPv6 and IPv4 behaviors from the
-> RCU read-side section of the receive path, yet takes and drops a route
-> reference for every packet.  Skip the reference, as ip6_route_input()
-> and ip_rcv_finish() do.
+On Sun, 25 Oct 2026 06:35:17 -0600 James Hilliard wrote:
+> Expose receive frame and byte totals through the generic PHY statistics
+> interface as rx_packets and rx_bytes, alongside CRC errors in rx_errors.
+> Report the hardware totals directly: the packet and byte counters include
+> errored frames as well as successfully received traffic.
 
 ## Form letter - net-next-closed
 
