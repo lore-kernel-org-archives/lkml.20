@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793106664;
-	b=lfVxhKHan6A6ZNZs/OpK0qBDgkQBB2t4sGxmUtU2bfOIUcqa8sgXS+Y451cYoSDyigtQ
-	 qTvhmTfaZK6dl84NQMCWTmN2HL3DhYgXhZb8yxkLLfBeRU4vlEQWbNpFRR5QTZTrpelMf
-	 /P71sVWyiU91NsaPQWMmYbRC3LintAgooGaPKSUyhdEpLnHYNtCD85HAwsHlAQU6OreYE
-	 eU8p0RhHBD9wktKTfjRgncEoBcJSFYYwVDJaUAPo4Jy0R4oW1CcGcew6Ob+ubnqb2//Tu
-	 Eu8YNACFut3RPUj/hz6Hs7e/sx/+MSyt4+aewbkDSengffMWehJEzjosqb4aLV38grg==
+	t=1793106701;
+	b=DV5pZo0VKE7AFr6yUDC29l82f02/D9Cph0Od9VZGWEeh3zTomjri41am5MJYhzQCUtV4
+	 WHJk6gAEQpFqg/GMT37Qwlh71BboYp/sqn1dEqebJzQ1KACCqwgegcjC6IRdKqavwdfXM
+	 ZgUDbt0IVLW6CEa7m4rh35OboGSbh1jGsIsoWWa4KNrdgdYBJWuctm3U2diH0Uy6eJg8l
+	 mNprogzCEybDmlc8Xfe8iH0B74f/2K3SUhgEMXFix+/U3Z8BEjDlg/xk4FbMKMoDlouZq
+	 pAxMqYNhjC7+HqRwiPRnF/wFBgtFYtsHu1EXdJfkc01L/2Ad9+mG+H1d+DAc/9uooxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793106664;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=Tik/ulgABakxa1oAhx/1O8sWVbM9Zlnmz/bUllJFK3U=;
-	b=oDGiXNXAW6dI3/IIgb5doBicMLvBD01a50SuDjtQyNZLKMeKyBPvobdRQAL9aHfk49G3
-	 DhWE+6O/jnts3/W7kHp6gAcQ5ixcO0XJlBa1r6E+7IXKihGW9whYnB1WTTv7io3isr7z6
-	 tKS+gz5D/OTIjG9Cse4YfwROtLwCAASOUhPSN0QkKURP+QiRYZLLJ9ebGabCbrtRubni9
-	 WKPgOimgPgbGz6eG7cPuZx8lC7aajtKBN79kcsmi6e9EhasksBzv6SqdsBdyVja6rhs3L
-	 Oez9Vw3b5ARUuQO/GEJLejSVs8VfkPPBxmpj6qhyIXGKofxBduVqIbbexxU8VFoME/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793106701;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=6T5qHszoT5KAnaMFtpj3HuHEDlbDw72PARLkg2WqNwI=;
+	b=0OE82RBVJkbupvAUrpomROroJWrhgt3H0zy5FbMrh/r5SGKj8wG+uxOF1bPnWJRry12Z
+	 7Pb/ZnZqk/iQqE+1S9vIrd//LRs/alOi/Rx/7fYj5J+ZigeJEnGll27yJ7/JQaCKTdZGk
+	 KzeY9AQ7dMLPWLTQgDRoOQtcxdCpCGaCk9gta8/x+4caSIBvCYxSuMCGEZGHWIFUW0yr9
+	 /zH9sFjJ2wAReu5tXQpL8dKk1CY/AgW8jQhSyM6jDadVC8DFaMuS/YyEPXcWk40ZECDUz
+	 gHJyrRBhx5qGoxjJkL+c26LboSQXwpuWaxFZQSxDfkytq3//njCloWR/enISYTwyxlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhFfP2Am;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9A1606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 13:11:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9A1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab4f652f9bso3433685b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 06:11:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793106663; x=1793711463;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Tik/ulgABakxa1oAhx/1O8sWVbM9Zlnmz/bUllJFK3U=;
-        b=VudsXfiuxI79CG/ix9naSImYyo5dhp2VVoEVHm6kXvZjzUF7qanoadu2gM5/QYCLl+
-         oe4VEWyWUJqGD/VMowm4l9EiCL41bNBwdwpdTQE6iUkujcOJbZPjpVgAg4DdSaOwlMJu
-         Y4wa1r+wXISwcIrGzR1BKxlMsFK1mqYaocoC/oA3B8Lh4hEmizH3lThiTAmdtZfHHX2h
-         U2nQamBi1SyYzzMBIcSunpp73SgNVd6DX8fN7XqK6fuTH7nlO37hU9+Ab5Yn4shbCisS
-         WWkapxNGpUkNsCz8r9IU4fSb2evCRzD1Sv2HMbV9aOMctQHiBc9iGfdlpaX7sXNjScUh
-         BblQ==
-X-Forwarded-Encrypted: i=1; AKwUvByyvtkH14R886xJ2Y9Y7YfbBHLffXu4+U+VELxO1T1BF03pVFEPp851D7eZsfWVAmmq2GDcV5y5bYGQ4DU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhn010cJDkZN9l2dVZFPPe1a7N/SHyr/Q7ELmTrTWr6/VYnJzD
-	xrHPQV46h/VRI5qbumT/+MIvrexp2uhVNt5HkbBdUr0S8y6RZmrFDD5h/PEihZDNPt8Bd2ASOTG
-	fUp+ZuOuyaD+1nWewsS2anGfhi5IJNz1rpz90VHI/xsiJIXuBswY4vCnNd/U=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEB3606A31D;
+	Tue, 27 Oct 2026 13:11:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhFfP2Am
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4FB1F01825;
+	Tue, 27 Oct 2026 13:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793106700;
+	bh=6T5qHszoT5KAnaMFtpj3HuHEDlbDw72PARLkg2WqNwI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NhFfP2AmkN8X7XELirt7qT1omsb7npj/zadplmlZ/ndbM/9QYLp2ZJCOJx+dWlUMH
+	 WLIl9HcnEfz9gd3aqK4ZL7dj/jUrwFJl61kMEnfVFuO2eXjlv12kfExtfW8c22DCO1
+	 XS6kqIuoyvE7I5lyuEi75AOr6i07VYF2vgUNRu3r4vV1u1gvqwDF2ZJeXWx3BzDdbk
+	 wVX9EWBmnqqrIj3caxXblXv1sxbO8+kSSUkWMzV17NaqkEQBkQ8d4uTWltzWPvgaIL
+	 D6FLOCVRYM4oXdPXNHM3BFSD/u5X3pnF+GwgfpzP9KZI3CWVnt3gWDgtHSzYZ0nv/y
+	 brBln+2rf30pA==
+Date: Tue, 27 Oct 2026 14:11:32 +0100
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Cc: Ryder Lee <ryder.lee@mediatek.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?B?V2lsY3p5w4XigJ5za2k=?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v4] PCI: mediatek: Fix integer truncation and handle
+ oversized resources
+Message-ID: <kfnxuro5xf4mhokabg773zcyp7otcjxwpzcn3dlo6y3kpv4uv4@bne4qf3vcif5>
+References: <20260930120539.4967-1-sreekuttan2156239@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,37 +62,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1b2c:b0:4e5:2f2e:45b4 with SMTP id
- 5614622812f47-55c002016c2mr5747613b6e.21.1793106663148; Tue, 27 Oct 2026
- 06:11:03 -0700 (PDT)
-Date: Tue, 27 Oct 2026 06:11:03 -0700
-In-Reply-To: <20261027122526.281548-1-diasyzhang@tencent.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae0a2e7.985912ea.1e5798.00c2.GAE@google.com>
-Subject: Re: [syzbot] [dm?] KASAN: slab-use-after-free Read in pool_ctr
-From: syzbot <syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com>
-To: agk@redhat.com, diasyzhang@tencent.com, diasyzhangqing@gmail.com, 
-	dm-devel@redhat.com, drifabdelmalekmohamedsaid@gmail.com, 
-	hackerowskiy@gmail.com, igorpetindev@gmail.com, linux-kernel@vger.kernel.org, 
-	mpatocka@redhat.com, snitzer@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260930120539.4967-1-sreekuttan2156239@gmail.com>
 
-Hello,
+On Wed, Sep 30, 2026 at 12:05:39PM +0000, Sreeraj S Kurup wrote:
+> resource_size() returns a resource_size_t, which is 64-bit on 64-bit
+> architectures or 32-bit systems with LPAE/PAE enabled. Passing this
+> directly to fls(), which accepts an unsigned int, implicitly
+> truncates the upper 32 bits.
+> 
+> Furthermore, AHB2PCIE_SIZE() uses a 5-bit mask GENMASK(4, 0). If a
+> resource size exceeds 2 GiB (order > 31), the log2 size order
+> overflows the 5-bit mask. Clamping the value silently truncates the
+> hardware window while leaving the OS resource intact, causing bus
+> errors when accessing BARs in the unmapped upper region.
+> 
+> Fix this by using fls64(size - 1) to accurately calculate log2 size
+> orders without off-by-one errors and returning -EINVAL if the resource
+> size exceeds the maximum supported 31-bit window order.
+> 
+> Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+> ---
+>  drivers/pci/controller/pcie-mediatek.c | 29 ++++++++++++++++++++++++--
+>  1 file changed, 27 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pcie-mediatek.c b/drivers/pci/controller/pcie-mediatek.c
+> index a60d1ae076f8..639884b22ad7 100644
+> --- a/drivers/pci/controller/pcie-mediatek.c
+> +++ b/drivers/pci/controller/pcie-mediatek.c
+> @@ -8,6 +8,7 @@
+>   */
+>  
+>  #include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/errno.h>
+> @@ -686,6 +687,8 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+>  	const struct mtk_pcie_soc *soc = port->pcie->soc;
+>  	u32 val;
+>  	int err;
+> +	resource_size_t size;
+> +	int size_order;
+>  
+>  	entry = resource_list_first_type(&host->windows, IORESOURCE_MEM);
+>  	if (entry)
+> @@ -753,8 +756,18 @@ static int mtk_pcie_startup_port_v2(struct mtk_pcie_port *port)
+>  		mtk_pcie_enable_msi(port);
+>  
+>  	/* Set AHB to PCIe translation windows */
+> +	size = resource_size(mem);
+> +	if (!size)
+> +		return -EINVAL;
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+PCI core already rejects the zero sized MEM regions. So this check is a dead
+code.
 
-Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
-Tested-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
+> +
+> +	size_order = fls64(size - 1);
 
-Tested on:
+This is wrong. AHB2PCIE_SIZE() register needs the full size value to enable the
+whole window. Check:
 
-commit:         d135ab45 Merge tag 'backlight-next-7.4' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1595102d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c899018ccfbe890a
-dashboard link: https://syzkaller.appspot.com/bug?extid=83827f9a59abe148bff4
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1311fb0d580000
+c61df57343bf ("PCI: mediatek: Fix memory mapped IO range size computation")
 
-Note: testing is done by a robot and is best-effort only.
+> +	if (size_order > 31) {
+> +		dev_err(pcie->dev, "Memory resource size too large: %pa\n", &size);
+> +		return -EINVAL;
+> +	}
+> +
+>  	val = lower_32_bits(mem->start) |
+> -	      AHB2PCIE_SIZE(fls(resource_size(mem)));
+> +	      AHB2PCIE_SIZE(size_order);
+
+Why can't you just do, fls64(resource_size(mem))?
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
