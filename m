@@ -1,104 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117605;
-	b=t2J3MWs00mh6ziwnjZVJ410Tp1J/B0sDa4K08ne6UJBuM5K5F16ZIdbcR8fCh+QMEyrL
-	 M7RgkYI5l5dTi+8AUHs13RDl1t9u98yvbI3yP/IwIMcur8JMDTZKqHWEcHhsEiDgPXUC3
-	 JrO1iCufTotiLCZKwuG1wKadZHgG31c4RqAKV/2AFvHICfGzZlq6i8xIgl6ppC4rVTcQq
-	 MqWSkUDor48lT+Ihw+NHqvjkOzwTvdpoWABNL+Zq4MjhcWHBz3VQwXJ0ss72XSQePWXg3
-	 iS9pn1pQel1SaHI40WmRLaVuENIeW2WHrxQlO4ekvd2NcWnEtcYLGw5F7YnPPxc5E7A==
+	t=1793117615;
+	b=25NrGhRXn9QJYb58W30qb4uMCpplsYc1az1vjaosFrpvMASg5Jc2XwGGuvTDTlA5Ih5A
+	 dbjIWIrONDmtXxk4/jZjBU5YAO0JkVIZv7Mi1kxVh/XfbWeehD+/g/UsgV4s4pnCQuiJs
+	 33dZIy8aWz8oppFzfKXT3bpA+QkfEVggE2fWfzmx0ZGo2ODcXehA+NWYM836cYfcgUqha
+	 NFRrrX8VxkLgtCZuFLVBdvBTt4TFglMZQbYmFHRKL3Ebu1/ap+YF88IZq07uc+BNo3v7d
+	 G/tHsDRQloHEcasv4c+UWIrJqwyJNW/XjEndYDjrbHr+rN+5DuUnHg4U+Rw3ZlYOIJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117605;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gSfoXLj/ogs4a9m4nRtbyh1f84TZ6iRvaVldSIlGJOM=;
-	b=E4ZxAMEKdLHBjb7Fp/FjEsbo2XxjXGPqyw+w1bRXrEb/g8dWxZotZGjmVKwJLw9qHahU
-	 bXOa3YOIuQd9XGsEkOXQDM8ZHj+by+9kiUUbaj83fiXFouVWODmNav3D0K7WBfg64ci0L
-	 exkxA1Y69AK0pACzmf9VAC2TcLU6TAUpd3d6YEkfGYGcu5ozLozN92/ysarSWC9bf78fs
-	 jkBbRZJSke3dJ44DskqzndvZAWoXlr4O61gERt7yZqb5kKuO19oXl552h14lwDaPqWiHY
-	 C2rz5MaYXqgSJZvDFRsg9Fa53xRQf8rOQ9EM+MT4dD64iXoa99g8h+gt8lcBcf0Tn1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117615;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=5G3ZmT86d3fe1rJiM6b5mr2ay0ue+O83AEJqLc41Pes=;
+	b=Oehnx7HjOk2hnLt2uGFumPdU0qQmsD6H5sOFSKFsL8Djy/EpJ4NZcEQhFoXR8x5waxDe
+	 3sVbvWPdE9L0eJLEH9vVro+32KyvL0KYY1m+iRJWLhLiS6TRM0adRSwZ6SvBqYYZgKkuU
+	 Ua0JLTHbIdQzkXe+4Z1Z0nlzPlvaIEXwJCztGWQH4VSnJG6mV5u383G3WcxYpSHX2RZkr
+	 BdacA+/IAtstXWnoHXY2P5Bs4Fg+9i+zQwvrCuoWUKv+ehNw7iuoBOUWD1S3F4Npma7CD
+	 MlswcIxWT70kOkPGMcWlttX8U/qkvNOOIJghyA+/aD/QrXrY6srv7xq+vZF+/f16ikg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ogXCVqJl;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0bRG5pWu;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E436606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:13:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E436606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351A5606A31F
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:13:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351A5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ogXCVqJl
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc7d154ec4fso66823a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:13:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793117604; x=1793722404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gSfoXLj/ogs4a9m4nRtbyh1f84TZ6iRvaVldSIlGJOM=;
-        b=ogXCVqJlCBSo5wKd8aqd/WxaJKfyOOKRd2RKwKbE9w4rmnMQGFR3Vq/EnkXH/lr1h0
-         2bXiw3ObIZ1Q9bHBHsP1kM+d/9d1vY26/i9Cf4A83g5o+CQyBLty08NiEVEk4UqKA/kv
-         8p6Cp4KrX5WqJcNA1KHlc+P04lSW7fqDLMFMOyf/HHZAFYZuOyt2vmvGdltasg+dVigi
-         Pk8BhBMkOyqHudRmodA50Y2bWpth3yPCiANcAzipR/2+7sohASu09ecblPNoIRnZ6D7t
-         3a8HusPXa9Rwcks7NFzDTQGQcJj0arVSa3Tw+qOrtThjvMLFtQ1g+uWLkhQBRJ9teBy5
-         THJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793117604; x=1793722404;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gSfoXLj/ogs4a9m4nRtbyh1f84TZ6iRvaVldSIlGJOM=;
-        b=bQ2oAYZJWMdN39er9U+Hlcb99JQ12cqdh3Owy4TJaalYBi3wVfdZ623Cjpyl3e0nje
-         ee+VwhvyOKrgqnbdDQP7KTkqJJ0xyD9CCO6ZP9343hIYzmMTmTDxMxfP8HoBM4KZUllg
-         K7/IIab9h8ShHs6Chymm1wu02tkAPLeGuZl1Z+xPSxfzxEvQ5Gw4YvO7P4lQpl9TcL2w
-         Xk26RuCatPmBl7z4wwfYO88sKMmZg41uOs9hhwkGW+91XSYSVhWEiJg6i2Qs/hjw31vG
-         zDYCJ/9rj0uOH9dspmDpyjLIS+OSlr9+aoAY1nQL1aF05mSDu0kJ2HzNe0inH83mbZN4
-         TIuQ==
-X-Gm-Message-State: AFq9FYIx3wTKooZs2H48YdOUVlKJeEWatjuImYixgIr3ECfWqJ99lHQH
-	YY+8n3EPv3rWn+2b8WRFIcW9UffFgdqUpdjgVjF1oZRFC2z6yWdeTB8q
-X-Gm-Gg: AYBFou1C/nma3Esk/YgpVQfDZOm/KRgL2aJ+KF4mgEbQd1Xx32+n3Y9RZv01ZGNJin6
-	faoQvArYNq+yvYnAmR31GTmcXin0zl47OovAX10eHpwlyr0TS9y34dC36VhwCNp9B2XsP/6pNDD
-	8Sj4hzXU/eRZ57xYzPZcyGIQ+JrhNGKmzSZYMwQ0iJBG30GRhRyqaMtM7IfFhGAQYnKaU/TonTg
-	djhPZaMYjol5LhNUa02uVLQ1Mi9Keqc5v2BNIjflm5UCpDKoP5kU3QEncRNtN+8ja62KBcs+RMW
-	lpZfK6Q/FN7lSoEpJYgS/kLNl7WD6h81LiXXaKhRejWfT6zKvn2ED+nDtB0Fsj7qPygwYNZLUSB
-	/c5eTBKbBG1Ac8i6iGkJiih6R4Yw0KvFKics1AlZo+03EBcdqZ0WR0qHavrsSAtEJjK1DU9V0i7
-	KQM3QinO/WXtgrjZOQs9zeUSTXfHxy4NN3T3bDRoouu6DURrB5FVXR4LOfnkzlAhhQN3vYVYMsH
-	F9bX4PfrpA3zeaq/LyHdKci1ge5QkicZn5dLNDMRmPDXzt2tcyZUtlf0wxhwd3OuF5p59Rna5fF
-	qHZUumTRBkX0ff5OMA0=
-X-Received: by 2002:a05:6a21:1bc7:b0:3e2:3bc5:bb6e with SMTP id adf61e73a8af0-3e7bfc13b47mr7649508637.51.1793117603789;
-        Tue, 27 Oct 2026 09:13:23 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cccd4cfbsm3233902a12.28.2026.10.27.09.13.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 27 Oct 2026 09:13:23 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org,
-	chrisl@kernel.org,
-	nphamcs@gmail.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	shikemeng@huaweicloud.com,
-	kasong@tencent.com,
-	linjh22s@gmail.com,
-	kunwu.chan@linux.dev,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	tglx@kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: [RFC PATCH v3 16/18] mm/swap: advance the global queue cursor directly between priority rings
-Date: Wed, 28 Oct 2026 00:12:56 +0800
-Message-ID: <03c9f51439f1b457d7f9af40d6bbdf846f2776ed.1793106426.git.lianux.mm@gmail.com>
-In-Reply-To: <cover.1793106426.git.lianux.mm@gmail.com>
-References: <cover.1793106426.git.lianux.mm@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0bRG5pWu
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id LiISxGJmHc3XsLjnrxhun5; Tue, 27 Oct 2026 16:13:35 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id LjnpxGUTO6hvPLjnqxXy6A; Tue, 27 Oct 2026 16:13:34 +0000
+X-Authority-Analysis: v=2.4 cv=cqCbk04i c=1 sm=1 tr=0 ts=6ae0cdae
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=iox4zFpeAAAA:8 a=lMUDpl8nYqh3M6R7ydkA:9 a=CjuIK1q_8ugA:10 a=LP3-5Lh9zdkA:10
+ a=WzC6qhA0u3u7Ye7llzcV:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=5G3ZmT86d3fe1rJiM6b5mr2ay0ue+O83AEJqLc41Pes=; b=0bRG5pWuLiZXHXqJQvNggCWlNQ
+	GbtulZEHDb8sReMmPpD9jeLOPqZQkvsmUB1QF/eaKJBgihsBywZ3ulNPnxshEjknN4c31xvSydrof
+	G8UKnkf5xfgnI69nY3a4sNA9bFAtUL8L0JA58uLhKUpMYHBBJ0OrdJplBMt99zyuCp21tdFaUrvXc
+	Rj/BTRRnkXIIxr7cfp1yIvTqmh6CwL7GsO4UOrGrFPKoB3lE61ZgXnJN1tKcwjo/RzpYUatrMH8pN
+	s0ztAID6NGI3HShJw5b84D//CWybXdMw56O+bg8PoNsDOWiW4Y6p1JVP8bF+MAB+WQBG2bEK7fw3K
+	OgN2UsKg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37196 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xLjnm-00000000huz-1JIR;
+	Tue, 27 Oct 2026 21:43:30 +0530
+Date: Tue, 27 Oct 2026 09:13:29 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Gary Guo <gary@garyguo.net>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Gregor Herburger <gregor.herburger@linutronix.de>,
+	Stanimir Varbanov <svarbanov@suse.de>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pwm@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH RFC 0/4] hwmon: Add fan tachometer support for Raspberry
+ Pi RP1
+Message-ID: <b02b4f0b-ad2c-453a-b69c-a0865a333d62@roeck-us.net>
+References: <cover.1792748690.git.andrea.porta@suse.com>
+ <7df58d42-517c-4936-88b0-9d044d30882c@roeck-us.net>
+ <auBzvB8TsvIK8Hik@apocalypse>
+ <53a4b4bb-271c-4d2d-a9e4-cec4e0ce214b@roeck-us.net>
+ <DMFPE71J8205.3FZKD5BKW3U7C@garyguo.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,143 +103,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMFPE71J8205.3FZKD5BKW3U7C@garyguo.net>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xLjnm-00000000huz-1JIR
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:37196
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 28
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfM5OnuqUPoHflIrwSL56b1WaB8zX2rb6JWZNNRK7utKbHedOizVmze0Vd8neV7DEZtAOT+Z+Qr/024hr2eEO9RdKZc3Ow+MQuI0GKBLl/ZtxvZI0Xos+
+ XftU62hkjog6rYuw4ic2DI976SG02iNgJsktu8gXEMTNjvk8l7unVkox7y3wPmN6PXLA0Vpj53G5ppOXCzcbDTEVZDDcZcq3aaY5o9ETfsIgQd50a3TAthHT
 
-The allocation walk previously passed a total retry index to the selector.
-Each retry translated it back to a priority ring by scanning from the
-beginning of swap_queue. Keep the ring index and the number of attempted
-peers in the task-local cursor instead.
+On Tue, Oct 27, 2026 at 10:51:15PM +0800, Gary Guo wrote:
+> On Tue Oct 27, 2026 at 9:48 PM CST, Guenter Roeck wrote:
+> > On Tue, Oct 27, 2026 at 10:49:48AM +0100, Andrea della Porta wrote:
+> >> Hi Guenter,
+> >> 
+> >> Yes, I also proposed that in the cover letter because auxbus seems also a viable
+> >> solution.
+> >> 
+> >> The current implementation is a consequence to the discussion about the companion
+> >> PWM driver, from here (and the revisions that followed):
+> >> 
+> >> https://lore.kernel.org/all/cover.1775223441.git.andrea.porta@suse.com/
+> >> 
+> >> To give a short and hopefully coherent view of the decisions, here's a breakdown:
+> >> 
+> >> - first proposal: PWM driver + fan hwmon (to read the RPM), all in the same driver
+> >> 
+> >> - V2: Uwe preferred to split the PWM driver from the hwmon one, so the hwmon was
+> >>   dropped from teh PWM driver in favor of a future (fan) driver. To accomplish this,
+> >>   I moved from readl/writel to regmap + syscon.
+> >> 
+> >> - V8: Gary proposed to export a function to read the fan RPM as a viable
+> >>   solution. As a result, the regmap/syscon was dropped as it was no longer needed
+> >>   and the function has been exported from the PWM driver
+> >> 
+> >> - new patchset for fan driver: the now independent hwmon moodle just call the
+> >>   exported function from thw PWM driver.
+> >> 
+> >> If the auxiliary bus is indeed the preferred approach, I'd like to ensure we are
+> >> all aligned, as this would also require refactoring the PWM driver.
+> >> 
+> >
+> > Let's say it that way: If you don't want to implement the auxiliary driver,
+> > and you insist using the exported function, I would prefer for you to go back
+> > to the first solution. The one thing I really dislike is conceptually broken
+> > code, and I consider the current approach broken. Your call, but the one thing
+> > I won't accept is the code with the exported function.
+> 
+> I agree on the auxiliary driver part. However, I don't think EXPORT_SYMBOL_NS is
+> an issue, and regmap is not the right fit here:
+> 
+> - Previous version of the PWM1 patch series publish regmap using
+>   of_syscon_register_regmap, but this cannot be undone -- which needs to happen
+>   on PWM device unbind (the RP1 PWM device is itself platform device, but RP1
+>   chip itself is PCIe device which must be removable).
+> 
+> - The tachometer register is not its own separate register, but rather (re)using
+>   the phase control register. The phase control is not implemented in the RP1
+>   PWM driver on the list yet, so this is currently a simple register read -- I
+>   can see that RP1 PWM driver need to take special care to about the tachometer
+>   reading if the phase control is implemented.
+> 
+>   For the two reasons above, I think the way that tachometer is read should
+>   really be an implementation detail of the PWM driver and not for the hwmon
+>   driver to worry about, so I suggested using EXPORT_SYMBOL_NS.
+> 
+> - EXPORT_SYMBOL_NS is the documented way for exposing functionality from parent
+>   device to auxiliary drivers: https://docs.kernel.org/driver-api/auxiliary_bus.html
+> 
 
-Snapshot the starting device only on the first visit to each ring and
-advance each peer exactly once, including masked entries. Preserve the
-large-folio same-ring boundary and the stale reader-offset correction.
-The selector's complete walk is linear in the devices and priority groups;
-device cluster scanning and availability updates have their own costs.
+Let's agree to disagree, and keep the code in the pwm subsystem.
 
-Keep the topology read lock and CPU migration protection across the walk.
-The global selector uses only existing priorities and adds no per-memcg
-device-selection state or ABI. Existing swap charging and limits remain
-in folio_alloc_swap(), whose failure path classifies allocation errors.
-
-The walk no longer returns an ignored internal error to that caller.
-
-Signed-off-by: Lian Wang <lianux.mm@gmail.com>
----
- mm/swapfile.c | 49 +++++++++++++++++++++++--------------------------
- 1 file changed, 23 insertions(+), 26 deletions(-)
-
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 5b6492b1bdc6..bbd114f043ab 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -194,10 +194,10 @@ struct swap_queue_reader {
- };
- 
- struct swap_queue_cursor {
--	bool valid;
- 	bool ring_only;
- 	unsigned int ring_idx;
- 	unsigned int offset;
-+	unsigned int nr_iter;
- };
- 
- static __percpu struct swap_queue_reader *swap_queue_readers;
-@@ -307,28 +307,32 @@ static void swap_queue_install_readers(struct swap_queue_reader __percpu *reader
- 	swap_queue_reset_readers();
- }
- 
--static struct swap_info_struct *swap_queue_get_device(long nr_alloc, int nr_iter,
--						      struct swap_queue_cursor *cursor)
-+static struct swap_info_struct *
-+swap_queue_get_device(long nr_alloc, struct swap_queue_cursor *cursor)
- {
- 	bool rotate = false;
- 	struct swap_info_struct *si;
- 	struct swap_ring_iterator *ri;
- 	struct swap_prio_ring *ring;
--	unsigned int dev_idx, queue_idx;
-+	unsigned int dev_idx, queue_idx, nr_iter;
- 
--	if (!swap_queue_len)
-+	queue_idx = cursor->ring_idx;
-+	if (queue_idx >= swap_queue_len)
- 		return ERR_PTR(-ENOENT);
- 
--	queue_idx = 0;
--	while (nr_iter >= swap_queue[queue_idx]->size) {
--		nr_iter -= swap_queue[queue_idx]->size;
--		if (++queue_idx >= swap_queue_len)
--			return ERR_PTR(cursor->ring_only ? -E2BIG : -ENOENT);
-+	ring = swap_queue[queue_idx];
-+	if (cursor->nr_iter >= ring->size) {
-+		if (cursor->ring_only)
-+			return ERR_PTR(-E2BIG);
-+		queue_idx = ++cursor->ring_idx;
-+		if (queue_idx >= swap_queue_len)
-+			return ERR_PTR(-ENOENT);
-+		cursor->nr_iter = 0;
-+		ring = swap_queue[queue_idx];
- 	}
--	if (cursor->ring_only && cursor->ring_idx != queue_idx)
--		return ERR_PTR(-E2BIG);
- 
--	ring = swap_queue[queue_idx];
-+	/* Consume masked peers too, so every walk remains bounded. */
-+	nr_iter = cursor->nr_iter++;
- 	local_lock(&swap_queue_readers->lock);
- 	ri = this_cpu_ptr(&swap_queue_readers->ri[queue_idx]);
- 	/*
-@@ -336,9 +340,7 @@ static struct swap_info_struct *swap_queue_get_device(long nr_alloc, int nr_iter
- 	 * iterator can move between retries, but the cursor must visit every
- 	 * device in the ring exactly once before falling through.
- 	 */
--	if (!cursor->valid || cursor->ring_idx != queue_idx) {
--		cursor->valid = true;
--		cursor->ring_idx = queue_idx;
-+	if (!nr_iter) {
- 		if (ri->rr_counter < nr_alloc)
- 			rotate = true;
- 		else if (ri->offset >= ring->size)
-@@ -1794,29 +1796,25 @@ static bool get_swap_device_info(struct swap_info_struct *si)
- 	return true;
- }
- 
--static int swap_alloc_entry(struct folio *folio)
-+static void swap_alloc_entry(struct folio *folio)
- {
- 	struct swap_queue_cursor cursor = {};
- 	long nr_pages = folio_nr_pages(folio);
- 	struct swap_info_struct *si;
--	int nr_iter, ret;
- 
- 	percpu_down_read(&swapon_rwsem);
- 	migrate_disable();
--	for (nr_iter = 0;; nr_iter++) {
--		si = swap_queue_get_device(nr_pages, nr_iter, &cursor);
-+	for (;;) {
-+		si = swap_queue_get_device(nr_pages, &cursor);
- 		if (IS_ERR(si)) {
--			ret = PTR_ERR(si);
--			if (ret == -EBUSY)
-+			if (PTR_ERR(si) == -EBUSY)
- 				continue;
- 			break;
- 		}
- 		cluster_alloc_swap_entry(si, folio);
- 
--		if (folio_test_swapcache(folio)) {
--			ret = 0;
-+		if (folio_test_swapcache(folio))
- 			break;
--		}
- 
- 		/*
- 		 * For large allocations, try every device at the same priority,
-@@ -1831,7 +1829,6 @@ static int swap_alloc_entry(struct folio *folio)
- 
- 	migrate_enable();
- 	percpu_up_read(&swapon_rwsem);
--	return ret;
- }
- 
- static int swap_extend_table_alloc(struct swap_info_struct *si,
+Thanks,
+Guenter
