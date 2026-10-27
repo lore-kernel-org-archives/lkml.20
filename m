@@ -1,60 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793110130;
-	b=04PAXK+KpRw7NLdfb6G5C5J7zNCh38QQa/dRPyDopXli+3J4xpf7n5mu/GpIXbaMOL34
-	 8bgzG245JWtiDtcQat165DqVHd45L0cjF1xI9Wb0Ma6ggEUKSl2smCYG8uRvYGRzNnmsz
-	 nBG6mqYUvqtZyy6a+BW2wN5+FjV8ETp/d7busc1I9ivXDpTlQkTnpfIPPNmd+MRTfMhw6
-	 Wmz/3Q8s+GpT5PJVkOyBqtX/hv0bk7K3v2ZgSrASzqAfJFkqiSa7dWtbjekn/tDIWIBVO
-	 EavntFdgFhDDQpSx2lsX9y1XwQJtdYH/vJSvNkOKgWve5Ot1NscCa9QU/p89sIgmWTA==
+	b=OsPDwtWUQLAUTdBCQANXlMkZEz8SL0890pwkmILN1SDSM4bR0Ou5EdU0K0uRGmjpeouH
+	 37quNauv/V0XBfAEe5HIRC7ZeLByJ5jQ7H8Xxy62LGryITv607OA6fpU5ZPLxPQ1svDSB
+	 64Pxbo5JBUXwBwMQoddjQOUuf3jErecs9CaIuXZCMEBBNQMp+vfnZbgHdACSuwmqYhMuG
+	 t0oR/rWVtJmiTkhEcW65lCMMeP84XvnMShjvrFSEf4cGuaMkZ9av9++hT4wLmQIjIkv8s
+	 0XaX9w/gD3DOowOImH9+mWG/4VZ289haml1eLON2rYj3mISQTDGs3Y78f9x+HzwXxsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793110130;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cOUNxOkSiHz1UCe8MVMbaOdkOf4/O9eR04u47GsA7QY=;
-	b=BvMmllqXguQ27EhczGAzcmnhXRBnJVm6Ul/crjfSnYaT0KJYDwLSCuXxPNde17Tr7L0F
-	 E43DIgDHQTB48umROiLguXTbCdDSZNQTvXvT8rF+pvMO1Egu+A3ukorXMKFtssHfeoPW0
-	 NwjCxVeghnfVNyHaEKtDNe2n154GaOXS3tn/zNHHovxDelQiwbxx4vhcNPoOqe1KcMyc4
-	 S3tJ7Yrz2cQ4ieDcskOFprfoWd6Axmu2YhYZEPcMv23ev5nozAfZiWF2AUECXfVFHv3dw
-	 ICO+aoNo7Rp+MuSw/4PMeT/IrXTzAMHPr3z4dAQ36wsiF16QKM0wfFfrfXs1jhKQeoA==
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pJDcTOL3vwPjyTTZ32hN77pZkCa+SzNVB78DIO/TIG0=;
+	b=xPJcZEJjqqEWj/p9MP8WSGd9Nufxnw2e+/mviQkbH7tyj+YvZ0/jds64lgjztajUk/jY
+	 E/AP2CkhPkCECvXCSvHDig8s8vnS81xMcE5lB6p5xe8jc6cBVzYLR97jsiY8AiJ6ZhvW7
+	 afFRN4vjjM0MV/e7aqmDlYcHKd9J/IARkBxVl9fKRnF5iNLtls9ID6y5oeZtnhSsN3FUB
+	 sAbyDXdn//n8DbakLir1WhnSrDP4J8gRoxCblVfJ+N4ELyxkIJJmbkBwfkPrEpcQD0TBO
+	 Yb907ZgwQ6BHIJdwSwzU48Q19HJU88eLZTn6tgSBqnI82kv5g3Ah/joOCz6y8xlmApA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEIji5oT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="H/BZTSpt";
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C775606A337;
-	Tue, 27 Oct 2026 14:08:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB804606A323
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 14:08:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB804606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEIji5oT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A4F1F031E3;
-	Tue, 27 Oct 2026 14:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793110129;
-	bh=cOUNxOkSiHz1UCe8MVMbaOdkOf4/O9eR04u47GsA7QY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AEIji5oTloCbrt8InyF+KOb4NeVovMN988PPlvWaeQ4KW5z3/xgJxSqeXokh97UwO
-	 IrePtV6zHNGnrDuecld3aflDlhZx8sv4ziUza+0SkoVCiPYeBh5ZL9Q8Mpk4TXTIvq
-	 eXos5vYji3WPwQdY5Dvq3NiVIhjyE6aH1dCghC1kocacYupKWNYri9lOkUMf0J8mWE
-	 Fx13Pu9DczRuszty7h0Ai/I8qh7A0kwDcOrYh7cT7WFQx0GThKETAevX+k2iOiVE/A
-	 r42VNaQgNixhWMJkh4i/clbrjzzaMdl+rexcvCKPwCrktAz5TLrd9scLgvnm+J/Sv+
-	 k1U1SYds3CuUA==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=H/BZTSpt
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793110124; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=pJDcTOL3vwPjyTTZ32hN77pZkCa+SzNVB78DIO/TIG0=;
+	b=H/BZTSptoUgDinYmUHQrchSEoEVA1mMub92K1HGKkXPC4rX6mlZTTOY1vcG8pRf0Ib0DKCgrUd+TgeEMBKGCfySd2FkNtLcNMalgMlZXOVqpJn0HQBsd66D1WzklFpgJnylY/IgE2iCsRzZ3ti5LaCvMxH246c3wOnJKE4rtHbY=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XDe7Dwu_1793110121;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDe7Dwu_1793110121 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 27 Oct 2026 22:08:42 +0800
+From: fangyu.yu@linux.alibaba.com
+To: gong.shuai@sanechips.com.cn
+Cc: alex@ghiti.fr,
+	andrew.jones@oss.qualcomm.com,
+	aou@eecs.berkeley.edu,
+	fangyu.yu@linux.alibaba.com,
+	gsh517025@gmail.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	joro@8bytes.org,
+	jroedel@suse.de,
+	kvm-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 19/18] sched_ext: Fix use-after-free of a NONE rescuee leaving its sched while running
-Date: Tue, 27 Oct 2026 04:08:47 -1000
-Message-ID: <20261027140848.2280121-1-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261027001749.1821379-1-tj@kernel.org>
-References: <20261027001749.1821379-1-tj@kernel.org>
+	linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com,
+	pjw@kernel.org,
+	robin.murphy@arm.com,
+	tomasz.jeznach@linux.dev,
+	will@kernel.org,
+	zong.li@sifive.com
+Subject: Re: [RFC PATCH v2 3/4] iommu/riscv: Add guest IMSIC GPA mapping helpers
+Date: Tue, 27 Oct 2026 22:08:37 +0800
+Message-Id: <20261027140837.84112-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261026080604.184574-1-gong.shuai@sanechips.com.cn>
+References: <20261026080604.184574-1-gong.shuai@sanechips.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,164 +81,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since an earlier patch sends a bypassed task to rescue when its host lacks
-SCX_CAP_BASE, a task scx_fail_parent() punted to its bypassing parent at
-NONE can be a rescuee.
+>Hi Fangyu,
+>
+>> >Andrew has moved well past a v3
+>> >
+>> >I shouldn't be seeing code in iommu or irq drivers directly mapping into
+>> >domains. That doesn't work, Andrew's latest series don't do this.
+>> >
+>> >It still needs to use the SW_MSI mechanism and related.
+>> >
+>>
+>> Andrew has posted two patch series in the community: one is the
+>> MSI remap v6 series[1], and another is the IRQ bypass v3 series[2].
+>> I think you are referring to the MSI remap v6 series. My patch was
+>> based on the IRQ bypass v3 series, and I added this patch on top
+>> of it.
+>>
+>> [1] https://lore.kernel.org/linux-iommu/179209292714.4133959.5997128071302263244.b4-review@b4/T/#t
+>> [2] https://lore.kernel.org/linux-riscv/20260928143113.49838-1-andrew.jones@oss.qualcomm.com/
+>>
+>> >Nothing in the commit messages clearly explained what this is actually for
+>> >without having to go dig up the riscv manuals again. Please explain how the
+>> >interrupt translation works and what actual user visible problem this is
+>> >trying to solve is.
+>> >
+>>
+>> The interrupt translation is based on Andrew's irq bypass patch
+>> description.
+>>
+>> RISC-V IOMMU defines an optional MSI page table feature, which can
+>> be used to implement irq bypass by translating the vIMSIC GPA to
+>> the pIMSIC HPA.
+>>
+>> My patch complements that design. If the RISC-V IOMMU hardware does
+>> not implement the MSI page table, then the second-stage page table
+>> can be used instead to map vIMSIC GPA to pIMSIC HPA.
+>
+>Using the regular stage-2 page table to translate MSI target
+>addresses seems reasonable to me as a fallback for hardware without
+>MSI_FLAT.
+>
+>I would like to share my personal understanding of Jason's review.
+>Please correct me if I missed his point.
+>
+>His concern seems to be about who owns and maintains these mappings.
+>When the RISC-V IOMMU driver calls iommu_map directly on a paging
+>domain managed by iommufd, the mappings are not visible to the domain
+>owner. This makes it difficult to handle mapping lifetime and
+>hardware page table replacement correctly.
+>
 
-When a cgroup migration into a root-owned cgroup re-homes it while running,
-nothing resets it: the DEQUEUE_SAVE dequeue and put_prev_task_scx() keep a
-running task's slice, and __scx_disable_and_exit_task() skips a NONE task.
+Hi Shuai,
 
-rq->scx.rescue.curr keeps pointing at the task, now on the root. An RT task,
-for example, can keep the task from serving its grant until the last sub is
-freed. From then on scx_rescuee() returns NULL and the rescue never ends.
-scx_rescue_timerfn() keeps accessing the task after it is freed.
+Thanks for the review.
 
-Move the reset out of scx_disable_task() into scx_reset_task_fields() and
-call it on every path that takes a task out of its sched's control, the exit
-of a NONE task included.
+Before going further, I want to make sure I answer the actual
+question. If the concern is about who owns and maintains these
+mappings, I address that below.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Tejun Heo <tj@kernel.org>
----
- kernel/sched/ext/ext.c | 66 +++++++++++++++++++++++++++---------------
- kernel/sched/ext/sub.c |  4 +--
- 2 files changed, 44 insertions(+), 26 deletions(-)
+The iommu_map() and replace_leaf() calls are not a separate
+mapping facility added next to the forwarding code. They are
+two steps in the existing interrupt-forwarding state machine
+driven from iommu-ir.c:
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index b7a78be01b42..afcbe8f06de6 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2511,8 +2511,9 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
- 	/*
- 	 * Don't reset runnable_at. If @p is waiting, the wait continues across
- 	 * temporary dequeues, e.g. for a migration or an attribute change.
--	 * scx_disable_task() ends it if @p leaves its scheduler. scx_bypass()
--	 * restarts it when its requeue can change the sched running @p.
-+	 * scx_reset_task_fields() ends it if @p leaves its sched's control.
-+	 * scx_bypass() restarts it when its requeue can change the sched
-+	 * running @p.
- 	 */
- 	clr_task_runnable(p, false);
- 
-@@ -4657,23 +4658,20 @@ void scx_enable_task(struct scx_sched *sch, struct task_struct *p)
- 	scx_set_task_state(p, SCX_TASK_ENABLED);
- }
- 
--static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
-+/**
-+ * scx_reset_task_fields - Reset what @p carries from its sched's control
-+ * @rq: @p's rq, locked
-+ * @p: task leaving its sched's control
-+ *
-+ * The vtime, the slice and what rides on it, the reenqueue count and the
-+ * watchdog wait belong to the sched while it controls @p. The control ends when
-+ * @p is taken off the sched or leaves the ext class while staying on the sched.
-+ * Reset them so that @p starts clean wherever it goes.
-+ */
-+static void scx_reset_task_fields(struct rq *rq, struct task_struct *p)
- {
--	struct rq *rq = task_rq(p);
--
- 	lockdep_assert_rq_held(rq);
--	WARN_ON_ONCE(scx_get_task_state(p) != SCX_TASK_ENABLED);
--
--	clear_direct_dispatch(p);
- 
--	if (SCX_HAS_OP(sch, disable))
--		SCX_CALL_OP_TASK(sch, disable, rq, p);
--	scx_set_task_state(p, SCX_TASK_READY);
--
--	/*
--	 * Reset the SCX-managed fields when @p leaves the BPF scheduler's
--	 * control, after ops.disable() has observed their final values.
--	 */
- 	p->scx.dsq_vtime = 0;
- 	scx_task_slice_ended(rq, p);
- 	scx_set_task_slice(p, 0);
-@@ -4681,11 +4679,25 @@ static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
- 
- 	/*
- 	 * If @p is runnable but not running, its wait started at runnable_at,
--	 * which ops_dequeue() didn't reset. Leaving @sch ends the wait. Reset
--	 * runnable_at the next time @p is enqueued on SCX, so that the watchdog
--	 * doesn't count the time @p spends elsewhere.
-+	 * which ops_dequeue() didn't reset. Leaving the sched's control ends
-+	 * the wait. Reset runnable_at the next time @p is enqueued on SCX, so
-+	 * that the watchdog doesn't count the time @p spends elsewhere.
- 	 */
- 	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
-+}
-+
-+static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
-+{
-+	struct rq *rq = task_rq(p);
-+
-+	lockdep_assert_rq_held(rq);
-+	WARN_ON_ONCE(scx_get_task_state(p) != SCX_TASK_ENABLED);
-+
-+	clear_direct_dispatch(p);
-+
-+	if (SCX_HAS_OP(sch, disable))
-+		SCX_CALL_OP_TASK(sch, disable, rq, p);
-+	scx_set_task_state(p, SCX_TASK_READY);
- 
- 	/*
- 	 * Verify the task is not in BPF scheduler's custody. If flag
-@@ -4706,6 +4718,11 @@ void __scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p)
- 
- 	switch (scx_get_task_state(p)) {
- 	case SCX_TASK_NONE:
-+		/*
-+		 * No op to call, but @p may still carry @sch's state, e.g. a
-+		 * task punted by scx_fail_parent() and being rescued.
-+		 */
-+		scx_reset_task_fields(task_rq(p), p);
- 		return;
- 	case SCX_TASK_INIT:
- 		args.cancelled = true;
-@@ -4714,6 +4731,8 @@ void __scx_disable_and_exit_task(struct scx_sched *sch, struct task_struct *p)
- 		break;
- 	case SCX_TASK_ENABLED:
- 		scx_disable_task(sch, p);
-+		/* after ops.disable() has seen the final values */
-+		scx_reset_task_fields(task_rq(p), p);
- 		break;
- 	default:
- 		WARN_ON_ONCE(true);
-@@ -5022,13 +5041,12 @@ static void switched_from_scx(struct rq *rq, struct task_struct *p)
- 	 * scx_disable_task() would WARN on the non-%ENABLED state and trigger a
- 	 * NONE -> READY validation failure.
- 	 *
--	 * @p can still be a rescuee under the parent. End its slice as
--	 * scx_disable_task() does for an enabled task.
-+	 * Either way, reset @p after ops.disable() has seen the final values. A
-+	 * %NONE @p can still be a rescuee under the parent.
- 	 */
--	if (scx_get_task_state(p) == SCX_TASK_NONE)
--		scx_task_slice_ended(rq, p);
--	else
-+	if (scx_get_task_state(p) != SCX_TASK_NONE)
- 		scx_disable_task(scx_task_sched(p), p);
-+	scx_reset_task_fields(rq, p);
- }
- 
- static void switched_to_scx(struct rq *rq, struct task_struct *p) {}
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index ecab82ca5e82..e0aed3ce9735 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -1666,8 +1666,8 @@ static void scx_rehome_task(struct scx_sched *to, struct task_struct *p)
-  * Used when @to must take over @p but failed to initialize it. Bypass keeps
-  * scheduling decisions away from @to but @p can still trigger its task ops,
-  * which may confuse the BPF side. @to is dying anyway. The exit paths call no
-- * op on a %NONE task. __scx_disable_and_exit_task() skips it and
-- * switched_from_scx() only ends its slice.
-+ * op on a %NONE task. __scx_disable_and_exit_task() and switched_from_scx()
-+ * only reset its fields, see scx_reset_task_fields().
-  */
- static void scx_punt_task(struct scx_sched *to, struct task_struct *p)
- {
--- 
-2.56.0
+  - first FORWARD:      flat -> MSIPTE written /
+                        noflat -> S2 PTE installed
+  - UPDATE_TARGET:      flat -> MSIPTE updated /
+                        noflat -> replace_leaf()
+                         (only if the VS-file page moved)
+  - last unforward:     flat -> MSI table deactivated /
+                        noflat -> S2 PTE removed
 
+So the lifetime of the S2 mapping matches the lifetime of the
+forwarding session, which is the same rule the MSI page table
+already follows. The driver is the only layer that sees both
+the forwarding session (device <-> vCPU) and the paging domain
+used to translate guest MSI writes, so it is also the only
+layer that can maintain this mapping.
+
+Note that the noflat column of the last row is not in v2: v2
+only frees the bookkeeping when the domain is torn down. In
+v3, I revoke the S2 entries both when the last forwarded IRQ
+in the domain is released and at domain free, so the entry
+lifetime becomes identical to the MSIPTE lifetime.
+
+Thanks,
+Fangyu
+
+>The current SW_MSI support does not appear to cover this use case
+>directly. It allocates IOVAs for host MSI pages and records the
+>resulting mappings. Guest forwarding instead requires mappings at
+>fixed guest GPAs, with their target HPAs changing when vCPUs migrate.
+>Supporting this through SW_MSI would therefore seem to require a
+>nontrivial extension.
+>
+>Best regards,
+>Shuai
+>
+>>
+>> Thanks,
+>> Fangyu
+>>
+>> >--
+>> >Jason
+>>
