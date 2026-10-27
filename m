@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117965;
-	b=I7mtmKnBoSbndiNk+/fjtdYzmJTnHJecY5W1AakikawfLD6jb6yHvQJnGWDm+KilRnaR
-	 xFHAWCQzu8wdOoee4MtTF30+Tt+nZoTFfyrABv96L7o7wVBcskrtbbSSc5j+vWxkgOoDW
-	 RfPYBMuXTNVlpqmvSvFwKp7OqC78SCvgmsMlbNLuh/iSeuChPGY29NJAAKnSpNVfpUxsh
-	 Yzq9B4ycpeREcZAsqXzWJQ0f7IObqqcF8K2bjByVTJptKnNu1Zy7wXkaqo/AGAkZQKLDv
-	 bJ+UNe2kOdOFgOEIAnygbMMJ6RnjuSxQM85XDo1Cvxsh1ijIiWa7t3lOHLXRsOpCmOQ==
+	t=1793117969;
+	b=WdrojlK7iDeIjWtH1ZiTFJoQcV+NKq5Yfey+HAVy1TWVfDvBDzWjBqTYDH6ni/sxaYEB
+	 3mapC/g8i65QgUcvGF3aF+M0q8L2AIDtjberfTGy4Qz61zAb/1mcLtjGLJUxzz0oZ8fgj
+	 STiGBcOYypYUvAMwQQhun9ThMjTKtDJradUVOeiZV9UDKpF6+862GszpQOb4QH+Az48Bk
+	 PqhUtJ8zI/Es3GWMZSEwr/bZ51DFMG+xns/+S2CdVrxXpP6HOJQDe05CghcmatAdOurOj
+	 U1roaYt/MWIT5sYDPJ3a8fYSOEFt9/Vb3usIKKsasVZW28Q1KP/CHSzA2u6M2mvcgTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117965;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117969;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Yah5JjbfdtHZyEnbN7bigpDzRmkycWHPaQZuuBA9MFI=;
-	b=fggLsvyDgGeASiZOkchDmZvkCJITFOJnsaoUomXq1WNQsY7i/ggQuX+rf3+ND7nTYnnG
-	 9WnuuxDsHsdB9XPqt9AsxagJ356NSYmUeKIF2Zzluc/RF9RAolYw08EZAOyHAG+9jQa/u
-	 Fot+4mwClI0xq48zC9gCsGqi/+hs4nVUTDRJvVevmPUAwMfBC6i343lYXDz8g/0kkdqzI
-	 iLxfelGHW+DADHvh0r+fpkwvR5dBaBIXVPxvw1xFAyu1VorbJj7rqagRJgi+d8nWhRX3H
-	 Ws7rEDsbatrX2Tr544wG11xvErMRWtP7yLydWiFTkFWJYDEfkFVWxhAyatHea/iPYcQ==
+	bh=x3KUzhQz6+4DPJOkUGvWeoYPemZAUp92OI03uEKWCV0=;
+	b=b3iteQjMKL56JY4Qnn1UrCkE/TmMP3r8cJm4BbDGQXNSWPRKsSwMylOhwFe02E2yO1yW
+	 7EBx4DVQl8fPzi84+b9413Tbvkgi7i9ha5qKqW9J4b3b2n5CJtqMuGheBiEZU15gE6c50
+	 HV+PxsNtkq/XUt8JK/jq3db0NDS6sX/EAayH9whFe851hwmpJuRvsWnIKrg+SfcVAjS6T
+	 iMUK/xYDIxEY3WPSOxExma81F+daqw1SXqv8Crhz7ynATFkZ2KZEGWJ0B7iaMyer0ZrMV
+	 yxMyDd78lelWk9nxIqNQrCSu8dxw2ypNyWZUz9HI3rmkpMddgnV1g64Dqs/D+Au3Zpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E7NFbiFv;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nikSyQlv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B4360A2605;
-	Tue, 27 Oct 2026 16:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8D3606A33A;
+	Tue, 27 Oct 2026 16:19:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E7NFbiFv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A1B1F01825;
-	Tue, 27 Oct 2026 16:19:24 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nikSyQlv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA461F01828;
+	Tue, 27 Oct 2026 16:19:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793117964;
-	bh=Yah5JjbfdtHZyEnbN7bigpDzRmkycWHPaQZuuBA9MFI=;
+	s=korg; t=1793117968;
+	bh=x3KUzhQz6+4DPJOkUGvWeoYPemZAUp92OI03uEKWCV0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=E7NFbiFv0M+6/EX33HZWjyRRgwpDrnPi7ycte/CrJDrq8f7tRASZODPo494HLPX+t
-	 bkVlPDrx+S7/34fxd5wWRlw/sYO9G7HOr0+bz2ZMQL25WSqbG3ww4KNEIgPIiP3Y1s
-	 XSxrc1saWkjOVgdCWEGVCr6/pYml09BA/07b4esI=
+	b=nikSyQlvAigLWakWkgeQn033oYYOV1oZPi6Mua/RIdv01NfO7i4AvaceCAvSGjsr1
+	 66NuyC/9AsxQvQpGQ/7zQ17pI3PYP5fckBeDL6MVicsl0msJB0MDfL3aMbPHKJUSxm
+	 gl1uoMP/brkhctwp6yqyqcrdlIx4o+dIXe59qp2g=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Tue, 27 Oct 2026 17:19:07 +0100
-Subject: [PATCH 03/15] iio: accel: adxl367: don't stay in standby on
+Date: Tue, 27 Oct 2026 17:19:08 +0100
+Subject: [PATCH 04/15] iio: accel: adxl380: don't stay in standby on
  -EINVAL
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,90 +52,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261027-llm-char-misc-iio-v1-3-0d818334f6c7@linuxfoundation.org>
+Message-Id: <20261027-llm-char-misc-iio-v1-4-0d818334f6c7@linuxfoundation.org>
 References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
 In-Reply-To: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: Josef Bacik <josef@toxicpanda.com>, linux-iio@vger.kernel.org, 
  linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>, 
- Marcelo Schmitt <marcelo.schmitt@analog.com>, 
+ Ramona Gradinariu <ramona.gradinariu@analog.com>, 
  Antoniu Miclaus <antoniu.miclaus@analog.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
  Michael Hennerich <Michael.Hennerich@analog.com>, 
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
- Cosmin Tanislav <demonsingur@gmail.com>
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>
 X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2432;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2399;
  i=gregkh@linuxfoundation.org; h=from:subject:message-id;
- bh=TZ5IsBEaWTSt9ePiedqMKadmJsIwCy9FZldh8G8gNZU=;
- b=owGbwMvMwCRo6H6F97bub03G02pJDFkPzjN1nm1c+exwf4bdxY4TN0XSf+44kRqxMuzO2TSvQ
- pHOJevedMSyMAgyMciKKbJ82cZzdH/FIUUvQ9vTMHNYmUCGMHBxCsBEzq9lWHB0wfGww7tfm2xa
- wa2V9CvjtIsedy7DHN7WJQu/b5rx1p5rapygx4LJDtoyggA=
+ bh=rQ2GbiOQ7qewAYozocsqbgW0DvfWIjr7lyEgbBUgfuk=;
+ b=owGbwMvMwCRo6H6F97bub03G02pJDFkPzjM9W3rh8NwW9y1C05oOXfvYdX7NzKvrQuY6T99xv
+ Gj9xj0sSztiWRgEmRhkxRRZvmzjObq/4pCil6HtaZg5rEwgQxi4OAVgIqKSDAvWTM29LPh1zYqp
+ 5vs9k2Yxvqqbn76JYX7GqRWNPlsf3Q0ozYiz5cjYWRoZXgIA
 X-Developer-Key: i=gregkh@linuxfoundation.org; a=openpgp;
  fpr=F4B60CC5BF78C2214A313DCB3147D40DDB2DFB29
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-adxl367_set_act_threshold() puts the sensor into standby, writes the
+adxl380_set_act_inact_threshold() puts the sensor into standby, writes the
 threshold and switches the measurement on again.  A threshold above 8191 is
 refused in between, and the sensor stays in standby: no samples and no
 events until the next write that succeeds.
 
-adxl367_set_range() has the same problem and a worse one.  It rescales both
-thresholds for the new range, times four from 8 g to 2 g.  If one no longer
-fits it returns -EINVAL with the sensor in standby, the new range in the
-chip, the old one in st->range and rescaled thresholds in the driver's
-state: from the next successful write on the samples are reported with the
-wrong scale.
+adxl380_set_range() has the same problem and a worse one.  It rescales both
+thresholds for the new range.  If one no longer fits it returns -EINVAL
+with the sensor in standby, the new range in the chip, the old one in
+st->range and rescaled thresholds in the driver's state: from the next
+successful write on the samples are reported with the wrong scale.
 
 Switch the measurement on again if the threshold is refused.  In
-adxl367_set_range() see whether the thresholds fit before anything is
+adxl380_set_range() see whether the thresholds fit before anything is
 changed.
 
-Fixes: cbab791c5e2a ("iio: accel: add ADXL367 driver")
+Fixes: df36de13677a ("iio: accel: add ADXL380 driver")
 Cc: stable <stable@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: Ramona Gradinariu <ramona.gradinariu@analog.com>
 Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>
 Cc: "Nuno Sá" <nuno.sa@analog.com>
 Cc: Michael Hennerich <Michael.Hennerich@analog.com>
 Cc: David Lechner <dlechner@baylibre.com>
 Cc: Andy Shevchenko <andy@kernel.org>
-Cc: Cosmin Tanislav <demonsingur@gmail.com>
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/iio/accel/adxl367.c | 11 ++++++++++-
+ drivers/iio/accel/adxl380.c | 11 ++++++++++-
  1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
-index 026db73057c5..ba6e7423978f 100644
---- a/drivers/iio/accel/adxl367.c
-+++ b/drivers/iio/accel/adxl367.c
-@@ -349,8 +349,11 @@ static int adxl367_set_act_threshold(struct adxl367_state *st,
+diff --git a/drivers/iio/accel/adxl380.c b/drivers/iio/accel/adxl380.c
+index 8518ee23e114..03b140303520 100644
+--- a/drivers/iio/accel/adxl380.c
++++ b/drivers/iio/accel/adxl380.c
+@@ -334,8 +334,11 @@ static int adxl380_set_act_inact_threshold(struct iio_dev *indio_dev,
  		return ret;
  
- 	ret = _adxl367_set_act_threshold(st, act, threshold);
+ 	ret = adxl380_write_act_inact_threshold(st, act, th);
 -	if (ret)
 +	if (ret) {
 +		/* Leave standby also if the value was refused */
-+		adxl367_set_measure_en(st, true);
++		adxl380_set_measure_en(st, true);
  		return ret;
 +	}
  
- 	return adxl367_set_measure_en(st, true);
+ 	return adxl380_set_measure_en(st, true);
  }
-@@ -483,6 +486,12 @@ static int adxl367_set_range(struct iio_dev *indio_dev,
+@@ -698,6 +701,12 @@ static int adxl380_set_range(struct adxl380_state *st, u8 range)
  
  	guard(mutex)(&st->lock);
  
 +	/* The thresholds are rescaled: see that they fit before any change */
-+	if (max(st->act_threshold, st->inact_threshold) *
-+	    adxl367_range_scale_factor_tbl[st->range] /
-+	    adxl367_range_scale_factor_tbl[range] > ADXL367_THRESH_MAX)
++	if (mult_frac(max(st->act_threshold, st->inact_threshold),
++		      adxl380_range_scale_factor_tbl[st->range],
++		      adxl380_range_scale_factor_tbl[range]) > ADXL380_THRESH_MAX)
 +		return -EINVAL;
 +
- 	ret = adxl367_set_measure_en(st, false);
+ 	ret = adxl380_set_measure_en(st, false);
  	if (ret)
  		return ret;
 
