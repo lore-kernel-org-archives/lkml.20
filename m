@@ -1,130 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793100711;
-	b=nIlpaRf4oqIQJtKtWTD+KXxHOrVaENVp7lOXLPtDhxJ3U5BcfpNRQz76zOoSiY8gntO1
-	 AIZGd9s9lSUfwNCpAJJTEade+GuxVMDh17qxJVZplVJptIbOEBD78UPAmh8Ur6Uka6QYt
-	 2rlK4dfj1gDZ7kmSas4CJWPCSy//5ddhkD/Y/E8cDWOvPXqvqkj5MyAURmThhRRgIPMp+
-	 q6m1wOPWfASxz3Ty5QYtSbRwwRozXXmZMxnvWRPrn0TNxSIH623kWjQVV+xUzcRImil+P
-	 zIcrfHU7na0efYHxX+vlvsRx1ABOhDB7U75Oe/JEUD3Te2hEeuJ4E6uis9Xb1nWXd/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793100711;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-ID:
-	 References:In-Reply-To:To:CC:X-Mailer:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=vt93RnLaMdgO9w/WpEijr9NPo7tDN0sCPzEW3e39Z44=;
-	b=jXydx9mdJwI6zb153mBmGvx3rfFEhmr7fH//tWgR+THgtj4sHhMVJISuOvNY0XPNrTbR
-	 vGiTOU3bnB2WO7/u2bFReuoobDuDme2syyHFK5bd/vwO3YlZMSIlYwXVbLvZat/q18/G9
-	 6RywfK8iK1vX9C0C4levrN+OTOvu0noiqUr8TR+iftMFcW5oDLwyWDP0tAbRQdIG5RAsE
-	 DS7hf0/gfdtCkmFgjzI/xFlokE+ZXzb2IXWhOPR/Aclyqzo5jAPJ5mbbyz2ytwcHvAW1E
-	 a2INvu9J9oSHey5RkmePejsZOxtWRmcrDB+yvW6qC0PgCKWf92M3bvVGBf535KXuejA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Tm+3amRZ;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b="eX/cuKoQ";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793100725;
+	b=gCvctUVBcEIqgrVIJ51o66YHgldeuY0bzIBVkl+gHfO9q+RDdA7aW7Bauzstg2fIE7id
+	 NWttdMfNTddsHJslJ1BNFWtGLaU/1kc3QyDp9WqdK1rSBqS71ylj1d4x4QRabJI9HWJFt
+	 3tSQCocBBcMpZIxXv/kn73ccL6l+9WlQxYeXP7jKIqOMkrgO4gBNTE7SKx+BeNYMTQvRb
+	 fVx2snZZkolay6j7GNnxrRJuze92De5i1ycdQoapi6fZmlHNW0dd66gOtJw1JI2L6yF4h
+	 WzIA/lMT7/uZWHdpRMCPoONV/mgTwxAAKCNzS8k/DP8XHAUjwG6vJ9RJvXrfW91sU6A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793100725;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=PwAgCMcgHnZ/bogI6CXw2isLPSLCqdg40Q4o+na34B8=;
+	b=GVneEq4tK3RGfYPW1T/LdSAn0lVIjMZs3KnRRPHmL57lnHTqAoIqTclzAc2EwnoEpi07
+	 Z7zuIouiSz6N7aiuafwYfXqGIIwo2AvmlBGsCrRIf6GxzT00qODd7GdRgwJUcZ80sP451
+	 J2VM/0anbn7mTbJB7JZeUX3OT2IMurbzAWVH5Mz8HXEwkZFX5e+wB7OTSrdPjGGhiIZuM
+	 +bcXJqOhtuC9OSmgLxsDrTyKuYsrnpWVcgHuW6hZxl5a+8mlkHQiqCdsxEL3TB8AeG5s3
+	 O/TvgzHE286Y5vE6FZiOgPp/sBaV8PAamRqRZMAc4wgNq+lBjR3ZinIq9jpQRHzu+rw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LoTMbJfX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PF78dhdo;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F84606A31A;
-	Tue, 27 Oct 2026 11:31:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4F84606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF40B606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF40B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=Tm+3amRZ;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=eX/cuKoQ
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69R9E2XD485524;
-	Tue, 27 Oct 2026 06:31:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=vt93RnLaMdgO9w/WpEijr9NPo7tDN0sCPzEW3e39Z
-	44=; b=Tm+3amRZAyDBsxoKuxabR127ANHG1LJNfR1hzr3Be/CpyBtuQGVr1DAEc
-	fvQevq5qOmADUPUBlKtoC1gj1LT5GI4XjLaON/S1c4a8xPtbwHkkMqmiMDBMplvT
-	lfeUBHylHH5sexQBx0vlIJdfWzb79MId4yA7bIXU9Vhh21e3XEg6cmE9gLwOtqDZ
-	B2otxFxhNRZSxX3o8itVpPrQe+dQi0T6ZP8gAMyC2tMp8eKo/wkj7S1R9D5OV7kK
-	Xl22abIH6LrOG0ijSRgmBYsZCUwd2tWC8XBarswSChvGgGI73eQT9N2bkEpiGt+X
-	sZ7bB5QOE7mOmSQ4Pm643WJy48+aA==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010053.outbound.protection.outlook.com [52.101.85.53])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hjp2yhwp6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 27 Oct 2026 06:31:41 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x+YrZ5BkdsRa2+gMxhwIKfIbIulZSqOPSlNhlypxUdeuQ3kbUI6GXY/v+CgzKpxx87J+hieCjYEN4oLHbbCs5tmTYC4PknKpBs9RVl+FJ+t52BANlBumoIa9JpY2AsLYgGxoE/o73pwyFs6WRc6guo0iBiM6Frj9kVkR5jDplVs5ay9Galfk6aqRgqWGYtVF9rvU2CIVNA2yVf/5WK9kA0u68rGDaXCYl4+q2xH1vd/IO4ywolHBmmYrfI2j3fp9WnICJwZAydLYWF9jIobf2k/y/OiZii5VAdeHz0X+7BEhqbfWjdWWn4EJe6MYaIY22EvciVy6Q7FoGD48IdySKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vt93RnLaMdgO9w/WpEijr9NPo7tDN0sCPzEW3e39Z44=;
- b=srxEbR4GmUnThxXhpzL94AQFpibpXN75+kAt4OMDADEh8QMLFDPGN55BXSqKZIm7oG6lSnFGSC7gbts0DC37FnJ5TkgkCD2Cgj5tQeMb4w6NyGPmTB9ek0Xnn5fga5upoWQHJQCZBYuJu0hPbvPmt6LIx7SYKi964IzYcuwpFUwgEL7OW2ljKrLbil6BrpLoW3lXh1BSCcjd1V1wXd94oPV4AHBRvfljsUOVOt5CNFwCtv35IuzhLhFDzH/z0TmrWyh/5FCyHuP7n/30VASxD0M/UEtutOueJ79orL9vNV/uYzy9/Jxk20exnFw7KdVhgPmAd+YGYkbelVU0XfaGPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LoTMbJfX;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PF78dhdo
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeC37894537
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=PwAgCMcgHnZ/bogI6CXw2i
+	sLPSLCqdg40Q4o+na34B8=; b=LoTMbJfXZjrpd7mVhKr3QW/qTk66GJX1CG9xSM
+	Bony8VnhGl8rru8bIZXYw2juN8AyH76Eut6aQLxVRsJ/nps0FMdCgLyooY0MexGA
+	J+fNBObaQBUpsfPakET/WbnbxCDA/FaGxkDQds+A0ANVNPKWzSO5mzxkxbUv+rsk
+	kv+LX48JEco75Pw5aqmVbbvoKrFmP8QtrZh2vQeZnvTukZXdnPJ94e4vR/N2s/bA
+	BpDvfrnbh+vOShqMLaGYNlFZLVrfYSFI82yAjw5grHBXkL0Z6cnxj8MW7tC/WgNB
+	2SBBm/AvTj34bVrEfkLAoIDLdCMUqtbXU9Q0tiPo480ekPEQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj8smv87m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 11:32:03 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd0cf3b1c70so2541197a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 04:32:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vt93RnLaMdgO9w/WpEijr9NPo7tDN0sCPzEW3e39Z44=;
- b=eX/cuKoQYhgGxuVuT7eRE/qjftiAd4B4tuHVAeTHw6tReGPLKGETWsxXHxFftFpavPRtVqzFmrsOR0B/quXn42l1SKw8aNDF4HxzCnQ1PWKPjsQBfAASKdojfhpjNKiEEQvQfLPSIrzDZuUrVYZFImO3h2XN1jwk/tkm5eOdSnM=
-Received: from BY5PR03CA0003.namprd03.prod.outlook.com (2603:10b6:a03:1e0::13)
- by IA3PR10MB8041.namprd10.prod.outlook.com (2603:10b6:208:514::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 11:31:37 +0000
-Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
- (2603:10b6:a03:1e0:cafe::a0) by BY5PR03CA0003.outlook.office365.com
- (2603:10b6:a03:1e0::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Tue, 27
- Oct 2026 11:31:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Tue, 27 Oct 2026 11:31:37 +0000
-Received: from DLEE201.ent.ti.com (157.170.170.76) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 06:31:17 -0500
-Received: from DLEE205.ent.ti.com (157.170.170.85) by DLEE201.ent.ti.com
- (157.170.170.76) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 27 Oct
- 2026 06:31:17 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE205.ent.ti.com
- (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 27 Oct 2026 06:31:17 -0500
-Received: from psdkl-workstation0.dhcp.ti.com (psdkl-workstation0.dhcp.ti.com [10.24.51.24])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69RBVAHS1817461;
-	Tue, 27 Oct 2026 06:31:14 -0500
-From: Aniket Limaye <a-limaye@ti.com>
-Date: Tue, 27 Oct 2026 17:00:35 +0530
-Subject: [PATCH v4 1/2] dt-bindings: i2c: Add Synopsys DWC_i2c controller
+        d=oss.qualcomm.com; s=google; t=1793100722; x=1793705522; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PwAgCMcgHnZ/bogI6CXw2isLPSLCqdg40Q4o+na34B8=;
+        b=PF78dhdoHGmlaICc5CHVRdQyGAG9jJBT29ET1KcG5xyJh828M8qyjp/5Q8PKLTBSfL
+         TI7a1YgCoh/tNedkyy2yP2zqKe77ExlgBlcbqFXpFwVNmHEf+wS2Bvlj0vDFnFF9JwuN
+         w/1DZWVByuCqtXMA8Y2wXXig4RnGZ4lBAdBfswkX9wq+zqVvX44ja5/EJpQR5bRVpDu8
+         mfULcUYx3svTTVTgcpPSpfsR7NcEmDY/00Zp2f7lbOIA4/px7AWer1IGc7wOBBsFwm3e
+         XU39hsD/GSXpkBMN97XlR23PtWAJRLL+YyP/BNNRKx1TOCtyIvOhXOVySia4AxeIJUpr
+         wPMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793100722; x=1793705522;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PwAgCMcgHnZ/bogI6CXw2isLPSLCqdg40Q4o+na34B8=;
+        b=hiug/3NGVWIeRfWLlD/tAulSfMHsKz+M+tJBzoxd6moIKJ9aOK8EjESN4lBDhHqi5K
+         YWdnrO8uYSFptnLDhaSeUtUfBcVAmbhifNVFLUXLISBVOC7yKcR3b8Ny6PqRDKyrLVmp
+         yAEmhADkb2QKCuQIy4XnhZHnD7LNu1Yr+rAE3ovP3/rx8wBoNsmoVGE1XR6EvMb+/6IC
+         xlGkcmBHoVjUH43nT876viyqiAMrdwNmYN2vJUx0BWzydrc7Q/XXWmnlmz7YlwgCOsbY
+         ApOtnwTJv7u1R1emzhjhrlwDKs36GFbrugWQMhUoeukQtSeQrlKX2EntBTLu3/1gQWZ1
+         mzsA==
+X-Forwarded-Encrypted: i=1; AKwUvByTihGItJa2PBSIx1e+oMelLZxymRk4jrveeW7keHEM9JDTd/8J3sN7KbVuXO0oh9dce/hlYgk19QMaF0I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8pYFzvIT0hFyZ7pUt8JQY0HXHZyvgiVGUaBiwYzBuweW7z+ij
+	jhZZ1VRhmZlvJ5WPCRX6wz57ZysikbONqgj7t9zUyCzbEeeUZS5aeyOOpjEbbcmk1Fg/c2sChOe
+	8bdrOrbI/iAlfRp+JoiGeb3mddBuvgamrvPkIwp9ekBVVGQsIiyfmzUembKXprTByrqM=
+X-Gm-Gg: AYBFou1sO0n+VqZekuLHuRJqr8OnnQp2jlc/oDtrWV5K5/BjtrxLpdjJCKFrZf9TAk3
+	h4/Wjt99vtzZ42uv9uPkBo+91AyHKSMSShd3HzjTkANIo5QnjcaxTA+wzoSA/6wY8KnSDra0Q+N
+	U7RlmW109cFaQdNNEpqVcqN7XXQR8JWGpA5ISxo910DdD6PEYpuKFc6GWBpSFR4hLZg76k00ODS
+	3QOb8QoNCfk11AsexyOojoV/oA04Q9OFepqDI7pwMvXGvGwJskVruZ5kT7tS8yiv+W+vc/sabpr
+	flL8kZzxPWu8KRs1vtuNhr/jjBwagV2XAvu8MSIyOhRxVORCXes8G/03aj4xz+vL1y22Dao7dj3
+	A+2+dm7uV0ulOC8Fy2wVvO7ybXSa/WQfbm6KwNqXavfkZOBi4XG25lGyuuYk+ohNDURZ0ag==
+X-Received: by 2002:a05:6a20:3ca3:b0:3e2:c75:2349 with SMTP id adf61e73a8af0-3e7af7e9a5bmr7938441637.8.1793100722376;
+        Tue, 27 Oct 2026 04:32:02 -0700 (PDT)
+X-Received: by 2002:a05:6a20:3ca3:b0:3e2:c75:2349 with SMTP id adf61e73a8af0-3e7af7e9a5bmr7938416637.8.1793100721910;
+        Tue, 27 Oct 2026 04:32:01 -0700 (PDT)
+Received: from [10.213.104.249] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a36c0fefa3sm2143836b3a.51.2026.10.27.04.31.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:32:01 -0700 (PDT)
+From: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+Subject: [PATCH v3 0/3] Add support for Talos Lyra EVK board
+Date: Tue, 27 Oct 2026 17:01:54 +0530
+Message-Id: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,185 +115,126 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261027-tda54-upstream-i2c-v4-1-ebeeaf87d181@ti.com>
-References: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
-In-Reply-To: <20261027-tda54-upstream-i2c-v4-0-ebeeaf87d181@ti.com>
-To: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+X-B4-Tracking: v=1; b=H4sIAKqL4GoC/22O0Q6CMAxFf4Xs2RIYguCT/2F42EaRKTBdgUAI/
+ +6GPJo0Te5te25XRmg1ErsGK7M4adKmdyI5BUw1on8g6MppxiOexVF0gUG0hqBdrACcXjBxQI5
+ pnovkXGcVc3dvi7Wed+a9/Gka5RPV4EF+QwpCkFb0qvFWj/MAR0Dh542mwdhlf2rinnPkx/xPv
+ qsIKqWKJM5QyrS4GaLwM4pWma4LXWPltm1fS//yBusAAAA=
+X-Change-ID: 20261007-talos-lyra-evk-v2-e2e588a34f6d
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>
-CC: <linux-i2c@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, Aniket Limaye <a-limaye@ti.com>,
-        <lianfeng.ouyang@starfivetech.com>
-X-Mailer: b4 0.14.3
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|IA3PR10MB8041:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28c99099-0c81-48d0-1b7d-08df341ddcb7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|13003099007|56012099006|261026140227099003|22082099003|18002099003|10067099003|261009223027099003|261022113327099003|261021123027099003|261022105027099003|261021121427099003|3023799007|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	u/zP350UrTZ2PCF/WeVRbD6L7+07X/spo2QxMeee0VzzJ2Ta/cZlvkw8R/qqqXV6vNj2Gig2pjm0vaCc9ZMvZwXEbZmCUhM152K1FvZHfaIhmSKoCAfvD3ODA//DMWP0jPUblp7+LFsrSWC5MCH6IZvxfmAAgkpTTwityZaMdDJzlA01DqzVqg++B9L/VZHsgbMl1F8c++6OKFCkemYGm8j5It/qjTr/GQj2yiR0a8LIk6W32erJj7oq+0s3kbcwjpVdVHJfVUnTu6jytGpMysDqgOIe3A1sXutJ1FPqc+CXbKAX/AnjQT2T5yGk7QG9zvi/os3l1hQT4bp6OWtzJR0XjXD+gesc3gXCCa6kTKrrVTd5OHNeTYJk5gnVZ6Jt2c2AFHI2uI23X4p1rqcZCUUFc1nDmHy3HQetpT1mK5VSH+SHsvIIuwMyQdRV42gvD0ZDS4Xh9pSfwUYpK3QZnKOg1l6hFrnf5piFI1F1/5s8+46ICOMEw8XtNydggqHxcg2AuPEcVdlGAhShodGdw5zn1YlZfUkqydhV9TWOXCJNVqAm8fBe5Dg1BSp9OetTwGTmt9JxJMVfTOqr1aTWaw4BwIfXDtZ8Be719ygo90fuOg5kVhyLFz0vXEQLuGkikjOTUake3gObZBl8f2Dydw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(13003099007)(56012099006)(261026140227099003)(22082099003)(18002099003)(10067099003)(261009223027099003)(261022113327099003)(261021123027099003)(261022105027099003)(261021121427099003)(3023799007)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	P9oy4KvjAlaSXXbMCrpYcSmuz5u4hfms8QkdYT+wO+PW21k55t4t/b2F7hDenumteSSaXVgMLO+mj2YbJAl7zlpwWaQz2agOq10LA8i1660ov07m6vfySdDXlcJtuMGx+Wr/VbteOMJQegIK8+mF98RLYrlj0z7ReZnJXfmyi666MdoFgCvZDfB9oVA0tUwY1M9FcQgY0toB0DBCo9QSfkZAzO7lS6SWRRuSYoS/9YoAze9LhXb70/vXR307L4vBwDHpahsuLVPtm6emjD2sGrx98WSqVJM2qyexF6mvKIhIILt54jT23X5FXJc3JKXoTuKbn0vhb0ZlGJ0vYczvKz/XcDZ/bMcNN6Au3Hxfdlxgs8m7I8E6ocQCzYo/QM++2CkQ6hObjF0qsbo8tWApVo0GoNscezbChXEmTCn083OiNpXprXzcPMDwsSIKBs6r
-X-Exchange-RoutingPolicyChecked:
-	3vuQxalefMFeUVJxx/LauMOAcP1228E29jYd6YA7bbXCLMBRFQ5234W+RqWg2FVtzAOMy+LzniDacPQUqSJnO6woaTw8qsfOSafHlDRyhUit8HBMk5/YQyYEN2/NoadBCubukmvSNverltaUYrRLcapC4t1JQoLseBYPAQ6gwc4oR3iy3WNU3zAZyOmpsLVbcJOiDttpRIisbh2VBZRuQMH5tLb+Y5wQH7jNXtvNUfPLFq3Wxev1Ytw5vV9H1KoxeyK0dL0viQWTvMsghl7RfTBscjUoaoEOQivuNNFohRiw4bpAlCUG5akkrOOnlwi0Znjoi+v5rbu41F6rh1/MXA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:31:37.0304
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28c99099-0c81-48d0-1b7d-08df341ddcb7
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000206.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR10MB8041
-X-Proofpoint-ORIG-GUID: gGZMbCvT4JyUP4uMuyblRF3qYJJdofuC
-X-Proofpoint-GUID: gGZMbCvT4JyUP4uMuyblRF3qYJJdofuC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX/n9bi8FJaJKP
- Fa5WNc/o22rle8U7d0pS35zMqdPvOOqpq7C8DNPoCGQQ+g9TspAGX/bF4B5NCqw1eF2b2CDp7bA
- To7Ji1SAR6yxvIr0e71SpA15ez/tKvnErPtt1phIbLT+3O3+/NtQH18t3frFf9ixzyfgZARHEdD
- Va99m0/H0UOe3E72yW3zBcdznYVAyFLW0cso4YiCUAr3/BPsFRs6sKCLg0RBcsPmnhWinlYUz9v
- B5D4Cwvhv0DWq2aPl/zO3ImfFLSR89nPwFqdVknlQCynkvnTfnQOSsMLPAxsETTG+VwRQU751js
- nOnKTvWOqb7Zl1U80fKFjvSUDQQfQZj/iMjVkEgEVgkZkJD55Xhc165lTNFIJQQM5s94Wy7gjBE
- MgcW9lSVMJbzyc3qGMaTbem0EFvlVojDRD/Yku/y2x+wskozK+Prf4pkl15yp2g1j6vQdGO9s0S
- 6gl1d8rM0aOEzADJR4g==
-X-Authority-Analysis: v=2.4 cv=FbaiV5+6 c=1 sm=1 tr=0 ts=6ae08b9d cx=c_pps
- a=m6tRWrYHdetyOVyhMCHtWA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s63m1ICgrNkA:10 a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=gEfo2CItAAAA:8 a=baaPCjhr8G5CHDsqmTYA:9 a=QEXdDO2ut3YA:10
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfXySytutTwYZtp
- Vg8uQ0MHtVEd7BDtHhcCJWnP2n22zveEtmoG3oAF3Z3IKWxRL1miIk9h3P/3d950SOeiDCJkDhe
- yl63UOmx4Xg3883DgWG+MQLEEULAjHI=
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
+        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+        Monish Chunara <quic_mchunara@quicinc.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
+        Sayali Lokhande <sayalil@qti.qualcomm.com>,
+        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>,
+        Akash Kumar <akakum@qti.qualcomm.com>,
+        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Vishnu Saini <vishsain@qti.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Proofpoint-ORIG-GUID: 3DucCf6ZDYFtQFjVG43QMAynWP2UKIOD
+X-Authority-Analysis: v=2.4 cv=Sfti5fRu c=1 sm=1 tr=0 ts=6ae08bb3 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=XRYUP8yNB-fVxFRa9e4A:9
+ a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: 3DucCf6ZDYFtQFjVG43QMAynWP2UKIOD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfX42NVOeWPajub
+ N/xw+kgDrNg6jmB3sOluzzTOD2aVoL1/rq/oxX4wj7ymYOZKGK0Dp0t+BqixewNnaJLE5dx2yQF
+ s0XvFaeKJ3jxE9deBBSq0H380XyO30E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NSBTYWx0ZWRfXxbWhQzlffG+K
+ xps6mmx31GEz2QpycrnO/FGgdCsfl4ZVI6iuRmTIdlRKCi/NFN1BnEqnT4jfTt3hz4ccUvstYAl
+ VFqKeW4cvvkczCJp7WxzGuAvo6IGQcBORwlq/2PqCw+PV5hAy+6cpiiI0AD5RgqIUXGUgeM4FOa
+ gfUjBK6EhZKaFqum5qXI+AJPrlwYA2VI+/eTAweMFL2HGk6vaUXIwCMRZP48ujzUKLiWqYgU2WP
+ qTqWwKEIDk1ik0t7N/c8Tp6Wp45cZfwaiVw8GilnEbr4RuxebAL4aES0e8iD1aIG2eCk0F+FyyT
+ s2Dm1VtJs0BwxSeImW0mHOYyf6RW+RxezIcJMgxngunEEB3hoLUHx8qC3W2NyWTicV3A0X8lCCV
+ /sbDrQw02VlF7T0wuwM2oJk+YLp5oeaf5VgZ2uH21cxFoQY/3HtxDc7g5KehKLknYIetC3i6qgf
+ 5bxjpgYA0CAbnV7fKkg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 suspectscore=0
- spamscore=0 malwarescore=0 clxscore=1011 impostorscore=0 priorityscore=1501
+ phishscore=0 bulkscore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270045
 
-Add documentation for the Synopsys Advanced I2C (DWC_i2c) controller, as
-found on the TI TDA54 SoC.
+This series continues work originally posted by Avaneesh Kumar Dwivedi [1].
 
-The block cannot work on its own and needs SoC integration, e.g. the
-FIFO depths are not discoverable from the IP. Do not add a generic
-compatible and only list SoC specific compatibles. The file is named
-after the IP so that other SoCs integrating it can be added here.
+This series adds initial device tree support for the Talos Lyra EVK,
+a QCS615-based System on Module (SoM) paired with a carrier board.
 
-Signed-off-by: Aniket Limaye <a-limaye@ti.com>
+The Talos Lyra SoM is a compact compute module integrating the QCS615 SoC,
+PMICs, memory, and essential connectivity. It is designed to be paired with
+multiple carrier boards to support different use cases.
 
----
+Talos Lyra is a distinct SoM revision of the existing Talos EVK SoM. The
+key differences are:
+  - Adds Apache (Lite-on-Module) WLAN on SoC Card.
+  - Removes SPI-attached CAN transceiver module.
+  - SDC2 on the existing Talos SoM supported SDIO-based WLAN; it is now
+    used for the SD card connector only.
 
-Changes in v4:
-- Drop the approach of extending the existing i2c-designware-* driver
-  with a MODEL_TI_TDA54 variant. Instead, add a new standalone driver
-  (i2c-dwc-adv.c) and a new binding (snps,dwc-adv-i2c.yaml), since
-  DWC_i2c is not register compatible with DW_apb_i2c. (Andy Shevchenko)
-- Drop the snps,tx-fifo-depth/snps,rx-fifo-depth DT properties from
-  the new binding; FIFO depth is now tied to the compatible string via
-  driver match data instead. (Conor Dooley)
-- Link to v3: https://lore.kernel.org/all/20260925-tda54-upstream-i2c-v3-1-544d74e992ff@ti.com/
+Note: The following are not included in this series and will be posted
+as follow-ups:
+  - WLAN node
+  - USB Type-C OTG role switching via CYPD6129 controller (OTG support,
+    VBUS supply management). USB controllers are set to peripheral/host
+    for initial bring-up only.
+
+[1] Link: https://lore.kernel.org/r/20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com
+
+Changes in v3:
+- Remove inapplicable Tested-by from dt-bindings patch
+- Fix DP HPD: use native pinctrl in mdss_dp0 instead of hpd-gpios in dp0-connector
+- Fix model string: capitalize "Lyra"
+- Squash EL2 overlay Makefile changes into board DTS patch
+- Move USB PHY supply nodes to SoM DTSI (supplies are SoM PMIC-routed)
+- Sort &node overrides alphabetically in board DTS (&tlmm before &usb_*)
+- Reword dt-bindings commit message: clarify board/SoM relationship and explain absence of SoM-specific compatible
+- Link to v2: https://patch.msgid.link/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
 
 Changes in v2:
-- Rename snps,dwc-i2c to ti,tda54-i2c
-- Link to v1: https://lore.kernel.org/r/20260919-tda54-upstream-i2c-v1-1-b0b9f77be18b@ti.com/
+  - Drop qcom,talos-lyra-evk-som compatible from the binding; group
+    qcom,talos-lyra-evk under the existing talos-evk block instead
+  - Remove unused regulators vreg_s3a (smps3), vreg_s5a (smps5) and
+    vreg_s6a (smps6) from the SoM device tree
+  - Update board compatible string to remove qcom,talos-lyra-evk-som
+  - Add "talos:" subsystem prefix to patches 2 and 3 subjects
+  - Set initial-mode to HPM for all LDOs (ldo3, ldo11, ldo13, ldo15, ldo16)
+  - Add EL2 overlay for talos-lyra-evk as a separate patch (patch 4)
+
+Changes in v1:
+  - dt-bindings for the Talos Lyra EVK board.
+  - Talos Lyra SoM DTSI with PMIC, regulators, storage (UFS/SD),
+    QUPv3 instances, ADSP/CDSP remoteprocs, and GPU definitions.
+  - Talos Lyra EVK board DTS enabling DisplayPort, GPIO expanders,
+    SPI-attached TPM (ST33), and USB on the carrier board.
+
+Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
 ---
- .../devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml  | 75 ++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
+Avaneesh Kumar Dwivedi (3):
+      dt-bindings: arm: qcom: Add Talos Lyra EVK board
+      arm64: dts: qcom: talos: Add Talos Lyra EVK SoM platform
+      arm64: dts: qcom: talos: Add Talos Lyra EVK board
 
-diff --git a/Documentation/devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml b/Documentation/devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml
-new file mode 100644
-index 000000000000..7ad22536825e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/i2c/snps,dwc-adv-i2c.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/i2c/snps,dwc-adv-i2c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Synopsys DesignWare Advanced I2C (DWC_i2c) Controller
-+
-+maintainers:
-+  - Aniket Limaye <a-limaye@ti.com>
-+
-+allOf:
-+  - $ref: /schemas/i2c/i2c-controller.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,tda54-i2c
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: I2C functional clock (ic_clk)
-+      - description: Register interface clock (pclk)
-+
-+  clock-names:
-+    items:
-+      - const: ref
-+      - const: pclk
-+
-+  resets:
-+    maxItems: 1
-+
-+  clock-frequency:
-+    enum: [100000, 400000, 1000000, 3400000]
-+    default: 400000
-+
-+  i2c-sda-hold-time-ns: true
-+
-+  i2c-scl-falling-time-ns:
-+    default: 300
-+
-+  i2c-sda-falling-time-ns:
-+    default: 300
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    i2c@53b00000 {
-+        compatible = "ti,tda54-i2c";
-+        reg = <0x53b00000 0x1000>;
-+        interrupts = <GIC_SPI 166 IRQ_TYPE_LEVEL_HIGH>;
-+        clocks = <&sysclk>, <&pclk>;
-+        clock-names = "ref", "pclk";
-+        clock-frequency = <400000>;
-+        i2c-sda-hold-time-ns = <300>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+    };
-+...
+ Documentation/devicetree/bindings/arm/qcom.yaml  |   1 +
+ arch/arm64/boot/dts/qcom/Makefile                |   5 +
+ arch/arm64/boot/dts/qcom/talos-lyra-evk-som.dtsi | 281 +++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/talos-lyra-evk.dts      | 115 ++++++++++
+ 4 files changed, 402 insertions(+)
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20261007-talos-lyra-evk-v2-e2e588a34f6d
 
--- 
-2.53.0
+Best regards,
+--  
+Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
 
