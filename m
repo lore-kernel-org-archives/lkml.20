@@ -1,98 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793110162;
-	b=rL2N2gsfcl4WzL4kvIViNQ4iNpaIde8+Ppn0I/hLN6iy2xN7yW0puIFFIMtw0UeZj2ve
-	 9IHxYiuMJoYV4CaDIFUrgax4OUdN7kpj4bJpOvz99UZdZ3ibn5NU9JjrDeW77+3ULNObQ
-	 fNy7YL57huqGNP2jXYzGGhYpKlIGM6l06z4Felpum8hM/jdlR6ciOKAHHA+IkZx0dT+uA
-	 GHe7pASmqdmzpNNQ9B8sRdDzarH0wmFMgSzGYROsdfSt2xhi6Q1WJFhenxwau7EZa9de1
-	 cMiMlOczOYw3VgZ69MkBDb2Z+QzcG+V1SVu7A7UdcIW6BVY3daEmvAsCwN16LNLnEOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793110162;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=o1dOquPO3Q8giVnqwPbJ8EdU/orvsgyZnUYy2574ehc=;
-	b=NW2uCExWJQrPLP7bpcw0RFG6sqW8pJj2va/M5SMe8Blji90VxV0uwAfpbrrLxUEi5uR0
-	 B2UdtME+tjo88j0gZ3OZswOdd//gJ4zxVykxGmOoBVFvhgwliqeC4MpQPBpJnfQGvsX7x
-	 McIcxykZ9/UqoPa9rImnOml4YYjhwuYGa4D+6affri7vSi9OKobNB//M/TQP2HCzdci9W
-	 YjvPN8ClTY6NS+13JuvTw1bZBUJ5Pqv1fnSZJD4M14KgcFudryxIk2ZLCVFYJDLFWXpdH
-	 2IcwLHpjr1XjwGliTRWukdX26B6PaqgX66+bIi38QhzuctzVnEhgvAy8FX3KjNsONqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EzHULtNx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.52
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010052.outbound.protection.outlook.com [52.101.69.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793110169;
+	b=vH1zdSjuvhST/Ct9tC4pzKrMmudkLP5o3CARgMbkRGVRizYVtiEjtdH+me/pDTgOQRka
+	 Et9Q5Us8FsJYmoEiAyNzGcqSAa/9sKEASbEPQpjQ/bSV8WMEb1tUPY9WyD/ryloac5Gmi
+	 EUY9DeCSihx7ADlkG6AC+SZHTvNLK868f6QPWgjLSemOWdAh05M5ZXqlz88hQ2Z6H8PVR
+	 KI56XGwjy4F+RrVdTZmeBhbVjDi4xk5Ob08kcYonUifWzUSwoiTEpdAXqJxsj6cbWF5xy
+	 nJjybXe4pJK/y6pF0/H0wHJXVoV1NXcjWGNO9Bmzg7c8elxJ/OQfWlx1w8kAG0GzG7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793110169;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=TWBi2T1WCgbjXthkns3DCqng4ByHETZSriM0acceVRs=;
+	b=QuyAttm7wB9CBP8W47gdROF8ogyJUS8+f2elz93ftirCXozngn0LT8mK92ejrHVLe8a/
+	 HEbTIKgTzenQ3B1OYohRzaqbJMh+u9/KQnMn1kdUMz6O7twM62KCQ7UodMcuNX21oQe6D
+	 Zv+IVf2k+o8YFKyQFSL5I3icQGF1Ep3v6blm96r0qD2ngnhYIAhJueha1gI6EnxxGS24y
+	 xc7DQVzEjH5d6ratMxUjytnIlTXYInm8cpZh46tR8UEP+oXtieEmrxa5+J94HG9hktZFm
+	 zwD291D6F4f9Zhf+5YRvPtLnj02u41SRfFAGe12z61Zo0AvNvZzT7/1kfQhwF6dokwA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=ZrlOHXDz;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FF5606A31D;
-	Tue, 27 Oct 2026 14:09:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9FF5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978B8606A32C;
+	Tue, 27 Oct 2026 14:09:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 978B8606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=EzHULtNx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uXLQK+HjO9rdzsWs+aAa0J0lVCymdcb1K+RL9/ZF/pTeWzNewPceqtHFa0n4Y9RZHKHYcZ0iBQFHeahxuz2nbmvuG/90pZpIC40J/Gh912Cg9Ny0icoKUVaX/ZTAN/qiOIACvy4OmAjDr3lLgTPDSB6YObKG8Fq6iErrWpn8cLRbkifw/gD9hSRCsfXkKZIaA9J7P9i4fGkK/WY9+NQP/RDrlfc2Ty7Py0eSMJQovqWCLUcDbw8M+ihSpiKLurGHRyG6EAWTSDjJ4KrZ8CsdKAa6KukZ9w2h4pVnePgcGY+gDIhvnZjkEAAc1v4bCHKan44AKBzCToLaGF1agg+jbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o1dOquPO3Q8giVnqwPbJ8EdU/orvsgyZnUYy2574ehc=;
- b=Sh2hwq7N5n7A8xy/qCG0g8eojC7h7WHVQOPd7pwkO1UtbD4RIB16u/6110YfkcgQh/VSYI0dmEr6wpZVEqmtfSl0JRpWASPpPXDBo3pQtAjJB4/rjuy6XXaYIHs5dZjno+gYCngcABntmSE22gF2oU6SUAGsAuH7bESCHvlvAXrKzveudXNKk9QrYtNinaOz5uoRJ2TYvOPivlke8rpTO/0bzWpPJJqZAeN7jtSMrUZiDa7qxImINuHOU6ItYmCikXTB3LwANpnA7jGhAONGfJSxmRymTsw5KeQx3yfLOllO/jNmca7vnmlq/lqbGsBlPMMuLa6/9+fkV1Ogbcm2lA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o1dOquPO3Q8giVnqwPbJ8EdU/orvsgyZnUYy2574ehc=;
- b=EzHULtNxTvgRP9fG+ZaiD5MHZmyMDFJQZLMo8X1+gfG1Ddj/MhTQ4w3jvuX8EczRYsTFilsfrE6UxLrCTMKXTCaQKKAYfh2tZJ3tdvdJqpq2pOi20pnn0tzj0nwquDBK+urowL6PmFIuAHa1PRYQjUFtt2bAMKZo333HWzHcrARkjnalfVypq1+UiznWe0riioTLc34C6pxDmVa84t0+w59oqvpHVI2mv7l0U4f+vFnVoKgXYzIE9gV8wMuBse1izOBwChF7XIO6VWLquOeiTTcH2Hd8y5LA5/G+IligL9nXAjMNymaKdVz27lz2VAK0hD0wccE2b2Q2AG4zbjOjKQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI0PR04MB350952.eurprd04.prod.outlook.com (2603:10a6:800:364::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 14:09:18 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 14:09:18 +0000
-Date: Tue, 27 Oct 2026 09:09:09 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v7 01/12] gpio: mxc: use irq_set_irq_wake() to simplify
- code
-Message-ID: <auCwhTbPC4pkCsMA@SMW015318>
-References: <20261027-gpio-mxc-cleanup-v7-4-v7-0-7b602d70c149@nxp.com>
- <20261027-gpio-mxc-cleanup-v7-4-v7-1-7b602d70c149@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-gpio-mxc-cleanup-v7-4-v7-1-7b602d70c149@nxp.com>
-X-ClientProxiedBy: DS7PR03CA0120.namprd03.prod.outlook.com
- (2603:10b6:5:3b7::35) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=ZrlOHXDz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793110169; x=1824646169;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=kzXJfUt/mvE6C7COzWQ4NsbuG/TUHC/cZY+nYkGXwi4=;
+  b=ZrlOHXDzWd1ZmBPCG+RHOoILce+81XwdJGHpMHH+2DowU83x5epgoaES
+   VnDYO44+C2i6/8yehpkFymi2pfnjVA/RPrYPIU3wYtranBsG+bByBgBDF
+   XxrUp/7N5Rgt/n+B3MD785e1XpZH3ANQR+magZGRKv3vC2EO+uRdkn3Uf
+   9CRIS1QrMgv9MNKFrfGBjxQTutjvSh+nNt0CNL4d1yl6i4eZGRuCR8r6I
+   tWsdiXheG6f4wJwHxwfaZBWiWjP6/r/L4/glgbLHo6/Khy5m34LB7VgHi
+   n3XpwgcJi1db9/B1Xo+WuW8ijMuDpDAey3raSc2C7yjOgM/etoX4ZOlTq
+   Q==;
+X-CSE-ConnectionGUID: 9UFWM3DBSnKDHk14w0Thkg==
+X-CSE-MsgGUID: zHiH6/adT2ydDwQTnjDNRw==
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="65876301"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 27 Oct 2026 07:09:28 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 27 Oct 2026 07:09:26 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 27 Oct 2026 07:09:24 -0700
+Date: Tue, 27 Oct 2026 15:09:24 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <horatiu.vultur@microchip.com>, <UNGLinuxDriver@microchip.com>,
+	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <richardcochran@gmail.com>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: lan966x: release the in-flight slot of a stale
+ TX skb
+Message-ID: <20261027140924.k7miu6ykyejh7bag@DEN-DL-M70577.microsemi.net>
+References: <20261026-lan966x-ptp-stale-tx-slot-v1-1-9f7c895eb1ff@microchip.com>
+ <179310889194.3134.8592438113134956885@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,103 +82,332 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI0PR04MB350952:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3741f60f-be4c-441a-a0ca-08df3433e3f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|366016|376014|1800799024|4143699003|11063799006|56012099006|261021123027099003|261021121427099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	hd1AKauv9YMtpqGdQxyuk4cZPtzRTU7YZ+YnQzEBPoKA16vKWnpaZZhHi62G+SH/aaWSpXi/D1KHmFxvPZwH/O98SGCuTCnGMrmNiO9bqyMF8RVLB7CsuG60DrEax0yTRWOGow2F0I/Kz3VCLNYtBpXcfVdYXG7QfJNPiMnAxA4QYd7/PiDugiBh2lj+TfdqkeaUaG6suUnEUhEXuJe4mBMB76veRhQtf9LzR3lr/ZB6s5wA7wZlHeTYjvIG5UhjCgoPW2pwXf1Xrb1+clnvI6305ERk7mY6+MwlSPotmegmAUvo1hm3h0jML50CUwZZANjKBIgJTxkBjuLDOHqC4PEO5aitalUcq7dt3OBH44dYBci76ohhHFzsHKj143iICpt4AZrzL5iQfburpmN8oXDYNL3V0HUEdzoMiSoBn3Tuh+/+rGqwDuE+KHj/Jj8NS5h5V0Bvccvhxka8cvPAQM/6AViiD3jytAwK8iVQLauPuyRHgXJfitoUYsCNPnvzFU8vauJ6t1qAsWQQ8I+Sp1zI0O2EtmAtAKUvnqjzK98R3857+qU80oYpgr20zVZWGC/l859dWnsM5r/fnrxsqVxnxXo4nPCp5ocTV5rLz3RWnl/zDOvaMxy/Q3jP7f+A89mr5K7M6jEJJhAQeFquYWHzPSGxvNNESDWpIQ+G+5E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(366016)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DnsMVtakSHCua4HiZ4wj3XjQxBf5uSir4dAa7wpcRFK0pFUM27SX/+yr2Q3/?=
- =?us-ascii?Q?I7VmbU1KcxDJuQzuNOuXsNvu8TUJg3ujnxIWbekc7XPVXzvMflsfPET5o2jR?=
- =?us-ascii?Q?iQLDGg3H9cUYHqJ+NCIYx5ZONXq2GKrV8NRwEEfTsQtphZQ6eKZPX+3lXJ1o?=
- =?us-ascii?Q?s+HbcT9m721MmShS7T1GpxA6ix/+cpm0jb85wj3/LLrXAWb0M65gXPJcQuXo?=
- =?us-ascii?Q?N6HWrz/PovogFD+/Fm4CmNQETx4khpM6XFv4lYJDzC3UnCxt4hx+Q8xEcT7e?=
- =?us-ascii?Q?nJWFXIqGI9JA78rdFYiV/u7KxL/FH4EZoEr2NBEqhxfmmGOjwuBoDjTfq0D3?=
- =?us-ascii?Q?YeIjFARbCOSr0OhCYe1N/OscoBYORFV7BOK7oJnurz0YC1LPMxHSX+k6+yo6?=
- =?us-ascii?Q?Nxeq8Geo7rqFjVYrDiu5FS0yzNvcZty/wig4FRWRfQyMqizvHIC4+6PS6BFA?=
- =?us-ascii?Q?A012+WMupg31Kgn8Bpx67fENMJ9NT5RYuwfxzZHE2G6Co1ggz/JtM0G5wAcO?=
- =?us-ascii?Q?WIv7tnNzoPO+9U1+TnAse+Txau7c1Nv9B11yGsDC4ldZVRH1WTfCe5YQ1qbn?=
- =?us-ascii?Q?bJu6Dc6DZ82bQPComaiZjRMDNInDXpcCr20gTj1vqkAAiIcvMSiOxYVryrgZ?=
- =?us-ascii?Q?GB5QxFw/C2P09byJvf5AN7nQZtpLP+MEEJokPV8pF0TX1K9xbT1spO+QpAbe?=
- =?us-ascii?Q?QexGfeHYmKKc64yVLcE1Ck8CddZbmcbcsEVkEeW+oLZuLskkYuf2BwK0WpBh?=
- =?us-ascii?Q?ytPo22K2LYfijx5f4HAzuJxMyI3qsrtyvv5sey9jEeLDqK81+oY781fPJmLL?=
- =?us-ascii?Q?FljiShEJ1nR1K3m8R+XdHIimAafeAwGWzUGPPP3ybhT1bsaciVEgmaCllZip?=
- =?us-ascii?Q?euAlCvwx8fDLpPqNkmYrrfOXHTH/z5CcJIYIlZKCcu0gR8DGRPM1S7EgHvOQ?=
- =?us-ascii?Q?WqotL7/JURGgXx/HIJja/3jxs/SAAZi67/XcJVO5TZYcfkGZSyWpjrbTIV++?=
- =?us-ascii?Q?Da4ZUpvkfy5zHzTuWRAVKaHgqSx3RbB+C0Fufi41eA6CMenVTPYQ5j7rTmvW?=
- =?us-ascii?Q?ykHKoeM/1tCMr73QL034a8LAZoTk+HOZGqiuWD4NBK2LOGXqUKB6JoQTwYPU?=
- =?us-ascii?Q?h8zkNtEcnDDU1enedg1vJbUU6QualD9qOXwHCPWJdBgb/9wLMcLjr/yCZBM7?=
- =?us-ascii?Q?h3kWLY7Zz5FoaCaT6lhfnJD4HOrIflHOZElRtTPIyo6pow3u5xJR/jZu6umr?=
- =?us-ascii?Q?tYvBP+TqQZWM16N8pm1k+Wx4t6ulWEryB3Hc6BJR2k/IgDo6wAvPNOPy7Njf?=
- =?us-ascii?Q?TR4eAY/3A1kUiGF7pOMxH/DCczx61jZyymuJF/taaueHbDr0WAVhtKsnJXDI?=
- =?us-ascii?Q?W8s08yIXbkQMrToR3oXh5VmNLqDSES1SMNflX26tU6Y6V9GbAeIRW0qZidhW?=
- =?us-ascii?Q?Z0rRP7RKNtUSxVb3h8Mv+2fMvyri31l5nAl/+SrU86VeElQi6BxJqJG2vKdi?=
- =?us-ascii?Q?Ng4f2jkfu253qxa6UvMQ+UUjmqwbEttUU0raaTxps4FtqW21uwENfKIxG2PI?=
- =?us-ascii?Q?Ix6wXW972VCOQiVbNM3KcJr8qCF42D8Cku5FJgo0/gnZeHQ61slpqhD4byWa?=
- =?us-ascii?Q?eG7JFXCRqG/Rr95Knz9AhUVmt8vRHWSeoQsKN5lps95M0oQJ68MdcAWmy/LH?=
- =?us-ascii?Q?VVPlysM+GbybGa/j0xp2sp9P2IkeT1uc3YIGBRLcpMsn2Vho/me9Ie/lDS3M?=
- =?us-ascii?Q?mhRZsdXCcReAIO+BtZAr2y+ZlnfQWjGyUBglSwW3zYGBg9t01LTy?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3741f60f-be4c-441a-a0ca-08df3433e3f6
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:09:18.3338
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nmsxn0/Uv3wSkpOLmBFxd4yL3T4aeIiCuBrLhP8RagtHhZOKQS4/x8RwLVZjiPG9S09k4wCSuf/M+E/m55YCFWeTtGQ5PNxfm79U3QcdXDoks95nPhfu699Wnz9qmaVI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB350952
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179310889194.3134.8592438113134956885@kernel.org>
 
-On Tue, Oct 27, 2026 at 08:09:28PM +0800, Peng Fan (OSS) wrote:
-> From: Peng Fan <peng.fan@nxp.com>
->
-> Simplify the logic by consolidating into a single irq_set_irq_wake()
-> call based on the enable parameter.
->
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  drivers/gpio/gpio-mxc.c | 15 ++++-----------
->  1 file changed, 4 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/gpio/gpio-mxc.c b/drivers/gpio/gpio-mxc.c
-> index 32ded7b548fb..95dfe199409a 100644
-> --- a/drivers/gpio/gpio-mxc.c
-> +++ b/drivers/gpio/gpio-mxc.c
-> @@ -326,17 +326,10 @@ static int gpio_set_wake_irq(struct irq_data *d, u32 enable)
->  	u32 gpio_idx = d->hwirq;
->  	int ret;
->
-> -	if (enable) {
-> -		if (port->irq_high && (gpio_idx >= 16))
-> -			ret = enable_irq_wake(port->irq_high);
-> -		else
-> -			ret = enable_irq_wake(port->irq);
-> -	} else {
-> -		if (port->irq_high && (gpio_idx >= 16))
-> -			ret = disable_irq_wake(port->irq_high);
-> -		else
-> -			ret = disable_irq_wake(port->irq);
-> -	}
-> +	if (port->irq_high && (gpio_idx >= 16))
-> +		ret = irq_set_irq_wake(port->irq_high, enable);
-> +	else
-> +		ret = irq_set_irq_wake(port->irq, enable);
->  	if (ret)
->  		return ret;
->
->
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 (1) · High: 0 (5) · Medium: 1 (1) · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] After this patch, slots are reclaimed only by
+>   lan966x_ptp_txtstamp_old_release(), which ages only the queue of the…
+> 
+> Pre-existing issues:
+> - [Critical] This problem wasn't introduced by this patch, but when the
+>   shared 512-entry FDMA TX ring is full, lan966x_fdma_xmit() returns…
+> - [High] This problem wasn't introduced by this patch, but the
+>   sparx5/lan969x driver has the same leak this patch fixes for lan966x.
+> - [High] This problem wasn't introduced by this patch, but
+>   lan966x_ptp_txtstamp_request() makes the skb visible on port->tx_skbs…
+> - [High] This problem wasn't introduced by this patch, but when
+>   lan966x_ptp_txtstamp_request() returns -EBUSY, lan966x_port_xmit()…
+> - [High] This problem wasn't introduced by this patch, but in FDMA mode
+>   lan966x_fdma_xmit() leaves a two-step skb DMA-mapped and referenced by…
+> - [High] This problem wasn't introduced by this patch, but
+>   lan966x_fdma_xmit() can free a two-step skb that is still on…
+> - [Medium] This problem wasn't introduced by this patch, but
+>   lan966x_ptp_txtstamp_old_release() frees two-step skbs after…
+> 
 > --
-> 2.51.0
->
->
+> 
+> net: lan966x: release the in-flight slot of a stale TX skb
+> 
+> lan966x_ptp_txtstamp_old_release() now returns how many stale two-step TX
+> skbs it freed. lan966x_ptp_txtstamp_request() subtracts that count from
+> lan966x->ptp_skbs under ptp_ts_id_lock. Before this, a slot whose
+> timestamp never arrived was never released, so two-step TX eventually
+> failed on every port.
+> 
+> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_ptp.c b/drivers/net/ethernet/microchip/lan966x/lan966x_ptp.c
+> > index 8c40db90ee8f..9be2cfe6feeb 100644
+> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_ptp.c
+> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_ptp.c
+> 
+> [ ... ]
+> 
+> > @@ -389,14 +390,18 @@ static void lan966x_ptp_txtstamp_old_release(struct lan966x_port *port)
+> >
+> >               __skb_unlink(skb, &port->tx_skbs);
+> >               dev_kfree_skb_any(skb);
+> > +             purged++;
+> >       }
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but can this free a two-step
+> skb that the FDMA engine is still reading?
+> 
+> In FDMA mode, lan966x_fdma_xmit() leaves the skb DMA-mapped and
+> referenced by the shared TX ring, and hands its lifetime to the PTP code:
+> 
+> drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c:lan966x_fdma_xmit() {
+>     ...
+>         next_dcb_buf->data.skb = skb;
+>     ...
+>         if (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP &&
+>             LAN966X_SKB_CB(skb)->rew_op == IFH_REW_OP_TWO_STEP_PTP)
+>                 next_dcb_buf->ptp = true;
+>     ...
+> }
+> 
+> On completion, lan966x_fdma_tx_clear_buf() only unmaps it:
+> 
+>                         if (!dcb_buf->ptp)
+>                                 napi_consume_skb(dcb_buf->data.skb, weight);
+> 
+> lan966x_ptp_txtstamp_old_release() frees by age alone.
+> LAN966X_PTP_TIMEOUT is msecs_to_jiffies(10), which is a single jiffy at
+> HZ=100. Nothing checks whether the FDMA descriptor has completed.
+> 
+> The PTP frame can sit behind other frames in the 512-entry ring that all
+> ports share, or egress can be slow (10/100 link, PAUSE, shapers). In
+> either case, the next two-step request on the same port can hand the skb
+> data back to the allocator while the device can still DMA-read it.
+> 
+> Could the device then send freed or reused memory onto the wire? And
+> would the late stamp then hit WARN_ON(!skb_match)?
+> 
+> [Severity: Medium]
+> This is also a pre-existing issue, but because aging here is based only
+> on time, what happens to a stamp that arrives after its skb has been
+> aged out?
+> 
+> lan966x_ptp_irq_handler() matches FIFO entries only by the per-port
+> 0..511 id:
+> 
+>                 skb_queue_walk_safe(&port->tx_skbs, skb, skb_tmp) {
+>                         if (LAN966X_SKB_CB(skb)->ts_id != id)
+>                                 continue;
+>                 ...
+>                 if (WARN_ON(!skb_match))
+>                         continue;
+> 
+> A late stamp either hits the WARN_ON(), or it gets attributed to a newer
+> skb that reused the id, if the port's ts_id has wrapped in the meantime.
+> 
+> Can userspace then receive a wrong TX hardware timestamp, with the newer
+> skb's own stamp tripping the WARN later? Frames held in egress past the
+> timeout would trigger this, for example with taprio/tbf/cbs offload,
+> PAUSE or a slow link.
+> 
+> ptp_skbs never prevented id reuse, so this patch does not change the
+> behaviour.
+> 
+> >       spin_unlock_irqrestore(&port->tx_skbs.lock, flags);
+> > +
+> > +     return purged;
+> >  }
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does sparx5/lan969x need
+> the same fix? sparx5_ptp_txtstamp_old_release() in
+> drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c matches the pre-patch
+> lan966x version, and it never decrements sparx5->ptp_skbs:
+> 
+>         skb_queue_walk_safe(&port->tx_skbs, skb, skb_tmp) {
+>                 if time_after(SPARX5_SKB_CB(skb)->jiffies + SPARX5_PTP_TIMEOUT,
+>                               jiffies)
+>                         break;
+> 
+>                 __skb_unlink(skb, &port->tx_skbs);
+>                 dev_kfree_skb_any(skb);
+>         }
+> 
+> There are only two other decrements. The IRQ handlers in sparx5_ptp.c
+> and lan969x.c decrement it for a matched skb, and
+> sparx5_ptp_txtstamp_release() does so on the xmit busy path.
+> 
+> After SPARX5_MAX_PTP_ID (512) lost stamps,
+> sparx5_ptp_txtstamp_request() rejects every two-step request:
+> 
+>         if (sparx5->ptp_skbs == SPARX5_MAX_PTP_ID) {
+>                 spin_unlock_irqrestore(&sparx5->ptp_ts_id_lock, flags);
+>                 return -EBUSY;
+>         }
+> 
+> sparx5_port_xmit_impl() then returns NETDEV_TX_BUSY without stopping the
+> queue:
+> 
+>                 if (sparx5_ptp_txtstamp_request(port, skb) < 0)
+>                         return NETDEV_TX_BUSY;
+> 
+> Wouldn't the qdisc then requeue and retry the same PTP skb forever, and
+> block all traffic behind it on that TX queue?
+> 
+> A companion patch for sparx5 seems needed. It would return the purged
+> count and subtract it under ptp_ts_id_lock.
+> 
+> [ ... ]
+> 
+> > @@ -408,9 +413,10 @@ int lan966x_ptp_txtstamp_request(struct lan966x_port *port,
+> >       if (rew_op != IFH_REW_OP_TWO_STEP_PTP)
+> >               return 0;
+> >
+> > -     lan966x_ptp_txtstamp_old_release(port);
+> > +     purged = lan966x_ptp_txtstamp_old_release(port);
+> >
+> >       spin_lock_irqsave(&lan966x->ptp_ts_id_lock, flags);
+> > +     lan966x->ptp_skbs -= purged;
+> >       if (lan966x->ptp_skbs == LAN966X_MAX_PTP_ID) {
+> 
+> [Severity: Medium]
+> The ptp_skbs limit is switch-wide. Slots are only reclaimed by aging the
+> transmitting port's queue, and only when that port sends a two-step
+> frame. Can stale skbs on one port still use up the limit for every other
+> port?
+
+Yes, but this is a separate, pre-existing limitation, and the commit message
+even says so.
+
+> 
+> The commit message says idle ports keep their stale skbs. Nothing else
+> releases them either. lan966x_port_stop() does not purge port->tx_skbs,
+> and HWTSTAMP_TX_OFF in lan966x_ptp_hwtstamp_set() only does:
+> 
+>         case HWTSTAMP_TX_OFF:
+>                 port->ptp_tx_cmd = IFH_REW_OP_NOOP;
+>                 break;
+> 
+> After that the port can never send a two-step frame again, so its stale
+> skbs are never aged. Only lan966x_ptp_deinit() purges tx_skbs.
+> 
+> Lost stamps can pile up on a port that then goes quiet: ifdown, TX
+> timestamping turned off, ptp4l stopped, or a boundary clock port in
+> passive state. Two-step TX on the other ports is then throttled, and
+> returns -EBUSY once the total reaches LAN966X_MAX_PTP_ID. That is the
+> failure this patch sets out to fix.
+> 
+> Would any of these close the gap: aging all ports before rejecting,
+> aging from a timer or worker, or purging and uncounting on ndo_stop and
+> HWTSTAMP_TX_OFF?
+
+The bug fixed here is that every lost timestamp leaked its slot for good, so the
+limit was eventually hit on any system that lost timestamps.  Aging the queues
+of all ports on each request, so an idle port cannot hold slots, I believe is a
+change for net-next.
+
+> 
+> >               spin_unlock_irqrestore(&lan966x->ptp_ts_id_lock, flags);
+> >               return -EBUSY;
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does this -EBUSY path
+> leak the skb? lan966x_port_xmit() returns the errno directly as its
+> netdev_tx_t:
+> 
+>                 err = lan966x_ptp_txtstamp_request(port, skb);
+>                 if (err)
+>                         return err;
+> 
+> dev_xmit_complete() treats any rc < NET_XMIT_MASK, negative values
+> included, as meaning the driver consumed the skb. The core therefore
+> neither requeues nor frees it. The skb is not on port->tx_skbs either,
+> because this return happens before skb_queue_tail().
+> 
+> So every two-step frame sent while the slot table is full would leak an
+> skb, and its sk_wmem_alloc charge would keep the sending socket pinned.
+> 
+> Once an admin has enabled HW TX timestamping on a port, could an
+> unprivileged user fill the table and keep leaking memory? Sending UDP to
+> port 319 with SOF_TIMESTAMPING_TX_HARDWARE would be enough.
+> 
+> [Severity: High]
+> This is a pre-existing issue, but further down in
+> lan966x_ptp_txtstamp_request() the skb is published on port->tx_skbs
+> before its control block is filled in:
+> 
+>         skb_queue_tail(&port->tx_skbs, skb);
+>         LAN966X_SKB_CB(skb)->ts_id = port->ts_id;
+>         LAN966X_SKB_CB(skb)->jiffies = jiffies;
+> 
+> Only ptp_ts_id_lock covers these writes. lan966x_ptp_irq_handler() walks
+> the list holding only tx_skbs.lock and matches on
+> LAN966X_SKB_CB(skb)->ts_id.
+> 
+> On PREEMPT_RT, ptp_ts_id_lock is a sleeping lock and the PTP handler is
+> a threaded IRQ (devm_request_threaded_irq() in lan966x_probe()). The
+> handler can therefore preempt the sender right after skb_queue_tail().
+> 
+> Suppose the FIFO holds an unmatched stamp, for example a late one for an
+> aged-out skb, whose id equals the leftover ts_id bytes in the cb. The
+> handler then unlinks the new skb, and once request() drops the lock it
+> timestamps and frees it.
+> 
+> Wouldn't lan966x_port_xmit() then keep reading the cb and transmit the
+> freed skb? Setting ts_id and jiffies before skb_queue_tail() would avoid
+> this.
+> 
+> [Severity: High]
+> This is another pre-existing issue. After request() has queued and
+> counted the skb, lan966x_fdma_xmit() can free it without unlinking it
+> from port->tx_skbs:
+> 
+> drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c:lan966x_fdma_xmit() {
+>     ...
+>         if (skb_put_padto(skb, ETH_ZLEN)) {
+>                 dev->stats.tx_dropped++;
+>                 return NETDEV_TX_OK;
+>         }
+>     ...
+> }
+> 
+> skb_put_padto() passes free_on_error=true, so __skb_pad() frees the skb
+> when pskb_expand_head(GFP_ATOMIC) or skb_linearize() fails. This return
+> also skips the lan966x_ptp_txtstamp_release() call that the release:
+> label makes.
+> 
+> L2 PTP event messages are 58 bytes, which is below ETH_ZLEN. They are
+> cloned when an AF_PACKET tap is active, and that forces
+> pskb_expand_head().
+> 
+> Under memory pressure, could a later old_release() or IRQ handler walk
+> read the freed skb, __skb_unlink() it, and call dev_kfree_skb_any() on
+> it a second time?
+> 
+> [Severity: Critical]
+> This isn't introduced by this patch either, but the ring-full path in
+> lan966x_fdma_xmit() also returns without undoing the reservation made
+> here:
+> 
+>         next_to_use = lan966x_fdma_get_next_dcb(tx);
+>         if (next_to_use < 0) {
+>                 netif_stop_queue(dev);
+>                 return NETDEV_TX_BUSY;
+>         }
+> 
+> The register injection path does undo it, in lan966x_port_ifh_xmit():
+> 
+> err:
+>         if (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP &&
+>             LAN966X_SKB_CB(skb)->rew_op == IFH_REW_OP_TWO_STEP_PTP)
+>                 lan966x_ptp_txtstamp_release(port, skb);
+> 
+>         return NETDEV_TX_BUSY;
+> 
+> On NETDEV_TX_BUSY, dev_hard_start_xmit() overwrites skb->next, and
+> dev_requeue_skb() links the skb into q->gso_skb. At that point the skb
+> is still linked on port->tx_skbs and still counted in ptp_skbs.
+> 
+> Can this corrupt port->tx_skbs? A later old_release() or IRQ walk could
+> follow the overwritten pointers, or free an skb the stack still owns.
+> 
+> When the qdisc retries, request() calls skb_queue_tail() on the same skb
+> again. If that skb was the tail, skb->next ends up pointing to itself,
+> and skb_queue_walk_safe() in lan966x_ptp_irq_handler() would loop
+> forever with tx_skbs.lock held.
+> 
+> The 512-entry ring is shared by all ports, and netif_stop_queue() only
+> stops TX queue 0 of the current netdev. Ordinary TX congestion plus
+> two-step traffic on another port or queue looks like enough to reach
+> this.
+> 
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026-lan966x-ptp-stale-tx-slot-v1-1-9f7c895eb1ff%40microchip.com
