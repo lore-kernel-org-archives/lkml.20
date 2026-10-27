@@ -1,75 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793096313;
-	b=W/Z1wIwefDYzL2tlgt2xxj20GnC8AH/+MABmjZ27AEXPVRYYMnc2A5Ndw2no9Joq6t3N
-	 d95pUKzpfiHEof1SibrvoPGZOi6xyd34v3ezNTvGb7PulM2Ip/nbjpd0bfeFWau0GOI2g
-	 QmoS9oFy3UxLDeARO58Ux1elG5JRH+SK3YerisciBlSDfqWsQVX2AueZF5oj4sNedmRqP
-	 Zq5TkJCx4ZxlJRWx7XRhnv3qc45fazq6kl5tlWkVqsRLOv2ODjfYu76xoCPsTz8VYCVa0
-	 wlLBxrN8K7uY56f/ZF2tee+B4FisMM0LcRlMfcW8YD5F92UvDzN7z2hT+QNO8I1+Kzw==
+	t=1793096391;
+	b=PhWG5NWJgpCV9tOruGdLZ+SjKtAQkfmebFzewr22v/pXwMUaMYHx9tPrpZ1Fnb2u70MF
+	 SjJY2IT3wgVT+k6MTMvsmnHumPFjAMbXPQiVUidQ8JOynRmM4qt9gcbA5MXA7TKJmn+0c
+	 H7VDp1R8XGpV8eG7Sdq4c9VRTYo/G/1dJO+6vJWRrJijqe4altmTj6jJxOWm4s5JblX8s
+	 ooaHEWa71AZUi0pXlNwydrd/z11o7Ryk/nDIv0unlrTFjNJUpTuIHtF+itWmDZWrG2sYN
+	 4FXQtEopf1lYpNdUKQ/ZeY1QDVeskpmxRZ/w2H+BkStiFNn4Ak5gw30Eg/2FR6O3Y0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793096313;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:User-Agent:MIME-Version:
-	 Content-Type;
-	bh=SC1BsGXyB6CzybWZf1MnM1dhxpFm3P6mATHYwTP3CFU=;
-	b=KPU74eo29k0L4q312Hx9X6sB32I7/Lt/NrwQL3+cGTrsaHMqmbbX0cccVREpbU+5JG6f
-	 WLQ2lHC6/VmAkFOEIkfudp7/o1XuuShOrvH+mZsbKLxqgOTTFQj/cpX5PDsUgRCgJl21T
-	 g6rtiZlq7qUiO+ojXicgYl0BxoqPc6izSvzj13Ru67liG5gbOF8GF/jZfqfF42FJebZTf
-	 G/r0Cz4MQQ+1r+7mRxRRu1G8DmPweoLhaQnIrAhsXuuNSxJogzVzldj+e7oNVInA7tJTN
-	 hSpibKqEJHxtUYOTS8Y8z6MIFG1k+WV2J8BU+1UGAOdyjSngxaJKF0xncMtcowYJanQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793096391;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=KVDENRhZ025XcoAKLGS5FDsruTv4BkLF+xTlq5jI8Hg=;
+	b=AiIjZiFgs62wS37aUYH7zelFlBjn4L//soFyAnNudgTmgjAWU1euhBT+gnvzjp4XJi5T
+	 RRe/p8ReVVuObNKr6egpeoFYMzmXY6CnDbeI0NAKpjou3J8vJA0NiC1Kswwajcw8j8jgu
+	 yIdCMAn1EIkUtCWYd6chDnrNegm24cABAoUCMoQ1gPYE9lTeEh1g+E3T5spkZ77JxfDed
+	 srGoMMZJ3ytwtIQZi+jRrW5cd1Avdg43ENVOzI/iA/5DOI21C8fAXxu8qPoJP2irwKqdK
+	 ClY/SAI8cMPralNKRlBBWqR2ZwL0uqziROw02bCaYKkFVONApKRYrYwX62eMxJ9EG3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=geanix.com;
-	spf=pass smtp.mailfrom=geanix.com;
-	dkim=pass header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=Bhx+Es3h;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ivZbEuOM;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DFC606A31A
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3DFC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41CE606A31E;
+	Tue, 27 Oct 2026 10:19:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D41CE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=geanix.com header.i=@geanix.com header.a=rsa-sha256 header.s=protonmail header.b=Bhx+Es3h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1793096309; x=1793355509;
-	bh=SC1BsGXyB6CzybWZf1MnM1dhxpFm3P6mATHYwTP3CFU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Bhx+Es3hhN7lDEmYmva6k8/HHO59r77Xy4tNTZCU7FgqkL6ux34D11fZcaZ+YKyms
-	 irRN9iaUzTM45GXmzd5rY3ftUHRpGCM0ZaouV9RGV1n87wxUI5Nm0j0JEl373UgVLv
-	 NOqW2bIcHs1YYfstogSjqxhXtmaAoD9ijiIQvyEhr60woYCTNOuykIKkjCiqMHo1Az
-	 OFb7EQIiTqRlmR07eUEVourplHBNKJqeFKTzMNEQIy0jtMK+U6q+S3o0oQg/UESs2r
-	 AG0TzAJvPq5ob1Ve0K3HDmizR2Lswewf/PTHg2Ovg6sNYdjxP00l0dQ3pxyGYV7YGn
-	 aVYpi6bskS1sw==
-X-Pm-Submission-Id: 4jDRKF0pKhz1DF7H
-From: Esben Haabendal <esben@geanix.com>
-To: "Liu Ying" <victor.liu@nxp.com>
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>,  "Neil Armstrong"
- <neil.armstrong@linaro.org>,  "Robert Foss" <rfoss@kernel.org>,  "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>,  "Jonas Karlman"
- <jonas@kwiboo.se>,  "Jernej Skrabec" <jernej.skrabec@gmail.com>,  "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>,  "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>,  "Maxime Ripard"
- <mripard@kernel.org>,  "Thomas Zimmermann" <tzimmermann@suse.de>,  "David
- Airlie" <airlied@gmail.com>,  "Simona Vetter" <simona@ffwll.ch>,  Guido
- =?utf-8?Q?G=C3=BCnther?= <agx@sigxcpu.org>,  "Fabio Estevam"
- <festevam@gmail.com>,  "Robert
- Chiras" <robert.chiras@nxp.com>,  "Sam Ravnborg" <sam@ravnborg.org>,
-  <dri-devel@lists.freedesktop.org>,  <linux-kernel@vger.kernel.org>,
-  "Oliver F. Brown" <oliver.brown@oss.nxp.com>
-Subject: Re: [PATCH RESEND v4 4/4] drm/bridge: nwl-dsi: Correct MIPI DSI
- horizontal sync timing
-In-Reply-To: <atH4i_KcmccKb8Ge@raspi>
-References: <20261014-nwl-dsi-fixes-v4-0-b9138ea5e12c@geanix.com>
-	<20261014-nwl-dsi-fixes-v4-4-b9138ea5e12c@geanix.com>
-	<JYYZZ_8h4tOKBjhbfQG_VuFESQDdQRt7TE7Ef0eJ9F0gQgyRrEJ5LIi6scY_48ggvsikFa5QZB3uEHaRUDdosQ==@protonmail.internalid>
-	<atH4i_KcmccKb8Ge@raspi>
-Date: Tue, 27 Oct 2026 11:18:24 +0100
-Message-ID: <87qzhbbg5r.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ivZbEuOM
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0B8C0BE;
+	Tue, 27 Oct 2026 11:17:35 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793096256;
+	bh=DQHDc2kx7a6p7GRRfJd9Pw8ZxQRkTNRUOQdiGqXQanI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ivZbEuOMcXNA77N0GmNiZix/aGKMdEajwR/uxIwCkIN21MbNSe4wEGMGqGiD1C0nA
+	 4HqwvYhTsjoDcs+NkYPgxx0M+lvu1BzCL/YU7IYoNKRWOccTdwEqwO33rcvZumLozO
+	 UNn8G+MGXFSc9c1rKQZYqUdP81YVrobEVgHG3Ppk=
+Date: Tue, 27 Oct 2026 12:19:46 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 1/1] Revert "media: =?utf-8?Q?D?=
+ =?utf-8?Q?on't_hide_I=C2=B2C?= or SPI drivers by default"
+Message-ID: <20261027101946.GA2106796@killaraus.ideasonboard.com>
+References: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+ <20261027100916.4053512-1-sakari.ailus@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,76 +67,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027100916.4053512-1-sakari.ailus@linux.intel.com>
 
-Sorry for the premature send of the previous reply.
+On Tue, Oct 27, 2026 at 12:09:16PM +0200, Sakari Ailus wrote:
+> This reverts commit 3bf8c26a085c7b00dbec67a919b93fa8b7ad70e0.
+> 
+> In order to avoid exposing fairly rarely needed drivers to ordinary users,
+> revert this patch. People needing these drivers will need to enable
+> CONFIG_EXPERT until we have a better solution for this.
+> 
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
+This is a low-energy short term workaround that will give us time to
+find a better solution.
 
-"Liu Ying" <victor.liu@nxp.com> writes:
+Acked-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
->>
->> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
->> index f3f4334136c0..eb604733eea0 100644
->> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
->> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
->> @@ -22,6 +22,7 @@
->>  #include <linux/reset.h>
->>  #include <linux/sys_soc.h>
->>  #include <linux/time64.h>
->> +#include <linux/math64.h>
->
-> Sort the header files alphabetically.
+> ---
+>  drivers/media/i2c/Kconfig | 11 ++++++++++-
+>  drivers/media/spi/Kconfig |  4 ++++
+>  2 files changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 7de2d095c969..11c30252540e 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -1042,12 +1042,14 @@ endmenu
+>  # V4L2 I2C drivers that aren't related with Camera support
+>  #
+>  
+> -comment "audio, video and radio I2C drivers"
+> +comment "audio, video and radio I2C drivers auto-selected by 'Autoselect ancillary drivers'"
+> +	depends on MEDIA_HIDE_ANCILLARY_SUBDRV
+>  #
+>  # Encoder / Decoder module configuration
+>  #
+>  
+>  menu "Audio decoders, processors and mixers"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_CS3308
+>  	tristate "Cirrus Logic CS3308 audio ADC"
+> @@ -1210,6 +1212,7 @@ config VIDEO_WM8775
+>  endmenu
+>  
+>  menu "RDS decoders"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_SAA6588
+>  	tristate "SAA6588 Radio Chip RDS decoder support"
+> @@ -1226,6 +1229,7 @@ config VIDEO_SAA6588
+>  endmenu
+>  
+>  menu "Video decoders"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_ADV7180
+>  	tristate "Analog Devices ADV7180 decoder"
+> @@ -1585,6 +1589,7 @@ source "drivers/media/i2c/cx25840/Kconfig"
+>  endmenu
+>  
+>  menu "Video encoders"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_ADV7170
+>  	tristate "Analog Devices ADV7170 video encoder"
+> @@ -1683,6 +1688,7 @@ config VIDEO_THS8200
+>  endmenu
+>  
+>  menu "Video improvement chips"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_UPD64031A
+>  	tristate "NEC Electronics uPD64031A Ghost Reduction"
+> @@ -1711,6 +1717,7 @@ config VIDEO_UPD64083
+>  endmenu
+>  
+>  menu "Audio/Video compression chips"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config VIDEO_SAA6752HS
+>  	tristate "Philips SAA6752HS MPEG-2 Audio/Video Encoder"
+> @@ -1726,6 +1733,7 @@ config VIDEO_SAA6752HS
+>  endmenu
+>  
+>  menu "SDR tuner chips"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  config SDR_MAX2175
+>  	tristate "Maxim 2175 RF to Bits tuner"
+> @@ -1742,6 +1750,7 @@ config SDR_MAX2175
+>  endmenu
+>  
+>  menu "Miscellaneous helper chips"
+> +	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+>  
+>  source "drivers/media/i2c/cvs/Kconfig"
+>  
+> diff --git a/drivers/media/spi/Kconfig b/drivers/media/spi/Kconfig
+> index da3e225d420d..4656afae5bb4 100644
+> --- a/drivers/media/spi/Kconfig
+> +++ b/drivers/media/spi/Kconfig
+> @@ -1,11 +1,15 @@
+>  # SPDX-License-Identifier: GPL-2.0-only
+>  if VIDEO_DEV && SPI
+>  
+> +comment "SPI I2C drivers auto-selected by 'Autoselect ancillary drivers'"
+> +	depends on MEDIA_HIDE_ANCILLARY_SUBDRV && SPI
+> +
+>  menu "Media SPI Adapters"
+>  
+>  config CXD2880_SPI_DRV
+>  	tristate "Sony CXD2880 SPI support"
+>  	depends on DVB_CORE && SPI
+> +	default m if !MEDIA_SUBDRV_AUTOSELECT
+>  	help
+>  	  Choose if you would like to have SPI interface support for Sony CXD2880.
+>  
+> 
+> base-commit: f39567cc92272f987c056d8c92f7c93f3fdf53ef
+> prerequisite-patch-id: a907c42a90ccc410e6fffdee8c9300233a5cd4be
+> prerequisite-patch-id: 82ecd20999da94a7472cd1061a0fdf8cffbac325
+> prerequisite-patch-id: 7d09c7afa4c3d4109642db3fd8435b21605854c6
+> prerequisite-patch-id: f9e361e419752c2c3b2d845b535e33407c7544f6
+> prerequisite-patch-id: 48a068cfdcbf7d53806dd8ff9e48f5de529fc67c
+> prerequisite-patch-id: ba262f258d655a87b99432ebce1e579594a16950
+> prerequisite-patch-id: 64c1f90be9a61ce4b6ee3988606ab0a24e630d42
+> prerequisite-patch-id: 69ddc210ad98238341ef358dfddb0a42f20b9ea0
 
-Will do.
+-- 
+Regards,
 
->> +	hfp = roundup(hfp, 2);
->> +	hbp = roundup(hbp, 2);
->> +	hsa = roundup(hsa, 2);
->> +
->> +	/*
->> +	 * We need to subtract the packet header length: 32
->> +	 * In order to make sure we don't get negative values,
->> +	 * subtract a proportional value to the total length of the
->> +	 * horizontal blanking duration.
->> +	 */
->> +	h_blank = hfp + hbp + hsa;
->> +
->> +	if (h_blank) {
->> +		pkt_len = min(hfp, roundup(((hfp * 100 / h_blank) * 32) / 100, 2));
->> +		pkt_hdr_len = pkt_len;
->> +		hfp -= pkt_len;
->> +
->> +		pkt_len = min(hbp, roundup(((hbp * 100 / h_blank) * 32) / 100, 2));
->> +		pkt_hdr_len += pkt_len;
->> +		hbp -= pkt_len;
->> +
->> +		pkt_len = min(hsa, 32 - pkt_hdr_len);
->> +		pkt_hdr_len += pkt_len;
->> +		hsa -= pkt_len;
->> +		if (pkt_hdr_len != 32)
->> +			dev_warn(dsi->dev,
->> +				 "Unable to subtract packet header length fully: %d left\n",
->> +				 32 - pkt_hdr_len);
->> +	}
->> +
->> +	DRM_DEV_DEBUG_DRIVER(dsi->dev, "Register values: hfp=%d hbp=%d hsa=%d\n", hfp, hbp, hsa);
->> +
->> +	nwl_dsi_write(dsi, NWL_DSI_HFP, hfp);
->> +	nwl_dsi_write(dsi, NWL_DSI_HBP, hbp);
->> +	nwl_dsi_write(dsi, NWL_DSI_HSA, hsa);
->>
->>  	nwl_dsi_write(dsi, NWL_DSI_ENABLE_MULT_PKTS, 0x0);
->>  	nwl_dsi_write(dsi, NWL_DSI_BLLP_MODE, 0x1);
->>
->> --
->> 2.56.0
->>
->
-> Not sure if the fix is 100% correct, but it is a correct direction to
-> change the blanking packet payload size from in pixel clocks to in bytes,
-> so better than no fix:
-> Acked-by: Liu Ying <victor.liu@nxp.com>
-
-Thanks. With the information available to me, this is the best I can do.
-
-/Esben
+Laurent Pinchart
