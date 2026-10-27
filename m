@@ -1,77 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793086161;
-	b=44OVKGyf96vNY46r4Dxg5y2fSaKqs/zPcVMh5Y/CwhTsBasGu1wOqrl+6bYqo3JenheB
-	 jnVDQbJcgpZh6MEW1GiZci7uiOPaBDtsUOOlGWJ9fE38ytCqbINBnlDbVy2F+9rBNBpxu
-	 6eevBYJFzlijOfUaVLjcPHXcjoraZIdrkXl2Xy2YI79ZNpsah8NN29o/WnyELjbMy0As0
-	 p05cSSM9i0MbSnK+FZKnoyA2W+AM5X+HOLdqMuHakU3FCGRavwrHSdLxK9D6F04Vfa4OV
-	 6b6P4JvsyQrbGl6F1T1sVxDRUREihL0i5R+6shp/73B6uB2X85Twyo7qMvqEKLmgVeA==
+	t=1793086246;
+	b=JL0eG7LV2pZVtcErXbjr5OJlslN6sGIDvBsxOii/KiygjD3YK+0kOxTovPnUnydBQs9I
+	 /SLxCq1FhL4QdTd+mWvCSh64zb2b6xlQGrXDR6oq+UfenF0dff+YCvbcUGrQe8wktJGvP
+	 T1QnFiWZoYPSU93N1inlimnLMxLR8YD5eN84FmcJ01oem/5FK/lStAh4aQYbRDwpHnGIT
+	 Xt28P31tCeDiNetxvSWc8nCWS9LA/53KLtGCIQXkLBXFzCDPfTHHH2FRk1/9WsiqyJuJo
+	 I/IFf2I0DjnZFh5l5Buu4VgXCn2D8OENjFGzvmM1oLJIUKBqANmANG++YWxl5ZKiL+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793086161;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=mYwiHk4SQRcR9vDEiR0IB5KVdkiv1Ufl8yFcHjj59lQ=;
-	b=Sc16Dk9lwZwGRvovvHklG5j1Z5G6k9EElqfYrZDge3T2GUflG+debLlICCtg4u396Z4z
-	 IrVV7rWOOVW9hamAu8e9k2FRqVuoMCAZxbfQ6hzcu1hh9sb0q7igeZMx0toRNsInzmmwB
-	 wNY5YOi/IFDydfnyLp/3FeN+x/h7OxB2bkEYXLghCGbtSF5oWHqJIQqYGM0tfRu7Loxtk
-	 wq3ieVBTlpV+GFI/fiUbdNg9W/AuQqxp1SxJaviJl7n0yzHTEd3hTQLHq523fRQF1C5KH
-	 p3zT2rFRiYbtpXJ0iFzSSTCBDpWAgbkis/nHREL74tLeJ0NPUgXK1k1KJXVdNzIO+Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086246;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=gI7E+robBP6vgz9AL/HxFuX0LqTlbehBrFtgVWJIAYw=;
+	b=I2IvhBDVkeBJGtpSCGu5XYeL/rG1U8BoHKhduHMNavsJASd1ChzNYpUpnn5VnVSqDXGJ
+	 99KVSjUWnZtiUaj3mikdbkuqOwOqCRDMAgMwg9K7/Un6HcP4W6Z2J3rtiU+XaRBK5lIun
+	 BQpeNBZQr3jSOS44n/fy9Zq7LIUMa2FgMGMMGKbvaCZR0YdZAYJ5oFaEAXkeM5FK7DdvH
+	 Fnc+AQ5uiEgsV1MO3xibFRu+jehyZWElUylXWjkS7lRCPS0Am2pqFJ60tN/yVGf20Vf+6
+	 WMZc9KA/nLbioQeD48hpeowGQccBw8dC/eoV4mumQCK6qLM9UamWXhfjI+KoQAOdQ8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FycC8dxg;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qi2N0Y9q;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ojZIl4B6;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jOeS8eCt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d60X7RGx;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E880606A31B;
-	Tue, 27 Oct 2026 07:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E880606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1625C606A31A
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 07:30:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1625C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FycC8dxg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793086161; x=1824622161;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+Lna6JxOHJF8dEx7Ba/sSk5PMI13DNrHYZsp1gBXi78=;
-  b=FycC8dxgQk3Fl+N4BL0q9cidvWA5l6IPg5VXMwCNEdt+jRa8nPWpss8Y
-   LEYIhS1DcfB+XA/VcN2lBfL8xU3Dm+KzleUrb3Sg8RGWALjvHCWZ8Ym+O
-   OI/LzdSeWdWQvsC5MGYAx4DMUsnlXqyey/HTkBNQtBaPQUrUoMFwnegSz
-   WWHq7QZLG93UfAFUdlO9evh9sMMnxfBVx41LAftwvXLCCRXmzzG/pEqrC
-   F6nbRJW0bAsHAA0zhJSM09CYt6blKThpv65qxDE7y3HWLpUVHduPQKUb6
-   AT8S8bBErk3d2Oy76RJS+pxAkglFUNLNMOVMQu2fmJiLA3/9yzcPcrNqm
-   g==;
-X-CSE-ConnectionGUID: N7DEaw0VSnOui69/NNiqqQ==
-X-CSE-MsgGUID: qLR33nX0SBOF0MRCKkBoow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1681084"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1681084"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:29:20 -0700
-X-CSE-ConnectionGUID: EROoaNXcTl+tQ2GnXEjISw==
-X-CSE-MsgGUID: J4kLHh00Q0yW8vMQ1DPPnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4350643"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 00:29:18 -0700
-Date: Tue, 27 Oct 2026 09:29:14 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com
-Subject: Re: [PATCH v3 1/4] iio: prepare iio_format_value to handle
- higher-precision IIO_VAL_DECIMAL64_* formats
-Message-ID: <auBSyu-G98vfAi8H@ashevche-desk.local>
-References: <at-1SGe6xnObPqPG@ashevche-desk.local>
- <SN1PR12MB25288ACCA8FC85EFBE08CD3CA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qi2N0Y9q;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ojZIl4B6;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jOeS8eCt;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d60X7RGx
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DF8C51F791;
+	Tue, 27 Oct 2026 07:30:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793086244; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gI7E+robBP6vgz9AL/HxFuX0LqTlbehBrFtgVWJIAYw=;
+	b=qi2N0Y9qCDuQb8ebeIIjVbVCIG2MJId/A6sTYauxyk5lkMSgBdiYSrrxHlf/inlq6rEULp
+	Nuj4w4BlGQ+LGK8xCION3ccvQ5YaOOetRJM/6Jd1f2XxbtSYKvH5H+WlW6aSgH15HIy4TY
+	jeuRxp7P54b8b4m8XI4PNYkGlKwoNs8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793086244;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gI7E+robBP6vgz9AL/HxFuX0LqTlbehBrFtgVWJIAYw=;
+	b=ojZIl4B6Y1U2DT3tvez4Hpu6htpCXsyM1cm7HyciNBauv+EGgjJQfSoDPtMedA7lRuQsCy
+	klNMcSrxrEG4umCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jOeS8eCt;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=d60X7RGx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793086243; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gI7E+robBP6vgz9AL/HxFuX0LqTlbehBrFtgVWJIAYw=;
+	b=jOeS8eCtNCe5WQOCzWHEwVcZUcoPgzmIOF0+PPzxGICFYaGDmUN16NtdNxT1V6MFdFrbis
+	dJpgedRnAVBVJJRzD00M4PQvHDN9j4GVbX8wq2dpynobUbUyN6TaNpW3ju4rrgYndiTcHA
+	fxFPVgmgTWmBoM6TA24lbfvFsu8OF/g=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793086243;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gI7E+robBP6vgz9AL/HxFuX0LqTlbehBrFtgVWJIAYw=;
+	b=d60X7RGxoTIUrEWST7bIq7YuoPiAsrhrAGO8SgvV1u+UbytXDA1upOejxYLHbXotDIKPDT
+	9UIyOLAdFCWrrVCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 89CAA13319;
+	Tue, 27 Oct 2026 07:30:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id fv0TEiNT4Gq1VQAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 27 Oct 2026 07:30:43 +0000
+Message-ID: <75b7772e-75bb-4976-aec6-d94c37e651ab@suse.de>
+Date: Tue, 27 Oct 2026 08:30:42 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,28 +108,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN1PR12MB25288ACCA8FC85EFBE08CD3CA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] nvme-tcp: start error recovery when read_sock fails
+To: martin.nvme.dev@gmail.com, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, Hannes Reinecke <hare@kernel.org>
+Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Martin Belanger <martin.belanger@dell.com>
+References: <20261026-nvme-tcp-ctrlrec-fixes-v1-0-ebf6ff7eff34@gmail.com>
+ <20261026-nvme-tcp-ctrlrec-fixes-v1-1-ebf6ff7eff34@gmail.com>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261026-nvme-tcp-ctrlrec-fixes-v1-1-ebf6ff7eff34@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: DF8C51F791
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.00 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,kernel.dk,lst.de,grimberg.me];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email]
+X-Spam-Score: -12.00
 
-On Mon, Oct 26, 2026 at 08:51:53PM -0500, Victor Chernyakin wrote:
-> > > +#define GREATEST_POWER_OF_10_THAT_FITS_IN_S64 18
-> > 
-> > It's an interesting name for log10(2^63).
-> > 
-> > This, along with log10(2^64 - 1) should be added as definitions at least
-> > IIO-wide. There is a series that wanted similar for u64.
+On 10/26/26 7:09 PM, Martin Belanger via B4 Relay wrote:
+> From: Martin Belanger <martin.belanger@dell.com>
 > 
-> In that case, might as well go all the way and add them to linux/limits.h?
+> nvme_tcp_recv_skb() disables the queue and starts error recovery for
+> errors it detects itself. An error returned by the transport reaches
+> nvme_tcp_try_recv() without either action.
+> 
+> nvme_tcp_io_work() returns on a negative result and does not requeue
+> itself, so the queue stops receiving and remains stalled until a command
+> times out.
+> 
+> Report the error and start error recovery when the queue is still
+> enabled, which indicates that the error was not handled by the actor.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Martin Belanger <martin.belanger@dell.com>
+> ---
+>   drivers/nvme/host/tcp.c | 16 +++++++++++++++-
+>   1 file changed, 15 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+> index 7190eb10c248..a03476f0f69d 100644
+> --- a/drivers/nvme/host/tcp.c
+> +++ b/drivers/nvme/host/tcp.c
+> @@ -1431,7 +1431,21 @@ static int nvme_tcp_try_recv(struct nvme_tcp_queue *queue)
+>   	queue->nr_cqe = 0;
+>   	consumed = sock->ops->read_sock(sk, &rd_desc, nvme_tcp_recv_skb);
+>   	release_sock(sk);
+> -	return consumed == -EAGAIN ? 0 : consumed;
+> +	if (consumed == -EAGAIN)
+> +		return 0;
+> +
+> +	/* nvme_tcp_recv_skb() does both of these itself, so a queue that is
+> +	 * still enabled failed inside read_sock() instead
+> +	 */
+> +	if (unlikely(consumed < 0 && queue->rd_enabled)) {
+> +		dev_err(queue->ctrl->ctrl.device,
+> +			"queue %d: receive failed: %d\n",
+> +			nvme_tcp_queue_id(queue), consumed);
+> +		queue->rd_enabled = false;
+> +		nvme_tcp_error_recovery(&queue->ctrl->ctrl);
+> +	}
+> +
+> +	return consumed;
+>   }
+>   
+>   static void nvme_tcp_io_work(struct work_struct *w)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Only if you have existing users outside (which has to be shown
-by the respective patch and then it makes the series cross the
-subsystem boundaries, much harder to get in :-).
+Cheers,
 
+Hannes
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
