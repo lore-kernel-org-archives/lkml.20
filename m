@@ -1,127 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793098767;
-	b=d6MplUpngA2ITKaNiQL6PgQM7joBx9A/J/ULtZqFv4D2ZOAgfontc9PL/8qQ0LSZHHaz
-	 CHCN7zWeyfu//yfKvNCtwtfq9CCiU/lZOuHfDz95pcoGu9C/VspE988NnRX84d4V2HR2/
-	 CySnnQhVuuX0lJo39pT/1tR/hf0W6joDRljHI6nT6E0uIVyWJ8d9dmLHd7Lti5HGt2MXe
-	 CYek5qqaOBm4XeCHc1NtCXpHyBDbf8FTHjFomGhQ47tO5FAg7J39jLFg5cOAujN2KoXiQ
-	 ZEdI1p96fxhQ2Flxm9i1wWV/MD6NRf6RDYYRBn8ITnqqyyXM0UP2G7oqMO8yM5xtChQ==
+	t=1793098768;
+	b=j+IYN0vw6Z6sRby4eAZohbKh7CvVEeqfRL4326x0BfxVpzvPIgUyU2ABV7wVjYZ4/1Er
+	 F3fsXS12CzmiqbOxVlTgUsF1AX49kGLk7ocZBvLqCKtQWg6ibhpLl8+cP0ht9klv1OtZ+
+	 62bSILv+nn18rY3v1Uv5f0nOjJGFg5f/+kK372o9JIMCGUD4IhAaTMa6wap5VQuH2Xcpz
+	 5SHE2conswPbcV6aKT1pdthqzOdSaOY6j81f/zkSolF0+IrpGXUjClFdAekRyAMTLb3DY
+	 cXAmHselZFobn16LS+tfNQWMxR+FwonjwRSd0teKeoMSc/9+dgW0VXKldaMGXH9AHqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793098767;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=ykAqLoi1r7lMGwbeK2sUFMARw3wZakPbFC2fhUJSl/o=;
-	b=Nhzez6Odyu8Grqe7v2GtcRdxPhlvuHb5ZYNY16yT2BCGE1sGnfi8P2fySDMjYSJyw9Ht
-	 iiT8aC24HgnjvBksxTmyU1CJvnYvzh+oR7jCjkwaWrK2Z9hILgaGC0yUOaeSM28Pphsr9
-	 rUL7pkj2jKX2xPaA9NmyRiBDnK5kadJ8vQFVhe7EI70Iq+ti9UtolzNHfepXdkU6rFkSi
-	 rSvy62TgI0rmfgaCZESSMLZiTuyRt3d2V8SrASfLZM0+3+/emdq2pXk0rRxTf0HjQtTxS
-	 pC2tG2KW9VLpujAV8uGNLenKjySP+zQqcNa0AXj2kX8zmV3QceG7aiWzpx1DNBaxvkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793098768;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lVNso5EEgm/5gtGaAJ6QIpW6dKpSqWSBzpph3rHhhcs=;
+	b=H0DX3AtO90cJXm6KY/ZrjT+9uWnd6+iui22efqCU4iLVy/XQmhnP/eqdnN/pGWyF6X4N
+	 XyJPFDU19eJ4oOIZ6JDZxPXB91j3FDDsUe5XxLjRGutqWFoC8FlEOqvLTA1zet3x1BHcq
+	 1Bv1SiBa95ppFuAB+2ITSf+wjEV2kAOD8os+HvQUiaFbSLduWvZu+6drcRNwRMN4HNK0L
+	 qK/WVpCyfny9o4TyEs8+JIW7qK0wAj7eonPnibVXCAgipagGVMkkNgPCk3RlXNxSIZp+F
+	 ARDehq0o2fPP4B9dgPaOLnZ/veKN/U7NUZd5xTSMx8oi3HlqXduB/MW88fPxkngsllg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OMBgYIPt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="hueOEQT/";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CQHH/7ZZ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FB2606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00FB2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFB4606A322
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:59:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OMBgYIPt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hueOEQT/
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeBJG1615033
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:59:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ykAqLoi1r7lMGwbeK2sUFMAR
-	w3wZakPbFC2fhUJSl/o=; b=OMBgYIPt9T08DlmnRfVl6Gi+DMt6ReICnWuXECkd
-	MBE7LkZ0raB+jlsfl8WtH+h+vzcGxO9v8OVBBodYX/wiPt2R/aOn9n5LNav3++IP
-	W6Wa85taDipM9pgkzo1cjPrwGnvXJ2Lr4Vih5YOtu1ZnkUW9bSnnVd7DXalmFbi3
-	Zp1YXpZuTlCKjZWlbePxsCCTglCpukctIPvppBeFpqjmPc1AWHq64ek9UMzqqDQ3
-	BKBLgFL8YEHTHg6ZOu+SUYIGTXEr71oojboRRdLYw98rH00DSTAPiukDrjx5xc/s
-	ZTJ0QOxQ5/rZfPoLR+/zcD2GrBrvaFVCZSIrSEE96WdwyQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjqf5rtde-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:59:20 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-535131e4c25so109674431cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:59:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793098760; x=1793703560; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ykAqLoi1r7lMGwbeK2sUFMARw3wZakPbFC2fhUJSl/o=;
-        b=hueOEQT/1f8F+8ejN0tfrj+PWmvO8rcKLox5IHvLDu/0azAYz84w1OuyRUxs7ylFA4
-         2NBwl0ELm2a/5JONVpDPLnT22l/XbT/Ro1hxpUrvF5QuC4IWcX3W3wa/LX2A6Hh1LbAo
-         zFIsWV1IFnHDgxVECn7Aw+aDjKcXGYnowOlxHqpoOdvSvh7ImFKgOlzoLNtav0NNZPfh
-         tO/ZIVg6DHi47JiM1tCQJ5yamnTLuDw5SgnG1bpP9ytEX23JWNXDg/LUoUGpNlWwELa9
-         45t/VZRAVoGNF34CRAJqiSNKQcN6l9aYTMcJKHb1AsyEeD+pF5XqLICTyksRVhSqfYqY
-         hSZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098760; x=1793703560;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ykAqLoi1r7lMGwbeK2sUFMARw3wZakPbFC2fhUJSl/o=;
-        b=F3kvI1/Byyi9JBqKe4CMLmnH5Om+SLzR2uUFEsNCGEXrRI44mMJBemhe16uAI0mBgh
-         EkzY/zJwgzRtPZW/W1qKfd86QYMlcEGj/9Uw+0wPgup7PWKWcqLgZQVbPgbFM9e5oahf
-         eI5AeABO2MwZO7tQ6EZdEYsw1PyJrBBDk+Jp3YtXMHFSJ2JuPA3aFsV+u5enQUXsxvwF
-         2NFM68rfjQ+LQFIQKvX5iIPsvAaFcYf+W6cUCWEdn5t00ckrGc7SbjIHq62iJIzq5lvw
-         EJO/Daock4mtUwT/XGOIxv6dRIwOHYmlj2IP1yW9XL6gLltXUKbyKTBAgh/l0Ab8pLqO
-         UAYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxO0L+9DX88F/VRzZeINWBe86JvNXS7z/B91sWALdkQt9zpZuEvMmrvaWYMe5BuaxmkKUiWUKDid1TC4tQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZLRfbhhLzzNDl0zwsQY/DsXyqllgcMQoD5p7ZEb5Voow1MLqQ
-	Fpfm8IzzMdwbqvpe1Pr1r1uFEEbZnzG5RjBt8OBVqIS695qXIcrIBcWwp8JC/Q+P9ljRWu0AJxp
-	IEcLHPTDhVujqiTyT3kX17gKHx/goU5wtjxpnccYFAOT2gNUfIgLE+YCDbn4ebG82VqQ=
-X-Gm-Gg: AYBFou30aYD8c0YhtXGwHDn90ZGH2E5rAXbmBQfDPCHSampgSnvhDIlXE4ZXDUKLUD7
-	i4Dr0lW4vjGn7B+pC1Rgc6kLh5dR4lnZZUyVC3b4xJmQD5TmRl1ZBXqoLiyAGBPpoT0qjvjP6hm
-	69jE2yOHkq84HPHsuXmjrJ1hI+BYQ1eUBjtD/xiAFcSLHh3+jbKkSab+uKf7CsTnKsVVeiWLouA
-	iL/TiYep6wQ52fZ+rBz4Duq9hYWsE3N32IMD81isfguvTpy6NbPbHH3OuXBQfqcAeB2nczgBx5j
-	SjABYpHiMS+WayZEmLnCQVidwglbLrGEi0ecK7Pib+hkSKEJ4rVYgZgbgE4MeLvPaTvOlpW9UNK
-	PUuiT1rjyf/rF4fHb
-X-Received: by 2002:ac8:5750:0:b0:535:33a0:520c with SMTP id d75a77b69052e-5383b350840mr170740421cf.3.1793098760228;
-        Tue, 27 Oct 2026 03:59:20 -0700 (PDT)
-X-Received: by 2002:ac8:5750:0:b0:535:33a0:520c with SMTP id d75a77b69052e-5383b350840mr170740191cf.3.1793098759624;
-        Tue, 27 Oct 2026 03:59:19 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a5ea0df763sm178309875e9.3.2026.10.27.03.59.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:59:18 -0700 (PDT)
-Date: Tue, 27 Oct 2026 12:59:17 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>,
-        Anna-Maria Behnsen <anna-maria@linutronix.de>,
-        Frederic Weisbecker <frederic@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 6/9] arm64: dts: qcom: sm6375: Do not mark MPM as a
- power domain provider
-Message-ID: <junlahp3txwwj2bs6pi3lhlvidxcp3zgvszb74xbciv4n4ymvo@tfyhqi6tr7mz>
-References: <20261015-b4-shikra_lpm_addition-v2-0-ac7f1a0d5638@oss.qualcomm.com>
- <20261015-b4-shikra_lpm_addition-v2-6-ac7f1a0d5638@oss.qualcomm.com>
- <5ad62m2ix47ynkq2ikghkxdqpcyv2tjixtojdobpjpdwbkkab6@gjklpaosvpk7>
- <114418ab-dab6-4772-994e-5babeed72b65@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQHH/7ZZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39CB71F031E9
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 10:59:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793098768;
+	bh=lVNso5EEgm/5gtGaAJ6QIpW6dKpSqWSBzpph3rHhhcs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=CQHH/7ZZmY7gXELyKkE/0EBE+0ZDFmO467KChxeHnKrGQmQ3ppxK6s0iu+O9szbDo
+	 LLd1AdDTamzzVO+UFxb6IiHPv1owyWSOOptAW6nqNb/t1O7rJpmx2oR2LFrzQCVAFs
+	 IufpvxJjp2+tNUYViLyO9xfRjEZZDNFZAMo4DsXJ9XhC9x2pud7WamP6SzLAEZSh4d
+	 kPafoOw6PZ3iSUg6wQn5r6ZADArxYgj6jjdof/xJr61fAvz0dfKKEmyDrfptotKzCd
+	 Wrv3ns4+PJBH/N7SfyWEYAIXZApNylIFzkvhFqkxHDVSKTbcDNE6YSHtf2eaSfw9EB
+	 hI7Nle2xkHWLA==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5be416e603cso2382233e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 03:59:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwVx+IS/us0MXuUyDjnbJHxG3Jiud+u0GAIb5DrQVtH1Kc/bTB2/od0TZnCtp9oBAV0P/N3/hw+Yh/ZCG8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZCPqNLtNZJNlVkymjQerPgnF2WLTqQ/hOV2HcO52Tsqo/2/Wi
+	btomGNap3jFRAboZWlOuEIJ/02mC7orJsd9NpUBNza2xDC7ht+HC4U9agFOREDR6hkGBKNsoLDx
+	cv/V630ApSVbkRwO2/4MFgJHkJyLzd5w=
+X-Received: by 2002:a05:6512:398a:b0:5bf:b46e:6b11 with SMTP id
+ 2adb3069b0e04-5bfb71ca4bemr2850933e87.14.1793098766538; Tue, 27 Oct 2026
+ 03:59:26 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,54 +59,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <114418ab-dab6-4772-994e-5babeed72b65@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX7/yoxsm+qRuL
- 6c61LxOaGkLtcat1Q2GjBNnUqBaaAwUTlkuFysFgGLtaZhwsbxQEg6yZDt9mPLXj1aEKvyWmh6J
- tWw0iUSS9zfZQCYa8lPTB4CdhrFk5pM=
-X-Proofpoint-ORIG-GUID: gTR8OiHBpreCNrHE_902JKanZb2tV5tx
-X-Proofpoint-GUID: gTR8OiHBpreCNrHE_902JKanZb2tV5tx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0MyBTYWx0ZWRfX0RPfYjRZWTpb
- HhXbvnoseTDIn19XlZy26oQW5sWw9SPw+/AVHnAzm2OVuSo7RzSU7t5FEq3LtnZxlG0J/jd83CC
- 1H4GIL+N2p9GHcbc7y76qHXL2Y66vIXZZo6JW0GURYbBxPNR1CxGoW1C+SGT958/hJjMBpcr7Vq
- vcNL9A/yyuiD8UZ4BOi9Tm+bdMZpSB/UsoG8M86/CXo1KTc9hIucCDuIisnJN/Pp1D+KXvkxcJC
- rqRcJehvrVD5ldy28C/M2Q0eLK2tTl01XLEpCHEal31l/wkA4esM7OzP7tCjEeUrTHlENTctAYg
- yEIz4sCxXh+OMhLV2yB23TKRLFBRKE0vqSj6C/2xRIQ+U/eRXTnAVZtOwGJ1JsCRxdUhu1/JC13
- Unj+y0g3GHApmk6ZuY97QTcLwd9fGwu9eMIf2cUh4qvtfF326NmLyktMZjAHoJ/F2LEJflVbrsR
- pd2ygCts7nSBxOiaE3A==
-X-Authority-Analysis: v=2.4 cv=UOFIjyfy c=1 sm=1 tr=0 ts=6ae08408 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=bcB-52WucOyEF5bHse4A:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 adultscore=0 clxscore=1015 impostorscore=0
- spamscore=0 phishscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270043
+References: <20261027090638.900747-1-chungkai@google.com>
+In-Reply-To: <20261027090638.900747-1-chungkai@google.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 27 Oct 2026 11:59:13 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hLYKeuSHpxxRkbK07DuqOat7AuUp4nwz-1V6bgfgzWAA@mail.gmail.com>
+X-Gm-Features: AclHuK-6PhQwCZLexhvPRRxmsCpew2FxkaJtrRKhhd5Qe5oqL8T1Lz208V-yy44
+Message-ID: <CAJZ5v0hLYKeuSHpxxRkbK07DuqOat7AuUp4nwz-1V6bgfgzWAA@mail.gmail.com>
+Subject: Re: [PATCH] PM: runtime: Allocate pm_wq with WQ_HIGHPRI
+To: "Chung-Kai (Michael) Mei" <chungkai@google.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Lai Jiangshan <jiangshanlai@gmail.com>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-10-27 11:23:25, Sneh Mankad wrote:
-> On 20-10-2026 18:30, Abel Vesa wrote:
-> > On 26-10-15 15:25:22, Sneh Mankad wrote:
-> >> To make the MPM design more logical and avoid probe dependencies, the RPM
-> >> notification is managed by registering for CPU_PM notifications.
-> >>
-> >> Remove #power-domain-cells property from MPM device.
-> > 
-> > Can you elaborate a bit on how the two phrases above are related?
-> 
-> The MPM driver now supports two ways to handle sending the RPM notification,
-> either in the genPD's power_off callback as power domain provider, or within
-> the CPU_PM notification framework. Removing #power-domain-cells instructs MPM
-> driver to follow the latter path, which as explained in cover letter would
-> help avoid probe dependencies.
+On Tue, Oct 27, 2026 at 10:06=E2=80=AFAM Chung-Kai (Michael) Mei
+<chungkai@google.com> wrote:
+>
+> Asynchronous runtime PM work (pm_runtime_work()) and genpd power-off
+> work (genpd_power_off_work_fn()) run on pm_wq. While such a work item
+> executes a ->runtime_suspend() or ->runtime_resume() callback, the
+> device's runtime_status is RPM_SUSPENDING or RPM_RESUMING with
+> dev->power.lock dropped, and genpd_power_off_work_fn() holds the genpd
+> lock.
+>
+> If another task calls pm_runtime_get_sync() on the device in that
+> window, rpm_resume() sleeps on dev->power.wait_queue in
+> TASK_UNINTERRUPTIBLE until the work item completes. A wait queue has
+> no owner, so the waiter cannot lend its priority to the kworker, and
+> its latency is bounded by how quickly the pm_wq worker gets CPU time.
+> Because asynchronous runtime PM work is queued onto pm_wq by the PM
+> core, individual drivers cannot select a different workqueue.
+>
+> pm_wq workers run at nice 0 and can be kept off the CPU for a long
+> time by higher-weight CFS tasks. On an arm64 Android device whose GPU
+> driver uses runtime PM autosuspend, render threads were observed
+> blocked in rpm_resume() for 5 to 19 ms while the runtime PM callback
+> itself needed less than 60 us of CPU time. For more than 99% of that
+> time the pm_wq worker was runnable, preempted by nice -20 tasks.
 
-This should go into commit message, I think.
+Interesting.
 
-Thanks,
-Abel
+> Allocate pm_wq with WQ_HIGHPRI so that its work items are served by the
+> unbound high-priority worker pools (nice -20), like other
+> latency-sensitive kernel workqueues such as kblockd. This does not
+> change the ordering or concurrency semantics of pm_wq. It only reduces
+> the time a runtime PM transition spends waiting for CPU time, and with
+> it the latency seen by synchronous runtime PM callers.
+
+I suppose that there is a measurable performance benefit from this
+change, so it would be good to say what it is (say, an increased frame
+rate or similar).
+
+Essentially, we're talking about redistributing CPU time between
+tasks, so some tasks will get more latency as a result of this change,
+which means that it is not an obviously right thing to do.
+
+> Signed-off-by: Chung-Kai (Michael) Mei <chungkai@google.com>
+> ---
+>  kernel/power/main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/kernel/power/main.c b/kernel/power/main.c
+> index 5429e9f19b655..1e8ae76356b23 100644
+> --- a/kernel/power/main.c
+> +++ b/kernel/power/main.c
+> @@ -1125,7 +1125,7 @@ EXPORT_SYMBOL_GPL(pm_wq);
+>
+>  static int __init pm_start_workqueues(void)
+>  {
+> -       pm_wq =3D alloc_workqueue("pm", WQ_UNBOUND, 0);
+> +       pm_wq =3D alloc_workqueue("pm", WQ_UNBOUND | WQ_HIGHPRI, 0);
+>         if (!pm_wq)
+>                 return -ENOMEM;
+>
+>
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> --
+> 2.56.0.307.g5fe7bd680c-goog
+>
+>
