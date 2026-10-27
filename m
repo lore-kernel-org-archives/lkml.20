@@ -1,73 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122465;
-	b=siTa6Mqy5Juo7nlY4ynOYFtgkOUdY6zt2MalFSPDYAoO6uxy2TQbstPsMMsL2Fr+Us9Z
-	 NhZ2g9Xos2McqIZAz+AKKqR/FyeamMLKR9P3tA8pLAZYI/xnrgOfxskG7c5Oy03HmEoYD
-	 zbnb0uVzIUvwhzyPUv1kJMxB+54nsxMdzmSM8SBsHW+2yG1n6azBoZtgsHU9BxS2eFQOQ
-	 d5MT/X+D+bxj6oyptw8jXFbpQXnXy3qLPEtqum5GsFF3/klREy7JJSmyn1Dhm7y3OFuAZ
-	 Z3Ez4YM59AJpoGRmWL43glIKP9Oh6xwJcqqrw8bTbUydkR8M9fCuVOB93YuVMj2N6rg==
+	t=1793122483;
+	b=R8n/okdhOrZamoisvHHNLCfTfCDaHEGzF+NEuEmyhiyOJPNJTFVQyvHIWF9RyH9LKZ8W
+	 nJk2rCGMJyY8CWC79O06bzuZqBri7ruhz05hICXZXegz8d2cKR0xHsts+YGqqwVVUJTN4
+	 6J2erC/IJQ9gNL9ZmpKIk+R+7s2caBlE6rL2ekU97pPa30cisvo3wh4/pTy0cQAtgh58m
+	 pGvRlu7/heMXCYKMtvEHBe6xTTFJedQCQf7+o2oT8S4wPBWj+QuJUmKb9hhznHpYT+jP5
+	 iU95gtafbsKzJKvFVvsmqqRExVNEWVKbMxVwb2Oa/LSZGIz0XJubHLN0hU/msd6AmpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122465;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=COdQsqilLLQbumWXSPatN4LDhJMWTfOp2W8kqhDBWxs=;
-	b=K5yotWVMsn7QNQBSi7Nt5tQjlqVBUlXBQw59gZb9rhnfMAqcaB8NRhgWJ5x/THRJnBpO
-	 Vh8Kl2Fy25i6tBL/NtqfAXwapRzwpJy+M7JijboTyHrGYsYLsutWUzBP8shTop9UDLXHs
-	 TS3rySUNyaNpoI7XiwmLC+UjAgnNY1rZoLzIT7MRjQm/GA2t6MTMpW1e4ZAoBQFDnjAF7
-	 0YDbZ1xvMGyZKmkq/NB8QB8kIOa6crMVbVIiaWUV4Kdf2p6wSMc4IhMlOOpceTKocffr4
-	 /NpWGHlXeOU0A6SZFHTtlEvJReHWV8fnvryfTXQhDrJIbL5p4Uyb/u8tobWTt+ozf5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122483;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=RL5nAvV+62owIFVIs+XCXqF5Edzj/Uv6upiJT9ueV3s=;
+	b=SzGN3X4UgNEPPqptUgOU+JWgDvz2PqmnN4VocKJQybtvfL38tA5NqfH3nd3MPbIXQJ0c
+	 9/N1LAYk9AZPB4VPLZVXMrcomMo/9ajzUGQ5Z07IyopWqKsfACkInxOjsYCSQPzcI/L3s
+	 p6h7et9npvqKvzXp7a07Qo8yl+dkpRgA1h/Zdqtv0JIYxq85vZAauEGRpY9aqGpFuAqkl
+	 6Cqy3FOB9xPxrUSU0EJ8CAXJNMAeABpq9PT/P3/ha6Ri+q/lTmr0YSSD4blkanzeZr45b
+	 Xk3oHb8Rn7/283zHLrJl1g4OiaxaGhJoue6BFWiMyw8ywiyWOHaRCa+ZjGITjkTWIeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYN2vzKs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BlnQYmCb;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B895606A31A;
-	Tue, 27 Oct 2026 17:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D55606A31D;
+	Tue, 27 Oct 2026 17:34:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59D55606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYN2vzKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30B81F01825;
-	Tue, 27 Oct 2026 17:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793122465;
-	bh=COdQsqilLLQbumWXSPatN4LDhJMWTfOp2W8kqhDBWxs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=RYN2vzKs4ZkzsggRNOd5345Y9RmP5xJuwIVm9w6r5x3FAJg1HBumtJ7kzq7Zk2Byv
-	 NJLY3MTki5J/jgMKffKX0MJUDmrh7Mj9/0LUeDWRGFT9PKDun2MDUk4bswpvOBod5/
-	 bNYMieVVAxa9BIH2qgUZj85frA0Pfn970M2GP/0jc91EGPQZNOIAGmiPNiger8wclo
-	 ufyI4lp/osGtIkHDTUYogUM4fs20J692aYPNRbVq5x2xvqh4gPgqRcUB13BB9b5qSK
-	 oNjI1xXwG20lYigNS/pYDFW4KUWITLyuatPQ7hVvva5pYJEnM36h88Ce4pzq4aw8J6
-	 m+957JU9t5eOA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,  Gregory Price
- <gourry@gourry.net>,  Zi Yan <ziy@nvidia.com>,  Joshua Hahn
- <joshua.hahnjy@gmail.com>,  Rakie Kim <rakie.kim@sk.com>,  Ying Huang
- <ying.huang@linux.alibaba.com>,  Johannes Weiner <hannes@cmpxchg.org>,
-  Vladimir Davydov <vdavydov.dev@gmail.com>,  Michal Hocko
- <mhocko@suse.com>,  Hugh Dickins <hughd@google.com>,  Baolin Wang
- <baolin.wang@linux.alibaba.com>,  Lukas Czerner <lczerner@redhat.com>,
-  Carlos Maiolino <cmaiolino@redhat.com>,  Christian Brauner
- <brauner@kernel.org>,  Jan Kara <jack@suse.cz>,  Daniel Verkamp
- <dverkamp@chromium.org>,  Jeff Xu <jeffxu@google.com>,  Muchun Song
- <muchun.song@linux.dev>,  Oscar Salvador <osalvador@suse.de>,  David
- Stevens <stevensd@chromium.org>,  "Matthew Wilcox (Oracle)"
- <willy@infradead.org>,  William Kucharski <william.kucharski@oracle.com>,
-  Chris Li <chrisl@kernel.org>,  Kairui Song <kasong@tencent.com>,  Nhat
- Pham <nphamcs@gmail.com>,  Miaohe Lin <linmiaohe@huawei.com>,  Naoya
- Horiguchi <nao.horiguchi@gmail.com>,  linux-mm@kvack.org,
-  linux-kernel@vger.kernel.org,  Chris Mason <mason@kernel.org>,
-  stable@vger.kernel.org,  Pedro Falcato <pfalcato@suse.de>,  "Kiryl
- Shutsemau (Meta)" <kas@kernel.org>
-Subject: Re: [PATCH v2 04/14] mm/shmem: honour F_SEAL_EXEC when an ACL is set
-In-Reply-To: <20261027-fixes_shmem-v2-4-86a00952acb9@kernel.org> (David
-	Hildenbrand's message of "Tue, 27 Oct 2026 14:03:09 +0100")
-References: <20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org>
-	<20261027-fixes_shmem-v2-4-86a00952acb9@kernel.org>
-Date: Tue, 27 Oct 2026 18:34:18 +0100
-Message-ID: <2vxz7bj3oxnp.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BlnQYmCb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793122483; x=1824658483;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=kHLgkjlOKnC8Pk7wCo/Q2uvtQuBN+6AxFVEym4B5Dw0=;
+  b=BlnQYmCbfz+0ZNpEQY5bq0nd1aIV8iiKNZe4XigsCBDLA77LPI4YBNs0
+   UwJ1IKL47dM8F6lLOkWnr0sY7wLHfMMhuG8nC6tHeZuAKNxzLNSgH4ddU
+   YePj4HTUFEopL5oASD6v4dwONy1d7bJEFGpOiW70ZGqRV9m81iJsDdM/7
+   IaRlKi2kM679JeMTv/50EwHGKZXBxJ35brTGp/glW6ZMwjIVnMd1Fxxne
+   UqMoT0lEgTWw1po/Stdpeb8kh0F6wC1K6kVNEPFGxqouhloDkbfer/1CW
+   B6Xt5BAOSBP7xI5ELgRhNK7kjnNc/GPP2QbXIVOJlLGpXxfTu4bbLpzbx
+   A==;
+X-CSE-ConnectionGUID: 2aXUUHMgSIOjxzlrpoFYsA==
+X-CSE-MsgGUID: FXn0Bi46R1G4tjOTrXfr1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1853195"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1853195"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:34:42 -0700
+X-CSE-ConnectionGUID: F+jlp1g6T7qTOQGsG/2uaQ==
+X-CSE-MsgGUID: gRX4KuODSuWNhzK92qbOcg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="4968617"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:34:40 -0700
+Date: Tue, 27 Oct 2026 19:34:37 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] media: atomisp: queue: move circbuf types and
+ helpers to queue_comm.h
+Message-ID: <auDgrXiArqLC99Vb@ashevche-desk.local>
+References: <20261027120341.2305533-1-vladurares@gmail.com>
+ <20261027120341.2305533-5-vladurares@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,39 +86,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261027120341.2305533-5-vladurares@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 27 2026, David Hildenbrand (Arm) wrote:
+On Tue, Oct 27, 2026 at 12:03:39PM +0000, Rareș-Mihai Vladu wrote:
+> The remote queue code only needs the circbuf descriptor and element
+> layouts plus five small descriptor helpers from the circbuf library.
+> Move them into ia_css_queue_comm.h and include that header instead of
+> the circbuf ones.
+> 
+> The descriptor and element layouts are shared with the SP firmware and
+> are moved unchanged, including their static_asserts.
+> 
+> While at it, drop the OP___assert() NULL checks from the moved helpers,
+> as every caller passes the address of a local variable, and convert the
+> moved code to the kernel u8/u32 types and the usual function
+> declaration style.
 
-> From: Chris Mason <mason@kernel.org>
->
-> The owner of a memfd sealed with F_SEAL_EXEC can still change its
-> execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-> this lets an unprivileged owner make a non-executable memfd executable,
-> bypassing vm.memfd_noexec=2.
->
-> simple_set_acl() updates i_mode directly, bypassing the seal check in
-> shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-> the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-> in include/linux/memfd.h.
->
-> Fix generated by an LLM and sent by Chris Mason in private.
->
-> Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> Acked-by: Pedro Falcato <pfalcato@suse.de>
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Acked-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> [ david: use common helper; simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Yep, good one
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-
-[...]
+Next step (after this series lands) is to move from this implementation of
+the circular buffer to kFIFO or circbuf from kernel APIs.
 
 -- 
-Regards,
-Pratyush Yadav
+With Best Regards,
+Andy Shevchenko
+
+
