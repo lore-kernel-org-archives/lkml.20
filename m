@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119663;
-	b=v+OgzrE8pw3v+/fFiMTgRNwcWho9822w5AjBfb8+RU3BmqXCnmlp8XK8qCjufy9ePvN/
-	 fNx5eji5jbDhE7pi6eez5ioz0q8NBXfi2+ZW5/shgEn1YhEBCqiOkeePnKZalbPbrDtXk
-	 9ETgtBHnwG4r7+yGyWEVMoTlSYehfnv1wREJr3VcTU1Di+ZHX3hNvzlT8fyJ7mLA1yEVt
-	 UnKCyZE0nppq3/aS8ym/YDXffDnnssRJvJjrJwCO6WaPQra1U+adFakc3sh1w6LE9IiuQ
-	 dDIHjIqYIBGszRyVsOWZJWExNBHfbZ7k94ONAeRK04WAHZsD8kmDkVrDqPM0Hzcz4AQ==
+	t=1793119759;
+	b=10UB3+ZQJioiqq7vted8smhu6RHXC+lBZ3cRAkDUJ9DQrHW8gDItBcUnU9vHdrK7M+DY
+	 XaHnVgeSonHRiX3ZbHYKmj7n6mbRfqpW5DFB4iXujufN7EU07uX24aYVkcnCAozP/cfkA
+	 92hIbJKujKj41n81mo6og2chADohpDvUpzuAxlN/Nx17r8dgyJipvVDMb94A6eoiN70Jo
+	 xwGjeicBwuCEzcm1NlDuI4Sxxc47j660swzeANl/l/qctWWADndJhgb5HT8Js5eCizmmu
+	 fIae92RWjOZh8u2ExuSHaSGLkG8v9zAxWUCGhyJKyEAUw8uMwytKnsVDJb226KaDoHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119663;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0sC005GcKM377GTiHOuPAcvdGYQ3vuMZ7FcYBR6FIjo=;
-	b=33bfgpuxjL0BqcXcuagXTN0p7nwbho2y+L5ae/24GQmgSjYobnHu4yLb/iRjDqFH8SNp
-	 mRC8Nrt87d/PLIbBCYzCzy38NwcnO0xJz2OhjXb4gT4d6TEtktVNgALdRUDSc2jBw003a
-	 SuBZp2alCLmOUqjzaDXqTsR2qMYwTw9FlQhO+02DcXXboFpVVBaERbD1U6P3Ida33Cj8V
-	 MaNr+0B/AxwvENf9k7fROA44JUudAUAU+CS4RlifkQ2YnmBAM5vd9gb7i+Ty9fcIoEPZo
-	 Gy5ZU7cj1Feu1aiG15UPhvVacEfH4XhC0yqANLUGEH1cSKVfTQMDUGkEGO61VeRY68w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119759;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=5h6BBHIqEoVlVYK9N7Wra3yA9g0iuse1t0EMDjWEH9Y=;
+	b=Tx0PKp7OZeO8+wbdPq+eAIlp5FCSkoEh5uH5N55cYmLRNMZ1rUD12N7Y4glymIMYXqBG
+	 XmsX8ITezdQGn+FXp2fdGaRky8SVfV+HMYKzT5PjrNWw+bsZaq43xZInSq/J4MJQ53o6T
+	 kxx6kY8MF/nJEZMVG5ZPLlgWmc2GLVxu0FjaCpRgFJMRL12V4ia8TSuhdNTArZdkYljBp
+	 k9XeUae5PCA3S1IK0aua1l8do1bR9d7MLvjWdupU0B8vjnWs/Nt0zdErRtcG9tL0lkMKu
+	 wP0Bb+FeTH8CjhYyrbA2Pmj9P/rOwgR51aByuaQq3rSv6MgH5uMuFSusgoeIWZS2nRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WAxGp9zl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="UB/oMyps";
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA76606A322;
-	Tue, 27 Oct 2026 16:47:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2120C606A31D
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 16:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2120C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WAxGp9zl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA2041F01825;
-	Tue, 27 Oct 2026 16:47:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793119663;
-	bh=0sC005GcKM377GTiHOuPAcvdGYQ3vuMZ7FcYBR6FIjo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WAxGp9zlDcVvkx1U+jPVffH/pA34ZBzW59aj/Lg/rqqV4wApXEGwzq565lRGDz2qS
-	 yyt2CbbYFgo6a52mmLoSV6w2KhQL5UWkkMJTjrzU6HHJFRyzwgC0CZZFSsWk89Y4KD
-	 VmyzSbFIdqjPdLyO5f/n/GN9cBrMfTE6AhWqHfYJ7HYRFiw7ybdj4/XQ1yj8z3GuUI
-	 OPGH6T58iz6Bf5yLddiU9bRhNdQbjlGKwERk2emTiyD+ix7wXIICHvxMQDuN2/6qW7
-	 ccFsYUvimDIKigvulLjVF/cyN/+CZVUEB68OUqb31XM13d8XFHKcxO/RbLJViumVuz
-	 /DGGSF7OmgEqw==
-Date: Tue, 27 Oct 2026 16:47:39 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, linux-acpi@vger.kernel.org,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	stable@vger.kernel.org,
-	Michael van der Westhuizen <rmikey@meta.com>
-Subject: Re: [PATCH] mailbox: pcc: Complete the transfer when the platform
- flags an error
-Message-ID: <20261027-impartial-nano-sheep-5ccf53@sudeepholla>
-References: <20261027-pcc_error_txdone-v1-1-2f8cfbb36d90@debian.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UB/oMyps
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so382755e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:49:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793119757; x=1793724557; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5h6BBHIqEoVlVYK9N7Wra3yA9g0iuse1t0EMDjWEH9Y=;
+        b=UB/oMypslgUErxwg+EMLW4/2jYT75wR8k/sQ4y9j1+chvoi+4sXibjHZc+ZP4FCwhe
+         EejVkr5Nn4OLNRcDUXAzlOSyqyz7ZB6b5iv7fHyXL0ukmPozJ+GXBP2KYx4mAivO3OC6
+         32azoh58l973/j9LYPpQdWo5fp1zMXjQxiIZnEQ6wFSd7uWecaZUrfYFLMDKLG6n8Zkt
+         fzMjo6UxS/QOpKEn74pb1rGJkwe4UQmz96kG13Sg8JNrTawgIUJDhssCDdWI5pV+GK6l
+         om7SbkfCCjv9NUI2POcmovIopR9MmKLLdAqeu4UwUaKNUqcOrmnSNRXWHeT4zDk5Etje
+         9qqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793119757; x=1793724557;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5h6BBHIqEoVlVYK9N7Wra3yA9g0iuse1t0EMDjWEH9Y=;
+        b=BTm6L0DBf331L5fDoe9nNH4R6MwM8R2/ZBRGABDoadsfWuLpWIiMLpbMsSTLDxRywW
+         nsabdmWyl34gVVnb4PkY/w3LkaTwvOpmEulWi09dZMfQryFYFgOXZWSPsiOD8K0bTchT
+         mbG1B4zT9tgHy6RIXEOm0KOEJtmZMPtv80z3COJIQ2HigFeAwuPCn6SQk9qDZCCqoCH9
+         lb4g9gK8taHLtWRi8QIzQzePLPSd++qyopJbdkPzjEqMVFo/B5Y29VwM5gH6ccR0xH/z
+         9V/qLY0V1dTEv0jBhN5A9Wn255imJyGWcc+0wS5mhihrfHV+AZbP4DFzXOaEN9jgVtBu
+         s8RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyCuxu65YEyZRJPDILheYJtRzRut0b3emdnsEzByBz0jY0ZBDrTAnLtMGh1D8qdiM7pzf1y1PMO9NGDLk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ80PkFaKZhw1iYuE5KwS6+fZx29eQsXkWNbmpxN7sVPEhHO4IV
+	hU2MLlm4cRl0zsICFm1N4hNueaB8gTwW5Mpb6TPOqBPF77Dg5qpOWTvJ
+X-Gm-Gg: AYBFou1qzeK2OxrAYTkJvEKyM7efgaXPh9bQL+YzZQFueZ+zQ4fGvHh5UikVYr84KIn
+	Q0Zkj/2o4JL1wq30D4hCVz2Zmmqm3DteDqNW6MYKg3x8zLDSLwJjen/io0lVNFFivouctxvlv0Z
+	MoY2mN72puITe8lk/Y+HB8H5eZMMsHsl/lTAY9Xu24N0jEcuiKZyq2gnQmoJfgVSyzNhyeMupyw
+	dkJDByvMhLJUS1z4vM5BL3XF2HVd8PFGDmzwcl8ee4d36T0ya2cDqVPLIWCbaD0l4YVp+jhKzK1
+	0rtHUk1H7YyN/GiR+SzxQCqR27N4gNxmnSlJSa4ThXFBNI3kbU/cAC5ulXj+LlYpo/tZwj3yzxI
+	/CtWvJ8olnYzwQwn3pBBQSpKBTcjmIobtVw/cpPoNBsWfonXt3XqzDTMAuLBsp3u5w8g1kJN0mi
+	RTVXK4jo/Rc9iTaXJ/8uZXG+EnT3T6pAp68eHW/zRx4WyssbS48GviT64oUElcPFM8foK9ZEDM0
+	A2zn1Hn8qvVcBGjvRNrJv/lSSB0QzwybVDR00oX+9hdpA2cAbems9IXlCRvYBJ+hY1xoAsJntLU
+	ir0v3VFpheums/S4Cg==
+X-Received: by 2002:a05:600c:19d4:b0:4a2:18d4:f9e0 with SMTP id 5b1f17b1804b1-4a35acbbcaamr198161485e9.25.1793119757306;
+        Tue, 27 Oct 2026 09:49:17 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48e0sm24388392f8f.38.2026.10.27.09.49.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 09:49:16 -0700 (PDT)
+Date: Tue, 27 Oct 2026 16:49:11 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Reid Downing <skibletz@gmail.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Darrick J . Wong" <djwong@kernel.org>, Eric
+ Sandeen <sandeen@redhat.com>, Christoph Hellwig <hch@lst.de>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] xfs: fix wrong compat fields in
+ xfs_ioctl32_bstat_copyin()
+Message-ID: <20261027164911.578ef6e7@pumpkin>
+In-Reply-To: <20261027161748.2760321-1-skibletz@gmail.com>
+References: <20261027161748.2760321-1-skibletz@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,95 +101,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027-pcc_error_txdone-v1-1-2f8cfbb36d90@debian.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 08:19:14AM -0700, Breno Leitao wrote:
-> A single error reported by the platform stops all later traffic on a
-> PCC channel whose client relies on the controller to complete
-> transfers, such as the SCMI PCC transport. Every later request on the
-> channel times out.
-> 
-> When the platform completes a command and sets a bit in the Error
-> Status register, pcc_mbox_irq() acks the platform interrupt, clears the
-> error and returns IRQ_NONE without calling mbox_chan_txdone().
-> 
-> No other interrupt arrives for that transfer, so the mailbox core keeps
-> it as the active request and holds back every later message.
-> 
-> The chan_in_use flag also stays set, so on a shared interrupt line the
-> next interrupt raised for another subspace passes the checks in
-> pcc_mbox_irq(), since Command Complete is still set, and runs the
-> success path on the failed transfer.
-> 
-> Log the error and complete the transfer with -EIO instead, clearing
-> chan_in_use first as the success path does. Skip
-> mbox_chan_received_data(), as the shared memory holds no valid response.
-> Use -EIO rather than the helper's return value, which is a positive
-> acpi_status when the register read fails.
-> 
-> Clients that wait for the rx callback still time out on the failed
-> transfer, but the channel works again afterwards.
-> 
+On Tue, 27 Oct 2026 12:17:48 -0400
+Reid Downing <skibletz@gmail.com> wrote:
 
-Nice, finally good to see this driver and various error paths being tested
-on real platforms. Thanks for finding the issues and the fix.
+> bs_blocks and bs_xflags were both read from bstat32->bs_size.
+> Read each one from its own field instead.
 
-> Fixes: 9c753f7c953c ("mailbox: pcc: Mark Tx as complete in PCC IRQ handler")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Michael van der Westhuizen <rmikey@meta.com>
-> Signed-off-by: Breno Leitao <leitao@debian.org>
+It would be much better to do a single copy_from_user() of the entire
+compat structure and copy the fields to the standard one.
+
+The function would need to be 'noinline_for_stack'.
+
+David
+ 
+> 
+> Fixes: e94fc4a43e5c39 ("[XFS] Add compat handlers for swapext ioctl")
+> Cc: <stable@vger.kernel.org> # v2.6.29
+> Signed-off-by: Reid Downing <skibletz@gmail.com>
 > ---
->  drivers/mailbox/pcc.c | 17 +++++++++++++++--
->  1 file changed, 15 insertions(+), 2 deletions(-)
+> v2:
+>  - Also fix bs_blocks (spotted by Eric Sandeen)
 > 
-> diff --git a/drivers/mailbox/pcc.c b/drivers/mailbox/pcc.c
-> index 14dc4a187bfc67..e5df604b367a4a 100644
-> --- a/drivers/mailbox/pcc.c
-> +++ b/drivers/mailbox/pcc.c
-> @@ -315,6 +315,7 @@ static irqreturn_t pcc_mbox_irq(int irq, void *p)
->  {
->  	struct pcc_chan_info *pchan;
->  	struct mbox_chan *chan = p;
-> +	int ret;
->  
->  	pchan = chan->con_priv;
->  
-> @@ -333,8 +334,20 @@ static irqreturn_t pcc_mbox_irq(int irq, void *p)
->  	if (!pcc_mbox_cmd_complete_check(pchan))
->  		return IRQ_NONE;
->  
-> -	if (pcc_mbox_error_check_and_clear(pchan))
-> -		return IRQ_NONE;
-> +	ret = pcc_mbox_error_check_and_clear(pchan);
-> +	if (ret) {
-> +		/*
-> +		 * No other interrupt arrives for this transfer, so complete
-> +		 * it here or the channel stalls. Skip the rx callback, as the
-> +		 * shared memory holds no valid response.
-> +		 */
-> +		dev_err_ratelimited(chan->mbox->dev,
-> +				    "PCC subspace %td: transfer error %d\n",
-> +				    pchan - chan_info, ret);
-> +		WRITE_ONCE(pchan->chan_in_use, false);
-> +		mbox_chan_txdone(chan, -EIO);
-> +		return IRQ_HANDLED;
+>  fs/xfs/xfs_ioctl32.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/xfs/xfs_ioctl32.c b/fs/xfs/xfs_ioctl32.c
+> index f6875a2cc70..77bc936bf0d 100644
+> --- a/fs/xfs/xfs_ioctl32.c
+> +++ b/fs/xfs/xfs_ioctl32.c
+> @@ -143,8 +143,8 @@ xfs_ioctl32_bstat_copyin(
+>  	    xfs_ioctl32_bstime_copyin(&bstat->bs_atime, &bstat32->bs_atime) ||
+>  	    xfs_ioctl32_bstime_copyin(&bstat->bs_mtime, &bstat32->bs_mtime) ||
+>  	    xfs_ioctl32_bstime_copyin(&bstat->bs_ctime, &bstat32->bs_ctime) ||
+> -	    get_user(bstat->bs_blocks,	&bstat32->bs_size)	||
+> -	    get_user(bstat->bs_xflags,	&bstat32->bs_size)	||
+> +	    get_user(bstat->bs_blocks,	&bstat32->bs_blocks)	||
+> +	    get_user(bstat->bs_xflags,	&bstat32->bs_xflags)	||
+>  	    get_user(bstat->bs_extsize,	&bstat32->bs_extsize)	||
+>  	    get_user(bstat->bs_extents,	&bstat32->bs_extents)	||
+>  	    get_user(bstat->bs_gen,	&bstat32->bs_gen)	||
 
-Since we are returning IRQ_HANDLED, can we merge this path with the code
-below ?
-
-	if (ret)
-		dev_err_...
-
-	..
-	if(!ret)
-		mbox_chan_received_data();
-
-That should work right ? The reason I prefer this way is the comment for
-WRITE_ONCE() applies above as well. Instead we can reuse the path. Let me
-know what you think.
-
--- 
-Regards,
-Sudeep
