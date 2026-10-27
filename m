@@ -1,80 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793093762;
-	b=ONc6FuYi0ihk78KtJXTbFPvnmZWH0NztwFDGQrAVvom4k72n5e0BhJr+5wCdv4O1cmd/
-	 OgkkQSB11/JfkAQdQwhz9VUXQ6rvFX8Oa/07AicVv3uc2vXB4NakPSVtMb9FQYuZ5U9wG
-	 rKjJR8e1oNmUc3EuxT4qTfvj7OBEgOwFXurbAfVHTY0XKPBVPGQO+nWSO3S9msR3FPVqU
-	 rYLbLhnwsfez7dzVTRa1XPbUKOsvLeCwLf4cxb5b0+tDk5dcCfEgaHNKuqgeJdqClrDPa
-	 ipTG/rEWnS1QraH35OLeXbTmjJQjYmKRaCOvFf4bMGMdZ0l5/kg+QzJgS1fPTxxt/mw==
+	t=1793093766;
+	b=UVubq+IXG10QhUXN2SZIDBCNO6gFXctnZKv1Y9YfiGVmOxd8NZHyyOlwxjcS3HeX4PQF
+	 2al/YZ/krKwjhXIGfSFZwAjaF794YnSZaic7JMIWCTAJYdAulssCzC37SGpih/DAzejXc
+	 o+ZejpD4VWtafdojmBsZuRO4kji5JaSFUFB9dPbH5+QeSAXzYKrV+Q94KFJDkvvSHO4Bs
+	 Gr/JhKMPJbS2vY42/BCciAvGHdXMJAPeL6gYN9su2VI8yut6I/+JAdm9QmWXFtn72BgeJ
+	 5PM8z5zlNfgSEAGQTDpA2bZ6z9KugjuKoKYHCiBU+pUgMugXEYl7xQOaDGyMYgW5Ezg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793093762;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1spmQh6Yas3J35bB8ukAmcYtaU7xe/o+5I9/z5JDLPQ=;
-	b=0FbEM3jiZw46MfzEW48L1/0XrnBWVrHUdxJAuh7kFO7UuFDnJ4eewV4t+EB3rwSpye6X
-	 UIDK427Wr2bl7u5cTEBc/qq4nhovEwz5G87LQEm9X/j6hGxQeU0PnYfGBvJZRjJ8VMrI8
-	 VeMnaJK453xQHl8tlGJtpkFhIuFO6XJ9vkEsUpzNNk5nuH0IQOrftFXfcBsVjxNwfb6Ye
-	 AV/gsg+Wd3qgKFtqfq86lDEqlFui0EAkYnp/6umHZRgRP3x/e5+N4F+kjv7L54KE71WGM
-	 Um3jghmoQzyt+oFK8CMUNo57D8qwSsFtQijoAfVh6nIMAsnd6jGTE9gYyIqjWmNTBWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793093766;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=eChYoPgAoD06rBVRMqY7u08BQIP93TXsZv72QlEi7AQ=;
+	b=IbhO5uZOZfffA4r3NmXTyWud17tuaQQKoJIM6gER4PmOYDOgeSl6jBxVKPqT9Poh8kEb
+	 uxu/6BmG3TRfJdoivhxSkWj4B5eV7ivlv13zhGj4MIQFi+70Jw3ZNpBQYK1iQeAluzFJP
+	 CXUbzT7RABIM+ZNVGb/PzY2P55dt0x9TgKX4wmhzFcoZCcq0uxjk93/xwu1cIt6COn3RU
+	 kUeJO0jx79+aKXl5CNm1Jbm64c69G6Vq38v1AmzPkrt/IEqqJT3HykfiIviRTWFOA972H
+	 htCu3clGB5lDh5BKXrv8XU8d0RwxOBwsUf4e5A6KYFq9Fn2kWcrlodRkMBOAQkhEI7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KVLWWmBy;
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDWkYks2;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6776D60A260A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70D860A2602
 	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 09:36:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6776D60A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C70D860A2602
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=KVLWWmBy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793093757; bh=1spmQh6Yas3J35bB8ukAmcYtaU7xe/o+5I9/z5JDLPQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KVLWWmByPH1N62sYMLGvLCuuzICgz1s4i93QTcFoId1xWQgcmzPRdKWsy8QuiAUWw
-	 qvpY5AHHKB72U46YmZq7LtDp2gslf36YzvnQVqO1RKO+UpmsnJ0nPnNBf8gkPV0Qmq
-	 aRjBvUedtRfxyex+upFmGzINR4GKry5mNKTThum0=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:2e7f:4b13:c1e3:e391])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 8F4896E6; Tue, 27 Oct 2026 17:35:52 +0800
-X-QQ-mid: xmsmtpt1793093755teyezy5xc
-Message-ID: <tencent_E33FE1732968D0AADAB39548E7D2F3C4F705@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9X/5dyikJ+7sWqlg38ClHbmTIf3/OEaibk1PBYUE1+7bOWJI8MqS
-	 yOw21MgyGtR/T1/M00FdcaLjRFIHtRLrGdsStE1MZXbWVnfA43kUZwjad49DdiM6PIV8WMVPs808
-	 yvLzFr2I9MGNly3t31BlkbnqOQ1FsDzry6E/8CvBg/muodmmleWxx5YUHx/bnh4kncgdwddw3dGL
-	 hJpFkYdgVpjd+XJ+VRhLEZc6xpNKTtMx8nhmJkOpWwZjbAol/e2b5HUGz6CPVTjwBTEqh8pSFYkk
-	 RfRVjBtl9aGcVm6R32PRKKTzL7G0/VPj3QPtIGotfIdHcfN4NQL+D1YAlYzB4ySywUXbzxa2QjXt
-	 STClbe11vJhXMxZDx9XAtkFpr8NY8oAW+hAzt/2Y2PSfuMuMd9MPEAwA9B9D9yI6iD5sdx0xa+b4
-	 CXcBfJro0Rj8krz0Oik9xjFyEh4987OoD9FjsljDAtjOOs7ue7iwOPZi5uBeX+scRLn1aZbOGB+1
-	 mbJyyzj7Xo9iO7oKjW0Jn4nQVJv9ZU02WJwekrNhSjls0GNAgOjWDuhMiV6sLYLQw17hZZQkQIgA
-	 XeQVJp8Er4MvM6BTBcVEwb9L+07Z0VFjxc/A6ulBIuPLMicg+7R+eU6A6lh1AAi01o5C4sbmBTYm
-	 xQZ0UpoEbTbwF1lK5Nd/VJAfHL5mW6Pzqao6bgJagJErVODcS2ZG9O5wvZQAplcoSHmGnFmeJ28y
-	 17Dfa4e8Uogm+Xca9SVNhmCI8EiG9+ARXdQQQqpoM7FRrQI4evgTZj0dGtUEp7cWrnlur02Y1g49
-	 FcZhgwU9x2mfYBAga3iQtHxmUnkN/k/t/E1Efr/OxfcTsriAMTmsTWW/QSq24CCf9RhKS8X/z1Ju
-	 Pwq4aMI7XfAkWaZttrPpBp5R1LOUyIDDpQapej+aW7DsroGuFKo8K4TK3JpG2G0SmmMHzZQER08Q
-	 3DaHrEDR4RqQ2T6ww5uD0/AWXIUUD9ZIocp4MOpBPsot5pGPcXB5PVNuN7y0KfuK45rv9kwwHtbN
-	 w5PfLLAlHoqL8nJEkkKTUhoKrSYvofmmLiMxbSpjNaifLykZkqzUNt+1fvA28=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Yingjie Wang <1075151112@qq.com>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] nvme-tcp: validate the TLS handshake timeout
-Date: Tue, 27 Oct 2026 17:35:52 +0800
-X-OQ-MSGID: <20261027093552.3934437-3-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261027093552.3934437-1-1075151112@qq.com>
-References: <20261027093552.3934437-1-1075151112@qq.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NDWkYks2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=eC
+	hYoPgAoD06rBVRMqY7u08BQIP93TXsZv72QlEi7AQ=; b=NDWkYks2gL8r038Z8r
+	tB9sJGQIePv6PMo2uRlA9/XkAYRQWebub5TtOmKrq8/Qmabdz61P/xaL0n0Tv6yK
+	loZPWTcBiN5x5pRUw5rUT5p769m+qJqwMMUfFllhhVak5m2WSKDmD+95U39p+NTQ
+	8IcHr+GGN++fSDawGDuJbAKoc=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD33xFVcOBqdMGFDQ--.18497S5;
+	Tue, 27 Oct 2026 17:35:20 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xuewen Wang <wangxuewen@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v1 3/5] ntfs: initialize packed EA size when creating hard links
+Date: Tue, 27 Oct 2026 17:35:13 +0800
+Message-ID: <20261027093515.344799-4-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261027093515.344799-1-liubaolin12138@163.com>
+References: <20261027093515.344799-1-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,90 +66,63 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD33xFVcOBqdMGFDQ--.18497S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar4xtF1DAFyrKF1xWF18AFb_yoW8Cw4kpF
+	Z3KFyfKa17Jryakas3trW2va1Sv3yfCF1UGrsIgr12y3ZYq3Z0ga48KFyYv3s3trW8u34j
+	qr45t3y7Wry5Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jLXocUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hgFz2rgcFi-2gAA3-
 
-tls_handshake_timeout is writable but stored as a signed int. Multiplying
-the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-With HZ=1000, setting it to 2147484 overflows both multiplications. If
-the handshake request is accepted and its completion remains pending,
-schedule_timeout() reports a wrong timeout value with a stack dump and
-returns zero. The handshake then fails immediately with -ETIMEDOUT, while
-the handshake agent was given about 24.9 days. Negative values such as -1
-have the same kernel-side effect.
+A new hard link has a zero packed EA size in its FILE_NAME even when
+the source file already has extended attributes.
 
-Store the parameter as an unsigned int and reject values that cannot be
-represented both by tls_handshake_args::ta_timeout_ms and by a safe
-jiffies delay. Take one snapshot so a concurrent parameter update cannot
-give the handshake agent and completion wait different timeouts.
+For files with EAs and no reparse point, read EA_INFORMATION and check
+its attribute length before adding the name. Copy its ea_length into
+the new FILE_NAME's packed_ea_size. Skip this assignment for reparse
+points, where the same storage holds the reparse-point tag.
 
-Negative and oversized values now fail with -EINVAL. Keep zero valid,
-preserving the existing immediate-timeout behavior.
-
-Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
+Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
 ---
- drivers/nvme/host/tcp.c | 25 +++++++++++++++++++++----
- 1 file changed, 21 insertions(+), 4 deletions(-)
+Tested with the complete five-patch series in QEMU. Published an
+O_TMPFILE after inheriting an access ACL and setting a 12000-byte EA.
+Offline ntfsinfo inspection confirms that the FILE_NAME attribute in
+the file's MFT record has the same packed EA length as EA_INFORMATION
+(12134 bytes). The 12000-byte EA contents also match after cache eviction,
+remount and a fresh boot.
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index f876375dffd21..ac76d333ddceb 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -6,6 +6,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- #include <linux/module.h>
- #include <linux/init.h>
-+#include <linux/jiffies.h>
- #include <linux/slab.h>
- #include <linux/async.h>
- #include <linux/err.h>
-@@ -48,9 +49,24 @@ MODULE_PARM_DESC(wq_unbound, "Use unbound workqueue for nvme-tcp IO context (def
- /*
-  * TLS handshake timeout
-  */
--static int tls_handshake_timeout = 10;
-+static unsigned int tls_handshake_timeout = 10;
- #ifdef CONFIG_NVME_TCP_TLS
--module_param(tls_handshake_timeout, int, 0644);
-+static int tls_handshake_timeout_set(const char *val,
-+				     const struct kernel_param *kp)
-+{
-+	return param_set_uint_minmax(val, kp, 0,
-+		min_t(unsigned long, UINT_MAX / MSEC_PER_SEC,
-+		      MAX_JIFFY_OFFSET / HZ));
-+}
-+
-+static const struct kernel_param_ops tls_handshake_timeout_ops = {
-+	.set = tls_handshake_timeout_set,
-+	.get = param_get_uint,
-+};
-+
-+module_param_cb(tls_handshake_timeout, &tls_handshake_timeout_ops,
-+		&tls_handshake_timeout, 0644);
-+__MODULE_PARM_TYPE(tls_handshake_timeout, "uint");
- MODULE_PARM_DESC(tls_handshake_timeout,
- 		 "nvme TLS handshake timeout in seconds (default 10)");
- #endif
-@@ -1800,7 +1816,8 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	int qid = nvme_tcp_queue_id(queue);
- 	int ret;
- 	struct tls_handshake_args args;
--	unsigned long tmo = tls_handshake_timeout * HZ;
-+	unsigned int timeout = READ_ONCE(tls_handshake_timeout);
-+	unsigned long tmo = (unsigned long)timeout * HZ;
- 	key_serial_t keyring = nvme_keyring_id();
+ fs/ntfs/namei.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index 4442e1d..b26fd9c 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -1316,6 +1316,24 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+ 	fn->last_access_time = utc2ntfs(inode_get_atime(vi));
+ 	memcpy(fn->file_name, name, name_len * sizeof(__le16));
  
- 	dev_dbg(nctrl->device, "queue %d: start TLS with key %x\n",
-@@ -1814,7 +1831,7 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	if (nctrl->opts->keyring)
- 		keyring = key_serial(nctrl->opts->keyring);
- 	args.ta_keyring = keyring;
--	args.ta_timeout_ms = tls_handshake_timeout * 1000;
-+	args.ta_timeout_ms = timeout * MSEC_PER_SEC;
- 	queue->tls_err = -EOPNOTSUPP;
- 	init_completion(&queue->tls_complete);
- 	ret = tls_client_hello_psk(&args, GFP_KERNEL);
--- 
-2.43.0
++	if (NInoHasEA(ni) && !(ni->flags & FILE_ATTR_REPARSE_POINT)) {
++		struct ea_information *info;
++		s64 size;
++
++		info = ntfs_attr_readall(ni, AT_EA_INFORMATION, AT_UNNAMED, 0, &size);
++		if (IS_ERR(info)) {
++			err = PTR_ERR(info);
++			goto err_out;
++		}
++		if (size != sizeof(*info))
++			err = -EUCLEAN;
++		else
++			fn->type.ea.packed_ea_size = info->ea_length;
++		kvfree(info);
++		if (err)
++			goto err_out;
++	}
++
+ 	/* Add FILE_NAME attribute to index. */
+ 	err = ntfs_index_add_filename(dir_ni, fn, MK_MREF(ni->mft_no,
+ 					le16_to_cpu(ni_mrec->sequence_number)));
 
