@@ -1,111 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793103306;
-	b=IoRZwOOPQnUMfRGlY5cKSn6p2DUpaHZww7tsCnXtUa4xZFMFOKHruWy42MuxqHcKKidD
-	 TGCqIM49w9LSxONiefFyuQvkpjp0sVyR1EZQ7EV8+lY773xHfUvXAR6/oOk/FCWSB7S2T
-	 8iqmZF4Upe98+Ssk5T9QvyVx5Oj8RbX8T/TAM2YR/S3QJnGReKNC7HqaO+Hvb+xJgv0Jw
-	 cAfFAtuD6MM78Wukx/dmkZiYxOCojB0pF5z9wr83UwaKcDzxJDHZCtgf8+1W1AQtVy0dx
-	 Tvl+sETJ4PuBs3cn1eqUdgnBWdeabCoxjqjEJBbiwY1eOy1mFb2rQU5hHxlhh7KK3bA==
+	t=1793103303;
+	b=o1T50j58EHd2POJjAHB+19HA5MR/1juY5fgrJ6mM53CIj28knyCmLilTz4s1gh75VLzq
+	 PSx0ZYrevZaFZekz0jQLCcBQuWX/vtwU5jat3R9ontrJUwjaDe8vWE4vzTjo7P12WTWbe
+	 rmISkZreWvKz9LvJ9Zzby6zY/XQko3fg9tnXOpYp7aFvKkiKsdkKpaao+zPxxmZVKUjKf
+	 597Sif2KpDbc9J7/+1AxMnGgxoSK3x6ParpSaBP351zhbfF/RDmPpjuas7egB/HmLW5/Y
+	 cXOovcU4nrU13o7wsN3b9YN1bwDb3g6yIN7vZdRdZZcI20zg45RiPhOCan3cVA3/6nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793103306;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=rykTonyFAeLEAfuBPMPvdjyS9K7dIu+izpb6Sdbdk18=;
-	b=sNbHH4xFl7TUCwAbCItsI5AAGakxkaae4IFpS7PpMD3dMYTPDeBifUc/dPfVs4vAFMQM
-	 IpRijJBwMUk+QCsXg0H/KupIrdP0wl8HKNYfPmPkD7us1Xpr+M0ZdehtwPeUQuU+cRtBo
-	 11EXEl+y3x22lHQlb8OrRzqVt5mvW9BCHqwWFU0tJtHT4XeySiOJ7ODbBc+8Ql6OkR1AM
-	 C/HkHrJrEZ3i7WkXRZAxBrVtE5iTN3U0eD2xadQE6PEKKTTvGwK80jl8mdRC8YQ+4ETmy
-	 FPrS6xMUpmCV5FEONkq/aVgbUb1GCPWPlsdcjmEnndM+HEQO69Xtl8K43+Oady9bbgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793103303;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1s6Zqp4u3sfnKK/Y6nM0BOKcsidnRWEc87L5yFDAZSw=;
+	b=bvVphevqqt+9ICyZoW6UxTXzlmDwX0SJzTumYzMeo+Yc0g84DHq5ai5qb7zZfT0dCy1L
+	 6zQJsdVoBnqI7wkdnT82smUgXT6+GyOS6MGYb4i4W75c0J++rFIoobbjCAu3x2osKfsns
+	 60sA+qE6iwV+5h2hAh6ji34Fn2v/NyBBiOZer16m4kCBj0IhE4MJGXh0yrThQ4bQkA4YC
+	 HsXrusLOA/yarxFap0gvXh0V6SfpiHDbNrNUmxoFICi/Ox2G4A7Fy8xO8GgauQGRgY2RJ
+	 qLBy/997vyoGn+zc32YzrpfdUeQcwkoOsPP+1ZznTtVNPEqVMpweiJ1iEdTgmYdSmRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iwgWJcIC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=earvUgEV;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=C0vzaMxq;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D91960A6F4E
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D91960A6F4E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C54606A330
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:15:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75C54606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iwgWJcIC;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=earvUgEV
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAe3X2432382
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:15:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rykTonyFAeLEAfuBPMPvdjyS9K7dIu+izpb6Sdbdk18=; b=iwgWJcICdcc6gV3A
-	qe0suHdChWmHmOKJsdg1kL1rZzjhWhOVWIGk9E6CtdYtKM35tb5ZgwZhL8sLnpID
-	RfEnkAUttShz5+WVJ11jDGTgVP2LyGM+FxxxhKTnLK5g3PONLtzL/sAOu4izbKHc
-	NGwAiq3tEy4lG8Ch5K+vxfaCTQVLl5fNwFGZx9IysMNinK/hI+tGYo8w5Q/wLzYK
-	FTKLGf0FAdxr9F96r7F0bk06GOZCpBbt7isN0TP8Pl+cGykH89kf1l7isyFZACk6
-	uiLWCcX/Nk0SR2isRw1YEqls9hn+Yovvd6v91ga3xC28qtnEYLthtExGZj8TL+hn
-	7s+MrQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjb54kqav-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 12:15:04 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7c2b7a15cedso205847137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:15:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=C0vzaMxq
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so2021169a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 05:15:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793103304; x=1793708104; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rykTonyFAeLEAfuBPMPvdjyS9K7dIu+izpb6Sdbdk18=;
-        b=earvUgEV45W4sQyW6cT4D9W69MCVM/ofR9SAHYeIs2efFlqa3RnqT5PWx9vib5PNJO
-         xZESJ2A4LjAU6QBI6ySuBmFBygHQI0Is2hOWX6i5o7PmpFc9p4Hr6MIH3d02O6OA8qk9
-         giW/yTZgMtmm7dSx6F7HnrCpxKtE0HuANkTA4KdxaWk0DP1+RmFgyp/XqHOI2zny4sME
-         rA+aTEn1K5HfBnMZWdi32A593DaTEvsYnMB78ybv1bg9wSx1mvhOHPFGkhOuxfewYslr
-         /X1hxTrm0/AEivOaUIt0hV/REJ2D3qbpnLgsK9329ssXMabckKV+HeDnMU6ZT7brrexP
-         dgcQ==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1793103301; x=1793708101; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1s6Zqp4u3sfnKK/Y6nM0BOKcsidnRWEc87L5yFDAZSw=;
+        b=C0vzaMxqxSK8fpj2syJ2HgC1sW12ay+XWjFPSmUtvO4vNbQ1bfEjzqmrjbJrnNUNlF
+         2MQrzc7f0t72RrGTgF7k/r8p0fXopt2zqnO5OJh3GAnrwt0ibhyvtQLxhN8N04NiUXL8
+         Czrxzc8wAH2aDHVy9h0PVyB1noGwjb98h2VSxShOQCx2GguRe6Vvh7SDSwzjj09nXjbH
+         KQf8sQu8Dbt7mt3dvKV7mw1mUCF1u/pYFqjaqVwT+Sc/owBNU4lxoTVJHBi3VIFkz3BB
+         GpYnwIz3rUfjkM3tenLX52w+Imes08nJ+QWj9py/2M3dx6m018ootzc33D4fwDVVFbNA
+         jOtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793103304; x=1793708104;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793103301; x=1793708101;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rykTonyFAeLEAfuBPMPvdjyS9K7dIu+izpb6Sdbdk18=;
-        b=UL4Rc8EXMX/KmHEzXmeGVOQ5TxgPxJyyfaH36RG7kiQIZDoV/hIWygGkF/cW7Bh2Ax
-         QiHc4kPlZ87o1H/dX6NR4WYbmR+C5E8Ei8ul8sGOM2zS+xxnF7OO0gpYG+iA4KgiVIKA
-         +EP7bCPbeKQjWNaQQJxJomiEsHiMcp6XHvNicq3MTDbQMUqgv6NITLAwzCph2qOVf+TB
-         o0xDc5OXLDONgCR3kHkajcNrLPftzOk6WBoJ4jmAFRupfRZ4d8sF4pgNr+L4errNnBBj
-         OExK++kJeo8HxVrgEHrC7vZkOOhmUnIabusNvpaBilOaUefH3wg3GVqcSiudZXcjhdPp
-         /aYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8EEMlWrasOGoc8OJSOdWxGhgLFV3UGdDbaQe42jT/hjkG9mOSx7hTPrSeXzZX+yFv7bo8vjoT0NoRi7E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHciVsNRlX+h1eHoMaOEa+3wP/Dw00dEdkSKG7naPjNa1FvSga
-	Te+jQtQnDisB5r/M44xFobE7p+PqeYlPcdvWhpBsKPfzTIxse9DEs+cWYmlFI/NxlvsObqIzP6f
-	BPMdN6ZfOSIPLreiDk4/UwyzMr0MKEpBtHEOnRhK9AUqMzDknqzo1PdPCFvctUi3Vmzc=
-X-Gm-Gg: AYBFou3iZGo6aGV5pZBVGYQi6q9nI9g/lZPEYN1X95nkc7VkACNy32Ty6Aziys229Zp
-	DWmYP7HL6iAslhprZqnJJUd6oCBT8mL3ACmBCYXlorCtgGX4l10/FP3e6uQakV5JAW4oiZwBwJA
-	oa2hz2kMcf0BbHl7NsRTi58P/iwo7r39fTp0zyD2bB3o+U7SSzOjPKXOy1MslJmHtl2fC888bck
-	SHSmMHQXc5Q72k4QX0V3wxiyGUAh/WVd5fuwwTzj8Lqsscjh/4oRhhAd69K7As1Rl4FMS5fp7Xk
-	vF9wA+RWZrhHU0tU27GCM3gu3QsaSQSxT5w6c5QXyFWkdPK4msgqUmbcqwdXkT5D/E5XmZ4ClEQ
-	IucgzGucJlBVr2zdeHBjUGA==
-X-Received: by 2002:a05:6123:5cf:20b0:5ec:2394:ef94 with SMTP id 71dfb90a1353d-5ec23954451mr3371767e0c.0.1793103303834;
-        Tue, 27 Oct 2026 05:15:03 -0700 (PDT)
-X-Received: by 2002:a05:6123:5cf:20b0:5ec:2394:ef94 with SMTP id 71dfb90a1353d-5ec23954451mr3371755e0c.0.1793103303398;
-        Tue, 27 Oct 2026 05:15:03 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e89dbsm432825166b.18.2026.10.27.05.15.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 05:15:02 -0700 (PDT)
-Message-ID: <c0c38ce1-7491-47b8-af5a-d3968d755085@oss.qualcomm.com>
-Date: Tue, 27 Oct 2026 13:14:59 +0100
+        bh=1s6Zqp4u3sfnKK/Y6nM0BOKcsidnRWEc87L5yFDAZSw=;
+        b=1ODK14A6OS0owe5gjkGzVAbJ8vzQoVIMd28rPV/1fncT6Aw1CWZ5bYapjoaRtiY97O
+         A64Vyo54HhWA//MmlhpEmXeJmnVlWI2FAZBPQjEG2F3lqt1RA0ny6anypJTFicyzXx3A
+         7zX4hyCtY1gi2YgK+CY+9SAXwIfTE0HV63yn+mRuA81qytDYmxHElzS6/FhboEbB4mDF
+         u3t1VQCtkVC7NtvXQKcjGBFvdYjaH2yFBY9IJoX9X6PhCff6R10r+xqjIR536j5mjzPW
+         Ejt5t9OBTbDq3/Yps65cgW0xMC5Bwp9+5ULgIzgcbtDcTpePxJroYI3090fP0dAZR7j+
+         U2BA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBqfesar5sgh//y+DBN+w5O1ovzU8RsAadgtNlDnMkqe8Fjkw2/AlfyRhVGnlMBgzKR0QD+33AVDPycq8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKnLCYmCwTqDLYyCeNJQTpD0RusIKpslaRboyvdtJrm+Lh56UXV
+	3yS7zsA5uHtA62aCiPGKXHTBK0Mvk6h8P1YqtJnWnXH2QlomV0B8epcUMV3TOqsYsVg=
+X-Gm-Gg: AYBFou1sBOKKGrnaNfe86AkDrhfmD7GGrJgIPA4y2k/7zM2vszAtUZpX1un56SRW3MK
+	ebqcDV/zg9jK3vqTGrhyI8mjAmJ3DxUiep5VHV9OylrYucN4UbxysVXO47I1lrx7gt88Q/QD9N6
+	To8kARGmyG2kz/VqLZ0oXY5YqBnRV39Tp77riw6Qs6P4gvmm4yl3hW5fXA1U+MjVcDHBu910AMU
+	kjKQG//IMtQ1PBNQYCpCCp5duJTXxaoYj2I9R9lEmSIYASQXaNiyfJ9djIghV12eACOJ3kYOP18
+	4E9BUSzrhfTIkNekYTzTNIZgVbB3TjepMkdASua6ALLmrxKmnYMIKQGZ+pL/SLvtDYqBijJG+KL
+	0DnbG/Tk2HBQyMbU5Zdvh7EzS+Ig/F0aYgXS5WURBzA1n1DgeafgelVBHAucNOW636IDUZSyzm4
+	Wvg9Tn7TK1yE0ciYDzN96+sBdOr2a+dFL84bqjuxi5KSpb5t48/yTA1j7ecIZM5jPRA446qR9Q0
+	+L13slPmHgqK+yBmUuZiVUpSo/gowLV3+QYXVFdxWmC3PrbzV3GNVeEx98sqfZCWMr0PH9X0Q0q
+	MQ54/wAV3pt9bB8AV8YIu1OrhVCz1RmhgM42xQu1Ar24plarxlRs4HeQOfJhe7mdbg==
+X-Received: by 2002:a17:90b:2542:b0:3ac:adce:60a8 with SMTP id 98e67ed59e1d1-3ade9b2cf27mr7977855a91.5.1793103301318;
+        Tue, 27 Oct 2026 05:15:01 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:df24:cbdb:a2dc:d464])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cc9073c2sm2915176a12.0.2026.10.27.05.14.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 05:15:00 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Wei Liu <wei.liu@kernel.org>,
+	Paul Durrant <paul@xen.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	xen-devel@lists.xenproject.org,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Subject: [PATCH] xen-netback: wait for RCU readers before freeing queues on error
+Date: Tue, 27 Oct 2026 21:14:38 +0900
+Message-ID: <20261027121438.1266207-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,99 +103,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] clk: qcom: Add SM7250 graphics clock controller
- driver
-To: patches@brar.si, Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Imran Shaik <quic_imrashai@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si>
- <20261027-gpucc-sm7250-v2-2-773056e4043e@brar.si>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261027-gpucc-sm7250-v2-2-773056e4043e@brar.si>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0OCBTYWx0ZWRfX+unpNlYYkCzK
- 9TxIB1W4qklZSgxaOCSYmatHh5L+2YNBtBrEFc/eowPbukbkhHmAr8Jtjb8K7Wqd34O8j5scpHL
- Ot2Wu2Qnl6BywBdNhhgKmUo1ncKu+kI=
-X-Authority-Analysis: v=2.4 cv=bsnZl0ai c=1 sm=1 tr=0 ts=6ae095c9 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=2zQhOlC99_H9tdcWL1cA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-ORIG-GUID: lAvjUk-v5F01vNJoXWJnbCFEjVIXGgpx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0OCBTYWx0ZWRfX7PWuUv/0GYgE
- 2ngC0zvRaDeCZSfhjSWHlJiOO2BjQDt3ZVBf7YxsWk5jhRzwdr916f7WlBOKKOwHghyykw4qvi4
- ltrDOCyiJ2zAkAIjeJHJy2QjJye7hPQOVHG4gAvZ1G5TwE8o6NnVcDsZe+Jzf2HgA+INIoWSpGk
- nrD27U0HeirDTEm/z5GjqIxaAascc20r1ugb+sFF7gTyJbpMyvL00taaaLXnAaJUsUv2ugTM4H+
- W0DqD/POLcTR956gxymh4gvMn5Kk64cbsY9KEIT5EvgN5y9WDvpF009sBTiUfieCL+YVelbP61p
- tZGBEgSF2xRMIWL1pnn7DXdPtTyTQPISCzfvubSih0RVsnWt3fIyaMTIEQMqfJCaANj9xSVa5gq
- sP/hZHrHWngSeHkJTwd1WoE58ZyoYMFkHcObxDSTvYoWLQer+Zb9sgG9fy6JYePYKUJczBJK68L
- FnpJd5L10o4QmmrUqwg==
-X-Proofpoint-GUID: lAvjUk-v5F01vNJoXWJnbCFEjVIXGgpx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 spamscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 suspectscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610270048
+Content-Transfer-Encoding: 8bit
 
-On 10/27/26 5:35 AM, Ishu Brar via B4 Relay wrote:
-> From: Ishu Brar <patches@brar.si>
-> 
-> Add a driver for the graphics clock controller of the Qualcomm SM7250
-> SoC (Snapdragon 765/765G/768G). It provides the GMU clock and its PLL,
-> the GPU CX and GX power domains, and the GPU SMMU vote clock. The layout
-> follows the SM8250 driver, since both use a Lucid PLL and the same GMU
-> clock setup; the PLL settings, frequency table, register offsets and
-> GDSC data come from the downstream driver of the platform.
+The connect() error path frees vif->queues without first waiting for
+RCU readers, unlike backend_disconnect() which publishes num_queues = 0,
+calls synchronize_net() and only then frees the array.
 
-[...]
+The net device is registered in xenvif_alloc() during probe, so it is
+already live when connect() runs. xenvif_get_stats64() and
+xenvif_get_ethtool_stats() read it through the usual stats paths, taking
+rcu_read_lock(), sampling num_queues with READ_ONCE() and then
+dereferencing vif->queues[i].
 
-> +#define CX_GMU_CBCR_SLEEP_MASK		0xf
-> +#define CX_GMU_CBCR_SLEEP_SHIFT		4
-> +#define CX_GMU_CBCR_WAKE_MASK		0xf
-> +#define CX_GMU_CBCR_WAKE_SHIFT		8
+A guest can drive connect() into the error path by handing the backend a
+bad ring reference or event channel for one of its queues, which makes
+connect_data_rings() fail and connect() jump to err: with num_queues
+still counting the queues already set up. The error path calls
+vfree(vif->queues) without a preceding synchronize_net(), so a reader
+that has already sampled a non-zero num_queues and loaded the vif->queues
+pointer goes on to dereference the freed vmalloc array.
 
-#define CX_GMU_CBCR_SLEEP_MASK		GENMASK(7, 4)
-#define CX_GMU_CBCR_WAKE_MASK		GENMASK(11, 8)
+KASAN catches the read of the freed queue array in xenvif_get_stats()
+while a guest repeatedly forces the error path and dom0 reads
+/proc/net/dev. Generic KASAN labels a freed vmalloc region
+vmalloc-out-of-bounds, since the use-after-free label is reserved for
+slab and page objects:
 
-[...]
+  [  160.524029] ==================================================================
+  [  160.527557] BUG: KASAN: vmalloc-out-of-bounds in xenvif_get_stats+0x28f/0x390
+  [  160.530848] Read of size 8 at addr ffffc90005de06a8 by task cat/10519
+  [  160.533831]
+  [  160.534844] CPU: 1 UID: 0 PID: 10519 Comm: cat Not tainted 7.3.0-kCTLwide2-15482-g21a7f44fd076-dirty #2 PREEMPT(full)
+  [  160.534849] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  [  160.534855] Call Trace:
+  [  160.534868]  <TASK>
+  [  160.534870]  dump_stack_lvl+0x64/0x80
+  [  160.534885]  print_report+0xd0/0x630
+  [  160.534918]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+  [  160.534933]  ? xenvif_get_stats+0x28f/0x390
+  [  160.534938]  kasan_report+0xce/0x100
+  [  160.534943]  ? xenvif_get_stats+0x28f/0x390
+  [  160.534947]  xenvif_get_stats+0x28f/0x390
+  [  160.534952]  dev_get_stats+0x2db/0xb50
+  [  160.534961]  ? dev_seq_printf_stats+0x446/0x7b0
+  [  160.534979]  dev_seq_printf_stats+0x9e/0x7b0
+  [  160.534982]  ? __pfx_dev_seq_printf_stats+0x10/0x10
+  [  160.534987]  ? dev_seq_next+0xe0/0x1b0
+  [  160.534990]  ? __pfx_dev_seq_next+0x10/0x10
+  [  160.534993]  ? __asan_memcpy+0x3c/0x60
+  [  160.534997]  dev_seq_show+0xf/0x30
+  [  160.535000]  seq_read_iter+0x8f3/0x1190
+  [  160.535018]  ? alloc_pipe_info+0x2c2/0x430
+  [  160.535030]  seq_read+0x267/0x3d0
+  [  160.535033]  ? __pfx_seq_read+0x10/0x10
+  [  160.535038]  ? __pfx_do_mmap+0x10/0x10
+  [  160.535054]  proc_reg_read+0x1ab/0x270
+  [  160.535077]  vfs_read+0x177/0xa20
+  [  160.535085]  ? __pfx_vfs_read+0x10/0x10
+  [  160.535089]  ? vm_mmap_pgoff+0x24b/0x310
+  [  160.535108]  ? __pfx_vm_mmap_pgoff+0x10/0x10
+  [  160.535116]  ? fdget_pos+0x1ca/0x4b0
+  [  160.535124]  ksys_read+0xf7/0x1c0
+  [  160.535128]  ? __pfx_ksys_read+0x10/0x10
+  [  160.535132]  do_syscall_64+0xe2/0x4b0
+  [  160.535141]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  [  160.535149] RIP: 0033:0x463aa1
+  [  160.535156] Code: 00 4c 89 d2 4c 89 c6 e9 fd fd ff ff 0f 1f 44 00 00 31 c0 c3 0f 1f 44 00 00 f3 0f 1e fa 80 3d ec 22 1a 00 00 74 13 31 c0 0f 05 <48> 3d 00 f0 ff ff 77 4f c3 66 0f 1f 44 00 00 55 48 89 e5 48 83 ec
+  [  160.535168] RSP: 002b:00007fff303dbeb8 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+  [  160.535176] RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000000463aa1
+  [  160.535178] RDX: 0000000000010000 RSI: 00007f9becf9f000 RDI: 0000000000000003
+  [  160.535180] RBP: 00007fff303dbee0 R08: ffffffffffffffff R09: 0000000000000000
+  [  160.535182] R10: 0000000000000022 R11: 0000000000000246 R12: 00007f9becf9f000
+  [  160.535183] R13: 0000000000010000 R14: 0000000000000001 R15: 0000000000000000
+  [  160.535186]  </TASK>
+  [  160.535188]
+  [  160.636633] The buggy address belongs to a vmalloc virtual mapping
+  [  160.639416] Memory state around the buggy address:
+  [  160.641738]  ffffc90005de0580: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  [  160.662534]  ffffc90005de0600: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  [  160.665865] >ffffc90005de0680: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  [  160.669222]                                   ^
+  [  160.671430]  ffffc90005de0700: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  [  160.674771]  ffffc90005de0780: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+  [  160.678102] ==================================================================
 
-> +static void gpu_cc_sm7250_regs_configure(struct device *dev, struct regmap *regmap)
-> +{
-> +	unsigned int value, mask;
-> +
-> +	/*
-> +	 * Configure gpu_cc_cx_gmu_clk with recommended
-> +	 * wakeup/sleep settings
-> +	 */
-> +	mask = CX_GMU_CBCR_WAKE_MASK << CX_GMU_CBCR_WAKE_SHIFT;
-> +	mask |= CX_GMU_CBCR_SLEEP_MASK << CX_GMU_CBCR_SLEEP_SHIFT;
-> +	value = 0xf << CX_GMU_CBCR_WAKE_SHIFT | 0xf << CX_GMU_CBCR_SLEEP_SHIFT;
-> +	regmap_update_bits(regmap, 0x1098, mask, value);
+Mirror the teardown that backend_disconnect() already performs. Snapshot
+num_queues, publish num_queues = 0, call synchronize_net() to wait for
+in-flight readers, and only then deinit and free the array using the
+snapshot.
 
-and then here:
+Fixes: b17075d5c198 ("xen-netback: fix race condition on XenBus disconnect")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/net/xen-netback/xenbus.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-mask = CX_GMU_CBCR_WAKE_MASK | CX_GMU_CBCR_SLEEP_MASK;
-value = FIELD_PREP(CX_GMU_CBCR_WAKE_MASK, 0xf) |
-	FIELD_PREP(CX_GMU_CBCR_SLEEP_MASK, 0xf);
-regmap_update_bits(regmap, 0x1098, mask, value);
+diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
+index e020f44ac2c717..d1c9e38cfb8ef2 100644
+--- a/drivers/net/xen-netback/xenbus.c
++++ b/drivers/net/xen-netback/xenbus.c
+@@ -835,10 +835,21 @@ static void connect(struct backend_info *be)
+ 	return;
+ 
+ err:
+-	if (be->vif->num_queues > 0)
++	if (be->vif->num_queues > 0) {
++		unsigned int num_queues = be->vif->num_queues;
++
+ 		xenvif_disconnect_data(be->vif); /* Clean up existing queues */
+-	for (queue_index = 0; queue_index < be->vif->num_queues; ++queue_index)
+-		xenvif_deinit_queue(&be->vif->queues[queue_index]);
++
++		/*
++		 * Mirror backend_disconnect(): publish num_queues == 0 and
++		 * synchronize_net() so RCU stats readers finish before the free.
++		 */
++		be->vif->num_queues = 0;
++		synchronize_net();
++
++		for (queue_index = 0; queue_index < num_queues; ++queue_index)
++			xenvif_deinit_queue(&be->vif->queues[queue_index]);
++	}
+ 	vfree(be->vif->queues);
+ 	be->vif->queues = NULL;
+ 	be->vif->num_queues = 0;
+-- 
+2.43.0
 
-
-you'll also want .use_rpm in the desc struct
-
-Konrad
