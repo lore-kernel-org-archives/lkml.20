@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793088717;
-	b=ABY9eINjH/Ix8jBv1qXacKqwrU47nczZELOHUwdAMTKtQHBF92nUvhYNh9rywVWjk6yo
-	 lw9YDzT3mVVQc3XfHiYUu1S2/ujnqWGLglXNIOJbR59lSEPzh2K9Fi9DCyfjfD5WGLDgT
-	 jQw6EFvDGe+cz4VQ4z3N7dhuwYK1TP1PRn7FsAfpnPWaSVTWEE+iYp4wuTXw7/ybqA8uz
-	 eKThCUenQgLckIhVHxL94+yIVhI4BRrOqWxFXr7s308BRtHF6Dgsf6/Wx1rDMxnWytPaw
-	 ko/V9/wKARtS134lUU7PhzT+4RAIs2H4e5sZOyICQbvi3zhXkH7ji+vR+JEM8JdO3fA==
+	t=1793088723;
+	b=nX3F4XUy6gFpXobbKsaEni5dFEt1pTtYjjaW/ob+Jp7oWPBTooP5bm1ZhETNEwRWlsms
+	 vxNaJvs7SDmwUjrK8tzW+Gw8MRXfpycH/KUoDjHiTGr2bp+0lwLEgzUIJLaS04w6EvMEy
+	 pHEZwZxOQVux/ocjRC8s5mLWoDvxVlIAKopn1SqTNPUEaLekcIhWf4oX/wyjcv59Qq/hx
+	 mc/A5c066qgc2r3E0T+MvAYVQ/8z1YolDTfPZFjuIlyexfZJOxDFG6Nlpau538+rA46vc
+	 ynHLi1ry8Xf4MwSoySPraOyOcqctR1wVKR97AUaAoxE/FtWC6sy1cRECurx46DgWKcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793088717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793088723;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/dqcNV2rxcj+H+N6V1Q7pF0i14uOvWt3XmYVtpF0Vwo=;
-	b=S/9xtORDP38eWRcsi28vFGNSPXfX7Zs6v1QKpVpDm7xZ4HeLlegDTk0LydG2wJ93CCJB
-	 ruOQEyYs/yhSzm2IXpxiVym3dVznUhuWdjnULsnvCrwtHUaq8vSlyQGyLQ0nc1Nw41G0I
-	 owOYgg5bDWwpoeM+5nzMTlJoDkJ5RUXeOm+YNepmbL8xBToXhSmQ0GanjSg5laSwUYiUW
-	 L2KGNmmtBHgBXL9jVN2Py5W96I1OGr3Bb/rf9t5SVABRyEZCZFnD6ydfNzO9l9qLUxiTg
-	 ji4EL7ogewRr4wyyeQxwH2qNjMncBS2ftgnAdTuF6mt1GcE6FoWexJfB50AbtNyLB4Q==
+	bh=Uyn+E9hPgBq3vgE8nqzAGJ7D8LXdWFW6vaCw5N5eMTY=;
+	b=hQhYUxg8FSCi/KeMqO4da9jJ60Dtq14UO5JW4czjHIAWrPry5dnuoGJawwFDd2sBUv/7
+	 m9BIz94s9UjzcOW3vuwuHLnLfBSivyeMz67fnTyfcaR8sLB2/i4apEO+lkdZeDBsupQbG
+	 Mi0Wl/eqTpKhvJwEYEMYui3uKzbxPDXnOUGdDMCP6WaKY4546+YqtfXkTTlWGPQ7KvVoa
+	 hiN9+6dV+b77Re1xrBX/5LbsB+YY6lOiX1dY8lu2Fcf/95tpuikj9BUhIIDObdV0BweRO
+	 Y2H39daevATbbNzDHa8tUpjCAgwx3JFBAheh/3Hqg/SfwTamF1C74q9hmsdoPhDGo/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DO30WsaM;
-	arc=none smtp.remote-ip=95.215.58.49
-Received: from mta1.migadu.com (out-49.mta1.migadu.com [95.215.58.49])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c8XimVtV;
+	arc=none smtp.remote-ip=91.218.175.236
+Received: from mta0.migadu.com (out-236.mta0.migadu.com [91.218.175.236])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22C4606A320
-	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:11:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F22C4606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B7C606A326
+	for <linux-kernel@vger.kernel.org>; Tue, 27 Oct 2026 08:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04B7C606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DO30WsaM
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c8XimVtV
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=hOfLyCvPxdoMK3iGT2snLIRtrBmcqixK3sf0MGFjqIg=;
+DKIM-Signature: a=rsa-sha256; bh=hqZxpxJ0C4wEalO5Og1g3G+zJaFBGEKypaN+rWrhA5I=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793088713; v=1; x=1793693513;
- b=DO30WsaMONIhhJJccnNUyYpn4khrV8ieI51OrfrEkW/HFHx28z2V7fLZzG2F2d6r744ClNSn
- Mm7KG7Mev4TjbTFsh5dQRFd1uaLFAR6rVvWt6gIIMwK4Sc+ykyExsSKIjLm14EIxz+uuiP/GlFy
- 90ePGutgRkqRnnEsWKJGUY44=
+ t=1793088721; v=1; x=1793693521;
+ b=c8XimVtV3h/Ud99ag7hplkIn8hKtih9p62StJv1H74yejjdVXsNpPqL+9hX/jHNyvjwI2Rip
+ 3bTUCMAr7CZH7pzLVnEN4tno9e3WrbZN5mc6LaTSE18fRNKc7igtjmzQu+Fz+WYiRlP1GbY749I
+ CN41XGeaIABI9/PgIEeknwyw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da38054059dc04e0;
-	Tue, 27 Oct 2026 08:11:53 +0000
-X-Mizu-Trace-ID: da38054059dc04e0
+Received: by smtp.migadu.com with ESMTPS id b50314872c48fa54;
+	Tue, 27 Oct 2026 08:12:00 +0000
+X-Mizu-Trace-ID: b50314872c48fa54
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -64,9 +64,9 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	linux-kernel@vger.kernel.org,
 	Oculytic <oculytic@gmail.com>,
 	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 1/3] KVM: arm64: Synchronise kvm_host_data before host deprivileging
-Date: Tue, 27 Oct 2026 08:11:45 +0000
-Message-ID: <20261027081147.498183-2-fuad.tabba@linux.dev>
+Subject: [PATCH 3/3] KVM: arm64: Disable host PMU counters for protected guests
+Date: Tue, 27 Oct 2026 08:11:47 +0000
+Message-ID: <20261027081147.498183-4-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261027081147.498183-1-fuad.tabba@linux.dev>
 References: <20261027081147.498183-1-fuad.tabba@linux.dev>
@@ -81,42 +81,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vincent Donnefort <vdonnefort@google.com>
+A protected guest has no PMU, and EL2 clears MDCR_EL2.HPME for it.
+However, HPME has no effect, since __pkvm_vcpu_load() sets HPMN to cover
+every event counter, and HPME never covers the cycle or instruction
+counter. The counters the host has enabled therefore keep counting the
+guest.
 
-When protected mode is enabled, the host is populating and reading the
-hypervisor copy of kvm_host_data until it is deprivileged. This is an
-issue for nr_event_counters which is only used by the host to populate
-mdcr_el2. After deprivileging, it is reading an uninitialised value and
-sets HPMN to 0, preventing programmable event counters from counting a
-non-protected guest.
+Stop them in the world switch while a protected guest runs, reading
+PMCNTENSET_EL0 rather than trusting the host-controlled events mask.
+Gate this on a new per-CPU HAS_PMUV3 flag, since system_supports_pmuv3()
+is false when the CPUs implement different PMU versions.
 
-Before the host is entirely deprivileged, copy the entire kvm_host_data
-content from the hypervisor copy to the host-accessible one.
+Side channels are outside pKVM's threat model, so this is hardening
+rather than a fix.
 
-Fixes: 2417218f2f23 ("KVM: arm64: Get rid of __kvm_get_mdcr_el2() and related warts")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Reported-by: Oculytic <oculytic@gmail.com>
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/arm64/kvm/pkvm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/include/asm/kvm_host.h |  1 +
+ arch/arm64/kvm/debug.c            |  4 +++-
+ arch/arm64/kvm/hyp/nvhe/switch.c  | 24 ++++++++++++++++++++++++
+ 3 files changed, 28 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
-index 380dfb1db0be4..58190ff6723d6 100644
---- a/arch/arm64/kvm/pkvm.c
-+++ b/arch/arm64/kvm/pkvm.c
-@@ -316,6 +316,12 @@ static void __init _kvm_host_prot_finalize(void *arg)
- {
- 	int *err = arg;
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 1c6632216e327..7ecb55e5018eb 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -834,6 +834,7 @@ struct kvm_host_data {
+ #define KVM_HOST_DATA_FLAG_VCPU_IN_HYP_CONTEXT		4
+ #define KVM_HOST_DATA_FLAG_L1_VNCR_MAPPED		5
+ #define KVM_HOST_DATA_FLAG_HAS_BRBE			6
++#define KVM_HOST_DATA_FLAG_HAS_PMUV3			7
+ 	unsigned long flags;
  
-+	/*
-+	 * After __pkvm_prot_finalize, access to the hypervisor copy of
-+	 * kvm_host_data is lost. Save it into the host-accessible version.
-+	 */
-+	*this_cpu_ptr(&kvm_host_data) = *this_cpu_ptr_nvhe_sym(kvm_host_data);
+ 	struct kvm_cpu_context host_ctxt;
+diff --git a/arch/arm64/kvm/debug.c b/arch/arm64/kvm/debug.c
+index f4d7b12045e8f..3c74b076b5278 100644
+--- a/arch/arm64/kvm/debug.c
++++ b/arch/arm64/kvm/debug.c
+@@ -79,9 +79,11 @@ void kvm_init_host_debug_data(void)
+ 	unsigned int pmuver = cpuid_feature_extract_unsigned_field(dfr0,
+ 								   ID_AA64DFR0_EL1_PMUVer_SHIFT);
+ 
+-	if (pmuv3_implemented(pmuver))
++	if (pmuv3_implemented(pmuver)) {
+ 		*host_data_ptr(nr_event_counters) = FIELD_GET(ARMV8_PMU_PMCR_N,
+ 							      read_sysreg(pmcr_el0));
++		host_data_set_flag(HAS_PMUV3);
++	}
+ 
+ 	*host_data_ptr(debug_brps) = SYS_FIELD_GET(ID_AA64DFR0_EL1, BRPs, dfr0);
+ 	*host_data_ptr(debug_wrps) = SYS_FIELD_GET(ID_AA64DFR0_EL1, WRPs, dfr0);
+diff --git a/arch/arm64/kvm/hyp/nvhe/switch.c b/arch/arm64/kvm/hyp/nvhe/switch.c
+index 91e1edf40bcd2..79a6277de4fc1 100644
+--- a/arch/arm64/kvm/hyp/nvhe/switch.c
++++ b/arch/arm64/kvm/hyp/nvhe/switch.c
+@@ -175,6 +175,26 @@ static void __pmu_switch_to_host(struct kvm_vcpu *vcpu)
+ #define __pmu_switch_to_host(v)		do {} while (0)
+ #endif
+ 
++static u64 __pmu_stop_host_counters(struct kvm_vcpu *vcpu)
++{
++	u64 pmcnten;
 +
- 	if (WARN_ON(kvm_call_hyp_nvhe(__pkvm_prot_finalize)))
- 		WRITE_ONCE(*err, -EINVAL);
- }
++	if (!vcpu_is_protected(vcpu) || !host_data_test_flag(HAS_PMUV3))
++		return 0;
++
++	pmcnten = read_sysreg(pmcntenset_el0);
++	if (pmcnten)
++		write_sysreg(pmcnten, pmcntenclr_el0);
++
++	return pmcnten;
++}
++
++static void __pmu_restore_host_counters(u64 pmcnten)
++{
++	if (pmcnten)
++		write_sysreg(pmcnten, pmcntenset_el0);
++}
++
+ /*
+  * Handler for protected VM MSR, MRS or System instruction execution in AArch64.
+  *
+@@ -282,6 +302,7 @@ int __kvm_vcpu_run(struct kvm_vcpu *vcpu)
+ 	struct kvm_cpu_context *guest_ctxt;
+ 	struct kvm_s2_mmu *mmu;
+ 	bool pmu_switch_needed;
++	u64 host_pmcnten;
+ 	u64 exit_code;
+ 
+ 	/*
+@@ -300,6 +321,7 @@ int __kvm_vcpu_run(struct kvm_vcpu *vcpu)
+ 	guest_ctxt = &vcpu->arch.ctxt;
+ 
+ 	pmu_switch_needed = __pmu_switch_to_guest(vcpu);
++	host_pmcnten = __pmu_stop_host_counters(vcpu);
+ 
+ 	__sysreg_save_state_nvhe(host_ctxt);
+ 	/*
+@@ -384,6 +406,8 @@ int __kvm_vcpu_run(struct kvm_vcpu *vcpu)
+ 	if (pmu_switch_needed)
+ 		__pmu_switch_to_host(vcpu);
+ 
++	__pmu_restore_host_counters(host_pmcnten);
++
+ 	/* Returning to host will clear PSR.I, remask PMR if needed */
+ 	if (system_uses_irq_prio_masking())
+ 		gic_write_pmr(GIC_PRIO_IRQOFF);
 -- 
 2.47.3
 
