@@ -1,81 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793119453;
-	b=cg1B2q+++QU3e/VB7EmY5b1UgmcDXjlU2w7ucSGFcJUDCkVK23N34/mi1EsV+AtKYp7r
-	 54bv0dih2XLlcX1InjsyjmojkNNXXaxGefPjy1nvhf/zKm0pJ8dG81YK+1em0mz2Azjac
-	 1oPbfMvrS3EhDdZcZOVAxE8dKc88Jax+8nLCLgPi5Bw7wq+XbNYeW79hXPtOXr8F6BB/P
-	 Dfur2jpp9JhMx7wZcoz5O676UvQ9R9O5ZidhhU0h3fJVTSYv2Nh03IHdYYizy9KYqwx7/
-	 wDc23FpVbtDpYX0RGPk76Vcziv0DtY0VN46G+Vx1YqW9b56UfipS9t9bTooe9BUkkHg==
+	t=1793119464;
+	b=KXfbwk150aYZbJ/yvdMFJBON8Mokq8YlYRnRsd5us5nNN4J3T6Qho0QgNy9QBYCjtB+G
+	 W0ltPekvZ3aUDW/1I4jhd/9T8QWuFwwmMuVkw7kvfmOYusUyLAYSmtSUo0mbG2OcPQNGm
+	 wk0Vl5IAlVjR7iV23uO28+t2BoCeZoS8PFukrexNNsB/UFFAKSiE5Ez5SW8HA/EztC4Wo
+	 BCzJCYbGYbdQvfE7/9eoE0UjeHIzWXDfVkYsNhwHQO2FiD+A6ZkGGrBLTkjbzzS1PW8Od
+	 ssUIk9ccWe9d6zb/WlAVUDn31J72aMvgcdvPTrkpxAPipxUSCyUVeCI5EyOPTisZq/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119453;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=nx17FIAQCfOlFkP17EZEoi5gViilW8Y7/HSO+vAKVsw=;
-	b=E1ibtNJ0ZOaBwpRha7d+7lQ4FbzcpPzHyiW6yWXyVuI/7oJ48Wf7CyKJlbvoXxK/HGpQ
-	 AoOgRxoXKEth/TilhN/gYN+u1yKSLVDvClc7qR3GNhbE7Z5V9slnXWXK5YH2PcwDezUex
-	 xu/1y4t7CaLw3fFDZ3hClzj8cTk/FCn5YRpJw6puIFch6f807jVzFHVaxxUJQVRgiNK9l
-	 bfBbdqs8GiObEgIplakg+5gijYO1jU0a5CWuYWItl3oPmmC/gtGn7rWWUYxTJhIw3VyMm
-	 YSRCxPnpZ0bW8Z/2t3gCzhNP3ocjKVn4+tSa3sUERS9cSIITOymG7NpKTfLGeXGjOVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119464;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=PByByqtjwpf2F1B4j8nkJ/iNBLtHOWJlMjMnw9UUR8I=;
+	b=cHMvZ+40Er6/uwtbxzyLT4IrZBTBM5zTw04SHjcM8I26fNMSwXkCOgWRuOl8jPIuB0LR
+	 q3kEojjcIGpMVXVlUH9hhDyetT7e2NpxMPqKGgwLcbZL8PW8x3PeY1E2+j9l1gOQKUTOd
+	 47dCd4fCw+m2amy1PP8UJRRypQEE5H9jWEsc/dOS36Ok4A+S9CUqBIBp7fxWbPGS3hrJC
+	 YB7HEQSWGLiAtIpVo1kGQis8Pefe46AT2gXud67SJBJoh8tAFucUWylilgsA4Hv1/yBJX
+	 XhjqAYW6CSwG5bbCMMH1LNz6DRFZ9kZeUAN9cHyMzv+5JnlxIpv8RBkNFGHiEE5tT9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d/gf83wv";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCWy3KHF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7820D606A31E;
-	Tue, 27 Oct 2026 16:44:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAED606A31D;
+	Tue, 27 Oct 2026 16:44:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d/gf83wv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FB71F01825;
-	Tue, 27 Oct 2026 16:44:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCWy3KHF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640501F01825;
+	Tue, 27 Oct 2026 16:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793119453;
-	bh=nx17FIAQCfOlFkP17EZEoi5gViilW8Y7/HSO+vAKVsw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=d/gf83wvfXAhjxM5t1yPfeZXqDU0qDuWGm2q+pJ72nQhojJ7vCMmngQcQix56nhYC
-	 6Xezdj3m6GEpl35gmKf4SG3W8X6BYFzOmoSKWGlZNMdkSWW4vOokAvdeEeENXKDU4X
-	 3CfCOkNJohOJxcl4gWf+/m9kYb+BS7LmckkyVLWy7PTi3ZbEWFCzEwpc5u1lNSrwRp
-	 X0FE8aFBk2PWFTJxd3Zzpxia+2d30yB0Gq8QEx1qWlYeDe82ebBD90W4NSa5Unlcx5
-	 FfzyJhFf0G+loppwSMVkbb6sC8v3de2UwiY1a+RJZM+UgIQLYQfgWhaMiqcRmf4lDy
-	 zDKUuf55D2WrA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xLkHS-00000007oLP-2Vpc;
-	Tue, 27 Oct 2026 16:44:10 +0000
-Date: Tue, 27 Oct 2026 16:44:10 +0000
-Message-ID: <86se1rxfdx.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Amir Noohi <amirmnoohi@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Igor Velkov <iav@iav.lv>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Christoffer Dall <cdall@linaro.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] genirq/manage: Provide irq_set_percpu_irqchip_state()
-In-Reply-To: <20261024212844.3405617-1-amirmnoohi@gmail.com>
-References: <20261024022450.629980-1-amirmnoohi@gmail.com>
-	<20261024022450.629980-2-amirmnoohi@gmail.com>
-	<87se1v8f2r.wl-maz@kernel.org>
-	<20261024212844.3405617-1-amirmnoohi@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1793119463;
+	bh=PByByqtjwpf2F1B4j8nkJ/iNBLtHOWJlMjMnw9UUR8I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cCWy3KHFhNHmxagXyNBnkL9vclGpi+tM4IdV8nE5yJ7dAv9Y2Ky+LQvEnJekkmDtj
+	 u9KJVnhAB33dWLgqx5E+yUFtJiWWyOiBTaiAt31ZLCNJ2s3GmJT4UVCXTkCLmPS1Mq
+	 ZewG5/hI+9dIhAKt2ZuK3sgbvSPE0xnlah0zxwjzq9GSuE/IWvo9MCCav/8rjnie9t
+	 lyrlrSSVk6KTheK/1a7twfU5fgdHhGhmE2nODekvPEPJ9jHlKzDrtzVkD4L+MHhh3K
+	 /9etIo5uLDf9lJDKBy9SVVQgKf//edO/IENZJB50yJR3BPl26pXS36VtjN43E7dH51
+	 miqHW0x9qdmBw==
+Message-ID: <585b45bb-a9b8-424b-abd4-66d53076b501@kernel.org>
+Date: Tue, 27 Oct 2026 17:44:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,82 +50,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: amirmnoohi@gmail.com, tglx@kernel.org, oupton@kernel.org, radu@rendec.net, iav@iav.lv, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, cdall@linaro.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd: twl6040: fix IRQ action memory leaks during teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Lee Jones <lee@kernel.org>, Mark Brown
+ <broonie@opensource.wolfsonmicro.com>, Samuel Ortiz <sameo@linux.intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, linux-omap@vger.kernel.org,
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261027032609.119226-1-lgs201920130244@gmail.com>
+ <f342a5e4-82b3-4044-85a3-10cad08595e4@kernel.org>
+ <CANUHTR-SJTiQvo__wbqosSQV958fkHGY33YTRFor2=EwDTdXPg@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CANUHTR-SJTiQvo__wbqosSQV958fkHGY33YTRFor2=EwDTdXPg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 24 Oct 2026 22:28:44 +0100,
-Amir Noohi <amirmnoohi@gmail.com> wrote:
+On 27/10/2026 17:22, Guangshuo Li wrote:
+> Hi Krzysztof,
 > 
-> Hi Marc,
+> On Tue, 27 Oct 2026 at 23:33, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 27/10/2026 04:26, Guangshuo Li wrote:
+>>> twl6040_remove() currently removes the regmap IRQ chip before
+>>> removing the MFD child devices. This destroys the IRQ mappings
+>>> before the child drivers can release their interrupt handlers.
+>>>
+>>> The parent driver also registers READY and thermal interrupt
+>>> handlers using devm_request_threaded_irq(). These handlers are
+>>> normally released by device-managed cleanup after remove returns,
+>>> when the corresponding IRQ descriptors have already been removed.
+>>>
+>>> Consequently, free_irq() cannot find the IRQ descriptors and the
+>>> allocated struct irqaction objects are not freed. The associated
+>>> IRQ threads also cannot be stopped through the normal cleanup path.
+>>>
+>>> The probe error paths have a similar issue, as they destroy the IRQ
+>>> chip before the device-managed IRQ handlers are released.
+>>>
+>>> Remove the MFD child devices first, then explicitly free the
+>>> parent's READY and thermal IRQ handlers using devm_free_irq()
+>>> before removing the regmap IRQ chip.
+>>>
+>>> Also update the probe error paths to release successfully requested
+>>> IRQs before destroying their mappings.
+>>>
+>>
+>> More of postings by bot ignoring any feedback.
+>>
+>> Best regards,
+>> Krzysztof
 > 
-> On Sat, 24 Oct 2026 13:21:00 +0100, Marc Zyngier <maz@kernel.org> wrote:
-> > It really feels like a leap of faith.
-> >
-> > There is nothing that says that it is safe to call this without
-> > holding the global lock. For all we know, drivers have been relying on
-> > it for a good decade, and I don't feel confident letting things rip
-> > just because it (mostly) works with the GIC.
-> >
-> > At the very least, something exposed by the irqchip (a per-IRQ flag?)
-> > should tell you whether it is safe to elide the lock.
+> Thank you for your feedback, and I apologize if our recent submissions
+> gave the impression that we were ignoring your previous comments.
 > 
-> Agreed, and v2 does that. There's a new IRQCHIP_PERCPU_STATE_LOCKLESS
-> flag, and irq_set_percpu_irqchip_state() only skips the descriptor lock
-> if the chip implementing irq_set_irqchip_state() has it set. Otherwise,
-> or if there's a bus lock, it just calls irq_set_irqchip_state(), so
-> drivers that don't opt in see no change.
-
-I'm not sure this is the correct option. Making it per irqchip is
-again assuming that the irqchip has a uniform handling of the state
-across all interrupts. I'm afraid that's not universally true, which
-is why I hinted at a per-IRQ flag.
-
-Alternatively, you can audit all the providers of this API and work
-out if is it safe to do so, and split the corresponding callbacks.
-Good luck with that. :-/
-
+> We did take your earlier suggestions into account and subsequently
+> submitted a patch series accordingly.
 > 
-> Only GICv3 sets it, in a separate patch. For SGIs/PPIs/EPPIs its
-> callback only touches the local redistributor (gic_data_rdist_sgi_base()
-> and the RWP poll), nothing shared.
+> For the more recent patches, however, since they address issues in
+> different drivers, we thought it would be more appropriate to submit
+> them separately rather than group them into a single series.
 
-Read the code again. There is *one* callback for all distributor-owned
-interrupts, which also involves SPIs/ESPIs.
+How this that differ from last time, explain me please.
 
-> FWIW, irq-gic.c, irq-gic-v3.c and
-> irq-gic-v5.c are the only drivers with both per-CPU devid interrupts and
-> an irq_set_irqchip_state() callback. KVM's own timer chip (GICv5, no HW
-> deactivation) doesn't set it either, so those keep the lock.
+Last time you sent x separate patches for subsystem foo. I asked to send
+them as patchset.
 
-The KVM chip inherits whatever it is pushed upon, and it is still a
-per-CPU interrupt. To be clear, this is an all or nothing approach as
-far as KVM is concerned, so anything that KVM uses should be converted
-to the lockless approach.
+Now you sent y separate patches for subsystem bar. You keep repeating
+the same.
 
-Even in the GICv5 case, the ICC_PPI_ENABLER0 register cannot be
-modified concurrently, so it should be safe to advertise these as
-lockless.
-
-> 
-> On GICv2 in QEMU it still takes the lock like mainline does (333k vs
-> 321k acquisitions in lock_stat, within 4%), and on GICv3 it doesn't
-> take it at all. arch_timer, arch_timer_edge_cases, vgic_irq and
-> vgic_init pass on the Altra. Under QEMU with lockdep, DEBUG_PREEMPT and
-> DEBUG_ATOMIC_SLEEP, the selftests pass on GICv3 (VHE and nVHE) and
-> GICv2 (the vGICv3 ones skip there). No splats.
-> 
-> I made it a chip flag since it's about the callback, but I can make it
-> per-IRQ if you prefer.
-
-I reckon this is a requirement.
-
-Thanks,
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Best regards,
+Krzysztof
