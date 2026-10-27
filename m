@@ -1,61 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793101818;
-	b=WMFGLTK2R8MI4cppWoLlFetsJmnUaRSfEoxQlRZanXXS4vuY485ZEXH5x9q86Lcmkr+R
-	 /KaU8yVoH6iA4APThOY+8bKtR3b+N4RIJ91mKbkYt88elSXwnPr8C67lyGe3NKgN+cY83
-	 DiNVhVkQ7A9iQQLSBorgv/ut9pWxMitclFH+oJq/IbFs6sRg5j+B7SfiA0OOciCXsKl2g
-	 ta5GXD0VLHIBOpm2FgXOlKKrnRZTR8I/1TmgPsrAPcXp3ZqfNPiwtowpgoOeDv6wS4rOd
-	 FXtT4Ti4NqRxsC+bwEpfbGQiiaCE94Mr10C4YbVBQ5OguRyZcAI+8XNBvRi0KQ8IIWw==
+	t=1793101811;
+	b=gCcaJecHyufMGYb4ajLysXH/U+pfHudbX76vlartqYY0J+p6MyYMTkvk/5Afq+y2hR/v
+	 hCMBs/VJ8NB9P7vSWHhrlxTECwUjpKTAJue2ySJW3etQJ67Nhodt+T1eYjBFI0D2+o4WN
+	 +SFAfzXuYi5wkBUPWNrSaq6Q9PV/3auaoU7McfiLMjYsXUWblYI9goDSe4VxgE6d2arE9
+	 kqxS6QS0p+lxCmB8maFTHlhvK2zfby+1bnOTn2zefjdjM5Ux11WnWxkHWDJC/9dOR+ZMM
+	 YAYx1Jt66b3w/+ndNVVqpH3r3ed4oUDzewQB6RY2lTmimDV1PeStR1OukqEtk4OdNSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101818;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=8Pox6L4wQ+PxjTQjIVCbNIBdH2zdMOEyFCO2vv40EVg=;
-	b=pp+SIkO0YPjaqid78aFgUzo9+ze93upK+B/N5Sj/LyTEb6ciVYI+6XiJGawKw78AV/P3
-	 kPgbDzDueL+r7uAa//Sz3BS/De767v5UKVpy+klT4fHyWdnxohd7EDmKhOvE4xAkAZteD
-	 LtXZiv3muyeD3COueEOtSBFvl3sAUTcVF9CyPAtXfzJX2es2SXXo33c2rrjt+cTwK50dW
-	 vkqQjOxdsKdmd1MvjDr6BjYxFsgA1VpQ/TXoSGuKh7exIOLEJBSvffTMHxquLA6VYaWXw
-	 TA76ygOkc39OCz4bePnuUlkBwm20wTJxkGh3f9jKRjobjX/EvA4hGUk5OwX/Vx9IKYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793101811;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=4LS2QAZea28L14x36x4SE8vt4l1NVp0NgIHFN/fX/Z4=;
+	b=ESlN1H0Hd3WYDNAV2VzatAsAL+2HjnjPmOcJfOKUpOrb6YvIz06TvYlzoMct08F05cNE
+	 v3GCMmxXJQafg+Lx4Ipvly0RG+G3Tcy0Nzs+DB+U6jH6Aj9XHo1uwaxxgeSpwFOmVgR5B
+	 jbLLEauPJi1Z5tMKUpIa9v+6gpdEQTp12v/xXFdhCdtvq36tJIhKor0eTQWFWyRc7Tj6r
+	 PfH8Yws+WFieaWS9ZeFzs4D/CMHc7ZhV/FsPcw1KRQbePP8fB1adWT08/sLT5jQAXRk3U
+	 XodXeFgjgy7jr1RXggZhOUsTq3QYHHXsPoq+fWKHAesGBvjD3PXU3B4PP+a4OQWKSPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsHHqYpX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEIEL8hK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408A8606A321;
-	Tue, 27 Oct 2026 11:50:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3C660A2606;
+	Tue, 27 Oct 2026 11:50:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NsHHqYpX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125611F031E0;
-	Tue, 27 Oct 2026 11:50:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEIEL8hK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBFCF1F031E9;
+	Tue, 27 Oct 2026 11:50:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793101817;
-	bh=8Pox6L4wQ+PxjTQjIVCbNIBdH2zdMOEyFCO2vv40EVg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=NsHHqYpXd5msR9zaaOhwOo6UyCW063Bia4SGHgWuDKhf1+KoS/qL+TijXekj0mw/W
-	 ZEOR924III+3WYDmMBGE3Gtqf+BPP74P6Ga9f76aqftd+jEOR9cNxrCjz7Nuf1ufc9
-	 S9aD4uymhsn0IYxa3sEFNSSGKOUH8aEEs6bjNYZqWpCQabzwQ1qqB6sHjRnfpfnisJ
-	 yrGZjb6CIFG4VG0QksUf5qdJqAEGdRWU25ys3VV3P0c025bnKaP5TfIprol82herAu
-	 GkwT5FDFmOk5j9ZQY1IrpjGEqTaRr7mstA7LgFQPsMy8NYPOMPjHpUTM5VykAu+jyf
-	 NF7YdYgrke5qw==
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
- Yuho Choi <oss.patchbox@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260924010418.726980-1-oss.patchbox@gmail.com>
-References: <20260924010418.726980-1-oss.patchbox@gmail.com>
-Subject: Re: [PATCH v2] PCI: rcar: Release temporary device tree node
- reference
-Message-Id: <179310180828.5889.10256778854026128027.b4-ty@b4>
-Date: Tue, 27 Oct 2026 17:20:08 +0530
+	s=k20260515; t=1793101810;
+	bh=4LS2QAZea28L14x36x4SE8vt4l1NVp0NgIHFN/fX/Z4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OEIEL8hK7rvYWMnv3aG7L6E4w+3sZiKjXJ4yAloB3MhefqoDcSwnlGvpB7zRqgNcu
+	 NgfPhgV0R37+wc/NRm9VFs7uloK3ui3LOVlohhrtr5pIxojh2LUZTkqLfN/wxuQGvL
+	 9DLx9oHgrHoxeTXqzBxvHAtkkX5gVIjBWH+M+eMK3wxm3nmHYOeJRZN3Y8r1qF7YxH
+	 cQzV+WEvkqKMlQT+NINhkuDvUkzQugCWattd7Z/yPoWj2t9pdW8UOobSWpbLHYz1K8
+	 WxBrEX1Uk6f8QkulZMwYw4GZGU/w38esQDjawqCtnI7wxJVEDLlxhcEZNSS+PnWiTl
+	 ZdRP0ig2uvzAw==
+Date: Tue, 27 Oct 2026 06:50:06 -0500
+From: Rob Herring <robh@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Jordan Viknar <jordanviknar@gmail.com>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-bindings: usb: Move Tegra-specific Chipidea
+ USB properties into a dedicated schema
+Message-ID: <20261027115006.GC3598537-robh@kernel.org>
+References: <20261004165204.205660-1-clamor95@gmail.com>
+ <20261004165204.205660-2-clamor95@gmail.com>
+ <20261026222928.GA15139-robh@kernel.org>
+ <CAPVz0n2rkWikz1CZhkKiZnX5P+NdDH0RfJi69AyVTEV7qw_VXg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,33 +68,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=330;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=mnZxg1es0t8jDK+5ygiJyrtcXXWqwNs5TLiPImjvoyU=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq4I/1Yio4iVvpt050d2evAWM81+I7FWBtENDj0
- CSBW4PI8kaJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauCP9QAKCRBVnxHm/pHO
- 9W8yB/98em5OFW66fxPSxXwM817NNPhKffPJWY/1nmkaKvu5V3K0xvjXgz70SNLdyATJHl85f1Z
- aM1dJrZ5/BsHb7WL+A84z9zkbvyjm3vHpsKAifnYb48yV3F+B1y8FXVr6rhBaHYY2HH8bb5XLMW
- 8z6BMC5XjMyDM1/ujsKqlKQwVRMT3K70QmJR7Ytf556Q0iGJYsCSAgpHrXZlPMFXIO9N+TVnfU6
- gf6HUdcnm/0qq67u6G4JX6rEEgn9CrV1MgbtQasUJqL/V788LrCtJo2DCt8Etsd7giRYDXS4vmh
- kpuNwt/85UqODgUcTQJ1r/YsdUW39V6Qm0ajX6gFH/my4+2f
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+In-Reply-To: <CAPVz0n2rkWikz1CZhkKiZnX5P+NdDH0RfJi69AyVTEV7qw_VXg@mail.gmail.com>
 
+On Tue, Oct 27, 2026 at 10:51:52AM +0200, Svyatoslav Ryhel wrote:
+> вт, 27 жовт. 2026 р. о 00:29 Rob Herring <robh@kernel.org> пише:
+> >
+> > On Sun, Oct 04, 2026 at 07:52:03PM +0300, Svyatoslav Ryhel wrote:
+> > > Move all Tegra-specific Chipidea devices and their properties into a
+> > > dedicated schema file, by analogy with i.MX.
+> >
+> > I don't really see the point given it is only 2 deprecated properties.
+> > Maybe those can be removed? Depends if they are deprecated and still
+> > used or deprecated and removed from .dts files years ago.
+> >
+> 
+> The ci-hdrc-usb2.yaml schema contains properties that are not
+> applicable to Tegra, and conversely, Tegra-specific properties are not
+> applicable to qcom, nxp, nuvoton, etc.
+> 
+> The 'nvidia,needs-double-reset' property is required for Tegra20 and
+> Tegra30, and it is still actively in use, as you can see here [1]. Its
+> marked deprecated state appears to be incorrect, as it should simply
+> be restricted to Tegra20 and Tegra30.
+> 
+> The 'nvidia,phy' property is still used across all ARMv7 Tegra
+> generations + Tegra210, as the Chipidea driver has not yet been
+> converted to use the generic property. Therefore, while it is marked
+> as deprecated, it remains in active use.
+> 
+> The example I added is from Tegra30, which in the real devicetree uses
+> both properties, so I've included them here as well. With your
+> permission, I can remove the Tegra-specific parts from
+> ci-hdrc-usb2.yaml and tailor the proposed schema to better fit the
+> current state.
 
-On Wed, 23 Sep 2026 21:04:11 -0400, Yuho Choi wrote:
-> PCI: rcar: Release temporary device tree node reference
+Okay, please add these details to the commit msg.
 
-Applied, thanks!
-
-[1/1] PCI: rcar: Release temporary device tree node reference
-      commit: 186da40837a4a2472b8afbf7dbccbe1b1e0f16bf
-
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
-
-
+Rob
