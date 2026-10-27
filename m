@@ -1,52 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793144902;
-	b=koli89rjgD+jE/i6jFZn0858D5hyoXDGCqW0y/OgSeVgbRZKbgFY9iN7buJA3wd2jkW1
-	 MK1Q+PLEm9EPPQJwUD7fyxpxYCOX7X+eTVvqMwRaGRrewT15rIPvw5hJYfic/Y/376Hx/
-	 ImBSvttDBhk2paoKMvtXwEo06u/auwKWv0w7xEJiS5kPwIXsx7N9eBBhu9KWR4shWv8xS
-	 l6HDIexoN613ZGRrUYSGEeUjjMUnpOz3FNx0qDTJT58qlXmDwFkovaBZkWJyd+eFOdKnn
-	 VWMP9errefS5WuxO7T/xVyqejLeZIPUaNnZRi1kHEE3KSn4kINH9IWUzNa9ZbtafGdQ==
+	t=1793145199;
+	b=OuNS/bGAKJSoMrzUx3pDvWG796/9TYoY+AVAnp7dVkyzDo8acxms3tin/KTxq9K9003W
+	 ZEAR5VvkGr2ulfWNDIy8dJUi2ZqFdjX9gBVz2h4IHViWAuPQv4U5a208OG/utz7YeXcFY
+	 ruHPwXiYDAJ1uGodYkR3q6EIDJycEMHuIAs2QypOpBtzc1sMoLfhFwN6k6Z0QgwQAFM4H
+	 ToGH7Fptgz2euTSD8bH226uhv6xmZ7i9nzBLTZwphTYox8SiphSHOrmUXT/wq8XCA2pUj
+	 MNhOKF+HSrzymbZuVQhBGdrkpCnlCoejsCwaV2rFIuumFfVTwv7yl6IT2LgsQSoFyEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793144902;
-	h=DMARC-Filter:X-Pm-Submission-Id:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7+8vhhsXQyVJjSz/sbHoh6YEddpDB8KKnVbfcWobf+o=;
-	b=pqOvYrsZDtbXdYuiooXIczk9siWI929bhJxpfvACe6j+2ZkAA4alqEUW2/MX3S0CViNj
-	 3XG13m054SSnwHryjSWBH7KLn59e2pgYdjq3ZnQlPV1aF8AaW8ijVwHGhamqj7UoQOW0+
-	 U3wlZYOF5uTmlLBmjBCxRPVmLGzcpEh3xh1aDgKbPoRii0m8wF5bDDoGgQAWKWk9b8YPP
-	 JSlZwPLXsErvTT0+d6rBJcOwaatRjT1edko96WKO9fwTSBnhe3TMnWZ3umSpofDOA26II
-	 tjs24gElOHMXDGq7B/RLVc0c90VhmESSXq7dZ5YyRaB3FWzEIeIPjUoUl519ENS3kfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793145199;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iuQfgeNxA6wGpTGomQMxImyXHDaKIESamcJco6bW6WQ=;
+	b=p+Ju7GOKyss4X3gynMx/MHR/ym865S5m6LyD5A4wgcSrVDFuK/8XbLYYrRQasRh/3b4+
+	 iSTQWaHFJZ2VfTLGG//bQtqf/LHwoOpxosIvTnD/HBFB1qEvvikYfxyJoRO0bDY4R2BHG
+	 EXgzbLSPS38b5UxPTTwpbi7iCRvxxfDBe7TDNJR2ZeqdkMPmERXP3LDU0TZD5mZO9ijSi
+	 vRDo41bF5sSpwAT4kZ6xAW+lYJKUIH9YsFFzaUht0SQsHni3l1Jz8dYW2+7khsk9svbTv
+	 5wTxHrGvNQ90yJjjh/tZ8RtmoSJwOC1glc9ztPfYGkpYeGhIyTU6BJJOIiTsJtYXGtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=loafecho.com;
-	spf=pass smtp.mailfrom=loafecho.com;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksBxNZON;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF89606A31A;
-	Tue, 27 Oct 2026 23:48:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AF89606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=loafecho.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loafecho.com
-X-Pm-Submission-Id: 4jDnHg1Wqkz1DDLJ
-From: Tony Garcia <tony@loafecho.com>
-To: Marco Ziliani <rylos78@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	Chris Simpson <chris@nilk.net>,
-	Simon Kruse <simon0x+git@proton.me>,
-	"D. Manresa" <dmanresa@gmail.com>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6091A606A31A;
+	Tue, 27 Oct 2026 23:53:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksBxNZON
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F7A1F01825;
+	Tue, 27 Oct 2026 23:53:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793145198;
+	bh=iuQfgeNxA6wGpTGomQMxImyXHDaKIESamcJco6bW6WQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ksBxNZONPb8UCXkhTBve3goFXZZQLNXqWYD1psAQqmQ3PV384sVnXrWRRZtDEQirR
+	 KoYFh1V1XqfzzHUyFKBpYgXrgq7+gneJRolr49gTjumAnLJ75m9M4q3zSMoDVWWq36
+	 6sjR3kzQWhZTBeU8/mx+8BUMTK8Tca1N5+PrlgL4KCKf25Z/Kmmw6BEdZy0A/gCG1Y
+	 qk0Rizpie+M/WaCYxcVrjY5to3BMnQCN8GL2VCKQTDq9I0WG8Z82PzWUDjRMLQu09v
+	 95QGDJgRDeR9ueS0uM9hU68vTH7tYwA9gmiAQ3aWNE+Pnds1AHMTTL17VP50qDuNdw
+	 tDVMS4Sh/NGUA==
+Date: Tue, 27 Oct 2026 16:53:17 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	Yuchao Zhang <ndaugoing@gmail.com>, Fuad Tabba <tabba@google.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and autosuspend
-Date: Tue, 27 Oct 2026 23:48:06 +0000
-Message-ID: <20261027234806.4068845-1-tony@loafecho.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
-References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+Subject: Re: [PATCH 0/2] KVM: arm64: vgic: LPI fixes for redistributors with
+ LPIs disabled
+Message-ID: <auE5bc4NJTZO-C1o@kernel.org>
+References: <20261026092802.2636798-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,46 +67,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026092802.2636798-1-fuad.tabba@linux.dev>
 
-Tested on a Surface Pro 7 (Ice Lake). Its front OV5693 sits behind an
-IPU4P, which I run with ruslanbay's IPU4P-on-IPU6 RFC series on
-linux-surface 7.3.0-rc7. The three patches were applied to the 7.3
-ov5693.c (they apply cleanly). Raw capture from the ISYS video node with
-v4l2-ctl, frames saved and checked buffer by buffer (bytesused and pixel
-data), no libcamera.
+On Mon, Oct 26, 2026 at 09:28:00AM +0000, Fuad Tabba wrote:
+> Hi folks,
+> 
+> Two fixes on top of Marc's cross-CPU vcpu pausing series [1], for LPIs
+> whose redistributor has LPIs disabled. Without them, the guest can take
+> such an LPI with EnableLPIs clear, or lose one mapped before it enables
+> them.
+> 
+> The first is the vgic_target_oracle() change Oliver suggested on v2 of
+> that series [2]. It stops an LPI from being queued to a redistributor
+> with EnableLPIs clear once the disable path has retired the vCPU's AP
+> list. With that check, the path has to pause the vCPU before clearing
+> EnableLPIs, so that the retire still finds its LPIs.
+> 
+> With the second, an LPI mapped while its redistributor has LPIs
+> disabled keeps its pending bit when they're enabled. The second relies
+> on the first to keep such an LPI off the AP list until the enable.
+> 
+> Reproducers for the INVALL case in the first and the map in the second
+> fail in every run without the patch and pass with it.
+> 
+> Based on kvm-arm64/cross-vcpu-sync as merged in kvmarm/fixes, which the
+> first builds on (e99ff76f4a02b; also applies to kvmarm/fixes
+> 309e1d2215255).
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/20261015100539.1011760-1-maz@kernel.org/
+> [2] https://lore.kernel.org/all/asf87i2RDh-WksL-@kernel.org/
+> 
+> Fuad Tabba (2):
+>   KVM: arm64: vgic: Don't forward LPIs to a redistributor with LPIs
+>     disabled
+>   KVM: arm64: vgic-v3: Don't drop a pending LPI mapped with LPIs
+>     disabled
 
-The patches tested were the ones posted in the linux-surface/kernel#181
-thread. The code in this v1 is identical: applying each patch here and
-each tested one to the same ov5693.c gives the same tree after every
-patch.
+Reviewed-by: Oliver Upton <oupton@kernel.org>
 
-Patch 1 (mode registers on stream start): with the sensor held powered
-(power/control=on), 8 full->binned and 8 binned->full switches:
-OUTPUT_SIZE_X (0x3808) read back over I2C during each stream matched the
-requested width 16 of 16 times, and all 16 streams delivered frames. Out
-of window (sensor runtime-suspended before each stream), 5 + 5 switches:
-10 of 10. The unpatched driver, same in-window test: 0x3808 stayed at
-2592 after each switch to 1296x972, and none of the 6 streams after the
-first switch produced a frame.
-
-Patch 2 (Bayer order with flips): 2592x1944 at all four hflip/vflip
-settings, the sensor reported SBGGR10 and the 2x2 sub-plane test found
-the green pair on the BGGR/RGGB diagonal in all four, with the same
-blue/red plane order each time. Comparing image profiles against
-hflip=0/vflip=0 confirmed each setting really mirrored the image. 45 of
-45 buffers at each setting had full bytesused and non-constant data.
-
-Patch 3 (autosuspend at stream stop): after a 60-frame stream, the
-sensor stayed active for 1.2 s and was suspended at the 1.3 s sample
-(100 ms sampling, 3 of 3 runs, 1 s autosuspend delay). With the old
-pm_runtime_put() (my installed 7.3 driver, whose stop path is stock) it
-was already suspended at the first sample (3 of 3).
-
-Also 1296x972 binned: 10 module loads x 2 captures, 900 of 900 buffers
-with full bytesused and real image data, no CSI-2 errors.
-
-The tests were scripted and run on my Surface Pro 7 by an AI coding
-assistant (Claude) at my direction, and it drafted this summary.
-
-Tested-by: Tony Garcia <tony@loafecho.com>
+>  arch/arm64/kvm/vgic/vgic-mmio-v3.c | 31 ++++++++++++++++--------------
+>  arch/arm64/kvm/vgic/vgic-v3.c      |  3 ++-
+>  arch/arm64/kvm/vgic/vgic.c         | 12 ++++++++----
+>  3 files changed, 27 insertions(+), 19 deletions(-)
+> 
+> 
+> base-commit: e99ff76f4a02be8542e2c3ecc8843d7339a0200d
+> -- 
+> 2.47.3
+> 
+> 
