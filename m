@@ -1,96 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793220997;
-	b=ZebN/+5Lj9mwc5fZrdEhqozTQKextg1NpX3Z1SolWEMfPkWMTGWucL8ClVKBh9nUUbW/
-	 LA0SBpquCtNf1KXI8eJzA+nyFNSNAIEQf21OOnBjaCWbY4cgAcqGu5yeD254M0D7e3RVP
-	 Yic3mbeI7XpaswLNLdjBpvfbJNk7kOrFUPraVqXT6b7QC5MzV00savUy0fQKkV2kR3HYL
-	 LoG9dKyftqMnD4yEcV6rQBPLVuSLU1KHdbYgy2N8OHbLqp1I2am6DIPvKFTDpUVbK94vC
-	 nfRpPJUfuijzZycd4EgKzf/6kPgLpFVTHPYpvJx0idU86M/WGtEuQ04QmJ0HNvdVvqQ==
+	t=1793220993;
+	b=IG5Mk4WlwajUqKAzZ2++/0p0Xm5GCEay3g+h9k8X2NzyTy111qkmMfZs+hjDlew5L2nV
+	 cTOxZsX6foeHs5VP72iwazUKuQOupchMXrrveel77SyNvoLCm5byt8lAoSXay4Fksu6AP
+	 XUu8g3PMCE3o6OCrvFBTgBxW9wnKMHixJYIjqDngERn3gbVj/NVPr2sNrQvz9NmWAx83E
+	 i31IdelpzjcrBURfdPIFVGf9LVTa2T+MMLLbV6kyrJUD0FSronqOqO7MkuILX0O98uKq0
+	 HmskJl+Ib8Pmt491sir+SWdMO3hT+5Tndmjzz15A6FECdyHxPtgi/BUso5nLOqV0X4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793220997;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ODTX1Mq0hRb3U0WQ7WjPVnYgtfrvQWKTica7ES+VT4I=;
-	b=Ia6qfIQNrOKFq99WP73FJ2fq68JAGtKLTJpF72LlWZiczMrduYkXHx/nE9VREBnOKQe4
-	 Y5wEkcNX6o2mb/whWKRoZ2XZM02rbmQCgQ+w7KWULLY+7//i7TEEoTrHGCSJzHf0H9xnK
-	 CpTRHMBprK1BLCAJ6/pzjAXiU7un243OUa5VWYktulV+fWusUpn7Qvj5HIul3B7s45ZW3
-	 8MsQShlRvrTusV5IDJSlr5QUMgOIK/Q4YGQlo+v+KWPtKwh90U7vhisFgHeXOjp7T8vKp
-	 iaCmU+J14gJ7rfmQ5TYrAm060jqCz8wi9qlJsnjyHbTZYKwIOlDT6/rPQMtNGBezt4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793220993;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=d0uZ7bDOtn5HW/dXtjM4vQVXca3IMlbQSm+JVQ5ewaU=;
+	b=QqS8anSGcKOpAN5f49hEVSaX0nMOwYXF6goJbuP7HklRFwq419EZ3H/yCbW/lPYnBfqL
+	 dyLslwkDSQu4HXBEF++MRv5ao9zC9YHXrKtvV9AMuU3iuwcrvRp2Gz9nq9HQfscb4eWUJ
+	 S1QabI898YBIlEIdPeit1rP+OHML44FHBCQvBv9LomX8DM6goTE7ceZcQKYD3hr5X0hKR
+	 0h4NrZG2NsePc/Th9VgpwsrrhiSMDlqiwH+ACQOmbP3vO7pkkc9My6khJSw8/W3ew54TL
+	 dwsM6IkSQNrRcvdJbLUe31DRkchFwVEMleeLqCD5jm9BdhcUGwgW8znBQ7ty1VfhL1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CZjmXWXX;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cg1FfSW3;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A38F1606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:56:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A38F1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AEE606A31A;
+	Wed, 28 Oct 2026 20:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9AEE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CZjmXWXX
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so14032755e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:56:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793220995; x=1793825795; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ODTX1Mq0hRb3U0WQ7WjPVnYgtfrvQWKTica7ES+VT4I=;
-        b=CZjmXWXXnX+ztXHAuvrQTkbPf+jP/sDF0PnXOpWzwXGpBsdJ1rhg3JnJMulsn1LZtc
-         wyfSr73iuW6G6lYTK5qywTRamFK65aw4EhHZpcs3YXXCMYJ182FpfQ0EHPNAOYBiFgz+
-         uV0g7eMcsfSrQBk+z2YakRjoz7OW1t+CNZ6e5KYZ7iJQkSRFeL4/v3EBLJB/nHuOxYlB
-         AEsAVqT+qXm4fLz6ZXg3F2AkmI4dzFjPtCKKf+RmgYz9Zuloc/ssDOidWLd2kUgUBnto
-         nE/cIOG6liqfC08Ld70skugGugDGff6oPpJHsQ+0uGhAbGBDKRIufj2JqR/AH3BoAL7U
-         EaGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793220995; x=1793825795;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ODTX1Mq0hRb3U0WQ7WjPVnYgtfrvQWKTica7ES+VT4I=;
-        b=ph0OiHRNEZnHS4v2k3nrY1Z8sC5Rwm8AxSjVVMYFQwJI6RZpT7MfYiy91UvaPx1VSx
-         +9rky7r3W7l4WlxgZ8kIJe/8VArCDoQ7GRniVeCu/1CejkPH0LNVVdayU3UZwY+otiOq
-         4naogE5PiqZ8T2DrOLH4lgBk2m5xqWPYGWEzXaYJ+O8OKMxcICk4dsumDlRa3NErdxDy
-         3PeWaBFOFAXhf0Gt8LNfdW6E35MXlnp5gcKxGm7Js2BNP5QGRnNq9CcerPFjK0R1P/C2
-         rKx7W+s+0QQZmwBV8uiKM9MIcAkqXL25UCIkc2bqI7c/Eif1myyWPEHZUF0w1MzC7JPc
-         aR3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzKMQznhjhh4/KoeuDmcWkgtLLlI+0+2CaVynUVauXsGZAQuync5mOblvnoaetuSgJaoRFHNbNHDlo7Kv4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmbcWaociR4Scjd6v9+ir8keQd13uFEFJ10ODacvgcwd+7KTS/
-	BraQuarSYU13Y+f7ttJOiMGh3r+JbS3fTvJnEEi9weHC25jaUaaRmjrtPtyJl9vL
-X-Gm-Gg: AYBFou0L4tOwBLcUQcqJe/eq2TsGumDDh7d2mEItGSN0lkhDPHkq+kn+Ipj25QmO9y4
-	lH6l4aPARqi3sNxvcahiK4tCqDA/9G0opaBNdc3ocdIQZgL2lmarn6hl2EVyWTfJxOFHrzbODHQ
-	J3xV+wc1NzuwNOL49e9ENXXmdTgSImYKLLvsnsbW+4V5B1965y1oJ6/Tj8gEiqI983+pNucrL7p
-	OVDUj5gY2Prtykp45YXWdeHVckParc0QA92AIs6hl2m5URbyNykaX0EZN/wAJuXF/bNDPSODNFC
-	7jagCvSvjC+eJEXVx4qf1UU7fjS9043PfR7drZ9S44QmGq396jV5yZhrkqo5QjcCrL/4BBhfuBm
-	LxDNahE/OEYUm0PUIrWiXaPrS0SX3dIzKmPOZ0I9exs8xoU/iweId5emp2HJnfJFJcha27Z59DA
-	ifE+cauSX4iMKIYGIX4oScsdPXqMg+o4Kygi/qxhCB4bLxFtgkgPC0bUuTfgc/DffjUyvm+38Pk
-	oq/3xt7lX/988974oweWkCAURuX4AEEsVlHGkVd45WY+ST4EYhd02CRdplbYMR6pO11jtom9HMU
-	eOE0I0UQmBC9BsHgK0ExEjerxXd8Fcup+dJq6BggU0LmYR7HyPlMCdDN4eV5DwG+Tw==
-X-Received: by 2002:a05:600c:811b:b0:4a3:59c9:a743 with SMTP id 5b1f17b1804b1-4a967e8d5afmr77924555e9.27.1793220994832;
-        Wed, 28 Oct 2026 13:56:34 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm15896115e9.1.2026.10.28.13.56.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 13:56:34 -0700 (PDT)
-Date: Wed, 28 Oct 2026 20:56:33 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>, ardb@kernel.org,
- Jason@zx2c4.com, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] lib/crypto: aes: use memzero_explicit() instead of
- memset()
-Message-ID: <20261028205633.7625d789@pumpkin>
-In-Reply-To: <20261028155134.GA4041913@google.com>
-References: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
-	<20261028155134.GA4041913@google.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cg1FfSW3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793220992; x=1824756992;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=PbqW5AeZhCFft4Ougt7yyxKLq7PRF8FYmyX1CttUzeg=;
+  b=cg1FfSW3trobUPjTq/2Ll7gwX0pHcu8v5SSxBWtvKrQrV3D7F8/HlW4N
+   EtO5sO1IwEVBag2qcwZ1vBa1N2vkFfy9T3Y3ej/4TiRfGGnYd9vvtcLob
+   uGWONkp/OIeY941pedR9m0lqUuQL17ejR60k8Qj8QMUteCGoax5YWMBG+
+   IZnThOaX5q28MZCfoatr9KZw2G7CvgdU8DFhEVdwOZo/2oK71jAXSauip
+   Nzyop1MJt4Ej4WaPw6vLckDeZqlA8xRlbKnQDh1hIs+hr9+Gi1mPqKqsd
+   yx6Hxg74yiqwo4u1ZpqlG+twqV+pBEqVPK8m5w1dQEqL2gNBdRYXrTQx7
+   w==;
+X-CSE-ConnectionGUID: yuQcJzVOTrmjgXkew8l7XA==
+X-CSE-MsgGUID: 5TGCz7MSQXWxzYTQLYoXfg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1853947"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1853947"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 13:56:31 -0700
+X-CSE-ConnectionGUID: Smk2O2gWSBCnTFdmW23Kog==
+X-CSE-MsgGUID: kEEXzKb5QGWUA8py0P+KbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="4936115"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 13:56:29 -0700
+Message-ID: <80a24492-5618-47c6-ae32-6d86f1153a62@intel.com>
+Date: Wed, 28 Oct 2026 15:56:28 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,47 +72,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/16] KVM: x86/pmu: Switch to bitmask-based KVM PMU
+ capabilities
+To: Jim Mattson <jmattson@google.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org,
+ Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>,
+ Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi
+ <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260827223755.143247-1-zide.chen@intel.com>
+ <20260827223755.143247-10-zide.chen@intel.com>
+ <CALMp9eSUcm3aygzDSn7qD_58AxZm6y1M58LOHXpLhcPV43L8Ow@mail.gmail.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <CALMp9eSUcm3aygzDSn7qD_58AxZm6y1M58LOHXpLhcPV43L8Ow@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 15:51:34 +0000
-Eric Biggers <ebiggers@kernel.org> wrote:
 
-> On Wed, Oct 28, 2026 at 07:56:36PM +0530, Mohamad Raizudeen wrote:
-> > aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
-> > output buffer when authentication fails. But the compiler can optimize
-> > that wipe away, so use memzero_explicit() instead of memset().
-> > 
-> > This matches every other sensitive wipes in this file, which already
-> > uses memzero_explicit() for keystream blocks, tmp buffers, ctx
-> > teardowns.
-> > 
-> > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> > ---
-> >  lib/crypto/aes.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
-> > index e1c191551736..7814ef525239 100644
-> > --- a/lib/crypto/aes.c
-> > +++ b/lib/crypto/aes.c
-> > @@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
-> >  		 * Clear the inauthentic decrypted data so that callers won't
-> >  		 * receive it even if they fail to correctly handle errors.
-> >  		 */
-> > -		memset(dst, 0, data_len);
-> > +		memzero_explicit(dst, data_len);  
+
+On 10/28/2026 12:57 PM, Jim Mattson wrote:
+> On Thu, Aug 27, 2026 at 3:48 PM Zide Chen <zide.chen@intel.com> wrote:
+>>
+>> From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>>
+>> Intel platforms support non-contiguous fixed counters via CPUID.0AH:ECX
+>> starting with PerfMon v5, and support non-contiguous GP counters
+>> through the Architectural PerfMon Extension (CPUID leaf 23H).
+>>
+>> struct x86_pmu_capability now exposes {,fixed_}cntr_mask64 bitmaps,
+>> which may contain sparse bits representing non-contiguous counters.
+>> Switch KVM's kvm_host_pmu and kvm_pmu_cap consumers over to the new
+>> bitmask fields.
+>>
+>> CPUID.0AH:EAX[15:8] and CPUID.0AH:EDX[4:0] enumerate only contiguous
+>> counters. Derive these values from kvm_pmu_cap.{,fixed_}cntr_mask64 as
+>> the number of consecutive counters starting at index 0.
+>>
+>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+>> Co-developed-by: Zide Chen <zide.chen@intel.com>
+>> Signed-off-by: Zide Chen <zide.chen@intel.com>
+>> ---
+> [ ... ]
+>> @@ -772,7 +773,8 @@ static void svm_recalc_pmu_msr_intercepts(struct kvm_vcpu *vcpu)
+>>                 svm_set_intercept_for_msr(vcpu, MSR_F15H_PERF_CTR + 2 * i,
+>>                                           MSR_TYPE_RW, intercept);
+>>
+>> -       for ( ; i < kvm_pmu_cap.num_counters_gp; i++)
+>> +       host_only_gp_mask = kvm_pmu_cap.cntr_mask64 & ~gp_mask;
 > 
-> This isn't for "zeroization" (making the data unavailable in ramdumps),
-> though.  It's just so the caller doesn't accidentally use the
-> inauthentic data, as the comment right above it states.
+> Should kvm_pmu_cap.cntr_mask64 be kvm_host_pmu.cntr_mask64, as it is
+> on the VMX side?
 
-It is also a parameter so has to be zeroed anyway.
-memzero_explicit() is used to clear on-stack buffers.
-
-David
-
+Yes, thank you for pointing it out.
+> [ ... ]
 > 
-> - Eric
+>> @@ -556,7 +557,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
+>>          */
+>>         nr_gp_counters = min_t(int, eax.split.num_counters, X86_PMC_IDX_MAX - 1);
+>>         pmu->pmc_exists64 = (BIT_ULL(nr_gp_counters) - 1) &
+>> -                           (BIT_ULL(kvm_pmu_cap.num_counters_gp) - 1);
+>> +                           kvm_pmu_cap.cntr_mask64;
 > 
+> CPUID.0AH:EAX[15:8] (eax.split.num_counters) can only enumerate contiguous
+> GP counters 0 .. nr_gp_counters - 1. If kvm_pmu_cap.cntr_mask64 ever had a
+> hole below nr_gp_counters (when leaf 0x23 isn't exposed to the guest to
+> advertise a sparse mask), masking (BIT_ULL(nr_gp_counters) - 1) with
+> kvm_pmu_cap.cntr_mask64 would silently punch a hole in the guest's GP
+> counters even though guest CPUID.0AH:EAX[15:8] told the guest that all
+> counters 0 .. nr_gp_counters - 1 exist. Should nr_gp_counters be clamped to
+> find_first_zero_bit(kvm_pmu_cap.cntr_mask, KVM_MAX_NR_GP_COUNTERS) until
+> leaf 0x23 is supported?
 
+Regardless of whether or not CPUID 0x23 is supported in KVM, I think "if
+kvm_pmu_cap.cntr_mask64 ever had a hole below nr_gp_counters" would only
+happen in the case of an invalid guest configuration.
+
+Anyway, it is good to clamp nr_gp_counters to remove any theoretical
+hole, keeping it semantically correct.  For example:
+
+/*
+ * CPUID.0AH:EAX[15:8] can only enumerate contiguous counters. Clamp the
+ * value to the number of contiguous GP counters supported by KVM.
+ */
+nr_gp_counters = min_t(int, eax.split.num_counters,
+                       find_first_zero_bit(kvm_pmu_cap.cntr_mask,
+                                           KVM_MAX_NR_GP_COUNTERS));
+pmu->pmc_exists64 = BIT_ULL(nr_gp_counters) - 1;
+
+Thanks for the review!
