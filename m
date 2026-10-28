@@ -1,101 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793222573;
-	b=kJZ2IrXZLmcIrDFRkP1GnC+Si9Yoq2REaZESp/5IdPiSl8PFTLAdzaIqbu3AnMBpk9+J
-	 b5on21ger8GnexZyZgWM/GaAAECW2mr5OkYl2UfxMfJ8nu3oi9x+5jnPkqpCQJzvVQhw9
-	 9Fjb45Zs6tQzYP2rh7OM1a86CURpTlY0OU35jDI9S6zvUa7L3ChzhgyAODYtRRIAh/6pC
-	 j8znV21KQytEa9vR5NNKCcPGw+/V6Z5VRR8ZfEIJN05I0QufADL4z1J2KZFvAutwD9EJd
-	 KPAt88SnvWvFQbBrNhSt3/O7v9kgej91XC/ZfSSMbzIkK8Xn4RY+dQ88nzSGFeYUM5Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793222573;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=H9OWahcyc0RtO0+EeUD26bkvPuyjvUzZOmtjTnKMJz4=;
-	b=obwDHYqKx0HlcCIWM2adFp6536mFFahuwI6HSDzBcj5nSbUdp83exjxZZkkbqWFodFD3
-	 LJ/OBjtW6ni4JdiKvEfv3hRjhX8O5dYLnffYYA+wPz5otDygtHJFcC1psDo2taqo1pGva
-	 ZWQb3Rq01EjlnrYPLbyKzw8fjo740xjRgSDuo+rSMROaKgkAMQdoHPMbTrcViUvXOlSGh
-	 e9y+rOZmuSkkWFH/zcyGRHEYIixcUtsMqgjIwKfAelISv0+vwdZfF95Q7oxjOr3LpkRXN
-	 bsqablaryPNAKvi3kyS/gMKOf9KxO7VVksmjbuYCNTF9+GeVONbn4IPiI3EKc9c/rjA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BdNpiMdS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.99
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793222597;
+	b=AzPq+rgq++ky9WUQ2oOUPi+TBpeo87BdAu4kOFKWEMahjUIGxKlh/tYpR+6SZEQssdol
+	 fBEhii9l2gabzkCJ7ZT98Z9AFJplgj9p1zx1H2X/8FTe80xPh1oBrqQTI6bJRd9c6yKt/
+	 W5JNRdLxrpxv/JIpLAJVx0GlTkYnBKVnEiJH2bCUlkzyEMNMZbQqPRsFSNe1Nvf/ygnWM
+	 k6v05LDZvmEb+vAdJ/48tacUXc8KL0k5q9iz302WVzYK6dRH8P27IcFN+NtsZvyi0xKUh
+	 H5+967SmyFw8U0R9uAqY6NX352pbY3Rlu9s2oLGnL7jKTgXusAvYB2uR0aNxe/f6rZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793222597;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=H/q3/zf/nmcGLoN5H4ogmMMXauB6rTKmmZVIQA880V8=;
+	b=VQKwfqg9F3vTNT85aj8cZ7ei+uGpOyxt/R3BG14aw5vNF1UFzZ2Ii/WqMl9wcPInz7xj
+	 4G1UfGuYEcMI/ImY7yX/tmCw5Q2ek3gPyJOjaQ0VgBkrNYtxm181HPYiBOqz0NG/p0uRB
+	 aIKPD0muxz2X8HSs4HlaLtekHz4I8gZqjFg5l914d0wYIndh52DjJS1973y59RqbJD7vd
+	 Kn8d682WDZ16VswK67Lvg1Xqk6hFQXJHge1gkXnuiK0c/559WhYWPcKaP3AAK//+SXXrG
+	 /H+ThZrti+mnyRsNybs0RquSodhh9gO6TyCMUscGw17WQ3H+gHqOKaBnQlHVobzOHKA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YmtFMaeo;
+	arc=none smtp.remote-ip=209.85.216.99
+Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120CE606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:22:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 120CE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5AB606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD5AB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BdNpiMdS
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20d7a8984so5165e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:22:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793222571; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cxCsAgh2mjzfzkxkypg4EUcrzIfN5nkunzi8goFJn0301RpxxQR9d2BZPK0kaC3nhy
-         Z3jDJ1YChufKcBxujmrFtlVEX6vIhxrz95HW+Xd6g+2ZN0EnwDcqGzz4Ph+VLu8kxu/i
-         rwpoZYOsSqDxKdOVfzz4We3FCh6qpe5fsu89fGULw8YLiam7ghED7rKSJB4nyTUJd1ML
-         bkQrt/sGYO+p95T4Ktc3fF2ZkN8vNzFFP/QPinCieOR9xGzsMsgEGOoLz7v47fv7XE0w
-         xY6S+hcV2qRL7oBSntSvLtzaEY/M+mIpf4aCx1GYECki9keFctAfZosTBwkZEAy2WQMO
-         W4ZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=H9OWahcyc0RtO0+EeUD26bkvPuyjvUzZOmtjTnKMJz4=;
-        fh=8yzauhv7Hl6HNFIBLs7YpRjVkHe49n002/xdXRN6Hz8=;
-        b=fMs0tdIrxLL9dIeckG8RctKWhmFcce9gaTOINNzUlMLSvO5Kkgu4mG2TnQxMlN59lO
-         joc5lkXmKnULjQrc19xNvv1o7q4pZw1bgqpEekwonm26y+0VHW/7vqzTdgPHMyDez36L
-         oortKkg/bIKVVZj9qsPTs7eDvdXf60c5MXpJx4qU5DnitfyYjUJ6AKpO1Mvruj9eqwTF
-         aqJvnPb3XhvPOb1ZIiLtNyUW9BOwM3pIQvzIBvKxRuuHNfahgxKKfr14C1vYNUIEaJV7
-         hvJAvNEjcf9WVxJhG/RsAzWW5dMh8luxbicr3gORJ8IdslszNngO3iUodIHNqBSzeDlm
-         C3dQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793222571; x=1793827371; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H9OWahcyc0RtO0+EeUD26bkvPuyjvUzZOmtjTnKMJz4=;
-        b=BdNpiMdSCff2liQ8tiUGDfLBx2qXWrVA+PVPjmF/gUh6+AQ6ARYk6zGtN2RDjM12Kj
-         tIv1KztstgoyrA910VMkmt94SokmjkeDp9gLkyXR3FzhenIwJ1SHYMhws0/gUOjjPw3h
-         rr9YslNsq0hPwRxAUKG5HBPou5uZcM7MfwBEPWRgIdx//15NmzTabuUB2/D72zSoAbOS
-         QMKlP9MDnNezExJwNAH04+y+MtLnvBXEqrNDrYRdMB3OXs0rQWcK7IRGecI5nxAwgPwg
-         fKPLd9qt6W+jsh4IbfXjTdfrH0SuaHTq4UdkBUwRWZ0No43M3RMCwxJpHoAmsmReBPZ4
-         B9ig==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=YmtFMaeo
+Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so928489a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:23:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793222571; x=1793827371;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H9OWahcyc0RtO0+EeUD26bkvPuyjvUzZOmtjTnKMJz4=;
-        b=1Pe0gcAoTe2r4HFUerCORIE5+xq74hZrZPaIpDgWt7Ec7KelrPklGpcpgGQ8WAY2A3
-         IAcUdlaNfoHTfN+DBOna7FULBe4RV1kBTYF1equmYZkpL/pTJ0RSsAqQB2jnr3Fmry36
-         R+FCmTope6AsxPm1eOesXiFA6PgtSX2F99ZkmO4dVLJw98QmGav9joEQbkkRhIuAoCBI
-         +A2h1ZVjRgVCNEEvia4ufrk4kkK43x1oMeTQBFM7iOmSt6t0tW7Nc3HiiRNFvp3CVFMR
-         15g4YMHtqWDNvOn08X7w86tQ+BZtvQY5I/Zc7ab8LDwM8lO8qD4knQCw+cJ9ya/EiAIn
-         6k7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBydTaiQelnyDbPx8/FCORiTlx6BoEtOWt/ukpsbMX5ezf3acCM7YZZLpuHmmiDQz2ChvHyHftaD42qC5vE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLN4eDMG2W7Ipom4sd31Q4zXoUwUAAn9aooIxeK4g799OmUFC/J
-	Y+gZFDtvtPAR4+7+oBt5kuxHt0pT6oyoCVCxWxU2cPuEdOSnGQi7G8QrASynMPonKG+XZykLxZQ
-	T4Fy5EjMfzT8Tb4PSg7QnRzt+If8MYhdlw9ubU4PX
-X-Gm-Gg: AYBFou2MmQEunzaKnjWtfQYxYTZv2iVUTuIK/LUOy9PP82fKsvmiRS3bAxELAJIZnHY
-	y2yWxFIKJRl+YnqRH/+hEaYURrzvYn+ArpXA9mmCEp93aZaXYVX9s3wu9m5GecPBujX8QRF2eMW
-	4yZP012U0ZqQueDpikLAyhKvieKYxpjcgfIRHwBYzNEr6O+nVwe1tpR6VH3jJmCNod2/+DDyGCO
-	Yw/9y8VjQttnbWpd18iSCtyRXNyPyzQGpclgDoCHGHmHxZQohHEsdiaw5s8GpnbkYIdGXO0aKSr
-	P+H9AMDkqOi3NgPPg+6wdpXB2rQiiK2AkLCOBO8gv6USTV7S7qmpF/JEtocR0Fdakm+6g85onUS
-	8DC7pIV+5ugDaFoXgyq38dsk7epsueZixxW71FKotRwvccjQ20U0P46il7pbsLCswcA/ce1cK3g
-	mgGxuwxIs0bQS+AEv99bWksgg=
-X-Received: by 2002:a05:600c:26c8:b0:4a3:5de0:19ec with SMTP id
- 5b1f17b1804b1-4aab692b046mr61845e9.9.1793222571076; Wed, 28 Oct 2026 14:22:51
- -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793222596; x=1793827396;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=H/q3/zf/nmcGLoN5H4ogmMMXauB6rTKmmZVIQA880V8=;
+        b=HLxrrxOfbejnp72aoMknyD5Hk/Bl+euYlAuIYtf8/hY8ll/OivW4J3S3ZFasOtGz3S
+         yOha1IT4UC7YtMuEB+yuYj8uWV8GRNR8NzODZPDqLMM+P4SwgoFPzXytHllJo1TIqbaP
+         25MdYastAIq7ao7TEMitGVg+H3TDeOl+vLSNg7WSNYdGvZsSdSXWXWyVqjHeTFuN64OQ
+         M5NoIvmq6jdgrvlDKn/IAWrnQ4x/ORlUfcmhk2ZqiDCAfmG2TyrWDrdwo3458ZMkjJrg
+         ghoCEcGiJBpHEnfNl05rm7+aVnDOVxrvHS2NXfDNhdcsHrajNtvvBDr0s5WkLoqlwYnV
+         0Opw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7c1D8cO5KmmgovlQR22STZPbgFx3gcZEvCOD4enn6V+aAzrzafw43b4JvTfA2Txz9sVL9Sme7tRNtmng=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOhwgBlDqSFhmrcc0VPO5gozbJC9nOSk1i3JrHJHnjTbYgrYc+
+	8A7oiMGoKWCauHLphdi4DvRUtfhjunyjP6K+Z+mz8rXSSK7oKddVp1V8PVl7q4YooaWSXX6y/IT
+	GvBVV909ENuNz8/VG5C2cDgjsDQE2kFVINUjXX8ewabYgBzC9hsQmdz4DLVBkDj10VzWM9eq2zy
+	p+q4mcXiqvUK7VQbOng/kBaoH+J5wuZqODl0YOxzvcidbB3XtngSj0Ea82sHtj9eCmwLeNgJVdG
+	c9UYoI1gd7PHr+tOa7l1nPG
+X-Gm-Gg: AYBFou2K+bnVQIbBC3MB5dC9/mogql7JN4vZFJlij6aMmldZQgjg0zv70yParAIK/qN
+	DENGPNuOeXMsK8PZE0kaXUSsvTG6CcuVeqpupyNaH6bpUsihsdemCI47MeQ6iplhpydLMES06ih
+	rFl6tCqPsdyJhAXi2Wg96R6iXSTJ2mfhZY4U3Imk3+CyW/NOn1dHI8V5IUj8VcuDxzGC6K52577
+	Fp4E8AooDLST7puzMF9YnPw9OGxHJTLlJ4BW54IGj4YRPwiTvVMXtcUUSQCjiV5TN7BrZdf9FHt
+	Dnrp8iv8twWEhRpu42Wf6fC8q/pAx5J9wJMG329LCJfGfxAGwLtlJ1MsA8IcW4DgPHFNL/mhTkN
+	Kn9BK5yUiF6NY69npHsis5YNJRlXYi7mLhRFGg7ha80H5epV4menIdcZZYr8zseT5SsZ/bHHUsk
+	vnvwUtpAFJqVxzjJIQxxqAUEuGYoEJWoqfQ2O2K8td
+X-Received: by 2002:a17:90b:17c7:b0:3ab:e588:c278 with SMTP id 98e67ed59e1d1-3ae5816ea9fmr2737083a91.17.1793222596104;
+        Wed, 28 Oct 2026 14:23:16 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae5799c093sm997414a91.2.2026.10.28.14.23.15
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 28 Oct 2026 14:23:16 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91c7886e8dfso31428226d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 14:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793222594; x=1793827394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H/q3/zf/nmcGLoN5H4ogmMMXauB6rTKmmZVIQA880V8=;
+        b=YmtFMaeoLqAwQia1pSttjnPgF3mscZpzhguZX46Gpk3eDCvS1xwoN8qjntCpWWiLsw
+         IfUGuErNCTY2paypz5U8q0cfBrmZdMu5PdyMmekEoVFlW24BXAaJ/8rsXtTHTO56dEge
+         nnagDA4LVbqOF6PxUfnH6e3G0M2u1iqlEwgA8=
+X-Forwarded-Encrypted: i=1; AKwUvBzIEO4/c8nu4YjMLXrc8ONb7y7O5LokYBoDshi8PJehEl9mCS4vpLZDynQx280Gagp4P9oyxgnl1s/0slE=@vger.kernel.org
+X-Received: by 2002:a05:620a:4106:b0:93f:565f:e40 with SMTP id af79cd13be357-94408d9cd0cmr555383985a.65.1793222594413;
+        Wed, 28 Oct 2026 14:23:14 -0700 (PDT)
+X-Received: by 2002:a05:620a:4106:b0:93f:565f:e40 with SMTP id af79cd13be357-94408d9cd0cmr555381685a.65.1793222593993;
+        Wed, 28 Oct 2026 14:23:13 -0700 (PDT)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f0669112sm1368755185a.10.2026.10.28.14.23.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 14:23:13 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v2 0/5] net: dsa: b53: Preliminary fixes
+Date: Wed, 28 Oct 2026 14:23:05 -0700
+Message-ID: <20261028212310.3847553-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,117 +117,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028010611.3929937-1-tjmercier@google.com>
- <20261028010611.3929937-3-tjmercier@google.com> <auHMXBwnwuRwHLmo@KASONG-MC4> <CAGsJ_4zuGRjH+=1JxH4BYEC-vJumKjkhXPse0jW_nKEzQXXVmg@mail.gmail.com>
-In-Reply-To: <CAGsJ_4zuGRjH+=1JxH4BYEC-vJumKjkhXPse0jW_nKEzQXXVmg@mail.gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Wed, 28 Oct 2026 14:22:38 -0700
-X-Gm-Features: AclHuK-BDrgLvfZN_Z6mj4D7H_QyFDZWiVpmhu9KpmL6zRb0X5M1HcHjt7g6ziM
-Message-ID: <CABdmKX1PvZjnJkqD48_Pb64Je_oZVO3F-oaxMsBYzHmY-GjbDQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] mm/mglru: stop rotating offlined memcgs to the old generation
-To: Barry Song <baohua@kernel.org>
-Cc: Kairui Song <ryncsn@gmail.com>, roman.gushchin@linux.dev, muchun.song@linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Wed, Oct 28, 2026 at 1:57=E2=80=AFPM Barry Song <baohua@kernel.org> wrot=
-e:
->
-> On Wed, Oct 28, 2026 at 6:43=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wr=
-ote:
-> >
-> > On Tue, Oct 27, 2026 at 06:06:06PM +0800, T.J. Mercier wrote:
-> > > lru_gen_offline_memcg() moves an offlining memcg to the head of the o=
-ld
-> > > generation of the memcg LRU (MEMCG_LRU_OLD), so that global reclaim
-> > > visits it first and evicts the folios it left behind.
-> > >
-> > > Since commit f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of
-> > > dying memory cgroup for LRU folios"), those folios are reparented to =
-the
-> > > parent before lru_gen_offline_memcg() runs, and nothing can be added
-> > > back to the offlined memcg's lruvec afterwards. Putting an empty
-> > > offlined memcg at the head of the old generation no longer serves any
-> > > purpose and only delays reclaim from the memcgs that still have memor=
-y
-> > > due to additional shrink_many() iteration.
-> > >
-> > > Remove lru_gen_offline_memcg(), so that an offlined memcg is rotated
-> > > like any other memcg below the reclaimable size threshold until
-> > > lru_gen_release_memcg() takes it off the memcg LRU. MEMCG_LRU_OLD has=
- no
-> > > other user, so remove the op and update the memcg LRU comment as well=
-.
-> > >
-> > > Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> > > ---
-> > >  Documentation/mm/multigen_lru.rst |  4 +---
-> > >  include/linux/mmzone.h            | 14 +++-----------
-> > >  mm/memcontrol.c                   |  1 -
-> > >  mm/vmscan.c                       | 20 +-------------------
-> > >  4 files changed, 5 insertions(+), 34 deletions(-)
-> > >
-> >
-> > ...
-> >
-> > > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > > index 636152d8c94d..45a2c1021f4f 100644
-> > > --- a/mm/vmscan.c
-> > > +++ b/mm/vmscan.c
-> > > @@ -4538,7 +4538,6 @@ bool lru_gen_look_around(struct page_vma_mapped=
-_walk *pvmw, unsigned int nr)
-> > >  enum {
-> > >       MEMCG_LRU_NOP,
-> > >       MEMCG_LRU_TAIL,
-> > > -     MEMCG_LRU_OLD,
-> > >       MEMCG_LRU_YOUNG,
-> > >  };
-> >
-> > I think there could be other usage of this LRU_OLD macro, but indeed
-> > offline is the only user currently, removing it is cleaner.
->
-> I'm imagining an Android use case where, after LMKD or similar
-> userspace killers implemented by various OEMs kill an application,
-> we may want to prioritize reclaiming its memory by making it more
-> likely to be scanned and reclaimed, while the killed application's
-> memcg still exists - not offlined.
+This patch series contains fixes to issues reported by Sashiko on the
+b53 PCS bug fixes being submitted, and then some more that came from
+code review and testing.
 
-I think it's an idea worth investigating. I had a similar idea which
-is proactive instead of depending on reclaim hints. The code is behind
-a currently inactive flag - it runs memory.reclaim on an application
-cgroup before offlining it (so no zombie or reparenting), but I
-haven't had time to properly test it yet.
-https://cs.android.com/android/platform/superproject/+/android-latest-relea=
-se:system/core/libprocessgroup/include_platform/processgroup/processgroup_p=
-latform.h;drc=3D2ed7b05ab42dd67391ad2819b0ee399d89128ead;l=3D33-34
+Except for issue #2, all of the other issues did trigger in testing and
+needed to be corrected.
 
-> Similarly, a foreground application might benefit from a lower
-> chance of being scanned and reclaimed. This suggests that Android
-> background-to-foreground transitions, or LMKD itself, could
-> potentially leverage the reordering of memcg LRUs.
+Changes in v2:
 
-We are planning to use memory.low/min for foreground protection.
+- collected Jonas' R-b tags
+- corrected logic in patch #3 to propagate -ENOENT, memset after the
+  debug print, translate -ENOSPC to -ENOENT when deleting
 
-> But anyway, this is not a reason to keep
-> MEMCG_LRU_OLD for now.
->
-> >
-> > And everything looks good to me, thanks!
-> >
-> > Reviewed-by: Kairui Song <kasong@tencent.com>
->
-> +1
->
-> Reviewed-by: Barry Song <baohua@kernel.org>
+Florian Fainelli (5):
+  net: dsa: b53: initialize the jumbo frame size register offset
+  net: dsa: b53: fix the SRAB grant timeout check
+  net: dsa: b53: clear stale state when creating an ARL entry
+  net: dsa: b53: reject conflicting mirror destinations
+  net: dsa: b53: use the correct override register 2 Gbps bit
 
-Thanks!
+ drivers/net/dsa/b53/b53_common.c | 44 ++++++++++++++++++++++----------
+ drivers/net/dsa/b53/b53_srab.c   |  2 +-
+ 2 files changed, 31 insertions(+), 15 deletions(-)
+
+-- 
+2.53.0
+
