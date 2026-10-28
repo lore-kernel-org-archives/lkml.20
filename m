@@ -1,68 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793223902;
-	b=nAs2XCYgBJvuFytrJt5ZgYwFBO6NYrusaTM8dzoj5gW+R1Z3YqX411+rBb4N+UXuuY92
-	 /f9nfLRTc7EvW6VZTWM6XqIfuvVunszjWYqYz+xL6V0DDtwltrrI8UUrucnOToYGmFnnp
-	 URIwsqDXToVIgqBNiivg0PduuVhNpoL8K5INCwcsRTGoWBLiqyHSATFMVKa07YVEfr3OB
-	 CFNFCgJOwdoNLTsxNnVrhc1/DeCVc/Y4PsoFVVwx3NxazeviCnFhru7Wp4npedMa1DXg1
-	 PsACZQdFCaHJgXf6J75+v9OsZace38e1R70fvSFq0+apBBUhP1l2G4QaIJfA42tnlyg==
+	t=1793223941;
+	b=s2qH9Z9MaMXZld2VZO4Y56z6l13Qz79h0J77OOoVNErVLPrtX3yi57PoKQRCpn37LvF+
+	 Eb9+5h+iMmzTV6HK5r2iscUYaVYF9xxu7Hkb5bBXkYY66BF6LVatKA6h4uUMUHDHHMfRj
+	 x1BgFr31mcPJDcJdsyYqZzI6Qf+BU75RtkpPws3GC59+pnQ32Z1rwqFD8M8fseRqn8eIr
+	 R2k08yb52foj+nisManv13OnTmVtRLtVr80CF46Fz1UJYondVRx4qlrP4Uvpsy3UG75Xf
+	 bjkS5hphpIkgL198htYwDZ2J//kq6fGRWNlA3MiGzN+RFHuCEGg+dPOD3QCwAWpawEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793223902;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=QzdVxfFMAudZH5Zx+gYGxfMat95oWqA670m1PqVNdIs=;
-	b=IpfsSJEY2uBetPCeJdmybh0INb+lzufdP87cL4qQ/XYg6fa4wNGcnMi6O0JdsSUsQFNI
-	 3hIfuDKfzzGaJUeXjff8BEoNXj0Yrlsl8mx+ejVoLgF6QHCjRlHMAhQahXeWqBtYwWhYZ
-	 BU8jYN5k3pW+38bOvz7VvMDUiltVbmFPZ6bAdzOZlE5j/PKK93qjNgujNVMPwvI5ZsHf2
-	 FxUuPQjiQBybLVkGzBCeVnZ5xA+rdU9y5N2I6XDCpaiXOQfsSRW+E8ov+s8MOFiDCutKa
-	 e687IdB9okZ9LMF3e3yMXC22MCaPkix2md1546WBFOJWlVV2R7M8oDwaCgndV/4lfaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793223941;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yFNarfJGA92cpgfiM4NgxjTSphO3sijmtYGw3WwbWrI=;
+	b=Y8TCrabosfosBVc2jJr+o0nFUj3kB8VCFCJ80aZ9T6Pdoc8gS1AdlUpeaw4CFRzs7Kvk
+	 8tlBMhJaSrKM/DDBUQCB5bMcyABiExsTxu26V3pZcNwrIK3a/hpG3MuHA9ubLkplVQ7OG
+	 e+MdJo4AlE5Em9zutuGQbcp+O1PGMEUXyLh71w34fD1QtwcmoIOWv+XvrHMrGgFA5aFgo
+	 kF0nM/sfim/AcsugLHZI2JfowJzDHc6rNHDNLLtS5JfSufon/FN68gnH+VeZbUZO2fZXF
+	 IxaH8YyK9mm0tW3rhLdbc/obNYAyQPZGFB7srZFEGg74FaSLQP6t9ugFwDJFoMxpMhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=EN8Wx5cX;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 06730606A320;
-	Wed, 28 Oct 2026 21:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06730606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ta/yWIER";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B607606A320;
+	Wed, 28 Oct 2026 21:45:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=EN8Wx5cX
-Received: from mac.lan (unknown [52.172.102.253])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 3A9F620B7167;
-	Wed, 28 Oct 2026 14:44:39 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3A9F620B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793223889;
-	bh=QzdVxfFMAudZH5Zx+gYGxfMat95oWqA670m1PqVNdIs=;
-	h=From:To:Cc:Subject:Date:From;
-	b=EN8Wx5cXeJikQ7Oy47zjBGtBAX6F8v8XTrzHgttoY74GeuaW9CIukRb/9pwg/RXSF
-	 She8lnGdoEeYxMWz9BFYioFHAr4M8PSXHD3Xdo/wUWcDB120nWjjk4KrI8Z1btzJZK
-	 Ki8i2XbiVepQChoexg4X8NagfBV76spTqJ99Ri0Y=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	"Vitaly E. Lavrov" <lve@guap.ru>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ta/yWIER
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AF41F01828;
+	Wed, 28 Oct 2026 21:45:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793223941;
+	bh=yFNarfJGA92cpgfiM4NgxjTSphO3sijmtYGw3WwbWrI=;
+	h=From:To:Cc:Subject:Date;
+	b=Ta/yWIER+NH6kyBL2n+l/QOIrKqwV1TZ05trNvDJzIIBx5p/rjXP5XhsQzeCpHL0G
+	 5I5kHgNLuE8wFCDCytKeQ4cBZ0r0s0yiZKmPz9bUw6mtGUPJg02ag15syUndenlHH4
+	 JgXrqgqQ3AagxOfo4tKq5RONviKpVaZZGpHGY4K2aeYa96YUqZ+Jn3UsQpz0ycEo06
+	 uAjCqbEM+IZS19WiAiIT4zUP6pawFY52QGJMjNh1uNBetortB99GQvxHrjK935JkCY
+	 izFYGcIQIpYUZAVPndyOPxARIjvSRsE2xi3zEr9gzlNXqFkC/SKHdi3MBuL1Ch2A9V
+	 lWQUB4PsmI60Q==
+From: Song Liu <song@kernel.org>
+To: live-patching@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Cc: jpoimboe@kernel.org,
+	jikos@kernel.org,
+	mbenes@suse.cz,
+	pmladek@suse.com,
+	joe.lawrence@redhat.com,
+	shuah@kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: [PATCH net] netfilter: xt_recent: do not call remove_proc_entry() under recent_lock
-Date: Wed, 28 Oct 2026 17:44:43 -0400
-Message-ID: <20261028214443.47335-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	Song Liu <song@kernel.org>
+Subject: [PATCH v2 00/12] klp-build: Fix dependent patches, add selftests
+Date: Wed, 28 Oct 2026 14:45:22 -0700
+Message-ID: <20261028214534.1919398-1-song@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,76 +65,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-recent_proc_net_exit() removes the /proc/net/xt_recent/<name> entries of
-a dying network namespace while holding spin_lock_bh(&recent_lock).
-remove_proc_entry() may sleep: proc_entry_rundown() waits until every
-task that is still inside the entry's file operations has left. A reader
-of such an entry is counted in by proc_reg_read() before
-recent_seq_start() takes recent_lock. So if a read is in flight when the
-namespace is torn down, cleanup_net() sleeps in atomic context holding
-the spinlock that the reader is spinning on, and neither side can ever
-make progress.
+klp-build fails when a later patch in the series depends on an earlier
+one, because it fixes each patch against the original source on its
+own.  Patch 1 fixes this by combining the patches into a single patch
+before adding the #line directives.
 
-An unprivileged user can trigger this from a user namespace by adding a
-rule with the "recent" match and reading its proc file while the
-namespace is being destroyed. As recent_lock is global, every later
-attempt to take it spins forever too: the spinning can spread to all
-CPUs, and network namespace teardown stops system-wide.
+Patch 2 does this while validating the patches, before the original
+kernel build, so problems with the patches show up without waiting for
+a build.
 
-  BUG: sleeping function called from invalid context at
-    kernel/sched/completion.c:116
-   #3: (recent_lock){+...}-{3:3}, at: recent_net_exit+0x2b/0x140
-  Workqueue: netns cleanup_net
-  Call Trace:
-   proc_entry_rundown+0x185/0x1b0
-   remove_proc_entry+0x21a/0x520
-   recent_net_exit+0x7f/0x140
-   cleanup_net+0x414/0x8f0
-  ...
-  rcu: INFO: rcu_preempt self-detected stall on CPU
-  Call Trace:
-   queued_spin_lock_slowpath+0x313/0xc20
-   recent_seq_start+0x87/0x1b0
-   seq_read_iter+0x265/0x11e0
-   proc_reg_read+0x1ab/0x270
+Patch 3 moves the patch processing into a new script,
+klp-prepare-patch, which klp-build runs.  It doesn't need a kernel
+build, so it can be tested on its own.
 
-Fix by taking recent_mutex instead of recent_lock. According to
-commit a0e889bb1bdc ("[NETFILTER]: recent match: fix "sleeping function
-called from invalid context""), recent_mutex is the lock to use here: it
-protects recent_net->tables and was introduced so that proc entries are
-created and removed without recent_lock held, because those calls may
-sleep. hashlimit_proc_net_exit() does the same for xt_hashlimit.
+Patches 4-12 add a kselftest target, livepatch/test_klp_build.  Each
+test builds a small source tree, runs klp-prepare-patch on some
+patches, and checks the patch it prints.  The tests compile nothing,
+need no root, and take about a second.  To run them:
 
-Fixes: 665e205c16c1 ("netfilter: xt_recent: fix namespace destroy path")
-Cc: stable@vger.kernel.org
-Cc: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
----
- net/netfilter/xt_recent.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+  make -C tools/testing/selftests/livepatch/test_klp_build tests
 
-diff --git a/net/netfilter/xt_recent.c b/net/netfilter/xt_recent.c
-index 55f1f2d89952..00cccf003cff 100644
---- a/net/netfilter/xt_recent.c
-+++ b/net/netfilter/xt_recent.c
-@@ -650,14 +650,15 @@ static void __net_exit recent_proc_net_exit(struct net *net)
- 
- 	/* recent_net_exit() is called before recent_mt_destroy(). Make sure
- 	 * that the parent xt_recent proc entry is empty before trying to
--	 * remove it.
-+	 * remove it. Use recent_mutex instead of recent_lock since
-+	 * remove_proc_entry() may sleep.
- 	 */
--	spin_lock_bh(&recent_lock);
-+	mutex_lock(&recent_mutex);
- 	list_for_each_entry(t, &recent_net->tables, list)
- 	        remove_proc_entry(t->name, recent_net->xt_recent);
- 
- 	recent_net->xt_recent = NULL;
--	spin_unlock_bh(&recent_lock);
-+	mutex_unlock(&recent_mutex);
- 
- 	remove_proc_entry("xt_recent", net->proc_net);
- }
+Changes in v2:
+- Patch 1: describe combine_patches() without "refresh", rename
+  fix_patches() to process_patches(), keep the combined patch in
+  $COMBINED_PATCH rather than $PATCHES, change the status message to
+  "Processing patch(es)", fold get_patch_{input,output}_files() into
+  get_patch_files(), and keep tmp.patch in klp-tmp (Josh)
+- New patch 2: process the patches while validating them, before the
+  original kernel build (Josh)
+- Replace the --patch-only option with a klp-prepare-patch script,
+  which the selftests run directly (Josh).  The intermediate patch
+  without #line directives now lives in klp-prepare-patch's own
+  temporary directory, which is removed on exit.
+- Make the dependent patches test a case of test-basic.sh (Sashiko)
+- Name the selftest helpers and subjects after klp-prepare-patch
+
+v1: https://lore.kernel.org/all/20261017002441.716615-1-song@kernel.org/
+
+Song Liu (12):
+  klp-build: Fix dependent patches in a series
+  klp-build: Process the patches before building the original kernel
+  klp-build: Move patch processing to klp-prepare-patch
+  selftests/livepatch: Add tests for klp-prepare-patch
+  selftests/livepatch: Test klp-prepare-patch with dependent patches
+  selftests/livepatch: Test klp-prepare-patch with independent patches
+  selftests/livepatch: Test klp-prepare-patch with patches which cancel
+    out
+  selftests/livepatch: Test klp-prepare-patch with created and deleted
+    files
+  selftests/livepatch: Test where klp-prepare-patch adds #line
+    directives
+  selftests/livepatch: Test klp-prepare-patch with unsupported files
+  selftests/livepatch: Test klp-prepare-patch with patches which don't
+    apply
+  selftests/livepatch: Test klp-prepare-patch with offset and fuzz
+
+ scripts/livepatch/Makefile                    |   3 +-
+ scripts/livepatch/klp-build                   | 137 +--------
+ scripts/livepatch/klp-prepare-patch           | 277 ++++++++++++++++++
+ tools/testing/selftests/Makefile              |   1 +
+ tools/testing/selftests/livepatch/README      |  16 +
+ .../livepatch/test_klp_build/Makefile         |  26 ++
+ .../livepatch/test_klp_build/functions.sh     | 149 ++++++++++
+ .../livepatch/test_klp_build/run-tests.sh     |  68 +++++
+ .../livepatch/test_klp_build/test-basic.sh    |  93 ++++++
+ .../test_klp_build/test-cancelling-patches.sh | 102 +++++++
+ .../test-independent-patches.sh               | 124 ++++++++
+ .../test_klp_build/test-line-directives.sh    | 175 +++++++++++
+ .../test-new-and-deleted-files.sh             |  94 ++++++
+ .../test_klp_build/test-offset-and-fuzz.sh    | 120 ++++++++
+ .../test_klp_build/test-patch-not-applying.sh |  73 +++++
+ .../test_klp_build/test-unsupported-files.sh  |  30 ++
+ 16 files changed, 1366 insertions(+), 122 deletions(-)
+ create mode 100755 scripts/livepatch/klp-prepare-patch
+ create mode 100644 tools/testing/selftests/livepatch/test_klp_build/Makefile
+ create mode 100644 tools/testing/selftests/livepatch/test_klp_build/functions.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/run-tests.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-basic.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-cancelling-patches.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-independent-patches.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-line-directives.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-new-and-deleted-files.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-offset-and-fuzz.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-patch-not-applying.sh
+ create mode 100755 tools/testing/selftests/livepatch/test_klp_build/test-unsupported-files.sh
+
 -- 
-2.55.0
+2.53.0-Meta
+
