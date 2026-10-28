@@ -1,100 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793218452;
-	b=2gFTjnUktbZsu+2pYIU8WfLWii9/w4NUELYyiJaTNwJX/ZFJ9NntmxWmD58wXHEYGMeM
-	 5KjkXllw67RWneJkHKdb0/hkkkI8uljVZSuV4GFkY7fFRtfwKZ/OrtdVuGIiKpj+mYqro
-	 d4iI1IH4sASd1weQKzXxQIHJNH2Wn+A7CblF7qULaU7XqGrBVboc+exHPKr2G9q7Yb2qP
-	 kXL9yY9Q7G7jf1KZj6WNxilXj4vwxJATFJ+LDg3Jq6pvAk28wSNn3qqFEIAx2uBtRM6y7
-	 3TMDGj2nhI6HH3hf5juTAANDHk+/NSO47uE7eWKrNH1iNd1pVTd8OyA/eZKwHlGrzJg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793218452;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=csQ/box973kWuUGXHjUHnb+JSV/cr2As/2S3bZoGtKw=;
-	b=g0GNe9VCF4aCnmwDRoJsFBMV2IlxFV9LIEg85r49WFwIufQ3CZuBckH3JIuh22oV48KP
-	 OE+PpG8tQefaX/ojPCTsiODNY4VQynvv/D8uEfUnlXYdNSxSTn/KzVqT7JnsP4NVeOsGg
-	 MTS+ZDrJKuxEmZEcMJeEmth22GkOGZSPE1uzFWlDnIjfl/2Jy6VUaLh7cKwK9SzNmG+Ka
-	 UGhgsALCNwg7rMJ9sWK/yDxok7H5QjtO3QLffeXVRDnZ241IWA90k0taiESmmu/y8ndzO
-	 FSxE67dIWXLMOFVnooW7yrnld6W5HhFQJQ5hpxvg/UmHevJO/aBX8E7uiQb+A1psW7w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GrkbgZj8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793218444;
+	b=Am+M09JUBKzdlAU08AqjAab0qnplxTqKMxhGkILjjjvQ+DnntlFnsEsrQHpTCo1C8cSD
+	 SHXuziATTab6EPnQAvhJMusYxU1ECJ2FgiMH6ypB9ZVikE00oOMT1ehnwxpdH24w26NRZ
+	 xNrgkY96POQA3IAUgJkOIgQbbhtAD1ao3NKTUJyJt8no6hjJGzpApDyl3GHULPeMtBGaS
+	 BBGS2y/biDfukWtN6rWTKPUCadnWbpUPgFft+B1aRJ273xp7RiIVe0klAUKlXAI4smxJN
+	 Ta+fgzDBPuigekwPueEqsdop6bsvnsLpDnQuhpKkjCo9QEd05wIRWZ3tFOHbgqkEXdg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793218444;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=kpnp0nKo1RLJPeIcxnHpYwtTOco9Mw53rg5cDi3/lLs=;
+	b=uJGcQgXFij2Hi8b6ClezpmeD6PwNYU0OjcIm8aNNfXJdGEMQQrYPic9/xEuImxc9THjX
+	 YpQaiKJMHZs7kG1wEEipSgvrb4ti3LNARJat29M+BXGDmSiZFjJc6BwyvYUPw0R7n3udi
+	 keXY1IaeYDtMxA01oIQOJT7VFsb44dF0ldHd9TG/6wlgZGEte7IDVHyRsPhAdbutRe/XF
+	 klV6zdCgRb7UiTWGQA7Z+R3r8Hb5LqnZRJHNoStHymojWOigs0ul5uPaOrkbf7pjDUCmn
+	 N/QB0hb7K7iR9zr3osLNdA7iorH7/oFoxmOXI4Bhi4Kt4VzJEdRuwpUlYWoLRsTZEQg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kdh2USKD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB1C606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FB1C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5DA606A31C;
+	Wed, 28 Oct 2026 20:14:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GrkbgZj8
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53bb57f1310so16950501cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 13:14:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793218451; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N5uxaZCtnabcTCutfjw4QmZGqjV16pp0RM/uCkAB7zcHuwsNkAWVMFuxxv1e7Aq6m3
-         MTygtRLfZp7fSE9HR1cKmABJ+f1xAR0PsG3qmSQDFAgDIVeem+CGz0a+nJv2ZygPiF7e
-         dPUVx/FtzMcC/ef3USe1e1IuCL1+o66ba8H3GlDYo5bj0H9T5aPg9lChiFrvMHJm0l49
-         3J68/j1IWiiLnw3Ia93GT8yoXVIz2CpSp+2yIeooFd6wcCT+uI2ASd/J1AvvH4+YPZk7
-         3VJf9dMU5RMZiymSDd5/3h21hVbFoRZbpFg/0xO5mFpJ5GmULMbBf49r27Hff5z8SSfj
-         pHGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=csQ/box973kWuUGXHjUHnb+JSV/cr2As/2S3bZoGtKw=;
-        fh=yERhqToh4l1VX4FvOLTYwPEsCOevvtbh4mKotofXXkA=;
-        b=CI33S1ceehLJQmfVcPEkbSuQdmn+aeUkeEqGDQJ7TzVpoqEhtkqwXwANqGZoxkDjNH
-         gK38iE3Cqf7pKoJ3XLeW07qFpWoZGdjX7HFnnTsSoQt6+Dd8b7FVgVlyEyjm0tUm+gCb
-         P9HanzT0kOLe5kyZm54cqtRpZcVobUmsMu7toY6hEGI8vd80GAfA8g2GItoL/W3Vn7Qb
-         Zij0n4gzDx2jNajLoI9FcYmCZsG5zVcb99M1kAiXE6PAgdMRQzLTRDId95CW3E/fXljH
-         XZfbnB5MnBqQ+CYF3mwA2Eez1ebFRJTznIur53msYMnuhqzcER2thom5q+SsYEvyHEDE
-         fpTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793218451; x=1793823251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=csQ/box973kWuUGXHjUHnb+JSV/cr2As/2S3bZoGtKw=;
-        b=GrkbgZj8YBEsBwIO1OQTS2rh7snbAH21CTecRXJlz60RQzoxkzBiqwCplXDuMntJnY
-         OMyClbsk/Ai2Qx2glN4KJTcPlWQWqCw1v113QTDp/ioJ6hLLy19gDuqDMpdf6ZXHElVf
-         4AHWl2McaG4h5wW4WJrovav4XFIbirEZw8urzto5qjM6OZ+5C7PvMXScrXF2PBgsRMcT
-         SyyN+8XNSgEq1bSxuIMeOyUPHTGlqhxBPG+XsATLbHaDEi7lMr7YJc5xb/XKGH7lR/Sg
-         tEoFudP/e1M2GvReYGX3jNqb8ou+i28WftcaHDKMd46o+kg7m3WVtndlX+ZYIsHtBZwc
-         khfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793218451; x=1793823251;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=csQ/box973kWuUGXHjUHnb+JSV/cr2As/2S3bZoGtKw=;
-        b=jnir3bQvGX8OdvxFDNcBu23vRjzPFlNN0selq7nuvMIMnlM2f8aHG4JufaSsc7zALi
-         Kb/3fQ4m+xp+RxDcZxzYbnZLIAWqkFySHdlTygMSEYfBuQB6svLbuuFqXWKJVz5a73c1
-         NOSrrelWeKAF1h9CArbA5TwVJkfPJuwlqWvF1pgFpZPQlBTLQv8QWGYvopIFjqbyQS4I
-         Iu435+hR01tLixELKVxBG5+sMNUWKxczCoWnkE11FiWF6YUIacc8YscFf1hPk0p5TjOf
-         5c6NVtVCsZB3iW0WslYDgHxqlmgxXqhizcBNy+A09Airsi2M4fNZq36JI64v27tiUNpJ
-         m6wA==
-X-Forwarded-Encrypted: i=1; AKwUvByk/fkpIU2nOU4N8Xc7sPYNulpc6jSFwfkW/Lhd0NuKSfKlHAn0fOqj0aaj+P/qrv7QQx6jZOYEDdfF5PU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRbqIHjjTY8iTI1FJUOzMEwwAsc3IU6z8bg6+jpBiwN7odVxon
-	aExE/Gv03O9ACbWkNmoVIgvGOKyPyGf+MoOm6BvnUarB0mmft71YPSeLOGH5VmHLn9EWAGh8O8B
-	K4oPBron/JU77pbS171WHDxRQLHYAodIYvR+0BRJW1w==
-X-Gm-Gg: AYBFou0BLknYSe/QAsM9+OTAzEEM+8uoR5kPTRJ/D6+TK4EwRFddIOU/y/LCQndlIdF
-	V89xhhIKzZ4COqGX2Z9KopZRYBpw5jyufNKYEyqmGdRUbD9qa4HHpU5/n9tsi9aYv5rUerevdg+
-	bLyah601frUkLOTsoWR3dov00DNdNx5L+fV0ZA90heBpNPysesr/LCrywUur/osFGYTD3b1vEG+
-	umsHvA/FVTx0+7H9aiMuIEyVgNErDhowKLQ/3AbwThWYpBg7M2wJ1AJ7Dc98WKB609aXIbLsnHf
-	xUohsZDFlFBzY5X/6B0uDCzgktm+ggGg066JZrP0SDU9/gFRS0Jrn9TUpAEDyNLQZar9Ut5otPW
-	Vc0Ku+ZCruQdsQNRWqC9aTujjzDWg8eN36YTx
-X-Received: by 2002:ac8:5d8b:0:b0:536:64a3:aaca with SMTP id
- d75a77b69052e-53fcc6caf38mr60121161cf.62.1793218451089; Wed, 28 Oct 2026
- 13:14:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kdh2USKD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ECCE1F01829;
+	Wed, 28 Oct 2026 20:13:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793218444;
+	bh=kpnp0nKo1RLJPeIcxnHpYwtTOco9Mw53rg5cDi3/lLs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Kdh2USKDJZ0FkYnWxpwRhfUMZvge6+fv52eBOYXQE4K9FiM0K4U+BHJFNVSPa8SaR
+	 qz0fJopgw/70FToz7iDOKngca29X//VXT5/e8eP6xGe5f7GFhffQH6zeC2GOp/hleH
+	 n9o4bqtE3izozibZx0/EGpV6yc5ooao2ZOamV04m7ODd/0AjL324MpPNritM1bvgPV
+	 i4WVSj11U1NP3zYtWbfrCuQSbjPM+7EWyuQ7RkG3U4c8cWx2ojiZ48TgZhVuUFx9jj
+	 PTNmpfwlk+bKAkCQlPvJwDrVqWXVgoBNuxz+ZTVLJ/GThvLKqVUtebOP+aR2t9RJfI
+	 QneBInCwD8IQw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Wed, 28 Oct 2026 21:13:29 +0100
+Subject: [PATCH 01/15] hugetlbfs: fix integer overflow in fallocate()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,73 +52,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028155005.174417-1-mbkchelofficialdev@gmail.com>
-In-Reply-To: <20261028155005.174417-1-mbkchelofficialdev@gmail.com>
-From: MBKCHEL <mbkchelofficialdev@gmail.com>
-Date: Wed, 28 Oct 2026 22:13:59 +0200
-X-Gm-Features: AclHuK9QKQWnwAVDv7GI9zgwHXTw8N_TI4_-PW1Dq0nQhME1r2ltFbMpbGG5jvQ
-Message-ID: <CA+YDrKBeYvS99gpg+3knSXRuNj1a3_YQjX84xfQzQgNyrSpUAw@mail.gmail.com>
-Subject: Re: [PATCH] rust: macros: document emit_base in ModInfoBuilder
-To: Luis Chamberlain <mcgrof@kernel.org>, Miguel Ojeda <ojeda@kernel.org>
-Cc: Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+In-Reply-To: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
+ Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+ Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
+ Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ luojiajun <luojiajun3@huawei.com>, Josef Bacik <josef@toxicpanda.com>, 
+ stable@kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2170; i=david@kernel.org;
+ h=from:subject:message-id; bh=I1sQzSgEyvJMIZxcUjk6PSvZ4Sdw/GRLUPVEqCN7UCk=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIehZcebvr66cjyjsA4Z8MHays+f2Jax1wSNyGwXXO75
+ bTlOWxcHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExk8xaG/zEmOY2li54ueRq3
+ v7n3zJSkguNagnz6Ep+ZLr7Oe6t++x3DP/VXvov+1dmK3lywRTvn29Xfb744bo47787m7frugMi
+ alUwA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Hi,
+hugetlbfs_fallocate() rounds the range end up by adding hpage_size - 1
+to offset + len. vfs_fallocate()'s existing overflow check only makes
+sure that offset + len does not overflow.
 
-Please note that I made a typo in my last name in the "From" and
-"Signed-off-by" lines. My correct name is "Ivan Tverdokhleb".
+Once we overflow for valid endpoints near LLONG_MAX, we can get a
+negative temporary result that is then converted to a very large
+huge page index.
 
-If the patch is accepted, could you please apply it with the corrected name=
-?
+A one-byte allocation ending at LLONG_MAX can therefore consume all
+available huge pages. Pages added beyond LLONG_MAX are skipped during
+inode eviction, leaking them and triggering the BUG_ON() in clear_inode().
 
-Thanks,
-Ivan
+To fix it, calculate the end index in a simpler way that cannot
+overflow. This also fixes the signed overflow reported by luojiajun in
+2019.
 
+Backporting notes: without commit a08c7193e4f18 ("mm/filemap: remove
+hugetlb special casing in filemap.c"), remove_inode_hugepages() must
+include the final huge page during truncate and eviction.
 
-=D1=81=D1=80, 28 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 17:50, Iva=
-n Tverdohleb <mbkchelofficialdev@gmail.com>:
->
-> Add documentation for the emit_base method within the ModInfoBuilder
-> struct. Explain its role in formatting metadata strings, handling the
-> differentiation between built-in and loadable modules, and managing
-> linker sections and conditional compilation.
->
-> Signed-off-by: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
-> ---
->  rust/macros/module.rs | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
-> index 0a7b9e24c..6f361013f 100644
-> --- a/rust/macros/module.rs
-> +++ b/rust/macros/module.rs
-> @@ -49,6 +49,16 @@ fn new(module: &'a str) -> Self {
->          }
->      }
->
-> +    /// Emits a single metadata entry into the module information table.
-> +    ///
-> +    /// This method formats a `field=3Dcontent\0` byte string and places=
- it into the
-> +    /// `.modinfo` linker section. For built-in modules (`builtin =3D=3D=
- true`), the string
-> +    /// is prefixed with the module name (`module.field=3Dcontent\0`) to=
- avoid naming
-> +    /// collisions in the final monolithic kernel binary.
-> +    ///
-> +    /// It automatically generates a unique static identifier using an i=
-nternal counter
-> +    /// and applies appropriate conditional compilation attributes (`#[c=
-fg(MODULE)]` or
-> +    /// `#[cfg(not(MODULE))]`) based on the target type.
->      fn emit_base(&mut self, field: &str, content: &str, builtin: bool, p=
-aram: bool) {
->          let string =3D if builtin {
->              // Built-in modules prefix their modinfo strings by `module.=
-`.
-> --
-> 2.56.0
->
+Reported-by: luojiajun <luojiajun3@huawei.com>
+Closes: https://lore.kernel.org/all/1554775226-67213-1-git-send-email-luojiajun3@huawei.com/
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Fixes: 70c3547e36f5 ("hugetlbfs: add hugetlbfs_fallocate()")
+Cc: stable@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ fs/hugetlbfs/inode.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44ebe..5592cfc6cc8b 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -721,11 +721,13 @@ static long hugetlbfs_fallocate(struct file *file, int mode, loff_t offset,
+ 
+ 	/*
+ 	 * Default preallocate case.
+-	 * For this range, start is rounded down and end is rounded up
+-	 * as well as being converted to page offsets.
++	 * vfs_fallocate() guarantees that offset + len is positive and does
++	 * not overflow. Avoid overflows when calculating the end huge page
++	 * index: set it to one past the index of the huge page containing the
++	 * last byte.
+ 	 */
+ 	start = offset >> hpage_shift;
+-	end = (offset + len + hpage_size - 1) >> hpage_shift;
++	end = ((offset + len - 1) >> hpage_shift) + 1;
+ 
+ 	inode_lock(inode);
+ 
+
+-- 
+2.43.0
+
